@@ -7891,6 +7891,9 @@ function Exercice_Trigo_longueurs() {
 }
 /**
 * @auteur Jean-Claude Lhote
+* Calcul d'angle dans le triangle rectangle
+* Le niveau 1 se limite à l'utilisation de Arccos
+* Le niveau 2 utilise la fonction trigo la plus pertinente pour un calcul direct
 */
 function Exercice_Trigo_angles() {
 	Exercice.call(this); // Héritage de la classe Exercice()
