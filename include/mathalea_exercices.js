@@ -183,12 +183,17 @@ function Exercice() {
 }
 
 /**
+* Conversions de durées.
+* * 1 : H vers min ou H ou min ou Hmin vers s 
+* * 2 : h vers j-h
+* * 3 : s vers HMS
+* * 4 : h vers semaines j h
+* * 5 : toutes les conversions
 * @Auteur Rémi Angot
 */
 function Conversions_de_durees(){
-//Décomposer un nombre en facteurs premiers 
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.sup = 5 ; // 1 : H vers min ou H ou min ou Hmin vers s | 2 : h vers j-h | 3 : s vers HMS | 4 : h vers semaines j h | 5 :  toutes les conversions
+	this.sup = 5 ; 
 	this.titre = "Convertir des durées";
 	this.consigne = "Compléter les égalités suivantes";
 	this.nb_cols = 1;
@@ -285,6 +290,9 @@ function Conversions_de_durees(){
 }
 
 /**
+* Convertir une heure décimale dans le format HMS
+*
+* La partie décimale est 25, 75 ou un seul chiffre
 * @Auteur Rémi Angot
 */
 function Heures_decimales(){
@@ -338,6 +346,12 @@ function Heures_decimales(){
 
 
 /**
+* Additions de durées de différents : 
+* * MS+MS=1hMS sans retenue sur les s
+* * MS+MS=1hMS avec retenue
+* * HM+HM avec retenue
+* * HMS+HMS avec retenue sur les min
+* * HMS+HMS avec retenues min et s
 * @Auteur Rémi Angot
 */
 function Somme_de_durees(){
@@ -353,8 +367,6 @@ function Somme_de_durees(){
 	this.nouvelle_version = function(){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-
-		//MS+MS=1hMS sans retenue sur les s // MS+MS=1hMS avec retenue // HM+HM avec retenue// HMS+HMS avec retenue sur les min // HMS+HMS avec retenues min et s
 		
 		let type_de_questions
 
@@ -431,13 +443,19 @@ function Somme_de_durees(){
 }
 
 /**
+* Problèmes où il faut calculer la durée d'un évèbement ou un horaire.
+* Paramétrage possible : 
+* * 1 : calculs de durées 
+* * 2 : calculer l'heure de début
+* * 3 : calculer l'heure de fin
+* * 4 : mélange des 3 types précédents
 * @Auteur Rémi Angot
 */
 function Calculs_de_durees_ou_d_horaires(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Calculer des durées ou déterminer un horaire";
 	this.consigne = "";
-	this.sup = 4 // 1 : calculs de durées | 2 : calculer l'heure de début | 3 : calculer l'heure de fin | 4 : Mélange
+	this.sup = 4
 	this.spacing = 2;
 	this.nb_questions = 3;
 	this.nb_cols = 1;
@@ -667,60 +685,12 @@ function Calculs_de_durees_ou_d_horaires(){
 	
 }
 
-/**
-* @Auteur Rémi Angot
-*/
-function Exercice_decomposer_en_facteurs_premiers(){
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.sup = '' ;
-	this.sup2 = '' ; 
-	this.titre = "Décomposition en facteurs premiers";
-	this.consigne = "Écrire les nombres suivants sous la forme d'un produit de facteurs premiers.";
-	this.spacing = 2;
 
-
-	this.nouvelle_version = function(){
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		
-		for (let i = 0, n, facteurs=[], nb_facteurs, texte, texte_corr; i < this.nb_questions; i++) {
-			facteurs = [];
-			nb_facteurs = randint(3,5);
-			for (var k = 0; k < nb_facteurs; k++) {
-				if (k<nb_facteurs-1) {
-					if (nb_facteurs>3 && k==0){facteurs.push(2)}
-					else if (nb_facteurs>4 && k==1){facteurs.push(2)}
-					else{
-						facteurs.push(choice([2,3,5]));
-					}
-					
-				}
-				else {facteurs.push(choice([2,5,7,11]))}
-			}
-			n = 1
-			for (var k = 0; k < facteurs.length; k++) {
-				facteurs[k]
-				n = n * facteurs[k]
-			}
-			texte = '$ '+ tex_nombre(n) + ' = \\dotfill $';
-			texte_corr = '$ '+ tex_nombre(n) + ' = ' 
-			for (var k = 0; k < facteurs.length-1; k++) {
-				facteurs[k]
-				texte_corr += facteurs[k] + ' \\times '
-			}
-			texte_corr += facteurs[facteurs.length-1] + ' $';	
-			
-			
-			this.liste_questions.push(texte);
-			this.liste_corrections.push(texte_corr);
-
-		}
-		liste_de_question_to_contenu(this);
-	}
-	
-}
 
 /**
+* Tables de multiplications classiques, à trou ou un mélange des deux.
+*
+* Par défaut ce sont les tables de 2 à 9 mais on peut choisir les tables que l'on veut
 * @Auteur Rémi Angot
 */
 function Tables_de_multiplications(tables_par_defaut='2;3;4;5;6;7;8;9'){
@@ -789,6 +759,9 @@ function Tables_de_multiplications(tables_par_defaut='2;3;4;5;6;7;8;9'){
 }
 
 /**
+* Tables de divisions classiques, à trou ou un mélange des deux.
+*
+* Par défaut ce sont les tables de 2 à 9 mais on peut choisir les tables que l'on veut
 * @Auteur Rémi Angot
 */
 function Tables_de_divisions(tables_par_defaut='2;3;4;5;6;7;8;9'){
@@ -849,6 +822,9 @@ function Tables_de_divisions(tables_par_defaut='2;3;4;5;6;7;8;9'){
 }
 
 /**
+* Tables de multiplications et de divisions classiques, à trou ou un mélange des deux.
+*
+* Par défaut ce sont les tables de 2 à 9 mais on peut choisir les tables que l'on veut
 * @Auteur Rémi Angot
 */
 function Tables_de_multiplications_et_divisions(tables_par_defaut='2;3;4;5;6;7;8;9'){
@@ -927,6 +903,11 @@ function Tables_de_multiplications_et_divisions(tables_par_defaut='2;3;4;5;6;7;8
 }
 
 /**
+* Mélange équitable d'additions, de soustractions, de multiplications et de divisions 
+*
+* * Niveau 1 Addition 2 chiffres + 1 chiffre, soustraction 2 chiffres - 1 chiffre, tables de 2 à 5
+* * Niveau 2 Addition 2 chiffres + 2 chiffres ne dépassant pas 100, soustraction dont le résultat est entre 11 et 19, tables de 6 à 9
+* * Niveau 3 Addition 2 chiffre + 2 chiffres dépassant 100, soustraction dont le résultat est entre 21 et 39, table de 7, 8, 11 ou 12, 
 * @Auteur Rémi Angot
 */
 function Quatre_operations(){
@@ -1027,6 +1008,7 @@ function Quatre_operations(){
 }
 
 /**
+* Un nombre à 2 chiffres (non multiple de 10) + 9
 * @Auteur Rémi Angot
 */
 function Ajouter9(){
@@ -1061,6 +1043,7 @@ function Ajouter9(){
 }
 
 /**
+* Un nombre à 2 chiffres ne terminant pas par 9 - 9
 * @Auteur Rémi Angot
 */
 function Soustraire9(){
@@ -1095,6 +1078,7 @@ function Soustraire9(){
 }
 
 /**
+* Un nombre à 2 chiffres non multiple de 10 + 11
 * @Auteur Rémi Angot
 */
 function Ajouter11(){
@@ -1129,6 +1113,7 @@ function Ajouter11(){
 }
 
 /**
+* Un nombre à 2 chiffres -11
 * @Auteur Rémi Angot
 */
 function Soustraire11(){
@@ -1171,6 +1156,7 @@ function Soustraire11(){
 }
 
 /**
+* Somme de deux nombres dont les chiffres des unités sont des compléments à 10
 * @Auteur Rémi Angot
 */
 function Somme_de_deux_nombres_maries(){
@@ -1207,6 +1193,7 @@ function Somme_de_deux_nombres_maries(){
 }
 
 /**
+* Somme de 3 nombres dont 2 ont des chiffres des unités compléments à 10
 * @Auteur Rémi Angot
 */
 function Somme_de_deux_nombres_maries_et_un_entier(){
@@ -1255,6 +1242,9 @@ function Somme_de_deux_nombres_maries_et_un_entier(){
 }
 
 /**
+* Le nombre de dizaines, centaines et milliers étant donné, il faut écrire le nombre.
+*
+* 2 fois sur 5 il y a chevauchement entre les classes
 * @Auteur Rémi Angot
 */
 function Exercice_numeration_entier(){
@@ -1299,6 +1289,7 @@ function Exercice_numeration_entier(){
 }
 
 /**
+* Des questions sur le nombre ou le chiffre de centaines, de dizaines, de dixièmes, de centièmes...
 * @Auteur Rémi Angot
 */
 function Decomposition_nombre_decimal(){
@@ -1393,6 +1384,7 @@ function Decomposition_nombre_decimal(){
 }
 
 /**
+* 100-...= 
 * @Auteur Rémi Angot
 */
 function Complement_a_100(){
@@ -1427,6 +1419,7 @@ function Complement_a_100(){
 }
 
 /**
+* Une soustraction dont le premier terme est un multiple de 10
 * @Auteur Rémi Angot
 */
 function Complement_a_une_dizaine(){
@@ -1462,6 +1455,7 @@ function Complement_a_une_dizaine(){
 }
 
 /**
+* Division d'un entier par 10, 100, 1000
 * @Auteur Rémi Angot
 */
 function Diviser_par_10_100_1000(){
@@ -1493,10 +1487,10 @@ function Diviser_par_10_100_1000(){
 		}
 		liste_de_question_to_contenu(this);
 	}
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
 
 /**
+* Un entier à un 1 ou 2 chiffres, un nombre décimal avec une partie décimale à un ou 2 chiffres à diviser par 10, 100 ou 1000 
 * @Auteur Rémi Angot
 */
 function Diviser_decimal_par_10_100_1000(){
@@ -1532,6 +1526,8 @@ function Diviser_decimal_par_10_100_1000(){
 }
 
 /**
+* Calculer la moitié d'un nombre pair, d'un impair inférieur à 20, d'un multiple de 200, d'un nombre de la forme a00 avec a impair, d'un nombre de la forme
+*  a,b avec a et b pairs ou 1xx avec xx un nombre pair 
 * @Auteur Rémi Angot
 */
 function Moitie(){
@@ -1600,6 +1596,7 @@ function Moitie(){
 
 
 /**
+* Calculer le tiers d'un multiple de 3, d'un multiple de 300, d'un multiple de 30 ou d'un nombre a,b avec a et b multiples de 3
 * @Auteur Rémi Angot
 */
 function Tiers(){
@@ -1658,6 +1655,7 @@ function Tiers(){
 
 
 /**
+* Calculer le quart d'un multiple de 4, d'un impair, d'un multiple de 400, d'un multiple de 40, d'un nombre a,b avec a et b multiples de 4
 * @Auteur Rémi Angot
 */
 function Quart(){
@@ -1722,6 +1720,7 @@ function Quart(){
 
 
 /**
+* Calculer le double ou le triple d'un nombre, calculer la moitié d'un nombre pair ou le tiers d'un multiple de 3
 * @Auteur Rémi Angot
 */
 function Double_moitie_tiers_triple(){
@@ -1780,6 +1779,7 @@ function Double_moitie_tiers_triple(){
 
 
 /**
+* Les 2 facteurs peuvent terminer par aucun, 1, 2 ou 3 zéros
 * @Auteur Rémi Angot
 */
 function Exercice_tables_de_multiplications_et_multiples_de_10(tables_par_defaut='2;3;4;5;6;7;8;9'){
@@ -1832,6 +1832,7 @@ function Exercice_tables_de_multiplications_et_multiples_de_10(tables_par_defaut
 }
 
 /**
+* Multiplier deux nombres décimaux
 * @Auteur Rémi Angot
 */
 function Exercice_tables_de_multiplications_et_decimaux(tables_par_defaut='2;3;4;5;6;7;8;9'){
@@ -1880,6 +1881,7 @@ function Exercice_tables_de_multiplications_et_decimaux(tables_par_defaut='2;3;4
 }
 
 /**
+* Additionner deux entiers
 * @Auteur Rémi Angot
 */
 function Exercice_tables_d_additions(max=20){
@@ -1909,46 +1911,7 @@ function Exercice_tables_d_additions(max=20){
 	this.besoin_formulaire_numerique = ['Valeur maximale',99999];	
 }
 
-/**
-* @Auteur Rémi Angot
-*/
-function Exercice_additions_relatifs(max=20){
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.sup = max ;
-	this.sup2 = false; // écriture simplifiée
-	this.titre = "Addition de deux entiers relatifs"
-	this.consigne = 'Calculer'
-	this.spacing = 2;
 
-	this.nouvelle_version = function(){
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		for (let i = 0, a, b, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
-			a = randint(1,this.sup);
-			b = randint(1,this.sup);
-			k = choice([[-1,-1],[-1,1],[1,-1]]); // Les deux nombres relatifs ne peuvent pas être tous les deux positifs
-			a = a*k[0];
-			b = b*k[1];
-			if (this.sup2){
-				texte = `$ ${a}${ecriture_algebrique(b)} = \\dotfill $`;
-				texte_corr = `$ ${a}${ecriture_algebrique(b)} = ${a+b} $`;
-			} else {
-				texte = '$ '+ ecriture_nombre_relatif(a) + ' + ' + ecriture_nombre_relatif(b) + ' = \\dotfill $';
-				texte_corr = '$ '+ ecriture_nombre_relatif(a) + ' + ' + ecriture_nombre_relatif(b) + ' = ' + ecriture_nombre_relatif(a + b) +' $';	
-			}
-			
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
-				i++;
-			}
-			cpt++;
-		}
-		liste_de_question_to_contenu(this);
-	}
-	this.besoin_formulaire_numerique = ['Valeur maximale',99999];
-	this.besoin_formulaire2_case_a_cocher = ['Avec des écritures simplifiées'];	
-}
 
 /**
 * @Auteur Rémi Angot

@@ -39,23 +39,7 @@ function liste_de_question_to_contenu_sans_numero(argument) {
 	
 }
 
-/**
-* Utilise this.liste\_questions et this.liste\_corrections pour remplir this.contenu et this.contenu_correction
-* 
-* La liste des questions devient une liste HTML ou LaTeX avec html\_ligne() 
-*
-* **Doit être remplacée par liste_de_question_to_contenu()**
-* @deprecated Doit être remplacée par liste_de_question_to_contenu()
-* @param {exercice} 
-* @author Rémi Angot
-*/
-function mg32_to_contenu(argument) {
-	if (sortie_html) {
-		argument.contenu = html_consigne(argument.consigne) + html_ligne(argument.liste_questions,argument.spacing);
-		argument.contenu_correction = html_consigne(argument.consigne_correction) + html_ligne(argument.liste_corrections,argument.spacing_corr);
-	} 
-	
-}
+
 
 /**
 * Créé tous les couples possibles avec un élément de E1 et un élément de E2.
@@ -221,7 +205,7 @@ function shuffle(array) {
     // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;
-    
+
     // And swap it with the current element.
     temporaryValue = array_bis[currentIndex];
     array_bis[currentIndex] = array_bis[randomIndex];
@@ -514,7 +498,7 @@ function polygone(nbsommets,liste_a_eviter=[]){
 	while(est_deja_donne(String.fromCharCode(premiersommet),liste_a_eviter)){
 		premiersommet = randint(65,90-nbsommets);
 	}
-	
+
 	for (let i=0;i<nbsommets;i++){
 		polygone += String.fromCharCode(premiersommet+i)
 	}
@@ -733,7 +717,7 @@ function tex_paragraphe(liste,spacing=false){
 	if (spacing>1){
 		result = `\\begin{spacing}{${spacing}}\n`
 	}
-	
+
 	for(let i in liste){
 		result += `\t${liste[i]}\\\\\n`
 	}
