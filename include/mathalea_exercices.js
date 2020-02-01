@@ -2813,6 +2813,11 @@ function Exercice_additionner_ou_soustraire_des_fractions(){
 
 }
 /**
+ * Calcul de l'inverse d'un nombre. Paramétrages possibles :
+ * * 1 : inverse d'un nombre entier
+ * * 2 : inverse d'une fraction
+ * * 3 : inverse d'un nombre décimal
+ * * 4 : mélange des trois autres niveaux
 * @auteur Jean-Claude Lhote
 */
 function Exercice_trouver_l_inverse(){
@@ -2931,6 +2936,11 @@ function Exercice_trouver_l_inverse(){
 }
 
 /**
+ * Exercice de calcul de produit de deux fractions. Paramétrages possibles :
+ * * 1 : Produits de nombres positifs seulement
+ * * 2 : deux questions niveau 1 puis deux questions niveau 3
+ * * 3 : Produits de nombres relatifs
+ * * Si décomposition cochée : les nombres utilisés sont plus importants.
 * @auteur Jean-Claude Lhote
 */
 function Exercice_multiplier_fractions(){
@@ -3260,6 +3270,9 @@ function Exercice_multiplier_fractions(){
 }
 
 /**
+ * Calcul du quotient de deux fractions. Paramétrages possibles :
+ * * 1 : Nombres positifs exclusivement
+ * * 2 : nombres relatifs
 * @auteur Jean-Claude Lhote
 */
 function Exercice_diviser_fractions(){
@@ -3361,6 +3374,10 @@ function Exercice_diviser_fractions(){
 }
 
 /**
+ * Calcul fractionnaire : somme d'une fraction et du produit de deux autres fractions. Paramétrages possibles :
+ * * 1 : Calcul avec nombres positifs sans piège de priorité
+ * * 2 : Calcul avec nombres positifs avec piège
+ * * 3 : Calcul avec nombres relatifs
 * @auteur Jean-Claude Lhote
 */
 function Exercice_additionner_fraction_produit(){
@@ -4694,6 +4711,10 @@ Exercice.call(this); // Héritage de la classe Exercice()
 }
 
 /**
+ * Développement de type (a-b)(a+b). Paramétrages possibles :
+ * * 1 : Coefficient de x égal à 1
+ * * 2 : Coefficient de x supérieur à 1
+ * * 3 : Coefficient de x rationnel
 * @auteur Jean-Claude Lhote
 */
 function Developper_Identites_remarquables3()
@@ -4750,6 +4771,10 @@ Exercice.call(this); // Héritage de la classe Exercice()
 }
 
 /**
+ * Factoriser à l'aide de (a-b)(a+b). Paramétrages possibles :
+ * * 1 : Coefficient de x égal à 1
+ * * 2 : Coefficient de x supérieur à 1
+ * * 3 : Coefficient de x rationnel
 * @auteur Jean-Claude Lhote
 */
 function Factoriser_Identites_remarquables3()
@@ -4806,6 +4831,10 @@ function Factoriser_Identites_remarquables3()
 }
 
 /**
+ * Factoriser avec les trois identités remarquables. Paramétrages possibles :
+ * * 1 : Coefficient de x égal à 1
+ * * 2 : Coefficient de x supérieur à 1
+ * * 3 : Coefficient de x rationnel
 * @auteur Jean-Claude Lhote
 */
 function Factoriser_Identites_remarquables2()
@@ -4892,7 +4921,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
 		}
 		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_numerique = ['Niveau de difficulté',3,'1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x relatif'] ;
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',3,'1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel'] ;
 }
 
 
@@ -5329,6 +5358,10 @@ function Fraction_d_un_nombre(max=11){
  }
 
  /**
+* Calcul de fréquence sur des séries statistiques. Paramétrages possibles
+* * 1 : Simulation de lancers de dés (résultats par tableau d'effectifs)
+* * 2 : Série brute de notes sur 20
+* * 3 : Série d'un mois de températures 
 * @auteur Jean-Claude Lhote
 */
  function Calculer_des_frequences(){
@@ -5476,6 +5509,9 @@ function Fraction_d_un_nombre(max=11){
 	this.besoin_formulaire_numerique = ['Type de séries',3,"1 : Lancers de dés \n 2 : Liste de notes\n 3 : Un mois de températures"];
 }
  /**
+* Calcul de moyennes sur des séries statistiques. Paramétrages possibles
+* * 1 : Série brute de notes sur 20
+* * 2 : Série d'un mois de températures 
 * @auteur Jean-Claude Lhote
 */
 function Calculer_des_moyennes(){
@@ -5563,6 +5599,9 @@ function Calculer_des_moyennes(){
 }
 
  /**
+* Calcul d'étendue sur des séries statistiques. Paramétrages possibles
+* * 1 : Série brute de notes sur 20
+* * 2 : Série d'un mois de températures 
 * @auteur Jean-Claude Lhote
 */
 function Calculer_des_etendues(){
@@ -7170,6 +7209,11 @@ function Reduire_une_expression_litterale(){
 }
 
 /**
+* Calcul d'une longueur dans une configuration de Thales. Paramétrages possibles :
+* * 1 : Calcul de deux longueurs sans calculs intermédiaire
+* * 2 : L'une des longueurs de l'égalité de quotient est à calculer préalablement
+* * 3 : Idem mais sans figure
+* * Au niveau 4ème : uniquement des triangles emboités
 * @auteur Jean-Claude Lhote
 */
 function Exercice_Thales(){
@@ -7434,6 +7478,12 @@ function Exercice_Thales(){
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',3,'1 : Calcul direct de deux longueurs \n 2 : Avec calcul intermédiaire\n 3 : Sans figure'];
 }
 /**
+* Exercice de calcul de longueur dans un triangle rectangle utilisant le théorème de Pythagore.
+* Paramétrages possibles :
+* * 1 : Calcul de l'hypoténuse
+* * 2 : Calcul d'un côté de l'angle droit
+* * 3 : Calcul d'un côté au hasard
+* * 4 : Idem 3 mais sans la figure 
 * @auteur Jean-Claude Lhote
 */
 function Exercice_Pythagore() {
@@ -7638,6 +7688,10 @@ function Exercice_Pythagore() {
 }
 
 /**
+* Exercice de calcul de longueur dans le triangle rectangle à l'aide de la trigonométrie
+* Paramétrages possibles
+* * 1 : Utilisation du cosinus 
+* * 2 : Utilisation d'une des trois fonctions trigonométriques
 * @auteur Jean-Claude Lhote
 */
 function Exercice_Trigo_longueurs() {
@@ -8342,6 +8396,11 @@ function Problemes_Pythagore(){
 }
 
 /**
+* Exercice de résolution d'équation produit nul. Paramétrages possibles
+* * 1 : Coefficient de x égal à 1
+* * 2 : Coefficient de x supérieur à 1, solution entières
+* * 3 : Coefficient de x supérieur à 1, solutions rationnelles
+* * 4 : Mélange des 3 premiers niveaux
 * @auteur Jean-Claude Lhote
 */
 function Resoudre_une_equation_produit_nul(){
