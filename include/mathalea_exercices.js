@@ -4529,6 +4529,11 @@ function Exercice_developper(difficulte=1){
 }
 
 /**
+* Exercice de la technique de double distributivité.
+* Paramétrage possible : 
+* * 1 : les multiplications restent dans les entiers naturels 
+* * 2 : différents cas incluant des entiers relatifs
+* * 3 : panachage des deux niveaux précédents
 * @auteur Jean-Claude Lhote
 */
 function Double_distributivite()
@@ -4596,6 +4601,10 @@ function Double_distributivite()
 }
 
 /**
+* Exercice de développement d'identités remarquables. Paramètrages possibles :
+* * 1 : Coefficient de x égal à 1
+* * 2 : Coefficient de x entier différent de 1
+* * 3 : Coefficient de x rationnel
 * @auteur Jean-Claude Lhote
 */
 function Developper_Identites_remarquables2()
