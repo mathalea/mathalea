@@ -1,0 +1,357 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Préambule pour le fichier Coop-Maths %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+% Remarques : 
+%		* changements importants le 28 juillet 2018 pour faciliter la lecture. La police Myriade Pro est utilisée.
+%
+%		* il faut penser à  doubler l'interligne le plus souvent possible avec \begin{spacing}{2} ou \begin{enumerate}[itemsep=1em]
+%
+%
+
+% Prérequis : 
+%		* Compiler avec XeTeX
+%		* Avoir le répertoire images avec les entêtes, pieds de pages et icones
+%
+%
+% Utilisation : 
+%		* La fiche commence avec \theme{nombres|gestion|grandeurs|geo|algo}{Texte (entrainement, évaluation, mise en route...}{numéro de version ou vide}{titre du thême et niveau}
+%
+%		* On peut préférer \themelight{couleur_theme}{couleur_numerotation} notamment pour faire des corrigés à  décalquer
+%
+%
+%
+%		* Chaque exercice commence par \exo{titre ou vide}. Le numéro de l'exercice utilise le compteur de section
+%		
+%		* \begin{correction}...\end{correction} remet le compteur d'exercice à  0, met le cadre adéquat et change la couleur du thême en vert 
+%
+%		* Plusieurs environnements sont définis : objectif, methode (dans lequel il faut faire précéder le titre d'un \iconemethode
+%
+%		* Une macro \cfbox permet de faire la même chose que \fbox mais avec la couleur du thême
+%
+%		* Une macro \reference pour donner la référence d'un objectif dans la couleur du thême. Par exemple \reference{G01}
+%
+%       * Une macro \motimportant qui met en gras dans la couleur du thême.
+%
+%		* Une macro \mathimportant qui met en gras dans la couleur du thême à  l'intérieur d'un mode math.
+%
+%		* Une macro \mathimportantcorr qui met en gras dans la couleur de la correction à  l'intérieur d'un mode math.
+%
+
+%		* Une macro \pointillés qui met des pointillés sur la longueur choisie
+%
+%		* Une macro \point{x}{y}{nom} qui trace un point dans le repêre au couleur du thême
+%		
+%		* Une macro \pointpos{x}{y}{nom}{position} qui trace un point dans le repêre au couleur du thême
+%
+%		* Une macro \pointcorr{x}{y}{nom} qui fait la même chose dans la couleur de la correction
+%
+%		* Une macro \pointcorrpos{x}{y}{nom}{position} qui trace un point dans le repêre au couleur du thême
+%
+%		* Une macro \tampon(nom) qui insêre le graphique tampon-nom en haut à  droite de la feuille
+%
+%	* Une macro \version(v) qui insêre le numéro de version en haut à  droite de la feuille (à  ne pas utiliser en même temps que tampon)
+%
+%		* Une macro \mathunderline pour souligner en couleur correction une partie d'une expression mathématique
+%
+%	* Une macro \deg pour le signe des degrés
+%
+%	* Une macro \exalea{id} qui met l'image du dé et le lien en gras vers l'exercice 
+%
+
+\usepackage[left=1.5cm,right=1.5cm,top=3.5cm,bottom=2cm]{geometry}
+%\usepackage[utf8]{inputenc}		        % Accents, encodage utf8
+% Inutile avec XeTeX ?
+%\usepackage[T1]{fontenc}		        		% Encodage des caractêres
+\usepackage{lmodern}			        		% Choix de la fonte (Latin Modern de D. Knuth)
+\usepackage[francais]{babel}	        		% Les rêgles de typo. franà§aises
+\usepackage{multicol} 					% Multi-colonnes
+\usepackage{calc} 						% Calculs 
+\usepackage{enumerate}					% Pour modifier les numérotations
+\usepackage{enumitem}
+\usepackage{graphicx}					% Pour insérer des images
+\usepackage{tabularx}					% Pour faire des tableaux
+\usepackage{pgf,tikz}					% Pour les images et figures géométriques
+\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
+shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows} % Charge toutes les librairies de Tikz
+\usepackage{tkz-tab,tkz-euclide,tkz-fct}	% Géométrie euclidienne avec TikZ
+\usetkzobj{all}				
+\usepackage{amsmath,amsfonts,amssymb,mathrsfs}  % Spécial math
+\usepackage[squaren]{SIunits}			% Pour les unités (gêre le conflits avec  \square de l'extension amssymb)
+\usepackage{pifont}						% Pour les symboles "ding"
+\usepackage{bbding}						% Pour les symboles
+\usepackage[misc]{ifsym}						% Pour les symboles
+\usepackage{cancel}						% Pour pouvoir barrer les nombres
+\usepackage{url} 			        		% Pour afficher correctement les url
+ 
+\usepackage{eurosym}						% Pour utiliser la commande \euro
+\usepackage{fancyhdr,lastpage}          	% En-têtes et pieds
+ \pagestyle{fancy}                      	% de pages personnalisés
+\usepackage{fancybox}					% Pour les encadrés
+\usepackage{xlop}						% Pour les calculs posés
+\usepackage{standalone}					% Pour avoir un apercu d'un fichier qui sera utilisé avec un input
+\usepackage{multido}						% Pour faire des boucles
+\usepackage[hidelinks]{hyperref}					% Pour gérer les liens hyper-texte
+\renewcommand{\url}[1]{\textcolor{couleur_theme}{\href{http://#1}{#1}}} 	% Pour ajouter automatiquement le http
+\usepackage{fourier}
+\usepackage{colortbl} 					% Pour des tableaux en couleur
+\usepackage{setspace}					% Pour \begin{spacing}{2.0} \end{spacing}
+\usepackage{multirow}					% Pour des cellules multilignes dans un tableau
+\usepackage{import}						% Equivalent de input mais en spécifiant le répertoire de travail
+\usepackage[]{qrcode}					% Pour la commande \qrcode
+\usepackage{pdflscape}
+\usepackage[framemethod=tikz]{mdframed} % Pour les cadres
+\usepackage{tikzsymbols}
+\usepackage{tasks}						% Pour les listes horizontales
+
+
+\graphicspath{{./images/}}				% Le répertoire
+
+
+%%% Choix de la police
+
+
+\usepackage{mathspec}
+\setmainfont{Myriad Pro}
+\setmathrm{Myriad Pro}
+\setmathsf{Myriad Pro}
+\setmathtt{Myriad Pro}
+%\setboldmathrm[BoldFont={Optima ExtraBlack}]{Optima Bold}
+\setmathfont(Digits){Myriad Pro}
+\setmathfont(Latin){Palatino}
+
+\spaceskip=2\fontdimen2\font plus 3\fontdimen3\font minus3\fontdimen4\font\relax %Pour doubler l'espace entre les mots
+
+%\doublespacing %double l'interligne
+
+
+
+%\usepackage{fontspec}
+%\usepackage{mathspec}
+
+%\setmainfont{Raleway}
+
+%\setallmainfonts(Digits,Latin){Raleway}
+
+%\setmathrm{latinmodern}
+%\setmathfont(Digits,Latin){latinmodern}
+
+%%% Mise en forme
+
+\setlength{\parindent}{0mm}				% Pas de retrait en début de paragraphe
+\setlength\multicolsep{0pt} 				% Pour que l'environnement multicols ne commence pas par un saut de ligne
+\renewcommand{\arraystretch}{1.5}		% Interligne dans les tableaux
+\renewcommand{\labelenumi}{\textbf{\theenumi{}.}}		% Numérotation en gras
+\renewcommand{\labelenumii}{\textbf{\theenumii{}.}}		% Numérotation de niveau 2 en gras
+\renewcommand{\thesection}{\Roman{section}.}				% Numérotation des sections en chiffres romains
+\renewcommand{\thesubsection}{\alph{subsection})}		% Numérotation des sous-sections en lettres
+\setlength{\columnsep}{1cm}								% Séparation des colonnes
+\setlength{\columnseprule}{1.5pt}
+\renewcommand{\columnseprulecolor}{\color{couleur_theme}} % Trait de séparation des colones en couleur
+
+
+\setlength\arrayrulewidth{1.5pt} 	% Epaisseur des les filets des tableaux
+\arrayrulecolor{couleur_theme}		% Couleur des filets des tableaux
+
+
+\renewcommand{\headrulewidth}{0pt} % Pour enlever les traits en en-tête et en pied de page
+\renewcommand{\footrulewidth}{0pt}
+\fancyhead[L]{}
+\fancyhead[R]{}
+
+
+
+%%% Couleurs
+
+\definecolor{nombres}{cmyk}{0,.8,.95,0}
+\definecolor{gestion}{cmyk}{.75,1,.11,.12}
+\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
+\definecolor{grandeurs}{cmyk}{.02,.44,1,0}
+\definecolor{geo}{cmyk}{.62,.1,0,0}
+\definecolor{algo}{cmyk}{.69,.02,.36,0}
+\definecolor{correction}{cmyk}{.63,.23,.93,.06}
+
+
+
+%%% Environnements
+
+
+\newmdenv[linecolor=couleur_theme, linewidth=3pt,topline=true,rightline=false,bottomline=false,frametitlerule=false,frametitlefont={\color{couleur_theme}\bfseries},frametitlerulewidth=1pt]{methode}
+
+
+\newmdenv[startcode={\setlength{\multicolsep}{0cm}\setlength{\columnsep}{.2cm}\setlength{\columnseprule}{0pt}\vspace{0cm}},linecolor=white, linewidth=3pt,innerbottommargin=10pt,innertopmargin=5pt,innerrightmargin=20pt,splittopskip=20pt,splitbottomskip=10pt,everyline=true,tikzsetting={draw=couleur_theme,line width=4pt,dashed,dash pattern= on 10pt off 10pt},frametitleaboveskip=-.6cm,frametitle={\tikz\node[anchor= east,rectangle,fill=white]{\textcolor{couleur_theme}{\raisebox{-.3\height}{\includegraphics[width=.8cm]{\iconeobjectif}}\; \bfseries \Large Objectifs}};}]{objectif}
+
+\newmdenv[startcode={\colorlet{couleur_numerotation}{correction}\renewcommand{\columnseprulecolor}{\color{correction}}
+\setcounter{section}{0}\arrayrulecolor{correction}},linecolor=white, linewidth=4pt,innerbottommargin=10pt,innertopmargin=5pt,splittopskip=20pt,splitbottomskip=10pt,everyline=true,frametitle=correction,tikzsetting={draw=correction,line width=3pt,dashed,dash pattern= on 15pt off 10pt},frametitleaboveskip=-.4cm,frametitle={\tikz\node[anchor= east,rectangle,fill=white]{\; \textcolor{correction}{\raisebox{-.3\height}{\includegraphics[width=.6cm]{icone-correction}}\; \bfseries \Large Corrections}};}]{correction}
+
+\newmdenv[roundcorner=0,linewidth=0pt,frametitlerule=false, backgroundcolor=gray!40,leftmargin=8cm]{remarque}
+
+
+
+%%% Macros
+
+
+
+\newcommand{\theme}[4]
+{
+	\fancyhead[C]{
+	\begin{tikzpicture}[remember picture,overlay]
+	  \node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {\includegraphics{header-#1}};
+	  \node[anchor=east, fill=white] at ($(current page.north east)+(-2,-1.4cm)$) {\Huge \textcolor{couleur_theme}{\bfseries \#} #2 \textcolor{couleur_theme}{\bfseries \MakeUppercase{#3}}};
+	  \node[anchor=center, color=white] at ($(current page.north)+(0,-2.65cm)$) {\Large \bfseries \MakeUppercase{#4}};
+	\end{tikzpicture}
+	}
+	\fancyfoot[C]{
+	\begin{tikzpicture}[remember picture,overlay]
+	  \node[anchor=south west,inner sep=0pt] at ($(current page.south west)+(0,0)$) {\includegraphics{footer-#1}};
+	\end{tikzpicture} 
+	}
+	\colorlet{couleur_theme}{#1}
+	\colorlet{couleur_numerotation}{couleur_theme}
+	\def\iconeobjectif{icone-objectif-#1}
+	\def\urliconeomethode{icone-methode-#1}
+}
+
+\newcommand{\themelight}[2]
+{
+\pagestyle{empty}
+\colorlet{couleur_numerotation}{#2}
+\colorlet{couleur_theme}{#1}
+\geometry{top=1cm,bottom=1cm}
+
+}
+
+
+
+
+\newcommand{\numb}[1]{ % Dessin autour du numéro d'exercice
+\begin{tikzpicture}[overlay,yshift=-.3cm,scale=.8]
+	\draw[fill=couleur_numerotation,couleur_numerotation](-.3,0)rectangle(.5,.8);
+	\draw[line width=.05cm,couleur_numerotation,fill=white] (0,0)--(.5,.5)--(1,0)--(.5,-.5)--cycle;
+	\node[couleur_numerotation]  at (.5,0) { \large \bfseries #1};
+		\draw (-.4,.8) node[white,anchor=north west]{\bfseries EX}; 
+\end{tikzpicture}
+}
+
+
+\usepackage{titlesec} % Le titre de section est en fait un numéro d'exercice avec sa consigne alignée à  gauche.
+% Avant le titre était plus gros
+%\titleformat{\section}{\bfseries\large}{\numb{\arabic{section}}}{1cm}{\hspace{0em}}{}
+
+\titleformat{\section}{}{\numb{\arabic{section}}}{1cm}{\hspace{0em}}{}
+
+
+
+
+\newcommand{\exo}[1]{ % Un titre d'exercice est en f	ait une nouvelle section avec la consigne écrite en caractêres normaux
+\section{\textmd{#1}}
+\medskip
+}
+
+\newcommand{\iconemethode}[0]{ % Pour l'icone des méthodes dans la bonne couleur
+\raisebox{-.3\height}{\includegraphics[width=1cm]{\urliconeomethode}}\quad
+}
+
+
+\newcommand{\cfbox}[1]{% Cadre dans la couleur du thême
+	\setlength{\fboxrule}{2pt}
+    \colorlet{currentcolor}{.}%
+    {\color{couleur_theme}%
+    \fbox{\color{currentcolor}#1}}%
+}
+
+\newcommand{\corrfbox}[1]{% Cadre dans la couleur de la correction
+	\setlength{\fboxrule}{2pt}
+    \colorlet{currentcolor}{.}%
+    {\color{correction}%
+    \fbox{\color{currentcolor}#1}}%
+}
+
+
+\newcommand{\reference}[1]{\ignorespaces
+\textcolor{couleur_theme}{\textbf{#1 -}}\xspace
+}
+
+\newcommand{\refexo}[1]{\ignorespaces
+\textcolor{couleur_theme}{\textbf{\;Ex #1}}\xspace
+}
+
+\newcommand{\motimportant}[1]{\ignorespaces
+\textcolor{couleur_theme}{\textbf{#1}}\xspace
+}
+
+\newcommand{\mathimportant}[1]{
+\mathbin{\color{couleur_theme}\pmb{#1}}
+}
+
+\newcommand{\mathimportantcorr}[1]{
+{\color{correction}\pmb{#1}}
+}
+
+\newcommand{\motimportantcorr}[1]{\ignorespaces
+\textcolor{correction}{\textbf{#1}}\xspace
+}
+
+\newcommand{\pointilles}[1]{
+\makebox[#1]{\dotfill}
+}
+
+\newcommand{\point}[3]{
+\draw[couleur_theme,ultra thick] (#1,#2)--++(.3,.3)--++(-.6,-.6)--++(.3,.3)--++(-.3,.3)--++(.6,-.6);
+\draw[couleur_theme] (#1,#2)  node[above right=.1,black]{$#3$};
+}
+
+\newcommand{\pointpos}[4]{
+\draw[couleur_theme,ultra thick] (#1,#2)--++(.3,.3)--++(-.6,-.6)--++(.3,.3)--++(-.3,.3)--++(.6,-.6);
+\draw[couleur_theme] (#1,#2)  node[#4=.1,black]{$#3$};
+}
+
+
+\newcommand{\pointcorr}[3]{
+\draw[correction,ultra thick] (#1,#2)--++(.3,.3)--++(-.6,-.6)--++(.3,.3)--++(-.3,.3)--++(.6,-.6);
+\draw[correction] (#1,#2)  node[above right=.1,black]{$#3$};
+}
+
+\newcommand{\pointcorrpos}[4]{
+\draw[correction,ultra thick] (#1,#2)--++(.3,.3)--++(-.6,-.6)--++(.3,.3)--++(-.3,.3)--++(.6,-.6);
+\draw[correction] (#1,#2)  node[#4=.1,black]{$#3$};
+}
+
+
+
+\newcommand{\tampon}[1]{
+	\fancyhead[R]{
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(-.3,-.3cm)$) {\includegraphics[width=1.6cm]{tampon-#1}};
+	\end{tikzpicture}
+	}
+}
+
+\newcommand{\version}[1]{
+	\fancyhead[R]{
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(-.5,-.5cm)$) {\large \textcolor{couleur_theme}{\bfseries V#1}};
+	\end{tikzpicture}
+	}
+}
+
+\newcommand{\exalea}[1]{
+	\raisebox{-.5\height}{\includegraphics[height=1cm]{exalea}} \textcolor{couleur_theme}{\bfseries \url{coopmaths.fr/ex#1}}
+}
+
+\newcommand{\youtube}[1]{
+	\raisebox{-.3\height}{\includegraphics[height=.6cm]{youtube}} \textcolor{couleur_theme}{\bfseries \url{coopmaths.fr/video#1}}
+}
+
+
+\def\mathunderline#1{\color{correction}\underline{{\color{black}#1}}\color{black}}
+
+\renewcommand{\deg}{\ensuremath{^\circ}}
+
+% Pour les corrigés avec xlop : utilisation de la police du document.
+% Toujours utile avec le passage à  Myriad ??? NON !
+%\newcommand{\police}[1]{ 
+%{\fontfamily{lmr}\selectfont #1}
+%}

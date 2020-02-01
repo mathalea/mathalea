@@ -1,0 +1,78 @@
+\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[utf8]{inputenc}		        % Accents, encodage utf8
+\usepackage[T1]{fontenc}		        		% Encodage des caractères
+\usepackage{lmodern}			        		% Choix de la fonte (Latin Modern de D. Knuth)
+\usepackage[francais]{babel}	        		% Les règles de typo. françaises
+\usepackage{multicol} 					% Multi-colonnes
+\usepackage{calc} 						% Calculs 
+\usepackage{enumerate}					% Pour modifier les numérotations
+\usepackage{enumitem}
+\usepackage{graphicx}					% Pour insérer des images
+\usepackage{tabularx}					% Pour faire des tableaux
+\usepackage{pgf,tikz}					% Pour les images et figures géométriques
+\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
+shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows,babel} % Charge toutes les librairies de Tikz
+
+\usepackage{tkz-tab,tkz-euclide,tkz-fct}	% Géométrie euclidienne avec TikZ
+
+\usetkzobj{all}				
+		
+\usepackage{amsmath,amsfonts,amssymb,mathrsfs}  % Spécial math
+\usepackage[squaren]{SIunits}			% Pour les unités (gère le conflits avec  \square de l'extension amssymb)
+\usepackage{pifont}						% Pour les symboles "ding"
+\usepackage{bbding}						% Pour les symboles
+\usepackage[misc]{ifsym}					% Pour les symboles
+\usepackage{cancel}						% Pour pouvoir barrer les nombres
+\usepackage{url} 			        		% Pour afficher correctement les url
+ \urlstyle{sf}                          	% qui s'afficheront en police sans serif
+\usepackage{eurosym}					% Pour utiliser la commande \euro
+\usepackage{fancyhdr,lastpage}          	% En-têtes et pieds
+ \pagestyle{fancy}                      	% de pages personnalisés
+\usepackage{fancybox}					% Pour les encadrés
+\usepackage{xlop}						% Pour les calculs posés
+\usepackage{standalone}					% Pour avoir un apercu d'un fichier qui sera utilisé avec un input
+\usepackage{multido}					% Pour faire des boucles
+\usepackage{hyperref}					% Pour gérer les liens hyper-texte
+\usepackage{fourier}
+\usepackage{colortbl} 					% Pour des tableaux en couleur
+\usepackage{setspace}					% Pour \begin{spacing}{2.0} \end{spacing}
+\usepackage{multirow}					% Pour des cellules multilignes dans un tableau
+\usepackage{import}						% Equivalent de input mais en spécifiant le répertoire de travail
+\usepackage[]{qrcode}
+\usepackage{pdflscape}
+\usepackage[framemethod=tikz]{mdframed} % Pour les cadres
+\usepackage{tikzsymbols}
+\usepackage{tasks}						% Pour les listes horizontales
+
+
+				
+\setlength{\parindent}{0mm}				% Pas de retrait en début de paragraphe
+
+\renewcommand{\arraystretch}{1.5}		% Interligne dans les tableaux
+
+
+\newcounter{exo}          				% déclaration du numéro d'exo (pas utilisé ici)
+\setcounter{exo}{0}   					% initialisation du numero
+\newcommand{\exo}[1]{					% \exo
+  	\stepcounter{exo}        			% incrémentation du numéro
+  	\subsection*{Exercice n°{\theexo} \textmd{\normalsize #1}}
+  	}
+  	
+\renewcommand{\labelenumi}{\textbf{\theenumi{}.}}			% Numérotation en gras
+\renewcommand{\labelenumii}{\textbf{\theenumii{}.}}		% Numérotation de niveau 2 en gras
+\renewcommand{\thesection}{\Roman{section}.}				% Numérotation des sections en chiffres romains
+\renewcommand{\thesubsection}{\alph{subsection})}			% Numérotation des sous-sections en lettres
+
+\newcommand{\version}[1]{\fancyhead[R]{Version #1}}
+
+\setlength{\fboxsep}{3mm}
+
+\graphicspath{{./images/}}
+
+
+\newmdenv[startcode={\setcounter{exo}{0}},linecolor=red,roundcorner=10pt, linewidth=3pt,frametitlerule=true,frametitlebackgroundcolor=gray!20,apptotikzsetting={\tikzset{mdfframetitlebackground/.append style={shade,left color=gray!20, right color=gray!80}}},frametitlerulewidth=1pt,frametitle=Corrections,innerbottommargin=10pt,innertopmargin=10pt,everyline=true]{correction}
+
+
+
+
+
