@@ -175,7 +175,7 @@ function range1(max,liste_a_eviter=[]){
 /**
 * Fonction de comparaison à utiliser avec tableau.sort(compare_fractions)
 *
-* Le tableau doit être du type [[num,den],[num2,den2]]
+* Le tableau doit être du type `[[num,den],[num2,den2]]`
 *
 * @author Rémi Angot
 */
@@ -682,8 +682,8 @@ function nom_du_mois(n) {
 
 /**
 * * Retourne un environnement LaTeX enumerate à partir d'une liste.
-* * <br> est remplacé par un saut de paragraphe
-* * <br><br> est remplacé par un saut de paragraphe et un medskip
+* * `<br>`est remplacé par un saut de paragraphe
+* * `<br><br>` est remplacé par un saut de paragraphe et un medskip
 * * L'espacement est généré avec spacing
 * @Auteur Rémi Angot
 */
@@ -705,8 +705,8 @@ function tex_enumerate(liste,spacing){
 
 /**
 * * Retourne un environnement LaTeX enumerate à partir d'une liste sans afficher les numéros.
-* * <br> est remplacé par un saut de paragraphe
-* * <br><br> est remplacé par un saut de paragraphe et un medskip
+* * `<br>` est remplacé par un saut de paragraphe
+* * `<br><br>` est remplacé par un saut de paragraphe et un medskip
 * * L'espacement est généré avec spacing
 * @Auteur Rémi Angot
 */
@@ -716,8 +716,8 @@ function tex_enumerate_sans_numero(liste,spacing){
 
 /**
 * * Concatène les éléments d'une liste avec un saut de ligne entre chaque élément
-* * <br> est remplacé par un saut de paragraphe
-* * <br><br> est remplacé par un saut de paragraphe et un medskip
+* * `<br>` est remplacé par un saut de paragraphe
+* * `<br><br>` est remplacé par un saut de paragraphe et un medskip
 * @Auteur Rémi Angot
 */
 function tex_paragraphe(liste,spacing=false){
