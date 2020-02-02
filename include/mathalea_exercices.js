@@ -99,10 +99,6 @@ var liste_des_exercices_disponibles = {
 		'4G30' : Exercice_Trigo_longueurs_4e,
 		'4G31' : Exercice_Trigo_angles_4e,
 		'4G20' : Thales_4eme,
-		//12:Exercice_conversions_de_longueurs,
-		//13:Exercice_conversions,
-		//14:Exercice_conversions_aires,
-		//15:Exercice_perimetres_et_aires,
 		'3N10': Exercice_developper,
 		'3N11' : Double_distributivite,
 		'3N12' : Developper_Identites_remarquables3,
@@ -2226,13 +2222,15 @@ function Exercice_conversions_de_longueurs(niveau=1){
 		let prefixe_div = [[' d',10],[' c',100,],[' m',1000]];
 		let unite = 'm';
 		let liste_unite = ['mm','cm','dm','m','dam','hm','km'];
+		let liste_de_k = combinaison_listes([0,1,2],this.nb_questions)
 		for (let i = 0, a, k, div, resultat, type_de_questions, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
 			if (this.sup < 5) {
 				type_de_questions = this.sup;
 			} else {
 				type_de_questions = randint(1,4);
 			}
-			k = randint(0,2); // Choix du préfixe
+			// k = randint(0,2); // Choix du préfixe
+			k = liste_de_k[i] //Plutôt que de prendre un préfix au hasard, on alterne entre 10,100 et 1000
 			if (type_de_questions==1) { // niveau 1	
 				div = false; // Il n'y aura pas de division
 			} else if (type_de_questions==2) { // niveau 2
@@ -2461,13 +2459,15 @@ function Exercice_conversions_aires(niveau=1){
 		let prefixe_div = [[' d','\\div10\\div10',100],[' c','\\div100\\div100',10000],[' m','\\div1~000\\div1~000',1000000]]; 
 		let unite = 'm';
 		let liste_unite = ['mm','cm','dm','m','dam','hm','km'];
+		let liste_de_k = combinaison_listes([0,1,2],this.nb_questions)
 		for (let i = 0, a, k, div, resultat, type_de_questions, texte, texte_corr, liste_unite_info, cpt=0; i < this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
 			if (this.sup < 6) {
 				type_de_questions = this.sup;
 			} else {
 				type_de_questions = randint(1,5);
 			}
-			k = randint(0,2); // Choix du préfixe
+			// k = randint(0,2); // Choix du préfixe
+			k = liste_de_k[i];
 			if (type_de_questions==1) { // niveau 1	
 				div = false; // Il n'y aura pas de division
 			} else if (type_de_questions==2) { // niveau 2
