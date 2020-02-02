@@ -1,5 +1,12 @@
 
 /**
+* * Calcul de l'inverse d'un nombre. 
+*
+* Paramétrages possibles :
+* * 1 : inverse d'un nombre entier
+* * 2 : inverse d'une fraction
+* * 3 : inverse d'un nombre décimal
+* * 4 : mélange des trois autres niveaux
 * @auteur Jean-Claude Lhote
 */
 function Exercice_trouver_l_inverse(){
@@ -118,6 +125,13 @@ function Exercice_trouver_l_inverse(){
 }
 
 /**
+* Exercice de calcul de produit de deux fractions. 
+* 
+* Paramétrages possibles :
+* * 1 : Produits de nombres positifs seulement
+* * 2 : deux questions niveau 1 puis deux questions niveau 3
+* * 3 : Produits de nombres relatifs
+* * Si décomposition cochée : les nombres utilisés sont plus importants.
 * @auteur Jean-Claude Lhote
 */
 function Exercice_multiplier_fractions(){
@@ -447,6 +461,9 @@ function Exercice_multiplier_fractions(){
 }
 
 /**
+* Calcul du quotient de deux fractions. Paramétrages possibles :
+* * 1 : Nombres positifs exclusivement
+* * 2 : nombres relatifs
 * @auteur Jean-Claude Lhote
 */
 function Exercice_diviser_fractions(){
@@ -548,6 +565,10 @@ function Exercice_diviser_fractions(){
 }
 
 /**
+* * Calcul fractionnaire : somme d'une fraction et du produit de deux autres fractions. Paramétrages possibles :
+* 1 : Calcul avec nombres positifs sans piège de priorité
+* * 2 : Calcul avec nombres positifs avec piège
+* * 3 : Calcul avec nombres relatifs
 * @auteur Jean-Claude Lhote
 */
 function Exercice_additionner_fraction_produit(){
