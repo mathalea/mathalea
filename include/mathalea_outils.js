@@ -403,7 +403,15 @@ const ppcm = (a,b) => { return parseInt(Algebrite.run(`lcm(${a},${b})`))}
 */
 function fraction_simplifiee(n,d){ 
 	let p=pgcd(n,d);
-	return [n/p,d/p];
+	let ns = n/p;
+	let ds = d/p;
+	if (ns<0 && ds<0) {
+		[ns,ds] = [-ns,-ds]
+	}
+	if (ns>0 && ds<0) {
+		[ns,ds] = [-ns,-ds]
+	}
+	return [ns,ds];
 }
 
 /**
