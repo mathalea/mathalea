@@ -957,8 +957,10 @@ function Exercice_equation1(){
 			a = a*k[0];
 			b = b*k[1];
 			texte = `$${a}x${ecriture_algebrique(b)}=0$`;
-			texte_corr = texte+'<br>'
+			texte_corr = texte+'<br>';
+			texte_corr += `$${a}x${ecriture_algebrique(b)}${mise_en_evidence(ecriture_algebrique(-1*b))}=0${mise_en_evidence(ecriture_algebrique(-1*b))}$<br>`;
 			texte_corr += `$${a}x=${-1*b}$<br>`
+			texte_corr += `$${a}x${mise_en_evidence('\\div'+ecriture_parenthese_si_negatif(a))}=${-1*b+mise_en_evidence('\\div'+ecriture_parenthese_si_negatif(a))}$<br>`
 			texte_corr += `$x=${tex_fraction(-1*b,a)}$`
 			if (pgcd(abs(a),abs(b))>1 || a<0){
 				texte_corr += `<br>$x=${tex_fraction_reduite(-1*b,a)}$`
