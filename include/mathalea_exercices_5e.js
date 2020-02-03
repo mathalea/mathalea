@@ -1121,6 +1121,105 @@ function Exercice_substituer(difficulte=1){
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,'1 : Multiplication par un facteur positif\n2: Multiplication par un facteur relatif'] 
 }
 
+function Exercice_angles_triangles(difficulte=1){
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.sup = difficulte ;
+	this.titre = "somme des angles dans un triangles";
+	this.consigne = '';
+	this.spacing = 1;
+	this.consigne_modifiable = false;
+
+	let troisieme_angle = function(a1,a2) {
+		if (a1+a2<=180)  return 180-(a1+a2)
+		else return -1;
+	}
+
+	this.nouvelle_version = function(){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		let type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9,10]
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		this.consigne=`Calculer l'angle demandé dans le traingle suivant :`
+
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+			type_de_questions = liste_type_de_questions[i];
+			switch (type_de_questions){
+				case 1 :
+					angle1=randint(10,40);
+					angle2=randint(20,100);
+					texte = `$ABC$ est un triangle quelconque. L'angle $\\widehat{ABC}$ mesure $${angle1}°$ et l'angle $\\widehat{BAC}$ mesure $${angle2}°$<br>Quelle est la mesure de l'angle $\\widehat{BCA}$`;
+					texte_corr = `L'angle $\\widehat{BCA}$ mesure $180-\\left(${angle1}+${angle2}\\right)=180-${angle1+angle2}=${troisieme_angle(angle1,angle2)}°$`;
+					break ;
+				case 2 :
+					angle1=90;
+					angle2=randint(5,85);
+					texte = `$ABC$ est un triangle rectangle en $\\widehat{ABC}$ et l'angle $\\widehat{BAC}$ mesure $${angle2}°$<br>Quelle est la mesure de l'angle $\\widehat{BCA}$`;
+					texte_corr = `L'angle $\\widehat{BCA}$ mesure $90-${angle2}=${90-angle2}°$`;
+					break ;
+				case 3 :
+					angle1=randint(10,170);
+					angle2=(180-angle1)/2;
+					texte = `$ABC$ est un triangle isocèle en A. L'angle $\\widehat{BAC}$ mesure $${angle1}°$<br>Quelle est la mesure de l'angle $\\widehat{BCA}$`;
+					texte_corr = `L'angle $\\widehat{BCA}$ mesure $\\left(180-${angle1}\\right)\\div 2=${180-angle1}\\div 2=${(180-angle1)/2}°$`;
+					break ;
+				case 4 :
+					angle2=randint(10,80);
+					angle1=180-angle2*2;
+					texte = `$ABC$ est un triangle isocèle en A. L'angle $\\widehat{ABC}$ mesure $${angle2}°$<br>Quelle est la mesure de l'angle $\\widehat{BAC}$`;
+					texte_corr = `L'angle $\\widehat{BAC}$ mesure $180-${angle1}\\time 2=180-${2*angle2}=${180-2*angle2}°$`;
+					break ;
+				case 5 :
+					angle1=randint(10,40);
+					angle2=randint(20,100);
+					texte = `$ABC$ est un triangle quelconque. L'angle $\\widehat{ABC}$ mesure $${angle1}°$ et l'angle $\\widehat{BAC}$ mesure $${angle2}°$<br>Quel est la mesure de l'angle $\\widehat{BCA}$`;
+					texte_corr = `L'angle $\\widehat{BCA}$ mesure $180-\\left(${angle1}+${angle2}\\right)=180-${angle1+angle2}=${troisieme_angle(angle1,angle2)}°$`;
+					break ;
+				case 6 :
+					angle1=randint(10,40);
+					angle2=randint(20,100);
+					texte = `$ABC$ est un triangle quelconque. L'angle $\\widehat{ABC}$ mesure $${angle1}°$ et l'angle $\\widehat{BAC}$ mesure $${angle2}°$<br>Quel est la mesure de l'angle $\\widehat{BCA}$`;
+					texte_corr = `L'angle $\\widehat{BCA}$ mesure $180-\\left(${angle1}+${angle2}\\right)=180-${angle1+angle2}=${troisieme_angle(angle1,angle2)}°$`;
+					break ;
+				case 7 :
+					angle1=randint(10,40);
+					angle2=randint(20,100);
+					texte = `$ABC$ est un triangle quelconque. L'angle $\\widehat{ABC}$ mesure $${angle1}°$ et l'angle $\\widehat{BAC}$ mesure $${angle2}°$<br>Quel est la mesure de l'angle $\\widehat{BCA}$`;
+					texte_corr = `L'angle $\\widehat{BCA}$ mesure $180-\\left(${angle1}+${angle2}\\right)=180-${angle1+angle2}=${troisieme_angle(angle1,angle2)}°$`;
+					break ;
+				case 8 :
+					angle1=randint(10,40);
+					angle2=randint(20,100);
+					texte = `$ABC$ est un triangle quelconque. L'angle $\\widehat{ABC}$ mesure $${angle1}°$ et l'angle $\\widehat{BAC}$ mesure $${angle2}°$<br>Quel est la mesure de l'angle $\\widehat{BCA}$`;
+					texte_corr = `L'angle $\\widehat{BCA}$ mesure $180-\\left(${angle1}+${angle2}\\right)=180-${angle1+angle2}=${troisieme_angle(angle1,angle2)}°$`;
+					break ;
+				case 9 :
+					angle1=randint(10,40);
+					angle2=randint(20,100);
+					texte = `$ABC$ est un triangle quelconque. L'angle $\\widehat{ABC}$ mesure $${angle1}°$ et l'angle $\\widehat{BAC}$ mesure $${angle2}°$<br>Quel est la mesure de l'angle $\\widehat{BCA}$`;
+					texte_corr = `L'angle $\\widehat{BCA}$ mesure $180-\\left(${angle1}+${angle2}\\right)=180-${angle1+angle2}=${troisieme_angle(angle1,angle2)}°$`;
+					break ;
+				case 10 :
+					angle1=randint(10,40);
+					angle2=randint(20,100);
+					texte = `$ABC$ est un triangle quelconque. L'angle $\\widehat{ABC}$ mesure $${angle1}°$ et l'angle $\\widehat{BAC}$ mesure $${angle2}°$<br>Quel est la mesure de l'angle $\\widehat{BCA}$`;
+					texte_corr = `L'angle $\\widehat{BCA}$ mesure $180-\\left(${angle1}+${angle2}\\right)=180-${angle1+angle2}=${troisieme_angle(angle1,angle2)}°$`;
+					break ;
+				
+			}
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+	}
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,'1 : Multiplication par un facteur positif\n2: Multiplication par un facteur relatif'] 
+}
+
 /**
 * @auteur Jean-Claude Lhote
 */
