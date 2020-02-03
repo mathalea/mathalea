@@ -51,6 +51,7 @@ var liste_des_exercices_disponibles = {
 		'6N13' : Exercice_6N13,
 		'6N20' : Exercice_fractions_decomposer,
 		'6N20-2':Exercice_fractions_differentes_ecritures,
+		'6N21' : Droite_graduee,
 		'6N23' : Exercice_ecriture_decimale_a_partir_de_fraction_decimale,
 		'6N23_1' : Exercice_differentes_ecritures_nombres_decimaux,
 		'6N24' : Exercice_6N24,
@@ -173,6 +174,60 @@ function Exercice() {
    	this.nouvelle_version = function(){}
 
 }
+
+/**
+* Lire l'abscisse fractionnaire d'un point
+* @Auteur Rémi Angot
+*/
+function Droite_graduee(){
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Lire l'abscisse fractionnaire";
+	this.consigne = "Lire l'abscisse des points A, B et C";
+	this.nb_questions = 1;
+	this.nb_questions_modifiable = false;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.type_exercice = 'SVGJS';
+
+
+	this.nouvelle_version = function(numero_de_l_exercice){ // numero_de_l_exercice est 0 pour l'exercice 1
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+
+		this.contenu = html_consigne(this.consigne)
+		this.contenu += `<div id="div_svg${numero_de_l_exercice}" style="width: 90%; height: 200px;  "></div>`
+		//Le div n'étant pas encore créé, on attend qu'il le soit avant d'utiliser SVGJS
+		var SVGExist=[]
+		SVGExist[numero_de_l_exercice] = setInterval(function() {
+			if ($(`#div_svg${numero_de_l_exercice}`).length ) {
+				$(`#div_svg${numero_de_l_exercice}`).html("");//Vide le div pour éviter les SVG en doublon
+				const mon_svg = SVG().addTo(`#div_svg${numero_de_l_exercice}`).viewbox(0, 0, 800, 200)
+				// Droite 
+				let droite = mon_svg.line(100, 100, 750, 100)
+				droite.stroke({ color: 'black', width: 2, linecap: 'round' })
+    			// Graduation secondaire
+    			SVG_graduation(mon_svg,100,100/3,750,taille=5,y=100,color='blue',width=2)
+    			// Graduation principale
+    			SVG_graduation(mon_svg,100,100,750,taille=10,y=100,color='black',width=5)
+    			// Nombres visibles
+    			SVG_label(mon_svg,[[0,100],[1,200],[5,600]])
+    			//Points
+    			SVG_tracer_point(mon_svg,100+100/3,'A')
+    			SVG_tracer_point(mon_svg,200+2*100/3,'B')
+    			SVG_tracer_point(mon_svg,500,'C')
+
+        		clearInterval(SVGExist[numero_de_l_exercice]);//Arrête le timer
+        		}
+		}, 100); // Vérifie toutes les 100ms
+		 
+			
+		
+		
+		this.contenu_correction = ''
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+}
+
 
 /**
 * Conversions de durées.
@@ -4754,7 +4809,7 @@ jQuery(document).ready(function() {
 		liste_html_des_exercices+=`</div>`
 		liste_html_des_exercices+=`</div>`	
 	} else {
-		liste_html_des_exercices += `<div class="ui accordion"><div class="active title"><i class="dropdown icon"></i>Sixième (${nombre_d_exercices_disponibles_6})</div><div class="active content">`
+		liste_html_des_exercices += `<div class="ui accordion"><div class="title"><i class="dropdown icon"></i>Sixième (${nombre_d_exercices_disponibles_6})</div><div class="content">`
 		liste_html_des_exercices += liste_html_des_exercices_6
 		liste_html_des_exercices+=`</div>`
 		liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Cinquième (${nombre_d_exercices_disponibles_5})</div><div class="content">`

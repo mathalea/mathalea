@@ -1079,3 +1079,54 @@ function MG32_tracer_toutes_les_figures() {
     })();
 
 }
+
+
+/**
+* Trace une graduation avec sur le SVG
+* @param mon_svg Objet SVG
+* @param pas
+* @param derniere_graduation
+* @param taille taille verticale
+* @param y ordonnée de la droite
+* @param color
+* @param width 
+* @Auteur Rémi Angot
+*/
+function SVG_graduation(mon_svg,origine,pas,derniere_graduation,taille=10,y=100,color='black',width=5) {
+	for (let i = origine; i <= derniere_graduation; i+=pas) {
+		let line = mon_svg.line(i, y-taille/2, i, y+taille/2)
+		line.stroke({ color: color, width: width, linecap: 'round' })
+	}
+}
+
+function SVG_label(mon_svg,liste_d_abscisses,y=100) {
+	for (let i = 0; i < liste_d_abscisses.length; i++) {
+		let text = mon_svg.text((liste_d_abscisses[i][0]).toString())
+		text.move(liste_d_abscisses[i][1],y).font({
+			family:   'Helvetica'
+			, size:     20
+			, anchor:   'middle'
+			, leading : -1
+		})
+	}
+}
+
+function SVG_tracer_point(mon_svg,x,nom) {
+	//creer un groupe pour la croix
+	let point = mon_svg.group()
+	let c1 = point.line(-5,5,5,-5)
+	c1.stroke({ color: '#f15929', width: 5, linecap: 'round' })
+	let c2 = point.line(-5,-5,5,5)
+	c2.stroke({ color: '#f15929', width: 5, linecap: 'round' })
+	//déplace la croix
+	point.move(x,100)
+	point.dmove(-5,-5)
+	//ecrit le nom
+	let text = mon_svg.text(nom)
+	text.move(x,100).font({
+		family:   'Helvetica'
+		, size:     20
+		, anchor:   'middle'
+		, leading : 2
+		})
+}
