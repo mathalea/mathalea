@@ -1138,9 +1138,9 @@ function Exercice_angles_triangles(difficulte=1){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		
-		let type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9,10]
+		let type_de_questions_disponibles = [1,2,3,4]
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		this.consigne=`Calculer l'angle demandé dans le traingle suivant :`
+		this.consigne=`Calculer l'angle demandé dans les triangles suivants :`
 
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
 			type_de_questions = liste_type_de_questions[i];
@@ -1167,7 +1167,7 @@ function Exercice_angles_triangles(difficulte=1){
 					angle2=randint(10,80);
 					angle1=180-angle2*2;
 					texte = `$ABC$ est un triangle isocèle en A. L'angle $\\widehat{ABC}$ mesure $${angle2}°$<br>Quelle est la mesure de l'angle $\\widehat{BAC}$`;
-					texte_corr = `L'angle $\\widehat{BAC}$ mesure $180-${angle1}\\time 2=180-${2*angle2}=${180-2*angle2}°$`;
+					texte_corr = `L'angle $\\widehat{BAC}$ mesure $180-${angle2}\\times 2=180-${2*angle2}=${180-2*angle2}°$`;
 					break ;
 				case 5 :
 					angle1=randint(10,40);

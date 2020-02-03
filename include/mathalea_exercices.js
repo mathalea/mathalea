@@ -85,6 +85,7 @@ var liste_des_exercices_disponibles = {
 		'5S10': Calculer_des_frequences,
 		'5S10-2': Calculer_des_moyennes,
 		'5S10-3': Calculer_des_etendues,
+		'5M10' : Exercice_angles_triangles,
 		'4L10' : Exercice_developper,
 		'4L20' : Exercice_equation1,
 		'4N10': Exercice_additionner_des_fractions,
