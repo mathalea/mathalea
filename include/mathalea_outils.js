@@ -121,9 +121,9 @@ function enleve_element(array,item){
 }
 
 /**
-* Retourne un élément au hasard de la liste
-* @param {liste} liste
-* 
+* Retourne un élément au hasard de la liste sans appartenir à une liste donnée
+* @param {liste} 
+* @param {liste_a_eviter}
 *
 * @example
 * // Renvoit 1, 2 ou 3
@@ -134,8 +134,11 @@ function enleve_element(array,item){
 *
 * @author Rémi Angot
 */
-function choice(liste) {
-	// Renvoit un élément au hasard de la liste
+function choice(liste,liste_a_eviter=[]) {
+	// Supprime les éléments de liste à éviter
+	for (let i=0;i<liste_a_eviter.length;i++){
+		enleve_element(liste,liste_a_eviter[i])
+	}
 	var index = Math.floor(Math.random() * liste.length);
 	return liste[index];
 }
@@ -933,6 +936,23 @@ function decomposition_facteurs_premiers(n) {
 	}
 	decomposition=decomposition.substr(0,decomposition.length-6)
 	return decomposition;
+}
+
+/**
+* Retourne la liste des diviseurs d'un entier
+* @Auteur Rémi Angot
+*/
+function liste_des_diviseurs(n) {
+	let k =2;
+	let liste = [1];
+	while (k<=n){
+		if (n%k==0) {
+			liste.push(k);
+		}
+		k++
+	}
+
+	return liste;
 }
 
 /**
