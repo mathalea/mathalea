@@ -942,10 +942,11 @@ function Exercice_developper(difficulte=1){
 */
 function Exercice_equation1(){
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Équation du type ax+b=0"
+	this.titre = "Équation du premier degré"
 	this.consigne = 'Résoudre les équations suivantes'
 	this.spacing = 2;
 	sortie_html ? this.spacing_corr = 4 : this.spacing_corr = 2;
+	this.correction_detaillee_disponible = true;
 
 	this.nouvelle_version = function(){
 		this.liste_questions = []; // Liste de questions
@@ -958,8 +959,16 @@ function Exercice_equation1(){
 			b = b*k[1];
 			texte = `$${a}x${ecriture_algebrique(b)}=0$`;
 			texte_corr = texte+'<br>';
+			if (this.correction_detaillee) {
+				if (b>0) {
+					texte_corr += `On soustrait $${b}$ aux deux membres.<br>`	
+				} else {
+					texte_corr += `On ajoute $${-1*b}$ aux deux membres.<br>`
+				}
+			}
 			texte_corr += `$${a}x${ecriture_algebrique(b)}${mise_en_evidence(ecriture_algebrique(-1*b))}=0${mise_en_evidence(ecriture_algebrique(-1*b))}$<br>`;
 			texte_corr += `$${a}x=${-1*b}$<br>`
+			if (this.correction_detaillee) {texte_corr += `On divise les deux membres par $${a}$.<br>`}
 			texte_corr += `$${a}x${mise_en_evidence('\\div'+ecriture_parenthese_si_negatif(a))}=${-1*b+mise_en_evidence('\\div'+ecriture_parenthese_si_negatif(a))}$<br>`
 			texte_corr += `$x=${tex_fraction(-1*b,a)}$`
 			if (pgcd(abs(a),abs(b))>1 || a<0){
@@ -974,7 +983,7 @@ function Exercice_equation1(){
 		}
 		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_numerique = ['Valeur maximale',99999];		
+	// this.besoin_formulaire_numerique = ['Valeur maximale',99999];		
 }
 
 /**
