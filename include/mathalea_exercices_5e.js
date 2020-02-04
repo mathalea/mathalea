@@ -1126,12 +1126,14 @@ function Exercice_angles_triangles(){
 	this.sup = false ;
 	this.titre = "Somme des angles dans un triangle";
 	this.consigne = '';
-	this.spacing = 2;
-	sortie_html ? this.spacing_corr = 4 : this.spacing_corr = 2;
+	this.spacing = 1.5;
+	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1.5;
 	this.nb_questions=10;
 	this.consigne_modifiable = false;
 	this.correction_detaillee_disponible = true;
 	this.correction_detaillee=true;
+	this.nb_cols=1;
+	this.nb_cols_corr=1;
 
 
 	let troisieme_angle = function(a1,a2) {
