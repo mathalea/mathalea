@@ -2156,3 +2156,94 @@ function Problemes_Pythagore(){
 	}
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
+/**
+* Puissances d'un relatif-1
+* * Travailler des résultats automatisés 
+* * mais aussi d’utiliser les propriétés du produit de puissance, du quotient de puissances et des puissances de puissances
+* @auteur Sébastien Lozano
+*/
+function Puissances_d_un_relatif_1(){
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.sup = 1 ; 
+	this.titre = "Puissances calculs automatisés et règles de calculs"; 
+	this.consigne = "Écris sous forme d'une seule puissance.";
+	this.spacing = 2;
+	this.spacing_corr = 2;
+	this.nb_questions = 8;
+	this.nb_cols_corr = 2;
+
+	this.nouvelle_version = function(){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+
+		let type_de_questions_disponibles = [1,2,3,4,5,6,7,8];
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions);
+
+		for (let i = 0, base ,exp , texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
+			type_de_questions = liste_type_de_questions[i];
+			
+			switch (type_de_questions) {
+				case 1 :
+					base = 3;
+					exp = [randint(1,7),randint(1,7),randint(1,7)];
+					texte = `$\\dfrac{${base}^${exp[0]}\\times ${base*base}}{${base}^${exp[1]} \\times ${base}^${exp[2]}}$`;
+					texte_corr = `$${base}^{${exp[0]+2-exp[1]-exp[2]}}$`;
+					break;
+				case 2 :
+					base = 2;
+					exp = [randint(1,7),randint(1,7)];
+					texte = `$\\dfrac{${base}^${exp[0]}\\times ${base**3}}{${base}^${exp[1]}}$`;
+					texte_corr = `$${base}^{${exp[0]+3-exp[1]}}$`;
+					break;
+				case 3 :
+					base = 5;
+					exp = [randint(1,7),randint(1,2)];
+					texte = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base**2}^${exp[1]}}$`;
+					texte_corr = `$${base}^{${1+exp[0]-2*exp[1]}}$`;
+					break;
+				case 4 :
+					base = 2;
+					exp = [randint(1,7)];
+					texte = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base**2}\\times ${base**2}}$`;
+					texte_corr = `$${base}^{${1+exp[0]-2-2}}$`;
+					break;
+				case 5 :
+					base = 2;
+					exp = [randint(1,7)];
+					texte = `$\\dfrac{${base**2}^${exp[0]}}{${base}}$`;
+					texte_corr = `$${base}^{${2*exp[0]-1}}$`;
+					break;
+				case 6 :
+					base = 3;
+					exp = [randint(1,3)];
+					texte = `$\\dfrac{${base**3}^${exp[0]}}{${base}}$`;
+					texte_corr = `$${base}^{${3*exp[0]-1}}$`;
+					break;
+				case 7 :
+					base = 3;
+					exp = [randint(1,7),randint(1,7),randint(1,4)];
+					texte = `$\\dfrac{${base}^${exp[0]}\\times ${base}^${exp[1]}}{${base**2}^${exp[2]}}\\times ${base}$`;
+					texte_corr = `$${base}^{${exp[0]+exp[1]-2*exp[2]+1}}$`;
+					break;
+				case 8 :
+					base = 2;
+					exp = [randint(1,7)];
+					texte = `$\\dfrac{${base**3}\\times ${base}}{${base**2}^${exp[0]}}$`;
+					texte_corr = `$${base}^{${3+1-2*exp[0]}}$`;
+					break;
+																
+			};
+			
+
+		
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++
+		}
+		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
+	}
+	
+}
