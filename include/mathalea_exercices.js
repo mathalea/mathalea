@@ -4754,7 +4754,7 @@ jQuery(document).ready(function() {
 		liste_html_des_exercices+=`</div>`
 		liste_html_des_exercices+=`</div>`	
 	} else {
-		liste_html_des_exercices += `<div class="ui accordion"><div class="active title"><i class="dropdown icon"></i>Sixième (${nombre_d_exercices_disponibles_6})</div><div class="active content">`
+		liste_html_des_exercices += `<div class="ui accordion"><div class="title"><i class="dropdown icon"></i>Sixième (${nombre_d_exercices_disponibles_6})</div><div class="content">`
 		liste_html_des_exercices += liste_html_des_exercices_6
 		liste_html_des_exercices+=`</div>`
 		liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Cinquième (${nombre_d_exercices_disponibles_5})</div><div class="content">`
