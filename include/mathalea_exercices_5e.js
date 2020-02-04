@@ -1127,10 +1127,12 @@ function Exercice_angles_triangles(){
 	this.titre = "Somme des angles dans un triangle";
 	this.consigne = '';
 	this.spacing = 2;
+	sortie_html ? this.spacing_corr = 4 : this.spacing_corr = 2;
 	this.nb_questions=10;
 	this.consigne_modifiable = false;
-	this.correction_detaillee =true;
-	form_correction_detaillee =['Correction détaillée']
+	this.correction_detaillee_disponible = true;
+	this.correction_detaillee=true;
+
 
 	let troisieme_angle = function(a1,a2) {
 		if (a1+a2<=180)  return 180-(a1+a2)
@@ -1145,8 +1147,6 @@ function Exercice_angles_triangles(){
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		this.consigne=`Calculer l'angle demandé dans les triangles suivants :`
 		let lettre1,lettre2,lettre3,s1,s2,s3
-		this.correction_detaillee=this.sup;
-		console.log(this.correction_detaillee)
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
 			type_de_questions = liste_type_de_questions[i];
 			lettre1 = randint(1,26)	// aleatoirisation du nom des points
@@ -1290,7 +1290,7 @@ function Exercice_angles_triangles(){
 		}
 		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_case_a_cocher = ['Correction détaillée'];
+	// this.besoin_formulaire_case_a_cocher = ['Correction détaillée'];
 }
 
 /**
