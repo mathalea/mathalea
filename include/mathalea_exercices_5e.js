@@ -1154,7 +1154,8 @@ function Exercice_angles_triangles(){
 			s2 = lettre_depuis_chiffre(lettre2)
 			lettre3 = randint(1, 24, [lettre1, lettre2])
 			s3 = lettre_depuis_chiffre(lettre3)
-			texte_corr = `Dans un triangle, la somme des angles est égale à $180°$.<br>`
+			if (this.correction_detaillee) texte_corr = `Dans un triangle, la somme des angles est égale à $180°$.<br>`;
+			else texte_corr=``;
 			switch (type_de_questions){
 				case 1 :
 					angle1=randint(10,40);
