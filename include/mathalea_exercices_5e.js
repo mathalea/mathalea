@@ -1124,12 +1124,13 @@ function Exercice_substituer(difficulte=1){
 function Exercice_angles_triangles(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = false ;
-	this.titre = "somme des angles dans un triangles";
+	this.titre = "Somme des angles dans un triangle";
 	this.consigne = '';
-	this.spacing = 1;
+	this.spacing = 2;
 	this.nb_questions=10;
 	this.consigne_modifiable = false;
-	this.correction_detaillee =false;
+	this.correction_detaillee =true;
+	form_correction_detaillee =['Correction détaillée']
 
 	let troisieme_angle = function(a1,a2) {
 		if (a1+a2<=180)  return 180-(a1+a2)
@@ -1160,7 +1161,7 @@ function Exercice_angles_triangles(){
 				case 1 :
 					angle1=randint(10,40);
 					angle2=randint(20,100);
-					texte = `Cas 1 : $${s1+s2+s3}$ est un triangle quelconque. L'angle $\\widehat{${s1+s2+s3}}$ mesure $${angle1}°$ et l'angle $\\widehat{${s2+s1+s3}}$ mesure $${angle2}°$<br>Quelle est la mesure de l'angle $\\widehat{${s2+s3+s1}}$ ?`;
+					texte = `$${s1+s2+s3}$ est un triangle quelconque. L'angle $\\widehat{${s1+s2+s3}}$ mesure $${angle1}°$ et l'angle $\\widehat{${s2+s1+s3}}$ mesure $${angle2}°$<br>Quelle est la mesure de l'angle $\\widehat{${s2+s3+s1}}$ ?`;
 					if (this.correction_detaillee) {
 						texte_corr+=`$\\widehat{${s1+s2+s3}} + \\widehat{${s2+s3+s1}} + \\widehat{${s2+s1+s3}}=180°$<br>`;
 						texte_corr+=`Donc $\\widehat{${s2+s3+s1}}=180- \\left(\\widehat{${s1+s2+s3}} + \\widehat{${s2+s1+s3}}\\right)$<br>D'où `
@@ -1171,7 +1172,7 @@ function Exercice_angles_triangles(){
 				case 2 :
 					angle1=90;
 					angle2=randint(5,85);
-					texte = `Cas 2 :$${s1+s2+s3}$ est un triangle rectangle en $${s2}$ et l'angle $\\widehat{${s2+s1+s3}}$ mesure $${angle2}°$<br>Quelle est la mesure de l'angle $\\widehat{${s2+s3+s1}}$ ?`;
+					texte = `$${s1+s2+s3}$ est un triangle rectangle en $${s2}$ et l'angle $\\widehat{${s2+s1+s3}}$ mesure $${angle2}°$<br>Quelle est la mesure de l'angle $\\widehat{${s2+s3+s1}}$ ?`;
 					if (this.correction_detaillee) {
 						texte_corr += `Comme l'angle $\\widehat{${s1+s2+s3}}$ est droit, les angles $\\widehat{${s2+s3+s1}}$ et $\\widehat{${s2+s1+s3}}$ sont complémentaires :<br>`
 						texte_corr +=`On a donc : $\\widehat{${s2+s3+s1}}+ \\widehat{${s2+s1+s3}}=90°$<br>D'où `;
@@ -1182,7 +1183,7 @@ function Exercice_angles_triangles(){
 				case 3 :
 					angle1=randint(10,170);
 					angle2=(180-angle1)/2;
-					texte = `Cas 3 :$${s1+s2+s3}$ est un triangle isocèle en $${s1}$. L'angle $\\widehat{${s2+s1+s3}}$ mesure $${angle1}°$<br>Quelle est la mesure de l'angle $\\widehat{${s2+s3+s1}}$ ?`;
+					texte = `$${s1+s2+s3}$ est un triangle isocèle en $${s1}$. L'angle $\\widehat{${s2+s1+s3}}$ mesure $${angle1}°$<br>Quelle est la mesure de l'angle $\\widehat{${s2+s3+s1}}$ ?`;
 					
 					if (this.correction_detaillee) {
 						texte_corr += `Les angles à la base d'un triangle isocèle sont de même mesure.<br>`
@@ -1197,7 +1198,7 @@ function Exercice_angles_triangles(){
 				case 4 :
 					angle2=randint(10,80);
 					angle1=180-angle2*2;
-					texte = `Cas 4 :$${s1+s2+s3}$ est un triangle isocèle en $${s1}$. L'angle $\\widehat{${s1+s2+s3}}$ mesure $${angle2}°$<br>Quelle est la mesure de l'angle $\\widehat{${s2+s1+s3}}$ ?`;
+					texte = `$${s1+s2+s3}$ est un triangle isocèle en $${s1}$. L'angle $\\widehat{${s1+s2+s3}}$ mesure $${angle2}°$<br>Quelle est la mesure de l'angle $\\widehat{${s2+s1+s3}}$ ?`;
 
 					if (this.correction_detaillee) {
 					texte_corr+=`Les deux angles à la base d'un triangle isocèle sont égaux.<br>`;
@@ -1209,7 +1210,7 @@ function Exercice_angles_triangles(){
 				case 5 :  // cas non aléatoires triangle rectangle isocèle
 					angle1=90;
 					angle2=45;
-					texte = `Cas 5 :$${s1+s2+s3}$ est un triangle rectangle en $${s2}$ et $\\widehat{${s2+s1+s3}}=\\widehat{${s2+s3+s1}}$.<br>Quelle est la mesure de l'angle $\\widehat{${s2+s3+s1}}$ ?`;
+					texte = `$${s1+s2+s3}$ est un triangle rectangle en $${s2}$ et $\\widehat{${s2+s1+s3}}=\\widehat{${s2+s3+s1}}$.<br>Quelle est la mesure de l'angle $\\widehat{${s2+s3+s1}}$ ?`;
 
 					if (this.correction_detaillee) {
 						texte_corr += `Comme $\\widehat{${s2+s1+s3}}=\\widehat{${s2+s3+s1}}$ :<br>`;
@@ -1221,7 +1222,7 @@ function Exercice_angles_triangles(){
 				
 					break ;
 				case 6 : // cas non aléatoires triangle rectangle 30,60,90
-					texte = `Cas 6 :$${s1+s2+s3}$ est un triangle rectangle en $${s1}$. L'angle $\\widehat{${s1+s2+s3}}$ mesure le double de l'angle $\\widehat{${s1+s3+s2}}$.<br>Quelles sont les mesures des angles $\\widehat{${s1+s2+s3}}$ et $\\widehat{${s1+s3+s2}}$ ?`;
+					texte = `$${s1+s2+s3}$ est un triangle rectangle en $${s1}$. L'angle $\\widehat{${s1+s2+s3}}$ mesure le double de l'angle $\\widehat{${s1+s3+s2}}$.<br>Quelles sont les mesures des angles $\\widehat{${s1+s2+s3}}$ et $\\widehat{${s1+s3+s2}}$ ?`;
 					if (this.correction_detaillee) {
 						texte_corr += `Comme $\\widehat{${s1+s2+s3}}=2\\times\\widehat{${s1+s3+s2}}$ et comme $\\widehat{${s1+s2+s3}}$ et $\\widehat{${s1+s3+s2}}$ sont complémentaires:<br>`;
 						texte_corr += `On a : $2 \\times \\widehat{${s1+s3+s2}} + \\widehat{${s1+s3+s2}}=90°$<br>D'où `;
@@ -1233,7 +1234,7 @@ function Exercice_angles_triangles(){
 				
 					break ;
 				case 7 :// cas non aléatoires triangle rectangle 18,72,90
-				texte = `Cas 7 :$${s1+s2+s3}$ est un triangle rectangle en $${s1}$. L'angle $\\widehat{${s1+s3+s2}}$ mesure le quart de l'angle $\\widehat{${s1+s2+s3}}$.<br>Quelles sont les mesures des angles $\\widehat{${s1+s2+s3}}$ et $\\widehat{${s1+s3+s2}}$ ?`;
+				texte = `$${s1+s2+s3}$ est un triangle rectangle en $${s1}$. L'angle $\\widehat{${s1+s3+s2}}$ mesure le quart de l'angle $\\widehat{${s1+s2+s3}}$.<br>Quelles sont les mesures des angles $\\widehat{${s1+s2+s3}}$ et $\\widehat{${s1+s3+s2}}$ ?`;
 				if (this.correction_detaillee) {
 					texte_corr += `Comme $\\widehat{${s1+s2+s3}}=\\dfrac{\\widehat{${s1+s3+s2}}}{4}$, on a $\\widehat{${s1+s3+s2}}=4\\times\\widehat{${s1+s2+s3}}$.<br>`;
 					texte_corr += `De plus $\\widehat{${s1+s2+s3}}$ et $\\widehat{${s1+s3+s2}}$ sont complémentaires:<br>`;
@@ -1245,7 +1246,7 @@ function Exercice_angles_triangles(){
 				texte_corr += `L'angle $\\widehat{${s1+s3+s2}}$ mesure $72°$ et l'angle $\\widehat{${s1+s2+s3}}$ mesure $18°$.`;
 					break ;
 				case 8 :// cas non aléatoires triangle rectangle 15,75,90
-				texte = `Cas 8 :$${s1+s2+s3}$ est un triangle rectangle en $${s1}$. L'angle $\\widehat{${s1+s2+s3}}$ est cinq fois plus grand que l'angle $\\widehat{${s1+s3+s2}}$.<br>Quelles sont les mesures des angles $\\widehat{${s1+s2+s3}}$ et $\\widehat{${s1+s3+s2}}$ ?`;
+				texte = `$${s1+s2+s3}$ est un triangle rectangle en $${s1}$. L'angle $\\widehat{${s1+s2+s3}}$ est cinq fois plus grand que l'angle $\\widehat{${s1+s3+s2}}$.<br>Quelles sont les mesures des angles $\\widehat{${s1+s2+s3}}$ et $\\widehat{${s1+s3+s2}}$ ?`;
 				if (this.correction_detaillee) {
 					texte_corr += `$\\widehat{${s1+s2+s3}}=5\\times\\widehat{${s1+s3+s2}}$ et comme $\\widehat{${s1+s2+s3}}$ et $\\widehat{${s1+s3+s2}}$ sont complémentaires,<br>`;
 					texte_corr += ` on a : $5 \\times \\widehat{${s1+s3+s2}} + \\widehat{${s1+s3+s2}}=90°$<br>D'où `;
@@ -1256,7 +1257,7 @@ function Exercice_angles_triangles(){
 				texte_corr += `L'angle $\\widehat{${s1+s3+s2}}$ mesure $15°$ et l'angle $\\widehat{${s1+s2+s3}}$ mesure $75°$.`;
 				break ;
 				case 9 : //cas non aléatoire triangle équilatéral
-					texte = `Cas 9 :$${s1+s2+s3}$ est un triangle dont les trois angles sont égaux. Quelles sont les mesures de ses angles ?`;
+					texte = `$${s1+s2+s3}$ est un triangle dont les trois angles sont égaux. Quelles sont les mesures de ses angles ?`;
 					if (this.correction_detaillee) {
 						texte_corr += `De plus, $\\widehat{${s1+s2+s3}}=\\widehat{${s1+s3+s2}}=\\widehat{${s2+s1+s3}}$<br>`
 						texte_corr += `D'où $3\\times\\widehat{${s1+s2+s3}}=180°$.<br>`;
@@ -1266,7 +1267,7 @@ function Exercice_angles_triangles(){
 					texte_corr += `Le triangle $${s1+s2+s3}$ est un triangle équilatéral.`
 					break ;
 				case 10 : //cas non aléatoire triangle rectangle 22.5, 67.5,90
-				texte = `Cas 7 :$${s1+s2+s3}$ est un triangle rectangle en $${s1}$. L'angle $\\widehat{${s1+s3+s2}}$ mesure le tiers de l'angle $\\widehat{${s1+s2+s3}}$.<br>Quelles sont les mesures des angles $\\widehat{${s1+s2+s3}}$ et $\\widehat{${s1+s3+s2}}$ ?`;
+				texte = `$${s1+s2+s3}$ est un triangle rectangle en $${s1}$. L'angle $\\widehat{${s1+s3+s2}}$ mesure le tiers de l'angle $\\widehat{${s1+s2+s3}}$.<br>Quelles sont les mesures des angles $\\widehat{${s1+s2+s3}}$ et $\\widehat{${s1+s3+s2}}$ ?`;
 				if (this.correction_detaillee) {
 					texte_corr += `Comme $\\widehat{${s1+s2+s3}}=\\dfrac{\\widehat{${s1+s3+s2}}}{3}$, on a $\\widehat{${s1+s3+s2}}=3\\times\\widehat{${s1+s2+s3}}$.<br>`;
 					texte_corr += `De plus $\\widehat{${s1+s2+s3}}$ et $\\widehat{${s1+s3+s2}}$ sont complémentaires.<br>`;
