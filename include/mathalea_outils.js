@@ -446,6 +446,26 @@ function simplification_de_fraction_avec_etapes(num,den){
 }
 
 /**
+ * Retourne la quatrième proportionnelle de 3 nombres en fonction d'une précision demandée
+ * Le résultat est un string qui doit être entouré de $ pour le mode mathématiques
+ * @auteur Jean-Claude Lhote
+ */
+
+function quatrieme_proportionnelle(a,b,c,precision) { //calcul de b*c/a
+let result=``
+if (a==0) { 
+	result='=erreur : division par zéro'
+	return result
+}
+let p4=b*c/a
+result+=`\\dfrac{${tex_nombrec(b)}\\times${tex_nombrec(c)}}{${tex_nombrec(a)}}`;
+if (Number.isInteger(p4*Math.pow(10,precision))) result +=`=`
+else result +=`\\approx`
+result += `${arrondi_virgule(p4,precision)}`
+return result
+}
+
+/**
 *
 * Donne la liste des facteurs premiers d'un nombre
 * @Auteur Rémi Angot

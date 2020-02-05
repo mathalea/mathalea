@@ -1024,27 +1024,25 @@ function Exercice_Thales(){
 		let y3 = randint(-2, 1)
 		let k = randint(2, 8) * randint(-1, 1, [0]) / 10
 		if (this.quatrieme) {k=abs(k)}	
-		let dist23 =Math.sqrt((x3-x2)*(x3-x2)+(y3-y2)*(y3-y2)) 		//calcul des longueurs du triangle principal
-		let dist12 = Math.sqrt(x2 * x2 + y2 * y2)
-		let dist13 = Math.sqrt(x3 * x3 + y3 * y3)
-		let dist45 = dist23 * abs(k)		//calcul des longueurs du triangle secondaires
-		let dist14 = dist12 * abs(k)
-		let dist15 = dist13 * abs(k)
-		dist23 = Math.round(dist23 * 10) / 10 // On ne garde qu'une approximation au dixième pour l'exercice
-		dist12 = Math.round(dist12 * 10) / 10
-		dist13 = Math.round(dist13 * 10) / 10
-		dist45 = Math.round(dist45 * 10) / 10
-		dist14 = Math.round(dist14 * 10) / 10
-		dist15 = Math.round(dist15 * 10) / 10
+		let dist23 = Math.sqrt((x3-x2)*(x3-x2)+(y3-y2)*(y3-y2)) 		//calcul des longueurs du triangle principal
+		let dist12 = arrondi(Math.sqrt(x2 * x2 + y2 * y2),1)
+		let dist13 = arrondi(Math.sqrt(x3 * x3 + y3 * y3),1)
+		let dist15 = arrondi(dist13 * abs(k),1)  
+		let dist45 = arrondi(dist23 * abs(k),1)		
 
-		let s45 = arrondi_virgule(dist45, 1)			// mise en texte avec 1 chiffres après la virgule pour énoncé
-		let s13 = arrondi_virgule(dist13, 1)
-		let s12 = arrondi_virgule(dist12, 1)
-		let s15 = arrondi_virgule(dist15, 1)
-		let s14 = arrondi_virgule(dist14, 1)
-		let s23 = arrondi_virgule(dist23, 1)
+		let dist14 = arrondi(dist12*dist15/dist13,1); // calcul des longueurs demandées à partir 
+		dist23 = arrondi(dist45*dist13/dist15,1); // des nombres énoncés (dist12, dist13, dist15 et dist45)
+
+		// On ne garde qu'une approximation au dixième pour l'exercice
+
+		let s45 = tex_nombrec(dist45)			// mise en texte avec 1 chiffres après la virgule pour énoncé
+		let s13 = tex_nombrec(dist13)
+		let s12 = tex_nombrec(dist12)
+		let s15 = tex_nombrec(dist15)
+		let s14 = tex_nombrec(dist14)
+		let s23 = tex_nombrec(dist23)
 		if (k < 0) { dist35 = dist13 + dist15 } else { dist35 = dist13 - dist15 } // calcul de la longueur intermédiaire dans un cas classique ou en papillon
-		let s35 = arrondi_virgule(dist35,1)  // à priori, c'est déjà arrondi au dixième, mais je me méfie des calculs flottants en js
+		let s35 = tex_nombrec(dist35)  // à priori, c'est déjà arrondi au dixième, mais je me méfie des calculs flottants en js
 		let niv_diff=randint(1,2);
 		if (sortie_html) {
 			this.type_exercice = 'MG32';
@@ -1088,7 +1086,6 @@ function Exercice_Thales(){
 				texte = `$${s1}$, $${s2}$ et $${s3}$ sont trois point distincts. $${s4} \\in [${s1+s2}]$ et $${s5} \\in [${s1+s3}]$ tel que les droites $(${s4+s5})$ et $(${s2+s3})$ sont parallèles.<br> $${s1+s2}=${s12}$ cm, $${s1+s3}=${s13}$ cm, $${s4+s5}=${s45}$ cm et $${s1+s5}=${s15}$ cm.`
 				texte += `<br>Calculer $${s1+s4}$ et $${s2+s3}$.`
 				texte_corr = 'Dans le triangle '+`$${s1+s2+s3}$`+', les droites '+`$(${s4+s5})$`+' et '+`$(${s2+s3})$`+' sont parallèles.<br>'+' D&rsquo;après la propriété de Thales, on a '+`$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}.$`+'<br>'
-				// texte_corr = 'Les droites ' + `$(${s4+s5})$` + ' et ' + `$(${s2+s3})$` + ' sont parallèles.<br> Les droites '+`$(${s2+s4})$` + ' et ' + `$(${s3+s5})$` + ' sont sécantes en '+`$${s1}`+'<br>D&rsquo;après la propriété de Thales, on a ' + `$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}.$` + '<br>'
 				}
 			else {
 				texte = `Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés dans cet ordre.`
@@ -1107,8 +1104,8 @@ function Exercice_Thales(){
 				}
 			}
 			texte_corr += 'On a donc ' + `$${tex_fraction(s1 + s4, s12)}=${tex_fraction(s15, s13)}=${tex_fraction(s45, s2 + s3)}.$` + '<br>'
-			texte_corr += 'Soit ' + `$${s1 + s4}=${tex_fraction(s15 + '\\times' + s12, s13)}\\approx${s14}~$` + '~cm'
-			texte_corr += ' et ' + `$${s2 + s3}=${tex_fraction(s13 + '\\times' + s45, s15)}\\approx${s23}~$` + '~cm.'
+			texte_corr += `Soit $${s1+s4}=` + quatrieme_proportionnelle(dist13,dist15,dist12,1) + '$~cm'
+			texte_corr += ` et $${s2+s3}=` + quatrieme_proportionnelle(dist15,dist13,dist45,1)+ '$~cm.'
 		
 			if (this.sup<3)	{
 			this.MG32codeBase64 = codeBase64
