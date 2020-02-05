@@ -740,38 +740,39 @@ function intro_LaTeX(entete="Exercices") {
 	\\usepackage{pgf,tikz}
 	\\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
 		shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows,babel} % Charge toutes les librairies de Tikz
-		\\usepackage{tkz-tab,tkz-euclide,tkz-fct}	% Géométrie euclidienne avec TikZ
-		\\usetkzobj{all}	
-		\\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
-		\\usepackage{cancel}
-		\\usepackage{eurosym}
-		\\DeclareUnicodeCharacter{20AC}{\\euro{}}
-		\\usepackage{fancyhdr,lastpage}          	
-		\\pagestyle{fancy}                      	
-		\\usepackage{fancybox}					
-		\\usepackage{xlop}						
-		\\usepackage{setspace}	
+	\\usepackage{tkz-tab,tkz-euclide,tkz-fct}	% Géométrie euclidienne avec TikZ
+	\\usetkzobj{all}	
+	\\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
+	\\usepackage{cancel}
+	\\usepackage{gensymb}
+	\\usepackage{eurosym}
+	\\DeclareUnicodeCharacter{20AC}{\\euro{}}
+	\\usepackage{fancyhdr,lastpage}          	
+	\\pagestyle{fancy}                      	
+	\\usepackage{fancybox}					
+	\\usepackage{xlop}						
+	\\usepackage{setspace}	
 
-		\\setlength{\\parindent}{0mm}		
-		\\renewcommand{\\arraystretch}{1.5}	
-		\\newcounter{exo}          				
-		\\setcounter{exo}{0}   				
-		\\newcommand{\\exo}[1]{				
-			\\stepcounter{exo}        		
-			\\subsection*{Exercice \\no{\\theexo} \\textmd{\\normalsize #1}}
-		}
-		\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}	
-		\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}	
-		\\newcommand{\\version}[1]{\\fancyhead[R]{Version #1}}
-		\\setlength{\\fboxsep}{3mm}
-		\\newenvironment{correction}{\\newpage\\fancyhead[C]{\\textbf{Correction}}\\setcounter{exo}{0}}{}
-		\\fancyhead[C]{\\textbf{${entete}}}
-		\\fancyfoot{}
-		\\fancyfoot[R]{\\scriptsize Coopmaths.fr -- CC-BY-SA}
-		\\setlength{\\headheight}{14.5pt}
+	\\setlength{\\parindent}{0mm}		
+	\\renewcommand{\\arraystretch}{1.5}	
+	\\newcounter{exo}          				
+	\\setcounter{exo}{0}   				
+	\\newcommand{\\exo}[1]{				
+		\\stepcounter{exo}        		
+		\\subsection*{Exercice \\no{\\theexo} \\textmd{\\normalsize #1}}
+	}
+	\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}	
+	\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}	
+	\\newcommand{\\version}[1]{\\fancyhead[R]{Version #1}}
+	\\setlength{\\fboxsep}{3mm}
+	\\newenvironment{correction}{\\newpage\\fancyhead[C]{\\textbf{Correction}}\\setcounter{exo}{0}}{}
+	\\fancyhead[C]{\\textbf{${entete}}}
+	\\fancyfoot{}
+	\\fancyfoot[R]{\\scriptsize Coopmaths.fr -- CC-BY-SA}
+	\\setlength{\\headheight}{14.5pt}
 
 
-		\\begin{document}`
+	\\begin{document}`
 	}
 
 	function intro_LaTeX_coop(){
@@ -792,48 +793,49 @@ function intro_LaTeX(entete="Exercices") {
 		\\usepackage{pgf,tikz}
 		\\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
 			shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows,babel} % Charge toutes les librairies de Tikz
-			\\usepackage{tkz-tab,tkz-euclide,tkz-fct}	% Géométrie euclidienne avec TikZ
-			\\usetkzobj{all}				
-			\\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
-			\\usepackage{cancel}
-			\\usepackage{eurosym}
-			\\DeclareUnicodeCharacter{20AC}{\\euro{}}
-			\\usepackage{fancyhdr,lastpage}          	
-			\\pagestyle{fancy}                      	
-			\\usepackage{fancybox}					
-			\\usepackage{xlop}						
-			\\usepackage{setspace}
+		\\usepackage{tkz-tab,tkz-euclide,tkz-fct}	% Géométrie euclidienne avec TikZ
+		\\usetkzobj{all}				
+		\\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
+		\\usepackage{cancel}
+		\\usepackage{gensymb}
+		\\usepackage{eurosym}
+		\\DeclareUnicodeCharacter{20AC}{\\euro{}}
+		\\usepackage{fancyhdr,lastpage}          	
+		\\pagestyle{fancy}                      	
+		\\usepackage{fancybox}					
+		\\usepackage{xlop}						
+		\\usepackage{setspace}
 
-			%%% COULEURS %%%
+		%%% COULEURS %%%
 
-			\\definecolor{nombres}{cmyk}{0,.8,.95,0}
-			\\definecolor{gestion}{cmyk}{.75,1,.11,.12}
-			\\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
-			\\definecolor{grandeurs}{cmyk}{.02,.44,1,0}
-			\\definecolor{geo}{cmyk}{.62,.1,0,0}
-			\\definecolor{algo}{cmyk}{.69,.02,.36,0}
-			\\definecolor{correction}{cmyk}{.63,.23,.93,.06}
-			\\usepackage{colortbl}
-			\\arrayrulecolor{couleur_theme}		% Couleur des filets des tableaux
+		\\definecolor{nombres}{cmyk}{0,.8,.95,0}
+		\\definecolor{gestion}{cmyk}{.75,1,.11,.12}
+		\\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
+		\\definecolor{grandeurs}{cmyk}{.02,.44,1,0}
+		\\definecolor{geo}{cmyk}{.62,.1,0,0}
+		\\definecolor{algo}{cmyk}{.69,.02,.36,0}
+		\\definecolor{correction}{cmyk}{.63,.23,.93,.06}
+		\\usepackage{colortbl}
+		\\arrayrulecolor{couleur_theme}		% Couleur des filets des tableaux
 
-			%%% MISE EN PAGE %%%
+		%%% MISE EN PAGE %%%
 
-			\\setlength{\\parindent}{0mm}		
-			\\renewcommand{\\arraystretch}{1.5}	
-			\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}	
-			\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}	
-			\\setlength{\\fboxsep}{3mm}
+		\\setlength{\\parindent}{0mm}		
+		\\renewcommand{\\arraystretch}{1.5}	
+		\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}	
+		\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}	
+		\\setlength{\\fboxsep}{3mm}
 
-			\\setlength{\\headheight}{14.5pt}
+		\\setlength{\\headheight}{14.5pt}
 
-			\\spaceskip=2\\fontdimen2\\font plus 3\\fontdimen3\\font minus3\\fontdimen4\\font\\relax %Pour doubler l'espace entre les mots
-			\\newcommand{\\numb}[1]{ % Dessin autour du numéro d'exercice
-			\\begin{tikzpicture}[overlay,yshift=-.3cm,scale=.8]
-			\\draw[fill=couleur_numerotation,couleur_numerotation](-.3,0)rectangle(.5,.8);
-			\\draw[line width=.05cm,couleur_numerotation,fill=white] (0,0)--(.5,.5)--(1,0)--(.5,-.5)--cycle;
-			\\node[couleur_numerotation]  at (.5,0) { \\large \\bfseries #1};
-			\\draw (-.4,.8) node[white,anchor=north west]{\\bfseries EX}; 
-			\\end{tikzpicture}
+		\\spaceskip=2\\fontdimen2\\font plus 3\\fontdimen3\\font minus3\\fontdimen4\\font\\relax %Pour doubler l'espace entre les mots
+		\\newcommand{\\numb}[1]{ % Dessin autour du numéro d'exercice
+		\\begin{tikzpicture}[overlay,yshift=-.3cm,scale=.8]
+		\\draw[fill=couleur_numerotation,couleur_numerotation](-.3,0)rectangle(.5,.8);
+		\\draw[line width=.05cm,couleur_numerotation,fill=white] (0,0)--(.5,.5)--(1,0)--(.5,-.5)--cycle;
+		\\node[couleur_numerotation]  at (.5,0) { \\large \\bfseries #1};
+		\\draw (-.4,.8) node[white,anchor=north west]{\\bfseries EX}; 
+		\\end{tikzpicture}
 		}
 
 		%%% NUMEROS DES EXERCICES %%%

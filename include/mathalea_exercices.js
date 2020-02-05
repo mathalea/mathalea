@@ -173,6 +173,8 @@ function Exercice() {
    	this.nb_cols_corr_modifiable = true;
    	this.spacing_modifiable = true;
    	this.spacing_corr_modifiable = true;
+   	this.correction_detaillee_disponible = false;
+   	this.correction_detaillee = true;
    	this.nouvelle_version = function(){}
 
 }
