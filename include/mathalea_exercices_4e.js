@@ -1056,57 +1056,57 @@ function Exercice_Thales(){
 			else {codeBase64 ="TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAAJmcv###wEA#wEAAAAAAAAAAAYfAAADsgAAAQEAAAAAAAAAAQAAACX#####AAAAAQAKQ0NhbGNDb25zdAD#####AAJwaQAWMy4xNDE1OTI2NTM1ODk3OTMyMzg0Nv####8AAAABAApDQ29uc3RhbnRlQAkh+1RELRj#####AAAAAQAKQ1BvaW50QmFzZQD#####AAAAAAAWAAJBJwDAKAAAAAAAAEAiAAAAAAAABwABQHMxR64UeuFAcbwo9cKPXP####8AAAABABRDRHJvaXRlRGlyZWN0aW9uRml4ZQD#####AQAAAAAOAAABAAEAAAABAT#wAAAAAAAA#####wAAAAEAD0NQb2ludExpZURyb2l0ZQD#####AQAAAAAQAAJJJwDAGAAAAAAAAAAAAAAAAAAABQABQEerQ5WBBiUAAAAC#####wAAAAEACUNEcm9pdGVBQgD#####AQAAAAASAAABAAEAAAABAAAAA#####8AAAABABZDRHJvaXRlUGVycGVuZGljdWxhaXJlAP####8BAAAAAA4AAAEAAQAAAAEAAAAE#####wAAAAEACUNDZXJjbGVPQQD#####AQAAAAABAAAAAQAAAAP#####AAAAAQAQQ0ludERyb2l0ZUNlcmNsZQD#####AAAABQAAAAb#####AAAAAQAQQ1BvaW50TGllQmlwb2ludAD#####AQAAAAAOAAABBQABAAAABwAAAAkA#####wEAAAAAEAACSicAwCgAAAAAAADAEAAAAAAAAAUAAgAAAAf#####AAAAAgAHQ1JlcGVyZQD#####AObm5gABAAAAAQAAAAMAAAAJAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAT#wAAAAAAAAAAAAAT#wAAAAAAAA#####wAAAAEACkNVbml0ZXhSZXAA#####wAEdW5pdAAAAAr#####AAAAAQALQ0hvbW90aGV0aWUA#####wAAAAH#####AAAAAQAKQ09wZXJhdGlvbgMAAAABP#AAAAAAAAD#####AAAAAQAPQ1Jlc3VsdGF0VmFsZXVyAAAAC#####8AAAABAAtDUG9pbnRJbWFnZQD#####AQAAAAASAAJXIgEBAAAAAAMAAAAM#####wAAAAEACUNMb25ndWV1cgD#####AAAAAQAAAA3#####AAAAAQAHQ0NhbGN1bAD#####AAJ4MgABMgAAAAFAAAAAAAAAAAAAABEA#####wACeTIAATUAAAABQBQAAAAAAAAAAAARAP####8AAngzAAE2AAAAAUAYAAAAAAAAAAAAEQD#####AAJ5MwACLTH#####AAAAAQAMQ01vaW5zVW5haXJlAAAAAT#wAAAAAAAAAAAAEQD#####AAFrAAMwLjUAAAABP+AAAAAAAAD#####AAAAAQAQQ1BvaW50RGFuc1JlcGVyZQD#####AQAAAAAYAAJaJwAAAAAAAAAAAEAIAAAAAAAABwAAAAAKAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAEwD#####AAAAAAAYAAJCJwDAMAAAAAAAAMBDgAAAAAAABwAAAAAKAAAADgAAAA8AAAAOAAAAEAAAABMA#####wAAAAAAGAACQycAAAAAAAAAAABACAAAAAAAAAcAAAAACgAAAA4AAAARAAAADgAAABIAAAAMAP####8AAAAUAAAADgAAABMAAAAPAP####8AAAAAABgAAk0nAMA7AAAAAAAAwDcAAAAAAAAHAAAAABUAAAAXAAAADwD#####AAAAAAAYAAJOJwDAKAAAAAAAAEAAAAAAAAAABwAAAAAWAAAAF#####8AAAABAAlDUG9seWdvbmUA#####wAAAAAAAgAAAAQAAAAWAAAAFQAAABQAAAAWAAAAFAD#####AAAAAAACAAAABAAAABkAAAAUAAAAGAAAABn#####AAAAAQAQQ1N1cmZhY2VQb2x5Z29uZQD#####AQAA#wAAAAUAAAAbAAAAFQD#####Af8AAAAAAAUAAAAa#####wAAAAEAEENNYWNyb0FwcGFyaXRpb24A#####wD#AAAB#####xBAiKCj1wo9cUBC4UeuFHrhAgAAAAAAAAAAAAAAAAEAAAAAAAAAAAAGQXBwQU1OAAAAAAABAAAAHAAAAAAWAP####8A#wAAAf####8QQIiwo9cKPXFAVDCj1wo9cAIAAAAAAAAAAAAAAAABAAAAAAAAAAAABkFwcEFCQwAAAAAAAQAAAB0A#####wAAAAEAEUNNYWNyb0Rpc3Bhcml0aW9uAP####8A#wAAAf####8QQIvgo9cKPXFAROFHrhR64QIAAAAAAAAAAAAAAAABAAAAAAAAAAAAB01hc3FBTU4AAAAAAAEAAAAcAAAAFwD#####AP8AAAH#####EECL6KPXCj1xQFTwo9cKPXACAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAdNYXNxQUJDAAAAAAABAAAAHf####8AAAABAAtDTWFjcm9QYXVzZQD#####AP8AAAH#####EECI+KPXCj1xQF9wo9cKPXACAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAVQYXVzZQAAAAAAAf####8AAAABABFDTWFjcm9TdWl0ZU1hY3JvcwD#####AP8AAAH#####EEBRxR64UeuFQHj8KPXCj1wCAAAAAAAAAAAAAAAAAQAAAAAAAAAAAApUcmlhbmdsZSAxAAAAAAADAAAAHwAAACIAAAAhAAAAGQD#####AP8AAAH#####EEBRRR64UeuFQHt8KPXCj1wCAAAAAAAAAAAAAAAAAQAAAAAAAAAAAApUcmlhbmdsZSAyAAAAAAADAAAAHgAAACIAAAAgAAAADv##########"
 			}
 			if (this.sup==1){  // calcul direct de AM et BC : pas de calcul intermédiaire de AN
-				texte = `Dans la figure ci-dessous, les droites $(${s4+s5})$ et $(${s2+s3})$ sont parallèles.</br> $${s1+s2}=${s12}$ cm, $${s1+s3}=${s13}$ cm, $${s4+s5}=${s45}$ cm et $${s1+s5}=${s15}$ cm.`
+				texte = `Dans la figure ci-dessous, les droites $(${s4+s5})$ et $(${s2+s3})$ sont parallèles.<br> $${s1+s2}=${s12}$ cm, $${s1+s3}=${s13}$ cm, $${s4+s5}=${s45}$ cm et $${s1+s5}=${s15}$ cm.<br>`
 				texte += `Calculer $${s1+s4}$ et $${s2+s3}$.`
 				if (k>0) {
-					texte_corr = 'Dans le triangle '+`$${s1+s2+s3}$`+', les droites '+`$(${s4+s5})$`+' et '+`$(${s2+s3})$`+' sont parallèles.</br>'+' D&rsquo;après la propriété de Thales, on a '+`$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}.$`+'</br>'
+					texte_corr = 'Dans le triangle '+`$${s1+s2+s3}$`+', les droites '+`$(${s4+s5})$`+' et '+`$(${s2+s3})$`+' sont parallèles.<br>'+' D&rsquo;après la propriété de Thales, on a '+`$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}.$`+'<br>'
 				}
 				else {
-					texte_corr = 'Les droites ' + `$(${s4+s5})$` + ' et ' + `$(${s2+s3})$` + ' sont parallèles.</br>'
-					texte_corr += `Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés dans cet ordre.`
-					texte_corr +='</br>D&rsquo;après la propriété de Thales, on a ' + `$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}.$` + '</br>'
+					texte_corr = 'Les droites ' + `$(${s4+s5})$` + ' et ' + `$(${s2+s3})$` + ' sont parallèles.'
+					texte_corr += `<br>Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés dans cet ordre.`
+					texte_corr +='<br>D&rsquo;après la propriété de Thales, on a ' + `$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}.$` + '<br>'
 				}
 				}
 			else if (this.sup==2)
 			 {  // Calcul de AN nécessaire avant de calculer AM et BC
-				texte = `Dans la figure ci-dessous, les droites $(${s4+s5})$ et $(${s2+s3})$ sont parallèles.</br> $${s1+s2}=${s12}$ cm, $${s1+s3}=${s13}$ cm, $${s4+s5}=${s45}$ cm et $${s5+s3}=${s35}$ cm.`
-				texte += `</br>Le point $${s1}$ peut être déplacé.</br>`
+				texte = `Dans la figure ci-dessous, les droites $(${s4+s5})$ et $(${s2+s3})$ sont parallèles.<br> $${s1+s2}=${s12}$ cm, $${s1+s3}=${s13}$ cm, $${s4+s5}=${s45}$ cm et $${s5+s3}=${s35}$ cm.`
+				texte += `<br>Le point $${s1}$ peut être déplacé.<br>`
 				texte += `Calculer $${s1+s4}$ et $${s2+s3}$.`
 				if (k>0) {
-					texte_corr = 'Dans le triangle ' + `$${s1+s2+s3}$` + ', les droites ' + `$(${s4+s5})$` + ' et ' + `$(${s2+s3})$` + ' sont parallèles.</br>' + ' D&rsquo;après la propriété de Thales, on a ' + `$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}.$` + '</br>'
+					texte_corr = 'Dans le triangle ' + `$${s1+s2+s3}$` + ', les droites ' + `$(${s4+s5})$` + ' et ' + `$(${s2+s3})$` + ' sont parallèles.<br>' + ' D&rsquo;après la propriété de Thales, on a ' + `$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}.$` + '<br>'
 				} else {
-					texte_corr = `Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés dans cet ordre et les droites $(${s4+s5})$ et $(${s2+s3})$ sont parallèles.</br>` + ' D&rsquo;après la propriété de Thales, on a ' + `$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}.$` + '</br>'
+					texte_corr = `Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés dans cet ordre et les droites $(${s4+s5})$ et $(${s2+s3})$ sont parallèles.<br>` + ' D&rsquo;après la propriété de Thales, on a ' + `$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}.$` + '<br>'
 				}
 				if (k>0){
-					texte_corr +='On sait que '+`$${s1+s5}=${s1+s3}-${s5+s3}=${s13}-${s35}=${s15}$`+'~cm.</br>'
+					texte_corr +='On sait que '+`$${s1+s5}=${s1+s3}-${s5+s3}=${s13}-${s35}=${s15}$`+'~cm.<br>'
 				}
 				else {
-					texte_corr +='On sait que '+`$${s1+s5}=${s3+s5}-${s1+s3}=${s35}-${s13}=${s15}$`+'~cm.</br>'
+					texte_corr +='On sait que '+`$${s1+s5}=${s3+s5}-${s1+s3}=${s35}-${s13}=${s15}$`+'~cm.<br>'
 				}
 			}
 			else if (randint(1,2)==1) {
-				texte = `$${s1}$, $${s2}$ et $${s3}$ sont trois point distincts. $${s4} \\in [${s1+s2}]$ et $${s5} \\in [${s1+s3}]$ tel que les droites $(${s4+s5})$ et $(${s2+s3})$ sont parallèles.</br> $${s1+s2}=${s12}$ cm, $${s1+s3}=${s13}$ cm, $${s4+s5}=${s45}$ cm et $${s1+s5}=${s15}$ cm.`
-				texte += `</br>Calculer $${s1+s4}$ et $${s2+s3}$.`
-				texte_corr = 'Dans le triangle '+`$${s1+s2+s3}$`+', les droites '+`$(${s4+s5})$`+' et '+`$(${s2+s3})$`+' sont parallèles.</br>'+' D&rsquo;après la propriété de Thales, on a '+`$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}.$`+'</br>'
-				// texte_corr = 'Les droites ' + `$(${s4+s5})$` + ' et ' + `$(${s2+s3})$` + ' sont parallèles.</br> Les droites '+`$(${s2+s4})$` + ' et ' + `$(${s3+s5})$` + ' sont sécantes en '+`$${s1}`+'</br>D&rsquo;après la propriété de Thales, on a ' + `$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}.$` + '</br>'
+				texte = `$${s1}$, $${s2}$ et $${s3}$ sont trois point distincts. $${s4} \\in [${s1+s2}]$ et $${s5} \\in [${s1+s3}]$ tel que les droites $(${s4+s5})$ et $(${s2+s3})$ sont parallèles.<br> $${s1+s2}=${s12}$ cm, $${s1+s3}=${s13}$ cm, $${s4+s5}=${s45}$ cm et $${s1+s5}=${s15}$ cm.`
+				texte += `<br>Calculer $${s1+s4}$ et $${s2+s3}$.`
+				texte_corr = 'Dans le triangle '+`$${s1+s2+s3}$`+', les droites '+`$(${s4+s5})$`+' et '+`$(${s2+s3})$`+' sont parallèles.<br>'+' D&rsquo;après la propriété de Thales, on a '+`$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}.$`+'<br>'
+				// texte_corr = 'Les droites ' + `$(${s4+s5})$` + ' et ' + `$(${s2+s3})$` + ' sont parallèles.<br> Les droites '+`$(${s2+s4})$` + ' et ' + `$(${s3+s5})$` + ' sont sécantes en '+`$${s1}`+'<br>D&rsquo;après la propriété de Thales, on a ' + `$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}.$` + '<br>'
 				}
 			else {
 				texte = `Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés dans cet ordre.`
-				texte += `</br>Les droites $(${s4+s5})$ et $(${s2+s3})$ sont parallèles.</br> $${s1+s2}=${s12}$ cm, $${s1+s3}=${s13}$ cm, $${s4+s5}=${s45}$ cm et $${s5+s3}=${s35}$ cm.`
-				texte += `</br>Calculer $${s1+s4}$ et $${s2+s3}$.`
+				texte += `<br>Les droites $(${s4+s5})$ et $(${s2+s3})$ sont parallèles.<br> $${s1+s2}=${s12}$ cm, $${s1+s3}=${s13}$ cm, $${s4+s5}=${s45}$ cm et $${s5+s3}=${s35}$ cm.`
+				texte += `<br>Calculer $${s1+s4}$ et $${s2+s3}$.`
 				if (k>0) {
-					texte_corr = 'Dans le triangle ' + `$${s1+s2+s3}$` + ', les droites ' + `$(${s4+s5})$` + ' et ' + `$(${s2+s3})$` + ' sont parallèles.</br>' + ' D&rsquo;après la propriété de Thales, on a ' + `$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}.$` + '</br>'
+					texte_corr = 'Dans le triangle ' + `$${s1+s2+s3}$` + ', les droites ' + `$(${s4+s5})$` + ' et ' + `$(${s2+s3})$` + ' sont parallèles.<br>' + ' D&rsquo;après la propriété de Thales, on a ' + `$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}.$` + '<br>'
 				} else {
-					texte_corr = `Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés et les droites $(${s4+s5})$ et $(${s2+s3})$ sont parallèles.</br>` + ' D&rsquo;après la propriété de Thales, on a ' + `$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}.$` + '</br>'
+					texte_corr = `Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés et les droites $(${s4+s5})$ et $(${s2+s3})$ sont parallèles.<br>` + ' D&rsquo;après la propriété de Thales, on a ' + `$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}.$` + '<br>'
 				}
 				if (k>0){
-					texte_corr +='On sait que '+`$${s1+s5}=${s1+s3}-${s5+s3}=${s13}-${s35}=${s15}$`+'~cm.</br>'
+					texte_corr +='On sait que '+`$${s1+s5}=${s1+s3}-${s5+s3}=${s13}-${s35}=${s15}$`+'~cm.<br>'
 				}
 				else {
-					texte_corr +='On sait que '+`$${s1+s5}=${s3+s5}-${s1+s3}=${s35}-${s13}=${s15}$`+'~cm.</br>'
+					texte_corr +='On sait que '+`$${s1+s5}=${s3+s5}-${s1+s3}=${s35}-${s13}=${s15}$`+'~cm.<br>'
 				}
 			}
-			texte_corr += 'On a donc ' + `$${tex_fraction(s1 + s4, s12)}=${tex_fraction(s15, s13)}=${tex_fraction(s45, s2 + s3)}.$` + '</br>'
+			texte_corr += 'On a donc ' + `$${tex_fraction(s1 + s4, s12)}=${tex_fraction(s15, s13)}=${tex_fraction(s45, s2 + s3)}.$` + '<br>'
 			texte_corr += 'Soit ' + `$${s1 + s4}=${tex_fraction(s15 + '\\times' + s12, s13)}\\approx${s14}~$` + '~cm'
 			texte_corr += ' et ' + `$${s2 + s3}=${tex_fraction(s13 + '\\times' + s45, s15)}\\approx${s23}~$` + '~cm.'
 		
@@ -1125,7 +1125,7 @@ function Exercice_Thales(){
 				mtg32App.calculate("MG32svg${numero_de_l_exercice}");
 	        	mtg32App.display("MG32svg${numero_de_l_exercice}");
 				` 	
-				texte += `<br>$\\footnotesize{\\textit{Le point \\thickspace ${s1} peut être déplacé (si la figure est tronquée).}}$</br>`;
+				texte += `<br>$\\footnotesize{\\textit{Le point \\thickspace ${s1} peut être déplacé (si la figure est tronquée).}}$<br>`;
 			}
 			this.liste_questions.push(texte);	
 			this.liste_corrections.push(texte_corr);
@@ -1322,17 +1322,17 @@ function Exercice_Pythagore() {
 			
 			if (type_de_questions == 1) { // calcul direct de l'hypoténuse
 				texte = `Dans la figure ci-dessous, le triangle $${nom_du_triangle}$ est rectangle en $${s0}$, $${s0 + s1}=${s01}$ cm, $${s0 + s2}=${s02}$ cm.`
-				texte += `</br>Le point $${s0}$ peut être déplacé.</br>`
+				texte += `<br>Le point $${s0}$ peut être déplacé.<br>`
 				texte += `Calculer $${s1 + s2}$.`
-				texte_corr = `Dans le triangle $${nom_du_triangle}$ rectangle en $${s0}$, d&rsquo;après le théorème de Pythagore, on a : $${s1 + s2}^2 = ${s0 + s1}^2~+~${s0 + s2}^2.$</br>`
-				texte_corr += 'D&rsquo;où ' + `$${s1 + s2}^2~=~${s01}^2~+~${s02}^2~=~${scarre01}~+~${scarre02}~=~${arrondi_virgule(carre02 + carre01, 2)}.$` + '</br>'
+				texte_corr = `Dans le triangle $${nom_du_triangle}$ rectangle en $${s0}$, d&rsquo;après le théorème de Pythagore, on a : $${s1 + s2}^2 = ${s0 + s1}^2~+~${s0 + s2}^2.$<br>`
+				texte_corr += 'D&rsquo;où ' + `$${s1 + s2}^2~=~${s01}^2~+~${s02}^2~=~${scarre01}~+~${scarre02}~=~${arrondi_virgule(carre02 + carre01, 2)}.$` + '<br>'
 				texte_corr += 'Soit ' + `$${s1 + s2}~=~\\sqrt{${arrondi_virgule(carre02 + carre01, 2)}}~\\approx${s12}$` + '~cm.'
 			}
 			if (type_de_questions == 2) { // Calcul d'un côté de l'angle droit
 				texte = `Dans la figure ci-dessous, le triangle $${nom_du_triangle}$ est rectangle en $${s0}$, $${s0 + s1}=${s01}$ cm, $${s1 + s2}=${s12}$ cm.`
 				texte += `Calculer $${s0 + s2}$.`
-				texte_corr = `Dans le triangle $${nom_du_triangle}$ rectangle en $${s0}$, d&rsquo;après le théorème de Pythagore, on a : $${s1 + s2}^2 = ${s0 + s1}^2~+~${s0 + s2}^2.$</br>`
-				texte_corr += 'D&rsquo;où ' + `$${s0 + s2}^2~=~${s1 + s2}^2~-~${s0 + s1}^2 = ${s12}^2~-~${s01}^2~=~${scarre12}~-~${scarre01}~=~${arrondi_virgule(carre12 - carre01, 2)}.$` + '</br>'
+				texte_corr = `Dans le triangle $${nom_du_triangle}$ rectangle en $${s0}$, d&rsquo;après le théorème de Pythagore, on a : $${s1 + s2}^2 = ${s0 + s1}^2~+~${s0 + s2}^2.$<br>`
+				texte_corr += 'D&rsquo;où ' + `$${s0 + s2}^2~=~${s1 + s2}^2~-~${s0 + s1}^2 = ${s12}^2~-~${s01}^2~=~${scarre12}~-~${scarre01}~=~${arrondi_virgule(carre12 - carre01, 2)}.$` + '<br>'
 				texte_corr += 'Soit ' + `$${s0 + s2}~=~\\sqrt{${arrondi_virgule(carre12 - carre01, 2)}}~\\approx${s02}$` + '~cm.'
 			}
 			if (type_de_questions < 3) {
@@ -1348,7 +1348,7 @@ function Exercice_Pythagore() {
 				mtg32App.calculate("MG32svg${numero_de_l_exercice}");
 	        	mtg32App.display("MG32svg${numero_de_l_exercice}");
 				`
-				texte += `<br>$\\footnotesize{\\textit{Le point \\thickspace ${s0} peut être déplacé (si la figure est tronquée).}}$</br>`;
+				texte += `<br>$\\footnotesize{\\textit{Le point \\thickspace ${s0} peut être déplacé (si la figure est tronquée).}}$<br>`;
 			} else {
 				this.type_exercice = '';
 			}
@@ -1561,7 +1561,7 @@ function Exercice_Trigo_longueurs() {
 				mtg32App.calculate("MG32svg${numero_de_l_exercice}");
 	        	mtg32App.display("MG32svg${numero_de_l_exercice}");
 				`
-				texte += `<br>$\\footnotesize{\\textit{Le point \\thickspace ${s0} peut être déplacé (si la figure est tronquée).}}$</br>`;
+				texte += `<br>$\\footnotesize{\\textit{Le point \\thickspace ${s0} peut être déplacé (si la figure est tronquée).}}$<br>`;
 			}
 			else { //sortie Latex
 				texte = `\\begin{minipage}{.5 \\linewidth} 	\\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}`
@@ -1801,7 +1801,7 @@ function Exercice_Trigo_angles() {
 			mtg32App.calculate("MG32svg${numero_de_l_exercice}");
 			mtg32App.display("MG32svg${numero_de_l_exercice}");
 			`
-			texte += `<br>$\\footnotesize{\\textit{Le point \\thickspace ${s0} peut être déplacé (si la figure est tronquée).}}$</br>`;
+			texte += `<br>$\\footnotesize{\\textit{Le point \\thickspace ${s0} peut être déplacé (si la figure est tronquée).}}$<br>`;
 		}
 		else { //sortie Latex
 			texte = `\\begin{minipage}{.5 \\linewidth} 	\\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}`
