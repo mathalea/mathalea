@@ -2156,8 +2156,9 @@ function Problemes_Pythagore(){
 	}
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
+
 /**
-* Puissances d'un relatif-1
+* Puissances d'un relatif (1)
 * * Travailler des résultats automatisés 
 * * mais aussi d’utiliser les propriétés du produit de puissance, du quotient de puissances et des puissances de puissances
 * @auteur Sébastien Lozano
@@ -2165,8 +2166,8 @@ function Problemes_Pythagore(){
 function Puissances_d_un_relatif_1(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1 ; 
-	this.titre = "Puissances calculs automatisés et règles de calculs"; 
-	this.consigne = "Écris sous forme d'une seule puissance.";
+	this.titre = "Puissances : Calculs automatisés et règles de calculs"; 
+	this.consigne = "Écrire sous la forme $\\mathbf{a^n}$.";
 	this.spacing = 2;
 	this.spacing_corr = 2;
 	this.nb_questions = 8;
@@ -2184,52 +2185,95 @@ function Puissances_d_un_relatif_1(){
 			
 			switch (type_de_questions) {
 				case 1 :
-					base = 3;
-					exp = [randint(1,7),randint(1,7),randint(1,7)];
+					base = 3; // on travaille sur cette base mais on pourrait rendre la base aléatoire
+					exp = [randint(1,7),randint(1,7),randint(1,7)]; // on a besoin de 3 exposants distincts
 					texte = `$\\dfrac{${base}^${exp[0]}\\times ${base*base}}{${base}^${exp[1]} \\times ${base}^${exp[2]}}$`;
-					texte_corr = `$${base}^{${exp[0]+2-exp[1]-exp[2]}}$`;
+					texte_corr = `$\\dfrac{${base}^${exp[0]}\\times ${base*base}}{${base}^${exp[1]} \\times ${base}^${exp[2]}} $`;
+					texte_corr += `$ = \\dfrac{${base}^${exp[0]}\\times ${base}^{2}}{${base}^${exp[1]} \\times ${base}^${exp[2]}}$`;
+					texte_corr += `$ = \\dfrac{${base}^{${exp[0]}+2}}{${base}^{${exp[1]}+${exp[2]}}}$`;
+					texte_corr += `$ = \\dfrac{${base}^{${exp[0]+2}}}{${base}^{${exp[1]+exp[2]}}}$`;
+					texte_corr += `$ = ${base}^{${exp[0]+2}-${exp[1]+exp[2]}}$`;
+					texte_corr += `$ = ${base}^{${exp[0]+2-exp[1]-exp[2]}}$`;
 					break;
 				case 2 :
-					base = 2;
-					exp = [randint(1,7),randint(1,7)];
+					base = 2; // on travaille sur cette base mais on pourrait rendre la base aléatoire
+					exp = [randint(1,7),randint(1,7)]; // on a besoin de 2 exposants distincts
 					texte = `$\\dfrac{${base}^${exp[0]}\\times ${base**3}}{${base}^${exp[1]}}$`;
-					texte_corr = `$${base}^{${exp[0]+3-exp[1]}}$`;
+					texte_corr = `$\\dfrac{${base}^${exp[0]}\\times ${base**3}}{${base}^${exp[1]}}$`;
+					texte_corr += `$=\\dfrac{${base}^${exp[0]}\\times ${base}^3}{${base}^${exp[1]}}$`;
+					texte_corr += `$=\\dfrac{${base}^{${exp[0]}+3}}{${base}^${exp[1]}}$`;
+					texte_corr += `$=\\dfrac{${base}^{${exp[0]+3}}}{${base}^${exp[1]}}$`;
+					texte_corr += `$=${base}^{${exp[0]+3}-${exp[1]}}$`;
+					texte_corr += `$=${base}^{${exp[0]+3-exp[1]}}$`;
 					break;
 				case 3 :
-					base = 5;
-					exp = [randint(1,7),randint(1,2)];
+					base = 5; // on travaille sur cette base mais on pourrait rendre la base aléatoire
+					exp = [randint(1,7),randint(1,2)]; // on a besoin de 2 exposants distincts
 					texte = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base**2}^${exp[1]}}$`;
-					texte_corr = `$${base}^{${1+exp[0]-2*exp[1]}}$`;
+					texte_corr = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base**2}^${exp[1]}}$`;
+					texte_corr += `$=\\dfrac{${base}^{1+${exp[0]}}}{(${base}^2)^${exp[1]}}$`;
+					texte_corr += `$=\\dfrac{${base}^{1+${exp[0]}}}{${base}^{2 \\times ${exp[1]}}}$`;
+					texte_corr += `$=\\dfrac{${base}^{${1+exp[0]}}}{${base}^{${2*exp[1]}}}$`;
+					texte_corr += `$=${base}^{${1+exp[0]}-${2*exp[1]}}$`;
+					texte_corr += `$=${base}^{${1+exp[0]-2*exp[1]}}$`;
 					break;
 				case 4 :
-					base = 2;
-					exp = [randint(1,7)];
+					base = 2; // on travaille sur cette base mais on pourrait rendre la base aléatoire
+					exp = [randint(1,7)]; // on a besoin de 1 exposant
 					texte = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base**2}\\times ${base**2}}$`;
-					texte_corr = `$${base}^{${1+exp[0]-2-2}}$`;
+					texte_corr = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base**2}\\times ${base**2}}$`;
+					texte_corr += `$=\\dfrac{${base}^{1+${exp[0]}}}{${base}^2\\times ${base}^2}$`;
+					texte_corr += `$=\\dfrac{${base}^{${1+exp[0]}}}{${base}^{2+2}}$`;
+					texte_corr += `$=\\dfrac{${base}^{${1+exp[0]}}}{${base}^{${2+2}}}$`;
+					texte_corr += `$=${base}^{${1+exp[0]}-${2+2}}$`;
+					texte_corr += `$=${base}^{${1+exp[0]-2-2}}$`;
 					break;
 				case 5 :
-					base = 2;
-					exp = [randint(1,7)];
+					base = 2; // on travaille sur cette base mais on pourrait rendre la base aléatoire
+					exp = [randint(1,7)]; // on a besoin de 1 exposant
 					texte = `$\\dfrac{${base**2}^${exp[0]}}{${base}}$`;
-					texte_corr = `$${base}^{${2*exp[0]-1}}$`;
+					texte_corr = `$\\dfrac{${base**2}^${exp[0]}}{${base}}$`;
+					texte_corr += `$=\\dfrac{(${base}^2)^${exp[0]}}{${base}}$`;
+					texte_corr += `$=\\dfrac{${base}^{2\\times ${exp[0]}}}{${base}}$`;
+					texte_corr += `$=\\dfrac{${base}^{${2*exp[0]}}}{${base}}$`;
+					texte_corr += `$=${base}^{${2*exp[0]}-1}$`;
+					texte_corr += `$=${base}^{${2*exp[0]-1}}$`;
 					break;
 				case 6 :
-					base = 3;
-					exp = [randint(1,3)];
+					base = 3; // on travaille sur cette base mais on pourrait rendre la base aléatoire
+					exp = [randint(1,3)]; // on a besoin de 1 exposant
 					texte = `$\\dfrac{${base**3}^${exp[0]}}{${base}}$`;
-					texte_corr = `$${base}^{${3*exp[0]-1}}$`;
+					texte_corr = `$\\dfrac{${base**3}^${exp[0]}}{${base}}$`;
+					texte_corr += `$=\\dfrac{(${base}^3)^${exp[0]}}{${base}}$`;
+					texte_corr += `$=\\dfrac{${base}^{3\\times ${exp[0]}}}{${base}}$`;
+					texte_corr += `$=\\dfrac{${base}^{${3*exp[0]}}}{${base}}$`;
+					texte_corr += `$=${base}^{${3*exp[0]}-1}$`;
+					texte_corr += `$=${base}^{${3*exp[0]-1}}$`;
 					break;
 				case 7 :
-					base = 3;
-					exp = [randint(1,7),randint(1,7),randint(1,4)];
+					base = 3; // on travaille sur cette base mais on pourrait rendre la base aléatoire
+					exp = [randint(1,7),randint(1,7),randint(1,4)]; // on a besoin de 3 exposants distincts
 					texte = `$\\dfrac{${base}^${exp[0]}\\times ${base}^${exp[1]}}{${base**2}^${exp[2]}}\\times ${base}$`;
-					texte_corr = `$${base}^{${exp[0]+exp[1]-2*exp[2]+1}}$`;
+					texte_corr = `$\\dfrac{${base}^${exp[0]}\\times ${base}^${exp[1]}}{${base**2}^${exp[2]}}\\times ${base}$`;
+					texte_corr += `$=\\dfrac{${base}^{${exp[0]}+${exp[1]}}}{(${base}^2)^${exp[2]}}\\times ${base}$`;
+					texte_corr += `$=\\dfrac{${base}^{${exp[0]+exp[1]}}}{${base}^{2\\times ${exp[2]}}}\\times ${base}$`;
+					texte_corr += `$=\\dfrac{${base}^{${exp[0]+exp[1]}}}{${base}^{${2*exp[2]}}}\\times ${base}$`;
+					texte_corr += `$=\\dfrac{${base}^{${exp[0]+exp[1]}}\\times ${base}}{${base}^{${2*exp[2]}}}$`;
+					texte_corr += `$=\\dfrac{${base}^{${exp[0]+exp[1]}+1}}{${base}^{${2*exp[2]}}}$`;
+					texte_corr += `$=\\dfrac{${base}^{${exp[0]+exp[1]+1}}}{${base}^{${2*exp[2]}}}$`;
+					texte_corr += `$=${base}^{${exp[0]+exp[1]+1}-${2*exp[2]}}$`;
+					texte_corr += `$=${base}^{${exp[0]+exp[1]+1-2*exp[2]}}$`;
 					break;
 				case 8 :
-					base = 2;
-					exp = [randint(1,7)];
+					base = 2; // on travaille sur cette base mais on pourrait rendre la base aléatoire
+					exp = [randint(1,7)]; // on a besoin de 1 exposant
 					texte = `$\\dfrac{${base**3}\\times ${base}}{${base**2}^${exp[0]}}$`;
-					texte_corr = `$${base}^{${3+1-2*exp[0]}}$`;
+					texte_corr = `$\\dfrac{${base**3}\\times ${base}}{${base**2}^${exp[0]}}$`;
+					texte_corr += `$=\\dfrac{${base}^3\\times ${base}}{(${base}^2)^${exp[0]}}$`;
+					texte_corr += `$=\\dfrac{${base}^{3+1}}{${base}^{2\\times${exp[0]}}}$`;
+					texte_corr += `$=\\dfrac{${base}^{4}}{${base}^{${2*exp[0]}}}$`;
+					texte_corr += `$=${base}^{4-${2*exp[0]}}$`;
+					texte_corr += `$=${base}^{${3+1-2*exp[0]}}$`;
 					break;
 																
 			};
