@@ -96,6 +96,7 @@ var liste_des_exercices_disponibles = {
 		'4N13': Exercice_multiplier_fractions,
 		'4N14': Exercice_diviser_fractions,
 		'4N15': Exercice_additionner_fraction_produit,
+		'4N20': Puissances_d_un_relatif_1,
 		'4R10': Exercice_multiplications_relatifs,
 		'4G10' : Exercice_Pythagore,
 		'4G11' : Reciproque_Pythagore,
