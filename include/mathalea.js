@@ -38,6 +38,9 @@ Les réponses modifient les caractéristiques de l'exercice puis le code LaTeX e
 			if (exercice[i].nb_questions_modifiable){
 				div_parametres_generaux.innerHTML +='<div><label for="form_nb_questions'+i+'">Nombre de questions : </label> <input id="form_nb_questions'+i+'" type="number"  min="1" max="99"></div>'
 			}
+			if (exercice[i].correction_detaillee_disponible){
+				div_parametres_generaux.innerHTML += '<div><label for="form_correction_detaillee'+i+'">Correction détaillée : </label> <input id="form_correction_detaillee'+i+'" type="checkbox" ></div>'
+			}
 		} else {
 			div_parametres_generaux.innerHTML += '<h4 class="ui dividing header">Exercice n°'+ (i+1) +' : '+ exercice[i].titre +'</h4>'
 
@@ -136,7 +139,7 @@ Les réponses modifient les caractéristiques de l'exercice puis le code LaTeX e
 				});
 			}
 
-			// Gestion du nombre de questions
+			// Gestion du nombre de la correction détaillée
 			if (exercice[i].correction_detaillee_disponible){
 				form_correction_detaillee[i] = document.getElementById('form_correction_detaillee'+i);
 				form_correction_detaillee[i].checked = exercice[i].correction_detaillee; // Rempli le formulaire avec la valeur par défaut
@@ -197,6 +200,16 @@ Les réponses modifient les caractéristiques de l'exercice puis le code LaTeX e
 				mise_a_jour_du_code();
 			});
 		}
+
+		// Gestion du nombre de la correction détaillée
+			if (exercice[i].correction_detaillee_disponible){
+				form_correction_detaillee[i] = document.getElementById('form_correction_detaillee'+i);
+				form_correction_detaillee[i].checked = exercice[i].correction_detaillee; // Rempli le formulaire avec la valeur par défaut
+				form_correction_detaillee[i].addEventListener('change', function(e) { // Dès que le statut change, on met à jour
+					exercice[i].correction_detaillee = e.target.checked;
+					mise_a_jour_du_code();
+				});
+			}
 		
 		// Gestion des paramètres supplémentaires s'ils existent
 

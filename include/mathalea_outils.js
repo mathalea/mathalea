@@ -472,7 +472,7 @@ function obtenir_liste_facteurs_premiers(n){
 * @Auteur Rémi Angot
 */
 function calcul(expression){ 
-	return parseFloat(Algebrite.eval(expression))
+	return parseFloat(Algebrite.eval('float('+expression+')'))
 }
 
 /**
