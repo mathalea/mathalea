@@ -57,7 +57,7 @@ var liste_des_exercices_disponibles = {
 		'6N24' : Exercice_6N24,
 		'6N24_1' : Exercice_multiplier_ou_diviser_un_nombre_entier_par_10_100_1000,
 		'6N31' : Comparer_decimaux,
-		'6N32' : Lire_des_abscisses,
+		// '6N32' : Lire_des_abscisses,
 		'6N33' : Fraction_d_un_nombre,
 		'6N33-1' : Pourcentage_d_un_nombre,
 		'6N34' : Reglages_6N34,
