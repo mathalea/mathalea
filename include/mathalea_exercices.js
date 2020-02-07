@@ -389,6 +389,36 @@ function Droite_graduee(){
 
 
 /**
+* Lire l'abscisse fractionnaire d'un point
+* @Auteur Rémi Angot
+*/
+function Droite_graduee(){
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Lire l'abscisse fractionnaire";
+	this.consigne = "Lire l'abscisse des points A, B et C";
+	this.nb_questions = 1;
+	this.nb_questions_modifiable = false;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.type_exercice = 'SVGJS';
+
+
+	this.nouvelle_version = function(numero_de_l_exercice){ // numero_de_l_exercice est 0 pour l'exercice 1
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+
+		this.contenu = html_consigne(this.consigne)
+		this.contenu += `<div id="div_svg${numero_de_l_exercice}" style="width: 90%; height: 200px;  "></div>`
+		//Le div n'étant pas encore créé, on attend qu'il le soit avant d'utiliser SVGJS
+		
+		Reperage_sur_un_axe(numero_de_l_exercice,2,6,4,5,[['A',2,4,true]],[['B',3,5]])
+		this.contenu_correction = ''
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+}
+
+
+/**
 * Conversions de durées.
 * * 1 : H vers min ou H ou min ou Hmin vers s 
 * * 2 : h vers j-h
