@@ -2338,3 +2338,126 @@ function Puissances_d_un_relatif_1(){
 	}
 	
 }
+/**
+* Puissances d'un relatif (2)
+* * L’objectif est de travailler le produit de deux puissances de même exposant
+* * mais aussi certaines connaissances sur les nombres et donc d’utiliser la propriété des puissances de puissances
+* @auteur Sébastien Lozano
+*/
+function Puissances_d_un_relatif_2(){
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.sup = 1 ; 
+	this.titre = "Puissances : Calculs automatisés et règles de calculs (bis)"; 
+	this.consigne = "Écrire sous la forme $\\mathbf{a^n}$.";
+	this.spacing = 2;
+	this.spacing_corr = 2;
+	this.nb_questions = 5;
+	this.nb_cols_corr = 2;
+
+	// fonction pour ne pas avoir l'exposant 0 ou 1, retourne 1, la base ou base^exposant
+	function testExp(b,e) {
+		switch (e) {
+			case 1 : 
+				return ` = ${b}$`;
+				break;
+			case 0 : 
+				return ` = 1$`;
+				break;
+			default : 
+				//return `$ = ${b}^{${e}}$`;						
+				return `$`;
+		};
+	}
+
+	// fonction pour écrire la forme éclatée d'une puissance
+	function eclatePuissance(b,e,couleur) {
+		switch (e) {
+			case 0 :
+				return `\\mathbf{\\color{${couleur}}{1}}`;
+				break;
+			case 1 : 
+				return `\\mathbf{\\color{${couleur}}{${b}}}`;
+				break;
+			default :
+				str = `\\mathbf{\\color{${couleur}}{${b}}} `;
+				for (let i=1; i<e;i++) {
+					str = str + `\\times \\mathbf{\\color{${couleur}}{${b}}}`;
+				 }
+				return str;
+		}
+
+	};
+
+	// fonction pour écrire la forme éclatée d'une puissance
+	function reorganisePuissance(b1,b2,e,couleur1,couleur2) {
+		switch (e) {
+			case 0 :
+				return `1`;
+				break;
+			case 1 : 
+				return `\\mathbf{\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}`;
+				break;
+			default :
+				str = `\\mathbf{(\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}) `;
+				for (let i=1; i<e;i++) {
+					str = str + `\\times (\\mathbf{\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}})`;
+				 }
+				return str;
+		}
+
+	}
+
+	this.nouvelle_version = function(){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+
+		//let type_de_questions_disponibles = [1,2,3,4];
+		let type_de_questions_disponibles = [1,2];
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions);
+
+		for (let i = 0, base ,exp , texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
+			type_de_questions = liste_type_de_questions[i];
+			
+			switch (type_de_questions) {
+				case 1 :
+					base = [randint(2,8,[4,6]),randint(2,8,[4,6])]; // on choisit 2 bases, différentes ou non
+					exp = randint(2,5,6); // on choisit un exposant
+					texte = `$${base[0]}^${exp}\\times ${base[1]}^${exp}$`;
+					texte_corr = `$${base[0]}^${exp}\\times ${base[1]}^${exp}`;
+					texte_corr += `=${eclatePuissance(base[0],exp,'red')} \\times ${eclatePuissance(base[1],exp,'green')}`;
+					texte_corr += `=${reorganisePuissance(base[0],base[1],exp,'red','green')}`;
+					//texte_corr += `=${base[0]}^${exp}\\times ${base[1]}^${exp}$`;
+					texte_corr += ` = (\\color{red}{${base[0]}} \\color{black}{\\times} \\color{green}{${base[1]}}\\color{black}{)^{${exp}}}=${base[0]*base[1]}^${exp}$`;
+					break;
+				case 2 :
+					base = [randint(2,8,[4,6]),randint(2,8,[4,6])]; // on choisit 2 bases, différentes ou non
+					// on choisit un exposant pair sauf 2 on peut aussi directement écrire randint(4,6,[3])
+					while (exp%2!=0) {
+						exp = randint(4,6); 
+					}					
+					texte = `$${base[0]}^{${exp}}\\times ${base[1]*base[1]}^{${exp/2}}$`;
+					texte_corr = `$A =${base[0]}^{${exp}}\\times ${base[1]*base[1]}^{${exp/2}}`;
+					texte_corr += `  = ${base[0]}^{${exp}}\\times (${base[1]}^{2})^{${exp/2}}`;
+					texte_corr += `  = ${base[0]}^{${exp}}\\times ${eclatePuissance(`${base[1]}^{2}`,exp/2,'red')}`;
+					texte_corr += `  = ${base[0]}^{${exp}}\\times ${eclatePuissance(base[1],exp,'red')}`;					
+					texte_corr += `  = ${base[0]}^{${exp}}\\times ${base[1]}^{${exp}}$ </br>$`;					
+					texte_corr += `A =${reorganisePuissance(base[0],base[1],exp,'red','green')}`;
+					texte_corr += `  = (${base[0]}\\times ${base[1]})^{${exp}}`;
+					texte_corr += `  = ${base[0]*base[1]}^{${exp}}$`;
+					break;
+																
+			};
+			
+
+		
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++
+		}
+		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
+	}
+	
+}
