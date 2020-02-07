@@ -198,64 +198,7 @@ function Droite_graduee(){
 		this.contenu += `<div id="div_svg${numero_de_l_exercice}" style="width: 90%; height: 200px;  "></div>`
 		//Le div n'étant pas encore créé, on attend qu'il le soit avant d'utiliser SVGJS
 		
-		let demi_droite = true
-
-		/**
-		* Trace une graduation avec sur le SVG
-		* @param origine la première abscisse de la droite ou demi-droite
-		* @param longueur le nombre d'intervalles entre l'origine et la dernière graduation
-		* @param pas1 le fractionnement de l'unité utilisé : 10 pour 0,1 ; 2 pour 0,5 ...
-		* @param pas2 Idem pas1 pour la petite graduation
-		* @param points_inconnus tableau tableau [Nom,nb_pas1,nb_pas2,affiche_ou_pas]
-		* @param points_connus tableau [valeur,nb_pas1,nb_pas2]
-		* @Auteur Jean-Claude Lhote
-		*/
-		function Reperage_sur_un_axe(origine,longueur,pas1,pas2,points_inconnus,points_connus){
-			let longueur_pas1=600/longueur;
-		 	let longueur_pas2=600/longueur/pas2;
-		 	let distance,valeur,nom
-
-
-			var SVGExist=[]
-			if (demi_droite){
-				SVGExist[numero_de_l_exercice] = setInterval(function() {
-					if ($(`#div_svg${numero_de_l_exercice}`).length ) {
-						$(`#div_svg${numero_de_l_exercice}`).html("");//Vide le div pour éviter les SVG en doublon
-						const mon_svg = SVG().addTo(`#div_svg${numero_de_l_exercice}`).viewbox(0, 0, 800, 200)
-						// Droite 
-						let droite = mon_svg.line(100, 100, 750, 100)
-						droite.stroke({ color: 'black', width: 2, linecap: 'round' })
-		    			// Graduation secondaire
-		    			SVG_graduation(mon_svg,origine,longueur_pas2,750,taille=5,y=100,color='blue',width=2)
-		   			// Graduation principale
-			   			SVG_graduation(mon_svg,origine,longueur_pas1,750,taille=10,y=100,color='black',width=5)
-						// Nombres visibles
-						SVG_label(mon_svg,[[origine,100]])
-						for (i=0;i<points_connus.length;i++) {
-							valeur=points_connus[i][0];
-							distance=longueur_pas1*points_connus[i][1]+longueur_pas2*points_connus[i][2];
-							SVG_label(mon_svg,[[valeur,100+distance,100]])
-						}
-						//Points inconnus
-						for (i=0;i<points_inconnus.length;i++){
-							distance=longueur_pas1*points_inconnus[i][1]+longueur_pas2*points_inconnus[i][2]
-							nom=points_inconnus[i][0]
-							valeur=origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2
-							SVG_tracer_point(mon_svg,100+distance,nom)
-							if (points_inconnus[i][3]==true) SVG_label(mon_svg,[[valeur,100+distance,100]])
-						}
-		        		clearInterval(SVGExist[numero_de_l_exercice]);//Arrête le timer
-		        		}
-				}, 100); // Vérifie toutes les 100ms
-			}
-		}
-
-		Reperage_sur_un_axe(2,6,4,5,[['A',2,4,true]],[['B',3,5]])
-
-		 
-			
-		
-		
+		Reperage_sur_un_axe(numero_de_l_exercice,2,6,4,5,[['A',2,4,true]],[['B',3,5]])
 		this.contenu_correction = ''
 	}
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
