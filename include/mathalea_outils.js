@@ -1101,8 +1101,8 @@ function MG32_tracer_toutes_les_figures() {
 }
 
 
-* Trace une graduation avec sur le SVG
-/**
+
+/** Trace une graduation sur le SVG
 * @param pas
 * @param mon_svg Objet SVG
 * @param derniere_graduation
@@ -1122,11 +1122,12 @@ function SVG_graduation(mon_svg,origine,pas,derniere_graduation,taille=10,y=100,
 function SVG_label(mon_svg,liste_d_abscisses,y=100) {
 	for (let i = 0; i < liste_d_abscisses.length; i++) {
 		let text = mon_svg.text((liste_d_abscisses[i][0]).toString())
-			family:   'Helvetica'
+			
 		text.move(liste_d_abscisses[i][1],y).font({
+			family:   'Helvetica'
 			, size:     20
 			, anchor:   'middle'
-			, leading : -1
+			, leading : 2
 		})
 	}
 }
@@ -1147,20 +1148,20 @@ function SVG_tracer_point(mon_svg,x,nom) {
 		family:   'Helvetica'
 		, size:     20
 		, anchor:   'middle'
-		, leading : 2
+		, leading : -1
 		})
 }
 
 /**
-		* Trace une graduation avec sur le SVG
-		* @param origine la première abscisse de la droite ou demi-droite
-		* @param longueur le nombre d'intervalles entre l'origine et la dernière graduation
-		* @param pas1 le fractionnement de l'unité utilisé : 10 pour 0,1 ; 2 pour 0,5 ...
-		* @param pas2 Idem pas1 pour la petite graduation
-		* @param points_inconnus tableau tableau [Nom,nb_pas1,nb_pas2,affiche_ou_pas]
-		* @param points_connus tableau [valeur,nb_pas1,nb_pas2]
-		* @Auteur Jean-Claude Lhote
-		*/
+* Trace une graduation avec sur le SVG
+* @param origine la première abscisse de la droite ou demi-droite
+* @param longueur le nombre d'intervalles entre l'origine et la dernière graduation
+* @param pas1 le fractionnement de l'unité utilisé : 10 pour 0,1 ; 2 pour 0,5 ...
+* @param pas2 Idem pas1 pour la petite graduation
+* @param points_inconnus tableau tableau [Nom,nb_pas1,nb_pas2,affiche_ou_pas]
+* @param points_connus tableau [valeur,nb_pas1,nb_pas2]
+* @Auteur Jean-Claude Lhote
+*/
 function Reperage_sur_un_axe(numero_de_l_exercice,origine,longueur,pas1,pas2,points_inconnus,points_connus){
 	let longueur_pas1=600/longueur;
  	let longueur_pas2=600/longueur/pas2;
@@ -1171,12 +1172,12 @@ function Reperage_sur_un_axe(numero_de_l_exercice,origine,longueur,pas1,pas2,poi
 			$(`#div_svg${numero_de_l_exercice}`).html("");//Vide le div pour éviter les SVG en doublon
 			const mon_svg = SVG().addTo(`#div_svg${numero_de_l_exercice}`).viewbox(0, 0, 800, 200)
 			// Droite 
-			let droite = mon_svg.line(100, 100, 750, 100)
+			let droite = mon_svg.line(0, 100, 750, 100)
 			droite.stroke({ color: 'black', width: 2, linecap: 'round' })
 			// Graduation secondaire
-			SVG_graduation(mon_svg,origine,longueur_pas2,750,taille=5,y=100,color='blue',width=2)
+			SVG_graduation(mon_svg,100-longueur*longueur_pas1/6,longueur_pas2,750,taille=5,y=100,color='blue',width=2)
 			// Graduation principale
-   			SVG_graduation(mon_svg,origine,longueur_pas1,750,taille=10,y=100,color='black',width=5)
+   			SVG_graduation(mon_svg,100,longueur_pas1,750,taille=10,y=100,color='black',width=5)
 			// Nombres visibles
 			SVG_label(mon_svg,[[origine,100]])
 			for (i=0;i<points_connus.length;i++) {
@@ -1188,7 +1189,7 @@ function Reperage_sur_un_axe(numero_de_l_exercice,origine,longueur,pas1,pas2,poi
 			for (i=0;i<points_inconnus.length;i++){
 				distance=longueur_pas1*points_inconnus[i][1]+longueur_pas2*points_inconnus[i][2]
 				nom=points_inconnus[i][0]
-				valeur=origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2
+				valeur=arrondi(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2,1)
 				SVG_tracer_point(mon_svg,100+distance,nom)
 				if (points_inconnus[i][3]==true) SVG_label(mon_svg,[[valeur,100+distance,100]])
 			}

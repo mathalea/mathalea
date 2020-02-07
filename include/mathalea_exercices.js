@@ -52,6 +52,7 @@ var liste_des_exercices_disponibles = {
 		'6N20' : Exercice_fractions_decomposer,
 		'6N20-2':Exercice_fractions_differentes_ecritures,
 		'6N21' : Droite_graduee,
+		'6N22' : Droite_graduee2,
 		'6N23' : Exercice_ecriture_decimale_a_partir_de_fraction_decimale,
 		'6N23_1' : Exercice_differentes_ecritures_nombres_decimaux,
 		'6N24' : Exercice_6N24,
@@ -320,9 +321,9 @@ function Droite_graduee(){
 				let droite = mon_svg.line(100, 100, 750, 100)
 				droite.stroke({ color: 'black', width: 2, linecap: 'round' })
     			// Graduation secondaire
-    			SVG_graduation(mon_svg,0,100/3,750,taille=5,y=100,color='blue',width=2)
+    			SVG_graduation(mon_svg,100,100/3,750,taille=5,y=100,color='blue',width=2)
     			// Graduation principale
-    			SVG_graduation(mon_svg,0,100,750,taille=10,y=100,color='black',width=5)
+    			SVG_graduation(mon_svg,100,100,750,taille=10,y=100,color='black',width=5)
     			// Nombres visibles
     			SVG_label(mon_svg,[[0,100],[1,200],[5,600]])
     			//Points
@@ -334,54 +335,6 @@ function Droite_graduee(){
         		}
 		}, 100); // Vérifie toutes les 100ms
 		
-		if (this.sup == 1) {//abscisses entière
-			absRef1=randint(0,4); // Premier point de référence (renseigné)
-			absRef2=randint(8,12); // Deuxième point de référence (renseigné)
-			X1=randint(absRef1+1,Math.round((absRef1+absRef2)/2)-1); // Première valeur à trouver (abscisse de M)
-			X2=randint(Math.round((absRef1+absRef2)/2)+1,absRef2-1); // Deuxième valeur à trouver (abscisse de N)
-			// Les entiers sont repérés par des gros points ronds
-			f=2; // division de l'unité (graduations en losanges)
-			f2=2; // subdivision de la première division (graduation en tirets)
-		}
-		if (this.sup == 2) {//abscisses à une décimale
-			absRef1=randint(1,8);
-			absRef2=Math.round(absRef1+3);
-			moyenne=Math.round((absRef1+absRef2)/2+0.5);
-			X1=randint(absRef1+1,moyenne)+randint(-9,-1)*0.1;
-			X2=randint(moyenne,Math.round(absRef2-0.5)-1)+randint(1,9)*0.1;
-			f=10; // division de l'unité (graduations en losanges)
-			f2=2; // subdivision de la première division (graduation en tirets)
-		}
-		if (this.sup == 3) {//abscisse à deux décimales
-			absRef1=randint(1,3)
-			absRef2=absRef1+randint(8,10)*0.1
-			moyenne=arrondi((absRef1+absRef2)/2+0.05,1)
-			X1=moyenne-randint(2,20)*0.01;
-			X2=moyenne+randint(2,20)*0.01;
-			f=10; // division de l'unité (graduations en losanges)
-			f2=10; // subdivision de la première division (graduation en tirets)
-		}
-		if (this.sup == 4) {//anscisse fractionnaire
-			absRef1=randint(0,2);
-			absRef2=randint(4,6);
-			denom=choice([2,3,4,5]);
-			f=denom;
-			f2=2;
-			delta=(absRef2-absRef1);
-			moyenne=absRef1+arrondi(delta/2,0);
-			num1=randint(1,denom*delta/2)+absRef1*denom;
-			num2=moyenne*denom+randint(1,denom*(delta/2-1));
-			X1=`${num1}/${denom}`;
-			X2=`${num2}/${denom}`;
-			console.log(moyenne,delta,X1,X2)
-		}
-		zoom=18/(absRef2-absRef1);  // facteur de zoom (mettre environ 18/(absRef2-absRef1))
-		// Avec un facteur de zoom inférieur le deuxième point (abssRef2) se rapproche, les graduations sont plus serrées
-		t=absRef1; // décalage de l'axe pour voir un peu avant le premier point.
-
-			
-		
-		
 		this.contenu_correction = ''
 	}
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
@@ -392,7 +345,7 @@ function Droite_graduee(){
 * Lire l'abscisse fractionnaire d'un point
 * @Auteur Rémi Angot
 */
-function Droite_graduee(){
+function Droite_graduee2(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Lire l'abscisse fractionnaire";
 	this.consigne = "Lire l'abscisse des points A, B et C";
@@ -411,7 +364,7 @@ function Droite_graduee(){
 		this.contenu += `<div id="div_svg${numero_de_l_exercice}" style="width: 90%; height: 200px;  "></div>`
 		//Le div n'étant pas encore créé, on attend qu'il le soit avant d'utiliser SVGJS
 		
-		Reperage_sur_un_axe(numero_de_l_exercice,2,6,4,5,[['A',2,4,true]],[['B',3,5]])
+		Reperage_sur_un_axe(numero_de_l_exercice,0,6,1,10,[['A',2,2,false],['B',4,7],['C',5,1]],[[1,1,0],[2,2,0],[3,3,0],[4,4,0],[5,5,0],[6,6,0]])
 		this.contenu_correction = ''
 	}
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
