@@ -945,35 +945,63 @@ function Exercice_equation1(){
 	this.titre = "Équation du premier degré"
 	this.consigne = 'Résoudre les équations suivantes'
 	this.spacing = 2;
-	sortie_html ? this.spacing_corr = 4 : this.spacing_corr = 2;
+	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 2;
 	this.correction_detaillee_disponible = true;
 
 	this.nouvelle_version = function(){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
+		liste_type_de_questions = ['ax+b=0','ax+b=c'];
+		liste_type_de_questions = combinaison_listes(liste_type_de_questions,this.nb_questions)
 		for (let i = 0, a, b, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
 			a = randint(2,13);
 			b = randint(1,13);
+			c = randint(1,13);
 			k = choice([[-1,-1],[-1,1],[1,-1],[1,1]]); 
 			a = a*k[0];
 			b = b*k[1];
-			texte = `$${a}x${ecriture_algebrique(b)}=0$`;
-			texte_corr = texte+'<br>';
-			if (this.correction_detaillee) {
-				if (b>0) {
-					texte_corr += `On soustrait $${b}$ aux deux membres.<br>`	
-				} else {
-					texte_corr += `On ajoute $${-1*b}$ aux deux membres.<br>`
+			switch (liste_type_de_questions[i]){
+				case 'ax+b=0':
+				texte = `$${a}x${ecriture_algebrique(b)}=0$`;
+				texte_corr = texte+'<br>';
+				if (this.correction_detaillee) {
+					if (b>0) {
+						texte_corr += `On soustrait $${b}$ aux deux membres.<br>`	
+					} else {
+						texte_corr += `On ajoute $${-1*b}$ aux deux membres.<br>`
+					}
 				}
+				texte_corr += `$${a}x${ecriture_algebrique(b)}${mise_en_evidence(ecriture_algebrique(-1*b))}=0${mise_en_evidence(ecriture_algebrique(-1*b))}$<br>`;
+				texte_corr += `$${a}x=${-1*b}$<br>`
+				if (this.correction_detaillee) {texte_corr += `On divise les deux membres par $${a}$.<br>`}
+				texte_corr += `$${a}x${mise_en_evidence('\\div'+ecriture_parenthese_si_negatif(a))}=${-1*b+mise_en_evidence('\\div'+ecriture_parenthese_si_negatif(a))}$<br>`
+				texte_corr += `$x=${tex_fraction(-1*b,a)}$`
+				if (pgcd(abs(a),abs(b))>1 || a<0){
+					texte_corr += `<br>$x=${tex_fraction_reduite(-1*b,a)}$`
+				}
+				break
+				case 'ax+b=c':
+				texte = `$${a}x${ecriture_algebrique(b)}=${c}$`;
+				texte_corr = texte+'<br>';
+				if (this.correction_detaillee) {
+					if (b>0) {
+						texte_corr += `On soustrait $${b}$ aux deux membres.<br>`	
+					} else {
+						texte_corr += `On ajoute $${-1*b}$ aux deux membres.<br>`
+					}
+				}
+				texte_corr += `$${a}x${ecriture_algebrique(b)}${mise_en_evidence(ecriture_algebrique(-1*b))}=${c}${mise_en_evidence(ecriture_algebrique(-1*b))}$<br>`;
+				texte_corr += `$${a}x=${c-b}$<br>`
+				if (this.correction_detaillee) {texte_corr += `On divise les deux membres par $${a}$.<br>`}
+				texte_corr += `$${a}x${mise_en_evidence('\\div'+ecriture_parenthese_si_negatif(a))}=${c-b+mise_en_evidence('\\div'+ecriture_parenthese_si_negatif(a))}$<br>`
+				texte_corr += `$x=${tex_fraction(c-b,a)}$`
+				if (pgcd(abs(a),abs(c-b))>1 || a<0){
+					texte_corr += `<br>$x=${tex_fraction_reduite(c-b,a)}$`
+				}
+				break
 			}
-			texte_corr += `$${a}x${ecriture_algebrique(b)}${mise_en_evidence(ecriture_algebrique(-1*b))}=0${mise_en_evidence(ecriture_algebrique(-1*b))}$<br>`;
-			texte_corr += `$${a}x=${-1*b}$<br>`
-			if (this.correction_detaillee) {texte_corr += `On divise les deux membres par $${a}$.<br>`}
-			texte_corr += `$${a}x${mise_en_evidence('\\div'+ecriture_parenthese_si_negatif(a))}=${-1*b+mise_en_evidence('\\div'+ecriture_parenthese_si_negatif(a))}$<br>`
-			texte_corr += `$x=${tex_fraction(-1*b,a)}$`
-			if (pgcd(abs(a),abs(b))>1 || a<0){
-				texte_corr += `<br>$x=${tex_fraction_reduite(-1*b,a)}$`
-			}
+
+				
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
