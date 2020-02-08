@@ -51,8 +51,7 @@ var liste_des_exercices_disponibles = {
 		'6N13' : Exercice_6N13,
 		'6N20' : Exercice_fractions_decomposer,
 		'6N20-2':Exercice_fractions_differentes_ecritures,
-		'6N21' : Droite_graduee,
-		'6N22' : Droite_graduee2,
+		// '6N21' : Droite_graduee,
 		'6N23' : Exercice_ecriture_decimale_a_partir_de_fraction_decimale,
 		'6N23_1' : Exercice_differentes_ecritures_nombres_decimaux,
 		'6N24' : Exercice_6N24,
@@ -180,134 +179,134 @@ function Exercice() {
    	this.nouvelle_version = function(){}
 
 }
-function Lire_des_abscisses(){ 
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.pas_de_version_LaTeX = true ;
-	this.titre = "Lire des abscisses"
-	this.consigne = "Retrouver l'abscisse des points demandés."
-	this.spacing = 2;
-	sortie_html ? this.spacing_corr = 3 : this.spacing_corr = 2;
-	this.nb_questions = 1;
-	this.sup=1;
-	this.nb_questions_modifiable = false ;
-	this.type_exercice = 'MG32';
-	this.taille_div_MG32 = [1000,300];
+// function Lire_des_abscisses(){ 
+// 	Exercice.call(this); // Héritage de la classe Exercice()
+// 	this.pas_de_version_LaTeX = true ;
+// 	this.titre = "Lire des abscisses"
+// 	this.consigne = "Retrouver l'abscisse des points demandés."
+// 	this.spacing = 2;
+// 	sortie_html ? this.spacing_corr = 3 : this.spacing_corr = 2;
+// 	this.nb_questions = 1;
+// 	this.sup=1;
+// 	this.nb_questions_modifiable = false ;
+// 	this.type_exercice = 'MG32';
+// 	this.taille_div_MG32 = [1000,300];
 
 
-	this.nouvelle_version = function(numero_de_l_exercice){  
-		this.liste_corrections = []; // Liste de questions corrigées
-		this.nb_questions = 1;
-	this.nb_questions_modifiable = false;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5
-		let X1,X2,zoom,f,f2,t,absRef1,absRef2,moyenne,num1,num2,denom,delta;
+// 	this.nouvelle_version = function(numero_de_l_exercice){  
+// 		this.liste_corrections = []; // Liste de questions corrigées
+// 		this.nb_questions = 1;
+// 	this.nb_questions_modifiable = false;
+// 	this.nb_cols = 1;
+// 	this.nb_cols_corr = 1;
+// 	sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5
+// 		let X1,X2,zoom,f,f2,t,absRef1,absRef2,moyenne,num1,num2,denom,delta;
 
-			this.type_exercice = 'MG32';
-			this.taille_div_MG32 = [1000, 252];
-			this.liste_questions = [];
-			this.liste_corrections = []; // Liste de questions corrigées
+// 			this.type_exercice = 'MG32';
+// 			this.taille_div_MG32 = [1000, 252];
+// 			this.liste_questions = [];
+// 			this.liste_corrections = []; // Liste de questions corrigées
 			
 
-			if (this.sup == 1) {//abscisses entière
-				absRef1=randint(0,4); // Premier point de référence (renseigné)
-				absRef2=randint(8,12); // Deuxième point de référence (renseigné)
-				X1=randint(absRef1+1,Math.round((absRef1+absRef2)/2)-1); // Première valeur à trouver (abscisse de M)
-				X2=randint(Math.round((absRef1+absRef2)/2)+1,absRef2-1); // Deuxième valeur à trouver (abscisse de N)
-				// Les entiers sont repérés par des gros points ronds
-				f=2; // division de l'unité (graduations en losanges)
-				f2=2; // subdivision de la première division (graduation en tirets)
-			}
-			if (this.sup == 2) {//abscisses à une décimale
-				absRef1=randint(1,8);
-				absRef2=Math.round(absRef1+3);
-				moyenne=Math.round((absRef1+absRef2)/2+0.5);
-				X1=randint(absRef1+1,moyenne)+randint(-9,-1)*0.1;
-				X2=randint(moyenne,Math.round(absRef2-0.5)-1)+randint(1,9)*0.1;
-				f=10; // division de l'unité (graduations en losanges)
-				f2=2; // subdivision de la première division (graduation en tirets)
-			}
-			if (this.sup == 3) {//abscisse à deux décimales
-				absRef1=randint(1,3)
-				absRef2=absRef1+randint(8,10)*0.1
-				moyenne=arrondi((absRef1+absRef2)/2+0.05,1)
-				X1=moyenne-randint(2,20)*0.01;
-				X2=moyenne+randint(2,20)*0.01;
-				f=10; // division de l'unité (graduations en losanges)
-				f2=10; // subdivision de la première division (graduation en tirets)
-			}
-			if (this.sup == 4) {//anscisse fractionnaire
-				absRef1=randint(0,2);
-				absRef2=randint(4,6);
-				denom=choice([2,3,4,5]);
-				f=denom;
-				f2=2;
-				delta=(absRef2-absRef1);
-				moyenne=absRef1+arrondi(delta/2,0);
-				num1=randint(1,denom*delta/2)+absRef1*denom;
-				num2=moyenne*denom+randint(1,denom*(delta/2-1));
-				X1=`${num1}/${denom}`;
-				X2=`${num2}/${denom}`;
-				console.log(moyenne,delta,X1,X2)
-			}
-			zoom=18/(absRef2-absRef1);  // facteur de zoom (mettre environ 18/(absRef2-absRef1))
-			// Avec un facteur de zoom inférieur le deuxième point (abssRef2) se rapproche, les graduations sont plus serrées
-			t=absRef1; // décalage de l'axe pour voir un peu avant le premier point.
+// 			if (this.sup == 1) {//abscisses entière
+// 				absRef1=randint(0,4); // Premier point de référence (renseigné)
+// 				absRef2=randint(8,12); // Deuxième point de référence (renseigné)
+// 				X1=randint(absRef1+1,Math.round((absRef1+absRef2)/2)-1); // Première valeur à trouver (abscisse de M)
+// 				X2=randint(Math.round((absRef1+absRef2)/2)+1,absRef2-1); // Deuxième valeur à trouver (abscisse de N)
+// 				// Les entiers sont repérés par des gros points ronds
+// 				f=2; // division de l'unité (graduations en losanges)
+// 				f2=2; // subdivision de la première division (graduation en tirets)
+// 			}
+// 			if (this.sup == 2) {//abscisses à une décimale
+// 				absRef1=randint(1,8);
+// 				absRef2=Math.round(absRef1+3);
+// 				moyenne=Math.round((absRef1+absRef2)/2+0.5);
+// 				X1=randint(absRef1+1,moyenne)+randint(-9,-1)*0.1;
+// 				X2=randint(moyenne,Math.round(absRef2-0.5)-1)+randint(1,9)*0.1;
+// 				f=10; // division de l'unité (graduations en losanges)
+// 				f2=2; // subdivision de la première division (graduation en tirets)
+// 			}
+// 			if (this.sup == 3) {//abscisse à deux décimales
+// 				absRef1=randint(1,3)
+// 				absRef2=absRef1+randint(8,10)*0.1
+// 				moyenne=arrondi((absRef1+absRef2)/2+0.05,1)
+// 				X1=moyenne-randint(2,20)*0.01;
+// 				X2=moyenne+randint(2,20)*0.01;
+// 				f=10; // division de l'unité (graduations en losanges)
+// 				f2=10; // subdivision de la première division (graduation en tirets)
+// 			}
+// 			if (this.sup == 4) {//anscisse fractionnaire
+// 				absRef1=randint(0,2);
+// 				absRef2=randint(4,6);
+// 				denom=choice([2,3,4,5]);
+// 				f=denom;
+// 				f2=2;
+// 				delta=(absRef2-absRef1);
+// 				moyenne=absRef1+arrondi(delta/2,0);
+// 				num1=randint(1,denom*delta/2)+absRef1*denom;
+// 				num2=moyenne*denom+randint(1,denom*(delta/2-1));
+// 				X1=`${num1}/${denom}`;
+// 				X2=`${num2}/${denom}`;
+// 				console.log(moyenne,delta,X1,X2)
+// 			}
+// 			zoom=18/(absRef2-absRef1);  // facteur de zoom (mettre environ 18/(absRef2-absRef1))
+// 			// Avec un facteur de zoom inférieur le deuxième point (abssRef2) se rapproche, les graduations sont plus serrées
+// 			t=absRef1; // décalage de l'axe pour voir un peu avant le premier point.
 
-			if (sortie_html) {
-			let codeBase64 = "TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAAJmcv###wEA#wEAAAAAAAAAAAYfAAADsgAAAQEAAAAAAAAAAQAAAFT#####AAAAAQAKQ0NhbGNDb25zdAD#####AAJwaQAWMy4xNDE1OTI2NTM1ODk3OTMyMzg0Nv####8AAAABAApDQ29uc3RhbnRlQAkh+1RELRj#####AAAAAQAKQ1BvaW50QmFzZQD#####AQAAAAAOAAFVAMAkAAAAAAAAQBAAAAAAAAAFAABAN6tDlYEGJUA3q0OVgQYl#####wAAAAEAFENEcm9pdGVEaXJlY3Rpb25GaXhlAP####8BAAAAABYAAAEAAQAAAAEBP#AAAAAAAAD#####AAAAAQAPQ1BvaW50TGllRHJvaXRlAP####8BAAAAAA4AAVYAwAAAAAAAAABAEAAAAAAAAAUAAUBHq0OVgQYlAAAAAv####8AAAABAAhDU2VnbWVudAD#####AQAAAAAQAAABAAEAAAABAAAAA#####8AAAABAAdDTWlsaWV1AP####8BAAAAABYAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAABAAAAA#####8AAAACAAxDQ29tbWVudGFpcmUA#####wEAAAAAAAAAAAAAAABAGAAAAAAAAAAAAAUMAAAAAAABAAAAAAAAAAEAAAAAAAAAAAABMf####8AAAABAAlDTG9uZ3VldXIA#####wAAAAEAAAADAAAAAgD#####AQAAAAAUAAFaAAAAAAAAAAAAQAgAAAAAAAAIAAFAT4o9cKPXCkBA4UeuFHrhAAAAAwD#####AQAAAAEWAAABAAIAAAAIAT#wAAAAAAAA#####wAAAAEAB0NDYWxjdWwA#####wAEem9vbQAEMTgvNv####8AAAABAApDT3BlcmF0aW9uAwAAAAFAMgAAAAAAAAAAAAFAGAAAAAAAAP####8AAAABABFDUG9pbnRQYXJBYnNjaXNzZQD#####AQAAAAAUAAFXAAAAAAAAAAAAQAgAAAAAAAAIAAAAAAEAAAAD#####wAAAAEAD0NSZXN1bHRhdFZhbGV1cgAAAAr#####AAAAAQAIQ1ZlY3RldXIA#####wEAAAAAEAAAAQACAAAAAQAAAAsA#####wAAAAEADUNUcmFuc1BhclZlY3QA#####wAAAAz#####AAAAAQALQ1BvaW50SW1hZ2UA#####wEAAAAAFAABWAAAAAAAAAAAAEAIAAAAAAAACAAAAAAIAAAADQAAAAkA#####wABdAABMAAAAAEAAAAAAAAAAAAAAAsA#####wEAAAAAFAABTwAAAAAAAAAAAEAIAAAAAAAACAAAAAAIAAAADv####8AAAABAAxDTW9pbnNVbmFpcmUAAAAMAAAADwAAAA8A#####wEAAAAAFAABSQAAAAAAAAAAAEAIAAAAAAAACAAAAAAQAAAADQAAAAkA#####wABZgABMgAAAAFAAAAAAAAAAAAAAAkA#####wACZjIAATIAAAABQAAAAAAAAAAAAAALAP####8BAAAAABQAAkYxAAAAAAAAAAAAQAgAAAAAAAAIAAAAABAAAAARAAAACgMAAAABP#AAAAAAAAAAAAAMAAAAEgAAAAsA#####wEAAAAAFAACRjIAAAAAAAAAAABACAAAAAAAAAgAAAAAEAAAABEAAAAKAwAAAAoDAAAAAT#wAAAAAAAAAAAADAAAABIAAAAMAAAAEwAAAAIA#####wAAAAAAFgAAAEAIAAAAAAAAAAAAAAAAAAAIAABAZgKPXCj1wkCAxhR64UeuAAAACQD#####AAVtaW5pMQABMAAAAAEAAAAAAAAAAAAAAAkA#####wAFbWF4aTEABGYqMTUAAAAKAgAAAAwAAAASAAAAAUAuAAAAAAAA#####wAAAAEAFENJbXBsZW1lbnRhdGlvblByb3RvAP####8AB0N1cnNldXIAAAAFAAAABQAAAAMAAAAXAAAAGAAAABYAAAADAAAAABkBAAAAABYAAAEAAQAAABYBP#AAAAAAAAAAAAAEAQAAABkAAAAAABYAAADACAAAAAAAAD#wAAAAAAAABQAAQF1AAAAAAAAAAAAa#####wAAAAEAC0NIb21vdGhldGllAAAAABkAAAAWAAAACgMAAAAMAAAAFwAAAAoBAAAADAAAABcAAAAMAAAAGAAAAA8AAAAAGQEAAAAADQACTzEAwBAAAAAAAABAEAAAAAAAAAUAAAAAGwAAABwAAAASAAAAABkAAAAWAAAACgMAAAAKAQAAAAE#8AAAAAAAAAAAAAwAAAAXAAAACgEAAAAMAAAAGAAAAAwAAAAXAAAADwAAAAAZAQAAAAANAAJJMQDAAAAAAAAAAEAIAAAAAAAABQAAAAAbAAAAHgAAAAUBAAAAGQAAAAAAEAAAAQACAAAAFgAAABsAAAAEAQAAABkAAAAAARAAAmsxAMAAAAAAAAAAQAAAAAAAAAABAAE#2bWbWbWbWgAAACD#####AAAAAgAPQ01lc3VyZUFic2Npc3NlAQAAABkABWtjdXJzAAAAHQAAAB8AAAAh#####wAAAAEAD0NWYWxldXJBZmZpY2hlZQEAAAAZAAAAAAAAAAAAAAAAAMAYAAAAAAAAAAAAIQ8AAf###wAAAAEAAAACAAAAAQAAAAAAAAAAAAAAAAIAAAAiAAAACQD#####AAFrAA5pbnQoa2N1cnMrMC41Kf####8AAAACAAlDRm9uY3Rpb24CAAAACgAAAAAMAAAAIgAAAAE#4AAAAAAAAAAAAAsA#####wH#AAAAFAACRzAAAAAAAAAAAABACAAAAAAAAAYAAAAAEAAAABQAAAAMAAAAJP####8AAAACABJDTGlldU9iamV0UGFyUHRMaWUA#####wD#AAAAAAAlAAAACgAAAAAKAgAAAAwAAAASAAAAAUAuAAAAAAAAAAAAAT#wAAAAAAAAAAAAIQAAAAQAAAAhAAAAIgAAACQAAAAlAAAAAgD#####AAAAAAAWAAAAQAgAAAAAAAAAAAAAAAAAAAYAAEBl4o9cKPXCQH7MKPXCj1wAAAAJAP####8ABW1pbmkyAAEwAAAAAQAAAAAAAAAAAAAACQD#####AAVtYXhpMgACMTUAAAABQC4AAAAAAAAAAAARAP####8AB0N1cnNldXIAAAAFAAAABQAAAAMAAAAoAAAAKQAAACcAAAADAAAAACoBAAAAABYAAAEAAQAAACcBP#AAAAAAAAAAAAAEAQAAACoAAAAAABYAAADACAAAAAAAAD#wAAAAAAAABQAAQF1AAAAAAAAAAAArAAAAEgAAAAAqAAAAJwAAAAoDAAAADAAAACgAAAAKAQAAAAwAAAAoAAAADAAAACkAAAAPAAAAACoBAAAAAA0AAk8xAMAQAAAAAAAAQBAAAAAAAAAFAAAAACwAAAAtAAAAEgAAAAAqAAAAJwAAAAoDAAAACgEAAAABP#AAAAAAAAAAAAAMAAAAKAAAAAoBAAAADAAAACkAAAAMAAAAKAAAAA8AAAAAKgEAAAAADQACSTEAwAAAAAAAAABACAAAAAAAAAUAAAAALAAAAC8AAAAFAQAAACoAAAAAABAAAAEAAgAAACcAAAAsAAAABAEAAAAqAAAAAAEQAAFrAMAAAAAAAAAAQAAAAAAAAAABAAE#3YnYnYnYngAAADEAAAATAQAAACoABXVjdXJzAAAALgAAADAAAAAyAAAAFAEAAAAqAAAAAAAAAAAAAAAAAMAYAAAAAAAAAAAAMg8AAf###wAAAAEAAAACAAAAAQAAAAAAAAAAAAAAAAIAAAAzAAAACQD#####AAF1AA5pbnQodWN1cnMrMC41KQAAABUCAAAACgAAAAAMAAAAMwAAAAE#4AAAAAAAAAAAAAsA#####wEAAAAAFAACVTAAAAAAAAAAAABACAAAAAAAAAgAAAAAEAAAABEAAAAMAAAANQAAABYA#####wAAAAAAAAA2AAAAAUAwAAAAAAAAAAAAMgAAAAQAAAAyAAAAMwAAADUAAAA2AAAAAgD#####AAAAAAAWAAAAQAgAAAAAAAAAAAAAAAAAAAgAAEBlwo9cKPXCQIJmFHrhR64AAAAJAP####8ABW1pbmkzAAEwAAAAAQAAAAAAAAAAAAAACQD#####AAVtYXhpMwAHMTUqZipmMgAAAAoCAAAACgIAAAABQC4AAAAAAAAAAAAMAAAAEgAAAAwAAAATAAAAEQD#####AAdDdXJzZXVyAAAABQAAAAUAAAADAAAAOQAAADoAAAA4AAAAAwAAAAA7AQAAAAAWAAABAAEAAAA4AT#wAAAAAAAAAAAABAEAAAA7AAAAAAAWAAAAwAgAAAAAAAA#8AAAAAAAAAUAAEBdQAAAAAAAAAAAPAAAABIAAAAAOwAAADgAAAAKAwAAAAwAAAA5AAAACgEAAAAMAAAAOQAAAAwAAAA6AAAADwAAAAA7AQAAAAANAAJPMQDAEAAAAAAAAEAQAAAAAAAABQAAAAA9AAAAPgAAABIAAAAAOwAAADgAAAAKAwAAAAoBAAAAAT#wAAAAAAAAAAAADAAAADkAAAAKAQAAAAwAAAA6AAAADAAAADkAAAAPAAAAADsBAAAAAA0AAkkxAMAAAAAAAAAAQAgAAAAAAAAFAAAAAD0AAABAAAAABQEAAAA7AAAAAAAQAAABAAIAAAA4AAAAPQAAAAQBAAAAOwAAAAABEAACazIAwAAAAAAAAABAAAAAAAAAAAEAAT#hgRgRgRgSAAAAQgAAABMBAAAAOwAGa2tjdXJzAAAAPwAAAEEAAABDAAAAFAEAAAA7AAAAAAAAAAAAAAAAAMAYAAAAAAAAAAAAQw8AAf###wAAAAEAAAACAAAAAQAAAAAAAAAAAAAAAAIAAABEAAAACQD#####AAJrawAPaW50KGtrY3VycyswLjUpAAAAFQIAAAAKAAAAAAwAAABEAAAAAT#gAAAAAAAAAAAACwD#####AQD#AAAUAAJTMAAAAAAAAAAAAEAIAAAAAAAAAgAAAAAQAAAAFQAAAAwAAABGAAAAFgD#####AAB#AAAAAEcAAAAKAgAAAAoCAAAAAUAuAAAAAAAAAAAADAAAABIAAAAMAAAAEwAAAEMAAAAEAAAAQwAAAEQAAABGAAAARwAAAAkA#####wACWDEAATMAAAABQAgAAAAAAAAAAAAJAP####8AAlgyAAE2AAAAAUAYAAAAAAAAAAAACwD#####AAAAAAAUAAFNAMAgAAAAAAAAwD8AAAAAAAAJAAAAABAAAAARAAAADAAAAEkAAAALAP####8AAAAAABQAAU4AwCAAAAAAAADAQAAAAAAAAAkAAAAAEAAAABEAAAAMAAAASv####8AAAABAA1DRGVtaURyb2l0ZU9BAP####8AAAAAAA0AAAEAAgAAABAAAAARAAAACQD#####AAdhYnNSZWYxAAMyLjUAAAABQAQAAAAAAAAAAAAJAP####8AB2Fic1JlZjIABTYrMS8zAAAACgAAAAABQBgAAAAAAAAAAAAKAwAAAAE#8AAAAAAAAAAAAAFACAAAAAAAAAAAAAsA#####wAAAAAAFAABSwDAIgAAAAAAAMA+AAAAAAAACQAAAAAQAAAAEQAAAAwAAABOAAAACwD#####AAAAAAAUAAFMAMAYAAAAAAAAwD8AAAAAAAAJAAAAABAAAAARAAAADAAAAE######AAAAAgAGQ0xhdGV4AP####8AAAAAAEAIAAAAAAAAQAf#######AAAABREAAAAAAAAQAAAAAAAAABAAAAAAAAAAAAEVxGb3JTaW1we2Fic1JlZjJ9AAAAGAD#####AAAAAADAIgAAAAAAAEAmAAAAAAAAAAAAUBAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAABFcRm9yU2ltcHthYnNSZWYxfQAAAAf##########w=="
-			this.type_exercice = 'MG32';
-			this.MG32codeBase64 = codeBase64
-			this.MG32code_pour_modifier_la_figure = `
-			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "zoom", "${zoom}");
-		    mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "X1", "${X1}");
-			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "X2", "${X2}");
-			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "f", "${f}");
-		    mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "f2", "${f2}");
-			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "t", "${t}");
-			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "absRef1", "${absRef1}");
-			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "absRef2", "${absRef2}");
-			mtg32App.calculate("MG32svg${numero_de_l_exercice}");
-	        mtg32App.display("MG32svg${numero_de_l_exercice}");
-			`
-			texte = `Quelles sont les abscisses des points $M$ et $N$ ?.`
+// 			if (sortie_html) {
+// 			let codeBase64 = "TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAAJmcv###wEA#wEAAAAAAAAAAAYfAAADsgAAAQEAAAAAAAAAAQAAAFT#####AAAAAQAKQ0NhbGNDb25zdAD#####AAJwaQAWMy4xNDE1OTI2NTM1ODk3OTMyMzg0Nv####8AAAABAApDQ29uc3RhbnRlQAkh+1RELRj#####AAAAAQAKQ1BvaW50QmFzZQD#####AQAAAAAOAAFVAMAkAAAAAAAAQBAAAAAAAAAFAABAN6tDlYEGJUA3q0OVgQYl#####wAAAAEAFENEcm9pdGVEaXJlY3Rpb25GaXhlAP####8BAAAAABYAAAEAAQAAAAEBP#AAAAAAAAD#####AAAAAQAPQ1BvaW50TGllRHJvaXRlAP####8BAAAAAA4AAVYAwAAAAAAAAABAEAAAAAAAAAUAAUBHq0OVgQYlAAAAAv####8AAAABAAhDU2VnbWVudAD#####AQAAAAAQAAABAAEAAAABAAAAA#####8AAAABAAdDTWlsaWV1AP####8BAAAAABYAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAABAAAAA#####8AAAACAAxDQ29tbWVudGFpcmUA#####wEAAAAAAAAAAAAAAABAGAAAAAAAAAAAAAUMAAAAAAABAAAAAAAAAAEAAAAAAAAAAAABMf####8AAAABAAlDTG9uZ3VldXIA#####wAAAAEAAAADAAAAAgD#####AQAAAAAUAAFaAAAAAAAAAAAAQAgAAAAAAAAIAAFAT4o9cKPXCkBA4UeuFHrhAAAAAwD#####AQAAAAEWAAABAAIAAAAIAT#wAAAAAAAA#####wAAAAEAB0NDYWxjdWwA#####wAEem9vbQAEMTgvNv####8AAAABAApDT3BlcmF0aW9uAwAAAAFAMgAAAAAAAAAAAAFAGAAAAAAAAP####8AAAABABFDUG9pbnRQYXJBYnNjaXNzZQD#####AQAAAAAUAAFXAAAAAAAAAAAAQAgAAAAAAAAIAAAAAAEAAAAD#####wAAAAEAD0NSZXN1bHRhdFZhbGV1cgAAAAr#####AAAAAQAIQ1ZlY3RldXIA#####wEAAAAAEAAAAQACAAAAAQAAAAsA#####wAAAAEADUNUcmFuc1BhclZlY3QA#####wAAAAz#####AAAAAQALQ1BvaW50SW1hZ2UA#####wEAAAAAFAABWAAAAAAAAAAAAEAIAAAAAAAACAAAAAAIAAAADQAAAAkA#####wABdAABMAAAAAEAAAAAAAAAAAAAAAsA#####wEAAAAAFAABTwAAAAAAAAAAAEAIAAAAAAAACAAAAAAIAAAADv####8AAAABAAxDTW9pbnNVbmFpcmUAAAAMAAAADwAAAA8A#####wEAAAAAFAABSQAAAAAAAAAAAEAIAAAAAAAACAAAAAAQAAAADQAAAAkA#####wABZgABMgAAAAFAAAAAAAAAAAAAAAkA#####wACZjIAATIAAAABQAAAAAAAAAAAAAALAP####8BAAAAABQAAkYxAAAAAAAAAAAAQAgAAAAAAAAIAAAAABAAAAARAAAACgMAAAABP#AAAAAAAAAAAAAMAAAAEgAAAAsA#####wEAAAAAFAACRjIAAAAAAAAAAABACAAAAAAAAAgAAAAAEAAAABEAAAAKAwAAAAoDAAAAAT#wAAAAAAAAAAAADAAAABIAAAAMAAAAEwAAAAIA#####wAAAAAAFgAAAEAIAAAAAAAAAAAAAAAAAAAIAABAZgKPXCj1wkCAxhR64UeuAAAACQD#####AAVtaW5pMQABMAAAAAEAAAAAAAAAAAAAAAkA#####wAFbWF4aTEABGYqMTUAAAAKAgAAAAwAAAASAAAAAUAuAAAAAAAA#####wAAAAEAFENJbXBsZW1lbnRhdGlvblByb3RvAP####8AB0N1cnNldXIAAAAFAAAABQAAAAMAAAAXAAAAGAAAABYAAAADAAAAABkBAAAAABYAAAEAAQAAABYBP#AAAAAAAAAAAAAEAQAAABkAAAAAABYAAADACAAAAAAAAD#wAAAAAAAABQAAQF1AAAAAAAAAAAAa#####wAAAAEAC0NIb21vdGhldGllAAAAABkAAAAWAAAACgMAAAAMAAAAFwAAAAoBAAAADAAAABcAAAAMAAAAGAAAAA8AAAAAGQEAAAAADQACTzEAwBAAAAAAAABAEAAAAAAAAAUAAAAAGwAAABwAAAASAAAAABkAAAAWAAAACgMAAAAKAQAAAAE#8AAAAAAAAAAAAAwAAAAXAAAACgEAAAAMAAAAGAAAAAwAAAAXAAAADwAAAAAZAQAAAAANAAJJMQDAAAAAAAAAAEAIAAAAAAAABQAAAAAbAAAAHgAAAAUBAAAAGQAAAAAAEAAAAQACAAAAFgAAABsAAAAEAQAAABkAAAAAARAAAmsxAMAAAAAAAAAAQAAAAAAAAAABAAE#2bWbWbWbWgAAACD#####AAAAAgAPQ01lc3VyZUFic2Npc3NlAQAAABkABWtjdXJzAAAAHQAAAB8AAAAh#####wAAAAEAD0NWYWxldXJBZmZpY2hlZQEAAAAZAAAAAAAAAAAAAAAAAMAYAAAAAAAAAAAAIQ8AAf###wAAAAEAAAACAAAAAQAAAAAAAAAAAAAAAAIAAAAiAAAACQD#####AAFrAA5pbnQoa2N1cnMrMC41Kf####8AAAACAAlDRm9uY3Rpb24CAAAACgAAAAAMAAAAIgAAAAE#4AAAAAAAAAAAAAsA#####wH#AAAAFAACRzAAAAAAAAAAAABACAAAAAAAAAYAAAAAEAAAABQAAAAMAAAAJP####8AAAACABJDTGlldU9iamV0UGFyUHRMaWUA#####wD#AAAAAAAlAAAACgAAAAAKAgAAAAwAAAASAAAAAUAuAAAAAAAAAAAAAT#wAAAAAAAAAAAAIQAAAAQAAAAhAAAAIgAAACQAAAAlAAAAAgD#####AAAAAAAWAAAAQAgAAAAAAAAAAAAAAAAAAAYAAEBl4o9cKPXCQH7MKPXCj1wAAAAJAP####8ABW1pbmkyAAEwAAAAAQAAAAAAAAAAAAAACQD#####AAVtYXhpMgACMTUAAAABQC4AAAAAAAAAAAARAP####8AB0N1cnNldXIAAAAFAAAABQAAAAMAAAAoAAAAKQAAACcAAAADAAAAACoBAAAAABYAAAEAAQAAACcBP#AAAAAAAAAAAAAEAQAAACoAAAAAABYAAADACAAAAAAAAD#wAAAAAAAABQAAQF1AAAAAAAAAAAArAAAAEgAAAAAqAAAAJwAAAAoDAAAADAAAACgAAAAKAQAAAAwAAAAoAAAADAAAACkAAAAPAAAAACoBAAAAAA0AAk8xAMAQAAAAAAAAQBAAAAAAAAAFAAAAACwAAAAtAAAAEgAAAAAqAAAAJwAAAAoDAAAACgEAAAABP#AAAAAAAAAAAAAMAAAAKAAAAAoBAAAADAAAACkAAAAMAAAAKAAAAA8AAAAAKgEAAAAADQACSTEAwAAAAAAAAABACAAAAAAAAAUAAAAALAAAAC8AAAAFAQAAACoAAAAAABAAAAEAAgAAACcAAAAsAAAABAEAAAAqAAAAAAEQAAFrAMAAAAAAAAAAQAAAAAAAAAABAAE#3YnYnYnYngAAADEAAAATAQAAACoABXVjdXJzAAAALgAAADAAAAAyAAAAFAEAAAAqAAAAAAAAAAAAAAAAAMAYAAAAAAAAAAAAMg8AAf###wAAAAEAAAACAAAAAQAAAAAAAAAAAAAAAAIAAAAzAAAACQD#####AAF1AA5pbnQodWN1cnMrMC41KQAAABUCAAAACgAAAAAMAAAAMwAAAAE#4AAAAAAAAAAAAAsA#####wEAAAAAFAACVTAAAAAAAAAAAABACAAAAAAAAAgAAAAAEAAAABEAAAAMAAAANQAAABYA#####wAAAAAAAAA2AAAAAUAwAAAAAAAAAAAAMgAAAAQAAAAyAAAAMwAAADUAAAA2AAAAAgD#####AAAAAAAWAAAAQAgAAAAAAAAAAAAAAAAAAAgAAEBlwo9cKPXCQIJmFHrhR64AAAAJAP####8ABW1pbmkzAAEwAAAAAQAAAAAAAAAAAAAACQD#####AAVtYXhpMwAHMTUqZipmMgAAAAoCAAAACgIAAAABQC4AAAAAAAAAAAAMAAAAEgAAAAwAAAATAAAAEQD#####AAdDdXJzZXVyAAAABQAAAAUAAAADAAAAOQAAADoAAAA4AAAAAwAAAAA7AQAAAAAWAAABAAEAAAA4AT#wAAAAAAAAAAAABAEAAAA7AAAAAAAWAAAAwAgAAAAAAAA#8AAAAAAAAAUAAEBdQAAAAAAAAAAAPAAAABIAAAAAOwAAADgAAAAKAwAAAAwAAAA5AAAACgEAAAAMAAAAOQAAAAwAAAA6AAAADwAAAAA7AQAAAAANAAJPMQDAEAAAAAAAAEAQAAAAAAAABQAAAAA9AAAAPgAAABIAAAAAOwAAADgAAAAKAwAAAAoBAAAAAT#wAAAAAAAAAAAADAAAADkAAAAKAQAAAAwAAAA6AAAADAAAADkAAAAPAAAAADsBAAAAAA0AAkkxAMAAAAAAAAAAQAgAAAAAAAAFAAAAAD0AAABAAAAABQEAAAA7AAAAAAAQAAABAAIAAAA4AAAAPQAAAAQBAAAAOwAAAAABEAACazIAwAAAAAAAAABAAAAAAAAAAAEAAT#hgRgRgRgSAAAAQgAAABMBAAAAOwAGa2tjdXJzAAAAPwAAAEEAAABDAAAAFAEAAAA7AAAAAAAAAAAAAAAAAMAYAAAAAAAAAAAAQw8AAf###wAAAAEAAAACAAAAAQAAAAAAAAAAAAAAAAIAAABEAAAACQD#####AAJrawAPaW50KGtrY3VycyswLjUpAAAAFQIAAAAKAAAAAAwAAABEAAAAAT#gAAAAAAAAAAAACwD#####AQD#AAAUAAJTMAAAAAAAAAAAAEAIAAAAAAAAAgAAAAAQAAAAFQAAAAwAAABGAAAAFgD#####AAB#AAAAAEcAAAAKAgAAAAoCAAAAAUAuAAAAAAAAAAAADAAAABIAAAAMAAAAEwAAAEMAAAAEAAAAQwAAAEQAAABGAAAARwAAAAkA#####wACWDEAATMAAAABQAgAAAAAAAAAAAAJAP####8AAlgyAAE2AAAAAUAYAAAAAAAAAAAACwD#####AAAAAAAUAAFNAMAgAAAAAAAAwD8AAAAAAAAJAAAAABAAAAARAAAADAAAAEkAAAALAP####8AAAAAABQAAU4AwCAAAAAAAADAQAAAAAAAAAkAAAAAEAAAABEAAAAMAAAASv####8AAAABAA1DRGVtaURyb2l0ZU9BAP####8AAAAAAA0AAAEAAgAAABAAAAARAAAACQD#####AAdhYnNSZWYxAAMyLjUAAAABQAQAAAAAAAAAAAAJAP####8AB2Fic1JlZjIABTYrMS8zAAAACgAAAAABQBgAAAAAAAAAAAAKAwAAAAE#8AAAAAAAAAAAAAFACAAAAAAAAAAAAAsA#####wAAAAAAFAABSwDAIgAAAAAAAMA+AAAAAAAACQAAAAAQAAAAEQAAAAwAAABOAAAACwD#####AAAAAAAUAAFMAMAYAAAAAAAAwD8AAAAAAAAJAAAAABAAAAARAAAADAAAAE######AAAAAgAGQ0xhdGV4AP####8AAAAAAEAIAAAAAAAAQAf#######AAAABREAAAAAAAAQAAAAAAAAABAAAAAAAAAAAAEVxGb3JTaW1we2Fic1JlZjJ9AAAAGAD#####AAAAAADAIgAAAAAAAEAmAAAAAAAAAAAAUBAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAABFcRm9yU2ltcHthYnNSZWYxfQAAAAf##########w=="
+// 			this.type_exercice = 'MG32';
+// 			this.MG32codeBase64 = codeBase64
+// 			this.MG32code_pour_modifier_la_figure = `
+// 			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "zoom", "${zoom}");
+// 		    mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "X1", "${X1}");
+// 			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "X2", "${X2}");
+// 			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "f", "${f}");
+// 		    mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "f2", "${f2}");
+// 			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "t", "${t}");
+// 			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "absRef1", "${absRef1}");
+// 			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "absRef2", "${absRef2}");
+// 			mtg32App.calculate("MG32svg${numero_de_l_exercice}");
+// 	        mtg32App.display("MG32svg${numero_de_l_exercice}");
+// 			`
+// 			texte = `Quelles sont les abscisses des points $M$ et $N$ ?.`
 	
-			if (this.sup<4) {
-				texte_corr = `L'abscisse du point $M$ est $${tex_nombre(X1)}$ et celle du point N est $${tex_nombre(X2)}$.`
-			}
-			else {
-				texte_corr = `L'abscisse du point $M$ est $${tex_fraction(num1,denom)}$`;
-				if (pgcd(num1,denom)!=1) texte_corr+=` ou $${tex_fraction_reduite(num1,denom)}$`;
-				texte_corr+=` et celle du point N est $${tex_fraction(num2,denom)}$`;
-				if (pgcd(num2,denom)!=1) texte_corr+=` ou $${tex_fraction_reduite(num2,denom)}$`;
-			}
-			this.liste_questions.push(texte);
-			this.liste_corrections.push(texte_corr);
+// 			if (this.sup<4) {
+// 				texte_corr = `L'abscisse du point $M$ est $${tex_nombre(X1)}$ et celle du point N est $${tex_nombre(X2)}$.`
+// 			}
+// 			else {
+// 				texte_corr = `L'abscisse du point $M$ est $${tex_fraction(num1,denom)}$`;
+// 				if (pgcd(num1,denom)!=1) texte_corr+=` ou $${tex_fraction_reduite(num1,denom)}$`;
+// 				texte_corr+=` et celle du point N est $${tex_fraction(num2,denom)}$`;
+// 				if (pgcd(num2,denom)!=1) texte_corr+=` ou $${tex_fraction_reduite(num2,denom)}$`;
+// 			}
+// 			this.liste_questions.push(texte);
+// 			this.liste_corrections.push(texte_corr);
 
-				liste_de_question_to_contenu(this)
-		}
-	}
-	this.besoin_formulaire_numerique = ['Niveau de difficulté', 4, '1 : Abscisse entière \n2 : Abscisse au dixième près\n3 : Abscisse au centième \n4 : Abscisse fractionnaire'];
-}
+// 				liste_de_question_to_contenu(this)
+// 		}
+// 	}
+// 	this.besoin_formulaire_numerique = ['Niveau de difficulté', 4, '1 : Abscisse entière \n2 : Abscisse au dixième près\n3 : Abscisse au centième \n4 : Abscisse fractionnaire'];
+// }
 
-/**
-* Lire l'abscisse fractionnaire d'un point
-* @Auteur Rémi Angot
-*/
-function Droite_graduee(){
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Lire l'abscisse fractionnaire";
-	this.consigne = "Lire l'abscisse des points A, B et C";
-	this.nb_questions = 1;
-	this.nb_questions_modifiable = false;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	this.type_exercice = 'SVGJS';
+// /**
+// * Lire l'abscisse fractionnaire d'un point
+// * @Auteur Rémi Angot
+// */
+// function Droite_graduee(){
+// 	Exercice.call(this); // Héritage de la classe Exercice()
+// 	this.titre = "Lire l'abscisse fractionnaire";
+// 	this.consigne = "Lire l'abscisse des points A, B et C";
+// 	this.nb_questions = 1;
+// 	this.nb_questions_modifiable = false;
+// 	this.nb_cols = 1;
+// 	this.nb_cols_corr = 1;
+// 	this.type_exercice = 'SVGJS';
 
 
-	this.nouvelle_version = function(numero_de_l_exercice){ // numero_de_l_exercice est 0 pour l'exercice 1
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
+// 	this.nouvelle_version = function(numero_de_l_exercice){ // numero_de_l_exercice est 0 pour l'exercice 1
+// 		this.liste_questions = []; // Liste de questions
+// 		this.liste_corrections = []; // Liste de questions corrigées
 
 		this.contenu = html_consigne(this.consigne)
 		this.contenu += `<div id="div_svg${numero_de_l_exercice}" style="width: 90%; height: 200px;  "></div>`
@@ -331,9 +330,9 @@ function Droite_graduee(){
     			SVG_tracer_point(mon_svg,200+2*100/3,'B')
     			SVG_tracer_point(mon_svg,500,'C')
 
-        		clearInterval(SVGExist[numero_de_l_exercice]);//Arrête le timer
-        		}
-		}, 100); // Vérifie toutes les 100ms
+//         		clearInterval(SVGExist[numero_de_l_exercice]);//Arrête le timer
+//         		}
+// 		}, 100); // Vérifie toutes les 100ms
 		
 		this.contenu_correction = ''
 	}
@@ -364,7 +363,7 @@ function Droite_graduee2(){
 		this.contenu = html_consigne(this.consigne)
 		this.contenu += `<div id="div_svg${numero_de_l_exercice}" style="width: 90%; height: 200px;  "></div>`
 		
-		Reperage_sur_un_axe(numero_de_l_exercice,0,6,1,10,[['A',randint(0,2),randint(1,9),false],['B',randint(3,4),randint(1,9)],['C',randint(5,6),randint(1,4)]],[[1,1,0],[2,2,0],[3,3,0],[4,4,0],[5,5,0],[6,6,0]])
+		
 		this.contenu_correction = ''
 	}
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
