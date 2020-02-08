@@ -453,8 +453,7 @@ function simplification_de_fraction_avec_etapes(num,den){
 
 function quatrieme_proportionnelle(a,b,c,precision) { //calcul de b*c/a
 let result=``
-console.log(a,b,c)
-if ((typeof a)=="number"&&(typeof b)=="number"&&(typeof c)==number) {
+if ((typeof a)=="number"&&(typeof b)=="number"&&(typeof c)=="number") {
 	if (a==0) { 
 		result='=erreur : division par zéro'
 		return result
