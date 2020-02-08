@@ -297,7 +297,7 @@ function Droite_graduee(){
 	this.titre = "Lire l'abscisse fractionnaire";
 	this.consigne = "Lire l'abscisse des points A, B et C";
 	this.nb_questions = 3;
-	this.nb_questions_modifiable = false;
+	this.nb_questions_modifiable = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup=1;
@@ -322,22 +322,20 @@ function Droite_graduee(){
 			abs1=arrondi(abs0+x1+x11/10,1);
 			abs2=arrondi(abs0+x2+x22/10,1);
 			abs3=arrondi(abs0+x3+x33/10,1);
-			this.contenu += `<div id="div_svg${numero_de_l_exercice}1" style="width: 90%; height: 200px;  "></div>`
-			SVG_reperage_sur_un_axe(`div_svg${numero_de_l_exercice}1`,abs1,6,pas1,pas2,[['A',x1,x11],['B',x2,x22],['C',x3,x33]],[[abs1+1,1,0],[abs1+2,2,0],[abs1+3,3,0],[abs1+4,4,0],[abs1+5,5,0],[abs1+6,6,0]])
+			this.contenu += `<div id="div_svg${numero_de_l_exercice}${i}" style="width: 90%; height: 200px;  "></div>`
+			SVG_reperage_sur_un_axe(`div_svg${numero_de_l_exercice}${i}`,abs0,6,pas1,pas2,[['A',x1,x11],['B',x2,x22],['C',x3,x33]],[[abs0+1,1,0],[abs0+2,2,0],[abs0+3,3,0],[abs0+4,4,0],[abs0+5,5,0],[abs0+6,6,0]])
 			break;
 		}
 
 		// this.contenu += `<div id="div_svg${numero_de_l_exercice}1" style="width: 90%; height: 200px;  "></div>`
 		// SVG_reperage_sur_un_axe(`div_svg${numero_de_l_exercice}1`,0,6,1,10,[['A',randint(0,2),randint(1,9),false],['B',randint(3,4),randint(1,9)],['C',randint(5,6),randint(1,4)]],[[1,1,0],[2,2,0],[3,3,0],[4,4,0],[5,5,0],[6,6,0]])
-		// this.contenu += `<div id="div_svg${numero_de_l_exercice}2" style="width: 90%; height: 200px;  "></div>`
-		// SVG_reperage_sur_un_axe(`div_svg${numero_de_l_exercice}2`,0,6,1,10,[['A',randint(0,2),randint(1,9),false],['B',randint(3,4),randint(1,9)],['C',randint(5,6),randint(1,4)]],[[1,1,0],[2,2,0],[3,3,0],[4,4,0],[5,5,0],[6,6,0]])
 		
-		this.contenu_correction = `<div id="div_svg_corr${numero_de_l_exercice}1" style="width: 90%; height: 200px;  "></div>`
-		SVG_reperage_sur_un_axe(`div_svg${numero_de_l_exercice}1`,abs1,6,pas1,pas2,[['A',x1,x11,true],['B',x2,x22,true],['C',x3,x33,true]],[[1,1,0],[2,2,0],[3,3,0],[4,4,0],[5,5,0],[6,6,0]])
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+		this.contenu_correction = `<div id="div_svg_corr${numero_de_l_exercice}${i}" style="width: 90%; height: 200px;  "></div>`
+		SVG_reperage_sur_un_axe(`div_svg_corr${numero_de_l_exercice}${i}`,abs0,6,pas1,pas2,[['A',x1,x11,true],['B',x2,x22,true],['C',x3,x33,true]],[[abs0+1,1,0],[abs0+2,2,0],[abs0+3,3,0],[abs0+4,4,0],[abs0+5,5,0],[abs0+6,6,0]])
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 
 	}
-
+console.log(this.contenu)
 }
 }
 

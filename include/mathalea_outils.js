@@ -1124,15 +1124,15 @@ function SVG_graduation(mon_svg,origine,pas,derniere_graduation,taille=10,y=100,
 	}
 }
 
-function SVG_label(mon_svg,liste_d_abscisses,y=100) {
+function SVG_label(mon_svg,liste_d_abscisses,y) {
 	for (let i = 0; i < liste_d_abscisses.length; i++) {
 		let text = mon_svg.text((liste_d_abscisses[i][0]).toString())
-			
-		text.move(liste_d_abscisses[i][1],y).font({
+		y=parseInt(y);	
+		text.move(liste_d_abscisses[i][1],100).font({
 			family:   'Helvetica'
 			, size:     20
 			, anchor:   'middle'
-			, leading : 2
+			, leading : y
 		})
 	}
 }
@@ -1185,19 +1185,19 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 			// Graduation principale
    			SVG_graduation(mon_svg,100,longueur_pas1,750,taille=10,y=100,color='black',width=5)
 			// Nombres visibles
-			SVG_label(mon_svg,[[origine,100]])
+			SVG_label(mon_svg,[[origine,100]],2)
 			for (i=0;i<points_connus.length;i++) {
 				valeur=points_connus[i][0];
 				distance=longueur_pas1*points_connus[i][1]+longueur_pas2*points_connus[i][2];
-				SVG_label(mon_svg,[[valeur,100+distance,100]])
+				SVG_label(mon_svg,[[valeur,100+distance,100]],2)
 			}
 			//Points inconnus
 			for (i=0;i<points_inconnus.length;i++){
 				distance=longueur_pas1*points_inconnus[i][1]+longueur_pas2*points_inconnus[i][2]
 				nom=points_inconnus[i][0]
-				valeur=arrondi(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2,1)
+				valeur=arrondi_virgule(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2,1)
 				SVG_tracer_point(mon_svg,100+distance,nom)
-				if (points_inconnus[i][3]==true) SVG_label(mon_svg,[[valeur,100+distance,100]])
+				if (points_inconnus[i][3]==true) SVG_label(mon_svg,[[valeur,100+distance,100]],3)
 			}
     		clearInterval(SVGExist[id_du_div]);//Arrête le timer
     		}
