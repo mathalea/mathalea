@@ -453,6 +453,7 @@ function simplification_de_fraction_avec_etapes(num,den){
 
 function quatrieme_proportionnelle(a,b,c,precision) { //calcul de b*c/a
 let result=``
+console.log(a,b,c)
 if ((typeof a)=="number"&&(typeof b)=="number"&&(typeof c)==number) {
 	if (a==0) { 
 		result='=erreur : division par zéro'
@@ -776,7 +777,7 @@ function html_enumerate(liste,spacing){
 	let result='';
 	(spacing>1) ? result =`<ol style="line-height: ${spacing};">` : result = '<ol>'
 	for(let i in liste){
-		result += '<li>' + liste[i].replace(/\\dotfill/g,'..............................').replace(/\\not=/g,'≠').replace(/\\ldots/g,'....').replace(/~/g,' ') + '</li>'   // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+		result += '<li>' + liste[i].replace(/\\dotfill/g,'..............................').replace(/\\not=/g,'≠').replace(/\\ldots/g,'....') + '</li>'   // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
 	}
 	result += '</ol>'
 	return result
@@ -795,7 +796,7 @@ function html_ligne(liste,spacing){
 		result = `<div style="line-height: ${spacing};">\n`
 	}
 	for(let i in liste){
-		result += '\t' + liste[i].replace(/\\dotfill/g,'...').replace(/~/g,' ') + '<br>'   // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+		result += '\t' + liste[i].replace(/\\dotfill/g,'...') + '<br>'   // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
 		// .replace(/\\\\/g,'<br>') abandonné pour supporter les array
 	}
 
