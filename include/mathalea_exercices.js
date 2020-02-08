@@ -360,11 +360,11 @@ function Droite_graduee2(){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 
+
 		this.contenu = html_consigne(this.consigne)
 		this.contenu += `<div id="div_svg${numero_de_l_exercice}" style="width: 90%; height: 200px;  "></div>`
-		//Le div n'étant pas encore créé, on attend qu'il le soit avant d'utiliser SVGJS
 		
-		Reperage_sur_un_axe(numero_de_l_exercice,0,6,1,10,[['A',2,2,false],['B',4,7],['C',5,1]],[[1,1,0],[2,2,0],[3,3,0],[4,4,0],[5,5,0],[6,6,0]])
+		Reperage_sur_un_axe(numero_de_l_exercice,0,3,10,10,[['A',randint(0,2),randint(1,9),false],['B',randint(3,4),randint(1,9)],['C',randint(5,6),randint(1,4)]],[[1,1,0],[2,2,0],[3,3,0],[4,4,0],[5,5,0],[6,6,0]])
 		this.contenu_correction = ''
 	}
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
