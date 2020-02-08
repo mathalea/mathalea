@@ -177,7 +177,7 @@ function Exercice() {
 
 /**
 * Lire l'abscisse fractionnaire d'un point
-* @Auteur Rémi Angot
+* @Auteur Jean-Claude Lhote et Rémi Angot
 */
 function Droite_graduee(){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -194,12 +194,15 @@ function Droite_graduee(){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 
+
 		this.contenu = html_consigne(this.consigne)
-		this.contenu += `<div id="div_svg${numero_de_l_exercice}" style="width: 90%; height: 200px;  "></div>`
-		//Le div n'étant pas encore créé, on attend qu'il le soit avant d'utiliser SVGJS
+		this.contenu += `<div id="div_svg${numero_de_l_exercice}1" style="width: 90%; height: 200px;  "></div>`
+		SVG_reperage_sur_un_axe(`div_svg${numero_de_l_exercice}1`,0,6,1,10,[['A',randint(0,2),randint(1,9),false],['B',randint(3,4),randint(1,9)],['C',randint(5,6),randint(1,4)]],[[1,1,0],[2,2,0],[3,3,0],[4,4,0],[5,5,0],[6,6,0]])
+		this.contenu += `<div id="div_svg${numero_de_l_exercice}2" style="width: 90%; height: 200px;  "></div>`
+		SVG_reperage_sur_un_axe(`div_svg${numero_de_l_exercice}2`,0,6,1,10,[['A',randint(0,2),randint(1,9),false],['B',randint(3,4),randint(1,9)],['C',randint(5,6),randint(1,4)]],[[1,1,0],[2,2,0],[3,3,0],[4,4,0],[5,5,0],[6,6,0]])
 		
-		Reperage_sur_un_axe(numero_de_l_exercice,2,6,4,5,[['A',2,4,true]],[['B',3,5]])
-		this.contenu_correction = ''
+		this.contenu_correction = `<div id="div_svg_corr${numero_de_l_exercice}1" style="width: 90%; height: 200px;  "></div>`
+		SVG_reperage_sur_un_axe(`div_svg_corr${numero_de_l_exercice}1`,0,6,1,10,[['A',randint(0,2),randint(1,9),false],['B',randint(3,4),randint(1,9)],['C',randint(5,6),randint(1,4)]],[[1,1,0],[2,2,0],[3,3,0],[4,4,0],[5,5,0],[6,6,0]])
 	}
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
