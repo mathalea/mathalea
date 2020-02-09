@@ -749,6 +749,7 @@ function intro_LaTeX(entete="Exercices") {
 	\\usepackage{graphicx}				
 	\\usepackage{tabularx}
 	\\usepackage[autolanguage]{numprint}
+	\\usepackage{hyperref}
 	\\usepackage{pgf,tikz}
 	\\usepackage{pgf,tikz}
 	\\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
@@ -796,6 +797,7 @@ function intro_LaTeX(entete="Exercices") {
 		\\usepackage[utf8]{inputenc}		        
 		\\usepackage[T1]{fontenc}		
 		\\usepackage[french]{babel}
+		\\usepackage{hyperref}
 		\\usepackage{multicol} 					
 		\\usepackage{calc} 						
 		\\usepackage{enumerate}

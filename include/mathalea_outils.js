@@ -924,6 +924,21 @@ function texte_en_couleur_et_gras(texte,couleur="#f15929"){
 }
 
 /**
+* Affiche un lien vers une URL
+* @param {string} texte à afficher
+* @param {string} URL
+* @Auteur Rémi Angot
+*/
+function href(texte,lien){
+	if (sortie_html) {
+		return `<a target="_blank" href=${lien}> ${lien} </a>`	
+	} else {
+		return `\\href{${lien}}{${texte}}`
+	}
+	
+}
+
+/**
 * Pour bien afficher les centimes avec 2 chiffres après la virgule
 * @Auteur Rémi Angot
 */
