@@ -531,19 +531,35 @@ function est_deja_donne(premiersommet,liste_a_eviter) {
 }
 
 /**
+* Renvoit une lettre majuscule depuis un nombre compris entre 1 et 702
 * @Auteur Rémi Angot
 *@Example
-* // 1->A ; 2->B...
+* // 0 -> @ 1->A ; 2->B...
+* // 27->AA ; 28 ->AB ...
 */
 function lettre_depuis_chiffre(i){ 
-	let lettre = 64+i;
-	return String.fromCharCode(lettre)
+	
+	let result=''
+	if (i<=26) {
+		result = String.fromCharCode(64+i)
+	} else {
+		if (i%26==0) {
+			result = String.fromCharCode(64+Math.floor(i/26)-1)
+			result+=String.fromCharCode(64+26)
+		} else {
+			result = String.fromCharCode(64+Math.floor(i/26))
+			result+=String.fromCharCode(64+i%26)
+		}
+	}
+	return result
 }
 
 /**
+* Renvoit une lettre majuscule depuis un nombre compris entre 1 et 702
 * @Auteur Rémi Angot
-* @Example
-* // 1->a ; 2->b...
+*@Example
+* // 0 -> @ 1->a ; 2->b...
+* // 27->aa ; 28 ->ab ...
 */
 function lettre_minuscule_depuis_chiffre(i){ 
 	return lettre_depuis_chiffre(i).toLowerCase()
