@@ -864,6 +864,46 @@ function mise_en_evidence(texte){
 }
 
 /**
+* Met en couleur un texte
+* @param {string} texte à mettre en couleur
+* @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
+* @Auteur Rémi Angot
+*/
+function texte_en_couleur(texte,couleur="#f15929"){
+	if (sortie_html) {
+		return `<span style="color:${couleur};">${texte}</span>`	
+	}
+	else {
+		if (couleur[0]=='#') {
+			return `{\\color[HTML]{${couleur.replace('#','')}}${texte}}`
+		} else {
+			return `{\\color{${couleur.replace('#','')}}${texte}}`
+		}
+	}
+	
+}
+
+/**
+* Met en couleur et gras un texte
+* @param {string} texte à mettre en couleur
+* @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
+* @Auteur Rémi Angot
+*/
+function texte_en_couleur_et_gras(texte,couleur="#f15929"){
+	if (sortie_html) {
+		return `<span style="color:${couleur};font-weight: bold;">${texte}</span>`	
+	}
+	else {
+		if (couleur[0]=='#') {
+			return `{\\color[HTML]{${couleur.replace('#','')}}${texte}}`
+		} else {
+			return `{\\bfseries \\color{${couleur.replace('#','')}}${texte}}`
+		}
+	}
+	
+}
+
+/**
 * Pour bien afficher les centimes avec 2 chiffres après la virgule
 * @Auteur Rémi Angot
 */
