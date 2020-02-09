@@ -202,12 +202,14 @@ function Droite_graduee(){
 
 		this.contenu = ''; // Liste de questions
 		this.contenu_correction = ''; // Liste de questions corrigées
+		if (this.sup==4) 	type_de_questions=combinaison_listes([1,2,3],this.nb_questions);
+		else 				type_de_questions=combinaison_listes([parseInt(this.sup)],this.nb_questions);
+		
 
-		let type_de_questions=parseInt(this.sup)
 		this.contenu = html_consigne(this.consigne)
 		for (let i = 0,abs0,abs1,abs2,abs3,x1,x2,x3,x11,x22,x33, pas1,pas2, id_unique, texte, texte_corr; i < this.nb_questions;i++) {
 
-			switch (type_de_questions) {
+			switch (type_de_questions[i]) {
 				case 1: // Placer des décimaux sur un axe (1 décimale)
 				abs0=randint(0,9);
 				pas1=1;
@@ -261,7 +263,7 @@ function Droite_graduee(){
 			}
 		}
 	}
-	this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',4];
 }
 
 
