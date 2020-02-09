@@ -466,6 +466,31 @@ function simplification_de_fraction_avec_etapes(num,den){
 }
 
 /**
+ * Retourne la quatrième proportionnelle de 3 nombres en fonction d'une précision demandée
+ * Le résultat est un string qui doit être entouré de $ pour le mode mathématiques
+ * @auteur Jean-Claude Lhote
+ */
+
+function quatrieme_proportionnelle(a,b,c,precision) { //calcul de b*c/a
+let result=``
+if ((typeof a)=="number"&&(typeof b)=="number"&&(typeof c)=="number") {
+	if (a==0) { 
+		result='=erreur : division par zéro'
+		return result
+	}
+	let p4=b*c/a
+	result+=`\\dfrac{${tex_nombrec(b)}\\times${tex_nombrec(c)}}{${tex_nombrec(a)}}`;
+	if (Number.isInteger(p4*Math.pow(10,precision))) result +=`=`
+	else result +=`\\approx`
+	result += `${arrondi_virgule(p4,precision)}`
+	return result
+	}
+else {
+	return `\\dfrac{${b}\\times${c}}{${a}}`
+}
+}
+
+/**
 *
 * Donne la liste des facteurs premiers d'un nombre
 * @Auteur Rémi Angot
@@ -787,7 +812,7 @@ function html_enumerate(liste,spacing){
 	let result='';
 	(spacing>1) ? result =`<ol style="line-height: ${spacing};">` : result = '<ol>'
 	for(let i in liste){
-		result += '<li>' + liste[i].replace(/\\dotfill/g,'..............................').replace(/\\not=/g,'≠').replace(/\\ldots/g,'....').replace(/~/g,"&nbsp;") + '</li>'   // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+		result += '<li>' + liste[i].replace(/\\dotfill/g,'..............................').replace(/\\not=/g,'≠').replace(/\\ldots/g,'....') + '</li>'   // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
 	}
 	result += '</ol>'
 	return result
@@ -806,7 +831,7 @@ function html_ligne(liste,spacing){
 		result = `<div style="line-height: ${spacing};">\n`
 	}
 	for(let i in liste){
-		result += '\t' + liste[i].replace(/\\dotfill/g,'...').replace(/~/g,' ') + '<br>'   // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+		result += '\t' + liste[i].replace(/\\dotfill/g,'...') + '<br>'   // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
 		// .replace(/\\\\/g,'<br>') abandonné pour supporter les array
 	}
 
@@ -1171,10 +1196,9 @@ function MG32_tracer_toutes_les_figures() {
 
 }
 
-/**
-* Trace une graduation avec sur le SVG
-* @param mon_svg Objet SVG
+/** Trace une graduation sur le SVG
 * @param pas
+* @param mon_svg Objet SVG
 * @param derniere_graduation
 * @param taille taille verticale
 * @param y ordonnée de la droite
@@ -1182,21 +1206,23 @@ function MG32_tracer_toutes_les_figures() {
 * @param width 
 * @Auteur Rémi Angot
 */
-function SVG_graduation(mon_svg,origine,pas,derniere_graduation,taille=10,y=100,color='black',width=5) {
-	for (let i = origine; i <= derniere_graduation; i+=pas) {
+function SVG_graduation(mon_svg,origine,pas,derniere_graduation,taille=10,y=50,color='black',width=5) {
+	for (let i = origine; i < derniere_graduation; i+=pas) {
 		let line = mon_svg.line(i, y-taille/2, i, y+taille/2)
 		line.stroke({ color: color, width: width, linecap: 'round' })
 	}
+	SVG_tracer_fleche(mon_svg,derniere_graduation,y)
 }
 
-function SVG_label(mon_svg,liste_d_abscisses,y=100) {
+function SVG_label(mon_svg,liste_d_abscisses,y,color) {
 	for (let i = 0; i < liste_d_abscisses.length; i++) {
 		let text = mon_svg.text((liste_d_abscisses[i][0]).toString())
-		text.move(liste_d_abscisses[i][1],y).font({
+		y=parseInt(y);	
+		text.move(liste_d_abscisses[i][1],50).font({ fill: color,
 			family:   'Helvetica'
 			, size:     20
 			, anchor:   'middle'
-			, leading : -1
+			, leading : y
 		})
 	}
 }
@@ -1209,14 +1235,80 @@ function SVG_tracer_point(mon_svg,x,nom) {
 	let c2 = point.line(-5,-5,5,5)
 	c2.stroke({ color: '#f15929', width: 5, linecap: 'round' })
 	//déplace la croix
-	point.move(x,100)
+	point.move(x,50)
 	point.dmove(-5,-5)
-	//ecrit le nom
 	let text = mon_svg.text(nom)
-	text.move(x,100).font({
+	//ecrit le nom
+	text.move(x,50).font({
 		family:   'Helvetica'
 		, size:     20
 		, anchor:   'middle'
-		, leading : 2
+		, leading : -1
 		})
 }
+
+function SVG_tracer_fleche(mon_svg,x,y) {
+	//creer un groupe pour la fleche
+	let fleche = mon_svg.group()
+	let c1 = fleche.line(-5,5,0,0)
+	c1.stroke({ color: 'black', width: 3, linecap: 'round' })
+	let c2 = fleche.line(-5,-5,0,0)
+	c2.stroke({ color: 'black', width: 3, linecap: 'round' })
+	//déplace la croix
+	fleche.move(x,y)
+	fleche.dmove(-5,-5)
+}
+
+/**
+* Trace une graduation avec sur le SVG
+* @param origine la première abscisse de la droite ou demi-droite
+* @param longueur le nombre d'intervalles entre l'origine et la dernière graduation
+* @param pas1 le fractionnement de l'unité utilisé : 10 pour 0,1 ; 2 pour 0,5 ...
+* @param pas2 Idem pas1 pour la petite graduation
+* @param points_inconnus tableau tableau [Nom,nb_pas1,nb_pas2,affiche_ou_pas]
+* @param points_connus tableau [valeur,nb_pas1,nb_pas2]
+* @Auteur Jean-Claude Lhote
+*/
+function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inconnus,points_connus){
+	let arrondir=1+Math.round(Math.log10(pas1))
+	let longueur_pas1=600/longueur;
+ 	let longueur_pas2=600/longueur/pas2;
+ 	let distance,valeur,nom
+	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
+	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
+	window.SVGExist[id_du_div] = setInterval(function() {
+		if ($(`#${id_du_div}`).length ) {
+			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
+			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 800, 150)
+			// Droite 
+			let droite = mon_svg.line(0, 50, 750, 50)
+			droite.stroke({ color: 'black', width: 2, linecap: 'round' })
+			// Graduation secondaire
+			SVG_graduation(mon_svg,100-longueur*longueur_pas1/6,longueur_pas2,750,taille=5,y=50,color='blue',width=2)
+			// Graduation principale
+   			SVG_graduation(mon_svg,100,longueur_pas1,750,taille=10,y=50,color='black',width=5)
+			// Nombres visibles
+			SVG_label(mon_svg,[[arrondi_virgule(origine),100]],2,'black')
+			for (i=0;i<points_connus.length;i++) {
+				valeur=arrondi_virgule(points_connus[i][0],arrondir-1);
+				console.log(valeur)
+				distance=longueur_pas1*points_connus[i][1]+longueur_pas2*points_connus[i][2];
+				SVG_label(mon_svg,[[valeur,100+distance,50]],2,'black')
+			}
+			//Points inconnus
+			let position=1;
+			for (i=0;i<points_inconnus.length;i++){
+				distance=longueur_pas1*points_inconnus[i][1]+longueur_pas2*points_inconnus[i][2]
+				nom=points_inconnus[i][0]
+				valeur=arrondi_virgule(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2,arrondir)
+				SVG_tracer_point(mon_svg,100+distance,nom)
+				if (points_inconnus[i][3]==true) {
+					SVG_label(mon_svg,[[valeur,100+distance,50]],3+position,'#f15929')
+					position=1-position
+				}
+			}
+    		clearInterval(SVGExist[id_du_div]);//Arrête le timer
+    		}
+	}, 100); // Vérifie toutes les 100ms
+}
+

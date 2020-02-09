@@ -1130,27 +1130,25 @@ function Exercice_Thales(){
 		let y3 = randint(-2, 1)
 		let k = randint(2, 8) * randint(-1, 1, [0]) / 10
 		if (this.quatrieme) {k=abs(k)}	
-		let dist23 =Math.sqrt((x3-x2)*(x3-x2)+(y3-y2)*(y3-y2)) 		//calcul des longueurs du triangle principal
-		let dist12 = Math.sqrt(x2 * x2 + y2 * y2)
-		let dist13 = Math.sqrt(x3 * x3 + y3 * y3)
-		let dist45 = dist23 * abs(k)		//calcul des longueurs du triangle secondaires
-		let dist14 = dist12 * abs(k)
-		let dist15 = dist13 * abs(k)
-		dist23 = Math.round(dist23 * 10) / 10 // On ne garde qu'une approximation au dixième pour l'exercice
-		dist12 = Math.round(dist12 * 10) / 10
-		dist13 = Math.round(dist13 * 10) / 10
-		dist45 = Math.round(dist45 * 10) / 10
-		dist14 = Math.round(dist14 * 10) / 10
-		dist15 = Math.round(dist15 * 10) / 10
+		let dist23 = Math.sqrt((x3-x2)*(x3-x2)+(y3-y2)*(y3-y2)) 		//calcul des longueurs du triangle principal
+		let dist12 = arrondi(Math.sqrt(x2 * x2 + y2 * y2),1)
+		let dist13 = arrondi(Math.sqrt(x3 * x3 + y3 * y3),1)
+		let dist15 = arrondi(dist13 * abs(k),1)  
+		let dist45 = arrondi(dist23 * abs(k),1)		
 
-		let s45 = arrondi_virgule(dist45, 1)			// mise en texte avec 1 chiffres après la virgule pour énoncé
-		let s13 = arrondi_virgule(dist13, 1)
-		let s12 = arrondi_virgule(dist12, 1)
-		let s15 = arrondi_virgule(dist15, 1)
-		let s14 = arrondi_virgule(dist14, 1)
-		let s23 = arrondi_virgule(dist23, 1)
+		let dist14 = arrondi(dist12*dist15/dist13,1); // calcul des longueurs demandées à partir 
+		dist23 = arrondi(dist45*dist13/dist15,1); // des nombres énoncés (dist12, dist13, dist15 et dist45)
+
+		// On ne garde qu'une approximation au dixième pour l'exercice
+
+		let s45 = tex_nombrec(dist45)			// mise en texte avec 1 chiffres après la virgule pour énoncé
+		let s13 = tex_nombrec(dist13)
+		let s12 = tex_nombrec(dist12)
+		let s15 = tex_nombrec(dist15)
+		let s14 = tex_nombrec(dist14)
+		let s23 = tex_nombrec(dist23)
 		if (k < 0) { dist35 = dist13 + dist15 } else { dist35 = dist13 - dist15 } // calcul de la longueur intermédiaire dans un cas classique ou en papillon
-		let s35 = arrondi_virgule(dist35,1)  // à priori, c'est déjà arrondi au dixième, mais je me méfie des calculs flottants en js
+		let s35 = tex_nombrec(dist35)  // à priori, c'est déjà arrondi au dixième, mais je me méfie des calculs flottants en js
 		let niv_diff=randint(1,2);
 		if (sortie_html) {
 			this.type_exercice = 'MG32';
@@ -1170,7 +1168,7 @@ function Exercice_Thales(){
 				else {
 					texte_corr = 'Les droites ' + `$(${s4+s5})$` + ' et ' + `$(${s2+s3})$` + ' sont parallèles.'
 					texte_corr += `<br>Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés dans cet ordre.`
-					texte_corr +='<br>D&rsquo;après la propriété de Thales, on a ' + `$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}.$` + '<br>'
+					texte_corr +='<br>D&rsquo;après la propriété de Thales, on a ' + `$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}$` + '<br>'
 				}
 				}
 			else if (this.sup==2)
@@ -1184,17 +1182,16 @@ function Exercice_Thales(){
 					texte_corr = `Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés dans cet ordre et les droites $(${s4+s5})$ et $(${s2+s3})$ sont parallèles.<br>` + ' D&rsquo;après la propriété de Thales, on a ' + `$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}.$` + '<br>'
 				}
 				if (k>0){
-					texte_corr +='On sait que '+`$${s1+s5}=${s1+s3}-${s5+s3}=${s13}-${s35}=${s15}$`+'~cm.<br>'
+					texte_corr +='On sait que '+`$${s1+s5}=${s1+s3}-${s5+s3}=${s13}-${s35}=${s15}$`+' cm.<br>'
 				}
 				else {
-					texte_corr +='On sait que '+`$${s1+s5}=${s3+s5}-${s1+s3}=${s35}-${s13}=${s15}$`+'~cm.<br>'
+					texte_corr +='On sait que '+`$${s1+s5}=${s3+s5}-${s1+s3}=${s35}-${s13}=${s15}$`+' cm.<br>'
 				}
 			}
 			else if (randint(1,2)==1) {
 				texte = `$${s1}$, $${s2}$ et $${s3}$ sont trois point distincts. $${s4} \\in [${s1+s2}]$ et $${s5} \\in [${s1+s3}]$ tel que les droites $(${s4+s5})$ et $(${s2+s3})$ sont parallèles.<br> $${s1+s2}=${s12}$ cm, $${s1+s3}=${s13}$ cm, $${s4+s5}=${s45}$ cm et $${s1+s5}=${s15}$ cm.`
 				texte += `<br>Calculer $${s1+s4}$ et $${s2+s3}$.`
 				texte_corr = 'Dans le triangle '+`$${s1+s2+s3}$`+', les droites '+`$(${s4+s5})$`+' et '+`$(${s2+s3})$`+' sont parallèles.<br>'+' D&rsquo;après la propriété de Thales, on a '+`$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}.$`+'<br>'
-				// texte_corr = 'Les droites ' + `$(${s4+s5})$` + ' et ' + `$(${s2+s3})$` + ' sont parallèles.<br> Les droites '+`$(${s2+s4})$` + ' et ' + `$(${s3+s5})$` + ' sont sécantes en '+`$${s1}`+'<br>D&rsquo;après la propriété de Thales, on a ' + `$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}.$` + '<br>'
 				}
 			else {
 				texte = `Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés dans cet ordre.`
@@ -1206,15 +1203,16 @@ function Exercice_Thales(){
 					texte_corr = `Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés et les droites $(${s4+s5})$ et $(${s2+s3})$ sont parallèles.<br>` + ' D&rsquo;après la propriété de Thales, on a ' + `$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}.$` + '<br>'
 				}
 				if (k>0){
-					texte_corr +='On sait que '+`$${s1+s5}=${s1+s3}-${s5+s3}=${s13}-${s35}=${s15}$`+'~cm.<br>'
+					texte_corr +='On sait que '+`$${s1+s5}=${s1+s3}-${s5+s3}=${s13}-${s35}=${s15}$`+' cm.<br>'
 				}
 				else {
-					texte_corr +='On sait que '+`$${s1+s5}=${s3+s5}-${s1+s3}=${s35}-${s13}=${s15}$`+'~cm.<br>'
+					texte_corr +='On sait que '+`$${s1+s5}=${s3+s5}-${s1+s3}=${s35}-${s13}=${s15}$`+' cm.<br>'
 				}
 			}
-			texte_corr += 'On a donc ' + `$${tex_fraction(s1 + s4, s12)}=${tex_fraction(s15, s13)}=${tex_fraction(s45, s2 + s3)}.$` + '<br>'
-			texte_corr += 'Soit ' + `$${s1 + s4}=${tex_fraction(s15 + '\\times' + s12, s13)}\\approx${s14}~$` + '~cm'
-			texte_corr += ' et ' + `$${s2 + s3}=${tex_fraction(s13 + '\\times' + s45, s15)}\\approx${s23}~$` + '~cm.'
+			texte_corr += 'Avec les données numériques :<br>'
+			texte_corr += `$${tex_fraction(s1 + s4, s12)}=${tex_fraction(s15, s13)}=${tex_fraction(s45, s2 + s3)}$` + '<br>'
+			texte_corr += `Soit $${s1+s4}=` + quatrieme_proportionnelle(dist13,dist15,dist12,1) + '$ cm'
+			texte_corr += ` et $${s2+s3}=` + quatrieme_proportionnelle(dist15,dist13,dist45,1)+ '$ cm.'
 		
 			if (this.sup<3)	{
 			this.MG32codeBase64 = codeBase64
@@ -1296,7 +1294,7 @@ function Exercice_Thales(){
 				texte += `<br>\nCalculer $${s1+s4}$ et $${s2+s3}$.`
 				texte_corr = `Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés dans cet ordre et les droites $(${s4+s5})$ et $(${s2+s3})$ sont parallèles.<br>\n` + ' D\'après la propriété de Thales, on a ' + `$${tex_fraction(s1+s4,s1+s2)}=${tex_fraction(s1+s5,s1+s3)}=${tex_fraction(s4+s5,s2+s3)}.$` + '<br>\n'
 				if (niv_diff==2) {
-					texte_corr +='On sait que '+`$${s1+s5}=${s1+s3}-${s5+s3}=${s13}-${s35}=${s15}$`+'~cm.'
+					texte_corr +='On sait que '+`$${s1+s5}=${s1+s3}-${s5+s3}=${s13}-${s35}=${s15}$`+' cm.'
 				}
 			}
 		if (this.sup<3) { // on ne fait la figure que si niveau < 3
@@ -1432,14 +1430,14 @@ function Exercice_Pythagore() {
 				texte += `Calculer $${s1 + s2}$.`
 				texte_corr = `Dans le triangle $${nom_du_triangle}$ rectangle en $${s0}$, d&rsquo;après le théorème de Pythagore, on a : $${s1 + s2}^2 = ${s0 + s1}^2~+~${s0 + s2}^2.$<br>`
 				texte_corr += 'D&rsquo;où ' + `$${s1 + s2}^2~=~${s01}^2~+~${s02}^2~=~${scarre01}~+~${scarre02}~=~${arrondi_virgule(carre02 + carre01, 2)}.$` + '<br>'
-				texte_corr += 'Soit ' + `$${s1 + s2}~=~\\sqrt{${arrondi_virgule(carre02 + carre01, 2)}}~\\approx${s12}$` + '~cm.'
+				texte_corr += 'Soit ' + `$${s1 + s2}~=~\\sqrt{${arrondi_virgule(carre02 + carre01, 2)}}~\\approx${s12}$` + ' cm.'
 			}
 			if (type_de_questions == 2) { // Calcul d'un côté de l'angle droit
 				texte = `Dans la figure ci-dessous, le triangle $${nom_du_triangle}$ est rectangle en $${s0}$, $${s0 + s1}=${s01}$ cm, $${s1 + s2}=${s12}$ cm.`
 				texte += `Calculer $${s0 + s2}$.`
 				texte_corr = `Dans le triangle $${nom_du_triangle}$ rectangle en $${s0}$, d&rsquo;après le théorème de Pythagore, on a : $${s1 + s2}^2 = ${s0 + s1}^2~+~${s0 + s2}^2.$<br>`
 				texte_corr += 'D&rsquo;où ' + `$${s0 + s2}^2~=~${s1 + s2}^2~-~${s0 + s1}^2 = ${s12}^2~-~${s01}^2~=~${scarre12}~-~${scarre01}~=~${arrondi_virgule(carre12 - carre01, 2)}.$` + '<br>'
-				texte_corr += 'Soit ' + `$${s0 + s2}~=~\\sqrt{${arrondi_virgule(carre12 - carre01, 2)}}~\\approx${s02}$` + '~cm.'
+				texte_corr += 'Soit ' + `$${s0 + s2}~=~\\sqrt{${arrondi_virgule(carre12 - carre01, 2)}}~\\approx${s02}$` + ' cm.'
 			}
 			if (type_de_questions < 3) {
 				this.type_exercice = 'MG32';
@@ -1624,33 +1622,33 @@ function Exercice_Trigo_longueurs() {
 				
 
 				if (type_de_questions == 1) { // calcul du côté adjacent (cosinus)
-					texte += `L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}°$, $${s1 + s2}=${s12}$ cm.<br>`;
+					texte += `L'angle $\\widehat{${s0 + s1 + s2}}$ mesure $${angle1}°$, $${s1 + s2}=${s12}$ cm.<br>`;
 					texte += `Calculer $${s0 + s1}$.`;
 
 
 				}
 				if (type_de_questions == 2) { // Calcul de l'hypoténuse (1/cosinus)
-					texte += `L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}°$, $${s0 + s1}=${s01}$ cm.<br>`;
+					texte += `L'angle $\\widehat{${s0 + s1 + s2}}$ mesure $${angle1}°$, $${s0 + s1}=${s01}$ cm.<br>`;
 					texte += `Calculer $${s1 + s2}$.`;
 
 				}
 				if (type_de_questions == 3) { // calcul du côté opposé (sinus)
-					texte += `L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}°$, $${s1 + s2}=${s12}$ cm.<br>`;
+					texte += `L'angle $\\widehat{${s0 + s1 + s2}}$ mesure $${angle1}°$, $${s1 + s2}=${s12}$ cm.<br>`;
 					texte += `Calculer $${s0 + s2}$.`;
 
 				}
 				if (type_de_questions == 4) { // Calcul de l'hypoténuse (1/sinus) 
-					texte += `L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}°$, $${s0 + s2}=${s02}$ cm.<br>`;
+					texte += `L'angle $\\widehat{${s0 + s1 + s2}}$ mesure $${angle1}°$, $${s0 + s2}=${s02}$ cm.<br>`;
 					texte += `Calculer $${s1 + s2}$.`;
 
 				}
 				if (type_de_questions == 5) { // calcul du côté opposé (tangente)
-					texte += `L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}°$, $${s0 + s1}=${s01}$ cm.<br>`;
+					texte += `L'angle $\\widehat{${s0 + s1 + s2}}$ mesure $${angle1}°$, $${s0 + s1}=${s01}$ cm.<br>`;
 					texte += `Calculer $${s0 + s2}$.`;
 
 				}
 				if (type_de_questions == 6) { // Calcul du côté adjacent (1/tangente) 
-					texte += `L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}°$, $${s0 + s2}=${s02}$ cm.<br>`;
+					texte += `L'angle $\\widehat{${s0 + s1 + s2}}$ mesure $${angle1}°$, $${s0 + s2}=${s02}$ cm.<br>`;
 					texte += `Calculer $${s0 + s1}$.`;
 
 				}
@@ -1733,50 +1731,56 @@ function Exercice_Trigo_longueurs() {
 			if (type_de_questions == 1) {	
 				texte_corr+=`Le cosinus de l'angle $\\widehat{${s0+s1+s2}}$ est défini par :<br>`;
 				texte_corr +=`$\\cos \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s1,s1+s2)}$<br>`;
-				texte_corr += `D'où $${s0 + s1}=${s1+s2}\\times\\cos\\left(\\widehat{${s0+s1+s2}}\\right)$<br>`;
-				texte_corr +=`$\\phantom{D'ou AB}=${s12}\\times\\cos\\left(${angle1}°\\right)$<br>`;
-				texte_corr +=`$\\phantom{D'ou AB}\\approx${s01}$.<br>`;
-				texte_corr += `Soit $${s0 + s1}\\approx${s01}$~cm.`;
+				texte_corr +=`Avec les données numériques :<br>`
+				texte_corr +=`$\\dfrac{\\cos\\left(${angle1}°\\right)}{1}=${tex_fraction(s0+s1,s12)}$<br>`;
+				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ égaux~donc~ :}$<br>`
+				texte_corr += `$${s0+s1}=${quatrieme_proportionnelle(1,s12,`\\cos\\left(${angle1}°\\right)`)}$<br>` // ${s12}\\times\\cos\\left(${angle1}°\\right)$<br>`;
+				texte_corr += `Soit $${s0 + s1}\\approx${s01}$ cm.`;
 			}
 			if (type_de_questions == 2) {
 				texte_corr += `Le cosinus de l'angle $\\widehat{${s0+s1+s2}}$ est défini par :<br>`;
 				texte_corr +=`$\\cos \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s1,s1+s2)}$<br>`;
-				texte_corr += `D'où $${s1 + s2}=${s0+s1}\\div\\cos\\left(\\widehat{${s0+s1+s2}}\\right)$<br>`;
-				texte_corr += `$\\phantom{D'ou AB}=${s01}\\div\\cos\\left(${angle1}°\\right)$<br>`;
-				texte_corr += `$\\phantom{D'ou AB}\\approx${s12}$.<br>`;
-				texte_corr += `Soit $${s1 + s2}\\approx${s12}$~cm.`;
+				texte_corr +=`Avec les données numériques :<br>`
+				texte_corr +=`$\\dfrac{\\cos\\left(${angle1}°\\right)}{1}=${tex_fraction(s01,s1+s2)}$<br>`;
+				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ égaux~donc~ :}$<br>`
+				texte_corr += `$${s1 + s2}=${quatrieme_proportionnelle(`\\cos\\left(${angle1}°\\right)`,1,s01)}$<br>`// ${s01}\\div\\cos\\left(${angle1}°\\right)$<br>`;
+				texte_corr += `Soit $${s1 + s2}\\approx${s12}$ cm.`;
 			}	
 			if (type_de_questions == 3) {
 				texte_corr += `Le sinus de l'angle $\\widehat{${s0+s1+s2}}$ est défini par :<br>`;
 				texte_corr += `$\\sin \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s2,s1+s2)}$<br>`;
-				texte_corr += `D'où $${s0 + s2}=${s1+s2}\\times\\sin\\left(\\widehat{${s0+s1+s2}}\\right)$<br>`;
-				texte_corr += `$\\phantom{D'ou AB}=${s12}\\times\\sin\\left(${angle1}°\\right)$<br>`;
-				texte_corr += `$\\phantom{D'ou AB}\\approx${s02}$.<br>`;
-				texte_corr += `Soit $${s0 + s2}\\approx${s02}$~cm.`;
+				texte_corr +=`Avec les données numériques :<br>`
+				texte_corr +=`$\\dfrac{\\sin\\left(${angle1}°\\right)}{1}=${tex_fraction(s0+s2,s12)}$<br>`;
+				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ égaux~donc~ :}$<br>`
+				texte_corr += `$${s0+s2}=${quatrieme_proportionnelle(1,s12,`\\sin\\left(${angle1}°\\right)`)}$<br>`
+				texte_corr += `Soit $${s0 + s2}\\approx${s02}$ cm.`;
 			}
 			if (type_de_questions == 4) {
 				texte_corr = `Le sinus de l'angle $\\widehat{${s0+s1+s2}}$ est défini par :<br>`;
 				texte_corr +=`$\\sin \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s2,s1+s2)}$<br>`;
-				texte_corr += `D'où $${s1 + s2}=${s0+s2}\\div\\sin\\left(\\widehat{${s0+s1+s2}}\\right)$<br>`;
-				texte_corr += `$\\phantom{D'ou AB}=${s02}\\div\\sin\\left(${angle1}°\\right)$<br>`;
-				texte_corr += `$\\phantom{D'ou AB}\\approx${s12}$.<br>`;
-				texte_corr += `Soit $${s1 + s2}\\approx${s12}$~cm.`;
+				texte_corr +=`Avec les données numériques :<br>`
+				texte_corr +=`$\\dfrac{\\sin\\left(${angle1}°\\right)}{1}=${tex_fraction(s02,s1+s2)}$<br>`;
+				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ égaux~donc~ :}$<br>`
+				texte_corr += `$${s1+s2}=${quatrieme_proportionnelle(`\\sin\\left(${angle1}°\\right)`,1,s02)}$<br>`				
+				texte_corr += `Soit $${s1 + s2}\\approx${s12}$ cm.`;
 			}
 			if (type_de_questions == 5) {
 				texte_corr = `La tangente de l'angle $\\widehat{${s0+s1+s2}}$ est définie par :<br>`;
 				texte_corr += `$\\tan \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s2,s0+s1)}<br>$`;
-				texte_corr += `D'où $${s0 + s2}=${s0+s1}\\times\\tan\\left(\\widehat{${s0+s1+s2}}\\right)$<br>`;
-				texte_corr += `$\\phantom{D'ou AB}=${s01}\\times\\tan\\left(${angle1}°\\right)$<br>`;
-				texte_corr += `$\\phantom{D'ou AB}\\approx${s02}$.<br>`;
-				texte_corr += `Soit $${s0 + s2}\\approx${s02}$~cm.`;
+				texte_corr +=`Avec les données numériques :<br>`
+				texte_corr +=`$\\dfrac{\\tan\\left(${angle1}°\\right)}{1}=${tex_fraction(s0+s2,s01)}$<br>`;
+				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ égaux~donc~ :}$<br>`
+				texte_corr += `$${s0+s2}=${quatrieme_proportionnelle(1,s01,`\\tan\\left(${angle1}°\\right)`)}$<br>`								
+				texte_corr += `Soit $${s0 + s2}\\approx${s02}$ cm.`;
 			}
 			if (type_de_questions == 6) {
 				texte_corr = `La tangente de l'angle $\\widehat{${s0+s1+s2}}$ est définie par :<br>`;
 				texte_corr +=`$\\tan \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s2,s0+s1)}$<br>`;
-				texte_corr += `D'où $${s0 + s1}=${s0+s2}\\div\\tan\\left(\\widehat{${s0+s1+s2}}\\right)$<br>`;
-				texte_corr += `$\\phantom{D'ou AB}=${s02}\\div\\tan\\left(${angle1}°\\right)$<br>`;
-				texte_corr += `$\\phantom{D'ou AB}\\approx${s01}$.<br>`;
-				texte_corr += `Soit $${s0 + s1}\\approx${s01}$~cm.`;
+				texte_corr +=`Avec les données numériques :<br>`
+				texte_corr +=`$\\dfrac{\\tan\\left(${angle1}°\\right)}{1}=${tex_fraction(s02,s0+s1)}$<br>`;
+				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ égaux~donc~ :}$<br>`
+				texte_corr += `$${s0+s1}=${quatrieme_proportionnelle(`\\tan\\left(${angle1}°\\right)`,1,s02)}$<br>`					
+				texte_corr += `Soit $${s0 + s1}\\approx${s01}$ cm.`;
 			}
 			this.liste_questions.push(texte);
 			this.liste_corrections.push(texte_corr);
@@ -1859,39 +1863,39 @@ function Exercice_Trigo_angles() {
 			
 
 			if (type_de_questions == 1) { // calcul de l'angle 1 (arccos)
-				texte += `$${s1 + s2}=${s12}$~cm<br>`;
-				texte += `$${s0 + s1}=${s01}$~cm<br>`;
+				texte += `$${s1 + s2}=${s12}$ cm<br>`;
+				texte += `$${s0 + s1}=${s01}$ cm<br>`;
 				texte += `Calculer l'angle $\\widehat{${s0 + s1 + s2}}$ à 1° près.`;
 
 
 			}
 			if (type_de_questions == 2) { // Calcul de l'angle 2 (90-arccos)
-			texte += `$${s1 + s2}=${s12}$~cm<br>`;
-			texte += `$${s0 + s1}=${s01}$~cm<br>`;
+			texte += `$${s1 + s2}=${s12}$ cm<br>`;
+			texte += `$${s0 + s1}=${s01}$ cm<br>`;
 			texte += `Calculer l'angle $\\widehat{${s0 + s2 + s1}}$ à 1° près.`;
 			}
 			if (type_de_questions == 3) { // calcul de l'angle 1 (arcsin)
-				texte += `$${s0 + s2}=${s02}$~cm<br>`;
-				texte += `$${s1 + s2}=${s12}$~cm<br>`;
+				texte += `$${s0 + s2}=${s02}$ cm<br>`;
+				texte += `$${s1 + s2}=${s12}$ cm<br>`;
 				texte += `Calculer l'angle $\\widehat{${s0 + s1 + s2}}$ à 1° près.`;
 
 
 			}
 			if (type_de_questions == 4) { // Calcul de l'angle 2 (arcsin)
-			texte += `$${s1 + s2}=${s12}$~cm<br>`;
-			texte += `$${s0 + s1}=${s01}$~cm<br>`;
+			texte += `$${s1 + s2}=${s12}$ cm<br>`;
+			texte += `$${s0 + s1}=${s01}$ cm<br>`;
 			texte += `Calculer l'angle $\\widehat{${s0 + s2 + s1}}$ à 1° près.`;
 			}
 			if (type_de_questions == 5) { // calcul de l'angle 1 (arctan)
-				texte += `$${s0 + s2}=${s02}$~cm<br>`;
-				texte += `$${s0 + s1}=${s01}$~cm<br>`;
+				texte += `$${s0 + s2}=${s02}$ cm<br>`;
+				texte += `$${s0 + s1}=${s01}$ cm<br>`;
 				texte += `Calculer l'angle $\\widehat{${s0 + s1 + s2}}$ à 1° près.`;
 
 
 			}
 			if (type_de_questions == 6) { // Calcul de l'angle 2 (arctan)
-			texte += `$${s0 + s2}=${s02}$~cm<br>`;
-			texte += `$${s0 + s1}=${s01}$~cm<br>`;
+			texte += `$${s0 + s2}=${s02}$ cm<br>`;
+			texte += `$${s0 + s1}=${s01}$ cm<br>`;
 			texte += `Calculer l'angle $\\widehat{${s0 + s2 + s1}}$ à 1° près.`;
 			}
 
@@ -1974,14 +1978,16 @@ function Exercice_Trigo_angles() {
 		if (type_de_questions == 1) {	
 			texte_corr+=`Le cosinus de l'angle $\\widehat{${s0+s1+s2}}$ est défini par :<br>`;
 			texte_corr +=`$\\cos \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s1,s1+s2)}$<br>`;
-			texte_corr += `D'où $\\cos\\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s01,s12)}$<br>`;
+			texte_corr +=`Avec les données numériques :<br>`
+			texte_corr += `$\\cos\\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s01,s12)}$<br>`;
 			texte_corr += `On en déduit que $\\widehat{${s0+s1+s2}}=\\arccos\\left(${tex_fraction(s01,s12)}\\right)$<br>`;
 			texte_corr += `Soit $\\widehat{${s0+s1+s2}}\\approx${angle1}$°`
 		}
 		if (type_de_questions == 2) {
 			texte_corr+=`Le cosinus de l'angle $\\widehat{${s0+s1+s2}}$ est défini par :<br>`;
 			texte_corr +=`$\\cos \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s1,s1+s2)}$<br>`;
-			texte_corr += `D'où $\\cos\\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s01,s12)}$<br>`;
+			texte_corr +=`Avec les données numériques :<br>`
+			texte_corr += `$\\cos\\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s01,s12)}$<br>`;
 			texte_corr += `On en déduit que $\\widehat{${s0+s1+s2}}=\\arccos\\left(${tex_fraction(s01,s12)}\\right)$<br>`;
 			texte_corr += `Soit $\\widehat{${s0+s1+s2}}\\approx${angle1}$°<br>`
 			texte_corr += `Or, dans un triangle rectangle les angles aigus sont complémentaires, donc :<br>`
@@ -1990,28 +1996,32 @@ function Exercice_Trigo_angles() {
 		if (type_de_questions == 3) {
 			texte_corr+=`Le sinus de l'angle $\\widehat{${s0+s1+s2}}$ est défini par :<br>`;
 			texte_corr +=`$\\sin \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s2,s1+s2)}$<br>`;
-			texte_corr += `D'où $\\sin\\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s02,s12)}$<br>`;
+			texte_corr +=`Avec les données numériques :<br>`
+			texte_corr += `$\\sin\\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s02,s12)}$<br>`;
 			texte_corr += `On en déduit que $\\widehat{${s0+s1+s2}}=\\arcsin\\left(${tex_fraction(s02,s12)}\\right)$<br>`;
 			texte_corr += `Soit $\\widehat{${s0+s1+s2}}\\approx${angle1}$°`
 		}
 		if (type_de_questions == 4) {
 			texte_corr+=`Le sinus de l'angle $\\widehat{${s0+s2+s1}}$ est défini par :<br>`;
 			texte_corr +=`$\\sin \\left(\\widehat{${s0+s2+s1}}\\right)=${tex_fraction(s0 + s1,s1+s2)}$<br>`;
-			texte_corr += `D'où $\\sin\\left(\\widehat{${s0+s2+s1}}\\right)=${tex_fraction(s01,s12)}$<br>`;
+			texte_corr +=`Avec les données numériques :<br>`
+			texte_corr += `$\\sin\\left(\\widehat{${s0+s2+s1}}\\right)=${tex_fraction(s01,s12)}$<br>`;
 			texte_corr += `On en déduit que $\\widehat{${s0+s2+s1}}=\\arcsin\\left(${tex_fraction(s01,s12)}\\right)$<br>`;
 			texte_corr += `Soit $\\widehat{${s0+s2+s1}}\\approx${angle2}$°`
 		}
 		if (type_de_questions == 5) {
 			texte_corr+=`La tangente de l'angle $\\widehat{${s0+s1+s2}}$ est définie par :<br>`;
 			texte_corr +=`$\\tan \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s2,s0+s1)}$<br>`;
-			texte_corr += `D'où $\\tan\\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s02,s01)}$<br>`;
+			texte_corr +=`Avec les données numériques :<br>`
+			texte_corr += `$\\tan\\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s02,s01)}$<br>`;
 			texte_corr += `On en déduit que $\\widehat{${s0+s1+s2}}=\\arctan\\left(${tex_fraction(s02,s01)}\\right)$<br>`;
 			texte_corr += `Soit $\\widehat{${s0+s1+s2}}\\approx${angle1}$°`
 		}
 		if (type_de_questions == 6) {
 			texte_corr+=`La tangente de l'angle $\\widehat{${s0+s2+s1}}$ est définie par :<br>`;
 			texte_corr +=`$\\tan \\left(\\widehat{${s0+s2+s1}}\\right)=${tex_fraction(s0 + s1,s0+s2)}$<br>`;
-			texte_corr += `D'où $\\tan\\left(\\widehat{${s0+s2+s1}}\\right)=${tex_fraction(s01,s02)}$<br>`;
+			texte_corr +=`Avec les données numériques :<br>`
+			texte_corr += `$\\tan\\left(\\widehat{${s0+s2+s1}}\\right)=${tex_fraction(s01,s02)}$<br>`;
 			texte_corr += `On en déduit que $\\widehat{${s0+s2+s1}}=\\arctan\\left(${tex_fraction(s01,s02)}\\right)$<br>`;
 			texte_corr += `Soit $\\widehat{${s0+s2+s1}}\\approx${angle2}$°`
 		}
@@ -2067,13 +2077,13 @@ function Reciproque_Pythagore(){
 			ordre_des_cotes = randint(1,3)
 			switch (ordre_des_cotes){
 				case 1 : 
-				texte = `Le triangle $${nom_triangle}$ est tel que $${A+B}=${tex_nombre(c)}$~cm, $${A+C}=${tex_nombre(b)}$~cm et $${B+C}=${tex_nombre(a)}$~cm.`
+				texte = `Le triangle $${nom_triangle}$ est tel que $${A+B}=${tex_nombre(c)}$ cm, $${A+C}=${tex_nombre(b)}$ cm et $${B+C}=${tex_nombre(a)}$ cm.`
 				break
 				case 2 : 
-				texte = `Le triangle $${nom_triangle}$ est tel que  $${B+C}=${tex_nombre(a)}$~cm, $${A+C}=${tex_nombre(b)}$~cm et $${A+B}=${tex_nombre(c)}$~cm.`
+				texte = `Le triangle $${nom_triangle}$ est tel que  $${B+C}=${tex_nombre(a)}$ cm, $${A+C}=${tex_nombre(b)}$ cm et $${A+B}=${tex_nombre(c)}$ cm.`
 				break
 				case 3 : 
-				texte = `Le triangle $${nom_triangle}$ est tel que $${A+C}=${tex_nombre(b)}$~cm, $${A+B}=${tex_nombre(c)}$~cm,  et $${B+C}=${tex_nombre(a)}$~cm.`
+				texte = `Le triangle $${nom_triangle}$ est tel que $${A+C}=${tex_nombre(b)}$ cm, $${A+B}=${tex_nombre(c)}$ cm,  et $${B+C}=${tex_nombre(a)}$ cm.`
 				break 
 			}
 			texte += `<br>Ce triangle est-il rectangle ?`
@@ -2162,7 +2172,7 @@ function Problemes_Pythagore(){
 				} else {
 					texte_corr = ``
 				}
-				texte_corr += `$${nom_quadrilatere}$ est un losange donc ses diagonales se coupent en leur milieu : $${A+O}=${A+C}\\div2=${tex_nombre(2*a)}\\div2=${tex_nombre(a)}$~cm.<br>`
+				texte_corr += `$${nom_quadrilatere}$ est un losange donc ses diagonales se coupent en leur milieu : $${A+O}=${A+C}\\div2=${tex_nombre(2*a)}\\div2=${tex_nombre(a)}$ cm.<br>`
 				texte_corr += `On sait que les diagonales d'un losange se coupent perpendiculairement donc $${A+O+C}$ est un triangle rectangle en $O$.<br>`
 				texte_corr += `D'après le théorème de Pythagore, on a : $${A+O}^2+${O+B}^2=${A+B}^2$.<br>`
 				texte_corr += `Donc $${O+B}^2=${A+B}^2-${A+O}^2=${tex_nombre(c)}^2-${tex_nombre(a)}^2=${tex_nombre(b**2)}$.<br>`
