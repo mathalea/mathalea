@@ -266,6 +266,22 @@ function combinaison_listes_sans_changer_ordre(liste,taille_minimale){
 	}
 	return liste
 }
+/**
+* N'écrit pas un nombre s'il est égal à 1
+* @Example
+* //rien_si_1(1)+'x' -> x
+* //rien_si_1(-1)+'x' -> -x
+* @Auteur Rémi Angot
+*/
+function rien_si_1(a) { 
+	if (a==1) {
+		return ''
+	} else if (a==-1) {
+		return '-'
+	} else {
+		return a
+	}
+}
 
 /**
 * Ajoute les parenthèses et le signe
@@ -418,11 +434,15 @@ function fraction_simplifiee(n,d){
 }
 
 /**
-* Retourne le code LaTeX d'une fraction simplifiée
+* Retourne le code LaTeX d'une fraction simplifiée ou d'un nombre entier 
 * @Auteur Rémi Angot
 */
 function tex_fraction_reduite(n,d){
-	return tex_fraction(fraction_simplifiee(n,d)[0],fraction_simplifiee(n,d)[1]);
+	if (n%d==0) {
+		return n/d
+	} else {
+		return tex_fraction(fraction_simplifiee(n,d)[0],fraction_simplifiee(n,d)[1]);
+	}
 }
 
 /**
