@@ -956,7 +956,7 @@ function texte_en_couleur_et_gras(texte,couleur="#f15929"){
 */
 function href(texte,lien){
 	if (sortie_html) {
-		return `<a target="_blank" href=${lien}> ${lien} </a>`	
+		return `<a target="_blank" href=${lien}> ${texte} </a>`	
 	} else {
 		return `\\href{${lien}}{${texte}}`
 	}
@@ -1281,10 +1281,10 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
 			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 800, 150)
 			// Droite 
-			let droite = mon_svg.line(0, 50, 750, 50)
+			let droite = mon_svg.line(100, 50, 750, 50)
 			droite.stroke({ color: 'black', width: 2, linecap: 'round' })
 			// Graduation secondaire
-			SVG_graduation(mon_svg,100-longueur*longueur_pas1/6,longueur_pas2,750,taille=5,y=50,color='blue',width=2)
+			SVG_graduation(mon_svg,100,longueur_pas2,750,taille=5,y=50,color='blue',width=2)
 			// Graduation principale
    			SVG_graduation(mon_svg,100,longueur_pas1,750,taille=10,y=50,color='black',width=5)
 			// Nombres visibles
