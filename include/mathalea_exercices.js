@@ -199,7 +199,8 @@ function Droite_graduee(){
 
 
 	this.nouvelle_version = function(numero_de_l_exercice){ // numero_de_l_exercice est 0 pour l'exercice 1
-
+		this.liste_questions=[];
+		this.liste_corrections=[];
 		this.contenu = ''; // Liste de questions
 		this.contenu_correction = ''; // Liste de questions corrigées
 		if (this.sup==4) 	type_de_questions=combinaison_listes([1,2,3],this.nb_questions);
@@ -207,13 +208,14 @@ function Droite_graduee(){
 		
 
 		this.contenu = html_consigne(this.consigne)
-		for (let i = 0,abs0,abs1,abs2,abs3,l1,l2,l3,x1,x2,x3,x11,x22,x33, pas1,pas2, id_unique, texte, texte_corr; i < this.nb_questions;i++) {
+		for (let i = 0,abs0,absmax,abs1,abs2,abs3,l1,l2,l3,x1,x2,x3,x11,x22,x33, pas1,pas2, id_unique, texte, texte_corr; i < this.nb_questions;i++) {
 			l1=lettre_depuis_chiffre(i*3+1)
 			l2=lettre_depuis_chiffre(i*3+2)
 			l3=lettre_depuis_chiffre(i*3+3)
 			switch (type_de_questions[i]) {
 				case 1: // Placer des décimaux sur un axe (1 décimale)
 					abs0 = randint(0, 9);
+					absmax=abs0+7;
 					pas1 = 1;
 					pas2 = 10;
 					x1 = randint(0, 2); x2 = randint(3, 4); x3 = randint(5, 6);
@@ -225,6 +227,7 @@ function Droite_graduee(){
 
 				case 2: // Placer des décimaux sur un axe (2 décimales)
 					abs0 = randint(0, 90) / 10;
+					absmax=abs0+0.7;
 					pas1 = 10;
 					pas2 = 10;
 					x1 = randint(0, 2); x2 = randint(3, 4); x3 = randint(5, 6);
@@ -236,6 +239,7 @@ function Droite_graduee(){
 
 				case 3: // Placer des décimaux sur un axe (3 décimales)
 					abs0 = randint(0, 990) / 100;
+					absmax=abs0+0.07
 					pas1 = 100;
 					pas2 = 10;
 					x1 = randint(0, 2); x2 = randint(3, 4); x3 = randint(5, 6);
@@ -252,15 +256,15 @@ function Droite_graduee(){
 				this.contenu_correction += `<div id="div_svg_corr${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
 				SVG_reperage_sur_un_axe(`div_svg_corr${numero_de_l_exercice}${id_unique}`, abs0, 6, pas1, pas2, [[l1, x1, x11, true], [l2, x2, x22, true], [l3, x3, x33, true]], [[abs0 + 1 / pas1, 1, 0], [abs0 + 2 / pas1, 2, 0], [abs0 + 3 / pas1, 3, 0], [abs0 + 4 / pas1, 4, 0], [abs0 + 5 / pas1, 5, 0], [abs0 + 6 / pas1, 6, 0]])
 			}
-			else { //sortie Latex
-				texte='Sortie Latex'
-				texte_corr='Sortie Latex'
+			else { //sortie Latex   \axeGradueFraction{0}{4}{4}{4}[1/4,A | 6/4,B | 9/4,C | 16/4,D] \bigskip
+				texte=`\\axeGradueFraction{${abs0}}{${absmax}}{${pas2}}{${2*pas1}}[${abs1},${l1} | ${abs2},${l2} | ${abs3},${l3} ] \\bigskip`
+				texte_corr=`\\axeGradueFraction{${abs0}}{${absmax}}{${pas2}}{${2*pas1}}[${abs1},{${tex_nombrec(abs1)}} | ${abs2},{${tex_nombrec(abs2)}} | ${abs3},{${tex_nombrec(abs3)}} ] \\bigskip`;
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
 			}
 		
 		}
-		// liste_de_question_to_contenu(this); 
+		liste_de_question_to_contenu(this); 
 	}
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',4];
 }
