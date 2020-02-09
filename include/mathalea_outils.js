@@ -1196,8 +1196,6 @@ function MG32_tracer_toutes_les_figures() {
 
 }
 
-
-
 /** Trace une graduation sur le SVG
 * @param pas
 * @param mon_svg Objet SVG
