@@ -297,30 +297,47 @@ function Lire_des_abscisses(){
 function Droite_graduee(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Lire l'abscisse fractionnaire";
-	this.consigne = "Lire l'abscisse des points A, B et C";
-	this.nb_questions = 1;
-	this.nb_questions_modifiable = false;
+	this.consigne = "Lire l'abscisse des points de chacun des points suivants.";
+	this.nb_questions = 3;
+	this.nb_questions_modifiable = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
+	this.sup=1;
 	this.type_exercice = 'SVGJS';
 
 
 	this.nouvelle_version = function(numero_de_l_exercice){ // numero_de_l_exercice est 0 pour l'exercice 1
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
 
+		this.contenu = ''; // Liste de questions
+		this.contenu_correction = ''; // Liste de questions corrigées
 
+		let type_de_questions=parseInt(this.sup)
 		this.contenu = html_consigne(this.consigne)
-		this.contenu += `<div id="div_svg${numero_de_l_exercice}1" style="width: 90%; height: 200px;  "></div>`
-		SVG_reperage_sur_un_axe(`div_svg${numero_de_l_exercice}1`,0,6,1,10,[['A',randint(0,2),randint(1,9),false],['B',randint(3,4),randint(1,9)],['C',randint(5,6),randint(1,4)]],[[1,1,0],[2,2,0],[3,3,0],[4,4,0],[5,5,0],[6,6,0]])
-		this.contenu += `<div id="div_svg${numero_de_l_exercice}2" style="width: 90%; height: 200px;  "></div>`
-		SVG_reperage_sur_un_axe(`div_svg${numero_de_l_exercice}2`,0,6,1,10,[['A',randint(0,2),randint(1,9),false],['B',randint(3,4),randint(1,9)],['C',randint(5,6),randint(1,4)]],[[1,1,0],[2,2,0],[3,3,0],[4,4,0],[5,5,0],[6,6,0]])
-		
-		this.contenu_correction = `<div id="div_svg_corr${numero_de_l_exercice}1" style="width: 90%; height: 200px;  "></div>`
-		SVG_reperage_sur_un_axe(`div_svg_corr${numero_de_l_exercice}1`,0,6,1,10,[['A',randint(0,2),randint(1,9),false],['B',randint(3,4),randint(1,9)],['C',randint(5,6),randint(1,4)]],[[1,1,0],[2,2,0],[3,3,0],[4,4,0],[5,5,0],[6,6,0]])
+		for (let i = 0,abs0,abs1,abs2,abs3,x1,x2,x3,x11,x22,x33, pas1,pas2, id_unique, texte, texte_corr; i < this.nb_questions;i++) {
+
+			switch (type_de_questions) {
+				case 1: // Placer des décimaux sur un axe (1 décimale)
+				abs0=randint(0,9);
+				pas1=1;
+				pas2=10;
+				x1=randint(0,2);x2=randint(3,4);x3=randint(5,6);
+				x11=randint(1,9);x22=randint(1,9);x33=randint(1,3)
+				abs1=arrondi(abs0+x1+x11/10,1);
+				abs2=arrondi(abs0+x2+x22/10,1);
+				abs3=arrondi(abs0+x3+x33/10,1);
+				id_unique = `${i}_${Date.now()}`
+				this.contenu += `<div id="div_svg${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
+				SVG_reperage_sur_un_axe(`div_svg${numero_de_l_exercice}${id_unique}`,abs0,6,pas1,pas2,[[lettre_depuis_chiffre(i*3+1),x1,x11],[lettre_depuis_chiffre(i*3+2),x2,x22],[lettre_depuis_chiffre(i*3+3),x3,x33]],[[abs0+1,1,0],[abs0+2,2,0],[abs0+3,3,0],[abs0+4,4,0],[abs0+5,5,0],[abs0+6,6,0]])
+				this.contenu_correction += `<div id="div_svg_corr${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
+				SVG_reperage_sur_un_axe(`div_svg_corr${numero_de_l_exercice}${id_unique}`,abs0,6,pas1,pas2,[[lettre_depuis_chiffre(i*3+1),x1,x11,true],[lettre_depuis_chiffre(i*3+2),x2,x22,true],[lettre_depuis_chiffre(i*3+3),x3,x33,true]],[[abs0+1,1,0],[abs0+2,2,0],[abs0+3,3,0],[abs0+4,4,0],[abs0+5,5,0],[abs0+6,6,0]])
+				break;
+			}
+		}
 	}
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
+
+
 
 
 /**
