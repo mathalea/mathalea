@@ -186,7 +186,7 @@ function Exercice() {
 */
 function Droite_graduee(){
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Lire l'abscisse fractionnaire";
+	this.titre = "Lire l'abscisse décimale";
 	this.consigne = "Lire l'abscisse des points de chacun des points suivants.";
 	this.nb_questions = 3;
 	this.nb_questions_modifiable = true;
