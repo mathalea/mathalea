@@ -956,7 +956,7 @@ function texte_en_couleur_et_gras(texte,couleur="#f15929"){
 */
 function href(texte,lien){
 	if (sortie_html) {
-		return `<a target="_blank" href=${lien}> ${lien} </a>`	
+		return `<a target="_blank" href=${lien}> ${texte} </a>`	
 	} else {
 		return `\\href{${lien}}{${texte}}`
 	}
@@ -1206,19 +1206,19 @@ function MG32_tracer_toutes_les_figures() {
 * @param width 
 * @Auteur Rémi Angot
 */
-function SVG_graduation(mon_svg,origine,pas,derniere_graduation,taille=10,y=50,color='black',width=5) {
+function SVG_graduation(mon_svg,origine,pas,derniere_graduation,taille=10,y=50,couleur='black',width=5) {
 	for (let i = origine; i < derniere_graduation; i+=pas) {
 		let line = mon_svg.line(i, y-taille/2, i, y+taille/2)
-		line.stroke({ color: color, width: width, linecap: 'round' })
+		line.stroke({ color: couleur, width: width, linecap: 'round' })
 	}
 	SVG_tracer_fleche(mon_svg,derniere_graduation,y)
 }
 
-function SVG_label(mon_svg,liste_d_abscisses,y,color) {
+function SVG_label(mon_svg,liste_d_abscisses,y,couleur) {
 	for (let i = 0; i < liste_d_abscisses.length; i++) {
 		let text = mon_svg.text((liste_d_abscisses[i][0]).toString())
 		y=parseInt(y);	
-		text.move(liste_d_abscisses[i][1],50).font({ fill: color,
+		text.move(liste_d_abscisses[i][1],50).font({ fill: couleur,
 			family:   'Helvetica'
 			, size:     20
 			, anchor:   'middle'
@@ -1227,13 +1227,13 @@ function SVG_label(mon_svg,liste_d_abscisses,y,color) {
 	}
 }
 
-function SVG_tracer_point(mon_svg,x,nom) {
+function SVG_tracer_point(mon_svg,x,nom,couleur) {
 	//creer un groupe pour la croix
 	let point = mon_svg.group()
 	let c1 = point.line(-5,5,5,-5)
-	c1.stroke({ color: '#f15929', width: 5, linecap: 'round' })
+	c1.stroke({ color: couleur, width: 3, linecap: 'round' })
 	let c2 = point.line(-5,-5,5,5)
-	c2.stroke({ color: '#f15929', width: 5, linecap: 'round' })
+	c2.stroke({ color: couleur, width: 3, linecap: 'round' })
 	//déplace la croix
 	point.move(x,50)
 	point.dmove(-5,-5)
@@ -1281,17 +1281,16 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
 			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 800, 150)
 			// Droite 
-			let droite = mon_svg.line(0, 50, 750, 50)
+			let droite = mon_svg.line(100, 50, 750, 50)
 			droite.stroke({ color: 'black', width: 2, linecap: 'round' })
 			// Graduation secondaire
-			SVG_graduation(mon_svg,100-longueur*longueur_pas1/6,longueur_pas2,750,taille=5,y=50,color='blue',width=2)
+			SVG_graduation(mon_svg,100,longueur_pas2,750,taille=5,y=50,color='blue',width=2)
 			// Graduation principale
    			SVG_graduation(mon_svg,100,longueur_pas1,750,taille=10,y=50,color='black',width=5)
 			// Nombres visibles
 			SVG_label(mon_svg,[[arrondi_virgule(origine),100]],2,'black')
 			for (i=0;i<points_connus.length;i++) {
 				valeur=arrondi_virgule(points_connus[i][0],arrondir-1);
-				console.log(valeur)
 				distance=longueur_pas1*points_connus[i][1]+longueur_pas2*points_connus[i][2];
 				SVG_label(mon_svg,[[valeur,100+distance,50]],2,'black')
 			}
@@ -1301,7 +1300,7 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 				distance=longueur_pas1*points_inconnus[i][1]+longueur_pas2*points_inconnus[i][2]
 				nom=points_inconnus[i][0]
 				valeur=arrondi_virgule(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2,arrondir)
-				SVG_tracer_point(mon_svg,100+distance,nom)
+				SVG_tracer_point(mon_svg,100+distance,nom,'#f15929')
 				if (points_inconnus[i][3]==true) {
 					SVG_label(mon_svg,[[valeur,100+distance,50]],3+position,'#f15929')
 					position=1-position
