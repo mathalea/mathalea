@@ -264,7 +264,7 @@ function Droite_graduee(){
 			}
 		
 		}
-		liste_de_question_to_contenu(this); 
+		if (!sortie_html) liste_de_question_to_contenu(this); 
 	}
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',4];
 }
