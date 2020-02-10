@@ -1008,11 +1008,12 @@ function Exercice_equation1(){
 				if (pgcd(abs(a),abs(c-b))>1 || a<0){
 					texte_corr += `<br>$x=${tex_fraction_reduite(c-b,a)}$`
 				}
+				texte_corr += `<br> La solution est $${tex_fraction_reduite(c-b,a)}$.`
 			}
 			if (liste_type_de_questions[i]=='x+b=c') {
 				if (!this.sup && c<b) {
-					b = randint(1,9)
-					c = randint(b,15) // c sera plus grand que b pour que c-b>0
+					b = randint(-9,9,[0]) // b peut être négatif, ça sera une équation du type x-b=c
+					c = abs(randint(b,15)) // c sera plus grand que b pour que c-b>0
 				}
 				texte = `$x${ecriture_algebrique(b)}=${c}$`;
 				texte_corr = texte+'<br>';
@@ -1024,7 +1025,8 @@ function Exercice_equation1(){
 					}
 				}
 				texte_corr += `$x${ecriture_algebrique(b)}${mise_en_evidence(ecriture_algebrique(-1*b))}=${c}${mise_en_evidence(ecriture_algebrique(-1*b))}$<br>`;
-				texte_corr += `$x=${c-b}$<br>`
+				texte_corr += `$x=${c-b}$`
+				texte_corr += `<br> La solution est $${c-b}$.`
 			}
 			if (liste_type_de_questions[i]=='ax=b') {
 				texte = `$${a}x=${b}$`;
@@ -1035,6 +1037,7 @@ function Exercice_equation1(){
 				if (pgcd(abs(a),abs(b))>1 || a<0){
 					texte_corr += `<br>$x=${tex_fraction_reduite(b,a)}$`
 				}
+				texte_corr += `<br> La solution est $${tex_fraction_reduite(b,a)}$.`
 			}
 			if (liste_type_de_questions[i]=='ax+b=cx+d') {
 				if (c==a) {c = randint(1,13,[a])} // sinon on arrive à une division par 0
@@ -1073,6 +1076,7 @@ function Exercice_equation1(){
 				if (pgcd(abs(d-b),abs(a-c))>1 || (a-c)<0){
 					texte_corr += `<br>$x=${tex_fraction_reduite(d-b,a-c)}$`
 				}
+				texte_corr += `<br> La solution est $${tex_fraction_reduite(d-b,a-c)}$.`
 			}
 				
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
@@ -1085,7 +1089,7 @@ function Exercice_equation1(){
 		liste_de_question_to_contenu(this);
 	}
 	 this.besoin_formulaire_case_a_cocher  = ['Avec des nombres relatifs'];	
-	 this.besoin_formulaire2_numerique = ["Type d'équations",4,"1 : ax=b ou x+a=b\n2: ax+b=c\n3: ax+b=cx+d\n4: Les 2 types précédents"] 	
+	 this.besoin_formulaire2_numerique = ["Type d'équations",4,"1 : ax=b ou x+a=b ou x-a=b\n2: ax+b=c\n3: ax+b=cx+d\n4: Les 2 types précédents"] 	
 }
 
 /**
