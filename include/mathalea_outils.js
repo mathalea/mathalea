@@ -1214,6 +1214,14 @@ function SVG_graduation(mon_svg,origine,pas,derniere_graduation,taille=10,y=50,c
 	SVG_tracer_fleche(mon_svg,derniere_graduation,y)
 }
 
+function Latex_graduation(pas,taille=1,y=0,couleur,width) {
+	let code;
+	if (pas==0.1) code = `\n\t \\foreach \\x in {1,1.1,...,7.4} { \\draw (\\x,${y-0.1*taille})--(\\x,${y+0.1*taille})}`
+	else code = `\n\t \\foreach \\x in {1,2,...,7} { \\draw (\\x,${y-0.1*taille})--(\\x,${y+0.1*taille})}`
+	code+=Latex_tracer_fleche(7.5,y)
+	return code;
+}
+
 function SVG_label(mon_svg,liste_d_abscisses,y,couleur) {
 	for (let i = 0; i < liste_d_abscisses.length; i++) {
 		let text = mon_svg.text((liste_d_abscisses[i][0]).toString())
@@ -1225,6 +1233,16 @@ function SVG_label(mon_svg,liste_d_abscisses,y,couleur) {
 			, leading : y
 		})
 	}
+}
+
+function Latex_label(liste_d_abscisses,y) {
+	let code=''
+	for (let i = 0,text; i < liste_d_abscisses.length; i++) {
+		 text = liste_d_abscisses[i][0].toString()
+		y=parseInt(y);	
+		code +=`\n\t \\draw (${liste_d_abscisses[i][1]},-1) node[below]{$${text}$} `;
+	}
+	return code;
 }
 
 function SVG_tracer_point(mon_svg,x,nom,couleur) {
@@ -1247,6 +1265,13 @@ function SVG_tracer_point(mon_svg,x,nom,couleur) {
 		})
 }
 
+function Latex_tracer_point(x,nom) {
+	let code =`\n\t \\draw (${x-0.1},${y-0.1})--(${x+0.1},${y+0.1}) `;
+	code +=`\n\t \\draw (${x-0.1},${y+0.1})--(${x+0.1},${y-0.1}) `;
+	code +=`\n\t \\draw (${x},${y}) node[below]{$${nom}$}`;
+	return code;
+}
+
 function SVG_tracer_fleche(mon_svg,x,y) {
 	//creer un groupe pour la fleche
 	let fleche = mon_svg.group()
@@ -1258,9 +1283,14 @@ function SVG_tracer_fleche(mon_svg,x,y) {
 	fleche.move(x,y)
 	fleche.dmove(-5,-5)
 }
+function Latex_tracer_fleche(x,y) {
+	let code =`\n\t \\draw (${x-0.1},${y-0.1})--(${x},${y}) `
+	code +=`\n\t \\draw (${x-0.1},${y+0.1})--(${x},${y}) `
+	return code;
+} 
 
 /**
-* Trace une graduation avec sur le SVG
+* Trace une graduation sur le SVG
 * @param origine la première abscisse de la droite ou demi-droite
 * @param longueur le nombre d'intervalles entre l'origine et la dernière graduation
 * @param pas1 le fractionnement de l'unité utilisé : 10 pour 0,1 ; 2 pour 0,5 ...
@@ -1284,7 +1314,7 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 			let droite = mon_svg.line(100, 50, 750, 50)
 			droite.stroke({ color: 'black', width: 2, linecap: 'round' })
 			// Graduation secondaire
-			SVG_graduation(mon_svg,100,longueur_pas2,750,taille=5,y=50,color='blue',width=2)
+			SVG_graduation(mon_svg,100,longueur_pas2,750,taille=5,y=50,color='black',width=2)
 			// Graduation principale
    			SVG_graduation(mon_svg,100,longueur_pas1,750,taille=10,y=50,color='black',width=5)
 			// Nombres visibles
@@ -1310,4 +1340,51 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
     		}
 	}, 100); // Vérifie toutes les 100ms
 }
+
+/**
+* Trace une graduation en Latex
+* @param origine la première abscisse de la droite ou demi-droite
+* @param longueur le nombre d'intervalles entre l'origine et la dernière graduation
+* @param pas1 le fractionnement de l'unité utilisé : 10 pour 0,1 ; 2 pour 0,5 ...
+* @param pas2 Idem pas1 pour la petite graduation
+* @param points_inconnus tableau tableau [Nom,nb_pas1,nb_pas2,affiche_ou_pas]
+* @param points_connus tableau [valeur,nb_pas1,nb_pas2]
+* @Auteur Jean-Claude Lhote
+*/
+function Latex_reperage_sur_un_axe(zoom,origine,longueur,pas1,pas2,points_inconnus,points_connus){
+	let result=`\\begin{tikzpicture}[scale=${zoom}]`
+	let arrondir=1+Math.round(Math.log10(pas1))
+	let longueur_pas1=600/longueur;
+ 	let longueur_pas2=600/longueur/pas2;
+ 	let distance,valeur,nom
+
+			// Droite 
+			result+=`\n\t \\draw (0.5,0)--(7.5,0)`
+			// Graduation secondaire
+			result+=Latex_graduation(0.1,taille=2,y=1,'black',width=2)
+			// Graduation principale
+   			result+=Latex_graduation(1,taille=4,y=1,'black',width=4)
+			// Nombres visibles
+			result+=Latex_label([[arrondi_virgule(origine),1]],'black')
+			for (i=0;i<points_connus.length;i++) {
+				valeur=arrondi_virgule(points_connus[i][0],arrondir-1);
+				distance=points_connus[i][1]+points_connus[i][2]/pas2;
+				// result+=Latex_label([[valeur,100+distance,50]],'black')
+			}
+			//Points inconnus
+			let position=1;
+			for (i=0;i<points_inconnus.length;i++){
+				distance=points_inconnus[i][1]+points_inconnus[i][2]/pas2
+				nom=points_inconnus[i][0]
+				valeur=arrondi_virgule(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2,arrondir)
+				result+=Latex_tracer_point(1+distance,nom)
+				if (points_inconnus[i][3]==true) {
+					result+=Latex_label([[valeur,1+distance]],'#f15929')
+				}
+			}
+			result +=`\n\t \\end{tikzpicture}`
+			return result;
+ 
+ }
+
 

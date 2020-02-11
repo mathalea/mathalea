@@ -257,8 +257,8 @@ function Droite_graduee(){
 				SVG_reperage_sur_un_axe(`div_svg_corr${numero_de_l_exercice}${id_unique}`, abs0, 6, pas1, pas2, [[l1, x1, x11, true], [l2, x2, x22, true], [l3, x3, x33, true]], [[abs0 + 1 / pas1, 1, 0], [abs0 + 2 / pas1, 2, 0], [abs0 + 3 / pas1, 3, 0], [abs0 + 4 / pas1, 4, 0], [abs0 + 5 / pas1, 5, 0], [abs0 + 6 / pas1, 6, 0]])
 			}
 			else { //sortie Latex   \axeGradueFraction{0}{4}{4}{4}[1/4,A | 6/4,B | 9/4,C | 16/4,D] \bigskip
-				texte=`\\axeGradueFraction{${abs0}}{${absmax}}{${pas2}}{${2*pas1}}[${abs1},${l1} | ${abs2},${l2} | ${abs3},${l3} ] \\bigskip`
-				texte_corr=`\\axeGradueFraction{${abs0}}{${absmax}}{${pas2}}{${2*pas1}}[${abs1},{${tex_nombrec(abs1)}} | ${abs2},{${tex_nombrec(abs2)}} | ${abs3},{${tex_nombrec(abs3)}} ] \\bigskip`;
+				texte=Latex_reperage_sur_un_axe(2, abs0, 6, pas1, pas2, [[l1, x1, x11], [l2, x2, x22], [l3, x3, x33]], [[abs0 + 1 / pas1, 1, 0], [abs0 + 2 / pas1, 2, 0], [abs0 + 3 / pas1, 3, 0], [abs0 + 4 / pas1, 4, 0], [abs0 + 5 / pas1, 5, 0], [abs0 + 6 / pas1, 6, 0]]);
+				texte_corr='' // `\\axeGradueFraction{${abs0}}{${absmax}}{${pas2}}{${2*pas1}}[${abs1},{${tex_nombrec(abs1)}} | ${abs2},{${tex_nombrec(abs2)}} | ${abs3},{${tex_nombrec(abs3)}} ] \\bigskip`;
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
 			}
