@@ -287,26 +287,26 @@ function Lire_abscisse_fractionnaire(){
 			l2=lettre_depuis_chiffre(i*3+2)
 			l3=lettre_depuis_chiffre(i*3+3)
 			switch (type_de_questions[i]) {
-				case 1: // Placer des demis ou des tiers sur un axe 
-					abs0 = randint(0,9);
+				case 1: // Placer des demis aux quarts sur un axe 
+					abs0 = 0;
 					pas1 = 1;
-					pas2 = randint(2,3);
+					pas2 = choice([2,3,4]);
 					break;
 
-				case 2: // Placer des quarts,des cinquièmes sur un axe
-					abs0 = randint(0, 9);
+				case 2: // Placer des cinquièmes aux neuvièmes sur un axe
+					abs0 = 0;
 					pas1 = 1;
-					pas2 = randint(4,5);
+					pas2 = randint(5,9);
 					break;
 
-				case 3: // Placer des sixièmes des septièmes et des huitièmes sur un axe 
-					abs0 = randint(0,9);
+				case 3: // Placer des demis aux neuvièmes à partir d'un entier >=1 sur un axe 
+					abs0 = randint(1,5);
 					pas1 = 1;
-					pas2 = randint(6,7);
+					pas2 = randint(2,9);
 					break;
 			}
 			x1 = randint(0, 1); x2 = randint(2, 3); x3 = randint(4, 5);
-			x11 = randint(1,pas2); x22 = randint(1,pas2); x33 = randint(1,pas2)
+			x11 = randint(1,pas2-1); x22 = randint(1,pas2-1); x33 = randint(1,pas2-1)
 			if (sortie_html) {
 				id_unique = `${i}_${Date.now()}`
 				this.contenu += `<div id="div_svg${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
@@ -324,7 +324,7 @@ function Lire_abscisse_fractionnaire(){
 		}
 		if (!sortie_html) liste_de_question_to_contenu(this); 
 	}
-	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : Un chiffre après la virgule\n2 : Deux chiffres après la virgule \n3 : Trois chiffres après la virgule\n4 : Mélange"];
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : Demis, tiers ou quarts avec zéro placé\n2 : Des cinquièmes aux neuvièmes avec zéro placé \n3 : Toutes les fractions précédentes mais zéro non visible\n4 : Mélange"];
 }
 
 /**
