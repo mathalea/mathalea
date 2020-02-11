@@ -186,17 +186,15 @@ function Exercice() {
 */
 function Droite_graduee(){
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Lire l'abscisse décimale";
-	this.consigne = "Lire l'abscisse des points de chacun des points suivants.";
+	this.titre = "Lire l'abscisse décimale d'un point";
+	this.consigne = "Lire l'abscisse de chacun des points suivants.";
 	this.nb_questions = 3;
 	this.nb_questions_modifiable = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.spacing = 1;
     this.spacing_corr = 1;
-	this.sup=1;
-	this.type_exercice = 'SVGJS';
-
+	this.sup=4;
 
 	this.nouvelle_version = function(numero_de_l_exercice){ // numero_de_l_exercice est 0 pour l'exercice 1
 		this.liste_questions=[];
@@ -266,7 +264,7 @@ function Droite_graduee(){
 		}
 		if (!sortie_html) liste_de_question_to_contenu(this); 
 	}
-	this.besoin_formulaire_numerique = ['Niveau de difficulté',4];
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : Un chiffre après la virgule\n2 : Deux chiffres après la virgule \n3 : Trois chiffres après la virgule\n4 : Mélange"];
 }
 
 

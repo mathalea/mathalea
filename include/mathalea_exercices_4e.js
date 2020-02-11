@@ -1782,7 +1782,7 @@ function Exercice_Trigo_longueurs() {
 				texte_corr += `$${s0+s1}=${quatrieme_proportionnelle(`\\tan\\left(${angle1}°\\right)`,1,s02)}$<br>`					
 				texte_corr += `Soit $${s0 + s1}\\approx${s01}$ cm.`;
 			}
-			texte+=href('Comment calculer une longueur avec la trigonométrie','https://www.youtube.com/watch?v=DYW-BTMFzd4')
+			// texte+=href('Comment calculer une longueur avec la trigonométrie','https://www.youtube.com/watch?v=DYW-BTMFzd4')
 			this.liste_questions.push(texte);
 			this.liste_corrections.push(texte_corr);
 			liste_de_question_to_contenu_sans_numero(this);;
