@@ -51,13 +51,12 @@ var liste_des_exercices_disponibles = {
 		'6N13' : Exercice_6N13,
 		'6N20' : Exercice_fractions_decomposer,
 		'6N20-2':Exercice_fractions_differentes_ecritures,
-		// '6N21' : Droite_graduee,
+		'6N21' : Droite_graduee,
 		'6N23' : Exercice_ecriture_decimale_a_partir_de_fraction_decimale,
 		'6N23_1' : Exercice_differentes_ecritures_nombres_decimaux,
 		'6N24' : Exercice_6N24,
 		'6N24_1' : Exercice_multiplier_ou_diviser_un_nombre_entier_par_10_100_1000,
 		'6N31' : Comparer_decimaux,
-		// '6N32' : Lire_des_abscisses,
 		'6N33' : Fraction_d_un_nombre,
 		'6N33-1' : Pourcentage_d_un_nombre,
 		'6N34' : Reglages_6N34,
@@ -188,8 +187,8 @@ function Exercice() {
 function Droite_graduee(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Lire l'abscisse décimale";
-	this.consigne = "Lire l'abscisse des points de chacun des points suivants.";
-	this.nb_questions = 3;
+	this.consigne = " Lire l'abscisse des points de chacun des points suivants.";
+	this.nb_questions = 1;
 	this.nb_questions_modifiable = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -257,10 +256,10 @@ function Droite_graduee(){
 				this.contenu_correction += `<div id="div_svg_corr${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
 				SVG_reperage_sur_un_axe(`div_svg_corr${numero_de_l_exercice}${id_unique}`, abs0, 6, pas1, pas2, [[l1, x1, x11, true], [l2, x2, x22, true], [l3, x3, x33, true]], [[abs0 + 1 / pas1, 1, 0], [abs0 + 2 / pas1, 2, 0], [abs0 + 3 / pas1, 3, 0], [abs0 + 4 / pas1, 4, 0], [abs0 + 5 / pas1, 5, 0], [abs0 + 6 / pas1, 6, 0]])
 			}
-			else { //sortie Latex   \axeGradueFraction{0}{4}{4}{4}[1/4,A | 6/4,B | 9/4,C | 16/4,D] \bigskip
-				texte=Latex_reperage_sur_un_axe(2, abs0, 6, pas1, pas2, [[l1, x1, x11], [l2, x2, x22], [l3, x3, x33]], [[abs0 + 1 / pas1, 1, 0], [abs0 + 2 / pas1, 2, 0], [abs0 + 3 / pas1, 3, 0], [abs0 + 4 / pas1, 4, 0], [abs0 + 5 / pas1, 5, 0], [abs0 + 6 / pas1, 6, 0]]);
-				texte_corr='' // `\\axeGradueFraction{${abs0}}{${absmax}}{${pas2}}{${2*pas1}}[${abs1},{${tex_nombrec(abs1)}} | ${abs2},{${tex_nombrec(abs2)}} | ${abs3},{${tex_nombrec(abs3)}} ] \\bigskip`;
-				this.liste_questions.push(texte);
+			else { //sortie Latex 
+				texte=Latex_reperage_sur_un_axe(2.4, abs0, 6, pas1, pas2, [[l1, x1, x11], [l2, x2, x22], [l3, x3, x33]], [[abs0 + 1 / pas1, 1, 0], [abs0 + 2 / pas1, 2, 0], [abs0 + 3 / pas1, 3, 0], [abs0 + 4 / pas1, 4, 0], [abs0 + 5 / pas1, 5, 0], [abs0 + 6 / pas1, 6, 0]]);
+				texte_corr=Latex_reperage_sur_un_axe(2.4, abs0, 6, pas1, pas2, [[l1, x1, x11,true], [l2, x2, x22,true], [l3, x3, x33,true]], [[abs0 + 1 / pas1, 1, 0], [abs0 + 2 / pas1, 2, 0], [abs0 + 3 / pas1, 3, 0], [abs0 + 4 / pas1, 4, 0], [abs0 + 5 / pas1, 5, 0], [abs0 + 6 / pas1, 6, 0]]);
+				this.liste_questions.push(texte)
 				this.liste_corrections.push(texte_corr);
 			}
 		
