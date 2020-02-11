@@ -219,26 +219,22 @@ function Lire_abscisse_decimale(){
 					abs0 = randint(0, 9);
 					pas1 = 1;
 					pas2 = 10;
-					x1 = randint(0, 2); x2 = randint(3, 4); x3 = randint(5, 6);
-					x11 = randint(1, 9); x22 = randint(1, 9); x33 = randint(1, 3)
 					break;
 
 				case 2: // Placer des décimaux sur un axe (2 décimales)
 					abs0 = randint(0, 90) / 10;
 					pas1 = 10;
 					pas2 = 10;
-					x1 = randint(0, 2); x2 = randint(3, 4); x3 = randint(5, 6);
-					x11 = randint(1, 9); x22 = randint(1, 9); x33 = randint(1, 3)
 					break;
 
 				case 3: // Placer des décimaux sur un axe (3 décimales)
 					abs0 = randint(0, 990) / 100;
 					pas1 = 100;
 					pas2 = 10;
-					x1 = randint(0, 2); x2 = randint(3, 4); x3 = randint(5, 6);
-					x11 = randint(1, 9); x22 = randint(1, 9); x33 = randint(1, 3)
 					break;
 			}
+			x1 = randint(0, 2); x2 = randint(3, 4); x3 = randint(5, 6);
+			x11 = randint(1, 9); x22 = randint(1, 9); x33 = randint(1, 3)
 			if (sortie_html) {
 				id_unique = `${i}_${Date.now()}`
 				this.contenu += `<div id="div_svg${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
@@ -295,26 +291,22 @@ function Lire_abscisse_fractionnaire(){
 					abs0 = randint(0,9);
 					pas1 = 1;
 					pas2 = randint(2,3);
-					x1 = randint(0, 2); x2 = randint(3, 4); x3 = randint(5, 6);
-					x11 = randint(1,pas2); x22 = randint(1,pas2); x33 = randint(1,pas2)
 					break;
 
 				case 2: // Placer des quarts,des cinquièmes sur un axe
 					abs0 = randint(0, 9);
 					pas1 = 1;
 					pas2 = randint(4,5);
-					x1 = randint(0, 2); x2 = randint(3, 4); x3 = randint(5, 6);
-					x11 = randint(1, pas2); x22 = randint(1, pas2); x33 = randint(1, pas2)
 					break;
 
 				case 3: // Placer des sixièmes des septièmes et des huitièmes sur un axe 
 					abs0 = randint(0,9);
 					pas1 = 1;
 					pas2 = randint(6,7);
-					x1 = randint(0, 2); x2 = randint(3, 4); x3 = randint(5, 6);
-					x11 = randint(1, pas2); x22 = randint(1, pas2); x33 = randint(1, pas2)
 					break;
 			}
+			x1 = randint(0, 1); x2 = randint(2, 3); x3 = randint(4, 5);
+			x11 = randint(1,pas2); x22 = randint(1,pas2); x33 = randint(1,pas2)
 			if (sortie_html) {
 				id_unique = `${i}_${Date.now()}`
 				this.contenu += `<div id="div_svg${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
@@ -369,40 +361,32 @@ function Placer_points_sur_axe(){
 			l1=lettre_depuis_chiffre(i*3+1)
 			l2=lettre_depuis_chiffre(i*3+2)
 			l3=lettre_depuis_chiffre(i*3+3)
+
 			switch (type_de_questions[i]) {
 				case 1: // Placer un point sur un axe (1 décimale)
 					abs0 = randint(0, 9);
 					pas1 = 1;
 					pas2 = 10;
-					x1 = randint(0, 2); x2 = randint(3, 4); x3 = randint(5, 6);
-					x11 = randint(1, 9); x22 = randint(1, 9); x33 = randint(1, 3)
-					abs1 = arrondi(abs0 + x1 + x11 / 10, 1);
-					abs2 = arrondi(abs0 + x2 + x22 / 10, 1);
-					abs3 = arrondi(abs0 + x3 + x33 / 10, 1);
 					break;
 
 				case 2: // Placer un point sur un axe (2 décimales)
 					abs0 = randint(0, 90) / 10;
 					pas1 = 10;
 					pas2 = 10;
-					x1 = randint(0, 2); x2 = randint(3, 4); x3 = randint(5, 6);
-					x11 = randint(1, 9); x22 = randint(1, 9); x33 = randint(1, 3)
-					abs1 = arrondi(abs0 + x1 / 10 + x11 / 100, 2);
-					abs2 = arrondi(abs0 + x2 / 10 + x22 / 100, 2);
-					abs3 = arrondi(abs0 + x3 / 10 + x33 / 100, 2);
 					break;
 
 				case 3: // Placer un point sur un axe (3 décimales)
 					abs0 = randint(0, 990) / 100;
 					pas1 = 100;
 					pas2 = 10;
-					x1 = randint(0, 2); x2 = randint(3, 4); x3 = randint(5, 6);
-					x11 = randint(1, 9); x22 = randint(1, 9); x33 = randint(1, 3)
-					abs1 = arrondi(abs0 + x1 / 100 + x11 / 1000, 3);
-					abs2 = arrondi(abs0 + x2 / 100 + x22 / 1000, 3);
-					abs3 = arrondi(abs0 + x3 / 100 + x33 / 1000, 3);
 					break;
 			}
+			x1 = randint(0, 2); x2 = randint(3, 4); x3 = randint(5, 6);
+			x11 = randint(1, 9); x22 = randint(1, 9); x33 = randint(1, 3);
+			abs1 = arrondi(abs0 + x1/pas1 + x11 / pas1/pas2, type_de_questions[i]);  // le type de questions est égal au nombre de décimales.
+			abs2 = arrondi(abs0 + x2/pas1 + x22 / pas1/pas2, type_de_questions[i]);
+			abs3 = arrondi(abs0 + x3/pas1 + x33 / pas1/pas2, type_de_questions[i]);
+
 			texte=`Placer les points : ${l1}(${tex_nombrec(abs1)}), ${l2}(${tex_nombrec(abs2)}), ${l3}(${tex_nombrec(abs3)})<br>`
 			if (sortie_html) {
 				texte_corr=''
