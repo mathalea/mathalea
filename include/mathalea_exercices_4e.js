@@ -1732,54 +1732,54 @@ function Exercice_Trigo_longueurs() {
 				texte_corr+=`Le cosinus de l'angle $\\widehat{${s0+s1+s2}}$ est défini par :<br>`;
 				texte_corr +=`$\\cos \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s1,s1+s2)}$<br>`;
 				texte_corr +=`Avec les données numériques :<br>`
-				texte_corr +=`$\\dfrac{\\cos\\left(${angle1}°\\right)}{1}=${tex_fraction(s0+s1,s12)}$<br>`;
+				texte_corr +=`$\\dfrac{\\cos\\left(${angle1}°\\right)}{\\color{red}{1}}=${tex_fraction(s0+s1,s12)}$<br>`;
 				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ égaux~donc~ :}$<br>`
-				texte_corr += `$${s0+s1}=${quatrieme_proportionnelle(1,s12,`\\cos\\left(${angle1}°\\right)`)}$<br>` // ${s12}\\times\\cos\\left(${angle1}°\\right)$<br>`;
+				texte_corr += `$${s0+s1}=${quatrieme_proportionnelle('\\color{red}{1}',s12,`\\cos\\left(${angle1}°\\right)`)}$<br>` // ${s12}\\times\\cos\\left(${angle1}°\\right)$<br>`;
 				texte_corr += `Soit $${s0 + s1}\\approx${s01}$ cm.`;
 			}
 			if (type_de_questions == 2) {
 				texte_corr += `Le cosinus de l'angle $\\widehat{${s0+s1+s2}}$ est défini par :<br>`;
 				texte_corr +=`$\\cos \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s1,s1+s2)}$<br>`;
 				texte_corr +=`Avec les données numériques :<br>`
-				texte_corr +=`$\\dfrac{\\cos\\left(${angle1}°\\right)}{1}=${tex_fraction(s01,s1+s2)}$<br>`;
+				texte_corr +=`$\\dfrac{\\cos\\left(${angle1}°\\right)}{\\color{red}{1}}=${tex_fraction(s01,s1+s2)}$<br>`;
 				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ égaux~donc~ :}$<br>`
-				texte_corr += `$${s1 + s2}=${quatrieme_proportionnelle(`\\cos\\left(${angle1}°\\right)`,1,s01)}$<br>`// ${s01}\\div\\cos\\left(${angle1}°\\right)$<br>`;
+				texte_corr += `$${s1 + s2}=${quatrieme_proportionnelle(`\\cos\\left(${angle1}°\\right)`,s01,'\\color{red}{1}')}$<br>`// ${s01}\\div\\cos\\left(${angle1}°\\right)$<br>`;
 				texte_corr += `Soit $${s1 + s2}\\approx${s12}$ cm.`;
 			}	
 			if (type_de_questions == 3) {
 				texte_corr += `Le sinus de l'angle $\\widehat{${s0+s1+s2}}$ est défini par :<br>`;
 				texte_corr += `$\\sin \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s2,s1+s2)}$<br>`;
 				texte_corr +=`Avec les données numériques :<br>`
-				texte_corr +=`$\\dfrac{\\sin\\left(${angle1}°\\right)}{1}=${tex_fraction(s0+s2,s12)}$<br>`;
+				texte_corr +=`$\\dfrac{\\sin\\left(${angle1}°\\right)}{\\color{red}{1}}=${tex_fraction(s0+s2,s12)}$<br>`;
 				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ égaux~donc~ :}$<br>`
-				texte_corr += `$${s0+s2}=${quatrieme_proportionnelle(1,s12,`\\sin\\left(${angle1}°\\right)`)}$<br>`
+				texte_corr += `$${s0+s2}=${quatrieme_proportionnelle('\\color{red}{1}',s12,`\\sin\\left(${angle1}°\\right)`)}$<br>`
 				texte_corr += `Soit $${s0 + s2}\\approx${s02}$ cm.`;
 			}
 			if (type_de_questions == 4) {
 				texte_corr = `Le sinus de l'angle $\\widehat{${s0+s1+s2}}$ est défini par :<br>`;
 				texte_corr +=`$\\sin \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s2,s1+s2)}$<br>`;
 				texte_corr +=`Avec les données numériques :<br>`
-				texte_corr +=`$\\dfrac{\\sin\\left(${angle1}°\\right)}{1}=${tex_fraction(s02,s1+s2)}$<br>`;
+				texte_corr +=`$\\dfrac{\\sin\\left(${angle1}°\\right)}{\\color{red}{1}}=${tex_fraction(s02,s1+s2)}$<br>`;
 				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ égaux~donc~ :}$<br>`
-				texte_corr += `$${s1+s2}=${quatrieme_proportionnelle(`\\sin\\left(${angle1}°\\right)`,1,s02)}$<br>`				
+				texte_corr += `$${s1+s2}=${quatrieme_proportionnelle(`\\sin\\left(${angle1}°\\right)`,s02,'\\color{red}{1}')}$<br>`				
 				texte_corr += `Soit $${s1 + s2}\\approx${s12}$ cm.`;
 			}
 			if (type_de_questions == 5) {
 				texte_corr = `La tangente de l'angle $\\widehat{${s0+s1+s2}}$ est définie par :<br>`;
 				texte_corr += `$\\tan \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s2,s0+s1)}<br>$`;
 				texte_corr +=`Avec les données numériques :<br>`
-				texte_corr +=`$\\dfrac{\\tan\\left(${angle1}°\\right)}{1}=${tex_fraction(s0+s2,s01)}$<br>`;
+				texte_corr +=`$\\dfrac{\\tan\\left(${angle1}°\\right)}{\\color{red}{1}}=${tex_fraction(s0+s2,s01)}$<br>`;
 				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ égaux~donc~ :}$<br>`
-				texte_corr += `$${s0+s2}=${quatrieme_proportionnelle(1,s01,`\\tan\\left(${angle1}°\\right)`)}$<br>`								
+				texte_corr += `$${s0+s2}=${quatrieme_proportionnelle('\\color{red}{1}',s01,`\\tan\\left(${angle1}°\\right)`)}$<br>`								
 				texte_corr += `Soit $${s0 + s2}\\approx${s02}$ cm.`;
 			}
 			if (type_de_questions == 6) {
 				texte_corr = `La tangente de l'angle $\\widehat{${s0+s1+s2}}$ est définie par :<br>`;
 				texte_corr +=`$\\tan \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s2,s0+s1)}$<br>`;
 				texte_corr +=`Avec les données numériques :<br>`
-				texte_corr +=`$\\dfrac{\\tan\\left(${angle1}°\\right)}{1}=${tex_fraction(s02,s0+s1)}$<br>`;
+				texte_corr +=`$\\dfrac{\\tan\\left(${angle1}°\\right)}{\\color{red}{1}}=${tex_fraction(s02,s0+s1)}$<br>`;
 				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ égaux~donc~ :}$<br>`
-				texte_corr += `$${s0+s1}=${quatrieme_proportionnelle(`\\tan\\left(${angle1}°\\right)`,1,s02)}$<br>`					
+				texte_corr += `$${s0+s1}=${quatrieme_proportionnelle(`\\tan\\left(${angle1}°\\right)`,s02,'\\color{red}{1}')}$<br>`					
 				texte_corr += `Soit $${s0 + s1}\\approx${s01}$ cm.`;
 			}
 			texte+=href('Comment calculer une longueur avec la trigonométrie','https://www.youtube.com/watch?v=DYW-BTMFzd4')

@@ -486,7 +486,7 @@ if ((typeof a)=="number"&&(typeof b)=="number"&&(typeof c)=="number") {
 	return result
 	}
 else {
-	return `\\dfrac{${b}\\times${c}}{${a}}`
+	return `\\dfrac{${b} \\times${c}}{${a}}`
 }
 }
 
@@ -1363,20 +1363,22 @@ function Latex_reperage_sur_un_axe(zoom,origine,longueur,pas1,pas2,points_inconn
 			result+=`\n\t \\draw [->,>=stealth,line width=1.2pt] (0.5,0.2)--(7.5,0.2);`
 			// result+=Latex_tracer_fleche(7.5,y=2)
 			// Nombres visibles
-			result+=Latex_label([[arrondi_virgule(origine),1,0]],'black')
+			result+=Latex_label([[arrondi_virgule(origine),1,0.03]],'black')
 			for (i=0;i<points_connus.length;i++) {
 				valeur=arrondi_virgule(points_connus[i][0],arrondir-1);
 				distance=1+points_connus[i][1]+points_connus[i][2]/pas2;
-				result+=Latex_label([[valeur,distance,0]],'black')
+				result+=Latex_label([[valeur,distance,0.03]],'black')
 			}
 			//Points inconnus
+			let position=0.1;
 			for (i=0;i<points_inconnus.length;i++){
 				distance=points_inconnus[i][1]+points_inconnus[i][2]/pas2
 				nom=points_inconnus[i][0]
 				valeur=arrondi_virgule(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2,arrondir)
 				result+=Latex_tracer_point(1+distance,nom,'red',2)
 				if (points_inconnus[i][3]==true) {
-					result+=Latex_label([[valeur,1+distance,-0.2]],'red')
+					result+=Latex_label([[valeur,1+distance,-0.1-position]],'red')
+					position=0.1-position;
 				}
 			}
 			result +=`\n\t \\end{tikzpicture}`
