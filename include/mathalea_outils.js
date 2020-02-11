@@ -1338,6 +1338,25 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 }
 
 /**
+* fonction pour simplifier l'ecriture lorsque l'exposant vaut 0 ou 1
+* retourne 1, la base ou rien
+* @param b base
+* @param e exposant 
+* @Auteur Sébastien Lozano
+*/	
+function simpExp(b,e) {
+	switch (e) {
+		case 1 : 
+			return ` ${b}`;
+			break;
+		case 0 : 
+			return ` 1`;
+			break;
+		default : 
+			return ` `;
+	};
+};
+/**
 * Trace une graduation en Latex
 * @param origine la première abscisse de la droite ou demi-droite
 * @param longueur le nombre d'intervalles entre l'origine et la dernière graduation
@@ -1387,3 +1406,98 @@ function Latex_reperage_sur_un_axe(zoom,origine,longueur,pas1,pas2,points_inconn
  }
 
 
+
+	/**
+* fonction pour simplifier les notations puissance dans certains cas
+* si la base vaut 1 ou -1 quelque soit l'exposant, retourne 1 ou -1,
+* si la base est négative on teste la parité de l'exposant pour alléger la notation sans le signe
+* si l'exposant vaut 0 ou 1 retourne 1, la base ou rien
+* @param b base
+* @param e exposant 
+* @Auteur Sébastien Lozano
+*/	
+function simpNotPuissance(b,e) {
+	switch (b) {
+		case -1 : 
+			if (e%2==0) {
+				return ` 1`;
+				break;
+			} else {
+				return ` -1`;
+				break;
+			};
+		case 1 : 
+			return ` 1`;
+			break;
+		default : 
+			switch (e) {
+				case 0 :
+					return `1`;
+					break;
+				case 1 :
+					return ` ${b}`;
+					break;
+				default :
+					if (b<0 && e%2==0) {
+						return ` ${b*-1}^{${e}}`;
+						break;
+					} else {
+						//return ` ${b}^{${e}}`;
+						return ` `;
+						break;
+					};
+			};
+	};
+};
+
+
+/**
+* fonction pour écrire en couleur la forme éclatée d'une puissance
+* @param b base
+* @param e exposant 
+* @param couleur
+* @Auteur Sébastien Lozano
+*/		
+function eclatePuissance(b,e,couleur) {
+	switch (e) {
+		case 0 :
+			return `\\mathbf{\\color{${couleur}}{1}}`;
+			break;
+		case 1 : 
+			return `\\mathbf{\\color{${couleur}}{${b}}}`;
+			break;
+		default :
+			str = `\\mathbf{\\color{${couleur}}{${b}}} `;
+			for (let i=1; i<e;i++) {
+				str = str + `\\times \\mathbf{\\color{${couleur}}{${b}}}`;
+			 }
+			return str;
+	}
+};
+
+/**
+* fonction pour écrire avec deux couleurs la forme éclatée d'un produit de puissances de même exposant
+* @param b1 base1
+* @param b2 base2
+* @param e exposant 
+* @param couleur1
+* @param couleur2
+* @Auteur Sébastien Lozano
+*/	
+function reorganiseProduitPuissance(b1,b2,e,couleur1,couleur2) {
+	switch (e) {
+		case 0 :
+			return `1`;
+			break;
+		case 1 : 
+			return `\\mathbf{\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}`;
+			break;
+		default :
+			str = `\\mathbf{(\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}) `;
+			for (let i=1; i<e;i++) {
+				str = str + `\\times (\\mathbf{\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}})`;
+			 }
+			return str;
+	}
+
+}

@@ -96,8 +96,8 @@ var liste_des_exercices_disponibles = {
 		'4N13': Exercice_multiplier_fractions,
 		'4N14': Exercice_diviser_fractions,
 		'4N15': Exercice_additionner_fraction_produit,
-		'4N20': Puissances_d_un_relatif_1,
-		'4N21': Puissances_d_un_relatif_2,
+		'4N21': Puissances_d_un_relatif_1,
+		'4N21-1': Puissances_d_un_relatif_2,
 		'4R10': Exercice_multiplications_relatifs,
 		'4G10' : Exercice_Pythagore,
 		'4G11' : Reciproque_Pythagore,
@@ -188,17 +188,15 @@ function Exercice() {
 function Lire_abscisse_decimale(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Lire l'abscisse décimale";
-	this.consigne = " Lire l'abscisse des points de chacun des points suivants.";
-	this.nb_questions = 5;
+	this.titre = "Lire l'abscisse décimale d'un point";
+	this.consigne = "Lire l'abscisse de chacun des points suivants.";
+	this.nb_questions = 3;
 	this.nb_questions_modifiable = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.spacing = 1;
     this.spacing_corr = 1;
-	this.sup=1;
-	this.type_exercice = 'SVGJS';
-
+	this.sup=4;
 
 	this.nouvelle_version = function(numero_de_l_exercice){ // numero_de_l_exercice est 0 pour l'exercice 1
 		let type_de_questions;
@@ -257,7 +255,7 @@ function Lire_abscisse_decimale(){
 		}
 		if (!sortie_html) liste_de_question_to_contenu(this); 
 	}
-	this.besoin_formulaire_numerique = ['Niveau de difficulté',4];
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : Un chiffre après la virgule\n2 : Deux chiffres après la virgule \n3 : Trois chiffres après la virgule\n4 : Mélange"];
 }
 
 /**
