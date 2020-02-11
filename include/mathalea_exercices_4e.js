@@ -2340,36 +2340,83 @@ function Puissances_d_un_relatif_1(){
 }
 /**
 * Puissances d'un relatif (2)
-* * L’objectif est de travailler le produit de deux puissances de même exposant
-* * mais aussi certaines connaissances sur les nombres et donc d’utiliser la propriété des puissances de puissances
-* @auteur Sébastien Lozano
+* * L’objectif est de travailler le sens des règles de calcul sur les puissances plutôt que les formules magiques
+*
+* Paramétrages possibles :
+* * 1 : produit de puissances de même base
+* * 2 : quotient de puissances de même base
+* * 3 : puissance de puissance
+* * 4 : produit de puissances de même exposant
+* * 5 : mélange des trois autres niveaux
+* @Auteur Sébastien Lozano
 */
 function Puissances_d_un_relatif_2(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1 ; 
-	this.titre = "Puissances : Calculs automatisés et règles de calculs (bis)"; 
+	this.titre = "Puissances : Le sens des règles de calculs"; 
 	this.consigne = "Écrire sous la forme $\\mathbf{a^n}$.";
 	this.spacing = 2;
 	this.spacing_corr = 2;
 	this.nb_questions = 5;
-	this.nb_cols_corr = 2;
+	this.nb_cols_corr = 1;
 
-	// fonction pour ne pas avoir l'exposant 0 ou 1, retourne 1, la base ou base^exposant
+	/**
+	* fonction pour ne pas avoir l'exposant 0 ou 1, retourne 1 ou la base
+	* @param b base
+	* @param e exposant 
+	* @Auteur Sébastien Lozano
+	*/	
 	function testExp(b,e) {
 		switch (e) {
 			case 1 : 
-				return ` = ${b}$`;
+				return ` = ${b}`;
 				break;
 			case 0 : 
-				return ` = 1$`;
+				return ` = 1`;
 				break;
 			default : 
-				//return `$ = ${b}^{${e}}$`;						
-				return `$`;
+				return ``;
 		};
 	}
 
-	// fonction pour écrire la forme éclatée d'une puissance
+	/**
+	* fonction pour ne pas avoir 1 ou -1 exposant qqchose, retourne 1 ou -1,
+	* si la base est négative on teste la parité de l'exposant pour alléger la notation sans le signe
+	* @param b base
+	* @param e exposant 
+	* @Auteur Sébastien Lozano
+	*/	
+	function testBase(b,e) {
+		switch (b) {
+			case -1 : 
+				if (e%2==0) {
+					return ` = 1`;
+					break;
+				} else {
+					return ` = -1`;
+					break;
+				};
+			case 1 : 
+				return ` = 1`;
+				break;
+			default : 
+				if (b<0 && e%2==0) {
+					return ` = ${b*-1}^{${e}}`;
+				 	break;
+				 } else {
+					return ` `;
+				 	break;
+				 }						
+		};
+	}
+
+	/**
+	* fonction pour écrire en couleur la forme éclatée d'une puissance
+	* @param b base
+	* @param e exposant 
+	* @param couleur
+	* @Auteur Sébastien Lozano
+	*/		
 	function eclatePuissance(b,e,couleur) {
 		switch (e) {
 			case 0 :
@@ -2385,11 +2432,18 @@ function Puissances_d_un_relatif_2(){
 				 }
 				return str;
 		}
-
 	};
 
-	// fonction pour écrire la forme éclatée d'une puissance
-	function reorganisePuissance(b1,b2,e,couleur1,couleur2) {
+	/**
+	* fonction pour écrire avec deux couleurs la forme éclatée d'un produit de puissances de même exposant
+	* @param b1 base1
+	* @param b2 base2
+	* @param e exposant 
+	* @param couleur1
+	* @param couleur2
+	* @Auteur Sébastien Lozano
+	*/	
+	function reorganiseProduitPuissance(b1,b2,e,couleur1,couleur2) {
 		switch (e) {
 			case 0 :
 				return `1`;
@@ -2411,43 +2465,131 @@ function Puissances_d_un_relatif_2(){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 
-		//let type_de_questions_disponibles = [1,2,3,4];
-		let type_de_questions_disponibles = [1,2];
+		let type_de_questions_disponibles = [];
+		if (this.sup==1){
+			type_de_questions_disponibles = [1]; // produit de puissances de même base
+		} else if (this.sup==2){
+			type_de_questions_disponibles = [2]; // quotient de puissances de même base
+		} else if (this.sup==3){
+			type_de_questions_disponibles = [3]; // puissance de puissance
+		} else if (this.sup==4){
+			type_de_questions_disponibles = [4]; // produit de puissances de même exposant
+		} else if (this.sup==5){
+			type_de_questions_disponibles = [1,2,3,4]; // mélange
+		};
+
+
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions);
 
 		for (let i = 0, base ,exp , texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 			type_de_questions = liste_type_de_questions[i];
+
+			base = randint(1,9)*choice([-1,1]); // on choisit 1 base ... penser à gérer le cas des bases qui sont des puissances
+			exp = [randint(1,9),randint(1,9)]; // on choisit deux exposants
+			lettre = lettre_depuis_chiffre(i+1); // on utilise des lettres pour les calculs	
+
+			if (base<0) {
+				base_utile = '('+base+')'; // on définit une base avec des parenthèses pour l'affichage du cas negatif
+			} else {
+				base_utile = base;
+			};
 			
 			switch (type_de_questions) {
 				case 1 :
+					// base = randint(1,9)*choice([-1,1]); // on choisit 1 base ... penser à gérer le cas des bases qui sont des puissances
+					// exp = [randint(1,9),randint(1,9)]; // on choisit deux exposants
+					// lettre = lettre_depuis_chiffre(i+1); // on utilise des lettres pour les calculs	
+
+					// if (base<0) {
+					// 	base_utile = '('+base+')'; // on définit une base avec des parenthèses pour l'affichage du cas negatif
+					// } else {
+					// 	base_utile = base;
+					// };
+					
+					//texte = `rrr`;
+					texte =  `$${lettre}=${base_utile}^${exp[0]}\\times ${base_utile}^${exp[1]}$`;	
+
+					texte_corr = `$${lettre}=${base_utile}^${exp[0]}\\times ${base_utile}^${exp[1]}$`;
+					texte_corr += `<br>`;
+					texte_corr += `$${lettre}=${eclatePuissance(base_utile,exp[0],'red')} \\times ${eclatePuissance(base_utile,exp[1],'blue')}$`;
+					texte_corr += `<br>`;
+					texte_corr += `Il y a donc $\\mathbf{\\color{red}{${exp[0]}}~\\color{black}{+}~\\color{blue}{${exp[1]}}}$ facteurs tous égaux à $${base_utile}$`;
+					texte_corr += `<br>`;
+					texte_corr += `$${lettre}=${base_utile}^{${exp[0]}+${exp[1]}} = ${base_utile}^{${exp[0]+exp[1]}}`;
+					texte_corr += `${testBase(base,exp[0]+exp[1])}$`; 
+					texte_corr += `<br>`;
+					break;			
+				case 2 :
+					// base = randint(1,9)*choice([-1,1]); // on choisit 1 base ... penser à gérer le cas des bases qui sont des puissances
+					// exp = [randint(1,9),randint(1,9)]; // on choisit deux exposants
+					if (Math.max(exp[0],exp[1])==exp[0]) {
+						coul_exp0='red';
+						coul_exp1='blue'
+					} else {
+						coul_exp0 = 'blue';
+						coul_exp1 = 'red';
+					};
+
+					// lettre = lettre_depuis_chiffre(i+1); // on utilise des lettres pour les calculs	
+
+					// if (base<0) {
+					// 	base_utile = '('+base+')'; // on définit une base avec des parenthèses pour l'affichage du cas negatif
+					// } else {
+					// 	base_utile = base;
+					// };
+					
+					texte =  `$${lettre}=\\dfrac{${base_utile}^${exp[0]}}{${base_utile}^${exp[1]}}$`;	
+					texte += `<br>`;
+
+					texte_corr = `$${lettre}=\\dfrac{${base_utile}^${exp[0]}}{${base_utile}^${exp[1]}}$`;
+					texte_corr += `<br><br>`;
+					texte_corr += `$${lettre}=\\dfrac{${eclatePuissance(base_utile,exp[0],coul_exp0)}}{${eclatePuissance(base_utile,exp[1],coul_exp1)}}$`;
+					texte_corr += `<br><br>`;
+					texte_corr += `Il y a donc $\\mathbf{\\color{red}{${Math.max(exp[0],exp[1])}}~\\color{black}{-}~\\color{blue}{${Math.min(exp[0],exp[1])}}}$ simplifications par $${base_utile}$ possibles.`;
+					texte_corr += `<br><br>`;
+					texte_corr += `$${lettre}=${base_utile}^{${exp[0]}-${exp[1]}} = ${base_utile}^{${exp[0]-exp[1]}}`;
+					texte_corr += `${testBase(base,exp[0]-exp[1])} ${testExp(base,exp[0]-exp[1])}$`; 
+					texte_corr += `<br><br>`;
+					break;			
+				case 3 : 
+					exp = [randint(1,4),randint(1,4)]; // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues
+					texte =  `$${lettre}=(${base_utile}^${exp[0]})^{${exp[1]}}$`;	
+					texte += `<br>`;
+					
+					texte_corr = `$${lettre}=(${base_utile}^${exp[0]})^{${exp[1]}}$`;
+					texte_corr += `<br>`;
+					texte_corr += `$${lettre}=${eclatePuissance(`(${base_utile}^${exp[0]})`,exp[1],'red')}$`;
+					texte_corr += `<br>`;
+					texte_corr += `$${lettre}=${eclatePuissance(`(${eclatePuissance(base_utile,exp[0],'blue')})`,exp[1],'red')}$`;
+					texte_corr += `<br>`;
+					texte_corr += `Il y a donc $\\mathbf{\\color{red}{${exp[1]}}~\\color{black}{\\times}~\\color{blue}{${exp[0]}}}$ facteurs tous égaux à $${base_utile}$`;
+					texte_corr += `<br>`;
+					texte_corr += `$${lettre}=${base_utile}^{${exp[0]}\\times${exp[1]}} = ${base_utile}^{${exp[0]*exp[1]}}`;
+					texte_corr += `${testBase(base,exp[0]*exp[1])}$`; 
+					texte_corr += `<br>`;
+
+					break;
+				case 4 : 
 					base = [randint(2,8,[4,6]),randint(2,8,[4,6])]; // on choisit 2 bases, différentes ou non
 					exp = randint(2,5,6); // on choisit un exposant
-					texte = `$${base[0]}^${exp}\\times ${base[1]}^${exp}$`;
-					texte_corr = `$${base[0]}^${exp}\\times ${base[1]}^${exp}`;
-					texte_corr += `=${eclatePuissance(base[0],exp,'red')} \\times ${eclatePuissance(base[1],exp,'green')}`;
-					texte_corr += `=${reorganisePuissance(base[0],base[1],exp,'red','green')}`;
+					texte = `$${lettre}=${base[0]}^${exp}\\times ${base[1]}^${exp}$`;
+					texte_corr += `<br>`;
+					texte_corr = `$${lettre}=${base[0]}^${exp}\\times ${base[1]}^${exp}$`;
+					texte_corr += `<br>`;
+					texte_corr += `$${lettre}=${eclatePuissance(base[0],exp,'red')} \\times ${eclatePuissance(base[1],exp,'blue')}$`;
+					texte_corr += `<br>`;
+					texte_corr += `$${lettre}=${reorganiseProduitPuissance(base[0],base[1],exp,'red','blue')}$`;
 					//texte_corr += `=${base[0]}^${exp}\\times ${base[1]}^${exp}$`;
-					texte_corr += ` = (\\color{red}{${base[0]}} \\color{black}{\\times} \\color{green}{${base[1]}}\\color{black}{)^{${exp}}}=${base[0]*base[1]}^${exp}$`;
+					texte_corr += `<br>`;
+					texte_corr += `$${lettre}= (\\color{red}{\\mathbf${base[0]}} \\color{black}{\\times} \\color{blue}{\\mathbf${base[1]}}\\color{black}{)^{${exp}}}=${base[0]*base[1]}^${exp}$`;
+					texte_corr += `<br>`;
 					break;
-				case 2 :
-					base = [randint(2,8,[4,6]),randint(2,8,[4,6])]; // on choisit 2 bases, différentes ou non
-					// on choisit un exposant pair sauf 2 on peut aussi directement écrire randint(4,6,[3])
-					while (exp%2!=0) {
-						exp = randint(4,6); 
-					}					
-					texte = `$${base[0]}^{${exp}}\\times ${base[1]*base[1]}^{${exp/2}}$`;
-					texte_corr = `$A =${base[0]}^{${exp}}\\times ${base[1]*base[1]}^{${exp/2}}`;
-					texte_corr += `  = ${base[0]}^{${exp}}\\times (${base[1]}^{2})^{${exp/2}}`;
-					texte_corr += `  = ${base[0]}^{${exp}}\\times ${eclatePuissance(`${base[1]}^{2}`,exp/2,'red')}`;
-					texte_corr += `  = ${base[0]}^{${exp}}\\times ${eclatePuissance(base[1],exp,'red')}`;					
-					texte_corr += `  = ${base[0]}^{${exp}}\\times ${base[1]}^{${exp}}$ </br>$`;					
-					texte_corr += `A =${reorganisePuissance(base[0],base[1],exp,'red','green')}`;
-					texte_corr += `  = (${base[0]}\\times ${base[1]})^{${exp}}`;
-					texte_corr += `  = ${base[0]*base[1]}^{${exp}}$`;
-					break;
+
 																
 			};
-			
+
+			texte_corr += href('Lien vers un fichier ou une vidéo complémentaire','http://lozano.maths.free.fr/cours-4eme/N3-Puissances-seul.pdf');			
+			texte_corr += `<br>`;
 
 		
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
@@ -2457,7 +2599,8 @@ function Puissances_d_un_relatif_2(){
 			}
 			cpt++
 		}
-		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
+		//liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
+		liste_de_question_to_contenu_sans_numero(this);
 	}
-	
+	this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
 }
