@@ -2455,3 +2455,347 @@ function Puissances_d_un_relatif_1(){
 	}
 	
 }
+
+
+
+/**
+* Puissances d'un relatif (1)
+* * L’objectif est de travailler le sens des règles de calcul sur les puissances plutôt que les formules magiques
+*
+* Paramétrages possibles :
+* * 1 : produit de puissances de même base
+* * 2 : quotient de puissances de même base
+* * 3 : puissance de puissance
+* * 4 : produit de puissances de même exposant
+* * 5 : mélange des trois autres niveaux
+* @Auteur Sébastien Lozano
+*/
+function Puissances_d_un_relatif_1(){
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.sup = 1 ; 
+	this.titre = "Puissances : Le sens des règles de calculs"; 
+	sortie_html ? this.consigne = "Écrire sous la forme $\\mathbf{a^n}$.":  this.consigne = "Écrire sous la forme $a^n$.";
+	sortie_html ? this.spacing = 3 : this.spacing = 2;
+	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
+	this.nb_questions = 5;
+	this.nb_cols_corr = 1;
+	this.sup = 5;
+
+	this.nouvelle_version = function(){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+
+		let type_de_questions_disponibles = [];
+		if (this.sup==1){
+			type_de_questions_disponibles = [1]; // produit de puissances de même base
+		} else if (this.sup==2){
+			type_de_questions_disponibles = [2]; // quotient de puissances de même base
+		} else if (this.sup==3){
+			type_de_questions_disponibles = [3]; // puissance de puissance
+		} else if (this.sup==4){
+			type_de_questions_disponibles = [4]; // produit de puissances de même exposant
+		} else if (this.sup==5){
+			type_de_questions_disponibles = [1,2,3,4]; // mélange
+		};
+
+
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions);
+
+		for (let i = 0, base ,exp , texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
+			type_de_questions = liste_type_de_questions[i];
+
+			base = randint(1,9)*choice([-1,1]); // on choisit 1 base ... penser à gérer le cas des bases qui sont des puissances
+			exp = [randint(1,9),randint(1,9)]; // on choisit deux exposants
+			lettre = lettre_depuis_chiffre(i+1); // on utilise des lettres pour les calculs	
+
+			if (base<0) {
+				base_utile = '('+base+')'; // on définit une base avec des parenthèses pour l'affichage du cas negatif
+			} else {
+				base_utile = base;
+			};
+			
+			switch (type_de_questions) {
+				case 1 :
+					texte =  `$${lettre}=${base_utile}^${exp[0]}\\times ${base_utile}^${exp[1]}$`;	
+
+					texte_corr = `$${lettre}=${base_utile}^${exp[0]}\\times ${base_utile}^${exp[1]}$`;
+					texte_corr += `<br>`;
+					texte_corr += `$${lettre}=${eclatePuissance(base_utile,exp[0],'red')} \\times ${eclatePuissance(base_utile,exp[1],'blue')}$`;
+					texte_corr += `<br>`;
+					texte_corr += `Il y a donc $\\mathbf{\\color{red}{${exp[0]}}~\\color{black}{+}~\\color{blue}{${exp[1]}}}$ facteurs tous égaux à $${base_utile}$`;
+					texte_corr += `<br>`;
+					texte_corr += `$${lettre}=${base_utile}^{${exp[0]}+${exp[1]}} = ${base_utile}^{${exp[0]+exp[1]}}`;
+					// attention la base_utile est de type str alors que la fonction switch sur un type number					
+					if (simpNotPuissance(base,exp[0]+exp[1]) != ` `) {
+						texte_corr += `=${simpNotPuissance(base,exp[0]+exp[1])}`;  
+					}
+					texte_corr += `$`;
+					texte_corr += `<br>`;
+					break;			
+				case 2 :
+					// Pour que la couleur de la base associée à l'exposant max soit toujours rouge.
+					if (Math.max(exp[0],exp[1])==exp[0]) {
+						coul_exp0='red';
+						coul_exp1='blue'
+					} else {
+						coul_exp0 = 'blue';
+						coul_exp1 = 'red';
+					};
+					
+					texte =  `$${lettre}=\\dfrac{${base_utile}^${exp[0]}}{${base_utile}^${exp[1]}}$`;	
+
+					texte_corr = `$${lettre}=\\dfrac{${base_utile}^${exp[0]}}{${base_utile}^${exp[1]}}$`;
+					texte_corr += `<br><br>`;
+					texte_corr += `$${lettre}=\\dfrac{${eclatePuissance(base_utile,exp[0],coul_exp0)}}{${eclatePuissance(base_utile,exp[1],coul_exp1)}}$`;
+					texte_corr += `<br><br>`;				
+					texte_corr += `Il y a donc $\\mathbf{\\color{blue}{${Math.min(exp[0],exp[1])}}}$ simplifications par $${base_utile}$ possibles.`;
+					texte_corr += `<br><br>`;
+
+					if ((exp[0]-exp[1])==0) {
+						texte_corr += `$${lettre}=\\dfrac{${eclatePuissance(`\\cancel{${base_utile}}`,exp[0],coul_exp0)}}{${eclatePuissance(`\\cancel{${base_utile}}`,exp[0],coul_exp1)}}$`;
+						texte_corr += `<br><br>`;
+						texte_corr += `$${lettre}=1`
+					} else if (exp[0]-exp[1]<0) {
+						texte_corr += `$${lettre}=\\dfrac{${eclatePuissance(`\\cancel{${base_utile}}`,exp[0],coul_exp0)}}{${eclatePuissance(`\\cancel{${base_utile}}`,exp[0],coul_exp1)}\\times${eclatePuissance(base_utile,exp[1]-exp[0],coul_exp1)}}$`;
+						texte_corr += `<br><br>`;
+						texte_corr += `$${lettre}=\\dfrac{1}{${base_utile}^{${exp[1]}-${exp[0]}}}=\\dfrac{1}{${base_utile}^{${exp[1]-exp[0]}}}`
+						if (simpNotPuissance(base,exp[1]-exp[0]) != ` `) {
+							texte_corr += `=\\dfrac{1}{${simpNotPuissance(base,exp[1]-exp[0])}}=${simpNotPuissance(base,exp[0]-exp[1])}`
+						} else {
+							texte_corr += `=${base_utile}^{${exp[0]-exp[1]}}`
+						}						
+					} else {
+						texte_corr += `$${lettre}=\\dfrac{${eclatePuissance(`\\cancel{${base_utile}}`,exp[1],coul_exp0)}\\times${eclatePuissance(base_utile,exp[0]-exp[1],coul_exp0)}}{${eclatePuissance(`\\cancel{${base_utile}}`,exp[1],coul_exp1)}}$`;
+						texte_corr += `<br><br>`;
+						texte_corr += `$${lettre}=${base_utile}^{${exp[0]}-${exp[1]}}=${base_utile}^{${exp[0]-exp[1]}}`;
+						if (simpNotPuissance(base,exp[0]-exp[1]) != ` `) {
+							texte_corr += `=${simpNotPuissance(base,exp[0]-exp[1])}`;
+						}; 						
+
+					}; 
+					texte_corr += `$`;
+					texte_corr += `<br>`;			
+					break;			
+				case 3 : 
+					exp = [randint(1,4),randint(2,4)]; // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues
+					texte =  `$${lettre}=(${base_utile}^${exp[0]})^{${exp[1]}}$`;	
+					
+					texte_corr = `$${lettre}=(${base_utile}^${exp[0]})^{${exp[1]}}$`;
+					texte_corr += `<br>`;
+					texte_corr += `$${lettre}=${eclatePuissance(`(${base_utile}^${exp[0]})`,exp[1],'red')}$`;
+					texte_corr += `<br>`;
+					texte_corr += `$${lettre}=${eclatePuissance(`(${eclatePuissance(base_utile,exp[0],'blue')})`,exp[1],'red')}$`;
+					texte_corr += `<br>`;
+					texte_corr += `Il y a donc $\\mathbf{\\color{red}{${exp[1]}}~\\color{black}{\\times}~\\color{blue}{${exp[0]}}}$ facteurs tous égaux à $${base_utile}$`;
+					texte_corr += `<br>`;
+					texte_corr += `$${lettre}=${base_utile}^{${exp[0]}\\times${exp[1]}} = ${base_utile}^{${exp[0]*exp[1]}}`;				
+					if (simpNotPuissance(base,exp[0]*exp[1]) != ` `) {
+					texte_corr += `= ${simpNotPuissance(base,exp[0]*exp[1])}`; 
+					};
+					texte_corr += `$`;
+					texte_corr += `<br>`;
+					break;
+				case 4 : 
+					base = [randint(2,8,[4,6]),randint(2,8,[4,6])]; // on choisit 2 bases, différentes ou non
+					exp = randint(2,5,6); // on choisit un exposant
+					texte = `$${lettre}=${base[0]}^${exp}\\times ${base[1]}^${exp}$`;
+					texte_corr += `<br>`;
+					texte_corr = `$${lettre}=${base[0]}^${exp}\\times ${base[1]}^${exp}$`;
+					texte_corr += `<br>`;
+					texte_corr += `$${lettre}=${eclatePuissance(base[0],exp,'red')} \\times ${eclatePuissance(base[1],exp,'blue')}$`;
+					texte_corr += `<br>`;
+					texte_corr += `$${lettre}=${reorganiseProduitPuissance(base[0],base[1],exp,'red','blue')}$`;
+					texte_corr += `<br>`;
+					texte_corr += `$${lettre}= (\\color{red}{${base[0]}} \\color{black}{\\times} \\color{blue}{${base[1]}}\\color{black}{)^{${exp}}}=${base[0]*base[1]}^${exp}$`;
+					texte_corr += `<br>`;
+					break;																
+			};
+
+
+		
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++
+		}		
+		liste_de_question_to_contenu_sans_numero(this);
+	}
+	this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
+}
+
+/**
+* Puissances d'un relatif (2)
+* * Travailler des résultats automatisés 
+* * mais aussi d'utiliser les propriétés du produit de puissance, du quotient de puissances et des puissances de puissances
+* @Auteur Sébastien Lozano
+*/
+function Puissances_d_un_relatif_2(){
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.sup = 1 ; 
+	this.titre = "Puissances : Calculs automatisés et règles de calculs"; 
+	sortie_html ? this.consigne = "Écrire sous la forme $\\mathbf{a^n}$.":  this.consigne = "Écrire sous la forme $a^n$.";
+	this.spacing = 2;
+	this.spacing_corr = 2.5;
+	this.nb_questions = 8;
+	this.nb_cols_corr = 1;
+
+
+	this.nouvelle_version = function(){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+
+		let type_de_questions_disponibles = [1,2,3,4,5,6,7,8];	
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions);
+
+		for (let i = 0, base ,exp , texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
+			type_de_questions = liste_type_de_questions[i];
+			
+			switch (type_de_questions) {
+				case 1 :
+					base = 3; // on travaille sur cette base mais on pourrait rendre la base aléatoire
+					exp = [randint(1,7,[1]),randint(1,7,[1]),randint(1,7,[1])]; // on a besoin de 3 exposants distincts
+					texte = `$\\dfrac{${base}^${exp[0]}\\times ${base*base}}{${base}^${exp[1]} \\times ${base}^${exp[2]}}$`;
+					texte_corr = `$\\dfrac{${base}^${exp[0]}\\times ${base*base}}{${base}^${exp[1]} \\times ${base}^${exp[2]}}`;
+					texte_corr += ` = \\dfrac{${base}^${exp[0]}\\times ${base}^{2}}{${base}^${exp[1]} \\times ${base}^${exp[2]}}`;
+					texte_corr += ` = \\dfrac{${base}^{${exp[0]}+2}}{${base}^{${exp[1]}+${exp[2]}}}`;
+					texte_corr += ` = \\dfrac{${base}^{${exp[0]+2}}}{${base}^{${exp[1]+exp[2]}}}`;
+					texte_corr += ` = ${base}^{${exp[0]+2}-${exp[1]+exp[2]}}`;					
+					texte_corr += ` = ${base}^{${exp[0]+2-exp[1]-exp[2]}}`;
+					if ((exp[0]+2-exp[1]-exp[2])==0 || (exp[0]+2-exp[1]-exp[2])==1) {
+						// on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
+						texte_corr += `=`+simpExp(base,exp[0]+2-exp[1]-exp[2]);
+					};
+					texte_corr += `$`;
+					break;
+				case 2 :
+					base = 2; // on travaille sur cette base mais on pourrait rendre la base aléatoire
+					exp = [randint(1,7,[1]),randint(1,7,[1])]; // on a besoin de 2 exposants distincts
+					texte = `$\\dfrac{${base}^${exp[0]}\\times ${base**3}}{${base}^${exp[1]}}$`;
+					texte_corr = `$\\dfrac{${base}^${exp[0]}\\times ${base**3}}{${base}^${exp[1]}}`;
+					texte_corr += ` = \\dfrac{${base}^${exp[0]}\\times ${base}^3}{${base}^${exp[1]}}`;
+					texte_corr += ` = \\dfrac{${base}^{${exp[0]}+3}}{${base}^${exp[1]}}`;
+					texte_corr += ` = \\dfrac{${base}^{${exp[0]+3}}}{${base}^${exp[1]}}`;
+					texte_corr += ` = ${base}^{${exp[0]+3}-${exp[1]}}`;
+					texte_corr += ` = ${base}^{${exp[0]+3-exp[1]}}`;
+					if ((exp[0]+3-exp[1])==0 || (exp[0]+3-exp[1])==1) {
+						// on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
+						texte_corr += `=`+simpExp(base,exp[0]+3-exp[1]);
+					};
+					texte_corr += `$`;
+					break;
+				case 3 :
+					base = 5; // on travaille sur cette base mais on pourrait rendre la base aléatoire
+					exp = [randint(1,7,[1]),randint(1,2)]; // on a besoin de 2 exposants distincts
+					// le second exposant ne peut valoir que 1 ou 2 la fonction testExp ne convient pas à l'affichage ici					
+					if (exp[1]==2) {
+						texte = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base**2}^${exp[1]}}$`;
+						texte_corr = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base**2}^${exp[1]}}`;
+						texte_corr += `=\\dfrac{${base}^{1+${exp[0]}}}{(${base}^2)^${exp[1]}}`;
+						texte_corr += `=\\dfrac{${base}^{1+${exp[0]}}}{${base}^{2 \\times ${exp[1]}}}`;
+						texte_corr += `=\\dfrac{${base}^{${1+exp[0]}}}{${base}^{${2*exp[1]}}}`;
+					} else {						
+						texte = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base**2}}$`;
+						texte_corr = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base**2}}`;
+						texte_corr += `=\\dfrac{${base}^{1+${exp[0]}}}{${base}^2}`;
+					};
+					texte_corr += `=${base}^{${1+exp[0]}-${2*exp[1]}}`;
+					texte_corr += `=${base}^{${1+exp[0]-2*exp[1]}}`;
+					if ((1+exp[0]-2*exp[1])==0 || (1+exp[0]-2*exp[1])==1) {
+						// on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
+						texte_corr += `=`+simpExp(base,1+exp[0]-2*exp[1]);
+					};
+					texte_corr += `$`;
+					break;
+				case 4 :
+					base = 2; // on travaille sur cette base mais on pourrait rendre la base aléatoire
+					exp = [randint(1,7,[1])]; // on a besoin de 1 exposant
+					texte = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base**2}\\times ${base**2}}$`;
+					texte_corr = `$\\dfrac{${base}\\times ${base}^${exp[0]}}{${base**2}\\times ${base**2}}`;
+					texte_corr += `=\\dfrac{${base}^{1+${exp[0]}}}{${base}^2\\times ${base}^2}`;
+					texte_corr += `=\\dfrac{${base}^{${1+exp[0]}}}{${base}^{2+2}}`;
+					texte_corr += `=\\dfrac{${base}^{${1+exp[0]}}}{${base}^{${2+2}}}`;
+					texte_corr += `=${base}^{${1+exp[0]}-${2+2}}`;					
+					texte_corr += `=${base}^{${1+exp[0]-2-2}}`;
+					if ((1+exp[0]-2-2)==0 || (1+exp[0]-2-2)==1) {
+						// on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
+						texte_corr += `=`+simpExp(base,1+exp[0]-2-2);
+					};
+					texte_corr += `$`;
+					break;
+				case 5 :
+					base = 2; // on travaille sur cette base mais on pourrait rendre la base aléatoire
+					exp = [randint(1,7,[1])]; // on a besoin de 1 exposant
+					texte = `$\\dfrac{${base**2}^${exp[0]}}{${base}}$`;
+					texte_corr = `$\\dfrac{${base**2}^${exp[0]}}{${base}}`;
+					texte_corr += `=\\dfrac{(${base}^2)^${exp[0]}}{${base}}`;
+					texte_corr += `=\\dfrac{${base}^{2\\times ${exp[0]}}}{${base}}`;
+					texte_corr += `=\\dfrac{${base}^{${2*exp[0]}}}{${base}}`;
+					texte_corr += `=${base}^{${2*exp[0]}-1}`;					
+					texte_corr += `=${base}^{${2*exp[0]-1}}$`;
+					// Inutile de tester l'exposant final car il vaut au minimum 3
+					break;
+				case 6 :
+					base = 3; // on travaille sur cette base mais on pourrait rendre la base aléatoire
+					exp = [randint(1,3,[1])]; // on a besoin de 1 exposant
+					texte = `$\\dfrac{${base**3}^${exp[0]}}{${base}}$`;
+					texte_corr = `$\\dfrac{${base**3}^${exp[0]}}{${base}}`;
+					texte_corr += `=\\dfrac{(${base}^3)^${exp[0]}}{${base}}`;
+					texte_corr += `=\\dfrac{${base}^{3\\times ${exp[0]}}}{${base}}`;
+					texte_corr += `=\\dfrac{${base}^{${3*exp[0]}}}{${base}}`;
+					texte_corr += `=${base}^{${3*exp[0]}-1}`;
+					texte_corr += `=${base}^{${3*exp[0]-1}}$`;
+					// inutile de tester l'exposant final car il vaut au minimum 5 
+					break;
+				case 7 :
+					base = 3; // on travaille sur cette base mais on pourrait rendre la base aléatoire
+					exp = [randint(1,7,[1]),randint(1,7,[1]),randint(1,4,[1])]; // on a besoin de 3 exposants distincts
+					texte = `$\\dfrac{${base}^${exp[0]}\\times ${base}^${exp[1]}}{${base**2}^${exp[2]}}\\times ${base}$`;
+					texte_corr = `$\\dfrac{${base}^${exp[0]}\\times ${base}^${exp[1]}}{${base**2}^${exp[2]}}\\times ${base}`;
+					texte_corr += `=\\dfrac{${base}^{${exp[0]}+${exp[1]}}}{(${base}^2)^${exp[2]}}\\times ${base}`;
+					texte_corr += `=\\dfrac{${base}^{${exp[0]+exp[1]}}}{${base}^{2\\times ${exp[2]}}}\\times ${base}`;
+					texte_corr += `=\\dfrac{${base}^{${exp[0]+exp[1]}}}{${base}^{${2*exp[2]}}}\\times ${base}`;
+					texte_corr += `=\\dfrac{${base}^{${exp[0]+exp[1]}}\\times ${base}}{${base}^{${2*exp[2]}}}`;
+					texte_corr += `=\\dfrac{${base}^{${exp[0]+exp[1]}+1}}{${base}^{${2*exp[2]}}}`;
+					texte_corr += `=\\dfrac{${base}^{${exp[0]+exp[1]+1}}}{${base}^{${2*exp[2]}}}`;
+					texte_corr += `=${base}^{${exp[0]+exp[1]+1}-${2*exp[2]}}`;					
+					texte_corr += `=${base}^{${exp[0]+exp[1]+1-2*exp[2]}}`;
+					if ((exp[0]+exp[1]+1-2*exp[2])==0 || (exp[0]+exp[1]+1-2*exp[2])==1) {
+						// on ne teste l'exposant que pour la sortie puisque l'exposant est évincé
+						texte_corr += `=`+simpExp(base, exp[0]+exp[1]+1-2*exp[2]);
+					};
+					texte_corr += `$`;
+					break;
+				case 8 :
+					base = 2; // on travaille sur cette base mais on pourrait rendre la base aléatoire
+					exp = [randint(1,7,[1])]; // on a besoin de 1 exposant
+					texte = `$\\dfrac{${base**3}\\times ${base}}{${base**2}^${exp[0]}}$`;
+					texte_corr = `$\\dfrac{${base**3}\\times ${base}}{${base**2}^${exp[0]}}`;
+					texte_corr += `=\\dfrac{${base}^3\\times ${base}}{(${base}^2)^${exp[0]}}`;
+					texte_corr += `=\\dfrac{${base}^{3+1}}{${base}^{2\\times${exp[0]}}}`;
+					texte_corr += `=\\dfrac{${base}^{4}}{${base}^{${2*exp[0]}}}`;
+					texte_corr += `=${base}^{4-${2*exp[0]}}`;
+					texte_corr += `=${base}^{${3+1-2*exp[0]}}`;
+					if ((3+1-2*exp[0])==0 || (3+1-2*exp[0])==1) {
+						// on ne teste l'exposant que pour la sortie puisque l'exposant est évincé
+						texte_corr += `=`+simpExp(base,3+1-2*exp[0]);
+					};
+					texte_corr += `$`;
+					break;
+																
+			};
+			
+
+		
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++
+		}
+		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
+	}
+	
+}
