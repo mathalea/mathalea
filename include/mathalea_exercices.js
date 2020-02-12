@@ -207,7 +207,7 @@ function Lire_abscisse_entiere(){
 	this.nb_cols_corr = 1;
 	this.spacing = 1;
     this.spacing_corr = 1;
-	this.sup=1;
+	this.sup=4;
 
 	this.nouvelle_version = function(numero_de_l_exercice){ // numero_de_l_exercice est 0 pour l'exercice 1
 		let type_de_questions;
@@ -262,7 +262,7 @@ function Lire_abscisse_entiere(){
 		}
 		if (!sortie_html) liste_de_question_to_contenu(this); 
 	}
-	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : Ordre de grandeur : milliers\n2 : Ordre de grandeur : dizaines de mille\n3 : centaines de mille\n4 : Mélange"];
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : Milliers\n2 : Dizaines de mille\n3 : Centaines de mille\n4 : Mélange"];
 }
 /**
 * Lire l'abscisse décimale d'un point
