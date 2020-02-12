@@ -1255,7 +1255,7 @@ function SVG_label(mon_svg,liste_d_abscisses,y,couleur) {
 function SVG_fraction(mon_svg,num,den,x,y,couleur) {
 	'use strict';
 	let longueur=num.toString().length;
-	let line = mon_svg.line(x-longueur*5, y-14, x+longueur*5, y-14);
+	let line = mon_svg.line(x-longueur*5, y-12, x+longueur*5, y-12);
 	line.stroke({ color: couleur, width: 2, linecap: 'round' })
 	let num_text=mon_svg.text(num.toString());
 	num_text.move(x,y-10).font({ fill: couleur,
