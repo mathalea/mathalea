@@ -1364,10 +1364,10 @@ function SVG_tracer_point(mon_svg,x,y,nom,couleur) {
 }
 /**
  * 
- * @param {abscisse} x 
- * @param {nom du point} nom 
- * @param {la couleur pour la croix et le nom} couleur 
- * @param {la largeur des traits} width 
+ * @param {number} x 
+ * @param {string} nom 
+ * @param {string} couleur 
+ * @param {number} width 
  * @Auteur Jean-Claude Lhote
  */
 function Latex_tracer_point(x,nom,couleur,width) {
