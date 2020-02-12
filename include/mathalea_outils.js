@@ -1214,11 +1214,27 @@ function SVG_graduation(mon_svg,origine,pas,derniere_graduation,taille=10,y=50,c
 }
 
 function Latex_graduation(pas,taille=1,y=0,couleur,width) {
-	if (pas==0.1) return `\n\t \\foreach \\x in {1,1.1,...,7.4} { \\draw [line width=${width}pt,color=${couleur}] (\\x,${y-0.1*taille})--(\\x,${y+0.1*taille});}`
-	else return `\n\t \\foreach \\x in {1,2,...,7} { \\draw [line width=${width}pt,color=${couleur}] (\\x,${y-0.1*taille})--(\\x,${y+0.1*taille});}`
+	switch (pas) {
+	case 0.1 :
+		 return `\n\t \\foreach \\x in {1,1.1,...,7.4} { \\draw [line width=${width}pt,color=${couleur}] (\\x,${y-0.1*taille})--(\\x,${y+0.1*taille});}`
+		 break;
+	 case 0.01 :
+		return `\n\t \\foreach \\x in {1,1.1,...,7.4} { \\draw [line width=${width}pt,color=${couleur}] (\\x,${y-0.1*taille})--(\\x,${y+0.1*taille});}`
+		break;
+	case 0.001 :
+		return `\n\t \\foreach \\x in {1,1.1,...,7.4} { \\draw [line width=${width}pt,color=${couleur}] (\\x,${y-0.1*taille})--(\\x,${y+0.1*taille});}`
+		break;
+	case 1 :
+		 return `\n\t \\foreach \\x in {1,2,...,7} { \\draw [line width=${width}pt,color=${couleur}] (\\x,${y-0.1*taille})--(\\x,${y+0.1*taille});}`
+		 break;
+	default :  
+		return `\n\t \\foreach \\x in {1,${1+1/pas},...,7.4} { \\draw [line width=${width}pt,color=${couleur}] (\\x,${y-0.1*taille})--(\\x,${y+0.1*taille});}`
+		break;
+	}
 }
 
 function SVG_label(mon_svg,liste_d_abscisses,y,couleur) {
+	'use strict';
 	for (let i = 0; i < liste_d_abscisses.length; i++) {
 		let text = mon_svg.text((liste_d_abscisses[i][0]).toString())
 		y=parseInt(y);	
@@ -1231,7 +1247,28 @@ function SVG_label(mon_svg,liste_d_abscisses,y,couleur) {
 	}
 }
 
+function SVG_fraction(mon_svg,num,den,x,y,couleur) {
+	'use strict';
+	let longueur=num.toString().length;
+	let line = mon_svg.line(x-longueur*5, y-14, x+longueur*5, y-14);
+	line.stroke({ color: couleur, width: 2, linecap: 'round' })
+	let num_text=mon_svg.text(num.toString());
+	num_text.move(x,y-10).font({ fill: couleur,
+		family:   'Helvetica'
+		, size:     20
+		, anchor:   'middle'
+		, leading : 0
+	})
+	let den_text=mon_svg.text(den.toString());
+	den_text.move(x,y+10).font({ fill: couleur,
+		family:   'Helvetica'
+		, size:     20
+		, anchor:   'middle'
+		, leading : 0
+	})
+}
 function Latex_label(liste_d_abscisses,couleur) {
+	'use strict';
 	let code=''
 	for (let i = 0,text; i < liste_d_abscisses.length; i++) {
 		 text = liste_d_abscisses[i][0].toString()
@@ -1292,9 +1329,10 @@ function SVG_tracer_fleche(mon_svg,x,y) {
 * @param pas2 Idem pas1 pour la petite graduation
 * @param points_inconnus tableau tableau [Nom,nb_pas1,nb_pas2,affiche_ou_pas]
 * @param points_connus tableau [valeur,nb_pas1,nb_pas2]
+* @param fraction booléen : true pour fractions, false pour décimaux
 * @Auteur Jean-Claude Lhote
 */
-function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inconnus,points_connus){
+function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inconnus,points_connus,fraction){
 	let arrondir=1+Math.round(Math.log10(pas1))
 	let longueur_pas1=600/longueur;
  	let longueur_pas2=600/longueur/pas2;
@@ -1325,17 +1363,75 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 			for (i=0;i<points_inconnus.length;i++){
 				distance=longueur_pas1*points_inconnus[i][1]+longueur_pas2*points_inconnus[i][2]
 				nom=points_inconnus[i][0]
-				valeur=arrondi_virgule(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2,arrondir)
 				SVG_tracer_point(mon_svg,100+distance,nom,'#f15929')
 				if (points_inconnus[i][3]==true) {
+					if (!fraction) { // affichage décimal 
+					valeur=arrondi_virgule(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2,arrondir)
 					SVG_label(mon_svg,[[valeur,100+distance,50]],3+position,'#f15929')
+					}
+					else { //affichage fractionnaire
+					SVG_fraction(mon_svg,(origine+points_inconnus[i][1])*pas2+points_inconnus[i][2],pas2,100+distance,85+(3+position)*10,'#f15929')
+					}
 					position=1-position
 				}
 			}
-    		clearInterval(SVGExist[id_du_div]);//Arrête le timer
+			clearInterval(SVGExist[id_du_div]);//Arrête le timer
     		}
 	}, 100); // Vérifie toutes les 100ms
 }
+
+/**
+* Trace une graduation en Latex
+* @param origine la première abscisse de la droite ou demi-droite
+* @param longueur le nombre d'intervalles entre l'origine et la dernière graduation
+* @param pas1 le fractionnement de l'unité utilisé : 10 pour 0,1 ; 2 pour 0,5 ...
+* @param pas2 Idem pas1 pour la petite graduation
+* @param points_inconnus tableau tableau [Nom,nb_pas1,nb_pas2,affiche_ou_pas]
+* @param points_connus tableau [valeur,nb_pas1,nb_pas2]
+* @Auteur Jean-Claude Lhote
+*/
+function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points_connus,fraction){
+	let result=`\\begin{tikzpicture}[scale=${zoom}]`
+	let arrondir=1+Math.round(Math.log10(pas1))
+ 	let distance,valeur,nom
+
+			// Droite 
+			// Graduation secondaire
+			result+=Latex_graduation(pas2,taille=0.5,y=0.2,'black',width=0.8);
+			console.log(0.1*10/pas2);
+			// Graduation principale
+			result+=Latex_graduation(1,taille=0.8,y=0.2,'black',width=1.5);
+			// Droite et flèche
+			result+=`\n\t \\draw [->,>=stealth,line width=1.2pt] (0.5,0.2)--(7.5,0.2);`;
+			// Nombres visibles
+			result+=Latex_label([[arrondi_virgule(origine),1,0.03]],'black');
+			for (i=0;i<points_connus.length;i++) {
+				valeur=arrondi_virgule(points_connus[i][0],arrondir-1);
+				distance=1+points_connus[i][1]+points_connus[i][2]/pas2;
+				result+=Latex_label([[valeur,distance,0.03]],'black');
+			}
+			//Points inconnus
+			let position=0.1;
+			for (i=0;i<points_inconnus.length;i++){
+				distance=points_inconnus[i][1]+points_inconnus[i][2]/pas2;
+				nom=points_inconnus[i][0];
+				valeur=arrondi_virgule(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2,arrondir);
+				result+=Latex_tracer_point(1+distance,nom,'red',2);
+				if (points_inconnus[i][3]==true) {
+					if (!fraction) {
+					result+=Latex_label([[valeur,1+distance,-0.1-position]],'red');
+					}
+					else {
+						result+=Latex_label([[`${tex_fraction((origine+points_inconnus[i][1])*pas2+points_inconnus[i][2],pas2)}`,1+distance,-0.1-position]],'red');
+					}
+					position=0.1-position;
+				}
+			}
+			result +=`\n\t \\end{tikzpicture}`;
+			return result;
+ 
+ }
+
 
 /**
 * fonction pour simplifier l'ecriture lorsque l'exposant vaut 0 ou 1
@@ -1356,56 +1452,6 @@ function simpExp(b,e) {
 			return ` `;
 	};
 };
-/**
-* Trace une graduation en Latex
-* @param origine la première abscisse de la droite ou demi-droite
-* @param longueur le nombre d'intervalles entre l'origine et la dernière graduation
-* @param pas1 le fractionnement de l'unité utilisé : 10 pour 0,1 ; 2 pour 0,5 ...
-* @param pas2 Idem pas1 pour la petite graduation
-* @param points_inconnus tableau tableau [Nom,nb_pas1,nb_pas2,affiche_ou_pas]
-* @param points_connus tableau [valeur,nb_pas1,nb_pas2]
-* @Auteur Jean-Claude Lhote
-*/
-function Latex_reperage_sur_un_axe(zoom,origine,longueur,pas1,pas2,points_inconnus,points_connus){
-	let result=`\\begin{tikzpicture}[scale=${zoom}]`
-	let arrondir=1+Math.round(Math.log10(pas1))
-	let longueur_pas1=600/longueur;
- 	let longueur_pas2=600/longueur/pas2;
- 	let distance,valeur,nom
-
-			// Droite 
-			// Graduation secondaire
-			result+=Latex_graduation(0.1,taille=0.5,y=0.2,'black',width=0.8)
-			// Graduation principale
-			result+=Latex_graduation(1,taille=0.8,y=0.2,'black',width=1.5)
-			// Droite et flèche
-			result+=`\n\t \\draw [->,>=stealth,line width=1.2pt] (0.5,0.2)--(7.5,0.2);`
-			// result+=Latex_tracer_fleche(7.5,y=2)
-			// Nombres visibles
-			result+=Latex_label([[arrondi_virgule(origine),1,0.03]],'black')
-			for (i=0;i<points_connus.length;i++) {
-				valeur=arrondi_virgule(points_connus[i][0],arrondir-1);
-				distance=1+points_connus[i][1]+points_connus[i][2]/pas2;
-				result+=Latex_label([[valeur,distance,0.03]],'black')
-			}
-			//Points inconnus
-			let position=0.1;
-			for (i=0;i<points_inconnus.length;i++){
-				distance=points_inconnus[i][1]+points_inconnus[i][2]/pas2
-				nom=points_inconnus[i][0]
-				valeur=arrondi_virgule(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2,arrondir)
-				result+=Latex_tracer_point(1+distance,nom,'red',2)
-				if (points_inconnus[i][3]==true) {
-					result+=Latex_label([[valeur,1+distance,-0.1-position]],'red')
-					position=0.1-position;
-				}
-			}
-			result +=`\n\t \\end{tikzpicture}`
-			return result;
- 
- }
-
-
 
 	/**
 * fonction pour simplifier les notations puissance dans certains cas
