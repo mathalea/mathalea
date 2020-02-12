@@ -419,6 +419,9 @@ function mise_a_jour_du_code(){
 			for (let i = 0; i < liste_des_exercices.length; i++) {
 				exercice[i].nouvelle_version(i);
 				code1 += '<h3 class="ui dividing header">Exercice '+(i+1)+'</h3>';
+				if (exercice[i].bouton_aide){
+					code1+= `<div id=aide${i}> ${exercice[i].bouton_aide}</div>`
+				}
 				code1 +=  exercice[i].contenu;
 				if (exercice[i].type_exercice=='MG32'){
 					code1 += `<div id="MG32div${i}" class="MG32"></div>`;

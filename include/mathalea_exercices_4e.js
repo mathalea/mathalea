@@ -19,7 +19,7 @@ function Exercice_trouver_l_inverse(){
 	this.nb_questions = 5;
 	this.nb_cols_corr = 1;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		let type_de_questions_disponibles
@@ -144,7 +144,7 @@ function Exercice_multiplier_fractions(){
 	this.nb_questions = 5;
 	this.nb_cols_corr = 1;
 	this.sup2 = false; //méthode
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		let type_de_questions_disponibles
@@ -476,7 +476,7 @@ function Exercice_diviser_fractions(){
 	this.nb_questions = 5;
 	this.nb_cols_corr = 1;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		liste_fractions = obtenir_liste_fractions_irreductibles();
@@ -581,7 +581,7 @@ function Exercice_additionner_fraction_produit(){
 	this.nb_questions = 5;
 	this.nb_cols_corr = 1;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		let type_de_questions_disponibles
@@ -844,7 +844,7 @@ function Exercice_developper(difficulte=1){
 	this.nb_questions = 5 ;
 
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		
@@ -954,7 +954,7 @@ function Exercice_equation1(){
 	this.sup = true; // Avec des nombres relatifs
 	this.sup2 = 4; // Choix du type d'équation 
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		switch (this.sup2.toString()){
@@ -1574,7 +1574,7 @@ function Exercice_Trigo_longueurs() {
 
 	this.nouvelle_version = function (numero_de_l_exercice) {
 
-
+			this.bouton_aide = modal_youtube(numero_de_l_exercice,"DYW-BTMFzd4","Trigonométrie (vidéo de digiSchool)")
 			this.type_exercice = 'MG32';
 			this.taille_div_MG32 = [700, 500];
 			this.liste_questions = [];
@@ -2046,7 +2046,7 @@ function Reciproque_Pythagore(){
 	this.nb_cols_corr = 2;
 	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		let liste_type_de_questions = combinaison_listes(['rectangle','rectangle','pas_rectangle','pas_rectangle'],this.nb_questions)
@@ -2130,7 +2130,7 @@ function Problemes_Pythagore(){
 	this.spacing = 1;
 	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1.5;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		let type_de_questions_disponibles = ['losange','rectangle_diagonale_connue','rectangle_diagonale_a_trouver','parallelogramme_est_losange','parallelogramme_n_est_pas_losange','parallelogramme_est_rectangle','parallelogramme_n_est_pas_rectangle']
@@ -2308,7 +2308,9 @@ function Puissances_d_un_relatif_1(){
 	this.nb_cols_corr = 1;
 	this.sup = 5;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.bouton_aide = modal_pdf(numero_de_l_exercice,"http://lozano.maths.free.fr/cours-4eme/N3-Puissances-seul.pdf",texte="Cours complet sur les puissances (Sébastien Lozano)")
+		
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 
@@ -2469,7 +2471,7 @@ function Puissances_d_un_relatif_2(){
 	this.nb_cols_corr = 1;
 
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 

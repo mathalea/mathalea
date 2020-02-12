@@ -11,7 +11,7 @@ function Exercice_decomposer_en_facteurs_premiers(){
 	this.spacing = 2;
 
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		
@@ -66,7 +66,7 @@ function Exercice_additions_relatifs(max=20){
 	this.consigne = 'Calculer'
 	this.spacing = 2;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		for (let i = 0, a, b, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
@@ -111,7 +111,7 @@ function Exercice_additions_relatifs_a_trou(max=20){
 	this.consigne = 'Compléter'
 	this.spacing = 2;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		for (let i = 0, a, b, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
@@ -156,7 +156,7 @@ function Exercice_soustractions_relatifs(max=20){
 	this.consigne = 'Calculer'
 	this.spacing = 2;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		for (let i = 0, a, b, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
@@ -204,7 +204,7 @@ function Exercice_multiplications_relatifs(max=10){
 	this.consigne = 'Calculer'
 	this.spacing = 2;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		for (let i = 0, a, b, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
@@ -253,7 +253,7 @@ function Exercice_comparer_deux_fractions (max=11){
 	this.nb_questions = 5;
 	this.nb_cols_corr = 1;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		liste_fractions = obtenir_liste_fractions_irreductibles();
@@ -314,7 +314,7 @@ function Exercice_comparer_quatre_fractions (){
 	this.nb_questions = 2;
 	this.nb_cols_corr = 1;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		for (let i = 0, denominateurs, n1, d1, n2, d2, n3, d3, n4, d4, k, texte="", texte_corr="", cpt=0; i < this.nb_questions;i++) {
@@ -398,7 +398,7 @@ function Exercice_additionner_des_fractions_5e(max=11){
 	this.nb_questions = 5;
 	this.nb_cols_corr = 1;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		for (let i = 0, a, b, c, d,texte, texte_corr, cpt=0; i < this.nb_questions;i++) {
@@ -461,7 +461,7 @@ function Exercice_additionner_ou_soustraire_des_fractions_5e(max=11){
 	this.nb_questions = 5;
 	this.nb_cols_corr = 1;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		for (let i = 0, a, b, c, d,texte, texte_corr, cpt=0; i < this.nb_questions;i++) {
@@ -545,7 +545,7 @@ function Exercice_additionner_des_fractions(){
 	this.nb_questions = 5;
 	this.nb_cols_corr = 1;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		let type_de_questions_disponibles
@@ -690,7 +690,7 @@ function Exercice_additionner_ou_soustraire_des_fractions(){
 	this.nb_questions = 5;
 	this.nb_cols_corr = 1;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		let type_de_questions_disponibles
@@ -848,7 +848,7 @@ function Exercice_simplification_somme_algebrique(max=20){
 	this.consigne = 'Simplifier puis calculer'
 	this.spacing = 2;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		for (let i = 0, a, b, s, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
@@ -893,7 +893,7 @@ function Exercice_additions_et_soustraction_de_relatifs(max=20){
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		for (let i = 0, a, b, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
@@ -969,7 +969,7 @@ function Exercice_additions_de_5_relatifs(max=20){
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		for (let i = 0, a, b, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
@@ -1041,7 +1041,7 @@ function Exercice_substituer(difficulte=1){
 	this.consigne_modifiable = false;
 
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		
@@ -1156,7 +1156,7 @@ function Exercice_angles_triangles(){
 		else return -1;
 	}
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		if (this.sup==1) type_de_questions_disponibles = [1,2,4,5,9]
@@ -1353,7 +1353,7 @@ function Exercice_angles_triangles(){
 	this.nb_cols_corr = 1;	 
 	this.sup=1;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 	
@@ -1500,7 +1500,7 @@ function Calculer_des_moyennes(){
 	this.nb_cols=1;  
 	this.sup = 1;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 	
@@ -1587,7 +1587,7 @@ function Calculer_des_etendues(){
 	this.nb_cols=1; 
 	this.sup = 1;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 	
@@ -1676,7 +1676,7 @@ function Variation_en_pourcentages(){
 	this.spacing_corr = 2;
 	this.nb_cols_corr = 1;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		for (let i = 0, prix, taux, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt<50;){
@@ -1732,7 +1732,7 @@ function Ecrire_une_expression_litterale(){
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 
@@ -1848,7 +1848,7 @@ function Traduire_un_programme_de_calcul(){
 	this.nb_cols_corr = 1;
 	this.spacing_corr = 2;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 
@@ -1951,7 +1951,7 @@ function Calculer_la_valeur_d_une_expression_litterale(){
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 
@@ -2082,7 +2082,7 @@ function Tester_une_egalite(){
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 
@@ -2196,7 +2196,7 @@ function Reduire_une_expression_litterale(){
 	this.sup = 9; // valeur maximale des coefficients
 	this.sup2 = false; // avec des nombres décimaux
 
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 

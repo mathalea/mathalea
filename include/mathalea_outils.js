@@ -1551,3 +1551,74 @@ function reorganiseProduitPuissance(b1,b2,e,couleur1,couleur2) {
 	}
 
 }
+
+/**
+* Fonction créant le bouton d'aide utilisée par les différentes fonctions modal_ type de contenu
+* @param numero_de_l_exercice
+* @param contenu code HTML 
+* @param icone 
+* @Auteur Rémi Angot
+*/	
+function creer_modal(numero_de_l_exercice,contenu,label_bouton,icone) {
+	let HTML = `<button class="ui right floated button" onclick="$('#modal${numero_de_l_exercice}').modal('show');"><i class="large ${icone} icon"></i>${label_bouton}</button>
+		<div class="ui modal" id="modal${numero_de_l_exercice}">
+		${contenu}
+		</div>`
+	return HTML;
+}
+
+/**
+* Créé un bouton pour une aide modale avec un texte court
+* @param numero_de_l_exercice
+* @param texte Texte court qui sera affiché comme un titre 
+* @param label_bouton Titre du bouton (par défaut Aide)
+* @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
+* @Auteur Rémi Angot
+*/	
+function modal_texte_court(numero_de_l_exercice,texte,label_bouton="Aide",icone="info circle"){
+	let contenu = `<div class="header">${texte}</div>`
+	return creer_modal(numero_de_l_exercice,contenu,label_bouton,icone)
+}
+
+/**
+* Créé un bouton pour une aide modale avec un texte et une vidéo YouTube
+* @param numero_de_l_exercice
+* @param id_youtube
+* @param texte Texte court qui sera affiché comme un titre 
+* @param label_bouton Titre du bouton (par défaut Aide)
+* @param icone Nom de l'icone (par défaut c'est youtube icon), liste complète sur https://semantic-ui.com/elements/icon.html
+* @Auteur Rémi Angot
+*/	
+function modal_youtube(numero_de_l_exercice,id_youtube,texte,label_bouton="Aide - Vidéo",icone="youtube"){
+	let contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${id_youtube}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
+	return creer_modal(numero_de_l_exercice,contenu,label_bouton,icone)
+}
+
+/**
+* Créé un bouton pour une aide modale avec un titre et un texte
+* @param numero_de_l_exercice
+* @param titre
+* @parma texte
+* @param label_bouton Titre du bouton (par défaut Aide)
+* @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
+* @Auteur Rémi Angot
+*/	
+function modal_texte_long(numero_de_l_exercice,titre,texte,label_bouton="Aide",icone="info circle"){
+	let contenu = `<div class="header">${titre}</div>`
+	contenu += `<div class="content">${texte}</div>`
+	return creer_modal(numero_de_l_exercice,contenu,label_bouton,icone)
+}
+
+/**
+* Créé un bouton pour une aide modale avec un texte et une vidéo YouTube
+* @param numero_de_l_exercice
+* @param url_pdf
+* @param texte Texte court qui sera affiché comme un titre 
+* @param label_bouton Titre du bouton (par défaut Aide)
+* @param icone Nom de l'icone (par défaut c'est file pdf icon), liste complète sur https://semantic-ui.com/elements/icon.html
+* @Auteur Rémi Angot
+*/	
+function modal_pdf(numero_de_l_exercice,url_pdf,texte="Aide",label_bouton="Aide - PDF",icone="file pdf"){
+	let contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><embed src=${url_pdf} width=90% height=500 type='application/pdf'/></p></div>`
+	return creer_modal(numero_de_l_exercice,contenu,label_bouton,icone)
+}

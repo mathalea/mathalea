@@ -13,7 +13,7 @@ function Double_distributivite()
 	this.nb_questions = 5 ;
 	this.sup = 1 ;
 
-	this.nouvelle_version = function() {
+	this.nouvelle_version = function(numero_de_l_exercice) {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		let type_de_questions_disponibles = [1,2] ;
@@ -80,7 +80,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
 	this.nb_questions = 5 ;
 	this.sup=1 ;
 
-	this.nouvelle_version = function() {
+	this.nouvelle_version = function(numero_de_l_exercice) {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
@@ -170,7 +170,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup=1 ;
 
 
-	this.nouvelle_version = function() {
+	this.nouvelle_version = function(numero_de_l_exercice) {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
@@ -225,7 +225,7 @@ function Factoriser_Identites_remarquables3()
 	this.nb_questions = 5 ;
 	this.sup=1 ;
 
-	this.nouvelle_version = function() {
+	this.nouvelle_version = function(numero_de_l_exercice) {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
@@ -281,7 +281,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
 	this.nb_questions = 5 ;
 	this.sup=1 ;
 
-	this.nouvelle_version = function() {
+	this.nouvelle_version = function(numero_de_l_exercice) {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
@@ -371,7 +371,7 @@ function Resoudre_une_equation_produit_nul(){
 	this.spacing = 1
 	
 	
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
