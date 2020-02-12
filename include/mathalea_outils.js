@@ -514,10 +514,15 @@ function obtenir_liste_facteurs_premiers(n){
 
 /**
 * Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux
+* Le 2e argument facultatif permet de préciser l'arrondi souhaité
 * @Auteur Rémi Angot
 */
-function calcul(expression){ 
-	return parseFloat(Algebrite.eval('float('+expression+')'))
+function calcul(expression,arrondir=false){
+	if (!arrondir) {
+		return parseFloat(Algebrite.eval('float('+expression+')'))
+	} else {
+		return arrondi(parseFloat(Algebrite.eval('float('+expression+')')),arrondir)
+	}
 }
 
 /**
@@ -1216,19 +1221,19 @@ function SVG_graduation(mon_svg,origine,pas,derniere_graduation,taille=10,y=50,c
 function Latex_graduation(pas,taille=1,y=0,couleur,width) {
 	switch (pas) {
 	case 0.1 :
-		 return `\n\t \\foreach \\x in {1,1.1,...,7.4} { \\draw [line width=${width}pt,color=${couleur}] (\\x,${y-0.1*taille})--(\\x,${y+0.1*taille});}`
+		 return `\n\t \\foreach \\x in {1,1.1,...,7.4} { \\draw [line width=${width}pt,color=${couleur}] (\\x,${calcul(y-0.1*taille)})--(\\x,${calcul(y+0.1*taille)});}`
 		 break;
 	 case 0.01 :
-		return `\n\t \\foreach \\x in {1,1.1,...,7.4} { \\draw [line width=${width}pt,color=${couleur}] (\\x,${y-0.1*taille})--(\\x,${y+0.1*taille});}`
+		return `\n\t \\foreach \\x in {1,1.1,...,7.4} { \\draw [line width=${width}pt,color=${couleur}] (\\x,${calcul(y-0.1*taille)})--(\\x,${calcul(y+0.1*taille)});}`
 		break;
 	case 0.001 :
-		return `\n\t \\foreach \\x in {1,1.1,...,7.4} { \\draw [line width=${width}pt,color=${couleur}] (\\x,${y-0.1*taille})--(\\x,${y+0.1*taille});}`
+		return `\n\t \\foreach \\x in {1,1.1,...,7.4} { \\draw [line width=${width}pt,color=${couleur}] (\\x,${calcul(y-0.1*taille)})--(\\x,${calcul(y+0.1*taille)});}`
 		break;
 	case 1 :
-		 return `\n\t \\foreach \\x in {1,2,...,7} { \\draw [line width=${width}pt,color=${couleur}] (\\x,${y-0.1*taille})--(\\x,${y+0.1*taille});}`
+		 return `\n\t \\foreach \\x in {1,2,...,7} { \\draw [line width=${width}pt,color=${couleur}] (\\x,${calcul(y-0.1*taille)})--(\\x,${calcul(y+0.1*taille)});}`
 		 break;
 	default :  
-		return `\n\t \\foreach \\x in {1,${1+1/pas},...,7.4} { \\draw [line width=${width}pt,color=${couleur}] (\\x,${y-0.1*taille})--(\\x,${y+0.1*taille});}`
+		return `\n\t \\foreach \\x in {1,${calcul(1+1/pas,3)},...,7.4} { \\draw [line width=${width}pt,color=${couleur}] (\\x,${calcul(y-0.1*taille)})--(\\x,${calcul(y+0.1*taille)});}`
 		break;
 	}
 }
@@ -1271,7 +1276,7 @@ function Latex_label(liste_d_abscisses,couleur) {
 	'use strict';
 	let code=''
 	for (let i = 0,text; i < liste_d_abscisses.length; i++) {
-		 text = liste_d_abscisses[i][0].toString()
+		text = liste_d_abscisses[i][0].toString()
 		code +=`\n\t \\draw [color=${couleur}] (${liste_d_abscisses[i][1]},${liste_d_abscisses[i][2]}) node{$${text}$};`;
 	}
 	return code;
@@ -1298,8 +1303,8 @@ function SVG_tracer_point(mon_svg,x,nom,couleur) {
 }
 
 function Latex_tracer_point(x,nom,couleur,width) {
-	let code =`\n\t \\draw [line width=${width}pt,color=${couleur}] (${x-0.05},${y-0.05}) -- (${x+0.05},${y+0.05});`;
-	code +=`\n\t \\draw[line width=${width}pt,color=${couleur}] (${x-0.05},${y+0.05}) -- (${x+0.05},${y-0.05}); `;
+	let code =`\n\t \\draw [line width=${width}pt,color=${couleur}] (${calcul(x-0.05)},${calcul(y-0.05)}) -- (${calcul(x+0.05)},${calcul(y+0.05)});`;
+	code +=`\n\t \\draw[line width=${width}pt,color=${couleur}] (${calcul(x-0.05)},${calcul(y+0.05)}) -- (${calcul(x+0.05)},${calcul(y-0.05)}); `;
 	code +=`\n\t \\draw [color=${couleur}] (${x},${y+0.2}) node{$${nom}$};`;
 	return code;
 }
@@ -1398,24 +1403,23 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
 			// Droite 
 			// Graduation secondaire
 			result+=Latex_graduation(pas2,taille=0.5,y=0.2,'black',width=0.8);
-			console.log(0.1*10/pas2);
 			// Graduation principale
 			result+=Latex_graduation(1,taille=0.8,y=0.2,'black',width=1.5);
 			// Droite et flèche
-			result+=`\n\t \\draw [->,>=stealth,line width=1.2pt] (0.5,0.2)--(7.5,0.2);`;
+			result+=`\n\t \\draw [->,>=stealth,line width=1.2pt] (1,0.2)--(7.5,0.2);`;
 			// Nombres visibles
 			result+=Latex_label([[arrondi_virgule(origine),1,0.03]],'black');
 			for (i=0;i<points_connus.length;i++) {
 				valeur=arrondi_virgule(points_connus[i][0],arrondir-1);
-				distance=1+points_connus[i][1]+points_connus[i][2]/pas2;
+				distance=calcul(1+points_connus[i][1]+points_connus[i][2]/pas2);
 				result+=Latex_label([[valeur,distance,0.03]],'black');
 			}
 			//Points inconnus
 			let position=0.1;
 			for (i=0;i<points_inconnus.length;i++){
-				distance=points_inconnus[i][1]+points_inconnus[i][2]/pas2;
+				distance=calcul(points_inconnus[i][1]+points_inconnus[i][2]/pas2,3);
 				nom=points_inconnus[i][0];
-				valeur=arrondi_virgule(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2,arrondir);
+				valeur=arrondi_virgule(calcul(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2),arrondir);
 				result+=Latex_tracer_point(1+distance,nom,'red',2);
 				if (points_inconnus[i][3]==true) {
 					if (!fraction) {
