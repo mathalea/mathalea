@@ -1375,7 +1375,7 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 					SVG_label(mon_svg,[[valeur,100+distance,50]],3+position,'#f15929')
 					}
 					else { //affichage fractionnaire
-					SVG_fraction(mon_svg,(origine+points_inconnus[i][1])*pas2+points_inconnus[i][2],pas2,100+distance,85+(3+position)*10,'#f15929')
+					SVG_fraction(mon_svg,(origine+points_inconnus[i][1])*pas2+points_inconnus[i][2],pas2,100+distance,115,'#f15929')
 					}
 					position=1-position
 				}
