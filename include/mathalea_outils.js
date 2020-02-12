@@ -1255,17 +1255,17 @@ function SVG_label(mon_svg,liste_d_abscisses,y,couleur) {
 function SVG_fraction(mon_svg,num,den,x,y,couleur) {
 	'use strict';
 	let longueur=num.toString().length;
-	let line = mon_svg.line(x-longueur*5, y-12, x+longueur*5, y-12);
+	let line = mon_svg.line(x-longueur*5, y-7, x+longueur*5, y-7);
 	line.stroke({ color: couleur, width: 2, linecap: 'round' })
-	let num_text=mon_svg.text(num.toString());
-	num_text.move(x,y-10).font({ fill: couleur,
+	let num_text=mon_svg.text(num.toString()).attr({x: x, y: y-10});
+	num_text.font({ fill: couleur,
 		family:   'Helvetica'
 		, size:     20
 		, anchor:   'middle'
 		, leading : 0
 	})
-	let den_text=mon_svg.text(den.toString());
-	den_text.move(x,y+10).font({ fill: couleur,
+	let den_text=mon_svg.text(den.toString()).attr({x: x, y: y+10});
+	den_text.font({ fill: couleur,
 		family:   'Helvetica'
 		, size:     20
 		, anchor:   'middle'
@@ -1290,11 +1290,11 @@ function SVG_tracer_point(mon_svg,x,nom,couleur) {
 	let c2 = point.line(-5,-5,5,5)
 	c2.stroke({ color: couleur, width: 3, linecap: 'round' })
 	//déplace la croix
-	point.move(x,50)
-	point.dmove(-5,-5)
-	let text = mon_svg.text(nom)
+	point.move(x-5,50-5)
+	// point.dmove(-5,-5)
+	let text = mon_svg.text(nom).attr({x: x, y: 50})
 	//ecrit le nom
-	text.move(x,50).font({
+	text.font({
 		family:   'Helvetica'
 		, size:     20
 		, anchor:   'middle'
