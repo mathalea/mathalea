@@ -262,7 +262,7 @@ function Lire_abscisse_entiere(){
 		}
 		if (!sortie_html) liste_de_question_to_contenu(this); 
 	}
-	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : Un chiffre après la virgule\n2 : Deux chiffres après la virgule \n3 : Trois chiffres après la virgule\n4 : Mélange"];
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : Ordre de grandeur : milliers\n2 : Ordre de grandeur : dizaines de mille\n3 : centaines de mille\n4 : Mélange"];
 }
 /**
 * Lire l'abscisse décimale d'un point
@@ -346,7 +346,7 @@ function Placer_un_point_abscisse_entiere(){
 			if (!sortie_html) liste_de_question_to_contenu(this); 
 	
 		}
-		this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : Un chiffre après la virgule\n2 : Deux chiffres après la virgule \n3 : Trois chiffres après la virgule\n4 : Mélange"];
+		this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : Ordre de grandeur : milliers\n2 : Ordre de grandeur : dizaines de mille\n3 : centaines de mille\n4 : Mélange"];
 	}
 	
 /**

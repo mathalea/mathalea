@@ -2345,7 +2345,7 @@ function Lire_abscisse_relative(){
 		}
 		if (!sortie_html) liste_de_question_to_contenu(this); 
 	}
-	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : Un chiffre après la virgule\n2 : Deux chiffres après la virgule \n3 : Trois chiffres après la virgule\n4 : Mélange"];
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : Nombre relatif à une décimale\n2 : Nombre relatif à deux décimales\n3 : Nombre relatif à trois décimales\n4 : Mélange"];
 }
 
 /**
@@ -2430,5 +2430,5 @@ function Placer_points_sur_axe_relatifs(){
 		if (!sortie_html) liste_de_question_to_contenu(this); 
 
 	}
-	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : Un chiffre après la virgule\n2 : Deux chiffres après la virgule \n3 : Trois chiffres après la virgule\n4 : Mélange"];
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : Nombre relatif à une décimale\n2 : Nombre relatif à deux décimales\n3 : Nombre relatif à trois décimales\n4 : Mélange"];
 }
