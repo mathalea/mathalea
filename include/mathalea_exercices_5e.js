@@ -2282,7 +2282,7 @@ function Reduire_une_expression_litterale(){
 function Lire_abscisse_relative(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Lire l'abscisse décimale d'un point";
+	this.titre = "Lire l'abscisse lelative d'un point";
 	this.consigne = "Lire l'abscisse de chacun des points suivants.";
 	this.nb_questions = 3;
 	this.nb_questions_modifiable = true;
@@ -2355,7 +2355,7 @@ function Lire_abscisse_relative(){
 function Placer_points_sur_axe_relatifs(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Pacer un point d'abscisse décimale";
+	this.titre = "Pacer un point d'abscisse un nombre relatif";
 	this.consigne = " Placer trois points sur un axe gradué.";
 	this.nb_questions = 5;
 	this.nb_questions_modifiable = true;
