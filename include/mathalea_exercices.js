@@ -79,6 +79,7 @@ var liste_des_exercices_disponibles = {
 		'5L111' : Tester_une_egalite,
 		'5L12' : Reduire_une_expression_litterale,
 		'5M10' : Exercice_angles_triangles,
+		'5R10' : Lire_abscisse_relative,
 		'5R20': Exercice_additions_relatifs,
 		'5R20_bis': Exercice_additions_relatifs_a_trou,
 		'5R20_ter': Exercice_additions_de_5_relatifs, //on pourrait le corriger avec regroupement des termes de même signe
