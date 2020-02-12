@@ -898,7 +898,27 @@ function tex_nombre(nb){
 		return result;
 	}
 }
-
+/**
+* Renvoit un nombre dans le format français (séparateur de classes) version sans Katex (pour les SVG)
+* @Auteur Jean-Claude Lhote
+*/
+function string_nombre(nb){
+	//Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
+	let nombre=nb.toString();
+	let partie_entiere=nombre.split('.')[0];
+	let partie_decimale=nombre.split('.')[1];
+	let result='';
+	let i;
+	if (partie_entiere.length>3) {
+		for (i=0;i<Math.floor(partie_entiere.length/3);i++) {
+			result=' '+partie_entiere.slice(partie_entiere.length-i*3-3,partie_entiere.length-i*3)+result;
+		}
+		result=partie_entiere.slice(0,partie_entiere.length-i*3)+result;
+	}
+	else result=partie_entiere;
+	if (partie_decimale!=undefined)  result+=','+partie_decimale;
+	return result;
+}
 /**
 * Met en couleur verte si sortie HTML et en rouge si sortie PDF
 * @Auteur Rémi Angot
@@ -1217,7 +1237,16 @@ function SVG_graduation(mon_svg,origine,pas,derniere_graduation,taille=10,y=50,c
 		line.stroke({ color: couleur, width: width, linecap: 'round' })
 	}
 }
-
+/**
+ * Trace une série de graduations 
+ * @param {number} pas intervalle entre deux graduations
+ * @param {number} taille hauteur des graduations
+ * @param {number} y ordonnée de la graduation (centre)
+ * @param {string} couleur couleur de la graduation
+ * @param {number} width épaisseur de la graduation
+ * @Auteur Jean-Claude Lhote
+ * @returns {string} La série de commandes Latex Tikz.
+ */
 function Latex_graduation(pas,taille=1,y=0,couleur,width) {
 	switch (pas) {
 	case 0.1 :
@@ -1237,11 +1266,18 @@ function Latex_graduation(pas,taille=1,y=0,couleur,width) {
 		break;
 	}
 }
-
+/**
+ * Ecris des nombres ou des textes à une position donnée dans un SVG
+ * @param {array} liste_d_abscisses [[nombre à écrire,abscisse,ordonnée]]
+ * @param {string} couleur couleur du nombre
+ * @Auteur Rémi Angot
+ */
 function SVG_label(mon_svg,liste_d_abscisses,y,couleur) {
 	'use strict';
 	for (let i = 0; i < liste_d_abscisses.length; i++) {
-		let text = mon_svg.text((liste_d_abscisses[i][0]).toString())
+		let text;
+		if (typeof liste_d_abscisses[i][0]== 'number') text = mon_svg.text((liste_d_abscisses[i][0]).toString());
+		else text = mon_svg.text(liste_d_abscisses[i][0]);
 		y=parseInt(y);	
 		text.move(liste_d_abscisses[i][1],50).font({ fill: couleur,
 			family:   'Helvetica'
@@ -1251,7 +1287,16 @@ function SVG_label(mon_svg,liste_d_abscisses,y,couleur) {
 		})
 	}
 }
-
+/**
+ * Ecris une fraction dans un SVG
+ * @param {any} mon_svg l'Id du SVG
+ * @param {number} num le numérateur de la fraction
+ * @param {number} den le dénominateur de la fraction
+ * @param {number} x l'abscisse de sa position
+ * @param {number} y l'ordonnée de sa position
+ * @param {string} couleur la couleur de la fraction
+ * @Auteur Rémi Angot
+ */
 function SVG_fraction(mon_svg,num,den,x,y,couleur) {
 	'use strict';
 	let longueur=num.toString().length;
@@ -1272,17 +1317,33 @@ function SVG_fraction(mon_svg,num,den,x,y,couleur) {
 		, leading : 0
 	})
 }
+/**
+ * Ecris des nombres ou des textes à une position donnée version Latex -> String
+ * @param {array} liste_d_abscisses [[nombre à écrire,abscisse,ordonnée]]
+ * @param {string} couleur couleur du nombre
+ * @returns {string}
+ * @Auteur Jean-Claude Lhote
+ */
 function Latex_label(liste_d_abscisses,couleur) {
 	'use strict';
 	let code=''
 	for (let i = 0,text; i < liste_d_abscisses.length; i++) {
-		text = liste_d_abscisses[i][0].toString()
+		if (typeof liste_d_abscisses[i][0]== 'number') text = (liste_d_abscisses[i][0]).toString();
+		else text = liste_d_abscisses[i][0];
 		code +=`\n\t \\draw [color=${couleur}] (${liste_d_abscisses[i][1]},${liste_d_abscisses[i][2]}) node{$${text}$};`;
 	}
 	return code;
 }
-
-function SVG_tracer_point(mon_svg,x,nom,couleur) {
+/**
+ * 
+ * @param {any} mon_svg L'id du SVG
+ * @param {number} x l'abscisse du point
+ * @param {number} y l'ordonnée du point
+ * @param {string} nom le nom du point
+ * @param {string} couleur la couleur du point
+ * @Auteur Rémi Angot
+ */
+function SVG_tracer_point(mon_svg,x,y,nom,couleur) {
 	//creer un groupe pour la croix
 	let point = mon_svg.group()
 	let c1 = point.line(-5,5,5,-5)
@@ -1290,9 +1351,9 @@ function SVG_tracer_point(mon_svg,x,nom,couleur) {
 	let c2 = point.line(-5,-5,5,5)
 	c2.stroke({ color: couleur, width: 3, linecap: 'round' })
 	//déplace la croix
-	point.move(x-5,50-5)
+	point.move(x-5,y-5)
 	// point.dmove(-5,-5)
-	let text = mon_svg.text(nom).attr({x: x, y: 50})
+	let text = mon_svg.text(nom).attr({x: x, y: y})
 	//ecrit le nom
 	text.font({
 		family:   'Helvetica'
@@ -1301,14 +1362,26 @@ function SVG_tracer_point(mon_svg,x,nom,couleur) {
 		, leading : -1
 		})
 }
-
+/**
+ * 
+ * @param {abscisse} x 
+ * @param {nom du point} nom 
+ * @param {la couleur pour la croix et le nom} couleur 
+ * @param {la largeur des traits} width 
+ * @Auteur Jean-Claude Lhote
+ */
 function Latex_tracer_point(x,nom,couleur,width) {
 	let code =`\n\t \\draw [line width=${width}pt,color=${couleur}] (${calcul(x-0.05)},${calcul(y-0.05)}) -- (${calcul(x+0.05)},${calcul(y+0.05)});`;
 	code +=`\n\t \\draw[line width=${width}pt,color=${couleur}] (${calcul(x-0.05)},${calcul(y+0.05)}) -- (${calcul(x+0.05)},${calcul(y-0.05)}); `;
 	code +=`\n\t \\draw [color=${couleur}] (${x},${y+0.2}) node{$${nom}$};`;
 	return code;
 }
-
+/**
+ * Trace une flèche dans le SVG pour une demi-droite graduée
+ * @param {any} mon_svg l'identifiant du SVG
+ * @param {number} x l'abscisse de la pointe
+ * @param {number} y l'ordonnée de la pointe
+ */
 function SVG_tracer_fleche(mon_svg,x,y) {
 	//creer un groupe pour la fleche
 	let fleche = mon_svg.group()
@@ -1320,11 +1393,6 @@ function SVG_tracer_fleche(mon_svg,x,y) {
 	fleche.move(x,y)
 	fleche.dmove(-5,-5)
 }
-// function Latex_tracer_fleche(x,y) {
-// 	let code =`\n\t \\draw (${x-0.1},${y-0.1})--(${x},${y}); `
-//	code +=`\n\t \\draw (${x-0.1},${y+0.1})--(${x},${y}); `
-//	return code;
-// } 
 
 /**
 * Trace une graduation sur le SVG
@@ -1339,9 +1407,10 @@ function SVG_tracer_fleche(mon_svg,x,y) {
 */
 function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inconnus,points_connus,fraction){
 	let arrondir=1+Math.round(Math.log10(pas1))
+	if (arrondir<1) arrondir=1;
 	let longueur_pas1=600/longueur;
  	let longueur_pas2=600/longueur/pas2;
- 	let distance,valeur,nom
+	 let distance,valeur,nom
 	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
 	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
 	window.SVGExist[id_du_div] = setInterval(function() {
@@ -1357,25 +1426,26 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 			SVG_graduation(mon_svg,100,longueur_pas1,750,taille=10,y=50,color='black',width=5)
 			SVG_tracer_fleche(mon_svg,750,50)
 			// Nombres visibles
-			SVG_label(mon_svg,[[arrondi_virgule(origine),100]],2,'black')
+			SVG_label(mon_svg,[[string_nombre(origine),100]],2,'black');
+			// else 	SVG_label(mon_svg,[[arrondi_virgule(origine),100]],2,'black');
 			for (i=0;i<points_connus.length;i++) {
-				valeur=arrondi_virgule(points_connus[i][0],arrondir-1);
-				distance=longueur_pas1*points_connus[i][1]+longueur_pas2*points_connus[i][2];
+				valeur=string_nombre(points_connus[i][0]);					 
+				distance=calcul(longueur_pas1*points_connus[i][1]+longueur_pas2*points_connus[i][2]);
 				SVG_label(mon_svg,[[valeur,100+distance,50]],2,'black')
 			}
 			//Points inconnus
 			let position=1;
-			for (i=0;i<points_inconnus.length;i++){
+			for (let i=0;i<points_inconnus.length;i++){
 				distance=longueur_pas1*points_inconnus[i][1]+longueur_pas2*points_inconnus[i][2]
 				nom=points_inconnus[i][0]
-				SVG_tracer_point(mon_svg,100+distance,nom,'#f15929')
+				SVG_tracer_point(mon_svg,100+distance,50,nom,'#f15929')
 				if (points_inconnus[i][3]==true) {
 					if (!fraction) { // affichage décimal 
-					valeur=arrondi_virgule(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2,arrondir)
-					SVG_label(mon_svg,[[valeur,100+distance,50]],3+position,'#f15929')
+						valeur=string_nombre(calcul(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2));
+						SVG_label(mon_svg,[[valeur,100+distance,50]],3+position,'#f15929')
 					}
 					else { //affichage fractionnaire
-					SVG_fraction(mon_svg,(origine+points_inconnus[i][1])*pas2+points_inconnus[i][2],pas2,100+distance,115,'#f15929')
+					 SVG_fraction(mon_svg,(origine+points_inconnus[i][1])*pas2+points_inconnus[i][2],pas2,100+distance,115,'#f15929')
 					}
 					position=1-position
 				}
@@ -1393,6 +1463,7 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 * @param pas2 Idem pas1 pour la petite graduation
 * @param points_inconnus tableau tableau [Nom,nb_pas1,nb_pas2,affiche_ou_pas]
 * @param points_connus tableau [valeur,nb_pas1,nb_pas2]
+* @param fraction booléen : true pour fraction, false pour décimaux
 * @Auteur Jean-Claude Lhote
 */
 function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points_connus,fraction){
@@ -1408,9 +1479,11 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
 			// Droite et flèche
 			result+=`\n\t \\draw [->,>=stealth,line width=1.2pt] (1,0.2)--(7.5,0.2);`;
 			// Nombres visibles
-			result+=Latex_label([[arrondi_virgule(origine),1,0.03]],'black');
+			if (Number.isInteger(origine)) result +=Latex_label([[tex_nombre(origine),1,0.03]],'black');
+			else result+=Latex_label([[arrondi_virgule(origine),1,0.03]],'black');
 			for (i=0;i<points_connus.length;i++) {
-				valeur=arrondi_virgule(points_connus[i][0],arrondir-1);
+				if (Number.isInteger(points_connus[i][0])) valeur=tex_nombre(points_connus[i][0]);
+				else valeur=arrondi_virgule(points_connus[i][0],arrondir-1);
 				distance=calcul(1+points_connus[i][1]+points_connus[i][2]/pas2);
 				result+=Latex_label([[valeur,distance,0.03]],'black');
 			}
@@ -1419,7 +1492,8 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
 			for (i=0;i<points_inconnus.length;i++){
 				distance=calcul(points_inconnus[i][1]+points_inconnus[i][2]/pas2,3);
 				nom=points_inconnus[i][0];
-				valeur=arrondi_virgule(calcul(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2),arrondir);
+				if (Number.isInteger((calcul(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2)))) valeur=tex_nombre(calcul(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2))
+				else valeur=arrondi_virgule(calcul(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2),arrondir);
 				result+=Latex_tracer_point(1+distance,nom,'red',2);
 				if (points_inconnus[i][3]==true) {
 					if (!fraction) {
