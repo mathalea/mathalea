@@ -328,7 +328,7 @@ function Lire_abscisse_fractionnaire(){
 }
 
 /**
-* Placer Un point d'abscisse décimale
+* Placer un point d'abscisse décimale
 * @Auteur Jean-Claude Lhote et Rémi Angot
 */
 function Placer_points_sur_axe(){
@@ -409,7 +409,7 @@ function Placer_points_sur_axe(){
 		if (!sortie_html) liste_de_question_to_contenu(this); 
 
 	}
-	this.besoin_formulaire_numerique = ['Niveau de difficulté',4];
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : Un chiffre après la virgule\n2 : Deux chiffres après la virgule \n3 : Trois chiffres après la virgule\n4 : Mélange"];
 }
 
 
