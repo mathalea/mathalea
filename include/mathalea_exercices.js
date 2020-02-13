@@ -4969,15 +4969,17 @@ function Divisions_euclidiennes_niv2(){
 	this.titre = "Divisions euclidiennes - Niveau 2"
 }
 function Exercice_Trigo_longueurs_4e(){
-	Exercice_Trigo_longueurs.call(this);
 	this.sup =1;
+	this.quatrieme = true;
 	this.titre = "Utiliser le cosinus pour calculer une longueur dans un triangle rectangle"
+	Exercice_Trigo_longueurs.call(this);
 }
 
 function Exercice_Trigo_angles_4e(){
-	Exercice_Trigo_angles.call(this);
 	this.sup =1;
+	this.quatrieme = true;
 	this.titre = "Utiliser le cosinus pour calculer la mesure d'un angle dans un triangle rectangle"
+	Exercice_Trigo_angles.call(this);
 }
 
 function Exercice_6N12(){
@@ -4987,9 +4989,9 @@ function Exercice_6N12(){
 }
 
 function Exercice_6N13(){
-	Exercice_conversions.call(this);
 	this.sup = 1;
 	this.titre = 'Utiliser les préfixes multiplicateurs (déca à kilo)';
+	Exercice_conversions.call(this);
 }
 
 function Exercice_6N24(){
