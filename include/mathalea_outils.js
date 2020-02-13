@@ -1281,7 +1281,7 @@ function SVG_label(mon_svg,liste_d_abscisses,y,couleur) {
 		y=parseInt(y);	
 		text.move(liste_d_abscisses[i][1],50).font({ fill: couleur,
 			family:   'Helvetica'
-			, size:     20
+			, size:     16
 			, anchor:   'middle'
 			, leading : y
 		})

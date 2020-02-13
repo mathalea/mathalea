@@ -2355,7 +2355,7 @@ function Lire_abscisse_relative(){
 function Placer_points_sur_axe_relatifs(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Pacer un point d'abscisse un nombre relatif";
+	this.titre = "Placer un point d'abscisse un nombre relatif";
 	this.consigne = " Placer trois points sur un axe gradué.";
 	this.nb_questions = 5;
 	this.nb_questions_modifiable = true;

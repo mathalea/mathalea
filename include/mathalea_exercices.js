@@ -271,7 +271,7 @@ function Lire_abscisse_entiere(){
 function Placer_un_point_abscisse_entiere(){
 		'use strict';
 		Exercice.call(this); // Héritage de la classe Exercice()
-		this.titre = "Pacer un point d'abscisse entière (grands nombres)";
+		this.titre = "Placer un point d'abscisse entière (grands nombres)";
 		this.consigne = " Placer trois points sur un axe gradué.";
 		this.nb_questions = 5;
 		this.nb_questions_modifiable = true;
@@ -501,7 +501,7 @@ function Lire_abscisse_fractionnaire(){
 function Placer_points_sur_axe(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Pacer un point d'abscisse décimale";
+	this.titre = "Placer un point d'abscisse décimale";
 	this.consigne = " Placer trois points sur un axe gradué.";
 	this.nb_questions = 5;
 	this.nb_questions_modifiable = true;
