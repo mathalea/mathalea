@@ -1573,7 +1573,7 @@ function Exercice_Trigo_longueurs() {
 	sortie_html ? this.spacing_corr = 3 : this.spacing_corr = 1.5
 
 	this.nouvelle_version = function (numero_de_l_exercice) {
-
+		this.spacing=1;
 			this.bouton_aide = modal_youtube(numero_de_l_exercice,"DYW-BTMFzd4","Trigonométrie (vidéo de digiSchool)")
 			this.type_exercice = 'MG32';
 			this.taille_div_MG32 = [700, 500];
@@ -1618,33 +1618,33 @@ function Exercice_Trigo_longueurs() {
 				
 
 				if (type_de_questions == 1) { // calcul du côté adjacent (cosinus)
-					texte += `L'angle $\\widehat{${s0 + s1 + s2}}$ mesure $${angle1}°$, $${s1 + s2}=${s12}$ cm.<br>`;
+					texte += `L'angle $\\widehat{${s0 + s1 + s2}}$ mesure $${angle1}\\degree$, $${s1 + s2}=${s12}$ cm.<br>`;
 					texte += `Calculer $${s0 + s1}$.`;
 
 
 				}
 				if (type_de_questions == 2) { // Calcul de l'hypoténuse (1/cosinus)
-					texte += `L'angle $\\widehat{${s0 + s1 + s2}}$ mesure $${angle1}°$, $${s0 + s1}=${s01}$ cm.<br>`;
+					texte += `L'angle $\\widehat{${s0 + s1 + s2}}$ mesure $${angle1}\\degree$, $${s0 + s1}=${s01}$ cm.<br>`;
 					texte += `Calculer $${s1 + s2}$.`;
 
 				}
 				if (type_de_questions == 3) { // calcul du côté opposé (sinus)
-					texte += `L'angle $\\widehat{${s0 + s1 + s2}}$ mesure $${angle1}°$, $${s1 + s2}=${s12}$ cm.<br>`;
+					texte += `L'angle $\\widehat{${s0 + s1 + s2}}$ mesure $${angle1}\\degree$, $${s1 + s2}=${s12}$ cm.<br>`;
 					texte += `Calculer $${s0 + s2}$.`;
 
 				}
 				if (type_de_questions == 4) { // Calcul de l'hypoténuse (1/sinus) 
-					texte += `L'angle $\\widehat{${s0 + s1 + s2}}$ mesure $${angle1}°$, $${s0 + s2}=${s02}$ cm.<br>`;
+					texte += `L'angle $\\widehat{${s0 + s1 + s2}}$ mesure $${angle1}\\degree$, $${s0 + s2}=${s02}$ cm.<br>`;
 					texte += `Calculer $${s1 + s2}$.`;
 
 				}
 				if (type_de_questions == 5) { // calcul du côté opposé (tangente)
-					texte += `L'angle $\\widehat{${s0 + s1 + s2}}$ mesure $${angle1}°$, $${s0 + s1}=${s01}$ cm.<br>`;
+					texte += `L'angle $\\widehat{${s0 + s1 + s2}}$ mesure $${angle1}\\degree$, $${s0 + s1}=${s01}$ cm.<br>`;
 					texte += `Calculer $${s0 + s2}$.`;
 
 				}
 				if (type_de_questions == 6) { // Calcul du côté adjacent (1/tangente) 
-					texte += `L'angle $\\widehat{${s0 + s1 + s2}}$ mesure $${angle1}°$, $${s0 + s2}=${s02}$ cm.<br>`;
+					texte += `L'angle $\\widehat{${s0 + s1 + s2}}$ mesure $${angle1}\\degree$, $${s0 + s2}=${s02}$ cm.<br>`;
 					texte += `Calculer $${s0 + s1}$.`;
 
 				}
@@ -1669,32 +1669,32 @@ function Exercice_Trigo_longueurs() {
 
 				if (type_de_questions == 1) { // Calcul du coté adjacent (cosinus)
 					texte += `\n\t\\item $${s1 + s2}=${s12}~\\text{cm}$`;
-					texte += `\n\t\\item L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}°$.<br>`;
+					texte += `\n\t\\item L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}\\degree$.<br>`;
 					texte += `\\end{itemize} \\bigskip\n\t  Calculer $${s0 + s1}$ à 0,1 près. \\end{minipage}`
 				}
 				if (type_de_questions == 2) { // Calcul de l'hypoténuse (1/cosinus)
 					texte += `\n\t\\item $${s0 + s1}=${s01}~\\text{cm}$`;
-					texte += `\n\t\\item L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}°$.<br>`;
+					texte += `\n\t\\item L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}\\degree$.<br>`;
 					texte += `\\end{itemize} \\bigskip\n\t  Calculer $${s1 + s2}$ à 0,1 près. \\end{minipage}`
 				}
 				if (type_de_questions == 3) { // Calcul du coté opposé (sinus)
 					texte += `\n\t\\item $${s1 + s2}=${s12}~\\text{cm}$`;
-					texte += `\n\t\\item L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}°$.<br>`;
+					texte += `\n\t\\item L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}\\degree$.<br>`;
 					texte += `\\end{itemize} \\bigskip\n\t  Calculer $${s0 + s2}$ à 0,1 près. \\end{minipage}`
 				}
 				if (type_de_questions == 4) { // Calcul de l'hypoténuse (1/sinus)
 					texte += `\n\t\\item $${s0 + s2}=${s02}~\\text{cm}$`;
-					texte += `\n\t\\item L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}°$.<br>`;
+					texte += `\n\t\\item L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}\\degree$.<br>`;
 					texte += `\\end{itemize} \\bigskip\n\t  Calculer $${s1 + s2}$ à 0,1 près. \\end{minipage}`
 				}
 				if (type_de_questions == 5) { // Calcul du côté opposé (tangente)
 					texte += `\n\t\\item $${s0 + s1}=${s01}~\\text{cm}$`;
-					texte += `\n\t\\item L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}°$.<br>`;
+					texte += `\n\t\\item L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}\\degree$.<br>`;
 					texte += `\\end{itemize} \\bigskip\n\t  Calculer $${s0 + s2}$ à 0,1 près. \\end{minipage}`
 				}
 				if (type_de_questions == 6) { // Calcul du côté adjacent (1/tangente)
 					texte += `\n\t\\item $${s0 + s2}=${s02}~\\text{cm}$`;
-					texte += `\n\t\\item L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}°$.<br>`;
+					texte += `\n\t\\item L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}\\degree$.<br>`;
 					texte += `\\end{itemize} \\bigskip\n\t  Calculer $${s0 + s1}$ à 0,1 près. \\end{minipage}`
 				}
 				texte += '\\begin{minipage}{0.5 \\linewidth}'
@@ -1728,54 +1728,54 @@ function Exercice_Trigo_longueurs() {
 				texte_corr+=`Le cosinus de l'angle $\\widehat{${s0+s1+s2}}$ est défini par :<br>`;
 				texte_corr +=`$\\cos \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s1,s1+s2)}$<br>`;
 				texte_corr +=`Avec les données numériques :<br>`
-				texte_corr +=`$\\dfrac{\\cos\\left(${angle1}°\\right)}{\\color{red}{1}}=${tex_fraction(s0+s1,s12)}$<br>`;
+				texte_corr +=`$\\dfrac{\\cos\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(s0+s1,s12)}$<br>`;
 				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ égaux~donc~ :}$<br>`
-				texte_corr += `$${s0+s1}=${quatrieme_proportionnelle('\\color{red}{1}',s12,`\\cos\\left(${angle1}°\\right)`)}$<br>` // ${s12}\\times\\cos\\left(${angle1}°\\right)$<br>`;
+				texte_corr += `$${s0+s1}=${quatrieme_proportionnelle('\\color{red}{1}',s12,`\\cos\\left(${angle1}\\degree\\right)`)}$<br>` // ${s12}\\times\\cos\\left(${angle1}\\degree\\right)$<br>`;
 				texte_corr += `Soit $${s0 + s1}\\approx${s01}$ cm.`;
 			}
 			if (type_de_questions == 2) {
 				texte_corr += `Le cosinus de l'angle $\\widehat{${s0+s1+s2}}$ est défini par :<br>`;
 				texte_corr +=`$\\cos \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s1,s1+s2)}$<br>`;
 				texte_corr +=`Avec les données numériques :<br>`
-				texte_corr +=`$\\dfrac{\\cos\\left(${angle1}°\\right)}{\\color{red}{1}}=${tex_fraction(s01,s1+s2)}$<br>`;
+				texte_corr +=`$\\dfrac{\\cos\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(s01,s1+s2)}$<br>`;
 				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ égaux~donc~ :}$<br>`
-				texte_corr += `$${s1 + s2}=${quatrieme_proportionnelle(`\\cos\\left(${angle1}°\\right)`,s01,'\\color{red}{1}')}$<br>`// ${s01}\\div\\cos\\left(${angle1}°\\right)$<br>`;
+				texte_corr += `$${s1 + s2}=${quatrieme_proportionnelle(`\\cos\\left(${angle1}\\degree\\right)`,s01,'\\color{red}{1}')}$<br>`// ${s01}\\div\\cos\\left(${angle1}\\degree\\right)$<br>`;
 				texte_corr += `Soit $${s1 + s2}\\approx${s12}$ cm.`;
 			}	
 			if (type_de_questions == 3) {
 				texte_corr += `Le sinus de l'angle $\\widehat{${s0+s1+s2}}$ est défini par :<br>`;
 				texte_corr += `$\\sin \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s2,s1+s2)}$<br>`;
 				texte_corr +=`Avec les données numériques :<br>`
-				texte_corr +=`$\\dfrac{\\sin\\left(${angle1}°\\right)}{\\color{red}{1}}=${tex_fraction(s0+s2,s12)}$<br>`;
+				texte_corr +=`$\\dfrac{\\sin\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(s0+s2,s12)}$<br>`;
 				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ égaux~donc~ :}$<br>`
-				texte_corr += `$${s0+s2}=${quatrieme_proportionnelle('\\color{red}{1}',s12,`\\sin\\left(${angle1}°\\right)`)}$<br>`
+				texte_corr += `$${s0+s2}=${quatrieme_proportionnelle('\\color{red}{1}',s12,`\\sin\\left(${angle1}\\degree\\right)`)}$<br>`
 				texte_corr += `Soit $${s0 + s2}\\approx${s02}$ cm.`;
 			}
 			if (type_de_questions == 4) {
 				texte_corr = `Le sinus de l'angle $\\widehat{${s0+s1+s2}}$ est défini par :<br>`;
 				texte_corr +=`$\\sin \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s2,s1+s2)}$<br>`;
 				texte_corr +=`Avec les données numériques :<br>`
-				texte_corr +=`$\\dfrac{\\sin\\left(${angle1}°\\right)}{\\color{red}{1}}=${tex_fraction(s02,s1+s2)}$<br>`;
+				texte_corr +=`$\\dfrac{\\sin\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(s02,s1+s2)}$<br>`;
 				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ égaux~donc~ :}$<br>`
-				texte_corr += `$${s1+s2}=${quatrieme_proportionnelle(`\\sin\\left(${angle1}°\\right)`,s02,'\\color{red}{1}')}$<br>`				
+				texte_corr += `$${s1+s2}=${quatrieme_proportionnelle(`\\sin\\left(${angle1}\\degree\\right)`,s02,'\\color{red}{1}')}$<br>`				
 				texte_corr += `Soit $${s1 + s2}\\approx${s12}$ cm.`;
 			}
 			if (type_de_questions == 5) {
 				texte_corr = `La tangente de l'angle $\\widehat{${s0+s1+s2}}$ est définie par :<br>`;
 				texte_corr += `$\\tan \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s2,s0+s1)}<br>$`;
 				texte_corr +=`Avec les données numériques :<br>`
-				texte_corr +=`$\\dfrac{\\tan\\left(${angle1}°\\right)}{\\color{red}{1}}=${tex_fraction(s0+s2,s01)}$<br>`;
+				texte_corr +=`$\\dfrac{\\tan\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(s0+s2,s01)}$<br>`;
 				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ égaux~donc~ :}$<br>`
-				texte_corr += `$${s0+s2}=${quatrieme_proportionnelle('\\color{red}{1}',s01,`\\tan\\left(${angle1}°\\right)`)}$<br>`								
+				texte_corr += `$${s0+s2}=${quatrieme_proportionnelle('\\color{red}{1}',s01,`\\tan\\left(${angle1}\\degree\\right)`)}$<br>`								
 				texte_corr += `Soit $${s0 + s2}\\approx${s02}$ cm.`;
 			}
 			if (type_de_questions == 6) {
 				texte_corr = `La tangente de l'angle $\\widehat{${s0+s1+s2}}$ est définie par :<br>`;
 				texte_corr +=`$\\tan \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s2,s0+s1)}$<br>`;
 				texte_corr +=`Avec les données numériques :<br>`
-				texte_corr +=`$\\dfrac{\\tan\\left(${angle1}°\\right)}{\\color{red}{1}}=${tex_fraction(s02,s0+s1)}$<br>`;
+				texte_corr +=`$\\dfrac{\\tan\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(s02,s0+s1)}$<br>`;
 				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ égaux~donc~ :}$<br>`
-				texte_corr += `$${s0+s1}=${quatrieme_proportionnelle(`\\tan\\left(${angle1}°\\right)`,s02,'\\color{red}{1}')}$<br>`					
+				texte_corr += `$${s0+s1}=${quatrieme_proportionnelle(`\\tan\\left(${angle1}\\degree\\right)`,s02,'\\color{red}{1}')}$<br>`					
 				texte_corr += `Soit $${s0 + s1}\\approx${s01}$ cm.`;
 			}
 			// texte+=href('Comment calculer une longueur avec la trigonométrie','https://www.youtube.com/watch?v=DYW-BTMFzd4')
@@ -1978,7 +1978,7 @@ function Exercice_Trigo_angles() {
 			texte_corr +=`Avec les données numériques :<br>`
 			texte_corr += `$\\cos\\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s01,s12)}$<br>`;
 			texte_corr += `On en déduit que $\\widehat{${s0+s1+s2}}=\\arccos\\left(${tex_fraction(s01,s12)}\\right)$<br>`;
-			texte_corr += `Soit $\\widehat{${s0+s1+s2}}\\approx${angle1}$°`
+			texte_corr += `Soit $\\widehat{${s0+s1+s2}}\\approx${angle1}\\degree$`
 		}
 		if (type_de_questions == 2) {
 			texte_corr+=`Le cosinus de l'angle $\\widehat{${s0+s1+s2}}$ est défini par :<br>`;
@@ -1986,9 +1986,9 @@ function Exercice_Trigo_angles() {
 			texte_corr +=`Avec les données numériques :<br>`
 			texte_corr += `$\\cos\\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s01,s12)}$<br>`;
 			texte_corr += `On en déduit que $\\widehat{${s0+s1+s2}}=\\arccos\\left(${tex_fraction(s01,s12)}\\right)$<br>`;
-			texte_corr += `Soit $\\widehat{${s0+s1+s2}}\\approx${angle1}$°<br>`
+			texte_corr += `Soit $\\widehat{${s0+s1+s2}}\\approx${angle1}\\degree$<br>`
 			texte_corr += `Or, dans un triangle rectangle les angles aigus sont complémentaires, donc :<br>`
-			texte_corr += `$\\widehat{${s0+s2+s1}}\\approx90-${angle1}\\approx${angle2}$°`
+			texte_corr += `$\\widehat{${s0+s2+s1}}\\approx90-${angle1}\\approx${angle2}\\degree$`
 		}	
 		if (type_de_questions == 3) {
 			texte_corr+=`Le sinus de l'angle $\\widehat{${s0+s1+s2}}$ est défini par :<br>`;
@@ -1996,7 +1996,7 @@ function Exercice_Trigo_angles() {
 			texte_corr +=`Avec les données numériques :<br>`
 			texte_corr += `$\\sin\\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s02,s12)}$<br>`;
 			texte_corr += `On en déduit que $\\widehat{${s0+s1+s2}}=\\arcsin\\left(${tex_fraction(s02,s12)}\\right)$<br>`;
-			texte_corr += `Soit $\\widehat{${s0+s1+s2}}\\approx${angle1}$°`
+			texte_corr += `Soit $\\widehat{${s0+s1+s2}}\\approx${angle1}\\degree$`
 		}
 		if (type_de_questions == 4) {
 			texte_corr+=`Le sinus de l'angle $\\widehat{${s0+s2+s1}}$ est défini par :<br>`;
@@ -2004,7 +2004,7 @@ function Exercice_Trigo_angles() {
 			texte_corr +=`Avec les données numériques :<br>`
 			texte_corr += `$\\sin\\left(\\widehat{${s0+s2+s1}}\\right)=${tex_fraction(s01,s12)}$<br>`;
 			texte_corr += `On en déduit que $\\widehat{${s0+s2+s1}}=\\arcsin\\left(${tex_fraction(s01,s12)}\\right)$<br>`;
-			texte_corr += `Soit $\\widehat{${s0+s2+s1}}\\approx${angle2}$°`
+			texte_corr += `Soit $\\widehat{${s0+s2+s1}}\\approx${angle2}\\degree$`
 		}
 		if (type_de_questions == 5) {
 			texte_corr+=`La tangente de l'angle $\\widehat{${s0+s1+s2}}$ est définie par :<br>`;
@@ -2012,7 +2012,7 @@ function Exercice_Trigo_angles() {
 			texte_corr +=`Avec les données numériques :<br>`
 			texte_corr += `$\\tan\\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s02,s01)}$<br>`;
 			texte_corr += `On en déduit que $\\widehat{${s0+s1+s2}}=\\arctan\\left(${tex_fraction(s02,s01)}\\right)$<br>`;
-			texte_corr += `Soit $\\widehat{${s0+s1+s2}}\\approx${angle1}$°`
+			texte_corr += `Soit $\\widehat{${s0+s1+s2}}\\approx${angle1}\\degree$`
 		}
 		if (type_de_questions == 6) {
 			texte_corr+=`La tangente de l'angle $\\widehat{${s0+s2+s1}}$ est définie par :<br>`;
@@ -2020,7 +2020,7 @@ function Exercice_Trigo_angles() {
 			texte_corr +=`Avec les données numériques :<br>`
 			texte_corr += `$\\tan\\left(\\widehat{${s0+s2+s1}}\\right)=${tex_fraction(s01,s02)}$<br>`;
 			texte_corr += `On en déduit que $\\widehat{${s0+s2+s1}}=\\arctan\\left(${tex_fraction(s01,s02)}\\right)$<br>`;
-			texte_corr += `Soit $\\widehat{${s0+s2+s1}}\\approx${angle2}$°`
+			texte_corr += `Soit $\\widehat{${s0+s2+s1}}\\approx${angle2}\\degree$`
 		}
 		this.liste_questions.push(texte);
 		this.liste_corrections.push(texte_corr);

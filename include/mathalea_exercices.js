@@ -123,6 +123,7 @@ var liste_des_exercices_disponibles = {
 		'2N11' : Factoriser_Identites_remarquables2,
 		'LaTeX' : Code_LaTeX_personnalise,
 		'coop': LaTeX_static,
+		'P001' : feuille_d_axes_gradues,
 		// 'Perso' : HTML_personnalise,
 		
 	};
@@ -190,6 +191,37 @@ function Exercice() {
 
    	this.nouvelle_version = function(numero_de_l_exercice){}
 
+}
+
+function feuille_d_axes_gradues() {
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Tracer des droites graduées";
+	this.consigne = "";
+	this.nb_questions = 1;
+	this.nb_questions_modifiable = true;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.spacing = 3;
+		this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions=[];
+		this.liste_corrections=[];
+		this.contenu = ''; // Liste de questions
+		this.contenu_correction = ''; // Liste de questions corrigées
+	for (let i=0, id_unique, texte;i<17;i++) {
+		if (sortie_html) {
+			id_unique = `${i}_${Date.now()}`;
+			this.contenu += `<div id="div_svg${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
+			SVG_reperage_sur_un_axe(`div_svg${numero_de_l_exercice}${id_unique}`,'', 6, 1, 10, [], [],false)
+			console.log(i)
+			}
+		else { //sortie Latex 
+			texte=Latex_reperage_sur_un_axe(2.4, ' ', 1, 10, [], [],false);
+			this.liste_questions.push(texte)
+		}
+	}
+	if (!sortie_html) liste_de_question_to_contenu_sans_numero(this);	
+	}
 }
 
 /**

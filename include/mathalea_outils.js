@@ -1427,7 +1427,6 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 			SVG_tracer_fleche(mon_svg,750,50)
 			// Nombres visibles
 			SVG_label(mon_svg,[[string_nombre(origine),100]],2,'black');
-			// else 	SVG_label(mon_svg,[[arrondi_virgule(origine),100]],2,'black');
 			for (i=0;i<points_connus.length;i++) {
 				valeur=string_nombre(points_connus[i][0]);					 
 				distance=calcul(longueur_pas1*points_connus[i][1]+longueur_pas2*points_connus[i][2]);
@@ -1479,8 +1478,9 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
 			// Droite et flèche
 			result+=`\n\t \\draw [->,>=stealth,line width=1.2pt] (1,0.2)--(7.5,0.2);`;
 			// Nombres visibles
-			if (Number.isInteger(origine)) result +=Latex_label([[tex_nombre(origine),1,0.03]],'black');
-			else result+=Latex_label([[arrondi_virgule(origine),1,0.03]],'black');
+			if (typeof origine =='number') 
+				if (Number.isInteger(origine)) result +=Latex_label([[tex_nombre(origine),1,0.03]],'black');
+				else result+=Latex_label([[arrondi_virgule(origine),1,0.03]],'black');
 			for (i=0;i<points_connus.length;i++) {
 				if (Number.isInteger(points_connus[i][0])) valeur=tex_nombre(points_connus[i][0]);
 				else valeur=arrondi_virgule(points_connus[i][0],arrondir-1);
