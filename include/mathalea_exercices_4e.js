@@ -1587,13 +1587,11 @@ function Exercice_Trigo_longueurs() {
 			let s2 = lettre_depuis_chiffre(lettre2)
 			let angle1,angle2
 			let type_de_questions
-			if (this.sup == 1) {
-				type_de_questions = randint(1,2) // utilisation du cosinus
-			}
-			if (this.sup == 2) {
-				type_de_questions = randint(1,6) // utilisation des 3 fonctions
-			}
-			
+			if (this.sup == 1) 	type_de_questions = choice([1,3,5]); // on multiplie par cos, sin ou tan
+			if (this.sup == 2) 	type_de_questions = choice([2,4,6]); // on divise par cos, sin ou tan
+			if (this.sup == 3)	type_de_questions = randint(1,6);
+			if (this.quatrieme)	type_de_questions = ((type_de_questions-1)%2 +1);  // on n'utilise que le cosinus.
+
 			let nom_du_triangle = choice([s0 + s1 + s2, s0 + s2 + s1, s1 + s0 + s2, s1 + s2 + s0, s2 + s0 + s1, s2 + s1 + s0])
 			let k1 = Math.round((Math.random() * 5 + 1) * 10) / 10
 			let k2 = Math.round((Math.random() * 5 + 1) * 10) / 10
@@ -1787,7 +1785,7 @@ function Exercice_Trigo_longueurs() {
 			this.liste_corrections.push(texte_corr);
 			liste_de_question_to_contenu_sans_numero(this);;
 	}
-	this.besoin_formulaire_numerique = ['Niveau de difficulté', 2, '1 : Cosinus \n 2 : Cosinus, sinus ou tangente'];
+	this.besoin_formulaire_numerique = ['Niveau de difficulté', 3, '1 : Calculs faciles \n 2 : Calculs moins faciles \n 3 : Mélange'];
 }
 /**
 * @auteur Jean-Claude Lhote
