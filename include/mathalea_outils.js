@@ -1607,7 +1607,7 @@ function eclatePuissance(b,e,couleur) {
 			return `\\mathbf{\\color{${couleur}}{${b}}}`;
 			break;
 		default :
-			str = `\\mathbf{\\color{${couleur}}{${b}}} `;
+			let str = `\\mathbf{\\color{${couleur}}{${b}}} `;
 			for (let i=1; i<e;i++) {
 				str = str + `\\times \\mathbf{\\color{${couleur}}{${b}}}`;
 			 }
@@ -1633,7 +1633,7 @@ function reorganiseProduitPuissance(b1,b2,e,couleur1,couleur2) {
 			return `\\mathbf{\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}`;
 			break;
 		default :
-			str = `\\mathbf{(\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}) `;
+			let str = `\\mathbf{(\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}) `;
 			for (let i=1; i<e;i++) {
 				str = str + `\\times (\\mathbf{\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}})`;
 			 }

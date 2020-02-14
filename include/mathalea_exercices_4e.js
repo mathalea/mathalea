@@ -2294,6 +2294,7 @@ function Problemes_Pythagore(){
 * @Auteur Sébastien Lozano
 */
 function Puissances_d_un_relatif_1(){
+	//'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1 ; 
 	this.titre = "Puissances : Le sens des règles de calculs"; 
@@ -2326,11 +2327,13 @@ function Puissances_d_un_relatif_1(){
 
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions);
 
-		for (let i = 0, base ,exp , texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
+		for (let i = 0, base0, base1, base, base_utile, exp0, exp1, exp, coul_exp0, coul_exp1, lettre, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 			type_de_questions = liste_type_de_questions[i];
 
 			base = randint(1,9)*choice([-1,1]); // on choisit 1 base ... penser à gérer le cas des bases qui sont des puissances
-			exp = [randint(1,9),randint(1,9)]; // on choisit deux exposants
+			exp0 = randint(1,9);
+			exp1 = randint(1,9,[exp0]);
+			exp = [exp0,exp1]; // on choisit deux exposants différents c'est mieux
 			lettre = lettre_depuis_chiffre(i+1); // on utilise des lettres pour les calculs	
 
 			if (base<0) {
@@ -2420,8 +2423,10 @@ function Puissances_d_un_relatif_1(){
 					texte_corr += `$`;
 					texte_corr += `<br>`;
 					break;
-				case 4 : 
-					base = [randint(2,8,[4,6]),randint(2,8,[4,6])]; // on choisit 2 bases, différentes ou non
+				case 4 :
+					base0 = randint(2,8,[4,6]);
+					base1 = randint(2,8,[4,6,base0]); 
+					base = [base0,base1]; // on choisit 2 bases différentes c'est mieux
 					exp = randint(2,5,6); // on choisit un exposant
 					texte = `$${lettre}=${base[0]}^${exp}\\times ${base[1]}^${exp}$`;
 					texte_corr += `<br>`;
