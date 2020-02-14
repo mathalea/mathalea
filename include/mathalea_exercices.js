@@ -121,9 +121,9 @@ var liste_des_exercices_disponibles = {
 		'3G31' : Exercice_Trigo_angles,
 		'2N10' : Developper_Identites_remarquables2,
 		'2N11' : Factoriser_Identites_remarquables2,
-		'LaTeX' : Code_LaTeX_personnalise,
-		'coop': LaTeX_static,
-		'P001' : feuille_d_axes_gradues,
+		'P001' : Code_LaTeX_personnalise,
+		// 'P002': LaTeX_static,
+		'P003' : feuille_d_axes_gradues,
 		// 'Perso' : HTML_personnalise,
 		
 	};
@@ -211,7 +211,7 @@ function feuille_d_axes_gradues() {
 	this.contenu = ''; // Liste de questions
 	this.contenu_correction = ''; // Liste de questions corrigées
 	pas=parseInt(this.sup);
-	for (let i=0, id_unique, texte;i<17;i++) {
+	for (let i=0, id_unique, texte;i<16;i++) {
 		if (sortie_html) {
 			id_unique = `${i}_${Date.now()}`;
 			this.contenu += `<div id="div_svg${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
@@ -223,7 +223,7 @@ function feuille_d_axes_gradues() {
 			this.liste_questions.push(texte)
 		}
 	}
-	if (!sortie_html) liste_de_question_to_contenu_sans_numero(this);	
+	if (!sortie_html) liste_de_question_to_contenu_sans_numero_et_sans_consigne(this);	
 	}
 	this.besoin_formulaire_numerique = [`Nombres de parts`,10,""];
 }
@@ -5133,6 +5133,7 @@ jQuery(document).ready(function() {
 	let nombre_d_exercices_disponibles_3 = 0;
 	let nombre_d_exercices_disponibles_2 = 0;
 	let nombre_d_exercices_disponibles_CM = 0;
+	let nombre_d_exercices_disponibles_prof = 0;
 	for (var id in liste_des_exercices_disponibles){
 		if (id[0]==6) {nombre_d_exercices_disponibles_6+=1}
 		if (id[0]==5) {nombre_d_exercices_disponibles_5+=1}
@@ -5140,6 +5141,7 @@ jQuery(document).ready(function() {
 		if (id[0]==3) {nombre_d_exercices_disponibles_3+=1}
 		if (id[0]==2) {nombre_d_exercices_disponibles_2+=1}
 		if (id[0]=='C') {nombre_d_exercices_disponibles_CM+=1}
+		if (id[0]=='P') {nombre_d_exercices_disponibles_prof+=1}
 	}
 
 	//
@@ -5149,6 +5151,7 @@ jQuery(document).ready(function() {
 	let liste_html_des_exercices_3 = []
 	let liste_html_des_exercices_2 = []
 	let liste_html_des_exercices_CM = []
+	let liste_html_des_exercices_prof = []
 	
 
 
@@ -5173,6 +5176,9 @@ jQuery(document).ready(function() {
 		}
 		if (id[0]=='C') {
 			liste_html_des_exercices_CM += '<span class="id_exercice">' + id + '</span> - <a class="lien_id_exercice" numero="' + id + '">'  + exercice_tmp.titre + '</a></br>\n';			
+		}
+		if (id[0]=='P') {
+			liste_html_des_exercices_prof += '<span class="id_exercice">' + id + '</span> - <a class="lien_id_exercice" numero="' + id + '">'  + exercice_tmp.titre + '</a></br>\n';			
 		}
 
 	}
@@ -5218,9 +5224,14 @@ jQuery(document).ready(function() {
 		liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Calcul mental (${nombre_d_exercices_disponibles_CM})</div><div class="content">`
 		liste_html_des_exercices += liste_html_des_exercices_CM
 		liste_html_des_exercices+=`</div>`
+		// Ajoute les outils prof sur mathalealatex
+		if (window.location.href.indexOf('mathalealatex.html')>0) {
+			liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Outils pour le professeur (${nombre_d_exercices_disponibles_prof})</div><div class="content">`
+			liste_html_des_exercices += liste_html_des_exercices_prof
+			liste_html_des_exercices+=`</div>`
+		}
 		liste_html_des_exercices+=`</div>`
 	}
-
 		
 	$('#liste_des_exercices').html(liste_html_des_exercices);
 

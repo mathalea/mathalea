@@ -39,6 +39,22 @@ function liste_de_question_to_contenu_sans_numero(argument) {
 	
 }
 
+/**
+* Utilise this.liste\_questions et this.liste\_corrections pour remplir this.contenu et this.contenu_correction
+* 
+* Uniquement en version LaTeX
+* La liste des questions devient une liste HTML ou LaTeX avec html\_ligne() ou tex\_paragraphe()
+* @param {exercice} 
+* @author Rémi Angot
+*/
+function liste_de_question_to_contenu_sans_numero_et_sans_consigne(argument) {
+	argument.contenu = tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
+	// argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_enumerate_sans_numero(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
+	argument.contenu_correction =  tex_multicols(tex_paragraphe(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
+
+	
+}
+
 
 
 /**
