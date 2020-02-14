@@ -2294,7 +2294,7 @@ function Problemes_Pythagore(){
 * @Auteur Sébastien Lozano
 */
 function Puissances_d_un_relatif_1(){
-	//'use strict';
+	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1 ; 
 	this.titre = "Puissances : Le sens des règles de calculs"; 
@@ -2306,7 +2306,9 @@ function Puissances_d_un_relatif_1(){
 	this.sup = 5;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		this.bouton_aide = modal_pdf(numero_de_l_exercice,"http://lozano.maths.free.fr/cours-4eme/N3-Puissances-seul.pdf",texte="Cours complet sur les puissances (Sébastien Lozano)")
+		let type_de_questions;
+		//this.bouton_aide = modal_pdf(numero_de_l_exercice,"http://lozano.maths.free.fr/cours-4eme/N3-Puissances-seul.pdf",texte="Cours complet sur les puissances (Sébastien Lozano)")
+		this.bouton_aide = modal_pdf(numero_de_l_exercice,"http://lozano.maths.free.fr/cours-4eme/N3-Puissances-seul.pdf","Cours complet sur les puissances (Sébastien Lozano)")
 		
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
