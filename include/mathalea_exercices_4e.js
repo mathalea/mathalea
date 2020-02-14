@@ -2329,6 +2329,10 @@ function Puissances_d_un_relatif_1(){
 
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions);
 
+		// pour pouvoir adapter les couleurs en cas de besoin
+		let coul0 = 'red';
+		let coul1 = 'blue';
+
 		for (let i = 0, base0, base1, base, base_utile, exp0, exp1, exp, coul_exp0, coul_exp1, lettre, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 			type_de_questions = liste_type_de_questions[i];
 
@@ -2407,14 +2411,19 @@ function Puissances_d_un_relatif_1(){
 					texte_corr += `<br>`;			
 					break;			
 				case 3 : 
-					exp = [randint(1,4),randint(2,4)]; // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues
+					//exp = [randint(1,4),randint(2,4)]; // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues
+					exp = [randint(2,4),randint(2,4)]; // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues et pour éviter 1
 					texte =  `$${lettre}=(${base_utile}^${exp[0]})^{${exp[1]}}$`;	
 					
 					texte_corr = `$${lettre}=(${base_utile}^${exp[0]})^{${exp[1]}}$`;
 					texte_corr += `<br>`;
-					texte_corr += `$${lettre}=${eclatePuissance(`(${base_utile}^${exp[0]})`,exp[1],'red')}$`;
+					//texte_corr += `$${lettre}=${eclatePuissance(`(${base_utile}^${exp[0]})`,exp[1],'red')}$`;
+					texte_corr += `$${lettre}=\\color{red}{\\underbrace{${eclatePuissance(`(${base_utile}^${exp[0]})`,exp[1],'red')}}_{${exp[1]}\\thickspace\\text{facteurs}}}$`;
 					texte_corr += `<br>`;
-					texte_corr += `$${lettre}=${eclatePuissance(`(${eclatePuissance(base_utile,exp[0],'blue')})`,exp[1],'red')}$`;
+					//texte_corr += `$${lettre}=${eclatePuissance(`(${eclatePuissance(base_utile,exp[0],'blue')})`,exp[1],'red')}$`;
+
+					texte_corr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(`(\\color{${coul1}}{\\underbrace{${eclatePuissance(base_utile,exp[0],coul1)}}_{${exp[0]}\\thickspace\\text{facteurs}}}\\color{${coul0}})`,exp[1],coul0)}}_{${exp[1]}\\thickspace\\text{facteurs}}}$`;
+					
 					texte_corr += `<br>`;
 					texte_corr += `Il y a donc $\\mathbf{\\color{red}{${exp[1]}}~\\color{black}{\\times}~\\color{blue}{${exp[0]}}}$ facteurs tous égaux à $${base_utile}$`;
 					texte_corr += `<br>`;
