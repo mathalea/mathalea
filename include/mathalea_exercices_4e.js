@@ -2349,14 +2349,14 @@ function Puissances_d_un_relatif_1(){
 			};
 			
 			switch (type_de_questions) {
-				case 1 :
+				case 1 : // produit de puissances de même base
 					texte =  `$${lettre}=${base_utile}^${exp[0]}\\times ${base_utile}^${exp[1]}$`;	
 
 					texte_corr = `$${lettre}=${base_utile}^${exp[0]}\\times ${base_utile}^${exp[1]}$`;
 					texte_corr += `<br>`;
-					texte_corr += `$${lettre}=${eclatePuissance(base_utile,exp[0],'red')} \\times ${eclatePuissance(base_utile,exp[1],'blue')}$`;
+					texte_corr += `$${lettre}=${eclatePuissance(base_utile,exp[0],coul0)} \\times ${eclatePuissance(base_utile,exp[1],coul1)}$`;
 					texte_corr += `<br>`;
-					texte_corr += `Il y a donc $\\mathbf{\\color{red}{${exp[0]}}~\\color{black}{+}~\\color{blue}{${exp[1]}}}$ facteurs tous égaux à $${base_utile}$`;
+					texte_corr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[0]}}~\\color{black}{+}~\\color{${coul1}}{${exp[1]}}}$ facteurs tous égaux à $${base_utile}$`;
 					texte_corr += `<br>`;
 					texte_corr += `$${lettre}=${base_utile}^{${exp[0]}+${exp[1]}} = ${base_utile}^{${exp[0]+exp[1]}}`;
 					// attention la base_utile est de type str alors que la fonction switch sur un type number					
@@ -2366,14 +2366,18 @@ function Puissances_d_un_relatif_1(){
 					texte_corr += `$`;
 					texte_corr += `<br>`;
 					break;			
-				case 2 :
+				case 2 : // quotient de puissances de même base
 					// Pour que la couleur de la base associée à l'exposant max soit toujours rouge.
 					if (Math.max(exp[0],exp[1])==exp[0]) {
-						coul_exp0='red';
-						coul_exp1='blue'
+						//coul_exp0='red';
+						//coul_exp1='blue'
+						coul_exp0 = coul0;
+						coul_exp1 = coul1;
 					} else {
-						coul_exp0 = 'blue';
-						coul_exp1 = 'red';
+						//coul_exp0 = 'blue';
+						//coul_exp1 = 'red';
+						coul_exp0 = coul1;
+						coul_exp1 = coul0;
 					};
 					
 					texte =  `$${lettre}=\\dfrac{${base_utile}^${exp[0]}}{${base_utile}^${exp[1]}}$`;	
@@ -2382,7 +2386,7 @@ function Puissances_d_un_relatif_1(){
 					texte_corr += `<br><br>`;
 					texte_corr += `$${lettre}=\\dfrac{${eclatePuissance(base_utile,exp[0],coul_exp0)}}{${eclatePuissance(base_utile,exp[1],coul_exp1)}}$`;
 					texte_corr += `<br><br>`;				
-					texte_corr += `Il y a donc $\\mathbf{\\color{blue}{${Math.min(exp[0],exp[1])}}}$ simplifications par $${base_utile}$ possibles.`;
+					texte_corr += `Il y a donc $\\mathbf{\\color{${coul1}}{${Math.min(exp[0],exp[1])}}}$ simplifications par $${base_utile}$ possibles.`;
 					texte_corr += `<br><br>`;
 
 					if ((exp[0]-exp[1])==0) {
@@ -2410,7 +2414,7 @@ function Puissances_d_un_relatif_1(){
 					texte_corr += `$`;
 					texte_corr += `<br>`;			
 					break;			
-				case 3 : 
+				case 3 : // exponentiation
 					//exp = [randint(1,4),randint(2,4)]; // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues
 					exp = [randint(2,4),randint(2,4)]; // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues et pour éviter 1
 					texte =  `$${lettre}=(${base_utile}^${exp[0]})^{${exp[1]}}$`;	
@@ -2418,14 +2422,14 @@ function Puissances_d_un_relatif_1(){
 					texte_corr = `$${lettre}=(${base_utile}^${exp[0]})^{${exp[1]}}$`;
 					texte_corr += `<br>`;
 					//texte_corr += `$${lettre}=${eclatePuissance(`(${base_utile}^${exp[0]})`,exp[1],'red')}$`;
-					texte_corr += `$${lettre}=\\color{red}{\\underbrace{${eclatePuissance(`(${base_utile}^${exp[0]})`,exp[1],'red')}}_{${exp[1]}\\thickspace\\text{facteurs}}}$`;
+					texte_corr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(`(${base_utile}^${exp[0]})`,exp[1],coul0)}}_{${exp[1]}\\thickspace\\text{facteurs}}}$`;
 					texte_corr += `<br>`;
 					//texte_corr += `$${lettre}=${eclatePuissance(`(${eclatePuissance(base_utile,exp[0],'blue')})`,exp[1],'red')}$`;
 
 					texte_corr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(`(\\color{${coul1}}{\\underbrace{${eclatePuissance(base_utile,exp[0],coul1)}}_{${exp[0]}\\thickspace\\text{facteurs}}}\\color{${coul0}})`,exp[1],coul0)}}_{${exp[1]}\\thickspace\\text{facteurs}}}$`;
 					
 					texte_corr += `<br>`;
-					texte_corr += `Il y a donc $\\mathbf{\\color{red}{${exp[1]}}~\\color{black}{\\times}~\\color{blue}{${exp[0]}}}$ facteurs tous égaux à $${base_utile}$`;
+					texte_corr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[1]}}~\\color{black}{\\times}~\\color{${coul1}}{${exp[0]}}}$ facteurs tous égaux à $${base_utile}$`;
 					texte_corr += `<br>`;
 					texte_corr += `$${lettre}=${base_utile}^{${exp[0]}\\times${exp[1]}} = ${base_utile}^{${exp[0]*exp[1]}}`;				
 					if (simpNotPuissance(base,exp[0]*exp[1]) != ` `) {
@@ -2434,7 +2438,7 @@ function Puissances_d_un_relatif_1(){
 					texte_corr += `$`;
 					texte_corr += `<br>`;
 					break;
-				case 4 :
+				case 4 : // produit de puissances de même exposant
 					base0 = randint(2,8,[4,6]);
 					base1 = randint(2,8,[4,6,base0]); 
 					base = [base0,base1]; // on choisit 2 bases différentes c'est mieux
@@ -2443,11 +2447,11 @@ function Puissances_d_un_relatif_1(){
 					texte_corr += `<br>`;
 					texte_corr = `$${lettre}=${base[0]}^${exp}\\times ${base[1]}^${exp}$`;
 					texte_corr += `<br>`;
-					texte_corr += `$${lettre}=${eclatePuissance(base[0],exp,'red')} \\times ${eclatePuissance(base[1],exp,'blue')}$`;
+					texte_corr += `$${lettre}=${eclatePuissance(base[0],exp,coul0)} \\times ${eclatePuissance(base[1],exp,coul1)}$`;
 					texte_corr += `<br>`;
-					texte_corr += `$${lettre}=${reorganiseProduitPuissance(base[0],base[1],exp,'red','blue')}$`;
+					texte_corr += `$${lettre}=${reorganiseProduitPuissance(base[0],base[1],exp,coul0,coul1)}$`;
 					texte_corr += `<br>`;
-					texte_corr += `$${lettre}= (\\color{red}{${base[0]}} \\color{black}{\\times} \\color{blue}{${base[1]}}\\color{black}{)^{${exp}}}=${base[0]*base[1]}^${exp}$`;
+					texte_corr += `$${lettre}= (\\color{${coul0}}{${base[0]}} \\color{black}{\\times} \\color{${coul1}}{${base[1]}}\\color{black}{)^{${exp}}}=${base[0]*base[1]}^${exp}$`;
 					texte_corr += `<br>`;
 					break;																
 			};
