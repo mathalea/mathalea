@@ -2308,7 +2308,7 @@ function Puissances_d_un_relatif_1(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		let type_de_questions;
 		//this.bouton_aide = modal_pdf(numero_de_l_exercice,"http://lozano.maths.free.fr/cours-4eme/N3-Puissances-seul.pdf",texte="Cours complet sur les puissances (Sébastien Lozano)")
-		this.bouton_aide = modal_pdf(numero_de_l_exercice,"http://lozano.maths.free.fr/cours-4eme/N3-Puissances-seul.pdf","Cours complet sur les puissances (Sébastien Lozano)")
+		this.bouton_aide = modal_pdf(numero_de_l_exercice,"http://lozano.maths.free.fr/coopmaths/FichePuissances.pdf","Aide mémoire sur les puissances (Sébastien Lozano)")
 		
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
