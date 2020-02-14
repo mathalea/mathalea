@@ -188,6 +188,12 @@ Les réponses modifient les caractéristiques de l'exercice puis le code LaTeX e
 					mise_a_jour_du_code();
 				});
 			}
+
+			// Gestion de la suppression de la correction
+			let form_correction_affichee = document.getElementById('supprimer_correction');
+			form_correction_affichee.addEventListener('change', function(e) { // Dès que le statut change, on met à jour
+				mise_a_jour_du_code();
+			});
 		}
 		
 
@@ -211,11 +217,7 @@ Les réponses modifient les caractéristiques de l'exercice puis le code LaTeX e
 				});
 			}
 		
-		// Gestion de la suppression de la correction
-			let form_correction_affichee = document.getElementById('supprimer_correction');
-			form_correction_affichee.addEventListener('change', function(e) { // Dès que le statut change, on met à jour
-				mise_a_jour_du_code();
-			});
+		
 			
 		
 
