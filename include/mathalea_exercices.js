@@ -224,7 +224,6 @@ function feuille_d_axes_gradues() {
 				id_unique = `${i}_${Date.now()}`;
 				this.contenu += `<div id="div_svg${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
 				SVG_reperage_sur_un_axe(`div_svg${numero_de_l_exercice}${id_unique}`,'', 6, 1, pas, [], [],false)
-				console.log(i)
 				}
 			else { //sortie Latex 
 				texte=Latex_reperage_sur_un_axe(2.4, ' ', 1, pas, [], [],false);
@@ -5013,10 +5012,10 @@ function Divisions_euclidiennes_niv2(){
 	this.titre = "Divisions euclidiennes - Niveau 2"
 }
 function Exercice_Trigo_longueurs_4e(){
+	Exercice_Trigo_longueurs.call(this);
 	this.sup =1;
 	this.quatrieme = true;
 	this.titre = "Utiliser le cosinus pour calculer une longueur dans un triangle rectangle"
-	Exercice_Trigo_longueurs.call(this);
 }
 
 function Exercice_Trigo_angles_4e(){
