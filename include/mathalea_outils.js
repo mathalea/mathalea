@@ -39,6 +39,22 @@ function liste_de_question_to_contenu_sans_numero(argument) {
 	
 }
 
+/**
+* Utilise this.liste\_questions et this.liste\_corrections pour remplir this.contenu et this.contenu_correction
+* 
+* Uniquement en version LaTeX
+* La liste des questions devient une liste HTML ou LaTeX avec html\_ligne() ou tex\_paragraphe()
+* @param {exercice} 
+* @author Rémi Angot
+*/
+function liste_de_question_to_contenu_sans_numero_et_sans_consigne(argument) {
+	argument.contenu = tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
+	// argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_enumerate_sans_numero(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
+	argument.contenu_correction =  tex_multicols(tex_paragraphe(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
+
+	
+}
+
 
 
 /**
@@ -1591,7 +1607,7 @@ function eclatePuissance(b,e,couleur) {
 			return `\\mathbf{\\color{${couleur}}{${b}}}`;
 			break;
 		default :
-			str = `\\mathbf{\\color{${couleur}}{${b}}} `;
+			let str = `\\mathbf{\\color{${couleur}}{${b}}} `;
 			for (let i=1; i<e;i++) {
 				str = str + `\\times \\mathbf{\\color{${couleur}}{${b}}}`;
 			 }
@@ -1617,7 +1633,7 @@ function reorganiseProduitPuissance(b1,b2,e,couleur1,couleur2) {
 			return `\\mathbf{\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}`;
 			break;
 		default :
-			str = `\\mathbf{(\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}) `;
+			let str = `\\mathbf{(\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}}) `;
 			for (let i=1; i<e;i++) {
 				str = str + `\\times (\\mathbf{\\color{${couleur1}}{${b1}}} \\times \\mathbf{\\color{${couleur2}}{${b2}}})`;
 			 }

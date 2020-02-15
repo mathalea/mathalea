@@ -2294,6 +2294,7 @@ function Problemes_Pythagore(){
 * @Auteur Sébastien Lozano
 */
 function Puissances_d_un_relatif_1(){
+	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1 ; 
 	this.titre = "Puissances : Le sens des règles de calculs"; 
@@ -2301,11 +2302,14 @@ function Puissances_d_un_relatif_1(){
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
 	this.nb_questions = 5;
+	this.correction_detaillee_disponible = true;
 	this.nb_cols_corr = 1;
 	this.sup = 5;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		this.bouton_aide = modal_pdf(numero_de_l_exercice,"http://lozano.maths.free.fr/cours-4eme/N3-Puissances-seul.pdf",texte="Cours complet sur les puissances (Sébastien Lozano)")
+		let type_de_questions;
+		//this.bouton_aide = modal_pdf(numero_de_l_exercice,"http://lozano.maths.free.fr/cours-4eme/N3-Puissances-seul.pdf",texte="Cours complet sur les puissances (Sébastien Lozano)")
+		this.bouton_aide = modal_pdf(numero_de_l_exercice,"http://lozano.maths.free.fr/coopmaths/FichePuissances.pdf","Aide mémoire sur les puissances (Sébastien Lozano)")
 		
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
@@ -2326,11 +2330,17 @@ function Puissances_d_un_relatif_1(){
 
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions);
 
-		for (let i = 0, base ,exp , texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
+		// pour pouvoir adapter les couleurs en cas de besoin
+		let coul0 = 'red';
+		let coul1 = 'blue';
+
+		for (let i = 0, base0, base1, base, base_utile, exp0, exp1, exp, coul_exp0, coul_exp1, lettre, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 			type_de_questions = liste_type_de_questions[i];
 
 			base = randint(1,9)*choice([-1,1]); // on choisit 1 base ... penser à gérer le cas des bases qui sont des puissances
-			exp = [randint(1,9),randint(1,9)]; // on choisit deux exposants
+			exp0 = randint(1,9);
+			exp1 = randint(1,9,[exp0]);
+			exp = [exp0,exp1]; // on choisit deux exposants différents c'est mieux
 			lettre = lettre_depuis_chiffre(i+1); // on utilise des lettres pour les calculs	
 
 			if (base<0) {
@@ -2340,14 +2350,16 @@ function Puissances_d_un_relatif_1(){
 			};
 			
 			switch (type_de_questions) {
-				case 1 :
+				case 1 : // produit de puissances de même base
 					texte =  `$${lettre}=${base_utile}^${exp[0]}\\times ${base_utile}^${exp[1]}$`;	
 
 					texte_corr = `$${lettre}=${base_utile}^${exp[0]}\\times ${base_utile}^${exp[1]}$`;
+					if (this.correction_detaillee) {
+						texte_corr += `<br>`;
+						texte_corr += `$${lettre}=${eclatePuissance(base_utile,exp[0],coul0)} \\times ${eclatePuissance(base_utile,exp[1],coul1)}$`;
+					};
 					texte_corr += `<br>`;
-					texte_corr += `$${lettre}=${eclatePuissance(base_utile,exp[0],'red')} \\times ${eclatePuissance(base_utile,exp[1],'blue')}$`;
-					texte_corr += `<br>`;
-					texte_corr += `Il y a donc $\\mathbf{\\color{red}{${exp[0]}}~\\color{black}{+}~\\color{blue}{${exp[1]}}}$ facteurs tous égaux à $${base_utile}$`;
+					texte_corr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[0]}}~\\color{black}{+}~\\color{${coul1}}{${exp[1]}}}$ facteurs tous égaux à $${base_utile}$`;
 					texte_corr += `<br>`;
 					texte_corr += `$${lettre}=${base_utile}^{${exp[0]}+${exp[1]}} = ${base_utile}^{${exp[0]+exp[1]}}`;
 					// attention la base_utile est de type str alors que la fonction switch sur un type number					
@@ -2357,31 +2369,42 @@ function Puissances_d_un_relatif_1(){
 					texte_corr += `$`;
 					texte_corr += `<br>`;
 					break;			
-				case 2 :
+				case 2 : // quotient de puissances de même base
 					// Pour que la couleur de la base associée à l'exposant max soit toujours rouge.
 					if (Math.max(exp[0],exp[1])==exp[0]) {
-						coul_exp0='red';
-						coul_exp1='blue'
+						//coul_exp0='red';
+						//coul_exp1='blue'
+						coul_exp0 = coul0;
+						coul_exp1 = coul1;
 					} else {
-						coul_exp0 = 'blue';
-						coul_exp1 = 'red';
+						//coul_exp0 = 'blue';
+						//coul_exp1 = 'red';
+						coul_exp0 = coul1;
+						coul_exp1 = coul0;
 					};
 					
 					texte =  `$${lettre}=\\dfrac{${base_utile}^${exp[0]}}{${base_utile}^${exp[1]}}$`;	
 
 					texte_corr = `$${lettre}=\\dfrac{${base_utile}^${exp[0]}}{${base_utile}^${exp[1]}}$`;
-					texte_corr += `<br><br>`;
-					texte_corr += `$${lettre}=\\dfrac{${eclatePuissance(base_utile,exp[0],coul_exp0)}}{${eclatePuissance(base_utile,exp[1],coul_exp1)}}$`;
+					if (this.correction_detaillee) {
+						texte_corr += `<br><br>`;
+						texte_corr += `$${lettre}=\\dfrac{${eclatePuissance(base_utile,exp[0],coul_exp0)}}{${eclatePuissance(base_utile,exp[1],coul_exp1)}}$`;
+					};
 					texte_corr += `<br><br>`;				
-					texte_corr += `Il y a donc $\\mathbf{\\color{blue}{${Math.min(exp[0],exp[1])}}}$ simplifications par $${base_utile}$ possibles.`;
-					texte_corr += `<br><br>`;
-
+					texte_corr += `Il y a donc $\\mathbf{\\color{${coul1}}{${Math.min(exp[0],exp[1])}}}$ simplifications par $${base_utile}$ possibles.`;
+					if (this.correction_detaillee) {
+						texte_corr += `<br><br>`;					
+					};
 					if ((exp[0]-exp[1])==0) {
-						texte_corr += `$${lettre}=\\dfrac{${eclatePuissance(`\\cancel{${base_utile}}`,exp[0],coul_exp0)}}{${eclatePuissance(`\\cancel{${base_utile}}`,exp[0],coul_exp1)}}$`;
+						if (this.correction_detaillee) {
+							texte_corr += `$${lettre}=\\dfrac{${eclatePuissance(`\\cancel{${base_utile}}`,exp[0],coul_exp0)}}{${eclatePuissance(`\\cancel{${base_utile}}`,exp[0],coul_exp1)}}$`;
+						};
 						texte_corr += `<br><br>`;
 						texte_corr += `$${lettre}=1`
 					} else if (exp[0]-exp[1]<0) {
-						texte_corr += `$${lettre}=\\dfrac{${eclatePuissance(`\\cancel{${base_utile}}`,exp[0],coul_exp0)}}{${eclatePuissance(`\\cancel{${base_utile}}`,exp[0],coul_exp1)}\\times${eclatePuissance(base_utile,exp[1]-exp[0],coul_exp1)}}$`;
+						if (this.correction_detaillee) {
+							texte_corr += `$${lettre}=\\dfrac{${eclatePuissance(`\\cancel{${base_utile}}`,exp[0],coul_exp0)}}{${eclatePuissance(`\\cancel{${base_utile}}`,exp[0],coul_exp1)}\\times${eclatePuissance(base_utile,exp[1]-exp[0],coul_exp1)}}$`;
+						};
 						texte_corr += `<br><br>`;
 						texte_corr += `$${lettre}=\\dfrac{1}{${base_utile}^{${exp[1]}-${exp[0]}}}=\\dfrac{1}{${base_utile}^{${exp[1]-exp[0]}}}`
 						if (simpNotPuissance(base,exp[1]-exp[0]) != ` `) {
@@ -2390,28 +2413,34 @@ function Puissances_d_un_relatif_1(){
 							texte_corr += `=${base_utile}^{${exp[0]-exp[1]}}`
 						}						
 					} else {
-						texte_corr += `$${lettre}=\\dfrac{${eclatePuissance(`\\cancel{${base_utile}}`,exp[1],coul_exp0)}\\times${eclatePuissance(base_utile,exp[0]-exp[1],coul_exp0)}}{${eclatePuissance(`\\cancel{${base_utile}}`,exp[1],coul_exp1)}}$`;
+						if (this.correction_detaillee) {
+							texte_corr += `$${lettre}=\\dfrac{${eclatePuissance(`\\cancel{${base_utile}}`,exp[1],coul_exp0)}\\times${eclatePuissance(base_utile,exp[0]-exp[1],coul_exp0)}}{${eclatePuissance(`\\cancel{${base_utile}}`,exp[1],coul_exp1)}}$`;
+						};
 						texte_corr += `<br><br>`;
 						texte_corr += `$${lettre}=${base_utile}^{${exp[0]}-${exp[1]}}=${base_utile}^{${exp[0]-exp[1]}}`;
 						if (simpNotPuissance(base,exp[0]-exp[1]) != ` `) {
 							texte_corr += `=${simpNotPuissance(base,exp[0]-exp[1])}`;
 						}; 						
-
 					}; 
 					texte_corr += `$`;
 					texte_corr += `<br>`;			
 					break;			
-				case 3 : 
-					exp = [randint(1,4),randint(2,4)]; // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues
+				case 3 : // exponentiation
+					//exp = [randint(1,4),randint(2,4)]; // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues
+					exp = [randint(2,4),randint(2,4)]; // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues et pour éviter 1
 					texte =  `$${lettre}=(${base_utile}^${exp[0]})^{${exp[1]}}$`;	
 					
 					texte_corr = `$${lettre}=(${base_utile}^${exp[0]})^{${exp[1]}}$`;
+					if (this.correction_detaillee) {
+						texte_corr += `<br>`;
+						//texte_corr += `$${lettre}=${eclatePuissance(`(${base_utile}^${exp[0]})`,exp[1],'red')}$`;
+						texte_corr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(`(${base_utile}^${exp[0]})`,exp[1],coul0)}}_{${exp[1]}\\thickspace\\text{facteurs}}}$`;
+						texte_corr += `<br>`;
+						//texte_corr += `$${lettre}=${eclatePuissance(`(${eclatePuissance(base_utile,exp[0],'blue')})`,exp[1],'red')}$`;
+						texte_corr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(`(\\color{${coul1}}{\\underbrace{${eclatePuissance(base_utile,exp[0],coul1)}}_{${exp[0]}\\thickspace\\text{facteurs}}}\\color{${coul0}})`,exp[1],coul0)}}_{${exp[1]}\\thickspace\\text{facteurs}}}$`;
+					};
 					texte_corr += `<br>`;
-					texte_corr += `$${lettre}=${eclatePuissance(`(${base_utile}^${exp[0]})`,exp[1],'red')}$`;
-					texte_corr += `<br>`;
-					texte_corr += `$${lettre}=${eclatePuissance(`(${eclatePuissance(base_utile,exp[0],'blue')})`,exp[1],'red')}$`;
-					texte_corr += `<br>`;
-					texte_corr += `Il y a donc $\\mathbf{\\color{red}{${exp[1]}}~\\color{black}{\\times}~\\color{blue}{${exp[0]}}}$ facteurs tous égaux à $${base_utile}$`;
+					texte_corr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[1]}}~\\color{black}{\\times}~\\color{${coul1}}{${exp[0]}}}$ facteurs tous égaux à $${base_utile}$`;
 					texte_corr += `<br>`;
 					texte_corr += `$${lettre}=${base_utile}^{${exp[0]}\\times${exp[1]}} = ${base_utile}^{${exp[0]*exp[1]}}`;				
 					if (simpNotPuissance(base,exp[0]*exp[1]) != ` `) {
@@ -2420,18 +2449,22 @@ function Puissances_d_un_relatif_1(){
 					texte_corr += `$`;
 					texte_corr += `<br>`;
 					break;
-				case 4 : 
-					base = [randint(2,8,[4,6]),randint(2,8,[4,6])]; // on choisit 2 bases, différentes ou non
+				case 4 : // produit de puissances de même exposant
+					base0 = randint(2,8,[4,6]);
+					base1 = randint(2,8,[4,6,base0]); 
+					base = [base0,base1]; // on choisit 2 bases différentes c'est mieux
 					exp = randint(2,5,6); // on choisit un exposant
 					texte = `$${lettre}=${base[0]}^${exp}\\times ${base[1]}^${exp}$`;
 					texte_corr += `<br>`;
 					texte_corr = `$${lettre}=${base[0]}^${exp}\\times ${base[1]}^${exp}$`;
+					if (this.correction_detaillee) {
+						texte_corr += `<br>`;
+						texte_corr += `$${lettre}=${eclatePuissance(base[0],exp,coul0)} \\times ${eclatePuissance(base[1],exp,coul1)}$`;
+						texte_corr += `<br>`;
+						texte_corr += `$${lettre}=${reorganiseProduitPuissance(base[0],base[1],exp,coul0,coul1)}$`;
+					};
 					texte_corr += `<br>`;
-					texte_corr += `$${lettre}=${eclatePuissance(base[0],exp,'red')} \\times ${eclatePuissance(base[1],exp,'blue')}$`;
-					texte_corr += `<br>`;
-					texte_corr += `$${lettre}=${reorganiseProduitPuissance(base[0],base[1],exp,'red','blue')}$`;
-					texte_corr += `<br>`;
-					texte_corr += `$${lettre}= (\\color{red}{${base[0]}} \\color{black}{\\times} \\color{blue}{${base[1]}}\\color{black}{)^{${exp}}}=${base[0]*base[1]}^${exp}$`;
+					texte_corr += `$${lettre}= (\\color{${coul0}}{${base[0]}} \\color{black}{\\times} \\color{${coul1}}{${base[1]}}\\color{black}{)^{${exp}}}=${base[0]*base[1]}^${exp}$`;
 					texte_corr += `<br>`;
 					break;																
 			};

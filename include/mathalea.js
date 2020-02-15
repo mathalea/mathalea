@@ -188,6 +188,12 @@ Les réponses modifient les caractéristiques de l'exercice puis le code LaTeX e
 					mise_a_jour_du_code();
 				});
 			}
+
+			// Gestion de la suppression de la correction
+			let form_correction_affichee = document.getElementById('supprimer_correction');
+			form_correction_affichee.addEventListener('change', function(e) { // Dès que le statut change, on met à jour
+				mise_a_jour_du_code();
+			});
 		}
 		
 
@@ -211,6 +217,10 @@ Les réponses modifient les caractéristiques de l'exercice puis le code LaTeX e
 				});
 			}
 		
+		
+			
+		
+
 		// Gestion des paramètres supplémentaires s'ils existent
 
 		if (exercice[i].besoin_formulaire_texte){
@@ -471,9 +481,14 @@ function mise_a_jour_du_code(){
 				code2 += exercice[i].contenu_correction;
 				code2 += '\n\n'
 			}
-			code_LaTeX =  code1 +
-			'\n\n%%%%%%%%%%%%%%%%%%%%%%\n%%%   CORRECTION   %%%\n%%%%%%%%%%%%%%%%%%%%%%\n\n\\newpage\n\\begin{correction}\n\n' + 
-			code2 + '\\end{correction}'; 
+				
+			if ($('#supprimer_correction:checked').val()) {
+				code_LaTeX =  code1; 
+			} else {
+				code_LaTeX =  code1 +
+				'\n\n%%%%%%%%%%%%%%%%%%%%%%\n%%%   CORRECTION   %%%\n%%%%%%%%%%%%%%%%%%%%%%\n\n\\newpage\n\\begin{correction}\n\n' + 
+				code2 + '\\end{correction}'; 
+			}
 			$( "#message_liste_exercice_vide" ).hide();
 			$('#cache').show();
 
@@ -646,6 +661,7 @@ window.onload = function()  {
 //$( document ).ready(function() {	
 	$('.ui.dropdown').dropdown(); // Pour le menu des exercices
 	$('.ui.accordion').accordion('refresh');
+	$('.ui.checkbox').checkbox();
 	// Gestion du bouton de copie
 	$('.ui.button.toggle').state(); // initialise le bouton
 	if (sortie_html) {
