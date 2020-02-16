@@ -2279,8 +2279,6 @@ function Problemes_Pythagore(){
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
 
-
-
 /**
 * Puissances d'un relatif (1)
 * * L’objectif est de travailler le sens des règles de calcul sur les puissances plutôt que les formules magiques
@@ -2308,7 +2306,6 @@ function Puissances_d_un_relatif_1(){
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		let type_de_questions;
-		//this.bouton_aide = modal_pdf(numero_de_l_exercice,"http://lozano.maths.free.fr/cours-4eme/N3-Puissances-seul.pdf",texte="Cours complet sur les puissances (Sébastien Lozano)")
 		this.bouton_aide = modal_pdf(numero_de_l_exercice,"http://lozano.maths.free.fr/coopmaths/FichePuissances-4N21.pdf","Aide mémoire sur les puissances (Sébastien Lozano)")
 		
 		this.liste_questions = []; // Liste de questions
@@ -2337,7 +2334,6 @@ function Puissances_d_un_relatif_1(){
 		for (let i = 0, base0, base1, base, base_utile, exp0, exp1, exp, coul_exp0, coul_exp1, lettre, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 			type_de_questions = liste_type_de_questions[i];
 
-			//base = randint(1,9)*choice([-1,1]); // on choisit 1 base ... penser à gérer le cas des bases qui sont des puissances
 			base = randint(2,9)*choice([-1,1]); // on choisit une base sauf 1 ... penser à gérer le cas des bases qui sont des puissances
 			exp0 = randint(1,9);
 			exp1 = randint(1,9,[exp0]);
@@ -2373,13 +2369,9 @@ function Puissances_d_un_relatif_1(){
 				case 2 : // quotient de puissances de même base
 					// Pour que la couleur de la base associée à l'exposant max soit toujours rouge.
 					if (Math.max(exp[0],exp[1])==exp[0]) {
-						//coul_exp0='red';
-						//coul_exp1='blue'
 						coul_exp0 = coul0;
 						coul_exp1 = coul1;
 					} else {
-						//coul_exp0 = 'blue';
-						//coul_exp1 = 'red';
 						coul_exp0 = coul1;
 						coul_exp1 = coul0;
 					};
@@ -2427,17 +2419,14 @@ function Puissances_d_un_relatif_1(){
 					texte_corr += `<br>`;			
 					break;			
 				case 3 : // exponentiation
-					//exp = [randint(1,4),randint(2,4)]; // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues
 					exp = [randint(2,4),randint(2,4)]; // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues et pour éviter 1
 					texte =  `$${lettre}=(${base_utile}^${exp[0]})^{${exp[1]}}$`;	
 					
 					texte_corr = `$${lettre}=(${base_utile}^${exp[0]})^{${exp[1]}}$`;
 					if (this.correction_detaillee) {
 						texte_corr += `<br>`;
-						//texte_corr += `$${lettre}=${eclatePuissance(`(${base_utile}^${exp[0]})`,exp[1],'red')}$`;
 						texte_corr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(`(${base_utile}^${exp[0]})`,exp[1],coul0)}}_{${exp[1]}\\thickspace\\text{facteurs}}}$`;
 						texte_corr += `<br>`;
-						//texte_corr += `$${lettre}=${eclatePuissance(`(${eclatePuissance(base_utile,exp[0],'blue')})`,exp[1],'red')}$`;
 						texte_corr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(`(\\color{${coul1}}{\\underbrace{${eclatePuissance(base_utile,exp[0],coul1)}}_{${exp[0]}\\thickspace\\text{facteurs}}}\\color{${coul0}})`,exp[1],coul0)}}_{${exp[1]}\\times\\color{${coul1}}{${exp[0]}}\\thickspace\\color{black}{\\text{facteurs}}}}$`;
 					};
 					texte_corr += `<br>`;
