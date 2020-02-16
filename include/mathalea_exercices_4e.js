@@ -2465,7 +2465,7 @@ function Puissances_d_un_relatif_1(){
 						texte_corr += `$${lettre}=${reorganiseProduitPuissance(base[0],base[1],exp,coul0,coul1)}$`;
 					};
 					texte_corr += `<br>`;
-					texte_corr += `$${lettre}= (\\color{${coul0}}{${base[0]}} \\color{black}{\\times} \\color{${coul1}}{${base[1]}}\\color{black}{)^{${exp}}}=${base[0]*base[1]}^${exp}$`;
+					texte_corr += `$${lettre}= (\\color{${coul0}}{\\mathbf{${base[0]}}} \\color{black}{\\times} \\color{${coul1}}{\\mathbf{${base[1]}}}\\color{black}{)^{${exp}}}=${base[0]*base[1]}^${exp}$`;
 					texte_corr += `<br>`;
 					break;																
 			};
