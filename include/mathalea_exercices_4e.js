@@ -2480,6 +2480,7 @@ function Puissances_d_un_relatif_1(){
 * @Auteur Sébastien Lozano
 */
 function Puissances_d_un_relatif_2(){
+	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1 ; 
 	this.titre = "Puissances : Calculs automatisés et règles de calculs"; 
@@ -2497,8 +2498,10 @@ function Puissances_d_un_relatif_2(){
 		let type_de_questions_disponibles = [1,2,3,4,5,6,7,8];	
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions);
 
+		this.bouton_aide = modal_pdf(numero_de_l_exercice,"http://lozano.maths.free.fr/coopmaths/FichePuissances-4N21.pdf","Aide mémoire sur les puissances (Sébastien Lozano)")
+
 		for (let i = 0, base ,exp , texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
-			type_de_questions = liste_type_de_questions[i];
+			let type_de_questions = liste_type_de_questions[i];
 			
 			switch (type_de_questions) {
 				case 1 :
