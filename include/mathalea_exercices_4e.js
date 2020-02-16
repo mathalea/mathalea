@@ -2337,7 +2337,8 @@ function Puissances_d_un_relatif_1(){
 		for (let i = 0, base0, base1, base, base_utile, exp0, exp1, exp, coul_exp0, coul_exp1, lettre, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 			type_de_questions = liste_type_de_questions[i];
 
-			base = randint(1,9)*choice([-1,1]); // on choisit 1 base ... penser à gérer le cas des bases qui sont des puissances
+			//base = randint(1,9)*choice([-1,1]); // on choisit 1 base ... penser à gérer le cas des bases qui sont des puissances
+			base = randint(2,9)*choice([-1,1]); // on choisit une base sauf 1 ... penser à gérer le cas des bases qui sont des puissances
 			exp0 = randint(1,9);
 			exp1 = randint(1,9,[exp0]);
 			exp = [exp0,exp1]; // on choisit deux exposants différents c'est mieux
@@ -2437,7 +2438,7 @@ function Puissances_d_un_relatif_1(){
 						texte_corr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(`(${base_utile}^${exp[0]})`,exp[1],coul0)}}_{${exp[1]}\\thickspace\\text{facteurs}}}$`;
 						texte_corr += `<br>`;
 						//texte_corr += `$${lettre}=${eclatePuissance(`(${eclatePuissance(base_utile,exp[0],'blue')})`,exp[1],'red')}$`;
-						texte_corr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(`(\\color{${coul1}}{\\underbrace{${eclatePuissance(base_utile,exp[0],coul1)}}_{${exp[0]}\\thickspace\\text{facteurs}}}\\color{${coul0}})`,exp[1],coul0)}}_{${exp[1]}\\thickspace\\text{facteurs}}}$`;
+						texte_corr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(`(\\color{${coul1}}{\\underbrace{${eclatePuissance(base_utile,exp[0],coul1)}}_{${exp[0]}\\thickspace\\text{facteurs}}}\\color{${coul0}})`,exp[1],coul0)}}_{${exp[1]}\\times\\color{${coul1}}{${exp[0]}}\\thickspace\\color{black}{\\text{facteurs}}}}$`;
 					};
 					texte_corr += `<br>`;
 					texte_corr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[1]}}~\\color{black}{\\times}~\\color{${coul1}}{${exp[0]}}}$ facteurs tous égaux à $${base_utile}$`;
