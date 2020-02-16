@@ -118,6 +118,7 @@ var liste_des_exercices_disponibles = {
 		'3G31' : Exercice_Trigo_angles,
 		'2N10' : Developper_Identites_remarquables2,
 		'2N11' : Factoriser_Identites_remarquables2,
+		'cours': Questions_de_cours,
 		'LaTeX' : Code_LaTeX_personnalise,
 		'coop': LaTeX_static,
 		// 'Perso' : HTML_personnalise,
@@ -184,9 +185,114 @@ function Exercice() {
    	// this.bouton_aide = modal_texte_long(numero_de_l_exercice,titre,texte,label_bouton="Aide",icone="info circle")
    	// this.bouton_aide = modal_youtube(numero_de_l_exercice,id_youtube,texte,label_bouton="Aide - Vidéo",icone="youtube")
    	// this.bouton_aide = modal_pdf(numero_de_l_exercice,url_pdf,texte="Aide",label_bouton="Aide - PDF",icone="file pdf")
-
+   	this.pas_de_version_LaTeX = false ;
    	this.nouvelle_version = function(numero_de_l_exercice){}
 
+}
+
+/**
+* Questions statiques issues d'un fichier Markdown 
+*
+* Les thèmes sont des titres de niveaux 2
+*
+* suivies d'une liste qui alterne question et réponse 
+* @Auteur Rémi Angot
+*/
+function Questions_de_cours(){
+	"use strict";
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Questions de cours";
+	this.consigne = "";
+	this.nb_questions = 3;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.consigne_modifiable = false;
+	this.sup = ''; // thème des questions
+	this.sup2 = 'questions_de_cours.txt'; //url des questions
+	this.pas_de_version_LaTeX = true ;
+	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		let liste_questions = []; // Liste de questions
+		let liste_corrections = []; // Liste de questions corrigées
+		let dictionnaire_de_questions = {} ;
+		let dictionnaire_de_questions_pret = false;
+		let contenu_HTML = '';
+		let contenu_correction_HTML = '';
+		$.get(this.sup2, function( txt ) {
+		// Récupère le fichier txt et transforme en un dictionnaire {'id_theme':[[questions],[réponses]]}
+			let tableau_par_theme = txt.match(/##((?=[^#]).|\n)*/g).map(v=>v.trim())
+			// Recherche les chaines de caractères commençant par ## et ne comportant pas d'autres #
+			for (let i = 0; i < tableau_par_theme.length; i++) {
+				let tableau_titre =  tableau_par_theme[i].match(/##.*/g);
+				let questions_et_reponses = tableau_par_theme[i].match(/\*((?=[^*#]).|\n)*/g).map(v=>v.trim())
+			 	// Recherche les chaines de caractères commençant par * et ne comportant pas d'autres * ou de #
+			 	let titre = tableau_titre[0].replace('## ','');
+				// Récupère le titre du thème sans ##
+			 	let tableau_questions = [];
+			 	let tableau_reponses = [];
+				for (let i = 0; i < questions_et_reponses.length; i++) {
+					if (i%2==0) { //rang pair => questions
+						tableau_questions[i/2] = questions_et_reponses[i].replace('* ','')
+						// Supprime les * devant chaque questions
+					} else { //rang impair => réponses
+						tableau_reponses[(i-1)/2] = questions_et_reponses[i].replace('* ','')
+					}
+			 	dictionnaire_de_questions[titre]=[tableau_questions,tableau_reponses];
+				}
+			}
+
+			// Je n'utilise pas this.nb_questions ou this.sup car this n'est pas clairement défini dans cette fonction
+			if (exercice[numero_de_l_exercice].sup == ''){
+				exercice[numero_de_l_exercice].sup = choice(Object.keys(dictionnaire_de_questions)) // Si on n'a pas spécifié un thème, on en prend un au hasard.
+			}
+
+			let nb_questions = exercice[numero_de_l_exercice].nb_question;
+			if (dictionnaire_de_questions[exercice[numero_de_l_exercice].sup]) {
+				// Si le thème existe dans le dictionnaire alors on adapte le nombre de questions
+				nb_questions = Math.min (exercice[numero_de_l_exercice].nb_questions,dictionnaire_de_questions[exercice[numero_de_l_exercice].sup][0].length)
+			}
+			for (let i = 0; i < nb_questions; i++) {
+				liste_questions.push(dictionnaire_de_questions[exercice[numero_de_l_exercice].sup][0][i]);
+				liste_corrections.push(dictionnaire_de_questions[exercice[numero_de_l_exercice].sup][1][i]); 
+			}
+			shuffle2tableaux(liste_questions,liste_corrections)
+			// Mélange les questions et les réponses (sans perdre les associations)
+		 	dictionnaire_de_questions_pret = true;
+	
+		});
+
+		let id_unique = `${numero_de_l_exercice}_${Date.now()}`	
+		if (sortie_html) {
+			this.contenu = `<div id=div_exo${id_unique}></div>`
+			this.contenu_correction = `<div id=div_corr_exo${id_unique}></div>`
+		}
+
+		if (!window.divExist) {window.divExist = []} // Si divExist n'existe pas on le créé
+		// divExist est un tableau dans lequel on stocke les listenner sur la création des div
+		window.divExist[id_unique] = setInterval(function() {
+			if ($(`#div_exo${id_unique}`).length && dictionnaire_de_questions_pret ) {
+				// Attends que le div existe et que le dictionnaire de questions soit prêt
+				contenu_HTML = html_enumerate(liste_questions,this.spacing);
+				contenu_correction_HTML = html_enumerate(liste_corrections,this.spacing);
+				$(`#div_exo${id_unique}`).html(contenu_HTML);//Vide le div pour éviter les SVG en doublon
+				$(`#div_corr_exo${id_unique}`).html(contenu_correction_HTML);//Vide le div pour éviter les SVG en doublon
+				renderMathInElement(document.body, {
+		            delimiters: [
+					{left: "\\[", right: "\\]", display: true},
+					{left: "$", right: "$", display: false}
+					],
+					"throwOnError":true,"errorColor":"#CC0000","strict":"warn","trust":false
+		        });
+				clearInterval(divExist[numero_de_l_exercice]);//Arrête le timer
+	    	}
+		}, 100); // Vérifie toutes les 100ms
+
+
+
+	}
+	this.besoin_formulaire_texte = ["Thème des questions","De la forme 6M1"];
+	this.besoin_formulaire2_texte = ["Liste des questions","URL du fichier texte contenant les questions et réponses."];
 }
 
 /**
@@ -4811,7 +4917,8 @@ function Divisions_euclidiennes_niv2(){
 function Exercice_Trigo_longueurs_4e(){
 	Exercice_Trigo_longueurs.call(this);
 	this.sup =1;
-	this.titre = "Utiliser le cosinus pour calculer une longueur dans un triangle rectangle"
+	this.besoin_formulaire_numerique = false;
+	this.titre = "Utiliser le cosinus pour calculer une longueur dans un triangle rectangle";
 }
 
 function Exercice_Trigo_angles_4e(){
