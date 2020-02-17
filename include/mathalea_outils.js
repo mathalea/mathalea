@@ -1299,12 +1299,13 @@ function SVG_Axe_horizontal (mon_svg,start,end,ordO,DeltaX){
 /**
  * Place une grille de points dans un repère
  * @param {string} mon_svg  l'id du svg
- * @param {number} absO 
- * @param {number} ordO 
- * @param {number} tailleX 
- * @param {number} tailleY 
- * @param {number} DeltaX 
- * @param {number} DeltaY 
+ * @param {number} absO abscisse du point de départ de la grille
+ * @param {number} ordO ordonnée du point de départ de la grille
+ * @param {number} tailleX largeur totale de la grille en pixels
+ * @param {number} tailleY hauteur totale de la grille en pixels
+ * @param {number} DeltaX nombre de graduations horizontales
+ * @param {number} DeltaY nombre de graduations verticales
+ * @Auteur Jean-Claude Lhote
  */
 function SVG_grille (mon_svg,absO,ordO,tailleX,tailleY,DeltaX,DeltaY){
 	for (let i=1;i<=DeltaX;i++){
@@ -1331,7 +1332,7 @@ function SVG_graduation(mon_svg,origine,pas,derniere_graduation,taille=10,y=50,c
 	}
 }
 /**
- * Trace une série de graduations 
+ * Trace une série de graduations version Latex
  * @param {number} pas intervalle entre deux graduations
  * @param {number} taille hauteur des graduations
  * @param {number} y ordonnée de la graduation (centre)
@@ -1456,6 +1457,7 @@ function SVG_tracer_point(mon_svg,x,y,nom,couleur) {
 		, leading : -1
 		})
 }
+
 /**
  * 
  * @param {number} x 
@@ -1475,6 +1477,7 @@ function Latex_tracer_point(x,nom,couleur,width) {
  * @param {any} mon_svg l'identifiant du SVG
  * @param {number} x l'abscisse de la pointe
  * @param {number} y l'ordonnée de la pointe
+ * @Auteur Rémi Angot
  */
 function SVG_tracer_fleche(mon_svg,x,y) {
 	//creer un groupe pour la fleche
@@ -1487,6 +1490,12 @@ function SVG_tracer_fleche(mon_svg,x,y) {
 	fleche.move(x,y)
 	fleche.dmove(-5,-5)
 }
+/**
+ * 
+ * @param {string} mon_svg l'identifiant du SVG
+ * @param {number} x l'abscisse de la pointe de la flèche
+ * @param {number} y l'ordonnée de la pointe de la flèche
+ */
 function SVG_tracer_flecheV(mon_svg,x,y) {
 	//creer un groupe pour la fleche
 	let fleche = mon_svg.group()
@@ -1498,16 +1507,57 @@ function SVG_tracer_flecheV(mon_svg,x,y) {
 	fleche.move(x,y)
 	fleche.dmove(-5,5)
 }
+/**
+ * 
+ * @param {string} mon_svg l'identifiant du SVG
+ * @param {number} Xmin l'abscisse minimale du repère
+ * @param {number} Xmax l'abscisse maximale du repère
+ * @param {number} Ymin l'ordonnée minimale du repère
+ * @param {number} Ymax l'ordonnée maximale du repère
+ * @param {number} OrdX0 l'ordonnée à l'origine de la droite
+ * @param {number} Pente la Pente de la droite.
+ * @param {string} couleur la couleur de la droite
+ * @param {string} nom le nom de la droite
+ */
+function SVG_Tracer_droite(mon_svg,Xmin,Xmax,Ymin,Ymax,OrdX0,Pente,couleur,nom){
+	'use strict';
+	let k=0;
+	while ((k>Xmin)&((OrdX0+Pente*k)<Ymax)&((OrdX0+Pente*k)>Ymin)) k--;
+	let X1=k;
+	let Y1=OrdX0+Pente*k;
+	let DeltaX=Xmax-Xmin;
+	let DeltaY=Ymax-Ymin;
+	let Dx=580/DeltaX;
+	let Dy=580/DeltaY;
+	let X0=20+Dx*(X1-Xmin);
+	let Y0=580-Dy*(Y1-Ymin);
+	let droite = mon_svg.line(X0,Y0,X0+600,Y0-600*Pente)
+	droite.stroke({ color: couleur, width: 2, linecap: 'round' })
+	let Ynom;
+	if (Y0>300) Ynom=-1
+	else Ynom=2 
+	let text = mon_svg.text(nom).attr({x: X0+2, y: Y0-5})
+	//ecrit le nom
+	text.font({fill: couleur,
+		family:   'Helvetica'
+		, size:     15
+		, anchor:   'middle'
+		, leading : Ynom
+		})
+}
 
-function SVG_repere(id_du_div,Xmin,Xmax,Ymin,Ymax){
+/**
+ * 
+ * @param {string} mon_svg l'Identifiant du SVG
+ * @param {number} Xmin l'abscisse minimum (doit être entier. Si positif, on prendra 0 comme minimum)
+ * @param {number} Xmax l'abscisse maximum (doit être entier > Xmin)
+ * @param {number} Ymin l'ordonnée minimum (doit être entier. Si positif, on prendra 0 comme minimum)
+ * @param {number} Ymax l'ordonnée maximum (doit être entier > Ymin)
+ * @Auteur Jean-Claude Lhote
+ */
+function SVG_repere(mon_svg,Xmin,Xmax,Ymin,Ymax){
 'use strict';
-	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
-	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
-	window.SVGExist[id_du_div] = setInterval(function() {
-		if ($(`#${id_du_div}`).length ) {
-			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
-			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 600, 600)
-			
+				
 			if(Xmin>0) Xmin=0;
 			if (Ymin>0) Ymin=0;
 			
@@ -1529,11 +1579,6 @@ function SVG_repere(id_du_div,Xmin,Xmax,Ymin,Ymax){
 				else SVG_label(mon_svg,[[string_nombre(i+Ymin),10-Xmin*Dx,575-i*Dy]],1,'black')	;		
 			}
 			SVG_grille(mon_svg,20,0,580,580,DeltaX,DeltaY)
-			
-			clearInterval(SVGExist[id_du_div]);//Arrête le timer
-			}
-
-	}, 100); // Vérifie toutes les 100ms
 }
 
 

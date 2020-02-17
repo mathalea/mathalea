@@ -1,7 +1,7 @@
-function fonctions_lineaire(){
+function fonctions_affines(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Déterminer une fonction linéaire";
+	this.titre = "Déterminer une fonction affine";
 	this.consigne = "Donner l'expression de la fonction représentée";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
@@ -10,20 +10,63 @@ function fonctions_lineaire(){
 	this.spacing = 1;
     this.spacing_corr = 1;
 	this.sup=1;
+	this.lineaire=false;
 
 	this.nouvelle_version = function(numero_de_l_exercice){ // numero_de_l_exercice est 0 pour l'exercice 1
-		let type_de_questions;
+		let k=Math.pow(2,parseInt(this.sup)-1);
 		this.liste_questions=[];
 		this.liste_corrections=[];
 		this.contenu = ''; // Liste de questions
 		this.contenu_correction = ''; // Liste de questions corrigées
 		this.contenu = html_consigne(this.consigne)
+		let liste_droites=[];
+		let OrdX0;
+		let Pente;
+		for (let i=0;i<5;i++) {
+			Pente=randint(-2*k,2*k)/k;
+			if (this.lineaire) OrdX0=0;
+			else OrdX0= randint(-3+Pente,3+Pente)
+			liste_droites.push([OrdX0,Pente])
+		}
 		if (sortie_html) {
 				let id_unique = `${i}_${Date.now()}`
-				this.contenu += `<div id="div_svg${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 600px;  "></div>`
-				SVG_repere(`div_svg${numero_de_l_exercice}${id_unique}`,-10,10,-10,10 );
-				this.contenu_correction += `<div id="div_svg_corr${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 600px;  "></div>`
-				SVG_repere(`div_svg_corr${numero_de_l_exercice}${id_unique}`,-5,5,-4,6 );		}
+				let id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
+				this.contenu += `<div id="${id_du_div}" style="width: 90%; height: 600px; display : table "></div>`;
+				if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
+				// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
+				window.SVGExist[id_du_div] = setInterval(function() {
+					if ($(`#${id_du_div}`).length ) {
+						$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
+						const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 600, 600)
+
+					SVG_repere(mon_svg,-10,10,-10,10 );
+					SVG_Tracer_droite(mon_svg,-10,10,-10,10,liste_droites[0][0],liste_droites[0][1],'blue','d1');
+					SVG_Tracer_droite(mon_svg,-10,10,-10,10,liste_droites[1][0],liste_droites[1][1],'red','d2');
+					SVG_Tracer_droite(mon_svg,-10,10,-10,10,liste_droites[2][0],liste_droites[2][1],'green','d3');
+					SVG_Tracer_droite(mon_svg,-10,10,-10,10,liste_droites[3][0],liste_droites[3][1],'orange','d4');
+					SVG_Tracer_droite(mon_svg,-10,10,-10,10,liste_droites[4][0],liste_droites[4][1],'pink','d5');
+					clearInterval(SVGExist[id_du_div]);//Arrête le timer
+					}
+
+				}, 100); // Vérifie toutes les 100ms
+
+				let id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`
+				this.contenu_correction += `<div id="${id_du_div_corr}" style="width: 90%; height: 600px; display : table "></div>`
+				if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
+				// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
+				window.SVGExist[id_du_div_corr] = setInterval(function() {
+					if ($(`#${id_du_div_corr}`).length ) {
+						$(`#${id_du_div_corr}`).html("");//Vide le div pour éviter les SVG en doublon
+						const mon_svg_corr = SVG().addTo(`#${id_du_div_corr}`).viewbox(0, 0, 600, 600)
+						this.contenu_correction += `<div id="${id_du_div_corr}" style="width: 90%; height: 600px; display : table "></div>`
+						SVG_repere(mon_svg_corr,-5,5,-4,6 );
+
+						clearInterval(SVGExist[id_du_div_corr]);//Arrête le timer
+					}
+
+				}, 100); // Vérifie toutes les 100ms
+		
+		}
 		else { //sortie Latex 
 				texte=Latex_reperage_sur_un_axe(2.4, abs0, pas1, pas2, [[l1, x1, x11], [l2, x2, x22], [l3, x3, x33]], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false);
 				texte_corr=Latex_reperage_sur_un_axe(2.4, abs0, pas1, pas2, [[l1, x1, x11,true], [l2, x2, x22,true], [l3, x3, x33,true]], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false);
@@ -32,7 +75,7 @@ function fonctions_lineaire(){
 		}
 		if (!sortie_html) liste_de_question_to_contenu(this); 
 	}
-	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : Milliers\n2 : Dizaines de mille\n3 : Centaines de mille\n4 : Mélange"];
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',3,"1 : Coefficient directeur entier\n2 : Coefficient directeur 'en demis'\n3 : Coefficient directeur 'en quarts'"];
 }
 
 /**

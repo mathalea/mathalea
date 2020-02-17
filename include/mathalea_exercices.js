@@ -119,7 +119,8 @@ var liste_des_exercices_disponibles = {
 		'3G10' : Exercice_Thales,
 		'3G30' : Exercice_Trigo_longueurs,
 		'3G31' : Exercice_Trigo_angles,
-		'3F10' : fonctions_lineaire,
+		'3F10' : fonctions_lineaires,
+		'3F11' : fonctions_affines,
 		'2N10' : Developper_Identites_remarquables2,
 		'2N11' : Factoriser_Identites_remarquables2,
 		'P001' : Code_LaTeX_personnalise,
@@ -5108,6 +5109,12 @@ function HTML_personnalise() {
 
 
 // Exercices paramétré pour correspondre au référentiel
+function fonctions_lineaires(){
+	fonctions_affines.call(this);
+	this.titre="Déterminer une fonction linéaire";
+	this.lineaire=true;
+}
+
 function Resoudre_une_equation_produit_nul_niv2(){
 	Resoudre_une_equation_produit_nul.call(this);
 	this.titre = "Résoudre une équation produit nul niveau2";
