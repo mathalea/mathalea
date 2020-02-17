@@ -234,6 +234,31 @@ function shuffle(array) {
 return array_bis;
 }
 
+
+
+/*
+* Mélange les items de deux tableaux de la même manière, sans modifier le tableau passé en argument
+*
+* 
+* @Source https://stackoverflow.com/questions/18194745/shuffle-multiple-javascript-arrays-in-the-same-way
+*/
+function shuffle2tableaux(obj1, obj2) {
+  var index = obj1.length;
+  var rnd, tmp1, tmp2;
+
+  while (index) {
+    rnd = Math.floor(Math.random() * index);
+    index -= 1;
+    tmp1 = obj1[index];
+    tmp2 = obj2[index];
+    obj1[index] = obj1[rnd];
+    obj2[index] = obj2[rnd];
+    obj1[rnd] = tmp1;
+    obj2[rnd] = tmp2;
+  }
+}
+
+
 /*
 * Trie un dictionnaire suivant ses clés
 *
