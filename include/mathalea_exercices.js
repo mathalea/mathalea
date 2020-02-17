@@ -119,6 +119,7 @@ var liste_des_exercices_disponibles = {
 		'3G10' : Exercice_Thales,
 		'3G30' : Exercice_Trigo_longueurs,
 		'3G31' : Exercice_Trigo_angles,
+		'3F10' : fonctions_lineaire,
 		'2N10' : Developper_Identites_remarquables2,
 		'2N11' : Factoriser_Identites_remarquables2,
 		'P001' : Code_LaTeX_personnalise,

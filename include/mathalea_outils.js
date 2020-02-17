@@ -1236,7 +1236,59 @@ function MG32_tracer_toutes_les_figures() {
     })();
 
 }
+/**
+ * Trace un axe vertical gradué
+ * @param {string} mon_svg l'id du svg
+ * @param {number} start ordonnée du début de l'axe en pixels (end-start=longueur del'axe)
+ * @param {number} end ordonnée de fin del'axe en pixels
+ * @param {number} absO position en abscisse de l'axe en pixels
+ * @param {number} DeltaY Nombre entier de graduations à faire sur la longueur de l'axe. 
+ * @Auteur Jean-Claude Lhote
+ */
+function SVG_Axe_vertical (mon_svg,start,end,absO,DeltaY){
+	let droite = mon_svg.line(absO,start+2, absO, end)
+	droite.stroke({ color: 'black', width: 2, linecap: 'round' })
+	for (let i=0;i<DeltaY;i++){
+		let line = mon_svg.line(absO-1,(DeltaY-i)*((end-start)/DeltaY), absO+1, (DeltaY-i)*((end-start)/DeltaY))
+		line.stroke({ color: 'black', width: 2, linecap: 'round' })
+	}
+}
+/**
+ * Trace un axe horizontal gradué
+ * @param {string} mon_svg l'id du svg
+ * @param {number} start abscisse du début de l'axe en pixels (end-start=longueur del'axe)
+ * @param {number} end abscisse de fin del'axe en pixels
+ * @param {number} absO position en ordonnée de l'axe en pixels
+ * @param {number} DeltaX Nombre entier de graduations à faire sur la longueur de l'axe. 
+ * @Auteur Jean-Claude Lhote
+ */
+function SVG_Axe_horizontal (mon_svg,start,end,ordO,DeltaX){
+	let droite = mon_svg.line(start,ordO, end-2, ordO)
+	droite.stroke({ color: 'black', width: 2, linecap: 'round' })
+	for (let i=0;i<DeltaX;i++){
+			let line = mon_svg.line(start+(DeltaX-i)*((end-start)/DeltaX),ordO-1,start+(DeltaX-i)*((end-start)/DeltaX), ordO+1)
+			line.stroke({ color: 'black', width: 2, linecap: 'round' })
+	}
+}
 
+/**
+ * Place une grille de points dans un repère
+ * @param {string} mon_svg  l'id du svg
+ * @param {number} absO 
+ * @param {number} ordO 
+ * @param {number} tailleX 
+ * @param {number} tailleY 
+ * @param {number} DeltaX 
+ * @param {number} DeltaY 
+ */
+function SVG_grille (mon_svg,absO,ordO,tailleX,tailleY,DeltaX,DeltaY){
+	for (let i=1;i<=DeltaX;i++){
+		for (let j=1;j<=DeltaY;j++) {
+			let point_grille = mon_svg.rect(1,1).move(absO+i*(tailleX/DeltaX),ordO+j*(tailleY/DeltaY));
+			point_grille.stroke({ color: 'black', width: 0.2, linecap: 'round' });
+		}
+	}
+}
 /** Trace une graduation sur le SVG
 * @param pas
 * @param mon_svg Objet SVG
@@ -1285,6 +1337,7 @@ function Latex_graduation(pas,taille=1,y=0,couleur,width) {
 /**
  * Ecris des nombres ou des textes à une position donnée dans un SVG
  * @param {array} liste_d_abscisses [[nombre à écrire,abscisse,ordonnée]]
+ * @param {number} y leading pour position du texte sur la ligne
  * @param {string} couleur couleur du nombre
  * @Auteur Rémi Angot
  */
@@ -1295,7 +1348,7 @@ function SVG_label(mon_svg,liste_d_abscisses,y,couleur) {
 		if (typeof liste_d_abscisses[i][0]== 'number') text = mon_svg.text((liste_d_abscisses[i][0]).toString());
 		else text = mon_svg.text(liste_d_abscisses[i][0]);
 		y=parseInt(y);	
-		text.move(liste_d_abscisses[i][1],50).font({ fill: couleur,
+		text.move(liste_d_abscisses[i][1],liste_d_abscisses[i][2]).font({ fill: couleur,
 			family:   'Helvetica'
 			, size:     16
 			, anchor:   'middle'
@@ -1409,6 +1462,55 @@ function SVG_tracer_fleche(mon_svg,x,y) {
 	fleche.move(x,y)
 	fleche.dmove(-5,-5)
 }
+function SVG_tracer_flecheV(mon_svg,x,y) {
+	//creer un groupe pour la fleche
+	let fleche = mon_svg.group()
+	let c1 = fleche.line(-5,5,0,0)
+	c1.stroke({ color: 'black', width: 3, linecap: 'round' })
+	let c2 = fleche.line(5,5,0,0)
+	c2.stroke({ color: 'black', width: 3, linecap: 'round' })
+	//déplace la croix
+	fleche.move(x,y)
+	fleche.dmove(-5,5)
+}
+
+function SVG_repere(id_du_div,Xmin,Xmax,Ymin,Ymax){
+'use strict';
+	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
+	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
+	window.SVGExist[id_du_div] = setInterval(function() {
+		if ($(`#${id_du_div}`).length ) {
+			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
+			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 600, 600)
+			
+			if(Xmin>0) Xmin=0;
+			if (Ymin>0) Ymin=0;
+			
+			let DeltaX=Xmax-Xmin;
+			let DeltaY=Ymax-Ymin;
+			let Dx=580/DeltaX;
+			let Dy=580/DeltaY;
+			
+			SVG_Axe_horizontal(mon_svg,20,600,580+Ymin*Dy,DeltaX);
+			SVG_tracer_fleche(mon_svg,599,580+Ymin*Dy);
+			SVG_Axe_vertical(mon_svg,0,580,20-Xmin*Dx,DeltaY);
+			SVG_tracer_flecheV(mon_svg,20-Xmin*Dx,-1);
+			for (let i=0;i<DeltaX;i++){
+				if (i+Xmin==0) 	SVG_label(mon_svg,[[string_nombre(i+Xmin),i*Dx+15,602+Ymin*Dy]],0,'black')	;
+				else SVG_label(mon_svg,[[string_nombre(i+Xmin),i*Dx+20,602+Ymin*Dy]],0,'black')	;
+			}
+			for (let i=0;i<DeltaY;i++){
+				if (i+Ymin==0)	SVG_label(mon_svg,[[string_nombre(i+Ymin),10-Xmin*Dx,585-i*Dy]],0,'black')	;	
+				else SVG_label(mon_svg,[[string_nombre(i+Ymin),10-Xmin*Dx,575-i*Dy]],1,'black')	;		
+			}
+			SVG_grille(mon_svg,20,0,580,580,DeltaX,DeltaY)
+			
+			clearInterval(SVGExist[id_du_div]);//Arrête le timer
+			}
+
+	}, 100); // Vérifie toutes les 100ms
+}
+
 
 /**
 * Trace une graduation sur le SVG
@@ -1442,7 +1544,7 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 			SVG_graduation(mon_svg,100,longueur_pas1,750,taille=10,y=50,color='black',width=5)
 			SVG_tracer_fleche(mon_svg,750,50)
 			// Nombres visibles
-			SVG_label(mon_svg,[[string_nombre(origine),100]],2,'black');
+			SVG_label(mon_svg,[[string_nombre(origine),100,50]],2,'black');
 			for (i=0;i<points_connus.length;i++) {
 				valeur=string_nombre(points_connus[i][0]);					 
 				distance=calcul(longueur_pas1*points_connus[i][1]+longueur_pas2*points_connus[i][2]);
