@@ -1287,12 +1287,18 @@ function SVG_Axe_vertical (mon_svg,start,end,absO,DeltaY){
  * @param {number} DeltaX Nombre entier de graduations à faire sur la longueur de l'axe. 
  * @Auteur Jean-Claude Lhote
  */
-function SVG_Axe_horizontal (mon_svg,start,end,ordO,DeltaX){
+function SVG_Axe_horizontal (mon_svg,start,end,ordO,DeltaX,subX){
 	let droite = mon_svg.line(start,ordO, end-2, ordO)
 	droite.stroke({ color: 'black', width: 2, linecap: 'round' })
 	for (let i=0;i<DeltaX;i++){
-			let line = mon_svg.line(start+(DeltaX-i)*((end-start)/DeltaX),ordO-1,start+(DeltaX-i)*((end-start)/DeltaX), ordO+1)
+			let line = mon_svg.line(start+(DeltaX-i)*((end-start)/DeltaX),ordO-2,start+(DeltaX-i)*((end-start)/DeltaX), ordO+2)
 			line.stroke({ color: 'black', width: 2, linecap: 'round' })
+			if (subX!=1) {
+				for (let k=1;k<subX;k++) {
+					let line = mon_svg.line(start+(DeltaX-i+k/subX)*((end-start)/DeltaX),ordO-1,start+(DeltaX-i+k/subX)*((end-start)/DeltaX), ordO+1)
+					line.stroke({ color: 'black', width: 1, linecap: 'round' })
+				}
+			}
 	}
 }
 
@@ -1305,13 +1311,29 @@ function SVG_Axe_horizontal (mon_svg,start,end,ordO,DeltaX){
  * @param {number} tailleY hauteur totale de la grille en pixels
  * @param {number} DeltaX nombre de graduations horizontales
  * @param {number} DeltaY nombre de graduations verticales
+ * @param {number} subX coefficient de fractionnement de la grille en abscisse
+ * @param {number} subY coefficient de fractionnement de la grille en ordonéée
  * @Auteur Jean-Claude Lhote
  */
-function SVG_grille (mon_svg,absO,ordO,tailleX,tailleY,DeltaX,DeltaY){
+function SVG_grille (mon_svg,absO,ordO,tailleX,tailleY,DeltaX,DeltaY,subX,subY){
 	for (let i=1;i<=DeltaX;i++){
 		for (let j=1;j<=DeltaY;j++) {
-			let point_grille = mon_svg.rect(1,1).move(absO+i*(tailleX/DeltaX),ordO+j*(tailleY/DeltaY));
-			point_grille.stroke({ color: 'black', width: 0.2, linecap: 'round' });
+			let point_grille = mon_svg.rect(2,2).move(absO+i*(tailleX/DeltaX)-1,ordO+j*(tailleY/DeltaY)-1);
+			point_grille.stroke({ color: 'grey', width: 1, linecap: 'round' });
+			point_grille.fill({ color: 'grey'});
+			if (subX!=1) {
+				for (let k=0;k<subX;k++) {
+					for (let l=0;l<subY;l++) {
+						point_grille = mon_svg.rect(1,1).move(absO+i*(tailleX/DeltaX)+k*(tailleX/DeltaX/subX),ordO+j*(tailleY/DeltaY)+l*(tailleY/DeltaY/subY));
+						point_grille.stroke({ color: 'grey', width: 0.1, linecap: 'round' });
+					}
+				}
+		}
+		else 
+			for (let l=0;l<subY;l++) {
+				point_grille = mon_svg.rect(1,1).move(absO+i*(tailleX/DeltaX)+k*(tailleX/DeltaX/subX),ordO+j*(tailleY/DeltaY)+l*(tailleY/DeltaY/subY));
+				point_grille.stroke({ color: 'grey', width: 0.1, linecap: 'round' });
+			}
 		}
 	}
 }
@@ -1519,22 +1541,24 @@ function SVG_tracer_flecheV(mon_svg,x,y) {
  * @param {string} couleur la couleur de la droite
  * @param {string} nom le nom de la droite
  */
-function SVG_Tracer_droite(mon_svg,Xmin,Xmax,Ymin,Ymax,OrdX0,Pente,couleur,nom){
+function SVG_Tracer_droite(mon_svg,tailleX,tailleY,Xmin,Xmax,Ymin,Ymax,OrdX0,Pente,couleur,nom){
 	'use strict';
 	let k=0;
-	while ((k>Xmin)&((OrdX0+Pente*k)<Ymax)&((OrdX0+Pente*k)>Ymin)) k--;
+	console.log(Pente,OrdX0)
+	let Pente_r=Pente*(Xmax-Xmin)/(Ymax-Ymin); // Pente adaptée au ratio d'échelle des axes.
+	while((k>Xmin)&((OrdX0+Pente*k)<Ymax)&((OrdX0+Pente*k)>Ymin)) k--;
 	let X1=k;
 	let Y1=OrdX0+Pente*k;
 	let DeltaX=Xmax-Xmin;
 	let DeltaY=Ymax-Ymin;
-	let Dx=580/DeltaX;
-	let Dy=580/DeltaY;
+	let Dx=(tailleX-20)/DeltaX;
+	let Dy=(tailleY-20)/DeltaY;
 	let X0=20+Dx*(X1-Xmin);
-	let Y0=580-Dy*(Y1-Ymin);
-	let droite = mon_svg.line(X0,Y0,X0+600,Y0-600*Pente)
+	let Y0=tailleY-20-Dy*(Y1-Ymin);
+	let droite = mon_svg.line(X0,Y0,X0+tailleX,Y0-tailleX*Pente_r)
 	droite.stroke({ color: couleur, width: 2, linecap: 'round' })
 	let Ynom;
-	if (Y0>300) Ynom=-1
+	if (Y0>tailleY/2) Ynom=-1
 	else Ynom=2 
 	let text = mon_svg.text(nom).attr({x: X0+2, y: Y0-5})
 	//ecrit le nom
@@ -1553,9 +1577,13 @@ function SVG_Tracer_droite(mon_svg,Xmin,Xmax,Ymin,Ymax,OrdX0,Pente,couleur,nom){
  * @param {number} Xmax l'abscisse maximum (doit être entier > Xmin)
  * @param {number} Ymin l'ordonnée minimum (doit être entier. Si positif, on prendra 0 comme minimum)
  * @param {number} Ymax l'ordonnée maximum (doit être entier > Ymin)
+ * @param {number} subX coefficient de fractionnement de l'unité en X
+ * @param {number} subY coefficient de fractionnement de l'unité en Y
+ * @param {number} tailleX Nombre de pixels de largeur pour le SVG (>100 !)
+ * @param {number} tailleY Nombre de pixels de hauteur pour le SVG  (>100 !)
  * @Auteur Jean-Claude Lhote
  */
-function SVG_repere(mon_svg,Xmin,Xmax,Ymin,Ymax){
+function SVG_repere(mon_svg,Xmin,Xmax,Ymin,Ymax,subX,subY,tailleX,tailleY){
 'use strict';
 				
 			if(Xmin>0) Xmin=0;
@@ -1563,22 +1591,22 @@ function SVG_repere(mon_svg,Xmin,Xmax,Ymin,Ymax){
 			
 			let DeltaX=Xmax-Xmin;
 			let DeltaY=Ymax-Ymin;
-			let Dx=580/DeltaX;
-			let Dy=580/DeltaY;
+			let Dx=(tailleX-20)/DeltaX;
+			let Dy=(tailleY-20)/DeltaY;
 			
-			SVG_Axe_horizontal(mon_svg,20,600,580+Ymin*Dy,DeltaX);
-			SVG_tracer_fleche(mon_svg,599,580+Ymin*Dy);
-			SVG_Axe_vertical(mon_svg,0,580,20-Xmin*Dx,DeltaY);
+			SVG_Axe_horizontal(mon_svg,20,tailleX,tailleY-20+Ymin*Dy,DeltaX,subX);
+			SVG_tracer_fleche(mon_svg,tailleX-1,tailleY-20+Ymin*Dy);
+			SVG_Axe_vertical(mon_svg,0,tailleY-20,20-Xmin*Dx,DeltaY,subY);
 			SVG_tracer_flecheV(mon_svg,20-Xmin*Dx,-1);
 			for (let i=0;i<DeltaX;i++){
-				if (i+Xmin==0) 	SVG_label(mon_svg,[[string_nombre(i+Xmin),i*Dx+15,602+Ymin*Dy]],0,'black')	;
-				else SVG_label(mon_svg,[[string_nombre(i+Xmin),i*Dx+20,602+Ymin*Dy]],0,'black')	;
+				if (i+Xmin==0) 	SVG_label(mon_svg,[[string_nombre(i+Xmin),i*Dx+15,tailleY+2+Ymin*Dy]],0,'black')	;
+				else SVG_label(mon_svg,[[string_nombre(i+Xmin),i*Dx+20,tailleY+2+Ymin*Dy]],0,'black')	;
 			}
 			for (let i=0;i<DeltaY;i++){
-				if (i+Ymin==0)	SVG_label(mon_svg,[[string_nombre(i+Ymin),10-Xmin*Dx,585-i*Dy]],0,'black')	;	
-				else SVG_label(mon_svg,[[string_nombre(i+Ymin),10-Xmin*Dx,575-i*Dy]],1,'black')	;		
+				if (i+Ymin==0)	SVG_label(mon_svg,[[string_nombre(i+Ymin),10-Xmin*Dx,tailleY-15-i*Dy]],0,'black')	;	
+				else SVG_label(mon_svg,[[string_nombre(i+Ymin),10-Xmin*Dx,tailleY-25-i*Dy]],1,'black')	;		
 			}
-			SVG_grille(mon_svg,20,0,580,580,DeltaX,DeltaY)
+			SVG_grille(mon_svg,20,0,tailleX-20,tailleY-20,DeltaX,DeltaY,subX,subY)
 }
 
 

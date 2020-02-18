@@ -39,12 +39,12 @@ function fonctions_affines(){
 						$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
 						const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 600, 600)
 
-					SVG_repere(mon_svg,-10,10,-10,10 );
-					SVG_Tracer_droite(mon_svg,-10,10,-10,10,liste_droites[0][0],liste_droites[0][1],'blue','d1');
-					SVG_Tracer_droite(mon_svg,-10,10,-10,10,liste_droites[1][0],liste_droites[1][1],'red','d2');
-					SVG_Tracer_droite(mon_svg,-10,10,-10,10,liste_droites[2][0],liste_droites[2][1],'green','d3');
-					SVG_Tracer_droite(mon_svg,-10,10,-10,10,liste_droites[3][0],liste_droites[3][1],'orange','d4');
-					SVG_Tracer_droite(mon_svg,-10,10,-10,10,liste_droites[4][0],liste_droites[4][1],'pink','d5');
+					SVG_repere(mon_svg,-3,7,-10,10,2,2,600,600 );
+					SVG_Tracer_droite(mon_svg,600,600,-3,7,-10,10,liste_droites[0][0],liste_droites[0][1],'blue','d1');
+					SVG_Tracer_droite(mon_svg,600,600,-3,7,-10,10,liste_droites[1][0],liste_droites[1][1],'red','d2');
+					SVG_Tracer_droite(mon_svg,600,600,-3,7,-10,10,liste_droites[2][0],liste_droites[2][1],'green','d3');
+					SVG_Tracer_droite(mon_svg,600,600,-3,7,-10,10,liste_droites[3][0],liste_droites[3][1],'orange','d4');
+					SVG_Tracer_droite(mon_svg,600,600,-3,7,-10,10,liste_droites[4][0],liste_droites[4][1],'pink','d5');
 					clearInterval(SVGExist[id_du_div]);//Arrête le timer
 					}
 
