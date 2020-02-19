@@ -482,3 +482,150 @@ function Resoudre_une_equation_produit_nul(){
 	}
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,'1 : Coefficient de x = 1\n 2 : Coefficient de x>1 et solutions entières\n 3 : Solutions rationnelles\n 4 : Mélange des 3 autres niveaux'];
 }
+
+/**
+* Notion de fonction - vocabulaire
+* * L’objectif de revenir sur l'introduction de la notion de fonction et son vocabulaire
+* * On base l'exercice sur des calculs simples de type périmètres, aires, double, triple, nombre de diviseurs
+*
+* @Auteur Sébastien Lozano
+*/
+function fonction_notion_vocabulaire(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.sup = 1 ; 
+	this.titre = "Fonction : Notion et vocabulaire"; 
+	sortie_html ? this.consigne = "Consigne HTML":  this.consigne = "Consigne LaTeX";
+	sortie_html ? this.spacing = 3 : this.spacing = 2;
+	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
+	this.nb_questions = 4;
+	//this.correction_detaillee_disponible = true;
+	this.nb_cols_corr = 1;
+	this.sup = 5;
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		let type_de_questions;
+		//this.bouton_aide = modal_pdf(numero_de_l_exercice,"http://lozano.maths.free.fr/coopmaths/FichePuissances-4N21.pdf","Aide mémoire sur les puissances (Sébastien Lozano)")
+		
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		this.contenu = ''; // Liste de questions
+		this.contenu_correction = ''; // Liste de questions corrigées
+
+		//let type_de_questions_disponibles = [1,2,3,4];
+		let type_de_questions_disponibles = [1,2];
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions);
+
+
+		this.contenu = html_consigne(this.consigne)
+		if (sortie_html) {
+			for (let i = 0, x, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
+				type_de_questions = liste_type_de_questions[i];
+	
+				x = randint(1,9);
+				let id_unique = `${i}_${Date.now()}`
+				let id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
+				let id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`
+	
+				switch (type_de_questions) {
+					case 1 : // périmètre d'un carré de côté x
+						//texte = `périmètre d'un carré de côté ${x}`;
+						//texte += `<br>`;	
+						//texte_corr = `périmètre d'un carré de côté ${x}`;
+						this.contenu +='Enoncé de type 1';
+						this.contenu += `<div id="${id_du_div}" style="width: 90%; display : table "></div>`;
+						if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
+						// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
+						window.SVGExist[id_du_div] = setInterval(function() {
+							if ($(`#${id_du_div}`).length ) {
+								$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
+								const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 100, 100)
+			
+								var rect = mon_svg.rect(20, 10).attr({ fill: '#f06' });
+								//texte = mon_svg.text('Enoncé de type 1');
+			
+							clearInterval(SVGExist[id_du_div]);//Arrête le timer
+							}
+			
+						}, 100); // Vérifie toutes les 100ms
+			
+						this.contenu_correction +='Correction Enoncé de type 1';
+						this.contenu_correction += `<div id="${id_du_div_corr}" style="width: 90%; display : table "></div>`
+						if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
+						// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
+						window.SVGExist[id_du_div_corr] = setInterval(function() {
+							if ($(`#${id_du_div_corr}`).length ) {
+								$(`#${id_du_div_corr}`).html("");//Vide le div pour éviter les SVG en doublon
+								const mon_svg_corr = SVG().addTo(`#${id_du_div_corr}`).viewbox(0, 0, 100, 100)
+								//this.contenu_correction += `<div id="${id_du_div_corr}" style="width: 90%; display : table "></div>`
+								var circle = mon_svg_corr.circle(10).attr({fill: 'green'});
+								//texte_corr = mon_svg.text('Correction Enoncé de type 1');
+								clearInterval(SVGExist[id_du_div_corr]);//Arrête le timer
+							}
+			
+						}, 100); // Vérifie toutes les 100ms
+						break;			
+					case 2 : // aire d'un carré de côté x
+						//texte = `aire d'un carré de côté ${x}`;
+						//this.contenu += `aire d'un carré de côté ${x}`;
+						//texte_corr = `aire d'un carré de côté ${x}`;
+						//this.contenu_correction = `aire d'un carré de côté ${x}`;
+							this.contenu +='Enoncé de type 2';
+							this.contenu += `<div id="${id_du_div}" style="width: 90%; display : table "></div>`;
+						if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
+						// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
+						window.SVGExist[id_du_div] = setInterval(function() {
+							if ($(`#${id_du_div}`).length ) {
+								$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
+								const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 100, 100)
+			
+								var rect = mon_svg.rect(20, 10).attr({ fill: 'blue' });
+								//texte = mon_svg.text('Enoncé de type 2');
+			
+							clearInterval(SVGExist[id_du_div]);//Arrête le timer
+							}
+			
+						}, 100); // Vérifie toutes les 100ms
+			
+						this.contenu_correction +='Correction Enoncé de type 2';
+						this.contenu_correction += `<div id="${id_du_div_corr}" style="width: 90%; display : table "></div>`
+						if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
+						// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
+						window.SVGExist[id_du_div_corr] = setInterval(function() {
+							if ($(`#${id_du_div_corr}`).length ) {
+								$(`#${id_du_div_corr}`).html("");//Vide le div pour éviter les SVG en doublon
+								const mon_svg_corr = SVG().addTo(`#${id_du_div_corr}`).viewbox(0, 0, 100, 100)
+								//this.contenu_correction += `<div id="${id_du_div_corr}" style="width: 90%; display : table "></div>`
+								var circle = mon_svg_corr.circle(10).attr({fill: 'blue'});
+								//texte_corr = mon_svg.text('Correction Enoncé de type 2');
+								clearInterval(SVGExist[id_du_div_corr]);//Arrête le timer
+							}
+			
+						}, 100); // Vérifie toutes les 100ms
+						break;			
+					case 3 : // somme de 1 et du triple de x
+						//texte = `somme de 1 et du triple de ${x}`;
+						//texte_corr = `somme de 1 et du triple de ${x}`;
+						break;
+					case 4 : // nombre de diviseurs de x entier
+						//texte = `nombre de diviseurs de ${x} entier `;
+						//texte_corr = `nombre de diviseurs de ${x} entier`;
+						break;																
+				};
+			
+				if (this.liste_questions.indexOf(this.contenu)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+					this.liste_questions.push(this.contenu);
+					this.liste_corrections.push(this.contenu_correction);
+					i++;
+				}
+				cpt++
+			}	
+
+		} else {//sortie LaTeX
+			texte += `\\begin{tikzpicture} \n\t \\draw [->,>=stealth,line width=1.2pt] (1,0.2)--(7.5,0.2); \\end{tikzpicture}`;
+		};
+	
+		if (!sortie_html) liste_de_question_to_contenu(this);
+	}
+	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
+}
