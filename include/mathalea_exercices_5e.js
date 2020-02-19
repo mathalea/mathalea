@@ -2282,7 +2282,7 @@ function Reduire_une_expression_litterale(){
 function Lire_abscisse_relative(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Lire l'abscisse lelative d'un point";
+	this.titre = "Lire l'abscisse relative d'un point";
 	this.consigne = "Lire l'abscisse de chacun des points suivants.";
 	this.nb_questions = 3;
 	this.nb_questions_modifiable = true;
