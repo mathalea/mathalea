@@ -39,12 +39,12 @@ function fonctions_affines(){
 						$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
 						const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 600, 600)
 
-					SVG_repere(mon_svg,-3,7,-10,10,2,2,600,600 );
-					SVG_Tracer_droite(mon_svg,600,600,-3,7,-10,10,liste_droites[0][0],liste_droites[0][1],'blue','d1');
-					SVG_Tracer_droite(mon_svg,600,600,-3,7,-10,10,liste_droites[1][0],liste_droites[1][1],'red','d2');
-					SVG_Tracer_droite(mon_svg,600,600,-3,7,-10,10,liste_droites[2][0],liste_droites[2][1],'green','d3');
-					SVG_Tracer_droite(mon_svg,600,600,-3,7,-10,10,liste_droites[3][0],liste_droites[3][1],'orange','d4');
-					SVG_Tracer_droite(mon_svg,600,600,-3,7,-10,10,liste_droites[4][0],liste_droites[4][1],'pink','d5');
+					SVG_repere(mon_svg,-5,5,-5,5,2,2,600,600,true );
+					SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[0][0],liste_droites[0][1],'blue','d1');
+					SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[1][0],liste_droites[1][1],'red','d2');
+					SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[2][0],liste_droites[2][1],'green','d3');
+					SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[3][0],liste_droites[3][1],'orange','d4');
+					SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[4][0],liste_droites[4][1],'pink','d5');
 					clearInterval(SVGExist[id_du_div]);//Arrête le timer
 					}
 
@@ -68,10 +68,15 @@ function fonctions_affines(){
 		
 		}
 		else { //sortie Latex 
-				texte=Latex_reperage_sur_un_axe(2.4, abs0, pas1, pas2, [[l1, x1, x11], [l2, x2, x22], [l3, x3, x33]], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false);
-				texte_corr=Latex_reperage_sur_un_axe(2.4, abs0, pas1, pas2, [[l1, x1, x11,true], [l2, x2, x22,true], [l3, x3, x33,true]], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false);
-				this.liste_questions.push(texte)
-				this.liste_corrections.push(texte_corr);
+			let texte =`\n\t \\begin{tikzpicture}`;
+			texte += Latex_repere(-5,5,-5,5,2,2,true);
+			texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[0][0],liste_droites[0][1],'blue','d1');
+			texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[1][0],liste_droites[1][1],'red','d2');
+			texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[2][0],liste_droites[2][1],'green','d3');
+			texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[3][0],liste_droites[3][1],'orange','d4');
+			texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[4][0],liste_droites[4][1],'pink','d5');
+			texte +=`\n\t \\end{tikzpicture}`;
+			this.liste_questions.push(texte);
 		}
 		if (!sortie_html) liste_de_question_to_contenu(this); 
 	}

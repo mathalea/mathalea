@@ -1303,10 +1303,10 @@ function SVG_Axe_horizontal (mon_svg,start,end,ordO,DeltaX,subX){
 }
 
 /**
- * Place une grille de points dans un repère
+ * Place une grille de points dans un repère au sein d'un SVG
  * @param {string} mon_svg  l'id du svg
- * @param {number} absO abscisse du point de départ de la grille
- * @param {number} ordO ordonnée du point de départ de la grille
+ * @param {number} absO abscisse du point de départ de la grille (normalement 0)
+ * @param {number} ordO ordonnée du point de départ de la grille (normalement 0)
  * @param {number} tailleX largeur totale de la grille en pixels
  * @param {number} tailleY hauteur totale de la grille en pixels
  * @param {number} DeltaX nombre de graduations horizontales
@@ -1337,14 +1337,17 @@ function SVG_grille (mon_svg,absO,ordO,tailleX,tailleY,DeltaX,DeltaY,subX,subY){
 		}
 	}
 }
+
+
 /** Trace une graduation sur le SVG
-* @param pas
 * @param mon_svg Objet SVG
-* @param derniere_graduation
+* @param origine abscisse en pixel de la première graduation
+* @param pas distance en pixels entre deux graduations
+* @param derniere_graduation abscisse limite en pixel
 * @param taille taille verticale
 * @param y ordonnée de la droite
-* @param color
-* @param width 
+* @param couleur couleur de la graduation
+* @param width largeur de la graduation
 * @Auteur Rémi Angot
 */
 function SVG_graduation(mon_svg,origine,pas,derniere_graduation,taille=10,y=50,couleur='black',width=5) {
@@ -1354,7 +1357,7 @@ function SVG_graduation(mon_svg,origine,pas,derniere_graduation,taille=10,y=50,c
 	}
 }
 /**
- * Trace une série de graduations version Latex
+ * Trace une série de graduations version Latex pour la fonction Latex_reperage_sur_un_axe
  * @param {number} pas intervalle entre deux graduations
  * @param {number} taille hauteur des graduations
  * @param {number} y ordonnée de la graduation (centre)
@@ -1488,7 +1491,7 @@ function SVG_tracer_point(mon_svg,x,y,nom,couleur) {
  * @param {number} width 
  * @Auteur Jean-Claude Lhote
  */
-function Latex_tracer_point(x,nom,couleur,width) {
+function Latex_tracer_point(x,y,nom,couleur,width) {
 	let code =`\n\t \\draw [line width=${width}pt,color=${couleur}] (${calcul(x-0.05)},${calcul(y-0.05)}) -- (${calcul(x+0.05)},${calcul(y+0.05)});`;
 	code +=`\n\t \\draw[line width=${width}pt,color=${couleur}] (${calcul(x-0.05)},${calcul(y+0.05)}) -- (${calcul(x+0.05)},${calcul(y-0.05)}); `;
 	code +=`\n\t \\draw [color=${couleur}] (${x},${y+0.2}) node{$${nom}$};`;
@@ -1532,19 +1535,20 @@ function SVG_tracer_flecheV(mon_svg,x,y) {
 /**
  * 
  * @param {string} mon_svg l'identifiant du SVG
+ * @param {number} tailleX largeur en pixels du SVG
+ * @param {number} tailleY hauteur en pixels du SVG
  * @param {number} Xmin l'abscisse minimale du repère
  * @param {number} Xmax l'abscisse maximale du repère
  * @param {number} Ymin l'ordonnée minimale du repère
  * @param {number} Ymax l'ordonnée maximale du repère
- * @param {number} OrdX0 l'ordonnée à l'origine de la droite
- * @param {number} Pente la Pente de la droite.
- * @param {string} couleur la couleur de la droite
- * @param {string} nom le nom de la droite
+ * @param {number} OrdX0 l'ordonnée à l'origine de la droite à tracer
+ * @param {number} Pente la Pente de la droite à tracer.
+ * @param {string} couleur la couleur de la droite à tracer
+ * @param {string} nom le nom de la droite à tracer
  */
 function SVG_Tracer_droite(mon_svg,tailleX,tailleY,Xmin,Xmax,Ymin,Ymax,OrdX0,Pente,couleur,nom){
 	'use strict';
 	let k=0;
-	console.log(Pente,OrdX0)
 	let Pente_r=Pente*(Xmax-Xmin)/(Ymax-Ymin); // Pente adaptée au ratio d'échelle des axes.
 	while((k>Xmin)&((OrdX0+Pente*k)<Ymax)&((OrdX0+Pente*k)>Ymin)) k--;
 	let X1=k;
@@ -1570,6 +1574,23 @@ function SVG_Tracer_droite(mon_svg,tailleX,tailleY,Xmin,Xmax,Ymin,Ymax,OrdX0,Pen
 		})
 }
 
+function Latex_Tracer_droite(Xmin,Xmax,Ymin,Ymax,OrdX0,Pente,couleur,nom) {
+	'use strict';
+	let result=``;
+	let k=0;
+	let Pente_r=Pente*(Xmax-Xmin)/(Ymax-Ymin); // Pente adaptée au ratio d'échelle des axes.
+	while((k>Xmin)&((OrdX0+Pente*k)<Ymax)&((OrdX0+Pente*k)>Ymin)) k--;
+	let X1=k;
+	let Y1=OrdX0+Pente*k;
+	let DeltaX=Xmax-Xmin;
+	let DeltaY=Ymax-Ymin;
+	let X2=X1+DeltaX
+	let Y2=Y1+DeltaX*Pente;
+	result+=`\n\t \\tkzDefPoints{${X1}/${Y1}/A,${X2}/${Y2}/B}`
+	result+=`\n\t \\tkzDrawLine[color=${couleur}](A,B)`
+	result+= `\n\t \\tkzLabelLine[color=${couleur}](A,B)`
+	return result;
+}
 /**
  * 
  * @param {string} mon_svg l'Identifiant du SVG
@@ -1581,9 +1602,10 @@ function SVG_Tracer_droite(mon_svg,tailleX,tailleY,Xmin,Xmax,Ymin,Ymax,OrdX0,Pen
  * @param {number} subY coefficient de fractionnement de l'unité en Y
  * @param {number} tailleX Nombre de pixels de largeur pour le SVG (>100 !)
  * @param {number} tailleY Nombre de pixels de hauteur pour le SVG  (>100 !)
+ * @param {boolean} grille Faut-il dessiner une grille ? true si Oui false si Non.
  * @Auteur Jean-Claude Lhote
  */
-function SVG_repere(mon_svg,Xmin,Xmax,Ymin,Ymax,subX,subY,tailleX,tailleY){
+function SVG_repere(mon_svg,Xmin,Xmax,Ymin,Ymax,subX,subY,tailleX,tailleY,grille){
 'use strict';
 				
 			if(Xmin>0) Xmin=0;
@@ -1606,9 +1628,31 @@ function SVG_repere(mon_svg,Xmin,Xmax,Ymin,Ymax,subX,subY,tailleX,tailleY){
 				if (i+Ymin==0)	SVG_label(mon_svg,[[string_nombre(i+Ymin),10-Xmin*Dx,tailleY-15-i*Dy]],0,'black')	;	
 				else SVG_label(mon_svg,[[string_nombre(i+Ymin),10-Xmin*Dx,tailleY-25-i*Dy]],1,'black')	;		
 			}
-			SVG_grille(mon_svg,20,0,tailleX-20,tailleY-20,DeltaX,DeltaY,subX,subY)
+			if (grille) SVG_grille(mon_svg,20,0,tailleX-20,tailleY-20,DeltaX,DeltaY,subX,subY);
 }
-
+/**
+ * Trace un repère en Latex avec une grille
+ * @param {number} Xmin l'abscisse minimum (doit être entier. Si positif, on prendra 0 comme minimum)
+ * @param {number} Xmax l'abscisse maximum (doit être entier > Xmin)
+ * @param {number} Ymin l'ordonnée minimum (doit être entier. Si positif, on prendra 0 comme minimum)
+ * @param {number} Ymax l'ordonnée maximum (doit être entier > Ymin)
+ * @param {number} subX coefficient de fractionnement de l'unité en X
+ * @param {number} subY coefficient de fractionnement de l'unité en Y
+ * @param {boolean} grille Faut-il dessiner une grille ? true si Oui false si Non.
+ * @returns {string} Renvoie le code Latex correspondant
+ * @Auteur Jean-Claude Lhote
+ */
+function Latex_repere(Xmin,Xmax,Ymin,Ymax,subX,subY,grille){
+	'use strict';
+	let result=``;				
+	result +=`\n\t \\tkzInit [xmin=${Xmin},xmax=${Xmax},xstep=1,ymin=${Ymin},ymax=${Ymax},ystep=1]`;
+	result +=`\n\t \\tkzAxeXY`;
+	result +=`\n\t \\tkzClip`;
+	if (grille) result +=`\n\t \\tkzGrid[sub,subxstep=${1/subX},subystep=${1/subY},color=orange,subcolor=bistre](${Xmin},${Ymin})(${Xmax},${Ymax})`;
+	return result;
+}
+	
+	
 
 /**
 * Trace une graduation sur le SVG
@@ -1622,6 +1666,7 @@ function SVG_repere(mon_svg,Xmin,Xmax,Ymin,Ymax,subX,subY,tailleX,tailleY){
 * @Auteur Jean-Claude Lhote
 */
 function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inconnus,points_connus,fraction){
+	'use strict';
 	let arrondir=1+Math.round(Math.log10(pas1))
 	if (arrondir<1) arrondir=1;
 	let longueur_pas1=600/longueur;
@@ -1671,7 +1716,7 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 }
 
 /**
-* Trace une graduation en Latex
+* Trace un axe gradué horizontal avec des points placés dessus en Latex
 * @param origine la première abscisse de la droite ou demi-droite
 * @param longueur le nombre d'intervalles entre l'origine et la dernière graduation
 * @param pas1 le fractionnement de l'unité utilisé : 10 pour 0,1 ; 2 pour 0,5 ...
@@ -1682,6 +1727,7 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 * @Auteur Jean-Claude Lhote
 */
 function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points_connus,fraction){
+	'use strict';
 	let result=`\\begin{tikzpicture}[scale=${zoom}]`
 	let arrondir=1+Math.round(Math.log10(pas1))
  	let distance,valeur,nom
@@ -1710,7 +1756,7 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
 				nom=points_inconnus[i][0];
 				if (Number.isInteger((calcul(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2)))) valeur=tex_nombre(calcul(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2))
 				else valeur=arrondi_virgule(calcul(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2),arrondir);
-				result+=Latex_tracer_point(1+distance,nom,'red',2);
+				result+=Latex_tracer_point(1+distance,y,nom,'red',2);
 				if (points_inconnus[i][3]==true) {
 					if (!fraction) {
 					result+=Latex_label([[valeur,1+distance,-0.1-position]],'red');
