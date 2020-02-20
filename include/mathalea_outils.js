@@ -1576,7 +1576,6 @@ function SVG_Tracer_droite(mon_svg,tailleX,tailleY,Xmin,Xmax,Ymin,Ymax,OrdX0,Pen
 
 function Latex_Tracer_droite(Xmin,Xmax,Ymin,Ymax,OrdX0,Pente,couleur,nom) {
 	'use strict';
-	let result=``;
 	let k=0;
 	let Pente_r=Pente*(Xmax-Xmin)/(Ymax-Ymin); // Pente adaptée au ratio d'échelle des axes.
 	while((k>Xmin)&((OrdX0+Pente*k)<Ymax)&((OrdX0+Pente*k)>Ymin)) k--;
@@ -1586,10 +1585,7 @@ function Latex_Tracer_droite(Xmin,Xmax,Ymin,Ymax,OrdX0,Pente,couleur,nom) {
 	let DeltaY=Ymax-Ymin;
 	let X2=X1+DeltaX
 	let Y2=Y1+DeltaX*Pente;
-	result+=`\n\t \\tkzDefPoints{${X1}/${Y1}/A,${X2}/${Y2}/B}`
-	result+=`\n\t \\tkzDrawLine[color=${couleur}](A,B)`
-	result+= `\n\t \\tkzLabelLine[color=${couleur}](A,B)`
-	return result;
+	return `\n\t \\draw[color=${couleur},thick](${X1},${Y1})--(${X2},${Y2}) node[pos=.1,above] {$${nom}$};`;
 }
 /**
  * 
@@ -1646,10 +1642,10 @@ function Latex_repere(Xmin,Xmax,Ymin,Ymax,subX,subY,grille){
 	'use strict';
 	let result=``;				
 	result +=`\n\t \\tkzInit [xmin=${Xmin},xmax=${Xmax},xstep=1,ymin=${Ymin},ymax=${Ymax},ystep=1]`;
+	if (grille) result +=`\n\t \\tkzGrid[sub,subxstep=${1/subX},subystep=${1/subY},color=orange](${Xmin},${Ymin})(${Xmax},${Ymax})`;
 	result +=`\n\t \\tkzAxeXY`;
 	result +=`\n\t \\tkzClip`;
-	if (grille) result +=`\n\t \\tkzGrid[sub,subxstep=${1/subX},subystep=${1/subY},color=orange,subcolor=bistre](${Xmin},${Ymin})(${Xmax},${Ymax})`;
-	return result;
+		return result;
 }
 	
 	
