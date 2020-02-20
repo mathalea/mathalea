@@ -495,13 +495,41 @@ function fonction_notion_vocabulaire(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1 ; 
 	this.titre = "Fonction : Notion et vocabulaire"; 
-	sortie_html ? this.consigne = "Consigne HTML":  this.consigne = "Consigne LaTeX";
+	sortie_html ? this.consigne = "Lorsqu'un nombre $x$ entre dans une machine mathématique , on retrouve à la sortie un nombre appelé $\\textit{image de x}$.<br>Ces machines sont appelées fonctions.":  this.consigne = "Consigne LaTeX";
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
 	this.nb_questions = 4;
 	//this.correction_detaillee_disponible = true;
 	this.nb_cols_corr = 1;
 	this.sup = 5;
+
+	function SVG_diagramme_fonction(svg,nom,w,h) {
+
+		//let rect = svg.rect(100,50);
+		//rect.animate(2000,1000,'now').move(150, 150)
+
+		 var text = svg.text(function(add) {
+		 	add.tspan( 'x ----'+nom+'---->image de x' )
+		 }).move(0,50);
+
+		 text.animate(5000).ease('-').move(500,50).loop(true);
+		 var rect = svg.rect(100,50).attr({ fill: '#f06' }).move(100,25);
+
+		// var polyline = svg.polyline([[0,45], [0,55], [0,50], [50,50], [150,50], [200,50], [200,50], [190,40], [200,50], [190,60]]);
+		// polyline.fill('none');
+		// polyline.stroke({ color: 'black', width: 2, linecap: 'round', linejoin: 'round' });
+		// polyline.move(50,40);
+		// var rect = svg.rect(100,50).attr({ fill: '#f06' }).move(100,25);
+		// var text = svg.text(nom);
+		// text.move(110,42);
+		// var ant = svg.text('x');
+		// ant.move(110,42);
+		// ant.animate(1000).ease('<>').plot('0 0, 100 100').loop(true,true);
+		//var lin = svg.line(0, 0, 100, 0).move(0, 50);
+		//lin.stroke({ color: 'black', width: 1, linecap: 'round' })
+
+		
+	};
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		let type_de_questions;
@@ -513,16 +541,35 @@ function fonction_notion_vocabulaire(){
 		this.contenu_correction = ''; // Liste de questions corrigées
 
 		//let type_de_questions_disponibles = [1,2,3,4];
-		let type_de_questions_disponibles = [1,2];
+		let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions);
 
 
 		this.contenu = html_consigne(this.consigne)
+		this.contenu += `<div id="consigne" style="width: 100%; display : table "></div>`;
+		if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
+						// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
+						window.SVGExist['consigne'] = setInterval(function() {
+							if ($(`#consigne`).length ) {
+								$(`#consigne`).html("");//Vide le div pour éviter les SVG en doublon
+								let width = '100%', height = 100;
+								const mon_svg_consigne = SVG().addTo(`#consigne`).size(width,height);
+								//mon_svg.viewbox(0, 0, 200, 10);
+
+								SVG_diagramme_fonction(mon_svg_consigne,'machine \n de maths',width,height);
+			
+								//var rect = mon_svg.rect(200, 100).attr({ fill: '#f06' });
+								//texte = mon_svg.text('Enoncé de type 1');
+			
+							clearInterval(SVGExist['consigne']);//Arrête le timer
+							}
+			
+						}, 100); // Vérifie toutes les 100ms
 		if (sortie_html) {
 			for (let i = 0, x, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 				type_de_questions = liste_type_de_questions[i];
 	
-				x = randint(1,9);
+				x = randint(1,9);//augmenter les possibles pour éviter les questions déjà posées?
 				let id_unique = `${i}_${Date.now()}`
 				let id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
 				let id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`
@@ -532,16 +579,20 @@ function fonction_notion_vocabulaire(){
 						//texte = `périmètre d'un carré de côté ${x}`;
 						//texte += `<br>`;	
 						//texte_corr = `périmètre d'un carré de côté ${x}`;
-						this.contenu +='Enoncé de type 1';
-						this.contenu += `<div id="${id_du_div}" style="width: 90%; display : table "></div>`;
+						this.contenu +='La machine f renvoie le périmètre d\'un carré de côté '+x+' cm';
+						this.contenu += `<div id="${id_du_div}" style="width: 100%; display : table "></div>`;
 						if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
 						// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
 						window.SVGExist[id_du_div] = setInterval(function() {
 							if ($(`#${id_du_div}`).length ) {
 								$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
-								const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 100, 100)
+								let width = '100%', height = 100;
+								const mon_svg = SVG().addTo(`#${id_du_div}`).size(width,height);
+								//mon_svg.viewbox(0, 0, 200, 10);
+
+								SVG_diagramme_fonction(mon_svg,'fonction',width,height);
 			
-								var rect = mon_svg.rect(20, 10).attr({ fill: '#f06' });
+								//var rect = mon_svg.rect(200, 100).attr({ fill: '#f06' });
 								//texte = mon_svg.text('Enoncé de type 1');
 			
 							clearInterval(SVGExist[id_du_div]);//Arrête le timer
@@ -549,7 +600,7 @@ function fonction_notion_vocabulaire(){
 			
 						}, 100); // Vérifie toutes les 100ms
 			
-						this.contenu_correction +='Correction Enoncé de type 1';
+						this.contenu_correction +='Correction Enoncé de type 1'+x;
 						this.contenu_correction += `<div id="${id_du_div_corr}" style="width: 90%; display : table "></div>`
 						if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
 						// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
