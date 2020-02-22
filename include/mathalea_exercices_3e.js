@@ -54,21 +54,7 @@ function fonctions_affines(){
 
 				}, 100); // Vérifie toutes les 100ms
 
-				let id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`
-				this.contenu_correction += `<div id="${id_du_div_corr}" style="width: 90%; height: 600px; display : table "></div>`
-				if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
-				// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
-				window.SVGExist[id_du_div_corr] = setInterval(function() {
-					if ($(`#${id_du_div_corr}`).length ) {
-						$(`#${id_du_div_corr}`).html("");//Vide le div pour éviter les SVG en doublon
-						const mon_svg_corr = SVG().addTo(`#${id_du_div_corr}`).viewbox(0, 0, 600, 600)
-						this.contenu_correction += `<div id="${id_du_div_corr}" style="width: 90%; height: 600px; display : table "></div>`
-						SVG_repere(mon_svg_corr,-5,5,-4,6 );
-
-						clearInterval(SVGExist[id_du_div_corr]);//Arrête le timer
-					}
-
-				}, 100); // Vérifie toutes les 100ms
+		
 		
 		}
 		else { //sortie Latex 
