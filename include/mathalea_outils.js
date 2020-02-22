@@ -1681,7 +1681,7 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 						SVG_tracer_droite_fleche(mon_svg,100+distance,80+15*position,100+distance,55,'#f15929')
 					}
 					else { //affichage fractionnaire
-					 SVG_fraction(mon_svg,(origine+points_inconnus[i][1])*pas2+points_inconnus[i][2],pas2,100+distance,115,'#f15929')
+					 SVG_fraction(mon_svg,(origine+points_inconnus[i][1])*pas2+points_inconnus[i][2],pas2,100+distance,115+15*position,'#f15929')
 					 SVG_tracer_droite_fleche(mon_svg,100+distance,80+15*position,100+distance,55,'#f15929')
 					}
 					position=1-position
