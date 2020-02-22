@@ -351,9 +351,9 @@ function ecriture_nombre_relatif(a) {
 function ecriture_algebrique(a) { 
 	let result = '';
 	if (a>0) {
-		result = '+'+a;
+		result = '+'+tex_nombrec(a);
 	}else {
-		result = a;
+		result = tex_nombrec(a);
 	}
 	return result;
 };
@@ -535,9 +535,9 @@ function reduire_ax_plus_b(a,b) {
 	let result=``
 	if (a!=0) if (a==1) result='x'
 						else if (a==-1) result='-x'
-										else result=`${a}x`
+										else result=`${tex_nombrec(a)}x`
 	if (b!=0) if (a!=0) result+=`${ecriture_algebrique(b)}`
-						else result=b.toString()
+						else result=tex_nombrec(b)
 	else if (a==0) result='0'
 	return result
 }

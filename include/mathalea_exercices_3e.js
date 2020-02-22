@@ -48,7 +48,7 @@ function fonctions_affines(){
 			SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[0][0],liste_droites[0][1],'blue','d1');
 			SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[1][0],liste_droites[1][1],'red','d2');
 			SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[2][0],liste_droites[2][1],'green','d3');
-			SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[3][0],liste_droites[3][1],'orange','d4');
+			SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[3][0],liste_droites[3][1],'brown','d4');
 			SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[4][0],liste_droites[4][1],'purple','d5');
 			clearInterval(SVGExist[id_du_div]);//Arrête le timer
 			}
@@ -59,12 +59,12 @@ function fonctions_affines(){
 
 	}
 	else { //sortie Latex 
-		let texte =`\n\t \\begin{tikzpicture}`;
+		let texte =`\\begin{tikzpicture}`;
 		texte += Latex_repere(-5,5,-5,5,2,2,true);
 		texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[0][0],liste_droites[0][1],'blue','d_1');
 		texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[1][0],liste_droites[1][1],'red','d_2');
 		texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[2][0],liste_droites[2][1],'green','d_3');
-		texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[3][0],liste_droites[3][1],'orange','d_4');
+		texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[3][0],liste_droites[3][1],'brown','d_4');
 		texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[4][0],liste_droites[4][1],'purple','d_5');
 		texte +=`\n\t \\end{tikzpicture}`;
 		this.liste_questions.push(texte);
@@ -74,7 +74,7 @@ function fonctions_affines(){
 	this.liste_corrections.push(`La droite $d_${i+1}$ passe par le point de coordonnées (0;${liste_droites[i][0]}) et son coefficient directeur est ${liste_droites[i][1]}. Elle représente la fonction $f_${i+1}(x)=${reduire_ax_plus_b(liste_droites[i][1],liste_droites[i][0])}$.`)
 	}
 		
-		liste_de_question_to_contenu(this); 
+		liste_de_question_to_contenu_sans_numero(this); 
 
 	}
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',3,"1 : Coefficient directeur entier\n2 : Coefficient directeur 'en demis'\n3 : Coefficient directeur 'en quarts'"];
