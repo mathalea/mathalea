@@ -578,12 +578,11 @@ function fonction_notion_vocabulaire(){
 	this.nb_cols_corr = 1;
 	this.sup = 5;
 
-	if (sortie_html) {
-		
+	if (sortie_html) {		
 		let id_unique = `_consigne_${Date.now()}`
 		let id_du_div = `div_svg${id_unique}`;
 		//this.consigne += `<div id="consigne" style="width: 100%; height: 500px; display : table "></div>`;
-		this.consigne += `<div id="${id_du_div}" style="width: 90%; height: 150px; display : table "></div>`;
+		this.consigne += `<div id="${id_du_div}" style="width: 100%; height: 150px; display : table "></div>`;
 		if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
 		// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
 		window.SVGExist[id_du_div] = setInterval(function() {
@@ -599,6 +598,7 @@ function fonction_notion_vocabulaire(){
 
 				// on crée l'objet pour l'antécédent et on l'anime
 				let ant = mon_svg.text('antécédent');
+				let w_ant = ant.length();
 				ant.move(0,h/2);
 				// on crée l'objet pour l'image
 				let im = mon_svg.text('image');
@@ -608,17 +608,25 @@ function fonction_notion_vocabulaire(){
 				ant.timeline(timeline);
 				im.timeline(timeline);
 
-				ant.animate(8000,0,'absolute').dmove(w/2,0).loop();
+				ant.animate(8000,0,'absolute').dmove(w/2-w_ant/2,0).loop();
 				im.animate(8000,4000,'absolute').dmove(w,0).loop();
 
+				// on crée des variables pour le texte à afficher sur la machine afin de récupérer leur taille
+				// pour ajuster celle de la machine.
+				let text_1 = mon_svg.text('mathématique');				
+				let w_t_1 = text_1.length();
+				
 				// on crée l'objet pour la machine mathématique et on le place
-				let machine = mon_svg.rect(w/4,h/4).attr({ fill: '#f06' });
-				machine.move(w/2-w/8,h/2-h/8);
+				let machine = mon_svg.rect(w/3+w_t_1/2,h/2).attr({ stroke: '#f15929', 'stroke-width': 3, fill : 'white' });
+				machine.move(w/2-w/6-w_t_1/4,h/2-h/4);
 
 				// on crée le texte à écrire sur la machine et on le place
-				let nom_machine = mon_svg.text('machine qui triple les nombres');
-				let w_n_m = nom_machine.length();
-				nom_machine.move(w/2-w_n_m/2,h/2);
+				let nom_machine_1 = mon_svg.text('machine');
+				let nom_machine_2 = mon_svg.text('mathématique');
+				let w_n_m_1 = nom_machine_1.length();
+				let w_n_m_2 = nom_machine_2.length();
+				nom_machine_1.move(w/2-w_n_m_1/2,h/2-15);
+				nom_machine_2.move(w/2-w_n_m_2/2,h/2+5);
 
 			
 			clearInterval(SVGExist[id_du_div]);//Arrête le timer
