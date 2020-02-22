@@ -83,6 +83,8 @@ var liste_des_exercices_disponibles = {
 		'5M10' : Exercice_angles_triangles,
 		'5R10' : Lire_abscisse_relative,
 		'5R10-2' : Placer_points_sur_axe_relatifs,
+		'5R12-1' : reperage_point_du_quart_de_plan,
+		'5R12-2' : reperage_point_du_plan,
 		'5R20': Exercice_additions_relatifs,
 		'5R20_bis': Exercice_additions_relatifs_a_trou,
 		'5R20_ter': Exercice_additions_de_5_relatifs, //on pourrait le corriger avec regroupement des termes de même signe
@@ -5110,6 +5112,12 @@ function HTML_personnalise() {
 
 
 // Exercices paramétré pour correspondre au référentiel
+
+function reperage_point_du_quart_de_plan(){
+	this.quart_de_plan=true;
+	reperage_point_du_plan.call(this)	;
+
+}
 function fonctions_lineaires(){
 	fonctions_affines.call(this);
 	this.titre="Déterminer une fonction linéaire";

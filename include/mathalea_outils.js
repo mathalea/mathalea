@@ -1280,12 +1280,18 @@ function MG32_tracer_toutes_les_figures() {
  * @param {number} DeltaY Nombre entier de graduations à faire sur la longueur de l'axe. 
  * @Auteur Jean-Claude Lhote
  */
-function SVG_Axe_vertical (mon_svg,start,end,absO,DeltaY){
+function SVG_Axe_vertical (mon_svg,start,end,absO,DeltaY,subY){
 	let droite = mon_svg.line(absO,start+2, absO, end)
 	droite.stroke({ color: 'black', width: 2, linecap: 'round' })
-	for (let i=0;i<DeltaY;i++){
-		let line = mon_svg.line(absO-1,(DeltaY-i)*((end-start)/DeltaY), absO+1, (DeltaY-i)*((end-start)/DeltaY))
+	for (let i=1;i<=DeltaY;i++){
+		let line = mon_svg.line(absO-2,(DeltaY-i)*((end-start)/DeltaY), absO+2, (DeltaY-i)*((end-start)/DeltaY))
 		line.stroke({ color: 'black', width: 2, linecap: 'round' })
+		if (subY!=1) {
+			for (let k=1;k<subY;k++) {
+				let line = mon_svg.line(absO-2,((end-start)/DeltaY)*(DeltaY-i+k/subY),absO+2,((end-start)/DeltaY)*(DeltaY-i+k/subY))
+				line.stroke({ color: 'black', width: 1, linecap: 'round' })
+			}
+		}
 	}
 }
 /**
@@ -1305,7 +1311,7 @@ function SVG_Axe_horizontal (mon_svg,start,end,ordO,DeltaX,subX){
 			line.stroke({ color: 'black', width: 2, linecap: 'round' })
 			if (subX!=1) {
 				for (let k=1;k<subX;k++) {
-					let line = mon_svg.line(start+(DeltaX-i+k/subX)*((end-start)/DeltaX),ordO-1,start+(DeltaX-i+k/subX)*((end-start)/DeltaX), ordO+1)
+					let line = mon_svg.line(start+(DeltaX-i+k/subX)*((end-start)/DeltaX),ordO-2,start+(DeltaX-i+k/subX)*((end-start)/DeltaX), ordO+2)
 					line.stroke({ color: 'black', width: 1, linecap: 'round' })
 				}
 			}
@@ -1332,7 +1338,6 @@ function SVG_grille (mon_svg,absO,ordO,tailleX,tailleY,DeltaX,DeltaY,subX,subY){
 			point_grille.stroke({ color: 'grey', width: 1, linecap: 'round' });
 			point_grille.fill({ color: 'grey'});
 			let k,l;
-			console.log(subX,subY)
 		if (subX!=1) {
 			for (k=0;k<subX;k++) {
 				for (let l=0;l<subY;l++) {
@@ -1447,7 +1452,7 @@ function SVG_tracer_point(mon_svg,x,y,nom,couleur) {
 	//ecrit le nom
 	text.font({
 		family:   'Helvetica'
-		, size:     20
+		, size:     16
 		, anchor:   'middle'
 		, leading : -1
 		})

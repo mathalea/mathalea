@@ -1,3 +1,10 @@
+
+
+
+/**
+ * Trace 5 droites et demande l'expression de la fonction affine ou linéaire
+ * @Auteur Jean-Claude Lhote
+ */
 function fonctions_affines(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -22,6 +29,7 @@ function fonctions_affines(){
 	let liste_droites=[];
 	let OrdX0;
 	let Pente=[];
+	let w=600,h=600;
 	Pente.push(randint(-2*k,2*k));
 	Pente.push(randint(-2*k,2*k,[Pente[0]]));
 	Pente.push(randint(-2*k,2*k,[Pente[0],Pente[1]]));
@@ -36,20 +44,20 @@ function fonctions_affines(){
 	if (sortie_html) {
 		let id_unique = `${Date.now()}`
 		let id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
-		this.consigne = `<div id="${id_du_div}" style="width: 90%; height: 600px; display : table "></div>`;
+		this.consigne = `<div id="${id_du_div}" style="width: 90%; height: ${h}px; display : table "></div>`;
 		if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
 		// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
 		window.SVGExist[id_du_div] = setInterval(function() {
 			if ($(`#${id_du_div}`).length ) {
 				$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
-				const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 600, 600)
+				const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h)
 
-			SVG_repere(mon_svg,-5,5,-5,5,k,k,600,600,true );
-			SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[0][0],liste_droites[0][1],'blue','d1');
-			SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[1][0],liste_droites[1][1],'red','d2');
-			SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[2][0],liste_droites[2][1],'green','d3');
-			SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[3][0],liste_droites[3][1],'brown','d4');
-			SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[4][0],liste_droites[4][1],'purple','d5');
+			SVG_repere(mon_svg,-5,5,-5,5,k,k,w,h,true );
+			SVG_Tracer_droite(mon_svg,w,h,-5,5,-5,5,liste_droites[0][0],liste_droites[0][1],'blue','d1');
+			SVG_Tracer_droite(mon_svg,w,h,-5,5,-5,5,liste_droites[1][0],liste_droites[1][1],'red','d2');
+			SVG_Tracer_droite(mon_svg,w,h,-5,5,-5,5,liste_droites[2][0],liste_droites[2][1],'green','d3');
+			SVG_Tracer_droite(mon_svg,w,h,-5,5,-5,5,liste_droites[3][0],liste_droites[3][1],'brown','d4');
+			SVG_Tracer_droite(mon_svg,w,h,-5,5,-5,5,liste_droites[4][0],liste_droites[4][1],'purple','d5');
 			clearInterval(SVGExist[id_du_div]);//Arrête le timer
 			}
 
