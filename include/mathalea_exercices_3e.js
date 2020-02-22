@@ -2,7 +2,7 @@ function fonctions_affines(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Déterminer une fonction affine";
-	this.consigne = "Donner l'expression de la fonction représentée";
+	this.consigne = "Donner l'expression des fonctions représentées";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
@@ -12,63 +12,70 @@ function fonctions_affines(){
 	this.sup=1;
 	this.lineaire=false;
 
+	
 	this.nouvelle_version = function(numero_de_l_exercice){ // numero_de_l_exercice est 0 pour l'exercice 1
-		let k=Math.pow(2,parseInt(this.sup)-1);
-		this.liste_questions=[];
-		this.liste_corrections=[];
-		this.contenu = ''; // Liste de questions
-		this.contenu_correction = ''; // Liste de questions corrigées
-		this.contenu = html_consigne(this.consigne)
-		let liste_droites=[];
-		let OrdX0;
-		let Pente=[];
-		Pente.push(randint(-2*k,2*k));
-		Pente.push(randint(-2*k,2*k,[Pente[0]]));
-		Pente.push(randint(-2*k,2*k,[Pente[0],Pente[1]]));
-		Pente.push(randint(-2*k,2*k,[Pente[0],Pente[1],Pente[2]]));
-		Pente.push(randint(-2*k,2*k,[Pente[0],Pente[1],Pente[2],Pente[3]]));
-		for (let i=0;i<5;i++) {
-			if (this.lineaire) OrdX0=0;
-			else OrdX0= randint(-1+Pente[i]/k,1+Pente[i]/k)
-			liste_droites.push([OrdX0,Pente[i]/k])
-		}
-		if (sortie_html) {
-				let id_unique = `${i}_${Date.now()}`
-				let id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
-				this.contenu += `<div id="${id_du_div}" style="width: 90%; height: 600px; display : table "></div>`;
-				if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
-				// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
-				window.SVGExist[id_du_div] = setInterval(function() {
-					if ($(`#${id_du_div}`).length ) {
-						$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
-						const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 600, 600)
+	let k=Math.pow(2,parseInt(this.sup)-1);
+	this.liste_questions=[];
+	this.liste_corrections=[];
+	this.contenu = ''; // Liste de questions
+	this.contenu_correction = ''; // Liste de questions corrigées
+	let liste_droites=[];
+	let OrdX0;
+	let Pente=[];
+	Pente.push(randint(-2*k,2*k));
+	Pente.push(randint(-2*k,2*k,[Pente[0]]));
+	Pente.push(randint(-2*k,2*k,[Pente[0],Pente[1]]));
+	Pente.push(randint(-2*k,2*k,[Pente[0],Pente[1],Pente[2]]));
+	Pente.push(randint(-2*k,2*k,[Pente[0],Pente[1],Pente[2],Pente[3]]));
+	for (let i=0;i<5;i++) {
+		if (this.lineaire) OrdX0=0;
+		else OrdX0= randint(-1+Pente[i]/k,1+Pente[i]/k)
+		liste_droites.push([OrdX0,Pente[i]/k])
+	}
 
-					SVG_repere(mon_svg,-5,5,-5,5,2,2,600,600,true );
-					SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[0][0],liste_droites[0][1],'blue','d1');
-					SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[1][0],liste_droites[1][1],'red','d2');
-					SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[2][0],liste_droites[2][1],'green','d3');
-					SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[3][0],liste_droites[3][1],'orange','d4');
-					SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[4][0],liste_droites[4][1],'purple','d5');
-					clearInterval(SVGExist[id_du_div]);//Arrête le timer
-					}
+	if (sortie_html) {
+		let id_unique = `${i}_${Date.now()}`
+		let id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
+		this.consigne += `<div id="${id_du_div}" style="width: 90%; height: 600px; display : table "></div>`;
+		if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
+		// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
+		window.SVGExist[id_du_div] = setInterval(function() {
+			if ($(`#${id_du_div}`).length ) {
+				$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
+				const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 600, 600)
 
-				}, 100); // Vérifie toutes les 100ms
+			SVG_repere(mon_svg,-5,5,-5,5,2,2,600,600,true );
+			SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[0][0],liste_droites[0][1],'blue','d1');
+			SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[1][0],liste_droites[1][1],'red','d2');
+			SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[2][0],liste_droites[2][1],'green','d3');
+			SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[3][0],liste_droites[3][1],'orange','d4');
+			SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[4][0],liste_droites[4][1],'purple','d5');
+			clearInterval(SVGExist[id_du_div]);//Arrête le timer
+			}
 
+		}, 100); // Vérifie toutes les 100ms
+
+
+
+	}
+	else { //sortie Latex 
+		let texte =`\n\t \\begin{tikzpicture}`;
+		texte += Latex_repere(-5,5,-5,5,2,2,true);
+		texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[0][0],liste_droites[0][1],'blue','d_1');
+		texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[1][0],liste_droites[1][1],'red','d_2');
+		texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[2][0],liste_droites[2][1],'green','d_3');
+		texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[3][0],liste_droites[3][1],'orange','d_4');
+		texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[4][0],liste_droites[4][1],'purple','d_5');
+		texte +=`\n\t \\end{tikzpicture}`;
+		this.liste_questions.push(texte);
+	}
+	for (i=0;i<5;i++) {
+	this.liste_questions.push(`Déterminer l'expression de la fonction $f_${i+1}$ représentée par la droite $d_${i+1}$.`)
+	this.liste_corrections.push(`La droite $d_${i+1}$ passe par le point de coordonnées (0;${liste_droites[i][0]}) et son coefficient directeur est ${liste_droites[i][1]}. Elle représente la fonction $f_${i+1}(x)=${reduire_ax_plus_b(liste_droites[i][1],liste_droites[i][0])}$.`)
+	}
 		
-		
-		}
-		else { //sortie Latex 
-			let texte =`\n\t \\begin{tikzpicture}`;
-			texte += Latex_repere(-5,5,-5,5,2,2,true);
-			texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[0][0],liste_droites[0][1],'blue','d_1');
-			texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[1][0],liste_droites[1][1],'red','d_2');
-			texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[2][0],liste_droites[2][1],'green','d_3');
-			texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[3][0],liste_droites[3][1],'orange','d_4');
-			texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[4][0],liste_droites[4][1],'purple','d_5');
-			texte +=`\n\t \\end{tikzpicture}`;
-			this.liste_questions.push(texte);
-		}
-		if (!sortie_html) liste_de_question_to_contenu(this); 
+		liste_de_question_to_contenu(this); 
+
 	}
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',3,"1 : Coefficient directeur entier\n2 : Coefficient directeur 'en demis'\n3 : Coefficient directeur 'en quarts'"];
 }

@@ -531,6 +531,16 @@ else {
 }
 }
 
+function reduire_ax_plus_b(a,b) {
+	let result=``
+	if (a!=0) if (a==1) result='x'
+						else if (a==-1) result='-x'
+										else result=`${a}x`
+	if (b!=0) if (a!=0) result+=`${ecriture_algebrique(b)}`
+						else result=b.toString()
+	else if (a==0) result='0'
+	return result
+}
 /**
 *
 * Donne la liste des facteurs premiers d'un nombre
