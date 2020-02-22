@@ -1356,35 +1356,7 @@ function SVG_graduation(mon_svg,origine,pas,derniere_graduation,taille=10,y=50,c
 		line.stroke({ color: couleur, width: width, linecap: 'round' })
 	}
 }
-/**
- * Trace une série de graduations version Latex pour la fonction Latex_reperage_sur_un_axe
- * @param {number} pas intervalle entre deux graduations
- * @param {number} taille hauteur des graduations
- * @param {number} y ordonnée de la graduation (centre)
- * @param {string} couleur couleur de la graduation
- * @param {number} width épaisseur de la graduation
- * @Auteur Jean-Claude Lhote
- * @returns {string} La série de commandes Latex Tikz.
- */
-function Latex_graduation(pas,taille=1,y=0,couleur,width) {
-	switch (pas) {
-	case 0.1 :
-		 return `\n\t \\foreach \\x in {1,1.1,...,7.4} { \\draw [line width=${width}pt,color=${couleur}] (\\x,${calcul(y-0.1*taille)})--(\\x,${calcul(y+0.1*taille)});}`
-		 break;
-	 case 0.01 :
-		return `\n\t \\foreach \\x in {1,1.1,...,7.4} { \\draw [line width=${width}pt,color=${couleur}] (\\x,${calcul(y-0.1*taille)})--(\\x,${calcul(y+0.1*taille)});}`
-		break;
-	case 0.001 :
-		return `\n\t \\foreach \\x in {1,1.1,...,7.4} { \\draw [line width=${width}pt,color=${couleur}] (\\x,${calcul(y-0.1*taille)})--(\\x,${calcul(y+0.1*taille)});}`
-		break;
-	case 1 :
-		 return `\n\t \\foreach \\x in {1,2,...,7} { \\draw [line width=${width}pt,color=${couleur}] (\\x,${calcul(y-0.1*taille)})--(\\x,${calcul(y+0.1*taille)});}`
-		 break;
-	default :  
-		return `\n\t \\foreach \\x in {1,${calcul(1+1/pas,3)},...,7.4} { \\draw [line width=${width}pt,color=${couleur}] (\\x,${calcul(y-0.1*taille)})--(\\x,${calcul(y+0.1*taille)});}`
-		break;
-	}
-}
+
 /**
  * Ecris des nombres ou des textes à une position donnée dans un SVG
  * @param {array} liste_d_abscisses [[nombre à écrire,abscisse,ordonnée]]
@@ -1437,23 +1409,7 @@ function SVG_fraction(mon_svg,num,den,x,y,couleur) {
 		, leading : 0
 	})
 }
-/**
- * Ecris des nombres ou des textes à une position donnée version Latex -> String
- * @param {array} liste_d_abscisses [[nombre à écrire,abscisse,ordonnée]]
- * @param {string} couleur couleur du nombre
- * @returns {string}
- * @Auteur Jean-Claude Lhote
- */
-function Latex_label(liste_d_abscisses,couleur) {
-	'use strict';
-	let code=''
-	for (let i = 0,text; i < liste_d_abscisses.length; i++) {
-		if (typeof liste_d_abscisses[i][0]== 'number') text = (liste_d_abscisses[i][0]).toString();
-		else text = liste_d_abscisses[i][0];
-		code +=`\n\t \\draw [color=${couleur}] (${liste_d_abscisses[i][1]},${liste_d_abscisses[i][2]}) node{$${text}$};`;
-	}
-	return code;
-}
+
 /**
  * 
  * @param {any} mon_svg L'id du SVG
@@ -1483,20 +1439,7 @@ function SVG_tracer_point(mon_svg,x,y,nom,couleur) {
 		})
 }
 
-/**
- * 
- * @param {number} x 
- * @param {string} nom 
- * @param {string} couleur 
- * @param {number} width 
- * @Auteur Jean-Claude Lhote
- */
-function Latex_tracer_point(x,y,nom,couleur,width) {
-	let code =`\n\t \\draw [line width=${width}pt,color=${couleur}] (${calcul(x-0.05)},${calcul(y-0.05)}) -- (${calcul(x+0.05)},${calcul(y+0.05)});`;
-	code +=`\n\t \\draw[line width=${width}pt,color=${couleur}] (${calcul(x-0.05)},${calcul(y+0.05)}) -- (${calcul(x+0.05)},${calcul(y-0.05)}); `;
-	code +=`\n\t \\draw [color=${couleur}] (${x},${y+0.2}) node{$${nom}$};`;
-	return code;
-}
+
 /**
  * Trace une flèche dans le SVG pour une demi-droite graduée
  * @param {any} mon_svg l'identifiant du SVG
@@ -1520,6 +1463,7 @@ function SVG_tracer_fleche(mon_svg,x,y) {
  * @param {string} mon_svg l'identifiant du SVG
  * @param {number} x l'abscisse de la pointe de la flèche
  * @param {number} y l'ordonnée de la pointe de la flèche
+ * @Auteur Jean-Claude Lhote
  */
 function SVG_tracer_flecheV(mon_svg,x,y) {
 	//creer un groupe pour la fleche
@@ -1545,6 +1489,7 @@ function SVG_tracer_flecheV(mon_svg,x,y) {
  * @param {number} Pente la Pente de la droite à tracer.
  * @param {string} couleur la couleur de la droite à tracer
  * @param {string} nom le nom de la droite à tracer
+ * @Auteur Jean-Claude Lhote
  */
 function SVG_Tracer_droite(mon_svg,tailleX,tailleY,Xmin,Xmax,Ymin,Ymax,OrdX0,Pente,couleur,nom){
 	'use strict';
@@ -1562,9 +1507,9 @@ function SVG_Tracer_droite(mon_svg,tailleX,tailleY,Xmin,Xmax,Ymin,Ymax,OrdX0,Pen
 	let droite = mon_svg.line(X0,Y0,X0+tailleX,Y0-tailleX*Pente_r)
 	droite.stroke({ color: couleur, width: 2, linecap: 'round' })
 	let Ynom;
-	if (Y0>tailleY/2) Ynom=-1
-	else Ynom=2 
-	let text = mon_svg.text(nom).attr({x: X0+2, y: Y0-5})
+	if (Y0>tailleY/2) Ynom=-Math.round(Pente)
+	else Ynom=-Math.round(Pente)
+	let text = mon_svg.text(nom).attr({x: X0+20, y: Y0-20*Pente_r})
 	//ecrit le nom
 	text.font({fill: couleur,
 		family:   'Helvetica'
@@ -1573,6 +1518,19 @@ function SVG_Tracer_droite(mon_svg,tailleX,tailleY,Xmin,Xmax,Ymin,Ymax,OrdX0,Pen
 		, leading : Ynom
 		})
 }
+/**
+ * 
+ * @param {number} Xmin l'abscisse minimum du repère
+ * @param {number} Xmax  l'abscisse maximum du repère
+ * @param {number} Ymin l'ordonnée minimum du repère
+ * @param {number} Ymax l'ordonnée maximum du repère
+ * @param {number} OrdX0 l'ordonnée à l'origine de la droite à tracer
+ * @param {number} Pente le coefficient directeur de la droite à tracer
+ * @param {string} couleur la couleur de la droite à tracer
+ * @param {string} nom le nom de la droite
+ * @returns {string} Le code Latex à intégrer dans un environnement {tikzpicture}
+ * @Auteur Jean-Claude Lhote et Rémi Angot
+ */
 
 function Latex_Tracer_droite(Xmin,Xmax,Ymin,Ymax,OrdX0,Pente,couleur,nom) {
 	'use strict';
@@ -1587,6 +1545,7 @@ function Latex_Tracer_droite(Xmin,Xmax,Ymin,Ymax,OrdX0,Pente,couleur,nom) {
 	let Y2=Y1+DeltaX*Pente;
 	return `\n\t \\draw[color=${couleur},thick](${X1},${Y1})--(${X2},${Y2}) node[pos=.1,above] {$${nom}$};`;
 }
+
 /**
  * 
  * @param {string} mon_svg l'Identifiant du SVG
@@ -1675,7 +1634,7 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
 			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 800, 150)
 			// Droite 
-			let droite = mon_svg.line(100, 50, 750, 50)
+			let droite = mon_svg.line(100, 50, 750, 50),taille,y,color,width
 			droite.stroke({ color: 'black', width: 2, linecap: 'round' })
 			// Graduation secondaire
 			SVG_graduation(mon_svg,100,longueur_pas2,750,taille=5,y=50,color='black',width=2)
@@ -1714,7 +1673,6 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 /**
 * Trace un axe gradué horizontal avec des points placés dessus en Latex
 * @param origine la première abscisse de la droite ou demi-droite
-* @param longueur le nombre d'intervalles entre l'origine et la dernière graduation
 * @param pas1 le fractionnement de l'unité utilisé : 10 pour 0,1 ; 2 pour 0,5 ...
 * @param pas2 Idem pas1 pour la petite graduation
 * @param points_inconnus tableau tableau [Nom,nb_pas1,nb_pas2,affiche_ou_pas]
@@ -1724,47 +1682,29 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 */
 function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points_connus,fraction){
 	'use strict';
-	let result=`\\begin{tikzpicture}[scale=${zoom}]`
-	let arrondir=1+Math.round(Math.log10(pas1))
- 	let distance,valeur,nom
+	let result=`\\begin{tikzpicture}[scale=${zoom}]` ;
+ 	let valeur
 
-			// Droite 
-			// Graduation secondaire
-			result+=Latex_graduation(pas2,taille=0.5,y=0.2,'black',width=0.8);
-			// Graduation principale
-			result+=Latex_graduation(1,taille=0.8,y=0.2,'black',width=1.5);
-			// Droite et flèche
-			result+=`\n\t \\draw [->,>=stealth,line width=1.2pt] (1,0.2)--(7.5,0.2);`;
-			// Nombres visibles
-			if (typeof origine =='number') 
-				if (Number.isInteger(origine)) result +=Latex_label([[tex_nombre(origine),1,0.03]],'black');
-				else result+=Latex_label([[arrondi_virgule(origine),1,0.03]],'black');
-			for (i=0;i<points_connus.length;i++) {
-				if (Number.isInteger(points_connus[i][0])) valeur=tex_nombre(points_connus[i][0]);
-				else valeur=arrondi_virgule(points_connus[i][0],arrondir-1);
-				distance=calcul(1+points_connus[i][1]+points_connus[i][2]/pas2);
-				result+=Latex_label([[valeur,distance,0.03]],'black');
-			}
+	result+=`\n\t \\tkzInit[xmin=${origine},xmax=${calcul(origine+7/pas1)},ymin=-0.5,ymax=0.5,xstep=${calcul(1/pas1)}]`
+
+	if (origine==0) result +=`\n\t \\tkzDrawX`
+	else result+=`\n\t \\tkzDrawX[left space=1]`
+	result+=`\\tikzset{numline/.style={label={},right space=0.2,left space=0.2,	line width=1pt,	tickup=5pt,	tickdn=0pt}}`
+	result+=`\n\t \\foreach \\x in {0,0.1,...,7}`
+	result+=`\n\t {\\draw (\\x,-0.05)--(\\x,0.05);}`
+	result+=`\n\t \\tkzLabelX[below,inner sep = 5pt,node font=\\scriptsize]`
 			//Points inconnus
-			let position=0.1;
-			for (i=0;i<points_inconnus.length;i++){
-				distance=calcul(points_inconnus[i][1]+points_inconnus[i][2]/pas2,3);
-				nom=points_inconnus[i][0];
-				if (Number.isInteger((calcul(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2)))) valeur=tex_nombre(calcul(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2))
-				else valeur=arrondi_virgule(calcul(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2),arrondir);
-				result+=Latex_tracer_point(1+distance,y,nom,'red',2);
-				if (points_inconnus[i][3]==true) {
-					if (!fraction) {
-					result+=Latex_label([[valeur,1+distance,-0.1-position]],'red');
-					}
-					else {
-						result+=Latex_label([[`${tex_fraction((origine+points_inconnus[i][1])*pas2+points_inconnus[i][2],pas2)}`,1+distance,-0.1-position]],'red');
-					}
-					position=0.1-position;
-				}
-			}
-			result +=`\n\t \\end{tikzpicture}`;
-			return result;
+			let position=6;
+	for (i=0;i<points_inconnus.length;i++){
+		valeur=calcul(origine+points_inconnus[i][1]/pas1+calcul(points_inconnus[i][2]/pas1/pas2))
+		result+=`\n\t \\tkzDefPoint(${valeur},0){A}`
+		result +=`\n\t \\tkzDrawPoint[shape=cross out,color=orange,size=6](A)`
+		result +=`\n\t \\tkzLabelPoint[above](A){$${points_inconnus[i][0]}$}`
+		if (points_inconnus[i][3]) 	result +=`\n\t \\tkzLabelPoint[color = orange,below=${15+position}pt,inner sep = 5pt,font=\\scriptsize](A){$${tex_nombrec(valeur)}$}`	
+		position=6-position;
+	}
+	result +=`\n\t \\end{tikzpicture}`;
+	return result;
  
  }
 

@@ -21,12 +21,16 @@ function fonctions_affines(){
 		this.contenu = html_consigne(this.consigne)
 		let liste_droites=[];
 		let OrdX0;
-		let Pente;
+		let Pente=[];
+		Pente.push(randint(-2*k,2*k));
+		Pente.push(randint(-2*k,2*k,[Pente[0]]));
+		Pente.push(randint(-2*k,2*k,[Pente[0],Pente[1]]));
+		Pente.push(randint(-2*k,2*k,[Pente[0],Pente[1],Pente[2]]));
+		Pente.push(randint(-2*k,2*k,[Pente[0],Pente[1],Pente[2],Pente[3]]));
 		for (let i=0;i<5;i++) {
-			Pente=randint(-2*k,2*k)/k;
 			if (this.lineaire) OrdX0=0;
-			else OrdX0= randint(-3+Pente,3+Pente)
-			liste_droites.push([OrdX0,Pente])
+			else OrdX0= randint(-1+Pente[i]/k,1+Pente[i]/k)
+			liste_droites.push([OrdX0,Pente[i]/k])
 		}
 		if (sortie_html) {
 				let id_unique = `${i}_${Date.now()}`
@@ -44,7 +48,7 @@ function fonctions_affines(){
 					SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[1][0],liste_droites[1][1],'red','d2');
 					SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[2][0],liste_droites[2][1],'green','d3');
 					SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[3][0],liste_droites[3][1],'orange','d4');
-					SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[4][0],liste_droites[4][1],'pink','d5');
+					SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[4][0],liste_droites[4][1],'purple','d5');
 					clearInterval(SVGExist[id_du_div]);//Arrête le timer
 					}
 
@@ -74,7 +78,7 @@ function fonctions_affines(){
 			texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[1][0],liste_droites[1][1],'red','d_2');
 			texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[2][0],liste_droites[2][1],'green','d_3');
 			texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[3][0],liste_droites[3][1],'orange','d_4');
-			texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[4][0],liste_droites[4][1],'pink','d_5');
+			texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[4][0],liste_droites[4][1],'purple','d_5');
 			texte +=`\n\t \\end{tikzpicture}`;
 			this.liste_questions.push(texte);
 		}
