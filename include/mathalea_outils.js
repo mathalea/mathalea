@@ -1331,18 +1331,22 @@ function SVG_grille (mon_svg,absO,ordO,tailleX,tailleY,DeltaX,DeltaY,subX,subY){
 			let point_grille = mon_svg.rect(2,2).move(absO+i*(tailleX/DeltaX)-1,ordO+j*(tailleY/DeltaY)-1);
 			point_grille.stroke({ color: 'grey', width: 1, linecap: 'round' });
 			point_grille.fill({ color: 'grey'});
-			if (subX!=1) {
-				for (let k=0;k<subX;k++) {
-					for (let l=0;l<subY;l++) {
-						point_grille = mon_svg.rect(1,1).move(absO+i*(tailleX/DeltaX)+k*(tailleX/DeltaX/subX),ordO+j*(tailleY/DeltaY)+l*(tailleY/DeltaY/subY));
-						point_grille.stroke({ color: 'grey', width: 0.1, linecap: 'round' });
-					}
+			let k,l;
+			console.log(subX,subY)
+		if (subX!=1) {
+			for (k=0;k<subX;k++) {
+				for (let l=0;l<subY;l++) {
+					point_grille = mon_svg.rect(1,1).move(absO+i*(tailleX/DeltaX)+k*(tailleX/DeltaX/subX),ordO+j*(tailleY/DeltaY)+l*(tailleY/DeltaY/subY));
+					point_grille.stroke({ color: 'grey', width: 0.1, linecap: 'round' });
 				}
+			}
 		}
 		else 
-			for (let l=0;l<subY;l++) {
-				point_grille = mon_svg.rect(1,1).move(absO+i*(tailleX/DeltaX)+k*(tailleX/DeltaX/subX),ordO+j*(tailleY/DeltaY)+l*(tailleY/DeltaY/subY));
-				point_grille.stroke({ color: 'grey', width: 0.1, linecap: 'round' });
+			if (subY!=1) {
+				for (l=0;l<subY;l++) {
+					point_grille = mon_svg.rect(1,1).move(absO+i*(tailleX/DeltaX)+k*(tailleX/DeltaX/subX),ordO+j*(tailleY/DeltaY)+l*(tailleY/DeltaY/subY));
+					point_grille.stroke({ color: 'grey', width: 0.1, linecap: 'round' });
+				}
 			}
 		}
 	}
