@@ -604,11 +604,11 @@ function fonction_notion_vocabulaire(){
 				let timeline = new SVG.Timeline()
 
 				// on crée l'objet pour l'antécédent et on l'anime
-				let ant = mon_svg.text('antécédent');
+				let ant = mon_svg.text('antécédent-->');
 				let w_ant = ant.length();
 				ant.move(0,h/2);
 				// on crée l'objet pour l'image
-				let im = mon_svg.text('image');
+				let im = mon_svg.text('-->image');
 				//let w_im = im.length();
 				im.move(w/2,h/2);
 				
@@ -616,16 +616,18 @@ function fonction_notion_vocabulaire(){
 				im.timeline(timeline);
 
 				ant.animate(8000,0,'absolute').dmove(w/2-w_ant/2,0).loop();
-				im.animate(8000,4000,'absolute').dmove(w,0).loop();
+				im.animate(8000,6000,'absolute').dmove(w,0).loop();
 
 				// on crée des variables pour le texte à afficher sur la machine afin de récupérer leur taille
 				// pour ajuster celle de la machine.
 				let text_1 = mon_svg.text('mathématique');				
 				let w_t_1 = text_1.length();
+				text_1.move(w/2-w_t_1/2,h/2);
 				
 				// on crée l'objet pour la machine mathématique et on le place
-				let machine = mon_svg.rect(w/3+w_t_1/2,h/2).attr({ stroke: '#f15929', 'stroke-width': 3, fill : 'white' });
-				machine.move(w/2-w/6-w_t_1/4,h/2-h/4);
+				//let machine = mon_svg.rect(w/3+w_t_1/2,h/2).attr({ stroke: '#f15929', 'stroke-width': 3, fill : 'white' });
+				let machine = mon_svg.rect(1.2*w_t_1,h/2).attr({ stroke: '#f15929', 'stroke-width': 3, fill : 'white' });
+				machine.move(w/2-0.6*w_t_1,h/2-h/4);
 
 				// on crée le texte à écrire sur la machine et on le place
 				let nom_machine_1 = mon_svg.text('machine');
@@ -634,6 +636,9 @@ function fonction_notion_vocabulaire(){
 				let w_n_m_2 = nom_machine_2.length();
 				nom_machine_1.move(w/2-w_n_m_1/2,h/2-15);
 				nom_machine_2.move(w/2-w_n_m_2/2,h/2+5);
+
+				// let text_x = mon_svg.text('x');
+				// text_x.style({color:'blue'});
 
 			
 			clearInterval(SVGExist[id_du_div]);//Arrête le timer
