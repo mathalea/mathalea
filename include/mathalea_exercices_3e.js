@@ -571,3 +571,128 @@ function Resoudre_une_equation_produit_nul(){
 	}
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,'1 : Coefficient de x = 1\n 2 : Coefficient de x>1 et solutions entières\n 3 : Solutions rationnelles\n 4 : Mélange des 3 autres niveaux'];
 }
+
+/**
+* Notion de fonction - vocabulaire
+* * L’objectif de revenir sur l'introduction de la notion de fonction et son vocabulaire
+* * On base l'exercice sur des calculs simples de type périmètres, aires, double, triple, nombre de diviseurs
+*
+* @Auteur Sébastien Lozano
+*/
+function fonction_notion_vocabulaire(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.sup = 1 ; 
+	this.titre = "Fonction : Notion et vocabulaire"; 
+	sortie_html ? this.consigne = "Lorsqu'un nombre $x$ entre dans une machine mathématique , on retrouve à la sortie un nombre appelé $\\textit{image de x}$.<br>Ces machines sont appelées fonctions.":  this.consigne = "Consigne LaTeX";
+	sortie_html ? this.spacing = 3 : this.spacing = 2;
+	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
+	this.nb_questions = 4;
+	//this.correction_detaillee_disponible = true;
+	this.nb_cols_corr = 1;
+	this.sup = 5;
+
+	if (sortie_html) {
+		
+		let id_unique = `_consigne_${Date.now()}`
+		let id_du_div = `div_svg${id_unique}`;
+		//this.consigne += `<div id="consigne" style="width: 100%; height: 500px; display : table "></div>`;
+		this.consigne += `<div id="${id_du_div}" style="width: 90%; height: 150px; display : table "></div>`;
+		if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
+		// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
+		window.SVGExist[id_du_div] = setInterval(function() {
+			if ($(`#${id_du_div}`).length ) {
+				$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
+				//on récupère les dimension du div parent
+				let w=document.getElementById(id_du_div).offsetWidth , h=document.getElementById(id_du_div).offsetHeight;
+				const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h);
+				mon_svg.size(w,h);
+
+				// On crée une timeline
+				let timeline = new SVG.Timeline()
+
+				// on crée l'objet pour l'antécédent et on l'anime
+				let ant = mon_svg.text('antécédent');
+				ant.move(0,h/2);
+				// on crée l'objet pour l'image
+				let im = mon_svg.text('image');
+				//let w_im = im.length();
+				im.move(w/2,h/2);
+				
+				ant.timeline(timeline);
+				im.timeline(timeline);
+
+				ant.animate(8000,0,'absolute').dmove(w/2,0).loop();
+				im.animate(8000,4000,'absolute').dmove(w,0).loop();
+
+				// on crée l'objet pour la machine mathématique et on le place
+				let machine = mon_svg.rect(w/4,h/4).attr({ fill: '#f06' });
+				machine.move(w/2-w/8,h/2-h/8);
+
+				// on crée le texte à écrire sur la machine et on le place
+				let nom_machine = mon_svg.text('machine qui triple les nombres');
+				let w_n_m = nom_machine.length();
+				nom_machine.move(w/2-w_n_m/2,h/2);
+
+			
+			clearInterval(SVGExist[id_du_div]);//Arrête le timer
+			}
+
+		}, 100); // Vérifie toutes les 100ms
+
+		} else { // sortie LaTeX
+
+		};
+	this.nouvelle_version = function(numero_de_l_exercice){
+		let type_de_questions;
+		//this.bouton_aide = modal_pdf(numero_de_l_exercice,"http://lozano.maths.free.fr/coopmaths/FichePuissances-4N21.pdf","Aide mémoire sur les puissances (Sébastien Lozano)")
+		
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		this.contenu = ''; // Liste de questions
+		this.contenu_correction = ''; // Liste de questions corrigées
+
+		let type_de_questions_disponibles = [1,2,3,4];
+		//let type_de_questions_disponibles = [1];
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions);
+
+			for (let i = 0, x, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
+				type_de_questions = liste_type_de_questions[i];
+	
+				x = randint(1,9);//augmenter les possibles pour éviter les questions déjà posées?
+				let id_unique = `${i}_${Date.now()}`
+				let id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
+				let id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`
+	
+				switch (type_de_questions) {
+					case 1 : // périmètre d'un carré de côté x
+						texte = `Périmètre d'un carré de côté ${x}`;
+						texte_corr = `Périmètre d'un carré de côté ${x}`;
+						break;			
+					case 2 : // aire d'un carré de côté x
+						texte = `Aire d'un carré de côté ${x}`;
+						texte_corr = `Aire d'un carré de côté ${x}`;
+						break;			
+					case 3 : // somme de 1 et du triple de x
+						texte = `Somme de 1 et du triple de ${x}`;
+						texte_corr = `Somme de 1 et du triple de ${x}`;
+						break;
+					case 4 : // nombre de diviseurs de x entier
+						texte = `Nombre de diviseurs de ${x} (entier) `;
+						texte_corr = `Nombre de diviseurs de ${x} (entier)`;
+						break;																
+				};
+			
+				if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+					this.liste_questions.push(texte);
+					this.liste_corrections.push(texte_corr);
+					i++;
+				}
+
+				cpt++
+			}	
+	
+		liste_de_question_to_contenu(this);
+	}
+	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
+}
