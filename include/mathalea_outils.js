@@ -1326,8 +1326,8 @@ function SVG_Axe_horizontal (mon_svg,start,end,ordO,DeltaX,subX){
  * @Auteur Jean-Claude Lhote
  */
 function SVG_grille (mon_svg,absO,ordO,tailleX,tailleY,DeltaX,DeltaY,subX,subY){
-	for (let i=1;i<=DeltaX;i++){
-		for (let j=1;j<=DeltaY;j++) {
+	for (let i=0;i<=DeltaX;i++){
+		for (let j=0;j<=DeltaY;j++) {
 			let point_grille = mon_svg.rect(2,2).move(absO+i*(tailleX/DeltaX)-1,ordO+j*(tailleY/DeltaY)-1);
 			point_grille.stroke({ color: 'grey', width: 1, linecap: 'round' });
 			point_grille.fill({ color: 'grey'});

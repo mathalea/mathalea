@@ -44,7 +44,7 @@ function fonctions_affines(){
 				$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
 				const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 600, 600)
 
-			SVG_repere(mon_svg,-5,5,-5,5,2,2,600,600,true );
+			SVG_repere(mon_svg,-5,5,-5,5,k,k,600,600,true );
 			SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[0][0],liste_droites[0][1],'blue','d1');
 			SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[1][0],liste_droites[1][1],'red','d2');
 			SVG_Tracer_droite(mon_svg,600,600,-5,5,-5,5,liste_droites[2][0],liste_droites[2][1],'green','d3');
@@ -60,7 +60,7 @@ function fonctions_affines(){
 	}
 	else { //sortie Latex 
 		let texte =`\\begin{tikzpicture}`;
-		texte += Latex_repere(-5,5,-5,5,2,2,true);
+		texte += Latex_repere(-5,5,-5,5,k,k,true);
 		texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[0][0],liste_droites[0][1],'blue','d_1');
 		texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[1][0],liste_droites[1][1],'red','d_2');
 		texte += Latex_Tracer_droite(-5,5,-5,5,liste_droites[2][0],liste_droites[2][1],'green','d_3');
