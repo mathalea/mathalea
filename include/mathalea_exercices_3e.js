@@ -34,7 +34,7 @@ function fonctions_affines(){
 	}
 
 	if (sortie_html) {
-		let id_unique = `${i}_${Date.now()}`
+		let id_unique = `${Date.now()}`
 		let id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
 		this.consigne = `<div id="${id_du_div}" style="width: 90%; height: 600px; display : table "></div>`;
 		if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
