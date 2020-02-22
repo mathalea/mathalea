@@ -1476,6 +1476,16 @@ function SVG_tracer_flecheV(mon_svg,x,y) {
 	fleche.move(x,y)
 	fleche.dmove(-5,5)
 }
+function SVG_tracer_droite_fleche(mon_svg,x1,y1,x2,y2,couleur){
+	let fleche = mon_svg.group()
+	let c1 = fleche.line(x1,y1,x2,y2)
+	c1.stroke({ color: couleur, width: 1, linecap: 'round' })
+	let c2 = fleche.line(x2-5,y2+5,x2,y2)
+	c2.stroke({ color: couleur, width: 1, linecap: 'round' })
+	let c3 = fleche.line(x2+5,y2+5,x2,y2)
+	c3.stroke({ color: couleur, width: 1, linecap: 'round' })
+
+}
 /**
  * 
  * @param {string} mon_svg l'identifiant du SVG
@@ -1658,9 +1668,11 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 					if (!fraction) { // affichage décimal 
 						valeur=string_nombre(calcul(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2));
 						SVG_label(mon_svg,[[valeur,100+distance,50]],3+position,'#f15929')
+						SVG_tracer_droite_fleche(mon_svg,100+distance,80+15*position,100+distance,55,'#f15929')
 					}
 					else { //affichage fractionnaire
 					 SVG_fraction(mon_svg,(origine+points_inconnus[i][1])*pas2+points_inconnus[i][2],pas2,100+distance,115,'#f15929')
+					 SVG_tracer_droite_fleche(mon_svg,100+distance,80+15*position,100+distance,55,'#f15929')
 					}
 					position=1-position
 				}
@@ -1688,19 +1700,26 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
 	result+=`\n\t \\tkzInit[xmin=${origine},xmax=${calcul(origine+7/pas1)},ymin=-0.5,ymax=0.5,xstep=${calcul(1/pas1)}]`
 
 	if (origine==0) result +=`\n\t \\tkzDrawX`
-	else result+=`\n\t \\tkzDrawX[left space=1]`
-	result+=`\\tikzset{numline/.style={label={},right space=0.2,left space=0.2,	line width=1pt,	tickup=5pt,	tickdn=0pt}}`
+	else result+=`\n\t \\tkzDrawX[left space=0.2]`
+	result+=`\\tikzset{arr/.style={postaction=decorate,	decoration={markings,mark=at position 1 with {\\arrow[thick]{#1}}}}}`
 	result+=`\n\t \\foreach \\x in {0,0.1,...,7}`
 	result+=`\n\t {\\draw (\\x,-0.05)--(\\x,0.05);}`
-	result+=`\n\t \\tkzLabelX[below,inner sep = 5pt,node font=\\scriptsize]`
-			//Points inconnus
-			let position=6;
+	for (i=0;i<points_connus.length;i++){
+		valeur=calcul(origine+points_connus[i][1]/pas1+calcul(points_connus[i][2]/pas1/pas2))
+		result+=`\n\t \\tkzDefPoint(${valeur},0){A}`
+		result +=`\n\t \\tkzLabelPoint[color = black,below,inner sep = 5pt,font=\\scriptsize](A){$${tex_nombrec(valeur)}$}`
+	}
+	//Points inconnus
+	let position=6;
 	for (i=0;i<points_inconnus.length;i++){
 		valeur=calcul(origine+points_inconnus[i][1]/pas1+calcul(points_inconnus[i][2]/pas1/pas2))
 		result+=`\n\t \\tkzDefPoint(${valeur},0){A}`
+		result+=`\n\t \\tkzDefPoint(${valeur},-0.3-${position*0.02}){B}`
 		result +=`\n\t \\tkzDrawPoint[shape=cross out,color=orange,size=6](A)`
 		result +=`\n\t \\tkzLabelPoint[above](A){$${points_inconnus[i][0]}$}`
-		if (points_inconnus[i][3]) 	result +=`\n\t \\tkzLabelPoint[color = orange,below=${15+position}pt,inner sep = 5pt,font=\\scriptsize](A){$${tex_nombrec(valeur)}$}`	
+		if (points_inconnus[i][3]) {	result +=`\n\t \\tkzLabelPoint[color = orange,below=${15+position}pt,inner sep = 5pt,font=\\scriptsize](A){$${tex_nombrec(valeur)}$}`	
+		result+=`\n\t \\tkzDrawSegment[color=orange,arr=stealth](B,A)`
+	}
 		position=6-position;
 	}
 	result +=`\n\t \\end{tikzpicture}`;
