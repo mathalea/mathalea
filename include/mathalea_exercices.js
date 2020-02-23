@@ -5114,8 +5114,9 @@ function HTML_personnalise() {
 // Exercices paramétré pour correspondre au référentiel
 
 function reperage_point_du_quart_de_plan(){
-	this.quart_de_plan=true;
-	reperage_point_du_plan.call(this)	;
+	reperage_point_du_plan.call(this);
+	this.titre = "Déterminer les coordonnées (positives) d'un point";
+	this.quart_de_plan=true;	;
 
 }
 function fonctions_lineaires(){

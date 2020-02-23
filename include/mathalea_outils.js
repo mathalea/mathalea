@@ -1283,12 +1283,12 @@ function MG32_tracer_toutes_les_figures() {
 function SVG_Axe_vertical (mon_svg,start,end,absO,DeltaY,subY){
 	let droite = mon_svg.line(absO,start+2, absO, end)
 	droite.stroke({ color: 'black', width: 2, linecap: 'round' })
-	for (let i=1;i<=DeltaY;i++){
+	for (let i=0;i<DeltaY;i++){
 		let line = mon_svg.line(absO-2,(DeltaY-i)*((end-start)/DeltaY), absO+2, (DeltaY-i)*((end-start)/DeltaY))
 		line.stroke({ color: 'black', width: 2, linecap: 'round' })
 		if (subY!=1) {
 			for (let k=1;k<subY;k++) {
-				let line = mon_svg.line(absO-2,((end-start)/DeltaY)*(DeltaY-i+k/subY),absO+2,((end-start)/DeltaY)*(DeltaY-i+k/subY))
+				let line = mon_svg.line(absO-2,((end-start)/DeltaY)*(DeltaY-i-k/subY),absO+2,((end-start)/DeltaY)*(DeltaY-i-k/subY))
 				line.stroke({ color: 'black', width: 1, linecap: 'round' })
 			}
 		}
@@ -1306,7 +1306,7 @@ function SVG_Axe_vertical (mon_svg,start,end,absO,DeltaY,subY){
 function SVG_Axe_horizontal (mon_svg,start,end,ordO,DeltaX,subX){
 	let droite = mon_svg.line(start,ordO, end-2, ordO)
 	droite.stroke({ color: 'black', width: 2, linecap: 'round' })
-	for (let i=0;i<DeltaX;i++){
+	for (let i=1;i<=DeltaX;i++){
 			let line = mon_svg.line(start+(DeltaX-i)*((end-start)/DeltaX),ordO-2,start+(DeltaX-i)*((end-start)/DeltaX), ordO+2)
 			line.stroke({ color: 'black', width: 2, linecap: 'round' })
 			if (subX!=1) {
@@ -1438,17 +1438,17 @@ function SVG_fraction(mon_svg,num,den,x,y,couleur) {
  * @param {string} couleur la couleur du point
  * @Auteur Rémi Angot
  */
-function SVG_tracer_point(mon_svg,x,y,nom,couleur) {
+function SVG_tracer_point(mon_svg,x,y,nom,couleur,shiftxnom,shiftynom) {
 	//creer un groupe pour la croix
 	let point = mon_svg.group()
-	let c1 = point.line(-5,5,5,-5)
-	c1.stroke({ color: couleur, width: 3, linecap: 'round' })
-	let c2 = point.line(-5,-5,5,5)
-	c2.stroke({ color: couleur, width: 3, linecap: 'round' })
+	let c1 = point.line(-4,4,4,-4)
+	c1.stroke({ color: couleur, width: 2, linecap: 'round' })
+	let c2 = point.line(-4,-4,4,4)
+	c2.stroke({ color: couleur, width: 2, linecap: 'round' })
 	//déplace la croix
-	point.move(x-5,y-5)
-	// point.dmove(-5,-5)
-	let text = mon_svg.text(nom).attr({x: x, y: y})
+	point.move(x-4,y-4)
+	// point.dmove(-4,-4)
+	let text = mon_svg.text(nom).attr({x: x+shiftxnom, y: y+shiftynom})
 	//ecrit le nom
 	text.font({
 		family:   'Helvetica'
@@ -1601,9 +1601,9 @@ function SVG_repere(mon_svg,Xmin,Xmax,Ymin,Ymax,subX,subY,tailleX,tailleY,grille
 			let Dy=(tailleY-20)/DeltaY;
 			
 			SVG_Axe_horizontal(mon_svg,20,tailleX,tailleY-20+Ymin*Dy,DeltaX,subX);
-			SVG_tracer_fleche(mon_svg,tailleX-1,tailleY-20+Ymin*Dy);
+			SVG_tracer_fleche(mon_svg,tailleX-2,tailleY-20+Ymin*Dy);
 			SVG_Axe_vertical(mon_svg,0,tailleY-20,20-Xmin*Dx,DeltaY,subY);
-			SVG_tracer_flecheV(mon_svg,20-Xmin*Dx,-1);
+			SVG_tracer_flecheV(mon_svg,20-Xmin*Dx,-3);
 			for (let i=0;i<DeltaX;i++){
 				if (i+Xmin==0) 	SVG_label(mon_svg,[[string_nombre(i+Xmin),i*Dx+15,tailleY+2+Ymin*Dy]],0,'black')	;
 				else SVG_label(mon_svg,[[string_nombre(i+Xmin),i*Dx+20,tailleY+2+Ymin*Dy]],0,'black')	;
@@ -1682,7 +1682,7 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 			for (let i=0;i<points_inconnus.length;i++){
 				distance=longueur_pas1*points_inconnus[i][1]+longueur_pas2*points_inconnus[i][2]
 				nom=points_inconnus[i][0]
-				SVG_tracer_point(mon_svg,100+distance,50,nom,'#f15929')
+				SVG_tracer_point(mon_svg,100+distance,50,nom,'#f15929',0,0)
 				if (points_inconnus[i][3]==true) {
 					if (!fraction) { // affichage décimal 
 						valeur=string_nombre(calcul(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2));
