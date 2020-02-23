@@ -2463,7 +2463,7 @@ function reperage_point_du_plan(){
 	if (k>1) grille=true;
 	else grille=false;
 	if (this.quart_de_plan) {
-		xmin=0;ymin=0;xmax=5;ymax=5;
+		xmin=0;ymin=0;xmax=10;ymax=10;
 	}
 	else	{
 		xmin=-5;ymin=-5;xmax=5;ymax=5;	
@@ -2475,12 +2475,17 @@ function reperage_point_du_plan(){
 	for (let i=calcul(ymin+1/k);i<calcul(ymax);i=calcul(i+1/k)) {
 		liste_ord.push(i)
 	}
-
+	let X0=false,Y0=false;
 	liste_points=creer_couples(liste_abs,liste_ord,10*k);
-	// liste_points=shuffle(liste_points);
-	console.log(liste_points)
-	for (let j=0;j<5;j++) points.push(liste_points[j]);
-console.log(points)
+	for (let j=0;j<5;j++) {
+		points.push(liste_points[j]);
+		if (points[j][0]==0) X0=true;
+		if (points[j][1]==0) Y0=true;
+	}
+	if (!X0) points[0][0]=0;
+	if (!Y0) points[1][1]=0;
+	points=shuffle(points);
+
 	for (let l=0,lettre=randint(1,20);l<5;l++) nom.push(lettre_depuis_chiffre(l+lettre));
 	if (sortie_html) {
 		let id_unique = `${Date.now()}`
@@ -2495,7 +2500,7 @@ console.log(points)
 
 			SVG_repere(mon_svg,xmin,xmax,ymin,ymax,k,k,w+20,h+20,grille );
 			for (let i=0;i<5;i++)	{
-				if (points[i][0]==0) shiftxnom=-10;
+				if (points[i][0]==0) shiftxnom=25;
 				else shiftxnom=0;
 				if (points[i][1]==0) shiftynom=-10;	
 				else shiftynom=0;			
