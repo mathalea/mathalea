@@ -2454,10 +2454,14 @@ function reperage_point_du_plan(){
 	this.contenu = ''; // Liste de questions
 	this.contenu_correction = ''; // Liste de questions corrigées
 	let liste_points=[],points=[];
-	let w=600,h=600,k,xmin,xmax,ymin,ymax;
+	let w,h,k,xmin,xmax,ymin,ymax,shiftxnom,shiftynom;
+	h=Math.round(window.innerHeight*0.75)
+	w=h;
 	k=Math.pow(2,parseInt(this.sup)-1);
 	let nom=[];
-
+	let grille;
+	if (k>1) grille=true;
+	else grille=false;
 	if (this.quart_de_plan) {
 		xmin=0;ymin=0;xmax=5;ymax=5;
 	}
@@ -2465,20 +2469,23 @@ function reperage_point_du_plan(){
 		xmin=-5;ymin=-5;xmax=5;ymax=5;	
 	}
 	let liste_abs=[],liste_ord=[];
-	for (let i=calcul(xmin+1/k);i<calcul(xmax-1/k);i=calcul(i+1/k)) {
+	for (let i=calcul(xmin+1/k);i<calcul(xmax);i=calcul(i+1/k)) {
 		liste_abs.push(i)
 	}
-	for (let i=calcul(ymin+1/k);i<calcul(ymax-1/k);i=calcul(i+1/k)) {
+	for (let i=calcul(ymin+1/k);i<calcul(ymax);i=calcul(i+1/k)) {
 		liste_ord.push(i)
 	}
-	liste_points=creer_couples(liste_abs,liste_ord,20*k);
-	liste_points=shuffle(liste_points);
+
+	liste_points=creer_couples(liste_abs,liste_ord,10*k);
+	// liste_points=shuffle(liste_points);
+	console.log(liste_points)
 	for (let j=0;j<5;j++) points.push(liste_points[j]);
+console.log(points)
 	for (let l=0,lettre=randint(1,20);l<5;l++) nom.push(lettre_depuis_chiffre(l+lettre));
 	if (sortie_html) {
 		let id_unique = `${Date.now()}`
 		let id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
-		this.consigne = `<div id="${id_du_div}" style="width: 90%; height: ${h}px; display : table "></div>`;
+		this.consigne = `<div id="${id_du_div}" style="width: ${w}px; height: ${h}px; display : table "></div>`;
 		if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
 		// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
 		window.SVGExist[id_du_div] = setInterval(function() {
@@ -2486,9 +2493,14 @@ function reperage_point_du_plan(){
 				$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
 				const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w+20, h+20)
 
-			SVG_repere(mon_svg,xmin,xmax,ymin,ymax,k,k,w+20,h+20,false );
-			for (let i=0;i<5;i++)	SVG_tracer_point(mon_svg,calcul(20+(points[i][0]-xmin)*w/(xmax-xmin)),calcul(w-(points[i][1]-ymin)*w/(ymax-ymin)),nom[i],'blue',-12,20)
-
+			SVG_repere(mon_svg,xmin,xmax,ymin,ymax,k,k,w+20,h+20,grille );
+			for (let i=0;i<5;i++)	{
+				if (points[i][0]==0) shiftxnom=-10;
+				else shiftxnom=0;
+				if (points[i][1]==0) shiftynom=-10;	
+				else shiftynom=0;			
+				SVG_tracer_point(mon_svg,calcul(20+(points[i][0]-xmin)*w/(xmax-xmin)),calcul(w-(points[i][1]-ymin)*w/(ymax-ymin)),nom[i],'blue',-12+shiftxnom,20+shiftynom)
+			}
 			clearInterval(SVGExist[id_du_div]);//Arrête le timer
 			}
 
