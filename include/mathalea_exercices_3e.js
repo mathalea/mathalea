@@ -615,19 +615,22 @@ function fonction_notion_vocabulaire(){
 				let timeline = new SVG.Timeline()
 
 				// on crée l'objet pour l'antécédent et on l'anime
-				let ant = mon_svg.text('antécédent-->');
+				let ant = mon_svg.text(`antécédent-->`);
 				let w_ant = ant.length();
 				ant.move(0,h/2);
 				// on crée l'objet pour l'image
-				let im = mon_svg.text('------->image');
+				let im = mon_svg.text('-->image');
 				let w_im = im.length();
 				im.move(w/2-w_im/2,h/2);
 				
 				ant.timeline(timeline);
 				im.timeline(timeline);
 
-				ant.animate(8000,0,'absolute').dmove(w/2-w_ant/2,0).loop();
-				im.animate(8000,6000,'absolute').dmove(w,0).loop();
+				let runner1 = ant.animate(13000,0,'absolute').dmove(w/2-w_ant/2,0);
+				let runner2 = im.animate(8000,6000,'absolute').dmove(w-w_im,0);
+
+				runner1.loop(5,false,4000);
+				runner2.loop(5,false,1000);
 
 				// on crée des variables pour le texte à afficher sur la machine afin de récupérer leur taille
 				// pour ajuster celle de la machine.
