@@ -2517,9 +2517,11 @@ function reperage_point_du_plan(){
 	else { //sortie Latex 
 		let texte =`\\begin{tikzpicture}`;
 		texte += Latex_repere(xmin,xmax,ymin,ymax,k,k,true);
+		for (let i=0;i<5;i++)	{
 		texte += `\n\t \\tkzDefPoint(${points[i][0]},${points[i][1]}){A}`
-		result +=`\n\t \\tkzDrawPoint[shape=cross out,color=orange,size=6](A)`
-		result +=`\n\t \\tkzLabelPoint[above](A){$${nom[i]}$}`
+		texte +=`\n\t \\tkzDrawPoint[shape=cross out,color=blue,size=6](A)`
+		texte +=`\n\t \\tkzLabelPoint[above=5pt,fill=white,fill opacity=0.7,text opacity=1,inner sep=0](A){$${nom[i]}$}`
+		}
 		texte +=`\n\t \\end{tikzpicture}`;
 		this.liste_questions.push(texte);
 	}

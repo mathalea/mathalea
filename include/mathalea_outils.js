@@ -1332,29 +1332,28 @@ function SVG_Axe_horizontal (mon_svg,start,end,ordO,DeltaX,subX){
  * @Auteur Jean-Claude Lhote
  */
 function SVG_grille (mon_svg,absO,ordO,tailleX,tailleY,DeltaX,DeltaY,subX,subY){
+	let line_grille;
 	for (let i=0;i<=DeltaX;i++){
-		for (let j=0;j<=DeltaY;j++) {
-			let point_grille = mon_svg.rect(2,2).move(absO+i*(tailleX/DeltaX)-1,ordO+j*(tailleY/DeltaY)-1);
-			point_grille.stroke({ color: 'grey', width: 1, linecap: 'round' });
-			point_grille.fill({ color: 'grey'});
-			let k,l;
+		line_grille = mon_svg.line(absO+i*(tailleX/DeltaX),0,absO+i*(tailleX/DeltaX),tailleY);
+		line_grille.stroke({ color: 'lightgray', width: 1 });
 		if (subX!=1) {
 			for (k=0;k<subX;k++) {
-				for (let l=0;l<subY;l++) {
-					point_grille = mon_svg.rect(1,1).move(absO+i*(tailleX/DeltaX)+k*(tailleX/DeltaX/subX),ordO+j*(tailleY/DeltaY)+l*(tailleY/DeltaY/subY));
-					point_grille.stroke({ color: 'grey', width: 0.1, linecap: 'round' });
-				}
-			}
-		}
-		else 
-			if (subY!=1) {
-				for (l=0;l<subY;l++) {
-					point_grille = mon_svg.rect(1,1).move(absO+i*(tailleX/DeltaX)+k*(tailleX/DeltaX/subX),ordO+j*(tailleY/DeltaY)+l*(tailleY/DeltaY/subY));
-					point_grille.stroke({ color: 'grey', width: 0.1, linecap: 'round' });
-				}
+					line_grille = mon_svg.line(absO+i*(tailleX/DeltaX)+k*(tailleX/DeltaX/subX),0,absO+i*(tailleX/DeltaX)+k*(tailleX/DeltaX/subX),tailleY);
+					line_grille.stroke({ color: 'lightgrey', width: 0.5, linecap: 'round' });
 			}
 		}
 	}
+	for (let j=0;j<=DeltaY;j++) {
+		line_grille = mon_svg.line(0,ordO+j*(tailleY/DeltaY),tailleX,ordO+j*(tailleY/DeltaY));
+		line_grille.stroke({ color: 'lightgray', width: 1 });
+		if (subY!=1) {
+			for (l=0;l<subY;l++) {
+				line_grille = mon_svg.line(0,ordO+j*(tailleY/DeltaY)+l*(tailleY/DeltaY/subY),tailleX,ordO+j*(tailleY/DeltaY)+l*(tailleY/DeltaY/subY));
+				line_grille.stroke({ color: 'lightgrey', width: 0.5, linecap: 'round' });
+			}
+		}
+	}
+
 }
 
 
@@ -1630,7 +1629,7 @@ function Latex_repere(Xmin,Xmax,Ymin,Ymax,subX,subY,grille){
 	'use strict';
 	let result=``;				
 	result +=`\n\t \\tkzInit [xmin=${Xmin},xmax=${Xmax},xstep=1,ymin=${Ymin},ymax=${Ymax},ystep=1]`;
-	if (grille) result +=`\n\t \\tkzGrid[sub,subxstep=${1/subX},subystep=${1/subY},color=orange](${Xmin},${Ymin})(${Xmax},${Ymax})`;
+	if (grille) result +=`\n\t \\tkzGrid[sub,subxstep=${1/subX},subystep=${1/subY},color=lightgray,line width=0.3pt](${Xmin},${Ymin})(${Xmax},${Ymax})`;
 	result +=`\n\t \\tkzAxeXY`;
 	result +=`\n\t \\tkzClip`;
 		return result;
