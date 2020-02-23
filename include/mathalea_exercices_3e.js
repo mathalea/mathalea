@@ -507,16 +507,18 @@ function fonction_notion_vocabulaire(){
 		let id_unique = `_consigne_${Date.now()}`
 		let id_du_div = `div_svg${id_unique}`;
 		//this.consigne += `<div id="consigne" style="width: 100%; height: 500px; display : table "></div>`;
-		this.consigne += `<div id="${id_du_div}" style="width: 100%; height: 150px; display : table "></div>`;
+		//this.consigne += `<div id="${id_du_div}" style="width: 100%; height: 150px; display : table "></div>`;
+		this.consigne += `<div id="${id_du_div}" style="width: 90%; height: 150px; display : table "></div>`;
 		if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
 		// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
 		window.SVGExist[id_du_div] = setInterval(function() {
 			if ($(`#${id_du_div}`).length ) {
 				$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
 				//on récupère les dimension du div parent
-				let w=document.getElementById(id_du_div).offsetWidth , h=document.getElementById(id_du_div).offsetHeight;
+				//let w=document.getElementById(id_du_div).offsetWidth , h=document.getElementById(id_du_div).offsetHeight;
+				let w=400, h=100;
 				const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h);
-				mon_svg.size(w,h);
+				//mon_svg.size(w,h);
 
 				// On crée une timeline
 				let timeline = new SVG.Timeline()
@@ -526,9 +528,9 @@ function fonction_notion_vocabulaire(){
 				let w_ant = ant.length();
 				ant.move(0,h/2);
 				// on crée l'objet pour l'image
-				let im = mon_svg.text('-->image');
-				//let w_im = im.length();
-				im.move(w/2,h/2);
+				let im = mon_svg.text('------->image');
+				let w_im = im.length();
+				im.move(w/2-w_im/2,h/2);
 				
 				ant.timeline(timeline);
 				im.timeline(timeline);
