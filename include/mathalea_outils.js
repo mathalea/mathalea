@@ -1344,11 +1344,11 @@ function SVG_grille (mon_svg,absO,ordO,tailleX,tailleY,DeltaX,DeltaY,subX,subY){
 		}
 	}
 	for (let j=0;j<=DeltaY;j++) {
-		line_grille = mon_svg.line(0,ordO+j*(tailleY/DeltaY),tailleX,ordO+j*(tailleY/DeltaY));
+		line_grille = mon_svg.line(20,ordO+j*(tailleY/DeltaY),20+tailleX,ordO+j*(tailleY/DeltaY));
 		line_grille.stroke({ color: 'lightgray', width: 1 });
 		if (subY!=1) {
 			for (l=0;l<subY;l++) {
-				line_grille = mon_svg.line(0,ordO+j*(tailleY/DeltaY)+l*(tailleY/DeltaY/subY),tailleX,ordO+j*(tailleY/DeltaY)+l*(tailleY/DeltaY/subY));
+				line_grille = mon_svg.line(20,ordO+j*(tailleY/DeltaY)+l*(tailleY/DeltaY/subY),20+tailleX,ordO+j*(tailleY/DeltaY)+l*(tailleY/DeltaY/subY));
 				line_grille.stroke({ color: 'lightgrey', width: 0.5, linecap: 'round' });
 			}
 		}
@@ -1440,14 +1440,14 @@ function SVG_fraction(mon_svg,num,den,x,y,couleur) {
 function SVG_tracer_point(mon_svg,x,y,nom,couleur,shiftxnom,shiftynom) {
 	//creer un groupe pour la croix
 	let point = mon_svg.group()
-	let c1 = point.line(-4,4,4,-4)
-	c1.stroke({ color: couleur, width: 2, linecap: 'round' })
-	let c2 = point.line(-4,-4,4,4)
-	c2.stroke({ color: couleur, width: 2, linecap: 'round' })
+	let c1 = point.line(-3,3,3,-3)
+	c1.stroke({ color: couleur, width: 2, linecap: 'round', opacity:0.5 })
+	let c2 = point.line(-3,-3,3,3)
+	c2.stroke({ color: couleur, width: 2, linecap: 'round' , opacity:0.5})
 	//déplace la croix
-	point.move(x-4,y-4)
-	// point.dmove(-4,-4)
-	let text = mon_svg.text(nom).attr({x: x+shiftxnom, y: y+shiftynom})
+	point.move(x-3,y-3)
+	// point.dmove(-3,-3)
+	let text = mon_svg.text(nom).attr({x: x+shiftxnom, y: y+shiftynom, opacity: 0.7})
 	//ecrit le nom
 	text.font({
 		family:   'Helvetica'
@@ -1593,12 +1593,11 @@ function SVG_repere(mon_svg,Xmin,Xmax,Ymin,Ymax,subX,subY,tailleX,tailleY,grille
 				
 			if(Xmin>0) Xmin=0;
 			if (Ymin>0) Ymin=0;
-			
 			let DeltaX=Xmax-Xmin;
 			let DeltaY=Ymax-Ymin;
 			let Dx=(tailleX-20)/DeltaX;
 			let Dy=(tailleY-20)/DeltaY;
-			
+			if (grille) SVG_grille(mon_svg,20,0,tailleX-20,tailleY-20,DeltaX,DeltaY,subX,subY);
 			SVG_Axe_horizontal(mon_svg,20,tailleX,tailleY-20+Ymin*Dy,DeltaX,subX);
 			SVG_tracer_fleche(mon_svg,tailleX-2,tailleY-20+Ymin*Dy);
 			SVG_Axe_vertical(mon_svg,0,tailleY-20,20-Xmin*Dx,DeltaY,subY);
@@ -1611,7 +1610,6 @@ function SVG_repere(mon_svg,Xmin,Xmax,Ymin,Ymax,subX,subY,tailleX,tailleY,grille
 				if (i+Ymin==0)	SVG_label(mon_svg,[[string_nombre(i+Ymin),10-Xmin*Dx,tailleY-15-i*Dy]],0,'black')	;	
 				else SVG_label(mon_svg,[[string_nombre(i+Ymin),10-Xmin*Dx,tailleY-25-i*Dy]],1,'black')	;		
 			}
-			if (grille) SVG_grille(mon_svg,20,0,tailleX-20,tailleY-20,DeltaX,DeltaY,subX,subY);
 }
 /**
  * Trace un repère en Latex avec une grille
