@@ -2498,14 +2498,14 @@ function reperage_point_du_plan(){
 			if ($(`#${id_du_div}`).length ) {
 				$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
 				const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w+20, h+20)
-			SVG_repere(mon_svg,xmin,xmax,ymin,ymax,k,k,w+20,h+20,grille);
+			let AxesXY=SVG_repere(mon_svg,xmin,xmax,ymin,ymax,k,k,w+20,h+20,grille);
 			for (let i=0;i<5;i++)	{
 				if (points[i][0]==0||points[i][0]==0.25) shiftxnom=25;
 				else shiftxnom=0;
 				shiftynom=0;
 				if (points[i][1]==0) shiftynom=-10;	
 				if (points[i][1]==-0.25) shiftynom=10;
-				SVG_tracer_point(mon_svg,calcul(20+(points[i][0]-xmin)*w/(xmax-xmin)),calcul(w-(points[i][1]-ymin)*w/(ymax-ymin)),nom[i],'blue',-12+shiftxnom,20+shiftynom)
+				SVG_tracer_point(mon_svg,calcul(20+(points[i][0]-xmin)*w/(xmax-xmin)),calcul(w-(points[i][1]-ymin)*w/(ymax-ymin)),nom[i],'blue',-12+shiftxnom,20+shiftynom,[true,AxesXY[0],AxesXY[1]])
 			}
 			clearInterval(SVGExist[id_du_div]);//Arrête le timer
 			}

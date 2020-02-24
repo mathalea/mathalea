@@ -1435,9 +1435,12 @@ function SVG_fraction(mon_svg,num,den,x,y,couleur) {
  * @param {number} y l'ordonnée du point
  * @param {string} nom le nom du point
  * @param {string} couleur la couleur du point
- * @Auteur Rémi Angot
+ * @param {number} shiftxnom décallage en abscisse pour le nom du point
+ * @param {number} shiftynom décallage en ordonnée pour le nom du point
+ * @param {array} montrer_coord cas 1 : [false] rien n'est ajouté, cas 2 : [true, absAxeX, ordAxeY] trace des flèches jusqu'aux axes
+ * @Auteur Rémi Angot et Jean-Claude Lhote
  */
-function SVG_tracer_point(mon_svg,x,y,nom,couleur,shiftxnom,shiftynom) {
+function SVG_tracer_point(mon_svg,x,y,nom,couleur,shiftxnom,shiftynom,montrer_coord) {
 	//creer un groupe pour la croix
 	let point = mon_svg.group()
 	let c1 = point.line(-3,3,3,-3)
@@ -1447,14 +1450,20 @@ function SVG_tracer_point(mon_svg,x,y,nom,couleur,shiftxnom,shiftynom) {
 	//déplace la croix
 	point.move(x-3,y-3)
 	// point.dmove(-3,-3)
-	let text = mon_svg.text(nom).attr({x: x+shiftxnom, y: y+shiftynom, opacity: 0.7})
+	let text = mon_svg.text(nom).attr({x: x+shiftxnom, y: y+shiftynom, fill: '#000000', stroke: '#ffffff', opacity: 0.7})
 	//ecrit le nom
 	text.font({
-		family:   'Helvetica'
+		color : couleur
+		, family:   'Arial'
 		, size:     16
 		, anchor:   'middle'
 		, leading : -1
 		})
+	if (montrer_coord[0]) { // montrer_coord=[true,abs_axe,ord_axe] ou [false]
+		SVG_tracer_droite_flecheV(mon_svg,x,y,x,montrer_coord[2],'black',3)
+		SVG_tracer_droite_flecheH(mon_svg,x,y,montrer_coord[1],y,'black',3)
+	}
+
 }
 
 
@@ -1483,7 +1492,7 @@ function SVG_tracer_fleche(mon_svg,x,y) {
  * @param {number} y l'ordonnée de la pointe de la flèche
  * @Auteur Jean-Claude Lhote
  */
-function SVG_tracer_flecheV(mon_svg,x,y) {
+function SVG_tracer_fleche(mon_svg,x,y) {
 	//creer un groupe pour la fleche
 	let fleche = mon_svg.group()
 	let c1 = fleche.line(-5,5,0,0)
@@ -1494,15 +1503,63 @@ function SVG_tracer_flecheV(mon_svg,x,y) {
 	fleche.move(x,y)
 	fleche.dmove(-5,5)
 }
-function SVG_tracer_droite_fleche(mon_svg,x1,y1,x2,y2,couleur){
+
+/**
+ * 
+ * @param {string} mon_svg l'identifiant du SVG
+ * @param {number} x1 (x1,y1)=point de départ de la flèche verticale (x1=x2 en général)
+ * @param {number} y1 
+ * @param {number} x2 (x2,y2)=point d'arrivée de la flèche
+ * @param {number} y2 
+ * @param {string} couleur couleur de la flèche
+ * @param {number} pointilles longueur des pointillés et des espaces entre les pointillés
+ * @Auteur Jean-Claude Lhote
+ */
+function SVG_tracer_droite_flecheV(mon_svg,x1,y1,x2,y2,couleur,pointilles){
 	let fleche = mon_svg.group()
 	let c1 = fleche.line(x1,y1,x2,y2)
-	c1.stroke({ color: couleur, width: 1, linecap: 'round' })
-	let c2 = fleche.line(x2-5,y2+5,x2,y2)
+	c1.stroke({ color: couleur, width: 1, linecap: 'round',dasharray :pointilles })
+	if (y2<y1) {
+	let c2 = fleche.line(x2-3,y2+5,x2,y2)
 	c2.stroke({ color: couleur, width: 1, linecap: 'round' })
-	let c3 = fleche.line(x2+5,y2+5,x2,y2)
+	let c3 = fleche.line(x2+3,y2+5,x2,y2)
 	c3.stroke({ color: couleur, width: 1, linecap: 'round' })
+	}
+	else {
+	let c2 = fleche.line(x2-3,y2-5,x2,y2)
+	c2.stroke({ color: couleur, width: 1, linecap: 'round' })
+	let c3 = fleche.line(x2+3,y2-5,x2,y2)
+	c3.stroke({ color: couleur, width: 1, linecap: 'round' })	
+	}
+}
 
+/**
+ * 
+ * @param {string} mon_svg l'identifiant du SVG
+ * @param {number} x1 (x1,y1)=point de départ de la flèche horizontale (y1=y2 en général)
+ * @param {number} y1 
+ * @param {number} x2 (x2,y2)=point d'arrivée de la flèche
+ * @param {number} y2 
+ * @param {string} couleur couleur de la flèche
+ * @param {number} pointilles longueur des pointillés et des espaces entre les pointillés
+ * @Auteur Jean-Claude Lhote
+ */
+function SVG_tracer_droite_flecheH(mon_svg,x1,y1,x2,y2,couleur,pointilles){
+	let fleche = mon_svg.group()
+	let c1 = fleche.line(x1,y1,x2,y2)
+	c1.stroke({ color: couleur, width: 1, linecap: 'round',dasharray :pointilles })
+	if (x2<x1) {
+	let c2 = fleche.line(x2+5,y2+3,x2,y2)
+	c2.stroke({ color: couleur, width: 1, linecap: 'round' })
+	let c3 = fleche.line(x2+5,y2-3,x2,y2)
+	c3.stroke({ color: couleur, width: 1, linecap: 'round' })
+	}
+	else {
+		let c2 = fleche.line(x2-5,y2+3,x2,y2)
+		c2.stroke({ color: couleur, width: 1, linecap: 'round' })
+		let c3 = fleche.line(x2-5,y2-3,x2,y2)
+		c3.stroke({ color: couleur, width: 1, linecap: 'round' })	
+	}
 }
 /**
  * 
@@ -1546,6 +1603,7 @@ function SVG_Tracer_droite(mon_svg,tailleX,tailleY,Xmin,Xmax,Ymin,Ymax,OrdX0,Pen
 		, leading : Ynom
 		})
 }
+
 /**
  * 
  * @param {number} Xmin l'abscisse minimum du repère
@@ -1559,7 +1617,6 @@ function SVG_Tracer_droite(mon_svg,tailleX,tailleY,Xmin,Xmax,Ymin,Ymax,OrdX0,Pen
  * @returns {string} Le code Latex à intégrer dans un environnement {tikzpicture}
  * @Auteur Jean-Claude Lhote et Rémi Angot
  */
-
 function Latex_Tracer_droite(Xmin,Xmax,Ymin,Ymax,OrdX0,Pente,couleur,nom) {
 	'use strict';
 	let k=0;
@@ -1586,6 +1643,7 @@ function Latex_Tracer_droite(Xmin,Xmax,Ymin,Ymax,OrdX0,Pente,couleur,nom) {
  * @param {number} tailleX Nombre de pixels de largeur pour le SVG (>100 !)
  * @param {number} tailleY Nombre de pixels de hauteur pour le SVG  (>100 !)
  * @param {boolean} grille Faut-il dessiner une grille ? true si Oui false si Non.
+ * @returns Les coordonnées des axes dans le SVG
  * @Auteur Jean-Claude Lhote
  */
 function SVG_repere(mon_svg,Xmin,Xmax,Ymin,Ymax,subX,subY,tailleX,tailleY,grille){
@@ -1601,7 +1659,7 @@ function SVG_repere(mon_svg,Xmin,Xmax,Ymin,Ymax,subX,subY,tailleX,tailleY,grille
 			SVG_Axe_horizontal(mon_svg,20,tailleX,tailleY-20+Ymin*Dy,DeltaX,subX);
 			SVG_tracer_fleche(mon_svg,tailleX-2,tailleY-20+Ymin*Dy);
 			SVG_Axe_vertical(mon_svg,0,tailleY-20,20-Xmin*Dx,DeltaY,subY);
-			SVG_tracer_flecheV(mon_svg,20-Xmin*Dx,-3);
+			SVG_tracer_fleche(mon_svg,20-Xmin*Dx,-3);
 			for (let i=0;i<DeltaX;i++){
 				if (i+Xmin==0) 	SVG_label(mon_svg,[[string_nombre(i+Xmin),i*Dx+15,tailleY+2+Ymin*Dy]],0,'black')	;
 				else SVG_label(mon_svg,[[string_nombre(i+Xmin),i*Dx+20,tailleY+2+Ymin*Dy]],0,'black')	;
@@ -1610,6 +1668,7 @@ function SVG_repere(mon_svg,Xmin,Xmax,Ymin,Ymax,subX,subY,tailleX,tailleY,grille
 				if (i+Ymin==0)	SVG_label(mon_svg,[[string_nombre(i+Ymin),10-Xmin*Dx,tailleY-15-i*Dy]],0,'black')	;	
 				else SVG_label(mon_svg,[[string_nombre(i+Ymin),10-Xmin*Dx,tailleY-25-i*Dy]],1,'black')	;		
 			}
+			return [20-Xmin*Dx,tailleY-20+Ymin*Dy];
 }
 /**
  * Trace un repère en Latex avec une grille
@@ -1679,16 +1738,16 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 			for (let i=0;i<points_inconnus.length;i++){
 				distance=longueur_pas1*points_inconnus[i][1]+longueur_pas2*points_inconnus[i][2]
 				nom=points_inconnus[i][0]
-				SVG_tracer_point(mon_svg,100+distance,50,nom,'#f15929',0,0)
+				SVG_tracer_point(mon_svg,100+distance,50,nom,'#f15929',0,0,[false])
 				if (points_inconnus[i][3]==true) {
 					if (!fraction) { // affichage décimal 
 						valeur=string_nombre(calcul(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2));
 						SVG_label(mon_svg,[[valeur,100+distance,50]],3+position,'#f15929')
-						SVG_tracer_droite_fleche(mon_svg,100+distance,80+15*position,100+distance,55,'#f15929')
+						SVG_tracer_droite_flecheV(mon_svg,100+distance,80+15*position,100+distance,55,'#f15929',3)
 					}
 					else { //affichage fractionnaire
 					 SVG_fraction(mon_svg,(origine+points_inconnus[i][1])*pas2+points_inconnus[i][2],pas2,100+distance,115+15*position,'#f15929')
-					 SVG_tracer_droite_fleche(mon_svg,100+distance,80+15*position,100+distance,55,'#f15929')
+					 SVG_tracer_droite_flecheV(mon_svg,100+distance,80+15*position,100+distance,55,'#f15929',3)
 					}
 					position=1-position
 				}
@@ -1715,11 +1774,13 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
 
 	result+=`\n\t \\tkzInit[xmin=${origine},xmax=${calcul(origine+7/pas1)},ymin=-0.5,ymax=0.5,xstep=${calcul(1/pas1)}]`
 
-	if (origine==0) result +=`\n\t \\tkzDrawX`
-	else result+=`\n\t \\tkzDrawX[left space=0.2]`
+	if (origine==0) result +=`\n\t \\tkzDrawX[tickwd=2pt]`
+	else result+=`\n\t \\tkzDrawX[left space=0.2,tickwd=2pt]`
 	result+=`\\tikzset{arr/.style={postaction=decorate,	decoration={markings,mark=at position 1 with {\\arrow[thick]{#1}}}}}`
-	result+=`\n\t \\foreach \\x in {0,0.1,...,7}`
+
+	result+=`\n\t \\foreach \\x in {0,${calcul(1/pas2)},...,7}`
 	result+=`\n\t {\\draw (\\x,-0.05)--(\\x,0.05);}`
+	
 	for (i=0;i<points_connus.length;i++){
 		valeur=calcul(origine+points_connus[i][1]/pas1+calcul(points_connus[i][2]/pas1/pas2))
 		result+=`\n\t \\tkzDefPoint(${valeur},0){A}`
@@ -1733,8 +1794,15 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
 		result+=`\n\t \\tkzDefPoint(${valeur},-0.3-${position*0.02}){B}`
 		result +=`\n\t \\tkzDrawPoint[shape=cross out,color=orange,size=6](A)`
 		result +=`\n\t \\tkzLabelPoint[above](A){$${points_inconnus[i][0]}$}`
-		if (points_inconnus[i][3]) {	result +=`\n\t \\tkzLabelPoint[color = orange,below=${15+position}pt,inner sep = 5pt,font=\\scriptsize](A){$${tex_nombrec(valeur)}$}`	
-		result+=`\n\t \\tkzDrawSegment[color=orange,arr=stealth](B,A)`
+		if (points_inconnus[i][3]) {	
+			if (!fraction) { // affichage décimal 
+				result +=`\n\t \\tkzLabelPoint[color = orange,below=${15+position}pt,inner sep = 5pt,font=\\scriptsize](A){$${tex_nombrec(valeur)}$}`	
+				result+=`\n\t \\tkzDrawSegment[color=orange,arr=stealth](B,A)`
+			}
+			else { //affichage fractionnaire
+				result +=`\n\t \\tkzLabelPoint[color = orange,below=${15+position}pt,inner sep = 5pt,font=\\scriptsize](A){$${tex_fraction((origine+points_inconnus[i][1])*pas2+points_inconnus[i][2],pas2)}$}`	
+				result+=`\n\t \\tkzDrawSegment[color=orange,arr=stealth](B,A)`
+			}
 	}
 		position=6-position;
 	}
