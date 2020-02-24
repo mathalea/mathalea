@@ -581,6 +581,23 @@ function Resoudre_une_equation_produit_nul(){
 *
 * @Auteur Sébastien Lozano
 */
+
+/**
+* Fonction pour créer une machine mathématiques SVG, une fonction!
+* @param id_du_div id_du_div
+* @param mon_svg le svg
+* @param w width du svg
+* @param h height du svg
+* @param x antécédent
+* @param i image
+* @param text texte qui explicite le procédé de la fonction
+* @Auteur Sébastien Lozano
+*/	
+function SVG_machine_maths(id_du_div,mon_svg,w,h,x,i,text) {
+	
+
+}
+
 function fonction_notion_vocabulaire(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -613,35 +630,42 @@ function fonction_notion_vocabulaire(){
 
 				// On crée une timeline
 				let timeline = new SVG.Timeline()
-
+				// on crée une variable pour l'antécédent
+				let x = randint(1,9);
 				// on crée l'objet pour l'antécédent et on l'anime
-				let ant = mon_svg.text(`antécédent-->`);
+				let ant = mon_svg.text('antécédent : '+x+'-->');
 				let w_ant = ant.length();
 				ant.move(0,h/2);
 				// on crée l'objet pour l'image
-				let im = mon_svg.text('-->image');
+				let im = mon_svg.text('-->image de '+x);
 				let w_im = im.length();
 				im.move(w/2-w_im/2,h/2);
 				
 				ant.timeline(timeline);
 				im.timeline(timeline);
 
-				let runner1 = ant.animate(13000,0,'absolute').dmove(w/2-w_ant/2,0);
-				let runner2 = im.animate(8000,6000,'absolute').dmove(w-w_im,0);
+				let runner1 = ant.animate(8000,0,'absolute').dmove(w/2-w_ant/2,0);
+				console.log(w/2-w_ant/2-0);
+				let runner2 = im.animate(8000,0,'after').dmove(w-w_im,0);
+				console.log(w-w_im-w/2+w_im/2);
 
-				runner1.loop(5,false,4000);
-				runner2.loop(5,false,1000);
+				runner1.loop(true,false,8000);
+				runner2.loop(true,false,8000);
 
 				// on crée des variables pour le texte à afficher sur la machine afin de récupérer leur taille
 				// pour ajuster celle de la machine.
-				let text_1 = mon_svg.text('mathématique');				
-				let w_t_1 = text_1.length();
-				text_1.move(w/2-w_t_1/2,h/2);
+				let text_1 = mon_svg.text('machine');
+				let text_2 = mon_svg.text('mathématique');				
+				let w_t_max = Math.max(text_1.length(),text_2.length());
+				console.log(w_t_max);
+				// On supprime les objets pour éviter leur affichage avant la machine
+				text_1.clear();
+				text_2.clear();
 				
 				// on crée l'objet pour la machine mathématique et on le place
 				//let machine = mon_svg.rect(w/3+w_t_1/2,h/2).attr({ stroke: '#f15929', 'stroke-width': 3, fill : 'white' });
-				let machine = mon_svg.rect(1.2*w_t_1,h/2).attr({ stroke: '#f15929', 'stroke-width': 3, fill : 'white' });
-				machine.move(w/2-0.6*w_t_1,h/2-h/4);
+				let machine = mon_svg.rect(1.2*w_t_max,h/2).attr({ stroke: '#f15929', 'stroke-width': 3, fill : 'white' });
+				machine.move(w/2-0.6*w_t_max,h/2-h/4);
 
 				// on crée le texte à écrire sur la machine et on le place
 				let nom_machine_1 = mon_svg.text('machine');
