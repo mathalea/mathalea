@@ -621,7 +621,20 @@ function fonction_notion_vocabulaire(){
 						texte += `<br>`;
 						texte += `Quelle est la sortie si le côté vaut  ${x}  cm ?`;
 						if (sortie_html) {
-							texte += `<br>diagramme SVG`;
+							texte += `<br>diagramme SVG test <br>
+							<svg width="200" height="100" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+							<g class="layer">
+							<title>Layer 1</title>
+							<rect id="svg_13" height="43.45312" width="91.125" y="30.5" x="57.20313" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#f15929" fill="none"/>
+							<text style="cursor: move;" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="10" id="svg_15" y="44.42188" x="102.34375" opacity="0.45" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#f15929" fill="#000000">Machine f</text>
+							<text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="10" id="svg_16" y="62.14063" x="102.76563" opacity="0.45" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#f15929" fill="#000000">qui quadruple</text>
+							<line id="svg_17" y2="52.4375" x2="56.35938" y1="52.85938" x1="30.625" opacity="0.45" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#f15929" fill="none"/>
+							<path id="svg_24" d="m177.70735,51.07146l-6.34538,-11.39063l11.40909,11.39063l-11.40909,11.39063l6.34538,-11.39063z" opacity="0.45" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#f15929" fill="none"/>
+							<line id="svg_25" y2="51.31251" x2="177.29688" y1="51.73438" x1="149.45313" opacity="0.45" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#f15929" fill="none"/>
+							<line id="svg_26" y2="55.95313" x2="31.32813" y1="49.20313" x1="31.32813" opacity="0.45" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#f15929" fill="none"/>
+						   </g>
+						  </svg>						
+							`;
 						} else { // sortie Latex avec Tikz
 
 						}
