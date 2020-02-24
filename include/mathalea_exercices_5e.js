@@ -2452,6 +2452,7 @@ function reperage_point_du_plan(){
 	this.nouvelle_version = function(numero_de_l_exercice){ // numero_de_l_exercice est 0 pour l'exercice 1
 	this.liste_questions=[];
 	this.liste_corrections=[];
+	let texte,texte_corr;
 	this.contenu = ''; // Liste de questions
 	this.contenu_correction = ''; // Liste de questions corrigées
 	let liste_points=[],points=[];
@@ -2515,7 +2516,7 @@ function reperage_point_du_plan(){
 
 	}
 	else { //sortie Latex 
-		let texte =`\\begin{tikzpicture}`;
+		texte =`\\begin{tikzpicture}`;
 		texte += Latex_repere(xmin,xmax,ymin,ymax,k,k,grille);
 		for (let i=0;i<5;i++)	{
 		texte += `\n\t \\tkzDefPoint(${points[i][0]},${points[i][1]}){A}`
@@ -2524,8 +2525,19 @@ function reperage_point_du_plan(){
 		}
 		texte +=`\n\t \\end{tikzpicture}`;
 		this.liste_questions.push(texte);
+		
+		texte_corr =`\\begin{tikzpicture}`;
+		texte_corr += Latex_repere(xmin,xmax,ymin,ymax,k,k,grille);
+		for (let i=0;i<5;i++)	{
+		texte_corr += `\n\t \\tkzDefPoint(${points[i][0]},${points[i][1]}){A}`
+		texte_corr +=`\n\t \\tkzDrawPoint[shape=cross out,color=blue,size=6](A)`
+		texte_corr +=`\n\t \\tkzLabelPoint[above=5pt,fill=white,fill opacity=0.7,text opacity=1,inner sep=0](A){$${nom[i]}$}`
+		texte_corr +=`\n\t \\tkzPointShowCoord(A)`
+		}
+		texte_corr +=`\n\t \\end{tikzpicture}`;
+		this.liste_corrections.push(texte_corr);
 	}
-	let texte,texte_corr;
+
 	texte=`Déterminer les coordonnées des points`;
 	texte_corr=`Les coordonnées des points sont :`
 	for (i=0;i<4;i++) {
@@ -2538,6 +2550,6 @@ function reperage_point_du_plan(){
 	this.liste_corrections.push(texte_corr);
 	liste_de_question_to_contenu_sans_numero(this); 
 	}
-	this.besoin_formulaire_numerique = ['Niveau de difficulté',3,"1 : Coordonnées entières\n2 : Coordonnées 'en demis'\n3 : Coeordonnées 'en quarts'"];
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',3,"1 : Coordonnées entières\n2 : Coordonnées 'en demis'\n3 : Coordonnées 'en quarts'"];
 	this.besoin_formulaire2_case_a_cocher = ['Grille de lecture'];
 }
