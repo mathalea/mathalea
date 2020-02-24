@@ -2445,6 +2445,7 @@ function reperage_point_du_plan(){
 	this.spacing = 1;
     this.spacing_corr = 1;
 	this.sup=1;
+	this.sup2=false;
 	this.quart_de_plan=false;
 
 	
@@ -2454,11 +2455,13 @@ function reperage_point_du_plan(){
 	this.contenu = ''; // Liste de questions
 	this.contenu_correction = ''; // Liste de questions corrigées
 	let liste_points=[],points=[];
-	let w,h,k,xmin,xmax,ymin,ymax,shiftxnom,shiftynom;
+	let grille,w,h,k,xmin,xmax,ymin,ymax,shiftxnom,shiftynom;
 	h=Math.round(window.innerHeight*0.75)
 	w=h;
 	k=Math.pow(2,parseInt(this.sup)-1);
 	let nom=[];
+	if (this.sup2==true) grille=true;
+	else grille=false;
 	if (this.quart_de_plan) {
 		xmin=0;ymin=0;xmax=10;ymax=10;
 	}
@@ -2494,7 +2497,7 @@ function reperage_point_du_plan(){
 			if ($(`#${id_du_div}`).length ) {
 				$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
 				const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w+20, h+20)
-			SVG_repere(mon_svg,xmin,xmax,ymin,ymax,k,k,w+20,h+20,true);
+			SVG_repere(mon_svg,xmin,xmax,ymin,ymax,k,k,w+20,h+20,grille);
 			for (let i=0;i<5;i++)	{
 				if (points[i][0]==0||points[i][0]==0.25) shiftxnom=25;
 				else shiftxnom=0;
@@ -2513,7 +2516,7 @@ function reperage_point_du_plan(){
 	}
 	else { //sortie Latex 
 		let texte =`\\begin{tikzpicture}`;
-		texte += Latex_repere(xmin,xmax,ymin,ymax,k,k,true);
+		texte += Latex_repere(xmin,xmax,ymin,ymax,k,k,grille);
 		for (let i=0;i<5;i++)	{
 		texte += `\n\t \\tkzDefPoint(${points[i][0]},${points[i][1]}){A}`
 		texte +=`\n\t \\tkzDrawPoint[shape=cross out,color=blue,size=6](A)`
@@ -2527,13 +2530,14 @@ function reperage_point_du_plan(){
 	texte_corr=`Les coordonnées des points sont :`
 	for (i=0;i<4;i++) {
 	texte+=` ${nom[i]},`;
-	texte_corr+=` ${nom[i]} : (${points[i][0]};${points[i][1]}), `;
+	texte_corr+=` ${nom[i]} : (${tex_nombre(points[i][0])};${tex_nombre(points[i][1])}), `;
 	}
 	texte+=` ${nom[i]}.`
-	texte_corr+=` ${nom[i]} : (${points[i][0]};${points[i][1]}).`;	
+	texte_corr+=` ${nom[i]} : (${tex_nombre(points[i][0])};${tex_nombre(points[i][1])}).`;	
 	this.liste_questions.push(texte)
 	this.liste_corrections.push(texte_corr);
 	liste_de_question_to_contenu_sans_numero(this); 
 	}
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',3,"1 : Coordonnées entières\n2 : Coordonnées 'en demis'\n3 : Coeordonnées 'en quarts'"];
+	this.besoin_formulaire2_case_a_cocher = ['Grille de lecture'];
 }
