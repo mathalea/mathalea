@@ -512,7 +512,7 @@ function fonction_notion_vocabulaire(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1 ; 
 	this.titre = "Fonction : Notion et vocabulaire"; 
-	sortie_html ? this.consigne = "Lorsqu'un nombre $x$ entre dans une machine mathématique , on retrouve à la sortie un nombre appelé $\\textit{image de x}$.<br>Ces machines sont appelées fonctions.":  this.consigne = "Consigne LaTeX";
+	sortie_html ? this.consigne = "Lorsqu'un nombre $\\textit{x}$ entre dans une machine mathématique , on retrouve à la sortie un nombre appelé $\\textit{image de x}$.<br> On dit que le nombre de départ est un $\\textit{antécédent}$ du nombre d'arrivé.<br>Ces machines sont appelées fonctions, on a l'habitude de leur donner des noms $\\textit{f}$ ou $\\textit{g}$ ou $\\textit{h} \\ldots$":  this.consigne = "Consigne LaTeX";
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
 	this.nb_questions = 4;
@@ -539,14 +539,12 @@ function fonction_notion_vocabulaire(){
 
 				// On crée une timeline
 				let timeline = new SVG.Timeline()
-				// on crée une variable pour l'antécédent
-				let x = randint(1,9);
 				// on crée l'objet pour l'antécédent et on l'anime
-				let ant = mon_svg.text('antécédent : '+x+'-->');
+				let ant = mon_svg.text('antécédent-->');
 				let w_ant = ant.length();
 				ant.move(0,h/2);
 				// on crée l'objet pour l'image
-				let im = mon_svg.text('-->image de '+x);
+				let im = mon_svg.text('-->image');
 				let w_im = im.length();
 				im.move(w/2-w_im/2,h/2);
 				
@@ -619,7 +617,14 @@ function fonction_notion_vocabulaire(){
 	
 				switch (type_de_questions) {
 					case 1 : // périmètre d'un carré de côté x
-						texte = `Périmètre d'un carré de côté ${x}`;
+						texte = `La $\\textbf{machine f}$ renvoie le périmètre d'un carré de côté $x$`;
+						texte += `<br>`;
+						texte += `Quelle est la sortie si le côté vaut  ${x}  cm ?`;
+						if (sortie_html) {
+							texte += `<br>diagramme SVG`;
+						} else { // sortie Latex avec Tikz
+
+						}
 						texte_corr = `Périmètre d'un carré de côté ${x}`;
 						break;			
 					case 2 : // aire d'un carré de côté x
