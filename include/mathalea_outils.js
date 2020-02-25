@@ -1336,6 +1336,8 @@ function SVG_grille (mon_svg,absO,ordO,tailleX,tailleY,DeltaX,DeltaY,subX,subY){
 	for (let i=0;i<=DeltaX;i++){
 		line_grille = mon_svg.line(absO+i*(tailleX/DeltaX),0,absO+i*(tailleX/DeltaX),tailleY);
 		line_grille.stroke({ color: 'lightgray', width: 1 });
+	}
+	for (let i=0;i<DeltaX;i++){
 		if (subX!=1) {
 			for (k=0;k<subX;k++) {
 					line_grille = mon_svg.line(absO+i*(tailleX/DeltaX)+k*(tailleX/DeltaX/subX),0,absO+i*(tailleX/DeltaX)+k*(tailleX/DeltaX/subX),tailleY);
@@ -1346,6 +1348,8 @@ function SVG_grille (mon_svg,absO,ordO,tailleX,tailleY,DeltaX,DeltaY,subX,subY){
 	for (let j=0;j<=DeltaY;j++) {
 		line_grille = mon_svg.line(20,ordO+j*(tailleY/DeltaY),20+tailleX,ordO+j*(tailleY/DeltaY));
 		line_grille.stroke({ color: 'lightgray', width: 1 });
+	}
+	for (let j=0;j<DeltaY;j++) {
 		if (subY!=1) {
 			for (l=0;l<subY;l++) {
 				line_grille = mon_svg.line(20,ordO+j*(tailleY/DeltaY)+l*(tailleY/DeltaY/subY),20+tailleX,ordO+j*(tailleY/DeltaY)+l*(tailleY/DeltaY/subY));
@@ -1446,17 +1450,17 @@ function SVG_tracer_point(mon_svg,x,y,nom,couleur,shiftxnom,shiftynom,montrer_co
 	//creer un groupe pour la croix
 	let point = mon_svg.group()
 	let c1 = point.line(-3,3,3,-3)
-	c1.stroke({ color: couleur, width: 1, linecap: 'round', opacity:1 })
+	c1.stroke({ color: couleur, width: 2, linecap: 'round', opacity:1 })
 	let c2 = point.line(-3,-3,3,3)
-	c2.stroke({ color: couleur, width: 1, linecap: 'round', opacity:1 })
-	point.attr({color: couleur, width: 2, fill: couleur, stroke: '#ffffff', 'stroke-width':2,  opacity:1})
+	c2.stroke({ color: couleur, width: 2, linecap: 'round', opacity:1 })
 	//déplace la croix
 	point.move(x-3,y-3)
 	// point.dmove(-3,-3)
-	let text = mon_svg.text(nom).attr({x: x+shiftxnom, y: y+shiftynom, fill: '#000000',  opacity: 0.7})
+	let text = mon_svg.text(nom).attr({x: x+shiftxnom, y: y+shiftynom, fill: couleur , opacity: 0.7})
 	//ecrit le nom
 	text.font({
 		color : couleur
+		, 'font-weight': 'bolder'
 		, family:   'Helvetica'
 		, size:     14
 		, anchor:   'middle'

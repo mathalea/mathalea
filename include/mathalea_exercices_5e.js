@@ -2457,7 +2457,7 @@ function reperage_point_du_plan(){
 	this.contenu_correction = ''; // Liste de questions corrigées
 	let liste_points=[],points=[];
 	let grille,w,h,k,xmin,xmax,ymin,ymax,shiftxnom,shiftynom;
-	h=Math.round(window.innerHeight*0.75)
+	h=Math.round(window.innerHeight*0.7)
 	w=h;
 	k=Math.pow(2,parseInt(this.sup)-1);
 	let nom=[];

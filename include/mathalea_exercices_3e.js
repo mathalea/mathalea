@@ -681,7 +681,6 @@ function fonction_notion_vocabulaire(){
 		var k = 1; // compteur pour la gestion de svg multiples, on a besoin d'une variable globale
 		var pourcentage = '100%'; // pour l'affichage des svg. On a besoin d'une variable globale
 		var hauteur_svg = 100;
-		console.log(hauteur_svg);
 
 		//this.consigne += `<div id="consigne" style="width: 100%; height: 500px; display : table "></div>`;
 		//this.consigne += `<div id="${id_du_div}" style="width: 100%; height: 150px; display : table "></div>`;
