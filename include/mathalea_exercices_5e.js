@@ -2470,10 +2470,10 @@ function reperage_point_du_plan(){
 		xmin=-5;ymin=-5;xmax=5;ymax=5;	
 	}
 	let liste_abs=[],liste_ord=[];
-	for (let i=calcul(xmin+1/k);i<calcul(xmax);i=calcul(i+1/k)) {
+	for (let i=calcul(xmin+1/k);i<calcul(xmax-(parseInt(this.sup)-1)/k);i=calcul(i+1/k)) {
 		liste_abs.push(i)
 	}
-	for (let i=calcul(ymin+1/k);i<calcul(ymax);i=calcul(i+1/k)) {
+	for (let i=calcul(ymin+1/k);i<calcul(ymax-(parseInt(this.sup)-1)/k);i=calcul(i+1/k)) {
 		liste_ord.push(i)
 	}
 	let X0=false,Y0=false;
@@ -2500,12 +2500,12 @@ function reperage_point_du_plan(){
 				const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w+20, h+20)
 			let AxesXY=SVG_repere(mon_svg,xmin,xmax,ymin,ymax,k,k,w+20,h+20,grille);
 			for (let i=0;i<5;i++)	{
-				if (points[i][0]==0||points[i][0]==0.25) shiftxnom=25;
+				if (points[i][0]==0||points[i][0]==0.25) shiftxnom=20;
 				else shiftxnom=0;
 				shiftynom=0;
-				if (points[i][1]==0) shiftynom=-10;	
-				if (points[i][1]==-0.25) shiftynom=10;
-				SVG_tracer_point(mon_svg,calcul(20+(points[i][0]-xmin)*w/(xmax-xmin)),calcul(w-(points[i][1]-ymin)*w/(ymax-ymin)),nom[i],'blue',-12+shiftxnom,20+shiftynom,[true,AxesXY[0],AxesXY[1]])
+				if (points[i][1]==-0.5) shiftynom=10;	
+				if (points[i][1]==-0.25) shiftynom=20;
+				SVG_tracer_point(mon_svg,calcul(20+(points[i][0]-xmin)*w/(xmax-xmin)),calcul(w-(points[i][1]-ymin)*w/(ymax-ymin)),nom[i],'blue',-10+shiftxnom,10+shiftynom,[true,AxesXY[0],AxesXY[1]])
 			}
 			clearInterval(SVGExist[id_du_div]);//Arrête le timer
 			}

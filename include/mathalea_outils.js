@@ -1380,9 +1380,10 @@ function SVG_graduation(mon_svg,origine,pas,derniere_graduation,taille=10,y=50,c
  * @param {array} liste_d_abscisses [[nombre à écrire,abscisse,ordonnée]]
  * @param {number} y leading pour position du texte sur la ligne
  * @param {string} couleur couleur du nombre
+ * @param {number} opacite valeur d'opacité entre 0 et 1
  * @Auteur Rémi Angot
  */
-function SVG_label(mon_svg,liste_d_abscisses,y,couleur) {
+function SVG_label(mon_svg,liste_d_abscisses,y,couleur,opacite) {
 	'use strict';
 	for (let i = 0; i < liste_d_abscisses.length; i++) {
 		let text;
@@ -1391,9 +1392,10 @@ function SVG_label(mon_svg,liste_d_abscisses,y,couleur) {
 		y=parseInt(y);	
 		text.move(liste_d_abscisses[i][1],liste_d_abscisses[i][2]).font({ fill: couleur,
 			family:   'Helvetica'
-			, size:     16
+			, size:     14
 			, anchor:   'middle'
 			, leading : y
+			,opacity : opacite
 		})
 	}
 }
@@ -1444,24 +1446,25 @@ function SVG_tracer_point(mon_svg,x,y,nom,couleur,shiftxnom,shiftynom,montrer_co
 	//creer un groupe pour la croix
 	let point = mon_svg.group()
 	let c1 = point.line(-3,3,3,-3)
-	c1.stroke({ color: couleur, width: 2, linecap: 'round', opacity:0.5 })
+	c1.stroke({ color: couleur, width: 1, linecap: 'round', opacity:1 })
 	let c2 = point.line(-3,-3,3,3)
-	c2.stroke({ color: couleur, width: 2, linecap: 'round' , opacity:0.5})
+	c2.stroke({ color: couleur, width: 1, linecap: 'round', opacity:1 })
+	point.attr({color: couleur, width: 2, fill: couleur, stroke: '#ffffff', 'stroke-width':2,  opacity:1})
 	//déplace la croix
 	point.move(x-3,y-3)
 	// point.dmove(-3,-3)
-	let text = mon_svg.text(nom).attr({x: x+shiftxnom, y: y+shiftynom, fill: '#000000', stroke: '#ffffff', opacity: 0.7})
+	let text = mon_svg.text(nom).attr({x: x+shiftxnom, y: y+shiftynom, fill: '#000000',  opacity: 0.7})
 	//ecrit le nom
 	text.font({
 		color : couleur
-		, family:   'Arial'
-		, size:     16
+		, family:   'Helvetica'
+		, size:     14
 		, anchor:   'middle'
 		, leading : -1
 		})
 	if (montrer_coord[0]) { // montrer_coord=[true,abs_axe,ord_axe] ou [false]
-		SVG_tracer_droite_flecheV(mon_svg,x,y,x,montrer_coord[2],'black',3)
-		SVG_tracer_droite_flecheH(mon_svg,x,y,montrer_coord[1],y,'black',3)
+		if ((y!=montrer_coord[2])&&(x!=montrer_coord[1])) SVG_tracer_droite_flecheV(mon_svg,x,y,x,montrer_coord[2],couleur,3)
+		if ((x!=montrer_coord[1])&&(y!=montrer_coord[2])) SVG_tracer_droite_flecheH(mon_svg,x,y,montrer_coord[1],y,couleur,3)
 	}
 
 }
@@ -1474,7 +1477,7 @@ function SVG_tracer_point(mon_svg,x,y,nom,couleur,shiftxnom,shiftynom,montrer_co
  * @param {number} y l'ordonnée de la pointe
  * @Auteur Rémi Angot
  */
-function SVG_tracer_fleche(mon_svg,x,y) {
+function SVG_tracer_flecheH(mon_svg,x,y) {
 	//creer un groupe pour la fleche
 	let fleche = mon_svg.group()
 	let c1 = fleche.line(-5,5,0,0)
@@ -1492,7 +1495,7 @@ function SVG_tracer_fleche(mon_svg,x,y) {
  * @param {number} y l'ordonnée de la pointe de la flèche
  * @Auteur Jean-Claude Lhote
  */
-function SVG_tracer_fleche(mon_svg,x,y) {
+function SVG_tracer_flecheV(mon_svg,x,y) {
 	//creer un groupe pour la fleche
 	let fleche = mon_svg.group()
 	let c1 = fleche.line(-5,5,0,0)
@@ -1518,18 +1521,18 @@ function SVG_tracer_fleche(mon_svg,x,y) {
 function SVG_tracer_droite_flecheV(mon_svg,x1,y1,x2,y2,couleur,pointilles){
 	let fleche = mon_svg.group()
 	let c1 = fleche.line(x1,y1,x2,y2)
-	c1.stroke({ color: couleur, width: 1, linecap: 'round',dasharray :pointilles })
+	c1.stroke({ color: couleur, width: 1, linecap: 'round',dasharray :pointilles,opacity: 0.5 })
 	if (y2<y1) {
 	let c2 = fleche.line(x2-3,y2+5,x2,y2)
-	c2.stroke({ color: couleur, width: 1, linecap: 'round' })
+	c2.stroke({ color: couleur, width: 1, linecap: 'round',opacity: 0.5  })
 	let c3 = fleche.line(x2+3,y2+5,x2,y2)
-	c3.stroke({ color: couleur, width: 1, linecap: 'round' })
+	c3.stroke({ color: couleur, width: 1, linecap: 'round',opacity: 0.5  })
 	}
 	else {
 	let c2 = fleche.line(x2-3,y2-5,x2,y2)
-	c2.stroke({ color: couleur, width: 1, linecap: 'round' })
+	c2.stroke({ color: couleur, width: 1, linecap: 'round',opacity: 0.5  })
 	let c3 = fleche.line(x2+3,y2-5,x2,y2)
-	c3.stroke({ color: couleur, width: 1, linecap: 'round' })	
+	c3.stroke({ color: couleur, width: 1, linecap: 'round' ,opacity: 0.5 })	
 	}
 }
 
@@ -1547,18 +1550,18 @@ function SVG_tracer_droite_flecheV(mon_svg,x1,y1,x2,y2,couleur,pointilles){
 function SVG_tracer_droite_flecheH(mon_svg,x1,y1,x2,y2,couleur,pointilles){
 	let fleche = mon_svg.group()
 	let c1 = fleche.line(x1,y1,x2,y2)
-	c1.stroke({ color: couleur, width: 1, linecap: 'round',dasharray :pointilles })
+	c1.stroke({ color: couleur, width: 1, linecap: 'round',dasharray :pointilles,opacity: 0.5  })
 	if (x2<x1) {
 	let c2 = fleche.line(x2+5,y2+3,x2,y2)
-	c2.stroke({ color: couleur, width: 1, linecap: 'round' })
+	c2.stroke({ color: couleur, width: 1, linecap: 'round' ,opacity: 0.5 })
 	let c3 = fleche.line(x2+5,y2-3,x2,y2)
-	c3.stroke({ color: couleur, width: 1, linecap: 'round' })
+	c3.stroke({ color: couleur, width: 1, linecap: 'round',opacity: 0.5  })
 	}
 	else {
 		let c2 = fleche.line(x2-5,y2+3,x2,y2)
-		c2.stroke({ color: couleur, width: 1, linecap: 'round' })
+		c2.stroke({ color: couleur, width: 1, linecap: 'round' ,opacity: 0.5 })
 		let c3 = fleche.line(x2-5,y2-3,x2,y2)
-		c3.stroke({ color: couleur, width: 1, linecap: 'round' })	
+		c3.stroke({ color: couleur, width: 1, linecap: 'round',opacity: 0.5  })	
 	}
 }
 /**
@@ -1657,16 +1660,16 @@ function SVG_repere(mon_svg,Xmin,Xmax,Ymin,Ymax,subX,subY,tailleX,tailleY,grille
 			let Dy=(tailleY-20)/DeltaY;
 			if (grille) SVG_grille(mon_svg,20,0,tailleX-20,tailleY-20,DeltaX,DeltaY,subX,subY);
 			SVG_Axe_horizontal(mon_svg,20,tailleX,tailleY-20+Ymin*Dy,DeltaX,subX);
-			SVG_tracer_fleche(mon_svg,tailleX-2,tailleY-20+Ymin*Dy);
+			SVG_tracer_flecheH(mon_svg,tailleX-2,tailleY-20+Ymin*Dy);
 			SVG_Axe_vertical(mon_svg,0,tailleY-20,20-Xmin*Dx,DeltaY,subY);
-			SVG_tracer_fleche(mon_svg,20-Xmin*Dx,-3);
+			SVG_tracer_flecheV(mon_svg,20-Xmin*Dx,-3);
 			for (let i=0;i<DeltaX;i++){
-				if (i+Xmin==0) 	SVG_label(mon_svg,[[string_nombre(i+Xmin),i*Dx+15,tailleY+2+Ymin*Dy]],0,'black')	;
-				else SVG_label(mon_svg,[[string_nombre(i+Xmin),i*Dx+20,tailleY+2+Ymin*Dy]],0,'black')	;
+				if (i+Xmin==0) 	SVG_label(mon_svg,[[string_nombre(i+Xmin),i*Dx+15,tailleY+2+Ymin*Dy]],0,'black',0.5)	;
+				else SVG_label(mon_svg,[[string_nombre(i+Xmin),i*Dx+20,tailleY+2+Ymin*Dy]],0,'black',0.5)	;
 			}
 			for (let i=0;i<DeltaY;i++){
-				if (i+Ymin==0)	SVG_label(mon_svg,[[string_nombre(i+Ymin),10-Xmin*Dx,tailleY-15-i*Dy]],0,'black')	;	
-				else SVG_label(mon_svg,[[string_nombre(i+Ymin),10-Xmin*Dx,tailleY-25-i*Dy]],1,'black')	;		
+				if (i+Ymin==0)	SVG_label(mon_svg,[[string_nombre(i+Ymin),10-Xmin*Dx,tailleY-15-i*Dy]],0,'black',0.5)	;	
+				else SVG_label(mon_svg,[[string_nombre(i+Ymin),10-Xmin*Dx,tailleY-25-i*Dy]],1,'black',0.5)	;		
 			}
 			return [20-Xmin*Dx,tailleY-20+Ymin*Dy];
 }
@@ -1725,13 +1728,13 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 			SVG_graduation(mon_svg,100,longueur_pas2,750,taille=5,y=50,color='black',width=2)
 			// Graduation principale
 			SVG_graduation(mon_svg,100,longueur_pas1,750,taille=10,y=50,color='black',width=5)
-			SVG_tracer_fleche(mon_svg,750,50)
+			SVG_tracer_flecheH(mon_svg,750,50)
 			// Nombres visibles
-			SVG_label(mon_svg,[[string_nombre(origine),100,50]],2,'black');
+			SVG_label(mon_svg,[[string_nombre(origine),100,50]],2,'black',1);
 			for (i=0;i<points_connus.length;i++) {
 				valeur=string_nombre(points_connus[i][0]);					 
 				distance=calcul(longueur_pas1*points_connus[i][1]+longueur_pas2*points_connus[i][2]);
-				SVG_label(mon_svg,[[valeur,100+distance,50]],2,'black')
+				SVG_label(mon_svg,[[valeur,100+distance,50]],2,'black',1)
 			}
 			//Points inconnus
 			let position=1;
@@ -1742,8 +1745,8 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 				if (points_inconnus[i][3]==true) {
 					if (!fraction) { // affichage décimal 
 						valeur=string_nombre(calcul(origine+points_inconnus[i][1]/pas1+points_inconnus[i][2]/pas1/pas2));
-						SVG_label(mon_svg,[[valeur,100+distance,50]],3+position,'#f15929')
-						SVG_tracer_droite_flecheV(mon_svg,100+distance,80+15*position,100+distance,55,'#f15929',3)
+						SVG_label(mon_svg,[[valeur,100+distance,50]],3+position,'#f15929',1)
+						SVG_tracer_droite_flecheV(mon_svg,100+distance,75+15*position,100+distance,55,'#f15929',3)
 					}
 					else { //affichage fractionnaire
 					 SVG_fraction(mon_svg,(origine+points_inconnus[i][1])*pas2+points_inconnus[i][2],pas2,100+distance,115+15*position,'#f15929')
