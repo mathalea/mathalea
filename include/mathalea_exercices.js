@@ -110,7 +110,7 @@ var liste_des_exercices_disponibles = {
 		'4G30' : Exercice_Trigo_longueurs_4e,
 		'4G31' : Exercice_Trigo_angles_4e,
 		'4G20' : Thales_4eme,
-		'3F20' : fonction_notion_vocabulaire,
+		'3F10' : fonction_notion_vocabulaire,
 		'3N10': Exercice_developper,
 		'3N11' : Double_distributivite,
 		'3N12' : Developper_Identites_remarquables3,

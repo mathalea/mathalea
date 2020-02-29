@@ -484,7 +484,7 @@ function Resoudre_une_equation_produit_nul(){
 }
 
 /**
-* Notion de fonction - vocabulaire
+* 3F10 - Notion de fonction - vocabulaire
 * * L’objectif de revenir sur l'introduction de la notion de fonction et son vocabulaire
 * * On base l'exercice sur des calculs simples de type périmètres, aires, double, triple, nombre de diviseurs
 *
@@ -658,6 +658,129 @@ function num_alpha(k) {
 	return '<span style="color:#f15929; font-weight:bold">'+String.fromCharCode(97+k)+'/</span>';
 };
 
+/**
+* Crée un popup html éventuellement avec du contenu LaTeX
+* @param texte texte affiché
+* @param titrePopup titre Popup
+* @param textePopup texte du Popup
+* @Auteur Sébastien Lozano
+*/	
+function katex_Popup(texte,titrePopup,textePopup) {
+	let contenu =`<div class="ui button katexPopup">`+texte+`</div>`;
+	contenu += `<div class="ui special popup" >`;
+	if (titrePopup!='') {
+		contenu += `<div class="header">`+titrePopup+`</div>`;
+	};
+	contenu += `<div>`+textePopup+`</div>`;
+	contenu += `</div>`;
+
+	return contenu;
+};
+
+/**
+* Crée un digramme pour une fonction arithmétique
+* @param id_du_div id_du_div
+* @param w width du svg
+* @param h height du svg
+* @param nom nom de la fonction
+* @param x_ant antécédent
+* @param etape1 etape 1 du procédé de calcul
+* @param etape2 etape 2 du procédé de calcul
+* @param etape3 etape 3 du procédé de calcul
+* @Auteur Sébastien Lozano
+*/	
+function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etape1,etape2,etape3) {
+	function SVG_cadre_rect(groupe,chemin,couleur) {
+		return groupe.path(chemin).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
+	};
+	function SVG_cadre_rond(groupe,r_circ,couleur) {
+		return groupe.circle(r_circ).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
+	};
+	let interligne = 10; // pour un interligne uniforme 
+	let prop_font = {family:   'Helvetica',
+					size:     interligne,
+					anchor:   'start'
+					//, leading : 0.5
+					};
+	let prop_font_fin = {family:   'Helvetica',
+	size:     3*interligne/4,
+	anchor:   'start'
+	//, leading : 0.5
+	};					
+	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
+	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
+	window.SVGExist[id_du_div] = setInterval(function() {
+
+		if ($(`#${id_du_div}`).length ) {
+			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
+			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h);
+			path_cadre_rect = 'M0,0L0,-'+interligne+',L'+4*interligne+',-'+interligne+',L'+4*interligne+','+interligne+'L0,'+interligne+'Z';
+			path_fleche = 'M0,0L10,0L8,-2M10,0L8,2';
+			//------------GROUPE ANTECEDENT------------------------- 
+ 			// on crée le groupe pour le diagramme
+			let diag=mon_svg.group();
+			let cadre_ant = SVG_cadre_rect(diag,path_cadre_rect,'#f15929');  
+			cadre_ant.dmove(0,h/2);
+			let x = diag.text(x_ant).font(prop_font); 
+			x.dmove(2*interligne-x.length()/2,h/2-interligne)
+			let l1 = diag.line(0,0,interligne,0).stroke({ width: 1 ,color:'#f15929'});
+			l1.dmove(4*interligne,h/2);
+			let cadre_etape1 = SVG_cadre_rond(diag,2*interligne,'#f15929');
+			cadre_etape1.dmove(5*interligne,h/2-interligne);
+			let f1 = SVG_cadre_rect(diag,path_fleche,'#f15929');
+			f1.dmove(7*interligne,h/2);			
+			if (etape1!='') { // si l'étape 1 est non vide on affiche l'étape
+				var diag_etape1 = mon_svg.text(etape1).font(prop_font);
+				var w_diag_etape1 = diag_etape1.length();						
+				diag_etape1.dmove(6*interligne-w_diag_etape1/2,h/2-interligne);
+				var six_points = diag.text('......').dmove(9*interligne,interligne);
+				if (etape2!='') { // si l'étape 2 est non vide on affiche un cadre initial, l'étape, et un cadre final
+					let cadre_2 = diag.use(cadre_ant).dmove(8*interligne,0);
+					let l2 = diag.use(l1).dmove(8*interligne,0);
+					let cadre_etape_2 = diag.use(cadre_etape1).dmove(8*interligne,0);
+					let f2 = diag.use(f1).dmove(8*interligne,0);
+					var diag_etape2 = mon_svg.text(etape2).font(prop_font);
+					var w_diag_etape2 = diag_etape2.length();
+					diag_etape2.dmove(14*interligne-w_diag_etape2/2,h/2-interligne);
+					let cadre_fin_2 = diag.use(cadre_ant).dmove(16*interligne,0);
+					let six_points_2 = diag.use(six_points).dmove(8*interligne,0);
+					if (etape3!='') { // si l'étape 3 est non vide on affiche un cadre initial, l'étape, et un cadre final
+						let cadre_3 = diag.use(cadre_ant).dmove(16*interligne,0);
+						let l3 = diag.use(l1).dmove(16*interligne,0);
+						let cadre_etape_3 = diag.use(cadre_etape1).dmove(16*interligne,0);
+						let f3 = diag.use(f1).dmove(16*interligne,0);
+						var diag_etape3 = mon_svg.text(etape3).font(prop_font);
+						var w_diag_etape3 = diag_etape3.length();
+						diag_etape3.dmove(22*interligne-w_diag_etape3/2,h/2-interligne);
+						let cadre_fin_3 = diag.use(cadre_ant).dmove(24*interligne,0);
+						let six_points_3 = diag.text('f(x)=...').font(prop_font);
+						let w_six_points_3 = six_points_3.length();
+						six_points_3.dmove(26*interligne-w_six_points_3/2,h/2-interligne);
+					} else { //sinon etape 3 vide on affiche juste un cadre final
+						let cadre_fin_3 = diag.use(cadre_ant).dmove(16*interligne,0);
+						//let six_points_3 = diag.use(six_points).dmove(8*interligne,interligne);
+					};		
+				} else { // sinon etape 2 vide on affiche juste un cadre final
+					let cadre_fin_2 = diag.use(cadre_ant).dmove(8*interligne,0);
+					//let six_points_2 = diag.use(six_points).dmove(9*interligne,interligne);									
+				};
+			} else { // sinon etape1, 2 et 3 vides on affiche ... et le cadre final avec ......
+				var diag_etape1 = mon_svg.text('...').font(prop_font);
+				var w_diag_etape1 = diag_etape1.length();
+				diag_etape1.dmove(6*interligne-w_diag_etape1/2,h/2-interligne);	
+				var cadre_fin = diag.use(cadre_ant).dmove(8*interligne,0);
+				var six_points_1 = diag.text('......').dmove(9*interligne,interligne);
+			};
+
+			 
+
+		clearInterval(SVGExist[id_du_div]);//Arrête le timer
+		}
+
+	}, 100); // Vérifie toutes les 100ms
+
+};
+
 function fonction_notion_vocabulaire(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -677,7 +800,7 @@ function fonction_notion_vocabulaire(){
 	this.nb_cols_corr = 1;
 	this.sup = 5;
 
-	var num_ex = '3F20'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
+	var num_ex = '3F10'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
 
 	if (sortie_html) {		
 		let id_unique = `_consigne_${num_ex}_${Date.now()}`; // on formatte avec le numéro de l'exercice pour éviter les doublons
@@ -688,7 +811,7 @@ function fonction_notion_vocabulaire(){
 		//this.consigne += `<div id="consigne" style="width: 100%; height: 500px; display : table "></div>`;
 		//this.consigne += `<div id="${id_du_div}" style="width: 100%; height: 150px; display : table "></div>`;
 		this.consigne += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table "></div>`;
-		SVG_machine_maths(id_du_div,400,100,'machine maths','-> étape1','-> étape2','-> étape3','antécédent','x','image','y');
+		SVG_machine_maths(id_du_div,400,hauteur_svg,'machine maths','-> étape1','-> étape2','-> étape3','antécédent','x','image','y');
 		} else { // sortie LaTeX
 
 		};
@@ -720,16 +843,14 @@ function fonction_notion_vocabulaire(){
 						x = randint(1,9);//augmenter les possibles pour éviter les questions déjà posées?	
 						if (sortie_html) {
 							texte += `<br>`;
-							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 150px; display : table "><p></p></div>`;
-							//SVG_machine_maths(id_du_div,400,100,'f','côté du carré : '+x+'cm','périmètre du carré : ? cm','périmètre d\'un carré');
-							SVG_machine_maths(id_du_div,400,100,'machine f','','périmètre','d\'un carré','carré de','côté '+x+' cm','périmètre','??? cm');
+							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 150px; display : table "></div>`;
+							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine f','','périmètre','d\'un carré','carré de','côté '+x+' cm','périmètre','??? cm');
 						} else { // sortie Latex avec Tikz
 
 						};
-
 						texte += num_alpha(j)+` Que renvoie la machine si le côté vaut  ${x}  cm ? Formuler la réponse `;
 						if (sortie_html){
-							texte+= `<span class="ui icon button" data-tooltip="la valeur du périmètre est l'image de la valeur du côté" data-inverted=""> avec le mot image.</span><br>`;
+							texte += katex_Popup('avec le mot image','Image','la valeur du périmètre est l\'image de la valeur du côté')+`<br>`;
 						} else { //sortie LaTeX
 							texte+= `avec le mot image. <br>`;
 						};						
@@ -737,7 +858,7 @@ function fonction_notion_vocabulaire(){
 						x = randint(1,9);//augmenter les possibles pour éviter les questions déjà posées?	
 						texte += num_alpha(j)+` Combien vaut le côté si la machine renvoie  ${4*x} cm ? Formuler la réponse `;
 						if (sortie_html){
-							texte+= `<span class="ui icon button" data-tooltip="un antécédent de la valeur d'un périmètre est la valeur du côté qui a pour image ce périmètre" data-inverted=""> avec le mot antécédent.</span><br>`;
+							texte += katex_Popup('avec le mot antécédent','Antécédent','un antécédent de la valeur d\'un périmètre est une valeur du côté qui a pour image ce périmètre')+`<br>`;
 						} else { //sortie LaTeX
 							texte+= `avec le mot antécédent. <br>`;
 						};														
@@ -745,13 +866,13 @@ function fonction_notion_vocabulaire(){
 						x = randint(1,9);//augmenter les possibles pour éviter les questions déjà posées?	
 						texte += num_alpha(j)+` Quelle est l'image de ${x} par la `; 
 						if (sortie_html){
-							texte+= `<span class="ui icon button" data-tooltip="machine" data-inverted=""> fonction </span>`;
+							texte += katex_Popup('fonction','Vocabulaire','<b>fonction</b> est le nom que l\'on donne aux machines mathématiques');														
 						} else { // sortie LaTeX
 							texte +=`fonction`;
 						};
 						texte += ` $f$ ? Ecrire la réponse sous la forme `;
 						if (sortie_html){
-							texte+= `<span class="ui icon button" data-tooltip="si 4 a pour image 16 alors on peut écrire f(4)=16" data-inverted=""> $\\textbf{f(${x}) = \\ldots}$ </span><br>`;
+							texte += katex_Popup('$\\textbf{f('+x+') = \\ldots}$','Notation','4 a pour image 16 par la fonction f peut s\'écrire <b>f(4)=16</b>')+`<br>`;
 						} else { // sortie LaTeX
 							texte +=`$\\textbf{f(${x}) = \\ldots}$<br>`;
 						};					
@@ -759,21 +880,34 @@ function fonction_notion_vocabulaire(){
 						texte += num_alpha(j)+` Que renvoie la machine si le côté vaut $x$ cm ?<br>`;
 						j++;//incrémente la sous question
 						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-1)+` sous forme de diagramme.<br>`;
+						texte += `<div id="diagramme" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						SVG_machine_diag('diagramme',400,50,'f','x','x3','+9','-8');
 						j++;//incrémente la sous question
 						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-2)+` sous la forme `;
 						if (sortie_html){
-							texte+= `<span class="ui icon button" data-tooltip="si 4 a pour image 16 alors on peut écrire f(4)=16" data-inverted=""> $\\textbf{f(\\textit{x}) = \\ldots}$ </span><br>`;
+							texte += katex_Popup('$\\textbf{f(\\textit{x}) = \\ldots}$','Notation','4 a pour image 16 par la fonction f peut s\'écrire <b>f(4)=16</b>')+`<br>`;							
 						} else { // sortie LaTeX
 							texte +=`$\\textbf{f(${x}) = \\ldots}$<br>`;
 						};
 						j++;//incrémente la sous question
 						texte += num_alpha(j)+` En utilisant la forme `;
-						if (sortie_html){
-							texte+= `<span class="ui icon button" data-tooltip="on peut écrire au choix f(4)=16 ou 4 $\\stackrel{f}{\\longmapsto}$ 16" data-inverted=""> $\\textbf{\\textit{x}} \\stackrel{\\mathbf{f}}{\\mathbf{\\longmapsto}} \\textbf{\\ldots}$ </span>`;
+						if (sortie_html){							
+							texte += katex_Popup('$\\mathbf{f :} \\textbf{\\textit{ x }} \\mathbf{\\longmapsto \\ldots}$','Notation','4 a pour image 16 par la fonction f peut s\'écrire $\\textbf{f : 4 } \\mathbf{\\longmapsto} \\textbf{16}$');							
+							texte+= `
+						  <script>
+						  $('.katexPopup').popup({
+							   popup: '.special.popup',
+							   on: 'hover',
+							   variation: 'inverted',
+							   inline: true
+							});
+						  </script>
+
+							`;
 						} else { // sortie LaTeX
 							texte +=`$\\textbf{\\textit{x}} \\stackrel{\\mathbf{f}}{\\mathbf{\\longmapsto}} \\textbf{\\ldots}$`;
 						};						
-						texte+= `écrire la réponse à la question `+num_alpha(j-3)+`<br>`;
+						texte+= `écrire la réponse à la question `+num_alpha(j-3)+`<br>`;												
 						j++;//incrémente la sous question
 
 						texte_corr = `Périmètre d'un carré de côté ${x}`;
@@ -785,8 +919,7 @@ function fonction_notion_vocabulaire(){
 						if (sortie_html) {
 							texte += `<br>`;
 							texte += `<div id="${id_du_div}" style="width: ${pourcentage}; height: 150px; display : table "></div>`;
-							//SVG_machine_maths(id_du_div,400,100,'g','côté du carré : '+x+'cm','aire du carré : ? cm²','aire d\'un carré');
-							SVG_machine_maths(id_du_div,400,100,'machine g','','aire','d\'un carré','carré de','côté '+x+' cm','aire','? cm');
+							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine g','','aire','d\'un carré','carré de','côté '+x+' cm','aire','? cm');
 						} else { // sortie LaTeX avec Tikz
 
 						};
@@ -799,8 +932,7 @@ function fonction_notion_vocabulaire(){
 						if (sortie_html) {
 							texte += `<br>`;
 							texte += `<div id="${id_du_div}" style="width: ${pourcentage}; height: 150px; display : table "></div>`;
-							//SVG_machine_maths(id_du_div,400,100,'h','nombre de départ : '+x,'1 + le triple : ?','1 + le triple');
-							SVG_machine_maths(id_du_div,400,100,'machine h','','-> tripler','-> ajouter 1','nombre de','départ '+x+'','nombre de','sortie ?');							
+							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine h','','-> tripler','-> ajouter 1','nombre de','départ '+x+'','nombre de','sortie ?');							
 						} else { // sortie LaTeX avec Tikz
 
 						};
@@ -813,8 +945,7 @@ function fonction_notion_vocabulaire(){
 						if (sortie_html) {
 							texte += `<br>`;
 							texte += `<div id="${id_du_div}" style="width: ${pourcentage}; height: 150px; display : table "></div>`;
-							//SVG_machine_maths(id_du_div,400,100,'d','nombre de départ : '+x,'nombre de diviseurs : ?','nombre de diviseurs');
-							SVG_machine_maths(id_du_div,400,100,'machine d','','nombre de','diviseurs','nombre de','départ '+x,'nombre de',' diviseurs ?');														
+							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine d','','nombre de','diviseurs','nombre de','départ '+x,'nombre de',' diviseurs ?');														
 						} else { // sortie LaTeX avec Tikz
 
 						};
