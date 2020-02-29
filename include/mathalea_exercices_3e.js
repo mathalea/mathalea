@@ -677,6 +677,51 @@ function katex_Popup(texte,titrePopup,textePopup) {
 	return contenu;
 };
 
+/**Trace un chemin pour un groupe donné avec une couleur donnée
+* @param groupe groupe
+* @param chemin path
+* @param couleur couleur
+* @Auteur Sébastien Lozano
+*/	
+function SVG_chemin(groupe,chemin,couleur) {
+	return groupe.path(chemin).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
+};
+
+/**Trace un cercle pour un groupe donné avec une couleur donnée
+* @param groupe groupe
+* @param r_circ rayon
+* @param couleur couleur
+* @Auteur Sébastien Lozano
+*/	
+function SVG_cadre_rond(groupe,r_circ,couleur) {
+	return groupe.circle(r_circ).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
+};
+
+/**Trace une etape de diagramme et la place 
+* @param mon_svg le svg global
+* @param interligne unité d'espacement
+* @param h hauteur
+* @param couleur couleur
+* @param deplacement deplacement
+* @Auteur Sébastien Lozano
+*/	
+function SVG_etapes(mon_svg,interligne,h,couleur,deplacement) {
+	path_cadre_rect = 'M0,0L0,-'+interligne+',L'+4*interligne+',-'+interligne+',L'+4*interligne+','+interligne+'L0,'+interligne+'Z';
+	path_fleche = 'M0,0L'+interligne+',0L'+(interligne-2)+',-2M'+interligne+',0L'+(interligne-2)+',2';
+	let etape = mon_svg.group();
+	//path_fleche = 'M0,0L10,0L8,-2M10,0L8,2';
+	let l1 = etape.line(0,0,interligne,0).stroke({ width: 1 ,color: couleur});
+	l1.dmove(0,h/2);
+	let cadre_etape = SVG_cadre_rond(etape,2*interligne,couleur);
+	cadre_etape.dmove(interligne,h/2-interligne);
+	let f1 = SVG_chemin(etape,path_fleche,couleur);
+	f1.dmove(3*interligne,h/2);
+	let cadre_fin = SVG_chemin(etape,path_cadre_rect,'#f15929');
+	cadre_fin.dmove(4*interligne,h/2)
+	etape.dmove(deplacement,0);
+	return etape;
+};
+
 /**
 * Crée un digramme pour une fonction arithmétique
 * @param id_du_div id_du_div
@@ -684,95 +729,54 @@ function katex_Popup(texte,titrePopup,textePopup) {
 * @param h height du svg
 * @param nom nom de la fonction
 * @param x_ant antécédent
-* @param etape1 etape 1 du procédé de calcul
-* @param etape2 etape 2 du procédé de calcul
-* @param etape3 etape 3 du procédé de calcul
+* @param etapes etapes de type tableau
+* @param expressions expressions de type tableau
 * @Auteur Sébastien Lozano
 */	
-function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etape1,etape2,etape3) {
-	function SVG_cadre_rect(groupe,chemin,couleur) {
-		return groupe.path(chemin).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
-	};
-	function SVG_cadre_rond(groupe,r_circ,couleur) {
-		return groupe.circle(r_circ).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
-	};
-	let interligne = 10; // pour un interligne uniforme 
+function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes,expressions) {
+	let interligne = 10; // unité d'espacement
 	let prop_font = {family:   'Helvetica',
 					size:     interligne,
 					anchor:   'start'
 					//, leading : 0.5
-					};
-	let prop_font_fin = {family:   'Helvetica',
-	size:     3*interligne/4,
-	anchor:   'start'
-	//, leading : 0.5
-	};					
+					};	
 	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
 	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
 	window.SVGExist[id_du_div] = setInterval(function() {
-
 		if ($(`#${id_du_div}`).length ) {
 			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
 			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h);
 			path_cadre_rect = 'M0,0L0,-'+interligne+',L'+4*interligne+',-'+interligne+',L'+4*interligne+','+interligne+'L0,'+interligne+'Z';
 			path_fleche = 'M0,0L10,0L8,-2M10,0L8,2';
-			//------------GROUPE ANTECEDENT------------------------- 
  			// on crée le groupe pour le diagramme
 			let diag=mon_svg.group();
-			let cadre_ant = SVG_cadre_rect(diag,path_cadre_rect,'#f15929');  
+			let cadre_ant = SVG_chemin(diag,path_cadre_rect,'#f15929');  
 			cadre_ant.dmove(0,h/2);
 			let x = diag.text(x_ant).font(prop_font); 
-			x.dmove(2*interligne-x.length()/2,h/2-interligne)
-			let l1 = diag.line(0,0,interligne,0).stroke({ width: 1 ,color:'#f15929'});
-			l1.dmove(4*interligne,h/2);
-			let cadre_etape1 = SVG_cadre_rond(diag,2*interligne,'#f15929');
-			cadre_etape1.dmove(5*interligne,h/2-interligne);
-			let f1 = SVG_cadre_rect(diag,path_fleche,'#f15929');
-			f1.dmove(7*interligne,h/2);			
-			if (etape1!='') { // si l'étape 1 est non vide on affiche l'étape
-				var diag_etape1 = mon_svg.text(etape1).font(prop_font);
-				var w_diag_etape1 = diag_etape1.length();						
-				diag_etape1.dmove(6*interligne-w_diag_etape1/2,h/2-interligne);
-				var six_points = diag.text('......').dmove(9*interligne,interligne);
-				if (etape2!='') { // si l'étape 2 est non vide on affiche un cadre initial, l'étape, et un cadre final
-					let cadre_2 = diag.use(cadre_ant).dmove(8*interligne,0);
-					let l2 = diag.use(l1).dmove(8*interligne,0);
-					let cadre_etape_2 = diag.use(cadre_etape1).dmove(8*interligne,0);
-					let f2 = diag.use(f1).dmove(8*interligne,0);
-					var diag_etape2 = mon_svg.text(etape2).font(prop_font);
-					var w_diag_etape2 = diag_etape2.length();
-					diag_etape2.dmove(14*interligne-w_diag_etape2/2,h/2-interligne);
-					let cadre_fin_2 = diag.use(cadre_ant).dmove(16*interligne,0);
-					let six_points_2 = diag.use(six_points).dmove(8*interligne,0);
-					if (etape3!='') { // si l'étape 3 est non vide on affiche un cadre initial, l'étape, et un cadre final
-						let cadre_3 = diag.use(cadre_ant).dmove(16*interligne,0);
-						let l3 = diag.use(l1).dmove(16*interligne,0);
-						let cadre_etape_3 = diag.use(cadre_etape1).dmove(16*interligne,0);
-						let f3 = diag.use(f1).dmove(16*interligne,0);
-						var diag_etape3 = mon_svg.text(etape3).font(prop_font);
-						var w_diag_etape3 = diag_etape3.length();
-						diag_etape3.dmove(22*interligne-w_diag_etape3/2,h/2-interligne);
-						let cadre_fin_3 = diag.use(cadre_ant).dmove(24*interligne,0);
-						let six_points_3 = diag.text('f(x)=...').font(prop_font);
-						let w_six_points_3 = six_points_3.length();
-						six_points_3.dmove(26*interligne-w_six_points_3/2,h/2-interligne);
-					} else { //sinon etape 3 vide on affiche juste un cadre final
-						let cadre_fin_3 = diag.use(cadre_ant).dmove(16*interligne,0);
-						//let six_points_3 = diag.use(six_points).dmove(8*interligne,interligne);
-					};		
-				} else { // sinon etape 2 vide on affiche juste un cadre final
-					let cadre_fin_2 = diag.use(cadre_ant).dmove(8*interligne,0);
-					//let six_points_2 = diag.use(six_points).dmove(9*interligne,interligne);									
-				};
-			} else { // sinon etape1, 2 et 3 vides on affiche ... et le cadre final avec ......
-				var diag_etape1 = mon_svg.text('...').font(prop_font);
-				var w_diag_etape1 = diag_etape1.length();
-				diag_etape1.dmove(6*interligne-w_diag_etape1/2,h/2-interligne);	
-				var cadre_fin = diag.use(cadre_ant).dmove(8*interligne,0);
-				var six_points_1 = diag.text('......').dmove(9*interligne,interligne);
-			};
-
-			 
+			x.dmove(2*interligne-x.length()/2,h/2-interligne);
+			//console.log(etapes);
+			let svg_etapes = [];
+			let svg_cadres_fin = [];
+			let svg_operations_etapes = [];
+			let w_svg_operations_etapes = [];
+			for (var i = 0; i<etapes.length; i++) {
+				svg_etapes[i] = SVG_etapes(mon_svg,interligne,h,'#f15929',4*interligne+8*i*interligne);
+				if (etapes.length==i+1) {//si la longueur du tableau des etapes vaut i+1 c'est que c'est la derniere on affiche f(x)=...
+					if (typeof expressions[i]!=='undefined') {
+						svg_cadres_fin[i] = diag.text(nom+'(x)='+expressions[i]).font(prop_font);
+					} else {
+						svg_cadres_fin[i] = diag.text(nom+'(x)=...').font(prop_font);
+					};
+					//svg_cadres_fin[i] = diag.text(nom+'(x)=...').font(prop_font);
+					let w_cadre_fin = svg_cadres_fin[i].length();
+					svg_cadres_fin[i].dmove(10*interligne+8*i*interligne-w_cadre_fin/2,h/2-interligne);
+				} else {//sinon on affiche ......
+					svg_cadres_fin[i] = diag.text('......').dmove(9*interligne+8*i*interligne,interligne);
+				};				
+				svg_operations_etapes[i] = diag.text(etapes[i]).font(prop_font);
+				w_svg_operations_etapes[i] = svg_operations_etapes[i].length();
+				svg_operations_etapes[i].dmove(6*interligne+8*i*interligne-w_svg_operations_etapes[i]/2,h/2-interligne);
+			};		 
 
 		clearInterval(SVGExist[id_du_div]);//Arrête le timer
 		}
@@ -795,10 +799,10 @@ function fonction_notion_vocabulaire(){
 	} 
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
-	this.nb_questions = 4;
+	this.nb_questions = 1;
 	//this.correction_detaillee_disponible = true;
 	this.nb_cols_corr = 1;
-	this.sup = 5;
+	this.sup = 1;
 
 	var num_ex = '3F10'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
 
@@ -853,8 +857,11 @@ function fonction_notion_vocabulaire(){
 							texte += katex_Popup('avec le mot image','Image','la valeur du périmètre est l\'image de la valeur du côté')+`<br>`;
 						} else { //sortie LaTeX
 							texte+= `avec le mot image. <br>`;
-						};						
+						};
+						texte_corr = num_alpha(j)+`Si le côté vaut ${x} cm alors la machine renvoie le périmètre d'un carré de côté ${x} cm, c'est à dire ${4*x} cm.<br>`;
+						texte_corr += `On dit que ${4*x} est l'image de ${x} par la fonction f.<br>`;						
 						j++;//incrémente la sous question
+
 						x = randint(1,9);//augmenter les possibles pour éviter les questions déjà posées?	
 						texte += num_alpha(j)+` Combien vaut le côté si la machine renvoie  ${4*x} cm ? Formuler la réponse `;
 						if (sortie_html){
@@ -862,7 +869,10 @@ function fonction_notion_vocabulaire(){
 						} else { //sortie LaTeX
 							texte+= `avec le mot antécédent. <br>`;
 						};														
+						texte_corr += num_alpha(j)+`Si la machine renvoie un périmètre de ${4*x} cm alors le côté du carré vaut ${x} cm.<br>`;
+						texte_corr += `On dit que ${x} est <b>un</b> antécédent de ${4*x} par la fonction f.<br>`;						
 						j++;//incrémente la sous question
+
 						x = randint(1,9);//augmenter les possibles pour éviter les questions déjà posées?	
 						texte += num_alpha(j)+` Quelle est l'image de ${x} par la `; 
 						if (sortie_html){
@@ -875,21 +885,33 @@ function fonction_notion_vocabulaire(){
 							texte += katex_Popup('$\\textbf{f('+x+') = \\ldots}$','Notation','4 a pour image 16 par la fonction f peut s\'écrire <b>f(4)=16</b>')+`<br>`;
 						} else { // sortie LaTeX
 							texte +=`$\\textbf{f(${x}) = \\ldots}$<br>`;
-						};					
+						};
+						texte_corr += num_alpha(j)+`L'image de ${x} par la fonction f vaut $f(${x})=${4*x}$.<br>`;
 						j++;//incrémente la sous question
+
 						texte += num_alpha(j)+` Que renvoie la machine si le côté vaut $x$ cm ?<br>`;
+						texte_corr += num_alpha(j)+`Si le côté vaut $x$ la machine renvoie $x+x+x+x$ ou ce qui est équivalent $4\\times x$ .<br>`;
 						j++;//incrémente la sous question
+
 						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-1)+` sous forme de diagramme.<br>`;
+						texte += `Voici le diagramme d'une machine qui triple `;
 						texte += `<div id="diagramme" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-						SVG_machine_diag('diagramme',400,50,'f','x','x3','+9','-8');
+						SVG_machine_diag('diagramme',400,50,'f','x',['x3'],['3x']);
+
+						texte_corr += num_alpha(j)+`C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
+						texte_corr += `<div id="diagramme_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						SVG_machine_diag('diagramme_corr',400,50,'f','x',['x4'],['4x']);
 						j++;//incrémente la sous question
+
 						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-2)+` sous la forme `;
 						if (sortie_html){
 							texte += katex_Popup('$\\textbf{f(\\textit{x}) = \\ldots}$','Notation','4 a pour image 16 par la fonction f peut s\'écrire <b>f(4)=16</b>')+`<br>`;							
 						} else { // sortie LaTeX
 							texte +=`$\\textbf{f(${x}) = \\ldots}$<br>`;
 						};
+						texte_corr += num_alpha(j)+`L'image de $x$ par la fonction f vaut $4\\times x$ donc $f(x)=4\\times x$.<br>`;
 						j++;//incrémente la sous question
+
 						texte += num_alpha(j)+` En utilisant la forme `;
 						if (sortie_html){							
 							texte += katex_Popup('$\\mathbf{f :} \\textbf{\\textit{ x }} \\mathbf{\\longmapsto \\ldots}$','Notation','4 a pour image 16 par la fonction f peut s\'écrire $\\textbf{f : 4 } \\mathbf{\\longmapsto} \\textbf{16}$');							
@@ -902,15 +924,15 @@ function fonction_notion_vocabulaire(){
 							   inline: true
 							});
 						  </script>
-
 							`;
 						} else { // sortie LaTeX
-							texte +=`$\\textbf{\\textit{x}} \\stackrel{\\mathbf{f}}{\\mathbf{\\longmapsto}} \\textbf{\\ldots}$`;
+							texte +=`$\\textbf{\\textit{x}} \\stackrel{\\mathbf{f :}}{\\mathbf{\\longmapsto}} \\textbf{\\ldots}$`;
 						};						
-						texte+= `écrire la réponse à la question `+num_alpha(j-3)+`<br>`;												
+						texte+= `écrire la réponse à la question `+num_alpha(j-3)+`<br>`;
+						texte_corr += num_alpha(j)+`L'image de $x$ par la fonction f vaut $4\\times x$ donc $f : x \\longmapsto 4\\times x$.<br>`;												
 						j++;//incrémente la sous question
 
-						texte_corr = `Périmètre d'un carré de côté ${x}`;
+						//texte_corr = `Périmètre d'un carré de côté ${x}`;
 						break;			
 					case 2 : // aire d'un carré de côté x
 						texte = `La $\\textbf{machine g}$ renvoie l'aire d'un carré de côté x`;
@@ -923,7 +945,7 @@ function fonction_notion_vocabulaire(){
 						} else { // sortie LaTeX avec Tikz
 
 						};
-						texte_corr = `Aire d'un carré de côté ${x}`;
+						//texte_corr = `Aire d'un carré de côté ${x}`;
 						break;			
 					case 3 : // somme de 1 et du triple de x
 						texte = `La $\\textbf{machine h}$ renvoie la somme de 1 et du triple de x`;
