@@ -588,15 +588,50 @@ function Resoudre_une_equation_produit_nul(){
 * @param w width du svg
 * @param h height du svg
 * @param nom nom de la fonction
-* @param x antécédent
-* @param i image
-* @param texte texte qui explicite le procédé de la fonction
+* @param etape1 etape 1 du procédé de calcul
+* @param etape2 etape 2 du procédé de calcul
+* @param etape3 etape 3 du procédé de calcul
+* @param x_ligne1 antécédent ligne1
+* @param x_ligne2 antécédent ligne2
+* @param i_ligne1 image ligne1
+* @param i_ligne2 image ligne2
 * @Auteur Sébastien Lozano
 */	
-function SVG_machine_maths(id_du_div,w,h,nom,x,i,texte) {
+function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_ligne2,i_ligne1,i_ligne2) {
+
+	/**
+	* Crée une flèche orange pour la fonction machine
+	* @param groupe group
+	* @param chemin  path de la ligne
+	* @param couleur 
+	* @Auteur Sébastien Lozano
+	*/	
+	function SVG_fleche_machine_maths(groupe,chemin,couleur) {
+		return groupe.path(chemin).fill(couleur).stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
+	};
+
+	let interligne = 15; // pour un interligne uniforme 
+	let prop_font = {family:   'Helvetica',
+					size:     interligne,
+					anchor:   'start'
+					//, leading : 0.5
+					};
+	let prop_font_nom = {family:   'Helvetica',
+						size:     interligne,
+						anchor:   'start',
+						weight: 'bold'
+						//, leading : 0.5
+						};					
+	let prop_font_etape = {family:   'Helvetica',
+						size:     4*interligne/5,
+						anchor:   'start'
+						//, leading : 0.5
+						};
+					
 	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
 	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
 	window.SVGExist[id_du_div] = setInterval(function() {
+
 		if ($(`#${id_du_div}`).length ) {
 			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
 			//on récupère les dimension du div parent
@@ -605,69 +640,127 @@ function SVG_machine_maths(id_du_div,w,h,nom,x,i,texte) {
 			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h);
 			//mon_svg.size(w,h);
 
+			// path pour créer des fleches
+			//const path_fleche = 'm0,0 l-6,-11 l11,11 l-11,11 l6,-11z';
+			const path_fleche = 'm0,0 l-'+interligne/2+',-'+interligne+' l'+interligne+','+interligne+' l-'+interligne+','+interligne+' l'+interligne/2+',-'+interligne+'z';
+			const path_fleche_long = interligne;
+
 			// On crée une timeline
 			let timeline = new SVG.Timeline()
-			// on crée l'objet pour l'antécédent et on l'anime
-			let ant = mon_svg.text(x);
-			let w_ant = ant.length();
-			ant.move(0,h/2);
-			// on crée l'objet pour l'image
-			let im = mon_svg.text(i);
-			let w_im = im.length();
-			im.move(w/2-w_im/2,h/2);
+
+			//------------GROUPE ANTECEDENT------------------------- 
+ 			// on crée le groupe pour l'antécédent
+ 			let ant=mon_svg.group();
+			let ant_ligne1 = ant.text(x_ligne1).font(prop_font); 
+ 			ant_ligne1.dmove(0,-interligne/2)
+ 			let ant_ligne2 = ant.text(x_ligne2).font(prop_font); 
+ 			ant_ligne2.dmove(ant_ligne1.length()/2-ant_ligne2.length()/2,interligne/2);
+
+			// on crée une flèche pour l'antécédent
+			let w_ant = Math.max(ant_ligne1.length(),ant_ligne2.length());
+			let fleche_ant = SVG_fleche_machine_maths(ant,path_fleche,'#f15929');
+			fleche_ant.dmove(w_ant+interligne/2,interligne);
+			 
+			// on positionne le groupe antécédent
+			ant.dmove(0,h/2-interligne);
+			 
+			//------------GROUPE IMAGE-------------------------
+			// on crée le groupe pour l'image
+			let im = mon_svg.group(); 
+			let im_ligne1 = im.text(i_ligne1).font(prop_font);
+			im_ligne1.dmove(path_fleche_long,-interligne/2);
+			let im_ligne2 = im.text(i_ligne2).font(prop_font);
+			im_ligne2.dmove(path_fleche_long + im_ligne1.length()/2-im_ligne2.length()/2,interligne/2);
 			
-			ant.timeline(timeline);
-			im.timeline(timeline);
+			// on crée une flèche pour l'image
+			let w_im = Math.max(im_ligne1.length(),im_ligne2.length());
+			let fleche_im = SVG_fleche_machine_maths(im,path_fleche,'#f15929');
+			fleche_im.dmove(0,interligne);
 
-			let runner1 = ant.animate(8000,0,'absolute').dmove(w/2-w_ant/2,0);
-			//console.log(w/2-w_ant/2-0);
-			let runner2 = im.animate(8000,0,'after').dmove(w-w_im/2,0);
-			//console.log(w-w_im-w/2+w_im/2);
+			// on positionne le groupe image
+			im.dmove(w/2-w_im/2,h/2-interligne); 
 
-			runner1.loop(true,false,8000);
-			runner2.loop(true,false,8000);
-
-			// on crée des variables pour le texte à afficher sur la machine afin de récupérer leur taille
+			//------------GROUPE MACHINE-------------------------
+ 			// on crée des variables pour le texte à afficher sur la machine afin de récupérer leur taille
 			// pour ajuster celle de la machine.
-			let text_1 = mon_svg.text('machine ' + nom);
-			let text_2 = mon_svg.text(texte);				
-			let w_t_max = Math.max(text_1.length(),text_2.length(),w_ant,w_im);
-			//console.log(w_t_max);
-			// On supprime les objets pour éviter leur affichage avant la machine
-			text_1.clear();
-			text_2.clear();
-			
-			// on crée l'objet pour la machine mathématique et on le place
-			//let machine = mon_svg.rect(w/3+w_t_1/2,h/2).attr({ stroke: '#f15929', 'stroke-width': 3, fill : 'white' });
-			let machine = mon_svg.rect(1.2*w_t_max,h/2).attr({ stroke: '#f15929', 'stroke-width': 3, fill : 'white' });
-			machine.move(w/2-0.6*w_t_max,h/2-h/4);
+			if (nom!='') {
+				var machine_nom = mon_svg.text(nom).font(prop_font_nom);
+				var w_machine_nom = machine_nom.length();
+				machine_nom.clear();
+			} else {
+				var w_machine_nom = 0;
+			};
+			if (etape1!='') {
+				var machine_etape1 = mon_svg.text(etape1).font(prop_font_etape);
+				var w_machine_etape1 = machine_etape1.length();
+				machine_etape1.clear();
+			} else {
+				var w_machine_etape1 = 0;
+			};
+			if (etape2!='') {
+				var machine_etape2 = mon_svg.text(etape2).font(prop_font_etape);
+				var w_machine_etape2 = machine_etape2.length();
+				machine_etape2.clear();
+			} else {
+				var w_machine_etape2 = 0;
+			};
+			if (etape3!='') {
+				var machine_etape3 = mon_svg.text(etape3).font(prop_font_etape);
+				var w_machine_etape3 = machine_etape3.length();
+				machine_etape3.clear();
+			} else {
+				var w_machine_etape3 = 0;
+			};
 
-			// on crée le texte à écrire sur la machine et on le place
-			let nom_machine_1 = mon_svg.text('machine '+nom );
-			let nom_machine_2 = mon_svg.text(texte);
-			let w_n_m_1 = nom_machine_1.length();
-			let w_n_m_2 = nom_machine_2.length();
-			nom_machine_1.move(w/2-w_n_m_1/2,h/2-15);
-			nom_machine_2.move(w/2-w_n_m_2/2,h/2+5);
+			let w_etape_max = Math.max(w_machine_nom,w_machine_etape1,w_machine_etape2,w_machine_etape3,w_ant+interligne,w_im+interligne);
 
-			// let text_x = mon_svg.text('x');
-			// text_x.style({color:'blue'});
+			//const path_machine = 'M-5,0 L-5,-5 L-5,5 M-5,0 L10,0 L10,-40 L100,-40 L100,0 L120,0 L115,-5 L120,0 L115,5 L120,0 L100,0 L100,40 L10,40 L10,0';
+			const path_machine = 'M-10,0 L-10,-5 L-10,5 M-10,0 L10,0 L10,-40 L'+(w_etape_max+20)+',-40 L'+(w_etape_max+20)+',0 L'+(w_etape_max+40)+',0 L'+(w_etape_max+35)+',-5 L'+(w_etape_max+40)+',0 L'+(w_etape_max+35)+',5 L'+(w_etape_max+40)+',0 L'+(w_etape_max+20)+',0 L'+(w_etape_max+20)+',40 L10,40 L10,0';
+			let machine = mon_svg.path(path_machine).fill('#fff').stroke({ color: '#f15929', width: 3, linecap: 'round', linejoin:'round'});;
+			machine.dmove(w/2-w_etape_max/2 - 20 + interligne/2,h/2); //w/2;  60 est la moitié de la taille de la machine en largeur
 
-		
+			machine_nom = mon_svg.text(nom).font(prop_font_nom).move(w/2-w_machine_nom/2,interligne);
+			machine_etape1 = mon_svg.text(etape1).font(prop_font_etape).move(w/2-w_machine_etape1/2,2*interligne);
+			machine_etape2 = mon_svg.text(etape2).font(prop_font_etape).move(w/2-w_machine_etape2/2,3*interligne);
+			machine_etape3 = mon_svg.text(etape3).font(prop_font_etape).move(w/2-w_machine_etape3/2,4*interligne);
+
+			//------------ANIMATION-------------------------
+ 			ant.timeline(timeline);
+ 			im.timeline(timeline);
+
+ 			let runner1 = ant.animate(8000,0,'absolute').dmove(w/2-w_ant/2,0);
+ 			let runner2 = im.animate(8000,0,'after').dmove(w-w_im/2,0);
+
+ 			runner1.loop(true,false,8000);
+ 			runner2.loop(true,false,8000);
+
+
 		clearInterval(SVGExist[id_du_div]);//Arrête le timer
 		}
 
 	}, 100); // Vérifie toutes les 100ms
-
-
 }
+/**
+* Crée une liste de questions alphabétique
+* @param k valeur numérique
+* @Auteur Sébastien Lozano
+*/	
+function num_alpha(k) {
+	return '<span style="color:#f15929; font-weight:bold">'+String.fromCharCode(97+k)+'/</span>';
+};
 
 function fonction_notion_vocabulaire(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1 ; 
 	this.titre = "Fonction : Notion et vocabulaire"; 
-	sortie_html ? this.consigne = "Lorsqu'un nombre $\\textit{x}$ entre dans une machine mathématique , on retrouve à la sortie un nombre appelé $\\textit{image de x}$.<br> On dit que le nombre de départ est un $\\textit{antécédent}$ du nombre d'arrivé.<br>Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donner des noms $\\textit{f}$ ou $\\textit{g}$ ou $\\textit{h} \\ldots$":  this.consigne = "Consigne LaTeX";
+	if (sortie_html) {
+		this.consigne = "Lorsqu'un nombre $\\textit{x}$ entre dans une machine mathématique , celle-ci renvoie à la sortie un nombre appelé $\\textit{image de x}$.<br>";
+		this.consigne += "On dit que le nombre de départ est un $\\textit{antécédent}$ du nombre qu'on trouve à la sortie.<br>";
+		this.consigne += "Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donner des noms $\\textit{f}$ ou $\\textit{g}$ ou $\\textit{h} \\ldots$"
+	} else { // sortie latex
+		this.consigne = "Consigne LaTeX";
+	} 
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
 	this.nb_questions = 4;
@@ -675,87 +768,18 @@ function fonction_notion_vocabulaire(){
 	this.nb_cols_corr = 1;
 	this.sup = 5;
 
+	var num_ex = '3F20'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
+
 	if (sortie_html) {		
-		let id_unique = `_consigne_${Date.now()}`
+		let id_unique = `_consigne_${num_ex}_${Date.now()}`; // on formatte avec le numéro de l'exercice pour éviter les doublons
 		let id_du_div = `div_svg${id_unique}`;
-		var k = 1; // compteur pour la gestion de svg multiples, on a besoin d'une variable globale
 		var pourcentage = '100%'; // pour l'affichage des svg. On a besoin d'une variable globale
 		var hauteur_svg = 100;
 
 		//this.consigne += `<div id="consigne" style="width: 100%; height: 500px; display : table "></div>`;
 		//this.consigne += `<div id="${id_du_div}" style="width: 100%; height: 150px; display : table "></div>`;
-		this.consigne += `<div id="${id_du_div+k}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table "></div>`;
-		SVG_machine_maths(id_du_div+k,400,100,'','antécédent-->','-->image','mathématique');
-		k++; //on incremente le compteur des svg multiples
-
-		// this.consigne += `<div id="${id_du_div+'1'}" style="width: 90%; height: 150px; display : table "></div>`;
-		// SVG_machine_maths(id_du_div+'1',400,100,'','x','4x','qui quadruple');
-
-		// if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
-		// // SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
-		// window.SVGExist[id_du_div] = setInterval(function() {
-		// 	if ($(`#${id_du_div}`).length ) {
-		// 		$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
-		// 		//on récupère les dimension du div parent
-		// 		//let w=document.getElementById(id_du_div).offsetWidth , h=document.getElementById(id_du_div).offsetHeight;
-		// 		let w=400, h=100;
-		// 		const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h);
-		// 		//mon_svg.size(w,h);
-
-		// 		// On crée une timeline
-		// 		let timeline = new SVG.Timeline()
-		// 		// on crée l'objet pour l'antécédent et on l'anime
-		// 		let ant = mon_svg.text('antécédent-->');
-		// 		let w_ant = ant.length();
-		// 		ant.move(0,h/2);
-		// 		// on crée l'objet pour l'image
-		// 		let im = mon_svg.text('-->image');
-		// 		let w_im = im.length();
-		// 		im.move(w/2-w_im/2,h/2);
-				
-		// 		ant.timeline(timeline);
-		// 		im.timeline(timeline);
-
-		// 		let runner1 = ant.animate(8000,0,'absolute').dmove(w/2-w_ant/2,0);
-		// 		console.log(w/2-w_ant/2-0);
-		// 		let runner2 = im.animate(8000,0,'after').dmove(w-w_im,0);
-		// 		console.log(w-w_im-w/2+w_im/2);
-
-		// 		runner1.loop(true,false,8000);
-		// 		runner2.loop(true,false,8000);
-
-		// 		// on crée des variables pour le texte à afficher sur la machine afin de récupérer leur taille
-		// 		// pour ajuster celle de la machine.
-		// 		let text_1 = mon_svg.text('machine');
-		// 		let text_2 = mon_svg.text('mathématique');				
-		// 		let w_t_max = Math.max(text_1.length(),text_2.length());
-		// 		console.log(w_t_max);
-		// 		// On supprime les objets pour éviter leur affichage avant la machine
-		// 		text_1.clear();
-		// 		text_2.clear();
-				
-		// 		// on crée l'objet pour la machine mathématique et on le place
-		// 		//let machine = mon_svg.rect(w/3+w_t_1/2,h/2).attr({ stroke: '#f15929', 'stroke-width': 3, fill : 'white' });
-		// 		let machine = mon_svg.rect(1.2*w_t_max,h/2).attr({ stroke: '#f15929', 'stroke-width': 3, fill : 'white' });
-		// 		machine.move(w/2-0.6*w_t_max,h/2-h/4);
-
-		// 		// on crée le texte à écrire sur la machine et on le place
-		// 		let nom_machine_1 = mon_svg.text('machine');
-		// 		let nom_machine_2 = mon_svg.text('mathématique');
-		// 		let w_n_m_1 = nom_machine_1.length();
-		// 		let w_n_m_2 = nom_machine_2.length();
-		// 		nom_machine_1.move(w/2-w_n_m_1/2,h/2-15);
-		// 		nom_machine_2.move(w/2-w_n_m_2/2,h/2+5);
-
-		// 		// let text_x = mon_svg.text('x');
-		// 		// text_x.style({color:'blue'});
-
-			
-		// 	clearInterval(SVGExist[id_du_div]);//Arrête le timer
-		// 	}
-
-	//	}, 100); // Vérifie toutes les 100ms
-
+		this.consigne += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table "></div>`;
+		SVG_machine_maths(id_du_div,400,100,'machine maths','-> étape1','-> étape2','-> étape3','antécédent','x','image','y');
 		} else { // sortie LaTeX
 
 		};
@@ -768,46 +792,81 @@ function fonction_notion_vocabulaire(){
 		this.contenu = ''; // Liste de questions
 		this.contenu_correction = ''; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = [1,2,3,4];
-		//let type_de_questions_disponibles = [1];
+		//let type_de_questions_disponibles = [1,2,3,4];
+		let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions);
 
 			for (let i = 0, x, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 				type_de_questions = liste_type_de_questions[i];
 	
-				x = randint(1,9);//augmenter les possibles pour éviter les questions déjà posées?
-				let id_unique = `${i}_${Date.now()}`
+				let id_unique = `${num_ex}_${i}_${Date.now()}`
 				let id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
 				let id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`;
-
 	
 				switch (type_de_questions) {
-					case 1 : // périmètre d'un carré de côté x
+					case 1 : // périmètre d'un carré de côté x			
+						var j = 0; // pour la sous-numérotation
 						texte = `La $\\textbf{machine f}$ renvoie le périmètre d'un carré de côté $x$`;
-						texte += `<br>`;
-						texte += `Quelle est la sortie si le côté vaut  ${x}  cm ?`;
+						//texte += `<br>`;
+						x = randint(1,9);//augmenter les possibles pour éviter les questions déjà posées?	
 						if (sortie_html) {
 							texte += `<br>`;
-							texte += `<div id="${id_du_div+k}" style="width: ${pourcentage}"; height: 150px; display : table "></div>`;
-							SVG_machine_maths(id_du_div+k,400,100,'f','côté du carré : '+x+'cm','périmètre du carré : ? cm','périmètre d\'un carré');
-							k++; //on incrémente le compteur de svg multiples
-						// 	texte += `<br>diagramme SVG test <br>
-						// 	<svg width="200" height="100" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-						// 	<g class="layer">
-						// 	<title>Layer 1</title>
-						// 	<rect id="svg_13" height="43.45312" width="91.125" y="30.5" x="57.20313" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#f15929" fill="none"/>
-						// 	<text style="cursor: move;" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="10" id="svg_15" y="44.42188" x="102.34375" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#f15929" fill="#000000">Machine f</text>
-						// 	<text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="10" id="svg_16" y="62.14063" x="102.76563" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#f15929" fill="#000000">qui quadruple</text>
-						// 	<line id="svg_17" y2="52.4375" x2="56.35938" y1="52.85938" x1="30.625" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#f15929" fill="none"/>
-						// 	<path id="svg_24" d="m177.70735,51.07146l-6.34538,-11.39063l11.40909,11.39063l-11.40909,11.39063l6.34538,-11.39063z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#f15929" fill="none"/>
-						// 	<line id="svg_25" y2="51.31251" x2="177.29688" y1="51.73438" x1="149.45313" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#f15929" fill="none"/>
-						// 	<line id="svg_26" y2="55.95313" x2="31.32813" y1="49.20313" x1="31.32813" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#f15929" fill="none"/>
-						//    </g>
-						//   </svg>						
-						//	`;
+							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 150px; display : table "><p></p></div>`;
+							//SVG_machine_maths(id_du_div,400,100,'f','côté du carré : '+x+'cm','périmètre du carré : ? cm','périmètre d\'un carré');
+							SVG_machine_maths(id_du_div,400,100,'machine f','','périmètre','d\'un carré','carré de','côté '+x+' cm','périmètre','??? cm');
 						} else { // sortie Latex avec Tikz
 
-						}
+						};
+
+						texte += num_alpha(j)+` Que renvoie la machine si le côté vaut  ${x}  cm ? Formuler la réponse `;
+						if (sortie_html){
+							texte+= `<span class="ui icon button" data-tooltip="la valeur du périmètre est l'image de la valeur du côté" data-inverted=""> avec le mot image.</span><br>`;
+						} else { //sortie LaTeX
+							texte+= `avec le mot image. <br>`;
+						};						
+						j++;//incrémente la sous question
+						x = randint(1,9);//augmenter les possibles pour éviter les questions déjà posées?	
+						texte += num_alpha(j)+` Combien vaut le côté si la machine renvoie  ${4*x} cm ? Formuler la réponse `;
+						if (sortie_html){
+							texte+= `<span class="ui icon button" data-tooltip="un antécédent de la valeur d'un périmètre est la valeur du côté qui a pour image ce périmètre" data-inverted=""> avec le mot antécédent.</span><br>`;
+						} else { //sortie LaTeX
+							texte+= `avec le mot antécédent. <br>`;
+						};														
+						j++;//incrémente la sous question
+						x = randint(1,9);//augmenter les possibles pour éviter les questions déjà posées?	
+						texte += num_alpha(j)+` Quelle est l'image de ${x} par la `; 
+						if (sortie_html){
+							texte+= `<span class="ui icon button" data-tooltip="machine" data-inverted=""> fonction </span>`;
+						} else { // sortie LaTeX
+							texte +=`fonction`;
+						};
+						texte += ` $f$ ? Ecrire la réponse sous la forme `;
+						if (sortie_html){
+							texte+= `<span class="ui icon button" data-tooltip="si 4 a pour image 16 alors on peut écrire f(4)=16" data-inverted=""> $\\textbf{f(${x}) = \\ldots}$ </span><br>`;
+						} else { // sortie LaTeX
+							texte +=`$\\textbf{f(${x}) = \\ldots}$<br>`;
+						};					
+						j++;//incrémente la sous question
+						texte += num_alpha(j)+` Que renvoie la machine si le côté vaut $x$ cm ?<br>`;
+						j++;//incrémente la sous question
+						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-1)+` sous forme de diagramme.<br>`;
+						j++;//incrémente la sous question
+						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-2)+` sous la forme `;
+						if (sortie_html){
+							texte+= `<span class="ui icon button" data-tooltip="si 4 a pour image 16 alors on peut écrire f(4)=16" data-inverted=""> $\\textbf{f(\\textit{x}) = \\ldots}$ </span><br>`;
+						} else { // sortie LaTeX
+							texte +=`$\\textbf{f(${x}) = \\ldots}$<br>`;
+						};
+						j++;//incrémente la sous question
+						texte += num_alpha(j)+` En utilisant la forme `;
+						if (sortie_html){
+							texte+= `<span class="ui icon button" data-tooltip="on peut écrire au choix f(4)=16 ou 4 $\\stackrel{f}{\\longmapsto}$ 16" data-inverted=""> $\\textbf{\\textit{x}} \\stackrel{\\mathbf{f}}{\\mathbf{\\longmapsto}} \\textbf{\\ldots}$ </span>`;
+						} else { // sortie LaTeX
+							texte +=`$\\textbf{\\textit{x}} \\stackrel{\\mathbf{f}}{\\mathbf{\\longmapsto}} \\textbf{\\ldots}$`;
+						};						
+						texte+= `écrire la réponse à la question `+num_alpha(j-3)+`<br>`;
+						j++;//incrémente la sous question
+
 						texte_corr = `Périmètre d'un carré de côté ${x}`;
 						break;			
 					case 2 : // aire d'un carré de côté x
@@ -816,12 +875,12 @@ function fonction_notion_vocabulaire(){
 						texte += `Quelle est la sortie si le côté vaut  ${x}  cm ?`;
 						if (sortie_html) {
 							texte += `<br>`;
-							texte += `<div id="${id_du_div+k}" style="width: ${pourcentage}; height: 150px; display : table "></div>`;
-							SVG_machine_maths(id_du_div+k,400,100,'g','côté du carré : '+x+'cm','aire du carré : ? cm²','aire d\'un carré');
-							k++; //on incrémente le compteur de svg multiples
+							texte += `<div id="${id_du_div}" style="width: ${pourcentage}; height: 150px; display : table "></div>`;
+							//SVG_machine_maths(id_du_div,400,100,'g','côté du carré : '+x+'cm','aire du carré : ? cm²','aire d\'un carré');
+							SVG_machine_maths(id_du_div,400,100,'machine g','','aire','d\'un carré','carré de','côté '+x+' cm','aire','? cm');
 						} else { // sortie LaTeX avec Tikz
 
-						}
+						};
 						texte_corr = `Aire d'un carré de côté ${x}`;
 						break;			
 					case 3 : // somme de 1 et du triple de x
@@ -830,12 +889,12 @@ function fonction_notion_vocabulaire(){
 						texte += `Quelle est la sortie si le nombre de départ vaut  ${x}  ?`;
 						if (sortie_html) {
 							texte += `<br>`;
-							texte += `<div id="${id_du_div+k}" style="width: ${pourcentage}; height: 150px; display : table "></div>`;
-							SVG_machine_maths(id_du_div+k,400,100,'h','nombre de départ : '+x,'1 + le triple : ?','1 + le triple');
-							k++; //on incrémente le compteur de svg multiples
+							texte += `<div id="${id_du_div}" style="width: ${pourcentage}; height: 150px; display : table "></div>`;
+							//SVG_machine_maths(id_du_div,400,100,'h','nombre de départ : '+x,'1 + le triple : ?','1 + le triple');
+							SVG_machine_maths(id_du_div,400,100,'machine h','','-> tripler','-> ajouter 1','nombre de','départ '+x+'','nombre de','sortie ?');							
 						} else { // sortie LaTeX avec Tikz
 
-						}
+						};
 						texte_corr = `Somme de 1 et du triple de ${x}`;
 						break;
 					case 4 : // nombre de diviseurs de x entier
@@ -844,12 +903,12 @@ function fonction_notion_vocabulaire(){
 					texte += `Quelle est la sortie si le nombre de départ vaut  ${x}  ?`;
 						if (sortie_html) {
 							texte += `<br>`;
-							texte += `<div id="${id_du_div+k}" style="width: ${pourcentage}; height: 150px; display : table "></div>`;
-							SVG_machine_maths(id_du_div+k,400,100,'d','nombre de départ : '+x,'nombre de diviseurs : ?','nombre de diviseurs');
-							k++; //on incrémente le compteur de svg multiples
+							texte += `<div id="${id_du_div}" style="width: ${pourcentage}; height: 150px; display : table "></div>`;
+							//SVG_machine_maths(id_du_div,400,100,'d','nombre de départ : '+x,'nombre de diviseurs : ?','nombre de diviseurs');
+							SVG_machine_maths(id_du_div,400,100,'machine d','','nombre de','diviseurs','nombre de','départ '+x,'nombre de',' diviseurs ?');														
 						} else { // sortie LaTeX avec Tikz
 
-						}
+						};
 						texte_corr = `Nombre de diviseurs de ${x} (entier)`;
 						break;																
 				};
@@ -859,7 +918,6 @@ function fonction_notion_vocabulaire(){
 					this.liste_corrections.push(texte_corr);
 					i++;
 				}
-
 				cpt++
 			}	
 	
