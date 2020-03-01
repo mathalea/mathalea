@@ -739,7 +739,7 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes,expressions) {
 					size:     interligne,
 					anchor:   'start'
 					//, leading : 0.5
-					};	
+					};							
 	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
 	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
 	window.SVGExist[id_du_div] = setInterval(function() {
@@ -754,7 +754,6 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes,expressions) {
 			cadre_ant.dmove(0,h/2);
 			let x = diag.text(x_ant).font(prop_font); 
 			x.dmove(2*interligne-x.length()/2,h/2-interligne);
-			//console.log(etapes);
 			let svg_etapes = [];
 			let svg_cadres_fin = [];
 			let svg_operations_etapes = [];
@@ -767,7 +766,6 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes,expressions) {
 					} else {
 						svg_cadres_fin[i] = diag.text(nom+'(x)=...').font(prop_font);
 					};
-					//svg_cadres_fin[i] = diag.text(nom+'(x)=...').font(prop_font);
 					let w_cadre_fin = svg_cadres_fin[i].length();
 					svg_cadres_fin[i].dmove(10*interligne+8*i*interligne-w_cadre_fin/2,h/2-interligne);
 				} else {//sinon on affiche ......
@@ -815,7 +813,7 @@ function fonction_notion_vocabulaire(){
 		//this.consigne += `<div id="consigne" style="width: 100%; height: 500px; display : table "></div>`;
 		//this.consigne += `<div id="${id_du_div}" style="width: 100%; height: 150px; display : table "></div>`;
 		this.consigne += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table "></div>`;
-		SVG_machine_maths(id_du_div,400,hauteur_svg,'machine maths','-> étape1','-> étape2','-> étape3','antécédent','x','image','y');
+		SVG_machine_maths(id_du_div,400,hauteur_svg,'machine maths','','Procédé','de calcul','antécédent','x','image','y');
 		} else { // sortie LaTeX
 
 		};
@@ -900,7 +898,7 @@ function fonction_notion_vocabulaire(){
 
 						texte_corr += num_alpha(j)+`C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
 						texte_corr += `<div id="diagramme_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-						SVG_machine_diag('diagramme_corr',400,50,'f','x',['x4'],['4x']);
+						SVG_machine_diag('diagramme_corr',400,50,'f','x',['*4'],['4x']);
 						j++;//incrémente la sous question
 
 						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-2)+` sous la forme `;
