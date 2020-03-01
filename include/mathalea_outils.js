@@ -1786,7 +1786,7 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
 	result+=`\\tikzset{arr/.style={postaction=decorate,	decoration={markings,mark=at position 1 with {\\arrow[thick]{#1}}}}}`
 
 	result+=`\n\t \\foreach \\x in {0,${calcul(1/pas2)},...,7}`
-	result+=`\n\t {\\draw (\\x,-0.05)--(\\x,0.05);}`
+	result+=`\n\t {\\draw (${origine*pas1}+\\x,-0.05)--(${origine*pas1}+\\x,0.05);}`
 	
 	for (i=0;i<points_connus.length;i++){
 		valeur=calcul(origine+points_connus[i][1]/pas1+calcul(points_connus[i][2]/pas1/pas2))
