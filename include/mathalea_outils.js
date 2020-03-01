@@ -1781,9 +1781,9 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
 
 	result+=`\n\t \\tkzInit[xmin=${origine},xmax=${calcul(origine+7/pas1)},ymin=-0.5,ymax=0.5,xstep=${calcul(1/pas1)}]`
 
-	if (origine==0) result +=`\n\t \\tkzDrawX[tickwd=2pt]`
-	else result+=`\n\t \\tkzDrawX[left space=0.2,tickwd=2pt]`
-	result+=`\\tikzset{arr/.style={postaction=decorate,	decoration={markings,mark=at position 1 with {\\arrow[thick]{#1}}}}}`
+	if (origine==0) result +=`\n\t \\tkzDrawX[tickwd=2pt];`
+	else result+=`\n\t \\tkzDrawX[left space=0.2,tickwd=2pt];`
+	result+=`\n\t \\tikzset{arr/.style={postaction=decorate,	decoration={markings,mark=at position 1 with {\\arrow[thick]{#1}}}}}`
 
 	result+=`\n\t \\foreach \\x in {0,${calcul(1/pas2)},...,7}`
 	result+=`\n\t {\\draw (${origine*pas1}+\\x,-0.05)--(${origine*pas1}+\\x,0.05);}`
