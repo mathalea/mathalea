@@ -2433,6 +2433,10 @@ function Placer_points_sur_axe_relatifs(){
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : Nombre relatif à une décimale\n2 : Nombre relatif à deux décimales\n3 : Nombre relatif à trois décimales\n4 : Mélange"];
 }
 
+/**
+ * Lire les coordonnées d'un point du plan avec une précision allant de l'unité à 0,25.
+ * @Auteur Jean-Claude Lhote
+ */
 function reperage_point_du_plan(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -2542,10 +2546,10 @@ function reperage_point_du_plan(){
 	texte_corr=`Les coordonnées des points sont :`
 	for (i=0;i<4;i++) {
 	texte+=` ${nom[i]},`;
-	texte_corr+=` ${nom[i]} : (${tex_nombre(points[i][0])};${tex_nombre(points[i][1])}), `;
+	texte_corr+=` $${nom[i]}(${tex_nombre(points[i][0])};${tex_nombre(points[i][1])})$, `;
 	}
 	texte+=` ${nom[i]}.`
-	texte_corr+=` ${nom[i]} : (${tex_nombre(points[i][0])};${tex_nombre(points[i][1])}).`;	
+	texte_corr+=` $${nom[i]}(${tex_nombre(points[i][0])};${tex_nombre(points[i][1])})$.`;	
 	this.liste_questions.push(texte)
 	this.liste_corrections.push(texte_corr);
 	liste_de_question_to_contenu_sans_numero(this); 
