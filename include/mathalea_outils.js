@@ -1655,7 +1655,6 @@ function Latex_Tracer_droite(Xmin,Xmax,Ymin,Ymax,OrdX0,Pente,couleur,nom) {
  */
 function SVG_repere(mon_svg,Xmin,Xmax,Ymin,Ymax,subX,subY,tailleX,tailleY,grille){
 'use strict';
-				
 			if(Xmin>0) Xmin=0;
 			if (Ymin>0) Ymin=0;
 			let DeltaX=Xmax-Xmin;

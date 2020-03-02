@@ -22,6 +22,7 @@ function fonctions_affines(){
 	
 	this.nouvelle_version = function(numero_de_l_exercice){ // numero_de_l_exercice est 0 pour l'exercice 1
 	let k=Math.pow(2,parseInt(this.sup)-1);
+	let h=Math.round(window.innerHeight*0.7)
 	this.liste_questions=[];
 	this.liste_corrections=[];
 	this.contenu = ''; // Liste de questions
@@ -29,7 +30,7 @@ function fonctions_affines(){
 	let liste_droites=[];
 	let OrdX0;
 	let Pente=[];
-	let w=600,h=600;
+	let w=h;
 	Pente.push(randint(-2*k,2*k));
 	Pente.push(randint(-2*k,2*k,[Pente[0]]));
 	Pente.push(randint(-2*k,2*k,[Pente[0],Pente[1]]));
@@ -40,7 +41,7 @@ function fonctions_affines(){
 		else OrdX0= randint(-1+Pente[i]/k,1+Pente[i]/k)
 		liste_droites.push([OrdX0,Pente[i]/k])
 	}
-
+console.log(w,h)
 	if (sortie_html) {
 		let id_unique = `${Date.now()}`
 		let id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
@@ -79,6 +80,8 @@ function fonctions_affines(){
 	}
 	for (i=0;i<5;i++) {
 	this.liste_questions.push(`Déterminer l'expression de la fonction $f_${i+1}$ représentée par la droite $d_${i+1}$.`)
+	if (!this.lineaire) this.consigne_correction=`Il s’agit de fonctions affines, elles sont donc de la forme $f(x)=ax+b$, $b$ étant l’ordonnée à l’origine et $a$ la pente de la droite.\n`;
+	else this.consigne_correction=`Il s’agit de fonctions linéaires, elles sont donc de la forme $f(x)=ax$, $a$ étant la pente de la droite.\n`;
 	if (this.lineaire||liste_droites[i][0]==0) this.liste_corrections.push(`La droite $d_${i+1}$ passe par l'origine et son coefficient directeur est $${liste_droites[i][1]}$. Elle représente la fonction linéaire $f_${i+1}(x)=${reduire_ax_plus_b(liste_droites[i][1],0)}$.`)
 	else this.liste_corrections.push(`La droite $d_${i+1}$ passe par le point de coordonnées $(0;${liste_droites[i][0]})$ et son coefficient directeur est $${liste_droites[i][1]}$. Elle représente la fonction affine $f_${i+1}(x)=${reduire_ax_plus_b(liste_droites[i][1],liste_droites[i][0])}$.`)
 	}
