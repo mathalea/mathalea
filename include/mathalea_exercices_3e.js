@@ -2,7 +2,7 @@
 
 
 /**
- * Trace 5 droites et demande l'expression de la fonction affine ou linéaire
+ * Trace 5 droites et demande l'expression de la fonction affine ou linéaire correspondante
  * @Auteur Jean-Claude Lhote
  */
 function fonctions_affines(){

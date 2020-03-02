@@ -5112,7 +5112,10 @@ function HTML_personnalise() {
 
 
 // Exercices paramétré pour correspondre au référentiel
-
+/**
+ * Lire les coordonnées d'un point du quart de plan positif avec une précision allant de l'unité à 0,25.
+ * @Auteur Jean-Claude Lhote
+ */
 function reperage_point_du_quart_de_plan(){
 	reperage_point_du_plan.call(this);
 	this.titre = "Déterminer les coordonnées (positives) d'un point";
