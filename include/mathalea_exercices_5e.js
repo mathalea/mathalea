@@ -2545,10 +2545,10 @@ function reperage_point_du_plan(){
 	texte=`Déterminer les coordonnées des points`;
 	texte_corr=`Les coordonnées des points sont :`
 	for (i=0;i<4;i++) {
-	texte+=` ${nom[i]},`;
+	texte+=` $${nom[i]}$,`;
 	texte_corr+=` $${nom[i]}(${tex_nombre(points[i][0])};${tex_nombre(points[i][1])})$, `;
 	}
-	texte+=` ${nom[i]}.`
+	texte+=` $${nom[i]}$.`
 	texte_corr+=` $${nom[i]}(${tex_nombre(points[i][0])};${tex_nombre(points[i][1])})$.`;	
 	this.liste_questions.push(texte)
 	this.liste_corrections.push(texte_corr);
