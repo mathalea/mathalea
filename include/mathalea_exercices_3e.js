@@ -507,6 +507,7 @@ function Resoudre_une_equation_produit_nul(){
 * @Auteur Sébastien Lozano
 */	
 function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_ligne2,i_ligne1,i_ligne2) {
+	'use strict';
 
 	/**
 	* Crée une flèche orange pour la fonction machine
@@ -516,6 +517,7 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 	* @Auteur Sébastien Lozano
 	*/	
 	function SVG_fleche_machine_maths(groupe,chemin,couleur) {
+		'use strict';
 		return groupe.path(chemin).fill(couleur).stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
 	};
 
@@ -655,6 +657,7 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 * @Auteur Sébastien Lozano
 */	
 function num_alpha(k) {
+	'use strict';
 	return '<span style="color:#f15929; font-weight:bold">'+String.fromCharCode(97+k)+'/</span>';
 };
 
@@ -666,6 +669,7 @@ function num_alpha(k) {
 * @Auteur Sébastien Lozano
 */	
 function katex_Popup(texte,titrePopup,textePopup) {
+	'use strict';
 	let contenu =`<div class="ui button katexPopup">`+texte+`</div>`;
 	contenu += `<div class="ui special popup" >`;
 	if (titrePopup!='') {
@@ -684,6 +688,7 @@ function katex_Popup(texte,titrePopup,textePopup) {
 * @Auteur Sébastien Lozano
 */	
 function SVG_chemin(groupe,chemin,couleur) {
+	'use strict';
 	return groupe.path(chemin).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
 };
 
@@ -694,6 +699,7 @@ function SVG_chemin(groupe,chemin,couleur) {
 * @Auteur Sébastien Lozano
 */	
 function SVG_cadre_rond(groupe,r_circ,couleur) {
+	'use strict';
 	return groupe.circle(r_circ).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
 };
 
@@ -706,8 +712,9 @@ function SVG_cadre_rond(groupe,r_circ,couleur) {
 * @Auteur Sébastien Lozano
 */	
 function SVG_etapes(mon_svg,interligne,h,couleur,deplacement) {
-	path_cadre_rect = 'M0,0L0,-'+interligne+',L'+4*interligne+',-'+interligne+',L'+4*interligne+','+interligne+'L0,'+interligne+'Z';
-	path_fleche = 'M0,0L'+interligne+',0L'+(interligne-2)+',-2M'+interligne+',0L'+(interligne-2)+',2';
+	'use strict';
+	let path_cadre_rect = 'M0,0L0,-'+interligne+',L'+4*interligne+',-'+interligne+',L'+4*interligne+','+interligne+'L0,'+interligne+'Z';
+	let path_fleche = 'M0,0L'+interligne+',0L'+(interligne-2)+',-2M'+interligne+',0L'+(interligne-2)+',2';
 	let etape = mon_svg.group();
 	//path_fleche = 'M0,0L10,0L8,-2M10,0L8,2';
 	let l1 = etape.line(0,0,interligne,0).stroke({ width: 1 ,color: couleur});
@@ -734,6 +741,7 @@ function SVG_etapes(mon_svg,interligne,h,couleur,deplacement) {
 * @Auteur Sébastien Lozano
 */	
 function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes,expressions) {
+	'use strict';
 	let interligne = 10; // unité d'espacement
 	let prop_font = {family:   'Helvetica',
 					size:     interligne,
@@ -746,8 +754,8 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes,expressions) {
 		if ($(`#${id_du_div}`).length ) {
 			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
 			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h);
-			path_cadre_rect = 'M0,0L0,-'+interligne+',L'+4*interligne+',-'+interligne+',L'+4*interligne+','+interligne+'L0,'+interligne+'Z';
-			path_fleche = 'M0,0L10,0L8,-2M10,0L8,2';
+			let path_cadre_rect = 'M0,0L0,-'+interligne+',L'+4*interligne+',-'+interligne+',L'+4*interligne+','+interligne+'L0,'+interligne+'Z';
+			let path_fleche = 'M0,0L10,0L8,-2M10,0L8,2';
  			// on crée le groupe pour le diagramme
 			let diag=mon_svg.group();
 			let cadre_ant = SVG_chemin(diag,path_cadre_rect,'#f15929');  
@@ -814,9 +822,9 @@ function fonction_notion_vocabulaire(){
 		//this.consigne += `<div id="${id_du_div}" style="width: 100%; height: 150px; display : table "></div>`;
 		this.consigne += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table "></div>`;
 		SVG_machine_maths(id_du_div,400,hauteur_svg,'machine maths','','Procédé','de calcul','antécédent','x','image','y');
-		} else { // sortie LaTeX
+	} else { // sortie LaTeX
 
-		};
+	};
 	this.nouvelle_version = function(numero_de_l_exercice){
 		let type_de_questions;
 		//this.bouton_aide = modal_pdf(numero_de_l_exercice,"http://lozano.maths.free.fr/coopmaths/FichePuissances-4N21.pdf","Aide mémoire sur les puissances (Sébastien Lozano)")
@@ -898,7 +906,7 @@ function fonction_notion_vocabulaire(){
 
 						texte_corr += num_alpha(j)+`C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
 						texte_corr += `<div id="diagramme_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-						SVG_machine_diag('diagramme_corr',400,50,'f','x',['*4'],['4x']);
+						SVG_machine_diag('diagramme_corr',400,50,'f','x',['x4'],['4x']);
 						j++;//incrémente la sous question
 
 						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-2)+` sous la forme `;
@@ -984,4 +992,98 @@ function fonction_notion_vocabulaire(){
 		liste_de_question_to_contenu(this);
 	}
 	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
+}
+
+/**
+* 3TestSVG - Exercice pour tester SVG.js
+* * 
+* * 
+*
+* @Auteur Sébastien Lozano
+*/
+function Test_SVG_ForeignObject(){
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Tester SVG.js";
+	this.consigne = "Consigne";
+	this.nb_questions = 1;
+	this.nb_cols = 2;
+	this.nb_cols_corr = 2;
+
+	this.consigne += `<div id="testForeignObj" style="width: 100%; height: 10px; display : table "></div>`;		
+	// if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
+	// // SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
+	// window.SVGExist['testForeignObj'] = setInterval(function() {
+
+	// 	 if ($(`#testForeignObj`).length ) {
+	// 		 $(`#testForeignObj`).html("");//Vide le div pour éviter les SVG en doublon
+	// 		 var draw = SVG().addTo('#testForeignObj').viewbox(0, 0, 100, 100);
+	// 	// 	var fobj = draw.foreignObject(100,100);
+	// 	// 	var span = document.createElementNS('http://www.w3.org/1999/xhtml','div');
+	// 	// 	span.innerText = '$x$ Hello';
+	// 	// 	fobj.add(span)
+
+	// 	var foreignObject = draw.foreignObject(100,100)
+	// 	foreignObject.add(SVG('<input type="text">'))
+		
+	// 	clearInterval(SVGExist['testForeignObject']);//Arrête le timer
+	// 	}
+
+	// }, 100); // Vérifie toutes les 100ms
+	this.consigne +=`
+	<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    polygon { fill: black }
+ 
+    div {
+      color: white;
+      font:18px serif;
+      height: 100%;
+      overflow: auto;
+    }
+  </style>
+ 
+  <polygon points="5,5 195,10 185,185 10,195" />
+
+  <!-- Cas d'utilisation courant: inclure du texte HTML dans le SVG -->
+  <foreignObject x="20" y="20" width="160" height="160">
+    <!--
+      Dans le cas d'un SVG intégré dans du HTML, le namespace XHTML peut
+      être omis, mais il est obligatoire dans le contexte d'un document SVG
+    -->
+    <div xmlns="http://www.w3.org/1999/xhtml">
+	  Lorem ipsum $\\pm\\sqrt{a^2 + b^2}$
+    </div>
+  </foreignObject>
+</svg>
+	`;
+
+	this.nouvelle_version = function(){
+		this.liste_questions = []; // Vide la liste de questions
+		this.liste_corrections = []; // Vide la liste de questions corrigées
+
+		for (let i = 0, texte, texte_corr, a, b, cpt=0; i < this.nb_questions && cpt<50; ) {
+			// on déclare les variables utilisées dans la boucle
+			// i correspond au numéro de la question -1
+			// cpt est un compteur de fois où on génère une question déjà posées
+			// pour éviter une boucle infinie, on limite à 50 le nombre d'essais pour générer une question jamais posée
+			a = randint(0,9)*10+randint(1,9)
+			// on choisit un nombre au hasard qui a entre 0 et 9 comme chiffre des dizaines et entre 1 et 9 comme chiffre des unités
+			texte = `$${a}+9$`
+			// énoncé 
+			// Rappel ${a} permet de récupérer la valeur de a dans un littéral de gabarit définit entre accents graves
+			texte_corr = `$${a}+9=${a+9}$`
+			// la correction de la question
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte); // Sinon on enregistre la question dans liste_questions
+				this.liste_corrections.push(texte_corr); // On fait pareil pour la correction
+				i++; // On passe à la question suivante
+			}
+			cpt++;	// Sinon on incrémente le compteur d'essai pour avoir une question nouvelle
+		}
+		liste_de_question_to_contenu(this); // La liste de question et la liste de la correction
+		// sont transformés en chaine de caractère (avec une liste HTML ou LaTeX suivant le contexte)
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+	// On aurait pu ajouter un formulaire pour régler le niveau de difficulté à l'aide de l'attribut this.sup
 }
