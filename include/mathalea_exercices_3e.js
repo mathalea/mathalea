@@ -22,7 +22,6 @@ function fonctions_affines(){
 	
 	this.nouvelle_version = function(numero_de_l_exercice){ // numero_de_l_exercice est 0 pour l'exercice 1
 	let k=Math.pow(2,parseInt(this.sup)-1);
-	let h=Math.round(window.innerHeight*0.7)
 	this.liste_questions=[];
 	this.liste_corrections=[];
 	this.contenu = ''; // Liste de questions
@@ -30,35 +29,44 @@ function fonctions_affines(){
 	let liste_droites=[];
 	let OrdX0;
 	let Pente=[];
-	let w=h;
-	Pente.push(randint(-2*k,2*k));
-	Pente.push(randint(-2*k,2*k,[Pente[0]]));
-	Pente.push(randint(-2*k,2*k,[Pente[0],Pente[1]]));
-	Pente.push(randint(-2*k,2*k,[Pente[0],Pente[1],Pente[2]]));
-	Pente.push(randint(-2*k,2*k,[Pente[0],Pente[1],Pente[2],Pente[3]]));
+	if (!this.lineaire) {
+		Pente.push(randint(-2*k,2*k));
+		Pente.push(randint(-2*k,2*k,[Pente[0]]));
+		Pente.push(randint(-2*k,2*k,[Pente[0],Pente[1]]));
+		Pente.push(randint(-2*k,2*k,[Pente[0],Pente[1],Pente[2]]));
+		Pente.push(randint(-2*k,2*k,[Pente[0],Pente[1],Pente[2],Pente[3]]));
+	}
+	else {
+		Pente.push(randint(-3*k,3*k,[0]));
+		Pente.push(randint(-3*k,3*k,[Pente[0],0]));
+		Pente.push(randint(-3*k,3*k,[Pente[0],Pente[1],0]));
+		Pente.push(randint(-3*k,3*k,[Pente[0],Pente[1],Pente[2],0]));
+		Pente.push(randint(-3*k,3*k,[Pente[0],Pente[1],Pente[2],Pente[3],0]));	
+	}
+
 	for (let i=0;i<5;i++) {
 		if (this.lineaire) OrdX0=0;
 		else OrdX0= randint(-1+Pente[i]/k,1+Pente[i]/k)
 		liste_droites.push([OrdX0,Pente[i]/k])
 	}
-console.log(w,h)
+
 	if (sortie_html) {
 		let id_unique = `${Date.now()}`
 		let id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
-		this.consigne = `<div id="${id_du_div}" style="width: 90%; height: ${h}px; display : table "></div>`;
+		this.consigne = `<div id="${id_du_div}" style="width: 90%; height: ${500}px; display : table "></div>`;
 		if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
 		// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
 		window.SVGExist[id_du_div] = setInterval(function() {
 			if ($(`#${id_du_div}`).length ) {
 				$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
-				const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h)
+				const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 500, 500)
 
-			SVG_repere(mon_svg,-5,5,-5,5,k,k,w,h,true );
-			SVG_Tracer_droite(mon_svg,w,h,-5,5,-5,5,liste_droites[0][0],liste_droites[0][1],'blue','d1');
-			SVG_Tracer_droite(mon_svg,w,h,-5,5,-5,5,liste_droites[1][0],liste_droites[1][1],'red','d2');
-			SVG_Tracer_droite(mon_svg,w,h,-5,5,-5,5,liste_droites[2][0],liste_droites[2][1],'green','d3');
-			SVG_Tracer_droite(mon_svg,w,h,-5,5,-5,5,liste_droites[3][0],liste_droites[3][1],'brown','d4');
-			SVG_Tracer_droite(mon_svg,w,h,-5,5,-5,5,liste_droites[4][0],liste_droites[4][1],'purple','d5');
+			SVG_repere(mon_svg,-5,5,-5,5,k,k,500,500,true );
+			SVG_Tracer_droite(mon_svg,500,500,-5,5,-5,5,liste_droites[0][0],liste_droites[0][1],'blue','d1');
+			SVG_Tracer_droite(mon_svg,500,500,-5,5,-5,5,liste_droites[1][0],liste_droites[1][1],'red','d2');
+			SVG_Tracer_droite(mon_svg,500,500,-5,5,-5,5,liste_droites[2][0],liste_droites[2][1],'green','d3');
+			SVG_Tracer_droite(mon_svg,500,500,-5,5,-5,5,liste_droites[3][0],liste_droites[3][1],'brown','d4');
+			SVG_Tracer_droite(mon_svg,500,500,-5,5,-5,5,liste_droites[4][0],liste_droites[4][1],'purple','d5');
 			clearInterval(SVGExist[id_du_div]);//Arrête le timer
 			}
 
