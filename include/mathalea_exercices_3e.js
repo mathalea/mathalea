@@ -626,7 +626,7 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 	let interligne = 15; // pour un interligne uniforme 
 	let prop_font = {family:   'Helvetica',
 					size:     interligne,
-					anchor:   'start'
+					anchor:   'start',
 					//, leading : 0.5
 					};
 	let prop_font_nom = {family:   'Helvetica',
@@ -807,6 +807,7 @@ function SVG_cadre_rond(groupe,r_circ,couleur) {
 };
 
 /**Trace une étape de diagramme pour un programme de calcul ou une fonction et la place 
+* * une fleche un cadre rond pour l'opération et un cadre rectangulaire pour l'arrivée 
 * @param mon_svg le svg global
 * @param interligne unité d'espacement
 * @param h hauteur
@@ -858,17 +859,17 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes,expressions) {
 			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
 			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h);
 			let path_cadre_rect = 'M0,0L0,-'+interligne+',L'+4*interligne+',-'+interligne+',L'+4*interligne+','+interligne+'L0,'+interligne+'Z';
-			let path_fleche = 'M0,0L10,0L8,-2M10,0L8,2';
+			//let path_fleche = 'M0,0L10,0L8,-2M10,0L8,2';
  			// on crée le groupe pour le diagramme
 			let diag=mon_svg.group();
 			let cadre_ant = SVG_chemin(diag,path_cadre_rect,'#f15929');  
 			cadre_ant.dmove(0,h/2);
 			let x = diag.text(x_ant).font(prop_font); 
 			x.dmove(2*interligne-x.length()/2,h/2-interligne);
-			let svg_etapes = [];
-			let svg_cadres_fin = [];
-			let svg_operations_etapes = [];
-			let w_svg_operations_etapes = [];
+			let svg_etapes = []; // tableau pour les étapes
+			let svg_cadres_fin = []; // tableau pour les textes des cadres de fin
+			let svg_operations_etapes = []; // tableau pour les opérations des étapes
+			let w_svg_operations_etapes = []; // tableau pour la largeur de ces opérations
 			for (var i = 0; i<etapes.length; i++) {
 				svg_etapes[i] = SVG_etapes(mon_svg,interligne,h,'#f15929',4*interligne+8*i*interligne);
 				if (etapes.length==i+1) {//si la longueur du tableau des etapes vaut i+1 c'est que c'est la derniere on affiche f(x)=...
@@ -890,7 +891,7 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes,expressions) {
 				};				
 				svg_operations_etapes[i] = diag.text(etapes[i]).font(prop_font);
 				w_svg_operations_etapes[i] = svg_operations_etapes[i].length();
-				svg_operations_etapes[i].dmove(6*interligne+8*i*interligne-w_svg_operations_etapes[i]/2,h/2-interligne);
+				svg_operations_etapes[i].dmove(6*interligne+8*i*interligne-w_svg_operations_etapes[i]/2,h/2-interligne);				
 			};		 
 
 		clearInterval(SVGExist[id_du_div]);//Arrête le timer
@@ -945,7 +946,7 @@ function fonction_notion_vocabulaire(){
 
 		let type_de_questions_disponibles = [1,2,3,4];
 		//let type_de_questions_disponibles = [4];
-		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions);
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
 
 			for (let i = 0, x, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 				type_de_questions = liste_type_de_questions[i];
