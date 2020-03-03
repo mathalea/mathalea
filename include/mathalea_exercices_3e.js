@@ -855,6 +855,7 @@ function fonction_notion_vocabulaire(){
 							texte += `<br>`;
 							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 150px; display : table "></div>`;
 							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine f','','périmètre','d\'un carré','carré de','côté '+x+' cm','périmètre','??? cm');
+							
 						} else { // sortie Latex avec Tikz
 
 						};
@@ -992,98 +993,4 @@ function fonction_notion_vocabulaire(){
 		liste_de_question_to_contenu(this);
 	}
 	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
-}
-
-/**
-* 3TestSVG - Exercice pour tester SVG.js
-* * 
-* * 
-*
-* @Auteur Sébastien Lozano
-*/
-function Test_SVG_ForeignObject(){
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Tester SVG.js";
-	this.consigne = "Consigne";
-	this.nb_questions = 1;
-	this.nb_cols = 2;
-	this.nb_cols_corr = 2;
-
-	this.consigne += `<div id="testForeignObj" style="width: 100%; height: 10px; display : table "></div>`;		
-	// if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
-	// // SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
-	// window.SVGExist['testForeignObj'] = setInterval(function() {
-
-	// 	 if ($(`#testForeignObj`).length ) {
-	// 		 $(`#testForeignObj`).html("");//Vide le div pour éviter les SVG en doublon
-	// 		 var draw = SVG().addTo('#testForeignObj').viewbox(0, 0, 100, 100);
-	// 	// 	var fobj = draw.foreignObject(100,100);
-	// 	// 	var span = document.createElementNS('http://www.w3.org/1999/xhtml','div');
-	// 	// 	span.innerText = '$x$ Hello';
-	// 	// 	fobj.add(span)
-
-	// 	var foreignObject = draw.foreignObject(100,100)
-	// 	foreignObject.add(SVG('<input type="text">'))
-		
-	// 	clearInterval(SVGExist['testForeignObject']);//Arrête le timer
-	// 	}
-
-	// }, 100); // Vérifie toutes les 100ms
-	this.consigne +=`
-	<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <style>
-    polygon { fill: black }
- 
-    div {
-      color: white;
-      font:18px serif;
-      height: 100%;
-      overflow: auto;
-    }
-  </style>
- 
-  <polygon points="5,5 195,10 185,185 10,195" />
-
-  <!-- Cas d'utilisation courant: inclure du texte HTML dans le SVG -->
-  <foreignObject x="20" y="20" width="160" height="160">
-    <!--
-      Dans le cas d'un SVG intégré dans du HTML, le namespace XHTML peut
-      être omis, mais il est obligatoire dans le contexte d'un document SVG
-    -->
-    <div xmlns="http://www.w3.org/1999/xhtml">
-	  Lorem ipsum $\\pm\\sqrt{a^2 + b^2}$
-    </div>
-  </foreignObject>
-</svg>
-	`;
-
-	this.nouvelle_version = function(){
-		this.liste_questions = []; // Vide la liste de questions
-		this.liste_corrections = []; // Vide la liste de questions corrigées
-
-		for (let i = 0, texte, texte_corr, a, b, cpt=0; i < this.nb_questions && cpt<50; ) {
-			// on déclare les variables utilisées dans la boucle
-			// i correspond au numéro de la question -1
-			// cpt est un compteur de fois où on génère une question déjà posées
-			// pour éviter une boucle infinie, on limite à 50 le nombre d'essais pour générer une question jamais posée
-			a = randint(0,9)*10+randint(1,9)
-			// on choisit un nombre au hasard qui a entre 0 et 9 comme chiffre des dizaines et entre 1 et 9 comme chiffre des unités
-			texte = `$${a}+9$`
-			// énoncé 
-			// Rappel ${a} permet de récupérer la valeur de a dans un littéral de gabarit définit entre accents graves
-			texte_corr = `$${a}+9=${a+9}$`
-			// la correction de la question
-			
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte); // Sinon on enregistre la question dans liste_questions
-				this.liste_corrections.push(texte_corr); // On fait pareil pour la correction
-				i++; // On passe à la question suivante
-			}
-			cpt++;	// Sinon on incrémente le compteur d'essai pour avoir une question nouvelle
-		}
-		liste_de_question_to_contenu(this); // La liste de question et la liste de la correction
-		// sont transformés en chaine de caractère (avec une liste HTML ou LaTeX suivant le contexte)
-	}
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
-	// On aurait pu ajouter un formulaire pour régler le niveau de difficulté à l'aide de l'attribut this.sup
 }
