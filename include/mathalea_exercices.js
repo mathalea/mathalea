@@ -83,6 +83,8 @@ var liste_des_exercices_disponibles = {
 		'5M10' : Exercice_angles_triangles,
 		'5R10' : Lire_abscisse_relative,
 		'5R10-2' : Placer_points_sur_axe_relatifs,
+		'5R12-1' : reperage_point_du_quart_de_plan,
+		'5R12-2' : reperage_point_du_plan,
 		'5R20': Exercice_additions_relatifs,
 		'5R20_bis': Exercice_additions_relatifs_a_trou,
 		'5R20_ter': Exercice_additions_de_5_relatifs, //on pourrait le corriger avec regroupement des termes de même signe
@@ -120,6 +122,8 @@ var liste_des_exercices_disponibles = {
 		'3G10' : Exercice_Thales,
 		'3G30' : Exercice_Trigo_longueurs,
 		'3G31' : Exercice_Trigo_angles,
+		'3F10' : fonctions_lineaires,
+		'3F11' : fonctions_affines,
 		'2N10' : Developper_Identites_remarquables2,
 		'2N11' : Factoriser_Identites_remarquables2,
 		'P001' : Code_LaTeX_personnalise,
@@ -227,10 +231,9 @@ function feuille_d_axes_gradues() {
 				id_unique = `${i}_${Date.now()}`;
 				this.contenu += `<div id="div_svg${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
 				SVG_reperage_sur_un_axe(`div_svg${numero_de_l_exercice}${id_unique}`,'', 6, 1, pas, [], [],false)
-				console.log(i)
 				}
 			else { //sortie Latex 
-				texte=Latex_reperage_sur_un_axe(2.4, ' ', 1, pas, [], [],false);
+				texte=Latex_reperage_sur_un_axe(2, ' ', 1, pas, [], [],false);
 				this.liste_questions.push(texte)
 			}
 		}
@@ -240,7 +243,7 @@ function feuille_d_axes_gradues() {
 }
 
 /**
-* Lire l'abscisse décimale d'un point
+* Lire l'abscisse entière d'un point
 * @Auteur Jean-Claude Lhote et Rémi Angot
 */
 function Lire_abscisse_entiere(){
@@ -295,13 +298,13 @@ function Lire_abscisse_entiere(){
 			if (sortie_html) {
 				id_unique = `${i}_${Date.now()}`
 				this.contenu += `<div id="div_svg${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
-				SVG_reperage_sur_un_axe(`div_svg${numero_de_l_exercice}${id_unique}`, abs0, 6, pas1, pas2, [[l1, x1, x11], [l2, x2, x22], [l3, x3, x33]], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false)
+				SVG_reperage_sur_un_axe(`div_svg${numero_de_l_exercice}${id_unique}`, abs0, 6, pas1, pas2, [[l1, x1, x11], [l2, x2, x22], [l3, x3, x33]], [[calcul(abs0 ,0), 0, 0], [calcul(abs0 + 1 / pas1,0), 1, 0]],false)
 				this.contenu_correction += `<div id="div_svg_corr${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
-				SVG_reperage_sur_un_axe(`div_svg_corr${numero_de_l_exercice}${id_unique}`, abs0, 6, pas1, pas2, [[l1, x1, x11, true], [l2, x2, x22, true], [l3, x3, x33, true]], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false)
+				SVG_reperage_sur_un_axe(`div_svg_corr${numero_de_l_exercice}${id_unique}`, abs0, 6, pas1, pas2, [[l1, x1, x11, true], [l2, x2, x22, true], [l3, x3, x33, true]], [[calcul(abs0 ,0), 0, 0], [calcul(abs0 + 1 / pas1,0), 1, 0]],false)
 			}
 			else { //sortie Latex 
-				texte=Latex_reperage_sur_un_axe(2.4, abs0, pas1, pas2, [[l1, x1, x11], [l2, x2, x22], [l3, x3, x33]], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false);
-				texte_corr=Latex_reperage_sur_un_axe(2.4, abs0, pas1, pas2, [[l1, x1, x11,true], [l2, x2, x22,true], [l3, x3, x33,true]], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false);
+				texte=Latex_reperage_sur_un_axe(2, abs0, pas1, pas2, [[l1, x1, x11], [l2, x2, x22], [l3, x3, x33]], [[calcul(abs0 ,0), 0, 0], [calcul(abs0 + 1 / pas1,0), 1, 0]],false);
+				texte_corr=Latex_reperage_sur_un_axe(2, abs0, pas1, pas2, [[l1, x1, x11,true], [l2, x2, x22,true], [l3, x3, x33,true]], [[calcul(abs0 ,0), 0, 0], [calcul(abs0 + 1 / pas1,0), 1, 0]],false);
 				this.liste_questions.push(texte)
 				this.liste_corrections.push(texte_corr);
 			}
@@ -312,7 +315,7 @@ function Lire_abscisse_entiere(){
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : Milliers\n2 : Dizaines de mille\n3 : Centaines de mille\n4 : Mélange"];
 }
 /**
-* Lire l'abscisse décimale d'un point
+* Placer un point d'abscisse entière
 * @Auteur Jean-Claude Lhote et Rémi Angot
 */
 function Placer_un_point_abscisse_entiere(){
@@ -377,13 +380,13 @@ function Placer_un_point_abscisse_entiere(){
 					id_unique = `${i}_${Date.now()}`
 					this.contenu += `<div id="div_svg${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 110px;  "></div>`
 					this.contenu +=`<h3>Placer les points : ${l1}(${string_nombre(abs1)}), ${l2}(${string_nombre(abs2)}), ${l3}(${string_nombre(abs3)})</h3>`
-					SVG_reperage_sur_un_axe(`div_svg${numero_de_l_exercice}${id_unique}`, abs0, 6, pas1, pas2, [], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false)
+					SVG_reperage_sur_un_axe(`div_svg${numero_de_l_exercice}${id_unique}`, abs0, 6, pas1, pas2, [], [[calcul(abs0 ,0), 0, 0], [calcul(abs0 + 1 / pas1,0), 1, 0]],false)
 					this.contenu_correction += `<div id="div_svg_corr${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
-					SVG_reperage_sur_un_axe(`div_svg_corr${numero_de_l_exercice}${id_unique}`, abs0, 6, pas1, pas2, [[l1, x1, x11, true], [l2, x2, x22, true], [l3, x3, x33, true]], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false)
+					SVG_reperage_sur_un_axe(`div_svg_corr${numero_de_l_exercice}${id_unique}`, abs0, 6, pas1, pas2, [[l1, x1, x11, true], [l2, x2, x22, true], [l3, x3, x33, true]], [[calcul(abs0 ,0), 0, 0], [calcul(abs0 + 1 / pas1,0), 1, 0]],false)
 				}
 				else { //sortie Latex 
-					texte+=Latex_reperage_sur_un_axe(2.4, abs0, pas1, pas2, [], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false);
-					texte_corr=Latex_reperage_sur_un_axe(2.4, abs0, pas1, pas2, [[l1, x1, x11,true], [l2, x2, x22,true], [l3, x3, x33,true]], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false);
+					texte+=Latex_reperage_sur_un_axe(2, abs0, pas1, pas2, [], [[calcul(abs0 ,0), 0, 0], [calcul(abs0 + 1 / pas1,0), 1, 0]],false);
+					texte_corr=Latex_reperage_sur_un_axe(2, abs0, pas1, pas2, [[l1, x1, x11,true], [l2, x2, x22,true], [l3, x3, x33,true]], [[calcul(abs0 ,0), 0, 0], [calcul(abs0 + 1 / pas1,0), 1, 0]],false);
 					texte_corr+=`<br>Les points ${l1}(${string_nombre(abs1)}), ${l2}(${string_nombre(abs2)}), ${l3}(${string_nombre(abs3)}) sont placés ci dessus<br>`;
 					this.liste_questions.push(texte)
 					this.liste_corrections.push(texte_corr);
@@ -557,13 +560,13 @@ function Lire_abscisse_decimale(){
 			if (sortie_html) {
 				id_unique = `${i}_${Date.now()}`
 				this.contenu += `<div id="div_svg${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
-				SVG_reperage_sur_un_axe(`div_svg${numero_de_l_exercice}${id_unique}`, abs0, 6, pas1, pas2, [[l1, x1, x11], [l2, x2, x22], [l3, x3, x33]], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false)
+				SVG_reperage_sur_un_axe(`div_svg${numero_de_l_exercice}${id_unique}`, abs0, 6, pas1, pas2, [[l1, x1, x11], [l2, x2, x22], [l3, x3, x33]], [[calcul(abs0 ,0), 0, 0], [calcul(abs0 + 1 / pas1,0), 1, 0]],false)
 				this.contenu_correction += `<div id="div_svg_corr${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
-				SVG_reperage_sur_un_axe(`div_svg_corr${numero_de_l_exercice}${id_unique}`, abs0, 6, pas1, pas2, [[l1, x1, x11, true], [l2, x2, x22, true], [l3, x3, x33, true]], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false)
+				SVG_reperage_sur_un_axe(`div_svg_corr${numero_de_l_exercice}${id_unique}`, abs0, 6, pas1, pas2, [[l1, x1, x11, true], [l2, x2, x22, true], [l3, x3, x33, true]], [[calcul(abs0 ,0), 0, 0], [calcul(abs0 + 1 / pas1,0), 1, 0]],false)
 			}
 			else { //sortie Latex 
-				texte=Latex_reperage_sur_un_axe(2.4, abs0, pas1, pas2, [[l1, x1, x11], [l2, x2, x22], [l3, x3, x33]], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false);
-				texte_corr=Latex_reperage_sur_un_axe(2.4, abs0, pas1, pas2, [[l1, x1, x11,true], [l2, x2, x22,true], [l3, x3, x33,true]], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false);
+				texte=Latex_reperage_sur_un_axe(2, abs0, pas1, pas2, [[l1, x1, x11], [l2, x2, x22], [l3, x3, x33]], [[calcul(abs0 ,0), 0, 0], [calcul(abs0 + 1 / pas1,0), 1, 0]],false);
+				texte_corr=Latex_reperage_sur_un_axe(2, abs0, pas1, pas2, [[l1, x1, x11,true], [l2, x2, x22,true], [l3, x3, x33,true]], [[calcul(abs0 ,0), 0, 0], [calcul(abs0 + 1 / pas1,0), 1, 0]],false);
 				this.liste_questions.push(texte)
 				this.liste_corrections.push(texte_corr);
 			}
@@ -634,8 +637,8 @@ function Lire_abscisse_fractionnaire(){
 				SVG_reperage_sur_un_axe(`div_svg_corr${numero_de_l_exercice}${id_unique}`, abs0, 6, pas1, pas2, [[l1, x1, x11, true], [l2, x2, x22, true], [l3, x3, x33, true]], [[abs0 + 1 / pas1, 1, 0], [abs0 + 2 / pas1, 2, 0], [abs0 + 3 / pas1, 3, 0], [abs0 + 4 / pas1, 4, 0], [abs0 + 5 / pas1, 5, 0], [abs0 + 6 / pas1, 6, 0]],true)
 			}
 			else { //sortie Latex 
-				texte=Latex_reperage_sur_un_axe(2.4, abs0, pas1, pas2, [[l1, x1, x11], [l2, x2, x22], [l3, x3, x33]], [[abs0 + 1 / pas1, 1, 0], [abs0 + 2 / pas1, 2, 0], [abs0 + 3 / pas1, 3, 0], [abs0 + 4 / pas1, 4, 0], [abs0 + 5 / pas1, 5, 0], [abs0 + 6 / pas1, 6, 0]],false);
-				texte_corr=Latex_reperage_sur_un_axe(2.4, abs0, pas1, pas2, [[l1, x1, x11,true], [l2, x2, x22,true], [l3, x3, x33,true]], [[abs0 + 1 / pas1, 1, 0], [abs0 + 2 / pas1, 2, 0], [abs0 + 3 / pas1, 3, 0], [abs0 + 4 / pas1, 4, 0], [abs0 + 5 / pas1, 5, 0], [abs0 + 6 / pas1, 6, 0]],true);
+				texte=Latex_reperage_sur_un_axe(2, abs0, pas1, pas2, [[l1, x1, x11], [l2, x2, x22], [l3, x3, x33]], [[calcul(abs0 ,0), 0, 0], [calcul(abs0 + 1 / pas1,0), 1, 0]],false);
+				texte_corr=Latex_reperage_sur_un_axe(2, abs0, pas1, pas2, [[l1, x1, x11,true], [l2, x2, x22,true], [l3, x3, x33,true]], [[calcul(abs0 ,0), 0, 0], [calcul(abs0 + 1 / pas1,0), 1, 0]],true);
 				this.liste_questions.push(texte)
 				this.liste_corrections.push(texte_corr);
 			}
@@ -712,13 +715,13 @@ function Placer_points_sur_axe(){
 				id_unique = `${i}_${Date.now()}`
 				this.contenu += `<div id="div_svg${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 110px;  "></div>`
 				this.contenu +=`<h3>Placer les points : ${l1}(${tex_nombrec(abs1)}), ${l2}(${tex_nombrec(abs2)}), ${l3}(${tex_nombrec(abs3)})</h3>`
-				SVG_reperage_sur_un_axe(`div_svg${numero_de_l_exercice}${id_unique}`, abs0, 6, pas1, pas2, [], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false)
+				SVG_reperage_sur_un_axe(`div_svg${numero_de_l_exercice}${id_unique}`, abs0, 6, pas1, pas2, [], [[calcul(abs0 ,0), 0, 0], [calcul(abs0 + 1 / pas1,0), 1, 0]],false)
 				this.contenu_correction += `<div id="div_svg_corr${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
-				SVG_reperage_sur_un_axe(`div_svg_corr${numero_de_l_exercice}${id_unique}`, abs0, 6, pas1, pas2, [[l1, x1, x11, true], [l2, x2, x22, true], [l3, x3, x33, true]], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false)
+				SVG_reperage_sur_un_axe(`div_svg_corr${numero_de_l_exercice}${id_unique}`, abs0, 6, pas1, pas2, [[l1, x1, x11, true], [l2, x2, x22, true], [l3, x3, x33, true]], [[calcul(abs0 ,0), 0, 0], [calcul(abs0 + 1 / pas1,0), 1, 0]],false)
 			}
 			else { //sortie Latex 
-				texte+=Latex_reperage_sur_un_axe(2.4, abs0, pas1, pas2, [], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false);
-				texte_corr=Latex_reperage_sur_un_axe(2.4, abs0, pas1, pas2, [[l1, x1, x11,true], [l2, x2, x22,true], [l3, x3, x33,true]], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false);
+				texte+=Latex_reperage_sur_un_axe(2.4, abs0, pas1, pas2, [], [[calcul(abs0 ,0), 0, 0], [calcul(abs0 + 1 / pas1,0), 1, 0]],false);
+				texte_corr=Latex_reperage_sur_un_axe(2.4, abs0, pas1, pas2, [[l1, x1, x11,true], [l2, x2, x22,true], [l3, x3, x33,true]],[[calcul(abs0 ,0), 0, 0], [calcul(abs0 + 1 / pas1,0), 1, 0]],false);
 				texte_corr+=`<br>Les points ${l1}(${tex_nombrec(abs1)}), ${l2}(${tex_nombrec(abs2)}), ${l3}(${tex_nombrec(abs3)}) sont placés ci dessus<br>`;
 				this.liste_questions.push(texte)
 				this.liste_corrections.push(texte_corr);
@@ -5109,6 +5112,22 @@ function HTML_personnalise() {
 
 
 // Exercices paramétré pour correspondre au référentiel
+/**
+ * Lire les coordonnées d'un point du quart de plan positif avec une précision allant de l'unité à 0,25.
+ * @Auteur Jean-Claude Lhote
+ */
+function reperage_point_du_quart_de_plan(){
+	reperage_point_du_plan.call(this);
+	this.titre = "Déterminer les coordonnées (positives) d'un point";
+	this.quart_de_plan=true;	;
+
+}
+function fonctions_lineaires(){
+	fonctions_affines.call(this);
+	this.titre="Déterminer une fonction linéaire";
+	this.lineaire=true;
+}
+
 function Resoudre_une_equation_produit_nul_niv2(){
 	Resoudre_une_equation_produit_nul.call(this);
 	this.titre = "Résoudre une équation produit nul niveau2";
@@ -5121,6 +5140,7 @@ function Divisions_euclidiennes_niv2(){
 	this.titre = "Divisions euclidiennes - Niveau 2"
 }
 function Exercice_Trigo_longueurs_4e(){
+	Exercice_Trigo_longueurs.call(this);
 	this.sup =1;
 	this.besoin_formulaire_numerique = false;
 	this.titre = "Utiliser le cosinus pour calculer une longueur dans un triangle rectangle";

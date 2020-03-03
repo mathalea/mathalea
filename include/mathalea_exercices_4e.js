@@ -1096,7 +1096,7 @@ function Exercice_equation1(){
 * @auteur Jean-Claude Lhote
 */
 function Exercice_Thales(){
-
+'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Déterminer une longueur avec la propriété de Thales";
 	this.consigne = "";
@@ -1105,6 +1105,7 @@ function Exercice_Thales(){
 	sortie_html ? this.spacing_corr = 3.5 : this.spacing_corr = 2.5
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
+	this.quatrieme=false;
 	this.sup = 1; // 1 calcul direct | 2 calcul en deux étapes | 3 version 1&2 sans figure
 	// paramètres communs Html ou Latex
 	
@@ -1116,13 +1117,13 @@ function Exercice_Thales(){
 		this.liste_corrections = [];
 		let lettre1 = randint(1,26)	// aleatoirisation du nom des points
 		let s1 = lettre_depuis_chiffre(lettre1)
-		lettre2 = randint(1, 26, [lettre1])
+		let lettre2 = randint(1, 26, [lettre1])
 		let s2 = lettre_depuis_chiffre(lettre2)
-		lettre3 = randint(1, 26, [lettre1, lettre2])
+		let lettre3 = randint(1, 26, [lettre1, lettre2])
 		let s3 = lettre_depuis_chiffre(lettre3)
-		lettre4 = randint(1, 26, [lettre1, lettre2, lettre3])
+		let lettre4 = randint(1, 26, [lettre1, lettre2, lettre3])
 		let s4 = lettre_depuis_chiffre(lettre4)
-		lettre5 = randint(1, 26, [lettre1, lettre2, lettre3, lettre4])
+		let lettre5 = randint(1, 26, [lettre1, lettre2, lettre3, lettre4])
 		let s5 = lettre_depuis_chiffre(lettre5)
 		let x2 = randint(2,4)
 		let y2 = randint(3, 5)
@@ -1135,7 +1136,7 @@ function Exercice_Thales(){
 		let dist13 = arrondi(Math.sqrt(x3 * x3 + y3 * y3),1)
 		let dist15 = arrondi(dist13 * abs(k),1)  
 		let dist45 = arrondi(dist23 * abs(k),1)		
-
+		let dist35,texte,texte_corr;
 		let dist14 = arrondi(dist12*dist15/dist13,1); // calcul des longueurs demandées à partir 
 		dist23 = arrondi(dist45*dist13/dist15,1); // des nombres énoncés (dist12, dist13, dist15 et dist45)
 
@@ -1562,6 +1563,7 @@ function Exercice_Pythagore() {
 * @auteur Jean-Claude Lhote
 */
 function Exercice_Trigo_longueurs() {
+	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Déterminer une longueur grâce à la trigonométrie";
 	this.consigne = "";
@@ -1569,11 +1571,13 @@ function Exercice_Trigo_longueurs() {
 	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
+	this.spacing=1;
+	this.quatrieme=false;
 	this.sup = 1; // 1 utilisation du cosinus exclusivement 2 utilisation des 3 fonctions trigo 
 	sortie_html ? this.spacing_corr = 3 : this.spacing_corr = 1.5
 
 	this.nouvelle_version = function (numero_de_l_exercice) {
-		this.spacing=1;
+			let lettre1,lettre2,texte,texte_corr;
 			this.bouton_aide = modal_youtube(numero_de_l_exercice,"DYW-BTMFzd4","Trigonométrie (vidéo de digiSchool)")
 			this.type_exercice = 'MG32';
 			this.taille_div_MG32 = [700, 500];
