@@ -484,7 +484,7 @@ function Resoudre_une_equation_produit_nul(){
 }
 
 /**
-* 3F10 - Notion de fonction - vocabulaire
+* 3F1act - Notion de fonction - vocabulaire
 * * L’objectif de revenir sur l'introduction de la notion de fonction et son vocabulaire
 * * On base l'exercice sur des calculs simples de type périmètres, aires, double, triple, nombre de diviseurs
 *
@@ -810,7 +810,7 @@ function fonction_notion_vocabulaire(){
 	this.nb_cols_corr = 1;
 	this.sup = 1;
 
-	var num_ex = '3F10'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
+	var num_ex = '3F1act'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
 
 	if (sortie_html) {		
 		let id_unique = `_consigne_${num_ex}_${Date.now()}`; // on formatte avec le numéro de l'exercice pour éviter les doublons
