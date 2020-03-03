@@ -14,8 +14,8 @@ function fonctions_affines(){
 	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
-	this.spacing = 1;
-    this.spacing_corr = 1;
+	sortie_html? this.spacing = 2 : this.spacing = 1; 
+	sortie_html? this.spacing_corr = 2 : this.spacing_corr = 1;
 	this.sup=1;
 	this.lineaire=false;
 
@@ -26,6 +26,7 @@ function fonctions_affines(){
 	this.liste_corrections=[];
 	this.contenu = ''; // Liste de questions
 	this.contenu_correction = ''; // Liste de questions corrigées
+	let h=Math.round(window.innerHeight*0.7) //pour déterminer la hauteur du div 
 	let liste_droites=[];
 	let OrdX0;
 	let Pente=[];
@@ -53,7 +54,7 @@ function fonctions_affines(){
 	if (sortie_html) {
 		let id_unique = `${Date.now()}`
 		let id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
-		this.consigne = `<div id="${id_du_div}" style="width: 90%; height: ${500}px; display : table "></div>`;
+		this.consigne = `<div id="${id_du_div}" style="width: ${h}px; height: ${h}px; display : table "></div>`;
 		if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
 		// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
 		window.SVGExist[id_du_div] = setInterval(function() {
@@ -88,14 +89,14 @@ function fonctions_affines(){
 	}
 	for (i=0;i<5;i++) {
 	this.liste_questions.push(`Déterminer l'expression de la fonction $f_${i+1}$ représentée par la droite $d_${i+1}$.`)
-	if (!this.lineaire) this.consigne_correction=`Il s’agit de fonctions affines, elles sont donc de la forme $f(x)=ax+b$, $b$ étant l’ordonnée à l’origine et $a$ la pente de la droite.\n`;
-	else this.consigne_correction=`Il s’agit de fonctions linéaires, elles sont donc de la forme $f(x)=ax$, $a$ étant la pente de la droite.\n`;
-	if (this.lineaire||liste_droites[i][0]==0) this.liste_corrections.push(`La droite $d_${i+1}$ passe par l'origine et son coefficient directeur est $${liste_droites[i][1]}$. Elle représente la fonction linéaire $f_${i+1}(x)=${reduire_ax_plus_b(liste_droites[i][1],0)}$.`)
-	else this.liste_corrections.push(`La droite $d_${i+1}$ passe par le point de coordonnées $(0;${liste_droites[i][0]})$ et son coefficient directeur est $${liste_droites[i][1]}$. Elle représente la fonction affine $f_${i+1}(x)=${reduire_ax_plus_b(liste_droites[i][1],liste_droites[i][0])}$.`)
+	if (this.lineaire||liste_droites[i][0]==0) this.liste_corrections.push(`La droite $d_${i+1}$ passe par l'origine et son coefficient directeur est $${tex_nombre(liste_droites[i][1])}$. Elle représente la fonction linéaire $f_${i+1}(x)=${reduire_ax_plus_b(liste_droites[i][1],0)}$.`)
+		else this.liste_corrections.push(`La droite $d_${i+1}$ passe par le point de coordonnées $(0;${liste_droites[i][0]})$ et son coefficient directeur est $${tex_nombre(liste_droites[i][1])}$. Elle représente la fonction affine $f_${i+1}(x)=${reduire_ax_plus_b(liste_droites[i][1],liste_droites[i][0])}$.`)
+	
 	}
 		
 		liste_de_question_to_contenu_sans_numero(this); 
-
+		if (!this.lineaire) this.contenu_correction = `Il s’agit de fonctions affines, elles sont donc de la forme $f(x)=ax+b$, $b$ étant l’ordonnée à l’origine et $a$ la pente de la droite.\n` + this.contenu_correction;
+			else this.contenu_correction = `Il s’agit de fonctions linéaires, elles sont donc de la forme $f(x)=ax$, $a$ étant la pente de la droite.\n`  + this.contenu_correction;	
 	}
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',3,"1 : Coefficient directeur entier\n2 : Coefficient directeur 'en demis'\n3 : Coefficient directeur 'en quarts'"];
 }
