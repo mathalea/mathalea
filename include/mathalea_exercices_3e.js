@@ -963,7 +963,7 @@ function fonction_notion_vocabulaire(){
 						x = randint(1,9);//augmenter les possibles pour éviter les questions déjà posées?	
 						if (sortie_html) {
 							texte += `<br>`;
-							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 150px; display : table "></div>`;
+							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
 							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine f','','périmètre','d\'un carré','carré de','côté '+x+' cm','périmètre','??? cm');
 							
 						} else { // sortie Latex avec Tikz
@@ -1067,7 +1067,7 @@ function fonction_notion_vocabulaire(){
 						x = randint(1,9);//augmenter les possibles pour éviter les questions déjà posées?	
 						if (sortie_html) {
 							texte += `<br>`;
-							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 150px; display : table "></div>`;
+							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
 							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine g','','aire','d\'un carré','carré de','côté '+x+' cm','aire','? cm^2');
 							
 						} else { // sortie Latex avec Tikz
@@ -1171,7 +1171,7 @@ function fonction_notion_vocabulaire(){
 						x = randint(1,9);//augmenter les possibles pour éviter les questions déjà posées?	
 						if (sortie_html) {
 							texte += `<br>`;
-							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 150px; display : table "></div>`;
+							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
 							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine h','','-> tripler','-> ajouter 1','nombre de','départ '+x+'','nombre de','sortie ?');
 						} else { // sortie Latex avec Tikz
 
@@ -1274,7 +1274,7 @@ function fonction_notion_vocabulaire(){
 					x = randint(2,51);//augmenter les possibles pour éviter les questions déjà posées?	
 					if (sortie_html) {
 						texte += `<br>`;
-						texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 150px; display : table "></div>`;
+						texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
 						SVG_machine_maths(id_du_div,400,hauteur_svg,'machine d','','nombre de','diviseurs','nombre de','départ '+x,'nombre de',' diviseurs ?');														
 					} else { // sortie Latex avec Tikz
 
