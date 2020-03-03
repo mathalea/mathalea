@@ -60,7 +60,7 @@ function fonctions_affines(){
 		window.SVGExist[id_du_div] = setInterval(function() {
 			if ($(`#${id_du_div}`).length ) {
 				$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
-				const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 500, 500)
+				const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 500, 500).size('100%','100%')
 
 			SVG_repere(mon_svg,-5,5,-5,5,k,k,500,500,true );
 			SVG_Tracer_droite(mon_svg,500,500,-5,5,-5,5,liste_droites[0][0],liste_droites[0][1],'blue','d1');
@@ -587,12 +587,24 @@ function Resoudre_une_equation_produit_nul(){
 }
 
 /**
-* 3F10 - Notion de fonction - vocabulaire
+* 3F1act - Notion de fonction - vocabulaire
 * * L’objectif de revenir sur l'introduction de la notion de fonction et son vocabulaire
 * * On base l'exercice sur des calculs simples de type périmètres, aires, double, triple, nombre de diviseurs
 *
 * @Auteur Sébastien Lozano
 */
+
+/**
+* Crée une flèche orange pour la fonction machine
+* @param groupe group
+* @param chemin  path de la ligne
+* @param couleur 
+* @Auteur Sébastien Lozano
+*/	
+function SVG_fleche_machine_maths(groupe,chemin,couleur) {
+	'use strict';
+	return groupe.path(chemin).fill(couleur).stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
+};
 
 /**
 * Fonction pour créer une machine mathématiques SVG, une fonction!
@@ -610,18 +622,7 @@ function Resoudre_une_equation_produit_nul(){
 * @Auteur Sébastien Lozano
 */	
 function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_ligne2,i_ligne1,i_ligne2) {
-
-	/**
-	* Crée une flèche orange pour la fonction machine
-	* @param groupe group
-	* @param chemin  path de la ligne
-	* @param couleur 
-	* @Auteur Sébastien Lozano
-	*/	
-	function SVG_fleche_machine_maths(groupe,chemin,couleur) {
-		return groupe.path(chemin).fill(couleur).stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
-	};
-
+	'use strict';
 	let interligne = 15; // pour un interligne uniforme 
 	let prop_font = {family:   'Helvetica',
 					size:     interligne,
@@ -649,7 +650,7 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 			//on récupère les dimension du div parent
 			//let w=document.getElementById(id_du_div).offsetWidth , h=document.getElementById(id_du_div).offsetHeight;
 			//w=400, h=100;
-			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h);
+			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h).size('100%','100%');
 			//mon_svg.size(w,h);
 
 			// path pour créer des fleches
@@ -751,13 +752,15 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 		}
 
 	}, 100); // Vérifie toutes les 100ms
-}
+};
+
 /**
 * Crée une liste de questions alphabétique
 * @param k valeur numérique
 * @Auteur Sébastien Lozano
 */	
 function num_alpha(k) {
+	'use strict';
 	return '<span style="color:#f15929; font-weight:bold">'+String.fromCharCode(97+k)+'/</span>';
 };
 
@@ -769,6 +772,7 @@ function num_alpha(k) {
 * @Auteur Sébastien Lozano
 */	
 function katex_Popup(texte,titrePopup,textePopup) {
+	'use strict';
 	let contenu =`<div class="ui button katexPopup">`+texte+`</div>`;
 	contenu += `<div class="ui special popup" >`;
 	if (titrePopup!='') {
@@ -787,6 +791,7 @@ function katex_Popup(texte,titrePopup,textePopup) {
 * @Auteur Sébastien Lozano
 */	
 function SVG_chemin(groupe,chemin,couleur) {
+	'use strict';
 	return groupe.path(chemin).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
 };
 
@@ -797,10 +802,11 @@ function SVG_chemin(groupe,chemin,couleur) {
 * @Auteur Sébastien Lozano
 */	
 function SVG_cadre_rond(groupe,r_circ,couleur) {
+	'use strict';
 	return groupe.circle(r_circ).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
 };
 
-/**Trace une etape de diagramme et la place 
+/**Trace une étape de diagramme pour un programme de calcul ou une fonction et la place 
 * @param mon_svg le svg global
 * @param interligne unité d'espacement
 * @param h hauteur
@@ -809,8 +815,9 @@ function SVG_cadre_rond(groupe,r_circ,couleur) {
 * @Auteur Sébastien Lozano
 */	
 function SVG_etapes(mon_svg,interligne,h,couleur,deplacement) {
-	path_cadre_rect = 'M0,0L0,-'+interligne+',L'+4*interligne+',-'+interligne+',L'+4*interligne+','+interligne+'L0,'+interligne+'Z';
-	path_fleche = 'M0,0L'+interligne+',0L'+(interligne-2)+',-2M'+interligne+',0L'+(interligne-2)+',2';
+	'use strict';
+	let path_cadre_rect = 'M0,0L0,-'+interligne+',L'+4*interligne+',-'+interligne+',L'+4*interligne+','+interligne+'L0,'+interligne+'Z';
+	let path_fleche = 'M0,0L'+interligne+',0L'+(interligne-2)+',-2M'+interligne+',0L'+(interligne-2)+',2';
 	let etape = mon_svg.group();
 	//path_fleche = 'M0,0L10,0L8,-2M10,0L8,2';
 	let l1 = etape.line(0,0,interligne,0).stroke({ width: 1 ,color: couleur});
@@ -837,6 +844,7 @@ function SVG_etapes(mon_svg,interligne,h,couleur,deplacement) {
 * @Auteur Sébastien Lozano
 */	
 function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes,expressions) {
+	'use strict';
 	let interligne = 10; // unité d'espacement
 	let prop_font = {family:   'Helvetica',
 					size:     interligne,
@@ -848,9 +856,9 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes,expressions) {
 	window.SVGExist[id_du_div] = setInterval(function() {
 		if ($(`#${id_du_div}`).length ) {
 			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
-			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h);
-			path_cadre_rect = 'M0,0L0,-'+interligne+',L'+4*interligne+',-'+interligne+',L'+4*interligne+','+interligne+'L0,'+interligne+'Z';
-			path_fleche = 'M0,0L10,0L8,-2M10,0L8,2';
+			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h).size('100%','100%');
+			let path_cadre_rect = 'M0,0L0,-'+interligne+',L'+4*interligne+',-'+interligne+',L'+4*interligne+','+interligne+'L0,'+interligne+'Z';
+			let path_fleche = 'M0,0L10,0L8,-2M10,0L8,2';
  			// on crée le groupe pour le diagramme
 			let diag=mon_svg.group();
 			let cadre_ant = SVG_chemin(diag,path_cadre_rect,'#f15929');  
@@ -864,15 +872,21 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes,expressions) {
 			for (var i = 0; i<etapes.length; i++) {
 				svg_etapes[i] = SVG_etapes(mon_svg,interligne,h,'#f15929',4*interligne+8*i*interligne);
 				if (etapes.length==i+1) {//si la longueur du tableau des etapes vaut i+1 c'est que c'est la derniere on affiche f(x)=...
-					if (typeof expressions[i]!=='undefined') {
+					if (typeof expressions[i]!=='undefined') { // si il y a une expression algébrique on l'affiche
 						svg_cadres_fin[i] = diag.text(nom+'(x)='+expressions[i]).font(prop_font);
-					} else {
+					} else { // sinon on met ...
 						svg_cadres_fin[i] = diag.text(nom+'(x)=...').font(prop_font);
 					};
 					let w_cadre_fin = svg_cadres_fin[i].length();
 					svg_cadres_fin[i].dmove(10*interligne+8*i*interligne-w_cadre_fin/2,h/2-interligne);
-				} else {//sinon on affiche ......
-					svg_cadres_fin[i] = diag.text('......').dmove(9*interligne+8*i*interligne,interligne);
+				} else {//sinon on affiche ...... ou l'expression algébrique si elle existe
+					//svg_cadres_fin[i] = diag.text('......').dmove(9*interligne+8*i*interligne,interligne);
+					if (typeof expressions[i]!=='undefined') { // si il y a une expression algébrique on l'affiche
+						svg_cadres_fin[i] = diag.text(expressions[i]).font(prop_font).dmove(9*interligne+8*i*interligne,h/2-interligne);
+					} else { // sinon on met ...
+						svg_cadres_fin[i] = diag.text('......').dmove(9*interligne+8*i*interligne,interligne);
+					};
+
 				};				
 				svg_operations_etapes[i] = diag.text(etapes[i]).font(prop_font);
 				w_svg_operations_etapes[i] = svg_operations_etapes[i].length();
@@ -900,12 +914,12 @@ function fonction_notion_vocabulaire(){
 	} 
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
-	this.nb_questions = 1;
+	this.nb_questions = 4;
 	//this.correction_detaillee_disponible = true;
 	this.nb_cols_corr = 1;
 	this.sup = 1;
 
-	var num_ex = '3F10'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
+	var num_ex = '3F1act'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
 
 	if (sortie_html) {		
 		let id_unique = `_consigne_${num_ex}_${Date.now()}`; // on formatte avec le numéro de l'exercice pour éviter les doublons
@@ -917,9 +931,9 @@ function fonction_notion_vocabulaire(){
 		//this.consigne += `<div id="${id_du_div}" style="width: 100%; height: 150px; display : table "></div>`;
 		this.consigne += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table "></div>`;
 		SVG_machine_maths(id_du_div,400,hauteur_svg,'machine maths','','Procédé','de calcul','antécédent','x','image','y');
-		} else { // sortie LaTeX
+	} else { // sortie LaTeX
 
-		};
+	};
 	this.nouvelle_version = function(numero_de_l_exercice){
 		let type_de_questions;
 		//this.bouton_aide = modal_pdf(numero_de_l_exercice,"http://lozano.maths.free.fr/coopmaths/FichePuissances-4N21.pdf","Aide mémoire sur les puissances (Sébastien Lozano)")
@@ -929,8 +943,8 @@ function fonction_notion_vocabulaire(){
 		this.contenu = ''; // Liste de questions
 		this.contenu_correction = ''; // Liste de questions corrigées
 
-		//let type_de_questions_disponibles = [1,2,3,4];
-		let type_de_questions_disponibles = [1];
+		let type_de_questions_disponibles = [1,2,3,4];
+		//let type_de_questions_disponibles = [4];
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions);
 
 			for (let i = 0, x, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
@@ -950,6 +964,7 @@ function fonction_notion_vocabulaire(){
 							texte += `<br>`;
 							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 150px; display : table "></div>`;
 							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine f','','périmètre','d\'un carré','carré de','côté '+x+' cm','périmètre','??? cm');
+							
 						} else { // sortie Latex avec Tikz
 
 						};
@@ -996,12 +1011,12 @@ function fonction_notion_vocabulaire(){
 
 						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-1)+` sous forme de diagramme.<br>`;
 						texte += `Voici le diagramme d'une machine qui triple `;
-						texte += `<div id="diagramme" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-						SVG_machine_diag('diagramme',400,50,'f','x',['x3'],['3x']);
+						texte += `<div id="diagramme_type1" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						SVG_machine_diag('diagramme_type1',400,50,'f','x',['x3'],['3x']);
 
 						texte_corr += num_alpha(j)+`C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
-						texte_corr += `<div id="diagramme_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-						SVG_machine_diag('diagramme_corr',400,50,'f','x',['*4'],['4x']);
+						texte_corr += `<div id="diagramme_type1_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						SVG_machine_diag('diagramme_type1_corr',400,50,'f','x',['x4'],['4x']);
 						j++;//incrémente la sous question
 
 						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-2)+` sous la forme `;
@@ -1032,47 +1047,284 @@ function fonction_notion_vocabulaire(){
 						texte+= `écrire la réponse à la question `+num_alpha(j-3)+`<br>`;
 						texte_corr += num_alpha(j)+`L'image de $x$ par la fonction f vaut $4\\times x$ donc $f : x \\longmapsto 4\\times x$.<br>`;												
 						j++;//incrémente la sous question
-
-						//texte_corr = `Périmètre d'un carré de côté ${x}`;
 						break;			
 					case 2 : // aire d'un carré de côté x
-						texte = `La $\\textbf{machine g}$ renvoie l'aire d'un carré de côté x`;
-						texte += `<br>`;
-						texte += `Quelle est la sortie si le côté vaut  ${x}  cm ?`;
+						// texte = `La $\\textbf{machine g}$ renvoie l'aire d'un carré de côté $x$`;
+						// texte += `<br>`;
+						// texte += `Quelle est la sortie si le côté vaut  ${x}  cm ?`;
+						// if (sortie_html) {
+						// 	texte += `<br>`;
+						// 	texte += `<div id="${id_du_div}" style="width: ${pourcentage}; height: 150px; display : table "></div>`;
+						// 	SVG_machine_maths(id_du_div,400,hauteur_svg,'machine g','','aire','d\'un carré','carré de','côté '+x+' cm','aire','? cm');
+						// } else { // sortie LaTeX avec Tikz
+
+						// };
+						// texte_corr = `Aire d'un carré de côté ${x}`;
+						var j = 0; // pour la sous-numérotation
+						texte = `La $\\textbf{machine g}$ renvoie l'aire d'un carré de côté $x$`;
+						//texte += `<br>`;
+						x = randint(1,9);//augmenter les possibles pour éviter les questions déjà posées?	
 						if (sortie_html) {
 							texte += `<br>`;
-							texte += `<div id="${id_du_div}" style="width: ${pourcentage}; height: 150px; display : table "></div>`;
-							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine g','','aire','d\'un carré','carré de','côté '+x+' cm','aire','? cm');
-						} else { // sortie LaTeX avec Tikz
+							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 150px; display : table "></div>`;
+							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine g','','aire','d\'un carré','carré de','côté '+x+' cm','aire','? cm^2');
+							
+						} else { // sortie Latex avec Tikz
 
 						};
-						//texte_corr = `Aire d'un carré de côté ${x}`;
+						texte += num_alpha(j)+` Que renvoie la machine si le côté vaut  ${x}  cm ? Formuler la réponse `;
+						if (sortie_html){
+							texte += katex_Popup('avec le mot image','Image','la valeur de l\'aire est l\'image de la valeur du côté')+`<br>`;
+						} else { //sortie LaTeX
+							texte+= `avec le mot image. <br>`;
+						};
+						texte_corr = num_alpha(j)+`Si le côté vaut ${x} cm alors la machine renvoie l'aire d'un carré de côté ${x} cm, c'est à dire ${x*x} cm<sup>2</sup>.<br>`;
+						texte_corr += `On dit que ${x*x} est l'image de ${x} par la fonction g.<br>`;						
+						j++;//incrémente la sous question
+
+						x = randint(1,9);//augmenter les possibles pour éviter les questions déjà posées?	
+						texte += num_alpha(j)+` Combien vaut le côté si la machine renvoie  ${x*x} cm<sup>2</sup> ? Formuler la réponse `;
+						if (sortie_html){
+							texte += katex_Popup('avec le mot antécédent','Antécédent','un antécédent de la valeur d\'une aire est une valeur du côté qui a pour image cette aire')+`<br>`;
+						} else { //sortie LaTeX
+							texte+= `avec le mot antécédent. <br>`;
+						};														
+						texte_corr += num_alpha(j)+`Si la machine renvoie une aire de ${x*x} cm<sup>2</sup> alors le côté du carré vaut ${x} cm.<br>`;
+						texte_corr += `On dit que ${x} est <b>un</b> antécédent de ${x*x} par la fonction g.<br>`;						
+						j++;//incrémente la sous question
+
+						x = randint(1,9);//augmenter les possibles pour éviter les questions déjà posées?	
+						texte += num_alpha(j)+` Quelle est l'image de ${x} par la `; 
+						if (sortie_html){
+							texte += katex_Popup('fonction','Vocabulaire','<b>fonction</b> est le nom que l\'on donne aux machines mathématiques');														
+						} else { // sortie LaTeX
+							texte +=`fonction`;
+						};
+						texte += ` $g$ ? Ecrire la réponse sous la forme `;
+						if (sortie_html){
+							texte += katex_Popup('$\\textbf{g('+x+') = \\ldots}$','Notation','4 a pour image 16 par la fonction g peut s\'écrire <b>g(4)=16</b>')+`<br>`;
+						} else { // sortie LaTeX
+							texte +=`$\\textbf{g(${x}) = \\ldots}$<br>`;
+						};
+						texte_corr += num_alpha(j)+`L'image de ${x} par la fonction g vaut $g(${x})=${x*x}$.<br>`;
+						j++;//incrémente la sous question
+
+						texte += num_alpha(j)+` Que renvoie la machine si le côté vaut $x$ cm ?<br>`;
+						texte_corr += num_alpha(j)+`Si le côté vaut $x$ la machine renvoie $x\\times x$ ou ce qui est équivalent $x^2$ .<br>`;
+						j++;//incrémente la sous question
+
+						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-1)+` sous forme de diagramme.<br>`;
+						texte += `Voici le diagramme d'une machine qui triple `;
+						texte += `<div id="diagramme_type2" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						SVG_machine_diag('diagramme_type2',400,50,'g','x',['x3'],['3x']);
+
+						texte_corr += num_alpha(j)+`C'est une machine qui multiplie un nombre par lui-même, donc sous forme de diagramme.<br>`;
+						texte_corr += `<div id="diagramme_type2_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						SVG_machine_diag('diagramme_type2_corr',400,50,'g','x',['xx'],['xx']);
+						j++;//incrémente la sous question
+
+						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-2)+` sous la forme `;
+						if (sortie_html){
+							texte += katex_Popup('$\\textbf{g(\\textit{x}) = \\ldots}$','Notation','4 a pour image 16 par la fonction g peut s\'écrire <b>g(4)=16</b>')+`<br>`;							
+						} else { // sortie LaTeX
+							texte +=`$\\textbf{g(${x}) = \\ldots}$<br>`;
+						};
+						texte_corr += num_alpha(j)+`L'image de $x$ par la fonction g vaut $x\\times x = x^2$ donc $g(x)=x\\times x = x^2$.<br>`;
+						j++;//incrémente la sous question
+
+						texte += num_alpha(j)+` En utilisant la forme `;
+						if (sortie_html){							
+							texte += katex_Popup('$\\mathbf{g :} \\textbf{\\textit{ x }} \\mathbf{\\longmapsto \\ldots}$','Notation','4 a pour image 16 par la fonction g peut s\'écrire $\\textbf{g : 4 } \\mathbf{\\longmapsto} \\textbf{16}$');							
+							texte+= `
+						  <script>
+						  $('.katexPopup').popup({
+							   popup: '.special.popup',
+							   on: 'hover',
+							   variation: 'inverted',
+							   inline: true
+							});
+						  </script>
+							`;
+						} else { // sortie LaTeX
+							texte +=`$\\textbf{\\textit{x}} \\stackrel{\\mathbf{g :}}{\\mathbf{\\longmapsto}} \\textbf{\\ldots}$`;
+						};						
+						texte+= `écrire la réponse à la question `+num_alpha(j-3)+`<br>`;
+						texte_corr += num_alpha(j)+`L'image de $x$ par la fonction g vaut $x\\times x = x^2$ donc $g : x \\longmapsto x\\times x = x^2$.<br>`;												
+						j++;//incrémente la sous question
 						break;			
 					case 3 : // somme de 1 et du triple de x
-						texte = `La $\\textbf{machine h}$ renvoie la somme de 1 et du triple de x`;
-						texte += `<br>`;
-						texte += `Quelle est la sortie si le nombre de départ vaut  ${x}  ?`;
+						// texte = `La $\\textbf{machine h}$ renvoie la somme de 1 et du triple de x`;
+						// texte += `<br>`;
+						// texte += `Quelle est la sortie si le nombre de départ vaut  ${x}  ?`;
+						// if (sortie_html) {
+						// 	texte += `<br>`;
+						// 	texte += `<div id="${id_du_div}" style="width: ${pourcentage}; height: 150px; display : table "></div>`;
+						// 	SVG_machine_maths(id_du_div,400,hauteur_svg,'machine h','','-> tripler','-> ajouter 1','nombre de','départ '+x+'','nombre de','sortie ?');							
+						// } else { // sortie LaTeX avec Tikz
+
+						// };
+						// texte_corr = `Somme de 1 et du triple de ${x}`;
+						var j = 0; // pour la sous-numérotation
+						texte = `La $\\textbf{machine h}$ renvoie la somme de 1 et du triple de du nombre de départ`;
+						//texte += `<br>`;
+						x = randint(1,9);//augmenter les possibles pour éviter les questions déjà posées?	
 						if (sortie_html) {
 							texte += `<br>`;
-							texte += `<div id="${id_du_div}" style="width: ${pourcentage}; height: 150px; display : table "></div>`;
-							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine h','','-> tripler','-> ajouter 1','nombre de','départ '+x+'','nombre de','sortie ?');							
-						} else { // sortie LaTeX avec Tikz
+							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 150px; display : table "></div>`;
+							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine h','','-> tripler','-> ajouter 1','nombre de','départ '+x+'','nombre de','sortie ?');
+						} else { // sortie Latex avec Tikz
 
 						};
-						texte_corr = `Somme de 1 et du triple de ${x}`;
+						texte += num_alpha(j)+` Que renvoie la machine si le nombre de départ vaut  ${x} ? Formuler la réponse `;
+						if (sortie_html){
+							texte += katex_Popup('avec le mot image','Image','l\'image de la valeur à la sortie de la machine')+`<br>`;
+						} else { //sortie LaTeX
+							texte+= `avec le mot image. <br>`;
+						};
+						texte_corr = num_alpha(j)+`Si le nombre de départ vaut ${x} alors la machine renvoie $3\\times${x} + 1 =$ ${3*x+1}<br>`;
+						texte_corr += `On dit que ${3*x+1} est l'image de ${x} par la fonction g.<br>`;						
+						j++;//incrémente la sous question
+
+						x = randint(1,9);//augmenter les possibles pour éviter les questions déjà posées?	
+						texte += num_alpha(j)+` Combien vaut le nombre de départ si la machine renvoie  ${3*x+1} ? Formuler la réponse `;
+						if (sortie_html){
+							texte += katex_Popup('avec le mot antécédent','Antécédent','un antécédent d\'une valeur de sortie est une valeur du nombre de départ dont l\'image est ce nombre de sortie')+`<br>`;
+						} else { //sortie LaTeX
+							texte+= `avec le mot antécédent. <br>`;
+						};														
+						texte_corr += num_alpha(j)+`Si la machine renvoie ${3*x+1} alors le nombre de départ vaut ${x}<br>`;
+						texte_corr += `On dit que ${x} est <b>un</b> antécédent de ${3*x+1} par la fonction g.<br>`;						
+						j++;//incrémente la sous question
+
+						x = randint(1,9);//augmenter les possibles pour éviter les questions déjà posées?	
+						texte += num_alpha(j)+` Quelle est l'image de ${-x} par la `; 
+						if (sortie_html){
+							texte += katex_Popup('fonction','Vocabulaire','<b>fonction</b> est le nom que l\'on donne aux machines mathématiques');														
+						} else { // sortie LaTeX
+							texte +=`fonction`;
+						};
+						texte += ` $h$ ? Ecrire la réponse sous la forme `;
+						if (sortie_html){
+							texte += katex_Popup('$\\textbf{h('+(-x)+') = \\ldots}$','Notation','4 a pour image 16 par la fonction h peut s\'écrire <b>h(4)=16</b>')+`<br>`;
+						} else { // sortie LaTeX
+							texte +=`$\\textbf{h(${x}) = \\ldots}$<br>`;
+						};
+						texte_corr += num_alpha(j)+`L'image de ${-x} par la fonction h vaut $h(${-x})=${-3*x+1}$.<br>`;
+						j++;//incrémente la sous question
+
+						texte += num_alpha(j)+` Que renvoie la machine si le côté vaut $x$ ?<br>`;
+						texte_corr += num_alpha(j)+`Si le côté vaut $x$ la machine renvoie $3\\times x + 1$ ou ce qui est équivalent $3x + 1$ .<br>`;
+						j++;//incrémente la sous question
+
+						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-1)+` sous forme de diagramme.<br>`;
+						texte += `Voici le diagramme d'une machine qui double puis qui ajoute 5 `;
+						texte += `<div id="diagramme_type3" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						SVG_machine_diag('diagramme_type3',400,50,'h','x',['x2','+5'],[]);
+
+						texte_corr += num_alpha(j)+`C'est une machine qui triple un nombre et ajoute 1, donc sous forme de diagramme.<br>`;
+						texte_corr += `<div id="diagramme_type3_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						SVG_machine_diag('diagramme_type3_corr',400,50,'h','x',['x3','+1'],['3x','3x+1']);
+						j++;//incrémente la sous question
+
+						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-2)+` sous la forme `;
+						if (sortie_html){
+							texte += katex_Popup('$\\textbf{h(\\textit{x}) = \\ldots}$','Notation','4 a pour image 16 par la fonction h peut s\'écrire <b>h(4)=16</b>')+`<br>`;							
+						} else { // sortie LaTeX
+							texte +=`$\\textbf{h(${x}) = \\ldots}$<br>`;
+						};
+						texte_corr += num_alpha(j)+`L'image de $x$ par la fonction h vaut $3\\times x + 1 = 3x + 1$ donc $h(x)=3\\times x + 1$ soit $h(x) = 3x + 1$.<br>`;
+						j++;//incrémente la sous question
+
+						texte += num_alpha(j)+` En utilisant la forme `;
+						if (sortie_html){							
+							texte += katex_Popup('$\\mathbf{h :} \\textbf{\\textit{ x }} \\mathbf{\\longmapsto \\ldots}$','Notation','4 a pour image 16 par la fonction h peut s\'écrire $\\textbf{h : 4 } \\mathbf{\\longmapsto} \\textbf{16}$');
+							texte+= `
+						  <script>
+						  $('.katexPopup').popup({
+							   popup: '.special.popup',
+							   on: 'hover',
+							   variation: 'inverted',
+							   inline: true
+							});
+						  </script>
+							`;
+						} else { // sortie LaTeX
+							texte +=`$\\textbf{\\textit{x}} \\stackrel{\\mathbf{h :}}{\\mathbf{\\longmapsto}} \\textbf{\\ldots}$`;
+						};						
+						texte+= `écrire la réponse à la question `+num_alpha(j-3)+`<br>`;
+						texte_corr += num_alpha(j)+`L'image de $x$ par la fonction h vaut $3\\times x +1= 3x + 1$ donc $h : x \\longmapsto 3\\times x + 1$ soit $h : x \\longmapsto 3x + 1$.<br>`;												
+						j++;//incrémente la sous question
 						break;
 					case 4 : // nombre de diviseurs de x entier
-					texte = `La $\\textbf{machine d}$, qui n'accepte que des nombres entiers positifs, renvoie le nombre de diviseurs du nombre de départ.`;
-					texte += `<br>`;
-					texte += `Quelle est la sortie si le nombre de départ vaut  ${x}  ?`;
-						if (sortie_html) {
-							texte += `<br>`;
-							texte += `<div id="${id_du_div}" style="width: ${pourcentage}; height: 150px; display : table "></div>`;
-							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine d','','nombre de','diviseurs','nombre de','départ '+x,'nombre de',' diviseurs ?');														
-						} else { // sortie LaTeX avec Tikz
+					// texte = `La $\\textbf{machine d}$, qui n'accepte que des nombres entiers positifs, renvoie le nombre de diviseurs du nombre de départ.`;
+					// texte += `<br>`;
+					// texte += `Quelle est la sortie si le nombre de départ vaut  ${x}  ?`;
+					// 	if (sortie_html) {
+					// 		texte += `<br>`;
+					// 		texte += `<div id="${id_du_div}" style="width: ${pourcentage}; height: 150px; display : table "></div>`;
+					// 		SVG_machine_maths(id_du_div,400,hauteur_svg,'machine d','','nombre de','diviseurs','nombre de','départ '+x,'nombre de',' diviseurs ?');														
+					// 	} else { // sortie LaTeX avec Tikz
 
-						};
-						texte_corr = `Nombre de diviseurs de ${x} (entier)`;
+					// 	};
+					// 	texte_corr = `Nombre de diviseurs de ${x} (entier)`;
+					var j = 0; // pour la sous-numérotation
+					texte = `La $\\textbf{machine d}$, qui n'accepte que des nombres entiers positifs, renvoie le nombre de diviseurs du nombre de départ.`;
+					//texte += `<br>`;
+					x = randint(2,51);//augmenter les possibles pour éviter les questions déjà posées?	
+					if (sortie_html) {
+						texte += `<br>`;
+						texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 150px; display : table "></div>`;
+						SVG_machine_maths(id_du_div,400,hauteur_svg,'machine d','','nombre de','diviseurs','nombre de','départ '+x,'nombre de',' diviseurs ?');														
+					} else { // sortie Latex avec Tikz
+
+					};
+					texte += num_alpha(j)+` Que renvoie la machine si le nombre de départ vaut  ${x} ? Formuler la réponse `;
+					if (sortie_html){
+						texte += katex_Popup('avec le mot image','Image','l\'image de la valeur à la sortie de la machine')+`<br>`;
+					} else { //sortie LaTeX
+						texte+= `avec le mot image. <br>`;
+					};
+					texte_corr = num_alpha(j)+`Détailler la méthode de recherche des diviseurs ici<br>`;
+					texte_corr += `On dit que ... est l'image de ${x} par la fonction d.<br>`;						
+					j++;//incrémente la sous question
+
+					//x = randint(1,9);//augmenter les possibles pour éviter les questions déjà posées?	
+					texte += num_alpha(j)+` Quelle est une valeur possible du nombre de départ si la machine renvoie  2 ?<br>`;
+					texte_corr += num_alpha(j)+`Si la machine renvoie 2 alors le nombre de départ  a exactement 2 diviseurs, tous les nombres premiers conviennent.<br>`;
+					texte_corr += `On dit que ... est <b>un</b> antécédent de 2 par la fonction d.<br>`;						
+					j++;//incrémente la sous question
+
+					x = randint(51,99);//augmenter les possibles pour éviter les questions déjà posées?	
+					texte += num_alpha(j)+` Quelle est l'image de ${x} par la `; 
+					if (sortie_html){
+						texte += katex_Popup('fonction','Vocabulaire','<b>fonction</b> est le nom que l\'on donne aux machines mathématiques');														
+					} else { // sortie LaTeX
+						texte +=`fonction`;
+					};
+					texte += ` $d$ ? Ecrire la réponse sous la forme `;
+					if (sortie_html){
+						texte += katex_Popup('$\\textbf{d('+(x)+') = \\ldots}$','Notation','4 a pour image 16 par la fonction d peut s\'écrire <b>d(4)=16</b>')+`<br>`;
+					} else { // sortie LaTeX
+						texte +=`$\\textbf{d(${x}) = \\ldots}$<br>`;
+					};
+					texte_corr += num_alpha(j)+`L'image de ${x} par la fonction d vaut ... méthode à détailler.<br>`;
+					j++;//incrémente la sous question
+
+					//x = randint(1,9);//augmenter les possibles pour éviter les questions déjà posées?	
+					texte += num_alpha(j)+` Peut-on trouver deux antécédents de 3 par la fonction d ?<br>`;
+					texte_corr += num_alpha(j)+`Il faut trouver des nombres qui ont exactement 3 diviseurs. Méthode à détailler ici.<br>`;					
+					j++;//incrémente la sous question
+
+					texte+= `
+					  <script>
+					  $('.katexPopup').popup({
+						   popup: '.special.popup',
+						   on: 'hover',
+						   variation: 'inverted',
+						   inline: true
+						});
+					  </script>
+						`;
 						break;																
 				};
 			
