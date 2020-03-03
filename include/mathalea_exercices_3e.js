@@ -595,6 +595,18 @@ function Resoudre_une_equation_produit_nul(){
 */
 
 /**
+* Crée une flèche orange pour la fonction machine
+* @param groupe group
+* @param chemin  path de la ligne
+* @param couleur 
+* @Auteur Sébastien Lozano
+*/	
+function SVG_fleche_machine_maths(groupe,chemin,couleur) {
+	'use strict';
+	return groupe.path(chemin).fill(couleur).stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
+};
+
+/**
 * Fonction pour créer une machine mathématiques SVG, une fonction!
 * @param id_du_div id_du_div
 * @param w width du svg
@@ -611,19 +623,6 @@ function Resoudre_une_equation_produit_nul(){
 */	
 function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_ligne2,i_ligne1,i_ligne2) {
 	'use strict';
-
-	/**
-	* Crée une flèche orange pour la fonction machine
-	* @param groupe group
-	* @param chemin  path de la ligne
-	* @param couleur 
-	* @Auteur Sébastien Lozano
-	*/	
-	function SVG_fleche_machine_maths(groupe,chemin,couleur) {
-		'use strict';
-		return groupe.path(chemin).fill(couleur).stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
-	};
-
 	let interligne = 15; // pour un interligne uniforme 
 	let prop_font = {family:   'Helvetica',
 					size:     interligne,
@@ -753,7 +752,8 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 		}
 
 	}, 100); // Vérifie toutes les 100ms
-}
+};
+
 /**
 * Crée une liste de questions alphabétique
 * @param k valeur numérique
@@ -806,7 +806,7 @@ function SVG_cadre_rond(groupe,r_circ,couleur) {
 	return groupe.circle(r_circ).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
 };
 
-/**Trace une etape de diagramme et la place 
+/**Trace une étape de diagramme pour un programme de calcul ou une fonction et la place 
 * @param mon_svg le svg global
 * @param interligne unité d'espacement
 * @param h hauteur
