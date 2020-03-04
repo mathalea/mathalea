@@ -42,7 +42,7 @@ var liste_des_exercices_disponibles = {
 		'6M22' : Reglages_6M22,
 		'6M22-1' : Perimetre_aire_disques,
 		'6M22-2' : Perimetre_aire_et_portions_de_disques,
-		'6M23' : Reglages_6M23,
+		'6M13' : Reglages_6M23,
 		'6M25' : Connaitre_formules_de_perimetre_et_aires,
 		'6M31' : Exercice_conversions_volumes,
 		'6N10-1': Exercice_numeration_entier,

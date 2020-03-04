@@ -1,0 +1,25 @@
+\exo{Mesurer les angles suivants avec le rapporteur.}
+
+
+
+\begin{tikzpicture}
+	\tkzDefPoints{7.3/5.6/B,1.1/7.5/A,4.2/9.3/D,10.5/7.5/E,4.8/.4/F,9.5/6.3/H,14.5/6.4/J,8.2/7.3/M}
+	\tkzDefPointBy[rotation= center A angle 58](B)\tkzGetPoint{C}
+	\tkzDefPointBy[rotation= center E angle -152](D)\tkzGetPoint{G}
+	\tkzDefPointBy[rotation= center H angle 83](F)\tkzGetPoint{K}
+	\tkzDefPointBy[rotation= center J angle 127](M)\tkzGetPoint{P}
+	
+ \tkzDrawSegments[-|](A,B A,C E,D E,G H,F H,K J,M J,P)
+ \tkzDrawSegments[add=0 and .1](A,B A,C E,D E,G H,F H,K J,M J,P)
+ \tkzLabelPoints[above=.1](A,B,C,D,E,G,H,F,K,J,M,P)
+\end{tikzpicture}
+
+\exo{}
+
+\begin{enumerate}
+	\item Tracer un angle $\widehat{RTS}$ de 57°.
+	\item Tracer un angle $\widehat{GKA}$ de 128°.
+	\item Tracer un angle $\widehat{UWX}$ de 23°.
+	\item Tracer un angle $\widehat{ZED}$ de 162°.
+	
+\end{enumerate}

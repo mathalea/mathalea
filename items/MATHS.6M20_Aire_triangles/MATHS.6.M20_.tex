@@ -1,0 +1,45 @@
+\exo{Prendre les mesures nécessaires pour calculer l'aire de chacun des triangles en détaillant les calculs.}
+
+
+\begin{tikzpicture}[rotate=10]
+	\tkzDefPoints{0/0/A,0/5/B,6/0/C}
+	\tkzDrawPolygon[ultra thick](A,B,C)
+	\tkzMarkRightAngle[ultra thick](B,A,C)
+	\tkzLabelPoints[above left](B)
+	\tkzLabelPoints[below left](A)
+	\tkzLabelPoints[right](C)
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}[rotate=25]
+	\tkzDefPoints{0/0/D,4/0/E,1/-3/F,1/0/H}
+	\tkzDrawPolygon[ultra thick](D,E,F)
+	\tkzMarkRightAngle[ultra thick](D,H,F)
+	\tkzDrawSegment[dashed](H,F)
+	\tkzLabelPoints[left](D)
+	\tkzLabelPoints[right](E)
+	\tkzLabelPoints[below](F)
+\end{tikzpicture}
+
+\begin{tikzpicture}[rotate=-5]
+	\tkzDefPoints{0/0/G,7/0/H,2/5/I,2/0/h}
+	\tkzDrawPolygon[ultra thick](G,H,I)
+	\tkzMarkRightAngle[ultra thick](G,h,I)
+	\tkzDrawSegment[dashed](h,I)
+	\tkzLabelPoints[left](G)
+	\tkzLabelPoints[right](H)
+	\tkzLabelPoints[above](I)
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}[rotate=15]
+	\tkzDefPoints{0/0/M,8/0/N,3/6/O,3/0/o}
+	\tkzDrawPolygon[ultra thick](M,N,O)
+	\tkzMarkRightAngle[ultra thick](M,o,O)
+	\tkzDrawSegment[dashed](O,o)
+	\tkzLabelPoints[left](M)
+	\tkzLabelPoints[right](N)
+	\tkzLabelPoints[above](O)
+	\tkzDefPointBy[projection = onto O--N](M) \tkzGetPoint{m}
+	\tkzDrawSegment[dashed](M,m)
+	\tkzMarkRightAngle[ultra thick](N,m,M)
+
+\end{tikzpicture}
