@@ -2495,13 +2495,13 @@ function reperage_point_du_plan(){
 	if (sortie_html) {
 		let id_unique = `${Date.now()}`
 		let id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
-		this.consigne = `<div id="${id_du_div}" style="width: 90%; height: ${h}px; display : table "></div>`;
+		this.consigne = `<div id="${id_du_div}" style="height: ${h}px"></div>`;
 		if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
 		// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
 		window.SVGExist[id_du_div] = setInterval(function() {
 			if ($(`#${id_du_div}`).length ) {
 				$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
-				const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 520, 520)
+				const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 520, 520).size('100%','100%')
 			let AxesXY=SVG_repere(mon_svg,xmin,xmax,ymin,ymax,k,k,500,500,grille);
 			for (let i=0;i<5;i++)	{
 				if (points[i][0]==0||points[i][0]==0.25) shiftxnom=20;

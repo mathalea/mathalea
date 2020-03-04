@@ -1723,7 +1723,7 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 	window.SVGExist[id_du_div] = setInterval(function() {
 		if ($(`#${id_du_div}`).length ) {
 			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
-			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 800, 150)
+			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 800, 150).size('100%','100%')
 			// Droite 
 			let droite = mon_svg.line(100, 50, 750, 50),taille,y,color,width
 			droite.stroke({ color: 'black', width: 2, linecap: 'round' })
