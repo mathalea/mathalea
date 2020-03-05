@@ -50,7 +50,7 @@ function tests_SVGJS_KATEX(){
 								Dans le cas d'un SVG intégré dans du HTML, le namespace XHTML peut
 								être omis, mais il est obligatoire dans le contexte d'un document SVG
 								-->
-								<div xmlns="http://www.w3.org/1999/xhtml">
+								<div>
 								$\\pm\\sqrt{a^2 + b^2}$
 								</div>
 							</foreignObject>
