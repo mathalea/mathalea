@@ -457,15 +457,20 @@ function mise_a_jour_du_code(){
 			{left: "$", right: "$", display: false}
 			],
 			"throwOnError":true,"errorColor":"#CC0000","strict":"warn","trust":false
-        });
+		});
+		$('.katexPopup').popup({
+			popup: '.special.popup',
+			on: 'hover',
+			variation: 'inverted',
+			inline: true
+		 });
 		//Ajoute figures MG32
 		for (let i = 0; i < liste_des_exercices.length; i++) {
 			if (exercice[i].type_exercice=='MG32'){
 				MG32_ajouter_figure(i)
 			}
 		}
-		MG32_tracer_toutes_les_figures()
-		
+		MG32_tracer_toutes_les_figures()		
 
 	} else { // code pour la sortie LaTeX
 		let code1 ='', code2='';

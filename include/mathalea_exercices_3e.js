@@ -1032,16 +1032,16 @@ function fonction_notion_vocabulaire(){
 						texte += num_alpha(j)+` En utilisant la forme `;
 						if (sortie_html){							
 							texte += katex_Popup('$\\mathbf{f :} \\textbf{\\textit{ x }} \\mathbf{\\longmapsto \\ldots}$','Notation','4 a pour image 16 par la fonction f peut s\'écrire $\\textbf{f : 4 } \\mathbf{\\longmapsto} \\textbf{16}$');							
-							texte+= `
-						  <script>
-						  $('.katexPopup').popup({
-							   popup: '.special.popup',
-							   on: 'hover',
-							   variation: 'inverted',
-							   inline: true
-							});
-						  </script>
-							`;
+						// 	texte+= `
+						//   <script>
+						//   $('.katexPopup').popup({
+						// 	   popup: '.special.popup',
+						// 	   on: 'hover',
+						// 	   variation: 'inverted',
+						// 	   inline: true
+						// 	});
+						//   </script>
+						// 	`;
 						} else { // sortie LaTeX
 							texte +=`$\\textbf{\\textit{x}} \\stackrel{\\mathbf{f :}}{\\mathbf{\\longmapsto}} \\textbf{\\ldots}$`;
 						};						
@@ -1136,16 +1136,16 @@ function fonction_notion_vocabulaire(){
 						texte += num_alpha(j)+` En utilisant la forme `;
 						if (sortie_html){							
 							texte += katex_Popup('$\\mathbf{g :} \\textbf{\\textit{ x }} \\mathbf{\\longmapsto \\ldots}$','Notation','4 a pour image 16 par la fonction g peut s\'écrire $\\textbf{g : 4 } \\mathbf{\\longmapsto} \\textbf{16}$');							
-							texte+= `
-						  <script>
-						  $('.katexPopup').popup({
-							   popup: '.special.popup',
-							   on: 'hover',
-							   variation: 'inverted',
-							   inline: true
-							});
-						  </script>
-							`;
+						// 	texte+= `
+						//   <script>
+						//   $('.katexPopup').popup({
+						// 	   popup: '.special.popup',
+						// 	   on: 'hover',
+						// 	   variation: 'inverted',
+						// 	   inline: true
+						// 	});
+						//   </script>
+						// 	`;
 						} else { // sortie LaTeX
 							texte +=`$\\textbf{\\textit{x}} \\stackrel{\\mathbf{g :}}{\\mathbf{\\longmapsto}} \\textbf{\\ldots}$`;
 						};						
@@ -1239,16 +1239,16 @@ function fonction_notion_vocabulaire(){
 						texte += num_alpha(j)+` En utilisant la forme `;
 						if (sortie_html){							
 							texte += katex_Popup('$\\mathbf{h :} \\textbf{\\textit{ x }} \\mathbf{\\longmapsto \\ldots}$','Notation','4 a pour image 16 par la fonction h peut s\'écrire $\\textbf{h : 4 } \\mathbf{\\longmapsto} \\textbf{16}$');
-							texte+= `
-						  <script>
-						  $('.katexPopup').popup({
-							   popup: '.special.popup',
-							   on: 'hover',
-							   variation: 'inverted',
-							   inline: true
-							});
-						  </script>
-							`;
+						// 	texte+= `
+						//   <script>
+						//   $('.katexPopup').popup({
+						// 	   popup: '.special.popup',
+						// 	   on: 'hover',
+						// 	   variation: 'inverted',
+						// 	   inline: true
+						// 	});
+						//   </script>
+						// 	`;
 						} else { // sortie LaTeX
 							texte +=`$\\textbf{\\textit{x}} \\stackrel{\\mathbf{h :}}{\\mathbf{\\longmapsto}} \\textbf{\\ldots}$`;
 						};						
@@ -1316,16 +1316,16 @@ function fonction_notion_vocabulaire(){
 					texte_corr += num_alpha(j)+`Il faut trouver des nombres qui ont exactement 3 diviseurs. Méthode à détailler ici.<br>`;					
 					j++;//incrémente la sous question
 
-					texte+= `
-					  <script>
-					  $('.katexPopup').popup({
-						   popup: '.special.popup',
-						   on: 'hover',
-						   variation: 'inverted',
-						   inline: true
-						});
-					  </script>
-						`;
+					// texte+= `
+					//   <script>
+					//   $('.katexPopup').popup({
+					// 	   popup: '.special.popup',
+					// 	   on: 'hover',
+					// 	   variation: 'inverted',
+					// 	   inline: true
+					// 	});
+					//   </script>
+					// 	`;
 						break;																
 				};
 			
