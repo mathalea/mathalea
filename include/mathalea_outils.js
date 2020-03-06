@@ -971,17 +971,20 @@ function string_nombre(nb){
 	return result;
 }
 /**
-* Met en couleur verte si sortie HTML et en rouge si sortie PDF
+* Met en couleur et en gras
+*
 * @Auteur Rémi Angot
 */
-function mise_en_evidence(texte){
+function mise_en_evidence(texte,couleur="#f15929"){
 	if (sortie_html) {
-		return '\\mathbf{\\color{#1DA962}{'+texte+'}}'	
-	}
-	else {
-		return '\\mathbf{\\color{red}{'+texte+'}}'
-	}
-	
+		return `\\mathbf{\\color{${couleur}}{${texte}}}`
+	} else {
+		if (couleur[0]=='#') {
+				return `\\mathbf{\\color[HTML]{${couleur.replace('#','')}}${texte}}`
+			} else {
+				return `{\\mathbf{\\color{${couleur.replace('#','')}}${texte}}`
+			}
+	}	
 }
 
 /**
@@ -1153,7 +1156,12 @@ function liste_des_diviseurs(n) {
 */
 function tex_fraction(a,b){ 
 	if (b!=1) {
-		return '\\dfrac{'+a+'}{'+b+'}'
+		if (Number.isInteger(a) && Number.isInteger(b)) {
+			return `\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}}`
+		} else 
+		{
+			return `\\dfrac{${a}}{${b}}`
+		}
 	}
 	else
 	{
