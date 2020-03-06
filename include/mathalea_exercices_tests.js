@@ -149,8 +149,7 @@ function tests_SVGJS_KATEX(){
 										var fobj = my_svg_test.foreignObject(200,50).attr({id: 'fobj'});
 										var txt = "some text that is quite long.$x \\times y$  and it goes on and on.  and it's pointless really.  and the grammar is terrible.  blah. blah. blah"
 										fobj.add("<div style='color:black' id='bla' xmlns='http://www.w3.org/1999/xhtml' >$x\\times y$ "+txt+"</div>")
-										//my_text.addClass('katex');									
-
+										//my_text.addClass('katex');	
 									}
 								}, 10000); // Vérifie toutes les 100ms
 
