@@ -60,7 +60,7 @@ function fonctions_affines(){
 		window.SVGExist[id_du_div] = setInterval(function() {
 			if ($(`#${id_du_div}`).length ) {
 				$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
-				const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 500, 500)
+				const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 500, 500).size('100%','100%')
 
 			SVG_repere(mon_svg,-5,5,-5,5,k,k,500,500,true );
 			SVG_Tracer_droite(mon_svg,500,500,-5,5,-5,5,liste_droites[0][0],liste_droites[0][1],'blue','d1');
@@ -650,7 +650,7 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 			//on récupère les dimension du div parent
 			//let w=document.getElementById(id_du_div).offsetWidth , h=document.getElementById(id_du_div).offsetHeight;
 			//w=400, h=100;
-			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h);
+			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h).size('100%','100%');
 			//mon_svg.size(w,h);
 
 			// path pour créer des fleches
@@ -857,7 +857,7 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes,expressions) {
 	window.SVGExist[id_du_div] = setInterval(function() {
 		if ($(`#${id_du_div}`).length ) {
 			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
-			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h);
+			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h).size('100%','100%');
 			let path_cadre_rect = 'M0,0L0,-'+interligne+',L'+4*interligne+',-'+interligne+',L'+4*interligne+','+interligne+'L0,'+interligne+'Z';
 			//let path_fleche = 'M0,0L10,0L8,-2M10,0L8,2';
  			// on crée le groupe pour le diagramme

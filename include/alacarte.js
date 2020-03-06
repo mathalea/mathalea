@@ -2,24 +2,54 @@
   Alacarte
  @name      alacarte.js
  @author    Rémi Angot
- @version   0.1
- @date      2019-12-13
- @copyright (c) 2009
  @license   MIT License
  @homepage  https://copmaths.fr
  @example   http://coopmaths.fr/alacarte
 */
 
-var tableau_url_tex = [['items/MATHS.6G14_ProgrammeConstruction', 'MATHS.6.G14_.tex', 'MATHS.6.G14_-cor.tex'], ['items/MATHS.6G11_Perpendiculaire', 'MATHS.6.G11_.tex', 'MATHS.6.G11_-cor.tex'], ['items/MATHS.6N22_CalculsFractions', 'MATHS.6.N22_.tex', 'MATHS.6.N22_-cor.tex'], ['items/MATHS.6G10_VocabulaireNotations', 'MATHS.6.G10_.tex', 'MATHS.6.G10_-cor.tex'], ['items/MATHS.CM3', 'MATHS.CM3_.tex', 'MATHS.CM3_-cor.tex'], ['items/MATHS.6R10_ProprietesParallelesPerpendiculaires', 'MATHS.6.R10_.tex', 'MATHS.6.R10_-cor.tex'], ['items/MATHS.6N23_NombresDecimaux', 'MATHS.6.N23_.tex', 'MATHS.6.N23_-cor.tex'], ['items/MATHS.6C11_DivisionsEuclidiennes', 'MATHS.6.C11_v1.tex', 'MATHS.6.C11_v1-cor.tex'], ['items/MATHS.6N21_AbscissesFractionnaires', 'MATHS.6.N21_.tex', 'MATHS.6.N21_-cor.tex'], ['items/MATHS.CM2', 'MATHS.CM2_.tex', 'MATHS.CM2_-cor.tex'], ['items/MATHS.6G13_CarresRectangles', 'MATHS.6.G13_.tex', 'MATHS.6.G13_-cor.tex'], ['items/MATHS.6C12_ProblemesNiveau1', 'MATHS.6.C12_v1.tex', 'MATHS.6.C12_v1-cor.tex'], ['items/MATHS.6G12_Paralleles', 'MATHS.6.G12_.tex', 'MATHS.6.G12_-cor.tex'], ['items/MATHS.6R11_SchemaProprietesParallelesPerpendiculaires', 'MATHS.6.R11_v1.tex', 'MATHS.6.R11_v1-cor.tex'], ['items/MATHS.6N20_FractionsEtEntiers', 'MATHS.6.N20_v1.tex', 'MATHS.6.N20_v1-cor.tex'], ['items/MATHS.6C10_AddSousMulEntiers', 'MATHS.6.C10_v1.tex', 'MATHS.6.C10_v1-cor.tex'], ['items/MATHS.CM1', 'MATHS.CM1_.tex', 'MATHS.CM1_-cor.tex']]
+var tableau_url_tex = [['items/MATHS.6.G14_ProgrammeConstruction', 'MATHS.6.G14_.tex', 'MATHS.6.G14_-cor.tex'], ['items/MATHS.6.M20_Aire_triangles', 'MATHS.6.M20v2.tex', 'MATHS.6.M20v2-cor.tex'], ['items/MATHS.6.M20_Aire_triangles', 'MATHS.6.M20_.tex', 'MATHS.6.M20_-cor.tex'], ['items/MATHS.6.G11_Perpendiculaire', 'MATHS.6.G11_.tex', 'MATHS.6.G11_-cor.tex'], ['items/MATHS.6.G23_Rapporteur', 'MATHS.6.G23.tex', 'MATHS.6.G23-cor.tex'], ['items/MATHS.6.M23_PerimetreAiresDisques', 'MATHS.6.M23.tex', 'MATHS.6.M23-cor.tex'], ['items/MATHS.6.N22_CalculsFractions', 'MATHS.6.N22_.tex', 'MATHS.6.N22_-cor.tex'], ['items/MATHS.6.G10_VocabulaireNotations', 'MATHS.6.G10_.tex', 'MATHS.6.G10_-cor.tex'], ['items/MATHS.6.R10_ProprietesParallelesPerpendiculaires', 'MATHS.6.R10_.tex', 'MATHS.6.R10_-cor.tex'], ['items/MATHS.6.N23_NombresDecimaux', 'MATHS.6.N23_.tex', 'MATHS.6.N23_-cor.tex'], ['items/MATHS.6.C11_DivisionsEuclidiennes', 'MATHS.6.C11_v1.tex', 'MATHS.6.C11_v1-cor.tex'], ['items/MATHS.6.N21_AbscissesFractionnaires', 'MATHS.6.N21_.tex', 'MATHS.6.N21_-cor.tex'], ['items/MATHS.6.R12_ProprietesDefinitionsMediatrice', 'MATHS.6.R12.tex', 'MATHS.6.R12-cor.tex'], ['items/MATHS.6.G13_CarresRectangles', 'MATHS.6.G13_.tex', 'MATHS.6.G13_-cor.tex'], ['items/MATHS.6.C12_ProblemesNiveau1', 'MATHS.6.C12_v1.tex', 'MATHS.6.C12_v1-cor.tex'], ['items/MATHS.6.G12_Paralleles', 'MATHS.6.G12_.tex', 'MATHS.6.G12_-cor.tex'], ['items/MATHS.6.R11_SchemaProprietesParallelesPerpendiculaires', 'MATHS.6.R11_v1.tex', 'MATHS.6.R11_v1-cor.tex'], ['items/MATHS.6.M21_Aire_assemblage', 'MATHS.6.M21.tex', 'MATHS.6.M21-cor.tex'], ['items/MATHS.6.M24_Portions_disque', 'MATHS.6.M24.tex', 'MATHS.6.M24-cor.tex'], ['items/MATHS.6.N20_FractionsEtEntiers', 'MATHS.6.N20_v1.tex', 'MATHS.6.N20_v1-cor.tex'], ['items/MATHS.6.C10_AddSousMulEntiers', 'MATHS.6.C10_v1.tex', 'MATHS.6.C10_v1-cor.tex'], ['items/MATHS.6.C22_Problemes2', 'MATHS.6.C22.tex', 'MATHS.6.C22-cor.tex']]
 var tableau_de_demandes = [];
-var code_LaTeX = ""
+var code_LaTeX = "";
 var besoin_des_axes_gradues=false;
+var message_d_erreur = "";
 
+
+/**
+* tableau_url_tex est un tableau de tableaux
+* 
+* Chaque tableau est de la forme [nom du répertoire,nom du fichier, nom du fichier de la correction]
+*
+* On ajoute un dernnier element qui est une simplification du nom du répertoire (pas de points, pas /items)
+*
+* @Auteur Rémi Angot
+*/
+function creeIdPourComparaison(item, index, arr) {
+  item[3]=item[0].replace(/\./g,'').replace('items/','');
+  //une fois tous les points supprimés, on chercher le dernier 'tex' du string pour remettre '.tex'
+  // plus utilisé : .replace(/tex(?!.*tex)/g,'.tex') pour trouver le dernier 'tex' et le remplacer par '.tex'
+  item[3] = item[3].split('_')[0];
+  //ne garde que ce qui est avant le caractère _
+}
+
+tableau_url_tex.forEach(creeIdPourComparaison)
+
+
+
+/**
+* Remplace un id d'item par un ou des id d'exercices de MathALEA
+*
+* Utile si un item doit être évalué par plusieurs exercices de MathALEA
+*
+* Peut éventuellement servir à faire la "traduction" d'un référentiel SACoche en référentiel MathALEA
+*
+* @Auteur Rémi Angot
+*/
 function selection_exercices_aleatoires(text) {
-	// remplace un id par plusieurs id si un item peut être évalué par plusieurs exercices aléatoires
 	let liste_des_exercices_a_echanger = {
-		'CM' : 'CM001 CM002',
-		'6N10' : '6N10-1 6N10-2'
+		// liste statique à construire en attendant un meilleur système
+		'CM' : 'CM001;CM002',
+		// échange 'CM' par 'CM001;CM002'
+		'6N10' : '6N10-1;6N10-2'
 		// 'C10' : 'CM001 CM002 CM003'
 		}
 	$.each(liste_des_exercices_a_echanger,function(id){
@@ -30,62 +60,118 @@ function selection_exercices_aleatoires(text) {
 	return text
 }
 
+/**
+* Récupère le texte saisi pour le transformer en tableau de tableaux. 
+*
+* Premier séparateur le saut de ligne ; deuxième séparateur le point-virgule.
+*
+* @Auteur Rémi Angot
+*/
 function textarea_to_array(textarea_id_textarea) {
-	let text = textarea_id_textarea.value.replace(/[ ]{2,}/g, ' ');
-	// remplace les espaces multiples par un espace simple
-	//text = text.replace(/[ ]\n/,'');
-	// efface le dernier espace d'une ligne
+	let text = textarea_id_textarea.value//.replace(/[ ]/g,'');
+	// récupère le texte en effaçant tous les espaces
 	text = selection_exercices_aleatoires(text)
 
 	let tableau = text.split("\n");
 	tableau.forEach(function(ligne,i){
-		tableau[i]=ligne.split(" ");
+		tableau[i]=ligne.split(";");
 		// Regarde s'il y a besoin de modifier le préambule
 		if (tableau[i].includes('6N21')) {besoin_des_axes_gradues=true}
 	});
 	return tableau
 }
 
+/**
+* Transforme un id d'exercice en url d'exercice statique
+*
+* Affiche un message d'erreur s'il n'y a pas d'exercice disponible.
+*
+* @Auteur Rémi Angot
+*/
 function id_to_url(id){
 	// Retourne les éléments du tableau qui inclue l'id demandé
-	let tableau_items = tableau_url_tex.filter(element => element[0].includes(id))
+	let tableau_items = tableau_url_tex.filter(element => element[3].includes(id))
 	if (tableau_items.length==0) {
-		alert(`Pas d'exercices disponibles pour ${id}.`)
+		return "pas_d_url"
+	} else {
+		// Choisit un fichier tex au hasard dans les répertoires 
+		let item = tableau_items[Math.floor(Math.random()*tableau_items.length)]
+		return [item[0]+'/'+item[1],item[0]+'/'+item[2]]
 	}
-	// Choisit un fichier tex au hasard dans les répertoires 
-	let item = tableau_items[Math.floor(Math.random()*tableau_items.length)]
-	return [item[0]+'/'+item[1],item[0]+'/'+item[2]]
 }
 
+
+/**
+* Met à jour le code LaTeX à partir de l'identifiant d'un exercice.
+*
+* On regarde d'abord si un exercice aléatoire a le même identifiant.
+*
+* Si ce n'est pas le cas, on cherche dans le répertoire /items s'il y a un répertoire qui correspond
+*
+* @Auteur Rémi Angot
+*/
 function item_to_contenu(e){
 	// De préférence un exercice aléatoire
-	if (e in liste_des_exercices_disponibles) {
-			exercice_aleatoire = new liste_des_exercices_disponibles[e];
+	let idExerciceMathALEA = e.replace('MATHS','').replace(/\./g,'').replace(/ /g,'')
+	// Pour faire la correspondance entre SACoche et MathALEA, on supprime 'MATHS' et tous les points dans les noms des id
+	if (idExerciceMathALEA in liste_des_exercices_disponibles) {
+			exercice_aleatoire = new liste_des_exercices_disponibles[idExerciceMathALEA];
 			exercice_aleatoire.nouvelle_version()
-			code_LaTeX += `\n\n%%%Exercice aléatoire : ${exercice_aleatoire.titre}%%%\n\n`
+			code_LaTeX += `\n\n%%% ${e} : Exercice aléatoire - ${exercice_aleatoire.titre}%%%\n\n`
 			code_LaTeX += exercice_aleatoire.contenu + '\n\n'
 			code_LaTeX_corr += exercice_aleatoire.contenu_correction + '\n\n'
 	// Sinon un exercice statique si le nom de l'item est inclus dans le nom du répertoire
-	} else { if (e.length>2) {
-		$.get("../"+id_to_url(e)[0], function( txt ) {
-				code_LaTeX += `\n\n%%%Exercice statique : ${id_to_url(e)[0]}%%%\n\n`
-				code_LaTeX += txt + '\n\n'
-				});
-			$.get("../"+id_to_url(e)[1], function( txt ) {
-				code_LaTeX_corr += txt + '\n\n'
-				});
+	} else { if (id_to_url(idExerciceMathALEA)!="pas_d_url") {
+			$.get("../"+id_to_url(idExerciceMathALEA)[0], function( txt ) {
+					code_LaTeX += `\n\n%%% ${e} : Exercice statique - ${id_to_url(idExerciceMathALEA)[0]}%%%\n\n`
+					code_LaTeX += txt + '\n\n'
+					})
+			.fail(function() {
+					// S'il le fichier ne charge pas
+						code_LaTeX += `\n\n%%% Pas d'exercice disponible pour ${e}.\n\n`
+	    				updateMessageErreur(`Impossible de charger un exercice pour ${e}.\n`);
+	    				console.log(e,id_to_url(e))
+	    			})
+			.done(function() { // Lorsque l'exercice a chargé, on essaie de chargé une correction
+				$.get("../"+id_to_url(idExerciceMathALEA)[1], function( txt ) {
+					code_LaTeX_corr += txt + '\n\n'
+					})
+					.fail(function() {
+					// S'il n'y a pas de fichier de correction disponible.
+						code_LaTeX_corr += `\n\n%%% Pas de correction disponible pour ${e}.\n\n\\exo{} \n\n`
+						// On écrit quand même un exercice vide pour garder la numérotation des exercices.
+						updateMessageErreur(`Pas de correction disponible pour ${e}.\n`);
+					});
+    				
+  			})
+				
+			} else { 
+				// Si l'identifiant de l'exercice n'est disponible ni sur MathALEA ni dans la liste statique des url tableau_url_tex
+				code_LaTeX += `\n\n%%% Pas d'exercice disponible pour ${e}.\n\n`
+	    		updateMessageErreur(`Pas d'exercice disponible pour ${e}.\n`);
+			}
 		}
-			
-	}
 		
 }
 
+
+/**
+* Met à jour le message d'erreur en évitant les doublons.
+*
+* @Auteur Rémi Angot
+*/
+function updateMessageErreur(text) {
+	if (message_d_erreur.indexOf(text)==-1) {
+		message_d_erreur += text
+	}
+}
 
 
 
 window.onload = function()  {
 
-	jQuery.ajaxSetup({async:false}); // la commande MAGIQUE ^^
+	jQuery.ajaxSetup({async:false}); // Tout le traitement se fait de manière synchrone. 
+									// On attend le résultat des requetes url vers les fichiers statiques pour bien avoir les exercices dans l'ordre
 	$('.ui.radio.checkbox').checkbox(); // active les boutons radio (pour le style)
 	// Gestion du menu déroulant par une fonction auto-exécutante
 	let attendre=0;
@@ -95,7 +181,7 @@ window.onload = function()  {
 		if (el.length && attendre>1) {
 			// S'il est présent on règle le menu
 	    	$('.ui.dropdown').dropdown({ // gestion du clic sur le menu déroulant pour ajouter un item dans le textarea
-	    action: function(text, value, element){$('#textarea_id_items').val($('#textarea_id_items').val()+text.split(' ')[0]+' ')}
+	    action: function(text, value, element){$('#textarea_id_items').val($('#textarea_id_items').val()+';'+text.split(' ')[0])}
 	  });  //active les menus déroulants
 		} else {
     		setTimeout(menu_deroulant, 300); // retente dans 300 milliseconds
@@ -111,9 +197,10 @@ window.onload = function()  {
 
 	$( "#valider").click(function() {
 		$('#div_code_LaTeX').html(" ")
-		code_LaTeX = ""
-		code_LaTeX_corr = ""
-		tableau_de_demandes = textarea_to_array(textarea_id_items)
+		code_LaTeX = "";
+		code_LaTeX_corr = "";
+		message_d_erreur = "";
+		tableau_de_demandes = textarea_to_array(textarea_id_items);
 		tableau_de_demandes.forEach(function(ligne){
 			ligne.forEach(function(e,i){
 				let rang_premier_item=0
@@ -147,6 +234,9 @@ window.onload = function()  {
 			});
 				
 		});
+		if (message_d_erreur.length>1) {
+			alert(message_d_erreur);
+		}
 		// Affiche les boutons de compilation
 		if (code_LaTeX.length>2) {
 			$('#reglages_sortie_LaTeX').show();	
@@ -248,179 +338,183 @@ function entete_eleve(prenom="",nom="",style="defaut"){
 function intro_LaTeX(entete="Exercices",axes_gradues=false) {
 	if (entete=='') {entete='Exercices'}
 	return `\\documentclass[12pt]{article}
-\\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
-\\usepackage[utf8]{inputenc}		        
-\\usepackage[T1]{fontenc}		
-\\usepackage[french]{babel}
-\\usepackage{multicol} 					
-\\usepackage{calc} 						
-\\usepackage{enumerate}
-\\usepackage{enumitem}
-\\usepackage{graphicx}				
-\\usepackage{tabularx}
-\\usepackage[autolanguage]{numprint}
-\\usepackage{pgf,tikz}
-\\usepackage{tkz-tab,tkz-euclide,tkz-fct}
-\\usetkzobj{all}
-\\usepackage{pifont}	
-\\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
-\\usepackage{cancel}
-\\usepackage{eurosym}
-\\DeclareUnicodeCharacter{20AC}{\\euro{}}
-\\usepackage{fancyhdr,lastpage}          	
- \\pagestyle{fancy}                      	
-\\usepackage{fancybox}					
-\\usepackage{xlop}						
-\\usepackage{setspace}	
+	\\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
+	\\usepackage[utf8]{inputenc}		        
+	\\usepackage[T1]{fontenc}		
+	\\usepackage[french]{babel}
+	\\usepackage{multicol} 					
+	\\usepackage{calc} 						
+	\\usepackage{enumerate}
+	\\usepackage{enumitem}
+	\\usepackage{graphicx}				
+	\\usepackage{tabularx}
+	\\usepackage[autolanguage]{numprint}
+	\\usepackage{hyperref}
+	\\usepackage{pgf,tikz}
+	\\usepackage{pgf,tikz}
+	\\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
+		shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows,babel} % Charge toutes les librairies de Tikz
+	\\usepackage{tkz-tab,tkz-euclide,tkz-fct,tkz-base}	% Géométrie euclidienne avec TikZ
+	\\usetkzobj{all}	
+	\\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
+	\\usepackage{cancel}
+	\\usepackage{gensymb}
+	\\usepackage{eurosym}
+	\\DeclareUnicodeCharacter{20AC}{\\euro{}}
+	\\usepackage{fancyhdr,lastpage}          	
+	\\pagestyle{fancy}                      	
+	\\usepackage{fancybox}					
+	\\usepackage{xlop}						
+	\\usepackage{setspace}	
 
-\\setlength{\\parindent}{0mm}		
-\\renewcommand{\\arraystretch}{1.5}	
-\\newcounter{exo}          				
-\\setcounter{exo}{0}   				
-\\newcommand{\\exo}[1]{				
-  	\\stepcounter{exo}        		
-  	\\subsection*{Exercice \\no{\\theexo} \\textmd{\\normalsize #1}}
-  	}
-\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}	
-\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}	
-\\newcommand{\\version}[1]{\\fancyhead[R]{Version #1}}
-\\setlength{\\fboxsep}{3mm}
-\\newenvironment{correction}{\\newpage\\fancyhead[C]{\\textbf{Correction}}\\setcounter{exo}{0}}{}
-\\fancyhead[C]{\\textbf{${entete}}}
-\\fancyhead[R]{${$("#entete_droit_du_fichier").val()}}
-\\fancyfoot{}
-\\fancyfoot[R]{\\scriptsize Coopmaths.fr -- CC-BY-SA}
-\\setlength{\\headheight}{15pt}
+	\\setlength{\\parindent}{0mm}		
+	\\renewcommand{\\arraystretch}{1.5}	
+	\\newcounter{exo}          				
+	\\setcounter{exo}{0}   				
+	\\newcommand{\\exo}[1]{				
+		\\stepcounter{exo}        		
+		\\subsection*{Exercice \\no{\\theexo} \\textmd{\\normalsize #1}}
+	}
+	\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}	
+	\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}	
+	\\newcommand{\\version}[1]{\\fancyhead[R]{Version #1}}
+	\\setlength{\\fboxsep}{3mm}
+	\\newenvironment{correction}{\\newpage\\fancyhead[C]{\\textbf{Correction}}\\setcounter{exo}{0}}{}
+	\\fancyhead[C]{\\textbf{${entete}}}
+	\\fancyfoot{}
+	\\fancyfoot[R]{\\scriptsize Coopmaths.fr -- CC-BY-SA}
+	\\setlength{\\headheight}{14.5pt}
 
-${premabule_axe_graduee(axes_gradues)}
+	${premabule_axe_graduee(axes_gradues)}
 
-
-\\begin{document}`
+	\\begin{document}`
 }
 
 function intro_LaTeX_coop(){
 
 	let intro_LaTeX_coop = `
 \\documentclass[12pt]{article}
-\\usepackage[left=1.5cm,right=1.5cm,top=3.5cm,bottom=2cm]{geometry}
-\\usepackage[utf8]{inputenc}		        
-\\usepackage[T1]{fontenc}		
-\\usepackage[french]{babel}
-\\usepackage{multicol} 					
-\\usepackage{calc} 						
-\\usepackage{enumerate}
-\\usepackage{enumitem}
-\\usepackage{graphicx}				
-\\usepackage{tabularx}
-\\usepackage[autolanguage]{numprint}
-\\usepackage{pgf,tikz}
-\\usepackage{tkz-tab,tkz-euclide,tkz-fct}
-\\usetkzobj{all}
-\\usepackage{pifont}	
-\\usetikzlibrary{calc}
-\\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
-\\usepackage{cancel}
-\\usepackage{eurosym}
-\\DeclareUnicodeCharacter{20AC}{\\euro{}}
-\\usepackage{fancyhdr,lastpage}          	
- \\pagestyle{fancy}                      	
-\\usepackage{fancybox}					
-\\usepackage{xlop}						
-\\usepackage{setspace}
+		\\usepackage[left=1.5cm,right=1.5cm,top=3.5cm,bottom=2cm]{geometry}
+		\\usepackage[utf8]{inputenc}		        
+		\\usepackage[T1]{fontenc}		
+		\\usepackage[french]{babel}
+		\\usepackage{hyperref}
+		\\usepackage{multicol} 					
+		\\usepackage{calc} 						
+		\\usepackage{enumerate}
+		\\usepackage{enumitem}
+		\\usepackage{graphicx}				
+		\\usepackage{tabularx}
+		\\usepackage[autolanguage]{numprint}
+		\\usepackage{pgf,tikz}
+		\\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
+			shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows,babel} % Charge toutes les librairies de Tikz
+		\\usepackage{tkz-tab,tkz-euclide,tkz-fct,tkz-base}	% Géométrie euclidienne avec TikZ
+		\\usetkzobj{all}				
+		\\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
+		\\usepackage{cancel}
+		\\usepackage{gensymb}
+		\\usepackage{eurosym}
+		\\DeclareUnicodeCharacter{20AC}{\\euro{}}
+		\\usepackage{fancyhdr,lastpage}          	
+		\\pagestyle{fancy}                      	
+		\\usepackage{fancybox}					
+		\\usepackage{xlop}						
+		\\usepackage{setspace}
 
-%%% COULEURS %%%
+		%%% COULEURS %%%
 
-\\definecolor{nombres}{cmyk}{0,.8,.95,0}
-\\definecolor{gestion}{cmyk}{.75,1,.11,.12}
-\\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
-\\definecolor{grandeurs}{cmyk}{.02,.44,1,0}
-\\definecolor{geo}{cmyk}{.62,.1,0,0}
-\\definecolor{algo}{cmyk}{.69,.02,.36,0}
-\\definecolor{correction}{cmyk}{.63,.23,.93,.06}
-\\usepackage{colortbl}
-\\arrayrulecolor{couleur_theme}		% Couleur des filets des tableaux
+		\\definecolor{nombres}{cmyk}{0,.8,.95,0}
+		\\definecolor{gestion}{cmyk}{.75,1,.11,.12}
+		\\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
+		\\definecolor{grandeurs}{cmyk}{.02,.44,1,0}
+		\\definecolor{geo}{cmyk}{.62,.1,0,0}
+		\\definecolor{algo}{cmyk}{.69,.02,.36,0}
+		\\definecolor{correction}{cmyk}{.63,.23,.93,.06}
+		\\usepackage{colortbl}
+		\\arrayrulecolor{couleur_theme}		% Couleur des filets des tableaux
 
-%%% MISE EN PAGE %%%
+		%%% MISE EN PAGE %%%
 
-\\setlength{\\parindent}{0mm}		
-\\renewcommand{\\arraystretch}{1.5}	
-\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}	
-\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}	
-\\setlength{\\fboxsep}{3mm}
+		\\setlength{\\parindent}{0mm}		
+		\\renewcommand{\\arraystretch}{1.5}	
+		\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}	
+		\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}	
+		\\setlength{\\fboxsep}{3mm}
 
-\\setlength{\\headheight}{14.5pt}
+		\\setlength{\\headheight}{14.5pt}
 
-\\spaceskip=2\\fontdimen2\\font plus 3\\fontdimen3\\font minus3\\fontdimen4\\font\\relax %Pour doubler l'espace entre les mots
-\\newcommand{\\numb}[1]{ % Dessin autour du numéro d'exercice
-\\begin{tikzpicture}[overlay,yshift=-.3cm,scale=.8]
-	\\draw[fill=couleur_numerotation,couleur_numerotation](-.3,0)rectangle(.5,.8);
-	\\draw[line width=.05cm,couleur_numerotation,fill=white] (0,0)--(.5,.5)--(1,0)--(.5,-.5)--cycle;
-	\\node[couleur_numerotation]  at (.5,0) { \\large \\bfseries #1};
+		\\spaceskip=2\\fontdimen2\\font plus 3\\fontdimen3\\font minus3\\fontdimen4\\font\\relax %Pour doubler l'espace entre les mots
+		\\newcommand{\\numb}[1]{ % Dessin autour du numéro d'exercice
+		\\begin{tikzpicture}[overlay,yshift=-.3cm,scale=.8]
+		\\draw[fill=couleur_numerotation,couleur_numerotation](-.3,0)rectangle(.5,.8);
+		\\draw[line width=.05cm,couleur_numerotation,fill=white] (0,0)--(.5,.5)--(1,0)--(.5,-.5)--cycle;
+		\\node[couleur_numerotation]  at (.5,0) { \\large \\bfseries #1};
 		\\draw (-.4,.8) node[white,anchor=north west]{\\bfseries EX}; 
-\\end{tikzpicture}
-}
+		\\end{tikzpicture}
+		}
 
-%%% NUMEROS DES EXERCICES %%%
+		%%% NUMEROS DES EXERCICES %%%
 
-\\usepackage{titlesec} % Le titre de section est un numéro d'exercice avec sa consigne alignée à gauche.
-\\titleformat{\\section}{}{\\numb{\\arabic{section}}}{1cm}{\\hspace{0em}}{}
-\\newcommand{\\exo}[1]{ % Un exercice est une nouvelle section avec la consigne écrite en caractêres normaux
-\\section{\\textmd{#1}}
-\\medskip
-}
-
-
-%%% ENVIRONNEMENTS - CADRES %%%
-\\usepackage[framemethod=tikz]{mdframed}
-
-\\newmdenv[linecolor=couleur_theme, linewidth=3pt,topline=true,rightline=false,bottomline=false,frametitlerule=false,frametitlefont={\\color{couleur_theme}\\bfseries},frametitlerulewidth=1pt]{methode}
+		\\usepackage{titlesec} % Le titre de section est un numéro d'exercice avec sa consigne alignée à gauche.
+		\\titleformat{\\section}{}{\\numb{\\arabic{section}}}{1cm}{\\hspace{0em}}{}
+		\\newcommand{\\exo}[1]{ % Un exercice est une nouvelle section avec la consigne écrite en caractêres normaux
+			\\section{\\textmd{#1}}
+			\\medskip
+		}
 
 
-\\newmdenv[startcode={\\setlength{\\multicolsep}{0cm}\\setlength{\\columnsep}{.2cm}\\setlength{\\columnseprule}{0pt}\\vspace{0cm}},linecolor=white, linewidth=3pt,innerbottommargin=10pt,innertopmargin=5pt,innerrightmargin=20pt,splittopskip=20pt,splitbottomskip=10pt,everyline=true,tikzsetting={draw=couleur_theme,line width=4pt,dashed,dash pattern= on 10pt off 10pt},frametitleaboveskip=-.6cm,frametitle={\\tikz\\node[anchor= east,rectangle,fill=white]{\\textcolor{couleur_theme}{\\raisebox{-.3\\height}{\\includegraphics[width=.8cm]{\\iconeobjectif}}\\; \\bfseries \\Large Objectifs}};}]{objectif}
+		%%% ENVIRONNEMENTS - CADRES %%%
+		\\usepackage[framemethod=tikz]{mdframed}
 
-\\newmdenv[startcode={\\colorlet{couleur_numerotation}{correction}\\renewcommand{\\columnseprulecolor}{\\color{correction}}
-\\setcounter{section}{0}\\arrayrulecolor{correction}},linecolor=white, linewidth=4pt,innerbottommargin=10pt,innertopmargin=5pt,splittopskip=20pt,splitbottomskip=10pt,everyline=true,frametitle=correction,tikzsetting={draw=correction,line width=3pt,dashed,dash pattern= on 15pt off 10pt},frametitleaboveskip=-.4cm,frametitle={\\tikz\\node[anchor= east,rectangle,fill=white]{\\; \\textcolor{correction}{\\raisebox{-.3\\height}{\\includegraphics[width=.6cm]{icone-correction}}\\; \\bfseries \\Large Corrections}};}]{correction}
-
-\\newmdenv[roundcorner=0,linewidth=0pt,frametitlerule=false, backgroundcolor=gray!40,leftmargin=8cm]{remarque}
+		\\newmdenv[linecolor=couleur_theme, linewidth=3pt,topline=true,rightline=false,bottomline=false,frametitlerule=false,frametitlefont={\\color{couleur_theme}\\bfseries},frametitlerulewidth=1pt]{methode}
 
 
+		\\newmdenv[startcode={\\setlength{\\multicolsep}{0cm}\\setlength{\\columnsep}{.2cm}\\setlength{\\columnseprule}{0pt}\\vspace{0cm}},linecolor=white, linewidth=3pt,innerbottommargin=10pt,innertopmargin=5pt,innerrightmargin=20pt,splittopskip=20pt,splitbottomskip=10pt,everyline=true,tikzsetting={draw=couleur_theme,line width=4pt,dashed,dash pattern= on 10pt off 10pt},frametitleaboveskip=-.6cm,frametitle={\\tikz\\node[anchor= east,rectangle,fill=white]{\\textcolor{couleur_theme}{\\raisebox{-.3\\height}{\\includegraphics[width=.8cm]{\\iconeobjectif}}\\; \\bfseries \\Large Objectifs}};}]{objectif}
 
-\\newcommand{\\theme}[4]
-{
-	\\fancyhead[L]{}
-	\\fancyhead[R]{}
-	\\fancyhead[C]{
-	\\begin{tikzpicture}[remember picture,overlay]
-	  \\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {\\includegraphics{header-#1}};
-	  \\node[anchor=east, fill=white] at ($(current page.north east)+(-2,-1.4cm)$) {\\Huge \\textcolor{couleur_theme}{\\bfseries \\#} \\bfseries #2 \\textcolor{couleur_theme}{\\bfseries \\MakeUppercase{#3}}};
-	  \\node[anchor=center, color=white] at ($(current page.north)+(0,-2.65cm)$) {\\Large \\bfseries \\MakeUppercase{#4}};
-	\\end{tikzpicture}
-	}
-	\\fancyfoot[C]{
-	\\begin{tikzpicture}[remember picture,overlay]
-	  \\node[anchor=south west,inner sep=0pt] at ($(current page.south west)+(0,0)$) {\\includegraphics{footer-#1}};
-	\\end{tikzpicture} 
-	}
-	\\colorlet{couleur_theme}{#1}
-	\\colorlet{couleur_numerotation}{couleur_theme}
-	\\def\\iconeobjectif{icone-objectif-#1}
-	\\def\\urliconeomethode{icone-methode-#1}
-	\\renewcommand{\\headrulewidth}{0pt} % Pour enlever les traits en en-tête et en pied de page
-	\\renewcommand{\\footrulewidth}{0pt}
-}
+		\\newmdenv[startcode={\\colorlet{couleur_numerotation}{correction}\\renewcommand{\\columnseprulecolor}{\\color{correction}}
+		\\setcounter{section}{0}\\arrayrulecolor{correction}},linecolor=white, linewidth=4pt,innerbottommargin=10pt,innertopmargin=5pt,splittopskip=20pt,splitbottomskip=10pt,everyline=true,frametitle=correction,tikzsetting={draw=correction,line width=3pt,dashed,dash pattern= on 15pt off 10pt},frametitleaboveskip=-.4cm,frametitle={\\tikz\\node[anchor= east,rectangle,fill=white]{\\; \\textcolor{correction}{\\raisebox{-.3\\height}{\\includegraphics[width=.6cm]{icone-correction}}\\; \\bfseries \\Large Corrections}};}]{correction}
 
-\\newcommand{\\version}[1]{
-	\\fancyhead[R]{
-	\\begin{tikzpicture}[remember picture,overlay]
-		\\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(-.5,-.5cm)$) {\\large \\textcolor{couleur_theme}{\\bfseries V#1}};
-	\\end{tikzpicture}
-	}
-}
+		\\newmdenv[roundcorner=0,linewidth=0pt,frametitlerule=false, backgroundcolor=gray!40,leftmargin=8cm]{remarque}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Fin du préambule %%%
-%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\\newcommand{\\theme}[4]
+		{
+			\\fancyhead[L]{}
+			\\fancyhead[R]{}
+			\\fancyhead[C]{
+				\\begin{tikzpicture}[remember picture,overlay]
+				\\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {\\includegraphics{header-#1}};
+				\\node[anchor=east, fill=white] at ($(current page.north east)+(-2,-1.4cm)$) {\\Huge \\textcolor{couleur_theme}{\\bfseries \\#} \\bfseries #2 \\textcolor{couleur_theme}{\\bfseries \\MakeUppercase{#3}}};
+				\\node[anchor=center, color=white] at ($(current page.north)+(0,-2.65cm)$) {\\Large \\bfseries \\MakeUppercase{#4}};
+				\\end{tikzpicture}
+			}
+			\\fancyfoot[C]{
+				\\begin{tikzpicture}[remember picture,overlay]
+				\\node[anchor=south west,inner sep=0pt] at ($(current page.south west)+(0,0)$) {\\includegraphics{footer-#1}};
+				\\end{tikzpicture} 
+			}
+			\\colorlet{couleur_theme}{#1}
+			\\colorlet{couleur_numerotation}{couleur_theme}
+			\\def\\iconeobjectif{icone-objectif-#1}
+			\\def\\urliconeomethode{icone-methode-#1}
+			\\renewcommand{\\headrulewidth}{0pt} % Pour enlever les traits en en-tête et en pied de page
+			\\renewcommand{\\footrulewidth}{0pt}
+		}
+
+		\\newcommand{\\version}[1]{
+			\\fancyhead[R]{
+				\\begin{tikzpicture}[remember picture,overlay]
+				\\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(-.5,-.5cm)$) {\\large \\textcolor{couleur_theme}{\\bfseries V#1}};
+				\\end{tikzpicture}
+			}
+		}
+
+
+		%%%%%%%%%%%%%%%%%%%%%%%%
+		%%% Fin du préambule %%%
+		%%%%%%%%%%%%%%%%%%%%%%%%
 `
 	return intro_LaTeX_coop
 
