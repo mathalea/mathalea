@@ -86,8 +86,8 @@ function tests_SVGJS_KATEX(){
 							var hauteur_svg = 60;
 
 							texte += `<br>`;
-							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table ">
-							<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs">
+							texte += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table ">
+							<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
 							<style>
 								polygon { fill: white; stroke : red }
 						   
@@ -122,7 +122,7 @@ function tests_SVGJS_KATEX(){
 						break;			
 						case 2 :
 							texte = `Ajout d'un SVG avec SVGJS -->`;
-							texte += `besoin d'un listener. Pourquoi?`
+							texte += `besoin d'un listener. Pourquoi? à cause de la necessité de mettre à jour le code dynamique pour l'affichage des exos?`
 
 							//texte += `<br>`;
 							if (sortie_html) {
@@ -130,7 +130,7 @@ function tests_SVGJS_KATEX(){
 								let id_du_div = `div_svg${id_unique}`;
 								var hauteur_svg = 60;
 								texte += `<br>`;
-								texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table ">`
+								texte += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table ">`
 								texte += `</div>`;
 								if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
 								// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
@@ -147,12 +147,12 @@ function tests_SVGJS_KATEX(){
 										// });
 										// my_text.font({size : '10px'});
 										var fobj = my_svg_test.foreignObject(200,50).attr({id: 'fobj'});
-										var txt = "some text that is quite long.  and it goes on and on.  and it's pointless really.  and the grammar is terrible.  blah. blah. blah"
-										fobj.add("<div style='color:black' id='bla' xmlns='http://www.w3.org/1999/xhtml' ><span style='color:black'>"+txt+"</span></div>")
+										var txt = "some text that is quite long.$x \\times y$  and it goes on and on.  and it's pointless really.  and the grammar is terrible.  blah. blah. blah"
+										fobj.add("<div style='color:black' id='bla' xmlns='http://www.w3.org/1999/xhtml' >$x\\times y$ "+txt+"</div>")
 										//my_text.addClass('katex');									
 
 									}
-								}, 100); // Vérifie toutes les 100ms
+								}, 10000); // Vérifie toutes les 100ms
 
 								//SVG_machine_maths(id_du_div,400,hauteur_svg,'machine f','','périmètre','d\'un carré','carré de','côté '+x+' cm','périmètre','??? cm');
 								
