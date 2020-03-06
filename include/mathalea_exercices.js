@@ -132,6 +132,7 @@ var liste_des_exercices_disponibles = {
 		'cours': Questions_de_cours,
 		'LaTeX' : Code_LaTeX_personnalise,
 		// 'Perso' : HTML_personnalise,
+		'TsvgjsKatex' : tests_SVGJS_KATEX,
 		
 	};
 
@@ -5269,6 +5270,9 @@ jQuery(document).ready(function() {
 	let nombre_d_exercices_disponibles_2 = 0;
 	let nombre_d_exercices_disponibles_CM = 0;
 	let nombre_d_exercices_disponibles_prof = 0;
+	//debut ajout seb section tests
+	let nombre_d_exercices_disponibles_tests = 0;
+	//fin seb section tests
 	for (var id in liste_des_exercices_disponibles){
 		if (id[0]==6) {nombre_d_exercices_disponibles_6+=1}
 		if (id[0]==5) {nombre_d_exercices_disponibles_5+=1}
@@ -5277,6 +5281,9 @@ jQuery(document).ready(function() {
 		if (id[0]==2) {nombre_d_exercices_disponibles_2+=1}
 		if (id[0]=='C') {nombre_d_exercices_disponibles_CM+=1}
 		if (id[0]=='P') {nombre_d_exercices_disponibles_prof+=1}
+		//debut ajout seb section tests
+		if (id[0]=='T') {nombre_d_exercices_disponibles_tests+=1}
+		//fin seb section tests
 	}
 
 	//
@@ -5287,7 +5294,9 @@ jQuery(document).ready(function() {
 	let liste_html_des_exercices_2 = []
 	let liste_html_des_exercices_CM = []
 	let liste_html_des_exercices_prof = []
-	
+	//debut ajout seb section tests
+	let liste_html_des_exercices_tests = []
+	//fin seb section tests
 
 
 	// Affiche de la liste des exercices disponibles 
@@ -5315,6 +5324,11 @@ jQuery(document).ready(function() {
 		if (id[0]=='P') {
 			liste_html_des_exercices_prof += '<span class="id_exercice">' + id + '</span> - <a class="lien_id_exercice" numero="' + id + '">'  + exercice_tmp.titre + '</a></br>\n';			
 		}
+		//debut ajout seb section tests
+		if (id[0]=='T') {
+			liste_html_des_exercices_tests += '<span class="id_exercice">' + id + '</span> - <a class="lien_id_exercice" numero="' + id + '">'  + exercice_tmp.titre + '</a></br>\n';			
+		}
+		//fin seb section tests
 
 	}
 
@@ -5359,6 +5373,11 @@ jQuery(document).ready(function() {
 		liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Calcul mental (${nombre_d_exercices_disponibles_CM})</div><div class="content">`
 		liste_html_des_exercices += liste_html_des_exercices_CM
 		liste_html_des_exercices+=`</div>`
+		//debut ajout seb section tests
+		liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Section Tests (${nombre_d_exercices_disponibles_tests})</div><div class="content">`
+		liste_html_des_exercices += liste_html_des_exercices_tests
+		liste_html_des_exercices+=`</div>`
+		//fin seb section tests
 		// Ajoute les outils prof sur mathalealatex
 		if (window.location.href.indexOf('mathalealatex.html')>0) {
 			liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Outils pour le professeur (${nombre_d_exercices_disponibles_prof})</div><div class="content">`
