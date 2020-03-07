@@ -985,7 +985,7 @@ function fonction_notion_vocabulaire(){
 						if (sortie_html) {
 							texte += `<br>`;
 							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
-							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine f','','périmètre','d\'un carré','carré de','côté '+x+' cm','périmètre','??? cm');
+							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine f','','périmètre','d\'un carré','carré \\, de','côté \\,'+x+'\\, cm','périmètre','??? cm');
 							
 						} else { // sortie Latex avec Tikz
 
