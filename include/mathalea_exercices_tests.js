@@ -4,7 +4,7 @@ function tests_SVGJS_KATEX(){
 	this.sup = 1 ; 
 	this.titre = "Tests rendu Katex in SVG"; 
 	if (sortie_html) {
-		this.consigne = "Balises SVG en dur dans le DOM, auto-render de Katex fait son job";
+		this.consigne = "Balises SVG en dur dans le DOM au niveau de la consigne, auto-render de Katex fait son job";
 		
 	} else { // sortie latex
 		//this.consigne = "Consigne LaTeX";
@@ -24,8 +24,6 @@ function tests_SVGJS_KATEX(){
 		var pourcentage = '100%'; // pour l'affichage des svg. On a besoin d'une variable globale
 		var hauteur_svg = 60;
 
-		//this.consigne += `<div id="consigne" style="width: 100%; height: 500px; display : table "></div>`;
-		//this.consigne += `<div id="${id_du_div}" style="width: 100%; height: 150px; display : table "></div>`;
 		this.consigne += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table ">
 		
 		 	<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
@@ -43,14 +41,12 @@ function tests_SVGJS_KATEX(){
 			<polygon points="5,5 195,10 185,40 10,50" />
 	
 		 	<!-- Cas d'utilisation courant: inclure du texte HTML dans le SVG -->
-		 	<foreignObject x="20" y="20" width="160" height="160">
+		 	<foreignObject x="20" y="20" width="160" height="60">
 		 		<!--
 		 		Dans le cas d'un SVG intégré dans du HTML, le namespace XHTML peut
 		 		être omis, mais il est obligatoire dans le contexte d'un document SVG
 		 		-->
 				 <div xmlns="http://www.w3.org/1999/xhtml">
-				 
-				 
 		 		$\\pm\\sqrt{a^2 + b^2}$
 		 		</div>
 		 	</foreignObject>
@@ -82,11 +78,41 @@ function tests_SVGJS_KATEX(){
 	
 				switch (type_de_questions) {
 					case 1 :
-						texte = `texte type 1`;
+						texte = `Ajout d'un second SVG balises en dur dans les questions d'un exo, auo-render de katex fait son job`;
 						//texte += `<br>`;
 						if (sortie_html) {
+							let id_unique = `_extype1_${num_ex}_${Date.now()}`; // on formatte avec le numéro de l'exercice pour éviter les doublons
+							let id_du_div = `div_svg${id_unique}`;
+							var hauteur_svg = 60;
+
 							texte += `<br>`;
-							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
+							texte += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table ">
+							<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+							<style>
+								polygon { fill: white; stroke : red }
+						   
+								div {
+								color: black;
+								/*font:10px serif;*/
+								height: 100%;
+								overflow: auto;
+								}
+							</style>
+						   
+						   <polygon points="5,5 195,10 185,40 10,50" />
+				   
+							<!-- Cas d'utilisation courant: inclure du texte HTML dans le SVG -->
+							<foreignObject x="20" y="10" width="160" height="60">
+								<!--
+								Dans le cas d'un SVG intégré dans du HTML, le namespace XHTML peut
+								être omis, mais il est obligatoire dans le contexte d'un document SVG
+								-->
+								<div xmlns="http://www.w3.org/1999/xhtml">
+								$x\\times y$							
+								</div>
+							</foreignObject>
+						</svg>
+					   </div>`;
 							//SVG_machine_maths(id_du_div,400,hauteur_svg,'machine f','','périmètre','d\'un carré','carré de','côté '+x+' cm','périmètre','??? cm');
 							
 						} else { // sortie Latex avec Tikz
@@ -95,11 +121,44 @@ function tests_SVGJS_KATEX(){
 						texte_corr = `texte corr type 1<br>`;												
 						break;			
 						case 2 :
-							texte = `texte type 2`;
+							texte = `Ajout d'un SVG avec SVGJS --> OK `;							
+
 							//texte += `<br>`;
 							if (sortie_html) {
+								let id_unique = `_extype2_${num_ex}_${Date.now()}`; // on formatte avec le numéro de l'exercice pour éviter les doublons
+								let id_du_div = `div_svg${id_unique}`;
+								var hauteur_svg = 60;
 								texte += `<br>`;
-								texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
+								texte += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table ">`
+								texte += `</div>`;
+								if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
+								// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
+								window.SVGExist[id_du_div] = setInterval(function() {
+							
+									if ($(`#${id_du_div}`).length ) {
+										$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
+										const my_svg_test = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, 200, hauteur_svg).size('100%','100%');
+										my_svg_test.polygon('5,5 195,10 185,40 10,50').fill('none');
+										// my_svg_test.circle(25).fill('none').stroke({ color: 'red', width: 1, linecap: 'round', linejoin:'null'}).dmove(5,5);
+										// let my_text = my_svg_test.text(function(add) {
+										// 	add.tspan('auto-render ne fait pas le job $x$').newLine()											
+										// 	add.tspan('Crasx sodales.').newLine().dx(20)
+										// });
+										// my_text.font({size : '10px'});
+										var fobj = my_svg_test.foreignObject(200,50).attr({id: 'fobj',x: '10',y:'10',width:'160',height:'60'});
+										// crée une div dans le foreignObject avec le bon NS
+										let newDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+										//newDiv.setAttribute("xmlns","http://www.w3.org/1999/xhtml");
+										katex.render("c = \\pm\\sqrt{a^2 - b^2}", newDiv, {
+											throwOnError: false
+										});
+										fobj.add(newDiv);
+										//var txt = "some text that is quite long.$x \\times y$  and it goes on and on.  and it's pointless really.  and the grammar is terrible.  blah. blah. blah"
+										//fobj.add("<div style='color:black' id='bla' xmlns='http://www.w3.org/1999/xhtml' >$x\\times y$ "+txt+"</div>")
+										//my_text.addClass('katex');	
+									}
+								}, 100); // Vérifie toutes les 100ms
+
 								//SVG_machine_maths(id_du_div,400,hauteur_svg,'machine f','','périmètre','d\'un carré','carré de','côté '+x+' cm','périmètre','??? cm');
 								
 							} else { // sortie Latex avec Tikz
