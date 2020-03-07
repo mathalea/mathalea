@@ -664,13 +664,34 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 			//------------GROUPE ANTECEDENT------------------------- 
  			// on crée le groupe pour l'antécédent
  			let ant=mon_svg.group();
+			// let ant_ligne1 = ant.text(x_ligne1).font(prop_font); 
+ 			// ant_ligne1.dmove(0,-interligne/2)
+ 			// let ant_ligne2 = ant.text(x_ligne2).font(prop_font); 
+			// ant_ligne2.dmove(ant_ligne1.length()/2-ant_ligne2.length()/2,interligne/2);
+			let ant_ligne = ant.foreignObject(w/4,h/4).attr({x:'0',y:-interligne/2});
+			let antDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+			katex.render(x_ligne1, antDiv, {
+				throwOnError: false
+			});
+			ant_ligne.add(antDiv);
 			let ant_ligne1 = ant.text(x_ligne1).font(prop_font); 
- 			ant_ligne1.dmove(0,-interligne/2)
- 			let ant_ligne2 = ant.text(x_ligne2).font(prop_font); 
- 			ant_ligne2.dmove(ant_ligne1.length()/2-ant_ligne2.length()/2,interligne/2);
+			let ant_ligne2 = ant.text(x_ligne2).font(prop_font); 
+			let ant_ligne_b = ant.foreignObject(w/4,h/4).attr({x:ant_ligne1.length()/2-ant_ligne2.length()/2,y:interligne/2});
+			ant_ligne1.clear();
+			ant_ligne2.clear();
+			let antDiv_b = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+			katex.render(x_ligne2, antDiv_b, {
+				throwOnError: false
+			});
+			ant_ligne_b.add(antDiv_b);
 
+
+			ant_ligne1 = ant.text(x_ligne1).font(prop_font); 
+			ant_ligne2 = ant.text(x_ligne2).font(prop_font); 
 			// on crée une flèche pour l'antécédent
 			let w_ant = Math.max(ant_ligne1.length(),ant_ligne2.length());
+			ant_ligne1.clear();
+			ant_ligne2.clear();
 			let fleche_ant = SVG_fleche_machine_maths(ant,path_fleche,'#f15929');
 			fleche_ant.dmove(w_ant+interligne/2,interligne);
 			 
@@ -915,7 +936,7 @@ function fonction_notion_vocabulaire(){
 	} 
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
-	this.nb_questions = 4;
+	this.nb_questions = 1;
 	//this.correction_detaillee_disponible = true;
 	this.nb_cols_corr = 1;
 	this.sup = 1;
@@ -944,8 +965,8 @@ function fonction_notion_vocabulaire(){
 		this.contenu = ''; // Liste de questions
 		this.contenu_correction = ''; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = [1,2,3,4];
-		//let type_de_questions_disponibles = [4];
+		//let type_de_questions_disponibles = [1,2,3,4];
+		let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
 
 			for (let i = 0, x, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
