@@ -121,8 +121,7 @@ function tests_SVGJS_KATEX(){
 						texte_corr = `texte corr type 1<br>`;												
 						break;			
 						case 2 :
-							texte = `Ajout d'un SVG avec SVGJS -->`;
-							texte += `besoin d'un listener. Pourquoi? à cause de la necessité de mettre à jour le code dynamique pour l'affichage des exos?`
+							texte = `Ajout d'un SVG avec SVGJS --> OK `;							
 
 							//texte += `<br>`;
 							if (sortie_html) {
@@ -146,12 +145,19 @@ function tests_SVGJS_KATEX(){
 										// 	add.tspan('Crasx sodales.').newLine().dx(20)
 										// });
 										// my_text.font({size : '10px'});
-										var fobj = my_svg_test.foreignObject(200,50).attr({id: 'fobj'});
-										var txt = "some text that is quite long.$x \\times y$  and it goes on and on.  and it's pointless really.  and the grammar is terrible.  blah. blah. blah"
-										fobj.add("<div style='color:black' id='bla' xmlns='http://www.w3.org/1999/xhtml' >$x\\times y$ "+txt+"</div>")
+										var fobj = my_svg_test.foreignObject(200,50).attr({id: 'fobj',x: '10',y:'10',width:'160',height:'60'});
+										// crée une div dans le foreignObject avec le bon NS
+										let newDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+										//newDiv.setAttribute("xmlns","http://www.w3.org/1999/xhtml");
+										katex.render("c = \\pm\\sqrt{a^2 - b^2}", newDiv, {
+											throwOnError: false
+										});
+										fobj.add(newDiv);
+										//var txt = "some text that is quite long.$x \\times y$  and it goes on and on.  and it's pointless really.  and the grammar is terrible.  blah. blah. blah"
+										//fobj.add("<div style='color:black' id='bla' xmlns='http://www.w3.org/1999/xhtml' >$x\\times y$ "+txt+"</div>")
 										//my_text.addClass('katex');	
 									}
-								}, 10000); // Vérifie toutes les 100ms
+								}, 100); // Vérifie toutes les 100ms
 
 								//SVG_machine_maths(id_du_div,400,hauteur_svg,'machine f','','périmètre','d\'un carré','carré de','côté '+x+' cm','périmètre','??? cm');
 								
