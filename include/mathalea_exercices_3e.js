@@ -608,6 +608,7 @@ function SVG_fleche_machine_maths(groupe,chemin,couleur) {
 
 /**
 * Fonction pour créer une machine mathématiques SVG, une fonction!
+* gestion du rendu KaTeX temporaire avec insertion manuelle de balises foreignObject pour les textes
 * @param id_du_div id_du_div
 * @param w width du svg
 * @param h height du svg
@@ -621,7 +622,7 @@ function SVG_fleche_machine_maths(groupe,chemin,couleur) {
 * @param i_ligne2 image ligne2
 * @Auteur Sébastien Lozano
 */	
-function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_ligne2,i_ligne1,i_ligne2) {
+function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_ligne2,y_ligne1,y_ligne2) {
 	'use strict';
 	let interligne = 15; // pour un interligne uniforme 
 	let prop_font = {family:   'Helvetica',
@@ -661,61 +662,32 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 			// On crée une timeline
 			let timeline = new SVG.Timeline()
 
-			//------------GROUPE ANTECEDENT------------------------- 
- 			// on crée le groupe pour l'antécédent
- 			let ant=mon_svg.group();
-			// let ant_ligne1 = ant.text(x_ligne1).font(prop_font); 
- 			// ant_ligne1.dmove(0,-interligne/2)
- 			// let ant_ligne2 = ant.text(x_ligne2).font(prop_font); 
-			// ant_ligne2.dmove(ant_ligne1.length()/2-ant_ligne2.length()/2,interligne/2);
-			let ant_ligne = ant.foreignObject(w/4,h/4).attr({x:'0',y:-interligne/2});
-			let antDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
-			katex.render(x_ligne1, antDiv, {
-				throwOnError: false
-			});
-			ant_ligne.add(antDiv);
+			//------------CREATION DES GROUPES----------------------
+			//------------Antécédent--------------------------------
+			let ant=mon_svg.group();
+
+			//------------Image-------------------------------------
+			let im = mon_svg.group(); 
+
+			//------------PREPARATION DES DIMENSIONS NECESSAIRES----
+			//------------Dimension Antécédent----------------------
 			let ant_ligne1 = ant.text(x_ligne1).font(prop_font); 
 			let ant_ligne2 = ant.text(x_ligne2).font(prop_font); 
-			let ant_ligne_b = ant.foreignObject(w/4,h/4).attr({x:ant_ligne1.length()/2-ant_ligne2.length()/2,y:interligne/2});
-			ant_ligne1.clear();
-			ant_ligne2.clear();
-			let antDiv_b = document.createElementNS("http://www.w3.org/1999/xhtml","div");
-			katex.render(x_ligne2, antDiv_b, {
-				throwOnError: false
-			});
-			ant_ligne_b.add(antDiv_b);
-
-
-			ant_ligne1 = ant.text(x_ligne1).font(prop_font); 
-			ant_ligne2 = ant.text(x_ligne2).font(prop_font); 
 			// on crée une flèche pour l'antécédent
 			let w_ant = Math.max(ant_ligne1.length(),ant_ligne2.length());
 			ant_ligne1.clear();
 			ant_ligne2.clear();
-			let fleche_ant = SVG_fleche_machine_maths(ant,path_fleche,'#f15929');
-			fleche_ant.dmove(w_ant+interligne/2,interligne);
-			 
-			// on positionne le groupe antécédent
-			ant.dmove(0,h/2-interligne);
-			 
-			//------------GROUPE IMAGE-------------------------
-			// on crée le groupe pour l'image
-			let im = mon_svg.group(); 
-			let im_ligne1 = im.text(i_ligne1).font(prop_font);
-			im_ligne1.dmove(path_fleche_long,-interligne/2);
-			let im_ligne2 = im.text(i_ligne2).font(prop_font);
-			im_ligne2.dmove(path_fleche_long + im_ligne1.length()/2-im_ligne2.length()/2,interligne/2);
-			
-			// on crée une flèche pour l'image
+
+			//------------Dimension Image---------------------------
+			let im_ligne1 = im.text(y_ligne1).font(prop_font); 
+			let im_ligne2 = im.text(y_ligne2).font(prop_font); 
+			// on crée une flèche pour l'antécédent
 			let w_im = Math.max(im_ligne1.length(),im_ligne2.length());
-			let fleche_im = SVG_fleche_machine_maths(im,path_fleche,'#f15929');
-			fleche_im.dmove(0,interligne);
+			im_ligne1.clear();
+			im_ligne2.clear();
 
-			// on positionne le groupe image
-			im.dmove(w/2-w_im/2,h/2-interligne); 
-
-			//------------GROUPE MACHINE-------------------------
- 			// on crée des variables pour le texte à afficher sur la machine afin de récupérer leur taille
+			//------------Dimension Machine-------------------------
+			// on crée des variables pour le texte à afficher sur la machine afin de récupérer leur taille
 			// pour ajuster celle de la machine.
 			if (nom!='') {
 				var machine_nom = mon_svg.text(nom).font(prop_font_nom);
@@ -748,15 +720,50 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 
 			let w_etape_max = Math.max(w_machine_nom,w_machine_etape1,w_machine_etape2,w_machine_etape3,w_ant+interligne,w_im+interligne);
 
+			//------------GROUPE ANTECEDENT------------------------- 
+			let ant_ligne = ant.foreignObject(w_ant,h).attr({x:'0',y:'0'});
+			let antDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+			katex.render(x_ligne1+'\\newline '+x_ligne2, antDiv, {				
+				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"warn","trust":false				
+			});
+			ant_ligne.add(antDiv);
+			ant_ligne.dmove(0,-antDiv.offsetHeight/2);
+			let fleche_ant = SVG_fleche_machine_maths(ant,path_fleche,'#f15929');
+			//fleche_ant.dmove(w_ant+interligne/2,interligne);
+			fleche_ant.dmove(antDiv.offsetWidth+interligne/2,interligne);
+			 
+			// on positionne le groupe antécédent
+			ant.dmove(0,h/2-interligne);
+			 
+			//------------GROUPE IMAGE-------------------------
+			let im_ligne = im.foreignObject(w_im,h).attr({x:'0',y:'0'});
+			let imDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+			katex.render(y_ligne1+'\\newline '+y_ligne2, imDiv, {				
+				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"warn","trust":false				
+			});
+			im_ligne.add(imDiv);
+			im_ligne.dmove(0,-imDiv.offsetHeight/2);
+			let fleche_im = SVG_fleche_machine_maths(im,path_fleche,'#f15929');
+			fleche_im.dmove(-interligne/2,interligne);
+			 
+			// on positionne le groupe antécédent
+			//im.dmove(w/2-w_im/2,h/2-interligne);
+			im.dmove(w/2-imDiv.offsetWidth/2,h/2-interligne);
+
+			//------------GROUPE MACHINE-------------------------
 			//const path_machine = 'M-5,0 L-5,-5 L-5,5 M-5,0 L10,0 L10,-40 L100,-40 L100,0 L120,0 L115,-5 L120,0 L115,5 L120,0 L100,0 L100,40 L10,40 L10,0';
-			const path_machine = 'M-10,0 L-10,-5 L-10,5 M-10,0 L10,0 L10,-40 L'+(w_etape_max+20)+',-40 L'+(w_etape_max+20)+',0 L'+(w_etape_max+40)+',0 L'+(w_etape_max+35)+',-5 L'+(w_etape_max+40)+',0 L'+(w_etape_max+35)+',5 L'+(w_etape_max+40)+',0 L'+(w_etape_max+20)+',0 L'+(w_etape_max+20)+',40 L10,40 L10,0';
+			//const path_machine = 'M-10,0 L-10,-5 L-10,5 M-10,0 L10,0 L10,-40 L'+(w_etape_max+20)+',-40 L'+(w_etape_max+20)+',0 L'+(w_etape_max+40)+',0 L'+(w_etape_max+35)+',-5 L'+(w_etape_max+40)+',0 L'+(w_etape_max+35)+',5 L'+(w_etape_max+40)+',0 L'+(w_etape_max+20)+',0 L'+(w_etape_max+20)+',40 L10,40 L10,0';
+			const path_machine = 'M-10,0 L-10,-5 L-10,5 M-10,0 L10,0 L10,-'+(h/2-5)+' L'+(w_etape_max+20)+',-'+(h/2-5)+' L'+(w_etape_max+20)+',0 L'+(w_etape_max+40)+',0 L'+(w_etape_max+35)+',-5 L'+(w_etape_max+40)+',0 L'+(w_etape_max+35)+',5 L'+(w_etape_max+40)+',0 L'+(w_etape_max+20)+',0 L'+(w_etape_max+20)+','+(h/2-5)+' L10,'+(h/2-5)+' L10,0';
 			let machine = mon_svg.path(path_machine).fill('#fff').stroke({ color: '#f15929', width: 3, linecap: 'round', linejoin:'round'});;
 			machine.dmove(w/2-w_etape_max/2 - 20 + interligne/2,h/2); //w/2;  60 est la moitié de la taille de la machine en largeur
 
-			machine_nom = mon_svg.text(nom).font(prop_font_nom).move(w/2-w_machine_nom/2,interligne);
-			machine_etape1 = mon_svg.text(etape1).font(prop_font_etape).move(w/2-w_machine_etape1/2,2*interligne);
-			machine_etape2 = mon_svg.text(etape2).font(prop_font_etape).move(w/2-w_machine_etape2/2,3*interligne);
-			machine_etape3 = mon_svg.text(etape3).font(prop_font_etape).move(w/2-w_machine_etape3/2,4*interligne);
+			let fobj_machine = mon_svg.foreignObject(w_etape_max,h).attr({x:w/2-w_etape_max/2,y:'0'});
+			let machineDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+			katex.render('\\mathbf{'+nom+'}\\newline '+etape1+'\\newline '+etape2+'\\newline '+etape3, machineDiv, {				
+				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"warn","trust":false				
+			});
+			fobj_machine.add(machineDiv);
+			fobj_machine.dmove(0,h/2-interligne-machineDiv.offsetHeight/2);
 
 			//------------ANIMATION-------------------------
  			ant.timeline(timeline);
@@ -936,7 +943,7 @@ function fonction_notion_vocabulaire(){
 	} 
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
-	this.nb_questions = 1;
+	this.nb_questions = 4;
 	//this.correction_detaillee_disponible = true;
 	this.nb_cols_corr = 1;
 	this.sup = 1;
@@ -952,7 +959,7 @@ function fonction_notion_vocabulaire(){
 		//this.consigne += `<div id="consigne" style="width: 100%; height: 500px; display : table "></div>`;
 		//this.consigne += `<div id="${id_du_div}" style="width: 100%; height: 150px; display : table "></div>`;
 		this.consigne += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table "></div>`;
-		SVG_machine_maths(id_du_div,400,hauteur_svg,'machine maths','','Procédé','de calcul','antécédent','x','image','y');
+		SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, maths','---','Procédé','de \\, calcul','antécédent','x','image','y');
 	} else { // sortie LaTeX
 
 	};
@@ -965,8 +972,8 @@ function fonction_notion_vocabulaire(){
 		this.contenu = ''; // Liste de questions
 		this.contenu_correction = ''; // Liste de questions corrigées
 
-		//let type_de_questions_disponibles = [1,2,3,4];
-		let type_de_questions_disponibles = [1];
+		let type_de_questions_disponibles = [1,2,3,4];
+		//let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
 
 			for (let i = 0, x, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
@@ -985,7 +992,7 @@ function fonction_notion_vocabulaire(){
 						if (sortie_html) {
 							texte += `<br>`;
 							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
-							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine f','','périmètre','d\'un carré','carré \\, de','côté \\,'+x+'\\, cm','périmètre','??? cm');
+							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine f','---','périmètre','d\'un \\, carré','carré \\, de','côté \\, '+x+' \\, cm','périmètre','??? \\, cm');
 							
 						} else { // sortie Latex avec Tikz
 
@@ -1053,16 +1060,6 @@ function fonction_notion_vocabulaire(){
 						texte += num_alpha(j)+` En utilisant la forme `;
 						if (sortie_html){							
 							texte += katex_Popup('$\\mathbf{f :} \\textbf{\\textit{ x }} \\mathbf{\\longmapsto \\ldots}$','Notation','4 a pour image 16 par la fonction f peut s\'écrire $\\textbf{f : 4 } \\mathbf{\\longmapsto} \\textbf{16}$');							
-						// 	texte+= `
-						//   <script>
-						//   $('.katexPopup').popup({
-						// 	   popup: '.special.popup',
-						// 	   on: 'hover',
-						// 	   variation: 'inverted',
-						// 	   inline: true
-						// 	});
-						//   </script>
-						// 	`;
 						} else { // sortie LaTeX
 							texte +=`$\\textbf{\\textit{x}} \\stackrel{\\mathbf{f :}}{\\mathbf{\\longmapsto}} \\textbf{\\ldots}$`;
 						};						
@@ -1071,17 +1068,6 @@ function fonction_notion_vocabulaire(){
 						j++;//incrémente la sous question
 						break;			
 					case 2 : // aire d'un carré de côté x
-						// texte = `La $\\textbf{machine g}$ renvoie l'aire d'un carré de côté $x$`;
-						// texte += `<br>`;
-						// texte += `Quelle est la sortie si le côté vaut  ${x}  cm ?`;
-						// if (sortie_html) {
-						// 	texte += `<br>`;
-						// 	texte += `<div id="${id_du_div}" style="width: ${pourcentage}; height: 150px; display : table "></div>`;
-						// 	SVG_machine_maths(id_du_div,400,hauteur_svg,'machine g','','aire','d\'un carré','carré de','côté '+x+' cm','aire','? cm');
-						// } else { // sortie LaTeX avec Tikz
-
-						// };
-						// texte_corr = `Aire d'un carré de côté ${x}`;
 						var j = 0; // pour la sous-numérotation
 						texte = `La $\\textbf{machine g}$ renvoie l'aire d'un carré de côté $x$`;
 						//texte += `<br>`;
@@ -1089,7 +1075,7 @@ function fonction_notion_vocabulaire(){
 						if (sortie_html) {
 							texte += `<br>`;
 							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
-							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine g','','aire','d\'un carré','carré de','côté '+x+' cm','aire','? cm^2');
+							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, g','---','aire','d\'un \\, carré','carré \\, de','côté \\, '+x+'\\, cm','aire','??? \\, cm^2');
 							
 						} else { // sortie Latex avec Tikz
 
@@ -1157,16 +1143,6 @@ function fonction_notion_vocabulaire(){
 						texte += num_alpha(j)+` En utilisant la forme `;
 						if (sortie_html){							
 							texte += katex_Popup('$\\mathbf{g :} \\textbf{\\textit{ x }} \\mathbf{\\longmapsto \\ldots}$','Notation','4 a pour image 16 par la fonction g peut s\'écrire $\\textbf{g : 4 } \\mathbf{\\longmapsto} \\textbf{16}$');							
-						// 	texte+= `
-						//   <script>
-						//   $('.katexPopup').popup({
-						// 	   popup: '.special.popup',
-						// 	   on: 'hover',
-						// 	   variation: 'inverted',
-						// 	   inline: true
-						// 	});
-						//   </script>
-						// 	`;
 						} else { // sortie LaTeX
 							texte +=`$\\textbf{\\textit{x}} \\stackrel{\\mathbf{g :}}{\\mathbf{\\longmapsto}} \\textbf{\\ldots}$`;
 						};						
@@ -1175,17 +1151,6 @@ function fonction_notion_vocabulaire(){
 						j++;//incrémente la sous question
 						break;			
 					case 3 : // somme de 1 et du triple de x
-						// texte = `La $\\textbf{machine h}$ renvoie la somme de 1 et du triple de x`;
-						// texte += `<br>`;
-						// texte += `Quelle est la sortie si le nombre de départ vaut  ${x}  ?`;
-						// if (sortie_html) {
-						// 	texte += `<br>`;
-						// 	texte += `<div id="${id_du_div}" style="width: ${pourcentage}; height: 150px; display : table "></div>`;
-						// 	SVG_machine_maths(id_du_div,400,hauteur_svg,'machine h','','-> tripler','-> ajouter 1','nombre de','départ '+x+'','nombre de','sortie ?');							
-						// } else { // sortie LaTeX avec Tikz
-
-						// };
-						// texte_corr = `Somme de 1 et du triple de ${x}`;
 						var j = 0; // pour la sous-numérotation
 						texte = `La $\\textbf{machine h}$ renvoie la somme de 1 et du triple de du nombre de départ`;
 						//texte += `<br>`;
@@ -1193,7 +1158,7 @@ function fonction_notion_vocabulaire(){
 						if (sortie_html) {
 							texte += `<br>`;
 							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
-							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine h','','-> tripler','-> ajouter 1','nombre de','départ '+x+'','nombre de','sortie ?');
+							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, h','---','multiplier \\, par \\, 3','ajouter \\, 1','nombre \\, de','départ \\, '+x,'nombre \\, de','sortie \\, ?');
 						} else { // sortie Latex avec Tikz
 
 						};
@@ -1260,16 +1225,6 @@ function fonction_notion_vocabulaire(){
 						texte += num_alpha(j)+` En utilisant la forme `;
 						if (sortie_html){							
 							texte += katex_Popup('$\\mathbf{h :} \\textbf{\\textit{ x }} \\mathbf{\\longmapsto \\ldots}$','Notation','4 a pour image 16 par la fonction h peut s\'écrire $\\textbf{h : 4 } \\mathbf{\\longmapsto} \\textbf{16}$');
-						// 	texte+= `
-						//   <script>
-						//   $('.katexPopup').popup({
-						// 	   popup: '.special.popup',
-						// 	   on: 'hover',
-						// 	   variation: 'inverted',
-						// 	   inline: true
-						// 	});
-						//   </script>
-						// 	`;
 						} else { // sortie LaTeX
 							texte +=`$\\textbf{\\textit{x}} \\stackrel{\\mathbf{h :}}{\\mathbf{\\longmapsto}} \\textbf{\\ldots}$`;
 						};						
@@ -1278,17 +1233,6 @@ function fonction_notion_vocabulaire(){
 						j++;//incrémente la sous question
 						break;
 					case 4 : // nombre de diviseurs de x entier
-					// texte = `La $\\textbf{machine d}$, qui n'accepte que des nombres entiers positifs, renvoie le nombre de diviseurs du nombre de départ.`;
-					// texte += `<br>`;
-					// texte += `Quelle est la sortie si le nombre de départ vaut  ${x}  ?`;
-					// 	if (sortie_html) {
-					// 		texte += `<br>`;
-					// 		texte += `<div id="${id_du_div}" style="width: ${pourcentage}; height: 150px; display : table "></div>`;
-					// 		SVG_machine_maths(id_du_div,400,hauteur_svg,'machine d','','nombre de','diviseurs','nombre de','départ '+x,'nombre de',' diviseurs ?');														
-					// 	} else { // sortie LaTeX avec Tikz
-
-					// 	};
-					// 	texte_corr = `Nombre de diviseurs de ${x} (entier)`;
 					var j = 0; // pour la sous-numérotation
 					texte = `La $\\textbf{machine d}$, qui n'accepte que des nombres entiers positifs, renvoie le nombre de diviseurs du nombre de départ.`;
 					//texte += `<br>`;
@@ -1296,7 +1240,7 @@ function fonction_notion_vocabulaire(){
 					if (sortie_html) {
 						texte += `<br>`;
 						texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
-						SVG_machine_maths(id_du_div,400,hauteur_svg,'machine d','','nombre de','diviseurs','nombre de','départ '+x,'nombre de',' diviseurs ?');														
+						SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, d','---','nombre \\enspace total','de  \\, diviseurs','nombre \\, de','départ \\,'+x,'nombre \\, de',' diviseurs');														
 					} else { // sortie Latex avec Tikz
 
 					};
@@ -1336,17 +1280,6 @@ function fonction_notion_vocabulaire(){
 					texte += num_alpha(j)+` Peut-on trouver deux antécédents de 3 par la fonction d ?<br>`;
 					texte_corr += num_alpha(j)+`Il faut trouver des nombres qui ont exactement 3 diviseurs. Méthode à détailler ici.<br>`;					
 					j++;//incrémente la sous question
-
-					// texte+= `
-					//   <script>
-					//   $('.katexPopup').popup({
-					// 	   popup: '.special.popup',
-					// 	   on: 'hover',
-					// 	   variation: 'inverted',
-					// 	   inline: true
-					// 	});
-					//   </script>
-					// 	`;
 						break;																
 				};
 			
