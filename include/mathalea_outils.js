@@ -341,6 +341,17 @@ function ecriture_nombre_relatif(a) {
 	}
 	return result;
 }
+function ecriture_nombre_relatifc(a) { 
+	let result = '';
+	if (a>0) {
+		result =texte_en_couleur('(+'+tex_nombrec(a)+')','green');
+	}else if (a<0) {
+		result = texte_en_couleur('('+tex_nombrec(a)+')','red');
+	}else{ // ne pas mettre de parenthèses pour 0
+		result = '0'
+	}
+	return result;
+}
 
 /**
 * Ajoute le + devant les nombres positifs
@@ -357,6 +368,16 @@ function ecriture_algebrique(a) {
 	}
 	return result;
 };
+
+function ecriture_algebriquec(a) {
+	let result = '';
+	if (a>0) {
+		result = texte_en_couleur('+'+tex_nombrec(a),'green');
+	}else {
+		result = texte_en_couleur(tex_nombrec(a),'red');
+	}
+	return result;
+}
 
 /**
 * Ajoute des parenthèses aux nombres négatifs
@@ -583,6 +604,12 @@ function calcul(expression,arrondir=false){
 function tex_nombrec(expression){ 
 	return tex_nombre(parseFloat(Algebrite.eval(expression)))
 }
+function tex_nombrecoul(expression){ 
+	let nombre=parseFloat(Algebrite.eval(expression))
+	if (nombre>0) return texte_en_couleur(tex_nombrec(nombre),'green')
+	else if (nombre<0) return texte_en_couleur(tex_nombrec(nombre),'red')
+		else return tex_nombre(0)
+}
 
 
 /**
@@ -590,6 +617,7 @@ function tex_nombrec(expression){
 * @Auteur Rémi Angot
 */function somme_des_termes_par_signe(liste){
 	let somme_des_positifs = 0, somme_des_negatifs = 0;
+	console.log(liste)
 	for (var i = 0; i < liste.length; i++) {
 		if (liste[i]>0){
 			somme_des_positifs += liste[i]
@@ -598,6 +626,15 @@ function tex_nombrec(expression){
 		}
 	}
 	return [somme_des_positifs,somme_des_negatifs]
+}
+function trie_positifs_negatifs(liste){
+	let positifs=[]
+	let negatifs=[]
+	for (let i=0; i<liste.length;i++) {
+		if (liste[i]>0) positifs.push(liste[i])
+		else negatifs.push(liste[i])
+	}
+	return positifs.concat(negatifs)
 }
 
 /**
@@ -949,6 +986,8 @@ function tex_nombre(nb){
 		return result;
 	}
 }
+
+
 /**
 * Renvoit un nombre dans le format français (séparateur de classes) version sans Katex (pour les SVG)
 * @Auteur Jean-Claude Lhote

@@ -90,7 +90,7 @@ var liste_des_exercices_disponibles = {
 		'5R20_ter': Exercice_additions_de_5_relatifs, //on pourrait le corriger avec regroupement des termes de même signe
 		'5R21': Exercice_soustractions_relatifs,
 		'5R22': Exercice_additions_et_soustraction_de_relatifs,
-		'5R31': Exercice_additions_et_soustraction_de_relatifs,
+		'5R31': Exercice_additions_et_soustraction_de_relatifsV2,
 		'5R31-2': Exercice_simplification_somme_algebrique,
 		'5S10': Calculer_des_frequences,
 		'5S10-2': Calculer_des_moyennes,
