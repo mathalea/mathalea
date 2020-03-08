@@ -341,14 +341,18 @@ function ecriture_nombre_relatif(a) {
 	}
 	return result;
 }
+/**
+ * Idem ecriture_nombre_relatif avec le code couleur : vert si positif, rouge si négatif, noir si nul
+ * @param {number} a 
+ */
 function ecriture_nombre_relatifc(a) { 
 	let result = '';
 	if (a>0) {
-		result =texte_en_couleur('(+'+tex_nombrec(a)+')','green');
+		result =mise_en_evidence('(+'+tex_nombrec(a)+')','green');
 	}else if (a<0) {
-		result = texte_en_couleur('('+tex_nombrec(a)+')','red');
+		result = mise_en_evidence('('+tex_nombrec(a)+')','red');
 	}else{ // ne pas mettre de parenthèses pour 0
-		result = '0'
+		result = mise_en_evidence('0','black');
 	}
 	return result;
 }
@@ -368,14 +372,17 @@ function ecriture_algebrique(a) {
 	}
 	return result;
 };
-
+/**
+ * Idem ecriture_algebrique mais retourne le nombre en couleur (vert si positif, rouge si négatif et noir si nul)
+ * @param {number} a 
+ */
 function ecriture_algebriquec(a) {
 	let result = '';
 	if (a>0) {
-		result = texte_en_couleur('+'+tex_nombrec(a),'green');
-	}else {
-		result = texte_en_couleur(tex_nombrec(a),'red');
-	}
+		result = mise_en_evidence('+'+tex_nombrec(a),'green');
+	}else if (a<0) {
+		result = mise_en_evidence(tex_nombrec(a),'red');
+	} else result = mise_en_evidence(tex_nombrec(a),'black');
 	return result;
 }
 
@@ -552,6 +559,11 @@ else {
 }
 }
 
+/**
+ * renvoie une chaine correspondant à l'écriture réduite de ax+b selon les valeurs de a et b
+ * @param {number} a 
+ * @param {number} b 
+ */
 function reduire_ax_plus_b(a,b) {
 	let result=``
 	if (a!=0) if (a==1) result='x'
@@ -604,11 +616,14 @@ function calcul(expression,arrondir=false){
 function tex_nombrec(expression){ 
 	return tex_nombre(parseFloat(Algebrite.eval(expression)))
 }
-function tex_nombrecoul(expression){ 
-	let nombre=parseFloat(Algebrite.eval(expression))
-	if (nombre>0) return texte_en_couleur(tex_nombrec(nombre),'green')
-	else if (nombre<0) return texte_en_couleur(tex_nombrec(nombre),'red')
-		else return tex_nombre(0)
+/**
+ * renvoie le résultat de l'expression en couleur (vert=positif, rouge=négatif, noir=nul)
+ * @param {string} expression l'expression à calculer
+ */
+function tex_nombrecoul(nombre){ 
+	if (nombre>0) return mise_en_evidence(tex_nombrec(nombre),'green')
+	else if (nombre<0) return mise_en_evidence(tex_nombrec(nombre),'red')
+		else return mise_en_evidence(tex_nombrec(0),'black')
 }
 
 
@@ -617,7 +632,6 @@ function tex_nombrecoul(expression){
 * @Auteur Rémi Angot
 */function somme_des_termes_par_signe(liste){
 	let somme_des_positifs = 0, somme_des_negatifs = 0;
-	console.log(liste)
 	for (var i = 0; i < liste.length; i++) {
 		if (liste[i]>0){
 			somme_des_positifs += liste[i]
@@ -627,6 +641,10 @@ function tex_nombrecoul(expression){
 	}
 	return [somme_des_positifs,somme_des_negatifs]
 }
+/**
+ * prend une liste de nombres relatifs et la retourne avec les positifs au début et les négatifs à la fin.
+ * @param {array} liste la liste de nombres à trier
+ */
 function trie_positifs_negatifs(liste){
 	let positifs=[]
 	let negatifs=[]

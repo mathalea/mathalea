@@ -994,26 +994,37 @@ function Exercice_additions_et_soustraction_de_relatifsV2(max=20){
 				s3 = choice([-1,1])	
 			}
 			s4 = choice([-1,1])
-			if (this.sup2){
+			if (this.sup2){		
 				texte = `$ ${lettre_depuis_chiffre(i+1)} = ${a}${ecriture_algebrique(b)}${ecriture_algebrique(c)}${ecriture_algebrique(d)}${ecriture_algebrique(e)} = \\dotfill $`;
 				if (!sortie_html){
-					texte += `<br>\n$${lettre_depuis_chiffre(i+1)} = \\dotfill $`
+					texte += `<br>\n$ ${lettre_depuis_chiffre(i+1)} = \\dotfill $`
 				}
 				relatifs=trie_positifs_negatifs([a,b,c,d,e])
-				texte_corr = `$${lettre_depuis_chiffre(i+1)} =  ${tex_nombrecoul(a)}${ecriture_algebriquec(b)}${ecriture_algebriquec(c)}${ecriture_algebriquec(d)}${ecriture_algebriquec(e)} =${tex_nombrecoul(relatifs[0])}${ecriture_algebriquec(relatifs[1])}${ecriture_algebriquec(relatifs[2])}${ecriture_algebriquec(relatifs[3])}${ecriture_algebriquec(relatifs[4])}= ${tex_nombrecoul(somme_des_termes_par_signe([a,b,c,d,e])[0])}${ecriture_algebriquec(somme_des_termes_par_signe([a,b,c,d,e])[1])} = ${tex_nombrecoul(a+b+c+d+e)} $`;		
-			} else {
-				texte = `$${lettre_depuis_chiffre(i+1)} =  ${ecriture_nombre_relatif(a)}${signe(s1)}${ecriture_nombre_relatif(b)}${signe(s2)}${ecriture_nombre_relatif(c)}${signe(s3)}${ecriture_nombre_relatif(d)}${signe(s4)}${ecriture_nombre_relatif(e)} = \\dotfill $`;
-				if (!sortie_html){
-					texte += `\\\\\n$${lettre_depuis_chiffre(i+1)} = \\dotfill $`	
+				texte_corr = `$ ${lettre_depuis_chiffre(i+1)}=${tex_nombrecoul(a)}${ecriture_algebriquec(b)}${ecriture_algebriquec(c)}${ecriture_algebriquec(d)}${ecriture_algebriquec(e)}=`;
+				if (somme_des_termes_par_signe([a,b,c,d,e])[0]!=0&&somme_des_termes_par_signe([a,b,c,d,e])[1]!=0) {
+					texte_corr +=`${tex_nombrecoul(relatifs[0])}${ecriture_algebriquec(relatifs[1])}${ecriture_algebriquec(relatifs[2])}${ecriture_algebriquec(relatifs[3])}${ecriture_algebriquec(relatifs[4])}=`
+					texte_corr +=`${tex_nombrecoul(a+b+c+d+e)} $`;
 				}
-				texte_corr = `$${lettre_depuis_chiffre(i+1)} =  ${ecriture_nombre_relatifc(a)}${signe(s1)}${ecriture_nombre_relatif(b)}${signe(s2)}${ecriture_nombre_relatif(c)}${signe(s3)}${ecriture_nombre_relatif(d)}${signe(s4)}${ecriture_nombre_relatif(e)}$`;
-				texte_corr += `\\\\\n$${lettre_depuis_chiffre(i+1)} = ${ecriture_nombre_relatifc(a)}+${ecriture_nombre_relatifc(s1*b)}+${ecriture_nombre_relatifc(s2*c)}+${ecriture_nombre_relatifc(s3*d)}+${ecriture_nombre_relatifc(s4*e)} $`;
-				let relatifs=trie_positifs_negatifs([a,s1*b,s2*c,s3*d,s4*e])		
-				texte_corr += `\\\\\n$${lettre_depuis_chiffre(i+1)} = ${ecriture_nombre_relatifc(relatifs[0])}+${ecriture_nombre_relatifc(relatifs[1])}+${ecriture_nombre_relatifc(relatifs[2])}+${ecriture_nombre_relatifc(relatifs[3])}+${ecriture_nombre_relatifc(relatifs[4])} $`;
-				let sommes_signees=somme_des_termes_par_signe([relatifs[0],relatifs[1],relatifs[2],relatifs[3],relatifs[4]])
-				texte_corr += `\\\\\n$${lettre_depuis_chiffre(i+1)} = ${ecriture_nombre_relatifc(sommes_signees[0])}+${ecriture_nombre_relatifc(sommes_signees[1])} $`;
+				else
+					if (somme_des_termes_par_signe([a,b,c,d,e])[0]!=0) texte_corr +=`${tex_nombrecoul(somme_des_termes_par_signe([a,b,c,d,e])[0])}$`
+					else  texte_corr +=`${ecriture_algebriquec(somme_des_termes_par_signe([a,b,c,d,e])[1])}$`
+			} 
+			else {
+				texte = `$ ${lettre_depuis_chiffre(i+1)} =  ${ecriture_nombre_relatif(a)}${signe(s1)}${ecriture_nombre_relatif(b)}${signe(s2)}${ecriture_nombre_relatif(c)}${signe(s3)}${ecriture_nombre_relatif(d)}${signe(s4)}${ecriture_nombre_relatif(e)} = \\dotfill $`;
+				if (!sortie_html){
+					texte += `<br>\n$ ${lettre_depuis_chiffre(i+1)} = \\dotfill $`	
+				}
+				texte_corr = `$ ${lettre_depuis_chiffre(i+1)} =  ${a}${signe(s1)}${ecriture_nombre_relatif(b)}${signe(s2)}${ecriture_nombre_relatif(c)}${signe(s3)}${ecriture_nombre_relatif(d)}${signe(s4)}${ecriture_nombre_relatif(e)}$`;
+				texte_corr += `<br>\n$ ${lettre_depuis_chiffre(i+1)} = ${ecriture_nombre_relatifc(a)}+${ecriture_nombre_relatifc(s1*b)}+${ecriture_nombre_relatifc(s2*c)}+${ecriture_nombre_relatifc(s3*d)}+${ecriture_nombre_relatifc(s4*e)} $`;
 
-				texte_corr += `\\\\\n$${lettre_depuis_chiffre(i+1)} = ${ecriture_nombre_relatifc(a+s1*b+s2*c+s3*d+s4*e)} $`;
+				relatifs=trie_positifs_negatifs([a,s1*b,s2*c,s3*d,s4*e])		
+
+				texte_corr += `<br>\n$ ${lettre_depuis_chiffre(i+1)} = ${ecriture_nombre_relatifc(relatifs[0])}+${ecriture_nombre_relatifc(relatifs[1])}+${ecriture_nombre_relatifc(relatifs[2])}+${ecriture_nombre_relatifc(relatifs[3])}+${ecriture_nombre_relatifc(relatifs[4])} $`;
+
+				sommes_signees=somme_des_termes_par_signe([relatifs[0],relatifs[1],relatifs[2],relatifs[3],relatifs[4]])
+
+				texte_corr += `<br>\n$ ${lettre_depuis_chiffre(i+1)} = ${ecriture_nombre_relatifc(sommes_signees[0])}+${ecriture_nombre_relatifc(sommes_signees[1])} $`;
+				texte_corr += `<br>\n$ ${lettre_depuis_chiffre(i+1)} = ${ecriture_nombre_relatifc(a+s1*b+s2*c+s3*d+s4*e)} $`;
 			}
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
