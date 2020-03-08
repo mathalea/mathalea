@@ -892,34 +892,107 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes,expressions) {
 			let diag=mon_svg.group();
 			let cadre_ant = SVG_chemin(diag,path_cadre_rect,'#f15929');  
 			cadre_ant.dmove(0,h/2);
-			let x = diag.text(x_ant).font(prop_font); 
-			x.dmove(2*interligne-x.length()/2,h/2-interligne);
+
+
+			// let x = diag.text(x_ant).font(prop_font); 
+			// x.dmove(2*interligne-x.length()/2,h/2-interligne);
+			let x = diag.text(x_ant).font(prop_font);
+			let w_x_ant = x.length()+5;
+			x.clear();
+			let fobj_x = diag.foreignObject(w_x_ant,h).attr({x:'0',y:'0'});
+			let xDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+			katex.render('\\tiny{'+x_ant+'}', xDiv, {				
+				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"warn","trust":false				
+			});
+			fobj_x.add(xDiv);
+			fobj_x.dmove(2*interligne-xDiv.offsetWidth/2,0);
+
 			let svg_etapes = []; // tableau pour les étapes
 			let svg_cadres_fin = []; // tableau pour les textes des cadres de fin
 			let svg_operations_etapes = []; // tableau pour les opérations des étapes
 			let w_svg_operations_etapes = []; // tableau pour la largeur de ces opérations
+			let svg_operations_etapesDiv = []; // pour les foreignObject des étapes
 			for (var i = 0; i<etapes.length; i++) {
 				svg_etapes[i] = SVG_etapes(mon_svg,interligne,h,'#f15929',4*interligne+8*i*interligne);
 				if (etapes.length==i+1) {//si la longueur du tableau des etapes vaut i+1 c'est que c'est la derniere on affiche f(x)=...
 					if (typeof expressions[i]!=='undefined') { // si il y a une expression algébrique on l'affiche
-						svg_cadres_fin[i] = diag.text(nom+'(x)='+expressions[i]).font(prop_font);
+						//svg_cadres_fin[i] = diag.text(nom+'(x)='+expressions[i]).font(prop_font);
+						let temp = diag.text(nom+'(x)='+expressions[i]).font(prop_font);
+						let w_temp = temp.length()+5;
+						temp.clear();
+						svg_cadres_fin[i] = diag.foreignObject(w_temp,h).attr({x:'0',y:'0'});
+						let tempDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+						katex.render('\\tiny{'+nom+'(x)='+expressions[i]+'}', tempDiv, {				
+							"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"warn","trust":false				
+						});
+						svg_cadres_fin[i].add(tempDiv);
+						//svg_cadres_fin[i].dmove(0,0);
+						var w_cadre_fin = tempDiv.offsetWidth;
+			
 					} else { // sinon on met ...
-						svg_cadres_fin[i] = diag.text(nom+'(x)=...').font(prop_font);
+						//svg_cadres_fin[i] = diag.text(nom+'(x)=...').font(prop_font);
+						let temp = diag.text(nom+'(x)=...').font(prop_font);
+						let w_temp = temp.length()+5;
+						temp.clear();
+						svg_cadres_fin[i] = diag.foreignObject(w_temp,h).attr({x:'0',y:'0'});
+						let tempDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+						katex.render('\\tiny{'+nom+'(x)=...}', tempDiv, {				
+							"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"warn","trust":false				
+						});
+						svg_cadres_fin[i].add(tempDiv);
+						//svg_cadres_fin[i].dmove(0,0);
+						var w_cadre_fin = tempDiv.offsetWidth;
 					};
-					let w_cadre_fin = svg_cadres_fin[i].length();
-					svg_cadres_fin[i].dmove(10*interligne+8*i*interligne-w_cadre_fin/2,h/2-interligne);
+					//let w_cadre_fin = svg_cadres_fin[i].length();
+					
+					//console.log(w_cadre_fin);
+					//svg_cadres_fin[i].dmove(10*interligne+8*i*interligne-w_cadre_fin/2,h/2-interligne);
+					svg_cadres_fin[i].dmove(10*interligne+8*i*interligne-w_cadre_fin/2,0);
 				} else {//sinon on affiche ...... ou l'expression algébrique si elle existe
 					//svg_cadres_fin[i] = diag.text('......').dmove(9*interligne+8*i*interligne,interligne);
 					if (typeof expressions[i]!=='undefined') { // si il y a une expression algébrique on l'affiche
-						svg_cadres_fin[i] = diag.text(expressions[i]).font(prop_font).dmove(9*interligne+8*i*interligne,h/2-interligne);
-					} else { // sinon on met ...
+						//svg_cadres_fin[i] = diag.text(expressions[i]).font(prop_font).dmove(9*interligne+8*i*interligne,h/2-interligne);
+												let temp = diag.text(nom+'(x)=...').font(prop_font);
+						let w_temp = temp.length()+5;
+						temp.clear();
+						svg_cadres_fin[i] = diag.foreignObject(w_temp,h).attr({x:'0',y:'0'});
+						let tempDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+						katex.render('\\tiny{'+nom+'(x)=...}', tempDiv, {				
+							"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"warn","trust":false				
+						});
+						svg_cadres_fin[i].add(tempDiv);
+						//svg_cadres_fin[i].dmove(0,0);
+						var w_cadre_fin = tempDiv.offsetWidth;
+						//};
+						//let w_cadre_fin = svg_cadres_fin[i].length();
+						
+						//console.log(w_cadre_fin);
+						//svg_cadres_fin[i].dmove(10*interligne+8*i*interligne-w_cadre_fin/2,h/2-interligne);
+						svg_cadres_fin[i].dmove(9*interligne+8*i*interligne,0);
+					} else { // sinon on met ......
+						//svg_cadres_fin[i] = diag.text('......').dmove(9*interligne+8*i*interligne,interligne);
 						svg_cadres_fin[i] = diag.text('......').dmove(9*interligne+8*i*interligne,interligne);
 					};
 
 				};				
+				// svg_operations_etapes[i] = diag.text(etapes[i]).font(prop_font);
+				// w_svg_operations_etapes[i] = svg_operations_etapes[i].length();
+				// svg_operations_etapes[i].dmove(6*interligne+8*i*interligne-w_svg_operations_etapes[i]/2,h/2-interligne);				
+
 				svg_operations_etapes[i] = diag.text(etapes[i]).font(prop_font);
 				w_svg_operations_etapes[i] = svg_operations_etapes[i].length();
-				svg_operations_etapes[i].dmove(6*interligne+8*i*interligne-w_svg_operations_etapes[i]/2,h/2-interligne);				
+				svg_operations_etapes[i].clear();
+				svg_operations_etapes[i] = diag.foreignObject(w_svg_operations_etapes[i],h).attr({x:'0',y:'0'});
+				svg_operations_etapesDiv[i] = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+				katex.render('\\tiny{'+etapes[i]+'}', svg_operations_etapesDiv[i], {				
+					"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"warn","trust":false				
+				});
+				svg_operations_etapes[i].add(svg_operations_etapesDiv[i]);
+				//svg_cadres_fin[i].dmove(0,0);
+				//var w_cadre_fin = tempDiv.offsetWidth;
+				svg_operations_etapes[i].dmove(6*interligne+8*i*interligne-w_svg_operations_etapes[i]/2,0);
+
+
 			};		 
 
 		clearInterval(SVGExist[id_du_div]);//Arrête le timer
@@ -1041,11 +1114,11 @@ function fonction_notion_vocabulaire(){
 						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-1)+` sous forme de diagramme.<br>`;
 						texte += `Voici le diagramme d'une machine qui triple `;
 						texte += `<div id="diagramme_type1" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-						SVG_machine_diag('diagramme_type1',400,50,'f','x',['x3'],['3x']);
+						SVG_machine_diag('diagramme_type1',400,50,'f','x',['\\times 3'],['3x']);
 
 						texte_corr += num_alpha(j)+`C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
 						texte_corr += `<div id="diagramme_type1_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-						SVG_machine_diag('diagramme_type1_corr',400,50,'f','x',['x4'],['4x']);
+						SVG_machine_diag('diagramme_type1_corr',400,50,'f','x',['\\times 4'],['4x']);
 						j++;//incrémente la sous question
 
 						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-2)+` sous la forme `;
@@ -1124,11 +1197,11 @@ function fonction_notion_vocabulaire(){
 						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-1)+` sous forme de diagramme.<br>`;
 						texte += `Voici le diagramme d'une machine qui triple `;
 						texte += `<div id="diagramme_type2" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-						SVG_machine_diag('diagramme_type2',400,50,'g','x',['x3'],['3x']);
+						SVG_machine_diag('diagramme_type2',400,50,'g','x',['\\times 3'],['3x']);
 
 						texte_corr += num_alpha(j)+`C'est une machine qui multiplie un nombre par lui-même, donc sous forme de diagramme.<br>`;
 						texte_corr += `<div id="diagramme_type2_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-						SVG_machine_diag('diagramme_type2_corr',400,50,'g','x',['xx'],['xx']);
+						SVG_machine_diag('diagramme_type2_corr',400,50,'g','x',['\\times x'],['x^2']);
 						j++;//incrémente la sous question
 
 						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-2)+` sous la forme `;
@@ -1206,11 +1279,11 @@ function fonction_notion_vocabulaire(){
 						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-1)+` sous forme de diagramme.<br>`;
 						texte += `Voici le diagramme d'une machine qui double puis qui ajoute 5 `;
 						texte += `<div id="diagramme_type3" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-						SVG_machine_diag('diagramme_type3',400,50,'h','x',['x2','+5'],[]);
+						SVG_machine_diag('diagramme_type3',400,50,'h','x',['\\times 2','+5'],[]);
 
 						texte_corr += num_alpha(j)+`C'est une machine qui triple un nombre et ajoute 1, donc sous forme de diagramme.<br>`;
 						texte_corr += `<div id="diagramme_type3_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-						SVG_machine_diag('diagramme_type3_corr',400,50,'h','x',['x3','+1'],['3x','3x+1']);
+						SVG_machine_diag('diagramme_type3_corr',400,50,'h','x',['\\times 3','+1'],['3x','3x+1']);
 						j++;//incrémente la sous question
 
 						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-2)+` sous la forme `;
