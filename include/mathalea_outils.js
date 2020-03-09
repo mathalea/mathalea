@@ -341,6 +341,21 @@ function ecriture_nombre_relatif(a) {
 	}
 	return result;
 }
+/**
+ * Idem ecriture_nombre_relatif avec le code couleur : vert si positif, rouge si négatif, noir si nul
+ * @param {number} a 
+ */
+function ecriture_nombre_relatifc(a) { 
+	let result = '';
+	if (a>0) {
+		result =mise_en_evidence('(+'+tex_nombrec(a)+')','green');
+	}else if (a<0) {
+		result = mise_en_evidence('('+tex_nombrec(a)+')','red');
+	}else{ // ne pas mettre de parenthèses pour 0
+		result = mise_en_evidence('0','black');
+	}
+	return result;
+}
 
 /**
 * Ajoute le + devant les nombres positifs
@@ -357,6 +372,19 @@ function ecriture_algebrique(a) {
 	}
 	return result;
 };
+/**
+ * Idem ecriture_algebrique mais retourne le nombre en couleur (vert si positif, rouge si négatif et noir si nul)
+ * @param {number} a 
+ */
+function ecriture_algebriquec(a) {
+	let result = '';
+	if (a>0) {
+		result = mise_en_evidence('+'+tex_nombrec(a),'green');
+	}else if (a<0) {
+		result = mise_en_evidence(tex_nombrec(a),'red');
+	} else result = mise_en_evidence(tex_nombrec(a),'black');
+	return result;
+}
 
 /**
 * Ajoute des parenthèses aux nombres négatifs
@@ -531,6 +559,11 @@ else {
 }
 }
 
+/**
+ * renvoie une chaine correspondant à l'écriture réduite de ax+b selon les valeurs de a et b
+ * @param {number} a 
+ * @param {number} b 
+ */
 function reduire_ax_plus_b(a,b) {
 	let result=``
 	if (a!=0) if (a==1) result='x'
@@ -583,6 +616,15 @@ function calcul(expression,arrondir=false){
 function tex_nombrec(expression){ 
 	return tex_nombre(parseFloat(Algebrite.eval(expression)))
 }
+/**
+ * renvoie le résultat de l'expression en couleur (vert=positif, rouge=négatif, noir=nul)
+ * @param {string} expression l'expression à calculer
+ */
+function tex_nombrecoul(nombre){ 
+	if (nombre>0) return mise_en_evidence(tex_nombrec(nombre),'green')
+	else if (nombre<0) return mise_en_evidence(tex_nombrec(nombre),'red')
+		else return mise_en_evidence(tex_nombrec(0),'black')
+}
 
 
 /**
@@ -598,6 +640,19 @@ function tex_nombrec(expression){
 		}
 	}
 	return [somme_des_positifs,somme_des_negatifs]
+}
+/**
+ * prend une liste de nombres relatifs et la retourne avec les positifs au début et les négatifs à la fin.
+ * @param {array} liste la liste de nombres à trier
+ */
+function trie_positifs_negatifs(liste){
+	let positifs=[]
+	let negatifs=[]
+	for (let i=0; i<liste.length;i++) {
+		if (liste[i]>0) positifs.push(liste[i])
+		else negatifs.push(liste[i])
+	}
+	return positifs.concat(negatifs)
 }
 
 /**
@@ -949,6 +1004,8 @@ function tex_nombre(nb){
 		return result;
 	}
 }
+
+
 /**
 * Renvoit un nombre dans le format français (séparateur de classes) version sans Katex (pour les SVG)
 * @Auteur Jean-Claude Lhote
@@ -971,17 +1028,20 @@ function string_nombre(nb){
 	return result;
 }
 /**
-* Met en couleur verte si sortie HTML et en rouge si sortie PDF
+* Met en couleur et en gras
+*
 * @Auteur Rémi Angot
 */
-function mise_en_evidence(texte){
+function mise_en_evidence(texte,couleur="#f15929"){
 	if (sortie_html) {
-		return '\\mathbf{\\color{#1DA962}{'+texte+'}}'	
-	}
-	else {
-		return '\\mathbf{\\color{red}{'+texte+'}}'
-	}
-	
+		return `\\mathbf{\\color{${couleur}}{${texte}}}`
+	} else {
+		if (couleur[0]=='#') {
+				return `\\mathbf{\\color[HTML]{${couleur.replace('#','')}}${texte}}`
+			} else {
+				return `{\\mathbf{\\color{${couleur.replace('#','')}}${texte}}`
+			}
+	}	
 }
 
 /**
@@ -1153,7 +1213,12 @@ function liste_des_diviseurs(n) {
 */
 function tex_fraction(a,b){ 
 	if (b!=1) {
-		return '\\dfrac{'+a+'}{'+b+'}'
+		if (Number.isInteger(a) && Number.isInteger(b)) {
+			return `\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}}`
+		} else 
+		{
+			return `\\dfrac{${a}}{${b}}`
+		}
 	}
 	else
 	{

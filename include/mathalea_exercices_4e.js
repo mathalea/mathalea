@@ -1785,7 +1785,7 @@ function Exercice_Trigo_longueurs() {
 			// texte+=href('Comment calculer une longueur avec la trigonométrie','https://www.youtube.com/watch?v=DYW-BTMFzd4')
 			this.liste_questions.push(texte);
 			this.liste_corrections.push(texte_corr);
-			liste_de_question_to_contenu_sans_numero(this);;
+			liste_de_question_to_contenu_sans_numero(this);
 	}
 	this.besoin_formulaire_numerique = ['Niveau de difficulté', 3, '1 : Calculs faciles \n 2 : Calculs moins faciles \n 3 : Mélange'];
 }
@@ -1796,6 +1796,7 @@ function Exercice_Trigo_longueurs() {
 * Le niveau 2 utilise la fonction trigo la plus pertinente pour un calcul direct
 */
 function Exercice_Trigo_angles() {
+	'use strict'
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Déterminer un angle grâce à la trigonométrie";
 	this.consigne = "";
@@ -1813,9 +1814,9 @@ function Exercice_Trigo_angles() {
 		this.liste_corrections = []; // Liste de questions corrigées
 		let lettre0 = randint(11, 25)  // aleatoirisation du nom des points
 		let s0 = lettre_depuis_chiffre(lettre0)
-		lettre1 = randint(11, 25, [lettre0])
+		let lettre1 = randint(11, 25, [lettre0])
 		let s1 = lettre_depuis_chiffre(lettre1)
-		lettre2 = randint(11, 25, [lettre0, lettre1])
+		let lettre2 = randint(11, 25, [lettre0, lettre1])
 		let s2 = lettre_depuis_chiffre(lettre2)
 		let angle1,angle2
 		let type_de_questions
@@ -1840,8 +1841,9 @@ function Exercice_Trigo_angles() {
 		
 		let dist12 = k1/Math.cos(Math.atan(k2/k1))	   //calcul de l'hypoténuse
 		dist12 = Math.round(dist12 * 10) / 10		// On ne garde qu'une approximation au dixième pour l'exercice
-		let s12 = arrondi_virgule(dist12, 1)
-		texte_corr = `Dans le triangle $${nom_du_triangle}$ rectangle en $${s0}$ :<br>`;
+		let s12 = arrondi_virgule(dist12, 1);
+		let texte;
+		let texte_corr = `Dans le triangle $${nom_du_triangle}$ rectangle en $${s0}$ :<br>`;
 		if (sortie_html) { // sortie html MG32
 			let codeBase64
 			if (type_de_questions%2!=0) {
