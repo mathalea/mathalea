@@ -595,6 +595,26 @@ function Resoudre_une_equation_produit_nul(){
 */
 
 /**
+ * Crée un popup html avec un icon info, éventuellement avec du contenu LaTeX
+ * @param {*string} texte 
+ * @param {*string} titrePopup 
+ * @param {*string} textePopup 
+ * @Auteur Sébastien Lozano
+ */
+function katex_Popup(texte,titrePopup,textePopup) {
+	'use strict';
+	let contenu =`<div class="ui right labeled icon button katexPopup"><i class="info circle icon"></i> `+texte+`</div>`;
+	contenu += `<div class="ui special popup" >`;
+	if (titrePopup!='') {
+		contenu += `<div class="header">`+titrePopup+`</div>`;
+	};
+	contenu += `<div>`+textePopup+`</div>`;
+	contenu += `</div>`;
+
+	return contenu;
+};
+
+/**
 * Crée une flèche orange pour la fonction machine
 * @param groupe group
 * @param chemin  path de la ligne
@@ -606,8 +626,9 @@ function SVG_fleche_machine_maths(groupe,chemin,couleur) {
 	return groupe.path(chemin).fill(couleur).stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
 };
 
+ 
 /**
-* Fonction pour créer une machine mathématiques SVG, une fonction!
+* Fonction pour créer une machine mathématique SVG, une fonction!
 * gestion du rendu KaTeX temporaire avec insertion manuelle de balises foreignObject pour les textes
 * @param id_du_div id_du_div
 * @param w width du svg
@@ -618,8 +639,8 @@ function SVG_fleche_machine_maths(groupe,chemin,couleur) {
 * @param etape3 etape 3 du procédé de calcul
 * @param x_ligne1 antécédent ligne1
 * @param x_ligne2 antécédent ligne2
-* @param i_ligne1 image ligne1
-* @param i_ligne2 image ligne2
+* @param y_ligne1 image ligne1
+* @param y_ligne2 image ligne2
 * @Auteur Sébastien Lozano
 */	
 function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_ligne2,y_ligne1,y_ligne2) {
@@ -653,11 +674,13 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 			//w=400, h=100;
 			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h).size('100%','100%');
 			//mon_svg.size(w,h);
+			// on trace un cadre pour le debug
+			mon_svg.path('M0,0 L'+w+',0L'+w+','+h+'L0,'+h+'Z').fill('none').stroke({ color: '#f15929', width: 1, linecap: 'round', linejoin:'null'});
 
 			// path pour créer des fleches
 			//const path_fleche = 'm0,0 l-6,-11 l11,11 l-11,11 l6,-11z';
 			const path_fleche = 'm0,0 l-'+interligne/2+',-'+interligne+' l'+interligne+','+interligne+' l-'+interligne+','+interligne+' l'+interligne/2+',-'+interligne+'z';
-			const path_fleche_long = interligne;
+			//const path_fleche_long = interligne;
 
 			// On crée une timeline
 			let timeline = new SVG.Timeline()
@@ -673,7 +696,6 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 			//------------Dimension Antécédent----------------------
 			let ant_ligne1 = ant.text(x_ligne1).font(prop_font); 
 			let ant_ligne2 = ant.text(x_ligne2).font(prop_font); 
-			// on crée une flèche pour l'antécédent
 			let w_ant = Math.max(ant_ligne1.length(),ant_ligne2.length());
 			ant_ligne1.clear();
 			ant_ligne2.clear();
@@ -681,7 +703,6 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 			//------------Dimension Image---------------------------
 			let im_ligne1 = im.text(y_ligne1).font(prop_font); 
 			let im_ligne2 = im.text(y_ligne2).font(prop_font); 
-			// on crée une flèche pour l'antécédent
 			let w_im = Math.max(im_ligne1.length(),im_ligne2.length());
 			im_ligne1.clear();
 			im_ligne2.clear();
@@ -790,26 +811,6 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 function num_alpha(k) {
 	'use strict';
 	return '<span style="color:#f15929; font-weight:bold">'+String.fromCharCode(97+k)+'/</span>';
-};
-
-/**
-* Crée un popup html avec un icon info, éventuellement avec du contenu LaTeX
-* @param texte texte affiché
-* @param titrePopup titre du Popup
-* @param textePopup texte du Popup
-* @Auteur Sébastien Lozano
-*/	
-function katex_Popup(texte,titrePopup,textePopup) {
-	'use strict';
-	let contenu =`<div class="ui right labeled icon button katexPopup"><i class="info circle icon"></i> `+texte+`</div>`;
-	contenu += `<div class="ui special popup" >`;
-	if (titrePopup!='') {
-		contenu += `<div class="header">`+titrePopup+`</div>`;
-	};
-	contenu += `<div>`+textePopup+`</div>`;
-	contenu += `</div>`;
-
-	return contenu;
 };
 
 /**Trace un chemin pour un groupe donné avec une couleur donnée
@@ -1025,6 +1026,7 @@ function fonction_notion_vocabulaire(){
 
 	if (sortie_html) {		
 		let id_unique = `_consigne_${num_ex}_${Date.now()}`; // on formatte avec le numéro de l'exercice pour éviter les doublons
+		//let id_unique = `_consigne_${num_ex}`; // on formatte avec le numéro de l'exercice pour éviter les doublons
 		let id_du_div = `div_svg${id_unique}`;
 		var pourcentage = '100%'; // pour l'affichage des svg. On a besoin d'une variable globale
 		var hauteur_svg = 100;
@@ -1033,6 +1035,7 @@ function fonction_notion_vocabulaire(){
 		//this.consigne += `<div id="${id_du_div}" style="width: 100%; height: 150px; display : table "></div>`;
 		this.consigne += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table "></div>`;
 		SVG_machine_maths(id_du_div,400,hauteur_svg,'machine\\,maths','---','Procédé','de\\,calcul','antécédent','x','image','y');
+		//SVG_machine_maths_New(id_du_div,hauteur_svg,'machine f','rrrrr \\newline x^2','fdfsdf','sdfdfdsfs');
 	} else { // sortie LaTeX
 
 	};
@@ -1108,7 +1111,7 @@ function fonction_notion_vocabulaire(){
 						j++;//incrémente la sous question
 
 						texte += num_alpha(j)+` Que renvoie la machine si le côté vaut $x$ cm ?<br>`;
-						texte_corr += num_alpha(j)+`Si le côté vaut $x$ la machine renvoie $x+x+x+x$ ou ce qui est équivalent $4\\times x$ .<br>`;
+						texte_corr += num_alpha(j)+`Si le côté vaut $x$ la machine renvoie $x+x+x+x$ ce qui est équivalent à $4\\times x$ .<br>`;
 						j++;//incrémente la sous question
 
 						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-1)+` sous forme de diagramme.<br>`;
