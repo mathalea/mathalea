@@ -724,7 +724,7 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 			let ant_ligne = ant.foreignObject(w_ant,h).attr({x:'0',y:'0'});
 			let antDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
 			katex.render(x_ligne1+'\\newline '+x_ligne2, antDiv, {				
-				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"warn","trust":false				
+				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
 			});
 			ant_ligne.add(antDiv);
 			ant_ligne.dmove(0,-antDiv.offsetHeight/2);
@@ -739,7 +739,7 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 			let im_ligne = im.foreignObject(w_im,h).attr({x:'0',y:'0'});
 			let imDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
 			katex.render(y_ligne1+'\\newline '+y_ligne2, imDiv, {				
-				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"warn","trust":false				
+				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
 			});
 			im_ligne.add(imDiv);
 			im_ligne.dmove(0,-imDiv.offsetHeight/2);
@@ -760,7 +760,7 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 			let fobj_machine = mon_svg.foreignObject(w_etape_max,h).attr({x:w/2-w_etape_max/2,y:'0'});
 			let machineDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
 			katex.render('\\mathbf{'+nom+'}\\newline '+etape1+'\\newline '+etape2+'\\newline '+etape3, machineDiv, {				
-				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"warn","trust":false				
+				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
 			});
 			fobj_machine.add(machineDiv);
 			fobj_machine.dmove(0,h/2-interligne-machineDiv.offsetHeight/2);
@@ -793,15 +793,15 @@ function num_alpha(k) {
 };
 
 /**
-* Crée un popup html éventuellement avec du contenu LaTeX
+* Crée un popup html avec un icon info, éventuellement avec du contenu LaTeX
 * @param texte texte affiché
-* @param titrePopup titre Popup
+* @param titrePopup titre du Popup
 * @param textePopup texte du Popup
 * @Auteur Sébastien Lozano
 */	
 function katex_Popup(texte,titrePopup,textePopup) {
 	'use strict';
-	let contenu =`<div class="ui button katexPopup">`+texte+`</div>`;
+	let contenu =`<div class="ui right labeled icon button katexPopup"><i class="info circle icon"></i> `+texte+`</div>`;
 	contenu += `<div class="ui special popup" >`;
 	if (titrePopup!='') {
 		contenu += `<div class="header">`+titrePopup+`</div>`;
@@ -902,7 +902,7 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes,expressions) {
 			let fobj_x = diag.foreignObject(w_x_ant,h).attr({x:'0',y:'0'});
 			let xDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
 			katex.render('\\tiny{'+x_ant+'}', xDiv, {				
-				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"warn","trust":false				
+				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
 			});
 			fobj_x.add(xDiv);
 			fobj_x.dmove(2*interligne-xDiv.offsetWidth/2,0);
@@ -923,7 +923,7 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes,expressions) {
 						svg_cadres_fin[i] = diag.foreignObject(w_temp,h).attr({x:'0',y:'0'});
 						let tempDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
 						katex.render('\\tiny{'+nom+'(x)='+expressions[i]+'}', tempDiv, {				
-							"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"warn","trust":false				
+							"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
 						});
 						svg_cadres_fin[i].add(tempDiv);
 						//svg_cadres_fin[i].dmove(0,0);
@@ -937,7 +937,7 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes,expressions) {
 						svg_cadres_fin[i] = diag.foreignObject(w_temp,h).attr({x:'0',y:'0'});
 						let tempDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
 						katex.render('\\tiny{'+nom+'(x)=...}', tempDiv, {				
-							"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"warn","trust":false				
+							"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
 						});
 						svg_cadres_fin[i].add(tempDiv);
 						//svg_cadres_fin[i].dmove(0,0);
@@ -958,7 +958,7 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes,expressions) {
 						svg_cadres_fin[i] = diag.foreignObject(w_temp,h).attr({x:'0',y:'0'});
 						let tempDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
 						katex.render('\\tiny{'+nom+'(x)=...}', tempDiv, {				
-							"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"warn","trust":false				
+							"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
 						});
 						svg_cadres_fin[i].add(tempDiv);
 						//svg_cadres_fin[i].dmove(0,0);
@@ -985,7 +985,7 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes,expressions) {
 				svg_operations_etapes[i] = diag.foreignObject(w_svg_operations_etapes[i],h).attr({x:'0',y:'0'});
 				svg_operations_etapesDiv[i] = document.createElementNS("http://www.w3.org/1999/xhtml","div");
 				katex.render('\\tiny{'+etapes[i]+'}', svg_operations_etapesDiv[i], {				
-					"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"warn","trust":false				
+					"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
 				});
 				svg_operations_etapes[i].add(svg_operations_etapesDiv[i]);
 				//svg_cadres_fin[i].dmove(0,0);
@@ -1032,7 +1032,7 @@ function fonction_notion_vocabulaire(){
 		//this.consigne += `<div id="consigne" style="width: 100%; height: 500px; display : table "></div>`;
 		//this.consigne += `<div id="${id_du_div}" style="width: 100%; height: 150px; display : table "></div>`;
 		this.consigne += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table "></div>`;
-		SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, maths','---','Procédé','de \\, calcul','antécédent','x','image','y');
+		SVG_machine_maths(id_du_div,400,hauteur_svg,'machine\\,maths','---','Procédé','de\\,calcul','antécédent','x','image','y');
 	} else { // sortie LaTeX
 
 	};
@@ -1065,7 +1065,7 @@ function fonction_notion_vocabulaire(){
 						if (sortie_html) {
 							texte += `<br>`;
 							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
-							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine f','---','périmètre','d\'un \\, carré','carré \\, de','côté \\, '+x+' \\, cm','périmètre','??? \\, cm');
+							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, f','---','périmètre','d\'un \\, carré','carré \\, de','côté \\,'+x+' \\, cm','périmètre','??? \\, cm');
 							
 						} else { // sortie Latex avec Tikz
 
