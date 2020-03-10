@@ -1812,7 +1812,7 @@ function Le_compte_est_bon(){
 		this.liste_corrections = []; // Liste de questions corrigées
 		let eureka;
 		let liste_mathador=[1,2,3,4,5,6,7,8,9,10,12,15,16,18,20];
-		for (let i = 0, texte, texte_corr, a, b, c, d, e, f,tirage , cpt=0; i < this.nb_questions && cpt<50; ) {
+		for (let i = 0, texte, texte_corr, a, b, c, d, e, f,tirage,j , cpt=0; i < this.nb_questions && cpt<50; ) {
 			eureka=false;
 			tirage=[];
 			while (eureka==false){
@@ -1829,13 +1829,35 @@ function Le_compte_est_bon(){
 				c=tirage[2];
 				d=tirage[3];
 				e=tirage[4];
-				
-				f=a+b*c-d+e;
-
-				eureka=true
+				// les choses sérieuses commencent ici.
+				j=1;
+				while (eureka==false&j<4){
+					switch (j) {
+						case 1:
+							if (a+b>c&&((a+b-c)*d)%e==0) {
+								f=(a+b-c)*d/e;
+								eureka=true;
+							}
+							break;
+						case 2:
+							if (c*d%e==0&&(a+b>c*d/e)) {
+								f=a+b-c*d/e;
+								eureka=true;
+							}
+							break;
+						case 3:
+							if (a+b>c*d&&(a+b-c*d)%e==0){
+								f=(a+b-c*d)/e;
+								eureka=true;
+							}
+							break;
+					}
+					if (eureka==false) j++;
+				}
+		
 			}
-			texte=`Le tirage est le suivant : $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ <br>\n La cible est : $${f}$`
-			texte_corr=`La solution est : $${a}+${b}\\times${c}-${d}+${e}=${f}$`
+			texte=`Le tirage est le suivant : $${a}~;~${b}~;~${c}~;~${d}~;~${e}$ <br>\n La cible est : $${f}$`
+			texte_corr=`La solution est : de type $${j}$`
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
