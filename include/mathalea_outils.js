@@ -151,12 +151,14 @@ function enleve_element(array,item){
 * @author Rémi Angot
 */
 function choice(liste,liste_a_eviter=[]) {
+	//copie la liste pour ne pas y toucher (ce n'est pas le but de choice)
+	let listebis = liste.slice();
 	// Supprime les éléments de liste à éviter
 	for (let i=0;i<liste_a_eviter.length;i++){
-		enleve_element(liste,liste_a_eviter[i])
+		enleve_element(listebis,liste_a_eviter[i])
 	}
-	var index = Math.floor(Math.random() * liste.length);
-	return liste[index];
+	var index = Math.floor(Math.random() * listebis.length);
+	return listebis[index];
 }
 
 function range(max,liste_a_eviter=[]){

@@ -1811,55 +1811,76 @@ function Le_compte_est_bon(){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		let eureka;
-		let liste_mathador=[1,2,2,3,3,4,4,4,4,5,6,6,6,6,7,7,8,8,8,8,9,9,9,9,10,12,15,16,18,20];
+		let liste_mathador=[1,2,2,3,3,4,4,4,4,5,6,6,6,6,7,7,8,8,8,8,9,9,9,9,10,11,12,13,14,15,16,17,18,19,20];
 		for (let i = 0, texte, texte_corr, a, b, c, d, e, f,tirage,j,expression , cpt=0; i < this.nb_questions && cpt<50; ) {
 			eureka=false;
-			tirage=[];
+			
 			expression=''
 			while (eureka==false){
-				tirage.push(choice(liste_mathador));
-				tirage.push(choice(liste_mathador,[12,16,18,20]));
-				tirage.push(choice(liste_mathador,[12,16,18,20]));
-				tirage.push(choice(liste_mathador,[12,16,18,20]));
-				tirage.push(choice(liste_mathador,[12,16,18,20]));
-				console.log(tirage)
+				tirage=[];
+				a=parseInt(choice(liste_mathador))
+				b=parseInt(choice(liste_mathador,[12,13,14,15,16,17,18,19,20,a]))
+				c=parseInt(choice(liste_mathador,[12,13,14,15,16,17,18,19,20,a,b]))
+				d=parseInt(choice(liste_mathador,[12,13,14,15,16,17,18,19,20,a,b,c]))
+				e=parseInt(choice(liste_mathador,[12,13,14,15,16,17,18,19,20]))
+				tirage.push(a,b,c,d,e);
 				tirage=shuffle(tirage);
-				console.log(tirage)
 				a=tirage[0];
 				b=tirage[1];
 				c=tirage[2];
 				d=tirage[3];
 				e=tirage[4];
 				// les choses sérieuses commencent ici.
-				j=randint(1,3);
+				j=randint(1,6);
 				switch (j) {
 					case 1:
-						if (a+b>c&&((a+b-c)*d)%e==0) {
+						if ((a+b>c)&&(((a+b-c)*d)%e==0)) {
 							f=(a+b-c)*d/e;
 							expression=`$(${a}+${b}-${c})\\times${d}\\div${e}$`
 							eureka=true;
 						}
 						break;
 					case 2:
-						if (c*d%e==0&&(a+b>c*d/e)) {
+						if ((c*d%e==0)&&((a+b>c*d/e))) {
 							f=a+b-c*d/e;
 							expression=`$${a}+${b}-${c}\\times${d}\\div${e}$`
 							eureka=true;
 						}
 						break;
 					case 3:
-						if (a+b>c*d&&(a+b-c*d)%e==0){
+						if ((a+b>c*d)&&((a+b-c*d)%e==0)){
 							f=(a+b-c*d)/e;
 							expression=`$(${a}+${b}-${c}\\times${d})\\div${e}$`
 							eureka=true;
 						}
 						break;
+					case 4:
+						if ((b>c*d)&&(a%e==0)){
+							f=a/e+(b-c)*d;
+							expression=`$(${a}\\div${e}+(${b}-${c})\\times${d}$`
+							eureka=true;
+						}
+						break;
+					case 5:
+						if ((b>c*d)&&(a%(b-c)==0)){
+							f=a/(b-c)*d+e;
+							expression=`$${a}\\div(${b}-${c})\\times${d}+${e}$`
+							eureka=true;
+						}
+						break;	
+					case 6:
+						if (((a+b)/c>d*e)&&((a+b)%c==0)){
+							f=(a+b)/c-d*e;
+							expression=`$(${a}+${b})\\div${c}-${d}\\times${e}$`
+							eureka=true;
+						}
+						break;					
 				}
 			}
 		
 		
 			texte=`Le tirage est le suivant : $${a}~;~${b}~;~${c}~;~${d}~;~${e}$ <br>\n La cible est : $${f}$`
-			texte_corr=`La solution est : ${expression}$=${f}$`
+			texte_corr=`La solution est de type ${j} : ${expression}$=${f}$`
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
