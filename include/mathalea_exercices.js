@@ -1895,7 +1895,7 @@ function Le_compte_est_bon(){
 		
 		
 			texte=`Le tirage est le suivant : $${a}~;~${b}~;~${c}~;~${d}~;~${e}$ <br>\n La cible est : $${f}$`
-			texte_corr=`La solution est de type ${j} : ${expression}$=${f}$`
+			texte_corr=`La solution est : ${expression}$=${f}$`
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
