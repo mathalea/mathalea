@@ -17,6 +17,7 @@ var liste_des_exercices_disponibles = {
 		'CM016' : Diviser_par_10_100_1000,
 		'CM017' : Diviser_decimal_par_10_100_1000,
 		'CM018' : Somme_de_deux_nombres_maries_et_un_entier,
+		'CM019' : Le_compte_est_bon,
 		'6C10' : Additions_soustractions_multiplications_posees,
 		'6C11' : Divisions_euclidiennes,
 		'6C10-1' :Tables_de_multiplications,
@@ -1784,6 +1785,57 @@ function Somme_de_deux_nombres_maries_et_un_entier(){
 						break;
 			}	
 			
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+}
+
+function Le_compte_est_bon(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Trouver la cible avec les 4 opérations";
+	this.consigne = "Calculer";
+	this.nb_questions = 5;
+	this.nb_cols = 2;
+	this.nb_cols_corr = 2;
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		let eureka;
+		let liste_mathador=[1,2,3,4,5,6,7,8,9,10,12,15,16,18,20];
+		for (let i = 0, texte, texte_corr, a, b, c, d, e, f,tirage , cpt=0; i < this.nb_questions && cpt<50; ) {
+			eureka=false;
+			tirage=[];
+			while (eureka==false){
+				tirage.push(choice(liste_mathador));
+				tirage.push(choice(liste_mathador,[12,16,18,20]));
+				tirage.push(choice(liste_mathador,[12,16,18,20]));
+				tirage.push(choice(liste_mathador,[12,16,18,20]));
+				tirage.push(choice(liste_mathador,[12,16,18,20]));
+				console.log(tirage)
+				tirage=shuffle(tirage);
+				console.log(tirage)
+				a=tirage[0];
+				b=tirage[1];
+				c=tirage[2];
+				d=tirage[3];
+				e=tirage[4];
+				
+				f=a+b*c-d+e;
+
+				eureka=true
+			}
+			texte=`Le tirage est le suivant : $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ <br>\n La cible est : $${f}$`
+			texte_corr=`La solution est : $${a}+${b}\\times${c}-${d}+${e}`
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
