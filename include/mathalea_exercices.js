@@ -133,7 +133,7 @@ var liste_des_exercices_disponibles = {
 		'cours': Questions_de_cours,
 		'LaTeX' : Code_LaTeX_personnalise,
 		// 'Perso' : HTML_personnalise,
-		'TsvgjsKatex' : tests_SVGJS_KATEX,
+		// 'TsvgjsKatex' : tests_SVGJS_KATEX,
 		
 	};
 
