@@ -1806,12 +1806,13 @@ function Le_compte_est_bon(){
 	this.nb_questions = 5;
 	this.nb_cols = 2;
 	this.nb_cols_corr = 2;
-
+	
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		let eureka;
 		let liste_mathador=[1,2,2,3,3,4,4,4,4,5,6,6,6,6,7,7,8,8,8,8,9,9,9,9,10,11,12,13,14,15,16,17,18,19,20];
+		let liste_de_j = combinaison_listes(range1(8),this.nb_questions)
 		for (let i = 0, texte, texte_corr, a, b, c, d, e, f,tirage,j,expression , cpt=0; i < this.nb_questions && cpt<50; ) {
 			eureka=false;
 			
@@ -1831,50 +1832,64 @@ function Le_compte_est_bon(){
 				d=tirage[3];
 				e=tirage[4];
 				// les choses sérieuses commencent ici.
-				j=randint(1,6);
+				j = liste_de_j[i];
 				switch (j) {
 					case 1:
 						if ((a+b>c)&&(((a+b-c)*d)%e==0)) {
 							f=(a+b-c)*d/e;
 							expression=`$(${a}+${b}-${c})\\times${d}\\div${e}$`
-							eureka=true;
+							if (f<100&&f>10) eureka=true;
 						}
 						break;
 					case 2:
 						if ((c*d%e==0)&&((a+b>c*d/e))) {
 							f=a+b-c*d/e;
 							expression=`$${a}+${b}-${c}\\times${d}\\div${e}$`
-							eureka=true;
+							if (f<100&&f>10) eureka=true;
 						}
 						break;
 					case 3:
 						if ((a+b>c*d)&&((a+b-c*d)%e==0)){
 							f=(a+b-c*d)/e;
 							expression=`$(${a}+${b}-${c}\\times${d})\\div${e}$`
-							eureka=true;
+							if (f<100&&f>10) eureka=true;
 						}
 						break;
 					case 4:
 						if ((b>c*d)&&(a%e==0)){
 							f=a/e+(b-c)*d;
-							expression=`$(${a}\\div${e}+(${b}-${c})\\times${d}$`
-							eureka=true;
+							expression=`$${a}\\div${e}+(${b}-${c})\\times${d}$`
+							if (f<100&&f>10) eureka=true;
 						}
 						break;
 					case 5:
 						if ((b>c*d)&&(a%(b-c)==0)){
 							f=a/(b-c)*d+e;
 							expression=`$${a}\\div(${b}-${c})\\times${d}+${e}$`
-							eureka=true;
+							if (f<100&&f>10) eureka=true;
 						}
 						break;	
 					case 6:
 						if (((a+b)/c>d*e)&&((a+b)%c==0)){
 							f=(a+b)/c-d*e;
 							expression=`$(${a}+${b})\\div${c}-${d}\\times${e}$`
-							eureka=true;
+							if (f<100&&f>10) eureka=true;
 						}
 						break;					
+					case 7:
+						if (((a + b / c)*d > e) && (b % c == 0)) {
+							f = (a + b/c) * d - e;
+							expression = `$(${a}+${b}\\div${c})\\times${d}-${e}$`
+							if (f<100&&f>10) eureka = true;
+						}
+						break;	
+					case 8:
+						if ((a > b/c) && (b % c == 0)) {
+							f = (a-b/c+d) * e;
+							expression = `$(${a}-${b}\\div${c})+${d})\\times${e}$`
+							if (f<100&&f>10) eureka = true;
+						}
+						break;	
 				}
 			}
 		
