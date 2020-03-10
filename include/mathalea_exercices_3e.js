@@ -596,9 +596,9 @@ function Resoudre_une_equation_produit_nul(){
 
 /**
  * Crée un popup html avec un icon info, éventuellement avec du contenu LaTeX
- * @param {*string} texte 
- * @param {*string} titrePopup 
- * @param {*string} textePopup 
+ * @param {string} texte 
+ * @param {string} titrePopup 
+ * @param {string} textePopup 
  * @Auteur Sébastien Lozano
  */
 function katex_Popup(texte,titrePopup,textePopup) {
@@ -835,6 +835,70 @@ function SVG_cadre_rond(groupe,r_circ,couleur) {
 	return groupe.circle(r_circ).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
 };
 
+/**Crée une étape avec une opération
+ * @param {object} mon_svg svg
+ * @param {object} groupe groupe du svg 
+ * @param {number} h hauteur de reference
+ * @param {number} interligne unité d'espacement
+ * @param {string} couleur couleur
+ * @param {string} texte texte avec rendu katex
+ * @param {number} saut saut pour positionner l'etape
+ */
+function SVG_etape_cadre_rond(mon_svg,groupe,h,interligne,couleur,texte,saut) {
+	'use strict';
+	let prop_font = {family:   'Helvetica',
+	size:     interligne,
+	anchor:   'start'
+	//, leading : 0.5
+	};	
+	let operation = groupe.text(texte).font(prop_font);
+	let w_operation = operation.length();
+	operation.clear();
+	let r_circ = interligne/2 + w_operation/2;
+
+	// on crée la fleche
+	let path_fleche = 'M0,0L'+interligne+',0L'+(interligne-2)+',-2M'+interligne+',0L'+(interligne-2)+',2';
+	// on crée le groupe etape
+	let etape = mon_svg.group();
+	// on crée la ligne de départ	
+	let l1 = etape.line(0,0,interligne,0).stroke({ width: 1 ,color: couleur});
+	l1.dmove(0,h/2);
+	// on crée le cadre rond
+	let cadre_etape = etape.circle(r_circ).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
+	//on positionne le cadre etape
+	cadre_etape.dmove(interligne,h/2-r_circ/2);
+	// on crée la fleche et on la positionne
+	let f1 = SVG_chemin(etape,path_fleche,couleur);
+	f1.dmove(3*interligne/2+w_operation/2,h/2);
+	// on crée le foreignobject
+	let fobj_operation = etape.foreignObject(w_operation,h).attr({x:'0',y:'0'});
+	// on crée manuallement la div contenant les formules maths
+	let operationDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+	katex.render('\\tiny{'+texte+'}', operationDiv, {				
+		"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
+	});
+	//on affecte la div avec la formule dans le foreignobject
+	fobj_operation.add(operationDiv);
+	//fobj_x.dmove(2*interligne-xDiv.offsetWidth/2,0);
+	// on positionne l'objet
+	fobj_operation.dmove(0,-interligne/4);
+
+
+
+
+
+	//let cadre_etape = SVG_cadre_rond(etape,2*interligne,couleur);
+	//cadre_etape.dmove(interligne,h/2-interligne);
+	// let f1 = SVG_chemin(etape,path_fleche,couleur);
+	// f1.dmove(3*interligne,h/2);
+	etape.dmove(saut,0);
+	return [etape,5*interligne/2 + w_operation/2];
+}
+
+
+
+
+
 /**Trace une étape de diagramme pour un programme de calcul ou une fonction et la place 
 * * une fleche un cadre rond pour l'opération et un cadre rectangulaire pour l'arrivée 
 * @param mon_svg le svg global
@@ -862,20 +926,22 @@ function SVG_etapes(mon_svg,interligne,h,couleur,deplacement) {
 	return etape;
 };
 
+
 /**
 * Crée un digramme pour une fonction arithmétique
-* @param id_du_div id_du_div
-* @param w width du svg
-* @param h height du svg
-* @param nom nom de la fonction
-* @param x_ant antécédent
-* @param etapes etapes de type tableau
-* @param expressions expressions de type tableau
-* @Auteur Sébastien Lozano
-*/	
+ * @param {string} id_du_div id du div contenant le SVG
+ * @param {number} w largeur du div du svg
+ * @param {numer} h hauteur du div du svg
+ * @param {string} nom nom de la fonction
+ * @param {string} x_ant antécédent de départ
+ * @param {array} etapes tableau contenant les étapes
+ * @param {array} expressions tableau contenant les expressions
+ * @Auteur Sébastien Lozano
+ */
 function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes,expressions) {
 	'use strict';
 	let interligne = 10; // unité d'espacement
+	let saut = 0; // pour la gestion des sauts entre les éléments
 	let prop_font = {family:   'Helvetica',
 					size:     interligne,
 					anchor:   'start'
@@ -887,114 +953,130 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes,expressions) {
 		if ($(`#${id_du_div}`).length ) {
 			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
 			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h).size('100%','100%');
-			let path_cadre_rect = 'M0,0L0,-'+interligne+',L'+4*interligne+',-'+interligne+',L'+4*interligne+','+interligne+'L0,'+interligne+'Z';
-			//let path_fleche = 'M0,0L10,0L8,-2M10,0L8,2';
+			// on trace un cadre pour le debug
+			mon_svg.path('M0,0 L'+w+',0L'+w+','+h+'L0,'+h+'Z').fill('none').stroke({ color: '#f15929', width: 1, linecap: 'round', linejoin:'null'});
  			// on crée le groupe pour le diagramme
 			let diag=mon_svg.group();
-			let cadre_ant = SVG_chemin(diag,path_cadre_rect,'#f15929');  
-			cadre_ant.dmove(0,h/2);
-
-
 			// let x = diag.text(x_ant).font(prop_font); 
 			// x.dmove(2*interligne-x.length()/2,h/2-interligne);
 			let x = diag.text(x_ant).font(prop_font);
-			let w_x_ant = x.length()+5;
+			let w_x_ant = x.length();
 			x.clear();
+			// on incrémente le saut pour gérer le positionnement de l'élément suivant.
+			saut = w_x_ant + 2*interligne;
+			console.log('saut 1 '+saut);
+
+			//let path_cadre_rect = 'M0,0L0,-'+interligne+',L'+4*interligne+',-'+interligne+',L'+4*interligne+','+interligne+'L0,'+interligne+'Z';
+			// on crée un rectangle dont la taille est adaptée au texte
+			let path_cadre_rect_ant = 'M0,0L0,-'+interligne+',L'+(w_x_ant + 2*interligne)+',-'+interligne+',L'+(w_x_ant + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
+			//let path_fleche = 'M0,0L10,0L8,-2M10,0L8,2';
+			let cadre_ant = SVG_chemin(diag,path_cadre_rect_ant,'#f15929');  
+			// on positionne le cadre
+			cadre_ant.dmove(0,h/2);
+			// on crée le foreignobject
 			let fobj_x = diag.foreignObject(w_x_ant,h).attr({x:'0',y:'0'});
+			// on crée manuallement la div contenant les formules maths
 			let xDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
 			katex.render('\\tiny{'+x_ant+'}', xDiv, {				
 				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
 			});
+			//on affecte la div avec la formule dans le foreignobject
 			fobj_x.add(xDiv);
-			fobj_x.dmove(2*interligne-xDiv.offsetWidth/2,0);
+			//fobj_x.dmove(2*interligne-xDiv.offsetWidth/2,0);
+			// on positionne l'objet
+			fobj_x.dmove(interligne+w_x_ant/2-xDiv.offsetWidth/2,-interligne/4);
 
-			let svg_etapes = []; // tableau pour les étapes
-			let svg_cadres_fin = []; // tableau pour les textes des cadres de fin
-			let svg_operations_etapes = []; // tableau pour les opérations des étapes
-			let w_svg_operations_etapes = []; // tableau pour la largeur de ces opérations
-			let svg_operations_etapesDiv = []; // pour les foreignObject des étapes
-			for (var i = 0; i<etapes.length; i++) {
-				svg_etapes[i] = SVG_etapes(mon_svg,interligne,h,'#f15929',4*interligne+8*i*interligne);
-				if (etapes.length==i+1) {//si la longueur du tableau des etapes vaut i+1 c'est que c'est la derniere on affiche f(x)=...
-					if (typeof expressions[i]!=='undefined') { // si il y a une expression algébrique on l'affiche
-						//svg_cadres_fin[i] = diag.text(nom+'(x)='+expressions[i]).font(prop_font);
-						let temp = diag.text(nom+'(x)='+expressions[i]).font(prop_font);
-						let w_temp = temp.length()+5;
-						temp.clear();
-						svg_cadres_fin[i] = diag.foreignObject(w_temp,h).attr({x:'0',y:'0'});
-						let tempDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
-						katex.render('\\tiny{'+nom+'(x)='+expressions[i]+'}', tempDiv, {				
-							"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
-						});
-						svg_cadres_fin[i].add(tempDiv);
-						//svg_cadres_fin[i].dmove(0,0);
-						var w_cadre_fin = tempDiv.offsetWidth;
+
+			SVG_etape_cadre_rond(mon_svg,diag,h,interligne,'#f15929','\\times 7',saut)[0];
+			saut = SVG_etape_cadre_rond(mon_svg,diag,h,interligne,'#f15929','\\times 7',saut)[1];
+			console.log('saut2 '+saut);
+			// let svg_etapes = []; // tableau pour les étapes
+			// let svg_cadres_fin = []; // tableau pour les textes des cadres de fin
+			// let svg_operations_etapes = []; // tableau pour les opérations des étapes
+			// let w_svg_operations_etapes = []; // tableau pour la largeur de ces opérations
+			// let svg_operations_etapesDiv = []; // pour les foreignObject des étapes
+			// for (var i = 0; i<etapes.length; i++) {
+			// 	svg_etapes[i] = SVG_etapes(mon_svg,interligne,h,'#f15929',4*interligne+8*i*interligne);
+			// 	if (etapes.length==i+1) {//si la longueur du tableau des etapes vaut i+1 c'est que c'est la derniere on affiche f(x)=...
+			// 		if (typeof expressions[i]!=='undefined') { // si il y a une expression algébrique on l'affiche
+			// 			//svg_cadres_fin[i] = diag.text(nom+'(x)='+expressions[i]).font(prop_font);
+			// 			let temp = diag.text(nom+'(x)='+expressions[i]).font(prop_font);
+			// 			let w_temp = temp.length()+5;
+			// 			temp.clear();
+			// 			svg_cadres_fin[i] = diag.foreignObject(w_temp,h).attr({x:'0',y:'0'});
+			// 			let tempDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+			// 			katex.render('\\tiny{'+nom+'(x)='+expressions[i]+'}', tempDiv, {				
+			// 				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
+			// 			});
+			// 			svg_cadres_fin[i].add(tempDiv);
+			// 			//svg_cadres_fin[i].dmove(0,0);
+			// 			var w_cadre_fin = tempDiv.offsetWidth;
 			
-					} else { // sinon on met ...
-						//svg_cadres_fin[i] = diag.text(nom+'(x)=...').font(prop_font);
-						let temp = diag.text(nom+'(x)=...').font(prop_font);
-						let w_temp = temp.length()+5;
-						temp.clear();
-						svg_cadres_fin[i] = diag.foreignObject(w_temp,h).attr({x:'0',y:'0'});
-						let tempDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
-						katex.render('\\tiny{'+nom+'(x)=...}', tempDiv, {				
-							"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
-						});
-						svg_cadres_fin[i].add(tempDiv);
-						//svg_cadres_fin[i].dmove(0,0);
-						var w_cadre_fin = tempDiv.offsetWidth;
-					};
-					//let w_cadre_fin = svg_cadres_fin[i].length();
+			// 		} else { // sinon on met ...
+			// 			//svg_cadres_fin[i] = diag.text(nom+'(x)=...').font(prop_font);
+			// 			let temp = diag.text(nom+'(x)=...').font(prop_font);
+			// 			let w_temp = temp.length()+5;
+			// 			temp.clear();
+			// 			svg_cadres_fin[i] = diag.foreignObject(w_temp,h).attr({x:'0',y:'0'});
+			// 			let tempDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+			// 			katex.render('\\tiny{'+nom+'(x)=...}', tempDiv, {				
+			// 				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
+			// 			});
+			// 			svg_cadres_fin[i].add(tempDiv);
+			// 			//svg_cadres_fin[i].dmove(0,0);
+			// 			var w_cadre_fin = tempDiv.offsetWidth;
+			// 		};
+			// 		//let w_cadre_fin = svg_cadres_fin[i].length();
 					
-					//console.log(w_cadre_fin);
-					//svg_cadres_fin[i].dmove(10*interligne+8*i*interligne-w_cadre_fin/2,h/2-interligne);
-					svg_cadres_fin[i].dmove(10*interligne+8*i*interligne-w_cadre_fin/2,0);
-				} else {//sinon on affiche ...... ou l'expression algébrique si elle existe
-					//svg_cadres_fin[i] = diag.text('......').dmove(9*interligne+8*i*interligne,interligne);
-					if (typeof expressions[i]!=='undefined') { // si il y a une expression algébrique on l'affiche
-						//svg_cadres_fin[i] = diag.text(expressions[i]).font(prop_font).dmove(9*interligne+8*i*interligne,h/2-interligne);
-												let temp = diag.text(nom+'(x)=...').font(prop_font);
-						let w_temp = temp.length()+5;
-						temp.clear();
-						svg_cadres_fin[i] = diag.foreignObject(w_temp,h).attr({x:'0',y:'0'});
-						let tempDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
-						katex.render('\\tiny{'+nom+'(x)=...}', tempDiv, {				
-							"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
-						});
-						svg_cadres_fin[i].add(tempDiv);
-						//svg_cadres_fin[i].dmove(0,0);
-						var w_cadre_fin = tempDiv.offsetWidth;
-						//};
-						//let w_cadre_fin = svg_cadres_fin[i].length();
+			// 		//console.log(w_cadre_fin);
+			// 		//svg_cadres_fin[i].dmove(10*interligne+8*i*interligne-w_cadre_fin/2,h/2-interligne);
+			// 		svg_cadres_fin[i].dmove(10*interligne+8*i*interligne-w_cadre_fin/2,0);
+			// 	} else {//sinon on affiche ...... ou l'expression algébrique si elle existe
+			// 		//svg_cadres_fin[i] = diag.text('......').dmove(9*interligne+8*i*interligne,interligne);
+			// 		if (typeof expressions[i]!=='undefined') { // si il y a une expression algébrique on l'affiche
+			// 			//svg_cadres_fin[i] = diag.text(expressions[i]).font(prop_font).dmove(9*interligne+8*i*interligne,h/2-interligne);
+			// 									let temp = diag.text(nom+'(x)=...').font(prop_font);
+			// 			let w_temp = temp.length()+5;
+			// 			temp.clear();
+			// 			svg_cadres_fin[i] = diag.foreignObject(w_temp,h).attr({x:'0',y:'0'});
+			// 			let tempDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+			// 			katex.render('\\tiny{'+nom+'(x)=...}', tempDiv, {				
+			// 				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
+			// 			});
+			// 			svg_cadres_fin[i].add(tempDiv);
+			// 			//svg_cadres_fin[i].dmove(0,0);
+			// 			var w_cadre_fin = tempDiv.offsetWidth;
+			// 			//};
+			// 			//let w_cadre_fin = svg_cadres_fin[i].length();
 						
-						//console.log(w_cadre_fin);
-						//svg_cadres_fin[i].dmove(10*interligne+8*i*interligne-w_cadre_fin/2,h/2-interligne);
-						svg_cadres_fin[i].dmove(9*interligne+8*i*interligne,0);
-					} else { // sinon on met ......
-						//svg_cadres_fin[i] = diag.text('......').dmove(9*interligne+8*i*interligne,interligne);
-						svg_cadres_fin[i] = diag.text('......').dmove(9*interligne+8*i*interligne,interligne);
-					};
+			// 			//console.log(w_cadre_fin);
+			// 			//svg_cadres_fin[i].dmove(10*interligne+8*i*interligne-w_cadre_fin/2,h/2-interligne);
+			// 			svg_cadres_fin[i].dmove(9*interligne+8*i*interligne,0);
+			// 		} else { // sinon on met ......
+			// 			//svg_cadres_fin[i] = diag.text('......').dmove(9*interligne+8*i*interligne,interligne);
+			// 			svg_cadres_fin[i] = diag.text('......').dmove(9*interligne+8*i*interligne,interligne);
+			// 		};
 
-				};				
-				// svg_operations_etapes[i] = diag.text(etapes[i]).font(prop_font);
-				// w_svg_operations_etapes[i] = svg_operations_etapes[i].length();
-				// svg_operations_etapes[i].dmove(6*interligne+8*i*interligne-w_svg_operations_etapes[i]/2,h/2-interligne);				
+			// 	};				
+			// 	// svg_operations_etapes[i] = diag.text(etapes[i]).font(prop_font);
+			// 	// w_svg_operations_etapes[i] = svg_operations_etapes[i].length();
+			// 	// svg_operations_etapes[i].dmove(6*interligne+8*i*interligne-w_svg_operations_etapes[i]/2,h/2-interligne);				
 
-				svg_operations_etapes[i] = diag.text(etapes[i]).font(prop_font);
-				w_svg_operations_etapes[i] = svg_operations_etapes[i].length();
-				svg_operations_etapes[i].clear();
-				svg_operations_etapes[i] = diag.foreignObject(w_svg_operations_etapes[i],h).attr({x:'0',y:'0'});
-				svg_operations_etapesDiv[i] = document.createElementNS("http://www.w3.org/1999/xhtml","div");
-				katex.render('\\tiny{'+etapes[i]+'}', svg_operations_etapesDiv[i], {				
-					"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
-				});
-				svg_operations_etapes[i].add(svg_operations_etapesDiv[i]);
-				//svg_cadres_fin[i].dmove(0,0);
-				//var w_cadre_fin = tempDiv.offsetWidth;
-				svg_operations_etapes[i].dmove(6*interligne+8*i*interligne-w_svg_operations_etapes[i]/2,0);
+			// 	svg_operations_etapes[i] = diag.text(etapes[i]).font(prop_font);
+			// 	w_svg_operations_etapes[i] = svg_operations_etapes[i].length();
+			// 	svg_operations_etapes[i].clear();
+			// 	svg_operations_etapes[i] = diag.foreignObject(w_svg_operations_etapes[i],h).attr({x:'0',y:'0'});
+			// 	svg_operations_etapesDiv[i] = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+			// 	katex.render('\\tiny{'+etapes[i]+'}', svg_operations_etapesDiv[i], {				
+			// 		"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
+			// 	});
+			// 	svg_operations_etapes[i].add(svg_operations_etapesDiv[i]);
+			// 	//svg_cadres_fin[i].dmove(0,0);
+			// 	//var w_cadre_fin = tempDiv.offsetWidth;
+			// 	svg_operations_etapes[i].dmove(6*interligne+8*i*interligne-w_svg_operations_etapes[i]/2,0);
 
 
-			};		 
+			// };		 
 
 		clearInterval(SVGExist[id_du_div]);//Arrête le timer
 		}
