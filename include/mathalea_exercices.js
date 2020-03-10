@@ -1811,10 +1811,11 @@ function Le_compte_est_bon(){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		let eureka;
-		let liste_mathador=[1,2,3,4,5,6,7,8,9,10,12,15,16,18,20];
-		for (let i = 0, texte, texte_corr, a, b, c, d, e, f,tirage,j , cpt=0; i < this.nb_questions && cpt<50; ) {
+		let liste_mathador=[1,2,2,3,3,4,4,4,4,5,6,6,6,6,7,7,8,8,8,8,9,9,9,9,10,12,15,16,18,20];
+		for (let i = 0, texte, texte_corr, a, b, c, d, e, f,tirage,j,expression , cpt=0; i < this.nb_questions && cpt<50; ) {
 			eureka=false;
 			tirage=[];
+			expression=''
 			while (eureka==false){
 				tirage.push(choice(liste_mathador));
 				tirage.push(choice(liste_mathador,[12,16,18,20]));
@@ -1830,43 +1831,43 @@ function Le_compte_est_bon(){
 				d=tirage[3];
 				e=tirage[4];
 				// les choses sérieuses commencent ici.
-				j=1;
-				while (eureka==false&j<4){
-					switch (j) {
-						case 1:
-							if (a+b>c&&((a+b-c)*d)%e==0) {
-								f=(a+b-c)*d/e;
-								eureka=true;
-							}
-							break;
-						case 2:
-							if (c*d%e==0&&(a+b>c*d/e)) {
-								f=a+b-c*d/e;
-								eureka=true;
-							}
-							break;
-						case 3:
-							if (a+b>c*d&&(a+b-c*d)%e==0){
-								f=(a+b-c*d)/e;
-								eureka=true;
-							}
-							break;
-					}
-					if (eureka==false) j++;
+				j=randint(1,3);
+				switch (j) {
+					case 1:
+						if (a+b>c&&((a+b-c)*d)%e==0) {
+							f=(a+b-c)*d/e;
+							expression=`$(${a}+${b}-${c})\\times${d}\\div${e}$`
+							eureka=true;
+						}
+						break;
+					case 2:
+						if (c*d%e==0&&(a+b>c*d/e)) {
+							f=a+b-c*d/e;
+							expression=`$${a}+${b}-${c}\\times${d}\\div${e}$`
+							eureka=true;
+						}
+						break;
+					case 3:
+						if (a+b>c*d&&(a+b-c*d)%e==0){
+							f=(a+b-c*d)/e;
+							expression=`$(${a}+${b}-${c}\\times${d})\\div${e}$`
+							eureka=true;
+						}
+						break;
 				}
-		
 			}
+		
+		
 			texte=`Le tirage est le suivant : $${a}~;~${b}~;~${c}~;~${d}~;~${e}$ <br>\n La cible est : $${f}$`
-			texte_corr=`La solution est : de type $${j}$`
-			
+			texte_corr=`La solution est : ${expression}$=${f}$`
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
 				i++;
 			}
-			cpt++;	
-		}
-		liste_de_question_to_contenu(this);
+		cpt++;	
+	}
+	liste_de_question_to_contenu(this);
 	}
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
