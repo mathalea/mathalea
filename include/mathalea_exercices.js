@@ -1835,7 +1835,7 @@ function Le_compte_est_bon(){
 				eureka=true
 			}
 			texte=`Le tirage est le suivant : $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ <br>\n La cible est : $${f}$`
-			texte_corr=`La solution est : $${a}+${b}\\times${c}-${d}+${e}`
+			texte_corr=`La solution est : $${a}+${b}\\times${c}-${d}+${e}=${f}$`
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
