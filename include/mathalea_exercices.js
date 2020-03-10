@@ -5452,11 +5452,11 @@ jQuery(document).ready(function() {
 		if (id[0]=='P') {
 			liste_html_des_exercices_prof += '<span class="id_exercice">' + id + '</span> - <a class="lien_id_exercice" numero="' + id + '">'  + exercice_tmp.titre + '</a></br>\n';			
 		}
-		//debut ajout seb section tests
-		if (id[0]=='T') {
-			liste_html_des_exercices_tests += '<span class="id_exercice">' + id + '</span> - <a class="lien_id_exercice" numero="' + id + '">'  + exercice_tmp.titre + '</a></br>\n';			
-		}
-		//fin seb section tests
+		// //debut ajout seb section tests
+		// if (id[0]=='T') {
+		// 	liste_html_des_exercices_tests += '<span class="id_exercice">' + id + '</span> - <a class="lien_id_exercice" numero="' + id + '">'  + exercice_tmp.titre + '</a></br>\n';			
+		// }
+		// //fin seb section tests
 
 	}
 
@@ -5501,10 +5501,10 @@ jQuery(document).ready(function() {
 		liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Calcul mental (${nombre_d_exercices_disponibles_CM})</div><div class="content">`
 		liste_html_des_exercices += liste_html_des_exercices_CM
 		liste_html_des_exercices+=`</div>`
-		//debut ajout seb section tests
-		liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Section Tests (${nombre_d_exercices_disponibles_tests})</div><div class="content">`
-		liste_html_des_exercices += liste_html_des_exercices_tests
-		liste_html_des_exercices+=`</div>`
+		// //debut ajout seb section tests
+		// liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Section Tests (${nombre_d_exercices_disponibles_tests})</div><div class="content">`
+		// liste_html_des_exercices += liste_html_des_exercices_tests
+		// liste_html_des_exercices+=`</div>`
 		//fin seb section tests
 		// Ajoute les outils prof sur mathalealatex
 		if (window.location.href.indexOf('mathalealatex.html')>0) {
