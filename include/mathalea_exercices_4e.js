@@ -870,11 +870,10 @@ function Exercice_developper(difficulte=1){
 					
 					if (a==1){ // ne pas écrire 1x
 						texte_corr = `$${lettre_depuis_chiffre(i+1)}=${k}(${inconnue}${ecriture_algebrique(b)})=${k}
-						\\times ${inconnue}${signe(k*b)}${abs(k)}\\times${abs(b)}=${k*a}${inconnue}${ecriture_algebrique(k*b)}$`;
+						\\times ${inconnue}+${ecriture_parenthese_si_negatif(k)}\\times${ecriture_parenthese_si_negatif(b)}=${k*a}${inconnue}${ecriture_algebrique(k*b)}$`;
 					} else {
 						texte_corr = `$${lettre_depuis_chiffre(i+1)}=${k}(${a}${inconnue}${ecriture_algebrique(b)})=${k}
-						\\times ${a}${inconnue}${signe(k*b)}${abs(k)}\\times${abs(b)}=${k*a}${inconnue}${ecriture_algebrique(k*b)}$`;
-
+						\\times ${a}${inconnue}+${ecriture_parenthese_si_negatif(k)}\\times${ecriture_parenthese_si_negatif(b)}=${k*a}${inconnue}${ecriture_algebrique(k*b)}$`;
 					}
 					break ;
 				case 'simple2' :
@@ -885,11 +884,11 @@ function Exercice_developper(difficulte=1){
 					}
 					
 					if (a==1){ // ne pas écrire 1x
-						texte_corr = `$${lettre_depuis_chiffre(i+1)}=(${inconnue}${ecriture_algebrique(b)})\\times${k}=${k}
-						\\times ${inconnue}${signe(k*b)}${abs(k)}\\times${abs(b)}=${k*a}${inconnue}${ecriture_algebrique(k*b)}$`;
+						texte_corr = `$${lettre_depuis_chiffre(i+1)}=(${inconnue}${ecriture_algebrique(b)})\\times${ecriture_parenthese_si_negatif(k)}=${k}
+						\\times ${inconnue}+${ecriture_parenthese_si_negatif(k)}\\times${ecriture_parenthese_si_negatif(b)}=${k*a}${inconnue}${ecriture_algebrique(k*b)}$`;
 					} else {
-						texte_corr = `$${lettre_depuis_chiffre(i+1)}=(${a}${inconnue}${ecriture_algebrique(b)})\\times${k}=${k}
-						\\times ${a}${inconnue}${signe(k*b)}${abs(k)}\\times${abs(b)}=${k*a}${inconnue}${ecriture_algebrique(k*b)}$`;
+						texte_corr = `$${lettre_depuis_chiffre(i+1)}=(${a}${inconnue}${ecriture_algebrique(b)})\\times${ecriture_parenthese_si_negatif(k)}=${k}
+						\\times ${a}${inconnue}+${ecriture_parenthese_si_negatif(k)}\\times${ecriture_parenthese_si_negatif(b)}=${k*a}${inconnue}${ecriture_algebrique(k*b)}$`;
 
 					}
 					break ;
@@ -903,7 +902,11 @@ function Exercice_developper(difficulte=1){
 					if (a==1){ // ne pas écrire 1x
 						texte_corr = `$${lettre_depuis_chiffre(i+1)}=${k}${inconnue}(${inconnue}${ecriture_algebrique(b)})=${k}${inconnue}\\times ${inconnue} ${signe(k*b)}${k}${inconnue}\\times ${abs(b)}=${k*a}${inconnue}^2${ecriture_algebrique(k*b)}${inconnue}$`;
 					} else {
-						texte_corr = `$${lettre_depuis_chiffre(i+1)}=${k}${inconnue}(${a}${inconnue}${ecriture_algebrique(b)})=${k}${inconnue}\\times ${a}${inconnue} ${signe(k*b)}${k}${inconnue}\\times ${abs(b)}=${k*a}${inconnue}^2${ecriture_algebrique(k*b)}${inconnue}$`;
+						if (k>0) {
+							texte_corr = `$${lettre_depuis_chiffre(i+1)}=${k}${inconnue}(${a}${inconnue}${ecriture_algebrique(b)})=${k}${inconnue}\\times ${a}${inconnue} + ${k}${inconnue}\\times ${ecriture_parenthese_si_negatif(b)}=${k*a}${inconnue}^2${ecriture_algebrique(k*b)}${inconnue}$`;
+						} else {
+							texte_corr = `$${lettre_depuis_chiffre(i+1)}=${k}${inconnue}(${a}${inconnue}${ecriture_algebrique(b)})=${k}${inconnue}\\times ${a}${inconnue} + (${k}${inconnue})\\times ${ecriture_parenthese_si_negatif(b)}=${k*a}${inconnue}^2${ecriture_algebrique(k*b)}${inconnue}$`;
+						}
 
 					}
 					break ;
@@ -916,10 +919,11 @@ function Exercice_developper(difficulte=1){
 					}
 					
 					if (a==1){ // ne pas écrire 1x
-						texte_corr = `$${lettre_depuis_chiffre(i+1)}=${k}(${inconnue}${ecriture_algebrique(b)})+${c}=${k*a}${inconnue}${ecriture_algebrique(k*b)}+${c}=${k*a}${inconnue}${ecriture_algebrique(k*b+c)}$`;
+						texte_corr = `$${lettre_depuis_chiffre(i+1)}=${k}(${inconnue}${ecriture_algebrique(b)})+${c}=${k}\\times ${inconnue}+${ecriture_parenthese_si_negatif(k)}\\times${ecriture_parenthese_si_negatif(b)}+${c}
+						=${k*a}${inconnue}${ecriture_algebrique(k*b)}+${c}=${k*a}${inconnue}${ecriture_algebrique(k*b+c)}$`;
 					} else {
-						texte_corr = `$${lettre_depuis_chiffre(i+1)}=${k}(${a}${inconnue}${ecriture_algebrique(b)})+${c}=${k*a}${inconnue}${ecriture_algebrique(k*b)}+${c}=${k*a}${inconnue}${ecriture_algebrique(k*b+c)}$`;
-
+						texte_corr = `$${lettre_depuis_chiffre(i+1)}=${k}(${a}${inconnue}${ecriture_algebrique(b)})+${c}=${k}\\times${ecriture_parenthese_si_moins(a+inconnue)}+${ecriture_parenthese_si_negatif(k)}\\times${ecriture_parenthese_si_negatif(b)}+${c}
+						=${k*a}${inconnue}${ecriture_algebrique(k*b)}+${c}=${k*a}${inconnue}${ecriture_algebrique(k*b+c)}$`;
 					}
 					break ;
 			}

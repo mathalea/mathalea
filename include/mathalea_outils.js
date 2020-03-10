@@ -403,6 +403,23 @@ function ecriture_parenthese_si_negatif(a) {
 	}
 	return result;
 };
+
+/**
+* Ajoute des parenthèses si une expression commence par un moins
+* @Example
+* // (-3x)
+* @Auteur Rémi Angot
+*/
+function ecriture_parenthese_si_moins(expr) { 
+	let result = '';
+	if (expr[0]=='-') {
+		result = `(${expr})`;
+	}else {
+		result = expr;
+	}
+	return result;
+};
+
 /**
 * Convertit un angle de radian vers degrés
 * @Example
