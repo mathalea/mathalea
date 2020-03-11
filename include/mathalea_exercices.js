@@ -1801,8 +1801,8 @@ function Somme_de_deux_nombres_maries_et_un_entier(){
 function Le_compte_est_bon(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Trouver la cible avec les 4 opérations";
-	this.consigne = "Calculer";
+	this.titre = "Générateur de \"Le compte est bon\"";
+	this.consigne = "Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.";
 	this.nb_questions = 5;
 	this.nb_cols = 2;
 	this.nb_cols_corr = 2;
@@ -2008,7 +2008,7 @@ function Decomposition_nombre_decimal(){
 				break
 				case 6 : 
 					texte = "Le chiffre des dixièmes de ce nombre est : "
-					texte_corr = texte + `$${mi}$`
+					texte_corr = texte + `$${di}$`
 				break
 				case 7 : 
 					texte = "Le chiffre des centièmes de ce nombre est : "
