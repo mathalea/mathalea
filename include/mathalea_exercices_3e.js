@@ -1124,7 +1124,7 @@ function fonction_notion_vocabulaire(){
 	};
 	this.nouvelle_version = function(numero_de_l_exercice){
 		let type_de_questions;
-		//this.bouton_aide = modal_pdf(numero_de_l_exercice,"http://lozano.maths.free.fr/coopmaths/FichePuissances-4N21.pdf","Aide mémoire sur les puissances (Sébastien Lozano)")
+		this.bouton_aide = modal_pdf(numero_de_l_exercice,"http://lozano.maths.free.fr/coopmaths/FicheFonctions-3F1-act.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)")
 		
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
