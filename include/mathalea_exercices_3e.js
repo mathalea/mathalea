@@ -824,15 +824,62 @@ function SVG_chemin(groupe,chemin,couleur) {
 	return groupe.path(chemin).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
 };
 
-/**Trace un cercle pour un groupe donné avec une couleur donnée
-* @param groupe groupe
-* @param r_circ rayon
-* @param couleur couleur
-* @Auteur Sébastien Lozano
-*/	
-function SVG_cadre_rond(groupe,r_circ,couleur) {
+// /**Trace un cercle pour un groupe donné avec une couleur donnée
+// * @param groupe groupe
+// * @param r_circ rayon
+// * @param couleur couleur
+// * @Auteur Sébastien Lozano
+// */	
+// function SVG_cadre_rond(groupe,r_circ,couleur) {
+// 	'use strict';
+// 	return groupe.circle(r_circ).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
+// };
+
+
+// /**Trace une étape de diagramme pour un programme de calcul ou une fonction et la place 
+// * * une fleche un cadre rond pour l'opération et un cadre rectangulaire pour l'arrivée 
+// * @param mon_svg le svg global
+// * @param interligne unité d'espacement
+// * @param h hauteur
+// * @param couleur couleur
+// * @param deplacement deplacement
+// * @Auteur Sébastien Lozano
+// */	
+// function SVG_etapes(mon_svg,interligne,h,couleur,deplacement) {
+// 	'use strict';
+// 	let path_cadre_rect = 'M0,0L0,-'+interligne+',L'+4*interligne+',-'+interligne+',L'+4*interligne+','+interligne+'L0,'+interligne+'Z';
+// 	let path_fleche = 'M0,0L'+interligne+',0L'+(interligne-2)+',-2M'+interligne+',0L'+(interligne-2)+',2';
+// 	let etape = mon_svg.group();
+// 	//path_fleche = 'M0,0L10,0L8,-2M10,0L8,2';
+// 	let l1 = etape.line(0,0,interligne,0).stroke({ width: 1 ,color: couleur});
+// 	l1.dmove(0,h/2);
+// 	let cadre_etape = SVG_cadre_rond(etape,2*interligne,couleur);
+// 	cadre_etape.dmove(interligne,h/2-interligne);
+// 	let f1 = SVG_chemin(etape,path_fleche,couleur);
+// 	f1.dmove(3*interligne,h/2);
+// 	let cadre_fin = SVG_chemin(etape,path_cadre_rect,'#f15929');
+// 	cadre_fin.dmove(4*interligne,h/2)
+// 	etape.dmove(deplacement,0);
+// 	return etape;
+// };
+
+/**Calcule la place necessaire au saut après une étape opératoire
+ * 
+ * @param {object} groupe groupe svg
+ * @param {number} interligne unité d'espacement
+ * @param {string} texte texte avec rendu katex
+ */
+function SVG_saut_etape_cadre_rond(groupe,interligne,texte){
 	'use strict';
-	return groupe.circle(r_circ).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
+	let prop_font = {family:   'Helvetica',
+	size:     interligne,
+	anchor:   'start'
+	//, leading : 0.5
+	};	
+	let operation = groupe.text(texte).font(prop_font);
+	let w_operation = operation.length();
+	operation.clear();
+	return 5*interligne/2 + w_operation/2;
 };
 
 /**Crée une étape avec une opération
@@ -844,7 +891,8 @@ function SVG_cadre_rond(groupe,r_circ,couleur) {
  * @param {string} texte texte avec rendu katex
  * @param {number} saut saut pour positionner l'etape
  */
-function SVG_etape_cadre_rond(mon_svg,groupe,h,interligne,couleur,texte,saut) {
+//function SVG_etape_cadre_rond(mon_svg,groupe,h,interligne,couleur,texte,saut) {
+function SVG_etape_cadre_rond(groupe,h,interligne,couleur,texte,saut) {
 	'use strict';
 	let prop_font = {family:   'Helvetica',
 	size:     interligne,
@@ -859,7 +907,8 @@ function SVG_etape_cadre_rond(mon_svg,groupe,h,interligne,couleur,texte,saut) {
 	// on crée la fleche
 	let path_fleche = 'M0,0L'+interligne+',0L'+(interligne-2)+',-2M'+interligne+',0L'+(interligne-2)+',2';
 	// on crée le groupe etape
-	let etape = mon_svg.group();
+	//let etape = mon_svg.group();
+	let etape = groupe.group();
 	// on crée la ligne de départ	
 	let l1 = etape.line(0,0,interligne,0).stroke({ width: 1 ,color: couleur});
 	l1.dmove(0,h/2);
@@ -883,49 +932,73 @@ function SVG_etape_cadre_rond(mon_svg,groupe,h,interligne,couleur,texte,saut) {
 	// on positionne l'objet
 	fobj_operation.dmove(0,-interligne/4);
 
-
-
-
-
 	//let cadre_etape = SVG_cadre_rond(etape,2*interligne,couleur);
 	//cadre_etape.dmove(interligne,h/2-interligne);
 	// let f1 = SVG_chemin(etape,path_fleche,couleur);
 	// f1.dmove(3*interligne,h/2);
 	etape.dmove(saut,0);
-	return [etape,5*interligne/2 + w_operation/2];
+	// return [etape,5*interligne/2 + w_operation/2];
+	return etape;
 }
 
-
-
-
-
-/**Trace une étape de diagramme pour un programme de calcul ou une fonction et la place 
-* * une fleche un cadre rond pour l'opération et un cadre rectangulaire pour l'arrivée 
-* @param mon_svg le svg global
-* @param interligne unité d'espacement
-* @param h hauteur
-* @param couleur couleur
-* @param deplacement deplacement
-* @Auteur Sébastien Lozano
-*/	
-function SVG_etapes(mon_svg,interligne,h,couleur,deplacement) {
+/**Calcule la place necessaire au saut après le résultat d'une étape intermédiaire
+ * 
+ * @param {object} groupe groupe svg
+ * @param {number} interligne unité d'espacement
+ * @param {string} texte texte avec rendu katex
+ */
+function SVG_saut_etape_cadre_rect(groupe,interligne,texte) {
 	'use strict';
-	let path_cadre_rect = 'M0,0L0,-'+interligne+',L'+4*interligne+',-'+interligne+',L'+4*interligne+','+interligne+'L0,'+interligne+'Z';
-	let path_fleche = 'M0,0L'+interligne+',0L'+(interligne-2)+',-2M'+interligne+',0L'+(interligne-2)+',2';
-	let etape = mon_svg.group();
-	//path_fleche = 'M0,0L10,0L8,-2M10,0L8,2';
-	let l1 = etape.line(0,0,interligne,0).stroke({ width: 1 ,color: couleur});
-	l1.dmove(0,h/2);
-	let cadre_etape = SVG_cadre_rond(etape,2*interligne,couleur);
-	cadre_etape.dmove(interligne,h/2-interligne);
-	let f1 = SVG_chemin(etape,path_fleche,couleur);
-	f1.dmove(3*interligne,h/2);
-	let cadre_fin = SVG_chemin(etape,path_cadre_rect,'#f15929');
-	cadre_fin.dmove(4*interligne,h/2)
-	etape.dmove(deplacement,0);
-	return etape;
+	let prop_font = {family:   'Helvetica',
+	size:     interligne,
+	anchor:   'start'
+	//, leading : 0.5
+	};	
+	let etape_rect = groupe.text(texte).font(prop_font);
+	let w_etape_rect = etape_rect.length();
+	etape_rect.clear();
+	return w_etape_rect + 2*interligne;
 };
 
+function SVG_etape_cadre_rect(groupe,h,interligne,couleur,texte,saut) {
+	'use strict';
+	let prop_font = {family:   'Helvetica',
+	size:     interligne,
+	anchor:   'start'
+	//, leading : 0.5
+	};	
+	let etape_rect = groupe.text(texte).font(prop_font);
+	let w_etape_rect = etape_rect.length();
+	etape_rect.clear();
+	
+	// on crée le groupe etape	
+	let etape = groupe.group();
+
+	// on crée un rectangle dont la taille est adaptée au texte
+	let path_cadre_rect_etape = 'M0,0L0,-'+interligne+',L'+(w_etape_rect + 2*interligne)+',-'+interligne+',L'+(w_etape_rect + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
+	
+	//let path_fleche = 'M0,0L10,0L8,-2M10,0L8,2';
+	let cadre_rect_etape = SVG_chemin(etape,path_cadre_rect_etape,couleur);  
+	
+	// on positionne le cadre
+	cadre_rect_etape.dmove(0,h/2);
+	// on crée le foreignobject
+	let fobj_etape_rect = etape.foreignObject(w_etape_rect,h).attr({x:'0',y:'0'});
+	// on crée manuallement la div contenant les formules maths
+	let etape_rectDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+	katex.render('\\tiny{'+texte+'}', etape_rectDiv, {				
+		"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
+	});
+	//on affecte la div avec la formule dans le foreignobject
+	fobj_etape_rect.add(etape_rectDiv);
+	//fobj_x.dmove(2*interligne-xDiv.offsetWidth/2,0);
+	// on positionne l'objet
+	fobj_etape_rect.dmove(interligne+w_etape_rect/2-etape_rectDiv.offsetWidth/2,-interligne/4);
+	etape.dmove(saut,0);
+	//console.log('saut fct' + saut);
+	//return [etape,w_etape_rect + 2*interligne];
+	return etape;
+};
 
 /**
 * Crée un digramme pour une fonction arithmétique
@@ -964,7 +1037,7 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes,expressions) {
 			x.clear();
 			// on incrémente le saut pour gérer le positionnement de l'élément suivant.
 			saut = w_x_ant + 2*interligne;
-			console.log('saut 1 '+saut);
+//			console.log('saut 1 '+saut);
 
 			//let path_cadre_rect = 'M0,0L0,-'+interligne+',L'+4*interligne+',-'+interligne+',L'+4*interligne+','+interligne+'L0,'+interligne+'Z';
 			// on crée un rectangle dont la taille est adaptée au texte
@@ -987,16 +1060,25 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes,expressions) {
 			fobj_x.dmove(interligne+w_x_ant/2-xDiv.offsetWidth/2,-interligne/4);
 
 
-			SVG_etape_cadre_rond(mon_svg,diag,h,interligne,'#f15929','\\times 7',saut)[0];
-			saut = SVG_etape_cadre_rond(mon_svg,diag,h,interligne,'#f15929','\\times 7',saut)[1];
-			console.log('saut2 '+saut);
-			// let svg_etapes = []; // tableau pour les étapes
-			// let svg_cadres_fin = []; // tableau pour les textes des cadres de fin
+// 			SVG_etape_cadre_rond(diag,h,interligne,'#f15929','\\times 3',saut);
+// 			//saut = saut+SVG_etape_cadre_rond(diag,h,interligne,'#f15929','\\times 3',saut)[1];
+// 			saut = saut + SVG_saut_etape_cadre_rond(diag,interligne,'\\times 3');
+// //			console.log('saut2 '+saut);
+ 			//SVG_etape_cadre_rect(diag,h,interligne,'#f15929','3x',saut)
+// 			//saut = saut+SVG_etape_cadre_rect(diag,h,interligne,'#f15929','3x',saut)[1]
+// 			saut = saut+SVG_saut_etape_cadre_rect(diag,interligne,'3x');
+// //			console.log('saut3 '+saut);
+			let svg_etapes_rond = []; // tableau pour les étapes
+			let svg_cadres_rect = []; // tableau pour les textes des cadres de fin
 			// let svg_operations_etapes = []; // tableau pour les opérations des étapes
 			// let w_svg_operations_etapes = []; // tableau pour la largeur de ces opérations
 			// let svg_operations_etapesDiv = []; // pour les foreignObject des étapes
-			// for (var i = 0; i<etapes.length; i++) {
-			// 	svg_etapes[i] = SVG_etapes(mon_svg,interligne,h,'#f15929',4*interligne+8*i*interligne);
+			for (var i = 0; i<etapes.length; i++) {
+//				svg_etapes[i] = SVG_etapes(mon_svg,interligne,h,'#f15929',4*interligne+8*i*interligne);
+				svg_etapes_rond[i] = SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929',etapes[i],saut);
+				saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,etapes[i]);
+				svg_cadres_rect[i]=SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',expressions[i],saut)
+				saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,expressions[i]);
 			// 	if (etapes.length==i+1) {//si la longueur du tableau des etapes vaut i+1 c'est que c'est la derniere on affiche f(x)=...
 			// 		if (typeof expressions[i]!=='undefined') { // si il y a une expression algébrique on l'affiche
 			// 			//svg_cadres_fin[i] = diag.text(nom+'(x)='+expressions[i]).font(prop_font);
@@ -1076,7 +1158,7 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes,expressions) {
 			// 	svg_operations_etapes[i].dmove(6*interligne+8*i*interligne-w_svg_operations_etapes[i]/2,0);
 
 
-			// };		 
+			};		 
 
 		clearInterval(SVGExist[id_du_div]);//Arrête le timer
 		}
