@@ -17,6 +17,7 @@ var liste_des_exercices_disponibles = {
 		'CM016' : Diviser_par_10_100_1000,
 		'CM017' : Diviser_decimal_par_10_100_1000,
 		'CM018' : Somme_de_deux_nombres_maries_et_un_entier,
+		'CM019' : Le_compte_est_bon,
 		'6C10' : Additions_soustractions_multiplications_posees,
 		'6C11' : Divisions_euclidiennes,
 		'6C10-1' :Tables_de_multiplications,
@@ -1793,6 +1794,116 @@ function Somme_de_deux_nombres_maries_et_un_entier(){
 			cpt++;	
 		}
 		liste_de_question_to_contenu(this);
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+}
+
+function Le_compte_est_bon(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Trouver la cible avec les 4 opérations";
+	this.consigne = "Calculer";
+	this.nb_questions = 5;
+	this.nb_cols = 2;
+	this.nb_cols_corr = 2;
+	
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		let eureka;
+		let liste_mathador=[1,2,2,3,3,4,4,4,4,5,6,6,6,6,7,7,8,8,8,8,9,9,9,9,10,11,12,13,14,15,16,17,18,19,20];
+		let liste_de_j = combinaison_listes(range1(8),this.nb_questions)
+		for (let i = 0, texte, texte_corr, a, b, c, d, e, f,tirage,j,expression , cpt=0; i < this.nb_questions && cpt<50; ) {
+			eureka=false;
+			
+			expression=''
+			while (eureka==false){
+				tirage=[];
+				a=parseInt(choice(liste_mathador))
+				b=parseInt(choice(liste_mathador,[12,13,14,15,16,17,18,19,20,a]))
+				c=parseInt(choice(liste_mathador,[12,13,14,15,16,17,18,19,20,a,b]))
+				d=parseInt(choice(liste_mathador,[12,13,14,15,16,17,18,19,20,a,b,c]))
+				e=parseInt(choice(liste_mathador,[12,13,14,15,16,17,18,19,20]))
+				tirage.push(a,b,c,d,e);
+				tirage=shuffle(tirage);
+				a=tirage[0];
+				b=tirage[1];
+				c=tirage[2];
+				d=tirage[3];
+				e=tirage[4];
+				// les choses sérieuses commencent ici.
+				j = liste_de_j[i];
+				switch (j) {
+					case 1:
+						if ((a+b>c)&&(((a+b-c)*d)%e==0)) {
+							f=(a+b-c)*d/e;
+							expression=`$(${a}+${b}-${c})\\times${d}\\div${e}$`
+							if (f<100&&f>10) eureka=true;
+						}
+						break;
+					case 2:
+						if ((c*d%e==0)&&((a+b>c*d/e))) {
+							f=a+b-c*d/e;
+							expression=`$${a}+${b}-${c}\\times${d}\\div${e}$`
+							if (f<100&&f>10) eureka=true;
+						}
+						break;
+					case 3:
+						if ((a+b>c*d)&&((a+b-c*d)%e==0)){
+							f=(a+b-c*d)/e;
+							expression=`$(${a}+${b}-${c}\\times${d})\\div${e}$`
+							if (f<100&&f>10) eureka=true;
+						}
+						break;
+					case 4:
+						if ((b>c*d)&&(a%e==0)){
+							f=a/e+(b-c)*d;
+							expression=`$${a}\\div${e}+(${b}-${c})\\times${d}$`
+							if (f<100&&f>10) eureka=true;
+						}
+						break;
+					case 5:
+						if ((b>c*d)&&(a%(b-c)==0)){
+							f=a/(b-c)*d+e;
+							expression=`$${a}\\div(${b}-${c})\\times${d}+${e}$`
+							if (f<100&&f>10) eureka=true;
+						}
+						break;	
+					case 6:
+						if (((a+b)/c>d*e)&&((a+b)%c==0)){
+							f=(a+b)/c-d*e;
+							expression=`$(${a}+${b})\\div${c}-${d}\\times${e}$`
+							if (f<100&&f>10) eureka=true;
+						}
+						break;					
+					case 7:
+						if (((a + b / c)*d > e) && (b % c == 0)) {
+							f = (a + b/c) * d - e;
+							expression = `$(${a}+${b}\\div${c})\\times${d}-${e}$`
+							if (f<100&&f>10) eureka = true;
+						}
+						break;	
+					case 8:
+						if ((a > b/c) && (b % c == 0)) {
+							f = (a-b/c+d) * e;
+							expression = `$(${a}-${b}\\div${c})+${d})\\times${e}$`
+							if (f<100&&f>10) eureka = true;
+						}
+						break;	
+				}
+			}
+		
+		
+			texte=`Le tirage est le suivant : $${a}~;~${b}~;~${c}~;~${d}~;~${e}$ <br>\n La cible est : $${f}$`
+			texte_corr=`La solution est : ${expression}$=${f}$`
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+		cpt++;	
+	}
+	liste_de_question_to_contenu(this);
 	}
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
@@ -5443,6 +5554,11 @@ jQuery(document).ready(function() {
 		if (id[0]=='P') {
 			liste_html_des_exercices_prof += '<span class="id_exercice">' + id + '</span> - <a class="lien_id_exercice" numero="' + id + '">'  + exercice_tmp.titre + '</a></br>\n';			
 		}
+		// //debut ajout seb section tests
+		// if (id[0]=='T') {
+		// 	liste_html_des_exercices_tests += '<span class="id_exercice">' + id + '</span> - <a class="lien_id_exercice" numero="' + id + '">'  + exercice_tmp.titre + '</a></br>\n';			
+		// }
+		// //fin seb section tests
 
 	}
 
@@ -5487,6 +5603,11 @@ jQuery(document).ready(function() {
 		liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Calcul mental (${nombre_d_exercices_disponibles_CM})</div><div class="content">`
 		liste_html_des_exercices += liste_html_des_exercices_CM
 		liste_html_des_exercices+=`</div>`
+		// //debut ajout seb section tests
+		// liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Section Tests (${nombre_d_exercices_disponibles_tests})</div><div class="content">`
+		// liste_html_des_exercices += liste_html_des_exercices_tests
+		// liste_html_des_exercices+=`</div>`
+		//fin seb section tests
 		// Ajoute les outils prof sur mathalealatex
 		if (window.location.href.indexOf('mathalealatex.html')>0) {
 			liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Outils pour le professeur (${nombre_d_exercices_disponibles_prof})</div><div class="content">`
