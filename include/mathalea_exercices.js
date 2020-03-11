@@ -1802,7 +1802,7 @@ function Le_compte_est_bon(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Générateur de \"Le compte est bon\"";
-	this.consigne = "Calculer";
+	this.consigne = "Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.";
 	this.nb_questions = 5;
 	this.nb_cols = 2;
 	this.nb_cols_corr = 2;
