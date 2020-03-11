@@ -2008,7 +2008,7 @@ function Decomposition_nombre_decimal(){
 				break
 				case 6 : 
 					texte = "Le chiffre des dixièmes de ce nombre est : "
-					texte_corr = texte + `$${mi}$`
+					texte_corr = texte + `$${di}$`
 				break
 				case 7 : 
 					texte = "Le chiffre des centièmes de ce nombre est : "
