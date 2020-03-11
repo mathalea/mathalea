@@ -947,7 +947,7 @@ function SVG_etape_cadre_rect(groupe,h,interligne,couleur,texte,saut) {
 };
 
 /**
-* Crée un diagramme pour une fonction arithmétique
+ * Crée un diagramme pour une fonction arithmétique
  * @param {string} id_du_div id du div contenant le SVG
  * @param {number} w largeur du div du svg
  * @param {numer} h hauteur du div du svg
@@ -1067,6 +1067,23 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 
 	}, 100); // Vérifie toutes les 100ms
 
+};
+
+/**
+ * Renvoie un tableau contenant les diviseurs d'un nombre entier, rangés dans l'ordre croissant  
+ * @param {integer} n 
+ */
+function liste_diviseurs(n) {
+	'use strict';
+	let i = 2;
+	let diviseurs = [1];
+	while ( i<= n) {
+		if (n % i == 0) {
+			diviseurs.push(i);
+		};
+		i++;
+	};
+	return diviseurs;
 };
 
 function fonction_notion_vocabulaire(){
@@ -1392,19 +1409,23 @@ function fonction_notion_vocabulaire(){
 						texte+= `avec le mot image. <br>`;
 					};
 					texte_corr = num_alpha(j)+`Détailler la méthode de recherche des diviseurs ici<br>`;
-					texte_corr += `On dit que ... est l'image de ${x} par la fonction d.<br>`;						
+					texte_corr += `La liste des diviseurs de ${x} est `+liste_diviseurs(x)+`; Cette liste compte `+liste_diviseurs(x).length+` nombres <br>`;
+					texte_corr += `Donc `+liste_diviseurs(x).length+` est l'image de ${x} par la fonction d.<br>`;						
 					j++;//incrémente la sous question
 
 					//x = randint(1,9);//augmenter les possibles pour éviter les questions déjà posées?	
 					texte += num_alpha(j)+` Quelle est une valeur possible du nombre de départ si la machine renvoie  2 ?<br>`;
-					texte_corr += num_alpha(j)+`Si la machine renvoie 2 alors le nombre de départ  a exactement 2 diviseurs, tous les nombres premiers conviennent.<br>`;
-					texte_corr += `On dit que ... est <b>un</b> antécédent de 2 par la fonction d.<br>`;						
+					texte_corr += num_alpha(j)+`Si la machine renvoie 2 alors le nombre de départ  a exactement 2 diviseurs, tous les
+					`+katex_Popup('nombres premiers','Nombre premier','Un nombre entier est un <b>nombre premier</b> si il a exactement deux diviseurs, 1 et lui-même.')+`					
+					 conviennent.<br>`;
+					texte_corr += `2 est premier donc 2 est <b>un</b> antécédent de 2 par la fonction d.<br>`;						
+					texte_corr += `7 est premier donc 7 est <b>un</b> antécédent de 2 par la fonction d.<br>`;						
 					j++;//incrémente la sous question
 
 					x = randint(51,99);//augmenter les possibles pour éviter les questions déjà posées?	
 					texte += num_alpha(j)+` Quelle est l'image de ${x} par la `; 
 					if (sortie_html){
-						texte += katex_Popup('fonction','Vocabulaire','<b>fonction</b> est le nom que l\'on donne aux machines mathématiques');														
+						texte += katex_Popup('fonction','Vocabulaire','<b>fonction</b> est le nom que l\'on donne à ces machines mathématiques');														
 					} else { // sortie LaTeX
 						texte +=`fonction`;
 					};
@@ -1414,12 +1435,20 @@ function fonction_notion_vocabulaire(){
 					} else { // sortie LaTeX
 						texte +=`$\\textbf{d(${x}) = \\ldots}$<br>`;
 					};
-					texte_corr += num_alpha(j)+`L'image de ${x} par la fonction d vaut ... méthode à détailler.<br>`;
+					texte_corr += num_alpha(j)+`Méthode à détailler.<br>`;
+					texte_corr += `La liste des diviseurs de ${x} est `+liste_diviseurs(x)+`; Cette liste compte `+liste_diviseurs(x).length+` nombres <br>`;
+					texte_corr += `Donc `+liste_diviseurs(x).length+` est l'image de ${x} par la fonction d.<br>`;						
 					j++;//incrémente la sous question
 
 					//x = randint(1,9);//augmenter les possibles pour éviter les questions déjà posées?	
 					texte += num_alpha(j)+` Peut-on trouver deux antécédents de 3 par la fonction d ?<br>`;
-					texte_corr += num_alpha(j)+`Il faut trouver des nombres qui ont exactement 3 diviseurs. Méthode à détailler ici.<br>`;					
+					texte_corr += num_alpha(j)+`Il faut trouver des nombres qui ont exactement 3 diviseurs.<br>`;
+					texte_corr += `La liste des diviseurs de 9 est `+liste_diviseurs(9)+`; Cette liste compte `+liste_diviseurs(9).length+` nombres, `;
+					texte_corr += `donc 9 est un antécédent de 3 par la fonction d.<br>`;
+					texte_corr += `La liste des diviseurs de 25 est `+liste_diviseurs(25)+`; Cette liste compte `+liste_diviseurs(25).length+` nombres, `;
+					texte_corr += `donc 25 est un antécédent de 3 par la fonction d.<br>`;
+					texte_corr += `Tu peux en trouver d'autres, qu'ont ils de commun ?`						
+					
 					j++;//incrémente la sous question
 						break;																
 				};
