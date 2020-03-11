@@ -1801,7 +1801,7 @@ function Somme_de_deux_nombres_maries_et_un_entier(){
 function Le_compte_est_bon(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Trouver la cible avec les 4 opérations";
+	this.titre = "Générateur de \"Le compte est bon\"";
 	this.consigne = "Calculer";
 	this.nb_questions = 5;
 	this.nb_cols = 2;
