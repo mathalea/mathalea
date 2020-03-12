@@ -1903,12 +1903,12 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
 
 
 /**
-* fonction pour simplifier l'ecriture lorsque l'exposant vaut 0 ou 1
-* retourne 1, la base ou rien
-* @param b base
-* @param e exposant 
-* @Auteur Sébastien Lozano
-*/	
+ * Fonction pour simplifier l'ecriture lorsque l'exposant vaut 0 ou 1
+ * retourne 1, la base ou rien
+ * @param b base
+ * @param e exposant 
+ * @Auteur Sébastien Lozano
+ */	
 function simpExp(b,e) {
 	switch (e) {
 		case 1 : 
@@ -1922,15 +1922,15 @@ function simpExp(b,e) {
 	};
 };
 
-	/**
-* fonction pour simplifier les notations puissance dans certains cas
-* si la base vaut 1 ou -1 quelque soit l'exposant, retourne 1 ou -1,
-* si la base est négative on teste la parité de l'exposant pour alléger la notation sans le signe
-* si l'exposant vaut 0 ou 1 retourne 1, la base ou rien
-* @param b base
-* @param e exposant 
-* @Auteur Sébastien Lozano
-*/	
+/**
+ * Fonction pour simplifier les notations puissance dans certains cas
+ * si la base vaut 1 ou -1 quelque soit l'exposant, retourne 1 ou -1,
+ * si la base est négative on teste la parité de l'exposant pour alléger la notation sans le signe
+ * si l'exposant vaut 0 ou 1 retourne 1, la base ou rien
+ * @param b base
+ * @param e exposant 
+ * @Auteur Sébastien Lozano
+ */	
 function simpNotPuissance(b,e) {
 	switch (b) {
 		case -1 : 
@@ -1967,12 +1967,12 @@ function simpNotPuissance(b,e) {
 
 
 /**
-* fonction pour écrire en couleur la forme éclatée d'une puissance
-* @param b base
-* @param e exposant 
-* @param couleur
-* @Auteur Sébastien Lozano
-*/		
+ * Fonction pour écrire en couleur la forme éclatée d'une puissance
+ * @param b base
+ * @param e exposant 
+ * @param couleur
+ * @Auteur Sébastien Lozano
+ */		
 function eclatePuissance(b,e,couleur) {
 	switch (e) {
 		case 0 :
@@ -1991,14 +1991,14 @@ function eclatePuissance(b,e,couleur) {
 };
 
 /**
-* fonction pour écrire avec deux couleurs la forme éclatée d'un produit de puissances de même exposant
-* @param b1 base1
-* @param b2 base2
-* @param e exposant 
-* @param couleur1
-* @param couleur2
-* @Auteur Sébastien Lozano
-*/	
+ * Fonction pour écrire avec deux couleurs la forme éclatée d'un produit de puissances de même exposant
+ * @param b1 base1
+ * @param b2 base2
+ * @param e exposant 
+ * @param couleur1
+ * @param couleur2
+ * @Auteur Sébastien Lozano
+ */	
 function reorganiseProduitPuissance(b1,b2,e,couleur1,couleur2) {
 	switch (e) {
 		case 0 :
