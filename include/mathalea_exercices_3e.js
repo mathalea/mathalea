@@ -597,9 +597,15 @@ function Resoudre_une_equation_produit_nul(){
 /**
  * Fonction pour récupérer une police  
  */
-function my_font(){
+function my_svg_font(font,interligne,ancre,f_style,f_weight){
 	//return 'Helvetica';
-	return 'KaTeX_Math';
+	return {family:  font,
+		size: interligne,
+		anchor: ancre,
+		style: f_style,
+		//, leading : 0.5
+		weight : f_weight
+		};
 }
 
 /**
@@ -663,18 +669,9 @@ function SVG_fleche_machine_maths(groupe,chemin,couleur) {
 function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_ligne2,y_ligne1,y_ligne2) {
 	'use strict';
 	let interligne = 15; // pour un interligne uniforme 
-	let prop_font = {family:  my_font(),
-					size:     interligne,
-					anchor:   'start',
-					//, leading : 0.5
-					};
-	let prop_font_nom = {family:   my_font(),
-						size:     interligne,
-						anchor:   'start',
-						weight: 'bold'
-						//, leading : 0.5
-						};					
-	let prop_font_etape = {family:   my_font(),
+	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
+	let prop_font_nom = my_svg_font('Helvetica',interligne,'start','normal','bold');
+	let prop_font_etape = {family:   'Helvetica',
 						size:     4*interligne/5,
 						anchor:   'start'
 						//, leading : 0.5
@@ -828,7 +825,7 @@ function SVG_chemin(groupe,chemin,couleur) {
  */
 function SVG_saut_etape_cadre_rond(groupe,interligne,texte){
 	'use strict';
-	let prop_font = {family:   my_font(),
+	let prop_font = {family:   'Helvetica',
 	size:     interligne,
 	anchor:   'start'
 	//, leading : 0.5
@@ -851,7 +848,7 @@ function SVG_saut_etape_cadre_rond(groupe,interligne,texte){
 
 function SVG_etape_cadre_rond(groupe,h,interligne,couleur,texte,saut) {
 	'use strict';
-	let prop_font = {family:   my_font(),
+	let prop_font = {family:   'Helvetica',
 	size:     interligne,
 	anchor:   'start'
 	//, leading : 0.5
@@ -899,7 +896,7 @@ function SVG_etape_cadre_rond(groupe,h,interligne,couleur,texte,saut) {
  */
 function SVG_saut_etape_cadre_rect(groupe,interligne,texte) {
 	'use strict';
-	let prop_font = {family:   my_font(),
+	let prop_font = {family:   'Helvetica',
 	size:     interligne,
 	anchor:   'start'
 	//, leading : 0.5
@@ -922,7 +919,7 @@ function SVG_saut_etape_cadre_rect(groupe,interligne,texte) {
 
 function SVG_etape_cadre_rect(groupe,h,interligne,couleur,texte,saut) {
 	'use strict';
-	let prop_font = {family:   my_font(),
+	let prop_font = {family:   'Helvetica',
 	size:     interligne,
 	anchor:   'start'
 	//, leading : 0.5
@@ -968,7 +965,7 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 	'use strict';
 	let interligne = 10; // unité d'espacement
 	var saut = 0; // pour la gestion des sauts entre les éléments on aura besoin d'une globale
-	let prop_font = {family:   my_font(),
+	let prop_font = {family:   'Helvetica',
 					size:     interligne,
 					anchor:   'start'
 					//, leading : 0.5
@@ -1134,7 +1131,7 @@ function fonction_notion_vocabulaire(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		let type_de_questions;
 		this.bouton_aide = modal_pdf(numero_de_l_exercice,"http://lozano.maths.free.fr/coopmaths/FicheFonctions-3F1-act.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)")		
-		this.bouton_aide += modal_video('videoTest','videos-seb/Fonctions.mp4','Petit conte mathématique','Intro Vidéo');
+		this.bouton_aide += modal_video('videoTest','videos/Fonctions.mp4','Petit conte mathématique','Intro Vidéo');
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		this.contenu = ''; // Liste de questions
