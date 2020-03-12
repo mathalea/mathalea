@@ -705,14 +705,14 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 			//------------Dimension Antécédent----------------------
 			let ant_ligne1 = ant.text(x_ligne1).font(prop_font); 
 			let ant_ligne2 = ant.text(x_ligne2).font(prop_font); 
-			let w_ant = Math.max(ant_ligne1.length(),ant_ligne2.length());
+			let w_ant = Math.max(ant_ligne1.length(),ant_ligne2.length())+interligne;
 			ant_ligne1.clear();
 			ant_ligne2.clear();
 
 			//------------Dimension Image---------------------------
 			let im_ligne1 = im.text(y_ligne1).font(prop_font); 
 			let im_ligne2 = im.text(y_ligne2).font(prop_font); 
-			let w_im = Math.max(im_ligne1.length(),im_ligne2.length());
+			let w_im = Math.max(im_ligne1.length(),im_ligne2.length())+interligne;
 			im_ligne1.clear();
 			im_ligne2.clear();
 
@@ -748,7 +748,7 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 				var w_machine_etape3 = 0;
 			};
 
-			let w_etape_max = Math.max(w_machine_nom,w_machine_etape1,w_machine_etape2,w_machine_etape3,w_ant+interligne,w_im+interligne);
+			let w_etape_max = Math.max(w_machine_nom,w_machine_etape1,w_machine_etape2,w_machine_etape3,w_ant+interligne,w_im+interligne)+interligne;
 
 			//------------GROUPE ANTECEDENT------------------------- 
 			let ant_ligne = ant.foreignObject(w_ant,h).attr({x:'0',y:'0'});
@@ -1132,7 +1132,7 @@ function fonction_notion_vocabulaire(){
 	};
 	this.nouvelle_version = function(numero_de_l_exercice){
 		let type_de_questions;
-		this.bouton_aide = modal_pdf(numero_de_l_exercice,"http://lozano.maths.free.fr/coopmaths/FicheFonctions-3F1-act.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)")		
+		this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheFonctions-3F1-act.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
 		this.bouton_aide += modal_video('videoTest','videos/Fonctions.mp4','Petit conte mathématique','Intro Vidéo');
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées

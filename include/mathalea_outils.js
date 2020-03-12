@@ -2098,6 +2098,16 @@ function modal_pdf(numero_de_l_exercice,url_pdf,texte="Aide",label_bouton="Aide 
 * @Auteur Sébastien Lozano
 */	
 function modal_video(id_du_modal,url_video,texte,label_bouton="Vidéo",icone="file video outline"){
-	let contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="${url_video}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
+	//let contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="${url_video}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
+	let contenu = `
+	<div class="header">${texte}</div>
+	<div class="content">
+		<div class="embed-responsive embed-responsive-16by9" align="center">
+			<video width="560" height="315" controls  preload="none" style="max-width: 100%">
+				<source src="`+url_video+`">
+				Votre navigateur ne gère pas l\'élément <code>video</code>.
+			</video>
+  		</div>
+	</div>`
 	return creer_modal(id_du_modal,contenu,label_bouton,icone)
 }
