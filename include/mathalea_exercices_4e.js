@@ -2316,7 +2316,7 @@ function Puissances_d_un_relatif_1(){
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		let type_de_questions;
-		this.bouton_aide = modal_pdf(numero_de_l_exercice,"http://lozano.maths.free.fr/coopmaths/FichePuissances-4N21.pdf","Aide mémoire sur les puissances (Sébastien Lozano)")
+		this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FichePuissances-4N21.pdf","Aide mémoire sur les puissances (Sébastien Lozano)","Aide mémoire")
 		
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
@@ -2508,7 +2508,7 @@ function Puissances_d_un_relatif_2(){
 		let type_de_questions_disponibles = [1,2,3,4,5,6,7,8];	
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions);
 
-		this.bouton_aide = modal_pdf(numero_de_l_exercice,"http://lozano.maths.free.fr/coopmaths/FichePuissances-4N21.pdf","Aide mémoire sur les puissances (Sébastien Lozano)")
+		this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FichePuissances-4N21.pdf","Aide mémoire sur les puissances (Sébastien Lozano)","Aide mémoire")
 
 		for (let i = 0, base ,exp , texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 			let type_de_questions = liste_type_de_questions[i];
