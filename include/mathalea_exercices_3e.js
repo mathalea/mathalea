@@ -595,6 +595,14 @@ function Resoudre_une_equation_produit_nul(){
  */
 
 /**
+ * Fonction pour récupérer une police  
+ */
+function my_font(){
+	//return 'Helvetica';
+	return 'KaTeX_Math';
+}
+
+/**
  * Crée un popup html avec un icon info, éventuellement avec du contenu LaTeX
  * @param {string} texte 
  * @param {string} titrePopup 
@@ -655,18 +663,18 @@ function SVG_fleche_machine_maths(groupe,chemin,couleur) {
 function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_ligne2,y_ligne1,y_ligne2) {
 	'use strict';
 	let interligne = 15; // pour un interligne uniforme 
-	let prop_font = {family:   'Helvetica',
+	let prop_font = {family:  my_font(),
 					size:     interligne,
 					anchor:   'start',
 					//, leading : 0.5
 					};
-	let prop_font_nom = {family:   'Helvetica',
+	let prop_font_nom = {family:   my_font(),
 						size:     interligne,
 						anchor:   'start',
 						weight: 'bold'
 						//, leading : 0.5
 						};					
-	let prop_font_etape = {family:   'Helvetica',
+	let prop_font_etape = {family:   my_font(),
 						size:     4*interligne/5,
 						anchor:   'start'
 						//, leading : 0.5
@@ -820,7 +828,7 @@ function SVG_chemin(groupe,chemin,couleur) {
  */
 function SVG_saut_etape_cadre_rond(groupe,interligne,texte){
 	'use strict';
-	let prop_font = {family:   'Helvetica',
+	let prop_font = {family:   my_font(),
 	size:     interligne,
 	anchor:   'start'
 	//, leading : 0.5
@@ -843,7 +851,7 @@ function SVG_saut_etape_cadre_rond(groupe,interligne,texte){
 
 function SVG_etape_cadre_rond(groupe,h,interligne,couleur,texte,saut) {
 	'use strict';
-	let prop_font = {family:   'Helvetica',
+	let prop_font = {family:   my_font(),
 	size:     interligne,
 	anchor:   'start'
 	//, leading : 0.5
@@ -891,7 +899,7 @@ function SVG_etape_cadre_rond(groupe,h,interligne,couleur,texte,saut) {
  */
 function SVG_saut_etape_cadre_rect(groupe,interligne,texte) {
 	'use strict';
-	let prop_font = {family:   'Helvetica',
+	let prop_font = {family:   my_font(),
 	size:     interligne,
 	anchor:   'start'
 	//, leading : 0.5
@@ -914,7 +922,7 @@ function SVG_saut_etape_cadre_rect(groupe,interligne,texte) {
 
 function SVG_etape_cadre_rect(groupe,h,interligne,couleur,texte,saut) {
 	'use strict';
-	let prop_font = {family:   'Helvetica',
+	let prop_font = {family:   my_font(),
 	size:     interligne,
 	anchor:   'start'
 	//, leading : 0.5
@@ -960,7 +968,7 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 	'use strict';
 	let interligne = 10; // unité d'espacement
 	var saut = 0; // pour la gestion des sauts entre les éléments on aura besoin d'une globale
-	let prop_font = {family:   'Helvetica',
+	let prop_font = {family:   my_font(),
 					size:     interligne,
 					anchor:   'start'
 					//, leading : 0.5
