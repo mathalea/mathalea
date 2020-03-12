@@ -2087,3 +2087,17 @@ function modal_pdf(numero_de_l_exercice,url_pdf,texte="Aide",label_bouton="Aide 
 	let contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><embed src=${url_pdf} width=90% height=500 type='application/pdf'/></p></div>`
 	return creer_modal(numero_de_l_exercice,contenu,label_bouton,icone)
 }
+
+/**
+* Créé un bouton pour une aide modale avec une vidéo
+* @param id_du_modal
+* @param url_video
+* @param texte Texte court qui sera affiché comme un titre 
+* @param label_bouton Titre du bouton (par défaut Vidéo)
+* @param icone Nom de l'icone (par défaut c'est file video outline icon), liste complète sur https://semantic-ui.com/elements/icon.html
+* @Auteur Sébastien Lozano
+*/	
+function modal_video(id_du_modal,url_video,texte,label_bouton="Vidéo",icone="file video outline"){
+	let contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="${url_video}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
+	return creer_modal(id_du_modal,contenu,label_bouton,icone)
+}

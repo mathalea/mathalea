@@ -1094,8 +1094,8 @@ function fonction_notion_vocabulaire(){
 	if (sortie_html) {
 		this.consigne = "Lorsqu'un nombre $\\textit{x}$ entre dans une machine mathématique , celle-ci renvoie à la sortie un nombre appelé $\\textit{image de x}$.<br>";
 		this.consigne += "On dit que le nombre de départ est un $\\textit{antécédent}$ du nombre qu'on trouve à la sortie.<br>";
-		this.consigne += "Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donner des noms $\\textit{f}$ ou $\\textit{g}$ ou $\\textit{h} \\ldots$ <br>"
-		this.consigne += "<a href='http://lozano.maths.free.fr/videos/Fonctions.mp4' target='_blank'>Petit conte mathématique pour introduire la notion de fonction</a>";
+		this.consigne += "Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donner des noms $\\textit{f}$ ou $\\textit{g}$ ou $\\textit{h} \\ldots$";
+		this.consigne += `<br>`;
 	} else { // sortie latex
 		this.consigne = "Consigne LaTeX";
 	} 
@@ -1126,7 +1126,7 @@ function fonction_notion_vocabulaire(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		let type_de_questions;
 		this.bouton_aide = modal_pdf(numero_de_l_exercice,"http://lozano.maths.free.fr/coopmaths/FicheFonctions-3F1-act.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)")		
-		
+		this.bouton_aide += modal_video('videoTest','videos-seb/Fonctions.mp4','Petit conte mathématique','Intro Vidéo');
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		this.contenu = ''; // Liste de questions
