@@ -5523,9 +5523,6 @@ jQuery(document).ready(function() {
 	let nombre_d_exercices_disponibles_2 = 0;
 	let nombre_d_exercices_disponibles_CM = 0;
 	let nombre_d_exercices_disponibles_prof = 0;
-	//debut ajout seb section tests
-	let nombre_d_exercices_disponibles_tests = 0;
-	//fin seb section tests
 	for (var id in liste_des_exercices_disponibles){
 		if (id[0]==6) {nombre_d_exercices_disponibles_6+=1}
 		if (id[0]==5) {nombre_d_exercices_disponibles_5+=1}
@@ -5534,9 +5531,6 @@ jQuery(document).ready(function() {
 		if (id[0]==2) {nombre_d_exercices_disponibles_2+=1}
 		if (id[0]=='C') {nombre_d_exercices_disponibles_CM+=1}
 		if (id[0]=='P') {nombre_d_exercices_disponibles_prof+=1}
-		//debut ajout seb section tests
-		if (id[0]=='T') {nombre_d_exercices_disponibles_tests+=1}
-		//fin seb section tests
 	}
 
 	//
@@ -5547,9 +5541,6 @@ jQuery(document).ready(function() {
 	let liste_html_des_exercices_2 = []
 	let liste_html_des_exercices_CM = []
 	let liste_html_des_exercices_prof = []
-	//debut ajout seb section tests
-	let liste_html_des_exercices_tests = []
-	//fin seb section tests
 
 
 	// Affiche de la liste des exercices disponibles 
