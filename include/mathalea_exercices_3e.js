@@ -748,7 +748,7 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 				var w_machine_etape3 = 0;
 			};
 
-			let w_etape_max = Math.max(w_machine_nom,w_machine_etape1,w_machine_etape2,w_machine_etape3,w_ant+interligne,w_im+interligne)+interligne;
+			let w_etape_max = Math.max(w_machine_nom,w_machine_etape1,w_machine_etape2,w_machine_etape3,w_ant+interligne,w_im+interligne)+1.5*interligne;
 
 			//------------GROUPE ANTECEDENT------------------------- 
 			let ant_ligne = ant.foreignObject(w_ant,h).attr({x:'0',y:'0'});
