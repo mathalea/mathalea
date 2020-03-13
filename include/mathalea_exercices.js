@@ -1806,11 +1806,21 @@ function Le_compte_est_bonV2(){
 	this.nb_questions = 5;
 	this.nb_cols = 2;
 	this.nb_cols_corr = 2;
+	this.sup=30;
+	this.sup2=70;
+	var max_solution=70;
 	
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		let eureka;
+		let solution=0;
+		let min_solution=parseInt(this.sup);
+		max_solution=parseInt(this.sup2);
+		if (min_solution>max_solution) {
+			min_solution=max_solution;
+			this.sup=this.sup2;
+		}
 		let liste_mathador=[1,2,2,3,3,4,4,4,4,5,6,6,6,6,7,7,8,8,8,8,9,9,9,9,10,11,12,13,14,15,16,17,18,19,20];
 		for (let i = 0, texte, texte_corr, a, b, c, d, e, f,tirage,expression_en_cours,operations_restantes,nombres_restants,op,part1,part2,cpt=0; i < this.nb_questions && cpt<50; ) {
 			eureka=false;
@@ -1827,20 +1837,20 @@ function Le_compte_est_bonV2(){
 				operations_restantes=shuffle(operations_restantes);
 				expression_en_cours=[`${nombres_restants[0]}`,`${nombres_restants[1]}`,`${nombres_restants[2]}`,`${nombres_restants[3]}`,`${nombres_restants[4]}`];
 				while (nombres_restants.length>1){
-					a=nombres_restants.pop();
 					b=nombres_restants.pop();
+					a=nombres_restants.pop();
 					part2=expression_en_cours.pop();
 					part1=expression_en_cours.pop();
 					op=operations_restantes.pop();
 					if (op=='\\times'){
 						c=a*b;
-						expression_en_cours.push(`(${part1}${op}${part2})`);
+						expression_en_cours.push(`${part1}${op}${part2}`);
 						nombres_restants.push(c);
 					}
 					else if (op=='\\div'){
 						if (a%b==0) {
 							c=a/b;
-							expression_en_cours.push(`(${part1}${op}${part2})`);
+							expression_en_cours.push(`\\dfrac{${part1}}{${part2}}`);
 							nombres_restants.push(c);	
 						}
 						else break;
@@ -1859,22 +1869,31 @@ function Le_compte_est_bonV2(){
 						nombres_restants.push(c);
 					}
 				}
+
 				if (nombres_restants.length==1&&operations_restantes.length==0)	{
-					eureka=true;
-					texte=`Le tirage est le suivant : $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ <br>\n La cible est : $${nombres_restants[0]}$`
-					texte_corr=`La solution est : $${expression_en_cours[0]}=${nombres_restants[0]}$`
-					if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-						this.liste_questions.push(texte);
-						this.liste_corrections.push(texte_corr);
-						i++;
-					}		
+					solution=nombres_restants[0];
+					if (solution>=min_solution&solution<=max_solution) {
+						eureka=true;
+						texte=`Le tirage est le suivant : $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ <br>\n La cible est : $${solution}$`
+						if (expression_en_cours[0][0]=='('){
+						expression_en_cours[0]=expression_en_cours[0].substring(1,expression_en_cours[0].length)
+						expression_en_cours[0]=expression_en_cours[0].substring(0,expression_en_cours[0].length-1)
+						}
+						texte_corr=`La solution est : $${expression_en_cours[0]}=${solution}$`
+						if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+							this.liste_questions.push(texte);
+							this.liste_corrections.push(texte_corr);
+							i++;
+						}		
+					}
 				}
 			}
 			cpt++;	
 		}
 	liste_de_question_to_contenu(this);
 	}
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+	this.besoin_formulaire_numerique = ['Limite inférieure',max_solution];
+	this.besoin_formulaire2_numerique = ['Limite supérieure',100];
 }
 
 function Le_compte_est_bon(){
