@@ -1895,9 +1895,9 @@ function Le_compte_est_bonV2(){
 	this.besoin_formulaire_numerique = ['Limite inférieure',max_solution];
 	this.besoin_formulaire2_numerique = ['Limite supérieure',100];
 }
-
-function Le_compte_est_bon(){
-	'use strict';
+/*
+ function Le_compte_est_bon(){
+ 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Générateur de \"Le compte est bon\"";
 	this.consigne = "Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.";
@@ -2021,6 +2021,8 @@ function Le_compte_est_bon(){
 	}
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
+*/
+
 
 /**
 * Le nombre de dizaines, centaines et milliers étant donné, il faut écrire le nombre.
