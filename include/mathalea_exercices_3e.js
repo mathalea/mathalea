@@ -1196,7 +1196,7 @@ function fonction_notion_vocabulaire(){
 						} else { // sortie LaTeX
 							
 						};
-						texte_corr += num_alpha(j)+`L'image de ${z} par la fonction f vaut $f(${z})=${4*z}$.<br>`;
+						texte_corr += num_alpha(j)+`L'image de ${z} par la fonction f vaut $f(${z})=4\\times ${z}=${4*z}$.<br>`;
 						j++;//incrémente la sous question
 
 						texte += num_alpha(j)+` Que renvoie la machine si le côté vaut $x$ cm ?<br>`;
@@ -1250,7 +1250,7 @@ function fonction_notion_vocabulaire(){
 						} else { //sortie LaTeX
 							
 						};
-						texte_corr = num_alpha(j)+`Si le côté vaut ${x} cm alors la machine renvoie l'aire d'un carré de côté ${x} cm, c'est à dire ${x*x} $cm^2$.<br>`;
+						texte_corr = num_alpha(j)+`Si le côté vaut ${x} cm alors la machine renvoie l'aire d'un carré de côté ${x} cm, c'est à dire $${x}\\times ${x}=${x*x}\\,cm^2$.<br>`;
 						texte_corr += `On dit que ${x*x} est l'image de ${x} par la fonction g.<br>`;						
 						j++;//incrémente la sous question
 
@@ -1261,7 +1261,7 @@ function fonction_notion_vocabulaire(){
 						} else { //sortie LaTeX
 							
 						};														
-						texte_corr += num_alpha(j)+`Si la machine renvoie une aire de ${y*y} cm<sup>2</sup> alors le côté du carré vaut ${y} cm.<br>`;
+						texte_corr += num_alpha(j)+`Si la machine renvoie une aire de $${y*y}\\,cm^2$ alors le côté du carré vaut $\\sqrt{${y*y}}=${y}\\,cm$.<br>`;
 						texte_corr += `On dit que ${y} est <b>un</b> antécédent de ${y*y} par la fonction g.<br>`;						
 						j++;//incrémente la sous question
 
@@ -1278,11 +1278,11 @@ function fonction_notion_vocabulaire(){
 						} else { // sortie LaTeX
 
 						};
-						texte_corr += num_alpha(j)+`L'image de ${z} par la fonction g vaut $g(${z})=${z*z}$.<br>`;
+						texte_corr += num_alpha(j)+`L'image de ${z} par la fonction g vaut $g(${z})=${z}\\times ${z}=${z*z}$.<br>`;
 						j++;//incrémente la sous question
 
 						texte += num_alpha(j)+` Que renvoie la machine si le côté vaut $x$ cm ?<br>`;
-						texte_corr += num_alpha(j)+`Si le côté vaut $x$ la machine renvoie $x\\times x$ ou ce qui est équivalent $x^2$ .<br>`;
+						texte_corr += num_alpha(j)+`Si le côté vaut $x$ la machine renvoie $x\\times x$ ce qui est équivalent à $x^2$ .<br>`;
 						j++;//incrémente la sous question
 
 						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-1)+` sous forme de diagramme.<br>`;
@@ -1292,7 +1292,7 @@ function fonction_notion_vocabulaire(){
 
 						texte_corr += num_alpha(j)+`C'est une machine qui multiplie un nombre par lui-même, donc sous forme de diagramme.<br>`;
 						texte_corr += `<div id="diagramme_type2_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-						SVG_machine_diag('diagramme_type2_corr',400,50,'g','x',[['\\times x','x\\times x=x^2']]);
+						SVG_machine_diag('diagramme_type2_corr',400,50,'g','x',[['\\times x','x\\times x=x^{\\tiny 2}']]);
 						j++;//incrémente la sous question
 
 						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-2)+` sous la forme `;
@@ -1332,7 +1332,7 @@ function fonction_notion_vocabulaire(){
 						} else { //sortie LaTeX
 
 						};
-						texte_corr = num_alpha(j)+`Si le nombre de départ vaut ${x} alors la machine renvoie $3\\times${x} + 1 =$ ${3*x+1}<br>`;
+						texte_corr = num_alpha(j)+`Si le nombre de départ vaut ${x} alors la machine renvoie $3\\times${x} + 1 = ${3*x+1}$<br>`;
 						texte_corr += `On dit que ${3*x+1} est l'image de ${x} par la fonction g.<br>`;						
 						j++;//incrémente la sous question
 
@@ -1343,7 +1343,7 @@ function fonction_notion_vocabulaire(){
 						} else { //sortie LaTeX
 
 						};														
-						texte_corr += num_alpha(j)+`Si la machine renvoie ${3*y+1} alors le nombre de départ vaut ${y}<br>`;
+						texte_corr += num_alpha(j)+`Si la machine renvoie $${3*y+1}$ alors le nombre de départ vaut $(${3*y+1}-1)\\div 3=${y}$<br>`;
 						texte_corr += `On dit que ${y} est <b>un</b> antécédent de ${3*y+1} par la fonction g.<br>`;						
 						j++;//incrémente la sous question
 
@@ -1360,11 +1360,11 @@ function fonction_notion_vocabulaire(){
 						} else { // sortie LaTeX
 
 						};
-						texte_corr += num_alpha(j)+`L'image de ${-z} par la fonction h vaut $h(${-z})=${-3*z+1}$.<br>`;
+						texte_corr += num_alpha(j)+`L'image de ${-z} par la fonction h vaut $h(${-z})=3\\times (${-z})+1=${-3*z+1}$.<br>`;
 						j++;//incrémente la sous question
 
 						texte += num_alpha(j)+` Que renvoie la machine si le côté vaut $x$ ?<br>`;
-						texte_corr += num_alpha(j)+`Si le côté vaut $x$ la machine renvoie $3\\times x + 1$ ou ce qui est équivalent $3x + 1$ .<br>`;
+						texte_corr += num_alpha(j)+`Si le côté vaut $x$ la machine renvoie $3\\times x + 1$ ce qui est équivalent à $3x + 1$ .<br>`;
 						j++;//incrémente la sous question
 
 						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-1)+` sous forme de diagramme.<br>`;
@@ -1400,7 +1400,7 @@ function fonction_notion_vocabulaire(){
 					var j = 0; // pour la sous-numérotation
 					texte = `La $\\mathbf{machine\\,d}$, qui n'accepte que des nombres entiers positifs, renvoie le nombre de diviseurs du nombre de départ.`;
 					texte += `<br>`;
-					x = randint(2,51);//augmenter les possibles pour éviter les questions déjà posées?	
+					x = randint(2,51);//augmenter les possibles pour éviter les questions déjà posées?						
 					if (sortie_html) {
 						//texte += `<br>`;
 						texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
@@ -1414,8 +1414,19 @@ function fonction_notion_vocabulaire(){
 					} else { //sortie LaTeX
 
 					};
-					texte_corr = num_alpha(j)+`Détailler la méthode de recherche des diviseurs ici<br>`;
-					texte_corr += `La liste des diviseurs de ${x} est `+liste_diviseurs(x)+`; Cette liste compte `+liste_diviseurs(x).length+` nombres <br>`;
+					texte_corr = num_alpha(j)+`Pour trouver la liste des diviseurs de ${x} on cherche tous les produits de deux facteurs qui donnent ${x}<br>`;
+					if (liste_diviseurs(x).length%2==0) {//si il y a un nombre pair de diviseurs
+						for (let m = 0; m<(liste_diviseurs(x).length/2); m++){
+							texte_corr += `$`+liste_diviseurs(x)[m]+`\\times`+liste_diviseurs(x)[(liste_diviseurs(x).length-m-1)]+`$<br>`;
+						};
+					} else {
+						for (let m = 0; m<((liste_diviseurs(x).length-1)/2); m++){
+							texte_corr += `$`+liste_diviseurs(x)[m]+`\\times`+liste_diviseurs(x)[(liste_diviseurs(x).length-m-1)]+`$<br>`;
+						};
+						texte_corr += `$`+liste_diviseurs(x)[(liste_diviseurs(x).length-1)/2]+`\\times`+liste_diviseurs(x)[(liste_diviseurs(x).length-1)/2]+`$<br>`;
+					};
+					texte_corr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${x}<br>`;
+					texte_corr += `La liste des diviseurs de ${x} est donc `+liste_diviseurs(x)+`; Cette liste compte `+liste_diviseurs(x).length+` nombres. <br>`;
 					texte_corr += `Donc `+liste_diviseurs(x).length+` est l'image de ${x} par la fonction d.<br>`;						
 					j++;//incrémente la sous question
 
@@ -1441,8 +1452,18 @@ function fonction_notion_vocabulaire(){
 					} else { // sortie LaTeX
 
 					};
-					texte_corr += num_alpha(j)+`Méthode à détailler.<br>`;
-					texte_corr += `La liste des diviseurs de ${x} est `+liste_diviseurs(x)+`; Cette liste compte `+liste_diviseurs(x).length+` nombres <br>`;
+					texte_corr = num_alpha(j)+`Pour trouver l'image de ${x} on peut par exemple chercher tous ses diviseurs et les compter<br>`;
+					if (liste_diviseurs(x).length%2==0) {//si il y a un nombre pair de diviseurs
+						for (let m = 0; m<(liste_diviseurs(x).length/2); m++){
+							texte_corr += `$`+liste_diviseurs(x)[m]+`\\times`+liste_diviseurs(x)[(liste_diviseurs(x).length-m-1)]+`$<br>`;
+						};
+					} else {
+						for (let m = 0; m<((liste_diviseurs(x).length-1)/2); m++){
+							texte_corr += `$`+liste_diviseurs(x)[m]+`\\times`+liste_diviseurs(x)[(liste_diviseurs(x).length-m-1)]+`$<br>`;
+						};
+						texte_corr += `$`+liste_diviseurs(x)[(liste_diviseurs(x).length-1)/2]+`\\times`+liste_diviseurs(x)[(liste_diviseurs(x).length-1)/2]+`$<br>`;
+					};
+					texte_corr += `La liste des diviseurs de ${x} est donc `+liste_diviseurs(x)+`; Cette liste compte `+liste_diviseurs(x).length+` nombres.<br>`;
 					texte_corr += `Donc `+liste_diviseurs(x).length+` est l'image de ${x} par la fonction d.<br>`;						
 					j++;//incrémente la sous question
 
