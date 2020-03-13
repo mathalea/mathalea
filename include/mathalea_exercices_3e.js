@@ -1152,9 +1152,9 @@ function fonction_notion_vocabulaire(){
 				switch (type_de_questions) {
 					case 1 : // périmètre d'un carré de côté x			
 						var j = 0; // pour la sous-numérotation
-						//texte = `La $\\textbf{machine f}$ renvoie le `+katex_Popup(`périmètre`,`Rappel`,`Le périmètre d'un polygone est égal à la somme des longueurs de ses côtés`)+` d'un carré de côté $x$`;
+						texte = `La $\\mathbf{machine\,f}$ renvoie le `+katex_Popup(`périmètre`,`Rappel`,`Le périmètre d'un polygone est égal à la somme des longueurs de ses côtés`)+` d'un carré de côté $x$`;
 						//texte = `La $\\textbf{machine f}$ renvoie le `;
-						texte= katex_Popup(`périmètre`,`Rappel`,`Le périmètre d'un polygone est égal à la somme des longueurs de ses côtés`);
+						//texte= katex_Popup(`périmètre`,`Rappel`,`Le périmètre d'un polygone est égal à la somme des longueurs de ses côtés`);
 						texte += `<br>`;
 						x = randint(2,99);//augmenter les possibles pour éviter les questions déjà posées?	
 						if (sortie_html) {
@@ -1164,74 +1164,74 @@ function fonction_notion_vocabulaire(){
 						} else { // sortie Latex avec Tikz
 
 						};
-						//texte += num_alpha(j)+` Que renvoie la machine si le côté vaut  ${x}  cm ? Formuler la réponse `;
+						texte += num_alpha(j)+` Que renvoie la machine si le côté vaut  ${x}  cm ? Formuler la réponse `;
 						if (sortie_html){
-							//texte += katex_Popup('avec le mot image','Image','la valeur du périmètre est l\'image de la valeur du côté')+`<br>`;
+							texte += katex_Popup('avec le mot image','Image','la valeur du périmètre est l\'image de la valeur du côté')+`<br>`;
 						} else { //sortie LaTeX
-							//texte+= `avec le mot image. <br>`;
+							
 						};
-						texte_corr = num_alpha(j)+`Si le côté vaut ${x} cm alors la machine renvoie le périmètre d'un carré de côté ${x} cm, c'est à dire ${4*x} cm.<br>`;
-						//texte_corr += `On dit que ${4*x} est l'image de ${x} par la fonction f.<br>`;						
+						texte_corr = num_alpha(j)+`Si le côté vaut ${x} cm alors la machine renvoie le périmètre d'un carré de côté ${x} cm, c'est à dire $${x}+${x}+${x}+${x} = 4\\times ${x} = ${4*x}$ cm.<br>`;
+						texte_corr += `On dit que ${4*x} est l'image de ${x} par la fonction f.<br>`;						
 						j++;//incrémente la sous question
 
 						y = randint(2,99,[x]);//augmenter les possibles pour éviter les questions déjà posées?	
-						//texte += num_alpha(j)+` Combien vaut le côté si la machine renvoie  ${4*y} cm ? Formuler la réponse `;
+						texte += num_alpha(j)+` Combien vaut le côté si la machine renvoie  ${4*y} cm ? Formuler la réponse `;
 						if (sortie_html){
-							//texte += katex_Popup('avec le mot antécédent','Antécédent','un antécédent de la valeur d\'un périmètre est une valeur du côté qui a pour image ce périmètre')+`<br>`;
+							texte += katex_Popup('avec le mot antécédent','Antécédent','un antécédent de la valeur d\'un périmètre est une valeur du côté qui a pour image ce périmètre')+`<br>`;
 						} else { //sortie LaTeX
-							//texte+= `avec le mot antécédent. <br>`;
+							
 						};														
-						//texte_corr += num_alpha(j)+`Si la machine renvoie un périmètre de ${4*y} cm alors le côté du carré vaut ${y} cm.<br>`;
-						//texte_corr += `On dit que ${y} est <b>un</b> antécédent de ${4*y} par la fonction f.<br>`;						
+						texte_corr += num_alpha(j)+`Si la machine renvoie un périmètre de ${4*y} cm alors le côté du carré vaut $${4*y}\\div 4 = ${y}$ cm.<br>`;
+						texte_corr += `On dit que ${y} est <b>un</b> antécédent de ${4*y} par la fonction f.<br>`;						
 						j++;//incrémente la sous question
 
 						z = randint(2,99,[x,y]);//augmenter les possibles pour éviter les questions déjà posées?	
-						//texte += num_alpha(j)+` Quelle est l'image de ${z} par la `; 
+						texte += num_alpha(j)+` Quelle est l'image de ${z} par la `; 
 						if (sortie_html){
-							//texte += katex_Popup('fonction','Vocabulaire','<b>fonction</b> est le nom que l\'on donne à ces machines mathématiques');														
-						} else { // sortie LaTeX
-							//texte +=`fonction`;
-						};
-						//texte += ` $f$ ? Ecrire la réponse sous la forme `;
-						if (sortie_html){
-							//texte += katex_Popup('$\\textbf{f('+z+') = \\ldots}$','Notation','4 a pour image 16 par la fonction f peut s\'écrire <b>f(4)=16</b>')+`<br>`;
+							texte += katex_Popup('fonction','Vocabulaire','<b>fonction</b> est le nom que l\'on donne à ces machines mathématiques');														
 						} else { // sortie LaTeX
 							
 						};
-						//texte_corr += num_alpha(j)+`L'image de ${z} par la fonction f vaut $f(${z})=${4*z}$.<br>`;
-						j++;//incrémente la sous question
-
-						//texte += num_alpha(j)+` Que renvoie la machine si le côté vaut $x$ cm ?<br>`;
-						//texte_corr += num_alpha(j)+`Si le côté vaut $x$ la machine renvoie $x+x+x+x$ ce qui est équivalent à $4\\times x$ .<br>`;
-						j++;//incrémente la sous question
-
-						//texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-1)+` sous forme de diagramme.<br>`;
-						//texte += `Voici le diagramme d'une machine qui triple `;
-						//texte += `<div id="diagramme_type1" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-						//SVG_machine_diag('diagramme_type1',400,50,'f','x',[['\\times 3','3x']]);
-
-						//texte_corr += num_alpha(j)+`C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
-						//texte_corr += `<div id="diagramme_type1_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-						//SVG_machine_diag('diagramme_type1_corr',400,50,'f','x',[['\\times 4','4x']]);
-						j++;//incrémente la sous question
-
-						//texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-2)+` sous la forme `;
+						texte += ` $f$ ? Ecrire la réponse sous la forme `;
 						if (sortie_html){
-							//texte += katex_Popup('$\\textbf{f(\\textit{x}) = \\ldots}$','Notation','4 a pour image 16 par la fonction f peut s\'écrire <b>f(4)=16</b>')+`<br>`;							
+							texte += katex_Popup('$\\mathbf{f('+z+')=\\ldots}$','Notation','4 a pour image 16 par la fonction f peut s\'écrire <b>f(4)=16</b>')+`<br>`;
 						} else { // sortie LaTeX
 							
 						};
-						//texte_corr += num_alpha(j)+`L'image de $x$ par la fonction f vaut $4\\times x$ donc $f(x)=4\\times x$.<br>`;
+						texte_corr += num_alpha(j)+`L'image de ${z} par la fonction f vaut $f(${z})=${4*z}$.<br>`;
 						j++;//incrémente la sous question
 
-						//texte += num_alpha(j)+` En utilisant la forme `;
+						texte += num_alpha(j)+` Que renvoie la machine si le côté vaut $x$ cm ?<br>`;
+						texte_corr += num_alpha(j)+`Si le côté vaut $x$ la machine renvoie $x+x+x+x$ ce qui est équivalent à $4\\times x$ .<br>`;
+						j++;//incrémente la sous question
+
+						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-1)+` sous forme de diagramme.<br>`;
+						texte += `Voici le diagramme d'une machine qui triple `;
+						texte += `<div id="diagramme_type1" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						SVG_machine_diag('diagramme_type1',400,50,'f','x',[['\\times 3','3x']]);
+
+						texte_corr += num_alpha(j)+`C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
+						texte_corr += `<div id="diagramme_type1_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						SVG_machine_diag('diagramme_type1_corr',400,50,'f','x',[['\\times 4','4x']]);
+						j++;//incrémente la sous question
+
+						texte += num_alpha(j)+` Ecrire la réponse à la question `+num_alpha(j-2)+` sous la forme `;
+						if (sortie_html){
+							texte += katex_Popup('$\\mathbf{f(x)=\\ldots}$','Notation','4 a pour image 16 par la fonction f peut s\'écrire <b>f(4)=16</b>')+`<br>`;							
+						} else { // sortie LaTeX
+							
+						};
+						texte_corr += num_alpha(j)+`L'image de $x$ par la fonction f vaut $4\\times x$ donc $f(x)=4\\times x$.<br>`;
+						j++;//incrémente la sous question
+
+						texte += num_alpha(j)+` En utilisant la forme `;
 						if (sortie_html){							
-							//texte += katex_Popup('$\\mathbf{f :} \\textbf{\\textit{ x }} \\mathbf{\\longmapsto \\ldots}$','Notation','4 a pour image 16 par la fonction f peut s\'écrire $\\textbf{f : 4 } \\mathbf{\\longmapsto} \\textbf{16}$');							
+							texte += katex_Popup('$\\mathbf{f:x\\longmapsto \\ldots}$','Notation','4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f:4\\longmapsto 16}$');							
 						} else { // sortie LaTeX
 							
 						};						
-						//texte+= `écrire la réponse à la question `+num_alpha(j-3)+`<br>`;
-						//texte_corr += num_alpha(j)+`L'image de $x$ par la fonction f vaut $4\\times x$ donc $f : x \\longmapsto 4\\times x$.<br>`;												
+						texte+= `écrire la réponse à la question `+num_alpha(j-3)+`<br>`;
+						texte_corr += num_alpha(j)+`L'image de $x$ par la fonction f vaut $4\\times x$ donc $f:x\\longmapsto 4\\times x$.<br>`;												
 						j++;//incrémente la sous question
 						break;			
 					case 2 : // aire d'un carré de côté x
