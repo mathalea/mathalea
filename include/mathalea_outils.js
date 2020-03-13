@@ -2110,4 +2110,4 @@ function modal_video(id_du_modal,url_video,texte,label_bouton="Vidéo",icone="fi
   		</div>
 	</div>`
 	return creer_modal(id_du_modal,contenu,label_bouton,icone)
-}
+};
