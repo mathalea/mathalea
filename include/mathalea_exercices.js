@@ -17,7 +17,7 @@ var liste_des_exercices_disponibles = {
 		'CM016' : Diviser_par_10_100_1000,
 		'CM017' : Diviser_decimal_par_10_100_1000,
 		'CM018' : Somme_de_deux_nombres_maries_et_un_entier,
-		'CM019' : Le_compte_est_bon,
+		'CM019' : Le_compte_est_bonV2,
 		'6C10' : Additions_soustractions_multiplications_posees,
 		'6C11' : Divisions_euclidiennes,
 		'6C10-1' :Tables_de_multiplications,
@@ -1798,7 +1798,7 @@ function Somme_de_deux_nombres_maries_et_un_entier(){
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
 
-function Le_compte_est_bon(){
+function Le_compte_est_bonV2(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Générateur de \"Le compte est bon\"";
@@ -1807,6 +1807,87 @@ function Le_compte_est_bon(){
 	this.nb_cols = 2;
 	this.nb_cols_corr = 2;
 	
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		let eureka;
+		let liste_mathador=[1,2,2,3,3,4,4,4,4,5,6,6,6,6,7,7,8,8,8,8,9,9,9,9,10,11,12,13,14,15,16,17,18,19,20];
+		for (let i = 0, texte, texte_corr, a, b, c, d, e, f,tirage,expression_en_cours,operations_restantes,nombres_restants,op,part1,part2,cpt=0; i < this.nb_questions && cpt<50; ) {
+			eureka=false;
+			while (eureka==false){
+				tirage=[];
+				a=parseInt(choice(liste_mathador))
+				b=parseInt(choice(liste_mathador,[12,13,14,15,16,17,18,19,20,a]))
+				c=parseInt(choice(liste_mathador,[12,13,14,15,16,17,18,19,20,a,b]))
+				d=parseInt(choice(liste_mathador,[12,13,14,15,16,17,18,19,20,a,b,c]))
+				e=parseInt(choice(liste_mathador,[12,13,14,15,16,17,18,19,20]))
+				tirage.push(a,b,c,d,e);
+				nombres_restants=shuffle(tirage);
+				operations_restantes=['\\times','+','-','\\div'];
+				operations_restantes=shuffle(operations_restantes);
+				expression_en_cours=[`${nombres_restants[0]}`,`${nombres_restants[1]}`,`${nombres_restants[2]}`,`${nombres_restants[3]}`,`${nombres_restants[4]}`];
+				while (nombres_restants.length>1){
+					a=nombres_restants.pop();
+					b=nombres_restants.pop();
+					part2=expression_en_cours.pop();
+					part1=expression_en_cours.pop();
+					op=operations_restantes.pop();
+					if (op=='\\times'){
+						c=a*b;
+						expression_en_cours.push(`(${part1}${op}${part2})`);
+						nombres_restants.push(c);
+					}
+					else if (op=='\\div'){
+						if (a%b==0) {
+							c=a/b;
+							expression_en_cours.push(`(${part1}${op}${part2})`);
+							nombres_restants.push(c);	
+						}
+						else break;
+					}
+					else if (op=='-'){
+						if (a>b) {
+							c=a-b;
+							expression_en_cours.push(`(${part1}${op}${part2})`);
+							nombres_restants.push(c);	
+						}
+						else break;
+					}
+					else if (op=='+'){
+						c=a+b;
+						expression_en_cours.push(`(${part1}${op}${part2})`);
+						nombres_restants.push(c);
+					}
+				}
+				if (nombres_restants.length==1&&operations_restantes.length==0)	{
+					eureka=true;
+					texte=`Le tirage est le suivant : $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ <br>\n La cible est : $${nombres_restants[0]}$`
+					texte_corr=`La solution est : $${expression_en_cours[0]}=${nombres_restants[0]}$`
+					if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+						this.liste_questions.push(texte);
+						this.liste_corrections.push(texte_corr);
+						i++;
+					}		
+				}
+			}
+			cpt++;	
+		}
+	liste_de_question_to_contenu(this);
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+}
+
+function Le_compte_est_bon(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Générateur de \"Le compte est bon\"";
+	this.consigne = "Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.";
+	this.nb_questions = 5;
+	this.nb_cols = 2;
+	this.nb_cols_corr = 2;
+	let liste_mathador=[1,2,2,3,3,4,4,4,4,5,6,6,6,6,7,7,8,8,8,8,9,9,9,9,10,11,12,13,14,15,16,17,18,19,20];
+		let liste_de_j = combinaison_listes(range1(10),this.nb_questions)
+
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
@@ -5523,6 +5604,9 @@ jQuery(document).ready(function() {
 	let nombre_d_exercices_disponibles_2 = 0;
 	let nombre_d_exercices_disponibles_CM = 0;
 	let nombre_d_exercices_disponibles_prof = 0;
+	//debut ajout seb section tests
+	let nombre_d_exercices_disponibles_tests = 0;
+	//fin seb section tests
 	for (var id in liste_des_exercices_disponibles){
 		if (id[0]==6) {nombre_d_exercices_disponibles_6+=1}
 		if (id[0]==5) {nombre_d_exercices_disponibles_5+=1}
@@ -5531,6 +5615,9 @@ jQuery(document).ready(function() {
 		if (id[0]==2) {nombre_d_exercices_disponibles_2+=1}
 		if (id[0]=='C') {nombre_d_exercices_disponibles_CM+=1}
 		if (id[0]=='P') {nombre_d_exercices_disponibles_prof+=1}
+		//debut ajout seb section tests
+		if (id[0]=='T') {nombre_d_exercices_disponibles_tests+=1}
+		//fin seb section tests
 	}
 
 	//
@@ -5541,6 +5628,9 @@ jQuery(document).ready(function() {
 	let liste_html_des_exercices_2 = []
 	let liste_html_des_exercices_CM = []
 	let liste_html_des_exercices_prof = []
+	//debut ajout seb section tests
+	let liste_html_des_exercices_tests = []
+	//fin seb section tests
 
 
 	// Affiche de la liste des exercices disponibles 
