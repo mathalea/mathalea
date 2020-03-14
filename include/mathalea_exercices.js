@@ -1827,10 +1827,10 @@ function Le_compte_est_bonV2(){
 			while (eureka==false){
 				tirage=[];
 				a=parseInt(choice(liste_mathador))
-				b=parseInt(choice(liste_mathador))//,[12,13,14,15,16,17,18,19,20,a]))
-				c=parseInt(choice(liste_mathador))//,[12,13,14,15,16,17,18,19,20,a,b]))
-				d=parseInt(choice(liste_mathador))//,[12,13,14,15,16,17,18,19,20,a,b,c]))
-				e=parseInt(choice(liste_mathador))//,[12,13,14,15,16,17,18,19,20]))
+				b=parseInt(choice(liste_mathador,[13,14,15,16,17,18,19,20,a]))
+				c=parseInt(choice(liste_mathador,[12,13,14,15,16,17,18,19,20,a,b]))
+				d=parseInt(choice(liste_mathador,[12,13,14,15,16,17,18,19,20,b,c]))
+				e=parseInt(choice(liste_mathador,[12,13,14,15,16,17,18,19,20]))
 				tirage.push(a,b,c,d,e);
 				nombres_restants=shuffle(tirage);
 				operations_restantes=['\\times','+','-','\\div'];
