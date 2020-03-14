@@ -1873,6 +1873,10 @@ function Le_compte_est_bonV2(){
 					}
 					else if (op=='+'){
 						c=a+b;
+						if (part2.substring(0,2)=='\\l'){
+							part2=part2.substring(6,part2.length)
+							part2=part2.substring(0,part2.length-7)
+							}
 						expression_en_cours.push(`\\left(${part1}${op}${part2}\\right)`);
 						nombres_restants.push(c);
 					}
