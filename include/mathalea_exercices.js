@@ -1827,10 +1827,10 @@ function Le_compte_est_bonV2(){
 			while (eureka==false){
 				tirage=[];
 				a=parseInt(choice(liste_mathador))
-				b=parseInt(choice(liste_mathador,[12,13,14,15,16,17,18,19,20,a]))
-				c=parseInt(choice(liste_mathador,[12,13,14,15,16,17,18,19,20,a,b]))
-				d=parseInt(choice(liste_mathador,[12,13,14,15,16,17,18,19,20,a,b,c]))
-				e=parseInt(choice(liste_mathador,[12,13,14,15,16,17,18,19,20]))
+				b=parseInt(choice(liste_mathador))//,[12,13,14,15,16,17,18,19,20,a]))
+				c=parseInt(choice(liste_mathador))//,[12,13,14,15,16,17,18,19,20,a,b]))
+				d=parseInt(choice(liste_mathador))//,[12,13,14,15,16,17,18,19,20,a,b,c]))
+				e=parseInt(choice(liste_mathador))//,[12,13,14,15,16,17,18,19,20]))
 				tirage.push(a,b,c,d,e);
 				nombres_restants=shuffle(tirage);
 				operations_restantes=['\\times','+','-','\\div'];
@@ -1850,6 +1850,14 @@ function Le_compte_est_bonV2(){
 					else if (op=='\\div'){
 						if (a%b==0) {
 							c=a/b;
+							if (part1[0]=='\\'){
+								part1=part1.substring(6,part1.length)
+								part1=part1.substring(0,part1.length-7)
+								}
+							if (part2[0]=='\\'){
+								part2=part2.substring(6,part2.length)
+								part2=part2.substring(0,part2.length-7)
+								}
 							expression_en_cours.push(`\\dfrac{${part1}}{${part2}}`);
 							nombres_restants.push(c);	
 						}
@@ -1858,14 +1866,14 @@ function Le_compte_est_bonV2(){
 					else if (op=='-'){
 						if (a>b) {
 							c=a-b;
-							expression_en_cours.push(`(${part1}${op}${part2})`);
+							expression_en_cours.push(`\\left(${part1}${op}${part2}\\right)`);
 							nombres_restants.push(c);	
 						}
 						else break;
 					}
 					else if (op=='+'){
 						c=a+b;
-						expression_en_cours.push(`(${part1}${op}${part2})`);
+						expression_en_cours.push(`\\left(${part1}${op}${part2}\\right)`);
 						nombres_restants.push(c);
 					}
 				}
@@ -1875,9 +1883,9 @@ function Le_compte_est_bonV2(){
 					if (solution>=min_solution&solution<=max_solution) {
 						eureka=true;
 						texte=`Le tirage est le suivant : $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ <br>\n La cible est : $${solution}$`
-						if (expression_en_cours[0][0]=='('){
-						expression_en_cours[0]=expression_en_cours[0].substring(1,expression_en_cours[0].length)
-						expression_en_cours[0]=expression_en_cours[0].substring(0,expression_en_cours[0].length-1)
+						if (expression_en_cours[0][0]=='\\'){
+						expression_en_cours[0]=expression_en_cours[0].substring(6,expression_en_cours[0].length)
+						expression_en_cours[0]=expression_en_cours[0].substring(0,expression_en_cours[0].length-7)
 						}
 						texte_corr=`La solution est : $${expression_en_cours[0]}=${solution}$`
 						if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
