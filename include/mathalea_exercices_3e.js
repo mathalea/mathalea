@@ -594,11 +594,17 @@ function Resoudre_une_equation_produit_nul(){
  * @Auteur Sébastien Lozano
  */
 
-/**
- * Fonction pour récupérer une police  
- */
-function my_svg_font(font,interligne,ancre,f_style,f_weight){
-	//return 'Helvetica';
+ /**
+  * Fonction pour particulariser une police svg et ses paramètres  
+  * @param {string} font 
+  * @param {string} interligne 
+  * @param {string} ancre 
+  * @param {string} f_style 
+  * @param {string} f_weight 
+  */
+ 
+ function my_svg_font(font,interligne,ancre,f_style,f_weight){
+	'use strict';
 	return {family:  font,
 		size: interligne,
 		anchor: ancre,
@@ -606,7 +612,7 @@ function my_svg_font(font,interligne,ancre,f_style,f_weight){
 		//, leading : 0.5
 		weight : f_weight
 		};
-}
+};
 
 /**
  * Crée un popup html avec un icon info, éventuellement avec du contenu LaTeX
@@ -671,11 +677,7 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 	let interligne = 15; // pour un interligne uniforme 
 	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
 	let prop_font_nom = my_svg_font('Helvetica',interligne,'start','normal','bold');
-	let prop_font_etape = {family:   'Helvetica',
-						size:     4*interligne/5,
-						anchor:   'start'
-						//, leading : 0.5
-						};
+	let prop_font_etape = my_svg_font('Helvetica',4*interligne/5,'start','normal','normal');
 					
 	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
 	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
@@ -686,13 +688,13 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 			//const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h).size('100%','100%');
 			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h);
 			// on trace un cadre pour le debug
-			mon_svg.path('M0,0 L'+w+',0L'+w+','+h+'L0,'+h+'Z').fill('none').stroke({ color: '#f15929', width: 1, linecap: 'round', linejoin:'null'});
+			//mon_svg.path('M0,0 L'+w+',0L'+w+','+h+'L0,'+h+'Z').fill('none').stroke({ color: '#f15929', width: 1, linecap: 'round', linejoin:'null'});
 
 			// path pour créer des fleches
 			const path_fleche = 'm0,0 l-'+interligne/2+',-'+interligne+' l'+interligne+','+interligne+' l-'+interligne+','+interligne+' l'+interligne/2+',-'+interligne+'z';
 
 			// On crée une timeline
-			let timeline = new SVG.Timeline()
+			let timeline = new SVG.Timeline();
 
 			//------------CREATION DES GROUPES----------------------
 			//------------Antécédent--------------------------------
@@ -779,7 +781,7 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 			//------------GROUPE MACHINE-------------------------
 			//const path_machine = 'M-5,0 L-5,-5 L-5,5 M-5,0 L10,0 L10,-40 L100,-40 L100,0 L120,0 L115,-5 L120,0 L115,5 L120,0 L100,0 L100,40 L10,40 L10,0';
 			const path_machine = 'M-10,0 L-10,-5 L-10,5 M-10,0 L10,0 L10,-'+(h/2-5)+' L'+(w_etape_max+20)+',-'+(h/2-5)+' L'+(w_etape_max+20)+',0 L'+(w_etape_max+40)+',0 L'+(w_etape_max+35)+',-5 L'+(w_etape_max+40)+',0 L'+(w_etape_max+35)+',5 L'+(w_etape_max+40)+',0 L'+(w_etape_max+20)+',0 L'+(w_etape_max+20)+','+(h/2-5)+' L10,'+(h/2-5)+' L10,0';
-			let machine = mon_svg.path(path_machine).fill('#fff').stroke({ color: '#f15929', width: 3, linecap: 'round', linejoin:'round'});;
+			let machine = mon_svg.path(path_machine).fill('#fff').stroke({ color: '#f15929', width: 3, linecap: 'round', linejoin:'round'});
 			machine.dmove(w/2-w_etape_max/2 - 20 + interligne/2,h/2); //w/2;  60 est la moitié de la taille de la machine en largeur
 
 			let fobj_machine = mon_svg.foreignObject(w_etape_max,h).attr({x:w/2-w_etape_max/2,y:'0'});
@@ -826,11 +828,7 @@ function SVG_chemin(groupe,chemin,couleur) {
  */
 function SVG_saut_etape_cadre_rond(groupe,interligne,texte){
 	'use strict';
-	let prop_font = {family:   'Helvetica',
-	size:     interligne,
-	anchor:   'start'
-	//, leading : 0.5
-	};	
+	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
 	let operation = groupe.text(texte).font(prop_font);
 	let w_operation = Math.max(operation.length(),4*interligne);
 	operation.clear();
@@ -849,11 +847,7 @@ function SVG_saut_etape_cadre_rond(groupe,interligne,texte){
 
 function SVG_etape_cadre_rond(groupe,h,interligne,couleur,texte,saut) {
 	'use strict';
-	let prop_font = {family:   'Helvetica',
-	size:     interligne,
-	anchor:   'start'
-	//, leading : 0.5
-	};	
+	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
 	let operation = groupe.text(texte).font(prop_font);
 	let w_operation = Math.max(operation.length(),4*interligne);
 	operation.clear();
@@ -897,11 +891,7 @@ function SVG_etape_cadre_rond(groupe,h,interligne,couleur,texte,saut) {
  */
 function SVG_saut_etape_cadre_rect(groupe,interligne,texte) {
 	'use strict';
-	let prop_font = {family:   'Helvetica',
-	size:     interligne,
-	anchor:   'start'
-	//, leading : 0.5
-	};	
+	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
 	let etape_rect = groupe.text(texte).font(prop_font);
 	let w_etape_rect = etape_rect.length()+interligne;
 	etape_rect.clear();
@@ -920,11 +910,7 @@ function SVG_saut_etape_cadre_rect(groupe,interligne,texte) {
 
 function SVG_etape_cadre_rect(groupe,h,interligne,couleur,texte,saut) {
 	'use strict';
-	let prop_font = {family:   'Helvetica',
-	size:     interligne,
-	anchor:   'start'
-	//, leading : 0.5
-	};	
+	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
 	let etape_rect = groupe.text(texte).font(prop_font);
 	let w_etape_rect = etape_rect.length()+interligne;
 	etape_rect.clear();
@@ -966,11 +952,7 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 	'use strict';
 	let interligne = 10; // unité d'espacement
 	var saut = 0; // pour la gestion des sauts entre les éléments on aura besoin d'une globale
-	let prop_font = {family:   'Helvetica',
-					size:     interligne,
-					anchor:   'start'
-					//, leading : 0.5
-					};							
+	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
 	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
 	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
 	window.SVGExist[id_du_div] = setInterval(function() {
@@ -1070,8 +1052,7 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 			};		 
 
 		clearInterval(SVGExist[id_du_div]);//Arrête le timer
-		}
-
+		};
 	}, 100); // Vérifie toutes les 100ms
 
 };
