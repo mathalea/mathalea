@@ -615,35 +615,6 @@ function Resoudre_une_equation_produit_nul(){
 };
 
 /**
- * Crée un popup html avec un icon info, éventuellement avec du contenu LaTeX
- * @param {string} texte 
- * @param {string} titrePopup 
- * @param {string} textePopup 
- * @Auteur Sébastien Lozano
- */
-function katex_Popup(texte,titrePopup,textePopup) {
-	'use strict';
-	let contenu =`<div class="mini ui right labeled icon button katexPopup"><i class="info circle icon"></i> `+texte+`</div>`;
-	contenu += `<div class="ui special popup" >`;
-	if (titrePopup!='') {
-		contenu += `<div class="header">`+titrePopup+`</div>`;
-	};
-	contenu += `<div>`+textePopup+`</div>`;
-	contenu += `</div>`;
-	return contenu;
-};
-
-/**
- * Crée une liste de questions alphabétique
- * @param {number} k valeur numérique
- * @Auteur Sébastien Lozano
- */	
-function num_alpha(k) {
-	'use strict';
-	return '<span style="color:#f15929; font-weight:bold">'+String.fromCharCode(97+k)+'/</span>';
-};
-
-/**
  * Crée une flèche orange pour la fonction machine
  * @param {object} groupe groupe svg
  * @param {string} chemin path pour la ligne 
@@ -1055,23 +1026,6 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 		};
 	}, 100); // Vérifie toutes les 100ms
 
-};
-
-/**
- * Renvoie un tableau contenant les diviseurs d'un nombre entier, rangés dans l'ordre croissant  
- * @param {integer} n 
- */
-function liste_diviseurs(n) {
-	'use strict';
-	let i = 2;
-	let diviseurs = [1];
-	while ( i<= n) {
-		if (n % i == 0) {
-			diviseurs.push(i);
-		};
-		i++;
-	};
-	return diviseurs;
 };
 
 function fonction_notion_vocabulaire(){
