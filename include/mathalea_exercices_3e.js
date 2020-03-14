@@ -1106,7 +1106,6 @@ function fonction_notion_vocabulaire(){
 							\\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
 \\definecolor{cqcqcq}{rgb}{0.7529411764705882,0.7529411764705882,0.7529411764705882}
 \\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
-\\fill[line width=3.2pt,color=frvzsz] (-2,4) -- (4,4) -- (4,0) -- (-2,0) -- cycle;
 \\draw [line width=3.2pt,color=frvzsz] (-2,4)-- (4,4);
 \\draw [line width=3.2pt,color=frvzsz] (4,4)-- (4,0);
 \\draw [line width=3.2pt,color=frvzsz] (4,0)-- (-2,0);
