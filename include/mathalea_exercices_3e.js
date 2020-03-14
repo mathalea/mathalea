@@ -1102,7 +1102,28 @@ function fonction_notion_vocabulaire(){
 							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
 							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, f','---','périmètre','d\'un \\, carré','carré \\, de','côté \\,'+x+' \\, cm','périmètre','??? \\, cm');							
 						} else { // sortie Latex avec Tikz
-							texte += `figure Tikz<br>`;
+							texte += `
+							\\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
+\\definecolor{cqcqcq}{rgb}{0.7529411764705882,0.7529411764705882,0.7529411764705882}
+\\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+\\fill[line width=3.2pt,color=frvzsz] (-2,4) -- (4,4) -- (4,0) -- (-2,0) -- cycle;
+\\draw [line width=3.2pt,color=frvzsz] (-2,4)-- (4,4);
+\\draw [line width=3.2pt,color=frvzsz] (4,4)-- (4,0);
+\\draw [line width=3.2pt,color=frvzsz] (4,0)-- (-2,0);
+\\draw [line width=3.2pt,color=frvzsz] (-2,0)-- (-2,4);
+\\draw [line width=3.2pt,color=frvzsz] (-2,2)-- (-3,2);
+\\draw [line width=3.2pt,color=frvzsz] (-3,2.4)-- (-3,1.6);
+\\draw [->,line width=3.2pt,color=frvzsz] (4,2) -- (5,2);
+\\draw (-1,3.77) node[anchor=north west] {$\\mathbf{ machine\\,maths}$};
+\\draw (0,2.77) node[anchor=north west] {$\\mathbf{---}$};
+\\draw (0,1.77) node[anchor=north west] {$\\mathbf{Procede}$};
+\\draw (0,0.77) node[anchor=north west] {$\\mathbf{de\\,calcul}$};
+\\draw (-6.26,2.97) node[anchor=north west] {$\\mathbf{ antecedent}$};
+\\draw (-6.26,2) node[anchor=north west] {$\\mathbf{\\textit{x}}$};
+\\draw (5.22,3.03) node[anchor=north west] {$\\mathbf{image}$};
+\\draw (5.22,2.03) node[anchor=north west] {$\\mathbf{\\textit{y}}$};
+\\end{tikzpicture}
+							`;
 						};
 						// sous question a/						
 						if (sortie_html){
