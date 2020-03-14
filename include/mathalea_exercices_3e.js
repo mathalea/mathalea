@@ -1104,24 +1104,28 @@ function fonction_notion_vocabulaire(){
 						} else { // sortie Latex avec Tikz
 							texte += `
 							\\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
-\\definecolor{cqcqcq}{rgb}{0.7529411764705882,0.7529411764705882,0.7529411764705882}
-\\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
-\\draw [line width=3.2pt,color=frvzsz] (-2,4)-- (4,4);
-\\draw [line width=3.2pt,color=frvzsz] (4,4)-- (4,0);
-\\draw [line width=3.2pt,color=frvzsz] (4,0)-- (-2,0);
-\\draw [line width=3.2pt,color=frvzsz] (-2,0)-- (-2,4);
-\\draw [line width=3.2pt,color=frvzsz] (-2,2)-- (-3,2);
-\\draw [line width=3.2pt,color=frvzsz] (-3,2.4)-- (-3,1.6);
-\\draw [->,line width=3.2pt,color=frvzsz] (4,2) -- (5,2);
-\\draw (-1,3.77) node[anchor=north west] {$\\mathbf{ machine\\,maths}$};
-\\draw (0,2.77) node[anchor=north west] {$\\mathbf{---}$};
-\\draw (0,1.77) node[anchor=north west] {$\\mathbf{Procede}$};
-\\draw (0,0.77) node[anchor=north west] {$\\mathbf{de\\,calcul}$};
-\\draw (-6.26,2.97) node[anchor=north west] {$\\mathbf{ antecedent}$};
-\\draw (-6.26,2) node[anchor=north west] {$\\mathbf{\\textit{x}}$};
-\\draw (5.22,3.03) node[anchor=north west] {$\\mathbf{image}$};
-\\draw (5.22,2.03) node[anchor=north west] {$\\mathbf{\\textit{y}}$};
-\\end{tikzpicture}
+							\\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+							\\draw [line width=3.2pt,color=frvzsz] (-2,4)-- (4,4);
+							\\draw [line width=3.2pt,color=frvzsz] (4,4)-- (4,0);
+							\\draw [line width=3.2pt,color=frvzsz] (4,0)-- (-2,0);
+							\\draw [line width=3.2pt,color=frvzsz] (-2,0)-- (-2,4);
+							\\draw [line width=3.2pt,color=frvzsz] (-2,2)-- (-3,2);
+							\\draw [line width=3.2pt,color=frvzsz] (-3,2.4)-- (-3,1.6);
+							\\draw [->,line width=3.2pt,color=frvzsz] (4,2) -- (5,2);
+							\\node[text width=3cm,text centered, scale=1.8] at(1,3.5){$\\mathbf{machine\\,maths}$};
+							\\node[text width=3cm,text centered, scale=1.5] at(1,2.8){$\\mathbf{---}$};
+							\\node[text width=3cm,text centered, scale=1.5] at(1,2.3){Proc\\'{e}d\\'{e}};
+							\\node[text width=3cm,text centered, scale=1.5] at(1,1.6){de caclcul};
+							\\node[text width=3cm,text centered, scale=1.5] at(-5,2.5) {$\\mathbf{ant\\acute{e}c\\acute{e}dent}$};
+							\\node[text width=3cm,text centered, scale=1.5] at(-5,1.5) {$\\mathbf{\\textit{x}}$};
+							\\draw [->,line width=3.2pt,color=frvzsz] (-6.5,2) -- (-5.5,2);
+							\\draw [->,line width=3.2pt,color=frvzsz] (-4.5,2) -- (-3.5,2);
+							\\node[text width=3cm,text centered, scale=1.5] at(6.5,2.5) {$\\mathbf{image}$};
+							\\node[text width=3cm,text centered, scale=1.5] at(6.5,1.5) {$\\mathbf{\\textit{y}}$};
+							\\draw [->,line width=3.2pt,color=frvzsz] (5.5,2) -- (6.5,2);
+							\\draw [->,line width=3.2pt,color=frvzsz] (7.5,2) -- (8.5,2);
+							\\end{tikzpicture}
+							
 							`;
 						};
 						// sous question a/						
