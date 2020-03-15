@@ -2197,20 +2197,20 @@ function Tester_une_egalite(){
 				case 1 : // 3x-a=2x+b   x=a+b  
 					if (this.sup==1) {
 					a = randint(1,6)
-					b = randint(1,6,a)
+					b = randint(1,6,[a])
 					}
 					else {
-						a = randint(-6,6)
-						b = randint(-6,6,a)	
+						a = randint(-6,6,[0])
+						b = randint(-6,6,[a,0])	
 					}
-					x1 = randint(2,10,a+b)
+					x1 = randint(2,10,[a+b])
 					x2 = a + b
-					texte = `Tester l'égalité $3x-${a}=2x+${b}$ pour $x=${x1}$ puis pour $x=${x2}$`
+					texte = `Tester l'égalité $3x-${ecriture_parenthese_si_negatif(a)}=2x+${ecriture_parenthese_si_negatif(b)}$ pour $x=${x1}$ puis pour $x=${x2}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
-					texte_corr += `$3x-${a}=3\\times${x1}-${a}=${3*x1-a}$ <br> $2x+${b}=2\\times${x1}+${b}=${2*x1+b}$<br>`
+					texte_corr += `$3x-${ecriture_parenthese_si_negatif(a)}=3\\times${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(a)}=${3*x1-a}$ <br> $2x+${ecriture_parenthese_si_negatif(b)}=2\\times${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(b)}=${2*x1+b}$<br>`
 					texte_corr += `$${3*x1-a}\\not=${2*x1+b}$ donc l'égalité n'est pas vraie.<br><br>`
-					texte_corr += `Pour $x=${x2}$ : <br>`
-					texte_corr += `$3x-${a}=3\\times${x2}-${a}=${3*x2-a}$ <br> $2x+${b}=2\\times${x2}+${b}=${2*x2+b}$<br>`
+					texte_corr += `Pour $x=${ecriture_parenthese_si_negatif(x2)}$ : <br>`
+					texte_corr += `$3x-${ecriture_parenthese_si_negatif(a)}=3\\times${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(a)}=${3*x2-a}$ <br> $2x+${ecriture_parenthese_si_negatif(b)}=2\\times${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(b)}=${2*x2+b}$<br>`
 					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.`
 					break ;
 				case 2 : // 3x+a=5x-b   x=(a+b)/2 donc a et b impairs pour une solution entière  
