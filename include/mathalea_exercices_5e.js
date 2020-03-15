@@ -2178,28 +2178,39 @@ function Tester_une_egalite(){
 	this.nb_questions = 3;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
+	this.sup=1;
+	this.sup2=false;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = range1(5)
-		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-
+		let type_de_questions_disponibles // = range1(5)
+	//	let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		if (this.sup2==false) type_de_questions_disponibles=[1,2,3,4,5]
+		else type_de_questions_disponibles=[1,2,3,4,5,6,7]
+		let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
 			let a, b, x1, x2
 			switch (liste_type_de_questions[i]){
 				case 1 : // 3x-a=2x+b   x=a+b  
+					if (this.sup==1) {
 					a = randint(1,6)
-					b = randint(1,6,a)
-					x1 = randint(2,10,a+b)
+					b = randint(1,6,[a])
+					}
+					else {
+						a = randint(-6,6,[0])
+						b = randint(-6,6,[a,0])	
+					}
+					x1 = randint(2,10,[a+b])
 					x2 = a + b
-					texte = `Tester l'égalité $3x-${a}=2x+${b}$ pour $x=${x1}$ puis pour $x=${x2}$`
+					texte = `Tester l'égalité $3x-${ecriture_parenthese_si_negatif(a)}=2x+${ecriture_parenthese_si_negatif(b)}$ pour $x=${x1}$ puis pour $x=${x2}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
-					texte_corr += `$3x-${a}=3\\times${x1}-${a}=${3*x1-a}$ <br> $2x+${b}=2\\times${x1}+${b}=${2*x1+b}$<br>`
+					texte_corr += `$3x-${ecriture_parenthese_si_negatif(a)}=3\\times${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(a)}=${3*x1-a}$ <br> $2x+${ecriture_parenthese_si_negatif(b)}=2\\times${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(b)}=${2*x1+b}$<br>`
 					texte_corr += `$${3*x1-a}\\not=${2*x1+b}$ donc l'égalité n'est pas vraie.<br><br>`
-					texte_corr += `Pour $x=${x2}$ : <br>`
-					texte_corr += `$3x-${a}=3\\times${x2}-${a}=${3*x2-a}$ <br> $2x+${b}=2\\times${x2}+${b}=${2*x2+b}$<br>`
+					texte_corr += `Pour $x=${ecriture_parenthese_si_negatif(x2)}$ : <br>`
+					texte_corr += `$3x-${ecriture_parenthese_si_negatif(a)}=3\\times${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(a)}=${3*x2-a}$ <br> $2x+${ecriture_parenthese_si_negatif(b)}=2\\times${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(b)}=${2*x2+b}$<br>`
 					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.`
 					break ;
 				case 2 : // 3x+a=5x-b   x=(a+b)/2 donc a et b impairs pour une solution entière  
@@ -2255,7 +2266,19 @@ function Tester_une_egalite(){
 					texte_corr += `$${a}-2x=${a}-2\\times${x2}=${a-2*x2}$ <br> $${b}+2x=${b}+2\\times${x2}=${b+2*x2}$<br>`
 					texte_corr += `$${a-2*x2}\\not=${b+2*x2}$ donc l'égalité n'est pas vraie.`
 					break ;
-				
+					case 5 : // a-2x=b+2x x=(a-b)/4
+					x1 = randint(1,9)
+					b = randint(1,9)
+					a = b+4*x1
+					x2 = randint(1,11,x1)
+					texte = `Tester l'égalité $${a}-2x=${b}+2x$ pour $x=${x1}$ puis pour $x=${x2}$`
+					texte_corr = `Pour $x=${x1}$ : <br>`
+					texte_corr += `$${a}-2x=${a}-2\\times${x1}=${a-2*x1}$ <br> $${b}+2x=${b}+2\\times${x1}=${b+2*x1}$<br>`
+					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
+					texte_corr += `Pour $x=${x2}$ : <br>`
+					texte_corr += `$${a}-2x=${a}-2\\times${x2}=${a-2*x2}$ <br> $${b}+2x=${b}+2\\times${x2}=${b+2*x2}$<br>`
+					texte_corr += `$${a-2*x2}\\not=${b+2*x2}$ donc l'égalité n'est pas vraie.`
+					break ;
 				
 			}
 			
@@ -2268,8 +2291,10 @@ function Tester_une_egalite(){
 			cpt++;	
 		}
 		liste_de_question_to_contenu(this);
+
 	}
-	//this.besoin_formulaire_case_a_cocher = true;
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',3,"1 : Entiers naturels\n2 : entiers relatifs\n3 : fractions"];
+	this.besoin_formulaire2_case_a_cocher = ["Avec des equations du second degré"];	
 }
 
 /**
