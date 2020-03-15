@@ -2198,13 +2198,16 @@ function Tester_une_egalite(){
 					if (this.sup==1) {
 					a = randint(1,6)
 					b = randint(1,6,[a])
+					x1 = randint(2,10,[a+b])
+					x2 = a + b
 					}
 					else {
 						a = randint(-6,6,[0])
 						b = randint(-6,6,[a,0])	
+						x1 = randint(-10,10,[0,a+b])
+						x2 = a + b
 					}
-					x1 = randint(2,10,[a+b])
-					x2 = a + b
+
 					texte = `Tester l'égalité $3x-${ecriture_parenthese_si_negatif(a)}=2x+${ecriture_parenthese_si_negatif(b)}$ pour $x=${x1}$ puis pour $x=${x2}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
 					texte_corr += `$3x-${ecriture_parenthese_si_negatif(a)}=3\\times${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(a)}=${3*x1-a}$ <br> $2x+${ecriture_parenthese_si_negatif(b)}=2\\times${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(b)}=${2*x1+b}$<br>`
@@ -2214,43 +2217,71 @@ function Tester_une_egalite(){
 					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.`
 					break ;
 				case 2 : // 3x+a=5x-b   x=(a+b)/2 donc a et b impairs pour une solution entière  
-					a = choice([1,3,5,7,9])
-					b = choice([1,3,5,7,9])
+				if (this.sup==1) {
+					a = randint(1,9)
+					b = randint(0,4)*2+a%2;
 					x1 = parseInt(Algebrite.eval((a+b)/2))
 					x2 = randint(1,9,x1)
-					texte = `Tester l'égalité $3x+${a}=5x-${b}$ pour $x=${x1}$ puis pour $x=${x2}$`
+					}
+					else {
+						a = randint(-9,9,[0])
+						b = randint(-4,4,[a,0])*2+a%2
+						x1 = parseInt(Algebrite.eval((a+b)/2))
+						x2 = randint(-9,9,[0,x1])	
+					}
+
+					texte = `Tester l'égalité $3x+${ecriture_parenthese_si_negatif(a)}=5x-${ecriture_parenthese_si_negatif(b)}$ pour $x=${x1}$ puis pour $x=${x2}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
-					texte_corr += `$3x+${a}=3\\times${x1}+${a}=${3*x1+a}$ <br> $5x-${b}=5\\times${x1}-${b}=${5*x1-b}$<br>`
+					texte_corr += `$3x+${ecriture_parenthese_si_negatif(a)}=3\\times${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(a)}=${3*x1+a}$ <br> $5x-${ecriture_parenthese_si_negatif(b)}=5\\times${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(b)}=${5*x1-b}$<br>`
 					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
 					texte_corr += `Pour $x=${x2}$ : <br>`
-					texte_corr += `$3x+${a}=3\\times${x2}+${a}=${3*x2+a}$ <br> $5x-${b}=5\\times${x2}-${b}=${5*x2-b}$<br>`
+					texte_corr += `$3x+${ecriture_parenthese_si_negatif(a)}=3\\times${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(a)}=${3*x2+a}$ <br> $5x-${ecriture_parenthese_si_negatif(b)}=5\\times${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(b)}=${5*x2-b}$<br>`
 					texte_corr += `$${3*x2+a}\\not=${5*x2-b}$ donc l'égalité n'est pas vraie.`
 					break ;
 				case 3 : // 10(x-a)=4(2x+b) x=(10a+4b)/2
+				if (this.sup==1) {
 					a = randint(1,3)
 					b = randint(1,3)
 					x2 = parseInt(Algebrite.eval((10*a+4*b)/2))
-					x1 = randint(1,9,x2)
-					texte = `Tester l'égalité $10(x-${a})=4(2x+${b})$ pour $x=${x1}$ puis pour $x=${x2}$`
+					x1 = randint(9,x2)
+					}
+					else {
+						a = randint(-3,3,[0])
+						b = randint(-3,3,[0])	
+						x2 = parseInt(Algebrite.eval((10*a+4*b)/2))
+						x1 = randint(-9,9,[0,x2])
+					}
+
+					texte = `Tester l'égalité $10(x-${ecriture_parenthese_si_negatif(a)})=4(2x+${ecriture_parenthese_si_negatif(b)})$ pour $x=${x1}$ puis pour $x=${x2}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
-					texte_corr += `$10(x-${a})=10\\times(${x1}-${a})=10\\times${x1-a}=${10*(x1-a)}$ <br> $4(2x+${b})=4\\times(2\\times${x1}+${b})=4\\times${2*x1+b}=${4*(2*x1+b)}$<br>`
+					texte_corr += `$10(x-${ecriture_parenthese_si_negatif(a)})=10\\times(${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(a)})=10\\times${x1-a}=${10*(x1-a)}$ <br> $4(2x+${ecriture_parenthese_si_negatif(b)})=4\\times(2\\times${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(b)})=4\\times${2*x1+b}=${4*(2*x1+b)}$<br>`
 					texte_corr += `$${10*(x1-a)}\\not=${4*(2*x1+b)}$ donc l'égalité n'est pas vraie.<br><br>`
 					texte_corr += `Pour $x=${x2}$ : <br>`
-					texte_corr += `$10(x-${a})=10\\times(${x2}-${a})=10\\times${x2-a}=${10*(x2-a)}$ <br> $4(2x+${b})=4\\times(2\\times${x2}+${b})=4\\times${2*x2+b}=${4*(2*x2+b)}$<br>`
+					texte_corr += `$10(x-${ecriture_parenthese_si_negatif(a)})=10\\times(${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(a)})=10\\times${x2-a}=${10*(x2-a)}$ <br> $4(2x+${ecriture_parenthese_si_negatif(b)})=4\\times(2\\times${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(b)})=4\\times${2*x2+b}=${4*(2*x2+b)}$<br>`
 					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.`
 					break ;
 				case 4 : // ax+b=(a+1)x-c x=b+c
+				if (this.sup==1) {
 					a = randint(2,9)
 					b = randint(2,9)
 					c = randint(1,3)
 					x1 = b + c
 					x2 = randint(2,10,x2)
-					texte = `Tester l'égalité $${a}x+${b}=${a+1}x-${c}$ pour $x=${x1}$ puis pour $x=${x2}$`
+					}
+					else {
+						a = randint(2,9)
+						b = randint(2,9)*randint(-1,1,0)
+						c = randint(1,3)*randint(-1,1,0)
+						x1 = b + c
+						x2 = randint(2,10,x2)*randint(-1,1,0)
+					}
+
+					texte = `Tester l'égalité $${ecriture_parenthese_si_negatif(a)}x+${ecriture_parenthese_si_negatif(b)}=${a+1}x-${ecriture_parenthese_si_negatif(c)}$ pour $x=${x1}$ puis pour $x=${x2}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
-					texte_corr += `$${a}x+${b}=${a}\\times${x1}+${b}=${a*x1+b}$ <br> $${a+1}x-${c}=${a+1}\\times${x1}-${c}=${(a+1)*x1-c}$<br>`
+					texte_corr += `$${ecriture_parenthese_si_negatif(a)}x+${ecriture_parenthese_si_negatif(b)}=${ecriture_parenthese_si_negatif(a)}\\times${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(b)}=${a*x1+b}$ <br> $${a+1}x-${ecriture_parenthese_si_negatif(c)}=${a+1}\\times${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(c)}=${(a+1)*x1-c}$<br>`
 					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
 					texte_corr += `Pour $x=${x2}$ : <br>`
-					texte_corr += `$${a}x+${b}=${a}\\times${x2}+${b}=${a*x2+b}$ <br> $${a+1}x-${c}=${a+1}\\times${x2}-${c}=${(a+1)*x2-c}$<br>`
+					texte_corr += `$${ecriture_parenthese_si_negatif(a)}x+${ecriture_parenthese_si_negatif(b)}=${ecriture_parenthese_si_negatif(a)}\\times${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(b)}=${a*x2+b}$ <br> $${a+1}x-${ecriture_parenthese_si_negatif(c)}=${a+1}\\times${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(c)}=${(a+1)*x2-c}$<br>`
 					texte_corr += `$${a*x2+b}\\not=${(a+1)*x2-c}$ donc l'égalité n'est pas vraie.`
 					break ;
 				case 5 : // a-2x=b+2x x=(a-b)/4
@@ -2258,12 +2289,12 @@ function Tester_une_egalite(){
 					b = randint(1,9)
 					a = b+4*x1
 					x2 = randint(1,11,x1)
-					texte = `Tester l'égalité $${a}-2x=${b}+2x$ pour $x=${x1}$ puis pour $x=${x2}$`
+					texte = `Tester l'égalité $${ecriture_parenthese_si_negatif(a)}-2x=${ecriture_parenthese_si_negatif(b)}+2x$ pour $x=${ecriture_parenthese_si_negatif(x1)}$ puis pour $x=${ecriture_parenthese_si_negatif(x2)}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
-					texte_corr += `$${a}-2x=${a}-2\\times${x1}=${a-2*x1}$ <br> $${b}+2x=${b}+2\\times${x1}=${b+2*x1}$<br>`
+					texte_corr += `$${ecriture_parenthese_si_negatif(a)}-2x=${ecriture_parenthese_si_negatif(a)}-2\\times${ecriture_parenthese_si_negatif(x1)}=${a-2*x1}$ <br> $${ecriture_parenthese_si_negatif(b)}+2x=${ecriture_parenthese_si_negatif(b)}+2\\times${ecriture_parenthese_si_negatif(x1)}=${b+2*x1}$<br>`
 					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
 					texte_corr += `Pour $x=${x2}$ : <br>`
-					texte_corr += `$${a}-2x=${a}-2\\times${x2}=${a-2*x2}$ <br> $${b}+2x=${b}+2\\times${x2}=${b+2*x2}$<br>`
+					texte_corr += `$${ecriture_parenthese_si_negatif(a)}-2x=${ecriture_parenthese_si_negatif(a)}-2\\times${ecriture_parenthese_si_negatif(x2)}=${a-2*x2}$ <br> $${ecriture_parenthese_si_negatif(b)}+2x=${ecriture_parenthese_si_negatif(b)}+2\\times${ecriture_parenthese_si_negatif(x2)}=${b+2*x2}$<br>`
 					texte_corr += `$${a-2*x2}\\not=${b+2*x2}$ donc l'égalité n'est pas vraie.`
 					break ;
 					case 5 : // a-2x=b+2x x=(a-b)/4
@@ -2273,10 +2304,10 @@ function Tester_une_egalite(){
 					x2 = randint(1,11,x1)
 					texte = `Tester l'égalité $${a}-2x=${b}+2x$ pour $x=${x1}$ puis pour $x=${x2}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
-					texte_corr += `$${a}-2x=${a}-2\\times${x1}=${a-2*x1}$ <br> $${b}+2x=${b}+2\\times${x1}=${b+2*x1}$<br>`
+					texte_corr += `$${a}-2x=${a}-2\\times${ecriture_parenthese_si_negatif(x1)}=${a-2*x1}$ <br> $${b}+2x=${b}+2\\times${ecriture_parenthese_si_negatif(x1)}=${b+2*x1}$<br>`
 					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
 					texte_corr += `Pour $x=${x2}$ : <br>`
-					texte_corr += `$${a}-2x=${a}-2\\times${x2}=${a-2*x2}$ <br> $${b}+2x=${b}+2\\times${x2}=${b+2*x2}$<br>`
+					texte_corr += `$${a}-2x=${a}-2\\times${ecriture_parenthese_si_negatif(x2)}=${a-2*x2}$ <br> $${b}+2x=${b}+2\\times${ecriture_parenthese_si_negatif(x2)}=${b+2*x2}$<br>`
 					texte_corr += `$${a-2*x2}\\not=${b+2*x2}$ donc l'égalité n'est pas vraie.`
 					break ;
 				
