@@ -2285,10 +2285,19 @@ function Tester_une_egalite(){
 					texte_corr += `$${a*x2+b}\\not=${(a+1)*x2-c}$ donc l'égalité n'est pas vraie.`
 					break ;
 				case 5 : // a-2x=b+2x x=(a-b)/4
+				if (this.sup==1) {
 					x1 = randint(1,9)
 					b = randint(1,9)
 					a = b+4*x1
 					x2 = randint(1,11,x1)
+					}
+					else {
+						x1 = randint(-9,9)
+						b = randint(-9,9,0)
+						a = b+4*x1
+						x2 = randint(1,11,x1)
+					}
+
 					texte = `Tester l'égalité $${ecriture_parenthese_si_negatif(a)}-2x=${ecriture_parenthese_si_negatif(b)}+2x$ pour $x=${ecriture_parenthese_si_negatif(x1)}$ puis pour $x=${ecriture_parenthese_si_negatif(x2)}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
 					texte_corr += `$${ecriture_parenthese_si_negatif(a)}-2x=${ecriture_parenthese_si_negatif(a)}-2\\times${ecriture_parenthese_si_negatif(x1)}=${a-2*x1}$ <br> $${ecriture_parenthese_si_negatif(b)}+2x=${ecriture_parenthese_si_negatif(b)}+2\\times${ecriture_parenthese_si_negatif(x1)}=${b+2*x1}$<br>`
@@ -2297,20 +2306,8 @@ function Tester_une_egalite(){
 					texte_corr += `$${ecriture_parenthese_si_negatif(a)}-2x=${ecriture_parenthese_si_negatif(a)}-2\\times${ecriture_parenthese_si_negatif(x2)}=${a-2*x2}$ <br> $${ecriture_parenthese_si_negatif(b)}+2x=${ecriture_parenthese_si_negatif(b)}+2\\times${ecriture_parenthese_si_negatif(x2)}=${b+2*x2}$<br>`
 					texte_corr += `$${a-2*x2}\\not=${b+2*x2}$ donc l'égalité n'est pas vraie.`
 					break ;
-					case 5 : // a-2x=b+2x x=(a-b)/4
-					x1 = randint(1,9)
-					b = randint(1,9)
-					a = b+4*x1
-					x2 = randint(1,11,x1)
-					texte = `Tester l'égalité $${a}-2x=${b}+2x$ pour $x=${x1}$ puis pour $x=${x2}$`
-					texte_corr = `Pour $x=${x1}$ : <br>`
-					texte_corr += `$${a}-2x=${a}-2\\times${ecriture_parenthese_si_negatif(x1)}=${a-2*x1}$ <br> $${b}+2x=${b}+2\\times${ecriture_parenthese_si_negatif(x1)}=${b+2*x1}$<br>`
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
-					texte_corr += `Pour $x=${x2}$ : <br>`
-					texte_corr += `$${a}-2x=${a}-2\\times${ecriture_parenthese_si_negatif(x2)}=${a-2*x2}$ <br> $${b}+2x=${b}+2\\times${ecriture_parenthese_si_negatif(x2)}=${b+2*x2}$<br>`
-					texte_corr += `$${a-2*x2}\\not=${b+2*x2}$ donc l'égalité n'est pas vraie.`
-					break ;
-				
+
+			
 			}
 			
 			
