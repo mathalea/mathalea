@@ -2266,14 +2266,14 @@ function Tester_une_egalite(){
 					b = randint(2,9)
 					c = randint(1,3)
 					x1 = b + c
-					x2 = randint(2,10,x2)
+					x2 = randint(2,10,x1)
 					}
 					else {
 						a = randint(2,9)
 						b = randint(2,9)*randint(-1,1,0)
 						c = randint(1,3)*randint(-1,1,0)
 						x1 = b + c
-						x2 = randint(2,10,x2)*randint(-1,1,0)
+						x2 = randint(2,10,x1)*randint(-1,1,0)
 					}
 
 					texte = `Tester l'égalité $${ecriture_parenthese_si_negatif(a)}x+${ecriture_parenthese_si_negatif(b)}=${a+1}x-${ecriture_parenthese_si_negatif(c)}~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
