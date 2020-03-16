@@ -780,6 +780,18 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 	}, 100); // Vérifie toutes les 100ms
 };
 
+/**
+ * Crée une machine mathématique Tikz pour la version LaTeX
+ * @param {string} nom nom de la machine en mode maths!
+ * @param {string} etape1 chaine en mode maths attention aux espaces et accents
+ * @param {string} etape2 chaine en mode maths attention aux espaces et accents
+ * @param {string} etape3 chaine en mode maths attention aux espaces et accents
+ * @param {string} x_ligne1 chaine en mode maths attention aux espaces et accents
+ * @param {string} x_ligne2 chaine en mode maths attention aux espaces et accents
+ * @param {string} y_ligne1 chaine en mode maths attention aux espaces et accents
+ * @param {string} y_ligne2 chaine en mode maths attention aux espaces et accents
+ */
+
 function tikz_machine_maths(nom,etape1,etape2,etape3,x_ligne1,x_ligne2,y_ligne1,y_ligne2) {
 	// tous les textes sont en mode maths !!!
 	'use strict';
@@ -806,6 +818,63 @@ function tikz_machine_maths(nom,etape1,etape2,etape3,x_ligne1,x_ligne2,y_ligne1,
 	\\fill [line width=3pt,color=frvzsz] (3.5,2) -- (3,1) -- (4,2) -- (3,3) -- cycle;
 	\\end{tikzpicture}	
 	`;
+};
+
+function tikz_machine_diag(nom,x_ant,etapes_expressions){
+	'use strict';
+	var x_init = -9;
+	var saut = 0;
+	var sortie = ``;
+	sortie +=`
+	\\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
+	\\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+	\\draw [line width=3pt,color=frvzsz] (`+x_init+`,0.5) -- (`+(x_init+2)+`,0.5) -- (`+(x_init+2)+`,-0.5) -- (`+x_init+`,-0.5) -- cycle;
+	\\node[text width=3cm,text centered, scale=1.8] at(-8,0){$\\mathbf{${x_ant}}$};
+	`;
+	saut =saut + 2;
+	for (var i = 0; i<etapes_expressions.length; i++) {
+		//si la longueur du tableau des etapes vaut i+1 c'est que c'est la derniere 
+		//on affiche donc chaque fois avec le nom de la fonction
+		if (etapes_expressions.length==i+1) {
+			// si il y a une operation et une expression algébrique
+			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
+				sortie += `
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+1)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+2)+`,0) circle(1);
+				`;			
+			};
+			// si il y a une operation et pas d'expression algébrique 
+			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
+			};
+			// si il n'y a pas d'operation mais une expression algébrique
+			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
+			};
+			// si il n'y ni une operation et ni expression algébrique
+			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
+			};
+
+		} else {//sinon c'est une étape intermédiaire
+			// si il y a une operation et une expression algébrique
+			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {						
+			};
+			// si il y a une operation et pas d'expression algébrique 
+			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
+			};
+			// si il n'y a pas d'operation mais une expression algébrique
+			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
+			};
+			// si il n'y ni une operation et ni expression algébrique
+			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
+			};
+		 };				
+	};		 
+
+	sortie +=`
+	\\end{tikzpicture}
+	`;
+
+	return sortie;
+
 };
 
 /**Trace un chemin pour un groupe donné avec une couleur donnée
@@ -1220,9 +1289,10 @@ function fonction_notion_vocabulaire(){
 						} else { // sortie LaTeX
 							texte += `\\item   \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
 							texte += `Voici le diagramme d'une machine qui triple <br> `;
+							texte += tikz_machine_diag(``,`\\textit{x}`,[[`test`,`test`]]);
 							//texte += `<div id="diagramme_type1" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 							//SVG_machine_diag('diagramme_type1',400,50,'f','x',[['\\times 3','3x']]);
-							texte += `diagramme Tikz<br>`;
+							//texte += `diagramme Tikz<br>`;
 							texte_corr += `\\item  C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
 							//texte_corr += `<div id="diagramme_type1_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 							//SVG_machine_diag('diagramme_type1_corr',400,50,'f','x',[['\\times 4','4x']]);							
