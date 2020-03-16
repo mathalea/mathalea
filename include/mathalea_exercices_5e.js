@@ -2188,7 +2188,7 @@ function Tester_une_egalite(){
 		let type_de_questions_disponibles // = range1(5)
 	//	let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		if (this.sup2==false) type_de_questions_disponibles=[1,2,3,4,5]
-		else type_de_questions_disponibles=[1,2,3,4,5,6,7]
+		else type_de_questions_disponibles=[6,7,3]
 		let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
@@ -2375,8 +2375,8 @@ function Tester_une_egalite(){
 		liste_de_question_to_contenu(this);
 
 	}
-	this.besoin_formulaire_numerique = ['Niveau de difficulté',3,"1 : Entiers naturels\n2 : entiers relatifs\n3 : fractions"];
-	this.besoin_formulaire2_case_a_cocher = ["Avec des equations du second degré"];	
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+	this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 }
 
 /**
