@@ -828,29 +828,61 @@ function tikz_machine_diag(nom,x_ant,etapes_expressions){
 	sortie +=`
 	\\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
 	\\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
-	\\draw [line width=3pt,color=frvzsz] (`+x_init+`,0.5) -- (`+(x_init+2)+`,0.5) -- (`+(x_init+2)+`,-0.5) -- (`+x_init+`,-0.5) -- cycle;
-	\\node[text width=3cm,text centered, scale=1.8] at(-8,0){$\\mathbf{${x_ant}}$};
-	`;
+	\\draw [line width=3pt,color=frvzsz] (`+x_init+`,0.75) -- (`+(x_init+2)+`,0.75) -- (`+(x_init+2)+`,-0.75) -- (`+x_init+`,-0.75) -- cycle;
+	\\node[text width=3cm,text centered, scale=1.8] at(-8,0){$${x_ant}$};
+	`;	
 	saut =saut + 2;
 	for (var i = 0; i<etapes_expressions.length; i++) {
 		//si la longueur du tableau des etapes vaut i+1 c'est que c'est la derniere 
 		//on affiche donc chaque fois avec le nom de la fonction
 		if (etapes_expressions.length==i+1) {
 			// si il y a une operation et une expression algébrique
-			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
+			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {				
+				let w_etape = `${nom}(x)=${etapes_expressions[i][1]}`.length;
 				sortie += `
 				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+1)+`,0);
 				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+2)+`,0) circle(1);
+				\\node [text width=3cm,text centered, scale=1.8] at(`+(x_init+saut+2)+`,0){$${etapes_expressions[i][0]}$};
+				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3)+`,0) -- (`+(x_init+saut+4)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+6)+`,0.75) -- (`+(x_init+w_etape/2+8)+`,0.75) -- (`+(x_init+w_etape/2+8)+`,-0.75) -- (`+(x_init+6)+`,-0.75) -- cycle;
+				\\node [text width=3cm,text centered, scale=1.8] at(`+(x_init+w_etape/4+7)+`,0){$${nom}(x)=${etapes_expressions[i][1]}$};
 				`;			
 			};
 			// si il y a une operation et pas d'expression algébrique 
 			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
+				let w_etape = `${nom}(x)=\\ldots`.length;
+				sortie += `
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+1)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+2)+`,0) circle(1);
+				\\node [text width=3cm,text centered, scale=1.8] at(`+(x_init+saut+2)+`,0){$${etapes_expressions[i][0]}$};
+				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3)+`,0) -- (`+(x_init+saut+4)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+6)+`,0.75) -- (`+(x_init+w_etape/2+8)+`,0.75) -- (`+(x_init+w_etape/2+8)+`,-0.75) -- (`+(x_init+6)+`,-0.75) -- cycle;
+				\\node [text width=3cm,text centered, scale=1.8] at(`+(x_init+w_etape/4+7)+`,0){$${nom}(x)=\\ldots$};
+				`;			
 			};
 			// si il n'y a pas d'operation mais une expression algébrique
 			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
+				let w_etape = `${nom}(x)=${etapes_expressions[i][1]}`.length;
+				sortie += `
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+1)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+2)+`,0) circle(1);
+				\\node [text width=3cm,text centered, scale=1.8] at(`+(x_init+saut+2)+`,0){$\\ldots$};
+				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3)+`,0) -- (`+(x_init+saut+4)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+6)+`,0.75) -- (`+(x_init+w_etape/2+8)+`,0.75) -- (`+(x_init+w_etape/2+8)+`,-0.75) -- (`+(x_init+6)+`,-0.75) -- cycle;
+				\\node [text width=3cm,text centered, scale=1.8] at(`+(x_init+w_etape/4+7)+`,0){$${nom}(x)=${etapes_expressions[i][1]}$};
+				`;			
 			};
 			// si il n'y ni une operation et ni expression algébrique
 			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
+				let w_etape = `${nom}(x)=\\ldots`.length;
+				sortie += `
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+1)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+2)+`,0) circle(1);
+				\\node [text width=3cm,text centered, scale=1.8] at(`+(x_init+saut+2)+`,0){$\\ldots$};
+				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3)+`,0) -- (`+(x_init+saut+4)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+6)+`,0.75) -- (`+(x_init+w_etape/2+8)+`,0.75) -- (`+(x_init+w_etape/2+8)+`,-0.75) -- (`+(x_init+6)+`,-0.75) -- cycle;
+				\\node [text width=3cm,text centered, scale=1.8] at(`+(x_init+w_etape/4+7)+`,0){$${nom}(x)=\\ldots$};
+				`;			
 			};
 
 		} else {//sinon c'est une étape intermédiaire
@@ -1289,7 +1321,10 @@ function fonction_notion_vocabulaire(){
 						} else { // sortie LaTeX
 							texte += `\\item   \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
 							texte += `Voici le diagramme d'une machine qui triple <br> `;
-							texte += tikz_machine_diag(``,`\\textit{x}`,[[`test`,`test`]]);
+							texte += tikz_machine_diag(`f`,`x`,[[`\\times 3`,`3x`]]);
+							texte += tikz_machine_diag(`f`,`x`,[[`\\times 3`,]]);
+							texte += tikz_machine_diag(`f`,`x`,[[,`3x`]]);
+							texte += tikz_machine_diag(`f`,`x`,[[,]]);
 							//texte += `<div id="diagramme_type1" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 							//SVG_machine_diag('diagramme_type1',400,50,'f','x',[['\\times 3','3x']]);
 							//texte += `diagramme Tikz<br>`;
