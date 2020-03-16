@@ -106,6 +106,7 @@ var liste_des_exercices_disponibles = {
 		'4N15': Exercice_additionner_fraction_produit,
 		'4N21': Puissances_d_un_relatif_1,
 		'4N21-1': Puissances_d_un_relatif_2,
+		'4N21-2': Puissances_de_dix,
 		'4R10': Exercice_multiplications_relatifs,
 		'4G10' : Exercice_Pythagore,
 		'4G11' : Reciproque_Pythagore,
