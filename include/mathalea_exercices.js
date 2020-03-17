@@ -2959,6 +2959,7 @@ function Proportionnalite_par_linearite() {
 			}
 			z=calcul(p*pu,2);
 			texte = `${prenoms[0]} a repéré ${liste_de_lieux[index1]} des ${objet} qui l\'intéressent. `;
+			texte +=`Elle lit que $${n}$ ${objet} coûtent $${x}$€. `
 			texte +=`Elle veut en acheter $${y}$. Combien va-t-elle dépenser ?<br>`;
 			texte_corr = `$${y}$ ${objet}, c'est $${mise_en_evidence(tex_nombrec(y/n))}$ fois plus que $${n}$ ${objet}. Si $${n}$ ${objet} coûtent $${x}$€, alors $${mise_en_evidence(tex_nombrec(y/n))}$ fois plus de ${objet} coutent $${mise_en_evidence(tex_nombrec(y/n))}$ fois plus.<br>`;
 			texte_corr +=`Donc ${prenoms[0]} dépensera $${mise_en_evidence(tex_nombrec(y/n))}\\times${x}=${somme}$€.<br>`;
