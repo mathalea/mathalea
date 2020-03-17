@@ -67,6 +67,7 @@ var liste_des_exercices_disponibles = {
 		'6N34' : Reglages_6N34,
 		'6N41' : Egalites_entre_fractions,
 		'6N43' : Criteres_de_divisibilite,
+		'6P11' : Proportionnalite_par_linearite,
 		'5N12':Exercice_fractions_simplifier,
 		'5N12-2': Egalites_entre_fractions,
 		'5N18': Exercice_decomposer_en_facteurs_premiers,
@@ -2915,6 +2916,58 @@ function Criteres_de_divisibilite(){
 2 : Critères de divisibilité par 3,9\n3 : Critères de divisibilité par 2, 3, 5, 9, 10\n4 : Avec ou sans critère de divisibilité"]
 }
 
+function Proportionnalite_par_linearite() {
+	'use strict'y;
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Résoudre des problèmes de proportionnalité en utilisant la linéarité simple";
+	this.consigne = "Répondre aux questions posées en justifiant";
+	this.spacing = 2;
+	this.spacing_corr = 2;
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		let liste_de_lieux=['dans un magasin de bricolage','dans une animalerie','au supermarché local','à l\'épicerie','dans la boutique du musée']
+		let liste_de_choses=[[]]
+		let liste_de_prix_unit[[]]
+		liste de choses[0]=['articles','outils','accessoires','pièces d\'outillage','pinceaux','ampoules']
+		liste_de_choses[1]=['poissons rouges','canards jaunes','oiseaux verts','phasmes']
+		liste_de_choses[2]=['sets de tables','verres','assiettes','os à macher pour sa chienne','dosettes de café']
+		liste_de_choses[3]=['ananas','fruits de la passion','melons','paquets de madeleines de Commercy']
+		liste_de_choses[4]=['cartes','livres','gravures','puzzles']
+		liste_de_prix_unit[0]=[5.5,4.5,1.2,3.2,0.8,1.6]
+		liste_de_prix_unit[1]=[1.3,7.5,10.5,2.4]
+		liste_de_prix_unit[2]=[0.7,1.4,2.2,0.9,4.7]
+		liste_de_prix_unit[3]=[2.5,1.2,1.5,3.4]
+		liste_de_prix_unit[4]=[0.5,4.7,6.8,13.5]
+		for (let i = 0, x,y,z,pu, n,p,somme,prenoms,index1,index2,objet,met, texte, texte_corr; i < this.nb_questions;i++) {
+			index1=randint(0,4);
+			prenoms=prenom();
+			index2=randint(0,liste_de_choses[index1].length-1);
+			objet=liste_de_choses[index1][index2];
+			pu=liste_de_prix[index1][index2];
+			n=randint(3,6);
+			y=n*randint(2,5);
+			x=n*pu;
+			somme=y*pu;
+			met = false;
+			while (met==false) {
+				p=n*randint(2,5);
+				if (p!=y) met=true
+			}
+			z=p*pu;
+			texte = `${prenoms[0]} a repéré ${liste_de_lieux[index1]} des ${objets} qui l\'intéressent.<br>`;
+			texte +=`Elle veut en acheter $${y}$. Combien va-t-elle dépenser ?<br>`;
+			texte_corr = `$${y}$ ${objet}, c'est $${y/n}$ fois plus que $${n}$ ${objet}. Si $${n}$ ${objet} coûtent $${x}$\\euro alors $${y/n}$ fois plus de ${objet} coutent $${y/n}$ fois plus.<br>`;
+			texte_corr +=`Donc ${prenom[0]} dépensera $${y/n}\\times${x}=${somme}$\\euro.<br>`;
+			texte += `${prenoms[1]} veut lui aussi acheter ces ${objets}. Il dispose de $${z}$\\euro. Combien peut-il en acheter ?<br>`;
+			texte_corr += `$${z}$\\euro, c'est $${z/x}$ fois plus que $${x}$\\euro. Si avec $${x}$\\euro on peut acheter $${n}$ ${objet} alors avec $${z/x}$ fois plus d'argent, on peut acheter $${z/x}$ fois plus de ${objet}.<br>`;
+			texte_corr +=`Donc ${prenom[1]} pourra acheter $${z/x}\\times${n}=${p}$ ${objet}.<br>`;
+			
+		}
+		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
+	}	
+};
 
 
 
@@ -5773,11 +5826,6 @@ jQuery(document).ready(function() {
 
 
 });
-
-
-
-
-
 
 });
 
