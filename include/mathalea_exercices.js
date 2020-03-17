@@ -2928,6 +2928,8 @@ function Proportionnalite_par_linearite() {
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
+		let liste_index_disponibles=[0,1,2,3,4];
+		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions)
 		let liste_de_lieux=['dans un magasin de bricolage','dans une animalerie','au supermarché local','à l\'épicerie','dans la boutique du musée']
 		let liste_de_choses=[[]]
 		let liste_de_prix_unit=[[]]
@@ -2942,7 +2944,7 @@ function Proportionnalite_par_linearite() {
 		liste_de_prix_unit[3]=[2.5,1.2,1.5,3.4]
 		liste_de_prix_unit[4]=[0.5,4.7,6.8,13.5]
 		for (let i = 0, x,y,z,pu, n,p,somme,prenoms,index1,index2,objet,met, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
-			index1=randint(0,4);
+			index1=liste_index[i];
 			prenoms=[prenomF(),prenomM()];
 
 			index2=randint(0,liste_de_choses[index1].length-1);
