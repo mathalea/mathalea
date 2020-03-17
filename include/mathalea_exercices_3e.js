@@ -854,10 +854,10 @@ function tikz_machine_diag(nom,x_ant,etapes_expressions){
 				let w_etape = `${nom}(x)=\\ldots`.length;
 				sortie += `
 				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(0.5);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
 				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
 				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,0.5) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,0.5) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-0.5) -- (`+(x_init+saut+5*pas/2)+`,-0.5) -- cycle;
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
 				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(x)=\\ldots$};
 				`;			
 			};
@@ -866,10 +866,10 @@ function tikz_machine_diag(nom,x_ant,etapes_expressions){
 				let w_etape = `${nom}(x)=${etapes_expressions[i][1]}`.length;
 				sortie += `
 				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(0.5);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
 				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
 				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,0.5) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,0.5) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-0.5) -- (`+(x_init+saut+5*pas/2)+`,-0.5) -- cycle;
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
 				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(x)=${etapes_expressions[i][1]}$};
 				`;			
 			};
@@ -878,26 +878,66 @@ function tikz_machine_diag(nom,x_ant,etapes_expressions){
 				let w_etape = `${nom}(x)=\\ldots`.length;
 				sortie += `
 				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(0.5);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
 				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
 				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,0.5) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,0.5) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-0.5) -- (`+(x_init+saut+5*pas/2)+`,-0.5) -- cycle;
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
 				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(x)=\\ldots$};
 				`;			
 			};
 
 		} else {//sinon c'est une étape intermédiaire
 			// si il y a une operation et une expression algébrique
-			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {						
+			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
+				let w_etape = `${etapes_expressions[i][1]}`.length;
+				sortie += `
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
+				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${etapes_expressions[i][1]}$};
+				`;	
+				saut = saut+3*pas+w_etape/4;						
 			};
 			// si il y a une operation et pas d'expression algébrique 
 			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
+				let w_etape = `\\ldots`.length;
+				sortie += `
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
+				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$\\ldots$};
+				`;	
+				saut = saut+3*pas+w_etape/4;		
 			};
 			// si il n'y a pas d'operation mais une expression algébrique
 			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
+				let w_etape = `${etapes_expressions[i][1]}`.length;
+				sortie += `
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
+				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${etapes_expressions[i][1]}$};
+				`;	
+				saut = saut+3*pas+w_etape/4;		
 			};
 			// si il n'y ni une operation et ni expression algébrique
 			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
+				let w_etape = `\\ldots`.length;
+				sortie += `
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
+				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$\\ldots$};
+				`;	
+				saut = saut+3*pas+w_etape/4;		
 			};
 		 };				
 	};		 
@@ -1323,16 +1363,19 @@ function fonction_notion_vocabulaire(){
 							texte += `\\item   \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
 							texte += `Voici le diagramme d'une machine qui triple <br> `;
 							texte += tikz_machine_diag(`f`,`x`,[[`\\times 3`,`3x`]]);
-							texte += tikz_machine_diag(`f`,`x`,[[`\\times 3`,]]);
-							texte += tikz_machine_diag(`f`,`x`,[[,`3x`]]);
-							texte += tikz_machine_diag(`f`,`x`,[[,]]);
+							// texte += tikz_machine_diag(`f`,`x`,[[`+5`,`x+5`],[`\\times 3`,`3x`]]);
+							// texte += tikz_machine_diag(`f`,`x`,[[`+5`,`x+5`],[`+5`,`x+5`],[`\\times 3`,`3x`]]);
+							// texte += tikz_machine_diag(`f`,`x`,[[,`x+5`],[`\\times 3`,]]);
+							// texte += tikz_machine_diag(`f`,`x`,[[`+5`,],[,`3x`]]);
+							// texte += tikz_machine_diag(`f`,`x`,[[,],[,]]);
 							//texte += `<div id="diagramme_type1" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 							//SVG_machine_diag('diagramme_type1',400,50,'f','x',[['\\times 3','3x']]);
 							//texte += `diagramme Tikz<br>`;
 							texte_corr += `\\item  C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
+							texte_corr += tikz_machine_diag(`f`,`x`,[[`\\times 4`,`4x`]]);
 							//texte_corr += `<div id="diagramme_type1_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 							//SVG_machine_diag('diagramme_type1_corr',400,50,'f','x',[['\\times 4','4x']]);							
-							texte_corr += `diagramme Tikz`;
+							//texte_corr += `diagramme Tikz`;
 						};
 						// sous question f/
 						if (sortie_html) {
@@ -1448,10 +1491,12 @@ function fonction_notion_vocabulaire(){
 						} else {
 							texte += `\\item  \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
 							texte += `Voici le diagramme d'une machine qui double <br>`;
+							texte += tikz_machine_diag(`g`,`x`,[[`\\times 2`,`2x`]]);
 							// texte += `<div id="diagramme_type2" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 							// SVG_machine_diag('diagramme_type2',400,50,'g','x',[['\\times 2','2x']]);
 
 							texte_corr += `\\item C'est une machine qui multiplie un nombre par lui-même, donc sous forme de diagramme.<br>`;
+							texte_corr += tikz_machine_diag(`g`,`x`,[[`\\times x`,`x^2`]]);
 							// texte_corr += `<div id="diagramme_type2_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 							// SVG_machine_diag('diagramme_type2_corr',400,50,'g','x',[['\\times x','x\\times x=x^{\\tiny 2}']]);
 						}
@@ -1573,10 +1618,12 @@ function fonction_notion_vocabulaire(){
 						} else {
 							texte += `\\item  \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
 							texte += `Voici le diagramme d'une machine qui double puis qui ajoute 5 <br>`;
+							texte += tikz_machine_diag(`h`,`x`,[[`\\times 2`,`2x`],[`+5`,`2x+5`]]);
 							// texte += `<div id="diagramme_type3" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 							// SVG_machine_diag('diagramme_type3',400,50,'h','x',[['\\times 2','2x'],['+5','2x+5']]);
 
 							texte_corr += `\\item C'est une machine qui triple un nombre et ajoute 1, donc sous forme de diagramme.<br>`;
+							texte_corr += tikz_machine_diag(`h`,`x`,[[`\\times 3`,`3x`],[`+1`,`3x+1`]]);
 							// texte_corr += `<div id="diagramme_type3_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 							// SVG_machine_diag('diagramme_type3_corr',400,50,'h','x',[['\\times 3','3x'],['+1','3x+1']]);
 						}
