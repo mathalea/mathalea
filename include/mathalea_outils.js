@@ -2063,7 +2063,7 @@ function modal_youtube(numero_de_l_exercice,id_youtube,texte,label_bouton="Aide 
 * Créé un bouton pour une aide modale avec un titre et un texte
 * @param numero_de_l_exercice
 * @param titre
-* @parma texte
+* @param texte
 * @param label_bouton Titre du bouton (par défaut Aide)
 * @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
 * @Auteur Rémi Angot
