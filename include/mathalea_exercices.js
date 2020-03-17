@@ -2938,18 +2938,17 @@ function Proportionnalite_par_linearite() {
 		liste_de_choses[2]=['sets de tables','verres','assiettes','os à macher pour sa chienne','dosettes de café']
 		liste_de_choses[3]=['ananas','fruits de la passion','melons','paquets de madeleines de Commercy']
 		liste_de_choses[4]=['cartes','livres','gravures','puzzles']
-		liste_de_prix_unit[0]=[5.5,4.5,1.2,3.2,0.8,1.6]
-		liste_de_prix_unit[1]=[1.3,7.5,10.5,2.4]
-		liste_de_prix_unit[2]=[0.7,1.4,2.2,0.9,4.7]
-		liste_de_prix_unit[3]=[2.5,1.2,1.5,3.4]
-		liste_de_prix_unit[4]=[0.5,4.7,6.8,13.5]
+		liste_de_prix_unit[0]=[5,4,1.25,3,0.5,1.5]
+		liste_de_prix_unit[1]=[1.5,7,10,2.5]
+		liste_de_prix_unit[2]=[1.25,1.5,2,0.5,5]
+		liste_de_prix_unit[3]=[2.5,1.25,1.5,4]
+		liste_de_prix_unit[4]=[0.5,5,7,13.5]
 		for (let i = 0, x,y,z,pu, n,p,somme,prenoms,index1,index2,objet,met, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
 			index1=liste_index[i];
 			prenoms=[prenomF(),prenomM()];
-
 			index2=randint(0,liste_de_choses[index1].length-1);
 			objet=liste_de_choses[index1][index2];
-			pu=liste_de_prix_unit[index1][index2];
+			pu=liste_de_prix_unit[index1][index2]*(1+randint(1,2)*0.2*randint(-1,1));
 			n=randint(3,6);
 			y=n*randint(2,5);
 			x=calcul(n*pu,2);
@@ -2961,10 +2960,10 @@ function Proportionnalite_par_linearite() {
 			}
 			z=calcul(p*pu,2);
 			texte = `${prenoms[0]} a repéré ${liste_de_lieux[index1]} des ${objet} qui l\'intéressent. `;
-			texte +=`Elle lit que $${n}$ ${objet} coûtent $${x}$€. `
+			texte +=`Elle lit que $${n}$ ${objet} coûtent $${tex_nombrec(x)}$€. `
 			texte +=`Elle veut en acheter $${y}$. Combien va-t-elle dépenser ?<br>`;
 			texte_corr = `$${y}$ ${objet}, c'est $${mise_en_evidence(tex_nombrec(y/n))}$ fois $${mise_en_evidence(n,'blue')}$ ${objet}. Si $${mise_en_evidence(n,'blue')}$ ${objet} coûtent $${tex_nombrec(x)}$€, alors $${mise_en_evidence(tex_nombrec(y/n))}$ fois $${mise_en_evidence(n,'blue')}$ ${objet} coutent $${mise_en_evidence(tex_nombrec(y/n))}$ fois $${tex_nombrec(x)}$€.<br>`;
-			texte_corr +=`Donc ${prenoms[0]} dépensera $${mise_en_evidence(tex_nombrec(y/n))}\\times${tex_nombrec(x)}=${somme}$€.<br>`;
+			texte_corr +=`Donc ${prenoms[0]} dépensera $${mise_en_evidence(tex_nombrec(y/n))}\\times${tex_nombrec(x)}=${tex_nombrec(somme)}$€.<br>`;
 			texte += `${prenoms[1]} veut lui aussi acheter ces ${objet}. Il dispose de $${tex_nombrec(z)}$€. Combien peut-il en acheter ?<br>`;
 			texte_corr += `$${z}$€, c'est $${mise_en_evidence(tex_nombrec(z/x))}$ fois $${tex_nombrec(x)}$€. Si avec $${tex_nombrec(x)}$€ on peut acheter $${mise_en_evidence(n,'blue')}$ ${objet}, alors avec $${mise_en_evidence(tex_nombrec(z/x))}$ fois $${tex_nombrec(x)}$€, on peut acheter $${mise_en_evidence(tex_nombrec(z/x))}$ fois $${mise_en_evidence(n,'blue')}$ ${objet}.<br>`;
 			texte_corr +=`Donc ${prenoms[1]} pourra acheter $${mise_en_evidence(tex_nombrec(z/x))}\\times${n}=${p}$ ${objet}.<br>`;
