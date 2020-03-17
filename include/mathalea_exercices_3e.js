@@ -595,14 +595,190 @@ function Resoudre_une_equation_produit_nul(){
  */
 
  /**
+ * Crée une machine mathématique Tikz pour la version LaTeX
+ * @param {string} nom nom de la machine en mode maths!
+ * @param {string} etape1 chaine en mode maths attention aux espaces et accents
+ * @param {string} etape2 chaine en mode maths attention aux espaces et accents
+ * @param {string} etape3 chaine en mode maths attention aux espaces et accents
+ * @param {string} x_ligne1 chaine en mode maths attention aux espaces et accents
+ * @param {string} x_ligne2 chaine en mode maths attention aux espaces et accents
+ * @param {string} y_ligne1 chaine en mode maths attention aux espaces et accents
+ * @param {string} y_ligne2 chaine en mode maths attention aux espaces et accents
+ * @author Sébastien Lozano
+ */
+
+function tikz_machine_maths(nom,etape1,etape2,etape3,x_ligne1,x_ligne2,y_ligne1,y_ligne2) {
+	// tous les textes sont en mode maths !!!
+	'use strict';
+	return `
+	\\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
+	\\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+	\\draw [line width=3pt,color=frvzsz] (-4,4)-- (2,4);
+	\\draw [line width=3pt,color=frvzsz] (2,4)-- (2,0);
+	\\draw [line width=3pt,color=frvzsz] (2,0)-- (-4,0);
+	\\draw [line width=3pt,color=frvzsz] (-4,0)-- (-4,4);
+	\\draw [line width=3pt,color=frvzsz] (-4,2)-- (-5,2);
+	\\draw [line width=3pt,color=frvzsz] (-5,2.4)-- (-5,1.6);
+	\\draw [->,line width=3pt,color=frvzsz] (2,2) -- (3,2);
+	\\node[text width=3cm,text centered, scale=1.8] at(-1,3.5){$\\mathbf{machine\\,${nom}}$};
+	\\node[text width=3cm,text centered, scale=1.5] at(-1,2.8){$\\mathbf{${etape1}}$};
+	\\node[text width=3cm,text centered, scale=1.5] at(-1,2.3){$${etape2}$};
+	\\node[text width=3cm,text centered, scale=1.5] at(-1,1.6){$${etape3}$};
+	\\node[text width=3cm,text centered, scale=1.5] at(-8,2.5) {$\\mathbf{${x_ligne1}}$};
+	\\node[text width=3cm,text centered, scale=1.5] at(-8,1.5) {$\\mathbf{${x_ligne2}}$};
+	\\fill [line width=3pt,color=frvzsz] (-6,2) -- (-6.5,1) -- (-5.5,2) -- (-6.5,3) -- cycle;
+	%\\fill [line width=3pt,color=frvzsz] (1,2) -- (0.5,1) -- (1.5,2) -- (0.5,3) -- cycle;
+	\\node[text width=3cm,text centered, scale=1.5] at(5.5,2.5) {$\\mathbf{${y_ligne1}}$};
+	\\node[text width=3cm,text centered, scale=1.5] at(5.5,1.5) {$\\mathbf{${y_ligne2}}$};
+	\\fill [line width=3pt,color=frvzsz] (3.5,2) -- (3,1) -- (4,2) -- (3,3) -- cycle;
+	\\end{tikzpicture}	
+	`;
+};
+
+/**
+ * Crée un diagramme tikz pour une machine maths
+ * @param {string} nom nom de la fonction 
+ * @param {string} x_ant nom du nombre de départ
+ * @param {array} etapes_expressions tableau contenant les etapes et le expressions algébriques
+ * attention mode maths pour les chaines
+ * @author Sébastien Lozano
+ */
+function tikz_machine_diag(nom,x_ant,etapes_expressions){
+	'use strict';
+	var x_init = -10;
+	var saut = 0;
+	var pas = 1;
+	var sortie = ``;
+	sortie +=`
+	\\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
+	\\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+	\\draw [line width=3pt,color=frvzsz] (`+x_init+`,0.5) -- (`+(x_init+pas)+`,0.5) -- (`+(x_init+pas)+`,-0.5) -- (`+x_init+`,-0.5) -- cycle;
+	\\node[text width=3cm,text centered, scale=1] at(`+(x_init+0.5)+`,0){$${x_ant}$};
+	`;	
+	saut = saut + pas;
+	for (var i = 0; i<etapes_expressions.length; i++) {
+		//si la longueur du tableau des etapes vaut i+1 c'est que c'est la derniere 
+		//on affiche donc chaque fois avec le nom de la fonction
+		if (etapes_expressions.length==i+1) {
+			// si il y a une operation et une expression algébrique
+			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {				
+				let w_etape = `${nom}(x)=${etapes_expressions[i][1]}}`.length;
+				sortie += `
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(0.5);
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
+				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,0.5) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,0.5) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-0.5) -- (`+(x_init+saut+5*pas/2)+`,-0.5) -- cycle;
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(x)=${etapes_expressions[i][1]}$};
+				`;			
+			};
+			// si il y a une operation et pas d'expression algébrique 
+			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
+				let w_etape = `${nom}(x)=\\ldots`.length;
+				sortie += `
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
+				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(x)=\\ldots$};
+				`;			
+			};
+			// si il n'y a pas d'operation mais une expression algébrique
+			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
+				let w_etape = `${nom}(x)=${etapes_expressions[i][1]}`.length;
+				sortie += `
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
+				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(x)=${etapes_expressions[i][1]}$};
+				`;			
+			};
+			// si il n'y ni une operation et ni expression algébrique
+			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
+				let w_etape = `${nom}(x)=\\ldots`.length;
+				sortie += `
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
+				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(x)=\\ldots$};
+				`;			
+			};
+
+		} else {//sinon c'est une étape intermédiaire
+			// si il y a une operation et une expression algébrique
+			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
+				let w_etape = `${etapes_expressions[i][1]}`.length;
+				sortie += `
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
+				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${etapes_expressions[i][1]}$};
+				`;	
+				saut = saut+3*pas+w_etape/4;						
+			};
+			// si il y a une operation et pas d'expression algébrique 
+			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
+				let w_etape = `\\ldots`.length;
+				sortie += `
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
+				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$\\ldots$};
+				`;	
+				saut = saut+3*pas+w_etape/4;		
+			};
+			// si il n'y a pas d'operation mais une expression algébrique
+			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
+				let w_etape = `${etapes_expressions[i][1]}`.length;
+				sortie += `
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
+				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${etapes_expressions[i][1]}$};
+				`;	
+				saut = saut+3*pas+w_etape/4;		
+			};
+			// si il n'y ni une operation et ni expression algébrique
+			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
+				let w_etape = `\\ldots`.length;
+				sortie += `
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
+				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$\\ldots$};
+				`;	
+				saut = saut+3*pas+w_etape/4;		
+			};
+		 };				
+	};		 
+	sortie +=`
+	\\end{tikzpicture}
+	`;
+	return sortie;
+};
+
+ /**
   * Fonction pour particulariser une police svg et ses paramètres  
   * @param {string} font 
   * @param {string} interligne 
   * @param {string} ancre 
   * @param {string} f_style 
-  * @param {string} f_weight 
-  */
- 
+  * @param {string} f_weight
+  * @author Sébastien Lozano 
+  */ 
  function my_svg_font(font,interligne,ancre,f_style,f_weight){
 	'use strict';
 	return {family:  font,
@@ -614,7 +790,7 @@ function Resoudre_une_equation_produit_nul(){
 		};
 };
 
-/**
+ /**
  * Crée une flèche orange pour la fonction machine
  * @param {object} groupe groupe svg
  * @param {string} chemin path pour la ligne 
@@ -641,7 +817,7 @@ function SVG_fleche_machine_maths(groupe,chemin,couleur) {
  * @param {string} x_ligne2 antécédent ligne2
  * @param {string} y_ligne1 image ligne1
  * @param {string} y_ligne2 image ligne2
- * @Auteur Sébastien Lozano
+ * @author Sébastien Lozano
  */	
 function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_ligne2,y_ligne1,y_ligne2) {
 	'use strict';
@@ -778,176 +954,6 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 		}
 
 	}, 100); // Vérifie toutes les 100ms
-};
-
-/**
- * Crée une machine mathématique Tikz pour la version LaTeX
- * @param {string} nom nom de la machine en mode maths!
- * @param {string} etape1 chaine en mode maths attention aux espaces et accents
- * @param {string} etape2 chaine en mode maths attention aux espaces et accents
- * @param {string} etape3 chaine en mode maths attention aux espaces et accents
- * @param {string} x_ligne1 chaine en mode maths attention aux espaces et accents
- * @param {string} x_ligne2 chaine en mode maths attention aux espaces et accents
- * @param {string} y_ligne1 chaine en mode maths attention aux espaces et accents
- * @param {string} y_ligne2 chaine en mode maths attention aux espaces et accents
- */
-
-function tikz_machine_maths(nom,etape1,etape2,etape3,x_ligne1,x_ligne2,y_ligne1,y_ligne2) {
-	// tous les textes sont en mode maths !!!
-	'use strict';
-	return `
-	\\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
-	\\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
-	\\draw [line width=3pt,color=frvzsz] (-4,4)-- (2,4);
-	\\draw [line width=3pt,color=frvzsz] (2,4)-- (2,0);
-	\\draw [line width=3pt,color=frvzsz] (2,0)-- (-4,0);
-	\\draw [line width=3pt,color=frvzsz] (-4,0)-- (-4,4);
-	\\draw [line width=3pt,color=frvzsz] (-4,2)-- (-5,2);
-	\\draw [line width=3pt,color=frvzsz] (-5,2.4)-- (-5,1.6);
-	\\draw [->,line width=3pt,color=frvzsz] (2,2) -- (3,2);
-	\\node[text width=3cm,text centered, scale=1.8] at(-1,3.5){$\\mathbf{machine\\,${nom}}$};
-	\\node[text width=3cm,text centered, scale=1.5] at(-1,2.8){$\\mathbf{${etape1}}$};
-	\\node[text width=3cm,text centered, scale=1.5] at(-1,2.3){$${etape2}$};
-	\\node[text width=3cm,text centered, scale=1.5] at(-1,1.6){$${etape3}$};
-	\\node[text width=3cm,text centered, scale=1.5] at(-8,2.5) {$\\mathbf{${x_ligne1}}$};
-	\\node[text width=3cm,text centered, scale=1.5] at(-8,1.5) {$\\mathbf{${x_ligne2}}$};
-	\\fill [line width=3pt,color=frvzsz] (-6,2) -- (-6.5,1) -- (-5.5,2) -- (-6.5,3) -- cycle;
-	%\\fill [line width=3pt,color=frvzsz] (1,2) -- (0.5,1) -- (1.5,2) -- (0.5,3) -- cycle;
-	\\node[text width=3cm,text centered, scale=1.5] at(5.5,2.5) {$\\mathbf{${y_ligne1}}$};
-	\\node[text width=3cm,text centered, scale=1.5] at(5.5,1.5) {$\\mathbf{${y_ligne2}}$};
-	\\fill [line width=3pt,color=frvzsz] (3.5,2) -- (3,1) -- (4,2) -- (3,3) -- cycle;
-	\\end{tikzpicture}	
-	`;
-};
-
-function tikz_machine_diag(nom,x_ant,etapes_expressions){
-	'use strict';
-	var x_init = -10;
-	var saut = 0;
-	var pas = 1;
-	var sortie = ``;
-	sortie +=`
-	\\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
-	\\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
-	\\draw [line width=3pt,color=frvzsz] (`+x_init+`,0.5) -- (`+(x_init+pas)+`,0.5) -- (`+(x_init+pas)+`,-0.5) -- (`+x_init+`,-0.5) -- cycle;
-	\\node[text width=3cm,text centered, scale=1] at(`+(x_init+0.5)+`,0){$${x_ant}$};
-	`;	
-	saut = saut + pas;
-	for (var i = 0; i<etapes_expressions.length; i++) {
-		//si la longueur du tableau des etapes vaut i+1 c'est que c'est la derniere 
-		//on affiche donc chaque fois avec le nom de la fonction
-		if (etapes_expressions.length==i+1) {
-			// si il y a une operation et une expression algébrique
-			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {				
-				let w_etape = `${nom}(x)=${etapes_expressions[i][1]}}`.length;
-				sortie += `
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(0.5);
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
-				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,0.5) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,0.5) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-0.5) -- (`+(x_init+saut+5*pas/2)+`,-0.5) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(x)=${etapes_expressions[i][1]}$};
-				`;			
-			};
-			// si il y a une operation et pas d'expression algébrique 
-			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
-				let w_etape = `${nom}(x)=\\ldots`.length;
-				sortie += `
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
-				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(x)=\\ldots$};
-				`;			
-			};
-			// si il n'y a pas d'operation mais une expression algébrique
-			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
-				let w_etape = `${nom}(x)=${etapes_expressions[i][1]}`.length;
-				sortie += `
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
-				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(x)=${etapes_expressions[i][1]}$};
-				`;			
-			};
-			// si il n'y ni une operation et ni expression algébrique
-			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
-				let w_etape = `${nom}(x)=\\ldots`.length;
-				sortie += `
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
-				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(x)=\\ldots$};
-				`;			
-			};
-
-		} else {//sinon c'est une étape intermédiaire
-			// si il y a une operation et une expression algébrique
-			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
-				let w_etape = `${etapes_expressions[i][1]}`.length;
-				sortie += `
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
-				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${etapes_expressions[i][1]}$};
-				`;	
-				saut = saut+3*pas+w_etape/4;						
-			};
-			// si il y a une operation et pas d'expression algébrique 
-			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
-				let w_etape = `\\ldots`.length;
-				sortie += `
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
-				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$\\ldots$};
-				`;	
-				saut = saut+3*pas+w_etape/4;		
-			};
-			// si il n'y a pas d'operation mais une expression algébrique
-			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
-				let w_etape = `${etapes_expressions[i][1]}`.length;
-				sortie += `
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
-				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${etapes_expressions[i][1]}$};
-				`;	
-				saut = saut+3*pas+w_etape/4;		
-			};
-			// si il n'y ni une operation et ni expression algébrique
-			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
-				let w_etape = `\\ldots`.length;
-				sortie += `
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
-				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$\\ldots$};
-				`;	
-				saut = saut+3*pas+w_etape/4;		
-			};
-		 };				
-	};		 
-
-	sortie +=`
-	\\end{tikzpicture}
-	`;
-
-	return sortie;
-
 };
 
 /**Trace un chemin pour un groupe donné avec une couleur donnée
