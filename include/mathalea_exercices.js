@@ -2917,20 +2917,21 @@ function Criteres_de_divisibilite(){
 }
 
 function Proportionnalite_par_linearite() {
-	'use strict'y;
+	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Résoudre des problèmes de proportionnalité en utilisant la linéarité simple";
 	this.consigne = "Répondre aux questions posées en justifiant";
 	this.spacing = 2;
 	this.spacing_corr = 2;
-
+	this.nb_questions=5;
+	
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		let liste_de_lieux=['dans un magasin de bricolage','dans une animalerie','au supermarché local','à l\'épicerie','dans la boutique du musée']
 		let liste_de_choses=[[]]
-		let liste_de_prix_unit[[]]
-		liste de choses[0]=['articles','outils','accessoires','pièces d\'outillage','pinceaux','ampoules']
+		let liste_de_prix_unit=[[]]
+		liste_de_choses[0]=['articles','outils','accessoires','pièces d\'outillage','pinceaux','ampoules']
 		liste_de_choses[1]=['poissons rouges','canards jaunes','oiseaux verts','phasmes']
 		liste_de_choses[2]=['sets de tables','verres','assiettes','os à macher pour sa chienne','dosettes de café']
 		liste_de_choses[3]=['ananas','fruits de la passion','melons','paquets de madeleines de Commercy']
@@ -2940,30 +2941,36 @@ function Proportionnalite_par_linearite() {
 		liste_de_prix_unit[2]=[0.7,1.4,2.2,0.9,4.7]
 		liste_de_prix_unit[3]=[2.5,1.2,1.5,3.4]
 		liste_de_prix_unit[4]=[0.5,4.7,6.8,13.5]
-		for (let i = 0, x,y,z,pu, n,p,somme,prenoms,index1,index2,objet,met, texte, texte_corr; i < this.nb_questions;i++) {
+		for (let i = 0, x,y,z,pu, n,p,somme,prenoms,index1,index2,objet,met, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
 			index1=randint(0,4);
-			prenoms=prenom();
+			prenoms=[prenomF(),prenomM()];
+
 			index2=randint(0,liste_de_choses[index1].length-1);
 			objet=liste_de_choses[index1][index2];
-			pu=liste_de_prix[index1][index2];
+			pu=liste_de_prix_unit[index1][index2];
 			n=randint(3,6);
 			y=n*randint(2,5);
-			x=n*pu;
-			somme=y*pu;
+			x=calcul(n*pu,2);
+			somme=calcul(y*pu,2);
 			met = false;
 			while (met==false) {
 				p=n*randint(2,5);
 				if (p!=y) met=true
 			}
-			z=p*pu;
-			texte = `${prenoms[0]} a repéré ${liste_de_lieux[index1]} des ${objets} qui l\'intéressent.<br>`;
+			z=calcul(p*pu,2);
+			texte = `${prenoms[0]} a repéré ${liste_de_lieux[index1]} des ${objet} qui l\'intéressent. `;
 			texte +=`Elle veut en acheter $${y}$. Combien va-t-elle dépenser ?<br>`;
-			texte_corr = `$${y}$ ${objet}, c'est $${y/n}$ fois plus que $${n}$ ${objet}. Si $${n}$ ${objet} coûtent $${x}$\\euro alors $${y/n}$ fois plus de ${objet} coutent $${y/n}$ fois plus.<br>`;
-			texte_corr +=`Donc ${prenom[0]} dépensera $${y/n}\\times${x}=${somme}$\\euro.<br>`;
-			texte += `${prenoms[1]} veut lui aussi acheter ces ${objets}. Il dispose de $${z}$\\euro. Combien peut-il en acheter ?<br>`;
-			texte_corr += `$${z}$\\euro, c'est $${z/x}$ fois plus que $${x}$\\euro. Si avec $${x}$\\euro on peut acheter $${n}$ ${objet} alors avec $${z/x}$ fois plus d'argent, on peut acheter $${z/x}$ fois plus de ${objet}.<br>`;
-			texte_corr +=`Donc ${prenom[1]} pourra acheter $${z/x}\\times${n}=${p}$ ${objet}.<br>`;
-			
+			texte_corr = `$${y}$ ${objet}, c'est $${mise_en_evidence(tex_nombrec(y/n))}$ fois plus que $${n}$ ${objet}. Si $${n}$ ${objet} coûtent $${x}$€, alors $${mise_en_evidence(tex_nombrec(y/n))}$ fois plus de ${objet} coutent $${mise_en_evidence(tex_nombrec(y/n))}$ fois plus.<br>`;
+			texte_corr +=`Donc ${prenoms[0]} dépensera $${mise_en_evidence(tex_nombrec(y/n))}\\times${x}=${somme}$€.<br>`;
+			texte += `${prenoms[1]} veut lui aussi acheter ces ${objet}. Il dispose de $${tex_nombrec(z)}$€. Combien peut-il en acheter ?<br>`;
+			texte_corr += `$${z}$€, c'est $${mise_en_evidence(tex_nombrec(z/x))}$ fois plus que $${x}$€. Si avec $${x}$€ on peut acheter $${n}$ ${objet}, alors avec $${mise_en_evidence(tex_nombrec(z/x))}$ fois plus d'argent, on peut acheter $${mise_en_evidence(tex_nombrec(z/x))}$ fois plus de ${objet}.<br>`;
+			texte_corr +=`Donc ${prenoms[1]} pourra acheter $${mise_en_evidence(tex_nombrec(z/x))}\\times${n}=${p}$ ${objet}.<br>`;
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;
 		}
 		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
 	}	
