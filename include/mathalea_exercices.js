@@ -2963,10 +2963,10 @@ function Proportionnalite_par_linearite() {
 			texte = `${prenoms[0]} a repéré ${liste_de_lieux[index1]} des ${objet} qui l\'intéressent. `;
 			texte +=`Elle lit que $${n}$ ${objet} coûtent $${x}$€. `
 			texte +=`Elle veut en acheter $${y}$. Combien va-t-elle dépenser ?<br>`;
-			texte_corr = `$${y}$ ${objet}, c'est $${mise_en_evidence(tex_nombrec(y/n))}$ fois $${n}$ ${objet}. Si $${n}$ ${objet} coûtent $${tex_nombrec(x)}$€, alors $${mise_en_evidence(tex_nombrec(y/n))}\\times${n}$ ${objet} coutent $${mise_en_evidence(tex_nombrec(y/n))}\\times${tex_nombrec(x)}$€.<br>`;
+			texte_corr = `$${y}$ ${objet}, c'est $${mise_en_evidence(tex_nombrec(y/n))}$ fois $${mise_en_evidence(n,'blue')}$ ${objet}. Si $${mise_en_evidence(n,'blue')}$ ${objet} coûtent $${tex_nombrec(x)}$€, alors $${mise_en_evidence(tex_nombrec(y/n))}$ fois $${mise_en_evidence(n,'blue')}$ ${objet} coutent $${mise_en_evidence(tex_nombrec(y/n))}$ fois $${tex_nombrec(x)}$€.<br>`;
 			texte_corr +=`Donc ${prenoms[0]} dépensera $${mise_en_evidence(tex_nombrec(y/n))}\\times${tex_nombrec(x)}=${somme}$€.<br>`;
 			texte += `${prenoms[1]} veut lui aussi acheter ces ${objet}. Il dispose de $${tex_nombrec(z)}$€. Combien peut-il en acheter ?<br>`;
-			texte_corr += `$${z}$€, c'est $${mise_en_evidence(tex_nombrec(z/x))}$ fois $${tex_nombrec(x)}$€. Si avec $${tex_nombrec(x)}$€ on peut acheter $${n}$ ${objet}, alors avec $${mise_en_evidence(tex_nombrec(z/x))}\\times${tex_nombrec(x)}$€, on peut acheter $${mise_en_evidence(tex_nombrec(z/x))}\\times${n}$ ${objet}.<br>`;
+			texte_corr += `$${z}$€, c'est $${mise_en_evidence(tex_nombrec(z/x))}$ fois $${tex_nombrec(x)}$€. Si avec $${tex_nombrec(x)}$€ on peut acheter $${mise_en_evidence(n,'blue')}$ ${objet}, alors avec $${mise_en_evidence(tex_nombrec(z/x))}$ fois $${tex_nombrec(x)}$€, on peut acheter $${mise_en_evidence(tex_nombrec(z/x))}$ fois $${mise_en_evidence(n,'blue')}$ ${objet}.<br>`;
 			texte_corr +=`Donc ${prenoms[1]} pourra acheter $${mise_en_evidence(tex_nombrec(z/x))}\\times${n}=${p}$ ${objet}.<br>`;
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
