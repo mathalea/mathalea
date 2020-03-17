@@ -67,6 +67,7 @@ var liste_des_exercices_disponibles = {
 		'6N34' : Reglages_6N34,
 		'6N41' : Egalites_entre_fractions,
 		'6N43' : Criteres_de_divisibilite,
+		'6P10' : Proportionnalite_pas_proportionnalite,
 		'6P11' : Proportionnalite_par_linearite,
 		'5N12':Exercice_fractions_simplifier,
 		'5N12-2': Egalites_entre_fractions,
@@ -2915,7 +2916,91 @@ function Criteres_de_divisibilite(){
 	this.besoin_formulaire_numerique=['Choix des questions',4,"1 : Critères de divisibilité par 2, 5, 10\n\
 2 : Critères de divisibilité par 3,9\n3 : Critères de divisibilité par 2, 3, 5, 9, 10\n4 : Avec ou sans critère de divisibilité"]
 }
+function Proportionnalite_pas_proportionnalite() {
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Reconnaître une situation de proportionnalité";
+	this.consigne = "Répondre aux questions posées en justifiant";
+	this.spacing = 2;
+	this.spacing_corr = 2;
+	this.nb_questions=5;
+	
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		let liste_index_disponibles=[0,1,2,3,4];
+		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions)
+		let liste_choix_disponibles=[1,2];
+		let liste_choix=combinaison_listes(liste_choix_disponibles,this.nb_questions)
+		let liste_de_lieux=['dans un magasin de bricolage','dans une animalerie','au supermarché local','à l\'épicerie','dans la boutique du musée']
+		let liste_de_choses=[[]]
+		let liste_de_prix_unit=[[]]
+		liste_de_choses[0]=['articles','outils','accessoires','pièces d\'outillage','pinceaux','ampoules','tournevis','spatules','raccords de tuyaux']
+		liste_de_choses[1]=['poissons rouges','cannetons','perruches','phasmes','colliers anti-puces','souris','lapereaux','paquets de graines']
+		liste_de_choses[2]=['sets de tables','verres','assiettes','os à macher pour sa chienne','dosettes de café','packs de lait','paquets de pâtes']
+		liste_de_choses[3]=['mangues','ananas','fruits de la passion','melons','paquets de madeleines de Commercy','bergamottes','bredeles','pots de cancoillotte']
+		liste_de_choses[4]=['cartes','livres','gravures','puzzles','maquettes','roches','jeux de société']
+		liste_de_prix_unit[0]=[5,4,1.25,3,0.5,1.5,2,6,4.5]
+		liste_de_prix_unit[1]=[1.5,7,20,2.5,25,2,15,8]
+		liste_de_prix_unit[2]=[1.25,1.5,2,0.5,5,4.5,3]
+		liste_de_prix_unit[3]=[2,2.5,1.25,1.5,4,7,12,3]
+		liste_de_prix_unit[4]=[0.5,5,7,13.5,10,15,20]
+		console.log(liste_choix)
+		for (let i = 0, x,y,z,pu, n,p,somme,prenoms,index1,index2,objet,met,choix, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
+			switch(liste_choix[i]) {
+				case 1 : 
+					index1 = liste_index[i];
+					prenoms = [prenomF(), prenomM()];
+					index2 = randint(0, liste_de_choses[index1].length - 1);
+					objet = liste_de_choses[index1][index2];
+					pu = liste_de_prix_unit[index1][index2] * (1 + randint(1, 2) * 0.2 * randint(-1, 1));
+					y =  randint(2, 5);
+					somme = calcul(y * pu, 2);
+					p = y * randint(2, 5);
+					z = calcul(p * pu, 2);
+					texte = `${prenoms[0]} a repéré ${liste_de_lieux[index1]} des ${objet} qui l\'intéressent. `;
+					texte += `Elle achète $${y}$ ${objet} pour $${tex_nombrec(somme)}$€. ${prenoms[1]} achète $${p}$ ${objet} pour $${z}$€.<br>`
+					texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`;
+					texte_corr=``
+/*					texte_corr = `$${y}$ ${objet}, c'est $${mise_en_evidence(tex_nombrec(y / n))}$ fois $${mise_en_evidence(n, 'blue')}$ ${objet}. Si $${mise_en_evidence(n, 'blue')}$ ${objet} coûtent $${tex_nombrec(x)}$€, alors $${mise_en_evidence(tex_nombrec(y / n))}$ fois $${mise_en_evidence(n, 'blue')}$ ${objet} coutent $${mise_en_evidence(tex_nombrec(y / n))}$ fois $${tex_nombrec(x)}$€.<br>`;
+					texte_corr += `Donc ${prenoms[0]} dépensera $${mise_en_evidence(tex_nombrec(y / n))}\\times${tex_nombrec(x)}=${tex_nombrec(somme)}$€.<br>`;
+					texte_corr += `$${z}$€, c'est $${mise_en_evidence(tex_nombrec(z / x))}$ fois $${tex_nombrec(x)}$€. Si avec $${tex_nombrec(x)}$€ on peut acheter $${mise_en_evidence(n, 'blue')}$ ${objet}, alors avec $${mise_en_evidence(tex_nombrec(z / x))}$ fois $${tex_nombrec(x)}$€, on peut acheter $${mise_en_evidence(tex_nombrec(z / x))}$ fois $${mise_en_evidence(n, 'blue')}$ ${objet}.<br>`;
+					texte_corr += `Donc ${prenoms[1]} pourra acheter $${mise_en_evidence(tex_nombrec(z / x))}\\times${n}=${p}$ ${objet}.<br>`;
+*/					break;
+				case 2: 
+				index1 = liste_index[i];
+				prenoms = [prenomF(), prenomM()];
+				index2 = randint(0, liste_de_choses[index1].length - 1);
+				objet = liste_de_choses[index1][index2];
+				pu = liste_de_prix_unit[index1][index2] * (1 + randint(1, 2) * 0.2 * randint(-1, 1));
+				y =  randint(2, 5);
+				somme = calcul(y * pu, 2);
+				pu-=0.1;
+				p = y * randint(2, 5);
+				z = calcul(p * pu, 2);
+				texte = `${prenoms[0]} a repéré ${liste_de_lieux[index1]} des ${objet} qui l\'intéressent. `;
+				texte += `Elle achète $${y}$ ${objet} pour $${tex_nombrec(somme)}$€. ${prenoms[1]} achète $${p}$ ${objet} pour $${z}$€.<br>`
+				texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`;
+				texte_corr=``
+				break;
+			}	
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;
+			
+		}
+		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
+	}	
+};
 
+/**
+ * On donne une relation de proportionnalité du type n objets coûtent x€ et on demande le prix de y objets
+ * et le nombre d'objets qu'on peut acheter avec z€.
+ * @Auteur Jean-Claude Lhote
+ */
 function Proportionnalite_par_linearite() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -2933,16 +3018,16 @@ function Proportionnalite_par_linearite() {
 		let liste_de_lieux=['dans un magasin de bricolage','dans une animalerie','au supermarché local','à l\'épicerie','dans la boutique du musée']
 		let liste_de_choses=[[]]
 		let liste_de_prix_unit=[[]]
-		liste_de_choses[0]=['articles','outils','accessoires','pièces d\'outillage','pinceaux','ampoules']
-		liste_de_choses[1]=['poissons rouges','canards jaunes','oiseaux verts','phasmes']
-		liste_de_choses[2]=['sets de tables','verres','assiettes','os à macher pour sa chienne','dosettes de café']
-		liste_de_choses[3]=['ananas','fruits de la passion','melons','paquets de madeleines de Commercy']
-		liste_de_choses[4]=['cartes','livres','gravures','puzzles']
-		liste_de_prix_unit[0]=[5,4,1.25,3,0.5,1.5]
-		liste_de_prix_unit[1]=[1.5,7,10,2.5]
-		liste_de_prix_unit[2]=[1.25,1.5,2,0.5,5]
-		liste_de_prix_unit[3]=[2.5,1.25,1.5,4]
-		liste_de_prix_unit[4]=[0.5,5,7,13.5]
+		liste_de_choses[0]=['articles','outils','accessoires','pièces d\'outillage','pinceaux','ampoules','tournevis','spatules','raccords de tuyaux']
+		liste_de_choses[1]=['poissons rouges','cannetons','perruches','phasmes','colliers anti-puces','souris','lapereaux','paquets de graines']
+		liste_de_choses[2]=['sets de tables','verres','assiettes','os à macher pour sa chienne','dosettes de café','packs de lait','paquets de pâtes']
+		liste_de_choses[3]=['mangues','ananas','fruits de la passion','melons','paquets de madeleines de Commercy','bergamottes','bredeles','pots de cancoillotte']
+		liste_de_choses[4]=['cartes','livres','gravures','puzzles','maquettes','roches','jeux de société']
+		liste_de_prix_unit[0]=[5,4,1.25,3,0.5,1.5,2,6,4.5]
+		liste_de_prix_unit[1]=[1.5,7,20,2.5,25,2,15,8]
+		liste_de_prix_unit[2]=[1.25,1.5,2,0.5,5,4.5,3]
+		liste_de_prix_unit[3]=[2,2.5,1.25,1.5,4,7,12,3]
+		liste_de_prix_unit[4]=[0.5,5,7,13.5,10,15,20]
 		for (let i = 0, x,y,z,pu, n,p,somme,prenoms,index1,index2,objet,met, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
 			index1=liste_index[i];
 			prenoms=[prenomF(),prenomM()];
