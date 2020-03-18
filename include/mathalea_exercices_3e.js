@@ -1213,6 +1213,7 @@ function fonction_notion_vocabulaire(){
 	this.titre = "Fonction : Notion et vocabulaire"; 
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne =``;
+	// Message Bug SVG qui ne s'affiche pas dans la correction sans rafraichir
 	if (sortie_html) {
 		this.consigne = `
 		<div class="ui compact warning message">		
@@ -1274,7 +1275,7 @@ function fonction_notion_vocabulaire(){
 	
 				let id_unique = `${num_ex}_${i}_${Date.now()}`
 				let id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
-				let id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`;
+				//let id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`;
 	
 				switch (type_de_questions) {
 					case 1 : // périmètre d'un carré de côté x			
@@ -1294,29 +1295,6 @@ function fonction_notion_vocabulaire(){
 							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, f','---','périmètre','d\'un \\, carré','carré \\, de','côté \\,'+x+' \\, cm','périmètre','??? \\, cm');							
 						} else { // sortie Latex avec Tikz
 							texte += tikz_machine_maths('f','---',`P\\acute{e}rim\\grave{e}tre`,`d'un\\,carr\\acute{e}`,`carr\\acute{e}\\,de`,`c\\hat{o}t\\acute{e}\\,${x}\\,cm`,`P\\acute{e}rim\\grave{e}tre`,`???\\,cm`);
-							// texte += `
-							// \\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
-							// \\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
-							// \\draw [line width=3.2pt,color=frvzsz] (-2,4)-- (4,4);
-							// \\draw [line width=3.2pt,color=frvzsz] (4,4)-- (4,0);
-							// \\draw [line width=3.2pt,color=frvzsz] (4,0)-- (-2,0);
-							// \\draw [line width=3.2pt,color=frvzsz] (-2,0)-- (-2,4);
-							// \\draw [line width=3.2pt,color=frvzsz] (-2,2)-- (-3,2);
-							// \\draw [line width=3.2pt,color=frvzsz] (-3,2.4)-- (-3,1.6);
-							// \\draw [->,line width=3.2pt,color=frvzsz] (4,2) -- (5,2);
-							// \\node[text width=3cm,text centered, scale=1.8] at(1,3.5){$\\mathbf{machine\\,maths}$};
-							// \\node[text width=3cm,text centered, scale=1.5] at(1,2.8){$\\mathbf{---}$};
-							// \\node[text width=3cm,text centered, scale=1.5] at(1,2.3){Proc\\'{e}d\\'{e}};
-							// \\node[text width=3cm,text centered, scale=1.5] at(1,1.6){de caclcul};
-							// \\node[text width=3cm,text centered, scale=1.5] at(-6,2.5) {$\\mathbf{ant\\acute{e}c\\acute{e}dent}$};
-							// \\node[text width=3cm,text centered, scale=1.5] at(-6,1.5) {$\\mathbf{\\textit{x}}$};
-							// \\fill [line width=3.2pt,color=frvzsz] (-4,2) -- (-4.5,1) -- (-3.5,2) -- (-4.5,3) -- cycle;
-							// %\\fill [line width=3.2pt,color=frvzsz] (1,2) -- (0.5,1) -- (1.5,2) -- (0.5,3) -- cycle;
-							// \\node[text width=3cm,text centered, scale=1.5] at(7,2.5) {$\\mathbf{image}$};
-							// \\node[text width=3cm,text centered, scale=1.5] at(7,1.5) {$\\mathbf{\\textit{y}}$};
-							// \\fill [line width=3.2pt,color=frvzsz] (5.5,2) -- (5,1) -- (6,2) -- (5,3) -- cycle;
-							// \\end{tikzpicture}							
-							// `;
 						};
 						// sous question a/						
 						if (sortie_html){
@@ -1383,19 +1361,8 @@ function fonction_notion_vocabulaire(){
 							texte += `\\item   \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
 							texte += `Voici le diagramme d'une machine qui triple <br> `;
 							texte += tikz_machine_diag(`f`,`x`,[[`\\times 3`,`3x`]]);
-							// texte += tikz_machine_diag(`f`,`x`,[[`+5`,`x+5`],[`\\times 3`,`3x`]]);
-							// texte += tikz_machine_diag(`f`,`x`,[[`+5`,`x+5`],[`+5`,`x+5`],[`\\times 3`,`3x`]]);
-							// texte += tikz_machine_diag(`f`,`x`,[[,`x+5`],[`\\times 3`,]]);
-							// texte += tikz_machine_diag(`f`,`x`,[[`+5`,],[,`3x`]]);
-							// texte += tikz_machine_diag(`f`,`x`,[[,],[,]]);
-							//texte += `<div id="diagramme_type1" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							//SVG_machine_diag('diagramme_type1',400,50,'f','x',[['\\times 3','3x']]);
-							//texte += `diagramme Tikz<br>`;
 							texte_corr += `\\item  C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
 							texte_corr += tikz_machine_diag(`f`,`x`,[[`\\times 4`,`4x`]]);
-							//texte_corr += `<div id="diagramme_type1_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							//SVG_machine_diag('diagramme_type1_corr',400,50,'f','x',[['\\times 4','4x']]);							
-							//texte_corr += `diagramme Tikz`;
 						};
 						// sous question f/
 						if (sortie_html) {
@@ -1496,7 +1463,7 @@ function fonction_notion_vocabulaire(){
 						} else {
 							texte += `\\item  Que renvoie la machine si le côté vaut $x$ cm ?<br>`;
 							texte_corr += `\\item Si le côté vaut $x$ la machine renvoie $x\\times x$ ce qui est équivalent à $x^2$ .<br>`;
-						}
+						};
 
 						// sous question e/
 						if (sortie_html) {
@@ -1517,9 +1484,7 @@ function fonction_notion_vocabulaire(){
 
 							texte_corr += `\\item C'est une machine qui multiplie un nombre par lui-même, donc sous forme de diagramme.<br>`;
 							texte_corr += tikz_machine_diag(`g`,`x`,[[`\\times x`,`x^2`]]);
-							// texte_corr += `<div id="diagramme_type2_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							// SVG_machine_diag('diagramme_type2_corr',400,50,'g','x',[['\\times x','x\\times x=x^{\\tiny 2}']]);
-						}
+						};
 
 						// sous question f/
 						if (sortie_html){
@@ -1561,7 +1526,6 @@ function fonction_notion_vocabulaire(){
 							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
 							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, h','---','multiplier \\, par \\, 3','ajouter \\, 1','nombre \\, de','départ \\, '+x,'nombre \\, de','sortie \\, ?');
 						} else { // sortie Latex avec Tikz
-							//texte += `figure Tikz<br>`;
 							texte += tikz_machine_maths('h','---',`Multiplier\\,par\\,3`,`Ajouter\\,1`,`nombre\\,de`,`d\\acute{e}part\\,${x}`,`nombre\\,de`,`sortie\\,?`);
 						};
 
@@ -1639,14 +1603,9 @@ function fonction_notion_vocabulaire(){
 							texte += `\\item  \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
 							texte += `Voici le diagramme d'une machine qui double puis qui ajoute 5 <br>`;
 							texte += tikz_machine_diag(`h`,`x`,[[`\\times 2`,`2x`],[`+5`,`2x+5`]]);
-							// texte += `<div id="diagramme_type3" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							// SVG_machine_diag('diagramme_type3',400,50,'h','x',[['\\times 2','2x'],['+5','2x+5']]);
-
 							texte_corr += `\\item C'est une machine qui triple un nombre et ajoute 1, donc sous forme de diagramme.<br>`;
 							texte_corr += tikz_machine_diag(`h`,`x`,[[`\\times 3`,`3x`],[`+1`,`3x+1`]]);
-							// texte_corr += `<div id="diagramme_type3_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							// SVG_machine_diag('diagramme_type3_corr',400,50,'h','x',[['\\times 3','3x'],['+1','3x+1']]);
-						}
+						};
 
 						// sous question f/
 						if (sortie_html){
@@ -1798,4 +1757,76 @@ function fonction_notion_vocabulaire(){
 		liste_de_question_to_contenu(this);
 	}
 	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
-}
+};
+
+/**
+ * 3F12 Notion de fonctions vocabulaire
+ * Déterminer à partir de plusieurs modes de représentation l'image d'un nombre
+ * @author Sébastien LOZANO
+ */
+
+ function fonctions_calculs_d_images() {
+	 'use strict';
+	 Exercice.call(this); // Héritage de la classe Exercice()
+	 this.sup = 1 ; 
+	 this.titre = "Fonctions : Calculs d'images"; 
+	 // pas de différence entre la version html et la version latex pour la consigne
+	 this.consigne =`consigne 3F12`;
+
+	 sortie_html ? this.spacing = 3 : this.spacing = 2;
+	 sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
+	 this.nb_questions = 4;
+	 //this.correction_detaillee_disponible = true;
+	 this.nb_cols = 1;
+	 this.nb_cols_corr = 1;
+	 this.sup = 1;
+ 
+	 var num_ex = '3F12'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
+
+	 if (sortie_html) {		
+		 let id_unique = `_consigne_${num_ex}_${Date.now()}`; // on formatte avec le numéro de l'exercice pour éviter les doublons		
+		 let id_du_div = `div_svg${id_unique}`;
+		 var pourcentage = '100%'; // pour l'affichage des svg. On a besoin d'une variable globale
+		 var hauteur_svg = 100;
+	 } else { // sortie LaTeX
+ 
+	 };
+	 this.nouvelle_version = function(numero_de_l_exercice){
+		 let type_de_questions;
+		 if (sortie_html) { // les boutons d'aide uniquement pour la version html
+//			 this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheFonctions-3F1-act.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
+//			 this.bouton_aide += modal_video('videoTest','videos/Fonctions.mp4','Petit conte mathématique','Intro Vidéo');
+		 }
+		 this.liste_questions = []; // Liste de questions
+		 this.liste_corrections = []; // Liste de questions corrigées
+		 this.contenu = ''; // Liste de questions
+		 this.contenu_correction = ''; // Liste de questions corrigées
+ 
+		 //let type_de_questions_disponibles = [1,2,3,4];
+		 let type_de_questions_disponibles = [1];
+		 let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
+ 
+			 for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
+				 type_de_questions = liste_type_de_questions[i];
+	 
+				 let id_unique = `${num_ex}_${i}_${Date.now()}`
+				 let id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
+	 
+				 switch (type_de_questions) {
+					 case 1 :
+						 texte= `rrr`;
+						 texte_corr = `yyy`;
+				};
+			
+				if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+					this.liste_questions.push(texte);
+					this.liste_corrections.push(texte_corr);
+					i++;
+				}
+				cpt++
+			}	
+	
+		liste_de_question_to_contenu(this);
+	}
+	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
+ }; 
