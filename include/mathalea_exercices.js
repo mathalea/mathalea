@@ -2930,11 +2930,13 @@ function Proportionnalite_pas_proportionnalite() {
 		this.liste_corrections = []; // Liste de questions corrigées
 		let liste_index_disponibles=[0,1,2,3,4];
 		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions)
-		let liste_choix_disponibles=[1,2,3];
+		let liste_choix_disponibles=[1,2,3,4,5];
 		let liste_choix=combinaison_listes(liste_choix_disponibles,this.nb_questions)
 		let liste_de_lieux=['dans un magasin de bricolage','dans une animalerie','au supermarché local','à l\'épicerie','dans la boutique du musée']
 		let liste_de_choses=[[]]
 		let liste_de_prix_unit=[[]]
+		let villes=['Moscou','Berlin','Paris','Bruxelles','Rome','Belgrade'];
+		let verbes=['double','triple','quadruple','est multiplié par 5','est multiplié par 6'];
 		liste_de_choses[0]=['articles','outils','accessoires','pièces d\'outillage','pinceaux','ampoules','tournevis','spatules','raccords de tuyaux']
 		liste_de_choses[1]=['poissons rouges','cannetons','perruches','phasmes','colliers anti-puces','souris','lapereaux','paquets de graines']
 		liste_de_choses[2]=['sets de tables','verres','assiettes','os à macher','dosettes de café','packs de lait','paquets de pâtes']
@@ -2945,7 +2947,7 @@ function Proportionnalite_pas_proportionnalite() {
 		liste_de_prix_unit[2]=[1.25,1.5,2,0.5,5,4.5,3]
 		liste_de_prix_unit[3]=[2,2.5,1.25,1.5,4,7,12,3]
 		liste_de_prix_unit[4]=[0.5,5,7,13.5,10,15,20]
-		console.log(liste_choix)
+
 		for (let i = 0, x,y,z,pu, n,p,somme,prenoms,index1,index2,objet,met,choix, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
 			switch(liste_choix[i]) {
 				case 1 : 
@@ -3000,9 +3002,29 @@ function Proportionnalite_pas_proportionnalite() {
 					texte_corr +=`${prenoms[1]} parcourt chaque minute environ ${tex_nombrec(arrondi(index2,1))}m.<br>`;
 					if (index1==index2) texte_corr+=`Pour ces deux élèves le temps mis et la distance parcourue sont proportionnelles (si l'on compare leur vitesse moyenne)`;
 					else texte_corr+=`Pour ces deux élèves le temps mis et la distance parcourue ne sont pas proportionnelles (si l'on compare leur vitesse moyenne)`;
-			
-
-			}	
+					break;
+				case 4:
+					prenoms = [prenomF(), prenomM()];
+					x=randint(5,20);
+					y=x+randint(25,35);
+					texte =`${prenoms[0]} vient d'avoir ${x} ans cette année. Son père ${prenoms[1]} vient de fêter  son ${y}ème anniversaire.<br>`;
+					texte+=`l'âge de son père est-il proportionnel à l'âge de ${prenoms[0]} ?`;
+					texte_corr=`Aujourd'hui la différence d'âge entre ${prenoms[0]} et ${prenoms[1]} est de ${y-x} ans.<br>`;
+					texte_corr+=`Dans ${x} année, ${prenoms[0]} aura ${2*x} ans, c'est à dire le double d'aujourd'hui.<br>`;
+					texte_corr+=`Son père ${prenoms[1]} aura ${x+y} ans cette année-là.<br>Quand l'âge de ${prenoms[0]} double, l'âge de ${prenoms[1]} ne double pas, donc l'âge de ${prenoms[0]} et l'âge de son père ne sont pas propotionnels`;
+					break;
+				case 5:
+					index1=randint(0,5)
+					index2=randint(0,4)
+					texte =`Une épidémie se répend dans la ville de ${villes[index1]}.<br>`;
+					texte +=`Le nombre de malade ${verbes[index2]} tous les ${index2+2} jours.<br>`;
+					texte +=`Le nombre de malade est-il proportionnel au nombre de jours passés depuis le début de l'épidémie ?`;
+					texte_corr =`Admettons qu'il y ait 10 malades le premier jour. Le ${1+2+index2}ème jour il y aura 10$\\times$${index2+2}=${10*(index2+2)} malades.<br>`;
+					texte_corr += `Le ${1+2*(index2+2)}ème jour il y aura ${10*(index2+2)}$\\times$${index2+2}=${10*(index2+2)**2} malades.<br>`;
+					texte_corr += `Entre le ${3+index2}ème jour et le ${2*index2+5}ème jour, le nombre de malades est multiplié par ${index2+2} mais le nombre de jours est multiplié par $\\dfrac{${2*index2+5}}{${3+index2}}\\approx${tex_nombrec(arrondi(calcul((2*index2+5)/(index2+3))),2)}$<br>`;
+					texte_corr += `Donc le nombre de malades n'est pas proportionnel au nombre de jours passés.`
+					break;
+				}	
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
