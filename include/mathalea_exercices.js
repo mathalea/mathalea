@@ -2930,11 +2930,13 @@ function Proportionnalite_pas_proportionnalite() {
 		this.liste_corrections = []; // Liste de questions corrigées
 		let liste_index_disponibles=[0,1,2,3,4];
 		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions)
-		let liste_choix_disponibles=[1,2,3,4,5];
+		let liste_choix_disponibles=[1,2,3,4,5,6];
 		let liste_choix=combinaison_listes(liste_choix_disponibles,this.nb_questions)
 		let liste_de_lieux=['dans un magasin de bricolage','dans une animalerie','au supermarché local','à l\'épicerie','dans la boutique du musée']
 		let liste_de_choses=[[]]
 		let liste_de_prix_unit=[[]]
+		let tirages=[[]]
+		let index3=[]
 		let villes=['Moscou','Berlin','Paris','Bruxelles','Rome','Belgrade'];
 		let verbes=['double','triple','quadruple','est multiplié par 5','est multiplié par 6'];
 		liste_de_choses[0]=['articles','outils','accessoires','pièces d\'outillage','pinceaux','ampoules','tournevis','spatules','raccords de tuyaux']
@@ -3024,7 +3026,47 @@ function Proportionnalite_pas_proportionnalite() {
 					texte_corr += `Entre le ${3+index2}ème jour et le ${2*index2+5}ème jour, le nombre de malades est multiplié par ${index2+2} mais le nombre de jours est multiplié par $\\dfrac{${2*index2+5}}{${3+index2}}\\approx${tex_nombrec(arrondi(calcul((2*index2+5)/(index2+3))),2)}$<br>`;
 					texte_corr += `Donc le nombre de malades n'est pas proportionnel au nombre de jours passés.`
 					break;
-				}	
+				case 6:
+					prenoms = [prenomF(), prenomM()];
+					index1=randint(0,5)
+					objet=liste_de_choses[4][index1]
+					index2=randint(0,4)
+					pu = liste_de_prix_unit[4][index1] * (1 + randint(1, 2) * 0.2 * randint(-1, 1));
+					n=randint(2,4);
+					p=randint(0,3);
+					tirages[0]=[n,n*pu];
+					tirages[1]=[n+1,(n+1)*pu];
+					tirages[2]=[2*n+1,(2*n+1)*pu];		
+					tirages[3]=[3*n+3,(3*n+3)*pu];
+					met=choice([true,false]);
+					if (!met) tirages[p][1]-=0.1;
+					texte = `${prenoms[1]} relève les prix des ${objet} sur un catalogue par correspondance en fonction de la quantité saisie dans le panier<br>`;
+					texte += `Il note les prix dans le tableau suivant :<br>`;
+					texte += `$\\def\\arraystretch{1.5}\\begin{array}{||c`;  // construction du tableau des effectifs en un seul morceau
+					for (let j = 0; j <= tirages.length; j++)		texte += `|c`;
+					texte += `||}\\hline\\hline  \\text{${objet}}`;
+					for (let j = 0; j < tirages.length; j++) 		texte += `&${tirages[j][0]}`;
+					texte += `\\\\\\hline \\text{Prix en €}`;
+					for (let j = 0; j < tirages.length; j++) 		texte += `&${tex_prix(arrondi(tirages[j][1],2))}`;
+					texte += `\\\\\\hline\\hline\\end{array}$<br>`;
+					texte += `Le prix des ${objet} est-il proportionnel à la quatité achetée ?<br>`;
+					texte_corr =`Il faut calculer le prix unitaire des ${objet} dans chaque cas de figure :<br>`;
+					if (met) index3=range(3)
+					else index3=range(3,[p]);
+					texte_corr+=`$`
+					for (let j = 0; j < index3.length; j++) {
+						texte_corr+=`\\dfrac{${tex_prix(arrondi(tirages[index3[j]][1],2))}}{${tirages[index3[j]][0]}}=`
+					}
+					texte_corr+=`${pu}$<br><br>`;
+					if (!met) {
+						texte_corr+= `Mais $\\dfrac{${tex_prix(arrondi(tirages[p][1],2))}}{${tirages[p][0]}}=${tex_prix(arrondi(calcul(tirages[p][1]/tirages[p][0]),2))}$€/${objet.substring(0,objet.length-1)}<br>`;
+						texte_corr+=`Le prix des ${objet} n'est pas proportionnel au nombre acheté.<br>`;
+					}
+					else {
+						texte_corr+= `Le prix des ${objet} est bien proportionnel au nombre acheté.<br>`;
+					}	
+					break;
+			}	
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
