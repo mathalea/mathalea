@@ -2921,9 +2921,13 @@ function Proportionnalite_pas_proportionnalite() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Reconnaître une situation de proportionnalité";
 	this.consigne = "Répondre aux questions posées en justifiant";
-	this.spacing = 2;
-	this.spacing_corr = 2;
+	this.spacing = 1.5;
+	this.spacing_corr = 1.5;
 	this.nb_questions=5;
+	this.nb_cols_corr=1;
+	this.nb_cols=1;
+	this.nb_cols_modifiable=false;
+	this.nb_cols_corr_modifiable=false;
 	
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
@@ -2963,10 +2967,10 @@ function Proportionnalite_pas_proportionnalite() {
 					p = y * randint(2, 5);
 					z = calcul(p * pu, 2);
 					texte = `${prenoms[0]} achète ${liste_de_lieux[index1]} des ${objet}. `;
-					texte += `Elle  repart avec $${y}$ ${objet} pour $${tex_nombrec(somme)}$€. ${prenoms[1]} achète quant à lui, au même endroit $${p}$ ${objet} pour $${z}$€.<br>`
+					texte += `Elle  repart avec $${y}$ ${objet} pour $${tex_prix(somme)}$€. ${prenoms[1]} achète quant à lui, au même endroit $${p}$ ${objet} pour $${tex_prix(z)}$€.<br>`
 					texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`;
-					texte_corr=`${prenoms[0]} dépense $${mise_en_evidence(tex_nombrec(somme),'blue')}$€.<br>`
-					texte_corr = `${prenoms[1]} a acheté  $${mise_en_evidence(tex_nombrec(p / y))}$ fois la quantité des ${objet} achetée par ${prenoms[0]}, Il a payé $${tex_nombrec(z)}$€ soit $${mise_en_evidence(tex_nombrec(p / y))}\\times${mise_en_evidence(tex_nombrec(somme),'blue')}$.<br>`;
+					texte_corr=`${prenoms[0]} dépense $${mise_en_evidence(tex_prix(somme),'blue')}$€.<br>`
+					texte_corr = `${prenoms[1]} a acheté  $${mise_en_evidence(tex_nombrec(p / y))}$ fois la quantité des ${objet} achetée par ${prenoms[0]} pour $${mise_en_evidence(tex_prix(somme),'blue')}$€.<br>Il a payé $${tex_prix(z)}$€ $=${mise_en_evidence(tex_nombrec(p / y))}\\times${mise_en_evidence(tex_prix(somme),'blue')}$€.<br>`;
 					texte_corr += `A l'aide de ces données, on constate que le prix des ${objet} et leur quantité sont tous les deux multipliés par le même nombre, donc ces deux grandeurs sont proportionnelles.<br>`;
 					break;
 				case 2: 
@@ -2981,10 +2985,10 @@ function Proportionnalite_pas_proportionnalite() {
 					p = y * randint(2, 5);
 					z = calcul(p * pu, 2);
 					texte = `${prenoms[0]} achète ${liste_de_lieux[index1]} des ${objet}. `;
-					texte += `Elle a obtenu $${y}$ ${objet} pour $${tex_nombrec(somme)}$€. ${prenoms[1]} achète quant à lui, au même endroit $${p}$ ${objet} pour $${tex_nombrec(z)}$€.<br>`
+					texte += `Elle a obtenu $${y}$ ${objet} pour $${tex_prix(somme)}$€. ${prenoms[1]} achète quant à lui, au même endroit $${p}$ ${objet} pour $${tex_prix(z)}$€.<br>`
 					texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`;
-					texte_corr = `${prenoms[0]} dépense $${mise_en_evidence(tex_nombrec(somme), 'blue')}$€.<br>`
-					texte_corr = `${prenoms[1]} a acheté  $${mise_en_evidence(tex_nombrec(p / y))}$ fois la quantité des ${objet} achetée par ${prenoms[0]}, Il a payé $${tex_nombrec(z)}$€ mais $${mise_en_evidence(tex_nombrec(p / y))}\\times${mise_en_evidence(tex_nombrec(somme), 'blue')}=${tex_nombrec(calcul(p * somme / y))}$.<br>`;
+					texte_corr = `${prenoms[0]} dépense $${mise_en_evidence(tex_prix(somme), 'blue')}$€.<br>`
+					texte_corr = `${prenoms[1]} a acheté  $${mise_en_evidence(tex_nombrec(p / y))}$ fois la quantité des ${objet} achetée par ${prenoms[0]} pour $${mise_en_evidence(tex_prix(somme),'blue')}$€.<br>Il a payé $${tex_prix(z)}$€.<br>Mais $${mise_en_evidence(tex_nombrec(p / y))}\\times${mise_en_evidence(tex_prix(somme),'blue')}$€ $=${tex_prix(calcul(p * somme / y))}$€.<br>`;
 					texte_corr += `A l'aide de ces données, on constate que le prix unitaire des ${objet} n'est pas le même pour ${prenoms[0]} qui en a acheté $${y}$ que pour ${prenoms[1]} qui en a acheté $${p}$, donc ces deux grandeurs ne sont pas proportionnelles.<br>`;
 					break;
 				case 3:
@@ -2998,8 +3002,8 @@ function Proportionnalite_pas_proportionnalite() {
 					index2=calcul(y/p); //vitesse garçon
 
 					texte =`${prenoms[0]} habite à ${x}m du collège. Elle met ${n} minutes pour s'y rendre depuis chez elle.<br>`;
-					texte +=`${prenoms[1]},lui, habite à ${y}m du collège. Il met ${p} minutes pour s'y rendre depuis chez lui.<br>`;
-					texte += `Le temps mis pour venir au collège est-il proportionnel à la distance foyer-collège ?`;
+					texte +=`${prenoms[1]}, lui, habite à ${y}m du collège. Il met ${p} minutes pour s'y rendre depuis chez lui.<br>`;
+					texte += `Le temps mis pour venir au collège est-il proportionnel à la distance du foyer au collège ?<br>`;
 					texte_corr =`${prenoms[0]} parcourt chaque minute environ ${tex_nombrec(arrondi(index1,1))}m.<br>`;
 					texte_corr +=`${prenoms[1]} parcourt chaque minute environ ${tex_nombrec(arrondi(index2,1))}m.<br>`;
 					if (index1==index2) texte_corr+=`Pour ces deux élèves le temps mis et la distance parcourue sont proportionnelles (si l'on compare leur vitesse moyenne)`;
@@ -3010,7 +3014,7 @@ function Proportionnalite_pas_proportionnalite() {
 					x=randint(5,20);
 					y=x+randint(25,35);
 					texte =`${prenoms[0]} vient d'avoir ${x} ans cette année. Son père ${prenoms[1]} vient de fêter  son ${y}ème anniversaire.<br>`;
-					texte+=`l'âge de son père est-il proportionnel à l'âge de ${prenoms[0]} ?`;
+					texte+=`l'âge de son père est-il proportionnel à l'âge de ${prenoms[0]} ?<br>`;
 					texte_corr=`Aujourd'hui la différence d'âge entre ${prenoms[0]} et ${prenoms[1]} est de ${y-x} ans.<br>`;
 					texte_corr+=`Dans ${x} année, ${prenoms[0]} aura ${2*x} ans, c'est à dire le double d'aujourd'hui.<br>`;
 					texte_corr+=`Son père ${prenoms[1]} aura ${x+y} ans cette année-là.<br>Quand l'âge de ${prenoms[0]} double, l'âge de ${prenoms[1]} ne double pas, donc l'âge de ${prenoms[0]} et l'âge de son père ne sont pas propotionnels`;
@@ -3019,8 +3023,8 @@ function Proportionnalite_pas_proportionnalite() {
 					index1=randint(0,5)
 					index2=randint(0,4)
 					texte =`Une épidémie se répend dans la ville de ${villes[index1]}.<br>`;
-					texte +=`Le nombre de malade ${verbes[index2]} tous les ${index2+2} jours.<br>`;
-					texte +=`Le nombre de malade est-il proportionnel au nombre de jours passés depuis le début de l'épidémie ?`;
+					texte +=`Le nombre de malades ${verbes[index2]} tous les ${index2+2} jours.<br>`;
+					texte +=`Le nombre de malades est-il proportionnel au nombre de jours passés depuis le début de l'épidémie ?<br>`;
 					texte_corr =`Admettons qu'il y ait 10 malades le premier jour. Le ${1+2+index2}ème jour il y aura 10$\\times$${index2+2}=${10*(index2+2)} malades.<br>`;
 					texte_corr += `Le ${1+2*(index2+2)}ème jour il y aura ${10*(index2+2)}$\\times$${index2+2}=${10*(index2+2)**2} malades.<br>`;
 					texte_corr += `Entre le ${3+index2}ème jour et le ${2*index2+5}ème jour, le nombre de malades est multiplié par ${index2+2} mais le nombre de jours est multiplié par $\\dfrac{${2*index2+5}}{${3+index2}}\\approx${tex_nombrec(arrondi(calcul((2*index2+5)/(index2+3))),2)}$<br>`;
