@@ -2958,8 +2958,8 @@ function Proportionnalite_pas_proportionnalite() {
 					somme = calcul(y * pu, 2);
 					p = y * randint(2, 5);
 					z = calcul(p * pu, 2);
-					texte = `${prenoms[0]} a repéré ${liste_de_lieux[index1]} des ${objet} qui l\'intéressent. `;
-					texte += `Elle achète $${y}$ ${objet} pour $${tex_nombrec(somme)}$€. ${prenoms[1]} achète $${p}$ ${objet} pour $${z}$€.<br>`
+					texte = `${prenoms[0]} achète ${liste_de_lieux[index1]} des ${objet}. `;
+					texte += `Elle  repart avec $${y}$ ${objet} pour $${tex_nombrec(somme)}$€. ${prenoms[1]} achète quant à lui, au même endroit $${p}$ ${objet} pour $${z}$€.<br>`
 					texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`;
 					texte_corr=`${prenoms[0]} dépense $${mise_en_evidence(tex_nombrec(somme),'blue')}$€.<br>`
 					texte_corr = `${prenoms[1]} a acheté  $${mise_en_evidence(tex_nombrec(p / y))}$ fois la quantité des ${objet} achetée par ${prenoms[0]}, Il a payé $${tex_nombrec(z)}$€ soit $${mise_en_evidence(tex_nombrec(p / y))}\\times${mise_en_evidence(tex_nombrec(somme),'blue')}$.<br>`;
@@ -2976,8 +2976,8 @@ function Proportionnalite_pas_proportionnalite() {
 				pu-=0.1;
 				p = y * randint(2, 5);
 				z = calcul(p * pu, 2);
-				texte = `${prenoms[0]} a repéré ${liste_de_lieux[index1]} des ${objet} qui l\'intéressent. `;
-				texte += `Elle achète $${y}$ ${objet} pour $${tex_nombrec(somme)}$€. ${prenoms[1]} achète $${p}$ ${objet} pour $${tex_nombrec(z)}$€.<br>`
+				texte = `${prenoms[0]} achète ${liste_de_lieux[index1]} des ${objet}. `;
+				texte += `Elle a obtenu $${y}$ ${objet} pour $${tex_nombrec(somme)}$€. ${prenoms[1]} achète quant à lui, au même endroit $${p}$ ${objet} pour $${tex_nombrec(z)}$€.<br>`
 				texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`;
 				texte_corr=`${prenoms[0]} dépense $${mise_en_evidence(tex_nombrec(somme),'blue')}$€.<br>`
 				texte_corr = `${prenoms[1]} a acheté  $${mise_en_evidence(tex_nombrec(p / y))}$ fois la quantité des ${objet} achetée par ${prenoms[0]}, Il a payé $${tex_nombrec(z)}$€ mais $${mise_en_evidence(tex_nombrec(p / y))}\\times${mise_en_evidence(tex_nombrec(somme),'blue')}=${tex_nombrec(calcul(p*somme/y))}$.<br>`;
