@@ -80,7 +80,7 @@ function Exercice_additions_relatifs(max=20){
 				texte_corr = `$ ${a}${ecriture_algebrique(b)} = ${a+b} $`;
 			} else {
 				texte = '$ '+ ecriture_nombre_relatif(a) + ' + ' + ecriture_nombre_relatif(b) + ' = \\dotfill $';
-				texte_corr = '$ '+ ecriture_nombre_relatif(a) + ' + ' + ecriture_nombre_relatif(b) + ' = ' + ecriture_nombre_relatif(a + b) +' $';	
+				texte_corr = '$ '+ ecriture_nombre_relatifc(a) + ' + ' + ecriture_nombre_relatifc(b) + ' = ' + ecriture_nombre_relatifc(a + b) +' $';	
 			}
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
@@ -125,7 +125,7 @@ function Exercice_additions_relatifs_a_trou(max=20){
 				texte_corr = '$ '+ a + ecriture_algebrique(b) + ' = ' + (a + b) +' $';
 			} else{
 				texte = '$ '+ ecriture_nombre_relatif(a) + ' + ' + '\\ldots\\ldots\\ldots' + ' = ' + ecriture_nombre_relatif(a + b) + ' $';
-				texte_corr = '$ '+ ecriture_nombre_relatif(a) + ' + ' + ecriture_nombre_relatif(b) + ' = ' + ecriture_nombre_relatif(a + b) +' $';	
+				texte_corr = '$ '+ ecriture_nombre_relatifc(a) + ' + ' + ecriture_nombre_relatifc(b) + ' = ' + ecriture_nombre_relatifc(a + b) +' $';	
 			}
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
@@ -174,7 +174,7 @@ function Exercice_soustractions_relatifs(max=20){
 				}
 			} else {
 				texte = '$ '+ ecriture_nombre_relatif(a) + ' - ' + ecriture_nombre_relatif(b) + ' = \\dotfill $';
-				texte_corr = '$ '+ ecriture_nombre_relatif(a) + ' - ' + ecriture_nombre_relatif(b) + ' = ' + ecriture_nombre_relatif(a) + ' + ' + ecriture_nombre_relatif(-1*b) + ' = ' + ecriture_nombre_relatif(a - b) +' $';
+				texte_corr = '$ '+ ecriture_nombre_relatif(a) + ' - ' + ecriture_nombre_relatif(b) + ' = ' + ecriture_nombre_relatifc(a) + ' + ' + ecriture_nombre_relatifc(-1*b) + ' = ' + ecriture_nombre_relatifc(a - b) +' $';
 			}
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
@@ -224,7 +224,7 @@ function Exercice_multiplications_relatifs(max=10){
 				texte_corr = '$ '+ a + ' \\times ' + ecriture_parenthese_si_negatif(b) + ' = ' + (a * b) +' $';
 			} else {
 				texte = '$ '+ ecriture_nombre_relatif(a) + ' \\times ' + ecriture_nombre_relatif(b) + ' = \\dotfill $';
-				texte_corr = '$ '+ ecriture_nombre_relatif(a) + ' \\times ' + ecriture_nombre_relatif(b) + ' = ' + ecriture_nombre_relatif(a * b) +' $';
+				texte_corr = '$ '+ ecriture_nombre_relatifc(a) + ' \\times ' + ecriture_nombre_relatifc(b) + ' = ' + ecriture_nombre_relatifc(a * b) +' $';
 			}
 				
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
@@ -883,7 +883,7 @@ function Exercice_simplification_somme_algebrique(max=20){
 * * On peut utiliser des écritures simplifiées (ce qui n'est pas le cas par défaut)
 * @Auteur Rémi Angot
 */
-function Exercice_additions_et_soustraction_de_relatifs(max=20){
+/*function Exercice_additions_et_soustraction_de_relatifs(max=20){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = max ;
 	this.sup2 = false; // écriture simplifiée
@@ -947,6 +947,8 @@ function Exercice_additions_et_soustraction_de_relatifs(max=20){
 	this.besoin_formulaire_numerique = ['Valeur maximale',99999];
 	this.besoin_formulaire2_case_a_cocher = ['Avec des écritures simplifiées'];	
 }
+*/
+
 /**
 * Effectuer la somme ou la différence de deux nombres relatifs
 *
@@ -1015,20 +1017,20 @@ function Exercice_additions_et_soustraction_de_relatifsV2(max=20){
 					texte += `<br>\n$ ${lettre_depuis_chiffre(i+1)} = \\dotfill $`	
 				}
 				texte_corr = `$ ${lettre_depuis_chiffre(i+1)} =  ${a}${signe(s1)}${ecriture_nombre_relatif(b)}${signe(s2)}${ecriture_nombre_relatif(c)}${signe(s3)}${ecriture_nombre_relatif(d)}${signe(s4)}${ecriture_nombre_relatif(e)}$`;
-				texte_corr += `<br>\n$ \\phantom{A}= ${ecriture_nombre_relatif(a)}+${ecriture_nombre_relatif(s1*b)}+${ecriture_nombre_relatif(s2*c)}+${ecriture_nombre_relatif(s3*d)}+${ecriture_nombre_relatif(s4*e)} $`;
+				texte_corr += `<br>\n$ \\phantom{A}= ${ecriture_nombre_relatifc(a)}+${ecriture_nombre_relatifc(s1*b)}+${ecriture_nombre_relatifc(s2*c)}+${ecriture_nombre_relatifc(s3*d)}+${ecriture_nombre_relatifc(s4*e)} $`;
 
 				relatifs=trie_positifs_negatifs([a,s1*b,s2*c,s3*d,s4*e])		
 
 				if (relatifs[0]>0&relatifs[4]<0) {
-				texte_corr += `<br>\n$ \\phantom{A}= ${ecriture_nombre_relatif(relatifs[0])}+${ecriture_nombre_relatif(relatifs[1])}+${ecriture_nombre_relatif(relatifs[2])}+${ecriture_nombre_relatif(relatifs[3])}+${ecriture_nombre_relatif(relatifs[4])} $`;
+				texte_corr += `<br>\n$ \\phantom{A}= ${ecriture_nombre_relatifc(relatifs[0])}+${ecriture_nombre_relatifc(relatifs[1])}+${ecriture_nombre_relatifc(relatifs[2])}+${ecriture_nombre_relatifc(relatifs[3])}+${ecriture_nombre_relatifc(relatifs[4])} $`;
 				}
 				sommes_signees=somme_des_termes_par_signe([relatifs[0],relatifs[1],relatifs[2],relatifs[3],relatifs[4]])
 				if (sommes_signees[0]!=0&&sommes_signees[1]!=0) {					
-				texte_corr += `<br>\n$ \\phantom{A}= ${ecriture_nombre_relatif(sommes_signees[0])}+${ecriture_nombre_relatif(sommes_signees[1])} $`;
+				texte_corr += `<br>\n$ \\phantom{A}= ${ecriture_nombre_relatifc(sommes_signees[0])}+${ecriture_nombre_relatifc(sommes_signees[1])} $`;
 				texte_corr += `<br>\n$ \\phantom{A}= ${ecriture_algebriquec(a+s1*b+s2*c+s3*d+s4*e)} $`;
 				}
 				else
-					if (sommes_signees[0]!=0) texte_corr +=`<br>\n$ \\phantom{A}=${ecriture_algebriquec(sommes_signees[0])}}$`
+					if (sommes_signees[0]!=0) texte_corr +=`<br>\n$ \\phantom{A}=${ecriture_algebriquec(sommes_signees[0])}$`
 					else  texte_corr +=`<br>\n$ \\phantom{A}=${ecriture_algebriquec(sommes_signees[1])}$`
 			}
 			
@@ -1069,7 +1071,7 @@ function Exercice_additions_de_5_relatifs(max=20){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		for (let i = 0, a, b, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
+		for (let i = 0, a, b,relatifs, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
 			a = randint(1,this.sup)*choice([-1,1]);
 			b = randint(1,this.sup)*choice([-1,1]);
 			if (a==1 & b==1) { // On s'assure que les 3 premières termes n'ont pas le même signe
@@ -1098,10 +1100,20 @@ function Exercice_additions_de_5_relatifs(max=20){
 					texte += `<br>\n$ ${lettre_depuis_chiffre(i+1)} = \\dotfill $`	
 				}
 				texte_corr = `$ ${lettre_depuis_chiffre(i+1)} =  ${ecriture_nombre_relatif(a)}${signe(s1)}${ecriture_nombre_relatif(b)}${signe(s2)}${ecriture_nombre_relatif(c)}${signe(s3)}${ecriture_nombre_relatif(d)}${signe(s4)}${ecriture_nombre_relatif(e)} $`;
-				//A faire regroupement des termes de même signe texte_corr += `\\\\\n$ ${lettre_depuis_chiffre(i+1)} = ${ecriture_nombre_relatif(a)}+${ecriture_nombre_relatif(s1*b)}+${ecriture_nombre_relatif(s2*c)}+${ecriture_nombre_relatif(s3*d)}+${ecriture_nombre_relatif(s4*e)} $`;
-				texte_corr += `<br>\n$ ${lettre_depuis_chiffre(i+1)} = ${a+s1*b+s2*c+s3*d+s4*e} $`;
+				relatifs=trie_positifs_negatifs([a,s1*b,s2*c,s3*d,s4*e])		
+
+				if (relatifs[0]>0&relatifs[4]<0) {
+				texte_corr += `<br>\n$ \\phantom{A}= ${ecriture_nombre_relatifc(relatifs[0])}+${ecriture_nombre_relatifc(relatifs[1])}+${ecriture_nombre_relatifc(relatifs[2])}+${ecriture_nombre_relatifc(relatifs[3])}+${ecriture_nombre_relatifc(relatifs[4])} $`;
+				}
+				sommes_signees=somme_des_termes_par_signe([relatifs[0],relatifs[1],relatifs[2],relatifs[3],relatifs[4]])
+				if (sommes_signees[0]!=0&&sommes_signees[1]!=0) {					
+				texte_corr += `<br>\n$ \\phantom{A}= ${ecriture_nombre_relatifc(sommes_signees[0])}+${ecriture_nombre_relatifc(sommes_signees[1])} $`;
+				texte_corr += `<br>\n$ \\phantom{A}= ${ecriture_algebriquec(a+s1*b+s2*c+s3*d+s4*e)} $`;
+				}
+				else
+					if (sommes_signees[0]!=0) texte_corr +=`<br>\n$ \\phantom{A}=${ecriture_algebriquec(sommes_signees[0])}$`
+					else  texte_corr +=`<br>\n$ \\phantom{A}=${ecriture_algebriquec(sommes_signees[1])}$`
 			}
-			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
