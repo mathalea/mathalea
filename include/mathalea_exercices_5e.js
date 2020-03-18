@@ -2198,14 +2198,16 @@ function Tester_une_egalite(){
 					if (this.sup==1) {
 					a = randint(1,6)
 					b = randint(1,6,[a])
-					x1 = randint(2,10,[a+b])
 					x2 = a + b
+					x1 = randint(2,10,[x2])
+	
 					}
 					else {
 						a = randint(-6,6,[0])
 						b = randint(-6,6,[a,0])	
-						x1 = randint(-10,10,[0,a+b])
 						x2 = a + b
+						x1 = randint(-10,10,[0,x2])
+						
 					}
 
 					texte = `Tester l'égalité $3x-${ecriture_parenthese_si_negatif(a)}=2x+${ecriture_parenthese_si_negatif(b)}~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
