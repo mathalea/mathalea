@@ -385,7 +385,6 @@ function ecriture_algebriquec(a) {
 	}else if (a<0) {
 		result = mise_en_evidence(tex_nombrec(a),'red');
 	} else result = mise_en_evidence(tex_nombrec(a),'black');
-	console.log(result)
 	return result;
 }
 
@@ -1059,7 +1058,7 @@ function mise_en_evidence(texte,couleur="#f15929"){
 		if (couleur[0]=='#') {
 				return `\\mathbf{\\color[HTML]{${couleur.replace('#','')}}${texte}}`
 			} else {
-				return `\\mathbf{\\color{${couleur.replace('#','')}}${texte}}`
+				return `{\\mathbf{\\color{${couleur.replace('#','')}}${texte}}`
 			}
 	}	
 }
@@ -1783,8 +1782,6 @@ function Latex_repere(Xmin,Xmax,Ymin,Ymax,subX,subY,grille){
 		return result;
 }
 	
-	
-
 /**
 * Trace une graduation sur le SVG
 * @param origine la première abscisse de la droite ou demi-droite
