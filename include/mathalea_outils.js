@@ -2063,7 +2063,7 @@ function modal_youtube(numero_de_l_exercice,id_youtube,texte,label_bouton="Aide 
 * Créé un bouton pour une aide modale avec un titre et un texte
 * @param numero_de_l_exercice
 * @param titre
-* @parma texte
+* @param texte
 * @param label_bouton Titre du bouton (par défaut Aide)
 * @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
 * @Auteur Rémi Angot
@@ -2089,14 +2089,14 @@ function modal_pdf(numero_de_l_exercice,url_pdf,texte="Aide",label_bouton="Aide 
 }
 
 /**
-* Créé un bouton pour une aide modale avec une vidéo
-* @param id_du_modal
-* @param url_video
-* @param texte Texte court qui sera affiché comme un titre 
-* @param label_bouton Titre du bouton (par défaut Vidéo)
-* @param icone Nom de l'icone (par défaut c'est file video outline icon), liste complète sur https://semantic-ui.com/elements/icon.html
-* @Auteur Sébastien Lozano
-*/	
+ * Créé un bouton pour une aide modale avec une vidéo
+ * @param id_du_modal
+ * @param url_video
+ * @param texte Texte court qui sera affiché comme un titre 
+ * @param label_bouton Titre du bouton (par défaut Vidéo)
+ * @param icone Nom de l'icone (par défaut c'est file video outline icon), liste complète sur https://semantic-ui.com/elements/icon.html
+ * @Auteur Sébastien Lozano
+ */	
 function modal_video(id_du_modal,url_video,texte,label_bouton="Vidéo",icone="file video outline"){
 	//let contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="${url_video}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
 	let contenu = `
@@ -2110,4 +2110,51 @@ function modal_video(id_du_modal,url_video,texte,label_bouton="Vidéo",icone="fi
   		</div>
 	</div>`
 	return creer_modal(id_du_modal,contenu,label_bouton,icone)
-}
+};
+
+/**
+ * Renvoie un tableau contenant les diviseurs d'un nombre entier, rangés dans l'ordre croissant  
+ * @param {integer} n 
+ * @Auteur Sébastien Lozano
+ */
+function liste_diviseurs(n) {
+	'use strict';
+	let i = 2;
+	let diviseurs = [1];
+	while ( i<= n) {
+		if (n % i == 0) {
+			diviseurs.push(i);
+		};
+		i++;
+	};
+	return diviseurs;
+};
+
+/**
+ * Crée un popup html avec un icon info, éventuellement avec du contenu LaTeX
+ * @param {string} texte 
+ * @param {string} titrePopup 
+ * @param {string} textePopup 
+ * @Auteur Sébastien Lozano
+ */
+function katex_Popup(texte,titrePopup,textePopup) {
+	'use strict';
+	let contenu =`<div class="mini ui right labeled icon button katexPopup"><i class="info circle icon"></i> `+texte+`</div>`;
+	contenu += `<div class="ui special popup" >`;
+	if (titrePopup!='') {
+		contenu += `<div class="header">`+titrePopup+`</div>`;
+	};
+	contenu += `<div>`+textePopup+`</div>`;
+	contenu += `</div>`;
+	return contenu;
+};
+
+/**
+ * Crée une liste de questions alphabétique
+ * @param {number} k valeur numérique
+ * @Auteur Sébastien Lozano
+ */	
+function num_alpha(k) {
+	'use strict';
+	return '<span style="color:#f15929; font-weight:bold">'+String.fromCharCode(97+k)+'/</span>';
+};

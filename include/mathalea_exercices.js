@@ -3051,7 +3051,7 @@ function Proportionnalite_par_linearite() {
 			texte_corr +=`Donc ${prenoms[0]} dépensera $${mise_en_evidence(tex_nombrec(y/n))}\\times${tex_nombrec(x)}=${tex_nombrec(somme)}$€.<br>`;
 			texte += `${prenoms[1]} veut lui aussi acheter ces ${objet}. Il dispose de $${tex_nombrec(z)}$€. Combien peut-il en acheter ?<br>`;
 			texte_corr += `$${tex_nombrec(z)}$€, c'est $${mise_en_evidence(tex_nombrec(z/x))}$ fois $${tex_nombrec(x)}$€. Si avec $${tex_nombrec(x)}$€ on peut acheter $${mise_en_evidence(n,'blue')}$ ${objet}, alors avec $${mise_en_evidence(tex_nombrec(z/x))}$ fois $${tex_nombrec(x)}$€, on peut acheter $${mise_en_evidence(tex_nombrec(z/x))}$ fois $${mise_en_evidence(n,'blue')}$ ${objet}.<br>`;
-			texte_corr +=`Donc ${prenoms[1]} pourra acheter $${mise_en_evidence(tex_nombrec(z/x))}\\times${${mise_en_evidence(n,'blue')}=${p}$ ${objet}.<br>`;
+			texte_corr +=`Donc ${prenoms[1]} pourra acheter $${mise_en_evidence(tex_nombrec(z/x))}\\times${mise_en_evidence(n,'blue')}=${p}$ ${objet}.<br>`;
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
