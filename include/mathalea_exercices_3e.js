@@ -1212,7 +1212,21 @@ function fonction_notion_vocabulaire(){
 	this.sup = 1 ; 
 	this.titre = "Fonction : Notion et vocabulaire"; 
 	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne = "Lorsqu'un nombre $\\textit{x}$ entre dans une machine mathématique , celle-ci renvoie à la sortie un nombre appelé $\\textit{image de x}$.<br>";
+	this.consigne =``;
+	if (sortie_html) {
+		this.consigne = `
+		<div class="ui compact warning message">		
+		  <p>
+		  <i class="exclamation triangle icon"></i>
+		  ATTENTION BUG CONNU<br>
+		  Appuyer sur "F5" ou cliquer sur "Nouvelles données" avant de commencer l'exercice<br>
+		  Sinon il y a problème d'affichage dans la correction. 
+		  </p>
+	  	</div>
+	  	<br>
+		`;
+	}
+	this.consigne += "Lorsqu'un nombre $\\textit{x}$ entre dans une machine mathématique , celle-ci renvoie à la sortie un nombre appelé $\\textit{image de x}$.<br>";
 	this.consigne += "On dit que le nombre de départ est un $\\textit{antécédent}$ du nombre qu'on trouve à la sortie.<br>";
 	this.consigne += "Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donner des noms $\\textit{f}$ ou $\\textit{g}$ ou $\\textit{h} \\ldots$";
 	this.consigne += `<br>`;
