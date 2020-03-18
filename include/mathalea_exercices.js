@@ -3032,7 +3032,7 @@ function Proportionnalite_pas_proportionnalite() {
 					objet=liste_de_choses[4][index1]
 					index2=randint(0,4)
 					pu = liste_de_prix_unit[4][index1] * (1 + randint(1, 2) * 0.2 * randint(-1, 1));
-					n=randint(2,4);
+					n=randint(2,6);
 					p=randint(0,3);
 					tirages[0]=[n,n*pu];
 					tirages[1]=[n+1,(n+1)*pu];
