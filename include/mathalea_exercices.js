@@ -67,7 +67,7 @@ var liste_des_exercices_disponibles = {
 		'6N34' : Reglages_6N34,
 		'6N41' : Egalites_entre_fractions,
 		'6N43' : Criteres_de_divisibilite,
-		'6P10' : Proportionnalite_pas_proportionnalite,
+//		'6P10' : Proportionnalite_pas_proportionnalite,
 		'6P11' : Proportionnalite_par_linearite,
 		'5N12':Exercice_fractions_simplifier,
 		'5N12-2': Egalites_entre_fractions,
@@ -3050,7 +3050,7 @@ function Proportionnalite_par_linearite() {
 			texte_corr = `$${y}$ ${objet}, c'est $${mise_en_evidence(tex_nombrec(y/n))}$ fois $${mise_en_evidence(n,'blue')}$ ${objet}. Si $${mise_en_evidence(n,'blue')}$ ${objet} coûtent $${tex_nombrec(x)}$€, alors $${mise_en_evidence(tex_nombrec(y/n))}$ fois $${mise_en_evidence(n,'blue')}$ ${objet} coutent $${mise_en_evidence(tex_nombrec(y/n))}$ fois $${tex_nombrec(x)}$€.<br>`;
 			texte_corr +=`Donc ${prenoms[0]} dépensera $${mise_en_evidence(tex_nombrec(y/n))}\\times${tex_nombrec(x)}=${tex_nombrec(somme)}$€.<br>`;
 			texte += `${prenoms[1]} veut lui aussi acheter ces ${objet}. Il dispose de $${tex_nombrec(z)}$€. Combien peut-il en acheter ?<br>`;
-			texte_corr += `$${z}$€, c'est $${mise_en_evidence(tex_nombrec(z/x))}$ fois $${tex_nombrec(x)}$€. Si avec $${tex_nombrec(x)}$€ on peut acheter $${mise_en_evidence(n,'blue')}$ ${objet}, alors avec $${mise_en_evidence(tex_nombrec(z/x))}$ fois $${tex_nombrec(x)}$€, on peut acheter $${mise_en_evidence(tex_nombrec(z/x))}$ fois $${mise_en_evidence(n,'blue')}$ ${objet}.<br>`;
+			texte_corr += `$${tex_nombrec(z)}$€, c'est $${mise_en_evidence(tex_nombrec(z/x))}$ fois $${tex_nombrec(x)}$€. Si avec $${tex_nombrec(x)}$€ on peut acheter $${mise_en_evidence(n,'blue')}$ ${objet}, alors avec $${mise_en_evidence(tex_nombrec(z/x))}$ fois $${tex_nombrec(x)}$€, on peut acheter $${mise_en_evidence(tex_nombrec(z/x))}$ fois $${mise_en_evidence(n,'blue')}$ ${objet}.<br>`;
 			texte_corr +=`Donc ${prenoms[1]} pourra acheter $${mise_en_evidence(tex_nombrec(z/x))}\\times${n}=${p}$ ${objet}.<br>`;
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
