@@ -385,6 +385,7 @@ function ecriture_algebriquec(a) {
 	}else if (a<0) {
 		result = mise_en_evidence(tex_nombrec(a),'red');
 	} else result = mise_en_evidence(tex_nombrec(a),'black');
+	console.log(result)
 	return result;
 }
 

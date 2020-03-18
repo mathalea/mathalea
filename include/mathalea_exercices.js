@@ -92,7 +92,6 @@ var liste_des_exercices_disponibles = {
 		'5R20_bis': Exercice_additions_relatifs_a_trou,
 		'5R20_ter': Exercice_additions_de_5_relatifs, //on pourrait le corriger avec regroupement des termes de même signe
 		'5R21': Exercice_soustractions_relatifs,
-		'5R22': Exercice_additions_et_soustraction_de_relatifs,
 		'5R31': Exercice_additions_et_soustraction_de_relatifsV2,
 		'5R31-2': Exercice_simplification_somme_algebrique,
 		'5S10': Calculer_des_frequences,
@@ -2970,7 +2969,7 @@ function Proportionnalite_pas_proportionnalite() {
 					texte += `Elle  repart avec $${y}$ ${objet} pour $${tex_prix(somme)}$€. ${prenoms[1]} achète quant à lui, au même endroit $${p}$ ${objet} pour $${tex_prix(z)}$€.<br>`
 					texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`;
 					texte_corr=`${prenoms[0]} dépense $${mise_en_evidence(tex_prix(somme),'blue')}$€.<br>`
-					texte_corr = `${prenoms[1]} a acheté  $${mise_en_evidence(tex_nombrec(p / y))}$ fois la quantité des ${objet} achetée par ${prenoms[0]} pour $${mise_en_evidence(tex_prix(somme),'blue')}$€.<br>Il a payé $${tex_prix(z)}$€ $=${mise_en_evidence(tex_nombrec(p / y))}\\times${mise_en_evidence(tex_prix(somme),'blue')}$€.<br>`;
+					texte_corr = `${prenoms[1]} a acheté  $${mise_en_evidence(tex_nombre(p / y))}$ fois la quantité des ${objet} achetée par ${prenoms[0]} pour $${mise_en_evidence(tex_prix(somme),'blue')}$€.<br>Il a payé $${tex_prix(z)}$€ $=${mise_en_evidence(tex_nombrec(p / y))}\\times${mise_en_evidence(tex_prix(somme),'blue')}$€.<br>`;
 					texte_corr += `A l'aide de ces données, on constate que le prix des ${objet} et leur quantité sont tous les deux multipliés par le même nombre, donc ces deux grandeurs sont proportionnelles.<br>`;
 					break;
 				case 2: 
