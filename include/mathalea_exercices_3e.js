@@ -1771,7 +1771,7 @@ function fonction_notion_vocabulaire(){
 	 this.sup = 1 ; 
 	 this.titre = "Fonctions : Calculs d'images"; 
 	 // pas de différence entre la version html et la version latex pour la consigne
-	 this.consigne =`consigne 3F12`;
+	 this.consigne =`Calcule les images avec la méthode demandée.`;
 
 	 sortie_html ? this.spacing = 3 : this.spacing = 2;
 	 sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
@@ -1802,8 +1802,8 @@ function fonction_notion_vocabulaire(){
 		 this.contenu = ''; // Liste de questions
 		 this.contenu_correction = ''; // Liste de questions corrigées
  
-		 //let type_de_questions_disponibles = [1,2,3,4];
-		 let type_de_questions_disponibles = [1];
+		 let type_de_questions_disponibles = [1,2,3,4];
+		 //let type_de_questions_disponibles = [1];
 		 let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
  
 			 for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
@@ -1813,9 +1813,23 @@ function fonction_notion_vocabulaire(){
 				 let id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
 	 
 				 switch (type_de_questions) {
-					 case 1 :
-						 texte= `rrr`;
-						 texte_corr = `yyy`;
+					case 1 :
+						texte= `Calculer avec un programme de calcul`;
+						texte_corr = `Calculer avec un programme de calcul`;
+						break;
+					case 2 :
+						texte= `Calculer avec l'expression algébrique $f(x)=$`;
+						texte_corr = `Calculer avec l'expression algébrique $f(x)=\\ldots$`;
+						break;
+					case 3 :
+						texte= `Calculer avec l'expression algébrique $f:x\\longmapsto=\\ldots$`;
+						texte_corr = `Calculer avec l'expression algébrique $f:x\\longmapsto=\\ldots$`;
+						break;
+					case 4 :
+						texte= `Calculer avec un diagramme`;
+						texte_corr = `Calculer avec un diagramme`;
+						break;
+						 
 				};
 			
 				if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
