@@ -67,7 +67,7 @@ var liste_des_exercices_disponibles = {
 		'6N34' : Reglages_6N34,
 		'6N41' : Egalites_entre_fractions,
 		'6N43' : Criteres_de_divisibilite,
-//		'6P10' : Proportionnalite_pas_proportionnalite,
+		'6P10' : Proportionnalite_pas_proportionnalite,
 		'6P11' : Proportionnalite_par_linearite,
 		'5N12':Exercice_fractions_simplifier,
 		'5N12-2': Egalites_entre_fractions,
@@ -2930,14 +2930,18 @@ function Proportionnalite_pas_proportionnalite() {
 		this.liste_corrections = []; // Liste de questions corrigées
 		let liste_index_disponibles=[0,1,2,3,4];
 		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions)
-		let liste_choix_disponibles=[1,2];
+		let liste_choix_disponibles=[1,2,3,4,5,6];
 		let liste_choix=combinaison_listes(liste_choix_disponibles,this.nb_questions)
 		let liste_de_lieux=['dans un magasin de bricolage','dans une animalerie','au supermarché local','à l\'épicerie','dans la boutique du musée']
 		let liste_de_choses=[[]]
 		let liste_de_prix_unit=[[]]
+		let tirages=[[]]
+		let index3=[]
+		let villes=['Moscou','Berlin','Paris','Bruxelles','Rome','Belgrade'];
+		let verbes=['double','triple','quadruple','est multiplié par 5','est multiplié par 6'];
 		liste_de_choses[0]=['articles','outils','accessoires','pièces d\'outillage','pinceaux','ampoules','tournevis','spatules','raccords de tuyaux']
 		liste_de_choses[1]=['poissons rouges','cannetons','perruches','phasmes','colliers anti-puces','souris','lapereaux','paquets de graines']
-		liste_de_choses[2]=['sets de tables','verres','assiettes','os à macher pour sa chienne','dosettes de café','packs de lait','paquets de pâtes']
+		liste_de_choses[2]=['sets de tables','verres','assiettes','os à macher','dosettes de café','packs de lait','paquets de pâtes']
 		liste_de_choses[3]=['mangues','ananas','fruits de la passion','melons','paquets de madeleines de Commercy','bergamottes','bredeles','pots de cancoillotte']
 		liste_de_choses[4]=['cartes','livres','gravures','puzzles','maquettes','roches','jeux de société']
 		liste_de_prix_unit[0]=[5,4,1.25,3,0.5,1.5,2,6,4.5]
@@ -2945,7 +2949,7 @@ function Proportionnalite_pas_proportionnalite() {
 		liste_de_prix_unit[2]=[1.25,1.5,2,0.5,5,4.5,3]
 		liste_de_prix_unit[3]=[2,2.5,1.25,1.5,4,7,12,3]
 		liste_de_prix_unit[4]=[0.5,5,7,13.5,10,15,20]
-		console.log(liste_choix)
+
 		for (let i = 0, x,y,z,pu, n,p,somme,prenoms,index1,index2,objet,met,choix, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
 			switch(liste_choix[i]) {
 				case 1 : 
@@ -2958,31 +2962,110 @@ function Proportionnalite_pas_proportionnalite() {
 					somme = calcul(y * pu, 2);
 					p = y * randint(2, 5);
 					z = calcul(p * pu, 2);
-					texte = `${prenoms[0]} a repéré ${liste_de_lieux[index1]} des ${objet} qui l\'intéressent. `;
-					texte += `Elle achète $${y}$ ${objet} pour $${tex_nombrec(somme)}$€. ${prenoms[1]} achète $${p}$ ${objet} pour $${z}$€.<br>`
+					texte = `${prenoms[0]} achète ${liste_de_lieux[index1]} des ${objet}. `;
+					texte += `Elle  repart avec $${y}$ ${objet} pour $${tex_nombrec(somme)}$€. ${prenoms[1]} achète quant à lui, au même endroit $${p}$ ${objet} pour $${z}$€.<br>`
 					texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`;
-					texte_corr=``
-/*					texte_corr = `$${y}$ ${objet}, c'est $${mise_en_evidence(tex_nombrec(y / n))}$ fois $${mise_en_evidence(n, 'blue')}$ ${objet}. Si $${mise_en_evidence(n, 'blue')}$ ${objet} coûtent $${tex_nombrec(x)}$€, alors $${mise_en_evidence(tex_nombrec(y / n))}$ fois $${mise_en_evidence(n, 'blue')}$ ${objet} coutent $${mise_en_evidence(tex_nombrec(y / n))}$ fois $${tex_nombrec(x)}$€.<br>`;
-					texte_corr += `Donc ${prenoms[0]} dépensera $${mise_en_evidence(tex_nombrec(y / n))}\\times${tex_nombrec(x)}=${tex_nombrec(somme)}$€.<br>`;
-					texte_corr += `$${z}$€, c'est $${mise_en_evidence(tex_nombrec(z / x))}$ fois $${tex_nombrec(x)}$€. Si avec $${tex_nombrec(x)}$€ on peut acheter $${mise_en_evidence(n, 'blue')}$ ${objet}, alors avec $${mise_en_evidence(tex_nombrec(z / x))}$ fois $${tex_nombrec(x)}$€, on peut acheter $${mise_en_evidence(tex_nombrec(z / x))}$ fois $${mise_en_evidence(n, 'blue')}$ ${objet}.<br>`;
-					texte_corr += `Donc ${prenoms[1]} pourra acheter $${mise_en_evidence(tex_nombrec(z / x))}\\times${n}=${p}$ ${objet}.<br>`;
-*/					break;
+					texte_corr=`${prenoms[0]} dépense $${mise_en_evidence(tex_nombrec(somme),'blue')}$€.<br>`
+					texte_corr = `${prenoms[1]} a acheté  $${mise_en_evidence(tex_nombrec(p / y))}$ fois la quantité des ${objet} achetée par ${prenoms[0]}, Il a payé $${tex_nombrec(z)}$€ soit $${mise_en_evidence(tex_nombrec(p / y))}\\times${mise_en_evidence(tex_nombrec(somme),'blue')}$.<br>`;
+					texte_corr += `A l'aide de ces données, on constate que le prix des ${objet} et leur quantité sont tous les deux multipliés par le même nombre, donc ces deux grandeurs sont proportionnelles.<br>`;
+					break;
 				case 2: 
-				index1 = liste_index[i];
-				prenoms = [prenomF(), prenomM()];
-				index2 = randint(0, liste_de_choses[index1].length - 1);
-				objet = liste_de_choses[index1][index2];
-				pu = liste_de_prix_unit[index1][index2] * (1 + randint(1, 2) * 0.2 * randint(-1, 1));
-				y =  randint(2, 5);
-				somme = calcul(y * pu, 2);
-				pu-=0.1;
-				p = y * randint(2, 5);
-				z = calcul(p * pu, 2);
-				texte = `${prenoms[0]} a repéré ${liste_de_lieux[index1]} des ${objet} qui l\'intéressent. `;
-				texte += `Elle achète $${y}$ ${objet} pour $${tex_nombrec(somme)}$€. ${prenoms[1]} achète $${p}$ ${objet} pour $${z}$€.<br>`
-				texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`;
-				texte_corr=``
-				break;
+					index1 = liste_index[i];
+					prenoms = [prenomF(), prenomM()];
+					index2 = randint(0, liste_de_choses[index1].length - 1);
+					objet = liste_de_choses[index1][index2];
+					pu = liste_de_prix_unit[index1][index2] * (1 + randint(1, 2) * 0.2 * randint(-1, 1));
+					y = randint(2, 5);
+					somme = calcul(y * pu, 2);
+					pu -= 0.1;
+					p = y * randint(2, 5);
+					z = calcul(p * pu, 2);
+					texte = `${prenoms[0]} achète ${liste_de_lieux[index1]} des ${objet}. `;
+					texte += `Elle a obtenu $${y}$ ${objet} pour $${tex_nombrec(somme)}$€. ${prenoms[1]} achète quant à lui, au même endroit $${p}$ ${objet} pour $${tex_nombrec(z)}$€.<br>`
+					texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`;
+					texte_corr = `${prenoms[0]} dépense $${mise_en_evidence(tex_nombrec(somme), 'blue')}$€.<br>`
+					texte_corr = `${prenoms[1]} a acheté  $${mise_en_evidence(tex_nombrec(p / y))}$ fois la quantité des ${objet} achetée par ${prenoms[0]}, Il a payé $${tex_nombrec(z)}$€ mais $${mise_en_evidence(tex_nombrec(p / y))}\\times${mise_en_evidence(tex_nombrec(somme), 'blue')}=${tex_nombrec(calcul(p * somme / y))}$.<br>`;
+					texte_corr += `A l'aide de ces données, on constate que le prix unitaire des ${objet} n'est pas le même pour ${prenoms[0]} qui en a acheté $${y}$ que pour ${prenoms[1]} qui en a acheté $${p}$, donc ces deux grandeurs ne sont pas proportionnelles.<br>`;
+					break;
+				case 3:
+					prenoms = [prenomF(), prenomM()];
+					x=randint(5,20);
+					y=randint(5,20,x)*100;
+					x=x*100;
+					n=arrondi(calcul(x/60*(1+randint(0,2)*0.2)),0);
+					p=arrondi(calcul(y/60*(1+randint(0,2)*0.2)),0);
+					index1=calcul(x/n); //vitesse fille
+					index2=calcul(y/p); //vitesse garçon
+
+					texte =`${prenoms[0]} habite à ${x}m du collège. Elle met ${n} minutes pour s'y rendre depuis chez elle.<br>`;
+					texte +=`${prenoms[1]},lui, habite à ${y}m du collège. Il met ${p} minutes pour s'y rendre depuis chez lui.<br>`;
+					texte += `Le temps mis pour venir au collège est-il proportionnel à la distance foyer-collège ?`;
+					texte_corr =`${prenoms[0]} parcourt chaque minute environ ${tex_nombrec(arrondi(index1,1))}m.<br>`;
+					texte_corr +=`${prenoms[1]} parcourt chaque minute environ ${tex_nombrec(arrondi(index2,1))}m.<br>`;
+					if (index1==index2) texte_corr+=`Pour ces deux élèves le temps mis et la distance parcourue sont proportionnelles (si l'on compare leur vitesse moyenne)`;
+					else texte_corr+=`Pour ces deux élèves le temps mis et la distance parcourue ne sont pas proportionnelles (si l'on compare leur vitesse moyenne)`;
+					break;
+				case 4:
+					prenoms = [prenomF(), prenomM()];
+					x=randint(5,20);
+					y=x+randint(25,35);
+					texte =`${prenoms[0]} vient d'avoir ${x} ans cette année. Son père ${prenoms[1]} vient de fêter  son ${y}ème anniversaire.<br>`;
+					texte+=`l'âge de son père est-il proportionnel à l'âge de ${prenoms[0]} ?`;
+					texte_corr=`Aujourd'hui la différence d'âge entre ${prenoms[0]} et ${prenoms[1]} est de ${y-x} ans.<br>`;
+					texte_corr+=`Dans ${x} année, ${prenoms[0]} aura ${2*x} ans, c'est à dire le double d'aujourd'hui.<br>`;
+					texte_corr+=`Son père ${prenoms[1]} aura ${x+y} ans cette année-là.<br>Quand l'âge de ${prenoms[0]} double, l'âge de ${prenoms[1]} ne double pas, donc l'âge de ${prenoms[0]} et l'âge de son père ne sont pas propotionnels`;
+					break;
+				case 5:
+					index1=randint(0,5)
+					index2=randint(0,4)
+					texte =`Une épidémie se répend dans la ville de ${villes[index1]}.<br>`;
+					texte +=`Le nombre de malade ${verbes[index2]} tous les ${index2+2} jours.<br>`;
+					texte +=`Le nombre de malade est-il proportionnel au nombre de jours passés depuis le début de l'épidémie ?`;
+					texte_corr =`Admettons qu'il y ait 10 malades le premier jour. Le ${1+2+index2}ème jour il y aura 10$\\times$${index2+2}=${10*(index2+2)} malades.<br>`;
+					texte_corr += `Le ${1+2*(index2+2)}ème jour il y aura ${10*(index2+2)}$\\times$${index2+2}=${10*(index2+2)**2} malades.<br>`;
+					texte_corr += `Entre le ${3+index2}ème jour et le ${2*index2+5}ème jour, le nombre de malades est multiplié par ${index2+2} mais le nombre de jours est multiplié par $\\dfrac{${2*index2+5}}{${3+index2}}\\approx${tex_nombrec(arrondi(calcul((2*index2+5)/(index2+3))),2)}$<br>`;
+					texte_corr += `Donc le nombre de malades n'est pas proportionnel au nombre de jours passés.`
+					break;
+				case 6:
+					prenoms = [prenomF(), prenomM()];
+					index1=randint(0,5)
+					objet=liste_de_choses[4][index1]
+					index2=randint(0,4)
+					pu = liste_de_prix_unit[4][index1] * (1 + randint(1, 2) * 0.2 * randint(-1, 1));
+					n=randint(2,6);
+					p=randint(0,3);
+					tirages[0]=[n,n*pu];
+					tirages[1]=[n+1,(n+1)*pu];
+					tirages[2]=[2*n+1,(2*n+1)*pu];		
+					tirages[3]=[3*n+3,(3*n+3)*pu];
+					met=choice([true,false]);
+					if (!met) tirages[p][1]-=0.1;
+					texte = `${prenoms[1]} relève les prix des ${objet} sur un catalogue par correspondance en fonction de la quantité saisie dans le panier<br>`;
+					texte += `Il note les prix dans le tableau suivant :<br>`;
+					texte += `$\\def\\arraystretch{1.5}\\begin{array}{||c`;  // construction du tableau des effectifs en un seul morceau
+					for (let j = 0; j <= tirages.length; j++)		texte += `|c`;
+					texte += `||}\\hline\\hline  \\text{${objet}}`;
+					for (let j = 0; j < tirages.length; j++) 		texte += `&${tirages[j][0]}`;
+					texte += `\\\\\\hline \\text{Prix en €}`;
+					for (let j = 0; j < tirages.length; j++) 		texte += `&${tex_prix(arrondi(tirages[j][1],2))}`;
+					texte += `\\\\\\hline\\hline\\end{array}$<br>`;
+					texte += `Le prix des ${objet} est-il proportionnel à la quatité achetée ?<br>`;
+					texte_corr =`Il faut calculer le prix unitaire des ${objet} dans chaque cas de figure :<br>`;
+					if (met) index3=range(3)
+					else index3=range(3,[p]);
+					texte_corr+=`$`
+					for (let j = 0; j < index3.length; j++) {
+						texte_corr+=`\\dfrac{${tex_prix(arrondi(tirages[index3[j]][1],2))}}{${tirages[index3[j]][0]}}=`
+					}
+					texte_corr+=`${pu}$<br><br>`;
+					if (!met) {
+						texte_corr+= `Mais $\\dfrac{${tex_prix(arrondi(tirages[p][1],2))}}{${tirages[p][0]}}=${tex_prix(arrondi(calcul(tirages[p][1]/tirages[p][0]),2))}$€/${objet.substring(0,objet.length-1)}<br>`;
+						texte_corr+=`Le prix des ${objet} n'est pas proportionnel au nombre acheté.<br>`;
+					}
+					else {
+						texte_corr+= `Le prix des ${objet} est bien proportionnel au nombre acheté.<br>`;
+					}	
+					break;
 			}	
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
@@ -3006,9 +3089,11 @@ function Proportionnalite_par_linearite() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Résoudre des problèmes de proportionnalité en utilisant la linéarité simple";
 	this.consigne = "Répondre aux questions posées en justifiant";
-	this.spacing = 2;
-	this.spacing_corr = 2;
+	sortie_html ? this.spacing = 2 : this.spacing = 1;
+	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
 	this.nb_questions=5;
+	this.nb_cols=1;
+	this.nb_cols_corr=1;
 	
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
@@ -3020,7 +3105,7 @@ function Proportionnalite_par_linearite() {
 		let liste_de_prix_unit=[[]]
 		liste_de_choses[0]=['articles','outils','accessoires','pièces d\'outillage','pinceaux','ampoules','tournevis','spatules','raccords de tuyaux']
 		liste_de_choses[1]=['poissons rouges','cannetons','perruches','phasmes','colliers anti-puces','souris','lapereaux','paquets de graines']
-		liste_de_choses[2]=['sets de tables','verres','assiettes','os à macher pour sa chienne','dosettes de café','packs de lait','paquets de pâtes']
+		liste_de_choses[2]=['sets de tables','verres','assiettes','os à macher','dosettes de café','packs de lait','paquets de pâtes']
 		liste_de_choses[3]=['mangues','ananas','fruits de la passion','melons','paquets de madeleines de Commercy','bergamottes','bredeles','pots de cancoillotte']
 		liste_de_choses[4]=['cartes','livres','gravures','puzzles','maquettes','roches','jeux de société']
 		liste_de_prix_unit[0]=[5,4,1.25,3,0.5,1.5,2,6,4.5]
@@ -3044,14 +3129,15 @@ function Proportionnalite_par_linearite() {
 				if (p!=y) met=true
 			}
 			z=calcul(p*pu,2);
-			texte = `${prenoms[0]} a repéré ${liste_de_lieux[index1]} des ${objet} qui l\'intéressent. `;
-			texte +=`Elle lit que $${n}$ ${objet} coûtent $${tex_nombrec(x)}$€. `
-			texte +=`Elle veut en acheter $${y}$. Combien va-t-elle dépenser ?<br>`;
-			texte_corr = `$${y}$ ${objet}, c'est $${mise_en_evidence(tex_nombrec(y/n))}$ fois $${mise_en_evidence(n,'blue')}$ ${objet}. Si $${mise_en_evidence(n,'blue')}$ ${objet} coûtent $${tex_nombrec(x)}$€, alors $${mise_en_evidence(tex_nombrec(y/n))}$ fois $${mise_en_evidence(n,'blue')}$ ${objet} coutent $${mise_en_evidence(tex_nombrec(y/n))}$ fois $${tex_nombrec(x)}$€.<br>`;
-			texte_corr +=`Donc ${prenoms[0]} dépensera $${mise_en_evidence(tex_nombrec(y/n))}\\times${tex_nombrec(x)}=${tex_nombrec(somme)}$€.<br>`;
-			texte += `${prenoms[1]} veut lui aussi acheter ces ${objet}. Il dispose de $${tex_nombrec(z)}$€. Combien peut-il en acheter ?<br>`;
-			texte_corr += `$${tex_nombrec(z)}$€, c'est $${mise_en_evidence(tex_nombrec(z/x))}$ fois $${tex_nombrec(x)}$€. Si avec $${tex_nombrec(x)}$€ on peut acheter $${mise_en_evidence(n,'blue')}$ ${objet}, alors avec $${mise_en_evidence(tex_nombrec(z/x))}$ fois $${tex_nombrec(x)}$€, on peut acheter $${mise_en_evidence(tex_nombrec(z/x))}$ fois $${mise_en_evidence(n,'blue')}$ ${objet}.<br>`;
-			texte_corr +=`Donc ${prenoms[1]} pourra acheter $${mise_en_evidence(tex_nombrec(z/x))}\\times${mise_en_evidence(n,'blue')}=${p}$ ${objet}.<br>`;
+
+			texte = `${prenoms[0]} a repéré ${liste_de_lieux[index1]} des ${objet} qui l\'intéressent.<br> `;
+			texte +=`Elle lit que ${n} ${objet} coûtent ${tex_prix(x)} €. `
+			texte +=`Elle veut en acheter ${y}.<br> Combien va-t-elle dépenser ?<br>`;
+			texte_corr = `${y} ${objet}, c'est ${texte_en_couleur(tex_nombrec(y/n))} fois ${texte_en_couleur(n,'blue')} ${objet}.<br> Si ${texte_en_couleur(n,'blue')} ${objet} coûtent ${tex_prix(x)} €, alors ${texte_en_couleur(tex_nombrec(y/n))} fois ${texte_en_couleur(n,'blue')} ${objet} coutent ${texte_en_couleur(tex_nombrec(y/n))} fois ${tex_prix(x)} €.<br>`;
+			texte_corr +=`Donc ${prenoms[0]} dépensera ${texte_en_couleur(tex_nombrec(y/n))} $\\times$ ${tex_prix(x)} € = ${tex_prix(somme)} €.<br>`;
+			texte += `${prenoms[1]} veut lui aussi acheter ces ${objet}. Il dispose de ${tex_prix(z)} €.<br> Combien peut-il en acheter ?<br>`;
+			texte_corr += `${tex_prix(z)} €, c'est ${texte_en_couleur(tex_nombrec(z/x))} fois ${tex_prix(x)} €.<br> Si avec ${tex_prix(x)} € on peut acheter ${texte_en_couleur(n,'blue')} ${objet}, alors avec ${texte_en_couleur(tex_nombrec(z/x))} fois ${tex_prix(x)} €, on peut acheter ${texte_en_couleur(tex_nombrec(z/x))} fois ${texte_en_couleur(n,'blue')} ${objet}.<br>`;
+			texte_corr +=`Donc ${prenoms[1]} pourra acheter ${texte_en_couleur(tex_nombrec(z/x))} $\\times$ ${texte_en_couleur(n,'blue')} = ${p} ${objet}.<br>`;
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
