@@ -67,7 +67,7 @@ var liste_des_exercices_disponibles = {
 		'6N34' : Reglages_6N34,
 		'6N41' : Egalites_entre_fractions,
 		'6N43' : Criteres_de_divisibilite,
-//		'6P10' : Proportionnalite_pas_proportionnalite,
+		'6P10' : Proportionnalite_pas_proportionnalite,
 		'6P11' : Proportionnalite_par_linearite,
 		'5N12':Exercice_fractions_simplifier,
 		'5N12-2': Egalites_entre_fractions,
@@ -2937,7 +2937,7 @@ function Proportionnalite_pas_proportionnalite() {
 		let liste_de_prix_unit=[[]]
 		liste_de_choses[0]=['articles','outils','accessoires','pièces d\'outillage','pinceaux','ampoules','tournevis','spatules','raccords de tuyaux']
 		liste_de_choses[1]=['poissons rouges','cannetons','perruches','phasmes','colliers anti-puces','souris','lapereaux','paquets de graines']
-		liste_de_choses[2]=['sets de tables','verres','assiettes','os à macher pour sa chienne','dosettes de café','packs de lait','paquets de pâtes']
+		liste_de_choses[2]=['sets de tables','verres','assiettes','os à macher','dosettes de café','packs de lait','paquets de pâtes']
 		liste_de_choses[3]=['mangues','ananas','fruits de la passion','melons','paquets de madeleines de Commercy','bergamottes','bredeles','pots de cancoillotte']
 		liste_de_choses[4]=['cartes','livres','gravures','puzzles','maquettes','roches','jeux de société']
 		liste_de_prix_unit[0]=[5,4,1.25,3,0.5,1.5,2,6,4.5]
@@ -2961,12 +2961,10 @@ function Proportionnalite_pas_proportionnalite() {
 					texte = `${prenoms[0]} a repéré ${liste_de_lieux[index1]} des ${objet} qui l\'intéressent. `;
 					texte += `Elle achète $${y}$ ${objet} pour $${tex_nombrec(somme)}$€. ${prenoms[1]} achète $${p}$ ${objet} pour $${z}$€.<br>`
 					texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`;
-					texte_corr=``
-/*					texte_corr = `$${y}$ ${objet}, c'est $${mise_en_evidence(tex_nombrec(y / n))}$ fois $${mise_en_evidence(n, 'blue')}$ ${objet}. Si $${mise_en_evidence(n, 'blue')}$ ${objet} coûtent $${tex_nombrec(x)}$€, alors $${mise_en_evidence(tex_nombrec(y / n))}$ fois $${mise_en_evidence(n, 'blue')}$ ${objet} coutent $${mise_en_evidence(tex_nombrec(y / n))}$ fois $${tex_nombrec(x)}$€.<br>`;
-					texte_corr += `Donc ${prenoms[0]} dépensera $${mise_en_evidence(tex_nombrec(y / n))}\\times${tex_nombrec(x)}=${tex_nombrec(somme)}$€.<br>`;
-					texte_corr += `$${z}$€, c'est $${mise_en_evidence(tex_nombrec(z / x))}$ fois $${tex_nombrec(x)}$€. Si avec $${tex_nombrec(x)}$€ on peut acheter $${mise_en_evidence(n, 'blue')}$ ${objet}, alors avec $${mise_en_evidence(tex_nombrec(z / x))}$ fois $${tex_nombrec(x)}$€, on peut acheter $${mise_en_evidence(tex_nombrec(z / x))}$ fois $${mise_en_evidence(n, 'blue')}$ ${objet}.<br>`;
-					texte_corr += `Donc ${prenoms[1]} pourra acheter $${mise_en_evidence(tex_nombrec(z / x))}\\times${n}=${p}$ ${objet}.<br>`;
-*/					break;
+					texte_corr=`${prenoms[0]} dépense $${mise_en_evidence(tex_nombrec(somme),'blue')}$€.<br>`
+					texte_corr = `${prenoms[1]} a acheté  $${mise_en_evidence(tex_nombrec(p / y))}$ fois la quantité des ${objet} achetée par ${prenoms[0]}, Il a payé $${tex_nombrec(z)}$€ soit $${mise_en_evidence(tex_nombrec(p / y))}\\times${mise_en_evidence(tex_nombrec(somme),'blue')}$.<br>`;
+					texte_corr += `A l'aide de ces données, on constate que le prix des ${objet} et leur quantité sont tous les deux multipliés par le même nombre, donc ces deux grandeurs sont proportionnelles.<br>`;
+					break;
 				case 2: 
 				index1 = liste_index[i];
 				prenoms = [prenomF(), prenomM()];
@@ -2979,9 +2977,12 @@ function Proportionnalite_pas_proportionnalite() {
 				p = y * randint(2, 5);
 				z = calcul(p * pu, 2);
 				texte = `${prenoms[0]} a repéré ${liste_de_lieux[index1]} des ${objet} qui l\'intéressent. `;
-				texte += `Elle achète $${y}$ ${objet} pour $${tex_nombrec(somme)}$€. ${prenoms[1]} achète $${p}$ ${objet} pour $${z}$€.<br>`
+				texte += `Elle achète $${y}$ ${objet} pour $${tex_nombrec(somme)}$€. ${prenoms[1]} achète $${p}$ ${objet} pour $${tex_nombrec(z)}$€.<br>`
 				texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`;
-				texte_corr=``
+				texte_corr=`${prenoms[0]} dépense $${mise_en_evidence(tex_nombrec(somme),'blue')}$€.<br>`
+				texte_corr = `${prenoms[1]} a acheté  $${mise_en_evidence(tex_nombrec(p / y))}$ fois la quantité des ${objet} achetée par ${prenoms[0]}, Il a payé $${tex_nombrec(z)}$€ mais $${mise_en_evidence(tex_nombrec(p / y))}\\times${mise_en_evidence(tex_nombrec(somme),'blue')}=${tex_nombrec(calcul(p*somme/y))}$.<br>`;
+				texte_corr += `A l'aide de ces données, on constate que le prix unitaire des ${objet} n'est pas le même pour ${prenoms[0]} qui en a acheté $${y}$ que pour ${prenoms[1]} qui en a acheté $${p}$, donc ces deux grandeurs ne sont pas proportionnelles.<br>`;
+
 				break;
 			}	
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
@@ -3020,7 +3021,7 @@ function Proportionnalite_par_linearite() {
 		let liste_de_prix_unit=[[]]
 		liste_de_choses[0]=['articles','outils','accessoires','pièces d\'outillage','pinceaux','ampoules','tournevis','spatules','raccords de tuyaux']
 		liste_de_choses[1]=['poissons rouges','cannetons','perruches','phasmes','colliers anti-puces','souris','lapereaux','paquets de graines']
-		liste_de_choses[2]=['sets de tables','verres','assiettes','os à macher pour sa chienne','dosettes de café','packs de lait','paquets de pâtes']
+		liste_de_choses[2]=['sets de tables','verres','assiettes','os à macher','dosettes de café','packs de lait','paquets de pâtes']
 		liste_de_choses[3]=['mangues','ananas','fruits de la passion','melons','paquets de madeleines de Commercy','bergamottes','bredeles','pots de cancoillotte']
 		liste_de_choses[4]=['cartes','livres','gravures','puzzles','maquettes','roches','jeux de société']
 		liste_de_prix_unit[0]=[5,4,1.25,3,0.5,1.5,2,6,4.5]
