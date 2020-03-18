@@ -2966,24 +2966,27 @@ function Proportionnalite_pas_proportionnalite() {
 					texte_corr += `A l'aide de ces données, on constate que le prix des ${objet} et leur quantité sont tous les deux multipliés par le même nombre, donc ces deux grandeurs sont proportionnelles.<br>`;
 					break;
 				case 2: 
-				index1 = liste_index[i];
-				prenoms = [prenomF(), prenomM()];
-				index2 = randint(0, liste_de_choses[index1].length - 1);
-				objet = liste_de_choses[index1][index2];
-				pu = liste_de_prix_unit[index1][index2] * (1 + randint(1, 2) * 0.2 * randint(-1, 1));
-				y =  randint(2, 5);
-				somme = calcul(y * pu, 2);
-				pu-=0.1;
-				p = y * randint(2, 5);
-				z = calcul(p * pu, 2);
-				texte = `${prenoms[0]} achète ${liste_de_lieux[index1]} des ${objet}. `;
-				texte += `Elle a obtenu $${y}$ ${objet} pour $${tex_nombrec(somme)}$€. ${prenoms[1]} achète quant à lui, au même endroit $${p}$ ${objet} pour $${tex_nombrec(z)}$€.<br>`
-				texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`;
-				texte_corr=`${prenoms[0]} dépense $${mise_en_evidence(tex_nombrec(somme),'blue')}$€.<br>`
-				texte_corr = `${prenoms[1]} a acheté  $${mise_en_evidence(tex_nombrec(p / y))}$ fois la quantité des ${objet} achetée par ${prenoms[0]}, Il a payé $${tex_nombrec(z)}$€ mais $${mise_en_evidence(tex_nombrec(p / y))}\\times${mise_en_evidence(tex_nombrec(somme),'blue')}=${tex_nombrec(calcul(p*somme/y))}$.<br>`;
-				texte_corr += `A l'aide de ces données, on constate que le prix unitaire des ${objet} n'est pas le même pour ${prenoms[0]} qui en a acheté $${y}$ que pour ${prenoms[1]} qui en a acheté $${p}$, donc ces deux grandeurs ne sont pas proportionnelles.<br>`;
+					index1 = liste_index[i];
+					prenoms = [prenomF(), prenomM()];
+					index2 = randint(0, liste_de_choses[index1].length - 1);
+					objet = liste_de_choses[index1][index2];
+					pu = liste_de_prix_unit[index1][index2] * (1 + randint(1, 2) * 0.2 * randint(-1, 1));
+					y = randint(2, 5);
+					somme = calcul(y * pu, 2);
+					pu -= 0.1;
+					p = y * randint(2, 5);
+					z = calcul(p * pu, 2);
+					texte = `${prenoms[0]} achète ${liste_de_lieux[index1]} des ${objet}. `;
+					texte += `Elle a obtenu $${y}$ ${objet} pour $${tex_nombrec(somme)}$€. ${prenoms[1]} achète quant à lui, au même endroit $${p}$ ${objet} pour $${tex_nombrec(z)}$€.<br>`
+					texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`;
+					texte_corr = `${prenoms[0]} dépense $${mise_en_evidence(tex_nombrec(somme), 'blue')}$€.<br>`
+					texte_corr = `${prenoms[1]} a acheté  $${mise_en_evidence(tex_nombrec(p / y))}$ fois la quantité des ${objet} achetée par ${prenoms[0]}, Il a payé $${tex_nombrec(z)}$€ mais $${mise_en_evidence(tex_nombrec(p / y))}\\times${mise_en_evidence(tex_nombrec(somme), 'blue')}=${tex_nombrec(calcul(p * somme / y))}$.<br>`;
+					texte_corr += `A l'aide de ces données, on constate que le prix unitaire des ${objet} n'est pas le même pour ${prenoms[0]} qui en a acheté $${y}$ que pour ${prenoms[1]} qui en a acheté $${p}$, donc ces deux grandeurs ne sont pas proportionnelles.<br>`;
+					break;
+				case 3:
+					prenoms = [prenomF(), prenomM()];
+					x=randint()
 
-				break;
 			}	
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
@@ -3007,9 +3010,11 @@ function Proportionnalite_par_linearite() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Résoudre des problèmes de proportionnalité en utilisant la linéarité simple";
 	this.consigne = "Répondre aux questions posées en justifiant";
-	this.spacing = 2;
-	this.spacing_corr = 2;
+	sortie_html ? this.spacing = 2 : this.spacing = 1;
+	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
 	this.nb_questions=5;
+	this.nb_cols=1;
+	this.nb_cols_corr=1;
 	
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
@@ -3045,14 +3050,15 @@ function Proportionnalite_par_linearite() {
 				if (p!=y) met=true
 			}
 			z=calcul(p*pu,2);
-			texte = `${prenoms[0]} a repéré ${liste_de_lieux[index1]} des ${objet} qui l\'intéressent. `;
-			texte +=`Elle lit que $${n}$ ${objet} coûtent $${tex_nombrec(x)}$€. `
-			texte +=`Elle veut en acheter $${y}$. Combien va-t-elle dépenser ?<br>`;
-			texte_corr = `$${y}$ ${objet}, c'est $${mise_en_evidence(tex_nombrec(y/n))}$ fois $${mise_en_evidence(n,'blue')}$ ${objet}. Si $${mise_en_evidence(n,'blue')}$ ${objet} coûtent $${tex_nombrec(x)}$€, alors $${mise_en_evidence(tex_nombrec(y/n))}$ fois $${mise_en_evidence(n,'blue')}$ ${objet} coutent $${mise_en_evidence(tex_nombrec(y/n))}$ fois $${tex_nombrec(x)}$€.<br>`;
-			texte_corr +=`Donc ${prenoms[0]} dépensera $${mise_en_evidence(tex_nombrec(y/n))}\\times${tex_nombrec(x)}=${tex_nombrec(somme)}$€.<br>`;
-			texte += `${prenoms[1]} veut lui aussi acheter ces ${objet}. Il dispose de $${tex_nombrec(z)}$€. Combien peut-il en acheter ?<br>`;
-			texte_corr += `$${tex_nombrec(z)}$€, c'est $${mise_en_evidence(tex_nombrec(z/x))}$ fois $${tex_nombrec(x)}$€. Si avec $${tex_nombrec(x)}$€ on peut acheter $${mise_en_evidence(n,'blue')}$ ${objet}, alors avec $${mise_en_evidence(tex_nombrec(z/x))}$ fois $${tex_nombrec(x)}$€, on peut acheter $${mise_en_evidence(tex_nombrec(z/x))}$ fois $${mise_en_evidence(n,'blue')}$ ${objet}.<br>`;
-			texte_corr +=`Donc ${prenoms[1]} pourra acheter $${mise_en_evidence(tex_nombrec(z/x))}\\times${mise_en_evidence(n,'blue')}=${p}$ ${objet}.<br>`;
+
+			texte = `${prenoms[0]} a repéré ${liste_de_lieux[index1]} des ${objet} qui l\'intéressent.<br> `;
+			texte +=`Elle lit que ${n} ${objet} coûtent ${tex_prix(x)} €. `
+			texte +=`Elle veut en acheter ${y}.<br> Combien va-t-elle dépenser ?<br>`;
+			texte_corr = `${y} ${objet}, c'est ${texte_en_couleur(tex_nombrec(y/n))} fois ${texte_en_couleur(n,'blue')} ${objet}.<br> Si ${texte_en_couleur(n,'blue')} ${objet} coûtent ${tex_prix(x)} €, alors ${texte_en_couleur(tex_nombrec(y/n))} fois ${texte_en_couleur(n,'blue')} ${objet} coutent ${texte_en_couleur(tex_nombrec(y/n))} fois ${tex_prix(x)} €.<br>`;
+			texte_corr +=`Donc ${prenoms[0]} dépensera ${texte_en_couleur(tex_nombrec(y/n))} $\\times$ ${tex_prix(x)} € = ${tex_prix(somme)} €.<br>`;
+			texte += `${prenoms[1]} veut lui aussi acheter ces ${objet}. Il dispose de ${tex_prix(z)} €.<br> Combien peut-il en acheter ?<br>`;
+			texte_corr += `${tex_prix(z)} €, c'est ${texte_en_couleur(tex_nombrec(z/x))} fois ${tex_prix(x)} €.<br> Si avec ${tex_prix(x)} € on peut acheter ${texte_en_couleur(n,'blue')} ${objet}, alors avec ${texte_en_couleur(tex_nombrec(z/x))} fois ${tex_prix(x)} €, on peut acheter ${texte_en_couleur(tex_nombrec(z/x))} fois ${texte_en_couleur(n,'blue')} ${objet}.<br>`;
+			texte_corr +=`Donc ${prenoms[1]} pourra acheter ${texte_en_couleur(tex_nombrec(z/x))} $\\times$ ${texte_en_couleur(n,'blue')} = ${p} ${objet}.<br>`;
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
