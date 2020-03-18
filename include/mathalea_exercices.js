@@ -2930,7 +2930,7 @@ function Proportionnalite_pas_proportionnalite() {
 		this.liste_corrections = []; // Liste de questions corrigées
 		let liste_index_disponibles=[0,1,2,3,4];
 		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions)
-		let liste_choix_disponibles=[1,2];
+		let liste_choix_disponibles=[1,2,3];
 		let liste_choix=combinaison_listes(liste_choix_disponibles,this.nb_questions)
 		let liste_de_lieux=['dans un magasin de bricolage','dans une animalerie','au supermarché local','à l\'épicerie','dans la boutique du musée']
 		let liste_de_choses=[[]]
@@ -2985,7 +2985,22 @@ function Proportionnalite_pas_proportionnalite() {
 					break;
 				case 3:
 					prenoms = [prenomF(), prenomM()];
-					x=randint()
+					x=randint(5,20);
+					y=randint(5,20,x)*100;
+					x=x*100;
+					n=arrondi(calcul(x/60*(1+randint(0,2)*0.2)),0);
+					p=arrondi(calcul(y/60*(1+randint(0,2)*0.2)),0);
+					index1=calcul(x/n); //vitesse fille
+					index2=calcul(y/p); //vitesse garçon
+
+					texte =`${prenoms[0]} habite à ${x}m du collège. Elle met ${n} minutes pour s'y rendre depuis chez elle.<br>`;
+					texte +=`${prenoms[1]},lui, habite à ${y}m du collège. Il met ${p} minutes pour s'y rendre depuis chez lui.<br>`;
+					texte += `Le temps mis pour venir au collège est-il proportionnel à la distance foyer-collège ?`;
+					texte_corr =`${prenoms[0]} parcourt chaque minute environ ${tex_nombrec(arrondi(index1,1))}m.<br>`;
+					texte_corr +=`${prenoms[1]} parcourt chaque minute environ ${tex_nombrec(arrondi(index2,1))}m.<br>`;
+					if (index1==index2) texte_corr+=`Pour ces deux élèves le temps mis et la distance parcourue sont proportionnelles (si l'on compare leur vitesse moyenne)`;
+					else texte_corr+=`Pour ces deux élèves le temps mis et la distance parcourue ne sont pas proportionnelles (si l'on compare leur vitesse moyenne)`;
+			
 
 			}	
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
