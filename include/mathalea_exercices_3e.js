@@ -1760,7 +1760,7 @@ function fonction_notion_vocabulaire(){
 };
 
 /**
- * 3F12 Notion de fonctions vocabulaire
+ * 3F12 Notion de fonction - Vocabulaire
  * Déterminer à partir de plusieurs modes de représentation l'image d'un nombre
  * @author Sébastien LOZANO
  */
@@ -1775,11 +1775,11 @@ function fonction_notion_vocabulaire(){
 
 	 sortie_html ? this.spacing = 3 : this.spacing = 2;
 	 sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
-	 this.nb_questions = 4;
+	 this.nb_questions = 5;
 	 //this.correction_detaillee_disponible = true;
 	 this.nb_cols = 1;
 	 this.nb_cols_corr = 1;
-	 this.sup = 1;
+	 this.sup = 5;
  
 	 var num_ex = '3F12'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
 
@@ -1799,37 +1799,80 @@ function fonction_notion_vocabulaire(){
 		 }
 		 this.liste_questions = []; // Liste de questions
 		 this.liste_corrections = []; // Liste de questions corrigées
-		 this.contenu = ''; // Liste de questions
-		 this.contenu_correction = ''; // Liste de questions corrigées
  
-		 let type_de_questions_disponibles = [1,2,3,4];
+		 let type_de_questions_disponibles = [];
+		 if (this.sup==1){
+			type_de_questions_disponibles = [1]; // prog de calcul
+		} else if (this.sup==2){
+			type_de_questions_disponibles = [2]; // diagramme
+		} else if (this.sup==3){
+			type_de_questions_disponibles = [3]; // f(x) = ...
+		} else if (this.sup==4){
+			type_de_questions_disponibles = [4]; // f : x ---> ...
+		} else if (this.sup==5){
+			type_de_questions_disponibles = [1,2,3,4]; // mélange
+		};
 		 //let type_de_questions_disponibles = [1];
 		 let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
  
-			 for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
+			 for (let i = 0, a,b,c,texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 				 type_de_questions = liste_type_de_questions[i];
 	 
 				 let id_unique = `${num_ex}_${i}_${Date.now()}`
 				 let id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
+				 a = randint(2,9); 
+				 b = randint(2,9);
+				 c = randint(2,9);
 	 
 				 switch (type_de_questions) {
 					case 1 :
-						texte= `Calculer avec un programme de calcul`;
-						texte_corr = `Calculer avec un programme de calcul`;
+						texte = `On donne le programme de calcul suivant qui correspond à une certaine fonction :`;
+						if (sortie_html) {
+							texte +=`
+							<br>
+							<div class="ui compact warning message">		
+							<p>							
+							- Choisir un nombre<br>
+							- Multiplier ce nombre par ${a}<br>
+							- Ajouter ${b} au résultat obtenu<br>
+							</p>
+							</div>
+							<br>`;
+						} else {
+							texte += itemize([`Choisir un nombre`,`Multiplier ce nombre par ${a}`,`Ajouter ${b} au résultat obtenu`]);
+						}
+						texte += `Appliquer ce programme de calcul au nombre ${c}<br>`;
+						texte += `Traduire ce calcul par une phrase contenant le mot image`;
+						texte_corr =`Avec ce programme de calcul :`
+						if (sortie_html) {
+							texte_corr +=`
+							<br>
+							<div class="ui compact warning message">		
+							<p>							
+							- On choisit le nombre ${c}<br>
+							- On multiplie ce nombre par ${a} : ${a}$\\times$ ${c} = ${a*c}<br>
+							- On ajoute ${b} au résultat obtenu : ${a*c}+${b}=${a*c+b}<br>
+							</p>
+							</div>
+							<br>							
+							`;
+						} else {
+							texte_corr += itemize([`On choisit le nombre ${c}`,`On multiplie ce nombre par ${a} : $${a} \\times ${c} = ${a*c}$ `,`On ajoute ${b} au résultat obtenu : $${a*c}+${b}=${a*c+b}$`]);							
+						}; 						
+						texte_corr += `L'image de ${c} par cette fonction vaut ${a*c+b}`;
 						break;
 					case 2 :
-						texte= `Calculer avec l'expression algébrique $f(x)=$`;
+						texte= `Calculer avec l'expression algébrique $f(x)=$ ${a} ${b}`;
 						texte_corr = `Calculer avec l'expression algébrique $f(x)=\\ldots$`;
 						break;
 					case 3 :
-						texte= `Calculer avec l'expression algébrique $f:x\\longmapsto=\\ldots$`;
+						texte= `Calculer avec l'expression algébrique $f:x\\longmapsto=\\ldots$ ${a} ${b}`;
 						texte_corr = `Calculer avec l'expression algébrique $f:x\\longmapsto=\\ldots$`;
 						break;
 					case 4 :
-						texte= `Calculer avec un diagramme`;
+						texte= `Calculer avec un diagramme ${a} ${b}`;
 						texte_corr = `Calculer avec un diagramme`;
-						break;
-						 
+						break;						 
 				};
 			
 				if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
@@ -1842,5 +1885,5 @@ function fonction_notion_vocabulaire(){
 	
 		liste_de_question_to_contenu(this);
 	}
-	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
- }; 
+	this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : &Agrave; partir d'un programme de calcul\n2 : &Agrave; partir d'un diagramme\n3 : &Agrave; partir de l'expression algébrique sous forme $f(x)=\\ldots$\n4 : &Agrave; partir de l'expression algébrique sous forme $f:x\\longmapsto \\ldots$\n5 : Mélange"]; 
+ };  
