@@ -2774,3 +2774,23 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 //=================================
 //fin fonctions 3F1-act
 //=================================
+
+/**
+ * crée un cadre orange autour d'un paragraphe
+ * @author Sébastien Lozano
+ */
+
+ function tex_cadre_par_orange(texte) {
+	 'use strict';
+	 let sortie = `
+	 \\definecolor{orangeCoop}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
+	 \\setlength{\\fboxrule}{1.5mm}
+	 \\par\\vspace{0.25cm}
+	 \\noindent\\fcolorbox{orangeCoop}{white}{\\parbox{\\linewidth-2\\fboxrule-2\\fboxsep}{`+texte+`}}
+	 \\par\\vspace{0.25cm}		 
+	 `;
+
+	 return sortie;
+ };
+
+

@@ -1163,7 +1163,7 @@ function fonction_notion_vocabulaire(){
 
 	 sortie_html ? this.spacing = 3 : this.spacing = 2;
 	 sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
-	 this.nb_questions = 5;
+	 this.nb_questions = 4;
 	 //this.correction_detaillee_disponible = true;
 	 this.nb_cols = 1;
 	 this.nb_cols_corr = 1;
@@ -1208,13 +1208,16 @@ function fonction_notion_vocabulaire(){
 	 
 				 let id_unique = `${num_ex}_${i}_${Date.now()}`
 				 let id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
+				 // on part sur de l'affine avec coeff positifs, on verra ensuite
 				 a = randint(2,9); 
 				 b = randint(2,9);
 				 c = randint(2,9);
 	 
 				 switch (type_de_questions) {
 					case 1 :
+						var j = 0; // pour la sous-numérotation
 						texte = `On donne le programme de calcul suivant qui correspond à une certaine fonction :`;
+						texte_corr =`Avec ce programme de calcul :`
 						if (sortie_html) {
 							texte +=`
 							<br>
@@ -1226,14 +1229,9 @@ function fonction_notion_vocabulaire(){
 							</p>
 							</div>
 							<br>`;
-						} else {
-							texte += itemize([`Choisir un nombre`,`Multiplier ce nombre par ${a}`,`Ajouter ${b} au résultat obtenu`]);
-						}
-						texte += `Appliquer ce programme de calcul au nombre ${c}<br>`;
-						texte += `Traduire ce calcul par une phrase contenant le mot image`;
-						texte_corr =`Avec ce programme de calcul :`
-						if (sortie_html) {
-							texte_corr +=`
+							// sous-question a/
+							texte += num_alpha(j)+` Appliquer ce programme de calcul au nombre ${c}<br>`;
+							texte_corr +=`<br>`+num_alpha(j)+`
 							<br>
 							<div class="ui compact warning message">		
 							<p>							
@@ -1244,22 +1242,114 @@ function fonction_notion_vocabulaire(){
 							</div>
 							<br>							
 							`;
+							j++;
+							// sous-question b/
+							texte += num_alpha(j)+` Traduire ce calcul par une phrase contenant le mot image`;
+							texte_corr += num_alpha(j)+`L'image de ${c} par cette fonction vaut ${a*c+b}`;
+							texte_corr += `<br> On peut aussi dire que ${a*c+b} est l'image de ${c} par cette fonction`;
 						} else {
-							texte_corr += itemize([`On choisit le nombre ${c}`,`On multiplie ce nombre par ${a} : $${a} \\times ${c} = ${a*c}$ `,`On ajoute ${b} au résultat obtenu : $${a*c}+${b}=${a*c+b}$`]);							
-						}; 						
-						texte_corr += `L'image de ${c} par cette fonction vaut ${a*c+b}`;
+							 texte += tex_cadre_par_orange(itemize([`Choisir un nombre`,`Multiplier ce nombre par ${a}`,`Ajouter ${b} au résultat obtenu`]));							
+							// sous-question a/
+							texte += tex_enumerate([`Appliquer ce programme de calcul au nombre ${c}`,`Traduire ce calcul par une phrase contenant le mot image`],this.spacing);
+							//texte_corr += 
+							texte_corr += tex_enumerate([tex_cadre_par_orange(itemize([`On choisit le nombre ${c}`,`On multiplie ce nombre par ${a} : $${a} \\times ${c} = ${a*c}$ `,`On ajoute ${b} au résultat obtenu : $${a*c}+${b}=${a*c+b}$`])),`L'image de ${c} par cette fonction vaut ${a*c+b}<br>On peut aussi dire que ${a*c+b} est l'image de ${c} par cette fonction`],this.spacing);							
+						};			
 						break;
 					case 2 :
-						texte= `Calculer avec l'expression algébrique $f(x)=$ ${a} ${b}`;
-						texte_corr = `Calculer avec l'expression algébrique $f(x)=\\ldots$`;
+						var j = 0; // pour la sous-numérotation
+						// les variables a,b,c changent sans refaire un appel à randint
+						texte = `Soit $f$ la fonction définie par l'expression algébrique $f(x)=$ ${a}$x+$${b}<br>`;
+						if (sortie_html) {
+							// sous-question a/
+							texte += num_alpha(j)+` Calculer l'image de ${c}`;
+							texte +=`<br>`;
+							texte_corr = num_alpha(j)+` Calculons l'image par $f$ de $x=$ ${c} :`;
+							texte_corr += `<br>$f(x)=$ ${a}$x+$${b}`;
+							texte_corr += `<br>$f($${c}$)=$ ${a}$\\times$${c}$+$${b}`;
+							texte_corr += `<br>$f($${c}$)=$ ${a*c}$+$${b}`;
+							texte_corr += `<br>$f($${c}$)=$ ${a*c+b}`;
+							j++;
+							//sous question b/
+							texte += num_alpha(j)+` Traduire ce calcul par une phrase contenant le mot image`;
+							texte_corr += `<br>`+num_alpha(j)+` L'image de ${c} par la fonction $f$ vaut ${a*c+b}`;
+							texte_corr += `<br> On peut aussi dire que ${a*c+b} est l'image de ${c} par la fonction $f$`;
+						} else {
+							// sous-question a/ et b/
+							texte += tex_enumerate([`Calculer l'image de ${c}`,`Traduire ce calcul par une phrase contenant le mot image`],this.spacing);
+							texte_corr = tex_enumerate([`Calculons l'image par $f$ de $x=$ ${c} :
+							<br>$f(x)=$ ${a}$x+$${b}
+							<br>$f($${c}$)=$ ${a}$\\times$${c}$+$${b}
+							<br>$f($${c}$)=$ ${a*c}$+$${b}
+							<br>$f($${c}$)=$ ${a*c+b}`,`L'image de ${c} par la fonction $f$ vaut ${a*c+b}
+							<br> On peut aussi dire que ${a*c+b} est l'image de ${c} par la fonction $f$`
+							],this.spacing);
+						};
 						break;
 					case 3 :
-						texte= `Calculer avec l'expression algébrique $f:x\\longmapsto=\\ldots$ ${a} ${b}`;
-						texte_corr = `Calculer avec l'expression algébrique $f:x\\longmapsto=\\ldots$`;
+						var j = 0; // pour la sous-numérotation
+						// les variables a,b,c changent sans refaire un appel à randint
+						texte = `Soit $g$ la fonction définie par $g:x\\longmapsto$ ${a}$x+$${b}<br>`;
+						if (sortie_html) {
+							// sous-question a/
+							texte += num_alpha(j)+` Calculer l'image de ${c}`;
+							texte +=`<br>`;
+							texte_corr = num_alpha(j)+` Calculons l'image par $g$ de $x=$ ${c} :`;
+							texte_corr += `<br>$g:x\\longmapsto$ ${a}$x+$${b}`;
+							texte_corr += `<br>$g:${c}\\longmapsto$ ${a}$\\times$${c}$+$${b}`;
+							texte_corr += `<br>$g:${c}\\longmapsto$ ${a*c}$+$${b}`;
+							texte_corr += `<br>$g:${c}\\longmapsto$ ${a*c+b}`;
+							j++;
+							//sous question b/
+							texte += num_alpha(j)+` Traduire ce calcul par une phrase contenant le mot image`;
+							texte_corr += `<br>`+num_alpha(j)+` L'image de ${c} par la fonction $g$ vaut ${a*c+b}`;
+							texte_corr += `<br> On peut aussi dire que ${a*c+b} est l'image de ${c} par la fonction $g$`;
+						} else {
+							// sous-question a/ et b/
+							texte += tex_enumerate([`Calculer l'image de ${c}`,`Traduire ce calcul par une phrase contenant le mot image`],this.spacing);
+							texte_corr = tex_enumerate([`Calculons l'image par $g$ de $x=$ ${c} :
+							<br>$g:x\\longmapsto$ ${a}$x+$${b}
+							<br>$g:${c}\\longmapsto$ ${a}$\\times$${c}$+$${b}
+							<br>$g:${c}\\longmapsto$ ${a*c}$+$${b}
+							<br>$g:${c}\\longmapsto$ ${a*c+b}`,`L'image de ${c} par la fonction $g$ vaut ${a*c+b}
+							<br> On peut aussi dire que ${a*c+b} est l'image de ${c} par la fonction $g$`
+							],this.spacing);
+						};
 						break;
 					case 4 :
-						texte= `Calculer avec un diagramme ${a} ${b}`;
+						if (sortie_html) {
+						} else {
+						};
 						texte_corr = `Calculer avec un diagramme`;
+
+						var j = 0; // pour la sous-numérotation
+						// les variables a,b,c changent sans refaire un appel à randint
+						texte= `Soit la fonction $h$ définie par le diagramme `;
+						if (sortie_html) {
+							// sous-question a/
+							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+							SVG_machine_diag(id_du_div,400,50,'h','x',[['\\times '+a,a+'x'],['+'+b,a+'x+'+b]]);
+							texte += num_alpha(j)+` Calculer l'image de ${c}`;
+							texte +=`<br>`;
+							texte_corr = num_alpha(j)+` Calculons l'image par $h$ de $x=$ ${c} :`;
+							texte_corr += `<div id="${id_du_div+'corr'}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+							SVG_machine_diag(id_du_div+'corr',400,50,'h',''+c,[['\\times '+a,''+a*c],['+'+b,''+a*c+b]]);
+							j++;
+							//sous question b/
+							texte += num_alpha(j)+` Traduire ce calcul par une phrase contenant le mot image`;
+							texte_corr += `<br>`+num_alpha(j)+` L'image de ${c} par la fonction $h$ vaut ${a*c+b}`;
+							texte_corr += `<br> On peut aussi dire que ${a*c+b} est l'image de ${c} par la fonction $h$`;
+						} else {
+							texte += `<br>`+tikz_machine_diag(`h`,`x`,[[`\\times `+a,a+`x`],[`+`+b,a+`x+`+b]]);
+							// sous-question a/ et b/
+							texte += tex_enumerate([`Calculer l'image de ${c}`,`Traduire ce calcul par une phrase contenant le mot image`],this.spacing);
+							texte_corr = tex_enumerate(
+								[`Calculons l'image par $g$ de $x=$ ${c} :<br>`+tikz_machine_diag(`h`,c,[[`\\times `+a,(a*c)],[`+`+b,(a*c+b)]]),
+								`L'image de ${c} par la fonction $g$ vaut ${a*c+b}
+							<br> On peut aussi dire que ${a*c+b} est l'image de ${c} par la fonction $g$`
+								],this.spacing);
+						};
+
+
 						break;						 
 				};
 			
