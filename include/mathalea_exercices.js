@@ -115,7 +115,7 @@ var liste_des_exercices_disponibles = {
 		'4G30' : Exercice_Trigo_longueurs_4e,
 		'4G31' : Exercice_Trigo_angles_4e,
 		'4G20' : Thales_4eme,
-		'4G21' : Reciproque_Thales,
+		'4G21' : Reciproque_Thales_4eme,
 		'3N10': Exercice_developper,
 		'3N11' : Double_distributivite,
 		'3N12' : Developper_Identites_remarquables3,
@@ -5808,9 +5808,14 @@ function Reglages_6N34(){
 	this.titre = "Conversions avec tous les préfixes de milli à tera."
 }
 
-function Thales_4eme() {		//Dans cette version, pas de configuration papillon reservée aux 3èmes.
+function Thales_4eme(){		//Dans cette version, pas de configuration papillon reservée aux 3èmes.
 	Exercice_Thales.call(this);
 	this.quatrieme = true
+}
+
+function Reciproque_Thales_4eme(){
+	Reciproque_Thales.call(this);
+	this.quatrieme = true;
 }
 
 
