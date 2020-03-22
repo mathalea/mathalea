@@ -1472,10 +1472,14 @@ function Reciproque_Thales(){
 			if (calcul(dist13/dist15)==arrondi(dist13/dist15,3)) texte_corr+=`$=${tex_nombrec(arrondi(dist13/dist15,3))}$<br>`;
 			else texte_corr+=`$\\approx${tex_nombrec(arrondi(dist13/dist15,3))}$<br>`;
 			if (k!=k2) {
-				texte_corr+=`$\\dfrac{${s1 + s2}}{${s1 + s4}}\\not=\\dfrac{${s1 + s3}}{${s1 + s5}}$, donc d'après la propriété de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ ne sont pas parallèles.<br>`
+				texte_corr+=`$\\dfrac{${s1 + s2}}{${s1 + s4}}\\not=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`;
+				texte_corr+=`Donc d'après le théorème de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ ne sont pas parallèles.<br>`
 			}
 			else {
-				texte_corr+=`$\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s1 + s3}}{${s1 + s5}}$ car les produits en croix sont égaux : $${s12}\\times${s15}=${s13}\\times${s14}=${tex_nombre(arrondi(dist12*dist15,3))}$.<br>Donc d'après la réciproque de la propriété de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont parallèles.<br>`
+				texte_corr+=`$\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s1 + s3}}{${s1 + s5}}$ car les produits en croix sont égaux : $${s12}\\times${s15}=${s13}\\times${s14}=${tex_nombre(arrondi(dist12*dist15,3))}$.<br>`;
+				if (k>0) texte_corr+=`$${s1}$,$${s4}$,$${s2}$ et $${s1}$,$${s5}$,$${s3}$ sont alignés dans le même ordre.<br>`
+				else texte_corr+=`$${s4}$,$${s1}$,$${s2}$ et $${s5}$,$${s1}$,$${s3}$ sont alignés dans le même ordre.<br>`
+				texte_corr+=`Donc d'après la réciproque du théorème de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont parallèles.<br>`;
 			}
 
 

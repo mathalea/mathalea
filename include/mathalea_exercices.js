@@ -123,6 +123,7 @@ var liste_des_exercices_disponibles = {
 		'3N14' : Resoudre_une_equation_produit_nul,
 		'3N14-2' : Resoudre_une_equation_produit_nul_niv2,
 		'3G10' : Exercice_Thales,
+		'3G11' : Reciproque_Thales,
 		'3G30' : Exercice_Trigo_longueurs,
 		'3G31' : Exercice_Trigo_angles,
 		'3F1-act' : fonction_notion_vocabulaire,
