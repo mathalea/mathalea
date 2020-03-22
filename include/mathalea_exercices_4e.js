@@ -1135,15 +1135,14 @@ function Exercice_Thales(){
 		let y3 = randint(-2, 1)
 		let k = randint(2, 8) * randint(-1, 1, [0]) / 10
 		if (this.quatrieme) {k=abs(k)}	
-		let dist23 = Math.sqrt((x3-x2)**2+(y3-y2)**2) 		//calcul des longueurs du triangle principal
+		let dist23 = arrondi(Math.sqrt((x3-x2)**2+(y3-y2)**2),1) 		//calcul des longueurs du triangle principal
 		let dist12 = arrondi(Math.sqrt(x2**2 + y2**2),1)
 		let dist13 = arrondi(Math.sqrt(x3**2+ y3**2),1)
-		let dist15 = arrondi(dist13 * abs(k),1)  
-		let dist45 = arrondi(dist23 * abs(k),1)		
+		let dist15 = arrondi(dist13 * abs(k),2)  
+		let dist45 = arrondi(dist23 * abs(k),2)		
 		let dist35,texte,texte_corr;
-		let dist14 = arrondi(dist12*dist15/dist13,1); // calcul des longueurs demandées à partir 
-		dist23 = arrondi(dist45*dist13/dist15,1); // des nombres énoncés (dist12, dist13, dist15 et dist45)
-
+		let dist14 = arrondi(dist12*abs(k),2); // calcul des longueurs demandées à partir 
+		
 		// On ne garde qu'une approximation au dixième pour l'exercice
 
 		let s45 = tex_nombrec(dist45)			// mise en texte avec 1 chiffres après la virgule pour énoncé
@@ -1466,13 +1465,17 @@ function Reciproque_Thales(){
 				}
 			}
 			texte += `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ?<br>`
-			texte_corr += `D'une part on a $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}\\approx${tex_nombrec(arrondi(dist12/dist14,3))}$<br>`;
-			texte_corr += `D'autre part on a $\\dfrac{${s1 + s3}}{${s1 + s5}}=\\dfrac{${s13}}{${s15}}\\approx${tex_nombrec(arrondi(dist13/dist15,3))}$<br>`;
+			texte_corr += `D'une part on a $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}$`
+			if (calcul(dist12/dist14)==arrondi(dist12/dist14,3)) texte_corr+=`$=${tex_nombrec(arrondi(dist12/dist14,3))}$<br>`;
+			else texte_corr+=`$\\approx${tex_nombrec(arrondi(dist12/dist14,3))}$<br>`;
+			texte_corr += `D'autre part on a $\\dfrac{${s1 + s3}}{${s1 + s5}}=\\dfrac{${s13}}{${s15}}$`;
+			if (calcul(dist13/dist15)==arrondi(dist13/dist15,3)) texte_corr+=`$=${tex_nombrec(arrondi(dist13/dist15,3))}$<br>`;
+			else texte_corr+=`$\\approx${tex_nombrec(arrondi(dist13/dist15,3))}$<br>`;
 			if (k!=k2) {
 				texte_corr+=`$\\dfrac{${s1 + s2}}{${s1 + s4}}\\not=\\dfrac{${s1 + s3}}{${s1 + s5}}$, donc d'après la propriété de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ ne sont pas parallèles.<br>`
 			}
 			else {
-				texte_corr+=`$\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s1 + s3}}{${s1 + s5}}$, donc d'après la réciproque de la propriété de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont parallèles.<br>`
+				texte_corr+=`$\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s1 + s3}}{${s1 + s5}}$ car les produits en croix sont égaux : $${s12}\\times${s15}=${s13}\\times${s14}=${tex_nombre(arrondi(dist12*dist15,3))}$.<br>Donc d'après la réciproque de la propriété de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont parallèles.<br>`
 			}
 
 
