@@ -1395,12 +1395,12 @@ function Reciproque_Thales(){
 		let k = randint(2, 8) * randint(-1, 1, [0]) / 10
 		let k2 = k*(1+randint(-1,1)*0.1)
 		if (this.quatrieme) { k = abs(k) ; k2=abs(k2) }
-		let dist24 = Math.sqrt((x4 - x2) **2 + (y4 - y2) **2) 		//calcul des longueurs du triangle principal
+		let dist24;
 		let dist12 = arrondi(Math.sqrt(x2 * x2 + y2 * y2), 1)
 		let dist13 = arrondi(Math.sqrt(x3 * x3 + y3 * y3), 1)
-		let dist15 = arrondi(dist13 * abs(k), 1)
-		let dist14 = arrondi(dist12 * abs(k2), 1); 	
-		let dist35,dist24;
+		let dist15 = arrondi(dist13 * abs(k), 2)
+		let dist14 = arrondi(dist12 * abs(k2), 2); 	
+		let dist35;
 		if (k<0) {
 			dist35=dist13+dist15;
 			dist24=dist12+dist14;
