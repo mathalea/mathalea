@@ -1583,11 +1583,11 @@ function fonction_notion_vocabulaire(){
 							texte +=`<br>`;
 							texte_corr +=`<br>`;
 							texte_corr += num_alpha(j)+` Calculons l'image par $h$ de $x=$ ${c} :`;
-							//texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							//SVG_machine_diag(id_du_div_corr,400,50,'h',''+c,[['\\times '+a,''+(a*c)],['+'+b,''+(a*c+b)]]);
-							//console.log(id_du_div_corr);
-						 	texte_corr += `<div id="ex3F12_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-						 	SVG_machine_diag('ex3F12_corr',400,50,'h',''+c,[['\\times '+a,''+(a*c)],['+'+b,''+(a*c+b)]]);
+							texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+							SVG_machine_diag(id_du_div_corr,400,50,'h',''+c,[['\\times '+a,''+(a*c)],['+'+b,''+(a*c+b)]]);
+							console.log(id_du_div_corr);
+						 	//texte_corr += `<div id="ex3F12_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						 	//SVG_machine_diag('ex3F12_corr',400,50,'h',''+c,[['\\times '+a,''+(a*c)],['+'+b,''+(a*c+b)]]);
 						 	j++;
 						//sous question b/
 						 	texte += num_alpha(j)+` Traduire ce calcul par une phrase contenant le mot image`;
