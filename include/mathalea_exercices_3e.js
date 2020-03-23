@@ -1376,12 +1376,28 @@ function fonction_notion_vocabulaire(){
  */
 
  function fonctions_calculs_d_images() {
-	 'use strict';
-	 Exercice.call(this); // Héritage de la classe Exercice()
-	 this.sup = 1 ; 
-	 this.titre = "Fonctions : Calculs d'images"; 
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.sup = 1 ; 
+	this.titre = "Fonctions : Calculs d'images"; 
+	// pas de différence entre la version html et la version latex pour la consigne
+	this.consigne =``;
+	// Message Bug SVG qui ne s'affiche pas dans la correction sans rafraichir
+	if (sortie_html) {
+		this.consigne += `
+		<div class="ui compact warning message">		
+		  <p>
+		  <i class="exclamation triangle icon"></i>
+		  ATTENTION BUG CONNU<br>
+		  Appuyer sur "F5" ou cliquer sur "Nouvelles données" avant de commencer l'exercice<br>
+		  Sinon il y a problème d'affichage dans la correction. 
+		  </p>
+	  	</div>
+	  	<br>
+		`;
+	}
 	 // pas de différence entre la version html et la version latex pour la consigne
-	 this.consigne =`Calcule les images avec la méthode demandée.`;
+	 this.consigne +=`Calcule les images avec la méthode demandée.`;
 
 	 sortie_html ? this.spacing = 3 : this.spacing = 2;
 	 sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
