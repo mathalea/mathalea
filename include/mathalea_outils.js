@@ -2132,47 +2132,6 @@ function liste_diviseurs(n) {
 // fonctions de 3F1-act
 //=================================================
 
- /**
- * Crée une machine mathématique Tikz pour la version LaTeX
- * @param {string} nom nom de la machine en mode maths!
- * @param {string} etape1 chaine en mode maths attention aux espaces et accents
- * @param {string} etape2 chaine en mode maths attention aux espaces et accents
- * @param {string} etape3 chaine en mode maths attention aux espaces et accents
- * @param {string} x_ligne1 chaine en mode maths attention aux espaces et accents
- * @param {string} x_ligne2 chaine en mode maths attention aux espaces et accents
- * @param {string} y_ligne1 chaine en mode maths attention aux espaces et accents
- * @param {string} y_ligne2 chaine en mode maths attention aux espaces et accents
- * @author Sébastien Lozano
- */
-
-function tikz_machine_maths(nom,etape1,etape2,etape3,x_ligne1,x_ligne2,y_ligne1,y_ligne2) {
-	// tous les textes sont en mode maths !!!
-	'use strict';
-	return `
-	\\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
-	\\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
-	\\draw [line width=3pt,color=frvzsz] (-4,4)-- (2,4);
-	\\draw [line width=3pt,color=frvzsz] (2,4)-- (2,0);
-	\\draw [line width=3pt,color=frvzsz] (2,0)-- (-4,0);
-	\\draw [line width=3pt,color=frvzsz] (-4,0)-- (-4,4);
-	\\draw [line width=3pt,color=frvzsz] (-4,2)-- (-5,2);
-	\\draw [line width=3pt,color=frvzsz] (-5,2.4)-- (-5,1.6);
-	\\draw [->,line width=3pt,color=frvzsz] (2,2) -- (3,2);
-	\\node[text width=3cm,text centered, scale=1.8] at(-1,3.5){$\\mathbf{machine\\,${nom}}$};
-	\\node[text width=3cm,text centered, scale=1.5] at(-1,2.8){$\\mathbf{${etape1}}$};
-	\\node[text width=3cm,text centered, scale=1.5] at(-1,2.3){$${etape2}$};
-	\\node[text width=3cm,text centered, scale=1.5] at(-1,1.6){$${etape3}$};
-	\\node[text width=3cm,text centered, scale=1.5] at(-8,2.5) {$\\mathbf{${x_ligne1}}$};
-	\\node[text width=3cm,text centered, scale=1.5] at(-8,1.5) {$\\mathbf{${x_ligne2}}$};
-	\\fill [line width=3pt,color=frvzsz] (-6,2) -- (-6.5,1) -- (-5.5,2) -- (-6.5,3) -- cycle;
-	%\\fill [line width=3pt,color=frvzsz] (1,2) -- (0.5,1) -- (1.5,2) -- (0.5,3) -- cycle;
-	\\node[text width=3cm,text centered, scale=1.5] at(5.5,2.5) {$\\mathbf{${y_ligne1}}$};
-	\\node[text width=3cm,text centered, scale=1.5] at(5.5,1.5) {$\\mathbf{${y_ligne2}}$};
-	\\fill [line width=3pt,color=frvzsz] (3.5,2) -- (3,1) -- (4,2) -- (3,3) -- cycle;
-	\\end{tikzpicture}	
-	`;
-};
-
 /**
  * Crée un diagramme tikz pour une machine maths
  * @param {string} nom nom de la fonction 
@@ -2207,7 +2166,7 @@ function tikz_machine_diag(nom,x_ant,etapes_expressions){
 				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
 				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
 				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,0.5) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,0.5) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-0.5) -- (`+(x_init+saut+5*pas/2)+`,-0.5) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(x)=${etapes_expressions[i][1]}$};
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(`+x_ant+`)=${etapes_expressions[i][1]}$};
 				`;			
 			};
 			// si il y a une operation et pas d'expression algébrique 
@@ -2219,7 +2178,7 @@ function tikz_machine_diag(nom,x_ant,etapes_expressions){
 				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
 				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
 				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(x)=\\ldots$};
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(`+x_ant+`)=\\ldots$};
 				`;			
 			};
 			// si il n'y a pas d'operation mais une expression algébrique
@@ -2231,7 +2190,7 @@ function tikz_machine_diag(nom,x_ant,etapes_expressions){
 				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
 				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
 				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(x)=${etapes_expressions[i][1]}$};
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(`+x_ant+`)=${etapes_expressions[i][1]}$};
 				`;			
 			};
 			// si il n'y ni une operation et ni expression algébrique
@@ -2243,7 +2202,7 @@ function tikz_machine_diag(nom,x_ant,etapes_expressions){
 				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
 				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
 				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(x)=\\ldots$};
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(`+x_ant+`)=\\ldots$};
 				`;			
 			};
 
@@ -2535,22 +2494,22 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 					if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
 					SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929',etapes_expressions[i][0],saut);
 					saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,etapes_expressions[i][0]);					 
-					SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',nom+'(x)='+etapes_expressions[i][1],saut)
-					saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,nom+'(x)='+etapes_expressions[i][1]);
+					SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',nom+'('+x_ant+')='+etapes_expressions[i][1],saut)
+					saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,nom+'('+x_ant+')='+etapes_expressions[i][1]);
 					};
 					// si il y a une operation et pas d'expression algébrique 
 					if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
 					SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929',etapes_expressions[i][0],saut);
 					saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,etapes_expressions[i][0]);					 
-					SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',nom+'(x)=\\ldots',saut)
-					saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,nom+'(x)=\\ldots');
+					SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',nom+'('+x_ant+')=\\ldots',saut)
+					saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,nom+'('+x_ant+')=\\ldots');
 					};
 					// si il n'y a pas d'operation mais une expression algébrique
 					if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
 					SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929','\\ldots',saut);
 					saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,'\\ldots');					 
-					SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',nom+'(x)='+etapes_expressions[i][1],saut)
-					saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,nom+'(x)='+etapes_expressions[i][1]);
+					SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',nom+'('+x_ant+')='+etapes_expressions[i][1],saut)
+					saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,nom+'('+x_ant+')='+etapes_expressions[i][1]);
 					};
 					// si il n'y ni une operation et ni expression algébrique
 					if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]=='undefined') {

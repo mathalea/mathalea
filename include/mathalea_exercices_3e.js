@@ -598,6 +598,47 @@ function Resoudre_une_equation_produit_nul(){
  // fonctions dont le déplacement dasn mathalea_outils.js pose problème
  //=======================================================================
 
+  /**
+ * Crée une machine mathématique Tikz pour la version LaTeX
+ * @param {string} nom nom de la machine en mode maths!
+ * @param {string} etape1 chaine en mode maths attention aux espaces et accents
+ * @param {string} etape2 chaine en mode maths attention aux espaces et accents
+ * @param {string} etape3 chaine en mode maths attention aux espaces et accents
+ * @param {string} x_ligne1 chaine en mode maths attention aux espaces et accents
+ * @param {string} x_ligne2 chaine en mode maths attention aux espaces et accents
+ * @param {string} y_ligne1 chaine en mode maths attention aux espaces et accents
+ * @param {string} y_ligne2 chaine en mode maths attention aux espaces et accents
+ * @author Sébastien Lozano
+ */
+
+function tikz_machine_maths(nom,etape1,etape2,etape3,x_ligne1,x_ligne2,y_ligne1,y_ligne2) {
+	// tous les textes sont en mode maths !!!
+	'use strict';
+	return `
+	\\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
+	\\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+	\\draw [line width=3pt,color=frvzsz] (-4,4)-- (2,4);
+	\\draw [line width=3pt,color=frvzsz] (2,4)-- (2,0);
+	\\draw [line width=3pt,color=frvzsz] (2,0)-- (-4,0);
+	\\draw [line width=3pt,color=frvzsz] (-4,0)-- (-4,4);
+	\\draw [line width=3pt,color=frvzsz] (-4,2)-- (-5,2);
+	\\draw [line width=3pt,color=frvzsz] (-5,2.4)-- (-5,1.6);
+	\\draw [->,line width=3pt,color=frvzsz] (2,2) -- (3,2);
+	\\node[text width=3cm,text centered, scale=1.8] at(-1,3.5){$\\mathbf{machine\\,${nom}}$};
+	\\node[text width=3cm,text centered, scale=1.5] at(-1,2.8){$\\mathbf{${etape1}}$};
+	\\node[text width=3cm,text centered, scale=1.5] at(-1,2.3){$${etape2}$};
+	\\node[text width=3cm,text centered, scale=1.5] at(-1,1.6){$${etape3}$};
+	\\node[text width=3cm,text centered, scale=1.5] at(-8,2.5) {$\\mathbf{${x_ligne1}}$};
+	\\node[text width=3cm,text centered, scale=1.5] at(-8,1.5) {$\\mathbf{${x_ligne2}}$};
+	\\fill [line width=3pt,color=frvzsz] (-6,2) -- (-6.5,1) -- (-5.5,2) -- (-6.5,3) -- cycle;
+	%\\fill [line width=3pt,color=frvzsz] (1,2) -- (0.5,1) -- (1.5,2) -- (0.5,3) -- cycle;
+	\\node[text width=3cm,text centered, scale=1.5] at(5.5,2.5) {$\\mathbf{${y_ligne1}}$};
+	\\node[text width=3cm,text centered, scale=1.5] at(5.5,1.5) {$\\mathbf{${y_ligne2}}$};
+	\\fill [line width=3pt,color=frvzsz] (3.5,2) -- (3,1) -- (4,2) -- (3,3) -- cycle;
+	\\end{tikzpicture}	
+	`;
+};
+
  /**
   * Fonction pour particulariser une police svg et ses paramètres  
   * @param {string} font 
@@ -1353,10 +1394,10 @@ function fonction_notion_vocabulaire(){
 	 var num_ex = '3F12'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
 
 	 if (sortie_html) {		
-		 let id_unique = `_consigne_${num_ex}_${Date.now()}`; // on formatte avec le numéro de l'exercice pour éviter les doublons		
-		 let id_du_div = `div_svg${id_unique}`;
+		 //let id_unique = `_consigne_${num_ex}_${Date.now()}`; // on formatte avec le numéro de l'exercice pour éviter les doublons		
+		 //let id_du_div = `div_svg${id_unique}`;
 		 var pourcentage = '100%'; // pour l'affichage des svg. On a besoin d'une variable globale
-		 var hauteur_svg = 100;
+		 //var hauteur_svg = 100;
 	 } else { // sortie LaTeX
  
 	 };
@@ -1513,11 +1554,12 @@ function fonction_notion_vocabulaire(){
 							texte += num_alpha(j)+` Calculer l'image de ${c}`;
 							texte +=`<br>`;
 							texte_corr = num_alpha(j)+` Calculons l'image par $h$ de $x=$ ${c} :`;
-							texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							//SVG_machine_diag(id_du_div+'corr',400,50,'h',''+c,[['\\times '+a,''+a*c],['+'+b,''+a*c+b]]);
-							SVG_machine_diag(id_du_div_corr,400,50,'h','x',[['\\times 5','5x'],['+3','5x+3']]);
-							texte_corr += `<div id="diagramme_type3_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							SVG_machine_diag('diagramme_type3_corr',400,50,'h','x',[['\\times 3','3x'],['+1','3x+1']]);
+							texte_corr += `<div id="ex3F12_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+							SVG_machine_diag('ex3F12_corr',400,50,'h',''+c,[['\\times '+a,''+a*c],['+'+b,''+a*c+b]]);
+							console.log(typeof ''+c);
+							//SVG_machine_diag('ex3F12_corr',400,50,'h','x',[['\\times 5','5x'],['+3','5x+3']]);
+							// texte_corr += `<div id="diagramme_type3_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+							// SVG_machine_diag('diagramme_type3_corr',400,50,'h','x',[['\\times 3','3x'],['+1','3x+1']]);
 							j++;
 							//sous question b/
 							texte += num_alpha(j)+` Traduire ce calcul par une phrase contenant le mot image`;
