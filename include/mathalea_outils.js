@@ -2599,31 +2599,25 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 	window.SVGExist[id_du_div] = setInterval(function() {
 		if ($(`#${id_du_div}`).length ) {
 			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
+			// on crée un rectangle dont la taille est adaptée au texte
+			let w_x_ant = 10;
+			//let path_cadre_rect_ant = 'M0,0L0,-'+interligne+',L'+(w_x_ant + 2*interligne)+',-'+interligne+',L'+(w_x_ant + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
+			let path_cadre_rect_ant ='5,5 195,10 185,40 10,50';
 			document.getElementById(id_du_div).innerHTML = `
-			<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
-			<style>
-			  polygon { fill: white; stroke : red }
-		  
-			  div {
-				color: black;
-				/*font:10px serif;*/
-				height: 100%;
-				overflow: auto;
-			  }
-			</style>
-					  
-			<polygon points="5,5 195,10 185,40 10,50" />
+			<svg viewBox="0 0 `+w+` `+h+`" xmlns="http://www.w3.org/2000/svg">
+				  
+			<polygon points="`+path_cadre_rect_ant+`" style="fill:white;stroke:#f15929;stroke-width:1"/>
 			  
 			<!-- Cas d'utilisation courant: inclure du texte HTML dans le SVG -->
-			<foreignObject x="0" y="0" width="160" height="60">
+			<foreignObject x="10" y="`+h/4+`" width="160" height="60">
 			<!-- Dans le cas d'un SVG intégré dans du HTML, le namespace XHTML peut être omis, mais il est obligatoire dans le contexte d'un document SVG -->
 			  <div id="ant" xmlns="http://www.w3.org/1999/xhtml">
-				$$\\pm\\sqrt{a^2 + b^2}$$
+				
 			  </div>
 			</foreignObject>
 		   </svg>`;
 		   let antDiv = document.getElementById('ant');
-		   katex.render("c = "+nom+"("+x_ant+")=\\pm\\sqrt{a^2 + b^2}", antDiv, {
+		   katex.render(nom+"("+x_ant+")=\\pm\\sqrt{a^2 + b^2}", antDiv, {
 			throwOnError: false
 		});
 		clearInterval(SVGExist[id_du_div]);//Arrête le timer
