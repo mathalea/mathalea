@@ -1439,13 +1439,14 @@ function Reciproque_Thales(){
 			}
 			else if (this.sup == 2) {  // Calcul de AN nécessaire avant de calculer AM et BC
 				texte = `Dans la figure ci-dessous, $${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s3 + s5}=${s35}$ cm et $${s2 + s4}=${s24}$ cm.<br>`
-				texte_corr = 'On sait que ' + `$${s1 + s5}=${s1 + s3}-${s5 + s3}=${s13}-${s35}=${s15}$` + ' cm,<br>'
-				texte_corr += 'et que ' + `$${s1 + s4}=${s1 + s2}-${s2 + s4}=${s14}-${s24}=${s14}$` + ' cm.<br>'
+				texte_corr=``;
 				if (k > 0) {
-					texte_corr += 'On sait que ' + `$${s1 + s5}=${s1 + s3}-${s5 + s3}=${s13}-${s35}=${s15}$` + ' cm.<br>'
+					texte_corr += 'On sait que ' + `$${s1 + s5}=${s1 + s3}-${s3 + s5}=${s13}-${s35}=${s15}$` + ' cm.<br>'
+					texte_corr += 'et que ' + `$${s1 + s4}=${s1 + s2}-${s2 + s4}=${s12}-${s24}=${s14}$` + ' cm.<br>'
 				}
 				else {
 					texte_corr += 'On sait que ' + `$${s1 + s5}=${s3 + s5}-${s1 + s3}=${s35}-${s13}=${s15}$` + ' cm.<br>'
+					texte_corr += 'et que ' + `$${s1 + s4}=${s2 + s4}-${s1 + s2}=${s24}-${s12}=${s14}$` + ' cm.<br>'
 				}
 			}
 			else if (randint(1, 2) == 1) {
@@ -1453,18 +1454,18 @@ function Reciproque_Thales(){
 				texte_corr = ``;
 			}
 			else {
-				texte = `Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés dans cet ordre.`
-				texte += `$${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s4 + s5}=${s45}$ cm et $${s3 + s5}=${s35}$ cm.`
+				texte = `Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés dans cet ordre.<br>`
+				texte += `$${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s4}=${s14}$ cm et $${s1 + s5}=${s15}$ cm.`
 				if (k > 0) {
-					texte_corr = 'On sait que ' + `$${s1 + s5}=${s1 + s3}-${s3 + s5}=${s13}-${s35}=${s15}$` + ' cm'
-					texte_corr += ' et ' + `$${s1 + s4}=${s1 + s2}-${s2 + s4}=${s12}-${s24}=${s14}$` + ' cm.<br>'
+					texte_corr += 'On sait que ' + `$${s1 + s5}=${s1 + s3}-${s3 + s5}=${s13}-${s35}=${s15}$` + ' cm.<br>'
+					texte_corr += 'et que ' + `$${s1 + s4}=${s1 + s2}-${s2 + s4}=${s12}-${s24}=${s14}$` + ' cm.<br>'
 				}
 				else {
-					texte_corr = 'On sait que ' + `$${s1 + s5}=${s3 + s5}-${s1 + s3}=${s35}-${s13}=${s15}$` + ' cm'
-					texte_corr += ' et ' + `$${s1 + s5}=${s3 + s5}-${s1 + s3}=${s35}-${s13}=${s15}$` + ' cm.<br>'
+					texte_corr += 'On sait que ' + `$${s1 + s5}=${s3 + s5}-${s1 + s3}=${s35}-${s13}=${s15}$` + ' cm.<br>'
+					texte_corr += 'et que ' + `$${s1 + s4}=${s2 + s4}-${s1 + s2}=${s24}-${s12}=${s14}$` + ' cm.<br>'
 				}
 			}
-			texte += `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ?<br>`
+			texte += `<br>Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ?<br>`
 			texte_corr += `D'une part on a $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}$`
 			if (calcul(dist12/dist14)==arrondi(dist12/dist14,3)) texte_corr+=`$=${tex_nombrec(arrondi(dist12/dist14,3))}$<br>`;
 			else texte_corr+=`$\\approx${tex_nombrec(arrondi(dist12/dist14,3))}$<br>`;
