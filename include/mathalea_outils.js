@@ -2623,7 +2623,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 			</foreignObject>
 		   </svg>`;
 		   let antDiv = document.getElementById('ant');
-		   katex.render("c = \\pm\\sqrt{a^2 + b^2}", antDiv, {
+		   katex.render("c = "+nom+"("+x_ant+")=\\pm\\sqrt{a^2 + b^2}", antDiv, {
 			throwOnError: false
 		});
 		clearInterval(SVGExist[id_du_div]);//Arrête le timer
