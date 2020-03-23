@@ -882,10 +882,13 @@ function fonction_notion_vocabulaire(){
 
 			for (let i = 0, x,y,z, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 				type_de_questions = liste_type_de_questions[i];
-	
-				let id_unique = `${num_ex}_${i}_${Date.now()}`
-				let id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
-				//let id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`;
+				
+				if (sortie_html) {
+					var id_unique = `${num_ex}_${i}_${Date.now()}`
+					var id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
+					var id_du_div_diag = `div_svg_diag${numero_de_l_exercice}${id_unique}`;
+					var id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`;
+				}
 	
 				switch (type_de_questions) {
 					case 1 : // périmètre d'un carré de côté x			
@@ -960,10 +963,18 @@ function fonction_notion_vocabulaire(){
 						if (sortie_html) {
 							texte += num_alpha(j)+` &Eacute;crire la réponse à la question `+num_alpha(j-1)+` sous forme de diagramme.<br>`;
 							texte += `Voici le diagramme d'une machine qui triple `;
-							texte += `<div id="diagramme_type1" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							SVG_machine_diag('diagramme_type1',400,50,'f','x',[['\\times 3','3x']]);
+
+							texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+							SVG_machine_diag(id_du_div_diag,400,50,'f','x',[['\\times 3','3x']]);
+							// texte += `<div id="diagramme_type1" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+							// SVG_machine_diag('diagramme_type1',400,50,'f','x',[['\\times 3','3x']]);
 
 							texte_corr += num_alpha(j)+`C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
+
+							// id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`;
+							// texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+							// SVG_machine_diag(id_du_div_corr,400,50,'f','x',[['\\times 4','4x']]);
+
 							texte_corr += `<div id="diagramme_type1_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 							SVG_machine_diag('diagramme_type1_corr',400,50,'f','x',[['\\times 4','4x']]);
 							j++;//incrémente la sous question
@@ -1443,10 +1454,12 @@ function fonction_notion_vocabulaire(){
  
 			 for (let i = 0, a, b, c, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 				 type_de_questions = liste_type_de_questions[i];
-	 
-				 let id_unique = `${num_ex}_${i}_${Date.now()}`
-				 let id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
-				 let id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`;
+
+				 if (sortie_html) {
+					let id_unique = `${num_ex}_${i}_${Date.now()}`
+					var id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
+					var id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`;
+				 }
 				 // on part sur de l'affine avec coeff positifs, on verra ensuite
 				 a = randint(2,9); 
 				 b = randint(2,9);
@@ -1517,7 +1530,7 @@ function fonction_notion_vocabulaire(){
 							texte += tex_enumerate([`Calculer l'image de ${c}`,`Traduire ce calcul par une phrase contenant le mot image`],this.spacing);
 							texte_corr = tex_enumerate([`Calculons l'image par $f$ de $x=$ ${c} :
 							<br>$f(${mise_en_evidence('\\textit{\\textbf{x}}')})=$ ${a}$${mise_en_evidence('\\textit{\\textbf{x}}')}+$${b}
-							<br>$f($${mise_en_evidence(c)})=$ ${a}$\\times$${c}$+$${b}
+							<br>$f($${mise_en_evidence(c)})=$ ${a}$\\times${mise_en_evidence(c)}+$${b}
 							<br>$f($${mise_en_evidence(c)})=$ ${a*c}$+$${b}
 							<br>$f($${mise_en_evidence(c)})=$ ${a*c+b}`,`L'image de ${c} par la fonction $f$ vaut ${a*c+b}
 							<br> On peut aussi dire que ${a*c+b} est l'image de ${c} par la fonction $f$`
@@ -1555,40 +1568,41 @@ function fonction_notion_vocabulaire(){
 						};
 						break;
 					case 4 :
-						console.log('debut '+c);
-						texte_corr = `Calculer avec un diagramme`;
-
+						texte = ``;
+						texte_corr = ``;
+						texte_corr += `Calculer avec un diagramme `;
 						var j = 0; // pour la sous-numérotation
 						// les variables a,b,c changent sans refaire un appel à randint
-						texte= `Soit la fonction $h$ définie par le diagramme `;
+						texte += `Soit la fonction $h$ définie par le diagramme `;
 						if (sortie_html) {
 							// sous-question a/
 							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							SVG_machine_diag(id_du_div,400,50,'h','x',[['\\times '+a,a+'x'],['+'+b,a+'x+'+b]]);
-							console.log('suite 1 appel diag texte '+c);
-							texte += num_alpha(j)+` Calculer l'image de ${c}`;
+							console.log(id_du_div);
+						 	SVG_machine_diag(id_du_div,400,50,'h','x',[['\\times '+a,a+'x'],['+'+b,a+'x+'+b]]);						
+						 	texte += num_alpha(j)+` Calculer l'image de ${c}`;
 							texte +=`<br>`;
-							texte_corr = num_alpha(j)+` Calculons l'image par $h$ de $x=$ ${c} :`;
-							texte_corr += `<div id="ex3F12_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							SVG_machine_diag('ex3F12_corr',400,50,'h',''+c,[['\\times '+a,''+a*c],['+'+b,''+(a*c+b)]]);
-							console.log('suite 2 appel diag texte_corr '+c);							
-							j++;
-							//sous question b/
-							texte += num_alpha(j)+` Traduire ce calcul par une phrase contenant le mot image`;
-							texte_corr += `<br>`+num_alpha(j)+` L'image de ${c} par la fonction $h$ vaut ${a*c+b}`;
-							texte_corr += `<br> On peut aussi dire que ${a*c+b} est l'image de ${c} par la fonction $h$`;
+							texte_corr +=`<br>`;
+							texte_corr += num_alpha(j)+` Calculons l'image par $h$ de $x=$ ${c} :`;
+							//texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+							//SVG_machine_diag(id_du_div_corr,400,50,'h',''+c,[['\\times '+a,''+(a*c)],['+'+b,''+(a*c+b)]]);
+							//console.log(id_du_div_corr);
+						 	texte_corr += `<div id="ex3F12_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						 	SVG_machine_diag('ex3F12_corr',400,50,'h',''+c,[['\\times '+a,''+(a*c)],['+'+b,''+(a*c+b)]]);
+						 	j++;
+						//sous question b/
+						 	texte += num_alpha(j)+` Traduire ce calcul par une phrase contenant le mot image`;
+						 	texte_corr += `<br>`+num_alpha(j)+` L'image de ${c} par la fonction $h$ vaut ${a*c+b}`;
+						 	texte_corr += `<br> On peut aussi dire que ${a*c+b} est l'image de ${c} par la fonction $h$`;
 						} else {
-							texte += `<br>`+tikz_machine_diag(`h`,`x`,[[`\\times `+a,a+`x`],[`+`+b,a+`x+`+b]]);
-							// sous-question a/ et b/
-							texte += tex_enumerate([`Calculer l'image de ${c}`,`Traduire ce calcul par une phrase contenant le mot image`],this.spacing);
-							texte_corr = tex_enumerate(
-								[`Calculons l'image par $g$ de $x=$ ${c} :<br>`+tikz_machine_diag(`h`,c,[[`\\times `+a,(a*c)],[`+`+b,(a*c+b)]]),
-								`L'image de ${c} par la fonction $g$ vaut ${a*c+b}
-							<br> On peut aussi dire que ${a*c+b} est l'image de ${c} par la fonction $g$`
-								],this.spacing);
+						 	texte += `<br>`+tikz_machine_diag(`h`,`x`,[[`\\times `+a,a+`x`],[`+`+b,a+`x+`+b]]);
+						// sous-question a/ et b/
+						 	texte += tex_enumerate([`Calculer l'image de ${c}`,`Traduire ce calcul par une phrase contenant le mot image`],this.spacing);
+						 	texte_corr = tex_enumerate(
+						 		[`Calculons l'image par $g$ de $x=$ ${c} :<br>`+tikz_machine_diag(`h`,c,[[`\\times `+a,(a*c)],[`+`+b,(a*c+b)]]),
+						 		`L'image de ${c} par la fonction $g$ vaut ${a*c+b}
+						 	<br> On peut aussi dire que ${a*c+b} est l'image de ${c} par la fonction $g$`
+						 		],this.spacing);
 						};
-
-
 						break;						 
 				};
 			
@@ -1602,5 +1616,5 @@ function fonction_notion_vocabulaire(){
 	
 		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : &Agrave; partir d'un programme de calcul\n2 : &Agrave; partir d'un diagramme\n3 : &Agrave; partir de l'expression algébrique sous forme $f(x)=\\ldots$\n4 : &Agrave; partir de l'expression algébrique sous forme $f:x\\longmapsto \\ldots$\n5 : Mélange"]; 
+	this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : &Agrave; partir d'un programme de calcul\n2 : &Agrave; partir de l'expression algébrique sous forme $f(x)=\\ldots$\n3 : &Agrave; partir de l'expression algébrique sous forme $f:x\\longmapsto \\ldots$\n4 : &Agrave; partir d'un diagramme\n5 : Mélange"]; 
  };  
