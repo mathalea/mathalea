@@ -2562,6 +2562,7 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 
 /**
  * crée un cadre orange autour d'un paragraphe
+ * @param {string} texte paragraphe entouré par le cadre orange rectangulaire
  * @author Sébastien Lozano
  */
 
@@ -2579,3 +2580,53 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes_expressions) {
  };
 
 
+/**
+ * Crée un diagramme pour une fonction arithmétique
+ * @param {string} id_du_div id du div contenant le SVG
+ * @param {number} w largeur du div du svg
+ * @param {numer} h hauteur du div du svg
+ * @param {string} nom nom de la fonction
+ * @param {string} x_ant antécédent de départ
+ * @param {array} etapes_expressions tableau contenant les opérations et les expressions algébriques des étapes
+ * @Auteur Sébastien Lozano
+ */
+function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
+	'use strict';
+	let interligne = 10; // unité d'espacement
+	var saut = 0; // pour la gestion des sauts entre les éléments on aura besoin d'une globale
+	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
+	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
+	window.SVGExist[id_du_div] = setInterval(function() {
+		if ($(`#${id_du_div}`).length ) {
+			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
+			document.getElementById(id_du_div).innerHTML = `
+			<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+			<style>
+			  polygon { fill: white; stroke : red }
+		  
+			  div {
+				color: black;
+				/*font:10px serif;*/
+				height: 100%;
+				overflow: auto;
+			  }
+			</style>
+					  
+			<polygon points="5,5 195,10 185,40 10,50" />
+			  
+			<!-- Cas d'utilisation courant: inclure du texte HTML dans le SVG -->
+			<foreignObject x="0" y="0" width="160" height="60">
+			<!-- Dans le cas d'un SVG intégré dans du HTML, le namespace XHTML peut être omis, mais il est obligatoire dans le contexte d'un document SVG -->
+			  <div id="ant" xmlns="http://www.w3.org/1999/xhtml">
+				$$\\pm\\sqrt{a^2 + b^2}$$
+			  </div>
+			</foreignObject>
+		   </svg>`;
+		   let antDiv = document.getElementById('ant');
+		   katex.render("c = \\pm\\sqrt{a^2 + b^2}", antDiv, {
+			throwOnError: false
+		});
+		clearInterval(SVGExist[id_du_div]);//Arrête le timer
+		};
+	}, 100); // Vérifie toutes les 100ms
+};
