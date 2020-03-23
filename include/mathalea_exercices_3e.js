@@ -593,6 +593,11 @@ function Resoudre_une_equation_produit_nul(){
  *
  * @Auteur Sébastien Lozano
  */
+
+ //=======================================================================
+ // fonctions dont le déplacement dasn mathalea_outils.js pose problème
+ //=======================================================================
+
  /**
   * Fonction pour particulariser une police svg et ses paramètres  
   * @param {string} font 
@@ -765,6 +770,11 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 
 	}, 100); // Vérifie toutes les 100ms
 };
+
+//==========================================================================
+ // fin fonctions dont le déplacement dasn mathalea_outils.js pose problème
+ //=========================================================================
+ 
 function fonction_notion_vocabulaire(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()

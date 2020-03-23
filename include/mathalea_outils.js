@@ -2350,10 +2350,7 @@ function SVG_fleche_machine_maths(groupe,chemin,couleur) {
 	return groupe.path(chemin).fill(couleur).stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
 };
 
- 
-
-
-/**Trace un chemin pour un groupe donné avec une couleur donnée
+ /**Trace un chemin pour un groupe donné avec une couleur donnée
  * @param {object} groupe groupe
  * @param {string} chemin path
  * @param {string} couleur couleur
