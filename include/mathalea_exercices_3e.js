@@ -593,7 +593,178 @@ function Resoudre_une_equation_produit_nul(){
  *
  * @Auteur Sébastien Lozano
  */
+ /**
+  * Fonction pour particulariser une police svg et ses paramètres  
+  * @param {string} font 
+  * @param {string} interligne 
+  * @param {string} ancre 
+  * @param {string} f_style 
+  * @param {string} f_weight
+  * @author Sébastien Lozano 
+  */ 
+ function my_svg_font(font,interligne,ancre,f_style,f_weight){
+	'use strict';
+	return {family:  font,
+		size: interligne,
+		anchor: ancre,
+		style: f_style,
+		//, leading : 0.5
+		weight : f_weight
+		};
+};
 
+/**
+ * Fonction pour créer une machine mathématique SVG, une fonction!
+ * gestion du rendu KaTeX temporaire avec insertion manuelle de balises foreignObject pour les textes
+ * @param {string} id_du_div id_du_div
+ * @param {number} w width du svg
+ * @param {number} h height du svg
+ * @param {string} nom nom de la fonction
+ * @param {string} etape1 etape 1 du procédé de calcul
+ * @param {string} etape2 etape 2 du procédé de calcul
+ * @param {string} etape3 etape 3 du procédé de calcul
+ * @param {string} x_ligne1 antécédent ligne1
+ * @param {string} x_ligne2 antécédent ligne2
+ * @param {string} y_ligne1 image ligne1
+ * @param {string} y_ligne2 image ligne2
+ * @author Sébastien Lozano
+ */	
+function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_ligne2,y_ligne1,y_ligne2) {
+	'use strict';
+	let interligne = 15; // pour un interligne uniforme 
+	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
+	let prop_font_nom = my_svg_font('Helvetica',interligne,'start','normal','bold');
+	let prop_font_etape = my_svg_font('Helvetica',4*interligne/5,'start','normal','normal');
+					
+	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
+	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
+	window.SVGExist[id_du_div] = setInterval(function() {
+
+		if ($(`#${id_du_div}`).length ) {
+			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
+			//const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h).size('100%','100%');
+			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h);
+			// on trace un cadre pour le debug
+			//mon_svg.path('M0,0 L'+w+',0L'+w+','+h+'L0,'+h+'Z').fill('none').stroke({ color: '#f15929', width: 1, linecap: 'round', linejoin:'null'});
+
+			// path pour créer des fleches
+			const path_fleche = 'm0,0 l-'+interligne/2+',-'+interligne+' l'+interligne+','+interligne+' l-'+interligne+','+interligne+' l'+interligne/2+',-'+interligne+'z';
+
+			// On crée une timeline
+			let timeline = new SVG.Timeline();
+
+			//------------CREATION DES GROUPES----------------------
+			//------------Antécédent--------------------------------
+			let ant=mon_svg.group();
+
+			//------------Image-------------------------------------
+			let im = mon_svg.group(); 
+
+			//------------PREPARATION DES DIMENSIONS NECESSAIRES----
+			//------------Dimension Antécédent----------------------
+			let ant_ligne1 = ant.text(x_ligne1).font(prop_font); 
+			let ant_ligne2 = ant.text(x_ligne2).font(prop_font); 
+			let w_ant = Math.max(ant_ligne1.length(),ant_ligne2.length())+interligne;
+			ant_ligne1.clear();
+			ant_ligne2.clear();
+
+			//------------Dimension Image---------------------------
+			let im_ligne1 = im.text(y_ligne1).font(prop_font); 
+			let im_ligne2 = im.text(y_ligne2).font(prop_font); 
+			let w_im = Math.max(im_ligne1.length(),im_ligne2.length())+interligne;
+			im_ligne1.clear();
+			im_ligne2.clear();
+
+			//------------Dimension Machine-------------------------
+			// on crée des variables pour le texte à afficher sur la machine afin de récupérer leur taille
+			// pour ajuster celle de la machine.
+			if (nom!='') {
+				var machine_nom = mon_svg.text(nom).font(prop_font_nom);
+				var w_machine_nom = machine_nom.length();
+				machine_nom.clear();
+			} else {
+				var w_machine_nom = 0;
+			};
+			if (etape1!='') {
+				var machine_etape1 = mon_svg.text(etape1).font(prop_font_etape);
+				var w_machine_etape1 = machine_etape1.length();
+				machine_etape1.clear();
+			} else {
+				var w_machine_etape1 = 0;
+			};
+			if (etape2!='') {
+				var machine_etape2 = mon_svg.text(etape2).font(prop_font_etape);
+				var w_machine_etape2 = machine_etape2.length();
+				machine_etape2.clear();
+			} else {
+				var w_machine_etape2 = 0;
+			};
+			if (etape3!='') {
+				var machine_etape3 = mon_svg.text(etape3).font(prop_font_etape);
+				var w_machine_etape3 = machine_etape3.length();
+				machine_etape3.clear();
+			} else {
+				var w_machine_etape3 = 0;
+			};
+
+			let w_etape_max = Math.max(w_machine_nom,w_machine_etape1,w_machine_etape2,w_machine_etape3,w_ant+interligne,w_im+interligne)+1.5*interligne;
+
+			//------------GROUPE ANTECEDENT------------------------- 
+			let ant_ligne = ant.foreignObject(w_ant,h).attr({x:'0',y:'0'});
+			let antDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+			katex.render(x_ligne1+'\\newline '+x_ligne2, antDiv, {				
+				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
+			});
+			ant_ligne.add(antDiv);
+			ant_ligne.dmove(0,-antDiv.offsetHeight/2);
+			let fleche_ant = SVG_fleche_machine_maths(ant,path_fleche,'#f15929');
+			fleche_ant.dmove(antDiv.offsetWidth+interligne/2,interligne); 
+			// on positionne le groupe antécédent
+			ant.dmove(0,h/2-interligne);
+			 
+			//------------GROUPE IMAGE-------------------------
+			let im_ligne = im.foreignObject(w_im,h).attr({x:'0',y:'0'});
+			let imDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+			katex.render(y_ligne1+'\\newline '+y_ligne2, imDiv, {				
+				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
+			});
+			im_ligne.add(imDiv);
+			im_ligne.dmove(0,-imDiv.offsetHeight/2);
+			let fleche_im = SVG_fleche_machine_maths(im,path_fleche,'#f15929');
+			fleche_im.dmove(-interligne/2,interligne);			 
+			// on positionne le groupe image
+			im.dmove(w/2-imDiv.offsetWidth/2,h/2-interligne);
+
+			//------------GROUPE MACHINE-------------------------
+			//const path_machine = 'M-5,0 L-5,-5 L-5,5 M-5,0 L10,0 L10,-40 L100,-40 L100,0 L120,0 L115,-5 L120,0 L115,5 L120,0 L100,0 L100,40 L10,40 L10,0';
+			const path_machine = 'M-10,0 L-10,-5 L-10,5 M-10,0 L10,0 L10,-'+(h/2-5)+' L'+(w_etape_max+20)+',-'+(h/2-5)+' L'+(w_etape_max+20)+',0 L'+(w_etape_max+40)+',0 L'+(w_etape_max+35)+',-5 L'+(w_etape_max+40)+',0 L'+(w_etape_max+35)+',5 L'+(w_etape_max+40)+',0 L'+(w_etape_max+20)+',0 L'+(w_etape_max+20)+','+(h/2-5)+' L10,'+(h/2-5)+' L10,0';
+			let machine = mon_svg.path(path_machine).fill('#fff').stroke({ color: '#f15929', width: 3, linecap: 'round', linejoin:'round'});
+			machine.dmove(w/2-w_etape_max/2 - 20 + interligne/2,h/2); //w/2;  60 est la moitié de la taille de la machine en largeur
+
+			let fobj_machine = mon_svg.foreignObject(w_etape_max,h).attr({x:w/2-w_etape_max/2,y:'0'});
+			let machineDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+			katex.render('\\mathbf{'+nom+'}\\newline '+etape1+'\\newline '+etape2+'\\newline '+etape3, machineDiv, {				
+				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
+			});
+			fobj_machine.add(machineDiv);
+			fobj_machine.dmove(0,h/2-interligne-machineDiv.offsetHeight/2);
+
+			//------------ANIMATION-------------------------
+ 			ant.timeline(timeline);
+ 			im.timeline(timeline);
+
+ 			let runner1 = ant.animate(8000,0,'absolute').dmove(w/2-w_ant/2,0);
+ 			let runner2 = im.animate(8000,0,'after').dmove(w-w_im/2,0);
+
+ 			runner1.loop(true,false,8000);
+ 			runner2.loop(true,false,8000);
+
+
+		clearInterval(SVGExist[id_du_div]);//Arrête le timer
+		}
+
+	}, 100); // Vérifie toutes les 100ms
+};
 function fonction_notion_vocabulaire(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -1208,6 +1379,7 @@ function fonction_notion_vocabulaire(){
 	 
 				 let id_unique = `${num_ex}_${i}_${Date.now()}`
 				 let id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
+				 let id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`;
 				 // on part sur de l'affine avec coeff positifs, on verra ensuite
 				 a = randint(2,9); 
 				 b = randint(2,9);
@@ -1331,8 +1503,11 @@ function fonction_notion_vocabulaire(){
 							texte += num_alpha(j)+` Calculer l'image de ${c}`;
 							texte +=`<br>`;
 							texte_corr = num_alpha(j)+` Calculons l'image par $h$ de $x=$ ${c} :`;
-							texte_corr += `<div id="${id_du_div+'corr'}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							SVG_machine_diag(id_du_div+'corr',400,50,'h',''+c,[['\\times '+a,''+a*c],['+'+b,''+a*c+b]]);
+							texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+							//SVG_machine_diag(id_du_div+'corr',400,50,'h',''+c,[['\\times '+a,''+a*c],['+'+b,''+a*c+b]]);
+							SVG_machine_diag(id_du_div_corr,400,50,'h','x',[['\\times 5','5x'],['+3','5x+3']]);
+							texte_corr += `<div id="diagramme_type3_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+							SVG_machine_diag('diagramme_type3_corr',400,50,'h','x',[['\\times 3','3x'],['+1','3x+1']]);
 							j++;
 							//sous question b/
 							texte += num_alpha(j)+` Traduire ce calcul par une phrase contenant le mot image`;
