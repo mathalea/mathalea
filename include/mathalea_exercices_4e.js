@@ -1392,7 +1392,7 @@ function Reciproque_Thales(){
 		let x3 = randint(5, 6)
 		let y3 = randint(-2, 1)
 		let k = randint(2, 8) * randint(-1, 1, [0]) / 10
-		let k2 = k*(1+randint(-1,1)*0.1)
+		let k2 = k*(1+randint(0,1)*0.1)
 		if (this.quatrieme) { k = abs(k) ; k2=abs(k2) }
 		let dist24;
 		let dist12 = arrondi(Math.sqrt(x2 * x2 + y2 * y2), 1)
