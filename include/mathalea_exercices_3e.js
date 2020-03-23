@@ -1441,7 +1441,7 @@ function fonction_notion_vocabulaire(){
 		 //let type_de_questions_disponibles = [1];
 		 let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
  
-			 for (let i = 0, a,b,c,texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
+			 for (let i = 0, a, b, c, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 				 type_de_questions = liste_type_de_questions[i];
 	 
 				 let id_unique = `${num_ex}_${i}_${Date.now()}`
@@ -1502,11 +1502,11 @@ function fonction_notion_vocabulaire(){
 							// sous-question a/
 							texte += num_alpha(j)+` Calculer l'image de ${c}`;
 							texte +=`<br>`;
-							texte_corr = num_alpha(j)+` Calculons l'image par $f$ de $x=$ ${c} :`;
-							texte_corr += `<br>$f(x)=$ ${a}$x+$${b}`;
-							texte_corr += `<br>$f($${c}$)=$ ${a}$\\times$${c}$+$${b}`;
-							texte_corr += `<br>$f($${c}$)=$ ${a*c}$+$${b}`;
-							texte_corr += `<br>$f($${c}$)=$ ${a*c+b}`;
+							texte_corr = num_alpha(j)+` Calculons l'image par $f$ de $x=$ ${c} :`;							
+							texte_corr += `<br>$f(${mise_en_evidence('\\textit{\\textbf{x}}')})=$ ${a}$${mise_en_evidence('\\textit{\\textbf{x}}')}+$${b}`;
+							texte_corr += `<br>$f(${mise_en_evidence(c)})=$ ${a}$\\times${mise_en_evidence(c)}+$${b}`;
+							texte_corr += `<br>$f(${mise_en_evidence(c)})=$ ${a*c}$+$${b}`;
+							texte_corr += `<br>$f(${mise_en_evidence(c)})=$ ${a*c+b}`;
 							j++;
 							//sous question b/
 							texte += num_alpha(j)+` Traduire ce calcul par une phrase contenant le mot image`;
@@ -1516,10 +1516,10 @@ function fonction_notion_vocabulaire(){
 							// sous-question a/ et b/
 							texte += tex_enumerate([`Calculer l'image de ${c}`,`Traduire ce calcul par une phrase contenant le mot image`],this.spacing);
 							texte_corr = tex_enumerate([`Calculons l'image par $f$ de $x=$ ${c} :
-							<br>$f(x)=$ ${a}$x+$${b}
-							<br>$f($${c}$)=$ ${a}$\\times$${c}$+$${b}
-							<br>$f($${c}$)=$ ${a*c}$+$${b}
-							<br>$f($${c}$)=$ ${a*c+b}`,`L'image de ${c} par la fonction $f$ vaut ${a*c+b}
+							<br>$f(${mise_en_evidence('\\textit{\\textbf{x}}')})=$ ${a}$${mise_en_evidence('\\textit{\\textbf{x}}')}+$${b}
+							<br>$f($${mise_en_evidence(c)})=$ ${a}$\\times$${c}$+$${b}
+							<br>$f($${mise_en_evidence(c)})=$ ${a*c}$+$${b}
+							<br>$f($${mise_en_evidence(c)})=$ ${a*c+b}`,`L'image de ${c} par la fonction $f$ vaut ${a*c+b}
 							<br> On peut aussi dire que ${a*c+b} est l'image de ${c} par la fonction $f$`
 							],this.spacing);
 						};
@@ -1533,10 +1533,10 @@ function fonction_notion_vocabulaire(){
 							texte += num_alpha(j)+` Calculer l'image de ${c}`;
 							texte +=`<br>`;
 							texte_corr = num_alpha(j)+` Calculons l'image par $g$ de $x=$ ${c} :`;
-							texte_corr += `<br>$g:x\\longmapsto$ ${a}$x+$${b}`;
-							texte_corr += `<br>$g:${c}\\longmapsto$ ${a}$\\times$${c}$+$${b}`;
-							texte_corr += `<br>$g:${c}\\longmapsto$ ${a*c}$+$${b}`;
-							texte_corr += `<br>$g:${c}\\longmapsto$ ${a*c+b}`;
+							texte_corr += `<br>$g:${mise_en_evidence('\\textit{\\textbf{x}}')}\\longmapsto$ ${a}$${mise_en_evidence('\\textit{\\textbf{x}}')}+$${b}`;
+							texte_corr += `<br>$g:${mise_en_evidence(c)}\\longmapsto$ ${a}$\\times${mise_en_evidence(c)}+$${b}`;
+							texte_corr += `<br>$g:${mise_en_evidence(c)}\\longmapsto$ ${a*c}$+$${b}`;
+							texte_corr += `<br>$g:${mise_en_evidence(c)}\\longmapsto$ ${a*c+b}`;
 							j++;
 							//sous question b/
 							texte += num_alpha(j)+` Traduire ce calcul par une phrase contenant le mot image`;
@@ -1546,18 +1546,16 @@ function fonction_notion_vocabulaire(){
 							// sous-question a/ et b/
 							texte += tex_enumerate([`Calculer l'image de ${c}`,`Traduire ce calcul par une phrase contenant le mot image`],this.spacing);
 							texte_corr = tex_enumerate([`Calculons l'image par $g$ de $x=$ ${c} :
-							<br>$g:x\\longmapsto$ ${a}$x+$${b}
-							<br>$g:${c}\\longmapsto$ ${a}$\\times$${c}$+$${b}
-							<br>$g:${c}\\longmapsto$ ${a*c}$+$${b}
-							<br>$g:${c}\\longmapsto$ ${a*c+b}`,`L'image de ${c} par la fonction $g$ vaut ${a*c+b}
+							<br>$g:${mise_en_evidence('\\textit{\\textbf{x}}')}\\longmapsto$ ${a}$${mise_en_evidence('\\textit{\\textbf{x}}')}+$${b}
+							<br>$g:${mise_en_evidence(c)}\\longmapsto$ ${a}$\\times${mise_en_evidence(c)}+$${b}
+							<br>$g:${mise_en_evidence(c)}\\longmapsto$ ${a*c}$+$${b}
+							<br>$g:${mise_en_evidence(c)}\\longmapsto$ ${a*c+b}`,`L'image de ${c} par la fonction $g$ vaut ${a*c+b}
 							<br> On peut aussi dire que ${a*c+b} est l'image de ${c} par la fonction $g$`
 							],this.spacing);
 						};
 						break;
 					case 4 :
-						if (sortie_html) {
-						} else {
-						};
+						console.log('debut '+c);
 						texte_corr = `Calculer avec un diagramme`;
 
 						var j = 0; // pour la sous-numérotation
@@ -1567,15 +1565,13 @@ function fonction_notion_vocabulaire(){
 							// sous-question a/
 							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 							SVG_machine_diag(id_du_div,400,50,'h','x',[['\\times '+a,a+'x'],['+'+b,a+'x+'+b]]);
+							console.log('suite 1 appel diag texte '+c);
 							texte += num_alpha(j)+` Calculer l'image de ${c}`;
 							texte +=`<br>`;
 							texte_corr = num_alpha(j)+` Calculons l'image par $h$ de $x=$ ${c} :`;
 							texte_corr += `<div id="ex3F12_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							SVG_machine_diag('ex3F12_corr',400,50,'h',''+c,[['\\times '+a,''+a*c],['+'+b,''+a*c+b]]);
-							console.log(typeof ''+c);
-							//SVG_machine_diag('ex3F12_corr',400,50,'h','x',[['\\times 5','5x'],['+3','5x+3']]);
-							// texte_corr += `<div id="diagramme_type3_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							// SVG_machine_diag('diagramme_type3_corr',400,50,'h','x',[['\\times 3','3x'],['+1','3x+1']]);
+							SVG_machine_diag('ex3F12_corr',400,50,'h',''+c,[['\\times '+a,''+a*c],['+'+b,''+(a*c+b)]]);
+							console.log('suite 2 appel diag texte_corr '+c);							
 							j++;
 							//sous question b/
 							texte += num_alpha(j)+` Traduire ce calcul par une phrase contenant le mot image`;

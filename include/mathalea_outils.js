@@ -1058,7 +1058,7 @@ function mise_en_evidence(texte,couleur="#f15929"){
 		if (couleur[0]=='#') {
 				return `\\mathbf{\\color[HTML]{${couleur.replace('#','')}}${texte}}`
 			} else {
-				return `{\\mathbf{\\color{${couleur.replace('#','')}}${texte}}`
+				return `\\mathbf{\\color{${couleur.replace('#','')}}${texte}}`
 			}
 	}	
 }
@@ -2554,7 +2554,6 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 		clearInterval(SVGExist[id_du_div]);//Arrête le timer
 		};
 	}, 100); // Vérifie toutes les 100ms
-
 };
 
 //=================================
