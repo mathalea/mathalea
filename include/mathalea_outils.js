@@ -2669,7 +2669,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 					<g>
 						<path d="M0 25L0 15L25.641515254974365 15L25.641515254974365 35L0 35Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
 						</path>
-						<foreignObject width="5.641515254974365" height="50" x="9.820757627487183" y="-2.5">
+						<foreignObject width="5.641515254974365" height="50" x="10" y="-2.5">
 						<body xmlns="http://www.w3.org/1999/xhtml">
 							<div style="position: fixed">
 								<span class="katex-display">
@@ -2704,7 +2704,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 						</circle>
 						<path d="M60.97898626327515 25L70.97898626327515 25L68.97898626327515 23M70.97898626327515 25L68.97898626327515 27 " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
 						</path>
-						<foreignObject width="40.67494201660156" height="50" x="28.141515254974365" y="-2.5">
+						<foreignObject width="40.67494201660156" height="50" x="40" y="-2.5">
 						<body xmlns="http://www.w3.org/1999/xhtml">
 							<div style="position: fixed">
 								<span class="katex-display">
@@ -2714,7 +2714,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 												<semantics>
 													<mrow>
 														<mstyle mathsize="0.5em">
-															<mrow><mo>×</mo><mn>`+etapes_expressions[0][0]+`</mn></mrow>
+															<mi>`+etapes_expressions[0][0]+`</mi>
 														</mstyle>
 													</mrow>
 													<annotation encoding="application/x-tex">\tiny{\times `+etapes_expressions[0][0]+`}</annotation>
@@ -2723,7 +2723,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 										</span>
 										<span class="katex-html" aria-hidden="true">
 											<span class="base">
-												<span class="strut" style="height: 0.363885em; vertical-align: -0.041665em;"></span><span class="mord sizing reset-size6 size1"><span class="mord">×</span><span class="mord">`+etapes_expressions[0][0]+`</span></span>
+												<span class="strut" style="height: 0.363885em; vertical-align: -0.041665em;"></span><span class="mord sizing reset-size6 size1"><span class="mord mathdefault">×`+etapes_expressions[0][0]+`</span>
 											</span>
 										</span>
 									</span>
@@ -2735,7 +2735,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 					<g>
 						<path d="M70.97898626327515 25L70.97898626327515 15L112.9879002571106 15L112.9879002571106 35L70.97898626327515 35Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
 						</path>
-						<foreignObject width="22.00891399383545" height="50" x="80.98344373703003" y="-2.5">
+						<foreignObject width="22.00891399383545" height="50" x="90" y="-2.5">
 						<body xmlns="http://www.w3.org/1999/xhtml">
 							<div style="position: fixed">
 								<span class="katex-display">
@@ -2744,7 +2744,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 											<semantics>
 												<mrow>
 													<mstyle mathsize="0.5em">
-														<mrow><mn>`+etapes_expressions[0][1]+`</mn></mrow>
+														<mi>`+etapes_expressions[0][1]+`</mi>
 													</mstyle>
 												</mrow>
 												<annotation encoding="application/x-tex">\tiny{`+etapes_expressions[0][1]+`}</annotation>
@@ -2753,7 +2753,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 									</span>
 									<span class="katex-html" aria-hidden="true">
 										<span class="base">
-											<span class="strut" style="height: 0.32222em; vertical-align: 0em;"></span><span class="mord sizing reset-size6 size1"><span class="mord">`+etapes_expressions[0][1]+`</span></span>
+											<span class="strut" style="height: 0.32222em; vertical-align: 0em;"></span><span class="mord sizing reset-size6 size1"><span class="mord mathdefault">`+etapes_expressions[0][1]+`</span></span>
 										</span>
 									</span>
 								</span>
@@ -2768,7 +2768,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 						</circle>
 						<path d="M147.9879002571106 25L157.9879002571106 25L155.9879002571106 23M157.9879002571106 25L155.9879002571106 27 " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
 						</path>
-						<foreignObject width="40" height="50" x="115.4879002571106" y="-2.5">
+						<foreignObject width="40" height="50" x="130" y="-2.5">
 						<body xmlns="http://www.w3.org/1999/xhtml">
 							<div style="position: fixed">
 								<span class="katex-display">
@@ -2778,7 +2778,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 												<semantics>
 													<mrow>
 														<mstyle mathsize="0.5em">
-															<mrow><mo>+</mo><mn>`+etapes_expressions[1][0]+`</mn></mrow>
+															<mi>+`+etapes_expressions[1][0]+`</mi>
 														</mstyle>
 													</mrow>
 													<annotation encoding="application/x-tex">\tiny{+`+etapes_expressions[1][0]+`}</annotation>
@@ -2787,7 +2787,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 										</span>
 										<span class="katex-html" aria-hidden="true">
 											<span class="base">
-												<span class="strut" style="height: 0.363885em; vertical-align: -0.041665em;"></span><span class="mord sizing reset-size6 size1"><span class="mord">+</span><span class="mord">`+etapes_expressions[1][0]+`</span></span>
+												<span class="strut" style="height: 0.363885em; vertical-align: -0.041665em;"></span><span class="mord sizing reset-size6 size1"><span class="mord mathdefault">+`+etapes_expressions[1][0]+`</span>
 											</span>
 										</span>
 									</span>
@@ -2818,7 +2818,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 										</span>
 										<span class="katex-html" aria-hidden="true">
 											<span class="base">
-												<span class="strut" style="height: 0.5em; vertical-align: -0.125em;"></span><span class="mord sizing reset-size6 size1"><span class="mord mathdefault">h</span><span class="mopen">(</span><span class="mord mathdefault">`+x_ant+`</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.408889em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.408889em;"></span><span class="mord">`+etapes_expressions[1][1]+`</span></span>
+												<span class="strut" style="height: 0.5em; vertical-align: -0.125em;"></span><span class="mord sizing reset-size6 size1"><span class="mord mathdefault">h<span class="mopen">(</span>`+x_ant+`<span class="mclose">)</span><span class="mspace" style="margin-right: 0.408889em;"></span>=<span class="mspace" style="margin-right: 0.408889em;"></span>`+etapes_expressions[1][1]+`</span>
 											</span>
 										</span>
 									</span>
