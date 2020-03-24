@@ -1394,19 +1394,19 @@ function fonction_notion_vocabulaire(){
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne =``;
 	// Message Bug SVG qui ne s'affiche pas dans la correction sans rafraichir
-	if (sortie_html) {
-		this.consigne += `
-		<div class="ui compact warning message">		
-		  <p>
-		  <i class="exclamation triangle icon"></i>
-		  ATTENTION BUG CONNU<br>
-		  Appuyer sur "F5" ou cliquer sur "Nouvelles données" avant de commencer l'exercice<br>
-		  Sinon il y a problème d'affichage dans la correction. 
-		  </p>
-	  	</div>
-	  	<br>
-		`;
-	}
+	// if (sortie_html) {
+	// 	this.consigne += `
+	// 	<div class="ui compact warning message">		
+	// 	  <p>
+	// 	  <i class="exclamation triangle icon"></i>
+	// 	  ATTENTION BUG CONNU<br>
+	// 	  Appuyer sur "F5" ou cliquer sur "Nouvelles données" avant de commencer l'exercice<br>
+	// 	  Sinon il y a problème d'affichage dans la correction. 
+	// 	  </p>
+	//   	</div>
+	//   	<br>
+	// 	`;
+	// }
 	 // pas de différence entre la version html et la version latex pour la consigne
 	 this.consigne +=`Calcule les images avec la méthode demandée.`;
 
@@ -1577,16 +1577,16 @@ function fonction_notion_vocabulaire(){
 						if (sortie_html) {
 							// sous-question a/
 							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							console.log(id_du_div);
+							//console.log(id_du_div);
 						 	SVG_machine_diag(id_du_div,400,50,'h','x',[['\\times '+a,a+'x'],['+'+b,a+'x+'+b]]);						
 						 	texte += num_alpha(j)+` Calculer l'image de ${c}`;
 							texte +=`<br>`;
 							texte_corr +=`<br>`;
 							texte_corr += num_alpha(j)+` Calculons l'image par $h$ de $x=$ ${c} :`;
 							texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							SVG_machine_diag_balises(id_du_div_corr,400,50,'h',''+c,[['\\times '+a,''+(a*c)],['+'+b,''+(a*c+b)]]);
+							SVG_machine_diag_balises(id_du_div_corr,400,50,'h',''+c,[[''+a,''+(a*c)],[''+b,''+(a*c+b)]]);
 							//SVG_machine_diag(id_du_div_corr,400,50,'h',''+c,[['\\times '+a,''+(a*c)],['+'+b,''+(a*c+b)]]);
-							console.log(id_du_div_corr);
+							//console.log(id_du_div_corr);
 						 	//texte_corr += `<div id="ex3F12_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 						 	//SVG_machine_diag('ex3F12_corr',400,50,'h',''+c,[['\\times '+a,''+(a*c)],['+'+b,''+(a*c+b)]]);
 						 	j++;

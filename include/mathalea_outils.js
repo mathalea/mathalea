@@ -563,15 +563,15 @@ function quatrieme_proportionnelle(a,b,c,precision) { //calcul de b*c/a
 let result=``
 if ((typeof a)=="number"&&(typeof b)=="number"&&(typeof c)=="number") {
 	if (a==0) { 
-		result='=erreur : division par zéro'
-		return result
+		result='=erreur : division par zéro';
+		return result;
 	}
-	let p4=b*c/a
+	let p4=calcul(b*c/a);
 	result+=`\\dfrac{${tex_nombrec(b)}\\times${tex_nombrec(c)}}{${tex_nombrec(a)}}`;
-	if (Number.isInteger(p4*Math.pow(10,precision))) result +=`=`
-	else result +=`\\approx`
-	result += `${arrondi_virgule(p4,precision)}`
-	return result
+	if (p4==arrondi(p4,precision)) result +=`=`;
+	else result +=`\\approx`;
+	result += `${arrondi_virgule(p4,precision)}`;
+	return result;
 	}
 else {
 	return `\\dfrac{${b} \\times${c}}{${a}}`
@@ -2604,22 +2604,179 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 			//let path_cadre_rect_ant = 'M0,0L0,-'+interligne+',L'+(w_x_ant + 2*interligne)+',-'+interligne+',L'+(w_x_ant + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
 			let path_cadre_rect_ant ='5,5 195,10 185,40 10,50';
 			document.getElementById(id_du_div).innerHTML = `
-			<svg viewBox="0 0 `+w+` `+h+`" xmlns="http://www.w3.org/2000/svg">
-				  
-			<polygon points="`+path_cadre_rect_ant+`" style="fill:white;stroke:#f15929;stroke-width:1"/>
-			  
-			<!-- Cas d'utilisation courant: inclure du texte HTML dans le SVG -->
-			<foreignObject x="10" y="`+h/4+`" width="160" height="60">
-			<!-- Dans le cas d'un SVG intégré dans du HTML, le namespace XHTML peut être omis, mais il est obligatoire dans le contexte d'un document SVG -->
-			  <div id="ant" xmlns="http://www.w3.org/1999/xhtml">
-				
-			  </div>
-			</foreignObject>
-		   </svg>`;
-		   let antDiv = document.getElementById('ant');
-		   katex.render(nom+"("+x_ant+")=\\pm\\sqrt{a^2 + b^2}", antDiv, {
-			throwOnError: false
-		});
+				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" viewBox="0 0 400 50">
+					<g>
+						<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
+						</text>
+						<path d="M0 25L0 15L25.641515254974365 15L25.641515254974365 35L0 35Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
+						</path>
+						<foreignObject width="5.641515254974365" height="50" x="9.820757627487183" y="-2.5">
+							<div>
+								<span class="katex-display">
+									<span class="katex">
+										<span class="katex-mathml">
+											<math xmlns="http://www.w3.org/1998/Math/MathML">
+												<semantics>
+													<mrow>
+														<mstyle mathsize="0.5em">
+															<mi>`+x_ant+`</mi>
+														</mstyle>
+													</mrow>
+													<annotation encoding="application/x-tex">\tiny{`+x_ant+`}</annotation>
+												</semantics>
+											</math>
+										</span>
+										<span class="katex-html" aria-hidden="true">
+											<span class="base">
+												<span class="strut" style="height: 0.21528em; vertical-align: 0em;"></span><span class="mord sizing reset-size6 size1"><span class="mord mathdefault">`+x_ant+`</span></span>
+											</span>
+										</span>
+									</span>
+								</span>
+							</div>
+						</foreignObject>
+					</g>
+					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
+					</text>
+					<g>
+						<line x1="25.641515254974365" y1="25" x2="35.641515254974365" y2="25" stroke-width="1" stroke="#f15929">
+						</line>
+						<circle r="12.66873550415039" cx="48.310250759124756" cy="25" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
+						</circle>
+						<path d="M60.97898626327515 25L70.97898626327515 25L68.97898626327515 23M70.97898626327515 25L68.97898626327515 27 " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
+						</path>
+						<foreignObject width="40.67494201660156" height="50" x="28.141515254974365" y="-2.5">
+							<div>
+								<span class="katex-display">
+									<span class="katex">
+										<span class="katex-mathml">
+											<math xmlns="http://www.w3.org/1998/Math/MathML">
+												<semantics>
+													<mrow>
+														<mstyle mathsize="0.5em">
+															<mrow><mo>×</mo><mn>`+etapes_expressions[0][0]+`</mn></mrow>
+														</mstyle>
+													</mrow>
+													<annotation encoding="application/x-tex">\tiny{\times `+etapes_expressions[0][0]+`}</annotation>
+												</semantics>
+											</math>
+										</span>
+										<span class="katex-html" aria-hidden="true">
+											<span class="base">
+												<span class="strut" style="height: 0.363885em; vertical-align: -0.041665em;"></span><span class="mord sizing reset-size6 size1"><span class="mord">×</span><span class="mord">`+etapes_expressions[0][0]+`</span></span>
+											</span>
+										</span>
+									</span>
+								</span>
+							</div>
+						</foreignObject>
+					</g>
+					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
+					</text>
+					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
+					</text>
+					<g>
+						<path d="M70.97898626327515 25L70.97898626327515 15L112.9879002571106 15L112.9879002571106 35L70.97898626327515 35Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
+						</path>
+						<foreignObject width="22.00891399383545" height="50" x="80.98344373703003" y="-2.5">
+							<div>
+								<span class="katex-display">
+									<span class="katex"><span class="katex-mathml">
+										<math xmlns="http://www.w3.org/1998/Math/MathML">
+											<semantics>
+												<mrow>
+													<mstyle mathsize="0.5em">
+														<mrow><mn>`+etapes_expressions[0][1]+`</mn></mrow>
+													</mstyle>
+												</mrow>
+												<annotation encoding="application/x-tex">\tiny{`+etapes_expressions[0][1]+`}</annotation>
+											</semantics>
+										</math>
+									</span>
+									<span class="katex-html" aria-hidden="true">
+										<span class="base">
+											<span class="strut" style="height: 0.32222em; vertical-align: 0em;"></span><span class="mord sizing reset-size6 size1"><span class="mord">`+etapes_expressions[0][1]+`</span></span>
+										</span>
+									</span>
+								</span>
+							</div>
+						</foreignObject>
+					</g>
+					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
+					</text>
+					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
+					</text>
+					<g>
+						<line x1="112.9879002571106" y1="25" x2="122.9879002571106" y2="25" stroke-width="1" stroke="#f15929">
+						</line>
+						<circle r="12.5" cx="135.4879002571106" cy="25" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
+						</circle>
+						<path d="M147.9879002571106 25L157.9879002571106 25L155.9879002571106 23M157.9879002571106 25L155.9879002571106 27 " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
+						</path>
+						<foreignObject width="40" height="50" x="115.4879002571106" y="-2.5">
+							<div>
+								<span class="katex-display">
+									<span class="katex">
+										<span class="katex-mathml">
+											<math xmlns="http://www.w3.org/1998/Math/MathML">
+												<semantics>
+													<mrow>
+														<mstyle mathsize="0.5em">
+															<mrow><mo>+</mo><mn>`+etapes_expressions[1][0]+`</mn></mrow>
+														</mstyle>
+													</mrow>
+													<annotation encoding="application/x-tex">\tiny{+`+etapes_expressions[1][0]+`}</annotation>
+												</semantics>
+											</math>
+										</span>
+										<span class="katex-html" aria-hidden="true">
+											<span class="base">
+												<span class="strut" style="height: 0.363885em; vertical-align: -0.041665em;"></span><span class="mord sizing reset-size6 size1"><span class="mord">+</span><span class="mord">`+etapes_expressions[1][0]+`</span></span>
+											</span>
+										</span>
+									</span>
+								</span>
+							</div>
+						</foreignObject>
+					</g>
+					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
+					</text>
+					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
+					</text>
+					<g>
+						<path d="M157.9879002571106 25L157.9879002571106 15L243.0276951789856 15L243.0276951789856 35L157.9879002571106 35Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
+						</path>
+						<foreignObject width="65.039794921875" height="50" x="168.0077977180481" y="-2.5">
+							<div>
+								<span class="katex-display">
+									<span class="katex">
+										<span class="katex-mathml">
+											<math xmlns="http://www.w3.org/1998/Math/MathML">
+												<semantics>
+													<mrow>
+														<mstyle mathsize="0.5em">
+															<mrow><mi>h</mi><mo stretchy="false">(</mo><mi>`+x_ant+`</mi><mo stretchy="false">)</mo><mo>=</mo><mn>`+etapes_expressions[1][1]+`</mn></mrow>
+														</mstyle>
+													</mrow>
+													<annotation encoding="application/x-tex">\tiny{h(x)=4x+5}</annotation>
+												</semantics>
+											</math>
+										</span>
+										<span class="katex-html" aria-hidden="true">
+											<span class="base">
+												<span class="strut" style="height: 0.5em; vertical-align: -0.125em;"></span><span class="mord sizing reset-size6 size1"><span class="mord mathdefault">h</span><span class="mopen">(</span><span class="mord mathdefault">`+x_ant+`</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.408889em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.408889em;"></span><span class="mord">`+etapes_expressions[1][1]+`</span></span>
+											</span>
+										</span>
+									</span>
+								</span>
+							</div>
+						</foreignObject>
+					</g>
+					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
+					</text>
+				</svg>	
+				`;
+			
 		clearInterval(SVGExist[id_du_div]);//Arrête le timer
 		};
 	}, 100); // Vérifie toutes les 100ms
