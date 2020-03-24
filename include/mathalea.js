@@ -32,7 +32,16 @@ Les réponses modifient les caractéristiques de l'exercice puis le code LaTeX e
 	if (nb_exercices > 0){
 		div_parametres_generaux.innerHTML += '<div class="ui hidden divider"></div>'
 		// div_parametres_generaux.innerHTML += '<h3 class="ui block header">Paramètres des exercices</h3>';
+
+		// div_parametres_generaux.innerHTML += `<h4 class="ui dividing header"></h4>`
+		div_parametres_generaux.innerHTML +=`<div><label for="form_serie">Clé de la série d'exercices : </label> <input id="form_serie" type="text" style="padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;"></div>`
+
 	}
+
+	
+
 	for (let i = 0; i < nb_exercices; i++) {
 		if(sortie_html) {
 			div_parametres_generaux.innerHTML += '<h4 class="ui dividing header">Exercice n°'+ (i+1) +' : '+ exercice[i].titre +'</h4>'
@@ -208,12 +217,22 @@ Les réponses modifient les caractéristiques de l'exercice puis le code LaTeX e
 			});
 		}
 
-		// Gestion du nombre de la correction détaillée
+		// Gestion de la correction détaillée
 			if (exercice[i].correction_detaillee_disponible){
 				form_correction_detaillee[i] = document.getElementById('form_correction_detaillee'+i);
 				form_correction_detaillee[i].checked = exercice[i].correction_detaillee; // Rempli le formulaire avec la valeur par défaut
 				form_correction_detaillee[i].addEventListener('change', function(e) { // Dès que le statut change, on met à jour
 					exercice[i].correction_detaillee = e.target.checked;
+					mise_a_jour_du_code();
+				});
+			}
+
+		// Gestion de l'identifiant de la série'
+			if (nb_exercices > 0){
+				var form_serie = document.getElementById('form_serie');
+				form_serie.value = graine; // Rempli le formulaire avec la graine
+				form_serie.addEventListener('change', function(e) { // Dès que le statut change, on met à jour
+					window.graine = e.target.value;
 					mise_a_jour_du_code();
 				});
 			}
@@ -680,7 +699,7 @@ function nouvelles_donnees() {
 	  length: 4,
 	  startsWithLowerCase: false
 	});
-
+	form_serie.value = graine; // mise à jour du formulaire
 	mise_a_jour_du_code();
 }
 
@@ -731,7 +750,9 @@ window.onload = function()  {
 	// Récupère la graine pour l'aléatoire dans l'URL
 	let params = (new URL(document.location)).searchParams;
 	let serie = params.get('serie');
-	graine = serie;
+	if (serie) {
+		graine = serie;
+	}
 	// Récupère les paramètres passés dans l'URL
 	//var interrogation_dans_URL = location.href.indexOf("?");
 	let tableau_objets_exercices = getUrlVars();
