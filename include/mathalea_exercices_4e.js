@@ -1474,17 +1474,24 @@ function Reciproque_Thales(){
 				}
 			}
 			texte += `<br>Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ?<br>`
-			texte_corr += `D'une part on a $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}=${tex_fraction(num1,den1)}${simplification_de_fraction_avec_etapes(num1,den1)}$`
-			// if (calcul(dist12/dist14)==arrondi(dist12/dist14,3)) texte_corr+=`$=${tex_nombrec(arrondi(dist12/dist14,3))}$`;
-//			else texte_corr+=`$\\approx${tex_nombrec(arrondi(dist12/dist14,3))}$<br>`;
-			texte_corr += `<br>D'autre part on a $\\dfrac{${s1 + s3}}{${s1 + s5}}=\\dfrac{${s13}}{${s15}}=${tex_fraction(num2,den2)}${simplification_de_fraction_avec_etapes(num2,den2)}$`;
-			// if (calcul(dist13/dist15)==arrondi(dist13/dist15,3)) texte_corr+=`$=${tex_nombrec(arrondi(dist13/dist15,3))}$`;
-//			else texte_corr+=`$\\approx${tex_nombrec(arrondi(dist13/dist15,3))}$<br>`;
+			
+
+
 			if (k!=k2) {
+
+	
+				texte_corr += `D'une part on a $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}$`
+				if (calcul(dist12/dist14)==arrondi(dist12/dist14,3)) texte_corr+=`$=${tex_nombrec(arrondi(dist12/dist14,3))}$`;
+				else texte_corr+=`$\\approx${tex_nombrec(arrondi(dist12/dist14,3))}$<br>`;
+				texte_corr += `<br>D'autre part on a $\\dfrac{${s1 + s3}}{${s1 + s5}}=\\dfrac{${s13}}{${s15}}$`;
+				if (calcul(dist13/dist15)==arrondi(dist13/dist15,3)) texte_corr+=`$=${tex_nombrec(arrondi(dist13/dist15,3))}$`;
+				else texte_corr+=`$\\approx${tex_nombrec(arrondi(dist13/dist15,3))}$<br>`;
 				texte_corr+=`<br>$\\dfrac{${s1 + s2}}{${s1 + s4}}\\not=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`;
 				texte_corr+=`Donc d'après le théorème de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ ne sont pas parallèles.<br>`
 			}
 			else {
+				texte_corr += `D'une part on a $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}=${tex_fraction(num1,den1)}${simplification_de_fraction_avec_etapes(num1,den1)}$`
+				texte_corr += `<br>D'autre part on a $\\dfrac{${s1 + s3}}{${s1 + s5}}=\\dfrac{${s13}}{${s15}}=${tex_fraction(num2,den2)}${simplification_de_fraction_avec_etapes(num2,den2)}$`;
 				texte_corr+=`<br>$\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`; //car les produits en croix sont égaux : $${s12}\\times${s15}=${s13}\\times${s14}=${tex_nombre(arrondi(dist12*dist15,3))}$.<br>`;
 				if (k>0) texte_corr+=`$${s1}$,$${s4}$,$${s2}$ et $${s1}$,$${s5}$,$${s3}$ sont alignés dans le même ordre.<br>`
 				else texte_corr+=`$${s4}$,$${s1}$,$${s2}$ et $${s5}$,$${s1}$,$${s3}$ sont alignés dans le même ordre.<br>`
