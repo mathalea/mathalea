@@ -2612,7 +2612,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 						</path>
 						<foreignObject width="5.641515254974365" height="50" x="9.820757627487183" y="-2.5">
 						<body xmlns="http://www.w3.org/1999/xhtml">
-							<div>
+							<div style="position: fixed">
 								<span class="katex-display">
 									<span class="katex">
 										<span class="katex-mathml">
@@ -2649,7 +2649,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 						</path>
 						<foreignObject width="40.67494201660156" height="50" x="28.141515254974365" y="-2.5">
 						<body xmlns="http://www.w3.org/1999/xhtml">
-							<div>
+							<div style="position: fixed">
 								<span class="katex-display">
 									<span class="katex">
 										<span class="katex-mathml">
@@ -2684,7 +2684,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 						</path>
 						<foreignObject width="22.00891399383545" height="50" x="80.98344373703003" y="-2.5">
 						<body xmlns="http://www.w3.org/1999/xhtml">
-							<div>
+							<div style="position: fixed">
 								<span class="katex-display">
 									<span class="katex"><span class="katex-mathml">
 										<math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -2721,7 +2721,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 						</path>
 						<foreignObject width="40" height="50" x="115.4879002571106" y="-2.5">
 						<body xmlns="http://www.w3.org/1999/xhtml">
-							<div>
+							<div style="position: fixed">
 								<span class="katex-display">
 									<span class="katex">
 										<span class="katex-mathml">
@@ -2756,7 +2756,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 						</path>
 						<foreignObject width="65.039794921875" height="50" x="168.0077977180481" y="-2.5">
 						<body xmlns="http://www.w3.org/1999/xhtml">
-							<div>
+							<div style="position: fixed">
 								<span class="katex-display">
 									<span class="katex">
 										<span class="katex-mathml">
