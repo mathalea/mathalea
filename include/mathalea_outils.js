@@ -563,15 +563,15 @@ function quatrieme_proportionnelle(a,b,c,precision) { //calcul de b*c/a
 let result=``
 if ((typeof a)=="number"&&(typeof b)=="number"&&(typeof c)=="number") {
 	if (a==0) { 
-		result='=erreur : division par zéro'
-		return result
+		result='=erreur : division par zéro';
+		return result;
 	}
-	let p4=b*c/a
+	let p4=calcul(b*c/a);
 	result+=`\\dfrac{${tex_nombrec(b)}\\times${tex_nombrec(c)}}{${tex_nombrec(a)}}`;
-	if (Number.isInteger(p4*Math.pow(10,precision))) result +=`=`
-	else result +=`\\approx`
-	result += `${arrondi_virgule(p4,precision)}`
-	return result
+	if (p4==arrondi(p4,precision)) result +=`=`;
+	else result +=`\\approx`;
+	result += `${arrondi_virgule(p4,precision)}`;
+	return result;
 	}
 else {
 	return `\\dfrac{${b} \\times${c}}{${a}}`
