@@ -2665,7 +2665,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 			//let path_cadre_rect_ant = 'M0,0L0,-'+interligne+',L'+(w_x_ant + 2*interligne)+',-'+interligne+',L'+(w_x_ant + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
 			let path_cadre_rect_ant ='5,5 195,10 185,40 10,50';
 			document.getElementById(id_du_div).innerHTML = `
-				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 400 50" width="100%">
+				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 400 50" width="800">
 					<g>
 						<path d="M0 25L0 15L25.641515254974365 15L25.641515254974365 35L0 35Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
 						</path>
