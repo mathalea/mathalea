@@ -10,6 +10,7 @@ Modules nécessaires :
 
 
 
+
 // Gestion des paramètres
 var div = document.getElementById('div_code_LaTeX'); // Récupère le div dans lequel le code va être affiché
 var div_overleaf = document.getElementById('overleaf'); // Récupère le div dans lequel le code va être affiché
@@ -385,7 +386,15 @@ var code_LaTeX = '', contenu_fichier = '';
 
 function mise_a_jour_du_code(){
 	// Fixe la graine pour les fonctions aléatoires
-	Math.seedrandom('test')
+	 if (!window.graine) {
+		  window.graine = strRandom({
+		  includeUpperCase: true,
+		  includeNumbers: true,
+		  length: 4,
+		  startsWithLowerCase: false
+		});
+	 }
+	Math.seedrandom(graine)
 	// ajout du numéro de l'exercice dans l'URL
 	if (liste_des_exercices.length>0) {
 		let fin_de_l_URL = ""
@@ -412,8 +421,9 @@ function mise_a_jour_du_code(){
 				}
 			}
 		}
+		fin_de_l_URL +=`&serie=${graine}`
 		window.history.pushState("","",fin_de_l_URL);
-		let url = window.location.href; //met l'URL dans le bouton de copie de l'URL
+		let url = window.location.href.split('&serie')[0]; //met l'URL dans le bouton de copie de l'URL sans garder le numéro de la série
       	new Clipboard('.url', {text: function() {
           return url;
           }
@@ -663,6 +673,17 @@ return tableau_objets_exercices;
 
 }
 
+function nouvelles_donnees() {
+	graine = strRandom({
+	  includeUpperCase: true,
+	  includeNumbers: true,
+	  length: 4,
+	  startsWithLowerCase: false
+	});
+
+	mise_a_jour_du_code();
+}
+
 
 window.onload = function()  {
 //$( document ).ready(function() {	
@@ -701,12 +722,16 @@ window.onload = function()  {
 	// Gestion de la mise à jour de l'affichage du code
 
 	var btn_mise_a_jour_code = document.getElementById('btn_mise_a_jour_code');
-	btn_mise_a_jour_code.addEventListener('click', mise_a_jour_du_code);
+	btn_mise_a_jour_code.addEventListener('click', nouvelles_donnees);
 
 	// Gestion des effets visuels
 	// $('.ui.accordion').accordion(); // active les acordéons (paramètres du fichier .tex)
 	$('.ui.radio.checkbox').checkbox(); // active les boutons radio (pour le style)
 
+	// Récupère la graine pour l'aléatoire dans l'URL
+	let params = (new URL(document.location)).searchParams;
+	let serie = params.get('serie');
+	graine = serie;
 	// Récupère les paramètres passés dans l'URL
 	//var interrogation_dans_URL = location.href.indexOf("?");
 	let tableau_objets_exercices = getUrlVars();
