@@ -2604,10 +2604,8 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 			//let path_cadre_rect_ant = 'M0,0L0,-'+interligne+',L'+(w_x_ant + 2*interligne)+',-'+interligne+',L'+(w_x_ant + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
 			let path_cadre_rect_ant ='5,5 195,10 185,40 10,50';
 			document.getElementById(id_du_div).innerHTML = `
-				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" viewBox="0 0 400 50">
+				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 400 50">
 					<g>
-						<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
-						</text>
 						<path d="M0 25L0 15L25.641515254974365 15L25.641515254974365 35L0 35Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
 						</path>
 						<foreignObject width="5.641515254974365" height="50" x="9.820757627487183" y="-2.5">
@@ -2638,8 +2636,6 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 						</body>
 						</foreignObject>
 					</g>
-					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
-					</text>
 					<g>
 						<line x1="25.641515254974365" y1="25" x2="35.641515254974365" y2="25" stroke-width="1" stroke="#f15929">
 						</line>
@@ -2675,10 +2671,6 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 						</body>
 						</foreignObject>
 					</g>
-					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
-					</text>
-					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
-					</text>
 					<g>
 						<path d="M70.97898626327515 25L70.97898626327515 15L112.9879002571106 15L112.9879002571106 35L70.97898626327515 35Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
 						</path>
@@ -2708,10 +2700,6 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 							</body>
 						</foreignObject>
 					</g>
-					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
-					</text>
-					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
-					</text>
 					<g>
 						<line x1="112.9879002571106" y1="25" x2="122.9879002571106" y2="25" stroke-width="1" stroke="#f15929">
 						</line>
@@ -2747,10 +2735,6 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 							</body>
 						</foreignObject>
 					</g>
-					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
-					</text>
-					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
-					</text>
 					<g>
 						<path d="M157.9879002571106 25L157.9879002571106 15L243.0276951789856 15L243.0276951789856 35L157.9879002571106 35Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
 						</path>
@@ -2782,8 +2766,6 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 						</body>
 						</foreignObject>
 					</g>
-					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
-					</text>
 				</svg>	
 				`;
 			
