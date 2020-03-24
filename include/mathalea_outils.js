@@ -2611,6 +2611,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 						<path d="M0 25L0 15L25.641515254974365 15L25.641515254974365 35L0 35Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
 						</path>
 						<foreignObject width="5.641515254974365" height="50" x="9.820757627487183" y="-2.5">
+						<body xmlns="http://www.w3.org/1999/xhtml">
 							<div>
 								<span class="katex-display">
 									<span class="katex">
@@ -2634,6 +2635,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 									</span>
 								</span>
 							</div>
+						</body>
 						</foreignObject>
 					</g>
 					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
@@ -2646,6 +2648,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 						<path d="M60.97898626327515 25L70.97898626327515 25L68.97898626327515 23M70.97898626327515 25L68.97898626327515 27 " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
 						</path>
 						<foreignObject width="40.67494201660156" height="50" x="28.141515254974365" y="-2.5">
+						<body xmlns="http://www.w3.org/1999/xhtml">
 							<div>
 								<span class="katex-display">
 									<span class="katex">
@@ -2669,6 +2672,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 									</span>
 								</span>
 							</div>
+						</body>
 						</foreignObject>
 					</g>
 					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
@@ -2679,6 +2683,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 						<path d="M70.97898626327515 25L70.97898626327515 15L112.9879002571106 15L112.9879002571106 35L70.97898626327515 35Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
 						</path>
 						<foreignObject width="22.00891399383545" height="50" x="80.98344373703003" y="-2.5">
+						<body xmlns="http://www.w3.org/1999/xhtml">
 							<div>
 								<span class="katex-display">
 									<span class="katex"><span class="katex-mathml">
@@ -2700,6 +2705,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 									</span>
 								</span>
 							</div>
+							</body>
 						</foreignObject>
 					</g>
 					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
@@ -2714,6 +2720,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 						<path d="M147.9879002571106 25L157.9879002571106 25L155.9879002571106 23M157.9879002571106 25L155.9879002571106 27 " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
 						</path>
 						<foreignObject width="40" height="50" x="115.4879002571106" y="-2.5">
+						<body xmlns="http://www.w3.org/1999/xhtml">
 							<div>
 								<span class="katex-display">
 									<span class="katex">
@@ -2737,6 +2744,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 									</span>
 								</span>
 							</div>
+							</body>
 						</foreignObject>
 					</g>
 					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
@@ -2747,6 +2755,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 						<path d="M157.9879002571106 25L157.9879002571106 15L243.0276951789856 15L243.0276951789856 35L157.9879002571106 35Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
 						</path>
 						<foreignObject width="65.039794921875" height="50" x="168.0077977180481" y="-2.5">
+						<body xmlns="http://www.w3.org/1999/xhtml">
 							<div>
 								<span class="katex-display">
 									<span class="katex">
@@ -2770,6 +2779,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 									</span>
 								</span>
 							</div>
+						</body>
 						</foreignObject>
 					</g>
 					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">

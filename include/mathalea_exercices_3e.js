@@ -1578,7 +1578,8 @@ function fonction_notion_vocabulaire(){
 							// sous-question a/
 							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 							//console.log(id_du_div);
-						 	SVG_machine_diag(id_du_div,400,50,'h','x',[['\\times '+a,a+'x'],['+'+b,a+'x+'+b]]);						
+							 SVG_machine_diag(id_du_div,400,50,'h','x',[['\\times '+a,a+'x'],['+'+b,a+'x+'+b]]);						
+							 //SVG_machine_diag_balises(id_du_div,400,50,'h','x',[[''+a,a+'x'],[''+b,a+'x+'+b]]);						
 						 	texte += num_alpha(j)+` Calculer l'image de ${c}`;
 							texte +=`<br>`;
 							texte_corr +=`<br>`;
