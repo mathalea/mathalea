@@ -384,6 +384,8 @@ var code_LaTeX = '', contenu_fichier = '';
 
 
 function mise_a_jour_du_code(){
+	// Fixe la graine pour les fonctions aléatoires
+	Math.seedrandom('test')
 	// ajout du numéro de l'exercice dans l'URL
 	if (liste_des_exercices.length>0) {
 		let fin_de_l_URL = ""
