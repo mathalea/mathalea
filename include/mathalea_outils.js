@@ -1025,6 +1025,26 @@ function tex_nombre(nb){
 	}
 }
 
+/**
+* Renvoit un nombre dans le format français (séparateur de classes)
+* Fonctionne sans le mode maths contrairement à tex_nombre()
+* @Auteur Rémi Angot
+*/
+function nombre_avec_espace(nb){
+	//Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
+	if (sortie_html) {
+		return Intl.NumberFormat("fr-FR",{maximumFractionDigits:20}).format(nb).toString().replace(/\s+/g,' ');
+	} else {
+		let result;
+		if (nb>999 || nombre_de_chiffres_dans_la_partie_decimale(nb)>3) { 
+			result = '\\numprint{'+nb.toString().replace('.',',')+'}';
+		}else{
+			result = nb.toString().replace('.',',');
+		}
+		return result;
+	}
+}
+
 
 /**
 * Renvoit un nombre dans le format français (séparateur de classes) version sans Katex (pour les SVG)
