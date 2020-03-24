@@ -121,6 +121,47 @@ function randint(min,max,liste_a_eviter=[]){
 
 
 /**
+* Créé un string aléatoire 
+*
+* strRandom({
+*  includeUpperCase: true,
+*  includeNumbers: true,
+*  length: 5,
+*  startsWithLowerCase: true
+* });
+*
+* // renvoie par exemple : "iL0v3"
+*
+* @Source https://www.equinode.com/blog/article/generer-une-chaine-de-caracteres-aleatoire-avec-javascript
+*/
+function strRandom(o) {
+  var a = 10,
+      b = 'abcdefghijklmnopqrstuvwxyz',
+      c = '',
+      d = 0,
+      e = ''+b;
+  if (o) {
+    if (o.startsWithLowerCase) {
+      c = b[Math.floor(Math.random() * b.length)];
+      d = 1;
+    }
+    if (o.length) {
+      a = o.length;
+    }
+    if (o.includeUpperCase) {
+      e += b.toUpperCase();
+    }
+    if (o.includeNumbers) {
+      e += '1234567890';
+    }
+  }
+  for (; d < a; d++) {
+    c += e[Math.floor(Math.random() * e.length)];
+  }
+  return c;
+}
+
+/**
 * Enlève toutes les occurences d'un élément d'un tableau donné
 * @param liste
 * @param element
@@ -1013,6 +1054,26 @@ function tex_nombre(nb){
 	//Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
 	if (sortie_html) {
 		return Intl.NumberFormat("fr-FR",{maximumFractionDigits:20}).format(nb).toString().replace(/\s+/g,'\\thickspace '); // \nombre n'est pas pris en charge par katex
+	} else {
+		let result;
+		if (nb>999 || nombre_de_chiffres_dans_la_partie_decimale(nb)>3) { 
+			result = '\\numprint{'+nb.toString().replace('.',',')+'}';
+		}else{
+			result = nb.toString().replace('.',',');
+		}
+		return result;
+	}
+}
+
+/**
+* Renvoit un nombre dans le format français (séparateur de classes)
+* Fonctionne sans le mode maths contrairement à tex_nombre()
+* @Auteur Rémi Angot
+*/
+function nombre_avec_espace(nb){
+	//Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
+	if (sortie_html) {
+		return Intl.NumberFormat("fr-FR",{maximumFractionDigits:20}).format(nb).toString().replace(/\s+/g,' ');
 	} else {
 		let result;
 		if (nb>999 || nombre_de_chiffres_dans_la_partie_decimale(nb)>3) { 
@@ -2604,14 +2665,12 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 			//let path_cadre_rect_ant = 'M0,0L0,-'+interligne+',L'+(w_x_ant + 2*interligne)+',-'+interligne+',L'+(w_x_ant + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
 			let path_cadre_rect_ant ='5,5 195,10 185,40 10,50';
 			document.getElementById(id_du_div).innerHTML = `
-				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" viewBox="0 0 400 50">
+				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 400 50" width="100%">
 					<g>
-						<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
-						</text>
 						<path d="M0 25L0 15L25.641515254974365 15L25.641515254974365 35L0 35Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
 						</path>
-						<foreignObject width="5.641515254974365" height="50" x="9.820757627487183" y="-2.5">
-							<div>
+						<foreignObject width="5.641515254974365" height="50" x="10" y="-2.5">
+							<div style="position: fixed">
 								<span class="katex-display">
 									<span class="katex">
 										<span class="katex-mathml">
@@ -2636,8 +2695,6 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 							</div>
 						</foreignObject>
 					</g>
-					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
-					</text>
 					<g>
 						<line x1="25.641515254974365" y1="25" x2="35.641515254974365" y2="25" stroke-width="1" stroke="#f15929">
 						</line>
@@ -2645,8 +2702,8 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 						</circle>
 						<path d="M60.97898626327515 25L70.97898626327515 25L68.97898626327515 23M70.97898626327515 25L68.97898626327515 27 " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
 						</path>
-						<foreignObject width="40.67494201660156" height="50" x="28.141515254974365" y="-2.5">
-							<div>
+						<foreignObject width="40.67494201660156" height="50" x="40" y="-2.5">
+							<div style="position: fixed">
 								<span class="katex-display">
 									<span class="katex">
 										<span class="katex-mathml">
@@ -2654,7 +2711,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 												<semantics>
 													<mrow>
 														<mstyle mathsize="0.5em">
-															<mrow><mo>×</mo><mn>`+etapes_expressions[0][0]+`</mn></mrow>
+															<mi>`+etapes_expressions[0][0]+`</mi>
 														</mstyle>
 													</mrow>
 													<annotation encoding="application/x-tex">\tiny{\times `+etapes_expressions[0][0]+`}</annotation>
@@ -2663,7 +2720,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 										</span>
 										<span class="katex-html" aria-hidden="true">
 											<span class="base">
-												<span class="strut" style="height: 0.363885em; vertical-align: -0.041665em;"></span><span class="mord sizing reset-size6 size1"><span class="mord">×</span><span class="mord">`+etapes_expressions[0][0]+`</span></span>
+												<span class="strut" style="height: 0.363885em; vertical-align: -0.041665em;"></span><span class="mord sizing reset-size6 size1"><span class="mord mathdefault">×`+etapes_expressions[0][0]+`</span>
 											</span>
 										</span>
 									</span>
@@ -2671,22 +2728,18 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 							</div>
 						</foreignObject>
 					</g>
-					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
-					</text>
-					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
-					</text>
 					<g>
 						<path d="M70.97898626327515 25L70.97898626327515 15L112.9879002571106 15L112.9879002571106 35L70.97898626327515 35Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
 						</path>
-						<foreignObject width="22.00891399383545" height="50" x="80.98344373703003" y="-2.5">
-							<div>
+						<foreignObject width="22.00891399383545" height="50" x="90" y="-2.5">
+							<div style="position: fixed">
 								<span class="katex-display">
 									<span class="katex"><span class="katex-mathml">
 										<math xmlns="http://www.w3.org/1998/Math/MathML">
 											<semantics>
 												<mrow>
 													<mstyle mathsize="0.5em">
-														<mrow><mn>`+etapes_expressions[0][1]+`</mn></mrow>
+														<mi>`+etapes_expressions[0][1]+`</mi>
 													</mstyle>
 												</mrow>
 												<annotation encoding="application/x-tex">\tiny{`+etapes_expressions[0][1]+`}</annotation>
@@ -2695,17 +2748,13 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 									</span>
 									<span class="katex-html" aria-hidden="true">
 										<span class="base">
-											<span class="strut" style="height: 0.32222em; vertical-align: 0em;"></span><span class="mord sizing reset-size6 size1"><span class="mord">`+etapes_expressions[0][1]+`</span></span>
+											<span class="strut" style="height: 0.32222em; vertical-align: 0em;"></span><span class="mord sizing reset-size6 size1"><span class="mord mathdefault">`+etapes_expressions[0][1]+`</span></span>
 										</span>
 									</span>
 								</span>
 							</div>
 						</foreignObject>
 					</g>
-					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
-					</text>
-					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
-					</text>
 					<g>
 						<line x1="112.9879002571106" y1="25" x2="122.9879002571106" y2="25" stroke-width="1" stroke="#f15929">
 						</line>
@@ -2713,8 +2762,9 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 						</circle>
 						<path d="M147.9879002571106 25L157.9879002571106 25L155.9879002571106 23M157.9879002571106 25L155.9879002571106 27 " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
 						</path>
-						<foreignObject width="40" height="50" x="115.4879002571106" y="-2.5">
-							<div>
+						<foreignObject width="40" height="50" x="130" y="-2.5">
+						<body xmlns="http://www.w3.org/1999/xhtml">
+							<div style="position: fixed">
 								<span class="katex-display">
 									<span class="katex">
 										<span class="katex-mathml">
@@ -2722,7 +2772,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 												<semantics>
 													<mrow>
 														<mstyle mathsize="0.5em">
-															<mrow><mo>+</mo><mn>`+etapes_expressions[1][0]+`</mn></mrow>
+															<mi>+`+etapes_expressions[1][0]+`</mi>
 														</mstyle>
 													</mrow>
 													<annotation encoding="application/x-tex">\tiny{+`+etapes_expressions[1][0]+`}</annotation>
@@ -2731,23 +2781,21 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 										</span>
 										<span class="katex-html" aria-hidden="true">
 											<span class="base">
-												<span class="strut" style="height: 0.363885em; vertical-align: -0.041665em;"></span><span class="mord sizing reset-size6 size1"><span class="mord">+</span><span class="mord">`+etapes_expressions[1][0]+`</span></span>
+												<span class="strut" style="height: 0.363885em; vertical-align: -0.041665em;"></span><span class="mord sizing reset-size6 size1"><span class="mord mathdefault">+`+etapes_expressions[1][0]+`</span>
 											</span>
 										</span>
 									</span>
 								</span>
 							</div>
+							</body>
 						</foreignObject>
 					</g>
-					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
-					</text>
-					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
-					</text>
 					<g>
 						<path d="M157.9879002571106 25L157.9879002571106 15L243.0276951789856 15L243.0276951789856 35L157.9879002571106 35Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
 						</path>
 						<foreignObject width="65.039794921875" height="50" x="168.0077977180481" y="-2.5">
-							<div>
+						<body xmlns="http://www.w3.org/1999/xhtml">
+							<div style="position: fixed">
 								<span class="katex-display">
 									<span class="katex">
 										<span class="katex-mathml">
@@ -2764,16 +2812,15 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 										</span>
 										<span class="katex-html" aria-hidden="true">
 											<span class="base">
-												<span class="strut" style="height: 0.5em; vertical-align: -0.125em;"></span><span class="mord sizing reset-size6 size1"><span class="mord mathdefault">h</span><span class="mopen">(</span><span class="mord mathdefault">`+x_ant+`</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.408889em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.408889em;"></span><span class="mord">`+etapes_expressions[1][1]+`</span></span>
+												<span class="strut" style="height: 0.5em; vertical-align: -0.125em;"></span><span class="mord sizing reset-size6 size1"><span class="mord mathdefault">h<span class="mopen">(</span>`+x_ant+`<span class="mclose">)</span><span class="mspace" style="margin-right: 0.408889em;"></span>=<span class="mspace" style="margin-right: 0.408889em;"></span>`+etapes_expressions[1][1]+`</span>
 											</span>
 										</span>
 									</span>
 								</span>
 							</div>
+						</body>
 						</foreignObject>
 					</g>
-					<text font-family="Helvetica" font-size="10" text-anchor="start" font-style="normal" font-weight="normal">
-					</text>
 				</svg>	
 				`;
 			
@@ -2781,3 +2828,4 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 		};
 	}, 100); // Vérifie toutes les 100ms
 };
+
