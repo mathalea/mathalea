@@ -121,6 +121,47 @@ function randint(min,max,liste_a_eviter=[]){
 
 
 /**
+* Créé un string aléatoire 
+*
+* strRandom({
+*  includeUpperCase: true,
+*  includeNumbers: true,
+*  length: 5,
+*  startsWithLowerCase: true
+* });
+*
+* // renvoie par exemple : "iL0v3"
+*
+* @Source https://www.equinode.com/blog/article/generer-une-chaine-de-caracteres-aleatoire-avec-javascript
+*/
+function strRandom(o) {
+  var a = 10,
+      b = 'abcdefghijklmnopqrstuvwxyz',
+      c = '',
+      d = 0,
+      e = ''+b;
+  if (o) {
+    if (o.startsWithLowerCase) {
+      c = b[Math.floor(Math.random() * b.length)];
+      d = 1;
+    }
+    if (o.length) {
+      a = o.length;
+    }
+    if (o.includeUpperCase) {
+      e += b.toUpperCase();
+    }
+    if (o.includeNumbers) {
+      e += '1234567890';
+    }
+  }
+  for (; d < a; d++) {
+    c += e[Math.floor(Math.random() * e.length)];
+  }
+  return c;
+}
+
+/**
 * Enlève toutes les occurences d'un élément d'un tableau donné
 * @param liste
 * @param element
@@ -1013,6 +1054,26 @@ function tex_nombre(nb){
 	//Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
 	if (sortie_html) {
 		return Intl.NumberFormat("fr-FR",{maximumFractionDigits:20}).format(nb).toString().replace(/\s+/g,'\\thickspace '); // \nombre n'est pas pris en charge par katex
+	} else {
+		let result;
+		if (nb>999 || nombre_de_chiffres_dans_la_partie_decimale(nb)>3) { 
+			result = '\\numprint{'+nb.toString().replace('.',',')+'}';
+		}else{
+			result = nb.toString().replace('.',',');
+		}
+		return result;
+	}
+}
+
+/**
+* Renvoit un nombre dans le format français (séparateur de classes)
+* Fonctionne sans le mode maths contrairement à tex_nombre()
+* @Auteur Rémi Angot
+*/
+function nombre_avec_espace(nb){
+	//Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
+	if (sortie_html) {
+		return Intl.NumberFormat("fr-FR",{maximumFractionDigits:20}).format(nb).toString().replace(/\s+/g,' ');
 	} else {
 		let result;
 		if (nb>999 || nombre_de_chiffres_dans_la_partie_decimale(nb)>3) { 

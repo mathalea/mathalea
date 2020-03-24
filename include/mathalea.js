@@ -10,6 +10,7 @@ Modules nécessaires :
 
 
 
+
 // Gestion des paramètres
 var div = document.getElementById('div_code_LaTeX'); // Récupère le div dans lequel le code va être affiché
 var div_overleaf = document.getElementById('overleaf'); // Récupère le div dans lequel le code va être affiché
@@ -31,7 +32,16 @@ Les réponses modifient les caractéristiques de l'exercice puis le code LaTeX e
 	if (nb_exercices > 0){
 		div_parametres_generaux.innerHTML += '<div class="ui hidden divider"></div>'
 		// div_parametres_generaux.innerHTML += '<h3 class="ui block header">Paramètres des exercices</h3>';
+
+		// div_parametres_generaux.innerHTML += `<h4 class="ui dividing header"></h4>`
+		div_parametres_generaux.innerHTML +=`<div><label for="form_serie">Clé de la série d'exercices : </label> <input id="form_serie" type="text" style="padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;"></div>`
+
 	}
+
+	
+
 	for (let i = 0; i < nb_exercices; i++) {
 		if(sortie_html) {
 			div_parametres_generaux.innerHTML += '<h4 class="ui dividing header">Exercice n°'+ (i+1) +' : '+ exercice[i].titre +'</h4>'
@@ -207,12 +217,22 @@ Les réponses modifient les caractéristiques de l'exercice puis le code LaTeX e
 			});
 		}
 
-		// Gestion du nombre de la correction détaillée
+		// Gestion de la correction détaillée
 			if (exercice[i].correction_detaillee_disponible){
 				form_correction_detaillee[i] = document.getElementById('form_correction_detaillee'+i);
 				form_correction_detaillee[i].checked = exercice[i].correction_detaillee; // Rempli le formulaire avec la valeur par défaut
 				form_correction_detaillee[i].addEventListener('change', function(e) { // Dès que le statut change, on met à jour
 					exercice[i].correction_detaillee = e.target.checked;
+					mise_a_jour_du_code();
+				});
+			}
+
+		// Gestion de l'identifiant de la série'
+			if (nb_exercices > 0){
+				var form_serie = document.getElementById('form_serie');
+				form_serie.value = graine; // Rempli le formulaire avec la graine
+				form_serie.addEventListener('change', function(e) { // Dès que le statut change, on met à jour
+					window.graine = e.target.value;
 					mise_a_jour_du_code();
 				});
 			}
@@ -384,6 +404,16 @@ var code_LaTeX = '', contenu_fichier = '';
 
 
 function mise_a_jour_du_code(){
+	// Fixe la graine pour les fonctions aléatoires
+	 if (!window.graine) {
+		  window.graine = strRandom({
+		  includeUpperCase: true,
+		  includeNumbers: true,
+		  length: 4,
+		  startsWithLowerCase: false
+		});
+	 }
+	Math.seedrandom(graine)
 	// ajout du numéro de l'exercice dans l'URL
 	if (liste_des_exercices.length>0) {
 		let fin_de_l_URL = ""
@@ -410,8 +440,9 @@ function mise_a_jour_du_code(){
 				}
 			}
 		}
+		fin_de_l_URL +=`&serie=${graine}`
 		window.history.pushState("","",fin_de_l_URL);
-		let url = window.location.href; //met l'URL dans le bouton de copie de l'URL
+		let url = window.location.href.split('&serie')[0]; //met l'URL dans le bouton de copie de l'URL sans garder le numéro de la série
       	new Clipboard('.url', {text: function() {
           return url;
           }
@@ -661,6 +692,17 @@ return tableau_objets_exercices;
 
 }
 
+function nouvelles_donnees() {
+	graine = strRandom({
+	  includeUpperCase: true,
+	  includeNumbers: true,
+	  length: 4,
+	  startsWithLowerCase: false
+	});
+	form_serie.value = graine; // mise à jour du formulaire
+	mise_a_jour_du_code();
+}
+
 
 window.onload = function()  {
 //$( document ).ready(function() {	
@@ -699,12 +741,18 @@ window.onload = function()  {
 	// Gestion de la mise à jour de l'affichage du code
 
 	var btn_mise_a_jour_code = document.getElementById('btn_mise_a_jour_code');
-	btn_mise_a_jour_code.addEventListener('click', mise_a_jour_du_code);
+	btn_mise_a_jour_code.addEventListener('click', nouvelles_donnees);
 
 	// Gestion des effets visuels
 	// $('.ui.accordion').accordion(); // active les acordéons (paramètres du fichier .tex)
 	$('.ui.radio.checkbox').checkbox(); // active les boutons radio (pour le style)
 
+	// Récupère la graine pour l'aléatoire dans l'URL
+	let params = (new URL(document.location)).searchParams;
+	let serie = params.get('serie');
+	if (serie) {
+		graine = serie;
+	}
 	// Récupère les paramètres passés dans l'URL
 	//var interrogation_dans_URL = location.href.indexOf("?");
 	let tableau_objets_exercices = getUrlVars();
