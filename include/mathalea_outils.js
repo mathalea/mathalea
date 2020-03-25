@@ -2653,7 +2653,7 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes_expressions) {
  */
 function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 	'use strict';
-	let interligne = 10; // unité d'espacement
+	let interligne = h/10; // unité d'espacement
 	var saut = 0; // pour la gestion des sauts entre les éléments on aura besoin d'une globale
 	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
 	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
@@ -2665,29 +2665,17 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 			//let path_cadre_rect_ant = 'M0,0L0,-'+interligne+',L'+(w_x_ant + 2*interligne)+',-'+interligne+',L'+(w_x_ant + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
 			let path_cadre_rect_ant ='5,5 195,10 185,40 10,50';
 			document.getElementById(id_du_div).innerHTML = `
-				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 400 50" width="400">
+				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 `+w+` `+h+`" width="`+w+`">
 					<g>
-						<path d="M0 25L0 15L25.641515254974365 15L25.641515254974365 35L0 35Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
+						<path d="M0 `+5*interligne+`L0 `+3*interligne+`L`+5*interligne+` `+3*interligne+`L`+5*interligne+` `+7*interligne+`L0 `+7*interligne+`Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
 						</path>
-						<foreignObject width="5.641515254974365" height="50" x="10" y="-2.5">
+						<foreignObject width="`+interligne+`" height="`+h/2+`" x="`+2.5*interligne+`" y="`+h/4+`">
 							<div style="position: fixed">
 								<span class="katex-display">
 									<span class="katex">
-										<span class="katex-mathml">
-											<math xmlns="http://www.w3.org/1998/Math/MathML">
-												<semantics>
-													<mrow>
-														<mstyle mathsize="0.5em">
-															<mi>`+x_ant+`</mi>
-														</mstyle>
-													</mrow>
-													<annotation encoding="application/x-tex">\tiny{`+x_ant+`}</annotation>
-												</semantics>
-											</math>
-										</span>
 										<span class="katex-html" aria-hidden="true">
 											<span class="base">
-												<span class="strut" style="height: 0.21528em; vertical-align: 0em;"></span><span class="mord sizing reset-size6 size1"><span class="mord mathdefault">`+x_ant+`</span></span>
+												<span class="mord mathdefault">`+x_ant+`</span>
 											</span>
 										</span>
 									</span>
@@ -2696,31 +2684,19 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 						</foreignObject>
 					</g>
 					<g>
-						<line x1="25.641515254974365" y1="25" x2="35.641515254974365" y2="25" stroke-width="1" stroke="#f15929">
+						<line x1="`+5*interligne+`" y1="`+5*interligne+`" x2="`+7*interligne+`" y2="`+5*interligne+`" stroke-width="3" stroke="#f15929">
 						</line>
-						<circle r="12.66873550415039" cx="48.310250759124756" cy="25" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
+						<circle r="`+2*interligne+`" cx="`+9*interligne+`" cy="`+5*interligne+`" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
 						</circle>
-						<path d="M60.97898626327515 25L70.97898626327515 25L68.97898626327515 23M70.97898626327515 25L68.97898626327515 27 " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
+						<path d="M`+11*interligne+` `+5*interligne+`L`+13*interligne+` `+5*interligne+`L`+(13*interligne-interligne/2)+` `+(5*interligne-interligne/2)+`M`+13*interligne+` `+5*interligne+`L`+(13*interligne-interligne/2)+` `+(5*interligne+interligne/2)+` " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
 						</path>
-						<foreignObject width="40.67494201660156" height="50" x="40" y="-2.5">
+						<foreignObject width="`+4*interligne+`" height="`+h/2+`" x="`+7.5*interligne+`" y="`+h/4+`">
 							<div style="position: fixed">
 								<span class="katex-display">
 									<span class="katex">
-										<span class="katex-mathml">
-											<math xmlns="http://www.w3.org/1998/Math/MathML">
-												<semantics>
-													<mrow>
-														<mstyle mathsize="0.5em">
-															<mi>`+etapes_expressions[0][0]+`</mi>
-														</mstyle>
-													</mrow>
-													<annotation encoding="application/x-tex">\tiny{\times `+etapes_expressions[0][0]+`}</annotation>
-												</semantics>
-											</math>
-										</span>
 										<span class="katex-html" aria-hidden="true">
 											<span class="base">
-												<span class="strut" style="height: 0.363885em; vertical-align: -0.041665em;"></span><span class="mord sizing reset-size6 size1"><span class="mord mathdefault">×`+etapes_expressions[0][0]+`</span>
+												<span class="mord mathdefault">×`+etapes_expressions[0][0]+`</span>
 											</span>
 										</span>
 									</span>
@@ -2729,26 +2705,16 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 						</foreignObject>
 					</g>
 					<g>
-						<path d="M70.97898626327515 25L70.97898626327515 15L112.9879002571106 15L112.9879002571106 35L70.97898626327515 35Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
+						<path d="M`+13*interligne+` `+5*interligne+`L`+13*interligne+` `+3*interligne+`L`+21*interligne+` `+3*interligne+`L`+21*interligne+` `+7*interligne+`L`+13*interligne+` `+7*interligne+`Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
 						</path>
-						<foreignObject width="22.00891399383545" height="50" x="90" y="-2.5">
+						<foreignObject width="`+2.5*interligne+`" height="`+h/2+`" x="`+16*interligne+`" y="`+h/4+`">
 							<div style="position: fixed">
 								<span class="katex-display">
-									<span class="katex"><span class="katex-mathml">
-										<math xmlns="http://www.w3.org/1998/Math/MathML">
-											<semantics>
-												<mrow>
-													<mstyle mathsize="0.5em">
-														<mi>`+etapes_expressions[0][1]+`</mi>
-													</mstyle>
-												</mrow>
-												<annotation encoding="application/x-tex">\tiny{`+etapes_expressions[0][1]+`}</annotation>
-											</semantics>
-										</math>
-									</span>
-									<span class="katex-html" aria-hidden="true">
-										<span class="base">
-											<span class="strut" style="height: 0.32222em; vertical-align: 0em;"></span><span class="mord sizing reset-size6 size1"><span class="mord mathdefault">`+etapes_expressions[0][1]+`</span></span>
+									<span class="katex">
+										<span class="katex-html" aria-hidden="true">
+											<span class="base">
+												<span class="mord mathdefault">`+etapes_expressions[0][1]+`</span>
+											</span>
 										</span>
 									</span>
 								</span>
@@ -2756,32 +2722,20 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 						</foreignObject>
 					</g>
 					<g>
-						<line x1="112.9879002571106" y1="25" x2="122.9879002571106" y2="25" stroke-width="1" stroke="#f15929">
+						<line x1="`+21*interligne+`" y1="`+5*interligne+`" x2="`+23*interligne+`" y2="`+5*interligne+`" stroke-width="3" stroke="#f15929">
 						</line>
-						<circle r="12.5" cx="135.4879002571106" cy="25" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
+						<circle r="`+2*interligne+`" cx="`+25*interligne+`" cy="`+5*interligne+`" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
 						</circle>
-						<path d="M147.9879002571106 25L157.9879002571106 25L155.9879002571106 23M157.9879002571106 25L155.9879002571106 27 " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
+						<path d="M`+27*interligne+` `+5*interligne+`L`+29*interligne+` `+5*interligne+`L`+(29*interligne-interligne/2)+` `+(5*interligne-interligne/2)+`M`+29*interligne+` `+5*interligne+`L`+(29*interligne-interligne/2)+` `+(5*interligne+interligne/2)+` " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
 						</path>
-						<foreignObject width="40" height="50" x="130" y="-2.5">
+						<foreignObject width="`+4*interligne+`" height="`+h/2+`" x="`+23.5*interligne+`" y="`+h/4+`">
 						<body xmlns="http://www.w3.org/1999/xhtml">
 							<div style="position: fixed">
 								<span class="katex-display">
 									<span class="katex">
-										<span class="katex-mathml">
-											<math xmlns="http://www.w3.org/1998/Math/MathML">
-												<semantics>
-													<mrow>
-														<mstyle mathsize="0.5em">
-															<mi>+`+etapes_expressions[1][0]+`</mi>
-														</mstyle>
-													</mrow>
-													<annotation encoding="application/x-tex">\tiny{+`+etapes_expressions[1][0]+`}</annotation>
-												</semantics>
-											</math>
-										</span>
 										<span class="katex-html" aria-hidden="true">
 											<span class="base">
-												<span class="strut" style="height: 0.363885em; vertical-align: -0.041665em;"></span><span class="mord sizing reset-size6 size1"><span class="mord mathdefault">+`+etapes_expressions[1][0]+`</span>
+												<span class="mord mathdefault">+`+etapes_expressions[1][0]+`</span>
 											</span>
 										</span>
 									</span>
@@ -2791,34 +2745,20 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 						</foreignObject>
 					</g>
 					<g>
-						<path d="M157.9879002571106 25L157.9879002571106 15L243.0276951789856 15L243.0276951789856 35L157.9879002571106 35Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="1" stroke="#f15929">
+						<path d="M`+29*interligne+` `+5*interligne+`L`+29*interligne+` `+3*interligne+`L`+44*interligne+` `+3*interligne+`L`+44*interligne+` `+7*interligne+`L`+29*interligne+` `+7*interligne+`Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
 						</path>
-						<foreignObject width="65.039794921875" height="50" x="168.0077977180481" y="-2.5">
-						<body xmlns="http://www.w3.org/1999/xhtml">
+						<foreignObject width="`+12*interligne+`" height="`+h/2+`" x="`+31*interligne+`" y="`+h/4+`">
 							<div style="position: fixed">
 								<span class="katex-display">
 									<span class="katex">
-										<span class="katex-mathml">
-											<math xmlns="http://www.w3.org/1998/Math/MathML">
-												<semantics>
-													<mrow>
-														<mstyle mathsize="0.5em">
-															<mrow><mi>h</mi><mo stretchy="false">(</mo><mi>`+x_ant+`</mi><mo stretchy="false">)</mo><mo>=</mo><mn>`+etapes_expressions[1][1]+`</mn></mrow>
-														</mstyle>
-													</mrow>
-													<annotation encoding="application/x-tex">\tiny{h(x)=4x+5}</annotation>
-												</semantics>
-											</math>
-										</span>
 										<span class="katex-html" aria-hidden="true">
 											<span class="base">
-												<span class="strut" style="height: 0.5em; vertical-align: -0.125em;"></span><span class="mord sizing reset-size6 size1"><span class="mord mathdefault">h<span class="mopen">(</span>`+x_ant+`<span class="mclose">)</span><span class="mspace" style="margin-right: 0.408889em;"></span>=<span class="mspace" style="margin-right: 0.408889em;"></span>`+etapes_expressions[1][1]+`</span>
+												<span class="mord mathdefault">h<span class="mopen">(</span>`+x_ant+`<span class="mclose">)</span><span class="mspace" style="margin-right: 0.408889em;"></span>=<span class="mspace" style="margin-right: 0.408889em;"></span>`+etapes_expressions[1][1]+`</span>
 											</span>
 										</span>
 									</span>
 								</span>
 							</div>
-						</body>
 						</foreignObject>
 					</g>
 				</svg>	
