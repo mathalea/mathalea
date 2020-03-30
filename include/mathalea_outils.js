@@ -2813,138 +2813,223 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 	}, 100); // Vérifie toutes les 100ms
 };
 
-/**
- * Crée un diagramme tikz pour une machine maths
- * @param {string} nom nom de la fonction 
- * @param {string} x_ant nom du nombre de départ
- * @param {array} etapes_expressions tableau contenant les etapes et le expressions algébriques
- * attention mode maths pour les chaines
- * @author Sébastien Lozano
+/**Crée une étape avec une opération
+ * @param {object} groupe groupe du svg 
+ * @param {number} h hauteur de reference
+ * @param {number} interligne unité d'espacement
+ * @param {string} couleur couleur
+ * @param {string} texte texte avec rendu katex
+ * @param {number} saut saut pour positionner le cadre suivant
+ * @Auteur Sébastien Lozano
  */
-function SVG_machine_diag_balises_new(id_du_div,w,h,nom,x_ant,etapes_expressions){
-	'use strict';
-	var x_init = -10;
-	var saut = 0;
-	var pas = 1;
-	var sortie = ``;
-	sortie +=`
-	\\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
-	\\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
-	\\draw [line width=3pt,color=frvzsz] (`+x_init+`,0.5) -- (`+(x_init+pas)+`,0.5) -- (`+(x_init+pas)+`,-0.5) -- (`+x_init+`,-0.5) -- cycle;
-	\\node[text width=3cm,text centered, scale=1] at(`+(x_init+0.5)+`,0){$${x_ant}$};
-	`;	
-	saut = saut + pas;
-	for (var i = 0; i<etapes_expressions.length; i++) {
-		//si la longueur du tableau des etapes vaut i+1 c'est que c'est la derniere 
-		//on affiche donc chaque fois avec le nom de la fonction
-		if (etapes_expressions.length==i+1) {
-			// si il y a une operation et une expression algébrique
-			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {				
-				let w_etape = `${nom}(x)=${etapes_expressions[i][1]}}`.length;
-				sortie += `
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(0.5);
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
-				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,0.5) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,0.5) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-0.5) -- (`+(x_init+saut+5*pas/2)+`,-0.5) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(`+x_ant+`)=${etapes_expressions[i][1]}$};
-				`;			
-			};
-			// si il y a une operation et pas d'expression algébrique 
-			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
-				let w_etape = `${nom}(x)=\\ldots`.length;
-				sortie += `
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
-				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(`+x_ant+`)=\\ldots$};
-				`;			
-			};
-			// si il n'y a pas d'operation mais une expression algébrique
-			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
-				let w_etape = `${nom}(x)=${etapes_expressions[i][1]}`.length;
-				sortie += `
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
-				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(`+x_ant+`)=${etapes_expressions[i][1]}$};
-				`;			
-			};
-			// si il n'y ni une operation et ni expression algébrique
-			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
-				let w_etape = `${nom}(x)=\\ldots`.length;
-				sortie += `
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
-				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(`+x_ant+`)=\\ldots$};
-				`;			
-			};
 
-		} else {//sinon c'est une étape intermédiaire
-			// si il y a une operation et une expression algébrique
-			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
-				let w_etape = `${etapes_expressions[i][1]}`.length;
-				sortie += `
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
-				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${etapes_expressions[i][1]}$};
-				`;	
-				saut = saut+3*pas+w_etape/4;						
-			};
-			// si il y a une operation et pas d'expression algébrique 
-			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
-				let w_etape = `\\ldots`.length;
-				sortie += `
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
-				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$\\ldots$};
-				`;	
-				saut = saut+3*pas+w_etape/4;		
-			};
-			// si il n'y a pas d'operation mais une expression algébrique
-			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
-				let w_etape = `${etapes_expressions[i][1]}`.length;
-				sortie += `
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
-				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${etapes_expressions[i][1]}$};
-				`;	
-				saut = saut+3*pas+w_etape/4;		
-			};
-			// si il n'y ni une operation et ni expression algébrique
-			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
-				let w_etape = `\\ldots`.length;
-				sortie += `
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
-				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$\\ldots$};
-				`;	
-				saut = saut+3*pas+w_etape/4;		
-			};
-		 };				
-	};		 
-	sortie +=`
-	\\end{tikzpicture}
-	`;
-	return sortie;
+
+ //===========================================================================
+ //modifs des fonction svg pour les diagrammes
+ //voir aussi la version tikz pour les sauts entre elements
+ //et les fonctions SVG-saut_cadre_rect ou rond saut pour la gestion des sauts
+ //===========================================================================
+function SVG_etape_cadre_rond_new(groupe,h,interligne,couleur,texte,saut) {
+	'use strict';
+	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
+	let operation = groupe.text(texte).font(prop_font);
+	let w_operation = Math.max(operation.length(),4*interligne);
+	operation.clear();
+	let r_circ = interligne/2 + w_operation/2;
+
+	// on crée la fleche
+	let path_fleche = 'M0,0L'+interligne+',0L'+(interligne-2)+',-2M'+interligne+',0L'+(interligne-2)+',2';
+	// on crée le groupe etape
+	let etape = groupe.group();
+	// on crée la ligne de départ	
+	let l1 = etape.line(0,0,interligne,0).stroke({ width: 1 ,color: couleur});
+	l1.dmove(0,h/2);
+	// on crée le cadre rond
+	let cadre_etape = etape.circle(r_circ).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
+	//on positionne le cadre etape
+	cadre_etape.dmove(interligne,h/2-r_circ/2);
+	// on crée la fleche et on la positionne
+	let f1 = SVG_chemin(etape,path_fleche,couleur);
+	f1.dmove(3*interligne/2+w_operation/2,h/2);
+	// on crée le foreignobject
+	let fobj_operation = etape.foreignObject(w_operation,h).attr({x:'0',y:'0'});
+	// on crée manuellement la div contenant les formules maths
+	let operationDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+	katex.render('\\tiny{'+texte+'}', operationDiv, {				
+		"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
+	});
+	//on affecte la div avec la formule dans le foreignobject
+	fobj_operation.add(operationDiv);
+	// on positionne l'objet
+	fobj_operation.dmove(interligne/4,-interligne/4);
+	// on positionne l'etape
+	etape.dmove(saut,0);
+	return etape;
+};
+
+/**Calcule la place nécessaire au saut après le résultat d'une étape intermédiaire
+ * @param {object} groupe groupe svg
+ * @param {number} interligne unité d'espacement
+ * @param {string} texte texte avec rendu katex
+ * @Auteur Sébastien Lozano
+ */
+
+/**Crée le résultats d'une étape après une opération
+ * 
+ * @param {object} groupe group svg
+ * @param {number} h heuteur
+ * @param {number} interligne unité d'espacement
+ * @param {string} couleur couleur
+ * @param {string} texte texte avec rendu katex
+ * @param {number} saut saut pour positionner le cadre suivant
+ * @Auteur Sébastien Lozano
+ */
+
+function SVG_etape_cadre_rect_new(groupe,h,interligne,couleur,texte,saut) {
+	'use strict';
+	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
+	let etape_rect = groupe.text(texte).font(prop_font);
+	let w_etape_rect = etape_rect.length()+interligne;
+	etape_rect.clear();
+	
+	// on crée le groupe etape	
+	let etape = groupe.group();
+	// on crée un rectangle dont la taille est adaptée au texte
+	let path_cadre_rect_etape = 'M0,0L0,-'+interligne+',L'+(w_etape_rect + 2*interligne)+',-'+interligne+',L'+(w_etape_rect + 2*interligne)+','+interligne+'L0,'+interligne+'Z';	
+	let cadre_rect_etape = SVG_chemin(etape,path_cadre_rect_etape,couleur);  
+	// on positionne le cadre
+	cadre_rect_etape.dmove(0,h/2);
+	// on crée le foreignobject
+	let fobj_etape_rect = etape.foreignObject(w_etape_rect,h).attr({x:'0',y:'0'});
+	// on crée manuellement la div contenant les formules maths
+	let etape_rectDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+	katex.render('\\tiny{'+texte+'}', etape_rectDiv, {				
+		"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
+	});
+	//on affecte la div avec la formule dans le foreignobject
+	fobj_etape_rect.add(etape_rectDiv);
+	// on positionne l'objet
+	fobj_etape_rect.dmove(interligne+w_etape_rect/2-etape_rectDiv.offsetWidth/2,-interligne/4);
+	// on positionne l'etape 
+	etape.dmove(saut,0);
+	return etape;
+};
+
+/**
+ * Crée un diagramme pour une fonction arithmétique
+ * @param {string} id_du_div id du div contenant le SVG
+ * @param {number} w largeur du div du svg
+ * @param {numer} h hauteur du div du svg
+ * @param {string} nom nom de la fonction
+ * @param {string} x_ant antécédent de départ
+ * @param {array} etapes_expressions tableau contenant les opérations et les expressions algébriques des étapes
+ * @Auteur Sébastien Lozano
+ */
+function SVG_machine_diag_new(id_du_div,w,h,nom,x_ant,etapes_expressions) {
+	'use strict';
+	let interligne = 10; // unité d'espacement
+	var saut = 0; // pour la gestion des sauts entre les éléments on aura besoin d'une globale
+	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
+	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
+	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
+	window.SVGExist[id_du_div] = setInterval(function() {
+		if ($(`#${id_du_div}`).length ) {
+			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
+			//const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h).size('100%','100%');
+			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h);
+			// on trace un cadre pour le debug
+			//mon_svg.path('M0,0 L'+w+',0L'+w+','+h+'L0,'+h+'Z').fill('none').stroke({ color: '#f15929', width: 1, linecap: 'round', linejoin:'null'});
+ 			// on crée le groupe pour le diagramme
+			let diag=mon_svg.group();
+			let x = diag.text(x_ant).font(prop_font);
+			let w_x_ant = x.length();
+			x.clear();
+			// on incrémente le saut pour gérer le positionnement de l'élément suivant.
+			saut = w_x_ant + 2*interligne;
+			// on crée un rectangle dont la taille est adaptée au texte
+			let path_cadre_rect_ant = 'M0,0L0,-'+interligne+',L'+(w_x_ant + 2*interligne)+',-'+interligne+',L'+(w_x_ant + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
+			let cadre_ant = SVG_chemin(diag,path_cadre_rect_ant,'#f15929');  
+			// on positionne le cadre
+			cadre_ant.dmove(0,h/2);
+			// on crée le foreignobject
+			let fobj_x = diag.foreignObject(w_x_ant,h).attr({x:'0',y:'0'});
+			// on crée manuellement la div contenant les formules maths
+			let xDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+			katex.render('\\tiny{'+x_ant+'}', xDiv, {				
+				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
+			});
+			//on affecte la div avec la formule dans le foreignobject
+			fobj_x.add(xDiv);
+			// on positionne l'objet
+			fobj_x.dmove(interligne+w_x_ant/2-xDiv.offsetWidth/2,-interligne/4);
+			// on génère autant d'étapes que de paires dansle tableau etapes_expressions
+			for (var i = 0; i<etapes_expressions.length; i++) {
+				//si la longueur du tableau des etapes vaut i+1 c'est que c'est la derniere 
+				//on affiche donc chaque fois avec le nom de la fonction
+				if (etapes_expressions.length==i+1) {
+					// si il y a une operation et une expression algébrique
+					if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
+					SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929',etapes_expressions[i][0],saut);
+					saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,etapes_expressions[i][0]);					 
+					SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',nom+'('+x_ant+')='+etapes_expressions[i][1],saut)
+					saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,nom+'('+x_ant+')='+etapes_expressions[i][1]);
+					};
+					// si il y a une operation et pas d'expression algébrique 
+					if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
+					SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929',etapes_expressions[i][0],saut);
+					saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,etapes_expressions[i][0]);					 
+					SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',nom+'('+x_ant+')=\\ldots',saut)
+					saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,nom+'('+x_ant+')=\\ldots');
+					};
+					// si il n'y a pas d'operation mais une expression algébrique
+					if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
+					SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929','\\ldots',saut);
+					saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,'\\ldots');					 
+					SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',nom+'('+x_ant+')='+etapes_expressions[i][1],saut)
+					saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,nom+'('+x_ant+')='+etapes_expressions[i][1]);
+					};
+					// si il n'y ni une operation et ni expression algébrique
+					if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
+					SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929','\\ldots',saut);
+					saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,'\\ldots');					 
+					SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',nom+'(x)=\\ldots',saut)
+					saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,nom+'(x)=\\ldots');
+					};
+
+				} else {//sinon c'est une étape intermédiaire
+					// si il y a une operation et une expression algébrique
+					if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {						
+						SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929',etapes_expressions[i][0],saut);
+						saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,etapes_expressions[i][0]);					 
+						SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',etapes_expressions[i][1],saut)
+						saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,etapes_expressions[i][1]);
+					};
+					// si il y a une operation et pas d'expression algébrique 
+					if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
+						SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929',etapes_expressions[i][0],saut);
+						saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,etapes_expressions[i][0]);					 
+						SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929','\\ldots',saut)
+						saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,'\\ldots');
+					};
+					// si il n'y a pas d'operation mais une expression algébrique
+					if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
+						SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929','\\ldots',saut);
+						saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,'\\ldots');					 
+						SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',etapes_expressions[i][1],saut)
+						saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,etapes_expressions[i][1]);
+					};
+					// si il n'y ni une operation et ni expression algébrique
+					if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
+						SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929','\\ldots',saut);
+						saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,'\\ldots');					 
+						SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929','\\ldots',saut)
+						saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,'\\ldots');
+					};
+			 	};				
+			};		 
+
+		clearInterval(SVGExist[id_du_div]);//Arrête le timer
+		};
+	}, 100); // Vérifie toutes les 100ms
 };
 
