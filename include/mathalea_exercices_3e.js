@@ -789,8 +789,7 @@ function fonction_notion_vocabulaire(){
 		  <p>
 		  <i class="exclamation triangle icon"></i>
 		  ATTENTION BUG CONNU<br>
-		  Appuyer sur "F5" ou cliquer sur "Nouvelles données" avant de commencer l'exercice<br>
-		  Sinon il y a problème d'affichage dans la correction. 
+		  Sous Safari les animations dysfonctionnent
 		  </p>
 	  	</div>
 	  	<br>
@@ -922,20 +921,11 @@ function fonction_notion_vocabulaire(){
 						if (sortie_html) {
 							texte += num_alpha(j)+` &Eacute;crire la réponse à la question `+num_alpha(j-1)+` sous forme de diagramme.<br>`;
 							texte += `Voici le diagramme d'une machine qui triple `;
-
 							texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							SVG_machine_diag(id_du_div_diag,400,50,'f','x',[['\\times 3','3x']]);
-							// texte += `<div id="diagramme_type1" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							// SVG_machine_diag('diagramme_type1',400,50,'f','x',[['\\times 3','3x']]);
-
+							SVG_machine_diag_3F1_act_mono(id_du_div_diag,800,100,'f','x',[['3','3x']]);
 							texte_corr += num_alpha(j)+`C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
-
-							// id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`;
-							// texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							// SVG_machine_diag(id_du_div_corr,400,50,'f','x',[['\\times 4','4x']]);
-
-							texte_corr += `<div id="diagramme_type1_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							SVG_machine_diag('diagramme_type1_corr',400,50,'f','x',[['\\times 4','4x']]);
+							 texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+							SVG_machine_diag_3F1_act_mono(id_du_div_corr,800,100,'f','x',[['4','4x']]);
 							j++;//incrémente la sous question
 						} else { // sortie LaTeX
 							texte += `\\item   \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
@@ -1049,19 +1039,16 @@ function fonction_notion_vocabulaire(){
 						if (sortie_html) {
 							texte += num_alpha(j)+` &Eacute;crire la réponse à la question `+num_alpha(j-1)+` sous forme de diagramme.<br>`;
 							texte += `Voici le diagramme d'une machine qui double `;
-							texte += `<div id="diagramme_type2" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							SVG_machine_diag('diagramme_type2',400,50,'g','x',[['\\times 2','2x']]);
+							texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+							SVG_machine_diag_3F1_act_mono(id_du_div_diag,800,100,'g','x',[['2','2x']]);
 							texte_corr += num_alpha(j)+`C'est une machine qui multiplie un nombre par lui-même, donc sous forme de diagramme.<br>`;
-							texte_corr += `<div id="diagramme_type2_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							SVG_machine_diag('diagramme_type2_corr',400,50,'g','x',[['\\times x','x\\times x=x^{\\tiny 2}']]);
+							texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+							SVG_machine_diag_3F1_act_mono(id_du_div_corr,800,100,'g','x',[['x','x²']]);
 							j++;//incrémente la sous question
 						} else {
 							texte += `\\item  \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
 							texte += `Voici le diagramme d'une machine qui double <br>`;
 							texte += tikz_machine_diag(`g`,`x`,[[`\\times 2`,`2x`]]);
-							// texte += `<div id="diagramme_type2" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							// SVG_machine_diag('diagramme_type2',400,50,'g','x',[['\\times 2','2x']]);
-
 							texte_corr += `\\item C'est une machine qui multiplie un nombre par lui-même, donc sous forme de diagramme.<br>`;
 							texte_corr += tikz_machine_diag(`g`,`x`,[[`\\times x`,`x^2`]]);
 						};
@@ -1172,12 +1159,11 @@ function fonction_notion_vocabulaire(){
 						if (sortie_html) {
 							texte += num_alpha(j)+` &Eacute;crire la réponse à la question `+num_alpha(j-1)+` sous forme de diagramme.<br>`;
 							texte += `Voici le diagramme d'une machine qui double puis qui ajoute 5 `;
-							texte += `<div id="diagramme_type3" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							SVG_machine_diag('diagramme_type3',400,50,'h','x',[['\\times 2','2x'],['+5','2x+5']]);
-
+							texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;						 
+							SVG_machine_diag_3F12(id_du_div_diag,800,100,'h','x',[['2','2x'],['5','2x+5']]);
 							texte_corr += num_alpha(j)+`C'est une machine qui triple un nombre et ajoute 1, donc sous forme de diagramme.<br>`;
-							texte_corr += `<div id="diagramme_type3_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							SVG_machine_diag('diagramme_type3_corr',400,50,'h','x',[['\\times 3','3x'],['+1','3x+1']]);
+							texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;							
+							SVG_machine_diag_3F12(id_du_div_corr,800,100,'h','x',[['3','3x'],['1','3x+1']]);
 							j++;//incrémente la sous question
 						} else {
 							texte += `\\item  \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
@@ -1538,13 +1524,16 @@ function fonction_notion_vocabulaire(){
 							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 							//console.log(id_du_div);
 							 //SVG_machine_diag(id_du_div,400,50,'h','x',[['\\times '+a,a+'x'],['+'+b,a+'x+'+b]]);						
-							 SVG_machine_diag_balises(id_du_div,800,100,'h','x',[[''+a,a+'x'],[''+b,a+'x+'+b]]);						
+							 SVG_machine_diag_3F12(id_du_div,800,100,'h','x',[[''+a,a+'x'],[''+b,a+'x+'+b]]);
+							 //SVG_machine_diag_balises_dev(id_du_div,800,100,'h','x',[['×'+a,a+'xuuiu'],[''+b,a+'x+'+b]])
+							 
+							 
 						 	texte += num_alpha(j)+` Calculer l'image de ${c}`;
 							texte +=`<br>`;
 							texte_corr +=`<br>`;
 							texte_corr += num_alpha(j)+` Calculons l'image par $h$ de $x=$ ${c} :`;
 							texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; display : table "></div>`;
-							SVG_machine_diag_balises(id_du_div_corr,800,100,'h',''+c,[[''+a,''+(a*c)],[''+b,''+(a*c+b)]]);
+							SVG_machine_diag_3F12(id_du_div_corr,800,100,'h',''+c,[[''+a,''+(a*c)],[''+b,''+(a*c+b)]]);
 							//SVG_machine_diag(id_du_div_corr,400,50,'h',''+c,[['\\times '+a,''+(a*c)],['+'+b,''+(a*c+b)]]);
 							//console.log(id_du_div_corr);
 						 	//texte_corr += `<div id="ex3F12_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
@@ -1577,5 +1566,5 @@ function fonction_notion_vocabulaire(){
 	
 		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : &Agrave; partir d'un programme de calcul\n2 : &Agrave; partir de l'expression algébrique sous forme $f(x)=\\ldots$\n3 : &Agrave; partir de l'expression algébrique sous forme $f:x\\longmapsto \\ldots$\n4 : &Agrave; partir d'un diagramme\n5 : Mélange"]; 
+	this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : &Agrave; partir d'un programme de calcul\n2 : &Agrave; partir de l'expression algébrique sous forme f(x) = ...\n3 : &Agrave; partir de l'expression algébrique sous forme f : x --> ...\n4 : &Agrave; partir d'un diagramme\n5 : Mélange"]; 
  };  

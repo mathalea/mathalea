@@ -2422,126 +2422,8 @@ function SVG_chemin(groupe,chemin,couleur) {
 	return groupe.path(chemin).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
 };
 
-/**Calcule la place nécessaire au saut après une étape opératoire
- * @param {object} groupe groupe svg
- * @param {number} interligne unité d'espacement
- * @param {string} texte texte avec rendu katex
- * @Auteur Sébastien Lozano
- */
-function SVG_saut_etape_cadre_rond(groupe,interligne,texte){
-	'use strict';
-	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
-	let operation = groupe.text(texte).font(prop_font);
-	let w_operation = Math.max(operation.length(),4*interligne);
-	operation.clear();
-	return 5*interligne/2 + w_operation/2;
-};
-
-/**Crée une étape avec une opération
- * @param {object} groupe groupe du svg 
- * @param {number} h hauteur de reference
- * @param {number} interligne unité d'espacement
- * @param {string} couleur couleur
- * @param {string} texte texte avec rendu katex
- * @param {number} saut saut pour positionner le cadre suivant
- * @Auteur Sébastien Lozano
- */
-
-function SVG_etape_cadre_rond(groupe,h,interligne,couleur,texte,saut) {
-	'use strict';
-	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
-	let operation = groupe.text(texte).font(prop_font);
-	let w_operation = Math.max(operation.length(),4*interligne);
-	operation.clear();
-	let r_circ = interligne/2 + w_operation/2;
-
-	// on crée la fleche
-	let path_fleche = 'M0,0L'+interligne+',0L'+(interligne-2)+',-2M'+interligne+',0L'+(interligne-2)+',2';
-	// on crée le groupe etape
-	let etape = groupe.group();
-	// on crée la ligne de départ	
-	let l1 = etape.line(0,0,interligne,0).stroke({ width: 1 ,color: couleur});
-	l1.dmove(0,h/2);
-	// on crée le cadre rond
-	let cadre_etape = etape.circle(r_circ).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
-	//on positionne le cadre etape
-	cadre_etape.dmove(interligne,h/2-r_circ/2);
-	// on crée la fleche et on la positionne
-	let f1 = SVG_chemin(etape,path_fleche,couleur);
-	f1.dmove(3*interligne/2+w_operation/2,h/2);
-	// on crée le foreignobject
-	let fobj_operation = etape.foreignObject(w_operation,h).attr({x:'0',y:'0'});
-	// on crée manuellement la div contenant les formules maths
-	let operationDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
-	katex.render('\\tiny{'+texte+'}', operationDiv, {				
-		"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
-	});
-	//on affecte la div avec la formule dans le foreignobject
-	fobj_operation.add(operationDiv);
-	// on positionne l'objet
-	fobj_operation.dmove(interligne/4,-interligne/4);
-	// on positionne l'etape
-	etape.dmove(saut,0);
-	return etape;
-};
-
-/**Calcule la place nécessaire au saut après le résultat d'une étape intermédiaire
- * @param {object} groupe groupe svg
- * @param {number} interligne unité d'espacement
- * @param {string} texte texte avec rendu katex
- * @Auteur Sébastien Lozano
- */
-function SVG_saut_etape_cadre_rect(groupe,interligne,texte) {
-	'use strict';
-	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
-	let etape_rect = groupe.text(texte).font(prop_font);
-	let w_etape_rect = etape_rect.length()+interligne;
-	etape_rect.clear();
-	return w_etape_rect + 2*interligne;
-};
-/**Crée le résultats d'une étape après une opération
- * 
- * @param {object} groupe group svg
- * @param {number} h heuteur
- * @param {number} interligne unité d'espacement
- * @param {string} couleur couleur
- * @param {string} texte texte avec rendu katex
- * @param {number} saut saut pour positionner le cadre suivant
- * @Auteur Sébastien Lozano
- */
-
-function SVG_etape_cadre_rect(groupe,h,interligne,couleur,texte,saut) {
-	'use strict';
-	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
-	let etape_rect = groupe.text(texte).font(prop_font);
-	let w_etape_rect = etape_rect.length()+interligne;
-	etape_rect.clear();
-	
-	// on crée le groupe etape	
-	let etape = groupe.group();
-	// on crée un rectangle dont la taille est adaptée au texte
-	let path_cadre_rect_etape = 'M0,0L0,-'+interligne+',L'+(w_etape_rect + 2*interligne)+',-'+interligne+',L'+(w_etape_rect + 2*interligne)+','+interligne+'L0,'+interligne+'Z';	
-	let cadre_rect_etape = SVG_chemin(etape,path_cadre_rect_etape,couleur);  
-	// on positionne le cadre
-	cadre_rect_etape.dmove(0,h/2);
-	// on crée le foreignobject
-	let fobj_etape_rect = etape.foreignObject(w_etape_rect,h).attr({x:'0',y:'0'});
-	// on crée manuellement la div contenant les formules maths
-	let etape_rectDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
-	katex.render('\\tiny{'+texte+'}', etape_rectDiv, {				
-		"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
-	});
-	//on affecte la div avec la formule dans le foreignobject
-	fobj_etape_rect.add(etape_rectDiv);
-	// on positionne l'objet
-	fobj_etape_rect.dmove(interligne+w_etape_rect/2-etape_rectDiv.offsetWidth/2,-interligne/4);
-	// on positionne l'etape 
-	etape.dmove(saut,0);
-	return etape;
-};
-
 /**
- * Crée un diagramme pour une fonction arithmétique
+ * Crée un diagramme pour une fonction arithmétique à une étape produit
  * @param {string} id_du_div id du div contenant le SVG
  * @param {number} w largeur du div du svg
  * @param {numer} h hauteur du div du svg
@@ -2550,114 +2432,87 @@ function SVG_etape_cadre_rect(groupe,h,interligne,couleur,texte,saut) {
  * @param {array} etapes_expressions tableau contenant les opérations et les expressions algébriques des étapes
  * @Auteur Sébastien Lozano
  */
-function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes_expressions) {
+function SVG_machine_diag_3F1_act_mono(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 	'use strict';
-	let interligne = 10; // unité d'espacement
+	let interligne = 10;//w/80; //h/10; // unité d'espacement
 	var saut = 0; // pour la gestion des sauts entre les éléments on aura besoin d'une globale
-	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
 	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
 	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
 	window.SVGExist[id_du_div] = setInterval(function() {
+		
 		if ($(`#${id_du_div}`).length ) {
 			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
-			//const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h).size('100%','100%');
-			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h);
-			// on trace un cadre pour le debug
-			//mon_svg.path('M0,0 L'+w+',0L'+w+','+h+'L0,'+h+'Z').fill('none').stroke({ color: '#f15929', width: 1, linecap: 'round', linejoin:'null'});
- 			// on crée le groupe pour le diagramme
-			let diag=mon_svg.group();
-			let x = diag.text(x_ant).font(prop_font);
-			let w_x_ant = x.length();
-			x.clear();
-			// on incrémente le saut pour gérer le positionnement de l'élément suivant.
-			saut = w_x_ant + 2*interligne;
 			// on crée un rectangle dont la taille est adaptée au texte
-			let path_cadre_rect_ant = 'M0,0L0,-'+interligne+',L'+(w_x_ant + 2*interligne)+',-'+interligne+',L'+(w_x_ant + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
-			let cadre_ant = SVG_chemin(diag,path_cadre_rect_ant,'#f15929');  
-			// on positionne le cadre
-			cadre_ant.dmove(0,h/2);
-			// on crée le foreignobject
-			let fobj_x = diag.foreignObject(w_x_ant,h).attr({x:'0',y:'0'});
-			// on crée manuellement la div contenant les formules maths
-			let xDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
-			katex.render('\\tiny{'+x_ant+'}', xDiv, {				
-				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
-			});
-			//on affecte la div avec la formule dans le foreignobject
-			fobj_x.add(xDiv);
-			// on positionne l'objet
-			fobj_x.dmove(interligne+w_x_ant/2-xDiv.offsetWidth/2,-interligne/4);
-			// on génère autant d'étapes que de paires dansle tableau etapes_expressions
-			for (var i = 0; i<etapes_expressions.length; i++) {
-				//si la longueur du tableau des etapes vaut i+1 c'est que c'est la derniere 
-				//on affiche donc chaque fois avec le nom de la fonction
-				if (etapes_expressions.length==i+1) {
-					// si il y a une operation et une expression algébrique
-					if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
-					SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929',etapes_expressions[i][0],saut);
-					saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,etapes_expressions[i][0]);					 
-					SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',nom+'('+x_ant+')='+etapes_expressions[i][1],saut)
-					saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,nom+'('+x_ant+')='+etapes_expressions[i][1]);
-					};
-					// si il y a une operation et pas d'expression algébrique 
-					if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
-					SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929',etapes_expressions[i][0],saut);
-					saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,etapes_expressions[i][0]);					 
-					SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',nom+'('+x_ant+')=\\ldots',saut)
-					saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,nom+'('+x_ant+')=\\ldots');
-					};
-					// si il n'y a pas d'operation mais une expression algébrique
-					if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
-					SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929','\\ldots',saut);
-					saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,'\\ldots');					 
-					SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',nom+'('+x_ant+')='+etapes_expressions[i][1],saut)
-					saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,nom+'('+x_ant+')='+etapes_expressions[i][1]);
-					};
-					// si il n'y ni une operation et ni expression algébrique
-					if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
-					SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929','\\ldots',saut);
-					saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,'\\ldots');					 
-					SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',nom+'(x)=\\ldots',saut)
-					saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,nom+'(x)=\\ldots');
-					};
-
-				} else {//sinon c'est une étape intermédiaire
-					// si il y a une operation et une expression algébrique
-					if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {						
-						SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929',etapes_expressions[i][0],saut);
-						saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,etapes_expressions[i][0]);					 
-						SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',etapes_expressions[i][1],saut)
-						saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,etapes_expressions[i][1]);
-					};
-					// si il y a une operation et pas d'expression algébrique 
-					if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
-						SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929',etapes_expressions[i][0],saut);
-						saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,etapes_expressions[i][0]);					 
-						SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929','\\ldots',saut)
-						saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,'\\ldots');
-					};
-					// si il n'y a pas d'operation mais une expression algébrique
-					if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
-						SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929','\\ldots',saut);
-						saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,'\\ldots');					 
-						SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',etapes_expressions[i][1],saut)
-						saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,etapes_expressions[i][1]);
-					};
-					// si il n'y ni une operation et ni expression algébrique
-					if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
-						SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929','\\ldots',saut);
-						saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,'\\ldots');					 
-						SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929','\\ldots',saut)
-						saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,'\\ldots');
-					};
-			 	};				
-			};		 
-
+			let w_x_ant = 10*interligne;
+			// on incrémente le saut pour gérer le positionnement de l'élément suivant
+			saut = w_x_ant + 2*interligne;
+			//let path_cadre_rect_ant = 'M0,0L0,-'+interligne+',L'+(w_x_ant + 2*interligne)+',-'+interligne+',L'+(w_x_ant + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
+			let path_cadre_rect_ant ='5,5 195,10 185,40 10,50';
+			document.getElementById(id_du_div).innerHTML = `
+				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 `+w+` `+h+`" width="`+w+`">
+					<g>
+						<path d="M0 `+5*interligne+`L0 `+3*interligne+`L`+5*interligne+` `+3*interligne+`L`+5*interligne+` `+7*interligne+`L0 `+7*interligne+`Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+						</path>
+						<foreignObject width="`+interligne+`" height="`+h/2+`" x="`+2.5*interligne+`" y="`+h/4+`">
+							<div style="position: fixed">
+								<span class="katex-display">
+									<span class="katex">
+										<span class="katex-html" aria-hidden="true">
+											<span class="base">
+												<span class="mord mathdefault">`+x_ant+`</span>
+											</span>
+										</span>
+									</span>
+								</span>
+							</div>
+						</foreignObject>
+					</g>
+					<g>
+						<line x1="`+5*interligne+`" y1="`+5*interligne+`" x2="`+7*interligne+`" y2="`+5*interligne+`" stroke-width="3" stroke="#f15929">
+						</line>
+						<circle r="`+2*interligne+`" cx="`+9*interligne+`" cy="`+5*interligne+`" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+						</circle>
+						<path d="M`+11*interligne+` `+5*interligne+`L`+13*interligne+` `+5*interligne+`L`+(13*interligne-interligne/2)+` `+(5*interligne-interligne/2)+`M`+13*interligne+` `+5*interligne+`L`+(13*interligne-interligne/2)+` `+(5*interligne+interligne/2)+` " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+						</path>
+						<foreignObject width="`+4*interligne+`" height="`+h/2+`" x="`+7.5*interligne+`" y="`+h/4+`">
+							<div style="position: fixed">
+								<span class="katex-display">
+									<span class="katex">
+										<span class="katex-html" aria-hidden="true">
+											<span class="base">
+												<span class="mord mathdefault">×`+etapes_expressions[0][0]+`</span>
+											</span>
+										</span>
+									</span>
+								</span>
+							</div>
+						</foreignObject>
+					</g>
+					<g>
+						<path d="M`+13*interligne+` `+5*interligne+`L`+13*interligne+` `+3*interligne+`L`+27*interligne+` `+3*interligne+`L`+27*interligne+` `+7*interligne+`L`+13*interligne+` `+7*interligne+`Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+						</path>
+						<foreignObject width="`+12*interligne+`" height="`+h/2+`" x="`+16*interligne+`" y="`+h/4+`">
+							<div style="position: fixed">
+								<span class="katex-display">
+									<span class="katex">
+										<span class="katex-html" aria-hidden="true">
+											<span class="base">
+												
+												<span class="mord mathdefault">`+nom+`<span class="mopen">(</span>`+x_ant+`<span class="mclose">)</span><span class="mspace" style="margin-right: 0.408889em;"></span>=<span class="mspace" style="margin-right: 0.408889em;"></span>`+etapes_expressions[0][1]+`</span>
+											</span>
+										</span>
+									</span>
+								</span>
+							</div>
+						</foreignObject>
+					</g>
+				</svg>	
+				`;
+			
 		clearInterval(SVGExist[id_du_div]);//Arrête le timer
 		};
 	}, 100); // Vérifie toutes les 100ms
 };
-
 //=================================
 //fin fonctions 3F1-act
 //=================================
@@ -2683,7 +2538,7 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 
 
 /**
- * Crée un diagramme pour une fonction arithmétique
+ * Crée un diagramme pour une fonction arithmétique à deux étapes produit puis somme
  * @param {string} id_du_div id du div contenant le SVG
  * @param {number} w largeur du div du svg
  * @param {numer} h hauteur du div du svg
@@ -2692,7 +2547,7 @@ function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes_expressions) {
  * @param {array} etapes_expressions tableau contenant les opérations et les expressions algébriques des étapes
  * @Auteur Sébastien Lozano
  */
-function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
+function SVG_machine_diag_3F12(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 	'use strict';
 	let interligne = 10;//w/80; //h/10; // unité d'espacement
 	var saut = 0; // pour la gestion des sauts entre les éléments on aura besoin d'une globale
@@ -2797,7 +2652,7 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 									<span class="katex">
 										<span class="katex-html" aria-hidden="true">
 											<span class="base">
-												<span class="mord mathdefault">h<span class="mopen">(</span>`+x_ant+`<span class="mclose">)</span><span class="mspace" style="margin-right: 0.408889em;"></span>=<span class="mspace" style="margin-right: 0.408889em;"></span>`+etapes_expressions[1][1]+`</span>
+												<span class="mord mathdefault">`+nom+`<span class="mopen">(</span>`+x_ant+`<span class="mclose">)</span><span class="mspace" style="margin-right: 0.408889em;"></span>=<span class="mspace" style="margin-right: 0.408889em;"></span>`+etapes_expressions[1][1]+`</span>
 											</span>
 										</span>
 									</span>
@@ -2813,223 +2668,6 @@ function SVG_machine_diag_balises(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 	}, 100); // Vérifie toutes les 100ms
 };
 
-/**Crée une étape avec une opération
- * @param {object} groupe groupe du svg 
- * @param {number} h hauteur de reference
- * @param {number} interligne unité d'espacement
- * @param {string} couleur couleur
- * @param {string} texte texte avec rendu katex
- * @param {number} saut saut pour positionner le cadre suivant
- * @Auteur Sébastien Lozano
- */
 
 
- //===========================================================================
- //modifs des fonction svg pour les diagrammes
- //voir aussi la version tikz pour les sauts entre elements
- //et les fonctions SVG-saut_cadre_rect ou rond saut pour la gestion des sauts
- //===========================================================================
-function SVG_etape_cadre_rond_new(groupe,h,interligne,couleur,texte,saut) {
-	'use strict';
-	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
-	let operation = groupe.text(texte).font(prop_font);
-	let w_operation = Math.max(operation.length(),4*interligne);
-	operation.clear();
-	let r_circ = interligne/2 + w_operation/2;
-
-	// on crée la fleche
-	let path_fleche = 'M0,0L'+interligne+',0L'+(interligne-2)+',-2M'+interligne+',0L'+(interligne-2)+',2';
-	// on crée le groupe etape
-	let etape = groupe.group();
-	// on crée la ligne de départ	
-	let l1 = etape.line(0,0,interligne,0).stroke({ width: 1 ,color: couleur});
-	l1.dmove(0,h/2);
-	// on crée le cadre rond
-	let cadre_etape = etape.circle(r_circ).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
-	//on positionne le cadre etape
-	cadre_etape.dmove(interligne,h/2-r_circ/2);
-	// on crée la fleche et on la positionne
-	let f1 = SVG_chemin(etape,path_fleche,couleur);
-	f1.dmove(3*interligne/2+w_operation/2,h/2);
-	// on crée le foreignobject
-	let fobj_operation = etape.foreignObject(w_operation,h).attr({x:'0',y:'0'});
-	// on crée manuellement la div contenant les formules maths
-	let operationDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
-	katex.render('\\tiny{'+texte+'}', operationDiv, {				
-		"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
-	});
-	//on affecte la div avec la formule dans le foreignobject
-	fobj_operation.add(operationDiv);
-	// on positionne l'objet
-	fobj_operation.dmove(interligne/4,-interligne/4);
-	// on positionne l'etape
-	etape.dmove(saut,0);
-	return etape;
-};
-
-/**Calcule la place nécessaire au saut après le résultat d'une étape intermédiaire
- * @param {object} groupe groupe svg
- * @param {number} interligne unité d'espacement
- * @param {string} texte texte avec rendu katex
- * @Auteur Sébastien Lozano
- */
-
-/**Crée le résultats d'une étape après une opération
- * 
- * @param {object} groupe group svg
- * @param {number} h heuteur
- * @param {number} interligne unité d'espacement
- * @param {string} couleur couleur
- * @param {string} texte texte avec rendu katex
- * @param {number} saut saut pour positionner le cadre suivant
- * @Auteur Sébastien Lozano
- */
-
-function SVG_etape_cadre_rect_new(groupe,h,interligne,couleur,texte,saut) {
-	'use strict';
-	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
-	let etape_rect = groupe.text(texte).font(prop_font);
-	let w_etape_rect = etape_rect.length()+interligne;
-	etape_rect.clear();
 	
-	// on crée le groupe etape	
-	let etape = groupe.group();
-	// on crée un rectangle dont la taille est adaptée au texte
-	let path_cadre_rect_etape = 'M0,0L0,-'+interligne+',L'+(w_etape_rect + 2*interligne)+',-'+interligne+',L'+(w_etape_rect + 2*interligne)+','+interligne+'L0,'+interligne+'Z';	
-	let cadre_rect_etape = SVG_chemin(etape,path_cadre_rect_etape,couleur);  
-	// on positionne le cadre
-	cadre_rect_etape.dmove(0,h/2);
-	// on crée le foreignobject
-	let fobj_etape_rect = etape.foreignObject(w_etape_rect,h).attr({x:'0',y:'0'});
-	// on crée manuellement la div contenant les formules maths
-	let etape_rectDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
-	katex.render('\\tiny{'+texte+'}', etape_rectDiv, {				
-		"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
-	});
-	//on affecte la div avec la formule dans le foreignobject
-	fobj_etape_rect.add(etape_rectDiv);
-	// on positionne l'objet
-	fobj_etape_rect.dmove(interligne+w_etape_rect/2-etape_rectDiv.offsetWidth/2,-interligne/4);
-	// on positionne l'etape 
-	etape.dmove(saut,0);
-	return etape;
-};
-
-/**
- * Crée un diagramme pour une fonction arithmétique
- * @param {string} id_du_div id du div contenant le SVG
- * @param {number} w largeur du div du svg
- * @param {numer} h hauteur du div du svg
- * @param {string} nom nom de la fonction
- * @param {string} x_ant antécédent de départ
- * @param {array} etapes_expressions tableau contenant les opérations et les expressions algébriques des étapes
- * @Auteur Sébastien Lozano
- */
-function SVG_machine_diag_new(id_du_div,w,h,nom,x_ant,etapes_expressions) {
-	'use strict';
-	let interligne = 10; // unité d'espacement
-	var saut = 0; // pour la gestion des sauts entre les éléments on aura besoin d'une globale
-	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
-	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
-	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
-	window.SVGExist[id_du_div] = setInterval(function() {
-		if ($(`#${id_du_div}`).length ) {
-			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
-			//const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h).size('100%','100%');
-			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h);
-			// on trace un cadre pour le debug
-			//mon_svg.path('M0,0 L'+w+',0L'+w+','+h+'L0,'+h+'Z').fill('none').stroke({ color: '#f15929', width: 1, linecap: 'round', linejoin:'null'});
- 			// on crée le groupe pour le diagramme
-			let diag=mon_svg.group();
-			let x = diag.text(x_ant).font(prop_font);
-			let w_x_ant = x.length();
-			x.clear();
-			// on incrémente le saut pour gérer le positionnement de l'élément suivant.
-			saut = w_x_ant + 2*interligne;
-			// on crée un rectangle dont la taille est adaptée au texte
-			let path_cadre_rect_ant = 'M0,0L0,-'+interligne+',L'+(w_x_ant + 2*interligne)+',-'+interligne+',L'+(w_x_ant + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
-			let cadre_ant = SVG_chemin(diag,path_cadre_rect_ant,'#f15929');  
-			// on positionne le cadre
-			cadre_ant.dmove(0,h/2);
-			// on crée le foreignobject
-			let fobj_x = diag.foreignObject(w_x_ant,h).attr({x:'0',y:'0'});
-			// on crée manuellement la div contenant les formules maths
-			let xDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
-			katex.render('\\tiny{'+x_ant+'}', xDiv, {				
-				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
-			});
-			//on affecte la div avec la formule dans le foreignobject
-			fobj_x.add(xDiv);
-			// on positionne l'objet
-			fobj_x.dmove(interligne+w_x_ant/2-xDiv.offsetWidth/2,-interligne/4);
-			// on génère autant d'étapes que de paires dansle tableau etapes_expressions
-			for (var i = 0; i<etapes_expressions.length; i++) {
-				//si la longueur du tableau des etapes vaut i+1 c'est que c'est la derniere 
-				//on affiche donc chaque fois avec le nom de la fonction
-				if (etapes_expressions.length==i+1) {
-					// si il y a une operation et une expression algébrique
-					if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
-					SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929',etapes_expressions[i][0],saut);
-					saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,etapes_expressions[i][0]);					 
-					SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',nom+'('+x_ant+')='+etapes_expressions[i][1],saut)
-					saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,nom+'('+x_ant+')='+etapes_expressions[i][1]);
-					};
-					// si il y a une operation et pas d'expression algébrique 
-					if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
-					SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929',etapes_expressions[i][0],saut);
-					saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,etapes_expressions[i][0]);					 
-					SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',nom+'('+x_ant+')=\\ldots',saut)
-					saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,nom+'('+x_ant+')=\\ldots');
-					};
-					// si il n'y a pas d'operation mais une expression algébrique
-					if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
-					SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929','\\ldots',saut);
-					saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,'\\ldots');					 
-					SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',nom+'('+x_ant+')='+etapes_expressions[i][1],saut)
-					saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,nom+'('+x_ant+')='+etapes_expressions[i][1]);
-					};
-					// si il n'y ni une operation et ni expression algébrique
-					if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
-					SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929','\\ldots',saut);
-					saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,'\\ldots');					 
-					SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',nom+'(x)=\\ldots',saut)
-					saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,nom+'(x)=\\ldots');
-					};
-
-				} else {//sinon c'est une étape intermédiaire
-					// si il y a une operation et une expression algébrique
-					if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {						
-						SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929',etapes_expressions[i][0],saut);
-						saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,etapes_expressions[i][0]);					 
-						SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',etapes_expressions[i][1],saut)
-						saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,etapes_expressions[i][1]);
-					};
-					// si il y a une operation et pas d'expression algébrique 
-					if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
-						SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929',etapes_expressions[i][0],saut);
-						saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,etapes_expressions[i][0]);					 
-						SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929','\\ldots',saut)
-						saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,'\\ldots');
-					};
-					// si il n'y a pas d'operation mais une expression algébrique
-					if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
-						SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929','\\ldots',saut);
-						saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,'\\ldots');					 
-						SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',etapes_expressions[i][1],saut)
-						saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,etapes_expressions[i][1]);
-					};
-					// si il n'y ni une operation et ni expression algébrique
-					if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
-						SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929','\\ldots',saut);
-						saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,'\\ldots');					 
-						SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929','\\ldots',saut)
-						saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,'\\ldots');
-					};
-			 	};				
-			};		 
-
-		clearInterval(SVGExist[id_du_div]);//Arrête le timer
-		};
-	}, 100); // Vérifie toutes les 100ms
-};
-
