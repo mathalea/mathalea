@@ -789,7 +789,7 @@ function fonction_notion_vocabulaire(){
 		  <p>
 		  <i class="exclamation triangle icon"></i>
 		  ATTENTION BUG CONNU<br>
-		  Sous Safari les animations dysfonctionnent
+		  Sous Safari et Edge les animations dysfonctionnent
 		  </p>
 	  	</div>
 	  	<br>
