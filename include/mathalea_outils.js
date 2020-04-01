@@ -2667,7 +2667,3 @@ function SVG_machine_diag_3F12(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 		};
 	}, 100); // Vérifie toutes les 100ms
 };
-
-
-
-	

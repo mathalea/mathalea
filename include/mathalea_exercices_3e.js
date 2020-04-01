@@ -1572,6 +1572,60 @@ function fonction_notion_vocabulaire(){
  /**
   * 3F-test test de la bibliotheque d3.js
   */
+ function d3jsTests(id_du_div) {
+	'use strict';
+	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
+	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
+	window.SVGExist[id_du_div] = setInterval(function() {
+		
+		if ($(`#${id_du_div}`).length ) {
+			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
+
+			document.getElementById(id_du_div).innerHTML = `8`;
+			var width = 1300;
+			var height = 300;
+			var svg = d3.select('#'+id_du_div)
+				.append("svg")
+				.attr("width", width)
+				.attr("height", height);
+				var circleMove = svg.append("circle")
+				.attr("cx",150)
+				.attr("cy",50)
+				.attr("r",30);
+				
+				 circleMove
+				.transition()
+				 .duration(500)
+				.attr("cx", 850)
+				.transition()
+				.duration(500)
+				.attr("cx",150)
+				.transition()
+				.duration(500)
+				.attr("cx",650)
+				.transition()
+				.duration(500)
+				.attr("cx",350)
+				.transition()
+				.duration(500)
+				.attr("cx",500);
+
+				var positions = [850, 200, 800, 250, 750, 300, 700, 350, 650, 400, 600, 450, 550, 500];
+				function animateMulti(node, positions, i) {
+					node.transition()
+						.duration(300)
+						.attr("cx", positions[i])
+						.on('end',  function() {
+							if (i < (positions.length - 1)) {
+								animateMulti(d3.select(this), positions, ++i);
+							}
+						});
+				}
+				animateMulti(circleMultiTransition, positions, 0);
+		clearInterval(SVGExist[id_du_div]);//Arrête le timer
+		};
+	}, 100); // Vérifie toutes les 100ms
+};
 
   function svglibs() {
 	'use strict';
@@ -1616,7 +1670,8 @@ function fonction_notion_vocabulaire(){
 		<br><a href="https://d3js.org/" target="_blank">https://d3js.org/</a>
 		`;
 		this.consigne += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table "></div>`;
-		SVG_machine_maths(id_du_div,400,hauteur_svg,'machine\\,maths','---','Procédé','de\\,calcul','antécédent','x','image','y');
+		//SVG_machine_maths(id_du_div,400,hauteur_svg,'machine\\,maths','---','Procédé','de\\,calcul','antécédent','x','image','y');
+		d3jsTests(id_du_div);
 	} else { // sortie LaTeX
 		// this.consigne += `machine Tikz HEX #F15929 équivaut à rgb(241,89,41)<br>`;
 		this.consigne += tikz_machine_maths('maths','---',`Proc\\acute{e}d\\acute{e}`,'de\\,calcul',`ant\\acute{e}c\\acute{e}dent`,`\\textit{x}`,`image`,`\\textit{y}`);
@@ -1638,13 +1693,13 @@ function fonction_notion_vocabulaire(){
 		let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
 
-			for (let i = 0, x,y,z, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
+			for (let i = 0, x, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 				type_de_questions = liste_type_de_questions[i];
 				
 				if (sortie_html) {
 					var id_unique = `${num_ex}_${i}_${Date.now()}`
 					var id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
-					var id_du_div_diag = `div_svg_diag${numero_de_l_exercice}${id_unique}`;
+					//var id_du_div_diag = `div_svg_diag${numero_de_l_exercice}${id_unique}`;
 					var id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`;
 				}
 	
@@ -1663,101 +1718,12 @@ function fonction_notion_vocabulaire(){
 						if (sortie_html) {
 							//texte += `<br>`;
 							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
-							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, f','---','périmètre','d\'un \\, carré','carré \\, de','côté \\,'+x+' \\, cm','périmètre','??? \\, cm');							
+							texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
+							//SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, f','---','périmètre','d\'un \\, carré','carré \\, de','côté \\,'+x+' \\, cm','périmètre','??? \\, cm');							
 						} else { // sortie Latex avec Tikz
-							texte += tikz_machine_maths('f','---',`P\\acute{e}rim\\grave{e}tre`,`d'un\\,carr\\acute{e}`,`carr\\acute{e}\\,de`,`c\\hat{o}t\\acute{e}\\,${x}\\,cm`,`P\\acute{e}rim\\grave{e}tre`,`???\\,cm`);
+							//texte += tikz_machine_maths('f','---',`P\\acute{e}rim\\grave{e}tre`,`d'un\\,carr\\acute{e}`,`carr\\acute{e}\\,de`,`c\\hat{o}t\\acute{e}\\,${x}\\,cm`,`P\\acute{e}rim\\grave{e}tre`,`???\\,cm`);
 						};
-						// sous question a/						
-						if (sortie_html){
-							texte += num_alpha(j)+` Que renvoie la machine si le côté vaut  ${x}  cm ? Formuler la réponse `;
-							texte += katex_Popup('avec le mot image','Image','La valeur du périmètre est l\'image de la valeur du côté')+`<br>`;
-							texte_corr = num_alpha(j)+`Si le côté vaut ${x} cm alors la machine renvoie le périmètre d'un carré de côté ${x} cm, c'est à dire $${x}+${x}+${x}+${x} = 4\\times ${x} = ${4*x}$ cm.<br>`;
-							texte_corr += `On dit que ${4*x} est l'image de ${x} par la fonction f.<br>`;						
-							j++;//incrémente la sous question	
-						} else { //sortie LaTeX
-							texte += `\\begin{enumerate}[itemsep=1em]`;
-							texte += `\\item Que renvoie la machine si le côté vaut  ${x}  cm ? Formuler la réponse avec le mot \\textbf{image} \\footnote{\\textbf{Image :} La valeur du périmètre est l\'image de la valeur du côté}`;														
-							texte_corr =`\\begin{enumerate}[itemsep=1em]`;
-							texte_corr += `\\item Si le côté vaut ${x} cm alors la machine renvoie le périmètre d'un carré de côté ${x} cm, c'est à dire $${x}+${x}+${x}+${x} = 4\\times ${x} = ${4*x}$ cm.<br>`;
-							texte_corr += `On dit que ${4*x} est l'image de ${x} par la fonction f.`;						
-						};
-						// sous question b/	
-						y = randint(2,99,[x]);//augmenter les possibles pour éviter les questions déjà posées?	
-						if (sortie_html){
-							texte += num_alpha(j)+` Combien vaut le côté si la machine renvoie  ${4*y} cm ? Formuler la réponse `;
-							texte += katex_Popup('avec le mot antécédent','Antécédent','un antécédent de la valeur d\'un périmètre est une valeur du côté qui a pour image ce périmètre')+`<br>`;
-							texte_corr += num_alpha(j)+`Si la machine renvoie un périmètre de ${4*y} cm alors le côté du carré vaut $${4*y}\\div 4 = ${y}$ cm.<br>`;
-							texte_corr += `On dit que ${y} est <b>un</b> antécédent de ${4*y} par la fonction f.<br>`;						
-							j++;//incrémente la sous question
-						} else { //sortie LaTeX
-							texte += `\\item Combien vaut la longueur du côté si la machine renvoie  ${4*y} cm ? Formuler la réponse avec le mot \\textbf{antécédent} \\footnote{\\textbf{Antécédent :} Un antécédent de la valeur d\'un périmètre est une valeur du côté qui a pour image ce périmètre}`;
-							texte_corr += `\\item Si la machine renvoie un périmètre de ${4*y} cm alors le côté du carré vaut $${4*y}\\div 4 = ${y}$ cm.<br>`;
-							texte_corr += `On dit que ${y} est <b>un</b> antécédent de ${4*y} par la fonction f.`;						
-						};														
-						// sous question c/
-						z = randint(2,99,[x,y]);//augmenter les possibles pour éviter les questions déjà posées?						
-						if (sortie_html){
-							texte += num_alpha(j)+` Quelle est l'image de ${z} par la `; 
-							texte += katex_Popup('fonction','Vocabulaire','<b>fonction</b> est le nom que l\'on donne à ces machines mathématiques');														
-							texte += ` $f$ ? &Eacute;crire la réponse sous la forme `;
-							texte += katex_Popup('$\\mathbf{f('+z+')=\\ldots}$','Notation','4 a pour image 16 par la fonction f peut s\'écrire <b>f(4)=16</b>')+`<br>`;
-							texte_corr += num_alpha(j)+`L'image de ${z} par la fonction f vaut $f(${z})=4\\times ${z}=${4*z}$.<br>`;
-							j++;//incrémente la sous question	
-						} else { // sortie LaTeX
-							texte += `\\item Quelle est l'image de ${z} par la \\textbf{fonction f} \\footnote{\\textbf{Vocabulaire :} \\textit{fonction} est le nom que l\'on donne à ces machines mathématiques}`;														
-							texte += ` ? \\'{E}crire la réponse sous la forme $\\mathbf{f(${z})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f(4)=16}$}`;
-							texte_corr += `\\ item L'image de ${z} par la fonction f vaut $f(${z})=4\\times ${z}=${4*z}$.<br>`;		
-						};
-						// sous question d/
-						if (sortie_html) {
-							texte += num_alpha(j)+` Que renvoie la machine si le côté vaut $x$ cm ?<br>`;
-							texte_corr += num_alpha(j)+`Si le côté vaut $x$ la machine renvoie $x+x+x+x$ ce qui est équivalent à $4\\times x$ .<br>`;
-							j++;//incrémente la sous question	
-							} else { // sortie LaTeX
-							texte += `\\item   Que renvoie la machine si le côté vaut $x$ cm ?<br>`;
-							texte_corr += `\\item  Si le côté vaut $x$ la machine renvoie $x+x+x+x$ ce qui est équivalent à $4\\times x$ .<br>`;			
-						};
-						// sous question e/
-						if (sortie_html) {
-							texte += num_alpha(j)+` &Eacute;crire la réponse à la question `+num_alpha(j-1)+` sous forme de diagramme.<br>`;
-							texte += `Voici le diagramme d'une machine qui triple `;
-							texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							SVG_machine_diag_3F1_act_mono(id_du_div_diag,800,100,'f','x',[['3','3x']]);
-							texte_corr += num_alpha(j)+`C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
-								texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							SVG_machine_diag_3F1_act_mono(id_du_div_corr,800,100,'f','x',[['4','4x']]);
-							j++;//incrémente la sous question
-						} else { // sortie LaTeX
-							texte += `\\item   \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
-							texte += `Voici le diagramme d'une machine qui triple <br> `;
-							texte += tikz_machine_diag(`f`,`x`,[[`\\times 3`,`3x`]]);
-							texte_corr += `\\item  C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
-							texte_corr += tikz_machine_diag(`f`,`x`,[[`\\times 4`,`4x`]]);
-						};
-						// sous question f/
-						if (sortie_html) {
-							texte += num_alpha(j)+` &Eacute;crire la réponse à la question `+num_alpha(j-2)+` sous la forme `;
-							texte += katex_Popup('$\\mathbf{f(\\textbf{\\textit{x}})=\\ldots}$','Notation','4 a pour image 16 par la fonction f peut s\'écrire <b>f(4)=16</b>')+`<br>`;							
-							texte_corr += num_alpha(j)+`L'image de $x$ par la fonction f vaut $4\\times x$ donc $f(x)=4\\times x$.<br>`;
-							j++;//incrémente la sous question
-						} else { // sortie LaTeX
-							texte += `\\item   \\'{E}crire la réponse à la question d/ sous la forme $\\mathbf{f(\\textbf{\\textit{x}})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f(4)=16}$}`;							
-							texte_corr += `\\item  L'image de $x$ par la fonction f vaut $4\\times x$ donc $f(x)=4\\times x$.<br>`;		
-						};
-						// sous question g/
-						if (sortie_html){
-							texte += num_alpha(j)+` En utilisant la forme `;
-							texte += katex_Popup('$\\mathbf{f:\\textbf{\\textit{x}}\\longmapsto \\ldots}$','Notation','4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f:4\\longmapsto 16}$');							
-							texte+=  `écrire la réponse à la question `+num_alpha(j-3)+`<br>`;
-							texte_corr += num_alpha(j)+`L'image de $x$ par la fonction f vaut $4\\times x$ donc $f:x\\longmapsto 4\\times x$.<br>`;												
-							j++;//incrémente la sous question
-						} else { // sortie LaTeX
-							texte += `\\item   En utilisant la forme $\\mathbf{f:\\textbf{\\textit{x}}\\longmapsto \\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f:4\\longmapsto 16}$},`;							
-							texte+= ` écrire la réponse à la question d/`;
-							texte_corr += `\\item  L'image de $x$ par la fonction f vaut $4\\times x$ donc $f:x\\longmapsto 4\\times x$.`;	
-							texte += `\\end{enumerate}`;
-							texte_corr += `\\end{enumerate}`;							
-						};
+
 						break;			
 				};
 			
