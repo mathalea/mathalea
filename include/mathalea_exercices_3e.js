@@ -1573,11 +1573,11 @@ function fonction_notion_vocabulaire(){
   * 3F-test test de la bibliotheque d3.js
   */
 
-  function d3js() {
+  function svglibs() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1 ; 
-	this.titre = "Test bibliotheque D3.js"; 
+	this.titre = "Tests biblilothèques animations"; 
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne =``;
 	// Message Bug SVG qui ne s'affiche pas dans la correction sans rafraichir
@@ -1593,7 +1593,7 @@ function fonction_notion_vocabulaire(){
 			<br>
 		`;
 	}	
-	this.consigne += "test";
+	this.consigne += "tests biblios";
 	this.consigne += `<br>`;
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
@@ -1603,7 +1603,7 @@ function fonction_notion_vocabulaire(){
 	this.nb_cols_corr = 1;
 	this.sup = 1;
 
-	var num_ex = 'd3js'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
+	var num_ex = 'svglibs'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
 
 	if (sortie_html) {		
 		let id_unique = `_consigne_${num_ex}_${Date.now()}`; // on formatte avec le numéro de l'exercice pour éviter les doublons		
