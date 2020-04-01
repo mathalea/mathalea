@@ -1670,8 +1670,13 @@ function fonction_notion_vocabulaire(){
 		<br><a href="https://d3js.org/" target="_blank">https://d3js.org/</a>
 		`;
 		this.consigne += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table "></div>`;
-		//SVG_machine_maths(id_du_div,400,hauteur_svg,'machine\\,maths','---','Procédé','de\\,calcul','antécédent','x','image','y');
-		d3jsTests(id_du_div);
+		// SVG_machine_maths(id_du_div,800,hauteur_svg,'machine\\,maths','---','Procédé','de\\,calcul','antécédent','x','image','y');
+		// SVG_machine_maths(id_du_div,400,hauteur_svg,'machine\\,maths','---','Procédé','de\\,calcul','antécédent','x','image','y');
+		 //SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, f','---','périmètre','d\'un \\, carré','côté \\, du','carré \\, en  \\, cm','périmètre','??? \\, cm');
+		//SVG_machine_maths(id_du_div,400,hauteur_svg,'machine\\,g','---','aire','d\'un \\, carré','côté \\, du','carré \\, en\\, cm','aire','??? \\, cm^2');
+		 SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, h','---','multiplier \\, par \\, 3','ajouter \\, 1','nombre \\, de','départ \\, ','nombre \\, de','sortie \\, ?');														
+		//d3jsTests(id_du_div);
+		//this.consigne += 
 	} else { // sortie LaTeX
 		// this.consigne += `machine Tikz HEX #F15929 équivaut à rgb(241,89,41)<br>`;
 		this.consigne += tikz_machine_maths('maths','---',`Proc\\acute{e}d\\acute{e}`,'de\\,calcul',`ant\\acute{e}c\\acute{e}dent`,`\\textit{x}`,`image`,`\\textit{y}`);
@@ -1701,6 +1706,7 @@ function fonction_notion_vocabulaire(){
 					var id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
 					//var id_du_div_diag = `div_svg_diag${numero_de_l_exercice}${id_unique}`;
 					var id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`;
+					texte = machine_maths_video(`videos/machineMaths-h-1.mp4`);
 				}
 	
 				switch (type_de_questions) {
@@ -1708,7 +1714,7 @@ function fonction_notion_vocabulaire(){
 						var j = 0; // pour la sous-numérotation
 						// question
 						if (sortie_html){
-							texte = `La $\\mathbf{machine\\,f}$ renvoie le `+katex_Popup(`périmètre`,`Rappel`,`Le périmètre d'un polygone est égal à la somme des longueurs de ses côtés`)+` d'un carré de côté $x$`;
+							texte += `La $\\mathbf{machine\\,f}$ renvoie le `+katex_Popup(`périmètre`,`Rappel`,`Le périmètre d'un polygone est égal à la somme des longueurs de ses côtés`)+` d'un carré de côté $x$`;
 						} else {
 							texte = `La $\\mathbf{machine\\,f}$ renvoie le \\textbf{périmètre} \\footnote{\\textbf{Rappel :} Le périmètre d'un polygone est égal à la somme des longueurs de ses côtés} d'un carré de côté $x$`;
 						}

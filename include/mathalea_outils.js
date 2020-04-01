@@ -2667,3 +2667,15 @@ function SVG_machine_diag_3F12(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 		};
 	}, 100); // Vérifie toutes les 100ms
 };
+
+function machine_maths_video(url_video) {
+	'use strict';
+	let video =`
+	<div style="text-align:center"> 
+	<video width="560" height="315" controls  loop autoplay style="max-width: 100%">
+		<source src="`+url_video+`">
+		Votre navigateur ne gère pas l\'élément <code>video</code>.
+	</video>
+	</div>`;
+	return video;
+};
