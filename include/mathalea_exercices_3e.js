@@ -645,7 +645,7 @@ function fonction_notion_vocabulaire(){
 				<p>
 				<i class="exclamation triangle icon"></i>
 				Correction BUG SVG Safari<br>
-				Vous êtes sous chrome ou safari, les animations SVG est remplacée par des vidéos
+				Vous êtes sous chrome ou safari, les animations SVG sont remplacées par des vidéos
 				</p>
 				</div>
 				<br>
