@@ -2668,6 +2668,11 @@ function SVG_machine_diag_3F12(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 	}, 100); // Vérifie toutes les 100ms
 };
 
+/**
+ * affiche une video centrée dans une div
+ * @param {string} url_video 
+ */
+
 function machine_maths_video(url_video) {
 	'use strict';
 	let video =`
@@ -2678,4 +2683,72 @@ function machine_maths_video(url_video) {
 	</video>
 	</div>`;
 	return video;
+};
+
+function detect_safari_chrome_browser(){
+	'use strict';
+	var is_chrome = navigator.userAgent.indexOf('Chrome') > -1;
+	var is_explorer = navigator.userAgent.indexOf('MSIE') > -1;
+	var is_firefox = navigator.userAgent.indexOf('Firefox') > -1;
+	var is_safari = navigator.userAgent.indexOf("Safari") > -1;
+	var is_opera = navigator.userAgent.toLowerCase().indexOf("op") > -1;
+	if ((is_chrome)&&(is_safari)) { is_safari = false; }
+	if ((is_chrome)&&(is_opera)) { is_chrome = false; }
+
+	return (is_chrome||is_safari);
+}
+
+function d3jsTests(id_du_div) {
+	'use strict';
+	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
+	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
+	window.SVGExist[id_du_div] = setInterval(function() {
+		
+		if ($(`#${id_du_div}`).length ) {
+			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
+
+			document.getElementById(id_du_div).innerHTML = `8`;
+			var width = 1300;
+			var height = 300;
+			var svg = d3.select('#'+id_du_div)
+				.append("svg")
+				.attr("width", width)
+				.attr("height", height);
+				var circleMove = svg.append("circle")
+				.attr("cx",150)
+				.attr("cy",50)
+				.attr("r",30);
+				
+				 circleMove
+				.transition()
+				 .duration(500)
+				.attr("cx", 850)
+				.transition()
+				.duration(500)
+				.attr("cx",150)
+				.transition()
+				.duration(500)
+				.attr("cx",650)
+				.transition()
+				.duration(500)
+				.attr("cx",350)
+				.transition()
+				.duration(500)
+				.attr("cx",500);
+
+				var positions = [850, 200, 800, 250, 750, 300, 700, 350, 650, 400, 600, 450, 550, 500];
+				function animateMulti(node, positions, i) {
+					node.transition()
+						.duration(300)
+						.attr("cx", positions[i])
+						.on('end',  function() {
+							if (i < (positions.length - 1)) {
+								animateMulti(d3.select(this), positions, ++i);
+							}
+						});
+				}
+				animateMulti(circleMultiTransition, positions, 0);
+		clearInterval(SVGExist[id_du_div]);//Arrête le timer
+		};
+	}, 100); // Vérifie toutes les 100ms
 };

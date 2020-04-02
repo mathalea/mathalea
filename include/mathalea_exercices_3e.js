@@ -1572,60 +1572,6 @@ function fonction_notion_vocabulaire(){
  /**
   * 3F-test test de la bibliotheque d3.js
   */
- function d3jsTests(id_du_div) {
-	'use strict';
-	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
-	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
-	window.SVGExist[id_du_div] = setInterval(function() {
-		
-		if ($(`#${id_du_div}`).length ) {
-			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
-
-			document.getElementById(id_du_div).innerHTML = `8`;
-			var width = 1300;
-			var height = 300;
-			var svg = d3.select('#'+id_du_div)
-				.append("svg")
-				.attr("width", width)
-				.attr("height", height);
-				var circleMove = svg.append("circle")
-				.attr("cx",150)
-				.attr("cy",50)
-				.attr("r",30);
-				
-				 circleMove
-				.transition()
-				 .duration(500)
-				.attr("cx", 850)
-				.transition()
-				.duration(500)
-				.attr("cx",150)
-				.transition()
-				.duration(500)
-				.attr("cx",650)
-				.transition()
-				.duration(500)
-				.attr("cx",350)
-				.transition()
-				.duration(500)
-				.attr("cx",500);
-
-				var positions = [850, 200, 800, 250, 750, 300, 700, 350, 650, 400, 600, 450, 550, 500];
-				function animateMulti(node, positions, i) {
-					node.transition()
-						.duration(300)
-						.attr("cx", positions[i])
-						.on('end',  function() {
-							if (i < (positions.length - 1)) {
-								animateMulti(d3.select(this), positions, ++i);
-							}
-						});
-				}
-				animateMulti(circleMultiTransition, positions, 0);
-		clearInterval(SVGExist[id_du_div]);//Arrête le timer
-		};
-	}, 100); // Vérifie toutes les 100ms
-};
 
   function svglibs() {
 	'use strict';
@@ -1660,8 +1606,8 @@ function fonction_notion_vocabulaire(){
 	var num_ex = 'svglibs'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
 
 	if (sortie_html) {		
-		let id_unique = `_consigne_${num_ex}_${Date.now()}`; // on formatte avec le numéro de l'exercice pour éviter les doublons		
-		let id_du_div = `div_svg${id_unique}`;
+		// let id_unique = `_consigne_${num_ex}_${Date.now()}`; // on formatte avec le numéro de l'exercice pour éviter les doublons		
+		// let id_du_div = `div_svg${id_unique}`;
 		var pourcentage = '100%'; // pour l'affichage des svg. On a besoin d'une variable globale
 		var hauteur_svg = 100;
 		this.consigne += `
@@ -1669,14 +1615,15 @@ function fonction_notion_vocabulaire(){
 		<br><a href="https://www.pixijs.com/" target="_blank">https://www.pixijs.com/</a>
 		<br><a href="https://d3js.org/" target="_blank">https://d3js.org/</a>
 		`;
-		this.consigne += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table "></div>`;
+		//this.consigne += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table "></div>`;
 		// SVG_machine_maths(id_du_div,800,hauteur_svg,'machine\\,maths','---','Procédé','de\\,calcul','antécédent','x','image','y');
 		// SVG_machine_maths(id_du_div,400,hauteur_svg,'machine\\,maths','---','Procédé','de\\,calcul','antécédent','x','image','y');
 		 //SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, f','---','périmètre','d\'un \\, carré','côté \\, du','carré \\, en  \\, cm','périmètre','??? \\, cm');
 		//SVG_machine_maths(id_du_div,400,hauteur_svg,'machine\\,g','---','aire','d\'un \\, carré','côté \\, du','carré \\, en\\, cm','aire','??? \\, cm^2');
-		 SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, h','---','multiplier \\, par \\, 3','ajouter \\, 1','nombre \\, de','départ \\, ','nombre \\, de','sortie \\, ?');														
+		 //SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, h','---','multiplier \\, par \\, 3','ajouter \\, 1','nombre \\, de','départ \\, ','nombre \\, de','sortie \\, ?');														
 		//d3jsTests(id_du_div);
-		//this.consigne += 
+		this.consigne += `Ne pas mettre d'appel aux fonction de mathalea_outils.js avant l'appel de this.nouvelle_version() c'est à dire ici!!!`
+		
 	} else { // sortie LaTeX
 		// this.consigne += `machine Tikz HEX #F15929 équivaut à rgb(241,89,41)<br>`;
 		this.consigne += tikz_machine_maths('maths','---',`Proc\\acute{e}d\\acute{e}`,'de\\,calcul',`ant\\acute{e}c\\acute{e}dent`,`\\textit{x}`,`image`,`\\textit{y}`);
@@ -1688,6 +1635,16 @@ function fonction_notion_vocabulaire(){
 		if (sortie_html) { // les boutons d'aide uniquement pour la version html
 			//this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheFonctions-3F1-act.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
 			//this.bouton_aide += modal_video('videoTest','videos/Fonctions.mp4','Petit conte mathématique','Intro Vidéo');
+			if (detect_safari_chrome_browser()) {// si c'est safari ou chrome
+				this.consigne += machine_maths_video(`videos/machineMaths-h-1.mp4`);
+			} else {
+				let id_unique = `_consigne_${num_ex}_${Date.now()}`; // on formatte avec le numéro de l'exercice pour éviter les doublons		
+				let id_du_div = `div_svg${id_unique}`;
+				this.consigne += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table "></div>`;
+				SVG_machine_maths(id_du_div,400,hauteur_svg,'machine\\,maths','---','Procédé','de\\,calcul','antécédent','x','image','y');
+
+			};
+			
 		}
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
@@ -1706,7 +1663,7 @@ function fonction_notion_vocabulaire(){
 					var id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
 					//var id_du_div_diag = `div_svg_diag${numero_de_l_exercice}${id_unique}`;
 					var id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`;
-					texte = machine_maths_video(`videos/machineMaths-h-1.mp4`);
+					//texte = machine_maths_video(`videos/machineMaths-h-1.mp4`);
 				}
 	
 				switch (type_de_questions) {
