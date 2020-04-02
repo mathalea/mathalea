@@ -2859,7 +2859,7 @@ function machine_maths_video(url_video) {
 	'use strict';
 	let video =`
 	<div style="text-align:center"> 
-	<video width="560" height="100%" controls  loop autoplay style="max-width: 100%">
+	<video width="560" height="100%" controls  loop autoplay muted style="max-width: 100%">
 		<source src="`+url_video+`">
 		Votre navigateur ne gère pas l\'élément <code>video</code>.
 	</video>
