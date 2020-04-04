@@ -640,16 +640,16 @@ function fonction_notion_vocabulaire(){
 			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheFonctions-3F1-act.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
 			this.bouton_aide += modal_video('videoTest','videos/Fonctions.mp4','Petit conte mathématique','Intro Vidéo');
 			if (detect_safari_chrome_browser()) {// si c'est safari ou chrome
-			this.consigne = `
-				<div class="ui compact warning message">		
-				<p>
-				<i class="exclamation triangle icon"></i>
-				Correction BUG SVG Safari<br>
-				Vous êtes sous chrome ou safari, les animations SVG sont remplacées par des vidéos
-				</p>
-				</div>
-				<br>
-				`;
+			// this.consigne += `
+			// 	<div class="ui compact warning message">		
+			// 	<p>
+			// 	<i class="exclamation triangle icon"></i>
+			// 	Correction BUG SVG Safari<br>
+			// 	Vous êtes sous chrome ou safari, les animations SVG sont remplacées par des vidéos
+			// 	</p>
+			// 	</div>
+			// 	<br>
+			// 	`;
 				this.consigne += machine_maths_video(`videos/machineMathsIntro.mp4`);
 			} else {
 				let id_unique = `_consigne_${num_ex}_${Date.now()}`; // on formatte avec le numéro de l'exercice pour éviter les doublons		
