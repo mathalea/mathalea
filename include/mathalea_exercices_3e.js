@@ -590,7 +590,9 @@ function Resoudre_une_equation_produit_nul(){
  * 3F1-act - Notion de fonction - vocabulaire
  * L’objectif de revenir sur l'introduction de la notion de fonction et son vocabulaire
  * On base l'exercice sur des calculs simples de type périmètres, aires, double, triple, nombre de diviseurs
- *
+ * ATTENTION BUG SVG DONC LES ANIMATIONS SONT FILMEES A PARTIR DE CELLES GENEREES PAR LA FONCTION SVG_machine_maths() SOUS FIREFOX
+ * DE FACON A AVOIR UN RENDU UNIFORME QUEL QUE SOIT LE NAVIGATEUR ON REND LES ANIMATIONS PAR DES VIDEOS
+ * ON LAISSE LA PIROUETTE DE DETECTION DU USERAGENT EN COMMENTAIRE EN ATTENDANT DE TROUVER UNE SOLUTION DE RENDU LATEX DANS SVG UNIVERSELLE
  * @Auteur Sébastien Lozano
  */
  
@@ -598,22 +600,9 @@ function fonction_notion_vocabulaire(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1 ; 
-	this.titre = "Fonction : Notion et vocabulaire"; 
+	this.titre = "Fonctions : Notion et vocabulaire"; 
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne =``;
-	// Message Bug SVG qui ne s'affiche pas dans la correction sans rafraichir
-	if (sortie_html) {
-		// this.consigne = `
-		// <div class="ui compact warning message">		
-		//   <p>
-		//   <i class="exclamation triangle icon"></i>
-		//   ATTENTION BUG CONNU<br>
-		//   Sous Safari et Edge les animations dysfonctionnent
-		//   </p>
-	  	// </div>
-	  	// <br>
-		// `;
-	}
 	this.consigne += "Lorsqu'un nombre $\\textit{x}$ entre dans une machine mathématique , celle-ci renvoie à la sortie un nombre appelé $\\textit{image de x}$.<br>";
 	this.consigne += "On dit que le nombre de départ est un $\\textit{antécédent}$ du nombre qu'on trouve à la sortie.<br>";
 	this.consigne += "Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donner des noms $\\textit{f}$ ou $\\textit{g}$ ou $\\textit{h} \\ldots$";
@@ -639,24 +628,14 @@ function fonction_notion_vocabulaire(){
 		if (sortie_html) { // les boutons d'aide uniquement pour la version html
 			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheFonctions-3F1-act.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
 			this.bouton_aide += modal_video('videoTest','videos/Fonctions.mp4','Petit conte mathématique','Intro Vidéo');
-			if (detect_safari_chrome_browser()) {// si c'est safari ou chrome
-			// this.consigne += `
-			// 	<div class="ui compact warning message">		
-			// 	<p>
-			// 	<i class="exclamation triangle icon"></i>
-			// 	Correction BUG SVG Safari<br>
-			// 	Vous êtes sous chrome ou safari, les animations SVG sont remplacées par des vidéos
-			// 	</p>
-			// 	</div>
-			// 	<br>
-			// 	`;
+//			if (detect_safari_chrome_browser()) {// si c'est safari ou chrome
 				this.consigne += machine_maths_video(`videos/machineMathsIntro.mp4`);
-			} else {
-				let id_unique = `_consigne_${num_ex}_${Date.now()}`; // on formatte avec le numéro de l'exercice pour éviter les doublons		
-				let id_du_div = `div_svg${id_unique}`;
-				this.consigne += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table "></div>`;
-				SVG_machine_maths(id_du_div,400,hauteur_svg,'machine\\,maths','---','Procédé','de\\,calcul','antécédent','x','image','y');
-			};
+			// } else {
+			// 	let id_unique = `_consigne_${num_ex}_${Date.now()}`; // on formatte avec le numéro de l'exercice pour éviter les doublons		
+			// 	let id_du_div = `div_svg${id_unique}`;
+			// 	this.consigne += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table "></div>`;
+			// 	SVG_machine_maths(id_du_div,400,hauteur_svg,'machine\\,maths','---','Procédé','de\\,calcul','antécédent','x','image','y');
+			// };
 		} else { // sortie LaTeX
 			// this.consigne += `machine Tikz HEX #F15929 équivaut à rgb(241,89,41)<br>`;
 			this.consigne += tikz_machine_maths('maths','---',`Proc\\acute{e}d\\acute{e}`,'de\\,calcul',`ant\\acute{e}c\\acute{e}dent`,`\\textit{x}`,`image`,`\\textit{y}`);	
@@ -695,12 +674,12 @@ function fonction_notion_vocabulaire(){
 						x = randint(2,99);//augmenter les possibles pour éviter les questions déjà posées?	
 						if (sortie_html) {
 							//texte += `<br>`;
-							if (detect_safari_chrome_browser()) {// si c'est safari ou chrome
+							// if (detect_safari_chrome_browser()) {// si c'est safari ou chrome
 								texte += machine_maths_video(`videos/machineMaths-g.mp4`);
-							} else {
-								texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
-								SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, f','---','périmètre','d\'un \\, carré','carré \\, de','côté \\,'+x+' \\, cm','périmètre','??? \\, cm');							
-							};
+							// } else {
+							// 	texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
+							// 	SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, f','---','périmètre','d\'un \\, carré','carré \\, de','côté \\,'+x+' \\, cm','périmètre','??? \\, cm');							
+							// };
 						} else { // sortie Latex avec Tikz
 							texte += tikz_machine_maths('f','---',`P\\acute{e}rim\\grave{e}tre`,`d'un\\,carr\\acute{e}`,`carr\\acute{e}\\,de`,`c\\hat{o}t\\acute{e}\\,${x}\\,cm`,`P\\acute{e}rim\\grave{e}tre`,`???\\,cm`);
 						};
@@ -814,12 +793,12 @@ function fonction_notion_vocabulaire(){
 						x = randint(2,99);//augmenter les possibles pour éviter les questions déjà posées?	
 						if (sortie_html) {
 							//texte += `<br>`;
-							if (detect_safari_chrome_browser()) {// si c'est safari ou chrome
+							//if (detect_safari_chrome_browser()) {// si c'est safari ou chrome
 								texte += machine_maths_video(`videos/machineMaths-f.mp4`);
-							} else {
-								texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
-								SVG_machine_maths(id_du_div,400,hauteur_svg,'machine\\,g','---','aire','d\'un \\, carré','carré \\, de','côté \\, '+x+'\\, cm','aire','??? \\, cm^2');							
-							};
+							// } else {
+							// 	texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
+							// 	SVG_machine_maths(id_du_div,400,hauteur_svg,'machine\\,g','---','aire','d\'un \\, carré','carré \\, de','côté \\, '+x+'\\, cm','aire','??? \\, cm^2');							
+							// };
 						} else { // sortie Latex avec Tikz
 							//texte += `figure Tikz<br>`;
 							texte += tikz_machine_maths('g','---',`Aire`,`d'un\\,carr\\acute{e}`,`carr\\acute{e}\\,de`,`c\\hat{o}t\\acute{e}\\,${x}\\,cm`,`Aire`,`???\\,cm^2`);
@@ -937,12 +916,12 @@ function fonction_notion_vocabulaire(){
 						x = randint(2,99);//augmenter les possibles pour éviter les questions déjà posées?	
 						if (sortie_html) {
 							//texte += `<br>`;
-							if (detect_safari_chrome_browser()) {// si c'est safari ou chrome
+							//if (detect_safari_chrome_browser()) {// si c'est safari ou chrome
 								texte += machine_maths_video(`videos/machineMaths-h.mp4`);
-							} else {
-								texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
-								SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, h','---','multiplier \\, par \\, 3','ajouter \\, 1','nombre \\, de','départ \\, '+x,'nombre \\, de','sortie \\, ?');
-							};
+							// } else {
+							// 	texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
+							// 	SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, h','---','multiplier \\, par \\, 3','ajouter \\, 1','nombre \\, de','départ \\, '+x,'nombre \\, de','sortie \\, ?');
+							// };
 						} else { // sortie Latex avec Tikz
 							texte += tikz_machine_maths('h','---',`Multiplier\\,par\\,3`,`Ajouter\\,1`,`nombre\\,de`,`d\\acute{e}part\\,${x}`,`nombre\\,de`,`sortie\\,?`);
 						};
@@ -1060,12 +1039,12 @@ function fonction_notion_vocabulaire(){
 						x = randint(2,51);//augmenter les possibles pour éviter les questions déjà posées?						
 						if (sortie_html) {
 							//texte += `<br>`;
-							if (detect_safari_chrome_browser()) {// si c'est safari ou chrome
+							//if (detect_safari_chrome_browser()) {// si c'est safari ou chrome
 								texte += machine_maths_video(`videos/machineMaths-d.mp4`);
-							} else {
-								texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
-								SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, d','---','nombre \\enspace total','de  \\, diviseurs','nombre \\, de','départ \\,'+x,'nombre \\, de',' diviseurs');														
-							};
+							// } else {
+							// 	texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
+							// 	SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, d','---','nombre \\enspace total','de  \\, diviseurs','nombre \\, de','départ \\,'+x,'nombre \\, de',' diviseurs');														
+							// };
 						} else { // sortie Latex avec Tikz
 							//texte += `figure Tikz<br>`;
 							texte += tikz_machine_maths('d','---',`nombre \\, total`,`de \\, diviseurs`,`nombre\\,de`,`d\\acute{e}part\\,${x}`,`nombre \\, de`,`diviseurs`);
@@ -1192,20 +1171,6 @@ function fonction_notion_vocabulaire(){
 	this.titre = "Fonctions : Calculs d'images"; 
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne =``;
-	// Message Bug SVG qui ne s'affiche pas dans la correction sans rafraichir
-	// if (sortie_html) {
-	// 	this.consigne += `
-	// 	<div class="ui compact warning message">		
-	// 	  <p>
-	// 	  <i class="exclamation triangle icon"></i>
-	// 	  ATTENTION BUG CONNU<br>
-	// 	  Appuyer sur "F5" ou cliquer sur "Nouvelles données" avant de commencer l'exercice<br>
-	// 	  Sinon il y a problème d'affichage dans la correction. 
-	// 	  </p>
-	//   	</div>
-	//   	<br>
-	// 	`;
-	// }
 	 // pas de différence entre la version html et la version latex pour la consigne
 	 this.consigne +=`Calcule les images avec la méthode demandée.`;
 
@@ -1220,10 +1185,7 @@ function fonction_notion_vocabulaire(){
 	 var num_ex = '3F12'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
 
 	 if (sortie_html) {		
-		 //let id_unique = `_consigne_${num_ex}_${Date.now()}`; // on formatte avec le numéro de l'exercice pour éviter les doublons		
-		 //let id_du_div = `div_svg${id_unique}`;
 		 var pourcentage = '100%'; // pour l'affichage des svg. On a besoin d'une variable globale
-		 //var hauteur_svg = 100;
 	 } else { // sortie LaTeX
  
 	 };
@@ -1314,11 +1276,11 @@ function fonction_notion_vocabulaire(){
 							// sous-question a/
 							texte += num_alpha(j)+` Calculer l'image de ${c}`;
 							texte +=`<br>`;
-							texte_corr = num_alpha(j)+` Calculons l'image par $f$ de $x=$ ${c} :`;							
-							texte_corr += `<br>$f(${mise_en_evidence('\\textit{\\textbf{x}}')})=$ ${a}$${mise_en_evidence('\\textit{\\textbf{x}}')}+$${b}`;
-							texte_corr += `<br>$f(${mise_en_evidence(c)})=$ ${a}$\\times${mise_en_evidence(c)}+$${b}`;
-							texte_corr += `<br>$f(${mise_en_evidence(c)})=$ ${a*c}$+$${b}`;
-							texte_corr += `<br>$f(${mise_en_evidence(c)})=$ ${a*c+b}`;
+							texte_corr = num_alpha(j)+` Calculons l'image par $f$ de $x= ${c}$ :`;							
+							texte_corr += `<br>$f(${mise_en_evidence('\\textit{\\textbf{x}}')})= ${a} ${mise_en_evidence('\\textit{\\textbf{x}}')}+${b}$`;
+							texte_corr += `<br>$f(${mise_en_evidence(c)})= ${a}\\times ${mise_en_evidence(c)}+${b}$`;
+							texte_corr += `<br>$f(${mise_en_evidence(c)})= ${a*c}+${b}$`;
+							texte_corr += `<br>$f(${mise_en_evidence(c)})= ${a*c+b}$`;
 							j++;
 							//sous question b/
 							texte += num_alpha(j)+` Traduire ce calcul par une phrase contenant le mot image`;
@@ -1327,11 +1289,11 @@ function fonction_notion_vocabulaire(){
 						} else {
 							// sous-question a/ et b/
 							texte += tex_enumerate([`Calculer l'image de ${c}`,`Traduire ce calcul par une phrase contenant le mot image`],this.spacing);
-							texte_corr = tex_enumerate([`Calculons l'image par $f$ de $x=$ ${c} :
-							<br>$f(${mise_en_evidence('\\textit{\\textbf{x}}')})=$ ${a}$${mise_en_evidence('\\textit{\\textbf{x}}')}+$${b}
-							<br>$f($${mise_en_evidence(c)})=$ ${a}$\\times${mise_en_evidence(c)}+$${b}
-							<br>$f($${mise_en_evidence(c)})=$ ${a*c}$+$${b}
-							<br>$f($${mise_en_evidence(c)})=$ ${a*c+b}`,`L'image de ${c} par la fonction $f$ vaut ${a*c+b}
+							texte_corr = tex_enumerate([`Calculons l'image par $f$ de $x= ${c}$ :
+							<br>$f(${mise_en_evidence('\\textit{\\textbf{x}}')})= ${a} ${mise_en_evidence('\\textit{\\textbf{x}}')}+${b}$
+							<br>$f(${mise_en_evidence(c)})= ${a}\\times ${mise_en_evidence(c)}+${b}$
+							<br>$f(${mise_en_evidence(c)})= ${a*c}+${b}$
+							<br>$f(${mise_en_evidence(c)})= ${a*c+b}$`,`L'image de ${c} par la fonction $f$ vaut ${a*c+b}
 							<br> On peut aussi dire que ${a*c+b} est l'image de ${c} par la fonction $f$`
 							],this.spacing);
 						};
@@ -1344,11 +1306,11 @@ function fonction_notion_vocabulaire(){
 							// sous-question a/
 							texte += num_alpha(j)+` Calculer l'image de ${c}`;
 							texte +=`<br>`;
-							texte_corr = num_alpha(j)+` Calculons l'image par $g$ de $x=$ ${c} :`;
-							texte_corr += `<br>$g:${mise_en_evidence('\\textit{\\textbf{x}}')}\\longmapsto$ ${a}$${mise_en_evidence('\\textit{\\textbf{x}}')}+$${b}`;
-							texte_corr += `<br>$g:${mise_en_evidence(c)}\\longmapsto$ ${a}$\\times${mise_en_evidence(c)}+$${b}`;
-							texte_corr += `<br>$g:${mise_en_evidence(c)}\\longmapsto$ ${a*c}$+$${b}`;
-							texte_corr += `<br>$g:${mise_en_evidence(c)}\\longmapsto$ ${a*c+b}`;
+							texte_corr = num_alpha(j)+` Calculons l'image par $g$ de $x= ${c}$ :`;
+							texte_corr += `<br>$g:${mise_en_evidence('\\textit{\\textbf{x}}')}\\longmapsto ${a} ${mise_en_evidence('\\textit{\\textbf{x}}')}+${b}$`;
+							texte_corr += `<br>$g:${mise_en_evidence(c)}\\longmapsto ${a}\\times${mise_en_evidence(c)}+${b}$`;
+							texte_corr += `<br>$g:${mise_en_evidence(c)}\\longmapsto ${a*c}+${b}$`;
+							texte_corr += `<br>$g:${mise_en_evidence(c)}\\longmapsto ${a*c+b}$`;
 							j++;
 							//sous question b/
 							texte += num_alpha(j)+` Traduire ce calcul par une phrase contenant le mot image`;
@@ -1357,11 +1319,11 @@ function fonction_notion_vocabulaire(){
 						} else {
 							// sous-question a/ et b/
 							texte += tex_enumerate([`Calculer l'image de ${c}`,`Traduire ce calcul par une phrase contenant le mot image`],this.spacing);
-							texte_corr = tex_enumerate([`Calculons l'image par $g$ de $x=$ ${c} :
-							<br>$g:${mise_en_evidence('\\textit{\\textbf{x}}')}\\longmapsto$ ${a}$${mise_en_evidence('\\textit{\\textbf{x}}')}+$${b}
-							<br>$g:${mise_en_evidence(c)}\\longmapsto$ ${a}$\\times${mise_en_evidence(c)}+$${b}
-							<br>$g:${mise_en_evidence(c)}\\longmapsto$ ${a*c}$+$${b}
-							<br>$g:${mise_en_evidence(c)}\\longmapsto$ ${a*c+b}`,`L'image de ${c} par la fonction $g$ vaut ${a*c+b}
+							texte_corr = tex_enumerate([`Calculons l'image par $g$ de $x= ${c}$ :
+							<br>$g:${mise_en_evidence('\\textit{\\textbf{x}}')}\\longmapsto ${a} ${mise_en_evidence('\\textit{\\textbf{x}}')}+${b}$
+							<br>$g:${mise_en_evidence(c)}\\longmapsto ${a}\\times ${mise_en_evidence(c)}+${b}$
+							<br>$g:${mise_en_evidence(c)}\\longmapsto ${a*c}+${b}$
+							<br>$g:${mise_en_evidence(c)}\\longmapsto ${a*c+b}$`,`L'image de ${c} par la fonction $g$ vaut ${a*c+b}
 							<br> On peut aussi dire que ${a*c+b} est l'image de ${c} par la fonction $g$`
 							],this.spacing);
 						};
@@ -1460,19 +1422,10 @@ function fonction_notion_vocabulaire(){
 		<br><a href="https://www.pixijs.com/" target="_blank">https://www.pixijs.com/</a>
 		<br><a href="https://d3js.org/" target="_blank">https://d3js.org/</a>
 		`;
-		//this.consigne += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table "></div>`;
-		// SVG_machine_maths(id_du_div,800,hauteur_svg,'machine\\,maths','---','Procédé','de\\,calcul','antécédent','x','image','y');
-		// SVG_machine_maths(id_du_div,400,hauteur_svg,'machine\\,maths','---','Procédé','de\\,calcul','antécédent','x','image','y');
-		 //SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, f','---','périmètre','d\'un \\, carré','côté \\, du','carré \\, en  \\, cm','périmètre','??? \\, cm');
-		//SVG_machine_maths(id_du_div,400,hauteur_svg,'machine\\,g','---','aire','d\'un \\, carré','côté \\, du','carré \\, en\\, cm','aire','??? \\, cm^2');
-		 //SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, h','---','multiplier \\, par \\, 3','ajouter \\, 1','nombre \\, de','départ \\, ','nombre \\, de','sortie \\, ?');														
-		//d3jsTests(id_du_div);
-		this.consigne += `Ne pas mettre d'appel aux fonction de mathalea_outils.js avant l'appel de this.nouvelle_version() c'est à dire ici!!!`
+		this.consigne += `<br>Ne pas mettre d'appel aux fonction de mathalea_outils.js avant l'appel de this.nouvelle_version() c'est à dire ici!!!`
 		
 	} else { // sortie LaTeX
-		// this.consigne += `machine Tikz HEX #F15929 équivaut à rgb(241,89,41)<br>`;
-		this.consigne += tikz_machine_maths('maths','---',`Proc\\acute{e}d\\acute{e}`,'de\\,calcul',`ant\\acute{e}c\\acute{e}dent`,`\\textit{x}`,`image`,`\\textit{y}`);
-
+		
 
 	};
 	this.nouvelle_version = function(numero_de_l_exercice){
@@ -1494,7 +1447,12 @@ function fonction_notion_vocabulaire(){
 
 			};
 			
-		}
+		} else { // sortie LaTeX
+			// this.consigne += `machine Tikz HEX #F15929 équivaut à rgb(241,89,41)<br>`;
+			this.consigne += tikz_machine_maths('maths','---',`Proc\\acute{e}d\\acute{e}`,'de\\,calcul',`ant\\acute{e}c\\acute{e}dent`,`\\textit{x}`,`image`,`\\textit{y}`);
+	
+	
+		};
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		this.contenu = ''; // Liste de questions
