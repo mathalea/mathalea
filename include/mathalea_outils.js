@@ -2512,9 +2512,6 @@ function SVG_machine_diag_3F1_act_mono(id_du_div,w,h,nom,x_ant,etapes_expression
 		};
 	}, 100); // Vérifie toutes les 100ms
 };
-//=================================
-//fin fonctions 3F1-act
-//=================================
 
  //================================================================================================
  // fonctions dont le déplacement dans mathalea_outils.js posait problème
@@ -2544,6 +2541,9 @@ function SVG_machine_diag_3F1_act_mono(id_du_div,w,h,nom,x_ant,etapes_expression
 /**
  * Fonction pour créer une machine mathématique SVG, une fonction!
  * gestion du rendu KaTeX temporaire avec insertion manuelle de balises foreignObject pour les textes
+ * ATTENTION BUG SVG DONC LES ANIMATIONS SONT FILMEES A PARTIR DE CELLES GENEREES PAR LA FONCTION SVG_machine_maths() SOUS FIREFOX
+ * DE FACON A AVOIR UN RENDU UNIFORME QUEL QUE SOIT LE NAVIGATEUR ON REND LES ANIMATIONS PAR DES VIDEOS
+ * ON LAISSE LA PIROUETTE DE DETECTION DU USERAGENT EN COMMENTAIRE EN ATTENDANT DE TROUVER UNE SOLUTION DE RENDU LATEX DANS SVG UNIVERSELLE
  * @param {string} id_du_div id_du_div
  * @param {number} w width du svg
  * @param {number} h height du svg
@@ -2698,6 +2698,10 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 // fin fonctions dont le déplacement dasn mathalea_outils.js posait problème
 //===========================================================================
 
+//=================================
+//fin fonctions 3F1-act
+//=================================
+
 /**
  * crée un cadre orange autour d'un paragraphe
  * utilisé notamment dans 3F12 pour entourer les programmes de calcul
@@ -2851,6 +2855,9 @@ function SVG_machine_diag_3F12(id_du_div,w,h,nom,x_ant,etapes_expressions) {
 
 /**
  * affiche une video centrée dans une div
+ * ATTENTION BUG SVG DONC LES ANIMATIONS SONT FILMEES A PARTIR DE CELLES GENEREES PAR LA FONCTION SVG_machine_maths() SOUS FIREFOX
+ * DE FACON A AVOIR UN RENDU UNIFORME QUEL QUE SOIT LE NAVIGATEUR ON REND LES ANIMATIONS PAR DES VIDEOS
+ * ON LAISSE LA PIROUETTE DE DETECTION DU USERAGENT EN COMMENTAIRE EN ATTENDANT DE TROUVER UNE SOLUTION DE RENDU LATEX DANS SVG UNIVERSELLE
  * @param {string} url_video 
  * @author Sébastien Lozano 
  */
