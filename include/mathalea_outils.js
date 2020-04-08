@@ -426,7 +426,6 @@ function ecriture_algebriquec(a) {
 	}else if (a<0) {
 		result = mise_en_evidence(tex_nombrec(a),'red');
 	} else result = mise_en_evidence(tex_nombrec(a),'black');
-	console.log(result)
 	return result;
 }
 
@@ -1844,8 +1843,6 @@ function Latex_repere(Xmin,Xmax,Ymin,Ymax,subX,subY,grille){
 		return result;
 }
 	
-	
-
 /**
 * Trace une graduation sur le SVG
 * @param origine la première abscisse de la droite ou demi-droite
@@ -2192,6 +2189,186 @@ function liste_diviseurs(n) {
 	return diviseurs;
 };
 
+//=================================================
+// fonctions de 3F1-act
+//=================================================
+
+  /**
+ * Crée une machine mathématique Tikz pour la version LaTeX
+ * @param {string} nom nom de la machine en mode maths!
+ * @param {string} etape1 chaine en mode maths attention aux espaces et accents
+ * @param {string} etape2 chaine en mode maths attention aux espaces et accents
+ * @param {string} etape3 chaine en mode maths attention aux espaces et accents
+ * @param {string} x_ligne1 chaine en mode maths attention aux espaces et accents
+ * @param {string} x_ligne2 chaine en mode maths attention aux espaces et accents
+ * @param {string} y_ligne1 chaine en mode maths attention aux espaces et accents
+ * @param {string} y_ligne2 chaine en mode maths attention aux espaces et accents
+ * @author Sébastien Lozano
+ */
+
+function tikz_machine_maths(nom,etape1,etape2,etape3,x_ligne1,x_ligne2,y_ligne1,y_ligne2) {
+	// tous les textes sont en mode maths !!!
+	'use strict';
+	return `
+	\\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
+	\\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+	\\draw [line width=3pt,color=frvzsz] (-4,4)-- (2,4);
+	\\draw [line width=3pt,color=frvzsz] (2,4)-- (2,0);
+	\\draw [line width=3pt,color=frvzsz] (2,0)-- (-4,0);
+	\\draw [line width=3pt,color=frvzsz] (-4,0)-- (-4,4);
+	\\draw [line width=3pt,color=frvzsz] (-4,2)-- (-5,2);
+	\\draw [line width=3pt,color=frvzsz] (-5,2.4)-- (-5,1.6);
+	\\draw [->,line width=3pt,color=frvzsz] (2,2) -- (3,2);
+	\\node[text width=3cm,text centered, scale=1.8] at(-1,3.5){$\\mathbf{machine\\,${nom}}$};
+	\\node[text width=3cm,text centered, scale=1.5] at(-1,2.8){$\\mathbf{${etape1}}$};
+	\\node[text width=3cm,text centered, scale=1.5] at(-1,2.3){$${etape2}$};
+	\\node[text width=3cm,text centered, scale=1.5] at(-1,1.6){$${etape3}$};
+	\\node[text width=3cm,text centered, scale=1.5] at(-8,2.5) {$\\mathbf{${x_ligne1}}$};
+	\\node[text width=3cm,text centered, scale=1.5] at(-8,1.5) {$\\mathbf{${x_ligne2}}$};
+	\\fill [line width=3pt,color=frvzsz] (-6,2) -- (-6.5,1) -- (-5.5,2) -- (-6.5,3) -- cycle;
+	%\\fill [line width=3pt,color=frvzsz] (1,2) -- (0.5,1) -- (1.5,2) -- (0.5,3) -- cycle;
+	\\node[text width=3cm,text centered, scale=1.5] at(5.5,2.5) {$\\mathbf{${y_ligne1}}$};
+	\\node[text width=3cm,text centered, scale=1.5] at(5.5,1.5) {$\\mathbf{${y_ligne2}}$};
+	\\fill [line width=3pt,color=frvzsz] (3.5,2) -- (3,1) -- (4,2) -- (3,3) -- cycle;
+	\\end{tikzpicture}	
+	`;
+};
+
+/**
+ * Crée un diagramme tikz pour une machine maths
+ * @param {string} nom nom de la fonction 
+ * @param {string} x_ant nom du nombre de départ
+ * @param {array} etapes_expressions tableau contenant les etapes et le expressions algébriques
+ * attention mode maths pour les chaines
+ * @author Sébastien Lozano
+ */
+function tikz_machine_diag(nom,x_ant,etapes_expressions){
+	'use strict';
+	var x_init = -10;
+	var saut = 0;
+	var pas = 1;
+	var sortie = ``;
+	sortie +=`
+	\\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
+	\\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+	\\draw [line width=3pt,color=frvzsz] (`+x_init+`,0.5) -- (`+(x_init+pas)+`,0.5) -- (`+(x_init+pas)+`,-0.5) -- (`+x_init+`,-0.5) -- cycle;
+	\\node[text width=3cm,text centered, scale=1] at(`+(x_init+0.5)+`,0){$${x_ant}$};
+	`;	
+	saut = saut + pas;
+	for (var i = 0; i<etapes_expressions.length; i++) {
+		//si la longueur du tableau des etapes vaut i+1 c'est que c'est la derniere 
+		//on affiche donc chaque fois avec le nom de la fonction
+		if (etapes_expressions.length==i+1) {
+			// si il y a une operation et une expression algébrique
+			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {				
+				let w_etape = `${nom}(x)=${etapes_expressions[i][1]}}`.length;
+				sortie += `
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(0.5);
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
+				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,0.5) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,0.5) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-0.5) -- (`+(x_init+saut+5*pas/2)+`,-0.5) -- cycle;
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(`+x_ant+`)=${etapes_expressions[i][1]}$};
+				`;			
+			};
+			// si il y a une operation et pas d'expression algébrique 
+			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
+				let w_etape = `${nom}(x)=\\ldots`.length;
+				sortie += `
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
+				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(`+x_ant+`)=\\ldots$};
+				`;			
+			};
+			// si il n'y a pas d'operation mais une expression algébrique
+			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
+				let w_etape = `${nom}(x)=${etapes_expressions[i][1]}`.length;
+				sortie += `
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
+				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(`+x_ant+`)=${etapes_expressions[i][1]}$};
+				`;			
+			};
+			// si il n'y ni une operation et ni expression algébrique
+			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
+				let w_etape = `${nom}(x)=\\ldots`.length;
+				sortie += `
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
+				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(`+x_ant+`)=\\ldots$};
+				`;			
+			};
+
+		} else {//sinon c'est une étape intermédiaire
+			// si il y a une operation et une expression algébrique
+			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
+				let w_etape = `${etapes_expressions[i][1]}`.length;
+				sortie += `
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
+				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${etapes_expressions[i][1]}$};
+				`;	
+				saut = saut+3*pas+w_etape/4;						
+			};
+			// si il y a une operation et pas d'expression algébrique 
+			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
+				let w_etape = `\\ldots`.length;
+				sortie += `
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
+				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$\\ldots$};
+				`;	
+				saut = saut+3*pas+w_etape/4;		
+			};
+			// si il n'y a pas d'operation mais une expression algébrique
+			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
+				let w_etape = `${etapes_expressions[i][1]}`.length;
+				sortie += `
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
+				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${etapes_expressions[i][1]}$};
+				`;	
+				saut = saut+3*pas+w_etape/4;		
+			};
+			// si il n'y ni une operation et ni expression algébrique
+			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
+				let w_etape = `\\ldots`.length;
+				sortie += `
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
+				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
+				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
+				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$\\ldots$};
+				`;	
+				saut = saut+3*pas+w_etape/4;		
+			};
+		 };				
+	};		 
+	sortie +=`
+	\\end{tikzpicture}
+	`;
+	return sortie;
+};
+
 /**
  * Crée un popup html avec un icon info, éventuellement avec du contenu LaTeX
  * @param {string} texte 
@@ -2219,4 +2396,559 @@ function katex_Popup(texte,titrePopup,textePopup) {
 function num_alpha(k) {
 	'use strict';
 	return '<span style="color:#f15929; font-weight:bold">'+String.fromCharCode(97+k)+'/</span>';
+};
+
+ /**
+ * Crée une flèche orange pour la fonction machine
+ * @param {object} groupe groupe svg
+ * @param {string} chemin path pour la ligne 
+ * @param {string} couleur couleur
+ * @Auteur Sébastien Lozano
+ */
+function SVG_fleche_machine_maths(groupe,chemin,couleur) {
+	'use strict';
+	return groupe.path(chemin).fill(couleur).stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
+};
+
+ /**Trace un chemin pour un groupe donné avec une couleur donnée
+ * @param {object} groupe groupe
+ * @param {string} chemin path
+ * @param {string} couleur couleur
+ * @Auteur Sébastien Lozano
+ */	
+function SVG_chemin(groupe,chemin,couleur) {
+	'use strict';
+	return groupe.path(chemin).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
+};
+
+/**
+ * Crée un diagramme pour une fonction arithmétique à une étape produit
+ * @param {string} id_du_div id du div contenant le SVG
+ * @param {number} w largeur du div du svg
+ * @param {numer} h hauteur du div du svg
+ * @param {string} nom nom de la fonction
+ * @param {string} x_ant antécédent de départ
+ * @param {array} etapes_expressions tableau contenant les opérations et les expressions algébriques des étapes
+ * @Auteur Sébastien Lozano
+ */
+function SVG_machine_diag_3F1_act_mono(id_du_div,w,h,nom,x_ant,etapes_expressions) {
+	'use strict';
+	let interligne = 10;//w/80; //h/10; // unité d'espacement
+	var saut = 0; // pour la gestion des sauts entre les éléments on aura besoin d'une globale
+	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
+	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
+	window.SVGExist[id_du_div] = setInterval(function() {
+		
+		if ($(`#${id_du_div}`).length ) {
+			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
+			// on crée un rectangle dont la taille est adaptée au texte
+			let w_x_ant = 10*interligne;
+			// on incrémente le saut pour gérer le positionnement de l'élément suivant
+			saut = w_x_ant + 2*interligne;
+			//let path_cadre_rect_ant = 'M0,0L0,-'+interligne+',L'+(w_x_ant + 2*interligne)+',-'+interligne+',L'+(w_x_ant + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
+			let path_cadre_rect_ant ='5,5 195,10 185,40 10,50';
+			document.getElementById(id_du_div).innerHTML = `
+				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 `+w+` `+h+`" width="`+w+`">
+					<g>
+						<path d="M0 `+5*interligne+`L0 `+3*interligne+`L`+5*interligne+` `+3*interligne+`L`+5*interligne+` `+7*interligne+`L0 `+7*interligne+`Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+						</path>
+						<foreignObject width="`+interligne+`" height="`+h/2+`" x="`+2.5*interligne+`" y="`+h/4+`">
+							<div style="position: fixed">
+								<span class="katex-display">
+									<span class="katex">
+										<span class="katex-html" aria-hidden="true">
+											<span class="base">
+												<span class="mord mathdefault">`+x_ant+`</span>
+											</span>
+										</span>
+									</span>
+								</span>
+							</div>
+						</foreignObject>
+					</g>
+					<g>
+						<line x1="`+5*interligne+`" y1="`+5*interligne+`" x2="`+7*interligne+`" y2="`+5*interligne+`" stroke-width="3" stroke="#f15929">
+						</line>
+						<circle r="`+2*interligne+`" cx="`+9*interligne+`" cy="`+5*interligne+`" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+						</circle>
+						<path d="M`+11*interligne+` `+5*interligne+`L`+13*interligne+` `+5*interligne+`L`+(13*interligne-interligne/2)+` `+(5*interligne-interligne/2)+`M`+13*interligne+` `+5*interligne+`L`+(13*interligne-interligne/2)+` `+(5*interligne+interligne/2)+` " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+						</path>
+						<foreignObject width="`+4*interligne+`" height="`+h/2+`" x="`+7.5*interligne+`" y="`+h/4+`">
+							<div style="position: fixed">
+								<span class="katex-display">
+									<span class="katex">
+										<span class="katex-html" aria-hidden="true">
+											<span class="base">
+												<span class="mord mathdefault">×`+etapes_expressions[0][0]+`</span>
+											</span>
+										</span>
+									</span>
+								</span>
+							</div>
+						</foreignObject>
+					</g>
+					<g>
+						<path d="M`+13*interligne+` `+5*interligne+`L`+13*interligne+` `+3*interligne+`L`+27*interligne+` `+3*interligne+`L`+27*interligne+` `+7*interligne+`L`+13*interligne+` `+7*interligne+`Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+						</path>
+						<foreignObject width="`+12*interligne+`" height="`+h/2+`" x="`+16*interligne+`" y="`+h/4+`">
+							<div style="position: fixed">
+								<span class="katex-display">
+									<span class="katex">
+										<span class="katex-html" aria-hidden="true">
+											<span class="base">
+												
+												<span class="mord mathdefault">`+nom+`<span class="mopen">(</span>`+x_ant+`<span class="mclose">)</span><span class="mspace" style="margin-right: 0.408889em;"></span>=<span class="mspace" style="margin-right: 0.408889em;"></span>`+etapes_expressions[0][1]+`</span>
+											</span>
+										</span>
+									</span>
+								</span>
+							</div>
+						</foreignObject>
+					</g>
+				</svg>	
+				`;
+			
+		clearInterval(SVGExist[id_du_div]);//Arrête le timer
+		};
+	}, 100); // Vérifie toutes les 100ms
+};
+
+ //================================================================================================
+ // fonctions dont le déplacement dans mathalea_outils.js posait problème
+ // Les appels aux fonction de mathalea_outils.js doivent être faits après this.nouvelle_version()
+ //================================================================================================
+
+ /**
+  * Fonction pour particulariser une police svg et ses paramètres  
+  * @param {string} font 
+  * @param {string} interligne 
+  * @param {string} ancre 
+  * @param {string} f_style 
+  * @param {string} f_weight
+  * @author Sébastien Lozano 
+  */ 
+ function my_svg_font(font,interligne,ancre,f_style,f_weight){
+	'use strict';
+	return {family:  font,
+		size: interligne,
+		anchor: ancre,
+		style: f_style,
+		//, leading : 0.5
+		weight : f_weight
+		};
+};
+
+/**
+ * Fonction pour créer une machine mathématique SVG, une fonction!
+ * gestion du rendu KaTeX temporaire avec insertion manuelle de balises foreignObject pour les textes
+ * ATTENTION BUG SVG DONC LES ANIMATIONS SONT FILMEES A PARTIR DE CELLES GENEREES PAR LA FONCTION SVG_machine_maths() SOUS FIREFOX
+ * DE FACON A AVOIR UN RENDU UNIFORME QUEL QUE SOIT LE NAVIGATEUR ON REND LES ANIMATIONS PAR DES VIDEOS
+ * ON LAISSE LA PIROUETTE DE DETECTION DU USERAGENT EN COMMENTAIRE EN ATTENDANT DE TROUVER UNE SOLUTION DE RENDU LATEX DANS SVG UNIVERSELLE
+ * @param {string} id_du_div id_du_div
+ * @param {number} w width du svg
+ * @param {number} h height du svg
+ * @param {string} nom nom de la fonction
+ * @param {string} etape1 etape 1 du procédé de calcul
+ * @param {string} etape2 etape 2 du procédé de calcul
+ * @param {string} etape3 etape 3 du procédé de calcul
+ * @param {string} x_ligne1 antécédent ligne1
+ * @param {string} x_ligne2 antécédent ligne2
+ * @param {string} y_ligne1 image ligne1
+ * @param {string} y_ligne2 image ligne2
+ * @author Sébastien Lozano
+ */	
+function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_ligne2,y_ligne1,y_ligne2) {
+	'use strict';
+	let interligne = 15; // pour un interligne uniforme 
+	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
+	let prop_font_nom = my_svg_font('Helvetica',interligne,'start','normal','bold');
+	let prop_font_etape = my_svg_font('Helvetica',4*interligne/5,'start','normal','normal');
+					
+	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
+	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
+	window.SVGExist[id_du_div] = setInterval(function() {
+
+		if ($(`#${id_du_div}`).length ) {
+			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
+			//const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h).size('100%','100%');
+			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h);
+			// on trace un cadre pour le debug
+			//mon_svg.path('M0,0 L'+w+',0L'+w+','+h+'L0,'+h+'Z').fill('none').stroke({ color: '#f15929', width: 1, linecap: 'round', linejoin:'null'});
+
+			// path pour créer des fleches
+			const path_fleche = 'm0,0 l-'+interligne/2+',-'+interligne+' l'+interligne+','+interligne+' l-'+interligne+','+interligne+' l'+interligne/2+',-'+interligne+'z';
+
+			// On crée une timeline
+			let timeline = new SVG.Timeline();
+
+			//------------CREATION DES GROUPES----------------------
+			//------------Antécédent--------------------------------
+			let ant=mon_svg.group();
+
+			//------------Image-------------------------------------
+			let im = mon_svg.group(); 
+
+			//------------PREPARATION DES DIMENSIONS NECESSAIRES----
+			//------------Dimension Antécédent----------------------
+			let ant_ligne1 = ant.text(x_ligne1).font(prop_font); 
+			let ant_ligne2 = ant.text(x_ligne2).font(prop_font); 
+			let w_ant = Math.max(ant_ligne1.length(),ant_ligne2.length())+interligne;
+			ant_ligne1.clear();
+			ant_ligne2.clear();
+
+			//------------Dimension Image---------------------------
+			let im_ligne1 = im.text(y_ligne1).font(prop_font); 
+			let im_ligne2 = im.text(y_ligne2).font(prop_font); 
+			let w_im = Math.max(im_ligne1.length(),im_ligne2.length())+interligne;
+			im_ligne1.clear();
+			im_ligne2.clear();
+
+			//------------Dimension Machine-------------------------
+			// on crée des variables pour le texte à afficher sur la machine afin de récupérer leur taille
+			// pour ajuster celle de la machine.
+			if (nom!='') {
+				var machine_nom = mon_svg.text(nom).font(prop_font_nom);
+				var w_machine_nom = machine_nom.length();
+				machine_nom.clear();
+			} else {
+				var w_machine_nom = 0;
+			};
+			if (etape1!='') {
+				var machine_etape1 = mon_svg.text(etape1).font(prop_font_etape);
+				var w_machine_etape1 = machine_etape1.length();
+				machine_etape1.clear();
+			} else {
+				var w_machine_etape1 = 0;
+			};
+			if (etape2!='') {
+				var machine_etape2 = mon_svg.text(etape2).font(prop_font_etape);
+				var w_machine_etape2 = machine_etape2.length();
+				machine_etape2.clear();
+			} else {
+				var w_machine_etape2 = 0;
+			};
+			if (etape3!='') {
+				var machine_etape3 = mon_svg.text(etape3).font(prop_font_etape);
+				var w_machine_etape3 = machine_etape3.length();
+				machine_etape3.clear();
+			} else {
+				var w_machine_etape3 = 0;
+			};
+
+			let w_etape_max = Math.max(w_machine_nom,w_machine_etape1,w_machine_etape2,w_machine_etape3,w_ant+interligne,w_im+interligne)+1.5*interligne;
+
+			//------------GROUPE ANTECEDENT------------------------- 
+			let ant_ligne = ant.foreignObject(w_ant,h).attr({x:'0',y:'0'});
+			let antDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+			katex.render(x_ligne1+'\\newline '+x_ligne2, antDiv, {				
+				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
+			});
+			ant_ligne.add(antDiv);
+			ant_ligne.dmove(0,-antDiv.offsetHeight/2);
+			let fleche_ant = SVG_fleche_machine_maths(ant,path_fleche,'#f15929');
+			fleche_ant.dmove(antDiv.offsetWidth+interligne/2,interligne); 
+			// on positionne le groupe antécédent
+			ant.dmove(0,h/2-interligne);
+			 
+			//------------GROUPE IMAGE-------------------------
+			let im_ligne = im.foreignObject(w_im,h).attr({x:'0',y:'0'});
+			let imDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+			katex.render(y_ligne1+'\\newline '+y_ligne2, imDiv, {				
+				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
+			});
+			im_ligne.add(imDiv);
+			im_ligne.dmove(0,-imDiv.offsetHeight/2);
+			let fleche_im = SVG_fleche_machine_maths(im,path_fleche,'#f15929');
+			fleche_im.dmove(-interligne/2,interligne);			 
+			// on positionne le groupe image
+			im.dmove(w/2-imDiv.offsetWidth/2,h/2-interligne);
+
+			//------------GROUPE MACHINE-------------------------
+			//const path_machine = 'M-5,0 L-5,-5 L-5,5 M-5,0 L10,0 L10,-40 L100,-40 L100,0 L120,0 L115,-5 L120,0 L115,5 L120,0 L100,0 L100,40 L10,40 L10,0';
+			const path_machine = 'M-10,0 L-10,-5 L-10,5 M-10,0 L10,0 L10,-'+(h/2-5)+' L'+(w_etape_max+20)+',-'+(h/2-5)+' L'+(w_etape_max+20)+',0 L'+(w_etape_max+40)+',0 L'+(w_etape_max+35)+',-5 L'+(w_etape_max+40)+',0 L'+(w_etape_max+35)+',5 L'+(w_etape_max+40)+',0 L'+(w_etape_max+20)+',0 L'+(w_etape_max+20)+','+(h/2-5)+' L10,'+(h/2-5)+' L10,0';
+			let machine = mon_svg.path(path_machine).fill('#fff').stroke({ color: '#f15929', width: 3, linecap: 'round', linejoin:'round'});
+			machine.dmove(w/2-w_etape_max/2 - 20 + interligne/2,h/2); //w/2;  60 est la moitié de la taille de la machine en largeur
+
+			let fobj_machine = mon_svg.foreignObject(w_etape_max,h).attr({x:w/2-w_etape_max/2,y:'0'});
+			let machineDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
+			katex.render('\\mathbf{'+nom+'}\\newline '+etape1+'\\newline '+etape2+'\\newline '+etape3, machineDiv, {				
+				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
+			});
+			fobj_machine.add(machineDiv);
+			fobj_machine.dmove(0,h/2-interligne-machineDiv.offsetHeight/2);
+
+			//------------ANIMATION-------------------------
+ 			ant.timeline(timeline);
+ 			im.timeline(timeline);
+
+ 			let runner1 = ant.animate(8000,0,'absolute').dmove(w/2-w_ant/2,0);
+ 			let runner2 = im.animate(8000,0,'after').dmove(w-w_im/2,0);
+
+ 			runner1.loop(true,false,8000);
+ 			runner2.loop(true,false,8000);
+
+
+		clearInterval(SVGExist[id_du_div]);//Arrête le timer
+		}
+
+	}, 100); // Vérifie toutes les 100ms
+};
+
+//============================================================================
+// fin fonctions dont le déplacement dasn mathalea_outils.js posait problème
+//===========================================================================
+
+//=================================
+//fin fonctions 3F1-act
+//=================================
+
+/**
+ * crée un cadre orange autour d'un paragraphe
+ * utilisé notamment dans 3F12 pour entourer les programmes de calcul
+ * @param {string} texte paragraphe entouré par le cadre orange rectangulaire
+ * @author Sébastien Lozano
+ */
+
+ function tex_cadre_par_orange(texte) {
+	 'use strict';
+	 let sortie = `
+	 \\definecolor{orangeCoop}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
+	 \\setlength{\\fboxrule}{1.5mm}
+	 \\par\\vspace{0.25cm}
+	 \\noindent\\fcolorbox{orangeCoop}{white}{\\parbox{\\linewidth-2\\fboxrule-2\\fboxsep}{`+texte+`}}
+	 \\par\\vspace{0.25cm}		 
+	 `;
+
+	 return sortie;
+ };
+
+/**
+ * Crée un diagramme pour une fonction arithmétique à deux étapes produit puis somme
+ * @param {string} id_du_div id du div contenant le SVG
+ * @param {number} w largeur du div du svg
+ * @param {numer} h hauteur du div du svg
+ * @param {string} nom nom de la fonction
+ * @param {string} x_ant antécédent de départ
+ * @param {array} etapes_expressions tableau contenant les opérations et les expressions algébriques des étapes
+ * @author Sébastien Lozano
+ */
+function SVG_machine_diag_3F12(id_du_div,w,h,nom,x_ant,etapes_expressions) {
+	'use strict';
+	let interligne = 10;//w/80; //h/10; // unité d'espacement
+	var saut = 0; // pour la gestion des sauts entre les éléments on aura besoin d'une globale
+	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
+	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
+	window.SVGExist[id_du_div] = setInterval(function() {
+		
+		if ($(`#${id_du_div}`).length ) {
+			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
+			// on crée un rectangle dont la taille est adaptée au texte
+			let w_x_ant = 10*interligne;
+			// on incrémente le saut pour gérer le positionnement de l'élément suivant
+			saut = w_x_ant + 2*interligne;
+			//let path_cadre_rect_ant = 'M0,0L0,-'+interligne+',L'+(w_x_ant + 2*interligne)+',-'+interligne+',L'+(w_x_ant + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
+			let path_cadre_rect_ant ='5,5 195,10 185,40 10,50';
+			document.getElementById(id_du_div).innerHTML = `
+				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 `+w+` `+h+`" width="`+w+`">
+					<g>
+						<path d="M0 `+5*interligne+`L0 `+3*interligne+`L`+5*interligne+` `+3*interligne+`L`+5*interligne+` `+7*interligne+`L0 `+7*interligne+`Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+						</path>
+						<foreignObject width="`+interligne+`" height="`+h/2+`" x="`+2.5*interligne+`" y="`+h/4+`">
+							<div style="position: fixed">
+								<span class="katex-display">
+									<span class="katex">
+										<span class="katex-html" aria-hidden="true">
+											<span class="base">
+												<span class="mord mathdefault">`+x_ant+`</span>
+											</span>
+										</span>
+									</span>
+								</span>
+							</div>
+						</foreignObject>
+					</g>
+					<g>
+						<line x1="`+5*interligne+`" y1="`+5*interligne+`" x2="`+7*interligne+`" y2="`+5*interligne+`" stroke-width="3" stroke="#f15929">
+						</line>
+						<circle r="`+2*interligne+`" cx="`+9*interligne+`" cy="`+5*interligne+`" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+						</circle>
+						<path d="M`+11*interligne+` `+5*interligne+`L`+13*interligne+` `+5*interligne+`L`+(13*interligne-interligne/2)+` `+(5*interligne-interligne/2)+`M`+13*interligne+` `+5*interligne+`L`+(13*interligne-interligne/2)+` `+(5*interligne+interligne/2)+` " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+						</path>
+						<foreignObject width="`+4*interligne+`" height="`+h/2+`" x="`+7.5*interligne+`" y="`+h/4+`">
+							<div style="position: fixed">
+								<span class="katex-display">
+									<span class="katex">
+										<span class="katex-html" aria-hidden="true">
+											<span class="base">
+												<span class="mord mathdefault">×`+etapes_expressions[0][0]+`</span>
+											</span>
+										</span>
+									</span>
+								</span>
+							</div>
+						</foreignObject>
+					</g>
+					<g>
+						<path d="M`+13*interligne+` `+5*interligne+`L`+13*interligne+` `+3*interligne+`L`+21*interligne+` `+3*interligne+`L`+21*interligne+` `+7*interligne+`L`+13*interligne+` `+7*interligne+`Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+						</path>
+						<foreignObject width="`+2.5*interligne+`" height="`+h/2+`" x="`+16*interligne+`" y="`+h/4+`">
+							<div style="position: fixed">
+								<span class="katex-display">
+									<span class="katex">
+										<span class="katex-html" aria-hidden="true">
+											<span class="base">
+												<span class="mord mathdefault">`+etapes_expressions[0][1]+`</span>
+											</span>
+										</span>
+									</span>
+								</span>
+							</div>
+						</foreignObject>
+					</g>
+					<g>
+						<line x1="`+21*interligne+`" y1="`+5*interligne+`" x2="`+23*interligne+`" y2="`+5*interligne+`" stroke-width="3" stroke="#f15929">
+						</line>
+						<circle r="`+2*interligne+`" cx="`+25*interligne+`" cy="`+5*interligne+`" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+						</circle>
+						<path d="M`+27*interligne+` `+5*interligne+`L`+29*interligne+` `+5*interligne+`L`+(29*interligne-interligne/2)+` `+(5*interligne-interligne/2)+`M`+29*interligne+` `+5*interligne+`L`+(29*interligne-interligne/2)+` `+(5*interligne+interligne/2)+` " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+						</path>
+						<foreignObject width="`+4*interligne+`" height="`+h/2+`" x="`+23.5*interligne+`" y="`+h/4+`">
+						<body xmlns="http://www.w3.org/1999/xhtml">
+							<div style="position: fixed">
+								<span class="katex-display">
+									<span class="katex">
+										<span class="katex-html" aria-hidden="true">
+											<span class="base">
+												<span class="mord mathdefault">+`+etapes_expressions[1][0]+`</span>
+											</span>
+										</span>
+									</span>
+								</span>
+							</div>
+							</body>
+						</foreignObject>
+					</g>
+					<g>
+						<path d="M`+29*interligne+` `+5*interligne+`L`+29*interligne+` `+3*interligne+`L`+44*interligne+` `+3*interligne+`L`+44*interligne+` `+7*interligne+`L`+29*interligne+` `+7*interligne+`Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+						</path>
+						<foreignObject width="`+12*interligne+`" height="`+h/2+`" x="`+31*interligne+`" y="`+h/4+`">
+							<div style="position: fixed">
+								<span class="katex-display">
+									<span class="katex">
+										<span class="katex-html" aria-hidden="true">
+											<span class="base">
+												<span class="mord mathdefault">`+nom+`<span class="mopen">(</span>`+x_ant+`<span class="mclose">)</span><span class="mspace" style="margin-right: 0.408889em;"></span>=<span class="mspace" style="margin-right: 0.408889em;"></span>`+etapes_expressions[1][1]+`</span>
+											</span>
+										</span>
+									</span>
+								</span>
+							</div>
+						</foreignObject>
+					</g>
+				</svg>	
+				`;
+			
+		clearInterval(SVGExist[id_du_div]);//Arrête le timer
+		};
+	}, 100); // Vérifie toutes les 100ms
+};
+
+/**
+ * affiche une video centrée dans une div
+ * ATTENTION BUG SVG DONC LES ANIMATIONS SONT FILMEES A PARTIR DE CELLES GENEREES PAR LA FONCTION SVG_machine_maths() SOUS FIREFOX
+ * DE FACON A AVOIR UN RENDU UNIFORME QUEL QUE SOIT LE NAVIGATEUR ON REND LES ANIMATIONS PAR DES VIDEOS
+ * ON LAISSE LA PIROUETTE DE DETECTION DU USERAGENT EN COMMENTAIRE EN ATTENDANT DE TROUVER UNE SOLUTION DE RENDU LATEX DANS SVG UNIVERSELLE
+ * @param {string} url_video 
+ * @author Sébastien Lozano 
+ */
+
+function machine_maths_video(url_video) {
+	'use strict';
+	let video =`
+	<div style="text-align:center"> 
+	<video width="560" height="100%" controls  loop autoplay muted style="max-width: 100%">
+		<source src="`+url_video+`">
+		Votre navigateur ne gère pas l\'élément <code>video</code>.
+	</video>
+	</div>`;
+	
+	return video;
+};
+
+/**
+ * détecte si le navigateur et safari ou chrome et renvoie un booléen
+ * @author Sébastien Lozano 
+ */
+function detect_safari_chrome_browser(){
+	'use strict';
+	var is_chrome = navigator.userAgent.indexOf('Chrome') > -1;
+	// var is_explorer = navigator.userAgent.indexOf('MSIE') > -1;
+	// var is_firefox = navigator.userAgent.indexOf('Firefox') > -1;
+	var is_safari = navigator.userAgent.indexOf("Safari") > -1;
+	var is_opera = navigator.userAgent.toLowerCase().indexOf("op") > -1;
+	if ((is_chrome)&&(is_safari)) { is_safari = false; }
+	if ((is_chrome)&&(is_opera)) { is_chrome = false; }
+
+	return (is_chrome||is_safari);
+};
+
+/**
+ * Pour les tests de la bibliothèque d3.js
+ * @param {string} id_du_div 
+ * @author Sébastien Lozano 
+ */
+
+function d3jsTests(id_du_div) {
+	'use strict';
+	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
+	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
+	window.SVGExist[id_du_div] = setInterval(function() {
+		
+		if ($(`#${id_du_div}`).length ) {
+			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
+
+			document.getElementById(id_du_div).innerHTML = `8`;
+			var width = 1300;
+			var height = 300;
+			var svg = d3.select('#'+id_du_div)
+				.append("svg")
+				.attr("width", width)
+				.attr("height", height);
+				var circleMove = svg.append("circle")
+				.attr("cx",150)
+				.attr("cy",50)
+				.attr("r",30);
+				
+				 circleMove
+				.transition()
+				 .duration(500)
+				.attr("cx", 850)
+				.transition()
+				.duration(500)
+				.attr("cx",150)
+				.transition()
+				.duration(500)
+				.attr("cx",650)
+				.transition()
+				.duration(500)
+				.attr("cx",350)
+				.transition()
+				.duration(500)
+				.attr("cx",500);
+
+				var positions = [850, 200, 800, 250, 750, 300, 700, 350, 650, 400, 600, 450, 550, 500];
+				function animateMulti(node, positions, i) {
+					node.transition()
+						.duration(300)
+						.attr("cx", positions[i])
+						.on('end',  function() {
+							if (i < (positions.length - 1)) {
+								animateMulti(d3.select(this), positions, ++i);
+							}
+						});
+				}
+				animateMulti(circleMultiTransition, positions, 0);
+		clearInterval(SVGExist[id_du_div]);//Arrête le timer
+		};
+	}, 100); // Vérifie toutes les 100ms
 };

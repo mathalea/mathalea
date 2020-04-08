@@ -590,629 +590,20 @@ function Resoudre_une_equation_produit_nul(){
  * 3F1-act - Notion de fonction - vocabulaire
  * L’objectif de revenir sur l'introduction de la notion de fonction et son vocabulaire
  * On base l'exercice sur des calculs simples de type périmètres, aires, double, triple, nombre de diviseurs
- *
+ * ATTENTION BUG SVG DONC LES ANIMATIONS SONT FILMEES A PARTIR DE CELLES GENEREES PAR LA FONCTION SVG_machine_maths() SOUS FIREFOX
+ * DE FACON A AVOIR UN RENDU UNIFORME QUEL QUE SOIT LE NAVIGATEUR ON REND LES ANIMATIONS PAR DES VIDEOS
+ * ON LAISSE LA PIROUETTE DE DETECTION DU USERAGENT EN COMMENTAIRE EN ATTENDANT DE TROUVER UNE SOLUTION DE RENDU LATEX DANS SVG UNIVERSELLE
  * @Auteur Sébastien Lozano
  */
-
- /**
- * Crée une machine mathématique Tikz pour la version LaTeX
- * @param {string} nom nom de la machine en mode maths!
- * @param {string} etape1 chaine en mode maths attention aux espaces et accents
- * @param {string} etape2 chaine en mode maths attention aux espaces et accents
- * @param {string} etape3 chaine en mode maths attention aux espaces et accents
- * @param {string} x_ligne1 chaine en mode maths attention aux espaces et accents
- * @param {string} x_ligne2 chaine en mode maths attention aux espaces et accents
- * @param {string} y_ligne1 chaine en mode maths attention aux espaces et accents
- * @param {string} y_ligne2 chaine en mode maths attention aux espaces et accents
- * @author Sébastien Lozano
- */
-
-function tikz_machine_maths(nom,etape1,etape2,etape3,x_ligne1,x_ligne2,y_ligne1,y_ligne2) {
-	// tous les textes sont en mode maths !!!
-	'use strict';
-	return `
-	\\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
-	\\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
-	\\draw [line width=3pt,color=frvzsz] (-4,4)-- (2,4);
-	\\draw [line width=3pt,color=frvzsz] (2,4)-- (2,0);
-	\\draw [line width=3pt,color=frvzsz] (2,0)-- (-4,0);
-	\\draw [line width=3pt,color=frvzsz] (-4,0)-- (-4,4);
-	\\draw [line width=3pt,color=frvzsz] (-4,2)-- (-5,2);
-	\\draw [line width=3pt,color=frvzsz] (-5,2.4)-- (-5,1.6);
-	\\draw [->,line width=3pt,color=frvzsz] (2,2) -- (3,2);
-	\\node[text width=3cm,text centered, scale=1.8] at(-1,3.5){$\\mathbf{machine\\,${nom}}$};
-	\\node[text width=3cm,text centered, scale=1.5] at(-1,2.8){$\\mathbf{${etape1}}$};
-	\\node[text width=3cm,text centered, scale=1.5] at(-1,2.3){$${etape2}$};
-	\\node[text width=3cm,text centered, scale=1.5] at(-1,1.6){$${etape3}$};
-	\\node[text width=3cm,text centered, scale=1.5] at(-8,2.5) {$\\mathbf{${x_ligne1}}$};
-	\\node[text width=3cm,text centered, scale=1.5] at(-8,1.5) {$\\mathbf{${x_ligne2}}$};
-	\\fill [line width=3pt,color=frvzsz] (-6,2) -- (-6.5,1) -- (-5.5,2) -- (-6.5,3) -- cycle;
-	%\\fill [line width=3pt,color=frvzsz] (1,2) -- (0.5,1) -- (1.5,2) -- (0.5,3) -- cycle;
-	\\node[text width=3cm,text centered, scale=1.5] at(5.5,2.5) {$\\mathbf{${y_ligne1}}$};
-	\\node[text width=3cm,text centered, scale=1.5] at(5.5,1.5) {$\\mathbf{${y_ligne2}}$};
-	\\fill [line width=3pt,color=frvzsz] (3.5,2) -- (3,1) -- (4,2) -- (3,3) -- cycle;
-	\\end{tikzpicture}	
-	`;
-};
-
-/**
- * Crée un diagramme tikz pour une machine maths
- * @param {string} nom nom de la fonction 
- * @param {string} x_ant nom du nombre de départ
- * @param {array} etapes_expressions tableau contenant les etapes et le expressions algébriques
- * attention mode maths pour les chaines
- * @author Sébastien Lozano
- */
-function tikz_machine_diag(nom,x_ant,etapes_expressions){
-	'use strict';
-	var x_init = -10;
-	var saut = 0;
-	var pas = 1;
-	var sortie = ``;
-	sortie +=`
-	\\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
-	\\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
-	\\draw [line width=3pt,color=frvzsz] (`+x_init+`,0.5) -- (`+(x_init+pas)+`,0.5) -- (`+(x_init+pas)+`,-0.5) -- (`+x_init+`,-0.5) -- cycle;
-	\\node[text width=3cm,text centered, scale=1] at(`+(x_init+0.5)+`,0){$${x_ant}$};
-	`;	
-	saut = saut + pas;
-	for (var i = 0; i<etapes_expressions.length; i++) {
-		//si la longueur du tableau des etapes vaut i+1 c'est que c'est la derniere 
-		//on affiche donc chaque fois avec le nom de la fonction
-		if (etapes_expressions.length==i+1) {
-			// si il y a une operation et une expression algébrique
-			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {				
-				let w_etape = `${nom}(x)=${etapes_expressions[i][1]}}`.length;
-				sortie += `
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(0.5);
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
-				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,0.5) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,0.5) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-0.5) -- (`+(x_init+saut+5*pas/2)+`,-0.5) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(x)=${etapes_expressions[i][1]}$};
-				`;			
-			};
-			// si il y a une operation et pas d'expression algébrique 
-			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
-				let w_etape = `${nom}(x)=\\ldots`.length;
-				sortie += `
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
-				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(x)=\\ldots$};
-				`;			
-			};
-			// si il n'y a pas d'operation mais une expression algébrique
-			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
-				let w_etape = `${nom}(x)=${etapes_expressions[i][1]}`.length;
-				sortie += `
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
-				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(x)=${etapes_expressions[i][1]}$};
-				`;			
-			};
-			// si il n'y ni une operation et ni expression algébrique
-			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
-				let w_etape = `${nom}(x)=\\ldots`.length;
-				sortie += `
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
-				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${nom}(x)=\\ldots$};
-				`;			
-			};
-
-		} else {//sinon c'est une étape intermédiaire
-			// si il y a une operation et une expression algébrique
-			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
-				let w_etape = `${etapes_expressions[i][1]}`.length;
-				sortie += `
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
-				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${etapes_expressions[i][1]}$};
-				`;	
-				saut = saut+3*pas+w_etape/4;						
-			};
-			// si il y a une operation et pas d'expression algébrique 
-			if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
-				let w_etape = `\\ldots`.length;
-				sortie += `
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$${etapes_expressions[i][0]}$};
-				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$\\ldots$};
-				`;	
-				saut = saut+3*pas+w_etape/4;		
-			};
-			// si il n'y a pas d'operation mais une expression algébrique
-			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
-				let w_etape = `${etapes_expressions[i][1]}`.length;
-				sortie += `
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
-				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$${etapes_expressions[i][1]}$};
-				`;	
-				saut = saut+3*pas+w_etape/4;		
-			};
-			// si il n'y ni une operation et ni expression algébrique
-			if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
-				let w_etape = `\\ldots`.length;
-				sortie += `
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut)+`,0) -- (`+(x_init+saut+pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+pas)+`,0) circle(`+(pas/2)+`);
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+pas)+`,0){$\\ldots$};
-				\\draw [->,line width=3pt,color=frvzsz] (`+(x_init+saut+3*pas/2)+`,0) -- (`+(x_init+saut+5*pas/2)+`,0);
-				\\draw [line width=3pt,color=frvzsz] (`+(x_init+saut+5*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,`+(pas/2)+`) -- (`+(x_init+saut+w_etape/4+6*pas/2)+`,-`+(pas/2)+`) -- (`+(x_init+saut+5*pas/2)+`,-`+(pas/2)+`) -- cycle;
-				\\node [text width=3cm,text centered, scale=1] at(`+(x_init+saut+w_etape/8+5.5*pas/2)+`,0){$\\ldots$};
-				`;	
-				saut = saut+3*pas+w_etape/4;		
-			};
-		 };				
-	};		 
-	sortie +=`
-	\\end{tikzpicture}
-	`;
-	return sortie;
-};
-
- /**
-  * Fonction pour particulariser une police svg et ses paramètres  
-  * @param {string} font 
-  * @param {string} interligne 
-  * @param {string} ancre 
-  * @param {string} f_style 
-  * @param {string} f_weight
-  * @author Sébastien Lozano 
-  */ 
- function my_svg_font(font,interligne,ancre,f_style,f_weight){
-	'use strict';
-	return {family:  font,
-		size: interligne,
-		anchor: ancre,
-		style: f_style,
-		//, leading : 0.5
-		weight : f_weight
-		};
-};
-
- /**
- * Crée une flèche orange pour la fonction machine
- * @param {object} groupe groupe svg
- * @param {string} chemin path pour la ligne 
- * @param {string} couleur couleur
- * @Auteur Sébastien Lozano
- */
-function SVG_fleche_machine_maths(groupe,chemin,couleur) {
-	'use strict';
-	return groupe.path(chemin).fill(couleur).stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
-};
-
  
-/**
- * Fonction pour créer une machine mathématique SVG, une fonction!
- * gestion du rendu KaTeX temporaire avec insertion manuelle de balises foreignObject pour les textes
- * @param {string} id_du_div id_du_div
- * @param {number} w width du svg
- * @param {number} h height du svg
- * @param {string} nom nom de la fonction
- * @param {string} etape1 etape 1 du procédé de calcul
- * @param {string} etape2 etape 2 du procédé de calcul
- * @param {string} etape3 etape 3 du procédé de calcul
- * @param {string} x_ligne1 antécédent ligne1
- * @param {string} x_ligne2 antécédent ligne2
- * @param {string} y_ligne1 image ligne1
- * @param {string} y_ligne2 image ligne2
- * @author Sébastien Lozano
- */	
-function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_ligne2,y_ligne1,y_ligne2) {
-	'use strict';
-	let interligne = 15; // pour un interligne uniforme 
-	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
-	let prop_font_nom = my_svg_font('Helvetica',interligne,'start','normal','bold');
-	let prop_font_etape = my_svg_font('Helvetica',4*interligne/5,'start','normal','normal');
-					
-	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
-	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
-	window.SVGExist[id_du_div] = setInterval(function() {
-
-		if ($(`#${id_du_div}`).length ) {
-			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
-			//const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h).size('100%','100%');
-			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h);
-			// on trace un cadre pour le debug
-			//mon_svg.path('M0,0 L'+w+',0L'+w+','+h+'L0,'+h+'Z').fill('none').stroke({ color: '#f15929', width: 1, linecap: 'round', linejoin:'null'});
-
-			// path pour créer des fleches
-			const path_fleche = 'm0,0 l-'+interligne/2+',-'+interligne+' l'+interligne+','+interligne+' l-'+interligne+','+interligne+' l'+interligne/2+',-'+interligne+'z';
-
-			// On crée une timeline
-			let timeline = new SVG.Timeline();
-
-			//------------CREATION DES GROUPES----------------------
-			//------------Antécédent--------------------------------
-			let ant=mon_svg.group();
-
-			//------------Image-------------------------------------
-			let im = mon_svg.group(); 
-
-			//------------PREPARATION DES DIMENSIONS NECESSAIRES----
-			//------------Dimension Antécédent----------------------
-			let ant_ligne1 = ant.text(x_ligne1).font(prop_font); 
-			let ant_ligne2 = ant.text(x_ligne2).font(prop_font); 
-			let w_ant = Math.max(ant_ligne1.length(),ant_ligne2.length())+interligne;
-			ant_ligne1.clear();
-			ant_ligne2.clear();
-
-			//------------Dimension Image---------------------------
-			let im_ligne1 = im.text(y_ligne1).font(prop_font); 
-			let im_ligne2 = im.text(y_ligne2).font(prop_font); 
-			let w_im = Math.max(im_ligne1.length(),im_ligne2.length())+interligne;
-			im_ligne1.clear();
-			im_ligne2.clear();
-
-			//------------Dimension Machine-------------------------
-			// on crée des variables pour le texte à afficher sur la machine afin de récupérer leur taille
-			// pour ajuster celle de la machine.
-			if (nom!='') {
-				var machine_nom = mon_svg.text(nom).font(prop_font_nom);
-				var w_machine_nom = machine_nom.length();
-				machine_nom.clear();
-			} else {
-				var w_machine_nom = 0;
-			};
-			if (etape1!='') {
-				var machine_etape1 = mon_svg.text(etape1).font(prop_font_etape);
-				var w_machine_etape1 = machine_etape1.length();
-				machine_etape1.clear();
-			} else {
-				var w_machine_etape1 = 0;
-			};
-			if (etape2!='') {
-				var machine_etape2 = mon_svg.text(etape2).font(prop_font_etape);
-				var w_machine_etape2 = machine_etape2.length();
-				machine_etape2.clear();
-			} else {
-				var w_machine_etape2 = 0;
-			};
-			if (etape3!='') {
-				var machine_etape3 = mon_svg.text(etape3).font(prop_font_etape);
-				var w_machine_etape3 = machine_etape3.length();
-				machine_etape3.clear();
-			} else {
-				var w_machine_etape3 = 0;
-			};
-
-			let w_etape_max = Math.max(w_machine_nom,w_machine_etape1,w_machine_etape2,w_machine_etape3,w_ant+interligne,w_im+interligne)+1.5*interligne;
-
-			//------------GROUPE ANTECEDENT------------------------- 
-			let ant_ligne = ant.foreignObject(w_ant,h).attr({x:'0',y:'0'});
-			let antDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
-			katex.render(x_ligne1+'\\newline '+x_ligne2, antDiv, {				
-				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
-			});
-			ant_ligne.add(antDiv);
-			ant_ligne.dmove(0,-antDiv.offsetHeight/2);
-			let fleche_ant = SVG_fleche_machine_maths(ant,path_fleche,'#f15929');
-			fleche_ant.dmove(antDiv.offsetWidth+interligne/2,interligne); 
-			// on positionne le groupe antécédent
-			ant.dmove(0,h/2-interligne);
-			 
-			//------------GROUPE IMAGE-------------------------
-			let im_ligne = im.foreignObject(w_im,h).attr({x:'0',y:'0'});
-			let imDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
-			katex.render(y_ligne1+'\\newline '+y_ligne2, imDiv, {				
-				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
-			});
-			im_ligne.add(imDiv);
-			im_ligne.dmove(0,-imDiv.offsetHeight/2);
-			let fleche_im = SVG_fleche_machine_maths(im,path_fleche,'#f15929');
-			fleche_im.dmove(-interligne/2,interligne);			 
-			// on positionne le groupe image
-			im.dmove(w/2-imDiv.offsetWidth/2,h/2-interligne);
-
-			//------------GROUPE MACHINE-------------------------
-			//const path_machine = 'M-5,0 L-5,-5 L-5,5 M-5,0 L10,0 L10,-40 L100,-40 L100,0 L120,0 L115,-5 L120,0 L115,5 L120,0 L100,0 L100,40 L10,40 L10,0';
-			const path_machine = 'M-10,0 L-10,-5 L-10,5 M-10,0 L10,0 L10,-'+(h/2-5)+' L'+(w_etape_max+20)+',-'+(h/2-5)+' L'+(w_etape_max+20)+',0 L'+(w_etape_max+40)+',0 L'+(w_etape_max+35)+',-5 L'+(w_etape_max+40)+',0 L'+(w_etape_max+35)+',5 L'+(w_etape_max+40)+',0 L'+(w_etape_max+20)+',0 L'+(w_etape_max+20)+','+(h/2-5)+' L10,'+(h/2-5)+' L10,0';
-			let machine = mon_svg.path(path_machine).fill('#fff').stroke({ color: '#f15929', width: 3, linecap: 'round', linejoin:'round'});
-			machine.dmove(w/2-w_etape_max/2 - 20 + interligne/2,h/2); //w/2;  60 est la moitié de la taille de la machine en largeur
-
-			let fobj_machine = mon_svg.foreignObject(w_etape_max,h).attr({x:w/2-w_etape_max/2,y:'0'});
-			let machineDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
-			katex.render('\\mathbf{'+nom+'}\\newline '+etape1+'\\newline '+etape2+'\\newline '+etape3, machineDiv, {				
-				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
-			});
-			fobj_machine.add(machineDiv);
-			fobj_machine.dmove(0,h/2-interligne-machineDiv.offsetHeight/2);
-
-			//------------ANIMATION-------------------------
- 			ant.timeline(timeline);
- 			im.timeline(timeline);
-
- 			let runner1 = ant.animate(8000,0,'absolute').dmove(w/2-w_ant/2,0);
- 			let runner2 = im.animate(8000,0,'after').dmove(w-w_im/2,0);
-
- 			runner1.loop(true,false,8000);
- 			runner2.loop(true,false,8000);
-
-
-		clearInterval(SVGExist[id_du_div]);//Arrête le timer
-		}
-
-	}, 100); // Vérifie toutes les 100ms
-};
-
-/**Trace un chemin pour un groupe donné avec une couleur donnée
- * @param {object} groupe groupe
- * @param {string} chemin path
- * @param {string} couleur couleur
- * @Auteur Sébastien Lozano
- */	
-function SVG_chemin(groupe,chemin,couleur) {
-	'use strict';
-	return groupe.path(chemin).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
-};
-
-/**Calcule la place nécessaire au saut après une étape opératoire
- * @param {object} groupe groupe svg
- * @param {number} interligne unité d'espacement
- * @param {string} texte texte avec rendu katex
- * @Auteur Sébastien Lozano
- */
-function SVG_saut_etape_cadre_rond(groupe,interligne,texte){
-	'use strict';
-	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
-	let operation = groupe.text(texte).font(prop_font);
-	let w_operation = Math.max(operation.length(),4*interligne);
-	operation.clear();
-	return 5*interligne/2 + w_operation/2;
-};
-
-/**Crée une étape avec une opération
- * @param {object} groupe groupe du svg 
- * @param {number} h hauteur de reference
- * @param {number} interligne unité d'espacement
- * @param {string} couleur couleur
- * @param {string} texte texte avec rendu katex
- * @param {number} saut saut pour positionner le cadre suivant
- * @Auteur Sébastien Lozano
- */
-
-function SVG_etape_cadre_rond(groupe,h,interligne,couleur,texte,saut) {
-	'use strict';
-	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
-	let operation = groupe.text(texte).font(prop_font);
-	let w_operation = Math.max(operation.length(),4*interligne);
-	operation.clear();
-	let r_circ = interligne/2 + w_operation/2;
-
-	// on crée la fleche
-	let path_fleche = 'M0,0L'+interligne+',0L'+(interligne-2)+',-2M'+interligne+',0L'+(interligne-2)+',2';
-	// on crée le groupe etape
-	let etape = groupe.group();
-	// on crée la ligne de départ	
-	let l1 = etape.line(0,0,interligne,0).stroke({ width: 1 ,color: couleur});
-	l1.dmove(0,h/2);
-	// on crée le cadre rond
-	let cadre_etape = etape.circle(r_circ).fill('none').stroke({ color: couleur, width: 1, linecap: 'round', linejoin:'null'});
-	//on positionne le cadre etape
-	cadre_etape.dmove(interligne,h/2-r_circ/2);
-	// on crée la fleche et on la positionne
-	let f1 = SVG_chemin(etape,path_fleche,couleur);
-	f1.dmove(3*interligne/2+w_operation/2,h/2);
-	// on crée le foreignobject
-	let fobj_operation = etape.foreignObject(w_operation,h).attr({x:'0',y:'0'});
-	// on crée manuellement la div contenant les formules maths
-	let operationDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
-	katex.render('\\tiny{'+texte+'}', operationDiv, {				
-		"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
-	});
-	//on affecte la div avec la formule dans le foreignobject
-	fobj_operation.add(operationDiv);
-	// on positionne l'objet
-	fobj_operation.dmove(interligne/4,-interligne/4);
-	// on positionne l'etape
-	etape.dmove(saut,0);
-	return etape;
-};
-
-/**Calcule la place nécessaire au saut après le résultat d'une étape intermédiaire
- * @param {object} groupe groupe svg
- * @param {number} interligne unité d'espacement
- * @param {string} texte texte avec rendu katex
- * @Auteur Sébastien Lozano
- */
-function SVG_saut_etape_cadre_rect(groupe,interligne,texte) {
-	'use strict';
-	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
-	let etape_rect = groupe.text(texte).font(prop_font);
-	let w_etape_rect = etape_rect.length()+interligne;
-	etape_rect.clear();
-	return w_etape_rect + 2*interligne;
-};
-/**Crée le résultats d'une étape après une opération
- * 
- * @param {object} groupe group svg
- * @param {number} h heuteur
- * @param {number} interligne unité d'espacement
- * @param {string} couleur couleur
- * @param {string} texte texte avec rendu katex
- * @param {number} saut saut pour positionner le cadre suivant
- * @Auteur Sébastien Lozano
- */
-
-function SVG_etape_cadre_rect(groupe,h,interligne,couleur,texte,saut) {
-	'use strict';
-	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
-	let etape_rect = groupe.text(texte).font(prop_font);
-	let w_etape_rect = etape_rect.length()+interligne;
-	etape_rect.clear();
-	
-	// on crée le groupe etape	
-	let etape = groupe.group();
-	// on crée un rectangle dont la taille est adaptée au texte
-	let path_cadre_rect_etape = 'M0,0L0,-'+interligne+',L'+(w_etape_rect + 2*interligne)+',-'+interligne+',L'+(w_etape_rect + 2*interligne)+','+interligne+'L0,'+interligne+'Z';	
-	let cadre_rect_etape = SVG_chemin(etape,path_cadre_rect_etape,couleur);  
-	// on positionne le cadre
-	cadre_rect_etape.dmove(0,h/2);
-	// on crée le foreignobject
-	let fobj_etape_rect = etape.foreignObject(w_etape_rect,h).attr({x:'0',y:'0'});
-	// on crée manuellement la div contenant les formules maths
-	let etape_rectDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
-	katex.render('\\tiny{'+texte+'}', etape_rectDiv, {				
-		"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
-	});
-	//on affecte la div avec la formule dans le foreignobject
-	fobj_etape_rect.add(etape_rectDiv);
-	// on positionne l'objet
-	fobj_etape_rect.dmove(interligne+w_etape_rect/2-etape_rectDiv.offsetWidth/2,-interligne/4);
-	// on positionne l'etape 
-	etape.dmove(saut,0);
-	return etape;
-};
-
-/**
- * Crée un diagramme pour une fonction arithmétique
- * @param {string} id_du_div id du div contenant le SVG
- * @param {number} w largeur du div du svg
- * @param {numer} h hauteur du div du svg
- * @param {string} nom nom de la fonction
- * @param {string} x_ant antécédent de départ
- * @param {array} etapes_expressions tableau contenant les opérations et les expressions algébriques des étapes
- * @Auteur Sébastien Lozano
- */
-function SVG_machine_diag(id_du_div,w,h,nom,x_ant,etapes_expressions) {
-	'use strict';
-	let interligne = 10; // unité d'espacement
-	var saut = 0; // pour la gestion des sauts entre les éléments on aura besoin d'une globale
-	let prop_font = my_svg_font('Helvetica',interligne,'start','normal','normal');
-	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
-	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
-	window.SVGExist[id_du_div] = setInterval(function() {
-		if ($(`#${id_du_div}`).length ) {
-			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
-			//const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h).size('100%','100%');
-			const mon_svg = SVG().addTo(`#${id_du_div}`).viewbox(0, 0, w, h);
-			// on trace un cadre pour le debug
-			//mon_svg.path('M0,0 L'+w+',0L'+w+','+h+'L0,'+h+'Z').fill('none').stroke({ color: '#f15929', width: 1, linecap: 'round', linejoin:'null'});
- 			// on crée le groupe pour le diagramme
-			let diag=mon_svg.group();
-			let x = diag.text(x_ant).font(prop_font);
-			let w_x_ant = x.length();
-			x.clear();
-			// on incrémente le saut pour gérer le positionnement de l'élément suivant.
-			saut = w_x_ant + 2*interligne;
-			// on crée un rectangle dont la taille est adaptée au texte
-			let path_cadre_rect_ant = 'M0,0L0,-'+interligne+',L'+(w_x_ant + 2*interligne)+',-'+interligne+',L'+(w_x_ant + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
-			let cadre_ant = SVG_chemin(diag,path_cadre_rect_ant,'#f15929');  
-			// on positionne le cadre
-			cadre_ant.dmove(0,h/2);
-			// on crée le foreignobject
-			let fobj_x = diag.foreignObject(w_x_ant,h).attr({x:'0',y:'0'});
-			// on crée manuellement la div contenant les formules maths
-			let xDiv = document.createElementNS("http://www.w3.org/1999/xhtml","div");
-			katex.render('\\tiny{'+x_ant+'}', xDiv, {				
-				"displayMode":true,"throwOnError":true,"errorColor":"#CC0000","strict":"ignore","trust":false				
-			});
-			//on affecte la div avec la formule dans le foreignobject
-			fobj_x.add(xDiv);
-			// on positionne l'objet
-			fobj_x.dmove(interligne+w_x_ant/2-xDiv.offsetWidth/2,-interligne/4);
-			// on génère autant d'étapes que de paires dansle tableau etapes_expressions
-			for (var i = 0; i<etapes_expressions.length; i++) {
-				//si la longueur du tableau des etapes vaut i+1 c'est que c'est la derniere 
-				//on affiche donc chaque fois avec le nom de la fonction
-				if (etapes_expressions.length==i+1) {
-					// si il y a une operation et une expression algébrique
-					if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
-					SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929',etapes_expressions[i][0],saut);
-					saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,etapes_expressions[i][0]);					 
-					SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',nom+'(x)='+etapes_expressions[i][1],saut)
-					saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,nom+'(x)='+etapes_expressions[i][1]);
-					};
-					// si il y a une operation et pas d'expression algébrique 
-					if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
-					SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929',etapes_expressions[i][0],saut);
-					saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,etapes_expressions[i][0]);					 
-					SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',nom+'(x)=\\ldots',saut)
-					saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,nom+'(x)=\\ldots');
-					};
-					// si il n'y a pas d'operation mais une expression algébrique
-					if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
-					SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929','\\ldots',saut);
-					saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,'\\ldots');					 
-					SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',nom+'(x)='+etapes_expressions[i][1],saut)
-					saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,nom+'(x)='+etapes_expressions[i][1]);
-					};
-					// si il n'y ni une operation et ni expression algébrique
-					if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
-					SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929','\\ldots',saut);
-					saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,'\\ldots');					 
-					SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',nom+'(x)=\\ldots',saut)
-					saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,nom+'(x)=\\ldots');
-					};
-
-				} else {//sinon c'est une étape intermédiaire
-					// si il y a une operation et une expression algébrique
-					if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {						
-						SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929',etapes_expressions[i][0],saut);
-						saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,etapes_expressions[i][0]);					 
-						SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',etapes_expressions[i][1],saut)
-						saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,etapes_expressions[i][1]);
-					};
-					// si il y a une operation et pas d'expression algébrique 
-					if (typeof etapes_expressions[i][0]!=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
-						SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929',etapes_expressions[i][0],saut);
-						saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,etapes_expressions[i][0]);					 
-						SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929','\\ldots',saut)
-						saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,'\\ldots');
-					};
-					// si il n'y a pas d'operation mais une expression algébrique
-					if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]!=='undefined') {
-						SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929','\\ldots',saut);
-						saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,'\\ldots');					 
-						SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929',etapes_expressions[i][1],saut)
-						saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,etapes_expressions[i][1]);
-					};
-					// si il n'y ni une operation et ni expression algébrique
-					if (typeof etapes_expressions[i][0]=='undefined' && typeof etapes_expressions[i][1]=='undefined') {
-						SVG_etape_cadre_rond(mon_svg,h,interligne,'#f15929','\\ldots',saut);
-						saut = saut + SVG_saut_etape_cadre_rond(mon_svg,interligne,'\\ldots');					 
-						SVG_etape_cadre_rect(mon_svg,h,interligne,'#f15929','\\ldots',saut)
-						saut = saut+SVG_saut_etape_cadre_rect(mon_svg,interligne,'\\ldots');
-					};
-			 	};				
-			};		 
-
-		clearInterval(SVGExist[id_du_div]);//Arrête le timer
-		};
-	}, 100); // Vérifie toutes les 100ms
-
-};
-
-
-
 function fonction_notion_vocabulaire(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1 ; 
-	this.titre = "Fonction : Notion et vocabulaire"; 
+	this.titre = "Fonctions : Notion et vocabulaire"; 
 	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne = "Lorsqu'un nombre $\\textit{x}$ entre dans une machine mathématique , celle-ci renvoie à la sortie un nombre appelé $\\textit{image de x}$.<br>";
+	this.consigne =``;
+	this.consigne += "Lorsqu'un nombre $\\textit{x}$ entre dans une machine mathématique , celle-ci renvoie à la sortie un nombre appelé $\\textit{image de x}$.<br>";
 	this.consigne += "On dit que le nombre de départ est un $\\textit{antécédent}$ du nombre qu'on trouve à la sortie.<br>";
 	this.consigne += "Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donner des noms $\\textit{f}$ ou $\\textit{g}$ ou $\\textit{h} \\ldots$";
 	this.consigne += `<br>`;
@@ -1227,17 +618,9 @@ function fonction_notion_vocabulaire(){
 	var num_ex = '3F1-act'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
 
 	if (sortie_html) {		
-		let id_unique = `_consigne_${num_ex}_${Date.now()}`; // on formatte avec le numéro de l'exercice pour éviter les doublons		
-		let id_du_div = `div_svg${id_unique}`;
 		var pourcentage = '100%'; // pour l'affichage des svg. On a besoin d'une variable globale
 		var hauteur_svg = 100;
-
-		this.consigne += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table "></div>`;
-		SVG_machine_maths(id_du_div,400,hauteur_svg,'machine\\,maths','---','Procédé','de\\,calcul','antécédent','x','image','y');
 	} else { // sortie LaTeX
-		// this.consigne += `machine Tikz HEX #F15929 équivaut à rgb(241,89,41)<br>`;
-		this.consigne += tikz_machine_maths('maths','---',`Proc\\acute{e}d\\acute{e}`,'de\\,calcul',`ant\\acute{e}c\\acute{e}dent`,`\\textit{x}`,`image`,`\\textit{y}`);
-
 
 	};
 	this.nouvelle_version = function(numero_de_l_exercice){
@@ -1245,7 +628,19 @@ function fonction_notion_vocabulaire(){
 		if (sortie_html) { // les boutons d'aide uniquement pour la version html
 			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheFonctions-3F1-act.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
 			this.bouton_aide += modal_video('videoTest','videos/Fonctions.mp4','Petit conte mathématique','Intro Vidéo');
-		}
+//			if (detect_safari_chrome_browser()) {// si c'est safari ou chrome
+				this.consigne += machine_maths_video(`videos/machineMathsIntro.mp4`);
+			// } else {
+			// 	let id_unique = `_consigne_${num_ex}_${Date.now()}`; // on formatte avec le numéro de l'exercice pour éviter les doublons		
+			// 	let id_du_div = `div_svg${id_unique}`;
+			// 	this.consigne += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table "></div>`;
+			// 	SVG_machine_maths(id_du_div,400,hauteur_svg,'machine\\,maths','---','Procédé','de\\,calcul','antécédent','x','image','y');
+			// };
+		} else { // sortie LaTeX
+			// this.consigne += `machine Tikz HEX #F15929 équivaut à rgb(241,89,41)<br>`;
+			this.consigne += tikz_machine_maths('maths','---',`Proc\\acute{e}d\\acute{e}`,'de\\,calcul',`ant\\acute{e}c\\acute{e}dent`,`\\textit{x}`,`image`,`\\textit{y}`);	
+		};
+
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		this.contenu = ''; // Liste de questions
@@ -1257,10 +652,13 @@ function fonction_notion_vocabulaire(){
 
 			for (let i = 0, x,y,z, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 				type_de_questions = liste_type_de_questions[i];
-	
-				let id_unique = `${num_ex}_${i}_${Date.now()}`
-				let id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
-				let id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`;
+				
+				if (sortie_html) {
+					var id_unique = `${num_ex}_${i}_${Date.now()}`
+					var id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
+					var id_du_div_diag = `div_svg_diag${numero_de_l_exercice}${id_unique}`;
+					var id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`;
+				}
 	
 				switch (type_de_questions) {
 					case 1 : // périmètre d'un carré de côté x			
@@ -1276,33 +674,14 @@ function fonction_notion_vocabulaire(){
 						x = randint(2,99);//augmenter les possibles pour éviter les questions déjà posées?	
 						if (sortie_html) {
 							//texte += `<br>`;
-							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
-							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, f','---','périmètre','d\'un \\, carré','carré \\, de','côté \\,'+x+' \\, cm','périmètre','??? \\, cm');							
+							// if (detect_safari_chrome_browser()) {// si c'est safari ou chrome
+								texte += machine_maths_video(`videos/machineMaths-g.mp4`);
+							// } else {
+							// 	texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
+							// 	SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, f','---','périmètre','d\'un \\, carré','carré \\, de','côté \\,'+x+' \\, cm','périmètre','??? \\, cm');							
+							// };
 						} else { // sortie Latex avec Tikz
 							texte += tikz_machine_maths('f','---',`P\\acute{e}rim\\grave{e}tre`,`d'un\\,carr\\acute{e}`,`carr\\acute{e}\\,de`,`c\\hat{o}t\\acute{e}\\,${x}\\,cm`,`P\\acute{e}rim\\grave{e}tre`,`???\\,cm`);
-							// texte += `
-							// \\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
-							// \\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
-							// \\draw [line width=3.2pt,color=frvzsz] (-2,4)-- (4,4);
-							// \\draw [line width=3.2pt,color=frvzsz] (4,4)-- (4,0);
-							// \\draw [line width=3.2pt,color=frvzsz] (4,0)-- (-2,0);
-							// \\draw [line width=3.2pt,color=frvzsz] (-2,0)-- (-2,4);
-							// \\draw [line width=3.2pt,color=frvzsz] (-2,2)-- (-3,2);
-							// \\draw [line width=3.2pt,color=frvzsz] (-3,2.4)-- (-3,1.6);
-							// \\draw [->,line width=3.2pt,color=frvzsz] (4,2) -- (5,2);
-							// \\node[text width=3cm,text centered, scale=1.8] at(1,3.5){$\\mathbf{machine\\,maths}$};
-							// \\node[text width=3cm,text centered, scale=1.5] at(1,2.8){$\\mathbf{---}$};
-							// \\node[text width=3cm,text centered, scale=1.5] at(1,2.3){Proc\\'{e}d\\'{e}};
-							// \\node[text width=3cm,text centered, scale=1.5] at(1,1.6){de caclcul};
-							// \\node[text width=3cm,text centered, scale=1.5] at(-6,2.5) {$\\mathbf{ant\\acute{e}c\\acute{e}dent}$};
-							// \\node[text width=3cm,text centered, scale=1.5] at(-6,1.5) {$\\mathbf{\\textit{x}}$};
-							// \\fill [line width=3.2pt,color=frvzsz] (-4,2) -- (-4.5,1) -- (-3.5,2) -- (-4.5,3) -- cycle;
-							// %\\fill [line width=3.2pt,color=frvzsz] (1,2) -- (0.5,1) -- (1.5,2) -- (0.5,3) -- cycle;
-							// \\node[text width=3cm,text centered, scale=1.5] at(7,2.5) {$\\mathbf{image}$};
-							// \\node[text width=3cm,text centered, scale=1.5] at(7,1.5) {$\\mathbf{\\textit{y}}$};
-							// \\fill [line width=3.2pt,color=frvzsz] (5.5,2) -- (5,1) -- (6,2) -- (5,3) -- cycle;
-							// \\end{tikzpicture}							
-							// `;
 						};
 						// sous question a/						
 						if (sortie_html){
@@ -1318,6 +697,7 @@ function fonction_notion_vocabulaire(){
 							texte_corr += `\\item Si le côté vaut ${x} cm alors la machine renvoie le périmètre d'un carré de côté ${x} cm, c'est à dire $${x}+${x}+${x}+${x} = 4\\times ${x} = ${4*x}$ cm.<br>`;
 							texte_corr += `On dit que ${4*x} est l'image de ${x} par la fonction f.`;						
 						};
+
 						// sous question b/	
 						y = randint(2,99,[x]);//augmenter les possibles pour éviter les questions déjà posées?	
 						if (sortie_html){
@@ -1330,7 +710,8 @@ function fonction_notion_vocabulaire(){
 							texte += `\\item Combien vaut la longueur du côté si la machine renvoie  ${4*y} cm ? Formuler la réponse avec le mot \\textbf{antécédent} \\footnote{\\textbf{Antécédent :} Un antécédent de la valeur d\'un périmètre est une valeur du côté qui a pour image ce périmètre}`;
 							texte_corr += `\\item Si la machine renvoie un périmètre de ${4*y} cm alors le côté du carré vaut $${4*y}\\div 4 = ${y}$ cm.<br>`;
 							texte_corr += `On dit que ${y} est <b>un</b> antécédent de ${4*y} par la fonction f.`;						
-						};														
+						};			
+
 						// sous question c/
 						z = randint(2,99,[x,y]);//augmenter les possibles pour éviter les questions déjà posées?						
 						if (sortie_html){
@@ -1345,6 +726,7 @@ function fonction_notion_vocabulaire(){
 							texte += ` ? \\'{E}crire la réponse sous la forme $\\mathbf{f(${z})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f(4)=16}$}`;
 							texte_corr += `\\ item L'image de ${z} par la fonction f vaut $f(${z})=4\\times ${z}=${4*z}$.<br>`;		
 						};
+
 						// sous question d/
 						if (sortie_html) {
 							texte += num_alpha(j)+` Que renvoie la machine si le côté vaut $x$ cm ?<br>`;
@@ -1354,35 +736,25 @@ function fonction_notion_vocabulaire(){
 							texte += `\\item   Que renvoie la machine si le côté vaut $x$ cm ?<br>`;
 							texte_corr += `\\item  Si le côté vaut $x$ la machine renvoie $x+x+x+x$ ce qui est équivalent à $4\\times x$ .<br>`;			
 						};
+
 						// sous question e/
 						if (sortie_html) {
 							texte += num_alpha(j)+` &Eacute;crire la réponse à la question `+num_alpha(j-1)+` sous forme de diagramme.<br>`;
 							texte += `Voici le diagramme d'une machine qui triple `;
-							texte += `<div id="diagramme_type1" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							SVG_machine_diag('diagramme_type1',400,50,'f','x',[['\\times 3','3x']]);
-
+							texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+							SVG_machine_diag_3F1_act_mono(id_du_div_diag,800,100,'f','x',[['3','3x']]);
 							texte_corr += num_alpha(j)+`C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
-							texte_corr += `<div id="diagramme_type1_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							SVG_machine_diag('diagramme_type1_corr',400,50,'f','x',[['\\times 4','4x']]);
+							 texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+							SVG_machine_diag_3F1_act_mono(id_du_div_corr,800,100,'f','x',[['4','4x']]);
 							j++;//incrémente la sous question
 						} else { // sortie LaTeX
 							texte += `\\item   \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
 							texte += `Voici le diagramme d'une machine qui triple <br> `;
 							texte += tikz_machine_diag(`f`,`x`,[[`\\times 3`,`3x`]]);
-							// texte += tikz_machine_diag(`f`,`x`,[[`+5`,`x+5`],[`\\times 3`,`3x`]]);
-							// texte += tikz_machine_diag(`f`,`x`,[[`+5`,`x+5`],[`+5`,`x+5`],[`\\times 3`,`3x`]]);
-							// texte += tikz_machine_diag(`f`,`x`,[[,`x+5`],[`\\times 3`,]]);
-							// texte += tikz_machine_diag(`f`,`x`,[[`+5`,],[,`3x`]]);
-							// texte += tikz_machine_diag(`f`,`x`,[[,],[,]]);
-							//texte += `<div id="diagramme_type1" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							//SVG_machine_diag('diagramme_type1',400,50,'f','x',[['\\times 3','3x']]);
-							//texte += `diagramme Tikz<br>`;
 							texte_corr += `\\item  C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
 							texte_corr += tikz_machine_diag(`f`,`x`,[[`\\times 4`,`4x`]]);
-							//texte_corr += `<div id="diagramme_type1_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							//SVG_machine_diag('diagramme_type1_corr',400,50,'f','x',[['\\times 4','4x']]);							
-							//texte_corr += `diagramme Tikz`;
 						};
+
 						// sous question f/
 						if (sortie_html) {
 							texte += num_alpha(j)+` &Eacute;crire la réponse à la question `+num_alpha(j-2)+` sous la forme `;
@@ -1393,6 +765,7 @@ function fonction_notion_vocabulaire(){
 							texte += `\\item   \\'{E}crire la réponse à la question d/ sous la forme $\\mathbf{f(\\textbf{\\textit{x}})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f(4)=16}$}`;							
 							texte_corr += `\\item  L'image de $x$ par la fonction f vaut $4\\times x$ donc $f(x)=4\\times x$.<br>`;		
 						};
+
 						// sous question g/
 						if (sortie_html){
 							texte += num_alpha(j)+` En utilisant la forme `;
@@ -1420,8 +793,12 @@ function fonction_notion_vocabulaire(){
 						x = randint(2,99);//augmenter les possibles pour éviter les questions déjà posées?	
 						if (sortie_html) {
 							//texte += `<br>`;
-							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
-							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine\\,g','---','aire','d\'un \\, carré','carré \\, de','côté \\, '+x+'\\, cm','aire','??? \\, cm^2');							
+							//if (detect_safari_chrome_browser()) {// si c'est safari ou chrome
+								texte += machine_maths_video(`videos/machineMaths-f.mp4`);
+							// } else {
+							// 	texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
+							// 	SVG_machine_maths(id_du_div,400,hauteur_svg,'machine\\,g','---','aire','d\'un \\, carré','carré \\, de','côté \\, '+x+'\\, cm','aire','??? \\, cm^2');							
+							// };
 						} else { // sortie Latex avec Tikz
 							//texte += `figure Tikz<br>`;
 							texte += tikz_machine_maths('g','---',`Aire`,`d'un\\,carr\\acute{e}`,`carr\\acute{e}\\,de`,`c\\hat{o}t\\acute{e}\\,${x}\\,cm`,`Aire`,`???\\,cm^2`);
@@ -1482,30 +859,25 @@ function fonction_notion_vocabulaire(){
 						} else {
 							texte += `\\item  Que renvoie la machine si le côté vaut $x$ cm ?<br>`;
 							texte_corr += `\\item Si le côté vaut $x$ la machine renvoie $x\\times x$ ce qui est équivalent à $x^2$ .<br>`;
-						}
+						};
 
 						// sous question e/
 						if (sortie_html) {
 							texte += num_alpha(j)+` &Eacute;crire la réponse à la question `+num_alpha(j-1)+` sous forme de diagramme.<br>`;
 							texte += `Voici le diagramme d'une machine qui double `;
-							texte += `<div id="diagramme_type2" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							SVG_machine_diag('diagramme_type2',400,50,'g','x',[['\\times 2','2x']]);
+							texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+							SVG_machine_diag_3F1_act_mono(id_du_div_diag,800,100,'g','x',[['2','2x']]);
 							texte_corr += num_alpha(j)+`C'est une machine qui multiplie un nombre par lui-même, donc sous forme de diagramme.<br>`;
-							texte_corr += `<div id="diagramme_type2_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							SVG_machine_diag('diagramme_type2_corr',400,50,'g','x',[['\\times x','x\\times x=x^{\\tiny 2}']]);
+							texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+							SVG_machine_diag_3F1_act_mono(id_du_div_corr,800,100,'g','x',[['x','x²']]);
 							j++;//incrémente la sous question
 						} else {
 							texte += `\\item  \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
 							texte += `Voici le diagramme d'une machine qui double <br>`;
 							texte += tikz_machine_diag(`g`,`x`,[[`\\times 2`,`2x`]]);
-							// texte += `<div id="diagramme_type2" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							// SVG_machine_diag('diagramme_type2',400,50,'g','x',[['\\times 2','2x']]);
-
 							texte_corr += `\\item C'est une machine qui multiplie un nombre par lui-même, donc sous forme de diagramme.<br>`;
 							texte_corr += tikz_machine_diag(`g`,`x`,[[`\\times x`,`x^2`]]);
-							// texte_corr += `<div id="diagramme_type2_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							// SVG_machine_diag('diagramme_type2_corr',400,50,'g','x',[['\\times x','x\\times x=x^{\\tiny 2}']]);
-						}
+						};
 
 						// sous question f/
 						if (sortie_html){
@@ -1544,13 +916,15 @@ function fonction_notion_vocabulaire(){
 						x = randint(2,99);//augmenter les possibles pour éviter les questions déjà posées?	
 						if (sortie_html) {
 							//texte += `<br>`;
-							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
-							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, h','---','multiplier \\, par \\, 3','ajouter \\, 1','nombre \\, de','départ \\, '+x,'nombre \\, de','sortie \\, ?');
+							//if (detect_safari_chrome_browser()) {// si c'est safari ou chrome
+								texte += machine_maths_video(`videos/machineMaths-h.mp4`);
+							// } else {
+							// 	texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
+							// 	SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, h','---','multiplier \\, par \\, 3','ajouter \\, 1','nombre \\, de','départ \\, '+x,'nombre \\, de','sortie \\, ?');
+							// };
 						} else { // sortie Latex avec Tikz
-							//texte += `figure Tikz<br>`;
 							texte += tikz_machine_maths('h','---',`Multiplier\\,par\\,3`,`Ajouter\\,1`,`nombre\\,de`,`d\\acute{e}part\\,${x}`,`nombre\\,de`,`sortie\\,?`);
 						};
-
 						// sous question a/
 						if (sortie_html){
 							texte += num_alpha(j)+` Que renvoie la machine si le nombre de départ vaut  ${x} ? Formuler la réponse `;
@@ -1614,25 +988,19 @@ function fonction_notion_vocabulaire(){
 						if (sortie_html) {
 							texte += num_alpha(j)+` &Eacute;crire la réponse à la question `+num_alpha(j-1)+` sous forme de diagramme.<br>`;
 							texte += `Voici le diagramme d'une machine qui double puis qui ajoute 5 `;
-							texte += `<div id="diagramme_type3" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							SVG_machine_diag('diagramme_type3',400,50,'h','x',[['\\times 2','2x'],['+5','2x+5']]);
-
+							texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;						 
+							SVG_machine_diag_3F12(id_du_div_diag,800,100,'h','x',[['2','2x'],['5','2x+5']]);
 							texte_corr += num_alpha(j)+`C'est une machine qui triple un nombre et ajoute 1, donc sous forme de diagramme.<br>`;
-							texte_corr += `<div id="diagramme_type3_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							SVG_machine_diag('diagramme_type3_corr',400,50,'h','x',[['\\times 3','3x'],['+1','3x+1']]);
+							texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;							
+							SVG_machine_diag_3F12(id_du_div_corr,800,100,'h','x',[['3','3x'],['1','3x+1']]);
 							j++;//incrémente la sous question
 						} else {
 							texte += `\\item  \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
 							texte += `Voici le diagramme d'une machine qui double puis qui ajoute 5 <br>`;
 							texte += tikz_machine_diag(`h`,`x`,[[`\\times 2`,`2x`],[`+5`,`2x+5`]]);
-							// texte += `<div id="diagramme_type3" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							// SVG_machine_diag('diagramme_type3',400,50,'h','x',[['\\times 2','2x'],['+5','2x+5']]);
-
 							texte_corr += `\\item C'est une machine qui triple un nombre et ajoute 1, donc sous forme de diagramme.<br>`;
 							texte_corr += tikz_machine_diag(`h`,`x`,[[`\\times 3`,`3x`],[`+1`,`3x+1`]]);
-							// texte_corr += `<div id="diagramme_type3_corr" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-							// SVG_machine_diag('diagramme_type3_corr',400,50,'h','x',[['\\times 3','3x'],['+1','3x+1']]);
-						}
+						};
 
 						// sous question f/
 						if (sortie_html){
@@ -1671,8 +1039,12 @@ function fonction_notion_vocabulaire(){
 						x = randint(2,51);//augmenter les possibles pour éviter les questions déjà posées?						
 						if (sortie_html) {
 							//texte += `<br>`;
-							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
-							SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, d','---','nombre \\enspace total','de  \\, diviseurs','nombre \\, de','départ \\,'+x,'nombre \\, de',' diviseurs');														
+							//if (detect_safari_chrome_browser()) {// si c'est safari ou chrome
+								texte += machine_maths_video(`videos/machineMaths-d.mp4`);
+							// } else {
+							// 	texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
+							// 	SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, d','---','nombre \\enspace total','de  \\, diviseurs','nombre \\, de','départ \\,'+x,'nombre \\, de',' diviseurs');														
+							// };
 						} else { // sortie Latex avec Tikz
 							//texte += `figure Tikz<br>`;
 							texte += tikz_machine_maths('d','---',`nombre \\, total`,`de \\, diviseurs`,`nombre\\,de`,`d\\acute{e}part\\,${x}`,`nombre \\, de`,`diviseurs`);
@@ -1784,4 +1156,356 @@ function fonction_notion_vocabulaire(){
 		liste_de_question_to_contenu(this);
 	}
 	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
-}
+};
+
+/**
+ * 3F12 Notion de fonction - Vocabulaire
+ * Déterminer à partir de plusieurs modes de représentation l'image d'un nombre
+ * @author Sébastien LOZANO
+ */
+
+ function fonctions_calculs_d_images() {
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.sup = 1 ; 
+	this.titre = "Fonctions : Calculs d'images"; 
+	// pas de différence entre la version html et la version latex pour la consigne
+	this.consigne =``;
+	 // pas de différence entre la version html et la version latex pour la consigne
+	 this.consigne +=`Calcule les images avec la méthode demandée.`;
+
+	 sortie_html ? this.spacing = 3 : this.spacing = 2;
+	 sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
+	 this.nb_questions = 4;
+	 //this.correction_detaillee_disponible = true;
+	 this.nb_cols = 1;
+	 this.nb_cols_corr = 1;
+	 this.sup = 5;
+ 
+	 var num_ex = '3F12'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
+
+	 if (sortie_html) {		
+		 var pourcentage = '100%'; // pour l'affichage des svg. On a besoin d'une variable globale
+	 } else { // sortie LaTeX
+ 
+	 };
+	 this.nouvelle_version = function(numero_de_l_exercice){
+		 let type_de_questions;
+		 if (sortie_html) { // les boutons d'aide uniquement pour la version html
+//			 this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheFonctions-3F1-act.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
+//			 this.bouton_aide += modal_video('videoTest','videos/Fonctions.mp4','Petit conte mathématique','Intro Vidéo');
+		 }
+		 this.liste_questions = []; // Liste de questions
+		 this.liste_corrections = []; // Liste de questions corrigées
+ 
+		 let type_de_questions_disponibles = [];
+		 if (this.sup==1){
+			type_de_questions_disponibles = [1]; // prog de calcul
+		} else if (this.sup==2){
+			type_de_questions_disponibles = [2]; // diagramme
+		} else if (this.sup==3){
+			type_de_questions_disponibles = [3]; // f(x) = ...
+		} else if (this.sup==4){
+			type_de_questions_disponibles = [4]; // f : x ---> ...
+		} else if (this.sup==5){
+			type_de_questions_disponibles = [1,2,3,4]; // mélange
+		};
+		 //let type_de_questions_disponibles = [1];
+		 let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
+ 
+			 for (let i = 0, a, b, c, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
+				 type_de_questions = liste_type_de_questions[i];
+
+				 if (sortie_html) {
+					let id_unique = `${num_ex}_${i}_${Date.now()}`
+					var id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
+					var id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`;
+				 }
+				 // on part sur de l'affine avec coeff positifs, on verra ensuite
+				 a = randint(2,9); 
+				 b = randint(2,9);
+				 c = randint(2,9);
+	 
+				 switch (type_de_questions) {
+					case 1 :
+						var j = 0; // pour la sous-numérotation
+						texte = `On donne le programme de calcul suivant qui correspond à une certaine fonction :`;
+						texte_corr =`Avec ce programme de calcul :`
+						if (sortie_html) {
+							texte +=`
+							<br>
+							<div class="ui compact warning message">		
+							<p>							
+							- Choisir un nombre<br>
+							- Multiplier ce nombre par ${a}<br>
+							- Ajouter ${b} au résultat obtenu<br>
+							</p>
+							</div>
+							<br>`;
+							// sous-question a/
+							texte += num_alpha(j)+` Appliquer ce programme de calcul au nombre ${c}<br>`;
+							texte_corr +=`<br>`+num_alpha(j)+`
+							<br>
+							<div class="ui compact warning message">		
+							<p>							
+							- On choisit le nombre ${c}<br>
+							- On multiplie ce nombre par ${a} : ${a}$\\times$ ${c} = ${a*c}<br>
+							- On ajoute ${b} au résultat obtenu : ${a*c}+${b}=${a*c+b}<br>
+							</p>
+							</div>
+							<br>							
+							`;
+							j++;
+							// sous-question b/
+							texte += num_alpha(j)+` Traduire ce calcul par une phrase contenant le mot image`;
+							texte_corr += num_alpha(j)+`L'image de ${c} par cette fonction vaut ${a*c+b}`;
+							texte_corr += `<br> On peut aussi dire que ${a*c+b} est l'image de ${c} par cette fonction`;
+						} else {
+							 texte += tex_cadre_par_orange(itemize([`Choisir un nombre`,`Multiplier ce nombre par ${a}`,`Ajouter ${b} au résultat obtenu`]));							
+							// sous-question a/
+							texte += tex_enumerate([`Appliquer ce programme de calcul au nombre ${c}`,`Traduire ce calcul par une phrase contenant le mot image`],this.spacing);
+							//texte_corr += 
+							texte_corr += tex_enumerate([tex_cadre_par_orange(itemize([`On choisit le nombre ${c}`,`On multiplie ce nombre par ${a} : $${a} \\times ${c} = ${a*c}$ `,`On ajoute ${b} au résultat obtenu : $${a*c}+${b}=${a*c+b}$`])),`L'image de ${c} par cette fonction vaut ${a*c+b}<br>On peut aussi dire que ${a*c+b} est l'image de ${c} par cette fonction`],this.spacing);							
+						};			
+						break;
+					case 2 :
+						var j = 0; // pour la sous-numérotation
+						// les variables a,b,c changent sans refaire un appel à randint
+						texte = `Soit $f$ la fonction définie par l'expression algébrique $f(x)=$ ${a}$x+$${b}<br>`;
+						if (sortie_html) {
+							// sous-question a/
+							texte += num_alpha(j)+` Calculer l'image de ${c}`;
+							texte +=`<br>`;
+							texte_corr = num_alpha(j)+` Calculons l'image par $f$ de $x= ${c}$ :`;							
+							texte_corr += `<br>$f(${mise_en_evidence('\\textit{\\textbf{x}}')})= ${a} ${mise_en_evidence('\\textit{\\textbf{x}}')}+${b}$`;
+							texte_corr += `<br>$f(${mise_en_evidence(c)})= ${a}\\times ${mise_en_evidence(c)}+${b}$`;
+							texte_corr += `<br>$f(${mise_en_evidence(c)})= ${a*c}+${b}$`;
+							texte_corr += `<br>$f(${mise_en_evidence(c)})= ${a*c+b}$`;
+							j++;
+							//sous question b/
+							texte += num_alpha(j)+` Traduire ce calcul par une phrase contenant le mot image`;
+							texte_corr += `<br>`+num_alpha(j)+` L'image de ${c} par la fonction $f$ vaut ${a*c+b}`;
+							texte_corr += `<br> On peut aussi dire que ${a*c+b} est l'image de ${c} par la fonction $f$`;
+						} else {
+							// sous-question a/ et b/
+							texte += tex_enumerate([`Calculer l'image de ${c}`,`Traduire ce calcul par une phrase contenant le mot image`],this.spacing);
+							texte_corr = tex_enumerate([`Calculons l'image par $f$ de $x= ${c}$ :
+							<br>$f(${mise_en_evidence('\\textit{\\textbf{x}}')})= ${a} ${mise_en_evidence('\\textit{\\textbf{x}}')}+${b}$
+							<br>$f(${mise_en_evidence(c)})= ${a}\\times ${mise_en_evidence(c)}+${b}$
+							<br>$f(${mise_en_evidence(c)})= ${a*c}+${b}$
+							<br>$f(${mise_en_evidence(c)})= ${a*c+b}$`,`L'image de ${c} par la fonction $f$ vaut ${a*c+b}
+							<br> On peut aussi dire que ${a*c+b} est l'image de ${c} par la fonction $f$`
+							],this.spacing);
+						};
+						break;
+					case 3 :
+						var j = 0; // pour la sous-numérotation
+						// les variables a,b,c changent sans refaire un appel à randint
+						texte = `Soit $g$ la fonction définie par $g:x\\longmapsto$ ${a}$x+$${b}<br>`;
+						if (sortie_html) {
+							// sous-question a/
+							texte += num_alpha(j)+` Calculer l'image de ${c}`;
+							texte +=`<br>`;
+							texte_corr = num_alpha(j)+` Calculons l'image par $g$ de $x= ${c}$ :`;
+							texte_corr += `<br>$g:${mise_en_evidence('\\textit{\\textbf{x}}')}\\longmapsto ${a} ${mise_en_evidence('\\textit{\\textbf{x}}')}+${b}$`;
+							texte_corr += `<br>$g:${mise_en_evidence(c)}\\longmapsto ${a}\\times${mise_en_evidence(c)}+${b}$`;
+							texte_corr += `<br>$g:${mise_en_evidence(c)}\\longmapsto ${a*c}+${b}$`;
+							texte_corr += `<br>$g:${mise_en_evidence(c)}\\longmapsto ${a*c+b}$`;
+							j++;
+							//sous question b/
+							texte += num_alpha(j)+` Traduire ce calcul par une phrase contenant le mot image`;
+							texte_corr += `<br>`+num_alpha(j)+` L'image de ${c} par la fonction $g$ vaut ${a*c+b}`;
+							texte_corr += `<br> On peut aussi dire que ${a*c+b} est l'image de ${c} par la fonction $g$`;
+						} else {
+							// sous-question a/ et b/
+							texte += tex_enumerate([`Calculer l'image de ${c}`,`Traduire ce calcul par une phrase contenant le mot image`],this.spacing);
+							texte_corr = tex_enumerate([`Calculons l'image par $g$ de $x= ${c}$ :
+							<br>$g:${mise_en_evidence('\\textit{\\textbf{x}}')}\\longmapsto ${a} ${mise_en_evidence('\\textit{\\textbf{x}}')}+${b}$
+							<br>$g:${mise_en_evidence(c)}\\longmapsto ${a}\\times ${mise_en_evidence(c)}+${b}$
+							<br>$g:${mise_en_evidence(c)}\\longmapsto ${a*c}+${b}$
+							<br>$g:${mise_en_evidence(c)}\\longmapsto ${a*c+b}$`,`L'image de ${c} par la fonction $g$ vaut ${a*c+b}
+							<br> On peut aussi dire que ${a*c+b} est l'image de ${c} par la fonction $g$`
+							],this.spacing);
+						};
+						break;
+					case 4 :
+						texte = ``;
+						texte_corr = ``;
+						texte_corr += `Calculer avec un diagramme `;
+						var j = 0; // pour la sous-numérotation
+						// les variables a,b,c changent sans refaire un appel à randint
+						texte += `Soit la fonction $h$ définie par le diagramme `;
+						if (sortie_html) {
+							// sous-question a/
+							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;					 
+							SVG_machine_diag_3F12(id_du_div,800,100,'h','x',[[''+a,a+'x'],[''+b,a+'x+'+b]]);					 
+						 	texte += num_alpha(j)+` Calculer l'image de ${c}`;
+							texte +=`<br>`;
+							texte_corr +=`<br>`;
+							texte_corr += num_alpha(j)+` Calculons l'image par $h$ de $x=$ ${c} :`;
+							texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; display : table "></div>`;
+							SVG_machine_diag_3F12(id_du_div_corr,800,100,'h',''+c,[[''+a,''+(a*c)],[''+b,''+(a*c+b)]]);
+						 	j++;
+						//sous question b/
+						 	texte += num_alpha(j)+` Traduire ce calcul par une phrase contenant le mot image`;
+						 	texte_corr += `<br>`+num_alpha(j)+` L'image de ${c} par la fonction $h$ vaut ${a*c+b}`;
+						 	texte_corr += `<br> On peut aussi dire que ${a*c+b} est l'image de ${c} par la fonction $h$`;
+						} else {
+						 	texte += `<br>`+tikz_machine_diag(`h`,`x`,[[`\\times `+a,a+`x`],[`+`+b,a+`x+`+b]]);
+						// sous-question a/ et b/
+						 	texte += tex_enumerate([`Calculer l'image de ${c}`,`Traduire ce calcul par une phrase contenant le mot image`],this.spacing);
+						 	texte_corr = tex_enumerate(
+						 		[`Calculons l'image par $g$ de $x=$ ${c} :<br>`+tikz_machine_diag(`h`,c,[[`\\times `+a,(a*c)],[`+`+b,(a*c+b)]]),
+						 		`L'image de ${c} par la fonction $g$ vaut ${a*c+b}
+						 	<br> On peut aussi dire que ${a*c+b} est l'image de ${c} par la fonction $g$`
+						 		],this.spacing);
+						};
+						break;						 
+				};
+			
+				if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+					this.liste_questions.push(texte);
+					this.liste_corrections.push(texte_corr);
+					i++;
+				}
+				cpt++
+			}	
+	
+		liste_de_question_to_contenu(this);
+	}
+	this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : &Agrave; partir d'un programme de calcul\n2 : &Agrave; partir de l'expression algébrique sous forme f(x) = ...\n3 : &Agrave; partir de l'expression algébrique sous forme f : x --> ...\n4 : &Agrave; partir d'un diagramme\n5 : Mélange"]; 
+ };  
+
+ /**
+  * 3F-test test de la bibliotheque d3.js
+  */
+
+  function svglibs() {
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.sup = 1 ; 
+	this.titre = "Tests biblilothèques animations"; 
+	// pas de différence entre la version html et la version latex pour la consigne
+	this.consigne =``;
+	// Message Bug SVG qui ne s'affiche pas dans la correction sans rafraichir
+	if (sortie_html) {
+		this.consigne = `
+		<div class="ui compact warning message">		
+			<p>
+			<i class="exclamation triangle icon"></i>
+			ATTENTION BUG CONNU<br>
+			Sous Safari et Edge les animations dysfonctionnent
+			</p>
+			</div>
+			<br>
+		`;
+	}	
+	this.consigne += "tests biblios";
+	this.consigne += `<br>`;
+	sortie_html ? this.spacing = 3 : this.spacing = 2;
+	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
+	this.nb_questions = 1;
+	//this.correction_detaillee_disponible = true;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.sup = 1;
+
+	var num_ex = 'svglibs'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
+
+	if (sortie_html) {		
+		// let id_unique = `_consigne_${num_ex}_${Date.now()}`; // on formatte avec le numéro de l'exercice pour éviter les doublons		
+		// let id_du_div = `div_svg${id_unique}`;
+		var pourcentage = '100%'; // pour l'affichage des svg. On a besoin d'une variable globale
+		var hauteur_svg = 100;
+		this.consigne += `
+		<a href="https://www.datavis.fr/index.php?page=transition" target="_blank">https://www.datavis.fr/index.php?page=transition</a>
+		<br><a href="https://www.pixijs.com/" target="_blank">https://www.pixijs.com/</a>
+		<br><a href="https://d3js.org/" target="_blank">https://d3js.org/</a>
+		`;
+		this.consigne += `<br>Ne pas mettre d'appel aux fonction de mathalea_outils.js avant l'appel de this.nouvelle_version() c'est à dire ici!!!`
+		
+	} else { // sortie LaTeX
+		
+
+	};
+	this.nouvelle_version = function(numero_de_l_exercice){
+		let type_de_questions;
+		if (sortie_html) { // les boutons d'aide uniquement pour la version html
+			//this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheFonctions-3F1-act.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
+			//this.bouton_aide += modal_video('videoTest','videos/Fonctions.mp4','Petit conte mathématique','Intro Vidéo');
+			if (detect_safari_chrome_browser()) {// si c'est safari ou chrome
+				this.consigne += machine_maths_video(`videos/machineMaths-h-1.mp4`);
+			} else {
+				let id_unique = `_consigne_${num_ex}_${Date.now()}`; // on formatte avec le numéro de l'exercice pour éviter les doublons		
+				let id_du_div = `div_svg${id_unique}`;
+				this.consigne += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table "></div>`;
+				//SVG_machine_maths(id_du_div,400,hauteur_svg,'machine\\,maths','---','Procédé','de\\,calcul','antécédent','x','image','y');
+				//SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, f','---','périmètre','d\'un \\, carré','côté \\, du','carré','périmètre','??? \\, cm');
+				//SVG_machine_maths(id_du_div,400,hauteur_svg,'machine\\,g','---','aire','d\'un \\, carré','côté \\, du','carré','aire','??? \\, cm^2');
+				//SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, h','---','multiplier \\, par \\, 3','ajouter \\, 1','nombre \\, de','départ \\, ','nombre \\, de','sortie \\, ?');														
+				SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, d','---','nombre \\enspace total','de  \\, diviseurs','nombre \\, de','départ','nombre \\, de',' diviseurs');
+
+			};
+			
+		} else { // sortie LaTeX
+			// this.consigne += `machine Tikz HEX #F15929 équivaut à rgb(241,89,41)<br>`;
+			this.consigne += tikz_machine_maths('maths','---',`Proc\\acute{e}d\\acute{e}`,'de\\,calcul',`ant\\acute{e}c\\acute{e}dent`,`\\textit{x}`,`image`,`\\textit{y}`);
+	
+	
+		};
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		this.contenu = ''; // Liste de questions
+		this.contenu_correction = ''; // Liste de questions corrigées
+
+		//let type_de_questions_disponibles = [1,2,3,4];
+		let type_de_questions_disponibles = [1];
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
+
+			for (let i = 0, x, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
+				type_de_questions = liste_type_de_questions[i];
+				
+				if (sortie_html) {
+					var id_unique = `${num_ex}_${i}_${Date.now()}`
+					var id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
+					//var id_du_div_diag = `div_svg_diag${numero_de_l_exercice}${id_unique}`;
+					var id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`;
+					//texte = machine_maths_video(`videos/machineMaths-h-1.mp4`);
+				}
+	
+				switch (type_de_questions) {
+					case 1 : // périmètre d'un carré de côté x			
+						var j = 0; // pour la sous-numérotation
+						// question
+						if (sortie_html){
+							texte += `La $\\mathbf{machine\\,f}$ renvoie le `+katex_Popup(`périmètre`,`Rappel`,`Le périmètre d'un polygone est égal à la somme des longueurs de ses côtés`)+` d'un carré de côté $x$`;
+						} else {
+							texte = `La $\\mathbf{machine\\,f}$ renvoie le \\textbf{périmètre} \\footnote{\\textbf{Rappel :} Le périmètre d'un polygone est égal à la somme des longueurs de ses côtés} d'un carré de côté $x$`;
+						}
+						texte += `<br>`;
+						// machine						
+						x = randint(2,99);//augmenter les possibles pour éviter les questions déjà posées?	
+						if (sortie_html) {
+							//texte += `<br>`;
+							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
+							texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
+							//SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, f','---','périmètre','d\'un \\, carré','carré \\, de','côté \\,'+x+' \\, cm','périmètre','??? \\, cm');							
+						} else { // sortie Latex avec Tikz
+							//texte += tikz_machine_maths('f','---',`P\\acute{e}rim\\grave{e}tre`,`d'un\\,carr\\acute{e}`,`carr\\acute{e}\\,de`,`c\\hat{o}t\\acute{e}\\,${x}\\,cm`,`P\\acute{e}rim\\grave{e}tre`,`???\\,cm`);
+						};
+
+						break;			
+				};
+			
+				if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+					this.liste_questions.push(texte);
+					this.liste_corrections.push(texte_corr);
+					i++;
+				}
+				cpt++
+			}	
+	
+		liste_de_question_to_contenu(this);
+	}
+	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
+};

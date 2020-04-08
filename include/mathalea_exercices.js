@@ -129,6 +129,8 @@ var liste_des_exercices_disponibles = {
 		'3F1-act' : fonction_notion_vocabulaire,
 		'3F10' : fonctions_lineaires,
 		'3F11' : fonctions_affines,
+		'3F12' : fonctions_calculs_d_images,
+		//'3SVGtest' : svglibs,
 		'2N10' : Developper_Identites_remarquables2,
 		'2N11' : Factoriser_Identites_remarquables2,
 		'P001' : Code_LaTeX_personnalise,
