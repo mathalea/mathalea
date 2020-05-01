@@ -13,7 +13,7 @@ function fonctions_probabilite1(){
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	sortie_html? this.spacing = 2 : this.spacing = 1; 
-	sortie_html? this.spacing_corr = 2 : this.spacing_corr = 1;
+	sortie_html? this.spacing_corr = 3 : this.spacing_corr = 1;
 	this.sup=1;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
@@ -56,8 +56,8 @@ function fonctions_probabilite1(){
 			texte +=`4) Quelle est la probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][m]} ou ${qualites[index1][p]}?<br>`;
 			texte_corr = `1) Il y a ${n[m]} ${objet} ${qualites[index1][m]} et il y a ${somme} ${objet} possibles. La probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][m]} est : $${tex_fraction(n[m],somme)}${simplification_de_fraction_avec_etapes(n[m],somme)}$.<br>`;
 			texte_corr +=`2) Il y a ${n[p]} ${objet} ${qualites[index1][p]} et il y a ${somme} ${objet} possibles. La probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][p]} est : $${tex_fraction(n[p],somme)}${simplification_de_fraction_avec_etapes(n[p],somme)}$.<br>`;
-			texte_corr +=`3) Il y a ${n[q]} ${objet} ${qualites[index1][q]}, donc il y a $${somme}-${n[q]}=${somme-n[q]}$ autres ${objet} et il y a ${somme} ${objet} possibles. La probabilité que son choix ne tombe pas sur l'${article} des ${objet} ${qualites[index1][q]} est : $${tex_fraction(somme-n[q],somme)}${simplification_de_fraction_avec_etapes(somme-n[q],somme)}$.<br>`;
-			texte_corr +=`3) La probabilité d'un événement est la somme des probabilités des issues qui le composent, donc la probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][m]} ou ${qualites[index1][p]} est : $${tex_fraction(n[m],somme)}+${tex_fraction(n[p],somme)}=${tex_fraction(n[p]+n[m],somme)}${simplification_de_fraction_avec_etapes(n[p]+n[m],somme)}$.<br>`;
+			texte_corr +=`3) Il y a ${n[q]} ${objet} ${qualites[index1][q]}, donc il y a $${somme}-${n[q]}=${somme-n[q]}$ autres ${objet} et il y a ${somme} ${objet} possibles.<br> La probabilité que son choix ne tombe pas sur l'${article} des ${objet} ${qualites[index1][q]} est : $${tex_fraction(somme-n[q],somme)}${simplification_de_fraction_avec_etapes(somme-n[q],somme)}$.<br>`;
+			texte_corr +=`3) La probabilité d'un événement est la somme des probabilités des issues qui le composent.<br> Donc la probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][m]} ou ${qualites[index1][p]} est : $${tex_fraction(n[m],somme)}+${tex_fraction(n[p],somme)}=${tex_fraction(n[p]+n[m],somme)}${simplification_de_fraction_avec_etapes(n[p]+n[m],somme)}$.<br>`;
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
