@@ -1,6 +1,6 @@
 
 /**
- * Trace 5 droites et demande l'expression de la fonction affine ou linéaire correspondante
+ * Calculs de probabilités sur une expérience aléatoire à une épreuve.
  * @Auteur Jean-Claude Lhote
  */
 function fonctions_probabilite1(){
@@ -58,6 +58,87 @@ function fonctions_probabilite1(){
 			texte_corr +=`2) Il y a ${n[p]} ${objet} ${qualites[index1][p]} et il y a ${somme} ${objet} possibles. La probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][p]} est : $${tex_fraction(n[p],somme)}${simplification_de_fraction_avec_etapes(n[p],somme)}$.<br>`;
 			texte_corr +=`3) Il y a ${n[q]} ${objet} ${qualites[index1][q]}, donc il y a $${somme}-${n[q]}=${somme-n[q]}$ autres ${objet} et il y a ${somme} ${objet} possibles.<br> La probabilité que son choix ne tombe pas sur l'${article} des ${objet} ${qualites[index1][q]} est : $${tex_fraction(somme-n[q],somme)}${simplification_de_fraction_avec_etapes(somme-n[q],somme)}$.<br>`;
 			texte_corr +=`3) La probabilité d'un événement est la somme des probabilités des issues qui le composent.<br> Donc la probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][m]} ou ${qualites[index1][p]} est : $${tex_fraction(n[m],somme)}+${tex_fraction(n[p],somme)}=${tex_fraction(n[p]+n[m],somme)}${simplification_de_fraction_avec_etapes(n[p]+n[m],somme)}$.<br>`;
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;
+		}
+		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
+	}	
+};
+/**
+ * Calculs de probabilités sur une expérience aléatoire à une épreuve.
+ * @Auteur Jean-Claude Lhote
+ */
+function fonctions_probabilite2(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Calculer des probabilités dans une expérience aléatoire à une épreuve";
+	this.consigne = "";
+	this.nb_questions = 1;
+	this.nb_questions_modifiable = false;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	sortie_html? this.spacing = 2 : this.spacing = 1; 
+	sortie_html? this.spacing_corr = 3 : this.spacing_corr = 1;
+	this.sup=1;
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		let liste_index_disponibles=[2];
+		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions)
+		let qualites=[[]]
+		qualites[0]=['à la fraise','à la vanille','à l\'abricot','à l\'ananas','à la cerise'];
+		qualites[1]=['au chocolat','à la vanille','au café','à la pistache','au caramel'];
+		qualites[2]=['rouges','vertes','bleues','noires','blanches'];
+		qualites[3]=['gris','cyans','roses','jaunes','violets'];
+		qualites[4]=['rouges','verts','bleus','noirs','jaunes'];
+		qualites[5]=['rouges','verts','bleus','noirs','blancs'];
+		qualites[6]=['rouges','verts','bleus','noirs','jaunes'];
+		for (let i = 0,p,q,r,somme1,somme2,quidam,n=[],m=[],fra1=[],fra2=[],texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
+			quidam=prenom();
+			switch (liste_index[i]) {
+				case 2 :
+					n[0]=randint(2,5);m[0]=randint(2,5);
+					n[1]=randint(1,6)+1;m[1]=randint(1,6)+1;
+					n[2]=randint(1,3)*2;m[2]=randint(1,3)*2;
+					n[3]=randint(1,4)+2;m[3]=randint(1,4)+2;
+					n[4]=randint(2,5);m[4]=randint(2,5);
+					somme1=n[0]+n[1]+n[2]+n[3]+n[4];
+					somme2=m[0]+m[1]+m[2]+m[3]+m[4];	
+					r=randint(0,4);
+					p=randint(0,4,[r]);
+					q=randint(0,4,[p,r]);
+					texte=`Dans sa commode, ${quidam} a mis dans le premier tiroir des paires de chaussettes. Il y a `;
+					for (let j=0;j<3;j++){
+						texte+=`${n[j]} paires de chaussettes ${qualites[2][j]}, `;
+					}
+					texte+=`${n[3]} paires de chaussettes ${qualites[2][3]} et ${n[4]} paires de chaussettes ${qualites[2][4]}.<br>`;
+					texte+=`Dans le deuxième tiroir, ${quidam} a mis des T-shirt. Il y a `;
+					for (let j=0;j<3;j++){
+						texte+=`${m[j]} T-shirts ${qualites[5][j]}, `;
+					}
+					texte+=`${m[3]} T-shirts ${qualites[5][3]} et ${m[4]} T-shirts ${qualites[5][4]}.<br>`;
+					texte+=`Un matin, il y a une panne de courant et ${quidam} prend au hasard une paire de chaussettes dans le premier tiroir et un T-shirt dans le deuxième.<br>`;
+					texte +=`1) Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt ${qualites[2][r]} ?<br>`;
+					texte +=`2) Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt de la même couleur ?<br>`;			
+					texte +=`3) Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt de couleurs différentes ?`;
+					texte_corr=`1) Il y a ${n[r]} paires de chaussettes ${qualites[2][r]} et il y a ${somme1} paires de chaussettes possibles. `;
+					texte_corr+=`La probabilité de chosir une paire de chaussettes ${qualites[2][r]} est de : $${tex_fraction(n[r],somme1)}${simplification_de_fraction_avec_etapes(n[r],somme1)}$.<br>`;
+					texte_corr+=`Il y a ${m[r]} T-shirts ${qualites[5][r]} et il y a ${somme2} T-shirts possibles. `;
+					texte_corr+=`La probabilité de chosir un T-shirt ${qualites[5][r]} est de : $${tex_fraction(m[r],somme2)}${simplification_de_fraction_avec_etapes(m[r],somme2)}$.<br>`;
+					texte_corr+=`${quidam} a donc $${tex_fraction_reduite(m[r],somme2)}$ de `;
+					fra1=fraction_simplifiee(n[r],somme1);
+					fra2=fraction_simplifiee(m[r],somme2);
+					if (fra1[0]==1) texte_corr+= `une chance `;
+					else texte_corr+=`$${fra1[0]}$ chances `;
+					texte_corr+=`sur $${fra1[1]}$ de choisir des chaussettes et un T-shirt ${qualites[5][r]}.<br>`;
+					texte_corr+=`Soit $${tex_fraction_reduite(m[r],somme2)}\\times${tex_fraction_reduite(n[r],somme1)}=\\dfrac{${fra2[0]}\\times${fra1[0]}}{${fra2[1]}\\times${fra1[1]}}=${tex_fraction(fra1[0]*fra2[0],fra1[1]*fra2[1])}${simplification_de_fraction_avec_etapes(fra1[0]*fra2[0],fra1[1]*fra2[1])}$.`;
+					break;
+				}
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
