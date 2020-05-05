@@ -30,10 +30,10 @@ function fonctions_probabilite1(){
 		qualites[4]=['rouges','verts','bleus','noirs','jaunes'];
 		qualites[5]=['rouges','verts','bleus','noirs','blancs'];
 		qualites[6]=['rouges','verts','bleus','noirs','jaunes'];
-		for (let i = 0,p,m,q,somme,quidam,index1,lieu,objet,article,n=[], texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
+		for (let i = 0,p,m,q,somme,quidam,index1,lieu,objet,article,pronom,n=[], texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
 			index1=liste_index[i];
-			if (index1==2) article=`une`;
-			else article=`un`;
+			if (index1==2) {article=`une`;pronom=`elles`}
+			else {article=`un`;pronom=`eux`;}
 			quidam=prenom();
 			lieu=liste_de_lieux_choses[index1][0];
 			objet=liste_de_lieux_choses[index1][1];
@@ -49,12 +49,13 @@ function fonctions_probabilite1(){
 			q=randint(0,4,[p,m]);
 	
 			texte = `Dans ${lieu} il y a ${somme} ${objet}. ${n[0]} sont ${qualites[index1][0]}, ${n[1]} sont ${qualites[index1][1]}, ${n[2]} sont ${qualites[index1][2]}, ${n[3]} sont ${qualites[index1][3]} et ${n[4]} sont ${qualites[index1][4]}.<br> `;
-			texte+= `${quidam} choisit au hasard l'${article} d'entre eux.<br> `;
+			texte+= `${quidam} choisit au hasard l'${article} d'entre ${pronom}.<br> `;
 			texte +=`1) Quelle est la probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][m]} ?<br>`;
 			texte +=`2) Quelle est la probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][p]} ?<br>`;			
 			texte +=`3) Quelle est la probabilité que son choix ne tombe pas sur l'${article} des ${objet} ${qualites[index1][q]} ?<br>`;
 			texte +=`4) Quelle est la probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][m]} ou ${qualites[index1][p]}?<br>`;
-			texte_corr = `1) Il y a ${n[m]} ${objet} ${qualites[index1][m]} et il y a ${somme} ${objet} possibles. La probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][m]} est : $${tex_fraction(n[m],somme)}${simplification_de_fraction_avec_etapes(n[m],somme)}$.<br>`;
+			texte_corr =`On est dans une situation d’équiprobabilité donc la probabilité est donnée par le quotient du nombre de cas favorables par le nombre de cas au total.<br>`
+			texte_corr += `1) Il y a ${n[m]} ${objet} ${qualites[index1][m]} et il y a ${somme} ${objet} possibles. La probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][m]} est : $${tex_fraction(n[m],somme)}${simplification_de_fraction_avec_etapes(n[m],somme)}$.<br>`;
 			texte_corr +=`2) Il y a ${n[p]} ${objet} ${qualites[index1][p]} et il y a ${somme} ${objet} possibles. La probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][p]} est : $${tex_fraction(n[p],somme)}${simplification_de_fraction_avec_etapes(n[p],somme)}$.<br>`;
 			texte_corr +=`3) Il y a ${n[q]} ${objet} ${qualites[index1][q]}, donc il y a $${somme}-${n[q]}=${somme-n[q]}$ autres ${objet} et il y a ${somme} ${objet} possibles.<br> La probabilité que son choix ne tombe pas sur l'${article} des ${objet} ${qualites[index1][q]} est : $${tex_fraction(somme-n[q],somme)}${simplification_de_fraction_avec_etapes(somme-n[q],somme)}$.<br>`;
 			texte_corr +=`3) La probabilité d'un événement est la somme des probabilités des issues qui le composent.<br> Donc la probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][m]} ou ${qualites[index1][p]} est : $${tex_fraction(n[m],somme)}+${tex_fraction(n[p],somme)}=${tex_fraction(n[p]+n[m],somme)}${simplification_de_fraction_avec_etapes(n[p]+n[m],somme)}$.<br>`;
