@@ -76,9 +76,9 @@ function fonctions_probabilite1(){
 function fonctions_probabilite2(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Calculer des probabilités dans une expérience aléatoire à une épreuve";
+	this.titre = "Calculer des probabilités dans une expérience aléatoire à deux épreuves";
 	this.consigne = "";
-	this.nb_questions = 2;
+	this.nb_questions = 3;
 	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -89,12 +89,13 @@ function fonctions_probabilite2(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let liste_index_disponibles=[0,2];
+		let liste_index_disponibles=[0,1,2];
 		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions)
+		console.log(liste_index)
 		let qualites=[[]];
 		let Initiale=[];
 		qualites[0]=['à la fraise','à la vanille','à l\'abricot','à la cerise','à la banane'];
-		qualites[1]=['au chocolat','à la vanille','au café','à la pistache','au caramel'];
+		qualites[1]=['trèfle','carreau','coeur','pique'];
 		qualites[2]=['rouges','vertes','bleues','noires','blanches'];
 		qualites[3]=['gris','cyans','roses','jaunes','violets'];
 		qualites[4]=['rouges','verts','bleus','noirs','jaunes'];
@@ -154,7 +155,52 @@ function fonctions_probabilite2(){
 					fra1=fraction_simplifiee(n[p]*(n[p]-1)+n[q]*(n[q]-1)+n[r]*(n[r]-1),somme1*(somme1-1));
 					texte_corr += `La probabilité de cet événement est donc : $1-${tex_fraction(fra1[0],fra1[1])}=${tex_fraction(fra1[1],fra1[1])}-${tex_fraction(fra1[0],fra1[1])}=${tex_fraction(fra1[1]-fra1[0],fra1[1])}${simplification_de_fraction_avec_etapes(fra1[1]-fra1[0],fra1[1])}$`;
 					break;
-					case 2 :
+				case 1 :
+					p=randint(0,3);
+					if (randint(0,1)==0) q=32;
+					else q=52;
+					r=Math.floor(q/33);
+					Initiale[0]=choice([`sept`,`huit`,`neuf`,`dix`,`valet`,`roi`,`as`]);
+					Initiale[1]=choice([`deux`,`trois`,`quatre`,`cinq`,`six`,`sept`,`huit`,`neuf`,`dix`,`valet`,`roi`,`as`]);
+					texte =`On considère l'expérience consistant à tirer deux cartes dans un jeu de ${q} cartes.<br>`;
+					texte +=`A. Dans cette première partie, on effectuera le tirage de la deuxième carte après remise de la première dans le jeu.<br>`;
+					texte +=`	1) Quelle est la probabilité de tirer 2 cartes de la même couleur (Rouge/Rouge ou Noire/Noire)?<br>`;
+					texte +=`	2) Quelle est la probabilité de tirer 2 ${Initiale[r]}`;
+					if (Initiale[r]==`valet`||Initiale[r]==`roi`) texte+=`s`;
+					texte +=` ?<br>`;
+					texte +=`	3) Quelle est la probabilité de tirer 2 carte de ${qualites[1][p]} ?<br>`;
+					texte +=`B. Dans cette deuxième partie, on effectuera le tirage de la deuxième carte sans remise de la première dans le jeu.<br>`;
+					texte +=`	Reprendre les 3 questions de la partie A dans cette nouvelle expérience.`
+					texte_corr =`A.<br>		1) On ne s'intéresse ici qu'au tirage de la deuxième carte. En effet pour réaliser l'événement, il faudra que cette carte soit de la même couleur que la première. Il y a deux couleurs rouge et noire et le nombre de carte rouge est le même que le nombre de carte noire : ${q/2}.<br>`;
+					texte_corr +=`	La probabilité que la deuxième carte soit de la même couleur que la première est donc : $${tex_fraction(q/2,q)}=${tex_fraction(1,2)}$.<br>`;
+					texte_corr +=`	2) Il y a 4 ${Initiale[r]}`;
+					if (Initiale[r]==`valet`||Initiale[r]==`roi`) texte+=`s`;	
+					texte_corr +=` dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${Initiale[r]} est donc de $${tex_fraction(4,q)}=${tex_fraction_reduite(4,q)}$.<br>`;
+					texte_corr +=`	Comme la deuxième carte est tirée dans le jeu complet (après remise de la première) la probabilité de tirer un ${Initiale[r]} est la même pour cette carte.<br>`;
+					texte_corr +=`	La probabilité de tirer 2 ${Initiale[r]}`;
+					if (Initiale[r]==`valet`||Initiale[r]==`roi`) texte+=`s`;
+					texte_corr +=` est donc : $${tex_fraction_reduite(4,q)}\\times${tex_fraction_reduite(4,q)}=${tex_fraction_reduite(16,q*q)}$.<br>`;
+					texte_corr +=`	3) Il y a ${q/4} cartes de ${qualites[1][p]} dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${qualites[1][p]} est donc de $${tex_fraction(q/4,q)}=${tex_fraction(1,4)}$.<br>`;
+					texte_corr +=`	Comme la deuxième carte est tirée dans le jeu complet (après remise de la première) la probabilité de tirer un ${qualites[1][p]} est la même pour cette carte.<br>`;								
+					texte_corr +=`	La probabilité de tirer 2 ${qualites[1][p]}s est donc $${tex_fraction(1,4)}\\times${tex_fraction(1,4)}=${tex_fraction(1,16)}$.<br>`;
+					texte_corr +=`B.<br>1) On ne s'intéresse ici qu'au tirage de la deuxième carte. En effet pour réaliser l'événement, il faudra que cette carte soit de la même couleur que la première. Il y a maintenant une carte en moins dans la couleur désirée soit  ${q/2-1} et il y a une carte en moins dans le jeu soit ${q-1}.<br>`;
+					texte_corr +=`	La probabilité que la deuxième carte soit de la même couleur que la première est donc : $${tex_fraction(q/2-1,q-1)}$.<br>`;
+					texte_corr +=`	2) Il y a 4 ${Initiale[r]}`;
+					if (Initiale[r]==`valet`||Initiale[r]==`roi`) texte+=`s`;	
+					texte_corr +=` dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${Initiale[r]} est donc de $${tex_fraction(4,q)}=${tex_fraction_reduite(4,q)}$.<br>`;
+					texte_corr +=`	Pour que l'événement se réalise la deuxième carte est tirée dans les ${q-1} cartes restantes dans lesquelles il manque un ${Initiale[r]}.<br>`;
+					texte_corr +=`	La probabilité de tirer un deuxième ${Initiale[r]} est donc : $${tex_fraction(3,q-1)}$`;
+					if (q==52) texte_corr+=`$=${tex_fraction(1,17)}$.`
+					texte_corr +=`<br> La probabilité de tirer 2 ${Initiale[r]}`;
+					if (Initiale[r]==`valet`||Initiale[r]==`roi`) texte+=`s`;
+					texte_corr +=` est donc : $${tex_fraction_reduite(4,q)}\\times${tex_fraction_reduite(3,q-1)}=${tex_fraction_reduite(12,q*(q-1))}$.<br>`;
+					texte_corr +=`	3)  Il y a ${q/4} cartes de ${qualites[1][p]} dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${qualites[1][p]} est donc de $${tex_fraction(q/4,q)}=${tex_fraction(1,4)}$.<br>`;
+					texte_corr +=`	Pour que l'événement se réalise la deuxième carte est tirée dans les ${q-1} cartes restantes dans lesquelles il manque un ${qualites[1][p]}.<br>`;								
+					texte_corr +=`	La probabilité de tirer un deuxième ${qualites[1][p]} est donc : $${tex_fraction(q/4-1,q-1)}$`;
+					if (q==52) texte_corr+=`$=${tex_fraction(4,17)}$<br>La probabilité de tirer 2 ${qualites[1][p]}s est donc $${tex_fraction(1,4)}\\times${tex_fraction(4,17)}=${tex_fraction(1,17)}$.`;
+					else texte_corr+=`<br>La probabilité de tirer 2 ${qualites[1][p]}s est donc $${tex_fraction(1,4)}\\times${tex_fraction_reduite(7,31)}=${tex_fraction(7,124)}$`;
+					break;
+				case 2 :
 					n[0]=randint(2,5);m[0]=randint(2,5);
 					n[1]=randint(1,6)+1;m[1]=randint(1,6)+1;
 					n[2]=randint(1,3)*2;m[2]=randint(1,3)*2;
@@ -218,6 +264,10 @@ function fonctions_probabilite2(){
 					texte_corr+=`3) L'événement \"choisir des chaussettes et un T-shirt de couleurs différentes\" est l'événement contraire de l'événement \"choisir des chaussettes et un T-shirt de même couleur\".<br>`;
 					texte_corr+=`Donc sa probabilité est : $1-${tex_fraction(fra1[0],fra1[1])}=\\dfrac{${fra1[1]}-${fra1[0]}}{${fra1[1]}}=${tex_fraction(fra1[1]-fra1[0],fra1[1])}${simplification_de_fraction_avec_etapes(fra1[1]-fra1[0],fra1[1])}$<br>`;
 					break;
+
+					case 3 :
+
+
 				}
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
