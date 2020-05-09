@@ -78,7 +78,7 @@ function fonctions_probabilite2(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Calculer des probabilités dans une expérience aléatoire à deux épreuves";
 	this.consigne = "";
-	this.nb_questions = 3;
+	this.nb_questions = 4;
 	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -89,9 +89,8 @@ function fonctions_probabilite2(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let liste_index_disponibles=[0,1,2];
+		let liste_index_disponibles=[0,1,2,3];
 		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions)
-		console.log(liste_index)
 		let qualites=[[]];
 		let Initiale=[];
 		qualites[0]=['à la fraise','à la vanille','à l\'abricot','à la cerise','à la banane'];
@@ -298,9 +297,9 @@ function fonctions_probabilite2(){
 
 					texte=`${quidam} dispose d'un dé à ${n[0]} faces numérotées de 1 à ${n[0]} et d'un dé à ${m[0]} faces numérotées de 1 à ${m[0]}.<br>`;
 					texte+=`Il lance ses deux dés et en fait la somme.<br> 1) Reporte dans un tableau les issues possibles de cette expérience aléatoire et leur probabilité respective.<br>`;
-					texte+=`${quidame} dispose d'un dé à ${n[1]} faces numérotées de 1 à ${n[1]} et d'un dé à ${m[1]} faces numérotées de 1 à ${m[1]}.<br>`;
+					texte+=`2)${quidame} dispose d'un dé à ${n[1]} faces numérotées de 1 à ${n[1]} et d'un dé à ${m[1]} faces numérotées de 1 à ${m[1]}.<br>`;
 					texte+=`Elle décide de proposer un défi à ${quidam} : \"On choisit un nombre cible entre 2 et ${r}, on lance nos deux dés en même temps. Le premier dont la somme des dés est la cible a gagné.\"<br>`;
-					texte+=`2) ${quidam} qui a calculé les probabilités calculées au 1) dans sa tête propose alors de choisir ${n[0]+1} comme nombre cible. Il pense avoir plus de chances de gagner que ${quidame}. A-t-il raison ?<br>`;
+					texte+=`${quidam} qui connaît les probabilités calculées au 1) propose alors de choisir ${n[0]+1} comme nombre cible. Il pense avoir plus de chances de gagner que ${quidame}. A-t-il raison ?<br>`;
 					texte+=`3) Si oui, quel nombre doit choisir ${quidame} pour avoir un défi qui lui soit favorable et si non, y a-t-il un meilleur choix pour ${quidam} ?<br>`;
 					texte+=`4) Y a-t-il un nombre cible qui donne un jeu équitable où chacun aura la même probabilité de gagner ?<br>`;
 					texte_corr=`1) les différents résultats de l'éxpérience sont présentés dans cette table :<br>`;
@@ -308,14 +307,14 @@ function fonctions_probabilite2(){
 					texte_corr+=`Les probabilités de chaque issue sont données par ce tableau :<br>`;
 					// tableau des probas
 					texte_corr+=`2) La probabilité qu'a ${quidame} de faire ${n[0]+1} est : $${tex_fraction(fra2[n[0]-1],p1[1])}\\approx ${calcul(fra2[n[0]-1]/p1[1],2)}$.<br>`;
-					texte_corr+=`La probabilité qu'a ${quidam} de faire ${n[0]+1} est : $${tex_fraction(fra2[n[0]-1],p1[0])}\\approx ${calcul(fra2[n[0]-1]/p1[0],2)}$.<br>`;
+					texte_corr+=`La probabilité qu'a ${quidam} de faire ${n[0]+1} est : $${tex_fraction(fra1[n[0]-1],p1[0])}\\approx ${calcul(fra1[n[0]-1]/p1[0],2)}$.<br>`;
 					if (p2[n[0]-1]>0) {// Si quidame a plus de chance de gagner avec le choix de quidam
 						texte_corr+=`${quidam} se trompe en croyant avoir plus de chances de gagner.<br>`
 						// choix du nombre cible qui favorise quidam
 						trouve=false;
 						for(let j=r-2;j>=0;j--){
 							if (p2[j]<0) {
-								texte_corr+=`3) ${quidam} aurait du choisir ${j+2} comme nombre cible. sa probabilité de réussir serait alors de $${tex_fraction(fra2[j],p1[0])}\\approx ${calcul(fra2[j]/p1[0],2)}$ et celle de ${quidame} serait de $${tex_fraction(fra2[j],p1[1])}\\approx ${calcul(fra2[j]/p1[1],2)}$.<br>`
+								texte_corr+=`3) ${quidam} aurait du choisir ${j+2} comme nombre cible. sa probabilité de réussir serait alors de $${tex_fraction(fra1[j],p1[0])}\\approx ${calcul(fra1[j]/p1[0],2)}$ et celle de ${quidame} serait de $${tex_fraction(fra2[j],p1[1])}\\approx ${calcul(fra2[j]/p1[1],2)}$.<br>`
 								trouve=true;
 							}
 							if (trouve==true) break;
@@ -366,7 +365,7 @@ function fonctions_probabilite2(){
 					}
 					break;
 				}
-			if (this.liste_quest2ons.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
 				i++;
