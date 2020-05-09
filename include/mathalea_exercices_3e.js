@@ -267,8 +267,8 @@ function fonctions_probabilite2(){
 				case 3 :
 					quidam=prenomM();
 					quidame=prenomF();
-					p=choice([4,6,8,12]);
-					q=choice([4,6,8,12],[p]);
+					p=choice([4,6,8,10,12]);
+					q=choice([4,6,8,10,12],[p]);
 					n[0]=Math.min(p,q); // petit dé de quidam
 					m[0]=Math.max(p,q); // grand dé de quidam
 					p1[0]=n[0]*m[0]; // nombre de couples pour quidam
@@ -337,15 +337,15 @@ function fonctions_probabilite2(){
 					for (let j=2;j<=somme2;j++) texte_corr+=`& \\textcolor {${Couleurs[j%10]}}`+`{\\dfrac{${fra2[j-2]}}{${p1[1]}}}`;
 					texte_corr+=`\\\\\\hline\\end{array}$<br>`
 
-					texte_corr+= `La probabilité qu'a ${quidame} de faire ${n[0]+1} est : $${tex_fraction(fra2[n[0]-1],p1[1])}\\approx ${calcul(fra2[n[0]-1]/p1[1],2)}$.<br>`;
-					texte_corr+=`La probabilité qu'a ${quidam} de faire ${n[0]+1} est : $${tex_fraction(fra1[n[0]-1],p1[0])}\\approx ${calcul(fra1[n[0]-1]/p1[0],2)}$.<br>`;
+					texte_corr+= `La probabilité qu'a ${quidame} de faire ${n[0]+1} est : $${tex_fraction(fra2[n[0]-1],p1[1])}\\approx ${calcul(fra2[n[0]-1]/p1[1],3)}$.<br>`;
+					texte_corr+=`La probabilité qu'a ${quidam} de faire ${n[0]+1} est : $${tex_fraction(fra1[n[0]-1],p1[0])}\\approx ${calcul(fra1[n[0]-1]/p1[0],3)}$.<br>`;
 					if (p2[n[0]-1]>0) {// Si quidame a plus de chance de gagner avec le choix de quidam
 						texte_corr+=`${quidam} se trompe en croyant avoir plus de chances de gagner.<br>`
 						// choix du nombre cible qui favorise quidam
 						trouve=false;
 						for(let j=r-2;j>=0;j--){
 							if (p2[j]<0) {
-								texte_corr+=`3) ${quidam} aurait du choisir ${j+2} comme nombre cible. sa probabilité de réussir serait alors de $${tex_fraction(fra1[j],p1[0])}\\approx ${calcul(fra1[j]/p1[0],2)}$ et celle de ${quidame} serait de $${tex_fraction(fra2[j],p1[1])}\\approx ${calcul(fra2[j]/p1[1],2)}$.<br>`
+								texte_corr+=`3) ${quidam} aurait du choisir ${j+2} comme nombre cible. sa probabilité de réussir serait alors de $${tex_fraction(fra1[j],p1[0])}\\approx ${calcul(fra1[j]/p1[0],3)}$ et celle de ${quidame} serait de $${tex_fraction(fra2[j],p1[1])}\\approx ${calcul(fra2[j]/p1[1],3)}$.<br>`
 								trouve=true;
 							}
 							if (trouve==true) break;
@@ -361,7 +361,7 @@ function fonctions_probabilite2(){
 						trouve=false;
 						for(let j=r-2;j>=0;j--){
 							if (p2[j]>0) {
-								texte_corr+=`3) ${quidame} devrait choisir ${j+2} comme nombre cible. sa probabilité de réussir serait alors de $${tex_fraction(fra2[j],p1[1])}\\approx ${calcul(fra2[j]/p1[1],2)}$ et celle de ${quidam} serait de $${tex_fraction(fra1[j],p1[0])}\\approx ${calcul(fra1[j]/p1[0],2)}$.<br>`
+								texte_corr+=`3) ${quidame} devrait choisir ${j+2} comme nombre cible. sa probabilité de réussir serait alors de $${tex_fraction(fra2[j],p1[1])}\\approx ${calcul(fra2[j]/p1[1],3)}$ et celle de ${quidam} serait de $${tex_fraction(fra1[j],p1[0])}\\approx ${calcul(fra1[j]/p1[0],3)}$.<br>`
 								trouve=true;
 							}
 							if (trouve==true) break;
@@ -378,7 +378,7 @@ function fonctions_probabilite2(){
 						trouve=false;
 						for(let j=r-2;j>=0;j--){
 							if (p2[j]<0) {
-								texte_corr+=`3) ${quidam} aurait du choisir ${j+2} comme nombre cible. sa probabilité de réussir serait alors de $${tex_fraction(fra1[j],p1[0])}\\approx ${calcul(fra1[j]/p1[0],2)}$ et celle de ${quidame} serait de $${tex_fraction(fra2[j],p1[1])}\\approx ${calcul(fra2[j]/p1[1],2)}$.<br>`
+								texte_corr+=`3) ${quidam} aurait du choisir ${j+2} comme nombre cible. sa probabilité de réussir serait alors de $${tex_fraction(fra1[j],p1[0])}\\approx ${calcul(fra1[j]/p1[0],3)}$ et celle de ${quidame} serait de $${tex_fraction(fra2[j],p1[1])}\\approx ${calcul(fra2[j]/p1[1],3)}$.<br>`
 								trouve=true;
 							}
 							if (trouve==true) break;
