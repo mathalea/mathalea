@@ -101,7 +101,7 @@ function fonctions_probabilite2(){
 		qualites[4]=['rouges','verts','bleus','noirs','jaunes'];
 		qualites[5]=['rouges','verts','bleus','noirs','blancs'];
 		qualites[6]=['rouges','verts','bleus','noirs','jaunes'];
-		for (let i = 0,p,q,r,somme1,somme2,quidame,quidam,n=[],m=[],fra1=[],fra2=[],p1=[],p2=[],p3=[],den,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
+		for (let i = 0,p,q,r,somme1,somme2,quidame,quidam,n=[],m=[],fra1=[],fra2=[],p1=[],p2=[],p3=[],den,trouve,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
 			quidame=prenomF();
 			quidam=prenomM();
 			switch (liste_index[i]) {
@@ -264,12 +264,109 @@ function fonctions_probabilite2(){
 					texte_corr+=`3) L'événement \"choisir des chaussettes et un T-shirt de couleurs différentes\" est l'événement contraire de l'événement \"choisir des chaussettes et un T-shirt de même couleur\".<br>`;
 					texte_corr+=`Donc sa probabilité est : $1-${tex_fraction(fra1[0],fra1[1])}=\\dfrac{${fra1[1]}-${fra1[0]}}{${fra1[1]}}=${tex_fraction(fra1[1]-fra1[0],fra1[1])}${simplification_de_fraction_avec_etapes(fra1[1]-fra1[0],fra1[1])}$<br>`;
 					break;
+				case 3 :
+					quidam=prenomM();
+					quidame=prenomF();
+					p=choice([4,6,8,12]);
+					q=choice([4,6,8,12],[p]);
+					n[0]=Math.min(p,q); // petit dé de quidam
+					m[0]=Math.max(p,q); // grand dé de quidam
+					p1[0]=n[0]*m[0]; // nombre de couples pour quidam
+					p=choice([4,6,8,12]);
+					q=choice([4,6,8,12],[p]);
+					n[1]=Math.min(p,q); // petit dé de quidame
+					m[1]=Math.max(p,q); // grand dé de quidame
+					p1[1]=n[1]*m[1] // nombre de couples pour quidame
+					somme1=n[0]+m[0]; // maximum pour quidam
+					somme2=n[1]+m[1]; // maximum pour quidame
+					r=Math.min(somme1,somme2) // Plus grand résultat commun.
+					for (let j=0;j<n[0]+m[0]-1;j++) fra1[j]=0; 
+					for (let j=1;j<=n[0];j++) {
+						for (let k=1;k<=m[0];k++){
+							fra1[j+k-2]++; // numérateurs de probas pour quidam = nombre d'occurences des différents résultats possibles
+						}
+					}
+					for (let j=0;j<n[1]+m[1]-1;j++) fra2[j]=0; 
+					for (let j=1;j<=n[1];j++) {
+						for (let k=1;k<=m[1];k++){
+							fra2[j+k-2]++; // numérateurs de probas pour quidame = nombre d'occurences des différents résultats possibles
+						}
+					}
+					for (let j=0;j<r-1;j++) {
+						p2[j]=fra2[j]/p1[1]-fra1[j]/p1[0]; // différence entre les probas de l'un et de l'autre (positif si Quidame a plus de chance...)
+					}
 
-					case 3 :
+					texte=`${quidam} dispose d'un dé à ${n[0]} faces numérotées de 1 à ${n[0]} et d'un dé à ${m[0]} faces numérotées de 1 à ${m[0]}.<br>`;
+					texte+=`Il lance ses deux dés et en fait la somme.<br> 1) Reporte dans un tableau les issues possibles de cette expérience aléatoire et leur probabilité respective.<br>`;
+					texte+=`${quidame} dispose d'un dé à ${n[1]} faces numérotées de 1 à ${n[1]} et d'un dé à ${m[1]} faces numérotées de 1 à ${m[1]}.<br>`;
+					texte+=`Elle décide de proposer un défi à ${quidam} : \"On choisit un nombre cible entre 2 et ${r}, on lance nos deux dés en même temps. Le premier dont la somme des dés est la cible a gagné.\"<br>`;
+					texte+=`2) ${quidam} qui a calculé les probabilités calculées au 1) dans sa tête propose alors de choisir ${n[0]+1} comme nombre cible. Il pense avoir plus de chances de gagner que ${quidame}. A-t-il raison ?<br>`;
+					texte+=`3) Si oui, quel nombre doit choisir ${quidame} pour avoir un défi qui lui soit favorable et si non, y a-t-il un meilleur choix pour ${quidam} ?<br>`;
+					texte+=`4) Y a-t-il un nombre cible qui donne un jeu équitable où chacun aura la même probabilité de gagner ?<br>`;
+					texte_corr=`1) les différents résultats de l'éxpérience sont présentés dans cette table :<br>`;
+					// tableau d'addition des dé
+					texte_corr+=`Les probabilités de chaque issue sont données par ce tableau :<br>`;
+					// tableau des probas
+					texte_corr+=`2) La probabilité qu'a ${quidame} de faire ${n[0]+1} est : $${tex_fraction(fra2[n[0]-1],p1[1])}\\approx ${calcul(fra2[n[0]-1]/p1[1],2)}$.<br>`;
+					texte_corr+=`La probabilité qu'a ${quidam} de faire ${n[0]+1} est : $${tex_fraction(fra2[n[0]-1],p1[0])}\\approx ${calcul(fra2[n[0]-1]/p1[0],2)}$.<br>`;
+					if (p2[n[0]-1]>0) {// Si quidame a plus de chance de gagner avec le choix de quidam
+						texte_corr+=`${quidam} se trompe en croyant avoir plus de chances de gagner.<br>`
+						// choix du nombre cible qui favorise quidam
+						trouve=false;
+						for(let j=r-2;j>=0;j--){
+							if (p2[j]<0) {
+								texte_corr+=`3) ${quidam} aurait du choisir ${j+2} comme nombre cible. sa probabilité de réussir serait alors de $${tex_fraction(fra2[j],p1[0])}\\approx ${calcul(fra2[j]/p1[0],2)}$ et celle de ${quidame} serait de $${tex_fraction(fra2[j],p1[1])}\\approx ${calcul(fra2[j]/p1[1],2)}$.<br>`
+								trouve=true;
+							}
+							if (trouve==true) break;
+						}
+						if (trouve==false) {
+							texte_corr+=`3) Il n'existe pas de choix qui permette à ${quidam} d'avoir plus de chance que ${quidame} de gagner.`
+						}
+					}
+					else // quidam a plus de chances de gagner
+					if (p2[n[0]-1]<0)	{
+						texte_corr+=`${quidam} a raison de penser avoir plus de chances de gagner.<br>`
+						// choix du nombre cible qui favorise quidame
+						texte_corr +=`3) `
+					}
 
-
+						// Ils ont autant de chances de gagner l'un que l'autre
+					else {
+						texte_corr+=`${quidam} et ${quidame} ont autant de chances de gagner avec ${n[0]+1} comme cible, ce qui répond à la question 4).<br>`			
+						// choix du nombre cible qui favorise quidam
+						trouve=false;
+						for(let j=r-2;j>=0;j--){
+							if (p2[j]<0) {
+								texte_corr+=`3) ${quidam} aurait du choisir ${j+2} comme nombre cible. sa probabilité de réussir serait alors de $${tex_fraction(fra1[j],p1[0])}\\approx ${calcul(fra1[j]/p1[0],2)}$ et celle de ${quidame} serait de $${tex_fraction(fra2[j],p1[1])}\\approx ${calcul(fra2[j]/p1[1],2)}$.<br>`
+								trouve=true;
+							}
+							if (trouve==true) break;
+						}
+						if (trouve==false) {
+							texte_corr+=`3) Il n'existe pas de choix qui permette à ${quidam} d'avoir plus de chance que ${quidame} de gagner.`
+						}
+					}
+					if (p2[n[0]-1]==0) {
+						texte_corr+=`4) Il a été déjà répondu à cette question à la question 2).<br>`;
+					}
+					else { // choix de la cible pour un jeu équitable
+						trouve=false;
+						for(let j=r-2;j>=0;j--){
+							if (p2[j]==0) {
+								texte_corr+=`4) En choisissant ${j+2} comme cible, ${quidam} et ${quidame} ont la même probabilité de gagner.<br>
+								Pour ${quidam} la probabilité est : $${tex_fraction(fra1[j],p1[0])}$ et celle de ${quidame} est de $${tex_fraction(fra2[j],p1[1])}$.<br>`
+								trouve=true;
+							}
+							if (trouve==true) break;
+						}
+						if (trouve==false) {
+							texte_corr+=`4) Il n'existe pas de choix qui permette à ${quidam}et à ${quidame} d'avoir la même probabilité de gagner.`
+						}
+					}
+					break;
 				}
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+			if (this.liste_quest2ons.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
 				i++;
