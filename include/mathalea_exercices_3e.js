@@ -1,76 +1,7 @@
 
-/**
- * Calculs de probabilités sur une expérience aléatoire à une épreuve.
- * @Auteur Jean-Claude Lhote
- */
-function fonctions_probabilite1(){
-	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Calculer des probabilités dans une expérience aléatoire à une épreuve";
-	this.consigne = "";
-	this.nb_questions = 7;
-	this.nb_questions_modifiable = false;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	sortie_html? this.spacing = 2 : this.spacing = 1; 
-	sortie_html? this.spacing_corr = 3 : this.spacing_corr = 1;
-	this.sup=1;
 
-	this.nouvelle_version = function(numero_de_l_exercice){
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		let liste_index_disponibles=[0,1,2,3,4,5,6];
-		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions)
-		let liste_de_lieux_choses=[['le frigo','yaourts'],['le frigo','desserts lactés'],['une urne','boules'],['une urne','jetons'],['un paquet de bonbons','nounours'],['un tiroir de la commode','t-shirts'],['un tas de jetons de poker','jetons']]
-		let qualites=[[]]
-		qualites[0]=['à la fraise','à la vanille','à l\'abricot','à l\'ananas','à la cerise'];
-		qualites[1]=['au chocolat','à la vanille','au café','à la pistache','au caramel'];
-		qualites[2]=['rouges','vertes','bleues','noires','blanches'];
-		qualites[3]=['gris','cyans','roses','jaunes','violets'];
-		qualites[4]=['rouges','verts','bleus','noirs','jaunes'];
-		qualites[5]=['rouges','verts','bleus','noirs','blancs'];
-		qualites[6]=['rouges','verts','bleus','noirs','jaunes'];
-		for (let i = 0,p,m,q,somme,quidam,index1,lieu,objet,article,pronom,n=[], texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
-			index1=liste_index[i];
-			if (index1==2) {article=`une`;pronom=`elles`}
-			else {article=`un`;pronom=`eux`;}
-			quidam=prenom();
-			lieu=liste_de_lieux_choses[index1][0];
-			objet=liste_de_lieux_choses[index1][1];
-			n[0]=randint(2,5);
-			n[1]=randint(1,6)+1;
-			n[2]=randint(1,3)*2;
-			n[3]=randint(1,4)+2;
-			n[4]=randint(2,5);
-
-			somme=n[0]+n[1]+n[2]+n[3]+n[4];
-			m=randint(0,4);
-			p=randint(0,4,[m]);
-			q=randint(0,4,[p,m]);
-	
-			texte = `Dans ${lieu} il y a ${somme} ${objet}. ${n[0]} sont ${qualites[index1][0]}, ${n[1]} sont ${qualites[index1][1]}, ${n[2]} sont ${qualites[index1][2]}, ${n[3]} sont ${qualites[index1][3]} et ${n[4]} sont ${qualites[index1][4]}.<br> `;
-			texte+= `${quidam} choisit au hasard l'${article} d'entre ${pronom}.<br> `;
-			texte +=`1) Quelle est la probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][m]} ?<br>`;
-			texte +=`2) Quelle est la probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][p]} ?<br>`;			
-			texte +=`3) Quelle est la probabilité que son choix ne tombe pas sur l'${article} des ${objet} ${qualites[index1][q]} ?<br>`;
-			texte +=`4) Quelle est la probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][m]} ou ${qualites[index1][p]}?<br>`;
-			texte_corr =`On est dans une situation d’équiprobabilité donc la probabilité est donnée par le quotient du nombre de cas favorables par le nombre de cas au total.<br>`
-			texte_corr += `1) Il y a ${n[m]} ${objet} ${qualites[index1][m]} et il y a ${somme} ${objet} possibles. La probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][m]} est : $${tex_fraction(n[m],somme)}${simplification_de_fraction_avec_etapes(n[m],somme)}$.<br>`;
-			texte_corr +=`2) Il y a ${n[p]} ${objet} ${qualites[index1][p]} et il y a ${somme} ${objet} possibles. La probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][p]} est : $${tex_fraction(n[p],somme)}${simplification_de_fraction_avec_etapes(n[p],somme)}$.<br>`;
-			texte_corr +=`3) Il y a ${n[q]} ${objet} ${qualites[index1][q]}, donc il y a $${somme}-${n[q]}=${somme-n[q]}$ autres ${objet} et il y a ${somme} ${objet} possibles.<br> La probabilité que son choix ne tombe pas sur l'${article} des ${objet} ${qualites[index1][q]} est : $${tex_fraction(somme-n[q],somme)}${simplification_de_fraction_avec_etapes(somme-n[q],somme)}$.<br>`;
-			texte_corr +=`4) La probabilité d'un événement est la somme des probabilités des issues qui le composent.<br> Donc la probabilité que son choix tombe sur l'${article} des ${objet} ${qualites[index1][m]} ou ${qualites[index1][p]} est : $${tex_fraction(n[m],somme)}+${tex_fraction(n[p],somme)}=${tex_fraction(n[p]+n[m],somme)}${simplification_de_fraction_avec_etapes(n[p]+n[m],somme)}$.<br>`;
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
-				i++;
-			}
-			cpt++;
-		}
-		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
-	}	
-};
 /**
- * Calculs de probabilités sur une expérience aléatoire à une épreuve.
+ * Calculs de probabilités sur une expérience aléatoire à deux épreuves
  * @Auteur Jean-Claude Lhote
  */
 function fonctions_probabilite2(){
@@ -78,7 +9,7 @@ function fonctions_probabilite2(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Calculer des probabilités dans une expérience aléatoire à deux épreuves";
 	this.consigne = "";
-	this.nb_questions = 4;
+	this.nb_questions = 2;
 	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -123,13 +54,13 @@ function fonctions_probabilite2(){
 					somme1=n[p]+n[q]+n[r];// +n[3]+n[4];
 					texte = `Dans le frigo il y a ${somme1} yaourts. ${n[p]} sont ${qualites[0][p]}, ${n[q]} sont ${qualites[0][q]} et ${n[r]} sont ${qualites[0][r]}.<br>`;//  ${n[3]} sont ${qualites[index1][3]} et ${n[4]} sont ${qualites[index1][4]}.<br> `;
 					texte += `${quidame} en choisit un au hasard. Son frère ${quidam} en choisit un au hasard à son tour.<br>`;
-					texte += `1) Combien d'issues possède cette experience aléatoire ? donne un exemple d'issue.<br>`
-					texte += `2) Est-ce une expérience en situation d'équiprobabilité ? Justifie.<br>`
-					texte += `3) Calcule la probabilité que ${quidame} et ${quidam} aient choisi tous les deux un yaourt ${qualites[0][p]}.<br>`;
-					texte += `4) Calcule la probabilité qu'ils aient choisi des yaourts aux parfums identiques.<br>`;
-					texte += `5) Calcule la probabilité qu'ils aient choisi des yaourts aux parfums différents.<br>`;
+					texte += num_alpha(0)+` Combien d'issues possède cette experience aléatoire ? donne un exemple d'issue.<br>`
+					texte += num_alpha(1)+` Est-ce une expérience en situation d'équiprobabilité ? Justifie.<br>`
+					texte += num_alpha(2)+` Calcule la probabilité que ${quidame} et ${quidam} aient choisi tous les deux un yaourt ${qualites[0][p]}.<br>`;
+					texte += num_alpha(3)+` Calcule la probabilité qu'ils aient choisi des yaourts aux parfums identiques.<br>`;
+					texte += num_alpha(4)+` Calcule la probabilité qu'ils aient choisi des yaourts aux parfums différents.<br>`;
 					texte_corr =``;
-					texte_corr +=`1) ${quidame} peut avoir choisi un yaourt ${qualites[0][p]}, ${qualites[0][q]} ou ${qualites[0][r]}. Une fois qu'elle a choisi, et comme il y a au moins 2 yaourts de chaque sorte, ${quidam} a les mêmes 3 possibilités. Il y a donc $3\\times3=9$ issues possibles.<br>`
+					texte_corr +=num_alpha(0)+` ${quidame} peut avoir choisi un yaourt ${qualites[0][p]}, ${qualites[0][q]} ou ${qualites[0][r]}. Une fois qu'elle a choisi, et comme il y a au moins 2 yaourts de chaque sorte, ${quidam} a les mêmes 3 possibilités. Il y a donc $3\\times3=9$ issues possibles.<br>`
 					texte_corr += `Par exemple : ${quidame} a pris un yaourt ${qualites[0][p]} et ${quidam} un yaourt ${qualites[0][q]}. Ce qu'on peut noter (${Initiale[p]},${Initiale[q]}).<br>`;
 					texte_corr += `Les 9 issues sont : `;
 					for (const j of [p,q,r])
@@ -137,21 +68,21 @@ function fonctions_probabilite2(){
 							texte_corr += `(${Initiale[j]},${Initiale[k]}) `;
 					texte_corr+=`<br>`
 					if (n[0]==n[1]&&n[1]==n[2]) {
-						texte_corr += `2) Comme le nombre de yaourts de chaque sorte est le même, alors ${quidame} a la même probabilité de choisir n'importe quel parfum, mais ensuite son frère aura un yaourt de moins de l'un des parfums. Il est donc moins probable qu'il choisisse le même parfum que sa soeur que l'un des deux autres parfums.<br>`;
+						texte_corr += num_alpha(1)+` Comme le nombre de yaourts de chaque sorte est le même, alors ${quidame} a la même probabilité de choisir n'importe quel parfum, mais ensuite son frère aura un yaourt de moins de l'un des parfums. Il est donc moins probable qu'il choisisse le même parfum que sa soeur que l'un des deux autres parfums.<br>`;
 						texte_corr += `l\'issue (${Initiale[p]},${Initiale[p]}) est donc moins probable que l'issue (${Initiale[p]},${Initiale[q]}). Ce n'est donc pas une situation d'équiprobabilité.`;
 					}
 					else {
-						texte_corr+=`2) Comme le nombre de yaourt est différent d'un parfum à l'autre, ${quidame} n'a pas la même probabilité de choisir n'importe quel parfum. On en déduit qu' il est impossible que les issues (${Initiale[p]},${Initiale[p]}), (${Initiale[q]},${Initiale[q]}) et (${Initiale[r]},${Initiale[r]}) aient la même probabilité.<br>`;
+						texte_corr+=num_alpha(1)+` Comme le nombre de yaourt est différent d'un parfum à l'autre, ${quidame} n'a pas la même probabilité de choisir n'importe quel parfum. On en déduit qu' il est impossible que les issues (${Initiale[p]},${Initiale[p]}), (${Initiale[q]},${Initiale[q]}) et (${Initiale[r]},${Initiale[r]}) aient la même probabilité.<br>`;
 					}
-					texte_corr += `3) Il y a ${n[p]} yaourts ${qualites[0][p]}, et ${somme1} yaourts en tout, la probabilité que ${quidame} choisisse un yaourt ${qualites[0][p]} est de : $${tex_fraction(n[p],somme1)}${simplification_de_fraction_avec_etapes(n[p],somme1)}$.<br>`;
+					texte_corr += num_alpha(2)+` Il y a ${n[p]} yaourts ${qualites[0][p]}, et ${somme1} yaourts en tout, la probabilité que ${quidame} choisisse un yaourt ${qualites[0][p]} est de : $${tex_fraction(n[p],somme1)}${simplification_de_fraction_avec_etapes(n[p],somme1)}$.<br>`;
 					texte_corr += `Ensuite il reste ${n[p]-1} yaourts ${qualites[0][p]} pour ${quidam} sur un total de ${somme1-1} yaourts.<br> La probabilité qu'il choisisse à son tour et dans ces conditions ce parfum est de $${tex_fraction(n[p]-1,somme1-1)}${simplification_de_fraction_avec_etapes(n[p]-1,somme1-1)}$.<br>`;
 					texte_corr += `La probabilité de l'issue (${Initiale[p]},${Initiale[p]}) est le produit de ces deux probabilités, donc : $${tex_fraction(n[p],somme1)}\\times${tex_fraction(n[p]-1,somme1-1)}=${tex_fraction(n[p]*(n[p]-1),somme1*(somme1-1))}${simplification_de_fraction_avec_etapes(n[p]*(n[p]-1),somme1*(somme1-1))}$.<br>`;
-					texte_corr += `4) La probabilité des issues (${Initiale[q]},${Initiale[q]}) et (${Initiale[r]},${Initiale[r]}) peuvent être calculées de la même façon qu'au 3) :<br>`;
+					texte_corr += num_alpha(3)+` a probabilité des issues (${Initiale[q]},${Initiale[q]}) et (${Initiale[r]},${Initiale[r]}) peuvent être calculées de la même façon qu'au 3) :<br>`;
 					texte_corr += `$${tex_fraction(n[q],somme1)}\\times${tex_fraction(n[q]-1,somme1-1)}=${tex_fraction(n[q]*(n[q]-1),somme1*(somme1-1))}$.<br>`;
 					texte_corr += `$${tex_fraction(n[r],somme1)}\\times${tex_fraction(n[r]-1,somme1-1)}=${tex_fraction(n[r]*(n[r]-1),somme1*(somme1-1))}$.<br>`;
 					texte_corr += `La probabilité qu'ils choisissent le même parfum est la somme des probabilités des issues (${Initiale[p]},${Initiale[p]}), (${Initiale[q]},${Initiale[q]}) et (${Initiale[r]},${Initiale[r]}), soit :<br>`;
 					texte_corr += `$${tex_fraction(n[p]*(n[p]-1),somme1*(somme1-1))}+${tex_fraction(n[q]*(n[q]-1),somme1*(somme1-1))}+${tex_fraction(n[r]*(n[r]-1),somme1*(somme1-1))}=${tex_fraction(n[p]*(n[p]-1)+n[q]*(n[q]-1)+n[r]*(n[r]-1),somme1*(somme1-1))}${simplification_de_fraction_avec_etapes(n[p]*(n[p]-1)+n[q]*(n[q]-1)+n[r]*(n[r]-1),somme1*(somme1-1))}$<br>`;
-					texte_corr += `5) choisir des parfums différents est l'événement contraire de l'événement dont on a calculé la probabilité à la question 4).<br>`;
+					texte_corr += num_alpha(4)+` choisir des parfums différents est l'événement contraire de l'événement dont on a calculé la probabilité à la question 4).<br>`;
 					fra1=fraction_simplifiee(n[p]*(n[p]-1)+n[q]*(n[q]-1)+n[r]*(n[r]-1),somme1*(somme1-1));
 					texte_corr += `La probabilité de cet événement est donc : $1-${tex_fraction(fra1[0],fra1[1])}=${tex_fraction(fra1[1],fra1[1])}-${tex_fraction(fra1[0],fra1[1])}=${tex_fraction(fra1[1]-fra1[0],fra1[1])}${simplification_de_fraction_avec_etapes(fra1[1]-fra1[0],fra1[1])}$`;
 					break;
@@ -163,29 +94,31 @@ function fonctions_probabilite2(){
 					Initiale[0]=choice([`sept`,`huit`,`neuf`,`dix`,`valet`,`roi`,`as`]);
 					Initiale[1]=choice([`deux`,`trois`,`quatre`,`cinq`,`six`,`sept`,`huit`,`neuf`,`dix`,`valet`,`roi`,`as`]);
 					texte =`On considère l'expérience consistant à tirer deux cartes dans un jeu de ${q} cartes.<br>`;
-					texte +=`A. Dans cette première partie, on effectuera le tirage de la deuxième carte après remise de la première dans le jeu.<br>`;
-					texte +=`	1) Quelle est la probabilité de tirer 2 cartes de la même couleur (Rouge/Rouge ou Noire/Noire)?<br>`;
-					texte +=`	2) Quelle est la probabilité de tirer 2 ${Initiale[r]}`;
+					texte +=`Partie 1 : On effectue le tirage de la deuxième carte après remise de la première dans le jeu.<br>`;
+					texte +=num_alpha(0)+` Quelle est la probabilité de tirer 2 cartes de la même couleur (Rouge/Rouge ou Noire/Noire)?<br>`;
+					texte +=num_alpha(1)+` Quelle est la probabilité de tirer 2 ${Initiale[r]}`;
 					if (Initiale[r]==`valet`||Initiale[r]==`roi`) texte+=`s`;
 					texte +=` ?<br>`;
-					texte +=`	3) Quelle est la probabilité de tirer 2 carte de ${qualites[1][p]} ?<br>`;
-					texte +=`B. Dans cette deuxième partie, on effectuera le tirage de la deuxième carte sans remise de la première dans le jeu.<br>`;
-					texte +=`	Reprendre les 3 questions de la partie A dans cette nouvelle expérience.`
-					texte_corr =`A.<br>		1) On ne s'intéresse ici qu'au tirage de la deuxième carte. En effet pour réaliser l'événement, il faudra que cette carte soit de la même couleur que la première. Il y a deux couleurs rouge et noire et le nombre de carte rouge est le même que le nombre de carte noire : ${q/2}.<br>`;
+					texte +=num_alpha(2)+` Quelle est la probabilité de tirer 2 carte de ${qualites[1][p]} ?<br>`;
+					texte +=`Partie 2 : On effectue le tirage de la deuxième carte sans remise de la première dans le jeu.<br>`;
+					texte +=`	Reprendre les 3 questions de la partie 1 dans cette nouvelle expérience.`
+					texte_corr =`Partie 1.<br>	`;
+					texte_corr+=num_alpha(0)+` On ne s'intéresse ici qu'au tirage de la deuxième carte. En effet pour réaliser l'événement, il faudra que cette carte soit de la même couleur que la première. Il y a deux couleurs rouge et noire et le nombre de carte rouge est le même que le nombre de carte noire : ${q/2}.<br>`;
 					texte_corr +=`	La probabilité que la deuxième carte soit de la même couleur que la première est donc : $${tex_fraction(q/2,q)}=${tex_fraction(1,2)}$.<br>`;
-					texte_corr +=`	2) Il y a 4 ${Initiale[r]}`;
+					texte_corr +=num_alpha(1)+` Il y a 4 ${Initiale[r]}`;
 					if (Initiale[r]==`valet`||Initiale[r]==`roi`) texte+=`s`;	
 					texte_corr +=` dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${Initiale[r]} est donc de $${tex_fraction(4,q)}=${tex_fraction_reduite(4,q)}$.<br>`;
 					texte_corr +=`	Comme la deuxième carte est tirée dans le jeu complet (après remise de la première) la probabilité de tirer un ${Initiale[r]} est la même pour cette carte.<br>`;
 					texte_corr +=`	La probabilité de tirer 2 ${Initiale[r]}`;
 					if (Initiale[r]==`valet`||Initiale[r]==`roi`) texte+=`s`;
 					texte_corr +=` est donc : $${tex_fraction_reduite(4,q)}\\times${tex_fraction_reduite(4,q)}=${tex_fraction_reduite(16,q*q)}$.<br>`;
-					texte_corr +=`	3) Il y a ${q/4} cartes de ${qualites[1][p]} dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${qualites[1][p]} est donc de $${tex_fraction(q/4,q)}=${tex_fraction(1,4)}$.<br>`;
+					texte_corr +=num_alpha(2)+` Il y a ${q/4} cartes de ${qualites[1][p]} dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${qualites[1][p]} est donc de $${tex_fraction(q/4,q)}=${tex_fraction(1,4)}$.<br>`;
 					texte_corr +=`	Comme la deuxième carte est tirée dans le jeu complet (après remise de la première) la probabilité de tirer un ${qualites[1][p]} est la même pour cette carte.<br>`;								
 					texte_corr +=`	La probabilité de tirer 2 ${qualites[1][p]}s est donc $${tex_fraction(1,4)}\\times${tex_fraction(1,4)}=${tex_fraction(1,16)}$.<br>`;
-					texte_corr +=`B.<br>1) On ne s'intéresse ici qu'au tirage de la deuxième carte. En effet pour réaliser l'événement, il faudra que cette carte soit de la même couleur que la première. Il y a maintenant une carte en moins dans la couleur désirée soit  ${q/2-1} et il y a une carte en moins dans le jeu soit ${q-1}.<br>`;
+					texte_corr +=`Partie 2.<br>`;
+					texte_corr+= num_alpha(0)+` On ne s'intéresse ici qu'au tirage de la deuxième carte. En effet pour réaliser l'événement, il faudra que cette carte soit de la même couleur que la première. Il y a maintenant une carte en moins dans la couleur désirée soit  ${q/2-1} et il y a une carte en moins dans le jeu soit ${q-1}.<br>`;
 					texte_corr +=`	La probabilité que la deuxième carte soit de la même couleur que la première est donc : $${tex_fraction(q/2-1,q-1)}$.<br>`;
-					texte_corr +=`	2) Il y a 4 ${Initiale[r]}`;
+					texte_corr +=num_alpha(1)+` Il y a 4 ${Initiale[r]}`;
 					if (Initiale[r]==`valet`||Initiale[r]==`roi`) texte+=`s`;	
 					texte_corr +=` dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${Initiale[r]} est donc de $${tex_fraction(4,q)}=${tex_fraction_reduite(4,q)}$.<br>`;
 					texte_corr +=`	Pour que l'événement se réalise la deuxième carte est tirée dans les ${q-1} cartes restantes dans lesquelles il manque un ${Initiale[r]}.<br>`;
@@ -194,7 +127,7 @@ function fonctions_probabilite2(){
 					texte_corr +=`<br> La probabilité de tirer 2 ${Initiale[r]}`;
 					if (Initiale[r]==`valet`||Initiale[r]==`roi`) texte+=`s`;
 					texte_corr +=` est donc : $${tex_fraction_reduite(4,q)}\\times${tex_fraction_reduite(3,q-1)}=${tex_fraction_reduite(12,q*(q-1))}$.<br>`;
-					texte_corr +=`	3)  Il y a ${q/4} cartes de ${qualites[1][p]} dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${qualites[1][p]} est donc de $${tex_fraction(q/4,q)}=${tex_fraction(1,4)}$.<br>`;
+					texte_corr +=num_alpha(2)+` Il y a ${q/4} cartes de ${qualites[1][p]} dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${qualites[1][p]} est donc de $${tex_fraction(q/4,q)}=${tex_fraction(1,4)}$.<br>`;
 					texte_corr +=`	Pour que l'événement se réalise la deuxième carte est tirée dans les ${q-1} cartes restantes dans lesquelles il manque un ${qualites[1][p]}.<br>`;								
 					texte_corr +=`	La probabilité de tirer un deuxième ${qualites[1][p]} est donc : $${tex_fraction(q/4-1,q-1)}$`;
 					if (q==52) texte_corr+=`$=${tex_fraction(4,17)}$<br>La probabilité de tirer 2 ${qualites[1][p]}s est donc $${tex_fraction(1,4)}\\times${tex_fraction(4,17)}=${tex_fraction(1,17)}$.`;
@@ -222,10 +155,10 @@ function fonctions_probabilite2(){
 					}
 					texte+=`${m[3]} T-shirts ${qualites[5][3]} et ${m[4]} T-shirts ${qualites[5][4]}.<br>`;
 					texte+=`Un matin, il y a une panne de courant et ${quidam} prend au hasard une paire de chaussettes dans le premier tiroir et un T-shirt dans le deuxième.<br>`;
-					texte +=`1) Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt ${qualites[2][r]} ?<br>`;
-					texte +=`2) Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt de la même couleur ?<br>`;			
-					texte +=`3) Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt de couleurs différentes ?`;
-					texte_corr=`1) Il y a ${n[r]} paires de chaussettes ${qualites[2][r]} et il y a ${somme1} paires de chaussettes possibles. `;
+					texte +=num_alpha(0)+` Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt ${qualites[2][r]} ?<br>`;
+					texte +=num_alpha(1)+` Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt de la même couleur ?<br>`;			
+					texte +=num_alpha(2)+` Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt de couleurs différentes ?`;
+					texte_corr=num_alpha(0)+` Il y a ${n[r]} paires de chaussettes ${qualites[2][r]} et il y a ${somme1} paires de chaussettes possibles. `;
 					texte_corr+=`La probabilité de chosir une paire de chaussettes ${qualites[2][r]} est de : $${tex_fraction(n[r],somme1)}${simplification_de_fraction_avec_etapes(n[r],somme1)}$.<br>`;
 					texte_corr+=`Il y a ${m[r]} T-shirts ${qualites[5][r]} et il y a ${somme2} T-shirts possibles. `;
 					texte_corr+=`La probabilité de chosir un des T-shirt ${qualites[5][r]} est de : $${tex_fraction(m[r],somme2)}${simplification_de_fraction_avec_etapes(m[r],somme2)}$.<br>`;
@@ -239,7 +172,7 @@ function fonctions_probabilite2(){
 					p1=fraction_simplifiee(fra1[0]*fra2[0],fra1[1]*fra2[1]);
 					fra1=fraction_simplifiee(n[p],somme1);
 					fra2=fraction_simplifiee(m[p],somme2);
-					texte_corr+=`2) La probabilité de chosir une paire de chaussettes ${qualites[2][p]} est de : $${tex_fraction(n[p],somme1)}${simplification_de_fraction_avec_etapes(n[p],somme1)}$ et `;
+					texte_corr+=num_alpha(1)+` La probabilité de chosir une paire de chaussettes ${qualites[2][p]} est de : $${tex_fraction(n[p],somme1)}${simplification_de_fraction_avec_etapes(n[p],somme1)}$ et `;
 					texte_corr+=`la probabilité de chosir l'un des T-shirt ${qualites[5][p]} est de : $${tex_fraction(m[p],somme2)}${simplification_de_fraction_avec_etapes(m[p],somme2)}$.<br>`;
 					texte_corr+=`Donc la probabilité de chosir des chaussettes un T-shirt ${qualites[5][p]} est de : $${tex_fraction_reduite(m[p],somme2)}\\times${tex_fraction_reduite(n[p],somme1)}=\\dfrac{${fra2[0]}\\times${fra1[0]}}{${fra2[1]}\\times${fra1[1]}}=${tex_fraction(fra1[0]*fra2[0],fra1[1]*fra2[1])}${simplification_de_fraction_avec_etapes(fra1[0]*fra2[0],fra1[1]*fra2[1])}$.<br>`;
 					p2=fraction_simplifiee(fra1[0]*fra2[0],fra1[1]*fra2[1]);
@@ -261,7 +194,7 @@ function fonctions_probabilite2(){
 						texte_corr+=`${tex_fraction(p1[0]*e,den)}+${tex_fraction(p2[0]*f,den)}+${tex_fraction(p3[0]*g,den)}=${tex_fraction(p1[0]*e+p2[0]*f+p3[0]*g,den)}${simplification_de_fraction_avec_etapes(p1[0]*e+p2[0]*f+p3[0]*g,den)}$<br>`;
 						fra1=fraction_simplifiee(p1[0]*e+p2[0]*f+p3[0]*g,den);
 					}
-					texte_corr+=`3) L'événement \"choisir des chaussettes et un T-shirt de couleurs différentes\" est l'événement contraire de l'événement \"choisir des chaussettes et un T-shirt de même couleur\".<br>`;
+					texte_corr+=num_alpha(2)+` L'événement \"choisir des chaussettes et un T-shirt de couleurs différentes\" est l'événement contraire de l'événement \"choisir des chaussettes et un T-shirt de même couleur\".<br>`;
 					texte_corr+=`Donc sa probabilité est : $1-${tex_fraction(fra1[0],fra1[1])}=\\dfrac{${fra1[1]}-${fra1[0]}}{${fra1[1]}}=${tex_fraction(fra1[1]-fra1[0],fra1[1])}${simplification_de_fraction_avec_etapes(fra1[1]-fra1[0],fra1[1])}$<br>`;
 					break;
 				case 3 :
@@ -297,14 +230,15 @@ function fonctions_probabilite2(){
 					}
 
 					texte=`${quidam} dispose d'un dé à ${n[0]} faces numérotées de 1 à ${n[0]} et d'un dé à ${m[0]} faces numérotées de 1 à ${m[0]}.<br>`;
-					texte+=`Il lance ses deux dés et en fait la somme.<br> 1) Reporte dans un tableau les issues possibles de cette expérience aléatoire et leur probabilité respective.<br>`;
-					texte+=`2)${quidame} dispose d'un dé à ${n[1]} faces numérotées de 1 à ${n[1]} et d'un dé à ${m[1]} faces numérotées de 1 à ${m[1]}.<br>`;
+					texte+=`Il lance ses deux dés et en fait la somme.<br>`;
+					texte+=num_alpha(0)+` Reporte dans un tableau les issues possibles de cette expérience aléatoire et leurs probabilités respectives.<br>`;
+					texte+=num_alpha(1)+` ${quidame} dispose d'un dé à ${n[1]} faces numérotées de 1 à ${n[1]} et d'un dé à ${m[1]} faces numérotées de 1 à ${m[1]}.<br>`;
 					texte+=`Elle décide de proposer un défi à ${quidam} : \"On choisit un nombre cible entre 2 et ${r}, on lance nos deux dés en même temps. Le premier dont la somme des dés est la cible a gagné.\"<br>`;
-					texte+=`${quidam} qui connaît les probabilités calculées au 1) propose alors de choisir ${n[0]+1} comme nombre cible. Il pense avoir plus de chances de gagner que ${quidame}. A-t-il raison ?<br>`;
-					texte+=`3) Si oui, quel nombre doit choisir ${quidame} pour avoir un défi qui lui soit favorable et si non, y a-t-il un meilleur choix pour ${quidam} ?<br>`;
-					texte+=`4) Y a-t-il un nombre cible qui donne un jeu équitable où chacun aura la même probabilité de gagner ?<br>`;
+					texte+=num_alpha(2)+` ${quidam} qui connaît les probabilités calculées au 1) propose alors de choisir ${n[0]+1} comme nombre cible. Il pense avoir plus de chances de gagner que ${quidame}. A-t-il raison ?<br>`;
+					texte+=`Si oui, quel nombre doit choisir ${quidame} pour avoir un défi qui lui soit favorable et si non, y a-t-il un meilleur choix pour ${quidam} ?<br>`;
+					texte+=num_alpha(3)+` Y a-t-il un nombre cible qui donne un jeu équitable où chacun aura la même probabilité de gagner ?<br>`;
 					texte+=`$\\textit {Exercice inspiré des problèmes DuDu (mathix.org)}$`;
-					texte_corr=`1) les différents résultats de l\'éxpérience de ${quidam} sont présentés dans cette table :<br>`;
+					texte_corr=num_alpha(0)+` les différents résultats de l\'éxpérience de ${quidam} sont présentés dans cette table :<br>`;
 					// tableau d'addition des dé
 					texte_corr+='$\\def\\arraystretch{1.5}\\begin{array}{|c';  
 					for (let j=0;j<=m[0];j++)	texte_corr+=`|c`;
@@ -327,7 +261,7 @@ function fonctions_probabilite2(){
 					
 					texte_corr+=`\\\\\\hline\\end{array}$<br>`
 					// fin du tableau
-					texte_corr+=`2) Les probabilités en ce qui concerne ${quidame} sont données par le tableau ci-dessous :<br>`;
+					texte_corr+=num_alpha(1)+` Les probabilités en ce qui concerne ${quidame} sont données par le tableau ci-dessous :<br>`;
 					// tableau des probas pour quidame
 					texte_corr+='$\\def\\arraystretch{2.5}\\begin{array}{|c';  
 					for (let j=1;j<=somme2;j++)	texte_corr+=`|c`;
@@ -337,75 +271,75 @@ function fonctions_probabilite2(){
 					for (let j=2;j<=somme2;j++) texte_corr+=`& \\textcolor {${Couleurs[j%10]}}`+`{\\dfrac{${fra2[j-2]}}{${p1[1]}}}`;
 					texte_corr+=`\\\\\\hline\\end{array}$<br>`
 
-					texte_corr+= `La probabilité qu'a ${quidame} de faire ${n[0]+1} est : $${tex_fraction(fra2[n[0]-1],p1[1])}\\approx ${calcul(fra2[n[0]-1]/p1[1],3)}$.<br>`;
-					texte_corr+=`La probabilité qu'a ${quidam} de faire ${n[0]+1} est : $${tex_fraction(fra1[n[0]-1],p1[0])}\\approx ${calcul(fra1[n[0]-1]/p1[0],3)}$.<br>`;
+					texte_corr+= `La probabilité qu'a ${quidame} de faire ${n[0]+1} est : $\\textcolor {${Couleurs[(n[0]+1)%10]}}{${tex_fraction(fra2[n[0]-1],p1[1])}}${simplification_de_fraction_avec_etapes(fra2[n[0]-1],p1[1])}$.<br>`;
+					texte_corr+=`La probabilité qu'a ${quidam} de faire ${n[0]+1} est : $\\textcolor {${Couleurs[(n[0]+1)%10]}}{${tex_fraction(fra1[n[0]-1],p1[0])}}${simplification_de_fraction_avec_etapes(fra1[n[0]-1],p1[0])}$.<br>`;
 					if (p2[n[0]-1]>0) {// Si quidame a plus de chance de gagner avec le choix de quidam
-						texte_corr+=`${quidam} se trompe en croyant avoir plus de chances de gagner.<br>`
+						texte_corr+=`${quidam} se trompe en croyant avoir plus de chances de gagner car $${tex_fraction_reduite(fra2[n[0]-1],p1[1])}>${tex_fraction_reduite(fra1[n[0]-1],p1[0])}$.<br>`
 						// choix du nombre cible qui favorise quidam
 						trouve=false;
 						for(let j=r-2;j>=0;j--){
 							if (p2[j]<0) {
-								texte_corr+=`3) ${quidam} aurait du choisir ${j+2} comme nombre cible. sa probabilité de réussir serait alors de $${tex_fraction(fra1[j],p1[0])}\\approx ${calcul(fra1[j]/p1[0],3)}$ et celle de ${quidame} serait de $${tex_fraction(fra2[j],p1[1])}\\approx ${calcul(fra2[j]/p1[1],3)}$.<br>`
+								texte_corr+=num_alpha(2)+` ${quidam} aurait du choisir ${j+2} comme nombre cible. sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j+2)%10]}}{${tex_fraction(fra1[j],p1[0])}}${simplification_de_fraction_avec_etapes(fra1[j],p1[0])}$ et celle de ${quidame} serait de $\\textcolor {${Couleurs[(j+2)%10]}}{${tex_fraction(fra2[j],p1[1])}}${simplification_de_fraction_avec_etapes(fra2[j],p1[1])}$.<br>`
 								trouve=true;
 							}
 							if (trouve==true) break;
 						}
 						if (trouve==false) {
-							texte_corr+=`3) Il n'existe pas de choix qui permette à ${quidam} d'avoir plus de chance que ${quidame} de gagner.`
+							texte_corr+=num_alpha(2)+` Il n'existe pas de choix qui permette à ${quidam} d'avoir plus de chance que ${quidame} de gagner.`
 						}
 					}
 					else // quidam a plus de chances de gagner
 					if (p2[n[0]-1]<0)	{
-						texte_corr+=`${quidam} a raison de penser avoir plus de chances de gagner.<br>`
+						texte_corr+=`${quidam} a raison de penser avoir plus de chances de gagner car $${tex_fraction_reduite(fra2[n[0]-1],p1[1])}<${tex_fraction_reduite(fra1[n[0]-1],p1[0])}$.<br>`
 						// choix du nombre cible qui favorise quidame
 						trouve=false;
 						for(let j=r-2;j>=0;j--){
 							if (p2[j]>0) {
-								texte_corr+=`3) ${quidame} devrait choisir ${j+2} comme nombre cible. sa probabilité de réussir serait alors de $${tex_fraction(fra2[j],p1[1])}\\approx ${calcul(fra2[j]/p1[1],3)}$ et celle de ${quidam} serait de $${tex_fraction(fra1[j],p1[0])}\\approx ${calcul(fra1[j]/p1[0],3)}$.<br>`
+								texte_corr+=num_alpha(2)+` ${quidame} devrait choisir ${j+2} comme nombre cible.<br>Sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j+2)%10]}}{${tex_fraction(fra2[j],p1[1])}}${simplification_de_fraction_avec_etapes(fra2[j],p1[1])}$<br>Celle de ${quidam} serait de $\\textcolor {${Couleurs[(j+2)%10]}}{${tex_fraction(fra1[j],p1[0])}}${simplification_de_fraction_avec_etapes(fra1[j],p1[0])}$ et $${tex_fraction_reduite(fra1[j],p1[0])}<${tex_fraction(fra2[j],p1[1])}.$<br>`
 								trouve=true;
 							}
 							if (trouve==true) break;
 						}
 						if (trouve==false) {
-							texte_corr+=`3) Il n'existe pas de choix qui permette à ${quidame} d'avoir plus de chance que ${quidam} de gagner.`
+							texte_corr+=num_alpha(2)+` Il n'existe pas de choix qui permette à ${quidame} d'avoir plus de chance que ${quidam} de gagner.<br>`
 						}
 					}
 
 						// Ils ont autant de chances de gagner l'un que l'autre
 					else {
-						texte_corr+=`${quidam} et ${quidame} ont autant de chances de gagner avec ${n[0]+1} comme cible, ce qui répond à la question 4).<br>`			
+						texte_corr+=`${quidam} et ${quidame} ont autant de chances de gagner car ils ont tous deux la même probabilité de faire ${n[0]+1}, ce qui répond à la question ${num_alpha(3)}.<br>`			
 						// choix du nombre cible qui favorise quidam
 						trouve=false;
 						for(let j=r-2;j>=0;j--){
 							if (p2[j]<0) {
-								texte_corr+=`3) ${quidam} aurait du choisir ${j+2} comme nombre cible. sa probabilité de réussir serait alors de $${tex_fraction(fra1[j],p1[0])}\\approx ${calcul(fra1[j]/p1[0],3)}$ et celle de ${quidame} serait de $${tex_fraction(fra2[j],p1[1])}\\approx ${calcul(fra2[j]/p1[1],3)}$.<br>`
+								texte_corr+=num_alpha(2)+` ${quidam} aurait du choisir ${j+2} comme nombre cible. sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j+2)%10]}}{${tex_fraction(fra1[j],p1[0])}}${simplification_de_fraction_avec_etapes(fra1[j],p1[0])}$ et celle de ${quidame} serait de $\\textcolor {${Couleurs[(j+2)%10]}}{${tex_fraction(fra2[j],p1[1])}}${simplification_de_fraction_avec_etapes(fra2[j],p1[1])}$.<br>`
 								trouve=true;
 							}
 							if (trouve==true) break;
 						}
 						if (trouve==false) {
-							texte_corr+=`3) Il n'existe pas de choix qui permette à ${quidam} d'avoir plus de chance que ${quidame} de gagner.`
+							texte_corr+=num_alpha(2)+` Il n'existe pas de choix qui permette à ${quidam} d'avoir plus de chance que ${quidame} de gagner.<br>`
 						}
 					}
 					if (p2[n[0]-1]==0) {
-						texte_corr+=`4) Il a été déjà répondu à cette question à la question 2).<br>`;
+						texte_corr+=num_alpha(3)+` Il a été déjà répondu à cette question à la question ${num_alpha(1)}.<br>`;
 					}
 					else { // choix de la cible pour un jeu équitable
 						trouve=false;
 						for(let j=r-2;j>=0;j--){
 							if (p2[j]==0) {
-								texte_corr+=`4) En choisissant ${j+2} comme cible, ${quidam} et ${quidame} ont la même probabilité de gagner.<br>
-								Pour ${quidam} la probabilité est : $${tex_fraction(fra1[j],p1[0])}$ tout comme pour ${quidame}.<br>`
+								texte_corr+=num_alpha(3)+` En choisissant ${j+2} comme cible, ${quidam} et ${quidame} ont la même probabilité de gagner.<br>
+								Pour ${quidam} la probabilité est : $\\textcolor {${Couleurs[(j+2)%10]}}{${tex_fraction(fra1[j],p1[0])}}${simplification_de_fraction_avec_etapes(fra1[j],p1[0])}$ tout comme pour ${quidame} : $\\textcolor {${Couleurs[(j+2)%10]}}{${tex_fraction(fra2[j],p1[1])}}${simplification_de_fraction_avec_etapes(fra2[j],p1[1])}$.<br>`
 								trouve=true;
 							}
 							if (trouve==true) break;
 						}
 						if (trouve==false) {
-							texte_corr+=`4) Il n'existe pas de choix qui permette à ${quidam}et à ${quidame} d'avoir la même probabilité de gagner car `;
+							texte_corr+=num_alpha(3)+` Il n'existe pas de choix qui permette à ${quidam}et à ${quidame} d'avoir la même probabilité de gagner car `;
 							for (let j=2;j<r/2;j++) {
-								texte_corr+=`$${tex_fraction(fra1[j-2],p1[0])}\\ne ${tex_fraction(fra2[j-2],p1[1])}$ ; `;
+								texte_corr+=`$\\textcolor {${Couleurs[(j)%10]}}{${tex_fraction(fra1[j-2],p1[0])}}\\ne \\textcolor {${Couleurs[(j)%10]}}{${tex_fraction(fra2[j-2],p1[1])}}$ ; `;
 							}
-							texte_corr+=`et $${tex_fraction(fra1[r/2],p1[0])}\\ne ${tex_fraction(fra2[r/2],p1[1])}$.`;
+							texte_corr+=`et $\\textcolor {${Couleurs[(r/2)%10]}}{${tex_fraction(fra1[r/2],p1[0])}}\\ne \\textcolor {${Couleurs[(r/2)%10]}}{${tex_fraction(fra2[r/2],p1[1])}}$.`;
 						}
 					}
 					break;
