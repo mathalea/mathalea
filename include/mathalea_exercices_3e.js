@@ -265,7 +265,7 @@ function fonctions_probabilite2(){
 					// tableau des probas pour quidame
 					texte_corr+='$\\def\\arraystretch{2.5}\\begin{array}{|c';  
 					for (let j=1;j<=somme2;j++)	texte_corr+=`|c`;
-					texte_corr+='} \\hline  \\text{résultats}';
+					texte_corr+='} \\hline  \\text{Résultats}';
 					for (let j=2;j<=somme2;j++) 	texte_corr+=`&`+j;
 					texte_corr+=` \\\\\\hline \\text{Probabilité}`;
 					for (let j=2;j<=somme2;j++) texte_corr+=`& \\textcolor {${Couleurs[j%10]}}`+`{\\dfrac{${fra2[j-2]}}{${p1[1]}}}`;
