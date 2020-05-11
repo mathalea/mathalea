@@ -45,6 +45,7 @@ var liste_des_exercices_disponibles = {
 		'6M22-2' : Perimetre_aire_et_portions_de_disques,
 		'6M13' : Reglages_6M23,
 		'6M25' : Connaitre_formules_de_perimetre_et_aires,
+		'6M30' : Calcul_de_volumes,
 		'6M31' : Exercice_conversions_volumes,
 		'6N10-1': Exercice_numeration_entier,
 		'6N10-2': Decomposition_nombre_decimal,
@@ -84,6 +85,7 @@ var liste_des_exercices_disponibles = {
 		'5L111' : Tester_une_egalite,
 		'5L12' : Reduire_une_expression_litterale,
 		'5M10' : Exercice_angles_triangles,
+		'5M30' : Calcul_de_volumes_5e,
 		'5R10' : Lire_abscisse_relative,
 		'5R10-2' : Placer_points_sur_axe_relatifs,
 		'5R12-1' : reperage_point_du_quart_de_plan,
@@ -1806,6 +1808,11 @@ function Somme_de_deux_nombres_maries_et_un_entier(){
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
 
+/**
+ * Générateur de tirages pour un compte est bon avec en correction la solution mathador (4 opérations différentes).
+ * @Auteur Jean-Claude Lhote
+ */
+
 function Le_compte_est_bonV2(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -1915,133 +1922,6 @@ function Le_compte_est_bonV2(){
 	this.besoin_formulaire_numerique = ['Limite inférieure',max_solution];
 	this.besoin_formulaire2_numerique = ['Limite supérieure',100];
 }
-/*
- function Le_compte_est_bon(){
- 	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Générateur de \"Le compte est bon\"";
-	this.consigne = "Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.";
-	this.nb_questions = 5;
-	this.nb_cols = 2;
-	this.nb_cols_corr = 2;
-	let liste_choix=[1,2,2,3,3,4,4,4,4,5,6,6,6,6,7,7,8,8,8,8,9,9,9,9,10,11,12,13,14,15,16,17,18,19,20];
-		let liste_de_j = combinaison_listes(range1(10),this.nb_questions)
-
-	this.nouvelle_version = function(numero_de_l_exercice){
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		let eureka;
-		let liste_choix=[1,2,2,3,3,4,4,4,4,5,6,6,6,6,7,7,8,8,8,8,9,9,9,9,10,11,12,13,14,15,16,17,18,19,20];
-		let liste_de_j = combinaison_listes(range1(10),this.nb_questions)
-		for (let i = 0, texte, texte_corr, a, b, c, d, e, f,tirage,j,expression , cpt=0; i < this.nb_questions && cpt<50; ) {
-			eureka=false;
-			
-			expression=''
-			while (eureka==false){
-				tirage=[];
-				a=parseInt(choice(liste_choix))
-				b=parseInt(choice(liste_choix,[12,13,14,15,16,17,18,19,20,a]))
-				c=parseInt(choice(liste_choix,[12,13,14,15,16,17,18,19,20,a,b]))
-				d=parseInt(choice(liste_choix,[12,13,14,15,16,17,18,19,20,a,b,c]))
-				e=parseInt(choice(liste_choix,[12,13,14,15,16,17,18,19,20]))
-				tirage.push(a,b,c,d,e);
-				tirage=shuffle(tirage);
-				a=tirage[0];
-				b=tirage[1];
-				c=tirage[2];
-				d=tirage[3];
-				e=tirage[4];
-				// les choses sérieuses commencent ici.
-				j = liste_de_j[i];
-				switch (j) {
-					case 1:
-						if ((a+b>c)&&(((a+b-c)*d)%e==0)) {
-							f=(a+b-c)*d/e;
-							expression=`$(${a}+${b}-${c})\\times${d}\\div${e}$`
-							if (f<100&&f>10) eureka=true;
-						}
-						break;
-					case 2:
-						if ((c*d%e==0)&&((a+b>c*d/e))) {
-							f=a+b-c*d/e;
-							expression=`$${a}+${b}-${c}\\times${d}\\div${e}$`
-							if (f<100&&f>10) eureka=true;
-						}
-						break;
-					case 3:
-						if ((a+b>c*d)&&((a+b-c*d)%e==0)){
-							f=(a+b-c*d)/e;
-							expression=`$(${a}+${b}-${c}\\times${d})\\div${e}$`
-							if (f<100&&f>10) eureka=true;
-						}
-						break;
-					case 4:
-						if ((b>c)&&(a%e==0)){
-							f=a/e+(b-c)*d;
-							expression=`$${a}\\div${e}+(${b}-${c})\\times${d}$`
-							if (f<100&&f>10) eureka=true;
-						}
-						break;
-					case 5:
-						if ((b>c)&&(a%(b-c)==0)){
-							f=a/(b-c)*d+e;
-							expression=`$${a}\\div(${b}-${c})\\times${d}+${e}$`
-							if (f<100&&f>10) eureka=true;
-						}
-						break;	
-					case 6:
-						if (((a+b)/c>d*e)&&((a+b)%c==0)){
-							f=(a+b)/c-d*e;
-							expression=`$(${a}+${b})\\div${c}-${d}\\times${e}$`
-							if (f<100&&f>10) eureka=true;
-						}
-						break;					
-					case 7:
-						if (((a + b / c)*d > e) && (b % c == 0)) {
-							f = (a + b/c) * d - e;
-							expression = `$(${a}+${b}\\div${c})\\times${d}-${e}$`
-							if (f<100&&f>10) eureka = true;
-						}
-						break;	
-					case 8:
-						if ((a > b/c) && (b % c == 0)) {
-							f = (a-b/c+d) * e;
-							expression = `$(${a}-${b}\\div${c}+${d})\\times${e}$`
-							if (f<100&&f>10) eureka = true;
-						}
-						break;	
-						case 9:
-							if (((a / b + c)*e > d) && (a % b == 0)) {
-								f = (a/b+c)*e-d;
-								expression = `$(${a}\\div${b}+${c})\\times${e}-${d}$`
-								if (f<100&&f>10) eureka = true;
-							}
-							break;	
-						case 10:
-							if ((a > b) && ((a-b) % c == 0)) {
-								f = ((a-b)/c+d)*e;
-								expression = `$((${a}-${b})\\div${c}+${d})\\times${e}$`
-								if (f<100&&f>10) eureka = true;
-							}
-							break;
-				}
-			}
-		
-		
-			texte=`Le tirage est le suivant : $${a}~;~${b}~;~${c}~;~${d}~;~${e}$ <br>\n La cible est : $${f}$`
-			texte_corr=`La solution est : ${expression}$=${f}$`
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
-				i++;
-			}
-		cpt++;	
-	}
-	liste_de_question_to_contenu(this);
-	}
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
-}
-*/
 
 
 /**
@@ -5726,6 +5606,109 @@ function HTML_personnalise() {
 
 }
 
+/**
+ * Calcul de volumes (cube et pavé droit).
+ * @Auteur Jean-Claude Lhote
+ */
+
+function Calcul_de_volumes(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Calculs de volumes";
+	this.consigne = "Calculer en détaillant le volume des solides donnés";
+	this.nb_questions = 5;
+	this.nb_cols = 2;
+	this.nb_cols_corr = 2;
+	this.classe=6;
+	this.sup=1;
+	
+	let type_de_questions_disponibles
+	
+	this.nouvelle_version = function(){
+
+		if (this.classe == 6) type_de_questions_disponibles = [1,2]; // sixième : cube et pavé droit
+		else
+			if (this.classe == 5) type_de_questions_disponibles = [1,2,3,4]; // cinquième : on ajoute les prismes et le cylindre 
+			else 
+				if (this.classe == 4) type_de_questions_disponibles = [1,2,3,4,5,6]; // Quatrième : on ajoute pyramides et cones
+				else type_de_questions_disponibles = [1,2,3,4,5,6,7,8]; // Troisième : on ajoute les boules.
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		let liste_unites=[[`~\\text{m}`,`~\\text{m}^3`],[`~\\text{dm}`,`~\\text{dm}^3`],[`~\\text{cm}`,`~\\text{cm}^3`],[`~\\text{mm}`,`~\\text{mm}^3`]]
+		for (let i = 0, texte, texte_corr, L, l, h, c, r,A,j,cpt=0; i < this.nb_questions && cpt<50; ) {
+			switch (liste_type_de_questions[i]) {
+				case 1 : // cube
+					c=randint(2,10);
+					j=randint(0,3); // pour le choix de l'unité
+					texte=`Un cube de $${c} ${liste_unites[j][0]}$ d'arête.`
+					texte_corr = `$\\mathcal{V}=${c}${liste_unites[j][0]}\\times${c}${liste_unites[j][0]}\\times${c}${liste_unites[j][0]}=${c*c*c}${liste_unites[j][1]}$`;
+					break;
+				case 2 : // pavé droit
+					if (this.sup==1) { //sans conversion
+						j=randint(0,3); // pour le choix de l'unité
+						l=randint(2,5);
+						h=randint(3,6);
+						L=randint(6,10);
+						texte=`Un pavé droit de $${l}${liste_unites[j][0]}$ de largeur, de $${L}${liste_unites[j][0]}$ de longueur et de $${h}${liste_unites[j][0]}$ de hauteur.`
+						texte_corr=`$\\mathcal{V}=${l}${liste_unites[j][0]}\\times${L}${liste_unites[j][0]}\\times${h}${liste_unites[j][0]}=${l*L*h}${liste_unites[j][1]}$`
+					}
+					else { // avec conversion
+						j=randint(1,2); // pour le choix de l'unité	centrale
+						l=randint(2,5);
+						h=randint(3,6)*10;
+						L=arrondi(randint(6,10)/10,1);
+						texte=`Un pavé droit de $${l}${liste_unites[j][0]}$ de largeur, de $${tex_nombre(L)}${liste_unites[j-1][0]}$ de longueur et de $${h}${liste_unites[j+1][0]}$ de hauteur.`
+						texte_corr=`$\\mathcal{V}=${l}${liste_unites[j][0]}\\times${tex_nombre(L)}${liste_unites[j-1][0]}\\times${h}${liste_unites[j+1][0]}=${l}${liste_unites[j][0]}\\times${L*10}${liste_unites[j][0]}\\times${h/10}${liste_unites[j][0]}=${arrondi(l*L*h)}${liste_unites[j][1]}$`
+					}
+					break;
+				case 3 : // Cylindre
+					if (this.sup==1) { //sans conversion
+						j=randint(0,3); // pour le choix de l'unité
+						r=randint(2,10);
+						h=randint(2,15);
+						texte=`Un cylindre de $${r}${liste_unites[j][0]}$ de rayon et de $${tex_nombre(h)}${liste_unites[j][0]}$ de hauteur.`
+						texte_corr=`$\\mathcal{V}=\\pi\\times${r}${liste_unites[j][0]}\\times${r}${liste_unites[j][0]}\\times${h}${liste_unites[j][0]}=${arrondi(r*r*h*Math.PI)}${liste_unites[j][1]}$`
+					}
+					else {
+						j=randint(2,3); // pour le choix de l'unité
+						r=randint(2,10);
+						h=randint(20,150);
+						texte=`Un cylindre de $${r}${liste_unites[j][0]}$ de rayon et de $${tex_nombrec(h/10)}${liste_unites[j-1][0]}$ de hauteur.`
+						texte_corr=`$\\mathcal{V}=\\pi\\times${r}${liste_unites[j][0]}\\times${r}${liste_unites[j][0]}\\times${tex_nombrec(h/10)}${liste_unites[j-1][0]}=${tex_nombrec(calcul(r*r*h*Math.PI,1))}${liste_unites[j][1]}$`
+					}
+					break;
+				case 4 : // prisme droit
+					if (this.sup==1) { //sans conversion
+						j=randint(0,3); // pour le choix de l'unité
+						c=randint(2,10);
+						h=randint(2,5);
+						l=randint(6,10);
+						texte=`Un prisme droit de hauteur $${l}${liste_unites[j][0]}$ et dont les bases sont des triangles de base $${c}${liste_unites[j][0]}$ et de hauteur correspondante $${h}${liste_unites[j][0]}$.`
+						texte_corr=`$\\mathcal{V}=\\dfrac{${c}${liste_unites[j][0]}\\times${h}${liste_unites[j][0]}}{2}\\times${l}${liste_unites[j][0]}=${arrondi(calcul(c*h*l/2),1)}${liste_unites[j][1]}$`
+					}
+					else {
+						j=randint(1,2); // pour le choix de l'unité
+						c=randint(2,10);
+						h=randint(30,50);
+						l=arrondi(randint(5,15)/10,1);
+						texte=`Un prisme droit de hauteur $${l}${liste_unites[j-1][0]}$ et dont les bases sont des triangles de base $${c}${liste_unites[j][0]}$ et de hauteur correspondante $${h}${liste_unites[j+1][0]}$.`
+						texte_corr=`$\\mathcal{V}=\\dfrac{${c}${liste_unites[j][0]}\\times${h}${liste_unites[j+1][0]}}{2}\\times${l}${liste_unites[j-1][0]}=\\dfrac{${c}${liste_unites[j][0]}\\times${calcul(h/10)}${liste_unites[j][0]}}{2}\\times${l*10}${liste_unites[j][0]}${arrondi(calcul(c*h*l/2),1)}${liste_unites[j][1]}$`
+						}
+					break;
+			}
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}	
+			cpt++;	
+		}
+	liste_de_question_to_contenu(this);
+	}
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : pas de conversion\n2 : avec conversion"];
+}
 
 // Exercices paramétré pour correspondre au référentiel
 /**
@@ -5767,6 +5750,24 @@ function Exercice_Trigo_angles_4e(){
 	this.quatrieme = true;
 	this.titre = "Utiliser le cosinus pour calculer la mesure d'un angle dans un triangle rectangle"
 	Exercice_Trigo_angles.call(this);
+}
+
+function Calcul_de_volumes_5e(){
+	this.sup=1;
+	this.classe=5;
+	Calcul_de_volumes.call(this);
+}
+
+function Calcul_de_volumes_4e(){
+	this.sup=1;
+	this.classe=4;
+	Calcul_de_volumes.call(this);
+}
+
+function Calcul_de_volumes_3e(){
+	this.sup=1;
+	this.classe=3;
+	Calcul_de_volumes.call(this);
 }
 
 function Exercice_6N12(){
@@ -5870,6 +5871,7 @@ function LaTeX_static() {
    	}
 
 }
+
 
 // FIN DES EXERCICES
 // Gestion des listes d'exercices
