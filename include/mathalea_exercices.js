@@ -45,7 +45,7 @@ var liste_des_exercices_disponibles = {
 		'6M22-2' : Perimetre_aire_et_portions_de_disques,
 		'6M13' : Reglages_6M23,
 		'6M25' : Connaitre_formules_de_perimetre_et_aires,
-		'6M30' : Calcul_de_volumes,
+		'6M30' : Calcul_de_volumes_6e,
 		'6M31' : Exercice_conversions_volumes,
 		'6N10-1': Exercice_numeration_entier,
 		'6N10-2': Decomposition_nombre_decimal,
@@ -102,6 +102,7 @@ var liste_des_exercices_disponibles = {
 		'5S20' : fonctions_probabilite1,
 		'4L10' : Exercice_developper,
 		'4L20' : Exercice_equation1,
+		'4M30' : Calcul_de_volumes_4e,		
 		'4N10': Exercice_additionner_des_fractions,
 		'4N11': Exercice_additionner_ou_soustraire_des_fractions,
 		'4N12': Exercice_trouver_l_inverse,
@@ -119,6 +120,7 @@ var liste_des_exercices_disponibles = {
 		'4G31' : Exercice_Trigo_angles_4e,
 		'4G20' : Thales_4eme,
 		'4G21' : Reciproque_Thales_4eme,
+		'3M30' : Calcul_de_volumes_3e,
 		'3N10': Exercice_developper,
 		'3N11' : Double_distributivite,
 		'3N12' : Developper_Identites_remarquables3,
@@ -5619,12 +5621,11 @@ function Calcul_de_volumes(){
 	this.nb_questions = 7;
 	this.nb_cols = 2;
 	this.nb_cols_corr = 2;
-	this.classe=3;
 	this.sup=1;
 	
 	let type_de_questions_disponibles
 	
-	this.nouvelle_version = function(){
+	this.nouvelle_version = function(numero_de_l_exercice){
 		console.log(this.classe)
 		if (this.classe == 6) type_de_questions_disponibles = [1,2]; // sixième : cube et pavé droit
 		else
@@ -5734,8 +5735,8 @@ function Calcul_de_volumes(){
 				case 7 : // boule
 						j=randint(0,3); // pour le choix de l'unité
 						r=randint(2,10);
-						texte=`Une boule de $${c}${liste_unites[j][0]}$ de rayon.`
-						texte_corr=`$\\mathcal{V}=\\dfrac{4}{3} \\times \\pi \\times r^3=\\dfrac{4}{3}\\times\\pi\\times\\left(${c}${liste_unites[j][0]}\\right)^3\\approx${tex_nombrec(arrondi(calcul(4*Math.PI*c*c*c/3),1))}${liste_unites[j][1]}$`
+						texte=`Une boule de $${r}${liste_unites[j][0]}$ de rayon.`
+						texte_corr=`$\\mathcal{V}=\\dfrac{4}{3} \\times \\pi \\times r^3=\\dfrac{4}{3}\\times\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^3\\approx${tex_nombrec(arrondi(calcul(4*Math.PI*r*r*r/3),1))}${liste_unites[j][1]}$`
 					break;
 
 
@@ -5753,7 +5754,7 @@ function Calcul_de_volumes(){
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : pas de conversion\n2 : avec conversion"];
 }
 
-// Exercices paramétré pour correspondre au référentiel
+// Exercices paramétrés pour correspondre au référentiel
 /**
  * Lire les coordonnées d'un point du quart de plan positif avec une précision allant de l'unité à 0,25.
  * @Auteur Jean-Claude Lhote
@@ -5795,21 +5796,27 @@ function Exercice_Trigo_angles_4e(){
 	Exercice_Trigo_angles.call(this);
 }
 
+function Calcul_de_volumes_6e(){
+	this.sup = 1;
+	this.classe = 6;
+	Calcul_de_volumes.call(this);
+}
+
 function Calcul_de_volumes_5e(){
-	this.sup=1;
-	this.classe=5;
+	this.sup = 1;
+	this.classe = 5;
 	Calcul_de_volumes.call(this);
 }
 
 function Calcul_de_volumes_4e(){
-	this.sup=1;
-	this.classe=4;
+	this.sup = 1;
+	this.classe = 4;
 	Calcul_de_volumes.call(this);
 }
 
 function Calcul_de_volumes_3e(){
-	this.sup=1;
-	this.classe=3;
+	this.sup = 1;
+	this.classe = 3;
 	Calcul_de_volumes.call(this);
 }
 
