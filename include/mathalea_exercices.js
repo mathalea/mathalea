@@ -5618,7 +5618,7 @@ function Calcul_de_volumes(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Calculs de volumes";
 	this.consigne = "Calculer en détaillant le volume des solides donnés";
-	this.nb_questions = 7;
+	this.nb_questions = 4;
 	this.nb_cols = 2;
 	this.nb_cols_corr = 2;
 	this.sup=1;
