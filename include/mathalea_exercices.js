@@ -5670,14 +5670,14 @@ function Calcul_de_volumes(){
 						r=randint(2,10);
 						h=randint(2,15);
 						texte=`Un cylindre de $${r}${liste_unites[j][0]}$ de rayon et de $${tex_nombre(h)}${liste_unites[j][0]}$ de hauteur.`
-						texte_corr=`$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${h}${liste_unites[j][0]}\\approx${tex_nombrec(arrondi(r*r*h*Math.PI,1))}${liste_unites[j][1]}$`
+						texte_corr=`$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${h}${liste_unites[j][0]}=${tex_nombrec(r*r*h)}\\pi${liste_unites[j][1]}\\approx${tex_nombrec(arrondi(r*r*h*Math.PI,1))}${liste_unites[j][1]}$`
 					}
 					else {
 						j=randint(2,3); // pour le choix de l'unité
 						r=randint(2,10);
 						h=randint(20,150);
 						texte=`Un cylindre de $${r}${liste_unites[j][0]}$ de rayon et de $${tex_nombrec(h/10)}${liste_unites[j-1][0]}$ de hauteur.`
-						texte_corr=`$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${h}${liste_unites[j-1][0]}\\approx${tex_nombrec(calcul(r*r*h*Math.PI,1))}${liste_unites[j][1]}$`
+						texte_corr=`$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${tex_nombrec(h/10)}${liste_unites[j-1][0]}=\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${h}${liste_unites[j][0]}=${tex_nombrec(r*r*h)}\\pi${liste_unites[j][1]}\\approx${tex_nombrec(calcul(r*r*h*Math.PI,1))}${liste_unites[j][1]}$`
 					}
 					break;
 				case 4 : // prisme droit
@@ -5695,7 +5695,7 @@ function Calcul_de_volumes(){
 						h=randint(30,50);
 						l=arrondi(randint(5,15)/10,1);
 						texte=`Un prisme droit de hauteur $${l}${liste_unites[j-1][0]}$ et dont les bases sont des triangles de base $${c}${liste_unites[j][0]}$ et de hauteur correspondante $${h}${liste_unites[j+1][0]}$.`
-						texte_corr=`$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${c}${liste_unites[j][0]}\\times${h}${liste_unites[j+1][0]}}{2}\\times${l}${liste_unites[j-1][0]}=\\dfrac{${c}${liste_unites[j][0]}\\times${calcul(h/10)}${liste_unites[j][0]}}{2}\\times${l*10}${liste_unites[j][0]}${tex_nombrec(arrondi(calcul(c*h*l/2),1))}${liste_unites[j][1]}$`
+						texte_corr=`$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${c}${liste_unites[j][0]}\\times${h}${liste_unites[j+1][0]}}{2}\\times${tex_nombrec(l)}${liste_unites[j-1][0]}=\\dfrac{${c}${liste_unites[j][0]}\\times${tex_nombrec(calcul(h/10))}${liste_unites[j][0]}}{2}\\times${l*10}${liste_unites[j][0]}=${tex_nombrec(calcul(c*h*l/2))}${liste_unites[j][1]}$`
 						}
 					break;
 				case 5 : // cone
@@ -5704,14 +5704,14 @@ function Calcul_de_volumes(){
 						r=randint(2,10);
 						h=randint(2,15);
 						texte=`Un cône de $${r}${liste_unites[j][0]}$ de rayon et de $${tex_nombre(h)}${liste_unites[j][0]}$ de hauteur.`
-						texte_corr=`$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${h}${liste_unites[j][0]}\\approx${tex_nombrec(arrondi(r*r*h*Math.PI/3))}${liste_unites[j][1]}$`
+						texte_corr=`$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${h}${liste_unites[j][0]}=${tex_fraction(r*r*h,3)}\\pi${liste_unites[j][1]}\\approx${tex_nombrec(arrondi(r*r*h*Math.PI/3))}${liste_unites[j][1]}$`
 					}
 					else {
 						j=randint(2,3); // pour le choix de l'unité
 						r=randint(2,10);
 						h=randint(20,150);
 						texte=`Un cône de $${r}${liste_unites[j][0]}$ de rayon et de $${tex_nombrec(h/10)}${liste_unites[j-1][0]}$ de hauteur.`
-						texte_corr=`$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${tex_nombrec(h)}${liste_unites[j-1][0]}\\approx${tex_nombrec(calcul(r*r*h*Math.PI/3,1))}${liste_unites[j][1]}$`
+						texte_corr=`$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${tex_nombrec(calcul(h/10))}${liste_unites[j-1][0]}=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${tex_nombrec(h)}${liste_unites[j][0]}=${tex_fraction(r*r*h,3)}\\pi\\approx${tex_nombrec(calcul(r*r*h*Math.PI/3,1))}${liste_unites[j][1]}$`
 					}
 					break;
 				case 6 : // pyramide
@@ -5736,7 +5736,7 @@ function Calcul_de_volumes(){
 						j=randint(0,3); // pour le choix de l'unité
 						r=randint(2,10);
 						texte=`Une boule de $${r}${liste_unites[j][0]}$ de rayon.`
-						texte_corr=`$\\mathcal{V}=\\dfrac{4}{3} \\times \\pi \\times r^3=\\dfrac{4}{3}\\times\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^3\\approx${tex_nombrec(arrondi(calcul(4*Math.PI*r*r*r/3),1))}${liste_unites[j][1]}$`
+						texte_corr=`$\\mathcal{V}=\\dfrac{4}{3} \\times \\pi \\times R^3=\\dfrac{4}{3}\\times\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^3=${tex_fraction(calcul(4*r*r*r),3)}\\pi${liste_unites[j][1]}\\approx${tex_nombrec(arrondi(calcul(4*Math.PI*r*r*r/3),1))}${liste_unites[j][1]}$`
 					break;
 
 
