@@ -5626,7 +5626,6 @@ function Calcul_de_volumes(){
 	let type_de_questions_disponibles
 	
 	this.nouvelle_version = function(numero_de_l_exercice){
-		console.log(this.classe)
 		if (this.classe == 6) type_de_questions_disponibles = [1,2]; // sixième : cube et pavé droit
 		else
 			if (this.classe == 5) type_de_questions_disponibles = [1,2,3,4]; // cinquième : on ajoute les prismes et le cylindre 
