@@ -5616,22 +5616,22 @@ function Calcul_de_volumes(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Calculs de volumes";
 	this.consigne = "Calculer en détaillant le volume des solides donnés";
-	this.nb_questions = 5;
+	this.nb_questions = 7;
 	this.nb_cols = 2;
 	this.nb_cols_corr = 2;
-	this.classe=6;
+	this.classe=3;
 	this.sup=1;
 	
 	let type_de_questions_disponibles
 	
 	this.nouvelle_version = function(){
-
+		console.log(this.classe)
 		if (this.classe == 6) type_de_questions_disponibles = [1,2]; // sixième : cube et pavé droit
 		else
 			if (this.classe == 5) type_de_questions_disponibles = [1,2,3,4]; // cinquième : on ajoute les prismes et le cylindre 
 			else 
 				if (this.classe == 4) type_de_questions_disponibles = [1,2,3,4,5,6]; // Quatrième : on ajoute pyramides et cones
-				else type_de_questions_disponibles = [1,2,3,4,5,6,7,8]; // Troisième : on ajoute les boules.
+				else type_de_questions_disponibles = [1,2,3,4,5,6,7]; // Troisième : on ajoute les boules.
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		
 		this.liste_questions = []; // Liste de questions
@@ -5643,7 +5643,7 @@ function Calcul_de_volumes(){
 					c=randint(2,10);
 					j=randint(0,3); // pour le choix de l'unité
 					texte=`Un cube de $${c} ${liste_unites[j][0]}$ d'arête.`
-					texte_corr = `$\\mathcal{V}=${c}${liste_unites[j][0]}\\times${c}${liste_unites[j][0]}\\times${c}${liste_unites[j][0]}=${c*c*c}${liste_unites[j][1]}$`;
+					texte_corr = `$\\mathcal{V}= c^3 =c \\times c \\times c = ${c}${liste_unites[j][0]}\\times${c}${liste_unites[j][0]}\\times${c}${liste_unites[j][0]}=${tex_nombrec(c*c*c)}${liste_unites[j][1]}$`;
 					break;
 				case 2 : // pavé droit
 					if (this.sup==1) { //sans conversion
@@ -5652,7 +5652,7 @@ function Calcul_de_volumes(){
 						h=randint(3,6);
 						L=randint(6,10);
 						texte=`Un pavé droit de $${l}${liste_unites[j][0]}$ de largeur, de $${L}${liste_unites[j][0]}$ de longueur et de $${h}${liste_unites[j][0]}$ de hauteur.`
-						texte_corr=`$\\mathcal{V}=${l}${liste_unites[j][0]}\\times${L}${liste_unites[j][0]}\\times${h}${liste_unites[j][0]}=${l*L*h}${liste_unites[j][1]}$`
+						texte_corr=`$\\mathcal{V}= l \\times L \\times h = ${l}${liste_unites[j][0]}\\times${L}${liste_unites[j][0]}\\times${h}${liste_unites[j][0]}=${tex_nombrec(l*L*h)}${liste_unites[j][1]}$`
 					}
 					else { // avec conversion
 						j=randint(1,2); // pour le choix de l'unité	centrale
@@ -5660,7 +5660,7 @@ function Calcul_de_volumes(){
 						h=randint(3,6)*10;
 						L=arrondi(randint(6,10)/10,1);
 						texte=`Un pavé droit de $${l}${liste_unites[j][0]}$ de largeur, de $${tex_nombre(L)}${liste_unites[j-1][0]}$ de longueur et de $${h}${liste_unites[j+1][0]}$ de hauteur.`
-						texte_corr=`$\\mathcal{V}=${l}${liste_unites[j][0]}\\times${tex_nombre(L)}${liste_unites[j-1][0]}\\times${h}${liste_unites[j+1][0]}=${l}${liste_unites[j][0]}\\times${L*10}${liste_unites[j][0]}\\times${h/10}${liste_unites[j][0]}=${arrondi(l*L*h)}${liste_unites[j][1]}$`
+						texte_corr=`$\\mathcal{V}= l \\times L \\times h = ${l}${liste_unites[j][0]}\\times${tex_nombre(L)}${liste_unites[j-1][0]}\\times${h}${liste_unites[j+1][0]}=${l}${liste_unites[j][0]}\\times${L*10}${liste_unites[j][0]}\\times${h/10}${liste_unites[j][0]}=${tex_nombrec(arrondi(l*L*h))}${liste_unites[j][1]}$`
 					}
 					break;
 				case 3 : // Cylindre
@@ -5669,14 +5669,14 @@ function Calcul_de_volumes(){
 						r=randint(2,10);
 						h=randint(2,15);
 						texte=`Un cylindre de $${r}${liste_unites[j][0]}$ de rayon et de $${tex_nombre(h)}${liste_unites[j][0]}$ de hauteur.`
-						texte_corr=`$\\mathcal{V}=\\pi\\times${r}${liste_unites[j][0]}\\times${r}${liste_unites[j][0]}\\times${h}${liste_unites[j][0]}=${arrondi(r*r*h*Math.PI)}${liste_unites[j][1]}$`
+						texte_corr=`$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${h}${liste_unites[j][0]}\\approx${tex_nombrec(arrondi(r*r*h*Math.PI,1))}${liste_unites[j][1]}$`
 					}
 					else {
 						j=randint(2,3); // pour le choix de l'unité
 						r=randint(2,10);
 						h=randint(20,150);
 						texte=`Un cylindre de $${r}${liste_unites[j][0]}$ de rayon et de $${tex_nombrec(h/10)}${liste_unites[j-1][0]}$ de hauteur.`
-						texte_corr=`$\\mathcal{V}=\\pi\\times${r}${liste_unites[j][0]}\\times${r}${liste_unites[j][0]}\\times${tex_nombrec(h/10)}${liste_unites[j-1][0]}=${tex_nombrec(calcul(r*r*h*Math.PI,1))}${liste_unites[j][1]}$`
+						texte_corr=`$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${h}${liste_unites[j-1][0]}\\approx${tex_nombrec(calcul(r*r*h*Math.PI,1))}${liste_unites[j][1]}$`
 					}
 					break;
 				case 4 : // prisme droit
@@ -5686,7 +5686,7 @@ function Calcul_de_volumes(){
 						h=randint(2,5);
 						l=randint(6,10);
 						texte=`Un prisme droit de hauteur $${l}${liste_unites[j][0]}$ et dont les bases sont des triangles de base $${c}${liste_unites[j][0]}$ et de hauteur correspondante $${h}${liste_unites[j][0]}$.`
-						texte_corr=`$\\mathcal{V}=\\dfrac{${c}${liste_unites[j][0]}\\times${h}${liste_unites[j][0]}}{2}\\times${l}${liste_unites[j][0]}=${arrondi(calcul(c*h*l/2),1)}${liste_unites[j][1]}$`
+						texte_corr=`$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${c}${liste_unites[j][0]}\\times${h}${liste_unites[j][0]}}{2}\\times${l}${liste_unites[j][0]}=${tex_nombrec(arrondi(calcul(c*h*l/2),1))}${liste_unites[j][1]}$`
 					}
 					else {
 						j=randint(1,2); // pour le choix de l'unité
@@ -5694,9 +5694,52 @@ function Calcul_de_volumes(){
 						h=randint(30,50);
 						l=arrondi(randint(5,15)/10,1);
 						texte=`Un prisme droit de hauteur $${l}${liste_unites[j-1][0]}$ et dont les bases sont des triangles de base $${c}${liste_unites[j][0]}$ et de hauteur correspondante $${h}${liste_unites[j+1][0]}$.`
-						texte_corr=`$\\mathcal{V}=\\dfrac{${c}${liste_unites[j][0]}\\times${h}${liste_unites[j+1][0]}}{2}\\times${l}${liste_unites[j-1][0]}=\\dfrac{${c}${liste_unites[j][0]}\\times${calcul(h/10)}${liste_unites[j][0]}}{2}\\times${l*10}${liste_unites[j][0]}${arrondi(calcul(c*h*l/2),1)}${liste_unites[j][1]}$`
+						texte_corr=`$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${c}${liste_unites[j][0]}\\times${h}${liste_unites[j+1][0]}}{2}\\times${l}${liste_unites[j-1][0]}=\\dfrac{${c}${liste_unites[j][0]}\\times${calcul(h/10)}${liste_unites[j][0]}}{2}\\times${l*10}${liste_unites[j][0]}${tex_nombrec(arrondi(calcul(c*h*l/2),1))}${liste_unites[j][1]}$`
 						}
 					break;
+				case 5 : // cone
+					if (this.sup==1) { //sans conversion
+						j=randint(0,3); // pour le choix de l'unité
+						r=randint(2,10);
+						h=randint(2,15);
+						texte=`Un cône de $${r}${liste_unites[j][0]}$ de rayon et de $${tex_nombre(h)}${liste_unites[j][0]}$ de hauteur.`
+						texte_corr=`$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${h}${liste_unites[j][0]}\\approx${tex_nombrec(arrondi(r*r*h*Math.PI/3))}${liste_unites[j][1]}$`
+					}
+					else {
+						j=randint(2,3); // pour le choix de l'unité
+						r=randint(2,10);
+						h=randint(20,150);
+						texte=`Un cône de $${r}${liste_unites[j][0]}$ de rayon et de $${tex_nombrec(h/10)}${liste_unites[j-1][0]}$ de hauteur.`
+						texte_corr=`$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${tex_nombrec(h)}${liste_unites[j-1][0]}\\approx${tex_nombrec(calcul(r*r*h*Math.PI/3,1))}${liste_unites[j][1]}$`
+					}
+					break;
+				case 6 : // pyramide
+				if (this.sup==1) { //sans conversion
+					j=randint(0,3); // pour le choix de l'unité
+					c=randint(2,10);
+					h=randint(2,5);
+					l=randint(6,10);
+					texte=`Une pyramide de hauteur $${h}${liste_unites[j][0]}$ et dont la base  est un carré de $${c}${liste_unites[j][0]}$ de côté.`
+					texte_corr=`$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\left(${c}${liste_unites[j][0]}\\right)^2\\times${h}${liste_unites[j][0]}=\\approx${tex_nombrec(arrondi(calcul(c*c*h/3),1))}${liste_unites[j][1]}$`
+				}
+				else {
+					j=randint(1,2); // pour le choix de l'unité
+					c=randint(2,10);
+					h=randint(30,50);
+					l=arrondi(randint(5,15)/10,1);
+					texte=`Une pyramide de hauteur $${tex_nombrec(h/10)}${liste_unites[j-1][0]}$ et dont la base  est un carré de $${c}${liste_unites[j][0]}$ et de hauteur correspondante $${h}${liste_unites[j+1][0]}$.`
+					texte_corr=`$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\left(${c}${liste_unites[j][0]}\\right)^2\\times${tex_nombrec(h)}${liste_unites[j-1][0]}=\\dfrac{1}{3}\\times${c}${liste_unites[j][0]}^2\\times${tex_nombrec(h/10)}${liste_unites[j][0]}\\approx${tex_nombrec(arrondi(calcul(c*h*c/3),1))}${liste_unites[j][1]}$`
+					}
+				break;
+				case 7 : // boule
+						j=randint(0,3); // pour le choix de l'unité
+						r=randint(2,10);
+						texte=`Une boule de $${c}${liste_unites[j][0]}$ de rayon.`
+						texte_corr=`$\\mathcal{V}=\\dfrac{4}{3} \\times \\pi \\times r^3=\\dfrac{4}{3}\\times\\pi\\times\\left(${c}${liste_unites[j][0]}\\right)^3\\approx${tex_nombrec(arrondi(calcul(4*Math.PI*c*c*c/3),1))}${liste_unites[j][1]}$`
+					break;
+
+
+
 			}
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
