@@ -2395,7 +2395,9 @@ function katex_Popup(texte,titrePopup,textePopup) {
  */	
 function num_alpha(k) {
 	'use strict';
-	return '<span style="color:#f15929; font-weight:bold">'+String.fromCharCode(97+k)+'/</span>';
+	console.log(sortie_html)
+	if (sortie_html) return '<span style="color:#f15929; font-weight:bold">'+String.fromCharCode(97+k)+'/</span>';
+	else return '\\textcolor [HTML] {f15929} {'+String.fromCharCode(97+k)+'/}';
 };
 
  /**

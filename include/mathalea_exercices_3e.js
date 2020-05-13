@@ -10,11 +10,11 @@ function fonctions_probabilite2(){
 	this.titre = "Calculer des probabilités dans une expérience aléatoire à deux épreuves";
 	this.consigne = "";
 	this.nb_questions = 2;
-	this.nb_questions_modifiable = false;
+	this.nb_questions_modifiable = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
-	sortie_html? this.spacing = 2 : this.spacing = 1; 
-	sortie_html? this.spacing_corr = 3 : this.spacing_corr = 1;
+	sortie_html? this.spacing = 2 : this.spacing = 1.5; 
+	sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
 	this.sup=1;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
@@ -24,7 +24,7 @@ function fonctions_probabilite2(){
 		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions)
 		let qualites=[[]];
 		let Initiale=[];
-		let Couleurs=[`red`,`green`,`blue`,`grey`,`brown`,`orange`,`magenta`,`pink`,`black`,`lightgray`];
+		let Couleurs=[`red`,`green`,`blue`,`gray`,`brown`,`orange`,`magenta`,`pink`,`black`,`lightgray`];
 		qualites[0]=['à la fraise','à la vanille','à l\'abricot','à la cerise','à la banane'];
 		qualites[1]=['trèfle','carreau','coeur','pique'];
 		qualites[2]=['rouges','vertes','bleues','noires','blanches'];
@@ -279,7 +279,7 @@ function fonctions_probabilite2(){
 						trouve=false;
 						for(let j=r-2;j>=0;j--){
 							if (p2[j]<0) {
-								texte_corr+=num_alpha(2)+` ${quidam} aurait du choisir ${j+2} comme nombre cible. sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j+2)%10]}}{${tex_fraction(fra1[j],p1[0])}}${simplification_de_fraction_avec_etapes(fra1[j],p1[0])}$ et celle de ${quidame} serait de $\\textcolor {${Couleurs[(j+2)%10]}}{${tex_fraction(fra2[j],p1[1])}}${simplification_de_fraction_avec_etapes(fra2[j],p1[1])}$.<br>`
+								texte_corr+=num_alpha(2)+` ${quidam} aurait du choisir ${j+2} comme nombre cible.<br> Sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j+2)%10]}}{${tex_fraction(fra1[j],p1[0])}}${simplification_de_fraction_avec_etapes(fra1[j],p1[0])}$ et celle de ${quidame} serait de $\\textcolor {${Couleurs[(j+2)%10]}}{${tex_fraction(fra2[j],p1[1])}}${simplification_de_fraction_avec_etapes(fra2[j],p1[1])}$.<br>`
 								trouve=true;
 							}
 							if (trouve==true) break;
@@ -312,7 +312,7 @@ function fonctions_probabilite2(){
 						trouve=false;
 						for(let j=r-2;j>=0;j--){
 							if (p2[j]<0) {
-								texte_corr+=num_alpha(2)+` ${quidam} aurait du choisir ${j+2} comme nombre cible. sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j+2)%10]}}{${tex_fraction(fra1[j],p1[0])}}${simplification_de_fraction_avec_etapes(fra1[j],p1[0])}$ et celle de ${quidame} serait de $\\textcolor {${Couleurs[(j+2)%10]}}{${tex_fraction(fra2[j],p1[1])}}${simplification_de_fraction_avec_etapes(fra2[j],p1[1])}$.<br>`
+								texte_corr+=num_alpha(2)+` ${quidam} aurait du choisir ${j+2} comme nombre cible.<br> Sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j+2)%10]}}{${tex_fraction(fra1[j],p1[0])}}${simplification_de_fraction_avec_etapes(fra1[j],p1[0])}$ et celle de ${quidame} serait de $\\textcolor {${Couleurs[(j+2)%10]}}{${tex_fraction(fra2[j],p1[1])}}${simplification_de_fraction_avec_etapes(fra2[j],p1[1])}$.<br>`
 								trouve=true;
 							}
 							if (trouve==true) break;
@@ -335,7 +335,7 @@ function fonctions_probabilite2(){
 							if (trouve==true) break;
 						}
 						if (trouve==false) {
-							texte_corr+=num_alpha(3)+` Il n'existe pas de choix qui permette à ${quidam}et à ${quidame} d'avoir la même probabilité de gagner car `;
+							texte_corr+=num_alpha(3)+` Il n'existe pas de choix qui permette à ${quidam}et à ${quidame} d'avoir la même probabilité de gagner car : <br>`;
 							for (let j=2;j<r/2;j++) {
 								texte_corr+=`$\\textcolor {${Couleurs[(j)%10]}}{${tex_fraction(fra1[j-2],p1[0])}}\\ne \\textcolor {${Couleurs[(j)%10]}}{${tex_fraction(fra2[j-2],p1[1])}}$ ; `;
 							}
