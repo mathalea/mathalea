@@ -4013,7 +4013,7 @@ function Pourcentage_d_un_nombre(){
 	this.nb_questions = 5;
 	this.consigne = "Calculer"
 	this.spacing = 2;
-	this.spacing_corr = 3;
+	this.spacing_corr = 3.5;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1; 
 
@@ -4027,13 +4027,12 @@ function Pourcentage_d_un_nombre(){
 			n = choice([randint(2,9),randint(2,9)*10,randint(1,9)*10+randint(1,2)]); 
 			texte = `$${p}~\\%~\\text{de }${n}$`;
 			if (p==50) {
-			texte_corr = `$${p}~\\%~\\text{de }${n}=${tex_fraction(1,2)}\\times${n}=${tex_nombre(Algebrite.eval(n/2))}\\phantom {Blanc}$ ou`	
-			texte_corr += `$\\phantom {Blanc}${p}~\\%~\\text{de }${n}=${tex_fraction(n,2)}=${tex_nombre(Algebrite.eval(n/2))}$<br>`	
+			texte_corr = `$${p}~\\%~\\text{de }${n}=${tex_fraction(1,2)}\\times${n}=${tex_nombre(Algebrite.eval(n/2))}`	
 			} else {
-			texte_corr = `Méthode 1 : $${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=(${p}\\times${n})\\div100=${tex_nombre(p*n)}\\div100=${tex_nombre(Algebrite.eval(p*n/100))}\\phantom {Blanc}$ ou `	
-			texte_corr += `$\\phantom {Blanc}${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=\\dfrac{${p}\\times${n}}{100}=${tex_fraction(p*n,100)}=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`					
-			texte_corr += `Méthode 2 : $${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=(${n}\\div100)\\times${p}=${tex_nombrec(calcul(n/100))}\\times${p}=${tex_nombre(Algebrite.eval(p*n/100))}\\phantom {Blanc}$ ou`				
-			texte_corr += `$\\phantom {Blanc}${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=${tex_fraction(n,100)}\\times${p}=${tex_nombrec(calcul(n/100))}\\times${p}=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`				
+			texte_corr = `Méthode 1 : $${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=(${p}\\times${n})\\div100=${tex_nombre(p*n)}\\div100=${tex_nombre(Algebrite.eval(p*n/100))}`	
+	//		texte_corr += `$\\phantom {Blanc}${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=\\dfrac{${p}\\times${n}}{100}=${tex_fraction(p*n,100)}=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`					
+			texte_corr += `Méthode 2 : $${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=(${n}\\div100)\\times${p}=${tex_nombrec(calcul(n/100))}\\times${p}=${tex_nombre(Algebrite.eval(p*n/100))}`				
+	//		texte_corr += `$\\phantom {Blanc}${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=${tex_fraction(n,100)}\\times${p}=${tex_nombrec(calcul(n/100))}\\times${p}=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`				
 			texte_corr += `Méthode 3 : $${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=${tex_nombrec(calcul(p/100))}\\times${n}=${tex_nombre(Algebrite.eval(p*n/100))}$`				
 				
 		}
@@ -4110,9 +4109,11 @@ function Fraction_d_un_nombre(max=11){
 	this.titre = "Calculer la fraction d'un nombre"
 	this.nb_questions = 5;
 	this.consigne = "Calculer"
-	this.spacing = 2;
-	this.spacing_corr = 3;
+	sortie_html ? this.spacing_corr = 3.5 : this.spacing_corr = 2;
+	sortie_html ? this.spacing = 2 : this.spacing = 2;
 	this.sup = max;
+	this.nb_cols = 2;
+	this.nb_cols_corr = 1; 
 
 	 this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
@@ -4121,23 +4122,29 @@ function Fraction_d_un_nombre(max=11){
 		[1,6],[5,6],[1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[1,8],[3,8],[5,8],[7,8],
 		[1,9],[2,9],[4,9],[5,9],[7,9],[8,9],[1,10],[3,10],[7,10],[9,10]] // Couples de nombres premiers entre eux
 
-		 for (let i = 0, a, b, k, n, fraction, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt<50;){
+		 for (let i = 0, a, b, k, n,j, fraction, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt<50;){
 			fraction = choice(liste_fractions);
 			a = fraction[0];
 			b = fraction[1];
 			k = randint(1,this.sup);
-			n = b*k; 
+			if (randint(0,2)<2) n = b*k;
+			else n=randint(10,b*11);
 			texte = `$${tex_fraction(a,b)}\\times${n}=$`;
-			if (a==1){
-				texte_corr = `$${tex_fraction(a,b)}\\times${n}=${n}\\div${b}=${Algebrite.eval(n/b)}$`;	      
-			} else {
-				texte_corr = `Méthode 1 : $${tex_fraction(a,b)}\\times${n}=(${n}\\div${b})\\times${a}=${Algebrite.eval(n/b)}\\times${a}=${Algebrite.eval(n/b*a)}$<br>`;
-				texte_corr += `Méthode 2 : $${tex_fraction(a,b)}\\times${n}=(${n}\\times${a})\\div${b}=${Algebrite.eval(n*a)}\\div${b}=${Algebrite.eval(n/b*a)}$<br>`;
-				if (b==2||b==4||b==5||b==8||b==10) texte_corr+= `Méthode 3 : $${tex_fraction(a,b)}\\times${n}=(${a}\\div${b})\\times${n}=${tex_nombrec(Algebrite.eval(a/b))}\\times${n}=${Algebrite.eval(n/b*a)}$`;
+			texte_corr=``;
+			//if (a==1){
+			//	texte_corr += `$${tex_fraction(a,b)}\\times${n}=${n}\\div${b}=${tex_nombrec(Algebrite.eval(n/b))}$`;	      
+			//} else {
+			if (calcul(n/b-arrondi(n/b,4))==0) {
+				texte_corr +=`$${tex_fraction(a,b)}\\times${n}=(${n}\\div${b})\\times${a}=${Algebrite.eval(n/b)}\\times${a}=${tex_nombrec(Algebrite.eval(n/b*a))}$<br>`;
 			}
-
-
-			 if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+			if (calcul(n*a/b-arrondi(n*a/b,4))==0) {
+				texte_corr += ` $${tex_fraction(a,b)}\\times${n}=(${n}\\times${a})\\div${b}=${Algebrite.eval(n*a)}\\div${b}=${tex_nombrec(Algebrite.eval(n/b*a))}$<br>`;
+			}
+			else {
+				texte_corr +=` $${tex_fraction(a,b)}\\times${n}=(${n}\\times${a})\\div${b}=${Algebrite.eval(n*a)}\\div${b}=${tex_fraction(n*a,b)}$<br>`;
+			}
+			if (b==2||b==4||b==5||b==8||b==10) texte_corr += ` $${tex_fraction(a,b)}\\times${n}=(${a}\\div${b})\\times${n}=${tex_nombrec(Algebrite.eval(a/b))}\\times${n}=${tex_nombrec(Algebrite.eval(n/b*a))}$`;
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
 				i++;
