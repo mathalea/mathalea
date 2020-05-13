@@ -3966,7 +3966,7 @@ function Comparer_decimaux(){
 * Calculer 10, 20, 30, 40 ou 50% d'un nombre
 * @Auteur Rémi Angot
 */
-function Pourcentage_d_un_nombre(){
+function Pourcentage_d_un_nombre_bis(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Calculer le pourcentage d'un nombre de tête"
 	this.nb_questions = 5;
@@ -3990,6 +3990,52 @@ function Pourcentage_d_un_nombre(){
 			} else {
 			texte_corr = `$${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=(${p}\\times${n})\\div100=${tex_nombre(p*n)}\\div100=${tex_nombre(Algebrite.eval(p*n/100))}$`				
 			}
+			
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;
+		}
+		liste_de_question_to_contenu(this);
+	}
+	this.besoin_formulaire_numerique = ['Valeur maximale',99999];	
+}
+/**
+* Calculer 10, 20, 30, 40 ou 50% d'un nombre
+* @Auteur Rémi Angot
+*/
+function Pourcentage_d_un_nombre(){
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Calculer le pourcentage d'un nombre de tête"
+	this.nb_questions = 5;
+	this.consigne = "Calculer"
+	this.spacing = 2;
+	this.spacing_corr = 3;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1; 
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		liste_pourcentages = [10,20,30,40,50];
+
+		for (let i = 0, p, n, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt<50;){
+			p = choice(liste_pourcentages)
+			n = choice([randint(2,9),randint(2,9)*10,randint(1,9)*10+randint(1,2)]); 
+			texte = `$${p}~\\%~\\text{de }${n}$`;
+			if (p==50) {
+			texte_corr = `$${p}~\\%~\\text{de }${n}=${tex_fraction(1,2)}\\times${n}=${tex_nombre(Algebrite.eval(n/2))}$<br>`		
+			texte_corr += `Ou $${p}~\\%~\\text{de }${n}=${tex_fraction(n,2)}=${tex_nombre(Algebrite.eval(n/2))}$<br>`	
+			} else {
+			texte_corr = `Méthode 1 : $${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=(${p}\\times${n})\\div100=${tex_nombre(p*n)}\\div100=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`	
+			texte_corr += `Méthode 1 : $${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=\\dfrac{${p}\\times${n}}{100}=${tex_fraction(p*n,100)}=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`					
+			texte_corr += `Méthode 2 : $${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=${tex_fraction(n,100)}\\times${p}=${tex_nombrec(calcul(n/100))}\\times${p}=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`				
+			texte_corr += `Méthode 3 : $${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=\\dfrac{${p}\\times${n}}{100}=${tex_fraction(p*n,100)}=${tex_nombre(Algebrite.eval(p*n/100))}$`				
+			
+		}
 			
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
