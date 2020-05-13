@@ -4010,7 +4010,7 @@ function Pourcentage_d_un_nombre(){
 * Par défaut la division du nombre par le dénominateur est inférieure à 11
 * @Auteur Rémi Angot
 */
-function Fraction_d_un_nombre(max=11){
+function Fraction_d_un_nombre_bis(max=11){
  	Exercice.call(this); // Héritage de la classe Exercice()
  	this.titre = "Calculer la fraction d'un nombre"
  	this.nb_questions = 5;
@@ -4051,6 +4051,56 @@ function Fraction_d_un_nombre(max=11){
  	}
  	this.besoin_formulaire_numerique = ['Valeur maximale',99999];	
  }
+
+/**
+* Calculer la fracton d'un nombre divisible par le dénominateur
+*
+* Par défaut la division du nombre par le dénominateur est inférieure à 11
+* @Auteur Rémi Angot
+*/
+function Fraction_d_un_nombre(max=11){
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Calculer la fraction d'un nombre"
+	this.nb_questions = 5;
+	this.consigne = "Calculer"
+	this.spacing = 2;
+	this.spacing_corr = 3;
+	this.sup = max;
+
+	 this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
+		[1,6],[5,6],[1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[1,8],[3,8],[5,8],[7,8],
+		[1,9],[2,9],[4,9],[5,9],[7,9],[8,9],[1,10],[3,10],[7,10],[9,10]] // Couples de nombres premiers entre eux
+
+		 for (let i = 0, a, b, k, n, fraction, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt<50;){
+			fraction = choice(liste_fractions);
+			a = fraction[0];
+			b = fraction[1];
+			k = randint(1,this.sup);
+			n = b*k; 
+			texte = `$${tex_fraction(a,b)}\\times${n}=$`;
+			if (a==1){
+				texte_corr = `$${tex_fraction(a,b)}\\times${n}=${n}\\div${b}=${Algebrite.eval(n/b)}$`;	      
+			} else {
+				texte_corr = `Méthode 1 : $${tex_fraction(a,b)}\\times${n}=(${n}\\div${b})\\times${a}=${Algebrite.eval(n/b)}\\times${a}=${Algebrite.eval(n/b*a)}$<br>`;
+				texte_corr += `Méthode 2 : $${tex_fraction(a,b)}\\times${n}=(${n}\\times${a})\\div${b}=${Algebrite.eval(n*a)}\\div${b}=${Algebrite.eval(n/b*a)}$<br>`;
+				if (b==2||b==4||b==5||b==8||b==10) texte_corr+= `Méthode 3 : $${tex_fraction(a,b)}\\times${n}=(${a}\\div${b})\\times${n}=${tex_nombrec(Algebrite.eval(a/b))}\\times${n}=${Algebrite.eval(n/b*a)}$`;
+			}
+
+
+			 if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;
+		}
+		liste_de_question_to_contenu(this);
+	}
+	this.besoin_formulaire_numerique = ['Valeur maximale',99999];	
+}
 
 
 /**
