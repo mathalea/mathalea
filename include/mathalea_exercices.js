@@ -5619,8 +5619,8 @@ function Calcul_de_volumes(){
 	this.titre = "Calculs de volumes";
 	this.consigne = "Calculer en détaillant le volume des solides donnés";
 	this.nb_questions = 4;
-	this.nb_cols = 2;
-	this.nb_cols_corr = 2;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
 	this.sup=1;
 	
 	let type_de_questions_disponibles
