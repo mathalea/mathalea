@@ -3966,7 +3966,7 @@ function Comparer_decimaux(){
 * Calculer 10, 20, 30, 40 ou 50% d'un nombre
 * @Auteur Rémi Angot
 */
-function Pourcentage_d_un_nombre(){
+function Pourcentage_d_un_nombre_bis(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Calculer le pourcentage d'un nombre de tête"
 	this.nb_questions = 5;
@@ -4007,7 +4007,7 @@ function Pourcentage_d_un_nombre(){
 * Calculer 10, 20, 30, 40 ou 50% d'un nombre
 * @Auteur Rémi Angot
 */
-function Pourcentage_d_un_nombre_bis(){
+function Pourcentage_d_un_nombre(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Calculer le pourcentage d'un nombre de tête"
 	this.nb_questions = 5;
@@ -4027,13 +4027,13 @@ function Pourcentage_d_un_nombre_bis(){
 			n = choice([randint(2,9),randint(2,9)*10,randint(1,9)*10+randint(1,2)]); 
 			texte = `$${p}~\\%~\\text{de }${n}$`;
 			if (p==50) {
-			texte_corr = `$${p}~\\%~\\text{de }${n}=${tex_fraction(1,2)}\\times${n}=${tex_nombre(Algebrite.eval(n/2))}`	
+			texte_corr = `$${p}~\\%~\\text{de }${n}=${tex_fraction(1,2)}\\times${n}=${tex_nombre(Algebrite.eval(n/2))}$`	
 			} else {
-			texte_corr = `Méthode 1 : $${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=(${p}\\times${n})\\div100=${tex_nombre(p*n)}\\div100=${tex_nombre(Algebrite.eval(p*n/100))}`	
+			texte_corr = `$${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=(${p}\\times${n})\\div100=${tex_nombre(p*n)}\\div100=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`	
 	//		texte_corr += `$\\phantom {Blanc}${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=\\dfrac{${p}\\times${n}}{100}=${tex_fraction(p*n,100)}=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`					
-			texte_corr += `Méthode 2 : $${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=(${n}\\div100)\\times${p}=${tex_nombrec(calcul(n/100))}\\times${p}=${tex_nombre(Algebrite.eval(p*n/100))}`				
+			if (this.sup2) texte_corr += `$${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=(${n}\\div100)\\times${p}=${tex_nombrec(calcul(n/100))}\\times${p}=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`				
 	//		texte_corr += `$\\phantom {Blanc}${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=${tex_fraction(n,100)}\\times${p}=${tex_nombrec(calcul(n/100))}\\times${p}=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`				
-			texte_corr += `Méthode 3 : $${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=${tex_nombrec(calcul(p/100))}\\times${n}=${tex_nombre(Algebrite.eval(p*n/100))}$`				
+			if (this.sup2) texte_corr += `$${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=${tex_nombrec(calcul(p/100))}\\times${n}=${tex_nombre(Algebrite.eval(p*n/100))}$`				
 				
 		}
 			
@@ -4048,6 +4048,7 @@ function Pourcentage_d_un_nombre_bis(){
 		liste_de_question_to_contenu(this);
 	}
 	this.besoin_formulaire_numerique = ['Valeur maximale',99999];	
+	this.besoin_formulaire2_case_a_cocher = ['Plusieurs méthodes'];
 }
 
 /**
@@ -4112,6 +4113,7 @@ function Fraction_d_un_nombre(max=11){
 	sortie_html ? this.spacing_corr = 3.5 : this.spacing_corr = 2;
 	sortie_html ? this.spacing = 2 : this.spacing = 2;
 	this.sup = max;
+	this.sup2 = false;
 	this.nb_cols = 2;
 	this.nb_cols_corr = 1; 
 
@@ -4131,19 +4133,20 @@ function Fraction_d_un_nombre(max=11){
 			else n=randint(10,b*11);
 			texte = `$${tex_fraction(a,b)}\\times${n}=$`;
 			texte_corr=``;
-			//if (a==1){
-			//	texte_corr += `$${tex_fraction(a,b)}\\times${n}=${n}\\div${b}=${tex_nombrec(Algebrite.eval(n/b))}$`;	      
-			//} else {
-			if (calcul(n/b-arrondi(n/b,4))==0) {
-				texte_corr +=`$${tex_fraction(a,b)}\\times${n}=(${n}\\div${b})\\times${a}=${Algebrite.eval(n/b)}\\times${a}=${tex_nombrec(Algebrite.eval(n/b*a))}$<br>`;
+			if (a==1){
+				texte_corr += `$${tex_fraction(a,b)}\\times${n}=${n}\\div${b}=${tex_nombrec(Algebrite.eval(n/b))}$`;	      
+			} else {
+				if (calcul(n/b-arrondi(n/b,4))==0&&this.sup2) {
+					texte_corr +=`$${tex_fraction(a,b)}\\times${n}=(${n}\\div${b})\\times${a}=${tex_nombrec(Algebrite.eval(n/b))}\\times${a}=${tex_nombrec(Algebrite.eval(n/b*a))}$<br>`;
+				}
+				if (calcul(n*a/b-arrondi(n*a/b,4))==0) {
+					texte_corr += ` $${tex_fraction(a,b)}\\times${n}=(${n}\\times${a})\\div${b}=${Algebrite.eval(n*a)}\\div${b}=${tex_nombrec(Algebrite.eval(n/b*a))}$<br>`;
+				}
+				else {
+					texte_corr +=` $${tex_fraction(a,b)}\\times${n}=(${n}\\times${a})\\div${b}=${Algebrite.eval(n*a)}\\div${b}=${tex_fraction(n*a,b)}$<br>`;
+				}
+				if ((b==2||b==4||b==5||b==8||b==10)&&this.sup2) texte_corr += ` $${tex_fraction(a,b)}\\times${n}=(${a}\\div${b})\\times${n}=${tex_nombrec(Algebrite.eval(a/b))}\\times${n}=${tex_nombrec(Algebrite.eval(n/b*a))}$`;
 			}
-			if (calcul(n*a/b-arrondi(n*a/b,4))==0) {
-				texte_corr += ` $${tex_fraction(a,b)}\\times${n}=(${n}\\times${a})\\div${b}=${Algebrite.eval(n*a)}\\div${b}=${tex_nombrec(Algebrite.eval(n/b*a))}$<br>`;
-			}
-			else {
-				texte_corr +=` $${tex_fraction(a,b)}\\times${n}=(${n}\\times${a})\\div${b}=${Algebrite.eval(n*a)}\\div${b}=${tex_fraction(n*a,b)}$<br>`;
-			}
-			if (b==2||b==4||b==5||b==8||b==10) texte_corr += ` $${tex_fraction(a,b)}\\times${n}=(${a}\\div${b})\\times${n}=${tex_nombrec(Algebrite.eval(a/b))}\\times${n}=${tex_nombrec(Algebrite.eval(n/b*a))}$`;
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
@@ -4154,6 +4157,7 @@ function Fraction_d_un_nombre(max=11){
 		liste_de_question_to_contenu(this);
 	}
 	this.besoin_formulaire_numerique = ['Valeur maximale',99999];	
+	this.besoin_formulaire2_case_a_cocher = ['Plusieurs méthodes'];
 }
 
 
