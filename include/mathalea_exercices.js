@@ -4100,7 +4100,7 @@ function Fraction_d_un_nombre_bis(max=11){
  }
 
 /**
-* Calculer la fracton d'un nombre divisible par le dénominateur
+* Calculer la fracton d'un nombre divisible par le dénominateur ... ou pas.
 *
 * Par défaut la division du nombre par le dénominateur est inférieure à 11
 * @Auteur Rémi Angot
@@ -4134,7 +4134,8 @@ function Fraction_d_un_nombre(max=11){
 			texte = `$${tex_fraction(a,b)}\\times${n}=$`;
 			texte_corr=``;
 			if (a==1){
-				texte_corr += `$${tex_fraction(a,b)}\\times${n}=${n}\\div${b}=${tex_nombrec(Algebrite.eval(n/b))}$`;	      
+				if (calcul(n/b-arrondi(n/b,4))==0)  	texte_corr += `$${tex_fraction(a,b)}\\times${n}=${n}\\div${b}=${tex_nombrec(Algebrite.eval(n/b))}$`;	
+				else    texte_corr += `$${tex_fraction(a,b)}\\times${n}=${tex_fraction(n,b)}${simplification_de_fraction_avec_etapes(n,b)}$`;	
 			} else {
 				if (calcul(n/b-arrondi(n/b,4))==0&&this.sup2) {
 					texte_corr +=`$${tex_fraction(a,b)}\\times${n}=(${n}\\div${b})\\times${a}=${tex_nombrec(Algebrite.eval(n/b))}\\times${a}=${tex_nombrec(Algebrite.eval(n/b*a))}$<br>`;
