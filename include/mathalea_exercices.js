@@ -3966,7 +3966,7 @@ function Comparer_decimaux(){
 * Calculer 10, 20, 30, 40 ou 50% d'un nombre
 * @Auteur Rémi Angot
 */
-function Pourcentage_d_un_nombre_bis(){
+function Pourcentage_d_un_nombre(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Calculer le pourcentage d'un nombre de tête"
 	this.nb_questions = 5;
@@ -4007,7 +4007,7 @@ function Pourcentage_d_un_nombre_bis(){
 * Calculer 10, 20, 30, 40 ou 50% d'un nombre
 * @Auteur Rémi Angot
 */
-function Pourcentage_d_un_nombre(){
+function Pourcentage_d_un_nombre_bis(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Calculer le pourcentage d'un nombre de tête"
 	this.nb_questions = 5;
