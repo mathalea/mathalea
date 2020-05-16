@@ -4027,7 +4027,7 @@ function Pourcentage_d_un_nombre(){
 			n = choice([randint(2,9),randint(2,9)*10,randint(1,9)*10+randint(1,2)]); 
 			texte = `$${p}~\\%~\\text{de }${n}$`;
 			if (p==50) {
-			texte_corr = `$${p}~\\%~\\text{de }${n}=${tex_fraction(1,2)}\\times${n}=${tex_nombre(Algebrite.eval(n/2))}$`	
+			texte_corr = `$${p}~\\%~\\text{de }${n}=${n}\\div${2}=${tex_nombre(Algebrite.eval(n/2))}$`	
 			} else {
 			texte_corr = `$${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=(${p}\\times${n})\\div100=${tex_nombre(p*n)}\\div100=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`	
 	//		texte_corr += `$\\phantom {Blanc}${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=\\dfrac{${p}\\times${n}}{100}=${tex_fraction(p*n,100)}=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`					
@@ -4036,8 +4036,6 @@ function Pourcentage_d_un_nombre(){
 			if (this.sup2) texte_corr += `$${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=${tex_nombrec(calcul(p/100))}\\times${n}=${tex_nombre(Algebrite.eval(p*n/100))}$`				
 				
 		}
-			
-			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
@@ -4047,7 +4045,7 @@ function Pourcentage_d_un_nombre(){
 		}
 		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_numerique = ['Valeur maximale',99999];	
+//	this.besoin_formulaire_numerique = ['Valeur maximale',99999];	
 	this.besoin_formulaire2_case_a_cocher = ['Plusieurs méthodes'];
 }
 
@@ -4112,7 +4110,7 @@ function Fraction_d_un_nombre(max=11){
 	this.consigne = "Calculer"
 	sortie_html ? this.spacing_corr = 3.5 : this.spacing_corr = 2;
 	sortie_html ? this.spacing = 2 : this.spacing = 2;
-	this.sup = max;
+	this.sup = true;
 	this.sup2 = false;
 	this.nb_cols = 2;
 	this.nb_cols_corr = 1; 
@@ -4128,9 +4126,11 @@ function Fraction_d_un_nombre(max=11){
 			fraction = choice(liste_fractions);
 			a = fraction[0];
 			b = fraction[1];
-			k = randint(1,this.sup);
-			if (randint(0,2)<2) n = b*k;
-			else n=randint(10,b*11);
+			k = randint(1,11);
+			if (this.sup) n = b*k;
+			else
+				if (randint(0,1)==0) n = b*k;
+				else n=randint(10,b*11);
 			texte = `$${tex_fraction(a,b)}\\times${n}=$`;
 			texte_corr=``;
 			if (a==1){
@@ -4157,8 +4157,8 @@ function Fraction_d_un_nombre(max=11){
 		}
 		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_numerique = ['Valeur maximale',99999];	
-	this.besoin_formulaire2_case_a_cocher = ['Plusieurs méthodes'];
+	this.besoin_formulaire_case_a_cocher = ['Forcer résultat entier',true];	
+	this.besoin_formulaire2_case_a_cocher = ['Plusieurs méthodes',false];
 }
 
 
