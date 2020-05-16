@@ -3961,51 +3961,9 @@ function Comparer_decimaux(){
 }
 
 
-
 /**
 * Calculer 10, 20, 30, 40 ou 50% d'un nombre
-* @Auteur Rémi Angot
-*/
-function Pourcentage_d_un_nombre_bis(){
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Calculer le pourcentage d'un nombre de tête"
-	this.nb_questions = 5;
-	this.consigne = "Calculer"
-	this.spacing = 2;
-	this.spacing_corr = 2;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1; 
-
-	this.nouvelle_version = function(numero_de_l_exercice){
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		liste_pourcentages = [10,20,30,40,50];
-
-		for (let i = 0, p, n, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt<50;){
-			p = choice(liste_pourcentages)
-			n = choice([randint(2,9),randint(2,9)*10,randint(1,9)*10+randint(1,2)]); 
-			texte = `$${p}~\\%~\\text{de }${n}$`;
-			if (p==50) {
-			texte_corr = `$${p}~\\%~\\text{de }${n}=${tex_fraction(1,2)}\\times${n}=${tex_nombre(Algebrite.eval(n/2))}$`				
-			} else {
-			texte_corr = `$${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=(${p}\\times${n})\\div100=${tex_nombre(p*n)}\\div100=${tex_nombre(Algebrite.eval(p*n/100))}$`				
-			}
-			
-			
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
-				i++;
-			}
-			cpt++;
-		}
-		liste_de_question_to_contenu(this);
-	}
-	this.besoin_formulaire_numerique = ['Valeur maximale',99999];	
-}
-/**
-* Calculer 10, 20, 30, 40 ou 50% d'un nombre
-* @Auteur Rémi Angot
+* @Auteur Rémi Angot + Jean-claude Lhote
 */
 function Pourcentage_d_un_nombre(){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -4027,7 +3985,7 @@ function Pourcentage_d_un_nombre(){
 			n = choice([randint(2,9),randint(2,9)*10,randint(1,9)*10+randint(1,2)]); 
 			texte = `$${p}~\\%~\\text{de }${n}$`;
 			if (p==50) {
-			texte_corr = `$${p}~\\%~\\text{de }${n}=${n}\\div${2}=${tex_nombre(Algebrite.eval(n/2))}$`	
+			texte_corr = `$${p}~\\%~\\text{de }${n}=${n}\\div${2}=${tex_nombre(Algebrite.eval(n/2))}$`	// calcul de n/2 si p = 50%
 			} else {
 			texte_corr = `$${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=(${p}\\times${n})\\div100=${tex_nombre(p*n)}\\div100=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`	
 	//		texte_corr += `$\\phantom {Blanc}${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=\\dfrac{${p}\\times${n}}{100}=${tex_fraction(p*n,100)}=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`					
@@ -4050,58 +4008,10 @@ function Pourcentage_d_un_nombre(){
 }
 
 /**
-* Calculer la fracton d'un nombre divisible par le dénominateur
-*
-* Par défaut la division du nombre par le dénominateur est inférieure à 11
-* @Auteur Rémi Angot
-*/
-function Fraction_d_un_nombre_bis(max=11){
- 	Exercice.call(this); // Héritage de la classe Exercice()
- 	this.titre = "Calculer la fraction d'un nombre"
- 	this.nb_questions = 5;
- 	this.consigne = "Calculer"
- 	this.spacing = 2;
- 	this.spacing_corr = 2;
- 	this.sup = max;
-
-  	this.nouvelle_version = function(numero_de_l_exercice){
- 		this.liste_questions = []; // Liste de questions
- 		this.liste_corrections = []; // Liste de questions corrigées
- 		liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
- 		[1,6],[5,6],[1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[1,8],[3,8],[5,8],[7,8],
- 		[1,9],[2,9],[4,9],[5,9],[7,9],[8,9],[1,10],[3,10],[7,10],[9,10]] // Couples de nombres premiers entre eux
-
-  		for (let i = 0, a, b, k, n, fraction, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt<50;){
- 			fraction = choice(liste_fractions);
- 			a = fraction[0];
- 			b = fraction[1];
- 			k = randint(1,this.sup);
- 			n = b*k; 
- 			texte = `$${tex_fraction(a,b)}\\times${n}=$`;
- 			if (a==1){
- 				texte_corr = `$${tex_fraction(a,b)}\\times${n}=${n}\\div${b}=${Algebrite.eval(n/b)}$`;	      
- 			} else {
- 				texte_corr = `$${tex_fraction(a,b)}\\times${n}=(${n}\\div${b})\\times${a}=${Algebrite.eval(n/b)}\\times${a}=${Algebrite.eval(n/b*a)}$`;
- 			}
-
- 
-  			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
- 				this.liste_questions.push(texte);
- 				this.liste_corrections.push(texte_corr);
- 				i++;
- 			}
- 			cpt++;
- 		}
- 		liste_de_question_to_contenu(this);
- 	}
- 	this.besoin_formulaire_numerique = ['Valeur maximale',99999];	
- }
-
-/**
 * Calculer la fracton d'un nombre divisible par le dénominateur ... ou pas.
 *
 * Par défaut la division du nombre par le dénominateur est inférieure à 11
-* @Auteur Rémi Angot
+* @Auteur Rémi Angot + Jean-Claude Lhote
 */
 function Fraction_d_un_nombre(max=11){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -4133,19 +4043,20 @@ function Fraction_d_un_nombre(max=11){
 				else n=randint(10,b*11);
 			texte = `$${tex_fraction(a,b)}\\times${n}=$`;
 			texte_corr=``;
-			if (a==1){
-				if (calcul(n/b-arrondi(n/b,4))==0)  	texte_corr += `$${tex_fraction(a,b)}\\times${n}=${n}\\div${b}=${tex_nombrec(Algebrite.eval(n/b))}$`;	
-				else    texte_corr += `$${tex_fraction(a,b)}\\times${n}=${tex_fraction(n,b)}${simplification_de_fraction_avec_etapes(n,b)}$`;	
+			if (a==1){ // Si n * 1/b
+				if (calcul(n/b-arrondi(n/b,4))==0)  	texte_corr += `$${tex_fraction(a,b)}\\times${n}=${n}\\div${b}=${tex_nombrec(Algebrite.eval(n/b))}$`; // si résultat décimal	
+				else    texte_corr += `$${tex_fraction(a,b)}\\times${n}=${tex_fraction(n,b)}${simplification_de_fraction_avec_etapes(n,b)}$`;	//si résultat non décimal
 			} else {
-				if (calcul(n/b-arrondi(n/b,4))==0&&this.sup2) {
+				if (calcul(n/b-arrondi(n/b,4))==0&&this.sup2) { //si n/b décimal et si autre méthodes calcul (n/b)*a
 					texte_corr +=`$${tex_fraction(a,b)}\\times${n}=(${n}\\div${b})\\times${a}=${tex_nombrec(Algebrite.eval(n/b))}\\times${a}=${tex_nombrec(Algebrite.eval(n/b*a))}$<br>`;
 				}
-				if (calcul(n*a/b-arrondi(n*a/b,4))==0) {
+				if (calcul(n*a/b-arrondi(n*a/b,4))==0) { // si (a*n)/b décimal calcul (n*a)/b
 					texte_corr += ` $${tex_fraction(a,b)}\\times${n}=(${n}\\times${a})\\div${b}=${Algebrite.eval(n*a)}\\div${b}=${tex_nombrec(Algebrite.eval(n/b*a))}$<br>`;
 				}
-				else {
+				else { // résultat fractionnaire calcul (n*a)/b
 					texte_corr +=` $${tex_fraction(a,b)}\\times${n}=(${n}\\times${a})\\div${b}=${Algebrite.eval(n*a)}\\div${b}=${tex_fraction(n*a,b)}$<br>`;
 				}
+				// si autre méthode et a/b décimal calcul (a/b)*n
 				if ((b==2||b==4||b==5||b==8||b==10)&&this.sup2) texte_corr += ` $${tex_fraction(a,b)}\\times${n}=(${a}\\div${b})\\times${n}=${tex_nombrec(Algebrite.eval(a/b))}\\times${n}=${tex_nombrec(Algebrite.eval(n/b*a))}$`;
 			}
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
