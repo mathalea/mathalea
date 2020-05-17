@@ -3650,13 +3650,14 @@ function Unites_de_volumes_et_de_capacite(niveau=1){
 	this.consigne = 'Compléter'
 	this.spacing = 2;
 	this.nb_questions = 8;
+	this.nb_cols_corr = 1;
 
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		if (this.sup==1) {
-			liste_type_de_questions = combinaison_listes(['dam3toL','m3toL','dm3toL','cm3toL','mm3toL'],this.nb_questions)
+			liste_type_de_questions = combinaison_listes(['dam3toL','m3toL','dm3toL','cm3toL'],this.nb_questions)
 		}
 		if (this.sup==2){
 			liste_type_de_questions = combinaison_listes(['Ltodm3','Ltocm3','Ltom3'],this.nb_questions)
@@ -3710,35 +3711,35 @@ function Unites_de_volumes_et_de_capacite(niveau=1){
 			}
 			switch (liste_type_de_questions[i]){
 				case 'dam3toL':
-					texte = `$${tex_nombre(n)}~\\text{dam}^3=\\ldots\\ldots\\ldots~\\text{L}$`
+					texte = `$${tex_nombre(n)}~\\text{dam}^3=\\dotfill~\\text{L}$`
 					texte_corr = `$${tex_nombre(n)}~\\text{dam}^3=${tex_nombre(n)}\\times1~000\\times1~000~\\text{dm}^3=${tex_nombrec(n*1000000)}~\\text{L}$`
 				break
 				case 'm3toL':
-					texte = `$${tex_nombre(n)}~\\text{m}^3=\\ldots\\ldots\\ldots~\\text{L}$`
+					texte = `$${tex_nombre(n)}~\\text{m}^3=\\dotfill~\\text{L}$`
 					texte_corr = `$${tex_nombre(n)}~\\text{m}^3=${tex_nombre(n)}\\times1~000~\\text{dm}^3=${tex_nombrec(n*1000)}~\\text{L}$`
 				break
 				case 'dm3toL':
-					texte = `$${tex_nombre(n)}~\\text{dm}^3=\\ldots\\ldots\\ldots~\\text{L}$`
+					texte = `$${tex_nombre(n)}~\\text{dm}^3=\\dotfill~\\text{L}$`
 					texte_corr = `$${tex_nombre(n)}~\\text{dm}^3=${tex_nombre(n)}~\\text{L}$`
 				break
 				case 'cm3toL':
-					texte = `$${tex_nombre(n)}~\\text{cm}^3=\\ldots\\ldots\\ldots~\\text{L}$`
+					texte = `$${tex_nombre(n)}~\\text{cm}^3=\\dotfill~\\text{L}$`
 					texte_corr = `$${tex_nombre(n)}~\\text{cm}^3=${tex_nombre(n)}\\div 1~000~\\text{dm}^3=${tex_nombrec(n/1000)}~\\text{L}$`
 				break
 				case 'mm3toL':
-					texte = `$${tex_nombre(n)}~\\text{mm}^3=\\ldots\\ldots\\ldots~\\text{L}$`
+					texte = `$${tex_nombre(n)}~\\text{mm}^3=\\dotfill~\\text{L}$`
 					texte_corr = `$${tex_nombre(n)}~\\text{mm}^3=${tex_nombre(n)}\\div1~000\\div 1~000~\\text{dm}^3=${tex_nombrec(n/1000000)}~\\text{L}$`
 				break
 				case 'Ltodm3':
-					texte = `$${tex_nombre(n)}~\\text{L}=\\ldots\\ldots\\ldots~\\text{dm}^3$`
+					texte = `$${tex_nombre(n)}~\\text{L}=\\dotfill~\\text{dm}^3$`
 					texte_corr = `$${tex_nombre(n)}~\\text{L}=${tex_nombre(n)}~\\text{dm}^3$`
 				break
 				case 'Ltocm3':
-					texte = `$${tex_nombre(n)}~\\text{L}=\\ldots\\ldots\\ldots~\\text{cm}^3$`
+					texte = `$${tex_nombre(n)}~\\text{L}=\\dotfill~\\text{cm}^3$`
 					texte_corr = `$${tex_nombre(n)}~\\text{L}=${tex_nombre(n)}~\\text{dm}^3=${tex_nombre(n)}\\times1~000~\\text{cm}^3=${tex_nombrec(n*1000)}~\\text{cm}^3$`
 				break
 				case 'Ltom3':
-					texte = `$${tex_nombre(n)}~\\text{L}=\\ldots\\ldots\\ldots~\\text{m}^3$`
+					texte = `$${tex_nombre(n)}~\\text{L}=\\dotfill~\\text{m}^3$`
 					texte_corr = `$${tex_nombre(n)}~\\text{L}=${tex_nombre(n)}~\\text{dm}^3=${tex_nombre(n)}\\div1~000~\\text{m}^3=${tex_nombrec(n/1000)}~\\text{m}^3$`
 				break
 
