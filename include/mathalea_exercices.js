@@ -4182,20 +4182,20 @@ function Fraction_d_un_nombre(max=11){
 			texte = `$${tex_fraction(a,b)}\\times${n}=$`;
 			texte_corr=``;
 			if (a==1){ // Si n * 1/b
-				if (calcul(n/b-arrondi(n/b,4))==0)  	texte_corr += `$${tex_fraction(a,b)}\\times${n}=${n}\\div${b}=${tex_nombrec(Algebrite.eval(n/b))}$`; // si résultat décimal	
+				if (calcul(n/b-arrondi(n/b,4))==0)  	texte_corr += `$${tex_fraction(a,mise_en_evidence(b))}\\times${n}=${n}\\div${mise_en_evidence(b)}=${tex_nombrec(Algebrite.eval(n/b))}$`; // si résultat décimal	
 				else    texte_corr += `$${tex_fraction(a,b)}\\times${n}=${tex_fraction(n,b)}${simplification_de_fraction_avec_etapes(n,b)}$`;	//si résultat non décimal
 			} else {
 				if (calcul(n/b-arrondi(n/b,4))==0&&this.sup2) { //si n/b décimal et si autre méthodes calcul (n/b)*a
-					texte_corr +=`$${tex_fraction(a,b)}\\times${n}=(${n}\\div${b})\\times${a}=${tex_nombrec(Algebrite.eval(n/b))}\\times${a}=${tex_nombrec(Algebrite.eval(n/b*a))}$<br>`;
+					texte_corr +=`$${tex_fraction(a,mise_en_evidence(b))}\\times${n}=(${n}\\div${mise_en_evidence(b)})\\times${a}=${tex_nombrec(Algebrite.eval(n/b))}\\times${a}=${tex_nombrec(Algebrite.eval(n/b*a))}$<br>`;
 				}
 				if (calcul(n*a/b-arrondi(n*a/b,4))==0) { // si (a*n)/b décimal calcul (n*a)/b
-					texte_corr += ` $${tex_fraction(a,b)}\\times${n}=(${n}\\times${a})\\div${b}=${Algebrite.eval(n*a)}\\div${b}=${tex_nombrec(Algebrite.eval(n/b*a))}$<br>`;
+					texte_corr += ` $${tex_fraction(a,mise_en_evidence(b))}\\times${n}=(${n}\\times${a})\\div${mise_en_evidence(b)}=${Algebrite.eval(n*a)}\\div${mise_en_evidence(b)}=${tex_nombrec(Algebrite.eval(n/b*a))}$<br>`;
 				}
 				else { // résultat fractionnaire calcul (n*a)/b
-					texte_corr +=` $${tex_fraction(a,b)}\\times${n}=(${n}\\times${a})\\div${b}=${Algebrite.eval(n*a)}\\div${b}=${tex_fraction(n*a,b)}$<br>`;
+					texte_corr +=` $${tex_fraction(a,mise_en_evidence(b))}\\times${n}=(${n}\\times${a})\\div${mise_en_evidence(b)}=${Algebrite.eval(n*a)}\\div${mise_en_evidence(b)}=${tex_fraction(n*a,mise_en_evidence(b))}$<br>`;
 				}
 				// si autre méthode et a/b décimal calcul (a/b)*n
-				if ((b==2||b==4||b==5||b==8||b==10)&&this.sup2) texte_corr += ` $${tex_fraction(a,b)}\\times${n}=(${a}\\div${b})\\times${n}=${tex_nombrec(Algebrite.eval(a/b))}\\times${n}=${tex_nombrec(Algebrite.eval(n/b*a))}$`;
+				if ((b==2||b==4||b==5||b==8||b==10)&&this.sup2) texte_corr += ` $${tex_fraction(a,mise_en_evidence(b))}\\times${n}=(${a}\\div${mise_en_evidence(b)})\\times${n}=${tex_nombrec(Algebrite.eval(a/b))}\\times${n}=${tex_nombrec(Algebrite.eval(n/b*a))}$`;
 			}
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
