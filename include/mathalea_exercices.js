@@ -4175,6 +4175,7 @@ function Fraction_d_un_nombre(max=11){
 			a = fraction[0];
 			b = fraction[1];
 			k = randint(1,11);
+			j=false;
 			if (this.sup) n = b*k;
 			else
 				if (randint(0,1)==0) n = b*k;
@@ -4185,14 +4186,22 @@ function Fraction_d_un_nombre(max=11){
 				if (calcul(n/b-arrondi(n/b,4))==0)  	texte_corr += `$${tex_fraction(a,mise_en_evidence(b))}\\times${n}=${n}\\div${mise_en_evidence(b)}=${tex_nombrec(Algebrite.eval(n/b))}$`; // si résultat décimal	
 				else    texte_corr += `$${tex_fraction(a,b)}\\times${n}=${tex_fraction(n,b)}${simplification_de_fraction_avec_etapes(n,b)}$`;	//si résultat non décimal
 			} else {
-				if (calcul(n/b-arrondi(n/b,4))==0&&this.sup2) { //si n/b décimal et si autre méthodes calcul (n/b)*a
+				if (calcul(n/b-arrondi(n/b,4))==0) { //si n/b décimal calcul (n/b)*a
 					texte_corr +=`$${tex_fraction(a,mise_en_evidence(b))}\\times${n}=(${n}\\div${mise_en_evidence(b)})\\times${a}=${tex_nombrec(Algebrite.eval(n/b))}\\times${a}=${tex_nombrec(Algebrite.eval(n/b*a))}$<br>`;
+				} else {
+					if (calcul(n*a/b-arrondi(n*a/b,4))==0) { // si n/b non décimal, alors on se rabat sur (n*a)/b
+						texte_corr += ` $${tex_fraction(a,mise_en_evidence(b))}\\times${n}=(${n}\\times${a})\\div${mise_en_evidence(b)}=${Algebrite.eval(n*a)}\\div${mise_en_evidence(b)}=${tex_nombrec(Algebrite.eval(n/b*a))}$<br>`;
+					}
+					else { // si autre méthode et résultat fractionnaire calcul (n*a)/b
+						texte_corr +=` $${tex_fraction(a,mise_en_evidence(b))}\\times${n}=(${n}\\times${a})\\div${mise_en_evidence(b)}=${Algebrite.eval(n*a)}\\div${mise_en_evidence(b)}=${tex_fraction(n*a,mise_en_evidence(b))}$<br>`;
+					}
+					j=true;
 				}
-				if (calcul(n*a/b-arrondi(n*a/b,4))==0) { // si (a*n)/b décimal calcul (n*a)/b
+				if (calcul(n*a/b-arrondi(n*a/b,4))==0&&this.sup2&&!j) { // Si autres méthodes et si (a*n)/b décimal calcul (n*a)/b
 					texte_corr += ` $${tex_fraction(a,mise_en_evidence(b))}\\times${n}=(${n}\\times${a})\\div${mise_en_evidence(b)}=${Algebrite.eval(n*a)}\\div${mise_en_evidence(b)}=${tex_nombrec(Algebrite.eval(n/b*a))}$<br>`;
 				}
-				else { // résultat fractionnaire calcul (n*a)/b
-					texte_corr +=` $${tex_fraction(a,mise_en_evidence(b))}\\times${n}=(${n}\\times${a})\\div${mise_en_evidence(b)}=${Algebrite.eval(n*a)}\\div${mise_en_evidence(b)}=${tex_fraction(n*a,mise_en_evidence(b))}$<br>`;
+				else { // si autre méthode et résultat fractionnaire calcul (n*a)/b
+					if (this.sup2&&!j) texte_corr +=` $${tex_fraction(a,mise_en_evidence(b))}\\times${n}=(${n}\\times${a})\\div${mise_en_evidence(b)}=${Algebrite.eval(n*a)}\\div${mise_en_evidence(b)}=${tex_fraction(n*a,mise_en_evidence(b))}$<br>`;
 				}
 				// si autre méthode et a/b décimal calcul (a/b)*n
 				if ((b==2||b==4||b==5||b==8||b==10)&&this.sup2) texte_corr += ` $${tex_fraction(a,mise_en_evidence(b))}\\times${n}=(${a}\\div${mise_en_evidence(b)})\\times${n}=${tex_nombrec(Algebrite.eval(a/b))}\\times${n}=${tex_nombrec(Algebrite.eval(n/b*a))}$`;
