@@ -121,6 +121,7 @@ var liste_des_exercices_disponibles = {
 		'4G31' : Exercice_Trigo_angles_4e,
 		'4G20' : Thales_4eme,
 		'4G21' : Reciproque_Thales_4eme,
+		'3A10' : Decomposition_facteurs_premiers,
 		'3M30' : Calcul_de_volumes_3e,
 		'3N10': Exercice_developper,
 		'3N11' : Double_distributivite,
