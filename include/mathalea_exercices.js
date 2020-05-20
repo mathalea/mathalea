@@ -2819,7 +2819,7 @@ function Tableau_criteres_de_divisibilite(){
 	this.sup = 4 ; // Correspond au facteur commun
 	this.titre = "Critères de divisibilité"
 	this.consigne = 'Compléter le tableau en mettant oui ou non dans chaque case.'
-	this.spacing = 2;
+	this.spacing = 1;
 	this.spacing_corr = 1;
 	this.nb_questions = 5;
 	this.nb_cols_corr = 1;
@@ -2880,28 +2880,28 @@ function Tableau_criteres_de_divisibilite(){
 		 	}
 		 } 
 		
-		texte = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}`
-		texte += `\\hline`
-		texte += `\\text{... est divisible} & \\text{par }2 & \\text{par }3 & \\text{par }5 & \\text{par }9\\\\`
-		texte += `\\hline`
+		texte = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n`
+		texte += `\\hline\n`
+		texte += `\\text{... est divisible} & \\text{par }2 & \\text{par }3 & \\text{par }5 & \\text{par }9\\\\\n`
+		texte += `\\hline\n`
 		for (var i = 0; i < this.nb_questions; i++) {
-			texte += `${tex_nombre(tableau_de_nombres[i])} & & & & \\\\`
-			texte += `\\hline`
+			texte += `${tex_nombre(tableau_de_nombres[i])} & & & & \\\\\n`
+			texte += `\\hline\n`
 		}
 		
 
-		texte += `\\end{array}$`
+		texte += `\\end{array}\n$`
 
-		texte_corr = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}`
-		texte_corr += `\\hline`
-		texte_corr += `\\text{... est divisible} & \\text{par }2 & \\text{par }3 & \\text{par }5 & \\text{par }9\\\\`
-		texte_corr += `\\hline`
+		texte_corr = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n`
+		texte_corr += `\\hline\n`
+		texte_corr += `\\text{... est divisible} & \\text{par }2 & \\text{par }3 & \\text{par }5 & \\text{par }9\\\\\n`
+		texte_corr += `\\hline\n`
 		for (var i = 0; i < this.nb_questions; i++) {
 			texte_corr += tableau_de_nombres_avec_correction[i]
-			texte_corr += `\\hline`
+			texte_corr += `\\hline\n`
 		}
 
-		texte_corr += `\\end{array}$`
+		texte_corr += `\\end{array}$\n`
 
 		this.liste_questions.push(texte);
 		this.liste_corrections.push(texte_corr);
