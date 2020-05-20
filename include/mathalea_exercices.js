@@ -45,7 +45,9 @@ var liste_des_exercices_disponibles = {
 		'6M22-2' : Perimetre_aire_et_portions_de_disques,
 		'6M13' : Reglages_6M23,
 		'6M25' : Connaitre_formules_de_perimetre_et_aires,
+		'6M30' : Calcul_de_volumes_6e,
 		'6M31' : Exercice_conversions_volumes,
+		'6M31-2' : Unites_de_volumes_et_de_capacite,
 		'6N10-1': Exercice_numeration_entier,
 		'6N10-2': Decomposition_nombre_decimal,
 		'6N11' : Lire_abscisse_entiere,
@@ -84,6 +86,7 @@ var liste_des_exercices_disponibles = {
 		'5L111' : Tester_une_egalite,
 		'5L12' : Reduire_une_expression_litterale,
 		'5M10' : Exercice_angles_triangles,
+		'5M30' : Calcul_de_volumes_5e,
 		'5R10' : Lire_abscisse_relative,
 		'5R10-2' : Placer_points_sur_axe_relatifs,
 		'5R12-1' : reperage_point_du_quart_de_plan,
@@ -97,8 +100,10 @@ var liste_des_exercices_disponibles = {
 		'5S10': Calculer_des_frequences,
 		'5S10-2': Calculer_des_moyennes,
 		'5S10-3': Calculer_des_etendues,
+		'5S20' : fonctions_probabilite1,
 		'4L10' : Exercice_developper,
 		'4L20' : Exercice_equation1,
+		'4M30' : Calcul_de_volumes_4e,		
 		'4N10': Exercice_additionner_des_fractions,
 		'4N11': Exercice_additionner_ou_soustraire_des_fractions,
 		'4N12': Exercice_trouver_l_inverse,
@@ -116,6 +121,8 @@ var liste_des_exercices_disponibles = {
 		'4G31' : Exercice_Trigo_angles_4e,
 		'4G20' : Thales_4eme,
 		'4G21' : Reciproque_Thales_4eme,
+		'3A10' : Decomposition_facteurs_premiers,
+		'3M30' : Calcul_de_volumes_3e,
 		'3N10': Exercice_developper,
 		'3N11' : Double_distributivite,
 		'3N12' : Developper_Identites_remarquables3,
@@ -130,6 +137,7 @@ var liste_des_exercices_disponibles = {
 		'3F10' : fonctions_lineaires,
 		'3F11' : fonctions_affines,
 		'3F12' : fonctions_calculs_d_images,
+		'3S20' : fonctions_probabilite2,
 		//'3SVGtest' : svglibs,
 		'2N10' : Developper_Identites_remarquables2,
 		'2N11' : Factoriser_Identites_remarquables2,
@@ -1804,6 +1812,11 @@ function Somme_de_deux_nombres_maries_et_un_entier(){
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
 
+/**
+ * Générateur de tirages pour un compte est bon avec en correction la solution mathador (4 opérations différentes).
+ * @Auteur Jean-Claude Lhote
+ */
+
 function Le_compte_est_bonV2(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -1913,133 +1926,6 @@ function Le_compte_est_bonV2(){
 	this.besoin_formulaire_numerique = ['Limite inférieure',max_solution];
 	this.besoin_formulaire2_numerique = ['Limite supérieure',100];
 }
-/*
- function Le_compte_est_bon(){
- 	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Générateur de \"Le compte est bon\"";
-	this.consigne = "Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.";
-	this.nb_questions = 5;
-	this.nb_cols = 2;
-	this.nb_cols_corr = 2;
-	let liste_choix=[1,2,2,3,3,4,4,4,4,5,6,6,6,6,7,7,8,8,8,8,9,9,9,9,10,11,12,13,14,15,16,17,18,19,20];
-		let liste_de_j = combinaison_listes(range1(10),this.nb_questions)
-
-	this.nouvelle_version = function(numero_de_l_exercice){
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		let eureka;
-		let liste_choix=[1,2,2,3,3,4,4,4,4,5,6,6,6,6,7,7,8,8,8,8,9,9,9,9,10,11,12,13,14,15,16,17,18,19,20];
-		let liste_de_j = combinaison_listes(range1(10),this.nb_questions)
-		for (let i = 0, texte, texte_corr, a, b, c, d, e, f,tirage,j,expression , cpt=0; i < this.nb_questions && cpt<50; ) {
-			eureka=false;
-			
-			expression=''
-			while (eureka==false){
-				tirage=[];
-				a=parseInt(choice(liste_choix))
-				b=parseInt(choice(liste_choix,[12,13,14,15,16,17,18,19,20,a]))
-				c=parseInt(choice(liste_choix,[12,13,14,15,16,17,18,19,20,a,b]))
-				d=parseInt(choice(liste_choix,[12,13,14,15,16,17,18,19,20,a,b,c]))
-				e=parseInt(choice(liste_choix,[12,13,14,15,16,17,18,19,20]))
-				tirage.push(a,b,c,d,e);
-				tirage=shuffle(tirage);
-				a=tirage[0];
-				b=tirage[1];
-				c=tirage[2];
-				d=tirage[3];
-				e=tirage[4];
-				// les choses sérieuses commencent ici.
-				j = liste_de_j[i];
-				switch (j) {
-					case 1:
-						if ((a+b>c)&&(((a+b-c)*d)%e==0)) {
-							f=(a+b-c)*d/e;
-							expression=`$(${a}+${b}-${c})\\times${d}\\div${e}$`
-							if (f<100&&f>10) eureka=true;
-						}
-						break;
-					case 2:
-						if ((c*d%e==0)&&((a+b>c*d/e))) {
-							f=a+b-c*d/e;
-							expression=`$${a}+${b}-${c}\\times${d}\\div${e}$`
-							if (f<100&&f>10) eureka=true;
-						}
-						break;
-					case 3:
-						if ((a+b>c*d)&&((a+b-c*d)%e==0)){
-							f=(a+b-c*d)/e;
-							expression=`$(${a}+${b}-${c}\\times${d})\\div${e}$`
-							if (f<100&&f>10) eureka=true;
-						}
-						break;
-					case 4:
-						if ((b>c)&&(a%e==0)){
-							f=a/e+(b-c)*d;
-							expression=`$${a}\\div${e}+(${b}-${c})\\times${d}$`
-							if (f<100&&f>10) eureka=true;
-						}
-						break;
-					case 5:
-						if ((b>c)&&(a%(b-c)==0)){
-							f=a/(b-c)*d+e;
-							expression=`$${a}\\div(${b}-${c})\\times${d}+${e}$`
-							if (f<100&&f>10) eureka=true;
-						}
-						break;	
-					case 6:
-						if (((a+b)/c>d*e)&&((a+b)%c==0)){
-							f=(a+b)/c-d*e;
-							expression=`$(${a}+${b})\\div${c}-${d}\\times${e}$`
-							if (f<100&&f>10) eureka=true;
-						}
-						break;					
-					case 7:
-						if (((a + b / c)*d > e) && (b % c == 0)) {
-							f = (a + b/c) * d - e;
-							expression = `$(${a}+${b}\\div${c})\\times${d}-${e}$`
-							if (f<100&&f>10) eureka = true;
-						}
-						break;	
-					case 8:
-						if ((a > b/c) && (b % c == 0)) {
-							f = (a-b/c+d) * e;
-							expression = `$(${a}-${b}\\div${c}+${d})\\times${e}$`
-							if (f<100&&f>10) eureka = true;
-						}
-						break;	
-						case 9:
-							if (((a / b + c)*e > d) && (a % b == 0)) {
-								f = (a/b+c)*e-d;
-								expression = `$(${a}\\div${b}+${c})\\times${e}-${d}$`
-								if (f<100&&f>10) eureka = true;
-							}
-							break;	
-						case 10:
-							if ((a > b) && ((a-b) % c == 0)) {
-								f = ((a-b)/c+d)*e;
-								expression = `$((${a}-${b})\\div${c}+${d})\\times${e}$`
-								if (f<100&&f>10) eureka = true;
-							}
-							break;
-				}
-			}
-		
-		
-			texte=`Le tirage est le suivant : $${a}~;~${b}~;~${c}~;~${d}~;~${e}$ <br>\n La cible est : $${f}$`
-			texte_corr=`La solution est : ${expression}$=${f}$`
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
-				i++;
-			}
-		cpt++;	
-	}
-	liste_de_question_to_contenu(this);
-	}
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
-}
-*/
 
 
 /**
@@ -2919,6 +2805,10 @@ function Criteres_de_divisibilite(){
 	this.besoin_formulaire_numerique=['Choix des questions',4,"1 : Critères de divisibilité par 2, 5, 10\n\
 2 : Critères de divisibilité par 3,9\n3 : Critères de divisibilité par 2, 3, 5, 9, 10\n4 : Avec ou sans critère de divisibilité"]
 }
+/**
+ * Exercice sur la notion de proportionnalité (ou pas)
+ * @Auteur Jean-Claude Lhote
+ */
 function Proportionnalite_pas_proportionnalite() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -2970,10 +2860,10 @@ function Proportionnalite_pas_proportionnalite() {
 					p = y * randint(2, 5);
 					z = calcul(p * pu, 2);
 					texte = `${prenoms[0]} achète ${liste_de_lieux[index1]} des ${objet}. `;
-					texte += `Elle  repart avec ${y} ${objet} pour ${tex_prix(somme)} €. ${prenoms[1]} achète quant à lui, au même endroit ${p} ${objet} pour ${tex_prix(z)} €.<br>`
+					texte += `Elle  repart avec ${y} ${objet} pour $${tex_prix(somme)}$€. ${prenoms[1]} achète quant à lui, au même endroit ${p} ${objet} pour $${tex_prix(z)}$€.<br>`
 					texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`;
-					texte_corr=`${prenoms[0]} dépense ${texte_en_couleur(tex_prix(somme),'blue')} €.<br>`
-					texte_corr = `${prenoms[1]} a acheté  ${texte_en_couleur(tex_nombre(p / y))} fois la quantité des ${objet} achetée par ${prenoms[0]} pour ${texte_en_couleur(tex_prix(somme),'blue')} €.<br>Il a payé ${tex_prix(z)} € = ${texte_en_couleur(tex_nombrec(p / y))} $\\times$ ${texte_en_couleur(tex_prix(somme),'blue')} €.<br>`;
+					texte_corr=`${prenoms[0]} dépense $${mise_en_evidence(tex_prix(somme),'blue')}$€.<br>`
+					texte_corr = `${prenoms[1]} a acheté  ${mise_en_evidence(tex_nombre(p / y))} fois la quantité des ${objet} achetée par ${prenoms[0]} pour $${mise_en_evidence(tex_prix(somme),'blue')}$€.<br>Il a payé $${tex_prix(z)}$€ $=${mise_en_evidence(tex_nombrec(p / y))}\\times${mise_en_evidence(tex_prix(somme),'blue')}$€.<br>`;
 					texte_corr += `A l'aide de ces données, on constate que le prix des ${objet} et leur quantité sont tous les deux multipliés par le même nombre, donc ces deux grandeurs sont proportionnelles.<br>`;
 					break;
 				case 2: 
@@ -2988,11 +2878,11 @@ function Proportionnalite_pas_proportionnalite() {
 					p = y * randint(2, 5);
 					z = calcul(p * pu, 2);
 					texte = `${prenoms[0]} achète ${liste_de_lieux[index1]} des ${objet}. `;
-					texte += `Elle a obtenu ${y} ${objet} pour ${tex_prix(somme)} €. ${prenoms[1]} achète quant à lui, au même endroit ${p} ${objet} pour ${tex_prix(z)} €.<br>`
+					texte += `Elle a obtenu ${y} ${objet} pour $${tex_prix(somme)}$€. ${prenoms[1]} achète quant à lui, au même endroit ${p} ${objet} pour $${tex_prix(z)}$€.<br>`
 					texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`;
-					texte_corr = `${prenoms[0]} dépense ${texte_en_couleur(tex_prix(somme), 'blue')} €.<br>`
-					texte_corr = `${prenoms[1]} a acheté  ${texte_en_couleur(tex_nombrec(p / y))} fois la quantité des ${objet} achetée par ${prenoms[0]} pour ${texte_en_couleur(tex_prix(somme),'blue')} €.<br>Il a payé ${tex_prix(z)} €.<br>Mais ${texte_en_couleur(tex_nombrec(p / y))} $\\times$ ${texte_en_couleur(tex_prix(somme),'blue')} € = ${tex_prix(calcul(p * somme / y))} €.<br>`;
-					texte_corr += `À l'aide de ces données, on constate que le prix unitaire des ${objet} n'est pas le même pour ${prenoms[0]} qui en a acheté ${y} que pour ${prenoms[1]} qui en a acheté ${p}, donc ces deux grandeurs ne sont pas proportionnelles.<br>`;
+					texte_corr = `${prenoms[0]} dépense $${mise_en_evidence(tex_prix(somme), 'blue')}$€.<br>`
+					texte_corr = `${prenoms[1]} a acheté  ${mise_en_evidence(tex_nombrec(p / y))} fois la quantité des ${objet} achetée par ${prenoms[0]} pour $${mise_en_evidence(tex_prix(somme),'blue')}$€.<br>Il a payé $${tex_prix(z)}$€.<br>Mais $${mise_en_evidence(tex_nombrec(p / y))}\\times${mise_en_evidence(tex_prix(somme),'blue')}$€ $=${tex_prix(calcul(p * somme / y))}$€.<br>`;
+					texte_corr += `À l'aide de ces données, on constate que le prix unitaire des ${objet} n'est pas le même pour ${prenoms[0]} qui en a acheté $${y}$ que pour ${prenoms[1]} qui en a acheté ${p}, donc ces deux grandeurs ne sont pas proportionnelles.<br>`;
 					break;
 				case 3:
 					prenoms = [prenomF(), prenomM()];
@@ -3004,13 +2894,13 @@ function Proportionnalite_pas_proportionnalite() {
 					index1=calcul(x/n); //vitesse fille
 					index2=calcul(y/p); //vitesse garçon
 
-					texte =`${prenoms[0]} habite à ${nombre_avec_espace(x)} m du collège. Elle met ${n} minutes pour s'y rendre depuis chez elle.<br>`;
-					texte +=`${prenoms[1]}, lui, habite à ${nombre_avec_espace(y)} m du collège. Il met ${p} minutes pour s'y rendre depuis chez lui.<br>`;
+					texte =`${prenoms[0]} habite à ${x}m du collège. Elle met ${n} minutes pour s'y rendre depuis chez elle.<br>`;
+					texte +=`${prenoms[1]}, lui, habite à ${tex_nombre(y)} m du collège. Il met ${p} minutes pour s'y rendre depuis chez lui.<br>`;
 					texte += `Le temps mis pour venir au collège est-il proportionnel à la distance du foyer au collège ?<br>`;
-					texte_corr =`${prenoms[0]} parcourt chaque minute environ ${tex_nombrec(arrondi(index1,1))} m.<br>`;
-					texte_corr +=`${prenoms[1]} parcourt chaque minute environ ${tex_nombrec(arrondi(index2,1))} m.<br>`;
-					if (index1==index2) texte_corr+=`Pour ces deux élèves le temps mis et la distance parcourue sont proportionnels (si l'on compare leur vitesse moyenne)`;
-					else texte_corr+=`Pour ces deux élèves le temps mis et la distance parcourue ne sont pas proportionnels (si l'on compare leur vitesse moyenne).`;
+					texte_corr =`${prenoms[0]} parcourt chaque minute environ ${tex_nombrec(arrondi(index1,1))}m.<br>`;
+					texte_corr +=`${prenoms[1]} parcourt chaque minute environ ${tex_nombrec(arrondi(index2,1))}m.<br>`;
+					if (index1==index2) texte_corr+=`Pour ces deux élèves le temps mis et la distance parcourue sont proportionnelles (si l'on compare leur vitesse moyenne)`;
+					else texte_corr+=`Pour ces deux élèves le temps mis et la distance parcourue ne sont pas proportionnelles (si l'on compare leur vitesse moyenne)`;
 					break;
 				case 4:
 					prenoms = [prenomF(), prenomM()];
@@ -3048,13 +2938,13 @@ function Proportionnalite_pas_proportionnalite() {
 					tirages[3]=[3*n+3,(3*n+3)*pu];
 					met=choice([true,false]);
 					if (!met) tirages[p][1]-=0.1;
-					texte = `${prenoms[1]} relève les prix des ${objet} sur un catalogue par correspondance en fonction de la quantité saisie dans le panier.<br>`;
+					texte = `${prenoms[1]} relève les prix des ${objet} sur un catalogue par correspondance en fonction de la quantité saisie dans le panier<br>`;
 					texte += `Il note les prix dans le tableau suivant :<br>`;
 					texte += `$\\def\\arraystretch{1.5}\\begin{array}{||c`;  // construction du tableau des effectifs en un seul morceau
 					for (let j = 0; j <= tirages.length; j++)		texte += `|c`;
 					texte += `||}\\hline\\hline  \\text{${objet}}`;
 					for (let j = 0; j < tirages.length; j++) 		texte += `&${tirages[j][0]}`;
-					texte += `\\\\\\hline \\text{Prix (en €)}`;
+					texte += `\\\\\\hline \\text{Prix (en €})`;
 					for (let j = 0; j < tirages.length; j++) 		texte += `&${tex_prix(arrondi(tirages[j][1],2))}`;
 					texte += `\\\\\\hline\\hline\\end{array}$<br>`;
 					texte += `Le prix des ${objet} est-il proportionnel à la quatité achetée ?<br>`;
@@ -3067,7 +2957,7 @@ function Proportionnalite_pas_proportionnalite() {
 					}
 					texte_corr+=`${tex_prix(pu)}$<br><br>`;
 					if (!met) {
-						texte_corr+= `Mais $\\dfrac{${tex_prix(arrondi(tirages[p][1],2))}}{${tirages[p][0]}}=${tex_prix(arrondi(calcul(tirages[p][1]/tirages[p][0]),2))}$ €/${objet.substring(0,objet.length-1)}<br>`;
+						texte_corr+= `Mais $\\dfrac{${tex_prix(arrondi(tirages[p][1],2))}}{${tirages[p][0]}}=${tex_prix(arrondi(calcul(tirages[p][1]/tirages[p][0]),2))}$€/${objet.substring(0,objet.length-1)}<br>`;
 						texte_corr+=`Le prix des ${objet} n'est pas proportionnel au nombre acheté.<br>`;
 					}
 					else {
@@ -3738,6 +3628,144 @@ function Exercice_conversions_volumes(niveau=1){
 }
 
 
+
+/**
+* Conversions d'unités de volumes vers les unités de capacité ou inversement.
+*
+* Dans la correction, on passe systématiquement par l'équivalence dm3 = L 
+* 
+* * 1 : De dam3, m3, dm3, cm3 ou mm3 vers L ou inversement
+* * 2 : 
+* * 3 : 
+* * 4 : 
+* * 5 : 
+* * 6 : Un mélange de toutes les conversions
+* * Paramètre supplémentaire : utiliser des nombres décimaux (par défaut tous les nombres sont entiers)
+* @Auteur Rémi Angot
+*/
+function Unites_de_volumes_et_de_capacite(niveau=1){
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.sup = niveau ; // Niveau de difficulté de l'exercice 
+	this.sup2 = false; // Avec des nombres décimaux ou pas
+	this.titre = "Conversions avec des unités de volumes ou de capacités"
+	this.consigne = 'Compléter'
+	this.spacing = 2;
+	this.nb_questions = 8;
+	this.nb_cols_corr = 1;
+
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		if (this.sup==1) {
+			liste_type_de_questions = combinaison_listes(['dam3toL','m3toL','dm3toL','cm3toL'],this.nb_questions)
+		}
+		if (this.sup==2){
+			liste_type_de_questions = combinaison_listes(['Ltodm3','Ltocm3','Ltom3'],this.nb_questions)
+		}
+		if (this.sup==3){
+			liste_type_de_questions = combinaison_listes(['dam3toL','m3toL','dm3toL','cm3toL','mm3toL','Ltodm3','Ltocm3','Ltom3'],this.nb_questions)
+		}
+		let liste_de_n = [];
+		if (this.sup2) {
+			liste_de_n = combinaison_listes([1,2,3,4],this.nb_questions)
+		} else {
+			liste_de_n = combinaison_listes([1,2,3,4,5,6],this.nb_questions)
+		}
+		for (let i = 0, n, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+			if (this.sup2){
+				switch (liste_de_n[i]){
+					case 1 :
+						n = calcul(randint(2,9)/10);
+					break
+					case 2 :
+						n = calcul(randint(11,99)/100);
+					break
+					case 3 :
+						n = calcul(randint(1,9)*10+randint(1,9)/10);
+					break
+					case 4 :
+						n = calcul(randint(11,99,[10,20,30,40,50,60,70,80,90])/100);
+					break
+				}
+			} else {
+				switch (liste_de_n[i]){
+					case 1 :
+						n = randint(2,9);
+					break
+					case 2 :
+						n = randint(11,99);
+					break
+					case 3 :
+						n = randint(1,9)*10;
+					break
+					case 4 :
+						n = randint(1,9)*100;
+					break
+					case 5 :
+						n = randint(11,99)*100;
+					break
+					case 6 : 
+						n = randint(1,9)*1000;
+					break
+				}
+			}
+			switch (liste_type_de_questions[i]){
+				case 'dam3toL':
+					texte = `$${tex_nombre(n)}~\\text{dam}^3=\\dotfill~\\text{L}$`
+					texte_corr = `$${tex_nombre(n)}~\\text{dam}^3=${tex_nombre(n)}\\times1~000\\times1~000~\\text{dm}^3=${tex_nombrec(n*1000000)}~\\text{L}$`
+				break
+				case 'm3toL':
+					texte = `$${tex_nombre(n)}~\\text{m}^3=\\dotfill~\\text{L}$`
+					texte_corr = `$${tex_nombre(n)}~\\text{m}^3=${tex_nombre(n)}\\times1~000~\\text{dm}^3=${tex_nombrec(n*1000)}~\\text{L}$`
+				break
+				case 'dm3toL':
+					texte = `$${tex_nombre(n)}~\\text{dm}^3=\\dotfill~\\text{L}$`
+					texte_corr = `$${tex_nombre(n)}~\\text{dm}^3=${tex_nombre(n)}~\\text{L}$`
+				break
+				case 'cm3toL':
+					texte = `$${tex_nombre(n)}~\\text{cm}^3=\\dotfill~\\text{L}$`
+					texte_corr = `$${tex_nombre(n)}~\\text{cm}^3=${tex_nombre(n)}\\div 1~000~\\text{dm}^3=${tex_nombrec(n/1000)}~\\text{L}$`
+				break
+				case 'mm3toL':
+					texte = `$${tex_nombre(n)}~\\text{mm}^3=\\dotfill~\\text{L}$`
+					texte_corr = `$${tex_nombre(n)}~\\text{mm}^3=${tex_nombre(n)}\\div1~000\\div 1~000~\\text{dm}^3=${tex_nombrec(n/1000000)}~\\text{L}$`
+				break
+				case 'Ltodm3':
+					texte = `$${tex_nombre(n)}~\\text{L}=\\dotfill~\\text{dm}^3$`
+					texte_corr = `$${tex_nombre(n)}~\\text{L}=${tex_nombre(n)}~\\text{dm}^3$`
+				break
+				case 'Ltocm3':
+					texte = `$${tex_nombre(n)}~\\text{L}=\\dotfill~\\text{cm}^3$`
+					texte_corr = `$${tex_nombre(n)}~\\text{L}=${tex_nombre(n)}~\\text{dm}^3=${tex_nombre(n)}\\times1~000~\\text{cm}^3=${tex_nombrec(n*1000)}~\\text{cm}^3$`
+				break
+				case 'Ltom3':
+					texte = `$${tex_nombre(n)}~\\text{L}=\\dotfill~\\text{m}^3$`
+					texte_corr = `$${tex_nombre(n)}~\\text{L}=${tex_nombre(n)}~\\text{dm}^3=${tex_nombre(n)}\\div1~000~\\text{m}^3=${tex_nombrec(n/1000)}~\\text{m}^3$`
+				break
+
+			}
+			
+			
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+	}
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',3,'1 : Unités de volume vers litre\n2 : Litre vers unités de volume\n3 : Unités de volumes vers litre ou inversement '];
+	this.besoin_formulaire2_case_a_cocher = ['Avec des nombres décimaux'];
+}
+
+
+
+
+
+
 /**
 * Déterminer le périmètre et l'aire d'un carré, d'un rectangle, d'un triangle rectangle, d'un cercle
 * 
@@ -4073,10 +4101,9 @@ function Comparer_decimaux(){
 }
 
 
-
 /**
 * Calculer 10, 20, 30, 40 ou 50% d'un nombre
-* @Auteur Rémi Angot
+* @Auteur Rémi Angot + Jean-claude Lhote
 */
 function Pourcentage_d_un_nombre(){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -4084,7 +4111,7 @@ function Pourcentage_d_un_nombre(){
 	this.nb_questions = 5;
 	this.consigne = "Calculer"
 	this.spacing = 2;
-	this.spacing_corr = 2;
+	this.spacing_corr = 3.5;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1; 
 
@@ -4098,12 +4125,15 @@ function Pourcentage_d_un_nombre(){
 			n = choice([randint(2,9),randint(2,9)*10,randint(1,9)*10+randint(1,2)]); 
 			texte = `$${p}~\\%~\\text{de }${n}$`;
 			if (p==50) {
-			texte_corr = `$${p}~\\%~\\text{de }${n}=${tex_fraction(1,2)}\\times${n}=${tex_nombre(Algebrite.eval(n/2))}$`				
+			texte_corr = `$${p}~\\%~\\text{de }${n}=${n}\\div${2}=${tex_nombre(Algebrite.eval(n/2))}$`	// calcul de n/2 si p = 50%
 			} else {
-			texte_corr = `$${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=(${p}\\times${n})\\div100=${tex_nombre(p*n)}\\div100=${tex_nombre(Algebrite.eval(p*n/100))}$`				
-			}
-			
-			
+			texte_corr = `$${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=(${p}\\times${n})\\div100=${tex_nombre(p*n)}\\div100=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`	
+	//		texte_corr += `$\\phantom {Blanc}${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=\\dfrac{${p}\\times${n}}{100}=${tex_fraction(p*n,100)}=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`					
+			if (this.sup2) texte_corr += `$${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=(${n}\\div100)\\times${p}=${tex_nombrec(calcul(n/100))}\\times${p}=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`				
+	//		texte_corr += `$\\phantom {Blanc}${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=${tex_fraction(n,100)}\\times${p}=${tex_nombrec(calcul(n/100))}\\times${p}=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`				
+			if (this.sup2) texte_corr += `$${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=${tex_nombrec(calcul(p/100))}\\times${n}=${tex_nombre(Algebrite.eval(p*n/100))}$`				
+				
+		}
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
@@ -4113,56 +4143,83 @@ function Pourcentage_d_un_nombre(){
 		}
 		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_numerique = ['Valeur maximale',99999];	
+//	this.besoin_formulaire_numerique = ['Valeur maximale',99999];	
+	this.besoin_formulaire2_case_a_cocher = ['Plusieurs méthodes'];
 }
 
 /**
-* Calculer la fracton d'un nombre divisible par le dénominateur
+* Calculer la fracton d'un nombre divisible par le dénominateur ... ou pas.
 *
 * Par défaut la division du nombre par le dénominateur est inférieure à 11
-* @Auteur Rémi Angot
+* @Auteur Rémi Angot + Jean-Claude Lhote
 */
 function Fraction_d_un_nombre(max=11){
- 	Exercice.call(this); // Héritage de la classe Exercice()
- 	this.titre = "Calculer la fraction d'un nombre"
- 	this.nb_questions = 5;
- 	this.consigne = "Calculer"
- 	this.spacing = 2;
- 	this.spacing_corr = 2;
- 	this.sup = max;
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Calculer la fraction d'un nombre"
+	this.nb_questions = 5;
+	this.consigne = "Calculer"
+	sortie_html ? this.spacing_corr = 3.5 : this.spacing_corr = 2;
+	sortie_html ? this.spacing = 2 : this.spacing = 2;
+	this.sup = true;
+	this.sup2 = false;
+	this.nb_cols = 2;
+	this.nb_cols_corr = 1; 
 
-  	this.nouvelle_version = function(numero_de_l_exercice){
- 		this.liste_questions = []; // Liste de questions
- 		this.liste_corrections = []; // Liste de questions corrigées
- 		liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
- 		[1,6],[5,6],[1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[1,8],[3,8],[5,8],[7,8],
- 		[1,9],[2,9],[4,9],[5,9],[7,9],[8,9],[1,10],[3,10],[7,10],[9,10]] // Couples de nombres premiers entre eux
+	 this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
+		[1,6],[5,6],[1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[1,8],[3,8],[5,8],[7,8],
+		[1,9],[2,9],[4,9],[5,9],[7,9],[8,9],[1,10],[3,10],[7,10],[9,10]] // Couples de nombres premiers entre eux
 
-  		for (let i = 0, a, b, k, n, fraction, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt<50;){
- 			fraction = choice(liste_fractions);
- 			a = fraction[0];
- 			b = fraction[1];
- 			k = randint(1,this.sup);
- 			n = b*k; 
- 			texte = `$${tex_fraction(a,b)}\\times${n}=$`;
- 			if (a==1){
- 				texte_corr = `$${tex_fraction(a,b)}\\times${n}=${n}\\div${b}=${Algebrite.eval(n/b)}$`;	      
- 			} else {
- 				texte_corr = `$${tex_fraction(a,b)}\\times${n}=(${n}\\div${b})\\times${a}=${Algebrite.eval(n/b)}\\times${a}=${Algebrite.eval(n/b*a)}$`;
- 			}
-
- 
-  			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
- 				this.liste_questions.push(texte);
- 				this.liste_corrections.push(texte_corr);
- 				i++;
- 			}
- 			cpt++;
- 		}
- 		liste_de_question_to_contenu(this);
- 	}
- 	this.besoin_formulaire_numerique = ['Valeur maximale',99999];	
- }
+		 for (let i = 0, a, b, k, n,j, fraction, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt<50;){
+			fraction = choice(liste_fractions);
+			a = fraction[0];
+			b = fraction[1];
+			k = randint(1,11);
+			j=false;
+			if (this.sup) n = b*k;
+			else
+				if (randint(0,1)==0) n = b*k;
+				else n=randint(10,b*11);
+			texte = `$${tex_fraction(a,b)}\\times${n}=$`;
+			texte_corr=``;
+			if (a==1){ // Si n * 1/b
+				if (calcul(n/b-arrondi(n/b,4))==0)  	texte_corr += `$${tex_fraction(a,mise_en_evidence(b))}\\times${n}=${n}\\div${mise_en_evidence(b)}=${tex_nombrec(Algebrite.eval(n/b))}$`; // si résultat décimal	
+				else    texte_corr += `$${tex_fraction(a,b)}\\times${n}=${tex_fraction(n,b)}${simplification_de_fraction_avec_etapes(n,b)}$`;	//si résultat non décimal
+			} else {
+				if (calcul(n/b-arrondi(n/b,4))==0) { //si n/b décimal calcul (n/b)*a
+					texte_corr +=`$${tex_fraction(a,mise_en_evidence(b))}\\times${n}=(${n}\\div${mise_en_evidence(b)})\\times${a}=${tex_nombrec(Algebrite.eval(n/b))}\\times${a}=${tex_nombrec(Algebrite.eval(n/b*a))}$<br>`;
+				} else {
+					if (calcul(n*a/b-arrondi(n*a/b,4))==0) { // si n/b non décimal, alors on se rabat sur (n*a)/b
+						texte_corr += ` $${tex_fraction(a,mise_en_evidence(b))}\\times${n}=(${n}\\times${a})\\div${mise_en_evidence(b)}=${Algebrite.eval(n*a)}\\div${mise_en_evidence(b)}=${tex_nombrec(Algebrite.eval(n/b*a))}$<br>`;
+					}
+					else { // si autre méthode et résultat fractionnaire calcul (n*a)/b
+						texte_corr +=` $${tex_fraction(a,mise_en_evidence(b))}\\times${n}=(${n}\\times${a})\\div${mise_en_evidence(b)}=${Algebrite.eval(n*a)}\\div${mise_en_evidence(b)}=${tex_fraction(n*a,mise_en_evidence(b))}$<br>`;
+					}
+					j=true;
+				}
+				if (calcul(n*a/b-arrondi(n*a/b,4))==0&&this.sup2&&!j) { // Si autres méthodes et si (a*n)/b décimal calcul (n*a)/b
+					texte_corr += ` $${tex_fraction(a,mise_en_evidence(b))}\\times${n}=(${n}\\times${a})\\div${mise_en_evidence(b)}=${Algebrite.eval(n*a)}\\div${mise_en_evidence(b)}=${tex_nombrec(Algebrite.eval(n/b*a))}$<br>`;
+				}
+				else { // si autre méthode et résultat fractionnaire calcul (n*a)/b
+					if (this.sup2&&!j) texte_corr +=` $${tex_fraction(a,mise_en_evidence(b))}\\times${n}=(${n}\\times${a})\\div${mise_en_evidence(b)}=${Algebrite.eval(n*a)}\\div${mise_en_evidence(b)}=${tex_fraction(n*a,mise_en_evidence(b))}$<br>`;
+				}
+				// si autre méthode et a/b décimal calcul (a/b)*n
+				if ((b==2||b==4||b==5||b==8||b==10)&&this.sup2) texte_corr += ` $${tex_fraction(a,mise_en_evidence(b))}\\times${n}=(${a}\\div${mise_en_evidence(b)})\\times${n}=${tex_nombrec(Algebrite.eval(a/b))}\\times${n}=${tex_nombrec(Algebrite.eval(n/b*a))}$`;
+			}
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;
+		}
+		liste_de_question_to_contenu(this);
+	}
+	this.besoin_formulaire_case_a_cocher = ['Forcer résultat entier',true];	
+	this.besoin_formulaire2_case_a_cocher = ['Plusieurs méthodes',false];
+}
 
 
 /**
@@ -5720,8 +5777,156 @@ function HTML_personnalise() {
 
 }
 
+/**
+ * Calcul de volumes (cube et pavé droit).
+ * @Auteur Jean-Claude Lhote
+ */
 
-// Exercices paramétré pour correspondre au référentiel
+function Calcul_de_volumes(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Calculs de volumes";
+	this.consigne = "Calculer en détaillant le volume des solides donnés";
+	this.nb_questions = 4;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.sup=1;
+	
+	let type_de_questions_disponibles
+	
+	this.nouvelle_version = function(numero_de_l_exercice){
+		if (this.classe == 6) type_de_questions_disponibles = [1,2]; // sixième : cube et pavé droit
+		else
+			if (this.classe == 5) type_de_questions_disponibles = [1,2,3,4]; // cinquième : on ajoute les prismes et le cylindre 
+			else 
+				if (this.classe == 4) type_de_questions_disponibles = [1,2,3,4,5,6]; // Quatrième : on ajoute pyramides et cones
+				else type_de_questions_disponibles = [1,2,3,4,5,6,7]; // Troisième : on ajoute les boules.
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		let liste_unites=[[`~\\text{m}`,`~\\text{m}^3`],[`~\\text{dm}`,`~\\text{dm}^3`],[`~\\text{cm}`,`~\\text{cm}^3`],[`~\\text{mm}`,`~\\text{mm}^3`]]
+		for (let i = 0, texte, texte_corr, L, l, h, c, r,A,j,cpt=0; i < this.nb_questions && cpt<50; ) {
+			switch (liste_type_de_questions[i]) {
+				case 1 : // cube
+					c=randint(2,10);
+					j=randint(0,3); // pour le choix de l'unité
+					texte=`Un cube de $${c} ${liste_unites[j][0]}$ d'arête.`
+					texte_corr = `$\\mathcal{V}= c^3 =c \\times c \\times c = ${c}${liste_unites[j][0]}\\times${c}${liste_unites[j][0]}\\times${c}${liste_unites[j][0]}=${tex_nombrec(c*c*c)}${liste_unites[j][1]}$`;
+					break;
+				case 2 : // pavé droit
+					if (this.sup==1) { //sans conversion
+						j=randint(0,3); // pour le choix de l'unité
+						l=randint(2,5);
+						h=randint(3,6);
+						L=randint(6,10);
+						texte=`Un pavé droit de $${l}${liste_unites[j][0]}$ de largeur, de $${L}${liste_unites[j][0]}$ de longueur et de $${h}${liste_unites[j][0]}$ de hauteur.`
+						texte_corr=`$\\mathcal{V}= l \\times L \\times h = ${l}${liste_unites[j][0]}\\times${L}${liste_unites[j][0]}\\times${h}${liste_unites[j][0]}=${tex_nombrec(l*L*h)}${liste_unites[j][1]}$`
+					}
+					else { // avec conversion
+						j=randint(1,2); // pour le choix de l'unité	centrale
+						l=randint(2,5);
+						h=randint(3,6)*10;
+						L=arrondi(randint(6,10)/10,1);
+						texte=`Un pavé droit de $${l}${liste_unites[j][0]}$ de largeur, de $${tex_nombre(L)}${liste_unites[j-1][0]}$ de longueur et de $${h}${liste_unites[j+1][0]}$ de hauteur.`
+						texte_corr=`$\\mathcal{V}= l \\times L \\times h = ${l}${liste_unites[j][0]}\\times${tex_nombre(L)}${liste_unites[j-1][0]}\\times${h}${liste_unites[j+1][0]}=${l}${liste_unites[j][0]}\\times${L*10}${liste_unites[j][0]}\\times${h/10}${liste_unites[j][0]}=${tex_nombrec(arrondi(l*L*h))}${liste_unites[j][1]}$`
+					}
+					break;
+				case 3 : // Cylindre
+					if (this.sup==1) { //sans conversion
+						j=randint(0,3); // pour le choix de l'unité
+						r=randint(2,10);
+						h=randint(2,15);
+						texte=`Un cylindre de $${r}${liste_unites[j][0]}$ de rayon et de $${tex_nombre(h)}${liste_unites[j][0]}$ de hauteur.`
+						texte_corr=`$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${h}${liste_unites[j][0]}=${tex_nombrec(r*r*h)}\\pi${liste_unites[j][1]}\\approx${tex_nombrec(arrondi(r*r*h*Math.PI,1))}${liste_unites[j][1]}$`
+					}
+					else {
+						j=randint(2,3); // pour le choix de l'unité
+						r=randint(2,10);
+						h=randint(20,150);
+						texte=`Un cylindre de $${r}${liste_unites[j][0]}$ de rayon et de $${tex_nombrec(h/10)}${liste_unites[j-1][0]}$ de hauteur.`
+						texte_corr=`$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${tex_nombrec(h/10)}${liste_unites[j-1][0]}=\\pi\\times${r*r}${liste_unites[j][0]}^2\\times${h}${liste_unites[j][0]}=${tex_nombrec(r*r*h)}\\pi${liste_unites[j][1]}\\approx${tex_nombrec(calcul(r*r*h*Math.PI,1))}${liste_unites[j][1]}$`
+					}
+					break;
+				case 4 : // prisme droit
+					if (this.sup==1) { //sans conversion
+						j=randint(0,3); // pour le choix de l'unité
+						c=randint(2,10);
+						h=randint(2,5);
+						l=randint(6,10);
+						texte=`Un prisme droit de hauteur $${l}${liste_unites[j][0]}$ et dont les bases sont des triangles de base $${c}${liste_unites[j][0]}$ et de hauteur correspondante $${h}${liste_unites[j][0]}$.`
+						texte_corr=`$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${c}${liste_unites[j][0]}\\times${h}${liste_unites[j][0]}}{2}\\times${l}${liste_unites[j][0]}=${tex_nombrec(arrondi(calcul(c*h*l/2),1))}${liste_unites[j][1]}$`
+					}
+					else {
+						j=randint(1,2); // pour le choix de l'unité
+						c=randint(2,10);
+						h=randint(30,50);
+						l=arrondi(randint(5,15)/10,1);
+						texte=`Un prisme droit de hauteur $${l}${liste_unites[j-1][0]}$ et dont les bases sont des triangles de base $${c}${liste_unites[j][0]}$ et de hauteur correspondante $${h}${liste_unites[j+1][0]}$.`
+						texte_corr=`$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${c}${liste_unites[j][0]}\\times${h}${liste_unites[j+1][0]}}{2}\\times${tex_nombrec(l)}${liste_unites[j-1][0]}=\\dfrac{${c}${liste_unites[j][0]}\\times${tex_nombrec(calcul(h/10))}${liste_unites[j][0]}}{2}\\times${l*10}${liste_unites[j][0]}=${tex_nombrec(calcul(c*h*l/2))}${liste_unites[j][1]}$`
+						}
+					break;
+				case 5 : // cone
+					if (this.sup==1) { //sans conversion
+						j=randint(0,3); // pour le choix de l'unité
+						r=randint(2,10);
+						h=randint(2,15);
+						texte=`Un cône de $${r}${liste_unites[j][0]}$ de rayon et de $${tex_nombre(h)}${liste_unites[j][0]}$ de hauteur.`
+						texte_corr=`$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${h}${liste_unites[j][0]}=${tex_fraction(r*r*h,3)}\\pi${liste_unites[j][1]}\\approx${tex_nombrec(arrondi(r*r*h*Math.PI/3))}${liste_unites[j][1]}$`
+					}
+					else {
+						j=randint(2,3); // pour le choix de l'unité
+						r=randint(2,10);
+						h=randint(20,150);
+						texte=`Un cône de $${r}${liste_unites[j][0]}$ de rayon et de $${tex_nombrec(h/10)}${liste_unites[j-1][0]}$ de hauteur.`
+						texte_corr=`$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${tex_nombrec(calcul(h/10))}${liste_unites[j-1][0]}=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^2\\times${tex_nombrec(h)}${liste_unites[j][0]}=${tex_fraction(r*r*h,3)}\\pi\\approx${tex_nombrec(calcul(r*r*h*Math.PI/3,1))}${liste_unites[j][1]}$`
+					}
+					break;
+				case 6 : // pyramide
+				if (this.sup==1) { //sans conversion
+					j=randint(0,3); // pour le choix de l'unité
+					c=randint(2,10);
+					h=randint(2,5);
+					l=randint(6,10);
+					texte=`Une pyramide de hauteur $${h}${liste_unites[j][0]}$ et dont la base  est un carré de $${c}${liste_unites[j][0]}$ de côté.`
+					texte_corr=`$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\left(${c*c}${liste_unites[j][0]}\\right)^2\\times${h}${liste_unites[j][0]}`;
+					if (calcul(c*c*h/3,false)==arrondi(c*c*h/3,1)) texte_corr+=`=${tex_nombrec(arrondi(calcul(c*c*h/3),1))}${liste_unites[j][1]}$`;
+					else texte_corr+=`\\approx${tex_nombrec(arrondi(calcul(c*c*h/3),1))}${liste_unites[j][1]}$`;
+				}
+				else {
+					j=randint(1,2); // pour le choix de l'unité
+					c=randint(2,10);
+					h=randint(30,50);
+					l=arrondi(randint(5,15)/10,1);
+					texte=`Une pyramide de hauteur $${tex_nombrec(h/10)}${liste_unites[j-1][0]}$ et dont la base  est un carré de $${c}${liste_unites[j][0]}$ et de hauteur correspondante $${h}${liste_unites[j+1][0]}$.`
+					texte_corr=`$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\left(${c}${liste_unites[j][0]}\\right)^2\\times${tex_nombrec(h/10)}${liste_unites[j-1][0]}=\\dfrac{1}{3}\\times${c*c}${liste_unites[j][0]}^2\\times${tex_nombrec(h)}${liste_unites[j][0]}`;
+					if (calcul(c*c*h/3,false)==arrondi(c*c*h/3,1)) texte_corr+=`=${tex_nombrec(arrondi(calcul(c*h*c/3),1))}${liste_unites[j][1]}$`
+					else texte_corr+=`\\approx${tex_nombrec(arrondi(calcul(c*h*c/3),1))}${liste_unites[j][1]}$`
+					}
+				break;
+				case 7 : // boule
+						j=randint(0,3); // pour le choix de l'unité
+						r=randint(2,10);
+						texte=`Une boule de $${r}${liste_unites[j][0]}$ de rayon.`
+						texte_corr=`$\\mathcal{V}=\\dfrac{4}{3} \\times \\pi \\times R^3=\\dfrac{4}{3}\\times\\pi\\times\\left(${r}${liste_unites[j][0]}\\right)^3=${tex_fraction(calcul(4*r*r*r),3)}\\pi${liste_unites[j][1]}\\approx${tex_nombrec(arrondi(calcul(4*Math.PI*r*r*r/3),1))}${liste_unites[j][1]}$`
+					break;
+
+
+
+			}
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}	
+			cpt++;	
+		}
+	liste_de_question_to_contenu(this);
+	}
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : pas de conversion\n2 : avec conversion"];
+}
+
+// Exercices paramétrés pour correspondre au référentiel
 /**
  * Lire les coordonnées d'un point du quart de plan positif avec une précision allant de l'unité à 0,25.
  * @Auteur Jean-Claude Lhote
@@ -5761,6 +5966,30 @@ function Exercice_Trigo_angles_4e(){
 	this.quatrieme = true;
 	this.titre = "Utiliser le cosinus pour calculer la mesure d'un angle dans un triangle rectangle"
 	Exercice_Trigo_angles.call(this);
+}
+
+function Calcul_de_volumes_6e(){
+	this.sup = 1;
+	this.classe = 6;
+	Calcul_de_volumes.call(this);
+}
+
+function Calcul_de_volumes_5e(){
+	this.sup = 1;
+	this.classe = 5;
+	Calcul_de_volumes.call(this);
+}
+
+function Calcul_de_volumes_4e(){
+	this.sup = 1;
+	this.classe = 4;
+	Calcul_de_volumes.call(this);
+}
+
+function Calcul_de_volumes_3e(){
+	this.sup = 1;
+	this.classe = 3;
+	Calcul_de_volumes.call(this);
 }
 
 function Exercice_6N12(){
@@ -5864,6 +6093,7 @@ function LaTeX_static() {
    	}
 
 }
+
 
 // FIN DES EXERCICES
 // Gestion des listes d'exercices
