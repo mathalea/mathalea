@@ -2884,7 +2884,12 @@ function Tableau_criteres_de_divisibilite(){
 		 	}
 		 } 
 		
-		texte = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n`
+		if (sortie_html) {
+			texte = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n`
+		} else {
+			texte = `$\\begin{array}{|l|c|c|c|c|}\n`
+		}
+		
 		texte += `\\hline\n`
 		texte += `\\text{... est divisible} & \\text{par }2 & \\text{par }3 & \\text{par }5 & \\text{par }9\\\\\n`
 		texte += `\\hline\n`
@@ -2896,7 +2901,11 @@ function Tableau_criteres_de_divisibilite(){
 
 		texte += `\\end{array}\n$`
 
-		texte_corr = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n`
+		if (sortie_html) {
+			texte_corr = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n`
+		} else {
+			texte_corr = `$\\begin{array}{|l|c|c|c|c|}\n`
+		}
 		texte_corr += `\\hline\n`
 		texte_corr += `\\text{... est divisible} & \\text{par }2 & \\text{par }3 & \\text{par }5 & \\text{par }9\\\\\n`
 		texte_corr += `\\hline\n`
