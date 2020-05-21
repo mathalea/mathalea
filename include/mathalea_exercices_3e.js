@@ -472,8 +472,8 @@ function Image_fonction_algebrique(){
 	this.titre = "Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique";
 	this.consigne = "";
 	this.nb_questions = 5;
-	this.nb_cols = 2;
-	this.nb_cols_corr = 2;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
 	this.sup = 4; // niveau de difficulté
 
 	this.nouvelle_version = function(numero_de_l_exercice){
