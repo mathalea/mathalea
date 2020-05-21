@@ -141,6 +141,7 @@ var liste_des_exercices_disponibles = {
 		'3F10' : fonctions_lineaires,
 		'3F11' : fonctions_affines,
 		'3F12' : fonctions_calculs_d_images,
+		'3F12-2' : Image_fonction_algebrique,
 		'3S20' : fonctions_probabilite2,
 		//'3SVGtest' : svglibs,
 		'2N10' : Developper_Identites_remarquables2,
