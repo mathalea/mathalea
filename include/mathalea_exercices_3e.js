@@ -1877,10 +1877,10 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 	this.titre = "Division Euclidienne"; 
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne =`Divisions euclidiennes.`;
-	this.consigne += `<br>`;
+	//this.consigne += `<br>`;
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
-	this.nb_questions = 4;
+	this.nb_questions = 3;
 	//this.correction_detaillee_disponible = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -1900,31 +1900,68 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 		this.contenu = ''; // Liste de questions
 		this.contenu_correction = ''; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = [1,2,3,4];
+		let type_de_questions_disponibles = [1,2,3];
 		//let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
 
 			for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 				type_de_questions = liste_type_de_questions[i];
-				
+
+				var dividende;
+				var diviseur;
+				var quotient;
+				var reste;				
 	
 				switch (type_de_questions) {
-					case 1 : // périmètre d'un carré de côté x			
-						texte = 'type 1';
-						texte_corr = 'corr type 1';
+					case 1 : // plus grand reste dans une division euclidienne
+						diviseur = randint(2,99);
+						texte = `Dans une division euclidienne par ${diviseur}, quel est le plus grand reste possible? `;
+						texte_corr = `Si on divise par ${diviseur}, il ne peut pas rester plus de ${diviseur - 1}, sinon c'est qu'on peut encore ajouter au moins 1 fois ${diviseur} dans le dividende et donc 1 au quotient.`;
 						break;		
-					case 1 : // périmètre d'un carré de côté x			
-						texte = 'type 2';
-						texte_corr = 'corr type 2';
+					case 2 : // quotient et reste d'une division euclidienne donnée
+						diviseur = randint(2,99);
+						dividende = randint(101,99999);
+						quotient = Math.trunc(dividende/diviseur);
+						reste = dividende%diviseur;
+
+						texte = `On a $${dividende}=${diviseur}\\times ${quotient} + ${reste}$, dans la division euclidienne de ${dividende} par ${diviseur}, quels sont le quotient et le reste entiers ?` ;
+						texte_corr = `Dans la division euclidienne de ${dividende} par ${diviseur}, le quotient vaut ${quotient} et le reste ${reste}.`;
 						break;	
-					case 1 : // périmètre d'un carré de côté x			
-						texte = 'type 3';
-						texte_corr = 'corr type 3';
+					case 3 : // caractérisation des multiples et diviseurs par le reste de la division euclidienne
+						dividende = randint(101,9999);
+						diviseur = liste_diviseurs(dividende)[1]; // on choisit le second diviseur de dividende afin que l'algo fonctionne même si dividende est 1er 
+						let candidats_diviseurs = [diviseur-1,diviseur,diviseur+1]; // on prend l'entier précédetn et le successeur de ce diviseur
+						// Faut-il que je conditionne pour éviter le diviseur 1 ?
+						candidats_diviseurs=shuffle(candidats_diviseurs); // on mélange le tableau
+						texte = 'Les trois divisions euclidiennes suivantes sont exactes : <br>';
+						texte += `$${dividende} = ${candidats_diviseurs[0]} \\times ${Math.trunc(dividende/candidats_diviseurs[0])} + ${dividende%candidats_diviseurs[0]}$`;
+						texte += `<br>`;
+						texte += `$${dividende} = ${candidats_diviseurs[1]} \\times ${Math.trunc(dividende/candidats_diviseurs[1])} + ${dividende%candidats_diviseurs[1]}$`;
+						texte += `<br>`;
+						texte += `$${dividende} = ${candidats_diviseurs[2]} \\times ${Math.trunc(dividende/candidats_diviseurs[2])} + ${dividende%candidats_diviseurs[2]}$`;
+						texte += `<br>`;
+						texte += `Sans calculer, les nombres ${candidats_diviseurs[0]}, ${candidats_diviseurs[1]}, ${candidats_diviseurs[2]} sont-ils des diviseurs de ${dividende}? Justifie`;
+						texte_corr =``;
+						if (dividende%candidats_diviseurs[0]==0) {
+							texte_corr += `Le reste de la division euclienne de ${dividende} par ${candidats_diviseurs[0]} vaut 0 donc ${candidats_diviseurs[0]} est un diviseur de ${dividende}`;							
+						} else {
+							texte_corr += `Le reste de la division euclienne de ${dividende} par ${candidats_diviseurs[0]} ne vaut pas 0 donc ${candidats_diviseurs[0]} n'est pas un diviseur de ${dividende}`;							
+						}
+						texte_corr += `<br>`;
+						if (dividende%candidats_diviseurs[1]==0) {
+							texte_corr += `Le reste de la division euclienne de ${dividende} par ${candidats_diviseurs[1]} vaut 0 donc ${candidats_diviseurs[1]} divise ${dividende}`;							
+						} else {
+							texte_corr += `Le reste de la division euclienne de ${dividende} par ${candidats_diviseurs[1]} ne vaut pas 0 donc ${candidats_diviseurs[1]} ne divise pas ${dividende}`;							
+						}
+						texte_corr += `<br>`;
+						if (dividende%candidats_diviseurs[1]==0) {
+							texte_corr += `Le reste de la division euclienne de ${dividende} par ${candidats_diviseurs[2]} vaut 0 donc ${dividende} est divisible par ${candidats_diviseurs[2]}`;							
+						} else {
+							texte_corr += `Le reste de la division euclienne de ${dividende} par ${candidats_diviseurs[2]} ne vaut pas 0 donc ${dividende} n'est pas divisible par ${candidats_diviseurs[2]}`;							
+						}
+						texte_corr += `<br>`;
+						
 						break;	
-					case 1 : // périmètre d'un carré de côté x			
-						texte = 'type 4';
-						texte_corr = 'corr type 4';
-						break;		
 				};
 			
 				if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
@@ -1966,7 +2003,7 @@ function Decomposition_facteurs_premiers(){
 		if (sortie_html) { // les boutons d'aide uniquement pour la version html
 			//this.bouton_aide = '';
 			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A11.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
-			this.bouton_aide += modal_video('conteMathsNombresPremiers','videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
+			this.bouton_aide += modal_video('conteMathsNombresPremiers','videos/LesNombresPremiers.mp4','Petit conte mathématique - Les Nombres Premiers','Intro Vidéo');
 		} else { // sortie LaTeX
 		};
 
