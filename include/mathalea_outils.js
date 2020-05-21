@@ -250,6 +250,17 @@ function compare_fractions(a,b){
 	return 0
 }
 
+
+/**
+* Fonction de comparaison à utiliser avec tableau.sort(compare_nombres)
+*
+*
+* @author Rémi Angot
+*/
+function compare_nombres(a,b){ 
+	return a - b ;
+}
+
 /*
 * Mélange les items d'un tableau, sans modifier le tableau passé en argument
 *
