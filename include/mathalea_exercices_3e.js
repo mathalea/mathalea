@@ -1874,23 +1874,22 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1 ; 
-	this.titre = "Division Euclidienne"; 
+	this.titre = "Division Euclidienne - Diviseurs - Multiples"; 
 	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne =`Divisions euclidiennes.`;
+	this.consigne =`Divisions euclidiennes - Diviseurs - Multiples.`;
 	//this.consigne += `<br>`;
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
-	this.nb_questions = 3;
+	this.nb_questions = 5;
 	//this.correction_detaillee_disponible = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
-	this.sup = 1;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		let type_de_questions;
 		if (sortie_html) { // les boutons d'aide uniquement pour la version html
 			//this.bouton_aide = '';
-			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A10.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
+			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A10.pdf","Aide mémoire sur la division euclidienne (Sébastien Lozano)","Aide mémoire")		
 			//this.bouton_aide += modal_video('conteMathsNombresPremiers','videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
 		} else { // sortie LaTeX
 		};
@@ -1900,7 +1899,7 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 		this.contenu = ''; // Liste de questions
 		this.contenu_correction = ''; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = [1,2,3];
+		let type_de_questions_disponibles = [1,2,3,4,5];
 		//let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
 
@@ -1965,9 +1964,64 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 						} else {
 							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${candidats_diviseurs[2]} ne vaut pas 0 donc ${nombre_avec_espace(dividende)} n'est pas divisible par ${candidats_diviseurs[2]}`;							
 						}
-						texte_corr += `<br>`;
-						
-						break;	
+						texte_corr += `<br>`;						
+						break;
+					case 4 : // vocabulaire diviseurs et multiples
+						// on déclare des tableaux utiles 
+						let diviseurs=[];
+						let multiplicateurs=[];
+						let multiples=[];
+						let textes=[];
+						let textes_corr=[];
+						// on tire au hasard 4 diviseurs différents entre 2 et 999 et 4 multiplicateurs différents entre 2 et 9 
+						diviseurs = [randint(2,999),randint(2,999,[diviseurs[0]]),randint(2,999,[diviseurs[0],diviseurs[1]]),randint(2,999,[diviseurs[0],diviseurs[1],diviseurs[2]])];
+						multiplicateurs = [randint(2,9),randint(2,9,[multiplicateurs[0]]),randint(2,9,[multiplicateurs[0],multiplicateurs[1]]),randint(2,9,[multiplicateurs[0],multiplicateurs[1],multiplicateurs[2]])];
+						// on calcule les multiples
+						for (let j = 0; j<4; j++) {
+							multiples[j]=diviseurs[j]*multiplicateurs[j];							
+						};						
+						// on crée les phrases
+						textes[0]=`${diviseurs[0]} est un $\\ldots\\ldots\\ldots\\ldots$ de ${multiples[0]}`;
+						textes_corr[0]=`${diviseurs[0]} est un diviseur de ${multiples[0]}`;
+						textes[1]=`${diviseurs[1]} est un $\\ldots\\ldots\\ldots\\ldots$ de ${multiples[1]}`;
+						textes_corr[1]=`${diviseurs[1]} est un diviseur de ${multiples[1]}`;
+						textes[2]=`${multiples[2]} est un $\\ldots\\ldots\\ldots\\ldots$ de ${diviseurs[2]}`;
+						textes_corr[2]=`${multiples[2]} est un multiple de ${diviseurs[2]}`;
+						textes[3]=`${multiples[3]} est un $\\ldots\\ldots\\ldots\\ldots$ de ${diviseurs[3]}`;
+						textes_corr[3]=`${multiples[3]} est un multiple de ${diviseurs[3]}`;
+						// on mélange pour que l'ordre change!
+						shuffle2tableaux(textes,textes_corr);
+						texte = `Complète chaque phrase avec le mot "diviseur" ou multiple.`;
+						texte+= `<br>`;
+						texte_corr =``;
+						for (let j = 0; j<4; j++) {
+							texte += textes[j];
+							texte +=`<br>`;
+							texte_corr += textes_corr[j];
+							texte_corr +=`<br>`;
+						};
+						break;
+					// case 5 :
+					// 	texte = `bla bla bla`;
+					// 	break;
+					case 5 : // liste des diviseurs
+						let N; // on déclare le nombre dont on va chercher les diviseurs
+						N = randint(2,999);
+						texte = `Ecris la liste de tous les diviseurs de ${N}.`;
+						texte_corr = `Pour trouver la liste des diviseurs de ${N} on cherche tous les produits de deux facteurs qui donnent ${N}<br>`;
+						if (liste_diviseurs(N).length%2==0) {//si il y a un nombre pair de diviseurs
+							for (let m = 0; m<(liste_diviseurs(N).length/2); m++){
+								texte_corr += `$`+liste_diviseurs(N)[m]+`\\times`+liste_diviseurs(N)[(liste_diviseurs(N).length-m-1)]+`$<br>`;
+							};
+						} else {
+							for (let m = 0; m<((liste_diviseurs(N).length-1)/2); m++){
+								texte_corr += `$`+liste_diviseurs(N)[m]+`\\times`+liste_diviseurs(N)[(liste_diviseurs(N).length-m-1)]+`$<br>`;
+							};
+							texte_corr += `$`+liste_diviseurs(N)[(liste_diviseurs(N).length-1)/2]+`\\times`+liste_diviseurs(N)[(liste_diviseurs(N).length-1)/2]+`$<br>`;
+						};
+						texte_corr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${N}<br>`;
+						texte_corr += `La liste des diviseurs de ${N} est donc `+liste_diviseurs(N);						
+						break;							
 				};
 			
 				if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
@@ -2007,8 +2061,8 @@ function Decomposition_facteurs_premiers(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		let type_de_questions;
 		if (sortie_html) { // les boutons d'aide uniquement pour la version html
-			//this.bouton_aide = '';
-			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A11.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
+			this.bouton_aide = '';
+			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A11.pdf","Aide mémoire sur les nombres premiers (Sébastien Lozano)","Aide mémoire")		
 			this.bouton_aide += modal_video('conteMathsNombresPremiers','videos/LesNombresPremiers.mp4','Petit conte mathématique - Les Nombres Premiers','Intro Vidéo');
 		} else { // sortie LaTeX
 		};
