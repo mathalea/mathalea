@@ -122,6 +122,10 @@ var liste_des_exercices_disponibles = {
 		'4G31' : Exercice_Trigo_angles_4e,
 		'4G20' : Thales_4eme,
 		'4G21' : Reciproque_Thales_4eme,
+		'3A10' : DivisionEuclidienne_multiplesDiviseurs_Criteres,
+		'3A11' : Decomposition_facteurs_premiers,
+		'3A12' : FractionsIrreductibles,
+		'3A13' : PGCD_PPCM_Engrenages,
 		'3M30' : Calcul_de_volumes_3e,
 		'3N10': Exercice_developper,
 		'3N11' : Double_distributivite,
@@ -2880,7 +2884,12 @@ function Tableau_criteres_de_divisibilite(){
 		 	}
 		 } 
 		
-		texte = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n`
+		if (sortie_html) {
+			texte = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n`
+		} else {
+			texte = `$\\begin{array}{|l|c|c|c|c|}\n`
+		}
+		
 		texte += `\\hline\n`
 		texte += `\\text{... est divisible} & \\text{par }2 & \\text{par }3 & \\text{par }5 & \\text{par }9\\\\\n`
 		texte += `\\hline\n`
@@ -2892,7 +2901,11 @@ function Tableau_criteres_de_divisibilite(){
 
 		texte += `\\end{array}\n$`
 
-		texte_corr = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n`
+		if (sortie_html) {
+			texte_corr = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n`
+		} else {
+			texte_corr = `$\\begin{array}{|l|c|c|c|c|}\n`
+		}
 		texte_corr += `\\hline\n`
 		texte_corr += `\\text{... est divisible} & \\text{par }2 & \\text{par }3 & \\text{par }5 & \\text{par }9\\\\\n`
 		texte_corr += `\\hline\n`
