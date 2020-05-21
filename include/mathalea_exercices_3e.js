@@ -1920,44 +1920,50 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 						break;		
 					case 2 : // quotient et reste d'une division euclidienne donnée
 						diviseur = randint(2,99);
-						dividende = randint(101,99999);
+						dividende = randint(1001,99999);
 						quotient = Math.trunc(dividende/diviseur);
 						reste = dividende%diviseur;
 
-						texte = `On a $${dividende}=${diviseur}\\times ${quotient} + ${reste}$, dans la division euclidienne de ${dividende} par ${diviseur}, quels sont le quotient et le reste entiers ?` ;
-						texte_corr = `Dans la division euclidienne de ${dividende} par ${diviseur}, le quotient vaut ${quotient} et le reste ${reste}.`;
+						texte = `On a ${nombre_avec_espace(dividende)}=${diviseur}$\\times$${quotient} $+$ ${reste}, dans la division euclidienne de ${nombre_avec_espace(dividende)} par ${diviseur}, quels sont le quotient et le reste entiers ?` ;
+						texte_corr = `Dans la division euclidienne de ${nombre_avec_espace(dividende)} par ${diviseur}, le quotient vaut ${quotient} et le reste ${reste}.`;
 						break;	
 					case 3 : // caractérisation des multiples et diviseurs par le reste de la division euclidienne
 						dividende = randint(101,9999);
-						diviseur = liste_diviseurs(dividende)[1]; // on choisit le second diviseur de dividende afin que l'algo fonctionne même si dividende est 1er 
+						let rg_diviseur; // rang du diviseur choisi
+						if (liste_diviseurs(dividende).length%2==0) {//si il y a un nombre pair de diviseurs on prend le (n/2+1) eme
+							rg_diviseur = liste_diviseurs(dividende).length/2+1;
+						} else { // il y a nbre impair de diviseurs on prend le ((n-1)/2 +1) eme
+							rg_diviseur = (liste_diviseurs(dividende).length-1)/2 +1;							
+						}
+						diviseur = liste_diviseurs(dividende)[rg_diviseur-1]; // on choisit le diviseur central de dividende, ATTENTION rang des tableaux commence à 0 
 						let candidats_diviseurs = [diviseur-1,diviseur,diviseur+1]; // on prend l'entier précédetn et le successeur de ce diviseur
 						// Faut-il que je conditionne pour éviter le diviseur 1 ?
 						candidats_diviseurs=shuffle(candidats_diviseurs); // on mélange le tableau
 						texte = 'Les trois divisions euclidiennes suivantes sont exactes : <br>';
-						texte += `$${dividende} = ${candidats_diviseurs[0]} \\times ${Math.trunc(dividende/candidats_diviseurs[0])} + ${dividende%candidats_diviseurs[0]}$`;
+						texte += `${nombre_avec_espace(dividende)} = ${candidats_diviseurs[0]}$\\times$${nombre_avec_espace(Math.trunc(dividende/candidats_diviseurs[0]))} $+$ ${dividende%candidats_diviseurs[0]}`;
 						texte += `<br>`;
-						texte += `$${dividende} = ${candidats_diviseurs[1]} \\times ${Math.trunc(dividende/candidats_diviseurs[1])} + ${dividende%candidats_diviseurs[1]}$`;
+						texte += `${nombre_avec_espace(dividende)} = ${candidats_diviseurs[1]}$\\times$${nombre_avec_espace(Math.trunc(dividende/candidats_diviseurs[1]))} $+$ ${dividende%candidats_diviseurs[1]}`;
 						texte += `<br>`;
-						texte += `$${dividende} = ${candidats_diviseurs[2]} \\times ${Math.trunc(dividende/candidats_diviseurs[2])} + ${dividende%candidats_diviseurs[2]}$`;
+						texte += `${nombre_avec_espace(dividende)} = ${candidats_diviseurs[2]}$\\times$${nombre_avec_espace(Math.trunc(dividende/candidats_diviseurs[2]))} $+$ ${dividende%candidats_diviseurs[2]}`;
 						texte += `<br>`;
-						texte += `Sans calculer, les nombres ${candidats_diviseurs[0]}, ${candidats_diviseurs[1]}, ${candidats_diviseurs[2]} sont-ils des diviseurs de ${dividende}? Justifie`;
+						texte += `Sans calculer, les nombres ${candidats_diviseurs[0]}, ${candidats_diviseurs[1]}, ${candidats_diviseurs[2]} sont-ils des diviseurs de ${nombre_avec_espace(dividende)}? Justifie`;
 						texte_corr =``;
 						if (dividende%candidats_diviseurs[0]==0) {
-							texte_corr += `Le reste de la division euclienne de ${dividende} par ${candidats_diviseurs[0]} vaut 0 donc ${candidats_diviseurs[0]} est un diviseur de ${dividende}`;							
+							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${candidats_diviseurs[0]} vaut 0 donc ${candidats_diviseurs[0]} est un diviseur de ${nombre_avec_espace(dividende)}`;							
 						} else {
-							texte_corr += `Le reste de la division euclienne de ${dividende} par ${candidats_diviseurs[0]} ne vaut pas 0 donc ${candidats_diviseurs[0]} n'est pas un diviseur de ${dividende}`;							
+							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${candidats_diviseurs[0]} ne vaut pas 0 donc ${candidats_diviseurs[0]} n'est pas un diviseur de ${nombre_avec_espace(dividende)}`;							
 						}
 						texte_corr += `<br>`;
 						if (dividende%candidats_diviseurs[1]==0) {
-							texte_corr += `Le reste de la division euclienne de ${dividende} par ${candidats_diviseurs[1]} vaut 0 donc ${candidats_diviseurs[1]} divise ${dividende}`;							
+							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${candidats_diviseurs[1]} vaut 0 donc ${candidats_diviseurs[1]} divise ${nombre_avec_espace(dividende)}`;							
 						} else {
-							texte_corr += `Le reste de la division euclienne de ${dividende} par ${candidats_diviseurs[1]} ne vaut pas 0 donc ${candidats_diviseurs[1]} ne divise pas ${dividende}`;							
+							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${candidats_diviseurs[1]} ne vaut pas 0 donc ${candidats_diviseurs[1]} ne divise pas ${nombre_avec_espace(dividende)}`;							
 						}
 						texte_corr += `<br>`;
 						if (dividende%candidats_diviseurs[1]==0) {
-							texte_corr += `Le reste de la division euclienne de ${dividende} par ${candidats_diviseurs[2]} vaut 0 donc ${dividende} est divisible par ${candidats_diviseurs[2]}`;							
+							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${candidats_diviseurs[2]} vaut 0 donc ${nombre_avec_espace(dividende)} est divisible par ${candidats_diviseurs[2]}`;							
 						} else {
-							texte_corr += `Le reste de la division euclienne de ${dividende} par ${candidats_diviseurs[2]} ne vaut pas 0 donc ${dividende} n'est pas divisible par ${candidats_diviseurs[2]}`;							
+							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${candidats_diviseurs[2]} ne vaut pas 0 donc ${nombre_avec_espace(dividende)} n'est pas divisible par ${candidats_diviseurs[2]}`;							
 						}
 						texte_corr += `<br>`;
 						
@@ -2077,7 +2083,7 @@ function FractionsIrreductibles(){
 		let type_de_questions;
 		if (sortie_html) { // les boutons d'aide uniquement pour la version html
 			//this.bouton_aide = '';
-			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A12.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
+			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A12.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")					
 			//this.bouton_aide += modal_video('conteMathsNombresPremiers','videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
 		} else { // sortie LaTeX
 		};
@@ -2098,17 +2104,23 @@ function FractionsIrreductibles(){
 				switch (type_de_questions) {
 					case 1 : // périmètre d'un carré de côté x			
 						texte = 'type 1';
+						if (sortie_html) {
+						texte += modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A13.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
+						};
 						texte_corr = 'corr type 1';
 						break;		
-					case 1 : // périmètre d'un carré de côté x			
+					case 2 : // périmètre d'un carré de côté x			
 						texte = 'type 2';
+						if (sortie_html) {
+						texte += modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A10.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
+						};
 						texte_corr = 'corr type 2';
 						break;	
-					case 1 : // périmètre d'un carré de côté x			
+					case 3 : // périmètre d'un carré de côté x			
 						texte = 'type 3';
 						texte_corr = 'corr type 3';
 						break;	
-					case 1 : // périmètre d'un carré de côté x			
+					case 4 : // périmètre d'un carré de côté x			
 						texte = 'type 4';
 						texte_corr = 'corr type 4';
 						break;		
