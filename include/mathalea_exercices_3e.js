@@ -456,6 +456,159 @@ function fonctions_affines(){
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',3,"1 : Coefficient directeur entier\n2 : Coefficient directeur 'en demis'\n3 : Coefficient directeur 'en quarts'"];
 }
 
+
+/**
+* Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique
+*
+* * Niveau 1 : Fonctions affines
+* * Niveau 2 : Polynôme du second degré
+* * Niveau 3 : Quotients de fonctions affines
+* * Niveau 4 : (ax+b)(cx+d)
+* * Niveau 5 : Mélange 
+* @Auteur Rémi Angot
+*/
+function Image_fonction_algebrique(){
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique";
+	this.consigne = "";
+	this.nb_questions = 5;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.sup = 4; // niveau de difficulté
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+
+		let type_de_questions_disponibles = [];
+		if (this.sup==1) {
+			type_de_questions_disponibles = ['ax+b','ax-b','-ax+b','-ax-b'];
+		} 
+		if (this.sup==2) {
+			type_de_questions_disponibles = ['ax2+bx+c','ax2+c','ax2+bx','-ax2+bx-c','-ax2-bx-c','-ax2-bx+c','-ax2-bx'];
+		}
+		if (this.sup==3) {
+			type_de_questions_disponibles = ['a/cx+d','ax+b/cx+d'];
+		}
+		if (this.sup==4) {
+			type_de_questions_disponibles = ['(ax+b)(cx+d)','(ax+b)2'];
+		}
+		if (this.sup==5) {
+			type_de_questions_disponibles = ['ax+b','ax-b','-ax+b','ax2+bx+c','-ax2+bx-c','-ax2-bx','a/cx+d','ax+b/cx+d','(ax+b)(cx+d)','(ax+b)2'];
+		}
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_de_signes_de_x = combinaison_listes([true,false],this.nb_questions); 
+		for (let i = 0, texte, texte_corr, a, b, c, d, expression, nomdef, x, cpt=0; i < this.nb_questions && cpt<50; ) {
+			x = randint(1,12);
+			if (liste_de_signes_de_x[i]) {
+				x = -1*x;
+			}
+			a = randint(2,11);
+			b = randint(2,11);
+			c = randint(2,11);
+			nomdef = lettre_minuscule_depuis_chiffre(6+i) // on commence par f puis on continue dans l'ordre alphabétique
+			switch (liste_type_de_questions[i]){
+				case 'ax+b': 
+					expression = `${a}x+${b}`
+					texte_corr = `$${nomdef}(${x})=${a}\\times ${ecriture_parenthese_si_negatif(x)}+${b}=${a*x}+${b}=${a*x+b}$`
+				break;
+				case 'ax-b': 
+					expression = `${a}x-${b}`
+					texte_corr = `$${nomdef}(${x})=${a}\\times ${ecriture_parenthese_si_negatif(x)}-${b}=${a*x}-${b}=${a*x-b}$`
+				break;
+				case '-ax+b': 
+					expression = `-${a}x+${b}`
+					texte_corr = `$${nomdef}(${x})=-${a}\\times ${ecriture_parenthese_si_negatif(x)}+${b}=${-1*a*x}+${b}=${-1*a*x+b}$`
+				break;
+				case '-ax-b': 
+					expression = `-${a}x-${b}`
+					texte_corr = `$${nomdef}(${x})=-${a}\\times ${ecriture_parenthese_si_negatif(x)}-${b}=${-1*a*x}-${b}=${-1*a*x-b}$`
+				break;
+				case 'ax2+bx+c': 
+					expression = `${a}x^2+${b}x+${c}`
+					texte_corr = `$${nomdef}(${x})=${a}\\times ${ecriture_parenthese_si_negatif(x)}^2+${b}\\times ${ecriture_parenthese_si_negatif(x)}+${c}=${a}\\times${x*x}${ecriture_algebrique(b*x)}+${c}=${a*x*x}${ecriture_algebrique(b*x)}+${c}=${a*x*x+b*x+c}$`
+				break;
+				case 'ax2+c': 
+					expression = `${a}x^2+${c}`
+					texte_corr = `$${nomdef}(${x})=${a}\\times ${ecriture_parenthese_si_negatif(x)}^2+${c}=${a}\\times${x*x}+${c}=${a*x*x}+${c}=${a*x*x+c}$`
+				break;
+				case 'ax2+bx': 
+					expression = `${a}x^2+${b}x`
+					texte_corr = `$${nomdef}(${x})=${a}\\times ${ecriture_parenthese_si_negatif(x)}^2+${b}\\times ${ecriture_parenthese_si_negatif(x)}=${a}\\times${x*x}${ecriture_algebrique(b*x)}=${a*x*x}${ecriture_algebrique(b*x)}=${a*x*x+b*x}$`
+				break;
+				case '-ax2+bx-c': 
+					expression = `-${a}x^2+${b}x-${c}`
+					texte_corr = `$${nomdef}(${x})=-${a}\\times ${ecriture_parenthese_si_negatif(x)}^2+${b}\\times ${ecriture_parenthese_si_negatif(x)}-${c}=-${a}\\times${x*x}${ecriture_algebrique(b*x)}-${c}=${-1*a*x*x}${ecriture_algebrique(b*x)}-${c}=${-1*a*x*x+b*x-c}$`
+				break;
+				case '-ax2-bx-c': 
+					expression = `-${a}x^2-${b}x-${c}`
+					texte_corr = `$${nomdef}(${x})=-${a}\\times ${ecriture_parenthese_si_negatif(x)}^2-${b}\\times ${ecriture_parenthese_si_negatif(x)}-${c}=-${a}\\times${x*x}${ecriture_algebrique(-1*b*x)}-${c}=${-1*a*x*x}${ecriture_algebrique(-1*b*x)}-${c}=${-1*a*x*x-b*x-c}$`
+				break;
+				case '-ax2-bx+c': 
+					expression = `-${a}x^2-${b}x+${c}`
+					texte_corr = `$${nomdef}(${x})=-${a}\\times ${ecriture_parenthese_si_negatif(x)}^2-${b}\\times ${ecriture_parenthese_si_negatif(x)}+${c}=-${a}\\times${x*x}${ecriture_algebrique(-1*b*x)}+${c}=${-1*a*x*x}${ecriture_algebrique(-1*b*x)}+${c}=${-1*a*x*x-b*x+c}$`
+				break;
+				case '-ax2-bx': 
+					expression = `-${a}x^2-${b}x`
+					texte_corr = `$${nomdef}(${x})=-${a}\\times ${ecriture_parenthese_si_negatif(x)}^2-${b}\\times ${ecriture_parenthese_si_negatif(x)}=-${a}\\times${x*x}${ecriture_algebrique(-1*b*x)}=${-1*a*x*x}${ecriture_algebrique(-1*b*x)}=${-1*a*x*x-b*x}$`
+				break;
+				case 'a/cx+d': 
+					d = randint(1,11)
+					while (c*x+d==0){
+						c=randint(1,11)
+					}
+					expression = `\\dfrac{${a}}{${c}x+${d}}`
+					texte_corr = `$${nomdef}(${x})=\\dfrac{${a}}{${c}\\times${ecriture_parenthese_si_negatif(x)}+${d}}=\\dfrac{${a}}{${c*x}+${d}}=\\dfrac{${a}}{${c*x+d}}=${tex_fraction_reduite(a,c*x+d)}$`
+				break;
+				case 'ax+b/cx+d': 
+					d = randint(1,11)
+					while (c*x+d==0){
+						c=randint(1,11)
+					}
+					while (a*x+b==0){
+						a=randint(1,11)
+					}
+					expression = `\\dfrac{${a}x+${b}}{${c}x+${d}}`
+					texte_corr = `$${nomdef}(${x})=\\dfrac{${a}\\times${ecriture_parenthese_si_negatif(x)}+${b}}{${c}\\times${ecriture_parenthese_si_negatif(x)}+${d}}=\\dfrac{${a*x}+${b}}{${c*x}+${d}}=\\dfrac{${a*x+b}}{${c*x+d}}=${tex_fraction_reduite(a*x+b,c*x+d)}$`
+				break;
+				case '(ax+b)(cx+d)': 
+					a = randint (-4,4,[0])
+					b = randint (-4,4,[0])
+					c = randint (-4,4,[0])
+					d = randint (-4,4,[0])
+					x = randint (-2,2,[0])
+
+					expression = `(${a}x${ecriture_algebrique(b)})(${c}x${ecriture_algebrique(d)})`
+					texte_corr = `$${nomdef}(${x})=\\left(${a}\\times${ecriture_parenthese_si_negatif(x)}${ecriture_algebrique(b)}\\right)\\left(${c}\\times${ecriture_parenthese_si_negatif(x)}${ecriture_algebrique(d)}\\right)=(${a*x}${ecriture_algebrique(b)})(${c*x}${ecriture_algebrique(d)})=${a*x+b}\\times${ecriture_parenthese_si_negatif(c*x+d)}=${(a*x+b)*(c*x+d)}$`
+				break;
+				case '(ax+b)2': 
+					a = randint (-4,4,[0,-1,1])
+					b = randint (-4,4,[0])
+					c = randint (-4,4,[0,-1,1])
+					d = randint (-4,4,[0])
+					x = randint (-2,2,[0])
+
+					expression = `(${a}x${ecriture_algebrique(b)})^2`
+					texte_corr = `$${nomdef}(${x})=\\left(${a}\\times${ecriture_parenthese_si_negatif(x)}${ecriture_algebrique(b)}\\right)^2=(${a*x}${ecriture_algebrique(b)})^2=${ecriture_parenthese_si_negatif(a*x+b)}^2=${(a*x+b)*(a*x+b)}$`
+				break;
+			}
+
+			texte = `On considère la fonction $${nomdef}$ définie par $${nomdef}(x):x\\mapsto ${expression}$. Calculer $${nomdef}(${x})$.`
+			
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+	}
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',5,'1 : Fonctions affines\n2 : Polynome du second degré\n3 : Quotient\n4 : Produit \n5 : Mélange'];
+}
+
+
 /**
 * @auteur Jean-Claude Lhote
 */
@@ -1874,23 +2027,22 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1 ; 
-	this.titre = "Division Euclidienne"; 
+	this.titre = "Division Euclidienne - Diviseurs - Multiples"; 
 	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne =`Divisions euclidiennes.`;
+	this.consigne =`Divisions euclidiennes - Diviseurs - Multiples.`;
 	//this.consigne += `<br>`;
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
-	this.nb_questions = 3;
+	this.nb_questions = 5;
 	//this.correction_detaillee_disponible = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
-	this.sup = 1;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		let type_de_questions;
 		if (sortie_html) { // les boutons d'aide uniquement pour la version html
 			//this.bouton_aide = '';
-			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A10.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
+			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A10.pdf","Aide mémoire sur la division euclidienne (Sébastien Lozano)","Aide mémoire")		
 			//this.bouton_aide += modal_video('conteMathsNombresPremiers','videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
 		} else { // sortie LaTeX
 		};
@@ -1900,7 +2052,7 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 		this.contenu = ''; // Liste de questions
 		this.contenu_correction = ''; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = [1,2,3];
+		let type_de_questions_disponibles = [1,2,3,4,5];
 		//let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
 
@@ -1915,7 +2067,7 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 				switch (type_de_questions) {
 					case 1 : // plus grand reste dans une division euclidienne
 						diviseur = randint(2,99);
-						texte = `Dans une division euclidienne par ${diviseur}, quel est le plus grand reste possible? `;
+						texte = `Dire quel est le plus grand reste possible dans une division euclidienne par ${diviseur}.`;
 						texte_corr = `Si on divise par ${diviseur}, il ne peut pas rester plus de ${diviseur - 1}, sinon c'est qu'on peut encore ajouter au moins 1 fois ${diviseur} dans le dividende et donc 1 au quotient.`;
 						break;		
 					case 2 : // quotient et reste d'une division euclidienne donnée
@@ -1924,8 +2076,10 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 						quotient = Math.trunc(dividende/diviseur);
 						reste = dividende%diviseur;
 
-						texte = `On a ${nombre_avec_espace(dividende)}=${diviseur}$\\times$${quotient} $+$ ${reste}, dans la division euclidienne de ${nombre_avec_espace(dividende)} par ${diviseur}, quels sont le quotient et le reste entiers ?` ;
-						texte_corr = `Dans la division euclidienne de ${nombre_avec_espace(dividende)} par ${diviseur}, le quotient vaut ${quotient} et le reste ${reste}.`;
+						texte = `On a ${nombre_avec_espace(dividende)}=${nombre_avec_espace(diviseur)}$\\times$${nombre_avec_espace(quotient)} $+$ ${nombre_avec_espace(reste)}`;
+						texte += `<br>`;
+						texte += `Écrire le quotient et le reste de la division euclidienne de ${nombre_avec_espace(dividende)} par ${diviseur}.` ;
+						texte_corr = `Dans la division euclidienne de ${nombre_avec_espace(dividende)} par ${diviseur}, le quotient vaut ${nombre_avec_espace(quotient)} et le reste ${reste}.`;
 						break;	
 					case 3 : // caractérisation des multiples et diviseurs par le reste de la division euclidienne
 						dividende = randint(101,9999);
@@ -1940,34 +2094,126 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 						// Faut-il que je conditionne pour éviter le diviseur 1 ?
 						candidats_diviseurs=shuffle(candidats_diviseurs); // on mélange le tableau
 						texte = 'Les trois divisions euclidiennes suivantes sont exactes : <br>';
-						texte += `${nombre_avec_espace(dividende)} = ${candidats_diviseurs[0]}$\\times$${nombre_avec_espace(Math.trunc(dividende/candidats_diviseurs[0]))} $+$ ${dividende%candidats_diviseurs[0]}`;
+						texte += `${nombre_avec_espace(dividende)} = ${nombre_avec_espace(candidats_diviseurs[0])}$\\times$${nombre_avec_espace(Math.trunc(dividende/candidats_diviseurs[0]))} $+$ ${nombre_avec_espace(dividende%candidats_diviseurs[0])}`;
 						texte += `<br>`;
-						texte += `${nombre_avec_espace(dividende)} = ${candidats_diviseurs[1]}$\\times$${nombre_avec_espace(Math.trunc(dividende/candidats_diviseurs[1]))} $+$ ${dividende%candidats_diviseurs[1]}`;
+						texte += `${nombre_avec_espace(dividende)} = ${nombre_avec_espace(candidats_diviseurs[1])}$\\times$${nombre_avec_espace(Math.trunc(dividende/candidats_diviseurs[1]))} $+$ ${nombre_avec_espace(dividende%candidats_diviseurs[1])}`;
 						texte += `<br>`;
-						texte += `${nombre_avec_espace(dividende)} = ${candidats_diviseurs[2]}$\\times$${nombre_avec_espace(Math.trunc(dividende/candidats_diviseurs[2]))} $+$ ${dividende%candidats_diviseurs[2]}`;
+						texte += `${nombre_avec_espace(dividende)} = ${nombre_avec_espace(candidats_diviseurs[2])}$\\times$${nombre_avec_espace(Math.trunc(dividende/candidats_diviseurs[2]))} $+$ ${nombre_avec_espace(dividende%candidats_diviseurs[2])}`;
 						texte += `<br>`;
-						texte += `Sans calculer, les nombres ${candidats_diviseurs[0]}, ${candidats_diviseurs[1]}, ${candidats_diviseurs[2]} sont-ils des diviseurs de ${nombre_avec_espace(dividende)}? Justifie`;
+						texte += `Sans calculer, dire si les nombres ${nombre_avec_espace(candidats_diviseurs[0])}; ${nombre_avec_espace(candidats_diviseurs[1])}; ${nombre_avec_espace(candidats_diviseurs[2])} sont des diviseurs de ${nombre_avec_espace(dividende)}. Justifier.`;
 						texte_corr =``;
 						if (dividende%candidats_diviseurs[0]==0) {
-							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${candidats_diviseurs[0]} vaut 0 donc ${candidats_diviseurs[0]} est un diviseur de ${nombre_avec_espace(dividende)}`;							
+							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[0])} vaut 0 donc ${nombre_avec_espace(candidats_diviseurs[0])} est un diviseur de ${nombre_avec_espace(dividende)}`;							
 						} else {
-							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${candidats_diviseurs[0]} ne vaut pas 0 donc ${candidats_diviseurs[0]} n'est pas un diviseur de ${nombre_avec_espace(dividende)}`;							
+							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[0])} ne vaut pas 0 donc ${nombre_avec_espace(candidats_diviseurs[0])} n'est pas un diviseur de ${nombre_avec_espace(dividende)}`;							
 						}
 						texte_corr += `<br>`;
 						if (dividende%candidats_diviseurs[1]==0) {
-							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${candidats_diviseurs[1]} vaut 0 donc ${candidats_diviseurs[1]} divise ${nombre_avec_espace(dividende)}`;							
+							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[1])} vaut 0 donc ${nombre_avec_espace(candidats_diviseurs[1])} divise ${nombre_avec_espace(dividende)}`;							
 						} else {
-							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${candidats_diviseurs[1]} ne vaut pas 0 donc ${candidats_diviseurs[1]} ne divise pas ${nombre_avec_espace(dividende)}`;							
+							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[1])} ne vaut pas 0 donc ${nombre_avec_espace(candidats_diviseurs[1])} ne divise pas ${nombre_avec_espace(dividende)}`;							
 						}
 						texte_corr += `<br>`;
 						if (dividende%candidats_diviseurs[1]==0) {
-							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${candidats_diviseurs[2]} vaut 0 donc ${nombre_avec_espace(dividende)} est divisible par ${candidats_diviseurs[2]}`;							
+							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[2])} vaut 0 donc ${nombre_avec_espace(dividende)} est divisible par ${nombre_avec_espace(candidats_diviseurs[2])}`;							
 						} else {
-							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${candidats_diviseurs[2]} ne vaut pas 0 donc ${nombre_avec_espace(dividende)} n'est pas divisible par ${candidats_diviseurs[2]}`;							
+							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[2])} ne vaut pas 0 donc ${nombre_avec_espace(dividende)} n'est pas divisible par ${nombre_avec_espace(candidats_diviseurs[2])}`;							
 						}
-						texte_corr += `<br>`;
-						
-						break;	
+						texte_corr += `<br>`;						
+						break;
+					case 4 : // vocabulaire diviseurs et multiples
+						// on déclare des tableaux utiles 
+						let diviseurs=[];
+						let multiplicateurs=[];
+						let multiples=[];
+						let quotients=[];
+						let textes=[];
+						let textes_corr=[];
+						// on tire au hasard 4 diviseurs différents entre 2 et 999 et 4 multiplicateurs différents entre 2 et 9 
+						diviseurs = [randint(2,999),randint(2,999,[diviseurs[0]]),randint(2,999,[diviseurs[0],diviseurs[1]]),randint(2,999,[diviseurs[0],diviseurs[1],diviseurs[2]])];
+						multiplicateurs = [randint(2,9),randint(2,9,[multiplicateurs[0]]),randint(2,9,[multiplicateurs[0],multiplicateurs[1]]),randint(2,9,[multiplicateurs[0],multiplicateurs[1],multiplicateurs[2]])];
+						// on calcule les multiples
+						for (let j = 0; j<4; j++) {
+							multiples[j]=diviseurs[j]*multiplicateurs[j];
+							quotients[j]=multiples[j]/diviseurs[j];
+							diviseurs[j]=nombre_avec_espace(diviseurs[j]);
+							multiples[j]=nombre_avec_espace(multiples[j]);							
+							quotients[j]=nombre_avec_espace(quotients[j]);
+						};						
+						// on crée les phrases 
+						textes[0]=`${diviseurs[0]} $\\ldots\\ldots\\ldots\\ldots$ ${multiples[0]}`;
+						textes_corr[0]=`${diviseurs[0]} est un diviseur de ${multiples[0]} car ${multiples[0]}=${diviseurs[0]}$\\times$${quotients[0]}`;
+						textes[1]=`${diviseurs[1]} $\\ldots\\ldots\\ldots\\ldots$ ${multiples[1]}`;
+						textes_corr[1]=`${diviseurs[1]} est un diviseur de ${multiples[1]} car ${multiples[1]}=${diviseurs[1]}$\\times$${quotients[1]}`;
+						textes[2]=`${multiples[2]} $\\ldots\\ldots\\ldots\\ldots$ ${diviseurs[2]}`;
+						textes_corr[2]=`${multiples[2]} est un multiple de ${diviseurs[2]} car ${multiples[2]}=${diviseurs[2]}$\\times$${quotients[2]}`;
+						textes[3]=`${multiples[3]} $\\ldots\\ldots\\ldots\\ldots$ ${diviseurs[3]}`;
+						textes_corr[3]=`${multiples[3]} est un multiple de ${diviseurs[3]} car ${multiples[3]}=${diviseurs[3]}$\\times$${quotients[3]}`;
+						// on ajoute deux cas ni multiple ni diviseur
+						// on choisit deux nombres
+						let n1 = nombre_avec_espace(randint(2,999,[diviseurs[0],diviseurs[1],diviseurs[2],diviseurs[3]]));
+						let p1 = nombre_avec_espace(randint(2,999,[diviseurs[0],diviseurs[1],diviseurs[2],diviseurs[3],n1]));
+						// on choisit un autre qui n'est pas dans la liste des diviseurs de n1
+						let n2 = nombre_avec_espace(randint(2,999,liste_diviseurs(n1)));
+						let p2 = nombre_avec_espace(randint(2,999,liste_diviseurs(p1)));
+						textes[4]=`${n1} $\\ldots\\ldots\\ldots\\ldots$ ${n2}`;
+						textes_corr[4]=`${n1} n'est ni un multiple ni un diviseur de ${n2}`;
+						textes[5]=`${p2} $\\ldots\\ldots\\ldots\\ldots$ ${p1}`;
+						textes_corr[5]=`${p2} n'est ni un multiple ni un diviseur de ${p1}`;
+						// on mélange pour que l'ordre change!
+						shuffle2tableaux(textes,textes_corr);
+						texte = `Avec la calculatrice, compléter chaque phrase avec le mot "est un diviseur de" ou "est un multiple de" ou "n'est ni une diviseur ni un multiple de".`;
+						texte+= `<br>`;
+						texte_corr =``;
+						for (let j = 0; j<6; j++) {
+							texte += textes[j];
+							texte +=`<br>`;
+							texte_corr += textes_corr[j];
+							texte_corr +=`<br>`;
+						};
+						break;
+					// case 5 :
+					// 	texte = `bla bla bla`;
+					// 	break;
+					case 5 : // liste des diviseurs
+						// on définit un tableau pour les choix du nombre dont on veut les diviseurs
+						// 3 parmis 2,99 y compris les premiers et 1 parmis les entiers à 3 chiffres ayant au moins 8 diviseurs, il y en a 223 !
+						let tableau_de_choix = [];
+						tableau_de_choix =[randint(2,99),randint(2,99,[tableau_de_choix[0]]),randint(2,99,[tableau_de_choix[0],tableau_de_choix[1]]),randint(2,99,[tableau_de_choix[0],tableau_de_choix[1],tableau_de_choix[2]])];
+						let tableau_de_choix_3chiffres =[];
+						for (let m=101; m<999; m++) {
+							if (liste_diviseurs(m).length>8) {
+								tableau_de_choix_3chiffres.push(m);
+							};
+						};
+						// on ajoute un nombre à trois chiffre avec au moins 8 diviseurs dans les choix possibles
+						let rg_Nb_3chiffres = randint(0,(tableau_de_choix_3chiffres.length-1));
+						tableau_de_choix.push(tableau_de_choix_3chiffres[rg_Nb_3chiffres]);
+						console.log(tableau_de_choix);												
+						let N; // on déclare le nombre dont on va chercher les diviseurs
+						let rg_N; // pour tirer le rang du nombre dans le tableau des choix
+						rg_N = randint(0,(tableau_de_choix.length-1));
+						N = tableau_de_choix[rg_N];
+						texte = `Écrire la liste de tous les diviseurs de ${N}.`;
+						//texte += tableau_de_choix.length;
+						texte_corr = `Pour trouver la liste des diviseurs de ${N} on cherche tous les produits de deux facteurs qui donnent ${N}<br>`;
+						if (liste_diviseurs(N).length%2==0) {//si il y a un nombre pair de diviseurs
+							for (let m = 0; m<(liste_diviseurs(N).length/2); m++){
+								texte_corr += ``+liste_diviseurs(N)[m]+`$\\times$`+liste_diviseurs(N)[(liste_diviseurs(N).length-m-1)]+`<br>`;
+							};
+						} else {
+							for (let m = 0; m<((liste_diviseurs(N).length-1)/2); m++){
+								texte_corr += ``+liste_diviseurs(N)[m]+`$\\times$`+liste_diviseurs(N)[(liste_diviseurs(N).length-m-1)]+`<br>`;
+							};
+							texte_corr += ``+liste_diviseurs(N)[(liste_diviseurs(N).length-1)/2]+`$\\times$`+liste_diviseurs(N)[(liste_diviseurs(N).length-1)/2]+`<br>`;
+						};
+						texte_corr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${N}<br>`;
+						texte_corr += `La liste des diviseurs de ${N} est donc `;
+						texte_corr += `1`;
+						for (let w = 1; w<liste_diviseurs(N).length; w++) {
+							texte_corr += `; `+liste_diviseurs(N)[w];
+						};
+						break;							
 				};
 			
 				if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
@@ -1985,6 +2231,7 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 
 /**
  * 3A11 - Décomposition en facteurs premiers
+ * 
  * @Auteur Sébastien Lozano
  */
  
@@ -2007,8 +2254,8 @@ function Decomposition_facteurs_premiers(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		let type_de_questions;
 		if (sortie_html) { // les boutons d'aide uniquement pour la version html
-			//this.bouton_aide = '';
-			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A11.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
+			this.bouton_aide = '';
+			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A11.pdf","Aide mémoire sur les nombres premiers (Sébastien Lozano)","Aide mémoire")		
 			this.bouton_aide += modal_video('conteMathsNombresPremiers','videos/LesNombresPremiers.mp4','Petit conte mathématique - Les Nombres Premiers','Intro Vidéo');
 		} else { // sortie LaTeX
 		};
