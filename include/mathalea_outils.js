@@ -2160,7 +2160,7 @@ function modal_pdf(numero_de_l_exercice,url_pdf,texte="Aide",label_bouton="Aide 
 
 /**
  * Créé un bouton pour une aide modale avec une vidéo
- * @param id_du_modal
+ * @param id_du_modal désigne l'id du modal qui doit être unique
  * @param url_video
  * @param texte Texte court qui sera affiché comme un titre 
  * @param label_bouton Titre du bouton (par défaut Vidéo)
