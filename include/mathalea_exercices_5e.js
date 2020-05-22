@@ -9,13 +9,14 @@ function Exercice_decomposer_en_facteurs_premiers(){
 	this.titre = "Décomposition en facteurs premiers";
 	this.consigne = "Écrire les nombres suivants sous la forme d'un produit de facteurs premiers.";
 	this.spacing = 2;
+	this.nb_questions = 6;
 
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		
-		for (let i = 0, n, facteurs=[], nb_facteurs, texte, texte_corr; i < this.nb_questions; i++) {
+		for (let i = 0, n, facteurs=[], nb_facteurs, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
 			facteurs = [];
 			nb_facteurs = randint(3,5);
 			for (var k = 0; k < nb_facteurs; k++) {
@@ -29,6 +30,10 @@ function Exercice_decomposer_en_facteurs_premiers(){
 				}
 				else {facteurs.push(choice([2,5,7,11]))}
 			}
+
+			if (randint(1,4)==1) { //Une fois sur 4 on multilie le nombre par 100
+				facteurs.push(2,2,5,5)
+			} 
 			n = 1
 			for (var k = 0; k < facteurs.length; k++) {
 				facteurs[k]
@@ -36,6 +41,7 @@ function Exercice_decomposer_en_facteurs_premiers(){
 			}
 			texte = '$ '+ tex_nombre(n) + ' = \\dotfill $';
 			texte_corr = '$ '+ tex_nombre(n) + ' = ' 
+			facteurs.sort(compare_nombres); //classe les facteurs dans l'ordre croissant
 			for (var k = 0; k < facteurs.length-1; k++) {
 				facteurs[k]
 				texte_corr += facteurs[k] + ' \\times '
@@ -43,8 +49,12 @@ function Exercice_decomposer_en_facteurs_premiers(){
 			texte_corr += facteurs[facteurs.length-1] + ' $';	
 			
 			
-			this.liste_questions.push(texte);
-			this.liste_corrections.push(texte_corr);
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;
 
 		}
 		liste_de_question_to_contenu(this);
