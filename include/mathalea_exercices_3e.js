@@ -1926,7 +1926,7 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 						texte = `On a ${nombre_avec_espace(dividende)}=${nombre_avec_espace(diviseur)}$\\times$${nombre_avec_espace(quotient)} $+$ ${nombre_avec_espace(reste)}`;
 						texte += `<br>`;
 						texte += `Écrire le quotient et le reste de la division euclidienne de ${nombre_avec_espace(dividende)} par ${diviseur}.` ;
-						texte_corr = `Dans la division euclidienne de ${nombre_avec_espace(dividende)} par ${diviseur}, le quotient vaut ${quotient} et le reste ${reste}.`;
+						texte_corr = `Dans la division euclidienne de ${nombre_avec_espace(dividende)} par ${diviseur}, le quotient vaut ${nombre_avec_espace(quotient)} et le reste ${reste}.`;
 						break;	
 					case 3 : // caractérisation des multiples et diviseurs par le reste de la division euclidienne
 						dividende = randint(101,9999);
@@ -1973,6 +1973,7 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 						let diviseurs=[];
 						let multiplicateurs=[];
 						let multiples=[];
+						let quotients=[];
 						let textes=[];
 						let textes_corr=[];
 						// on tire au hasard 4 diviseurs différents entre 2 et 999 et 4 multiplicateurs différents entre 2 et 9 
@@ -1981,18 +1982,20 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 						// on calcule les multiples
 						for (let j = 0; j<4; j++) {
 							multiples[j]=diviseurs[j]*multiplicateurs[j];
+							quotients[j]=multiples[j]/diviseurs[j];
 							diviseurs[j]=nombre_avec_espace(diviseurs[j]);
 							multiples[j]=nombre_avec_espace(multiples[j]);							
+							quotients[j]=nombre_avec_espace(quotients[j]);
 						};						
 						// on crée les phrases 
 						textes[0]=`${diviseurs[0]} $\\ldots\\ldots\\ldots\\ldots$ ${multiples[0]}`;
-						textes_corr[0]=`${diviseurs[0]} est un diviseur de ${multiples[0]}`;
+						textes_corr[0]=`${diviseurs[0]} est un diviseur de ${multiples[0]} car ${multiples[0]}=${diviseurs[0]}$\\times$${quotients[0]}`;
 						textes[1]=`${diviseurs[1]} $\\ldots\\ldots\\ldots\\ldots$ ${multiples[1]}`;
-						textes_corr[1]=`${diviseurs[1]} est un diviseur de ${multiples[1]}`;
+						textes_corr[1]=`${diviseurs[1]} est un diviseur de ${multiples[1]} car ${multiples[1]}=${diviseurs[1]}$\\times$${quotients[1]}`;
 						textes[2]=`${multiples[2]} $\\ldots\\ldots\\ldots\\ldots$ ${diviseurs[2]}`;
-						textes_corr[2]=`${multiples[2]} est un multiple de ${diviseurs[2]}`;
+						textes_corr[2]=`${multiples[2]} est un multiple de ${diviseurs[2]} car ${multiples[2]}=${diviseurs[2]}$\\times$${quotients[2]}`;
 						textes[3]=`${multiples[3]} $\\ldots\\ldots\\ldots\\ldots$ ${diviseurs[3]}`;
-						textes_corr[3]=`${multiples[3]} est un multiple de ${diviseurs[3]}`;
+						textes_corr[3]=`${multiples[3]} est un multiple de ${diviseurs[3]} car ${multiples[3]}=${diviseurs[3]}$\\times$${quotients[3]}`;
 						// on ajoute deux cas ni multiple ni diviseur
 						// on choisit deux nombres
 						let n1 = nombre_avec_espace(randint(2,999,[diviseurs[0],diviseurs[1],diviseurs[2],diviseurs[3]]));
@@ -2075,6 +2078,7 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 
 /**
  * 3A11 - Décomposition en facteurs premiers
+ * 
  * @Auteur Sébastien Lozano
  */
  
