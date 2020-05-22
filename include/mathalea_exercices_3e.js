@@ -2038,7 +2038,7 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 						let rg_N; // pour tirer le rang du nombre dans le tableau des choix
 						rg_N = randint(0,(tableau_de_choix.length-1));
 						N = tableau_de_choix[rg_N];
-						texte = `Ecrire la liste de tous les diviseurs de ${N}.`;
+						texte = `Écrire la liste de tous les diviseurs de ${N}.`;
 						//texte += tableau_de_choix.length;
 						texte_corr = `Pour trouver la liste des diviseurs de ${N} on cherche tous les produits de deux facteurs qui donnent ${N}<br>`;
 						if (liste_diviseurs(N).length%2==0) {//si il y a un nombre pair de diviseurs
