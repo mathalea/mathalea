@@ -1914,7 +1914,7 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 				switch (type_de_questions) {
 					case 1 : // plus grand reste dans une division euclidienne
 						diviseur = randint(2,99);
-						texte = `Dans une division euclidienne par ${diviseur}, quel est le plus grand reste possible? `;
+						texte = `Dire quel est le plus grand reste possible dans une division euclidienne par ${diviseur}.`;
 						texte_corr = `Si on divise par ${diviseur}, il ne peut pas rester plus de ${diviseur - 1}, sinon c'est qu'on peut encore ajouter au moins 1 fois ${diviseur} dans le dividende et donc 1 au quotient.`;
 						break;		
 					case 2 : // quotient et reste d'une division euclidienne donnée
@@ -1923,7 +1923,9 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 						quotient = Math.trunc(dividende/diviseur);
 						reste = dividende%diviseur;
 
-						texte = `On a ${nombre_avec_espace(dividende)}=${diviseur}$\\times$${quotient} $+$ ${reste}, dans la division euclidienne de ${nombre_avec_espace(dividende)} par ${diviseur}, quels sont le quotient et le reste entiers ?` ;
+						texte = `On a ${nombre_avec_espace(dividende)}=${nombre_avec_espace(diviseur)}$\\times$${nombre_avec_espace(quotient)} $+$ ${nombre_avec_espace(reste)}`;
+						texte += `<br>`;
+						texte += `Écrire le quotient et le reste de la division euclidienne de ${nombre_avec_espace(dividende)} par ${diviseur}.` ;
 						texte_corr = `Dans la division euclidienne de ${nombre_avec_espace(dividende)} par ${diviseur}, le quotient vaut ${quotient} et le reste ${reste}.`;
 						break;	
 					case 3 : // caractérisation des multiples et diviseurs par le reste de la division euclidienne
@@ -1939,30 +1941,30 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 						// Faut-il que je conditionne pour éviter le diviseur 1 ?
 						candidats_diviseurs=shuffle(candidats_diviseurs); // on mélange le tableau
 						texte = 'Les trois divisions euclidiennes suivantes sont exactes : <br>';
-						texte += `${nombre_avec_espace(dividende)} = ${candidats_diviseurs[0]}$\\times$${nombre_avec_espace(Math.trunc(dividende/candidats_diviseurs[0]))} $+$ ${dividende%candidats_diviseurs[0]}`;
+						texte += `${nombre_avec_espace(dividende)} = ${nombre_avec_espace(candidats_diviseurs[0])}$\\times$${nombre_avec_espace(Math.trunc(dividende/candidats_diviseurs[0]))} $+$ ${nombre_avec_espace(dividende%candidats_diviseurs[0])}`;
 						texte += `<br>`;
-						texte += `${nombre_avec_espace(dividende)} = ${candidats_diviseurs[1]}$\\times$${nombre_avec_espace(Math.trunc(dividende/candidats_diviseurs[1]))} $+$ ${dividende%candidats_diviseurs[1]}`;
+						texte += `${nombre_avec_espace(dividende)} = ${nombre_avec_espace(candidats_diviseurs[1])}$\\times$${nombre_avec_espace(Math.trunc(dividende/candidats_diviseurs[1]))} $+$ ${nombre_avec_espace(dividende%candidats_diviseurs[1])}`;
 						texte += `<br>`;
-						texte += `${nombre_avec_espace(dividende)} = ${candidats_diviseurs[2]}$\\times$${nombre_avec_espace(Math.trunc(dividende/candidats_diviseurs[2]))} $+$ ${dividende%candidats_diviseurs[2]}`;
+						texte += `${nombre_avec_espace(dividende)} = ${nombre_avec_espace(candidats_diviseurs[2])}$\\times$${nombre_avec_espace(Math.trunc(dividende/candidats_diviseurs[2]))} $+$ ${nombre_avec_espace(dividende%candidats_diviseurs[2])}`;
 						texte += `<br>`;
-						texte += `Sans calculer, les nombres ${candidats_diviseurs[0]}, ${candidats_diviseurs[1]}, ${candidats_diviseurs[2]} sont-ils des diviseurs de ${nombre_avec_espace(dividende)}? Justifie`;
+						texte += `Sans calculer, dire si les nombres ${nombre_avec_espace(candidats_diviseurs[0])}; ${nombre_avec_espace(candidats_diviseurs[1])}; ${nombre_avec_espace(candidats_diviseurs[2])} sont des diviseurs de ${nombre_avec_espace(dividende)}. Justifier.`;
 						texte_corr =``;
 						if (dividende%candidats_diviseurs[0]==0) {
-							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${candidats_diviseurs[0]} vaut 0 donc ${candidats_diviseurs[0]} est un diviseur de ${nombre_avec_espace(dividende)}`;							
+							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[0])} vaut 0 donc ${nombre_avec_espace(candidats_diviseurs[0])} est un diviseur de ${nombre_avec_espace(dividende)}`;							
 						} else {
-							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${candidats_diviseurs[0]} ne vaut pas 0 donc ${candidats_diviseurs[0]} n'est pas un diviseur de ${nombre_avec_espace(dividende)}`;							
+							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[0])} ne vaut pas 0 donc ${nombre_avec_espace(candidats_diviseurs[0])} n'est pas un diviseur de ${nombre_avec_espace(dividende)}`;							
 						}
 						texte_corr += `<br>`;
 						if (dividende%candidats_diviseurs[1]==0) {
-							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${candidats_diviseurs[1]} vaut 0 donc ${candidats_diviseurs[1]} divise ${nombre_avec_espace(dividende)}`;							
+							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[1])} vaut 0 donc ${nombre_avec_espace(candidats_diviseurs[1])} divise ${nombre_avec_espace(dividende)}`;							
 						} else {
-							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${candidats_diviseurs[1]} ne vaut pas 0 donc ${candidats_diviseurs[1]} ne divise pas ${nombre_avec_espace(dividende)}`;							
+							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[1])} ne vaut pas 0 donc ${nombre_avec_espace(candidats_diviseurs[1])} ne divise pas ${nombre_avec_espace(dividende)}`;							
 						}
 						texte_corr += `<br>`;
 						if (dividende%candidats_diviseurs[1]==0) {
-							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${candidats_diviseurs[2]} vaut 0 donc ${nombre_avec_espace(dividende)} est divisible par ${candidats_diviseurs[2]}`;							
+							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[2])} vaut 0 donc ${nombre_avec_espace(dividende)} est divisible par ${nombre_avec_espace(candidats_diviseurs[2])}`;							
 						} else {
-							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${candidats_diviseurs[2]} ne vaut pas 0 donc ${nombre_avec_espace(dividende)} n'est pas divisible par ${candidats_diviseurs[2]}`;							
+							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[2])} ne vaut pas 0 donc ${nombre_avec_espace(dividende)} n'est pas divisible par ${nombre_avec_espace(candidats_diviseurs[2])}`;							
 						}
 						texte_corr += `<br>`;						
 						break;
@@ -1978,7 +1980,9 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 						multiplicateurs = [randint(2,9),randint(2,9,[multiplicateurs[0]]),randint(2,9,[multiplicateurs[0],multiplicateurs[1]]),randint(2,9,[multiplicateurs[0],multiplicateurs[1],multiplicateurs[2]])];
 						// on calcule les multiples
 						for (let j = 0; j<4; j++) {
-							multiples[j]=diviseurs[j]*multiplicateurs[j];							
+							multiples[j]=diviseurs[j]*multiplicateurs[j];
+							diviseurs[j]=nombre_avec_espace(diviseurs[j]);
+							multiples[j]=nombre_avec_espace(multiples[j]);							
 						};						
 						// on crée les phrases 
 						textes[0]=`${diviseurs[0]} $\\ldots\\ldots\\ldots\\ldots$ ${multiples[0]}`;
@@ -1991,18 +1995,18 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 						textes_corr[3]=`${multiples[3]} est un multiple de ${diviseurs[3]}`;
 						// on ajoute deux cas ni multiple ni diviseur
 						// on choisit deux nombres
-						let n1 = randint(2,999,[diviseurs[0],diviseurs[1],diviseurs[2],diviseurs[3]]);
-						let p1 = randint(2,999,[diviseurs[0],diviseurs[1],diviseurs[2],diviseurs[3],n1]);
+						let n1 = nombre_avec_espace(randint(2,999,[diviseurs[0],diviseurs[1],diviseurs[2],diviseurs[3]]));
+						let p1 = nombre_avec_espace(randint(2,999,[diviseurs[0],diviseurs[1],diviseurs[2],diviseurs[3],n1]));
 						// on choisit un autre qui n'est pas dans la liste des diviseurs de n1
-						let n2 = randint(2,999,liste_diviseurs(n1));
-						let p2 = randint(2,999,liste_diviseurs(p1));
+						let n2 = nombre_avec_espace(randint(2,999,liste_diviseurs(n1)));
+						let p2 = nombre_avec_espace(randint(2,999,liste_diviseurs(p1)));
 						textes[4]=`${n1} $\\ldots\\ldots\\ldots\\ldots$ ${n2}`;
 						textes_corr[4]=`${n1} n'est ni un multiple ni un diviseur de ${n2}`;
 						textes[5]=`${p2} $\\ldots\\ldots\\ldots\\ldots$ ${p1}`;
 						textes_corr[5]=`${p2} n'est ni un multiple ni un diviseur de ${p1}`;
 						// on mélange pour que l'ordre change!
 						shuffle2tableaux(textes,textes_corr);
-						texte = `Complète chaque phrase avec le mot "est un diviseur de" ou "est un multiple de" ou "n'est ni une diviseur ni un multiple de".`;
+						texte = `Avec la calculatrice, compléter chaque phrase avec le mot "est un diviseur de" ou "est un multiple de" ou "n'est ni une diviseur ni un multiple de".`;
 						texte+= `<br>`;
 						texte_corr =``;
 						for (let j = 0; j<6; j++) {
@@ -2016,22 +2020,43 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 					// 	texte = `bla bla bla`;
 					// 	break;
 					case 5 : // liste des diviseurs
+						// on définit un tableau pour les choix du nombre dont on veut les diviseurs
+						// 3 parmis 2,99 y compris les premiers et 1 parmis les entiers à 3 chiffres ayant au moins 8 diviseurs, il y en a 223 !
+						let tableau_de_choix = [];
+						tableau_de_choix =[randint(2,99),randint(2,99,[tableau_de_choix[0]]),randint(2,99,[tableau_de_choix[0],tableau_de_choix[1]]),randint(2,99,[tableau_de_choix[0],tableau_de_choix[1],tableau_de_choix[2]])];
+						let tableau_de_choix_3chiffres =[];
+						for (let m=101; m<999; m++) {
+							if (liste_diviseurs(m).length>8) {
+								tableau_de_choix_3chiffres.push(m);
+							};
+						};
+						// on ajoute un nombre à trois chiffre avec au moins 8 diviseurs dans les choix possibles
+						let rg_Nb_3chiffres = randint(0,(tableau_de_choix_3chiffres.length-1));
+						tableau_de_choix.push(tableau_de_choix_3chiffres[rg_Nb_3chiffres]);
+						console.log(tableau_de_choix);												
 						let N; // on déclare le nombre dont on va chercher les diviseurs
-						N = randint(2,999);
-						texte = `Ecris la liste de tous les diviseurs de ${N}.`;
+						let rg_N; // pour tirer le rang du nombre dans le tableau des choix
+						rg_N = randint(0,(tableau_de_choix.length-1));
+						N = tableau_de_choix[rg_N];
+						texte = `Ecrire la liste de tous les diviseurs de ${N}.`;
+						//texte += tableau_de_choix.length;
 						texte_corr = `Pour trouver la liste des diviseurs de ${N} on cherche tous les produits de deux facteurs qui donnent ${N}<br>`;
 						if (liste_diviseurs(N).length%2==0) {//si il y a un nombre pair de diviseurs
 							for (let m = 0; m<(liste_diviseurs(N).length/2); m++){
-								texte_corr += `$`+liste_diviseurs(N)[m]+`\\times`+liste_diviseurs(N)[(liste_diviseurs(N).length-m-1)]+`$<br>`;
+								texte_corr += ``+liste_diviseurs(N)[m]+`$\\times$`+liste_diviseurs(N)[(liste_diviseurs(N).length-m-1)]+`<br>`;
 							};
 						} else {
 							for (let m = 0; m<((liste_diviseurs(N).length-1)/2); m++){
-								texte_corr += `$`+liste_diviseurs(N)[m]+`\\times`+liste_diviseurs(N)[(liste_diviseurs(N).length-m-1)]+`$<br>`;
+								texte_corr += ``+liste_diviseurs(N)[m]+`$\\times$`+liste_diviseurs(N)[(liste_diviseurs(N).length-m-1)]+`<br>`;
 							};
-							texte_corr += `$`+liste_diviseurs(N)[(liste_diviseurs(N).length-1)/2]+`\\times`+liste_diviseurs(N)[(liste_diviseurs(N).length-1)/2]+`$<br>`;
+							texte_corr += ``+liste_diviseurs(N)[(liste_diviseurs(N).length-1)/2]+`$\\times$`+liste_diviseurs(N)[(liste_diviseurs(N).length-1)/2]+`<br>`;
 						};
 						texte_corr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${N}<br>`;
-						texte_corr += `La liste des diviseurs de ${N} est donc `+liste_diviseurs(N);						
+						texte_corr += `La liste des diviseurs de ${N} est donc `;
+						texte_corr += `1`;
+						for (let w = 1; w<liste_diviseurs(N).length; w++) {
+							texte_corr += `; `+liste_diviseurs(N)[w];
+						};
 						break;							
 				};
 			
