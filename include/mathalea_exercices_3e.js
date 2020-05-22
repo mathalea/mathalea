@@ -1980,21 +1980,32 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 						for (let j = 0; j<4; j++) {
 							multiples[j]=diviseurs[j]*multiplicateurs[j];							
 						};						
-						// on crée les phrases
-						textes[0]=`${diviseurs[0]} est un $\\ldots\\ldots\\ldots\\ldots$ de ${multiples[0]}`;
+						// on crée les phrases 
+						textes[0]=`${diviseurs[0]} $\\ldots\\ldots\\ldots\\ldots$ ${multiples[0]}`;
 						textes_corr[0]=`${diviseurs[0]} est un diviseur de ${multiples[0]}`;
-						textes[1]=`${diviseurs[1]} est un $\\ldots\\ldots\\ldots\\ldots$ de ${multiples[1]}`;
+						textes[1]=`${diviseurs[1]} $\\ldots\\ldots\\ldots\\ldots$ ${multiples[1]}`;
 						textes_corr[1]=`${diviseurs[1]} est un diviseur de ${multiples[1]}`;
-						textes[2]=`${multiples[2]} est un $\\ldots\\ldots\\ldots\\ldots$ de ${diviseurs[2]}`;
+						textes[2]=`${multiples[2]} $\\ldots\\ldots\\ldots\\ldots$ ${diviseurs[2]}`;
 						textes_corr[2]=`${multiples[2]} est un multiple de ${diviseurs[2]}`;
-						textes[3]=`${multiples[3]} est un $\\ldots\\ldots\\ldots\\ldots$ de ${diviseurs[3]}`;
+						textes[3]=`${multiples[3]} $\\ldots\\ldots\\ldots\\ldots$ ${diviseurs[3]}`;
 						textes_corr[3]=`${multiples[3]} est un multiple de ${diviseurs[3]}`;
+						// on ajoute deux cas ni multiple ni diviseur
+						// on choisit deux nombres
+						let n1 = randint(2,999,[diviseurs[0],diviseurs[1],diviseurs[2],diviseurs[3]]);
+						let p1 = randint(2,999,[diviseurs[0],diviseurs[1],diviseurs[2],diviseurs[3],n1]);
+						// on choisit un autre qui n'est pas dans la liste des diviseurs de n1
+						let n2 = randint(2,999,liste_diviseurs(n1));
+						let p2 = randint(2,999,liste_diviseurs(p1));
+						textes[4]=`${n1} $\\ldots\\ldots\\ldots\\ldots$ ${n2}`;
+						textes_corr[4]=`${n1} n'est ni un multiple ni un diviseur de ${n2}`;
+						textes[5]=`${p2} $\\ldots\\ldots\\ldots\\ldots$ ${p1}`;
+						textes_corr[5]=`${p2} n'est ni un multiple ni un diviseur de ${p1}`;
 						// on mélange pour que l'ordre change!
 						shuffle2tableaux(textes,textes_corr);
-						texte = `Complète chaque phrase avec le mot "diviseur" ou multiple.`;
+						texte = `Complète chaque phrase avec le mot "est un diviseur de" ou "est un multiple de" ou "n'est ni une diviseur ni un multiple de".`;
 						texte+= `<br>`;
 						texte_corr =``;
-						for (let j = 0; j<4; j++) {
+						for (let j = 0; j<6; j++) {
 							texte += textes[j];
 							texte +=`<br>`;
 							texte_corr += textes_corr[j];
