@@ -3215,3 +3215,148 @@ function Puissances_de_dix() {
 	this.besoin_formulaire_numerique = ['Règle à travailler',3,"1 : Calculs de base\n2 : Calculs plus complexes\n3 : Mélange"]; 
 }
 
+
+/**
+ * problèmes de grandeurs composées : grandeurs produit
+ * @Auteur Jean-Claude Lhote
+ */
+function problemes_grandeurs_produits(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Résoudre des problèmes de grandeurs composées et de conversion d'unités complexes";
+	this.consigne = "";
+	this.nb_questions = 2;
+	this.nb_questions_modifiable = true;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	sortie_html? this.spacing = 2 : this.spacing = 1.5; 
+	sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
+	this.sup=1;
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		let liste_index_disponibles=[0,1,2,3,4,5,6];
+		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions)
+		let appareils=[[`radiateur`,2000,20],[`téléviseur`,350,12],[`four électrique`,2500,4],[`ordinateur`,450,8]] // [appareil,puissance,durée maxi de fonctionnement]
+		
+		for (let i = 0,j,index,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
+			switch (liste_index[i]) {
+				case 0 : // problème de consommation éléctrique
+				let index=randint(0,3)
+				let appareil=appareils[index][0];
+				let puissance=appareils[index][1];
+				let duree_max=appareils[index][2];
+				let duree=randint(duree_max/4,duree_max)+randint(0,3)*0.25;
+				let prixkwh=calcul(randint(0,5)/100+0.14);
+				texte =`L'étiquette apposée au dos d'un ${appareil} indique une puissance de ${puissance} Watts. On le fait fonctionner pendant ${Math.floor(duree)} heures `;
+				if (duree!=Math.floor(duree)) texte +=`et ${calcul((duree-Math.floor(duree))*60)} minutes`;
+				texte+=`.<br>Le prix d'un kWh est de ${tex_nombrec(prixkwh)} €.<br>`
+				texte+=num_alpha(0)+` Exprimer en kWh l'energie consommée.<br>`;
+				texte+=num_alpha(1)+` Calculer la dépense correspondante.`
+				texte_corr = num_alpha(0)+` Un ${appareil} d'une puissance de ${puissance} Watts qui fonctionne pendant ${Math.floor(duree)} heures `;
+				if (duree!=Math.floor(duree)) texte_corr +=`et ${calcul((duree-Math.floor(duree))*60)} minutes`;
+				texte_corr+=` consomme : <br>`;
+				texte_corr+=`$${puissance}\\text{ W}\\times${tex_nombre(duree)}\\text{ h}=${puissance/1000}\\text{ kW}\\times${tex_nombre(duree)}\\text{ h}=${tex_nombre(puissance/1000*duree)}\\text{ kWh}.$<br>`
+				texte_corr+=num_alpha(1)+` Le prix de cette énergie consommée est : $${tex_nombre(prixkwh)} \\text{ €/kWh} \\times${tex_nombre(puissance/1000*duree)}\\text{ kWh}=${tex_nombre(prixkwh*puissance/1000*duree)}\\text{ €}$`
+					break;
+				case 1 :
+					texte = `Exercice de calcul de volume`
+					texte_corr = `Correction volume`
+					break;
+				case 2 :
+					texte = `Exercice de calcul d'aires`
+					texte_corr = `Correction aires`
+					break;
+				case 3 :
+					texte = `Exercice de quantité de mouvement`
+					texte_corr = `Correction quantité de mouvement`
+					break;
+				case 4 :
+					texte = `Exercice de travail`
+					texte_corr = `Correction travail`
+					break;
+				case 5 :
+					texte = `Exercice de trafic de voyageur`
+					texte_corr = `Correction traffic voyageur`
+				break;
+				case 6 :
+					texte = `Exercice de puissance éléctrique`
+					texte_corr = `Correction puissance`
+				break;
+				}
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;
+		}
+		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
+	}	
+};
+
+/**
+ * problèmes de grandeurs composées : grandeurs quotients
+ * @Auteur Jean-Claude Lhote
+ */
+function problemes_grandeurs_quotients(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Résoudre des problèmes de grandeurs composées et de conversion d'unités complexes";
+	this.consigne = "";
+	this.nb_questions = 2;
+	this.nb_questions_modifiable = true;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	sortie_html? this.spacing = 2 : this.spacing = 1.5; 
+	sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
+	this.sup=1;
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		let liste_index_disponibles=[0,1,2,3];
+		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions)
+		
+		for (let i = 0,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
+			switch (liste_index[i]) {
+				case 0 : // problème de consommation éléctrique
+				texte =`Exercice de vitesses`
+				texte_corr = `Correction vitesses`
+					break;
+				case 1 :
+					texte = `Exercice de prix massique`
+					texte_corr = `Correction prix massique`
+					break;
+				case 2 :
+					texte = `Exercice de prix horaire`
+					texte_corr = `Correction prix horaire`
+					break;
+				case 3 :
+					texte = `Exercice de densité de pôpulation`
+					texte_corr = `Correction densité de population`
+					break;
+				case 4 :
+					texte = `Exercice de masse volumique`
+					texte_corr = `Correction masse volumique`
+					break;
+				case 5 :
+					texte = `Exercice de concentration`
+					texte_corr = `Correction concentration`
+				break;
+						
+					
+				}
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;
+		}
+		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
+	}	
+};
+
+
