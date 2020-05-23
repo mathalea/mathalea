@@ -627,6 +627,7 @@ function Tableau_de_valeurs(){
 	this.nb_cols_corr = 1;
 	this.spacing = 1;
 	this.sup = 5; // niveau de difficulté
+	this.correction_detaillee_disponible = true;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
@@ -812,8 +813,11 @@ function Tableau_de_valeurs(){
 			texte_corr += ligne2;
 			texte_corr += `\\hline\n`;
 			texte_corr += `\\end{array}\n$`;
-			texte_corr += '<br><br>';
-			texte_corr += calculs;
+			if (this.correction_detaillee){
+				texte_corr += '<br><br>';
+				texte_corr += calculs;	
+			}
+			
 
 
 			
