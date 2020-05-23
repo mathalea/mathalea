@@ -609,6 +609,166 @@ function Image_fonction_algebrique(){
 }
 
 
+
+/**
+* Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique
+*
+* * Niveau 1 : Fonctions affines
+* * Niveau 2 : Polynôme du second degré
+* * Niveau 3 : Quotients de fonctions affines
+* * Niveau 4 : (ax+b)(cx+d)
+* * Niveau 5 : Mélange 
+* @Auteur Rémi Angot
+*/
+function Tableau_de_valeurs(){
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Compléter un tableau de valeurs";
+	this.consigne = "";
+	this.nb_questions = 1;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.spacing = 1;
+	this.sup = 5; // niveau de difficulté
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+
+		let type_de_questions_disponibles = [];
+		if (this.sup==1) {
+			type_de_questions_disponibles = ['ax+b','ax'];
+		} 
+		if (this.sup==2) {
+			type_de_questions_disponibles = ['ax2+bx+c','ax2+c','ax2+bx'];
+		} 
+		if (this.sup==3) {
+			type_de_questions_disponibles = ['a/cx+d','ax+b/cx+d'];
+		}
+		if (this.sup==4) {
+			type_de_questions_disponibles = ['(ax+b)(cx+d)','(ax+b)2'];
+		}
+		if (this.sup==5) {
+			type_de_questions_disponibles = ['ax+b','ax','ax2+bx+c','ax2+c','ax2+bx','a/cx+d','ax+b/cx+d','(ax+b)(cx+d)','(ax+b)2']
+		}
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_de_x = combinaison_listes([[-3,0,3],[-2,0,2],[1,2,5],[-3,6,9]],this.nb_questions); 
+		for (let i = 0, texte, texte_corr, a, b, c, d, expression, nomdef, ligne2, cpt=0; i < this.nb_questions && cpt<50; ) {
+			nomdef = lettre_minuscule_depuis_chiffre(6+i) // on commence par f puis on continue dans l'ordre alphabétique
+			switch (liste_type_de_questions[i]){
+				case 'ax+b': 
+					a = randint(-10,10,[0,-1,1])
+					b = randint(-10,10,[0])
+					expression = `${a}x${ecriture_algebrique(b)}`
+					ligne2 = `${nomdef}(x) & ${a*liste_de_x[i][0]+b} & ${a*liste_de_x[i][1]+b} & ${a*liste_de_x[i][2]+b} \\\\\n`
+				break;
+				case 'ax': 
+					a = randint(-10,10,[0,-1,1])
+					expression = `${a}x`
+					ligne2 = `${nomdef}(x) & ${a*liste_de_x[i][0]} & ${a*liste_de_x[i][1]} & ${a*liste_de_x[i][2]} \\\\\n`
+				break;
+				case 'ax2+bx+c':
+					a = randint(-3,3,[0,-1,1])
+					b = randint(-5,5,[0,-1,1])
+					c = randint(-10,10,[0])
+					expression = `${a}x^2${ecriture_algebrique(b)}x${ecriture_algebrique(c)}`
+					ligne2 = `${nomdef}(x) & ${a*liste_de_x[i][0]**2+b*liste_de_x[i][0]+c} & ${a*liste_de_x[i][1]**2+b*liste_de_x[i][1]+c} & ${a*liste_de_x[i][2]**2+b*liste_de_x[i][2]+c} \\\\\n`
+				break;
+				case 'ax2+c':
+					a = randint(-4,4,[0,-1,1])
+					c = randint(-10,10,[0])
+					expression = `${a}x^2${ecriture_algebrique(c)}`
+					ligne2 = `${nomdef}(x) & ${a*liste_de_x[i][0]**2+c} & ${a*liste_de_x[i][1]**2+c} & ${a*liste_de_x[i][2]**2+c} \\\\\n`
+				break;
+				case 'ax2+bx':
+					a = randint(-3,3,[0,-1,1])
+					b = randint(-5,5,[0,-1,1])
+					c = randint(-10,10,[0])
+					expression = `${a}x^2${ecriture_algebrique(b)}x`
+					ligne2 = `${nomdef}(x) & ${a*liste_de_x[i][0]**2+b*liste_de_x[i][0]} & ${a*liste_de_x[i][1]**2+b*liste_de_x[i][1]} & ${a*liste_de_x[i][2]**2+b*liste_de_x[i][2]} \\\\\n`
+				break;
+				case 'a/cx+d': 
+					a = randint(-10,10,[0])
+					c = randint(-10,10,[0,-1,1])
+					d = randint(-10,10,[0])
+					while (c*x+d==0){
+						c = randint(-10,10,[0,-1,1])
+					}
+					expression = `\\dfrac{${a}}{${c}x${ecriture_algebrique(d)}}`
+					ligne2 = `${nomdef}(x) & ${tex_fraction_reduite(a,c*liste_de_x[i][0]+d)} & ${tex_fraction_reduite(a,c*liste_de_x[i][1]+d)} & ${tex_fraction_reduite(a,c*liste_de_x[i][2]+d)} \\\\\n`
+				break;
+				case 'ax+b/cx+d': 
+					a = randint(-10,10,[0,1,-1])
+					b = randint(-10,10,[0])
+					c = randint(-10,10,[0,-1,1])
+					d = randint(-10,10,[0])
+					while (c*x+d==0){
+						c = randint(-10,10,[0,-1,1])
+					}
+					expression = `\\dfrac{${a}x${ecriture_algebrique(b)}}{${c}x${ecriture_algebrique(d)}}`
+					ligne2 = `${nomdef}(x) & ${tex_fraction_reduite(a*liste_de_x[i][0]+b,c*liste_de_x[i][0]+d)} & ${tex_fraction_reduite(a*liste_de_x[i][1]+b,c*liste_de_x[i][1]+d)} & ${tex_fraction_reduite(a*liste_de_x[i][2]+b,c*liste_de_x[i][2]+d)} \\\\\n`
+				break;
+				case '(ax+b)(cx+d)': 
+					a = randint(-5,5,[0,1,-1])
+					b = randint(-5,5,[0])
+					c = randint(-3,3,[0,-1,1])
+					d = randint(-3,3,[0])
+					expression = `(${a}x${ecriture_algebrique(b)})(${c}x${ecriture_algebrique(d)})`
+					ligne2 = `${nomdef}(x) & ${(a*liste_de_x[i][0]+b)*(c*liste_de_x[i][0]+d)} & ${(a*liste_de_x[i][1]+b)*(c*liste_de_x[i][1]+d)} & ${(a*liste_de_x[i][2]+b)*(c*liste_de_x[i][2]+d)} \\\\\n`
+				break;
+				case '(ax+b)2': 
+					a = randint(-3,3,[0,1,-1])
+					b = randint(-3,3,[0])
+					expression = `(${a}x${ecriture_algebrique(b)})^2`
+					ligne2 = `${nomdef}(x) & ${(a*liste_de_x[i][0]+b)**2} & ${(a*liste_de_x[i][1]+b)**2} & ${(a*liste_de_x[i][2]+b)**2} \\\\\n`
+				break;
+			}
+
+
+			texte = `On considère la fonction $${nomdef}$ définie par $${nomdef}(x):x\\mapsto ${expression}$. Compléter le tableau de valeurs suivants.`
+			texte_corr = ''
+			texte += `<br><br>`
+			if (sortie_html) {
+				texte += `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|}\n`
+			} else {
+				texte += `$\\begin{array}{|l|c|c|c|}\n`
+			}
+		
+			texte += `\\hline\n`
+			texte += `x & ${liste_de_x[i][0]} & ${liste_de_x[i][1]} & ${liste_de_x[i][2]} \\\\\n`
+			texte += `\\hline\n`
+			texte += `${nomdef}(x) & \\phantom{-10} & \\phantom{-10} & \\phantom{-10} \\\\\n`
+			texte += `\\hline\n`
+			texte += `\\end{array}\n$`
+
+
+			if (sortie_html) {
+				texte_corr = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|}\n`
+			} else {
+				texte_corr = `$\\begin{array}{|l|c|c|c|}\n`
+			}
+		
+			texte_corr += `\\hline\n`
+			texte_corr += `x & ${liste_de_x[i][0]} & ${liste_de_x[i][1]} & ${liste_de_x[i][2]} \\\\\n`
+			texte_corr += `\\hline\n`
+			texte_corr += ligne2
+			texte_corr += `\\hline\n`
+			texte_corr += `\\end{array}\n$`
+
+
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		this.nb_questions==1 ? liste_de_question_to_contenu_sans_numero(this) : liste_de_question_to_contenu(this);
+	}
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',5,'1 : Fonctions affines\n2 : Polynome du second degré\n3 : Quotient\n4 : Produit \n5 : Mélange'];
+}
+
+
 /**
 * @auteur Jean-Claude Lhote
 */
@@ -2016,447 +2176,4 @@ function fonction_notion_vocabulaire(){
 		liste_de_question_to_contenu(this);
 	}
 	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
-};
 
-/**
- * 3A10 - Division Euclidienne; diviseurs, multiples, critères de divisibilité
- * @Auteur Sébastien Lozano
- */
- 
-function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
-	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.sup = 1 ; 
-	this.titre = "Division Euclidienne - Diviseurs - Multiples"; 
-	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne =`Divisions euclidiennes - Diviseurs - Multiples.`;
-	//this.consigne += `<br>`;
-	sortie_html ? this.spacing = 3 : this.spacing = 2;
-	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
-	this.nb_questions = 5;
-	//this.correction_detaillee_disponible = true;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-
-	this.nouvelle_version = function(numero_de_l_exercice){
-		let type_de_questions;
-		if (sortie_html) { // les boutons d'aide uniquement pour la version html
-			//this.bouton_aide = '';
-			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A10.pdf","Aide mémoire sur la division euclidienne (Sébastien Lozano)","Aide mémoire")		
-			//this.bouton_aide += modal_video('conteMathsNombresPremiers','videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
-		} else { // sortie LaTeX
-		};
-
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		this.contenu = ''; // Liste de questions
-		this.contenu_correction = ''; // Liste de questions corrigées
-
-		let type_de_questions_disponibles = [1,2,3,4,5];
-		//let type_de_questions_disponibles = [1];
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
-
-			for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
-				type_de_questions = liste_type_de_questions[i];
-
-				var dividende;
-				var diviseur;
-				var quotient;
-				var reste;				
-	
-				switch (type_de_questions) {
-					case 1 : // plus grand reste dans une division euclidienne
-						diviseur = randint(2,99);
-						texte = `Dire quel est le plus grand reste possible dans une division euclidienne par ${diviseur}.`;
-						texte_corr = `Si on divise par ${diviseur}, il ne peut pas rester plus de ${diviseur - 1}, sinon c'est qu'on peut encore ajouter au moins 1 fois ${diviseur} dans le dividende et donc 1 au quotient.`;
-						break;		
-					case 2 : // quotient et reste d'une division euclidienne donnée
-						diviseur = randint(2,99);
-						dividende = randint(1001,99999);
-						quotient = Math.trunc(dividende/diviseur);
-						reste = dividende%diviseur;
-
-						texte = `On a ${nombre_avec_espace(dividende)}=${nombre_avec_espace(diviseur)}$\\times$${nombre_avec_espace(quotient)} $+$ ${nombre_avec_espace(reste)}`;
-						texte += `<br>`;
-						texte += `Écrire le quotient et le reste de la division euclidienne de ${nombre_avec_espace(dividende)} par ${diviseur}.` ;
-						texte_corr = `Dans la division euclidienne de ${nombre_avec_espace(dividende)} par ${diviseur}, le quotient vaut ${nombre_avec_espace(quotient)} et le reste ${reste}.`;
-						break;	
-					case 3 : // caractérisation des multiples et diviseurs par le reste de la division euclidienne
-						dividende = randint(101,9999);
-						let rg_diviseur; // rang du diviseur choisi
-						if (liste_diviseurs(dividende).length%2==0) {//si il y a un nombre pair de diviseurs on prend le (n/2+1) eme
-							rg_diviseur = liste_diviseurs(dividende).length/2+1;
-						} else { // il y a nbre impair de diviseurs on prend le ((n-1)/2 +1) eme
-							rg_diviseur = (liste_diviseurs(dividende).length-1)/2 +1;							
-						}
-						diviseur = liste_diviseurs(dividende)[rg_diviseur-1]; // on choisit le diviseur central de dividende, ATTENTION rang des tableaux commence à 0 
-						let candidats_diviseurs = [diviseur-1,diviseur,diviseur+1]; // on prend l'entier précédetn et le successeur de ce diviseur
-						// Faut-il que je conditionne pour éviter le diviseur 1 ?
-						candidats_diviseurs=shuffle(candidats_diviseurs); // on mélange le tableau
-						texte = 'Les trois divisions euclidiennes suivantes sont exactes : <br>';
-						texte += `${nombre_avec_espace(dividende)} = ${nombre_avec_espace(candidats_diviseurs[0])}$\\times$${nombre_avec_espace(Math.trunc(dividende/candidats_diviseurs[0]))} $+$ ${nombre_avec_espace(dividende%candidats_diviseurs[0])}`;
-						texte += `<br>`;
-						texte += `${nombre_avec_espace(dividende)} = ${nombre_avec_espace(candidats_diviseurs[1])}$\\times$${nombre_avec_espace(Math.trunc(dividende/candidats_diviseurs[1]))} $+$ ${nombre_avec_espace(dividende%candidats_diviseurs[1])}`;
-						texte += `<br>`;
-						texte += `${nombre_avec_espace(dividende)} = ${nombre_avec_espace(candidats_diviseurs[2])}$\\times$${nombre_avec_espace(Math.trunc(dividende/candidats_diviseurs[2]))} $+$ ${nombre_avec_espace(dividende%candidats_diviseurs[2])}`;
-						texte += `<br>`;
-						texte += `Sans calculer, dire si les nombres ${nombre_avec_espace(candidats_diviseurs[0])}; ${nombre_avec_espace(candidats_diviseurs[1])}; ${nombre_avec_espace(candidats_diviseurs[2])} sont des diviseurs de ${nombre_avec_espace(dividende)}. Justifier.`;
-						texte_corr =``;
-						if (dividende%candidats_diviseurs[0]==0) {
-							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[0])} vaut 0 donc ${nombre_avec_espace(candidats_diviseurs[0])} est un diviseur de ${nombre_avec_espace(dividende)}`;							
-						} else {
-							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[0])} ne vaut pas 0 donc ${nombre_avec_espace(candidats_diviseurs[0])} n'est pas un diviseur de ${nombre_avec_espace(dividende)}`;							
-						}
-						texte_corr += `<br>`;
-						if (dividende%candidats_diviseurs[1]==0) {
-							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[1])} vaut 0 donc ${nombre_avec_espace(candidats_diviseurs[1])} divise ${nombre_avec_espace(dividende)}`;							
-						} else {
-							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[1])} ne vaut pas 0 donc ${nombre_avec_espace(candidats_diviseurs[1])} ne divise pas ${nombre_avec_espace(dividende)}`;							
-						}
-						texte_corr += `<br>`;
-						if (dividende%candidats_diviseurs[1]==0) {
-							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[2])} vaut 0 donc ${nombre_avec_espace(dividende)} est divisible par ${nombre_avec_espace(candidats_diviseurs[2])}`;							
-						} else {
-							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[2])} ne vaut pas 0 donc ${nombre_avec_espace(dividende)} n'est pas divisible par ${nombre_avec_espace(candidats_diviseurs[2])}`;							
-						}
-						texte_corr += `<br>`;						
-						break;
-					case 4 : // vocabulaire diviseurs et multiples
-						// on déclare des tableaux utiles 
-						let diviseurs=[];
-						let multiplicateurs=[];
-						let multiples=[];
-						let quotients=[];
-						let textes=[];
-						let textes_corr=[];
-						// on tire au hasard 4 diviseurs différents entre 2 et 999 et 4 multiplicateurs différents entre 2 et 9 
-						diviseurs = [randint(2,999),randint(2,999,[diviseurs[0]]),randint(2,999,[diviseurs[0],diviseurs[1]]),randint(2,999,[diviseurs[0],diviseurs[1],diviseurs[2]])];
-						multiplicateurs = [randint(2,9),randint(2,9,[multiplicateurs[0]]),randint(2,9,[multiplicateurs[0],multiplicateurs[1]]),randint(2,9,[multiplicateurs[0],multiplicateurs[1],multiplicateurs[2]])];
-						// on calcule les multiples
-						for (let j = 0; j<4; j++) {
-							multiples[j]=diviseurs[j]*multiplicateurs[j];
-							quotients[j]=multiples[j]/diviseurs[j];
-							diviseurs[j]=nombre_avec_espace(diviseurs[j]);
-							multiples[j]=nombre_avec_espace(multiples[j]);							
-							quotients[j]=nombre_avec_espace(quotients[j]);
-						};						
-						// on crée les phrases 
-						textes[0]=`${diviseurs[0]} $\\ldots\\ldots\\ldots\\ldots$ ${multiples[0]}`;
-						textes_corr[0]=`${diviseurs[0]} est un diviseur de ${multiples[0]} car ${multiples[0]}=${diviseurs[0]}$\\times$${quotients[0]}`;
-						textes[1]=`${diviseurs[1]} $\\ldots\\ldots\\ldots\\ldots$ ${multiples[1]}`;
-						textes_corr[1]=`${diviseurs[1]} est un diviseur de ${multiples[1]} car ${multiples[1]}=${diviseurs[1]}$\\times$${quotients[1]}`;
-						textes[2]=`${multiples[2]} $\\ldots\\ldots\\ldots\\ldots$ ${diviseurs[2]}`;
-						textes_corr[2]=`${multiples[2]} est un multiple de ${diviseurs[2]} car ${multiples[2]}=${diviseurs[2]}$\\times$${quotients[2]}`;
-						textes[3]=`${multiples[3]} $\\ldots\\ldots\\ldots\\ldots$ ${diviseurs[3]}`;
-						textes_corr[3]=`${multiples[3]} est un multiple de ${diviseurs[3]} car ${multiples[3]}=${diviseurs[3]}$\\times$${quotients[3]}`;
-						// on ajoute deux cas ni multiple ni diviseur
-						// on choisit deux nombres
-						let n1 = nombre_avec_espace(randint(2,999,[diviseurs[0],diviseurs[1],diviseurs[2],diviseurs[3]]));
-						let p1 = nombre_avec_espace(randint(2,999,[diviseurs[0],diviseurs[1],diviseurs[2],diviseurs[3],n1]));
-						// on choisit un autre qui n'est pas dans la liste des diviseurs de n1
-						let n2 = nombre_avec_espace(randint(2,999,liste_diviseurs(n1)));
-						let p2 = nombre_avec_espace(randint(2,999,liste_diviseurs(p1)));
-						textes[4]=`${n1} $\\ldots\\ldots\\ldots\\ldots$ ${n2}`;
-						textes_corr[4]=`${n1} n'est ni un multiple ni un diviseur de ${n2}`;
-						textes[5]=`${p2} $\\ldots\\ldots\\ldots\\ldots$ ${p1}`;
-						textes_corr[5]=`${p2} n'est ni un multiple ni un diviseur de ${p1}`;
-						// on mélange pour que l'ordre change!
-						shuffle2tableaux(textes,textes_corr);
-						texte = `Avec la calculatrice, compléter chaque phrase avec le mot "est un diviseur de" ou "est un multiple de" ou "n'est ni une diviseur ni un multiple de".`;
-						texte+= `<br>`;
-						texte_corr =``;
-						for (let j = 0; j<6; j++) {
-							texte += textes[j];
-							texte +=`<br>`;
-							texte_corr += textes_corr[j];
-							texte_corr +=`<br>`;
-						};
-						break;
-					// case 5 :
-					// 	texte = `bla bla bla`;
-					// 	break;
-					case 5 : // liste des diviseurs
-						// on définit un tableau pour les choix du nombre dont on veut les diviseurs
-						// 3 parmis 2,99 y compris les premiers et 1 parmis les entiers à 3 chiffres ayant au moins 8 diviseurs, il y en a 223 !
-						let tableau_de_choix = [];
-						tableau_de_choix =[randint(2,99),randint(2,99,[tableau_de_choix[0]]),randint(2,99,[tableau_de_choix[0],tableau_de_choix[1]]),randint(2,99,[tableau_de_choix[0],tableau_de_choix[1],tableau_de_choix[2]])];
-						let tableau_de_choix_3chiffres =[];
-						for (let m=101; m<999; m++) {
-							if (liste_diviseurs(m).length>8) {
-								tableau_de_choix_3chiffres.push(m);
-							};
-						};
-						// on ajoute un nombre à trois chiffre avec au moins 8 diviseurs dans les choix possibles
-						let rg_Nb_3chiffres = randint(0,(tableau_de_choix_3chiffres.length-1));
-						tableau_de_choix.push(tableau_de_choix_3chiffres[rg_Nb_3chiffres]);
-						console.log(tableau_de_choix);												
-						let N; // on déclare le nombre dont on va chercher les diviseurs
-						let rg_N; // pour tirer le rang du nombre dans le tableau des choix
-						rg_N = randint(0,(tableau_de_choix.length-1));
-						N = tableau_de_choix[rg_N];
-						texte = `Écrire la liste de tous les diviseurs de ${N}.`;
-						//texte += tableau_de_choix.length;
-						texte_corr = `Pour trouver la liste des diviseurs de ${N} on cherche tous les produits de deux facteurs qui donnent ${N}<br>`;
-						if (liste_diviseurs(N).length%2==0) {//si il y a un nombre pair de diviseurs
-							for (let m = 0; m<(liste_diviseurs(N).length/2); m++){
-								texte_corr += ``+liste_diviseurs(N)[m]+`$\\times$`+liste_diviseurs(N)[(liste_diviseurs(N).length-m-1)]+`<br>`;
-							};
-						} else {
-							for (let m = 0; m<((liste_diviseurs(N).length-1)/2); m++){
-								texte_corr += ``+liste_diviseurs(N)[m]+`$\\times$`+liste_diviseurs(N)[(liste_diviseurs(N).length-m-1)]+`<br>`;
-							};
-							texte_corr += ``+liste_diviseurs(N)[(liste_diviseurs(N).length-1)/2]+`$\\times$`+liste_diviseurs(N)[(liste_diviseurs(N).length-1)/2]+`<br>`;
-						};
-						texte_corr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${N}<br>`;
-						texte_corr += `La liste des diviseurs de ${N} est donc `;
-						texte_corr += `1`;
-						for (let w = 1; w<liste_diviseurs(N).length; w++) {
-							texte_corr += `; `+liste_diviseurs(N)[w];
-						};
-						break;							
-				};
-			
-				if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-					this.liste_questions.push(texte);
-					this.liste_corrections.push(texte_corr);
-					i++;
-				}
-				cpt++
-			}	
-	
-		liste_de_question_to_contenu(this);
-	}
-	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
-};
-
-/**
- * 3A11 - Décomposition en facteurs premiers
- * 
- * @Auteur Sébastien Lozano
- */
- 
-function Decomposition_facteurs_premiers(){
-	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.sup = 1 ; 
-	this.titre = "Décomposition en facteurs premiers"; 
-	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne =`Ecrire la décomposition en facteurs premiers des nombres suivants.`;
-	this.consigne += `<br>`;
-	sortie_html ? this.spacing = 3 : this.spacing = 2;
-	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
-	this.nb_questions = 4;
-	//this.correction_detaillee_disponible = true;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	this.sup = 1;
-
-	this.nouvelle_version = function(numero_de_l_exercice){
-		let type_de_questions;
-		if (sortie_html) { // les boutons d'aide uniquement pour la version html
-			this.bouton_aide = '';
-			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A11.pdf","Aide mémoire sur les nombres premiers (Sébastien Lozano)","Aide mémoire")		
-			this.bouton_aide += modal_video('conteMathsNombresPremiers','videos/LesNombresPremiers.mp4','Petit conte mathématique - Les Nombres Premiers','Intro Vidéo');
-		} else { // sortie LaTeX
-		};
-
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		this.contenu = ''; // Liste de questions
-		this.contenu_correction = ''; // Liste de questions corrigées
-
-		let type_de_questions_disponibles = [1,2,3,4];
-		//let type_de_questions_disponibles = [1];
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
-
-			for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
-				type_de_questions = liste_type_de_questions[i];
-				
-	
-				switch (type_de_questions) {
-					case 1 : // périmètre d'un carré de côté x			
-						texte = 'type 1';
-						texte_corr = 'corr type 1';
-						break;		
-					case 1 : // périmètre d'un carré de côté x			
-						texte = 'type 2';
-						texte_corr = 'corr type 2';
-						break;	
-					case 1 : // périmètre d'un carré de côté x			
-						texte = 'type 3';
-						texte_corr = 'corr type 3';
-						break;	
-					case 1 : // périmètre d'un carré de côté x			
-						texte = 'type 4';
-						texte_corr = 'corr type 4';
-						break;		
-				};
-			
-				if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-					this.liste_questions.push(texte);
-					this.liste_corrections.push(texte_corr);
-					i++;
-				}
-				cpt++
-			}	
-	
-		liste_de_question_to_contenu(this);
-	}
-	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
-};
-
-/**
- * 3A12 - Fractions irreductibles
- * @Auteur Sébastien Lozano
- */
- 
-function FractionsIrreductibles(){
-	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.sup = 1 ; 
-	this.titre = "Fractions Irreductibles"; 
-	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne =`Fractions Irreductibles.`;
-	this.consigne += `<br>`;
-	sortie_html ? this.spacing = 3 : this.spacing = 2;
-	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
-	this.nb_questions = 4;
-	//this.correction_detaillee_disponible = true;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	this.sup = 1;
-
-	this.nouvelle_version = function(numero_de_l_exercice){
-		let type_de_questions;
-		if (sortie_html) { // les boutons d'aide uniquement pour la version html
-			//this.bouton_aide = '';
-			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A12.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")					
-			//this.bouton_aide += modal_video('conteMathsNombresPremiers','videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
-		} else { // sortie LaTeX
-		};
-
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		this.contenu = ''; // Liste de questions
-		this.contenu_correction = ''; // Liste de questions corrigées
-
-		let type_de_questions_disponibles = [1,2,3,4];
-		//let type_de_questions_disponibles = [1];
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
-
-			for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
-				type_de_questions = liste_type_de_questions[i];
-				
-	
-				switch (type_de_questions) {
-					case 1 : // périmètre d'un carré de côté x			
-						texte = 'type 1';
-						if (sortie_html) {
-						texte += modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A13.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
-						};
-						texte_corr = 'corr type 1';
-						break;		
-					case 2 : // périmètre d'un carré de côté x			
-						texte = 'type 2';
-						if (sortie_html) {
-						texte += modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A10.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
-						};
-						texte_corr = 'corr type 2';
-						break;	
-					case 3 : // périmètre d'un carré de côté x			
-						texte = 'type 3';
-						texte_corr = 'corr type 3';
-						break;	
-					case 4 : // périmètre d'un carré de côté x			
-						texte = 'type 4';
-						texte_corr = 'corr type 4';
-						break;		
-				};
-			
-				if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-					this.liste_questions.push(texte);
-					this.liste_corrections.push(texte_corr);
-					i++;
-				}
-				cpt++
-			}	
-	
-		liste_de_question_to_contenu(this);
-	}
-	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
-};
-
-/**
- * 3A13 - PGCD_PPCM_Engrenages
- * @Auteur Sébastien Lozano
- */
- 
-function PGCD_PPCM_Engrenages(){
-	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.sup = 1 ; 
-	this.titre = "PGCD_PPCM_Engrenages"; 
-	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne =`PGCD_PPCM_Engrenages.`;
-	this.consigne += `<br>`;
-	sortie_html ? this.spacing = 3 : this.spacing = 2;
-	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
-	this.nb_questions = 4;
-	//this.correction_detaillee_disponible = true;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	this.sup = 1;
-
-	this.nouvelle_version = function(numero_de_l_exercice){
-		let type_de_questions;
-		if (sortie_html) { // les boutons d'aide uniquement pour la version html
-			//this.bouton_aide = '';
-			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A13.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
-			//this.bouton_aide += modal_video('conteMathsNombresPremiers','videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
-		} else { // sortie LaTeX
-		};
-
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		this.contenu = ''; // Liste de questions
-		this.contenu_correction = ''; // Liste de questions corrigées
-
-		let type_de_questions_disponibles = [1,2,3,4];
-		//let type_de_questions_disponibles = [1];
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
-
-			for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
-				type_de_questions = liste_type_de_questions[i];
-				
-	
-				switch (type_de_questions) {
-					case 1 : // périmètre d'un carré de côté x			
-						texte = 'type 1';
-						texte_corr = 'corr type 1';
-						break;		
-					case 1 : // périmètre d'un carré de côté x			
-						texte = 'type 2';
-						texte_corr = 'corr type 2';
-						break;	
-					case 1 : // périmètre d'un carré de côté x			
-						texte = 'type 3';
-						texte_corr = 'corr type 3';
-						break;	
-					case 1 : // périmètre d'un carré de côté x			
-						texte = 'type 4';
-						texte_corr = 'corr type 4';
-						break;		
-				};
-			
-				if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-					this.liste_questions.push(texte);
-					this.liste_corrections.push(texte_corr);
-					i++;
-				}
-				cpt++
-			}	
-	
-		liste_de_question_to_contenu(this);
-	}
-	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
-};
