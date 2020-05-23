@@ -627,7 +627,8 @@ function Tableau_de_valeurs(){
 	this.nb_questions = 1;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
-	this.sup = 1; // niveau de difficulté
+	this.spacing = 1;
+	this.sup = 5; // niveau de difficulté
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
@@ -637,53 +638,121 @@ function Tableau_de_valeurs(){
 		if (this.sup==1) {
 			type_de_questions_disponibles = ['ax+b','ax'];
 		} 
+		if (this.sup==2) {
+			type_de_questions_disponibles = ['ax2+bx+c','ax2+c','ax2+bx'];
+		} 
+		if (this.sup==3) {
+			type_de_questions_disponibles = ['a/cx+d','ax+b/cx+d'];
+		}
+		if (this.sup==4) {
+			type_de_questions_disponibles = ['(ax+b)(cx+d)','(ax+b)2'];
+		}
+		if (this.sup==5) {
+			type_de_questions_disponibles = ['ax+b','ax','ax2+bx+c','ax2+c','ax2+bx','a/cx+d','ax+b/cx+d','(ax+b)(cx+d)','(ax+b)2']
+		}
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let liste_de_de_x = combinaison_listes([[-3,0,3],[-2,0,2],[1,2,5],[-3,6,9]],this.nb_questions); 
+		let liste_de_x = combinaison_listes([[-3,0,3],[-2,0,2],[1,2,5],[-3,6,9]],this.nb_questions); 
 		for (let i = 0, texte, texte_corr, a, b, c, d, expression, nomdef, ligne2, cpt=0; i < this.nb_questions && cpt<50; ) {
 			nomdef = lettre_minuscule_depuis_chiffre(6+i) // on commence par f puis on continue dans l'ordre alphabétique
-			a = randint(-10,10,[0])
-			b = randint(-10,10,[0])
 			switch (liste_type_de_questions[i]){
 				case 'ax+b': 
+					a = randint(-10,10,[0,-1,1])
+					b = randint(-10,10,[0])
 					expression = `${a}x${ecriture_algebrique(b)}`
-					ligne2 = `$${nomdef}(${x})=${a}\\times ${ecriture_parenthese_si_negatif(x)}+${b}=${a*x}+${b}=${a*x+b}$`
+					ligne2 = `${nomdef}(x) & ${a*liste_de_x[i][0]+b} & ${a*liste_de_x[i][1]+b} & ${a*liste_de_x[i][2]+b} \\\\\n`
 				break;
 				case 'ax': 
+					a = randint(-10,10,[0,-1,1])
 					expression = `${a}x`
-					ligne2 = `$${nomdef}(${x})=${a}\\times ${ecriture_parenthese_si_negatif(x)}+${b}=${a*x}+${b}=${a*x+b}$`
+					ligne2 = `${nomdef}(x) & ${a*liste_de_x[i][0]} & ${a*liste_de_x[i][1]} & ${a*liste_de_x[i][2]} \\\\\n`
+				break;
+				case 'ax2+bx+c':
+					a = randint(-3,3,[0,-1,1])
+					b = randint(-5,5,[0,-1,1])
+					c = randint(-10,10,[0])
+					expression = `${a}x^2${ecriture_algebrique(b)}x${ecriture_algebrique(c)}`
+					ligne2 = `${nomdef}(x) & ${a*liste_de_x[i][0]**2+b*liste_de_x[i][0]+c} & ${a*liste_de_x[i][1]**2+b*liste_de_x[i][1]+c} & ${a*liste_de_x[i][2]**2+b*liste_de_x[i][2]+c} \\\\\n`
+				break;
+				case 'ax2+c':
+					a = randint(-4,4,[0,-1,1])
+					c = randint(-10,10,[0])
+					expression = `${a}x^2${ecriture_algebrique(c)}`
+					ligne2 = `${nomdef}(x) & ${a*liste_de_x[i][0]**2+c} & ${a*liste_de_x[i][1]**2+c} & ${a*liste_de_x[i][2]**2+c} \\\\\n`
+				break;
+				case 'ax2+bx':
+					a = randint(-3,3,[0,-1,1])
+					b = randint(-5,5,[0,-1,1])
+					c = randint(-10,10,[0])
+					expression = `${a}x^2${ecriture_algebrique(b)}x`
+					ligne2 = `${nomdef}(x) & ${a*liste_de_x[i][0]**2+b*liste_de_x[i][0]} & ${a*liste_de_x[i][1]**2+b*liste_de_x[i][1]} & ${a*liste_de_x[i][2]**2+b*liste_de_x[i][2]} \\\\\n`
+				break;
+				case 'a/cx+d': 
+					a = randint(-10,10,[0])
+					c = randint(-10,10,[0,-1,1])
+					d = randint(-10,10,[0])
+					while (c*x+d==0){
+						c = randint(-10,10,[0,-1,1])
+					}
+					expression = `\\dfrac{${a}}{${c}x${ecriture_algebrique(d)}}`
+					ligne2 = `${nomdef}(x) & ${tex_fraction_reduite(a,c*liste_de_x[i][0]+d)} & ${tex_fraction_reduite(a,c*liste_de_x[i][1]+d)} & ${tex_fraction_reduite(a,c*liste_de_x[i][2]+d)} \\\\\n`
+				break;
+				case 'ax+b/cx+d': 
+					a = randint(-10,10,[0,1,-1])
+					b = randint(-10,10,[0])
+					c = randint(-10,10,[0,-1,1])
+					d = randint(-10,10,[0])
+					while (c*x+d==0){
+						c = randint(-10,10,[0,-1,1])
+					}
+					expression = `\\dfrac{${a}x${ecriture_algebrique(b)}}{${c}x${ecriture_algebrique(d)}}`
+					ligne2 = `${nomdef}(x) & ${tex_fraction_reduite(a*liste_de_x[i][0]+b,c*liste_de_x[i][0]+d)} & ${tex_fraction_reduite(a*liste_de_x[i][1]+b,c*liste_de_x[i][1]+d)} & ${tex_fraction_reduite(a*liste_de_x[i][2]+b,c*liste_de_x[i][2]+d)} \\\\\n`
+				break;
+				case '(ax+b)(cx+d)': 
+					a = randint(-5,5,[0,1,-1])
+					b = randint(-5,5,[0])
+					c = randint(-3,3,[0,-1,1])
+					d = randint(-3,3,[0])
+					expression = `(${a}x${ecriture_algebrique(b)})(${c}x${ecriture_algebrique(d)})`
+					ligne2 = `${nomdef}(x) & ${(a*liste_de_x[i][0]+b)*(c*liste_de_x[i][0]+d)} & ${(a*liste_de_x[i][1]+b)*(c*liste_de_x[i][1]+d)} & ${(a*liste_de_x[i][2]+b)*(c*liste_de_x[i][2]+d)} \\\\\n`
+				break;
+				case '(ax+b)2': 
+					a = randint(-3,3,[0,1,-1])
+					b = randint(-3,3,[0])
+					expression = `(${a}x${ecriture_algebrique(b)})^2`
+					ligne2 = `${nomdef}(x) & ${(a*liste_de_x[i][0]+b)**2} & ${(a*liste_de_x[i][1]+b)**2} & ${(a*liste_de_x[i][2]+b)**2} \\\\\n`
 				break;
 			}
-				
+
 
 			texte = `On considère la fonction $${nomdef}$ définie par $${nomdef}(x):x\\mapsto ${expression}$. Compléter le tableau de valeurs suivants.`
 			texte_corr = ''
-			// texte += `\\\\`
-			// if (sortie_html) {
-			// 	texte += `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n`
-			// } else {
-			// 	texte += `$\\begin{array}{|l|c|c|c|}\n`
-			// }
+			texte += `<br><br>`
+			if (sortie_html) {
+				texte += `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|}\n`
+			} else {
+				texte += `$\\begin{array}{|l|c|c|c|}\n`
+			}
 		
-			// texte += `\\hline\n`
-			// texte += `x & ${liste_de_de_x[i][0]} & ${liste_de_de_x[i][1]} & ${liste_de_de_x[i][2]} \\\\\n`
-			// texte += `\\hline\n`
-			// texte += `${nomdef}(x) & & & \\\\\n`
-			// texte += `\\hline\n`
-			// texte += `\\end{array}\n$`
+			texte += `\\hline\n`
+			texte += `x & ${liste_de_x[i][0]} & ${liste_de_x[i][1]} & ${liste_de_x[i][2]} \\\\\n`
+			texte += `\\hline\n`
+			texte += `${nomdef}(x) & \\phantom{-10} & \\phantom{-10} & \\phantom{-10} \\\\\n`
+			texte += `\\hline\n`
+			texte += `\\end{array}\n$`
 
 
-			// if (sortie_html) {
-			// 	texte_corr = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|c|}\n`
-			// } else {
-			// 	texte_corr = `$\\begin{array}{|l|c|c|c|}\n`
-			// }
+			if (sortie_html) {
+				texte_corr = `$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|}\n`
+			} else {
+				texte_corr = `$\\begin{array}{|l|c|c|c|}\n`
+			}
 		
-			// texte_corr += `\\hline\n`
-			// texte_corr += `x & ${liste_de_de_x[i][0]} & ${liste_de_de_x[i][1]} & ${liste_de_de_x[i][2]} \\\\\n`
-			// texte_corr += `\\hline\n`
-			// texte_corr += `${nomdef}(x) & & & \\\\\n`
-			// texte_corr += `\\hline\n`
-			// texte_corr += `\\end{array}\n$`
+			texte_corr += `\\hline\n`
+			texte_corr += `x & ${liste_de_x[i][0]} & ${liste_de_x[i][1]} & ${liste_de_x[i][2]} \\\\\n`
+			texte_corr += `\\hline\n`
+			texte_corr += ligne2
+			texte_corr += `\\hline\n`
+			texte_corr += `\\end{array}\n$`
 
 
 			
@@ -694,7 +763,7 @@ function Tableau_de_valeurs(){
 			}
 			cpt++;	
 		}
-		liste_de_question_to_contenu(this);
+		this.nb_questions==1 ? liste_de_question_to_contenu_sans_numero(this) : liste_de_question_to_contenu(this);
 	}
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',5,'1 : Fonctions affines\n2 : Polynome du second degré\n3 : Quotient\n4 : Produit \n5 : Mélange'];
 }
