@@ -765,6 +765,9 @@ function Tableau_de_valeurs(){
 					b = randint(-5,5,[0])
 					c = randint(-3,3,[0,-1,1])
 					d = randint(-3,3,[0])
+					if (a<0 && b<0 && c<0 && d<0) {
+						d=randint(1,3)
+					}
 					expression = `(${a}x${ecriture_algebrique(b)})(${c}x${ecriture_algebrique(d)})`
 					ligne2 = `${nomdef}(x) & ${(a*liste_de_x[i][0]+b)*(c*liste_de_x[i][0]+d)} & ${(a*liste_de_x[i][1]+b)*(c*liste_de_x[i][1]+d)} & ${(a*liste_de_x[i][2]+b)*(c*liste_de_x[i][2]+d)} \\\\\n`
 					calculs = `$${nomdef}(${x1})=\\left(${a}\\times${ecriture_parenthese_si_negatif(x1)}${ecriture_algebrique(b)}\\right)\\left(${c}\\times${ecriture_parenthese_si_negatif(x1)}${ecriture_algebrique(d)}\\right)=(${a*x1}${ecriture_algebrique(b)})(${c*x1}${ecriture_algebrique(d)})=${a*x1+b}\\times ${ecriture_parenthese_si_negatif(c*x1+d)}=${(a*x1+b)*(c*x1+d)}$<br>`
