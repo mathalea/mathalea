@@ -787,7 +787,7 @@ function Tableau_de_valeurs(){
 			}
 
 
-			texte = `On considère la fonction $${nomdef}$ définie par $${nomdef}(x):x\\mapsto ${expression}$. Compléter le tableau de valeurs suivants.`
+			texte = `On considère la fonction $${nomdef}$ définie par $${nomdef}(x):x\\mapsto ${expression}$. Compléter le tableau de valeurs suivant.`
 			texte_corr = ''
 			texte += `<br><br>`
 			if (sortie_html) {
