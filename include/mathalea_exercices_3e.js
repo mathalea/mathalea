@@ -650,19 +650,28 @@ function Tableau_de_valeurs(){
 		}
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let liste_de_x = combinaison_listes([[-3,0,3],[-2,0,2],[1,2,5],[-3,6,9]],this.nb_questions); 
-		for (let i = 0, texte, texte_corr, a, b, c, d, expression, nomdef, ligne2, cpt=0; i < this.nb_questions && cpt<50; ) {
+		for (let i = 0, texte, texte_corr, a, b, c, d,x1, x2, x3, expression, nomdef, ligne2, calculs="", cpt=0; i < this.nb_questions && cpt<50; ) {
 			nomdef = lettre_minuscule_depuis_chiffre(6+i) // on commence par f puis on continue dans l'ordre alphabétique
+			x1=liste_de_x[i][0];
+			x2=liste_de_x[i][1];
+			x3=liste_de_x[i][2];
 			switch (liste_type_de_questions[i]){
 				case 'ax+b': 
 					a = randint(-10,10,[0,-1,1])
 					b = randint(-10,10,[0])
 					expression = `${a}x${ecriture_algebrique(b)}`
 					ligne2 = `${nomdef}(x) & ${a*liste_de_x[i][0]+b} & ${a*liste_de_x[i][1]+b} & ${a*liste_de_x[i][2]+b} \\\\\n`
+					calculs = `$${nomdef}(${x1})=${a}\\times${ecriture_parenthese_si_negatif(x1)}${ecriture_algebrique(b)}=${a*x1}${ecriture_algebrique(b)}=${a*x1+b}$<br>`
+					calculs += `$${nomdef}(${x2})=${a}\\times${ecriture_parenthese_si_negatif(x2)}${ecriture_algebrique(b)}=${a*x2}${ecriture_algebrique(b)}=${a*x2+b}$<br>`
+					calculs += `$${nomdef}(${x3})=${a}\\times${ecriture_parenthese_si_negatif(x3)}${ecriture_algebrique(b)}=${a*x3}${ecriture_algebrique(b)}=${a*x3+b}$<br>`
 				break;
 				case 'ax': 
 					a = randint(-10,10,[0,-1,1])
 					expression = `${a}x`
 					ligne2 = `${nomdef}(x) & ${a*liste_de_x[i][0]} & ${a*liste_de_x[i][1]} & ${a*liste_de_x[i][2]} \\\\\n`
+					calculs = `$${nomdef}(${x1})=${a}\\times${ecriture_parenthese_si_negatif(x1)}=${a*x1}$<br>`
+					calculs += `$${nomdef}(${x2})=${a}\\times${ecriture_parenthese_si_negatif(x2)}=${a*x2}$<br>`
+					calculs += `$${nomdef}(${x3})=${a}\\times${ecriture_parenthese_si_negatif(x3)}=${a*x3}$<br>`
 				break;
 				case 'ax2+bx+c':
 					a = randint(-3,3,[0,-1,1])
@@ -670,12 +679,18 @@ function Tableau_de_valeurs(){
 					c = randint(-10,10,[0])
 					expression = `${a}x^2${ecriture_algebrique(b)}x${ecriture_algebrique(c)}`
 					ligne2 = `${nomdef}(x) & ${a*liste_de_x[i][0]**2+b*liste_de_x[i][0]+c} & ${a*liste_de_x[i][1]**2+b*liste_de_x[i][1]+c} & ${a*liste_de_x[i][2]**2+b*liste_de_x[i][2]+c} \\\\\n`
+					calculs = `$${nomdef}(${x1})=${a}\\times${ecriture_parenthese_si_negatif(x1)}^2${ecriture_algebrique(b)}\\times${ecriture_parenthese_si_negatif(x1)}${ecriture_algebrique(c)}=${a}\\times${x1**2}${ecriture_algebrique(b*x1)}${ecriture_algebrique(c)}=${a*x1**2+b*x1+c}$<br>`
+					calculs += `$${nomdef}(${x2})=${a}\\times${ecriture_parenthese_si_negatif(x2)}^2${ecriture_algebrique(b)}\\times${ecriture_parenthese_si_negatif(x2)}${ecriture_algebrique(c)}=${a}\\times${x2**2}${ecriture_algebrique(b*x2)}${ecriture_algebrique(c)}=${a*x2**2+b*x2+c}$<br>`
+					calculs += `$${nomdef}(${x3})=${a}\\times${ecriture_parenthese_si_negatif(x3)}^2${ecriture_algebrique(b)}\\times${ecriture_parenthese_si_negatif(x3)}${ecriture_algebrique(c)}=${a}\\times${x3**2}${ecriture_algebrique(b*x3)}${ecriture_algebrique(c)}=${a*x3**2+b*x3+c}$<br>`
 				break;
 				case 'ax2+c':
 					a = randint(-4,4,[0,-1,1])
 					c = randint(-10,10,[0])
 					expression = `${a}x^2${ecriture_algebrique(c)}`
 					ligne2 = `${nomdef}(x) & ${a*liste_de_x[i][0]**2+c} & ${a*liste_de_x[i][1]**2+c} & ${a*liste_de_x[i][2]**2+c} \\\\\n`
+					calculs = `$${nomdef}(${x1})=${a}\\times${ecriture_parenthese_si_negatif(x1)}^2${ecriture_algebrique(c)}=${a}\\times${x1**2}${ecriture_algebrique(c)}=${a*x1**2+c}$<br>`
+					calculs += `$${nomdef}(${x2})=${a}\\times${ecriture_parenthese_si_negatif(x2)}^2${ecriture_algebrique(c)}=${a}\\times${x2**2}${ecriture_algebrique(c)}=${a*x2**2+c}$<br>`
+					calculs += `$${nomdef}(${x3})=${a}\\times${ecriture_parenthese_si_negatif(x3)}^2${ecriture_algebrique(c)}=${a}\\times${x3**2}${ecriture_algebrique(c)}=${a*x3**2+c}$<br>`
 				break;
 				case 'ax2+bx':
 					a = randint(-3,3,[0,-1,1])
@@ -683,27 +698,66 @@ function Tableau_de_valeurs(){
 					c = randint(-10,10,[0])
 					expression = `${a}x^2${ecriture_algebrique(b)}x`
 					ligne2 = `${nomdef}(x) & ${a*liste_de_x[i][0]**2+b*liste_de_x[i][0]} & ${a*liste_de_x[i][1]**2+b*liste_de_x[i][1]} & ${a*liste_de_x[i][2]**2+b*liste_de_x[i][2]} \\\\\n`
+					calculs = `$${nomdef}(${x1})=${a}\\times${ecriture_parenthese_si_negatif(x1)}^2${ecriture_algebrique(b)}\\times${ecriture_parenthese_si_negatif(x1)}=${a}\\times${x1**2}${ecriture_algebrique(b*x1)}=${a*x1**2+b*x1}$<br>`
+					calculs += `$${nomdef}(${x2})=${a}\\times${ecriture_parenthese_si_negatif(x2)}^2${ecriture_algebrique(b)}\\times${ecriture_parenthese_si_negatif(x2)}=${a}\\times${x2**2}${ecriture_algebrique(b*x2)}=${a*x2**2+b*x2}$<br>`
+					calculs += `$${nomdef}(${x3})=${a}\\times${ecriture_parenthese_si_negatif(x3)}^2${ecriture_algebrique(b)}\\times${ecriture_parenthese_si_negatif(x3)}=${a}\\times${x3**2}${ecriture_algebrique(b*x3)}=${a*x3**2+b*x3}$<br>`
 				break;
 				case 'a/cx+d': 
 					a = randint(-10,10,[0])
 					c = randint(-10,10,[0,-1,1])
 					d = randint(-10,10,[0])
-					while (c*x+d==0){
+					while (c*x1+d==0 || c*x2+d==0 || c*x3+d==0){
 						c = randint(-10,10,[0,-1,1])
 					}
 					expression = `\\dfrac{${a}}{${c}x${ecriture_algebrique(d)}}`
 					ligne2 = `${nomdef}(x) & ${tex_fraction_reduite(a,c*liste_de_x[i][0]+d)} & ${tex_fraction_reduite(a,c*liste_de_x[i][1]+d)} & ${tex_fraction_reduite(a,c*liste_de_x[i][2]+d)} \\\\\n`
+					calculs = `$${nomdef}(${x1})=\\dfrac{${a}}{${c}\\times${ecriture_parenthese_si_negatif(x1)}${ecriture_algebrique(d)}}=\\dfrac{${a}}{${c*x1}${ecriture_algebrique(d)}}=\\dfrac{${a}}{${c*x1+d}}`
+						if (pgcd(a,c*x1+d)==1){
+							calculs +='$<br><br>'
+						} else {
+							calculs += '='+tex_fraction_reduite(a,c*x1+d)+'$<br><br>'
+						}
+					calculs += `$${nomdef}(${x2})=\\dfrac{${a}}{${c}\\times${ecriture_parenthese_si_negatif(x2)}${ecriture_algebrique(d)}}=\\dfrac{${a}}{${c*x2}${ecriture_algebrique(d)}}=\\dfrac{${a}}{${c*x2+d}}`
+						if (pgcd(a,c*x2+d)==1){
+							calculs +='$<br><br>'
+						} else {
+							calculs += '='+tex_fraction_reduite(a,c*x2+d)+'$<br><br>'
+						}
+					calculs += `$${nomdef}(${x3})=\\dfrac{${a}}{${c}\\times${ecriture_parenthese_si_negatif(x3)}${ecriture_algebrique(d)}}=\\dfrac{${a}}{${c*x3}${ecriture_algebrique(d)}}=\\dfrac{${a}}{${c*x3+d}}`
+						if (pgcd(a,c*x3+d)==1){
+							calculs +='$<br><br>'
+						} else {
+							calculs += '='+tex_fraction_reduite(a,c*x3+d)+'$<br><br>'
+						}
 				break;
 				case 'ax+b/cx+d': 
 					a = randint(-10,10,[0,1,-1])
 					b = randint(-10,10,[0])
 					c = randint(-10,10,[0,-1,1])
 					d = randint(-10,10,[0])
-					while (c*x+d==0){
+					while (c*x1+d==0 || c*x2+d==0 || c*x3+d==0){
 						c = randint(-10,10,[0,-1,1])
 					}
 					expression = `\\dfrac{${a}x${ecriture_algebrique(b)}}{${c}x${ecriture_algebrique(d)}}`
 					ligne2 = `${nomdef}(x) & ${tex_fraction_reduite(a*liste_de_x[i][0]+b,c*liste_de_x[i][0]+d)} & ${tex_fraction_reduite(a*liste_de_x[i][1]+b,c*liste_de_x[i][1]+d)} & ${tex_fraction_reduite(a*liste_de_x[i][2]+b,c*liste_de_x[i][2]+d)} \\\\\n`
+					calculs = `$${nomdef}(${x1})=\\dfrac{${a}\\times${ecriture_parenthese_si_negatif(x1)}${ecriture_algebrique(b)}}{${c}\\times${ecriture_parenthese_si_negatif(x1)}${ecriture_algebrique(d)}}=\\dfrac{${a*x1}${ecriture_algebrique(b)}}{${c*x1}${ecriture_algebrique(d)}}=\\dfrac{${a*x1+b}}{${c*x1+d}}`
+						if (pgcd(a*x1+b,c*x1+d)==1){
+							calculs +='$<br><br>'
+						} else {
+							calculs += '='+tex_fraction_reduite(a*x1+b,c*x1+d)+'$<br><br>'
+						}
+					calculs += `$${nomdef}(${x2})=\\dfrac{${a}\\times${ecriture_parenthese_si_negatif(x2)}${ecriture_algebrique(b)}}{${c}\\times${ecriture_parenthese_si_negatif(x2)}${ecriture_algebrique(d)}}=\\dfrac{${a*x2}${ecriture_algebrique(b)}}{${c*x2}${ecriture_algebrique(d)}}=\\dfrac{${a*x2+b}}{${c*x2+d}}`
+						if (pgcd(a*x2+b,c*x2+d)==1){
+							calculs +='$<br><br>'
+						} else {
+							calculs += '='+tex_fraction_reduite(a*x2+b,c*x2+d)+'$<br><br>'
+						}
+					calculs += `$${nomdef}(${x3})=\\dfrac{${a}\\times${ecriture_parenthese_si_negatif(x3)}${ecriture_algebrique(b)}}{${c}\\times${ecriture_parenthese_si_negatif(x3)}${ecriture_algebrique(d)}}=\\dfrac{${a*x3}${ecriture_algebrique(b)}}{${c*x3}${ecriture_algebrique(d)}}=\\dfrac{${a*x3+b}}{${c*x3+d}}`
+						if (pgcd(a*x3+b,c*x3+d)==1){
+							calculs +='$<br><br>'
+						} else {
+							calculs += '='+tex_fraction_reduite(a*x3+b,c*x3+d)+'$<br><br>'
+						}
 				break;
 				case '(ax+b)(cx+d)': 
 					a = randint(-5,5,[0,1,-1])
@@ -712,12 +766,19 @@ function Tableau_de_valeurs(){
 					d = randint(-3,3,[0])
 					expression = `(${a}x${ecriture_algebrique(b)})(${c}x${ecriture_algebrique(d)})`
 					ligne2 = `${nomdef}(x) & ${(a*liste_de_x[i][0]+b)*(c*liste_de_x[i][0]+d)} & ${(a*liste_de_x[i][1]+b)*(c*liste_de_x[i][1]+d)} & ${(a*liste_de_x[i][2]+b)*(c*liste_de_x[i][2]+d)} \\\\\n`
+					calculs = `$${nomdef}(${x1})=\\left(${a}\\times${ecriture_parenthese_si_negatif(x1)}${ecriture_algebrique(b)}\\right)\\left(${c}\\times${ecriture_parenthese_si_negatif(x1)}${ecriture_algebrique(d)}\\right)=(${a*x1}${ecriture_algebrique(b)})(${c*x1}${ecriture_algebrique(d)})=${a*x1+b}\\times ${ecriture_parenthese_si_negatif(c*x1+d)}=${(a*x1+b)*(c*x1+d)}$<br>`
+					calculs += `$${nomdef}(${x2})=\\left(${a}\\times${ecriture_parenthese_si_negatif(x2)}${ecriture_algebrique(b)}\\right)\\left(${c}\\times${ecriture_parenthese_si_negatif(x2)}${ecriture_algebrique(d)}\\right)=(${a*x2}${ecriture_algebrique(b)})(${c*x2}${ecriture_algebrique(d)})=${a*x2+b}\\times ${ecriture_parenthese_si_negatif(c*x2+d)}=${(a*x2+b)*(c*x2+d)}$<br>`
+					calculs += `$${nomdef}(${x3})=\\left(${a}\\times${ecriture_parenthese_si_negatif(x3)}${ecriture_algebrique(b)}\\right)\\left(${c}\\times${ecriture_parenthese_si_negatif(x3)}${ecriture_algebrique(d)}\\right)=(${a*x3}${ecriture_algebrique(b)})(${c*x3}${ecriture_algebrique(d)})=${a*x3+b}\\times ${ecriture_parenthese_si_negatif(c*x3+d)}=${(a*x3+b)*(c*x3+d)}$<br>`
 				break;
 				case '(ax+b)2': 
 					a = randint(-3,3,[0,1,-1])
 					b = randint(-3,3,[0])
 					expression = `(${a}x${ecriture_algebrique(b)})^2`
 					ligne2 = `${nomdef}(x) & ${(a*liste_de_x[i][0]+b)**2} & ${(a*liste_de_x[i][1]+b)**2} & ${(a*liste_de_x[i][2]+b)**2} \\\\\n`
+					calculs = `$${nomdef}(${x1})=\\left(${a}\\times${ecriture_parenthese_si_negatif(x1)}${ecriture_algebrique(b)}\\right)^2=(${a*x1}${ecriture_algebrique(b)})^2=${ecriture_parenthese_si_negatif(a*x1+b)}^2=${(a*x1+b)**2}$<br>`
+					calculs += `$${nomdef}(${x2})=\\left(${a}\\times${ecriture_parenthese_si_negatif(x2)}${ecriture_algebrique(b)}\\right)^2=(${a*x2}${ecriture_algebrique(b)})^2=${ecriture_parenthese_si_negatif(a*x2+b)}^2=${(a*x2+b)**2}$<br>`
+					calculs += `$${nomdef}(${x3})=\\left(${a}\\times${ecriture_parenthese_si_negatif(x3)}${ecriture_algebrique(b)}\\right)^2=(${a*x3}${ecriture_algebrique(b)})^2=${ecriture_parenthese_si_negatif(a*x3+b)}^2=${(a*x3+b)**2}$<br>`
+				
 				break;
 			}
 
@@ -745,12 +806,14 @@ function Tableau_de_valeurs(){
 				texte_corr = `$\\begin{array}{|l|c|c|c|}\n`
 			}
 		
-			texte_corr += `\\hline\n`
-			texte_corr += `x & ${liste_de_x[i][0]} & ${liste_de_x[i][1]} & ${liste_de_x[i][2]} \\\\\n`
-			texte_corr += `\\hline\n`
-			texte_corr += ligne2
-			texte_corr += `\\hline\n`
-			texte_corr += `\\end{array}\n$`
+			texte_corr += `\\hline\n`;
+			texte_corr += `x & ${liste_de_x[i][0]} & ${liste_de_x[i][1]} & ${liste_de_x[i][2]} \\\\\n`;
+			texte_corr += `\\hline\n`;
+			texte_corr += ligne2;
+			texte_corr += `\\hline\n`;
+			texte_corr += `\\end{array}\n$`;
+			texte_corr += '<br><br>';
+			texte_corr += calculs;
 
 
 			
