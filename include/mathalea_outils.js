@@ -2905,6 +2905,24 @@ function detect_safari_chrome_browser(){
 };
 
 /**
+* Retourne la liste des nombres premiers inférieurs à N N<300 N exclu
+* @param {number} borneSup
+* @author Sébastien Lozano
+*/
+function liste_nb_premiers_strict_jusqua(borneSup) {
+	'use strict';
+	// tableau contenant les 300 premiers nombres premiers
+	let liste_300 = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113,127,131,137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,257,263,269,271,277,281,283,293];
+	let liste = [];
+	let i = 0;
+	while (liste_300[i]<borneSup) {
+		liste.push(liste_300[i]);
+		i++;
+	}
+	return liste;
+};
+
+/**
  * Pour les tests de la bibliothèque d3.js
  * @param {string} id_du_div 
  * @author Sébastien Lozano 
