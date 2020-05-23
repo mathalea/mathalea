@@ -87,6 +87,7 @@ var liste_des_exercices_disponibles = {
 		'5L111' : Tester_une_egalite,
 		'5L12' : Reduire_une_expression_litterale,
 		'5M10' : Exercice_angles_triangles,
+		'5M10-1' : Aire_du_parallelogramme,
 		'5M30' : Calcul_de_volumes_5e,
 		'5R10' : Lire_abscisse_relative,
 		'5R10-2' : Placer_points_sur_axe_relatifs,
@@ -142,6 +143,7 @@ var liste_des_exercices_disponibles = {
 		'3F10' : fonctions_lineaires,
 		'3F11' : fonctions_affines,
 		'3F12' : fonctions_calculs_d_images,
+		'3F12-2' : Image_fonction_algebrique,
 		'3S20' : fonctions_probabilite2,
 		//'3SVGtest' : svglibs,
 		'2N10' : Developper_Identites_remarquables2,
@@ -4755,6 +4757,9 @@ function Perimetre_ou_aire_de_carres_rectangles_triangles(){
 // 2 : Aires\n3 : Périmètres et aires"];
 
 }
+
+
+
 
 
 /**
