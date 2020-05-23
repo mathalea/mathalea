@@ -4805,7 +4805,7 @@ function Perimetre_ou_aire_de_figures_composees(){
 		texte_corr += '<br><br>'
 		texte_corr += `La deuxième figure est un carré de côté ${c} cm auquel il faut enlever un triangle de ${c} cm de base et ${h} cm de hauteur.<br>`
 		texte_corr += `$\\mathcal{P}_{2}=${c}+${c}+${c}+${tex_nombre(t1)}+${tex_nombre(t2)}=${tex_nombrec(3*c+t1+t2)}$ cm<br>`
-		texte_corr += `$\\mathcal{A}_{2}=${c}\\times${c}-${c}\\times${h}\\div2=${c*c}-${c*h}=${tex_nombrec(c**2-c*h)}~${tex_texte(' cm')}^2$.`
+		texte_corr += `$\\mathcal{A}_{2}=${c}\\times${c}-${c}\\times${h}\\div2=${c*c}-${c*h/2}=${tex_nombrec(c**2-c*h/2)}~${tex_texte(' cm')}^2$.`
 		
 		this.MG32codeBase64 = codeBase64
 		this.MG32code_pour_modifier_la_figure = `
