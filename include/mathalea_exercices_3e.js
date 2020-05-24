@@ -2470,8 +2470,8 @@ function Premier_ou_pas(){
 	this.sup = 1 ; 
 	this.titre = "Primalité ou pas"; 
 	// pas de différence entre la version html et la version latex pour la consigne
-	// this.consigne =`Justifier que les nombres suivants sont premiers ou pas.`;
-	// this.consigne += `<br>`;	
+	this.consigne =`Justifier que les nombres suivants sont premiers ou pas.`;
+	this.consigne += `<br>`;	
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
 	this.nb_questions = 5;
@@ -2481,23 +2481,6 @@ function Premier_ou_pas(){
 	this.sup = 1;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		let string_rappel = `Cette liste des nombres premiers inférieurs à 100 pourra être utile : <br>`+crible_eratosthene_n(100)[0];
-		for (let k=1;k<crible_eratosthene_n(100).length;k++) {
-			string_rappel +=`, `+crible_eratosthene_n(100)[k];
-		};
-		this.consigne =`Justifier que les nombres suivants sont premiers ou pas.`;
-		this.consigne += `<br>`;
-		if (sortie_html) {
-			this.consigne +=`
-			<br>
-			<div class="ui compact warning message">		
-			<p>`+string_rappel+`
-			</p>
-			</div>
-			<br>`;
-		} else {
-			this.consigne += tex_cadre_par_orange(string_rappel);							
-		};
 		let type_de_questions;
 		if (sortie_html) { // les boutons d'aide uniquement pour la version html
 			this.bouton_aide = '';
@@ -2634,8 +2617,12 @@ function Premier_ou_pas(){
 						texte_corr += `<br> ${nombre_avec_espace(N)} n'est donc pas premier.`;
 						break;
 					case 6 : // produit de deux nombres premiers inférieurs à 100
-						let prime1 = crible_eratosthene_n(100)[randint(1,25)]; // on tire un nombre premier inférieur à 100, il n'y en a que 25!
-						let prime2 = crible_eratosthene_n(100)[randint(1,25)]; // on tire un autre nombre premier inférieur à 100, ça peut être le même qu'avant!
+						// rang du premier facteur premier
+						let r1 = randint(0,crible_eratosthene_n(100).length-1);
+						// rang du second facteur premier
+						let r2 = randint(0,crible_eratosthene_n(100).length-1);
+						let prime1 = crible_eratosthene_n(100)[r1]; // on tire un nombre premier inférieur à 100, il n'y en a que 25!
+						let prime2 = crible_eratosthene_n(100)[r2]; // on tire un autre nombre premier inférieur à 100, ça peut être le même qu'avant!
 						N=prime1+`$\\times$`+prime2;
 						texte = N;
 						texte_corr = `${N} est le produit de ${prime1} et de ${prime2}, il admet donc au moins `;
@@ -2647,9 +2634,26 @@ function Premier_ou_pas(){
 						texte_corr +=`<br> ${N} n'est donc pas premier.`; 
 						break;
 					case 7 : // nombre premier inférieur à 529
-						N=crible_eratosthene_n(529)[randint(1,crible_eratosthene_n(529).length)]; //on choisit un nombre premier inférieur à 100
-						//console.log(N);
-						texte = N+``;;
+						// rang du nombre premier choisi
+						let r = randint(0,crible_eratosthene_n(529).length-1);
+						N=crible_eratosthene_n(529)[r]; //on choisit un nombre premier inférieur à 529
+						texte = N+``;
+						let string_rappel = `Cette liste des nombres premiers inférieurs à 100 pourra être utile : <br>`+crible_eratosthene_n(100)[0];
+						for (let k=1;k<crible_eratosthene_n(100).length;k++) {
+							string_rappel +=`, `+crible_eratosthene_n(100)[k];
+						};
+						if (sortie_html) {
+							texte +=`
+							<br>
+							<div class="ui compact warning message">		
+							<p>`+string_rappel+`
+							</p>
+							</div>
+							<br>`;
+						} else {
+							texte += tex_cadre_par_orange(string_rappel);							
+						};
+						
 						let tab_premiers_a_tester = crible_eratosthene_n(Math.trunc(Math.sqrt(N)));
 						texte_corr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
 						texte_corr += tab_premiers_a_tester[0];
@@ -2687,8 +2691,9 @@ function Premier_ou_pas_critere_par7_par11(){
 	this.sup = 1 ; 
 	this.titre = "Primalité ou pas - Variante avec les critères de divisibilité par 7 et par 11"; 
 	// pas de différence entre la version html et la version latex pour la consigne
-	// this.consigne =`Justifier que les nombres suivants sont premiers ou pas.`;
-	// this.consigne += `<br>`;
+	this.consigne = `Justifier que les nombres suivants sont premiers ou pas.`;
+	this.consigne += `<br>`;
+	this.consigne += `Il pourra être utile de regarder les critères de divisibilité par 7 et par 11 dans l'aide mémoire.`
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
 	this.nb_questions = 7;
@@ -2698,29 +2703,6 @@ function Premier_ou_pas_critere_par7_par11(){
 	this.sup = 1;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		let string_rappel_b = `Ces critères de divisibilité pourront être utiles: <br>`;
-		if (sortie_html) {
-			string_rappel_b += `- Un nombre estdivisible par 7 si la somme de son nombre de dizaines et de cinq foisson chiffre des unités l’est.<br>`;
-			string_rappel_b += `- Un nombre estdivisible par 11 si la différence entre la somme de ses chiffres de rangspairs et la somme de ses chiffres de rangs impairs est nulle ou égale à une multiple de 11.`;
-		} else {
-			string_rappel_b += tex_cadre_par_orange(itemize([
-				`Un nombre estdivisible par 7 si la somme de son nombre de dizaines et de cinq foisson chiffre des unités l’est.`,
-				`Un nombre estdivisible par 11 si la différence entre la somme de ses chiffres de rangspairs et la somme de ses chiffres de rangs impairs est nulle ou égale à une multiple de 11.`
-			]));
-		};
-		this.consigne =`Justifier que les nombres suivants sont premiers ou pas.`;
-		this.consigne += `<br>`;
-		if (sortie_html) {
-			this.consigne +=`
-			<br>
-			<div class="ui compact warning message">		
-			<p>`+string_rappel_b+`
-			</p>
-			</div>
-			<br>`;
-		} else {
-			this.consigne += tex_cadre_par_orange(string_rappel_b);							
-		};	
 		let type_de_questions;
 		if (sortie_html) { // les boutons d'aide uniquement pour la version html
 			this.bouton_aide = '';
@@ -2856,8 +2838,12 @@ function Premier_ou_pas_critere_par7_par11(){
 						texte_corr += `<br> ${nombre_avec_espace(N)} n'est donc pas premier.`;
 						break;
 					case 6 : // produit de deux nombres premiers inférieurs à 100
-						let prime1 = crible_eratosthene_n(100)[randint(1,25)]; // on tire un nombre premier inférieur à 100, il n'y en a que 25!
-						let prime2 = crible_eratosthene_n(100)[randint(1,25)]; // on tire un autre nombre premier inférieur à 100, ça peut être le même qu'avant!
+						// rang du premier facteur premier
+						let r1 = randint(0,crible_eratosthene_n(100).length-1);
+						// rang du second facteur premier
+						let r2 = randint(0,crible_eratosthene_n(100).length-1);
+						let prime1 = crible_eratosthene_n(100)[r1]; // on tire un nombre premier inférieur à 100, il n'y en a que 25!
+						let prime2 = crible_eratosthene_n(100)[r2]; // on tire un autre nombre premier inférieur à 100, ça peut être le même qu'avant!
 						N=prime1+`$\\times$`+prime2;
 						texte = N;
 						texte_corr = `${N} est le produit de ${prime1} et de ${prime2}, il admet donc au moins `;
@@ -2869,8 +2855,9 @@ function Premier_ou_pas_critere_par7_par11(){
 						texte_corr +=`<br> ${N} n'est donc pas premier.`; 
 						break;
 					case 7 : // nombre premier inférieur à 529
-						N=crible_eratosthene_n(529)[randint(1,crible_eratosthene_n(529).length)]; //on choisit un nombre premier inférieur à 100
-						//console.log(N);
+						// rang du nombre premier choisi
+						let r = randint(0,crible_eratosthene_n(529).length-1);
+						N=crible_eratosthene_n(529)[r]; //on choisit un nombre premier inférieur à 529
 						texte = N+``;;
 						let tab_premiers_a_tester = crible_eratosthene_n(Math.trunc(Math.sqrt(N)));
 						texte_corr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
@@ -2895,6 +2882,7 @@ function Premier_ou_pas_critere_par7_par11(){
 	}
 	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
 };
+
 /**
  * 3A12 - Fractions irreductibles
  * @Auteur Sébastien Lozano
