@@ -3249,7 +3249,7 @@ function problemes_grandeurs_produits(){
 				let puissance=appareils[index][1];
 				let duree_max=appareils[index][2];
 				let nbquartsdheures=randint(0,3);
-				let nbheures=randint(duree_max/4,duree_max)
+				let nbheures=randint(duree_max/4,duree_max,[1])
 				let duree=nbheures+nbquartsdheures*0.25;
 				let prixkwh=calcul(randint(0,5)/100+0.14);
 				texte =`L'étiquette apposée au dos d'un ${appareil} indique une puissance de ${puissance} Watts. On le fait fonctionner pendant ${Math.floor(duree)} heures `;
