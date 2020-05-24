@@ -3257,8 +3257,8 @@ function problemes_grandeurs_produits(){
 				texte_corr = num_alpha(0)+` Un ${appareil} d'une puissance de ${puissance} Watts qui fonctionne pendant ${Math.floor(duree)} heures `;
 				if (duree!=Math.floor(duree)) texte_corr +=`et ${calcul((duree-Math.floor(duree))*60)} minutes`;
 				texte_corr+=` consomme : <br>`;
-				texte_corr+=`$${puissance}\\text{ W}\\times${tex_nombre(duree)}\\text{ h}=${puissance/1000}\\text{ kW}\\times${tex_nombre(duree)}\\text{ h}=${tex_nombre(puissance/1000*duree)}\\text{ kWh}.$<br>`
-				texte_corr+=num_alpha(1)+` Le prix de cette énergie consommée est : $${tex_nombre(prixkwh)} \\text{ €/kWh} \\times${tex_nombre(puissance/1000*duree)}\\text{ kWh}=${tex_nombre(prixkwh*puissance/1000*duree)}\\text{ €}$`
+				texte_corr+=`$${puissance}\\text{ W}\\times${tex_nombre(duree)}\\text{ h}=${tex_nombre(puissance/1000)}\\text{ kW}\\times${tex_nombre(duree)}\\text{ h}=${tex_nombre(puissance/1000*duree)}\\text{ kWh}.$<br>`
+				texte_corr+=num_alpha(1)+` Le prix de cette énergie consommée est : $${tex_nombre(prixkwh)} \\text{ €/kWh} \\times${tex_nombre(puissance/1000*duree)}\\text{ kWh}\\approx${arrondi_virgule(prixkwh*puissance/1000*duree,2)}\\text{ €}$`
 					break;
 				case 1 :
 					texte = `Exercice de calcul de volume`
