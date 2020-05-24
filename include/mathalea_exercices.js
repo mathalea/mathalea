@@ -195,6 +195,7 @@ function Exercice() {
     this.consigne_correction = '';
     this.liste_questions = [];
     this.liste_corrections = [];
+    this.introduction = '';
     this.contenu = '';
     this.contenu_correction = '';
     this.nb_questions = 10;
