@@ -2868,7 +2868,7 @@ function Aire_du_parallelogramme(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.pas_de_version_LaTeX = true ;
 	this.titre = "Aire du parallélogramme"
-	this.consigne = "Calculer l'aire des 2 parallélogrammes suivants (les longueurs sont données en cm).'"
+	this.consigne = "Calculer l'aire des 3 parallélogrammes suivants (les longueurs sont données en cm).'"
 	this.spacing = 2;
 	this.spacing_corr = 2 ;
 	this.nb_questions = 1;
