@@ -3239,6 +3239,7 @@ function problemes_grandeurs_produits(){
 		let liste_index_disponibles=[0,1,2,3,4,5,6];
 		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions)
 		let appareils=[[`radiateur`,2000,20],[`téléviseur`,350,12],[`four électrique`,2500,4],[`ordinateur`,450,8]] // [appareil,puissance,durée maxi de fonctionnement]
+		let reservoirs=[[`piscine`,]]
 		
 		for (let i = 0,j,index,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
 			switch (liste_index[i]) {
@@ -3247,20 +3248,24 @@ function problemes_grandeurs_produits(){
 				let appareil=appareils[index][0];
 				let puissance=appareils[index][1];
 				let duree_max=appareils[index][2];
-				let duree=randint(duree_max/4,duree_max)+randint(0,3)*0.25;
+				let nbquartsdheures=randint(0,3);
+				let nbheures=randint(duree_max/4,duree_max)
+				let duree=nbheures+nbquartsdheures*0.25;
 				let prixkwh=calcul(randint(0,5)/100+0.14);
 				texte =`L'étiquette apposée au dos d'un ${appareil} indique une puissance de ${puissance} Watts. On le fait fonctionner pendant ${Math.floor(duree)} heures `;
-				if (duree!=Math.floor(duree)) texte +=`et ${calcul((duree-Math.floor(duree))*60)} minutes`;
+				if (nbquartsdheures!=0) texte +=`et ${nbquartsdheures*15} minutes`;
 				texte+=`.<br>Le prix d'un kWh est de ${tex_nombrec(prixkwh)} €.<br>`
 				texte+=num_alpha(0)+` Exprimer en kWh l'energie consommée.<br>`;
 				texte+=num_alpha(1)+` Calculer la dépense correspondante.`
 				texte_corr = num_alpha(0)+` Un ${appareil} d'une puissance de ${puissance} Watts qui fonctionne pendant ${Math.floor(duree)} heures `;
-				if (duree!=Math.floor(duree)) texte_corr +=`et ${calcul((duree-Math.floor(duree))*60)} minutes`;
+				if (nbquartsdheures!=0) texte_corr +=`et ${nbquartsdheures*15} minutes`;
 				texte_corr+=` consomme : <br>`;
+				if (nbquartsdheures!=0) texte_corr +=`$${nbheures}\\text{ h } ${nbquartsdheures*15} = ${nbheures}\\text{ h} + ${tex_fraction(nbquartsdheures,4)}\\text{ h} =${tex_nombre(nbheures+nbquartsdheures*0.25)}\\text{ h}$<br>`;
 				texte_corr+=`$${puissance}\\text{ W}\\times${tex_nombre(duree)}\\text{ h}=${tex_nombre(puissance/1000)}\\text{ kW}\\times${tex_nombre(duree)}\\text{ h}=${tex_nombre(puissance/1000*duree)}\\text{ kWh}.$<br>`
 				texte_corr+=num_alpha(1)+` Le prix de cette énergie consommée est : $${tex_nombre(prixkwh)} \\text{ €/kWh} \\times${tex_nombre(puissance/1000*duree)}\\text{ kWh}\\approx${arrondi_virgule(prixkwh*puissance/1000*duree,2)}\\text{ €}$`
 					break;
 				case 1 :
+
 					texte = `Exercice de calcul de volume`
 					texte_corr = `Correction volume`
 					break;
