@@ -2233,7 +2233,7 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 /**
  * 3A11 justifier la non primalité réinvestissement des critères de divisibilité
  * Nombres à 3 ou 4 chiffres, un multiple de 2, de 3, de 5, de 7, de 11, sous forme d'un produit de deux nombres premiers inférieurs à 100
- * et un nombre premier inferieur à 100
+ * et un nombre premier inferieur à 529
  * @Auteur Sébastien Lozano
  */
 function Premier_ou_pas(){
@@ -2400,12 +2400,11 @@ function Premier_ou_pas(){
 						};
 						texte_corr +=`<br> ${N} n'est donc pas premier.`; 
 						break;
-					case 7 : // nombre premier inférieur à 100
-						N=crible_eratosthene_n(100)[randint(1,25)]; //on choisit un nombre premier inférieur à 100
+					case 7 : // nombre premier inférieur à 529
+						N=crible_eratosthene_n(529)[randint(1,crible_eratosthene_n(529).length)]; //on choisit un nombre premier inférieur à 100
+						//console.log(N);
 						texte = N+``;;
 						let max_test = Math.trunc(Math.sqrt(N));
-						console.log(typeof max_test);
-						console.log(max_test);
 						let tab_premiers_a_tester = crible_eratosthene_n(Math.trunc(Math.sqrt(N)));
 						texte_corr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
 						texte_corr += tab_premiers_a_tester[0];
