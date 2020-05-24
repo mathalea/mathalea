@@ -125,6 +125,7 @@ var liste_des_exercices_disponibles = {
 		'4G21' : Reciproque_Thales_4eme,
 		'3A10' : DivisionEuclidienne_multiplesDiviseurs_Criteres,
 		'3A11' : Premier_ou_pas,
+		'3A11-1' : Premier_ou_pas_critere_par7_par11,
 		//'3A11-1' : Decomposition_facteurs_premiers,
 		//'3A12' : FractionsIrreductibles,
 		//'3A13' : PGCD_PPCM_Engrenages,
