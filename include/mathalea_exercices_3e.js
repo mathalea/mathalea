@@ -2247,6 +2247,7 @@ function fonction_notion_vocabulaire(){
 
 /**
  * 3A10 - Division Euclidienne; diviseurs, multiples, critères de divisibilité
+ * Exercice bilan
  * @Auteur Sébastien Lozano
  */
  
@@ -2457,7 +2458,192 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 };
 
 /**
- * 3A11 - Décomposition en facteurs premiers
+ * 3A11 justifier la non primalité réinvestissement des critères de divisibilité
+ * Nombres à 3 ou 4 chiffres, un multiple de 2 de 3 de 5 de 7 de 11 et un sous forme d'un produit de nombres premiers
+ * et un nombre premier inferieur à 100
+ * @Auteur Sébastien Lozano
+ */
+function Premier_ou_pas(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.sup = 1 ; 
+	this.titre = "Primalité ou pas"; 
+	// pas de différence entre la version html et la version latex pour la consigne
+	this.consigne =`Justifier que les nombres suib-vants sont premiers ou pas.`;
+	this.consigne += `<br>`;
+	sortie_html ? this.spacing = 3 : this.spacing = 2;
+	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
+	this.nb_questions = 5;
+	//this.correction_detaillee_disponible = true;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.sup = 1;
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		let type_de_questions;
+		if (sortie_html) { // les boutons d'aide uniquement pour la version html
+			this.bouton_aide = '';
+			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A11.pdf","Aide mémoire sur les nombres premiers (Sébastien Lozano)","Aide mémoire")		
+			this.bouton_aide += modal_video('conteMathsNombresPremiers','videos/LesNombresPremiers.mp4','Petit conte mathématique - Les Nombres Premiers','Intro Vidéo');
+		} else { // sortie LaTeX
+		};
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		this.contenu = ''; // Liste de questions
+		this.contenu_correction = ''; // Liste de questions corrigées
+
+		let type_de_questions_disponibles = [1,2,3,4,5];
+		//let type_de_questions_disponibles = [1];
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
+
+			for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
+				type_de_questions = liste_type_de_questions[i];
+				
+				var N; // le nombre de la question
+	
+				switch (type_de_questions) {
+					case 1 : // nombre pair
+						N=2*randint(51,4999);
+						texte = nombre_avec_espace(N);						
+						texte_corr = `Comme ${N} est pair, il admet donc au moins trois diviseurs qui sont 1, 2 et lui-même,<br> ${N} n'est donc pas premier.`;
+						break;		
+					case 2 : // Multiple de 3
+						let sum=0; // pour la valeur de la somme;
+						N=3*randint(34,3333);
+						texte = nombre_avec_espace(N);
+						texte_corr = `Comme `+ N.toString().charAt(0);
+						sum = Number(N.toString().charAt(0));
+						for (let k=1; k<N.toString().length; k++) {
+							texte_corr += ` + `+N.toString().charAt(k);
+							sum +=Number(N.toString().charAt(k));
+						};					
+						texte_corr += ` = ${sum} est un multiple de 3 donc ${N} aussi, il admet donc au moins trois diviseurs qui sont 1, 3 et lui-même,<br> ${N} n'est donc pas premier.`;
+						break;	
+					case 3 : // Multiple de 5
+						N=5*randint(20,1999);
+						texte = nombre_avec_espace(N);
+						texte_corr = `Comme le dernier chiffre de ${N} est un ${N.toString().charAt(N.toString().length-1)} alors ${N} est divisible par 5, `;
+						texte_corr += `il admet donc au moins trois diviseurs qui sont 1, 5 et lui-même,<br> ${N} n'est donc pas premier`;
+						break;	
+					case 4 : // Multiple de 7
+						let N_longueur; // pour la taille du string N
+						let N1; // pour la repetiton du critère
+						let N1_longueur; // pour la taille du string N1
+						let sum1; // pour la somme de la répétition du critère
+						N=7*randint(15,1428);
+						texte = nombre_avec_espace(N);
+						N_longueur = N.toString().length;
+						texte_corr = ` 7 divise ${N}, en effet : `;
+						texte_corr += `<br>`;
+						N1 = N;
+						N1_longueur = N_longueur;
+						sum1 = Number(N1.toString().substring(0,N1_longueur-1))+5*Number(N1.toString().charAt(N1_longueur-1));
+						while (sum1 >=56 ) {
+							texte_corr += `${N1.toString().substring(0,N1_longueur-1)} + 5$\\times$${N1.toString().charAt(N1_longueur-1)}`;
+							texte_corr += ` = ${Number(N1.toString().substring(0,N1_longueur-1))+5*Number(N1.toString().charAt(N1_longueur-1))}`;
+							texte_corr += `<br>`;
+							N1 = sum1;
+							N1_longueur = N1.toString().length;
+							sum1 = Number(N1.toString().substring(0,N1_longueur-1))+5*Number(N1.toString().charAt(N1_longueur-1));
+						};
+						// texte_corr = `Comme ${N.toString().substring(0,N_longueur-1)}-5$\\times$${N.toString().charAt(N_longueur-1)}`;
+						// texte_corr += ` = ${Number(N.toString().substring(0,N_longueur-1))+5*Number(N.toString().charAt(N_longueur-1))} est un multiple de 7 alors 7 divise ${N} aussi, `;
+						texte_corr += `Comme ${N1.toString().substring(0,N1_longueur-1)} + 5$\\times$${N1.toString().charAt(N1_longueur-1)} = ${sum1} est un multiple de 7 alors 7 divise ${N} aussi `;
+						texte_corr += `qui admet donc au moins trois diviseurs : 1, 7 et lui-même,<br> ${N} n'est donc pas premier.`;
+						break;
+					case 5 : // multiple de 11
+						let even_sum; // pour la somme des chiffres de rang impair
+						let odd_sum; // pour la somme des chiffres de rang pair
+						N=11*randint(10,909);
+						texte = nombre_avec_espace(N);
+						texte_corr = `D'une part, la somme des chiffres de rang impair de ${N} vaut `;
+						if (Number(N.toString().length)%2==0) { // si N a un nombre pair de chiffres
+							even_sum = Number(N.toString().charAt(1));
+							texte_corr += N.toString().charAt(1);
+							for (let k=3; k<N.toString().length; k++) {
+								if (k%2==1) {
+								texte_corr += ` + `+N.toString().charAt(k);
+								even_sum += Number(N.toString().charAt(k));
+								};
+							};
+							texte_corr += ` = `+even_sum+ ` <br> `;
+						} else { // sinon N a un nombre impair de chiffres
+							even_sum = Number(N.toString().charAt(0));
+							texte_corr += N.toString().charAt(0);
+							for (let m=1; m<N.toString().length; m++) {
+								if (m%2==0) {
+								texte_corr += ` + `+N.toString().charAt(m);
+								even_sum += Number(N.toString().charAt(m));
+								};
+
+							};
+							texte_corr += ` = `+even_sum+ `<br> `;
+						};
+						texte_corr += `d'autre part, la somme des chiffres de rang pair de ${N} vaut `;
+						if (Number(N.toString().length)%2==0) { // si N a un nombre pair de chiffres
+							odd_sum = Number(N.toString().charAt(0));
+							texte_corr += N.toString().charAt(0);
+							for (let k=1; k<N.toString().length; k++) {
+								if (k%2==0) {
+								texte_corr += ` + `+N.toString().charAt(k);
+								odd_sum += Number(N.toString().charAt(k));
+								};
+							};
+							texte_corr += ` = `+odd_sum+ ` <br> `;
+						} else { // sinon N a un nombre impair de chiffres
+							odd_sum = Number(N.toString().charAt(1));
+							texte_corr += N.toString().charAt(1);
+							for (let m=3; m<N.toString().length; m++) {
+								if (m%2==1) {
+								texte_corr += ` + `+N.toString().charAt(m);
+								odd_sum += Number(N.toString().charAt(m));
+								};
+
+							};
+							texte_corr += ` = `+odd_sum+ `<br> `;
+						};
+						texte_corr += `la différence entre la somme des chiffres de rangs pairs et celle des chiffres de rangs impairs vaut ${odd_sum-even_sum} , elle est nulle ou multiple de 11, <br>`
+						// odd_sum = Number(N.toString().charAt(N.toString().length-1));
+						// for (let k=0; k<N.toString().length-1; k++) {
+						// 	if (k%2==0) {
+						// 		texte_corr += N.toString().charAt(k)+` + `;
+						// 		odd_sum += Number(N.toString().charAt(k));
+						// 	}
+						// };
+						// texte_corr += ` ${N.toString().charAt(N.toString().length-1)} = ${odd_sum}`;
+						// texte_corr += `, est égale à la somme des chiffres de rang pair, `;
+						// even_sum = Number(N.toString().charAt(N.toString().length-2));
+						// for (let k=0; k<N.toString().length-2; k++) {
+						// 	if (k%2==1) {
+						// 		texte_corr += N.toString().charAt(k)+` + `;
+						// 		even_sum += Number(N.toString().charAt(k));
+						// 	}
+						// };
+						// texte_corr += ` ${N.toString().charAt(N.toString().length-2)} = ${even_sum},`;
+						texte_corr += ` cela signifie que ${N} est divisible par 11, il admet donc au moins trois diviseurs qui sont 1, 11 et lui-même,<br> ${N} n'est donc pas premier.`;
+						break;		
+				};
+			
+				if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+					this.liste_questions.push(texte);
+					this.liste_corrections.push(texte_corr);
+					i++;
+				}
+				cpt++
+			}	
+	
+		liste_de_question_to_contenu(this);
+	}
+	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
+};
+
+
+/** 	
+
+ *  3A11-2 décomposition en facteurs premiers
+ *  3A11-3 nombre de diviseurs et leur liste à partir de la décomposition en facteurs premiers
+ *  3A11-4 melange de tout ça
  * 
  * @Auteur Sébastien Lozano
  */
