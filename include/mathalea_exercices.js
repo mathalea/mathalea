@@ -87,6 +87,7 @@ var liste_des_exercices_disponibles = {
 		'5L111' : Tester_une_egalite,
 		'5L12' : Reduire_une_expression_litterale,
 		'5M10' : Exercice_angles_triangles,
+		'5M10-1' : Aire_du_parallelogramme,
 		'5M30' : Calcul_de_volumes_5e,
 		'5R10' : Lire_abscisse_relative,
 		'5R10-2' : Placer_points_sur_axe_relatifs,
@@ -114,6 +115,7 @@ var liste_des_exercices_disponibles = {
 		'4N21': Puissances_d_un_relatif_1,
 		'4N21-1': Puissances_d_un_relatif_2,
 		'4N21-2': Puissances_de_dix,
+		'4P10' : problemes_grandeurs_produits,
 		'4R10': Exercice_multiplications_relatifs,
 		'4G10' : Exercice_Pythagore,
 		'4G11' : Reciproque_Pythagore,
@@ -124,6 +126,7 @@ var liste_des_exercices_disponibles = {
 		'4G21' : Reciproque_Thales_4eme,
 		'3A10' : DivisionEuclidienne_multiplesDiviseurs_Criteres,
 		'3A11' : Premier_ou_pas,
+		'3A11-1' : Premier_ou_pas_critere_par7_par11,
 		//'3A11-1' : Decomposition_facteurs_premiers,
 		//'3A12' : FractionsIrreductibles,
 		//'3A13' : PGCD_PPCM_Engrenages,
@@ -142,8 +145,11 @@ var liste_des_exercices_disponibles = {
 		'3F10' : fonctions_lineaires,
 		'3F11' : fonctions_affines,
 		'3F12' : fonctions_calculs_d_images,
+		'3F12-2' : Image_fonction_algebrique,
+		'3F12-3' : Tableau_de_valeurs,
 		'3S20' : fonctions_probabilite2,
 		//'3SVGtest' : svglibs,
+		//'3Tests' : tester_des_fonctions,
 		'2N10' : Developper_Identites_remarquables2,
 		'2N11' : Factoriser_Identites_remarquables2,
 		'P001' : Code_LaTeX_personnalise,
@@ -190,6 +196,7 @@ function Exercice() {
     this.consigne_correction = '';
     this.liste_questions = [];
     this.liste_corrections = [];
+    this.introduction = '';
     this.contenu = '';
     this.contenu_correction = '';
     this.nb_questions = 10;
@@ -4757,6 +4764,9 @@ function Perimetre_ou_aire_de_carres_rectangles_triangles(){
 }
 
 
+
+
+
 /**
 * Deux figures composés de rectangles et de triangles sont tracés.
 *
@@ -4800,7 +4810,7 @@ function Perimetre_ou_aire_de_figures_composees(){
 		texte_corr += '<br><br>'
 		texte_corr += `La deuxième figure est un carré de côté ${c} cm auquel il faut enlever un triangle de ${c} cm de base et ${h} cm de hauteur.<br>`
 		texte_corr += `$\\mathcal{P}_{2}=${c}+${c}+${c}+${tex_nombre(t1)}+${tex_nombre(t2)}=${tex_nombrec(3*c+t1+t2)}$ cm<br>`
-		texte_corr += `$\\mathcal{A}_{2}=${c}\\times${c}-${c}\\times${h}\\div2=${c*c}-${c*h}=${tex_nombrec(c**2-c*h)}~${tex_texte(' cm')}^2$.`
+		texte_corr += `$\\mathcal{A}_{2}=${c}\\times${c}-${c}\\times${h}\\div2=${c*c}-${c*h/2}=${tex_nombrec(c**2-c*h/2)}~${tex_texte(' cm')}^2$.`
 		
 		this.MG32codeBase64 = codeBase64
 		this.MG32code_pour_modifier_la_figure = `

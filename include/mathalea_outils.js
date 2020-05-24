@@ -11,10 +11,10 @@
 */
 function liste_de_question_to_contenu(argument) {
 	if (sortie_html) {
-		argument.contenu = html_consigne(argument.consigne) + html_enumerate(argument.liste_questions,argument.spacing)
+		argument.contenu = html_consigne(argument.consigne) + html_paragraphe(argument.introduction) + html_enumerate(argument.liste_questions,argument.spacing)
 		argument.contenu_correction = html_consigne(argument.consigne_correction) + html_enumerate(argument.liste_corrections,argument.spacing_corr)	
 	} else {
-		argument.contenu = tex_consigne(argument.consigne) + tex_multicols(tex_enumerate(argument.liste_questions,argument.spacing),argument.nb_cols)
+		argument.contenu = tex_consigne(argument.consigne) + tex_texte(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions,argument.spacing),argument.nb_cols)
 		argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_enumerate(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 	}
 	
@@ -29,10 +29,10 @@ function liste_de_question_to_contenu(argument) {
 */
 function liste_de_question_to_contenu_sans_numero(argument) {
 	if (sortie_html) {
-		argument.contenu = html_consigne(argument.consigne) + html_ligne(argument.liste_questions,argument.spacing)
+		argument.contenu = html_consigne(argument.consigne) + html_paragraphe(argument.introduction) + html_ligne(argument.liste_questions,argument.spacing)
 		argument.contenu_correction = html_consigne(argument.consigne_correction) + html_ligne(argument.liste_corrections,argument.spacing_corr)	
 	} else {
-		argument.contenu = tex_consigne(argument.consigne) + tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
+		argument.contenu = tex_consigne(argument.consigne) + tex_texte(argument.introduction) + tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
 		// argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_enumerate_sans_numero(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 		argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_paragraphe(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 	}
@@ -419,7 +419,7 @@ function ecriture_nombre_relatifc(a) {
 */
 function ecriture_algebrique(a) { 
 	let result = '';
-	if (a>0) {
+	if (a>=0) {
 		result = '+'+tex_nombrec(a);
 	}else {
 		result = tex_nombrec(a);
@@ -981,6 +981,15 @@ function tex_paragraphe(liste,spacing=false){
 	return result.replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
 }
 
+/**
+* * Recopie le texte.
+* * `<br>` est remplacé par un saut de paragraphe
+* * `<br><br>` est remplacé par un saut de paragraphe et un medskip
+* @Auteur Rémi Angot
+*/
+function tex_texte(texte){
+	return texte.replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
+}
 
 
 /**
@@ -998,6 +1007,17 @@ function html_enumerate(liste,spacing){
 	}
 	result += '</ol>'
 	return result
+}
+
+
+/**
+*  Renvoit un paragraphe HTML à partir d'un string
+* 
+* @param string
+* @Auteur Rémi Angot
+*/
+function html_paragraphe(texte){
+	return `\n<p>${texte}</p>\n\n`
 }
 
 /**
@@ -1970,7 +1990,49 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
 	return result;
  
  }
+/**
+ * Fonction qui retourne les coefficients a et b de f(x)=ax²+bx+c à partir des données de x1,x2,f(x1),f(x2) et c.
+ * 
+ * @Auteur Jean-Claude Lhote
+ */
+function resol_sys_lineaire_2x2(x1,x2,fx1,fx2,c) {
+	let determinant=x1*x1*x2-x2*x2*x1;
+	return [fraction_simplifiee(x2*(fx1-c)-x1*(fx2-c),determinant),fraction_simplifiee(x1*x1*(fx2-c)-x2*x2*(fx1-c),determinant)];
+}
+/**
+ * Fonction qui retourne les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d à partir des données de x1,x2,x3,f(x1),f(x2),f(x3) et d.
+ * sous forme de fraction irréductible. Si pas de solution (déterminant nul) alors retourne [[0,0],[0,0],[0,0]]
+ * @Auteur Jean-Claude Lhote
+ */
 
+function resol_sys_lineaire_3x3(x1,x2,x3,fx1,fx2,fx3,d) { 
+	let y1=fx1-d, y2=fx2-d, y3=fx3-d;
+	let determinant=(x1**3)*x2*x2*x3+x2*x1*x1*(x3**3)+x1*x3*x3*(x2**3)-x1*x2*x2*(x3**3)-x2*x3*x3*(x1**3)-x3*x1*x1*(x2**3);
+	if (determinant==0) return [[0,0],[0,0],[0,0]];
+	else {
+		let a=((x2*x2*x3-x2*x3*x3)*y1+(x3*x3*x1-x1*x1*x3)*y2+(x1*x1*x2-x2*x2*x1)*y3);
+		let b=(((x3**3)*x2-(x2**3)*x3)*y1+((x1**3)*x3-(x3**3)*x1)*y2+((x2**3)*x1-(x1**3)*x2)*y3);
+		let c=(((x2**3)*x3*x3-x2*x2*(x3**3))*y1+(x1*x1*(x3**3)-(x1**3)*x3*x3)*y2+((x1**3)*x2*x2-(x2**3)*x1*x1)*y3);
+		return [fraction_simplifiee(a,determinant),fraction_simplifiee(b,determinant),fraction_simplifiee(c,determinant)];
+	}
+}
+
+function crible_polynome_entier() {
+let trouve =false
+for (i=0;;) {
+	let x1=randint(0,10);
+	let x2=randint(0,10);
+	let x3=randint(0,10);
+	let fx1=randint(0,10);
+	let fx2=randint(0,10);
+	let fx3=randint(0,10);
+	let d=randint(0,10);
+	let coefs=[[]]
+	coefs=resol_sys_lineaire_3x3(x1,x2,x3,fx1,fx2,fx3,d);
+	if (coefs[0][1]!=0&&coefs[0][1]<10&&coefs[1][1]<10&&coefs[2][1]<10) trouve=true;
+}
+if (trouve) return coefs;
+}
 
 /**
  * Fonction pour simplifier l'ecriture lorsque l'exposant vaut 0 ou 1
@@ -2919,6 +2981,41 @@ function liste_nb_premiers_strict_jusqua(borneSup) {
 		liste.push(liste_300[i]);
 		i++;
 	}
+	return liste;
+};
+
+/**
+ * Liste les nombres premiers jusque n avec la méthode du crible d'Eratosthene optimisée
+ * @param {number} n 
+ * @author Sébastien Lozano
+ */
+function crible_eratosthene_n(n) {
+	'use strict';
+	var tab_entiers = []; // pour tous les entiers de 2 à n
+	var test_max = Math.sqrt(n); // inutile de tester au dela de racine de n
+	var liste = []; // tableau de la liste des premiers jusqu'à n
+
+	// On rempli un tableau avec des booléeens de 2 à n
+	for (let i = 2; i < n+1; i++) {
+		tab_entiers.push(true);
+	}
+
+	// On supprime les multiples des nombres premiers à partir de 2, 3, 5,...
+	for (let i = 2; i <= test_max; i++) {
+		if (tab_entiers[i]) {
+			for (var j = i * i; j < n; j += i) {
+				tab_entiers[j] = false;
+			}
+		}
+	}
+
+	// On récupère tous les indices du tableau des entiers dont le booléen est à true qui sont donc premiers
+	for (let i = 2; i < n; i++) {
+		if(tab_entiers[i]) {
+			liste.push(i);
+		}
+	}
+
 	return liste;
 };
 
