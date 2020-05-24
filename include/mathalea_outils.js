@@ -1987,10 +1987,13 @@ function resol_sys_lineaire_2x2(x1,x2,fx1,fx2,c) {
 function resol_sys_lineaire_3x3(x1,x2,x3,fx1,fx2,fx3,d) {
 	let y1=fx1-d, y2=fx2-d, y3=fx3-d;
 	let determinant=(x1**3)*x2*x2*x3+x2*x1*x1*(x3**3)+x1*x3*x3*(x2**3)-x1*x2*x2*(x3**3)-x2*x3*x3*(x1**3)-x3*x1*x1*(x2**3);
-	let a=((x2*x2*x3-x2*x3*x3)*y1+(x3*x3*x1-x1*x1*x3)*y2+(x1*x1*x2-x2*x2*x1)*y3);
-	let b=(((x3**3)*x2-(x2**3)*x3)*y1+((x1**3)*x3-(x3**3)*x1)*y2+((x2**3)*x1-(x1**3)*x2)*y3);
-	let c=(((x2**3)*x3*x3-x2*x2*(x3**3))*y1+(x1*x1*(x3**3)-(x1**3)*x3*x3)*y2+((x1**3)*x2*x2-(x2**3)*x1*x1)*y3);
-	return [fraction_simplifiee(a,determinant),fraction_simplifiee(b,determinant),fraction_simplifiee(c,determinant)];
+	if (determinant==0) return [[0,0],[0,0],[0,0]];
+	else {
+		let a=((x2*x2*x3-x2*x3*x3)*y1+(x3*x3*x1-x1*x1*x3)*y2+(x1*x1*x2-x2*x2*x1)*y3);
+		let b=(((x3**3)*x2-(x2**3)*x3)*y1+((x1**3)*x3-(x3**3)*x1)*y2+((x2**3)*x1-(x1**3)*x2)*y3);
+		let c=(((x2**3)*x3*x3-x2*x2*(x3**3))*y1+(x1*x1*(x3**3)-(x1**3)*x3*x3)*y2+((x1**3)*x2*x2-(x2**3)*x1*x1)*y3);
+		return [fraction_simplifiee(a,determinant),fraction_simplifiee(b,determinant),fraction_simplifiee(c,determinant)];
+	}
 }
 
 /**
