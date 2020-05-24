@@ -1999,17 +1999,21 @@ function resol_sys_lineaire_3x3(x1,x2,x3,fx1,fx2,fx3,d) {
 
 function crible_polynome_entier() {
 let trouve =false
-for (i=0;;) {
-	let x1=randint(0,10);
-	let x2=randint(0,10);
-	let x3=randint(0,10);
-	let fx1=randint(0,10);
-	let fx2=randint(0,10);
-	let fx3=randint(0,10);
-	let d=randint(0,10);
-	let coefs=[[]]
+let coefs=[[]]
+for (let i=0,x1,x2,x3,fx1,fx2,fx3,d;;i++) {
+	x1=randint(-10,10);
+	x2=randint(-10,10,[x1]);
+	x3=randint(-10,10,[x1,x2]);
+	fx1=randint(-10,10);
+	fx2=randint(-10,10);
+	fx3=randint(-10,10);
+	d=randint(0,10);
 	coefs=resol_sys_lineaire_3x3(x1,x2,x3,fx1,fx2,fx3,d);
 	if (coefs[0][1]!=0&&coefs[0][1]<10&&coefs[1][1]<10&&coefs[2][1]<10) trouve=true;
+	if(trouve) {
+		console.log(i);
+		break;
+	}
 }
 if (trouve) return coefs;
 }
