@@ -1970,7 +1970,28 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
 	return result;
  
  }
-
+/**
+ * Fonction qui retourne les coefficients a et b de f(x)=ax²+bx+c à partir des données de x1,x2,f(x1),f(x2) et c.
+ * 
+ * @Auteur Jean-Claude Lhote
+ */
+function resol_sys_lineaire_2x2(x1,x2,fx1,fx2,c) {
+	let determinant=x1*x1*x2-x2*x2*x1;
+	return [(x2*(fx1-c)-x1*(fx2-c))/determinant,(x1*x1*(fx2-c)-x2*x2*(fx1-c))/determinant];
+}
+/**
+ * Fonction qui retourne les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d à partir des données de x1,x2,x3,f(x1),f(x2),f(x3) et d.
+ * 
+ * @Auteur Jean-Claude Lhote
+ */
+function resol_sys_lineaire_3x3(x1,x2,x3,fx1,fx2,fx3,d) {
+	let y1=fx1-d, y2=fx2-d, y3=fx3-d;
+	let determinant=x1*x2*x3*(x1*x1*x2+x1*x3*x3+x2*x2*x3-x2*x3*x3-x1*x1*x3-x1*x2*x2);
+	let a=(x2*x2*x3-x2*x3*x3)*y1+(x3*x3*x1-x1*x1*x3)*y2+(x1*x1*x2-x2*x2*x1)*y3;
+	let b=(x3^3*x2-x2^3*x3)*y1+(x1^3*x3-x3^3*x1)*y2+(x2^3*x1-x1^3*x2)*y3;
+	let c=(x2^3*x3^2-x2^2*x3^3)*y1+(x1^2*x3^3-x1^3*x3^2)*y2+(x1^3*x2^2-x2^3*x1^2)*y3;
+	return [a,b,c];
+}
 
 /**
  * Fonction pour simplifier l'ecriture lorsque l'exposant vaut 0 ou 1
