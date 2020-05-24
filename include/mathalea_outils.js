@@ -419,7 +419,7 @@ function ecriture_nombre_relatifc(a) {
 */
 function ecriture_algebrique(a) { 
 	let result = '';
-	if (a>0) {
+	if (a>=0) {
 		result = '+'+tex_nombrec(a);
 	}else {
 		result = tex_nombrec(a);
@@ -2919,6 +2919,41 @@ function liste_nb_premiers_strict_jusqua(borneSup) {
 		liste.push(liste_300[i]);
 		i++;
 	}
+	return liste;
+};
+
+/**
+ * Liste les nombres premiers jusque n avec la méthode du crible d'Eratosthene optimisée
+ * @param {number} n 
+ * @author Sébastien Lozano
+ */
+function crible_eratosthene_n(n) {
+	'use strict';
+	var tab_entiers = []; // pour tous les entiers de 2 à n
+	var test_max = Math.sqrt(n); // inutile de tester au dela de racine de n
+	var liste = []; // tableau de la liste des premiers jusqu'à n
+
+	// On rempli un tableau avec des booléeens de 2 à n
+	for (let i = 2; i < n+1; i++) {
+		tab_entiers.push(true);
+	}
+
+	// On supprime les multiples des nombres premiers à partir de 2, 3, 5,...
+	for (let i = 2; i <= test_max; i++) {
+		if (tab_entiers[i]) {
+			for (var j = i * i; j < n; j += i) {
+				tab_entiers[j] = false;
+			}
+		}
+	}
+
+	// On récupère tous les indices du tableau des entiers dont le booléen est à true qui sont donc premiers
+	for (let i = 2; i < n; i++) {
+		if(tab_entiers[i]) {
+			liste.push(i);
+		}
+	}
+
 	return liste;
 };
 
