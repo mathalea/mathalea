@@ -115,6 +115,7 @@ var liste_des_exercices_disponibles = {
 		'4N21': Puissances_d_un_relatif_1,
 		'4N21-1': Puissances_d_un_relatif_2,
 		'4N21-2': Puissances_de_dix,
+		'4P10' : problemes_grandeurs_produits,
 		'4R10': Exercice_multiplications_relatifs,
 		'4G10' : Exercice_Pythagore,
 		'4G11' : Reciproque_Pythagore,
@@ -194,6 +195,7 @@ function Exercice() {
     this.consigne_correction = '';
     this.liste_questions = [];
     this.liste_corrections = [];
+    this.introduction = '';
     this.contenu = '';
     this.contenu_correction = '';
     this.nb_questions = 10;

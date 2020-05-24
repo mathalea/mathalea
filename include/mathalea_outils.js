@@ -11,10 +11,10 @@
 */
 function liste_de_question_to_contenu(argument) {
 	if (sortie_html) {
-		argument.contenu = html_consigne(argument.consigne) + html_enumerate(argument.liste_questions,argument.spacing)
+		argument.contenu = html_consigne(argument.consigne) + html_paragraphe(argument.introduction) + html_enumerate(argument.liste_questions,argument.spacing)
 		argument.contenu_correction = html_consigne(argument.consigne_correction) + html_enumerate(argument.liste_corrections,argument.spacing_corr)	
 	} else {
-		argument.contenu = tex_consigne(argument.consigne) + tex_multicols(tex_enumerate(argument.liste_questions,argument.spacing),argument.nb_cols)
+		argument.contenu = tex_consigne(argument.consigne) + tex_texte(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions,argument.spacing),argument.nb_cols)
 		argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_enumerate(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 	}
 	
@@ -29,10 +29,10 @@ function liste_de_question_to_contenu(argument) {
 */
 function liste_de_question_to_contenu_sans_numero(argument) {
 	if (sortie_html) {
-		argument.contenu = html_consigne(argument.consigne) + html_ligne(argument.liste_questions,argument.spacing)
+		argument.contenu = html_consigne(argument.consigne) + html_paragraphe(argument.introduction) + html_ligne(argument.liste_questions,argument.spacing)
 		argument.contenu_correction = html_consigne(argument.consigne_correction) + html_ligne(argument.liste_corrections,argument.spacing_corr)	
 	} else {
-		argument.contenu = tex_consigne(argument.consigne) + tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
+		argument.contenu = tex_consigne(argument.consigne) + tex_texte(argument.introduction) + tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
 		// argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_enumerate_sans_numero(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 		argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_paragraphe(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 	}
@@ -981,6 +981,15 @@ function tex_paragraphe(liste,spacing=false){
 	return result.replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
 }
 
+/**
+* * Recopie le texte.
+* * `<br>` est remplacé par un saut de paragraphe
+* * `<br><br>` est remplacé par un saut de paragraphe et un medskip
+* @Auteur Rémi Angot
+*/
+function tex_texte(texte){
+	return texte.replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
+}
 
 
 /**
@@ -998,6 +1007,17 @@ function html_enumerate(liste,spacing){
 	}
 	result += '</ol>'
 	return result
+}
+
+
+/**
+*  Renvoit un paragraphe HTML à partir d'un string
+* 
+* @param string
+* @Auteur Rémi Angot
+*/
+function html_paragraphe(texte){
+	return `\n<p>${texte}</p>\n\n`
 }
 
 /**
@@ -1970,7 +1990,28 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
 	return result;
  
  }
-
+/**
+ * Fonction qui retourne les coefficients a et b de f(x)=ax²+bx+c à partir des données de x1,x2,f(x1),f(x2) et c.
+ * 
+ * @Auteur Jean-Claude Lhote
+ */
+function resol_sys_lineaire_2x2(x1,x2,fx1,fx2,c) {
+	let determinant=x1*x1*x2-x2*x2*x1;
+	return [(x2*(fx1-c)-x1*(fx2-c))/determinant,(x1*x1*(fx2-c)-x2*x2*(fx1-c))/determinant];
+}
+/**
+ * Fonction qui retourne les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d à partir des données de x1,x2,x3,f(x1),f(x2),f(x3) et d.
+ * 
+ * @Auteur Jean-Claude Lhote
+ */
+function resol_sys_lineaire_3x3(x1,x2,x3,fx1,fx2,fx3,d) {
+	let y1=fx1-d, y2=fx2-d, y3=fx3-d;
+	let determinant=x1*x2*x3*(x1*x1*x2+x1*x3*x3+x2*x2*x3-x2*x3*x3-x1*x1*x3-x1*x2*x2);
+	let a=((x2*x2*x3-x2*x3*x3)*y1+(x3*x3*x1-x1*x1*x3)*y2+(x1*x1*x2-x2*x2*x1)*y3)/determinant;
+	let b=((x3^3*x2-x2^3*x3)*y1+(x1^3*x3-x3^3*x1)*y2+(x2^3*x1-x1^3*x2)*y3)/determinant;
+	let c=((x2^3*x3^2-x2^2*x3^3)*y1+(x1^2*x3^3-x1^3*x3^2)*y2+(x1^3*x2^2-x2^3*x1^2)*y3)/determinant;
+	return [a,b,c];
+}
 
 /**
  * Fonction pour simplifier l'ecriture lorsque l'exposant vaut 0 ou 1
