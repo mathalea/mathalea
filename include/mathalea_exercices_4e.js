@@ -3262,7 +3262,10 @@ function problemes_grandeurs_produits(){
 				texte_corr+=` consomme : <br>`;
 				if (nbquartsdheures!=0) texte_corr +=`$${nbheures}\\text{ h } ${nbquartsdheures*15} = ${nbheures}\\text{ h} + ${tex_fraction_reduite(nbquartsdheures,4)}\\text{ h} =${tex_nombre(nbheures+nbquartsdheures*0.25)}\\text{ h}$<br>`;
 				texte_corr+=`$${puissance}\\text{ W}\\times${tex_nombre(duree)}\\text{ h}=${tex_nombre(puissance/1000)}\\text{ kW}\\times${tex_nombre(duree)}\\text{ h}=${tex_nombre(puissance/1000*duree)}\\text{ kWh}.$<br>`
-				texte_corr+=num_alpha(1)+` Le prix de cette énergie consommée est : $${tex_nombre(prixkwh)} \\text{ €/kWh} \\times${tex_nombre(puissance/1000*duree)}\\text{ kWh}\\approx${arrondi_virgule(prixkwh*puissance/1000*duree,2)}\\text{ €}$`
+				texte_corr+=num_alpha(1)+` Le prix de cette énergie consommée est : $${tex_nombre(prixkwh)} \\text{ €/kWh} \\times${tex_nombre(puissance/1000*duree)}\\text{ kWh}`;
+				console.log (calcul(prixkwh*puissance*duree/10));
+				if (!(prixkwh*puissance*duree/10==Math.round(prixkwh*puissance*duree/10))) texte_corr+= `\\approx${arrondi_virgule(prixkwh*puissance/1000*duree,2)}\\text{ €}$`
+				else texte_corr+= `=${arrondi_virgule(prixkwh*puissance/1000*duree,2)}\\text{ €}$`
 					break;
 				case 1 :
 
