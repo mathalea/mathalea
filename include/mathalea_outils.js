@@ -419,7 +419,7 @@ function ecriture_nombre_relatifc(a) {
 */
 function ecriture_algebrique(a) { 
 	let result = '';
-	if (a>0) {
+	if (a>=0) {
 		result = '+'+tex_nombrec(a);
 	}else {
 		result = tex_nombrec(a);
