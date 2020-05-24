@@ -2542,7 +2542,7 @@ function Premier_ou_pas(){
 						N=5*randint(20,1999);
 						texte = nombre_avec_espace(N);
 						texte_corr = `Comme le dernier chiffre de ${nombre_avec_espace(N)} est un ${N.toString().charAt(N.toString().length-1)} alors ${nombre_avec_espace(N)} est divisible par 5, `;
-						texte_corr += `il admet donc au moins trois diviseurs qui sont 1, 5 et lui-même,<br> ${nombre_avec_espace(N)} n'est donc pas premier`;
+						texte_corr += `il admet donc au moins trois diviseurs qui sont 1, 5 et lui-même,<br> ${nombre_avec_espace(N)} n'est donc pas premier.`;
 						break;	
 					case 4 : // Multiple de 7
 						let N_longueur; // pour la taille du string N
@@ -2660,7 +2660,8 @@ function Premier_ou_pas(){
 						for (let k=1;k<tab_premiers_a_tester.length;k++) {
 							texte_corr += `, `+tab_premiers_a_tester[k];
 						};
-						texte_corr += `<br> Aucun de ces nombres premiers ne divise ${N}`;
+						texte_corr += `.`;
+						texte_corr += `<br> Aucun de ces nombres premiers ne divise ${N}.`;
 						texte_corr +=`<br> ${N} est donc un nombre premier.`; 
 						break;								
 				};
@@ -2722,12 +2723,12 @@ function Premier_ou_pas_critere_par7_par11(){
 		let string_rappel_b = `Ces critères de divisibilité pourront être utiles :`;
 		if (sortie_html) {
 			string_rappel_b += `<br>`;
-			string_rappel_b += `- Un nombre est divisible par 7 si la somme de son nombre de dizaines et de cinq foisson chiffre des unités l’est.<br>`;
+			string_rappel_b += `- Un nombre est divisible par 7 si la somme de son nombre de dizaines et de cinq fois son chiffre des unités l’est.<br>`;
 			string_rappel_b += `- Un nombre est divisible par 11 si la différence entre la somme de ses chiffres de rangs pairs et la somme de ses chiffres de rangs impairs est nulle ou égale à un multiple de 11.`;
 			string_rappel_b+= `<br> <br>`;
 		} else {
 			string_rappel_b += itemize([
-				`Un nombre est divisible par 7 si la somme de son nombre de dizaines et de cinq foisson chiffre des unités l’est.`,
+				`Un nombre est divisible par 7 si la somme de son nombre de dizaines et de cinq fois son chiffre des unités l’est.`,
 				`Un nombre est divisible par 11 si la différence entre la somme de ses chiffres de rangs pairs et la somme de ses chiffres de rangs impairs est nulle ou égale à un multiple de 11.`
 			]);
 			string_rappel_b += `\\par\\vspace{0.5cm}`;
@@ -2780,7 +2781,7 @@ function Premier_ou_pas_critere_par7_par11(){
 						N=5*randint(20,1999);
 						texte = nombre_avec_espace(N);
 						texte_corr = `Comme le dernier chiffre de ${nombre_avec_espace(N)} est un ${N.toString().charAt(N.toString().length-1)} alors ${nombre_avec_espace(N)} est divisible par 5, `;
-						texte_corr += `il admet donc au moins trois diviseurs qui sont 1, 5 et lui-même,<br> ${nombre_avec_espace(N)} n'est donc pas premier`;
+						texte_corr += `il admet donc au moins trois diviseurs qui sont 1, 5 et lui-même,<br> ${nombre_avec_espace(N)} n'est donc pas premier.`;
 						break;	
 					case 4 : // Multiple de 7
 						let N_longueur; // pour la taille du string N
@@ -2898,7 +2899,8 @@ function Premier_ou_pas_critere_par7_par11(){
 						for (let k=1;k<tab_premiers_a_tester.length;k++) {
 							texte_corr += `, `+tab_premiers_a_tester[k];
 						};
-						texte_corr += `<br> Aucun de ces nombres premiers ne divise ${N}`;
+						texte_corr += `.`;
+						texte_corr += `<br> Aucun de ces nombres premiers ne divise ${N}.`;
 						texte_corr +=`<br> ${N} est donc un nombre premier.`; 
 						break;								
 				};
