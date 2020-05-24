@@ -2012,6 +2012,9 @@ for (let i=0,x1,x2,x3,fx1,fx2,fx3,d;;i++) {
 	if (coefs[0][1]!=0&&coefs[0][1]<10&&coefs[1][1]<10&&coefs[2][1]<10) trouve=true;
 	if(trouve) {
 		console.log(i);
+		coefs.push([x1,fx1])
+		coefs.push([x2,fx2])
+		coefs.push([x3,fx3])
 		break;
 	}
 }
