@@ -1997,20 +1997,41 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
  */
 function resol_sys_lineaire_2x2(x1,x2,fx1,fx2,c) {
 	let determinant=x1*x1*x2-x2*x2*x1;
-	return [(x2*(fx1-c)-x1*(fx2-c))/determinant,(x1*x1*(fx2-c)-x2*x2*(fx1-c))/determinant];
+	return [fraction_simplifiee(x2*(fx1-c)-x1*(fx2-c),determinant),fraction_simplifiee(x1*x1*(fx2-c)-x2*x2*(fx1-c),determinant)];
 }
 /**
  * Fonction qui retourne les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d à partir des données de x1,x2,x3,f(x1),f(x2),f(x3) et d.
- * 
+ * sous forme de fraction irréductible. Si pas de solution (déterminant nul) alors retourne [[0,0],[0,0],[0,0]]
  * @Auteur Jean-Claude Lhote
  */
-function resol_sys_lineaire_3x3(x1,x2,x3,fx1,fx2,fx3,d) {
+
+function resol_sys_lineaire_3x3(x1,x2,x3,fx1,fx2,fx3,d) { 
 	let y1=fx1-d, y2=fx2-d, y3=fx3-d;
-	let determinant=x1*x2*x3*(x1*x1*x2+x1*x3*x3+x2*x2*x3-x2*x3*x3-x1*x1*x3-x1*x2*x2);
-	let a=((x2*x2*x3-x2*x3*x3)*y1+(x3*x3*x1-x1*x1*x3)*y2+(x1*x1*x2-x2*x2*x1)*y3)/determinant;
-	let b=((x3^3*x2-x2^3*x3)*y1+(x1^3*x3-x3^3*x1)*y2+(x2^3*x1-x1^3*x2)*y3)/determinant;
-	let c=((x2^3*x3^2-x2^2*x3^3)*y1+(x1^2*x3^3-x1^3*x3^2)*y2+(x1^3*x2^2-x2^3*x1^2)*y3)/determinant;
-	return [a,b,c];
+	let determinant=(x1**3)*x2*x2*x3+x2*x1*x1*(x3**3)+x1*x3*x3*(x2**3)-x1*x2*x2*(x3**3)-x2*x3*x3*(x1**3)-x3*x1*x1*(x2**3);
+	if (determinant==0) return [[0,0],[0,0],[0,0]];
+	else {
+		let a=((x2*x2*x3-x2*x3*x3)*y1+(x3*x3*x1-x1*x1*x3)*y2+(x1*x1*x2-x2*x2*x1)*y3);
+		let b=(((x3**3)*x2-(x2**3)*x3)*y1+((x1**3)*x3-(x3**3)*x1)*y2+((x2**3)*x1-(x1**3)*x2)*y3);
+		let c=(((x2**3)*x3*x3-x2*x2*(x3**3))*y1+(x1*x1*(x3**3)-(x1**3)*x3*x3)*y2+((x1**3)*x2*x2-(x2**3)*x1*x1)*y3);
+		return [fraction_simplifiee(a,determinant),fraction_simplifiee(b,determinant),fraction_simplifiee(c,determinant)];
+	}
+}
+
+function crible_polynome_entier() {
+let trouve =false
+for (i=0;;) {
+	let x1=randint(0,10);
+	let x2=randint(0,10);
+	let x3=randint(0,10);
+	let fx1=randint(0,10);
+	let fx2=randint(0,10);
+	let fx3=randint(0,10);
+	let d=randint(0,10);
+	let coefs=[[]]
+	coefs=resol_sys_lineaire_3x3(x1,x2,x3,fx1,fx2,fx3,d);
+	if (coefs[0][1]!=0&&coefs[0][1]<10&&coefs[1][1]<10&&coefs[2][1]<10) trouve=true;
+}
+if (trouve) return coefs;
 }
 
 /**
