@@ -3266,7 +3266,7 @@ function problemes_grandeurs_produits(){
 					else texte_corr+= `=${arrondi_virgule(prixkwh*puissance/1000*duree,2)}\\text{ €}$`
 					break;
 				case 1 :
-					index1=0
+					index1=randint(0,1)
 					switch (index1) {
 						case 0 : // Volume d'une piscine
 							let h1=180+randint(0,10)*10
@@ -3286,6 +3286,16 @@ function problemes_grandeurs_produits(){
 							texte_corr += `$${arrondi_virgule((h1+h2)/200*L*l)}\\text{ m³}=${tex_nombre((h1+h2)*L*l*5)}\\text{ dm³}=${tex_nombre((h1+h2)*L*l*5)}\\text{ L}$<br>`
 							texte_corr += `$\\mathcal{E}=${tex_nombre((h1+h2)*L*l*5)}\\text{ L}\\times${deltat}\\text{ °C}\\times 1,162 \\dfrac{\\text{Wh}}{\\text{°C}\\times\\text{L}}=${tex_nombre(arrondi((h1+h2)*L*l*5*deltat*1.162,3))}\\text{ Wh}=${tex_nombre(arrondi((h1+h2)*L*l/200*deltat*1.162,7))}\\text{ kWh}$<br>`
 							break;
+						case 1 : // Volume d'un tonneau cylindrique
+						let r=randint(10,15)*2
+						let h=randint(0,10)+r*4
+						texte = `Un tonneau cylindrique a un rayon de ${r} cm et une hauteur de ${h} cm.<br>`
+						texte +=num_alpha(0)+` Calculer le volume en dm³ à 0,1 près de ce tonneau.<br>`
+						texte +=num_alpha(1)+` Si on le remplit de lait entier (dont la densité moyenne est de 1,032), quelle masse de lait en kg contiendra-t-il au gramme près ?<br>`
+						texte_corr=num_alpha(0)+` Le volume d'un cylindre est donné par la formule $\\mathcal{B}\\times\\mathcal{h}$.<br> Ici la base est un disque de rayon ${r} cm.<br>`
+						texte_corr+=`$\\mathcal{B}\\times\\mathcal{h}=\\pi\\times${r}^{2}\\text{ cm²}\\times${h}\\text{ cm}=${r*r*h}\\pi\\text{ cm³}\\approx${tex_nombre(arrondi(r*r*h*Math.PI,1))}\\text{ cm³}\\approx${tex_nombre(arrondi(r*r*h*Math.PI/1000,1))}\\text{ dm³}$<br>`
+						texte_corr+=num_alpha(1)+` La masse de lait contenue dans ce tonneau est :<br>`
+						texte_corr+=`$${tex_nombre(arrondi(r*r*h*Math.PI/1000,1))}\\text{ dm³}\\times 1,032 \\dfrac{kg}{dm³}\\approx${tex_nombre(arrondi(r*r*h*Math.PI/1000*1.032,3))}\\text{ kg}$`
 					}
 					break;
 				case 2 :
