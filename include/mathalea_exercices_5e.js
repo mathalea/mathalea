@@ -2890,7 +2890,7 @@ function Aire_du_parallelogramme(){
 		let codeBase64 = choice([fig1,fig2])
 
 		texte_corr = "Dans chaque parallélogramme, le segment en pointillés est perpendiculaire à deux côtés opposés, c'est donc une hauteur.<br>"
-		texte_corr += "Pour obtenir l'aire, il faut donc multiplier cette hauteur par la longueur de la base correspondante."
+		texte_corr += "Pour obtenir l'aire, il faut multiplier cette hauteur par la longueur de la base correspondante."
 		texte_corr += "<br><br>"
 		texte_corr += `$\\mathcal{A}_{ABCD}=${c1}~\\text{cm}\\times ${h1}~\\text{cm}=${c1*h1}~\\text{cm}^2$`
 		texte_corr += `<br>$\\mathcal{A}_{EFGH}=${c2}~\\text{cm}\\times ${h2}~\\text{cm}=${c2*h2}~\\text{cm}^2$`
