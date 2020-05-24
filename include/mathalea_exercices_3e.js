@@ -2467,11 +2467,10 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 function Premier_ou_pas(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.sup = 1 ; 
 	this.titre = "Primalité ou pas"; 
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne =`Justifier que les nombres suivants sont premiers ou pas.`;
-	this.consigne += `<br>`;	
+	//this.consigne += `<br>`;	
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
 	this.nb_questions = 5;
@@ -2495,8 +2494,25 @@ function Premier_ou_pas(){
 		this.contenu_correction = ''; // Liste de questions corrigées
 
 		let type_de_questions_disponibles = [1,2,3,6,7];
+		type_de_questions_disponibles=shuffle(type_de_questions_disponibles); // on mélange l'ordre des questions
 		//let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
+		
+		let string_rappel = `Cette liste des nombres premiers inférieurs à 100 pourra être utile : <br>`+crible_eratosthene_n(100)[0];
+		for (let k=1;k<crible_eratosthene_n(100).length;k++) {
+			string_rappel +=`, `+crible_eratosthene_n(100)[k];
+		};
+		if (sortie_html) {
+			this.introduction =`
+			<br>
+			<div class="ui compact warning message">		
+			<p>`+string_rappel+`
+			</p>
+			</div>
+			<br>`;
+		} else {
+			this.introduction = tex_cadre_par_orange(string_rappel);							
+		};
 
 			for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 
@@ -2638,22 +2654,6 @@ function Premier_ou_pas(){
 						let r = randint(0,crible_eratosthene_n(529).length-1);
 						N=crible_eratosthene_n(529)[r]; //on choisit un nombre premier inférieur à 529
 						texte = N+``;
-						let string_rappel = `Cette liste des nombres premiers inférieurs à 100 pourra être utile : <br>`+crible_eratosthene_n(100)[0];
-						for (let k=1;k<crible_eratosthene_n(100).length;k++) {
-							string_rappel +=`, `+crible_eratosthene_n(100)[k];
-						};
-						if (sortie_html) {
-							texte +=`
-							<br>
-							<div class="ui compact warning message">		
-							<p>`+string_rappel+`
-							</p>
-							</div>
-							<br>`;
-						} else {
-							texte += tex_cadre_par_orange(string_rappel);							
-						};
-						
 						let tab_premiers_a_tester = crible_eratosthene_n(Math.trunc(Math.sqrt(N)));
 						texte_corr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
 						texte_corr += tab_premiers_a_tester[0];
@@ -2688,12 +2688,10 @@ function Premier_ou_pas(){
 function Premier_ou_pas_critere_par7_par11(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.sup = 1 ; 
 	this.titre = "Primalité ou pas - Variante avec les critères de divisibilité par 7 et par 11"; 
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `Justifier que les nombres suivants sont premiers ou pas.`;
-	this.consigne += `<br>`;
-	this.consigne += `Il pourra être utile de regarder les critères de divisibilité par 7 et par 11 dans l'aide mémoire.`
+	//this.consigne += `<br>`;
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
 	this.nb_questions = 7;
@@ -2717,9 +2715,44 @@ function Premier_ou_pas_critere_par7_par11(){
 		this.contenu_correction = ''; // Liste de questions corrigées
 
 		let type_de_questions_disponibles = [1,2,3,4,5,6,7];
+		type_de_questions_disponibles=shuffle(type_de_questions_disponibles); // on mélange l'ordre des questions
 		//let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
 
+		let string_rappel_b = `Ces critères de divisibilité pourront être utiles :`;
+		if (sortie_html) {
+			string_rappel_b += `<br>`;
+			string_rappel_b += `- Un nombre est divisible par 7 si la somme de son nombre de dizaines et de cinq foisson chiffre des unités l’est.<br>`;
+			string_rappel_b += `- Un nombre est divisible par 11 si la différence entre la somme de ses chiffres de rangs pairs et la somme de ses chiffres de rangs impairs est nulle ou égale à un multiple de 11.`;
+			string_rappel_b+= `<br> <br>`;
+		} else {
+			string_rappel_b += itemize([
+				`Un nombre est divisible par 7 si la somme de son nombre de dizaines et de cinq foisson chiffre des unités l’est.`,
+				`Un nombre est divisible par 11 si la différence entre la somme de ses chiffres de rangs pairs et la somme de ses chiffres de rangs impairs est nulle ou égale à un multiple de 11.`
+			]);
+			string_rappel_b += `\\par\\vspace{0.5cm}`;
+		};
+		string_rappel_b += `Ainsi que cette liste des nombres premiers inférieurs à 100 : `;
+		if (sortie_html) {
+			string_rappel_b += `<br>`;
+		} else {
+			string_rappel_b += `\\par\\vspace{0.25cm}`;
+		};
+		string_rappel_b += crible_eratosthene_n(100)[0];
+		for (let k=1;k<crible_eratosthene_n(100).length;k++) {
+			string_rappel_b +=`, `+crible_eratosthene_n(100)[k];
+		};
+		if (sortie_html) {
+			this.introduction =`
+			<br>
+			<div class="ui compact warning message">		
+			<p>`+string_rappel_b+`
+			</p>
+			</div>
+			<br>`;
+		} else {
+			this.introduction = tex_cadre_par_orange(string_rappel_b);	
+		};	
 			for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 				type_de_questions = liste_type_de_questions[i];
 				
@@ -2882,7 +2915,6 @@ function Premier_ou_pas_critere_par7_par11(){
 	}
 	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
 };
-
 /**
  * 3A12 - Fractions irreductibles
  * @Auteur Sébastien Lozano
