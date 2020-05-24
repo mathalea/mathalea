@@ -2502,6 +2502,7 @@ function Premier_ou_pas(){
 		for (let k=1;k<crible_eratosthene_n(100).length;k++) {
 			string_rappel +=`, `+crible_eratosthene_n(100)[k];
 		};
+		string_rappel +=`.`;
 		if (sortie_html) {
 			this.introduction =`
 			<br>
@@ -2743,6 +2744,7 @@ function Premier_ou_pas_critere_par7_par11(){
 		for (let k=1;k<crible_eratosthene_n(100).length;k++) {
 			string_rappel_b +=`, `+crible_eratosthene_n(100)[k];
 		};
+		string_rappel_b +=`.`;
 		if (sortie_html) {
 			this.introduction =`
 			<br>
