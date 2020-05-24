@@ -2882,7 +2882,6 @@ function Premier_ou_pas_critere_par7_par11(){
 	}
 	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
 };
-
 /**
  * 3A12 - Fractions irreductibles
  * @Auteur Sébastien Lozano
