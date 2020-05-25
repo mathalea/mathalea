@@ -3236,33 +3236,67 @@ function problemes_grandeurs_produits(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let liste_index_disponibles=[0,1,2,3,4,5,6];
+		let liste_index_disponibles=[0,1];
 		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions)
 		let appareils=[[`radiateur`,2000,20],[`téléviseur`,350,12],[`four électrique`,2500,4],[`ordinateur`,450,8]] // [appareil,puissance,durée maxi de fonctionnement]
-		
-		for (let i = 0,j,index,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
+				
+		for (let i = 0,j,index,index1,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
 			switch (liste_index[i]) {
 				case 0 : // problème de consommation éléctrique
-				let index=randint(0,3)
-				let appareil=appareils[index][0];
-				let puissance=appareils[index][1];
-				let duree_max=appareils[index][2];
-				let duree=randint(duree_max/4,duree_max)+randint(0,3)*0.25;
-				let prixkwh=calcul(randint(0,5)/100+0.14);
-				texte =`L'étiquette apposée au dos d'un ${appareil} indique une puissance de ${puissance} Watts. On le fait fonctionner pendant ${Math.floor(duree)} heures `;
-				if (duree!=Math.floor(duree)) texte +=`et ${calcul((duree-Math.floor(duree))*60)} minutes`;
-				texte+=`.<br>Le prix d'un kWh est de ${tex_nombrec(prixkwh)} €.<br>`
-				texte+=num_alpha(0)+` Exprimer en kWh l'energie consommée.<br>`;
-				texte+=num_alpha(1)+` Calculer la dépense correspondante.`
-				texte_corr = num_alpha(0)+` Un ${appareil} d'une puissance de ${puissance} Watts qui fonctionne pendant ${Math.floor(duree)} heures `;
-				if (duree!=Math.floor(duree)) texte_corr +=`et ${calcul((duree-Math.floor(duree))*60)} minutes`;
-				texte_corr+=` consomme : <br>`;
-				texte_corr+=`$${puissance}\\text{ W}\\times${tex_nombre(duree)}\\text{ h}=${puissance/1000}\\text{ kW}\\times${tex_nombre(duree)}\\text{ h}=${tex_nombre(puissance/1000*duree)}\\text{ kWh}.$<br>`
-				texte_corr+=num_alpha(1)+` Le prix de cette énergie consommée est : $${tex_nombre(prixkwh)} \\text{ €/kWh} \\times${tex_nombre(puissance/1000*duree)}\\text{ kWh}=${tex_nombre(prixkwh*puissance/1000*duree)}\\text{ €}$`
+					index=randint(0,3)
+					let appareil=appareils[index][0];
+					let puissance=appareils[index][1];
+					let duree_max=appareils[index][2];
+					let nbquartsdheures=randint(0,3);
+					let nbheures=randint(duree_max/4,duree_max,[1])
+					let duree=nbheures+nbquartsdheures*0.25;
+					let prixkwh=calcul(randint(0,5)/100+0.14);
+					texte =`L'étiquette apposée au dos d'un ${appareil} indique une puissance de ${puissance} Watts. On le fait fonctionner pendant ${Math.floor(duree)} heures `;
+					if (nbquartsdheures!=0) texte +=`et ${nbquartsdheures*15} minutes`;
+					texte+=`.<br>Le prix d'un kWh est de ${tex_nombrec(prixkwh)} €.<br>`
+					texte+=num_alpha(0)+` Exprimer en kWh l'energie consommée.<br>`;
+					texte+=num_alpha(1)+` Calculer la dépense correspondante.`
+					texte_corr = num_alpha(0)+` Un ${appareil} d'une puissance de ${puissance} Watts qui fonctionne pendant ${Math.floor(duree)} heures `;
+					if (nbquartsdheures!=0) texte_corr +=`et ${nbquartsdheures*15} minutes`;
+					texte_corr+=` consomme : <br>`;
+					if (nbquartsdheures!=0) texte_corr +=`$${nbheures}\\text{ h } ${nbquartsdheures*15} = ${nbheures}\\text{ h} + ${tex_fraction_reduite(nbquartsdheures,4)}\\text{ h} =${tex_nombre(nbheures+nbquartsdheures*0.25)}\\text{ h}$<br>`;
+					texte_corr+=`$${puissance}\\text{ W}\\times${tex_nombre(duree)}\\text{ h}=${tex_nombre(puissance/1000)}\\text{ kW}\\times${tex_nombre(duree)}\\text{ h}=${tex_nombre(calcul(puissance*duree*0.001))}\\text{ kWh}.$<br>`
+					texte_corr+=num_alpha(1)+` Le prix de cette énergie consommée est : $${tex_nombre(prixkwh)} \\text{ €/kWh} \\times${tex_nombre(calcul(puissance*duree*0.001))}\\text{ kWh}`;
+					if (!(prixkwh*puissance*duree/10==Math.round(prixkwh*puissance*duree/10))) texte_corr+= `\\approx${arrondi_virgule(prixkwh*puissance/1000*duree,2)}\\text{ €}$`
+					else texte_corr+= `=${arrondi_virgule(prixkwh*puissance/1000*duree,2)}\\text{ €}$`
 					break;
 				case 1 :
-					texte = `Exercice de calcul de volume`
-					texte_corr = `Correction volume`
+					index1=randint(0,1)
+					switch (index1) {
+						case 0 : // Volume d'une piscine
+							let h1=180+randint(0,10)*10
+							let h2=80+randint(0,4)*10
+							let l=5+randint(0,5)
+							let L=l*2+randint(0,4)*2
+							let deltat=randint(2,5);
+							texte = `Une piscine a la forme d'un prisme droit. La profondeur à son extrémité nord est de ${h1} cm et la profondeur à son extrémité sud est de ${h2} cm.<br>`
+							texte +=`D\'une extrémité à l\'autre la pente au fond de la piscine est régulière.<br>La largeur de la piscine (Est-Ouest) est de ${l} m et sa longueur (Nord-Sud) est de ${L} m.<br>`
+							texte += num_alpha(0)+` Calculer le volume d'eau en m³ contenu dans cette piscine quand elle est pleine.<br>`
+							texte += num_alpha(1)+` Sachant que pour élever la température d'un litre d'eau de 1 degré, il faut une énergie de 1,162 Wattheure.<br> Quelle est l'énergie consommée en kWh pour augmenter de ${deltat} degrés ?<br>`							
+							texte_corr = num_alpha(0)+` La base de ce prisme droit est un trapèze rectangle de petite base ${h2} cm, de grande base ${h1} cm et de hauteur ${L} m.<br>`
+							texte_corr += `$\\mathcal{A}=\\dfrac{\\left(${h1}\\text{ cm}+${h2}\\text{ cm}\\right)}{2}\\times${L}\\text{ m}=\\dfrac{\\left(${arrondi_virgule(h1/100)}\\text{ m}+${arrondi_virgule(h2/100)}\\text{ m}\\right)}{2}\\times${L}\\text{ m}`
+							texte_corr += `=\\dfrac{${arrondi_virgule((h1+h2)/100)}\\text{ m}}{2}\\times${L}\\text{ m}=${arrondi_virgule((h1+h2)/200)}\\text{ m}\\times${L}\\text{ m}=${arrondi_virgule((h1+h2)/200*L)}\\text{ m²}$<br>`
+							texte_corr += `Le volume de ce prisme et donc par extension le volume d'eau conteu dans la piscine est :<br>$\\mathcal{A}\\times\\mathcal{h}=${arrondi_virgule((h1+h2)/200*L)}\\text{ m²}\\times${l}\\text{ m}=${arrondi_virgule((h1+h2)/200*L*l)}\\text{ m³}$.<br>`
+							texte_corr += num_alpha(1)+` L'énergie consomée pour élever la température de l'eau de cette piscine de ${deltat} degrés est :<br>`
+							texte_corr += `$${arrondi_virgule((h1+h2)/200*L*l)}\\text{ m³}=${tex_nombre((h1+h2)*L*l*5)}\\text{ dm³}=${tex_nombre((h1+h2)*L*l*5)}\\text{ L}$<br>`
+							texte_corr += `$\\mathcal{E}=${tex_nombre((h1+h2)*L*l*5)}\\text{ L}\\times${deltat}\\text{ °C}\\times 1,162 \\dfrac{\\text{Wh}}{\\text{°C}\\times\\text{L}}=${tex_nombre(arrondi((h1+h2)*L*l*5*deltat*1.162,3))}\\text{ Wh}=${tex_nombre(arrondi((h1+h2)*L*l/200*deltat*1.162,7))}\\text{ kWh}$<br>`
+							break;
+						case 1 : // Volume d'un tonneau cylindrique
+						let r=randint(10,15)*2
+						let h=randint(0,10)+r*4
+						texte = `Un tonneau cylindrique a un rayon de ${r} cm et une hauteur de ${h} cm.<br>`
+						texte +=num_alpha(0)+` Calculer le volume en dm³ à 0,1 près de ce tonneau.<br>`
+						texte +=num_alpha(1)+` Si on le remplit de lait entier (dont la densité moyenne est de 1,032), quelle masse de lait en kg contiendra-t-il au gramme près ?<br>`
+						texte_corr=num_alpha(0)+` Le volume d'un cylindre est donné par la formule $\\mathcal{B}\\times\\mathcal{h}$.<br> Ici la base est un disque de rayon ${r} cm.<br>`
+						texte_corr+=`$\\mathcal{B}\\times\\mathcal{h}=\\pi\\times${r}^{2}\\text{ cm²}\\times${h}\\text{ cm}=${r*r*h}\\pi\\text{ cm³}\\approx${tex_nombre(arrondi(r*r*h*Math.PI,1))}\\text{ cm³}\\approx${tex_nombre(arrondi(r*r*h*Math.PI/1000,1))}\\text{ dm³}$<br>`
+						texte_corr+=num_alpha(1)+` La masse de lait contenue dans ce tonneau est :<br>`
+						texte_corr+=`$${tex_nombre(arrondi(r*r*h*Math.PI/1000,1))}\\text{ dm³}\\times 1,032 \\dfrac{kg}{dm³}\\approx${tex_nombre(arrondi(r*r*h*Math.PI/1000*1.032,3))}\\text{ kg}$`
+					}
 					break;
 				case 2 :
 					texte = `Exercice de calcul d'aires`
@@ -3345,6 +3379,9 @@ function problemes_grandeurs_quotients(){
 					texte = `Exercice de concentration`
 					texte_corr = `Correction concentration`
 				break;
+				case 6 : 
+					texte = `Exercice de débit`
+					texte_corr = `correction débit`
 						
 					
 				}
