@@ -3236,11 +3236,12 @@ function problemes_grandeurs_produits(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let liste_index_disponibles=[0,1];
+		let liste_index_disponibles=[0,1,13];
 		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions)
 		let appareils=[[`radiateur`,2000,20],[`téléviseur`,350,12],[`four électrique`,2500,4],[`ordinateur`,450,8]] // [appareil,puissance,durée maxi de fonctionnement]
-				
-		for (let i = 0,j,index,index1,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
+		let liquides=[[`de lait entier`,1.032],[`d'essence`,0.755],[`de diesel`,0.83],[`d'huile`,0.910],[`de bière`,0.9],[`de sable`,1.6]]		
+		let rivieres=[[`la Marne`,`Gournay-sur-Marne`,110,550,`avril 1983`],[`la Seine`,`Alfortville`,218,2100,`janvier 1982`],[`l'Oise`,`Pont-Sainte-Maxence`,109,665,`février 1995`],[`la Loire`,`Saint-Nazaire`,931,5350,`décembre 1999`],[`le Rhin`,`Strasbourg`,951,3310,`juin 2016`],[`le Rhône`,`Beaucaire`,1690,11500,`décembre 2003`],[`la Meuse`,`Chooz`,144,1610,`janvier 1995`]]
+		for (let i = 0,j,index,index1,index2,duree,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
 			switch (liste_index[i]) {
 				case 0 : // problème de consommation éléctrique
 					index=randint(0,3)
@@ -3249,7 +3250,7 @@ function problemes_grandeurs_produits(){
 					let duree_max=appareils[index][2];
 					let nbquartsdheures=randint(0,3);
 					let nbheures=randint(duree_max/4,duree_max,[1])
-					let duree=nbheures+nbquartsdheures*0.25;
+					duree=nbheures+nbquartsdheures*0.25;
 					let prixkwh=calcul(randint(0,5)/100+0.14);
 					texte =`L'étiquette apposée au dos d'un ${appareil} indique une puissance de ${puissance} Watts. On le fait fonctionner pendant ${Math.floor(duree)} heures `;
 					if (nbquartsdheures!=0) texte +=`et ${nbquartsdheures*15} minutes`;
@@ -3267,6 +3268,7 @@ function problemes_grandeurs_produits(){
 					break;
 				case 1 :
 					index1=randint(0,1)
+					
 					switch (index1) {
 						case 0 : // Volume d'une piscine
 							let h1=180+randint(0,10)*10
@@ -3287,15 +3289,18 @@ function problemes_grandeurs_produits(){
 							texte_corr += `$\\mathcal{E}=${tex_nombre((h1+h2)*L*l*5)}\\text{ L}\\times${deltat}\\text{ °C}\\times 1,162 \\dfrac{\\text{Wh}}{\\text{°C}\\times\\text{L}}=${tex_nombre(arrondi((h1+h2)*L*l*5*deltat*1.162,3))}\\text{ Wh}=${tex_nombre(arrondi((h1+h2)*L*l/200*deltat*1.162,7))}\\text{ kWh}$<br>`
 							break;
 						case 1 : // Volume d'un tonneau cylindrique
+						index2=randint(0,5)
 						let r=randint(10,15)*2
 						let h=randint(0,10)+r*4
 						texte = `Un tonneau cylindrique a un rayon de ${r} cm et une hauteur de ${h} cm.<br>`
 						texte +=num_alpha(0)+` Calculer le volume en dm³ à 0,1 près de ce tonneau.<br>`
-						texte +=num_alpha(1)+` Si on le remplit de lait entier (dont la densité moyenne est de 1,032), quelle masse de lait en kg contiendra-t-il au gramme près ?<br>`
+						texte +=num_alpha(1)+` Si on le remplit ${liquides[index2][0]} (dont la densité moyenne est de ${tex_nombrec(liquides[index2][1])}), quelle masse ${liquides[index2][0]} en kg contiendra-t-il au gramme près ?<br>`
 						texte_corr=num_alpha(0)+` Le volume d'un cylindre est donné par la formule $\\mathcal{B}\\times\\mathcal{h}$.<br> Ici la base est un disque de rayon ${r} cm.<br>`
 						texte_corr+=`$\\mathcal{B}\\times\\mathcal{h}=\\pi\\times${r}^{2}\\text{ cm²}\\times${h}\\text{ cm}=${r*r*h}\\pi\\text{ cm³}\\approx${tex_nombre(arrondi(r*r*h*Math.PI,1))}\\text{ cm³}\\approx${tex_nombre(arrondi(r*r*h*Math.PI/1000,1))}\\text{ dm³}$<br>`
 						texte_corr+=num_alpha(1)+` La masse de lait contenue dans ce tonneau est :<br>`
-						texte_corr+=`$${tex_nombre(arrondi(r*r*h*Math.PI/1000,1))}\\text{ dm³}\\times 1,032 \\dfrac{kg}{dm³}\\approx${tex_nombre(arrondi(r*r*h*Math.PI/1000*1.032,3))}\\text{ kg}$`
+						texte_corr+=`$${tex_nombre(arrondi(r*r*h*Math.PI/1000,1))}\\text{ dm³}\\times ${tex_nombrec(liquides[index2][1])} \\dfrac{kg}{dm³}\\approx${tex_nombre(arrondi(r*r*h*Math.PI/1000*liquides[index2][1],3))}\\text{ kg}$`
+						break
+
 					}
 					break;
 				case 2 :
@@ -3318,6 +3323,43 @@ function problemes_grandeurs_produits(){
 					texte = `Exercice de puissance éléctrique`
 					texte_corr = `Correction puissance`
 				break;
+				case 7 : // problème de consommation éléctrique
+				texte =`Exercice de vitesses`
+				texte_corr = `Correction vitesses`
+					break;
+				case 8 :
+					texte = `Exercice de prix massique`
+					texte_corr = `Correction prix massique`
+					break;
+				case 9 :
+					texte = `Exercice de prix horaire`
+					texte_corr = `Correction prix horaire`
+					break;
+				case 10 :
+					texte = `Exercice de densité de pôpulation`
+					texte_corr = `Correction densité de population`
+					break;
+				case 11 :
+					texte = `Exercice de masse volumique`
+					texte_corr = `Correction masse volumique`
+					break;
+				case 12 :
+					texte = `Exercice de concentration`
+					texte_corr = `Correction concentration`
+				break;
+				case 13 : 
+					index2=randint(0,6)
+					duree=randint(2,24)
+					let vmax=rivieres[index2][3]*3600
+					texte = `Le débit annuel moyen de ${rivieres[index2][0]} mesuré à ${rivieres[index2][1]} est de ${rivieres[index2][2]} m³/s.<br>`
+					texte += num_alpha(0)+` Calculer le volume d'eau en m³ écoulé en ${duree} heures à ce débit.<br>`
+					texte += num_alpha(1)+` En ${rivieres[index2][4]} à ${rivieres[index2][1]}, ${rivieres[index2][0]} a débité ${nombre_avec_espace(vmax)} m³ en une heure. Quel a été alors le débit en m³/s ?`
+					texte_corr = num_alpha(0)+` En ${duree} heures il s'écoule en moyenne dans ${rivieres[index2][0]} à ${rivieres[index2][1]} :<br>`
+					texte_corr+= `$\\mathcal{V}=${duree}\\text{ h}\\times${rivieres[index2][2]}\\text{ m³/s}=${duree}\\times 3600\\text{ s}\\times${rivieres[index2][2]}\\text{ m³/s}=${tex_nombre(duree*3600*rivieres[index2][2])}\\text{ m³}$<br>`
+					texte_corr += num_alpha(1)+` En ${rivieres[index2][4]} lors de la crue historique de ${rivieres[index2][0]} à ${rivieres[index2][1]} le débit maximal a été de :<br>`
+					texte_corr+= `$\\mathcal{Débit}=${tex_nombre(vmax)}\\text{ m³/h}=\\dfrac{${tex_nombre(vmax)}\\text{ m³}}{1\\text{ h}}=\\dfrac{${tex_nombre(vmax)}\\text{ m³}}{${tex_nombre(3600)}\\text{ s}}=${tex_nombrec(vmax/3600)}\\text{ m³/s}$<br>`
+				
+					break	
 				}
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
