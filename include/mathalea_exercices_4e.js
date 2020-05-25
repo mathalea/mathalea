@@ -3225,7 +3225,7 @@ function problemes_grandeurs_produits(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Résoudre des problèmes de grandeurs composées et de conversion d'unités complexes";
 	this.consigne = "";
-	this.nb_questions = 2;
+	this.nb_questions = 4;
 	this.nb_questions_modifiable = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
