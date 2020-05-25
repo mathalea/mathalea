@@ -2934,7 +2934,7 @@ function Premier_ou_pas_5e(){
 	//this.consigne += `<br>`;	
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
-	this.nb_questions = 5;
+	this.nb_questions = 7;
 	//this.correction_detaillee_disponible = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -2944,7 +2944,7 @@ function Premier_ou_pas_5e(){
 		let type_de_questions;
 		if (sortie_html) { // les boutons d'aide uniquement pour la version html
 			//this.bouton_aide = '';
-			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A11.pdf","Aide mémoire sur les nombres premiers (Sébastien Lozano)","Aide mémoire")		
+			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-5A11.pdf","Aide mémoire sur les nombres premiers (Sébastien Lozano)","Aide mémoire")		
 			this.bouton_aide += modal_video('conteMathsNombresPremiers','videos/LesNombresPremiers.mp4','Petit conte mathématique - Les Nombres Premiers','Intro Vidéo');
 		} else { // sortie LaTeX
 		};
@@ -2954,14 +2954,14 @@ function Premier_ou_pas_5e(){
 		this.contenu = ''; // Liste de questions
 		this.contenu_correction = ''; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = [1,2,3,6,7];
-		type_de_questions_disponibles=shuffle(type_de_questions_disponibles); // on mélange l'ordre des questions
+		let type_de_questions_disponibles = [1,2,3,4,5,6,7];
+		//type_de_questions_disponibles=shuffle(type_de_questions_disponibles); // on mélange l'ordre des questions
 		//let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
 		
-		let string_rappel = `Cette liste des nombres premiers inférieurs à 100 pourra être utile : <br>`+crible_eratosthene_n(100)[0];
-		for (let k=1;k<crible_eratosthene_n(100).length;k++) {
-			string_rappel +=`, `+crible_eratosthene_n(100)[k];
+		let string_rappel = `Cette liste des nombres premiers inférieurs à 30 pourra être utile : <br>`+crible_eratosthene_n(100)[0];
+		for (let k=1;k<crible_eratosthene_n(30).length;k++) {
+			string_rappel +=`, `+crible_eratosthene_n(30)[k];
 		};
 		string_rappel +=`.`;
 		if (sortie_html) {
@@ -2989,16 +2989,16 @@ function Premier_ou_pas_5e(){
 						texte_corr = `Comme ${nombre_avec_espace(N)} est pair, il admet donc au moins trois diviseurs qui sont 1, 2 et lui-même,<br> ${nombre_avec_espace(N)} n'est donc pas premier.`;
 						break;		
 					case 2 : // Multiple de 3
-						let sum=0; // pour la valeur de la somme;
+						let sum3=0; // pour la valeur de la somme;
 						N=3*randint(34,3333);
 						texte = nombre_avec_espace(N);
 						texte_corr = `Comme `+ N.toString().charAt(0);
-						sum = Number(N.toString().charAt(0));
+						sum3 = Number(N.toString().charAt(0));
 						for (let k=1; k<N.toString().length; k++) {
 							texte_corr += ` + `+N.toString().charAt(k);
-							sum +=Number(N.toString().charAt(k));
+							sum3 +=Number(N.toString().charAt(k));
 						};					
-						texte_corr += ` = ${sum} est un multiple de 3 donc ${nombre_avec_espace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 3 et lui-même,<br> ${nombre_avec_espace(N)} n'est donc pas premier.`;
+						texte_corr += ` = ${sum3} est un multiple de 3 donc ${nombre_avec_espace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 3 et lui-même,<br> ${nombre_avec_espace(N)} n'est donc pas premier.`;
 						break;	
 					case 3 : // Multiple de 5
 						N=5*randint(20,1999);
@@ -3006,99 +3006,29 @@ function Premier_ou_pas_5e(){
 						texte_corr = `Comme le dernier chiffre de ${nombre_avec_espace(N)} est un ${N.toString().charAt(N.toString().length-1)} alors ${nombre_avec_espace(N)} est divisible par 5, `;
 						texte_corr += `il admet donc au moins trois diviseurs qui sont 1, 5 et lui-même,<br> ${nombre_avec_espace(N)} n'est donc pas premier.`;
 						break;	
-					case 4 : // Multiple de 7
-						let N_longueur; // pour la taille du string N
-						let N1; // pour la repetiton du critère
-						let N1_longueur; // pour la taille du string N1
-						let sum1; // pour la somme de la répétition du critère
-						N=7*randint(15,1428);
+					case 4 : // Multiple de 9
+						let sum9=0; // pour la valeur de la somme;
+						N=9*randint(12,1111);
 						texte = nombre_avec_espace(N);
-						N_longueur = N.toString().length;
-						texte_corr = ` 7 divise ${nombre_avec_espace(N)}, en effet : `;
-						texte_corr += `<br>`;
-						N1 = N;
-						N1_longueur = N_longueur;
-						sum1 = Number(N1.toString().substring(0,N1_longueur-1))+5*Number(N1.toString().charAt(N1_longueur-1));
-						while (sum1 >=56 ) {
-							texte_corr += `${N1.toString().substring(0,N1_longueur-1)} + 5$\\times$${N1.toString().charAt(N1_longueur-1)}`;
-							texte_corr += ` = ${Number(N1.toString().substring(0,N1_longueur-1))+5*Number(N1.toString().charAt(N1_longueur-1))}`;
-							texte_corr += `<br>`;
-							N1 = sum1;
-							N1_longueur = N1.toString().length;
-							sum1 = Number(N1.toString().substring(0,N1_longueur-1))+5*Number(N1.toString().charAt(N1_longueur-1));
-						};
-						// texte_corr = `Comme ${N.toString().substring(0,N_longueur-1)}-5$\\times$${N.toString().charAt(N_longueur-1)}`;
-						// texte_corr += ` = ${Number(N.toString().substring(0,N_longueur-1))+5*Number(N.toString().charAt(N_longueur-1))} est un multiple de 7 alors 7 divise ${N} aussi, `;
-						texte_corr += `Comme ${N1.toString().substring(0,N1_longueur-1)} + 5$\\times$${N1.toString().charAt(N1_longueur-1)} = ${sum1} est un multiple de 7 alors 7 divise ${N} aussi `;
-						texte_corr += `qui admet donc au moins trois diviseurs : 1, 7 et lui-même,<br> ${nombre_avec_espace(N)} n'est donc pas premier.`;
-						break;
-					case 5 : // multiple de 11
-						let even_sum; // pour la somme des chiffres de rang impair
-						let odd_sum; // pour la somme des chiffres de rang pair
-						N=11*randint(10,909);
+						texte_corr = `Comme `+ N.toString().charAt(0);
+						sum9 = Number(N.toString().charAt(0));
+						for (let k=1; k<N.toString().length; k++) {
+							texte_corr += ` + `+N.toString().charAt(k);
+							sum9 +=Number(N.toString().charAt(k));
+						};					
+						texte_corr += ` = ${sum9} est un multiple de 9 donc ${nombre_avec_espace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 9 et lui-même,<br> ${nombre_avec_espace(N)} n'est donc pas premier.`;
+						break;	
+					case 5 : // multiple de 10
+						N=10*randint(10,999);
 						texte = nombre_avec_espace(N);
-						texte_corr = `D'une part, la somme des chiffres de rang impair de ${nombre_avec_espace(N)} vaut `;
-						if (Number(N.toString().length)%2==0) { // si N a un nombre pair de chiffres
-							even_sum = Number(N.toString().charAt(1));
-							texte_corr += N.toString().charAt(1);
-							for (let k=3; k<N.toString().length; k++) {
-								if (k%2==1) {
-								texte_corr += ` + `+N.toString().charAt(k);
-								even_sum += Number(N.toString().charAt(k));
-								};
-							};
-							texte_corr += ` = `+even_sum+ ` <br> `;
-						} else { // sinon N a un nombre impair de chiffres
-							even_sum = Number(N.toString().charAt(0));
-							texte_corr += N.toString().charAt(0);
-							for (let m=1; m<N.toString().length; m++) {
-								if (m%2==0) {
-								texte_corr += ` + `+N.toString().charAt(m);
-								even_sum += Number(N.toString().charAt(m));
-								};
-
-							};
-							texte_corr += ` = `+even_sum+ `<br> `;
-						};
-						texte_corr += `d'autre part, la somme des chiffres de rang pair de ${nombre_avec_espace(N)} vaut `;
-						if (Number(N.toString().length)%2==0) { // si N a un nombre pair de chiffres
-							odd_sum = Number(N.toString().charAt(0));
-							texte_corr += N.toString().charAt(0);
-							for (let k=1; k<N.toString().length; k++) {
-								if (k%2==0) {
-								texte_corr += ` + `+N.toString().charAt(k);
-								odd_sum += Number(N.toString().charAt(k));
-								};
-							};
-							texte_corr += ` = `+odd_sum+ ` <br> `;
-						} else { // sinon N a un nombre impair de chiffres
-							odd_sum = Number(N.toString().charAt(1));
-							texte_corr += N.toString().charAt(1);
-							for (let m=3; m<N.toString().length; m++) {
-								if (m%2==1) {
-								texte_corr += ` + `+N.toString().charAt(m);
-								odd_sum += Number(N.toString().charAt(m));
-								};
-
-							};
-							texte_corr += ` = `+odd_sum+ `<br> `;
-						};
-						texte_corr += `la différence entre la somme des chiffres de rangs pairs et celle des chiffres de rangs impairs vaut `;
-						if ((odd_sum-even_sum)==0) {
-							texte_corr += `${odd_sum-even_sum}, `;
-
-						} else {
-							texte_corr += `${Math.abs(odd_sum-even_sum)} qui est un multiple de 11, `;
-						};
-						texte_corr+= `<br>`;
-						texte_corr += ` cela signifie que ${nombre_avec_espace(N)} est divisible par 11, il admet donc au moins trois diviseurs qui sont 1, 11 et lui-même,`;
-						texte_corr += `<br> ${nombre_avec_espace(N)} n'est donc pas premier.`;
-						break;
-					case 6 : // produit de deux nombres premiers inférieurs à 100
+						texte_corr = `Comme le nombre ${nombre_avec_espace(N)} se termine par un ${N.toString().charAt(N.toString().length-1)} alors ${nombre_avec_espace(N)} est un multiple de 10, `;
+						texte_corr += `il admet donc au moins trois diviseurs qui sont 1, 10 et lui-même,<br> ${nombre_avec_espace(N)} n'est donc pas premier.`;
+						break;	
+					case 6 : // produit de deux nombres premiers inférieurs à 30
 						// rang du premier facteur premier
-						let r1 = randint(0,crible_eratosthene_n(100).length-1);
+						let r1 = randint(0,crible_eratosthene_n(30).length-1);
 						// rang du second facteur premier
-						let r2 = randint(0,crible_eratosthene_n(100).length-1);
+						let r2 = randint(0,crible_eratosthene_n(30).length-1);
 						let prime1 = crible_eratosthene_n(100)[r1]; // on tire un nombre premier inférieur à 100, il n'y en a que 25!
 						let prime2 = crible_eratosthene_n(100)[r2]; // on tire un autre nombre premier inférieur à 100, ça peut être le même qu'avant!
 						N=prime1+`$\\times$`+prime2;
@@ -3111,13 +3041,16 @@ function Premier_ou_pas_5e(){
 						};
 						texte_corr +=`<br> ${N} n'est donc pas premier.`; 
 						break;
-					case 7 : // nombre premier inférieur à 529
+					case 7 : // nombre premier inférieur à 29
 						// rang du nombre premier choisi
-						let r = randint(0,crible_eratosthene_n(529).length-1);
-						N=crible_eratosthene_n(529)[r]; //on choisit un nombre premier inférieur à 529
+						// let r = randint(0,crible_eratosthene_n(529).length-1);
+						// N=crible_eratosthene_n(529)[r]; //on choisit un nombre premier inférieur à 529
+						let r = randint(0,crible_eratosthene_n(29).length-1);
+						N=crible_eratosthene_n(29)[r]; //on choisit un nombre premier inférieur à 529
 						texte = N+``;
-						let tab_premiers_a_tester = crible_eratosthene_n(Math.trunc(Math.sqrt(N)));
-						texte_corr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
+						let tab_premiers_a_tester = crible_eratosthene_n(N);
+						//console.log(crible_eratosthene_n(N).length);
+						texte_corr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à ${N}, c'est à dire par les nombres `;
 						texte_corr += tab_premiers_a_tester[0];
 						for (let k=1;k<tab_premiers_a_tester.length;k++) {
 							texte_corr += `, `+tab_premiers_a_tester[k];
