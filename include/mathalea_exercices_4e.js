@@ -3240,8 +3240,8 @@ function problemes_grandeurs_composees(){
 		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions)
 		let appareils=[[`radiateur`,2000,20],[`téléviseur`,350,12],[`four électrique`,2500,4],[`ordinateur`,450,8]] // [appareil,puissance,durée maxi de fonctionnement]
 		let liquides=[[`de lait entier`,1.032],[`d'essence`,0.755],[`de diesel`,0.83],[`d'huile`,0.910],[`de bière`,0.9],[`de sable`,1.6]] // [nom,densité]
-		let rivieres=[[`la Marne`,`Gournay-sur-Marne`,110,550,`avril 1983`],[`la Seine`,`Alfortville`,218,2100,`janvier 1982`],[`l'Oise`,`Pont-Sainte-Maxence`,109,665,`février 1995`],[`la Loire`,`Saint-Nazaire`,931,5350,`décembre 1999`],[`le Rhin`,`Strasbourg`,951,3310,`juin 2016`],[`le Rhône`,`Beaucaire`,1690,11500,`décembre 2003`],[`la Meuse`,`Chooz`,144,1610,`janvier 1995`]]
-						// [Nom de rivière,Lieu de passage,débit moyen annuel, débitmax, date de la crue]
+		let rivieres=[[`Marne`,`Gournay-sur-Marne`,110,550,`avril 1983`,`la `,`de la `],[`Seine`,`Alfortville`,218,2100,`janvier 1982`,`la `,`de la `],[`Oise`,`Pont-Sainte-Maxence`,109,665,`février 1995`,`l'`,`de l'`],[`Loire`,`Saint-Nazaire`,931,5350,`décembre 1999`,`la `,`de la`],[`Rhin`,`Strasbourg`,951,3310,`juin 2016`,`le `,`du `],[`Rhône`,`Beaucaire`,1690,11500,`décembre 2003`,`le `,`du `],[`Meuse`,`Chooz`,144,1610,`janvier 1995`,`la `,`de la `]]
+						// [Nom de rivière,Lieu de passage,débit moyen annuel, débitmax, date de la crue, article défini, article partitif]
 		let vitesses=[[`sur un vélo`,4,12,8],[`dans un train`,50,100,5],[`dans une voiture`,15,30,5],[`en avion`,150,250,12]] // [moyen de transport, vitesse min,vitesse max en m/s,durée max en h] 
 		for (let i = 0,j,index,index1,index2,duree,quidam,nbheures,nbminutes,nbsecondes,vitesse_moy,distance,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
 			switch (liste_index[i]) {
@@ -3382,12 +3382,12 @@ function problemes_grandeurs_composees(){
 					index2=randint(0,6)
 					duree=randint(2,24)
 					let vmax=rivieres[index2][3]*3600
-					texte = `Le débit annuel moyen de ${rivieres[index2][0]} mesuré à ${rivieres[index2][1]} est de ${rivieres[index2][2]} m³/s.<br>`
+					texte = `Le débit annuel moyen ${rivieres[index2][6]}${rivieres[index2][0]} mesuré à ${rivieres[index2][1]} est de ${rivieres[index2][2]} m³/s.<br>`
 					texte += num_alpha(0)+` Calculer le volume d'eau en m³ écoulé en ${duree} heures à ce débit.<br>`
-					texte += num_alpha(1)+` En ${rivieres[index2][4]} à ${rivieres[index2][1]}, ${rivieres[index2][0]} a débité ${nombre_avec_espace(vmax)} m³ en une heure. Quel a été alors le débit en m³/s ?`
-					texte_corr = num_alpha(0)+` En ${duree} heures il s'écoule en moyenne dans ${rivieres[index2][0]} à ${rivieres[index2][1]} :<br>`
+					texte += num_alpha(1)+` En ${rivieres[index2][4]} à ${rivieres[index2][1]}, ${rivieres[index2][5]}${rivieres[index2][0]} a débité ${nombre_avec_espace(vmax)} m³ en une heure. Quel a été alors le débit en m³/s ?`
+					texte_corr = num_alpha(0)+` En ${duree} heures il s'écoule en moyenne dans ${rivieres[index2][5]}${rivieres[index2][0]} à ${rivieres[index2][1]} :<br>`
 					texte_corr+= `$\\mathcal{V}=${duree}\\text{ h}\\times${rivieres[index2][2]}\\text{ m³/s}=${duree}\\times 3600\\text{ s}\\times${rivieres[index2][2]}\\text{ m³/s}=${tex_nombre(duree*3600*rivieres[index2][2])}\\text{ m³}$<br>`
-					texte_corr += num_alpha(1)+` En ${rivieres[index2][4]} lors de la crue historique de ${rivieres[index2][0]} à ${rivieres[index2][1]} le débit maximal a été de :<br>`
+					texte_corr += num_alpha(1)+` En ${rivieres[index2][4]} lors de la crue historique ${rivieres[index2][6]}${rivieres[index2][0]} à ${rivieres[index2][1]} le débit maximal a été de :<br>`
 					texte_corr+= `Débit =$${tex_nombre(vmax)}\\text{ m³/h}=\\dfrac{${tex_nombre(vmax)}\\text{ m³}}{1\\text{ h}}=\\dfrac{${tex_nombre(vmax)}\\text{ m³}}{${tex_nombre(3600)}\\text{ s}}=${tex_nombrec(vmax/3600)}\\text{ m³/s}$<br>`
 				
 					break	
