@@ -3233,7 +3233,6 @@ function Image_antecedent_graphique(){
 		if (this.sup==3) {
 			[[numa,dena],[numb,denb],[numc,denc]]=resol_sys_lineaire_3x3(x1,x2,x3,fx1,fx2,fx3,d)
 			let [extremum1,extremum2] = cherche_min_max_f ([numa/dena,numb/denb,numc/denc,d])
-			console.log(abs(extremum1[1]),abs(extremum2[1]))
 			while (dena==0 || denb==0 || denc==0 || abs(extremum1[1])>7 || abs(extremum2[1])>7) {
 				//|| abs(extremum1[1])>9 || abs(extremum2[1])>9
 				x1 = randint(-6,-3);
@@ -3249,7 +3248,6 @@ function Image_antecedent_graphique(){
 				} else {
 					[extremum1,extremum2] = cherche_min_max_f([numa/dena,numb/denb,numc/denc,d])
 				}
-				console.log(extremum1,extremum2)
 			}
 			a = numa/dena;
 			b = numb/denb;

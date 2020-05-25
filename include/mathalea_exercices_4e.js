@@ -3297,8 +3297,8 @@ function problemes_grandeurs_composees(){
 						texte = `Un tonneau cylindrique a un rayon de ${r} cm et une hauteur de ${h} cm.<br>`
 						texte +=num_alpha(0)+` Calculer le volume en dm³ à 0,1 près de ce tonneau.<br>`
 						texte +=num_alpha(1)+` Si on le remplit ${liquides[index2][0]} (dont la densité moyenne est de ${tex_nombrec(liquides[index2][1])}), quelle masse ${liquides[index2][0]} en kg contiendra-t-il au gramme près ?<br>`
-						texte_corr=num_alpha(0)+` Le volume d'un cylindre est donné par la formule $\\mathcal{B}\\times\\mathcal{h}$.<br> Ici la base est un disque de rayon ${r} cm.<br>`
-						texte_corr+=`$\\mathcal{B}\\times\\mathcal{h}=\\pi\\times${r}^{2}\\text{ cm²}\\times${h}\\text{ cm}=${r*r*h}\\pi\\text{ cm³}\\approx${tex_nombre(arrondi(r*r*h*Math.PI,1))}\\text{ cm³}\\approx${tex_nombre(arrondi(r*r*h*Math.PI/1000,1))}\\text{ dm³}$<br>`
+						texte_corr=num_alpha(0)+` Le volume d'un cylindre est donné par la formule $\\mathcal{A}\\text{ire de base}\\times\\mathcal{h}$.<br> Ici la base est un disque de rayon ${r} cm.<br>`
+						texte_corr+=`$\\mathcal{A}\\text{ire de base}\\times\\mathcal{h}=\\pi\\times${r}^{2}\\text{ cm²}\\times${h}\\text{ cm}=${r*r*h}\\pi\\text{ cm³}\\approx${tex_nombre(arrondi(r*r*h*Math.PI,1))}\\text{ cm³}\\approx${tex_nombre(arrondi(r*r*h*Math.PI/1000,1))}\\text{ dm³}$<br>`
 						texte_corr+=num_alpha(1)+` La masse de lait contenue dans ce tonneau est :<br>`
 						texte_corr+=`$${tex_nombre(arrondi(r*r*h*Math.PI/1000,1))}\\text{ dm³}\\times ${tex_nombrec(liquides[index2][1])} \\dfrac{kg}{dm³}\\approx${tex_nombre(arrondi(r*r*h*Math.PI/1000*liquides[index2][1],3))}\\text{ kg}$`
 						break
@@ -3388,7 +3388,7 @@ function problemes_grandeurs_composees(){
 					texte_corr = num_alpha(0)+` En ${duree} heures il s'écoule en moyenne dans ${rivieres[index2][0]} à ${rivieres[index2][1]} :<br>`
 					texte_corr+= `$\\mathcal{V}=${duree}\\text{ h}\\times${rivieres[index2][2]}\\text{ m³/s}=${duree}\\times 3600\\text{ s}\\times${rivieres[index2][2]}\\text{ m³/s}=${tex_nombre(duree*3600*rivieres[index2][2])}\\text{ m³}$<br>`
 					texte_corr += num_alpha(1)+` En ${rivieres[index2][4]} lors de la crue historique de ${rivieres[index2][0]} à ${rivieres[index2][1]} le débit maximal a été de :<br>`
-					texte_corr+= `$\\mathcal{Débit}=${tex_nombre(vmax)}\\text{ m³/h}=\\dfrac{${tex_nombre(vmax)}\\text{ m³}}{1\\text{ h}}=\\dfrac{${tex_nombre(vmax)}\\text{ m³}}{${tex_nombre(3600)}\\text{ s}}=${tex_nombrec(vmax/3600)}\\text{ m³/s}$<br>`
+					texte_corr+= `Débit =$${tex_nombre(vmax)}\\text{ m³/h}=\\dfrac{${tex_nombre(vmax)}\\text{ m³}}{1\\text{ h}}=\\dfrac{${tex_nombre(vmax)}\\text{ m³}}{${tex_nombre(3600)}\\text{ s}}=${tex_nombrec(vmax/3600)}\\text{ m³/s}$<br>`
 				
 					break	
 				}
