@@ -3089,6 +3089,7 @@ function Liste_des_diviseurs_5e(){
 /**
  * 5A10-1 - Division Euclidienne; diviseurs, multiples, critères de divisibilité
  * Exercice bilan
+ * pas encore modifié
  * @author Sébastien Lozano
  */
  
