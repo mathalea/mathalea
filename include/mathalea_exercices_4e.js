@@ -3217,15 +3217,15 @@ function Puissances_de_dix() {
 
 
 /**
- * problèmes de grandeurs composées : grandeurs produit
+ * problèmes de grandeurs composées
  * @Auteur Jean-Claude Lhote
  */
-function problemes_grandeurs_produits(){
+function problemes_grandeurs_composees(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Résoudre des problèmes de grandeurs composées et de conversion d'unités complexes";
 	this.consigne = "";
-	this.nb_questions = 2;
+	this.nb_questions = 4;
 	this.nb_questions_modifiable = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -3243,7 +3243,7 @@ function problemes_grandeurs_produits(){
 		let rivieres=[[`la Marne`,`Gournay-sur-Marne`,110,550,`avril 1983`],[`la Seine`,`Alfortville`,218,2100,`janvier 1982`],[`l'Oise`,`Pont-Sainte-Maxence`,109,665,`février 1995`],[`la Loire`,`Saint-Nazaire`,931,5350,`décembre 1999`],[`le Rhin`,`Strasbourg`,951,3310,`juin 2016`],[`le Rhône`,`Beaucaire`,1690,11500,`décembre 2003`],[`la Meuse`,`Chooz`,144,1610,`janvier 1995`]]
 						// [Nom de rivière,Lieu de passage,débit moyen annuel, débitmax, date de la crue]
 		let vitesses=[[`sur un vélo`,4,12,8],[`dans un train`,50,100,5],[`dans une voiture`,15,30,5],[`en avion`,150,250,12]] // [moyen de transport, vitesse min,vitesse max en m/s,durée max en h] 
-		for (let i = 0,j,index,index1,index2,duree,quidam,nbheures,nbminutes,nbsecondes,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
+		for (let i = 0,j,index,index1,index2,duree,quidam,nbheures,nbminutes,nbsecondes,vitesse_moy,distance,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
 			switch (liste_index[i]) {
 				case 0 : // problème de consommation éléctrique
 					index=randint(0,3)
@@ -3330,12 +3330,12 @@ function problemes_grandeurs_produits(){
 					switch (index2) {
 						case 0 : // problème de déplacements
 							index1=randint(0,3)
-							let vitesse_moy=randint(vitesses[index1][1],vitesses[index1][2])
-							let distance=arrondi(randint(vitesse_moy*3,6*vitesses[index1][3]*5,vitesse_moy*3,6*vitesses[index1][3]*20)/10)
+							vitesse_moy=randint(vitesses[index1][1],vitesses[index1][2])
+							distance=Math.round(vitesse_moy*3.6*vitesses[index1][3]*randint(5,20)/10)
 							quidam=prenom()
 							duree = randint(2,vitesses[index1][3])
 							texte =`${quidam} se déplace ${vitesses[index1][0]} à la vitesse de ${tex_nombrec(vitesse_moy)} m/s.<br>`
-							texte +=num_alpha(0)+` En roulant à cette vitesse pendant ${duree} h, quelle est la distance parcourue par ${quidam} en km ?<br>`
+							texte +=num_alpha(0)+` En se déplaçant à cette vitesse pendant ${duree} h, quelle est la distance parcourue par ${quidam} en km ?<br>`
 							texte+= num_alpha(1)+` Si ${quidam} veut parcourir ${nombre_avec_espace(distance)} km à cette vitesse, combien de temps durera le trajet ? Donner le résultat en heures, minutes et secondes.`
 							texte_corr = num_alpha(0)+` La distance parcourue par ${quidam} ${vitesses[index1][0]} en ${duree} h à la vitesse de ${tex_nombrec(vitesse_moy)} m/s est :<br>`
 							texte_corr +=`$${tex_nombrec(vitesse_moy)}\\text{ m/s}\\times${duree}\\text{ h}=\\dfrac{${tex_nombrec(vitesse_moy)}\\text{ m}}{1 \\text{ s}}\\times ${duree}\\times ${tex_nombre(3600)}\\text{ s}`
@@ -3343,12 +3343,12 @@ function problemes_grandeurs_produits(){
 							texte_corr +=num_alpha(1)+` Pour parcourir ${nombre_avec_espace(distance)} km à cette vitesse, ${quidam} mettra :<br>`
 							texte_corr +=` Partons de la formule $\\mathcal{V}=\\dfrac{\\mathcal{d}}{\\mathcal{t}}$ et remplaçons : $\\dfrac{${vitesse_moy}\\text{ m}}{1 \\text{ s}}=\\dfrac{${tex_nombre(distance)}\\text{ km}}{\\mathcal{t}\\text{ h}}$<br>`
 							texte_corr +=`Rendons les unités homogènes : $\\dfrac{${vitesse_moy}\\text{ m}}{1 \\text{ s}}=\\dfrac{${tex_nombrec(distance*1000)}\\text{ m}}{\\mathcal{t}\\text{ h}\\times ${tex_nombre(3600)}\\text{ s/h}}$<br>`
-							texte_corr +=`Appliquons l'égalité des produits en croix : ${produits_en_croix([[`${vitesse_moy}\\text{ m}`,`1 \\text{ s}`],[`${tex_nombrec(distance*1000)}\\text{ m}`,`\\mathcal{t}\\text{ h}\\times ${tex_nombre(3600)}\\text{ s/h}`]])}<br>`
-							texte_corr +=`D'où : $\\mathcal{t}\\text{ h}=\\dfrac{1 \\text{ s}\\times${tex_nombrec(distance*1000)}\\text{ m}}{${vitesse_moy}\\text{ m}\\times${tex_nombre(3600)}\\text{ s}}\\text{ h}$ (les mètres et les secondes disparaissent car elles sont présentes au numérateur et au dénominateur)<br>`
-							texte_corr +=`Soit : $\\mathcal{t}\\text{ h}=${tex_nombrec(distance*1000/vitesse_moy/3600)}\\text{ h}\\approx${tex_nombrec(arrondi(distance*1000/vitesse_moy,0))}\\text{ s}\\approx`
+							texte_corr +=`Appliquons l'égalité des produits en croix : ${produits_en_croix([[`${vitesse_moy}\\text{ m}`,`1 \\text{ s}`],[`${tex_nombrec(distance*1000)}\\text{ m}`,`\\mathcal{t}\\times ${tex_nombre(3600)}\\text{ s/h}`]])}<br>`
+							texte_corr +=`D'où : $\\mathcal{t}=\\dfrac{1 \\text{ s}\\times${tex_nombrec(distance*1000)}\\text{ m}}{${vitesse_moy}\\text{ m}\\times${tex_nombre(3600)}\\text{ s}}$ (t est le nombre décimal d'heures : les mètres et les secondes disparaissent car elles sont présentes au numérateur et au dénominateur.)<br>`
+							texte_corr +=`Soit : $\\mathcal{t}\\approx${tex_nombrec(distance*1000/vitesse_moy/3600)}\\text{ h}\\approx${tex_nombrec(arrondi(distance*1000/vitesse_moy,0))}\\text{ s}\\approx`
 							nbheures = Math.floor(distance*1000/vitesse_moy/3600);
-							let nbminutes = Math.floor((Math.floor(distance*1000/vitesse_moy)%3600)/60)
-							let nbsecondes = arrondi(distance*1000/vitesse_moy-3600*nbheures-60*nbminutes,0)
+							nbminutes = Math.floor((Math.floor(distance*1000/vitesse_moy)%3600)/60)
+							nbsecondes = arrondi(distance*1000/vitesse_moy-3600*nbheures-60*nbminutes,0)
 							texte_corr+=`(${tex_nombre(nbheures)}\\times ${tex_nombre(3600)}+${tex_nombre(nbminutes)}\\times 60+${tex_nombre(nbsecondes)})\\text{ s}\\approx`
 							if (nbheures!=0) texte_corr+=`${tex_nombre(nbheures)}\\text{ h }`
 							if (nbminutes!=0) texte_corr+=`${tex_nombre(nbminutes)}\\text{ min }`
@@ -3402,71 +3402,3 @@ function problemes_grandeurs_produits(){
 		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
 	}	
 };
-
-/**
- * problèmes de grandeurs composées : grandeurs quotients
- * @Auteur Jean-Claude Lhote
- */
-function problemes_grandeurs_quotients(){
-	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Résoudre des problèmes de grandeurs composées et de conversion d'unités complexes";
-	this.consigne = "";
-	this.nb_questions = 2;
-	this.nb_questions_modifiable = true;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	sortie_html? this.spacing = 2 : this.spacing = 1.5; 
-	sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
-	this.sup=1;
-
-	this.nouvelle_version = function(numero_de_l_exercice){
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		let liste_index_disponibles=[0,1,2,3];
-		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions)
-		
-		for (let i = 0,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
-			switch (liste_index[i]) {
-				case 0 : // problème de consommation éléctrique
-				texte =`Exercice de vitesses`
-				texte_corr = `Correction vitesses`
-					break;
-				case 1 :
-					texte = `Exercice de prix massique`
-					texte_corr = `Correction prix massique`
-					break;
-				case 2 :
-					texte = `Exercice de prix horaire`
-					texte_corr = `Correction prix horaire`
-					break;
-				case 3 :
-					texte = `Exercice de densité de pôpulation`
-					texte_corr = `Correction densité de population`
-					break;
-				case 4 :
-					texte = `Exercice de masse volumique`
-					texte_corr = `Correction masse volumique`
-					break;
-				case 5 :
-					texte = `Exercice de concentration`
-					texte_corr = `Correction concentration`
-				break;
-				case 6 : 
-					texte = `Exercice de débit`
-					texte_corr = `correction débit`
-						
-					
-				}
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
-				i++;
-			}
-			cpt++;
-		}
-		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
-	}	
-};
-
-
