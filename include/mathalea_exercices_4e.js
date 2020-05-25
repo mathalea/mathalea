@@ -3330,9 +3330,9 @@ function problemes_grandeurs_composees(){
 					switch (index2) {
 						case 0 : // problème de déplacements
 							index1=randint(0,3)
-							vitesse_moy=randint(vitesses[index1][1],vitesses[index1][2])
-							distance=Math.round(vitesse_moy*3.6*vitesses[index1][3]*randint(5,20)/10)
-							quidam=prenom()
+							vitesse_moy=randint(vitesses[index1][1],vitesses[index1][2]) // vitesse choisie pour l'exo
+							distance=Math.round(vitesse_moy*3.6*vitesses[index1][3]*randint(5,20)/10) //distance choisie pour question b
+							quidam=prenom() //prenom choisi
 							duree = randint(2,vitesses[index1][3])
 							texte =`${quidam} se déplace ${vitesses[index1][0]} à la vitesse de ${tex_nombrec(vitesse_moy)} m/s.<br>`
 							texte +=num_alpha(0)+` En se déplaçant à cette vitesse pendant ${duree} h, quelle est la distance parcourue par ${quidam} en km ?<br>`
@@ -3346,11 +3346,11 @@ function problemes_grandeurs_composees(){
 							texte_corr +=`Appliquons l'égalité des produits en croix : ${produits_en_croix([[`${vitesse_moy}\\text{ m}`,`1 \\text{ s}`],[`${tex_nombrec(distance*1000)}\\text{ m}`,`\\mathcal{t}\\times ${tex_nombre(3600)}\\text{ s/h}`]])}<br>`
 							texte_corr +=`D'où : $\\mathcal{t}=\\dfrac{1 \\text{ s}\\times${tex_nombrec(distance*1000)}\\text{ m}}{${vitesse_moy}\\text{ m}\\times${tex_nombre(3600)}\\text{ s}}$ (t est le nombre décimal d'heures : les mètres et les secondes disparaissent car elles sont présentes au numérateur et au dénominateur.)<br>`
 							texte_corr +=`Soit : $\\mathcal{t}\\approx${tex_nombrec(distance*1000/vitesse_moy/3600)}\\text{ h}\\approx${tex_nombrec(arrondi(distance*1000/vitesse_moy,0))}\\text{ s}\\approx`
-							nbheures = Math.floor(distance*1000/vitesse_moy/3600);
+							nbheures = Math.floor(distance*1000/vitesse_moy/3600); //conversion en h min s
 							nbminutes = Math.floor((Math.floor(distance*1000/vitesse_moy)%3600)/60)
 							nbsecondes = arrondi(distance*1000/vitesse_moy-3600*nbheures-60*nbminutes,0)
 							texte_corr+=`(${tex_nombre(nbheures)}\\times ${tex_nombre(3600)}+${tex_nombre(nbminutes)}\\times 60+${tex_nombre(nbsecondes)})\\text{ s}\\approx`
-							if (nbheures!=0) texte_corr+=`${tex_nombre(nbheures)}\\text{ h }`
+							if (nbheures!=0) texte_corr+=`${tex_nombre(nbheures)}\\text{ h }`//affichage de la réponse
 							if (nbminutes!=0) texte_corr+=`${tex_nombre(nbminutes)}\\text{ min }`
 							texte_corr+=`${tex_nombre(nbsecondes)}\\text{ s}$`
 							break
