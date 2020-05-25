@@ -2917,4 +2917,539 @@ function Aire_du_parallelogramme(){
 // 	this.besoin_formulaire_numerique = ['Niveau de difficulté',3,"1 : Périmètres\n\
 // 2 : Aires\n3 : Périmètres et aires"];
 
-}
+};
+
+/**
+ * 5A10 - Division Euclidienne; diviseurs, multiples, critères de divisibilité
+ * Exercice bilan
+ * @author Sébastien Lozano
+ */
+ 
+function Liste_des_diviseurs_5e(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.sup = 1 ; 
+	this.titre = "Écrire la liste de tous les diviseurs d'un entier."; 
+	// pas de différence entre la version html et la version latex pour la consigne
+	this.consigne =`Écrire la liste de tous les diviseurs d'un entier.`;
+	//this.consigne += `<br>`;
+	sortie_html ? this.spacing = 3 : this.spacing = 2;
+	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
+	this.nb_questions = 3;
+	//this.correction_detaillee_disponible = true;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		let type_de_questions;
+		if (sortie_html) { // les boutons d'aide uniquement pour la version html
+			//this.bouton_aide = '';
+			//this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A10.pdf","Aide mémoire sur la division euclidienne (Sébastien Lozano)","Aide mémoire")		
+			//this.bouton_aide += modal_video('conteMathsNombresPremiers','videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
+		} else { // sortie LaTeX
+		};
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		this.contenu = ''; // Liste de questions
+		this.contenu_correction = ''; // Liste de questions corrigées
+
+		let type_de_questions_disponibles = [1,1,2];
+		//let type_de_questions_disponibles = [1];
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
+
+			for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
+				type_de_questions = liste_type_de_questions[i];
+
+				switch (type_de_questions) {
+					case 1 : // Compléter un tableau pour trouver la liste de tous les diviseurs d'un entier
+						// on choisit un entier non premier inférieur à 99
+						let M = randint(2,99,crible_eratosthene_n(99));
+						// on calcule le nombre de diviseur de M pour prévoir le nombre de lignes du tableau
+						let nbre_diviseurs_M = liste_diviseurs(M).length;
+						
+						texte = `Compléter le tableau suivant et faire la liste de tous les diviseurs de ${M}`;
+						texte += `<br>`;						
+
+						if (sortie_html) {
+							texte += `$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|}\n`
+						} else {
+							texte += `$\\begin{array}{|c|c|c|}\n`
+						};						
+						texte += `\\hline\n`
+						texte += `\\text{Facteur n°1} & \\text{Facteur n°2} & \\text{Produit donnant } ${M} \\\\\n`
+						texte += `\\hline\n`
+
+						if (nbre_diviseurs_M%2==0) {//si il y a un nombre pair de diviseurs
+							for (let m = 0; m<(liste_diviseurs(M).length/2); m++){
+								texte += texte_ou_pas(liste_diviseurs(M)[m])+` & `+texte_ou_pas(liste_diviseurs(M)[(liste_diviseurs(M).length-m-1)])+`& ${texte_ou_pas(M)} \\\\\n`;
+								texte += `\\hline\n`;
+							};
+						} else { // sinon il est impair, cela n'arrive qu'avvec les carrés parfaits
+							for (let m = 0; m<((liste_diviseurs(M).length-1)/2); m++){
+								texte += texte_ou_pas(liste_diviseurs(M)[m])+` & `+texte_ou_pas(liste_diviseurs(M)[(liste_diviseurs(M).length-m-1)])+`& ${texte_ou_pas(M)} \\\\\n`;
+							};
+							texte += texte_ou_pas(liste_diviseurs(M)[(nbre_diviseurs_M-1)/2])+` & `+texte_ou_pas(liste_diviseurs(M)[(nbre_diviseurs_M-1)/2])+`& ${texte_ou_pas(M)} \\\\\n`;							
+							texte += `\\hline\n`;
+						};			
+						texte += `\\end{array}\n$`
+
+						// correction
+
+						texte_corr = `Le tableau suivant contient tous les couples de facteurs dont le produit vaut ${M}`;
+						texte_corr += `<br>`;						
+
+						if (sortie_html) {
+							texte_corr += `$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|}\n`
+						} else {
+							texte_corr += `$\\begin{array}{|c|c|c|}\n`
+						};						
+						texte_corr += `\\hline\n`
+						texte_corr += `\\text{Facteur n°1} & \\text{Facteur n°2} & \\text{Produit donnant } ${M} \\\\\n`
+						texte_corr += `\\hline\n`
+
+						if (nbre_diviseurs_M%2==0) {//si il y a un nombre pair de diviseurs
+							for (let m = 0; m<(liste_diviseurs(M).length/2); m++){
+								texte_corr += liste_diviseurs(M)[m]+` & `+liste_diviseurs(M)[(liste_diviseurs(M).length-m-1)]+`& ${M} \\\\\n`;
+								texte_corr += `\\hline\n`;
+							};
+						} else { // sinon il est impair, cela n'arrive qu'avvec les carrés parfaits
+							for (let m = 0; m<((liste_diviseurs(M).length-1)/2); m++){
+								texte_corr += liste_diviseurs(M)[m]+` & `+liste_diviseurs(M)[(liste_diviseurs(M).length-m-1)]+`& ${M} \\\\\n`;
+							};
+							texte_corr += liste_diviseurs(M)[(nbre_diviseurs_M-1)/2]+` & `+liste_diviseurs(M)[(nbre_diviseurs_M-1)/2]+`& ${M} \\\\\n`;							
+							texte_corr += `\\hline\n`;
+						};		
+						texte_corr += `\\end{array}\n$`
+
+						texte_corr += `<br>`;
+						texte_corr += `${M} a donc ${nbre_diviseurs_M} diviseurs qui sont : `;
+						texte_corr += `1`;
+						for (let w = 1; w<liste_diviseurs(M).length; w++) {
+							texte_corr += `; `+liste_diviseurs(M)[w];
+						};
+						texte_corr += `.`;					
+						break;
+					case 2 : // liste des diviseurs
+						// on définit un tableau pour les choix du nombre dont on veut les diviseurs
+						// 3 parmis 2,99 y compris les premiers et 1 parmis les entiers à 3 chiffres ayant au moins 8 diviseurs, il y en a 223 !
+						let tableau_de_choix = [];
+						tableau_de_choix =[randint(2,99),randint(2,99,[tableau_de_choix[0]]),randint(2,99,[tableau_de_choix[0],tableau_de_choix[1]]),randint(2,99,[tableau_de_choix[0],tableau_de_choix[1],tableau_de_choix[2]])];
+						let tableau_de_choix_3chiffres =[];
+						for (let m=101; m<999; m++) {
+							if (liste_diviseurs(m).length>8) {
+								tableau_de_choix_3chiffres.push(m);
+							};
+						};
+						// on ajoute un nombre à trois chiffre avec au moins 8 diviseurs dans les choix possibles
+						let rg_Nb_3chiffres = randint(0,(tableau_de_choix_3chiffres.length-1));
+						tableau_de_choix.push(tableau_de_choix_3chiffres[rg_Nb_3chiffres]);
+										
+						let N; // on déclare le nombre dont on va chercher les diviseurs
+						let rg_N; // pour tirer le rang du nombre dans le tableau des choix
+						rg_N = randint(0,(tableau_de_choix.length-1));
+						N = tableau_de_choix[rg_N];
+						texte = `Écrire la liste de tous les diviseurs de ${N}.`;
+						//texte += tableau_de_choix.length;
+						texte_corr = `Pour trouver la liste des diviseurs de ${N} on cherche tous les produits de deux facteurs qui donnent ${N}<br>`;
+						if (liste_diviseurs(N).length%2==0) {//si il y a un nombre pair de diviseurs
+							for (let m = 0; m<(liste_diviseurs(N).length/2); m++){
+								texte_corr += ``+liste_diviseurs(N)[m]+`$\\times$`+liste_diviseurs(N)[(liste_diviseurs(N).length-m-1)]+`<br>`;
+							};
+						} else {
+							for (let m = 0; m<((liste_diviseurs(N).length-1)/2); m++){
+								texte_corr += ``+liste_diviseurs(N)[m]+`$\\times$`+liste_diviseurs(N)[(liste_diviseurs(N).length-m-1)]+`<br>`;
+							};
+							texte_corr += ``+liste_diviseurs(N)[(liste_diviseurs(N).length-1)/2]+`$\\times$`+liste_diviseurs(N)[(liste_diviseurs(N).length-1)/2]+`<br>`;
+						};
+						texte_corr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${N}<br>`;
+						texte_corr += `La liste des diviseurs de ${N} est donc `;
+						texte_corr += `1`;
+						for (let w = 1; w<liste_diviseurs(N).length; w++) {
+							texte_corr += `; `+liste_diviseurs(N)[w];
+						};
+						texte_corr += `.`;
+						break;							
+				};
+			
+				if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+					this.liste_questions.push(texte);
+					this.liste_corrections.push(texte_corr);
+					i++;
+				}
+				cpt++
+			}	
+	
+		liste_de_question_to_contenu(this);
+	}
+	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
+};
+
+
+/**
+ * 5A10-1 - Division Euclidienne; diviseurs, multiples, critères de divisibilité
+ * Exercice bilan
+ * pas encore modifié
+ * @author Sébastien Lozano
+ */
+ 
+function DivisionEuclidienne_multiplesDiviseurs_Criteres_5e(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.sup = 1 ; 
+	this.titre = "Division Euclidienne - Diviseurs - Multiples"; 
+	// pas de différence entre la version html et la version latex pour la consigne
+	this.consigne =`Divisions euclidiennes - Diviseurs - Multiples.`;
+	//this.consigne += `<br>`;
+	sortie_html ? this.spacing = 3 : this.spacing = 2;
+	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
+	this.nb_questions = 5;
+	//this.correction_detaillee_disponible = true;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		let type_de_questions;
+		if (sortie_html) { // les boutons d'aide uniquement pour la version html
+			//this.bouton_aide = '';
+			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A10.pdf","Aide mémoire sur la division euclidienne (Sébastien Lozano)","Aide mémoire")		
+			//this.bouton_aide += modal_video('conteMathsNombresPremiers','videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
+		} else { // sortie LaTeX
+		};
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		this.contenu = ''; // Liste de questions
+		this.contenu_correction = ''; // Liste de questions corrigées
+
+		let type_de_questions_disponibles = [1,2,3,4,5];
+		//let type_de_questions_disponibles = [1];
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
+
+			for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
+				type_de_questions = liste_type_de_questions[i];
+
+				var dividende;
+				var diviseur;
+				var quotient;
+				var reste;				
+	
+				switch (type_de_questions) {
+					case 1 : // plus grand reste dans une division euclidienne
+						diviseur = randint(2,99);
+						texte = `Dire quel est le plus grand reste possible dans une division euclidienne par ${diviseur}.`;
+						texte_corr = `Si on divise par ${diviseur}, il ne peut pas rester plus de ${diviseur - 1}, sinon c'est qu'on peut encore ajouter au moins 1 fois ${diviseur} dans le dividende et donc 1 au quotient.`;
+						break;		
+					case 2 : // quotient et reste d'une division euclidienne donnée
+						diviseur = randint(2,99);
+						dividende = randint(1001,99999);
+						quotient = Math.trunc(dividende/diviseur);
+						reste = dividende%diviseur;
+
+						texte = `On a ${nombre_avec_espace(dividende)}=${nombre_avec_espace(diviseur)}$\\times$${nombre_avec_espace(quotient)} $+$ ${nombre_avec_espace(reste)}`;
+						texte += `<br>`;
+						texte += `Écrire le quotient et le reste de la division euclidienne de ${nombre_avec_espace(dividende)} par ${diviseur}.` ;
+						texte_corr = `Dans la division euclidienne de ${nombre_avec_espace(dividende)} par ${diviseur}, le quotient vaut ${nombre_avec_espace(quotient)} et le reste ${reste}.`;
+						break;	
+					case 3 : // caractérisation des multiples et diviseurs par le reste de la division euclidienne
+						dividende = randint(101,9999);
+						let rg_diviseur; // rang du diviseur choisi
+						if (liste_diviseurs(dividende).length%2==0) {//si il y a un nombre pair de diviseurs on prend le (n/2+1) eme
+							rg_diviseur = liste_diviseurs(dividende).length/2+1;
+						} else { // il y a nbre impair de diviseurs on prend le ((n-1)/2 +1) eme
+							rg_diviseur = (liste_diviseurs(dividende).length-1)/2 +1;							
+						}
+						diviseur = liste_diviseurs(dividende)[rg_diviseur-1]; // on choisit le diviseur central de dividende, ATTENTION rang des tableaux commence à 0 
+						let candidats_diviseurs = [diviseur-1,diviseur,diviseur+1]; // on prend l'entier précédetn et le successeur de ce diviseur
+						// Faut-il que je conditionne pour éviter le diviseur 1 ?
+						candidats_diviseurs=shuffle(candidats_diviseurs); // on mélange le tableau
+						texte = 'Les trois divisions euclidiennes suivantes sont exactes : <br>';
+						texte += `${nombre_avec_espace(dividende)} = ${nombre_avec_espace(candidats_diviseurs[0])}$\\times$${nombre_avec_espace(Math.trunc(dividende/candidats_diviseurs[0]))} $+$ ${nombre_avec_espace(dividende%candidats_diviseurs[0])}`;
+						texte += `<br>`;
+						texte += `${nombre_avec_espace(dividende)} = ${nombre_avec_espace(candidats_diviseurs[1])}$\\times$${nombre_avec_espace(Math.trunc(dividende/candidats_diviseurs[1]))} $+$ ${nombre_avec_espace(dividende%candidats_diviseurs[1])}`;
+						texte += `<br>`;
+						texte += `${nombre_avec_espace(dividende)} = ${nombre_avec_espace(candidats_diviseurs[2])}$\\times$${nombre_avec_espace(Math.trunc(dividende/candidats_diviseurs[2]))} $+$ ${nombre_avec_espace(dividende%candidats_diviseurs[2])}`;
+						texte += `<br>`;
+						texte += `Sans calculer, dire si les nombres ${nombre_avec_espace(candidats_diviseurs[0])}; ${nombre_avec_espace(candidats_diviseurs[1])}; ${nombre_avec_espace(candidats_diviseurs[2])} sont des diviseurs de ${nombre_avec_espace(dividende)}. Justifier.`;
+						texte_corr =``;
+						if (dividende%candidats_diviseurs[0]==0) {
+							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[0])} vaut 0 donc ${nombre_avec_espace(candidats_diviseurs[0])} est un diviseur de ${nombre_avec_espace(dividende)}`;							
+						} else {
+							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[0])} ne vaut pas 0 donc ${nombre_avec_espace(candidats_diviseurs[0])} n'est pas un diviseur de ${nombre_avec_espace(dividende)}`;							
+						}
+						texte_corr += `<br>`;
+						if (dividende%candidats_diviseurs[1]==0) {
+							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[1])} vaut 0 donc ${nombre_avec_espace(candidats_diviseurs[1])} divise ${nombre_avec_espace(dividende)}`;							
+						} else {
+							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[1])} ne vaut pas 0 donc ${nombre_avec_espace(candidats_diviseurs[1])} ne divise pas ${nombre_avec_espace(dividende)}`;							
+						}
+						texte_corr += `<br>`;
+						if (dividende%candidats_diviseurs[1]==0) {
+							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[2])} vaut 0 donc ${nombre_avec_espace(dividende)} est divisible par ${nombre_avec_espace(candidats_diviseurs[2])}`;							
+						} else {
+							texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[2])} ne vaut pas 0 donc ${nombre_avec_espace(dividende)} n'est pas divisible par ${nombre_avec_espace(candidats_diviseurs[2])}`;							
+						}
+						texte_corr += `<br>`;						
+						break;
+					case 4 : // vocabulaire diviseurs et multiples
+						// on déclare des tableaux utiles 
+						let diviseurs=[];
+						let multiplicateurs=[];
+						let multiples=[];
+						let quotients=[];
+						let textes=[];
+						let textes_corr=[];
+						// on tire au hasard 4 diviseurs différents entre 2 et 999 et 4 multiplicateurs différents entre 2 et 9 
+						diviseurs = [randint(2,999),randint(2,999,[diviseurs[0]]),randint(2,999,[diviseurs[0],diviseurs[1]]),randint(2,999,[diviseurs[0],diviseurs[1],diviseurs[2]])];
+						multiplicateurs = [randint(2,9),randint(2,9,[multiplicateurs[0]]),randint(2,9,[multiplicateurs[0],multiplicateurs[1]]),randint(2,9,[multiplicateurs[0],multiplicateurs[1],multiplicateurs[2]])];
+						// on calcule les multiples
+						for (let j = 0; j<4; j++) {
+							multiples[j]=diviseurs[j]*multiplicateurs[j];
+							quotients[j]=multiples[j]/diviseurs[j];
+							diviseurs[j]=nombre_avec_espace(diviseurs[j]);
+							multiples[j]=nombre_avec_espace(multiples[j]);							
+							quotients[j]=nombre_avec_espace(quotients[j]);
+						};						
+						// on crée les phrases 
+						textes[0]=`${diviseurs[0]} $\\ldots\\ldots\\ldots\\ldots$ ${multiples[0]}`;
+						textes_corr[0]=`${diviseurs[0]} est un diviseur de ${multiples[0]} car ${multiples[0]}=${diviseurs[0]}$\\times$${quotients[0]}`;
+						textes[1]=`${diviseurs[1]} $\\ldots\\ldots\\ldots\\ldots$ ${multiples[1]}`;
+						textes_corr[1]=`${diviseurs[1]} est un diviseur de ${multiples[1]} car ${multiples[1]}=${diviseurs[1]}$\\times$${quotients[1]}`;
+						textes[2]=`${multiples[2]} $\\ldots\\ldots\\ldots\\ldots$ ${diviseurs[2]}`;
+						textes_corr[2]=`${multiples[2]} est un multiple de ${diviseurs[2]} car ${multiples[2]}=${diviseurs[2]}$\\times$${quotients[2]}`;
+						textes[3]=`${multiples[3]} $\\ldots\\ldots\\ldots\\ldots$ ${diviseurs[3]}`;
+						textes_corr[3]=`${multiples[3]} est un multiple de ${diviseurs[3]} car ${multiples[3]}=${diviseurs[3]}$\\times$${quotients[3]}`;
+						// on ajoute deux cas ni multiple ni diviseur
+						// on choisit deux nombres
+						let n1 = nombre_avec_espace(randint(2,999,[diviseurs[0],diviseurs[1],diviseurs[2],diviseurs[3]]));
+						let p1 = nombre_avec_espace(randint(2,999,[diviseurs[0],diviseurs[1],diviseurs[2],diviseurs[3],n1]));
+						// on choisit un autre qui n'est pas dans la liste des diviseurs de n1
+						let n2 = nombre_avec_espace(randint(2,999,liste_diviseurs(n1)));
+						let p2 = nombre_avec_espace(randint(2,999,liste_diviseurs(p1)));
+						textes[4]=`${n1} $\\ldots\\ldots\\ldots\\ldots$ ${n2}`;
+						textes_corr[4]=`${n1} n'est ni un multiple ni un diviseur de ${n2}`;
+						textes[5]=`${p2} $\\ldots\\ldots\\ldots\\ldots$ ${p1}`;
+						textes_corr[5]=`${p2} n'est ni un multiple ni un diviseur de ${p1}`;
+						// on mélange pour que l'ordre change!
+						shuffle2tableaux(textes,textes_corr);
+						texte = `Avec la calculatrice, compléter chaque phrase avec le mot "est un diviseur de" ou "est un multiple de" ou "n'est ni une diviseur ni un multiple de".`;
+						texte+= `<br>`;
+						texte_corr =``;
+						for (let j = 0; j<6; j++) {
+							texte += textes[j];
+							texte +=`<br>`;
+							texte_corr += textes_corr[j];
+							texte_corr +=`<br>`;
+						};
+						break;
+					// case 5 :
+					// 	texte = `bla bla bla`;
+					// 	break;
+					case 5 : // liste des diviseurs
+						// on définit un tableau pour les choix du nombre dont on veut les diviseurs
+						// 3 parmis 2,99 y compris les premiers et 1 parmis les entiers à 3 chiffres ayant au moins 8 diviseurs, il y en a 223 !
+						let tableau_de_choix = [];
+						tableau_de_choix =[randint(2,99),randint(2,99,[tableau_de_choix[0]]),randint(2,99,[tableau_de_choix[0],tableau_de_choix[1]]),randint(2,99,[tableau_de_choix[0],tableau_de_choix[1],tableau_de_choix[2]])];
+						let tableau_de_choix_3chiffres =[];
+						for (let m=101; m<999; m++) {
+							if (liste_diviseurs(m).length>8) {
+								tableau_de_choix_3chiffres.push(m);
+							};
+						};
+						// on ajoute un nombre à trois chiffre avec au moins 8 diviseurs dans les choix possibles
+						let rg_Nb_3chiffres = randint(0,(tableau_de_choix_3chiffres.length-1));
+						tableau_de_choix.push(tableau_de_choix_3chiffres[rg_Nb_3chiffres]);
+						console.log(tableau_de_choix);												
+						let N; // on déclare le nombre dont on va chercher les diviseurs
+						let rg_N; // pour tirer le rang du nombre dans le tableau des choix
+						rg_N = randint(0,(tableau_de_choix.length-1));
+						N = tableau_de_choix[rg_N];
+						texte = `Écrire la liste de tous les diviseurs de ${N}.`;
+						//texte += tableau_de_choix.length;
+						texte_corr = `Pour trouver la liste des diviseurs de ${N} on cherche tous les produits de deux facteurs qui donnent ${N}<br>`;
+						if (liste_diviseurs(N).length%2==0) {//si il y a un nombre pair de diviseurs
+							for (let m = 0; m<(liste_diviseurs(N).length/2); m++){
+								texte_corr += ``+liste_diviseurs(N)[m]+`$\\times$`+liste_diviseurs(N)[(liste_diviseurs(N).length-m-1)]+`<br>`;
+							};
+						} else {
+							for (let m = 0; m<((liste_diviseurs(N).length-1)/2); m++){
+								texte_corr += ``+liste_diviseurs(N)[m]+`$\\times$`+liste_diviseurs(N)[(liste_diviseurs(N).length-m-1)]+`<br>`;
+							};
+							texte_corr += ``+liste_diviseurs(N)[(liste_diviseurs(N).length-1)/2]+`$\\times$`+liste_diviseurs(N)[(liste_diviseurs(N).length-1)/2]+`<br>`;
+						};
+						texte_corr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${N}<br>`;
+						texte_corr += `La liste des diviseurs de ${N} est donc `;
+						texte_corr += `1`;
+						for (let w = 1; w<liste_diviseurs(N).length; w++) {
+							texte_corr += `; `+liste_diviseurs(N)[w];
+						};
+						break;							
+				};
+			
+				if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+					this.liste_questions.push(texte);
+					this.liste_corrections.push(texte_corr);
+					i++;
+				}
+				cpt++
+			}	
+	
+		liste_de_question_to_contenu(this);
+	}
+	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
+};
+
+/**
+ * 5A11 justifier la non primalité réinvestissement des critères de divisibilité
+ * Nombres à 3 ou 4 chiffres, un multiple de 2, de 3, de 5, de 7, de 10, sous forme d'un produit de deux nombres premiers inférieurs à 30
+ * et un nombre premier inferieur à 529 
+ * @author Sébastien Lozano
+ */
+function Premier_ou_pas_5e(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Primalité ou pas"; 
+	// pas de différence entre la version html et la version latex pour la consigne
+	this.consigne =`Justifier que les nombres suivants sont premiers ou pas.`;
+	//this.consigne += `<br>`;	
+	sortie_html ? this.spacing = 3 : this.spacing = 2;
+	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
+	this.nb_questions = 7;
+	//this.correction_detaillee_disponible = true;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.sup = 1;
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		let type_de_questions;
+		if (sortie_html) { // les boutons d'aide uniquement pour la version html
+			//this.bouton_aide = '';
+			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-5A11.pdf","Aide mémoire sur les nombres premiers (Sébastien Lozano)","Aide mémoire")		
+			this.bouton_aide += modal_video('conteMathsNombresPremiers','videos/LesNombresPremiers.mp4','Petit conte mathématique - Les Nombres Premiers','Intro Vidéo');
+		} else { // sortie LaTeX
+		};
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		this.contenu = ''; // Liste de questions
+		this.contenu_correction = ''; // Liste de questions corrigées
+
+		let type_de_questions_disponibles = [1,2,3,4,5,6,7];
+		//type_de_questions_disponibles=shuffle(type_de_questions_disponibles); // on mélange l'ordre des questions
+		//let type_de_questions_disponibles = [1];
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
+		
+		let string_rappel = `Cette liste des nombres premiers inférieurs à 30 pourra être utile : <br>`+crible_eratosthene_n(100)[0];
+		for (let k=1;k<crible_eratosthene_n(30).length;k++) {
+			string_rappel +=`, `+crible_eratosthene_n(30)[k];
+		};
+		string_rappel +=`.`;
+		if (sortie_html) {
+			this.introduction =`
+			<br>
+			<div class="ui compact warning message">		
+			<p>`+string_rappel+`
+			</p>
+			</div>
+			<br>`;
+		} else {
+			this.introduction = tex_cadre_par_orange(string_rappel);							
+		};
+
+			for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
+
+				type_de_questions = liste_type_de_questions[i];
+				
+				var N; // le nombre de la question
+	
+				switch (type_de_questions) {
+					case 1 : // nombre pair
+						N=2*randint(51,4999);
+						texte = nombre_avec_espace(N);						
+						texte_corr = `Comme ${nombre_avec_espace(N)} est pair, il admet donc au moins trois diviseurs qui sont 1, 2 et lui-même,<br> ${nombre_avec_espace(N)} n'est donc pas premier.`;
+						break;		
+					case 2 : // Multiple de 3
+						let sum3=0; // pour la valeur de la somme;
+						N=3*randint(34,3333);
+						texte = nombre_avec_espace(N);
+						texte_corr = `Comme `+ N.toString().charAt(0);
+						sum3 = Number(N.toString().charAt(0));
+						for (let k=1; k<N.toString().length; k++) {
+							texte_corr += ` + `+N.toString().charAt(k);
+							sum3 +=Number(N.toString().charAt(k));
+						};					
+						texte_corr += ` = ${sum3} est un multiple de 3 donc ${nombre_avec_espace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 3 et lui-même,<br> ${nombre_avec_espace(N)} n'est donc pas premier.`;
+						break;	
+					case 3 : // Multiple de 5
+						N=5*randint(20,1999);
+						texte = nombre_avec_espace(N);
+						texte_corr = `Comme le dernier chiffre de ${nombre_avec_espace(N)} est un ${N.toString().charAt(N.toString().length-1)} alors ${nombre_avec_espace(N)} est divisible par 5, `;
+						texte_corr += `il admet donc au moins trois diviseurs qui sont 1, 5 et lui-même,<br> ${nombre_avec_espace(N)} n'est donc pas premier.`;
+						break;	
+					case 4 : // Multiple de 9
+						let sum9=0; // pour la valeur de la somme;
+						N=9*randint(12,1111);
+						texte = nombre_avec_espace(N);
+						texte_corr = `Comme `+ N.toString().charAt(0);
+						sum9 = Number(N.toString().charAt(0));
+						for (let k=1; k<N.toString().length; k++) {
+							texte_corr += ` + `+N.toString().charAt(k);
+							sum9 +=Number(N.toString().charAt(k));
+						};					
+						texte_corr += ` = ${sum9} est un multiple de 9 donc ${nombre_avec_espace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 9 et lui-même,<br> ${nombre_avec_espace(N)} n'est donc pas premier.`;
+						break;	
+					case 5 : // multiple de 10
+						N=10*randint(10,999);
+						texte = nombre_avec_espace(N);
+						texte_corr = `Comme le nombre ${nombre_avec_espace(N)} se termine par un ${N.toString().charAt(N.toString().length-1)} alors ${nombre_avec_espace(N)} est un multiple de 10, `;
+						texte_corr += `il admet donc au moins trois diviseurs qui sont 1, 10 et lui-même,<br> ${nombre_avec_espace(N)} n'est donc pas premier.`;
+						break;	
+					case 6 : // produit de deux nombres premiers inférieurs à 30
+						// rang du premier facteur premier
+						let r1 = randint(0,crible_eratosthene_n(30).length-1);
+						// rang du second facteur premier
+						let r2 = randint(0,crible_eratosthene_n(30).length-1);
+						let prime1 = crible_eratosthene_n(100)[r1]; // on tire un nombre premier inférieur à 100, il n'y en a que 25!
+						let prime2 = crible_eratosthene_n(100)[r2]; // on tire un autre nombre premier inférieur à 100, ça peut être le même qu'avant!
+						N=prime1+`$\\times$`+prime2;
+						texte = N;
+						texte_corr = `${N} est le produit de ${prime1} et de ${prime2}, il admet donc au moins `;
+						if (prime1==prime2) {
+							texte_corr += `trois divisieurs qui sont 1, ${prime1} et lui-même ${N}=${nombre_avec_espace(prime1*prime2)}`;
+						} else {
+							texte_corr += `quatre diviseurs qui sont 1, ${prime1}, ${prime2} et lui-même ${N}=${nombre_avec_espace(prime1*prime2)}`;
+						};
+						texte_corr +=`<br> ${N} n'est donc pas premier.`; 
+						break;
+					case 7 : // nombre premier inférieur à 29
+						// rang du nombre premier choisi
+						// let r = randint(0,crible_eratosthene_n(529).length-1);
+						// N=crible_eratosthene_n(529)[r]; //on choisit un nombre premier inférieur à 529
+						let r = randint(0,crible_eratosthene_n(29).length-1);
+						N=crible_eratosthene_n(29)[r]; //on choisit un nombre premier inférieur à 529
+						texte = N+``;
+						let tab_premiers_a_tester = crible_eratosthene_n(N);
+						//console.log(crible_eratosthene_n(N).length);
+						texte_corr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à ${N}, c'est à dire par les nombres `;
+						texte_corr += tab_premiers_a_tester[0];
+						for (let k=1;k<tab_premiers_a_tester.length;k++) {
+							texte_corr += `, `+tab_premiers_a_tester[k];
+						};
+						texte_corr += `.`;
+						texte_corr += `<br> Aucun de ces nombres premiers ne divise ${N}.`;
+						texte_corr +=`<br> ${N} est donc un nombre premier.`; 
+						break;								
+				};
+			
+				if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+					this.liste_questions.push(texte);
+					this.liste_corrections.push(texte_corr);
+					i++;
+				}
+				cpt++
+			}	
+	
+		liste_de_question_to_contenu(this);
+	}
+	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
+};

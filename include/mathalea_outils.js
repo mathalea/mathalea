@@ -3044,6 +3044,21 @@ function crible_eratosthene_n(n) {
 };
 
 /**
+ * tire à pile ou face pour écrire ou non un texte
+ * @param {string} texte 
+ * @author Sébastien Lozano
+ */
+
+function texte_ou_pas(texte) {
+	let bool = randint(0,1);
+	if (bool==0) {
+		return `\\ldots`;
+	} else {
+		return texte;
+	};
+};
+
+/**
  * Pour les tests de la bibliothèque d3.js
  * @param {string} id_du_div 
  * @author Sébastien Lozano 
