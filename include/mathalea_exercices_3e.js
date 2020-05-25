@@ -2416,8 +2416,7 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 						};
 						// on ajoute un nombre à trois chiffre avec au moins 8 diviseurs dans les choix possibles
 						let rg_Nb_3chiffres = randint(0,(tableau_de_choix_3chiffres.length-1));
-						tableau_de_choix.push(tableau_de_choix_3chiffres[rg_Nb_3chiffres]);
-						console.log(tableau_de_choix);												
+						tableau_de_choix.push(tableau_de_choix_3chiffres[rg_Nb_3chiffres]);											
 						let N; // on déclare le nombre dont on va chercher les diviseurs
 						let rg_N; // pour tirer le rang du nombre dans le tableau des choix
 						rg_N = randint(0,(tableau_de_choix.length-1));
