@@ -3332,7 +3332,6 @@ function problemes_grandeurs_composees(){
 							index1=randint(0,3)
 							vitesse_moy=randint(vitesses[index1][1],vitesses[index1][2])
 							distance=Math.round(vitesse_moy*3.6*vitesses[index1][3]*randint(5,20)/10)
-							console.log(distance)
 							quidam=prenom()
 							duree = randint(2,vitesses[index1][3])
 							texte =`${quidam} se déplace ${vitesses[index1][0]} à la vitesse de ${tex_nombrec(vitesse_moy)} m/s.<br>`
