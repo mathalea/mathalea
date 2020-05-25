@@ -3169,7 +3169,7 @@ function Image_antecedent_graphique(){
 	this.pas_de_version_LaTeX = true ;
 	this.titre = "Lire image ou antécédents d'un nombre à partir d'un graphique"
 	this.consigne = "'"
-	this.sup = 2;
+	this.sup = 3;
 	this.spacing = 2;
 	this.spacing_corr = 2 ;
 	this.nb_questions = 1;
@@ -3232,7 +3232,10 @@ function Image_antecedent_graphique(){
 
 		if (this.sup==3) {
 			[[numa,dena],[numb,denb],[numc,denc]]=resol_sys_lineaire_3x3(x1,x2,x3,fx1,fx2,fx3,d)
-			while (dena==0 || denb==0 || denc==0){
+			let [extremum1,extremum2] = cherche_min_max_f ([numa/dena,numb/denb,numc/denc,d])
+			console.log(abs(extremum1[1]),abs(extremum2[1]))
+			while (dena==0 || denb==0 || denc==0 || abs(extremum1[1])>7 || abs(extremum2[1])>7) {
+				//|| abs(extremum1[1])>9 || abs(extremum2[1])>9
 				x1 = randint(-6,-3);
 				x2 = randint(x1+3,2);
 				x3 = randint(x2+2,8);
@@ -3241,6 +3244,12 @@ function Image_antecedent_graphique(){
 				fx3 = randint(-5,5);
 				d = randint(-10,10);
 				[[numa,dena],[numb,denb],[numc,denc]]=resol_sys_lineaire_3x3(x1,x2,x3,fx1,fx2,fx3,d)
+				if (cherche_min_max_f([numa/dena,numb/denb,numc/denc,d])==[]) {
+					[extremum1,extremum2] = [[0,999],[0,999]]
+				} else {
+					[extremum1,extremum2] = cherche_min_max_f([numa/dena,numb/denb,numc/denc,d])
+				}
+				console.log(extremum1,extremum2)
 			}
 			a = numa/dena;
 			b = numb/denb;
