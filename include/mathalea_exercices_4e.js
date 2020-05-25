@@ -3217,10 +3217,10 @@ function Puissances_de_dix() {
 
 
 /**
- * problèmes de grandeurs composées : grandeurs produit
+ * problèmes de grandeurs composées
  * @Auteur Jean-Claude Lhote
  */
-function problemes_grandeurs_produits(){
+function problemes_grandeurs_composees(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Résoudre des problèmes de grandeurs composées et de conversion d'unités complexes";
