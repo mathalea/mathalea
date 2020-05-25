@@ -3243,7 +3243,7 @@ function problemes_grandeurs_composees(){
 		let rivieres=[[`la Marne`,`Gournay-sur-Marne`,110,550,`avril 1983`],[`la Seine`,`Alfortville`,218,2100,`janvier 1982`],[`l'Oise`,`Pont-Sainte-Maxence`,109,665,`février 1995`],[`la Loire`,`Saint-Nazaire`,931,5350,`décembre 1999`],[`le Rhin`,`Strasbourg`,951,3310,`juin 2016`],[`le Rhône`,`Beaucaire`,1690,11500,`décembre 2003`],[`la Meuse`,`Chooz`,144,1610,`janvier 1995`]]
 						// [Nom de rivière,Lieu de passage,débit moyen annuel, débitmax, date de la crue]
 		let vitesses=[[`sur un vélo`,4,12,8],[`dans un train`,50,100,5],[`dans une voiture`,15,30,5],[`en avion`,150,250,12]] // [moyen de transport, vitesse min,vitesse max en m/s,durée max en h] 
-		for (let i = 0,j,index,index1,index2,duree,quidam,nbheures,nbminutes,nbsecondes,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
+		for (let i = 0,j,index,index1,index2,duree,quidam,nbheures,nbminutes,nbsecondes,vitesse_moy,distance,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
 			switch (liste_index[i]) {
 				case 0 : // problème de consommation éléctrique
 					index=randint(0,3)
@@ -3330,12 +3330,13 @@ function problemes_grandeurs_composees(){
 					switch (index2) {
 						case 0 : // problème de déplacements
 							index1=randint(0,3)
-							let vitesse_moy=randint(vitesses[index1][1],vitesses[index1][2])
-							let distance=arrondi(randint(vitesse_moy*3,6*vitesses[index1][3]*5,vitesse_moy*3,6*vitesses[index1][3]*20)/10)
+							vitesse_moy=randint(vitesses[index1][1],vitesses[index1][2])
+							distance=Math.round(vitesse_moy*3.6*vitesses[index1][3]*randint(5,20)/10)
+							console.log(distance)
 							quidam=prenom()
 							duree = randint(2,vitesses[index1][3])
 							texte =`${quidam} se déplace ${vitesses[index1][0]} à la vitesse de ${tex_nombrec(vitesse_moy)} m/s.<br>`
-							texte +=num_alpha(0)+` En roulant à cette vitesse pendant ${duree} h, quelle est la distance parcourue par ${quidam} en km ?<br>`
+							texte +=num_alpha(0)+` En se déplaçant à cette vitesse pendant ${duree} h, quelle est la distance parcourue par ${quidam} en km ?<br>`
 							texte+= num_alpha(1)+` Si ${quidam} veut parcourir ${nombre_avec_espace(distance)} km à cette vitesse, combien de temps durera le trajet ? Donner le résultat en heures, minutes et secondes.`
 							texte_corr = num_alpha(0)+` La distance parcourue par ${quidam} ${vitesses[index1][0]} en ${duree} h à la vitesse de ${tex_nombrec(vitesse_moy)} m/s est :<br>`
 							texte_corr +=`$${tex_nombrec(vitesse_moy)}\\text{ m/s}\\times${duree}\\text{ h}=\\dfrac{${tex_nombrec(vitesse_moy)}\\text{ m}}{1 \\text{ s}}\\times ${duree}\\times ${tex_nombre(3600)}\\text{ s}`
@@ -3343,12 +3344,12 @@ function problemes_grandeurs_composees(){
 							texte_corr +=num_alpha(1)+` Pour parcourir ${nombre_avec_espace(distance)} km à cette vitesse, ${quidam} mettra :<br>`
 							texte_corr +=` Partons de la formule $\\mathcal{V}=\\dfrac{\\mathcal{d}}{\\mathcal{t}}$ et remplaçons : $\\dfrac{${vitesse_moy}\\text{ m}}{1 \\text{ s}}=\\dfrac{${tex_nombre(distance)}\\text{ km}}{\\mathcal{t}\\text{ h}}$<br>`
 							texte_corr +=`Rendons les unités homogènes : $\\dfrac{${vitesse_moy}\\text{ m}}{1 \\text{ s}}=\\dfrac{${tex_nombrec(distance*1000)}\\text{ m}}{\\mathcal{t}\\text{ h}\\times ${tex_nombre(3600)}\\text{ s/h}}$<br>`
-							texte_corr +=`Appliquons l'égalité des produits en croix : ${produits_en_croix([[`${vitesse_moy}\\text{ m}`,`1 \\text{ s}`],[`${tex_nombrec(distance*1000)}\\text{ m}`,`\\mathcal{t}\\text{ h}\\times ${tex_nombre(3600)}\\text{ s/h}`]])}<br>`
-							texte_corr +=`D'où : $\\mathcal{t}\\text{ h}=\\dfrac{1 \\text{ s}\\times${tex_nombrec(distance*1000)}\\text{ m}}{${vitesse_moy}\\text{ m}\\times${tex_nombre(3600)}\\text{ s}}\\text{ h}$ (les mètres et les secondes disparaissent car elles sont présentes au numérateur et au dénominateur)<br>`
-							texte_corr +=`Soit : $\\mathcal{t}\\text{ h}=${tex_nombrec(distance*1000/vitesse_moy/3600)}\\text{ h}\\approx${tex_nombrec(arrondi(distance*1000/vitesse_moy,0))}\\text{ s}\\approx`
+							texte_corr +=`Appliquons l'égalité des produits en croix : ${produits_en_croix([[`${vitesse_moy}\\text{ m}`,`1 \\text{ s}`],[`${tex_nombrec(distance*1000)}\\text{ m}`,`\\mathcal{t}\\times ${tex_nombre(3600)}\\text{ s/h}`]])}<br>`
+							texte_corr +=`D'où : $\\mathcal{t}=\\dfrac{1 \\text{ s}\\times${tex_nombrec(distance*1000)}\\text{ m}}{${vitesse_moy}\\text{ m}\\times${tex_nombre(3600)}\\text{ s}}$ (t est le nombre décimal d'heures : les mètres et les secondes disparaissent car elles sont présentes au numérateur et au dénominateur.)<br>`
+							texte_corr +=`Soit : $\\mathcal{t}\\approx${tex_nombrec(distance*1000/vitesse_moy/3600)}\\text{ h}\\approx${tex_nombrec(arrondi(distance*1000/vitesse_moy,0))}\\text{ s}\\approx`
 							nbheures = Math.floor(distance*1000/vitesse_moy/3600);
-							let nbminutes = Math.floor((Math.floor(distance*1000/vitesse_moy)%3600)/60)
-							let nbsecondes = arrondi(distance*1000/vitesse_moy-3600*nbheures-60*nbminutes,0)
+							nbminutes = Math.floor((Math.floor(distance*1000/vitesse_moy)%3600)/60)
+							nbsecondes = arrondi(distance*1000/vitesse_moy-3600*nbheures-60*nbminutes,0)
 							texte_corr+=`(${tex_nombre(nbheures)}\\times ${tex_nombre(3600)}+${tex_nombre(nbminutes)}\\times 60+${tex_nombre(nbsecondes)})\\text{ s}\\approx`
 							if (nbheures!=0) texte_corr+=`${tex_nombre(nbheures)}\\text{ h }`
 							if (nbminutes!=0) texte_corr+=`${tex_nombre(nbminutes)}\\text{ min }`
