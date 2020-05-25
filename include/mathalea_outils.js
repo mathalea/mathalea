@@ -2016,22 +2016,46 @@ function resol_sys_lineaire_3x3(x1,x2,x3,fx1,fx2,fx3,d) {
 		return [fraction_simplifiee(a,determinant),fraction_simplifiee(b,determinant),fraction_simplifiee(c,determinant)];
 	}
 }
-
+/**
+ * Fonction qui cherche une fonction polynomiale de degré 3 dont les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d
+ * sont des fractions dont le dénominateur est inférieur à 10 et pour laquelle l'image de 3 entiers compris entre -10 et 10 
+ * sont des entiers compris eux aussi entre -10 et 10
+ * @Auteur Jean-Claude Lhote
+ */
 function crible_polynome_entier() {
 let trouve =false
-for (i=0;;) {
-	let x1=randint(0,10);
-	let x2=randint(0,10);
-	let x3=randint(0,10);
-	let fx1=randint(0,10);
-	let fx2=randint(0,10);
-	let fx3=randint(0,10);
-	let d=randint(0,10);
-	let coefs=[[]]
+let coefs=[[]]
+for (let i=0,x1,x2,x3,fx1,fx2,fx3,d;;i++) {
+	x1=randint(-10,10);
+	x2=randint(-10,10,[x1]);
+	x3=randint(-10,10,[x1,x2]);
+	fx1=randint(-10,10);
+	fx2=randint(-10,10);
+	fx3=randint(-10,10);
+	d=randint(0,10);
 	coefs=resol_sys_lineaire_3x3(x1,x2,x3,fx1,fx2,fx3,d);
 	if (coefs[0][1]!=0&&coefs[0][1]<10&&coefs[1][1]<10&&coefs[2][1]<10) trouve=true;
+	if(trouve) {
+		console.log(i);
+		coefs.push([x1,fx1])
+		coefs.push([x2,fx2])
+		coefs.push([x3,fx3])
+		break;
+	}
 }
 if (trouve) return coefs;
+}
+/**
+ * Fonction qui cherche les minimas et maximas d'une fonction polynomiale f(x)=ax^3 + bx² + cx + d
+ * retourne [] si il n'y en a pas, sinon retourne [[x1,f(x1)],[x2,f(x2)] ne précise pas si il s'agit d'un minima ou d'un maxima.
+ * @Auteur Jean-Claude Lhote
+ */
+function cherche_min_max_f ([a,b,c,d]) { 
+	let delta=4*b*b-12*a*c
+	if (delta<=0) return [];
+	let x1=(-2*b-Math.sqrt(delta))/(6*a)
+	let x2=(-2*b+Math.sqrt(delta))/(6*a)
+	return  [[x1,a*x1**3+b*x1**2+c*x1+d],[x2,a*x2**3+b*x2**2+c*x2+d]]
 }
 
 /**
