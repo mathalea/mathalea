@@ -3284,10 +3284,7 @@ function problemes_grandeurs_composees(){
 							let deltat=randint(2,5);
 							texte = `Une piscine a la forme d'un prisme droit. La profondeur à son extrémité nord est de ${h1} cm et la profondeur à son extrémité sud est de ${h2} cm.<br>`
 							texte +=`D\'une extrémité à l\'autre la pente au fond de la piscine est régulière.<br>La largeur de la piscine (Est-Ouest) est de ${l} m et sa longueur (Nord-Sud) est de ${L} m.<br>`
-							if (sortie_html) { // les boutons d'aide uniquement pour la version html
-						}
-		
-							texte += num_alpha(0)+` Calculer le `+katex_Popup2(numero_de_l_exercice+i,type_aide,"volume",`Définition : volume (grandeur physique)`,`C’est le produit de trois longueurs ou le produit d'une aire et d'une longueur. L'unité de mesure du volume est le $\\text{m}^3$ mais on peut aussi rencontrer le litre (L) avec comme correspondance $\\text{1dm}^3=\\text{1L}$`)+` d'eau en m³ contenu dans cette piscine quand elle est pleine.<br>`
+							texte += num_alpha(0)+` Calculer le `+katex_Popup2(numero_de_l_exercice+i,type_aide,"volume",`Définition : volume (grandeur physique)`,`C’est le produit de trois longueurs ou le produit d'une aire et d'une longueur.<br>L'unité de mesure du volume est le mètre cube ($\\text{m}^3$) mais on peut aussi rencontrer le litre (L) avec comme correspondance $\\text{1dm}^3=\\text{1L}$`)+` d'eau en m³ contenu dans cette piscine quand elle est pleine.<br>`
 							texte += num_alpha(1)+` Sachant que pour élever la température d'un litre d'eau de 1 degré, il faut une énergie de 1,162 Wattheure.<br> Quelle est l'énergie consommée en kWh pour augmenter de ${deltat} degrés ?<br>`							
 							texte_corr = num_alpha(0)+` La base de ce prisme droit est un trapèze rectangle de petite base ${h2} cm, de grande base ${h1} cm et de hauteur ${L} m.<br>`
 							texte_corr += `$\\mathcal{A}=\\dfrac{\\left(${h1}\\text{ cm}+${h2}\\text{ cm}\\right)}{2}\\times${L}\\text{ m}=\\dfrac{\\left(${arrondi_virgule(h1/100)}\\text{ m}+${arrondi_virgule(h2/100)}\\text{ m}\\right)}{2}\\times${L}\\text{ m}`
@@ -3302,7 +3299,7 @@ function problemes_grandeurs_composees(){
 						let r=randint(10,15)*2
 						let h=randint(0,10)+r*4
 						texte = `Un tonneau cylindrique a un rayon de ${r} cm et une hauteur de ${h} cm.<br>`
-						texte +=num_alpha(0)+` Calculer le volume en dm³ à 0,1 près de ce tonneau.<br>`
+						texte +=num_alpha(0)+` Calculer le `+katex_Popup2(numero_de_l_exercice+i,type_aide,"volume",`Définition : volume (grandeur physique)`,`C’est le produit de trois longueurs ou le produit d'une aire et d'une longueur.<br>L'unité de mesure du volume est le mètre cube ($\\text{m}^3$) mais on peut aussi rencontrer le litre (L) avec comme correspondance $\\text{1dm}^3=\\text{1L}$`)+` en dm³ à 0,1 près de ce tonneau.<br>`
 						texte +=num_alpha(1)+` Si on le remplit ${liquides[index2][0]} (dont la densité moyenne est de ${tex_nombrec(liquides[index2][1])}), quelle masse ${liquides[index2][0]} en kg contiendra-t-il au gramme près ?<br>`
 						texte_corr=num_alpha(0)+` Le volume d'un cylindre est donné par la formule $\\mathcal{A}\\text{ire de base}\\times\\mathcal{h}$.<br> Ici la base est un disque de rayon ${r} cm.<br>`
 						texte_corr+=`$\\mathcal{A}\\text{ire de base}\\times\\mathcal{h}=\\pi\\times${r}^{2}\\text{ cm²}\\times${h}\\text{ cm}=${r*r*h}\\pi\\text{ cm³}\\approx${tex_nombre(arrondi(r*r*h*Math.PI,1))}\\text{ cm³}\\approx${tex_nombre(arrondi(r*r*h*Math.PI/1000,1))}\\text{ dm³}$<br>`
@@ -3341,7 +3338,7 @@ function problemes_grandeurs_composees(){
 							vitesse_moy=randint(vitesses[index1][1],vitesses[index1][2]) // vitesse choisie pour l'exo
 							distance=Math.round(vitesse_moy*3.6*vitesses[index1][3]*randint(5,20)/10) //distance choisie pour question b
 							duree = randint(2,vitesses[index1][3])
-							texte =`${quidam} se déplace ${vitesses[index1][0]} à la `+katex_Popup2(numero_de_l_exercice+i,type_aide,`vitesse`,`Définition : `,`(grandeur physique) La vitesse est le quotient de la distance parcourue par le temps de parcours. L'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$)`)+` de ${tex_nombrec(vitesse_moy)} m/s.<br>`
+							texte =`${quidam} se déplace ${vitesses[index1][0]} à la `+katex_Popup2(numero_de_l_exercice+i,type_aide,`vitesse`,`Définition : Vitesse (grandeur physique)`,`La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$)`)+` de ${tex_nombrec(vitesse_moy)} m/s.<br>`
 							texte +=num_alpha(0)+` En se déplaçant à cette vitesse pendant ${duree} h, quelle est la distance parcourue par ${quidam} en km ?<br>`
 							texte+= num_alpha(1)+` Si ${quidam} veut parcourir ${nombre_avec_espace(distance)} km à cette vitesse, combien de temps durera le trajet ? Donner le résultat en heures, minutes et secondes.`
 							texte_corr = num_alpha(0)+` La distance parcourue par ${quidam} ${vitesses[index1][0]} en ${duree} h à la vitesse de ${tex_nombrec(vitesse_moy)} m/s est :<br>`
@@ -3364,7 +3361,7 @@ function problemes_grandeurs_composees(){
 						case 1 : // l'orage et la vitesse du son
 							duree=randint(2,15) //durée pour question a)
 							distance=randint(5,15,[duree])*340 //distance de l'orage en m pour question b
-							texte=`Le son se déplace dans l'air à 340 m/s.<br>`
+							texte=`Le son se déplace dans l'air à la `+katex_Popup2(numero_de_l_exercice+i,type_aide,`vitesse`,`Définition : Vitesse (grandeur physique)`,`La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$)`)+` de 340 m/s.<br>`
 							texte+=num_alpha(0)+` ${quidam} voit un éclair dans le ciel et compte dans sa tête ${duree} secondes avant d'entendre le tonnerre.<br>`
 							texte+=`Quelle est la distance à laquelle l'éclair est tombé ?<br>`
 							texte+=num_alpha(1)+` L'éclair suivant tombe sur le paratonnerre situé sur le clocher de l'église du village voisin.<br>`
@@ -3403,7 +3400,7 @@ function problemes_grandeurs_composees(){
 					index2=randint(0,6)
 					duree=randint(2,24)
 					let vmax=rivieres[index2][3]*3600
-					texte = `Le débit annuel moyen ${rivieres[index2][6]}${rivieres[index2][0]} mesuré à ${rivieres[index2][1]} est de ${rivieres[index2][2]} m³/s.<br>`
+					texte = `Le `+katex_Popup2(numero_de_l_exercice+i,type_aide,`débit`,`Définition : Débit (grandeur physique)`,`Le débit est le quotient d'un volume d'eau écoulée dans une section de conduit par le temps d'écoulement.<br>L'unité officielle est le mètre cube par seconde ($\\text{m}^3/\\text{s}$  et dans certains cas on peut utiliser le litre par minute (L/min)`)+` annuel moyen ${rivieres[index2][6]}${rivieres[index2][0]} mesuré à ${rivieres[index2][1]} est de ${rivieres[index2][2]} m³/s.<br>`
 					texte += num_alpha(0)+` Calculer le volume d'eau en m³ écoulé en ${duree} heures à ce débit.<br>`
 					texte += num_alpha(1)+` En ${rivieres[index2][4]} à ${rivieres[index2][1]}, ${rivieres[index2][5]}${rivieres[index2][0]} a débité ${nombre_avec_espace(vmax)} m³ en une heure. Quel a été alors le débit en m³/s ?`
 					texte_corr = num_alpha(0)+` En ${duree} heures il s'écoule en moyenne dans ${rivieres[index2][5]}${rivieres[index2][0]} à ${rivieres[index2][1]} :<br>`
