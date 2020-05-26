@@ -3215,9 +3215,9 @@ function Image_antecedent_graphique(){
 			[[numa,dena],[numb,denb]]=resol_sys_lineaire_2x2(x1,x3,fx1,fx3,c)
 			while (dena==0 || denb==0 ){
 				x1 = randint(-6,-3);
-				x2 = randint(x1+3,2);
+				x3 = randint(1,6);
 				fx1 = randint(-5,5);
-				fx2 = randint(-6,6);
+				fx3 = randint(-6,6);
 				d = randint(-10,10);
 
 				[[numa,dena],[numb,denb]]=resol_sys_lineaire_2x2(x1,x3,fx1,fx3,c)
