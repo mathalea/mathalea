@@ -2921,6 +2921,11 @@ function Premier_ou_pas_critere_par7_par11(){
 
 /**
  * 3A11-2 - Decomposition_facteurs_premiers
+ * Décomposer un nombre en facteurs premiers et compter son nombre de diviseurs à partir d'un tableau
+ * plusieurs type de nombres à décomposer
+ * type 1 : 3 à 5 facteurs premiers max, multiplicités 0,1,2 ou 3 max à préciser
+ * type 2 : un produit de deux premiers entre 30 et 100, multiplicité 1 ... suffisamment de possibilités?
+ * type 3 : un gros premiers au delà de 1000 et inférieur à 10 000 
  * @author Sébastien Lozano
  */
  
@@ -2928,9 +2933,9 @@ function Decomposition_facteurs_premiers(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1 ; 
-	this.titre = "Decomposition_facteurs_premiers"; 
+	this.titre = "Decomposition en facteurs premiers et liste des diviseurs à partir d'une décomposition"; 
 	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne =`Decomposition_facteurs_premiers`;
+	this.consigne =`Décomposer des nombres entiers en produit de facteurs premiers.<br> Lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers.`;
 	this.consigne += `<br>`;
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
@@ -2963,18 +2968,48 @@ function Decomposition_facteurs_premiers(){
 				
 	
 				switch (type_de_questions) {
-					case 1 : // périmètre d'un carré de côté x			
-						texte = 'type 1';
-						if (sortie_html) {
-						texte += modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A13.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
+					case 1 : // 3 à 5 facteurs premiers max compris entre 0 et 30, de multiplicité 1,2 ou 3 max
+						// on fixe le nombre de facteurs premier entre 3 et 5
+						let nb_de_premiers = randint(3,5);						
+						// on fixe la limite pour le choix des premiers
+						let max_premier = 11;
+						// on fixe le rang max pour le choix des premiers
+						let rg_max = crible_eratosthene_n(max_premier).length;
+						// on choisit les rangs pour les nombres premiers
+						let tab_rangs = [];
+						let tab_rangs_exclus = [];
+						for (let k=0;k<(nb_de_premiers);k++) {
+							for (let m=0;m<k;m++) {
+								tab_rangs_exclus.push(tab_rangs[m]);
+							}
+							tab_rangs[k] = randint(0,rg_max,tab_rangs_exclus);
 						};
+						console.log('tableau des rangs retenus pour les premiers choisis '+tab_rangs);					
+						// on choisit les premiers
+						let tab_premiers = [];
+						for (let k=0; k<tab_rangs.length; k++) {
+							tab_premiers[k] = crible_eratosthene_n(max_premier)[tab_rangs[k]];
+						};
+						console.log('tableau des premiers choisis '+tab_premiers);					
+						// on choisit les multiplicités
+						let tab_multiplicites = [];
+						for (let k=0; k<tab_rangs.length; k++) {
+							tab_multiplicites[k] = randint(1,2);
+						};
+						console.log('tableau des multiplicités des premiers choisis '+tab_multiplicites);					
+						// yapluka écrire le nombre dans l'énoncé et sa décomposition dans la correction
+						texte = `Décomposer `;
+						let nombre_a_decomposer=1;
+						for (let k=0; k<tab_rangs.length; k++) {
+							for (let m=0; m<tab_multiplicites[k]; m++) {
+								nombre_a_decomposer = nombre_a_decomposer*tab_premiers[k];
+							};
+						};
+						texte += `${nombre_avec_espace(nombre_a_decomposer)} en produit de facteurs premiers`;
 						texte_corr = 'corr type 1';
 						break;		
 					case 2 : // périmètre d'un carré de côté x			
 						texte = 'type 2';
-						if (sortie_html) {
-						texte += modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A10.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
-						};
 						texte_corr = 'corr type 2';
 						break;	
 					case 3 : // périmètre d'un carré de côté x			
