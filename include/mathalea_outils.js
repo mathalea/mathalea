@@ -2063,7 +2063,7 @@ function cherche_min_max_f ([a,b,c,d]) {
  * retourne 1, la base ou rien
  * @param b base
  * @param e exposant 
- * @Auteur Sébastien Lozano
+ * @author Sébastien Lozano
  */	
 function simpExp(b,e) {
 	switch (e) {
@@ -2085,7 +2085,7 @@ function simpExp(b,e) {
  * si l'exposant vaut 0 ou 1 retourne 1, la base ou rien
  * @param b base
  * @param e exposant 
- * @Auteur Sébastien Lozano
+ * @author Sébastien Lozano
  */	
 function simpNotPuissance(b,e) {
 	switch (b) {
@@ -2127,7 +2127,7 @@ function simpNotPuissance(b,e) {
  * @param b base
  * @param e exposant 
  * @param couleur
- * @Auteur Sébastien Lozano
+ * @author Sébastien Lozano
  */		
 function eclatePuissance(b,e,couleur) {
 	switch (e) {
