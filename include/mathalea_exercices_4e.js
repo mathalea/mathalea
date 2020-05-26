@@ -3243,7 +3243,7 @@ function problemes_grandeurs_composees(){
 		let liquides=[[`de lait entier`,1.032],[`d'essence`,0.755],[`de diesel`,0.83],[`d'huile`,0.910],[`de bière`,0.9],[`de sable`,1.6]] // [nom,densité]
 		let rivieres=[[`Marne`,`Gournay-sur-Marne`,110,550,`avril 1983`,`la `,`de la `],[`Seine`,`Alfortville`,218,2100,`janvier 1982`,`la `,`de la `],[`Oise`,`Pont-Sainte-Maxence`,109,665,`février 1995`,`l'`,`de l'`],[`Loire`,`Saint-Nazaire`,931,5350,`décembre 1999`,`la `,`de la`],[`Rhin`,`Strasbourg`,951,3310,`juin 2016`,`le `,`du `],[`Rhône`,`Beaucaire`,1690,11500,`décembre 2003`,`le `,`du `],[`Meuse`,`Chooz`,144,1610,`janvier 1995`,`la `,`de la `]]
 						// [Nom de rivière,Lieu de passage,débit moyen annuel, débitmax, date de la crue, article défini, article partitif]
-		let vitesses=[[`sur un vélo`,4,12,8],[`dans un train`,50,100,5],[`dans une voiture`,15,30,5],[`en avion`,150,250,12]] // [moyen de transport, vitesse min,vitesse max en m/s,durée max en h] 
+		let vitesses=[[`sur un vélo`,4,12,8],[`dans un train`,50,100,5],[`dans une voiture`,15,30,5],[`en avion`,150,250,12],[`à pied`,2,4,5]] // [moyen de transport, vitesse min,vitesse max en m/s,durée max en h] 
 		for (let i = 0,j,index,index1,index2,duree,quidam,nbheures,nbminutes,nbsecondes,vitesse_moy,distance,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
 			switch (liste_index[i]) {
 				case 0 : // problème de consommation éléctrique
@@ -3330,11 +3330,11 @@ function problemes_grandeurs_composees(){
 					texte_corr = `Correction puissance`
 				break;
 				case 7 : // problème de vitesses
-					index2=randint(0,1)
+					index2=randint(0,2)
 					quidam=prenom() //prenom choisi
-					switch (index2) {
+					switch (index2) {	
 						case 0 : // problème de déplacements
-							index1=randint(0,3)
+							index1=randint(0,4)
 							vitesse_moy=randint(vitesses[index1][1],vitesses[index1][2]) // vitesse choisie pour l'exo
 							distance=Math.round(vitesse_moy*3.6*vitesses[index1][3]*randint(5,20)/10) //distance choisie pour question b
 							duree = randint(2,vitesses[index1][3])
@@ -3373,9 +3373,88 @@ function problemes_grandeurs_composees(){
 							texte_corr+=`$\\dfrac{340\\text{ m}}{1\\text{ s}}=\\dfrac{${tex_nombre(distance)}\\text{ m}}{\\mathcal{T}\\text{ s}}$<br>`
 							texte_corr+=`Soit grâce à l'égalité des produits en croix : $\\mathcal{T}\\text{ s}=${quatrieme_proportionnelle(`340 \\text{ m}`,`1 \\text{ s}`,distance+`\\text{ m}`,0)}=${tex_nombrec(arrondi(distance/340))}\\text{ s}$<br>`
 							texte_corr+=`${quidam} entendra le tonnerre ${tex_nombrec(arrondi(distance/340))} secondes après avoir vu l'éclair tomber sur le clocher.`
+							break
+						case 2 : // Le coureur
+							vitesse_moy=randint(vitesses[4][1]*5,vitesses[4][2]*5)/5
+							distance=randint(5,12)
+							texte=`${quidam} vient de courir ${distance} kilomètres. Sa montre connectée a enregistré l'`+katex_Popup2(numero_de_l_exercice+i,type_aide,`allure`,`Définition : allure (grandeur physique)`,`L'allure est le temps exprimé en h,min,s pour parcourir un kilomètre.<br>L'unité est alors h/km ou min/km`)+`pour chaque kilomètre parcouru :`
+							let allures=[]
+							for (let j=0;j<distance;j++) {
+								duree=Math.round(1000/(vitesse_moy*(1+randint(-10,10)*0.01)))
+								nbsecondes=duree%60
+								nbminutes=(duree-nbsecondes)/60
+								allures.push([nbminutes,nbsecondes])
+							}
+							texte+='$\\def\\arraystretch{1.5}\\begin{array}{|c'; // On construit le tableau des allures
+							texte+='|c';
+							for (let j=0;j<allures.length;j++) texte+='|c';
+							texte+='}\\hline  \\text{kilomètre}';
+							for (let j=0;j<allures.length;j++)  texte+='&'+tex_nombre(j+1);
+							texte+='\\\\\\hline \\text{allure en minutes et secondes (par km)}';
+							for (j=0;j<allures.length;j++) 	texte+='&'+allures[j][0]+` min `+allures[j][1]+`s`;
+							texte+='\\\\\\hline\\end{array}$<br>';
+							texte+=num_alpha(0)+` Calculer la durée totale de la course de ${quidam}.<br>`
+							texte+=num_alpha(1)+` En déduire sa	vitesse moyenne en km/h sur le trajet total.<br>`
+							texte+=num_alpha(2)+` ${quidam} s'entraîne pour un semi-marathon (21,0975 km). En courant à la même vitesse, combien de temps durerait son semi-marathon ?`
+							texte_corr=num_alpha(0)+` La durée totale de la course de ${quidam} est :<br>`
+							allures.push([0,0])
+							duree=0
+
+							for (let j=0;j<distance;j++) {
+								allures[distance][1]+=allures[j][1]
+								if (allures[distance][1]>59) {
+									allures[distance][0]+=1
+									allures[distance][1]=allures[distance][1]%60
+								}
+								allures[distance][0]+=allures[j][0]
+								if (allures[distance][0]>59) {
+									duree++
+									allures[distance][0]=allures[distance][0]%60
+								}
+								console.log(allures)
+							}
+							for (let j=0;j<distance-1;j++) {
+							texte_corr+=`${allures[j][0]} min ${allures[j][1]} s + `
+							}
+							texte_corr+=`${allures[distance-1][0]} min ${allures[distance-1][1]} s = `
+							if (duree!=0) texte_corr+=`${duree} h `
+							if (allures[distance][0]!=0) texte_corr+=`${allures[distance][0]} min `
+							if (allures[distance][1]!=0) texte_corr+=`${allures[distance][1]} s.`
+							texte_corr+=`<br>`+num_alpha(1)+` ${quidam} a effectué ${distance} km en `
+							if (duree!=0) texte_corr+=`${duree} h `
+							if (allures[distance][0]!=0) texte_corr+=`${allures[distance][0]} min `
+							if (allures[distance][1]!=0) texte_corr+=`${allures[distance][1]} s<br>Soit `
+							if (duree!=0) texte_corr+=`${duree} h `
+							if (allures[distance][0]!=0) texte_corr+=` $\\dfrac{${allures[distance][0]}}{60}$ h `
+							if (allures[distance][1]!=0) texte_corr+=` $\\dfrac{${allures[distance][1]}}{${tex_nombre(3600)}}$ h = `
+							texte_corr+=`$\\dfrac{`
+							if (duree!=0) texte_corr+=`${duree}\\times ${tex_nombre(3600)} + `
+							texte_corr+=`${allures[distance][0]}\\times 60+${allures[distance][1]}}{${tex_nombre(3600)}}$ h = `
+							texte_corr+=`$\\dfrac{`
+							if (duree!=0) {
+								duree=duree*3600+allures[distance][0]*60+allures[distance][1]
+								texte_corr+=`${duree}}`
+							}
+							else {
+								duree=allures[distance][0]*60+allures[distance][1]
+								texte_corr+=`${duree}}`
+							}
+							texte_corr+=`{${tex_nombre(3600)}}$ h.<br>`
+							texte_corr+=`Sa vitesse en km/h est par conséquent :<br>$${distance} \\text{ km}\\div\\dfrac{${duree}}{${tex_nombre(3600)}}\\text{ h}=`
+							texte_corr+=`${distance} \\text{ km}\\times\\dfrac{${tex_nombre(3600)}}{${duree}}\\text{ h}^{-1}=\\dfrac{${distance}\\times${tex_nombre(3600)}}{${duree}}\\text{km.h}^{-1}`
+							vitesse_moy=arrondi(distance*3600/duree)
+							texte_corr+=`\\approx${tex_nombrec(vitesse_moy)}$ km/h<br>`
+							texte_corr+=num_alpha(2)+` Si elle court 21,0975 km à cette vitesse de ${tex_nombre(vitesse_moy)} km/h, ${quidam} mettra :<br>`
+							duree=arrondi(21.0975/vitesse_moy,4)
+							texte_corr+=`$\\dfrac{${tex_nombre(21.0975)} \\text{ km}}{${tex_nombre(vitesse_moy)} \\text{ km.h}^{-1}}\\approx${tex_nombre(duree)}$ h soit `
+							nbheures=Math.floor(duree)
+							duree=(duree-nbheures)*60
+							nbminutes=Math.floor(duree)
+							duree=Math.round((duree-nbminutes)*60)
+							texte_corr+=` environ ${nbheures} h ${nbminutes} min ${duree} s.`
+							break;
 						}
-			
-					break;
+						break;
 				case 8 :
 					texte = `Exercice de prix massique`
 					texte_corr = `Correction prix massique`
