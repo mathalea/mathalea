@@ -2487,7 +2487,9 @@ function tikz_machine_diag(nom,x_ant,etapes_expressions){
  */
 function katex_Popup(texte,titrePopup,textePopup) {
 	'use strict';
-	let contenu =`<div class="mini ui right labeled icon button katexPopup"><i class="info circle icon"></i> `+texte+`</div>`;
+	let contenu=``
+	if (sortie_html){
+		contenu =`<div class="mini ui right labeled icon button katexPopup"><i class="info circle icon"></i> `+texte+`</div>`;
 	contenu += `<div class="ui special popup" >`;
 	if (titrePopup!='') {
 		contenu += `<div class="header">`+titrePopup+`</div>`;
@@ -2495,6 +2497,9 @@ function katex_Popup(texte,titrePopup,textePopup) {
 	contenu += `<div>`+textePopup+`</div>`;
 	contenu += `</div>`;
 	return contenu;
+	} else {
+		return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
+	}
 };
 
 /**
