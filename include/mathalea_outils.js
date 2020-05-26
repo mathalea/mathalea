@@ -606,6 +606,18 @@ function simplification_de_fraction_avec_etapes(num,den){
 }
 
 /**
+ * Retourne l'égalité des produits en croix à partir d'un tableau contenant les deux fractions [[a,b],[c,d]] pour a/b=c/d retourne ad=bc
+ * Le résultat est un string en mode maths inline
+ * @auteur Jean-Claude Lhote
+ */
+
+function produits_en_croix([[a,b],[c,d]]) { // écrit une chaine pour a*d=b*c
+	let result=``
+	result+=`$${a}\\times${d}=${b}\\times${c}$`
+	return result
+	}
+
+/**
  * Retourne la quatrième proportionnelle de 3 nombres en fonction d'une précision demandée
  * Le résultat est un string qui doit être entouré de $ pour le mode mathématiques
  * @auteur Jean-Claude Lhote

@@ -118,7 +118,7 @@ var liste_des_exercices_disponibles = {
 		'4N21': Puissances_d_un_relatif_1,
 		'4N21-1': Puissances_d_un_relatif_2,
 		'4N21-2': Puissances_de_dix,
-		'4P10' : problemes_grandeurs_produits,
+		'4P10' : problemes_grandeurs_composees,
 		'4R10': Exercice_multiplications_relatifs,
 		'4G10' : Exercice_Pythagore,
 		'4G11' : Reciproque_Pythagore,
@@ -3199,7 +3199,7 @@ function Exercice_fractions_differentes_ecritures(){
 		liste_fractions1 = [[1,2,',5'],[1,4,',25'],[3,4,',75'],[1,8,',125']];
 		liste_fractions1.push(choice([[1,10,',1'],[2,10,',2'],[3,10,',3'],[7,10,',7'],[9,10,',9']]));
 		liste_fractions1.push(choice([[1,5,',2'],[2,5,',4'],[3,5,',6'],[4,5,',8']])); // liste_fractions pour les 6 premières questions
-		for (let i = 0, fraction, a, b, c, n, texte, texte_corr; i < this.nb_questions;i++) {
+		for (let i = 0, cpt=0, fraction, a, b, c, n, texte, texte_corr; i < this.nb_questions && cpt <50; ) {
 			if (i<6) {
 				fraction = choice(liste_fractions1);
 				enleve_element(liste_fractions1,fraction);
@@ -3215,8 +3215,16 @@ function Exercice_fractions_differentes_ecritures(){
 			enleve_element(liste_fractions,fraction); // Il n'y aura pas 2 fois la même partie décimale
 			texte = '$ '+ tex_fraction(a,b) + ' = \\phantom{0000} + '+ tex_fraction('\\phantom{00000000}','') +' =  $';
 			texte_corr = '$ '+ tex_fraction(a,b) + ' = '+ n + '+' + tex_fraction(c,b) +' = '+ ed +' $';
-			this.liste_questions.push(texte);
-			this.liste_corrections.push(texte_corr);
+
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;
+
+
+
 			}
 		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
 	}
