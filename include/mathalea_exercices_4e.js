@@ -3326,13 +3326,13 @@ function problemes_grandeurs_composees(){
 					texte_corr = `Correction puissance`
 				break;
 				case 7 : // problème de vitesses
-					index2=0
+					index2=randint(0,1)
+					quidam=prenom() //prenom choisi
 					switch (index2) {
 						case 0 : // problème de déplacements
 							index1=randint(0,3)
 							vitesse_moy=randint(vitesses[index1][1],vitesses[index1][2]) // vitesse choisie pour l'exo
 							distance=Math.round(vitesse_moy*3.6*vitesses[index1][3]*randint(5,20)/10) //distance choisie pour question b
-							quidam=prenom() //prenom choisi
 							duree = randint(2,vitesses[index1][3])
 							texte =`${quidam} se déplace ${vitesses[index1][0]} à la vitesse de ${tex_nombrec(vitesse_moy)} m/s.<br>`
 							texte +=num_alpha(0)+` En se déplaçant à cette vitesse pendant ${duree} h, quelle est la distance parcourue par ${quidam} en km ?<br>`
@@ -3355,7 +3355,21 @@ function problemes_grandeurs_composees(){
 							texte_corr+=`${tex_nombre(nbsecondes)}\\text{ s}$`
 							break
 						case 1 : // l'orage et la vitesse du son
-					}
+							duree=randint(2,15) //durée pour question a)
+							distance=randint(5,15,[duree])*340 //distance de l'orage en m pour question b
+							texte=`Le son se déplace dans l'air à 340 m/s.<br>`
+							texte+=num_alpha(0)+` ${quidam} voit un éclair dans le ciel et compte dans sa tête ${duree} secondes avant d'entendre le tonnerre.<br>`
+							texte+=`Quelle est la distance à laquelle l'éclair est tombé ?<br>`
+							texte+=num_alpha(1)+` L'éclair suivant tombe sur le paratonnerre situé sur le clocher de l'église du village voisin.<br>`
+							texte+=`${quidam} sait que le clocher est situé à ${distance} m de sa position. Combien de temps se passe-t-il avant que ${quidam} n'entende le tonnerre ?`
+							texte_corr=num_alpha(0)+` Calculons la distance à laquelle le premier éclair est tombé en utilisant la vitesse du son (on considère que la vitesse de la lumière est telle que l'éclair est visible instantanément) :<br>`
+							texte_corr+=`$340\\text{ m/s}=\\dfrac{340\\text{ m}}{1\\text{ s}}=\\dfrac{${mise_en_evidence(duree)}\\times 340\\text{ m}}{${mise_en_evidence(duree)}\\times 1\\text{ s}}=\\dfrac{${tex_nombrec(duree*340)}}{${duree}\\text{ s}}$<br>`
+							texte_corr+=`La distance à laquelle l'éclair est tombé est donc de ${nombre_avec_espace(duree*340)} m.<br>`
+							texte_corr+=num_alpha(1)+` Avec les données de l'énoncé nous pouvons écrire :<br>`
+							texte_corr+=`$\\dfrac{340\\text{ m}}{1\\text{ s}}=\\dfrac{${tex_nombre(distance)}\\text{ m}}{\\mathcal{T}\\text{ s}}$<br>`
+							texte_corr+=`Soit grâce à l'égalité des produits en croix : $\\mathcal{T}\\text{ s}=${quatrieme_proportionnelle(`340 \\text{ m}`,`1 \\text{ s}`,distance+`\\text{ m}`,0)}=${tex_nombrec(arrondi(distance/340))}\\text{ s}$<br>`
+							texte_corr+=`${quidam} entendra le tonnerre ${tex_nombrec(arrondi(distance/340))} secondes après avoir vu l'éclair tomber sur le clocher.`
+						}
 			
 					break;
 				case 8 :
