@@ -3016,25 +3016,25 @@ function liste_nb_premiers_strict_jusqua(borneSup) {
 function crible_eratosthene_n(n) {
 	'use strict';
 	var tab_entiers = []; // pour tous les entiers de 2 à n
-	var test_max = Math.sqrt(n); // inutile de tester au dela de racine de n
+	var test_max = Math.sqrt(n+1); // inutile de tester au dela de racine de n
 	var liste = []; // tableau de la liste des premiers jusqu'à n
 
 	// On rempli un tableau avec des booléeens de 2 à n
-	for (let i = 2; i < n+1; i++) {
+	for (let i = 0; i < n+1; i++) {
 		tab_entiers.push(true);
 	}
 
 	// On supprime les multiples des nombres premiers à partir de 2, 3, 5,...
 	for (let i = 2; i <= test_max; i++) {
 		if (tab_entiers[i]) {
-			for (var j = i * i; j < n; j += i) {
+			for (var j = i * i; j < n+1; j += i) {
 				tab_entiers[j] = false;
 			}
 		}
 	}
 
 	// On récupère tous les indices du tableau des entiers dont le booléen est à true qui sont donc premiers
-	for (let i = 2; i < n; i++) {
+	for (let i = 2; i < n+1; i++) {
 		if(tab_entiers[i]) {
 			liste.push(i);
 		}
@@ -3042,6 +3042,27 @@ function crible_eratosthene_n(n) {
 
 	return liste;
 };
+
+/**
+ * Liste les premiers compris entre min et max au sens large,
+ * min est inclu
+ * max est inclu.
+ * @param {number} min
+ * @param {number} max
+ * @author Sébastien Lozano
+ */
+
+ function premiers_entre_bornes(min,max) {
+	'use strict';
+	// on crée les premiers jusque min
+	let premiers_a_suppr = crible_eratosthene_n(min-1);
+	// on crée les premiers jusque max
+	let premiers_jusque_max = crible_eratosthene_n(max);
+	// on supprime le début de la liste jusque min
+	premiers_jusque_max.splice(0,premiers_a_suppr.length);
+	// on renvoit le tableau restant
+	return premiers_jusque_max;
+ };
 
 /**
  * tire à pile ou face pour écrire ou non un texte
