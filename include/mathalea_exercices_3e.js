@@ -2921,6 +2921,7 @@ function Premier_ou_pas_critere_par7_par11(){
 
 /**
  * 3A11-2 - Decomposition_facteurs_premiers
+ * Décomposer un nombre en facteurs premiers et compter son nombre de diviseurs à partir d'un tableau
  * @author Sébastien Lozano
  */
  
@@ -2965,16 +2966,11 @@ function Decomposition_facteurs_premiers(){
 				switch (type_de_questions) {
 					case 1 : // périmètre d'un carré de côté x			
 						texte = 'type 1';
-						if (sortie_html) {
-						texte += modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A13.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
-						};
+
 						texte_corr = 'corr type 1';
 						break;		
 					case 2 : // périmètre d'un carré de côté x			
 						texte = 'type 2';
-						if (sortie_html) {
-						texte += modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A10.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
-						};
 						texte_corr = 'corr type 2';
 						break;	
 					case 3 : // périmètre d'un carré de côté x			
