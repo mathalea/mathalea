@@ -3076,7 +3076,11 @@ function Decomposition_facteurs_premiers(){
 						console.log('premierr2 : '+premier2);
 						
 						texte = `&Agrave; l'aide de la calculatrice, décomposer ${nombre_avec_espace(premier1*premier2)} en produit de facteurs premiers.`;
-						texte_corr = `${nombre_avec_espace(premier1*premier2)} = ${premier1}$\\times$${premier2}.`;
+						let racine_prem = Math.trunc(Math.sqrt(premier1*premier2));
+						texte_corr = `On teste la divisibilité de ${nombre_avec_espace(premier1*premier2)} par tous les nombres premiers inférieurs ou égaux à ${nombre_avec_espace(racine_prem)}`;
+						texte_corr += ` c'est à dire les nombre de la liste ${crible_eratosthene_n(racine_prem)}, on obtient : `;
+
+						texte_corr += `${nombre_avec_espace(premier1*premier2)} = ${premier1}$\\times$${premier2}.`;
 						break;	
 					case 3 : // un gros premier entre 1000 et 2000			
 						console.log('tableau des premiers dispos' + premiers_entre_bornes(1000,2000));
