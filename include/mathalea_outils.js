@@ -2502,6 +2502,15 @@ function katex_Popup(texte,titrePopup,textePopup) {
 	}
 };
 
+function katex_Popup2(numero,type,titrePopup,texte,textePopup) {
+	'use strict';
+	switch (type) {
+		case 0 : return katex_Popup(titrePopup,texte,textePopup)
+		case 1 : return `${titrePopup}`+ modal_texte_long(numero,`${texte}`,`${textePopup}`,`${titrePopup}`,"info circle")
+	}
+};
+
+
 /**
  * Crée une liste de questions alphabétique
  * @param {number} k valeur numérique
