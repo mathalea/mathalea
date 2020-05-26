@@ -3341,7 +3341,7 @@ function problemes_grandeurs_composees(){
 							vitesse_moy=randint(vitesses[index1][1],vitesses[index1][2]) // vitesse choisie pour l'exo
 							distance=Math.round(vitesse_moy*3.6*vitesses[index1][3]*randint(5,20)/10) //distance choisie pour question b
 							duree = randint(2,vitesses[index1][3])
-							texte =`${quidam} se déplace ${vitesses[index1][0]} à la`+katex_Popup(` vitesse`,`Définition : `,`(grandeur physique) La vitesse est le quotient de la distance parcourue par le temps de parcours. L'unité officielle est le mètre par seconde ($m/s$  ou  $m.s^{-1}$) mais on utilise souvent le kilomètre par heure ($km/h$  ou  $km.h^{-1}$)`)+` de ${tex_nombrec(vitesse_moy)} m/s.<br>`
+							texte =`${quidam} se déplace ${vitesses[index1][0]} à la`+katex_Popup(` vitesse`,`Définition : `,`(grandeur physique) La vitesse est le quotient de la distance parcourue par le temps de parcours. L'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$)`)+` de ${tex_nombrec(vitesse_moy)} m/s.<br>`
 							texte +=num_alpha(0)+` En se déplaçant à cette vitesse pendant ${duree} h, quelle est la distance parcourue par ${quidam} en km ?<br>`
 							texte+= num_alpha(1)+` Si ${quidam} veut parcourir ${nombre_avec_espace(distance)} km à cette vitesse, combien de temps durera le trajet ? Donner le résultat en heures, minutes et secondes.`
 							texte_corr = num_alpha(0)+` La distance parcourue par ${quidam} ${vitesses[index1][0]} en ${duree} h à la vitesse de ${tex_nombrec(vitesse_moy)} m/s est :<br>`
