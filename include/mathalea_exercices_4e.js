@@ -3399,7 +3399,7 @@ function problemes_grandeurs_composees(){
 							texte+='}\\hline  \\text{kilomètre}';
 							for (let j=0;j<allures.length;j++)  texte+='&'+tex_nombre(j+1);
 							texte+='\\\\\\hline \\text{allure en minutes et secondes (par km)}';
-							for (j=0;j<allures.length;j++) 	texte+='&'+allures[j][0]+` min `+allures[j][1]+`s`;
+							for (j=0;j<allures.length;j++) 	texte+='&'+allures[j][0]+`\\text{ min }`+allures[j][1]+`\\text{ s}`;
 							texte+='\\\\\\hline\\end{array}$<br>';
 							texte+=num_alpha(0)+` Calculer la durée totale de la course de ${quidam}.<br>`
 							texte+=num_alpha(1)+` En déduire sa	`+ katex_Popup2(numero_de_l_exercice+i,type_aide,`vitesse`,`Définition : Vitesse (grandeur physique)`,`La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$)`)+` moyenne en km/h sur le trajet total.<br>`
