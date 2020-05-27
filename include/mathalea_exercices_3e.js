@@ -2943,8 +2943,7 @@ function Premier_ou_pas_critere_par7_par11(){
  * plusieurs type de nombres à décomposer
  * type 1 : 3 à 5 facteurs premiers max, multiplicités 0,1,2 ou 3 max à préciser
  * type 2 : un produit de deux premiers entre 30 et 100, multiplicité 1 ... suffisamment de possibilités?
- * type 3 : un gros premiers au delà de 1000 et inférieur à 2 000 
- * type 4 : compter/lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers
+ * type 3 : un gros premiers au delà de 1000 et inférieur à 2 000  
  * @author Sébastien Lozano
  */
  
@@ -2952,14 +2951,13 @@ function Decomposition_facteurs_premiers(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1 ; 
-	this.titre = "Decomposition en facteurs premiers et liste des diviseurs à partir d'une décomposition"; 
+	this.titre = "Décomposition en facteurs premiers d'un entier"; 
 	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne =`&Agrave; l'aide de la calculatrice, décomposer des nombres entiers en produit de facteurs premiers.<br>`;
-	this.consigne+=`Dans un second temps, compter/lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers.`;
+	this.consigne =`&Agrave; l'aide de la calculatrice, décomposer pas à pas les nombres entiers en produit de facteurs premiers.`;	
 	this.consigne += `<br>`;
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
-	this.nb_questions = 4;
+	this.nb_questions = 3;
 	//this.correction_detaillee_disponible = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -2979,7 +2977,7 @@ function Decomposition_facteurs_premiers(){
 		this.contenu = ''; // Liste de questions
 		this.contenu_correction = ''; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = [1,2,3,4];
+		let type_de_questions_disponibles = [1,2,3];
 		//let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
 
@@ -3113,7 +3111,66 @@ function Decomposition_facteurs_premiers(){
 						texte_corr += ` c'est à dire les nombre de la liste ${crible_eratosthene_n(racine_premier)}, on se rend compte que ${nombre_avec_espace(premier)} est un nombre premier donc `;
 						texte_corr +=`${nombre_avec_espace(premier)} = 1$\\times$${nombre_avec_espace(premier)}.`;
 						break;	
-					case 4 : // lister/compter les diviseurs d'un entier à partir de sa décomposition en facteurs premiers			
+				};
+			
+				if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+					this.liste_questions.push(texte);
+					this.liste_corrections.push(texte_corr);
+					i++;
+				}
+				cpt++
+			}	
+	
+		liste_de_question_to_contenu(this);
+	}
+	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
+};
+
+/**
+ * 3A11-3 - Lister/Compter les diviseurs d'un entier à partir de sa decomposition en facteurs premiers 
+ * @author Sébastien Lozano
+ */
+ 
+function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.sup = 1 ; 
+	this.titre = "Compter/lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers."; 
+	// pas de différence entre la version html et la version latex pour la consigne
+	this.consigne =`Sans la calculatrice, compter/lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers.`;
+	this.consigne += `<br>`;
+	sortie_html ? this.spacing = 3 : this.spacing = 2;
+	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
+	this.nb_questions = 1;
+	//this.correction_detaillee_disponible = true;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.sup = 1;
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		let type_de_questions;
+		if (sortie_html) { // les boutons d'aide uniquement pour la version html
+			//this.bouton_aide = '';
+			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A11.pdf","Aide mémoire sur les nombres premiers (Sébastien Lozano)","Aide mémoire")		
+			this.bouton_aide += modal_video('conteMathsNombresPremiers','videos/LesNombresPremiers.mp4','Petit conte mathématique - Les Nombres Premiers','Intro Vidéo');
+		} else { // sortie LaTeX
+		};
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		this.contenu = ''; // Liste de questions
+		this.contenu_correction = ''; // Liste de questions corrigées
+
+		let type_de_questions_disponibles = [1];
+		//let type_de_questions_disponibles = [1];
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
+
+			for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
+				type_de_questions = liste_type_de_questions[i];
+				
+	
+				switch (type_de_questions) {
+					case 1 : // lister/compter les diviseurs d'un entier à partir de sa décomposition en facteurs premiers			
 						texte = `Lister/compter les diviseurs d'un entier à partir de sa décomposition en facteurs premiers`;
 						//let premiers_dispos = premiers_entre_bornes(2,11);
 						// on fixe le nombre de facteurs premier à 3
