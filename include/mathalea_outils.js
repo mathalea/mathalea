@@ -2002,6 +2002,45 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
 	return result;
  
  }
+
+/**
+* Utilise pgfplots pour tracer la courbe représentative de f dans le repère avec -10 < x < 10 et -8 < y < 8
+*
+* @param string expression de fonction
+* @author Rémi Angot
+*/
+
+function tex_graphique(f,xmin=-10,xmax=10,ymin=-8,ymax=9,xstep=1,ystep=1) {
+	return `
+	\\begin{tikzpicture}[scale=.5]
+		\\begin{axis}[
+		    width = .8\\linewidth,
+		    axis lines = center,
+		    xlabel={$x$},
+		    ylabel={$y$},
+		    xlabel style={above right},
+		    ylabel style={above right},
+		    xmin = ${xmin}, xmax = ${xmax}, ymin = ${ymin}, ymax = ${ymax},
+		    grid = major,
+		    xtick distance=${xstep},
+		    ytick distance=${ystep},
+		]
+		\\addplot [
+		    ultra thick,
+		    blue,
+		    samples=100,
+		    domain=-10:10,
+		    ]{${f}};
+		\\end{axis}
+	\\end{tikzpicture}	
+	`
+}
+
+
+
+
+
+
 /**
  * Fonction qui retourne les coefficients a et b de f(x)=ax²+bx+c à partir des données de x1,x2,f(x1),f(x2) et c.
  * 
