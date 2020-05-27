@@ -3232,17 +3232,18 @@ function problemes_grandeurs_composees(){
 	sortie_html? this.spacing = 2 : this.spacing = 1.5; 
 	sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
 	this.sup=1;
-
+	
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		let liste_index_disponibles=[0,1,7,13];
 		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions)
+		let type_aide=1
 		let appareils=[[`radiateur`,2000,20],[`téléviseur`,350,12],[`four électrique`,2500,4],[`ordinateur`,450,8]] // [appareil,puissance,durée maxi de fonctionnement]
 		let liquides=[[`de lait entier`,1.032],[`d'essence`,0.755],[`de diesel`,0.83],[`d'huile`,0.910],[`de bière`,0.9],[`de sable`,1.6]] // [nom,densité]
 		let rivieres=[[`Marne`,`Gournay-sur-Marne`,110,550,`avril 1983`,`la `,`de la `],[`Seine`,`Alfortville`,218,2100,`janvier 1982`,`la `,`de la `],[`Oise`,`Pont-Sainte-Maxence`,109,665,`février 1995`,`l'`,`de l'`],[`Loire`,`Saint-Nazaire`,931,5350,`décembre 1999`,`la `,`de la`],[`Rhin`,`Strasbourg`,951,3310,`juin 2016`,`le `,`du `],[`Rhône`,`Beaucaire`,1690,11500,`décembre 2003`,`le `,`du `],[`Meuse`,`Chooz`,144,1610,`janvier 1995`,`la `,`de la `]]
 						// [Nom de rivière,Lieu de passage,débit moyen annuel, débitmax, date de la crue, article défini, article partitif]
-		let vitesses=[[`sur un vélo`,4,12,8],[`dans un train`,50,100,5],[`dans une voiture`,15,30,5],[`en avion`,150,250,12]] // [moyen de transport, vitesse min,vitesse max en m/s,durée max en h] 
+		let vitesses=[[`sur un vélo`,4,12,8],[`dans un train`,50,100,5],[`dans une voiture`,15,30,5],[`en avion`,150,250,12],[`à pied`,2,4,5]] // [moyen de transport, vitesse min,vitesse max en m/s,durée max en h] 
 		for (let i = 0,j,index,index1,index2,duree,quidam,nbheures,nbminutes,nbsecondes,vitesse_moy,distance,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
 			switch (liste_index[i]) {
 				case 0 : // problème de consommation éléctrique
@@ -3257,7 +3258,10 @@ function problemes_grandeurs_composees(){
 					texte =`L'étiquette apposée au dos d'un ${appareil} indique une puissance de ${puissance} Watts. On le fait fonctionner pendant ${Math.floor(duree)} heures `;
 					if (nbquartsdheures!=0) texte +=`et ${nbquartsdheures*15} minutes`;
 					texte+=`.<br>Le prix d'un kWh est de ${tex_nombrec(prixkwh)} €.<br>`
-					texte+=num_alpha(0)+` Exprimer en kWh l'energie consommée.<br>`;
+					if (sortie_html) { // les boutons d'aide uniquement pour la version html
+							
+				}
+					texte+=num_alpha(0)+` Exprimer en kWh l' `+ katex_Popup2(numero_de_l_exercice+i,type_aide,"énergie",`Définition : énergie (grandeur physique)`,`C’est le produit de la puissance électrique (Watt) par le temps (s) et se mesure en Joule (J).<br>1 J=1 W × 1 s.<br>Cependant pour mesurer des énergies plus importantes on utilise plutôt le kiloWattheure (kWh).<br>1 kWh=1000 W × 1 h.`)+` consommée.<br>`;
 					texte+=num_alpha(1)+` Calculer la dépense correspondante.`
 					texte_corr = num_alpha(0)+` Un ${appareil} d'une puissance de ${puissance} Watts qui fonctionne pendant ${Math.floor(duree)} heures `;
 					if (nbquartsdheures!=0) texte_corr +=`et ${nbquartsdheures*15} minutes`;
@@ -3280,7 +3284,7 @@ function problemes_grandeurs_composees(){
 							let deltat=randint(2,5);
 							texte = `Une piscine a la forme d'un prisme droit. La profondeur à son extrémité nord est de ${h1} cm et la profondeur à son extrémité sud est de ${h2} cm.<br>`
 							texte +=`D\'une extrémité à l\'autre la pente au fond de la piscine est régulière.<br>La largeur de la piscine (Est-Ouest) est de ${l} m et sa longueur (Nord-Sud) est de ${L} m.<br>`
-							texte += num_alpha(0)+` Calculer le volume d'eau en m³ contenu dans cette piscine quand elle est pleine.<br>`
+							texte += num_alpha(0)+` Calculer le `+katex_Popup2(numero_de_l_exercice+i,type_aide,"volume",`Définition : volume (grandeur physique)`,`C’est le produit de trois longueurs ou le produit d'une aire et d'une longueur.<br>L'unité de mesure du volume est le mètre cube ($\\text{m}^3$) mais on peut aussi rencontrer le litre (L) avec comme correspondance $\\text{1dm}^3=\\text{1L}$`)+` d'eau en m³ contenu dans cette piscine quand elle est pleine.<br>`
 							texte += num_alpha(1)+` Sachant que pour élever la température d'un litre d'eau de 1 degré, il faut une énergie de 1,162 Wattheure.<br> Quelle est l'énergie consommée en kWh pour augmenter de ${deltat} degrés ?<br>`							
 							texte_corr = num_alpha(0)+` La base de ce prisme droit est un trapèze rectangle de petite base ${h2} cm, de grande base ${h1} cm et de hauteur ${L} m.<br>`
 							texte_corr += `$\\mathcal{A}=\\dfrac{\\left(${h1}\\text{ cm}+${h2}\\text{ cm}\\right)}{2}\\times${L}\\text{ m}=\\dfrac{\\left(${arrondi_virgule(h1/100)}\\text{ m}+${arrondi_virgule(h2/100)}\\text{ m}\\right)}{2}\\times${L}\\text{ m}`
@@ -3295,7 +3299,7 @@ function problemes_grandeurs_composees(){
 						let r=randint(10,15)*2
 						let h=randint(0,10)+r*4
 						texte = `Un tonneau cylindrique a un rayon de ${r} cm et une hauteur de ${h} cm.<br>`
-						texte +=num_alpha(0)+` Calculer le volume en dm³ à 0,1 près de ce tonneau.<br>`
+						texte +=num_alpha(0)+` Calculer le `+katex_Popup2(numero_de_l_exercice+i,type_aide,"volume",`Définition : volume (grandeur physique)`,`C’est le produit de trois longueurs ou le produit d'une aire et d'une longueur.<br>L'unité de mesure du volume est le mètre cube ($\\text{m}^3$) mais on peut aussi rencontrer le litre (L) avec comme correspondance $\\text{1dm}^3=\\text{1L}$`)+` en dm³ à 0,1 près de ce tonneau.<br>`
 						texte +=num_alpha(1)+` Si on le remplit ${liquides[index2][0]} (dont la densité moyenne est de ${tex_nombrec(liquides[index2][1])}), quelle masse ${liquides[index2][0]} en kg contiendra-t-il au gramme près ?<br>`
 						texte_corr=num_alpha(0)+` Le volume d'un cylindre est donné par la formule $\\mathcal{A}\\text{ire de base}\\times\\mathcal{h}$.<br> Ici la base est un disque de rayon ${r} cm.<br>`
 						texte_corr+=`$\\mathcal{A}\\text{ire de base}\\times\\mathcal{h}=\\pi\\times${r}^{2}\\text{ cm²}\\times${h}\\text{ cm}=${r*r*h}\\pi\\text{ cm³}\\approx${tex_nombre(arrondi(r*r*h*Math.PI,1))}\\text{ cm³}\\approx${tex_nombre(arrondi(r*r*h*Math.PI/1000,1))}\\text{ dm³}$<br>`
@@ -3326,15 +3330,15 @@ function problemes_grandeurs_composees(){
 					texte_corr = `Correction puissance`
 				break;
 				case 7 : // problème de vitesses
-					index2=randint(0,1)
+					index2=randint(0,2)
 					quidam=prenom() //prenom choisi
-					switch (index2) {
+					switch (index2) {	
 						case 0 : // problème de déplacements
-							index1=randint(0,3)
+							index1=randint(0,4)
 							vitesse_moy=randint(vitesses[index1][1],vitesses[index1][2]) // vitesse choisie pour l'exo
 							distance=Math.round(vitesse_moy*3.6*vitesses[index1][3]*randint(5,20)/10) //distance choisie pour question b
 							duree = randint(2,vitesses[index1][3])
-							texte =`${quidam} se déplace ${vitesses[index1][0]} à la vitesse de ${tex_nombrec(vitesse_moy)} m/s.<br>`
+							texte =`${quidam} se déplace ${vitesses[index1][0]} à la `+katex_Popup2(numero_de_l_exercice+i,type_aide,`vitesse`,`Définition : Vitesse (grandeur physique)`,`La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$)`)+` de ${tex_nombrec(vitesse_moy)} m/s.<br>`
 							texte +=num_alpha(0)+` En se déplaçant à cette vitesse pendant ${duree} h, quelle est la distance parcourue par ${quidam} en km ?<br>`
 							texte+= num_alpha(1)+` Si ${quidam} veut parcourir ${nombre_avec_espace(distance)} km à cette vitesse, combien de temps durera le trajet ? Donner le résultat en heures, minutes et secondes.`
 							texte_corr = num_alpha(0)+` La distance parcourue par ${quidam} ${vitesses[index1][0]} en ${duree} h à la vitesse de ${tex_nombrec(vitesse_moy)} m/s est :<br>`
@@ -3357,7 +3361,7 @@ function problemes_grandeurs_composees(){
 						case 1 : // l'orage et la vitesse du son
 							duree=randint(2,15) //durée pour question a)
 							distance=randint(5,15,[duree])*340 //distance de l'orage en m pour question b
-							texte=`Le son se déplace dans l'air à 340 m/s.<br>`
+							texte=`Le son se déplace dans l'air à la `+katex_Popup2(numero_de_l_exercice+i,type_aide,`vitesse`,`Définition : Vitesse (grandeur physique)`,`La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$)`)+` de 340 m/s.<br>`
 							texte+=num_alpha(0)+` ${quidam} voit un éclair dans le ciel et compte dans sa tête ${duree} secondes avant d'entendre le tonnerre.<br>`
 							texte+=`Quelle est la distance à laquelle l'éclair est tombé ?<br>`
 							texte+=num_alpha(1)+` L'éclair suivant tombe sur le paratonnerre situé sur le clocher de l'église du village voisin.<br>`
@@ -3369,9 +3373,88 @@ function problemes_grandeurs_composees(){
 							texte_corr+=`$\\dfrac{340\\text{ m}}{1\\text{ s}}=\\dfrac{${tex_nombre(distance)}\\text{ m}}{\\mathcal{T}\\text{ s}}$<br>`
 							texte_corr+=`Soit grâce à l'égalité des produits en croix : $\\mathcal{T}\\text{ s}=${quatrieme_proportionnelle(`340 \\text{ m}`,`1 \\text{ s}`,distance+`\\text{ m}`,0)}=${tex_nombrec(arrondi(distance/340))}\\text{ s}$<br>`
 							texte_corr+=`${quidam} entendra le tonnerre ${tex_nombrec(arrondi(distance/340))} secondes après avoir vu l'éclair tomber sur le clocher.`
+							break
+						case 2 : // Le coureur
+							vitesse_moy=randint(vitesses[4][1]*5,vitesses[4][2]*5)/5
+							distance=randint(5,12)
+							texte=`${quidam} vient de courir ${distance} kilomètres. Sa montre connectée a enregistré l'`+katex_Popup2(numero_de_l_exercice+i,type_aide,`allure`,`Définition : allure (grandeur physique)`,`L'allure est le temps exprimé en h,min,s pour parcourir un kilomètre.<br>L'unité est alors h/km ou min/km`)+`pour chaque kilomètre parcouru :`
+							let allures=[]
+							for (let j=0;j<distance;j++) {
+								duree=Math.round(1000/(vitesse_moy*(1+randint(-10,10)*0.01)))
+								nbsecondes=duree%60
+								nbminutes=(duree-nbsecondes)/60
+								allures.push([nbminutes,nbsecondes])
+							}
+							texte+='$\\def\\arraystretch{1.5}\\begin{array}{|c'; // On construit le tableau des allures
+							texte+='|c';
+							for (let j=0;j<allures.length;j++) texte+='|c';
+							texte+='}\\hline  \\text{kilomètre}';
+							for (let j=0;j<allures.length;j++)  texte+='&'+tex_nombre(j+1);
+							texte+='\\\\\\hline \\text{allure en minutes et secondes (par km)}';
+							for (j=0;j<allures.length;j++) 	texte+='&'+allures[j][0]+` min `+allures[j][1]+`s`;
+							texte+='\\\\\\hline\\end{array}$<br>';
+							texte+=num_alpha(0)+` Calculer la durée totale de la course de ${quidam}.<br>`
+							texte+=num_alpha(1)+` En déduire sa	`+ katex_Popup2(numero_de_l_exercice+i,type_aide,`vitesse`,`Définition : Vitesse (grandeur physique)`,`La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$)`)+` moyenne en km/h sur le trajet total.<br>`
+							texte+=num_alpha(2)+` ${quidam} s'entraîne pour un semi-marathon (21,0975 km). En courant à la même vitesse, combien de temps durerait son semi-marathon ?`
+							texte_corr=num_alpha(0)+` La durée totale de la course de ${quidam} est :<br>`
+							allures.push([0,0])
+							duree=0
+
+							for (let j=0;j<distance;j++) {
+								allures[distance][1]+=allures[j][1]
+								if (allures[distance][1]>59) {
+									allures[distance][0]+=1
+									allures[distance][1]=allures[distance][1]%60
+								}
+								allures[distance][0]+=allures[j][0]
+								if (allures[distance][0]>59) {
+									duree++
+									allures[distance][0]=allures[distance][0]%60
+								}
+								console.log(allures)
+							}
+							for (let j=0;j<distance-1;j++) {
+							texte_corr+=`${allures[j][0]} min ${allures[j][1]} s + `
+							}
+							texte_corr+=`${allures[distance-1][0]} min ${allures[distance-1][1]} s = `
+							if (duree!=0) texte_corr+=`${duree} h `
+							if (allures[distance][0]!=0) texte_corr+=`${allures[distance][0]} min `
+							if (allures[distance][1]!=0) texte_corr+=`${allures[distance][1]} s.`
+							texte_corr+=`<br>`+num_alpha(1)+` ${quidam} a effectué ${distance} km en `
+							if (duree!=0) texte_corr+=`${duree} h `
+							if (allures[distance][0]!=0) texte_corr+=`${allures[distance][0]} min `
+							if (allures[distance][1]!=0) texte_corr+=`${allures[distance][1]} s<br>Soit `
+							if (duree!=0) texte_corr+=`${duree} h `
+							if (allures[distance][0]!=0) texte_corr+=` $\\dfrac{${allures[distance][0]}}{60}$ h `
+							if (allures[distance][1]!=0) texte_corr+=` $\\dfrac{${allures[distance][1]}}{${tex_nombre(3600)}}$ h = `
+							texte_corr+=`$\\dfrac{`
+							if (duree!=0) texte_corr+=`${duree}\\times ${tex_nombre(3600)} + `
+							texte_corr+=`${allures[distance][0]}\\times 60+${allures[distance][1]}}{${tex_nombre(3600)}}$ h = `
+							texte_corr+=`$\\dfrac{`
+							if (duree!=0) {
+								duree=duree*3600+allures[distance][0]*60+allures[distance][1]
+								texte_corr+=`${duree}}`
+							}
+							else {
+								duree=allures[distance][0]*60+allures[distance][1]
+								texte_corr+=`${duree}}`
+							}
+							texte_corr+=`{${tex_nombre(3600)}}$ h.<br>`
+							texte_corr+=`Sa vitesse en km/h est par conséquent :<br>$${distance} \\text{ km}\\div\\dfrac{${duree}}{${tex_nombre(3600)}}\\text{ h}=`
+							texte_corr+=`${distance} \\text{ km}\\times\\dfrac{${tex_nombre(3600)}}{${duree}}\\text{ h}^{-1}=\\dfrac{${distance}\\times${tex_nombre(3600)}}{${duree}}\\text{km.h}^{-1}`
+							vitesse_moy=arrondi(distance*3600/duree)
+							texte_corr+=`\\approx${tex_nombrec(vitesse_moy)}$ km/h<br>`
+							texte_corr+=num_alpha(2)+` Si elle court 21,0975 km à cette vitesse de ${tex_nombre(vitesse_moy)} km/h, ${quidam} mettra :<br>`
+							duree=arrondi(21.0975/vitesse_moy,4)
+							texte_corr+=`$\\dfrac{${tex_nombre(21.0975)} \\text{ km}}{${tex_nombre(vitesse_moy)} \\text{ km.h}^{-1}}\\approx${tex_nombre(duree)}$ h soit `
+							nbheures=Math.floor(duree)
+							duree=(duree-nbheures)*60
+							nbminutes=Math.floor(duree)
+							duree=Math.round((duree-nbminutes)*60)
+							texte_corr+=` environ ${nbheures} h ${nbminutes} min ${duree} s.`
+							break;
 						}
-			
-					break;
+						break;
 				case 8 :
 					texte = `Exercice de prix massique`
 					texte_corr = `Correction prix massique`
@@ -3396,7 +3479,7 @@ function problemes_grandeurs_composees(){
 					index2=randint(0,6)
 					duree=randint(2,24)
 					let vmax=rivieres[index2][3]*3600
-					texte = `Le débit annuel moyen ${rivieres[index2][6]}${rivieres[index2][0]} mesuré à ${rivieres[index2][1]} est de ${rivieres[index2][2]} m³/s.<br>`
+					texte = `Le `+katex_Popup2(numero_de_l_exercice+i,type_aide,`débit`,`Définition : Débit (grandeur physique)`,`Le débit est le quotient d'un volume d'eau écoulée dans une section de conduit par le temps d'écoulement.<br>L'unité officielle est le mètre cube par seconde ($\\text{m}^3/\\text{s}$  et dans certains cas on peut utiliser le litre par minute (L/min)`)+` annuel moyen ${rivieres[index2][6]}${rivieres[index2][0]} mesuré à ${rivieres[index2][1]} est de ${rivieres[index2][2]} m³/s.<br>`
 					texte += num_alpha(0)+` Calculer le volume d'eau en m³ écoulé en ${duree} heures à ce débit.<br>`
 					texte += num_alpha(1)+` En ${rivieres[index2][4]} à ${rivieres[index2][1]}, ${rivieres[index2][5]}${rivieres[index2][0]} a débité ${nombre_avec_espace(vmax)} m³ en une heure. Quel a été alors le débit en m³/s ?`
 					texte_corr = num_alpha(0)+` En ${duree} heures il s'écoule en moyenne dans ${rivieres[index2][5]}${rivieres[index2][0]} à ${rivieres[index2][1]} :<br>`

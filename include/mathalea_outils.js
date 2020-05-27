@@ -2487,7 +2487,9 @@ function tikz_machine_diag(nom,x_ant,etapes_expressions){
  */
 function katex_Popup(texte,titrePopup,textePopup) {
 	'use strict';
-	let contenu =`<div class="mini ui right labeled icon button katexPopup"><i class="info circle icon"></i> `+texte+`</div>`;
+	let contenu=``
+	if (sortie_html){
+		contenu =`<div class="mini ui right labeled icon button katexPopup"><i class="info circle icon"></i> `+texte+`</div>`;
 	contenu += `<div class="ui special popup" >`;
 	if (titrePopup!='') {
 		contenu += `<div class="header">`+titrePopup+`</div>`;
@@ -2495,7 +2497,34 @@ function katex_Popup(texte,titrePopup,textePopup) {
 	contenu += `<div>`+textePopup+`</div>`;
 	contenu += `</div>`;
 	return contenu;
+	} else {
+		return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
+	}
 };
+function katex_Popuptest(texte,titrePopup,textePopup) {
+	'use strict';
+	let contenu=``
+	if (sortie_html){
+		contenu =`<div class="ui right label katexPopup">`+texte+`</div>`;
+	contenu += `<div class="ui special popup" >`;
+	if (titrePopup!='') {
+		contenu += `<div class="header">`+titrePopup+`</div>`;
+	};
+	contenu += `<div>`+textePopup+`</div>`;
+	contenu += `</div>`;
+	return contenu;
+	} else {
+		return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
+	}
+};
+function katex_Popup2(numero,type,titrePopup,texte,textePopup) {
+	'use strict';
+	switch (type) {
+		case 0 : return katex_Popuptest(titrePopup,texte,textePopup)
+		case 1 : return `${titrePopup}`+ modal_texte_long(numero,`${texte}`,`${textePopup}`,`${titrePopup}`,"info circle")
+	}
+};
+
 
 /**
  * Crée une liste de questions alphabétique
