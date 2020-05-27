@@ -3475,9 +3475,9 @@ function Image_antecedent_graphique(){
 				c = randint(-5,5);
 				ymax = 7;
 			} else { // repère -5 || 5
-				x1 = randint(-5,-3);
-				x2 = randint(-2,2,[0]);
-				x3 = randint(3,5);
+				x1 = randint(-4,-2);
+				x2 = randint(-1,2,[0]);
+				x3 = randint(3,4);
 				fx1 = randint(-4,4);
 				fx2 = randint(-4,4);
 				fx3 = randint(-4,4);
