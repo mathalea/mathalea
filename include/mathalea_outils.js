@@ -14,7 +14,7 @@ function liste_de_question_to_contenu(argument) {
 		argument.contenu = html_consigne(argument.consigne) + html_paragraphe(argument.introduction) + html_enumerate(argument.liste_questions,argument.spacing)
 		argument.contenu_correction = html_consigne(argument.consigne_correction) + html_enumerate(argument.liste_corrections,argument.spacing_corr)	
 	} else {
-		argument.contenu = tex_consigne(argument.consigne) + tex_texte(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions,argument.spacing),argument.nb_cols)
+		argument.contenu = tex_consigne(argument.consigne) + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions,argument.spacing),argument.nb_cols)
 		argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_enumerate(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 	}
 	
@@ -32,7 +32,7 @@ function liste_de_question_to_contenu_sans_numero(argument) {
 		argument.contenu = html_consigne(argument.consigne) + html_paragraphe(argument.introduction) + html_ligne(argument.liste_questions,argument.spacing)
 		argument.contenu_correction = html_consigne(argument.consigne_correction) + html_ligne(argument.liste_corrections,argument.spacing_corr)	
 	} else {
-		argument.contenu = tex_consigne(argument.consigne) + tex_texte(argument.introduction) + tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
+		argument.contenu = tex_consigne(argument.consigne) + tex_introduction(argument.introduction) + tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
 		// argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_enumerate_sans_numero(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 		argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_paragraphe(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 	}
@@ -999,7 +999,7 @@ function tex_paragraphe(liste,spacing=false){
 * * `<br><br>` est remplacé par un saut de paragraphe et un medskip
 * @Auteur Rémi Angot
 */
-function tex_texte(texte){
+function tex_introduction(texte){
 	return texte.replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
 }
 
@@ -1029,7 +1029,11 @@ function html_enumerate(liste,spacing){
 * @Auteur Rémi Angot
 */
 function html_paragraphe(texte){
-	return `\n<p>${texte}</p>\n\n`
+	if (texte.length>1) {
+		return `\n<p>${texte}</p>\n\n`		
+	} else {
+		return ""
+	}
 }
 
 /**
@@ -2002,6 +2006,45 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
 	return result;
  
  }
+
+/**
+* Utilise pgfplots pour tracer la courbe représentative de f dans le repère avec -10 < x < 10 et -8 < y < 8
+*
+* @param string expression de fonction
+* @author Rémi Angot
+*/
+
+function tex_graphique(f,xmin=-10,xmax=10,ymin=-8,ymax=9,xstep=1,ystep=1) {
+	return `
+	\\begin{tikzpicture}[scale=.5]
+		\\begin{axis}[
+		    width = .8\\linewidth,
+		    axis lines = center,
+		    xlabel={$x$},
+		    ylabel={$y$},
+		    xlabel style={above right},
+		    ylabel style={above right},
+		    xmin = ${xmin}, xmax = ${xmax}, ymin = ${ymin}, ymax = ${ymax},
+		    grid = major,
+		    xtick distance=${xstep},
+		    ytick distance=${ystep},
+		]
+		\\addplot [
+		    ultra thick,
+		    blue,
+		    samples=100,
+		    domain=-10:10,
+		    ]{${f}};
+		\\end{axis}
+	\\end{tikzpicture}	
+	`
+}
+
+
+
+
+
+
 /**
  * Fonction qui retourne les coefficients a et b de f(x)=ax²+bx+c à partir des données de x1,x2,f(x1),f(x2) et c.
  * 
@@ -2075,7 +2118,7 @@ function cherche_min_max_f ([a,b,c,d]) {
  * retourne 1, la base ou rien
  * @param b base
  * @param e exposant 
- * @Auteur Sébastien Lozano
+ * @author Sébastien Lozano
  */	
 function simpExp(b,e) {
 	switch (e) {
@@ -2097,7 +2140,7 @@ function simpExp(b,e) {
  * si l'exposant vaut 0 ou 1 retourne 1, la base ou rien
  * @param b base
  * @param e exposant 
- * @Auteur Sébastien Lozano
+ * @author Sébastien Lozano
  */	
 function simpNotPuissance(b,e) {
 	switch (b) {
@@ -2139,7 +2182,7 @@ function simpNotPuissance(b,e) {
  * @param b base
  * @param e exposant 
  * @param couleur
- * @Auteur Sébastien Lozano
+ * @author Sébastien Lozano
  */		
 function eclatePuissance(b,e,couleur) {
 	switch (e) {
@@ -3118,6 +3161,52 @@ function texte_ou_pas(texte) {
 	} else {
 		return texte;
 	};
+};
+
+/**
+ * Crée un tableau avec un nombre de lignes et de colonnes déterminées par la longueur des tableaux des entetes passés en paramètre
+ * @param {array} tab_entetes_colonnes contient les entetes des colonnes
+ * @param {array} tab_entetes_lignes contient les entetes des lignes
+ * @param {array} tab_lignes contient les elements de chaque ligne
+ */
+function tab_C_L(tab_entetes_colonnes,tab_entetes_lignes,tab_lignes) {
+	'use strict';
+	// on définit le nombre de colonnes
+	let C = tab_entetes_colonnes.length;
+	// on définit le nombre de lignes
+	let L = tab_entetes_lignes.length;
+	// On construit le string pour obtenir le tableau pour compatibilité HTML et LaTeX
+	let tableau_C_L = ``;
+	if (sortie_html) {
+		tableau_C_L += `$\\def\\arraystretch{2.5}\\begin{array}{|`;
+	} else {
+		tableau_C_L += `$\\begin{array}{|`;
+	};
+	// on construit la 1ere ligne avec toutes les colonnes
+	for (let k=0;k<C;k++) {
+		tableau_C_L += `c|`;
+	};
+	tableau_C_L +=`}\n`;
+					
+	tableau_C_L += `\\hline\n`
+	tableau_C_L += tab_entetes_colonnes[0];
+	for (let k=1;k<C;k++) {
+		tableau_C_L += ` & `+tab_entetes_colonnes[k]+``;
+	};
+	tableau_C_L += `\\\\\n`;
+	tableau_C_L += `\\hline\n`;
+	// on construit toutes les lignes
+	for (let k=0;k<L;k++) {
+		tableau_C_L += ``+tab_entetes_lignes[k]+``;
+		for (let m=1;m<C;m++) {
+			tableau_C_L += ` & `+tab_lignes[(C-1)*k+m-1];
+		};
+		tableau_C_L += `\\\\\n`;
+		tableau_C_L += `\\hline\n`;	
+	};	
+	tableau_C_L += `\\end{array}\n$`
+
+	return tableau_C_L;
 };
 
 /**
