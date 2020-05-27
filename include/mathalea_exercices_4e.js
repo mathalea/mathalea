@@ -3236,7 +3236,7 @@ function problemes_grandeurs_composees(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let liste_index_disponibles=[0,1,3,7,13];
+		let liste_index_disponibles=[0,1,3,4,7,13];
 		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions)
 		let type_aide=1
 		let appareils=[[`radiateur`,2000,20],[`téléviseur`,350,12],[`four électrique`,2500,4],[`ordinateur`,450,8]] // [appareil,puissance,durée maxi de fonctionnement]
@@ -3313,7 +3313,7 @@ function problemes_grandeurs_composees(){
 					texte = `Exercice de calcul d'aires`
 					texte_corr = `Correction aires`
 					break;
-				case 3 :
+				case 3 :  // Problème de quantité de mouvement et d'énergie cinétique
 					quidam=prenom()
 					index1=randint(0,4)
 					masse=randint(50,80)
@@ -3325,10 +3325,20 @@ function problemes_grandeurs_composees(){
 					texte_corr = num_alpha(0)+` La quantité de mouvement de ${quidam} est : $${masse} \\text{ kg}\\times ${vitesse_moy}\\text{ m/s}=${tex_nombrec(masse*vitesse_moy)}\\text{ kg.m.s}^{-1}$<br>`
 					texte_corr +=num_alpha(1)+` L'énergie cinétique de ${quidam} est : $\\dfrac{1}{2}\\times ${masse} \\text{ kg}\\times (${vitesse_moy}\\text{ m/s})^2=\\dfrac{${masse}\\times${vitesse_moy}^2}{2}\\text{ J}=${tex_nombrec(masse*vitesse_moy**2/2)}\\text{ J}$`
 					break;
-				case 4 :
-					texte = `${quidam} qui pèse ${masse} kg se trouve sur le siège d'une balançoire "trébuchet" dans un jardin d'enfant. Le siège est situé à ${distance} m de l'axe de la balance.`
-					texte+= num_alpha(0)+` Calculer le travail du poids de ${quidam} au niveau de l'axe du trébuchet`
-					texte_corr = `Correction travail`
+				case 4 : // problème de travail et d'équilibre des forces.
+					quidam=prenom()
+					index=randint(60,90) //masse du père (recyclage de variable)
+					masse=randint(20,30) //masse de l'enfant
+					distance=arrondi(randint(25,35)/10)
+					texte = `${quidam} qui pèse ${masse} kg se trouve sur le siège d'une balançoire "trébuchet" dans un jardin d'enfant. Le siège est situé à ${tex_nombre(distance)} m de l'axe de la balance.<br>`
+					texte+= num_alpha(0)+` Calculer le travail du poids de ${quidam} par rapport au pivot central du trébuchet en Joules<br>`
+					texte+= num_alpha(1)+` Le père de ${quidam} vient s'installer de l'autre côté du pivot central. Il pèse ${index} kg et s'installe de façon à ce que son poids permette d'équilibrer la balançoire à l'horizontale. A quelle distance du pivot est-il assis ?<br>`
+					texte_corr=num_alpha(0)+` Le travail du poids de ${quidam} par rapport au pivot central du trébuchet est :<br>`
+					index1=masse*9.81*distance //pour éviter d'avoir trop de variable, je recycle
+					texte_corr += `$${masse}\\text{ kg} \\times 9,81 \\text{m.s}^{-2} \\times ${tex_nombre(distance)} \\text{ m} = ${tex_nombre(index1)}\\text{ kg.m}^2\\text{.s}^{-2}=${tex_nombre(index1)}\\text{ J}$<br>`
+					texte_corr +=num_alpha(1)+` Afin d'équilibrer le trébuchet, le père de ${quidam} doit se placer de façon que le travail de son poids soit égal à celui de ${quidam}, on obtient l'équation suivante où $${mise_en_evidence(`d`,`black`)}$ représente sa distance par rapport au pivot central :<br>`
+					texte_corr+=`$ ${index}\\text{ kg}\\times 9,81 \\text{m.s}^{-2} \\times ${mise_en_evidence(`d`,`black`)} \\text{ m}=${tex_nombre(index1)}\\text{ J}$<br>`
+					texte_corr +=`D'où $${mise_en_evidence(`d`,`black`)}\\text{ m} = \\dfrac{${tex_nombre(index1)}\\text{ J}}{${index}\\text{ kg}\\times 9,81 \\text{m.s}^{-2}}\\approx${tex_nombrec(arrondi(index1/(9.81*index)))}\\text{ m}.$`
 					break;
 				case 5 :
 					texte = `Exercice de trafic de voyageur`
