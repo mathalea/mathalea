@@ -3326,7 +3326,8 @@ function problemes_grandeurs_composees(){
 					texte_corr +=num_alpha(1)+` L'énergie cinétique de ${quidam} est : $\\dfrac{1}{2}\\times ${masse} \\text{ kg}\\times (${vitesse_moy}\\text{ m/s})^2=\\dfrac{${masse}\\times${vitesse_moy}^2}{2}\\text{ J}=${tex_nombrec(masse*vitesse_moy**2/2)}\\text{ J}$`
 					break;
 				case 4 :
-					texte = `Exercice de travail`
+					texte = `${quidam} qui pèse ${masse} kg se trouve sur le siège d'une balançoire "trébuchet" dans un jardin d'enfant. Le siège est situé à ${distance} m de l'axe de la balance.`
+					texte+= num_alpha(0)+` Calculer le travail du poids de ${quidam} au niveau de l'axe du trébuchet`
 					texte_corr = `Correction travail`
 					break;
 				case 5 :
