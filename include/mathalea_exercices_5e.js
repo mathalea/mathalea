@@ -3050,7 +3050,6 @@ function Liste_des_diviseurs_5e(){
 						rg_N = randint(0,(tableau_de_choix.length-1));
 						N = tableau_de_choix[rg_N];
 						texte = `Écrire la liste de tous les diviseurs de ${N}.`;
-						//texte += tableau_de_choix.length;
 						texte_corr = `Pour trouver la liste des diviseurs de ${N} on cherche tous les produits de deux facteurs qui donnent ${N}. En écrivant toujours le plus petit facteur en premier.<br>`;
 						texte_corr += `Il est suffisant de chercher des diviseurs inférieurs au plus grand nombre dont le carré vaut ${N}, par exemple ici, ${Math.trunc(Math.sqrt(N))}$\\times$${Math.trunc(Math.sqrt(N))} = ${Math.trunc(Math.sqrt(N))*Math.trunc(Math.sqrt(N))}<${N}`;
 						texte_corr += ` et ${Math.trunc(Math.sqrt(N))+1}$\\times$${Math.trunc(Math.sqrt(N))+1} = ${(Math.trunc(Math.sqrt(N))+1)*(Math.trunc(Math.sqrt(N))+1)}>${N} donc il suffit d'arrêter la recherche de facteur à ${Math.trunc(Math.sqrt(N))}.`;
@@ -3065,7 +3064,7 @@ function Liste_des_diviseurs_5e(){
 							};
 							texte_corr += ``+liste_diviseurs(N)[(liste_diviseurs(N).length-1)/2]+`$\\times$`+liste_diviseurs(N)[(liste_diviseurs(N).length-1)/2]+` = ${N}<br>`;
 						};
-						texte_corr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${N}<br>`;
+						texte_corr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${N}.<br>`;
 						texte_corr += `La liste des diviseurs de ${N} est donc `;
 						texte_corr += `1`;
 						for (let w = 1; w<liste_diviseurs(N).length; w++) {
