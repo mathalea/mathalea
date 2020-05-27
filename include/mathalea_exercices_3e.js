@@ -2400,9 +2400,6 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 							texte_corr +=`<br>`;
 						};
 						break;
-					// case 5 :
-					// 	texte = `bla bla bla`;
-					// 	break;
 					case 5 : // liste des diviseurs
 						// on définit un tableau pour les choix du nombre dont on veut les diviseurs
 						// 3 parmis 2,99 y compris les premiers et 1 parmis les entiers à 3 chiffres ayant au moins 8 diviseurs, il y en a 223 !
@@ -2422,7 +2419,6 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 						rg_N = randint(0,(tableau_de_choix.length-1));
 						N = tableau_de_choix[rg_N];
 						texte = `Écrire la liste de tous les diviseurs de ${N}.`;
-						//texte += tableau_de_choix.length;
 						texte_corr = `Pour trouver la liste des diviseurs de ${N} on cherche tous les produits de deux facteurs qui donnent ${N}<br>`;
 						if (liste_diviseurs(N).length%2==0) {//si il y a un nombre pair de diviseurs
 							for (let m = 0; m<(liste_diviseurs(N).length/2); m++){
