@@ -3442,7 +3442,7 @@ function Image_antecedent_graphique(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.pas_de_version_LaTeX = true ;
 	this.titre = "Lire image ou antécédents d'un nombre à partir d'un graphique"
-	this.consigne = "'"
+	this.consigne = ""
 	this.sup = 3;
 	this.spacing = 2;
 	this.spacing_corr = 2 ;
@@ -3450,6 +3450,8 @@ function Image_antecedent_graphique(){
 	this.nb_questions_modifiable = false;
 	this.type_exercice = 'MG32';
 	this.taille_div_MG32 = [800,600];
+	this.pas_de_version_LaTeX = false;
+	this.nb_cols = 1;
 
 
 	this.nouvelle_version = function(numero_de_l_exercice){
@@ -3535,6 +3537,11 @@ function Image_antecedent_graphique(){
 			texte_corr = `L'image de $${x1}$ est $${fx1}$, on note $f(${x1})=${fx1}$.<br>`
 			texte_corr += `L'image de $${x2}$ est $${fx2}$, on note $f(${x2})=${fx2}$.<br>`
 			texte_corr += `L'image de $${x3}$ est $${fx3}$, on note $f(${x3})=${fx3}$.<br>`
+		}
+
+		if (!sortie_html) {
+			texte += "\n\n"
+			texte += tex_graphique(expression_f);
 		}
 
 		this.MG32codeBase64 = codeBase64

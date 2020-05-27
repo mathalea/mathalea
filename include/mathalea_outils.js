@@ -1029,7 +1029,11 @@ function html_enumerate(liste,spacing){
 * @Auteur Rémi Angot
 */
 function html_paragraphe(texte){
-	return `\n<p>${texte}</p>\n\n`
+	if (texte.length>1) {
+		return `\n<p>${texte}</p>\n\n`		
+	} else {
+		return ""
+	}
 }
 
 /**
