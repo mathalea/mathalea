@@ -2458,7 +2458,6 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 							texte_corr += `; `+liste_diviseurs(N)[w];
 						};
 						texte_corr += `.`;
-
 						break;							
 				};
 			
@@ -2945,6 +2944,7 @@ function Premier_ou_pas_critere_par7_par11(){
  * type 1 : 3 à 5 facteurs premiers max, multiplicités 0,1,2 ou 3 max à préciser
  * type 2 : un produit de deux premiers entre 30 et 100, multiplicité 1 ... suffisamment de possibilités?
  * type 3 : un gros premiers au delà de 1000 et inférieur à 2 000 
+ * type 4 : compter/lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers
  * @author Sébastien Lozano
  */
  
@@ -3012,7 +3012,7 @@ function Decomposition_facteurs_premiers(){
 						let max_premier = 11;
 						// on fixe le rang max pour le choix des premiers
 						let rg_max = crible_eratosthene_n(max_premier).length-1;					
-						console.log('rang max '+rg_max);
+						//console.log('rang max '+rg_max);
 						// on choisit les rangs pour les nombres premiers
 						let tab_rangs = [];
 						let tab_rangs_exclus = [];
@@ -3028,18 +3028,18 @@ function Decomposition_facteurs_premiers(){
 						for (let k=0; k<tab_rangs.length; k++) {
 							tab_premiers[k] = crible_eratosthene_n(max_premier)[tab_rangs[k]];
 						};
-						console.log('tableau des premiers choisis dans le désordre'+tab_premiers);		
+						//console.log('tableau des premiers choisis dans le désordre'+tab_premiers);		
 						// on range les facteurs premiers dans l'ordre croissant
 						tab_premiers.sort(function(a,b){
 							return a-b;
 						});
-						console.log('tableau des premiers choisis dans l ordre'+tab_premiers);											
+						//console.log('tableau des premiers choisis dans l ordre'+tab_premiers);											
 						// on choisit les multiplicités
 						let tab_multiplicites = [];
 						for (let k=0; k<tab_rangs.length; k++) {
 							tab_multiplicites[k] = randint(1,2);
 						};
-						console.log('tableau des multiplicités des premiers choisis '+tab_multiplicites);					
+						//console.log('tableau des multiplicités des premiers choisis '+tab_multiplicites);					
 						// yapluka écrire le nombre dans l'énoncé et sa décomposition dans la correction
 						texte = `&Agrave; l'aide de la calculatrice, décomposer `;
 						let nombre_a_decomposer=1;
@@ -3084,15 +3084,15 @@ function Decomposition_facteurs_premiers(){
 						// }
 						break;		
 					case 2 : // deux premiers compris entre 30 et 100 de multiplicité 1
-						console.log('tableau des premiers dispos' + premiers_entre_bornes(30,100));
+						//console.log('tableau des premiers dispos' + premiers_entre_bornes(30,100));
 						let r1 = randint(0,premiers_entre_bornes(30,100).length-1);
-						console.log('r1 : '+r1);
+						//console.log('r1 : '+r1);
 						let r2 = randint(0,premiers_entre_bornes(30,100).length,r1);
-						console.log('r2 : '+r2);
+						//console.log('r2 : '+r2);
 						let premier1 = premiers_entre_bornes(30,100)[r1];			
-						console.log('premierr1 : '+premier1);
+						//console.log('premierr1 : '+premier1);
 						let premier2 = premiers_entre_bornes(30,100)[r2];
-						console.log('premierr2 : '+premier2);
+						//console.log('premierr2 : '+premier2);
 						
 						texte = `&Agrave; l'aide de la calculatrice, décomposer ${nombre_avec_espace(premier1*premier2)} en produit de facteurs premiers.`;
 						let racine_prem = Math.trunc(Math.sqrt(premier1*premier2));
@@ -3102,12 +3102,12 @@ function Decomposition_facteurs_premiers(){
 						texte_corr += `${nombre_avec_espace(premier1*premier2)} = ${premier1}$\\times$${premier2}.`;
 						break;	
 					case 3 : // un gros premier entre 1000 et 2000			
-						console.log('tableau des premiers dispos' + premiers_entre_bornes(1000,2000));
+						//console.log('tableau des premiers dispos' + premiers_entre_bornes(1000,2000));
 						let r = randint(0,premiers_entre_bornes(1000,2000).length-1);
-						console.log('r1 : '+r);
+						//console.log('r1 : '+r);
 						let premier = premiers_entre_bornes(1000,2000)[r];			
 						let racine_premier = Math.trunc(Math.sqrt(premier));
-						console.log('premierr1 : '+premier);	
+						//console.log('premierr1 : '+premier);	
 						texte = `&Agrave; l'aide de la calculatrice, décomposer ${nombre_avec_espace(premier)} en produit de facteurs premiers.`;
 						texte_corr = `En testant la divisibilité de ${nombre_avec_espace(premier)} par tous les nombres premiers inférieurs ou égaux à ${racine_premier}`;
 						texte_corr += ` c'est à dire les nombre de la liste ${crible_eratosthene_n(racine_premier)}, on se rend compte que ${nombre_avec_espace(premier)} est un nombre premier donc `;
@@ -3122,7 +3122,7 @@ function Decomposition_facteurs_premiers(){
 						let max_premier_b = 11;
 						// on fixe le rang max pour le choix des premiers
 						let rg_max_b = crible_eratosthene_n(max_premier_b).length-1;					
-						console.log('rang max '+rg_max_b);
+						//console.log('rang max '+rg_max_b);
 						// on choisit les rangs pour les nombres premiers
 						let tab_rangs_b = [];
 						let tab_rangs_exclus_b = [];
@@ -3132,24 +3132,24 @@ function Decomposition_facteurs_premiers(){
 							}
 							tab_rangs_b[k] = randint(0,rg_max_b,tab_rangs_exclus_b);
 						};
-						console.log('tableau des rangs retenus pour les premiers choisis '+tab_rangs_b);					
+						//console.log('tableau des rangs retenus pour les premiers choisis '+tab_rangs_b);					
 						// on choisit les premiers
 						let tab_premiers_b = [];
 						for (let k=0; k<tab_rangs_b.length; k++) {
 							tab_premiers_b[k] = crible_eratosthene_n(max_premier_b)[tab_rangs_b[k]];
 						};
-						console.log('tableau des premiers choisis dans le désordre'+tab_premiers_b);		
+						//console.log('tableau des premiers choisis dans le désordre'+tab_premiers_b);		
 						// on range les facteurs premiers dans l'ordre croissant
 						tab_premiers_b.sort(function(a,b){
 							return a-b;
 						});
-						console.log('tableau des premiers choisis dans l ordre'+tab_premiers_b);											
+						//console.log('tableau des premiers choisis dans l ordre'+tab_premiers_b);											
 						// on choisit les multiplicités
 						let tab_multiplicites_b = [];
 						for (let k=0; k<tab_rangs_b.length; k++) {
 							tab_multiplicites_b[k] = randint(1,2);
 						};
-						console.log('tableau des multiplicités des premiers choisis '+tab_multiplicites_b);					
+						//console.log('tableau des multiplicités des premiers choisis '+tab_multiplicites_b);					
 						// yapluka écrire le nombre dans l'énoncé et sa décomposition dans la correction
 						texte = ``;
 						let nombre_a_decomposer_b=1;
@@ -3167,14 +3167,14 @@ function Decomposition_facteurs_premiers(){
 						for (let k=1; k<tab_premiers_b.length;k++) {
 							if (tab_multiplicites_b[k]==1) {
 								texte += `\\times ${tab_premiers_b[k]}`;
-								console.log('typeof : '+typeof tab_multiplicites_b[k]);
+								//console.log('typeof : '+typeof tab_multiplicites_b[k]);
 							} else {
 								texte += `\\times ${tab_premiers_b[k]}^{${tab_multiplicites_b[k]}}`;
 							};
 							
 						};
 						texte += `$, <br>`;
-						texte +=num_alpha(0)+`Compléter le tableau ci-dessous.`;
+						texte +=num_alpha(0)+` Compléter le tableau ci-dessous.`;
 						// on crée le tableau des entetes de lignes et des colonnes
 						//let nb_lignes = tab_multiplicites_b[0]+1;			
 						//let nb_colonnes = (tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1);
@@ -3185,21 +3185,25 @@ function Decomposition_facteurs_premiers(){
 						for (let k=0;k<tab_multiplicites_b[0]+1;k++) {
 							ent_lignes.push(tab_premiers_b[0]+`^{`+k+`}`);
 						};
-						// le contenu des lignes
-						for (let k=0;k<(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)+1;k++) {
-							contenu_lignes.push(``);
-						};
 						// les entetes des colonnes 
 						for (let m=0;m<tab_multiplicites_b[1]+1;m++) {
 							for (let l=0;l<tab_multiplicites_b[2]+1;l++) {
 								ent_colonnes.push(tab_premiers_b[1]+`^{`+m+`}\\times`+tab_premiers_b[2]+`^{`+l+`}`);
 							};
 						};
+						// le contenu des lignes
+						for (let l=0;l<(tab_multiplicites_b[0]+1);l++) {
+							for (let c=1;c<(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)+1;c++) {
+								//contenu_lignes.push(`l : `+l+`, c : `+Number(c));
+								contenu_lignes.push(``);
+							};
+						};
+						//console.log('contenu lignes : '+contenu_lignes)
 						texte += `<br>`;
 						texte += tab_C_L(ent_colonnes,ent_lignes,contenu_lignes);
 						texte += `<br>`;
-						texte +=num_alpha(1)+`En déduire le nombre de diviseurs de ${nombre_avec_espace(nombre_a_decomposer_b)}.<br>`;
-						texte +=num_alpha(2)+`Enfin, dresser la liste des diviseurs de ${nombre_avec_espace(nombre_a_decomposer_b)}.<br>`;
+						texte +=num_alpha(1)+` En déduire le nombre de diviseurs de ${nombre_avec_espace(nombre_a_decomposer_b)}.<br>`;
+						texte +=num_alpha(2)+` Enfin, dresser la liste des diviseurs de ${nombre_avec_espace(nombre_a_decomposer_b)}.<br>`;
 						
 						// correction
 						texte_corr = `Avec la décomposition en facteurs premiers de ${nombre_avec_espace(nombre_a_decomposer_b)} qui est : $`;
@@ -3225,28 +3229,36 @@ function Decomposition_facteurs_premiers(){
 						for (let k=0;k<tab_multiplicites_b[0]+1;k++) {
 							ent_lignes_corr.push(tab_premiers_b[0]+`^{`+k+`}`);
 						};
-						// le contenu des lignes
-						for (let k=0;k<tab_multiplicites_b[0]+1;k++) {
-							contenu_lignes_corr[k] = tab_premiers_b[0]+`^{`+k+`}`;
-							for (let m=0;m<tab_multiplicites_b[1]+1;m++) {
-								contenu_lignes_corr[k] +=  `\\times`+tab_premiers_b[1]+`^{`+m+`}`;
-								for (let l=0;l<tab_multiplicites_b[2]+1;l++) {
-									contenu_lignes_corr[k] += `\\times`+tab_premiers_b[2]+`^{`+l+`}`;
-									//ent_colonnes_corr.push(tab_premiers_b[1]+`^{`+m+`}\\times`+tab_premiers_b[2]+`^{`+l+`}`);
-								};
-							};
-						};
+						//console.log('entetes lignes corr : ' + ent_lignes_corr);
 						// les entetes des colonnes 
 						for (let m=0;m<tab_multiplicites_b[1]+1;m++) {
 							for (let l=0;l<tab_multiplicites_b[2]+1;l++) {
 								ent_colonnes_corr.push(tab_premiers_b[1]+`^{`+m+`}\\times`+tab_premiers_b[2]+`^{`+l+`}`);
 							};
 						};
+
+						//console.log('entetes colonnes corr : ' + ent_colonnes_corr);
+						// le contenu des lignes
+						for (let l=0;l<(tab_multiplicites_b[0]+1);l++) {
+							for (let c=1;c<(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)+1;c++) {
+								//contenu_lignes_corr.push(`l : `+l+`, c : `+Number(c));
+								contenu_lignes_corr.push(ent_lignes_corr[l]+`\\times`+ent_colonnes_corr[Number(c)]);								
+							};
+						};				
 						texte_corr += `<br>`;
 						texte_corr += tab_C_L(ent_colonnes_corr,ent_lignes_corr,contenu_lignes_corr);
 						texte_corr += `<br>`;
-						texte_corr +=num_alpha(1)+`En déduire le nombre de diviseurs de ${nombre_avec_espace(nombre_a_decomposer_b)}.<br>`;
-						texte_corr +=num_alpha(2)+`Enfin, dresser la liste des diviseurs de ${nombre_avec_espace(nombre_a_decomposer_b)}.<br>`;						break;		
+						texte_corr +=num_alpha(1)+` ${nombre_avec_espace(nombre_a_decomposer_b)} a donc `;
+						texte_corr += `(${tab_multiplicites_b[0]}+1)$\\times$(${tab_multiplicites_b[1]}+1)$\\times$(${tab_multiplicites_b[2]}+1) = `;
+						texte_corr += `${tab_multiplicites_b[0]+1}$\\times$${tab_multiplicites_b[1]+1}$\\times$${tab_multiplicites_b[2]+1} = `;
+						texte_corr += `${(tab_multiplicites_b[0]+1)*(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)} diviseurs.<br>`;
+						texte_corr +=num_alpha(2)+` Enfin, voici la liste des ${(tab_multiplicites_b[0]+1)*(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)} diviseurs de ${nombre_avec_espace(nombre_a_decomposer_b)} : `;
+						texte_corr += `1`;
+						for (let w = 1; w<liste_diviseurs(nombre_a_decomposer_b).length; w++) {
+							texte_corr += `; `+liste_diviseurs(nombre_a_decomposer_b)[w];
+						};
+						texte_corr += `.`;
+						break;		
 				};
 			
 				if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
