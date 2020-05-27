@@ -2970,7 +2970,6 @@ function Liste_des_diviseurs_5e(){
 						
 						texte = `Compléter le tableau suivant et faire la liste de tous les diviseurs de ${M}`;
 						texte += `<br>`;						
-
 						if (sortie_html) {
 							texte += `$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|}\n`
 						} else {
