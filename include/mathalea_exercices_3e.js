@@ -3115,6 +3115,70 @@ function Decomposition_facteurs_premiers(){
 						break;	
 					case 4 : // lister/compter les diviseurs d'un entier à partir de sa décomposition en facteurs premiers			
 						texte = `Lister/compter les diviseurs d'un entier à partir de sa décomposition en facteurs premiers`;
+						//let premiers_dispos = premiers_entre_bornes(2,11);
+												// on fixe le nombre de facteurs premier à 3
+												let nb_de_premiers_b = randint(3,3);						
+												// on fixe la limite pour le choix des premiers
+												let max_premier_b = 11;
+												// on fixe le rang max pour le choix des premiers
+												let rg_max_b = crible_eratosthene_n(max_premier_b).length-1;					
+												console.log('rang max '+rg_max_b);
+												// on choisit les rangs pour les nombres premiers
+												let tab_rangs_b = [];
+												let tab_rangs_exclus_b = [];
+												for (let k=0;k<(nb_de_premiers_b);k++) {
+													for (let m=0;m<k;m++) {
+														tab_rangs_exclus_b.push(tab_rangs_b[m]);
+													}
+													tab_rangs_b[k] = randint(0,rg_max_b,tab_rangs_exclus_b);
+												};
+												console.log('tableau des rangs retenus pour les premiers choisis '+tab_rangs_b);					
+												// on choisit les premiers
+												let tab_premiers_b = [];
+												for (let k=0; k<tab_rangs_b.length; k++) {
+													tab_premiers_b[k] = crible_eratosthene_n(max_premier_b)[tab_rangs_b[k]];
+												};
+												console.log('tableau des premiers choisis dans le désordre'+tab_premiers_b);		
+												// on range les facteurs premiers dans l'ordre croissant
+												tab_premiers_b.sort(function(a,b){
+													return a-b;
+												});
+												console.log('tableau des premiers choisis dans l ordre'+tab_premiers_b);											
+												// on choisit les multiplicités
+												let tab_multiplicites_b = [];
+												for (let k=0; k<tab_rangs_b.length; k++) {
+													tab_multiplicites_b[k] = randint(1,2);
+												};
+												console.log('tableau des multiplicités des premiers choisis '+tab_multiplicites_b);					
+												// yapluka écrire le nombre dans l'énoncé et sa décomposition dans la correction
+												texte = ``;
+												let nombre_a_decomposer_b=1;
+												for (let k=0; k<tab_rangs_b.length; k++) {
+													for (let m=0; m<tab_multiplicites_b[k]; m++) {
+														nombre_a_decomposer_b = nombre_a_decomposer_b*tab_premiers_b[k];
+													};
+												};
+												texte += `La décomposition en facteurs premiers de ${nombre_avec_espace(nombre_a_decomposer_b)} est : $`;
+												if (tab_multiplicites_b[0]==1) {
+													texte += `${tab_premiers_b[0]}`;							
+												} else {
+													texte += `${tab_premiers_b[0]}^{${tab_multiplicites_b[0]}}`;
+												};
+												for (let k=1; k<tab_premiers_b.length;k++) {
+													if (tab_multiplicites_b[k]==1) {
+														texte += `\\times ${tab_premiers_b[k]}`;
+														console.log('typeof : '+typeof tab_multiplicites_b[k]);
+													} else {
+														texte += `\\times ${tab_premiers_b[k]}^{${tab_multiplicites_b[k]}}`;
+													};
+													
+												};
+												texte += `$, <br>`;
+												texte +=num_alpha(0)+`Compléter le tableau ci-dessous.<br>`;
+												texte +=`TABLEAU A FAIRE<br>`;
+												texte +=num_alpha(1)+`En déduire le nombre de diviseurs de ${nombre_avec_espace(nombre_a_decomposer_b)}.<br>`;
+												texte +=num_alpha(2)+`Enfin, dresser la liste des diviseurs de ${nombre_avec_espace(nombre_a_decomposer_b)}.<br>`;
+						
 						texte_corr = 'corr type 4';
 						break;		
 				};
