@@ -2014,30 +2014,36 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
 * @author Rémi Angot
 */
 
-function tex_graphique(f,xmin=-10,xmax=10,ymin=-8,ymax=9,xstep=1,ystep=1) {
+function tex_graphique(f,xmin=-5,xmax=5,ymin=-5,ymax=5,xstep=1,ystep=1) {
 	return `
-	\\begin{tikzpicture}[scale=.5]
+	\\pgfplotsset{width=10cm,
+			compat=1.9,
+			every axis/.append style={
+                    axis x line=middle,    % put the x axis in the middle
+                    axis y line=middle,    % put the y axis in the middle
+                    xlabel={$x$},          % default put x on x-axis
+                    ylabel={$y$},          % default put y on y-axis
+                    label style={font=\\tiny},
+                    tick label style={font=\\tiny},
+                    xlabel style={above right},
+				    ylabel style={above right},
+				    grid = major,
+				    xtick distance=1,
+				    ytick distance=1,
+                    }}
+
+	\\begin{tikzpicture}
 		\\begin{axis}[
-		    width = .8\\linewidth,
-		    axis lines = center,
-		    xlabel={$x$},
-		    ylabel={$y$},
-		    xlabel style={above right},
-		    ylabel style={above right},
 		    xmin = ${xmin}, xmax = ${xmax}, ymin = ${ymin}, ymax = ${ymax},
-		    grid = major,
-		    xtick distance=${xstep},
-		    ytick distance=${ystep},
 		]
 		\\addplot [
 		    ultra thick,
 		    blue,
 		    samples=100,
-		    domain=-10:10,
+		    domain=${xmin}:${xmax},
 		    ]{${f}};
 		\\end{axis}
-	\\end{tikzpicture}	
-	`
+	\\end{tikzpicture}`
 }
 
 
