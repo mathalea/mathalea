@@ -3323,7 +3323,7 @@ function problemes_grandeurs_composees(){
 					texte+=num_alpha(0)+` Calculer sa `+katex_Popup2(numero_de_l_exercice+i*3+1,type_aide,"quantité de mouvement",`Définition : quantité de mouvement (grandeur physique)`,`C’est le produit de la masse d'un corps par sa vitesse.<br>L'unité de mesure de la quantité de mouvement est le ($\\text{kg.m.s}^{-1}$)`) +` en $\\text{kg.m.s}^{-1}$.<br>`
 					texte+=num_alpha(1)+` En déduire son `+katex_Popup2(numero_de_l_exercice+i*3+2,type_aide,"énergie cinétique",`Définition : énergie cinétique (grandeur physique)`,`L'énergie cinétique d'un corps de masse $m$ (en kg) assimilé à un point matériel se déplaçant à la vitesse $v$ (en m/s) est donné par la formule $E=\\dfrac{1}{2}\\times m\\times v^2$.<br>L'unité de mesure de l'énergie cinétique est le Joule (J).<br>$1J=1\\text{ kg.m}^2\\text{s}^{-2}$.`) +` en Joules.`
 					texte_corr = num_alpha(0)+` La quantité de mouvement de ${quidam} est : $${masse} \\text{ kg}\\times ${vitesse_moy}\\text{ m/s}=${tex_nombrec(masse*vitesse_moy)}\\text{ kg.m.s}^{-1}$<br>`
-					texte_corr +=num_alpha(1)+` L'énergie cinétique de ${quidam} est : $\\dfrac{1}{2}\\times ${masse} \\text{ kg}\\times (${vitesse_moy}\\text{ m/s})^2=\\dfrac{${masse}\\times${vitesse_moy}^2}{2}\\text{ J}=${tex_nombrec(masse*vitesse_moy**2)}\\text{ J}$`
+					texte_corr +=num_alpha(1)+` L'énergie cinétique de ${quidam} est : $\\dfrac{1}{2}\\times ${masse} \\text{ kg}\\times (${vitesse_moy}\\text{ m/s})^2=\\dfrac{${masse}\\times${vitesse_moy}^2}{2}\\text{ J}=${tex_nombrec(masse*vitesse_moy**2/2)}\\text{ J}$`
 					break;
 				case 4 :
 					texte = `Exercice de travail`
