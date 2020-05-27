@@ -81,7 +81,6 @@ var liste_des_exercices_disponibles = {
 		'5N22': Exercice_additionner_des_fractions_5e,
 		'5N22-1': Exercice_additionner_ou_soustraire_des_fractions_5e,
 		'5A-10' : Liste_des_diviseurs_5e,
-		//'5A-10-1' : DivisionEuclidienne_multiplesDiviseurs_Criteres_5e,
 		'5A-11' : Premier_ou_pas_5e,
 		'5L10' : Ecrire_une_expression_litterale,
 		'5L101' : Traduire_un_programme_de_calcul,

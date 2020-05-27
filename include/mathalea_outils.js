@@ -2114,7 +2114,7 @@ function cherche_min_max_f ([a,b,c,d]) {
  * retourne 1, la base ou rien
  * @param b base
  * @param e exposant 
- * @Auteur Sébastien Lozano
+ * @author Sébastien Lozano
  */	
 function simpExp(b,e) {
 	switch (e) {
@@ -2136,7 +2136,7 @@ function simpExp(b,e) {
  * si l'exposant vaut 0 ou 1 retourne 1, la base ou rien
  * @param b base
  * @param e exposant 
- * @Auteur Sébastien Lozano
+ * @author Sébastien Lozano
  */	
 function simpNotPuissance(b,e) {
 	switch (b) {
@@ -2178,7 +2178,7 @@ function simpNotPuissance(b,e) {
  * @param b base
  * @param e exposant 
  * @param couleur
- * @Auteur Sébastien Lozano
+ * @author Sébastien Lozano
  */		
 function eclatePuissance(b,e,couleur) {
 	switch (e) {
@@ -3157,6 +3157,52 @@ function texte_ou_pas(texte) {
 	} else {
 		return texte;
 	};
+};
+
+/**
+ * Crée un tableau avec un nombre de lignes et de colonnes déterminées par la longueur des tableaux des entetes passés en paramètre
+ * @param {array} tab_entetes_colonnes contient les entetes des colonnes
+ * @param {array} tab_entetes_lignes contient les entetes des lignes
+ * @param {array} tab_lignes contient les elements de chaque ligne
+ */
+function tab_C_L(tab_entetes_colonnes,tab_entetes_lignes,tab_lignes) {
+	'use strict';
+	// on définit le nombre de colonnes
+	let C = tab_entetes_colonnes.length;
+	// on définit le nombre de lignes
+	let L = tab_entetes_lignes.length;
+	// On construit le string pour obtenir le tableau pour compatibilité HTML et LaTeX
+	let tableau_C_L = ``;
+	if (sortie_html) {
+		tableau_C_L += `$\\def\\arraystretch{2.5}\\begin{array}{|`;
+	} else {
+		tableau_C_L += `$\\begin{array}{|`;
+	};
+	// on construit la 1ere ligne avec toutes les colonnes
+	for (let k=0;k<C;k++) {
+		tableau_C_L += `c|`;
+	};
+	tableau_C_L +=`}\n`;
+					
+	tableau_C_L += `\\hline\n`
+	tableau_C_L += tab_entetes_colonnes[0];
+	for (let k=1;k<C;k++) {
+		tableau_C_L += ` & `+tab_entetes_colonnes[k]+``;
+	};
+	tableau_C_L += `\\\\\n`;
+	tableau_C_L += `\\hline\n`;
+	// on construit toutes les lignes
+	for (let k=0;k<L;k++) {
+		tableau_C_L += ``+tab_entetes_lignes[k]+``;
+		for (let m=1;m<C;m++) {
+			tableau_C_L += ` & `+tab_lignes[(C-1)*k+m-1];
+		};
+		tableau_C_L += `\\\\\n`;
+		tableau_C_L += `\\hline\n`;	
+	};	
+	tableau_C_L += `\\end{array}\n$`
+
+	return tableau_C_L;
 };
 
 /**
