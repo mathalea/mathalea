@@ -3141,7 +3141,7 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 	this.consigne += `<br>`;
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
-	this.nb_questions = 1;
+	this.nb_questions = 2;
 	//this.correction_detaillee_disponible = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
