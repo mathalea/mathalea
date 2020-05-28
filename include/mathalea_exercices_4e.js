@@ -3325,18 +3325,18 @@ function problemes_grandeurs_composees(){
 					texte_corr = num_alpha(0)+` La quantité de mouvement de ${quidam} est : $${masse} \\text{ kg}\\times ${vitesse_moy}\\text{ m/s}=${tex_nombrec(masse*vitesse_moy)}\\text{ kg.m.s}^{-1}$<br>`
 					texte_corr +=num_alpha(1)+` L'énergie cinétique de ${quidam} est : $\\dfrac{1}{2}\\times ${masse} \\text{ kg}\\times (${vitesse_moy}\\text{ m/s})^2=\\dfrac{${masse}\\times${vitesse_moy}^2}{2}\\text{ J}=${tex_nombrec(masse*vitesse_moy**2/2)}\\text{ J}$`
 					break;
-				case 4 : // problème de travail et d'équilibre des forces.
+				case 4 : // problème de moment et de couple de forces qui s'annulent.
 					quidam=prenom()
 					index=randint(60,90) //masse du père (recyclage de variable)
 					masse=randint(20,30) //masse de l'enfant
 					distance=arrondi(randint(25,35)/10)
-					texte = `${quidam} qui pèse ${masse} kg se trouve sur le siège d'une balançoire "trébuchet" dans un jardin d'enfant. Le siège est situé à ${tex_nombre(distance)} m du pivot central de la balançoire.<br>`
-					texte+= num_alpha(0)+` Calculer le `+katex_Popup2(numero_de_l_exercice+i*3+2,type_aide,"travail",`Définition : travail (grandeur physique)`,`Le travail d'une force d'intensité F(en Newton ou kg.m.s$^{-2}$) sur une distance d (en m) est le produit de F par d.<br>L'unité de mesure du travail est le Joule (J).<br>$1J=1\\text{ kg.m}^2\\text{s}^{-2}$.`) +` du poids de ${quidam} par rapport au pivot central du trébuchet en Joules<br>`
-					texte+= num_alpha(1)+` Le père de ${quidam} vient s'installer de l'autre côté du pivot central. Il pèse ${index} kg et s'installe de façon à ce que son poids permette d'équilibrer la balançoire à l'horizontale. A quelle distance du pivot est-il assis ?<br>`
-					texte_corr=num_alpha(0)+` Le travail du poids de ${quidam} par rapport au pivot central du trébuchet est :<br>`
-					index1=masse*9.81*distance //pour éviter d'avoir trop de variable, je recycle
+					texte = `${quidam} qui pèse ${masse} kg se trouve sur le siège d'une balançoire "trébuchet" dans un jardin d'enfant. Le siège est situé à ${tex_nombre(distance)} m du pivot central de la balançoire (bras de levier).<br>`
+					texte+= num_alpha(0)+` Calculer le `+katex_Popup2(numero_de_l_exercice+i*3+2,type_aide,"moment",`Définition : moment (grandeur physique)`,`Le moment d'une force d'intensité F(en Newton ou kg.m.s$^{-2}$) en un point M par rapport à un pivot P est le produit de F par la distance PM (appelée bras de levier) exprimée en mètres (lorsque cette force s'exerce perpendiculairement au bras de levier). Le moment est l'energie permettant de faire tourner l'objet autour du pivot.<br>L'unité de mesure du moment est le Joule (J).<br>$1J=1\\text{ kg.m}^2\\text{s}^{-2}$.`) +` du poids de ${quidam} sur son siège par rapport au pivot central du trébuchet en Joules (on admettra que le bras de levier est horizontal).<br>`
+					texte+= num_alpha(1)+` Le père de ${quidam} vient s'installer de l'autre côté du pivot central. Il pèse ${index} kg et s'installe de façon à ce que son poids permette d'équilibrer la balançoire à l'horizontale. Quelle doit être la longueur du bras de levier de son côté ( à quelle distance du pivot est-il assis ) ?<br>`
+					texte_corr=num_alpha(0)+` Le moment du poids de ${quidam} appliqué sur son siège par rapport au pivot central du trébuchet est :<br>`
+					index1=arrondi(masse*9.81*distance) //pour éviter d'avoir trop de variable, je recycle
 					texte_corr += `$${masse}\\text{ kg} \\times 9,81 \\text{m.s}^{-2} \\times ${tex_nombre(distance)} \\text{ m} = ${tex_nombre(index1)}\\text{ kg.m}^2\\text{.s}^{-2}=${tex_nombre(index1)}\\text{ J}$<br>`
-					texte_corr +=num_alpha(1)+` Afin d'équilibrer le trébuchet, le père de ${quidam} doit se placer de façon que le travail de son poids soit égal à celui de ${quidam}, on obtient l'équation suivante où $${mise_en_evidence(`d`,`black`)}$ représente sa distance par rapport au pivot central :<br>`
+					texte_corr +=num_alpha(1)+` Afin d'équilibrer le trébuchet, le père de ${quidam} doit se placer de façon que le moment de son poids sur son point d'assise par rapport au pivot central du trébuchet soit égal à celui de ${quidam}, on obtient l'équation suivante où $${mise_en_evidence(`d`,`black`)}$ représente sa distance par rapport au pivot central :<br>`
 					texte_corr+=`$ ${index}\\text{ kg}\\times 9,81 \\text{m.s}^{-2} \\times ${mise_en_evidence(`d`,`black`)} \\text{ m}=${tex_nombre(index1)}\\text{ J}$<br>`
 					texte_corr +=`D'où $${mise_en_evidence(`d`,`black`)}\\text{ m} = \\dfrac{${tex_nombre(index1)}\\text{ J}}{${index}\\text{ kg}\\times 9,81 \\text{m.s}^{-2}}\\approx${tex_nombrec(arrondi(index1/(9.81*index)))}\\text{ m}.$`
 					break;
