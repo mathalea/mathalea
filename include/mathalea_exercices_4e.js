@@ -3330,8 +3330,8 @@ function problemes_grandeurs_composees(){
 					index=randint(60,90) //masse du père (recyclage de variable)
 					masse=randint(20,30) //masse de l'enfant
 					distance=arrondi(randint(25,35)/10)
-					texte = `${quidam} qui pèse ${masse} kg se trouve sur le siège d'une balançoire "trébuchet" dans un jardin d'enfant. Le siège est situé à ${tex_nombre(distance)} m de l'axe de la balance.<br>`
-					texte+= num_alpha(0)+` Calculer le travail du poids de ${quidam} par rapport au pivot central du trébuchet en Joules<br>`
+					texte = `${quidam} qui pèse ${masse} kg se trouve sur le siège d'une balançoire "trébuchet" dans un jardin d'enfant. Le siège est situé à ${tex_nombre(distance)} m du pivot central de la balançoire.<br>`
+					texte+= num_alpha(0)+` Calculer le `+katex_Popup2(numero_de_l_exercice+i*3+2,type_aide,"travail",`Définition : travail (grandeur physique)`,`Le travail d'une force d'intensité F(en Newton ou kg.m.s$^{-2}$) sur une distance d (en m) est le produit de F par d.<br>L'unité de mesure du travail est le Joule (J).<br>$1J=1\\text{ kg.m}^2\\text{s}^{-2}$.`) +` du poids de ${quidam} par rapport au pivot central du trébuchet en Joules<br>`
 					texte+= num_alpha(1)+` Le père de ${quidam} vient s'installer de l'autre côté du pivot central. Il pèse ${index} kg et s'installe de façon à ce que son poids permette d'équilibrer la balançoire à l'horizontale. A quelle distance du pivot est-il assis ?<br>`
 					texte_corr=num_alpha(0)+` Le travail du poids de ${quidam} par rapport au pivot central du trébuchet est :<br>`
 					index1=masse*9.81*distance //pour éviter d'avoir trop de variable, je recycle
