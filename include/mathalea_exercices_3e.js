@@ -555,7 +555,7 @@ function Image_fonction_algebrique(){
 				case 'a/cx+d': 
 					d = randint(1,11)
 					while (c*x+d==0){
-						c=randint(1,11)
+						c=randint(2,11)
 					}
 					expression = `\\dfrac{${a}}{${c}x+${d}}`
 					texte_corr = `$${nomdef}(${x})=\\dfrac{${a}}{${c}\\times${ecriture_parenthese_si_negatif(x)}+${d}}=\\dfrac{${a}}{${c*x}+${d}}=\\dfrac{${a}}{${c*x+d}}=${tex_fraction_reduite(a,c*x+d)}$`
@@ -563,18 +563,18 @@ function Image_fonction_algebrique(){
 				case 'ax+b/cx+d': 
 					d = randint(1,11)
 					while (c*x+d==0){
-						c=randint(1,11)
+						c=randint(2,11)
 					}
 					while (a*x+b==0){
-						a=randint(1,11)
+						a=randint(2,11)
 					}
 					expression = `\\dfrac{${a}x+${b}}{${c}x+${d}}`
 					texte_corr = `$${nomdef}(${x})=\\dfrac{${a}\\times${ecriture_parenthese_si_negatif(x)}+${b}}{${c}\\times${ecriture_parenthese_si_negatif(x)}+${d}}=\\dfrac{${a*x}+${b}}{${c*x}+${d}}=\\dfrac{${a*x+b}}{${c*x+d}}=${tex_fraction_reduite(a*x+b,c*x+d)}$`
 				break;
 				case '(ax+b)(cx+d)': 
-					a = randint (-4,4,[0])
+					a = randint (-4,4,[0,1,-1])
 					b = randint (-4,4,[0])
-					c = randint (-4,4,[0])
+					c = randint (-4,4,[0,1,-1])
 					d = randint (-4,4,[0])
 					x = randint (-2,2,[0])
 
