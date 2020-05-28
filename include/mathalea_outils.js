@@ -14,7 +14,7 @@ function liste_de_question_to_contenu(argument) {
 		argument.contenu = html_consigne(argument.consigne) + html_paragraphe(argument.introduction) + html_enumerate(argument.liste_questions,argument.spacing)
 		argument.contenu_correction = html_consigne(argument.consigne_correction) + html_enumerate(argument.liste_corrections,argument.spacing_corr)	
 	} else {
-		argument.contenu = tex_consigne(argument.consigne) + tex_texte(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions,argument.spacing),argument.nb_cols)
+		argument.contenu = tex_consigne(argument.consigne) + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions,argument.spacing),argument.nb_cols)
 		argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_enumerate(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 	}
 	
@@ -32,7 +32,7 @@ function liste_de_question_to_contenu_sans_numero(argument) {
 		argument.contenu = html_consigne(argument.consigne) + html_paragraphe(argument.introduction) + html_ligne(argument.liste_questions,argument.spacing)
 		argument.contenu_correction = html_consigne(argument.consigne_correction) + html_ligne(argument.liste_corrections,argument.spacing_corr)	
 	} else {
-		argument.contenu = tex_consigne(argument.consigne) + tex_texte(argument.introduction) + tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
+		argument.contenu = tex_consigne(argument.consigne) + tex_introduction(argument.introduction) + tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
 		// argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_enumerate_sans_numero(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 		argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_paragraphe(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 	}
@@ -999,7 +999,7 @@ function tex_paragraphe(liste,spacing=false){
 * * `<br><br>` est remplacé par un saut de paragraphe et un medskip
 * @Auteur Rémi Angot
 */
-function tex_texte(texte){
+function tex_introduction(texte){
 	return texte.replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
 }
 
@@ -1029,7 +1029,11 @@ function html_enumerate(liste,spacing){
 * @Auteur Rémi Angot
 */
 function html_paragraphe(texte){
-	return `\n<p>${texte}</p>\n\n`
+	if (texte.length>1) {
+		return `\n<p>${texte}</p>\n\n`		
+	} else {
+		return ""
+	}
 }
 
 /**
@@ -2002,6 +2006,51 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
 	return result;
  
  }
+
+/**
+* Utilise pgfplots pour tracer la courbe représentative de f dans le repère avec -10 < x < 10 et -8 < y < 8
+*
+* @param string expression de fonction
+* @author Rémi Angot
+*/
+
+function tex_graphique(f,xmin=-5,xmax=5,ymin=-5,ymax=5,xstep=1,ystep=1) {
+	return `
+	\\pgfplotsset{width=10cm,
+			compat=1.9,
+			every axis/.append style={
+                    axis x line=middle,    % put the x axis in the middle
+                    axis y line=middle,    % put the y axis in the middle
+                    xlabel={$x$},          % default put x on x-axis
+                    ylabel={$y$},          % default put y on y-axis
+                    label style={font=\\tiny},
+                    tick label style={font=\\tiny},
+                    xlabel style={above right},
+				    ylabel style={above right},
+				    grid = major,
+				    xtick distance=1,
+				    ytick distance=1,
+                    }}
+
+	\\begin{tikzpicture}
+		\\begin{axis}[
+		    xmin = ${xmin}, xmax = ${xmax}, ymin = ${ymin}, ymax = ${ymax},
+		]
+		\\addplot [
+		    ultra thick,
+		    blue,
+		    samples=100,
+		    domain=${xmin}:${xmax},
+		    ]{${f}};
+		\\end{axis}
+	\\end{tikzpicture}`
+}
+
+
+
+
+
+
 /**
  * Fonction qui retourne les coefficients a et b de f(x)=ax²+bx+c à partir des données de x1,x2,f(x1),f(x2) et c.
  * 
