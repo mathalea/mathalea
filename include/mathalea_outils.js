@@ -3171,6 +3171,7 @@ function texte_ou_pas(texte) {
 
 /**
  * Crée un tableau avec un nombre de lignes et de colonnes déterminées par la longueur des tableaux des entetes passés en paramètre
+ * Les contenus sont en mode maths par défaut, il faut donc penser à remplir les tableaux en utilisant éventuellement la commande \\text{}
  * @param {array} tab_entetes_colonnes contient les entetes des colonnes
  * @param {array} tab_entetes_lignes contient les entetes des lignes
  * @param {array} tab_lignes contient les elements de chaque ligne

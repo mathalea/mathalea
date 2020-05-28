@@ -130,6 +130,7 @@ var liste_des_exercices_disponibles = {
 		'3A11' : Premier_ou_pas,
 		'3A11-1' : Premier_ou_pas_critere_par7_par11,
 		'3A11-2' : Decomposition_facteurs_premiers,
+		'3A11-3' : Lister_Diviseurs_Par_Decomposition_facteurs_premiers,
 		//'3A12' : FractionsIrreductibles,
 		//'3A13' : PGCD_PPCM_Engrenages,
 		'3M30' : Calcul_de_volumes_3e,
