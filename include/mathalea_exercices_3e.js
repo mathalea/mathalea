@@ -3020,7 +3020,7 @@ function Decomposition_facteurs_premiers(){
 							}
 							tab_rangs[k] = randint(0,rg_max,tab_rangs_exclus);
 						};
-						console.log('tableau des rangs retenus pour les premiers choisis '+tab_rangs);					
+						//console.log('tableau des rangs retenus pour les premiers choisis '+tab_rangs);					
 						// on choisit les premiers
 						let tab_premiers = [];
 						for (let k=0; k<tab_rangs.length; k++) {
@@ -3046,7 +3046,7 @@ function Decomposition_facteurs_premiers(){
 								nombre_a_decomposer = nombre_a_decomposer*tab_premiers[k];
 							};
 						};
-						texte += `${nombre_avec_espace(nombre_a_decomposer)} en produit de facteurs premiers.`;
+						texte += `$${tex_nombre(nombre_a_decomposer)}$ en produit de facteurs premiers.`;
 						// correction						
 						texte_corr = `Nous allons successivement tester la divisibilité de ${nombre_avec_espace(nombre_a_decomposer)} par tous les nombres premiers inférieurs à `;						
 						texte_corr += `${nombre_avec_espace(nombre_a_decomposer)} en commençant par 2, 3, 5, 7, ...`;
@@ -3059,45 +3059,46 @@ function Decomposition_facteurs_premiers(){
 						for (let k=1; k<tab_premiers.length;k++) {
 							if (tab_multiplicites[k]==1) {
 								texte_corr += `\\times ${tab_premiers[k]}`;
-								console.log('typeof : '+typeof tab_multiplicites[k]);
+								//console.log('typeof : '+typeof tab_multiplicites[k]);
 							} else {
 								texte_corr += `\\times ${tab_premiers[k]}^{${tab_multiplicites[k]}}`;
 							};
 							
 						};
-						texte_corr += `$`;
-						
-						// let quotient_intermediaire = nombre_a_decomposer;
-						// for (let k=0; k<=rg_max;k++) {
-						// 	if (quotient_intermediaire%tab_premiers[k]==0) { // si c'est un diviseur on utilise le tableau des multiplicités
-						// 		for (let m=0; m<tab_multiplicites[k]+1; m++) {
-						// 			texte_corr += `${nombre_avec_espace(quotient_intermediaire)}=${tab_premiers[k]}$\\times$${nombre_avec_espace(quotient_intermediaire/tab_premiers[k])} `;
-						// 			texte_corr += ` donc ${tab_premiers[k]} divise ${nombre_avec_espace(quotient_intermediaire)} on continue avec ${tab_premiers[k]}.`
-						// 			quotient_intermediaire = quotient_intermediaire/tab_premiers[k];
-						// 		};
-						// 	} else { // ce n'est pas un diviseur premier
-						// 			texte_
-
-						// 	};
-						// }
+						texte_corr += `$, ci-dessous le détail des divisions successives.<br>`;
+						let liste_facteurs_premiers = obtenir_liste_facteurs_premiers(nombre_a_decomposer);
+						let quotient_intermediaire = nombre_a_decomposer;
+						for (let k=0;k<liste_facteurs_premiers.length;k++) {
+							texte_corr += `$${tex_nombre(quotient_intermediaire)}\\div${mise_en_evidence(liste_facteurs_premiers[k])} = ${tex_nombre(quotient_intermediaire/liste_facteurs_premiers[k])}$<br>`;
+							quotient_intermediaire = quotient_intermediaire/liste_facteurs_premiers[k];
+						};	
 						break;		
 					case 2 : // deux premiers compris entre 30 et 100 de multiplicité 1
 						//console.log('tableau des premiers dispos' + premiers_entre_bornes(30,100));
+						//console.log(premiers_entre_bornes(30,100).length);
 						let r1 = randint(0,premiers_entre_bornes(30,100).length-1);
 						//console.log('r1 : '+r1);
-						let r2 = randint(0,premiers_entre_bornes(30,100).length,r1);
+						let r2 = randint(0,premiers_entre_bornes(30,100).length-1,r1);
 						//console.log('r2 : '+r2);
 						let premier1 = premiers_entre_bornes(30,100)[r1];			
-						//console.log('premierr1 : '+premier1);
+						//console.log('premier1 : '+premier1);
 						let premier2 = premiers_entre_bornes(30,100)[r2];
-						//console.log('premierr2 : '+premier2);
-						
-						texte = `&Agrave; l'aide de la calculatrice, décomposer ${nombre_avec_espace(premier1*premier2)} en produit de facteurs premiers.`;
+						//console.log('premier2 : '+premier2);
+						if (premier1>premier2) { // on iverse p1 et p2 si p1 est supérieur à p2
+							let p = premier1;
+							premier1=premier2;
+							premier2=p;
+						};						
+						texte = `&Agrave; l'aide de la calculatrice, décomposer $${tex_nombre(premier1*premier2)}$ en produit de facteurs premiers.`;
 						let racine_prem = Math.trunc(Math.sqrt(premier1*premier2));
-						texte_corr = `On teste la divisibilité de ${nombre_avec_espace(premier1*premier2)} par tous les nombres premiers inférieurs ou égaux à ${nombre_avec_espace(racine_prem)}`;
-						texte_corr += ` c'est à dire les nombre de la liste ${crible_eratosthene_n(racine_prem)}, on obtient : `;
-
-						texte_corr += `${nombre_avec_espace(premier1*premier2)} = ${premier1}$\\times$${premier2}.`;
+						texte_corr = `Il est suffisant de tester la divisibilité de $${tex_nombre(premier1*premier2)}$ par tous les nombres premiers inférieurs ou égaux à $\\sqrt{${tex_nombre(premier1*premier2)}}$ c'est à dire inférieurs à $${tex_nombre(racine_prem)}$.<br>`;
+						texte_corr += `Ce sont les nombres de la liste suivante : $`;
+						texte_corr += crible_eratosthene_n(racine_prem)[0];
+						for (let k=1;k<crible_eratosthene_n(racine_prem).length;k++) {
+							texte_corr += `; `+crible_eratosthene_n(racine_prem)[k];
+						};
+						texte_corr += `.$<br>`;		
+						texte_corr += ` D'où $${tex_nombre(premier1*premier2)} = ${tex_nombre(premier1)}\\times${tex_nombre(premier2)}$.`;
 						break;	
 					case 3 : // un gros premier entre 1000 et 2000			
 						//console.log('tableau des premiers dispos' + premiers_entre_bornes(1000,2000));
@@ -3106,10 +3107,16 @@ function Decomposition_facteurs_premiers(){
 						let premier = premiers_entre_bornes(1000,2000)[r];			
 						let racine_premier = Math.trunc(Math.sqrt(premier));
 						//console.log('premierr1 : '+premier);	
-						texte = `&Agrave; l'aide de la calculatrice, décomposer ${nombre_avec_espace(premier)} en produit de facteurs premiers.`;
-						texte_corr = `En testant la divisibilité de ${nombre_avec_espace(premier)} par tous les nombres premiers inférieurs ou égaux à ${racine_premier}`;
-						texte_corr += ` c'est à dire les nombre de la liste ${crible_eratosthene_n(racine_premier)}, on se rend compte que ${nombre_avec_espace(premier)} est un nombre premier donc `;
-						texte_corr +=`${nombre_avec_espace(premier)} = 1$\\times$${nombre_avec_espace(premier)}.`;
+						texte = `&Agrave; l'aide de la calculatrice, décomposer $${tex_nombre(premier)}$ en produit de facteurs premiers.`;
+						texte_corr = `En testant la divisibilité de $${tex_nombre(premier)}$ par tous les nombres premiers inférieurs ou égaux à $${racine_premier}$`;
+						texte_corr += ` c'est à dire les nombre de la liste $`;
+						texte_corr += crible_eratosthene_n(racine_premier)[0];
+						for (let k=1;k<crible_eratosthene_n(racine_premier).length;k++) {
+							texte_corr += `; `+crible_eratosthene_n(racine_premier)[k];
+						};
+						texte_corr += `$, `;
+						texte_corr += `on se rend compte que $${tex_nombre(premier)}$ est un nombre premier donc `;
+						texte_corr +=`$${tex_nombre(premier)} = 1\\times${tex_nombre(premier)}$.`;
 						break;	
 				};
 			
