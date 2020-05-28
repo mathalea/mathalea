@@ -3341,9 +3341,11 @@ function problemes_grandeurs_composees(){
 					texte_corr +=`D'où $${mise_en_evidence(`d`,`black`)}\\text{ m} = \\dfrac{${tex_nombre(index1)}\\text{ J}}{${index}\\text{ kg}\\times 9,81 \\text{m.s}^{-2}}\\approx${tex_nombrec(arrondi(index1/(9.81*index)))}\\text{ m}.$`
 					break;
 				case 5 :
-					texte = `Exercice de trafic de voyageur`
-					texte_corr = `Correction traffic voyageur`
-				break;
+					texte = num_alpha(0)+` Un bus de ville transporte en moyenne 30 personnes à la fois.<br> La longueur moyenne de déplacement est de 5km.<br> Calculer le trafic moyen de voyageurs en voyageurs.km.<br> `
+					texte += num_alpha(1)+` Un autre bus de ville transporte en moyenne 25 personnes à la fois.<br> La longueur moyenne de déplacement est de 6km.<br> Montrer que le trafic de voyageur est le même qu'à la question `+num_alpha(0)
+					texte_corr =num_alpha(0)+ ` Le trafic moyen de ce bus de ville est : 30x5=150 voyageurs.km.<br>`
+					texte_corr +=num_alpha(1)+ ` Le trafic moyen de ce bus de ville est : 25x6=150 voyageurs.km, donc ces deux bus ont le même trafic.`
+					break;
 				case 6 :
 					texte = `Exercice de puissance éléctrique`
 					texte_corr = `Correction puissance`
