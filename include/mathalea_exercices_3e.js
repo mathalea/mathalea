@@ -3092,7 +3092,7 @@ function Decomposition_facteurs_premiers(){
 						texte = `&Agrave; l'aide de la calculatrice, décomposer $${tex_nombre(premier1*premier2)}$ en produit de facteurs premiers.`;
 						let racine_prem = Math.trunc(Math.sqrt(premier1*premier2));
 						texte_corr = `Il est suffisant de tester la divisibilité de $${tex_nombre(premier1*premier2)}$ par tous les nombres premiers inférieurs ou égaux à $\\sqrt{${tex_nombre(premier1*premier2)}}$ c'est à dire inférieurs à $${tex_nombre(racine_prem)}$.<br>`;
-						texte_corr += `Ce sont les nombres de la liste suivante : $`;
+						texte_corr += `Ce sont les nombres de la liste suivante : <br>$`;
 						texte_corr += crible_eratosthene_n(racine_prem)[0];
 						for (let k=1;k<crible_eratosthene_n(racine_prem).length;k++) {
 							texte_corr += `; `+crible_eratosthene_n(racine_prem)[k];
@@ -3288,6 +3288,7 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 						// on crée le tableau des entetes de lignes et des colonnes
 						let ent_lignes_corr = [];
 						let contenu_lignes_corr = [];
+						let contenu_lignes_corr_res = [];
 						let ent_colonnes_corr = [`\\times`];
 						// les entetes des lignes
 						for (let k=0;k<tab_multiplicites_b[0]+1;k++) {
@@ -3316,8 +3317,42 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 						texte_corr += `(${tab_multiplicites_b[0]}+1)$\\times$(${tab_multiplicites_b[1]}+1)$\\times$(${tab_multiplicites_b[2]}+1) = `;
 						texte_corr += `${tab_multiplicites_b[0]+1}$\\times$${tab_multiplicites_b[1]+1}$\\times$${tab_multiplicites_b[2]+1} = `;
 						texte_corr += `${(tab_multiplicites_b[0]+1)*(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)} diviseurs.<br>`;
-						texte_corr +=num_alpha(2)+` Enfin, voici la liste des ${(tab_multiplicites_b[0]+1)*(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)} diviseurs de ${nombre_avec_espace(nombre_a_decomposer_b)} : `;
-						texte_corr += `1`;
+						texte_corr += `En effet, dans la décomposition apparait : `;
+						texte_corr += ` <br> - Le facteur premier ${tab_premiers_b[0]} avec la multiplicité ${tab_multiplicites_b[0]}`;
+						texte_corr += `, le facteur ${tab_premiers_b[0]} apparait donc sous les formes : `;
+						for (let k=0;k<tab_multiplicites_b[0];k++) {
+							texte_corr += `$${tab_premiers_b[0]}^{`+k+`}$ ou `;
+						};
+						texte_corr += `$${tab_premiers_b[0]}^{`+tab_multiplicites_b[0]+`}$ d'où le facteur (${tab_multiplicites_b[0]}+1).`;
+
+						texte_corr += ` <br> - Le facteur premier ${tab_premiers_b[1]} avec la multiplicité ${tab_multiplicites_b[1]}`;
+						texte_corr += `, le facteur ${tab_premiers_b[1]} apparait donc sous les formes : `;
+						for (let k=0;k<tab_multiplicites_b[1];k++) {
+							texte_corr += `$${tab_premiers_b[1]}^{`+k+`}$ ou `;
+						};
+						texte_corr += `$${tab_premiers_b[1]}^{`+tab_multiplicites_b[1]+`}$ d'où le facteur (${tab_multiplicites_b[1]}+1).`;
+
+						texte_corr += ` <br> - Le facteur premier ${tab_premiers_b[2]} avec la multiplicité ${tab_multiplicites_b[2]}`;
+						texte_corr += `, le facteur ${tab_premiers_b[2]} apparait donc sous les formes : `;
+						for (let k=0;k<tab_multiplicites_b[2];k++) {
+							texte_corr += `$${tab_premiers_b[2]}^{`+k+`}$ ou `;
+						};
+						texte_corr += `$${tab_premiers_b[2]}^{`+tab_multiplicites_b[2]+`}$ d'où le facteur (${tab_multiplicites_b[2]}+1).`;
+
+						texte_corr += `<br>`;
+						texte_corr +=num_alpha(2)+` Enfin, voici la liste des $${(tab_multiplicites_b[0]+1)*(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)}$ diviseurs de $${nombre_avec_espace(nombre_a_decomposer_b)}$ : <br>`;
+						texte_corr += ``;
+						for (let k=0;k<tab_multiplicites_b[0]+1;k++) {
+							for (let m=0;m<tab_multiplicites_b[1]+1;m++) {
+								for (let l=0;l<tab_multiplicites_b[2]+1;l++) {
+									texte_corr += `$${tab_premiers_b[0]}^{`+k+`}\\times${tab_premiers_b[1]}^{`+m+`}\\times${tab_premiers_b[2]}^{`+l+`}$ = `;
+									texte_corr += `$${tab_premiers_b[0]**k*tab_premiers_b[1]**m*tab_premiers_b[2]**l}$; <br>`;
+								};
+							};
+						};
+						texte_corr += ``;
+						texte_corr += ``;
+						texte_corr += `Rangeons finalement cette liste dans l'ordre croissant : 1`;
 						for (let w = 1; w<liste_diviseurs(nombre_a_decomposer_b).length; w++) {
 							texte_corr += `; `+liste_diviseurs(nombre_a_decomposer_b)[w];
 						};
