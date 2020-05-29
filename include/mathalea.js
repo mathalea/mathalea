@@ -586,17 +586,28 @@ if (!sortie_html){
 	$( "#btn_telechargement").click(function() {
 			// Gestion du style pour l'entête du fichier
 
+			contenu_fichier = `
+			
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document généré avec MathALEA sous licence CC-BY-SA
+%
+% ${window.location.href}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+`
+
 			if ($('#style_classique:checked').val()){
 				if ($("#entete_du_fichier").val()=='') {
 					$("#entete_du_fichier").val('Exercices')
 				}
-				contenu_fichier = `\\documentclass[a4paper,11pt,fleqn]{article}\n`
+				contenu_fichier += `\\documentclass[a4paper,11pt,fleqn]{article}\n`
 				contenu_fichier += `\\input{preambule}\n\\pagestyle{fancy}\n\\renewcommand{\\headrulewidth}{1pt}\n\\fancyhead[C]{${$("#entete_du_fichier").val()}}\n\\fancyhead[L]{}`
 				contenu_fichier += `\\fancyhead[R]{}\n\\renewcommand{\\footrulewidth}{1pt}\n\\fancyfoot[C]{}\n\\fancyfoot[L]{}\n\\fancyfoot[R]{}\n\n`
 				contenu_fichier += `\\begin{document}\n\n` + code_LaTeX + `\n\n\\end{document}`
 			} else
 			{
-				contenu_fichier = '\\documentclass[a4paper,11pt,fleqn]{article}\n\\input{preambule_coop}\n'
+				contenu_fichier += '\\documentclass[a4paper,11pt,fleqn]{article}\n\\input{preambule_coop}\n'
 				contenu_fichier +='\\theme{' + $('input[name=theme]:checked').val() + '}{' + $("#entete_du_fichier").val() + '}'
 				contenu_fichier += '{' + $("#items").val() + '}{' + $("#domaine").val() + '}\n\\begin{document}\n\n' + code_LaTeX
 				contenu_fichier += '\n\n\\end{document}'
@@ -616,11 +627,23 @@ if (!sortie_html){
 	$( "#btn_overleaf").click(function() {
 			// Gestion du style pour l'entête du fichier
 
+			contenu_fichier = `
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document généré avec MathALEA sous licence CC-BY-SA
+%
+% ${window.location.href}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+`
+
 			if ($('#style_classique:checked').val()){
-				contenu_fichier = intro_LaTeX($("#entete_du_fichier").val()) + code_LaTeX + '\n\n\\end{document}'
+				contenu_fichier += intro_LaTeX($("#entete_du_fichier").val()) + code_LaTeX + '\n\n\\end{document}'
 			} else
 			{
-				contenu_fichier = intro_LaTeX_coop()
+				contenu_fichier += intro_LaTeX_coop()
 				contenu_fichier +='\n\n\\theme{' + $('input[name=theme]:checked').val() + '}{' + $("#entete_du_fichier").val() + '}'
 				contenu_fichier += '{' + $("#items").val() + '}{' + $("#domaine").val() + '}\n\\begin{document}\n\n' + code_LaTeX
 				contenu_fichier += '\n\n\\end{document}'
@@ -717,6 +740,7 @@ window.onload = function()  {
 				$('#btnCopieURL').removeClass('active'); // "éteint" le bouton 1s après 
 			}, 1000);
 		});
+		
 	}
 		
 
@@ -799,6 +823,11 @@ window.onload = function()  {
 		});
 	}
 
+	// Gestion de la redirection vers MathaleaLaTeX
+	$( "#btnLaTeX").click(function() {
+			window.location.href=window.location.href.replace('exercice.html','mathalealatex.html');
+	      	//window.location.hash = 'section';
+	 });
 
 };
 
@@ -810,184 +839,187 @@ window.onload = function()  {
 function intro_LaTeX(entete="Exercices") {
 	if (entete=='') {entete='Exercices'}
 		return `\\documentclass[12pt]{article}
-	\\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
-	\\usepackage[utf8]{inputenc}		        
-	\\usepackage[T1]{fontenc}		
-	\\usepackage[french]{babel}
-	\\usepackage{multicol} 					
-	\\usepackage{calc} 						
-	\\usepackage{enumerate}
-	\\usepackage{enumitem}
-	\\usepackage{graphicx}				
-	\\usepackage{tabularx}
-	\\usepackage[autolanguage]{numprint}
-	\\usepackage{hyperref}
-	\\usepackage{pgf,tikz}
-	\\usepackage{pgfplots}
-	\\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
-		shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows,babel} % Charge toutes les librairies de Tikz
-	\\usepackage{tkz-tab,tkz-euclide,tkz-fct,tkz-base}	% Géométrie euclidienne avec TikZ
-	\\usetkzobj{all}	
-	\\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
-	\\usepackage{cancel}
-	\\usepackage{gensymb}
-	\\usepackage{eurosym}
-	\\DeclareUnicodeCharacter{20AC}{\\euro{}}
-	\\usepackage{fancyhdr,lastpage}          	
-	\\pagestyle{fancy}                      	
-	\\usepackage{fancybox}					
-	\\usepackage{xlop}						
-	\\usepackage{setspace}	
+\\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
+\\usepackage[utf8]{inputenc}		        
+\\usepackage[T1]{fontenc}		
+\\usepackage[french]{babel}
+\\usepackage{multicol} 					
+\\usepackage{calc} 						
+\\usepackage{enumerate}
+\\usepackage{enumitem}
+\\usepackage{graphicx}				
+\\usepackage{tabularx}
+\\usepackage[autolanguage]{numprint}
+\\usepackage{hyperref}
+\\usepackage{pgf,tikz}
+\\usepackage{pgfplots}
+\\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
+	shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows,babel} % Charge toutes les librairies de Tikz
+\\usepackage{tkz-tab,tkz-euclide,tkz-fct,tkz-base}	% Géométrie euclidienne avec TikZ
+\\usetkzobj{all}	
+\\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
+\\usepackage{cancel}
+\\usepackage{gensymb}
+\\usepackage{eurosym}
+\\DeclareUnicodeCharacter{20AC}{\\euro{}}
+\\usepackage{fancyhdr,lastpage}          	
+\\pagestyle{fancy}                      	
+\\usepackage{fancybox}					
+\\usepackage{xlop}						
+\\usepackage{setspace}	
 
-	\\setlength{\\parindent}{0mm}		
-	\\renewcommand{\\arraystretch}{1.5}	
-	\\newcounter{exo}          				
-	\\setcounter{exo}{0}   				
-	\\newcommand{\\exo}[1]{				
-		\\stepcounter{exo}        		
-		\\subsection*{Exercice \\no{\\theexo} \\textmd{\\normalsize #1}}
-	}
-	\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}	
-	\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}	
-	\\newcommand{\\version}[1]{\\fancyhead[R]{Version #1}}
-	\\setlength{\\fboxsep}{3mm}
-	\\newenvironment{correction}{\\newpage\\fancyhead[C]{\\textbf{Correction}}\\setcounter{exo}{0}}{}
-	\\fancyhead[C]{\\textbf{${entete}}}
-	\\fancyfoot{}
-	\\fancyfoot[R]{\\scriptsize Coopmaths.fr -- CC-BY-SA}
-	\\setlength{\\headheight}{14.5pt}
+\\setlength{\\parindent}{0mm}		
+\\renewcommand{\\arraystretch}{1.5}	
+\\newcounter{exo}          				
+\\setcounter{exo}{0}   				
+\\newcommand{\\exo}[1]{				
+	\\stepcounter{exo}        		
+	\\subsection*{Exercice \\no{\\theexo} \\textmd{\\normalsize #1}}
+}
+\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}	
+\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}	
+\\newcommand{\\version}[1]{\\fancyhead[R]{Version #1}}
+\\setlength{\\fboxsep}{3mm}
+\\newenvironment{correction}{\\newpage\\fancyhead[C]{\\textbf{Correction}}\\setcounter{exo}{0}}{}
+\\fancyhead[C]{\\textbf{${entete}}}
+\\fancyfoot{}
+\\fancyfoot[R]{\\scriptsize Coopmaths.fr -- CC-BY-SA}
+\\setlength{\\headheight}{14.5pt}
 
 
-	\\begin{document}`
+\\begin{document}
+
+`
 	}
 
 	function intro_LaTeX_coop(){
 
-		let intro_LaTeX_coop = `
-		\\documentclass[12pt]{article}
-		\\usepackage[left=1.5cm,right=1.5cm,top=3.5cm,bottom=2cm]{geometry}
-		\\usepackage[utf8]{inputenc}		        
-		\\usepackage[T1]{fontenc}		
-		\\usepackage[french]{babel}
-		\\usepackage{hyperref}
-		\\usepackage{multicol} 					
-		\\usepackage{calc} 						
-		\\usepackage{enumerate}
-		\\usepackage{enumitem}
-		\\usepackage{graphicx}				
-		\\usepackage{tabularx}
-		\\usepackage[autolanguage]{numprint}
-		\\usepackage{pgf,tikz}
-		\\usepackage{pgfplots}
-		\\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
-			shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows,babel} % Charge toutes les librairies de Tikz
-		\\usepackage{tkz-tab,tkz-euclide,tkz-fct,tkz-base}	% Géométrie euclidienne avec TikZ
-		\\usetkzobj{all}				
-		\\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
-		\\usepackage{cancel}
-		\\usepackage{gensymb}
-		\\usepackage{eurosym}
-		\\DeclareUnicodeCharacter{20AC}{\\euro{}}
-		\\usepackage{fancyhdr,lastpage}          	
-		\\pagestyle{fancy}                      	
-		\\usepackage{fancybox}					
-		\\usepackage{xlop}						
-		\\usepackage{setspace}
+		let intro_LaTeX_coop = `\\documentclass[12pt]{article}
+\\usepackage[left=1.5cm,right=1.5cm,top=3.5cm,bottom=2cm]{geometry}
+\\usepackage[utf8]{inputenc}		        
+\\usepackage[T1]{fontenc}		
+\\usepackage[french]{babel}
+\\usepackage{hyperref}
+\\usepackage{multicol} 					
+\\usepackage{calc} 						
+\\usepackage{enumerate}
+\\usepackage{enumitem}
+\\usepackage{graphicx}				
+\\usepackage{tabularx}
+\\usepackage[autolanguage]{numprint}
+\\usepackage{pgf,tikz}
+\\usepackage{pgfplots}
+\\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
+	shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows,babel} % Charge toutes les librairies de Tikz
+\\usepackage{tkz-tab,tkz-euclide,tkz-fct,tkz-base}	% Géométrie euclidienne avec TikZ
+\\usetkzobj{all}				
+\\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
+\\usepackage{cancel}
+\\usepackage{gensymb}
+\\usepackage{eurosym}
+\\DeclareUnicodeCharacter{20AC}{\\euro{}}
+\\usepackage{fancyhdr,lastpage}          	
+\\pagestyle{fancy}                      	
+\\usepackage{fancybox}					
+\\usepackage{xlop}						
+\\usepackage{setspace}
 
-		%%% COULEURS %%%
+%%% COULEURS %%%
 
-		\\definecolor{nombres}{cmyk}{0,.8,.95,0}
-		\\definecolor{gestion}{cmyk}{.75,1,.11,.12}
-		\\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
-		\\definecolor{grandeurs}{cmyk}{.02,.44,1,0}
-		\\definecolor{geo}{cmyk}{.62,.1,0,0}
-		\\definecolor{algo}{cmyk}{.69,.02,.36,0}
-		\\definecolor{correction}{cmyk}{.63,.23,.93,.06}
-		\\usepackage{colortbl}
-		\\arrayrulecolor{couleur_theme}		% Couleur des filets des tableaux
+\\definecolor{nombres}{cmyk}{0,.8,.95,0}
+\\definecolor{gestion}{cmyk}{.75,1,.11,.12}
+\\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
+\\definecolor{grandeurs}{cmyk}{.02,.44,1,0}
+\\definecolor{geo}{cmyk}{.62,.1,0,0}
+\\definecolor{algo}{cmyk}{.69,.02,.36,0}
+\\definecolor{correction}{cmyk}{.63,.23,.93,.06}
+\\usepackage{colortbl}
+\\arrayrulecolor{couleur_theme}		% Couleur des filets des tableaux
 
-		%%% MISE EN PAGE %%%
+%%% MISE EN PAGE %%%
 
-		\\setlength{\\parindent}{0mm}		
-		\\renewcommand{\\arraystretch}{1.5}	
-		\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}	
-		\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}	
-		\\setlength{\\fboxsep}{3mm}
+\\setlength{\\parindent}{0mm}		
+\\renewcommand{\\arraystretch}{1.5}	
+\\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}	
+\\renewcommand{\\labelenumii}{\\textbf{\\theenumii{}.}}	
+\\setlength{\\fboxsep}{3mm}
 
-		\\setlength{\\headheight}{14.5pt}
+\\setlength{\\headheight}{14.5pt}
 
-		\\spaceskip=2\\fontdimen2\\font plus 3\\fontdimen3\\font minus3\\fontdimen4\\font\\relax %Pour doubler l'espace entre les mots
-		\\newcommand{\\numb}[1]{ % Dessin autour du numéro d'exercice
-		\\begin{tikzpicture}[overlay,yshift=-.3cm,scale=.8]
-		\\draw[fill=couleur_numerotation,couleur_numerotation](-.3,0)rectangle(.5,.8);
-		\\draw[line width=.05cm,couleur_numerotation,fill=white] (0,0)--(.5,.5)--(1,0)--(.5,-.5)--cycle;
-		\\node[couleur_numerotation]  at (.5,0) { \\large \\bfseries #1};
-		\\draw (-.4,.8) node[white,anchor=north west]{\\bfseries EX}; 
+\\spaceskip=2\\fontdimen2\\font plus 3\\fontdimen3\\font minus3\\fontdimen4\\font\\relax %Pour doubler l'espace entre les mots
+\\newcommand{\\numb}[1]{ % Dessin autour du numéro d'exercice
+\\begin{tikzpicture}[overlay,yshift=-.3cm,scale=.8]
+\\draw[fill=couleur_numerotation,couleur_numerotation](-.3,0)rectangle(.5,.8);
+\\draw[line width=.05cm,couleur_numerotation,fill=white] (0,0)--(.5,.5)--(1,0)--(.5,-.5)--cycle;
+\\node[couleur_numerotation]  at (.5,0) { \\large \\bfseries #1};
+\\draw (-.4,.8) node[white,anchor=north west]{\\bfseries EX}; 
+\\end{tikzpicture}
+}
+
+%%% NUMEROS DES EXERCICES %%%
+
+\\usepackage{titlesec} % Le titre de section est un numéro d'exercice avec sa consigne alignée à gauche.
+\\titleformat{\\section}{}{\\numb{\\arabic{section}}}{1cm}{\\hspace{0em}}{}
+\\newcommand{\\exo}[1]{ % Un exercice est une nouvelle section avec la consigne écrite en caractêres normaux
+	\\section{\\textmd{#1}}
+	\\medskip
+}
+
+
+%%% ENVIRONNEMENTS - CADRES %%%
+\\usepackage[framemethod=tikz]{mdframed}
+
+\\newmdenv[linecolor=couleur_theme, linewidth=3pt,topline=true,rightline=false,bottomline=false,frametitlerule=false,frametitlefont={\\color{couleur_theme}\\bfseries},frametitlerulewidth=1pt]{methode}
+
+
+\\newmdenv[startcode={\\setlength{\\multicolsep}{0cm}\\setlength{\\columnsep}{.2cm}\\setlength{\\columnseprule}{0pt}\\vspace{0cm}},linecolor=white, linewidth=3pt,innerbottommargin=10pt,innertopmargin=5pt,innerrightmargin=20pt,splittopskip=20pt,splitbottomskip=10pt,everyline=true,tikzsetting={draw=couleur_theme,line width=4pt,dashed,dash pattern= on 10pt off 10pt},frametitleaboveskip=-.6cm,frametitle={\\tikz\\node[anchor= east,rectangle,fill=white]{\\textcolor{couleur_theme}{\\raisebox{-.3\\height}{\\includegraphics[width=.8cm]{\\iconeobjectif}}\\; \\bfseries \\Large Objectifs}};}]{objectif}
+
+\\newmdenv[startcode={\\colorlet{couleur_numerotation}{correction}\\renewcommand{\\columnseprulecolor}{\\color{correction}}
+\\setcounter{section}{0}\\arrayrulecolor{correction}},linecolor=white, linewidth=4pt,innerbottommargin=10pt,innertopmargin=5pt,splittopskip=20pt,splitbottomskip=10pt,everyline=true,frametitle=correction,tikzsetting={draw=correction,line width=3pt,dashed,dash pattern= on 15pt off 10pt},frametitleaboveskip=-.4cm,frametitle={\\tikz\\node[anchor= east,rectangle,fill=white]{\\; \\textcolor{correction}{\\raisebox{-.3\\height}{\\includegraphics[width=.6cm]{icone-correction}}\\; \\bfseries \\Large Corrections}};}]{correction}
+
+\\newmdenv[roundcorner=0,linewidth=0pt,frametitlerule=false, backgroundcolor=gray!40,leftmargin=8cm]{remarque}
+
+
+
+\\newcommand{\\theme}[4]
+{
+	\\fancyhead[L]{}
+	\\fancyhead[R]{}
+	\\fancyhead[C]{
+		\\begin{tikzpicture}[remember picture,overlay]
+		\\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {\\includegraphics{header-#1}};
+		\\node[anchor=east, fill=white] at ($(current page.north east)+(-2,-1.4cm)$) {\\Huge \\textcolor{couleur_theme}{\\bfseries \\#} \\bfseries #2 \\textcolor{couleur_theme}{\\bfseries \\MakeUppercase{#3}}};
+		\\node[anchor=center, color=white] at ($(current page.north)+(0,-2.65cm)$) {\\Large \\bfseries \\MakeUppercase{#4}};
 		\\end{tikzpicture}
-		}
+	}
+	\\fancyfoot[C]{
+		\\begin{tikzpicture}[remember picture,overlay]
+		\\node[anchor=south west,inner sep=0pt] at ($(current page.south west)+(0,0)$) {\\includegraphics{footer-#1}};
+		\\end{tikzpicture} 
+	}
+	\\colorlet{couleur_theme}{#1}
+	\\colorlet{couleur_numerotation}{couleur_theme}
+	\\def\\iconeobjectif{icone-objectif-#1}
+	\\def\\urliconeomethode{icone-methode-#1}
+	\\renewcommand{\\headrulewidth}{0pt} % Pour enlever les traits en en-tête et en pied de page
+	\\renewcommand{\\footrulewidth}{0pt}
+}
 
-		%%% NUMEROS DES EXERCICES %%%
-
-		\\usepackage{titlesec} % Le titre de section est un numéro d'exercice avec sa consigne alignée à gauche.
-		\\titleformat{\\section}{}{\\numb{\\arabic{section}}}{1cm}{\\hspace{0em}}{}
-		\\newcommand{\\exo}[1]{ % Un exercice est une nouvelle section avec la consigne écrite en caractêres normaux
-			\\section{\\textmd{#1}}
-			\\medskip
-		}
-
-
-		%%% ENVIRONNEMENTS - CADRES %%%
-		\\usepackage[framemethod=tikz]{mdframed}
-
-		\\newmdenv[linecolor=couleur_theme, linewidth=3pt,topline=true,rightline=false,bottomline=false,frametitlerule=false,frametitlefont={\\color{couleur_theme}\\bfseries},frametitlerulewidth=1pt]{methode}
-
-
-		\\newmdenv[startcode={\\setlength{\\multicolsep}{0cm}\\setlength{\\columnsep}{.2cm}\\setlength{\\columnseprule}{0pt}\\vspace{0cm}},linecolor=white, linewidth=3pt,innerbottommargin=10pt,innertopmargin=5pt,innerrightmargin=20pt,splittopskip=20pt,splitbottomskip=10pt,everyline=true,tikzsetting={draw=couleur_theme,line width=4pt,dashed,dash pattern= on 10pt off 10pt},frametitleaboveskip=-.6cm,frametitle={\\tikz\\node[anchor= east,rectangle,fill=white]{\\textcolor{couleur_theme}{\\raisebox{-.3\\height}{\\includegraphics[width=.8cm]{\\iconeobjectif}}\\; \\bfseries \\Large Objectifs}};}]{objectif}
-
-		\\newmdenv[startcode={\\colorlet{couleur_numerotation}{correction}\\renewcommand{\\columnseprulecolor}{\\color{correction}}
-		\\setcounter{section}{0}\\arrayrulecolor{correction}},linecolor=white, linewidth=4pt,innerbottommargin=10pt,innertopmargin=5pt,splittopskip=20pt,splitbottomskip=10pt,everyline=true,frametitle=correction,tikzsetting={draw=correction,line width=3pt,dashed,dash pattern= on 15pt off 10pt},frametitleaboveskip=-.4cm,frametitle={\\tikz\\node[anchor= east,rectangle,fill=white]{\\; \\textcolor{correction}{\\raisebox{-.3\\height}{\\includegraphics[width=.6cm]{icone-correction}}\\; \\bfseries \\Large Corrections}};}]{correction}
-
-		\\newmdenv[roundcorner=0,linewidth=0pt,frametitlerule=false, backgroundcolor=gray!40,leftmargin=8cm]{remarque}
+\\newcommand{\\version}[1]{
+	\\fancyhead[R]{
+		\\begin{tikzpicture}[remember picture,overlay]
+		\\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(-.5,-.5cm)$) {\\large \\textcolor{couleur_theme}{\\bfseries V#1}};
+		\\end{tikzpicture}
+	}
+}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Fin du préambule %%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+		
 
-		\\newcommand{\\theme}[4]
-		{
-			\\fancyhead[L]{}
-			\\fancyhead[R]{}
-			\\fancyhead[C]{
-				\\begin{tikzpicture}[remember picture,overlay]
-				\\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {\\includegraphics{header-#1}};
-				\\node[anchor=east, fill=white] at ($(current page.north east)+(-2,-1.4cm)$) {\\Huge \\textcolor{couleur_theme}{\\bfseries \\#} \\bfseries #2 \\textcolor{couleur_theme}{\\bfseries \\MakeUppercase{#3}}};
-				\\node[anchor=center, color=white] at ($(current page.north)+(0,-2.65cm)$) {\\Large \\bfseries \\MakeUppercase{#4}};
-				\\end{tikzpicture}
-			}
-			\\fancyfoot[C]{
-				\\begin{tikzpicture}[remember picture,overlay]
-				\\node[anchor=south west,inner sep=0pt] at ($(current page.south west)+(0,0)$) {\\includegraphics{footer-#1}};
-				\\end{tikzpicture} 
-			}
-			\\colorlet{couleur_theme}{#1}
-			\\colorlet{couleur_numerotation}{couleur_theme}
-			\\def\\iconeobjectif{icone-objectif-#1}
-			\\def\\urliconeomethode{icone-methode-#1}
-			\\renewcommand{\\headrulewidth}{0pt} % Pour enlever les traits en en-tête et en pied de page
-			\\renewcommand{\\footrulewidth}{0pt}
-		}
-
-		\\newcommand{\\version}[1]{
-			\\fancyhead[R]{
-				\\begin{tikzpicture}[remember picture,overlay]
-				\\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(-.5,-.5cm)$) {\\large \\textcolor{couleur_theme}{\\bfseries V#1}};
-				\\end{tikzpicture}
-			}
-		}
-
-
-		%%%%%%%%%%%%%%%%%%%%%%%%
-		%%% Fin du préambule %%%
-		%%%%%%%%%%%%%%%%%%%%%%%%
-		`
+`
 		return intro_LaTeX_coop
 
 	}
