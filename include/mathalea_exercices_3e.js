@@ -3040,7 +3040,7 @@ function Decomposition_facteurs_premiers(){
 						};
 						//console.log('tableau des multiplicités des premiers choisis '+tab_multiplicites);					
 						// yapluka écrire le nombre dans l'énoncé et sa décomposition dans la correction
-						texte = `&Agrave; l'aide de la calculatrice, décomposer `;
+						texte = `À l'aide de la calculatrice, décomposer `;
 						let nombre_a_decomposer=1;
 						for (let k=0; k<tab_rangs.length; k++) {
 							for (let m=0; m<tab_multiplicites[k]; m++) {
@@ -3106,7 +3106,7 @@ function Decomposition_facteurs_premiers(){
 							premier1=premier2;
 							premier2=p;
 						};						
-						texte = `&Agrave; l'aide de la calculatrice, décomposer $${tex_nombre(premier1*premier2)}$ en produit de facteurs premiers.`;
+						texte = `À l'aide de la calculatrice, décomposer $${tex_nombre(premier1*premier2)}$ en produit de facteurs premiers.`;
 						let racine_prem = Math.trunc(Math.sqrt(premier1*premier2));
 						texte_corr = `Il est suffisant de tester la divisibilité de $${tex_nombre(premier1*premier2)}$ par tous les nombres premiers inférieurs ou égaux à $\\sqrt{${tex_nombre(premier1*premier2)}}$ c'est à dire inférieurs à $${tex_nombre(racine_prem)}$.<br>`;
 						texte_corr += `Ce sont les nombres de la liste suivante : <br>$`;
@@ -3132,7 +3132,7 @@ function Decomposition_facteurs_premiers(){
 						let premier = premiers_entre_bornes(1000,2000)[r];			
 						let racine_premier = Math.trunc(Math.sqrt(premier));
 						//console.log('premierr1 : '+premier);	
-						texte = `&Agrave; l'aide de la calculatrice, décomposer $${tex_nombre(premier)}$ en produit de facteurs premiers.`;
+						texte = `À l'aide de la calculatrice, décomposer $${tex_nombre(premier)}$ en produit de facteurs premiers.`;
 						texte_corr = `En testant la divisibilité de $${tex_nombre(premier)}$ par tous les nombres premiers inférieurs ou égaux à $${racine_premier}$`;
 						texte_corr += ` c'est à dire les nombre de la liste $`;
 						texte_corr += crible_eratosthene_n(racine_premier)[0];
