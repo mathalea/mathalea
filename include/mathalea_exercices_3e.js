@@ -3117,7 +3117,7 @@ function Decomposition_facteurs_premiers(){
 						};
 						texte_corr += `$, `;
 						texte_corr += `on se rend compte que $${tex_nombre(premier)}$ est un nombre premier donc `;
-						texte_corr +=`$${tex_nombre(premier)} = 1\\times${tex_nombre(premier)}$.`;
+						texte_corr +=`$${tex_nombre(premier)} = ${tex_nombre(premier)}$.`;
 						break;	
 				};
 			
