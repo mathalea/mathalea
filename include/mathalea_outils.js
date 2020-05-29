@@ -2328,6 +2328,18 @@ function modal_video(id_du_modal,url_video,texte,label_bouton="Vidéo",icone="fi
 	</div>`
 	return creer_modal(id_du_modal,contenu,label_bouton,icone)
 };
+/**
+ * 
+ * @param {number} numero_de_l_exercice 
+ * @param {string} url_image 
+ * @param {string} texte = ce qui est écrit sur le bouton à côté de l'icône d'image.
+ * @param {string} label_bouton = ce qui est écrit en titre de l'image 
+ * @param {string} icone 
+ */
+function modal_image(numero_de_l_exercice,url_image,texte,label_bouton="Illustration",icone="image"){
+	let contenu = `<div class="header">${texte}</div><div class="image content"><img class="image" src="${url_image}"></div>`
+	return creer_modal(numero_de_l_exercice,contenu,label_bouton,icone)
+}
 
 /**
  * Renvoie un tableau contenant les diviseurs d'un nombre entier, rangés dans l'ordre croissant  
@@ -2566,11 +2578,21 @@ function katex_Popuptest(texte,titrePopup,textePopup) {
 		return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
 	}
 };
-function katex_Popup2(numero,type,titrePopup,texte,textePopup) {
+/**
+* Crée un popup html avec une icône info ou un bouton modal suivant le type donné :0=Latex inline compatible, 1=bouton modal texte long, 2=bouton modal image. 
+* @param {number} numero
+* @param {number} type 
+* @param {string} titrePopup = Le titre du texte dévoilé par le bouton
+* @param {string} texte = Ce qu'il y a sur le bouton
+* @param {string} textePopup = Le texte dévoilé par le bouton ou l'url de l'image.
+* @Auteur Jean-claude Lhote & Rémi Angot & Sebastien Lozano
+**/
+function katex_Popup2(numero,type,texte,titrePopup,textePopup) {
 	'use strict';
-	switch (type) {
-		case 0 : return katex_Popuptest(titrePopup,texte,textePopup)
-		case 1 : return `${titrePopup}`+ modal_texte_long(numero,`${texte}`,`${textePopup}`,`${titrePopup}`,"info circle")
+	switch (type) { 
+		case 0 : return katex_Popuptest(texte,titrePopup,textePopup)
+		case 1 : return `${titrePopup}`+ modal_texte_long(numero,`${titrePopup}`,`${textePopup}`,`${texte}`,"info circle")
+		case 2 : return `${texte}`+ modal_image(numero,textePopup,`${titrePopup}`,`${texte}`)
 	}
 };
 
