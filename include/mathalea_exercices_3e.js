@@ -3187,7 +3187,6 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 						let max_premier_b = 11;
 						// on fixe le rang max pour le choix des premiers
 						let rg_max_b = crible_eratosthene_n(max_premier_b).length-1;					
-						//console.log('rang max '+rg_max_b);
 						// on choisit les rangs pour les nombres premiers
 						let tab_rangs_b = [];
 						let tab_rangs_exclus_b = [];
@@ -3197,25 +3196,20 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 							}
 							tab_rangs_b[k] = randint(0,rg_max_b,tab_rangs_exclus_b);
 						};
-						//console.log('tableau des rangs retenus pour les premiers choisis '+tab_rangs_b);					
 						// on choisit les premiers
 						let tab_premiers_b = [];
 						for (let k=0; k<tab_rangs_b.length; k++) {
 							tab_premiers_b[k] = crible_eratosthene_n(max_premier_b)[tab_rangs_b[k]];
 						};
-						//console.log('tableau des premiers choisis dans le désordre'+tab_premiers_b);		
 						// on range les facteurs premiers dans l'ordre croissant
 						tab_premiers_b.sort(function(a,b){
 							return a-b;
 						});
-						//console.log('tableau des premiers choisis dans l ordre'+tab_premiers_b);											
 						// on choisit les multiplicités
 						let tab_multiplicites_b = [];
 						for (let k=0; k<tab_rangs_b.length; k++) {
 							tab_multiplicites_b[k] = randint(1,2);
 						};
-						//console.log('tableau des multiplicités des premiers choisis '+tab_multiplicites_b);					
-						// yapluka écrire le nombre dans l'énoncé et sa décomposition dans la correction
 						texte = ``;
 						let nombre_a_decomposer_b=1;
 						for (let k=0; k<tab_rangs_b.length; k++) {
@@ -3223,7 +3217,7 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 								nombre_a_decomposer_b = nombre_a_decomposer_b*tab_premiers_b[k];
 							};
 						};
-						texte += `La décomposition en facteurs premiers de ${nombre_avec_espace(nombre_a_decomposer_b)} est : $`;
+						texte += `La décomposition en facteurs premiers de $${tex_nombre(nombre_a_decomposer_b)}$ est : $`;
 						if (tab_multiplicites_b[0]==1) {
 							texte += `${tab_premiers_b[0]}`;							
 						} else {
@@ -3232,17 +3226,13 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 						for (let k=1; k<tab_premiers_b.length;k++) {
 							if (tab_multiplicites_b[k]==1) {
 								texte += `\\times ${tab_premiers_b[k]}`;
-								//console.log('typeof : '+typeof tab_multiplicites_b[k]);
 							} else {
 								texte += `\\times ${tab_premiers_b[k]}^{${tab_multiplicites_b[k]}}`;
-							};
-							
+							};							
 						};
 						texte += `$, <br>`;
 						texte +=num_alpha(0)+` Compléter le tableau ci-dessous.`;
 						// on crée le tableau des entetes de lignes et des colonnes
-						//let nb_lignes = tab_multiplicites_b[0]+1;			
-						//let nb_colonnes = (tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1);
 						let ent_lignes = [];
 						let contenu_lignes=[];
 						let ent_colonnes = [`\\times`];
@@ -3256,22 +3246,32 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 								ent_colonnes.push(tab_premiers_b[1]+`^{`+m+`}\\times`+tab_premiers_b[2]+`^{`+l+`}`);
 							};
 						};
+						// tableau pour la permutation circulaire
+						let tab_temp;
+						// on y affecte les lignes
+						tab_temp = ent_lignes;
+						// on supprime le x de l'entete des colonnes
+						ent_colonnes.shift();
+						// on affecte ça aux lignes;
+						ent_lignes = ent_colonnes;
+						// on remet le x en colonnes et on ajoute le reste
+						ent_colonnes = [`\\times`].concat(tab_temp);
+
 						// le contenu des lignes
 						for (let l=0;l<(tab_multiplicites_b[0]+1);l++) {
 							for (let c=1;c<(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)+1;c++) {
 								//contenu_lignes.push(`l : `+l+`, c : `+Number(c));
 								contenu_lignes.push(``);
 							};
-						};
-						//console.log('contenu lignes : '+contenu_lignes)
+						};						
 						texte += `<br>`;
 						texte += tab_C_L(ent_colonnes,ent_lignes,contenu_lignes);
 						texte += `<br>`;
-						texte +=num_alpha(1)+` En déduire le nombre de diviseurs de ${nombre_avec_espace(nombre_a_decomposer_b)}.<br>`;
-						texte +=num_alpha(2)+` Enfin, dresser la liste des diviseurs de ${nombre_avec_espace(nombre_a_decomposer_b)}.<br>`;
+						texte +=num_alpha(1)+` En déduire le nombre de diviseurs de $${tex_nombre(nombre_a_decomposer_b)}$.<br>`;
+						texte +=num_alpha(2)+` Enfin, dresser la liste des diviseurs de $${tex_nombre(nombre_a_decomposer_b)}$.<br>`;
 						
 						// correction
-						texte_corr = `Avec la décomposition en facteurs premiers de ${nombre_avec_espace(nombre_a_decomposer_b)} qui est : $`;
+						texte_corr = `Avec la décomposition en facteurs premiers de $${tex_nombre(nombre_a_decomposer_b)}$ qui est : $`;
 						if (tab_multiplicites_b[0]==1) {
 							texte_corr += `${tab_premiers_b[0]}`;							
 						} else {
@@ -3288,76 +3288,106 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 						texte_corr += num_alpha(0)+`Le tableau donne :`;
 						// on crée le tableau des entetes de lignes et des colonnes
 						let ent_lignes_corr = [];
+						let ent_lignes_corr_res = [];
 						let contenu_lignes_corr = [];
-						let contenu_lignes_corr_res = [];
+						//let contenu_lignes_corr_res = [];
 						let ent_colonnes_corr = [`\\times`];
+						let ent_colonnes_corr_res = [1];
 						// les entetes des lignes
 						for (let k=0;k<tab_multiplicites_b[0]+1;k++) {
 							ent_lignes_corr.push(tab_premiers_b[0]+`^{`+k+`}`);
-						};
-						//console.log('entetes lignes corr : ' + ent_lignes_corr);
+							ent_lignes_corr_res.push(tab_premiers_b[0]**k);							
+						};						
 						// les entetes des colonnes 
 						for (let m=0;m<tab_multiplicites_b[1]+1;m++) {
 							for (let l=0;l<tab_multiplicites_b[2]+1;l++) {
 								ent_colonnes_corr.push(tab_premiers_b[1]+`^{`+m+`}\\times`+tab_premiers_b[2]+`^{`+l+`}`);
+								ent_colonnes_corr_res.push(tab_premiers_b[1]**m*tab_premiers_b[2]**l);
 							};
 						};
 
+						// tableaux pour les permutations circulaires
+						let tab_temp_corr;
+						let tab1_temp_corr;
+						// on y affecte les lignes
+						tab_temp_corr = ent_lignes_corr;
+						tab1_temp_corr = ent_lignes_corr_res;
+						// on supprime le x de l'entete des colonnes
+						ent_colonnes_corr.shift();
+						ent_colonnes_corr_res.shift();
+						// on affecte ça aux lignes;
+						ent_lignes_corr = ent_colonnes_corr;
+						ent_lignes_corr_res = ent_colonnes_corr_res;
+						// on remet le x en colonnes et on ajoute le reste
+						ent_colonnes_corr = [`\\times`].concat(tab_temp_corr);
+						ent_colonnes_corr_res = [1].concat(tab1_temp_corr);
+
+						// console.log('lignes : '+ent_lignes_corr_res);
+						// console.log('colonnes : '+ent_colonnes_corr_res);
 						//console.log('entetes colonnes corr : ' + ent_colonnes_corr);
 						// le contenu des lignes
-						for (let l=0;l<(tab_multiplicites_b[0]+1);l++) {
-							for (let c=1;c<(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)+1;c++) {
-								//contenu_lignes_corr.push(`l : `+l+`, c : `+Number(c));
-								contenu_lignes_corr.push(ent_lignes_corr[l]+`\\times`+ent_colonnes_corr[Number(c)]);								
+						// for (let l=0;l<(tab_multiplicites_b[0]+1);l++) {
+						// 	for (let c=1;c<(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)+1;c++) {
+						// 		//contenu_lignes_corr.push(`l : `+l+`, c : `+Number(c));
+						// 		contenu_lignes_corr.push(ent_lignes_corr[l]+`\\times`+ent_colonnes_corr[Number(c)]);								
+						// 	};
+						// };				
+						// texte_corr += `<br>colonnes : `+ent_colonnes_corr+`<br>`;
+						// texte_corr += `lignes : `+ent_lignes_corr+`<br>`;
+						for (let l=0;l<(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)+1;l++) {
+							for (let c=1;c<(tab_multiplicites_b[0]+2);c++) {
+								//contenu_lignes_corr.push(`l : `+l+`, c : `+Number(c));								
+								contenu_lignes_corr.push(ent_lignes_corr[l]+`\\times`+ent_colonnes_corr[c]+`=`+mise_en_evidence(ent_lignes_corr_res[l]*ent_colonnes_corr_res[c]));																
 							};
-						};				
+						};
+
 						texte_corr += `<br>`;
 						texte_corr += tab_C_L(ent_colonnes_corr,ent_lignes_corr,contenu_lignes_corr);
-						texte_corr += `<br>`;
-						texte_corr +=num_alpha(1)+` ${nombre_avec_espace(nombre_a_decomposer_b)} a donc `;
-						texte_corr += `(${tab_multiplicites_b[0]}+1)$\\times$(${tab_multiplicites_b[1]}+1)$\\times$(${tab_multiplicites_b[2]}+1) = `;
-						texte_corr += `${tab_multiplicites_b[0]+1}$\\times$${tab_multiplicites_b[1]+1}$\\times$${tab_multiplicites_b[2]+1} = `;
-						texte_corr += `${(tab_multiplicites_b[0]+1)*(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)} diviseurs.<br>`;
+						texte_corr += `<br><br>`;
+						texte_corr +=num_alpha(1)+` $${tex_nombre(nombre_a_decomposer_b)}$ a donc `;
+						texte_corr += `$(${tab_multiplicites_b[0]}+1)\\times(${tab_multiplicites_b[1]}+1)\\times(${tab_multiplicites_b[2]}+1) = `;
+						texte_corr += `${tab_multiplicites_b[0]+1}\\times${tab_multiplicites_b[1]+1}\\times${tab_multiplicites_b[2]+1} = `;
+						texte_corr += `${(tab_multiplicites_b[0]+1)*(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)}$ diviseurs.<br>`;
 						texte_corr += `En effet, dans la décomposition apparait : `;
-						texte_corr += ` <br> - Le facteur premier ${tab_premiers_b[0]} avec la multiplicité ${tab_multiplicites_b[0]}`;
-						texte_corr += `, le facteur ${tab_premiers_b[0]} apparait donc sous les formes : `;
+						texte_corr += ` <br> - Le facteur premier $${tab_premiers_b[0]}$ avec la multiplicité $${tab_multiplicites_b[0]}$`;
+						texte_corr += `, le facteur $${tab_premiers_b[0]}$ apparait donc sous les formes : `;
 						for (let k=0;k<tab_multiplicites_b[0];k++) {
 							texte_corr += `$${tab_premiers_b[0]}^{`+k+`}$ ou `;
 						};
-						texte_corr += `$${tab_premiers_b[0]}^{`+tab_multiplicites_b[0]+`}$ d'où le facteur (${tab_multiplicites_b[0]}+1).`;
+						texte_corr += `$${tab_premiers_b[0]}^{`+tab_multiplicites_b[0]+`}$ d'où le facteur $(${tab_multiplicites_b[0]}+1)$.`;
 
-						texte_corr += ` <br> - Le facteur premier ${tab_premiers_b[1]} avec la multiplicité ${tab_multiplicites_b[1]}`;
-						texte_corr += `, le facteur ${tab_premiers_b[1]} apparait donc sous les formes : `;
+						texte_corr += ` <br> - Le facteur premier $${tab_premiers_b[1]}$ avec la multiplicité $${tab_multiplicites_b[1]}$`;
+						texte_corr += `, le facteur $${tab_premiers_b[1]}$ apparait donc sous les formes : `;
 						for (let k=0;k<tab_multiplicites_b[1];k++) {
 							texte_corr += `$${tab_premiers_b[1]}^{`+k+`}$ ou `;
 						};
-						texte_corr += `$${tab_premiers_b[1]}^{`+tab_multiplicites_b[1]+`}$ d'où le facteur (${tab_multiplicites_b[1]}+1).`;
+						texte_corr += `$${tab_premiers_b[1]}^{`+tab_multiplicites_b[1]+`}$ d'où le facteur $(${tab_multiplicites_b[1]}+1)$.`;
 
-						texte_corr += ` <br> - Le facteur premier ${tab_premiers_b[2]} avec la multiplicité ${tab_multiplicites_b[2]}`;
-						texte_corr += `, le facteur ${tab_premiers_b[2]} apparait donc sous les formes : `;
+						texte_corr += ` <br> - Le facteur premier $${tab_premiers_b[2]}$ avec la multiplicité $${tab_multiplicites_b[2]}$`;
+						texte_corr += `, le facteur $${tab_premiers_b[2]}$ apparait donc sous les formes : `;
 						for (let k=0;k<tab_multiplicites_b[2];k++) {
 							texte_corr += `$${tab_premiers_b[2]}^{`+k+`}$ ou `;
 						};
-						texte_corr += `$${tab_premiers_b[2]}^{`+tab_multiplicites_b[2]+`}$ d'où le facteur (${tab_multiplicites_b[2]}+1).`;
+						texte_corr += `$${tab_premiers_b[2]}^{`+tab_multiplicites_b[2]+`}$ d'où le facteur $(${tab_multiplicites_b[2]}+1)$.`;
 
 						texte_corr += `<br>`;
-						texte_corr +=num_alpha(2)+` Enfin, voici la liste des $${(tab_multiplicites_b[0]+1)*(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)}$ diviseurs de $${nombre_avec_espace(nombre_a_decomposer_b)}$ : <br>`;
-						texte_corr += ``;
-						for (let k=0;k<tab_multiplicites_b[0]+1;k++) {
-							for (let m=0;m<tab_multiplicites_b[1]+1;m++) {
-								for (let l=0;l<tab_multiplicites_b[2]+1;l++) {
-									texte_corr += `$${tab_premiers_b[0]}^{`+k+`}\\times${tab_premiers_b[1]}^{`+m+`}\\times${tab_premiers_b[2]}^{`+l+`}$ = `;
-									texte_corr += `$${tab_premiers_b[0]**k*tab_premiers_b[1]**m*tab_premiers_b[2]**l}$; <br>`;
-								};
-							};
-						};
-						texte_corr += ``;
-						texte_corr += ``;
-						texte_corr += `Rangeons finalement cette liste dans l'ordre croissant : 1`;
+						texte_corr +=num_alpha(2)+` Enfin, voici la liste des $${(tab_multiplicites_b[0]+1)*(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)}$ diviseurs de $${nombre_avec_espace(nombre_a_decomposer_b)}$ issus du tableau ci-dessus : `;
+						// texte_corr += ``;
+						// for (let k=0;k<tab_multiplicites_b[0]+1;k++) {
+						// 	for (let m=0;m<tab_multiplicites_b[1]+1;m++) {
+						// 		for (let l=0;l<tab_multiplicites_b[2]+1;l++) {
+						// 			texte_corr += `$${tab_premiers_b[0]}^{`+k+`}\\times${tab_premiers_b[1]}^{`+m+`}\\times${tab_premiers_b[2]}^{`+l+`}$ = `;
+						// 			texte_corr += `$${tab_premiers_b[0]**k*tab_premiers_b[1]**m*tab_premiers_b[2]**l}$; <br>`;
+						// 		};
+						// 	};
+						// };
+						// texte_corr += ``;
+						texte_corr += `$1`;
+						//texte_corr += `Rangeons finalement cette liste dans l'ordre croissant : 1`;
 						for (let w = 1; w<liste_diviseurs(nombre_a_decomposer_b).length; w++) {
-							texte_corr += `; `+liste_diviseurs(nombre_a_decomposer_b)[w];
+							texte_corr += `\\text{; }`+liste_diviseurs(nombre_a_decomposer_b)[w];
 						};
-						texte_corr += `.`;
+						texte_corr += `.$`;
 						break;		
 				};
 			
