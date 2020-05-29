@@ -3225,7 +3225,7 @@ function problemes_grandeurs_composees(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Résoudre des problèmes de grandeurs composées et de conversion d'unités complexes";
 	this.consigne = "";
-	this.nb_questions = 4;
+	this.nb_questions = 8;
 	this.nb_questions_modifiable = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -3236,7 +3236,7 @@ function problemes_grandeurs_composees(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let liste_index_disponibles=[0,1,3,4,7,13];
+		let liste_index_disponibles=[0,1,3,4,5,6,7,13];
 		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions);
 		let type_aide=1;
 		if (!sortie_html) type_aide=0;
@@ -3342,14 +3342,22 @@ function problemes_grandeurs_composees(){
 					texte_corr +=`D'où $${mise_en_evidence(`d`,`black`)}\\text{ m} = \\dfrac{${tex_nombre(index1)}\\text{ J}}{${index}\\text{ kg}\\times 9,81 \\text{m.s}^{-2}}\\approx${tex_nombrec(arrondi(index1/(9.81*index)))}\\text{ m}.$`
 					break;
 				case 5 :
-					texte = num_alpha(0)+` Un bus de ville transporte en moyenne 30 personnes à la fois.<br> La longueur moyenne de déplacement est de 5km.<br> Calculer le trafic moyen de voyageurs en voyageurs.km.<br> `
-					texte += num_alpha(1)+` Un autre bus de ville transporte en moyenne 25 personnes à la fois.<br> La longueur moyenne de déplacement est de 6km.<br> Montrer que le trafic de voyageur est le même qu'à la question `+num_alpha(0)
-					texte_corr =num_alpha(0)+ ` Le trafic moyen de ce bus de ville est : 30x5=150 voyageurs.km.<br>`
-					texte_corr +=num_alpha(1)+ ` Le trafic moyen de ce bus de ville est : 25x6=150 voyageurs.km, donc ces deux bus ont le même trafic.`
+					let d1=randint(3,6)
+					let d2=randint(3,6,[d1])
+					let k=randint(5,8)
+					let n1=k*d2
+					let n2=k*d1
+					texte = num_alpha(0)+` Un bus de ville transporte en moyenne ${n1} personnes à la fois.<br> La longueur moyenne de déplacement est de ${d1} km.<br> Calculer le `+katex_Popup2(numero_de_l_exercice+i*3,type_aide,`trafic`,`Définition : Trafic de voyageurs`,`Le trafic de voyageurs est le produit du nombre de voyageurs par la distance parcourue. L'unité est le voyageur.km qui correspond au déplacement d'un voyageur sur 1km`)+` moyen de voyageurs en voyageurs.km.<br> `
+					texte += num_alpha(1)+` Un autre bus de ville transporte en moyenne ${n2} personnes à la fois.<br> La longueur moyenne de déplacement est de ${d2} km.<br> Montrer que le trafic de voyageur est le même qu'à la question `+num_alpha(0)
+					texte_corr =num_alpha(0)+ ` Le trafic moyen de ce bus de ville est : $${n1}\\text{voyageurs}\\times${d1}\\text{km}=${n1*d1}\\text{voyageurs.km}$.<br>`
+					texte_corr +=num_alpha(1)+ ` Le trafic moyen de ce bus de ville est : $${n2}\\text{voyageurs}\\times${d2}\\text{km}=${n2*d2}\\text{voyageurs.km}$, donc ces deux bus ont le même trafic.`
 					break;
 				case 6 :
-					texte = `Exercice de puissance éléctrique`
-					texte_corr = `Correction puissance`
+					index=randint(0,3)
+					let I1=arrondi(appareils[index][1]/220,0)+1
+					texte = num_alpha(0)+`Un ${appareils[index][0]} est protégé par un fusible de ${I1} Ampères, quelle est la puissance maximale de cet appareil si il fonctionne sur le secteur ?<br>`
+					texte_corr =num_alpha(0)+ `La tension du secteur étant de 220V, la puissance maximale de ce ${appareils[index][0]} est de :<br>`
+					texte_corr+=`$220\\text{ V}\\times${I1}\\text{ A}=${220*I1}\\text{ W}$<br>`
 				break;
 				case 7 : // problème de vitesses
 					index2=randint(0,2)
