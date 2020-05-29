@@ -740,6 +740,7 @@ window.onload = function()  {
 				$('#btnCopieURL').removeClass('active'); // "éteint" le bouton 1s après 
 			}, 1000);
 		});
+		
 	}
 		
 
@@ -822,6 +823,11 @@ window.onload = function()  {
 		});
 	}
 
+	// Gestion de la redirection vers MathaleaLaTeX
+	$( "#btnLaTeX").click(function() {
+			window.location.href=window.location.href.replace('exercice.html','mathalealatex.html');
+	      	//window.location.hash = 'section';
+	 });
 
 };
 
