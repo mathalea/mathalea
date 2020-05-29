@@ -2242,7 +2242,7 @@ function reorganiseProduitPuissance(b1,b2,e,couleur1,couleur2) {
 * @Auteur Rémi Angot
 */	
 function creer_modal(numero_de_l_exercice,contenu,label_bouton,icone) {
-	let HTML = `<button class="ui right floated button" onclick="$('#modal${numero_de_l_exercice}').modal('show');"><i class="large ${icone} icon"></i>${label_bouton}</button>
+	let HTML = `<button class="ui right floated mini compact button" onclick="$('#modal${numero_de_l_exercice}').modal('show');"><i class="large ${icone} icon"></i>${label_bouton}</button>
 		<div class="ui modal" id="modal${numero_de_l_exercice}">
 		${contenu}
 		</div>`
