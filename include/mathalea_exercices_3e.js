@@ -2978,6 +2978,7 @@ function Decomposition_facteurs_premiers(){
 		this.contenu_correction = ''; // Liste de questions corrigées
 
 		let type_de_questions_disponibles = [1,2,3];
+		//type_de_questions_disponibles=shuffle(type_de_questions_disponibles); // on mélange l'ordre des questions
 		//let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
 
@@ -3046,11 +3047,27 @@ function Decomposition_facteurs_premiers(){
 								nombre_a_decomposer = nombre_a_decomposer*tab_premiers[k];
 							};
 						};
+						let racine_premier_1 = Math.trunc(Math.sqrt(nombre_a_decomposer)); 
 						texte += `$${tex_nombre(nombre_a_decomposer)}$ en produit de facteurs premiers.`;
 						// correction						
-						texte_corr = `Nous allons successivement tester la divisibilité de ${nombre_avec_espace(nombre_a_decomposer)} par tous les nombres premiers inférieurs à `;						
-						texte_corr += `${nombre_avec_espace(nombre_a_decomposer)} en commençant par 2, 3, 5, 7, ...`;
-						texte_corr +=`pour finalement trouver la décomposition suivante : $ ${tex_nombre(nombre_a_decomposer)} = `;
+						texte_corr = `Nous allons successivement tester la divisibilité de $${tex_nombre(nombre_a_decomposer)}$ par tous les nombres premiers inférieurs à `;						
+						texte_corr += `$${tex_nombre(nombre_a_decomposer)}$ en commençant par 2, 3, 5, 7, ...<br>`;
+						texte_corr = `Il est suffisant de tester la divisibilité de $${tex_nombre(nombre_a_decomposer)}$ par tous les nombres premiers inférieurs ou égaux à $\\sqrt{${tex_nombre(nombre_a_decomposer)}}$ c'est à dire inférieurs à $${tex_nombre(racine_premier_1)}$.<br>`;
+						texte_corr += `Ce sont les nombres de la liste : $`;
+						texte_corr += crible_eratosthene_n(racine_premier_1)[0];
+						for (let k=1;k<crible_eratosthene_n(racine_premier_1).length;k++) {
+							texte_corr += `; `+crible_eratosthene_n(racine_premier_1)[k];
+						};
+						texte_corr += `.$<br>`;		
+
+						var liste_facteurs_premiers = obtenir_liste_facteurs_premiers(nombre_a_decomposer);
+						var quotient_intermediaire = nombre_a_decomposer;
+						for (let k=0;k<liste_facteurs_premiers.length;k++) {
+							texte_corr += `$${tex_nombre(quotient_intermediaire)}\\div${mise_en_evidence(liste_facteurs_premiers[k])} = ${tex_nombre(quotient_intermediaire/liste_facteurs_premiers[k])}$<br>`;
+							quotient_intermediaire = quotient_intermediaire/liste_facteurs_premiers[k];
+						};	
+
+						texte_corr +=`Finalement on obtient la décomposition suivante : $ ${tex_nombre(nombre_a_decomposer)} = `;
 						if (tab_multiplicites[0]==1) {
 							texte_corr += `${tab_premiers[0]}`;							
 						} else {
@@ -3062,16 +3079,16 @@ function Decomposition_facteurs_premiers(){
 								//console.log('typeof : '+typeof tab_multiplicites[k]);
 							} else {
 								texte_corr += `\\times ${tab_premiers[k]}^{${tab_multiplicites[k]}}`;
-							};
-							
+							};							
 						};
-						texte_corr += `$, ci-dessous le détail des divisions successives.<br>`;
-						let liste_facteurs_premiers = obtenir_liste_facteurs_premiers(nombre_a_decomposer);
-						let quotient_intermediaire = nombre_a_decomposer;
-						for (let k=0;k<liste_facteurs_premiers.length;k++) {
-							texte_corr += `$${tex_nombre(quotient_intermediaire)}\\div${mise_en_evidence(liste_facteurs_premiers[k])} = ${tex_nombre(quotient_intermediaire/liste_facteurs_premiers[k])}$<br>`;
-							quotient_intermediaire = quotient_intermediaire/liste_facteurs_premiers[k];
-						};	
+						texte_corr += `$`;
+						// texte_corr += `ci-dessous le détail des divisions successives.<br>`;
+						// let liste_facteurs_premiers = obtenir_liste_facteurs_premiers(nombre_a_decomposer);
+						// let quotient_intermediaire = nombre_a_decomposer;
+						// for (let k=0;k<liste_facteurs_premiers.length;k++) {
+						// 	texte_corr += `$${tex_nombre(quotient_intermediaire)}\\div${mise_en_evidence(liste_facteurs_premiers[k])} = ${tex_nombre(quotient_intermediaire/liste_facteurs_premiers[k])}$<br>`;
+						// 	quotient_intermediaire = quotient_intermediaire/liste_facteurs_premiers[k];
+						// };	
 						break;		
 					case 2 : // deux premiers compris entre 30 et 100 de multiplicité 1
 						//console.log('tableau des premiers dispos' + premiers_entre_bornes(30,100));
@@ -3097,7 +3114,15 @@ function Decomposition_facteurs_premiers(){
 						for (let k=1;k<crible_eratosthene_n(racine_prem).length;k++) {
 							texte_corr += `; `+crible_eratosthene_n(racine_prem)[k];
 						};
-						texte_corr += `.$<br>`;		
+						texte_corr += `.$<br>`;
+						
+						liste_facteurs_premiers = obtenir_liste_facteurs_premiers(premier1*premier2);
+						quotient_intermediaire = premier1*premier2;
+						for (let k=0;k<liste_facteurs_premiers.length;k++) {
+							texte_corr += `$${tex_nombre(quotient_intermediaire)}\\div${mise_en_evidence(liste_facteurs_premiers[k])} = ${tex_nombre(quotient_intermediaire/liste_facteurs_premiers[k])}$<br>`;
+							quotient_intermediaire = quotient_intermediaire/liste_facteurs_premiers[k];
+						};
+
 						texte_corr += ` D'où $${tex_nombre(premier1*premier2)} = ${tex_nombre(premier1)}\\times${tex_nombre(premier2)}$.`;
 						break;	
 					case 3 : // un gros premier entre 1000 et 2000			
