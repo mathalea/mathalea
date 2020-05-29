@@ -2978,7 +2978,7 @@ function Decomposition_facteurs_premiers(){
 		this.contenu_correction = ''; // Liste de questions corrigées
 
 		let type_de_questions_disponibles = [1,2,3];
-		//type_de_questions_disponibles=shuffle(type_de_questions_disponibles); // on mélange l'ordre des questions
+		type_de_questions_disponibles=shuffle(type_de_questions_disponibles); // on mélange l'ordre des questions
 		//let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
 
