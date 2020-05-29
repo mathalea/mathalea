@@ -3256,7 +3256,6 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 						ent_lignes = ent_colonnes;
 						// on remet le x en colonnes et on ajoute le reste
 						ent_colonnes = [`\\times`].concat(tab_temp);
-
 						// le contenu des lignes
 						for (let l=0;l<(tab_multiplicites_b[0]+1);l++) {
 							for (let c=1;c<(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)+1;c++) {
@@ -3268,8 +3267,7 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 						texte += tab_C_L(ent_colonnes,ent_lignes,contenu_lignes);
 						texte += `<br>`;
 						texte +=num_alpha(1)+` En déduire le nombre de diviseurs de $${tex_nombre(nombre_a_decomposer_b)}$.<br>`;
-						texte +=num_alpha(2)+` Enfin, dresser la liste des diviseurs de $${tex_nombre(nombre_a_decomposer_b)}$.<br>`;
-						
+						texte +=num_alpha(2)+` Enfin, dresser la liste des diviseurs de $${tex_nombre(nombre_a_decomposer_b)}$.<br>`;						
 						// correction
 						texte_corr = `Avec la décomposition en facteurs premiers de $${tex_nombre(nombre_a_decomposer_b)}$ qui est : $`;
 						if (tab_multiplicites_b[0]==1) {
@@ -3305,7 +3303,6 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 								ent_colonnes_corr_res.push(tab_premiers_b[1]**m*tab_premiers_b[2]**l);
 							};
 						};
-
 						// tableaux pour les permutations circulaires
 						let tab_temp_corr;
 						let tab1_temp_corr;
@@ -3321,26 +3318,13 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 						// on remet le x en colonnes et on ajoute le reste
 						ent_colonnes_corr = [`\\times`].concat(tab_temp_corr);
 						ent_colonnes_corr_res = [1].concat(tab1_temp_corr);
-
-						// console.log('lignes : '+ent_lignes_corr_res);
-						// console.log('colonnes : '+ent_colonnes_corr_res);
-						//console.log('entetes colonnes corr : ' + ent_colonnes_corr);
 						// le contenu des lignes
-						// for (let l=0;l<(tab_multiplicites_b[0]+1);l++) {
-						// 	for (let c=1;c<(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)+1;c++) {
-						// 		//contenu_lignes_corr.push(`l : `+l+`, c : `+Number(c));
-						// 		contenu_lignes_corr.push(ent_lignes_corr[l]+`\\times`+ent_colonnes_corr[Number(c)]);								
-						// 	};
-						// };				
-						// texte_corr += `<br>colonnes : `+ent_colonnes_corr+`<br>`;
-						// texte_corr += `lignes : `+ent_lignes_corr+`<br>`;
 						for (let l=0;l<(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)+1;l++) {
 							for (let c=1;c<(tab_multiplicites_b[0]+2);c++) {
 								//contenu_lignes_corr.push(`l : `+l+`, c : `+Number(c));								
 								contenu_lignes_corr.push(ent_lignes_corr[l]+`\\times`+ent_colonnes_corr[c]+`=`+mise_en_evidence(ent_lignes_corr_res[l]*ent_colonnes_corr_res[c]));																
 							};
 						};
-
 						texte_corr += `<br>`;
 						texte_corr += tab_C_L(ent_colonnes_corr,ent_lignes_corr,contenu_lignes_corr);
 						texte_corr += `<br><br>`;
@@ -3372,18 +3356,7 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 
 						texte_corr += `<br>`;
 						texte_corr +=num_alpha(2)+` Enfin, voici la liste des $${(tab_multiplicites_b[0]+1)*(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)}$ diviseurs de $${nombre_avec_espace(nombre_a_decomposer_b)}$ issus du tableau ci-dessus : `;
-						// texte_corr += ``;
-						// for (let k=0;k<tab_multiplicites_b[0]+1;k++) {
-						// 	for (let m=0;m<tab_multiplicites_b[1]+1;m++) {
-						// 		for (let l=0;l<tab_multiplicites_b[2]+1;l++) {
-						// 			texte_corr += `$${tab_premiers_b[0]}^{`+k+`}\\times${tab_premiers_b[1]}^{`+m+`}\\times${tab_premiers_b[2]}^{`+l+`}$ = `;
-						// 			texte_corr += `$${tab_premiers_b[0]**k*tab_premiers_b[1]**m*tab_premiers_b[2]**l}$; <br>`;
-						// 		};
-						// 	};
-						// };
-						// texte_corr += ``;
 						texte_corr += `$1`;
-						//texte_corr += `Rangeons finalement cette liste dans l'ordre croissant : 1`;
 						for (let w = 1; w<liste_diviseurs(nombre_a_decomposer_b).length; w++) {
 							texte_corr += `\\text{; }`+liste_diviseurs(nombre_a_decomposer_b)[w];
 						};
