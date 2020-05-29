@@ -2591,7 +2591,7 @@ function katex_Popup2(numero,type,texte,titrePopup,textePopup) {
 	'use strict';
 	switch (type) { 
 		case 0 : return katex_Popuptest(texte,titrePopup,textePopup)
-		case 1 : return `${titrePopup}`+ modal_texte_long(numero,`${titrePopup}`,`${textePopup}`,`${texte}`,"info circle")
+		case 1 : return `${texte}`+ modal_texte_long(numero,`${titrePopup}`,`${textePopup}`,`${texte}`,"info circle")
 		case 2 : return `${texte}`+ modal_image(numero,textePopup,`${titrePopup}`,`${texte}`)
 	}
 };
