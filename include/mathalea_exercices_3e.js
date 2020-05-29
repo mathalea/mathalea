@@ -3000,8 +3000,7 @@ function Decomposition_facteurs_premiers(){
 		};
 
 			for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
-				type_de_questions = liste_type_de_questions[i];
-				
+				type_de_questions = liste_type_de_questions[i];				
 	
 				switch (type_de_questions) {
 					case 1 : // 3 à 5 facteurs premiers max compris entre 0 et 30, de multiplicité 1,2 ou 3 max
@@ -3011,7 +3010,6 @@ function Decomposition_facteurs_premiers(){
 						let max_premier = 11;
 						// on fixe le rang max pour le choix des premiers
 						let rg_max = crible_eratosthene_n(max_premier).length-1;					
-						//console.log('rang max '+rg_max);
 						// on choisit les rangs pour les nombres premiers
 						let tab_rangs = [];
 						let tab_rangs_exclus = [];
@@ -3021,26 +3019,22 @@ function Decomposition_facteurs_premiers(){
 							}
 							tab_rangs[k] = randint(0,rg_max,tab_rangs_exclus);
 						};
-						//console.log('tableau des rangs retenus pour les premiers choisis '+tab_rangs);					
 						// on choisit les premiers
 						let tab_premiers = [];
 						for (let k=0; k<tab_rangs.length; k++) {
 							tab_premiers[k] = crible_eratosthene_n(max_premier)[tab_rangs[k]];
 						};
-						//console.log('tableau des premiers choisis dans le désordre'+tab_premiers);		
 						// on range les facteurs premiers dans l'ordre croissant
 						tab_premiers.sort(function(a,b){
 							return a-b;
 						});
-						//console.log('tableau des premiers choisis dans l ordre'+tab_premiers);											
 						// on choisit les multiplicités
 						let tab_multiplicites = [];
 						for (let k=0; k<tab_rangs.length; k++) {
 							tab_multiplicites[k] = randint(1,2);
 						};
-						//console.log('tableau des multiplicités des premiers choisis '+tab_multiplicites);					
 						// yapluka écrire le nombre dans l'énoncé et sa décomposition dans la correction
-						texte = `&Agrave; l'aide de la calculatrice, décomposer `;
+						texte = `À l'aide de la calculatrice, décomposer `;
 						let nombre_a_decomposer=1;
 						for (let k=0; k<tab_rangs.length; k++) {
 							for (let m=0; m<tab_multiplicites[k]; m++) {
@@ -3059,14 +3053,12 @@ function Decomposition_facteurs_premiers(){
 							texte_corr += `; `+crible_eratosthene_n(racine_premier_1)[k];
 						};
 						texte_corr += `.$<br>`;		
-
 						var liste_facteurs_premiers = obtenir_liste_facteurs_premiers(nombre_a_decomposer);
 						var quotient_intermediaire = nombre_a_decomposer;
 						for (let k=0;k<liste_facteurs_premiers.length;k++) {
 							texte_corr += `$${tex_nombre(quotient_intermediaire)}\\div${mise_en_evidence(liste_facteurs_premiers[k])} = ${tex_nombre(quotient_intermediaire/liste_facteurs_premiers[k])}$<br>`;
 							quotient_intermediaire = quotient_intermediaire/liste_facteurs_premiers[k];
 						};	
-
 						texte_corr +=`Finalement on obtient la décomposition suivante : $ ${tex_nombre(nombre_a_decomposer)} = `;
 						if (tab_multiplicites[0]==1) {
 							texte_corr += `${tab_premiers[0]}`;							
@@ -3082,31 +3074,19 @@ function Decomposition_facteurs_premiers(){
 							};							
 						};
 						texte_corr += `$`;
-						// texte_corr += `ci-dessous le détail des divisions successives.<br>`;
-						// let liste_facteurs_premiers = obtenir_liste_facteurs_premiers(nombre_a_decomposer);
-						// let quotient_intermediaire = nombre_a_decomposer;
-						// for (let k=0;k<liste_facteurs_premiers.length;k++) {
-						// 	texte_corr += `$${tex_nombre(quotient_intermediaire)}\\div${mise_en_evidence(liste_facteurs_premiers[k])} = ${tex_nombre(quotient_intermediaire/liste_facteurs_premiers[k])}$<br>`;
-						// 	quotient_intermediaire = quotient_intermediaire/liste_facteurs_premiers[k];
-						// };	
 						break;		
 					case 2 : // deux premiers compris entre 30 et 100 de multiplicité 1
-						//console.log('tableau des premiers dispos' + premiers_entre_bornes(30,100));
-						//console.log(premiers_entre_bornes(30,100).length);
+						// on choisit un rang différent pour chaque premier entre 30 et 100
 						let r1 = randint(0,premiers_entre_bornes(30,100).length-1);
-						//console.log('r1 : '+r1);
 						let r2 = randint(0,premiers_entre_bornes(30,100).length-1,r1);
-						//console.log('r2 : '+r2);
 						let premier1 = premiers_entre_bornes(30,100)[r1];			
-						//console.log('premier1 : '+premier1);
 						let premier2 = premiers_entre_bornes(30,100)[r2];
-						//console.log('premier2 : '+premier2);
-						if (premier1>premier2) { // on iverse p1 et p2 si p1 est supérieur à p2
+						if (premier1>premier2) { // on inverse p1 et p2 si p1 est supérieur à p2
 							let p = premier1;
 							premier1=premier2;
 							premier2=p;
 						};						
-						texte = `&Agrave; l'aide de la calculatrice, décomposer $${tex_nombre(premier1*premier2)}$ en produit de facteurs premiers.`;
+						texte = `À l'aide de la calculatrice, décomposer $${tex_nombre(premier1*premier2)}$ en produit de facteurs premiers.`;
 						let racine_prem = Math.trunc(Math.sqrt(premier1*premier2));
 						texte_corr = `Il est suffisant de tester la divisibilité de $${tex_nombre(premier1*premier2)}$ par tous les nombres premiers inférieurs ou égaux à $\\sqrt{${tex_nombre(premier1*premier2)}}$ c'est à dire inférieurs à $${tex_nombre(racine_prem)}$.<br>`;
 						texte_corr += `Ce sont les nombres de la liste suivante : <br>$`;
@@ -3114,25 +3094,21 @@ function Decomposition_facteurs_premiers(){
 						for (let k=1;k<crible_eratosthene_n(racine_prem).length;k++) {
 							texte_corr += `; `+crible_eratosthene_n(racine_prem)[k];
 						};
-						texte_corr += `.$<br>`;
-						
+						texte_corr += `.$<br>`;						
 						liste_facteurs_premiers = obtenir_liste_facteurs_premiers(premier1*premier2);
 						quotient_intermediaire = premier1*premier2;
 						for (let k=0;k<liste_facteurs_premiers.length;k++) {
 							texte_corr += `$${tex_nombre(quotient_intermediaire)}\\div${mise_en_evidence(liste_facteurs_premiers[k])} = ${tex_nombre(quotient_intermediaire/liste_facteurs_premiers[k])}$<br>`;
 							quotient_intermediaire = quotient_intermediaire/liste_facteurs_premiers[k];
 						};
-
 						texte_corr += ` D'où $${tex_nombre(premier1*premier2)} = ${tex_nombre(premier1)}\\times${tex_nombre(premier2)}$.`;
 						break;	
 					case 3 : // un gros premier entre 1000 et 2000			
-						//console.log('tableau des premiers dispos' + premiers_entre_bornes(1000,2000));
+						// on choisit un rang pour le nombre premier entre 1000 et 2000
 						let r = randint(0,premiers_entre_bornes(1000,2000).length-1);
-						//console.log('r1 : '+r);
 						let premier = premiers_entre_bornes(1000,2000)[r];			
 						let racine_premier = Math.trunc(Math.sqrt(premier));
-						//console.log('premierr1 : '+premier);	
-						texte = `&Agrave; l'aide de la calculatrice, décomposer $${tex_nombre(premier)}$ en produit de facteurs premiers.`;
+						texte = `À l'aide de la calculatrice, décomposer $${tex_nombre(premier)}$ en produit de facteurs premiers.`;
 						texte_corr = `En testant la divisibilité de $${tex_nombre(premier)}$ par tous les nombres premiers inférieurs ou égaux à $${racine_premier}$`;
 						texte_corr += ` c'est à dire les nombre de la liste $`;
 						texte_corr += crible_eratosthene_n(racine_premier)[0];
@@ -3141,7 +3117,7 @@ function Decomposition_facteurs_premiers(){
 						};
 						texte_corr += `$, `;
 						texte_corr += `on se rend compte que $${tex_nombre(premier)}$ est un nombre premier donc `;
-						texte_corr +=`$${tex_nombre(premier)} = 1\\times${tex_nombre(premier)}$.`;
+						texte_corr +=`$${tex_nombre(premier)} = ${tex_nombre(premier)}$.`;
 						break;	
 				};
 			
