@@ -78,12 +78,16 @@
 
 
 
-<button class="btn ui labeled icon button" id="btn_mise_a_jour_code"><i class="redo icon"></i>Nouvelles données</button>
-<div class="ui buttons">
-  <button class="btn ui  right labeled icon button" id="btn_zoom_plus">Zoom<i class="plus icon"></i> </button>
-  <button class="btn ui  icon button" id="btn_zoom_moins"><i class="minus icon"></i> </button>   
+<div > 
+       <button class="btn ui labeled icon button" id="btn_mise_a_jour_code" style="margin:10px"><i class="redo icon"></i>Nouvelles données</button> 
+       <div class="ui buttons" style="margin:10px">
+        <button class="btn ui  right labeled icon button" id="btn_zoom_plus">Zoom<i class="plus icon"></i> </button>
+        <button class="btn ui  icon button" id="btn_zoom_moins"><i class="minus icon"></i> </button>  
+      </div>
+      <button id="btnCopieURL" style="margin:10px" class="btn ui toggle button labeled icon url" data-clipboard-action="copy" data-clipboard-text=url_courant()><i class="copy icon"></i>Copier le lien vers les exercices sélectionnés</button> 
+      <button id="btnLaTeX"  style="margin:10px" class="btn ui button labeled icon" ><i class="edit icon"></i>Version LaTeX</button> 
 </div>
-<button id="btnCopieURL" class="btn ui toggle button labeled icon url" data-clipboard-action="copy" data-clipboard-text=url_courant()><i class="copy icon"></i>Copier le lien vers les exercices sélectionnés</button> 
+
 
 <div class="ui hidden divider"></div>
 
