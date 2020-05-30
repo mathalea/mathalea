@@ -2245,6 +2245,69 @@ function fonction_notion_vocabulaire(){
 	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
 };
 
+ /**
+  * 3Tests tests de fonctions
+  */
+
+ function tester_des_fonctions() {
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.sup = 1 ; 
+	this.titre = "Tests de fonctions"; 
+	// pas de différence entre la version html et la version latex pour la consigne
+	this.consigne =``;
+	this.consigne += "tests fonctions";
+	this.consigne += `<br>`;
+	sortie_html ? this.spacing = 3 : this.spacing = 2;
+	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
+	this.nb_questions = 1;
+	//this.correction_detaillee_disponible = true;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.sup = 1;
+
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		let type_de_questions;
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		this.contenu = ''; // Liste de questions
+		this.contenu_correction = ''; // Liste de questions corrigées
+
+		//let type_de_questions_disponibles = [1,2,3,4];
+		let type_de_questions_disponibles = [1];
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
+
+			for (let i = 0, x, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
+				type_de_questions = liste_type_de_questions[i];
+				
+
+				switch (type_de_questions) {
+					case 1 : // 
+						texte =``;
+						//texte +=`katexPopup2`+ katex_Popup2(numero_de_l_exercice+i*3,2,`trébuchet`,`https://sitetab3.ac-reims.fr/ec-fayl-billot-elem/-wp-/wp-content/uploads/2018/01/`,`https://sitetab3.ac-reims.fr/ec-fayl-billot-elem/-wp-/wp-content/uploads/2018/01/balancoire-a-bascule-trebuchet-baskul-768x768.jpg`);
+						texte +=`<br> katextPopup3 modal long : `;
+						texte += katex_Popup3(numero_de_l_exercice+i,1,"énergie",`Définition : énergie (grandeur physique)`,`C’est le produit de la puissance électrique (Watt) par le temps (s) et se mesure en Joule (J).<br>1 J=1 W × 1 s.<br>Cependant pour mesurer des énergies plus importantes on utilise plutôt le kiloWattheure (kWh).<br>1 kWh=1000 W × 1 h.`);
+						texte += `<br> katexPopup3 image : `;
+						texte += katex_Popup3(numero_de_l_exercice+i*3,2,`trebuchet`,`https://sitetab3.ac-reims.fr/ec-fayl-billot-elem/-wp-/wp-content/uploads/2018/01/`,`https://sitetab3.ac-reims.fr/ec-fayl-billot-elem/-wp-/wp-content/uploads/2018/01/balancoire-a-bascule-trebuchet-baskul-768x768.jpg`);
+						texte_corr = `texte corr`;
+
+						break;			
+				};
+			
+				if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+					this.liste_questions.push(texte);
+					this.liste_corrections.push(texte_corr);
+					i++;
+				}
+				cpt++
+			}	
+	
+		liste_de_question_to_contenu(this);
+	}
+	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
+};
+
 /**
  * 3A10 - Division Euclidienne; diviseurs, multiples, critères de divisibilité
  * Exercice bilan

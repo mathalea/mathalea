@@ -2337,7 +2337,7 @@ function modal_video(id_du_modal,url_video,texte,label_bouton="Vidéo",icone="fi
  * @param {string} icone 
  */
 function modal_image(numero_de_l_exercice,url_image,texte,label_bouton="Illustration",icone="image"){
-	let contenu = `<div class="header">${texte}</div><div class="image content"><img class="image" src="${url_image}"></div>`
+	let contenu = `<div class="header">${texte}</div><div class="image content"><img class="ui centered medium image" src="${url_image}"></div>`
 	return creer_modal(numero_de_l_exercice,contenu,label_bouton,icone)
 }
 
@@ -2596,6 +2596,28 @@ function katex_Popup2(numero,type,texte,titrePopup,textePopup) {
 	}
 };
 
+function katex_Popup3(numero,type,texte,titrePopup,textePopup) {
+	'use strict';
+	switch (type) { 
+		case 0 : 
+			return katex_Popuptest(texte,titrePopup,textePopup);
+			break;
+		case 1 : 
+			if (sortie_html) {
+				return `${texte}`+ modal_texte_long(numero,`${titrePopup}`,`${textePopup}`,`${texte}`,"info circle")
+			} else {
+				return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
+			};
+			break;
+		case 2 : 
+			if (sortie_html) {
+				return `${texte}`+ modal_image(numero,textePopup,`${titrePopup}`,`${texte}`)
+			} else {
+				return `\\href{https://coopmaths.fr/images/${texte}.png}{\\textcolor{blue}{\\underline{${texte}}} } \\footnote{\\textbf{${texte}} ${textePopup}}`
+			};
+			break;
+	};
+};
 
 /**
  * Crée une liste de questions alphabétique
