@@ -3445,17 +3445,17 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
  * @author Sébastien Lozano
  */
  
-function FractionsIrreductibles(){
+function Fractions_irreductibles(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1 ; 
 	this.titre = "Fractions Irreductibles"; 
 	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne =`Fractions Irreductibles.`;
+	this.consigne =`Décomposer une fraction et son inverse à partir des décompositons en facteurs premier.`;
 	this.consigne += `<br>`;
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
-	this.nb_questions = 4;
+	this.nb_questions = 5;
 	//this.correction_detaillee_disponible = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -3465,7 +3465,7 @@ function FractionsIrreductibles(){
 		let type_de_questions;
 		if (sortie_html) { // les boutons d'aide uniquement pour la version html
 			//this.bouton_aide = '';
-			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A12.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")					
+			//this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A12.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")					
 			//this.bouton_aide += modal_video('conteMathsNombresPremiers','videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
 		} else { // sortie LaTeX
 		};
@@ -3475,37 +3475,119 @@ function FractionsIrreductibles(){
 		this.contenu = ''; // Liste de questions
 		this.contenu_correction = ''; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = [1,2,3,4];
-		//let type_de_questions_disponibles = [1];
+		//let type_de_questions_disponibles = [1,2,3,4];
+		let type_de_questions_disponibles = [1,2,3,4,5];
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
 
 			for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 				type_de_questions = liste_type_de_questions[i];
-				
+
+				var nb_div_prem_communs; // nombre de diviseurs premiers communs
+				var candidats_premiers_communs; // tableau des candidats premiers communs
+				var premiers_communs; // tableau des diviseurs premiers communs
+				var multiplicites_premiers_communs; // tableau des multiplicités des diviseurs premiers communs 
+				var r; // tableau pour le choix des rangs des diviseurs premiers communs
+				var r_exclus; // tableau pour la boucle de creation de r				
+				var nb1; // diviseur unique du premier nombre 
+				var nb2; // divisuer unique du second nombre
+				var r_ex; // pour exlcure le rang de nb1
+				var tab_nb1; // tableau pour les diviseurs de nb1
+				var tab_nb2; // tableau pour les diviseurs de nb2
+				var multiplicites_nb1;
+				var multiplicites_nb2;
+
+				// on fixe le tableau de choix
+				candidats_premiers_communs = premiers_entre_bornes(2,13);
+				// on fixe le nombre de divisuers premiers communs
+				nb_div_prem_communs = 4;
+				// on initialise le tableau des diviseurs premiers communs
+				premiers_communs = [];
+				// on initialise le tableau des rangs
+				r=[];
+				// on initialise le tableau des rangs déjà choisis
+				r_exclus=[];
+				// on complète le tableau des rangs des rangs des diviseurs premiers choisis
+				for (let k=0;k<nb_div_prem_communs;k++) {
+					for(let m=0;m<k;m++) {
+						r_exclus.push(r[m]);
+					};					
+					r[k]=randint(0,candidats_premiers_communs.length-1,r_exclus);
+				};
+				// on complète le tableau des diviseurs premiers communs
+				for (let k=0;k<nb_div_prem_communs;k++) {
+					premiers_communs.push(candidats_premiers_communs[r[k]]);
+				};
+				// on initialise et on complète le tableau des multiplicités des diviseurs premiers communs
+				multiplicites_premiers_communs = [];
+				for (let k=0;k<nb_div_prem_communs;k++) {
+					multiplicites_premiers_communs.push(randint(0,2));
+				};
+				// on initialise le tableau des diviseurs du premier et du second nombre avec les diviseurs premiers communs
+				tab_nb1 = premiers_communs;
+				tab_nb2 = premiers_communs;
+				// on ajoute un facteur premier distinct pour chaque nombre plus petit que 30
+				r_ex = randint(0,premiers_entre_bornes(2,30).length-1);
+				nb1 = premiers_entre_bornes(2,30)[r_ex];				
+				nb2 = premiers_entre_bornes(2,30)[randint(0,premiers_entre_bornes(2,30).length-1,r_ex)];				
+				// on ajoute nb1,nb2 dans les tableaux des diviseurs premiers du premier et du second nombre avec la multiplicité 1 
+				console.log(nb1);
+				console.log(tab_nb1);
+				tab_nb1.push(nb1);
+				console.log(tab_nb1);
+				console.log(`========================`)
+				console.log(nb2)
+				console.log(tab_nb2);
+				tab_nb2.push(nb2);
+				console.log(tab_nb2);
+				console.log(`************************`)
+				//console.log(nb2);
+				//console.log(tab_nb1);
+				//console.log(tab_nb2);
+				multiplicites_nb1=multiplicites_premiers_communs;
+				multiplicites_nb1.push(1);
+				multiplicites_nb2=multiplicites_premiers_communs;
+				multiplicites_nb2.push(1);
+
+				// for (let k=0;k<nb_div_prem_communs;k++) {
+				// 	nb1=nb1*premiers_communs[k]**multiplicites_premiers_communs[k];
+				// 	nb2=nb2*premiers_communs[k]**multiplicites_premiers_communs[k];
+				// };
+
 	
 				switch (type_de_questions) {
-					case 1 : // périmètre d'un carré de côté x			
-						texte = 'type 1';
-						if (sortie_html) {
-						texte += modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A13.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
-						};
+					case 1 : // décomposition de A
+						texte = 'Décomposer A et B en produit de facteurs premiers : <br>';
+						// texte += r+`<br>`;
+						// texte += premiers_communs+`<br>`;
+						// texte += multiplicites_premiers_communs+`<br>`;
+						texte += nb1+`<br>`;
+						texte += tab_nb1+`<br>`;
+						texte += multiplicites_nb1+`<br>`;
+						texte += `=========================<br>`;
+						texte += nb2+`<br>`;
+						texte += tab_nb2+`<br>`;
+						texte += multiplicites_nb2+`<br>`;
+						texte += `*************************`;
 						texte_corr = 'corr type 1';
 						break;		
-					case 2 : // périmètre d'un carré de côté x			
+					case 2 : // décomposition de B 			
 						texte = 'type 2';
-						if (sortie_html) {
-						texte += modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A10.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
-						};
 						texte_corr = 'corr type 2';
 						break;	
-					case 3 : // périmètre d'un carré de côté x			
+
+					case 3 : // reduction de A sur B 			
 						texte = 'type 3';
-						texte_corr = 'corr type 3';
+						texte_corr = 'corr type 2';
 						break;	
-					case 4 : // périmètre d'un carré de côté x			
+					case 4 : // reduction de B sur A 			
 						texte = 'type 4';
-						texte_corr = 'corr type 4';
-						break;		
+						texte_corr = 'corr type 2';
+						break;	
+					case 5 : // reduction de A sur B 			
+						texte = 'type 5';
+						texte_corr = 'corr type 2';
+						break;	
+
 				};
 			
 				if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre

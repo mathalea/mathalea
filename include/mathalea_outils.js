@@ -2747,7 +2747,7 @@ function SVG_machine_diag_3F1_act_mono(id_du_div,w,h,nom,x_ant,etapes_expression
 
  //================================================================================================
  // fonctions dont le déplacement dans mathalea_outils.js posait problème
- // Les appels aux fonction de mathalea_outils.js doivent être faits après this.nouvelle_version()
+ // Les appels aux fonctions de mathalea_outils.js doivent être faits après this.nouvelle_version()
  //================================================================================================
 
  /**
