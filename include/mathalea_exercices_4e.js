@@ -3236,7 +3236,7 @@ function problemes_grandeurs_composees(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let liste_index_disponibles=[0,1,3,4,5,6,7,13];
+		let liste_index_disponibles=[0,1,3,4,5,6,7,13,14];
 		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions);
 		let type_aide=1;
 		if (!sortie_html) type_aide=0;
@@ -3262,7 +3262,7 @@ function problemes_grandeurs_composees(){
 					if (sortie_html) { // les boutons d'aide uniquement pour la version html
 							
 				}
-					texte+=num_alpha(0)+` Exprimer en kWh l' `+ katex_Popup2(numero_de_l_exercice+i,type_aide,"énergie",`Définition : énergie (grandeur physique)`,`C’est le produit de la puissance électrique (Watt) par le temps (s) et se mesure en Joule (J).<br>1 J=1 W × 1 s.<br>Cependant pour mesurer des énergies plus importantes on utilise plutôt le kiloWattheure (kWh).<br>1 kWh=1000 W × 1 h.`)+` consommée.<br>`;
+					texte+=num_alpha(0)+` Exprimer en kWh l' `+ katex_Popup2(numero_de_l_exercice+i+1,type_aide,"énergie",`Définition : énergie (grandeur physique)`,`C’est le produit de la puissance électrique (Watt) par le temps (s) et se mesure en Joule (J).<br>1 J=1 W × 1 s.<br>Cependant pour mesurer des énergies plus importantes on utilise plutôt le kiloWattheure (kWh).<br>1 kWh=1000 W × 1 h.`)+` consommée.<br>`;
 					texte+=num_alpha(1)+` Calculer la dépense correspondante.`
 					texte_corr = num_alpha(0)+` Un ${appareil} d'une puissance de ${puissance} Watts qui fonctionne pendant ${Math.floor(duree)} heures `;
 					if (nbquartsdheures!=0) texte_corr +=`et ${nbquartsdheures*15} minutes`;
@@ -3354,11 +3354,17 @@ function problemes_grandeurs_composees(){
 					break;
 				case 6 :
 					index=randint(0,3)
-					let I1=arrondi(appareils[index][1]/220,0)+1
-					texte = num_alpha(0)+`Un ${appareils[index][0]} est protégé par un fusible de ${I1} Ampères, quelle est la puissance maximale de cet appareil si il fonctionne sur le secteur ?<br>`
-					texte_corr =num_alpha(0)+ `La tension du secteur étant de 220V, la puissance maximale de ce ${appareils[index][0]} est de :<br>`
-					texte_corr+=`$220\\text{ V}\\times${I1}\\text{ A}=${220*I1}\\text{ W}$<br>`
-				break;
+					index1=randint(0,3,[index])
+					let I1=arrondi(appareils[index][1]/230,0)+1
+					texte = num_alpha(0)+` Un ${appareils[index][0]} est protégé par un fusible de ${I1} ampères, quelle est la `+katex_Popup2(numero_de_l_exercice+i*3+1,type_aide,`puissance`,`Définition : Puissance (grandeur physique)`,`C’est le produit de la force électromotrice (tension) exprimée en Volt (V) par l'intensité du courant électrique exprimée en ampères (A).<br>L'unité de mesure de la puissance est le Watt (W)`)+` maximale de cet appareil si il fonctionne sur le secteur ?<br>`
+					texte += num_alpha(1)+` Un ${appareils[index1][0]} fonctionne à une puissance maximum de ${appareils[index1][1]} W.<br>Quel est l'ampérage minimum nécessaire pour le fusible qui protégera ce ${appareils[index][0]} des court-ciruits ?<br>`
+					texte_corr =num_alpha(0)+ ` La tension du secteur étant de 230V, la puissance maximale de ce ${appareils[index][0]} est de :<br>`
+					texte_corr+=`$230\\text{ V}\\times${I1}\\text{ A}=${230*I1}\\text{ W}$<br>`
+					let I2=Math.floor(appareils[index1][1]/230)+1;
+					texte_corr += num_alpha(1)+` Pour fonctionner à la puissance maximum, cet appareil a besoin d'un courant d'une intensité de :<br>`
+					texte_corr += `$\\dfrac{${appareils[index1][1]}\\text{ W}}{230 \\text{ V}} \\approx ${tex_nombrec(arrondi(appareils[index1][1]/230))}\\text{ A}$.<br>`
+					texte_corr += `Le fusible nécessaire pour protéger cet appareil des courts-circuits devra avoir une intensité de rupture minimum de ${I2} ampères.`
+					break;
 				case 7 : // problème de vitesses
 					index2=randint(0,2)
 					quidam=prenom() //prenom choisi
@@ -3505,6 +3511,7 @@ function problemes_grandeurs_composees(){
 					texte = `Exercice de concentration`
 					texte_corr = `Correction concentration`
 				break;
+
 				case 13 : 
 					index2=randint(0,6)
 					duree=randint(2,24)
@@ -3518,6 +3525,43 @@ function problemes_grandeurs_composees(){
 					texte_corr+= `Débit =$${tex_nombre(vmax)}\\text{ m³/h}=\\dfrac{${tex_nombre(vmax)}\\text{ m³}}{1\\text{ h}}=\\dfrac{${tex_nombre(vmax)}\\text{ m³}}{${tex_nombre(3600)}\\text{ s}}=${tex_nombrec(vmax/3600)}\\text{ m³/s}$<br>`
 				
 					break	
+				case 14 : // problème de vitesse de téléchargement		
+					let unites=[`ko`,`Mo`,`Go`]
+					index=randint(0,1)
+					if (index==0)	vitesse_moy=randint(200,999)
+					else 	vitesse_moy=randint(1,20)	
+					quidam=prenom()
+					nbminutes=randint(3,10)
+					nbsecondes=randint(2,59)
+					masse=arrondi(randint(15,35)/10)
+					texte=num_alpha(0)+` ${quidam} télécharge un fichier depuis un espace de stockage en ligne. Sa `+katex_Popup2(numero_de_l_exercice+i,type_aide,`vitesse de téléchargement`,`Définition : Vitesse de téléchargement`,`La vitesse de téléchargement est le quotient de la quantité de données téléchargées (en ko,Mo ou Go) par la durée de téléchargement (en seconde).<br>L'unité de cette grandeur quotient est le ko/s (ou Mo/s)`)+` est de ${vitesse_moy} ${unites[index]}/s.<br>`
+					texte+=`Le téléchargement dure ${nbminutes} minutes et ${nbsecondes} secondes. Quelle est la taille du fichier téléchargé en ${unites[index]} ?<br>`
+					texte+=num_alpha(1)+` ${quidam} veut télécharger un fichier de ${tex_nombre(masse)} Go. Quelle sera la durée du téléchargement si sa vitesse de téléchargement est de ${vitesse_moy} ${unites[index]}/s ?<br>`
+					texte_corr=num_alpha(0)+` La taille du fichier téléchargé est :<br>`
+					let taille_fichier=(nbminutes*60+nbsecondes)*vitesse_moy
+					texte_corr+=`$(${nbminutes}\\times 60 +${nbsecondes})\\text{ s}\\times ${vitesse_moy} \\text{ ${unites[index]}/s} = ${nbminutes*60+nbsecondes}\\text{ s}\\times ${vitesse_moy} \\text{ ${unites[index]}/s} = ${taille_fichier} \\text{ ${unites[index]} }$`
+					if (taille_fichier>1000) texte_corr+=`$ =${tex_nombrec(taille_fichier/1000)} \\text{ ${unites[index+1]}}.$<br>`
+					texte_corr+=num_alpha(1)+` La durée du téléchargement sera de :<br>`
+					if (index==0) {
+						texte_corr+= `$${masse}\\times ${tex_nombrec(10**6)} \\text{ ko} \\div ${vitesse_moy} \\text{ ${unites[index]}/s}$`
+						taille_fichier=masse*10**6
+					}
+					else {
+						texte_corr+= `$${masse}\\times ${tex_nombrec(10**3)} \\text{ Mo} \\div ${vitesse_moy} \\text{ ${unites[index]}/s}$`
+						taille_fichier=masse*10**3
+					}
+					texte_corr+=`$=\\dfrac{${taille_fichier}}{${vitesse_moy}}\\text{ s}`
+					nbheures=Math.floor((taille_fichier/vitesse_moy)/3600)
+					nbminutes=Math.floor((taille_fichier/vitesse_moy-3600*nbheures)/60)
+					nbsecondes=arrondi(taille_fichier/vitesse_moy-3600*nbheures-60*nbminutes,0)
+					if (taille_fichier/vitesse_moy==nbsecondes+60*nbheures+3600*nbheures) texte_corr+=`=`
+					else texte_corr +=`\\approx`
+					if (nbheures!=0) texte_corr+=`${nbheures} \\text{ h }`
+					if (nbminutes!=0) texte_corr+=`${nbminutes} \\text{ min }`
+					if (nbsecondes!=0) texte_corr+= `${nbsecondes} \\text { s}`
+					texte_corr+=`$`
+
+					break
 				}
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
