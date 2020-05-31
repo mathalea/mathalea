@@ -3237,11 +3237,13 @@ function problemes_grandeurs_composees(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let liste_index_disponibles=[1,2,3,4,5,6,7,8,13,14];
+		let liste_index_disponibles=[1,2,3,4,5,6,7,8,9,13,14];
 		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions);
 		let monchoix;
 		let type_aide=1;
 		if (!sortie_html) type_aide=0;
+		let locations=[[`un vélo`,1.5,2,8],[`un canoé`,10,2,4],[`des rollers`,7,2,5],[`un char à voile`,12,2,4]]
+		let cours=[[`de piano`,20],[`de maths`,25],[`yoga`,5],[`dessin`,12],[`voile`,15]]
 		let fruits=[[`pêches`,4,10,30],[`Noix`,5.4,4,13],[`cerises`,5.6,11,20],[`pommes`,2.2,20,40],[`framboises`,15,1,5],[`fraises`,7.5,5,10],[`citrons`,1.5,15,30],[`bananes`,1.5,15,25]]
 		let appareils=[[`radiateur`,2000,20],[`téléviseur`,350,12],[`four électrique`,2500,4],[`ordinateur`,450,8]] // [appareil,puissance,durée maxi de fonctionnement]
 		let liquides=[[`de lait entier`,1.032],[`d'essence`,0.755],[`de diesel`,0.83],[`d'huile`,0.910],[`de bière`,0.9],[`de sable`,1.6]] // [nom,densité]
@@ -3512,9 +3514,18 @@ function problemes_grandeurs_composees(){
 					texte_corr+=num_alpha(1)+` La masse de ${fruits[index2][0]} qu'elle a achetée est : $${tex_prix(prix2)} \\text{ €} \\div ${tex_prix(fruits[index2][1])}\\text{ €/kg} = ${tex_nombre(masse2)}\\text{ kg}$.<br>`
 					texte_corr+=num_alpha(2)+` Enfin, ${quidam} a acheté des ${fruits[index][0]} au prix unitaire de : $\\dfrac{${tex_prix(prix3)}\\text{ €}}{${tex_nombre(masse3)}\\text{ €}} = ${tex_prix(fruits[index][1])}\\text{ €/kg}$.`
 					break;
-				case 9 :
-					texte = `Exercice de prix horaire`
-					texte_corr = `Correction prix horaire`
+				case 9 : //problème de prix horaire
+					index1=randint(0,3)
+					index2=randint(0,4)
+					nbheures=randint(locations[index1][1],locations[index1][2])
+					prix1=locations[index1][1]
+					prix2=cours[index2][1]*randint(2,6)
+					quidam=prenomF()
+					texte = `${quidam} a prévu de louer ${locations[index1][0]} pendant ${tex_nombre(nbheures)} heures. L'heure de location coûte ${tex_prix(prix1)} €.<br>`
+					texte+=num_alpha(0)+` Combien cette location va lui coûter ?<br>`
+					texte+=num_alpha(1)+` ${quidam} a pris des leçons particulières ${cours[index2][0]}. En tout ce mois-ci elle a eu ${tex_nombrec(prix2/cours[index2][1])} heures de cours pour ${tex_prix(prix2)} €. Combien demande son professeur pour une heure de cours ?<br>`
+					texte_corr =num_alpha(0)+` ${quidam} va dépenser pour sa location : $${tex_nombre(nbheures)}\\text{ h} \\times ${tex_prix(prix1)}\\text{ €/h} = ${tex_prix(nbheures*prix1)}\\text{ €}$.<br>`
+					texte_corr+=num_alpha(1)+` L'heure de cours ${cours[index2][0]} coûte : $${tex_prix(prix2)}\\text{ €} \\div ${tex_nombre(prix2/cours[index2][1])}\\text{ h} = ${tex_prix(cours[index2][1])} \\text{ €/h}$.<br>`
 					break;
 				case 10 :
 					texte = `Exercice de densité de population`
