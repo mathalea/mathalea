@@ -3528,7 +3528,7 @@ function Fractions_irreductibles(){
 				for (let k=0;k<premiers_communs.length;k++) {
 					tab_nb1[k]=premiers_communs[k];
 					tab_nb2[k]=premiers_communs[k];
-				};				
+				};								
 				// on initialise les tableaux de multiplicité, ils sont les mêmes mais on pourrait vouloir qu'ils soient différents
 				multiplicites_nb1=[];
 				multiplicites_nb2=[];
@@ -3581,11 +3581,20 @@ function Fractions_irreductibles(){
 					multiplicites_nb2.push(1);				
 					bool = true;
 				};
-
-				// on supprime les diviseurs premiers de multiplicité 1 et leur multiplicité
-
-				// on initialise nb1 et nb2 et on les calcule à partir des tableaux 
-				// attention on ne fait qu'une boucle et un seul diviseur distinct donc jusque nb_div_prem_communs+1 !!!
+				console.log("===================")
+				console.log(tab_nb1);
+				console.log(multiplicites_nb1);
+				// on supprime les diviseurs premiers de multiplicité 0 et leur multiplicité
+				for (let k=0;k<tab_nb1.length;k++) {
+					if( multiplicites_nb1[k]==0) {
+						tab_nb1.splice(k,1);
+						multiplicites_nb1.splice(k,1);
+					};
+				};
+				console.log(tab_nb1);
+				console.log(multiplicites_nb1);
+				console.log("====================")
+				// on initialise nb1 et nb2 et on les calcule à partir des tableaux 				
 				nb1=1;
 				for (let k=0;k<tab_nb1.length;k++) {
 				 	nb1=nb1*tab_nb1[k]**multiplicites_nb1[k];
@@ -3601,37 +3610,28 @@ function Fractions_irreductibles(){
 
 						texte_corr =num_alpha(0)+` La décomposition en produit de facteurs premier de $A = `;
 
-
-						for (let k=0; k<tab_nb1.length-1;k++) {
+						switch (multiplicites_nb1[0]) {
+							case 1 :
+								texte_corr += `${tab_nb1[0]}`;
+								break;
+							default :
+								texte_corr += `${tab_nb1[0]}^{${multiplicites_nb1[0]}}`;
+								break;
+						};
+						for (let k=1; k<tab_nb1.length;k++) {
 							switch (multiplicites_nb1[k]) {
 								case 0 :
 									texte_corr += ``;
 									break;
 								case 1 :
-									texte_corr += `${tab_nb1[k]}\\times `;
+									texte_corr += `\\times${tab_nb1[k]}`;
 									break;
 								default :
-									texte_corr += `${tab_nb1[k]}^{${multiplicites_nb1[k]}}\\times `;
+									texte_corr += `\\times${tab_nb1[k]}^{${multiplicites_nb1[k]}}`;
 									break;
-							};
-	
-							// if (multiplicites_nb1[k]==1) {
-							// 	texte_corr += `\\times ${tab_nb1[k]}`;								
-							// } else {
-							// 	texte_corr += `\\times ${tab_nb1[k]}^{${multiplicites_nb1[k]}}`;
-							// };							
+							};						
 						};
-						switch (multiplicites_nb1[tab_nb1.length-1]) {
-							case 0 :
-								texte_corr += ``;
-								break;
-							case 1 :
-								texte_corr += `${tab_nb1[tab_nb1.length-1]}`;
-								break;
-							default :
-								texte_corr += `${tab_nb1[tab_nb1.length-1]}^{${multiplicites_nb1[tab_nb1.length-1]}}`;
-								break;
-						};
+
 						texte_corr += `$`;
 					//	break;		
 					//case 2 : // décomposition de B 			
