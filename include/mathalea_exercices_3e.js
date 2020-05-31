@@ -3585,6 +3585,7 @@ function Fractions_irreductibles(){
 				console.log(tab_nb1);
 				console.log(multiplicites_nb1);
 				// on supprime les diviseurs premiers de multiplicité 0 et leur multiplicité
+				// pb avec la série de clef Sue0
 				for (let k=0;k<tab_nb1.length;k++) {
 					if( multiplicites_nb1[k]==0) {
 						tab_nb1.splice(k,1);
@@ -3594,6 +3595,19 @@ function Fractions_irreductibles(){
 				console.log(tab_nb1);
 				console.log(multiplicites_nb1);
 				console.log("====================")
+				// on crée un tableau associatif à partir des deux tableaux tab_ni et multiplicites_ni
+				let tab_prem_mult_nb1 = [];
+				for (let k=0;k<tab_nb1.length;k++) {
+					tab_prem_mult_nb1[k]={'prem': tab_nb1[k],'mult':multiplicites_nb1[k]};
+				};
+				console.log(tab_prem_mult_nb1);
+				console.log('***********************')
+				// on range selon prem croissant
+				tab_prem_mult_nb1.sort(function(a,b){
+					return a.prem>b.prem;
+				});
+				console.log(tab_prem_mult_nb1);
+				console.log('+++++++++++++++++++++++')
 				// on initialise nb1 et nb2 et on les calcule à partir des tableaux 				
 				nb1=1;
 				for (let k=0;k<tab_nb1.length;k++) {
