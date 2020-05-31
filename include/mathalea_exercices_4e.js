@@ -3225,7 +3225,7 @@ function problemes_grandeurs_composees(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Résoudre des problèmes de grandeurs composées et de conversion d'unités complexes";
 	this.consigne = "";
-	this.nb_questions = 1;
+	this.nb_questions = 10;
 	this.nb_questions_modifiable = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -3237,12 +3237,13 @@ function problemes_grandeurs_composees(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let liste_index_disponibles=[1,2,3,4,5,6,7,8,9,10,13,14];
+		let liste_index_disponibles=[1,2,3,4,5,6,7,8,9,10,11,13,14];
 		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions);
 		let monchoix;
 		let type_aide=1;
 		if (!sortie_html) type_aide=0;
-		let villes=[[`Paris`,2190327,105.4],[`Lyon`,515695,47.9],[`Marseille`,862211,240.6],[`Bordeaux`,252040,49.4],[`Nancy`,104592,15],[`Toulouse`,475438,118.300],[`Lille`,232440,34.800],[`Strasbourg`,279284,78.3]] //[Ville, population, superfice en ha, année du recensement]
+		let materiaux=[[`Paladium`,12000],[`acier`,7800],[`fonte`,7100],[`aluminium`,2700],[`argent`,10500],[`bronze`,8800],[`cuivre`,8960],[`fer`,7860],[`lithium`,530],[`mercure`,13545],[`nickel`,8900],[`or`,19300],[`platine`,21450],[`titane`,4500],[`zinc`,7150]]
+		let villes=[[`Nice`,342637,71.9],[`Montpellier`,281613,56.9],[`Rennes`,216268,50.4],[`Dijon`,155090,40.4],[`Orléans`,114782,27.5],[`Clermont-Ferrand`,142686,42.7],[`Nantes`,306694,65.2],[`Paris`,2190327,105.4],[`Lyon`,515695,47.9],[`Marseille`,862211,240.6],[`Bordeaux`,252040,49.4],[`Nancy`,104592,15],[`Toulouse`,475438,118.300],[`Lille`,232440,34.800],[`Strasbourg`,279284,78.3]] //[Ville, population, superfice en ha, année du recensement]
 		let locations=[[`un vélo`,1.5,2,8],[`un canoé`,10,2,4],[`des rollers`,7,2,5],[`un char à voile`,12,2,4]]
 		let cours=[[`de piano`,20],[`de maths`,25],[`yoga`,5],[`dessin`,12],[`voile`,15]]
 		let fruits=[[`pêches`,4,10,30],[`Noix`,5.4,4,13],[`cerises`,5.6,11,20],[`pommes`,2.2,20,40],[`framboises`,15,1,5],[`fraises`,7.5,5,10],[`citrons`,1.5,15,30],[`bananes`,1.5,15,25]]
@@ -3254,7 +3255,6 @@ function problemes_grandeurs_composees(){
 		for (let i = 0,j,index,index1,index2,duree,quidam,nbheures,nbminutes,nbsecondes,vitesse_moy,distance,masse,masse2,masse3,prix1,prix2,prix3,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
 			if (this.sup==true) monchoix=liste_index[i]
 			else monchoix=parseInt(this.sup2)
-			console.log(monchoix,i)
 			switch (monchoix) {
 				case 1 : // problème de consommation éléctrique
 					index=randint(0,3);
@@ -3528,9 +3528,9 @@ function problemes_grandeurs_composees(){
 					texte_corr =num_alpha(0)+` ${quidam} va dépenser pour sa location : $${tex_nombre(nbheures)}\\text{ h} \\times ${tex_prix(prix1)}\\text{ €/h} = ${tex_prix(nbheures*prix1)}\\text{ €}$.<br>`
 					texte_corr+=num_alpha(1)+` L'heure de cours ${cours[index2][0]} coûte : $${tex_prix(prix2)}\\text{ €} \\div ${tex_nombre(prix2/cours[index2][1])}\\text{ h} = ${tex_prix(cours[index2][1])} \\text{ €/h}$.<br>`
 					break;
-				case 10 :
-					index1=randint(0,7)
-					index2=randint(0,7,[index1])
+				case 10 : //problème de densité de population
+					index1=randint(0,14)
+					index2=randint(0,14,[index1])
 					let ville1=villes[index1][0]
 					let ville2=villes[index2][0]
 					texte = num_alpha(0)+` En 2016, à ${villes[index1][0]} il y avait $${tex_nombre(villes[index1][1])}$ habitants pour une superficie de $${tex_nombre(villes[index1][2]*1000)}$ ha.<br> Calculer la densité de population en hab/km².<br>`
@@ -3538,9 +3538,19 @@ function problemes_grandeurs_composees(){
 					texte_corr = num_alpha(0)+` En 2016, la densité de population à ${villes[index1][0]} était de :<br> $\\dfrac{${tex_nombre(villes[index1][1])}\\text{ hab}}{${tex_nombre(villes[index1][2]*1000)}\\text{ ha}}=\\dfrac{${tex_nombre(villes[index1][1])}\\text{ hab}}{${tex_nombre(villes[index1][2])}\\text{ km²}}=${tex_nombrec(villes[index1][1]/villes[index1][2])}\\text{ hab/km²}$.<br>`
 					texte_corr+= num_alpha(1)+` A cette date, le nombre d'habitants de ${villes[index2][0]} était de :<br> $${tex_nombrec(villes[index2][1]/villes[index2][2])}\\text{ hab/km²}\\times ${tex_nombrec(villes[index2][2]*1000)}\\text{ ha}=${tex_nombrec(villes[index2][1]/villes[index2][2])}\\text{ hab/km²}\\times ${tex_nombrec(villes[index2][2])}\\text{ km²}=${tex_nombre(villes[index2][1])}\\text{ hab}$.`
 					break;
-				case 11 :
-					texte = `Exercice de masse volumique`
-					texte_corr = `Correction masse volumique`
+				case 11 : //problème de masse volumique
+					index1=randint(0,14)
+					index2=randint(0,14,[index1])
+					let V1=randint(50,100)
+					masse2=randint(5,30)
+					masse=arrondi(materiaux[index1][1]*V1/1000000)
+					let V2=arrondi(masse2/materiaux[index2][1],7)
+					texte = num_alpha(0)+` La densité du ${materiaux[index1][0]} est de $${tex_nombre(materiaux[index1][1])}\\text{ kg/m}^3$.<br>`
+					texte +=`Quelle est la masse d'une pièce de ce métal de $${tex_nombre(V1)}\\text{ cm}^3$ ?<br>`
+					texte += num_alpha(1)+` Quel est le volume d'une pièce de ${materiaux[index2][0]} ayant une masse de`
+					texte+=`$${tex_nombre(masse2)}\\text{ kg}$ (la masse volumique du ${materiaux[index2][0]} est de $${tex_nombre(materiaux[index2][1])}\\text{ kg/m}^3$)<br>`
+					texte_corr =num_alpha(0)+ ` La masse de cette pièce de ${materiaux[index1][0]} est de :<br>$${tex_nombre(materiaux[index1][1])}\\text{ km/m}^3\\times ${tex_nombre(V1)}\\text{ cm}^3=${tex_nombre(materiaux[index1][1])}\\text{ km/m}^3\\times ${tex_nombrec(V1/1000000)}\\text{ m}^3=${tex_nombre(masse)}\\text{ kg}$.<br>`
+					texte_corr+=num_alpha(1)+ ` Le volume de cette pièce de ${materiaux[index2][0]} est de :<br>$${tex_nombre(masse2)}\\text{ kg}\\div ${tex_nombre(materiaux[index2][1])}\\text{ kg/m}^3=${tex_nombre(V2)}\\text{ m}^3=${tex_nombrec(V2*1000000)}\\text{ cm}^3$<br>`
 					break;
 				case 12 :
 					texte = `Exercice de concentration`
