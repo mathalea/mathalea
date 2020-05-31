@@ -3541,9 +3541,9 @@ function Fractions_irreductibles(){
 				nb1 = premiers_entre_bornes(2,30)[r_ex];				
 				nb2 = premiers_entre_bornes(2,30)[randint(0,premiers_entre_bornes(2,30).length-1,r_ex)];				
 				// on ajoute nb1,nb2 dans les tableaux des diviseurs premiers du premier et du second nombre 
-				console.log(`====================`);
-				console.log(tab_nb1);
-				console.log(multiplicites_nb1);
+				// console.log(`====================`);
+				// console.log(tab_nb1);
+				// console.log(multiplicites_nb1);
 
 				let bool = false;
 				let n = 0;
@@ -3551,17 +3551,20 @@ function Fractions_irreductibles(){
 					if (nb1 == tab_nb1[n]) {// si le diviseur premier est déjà présent on incrémente sa multiplicité
 						multiplicites_nb1[n]++;
 						bool = true;
-					} else {// il n'est pas présent on l'ajoute avec la multipplicité 1
-						tab_nb1.push(nb1);
-						multiplicites_nb1.push(1);				
-						bool = true;
 					};
 					n++;
 				};
-				console.log(`*********************`);
-				console.log(tab_nb1);
-				console.log(multiplicites_nb1);
-				console.log(`+++++++++++++++++++++`)
+				// on teste la valeur de sortie de bool et on ajoute la nouvelle valeur si necessaire
+				if (!bool) {// il n'est pas présent on l'ajoute avec la multipplicité 1
+					tab_nb1.push(nb1);
+					multiplicites_nb1.push(1);				
+					bool = true;
+				};
+
+				// console.log(`*********************`);
+				// console.log(tab_nb1);
+				// console.log(multiplicites_nb1);
+				// console.log(`+++++++++++++++++++++`)
 
 				bool = false;
 				n = 0;
@@ -3569,13 +3572,17 @@ function Fractions_irreductibles(){
 					if (nb2 == tab_nb2[n]) {// si le diviseur premier est déjà présent on incrémente sa multiplicité
 						multiplicites_nb2[n]++;
 						bool = true;
-					} else {// il n'est pas présent on l'ajoute avec la multipplicité 1
-						tab_nb2.push(nb2);
-						multiplicites_nb2.push(1);				
-						bool = true;
-					};
+					}; 
 					n++;
 				};
+				// on teste la valeur de sortie de bool et on ajoute la nouvelle valeur si necessaire
+				if (!bool) {// il n'est pas présent on l'ajoute avec la multipplicité 1
+					tab_nb2.push(nb2);
+					multiplicites_nb2.push(1);				
+					bool = true;
+				};
+
+				// on supprime les diviseurs premiers de multiplicité 1 et leur multiplicité
 
 				// on initialise nb1 et nb2 et on les calcule à partir des tableaux 
 				// attention on ne fait qu'une boucle et un seul diviseur distinct donc jusque nb_div_prem_communs+1 !!!
@@ -3591,24 +3598,10 @@ function Fractions_irreductibles(){
 				switch (type_de_questions) {
 					case 1 : // décomposition de A
 						texte = num_alpha(0)+` Décomposer $A = ${tex_nombre(nb1)}$ en produit de facteurs premiers : `;
-						// texte += r+`<br>`;
-						// texte += premiers_communs+`<br>`;
-						// texte += multiplicites_premiers_communs+`<br>`;
-						// texte += nb1+`<br>`;
-						// texte += tab_nb1+`<br>`;
-						// texte += multiplicites_nb1+`<br>`;
-						// texte += `=========================<br>`;
-						// texte += nb2+`<br>`;
-						// texte += tab_nb2+`<br>`;
-						// texte += multiplicites_nb2+`<br>`;
-						// texte += `*************************`;
+
 						texte_corr =num_alpha(0)+` La décomposition en produit de facteurs premier de $A = `;
 
-						// if (multiplicites_nb1[0]==1) {
-						// 	texte_corr += `${tab_nb1[0]}`;							
-						// } else {
-						// 	texte_corr += `${tab_nb1[0]}^{${multiplicites_nb1[0]}}`;
-						// };
+
 						for (let k=0; k<tab_nb1.length-1;k++) {
 							switch (multiplicites_nb1[k]) {
 								case 0 :
