@@ -3520,7 +3520,7 @@ function Fractions_irreductibles(){
 				// on initialise et on complète le tableau des multiplicités des diviseurs premiers communs
 				multiplicites_premiers_communs = [];
 				for (let k=0;k<nb_div_prem_communs;k++) {
-					multiplicites_premiers_communs.push(randint(1,2));
+					multiplicites_premiers_communs.push(randint(0,2));
 				};
 				// on initialise le tableau des diviseurs du premier et du second nombre avec les diviseurs premiers communs
 				tab_nb1=[];
@@ -3528,44 +3528,66 @@ function Fractions_irreductibles(){
 				for (let k=0;k<premiers_communs.length;k++) {
 					tab_nb1[k]=premiers_communs[k];
 					tab_nb2[k]=premiers_communs[k];
-				}
-				//tab_nb1 = premiers_communs;
-				//tab_nb2 = premiers_communs;
-				// on ajoute un facteur premier distinct pour chaque nombre plus petit que 30
-				r_ex = randint(0,premiers_entre_bornes(2,30).length-1);
-				nb1 = premiers_entre_bornes(2,30)[r_ex];				
-				nb2 = premiers_entre_bornes(2,30)[randint(0,premiers_entre_bornes(2,30).length-1,r_ex)];				
-				// on ajoute nb1,nb2 dans les tableaux des diviseurs premiers du premier et du second nombre avec la multiplicité 1 
-				// console.log(tab_nb1);
-				// console.log(nb1);
-				tab_nb1.push(nb1);
-				// console.log(tab_nb1);
-				// console.log(`========================`)
-				// console.log(tab_nb2);
-				// console.log(nb2)
-				tab_nb2.push(nb2);
-				// console.log(tab_nb2);
-				// console.log(`************************`)
+				};				
 				// on initialise les tableaux de multiplicité, ils sont les mêmes mais on pourrait vouloir qu'ils soient différents
 				multiplicites_nb1=[];
 				multiplicites_nb2=[];
 				for (let k=0;k<premiers_communs.length;k++) {
 					multiplicites_nb1[k]=multiplicites_premiers_communs[k];
 					multiplicites_nb2[k]=multiplicites_premiers_communs[k];
-				}
-				multiplicites_nb1.push(1);				
-				multiplicites_nb2.push(1);
+				};				
+				// on ajoute un facteur premier distinct pour chaque nombre plus petit que 30
+				r_ex = randint(0,premiers_entre_bornes(2,30).length-1);
+				nb1 = premiers_entre_bornes(2,30)[r_ex];				
+				nb2 = premiers_entre_bornes(2,30)[randint(0,premiers_entre_bornes(2,30).length-1,r_ex)];				
+				// on ajoute nb1,nb2 dans les tableaux des diviseurs premiers du premier et du second nombre 
+				console.log(`====================`);
+				console.log(tab_nb1);
+				console.log(multiplicites_nb1);
+
+				let bool = false;
+				let n = 0;
+				while (n < tab_nb1.length && bool!=true) {
+					if (nb1 == tab_nb1[n]) {// si le diviseur premier est déjà présent on incrémente sa multiplicité
+						multiplicites_nb1[n]++;
+						bool = true;
+					} else {// il n'est pas présent on l'ajoute avec la multipplicité 1
+						tab_nb1.push(nb1);
+						multiplicites_nb1.push(1);				
+						bool = true;
+					};
+					n++;
+				};
+				console.log(`*********************`);
+				console.log(tab_nb1);
+				console.log(multiplicites_nb1);
+				console.log(`+++++++++++++++++++++`)
+
+				bool = false;
+				n = 0;
+				while (n < tab_nb2.length && !bool) {
+					if (nb2 == tab_nb2[n]) {// si le diviseur premier est déjà présent on incrémente sa multiplicité
+						multiplicites_nb2[n]++;
+						bool = true;
+					} else {// il n'est pas présent on l'ajoute avec la multipplicité 1
+						tab_nb2.push(nb2);
+						multiplicites_nb2.push(1);				
+						bool = true;
+					};
+					n++;
+				};
 
 				// on initialise nb1 et nb2 et on les calcule à partir des tableaux 
 				// attention on ne fait qu'une boucle et un seul diviseur distinct donc jusque nb_div_prem_communs+1 !!!
 				nb1=1;
-				nb2=1;
-				for (let k=0;k<nb_div_prem_communs+1;k++) {
+				for (let k=0;k<tab_nb1.length;k++) {
 				 	nb1=nb1*tab_nb1[k]**multiplicites_nb1[k];
-				 	nb2=nb2*tab_nb2[k]**multiplicites_nb2[k];
 				};
+				nb2=1;
+				for (let k=0;k<tab_nb2.length;k++) {
+					nb2=nb2*tab_nb2[k]**multiplicites_nb2[k];	
+			   };
 
-	
 				switch (type_de_questions) {
 					case 1 : // décomposition de A
 						texte = num_alpha(0)+` Décomposer $A = ${tex_nombre(nb1)}$ en produit de facteurs premiers : `;
@@ -3581,17 +3603,41 @@ function Fractions_irreductibles(){
 						// texte += multiplicites_nb2+`<br>`;
 						// texte += `*************************`;
 						texte_corr =num_alpha(0)+` La décomposition en produit de facteurs premier de $A = `;
-						if (multiplicites_nb1[0]==1) {
-							texte_corr += `${tab_nb1[0]}`;							
-						} else {
-							texte_corr += `${tab_nb1[0]}^{${multiplicites_nb1[0]}}`;
+
+						// if (multiplicites_nb1[0]==1) {
+						// 	texte_corr += `${tab_nb1[0]}`;							
+						// } else {
+						// 	texte_corr += `${tab_nb1[0]}^{${multiplicites_nb1[0]}}`;
+						// };
+						for (let k=0; k<tab_nb1.length-1;k++) {
+							switch (multiplicites_nb1[k]) {
+								case 0 :
+									texte_corr += ``;
+									break;
+								case 1 :
+									texte_corr += `${tab_nb1[k]}\\times `;
+									break;
+								default :
+									texte_corr += `${tab_nb1[k]}^{${multiplicites_nb1[k]}}\\times `;
+									break;
+							};
+	
+							// if (multiplicites_nb1[k]==1) {
+							// 	texte_corr += `\\times ${tab_nb1[k]}`;								
+							// } else {
+							// 	texte_corr += `\\times ${tab_nb1[k]}^{${multiplicites_nb1[k]}}`;
+							// };							
 						};
-						for (let k=1; k<tab_nb1.length;k++) {
-							if (multiplicites_nb1[k]==1) {
-								texte_corr += `\\times ${tab_nb1[k]}`;								
-							} else {
-								texte_corr += `\\times ${tab_nb1[k]}^{${multiplicites_nb1[k]}}`;
-							};							
+						switch (multiplicites_nb1[tab_nb1.length-1]) {
+							case 0 :
+								texte_corr += ``;
+								break;
+							case 1 :
+								texte_corr += `${tab_nb1[tab_nb1.length-1]}`;
+								break;
+							default :
+								texte_corr += `${tab_nb1[tab_nb1.length-1]}^{${multiplicites_nb1[tab_nb1.length-1]}}`;
+								break;
 						};
 						texte_corr += `$`;
 					//	break;		
