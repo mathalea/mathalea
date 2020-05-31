@@ -3225,7 +3225,7 @@ function problemes_grandeurs_composees(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Résoudre des problèmes de grandeurs composées et de conversion d'unités complexes";
 	this.consigne = "";
-	this.nb_questions = 10;
+	this.nb_questions = 1;
 	this.nb_questions_modifiable = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -3237,11 +3237,12 @@ function problemes_grandeurs_composees(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let liste_index_disponibles=[1,2,3,4,5,6,7,8,9,10,11,13,14];
+		let liste_index_disponibles=[1,2,3,4,5,6,7,8,9,10,11,12,13,14];
 		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions);
 		let monchoix;
 		let type_aide=1;
 		if (!sortie_html) type_aide=0;
+		let solutes=[[`sel`,`d'eau`,300],[`sucre`,`d'eau`,2000],[`dioxyde de carbone`,`d'eau`,3],[`bicarbonate de sodium`,`d'eau`,9],[`carbonate de sodium`,`d'eau`,300]] //soluté, masse maximale en gramme pour saturer 1 L de solvant
 		let materiaux=[[`Paladium`,12000],[`acier`,7800],[`fonte`,7100],[`aluminium`,2700],[`argent`,10500],[`bronze`,8800],[`cuivre`,8960],[`fer`,7860],[`lithium`,530],[`mercure`,13545],[`nickel`,8900],[`or`,19300],[`platine`,21450],[`titane`,4500],[`zinc`,7150]]
 		let villes=[[`Nice`,342637,71.9],[`Montpellier`,281613,56.9],[`Rennes`,216268,50.4],[`Dijon`,155090,40.4],[`Orléans`,114782,27.5],[`Clermont-Ferrand`,142686,42.7],[`Nantes`,306694,65.2],[`Paris`,2190327,105.4],[`Lyon`,515695,47.9],[`Marseille`,862211,240.6],[`Bordeaux`,252040,49.4],[`Nancy`,104592,15],[`Toulouse`,475438,118.300],[`Lille`,232440,34.800],[`Strasbourg`,279284,78.3]] //[Ville, population, superfice en ha, année du recensement]
 		let locations=[[`un vélo`,1.5,2,8],[`un canoé`,10,2,4],[`des rollers`,7,2,5],[`un char à voile`,12,2,4]]
@@ -3549,9 +3550,23 @@ function problemes_grandeurs_composees(){
 					texte_corr =num_alpha(0)+ ` La masse de cette pièce de ${materiaux[index1][0]} est de :<br>$${tex_nombre(materiaux[index1][1])}\\text{ km/m}^3\\times ${tex_nombre(V1)}\\text{ cm}^3=${tex_nombre(materiaux[index1][1])}\\text{ km/m}^3\\times ${tex_nombrec(V1/1000000)}\\text{ m}^3=${tex_nombre(masse)}\\text{ kg}$.<br>`
 					texte_corr+=num_alpha(1)+ ` Le volume de cette pièce de ${materiaux[index2][0]} est de :<br>$${tex_nombre(masse2)}\\text{ kg}\\div ${tex_nombre(materiaux[index2][1])}\\text{ kg/m}^3=${tex_nombre(V2)}\\text{ m}^3=${tex_nombrec(V2*1000000)}\\text{ cm}^3$<br>`
 					break;
-				case 12 :
-					texte = `Exercice de concentration`
-					texte_corr = `Correction concentration`
+				case 12 : //problème de concentration massique
+					index1=randint(0,4)
+					index2=randint(0,4,[index1])
+					let Volume1=arrondi(randint(2,15,[10])/10)
+					let Volume2=arrondi(randint(2,15,[10])/10)
+					if (solutes[index1][2]<10) masse=arrondi(randint(11,solutes[index1][2]*10)*Volume1/10)
+					else masse=arrondi(randint(2,solutes[index1][2])*Volume1)
+					let concentration2
+					if (solutes[index2][2]<10) concentration2=arrondi(randint(11,solutes[index2][2]*10)/10) //concentration en g/L soluté 2.
+					else concentration2=randint(2,solutes[index2][2])
+
+					texte = num_alpha(0)+` On a dissout $${tex_nombre(masse)}\\text{ g}$ de ${solutes[index1][0]} dans $${tex_nombre(Volume1)}\\text{ litres}$ ${solutes[index1][1]}.<br>Calculer la concentration massique de cette solution.<br>`
+					texte+= num_alpha(1)+` On dispose de $${tex_nombre(Volume2)}$ litres de solution aqueuse de ${solutes[index2][0]} à $${tex_nombre(concentration2)}\\text{ g/L}$.<br>Quelle masse de ${solutes[index2][0]} a été dissoute dans l'eau ?`
+					texte_corr =  num_alpha(0)+` La concentration en ${solutes[index1][0]} de cette solution aqueuse est de :<br>`
+					texte_corr+= ` $\\dfrac{${tex_nombre(masse)}\\text{ g}}{${tex_nombre(Volume1)}\\text{ litres}}=${tex_nombrec(arrondi(masse/Volume1))}\\text{ g/L}$<br>`
+					texte_corr+= num_alpha(1)+` La masse de ${solutes[index2][0]} dissoute est de :<br>`
+					texte_corr+=`$${tex_nombre(Volume2)}\\text{ L}\\times ${tex_nombre(concentration2)}\\text{ g/L}=${tex_nombre(arrondi(Volume2*concentration2))}\\text{ g}$`
 				break;
 
 				case 13 : //problème de débit
@@ -3615,6 +3630,6 @@ function problemes_grandeurs_composees(){
 		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
 	}	
 	this.besoin_formulaire_case_a_cocher =['Choix des exercices aléatoire'];
-	this.besoin_formulaire2_numerique = ['Type d\'exercice', 14, '1 : Energie consommée\n 2 :  Volumes\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesses\n 8 : Prix massique\n 13 : Débits\n 14 : Transfert de fichiers'];
+	this.besoin_formulaire2_numerique = ['Type d\'exercice', 14, '1 : Energie consommée\n 2 :  Volumes\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesses\n 8 : Prix massique\n 9 : Prix horaire\n 10 : Densité de population\n 11 : Masse volumique\n 12 : Concentration massique\n 13 : Débits\n 14 : Transfert de fichiers'];
 
 };
