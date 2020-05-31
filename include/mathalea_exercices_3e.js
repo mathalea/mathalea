@@ -3453,9 +3453,9 @@ function Fractions_irreductibles(){
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne =`Décomposer une fraction et son inverse à partir des décompositons en facteurs premier.`;
 	this.consigne += `<br>`;
-	sortie_html ? this.spacing = 3 : this.spacing = 2;
-	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
-	this.nb_questions = 5;
+	sortie_html ? this.spacing = 4 : this.spacing = 3;
+	sortie_html ? this.spacing_corr = 3: this.spacing_corr = 2;
+	this.nb_questions = 1;
 	//this.correction_detaillee_disponible = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -3476,7 +3476,7 @@ function Fractions_irreductibles(){
 		this.contenu_correction = ''; // Liste de questions corrigées
 
 		//let type_de_questions_disponibles = [1,2,3,4];
-		let type_de_questions_disponibles = [1,2,3,4,5];
+		let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
 
 			for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
@@ -3520,72 +3520,109 @@ function Fractions_irreductibles(){
 				// on initialise et on complète le tableau des multiplicités des diviseurs premiers communs
 				multiplicites_premiers_communs = [];
 				for (let k=0;k<nb_div_prem_communs;k++) {
-					multiplicites_premiers_communs.push(randint(0,2));
+					multiplicites_premiers_communs.push(randint(1,2));
 				};
 				// on initialise le tableau des diviseurs du premier et du second nombre avec les diviseurs premiers communs
-				tab_nb1 = premiers_communs;
-				tab_nb2 = premiers_communs;
+				tab_nb1=[];
+				tab_nb2=[];
+				for (let k=0;k<premiers_communs.length;k++) {
+					tab_nb1[k]=premiers_communs[k];
+					tab_nb2[k]=premiers_communs[k];
+				}
+				//tab_nb1 = premiers_communs;
+				//tab_nb2 = premiers_communs;
 				// on ajoute un facteur premier distinct pour chaque nombre plus petit que 30
 				r_ex = randint(0,premiers_entre_bornes(2,30).length-1);
 				nb1 = premiers_entre_bornes(2,30)[r_ex];				
 				nb2 = premiers_entre_bornes(2,30)[randint(0,premiers_entre_bornes(2,30).length-1,r_ex)];				
 				// on ajoute nb1,nb2 dans les tableaux des diviseurs premiers du premier et du second nombre avec la multiplicité 1 
-				console.log(nb1);
-				console.log(tab_nb1);
+				// console.log(tab_nb1);
+				// console.log(nb1);
 				tab_nb1.push(nb1);
-				console.log(tab_nb1);
-				console.log(`========================`)
-				console.log(nb2)
-				console.log(tab_nb2);
+				// console.log(tab_nb1);
+				// console.log(`========================`)
+				// console.log(tab_nb2);
+				// console.log(nb2)
 				tab_nb2.push(nb2);
-				console.log(tab_nb2);
-				console.log(`************************`)
-				//console.log(nb2);
-				//console.log(tab_nb1);
-				//console.log(tab_nb2);
-				multiplicites_nb1=multiplicites_premiers_communs;
-				multiplicites_nb1.push(1);
-				multiplicites_nb2=multiplicites_premiers_communs;
+				// console.log(tab_nb2);
+				// console.log(`************************`)
+				// on initialise les tableaux de multiplicité, ils sont les mêmes mais on pourrait vouloir qu'ils soient différents
+				multiplicites_nb1=[];
+				multiplicites_nb2=[];
+				for (let k=0;k<premiers_communs.length;k++) {
+					multiplicites_nb1[k]=multiplicites_premiers_communs[k];
+					multiplicites_nb2[k]=multiplicites_premiers_communs[k];
+				}
+				multiplicites_nb1.push(1);				
 				multiplicites_nb2.push(1);
 
-				// for (let k=0;k<nb_div_prem_communs;k++) {
-				// 	nb1=nb1*premiers_communs[k]**multiplicites_premiers_communs[k];
-				// 	nb2=nb2*premiers_communs[k]**multiplicites_premiers_communs[k];
-				// };
+				// on initialise nb1 et nb2 et on les calcule à partir des tableaux 
+				// attention on ne fait qu'une boucle et un seul diviseur distinct donc jusque nb_div_prem_communs+1 !!!
+				nb1=1;
+				nb2=1;
+				for (let k=0;k<nb_div_prem_communs+1;k++) {
+				 	nb1=nb1*tab_nb1[k]**multiplicites_nb1[k];
+				 	nb2=nb2*tab_nb2[k]**multiplicites_nb2[k];
+				};
 
 	
 				switch (type_de_questions) {
 					case 1 : // décomposition de A
-						texte = 'Décomposer A et B en produit de facteurs premiers : <br>';
+						texte = num_alpha(0)+` Décomposer $A = ${tex_nombre(nb1)}$ en produit de facteurs premiers : `;
 						// texte += r+`<br>`;
 						// texte += premiers_communs+`<br>`;
 						// texte += multiplicites_premiers_communs+`<br>`;
-						texte += nb1+`<br>`;
-						texte += tab_nb1+`<br>`;
-						texte += multiplicites_nb1+`<br>`;
-						texte += `=========================<br>`;
-						texte += nb2+`<br>`;
-						texte += tab_nb2+`<br>`;
-						texte += multiplicites_nb2+`<br>`;
-						texte += `*************************`;
-						texte_corr = 'corr type 1';
-						break;		
-					case 2 : // décomposition de B 			
-						texte = 'type 2';
-						texte_corr = 'corr type 2';
-						break;	
-
-					case 3 : // reduction de A sur B 			
-						texte = 'type 3';
-						texte_corr = 'corr type 2';
-						break;	
-					case 4 : // reduction de B sur A 			
-						texte = 'type 4';
-						texte_corr = 'corr type 2';
-						break;	
-					case 5 : // reduction de A sur B 			
-						texte = 'type 5';
-						texte_corr = 'corr type 2';
+						// texte += nb1+`<br>`;
+						// texte += tab_nb1+`<br>`;
+						// texte += multiplicites_nb1+`<br>`;
+						// texte += `=========================<br>`;
+						// texte += nb2+`<br>`;
+						// texte += tab_nb2+`<br>`;
+						// texte += multiplicites_nb2+`<br>`;
+						// texte += `*************************`;
+						texte_corr =num_alpha(0)+` La décomposition en produit de facteurs premier de $A = `;
+						if (multiplicites_nb1[0]==1) {
+							texte_corr += `${tab_nb1[0]}`;							
+						} else {
+							texte_corr += `${tab_nb1[0]}^{${multiplicites_nb1[0]}}`;
+						};
+						for (let k=1; k<tab_nb1.length;k++) {
+							if (multiplicites_nb1[k]==1) {
+								texte_corr += `\\times ${tab_nb1[k]}`;								
+							} else {
+								texte_corr += `\\times ${tab_nb1[k]}^{${multiplicites_nb1[k]}}`;
+							};							
+						};
+						texte_corr += `$`;
+					//	break;		
+					//case 2 : // décomposition de B 			
+						texte += `<br>`+num_alpha(1)+` Décomposer $B = ${tex_nombre(nb2)}$ en produit de facteurs premiers : `;
+						// texte += nb1+`<br>`;
+						// texte += tab_nb1+`<br>`;
+						// texte += multiplicites_nb1+`<br>`;
+						// texte += `=========================<br>`;
+						// texte += nb2+`<br>`;
+						// texte += tab_nb2+`<br>`;
+						// texte += multiplicites_nb2+`<br>`;
+						// texte += `*************************`;
+						texte_corr += `<br>`+num_alpha(1)+' corr type 2';
+					//	break;	
+					//case 3 : // reduction de A sur B 			
+						texte += `<br>`+num_alpha(2)+` Rendre la fraction $\\dfrac{A}{B} = \\dfrac{${tex_nombre(nb1)}}{${tex_nombre(nb2)}}$ irréductible `;
+						texte += ` à l'aide des décompositions obtenues aux questions `+num_alpha(0)+` et `+num_alpha(1);
+						texte_corr += `<br>`+num_alpha(2)+' corr type 3';
+					//	break;	
+					//case 4 : // reduction de B sur A 			
+						texte += `<br>`+num_alpha(3)+` Rendre la fraction $\\dfrac{B}{A} = \\dfrac{${tex_nombre(nb2)}}{${tex_nombre(nb1)}}$ irréductible`;
+						texte += ` à l'aide des décompositions obtenues aux questions `+num_alpha(0)+` et `+num_alpha(1);
+						texte += warn_message(`Une observation judicieuse et argumentée pourra faire gagner du temps!`);
+						texte_corr += `<br>`+num_alpha(3)+` corr type 4`;
+					//	break;	
+					//case 5 : // calculer le produit A/B x B/A et réduire. Remarque?
+						// texte += `<br>`+num_alpha(4)+` Combien alculer le produit de $\\dfrac{A}{B} = \\dfrac{${tex_nombre(nb1)}}{${tex_nombre(nb2)}}$ et de $\\dfrac{B}{A} = \\dfrac{${tex_nombre(nb2)}}{${tex_nombre(nb1)}}$.`;
+						// texte += `<br>Donner le résultat sous forme de fraction irréductible.`
+						//texte += `<br>`+num_alpha(4)+` Remarque ?`
+						//texte_corr += `<br>`+num_alpha(4)+' corr type 5';
 						break;	
 
 				};

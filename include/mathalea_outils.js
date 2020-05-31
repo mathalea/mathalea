@@ -3205,6 +3205,7 @@ function crible_eratosthene_n(n) {
  */
 
 function texte_ou_pas(texte) {
+	'use strict';
 	let bool = randint(0,1);
 	if (bool==0) {
 		return `\\ldots`;
@@ -3319,4 +3320,24 @@ function d3jsTests(id_du_div) {
 		clearInterval(SVGExist[id_du_div]);//Arrête le timer
 		};
 	}, 100); // Vérifie toutes les 100ms
+};
+
+/**
+ * Renvoie un encart sur fond d'alert semantic ui en HTML ou dans un cadre orange coopmaths en LaTeX avec le texte 
+ * @param {string} texte 
+ */
+function warn_message(texte) {
+	'use strict';
+	if (sortie_html) {
+		return `
+		<br>
+		<div class="ui compact warning message">		
+		<p>`+texte+`
+		</p>
+		</div>
+		`;
+	} else {
+		return tex_cadre_par_orange(texte);							
+	};
+
 };
