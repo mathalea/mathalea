@@ -3236,16 +3236,17 @@ function problemes_grandeurs_composees(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let liste_index_disponibles=[0,1,3,4,5,6,7,13,14];
+		let liste_index_disponibles=[0,1,3,4,5,6,7,8,13,14];
 		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions);
 		let type_aide=1;
 		if (!sortie_html) type_aide=0;
+		let fruits=[[`pêches`,4,10,30],[`Noix`,5.4,4,13],[`cerises`,5.6,11,20],[`pommes`,2.2,20,40],[`framboises`,15,1,5],[`fraises`,7.5,5,10],[`citrons`,1.5,15,30],[`bananes`,1.5,15,25]]
 		let appareils=[[`radiateur`,2000,20],[`téléviseur`,350,12],[`four électrique`,2500,4],[`ordinateur`,450,8]] // [appareil,puissance,durée maxi de fonctionnement]
 		let liquides=[[`de lait entier`,1.032],[`d'essence`,0.755],[`de diesel`,0.83],[`d'huile`,0.910],[`de bière`,0.9],[`de sable`,1.6]] // [nom,densité]
 		let rivieres=[[`Marne`,`Gournay-sur-Marne`,110,550,`avril 1983`,`la `,`de la `],[`Seine`,`Alfortville`,218,2100,`janvier 1982`,`la `,`de la `],[`Oise`,`Pont-Sainte-Maxence`,109,665,`février 1995`,`l'`,`de l'`],[`Loire`,`Saint-Nazaire`,931,5350,`décembre 1999`,`la `,`de la`],[`Rhin`,`Strasbourg`,951,3310,`juin 2016`,`le `,`du `],[`Rhône`,`Beaucaire`,1690,11500,`décembre 2003`,`le `,`du `],[`Meuse`,`Chooz`,144,1610,`janvier 1995`,`la `,`de la `]]
 						// [Nom de rivière,Lieu de passage,débit moyen annuel, débitmax, date de la crue, article défini, article partitif]
 		let vitesses=[[`sur un vélo`,4,12,8],[`dans un train`,50,100,5],[`dans une voiture`,15,30,5],[`en avion`,150,250,12],[`à pied`,2,4,5]] // [moyen de transport, vitesse min,vitesse max en m/s,durée max en h] 
-		for (let i = 0,j,index,index1,index2,duree,quidam,nbheures,nbminutes,nbsecondes,vitesse_moy,distance,masse,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
+		for (let i = 0,j,index,index1,index2,duree,quidam,nbheures,nbminutes,nbsecondes,vitesse_moy,distance,masse,masse2,masse3,prix1,prix2,prix3,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
 			switch (liste_index[i]) {
 				case 0 : // problème de consommation éléctrique
 					index=randint(0,3);
@@ -3274,7 +3275,7 @@ function problemes_grandeurs_composees(){
 					else texte_corr+= `=${arrondi_virgule(prixkwh*puissance/1000*duree,2)}\\text{ €}$`
 					break;
 				case 1 : // problèmes de volumes
-					index1=randint(0,1);
+					index1=randint(0,1)
 					
 					switch (index1) {
 						case 0 : // Volume d'une piscine
@@ -3341,7 +3342,7 @@ function problemes_grandeurs_composees(){
 					texte_corr+=`$ ${index}\\text{ kg}\\times 9,81 \\text{m.s}^{-2} \\times ${mise_en_evidence(`d`,`black`)} \\text{ m}=${tex_nombre(index1)}\\text{ J}$<br>`
 					texte_corr +=`D'où $${mise_en_evidence(`d`,`black`)}\\text{ m} = \\dfrac{${tex_nombre(index1)}\\text{ J}}{${index}\\text{ kg}\\times 9,81 \\text{m.s}^{-2}}\\approx${tex_nombrec(arrondi(index1/(9.81*index)))}\\text{ m}.$`
 					break;
-				case 5 :
+				case 5 : //problème de trafic de coyageurs.
 					let d1=randint(3,6)
 					let d2=randint(3,6,[d1])
 					let k=randint(5,8)
@@ -3352,7 +3353,7 @@ function problemes_grandeurs_composees(){
 					texte_corr =num_alpha(0)+ ` Le trafic moyen de ce bus de ville est : $${n1}\\text{voyageurs}\\times${d1}\\text{km}=${n1*d1}\\text{voyageurs.km}$.<br>`
 					texte_corr +=num_alpha(1)+ ` Le trafic moyen de ce bus de ville est : $${n2}\\text{voyageurs}\\times${d2}\\text{km}=${n2*d2}\\text{voyageurs.km}$, donc ces deux bus ont le même trafic.`
 					break;
-				case 6 :
+				case 6 : //problème de puissance électrique.
 					index=randint(0,3)
 					index1=randint(0,3,[index])
 					let I1=arrondi(appareils[index][1]/230,0)+1
@@ -3492,8 +3493,24 @@ function problemes_grandeurs_composees(){
 						}
 						break;
 				case 8 :
-					texte = `Exercice de prix massique`
-					texte_corr = `Correction prix massique`
+					index1=randint(0,7)
+					index2=randint(0,5,[index])
+					index=randint(0,5,[index1,index2])
+					masse=arrondi(randint(fruits[index1][2],fruits[index1][3])/10)
+					masse2=arrondi(randint(fruits[index2][2],fruits[index2][3])/10)
+					masse3=arrondi(randint(fruits[index][2],fruits[index][3])/10)
+					prix1=arrondi(masse*fruits[index1][1])
+					prix2=arrondi(masse2*fruits[index2][1])
+					prix3=arrondi(masse3*fruits[index][1])
+					quidam=prenomF()
+					texte = `${quidam} se rends à l'épicerie de son quartier. Elle y achète ${tex_nombre(masse)} kg de ${fruits[index1][0]} à ${tex_prix(fruits[index1][1])} €/kg et pour ${tex_prix(prix2)} € de ${fruits[index2][0]} à ${tex_prix(fruits[index2][1])} €/kg.<br>`
+					texte +=`Enfin, elle achète ${tex_nombre(masse3)} kg de ${fruits[index][0]} pour ${tex_prix(prix3)} €.<br>`
+					texte+=num_alpha(0)+` Combien lui coûtent les ${fruits[index1][0]} ?<br>`
+					texte+=num_alpha(1)+` Quelle masse de ${fruits[index2][0]} a-t-elle achetée ?<br>`
+					texte+=num_alpha(2)+` Quel est le prix au kilogramme des ${fruits[index][0]} ?`
+					texte_corr =num_alpha(0)+` ${quidam} dépense pour les ${fruits[index1][0]} : $${tex_nombre(masse)}\\text{ kg} \\times ${tex_prix(fruits[index1][1])}\\text{ €/kg} = ${tex_prix(prix1)}\\text{ €}$.<br>`
+					texte_corr+=num_alpha(1)+` La masse de ${fruits[index2][0]} qu'elle a achetée est : $${tex_prix(prix2)} \\text{€} \\div ${tex_prix(fruits[index2][1])}\\text{ €/kg} = ${tex_nombre(masse2)}\\text{ kg}$.<br>`
+					texte_corr+=num_alpha(2)+` Enfin, ${quidam} a acheté des ${fruits[index][0]} au prix unitaire de : $\\dfrac{${tex_prix(prix3)}\\text{ €}}{${tex_nombre(masse3)}\\text{ €}} = ${tex_prix(fruits[index][1])}\\text{ €/kg}$.`
 					break;
 				case 9 :
 					texte = `Exercice de prix horaire`
