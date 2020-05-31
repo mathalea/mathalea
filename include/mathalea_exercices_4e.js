@@ -3336,7 +3336,7 @@ function problemes_grandeurs_composees(){
 					masse=randint(20,30) //masse de l'enfant
 					distance=arrondi(randint(25,35)/10)
 					texte = `${quidam} qui pèse ${masse} kg se trouve sur le siège d'une balançoire "`+ katex_Popup2(numero_de_l_exercice+i*3,2,`trébuchet`,`https://sitetab3.ac-reims.fr/ec-fayl-billot-elem/-wp-/wp-content/uploads/2018/01/`,`https://sitetab3.ac-reims.fr/ec-fayl-billot-elem/-wp-/wp-content/uploads/2018/01/balancoire-a-bascule-trebuchet-baskul-768x768.jpg`) +`" dans un jardin d'enfant. Le siège est situé à ${tex_nombre(distance)} m du pivot central de la balançoire (bras de levier).<br>`
-					texte+= num_alpha(0)+` Calculer le `+katex_Popup2(numero_de_l_exercice+i*3+1,type_aide,`moment`,`Définition : moment (grandeur physique)`,`Le moment d'une force d'intensité F(en Newton ou kg.m.s$^{-2}$) en un point M par rapport à un pivot P est le produit de F par la distance PM (appelée bras de levier) exprimée en mètres (lorsque cette force s'exerce perpendiculairement au bras de levier). Le moment est l'energie permettant de faire tourner l'objet autour du pivot.<br>L'unité de mesure du moment est le Joule (J).<br>$1J=1\\text{ kg.m}^2\\text{s}^{-2}$.`) +` du poids de ${quidam} sur son siège par rapport au pivot central du trébuchet en Joules (on admettra que le bras de levier est horizontal).<br>`
+					texte+= num_alpha(0)+` Calculer le `+katex_Popup2(numero_de_l_exercice+i*3+1,type_aide,`moment`,`Définition : moment (grandeur physique)`,`Le moment d'une force d'intensité F(en Newton ou kg.m.s$^{-2}$) en un point M par rapport à un pivot P est le produit de F par la distance PM (appelée bras de levier) exprimée en mètres (lorsque cette force s'exerce perpendiculairement au bras de levier). Le moment est l'energie permettant de faire tourner l'objet autour du pivot.<br>L'unité de mesure du moment est le Joule (J).<br>$1J=1\\text{ kg.m}^2\\text{s}^{-2}$.`) +` du `+katex_Popup2(numero_de_l_exercice+i*3+2,type_aide,`poids`,`Définition : Poids`,`Le poids est le produit de la masse d'un objet par la constante d'accélération terrestre ($9,81\\text{ m.s}^{-2}$).<br>L'unité du poids est le Newton (N) : 1N=1kg.m.s$^{-2}$`)+` de ${quidam} sur son siège par rapport au pivot central du trébuchet en Joules (on admettra que le bras de levier est horizontal).<br>`
 					texte+= num_alpha(1)+` Le père de ${quidam} vient s'installer de l'autre côté du pivot central. Il pèse ${index} kg et s'installe de façon à ce que son poids permette d'équilibrer la balançoire à l'horizontale. Quelle doit être la longueur du bras de levier de son côté ( à quelle distance du pivot est-il assis ) ?<br>`
 					texte_corr=num_alpha(0)+` Le moment du poids de ${quidam} appliqué sur son siège par rapport au pivot central du trébuchet est :<br>`
 					index1=arrondi(masse*9.81*distance) //pour éviter d'avoir trop de variable, je recycle
@@ -3351,10 +3351,7 @@ function problemes_grandeurs_composees(){
 					let k=randint(5,8)
 					let n1=k*d2
 					let n2=k*d1
-					texte = num_alpha(0)+` Un bus de ville transporte en moyenne ${n1} personnes à la fois.<br> La longueur moyenne de déplacement est de ${d1} km.<br> Calculer le `+katex_Popup2(numero_de_l_exercice+i*3,type_aide,`trafic`,`Définition : Trafic de voyageurs`,`Le trafic de voyageurs est le produit du nombre de voyageurs par la distance parcourue. L'unité est le voyageur.km qui correspond au déplacement d'un voyageur sur 1km`)+` moyen de voyageurs en voyageurs.km.<br> `
-					texte += num_alpha(1)+` Un autre bus de ville transporte en moyenne ${n2} personnes à la fois.<br> La longueur moyenne de déplacement est de ${d2} km.<br> Montrer que le trafic de voyageur est le même qu'à la question `+num_alpha(0)
-					texte_corr =num_alpha(0)+ ` Le trafic moyen de ce bus de ville est : $${n1}\\text{voyageurs}\\times${d1}\\text{km}=${n1*d1}\\text{voyageurs.km}$.<br>`
-					texte_corr +=num_alpha(1)+ ` Le trafic moyen de ce bus de ville est : $${n2}\\text{voyageurs}\\times${d2}\\text{km}=${n2*d2}\\text{voyageurs.km}$, donc ces deux bus ont le même trafic.`
+					
 					break;
 				case 6 : //problème de puissance électrique.
 					index=randint(0,3)
