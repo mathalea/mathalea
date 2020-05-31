@@ -3517,7 +3517,7 @@ function problemes_grandeurs_composees(){
 					texte_corr = `Correction prix horaire`
 					break;
 				case 10 :
-					texte = `Exercice de densité de pôpulation`
+					texte = `Exercice de densité de population`
 					texte_corr = `Correction densité de population`
 					break;
 				case 11 :
@@ -3589,7 +3589,7 @@ function problemes_grandeurs_composees(){
 		}
 		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
 	}	
-	this.besoin_formulaire_case_a_cocher =['Choix des exercices aléatoire']
-	this.besoin_formulaire_numerique2 = ['Type d\'exercice', 10, '1 : Energie consommée\n 2 :  Volumes\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesses\n 8 : Prix massique\n 13 : Débits\n 14 : Transfert de fichiers'];
+	this.besoin_formulaire_case_a_cocher =['Choix des exercices aléatoire'];
+	this.besoin_formulaire2_numerique = ['Type d\'exercice', 14, '1 : Energie consommée\n 2 :  Volumes\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesses\n 8 : Prix massique\n 13 : Débits\n 14 : Transfert de fichiers'];
 
 };
