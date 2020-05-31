@@ -3237,11 +3237,12 @@ function problemes_grandeurs_composees(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let liste_index_disponibles=[1,2,3,4,5,6,7,8,9,13,14];
+		let liste_index_disponibles=[1,2,3,4,5,6,7,8,9,10,13,14];
 		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions);
 		let monchoix;
 		let type_aide=1;
 		if (!sortie_html) type_aide=0;
+		let villes=[[`Paris`,2190327,105.4],[`Lyon`,515695,47.9],[`Marseille`,862211,240.6],[`Bordeaux`,252040,49.4],[`Nancy`,104592,15],[`Toulouse`,475438,118.300],[`Lille`,232440,34.800],[`Strasbourg`,279284,78.3]] //[Ville, population, superfice en ha, année du recensement]
 		let locations=[[`un vélo`,1.5,2,8],[`un canoé`,10,2,4],[`des rollers`,7,2,5],[`un char à voile`,12,2,4]]
 		let cours=[[`de piano`,20],[`de maths`,25],[`yoga`,5],[`dessin`,12],[`voile`,15]]
 		let fruits=[[`pêches`,4,10,30],[`Noix`,5.4,4,13],[`cerises`,5.6,11,20],[`pommes`,2.2,20,40],[`framboises`,15,1,5],[`fraises`,7.5,5,10],[`citrons`,1.5,15,30],[`bananes`,1.5,15,25]]
@@ -3528,8 +3529,14 @@ function problemes_grandeurs_composees(){
 					texte_corr+=num_alpha(1)+` L'heure de cours ${cours[index2][0]} coûte : $${tex_prix(prix2)}\\text{ €} \\div ${tex_nombre(prix2/cours[index2][1])}\\text{ h} = ${tex_prix(cours[index2][1])} \\text{ €/h}$.<br>`
 					break;
 				case 10 :
-					texte = `Exercice de densité de population`
-					texte_corr = `Correction densité de population`
+					index1=randint(0,7)
+					index2=randint(0,7,[index1])
+					let ville1=villes[index1][0]
+					let ville2=villes[index2][0]
+					texte = num_alpha(0)+` En 2016, à ${villes[index1][0]} il y avait $${tex_nombre(villes[index1][1])}$ habitants pour une superficie de $${tex_nombre(villes[index1][2]*1000)}$ ha.<br> Calculer la densité de population en hab/km².<br>`
+					texte += num_alpha(1)+` La même année, la densité de population de ${villes[index2][0]} était de $${tex_nombrec(villes[index2][1]/villes[index2][2])}$ hab/km² pour une superficie de $${tex_nombrec(villes[index2][2]*1000)}$ ha.<br> Calculer le nombre d'habitants de ${villes[index2][0]} à cette date.<br>`
+					texte_corr = num_alpha(0)+` En 2016, la densité de population à ${villes[index1][0]} était de :<br> $\\dfrac{${tex_nombre(villes[index1][1])}\\text{ hab}}{${tex_nombre(villes[index1][2]*1000)}\\text{ ha}}=\\dfrac{${tex_nombre(villes[index1][1])}\\text{ hab}}{${tex_nombre(villes[index1][2])}\\text{ km²}}=${tex_nombrec(villes[index1][1]/villes[index1][2])}\\text{ hab/km²}$.<br>`
+					texte_corr+= num_alpha(1)+` A cette date, le nombre d'habitants de ${villes[index2][0]} était de :<br> $${tex_nombrec(villes[index2][1]/villes[index2][2])}\\text{ hab/km²}\\times ${tex_nombrec(villes[index2][2]*1000)}\\text{ ha}=${tex_nombrec(villes[index2][1]/villes[index2][2])}\\text{ hab/km²}\\times ${tex_nombrec(villes[index2][2])}\\text{ km²}=${tex_nombre(villes[index2][1])}\\text{ hab}$.`
 					break;
 				case 11 :
 					texte = `Exercice de masse volumique`
