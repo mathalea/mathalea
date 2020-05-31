@@ -3251,8 +3251,9 @@ function problemes_grandeurs_composees(){
 		for (let i = 0,j,index,index1,index2,duree,quidam,nbheures,nbminutes,nbsecondes,vitesse_moy,distance,masse,masse2,masse3,prix1,prix2,prix3,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
 			if (this.sup==true) monchoix=liste_index[i]
 			else monchoix=parseInt(this.sup2)
+			console.log(monchoix,i)
 			switch (monchoix) {
-				case 0 : // problème de consommation éléctrique
+				case 1 : // problème de consommation éléctrique
 					index=randint(0,3);
 					let appareil=appareils[index][0];
 					let puissance=appareils[index][1];
@@ -3278,11 +3279,10 @@ function problemes_grandeurs_composees(){
 					if (!(prixkwh*puissance*duree/10==Math.round(prixkwh*puissance*duree/10))) texte_corr+= `\\approx${arrondi_virgule(prixkwh*puissance/1000*duree,2)}\\text{ €}$`
 					else texte_corr+= `=${arrondi_virgule(prixkwh*puissance/1000*duree,2)}\\text{ €}$`
 					break;
-				case 1 : // problèmes de volumes
+				case 2 : // problèmes de volumes
 					index1=randint(0,1)
-					
 					switch (index1) {
-						case 1 : // Volume d'une piscine
+						case 0 : // Volume d'une piscine
 							let h1=180+randint(0,10)*10;
 							let h2=80+randint(0,4)*10;
 							let l=5+randint(0,5);
@@ -3300,7 +3300,7 @@ function problemes_grandeurs_composees(){
 							texte_corr += `$${arrondi_virgule((h1+h2)/200*L*l)}\\text{ m³}=${tex_nombre((h1+h2)*L*l*5)}\\text{ dm³}=${tex_nombre((h1+h2)*L*l*5)}\\text{ L}$<br>`
 							texte_corr += `$\\mathcal{E}=${tex_nombre((h1+h2)*L*l*5)}\\text{ L}\\times${deltat}\\text{ °C}\\times 1,162 \\dfrac{\\text{Wh}}{\\text{°C}\\times\\text{L}}=${tex_nombre(arrondi((h1+h2)*L*l*5*deltat*1.162,3))}\\text{ Wh}=${tex_nombre(arrondi((h1+h2)*L*l/200*deltat*1.162,7))}\\text{ kWh}$<br>`
 							break;
-						case 2 : // Volume d'un tonneau cylindrique
+						case 1 : // Volume d'un tonneau cylindrique
 						index2=randint(0,5);
 						let r=randint(10,15)*2;
 						let h=randint(0,10)+r*4;
