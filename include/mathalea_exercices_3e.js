@@ -3488,13 +3488,15 @@ function Fractions_irreductibles(){
 				var multiplicites_premiers_communs; // tableau des multiplicités des diviseurs premiers communs 
 				var r; // tableau pour le choix des rangs des diviseurs premiers communs
 				var r_exclus; // tableau pour la boucle de creation de r				
-				var nb1; // diviseur unique du premier nombre 
-				var nb2; // divisuer unique du second nombre
+				var nb1_dist; // diviseur unique du premier nombre 
+				var nb2_dist; // divisuer unique du second nombre
 				var r_ex; // pour exlcure le rang de nb1
 				var tab_nb1; // tableau pour les diviseurs de nb1
 				var tab_nb2; // tableau pour les diviseurs de nb2
 				var multiplicites_nb1;
 				var multiplicites_nb2;
+				var nb1; // nbre 1
+				var nb2; // nbre 2
 
 				// on fixe le tableau de choix
 				candidats_premiers_communs = premiers_entre_bornes(2,13);
@@ -3538,8 +3540,8 @@ function Fractions_irreductibles(){
 				};				
 				// on ajoute un facteur premier distinct pour chaque nombre plus petit que 30
 				r_ex = randint(0,premiers_entre_bornes(2,30).length-1);
-				nb1 = premiers_entre_bornes(2,30)[r_ex];				
-				nb2 = premiers_entre_bornes(2,30)[randint(0,premiers_entre_bornes(2,30).length-1,r_ex)];				
+				nb1_dist = premiers_entre_bornes(2,30)[r_ex];				
+				nb2_dist = premiers_entre_bornes(2,30)[randint(0,premiers_entre_bornes(2,30).length-1,r_ex)];				
 				// on ajoute nb1,nb2 dans les tableaux des diviseurs premiers du premier et du second nombre 
 				// console.log(`====================`);
 				// console.log(tab_nb1);
@@ -3548,7 +3550,7 @@ function Fractions_irreductibles(){
 				let bool = false;
 				let n = 0;
 				while (n < tab_nb1.length && bool!=true) {
-					if (nb1 == tab_nb1[n]) {// si le diviseur premier est déjà présent on incrémente sa multiplicité
+					if (nb1_dist == tab_nb1[n]) {// si le diviseur premier est déjà présent on incrémente sa multiplicité
 						multiplicites_nb1[n]++;
 						bool = true;
 					};
@@ -3556,7 +3558,7 @@ function Fractions_irreductibles(){
 				};
 				// on teste la valeur de sortie de bool et on ajoute la nouvelle valeur si necessaire
 				if (!bool) {// il n'est pas présent on l'ajoute avec la multipplicité 1
-					tab_nb1.push(nb1);
+					tab_nb1.push(nb1_dist);
 					multiplicites_nb1.push(1);				
 					bool = true;
 				};
@@ -3569,7 +3571,7 @@ function Fractions_irreductibles(){
 				bool = false;
 				n = 0;
 				while (n < tab_nb2.length && !bool) {
-					if (nb2 == tab_nb2[n]) {// si le diviseur premier est déjà présent on incrémente sa multiplicité
+					if (nb2_dist == tab_nb2[n]) {// si le diviseur premier est déjà présent on incrémente sa multiplicité
 						multiplicites_nb2[n]++;
 						bool = true;
 					}; 
@@ -3577,7 +3579,7 @@ function Fractions_irreductibles(){
 				};
 				// on teste la valeur de sortie de bool et on ajoute la nouvelle valeur si necessaire
 				if (!bool) {// il n'est pas présent on l'ajoute avec la multipplicité 1
-					tab_nb2.push(nb2);
+					tab_nb2.push(nb2_dist);
 					multiplicites_nb2.push(1);				
 					bool = true;
 				};			
@@ -3643,7 +3645,7 @@ function Fractions_irreductibles(){
 								break;
 						};
 						for (let k=1; k<tab_nb1.length;k++) {
-							switch (multiplicites_nb1[k]) {
+							switch (tab_prem_mult_nb1[k].mult) {
 								case 1 :
 									texte_corr += `\\times${tab_prem_mult_nb1[k].prem}`;
 									break;
@@ -3655,28 +3657,41 @@ function Fractions_irreductibles(){
 
 						texte_corr += `$`;
 					//	break;		
-					//case 2 : // décomposition de B 			
+					//case 2 : // décomposition de B 	
 						texte += `<br>`+num_alpha(1)+` Décomposer $B = ${tex_nombre(nb2)}$ en produit de facteurs premiers : `;
-						// texte += nb1+`<br>`;
-						// texte += tab_nb1+`<br>`;
-						// texte += multiplicites_nb1+`<br>`;
-						// texte += `=========================<br>`;
-						// texte += nb2+`<br>`;
-						// texte += tab_nb2+`<br>`;
-						// texte += multiplicites_nb2+`<br>`;
-						// texte += `*************************`;
-						texte_corr += `<br>`+num_alpha(1)+' corr type 2';
+						texte_corr += `<br>`+num_alpha(1)+` La décomposition en produit de facteurs premier de $B = `;
+
+						switch (tab_prem_mult_nb2[0].mult) {
+							case 1 :
+								texte_corr += `${tab_prem_mult_nb2[0].prem}`;
+								break;
+							default :
+								texte_corr += `${tab_prem_mult_nb2[0].prem}^{${tab_prem_mult_nb2[0].mult}}`;
+								break;
+						};
+						for (let k=1; k<tab_nb2.length;k++) {
+							switch (tab_prem_mult_nb2[k].mult) {
+								case 1 :
+									texte_corr += `\\times${tab_prem_mult_nb2[k].prem}`;
+									break;
+								default :
+									texte_corr += `\\times${tab_prem_mult_nb2[k].prem}^{${tab_prem_mult_nb2[k].mult}}`;
+									break;
+							};						
+						};
+
+						texte_corr += `$`;
 					//	break;	
 					//case 3 : // reduction de A sur B 			
 						texte += `<br>`+num_alpha(2)+` Rendre la fraction $\\dfrac{A}{B} = \\dfrac{${tex_nombre(nb1)}}{${tex_nombre(nb2)}}$ irréductible `;
 						texte += ` à l'aide des décompositions obtenues aux questions `+num_alpha(0)+` et `+num_alpha(1);
-						texte_corr += `<br>`+num_alpha(2)+' corr type 3';
+						texte_corr += `<br>`+num_alpha(2)+` $\\dfrac{A}{B} = \\dfrac{${tex_nombre(nb1)}}{${tex_nombre(nb2)}} = \\dfrac{${nb1_dist}}{${nb2_dist}}$`;
 					//	break;	
 					//case 4 : // reduction de B sur A 			
 						texte += `<br>`+num_alpha(3)+` Rendre la fraction $\\dfrac{B}{A} = \\dfrac{${tex_nombre(nb2)}}{${tex_nombre(nb1)}}$ irréductible`;
 						texte += ` à l'aide des décompositions obtenues aux questions `+num_alpha(0)+` et `+num_alpha(1);
 						texte += warn_message(`Une observation judicieuse et argumentée pourra faire gagner du temps!`);
-						texte_corr += `<br>`+num_alpha(3)+` corr type 4`;
+						texte_corr += `<br>`+num_alpha(3)+` C'est l'inverse de $\\dfrac{A}{B}$! D'où $\\dfrac{B}{A} = \\dfrac{${tex_nombre(nb2)}}{${tex_nombre(nb1)}} = \\dfrac{${nb2_dist}}{${nb1_dist}}$`;
 					//	break;	
 					//case 5 : // calculer le produit A/B x B/A et réduire. Remarque?
 						// texte += `<br>`+num_alpha(4)+` Combien alculer le produit de $\\dfrac{A}{B} = \\dfrac{${tex_nombre(nb1)}}{${tex_nombre(nb2)}}$ et de $\\dfrac{B}{A} = \\dfrac{${tex_nombre(nb2)}}{${tex_nombre(nb1)}}$.`;
