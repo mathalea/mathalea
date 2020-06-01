@@ -3657,7 +3657,7 @@ function Fractions_irreductibles(){
 					//	break;	
 					//case 3 : // reduction de A sur B 			
 						texte += `<br>`+num_alpha(2)+` Rendre la fraction $\\dfrac{A}{B} = \\dfrac{${tex_nombre(nb1)}}{${tex_nombre(nb2)}}$ irréductible `;
-						texte += ` à l'aide des décompositions obtenues aux questions `+num_alpha(0)+` et `+num_alpha(1);
+						texte += ` à l'aide des décompositions obtenues au `+num_alpha(0)+` et au `+num_alpha(1);
 						texte_corr += `<br>`+num_alpha(2)+` $\\dfrac{A}{B} = \\dfrac{${tex_nombre(nb1)}}{${tex_nombre(nb2)}} = `;
 						texte_corr += `\\dfrac{`;
 						texte_corr += `\\cancel{`+decomp_fact_prem_array(nb1/nb1_dist)[0]+`}`;
@@ -3674,7 +3674,7 @@ function Fractions_irreductibles(){
 					//	break;	
 					//case 4 : // reduction de B sur A 			
 						texte += `<br>`+num_alpha(3)+` Rendre la fraction $\\dfrac{B}{A} = \\dfrac{${tex_nombre(nb2)}}{${tex_nombre(nb1)}}$ irréductible`;
-						texte += ` à l'aide des décompositions obtenues aux questions `+num_alpha(0)+` et `+num_alpha(1);
+						texte += ` à l'aide des décompositions obtenues au `+num_alpha(0)+` et au `+num_alpha(1);
 						texte += warn_message(`Une observation judicieuse et argumentée pourra faire gagner du temps!`);
 						texte_corr += `<br>`+num_alpha(3)+` $\\dfrac{B}{A}$ est l'inverse de $\\dfrac{A}{B}$ donc $\\dfrac{B}{A} = \\dfrac{${tex_nombre(nb2)}}{${tex_nombre(nb1)}} = `;
 						texte_corr += `\\dfrac{`;
