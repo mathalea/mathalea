@@ -2603,6 +2603,7 @@ function katex_Popuptest(texte,titrePopup,textePopup) {
   * source --> http://www.finalclap.com/faq/257-javascript-supprimer-remplacer-accent
   */
 function sansAccent(str){
+	'use strict';
     var accent = [
         /[\300-\306]/g, /[\340-\346]/g, // A, a
         /[\310-\313]/g, /[\350-\353]/g, // E, e
