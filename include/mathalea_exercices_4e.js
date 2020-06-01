@@ -3226,7 +3226,7 @@ function problemes_grandeurs_composees(){
 	this.titre = "Résoudre des problèmes de grandeurs composées et de conversion d'unités complexes";
 	this.consigne = "";
 	this.nb_questions = 1;
-	this.nb_questions_modifiable = true;
+	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	sortie_html? this.spacing = 3 : this.spacing = 1.5; 
@@ -3646,6 +3646,6 @@ function problemes_grandeurs_composees(){
 	}	
 	//this.besoin_formulaire_case_a_cocher =['Choix des exercices aléatoire'];
 	//this.besoin_formulaire2_numerique = ['Type d\'exercice', 14, '1 : Energie consommée\n 2 :  Volumes\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesses\n 8 : Prix massique\n 9 : Prix horaire\n 10 : Densité de population\n 11 : Masse volumique\n 12 : Concentration massique\n 13 : Débits\n 14 : Transfert de fichiers'];
-	this.besoin_formulaire_texte = ['Choix des hrandeurs','Nombres séparés par des points-virgules\n 1 : Energie consommée\n 2 :  Volumes\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesses\n 8 : Prix massique\n 9 : Prix horaire\n 10 : Densité de population\n 11 : Masse volumique\n 12 : Concentration massique\n 13 : Débits\n 14 : Transfert de fichiers'] // Texte, tooltip
+	this.besoin_formulaire_texte = ['Choix des grandeurs','Nombres séparés par des points-virgules\n 1 : Energie consommée\n 2 :  Volumes\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesses\n 8 : Prix massique\n 9 : Prix horaire\n 10 : Densité de population\n 11 : Masse volumique\n 12 : Concentration massique\n 13 : Débits\n 14 : Transfert de fichiers'] // Texte, tooltip
 
 };
