@@ -3324,7 +3324,8 @@ function d3jsTests(id_du_div) {
 
 /**
  * Renvoie un encart sur fond d'alert semantic ui en HTML ou dans un cadre orange coopmaths en LaTeX avec le texte 
- * @param {string} texte 
+ * @param {string} texte
+ * @author Sébastien Lozano 
  */
 function warn_message(texte) {
 	'use strict';
@@ -3341,3 +3342,17 @@ function warn_message(texte) {
 	};
 
 };
+
+/**
+ * renvoie un tableau avec la decomposition en facteurs premiers sous forme développée
+ * @param {number} n 
+ * @author Sébastien Lozano
+ */
+function decomp_fact_prem_array(n) {
+	let decomposition=[];
+	let liste=obtenir_liste_facteurs_premiers(n);
+	for (let i in liste) {
+		decomposition.push(liste[i]);
+	};
+	return decomposition;
+}

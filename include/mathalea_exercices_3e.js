@@ -3454,7 +3454,7 @@ function Fractions_irreductibles(){
 	this.consigne =`Décomposer une fraction et son inverse à partir des décompositons en facteurs premier.`;
 	this.consigne += `<br>`;
 	sortie_html ? this.spacing = 4 : this.spacing = 3;
-	sortie_html ? this.spacing_corr = 3: this.spacing_corr = 2;
+	sortie_html ? this.spacing_corr = 4: this.spacing_corr = 3;
 	this.nb_questions = 1;
 	//this.correction_detaillee_disponible = true;
 	this.nb_cols = 1;
@@ -3524,6 +3524,13 @@ function Fractions_irreductibles(){
 				for (let k=0;k<nb_div_prem_communs;k++) {
 					multiplicites_premiers_communs.push(randint(0,2));
 				};
+				// on supprime les diviseurs premiers de multiplicité 0 et leur multiplicité
+				let idx = multiplicites_premiers_communs.indexOf(0);
+				while (idx != -1) {
+					premiers_communs.splice(idx,1);
+					multiplicites_premiers_communs.splice(idx,1);
+					idx = multiplicites_premiers_communs.indexOf(0);
+				};
 				// on initialise le tableau des diviseurs du premier et du second nombre avec les diviseurs premiers communs
 				tab_nb1=[];
 				tab_nb2=[];
@@ -3542,11 +3549,8 @@ function Fractions_irreductibles(){
 				r_ex = randint(0,premiers_entre_bornes(2,30).length-1);
 				nb1_dist = premiers_entre_bornes(2,30)[r_ex];				
 				nb2_dist = premiers_entre_bornes(2,30)[randint(0,premiers_entre_bornes(2,30).length-1,r_ex)];				
-				// on ajoute nb1,nb2 dans les tableaux des diviseurs premiers du premier et du second nombre 
-				// console.log(`====================`);
-				// console.log(tab_nb1);
-				// console.log(multiplicites_nb1);
-
+				// on ajoute nb1_dist, nb2_dist dans les tableaux des diviseurs premiers du premier et du second nombre 
+				// nb1
 				let bool = false;
 				let n = 0;
 				while (n < tab_nb1.length && bool!=true) {
@@ -3562,12 +3566,7 @@ function Fractions_irreductibles(){
 					multiplicites_nb1.push(1);				
 					bool = true;
 				};
-
-				// console.log(`*********************`);
-				// console.log(tab_nb1);
-				// console.log(multiplicites_nb1);
-				// console.log(`+++++++++++++++++++++`)
-
+				// nb2
 				bool = false;
 				n = 0;
 				while (n < tab_nb2.length && !bool) {
@@ -3583,27 +3582,6 @@ function Fractions_irreductibles(){
 					multiplicites_nb2.push(1);				
 					bool = true;
 				};			
-				// on supprime les diviseurs premiers de multiplicité 0 et leur multiplicité
-				//let indexOfZeros = [];
-				// nb1
-				let idx = multiplicites_nb1.indexOf(0);
-				while (idx != -1) {
-				//	indexOfZeros.push(idx);
-					tab_nb1.splice(idx,1);
-					multiplicites_nb1.splice(idx,1);
-					//idx = multiplicites_nb1.indexOf(0, idx + 1);
-					idx = multiplicites_nb1.indexOf(0);
-				};
-				//nb2
-				idx = multiplicites_nb2.indexOf(0);
-				while (idx != -1) {
-				//	indexOfZeros.push(idx);
-					tab_nb2.splice(idx,1);
-					multiplicites_nb2.splice(idx,1);
-					//idx = multiplicites_nb1.indexOf(0, idx + 1);
-					idx = multiplicites_nb2.indexOf(0);
-				};
-
 				// on crée un tableau associatif à partir des deux tableaux tab_ni et multiplicites_ni
 				let tab_prem_mult_nb1 = [];
 				for (let k=0;k<tab_nb1.length;k++) {
@@ -3633,9 +3611,7 @@ function Fractions_irreductibles(){
 				switch (type_de_questions) {
 					case 1 : // décomposition de A
 						texte = num_alpha(0)+` Décomposer $A = ${tex_nombre(nb1)}$ en produit de facteurs premiers : `;
-
 						texte_corr =num_alpha(0)+` La décomposition en produit de facteurs premier de $A = `;
-
 						switch (tab_prem_mult_nb1[0].mult) {
 							case 1 :
 								texte_corr += `${tab_prem_mult_nb1[0].prem}`;
@@ -3654,13 +3630,11 @@ function Fractions_irreductibles(){
 									break;
 							};						
 						};
-
 						texte_corr += `$`;
 					//	break;		
 					//case 2 : // décomposition de B 	
 						texte += `<br>`+num_alpha(1)+` Décomposer $B = ${tex_nombre(nb2)}$ en produit de facteurs premiers : `;
 						texte_corr += `<br>`+num_alpha(1)+` La décomposition en produit de facteurs premier de $B = `;
-
 						switch (tab_prem_mult_nb2[0].mult) {
 							case 1 :
 								texte_corr += `${tab_prem_mult_nb2[0].prem}`;
@@ -3679,34 +3653,42 @@ function Fractions_irreductibles(){
 									break;
 							};						
 						};
-
 						texte_corr += `$`;
 					//	break;	
 					//case 3 : // reduction de A sur B 			
 						texte += `<br>`+num_alpha(2)+` Rendre la fraction $\\dfrac{A}{B} = \\dfrac{${tex_nombre(nb1)}}{${tex_nombre(nb2)}}$ irréductible `;
 						texte += ` à l'aide des décompositions obtenues aux questions `+num_alpha(0)+` et `+num_alpha(1);
 						texte_corr += `<br>`+num_alpha(2)+` $\\dfrac{A}{B} = \\dfrac{${tex_nombre(nb1)}}{${tex_nombre(nb2)}} = `;
-						// let numA = ``;
-						// for (let k=0;k<tab_prem_mult_nb1.length;k++) {
-						// 	for (let m=0;m<tab_prem_mult_nb1[k].mult+1;m++) {
-						// 		numA += tab_prem_mult_nb1.prem+`\\times`;
-						// 	};
-						// };
-						// let numB = ``;
-						// for (let k=0;k<tab_prem_mult_nb2.length;k++) {
-						// 	for (let m=0;m<Number(tab_prem_mult_nb2[k].mult)+1;m++) {
-						// 		numB += tab_prem_mult_nb2.prem+`\\times`;
-						// 	};
-						// };
-						// texte_corr += `\\dfrac{${numA}}{${numB}} = `;
-						
+						texte_corr += `\\dfrac{`;
+						texte_corr += `\\cancel{`+decomp_fact_prem_array(nb1/nb1_dist)[0]+`}`;
+						for (let k=1;k<decomp_fact_prem_array(nb1/nb1_dist).length;k++) {
+							texte_corr += `\\times \\cancel{`+decomp_fact_prem_array(nb1/nb1_dist)[k]+`}`
+						};
+						texte_corr += `\\times ${nb1_dist}}{`;
+						texte_corr += `\\cancel{`+decomp_fact_prem_array(nb1/nb1_dist)[0]+`}`;
+						for (let k=1;k<decomp_fact_prem_array(nb1/nb1_dist).length;k++) {
+							texte_corr += `\\times \\cancel{`+decomp_fact_prem_array(nb1/nb1_dist)[k]+`}`
+						};
+						texte_corr += `\\times ${nb2_dist}} = `;						
 						texte_corr += `\\dfrac{${nb1_dist}}{${nb2_dist}}$`;
 					//	break;	
 					//case 4 : // reduction de B sur A 			
 						texte += `<br>`+num_alpha(3)+` Rendre la fraction $\\dfrac{B}{A} = \\dfrac{${tex_nombre(nb2)}}{${tex_nombre(nb1)}}$ irréductible`;
 						texte += ` à l'aide des décompositions obtenues aux questions `+num_alpha(0)+` et `+num_alpha(1);
 						texte += warn_message(`Une observation judicieuse et argumentée pourra faire gagner du temps!`);
-						texte_corr += `<br>`+num_alpha(3)+` C'est l'inverse de $\\dfrac{A}{B}$! D'où $\\dfrac{B}{A} = \\dfrac{${tex_nombre(nb2)}}{${tex_nombre(nb1)}} = \\dfrac{${nb2_dist}}{${nb1_dist}}$`;
+						texte_corr += `<br>`+num_alpha(3)+` $\\dfrac{B}{A}$ est l'inverse de $\\dfrac{A}{B}$ donc $\\dfrac{B}{A} = \\dfrac{${tex_nombre(nb2)}}{${tex_nombre(nb1)}} = `;
+						texte_corr += `\\dfrac{`;
+						texte_corr += `\\cancel{`+decomp_fact_prem_array(nb1/nb1_dist)[0]+`}`;
+						for (let k=1;k<decomp_fact_prem_array(nb1/nb1_dist).length;k++) {
+							texte_corr += `\\times \\cancel{`+decomp_fact_prem_array(nb1/nb1_dist)[k]+`}`
+						};
+						texte_corr += `\\times ${nb2_dist}}{`;
+						texte_corr += `\\cancel{`+decomp_fact_prem_array(nb1/nb1_dist)[0]+`}`;
+						for (let k=1;k<decomp_fact_prem_array(nb1/nb1_dist).length;k++) {
+							texte_corr += `\\times \\cancel{`+decomp_fact_prem_array(nb1/nb1_dist)[k]+`}`
+						};
+						texte_corr += `\\times ${nb1_dist}} = `;						
+						texte_corr += `\\dfrac{${nb2_dist}}{${nb1_dist}}$`;			
 					//	break;	
 					//case 5 : // calculer le produit A/B x B/A et réduire. Remarque?
 						// texte += `<br>`+num_alpha(4)+` Combien alculer le produit de $\\dfrac{A}{B} = \\dfrac{${tex_nombre(nb1)}}{${tex_nombre(nb2)}}$ et de $\\dfrac{B}{A} = \\dfrac{${tex_nombre(nb2)}}{${tex_nombre(nb1)}}$.`;
@@ -3714,19 +3696,17 @@ function Fractions_irreductibles(){
 						//texte += `<br>`+num_alpha(4)+` Remarque ?`
 						//texte_corr += `<br>`+num_alpha(4)+' corr type 5';
 						break;	
-
 				};
 			
 				if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 					this.liste_questions.push(texte);
 					this.liste_corrections.push(texte_corr);
 					i++;
-				}
+				};
 				cpt++
-			}	
-	
+			};
 		liste_de_question_to_contenu(this);
-	}
+	};
 	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
 };
 
