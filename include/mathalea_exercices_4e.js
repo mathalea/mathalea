@@ -3227,10 +3227,6 @@ function problemes_grandeurs_composees(){
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = true;
-=======
-	this.nb_questions = 1;
-	this.nb_questions_modifiable = false;
->>>>>>> Stashed changes
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	sortie_html? this.spacing = 3 : this.spacing = 1.5; 
@@ -3241,10 +3237,8 @@ function problemes_grandeurs_composees(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-<<<<<<< Updated upstream
-		let liste_index_disponibles=[1,2,3,4,5,6,7,8,9,10,11,13,14];
-		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions);
-=======
+		// let liste_index_disponibles=[1,2,3,4,5,6,7,8,9,10,11,12,13,14];
+		// let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions);
 		let grandeurs = []
 		if (!this.sup) { // Si aucune grandeur n'est saisie
 			grandeurs = [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
@@ -3258,12 +3252,9 @@ function problemes_grandeurs_composees(){
 				this.nb_questions=grandeurs.length
 			}	
 		}
-		console.log(this.nb_questions)
-		//let liste_index_disponibles=[1,2,3,4,5,6,7,8,9,10,11,12,13,14];
+
 		let liste_index=combinaison_listes(grandeurs,this.nb_questions);
->>>>>>> Stashed changes
 		let monchoix;
-		console.log(liste_index)
 		let type_aide=1;
 		if (!sortie_html) type_aide=0;
 		let solutes=[[`sel`,`d'eau`,300],[`sucre`,`d'eau`,2000],[`dioxyde de carbone`,`d'eau`,3],[`bicarbonate de sodium`,`d'eau`,9],[`carbonate de sodium`,`d'eau`,300]] //soluté, masse maximale en gramme pour saturer 1 L de solvant
@@ -3278,10 +3269,7 @@ function problemes_grandeurs_composees(){
 						// [Nom de rivière,Lieu de passage,débit moyen annuel, débitmax, date de la crue, article défini, article partitif]
 		let vitesses=[[`sur un vélo`,4,12,8],[`dans un train`,50,100,5],[`dans une voiture`,15,30,5],[`en avion`,150,250,12],[`à pied`,2,4,5]] // [moyen de transport, vitesse min,vitesse max en m/s,durée max en h] 
 		for (let i = 0,j,index,index1,index2,duree,quidam,nbheures,nbminutes,nbsecondes,vitesse_moy,distance,masse,masse2,masse3,prix1,prix2,prix3,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
-			//if (this.sup==true) monchoix=liste_index[i]
-			monchoix=parseInt(liste_index[i])
-			console.log(monchoix)
-			switch (monchoix) {
+			switch (parseInt(liste_index[i])) {
 				case 1 : // problème de consommation éléctrique
 					index=randint(0,3);
 					let appareil=appareils[index][0];
@@ -3477,7 +3465,6 @@ function problemes_grandeurs_composees(){
 									duree++
 									allures[distance][0]=allures[distance][0]%60
 								}
-								console.log(allures)
 							}
 							for (let j=0;j<distance-1;j++) {
 							texte_corr+=`${allures[j][0]} min ${allures[j][1]} s + `
@@ -3657,12 +3644,8 @@ function problemes_grandeurs_composees(){
 		}
 		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
 	}	
-<<<<<<< Updated upstream
-	this.besoin_formulaire_case_a_cocher =['Choix des exercices aléatoire'];
-	this.besoin_formulaire2_numerique = ['Type d\'exercice', 14, '1 : Energie consommée\n 2 :  Volumes\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesses\n 8 : Prix massique\n 13 : Débits\n 14 : Transfert de fichiers'];
-=======
+	//this.besoin_formulaire_case_a_cocher =['Choix des exercices aléatoire'];
+	//this.besoin_formulaire2_numerique = ['Type d\'exercice', 14, '1 : Energie consommée\n 2 :  Volumes\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesses\n 8 : Prix massique\n 9 : Prix horaire\n 10 : Densité de population\n 11 : Masse volumique\n 12 : Concentration massique\n 13 : Débits\n 14 : Transfert de fichiers'];
 	this.besoin_formulaire_texte = ['Choix des hrandeurs','Nombres séparés par des points-virgules\n 1 : Energie consommée\n 2 :  Volumes\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesses\n 8 : Prix massique\n 9 : Prix horaire\n 10 : Densité de population\n 11 : Masse volumique\n 12 : Concentration massique\n 13 : Débits\n 14 : Transfert de fichiers'] // Texte, tooltip
-	// this.besoin_formulaire2_numerique = ['Type d\'exercice', 14, '1 : Energie consommée\n 2 :  Volumes\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesses\n 8 : Prix massique\n 9 : Prix horaire\n 10 : Densité de population\n 11 : Masse volumique\n 12 : Concentration massique\n 13 : Débits\n 14 : Transfert de fichiers'];
->>>>>>> Stashed changes
 
 };
