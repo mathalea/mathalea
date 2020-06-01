@@ -3685,7 +3685,22 @@ function Fractions_irreductibles(){
 					//case 3 : // reduction de A sur B 			
 						texte += `<br>`+num_alpha(2)+` Rendre la fraction $\\dfrac{A}{B} = \\dfrac{${tex_nombre(nb1)}}{${tex_nombre(nb2)}}$ irréductible `;
 						texte += ` à l'aide des décompositions obtenues aux questions `+num_alpha(0)+` et `+num_alpha(1);
-						texte_corr += `<br>`+num_alpha(2)+` $\\dfrac{A}{B} = \\dfrac{${tex_nombre(nb1)}}{${tex_nombre(nb2)}} = \\dfrac{${nb1_dist}}{${nb2_dist}}$`;
+						texte_corr += `<br>`+num_alpha(2)+` $\\dfrac{A}{B} = \\dfrac{${tex_nombre(nb1)}}{${tex_nombre(nb2)}} = `;
+						// let numA = ``;
+						// for (let k=0;k<tab_prem_mult_nb1.length;k++) {
+						// 	for (let m=0;m<tab_prem_mult_nb1[k].mult+1;m++) {
+						// 		numA += tab_prem_mult_nb1.prem+`\\times`;
+						// 	};
+						// };
+						// let numB = ``;
+						// for (let k=0;k<tab_prem_mult_nb2.length;k++) {
+						// 	for (let m=0;m<Number(tab_prem_mult_nb2[k].mult)+1;m++) {
+						// 		numB += tab_prem_mult_nb2.prem+`\\times`;
+						// 	};
+						// };
+						// texte_corr += `\\dfrac{${numA}}{${numB}} = `;
+						
+						texte_corr += `\\dfrac{${nb1_dist}}{${nb2_dist}}$`;
 					//	break;	
 					//case 4 : // reduction de B sur A 			
 						texte += `<br>`+num_alpha(3)+` Rendre la fraction $\\dfrac{B}{A} = \\dfrac{${tex_nombre(nb2)}}{${tex_nombre(nb1)}}$ irréductible`;
