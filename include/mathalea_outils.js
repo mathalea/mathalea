@@ -2600,6 +2600,7 @@ function katex_Popuptest(texte,titrePopup,textePopup) {
   * Ecrit un string sans accents
   * @param {string} str
   * @author Sébastien Lozano 
+  * source --> http://www.finalclap.com/faq/257-javascript-supprimer-remplacer-accent
   */
 function sansAccent(str){
     var accent = [

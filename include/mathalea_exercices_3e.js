@@ -3449,7 +3449,7 @@ function Fractions_irreductibles(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1 ; 
-	this.titre = "Fractions Irreductibles"; 
+	this.titre = "Fractions irréductibles"; 
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne =`Décomposer une fraction et son inverse à partir des décompositons en facteurs premier.`;
 	this.consigne += `<br>`;
@@ -3630,7 +3630,7 @@ function Fractions_irreductibles(){
 									break;
 							};						
 						};
-						texte_corr += `$`;
+						texte_corr += `$.`;
 					//	break;		
 					//case 2 : // décomposition de B 	
 						texte += `<br>`+num_alpha(1)+` Décomposer $B = ${tex_nombre(nb2)}$ en produit de facteurs premiers : `;
@@ -3653,7 +3653,7 @@ function Fractions_irreductibles(){
 									break;
 							};						
 						};
-						texte_corr += `$`;
+						texte_corr += `$.`;
 					//	break;	
 					//case 3 : // reduction de A sur B 			
 						texte += `<br>`+num_alpha(2)+` Rendre la fraction $\\dfrac{A}{B} = \\dfrac{${tex_nombre(nb1)}}{${tex_nombre(nb2)}}$ irréductible `;
@@ -3670,7 +3670,7 @@ function Fractions_irreductibles(){
 							texte_corr += `\\times \\cancel{`+decomp_fact_prem_array(nb1/nb1_dist)[k]+`}`
 						};
 						texte_corr += `\\times ${nb2_dist}} = `;						
-						texte_corr += `\\dfrac{${nb1_dist}}{${nb2_dist}}$`;
+						texte_corr += `\\dfrac{${nb1_dist}}{${nb2_dist}}$.`;
 					//	break;	
 					//case 4 : // reduction de B sur A 			
 						texte += `<br>`+num_alpha(3)+` Rendre la fraction $\\dfrac{B}{A} = \\dfrac{${tex_nombre(nb2)}}{${tex_nombre(nb1)}}$ irréductible`;
@@ -3688,7 +3688,7 @@ function Fractions_irreductibles(){
 							texte_corr += `\\times \\cancel{`+decomp_fact_prem_array(nb1/nb1_dist)[k]+`}`
 						};
 						texte_corr += `\\times ${nb1_dist}} = `;						
-						texte_corr += `\\dfrac{${nb2_dist}}{${nb1_dist}}$`;			
+						texte_corr += `\\dfrac{${nb2_dist}}{${nb1_dist}}$.`;			
 					//	break;	
 					//case 5 : // calculer le produit A/B x B/A et réduire. Remarque?
 						// texte += `<br>`+num_alpha(4)+` Combien alculer le produit de $\\dfrac{A}{B} = \\dfrac{${tex_nombre(nb1)}}{${tex_nombre(nb2)}}$ et de $\\dfrac{B}{A} = \\dfrac{${tex_nombre(nb2)}}{${tex_nombre(nb1)}}$.`;
