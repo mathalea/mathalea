@@ -2597,24 +2597,25 @@ function katex_Popuptest(texte,titrePopup,textePopup) {
 	}
 };
 /**
-* Crée un popup html avec une icône info ou un bouton modal suivant le type donné :0=Latex inline compatible, 1=bouton modal texte long, 2=bouton modal image. 
+* Crée un popup html avec une icône info ou un bouton modal suivant le type donné :0=Latex inline compatible, 1=bouton modal texte long, 2=bouton modal image.
+* ATTENTION la variable texte doit exactement correspondre au nom de l'image sans l'extension  et etre au format png
 * @param {number} numero
 * @param {number} type 
 * @param {string} titrePopup = Le titre du texte dévoilé par le bouton
-* @param {string} texte = Ce qu'il y a sur le bouton
+* @param {string} texte = Ce qu'il y a sur le bouton qui doit exactement etre le nom de l'image sans l'extension
 * @param {string} textePopup = Le texte dévoilé par le bouton ou l'url de l'image.
 * @Auteur Jean-claude Lhote & Rémi Angot & Sebastien Lozano
 **/
-function katex_Popup2(numero,type,texte,titrePopup,textePopup) {
-	'use strict';
-	switch (type) { 
-		case 0 : return katex_Popuptest(texte,titrePopup,textePopup)
-		case 1 : return `${texte}`+ modal_texte_long(numero,`${titrePopup}`,`${textePopup}`,`${texte}`,"info circle")
-		case 2 : return `${texte}`+ modal_image(numero,textePopup,`${titrePopup}`,`${texte}`)
-	}
-};
+// function katex_Popup2(numero,type,texte,titrePopup,textePopup) {
+// 	'use strict';
+// 	switch (type) { 
+// 		case 0 : return katex_Popuptest(texte,titrePopup,textePopup)
+// 		case 1 : return `${texte}`+ modal_texte_long(numero,`${titrePopup}`,`${textePopup}`,`${texte}`,"info circle")
+// 		case 2 : return `${texte}`+ modal_image(numero,textePopup,`${titrePopup}`,`${texte}`)
+// 	}
+// };
 
-function katex_Popup3(numero,type,texte,titrePopup,textePopup) {
+function katex_Popup2(numero,type,texte,titrePopup,textePopup) {
 	'use strict';
 	switch (type) { 
 		case 0 : 
