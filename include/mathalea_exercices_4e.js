@@ -3225,8 +3225,8 @@ function problemes_grandeurs_composees(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Résoudre des problèmes de grandeurs composées et de conversion d'unités complexes";
 	this.consigne = "";
-	this.nb_questions = 10;
-	this.nb_questions_modifiable = true;
+	this.nb_questions = 1;
+	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	sortie_html? this.spacing = 3 : this.spacing = 1.5; 
@@ -3237,11 +3237,27 @@ function problemes_grandeurs_composees(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let liste_index_disponibles=[1,2,3,4,5,6,7,8,9,10,11,13,14];
-		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions);
+		// let liste_index_disponibles=[1,2,3,4,5,6,7,8,9,10,11,12,13,14];
+		// let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions);
+		let grandeurs = []
+		if (!this.sup) { // Si aucune grandeur n'est saisie
+			grandeurs = [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
+		}
+		else {
+			if (typeof(this.sup)=='number'){ // Si c'est un nombre c'est qu'il y a qu'une seule grandeur
+				grandeurs[0] = this.sup
+				this.nb_questions=1
+			} else {
+				grandeurs = this.sup.split(";");// Sinon on créé un tableau à partir des valeurs séparées par des ;
+				this.nb_questions=grandeurs.length
+			}	
+		}
+
+		let liste_index=combinaison_listes(grandeurs,this.nb_questions);
 		let monchoix;
 		let type_aide=1;
 		if (!sortie_html) type_aide=0;
+		let solutes=[[`sel`,`d'eau`,300],[`sucre`,`d'eau`,2000],[`dioxyde de carbone`,`d'eau`,3],[`bicarbonate de sodium`,`d'eau`,9],[`carbonate de sodium`,`d'eau`,300]] //soluté, masse maximale en gramme pour saturer 1 L de solvant
 		let materiaux=[[`Paladium`,12000],[`acier`,7800],[`fonte`,7100],[`aluminium`,2700],[`argent`,10500],[`bronze`,8800],[`cuivre`,8960],[`fer`,7860],[`lithium`,530],[`mercure`,13545],[`nickel`,8900],[`or`,19300],[`platine`,21450],[`titane`,4500],[`zinc`,7150]]
 		let villes=[[`Nice`,342637,71.9],[`Montpellier`,281613,56.9],[`Rennes`,216268,50.4],[`Dijon`,155090,40.4],[`Orléans`,114782,27.5],[`Clermont-Ferrand`,142686,42.7],[`Nantes`,306694,65.2],[`Paris`,2190327,105.4],[`Lyon`,515695,47.9],[`Marseille`,862211,240.6],[`Bordeaux`,252040,49.4],[`Nancy`,104592,15],[`Toulouse`,475438,118.300],[`Lille`,232440,34.800],[`Strasbourg`,279284,78.3]] //[Ville, population, superfice en ha, année du recensement]
 		let locations=[[`un vélo`,1.5,2,8],[`un canoé`,10,2,4],[`des rollers`,7,2,5],[`un char à voile`,12,2,4]]
@@ -3253,9 +3269,7 @@ function problemes_grandeurs_composees(){
 						// [Nom de rivière,Lieu de passage,débit moyen annuel, débitmax, date de la crue, article défini, article partitif]
 		let vitesses=[[`sur un vélo`,4,12,8],[`dans un train`,50,100,5],[`dans une voiture`,15,30,5],[`en avion`,150,250,12],[`à pied`,2,4,5]] // [moyen de transport, vitesse min,vitesse max en m/s,durée max en h] 
 		for (let i = 0,j,index,index1,index2,duree,quidam,nbheures,nbminutes,nbsecondes,vitesse_moy,distance,masse,masse2,masse3,prix1,prix2,prix3,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
-			if (this.sup==true) monchoix=liste_index[i]
-			else monchoix=parseInt(this.sup2)
-			switch (monchoix) {
+			switch (parseInt(liste_index[i])) {
 				case 1 : // problème de consommation éléctrique
 					index=randint(0,3);
 					let appareil=appareils[index][0];
@@ -3278,9 +3292,9 @@ function problemes_grandeurs_composees(){
 					texte_corr+=` consomme : <br>`;
 					if (nbquartsdheures!=0) texte_corr +=`$${nbheures}\\text{ h } ${nbquartsdheures*15} = ${nbheures}\\text{ h} + ${tex_fraction_reduite(nbquartsdheures,4)}\\text{ h} =${tex_nombre(nbheures+nbquartsdheures*0.25)}\\text{ h}$<br>`;
 					texte_corr+=`$${puissance}\\text{ W}\\times${tex_nombre(duree)}\\text{ h}=${tex_nombre(puissance/1000)}\\text{ kW}\\times${tex_nombre(duree)}\\text{ h}=${tex_nombre(calcul(puissance*duree*0.001))}\\text{ kWh}.$<br>`
-					texte_corr+=num_alpha(1)+` Le prix de cette énergie consommée est : $${tex_nombre(prixkwh)} \\text{ €/kWh} \\times${tex_nombre(calcul(puissance*duree*0.001))}\\text{ kWh}`;
-					if (!(prixkwh*puissance*duree/10==Math.round(prixkwh*puissance*duree/10))) texte_corr+= `\\approx${arrondi_virgule(prixkwh*puissance/1000*duree,2)}\\text{ €}$`
-					else texte_corr+= `=${arrondi_virgule(prixkwh*puissance/1000*duree,2)}\\text{ €}$`
+					texte_corr+=num_alpha(1)+` Le prix de cette énergie consommée est : $${tex_nombre(prixkwh)}$ €$\\text{ /kWh} \\times${tex_nombre(calcul(puissance*duree*0.001))}\\text{ kWh}`;
+					if (!(prixkwh*puissance*duree/10==Math.round(prixkwh*puissance*duree/10))) texte_corr+= `\\approx${arrondi_virgule(prixkwh*puissance/1000*duree,2)}$ €`
+					else texte_corr+= `=${arrondi_virgule(prixkwh*puissance/1000*duree,2)}$ €`
 					break;
 				case 2 : // problèmes de volumes
 					index1=randint(0,1)
@@ -3309,11 +3323,11 @@ function problemes_grandeurs_composees(){
 						let h=randint(0,10)+r*4;
 						texte = `Un tonneau cylindrique a un rayon de ${r} cm et une hauteur de ${h} cm.<br>`;
 						texte +=num_alpha(0)+` Calculer le `+katex_Popup2(numero_de_l_exercice+i*3,type_aide,"volume",`Définition : volume (grandeur physique)`,`C’est le produit de trois longueurs ou le produit d'une aire et d'une longueur.<br>L'unité de mesure du volume est le mètre cube ($\\text{m}^3$) mais on peut aussi rencontrer le litre (L) avec comme correspondance $\\text{1dm}^3=\\text{1L}$`)+` en dm³ à 0,1 près de ce tonneau.<br>`
-						texte +=num_alpha(1)+` Si on le remplit ${liquides[index2][0]} (dont la densité moyenne est de ${tex_nombrec(liquides[index2][1])}), quelle masse ${liquides[index2][0]} en kg contiendra-t-il au gramme près ?<br>`
+						texte +=num_alpha(1)+` Si on le remplit ${liquides[index2][0]} (dont la `+katex_Popup2(numero_de_l_exercice+i*3,type_aide,"densité",`Définition : densité (grandeur physique)`,`La densité d'une substance est égale à la masse volumique de la substance divisée par la masse volumique du corps de référence à la même température.<br>Pour les liquides et les solides, l'eau est utilisée comme référence (sa masse volumique est de 1kg/dm$^3$), pour les gaz, la mesure s'effectue par rapport à l'air.<br>Donc pour les liquides, la densité est égale à la masse volumique exprimée en kg/dm$^3$.`)+` est de ${tex_nombrec(liquides[index2][1])}), quelle masse ${liquides[index2][0]} en kg contiendra-t-il au gramme près ?<br>`
 						texte_corr=num_alpha(0)+` Le volume d'un cylindre est donné par la formule $\\mathcal{A}\\text{ire de base}\\times\\mathcal{h}$.<br> Ici la base est un disque de rayon ${r} cm.<br>`
-						texte_corr+=`$\\mathcal{A}\\text{ire de base}\\times\\mathcal{h}=\\pi\\times${r}^{2}\\text{ cm²}\\times${h}\\text{ cm}=${r*r*h}\\pi\\text{ cm³}\\approx${tex_nombre(arrondi(r*r*h*Math.PI,1))}\\text{ cm³}\\approx${tex_nombre(arrondi(r*r*h*Math.PI/1000,1))}\\text{ dm³}$<br>`
+						texte_corr+=`$\\mathcal{A}\\text{ire de base}\\times\\mathcal{h}=\\pi\\times${r}^{2}\\text{ cm}^2\\times${h}\\text{ cm}=${r*r*h}\\pi\\text{ cm}^3\\approx${tex_nombre(arrondi(r*r*h*Math.PI,1))}\\text{ cm}^3\\approx${tex_nombre(arrondi(r*r*h*Math.PI/1000,1))}\\text{ dm}^3$<br>`
 						texte_corr+=num_alpha(1)+` La masse de lait contenue dans ce tonneau est :<br>`
-						texte_corr+=`$${tex_nombre(arrondi(r*r*h*Math.PI/1000,1))}\\text{ dm³}\\times ${tex_nombrec(liquides[index2][1])} \\dfrac{kg}{dm³}\\approx${tex_nombre(arrondi(r*r*h*Math.PI/1000*liquides[index2][1],3))}\\text{ kg}$`
+						texte_corr+=`$${tex_nombre(arrondi(r*r*h*Math.PI/1000,1))}\\text{ dm}^3\\times ${tex_nombrec(liquides[index2][1])} \\times 1 \\dfrac{kg}{dm}^3\\approx${tex_nombre(arrondi(r*r*h*Math.PI/1000*liquides[index2][1],3))}\\text{ kg}$`
 						break
 
 					}
@@ -3336,7 +3350,7 @@ function problemes_grandeurs_composees(){
 					masse=randint(20,30) //masse de l'enfant
 					distance=arrondi(randint(25,35)/10)
 					texte = `${quidam} qui pèse ${masse} kg se trouve sur le siège d'une balançoire "`+ katex_Popup2(numero_de_l_exercice+i*3,2,`trébuchet`,`https://sitetab3.ac-reims.fr/ec-fayl-billot-elem/-wp-/wp-content/uploads/2018/01/`,`https://sitetab3.ac-reims.fr/ec-fayl-billot-elem/-wp-/wp-content/uploads/2018/01/balancoire-a-bascule-trebuchet-baskul-768x768.jpg`) +`" dans un jardin d'enfant. Le siège est situé à ${tex_nombre(distance)} m du pivot central de la balançoire (bras de levier).<br>`
-					texte+= num_alpha(0)+` Calculer le `+katex_Popup2(numero_de_l_exercice+i*3+1,type_aide,`moment`,`Définition : moment (grandeur physique)`,`Le moment d'une force d'intensité F(en Newton ou kg.m.s$^{-2}$) en un point M par rapport à un pivot P est le produit de F par la distance PM (appelée bras de levier) exprimée en mètres (lorsque cette force s'exerce perpendiculairement au bras de levier). Le moment est l'energie permettant de faire tourner l'objet autour du pivot.<br>L'unité de mesure du moment est le Joule (J).<br>$1J=1\\text{ kg.m}^2\\text{s}^{-2}$.`) +` du poids de ${quidam} sur son siège par rapport au pivot central du trébuchet en Joules (on admettra que le bras de levier est horizontal).<br>`
+					texte+= num_alpha(0)+` Calculer le `+katex_Popup2(numero_de_l_exercice+i*3+1,type_aide,`moment`,`Définition : momnent (grandeur physique)`,`Le moment d'une force d'intensité F(en Newton ou kg.m.s$^{-2}$) en un point M par rapport à un pivot P est le produit de F par la distance PM (appelée bras de levier) exprimée en mètres (lorsque cette force s'exerce perpendiculairement au bras de levier). Le moment est l'energie permettant de faire tourner l'objet autour du pivot.<br>L'unité de mesure du moment est le Joule (J).<br>$1J=1\\text{ kg.m}^2\\text{s}^{-2}$.`) +` du `+katex_Popup2(numero_de_l_exercice+i*3+2,type_aide,`poids`,`Définition : Poids`,`Le poids est le produit de la masse d'un objet par l'accélération de la pesanteur terrestre ($9,81\\text{ m.s}^{-2}$).<br>L'unité du poids est le Newton (N) : 1N=1kg.m.s$^{-2}$`)+` de ${quidam} sur son siège par rapport au pivot central du trébuchet en Joules (on admettra que le bras de levier est horizontal).<br>`
 					texte+= num_alpha(1)+` Le père de ${quidam} vient s'installer de l'autre côté du pivot central. Il pèse ${index} kg et s'installe de façon à ce que son poids permette d'équilibrer la balançoire à l'horizontale. Quelle doit être la longueur du bras de levier de son côté ( à quelle distance du pivot est-il assis ) ?<br>`
 					texte_corr=num_alpha(0)+` Le moment du poids de ${quidam} appliqué sur son siège par rapport au pivot central du trébuchet est :<br>`
 					index1=arrondi(masse*9.81*distance) //pour éviter d'avoir trop de variable, je recycle
@@ -3451,7 +3465,6 @@ function problemes_grandeurs_composees(){
 									duree++
 									allures[distance][0]=allures[distance][0]%60
 								}
-								console.log(allures)
 							}
 							for (let j=0;j<distance-1;j++) {
 							texte_corr+=`${allures[j][0]} min ${allures[j][1]} s + `
@@ -3511,9 +3524,9 @@ function problemes_grandeurs_composees(){
 					texte+=num_alpha(0)+` Combien lui coûtent les ${fruits[index1][0]} ?<br>`
 					texte+=num_alpha(1)+` Quelle masse de ${fruits[index2][0]} a-t-elle achetée ?<br>`
 					texte+=num_alpha(2)+` Quel est le prix au kilogramme des ${fruits[index][0]} ?`
-					texte_corr =num_alpha(0)+` ${quidam} dépense pour les ${fruits[index1][0]} : $${tex_nombre(masse)}\\text{ kg} \\times ${tex_prix(fruits[index1][1])}\\text{ €/kg} = ${tex_prix(prix1)}\\text{ €}$.<br>`
-					texte_corr+=num_alpha(1)+` La masse de ${fruits[index2][0]} qu'elle a achetée est : $${tex_prix(prix2)} \\text{ €} \\div ${tex_prix(fruits[index2][1])}\\text{ €/kg} = ${tex_nombre(masse2)}\\text{ kg}$.<br>`
-					texte_corr+=num_alpha(2)+` Enfin, ${quidam} a acheté des ${fruits[index][0]} au prix unitaire de : $\\dfrac{${tex_prix(prix3)}\\text{ €}}{${tex_nombre(masse3)}\\text{ €}} = ${tex_prix(fruits[index][1])}\\text{ €/kg}$.`
+					texte_corr =num_alpha(0)+` ${quidam} dépense pour les ${fruits[index1][0]} : $${tex_nombre(masse)}\\text{ kg} \\times ${tex_prix(fruits[index1][1])}$ €$\\text{/kg} = ${tex_prix(prix1)}$ €.<br>`
+					texte_corr+=num_alpha(1)+` La masse de ${fruits[index2][0]} qu'elle a achetée est : $${tex_prix(prix2)} $ €$ \\div ${tex_prix(fruits[index2][1])}$ €$\\text{/kg} = ${tex_nombre(masse2)}\\text{ kg}$.<br>`
+					texte_corr+=num_alpha(2)+` Enfin, ${quidam} a acheté des ${fruits[index][0]} au prix unitaire de : $${tex_prix(prix3)}$ € $\\div ${tex_nombre(masse3)}\\text{ kg} = ${tex_prix(fruits[index][1])}$ €$\\text{/kg}$.`
 					break;
 				case 9 : //problème de prix horaire
 					index1=randint(0,3)
@@ -3525,8 +3538,8 @@ function problemes_grandeurs_composees(){
 					texte = `${quidam} a prévu de louer ${locations[index1][0]} pendant ${tex_nombre(nbheures)} heures. L'heure de location coûte ${tex_prix(prix1)} €.<br>`
 					texte+=num_alpha(0)+` Combien cette location va lui coûter ?<br>`
 					texte+=num_alpha(1)+` ${quidam} a pris des leçons particulières ${cours[index2][0]}. En tout ce mois-ci elle a eu ${tex_nombrec(prix2/cours[index2][1])} heures de cours pour ${tex_prix(prix2)} €. Combien demande son professeur pour une heure de cours ?<br>`
-					texte_corr =num_alpha(0)+` ${quidam} va dépenser pour sa location : $${tex_nombre(nbheures)}\\text{ h} \\times ${tex_prix(prix1)}\\text{ €/h} = ${tex_prix(nbheures*prix1)}\\text{ €}$.<br>`
-					texte_corr+=num_alpha(1)+` L'heure de cours ${cours[index2][0]} coûte : $${tex_prix(prix2)}\\text{ €} \\div ${tex_nombre(prix2/cours[index2][1])}\\text{ h} = ${tex_prix(cours[index2][1])} \\text{ €/h}$.<br>`
+					texte_corr =num_alpha(0)+` ${quidam} va dépenser pour sa location : $${tex_nombre(nbheures)}\\text{ h} \\times ${tex_prix(prix1)}$ €$\\text{/h} = ${tex_prix(nbheures*prix1)}$ €.<br>`
+					texte_corr+=num_alpha(1)+` L'heure de cours ${cours[index2][0]} coûte : $${tex_prix(prix2)}$ € $ \\div ${tex_nombre(prix2/cours[index2][1])}\\text{ h} = ${tex_prix(cours[index2][1])}$ €$\\text{/h}$.<br>`
 					break;
 				case 10 : //problème de densité de population
 					index1=randint(0,14)
@@ -3534,9 +3547,9 @@ function problemes_grandeurs_composees(){
 					let ville1=villes[index1][0]
 					let ville2=villes[index2][0]
 					texte = num_alpha(0)+` En 2016, à ${villes[index1][0]} il y avait $${tex_nombre(villes[index1][1])}$ habitants pour une superficie de $${tex_nombre(villes[index1][2]*1000)}$ ha.<br> Calculer la densité de population en hab/km².<br>`
-					texte += num_alpha(1)+` La même année, la densité de population de ${villes[index2][0]} était de $${tex_nombrec(villes[index2][1]/villes[index2][2])}$ hab/km² pour une superficie de $${tex_nombrec(villes[index2][2]*1000)}$ ha.<br> Calculer le nombre d'habitants de ${villes[index2][0]} à cette date.<br>`
-					texte_corr = num_alpha(0)+` En 2016, la densité de population à ${villes[index1][0]} était de :<br> $\\dfrac{${tex_nombre(villes[index1][1])}\\text{ hab}}{${tex_nombre(villes[index1][2]*1000)}\\text{ ha}}=\\dfrac{${tex_nombre(villes[index1][1])}\\text{ hab}}{${tex_nombre(villes[index1][2])}\\text{ km²}}=${tex_nombrec(villes[index1][1]/villes[index1][2])}\\text{ hab/km²}$.<br>`
-					texte_corr+= num_alpha(1)+` A cette date, le nombre d'habitants de ${villes[index2][0]} était de :<br> $${tex_nombrec(villes[index2][1]/villes[index2][2])}\\text{ hab/km²}\\times ${tex_nombrec(villes[index2][2]*1000)}\\text{ ha}=${tex_nombrec(villes[index2][1]/villes[index2][2])}\\text{ hab/km²}\\times ${tex_nombrec(villes[index2][2])}\\text{ km²}=${tex_nombre(villes[index2][1])}\\text{ hab}$.`
+					texte += num_alpha(1)+` La même année, la `+katex_Popup2(numero_de_l_exercice+i*3+1,type_aide,`densité de population`,`Définition : Densité de population`,`C’est le quotient du nombre d'habitants par la superficie en km².<br>L'unité de la densité de population est l'habitant par km² (hab/km²).`)+` de ${villes[index2][0]} était de $${tex_nombrec(villes[index2][1]/villes[index2][2])}$ hab/km² pour une superficie de $${tex_nombrec(villes[index2][2]*1000)}$ ha.<br> Calculer le nombre d'habitants de ${villes[index2][0]} à cette date.<br>`
+					texte_corr = num_alpha(0)+` En 2016, la densité de population à ${villes[index1][0]} était de :<br> $\\dfrac{${tex_nombre(villes[index1][1])}\\text{ hab}}{${tex_nombre(villes[index1][2]*1000)}\\text{ ha}}=\\dfrac{${tex_nombre(villes[index1][1])}\\text{ hab}}{${tex_nombre(villes[index1][2])}\\text{ km}^2}=${tex_nombrec(villes[index1][1]/villes[index1][2])}\\text{ hab/km}^2$.<br>`
+					texte_corr+= num_alpha(1)+` A cette date, le nombre d'habitants de ${villes[index2][0]} était de :<br> $${tex_nombrec(villes[index2][1]/villes[index2][2])}\\text{ hab/km}^2\\times ${tex_nombrec(villes[index2][2]*1000)}\\text{ ha}=${tex_nombrec(villes[index2][1]/villes[index2][2])}\\text{ hab/km}^2\\times ${tex_nombrec(villes[index2][2])}\\text{ km}^2=${tex_nombre(villes[index2][1])}\\text{ hab}$.`
 					break;
 				case 11 : //problème de masse volumique
 					index1=randint(0,14)
@@ -3545,16 +3558,30 @@ function problemes_grandeurs_composees(){
 					masse2=randint(5,30)
 					masse=arrondi(materiaux[index1][1]*V1/1000000)
 					let V2=arrondi(masse2/materiaux[index2][1],7)
-					texte = num_alpha(0)+` La densité du ${materiaux[index1][0]} est de $${tex_nombre(materiaux[index1][1])}\\text{ kg/m}^3$.<br>`
+					texte = num_alpha(0)+` La `+katex_Popup2(numero_de_l_exercice+i*3+1,type_aide,`masse volumique`,`Définition : Masse volumique (grandeur physique)`,`La masse volumique d'un élément est le quotient de la masse de cet élément par le volume qu'il occupe.<br>L'unité de la masse volumique dépend de la nature de l'élément et peut s'exprimer kg/m$^3$ pour les solides g/L pour les gaz par exemple.`)+` du ${materiaux[index1][0]} est de $${tex_nombre(materiaux[index1][1])}\\text{ kg/m}^3$.<br>`
 					texte +=`Quelle est la masse d'une pièce de ce métal de $${tex_nombre(V1)}\\text{ cm}^3$ ?<br>`
-					texte += num_alpha(1)+` Quel est le volume d'une pièce de ${materiaux[index2][0]} ayant une masse de`
+					texte += num_alpha(1)+` Quel est le volume d'une pièce de ${materiaux[index2][0]} ayant une masse de `
 					texte+=`$${tex_nombre(masse2)}\\text{ kg}$ (la masse volumique du ${materiaux[index2][0]} est de $${tex_nombre(materiaux[index2][1])}\\text{ kg/m}^3$)<br>`
 					texte_corr =num_alpha(0)+ ` La masse de cette pièce de ${materiaux[index1][0]} est de :<br>$${tex_nombre(materiaux[index1][1])}\\text{ km/m}^3\\times ${tex_nombre(V1)}\\text{ cm}^3=${tex_nombre(materiaux[index1][1])}\\text{ km/m}^3\\times ${tex_nombrec(V1/1000000)}\\text{ m}^3=${tex_nombre(masse)}\\text{ kg}$.<br>`
-					texte_corr+=num_alpha(1)+ ` Le volume de cette pièce de ${materiaux[index2][0]} est de :<br>$${tex_nombre(masse2)}\\text{ kg}\\div ${tex_nombre(materiaux[index2][1])}\\text{ kg/m}^3=${tex_nombre(V2)}\\text{ m}^3=${tex_nombrec(V2*1000000)}\\text{ cm}^3$<br>`
+					texte_corr+=num_alpha(1)+ ` Le volume de cette pièce de ${materiaux[index2][0]} est de :<br>$${tex_nombre(masse2)}\\text{ kg}\\div ${tex_nombre(materiaux[index2][1])}\\text{ kg/m}^3\\approx${tex_nombre(V2)}\\text{ m}^3\\approx${tex_nombrec(V2*1000000)}\\text{ cm}^3$<br>`
 					break;
-				case 12 :
-					texte = `Exercice de concentration`
-					texte_corr = `Correction concentration`
+				case 12 : //problème de concentration massique
+					index1=randint(0,4)
+					index2=randint(0,4,[index1])
+					let Volume1=arrondi(randint(2,15,[10])/10)
+					let Volume2=arrondi(randint(2,15,[10])/10)
+					if (solutes[index1][2]<10) masse=arrondi(randint(11,solutes[index1][2]*10)*Volume1/10)
+					else masse=arrondi(randint(2,solutes[index1][2])*Volume1)
+					let concentration2
+					if (solutes[index2][2]<10) concentration2=arrondi(randint(11,solutes[index2][2]*10)/10) //concentration en g/L soluté 2.
+					else concentration2=randint(2,solutes[index2][2])
+
+					texte = num_alpha(0)+` On a dissout $${tex_nombre(masse)}\\text{ g}$ de ${solutes[index1][0]} dans $${tex_nombre(Volume1)}\\text{ litres}$ ${solutes[index1][1]}.<br>Calculer la concentration massique de cette solution.<br>`
+					texte+= num_alpha(1)+` On dispose de $${tex_nombre(Volume2)}$ litres de solution aqueuse de ${solutes[index2][0]} à $${tex_nombre(concentration2)}\\text{ g/L}$.<br>Quelle masse de ${solutes[index2][0]} a été dissoute dans l'eau ?`
+					texte_corr =  num_alpha(0)+` La concentration en ${solutes[index1][0]} de cette solution aqueuse est de :<br>`
+					texte_corr+= ` $\\dfrac{${tex_nombre(masse)}\\text{ g}}{${tex_nombre(Volume1)}\\text{ litres}}=${tex_nombrec(arrondi(masse/Volume1))}\\text{ g/L}$<br>`
+					texte_corr+= num_alpha(1)+` La masse de ${solutes[index2][0]} dissoute est de :<br>`
+					texte_corr+=`$${tex_nombre(Volume2)}\\text{ L}\\times ${tex_nombre(concentration2)}\\text{ g/L}=${tex_nombre(arrondi(Volume2*concentration2))}\\text{ g}$`
 				break;
 
 				case 13 : //problème de débit
@@ -3565,9 +3592,9 @@ function problemes_grandeurs_composees(){
 					texte += num_alpha(0)+` Calculer le volume d'eau en m³ écoulé en ${duree} heures à ce débit.<br>`
 					texte += num_alpha(1)+` En ${rivieres[index2][4]} à ${rivieres[index2][1]}, ${rivieres[index2][5]}${rivieres[index2][0]} a débité ${nombre_avec_espace(vmax)} m³ en une heure. Quel a été alors le débit en m³/s ?`
 					texte_corr = num_alpha(0)+` En ${duree} heures il s'écoule en moyenne dans ${rivieres[index2][5]}${rivieres[index2][0]} à ${rivieres[index2][1]} :<br>`
-					texte_corr+= `$\\mathcal{V}=${duree}\\text{ h}\\times${rivieres[index2][2]}\\text{ m³/s}=${duree}\\times 3600\\text{ s}\\times${rivieres[index2][2]}\\text{ m³/s}=${tex_nombre(duree*3600*rivieres[index2][2])}\\text{ m³}$<br>`
+					texte_corr+= `$\\mathcal{V}=${duree}\\text{ h}\\times${rivieres[index2][2]}\\text{ m}^3\\text{/s}=${duree}\\times 3600\\text{ s}\\times${rivieres[index2][2]}\\text{ m}^3\\text{/s}=${tex_nombre(duree*3600*rivieres[index2][2])}\\text{ m}^3$<br>`
 					texte_corr += num_alpha(1)+` En ${rivieres[index2][4]} lors de la crue historique ${rivieres[index2][6]}${rivieres[index2][0]} à ${rivieres[index2][1]} le débit maximal a été de :<br>`
-					texte_corr+= `Débit =$${tex_nombre(vmax)}\\text{ m³/h}=\\dfrac{${tex_nombre(vmax)}\\text{ m³}}{1\\text{ h}}=\\dfrac{${tex_nombre(vmax)}\\text{ m³}}{${tex_nombre(3600)}\\text{ s}}=${tex_nombrec(vmax/3600)}\\text{ m³/s}$<br>`
+					texte_corr+= `Débit =$${tex_nombre(vmax)}\\text{ m}^3\\text{/h}=\\dfrac{${tex_nombre(vmax)}\\text{ m}^3}{1\\text{ h}}=\\dfrac{${tex_nombre(vmax)}\\text{ m}^3}{${tex_nombre(3600)}\\text{ s}}=${tex_nombrec(vmax/3600)}\\text{ m}^3\\text{/s}$<br>`
 				
 					break	
 				case 14 : // problème de vitesse de téléchargement		
@@ -3617,7 +3644,8 @@ function problemes_grandeurs_composees(){
 		}
 		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
 	}	
-	this.besoin_formulaire_case_a_cocher =['Choix des exercices aléatoire'];
-	this.besoin_formulaire2_numerique = ['Type d\'exercice', 14, '1 : Energie consommée\n 2 :  Volumes\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesses\n 8 : Prix massique\n 13 : Débits\n 14 : Transfert de fichiers'];
+	//this.besoin_formulaire_case_a_cocher =['Choix des exercices aléatoire'];
+	//this.besoin_formulaire2_numerique = ['Type d\'exercice', 14, '1 : Energie consommée\n 2 :  Volumes\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesses\n 8 : Prix massique\n 9 : Prix horaire\n 10 : Densité de population\n 11 : Masse volumique\n 12 : Concentration massique\n 13 : Débits\n 14 : Transfert de fichiers'];
+	this.besoin_formulaire_texte = ['Choix des grandeurs','Nombres séparés par des points-virgules\n 1 : Energie consommée\n 2 :  Volumes\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesses\n 8 : Prix massique\n 9 : Prix horaire\n 10 : Densité de population\n 11 : Masse volumique\n 12 : Concentration massique\n 13 : Débits\n 14 : Transfert de fichiers'] // Texte, tooltip
 
 };
