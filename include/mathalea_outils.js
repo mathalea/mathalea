@@ -2596,6 +2596,31 @@ function katex_Popuptest(texte,titrePopup,textePopup) {
 		return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
 	}
 };
+ /**
+  * Ecrit un string sans accents
+  * @param {string} str
+  * @author Sébastien Lozano 
+  */
+function sansAccent(str){
+    var accent = [
+        /[\300-\306]/g, /[\340-\346]/g, // A, a
+        /[\310-\313]/g, /[\350-\353]/g, // E, e
+        /[\314-\317]/g, /[\354-\357]/g, // I, i
+        /[\322-\330]/g, /[\362-\370]/g, // O, o
+        /[\331-\334]/g, /[\371-\374]/g, // U, u
+        /[\321]/g, /[\361]/g, // N, n
+        /[\307]/g, /[\347]/g, // C, c
+    ];
+    var noaccent = ['A','a','E','e','I','i','O','o','U','u','N','n','C','c'];
+     
+    //var str = this;
+    for(var i = 0; i < accent.length; i++){
+        str = str.replace(accent[i], noaccent[i]);
+    }
+     
+    return str;
+};
+
 /**
 * Crée un popup html avec une icône info ou un bouton modal suivant le type donné :0=Latex inline compatible, 1=bouton modal texte long, 2=bouton modal image.
 * ATTENTION la variable texte doit exactement correspondre au nom de l'image sans l'extension  et etre au format png
@@ -2632,11 +2657,13 @@ function katex_Popup2(numero,type,texte,titrePopup,textePopup) {
 			if (sortie_html) {
 				return `${texte}`+ modal_image(numero,textePopup,`${titrePopup}`,`${texte}`)
 			} else {
-				return `\\href{https://coopmaths.fr/images/${texte}.png}{\\textcolor{blue}{\\underline{${texte}}} } \\footnote{\\textbf{${texte}} ${textePopup}}`
+				return `\\href{https://coopmaths.fr/images/${sansAccent(texte)}.png}{\\textcolor{blue}{\\underline{${texte}}} } \\footnote{\\textbf{${texte}} ${textePopup}}`
 			};
 			break;
 	};
 };
+
+ 
 
 /**
  * Crée une liste de questions alphabétique
