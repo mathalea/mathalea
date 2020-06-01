@@ -947,18 +947,29 @@ function nom_du_mois(n) {
 */
 function tex_enumerate(liste,spacing){
 	let result =''
-	result = "\\begin{enumerate}\n"
-	if (spacing>1) {
-		result += `\\begin{spacing}{${spacing}}\n`
-	}
-	for(let i in liste){
-		result += '\t\\item ' + liste[i] +'\n'
-	}
-	if (spacing>1){
-		result += '\\end{spacing}\n'
-	} 
-	result += '\\end{enumerate}\n'
+	if (liste.length>1) {
+		result = "\\begin{enumerate}\n"
+		if (spacing>1) {
+			result += `\\begin{spacing}{${spacing}}\n`
+		}
+		for(let i in liste){
+			result += '\t\\item ' + liste[i] +'\n'
+		}
+		if (spacing>1){
+			result += '\\end{spacing}\n'
+		} 
+		result += '\\end{enumerate}\n'
+	} else {
+		if (spacing>1) {
+			result += `\\begin{spacing}{${spacing}}\n`
+		}
+			result += liste[0] +'\n'
+		if (spacing>1){
+			result += '\\end{spacing}\n'
+		} 
+	}	
 	return result.replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
+	
 }
 
 /**
@@ -1013,12 +1024,19 @@ function tex_introduction(texte){
 */
 function html_enumerate(liste,spacing){
 	let result='';
-	(spacing>1) ? result =`<ol style="line-height: ${spacing};">` : result = '<ol>'
-	for(let i in liste){
-		result += '<li>' + liste[i].replace(/\\dotfill/g,'..............................').replace(/\\not=/g,'≠').replace(/\\ldots/g,'....') + '</li>'   // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+	if (liste.length>1) {
+		(spacing>1) ? result =`<ol style="line-height: ${spacing};">` : result = '<ol>'
+		for(let i in liste){
+			result += '<li>' + liste[i].replace(/\\dotfill/g,'..............................').replace(/\\not=/g,'≠').replace(/\\ldots/g,'....') + '</li>'   // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+		}
+		result += '</ol>'
+	} else {
+		(spacing>1) ? result =`<div style="line-height: ${spacing};">` : result = '<div>'
+		result += liste[0].replace(/\\dotfill/g,'..............................').replace(/\\not=/g,'≠').replace(/\\ldots/g,'....')   // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+		result += '</div>'	
 	}
-	result += '</ol>'
 	return result
+
 }
 
 
@@ -2337,7 +2355,7 @@ function modal_video(id_du_modal,url_video,texte,label_bouton="Vidéo",icone="fi
  * @param {string} icone 
  */
 function modal_image(numero_de_l_exercice,url_image,texte,label_bouton="Illustration",icone="image"){
-	let contenu = `<div class="header">${texte}</div><div class="image content"><img class="image" src="${url_image}"></div>`
+	let contenu = `<div class="header">${texte}</div><div class="image content"><img class="ui centered medium image" src="${url_image}"></div>`
 	return creer_modal(numero_de_l_exercice,contenu,label_bouton,icone)
 }
 
@@ -2578,24 +2596,76 @@ function katex_Popuptest(texte,titrePopup,textePopup) {
 		return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
 	}
 };
+ /**
+  * Ecrit un string sans accents
+  * @param {string} str
+  * @author Sébastien Lozano 
+  * source --> http://www.finalclap.com/faq/257-javascript-supprimer-remplacer-accent
+  */
+function sansAccent(str){
+	'use strict';
+    var accent = [
+        /[\300-\306]/g, /[\340-\346]/g, // A, a
+        /[\310-\313]/g, /[\350-\353]/g, // E, e
+        /[\314-\317]/g, /[\354-\357]/g, // I, i
+        /[\322-\330]/g, /[\362-\370]/g, // O, o
+        /[\331-\334]/g, /[\371-\374]/g, // U, u
+        /[\321]/g, /[\361]/g, // N, n
+        /[\307]/g, /[\347]/g, // C, c
+    ];
+    var noaccent = ['A','a','E','e','I','i','O','o','U','u','N','n','C','c'];
+     
+    //var str = this;
+    for(var i = 0; i < accent.length; i++){
+        str = str.replace(accent[i], noaccent[i]);
+    }
+     
+    return str;
+};
+
 /**
-* Crée un popup html avec une icône info ou un bouton modal suivant le type donné :0=Latex inline compatible, 1=bouton modal texte long, 2=bouton modal image. 
+* Crée un popup html avec une icône info ou un bouton modal suivant le type donné :0=Latex inline compatible, 1=bouton modal texte long, 2=bouton modal image.
+* ATTENTION la variable texte doit exactement correspondre au nom de l'image sans l'extension  et etre au format png
 * @param {number} numero
 * @param {number} type 
 * @param {string} titrePopup = Le titre du texte dévoilé par le bouton
-* @param {string} texte = Ce qu'il y a sur le bouton
+* @param {string} texte = Ce qu'il y a sur le bouton qui doit exactement etre le nom de l'image sans l'extension
 * @param {string} textePopup = Le texte dévoilé par le bouton ou l'url de l'image.
 * @Auteur Jean-claude Lhote & Rémi Angot & Sebastien Lozano
 **/
+// function katex_Popup2(numero,type,texte,titrePopup,textePopup) {
+// 	'use strict';
+// 	switch (type) { 
+// 		case 0 : return katex_Popuptest(texte,titrePopup,textePopup)
+// 		case 1 : return `${texte}`+ modal_texte_long(numero,`${titrePopup}`,`${textePopup}`,`${texte}`,"info circle")
+// 		case 2 : return `${texte}`+ modal_image(numero,textePopup,`${titrePopup}`,`${texte}`)
+// 	}
+// };
+
 function katex_Popup2(numero,type,texte,titrePopup,textePopup) {
 	'use strict';
 	switch (type) { 
-		case 0 : return katex_Popuptest(texte,titrePopup,textePopup)
-		case 1 : return `${texte}`+ modal_texte_long(numero,`${titrePopup}`,`${textePopup}`,`${texte}`,"info circle")
-		case 2 : return `${texte}`+ modal_image(numero,textePopup,`${titrePopup}`,`${texte}`)
-	}
+		case 0 : 
+			return katex_Popuptest(texte,titrePopup,textePopup);
+			break;
+		case 1 : 
+			if (sortie_html) {
+				return `${texte}`+ modal_texte_long(numero,`${titrePopup}`,`${textePopup}`,`${texte}`,"info circle")
+			} else {
+				return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
+			};
+			break;
+		case 2 : 
+			if (sortie_html) {
+				return `${texte}`+ modal_image(numero,textePopup,`${titrePopup}`,`${texte}`)
+			} else {
+				return `\\href{https://coopmaths.fr/images/${sansAccent(texte)}.png}{\\textcolor{blue}{\\underline{${texte}}} } \\footnote{\\textbf{${texte}} ${textePopup}}`
+			};
+			break;
+	};
 };
 
+ 
 
 /**
  * Crée une liste de questions alphabétique
@@ -2605,7 +2675,8 @@ function katex_Popup2(numero,type,texte,titrePopup,textePopup) {
 function num_alpha(k) {
 	'use strict';
 	if (sortie_html) return '<span style="color:#f15929; font-weight:bold">'+String.fromCharCode(97+k)+'/</span>';
-	else return '\\textcolor [HTML] {f15929} {'+String.fromCharCode(97+k)+'/}';
+	//else return '\\textcolor [HTML] {f15929} {'+String.fromCharCode(97+k)+'/}';
+	else return '\\textbf {'+String.fromCharCode(97+k)+'.}';
 };
 
  /**
@@ -2725,7 +2796,7 @@ function SVG_machine_diag_3F1_act_mono(id_du_div,w,h,nom,x_ant,etapes_expression
 
  //================================================================================================
  // fonctions dont le déplacement dans mathalea_outils.js posait problème
- // Les appels aux fonction de mathalea_outils.js doivent être faits après this.nouvelle_version()
+ // Les appels aux fonctions de mathalea_outils.js doivent être faits après this.nouvelle_version()
  //================================================================================================
 
  /**
@@ -3183,6 +3254,7 @@ function crible_eratosthene_n(n) {
  */
 
 function texte_ou_pas(texte) {
+	'use strict';
 	let bool = randint(0,1);
 	if (bool==0) {
 		return `\\ldots`;
@@ -3298,3 +3370,38 @@ function d3jsTests(id_du_div) {
 		};
 	}, 100); // Vérifie toutes les 100ms
 };
+
+/**
+ * Renvoie un encart sur fond d'alert semantic ui en HTML ou dans un cadre orange coopmaths en LaTeX avec le texte 
+ * @param {string} texte
+ * @author Sébastien Lozano 
+ */
+function warn_message(texte) {
+	'use strict';
+	if (sortie_html) {
+		return `
+		<br>
+		<div class="ui compact warning message">		
+		<p>`+texte+`
+		</p>
+		</div>
+		`;
+	} else {
+		return tex_cadre_par_orange(texte);							
+	};
+
+};
+
+/**
+ * renvoie un tableau avec la decomposition en facteurs premiers sous forme développée
+ * @param {number} n 
+ * @author Sébastien Lozano
+ */
+function decomp_fact_prem_array(n) {
+	let decomposition=[];
+	let liste=obtenir_liste_facteurs_premiers(n);
+	for (let i in liste) {
+		decomposition.push(liste[i]);
+	};
+	return decomposition;
+}
