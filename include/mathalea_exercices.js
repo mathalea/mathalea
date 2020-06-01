@@ -153,7 +153,7 @@ var liste_des_exercices_disponibles = {
 		'3F12-4' : Image_antecedent_graphique,
 		'3S20' : fonctions_probabilite2,
 		//'3SVGtest' : svglibs,
-		'3Tests' : tester_des_fonctions,
+		//'3Tests' : tester_des_fonctions,
 		'2N10' : Developper_Identites_remarquables2,
 		'2N11' : Factoriser_Identites_remarquables2,
 		'P001' : Code_LaTeX_personnalise,
