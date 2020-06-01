@@ -947,18 +947,29 @@ function nom_du_mois(n) {
 */
 function tex_enumerate(liste,spacing){
 	let result =''
-	result = "\\begin{enumerate}\n"
-	if (spacing>1) {
-		result += `\\begin{spacing}{${spacing}}\n`
-	}
-	for(let i in liste){
-		result += '\t\\item ' + liste[i] +'\n'
-	}
-	if (spacing>1){
-		result += '\\end{spacing}\n'
-	} 
-	result += '\\end{enumerate}\n'
+	if (liste.length>1) {
+		result = "\\begin{enumerate}\n"
+		if (spacing>1) {
+			result += `\\begin{spacing}{${spacing}}\n`
+		}
+		for(let i in liste){
+			result += '\t\\item ' + liste[i] +'\n'
+		}
+		if (spacing>1){
+			result += '\\end{spacing}\n'
+		} 
+		result += '\\end{enumerate}\n'
+	} else {
+		if (spacing>1) {
+			result += `\\begin{spacing}{${spacing}}\n`
+		}
+			result += liste[0] +'\n'
+		if (spacing>1){
+			result += '\\end{spacing}\n'
+		} 
+	}	
 	return result.replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
+	
 }
 
 /**
@@ -1013,12 +1024,19 @@ function tex_introduction(texte){
 */
 function html_enumerate(liste,spacing){
 	let result='';
-	(spacing>1) ? result =`<ol style="line-height: ${spacing};">` : result = '<ol>'
-	for(let i in liste){
-		result += '<li>' + liste[i].replace(/\\dotfill/g,'..............................').replace(/\\not=/g,'≠').replace(/\\ldots/g,'....') + '</li>'   // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+	if (liste.length>1) {
+		(spacing>1) ? result =`<ol style="line-height: ${spacing};">` : result = '<ol>'
+		for(let i in liste){
+			result += '<li>' + liste[i].replace(/\\dotfill/g,'..............................').replace(/\\not=/g,'≠').replace(/\\ldots/g,'....') + '</li>'   // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+		}
+		result += '</ol>'
+	} else {
+		(spacing>1) ? result =`<div style="line-height: ${spacing};">` : result = '<div>'
+		result += liste[0].replace(/\\dotfill/g,'..............................').replace(/\\not=/g,'≠').replace(/\\ldots/g,'....')   // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+		result += '</div>'	
 	}
-	result += '</ol>'
 	return result
+
 }
 
 
