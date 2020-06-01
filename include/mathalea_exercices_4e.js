@@ -3352,7 +3352,10 @@ function problemes_grandeurs_composees(){
 					let k=randint(5,8)
 					let n1=k*d2
 					let n2=k*d1
-					
+					texte = num_alpha(0)+` Un bus de ville transporte en moyenne ${n1} personnes à la fois.<br> La longueur moyenne de déplacement est de ${d1} km.<br> Calculer le `+katex_Popup2(numero_de_l_exercice+i*3,type_aide,`trafic`,`Définition : Trafic de voyageurs`,`Le trafic de voyageurs est le produit du nombre de voyageurs par la distance parcourue. L'unité est le voyageur.km qui correspond au déplacement d'un voyageur sur 1km`)+` moyen de voyageurs en voyageurs.km.<br> `
+					texte += num_alpha(1)+` Un autre bus de ville transporte en moyenne ${n2} personnes à la fois.<br> La longueur moyenne de déplacement est de ${d2} km.<br> Montrer que le trafic de voyageur est le même qu'à la question `+num_alpha(0)
+					texte_corr =num_alpha(0)+ ` Le trafic moyen de ce bus de ville est : $${n1}\\text{voyageurs}\\times${d1}\\text{km}=${n1*d1}\\text{voyageurs.km}$.<br>`
+					texte_corr +=num_alpha(1)+ ` Le trafic moyen de ce bus de ville est : $${n2}\\text{voyageurs}\\times${d2}\\text{km}=${n2*d2}\\text{voyageurs.km}$, donc ces deux bus ont le même trafic.`
 					break;
 				case 6 : //problème de puissance électrique.
 					index=randint(0,3)
