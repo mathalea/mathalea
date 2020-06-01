@@ -3580,42 +3580,52 @@ function Fractions_irreductibles(){
 					tab_nb2.push(nb2);
 					multiplicites_nb2.push(1);				
 					bool = true;
-				};
-				console.log("===================")
-				console.log(tab_nb1);
-				console.log(multiplicites_nb1);
+				};			
 				// on supprime les diviseurs premiers de multiplicité 0 et leur multiplicité
-				// pb avec la série de clef Sue0
-				for (let k=0;k<tab_nb1.length;k++) {
-					if( multiplicites_nb1[k]==0) {
-						tab_nb1.splice(k,1);
-						multiplicites_nb1.splice(k,1);
-					};
+				//let indexOfZeros = [];
+				// nb1
+				let idx = multiplicites_nb1.indexOf(0);
+				while (idx != -1) {
+				//	indexOfZeros.push(idx);
+					tab_nb1.splice(idx,1);
+					multiplicites_nb1.splice(idx,1);
+					//idx = multiplicites_nb1.indexOf(0, idx + 1);
+					idx = multiplicites_nb1.indexOf(0);
 				};
-				console.log(tab_nb1);
-				console.log(multiplicites_nb1);
-				console.log("====================")
+				//nb2
+				idx = multiplicites_nb2.indexOf(0);
+				while (idx != -1) {
+				//	indexOfZeros.push(idx);
+					tab_nb2.splice(idx,1);
+					multiplicites_nb2.splice(idx,1);
+					//idx = multiplicites_nb1.indexOf(0, idx + 1);
+					idx = multiplicites_nb2.indexOf(0);
+				};
+
 				// on crée un tableau associatif à partir des deux tableaux tab_ni et multiplicites_ni
 				let tab_prem_mult_nb1 = [];
 				for (let k=0;k<tab_nb1.length;k++) {
 					tab_prem_mult_nb1[k]={'prem': tab_nb1[k],'mult':multiplicites_nb1[k]};
 				};
-				console.log(tab_prem_mult_nb1);
-				console.log('***********************')
+				let tab_prem_mult_nb2 = [];
+				for (let k=0;k<tab_nb2.length;k++) {
+					tab_prem_mult_nb2[k]={'prem': tab_nb2[k],'mult':multiplicites_nb2[k]};
+				};
 				// on range selon prem croissant
 				tab_prem_mult_nb1.sort(function(a,b){
 					return a.prem>b.prem;
 				});
-				console.log(tab_prem_mult_nb1);
-				console.log('+++++++++++++++++++++++')
+				tab_prem_mult_nb2.sort(function(a,b){
+					return a.prem>b.prem;
+				});
 				// on initialise nb1 et nb2 et on les calcule à partir des tableaux 				
 				nb1=1;
 				for (let k=0;k<tab_nb1.length;k++) {
-				 	nb1=nb1*tab_nb1[k]**multiplicites_nb1[k];
+				 	nb1=nb1*tab_prem_mult_nb1[k].prem**tab_prem_mult_nb1[k].mult;
 				};
 				nb2=1;
 				for (let k=0;k<tab_nb2.length;k++) {
-					nb2=nb2*tab_nb2[k]**multiplicites_nb2[k];	
+					nb2=nb2*tab_prem_mult_nb2[k].prem**tab_prem_mult_nb2[k].mult;	
 			   };
 
 				switch (type_de_questions) {
@@ -3624,24 +3634,21 @@ function Fractions_irreductibles(){
 
 						texte_corr =num_alpha(0)+` La décomposition en produit de facteurs premier de $A = `;
 
-						switch (multiplicites_nb1[0]) {
+						switch (tab_prem_mult_nb1[0].mult) {
 							case 1 :
-								texte_corr += `${tab_nb1[0]}`;
+								texte_corr += `${tab_prem_mult_nb1[0].prem}`;
 								break;
 							default :
-								texte_corr += `${tab_nb1[0]}^{${multiplicites_nb1[0]}}`;
+								texte_corr += `${tab_prem_mult_nb1[0].prem}^{${tab_prem_mult_nb1[0].mult}}`;
 								break;
 						};
 						for (let k=1; k<tab_nb1.length;k++) {
 							switch (multiplicites_nb1[k]) {
-								case 0 :
-									texte_corr += ``;
-									break;
 								case 1 :
-									texte_corr += `\\times${tab_nb1[k]}`;
+									texte_corr += `\\times${tab_prem_mult_nb1[k].prem}`;
 									break;
 								default :
-									texte_corr += `\\times${tab_nb1[k]}^{${multiplicites_nb1[k]}}`;
+									texte_corr += `\\times${tab_prem_mult_nb1[k].prem}^{${tab_prem_mult_nb1[k].mult}}`;
 									break;
 							};						
 						};
