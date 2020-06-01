@@ -3225,29 +3225,38 @@ function problemes_grandeurs_composees(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Résoudre des problèmes de grandeurs composées et de conversion d'unités complexes";
 	this.consigne = "";
-	this.nb_questions = 8;
+	this.nb_questions = 10;
 	this.nb_questions_modifiable = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	sortie_html? this.spacing = 3 : this.spacing = 1.5; 
 	sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
-	this.sup=1;
+	this.sup=false;
+	this.sup2=1;
 	
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let liste_index_disponibles=[0,1,3,4,5,6,7,13];
+		let liste_index_disponibles=[1,2,3,4,5,6,7,8,9,10,11,13,14];
 		let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions);
+		let monchoix;
 		let type_aide=1;
 		if (!sortie_html) type_aide=0;
+		let materiaux=[[`Paladium`,12000],[`acier`,7800],[`fonte`,7100],[`aluminium`,2700],[`argent`,10500],[`bronze`,8800],[`cuivre`,8960],[`fer`,7860],[`lithium`,530],[`mercure`,13545],[`nickel`,8900],[`or`,19300],[`platine`,21450],[`titane`,4500],[`zinc`,7150]]
+		let villes=[[`Nice`,342637,71.9],[`Montpellier`,281613,56.9],[`Rennes`,216268,50.4],[`Dijon`,155090,40.4],[`Orléans`,114782,27.5],[`Clermont-Ferrand`,142686,42.7],[`Nantes`,306694,65.2],[`Paris`,2190327,105.4],[`Lyon`,515695,47.9],[`Marseille`,862211,240.6],[`Bordeaux`,252040,49.4],[`Nancy`,104592,15],[`Toulouse`,475438,118.300],[`Lille`,232440,34.800],[`Strasbourg`,279284,78.3]] //[Ville, population, superfice en ha, année du recensement]
+		let locations=[[`un vélo`,1.5,2,8],[`un canoé`,10,2,4],[`des rollers`,7,2,5],[`un char à voile`,12,2,4]]
+		let cours=[[`de piano`,20],[`de maths`,25],[`yoga`,5],[`dessin`,12],[`voile`,15]]
+		let fruits=[[`pêches`,4,10,30],[`Noix`,5.4,4,13],[`cerises`,5.6,11,20],[`pommes`,2.2,20,40],[`framboises`,15,1,5],[`fraises`,7.5,5,10],[`citrons`,1.5,15,30],[`bananes`,1.5,15,25]]
 		let appareils=[[`radiateur`,2000,20],[`téléviseur`,350,12],[`four électrique`,2500,4],[`ordinateur`,450,8]] // [appareil,puissance,durée maxi de fonctionnement]
 		let liquides=[[`de lait entier`,1.032],[`d'essence`,0.755],[`de diesel`,0.83],[`d'huile`,0.910],[`de bière`,0.9],[`de sable`,1.6]] // [nom,densité]
 		let rivieres=[[`Marne`,`Gournay-sur-Marne`,110,550,`avril 1983`,`la `,`de la `],[`Seine`,`Alfortville`,218,2100,`janvier 1982`,`la `,`de la `],[`Oise`,`Pont-Sainte-Maxence`,109,665,`février 1995`,`l'`,`de l'`],[`Loire`,`Saint-Nazaire`,931,5350,`décembre 1999`,`la `,`de la`],[`Rhin`,`Strasbourg`,951,3310,`juin 2016`,`le `,`du `],[`Rhône`,`Beaucaire`,1690,11500,`décembre 2003`,`le `,`du `],[`Meuse`,`Chooz`,144,1610,`janvier 1995`,`la `,`de la `]]
 						// [Nom de rivière,Lieu de passage,débit moyen annuel, débitmax, date de la crue, article défini, article partitif]
 		let vitesses=[[`sur un vélo`,4,12,8],[`dans un train`,50,100,5],[`dans une voiture`,15,30,5],[`en avion`,150,250,12],[`à pied`,2,4,5]] // [moyen de transport, vitesse min,vitesse max en m/s,durée max en h] 
-		for (let i = 0,j,index,index1,index2,duree,quidam,nbheures,nbminutes,nbsecondes,vitesse_moy,distance,masse,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
-			switch (liste_index[i]) {
-				case 0 : // problème de consommation éléctrique
+		for (let i = 0,j,index,index1,index2,duree,quidam,nbheures,nbminutes,nbsecondes,vitesse_moy,distance,masse,masse2,masse3,prix1,prix2,prix3,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
+			if (this.sup==true) monchoix=liste_index[i]
+			else monchoix=parseInt(this.sup2)
+			switch (monchoix) {
+				case 1 : // problème de consommation éléctrique
 					index=randint(0,3);
 					let appareil=appareils[index][0];
 					let puissance=appareils[index][1];
@@ -3262,7 +3271,7 @@ function problemes_grandeurs_composees(){
 					if (sortie_html) { // les boutons d'aide uniquement pour la version html
 							
 				}
-					texte+=num_alpha(0)+` Exprimer en kWh l' `+ katex_Popup2(numero_de_l_exercice+i,type_aide,"énergie",`Définition : énergie (grandeur physique)`,`C’est le produit de la puissance électrique (Watt) par le temps (s) et se mesure en Joule (J).<br>1 J=1 W × 1 s.<br>Cependant pour mesurer des énergies plus importantes on utilise plutôt le kiloWattheure (kWh).<br>1 kWh=1000 W × 1 h.`)+` consommée.<br>`;
+					texte+=num_alpha(0)+` Exprimer en kWh l' `+ katex_Popup2(numero_de_l_exercice+i+1,type_aide,"énergie",`Définition : énergie (grandeur physique)`,`C’est le produit de la puissance électrique (Watt) par le temps (s) et se mesure en Joule (J).<br>1 J=1 W × 1 s.<br>Cependant pour mesurer des énergies plus importantes on utilise plutôt le kiloWattheure (kWh).<br>1 kWh=1000 W × 1 h.`)+` consommée.<br>`;
 					texte+=num_alpha(1)+` Calculer la dépense correspondante.`
 					texte_corr = num_alpha(0)+` Un ${appareil} d'une puissance de ${puissance} Watts qui fonctionne pendant ${Math.floor(duree)} heures `;
 					if (nbquartsdheures!=0) texte_corr +=`et ${nbquartsdheures*15} minutes`;
@@ -3273,9 +3282,8 @@ function problemes_grandeurs_composees(){
 					if (!(prixkwh*puissance*duree/10==Math.round(prixkwh*puissance*duree/10))) texte_corr+= `\\approx${arrondi_virgule(prixkwh*puissance/1000*duree,2)}\\text{ €}$`
 					else texte_corr+= `=${arrondi_virgule(prixkwh*puissance/1000*duree,2)}\\text{ €}$`
 					break;
-				case 1 : // problèmes de volumes
-					index1=randint(0,1);
-					
+				case 2 : // problèmes de volumes
+					index1=randint(0,1)
 					switch (index1) {
 						case 0 : // Volume d'une piscine
 							let h1=180+randint(0,10)*10;
@@ -3310,10 +3318,6 @@ function problemes_grandeurs_composees(){
 
 					}
 					break;
-				case 2 :
-					texte = `Exercice de calcul d'aires`
-					texte_corr = `Correction aires`
-					break;
 				case 3 :  // Problème de quantité de mouvement et d'énergie cinétique
 					quidam=prenom()
 					index1=randint(0,4)
@@ -3341,7 +3345,7 @@ function problemes_grandeurs_composees(){
 					texte_corr+=`$ ${index}\\text{ kg}\\times 9,81 \\text{m.s}^{-2} \\times ${mise_en_evidence(`d`,`black`)} \\text{ m}=${tex_nombre(index1)}\\text{ J}$<br>`
 					texte_corr +=`D'où $${mise_en_evidence(`d`,`black`)}\\text{ m} = \\dfrac{${tex_nombre(index1)}\\text{ J}}{${index}\\text{ kg}\\times 9,81 \\text{m.s}^{-2}}\\approx${tex_nombrec(arrondi(index1/(9.81*index)))}\\text{ m}.$`
 					break;
-				case 5 :
+				case 5 : //problème de trafic de coyageurs.
 					let d1=randint(3,6)
 					let d2=randint(3,6,[d1])
 					let k=randint(5,8)
@@ -3352,13 +3356,19 @@ function problemes_grandeurs_composees(){
 					texte_corr =num_alpha(0)+ ` Le trafic moyen de ce bus de ville est : $${n1}\\text{voyageurs}\\times${d1}\\text{km}=${n1*d1}\\text{voyageurs.km}$.<br>`
 					texte_corr +=num_alpha(1)+ ` Le trafic moyen de ce bus de ville est : $${n2}\\text{voyageurs}\\times${d2}\\text{km}=${n2*d2}\\text{voyageurs.km}$, donc ces deux bus ont le même trafic.`
 					break;
-				case 6 :
+				case 6 : //problème de puissance électrique.
 					index=randint(0,3)
-					let I1=arrondi(appareils[index][1]/220,0)+1
-					texte = num_alpha(0)+`Un ${appareils[index][0]} est protégé par un fusible de ${I1} Ampères, quelle est la puissance maximale de cet appareil si il fonctionne sur le secteur ?<br>`
-					texte_corr =num_alpha(0)+ `La tension du secteur étant de 220V, la puissance maximale de ce ${appareils[index][0]} est de :<br>`
-					texte_corr+=`$220\\text{ V}\\times${I1}\\text{ A}=${220*I1}\\text{ W}$<br>`
-				break;
+					index1=randint(0,3,[index])
+					let I1=arrondi(appareils[index][1]/230,0)+1
+					texte = num_alpha(0)+` Un ${appareils[index][0]} est protégé par un fusible de ${I1} ampères, quelle est la `+katex_Popup2(numero_de_l_exercice+i*3+1,type_aide,`puissance`,`Définition : Puissance (grandeur physique)`,`C’est le produit de la force électromotrice (tension) exprimée en Volt (V) par l'intensité du courant électrique exprimée en ampères (A).<br>L'unité de mesure de la puissance est le Watt (W)`)+` maximale de cet appareil si il fonctionne sur le secteur ?<br>`
+					texte += num_alpha(1)+` Un ${appareils[index1][0]} fonctionne à une puissance maximum de ${appareils[index1][1]} W.<br>Quel est l'ampérage minimum nécessaire pour le fusible qui protégera ce ${appareils[index][0]} des court-ciruits ?<br>`
+					texte_corr =num_alpha(0)+ ` La tension du secteur étant de 230V, la puissance maximale de ce ${appareils[index][0]} est de :<br>`
+					texte_corr+=`$230\\text{ V}\\times${I1}\\text{ A}=${230*I1}\\text{ W}$<br>`
+					let I2=Math.floor(appareils[index1][1]/230)+1;
+					texte_corr += num_alpha(1)+` Pour fonctionner à la puissance maximum, cet appareil a besoin d'un courant d'une intensité de :<br>`
+					texte_corr += `$\\dfrac{${appareils[index1][1]}\\text{ W}}{230 \\text{ V}} \\approx ${tex_nombrec(arrondi(appareils[index1][1]/230))}\\text{ A}$.<br>`
+					texte_corr += `Le fusible nécessaire pour protéger cet appareil des courts-circuits devra avoir une intensité de rupture minimum de ${I2} ampères.`
+					break;
 				case 7 : // problème de vitesses
 					index2=randint(0,2)
 					quidam=prenom() //prenom choisi
@@ -3485,27 +3495,69 @@ function problemes_grandeurs_composees(){
 							break;
 						}
 						break;
-				case 8 :
-					texte = `Exercice de prix massique`
-					texte_corr = `Correction prix massique`
+				case 8 : //problème de prix massique
+					index1=randint(0,7)
+					index2=randint(0,5,[index])
+					index=randint(0,5,[index1,index2])
+					masse=arrondi(randint(fruits[index1][2],fruits[index1][3])/10)
+					masse2=arrondi(randint(fruits[index2][2],fruits[index2][3])/10)
+					masse3=arrondi(randint(fruits[index][2],fruits[index][3])/10)
+					prix1=arrondi(masse*fruits[index1][1])
+					prix2=arrondi(masse2*fruits[index2][1])
+					prix3=arrondi(masse3*fruits[index][1])
+					quidam=prenomF()
+					texte = `${quidam} se rends à l'épicerie de son quartier. Elle y achète ${tex_nombre(masse)} kg de ${fruits[index1][0]} à ${tex_prix(fruits[index1][1])} €/kg et pour ${tex_prix(prix2)} € de ${fruits[index2][0]} à ${tex_prix(fruits[index2][1])} €/kg.<br>`
+					texte +=`Enfin, elle achète ${tex_nombre(masse3)} kg de ${fruits[index][0]} pour ${tex_prix(prix3)} €.<br>`
+					texte+=num_alpha(0)+` Combien lui coûtent les ${fruits[index1][0]} ?<br>`
+					texte+=num_alpha(1)+` Quelle masse de ${fruits[index2][0]} a-t-elle achetée ?<br>`
+					texte+=num_alpha(2)+` Quel est le prix au kilogramme des ${fruits[index][0]} ?`
+					texte_corr =num_alpha(0)+` ${quidam} dépense pour les ${fruits[index1][0]} : $${tex_nombre(masse)}\\text{ kg} \\times ${tex_prix(fruits[index1][1])}\\text{ €/kg} = ${tex_prix(prix1)}\\text{ €}$.<br>`
+					texte_corr+=num_alpha(1)+` La masse de ${fruits[index2][0]} qu'elle a achetée est : $${tex_prix(prix2)} \\text{ €} \\div ${tex_prix(fruits[index2][1])}\\text{ €/kg} = ${tex_nombre(masse2)}\\text{ kg}$.<br>`
+					texte_corr+=num_alpha(2)+` Enfin, ${quidam} a acheté des ${fruits[index][0]} au prix unitaire de : $\\dfrac{${tex_prix(prix3)}\\text{ €}}{${tex_nombre(masse3)}\\text{ €}} = ${tex_prix(fruits[index][1])}\\text{ €/kg}$.`
 					break;
-				case 9 :
-					texte = `Exercice de prix horaire`
-					texte_corr = `Correction prix horaire`
+				case 9 : //problème de prix horaire
+					index1=randint(0,3)
+					index2=randint(0,4)
+					nbheures=randint(locations[index1][1],locations[index1][2])
+					prix1=locations[index1][1]
+					prix2=cours[index2][1]*randint(2,6)
+					quidam=prenomF()
+					texte = `${quidam} a prévu de louer ${locations[index1][0]} pendant ${tex_nombre(nbheures)} heures. L'heure de location coûte ${tex_prix(prix1)} €.<br>`
+					texte+=num_alpha(0)+` Combien cette location va lui coûter ?<br>`
+					texte+=num_alpha(1)+` ${quidam} a pris des leçons particulières ${cours[index2][0]}. En tout ce mois-ci elle a eu ${tex_nombrec(prix2/cours[index2][1])} heures de cours pour ${tex_prix(prix2)} €. Combien demande son professeur pour une heure de cours ?<br>`
+					texte_corr =num_alpha(0)+` ${quidam} va dépenser pour sa location : $${tex_nombre(nbheures)}\\text{ h} \\times ${tex_prix(prix1)}\\text{ €/h} = ${tex_prix(nbheures*prix1)}\\text{ €}$.<br>`
+					texte_corr+=num_alpha(1)+` L'heure de cours ${cours[index2][0]} coûte : $${tex_prix(prix2)}\\text{ €} \\div ${tex_nombre(prix2/cours[index2][1])}\\text{ h} = ${tex_prix(cours[index2][1])} \\text{ €/h}$.<br>`
 					break;
-				case 10 :
-					texte = `Exercice de densité de pôpulation`
-					texte_corr = `Correction densité de population`
+				case 10 : //problème de densité de population
+					index1=randint(0,14)
+					index2=randint(0,14,[index1])
+					let ville1=villes[index1][0]
+					let ville2=villes[index2][0]
+					texte = num_alpha(0)+` En 2016, à ${villes[index1][0]} il y avait $${tex_nombre(villes[index1][1])}$ habitants pour une superficie de $${tex_nombre(villes[index1][2]*1000)}$ ha.<br> Calculer la densité de population en hab/km².<br>`
+					texte += num_alpha(1)+` La même année, la densité de population de ${villes[index2][0]} était de $${tex_nombrec(villes[index2][1]/villes[index2][2])}$ hab/km² pour une superficie de $${tex_nombrec(villes[index2][2]*1000)}$ ha.<br> Calculer le nombre d'habitants de ${villes[index2][0]} à cette date.<br>`
+					texte_corr = num_alpha(0)+` En 2016, la densité de population à ${villes[index1][0]} était de :<br> $\\dfrac{${tex_nombre(villes[index1][1])}\\text{ hab}}{${tex_nombre(villes[index1][2]*1000)}\\text{ ha}}=\\dfrac{${tex_nombre(villes[index1][1])}\\text{ hab}}{${tex_nombre(villes[index1][2])}\\text{ km²}}=${tex_nombrec(villes[index1][1]/villes[index1][2])}\\text{ hab/km²}$.<br>`
+					texte_corr+= num_alpha(1)+` A cette date, le nombre d'habitants de ${villes[index2][0]} était de :<br> $${tex_nombrec(villes[index2][1]/villes[index2][2])}\\text{ hab/km²}\\times ${tex_nombrec(villes[index2][2]*1000)}\\text{ ha}=${tex_nombrec(villes[index2][1]/villes[index2][2])}\\text{ hab/km²}\\times ${tex_nombrec(villes[index2][2])}\\text{ km²}=${tex_nombre(villes[index2][1])}\\text{ hab}$.`
 					break;
-				case 11 :
-					texte = `Exercice de masse volumique`
-					texte_corr = `Correction masse volumique`
+				case 11 : //problème de masse volumique
+					index1=randint(0,14)
+					index2=randint(0,14,[index1])
+					let V1=randint(50,100)
+					masse2=randint(5,30)
+					masse=arrondi(materiaux[index1][1]*V1/1000000)
+					let V2=arrondi(masse2/materiaux[index2][1],7)
+					texte = num_alpha(0)+` La densité du ${materiaux[index1][0]} est de $${tex_nombre(materiaux[index1][1])}\\text{ kg/m}^3$.<br>`
+					texte +=`Quelle est la masse d'une pièce de ce métal de $${tex_nombre(V1)}\\text{ cm}^3$ ?<br>`
+					texte += num_alpha(1)+` Quel est le volume d'une pièce de ${materiaux[index2][0]} ayant une masse de`
+					texte+=`$${tex_nombre(masse2)}\\text{ kg}$ (la masse volumique du ${materiaux[index2][0]} est de $${tex_nombre(materiaux[index2][1])}\\text{ kg/m}^3$)<br>`
+					texte_corr =num_alpha(0)+ ` La masse de cette pièce de ${materiaux[index1][0]} est de :<br>$${tex_nombre(materiaux[index1][1])}\\text{ km/m}^3\\times ${tex_nombre(V1)}\\text{ cm}^3=${tex_nombre(materiaux[index1][1])}\\text{ km/m}^3\\times ${tex_nombrec(V1/1000000)}\\text{ m}^3=${tex_nombre(masse)}\\text{ kg}$.<br>`
+					texte_corr+=num_alpha(1)+ ` Le volume de cette pièce de ${materiaux[index2][0]} est de :<br>$${tex_nombre(masse2)}\\text{ kg}\\div ${tex_nombre(materiaux[index2][1])}\\text{ kg/m}^3=${tex_nombre(V2)}\\text{ m}^3=${tex_nombrec(V2*1000000)}\\text{ cm}^3$<br>`
 					break;
 				case 12 :
 					texte = `Exercice de concentration`
 					texte_corr = `Correction concentration`
 				break;
-				case 13 : 
+
+				case 13 : //problème de débit
 					index2=randint(0,6)
 					duree=randint(2,24)
 					let vmax=rivieres[index2][3]*3600
@@ -3518,6 +3570,43 @@ function problemes_grandeurs_composees(){
 					texte_corr+= `Débit =$${tex_nombre(vmax)}\\text{ m³/h}=\\dfrac{${tex_nombre(vmax)}\\text{ m³}}{1\\text{ h}}=\\dfrac{${tex_nombre(vmax)}\\text{ m³}}{${tex_nombre(3600)}\\text{ s}}=${tex_nombrec(vmax/3600)}\\text{ m³/s}$<br>`
 				
 					break	
+				case 14 : // problème de vitesse de téléchargement		
+					let unites=[`ko`,`Mo`,`Go`]
+					index=randint(0,1)
+					if (index==0)	vitesse_moy=randint(200,999)
+					else 	vitesse_moy=randint(1,20)	
+					quidam=prenom()
+					nbminutes=randint(3,10)
+					nbsecondes=randint(2,59)
+					masse=arrondi(randint(15,35)/10)
+					texte=num_alpha(0)+` ${quidam} télécharge un fichier depuis un espace de stockage en ligne. Sa `+katex_Popup2(numero_de_l_exercice+i,type_aide,`vitesse de téléchargement`,`Définition : Vitesse de téléchargement`,`La vitesse de téléchargement est le quotient de la quantité de données téléchargées (en ko,Mo ou Go) par la durée de téléchargement (en seconde).<br>L'unité de cette grandeur quotient est le ko/s (ou Mo/s)`)+` est de ${vitesse_moy} ${unites[index]}/s.<br>`
+					texte+=`Le téléchargement dure ${nbminutes} minutes et ${nbsecondes} secondes. Quelle est la taille du fichier téléchargé en ${unites[index]} ?<br>`
+					texte+=num_alpha(1)+` ${quidam} veut télécharger un fichier de ${tex_nombre(masse)} Go. Quelle sera la durée du téléchargement si sa vitesse de téléchargement est de ${vitesse_moy} ${unites[index]}/s ?<br>`
+					texte_corr=num_alpha(0)+` La taille du fichier téléchargé est :<br>`
+					let taille_fichier=(nbminutes*60+nbsecondes)*vitesse_moy
+					texte_corr+=`$(${nbminutes}\\times 60 +${nbsecondes})\\text{ s}\\times ${vitesse_moy} \\text{ ${unites[index]}/s} = ${nbminutes*60+nbsecondes}\\text{ s}\\times ${vitesse_moy} \\text{ ${unites[index]}/s} = ${taille_fichier} \\text{ ${unites[index]} }$`
+					if (taille_fichier>1000) texte_corr+=`$ =${tex_nombrec(taille_fichier/1000)} \\text{ ${unites[index+1]}}.$<br>`
+					texte_corr+=num_alpha(1)+` La durée du téléchargement sera de :<br>`
+					if (index==0) {
+						texte_corr+= `$${masse}\\times ${tex_nombrec(10**6)} \\text{ ko} \\div ${vitesse_moy} \\text{ ${unites[index]}/s}$`
+						taille_fichier=masse*10**6
+					}
+					else {
+						texte_corr+= `$${masse}\\times ${tex_nombrec(10**3)} \\text{ Mo} \\div ${vitesse_moy} \\text{ ${unites[index]}/s}$`
+						taille_fichier=masse*10**3
+					}
+					texte_corr+=`$=\\dfrac{${taille_fichier}}{${vitesse_moy}}\\text{ s}`
+					nbheures=Math.floor((taille_fichier/vitesse_moy)/3600)
+					nbminutes=Math.floor((taille_fichier/vitesse_moy-3600*nbheures)/60)
+					nbsecondes=arrondi(taille_fichier/vitesse_moy-3600*nbheures-60*nbminutes,0)
+					if (taille_fichier/vitesse_moy==nbsecondes+60*nbheures+3600*nbheures) texte_corr+=`=`
+					else texte_corr +=`\\approx`
+					if (nbheures!=0) texte_corr+=`${nbheures} \\text{ h }`
+					if (nbminutes!=0) texte_corr+=`${nbminutes} \\text{ min }`
+					if (nbsecondes!=0) texte_corr+= `${nbsecondes} \\text { s}`
+					texte_corr+=`$`
+
+					break
 				}
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
@@ -3528,4 +3617,7 @@ function problemes_grandeurs_composees(){
 		}
 		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
 	}	
+	this.besoin_formulaire_case_a_cocher =['Choix des exercices aléatoire'];
+	this.besoin_formulaire2_numerique = ['Type d\'exercice', 14, '1 : Energie consommée\n 2 :  Volumes\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesses\n 8 : Prix massique\n 13 : Débits\n 14 : Transfert de fichiers'];
+
 };
