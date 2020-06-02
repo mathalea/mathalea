@@ -3414,7 +3414,7 @@ function lampe_message(titre,texte) {
 		`;
 	} else {
 		return `
-		\\begin{bclogo}[couleurBarre=orangeCoop,couleurBord=orangeCoop,epBord=2,couleur=gray!50,logo=\\bclampe,arrondi=0.1]{\\bf `+titre+`}
+		\\begin{bclogo}[couleurBarre=orangeCoop,couleurBord=orangeCoop,epBord=2,couleur=gray!10,logo=\\bclampe,arrondi=0.1]{\\bf `+titre+`}
 			`+texte+`
 		\\end{bclogo}
 		`;
