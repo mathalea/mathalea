@@ -3774,9 +3774,11 @@ function PPCM_Engrenages(){
 						nb_dents_r2 = randint(5,30,nb_dents_r1);
 						texte = `L'une des roues possède ${nb_dents_r1} et l'autre ${nb_dents_r2}. On cherche à savoir au bout de combien de tours les deux roues seront toutes les deux revenues à leur position initiale.<br>`;
 						texte += `Écrire la liste des multiples de ${nb_dents_r1} et de ${nb_dents_r2}.`
-						texte += warn_message(`Attention, les roues ci-dessous ne comportent pas le nombre de dents de l'énoncé!`);
-						texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;					 
-						SVG_engrenages(id_du_div,200,200);						
+						if (sortie_html) {						
+							texte += warn_message(`Attention, les roues ci-dessous ne comportent pas le nombre de dents de l'énoncé!`);
+							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;					 							
+							SVG_engrenages(id_du_div,200,200);						
+						};
 						texte_corr = `Correction à détailler, en écrivant la liste des mutliples de chaque nombre de dents jusqu'à un peu plus que le ppcm et en le mettant en valeur.<br>`;
 						texte_corr += `PPCM du nombres de dents puis on calcule le nombre de tours de chaque roue.<br>`;
 						texte_corr += `chaque roue doit tourner de ppcm(${nb_dents_r1},${nb_dents_r2})=${ppcm(nb_dents_r1,nb_dents_r2)} dents <br>`;
@@ -3788,9 +3790,11 @@ function PPCM_Engrenages(){
 						nb_dents_r2 = randint(31,80,nb_dents_r1);
 						texte = `L'une des roues possède ${nb_dents_r1} et l'autre ${nb_dents_r2}. On cherche à savoir au bout de combien de tours les deux roues seront toutes les deux revenues à leur position initiale.`;
 						texte += `Décomposer ${nb_dents_r1} et ${nb_dents_r2} en produit de facteurs premiers.`
-						texte += warn_message(`Attention, les roues ci-dessous ne comportent pas le nombre de dents de l'énoncé!`);
-						texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;					 
-						SVG_engrenages(id_du_div,200,200);						
+						if (sortie_html) {
+							texte += warn_message(`Attention, les roues ci-dessous ne comportent pas le nombre de dents de l'énoncé!`);
+							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;					 
+							SVG_engrenages(id_du_div,200,200);						
+						};
 						texte_corr = `Correction à détailler, en décomposant chaque nombre de dents en produit de facteurs premiers. Utilisation de la couleur!<br>`;
 						texte_corr += `$${nb_dents_r1} = ${decomposition_facteurs_premiers(nb_dents_r1)}$.<br>`;
 						texte_corr += `$${nb_dents_r1} = ${decomposition_facteurs_premiers(nb_dents_r2)}$.<br>`;
