@@ -2992,8 +2992,9 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 
  function tex_cadre_par_orange(texte) {
 	 'use strict';
+	 // \\definecolor{orangeCoop}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
 	 let sortie = `
-	 \\definecolor{orangeCoop}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
+	 
 	 \\setlength{\\fboxrule}{1.5mm}
 	 \\par\\vspace{0.25cm}
 	 \\noindent\\fcolorbox{orangeCoop}{white}{\\parbox{\\linewidth-2\\fboxrule-2\\fboxsep}{`+texte+`}}
@@ -3390,6 +3391,34 @@ function warn_message(texte) {
 		return tex_cadre_par_orange(texte);							
 	};
 
+};
+
+/**
+ *  Renvoie un encart sur fond d'alert semantic ui en HTML ou dans un cadre bclogo en LaTeX avec le texte + icone lampe
+ * @param {string} texte 
+ */
+
+function lampe_message(titre,texte) {
+	'use strict';
+	if (sortie_html) {
+		return `
+		<div class="ui compact icon message">
+			<i class="lightbulb outline icon"></i>
+			<div class="content">
+		  		<div class="header">
+					`+titre+`
+		  		</div>
+		  		<p>`+texte+`</p>
+			</div>
+	  	</div>
+		`;
+	} else {
+		return `
+		\\begin{bclogo}[couleurBarre=orangeCoop,couleurBord=orangeCoop,epBord=2,couleur=gray!50,logo=\\bclampe,arrondi=0.1]{\\bf `+titre+`}
+			`+texte+`
+		\\end{bclogo}
+		`;
+	};
 };
 
 /**

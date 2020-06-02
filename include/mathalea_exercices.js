@@ -132,7 +132,7 @@ var liste_des_exercices_disponibles = {
 		'3A11-2' : Decomposition_facteurs_premiers,
 		'3A11-3' : Lister_Diviseurs_Par_Decomposition_facteurs_premiers,
 		'3A12' : Fractions_irreductibles,
-		//'3A13' : PGCD_PPCM_Engrenages,
+		'3A13' : PPCM_Engrenages,
 		'3M30' : Calcul_de_volumes_3e,
 		'3N10': Exercice_developper,
 		'3N11' : Double_distributivite,

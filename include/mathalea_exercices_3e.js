@@ -3711,17 +3711,17 @@ function Fractions_irreductibles(){
 };
 
 /**
- * 3A13 - PGCD_PPCM_Engrenages
+ * 3A13 - PPCM_Engrenages
  * @author Sébastien Lozano
  */
  
-function PGCD_PPCM_Engrenages(){
+function PPCM_Engrenages(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1 ; 
-	this.titre = "PGCD_PPCM_Engrenages"; 
+	this.titre = "Engrenages"; 
 	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne =`PGCD_PPCM_Engrenages.`;
+	this.consigne =`PPCM_Engrenages.`;
 	this.consigne += `<br>`;
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
@@ -3748,28 +3748,29 @@ function PGCD_PPCM_Engrenages(){
 		let type_de_questions_disponibles = [1,2,3,4];
 		//let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
-
+		this.introduction = lampe_message(`titre`,`texte`);
 			for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 				type_de_questions = liste_type_de_questions[i];
 				
 	
 				switch (type_de_questions) {
-					case 1 : // périmètre d'un carré de côté x			
-						texte = 'type 1';
-						texte_corr = 'corr type 1';
+					case 1 : // 
+						texte = `type ${i}`;						
+						texte_corr = `corr type ${i}`;
 						break;		
-					case 1 : // périmètre d'un carré de côté x			
-						texte = 'type 2';
-						texte_corr = 'corr type 2';
-						break;	
-					case 1 : // périmètre d'un carré de côté x			
-						texte = 'type 3';
-						texte_corr = 'corr type 3';
-						break;	
-					case 1 : // périmètre d'un carré de côté x			
-						texte = 'type 4';
-						texte_corr = 'corr type 4';
+					case 2 : // 
+						texte = `type ${i}`;
+						texte_corr = `corr type ${i}`;
 						break;		
+					case 3 : // 
+						texte = `type ${i}`;
+						texte_corr = `corr type ${i}`;
+						break;		
+					case 4 : // 
+						texte = `type ${i}`;
+						texte_corr = `corr type ${i}`;
+						break;		
+
 				};
 			
 				if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
