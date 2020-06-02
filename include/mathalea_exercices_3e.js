@@ -3451,7 +3451,7 @@ function Fractions_irreductibles(){
 	this.sup = 1 ; 
 	this.titre = "Fractions irréductibles"; 
 	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne =`Décomposer une fraction et son inverse à partir des décompositons en facteurs premier.`;
+	this.consigne =`Décomposer une fraction et son inverse à partir des décompositons en facteurs premiers.`;
 	this.consigne += `<br>`;
 	sortie_html ? this.spacing = 4 : this.spacing = 3;
 	sortie_html ? this.spacing_corr = 4: this.spacing_corr = 3;
