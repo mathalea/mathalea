@@ -2992,8 +2992,9 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 
  function tex_cadre_par_orange(texte) {
 	 'use strict';
+	 //\\definecolor{orangeCoop}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
 	 let sortie = `
-	 \\definecolor{orangeCoop}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
+	 
 	 \\setlength{\\fboxrule}{1.5mm}
 	 \\par\\vspace{0.25cm}
 	 \\noindent\\fcolorbox{orangeCoop}{white}{\\parbox{\\linewidth-2\\fboxrule-2\\fboxsep}{`+texte+`}}

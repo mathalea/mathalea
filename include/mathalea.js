@@ -866,7 +866,14 @@ function intro_LaTeX(entete="Exercices") {
 \\pagestyle{fancy}                      	
 \\usepackage{fancybox}					
 \\usepackage{xlop}						
-\\usepackage{setspace}	
+\\usepackage{setspace}
+
+% ajout temporaire Seb
+\\usepackage[tikz]{bclogo} % pour la création de boites via Tikz	
+\\definecolor{orangeCoop}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902} %couleur orange du site	
+% fin ajout temporaire Seb
+		
+
 
 \\setlength{\\parindent}{0mm}		
 \\renewcommand{\\arraystretch}{1.5}	
