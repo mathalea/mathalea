@@ -140,6 +140,7 @@ var liste_des_exercices_disponibles = {
 		'3N13' : Factoriser_Identites_remarquables3,
 		'3N14' : Resoudre_une_equation_produit_nul,
 		'3N14-2' : Resoudre_une_equation_produit_nul_niv2,
+		'3N15' : Resoudre_une_equation_x2_egal_A,
 		'3G10' : Exercice_Thales,
 		'3G11' : Reciproque_Thales,
 		'3G30' : Exercice_Trigo_longueurs,
