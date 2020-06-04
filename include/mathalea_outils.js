@@ -1013,9 +1013,17 @@ function tex_introduction(texte){
 */
 function html_enumerate(liste,spacing){
 	let result='';
-	(spacing>1) ? result =`<ol style="line-height: ${spacing};">` : result = '<ol>'
-	for(let i in liste){
-		result += '<li>' + liste[i].replace(/\\dotfill/g,'..............................').replace(/\\not=/g,'≠').replace(/\\ldots/g,'....') + '</li>'   // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+
+	if (liste.length>1) {
+		(spacing>1) ? result =`<ol style="line-height: ${spacing};">` : result = '<ol>'
+		for(let i in liste){
+			result += '<li>' + liste[i].replace(/\\dotfill/g,'..............................').replace(/\\not=/g,'≠').replace(/\\ldots/g,'....') + '</li>'   // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+		}
+		result += '</ol>'
+	} else if (liste.length==1) {
+		(spacing>1) ? result =`<div style="line-height: ${spacing};">` : result = '<div>'
+		result += liste[0].replace(/\\dotfill/g,'..............................').replace(/\\not=/g,'≠').replace(/\\ldots/g,'....')   // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+		result += '</div>'	
 	}
 	result += '</ol>'
 	return result
@@ -1966,7 +1974,9 @@ function SVG_reperage_sur_un_axe(id_du_div,origine,longueur,pas1,pas2,points_inc
 function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points_connus,fraction){
 	'use strict';
 	let result=`\\begin{tikzpicture}[scale=${zoom}]` ;
- 	let valeur
+	 let valeur
+	 let decalage
+	
 
 	result+=`\n\t \\tkzInit[xmin=${origine},xmax=${calcul(origine+7/pas1)},ymin=-0.5,ymax=0.5,xstep=${calcul(1/pas1)}]`
 
@@ -1974,9 +1984,11 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
 	else result+=`\n\t \\tkzDrawX[left space=0.2,tickwd=2pt];`
 	result+=`\n\t \\tikzset{arr/.style={postaction=decorate,	decoration={markings,mark=at position 1 with {\\arrow[thick]{#1}}}}}`
 
+	if (origine<0) decalage=arrondi(origine*pas1)
+	else decalage=0
 	result+=`\n\t \\foreach \\x in {0,${calcul(1/pas2)},...,7}`
-	result+=`\n\t {\\draw (${origine*pas1}+\\x,-0.05)--(${origine*pas1}+\\x,0.05);}`
-	
+	result+=`\n\t {\\draw (${decalage}+\\x,-0.05)--(${decalage}+\\x,0.05);}`  	//result+=`\n\t {\\draw (${origine*pas1}+\\x,-0.05)--(${origine*pas1}+\\x,0.05);}`
+
 	for (i=0;i<points_connus.length;i++){
 		valeur=calcul(origine+points_connus[i][1]/pas1+calcul(points_connus[i][2]/pas1/pas2))
 		result+=`\n\t \\tkzDefPoint(${valeur},0){A}`
