@@ -230,6 +230,7 @@ function Exercice() {
    	// this.bouton_aide = modal_pdf(numero_de_l_exercice,url_pdf,texte="Aide",label_bouton="Aide - PDF",icone="file pdf")
    	this.pas_de_version_LaTeX = false ;
    	this.nouvelle_version = function(numero_de_l_exercice){}
+   	this.liste_packages = []; // string ou liste de string avec le nom des packages spécifiques à ajouter dans le préambule
 
 }
 
@@ -291,6 +292,7 @@ function Lire_abscisse_entiere(){
 	this.spacing = 1;
     this.spacing_corr = 1;
 	this.sup=4;
+	this.liste_packages = ['tkz-euclide']
 
 	this.nouvelle_version = function(numero_de_l_exercice){ // numero_de_l_exercice est 0 pour l'exercice 1
 		let type_de_questions;
@@ -5015,6 +5017,7 @@ function Additions_soustractions_multiplications_posees(){
 	sortie_html ? this.spacing_corr=2 : this.spacing_corr = 1; //Important sinon les opérations posées ne sont pas jolies
 	this.nb_questions = 5;
 	// this.pas_de_version_HMTL=true;
+	this.liste_packages = 'xlop'
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
