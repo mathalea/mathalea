@@ -3791,6 +3791,7 @@ function Fractions_irreductibles(){
 
 /**
  * 3A13 - PPCM_Engrenages
+ * les deux on besoin de la def partielle serie : stlX
  * @author Sébastien Lozano
  */
  
@@ -3861,11 +3862,11 @@ function PPCM_Engrenages(){
 						//texte += `<br> On cherche à savoir au bout de combien de tours les deux roues seront toutes les deux revenues à leur position initiale.`;
 						if (ppcm(nb_dents_r1,nb_dents_r2)==(nb_dents_r1*nb_dents_r2)) {
 							texte += katex_Popup2(
-								numero_de_l_exercice+i,
+								numero_de_l_exercice+1,
 								1,
 								"nombres premiers entre eux",
 								`Définition : Nombres premiers entre eux`,
-								`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que <b>les nombres a et b sont premiers entre eux</b>.`
+								`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que \\textbf{les nombres a et b sont premiers entre eux}.`
 							);
 						};
 						texte += `<br>`+num_alpha(0)+` Écrire la liste des multiples de $${nb_dents_r1}$ et de $${nb_dents_r2}$.`
@@ -3930,11 +3931,11 @@ function PPCM_Engrenages(){
 						texte = `La roue n$\\degree$1 possède $${nb_dents_r1}$ dents et la roue n$\\degree$2 en a $${nb_dents_r2}$ dents.`;
 						if (ppcm(nb_dents_r1,nb_dents_r2)==(nb_dents_r1*nb_dents_r2)) {
 							texte += katex_Popup2(
-								numero_de_l_exercice+i*2,
+								numero_de_l_exercice+2,
 								1,
 								"nombres premiers entre eux",
 								`Définition : Nombres premiers entre eux`,
-								`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que <b>les nombres a et b sont premiers entre eux</b>.`
+								`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que \\textbf{les nombres a et b sont premiers entre eux}.`
 							);
 						};
 						//texte += `<br> On cherche à savoir au bout de combien de tours les deux roues seront toutes les deux revenues à leur position initiale.`;
