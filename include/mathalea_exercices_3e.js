@@ -841,6 +841,7 @@ function Tableau_de_valeurs(){
 */
 function Double_distributivite()
 {
+	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Utiliser la double distributivité";
 	this.consigne = "Développer et réduire les expressions suivantes.";
@@ -908,6 +909,7 @@ function Double_distributivite()
 */
 function Developper_Identites_remarquables2()
 {
+	'use strict';
 Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Développer avec les identités remarquables";
 	this.consigne = "Développer les expressions suivantes.";
@@ -997,6 +999,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
 */
 function Developper_Identites_remarquables3()
 {
+	'use strict';
 Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Développer (a-b)(a+b)";
 	this.consigne = "Développer les expressions suivantes.";
@@ -1011,10 +1014,10 @@ Exercice.call(this); // Héritage de la classe Exercice()
 	this.nouvelle_version = function(numero_de_l_exercice) {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
+		let liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
 		[1,6],[5,6],[1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[1,8],[3,8],[5,8],[7,8],
 		[1,9],[2,9],[4,9],[5,9],[7,9],[8,9],[1,10],[3,10],[7,10],[9,10]]
-		for (let i = 0, texte, texte_corr, cpt=0, a, b, c ; i < this.nb_questions && cpt<50 ;) {
+		for (let i = 0,ns,ds ,texte, texte_corr, cpt=0, a, b; i < this.nb_questions && cpt<50 ;) {
 			if(this.sup==1){
 				a= randint(1,9);	 // coef de x est égal à 1
 				texte = `$(x-${a})(x+${a})$`    // (x-a)(x+a)
@@ -1053,6 +1056,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
 */
 function Factoriser_Identites_remarquables3()
 {
+	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Factoriser a²-b²";
 	this.consigne = "Factoriser les expressions suivantes.";
@@ -1066,10 +1070,10 @@ function Factoriser_Identites_remarquables3()
 	this.nouvelle_version = function(numero_de_l_exercice) {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
+		let liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
  		[1,6],[5,6],[1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[1,8],[3,8],[5,8],[7,8],
  		[1,9],[2,9],[4,9],[5,9],[7,9],[8,9],[1,10],[3,10],[7,10],[9,10]]
-		for (let i = 0, texte, texte_corr, cpt=0, a, b, c ; i < this.nb_questions && cpt<50 ;) {
+		for (let i = 0, texte, texte_corr, cpt=0, a, b, ns,ds,fraction ; i < this.nb_questions && cpt<50 ;) {
 			if(this.sup==1){
 				a= randint(1,9);	 // coef de x est égal à 1
 				texte = `$x^2-${a*a}$`    // (x-a)(x+a)
@@ -1109,6 +1113,7 @@ function Factoriser_Identites_remarquables3()
 */
 function Factoriser_Identites_remarquables2()
 {
+	'use strict';
 Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Factoriser avec les identités remarquables";
 	this.consigne = "Factoriser les expressions suivantes.";
@@ -1122,7 +1127,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
 	this.nouvelle_version = function(numero_de_l_exercice) {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
+		let liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
 		[1,6],[5,6],[1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[1,8],[3,8],[5,8],[7,8],
 		[1,9],[2,9],[4,9],[5,9],[7,9],[8,9],[1,10],[3,10],[7,10],[9,10]]
 		if(this.sup==1){
@@ -1134,7 +1139,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
         else {type_de_questions_disponibles = [7,8,9]}  // coef de x rationnel
 		
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions)
-		for (let i = 0, texte, texte_corr, cpt=0, a, b ; i < this.nb_questions && cpt<50 ;) {
+		for (let i = 0, texte, texte_corr, cpt=0, a, b ,fraction,ns,ds; i < this.nb_questions && cpt<50 ;) {
 			type_de_questions = liste_type_de_questions[i];
 			a= randint(1,9);
 			b = randint(2,9);
@@ -1196,8 +1201,10 @@ Exercice.call(this); // Héritage de la classe Exercice()
 
 /**
 * @auteur Jean-Claude Lhote
+* Tout est dans le nom de la fonction.
 */
 function Resoudre_une_equation_produit_nul(){
+	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Résoudre une équation produit nul";
 	this.consigne = "Résoudre les équations suivantes";
@@ -1212,7 +1219,7 @@ function Resoudre_une_equation_produit_nul(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
+		let liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
  		[1,6],[5,6],[1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[1,8],[3,8],[5,8],[7,8],
  		[1,9],[2,9],[4,9],[5,9],[7,9],[8,9],[1,10],[3,10],[7,10],[9,10]]
 		let liste_type_de_questions=[]
@@ -1226,7 +1233,7 @@ function Resoudre_une_equation_produit_nul(){
 			case 4: liste_type_de_questions=combinaison_listes([1,2,3,4,5,6],this.nb_questions);
 
 		}
-		for (let i = 0, a, b, c, d, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt<50;) {
+		for (let i = 0, a, b, c, d,fraction1,fraction2,ns1,ns2,ds1,ds2, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt<50;) {
 			fraction1 = choice(liste_fractions);
 			ns1=fraction1[0]
 			ds1=fraction1[1]
@@ -1319,6 +1326,78 @@ function Resoudre_une_equation_produit_nul(){
 		liste_de_question_to_contenu(this);
 	}
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,'1 : Coefficient de x = 1\n 2 : Coefficient de x>1 et solutions entières\n 3 : Solutions rationnelles\n 4 : Mélange des 3 autres niveaux'];
+}
+
+/**
+* @auteur Jean-Claude Lhote
+*/
+
+function Resoudre_une_equation_x2_egal_A(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Résoudre une équation du second degré";
+	this.consigne = "Résoudre les équations suivantes";
+	this.nb_questions = 5;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.sup = 1; 
+	sortie_html ? this.spacing_corr=2 : this.spacing_corr=1.5
+	this.spacing = 1
+	
+	
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		let liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
+		[1,6],[5,6],[1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[1,8],[3,8],[5,8],[7,8],
+		[1,9],[2,9],[4,9],[5,9],[7,9],[8,9],[1,10],[3,10],[7,10],[9,10]]
+		   let liste_type_de_questions=[]
+		switch (parseInt(this.sup)) {
+			case 1: liste_type_de_questions=combinaison_listes([1],this.nb_questions);
+				break;
+			case 2: liste_type_de_questions=combinaison_listes([2],this.nb_questions);
+				break;
+			case 3: liste_type_de_questions=combinaison_listes([3],this.nb_questions);
+				break;
+			case 4: liste_type_de_questions=combinaison_listes([1,2,3],this.nb_questions);
+
+		}
+		for (let i = 0,fraction,ns,ds, a,  texte, texte_corr, cpt = 0; i < this.nb_questions && cpt<50;) {
+
+			switch (liste_type_de_questions[i]) {
+			case 1: a = randint(1,20); // x²=a*a donc x=a ou -a.
+				texte = `$x^2=${a*a}$`
+				texte_corr = `$x^2=${a*a}$ équivaut à $x = \\sqrt{${a*a}}$ ou $x = -\\sqrt{${a*a}}$<br>Soit $x = ${a}$ ou $x = -${a}$<br>`
+				texte_corr += `Il est équivalent de résoudre $x^2 - ${a*a}=0$ c'est à dire $x^2 - ${a}^{2}=0$ <br>Soit $(x - ${a})(x + ${a})=0$ qui donne les deux solutions ci-dessus. `
+				break;
+			case 2: // x²=(ns*ns)/(ds*ds) solutions rationnelles
+				fraction = choice(liste_fractions);
+				ns=fraction[0]
+				ds=fraction[1]
+				texte = `$x^2=\\dfrac{${ns*ns}}{${ds*ds}}$`
+				texte_corr = `$x^2=\\dfrac{${ns*ns}}{${ds*ds}}$ équivaut à $x = \\sqrt{\\dfrac{${ns*ns}}{${ds*ds}}}$ ou $x = -\\sqrt{\\dfrac{${ns*ns}}{${ds*ds}}}$<br>Soit $x = \\dfrac{${ns}}{${ds}}$ ou $x = -\\dfrac{${ns}}{${ds}}$<br>`
+				texte_corr += `Il est équivalent de résoudre $x^2 - \\dfrac{${ns*ns}}{${ds*ds}}=0$ c'est à dire $x^2 - (\\dfrac{${ns}}{${ds}})^{2}=0$<br>Soit $(x - \\dfrac{${ns}}{${ds}})(x + \\dfrac{${ns}}{${ds}})=0$ qui donne les deux solutions ci-dessus. `
+				break;
+				
+			case 3: a = randint(2,50,[4,9,16,25,36,49]); 	//solution irrationnelles
+					texte = `$x^2=${a}$`
+					texte_corr = `$x^2=${a}$ équivaut à $x = \\sqrt{${a}}$ ou $x = -\\sqrt{${a}}$<br>`
+					texte_corr += `Il est équivalent de résoudre $x^2 - ${a}=0$  c'est à dire $x^2 - (\\sqrt{${a}})^{2}=0$<br>Soit $(x - \\sqrt{${a}})(x + \\sqrt{${a}})=0$ qui donne les deux solutions ci-dessus. `
+				break;
+
+		}
+		if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+		this.liste_questions.push(texte);
+		this.liste_corrections.push(texte_corr);
+		// alert(this.liste_questions)
+		// alert(this.liste_corrections)
+			i++;
+		}
+		cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+	}
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,'1 : solutions entières\n 2 : solutions rationnelles\n 3 : Solutions irrationnelles\n 4 : Mélange des 3 autres niveaux'];
 }
 
 /**
