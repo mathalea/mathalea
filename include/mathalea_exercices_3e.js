@@ -3792,6 +3792,7 @@ function Fractions_irreductibles(){
 /**
  * 3A13 - PPCM_Engrenages
  * les deux on besoin de la def partielle serie : stlX
+ * pb dans la sortie LaTeX, revoir comment user de la fonction katex_Popup2() pour affichage d'une note hors texte!
  * @author Sébastien Lozano
  */
  
