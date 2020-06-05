@@ -3425,7 +3425,7 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 							};							
 						};
 						texte_corr += `$, <br>`;
-						texte_corr += num_alpha(0)+`Le tableau donne :`;
+						texte_corr += num_alpha(0)+` Le tableau donne :`;
 						// on crée le tableau des entetes de lignes et des colonnes
 						let ent_lignes_corr = [];
 						let ent_lignes_corr_res = [];
@@ -3464,7 +3464,7 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 						for (let l=0;l<(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)+1;l++) {
 							for (let c=1;c<(tab_multiplicites_b[0]+2);c++) {
 								//contenu_lignes_corr.push(`l : `+l+`, c : `+Number(c));								
-								contenu_lignes_corr.push(ent_lignes_corr[l]+`\\times`+ent_colonnes_corr[c]+`=`+mise_en_evidence(ent_lignes_corr_res[l]*ent_colonnes_corr_res[c]));																
+								contenu_lignes_corr.push(ent_lignes_corr[l]+`\\times`+ent_colonnes_corr[c]+`=`+mise_en_evidence(tex_nombre(ent_lignes_corr_res[l]*ent_colonnes_corr_res[c])));																
 							};
 						};
 						texte_corr += `<br>`;
@@ -3497,10 +3497,10 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 						texte_corr += `$${tab_premiers_b[2]}^{`+tab_multiplicites_b[2]+`}$ d'où le facteur $(${tab_multiplicites_b[2]}+1)$.`;
 
 						texte_corr += `<br>`;
-						texte_corr +=num_alpha(2)+` Enfin, voici la liste des $${(tab_multiplicites_b[0]+1)*(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)}$ diviseurs de $${nombre_avec_espace(nombre_a_decomposer_b)}$ issus du tableau ci-dessus : `;
+						texte_corr +=num_alpha(2)+` Enfin, voici la liste des $${(tab_multiplicites_b[0]+1)*(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)}$ diviseurs de $${tex_nombre(nombre_a_decomposer_b)}$ issus du tableau ci-dessus : `;
 						texte_corr += `$1`;
 						for (let w = 1; w<liste_diviseurs(nombre_a_decomposer_b).length; w++) {
-							texte_corr += `\\text{; }`+liste_diviseurs(nombre_a_decomposer_b)[w];
+							texte_corr += `\\text{; }`+tex_nombre(liste_diviseurs(nombre_a_decomposer_b)[w]);
 						};
 						texte_corr += `.$`;
 						break;		

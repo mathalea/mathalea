@@ -58,9 +58,9 @@ var liste_des_exercices_disponibles = {
 		'6N20-2':Exercice_fractions_differentes_ecritures,
 		'6N21' : Lire_abscisse_fractionnaire,
 		'6N23' : Exercice_ecriture_decimale_a_partir_de_fraction_decimale,
-		'6N23_1' : Exercice_differentes_ecritures_nombres_decimaux,
+		'6N23-1' : Exercice_differentes_ecritures_nombres_decimaux,
 		'6N24' : Exercice_6N24,
-		'6N24_1' : Exercice_multiplier_ou_diviser_un_nombre_entier_par_10_100_1000,
+		'6N24-1' : Exercice_multiplier_ou_diviser_un_nombre_entier_par_10_100_1000,
 		'6N30' : Lire_abscisse_decimale,
 		'6N30-2' : Placer_points_sur_axe,
 		'6N31' : Comparer_decimaux,
@@ -96,8 +96,8 @@ var liste_des_exercices_disponibles = {
 		'5R12-1' : reperage_point_du_quart_de_plan,
 		'5R12-2' : reperage_point_du_plan,
 		'5R20': Exercice_additions_relatifs,
-		'5R20_bis': Exercice_additions_relatifs_a_trou,
-		'5R20_ter': Exercice_additions_de_5_relatifs, //on pourrait le corriger avec regroupement des termes de même signe
+		'5R20-2': Exercice_additions_relatifs_a_trou,
+		'5R20-3': Exercice_additions_de_5_relatifs, //on pourrait le corriger avec regroupement des termes de même signe
 		'5R21': Exercice_soustractions_relatifs,
 		'5R31': Exercice_additions_et_soustraction_de_relatifsV2,
 		'5R31-2': Exercice_simplification_somme_algebrique,
