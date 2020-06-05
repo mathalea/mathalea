@@ -923,9 +923,10 @@ Exercice.call(this); // Héritage de la classe Exercice()
 	this.nouvelle_version = function(numero_de_l_exercice) {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
+		let liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
  		[1,6],[5,6],[1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[1,8],[3,8],[5,8],[7,8],
  		[1,9],[2,9],[4,9],[5,9],[7,9],[8,9],[1,10],[3,10],[7,10],[9,10]]
+		let type_de_questions_disponibles = [];
 		if(this.sup==1){
 		    type_de_questions_disponibles = [1,2,3] // coef de x = 1
         }
@@ -936,12 +937,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
 		
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions)
 		for (let i = 0, texte, texte_corr, cpt=0, a, b, c ; i < this.nb_questions && cpt<50 ;) {
-			type_de_questions = liste_type_de_questions[i];
+			let type_de_questions = liste_type_de_questions[i];
 			a= randint(1,9);
 			b = randint(2,9);
-			fraction = choice(liste_fractions);
-			ns=fraction[0]
-			ds=fraction[1]
+			let fraction = choice(liste_fractions);
+			let ns=fraction[0]
+			let ds=fraction[1]
 			switch(type_de_questions){
 			case 1 :
 				texte = `$(x+${a})^2$`; // (x+a)²
@@ -1122,7 +1123,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
 	this.spacing = 1 ;
 	this.spacing_corr = 1 ;
 	this.nb_questions = 5 ;
-	this.sup=1 ;
+	this.sup = 1 ;
 
 	this.nouvelle_version = function(numero_de_l_exercice) {
 		this.liste_questions = []; // Liste de questions
@@ -1130,6 +1131,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
 		let liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
 		[1,6],[5,6],[1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[1,8],[3,8],[5,8],[7,8],
 		[1,9],[2,9],[4,9],[5,9],[7,9],[8,9],[1,10],[3,10],[7,10],[9,10]]
+		let type_de_questions_disponibles = [];
 		if(this.sup==1){
 		    type_de_questions_disponibles = [1,2,3] // coef de x = 1
         }
@@ -1140,7 +1142,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
 		
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions)
 		for (let i = 0, texte, texte_corr, cpt=0, a, b ,fraction,ns,ds; i < this.nb_questions && cpt<50 ;) {
-			type_de_questions = liste_type_de_questions[i];
+			let type_de_questions = liste_type_de_questions[i];
 			a= randint(1,9);
 			b = randint(2,9);
 			fraction = choice(liste_fractions);
@@ -3809,6 +3811,7 @@ function PPCM_Engrenages(){
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup = 1;
+	this.liste_packages = 'bclogo';
 
 	var num_ex = '3A13'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
 
