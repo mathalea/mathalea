@@ -3859,6 +3859,15 @@ function PPCM_Engrenages(){
 						nb_dents_r2 = randint(5,30,nb_dents_r1);
 						texte = `La roue n$\\degree$1 possède $${nb_dents_r1}$ dents et la roue n$\\degree$2 en a $${nb_dents_r2}$ dents.`;
 						//texte += `<br> On cherche à savoir au bout de combien de tours les deux roues seront toutes les deux revenues à leur position initiale.`;
+						if (ppcm(nb_dents_r1,nb_dents_r2)==(nb_dents_r1*nb_dents_r2)) {
+							texte += katex_Popup2(
+								numero_de_l_exercice+i,
+								1,
+								"nombres premiers entre eux",
+								`Définition : Nombres premiers entre eux`,
+								`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que <b>les nombres a et b sont premiers entre eux</b>.`
+							);
+						};
 						texte += `<br>`+num_alpha(0)+` Écrire la liste des multiples de $${nb_dents_r1}$ et de $${nb_dents_r2}$.`
 						texte += `<br>`+num_alpha(1)+` En déduire le nombre de tours de chaque roue avant retour à leur position initiale.`
 						// if (sortie_html) {						
@@ -3898,7 +3907,7 @@ function PPCM_Engrenages(){
 						//texte_corr += `chaque roue doit tourner de ppcm(${nb_dents_r1},${nb_dents_r2})=${ppcm(nb_dents_r1,nb_dents_r2)} dents <br>`;
 						texte_corr += `<br>`+num_alpha(1)+` Chaque roue doit tourner de $ppcm(${nb_dents_r1},${nb_dents_r2})=${ppcm(nb_dents_r1,nb_dents_r2)}$ dents.`;
 						texte_corr += `<br> Cela correspond à $(${ppcm(nb_dents_r1,nb_dents_r2)}\\text{ dents})\\div (${nb_dents_r1}\\text{ dents/tour}) = ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1}$ tours pour la roue n$\\degree$1.`
-						texte_corr += `<br>Cela correspond à $(${ppcm(nb_dents_r1,nb_dents_r2)}\\text{ dents})\\div (${nb_dents_r2}\\text{ dents/tour}) = ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2}$ tours pour la roue n$\\degree$.`
+						texte_corr += `<br>Cela correspond à $(${ppcm(nb_dents_r1,nb_dents_r2)}\\text{ dents})\\div (${nb_dents_r2}\\text{ dents/tour}) = ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2}$ tours pour la roue n$\\degree$2.`
 						//roue1 aura fait ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1} tours.<br>`;
 						//texte_corr += `roue2 aura fait ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2} tours.`;
 						//`<br>`+num_alpha(0)+`
@@ -3906,16 +3915,25 @@ function PPCM_Engrenages(){
 					case 2 : // avec de plus grands nombre, c'est mieux de décomposer en facteurs premiers
 						nb_dents_r1 = randint(31,80);
 						nb_dents_r2 = randint(31,80,nb_dents_r1);
-						texte = `La roue n$\\degree$1 possède ${nb_dents_r1} dents et la roue n$\\degree$2 en a ${nb_dents_r2} dents.`;
+						texte = `La roue n$\\degree$1 possède $${nb_dents_r1}$ dents et la roue n$\\degree$2 en a $${nb_dents_r2}$ dents.`;
+						if (ppcm(nb_dents_r1,nb_dents_r2)==(nb_dents_r1*nb_dents_r2)) {
+							texte += katex_Popup2(
+								numero_de_l_exercice+i,
+								1,
+								"nombres premiers entre eux",
+								`Définition : Nombres premiers entre eux`,
+								`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que <b>les nombres a et b sont premiers entre eux</b>.`
+							);
+						};
 						//texte += `<br> On cherche à savoir au bout de combien de tours les deux roues seront toutes les deux revenues à leur position initiale.`;
-						texte += `<br>`+num_alpha(0)+` Décomposer ${nb_dents_r1} et ${nb_dents_r2} en produit de facteurs premiers.`;
+						texte += `<br>`+num_alpha(0)+` Décomposer $${nb_dents_r1}$ et $${nb_dents_r2}$ en produit de facteurs premiers.`;
 						texte += `<br>`+num_alpha(1)+` En déduire le nombre de tours de chaque roue avant retour à leur position initiale.`;
 						// if (sortie_html) {
 						// 	texte += warn_message(`Attention, les roues ci-dessous ne comportent pas le nombre de dents de l'énoncé!`);
 						// 	texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;					 
 						// 	SVG_engrenages(id_du_div,200,200);						
 						// };
-						texte_corr = `Pour un nombre de dents plus élevé, il est plus commode d'utiliser les décompositions en facteurs premiers.`
+						texte_corr = `Pour un nombre de dents plus élevé, il est plus commode d'utiliser les décompositions en produit de facteurs premiers.`
 						//texte_corr = `Correction à détailler, en décomposant chaque nombre de dents en produit de facteurs premiers. Utilisation de la couleur!<br>`;
 						texte_corr += `<br>`+num_alpha(0)+` Décomposition de $${nb_dents_r1}$ en produit de facteurs premiers :  $${nb_dents_r1} = ${decomposition_facteurs_premiers(nb_dents_r1)}$.`;
 						texte_corr += `<br> Décomposition de $${nb_dents_r2}$ en produit de facteurs premiers :  $${nb_dents_r2} = ${decomposition_facteurs_premiers(nb_dents_r2)}$.`;
