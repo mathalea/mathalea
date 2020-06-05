@@ -3906,8 +3906,20 @@ function PPCM_Engrenages(){
 						//texte_corr += `PPCM du nombres de dents puis on calcule le nombre de tours de chaque roue.<br>`;
 						//texte_corr += `chaque roue doit tourner de ppcm(${nb_dents_r1},${nb_dents_r2})=${ppcm(nb_dents_r1,nb_dents_r2)} dents <br>`;
 						texte_corr += `<br>`+num_alpha(1)+` Chaque roue doit tourner de $ppcm(${nb_dents_r1},${nb_dents_r2})=${ppcm(nb_dents_r1,nb_dents_r2)}$ dents.`;
-						texte_corr += `<br> Cela correspond à $(${ppcm(nb_dents_r1,nb_dents_r2)}\\text{ dents})\\div (${nb_dents_r1}\\text{ dents/tour}) = ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1}$ tours pour la roue n$\\degree$1.`
-						texte_corr += `<br>Cela correspond à $(${ppcm(nb_dents_r1,nb_dents_r2)}\\text{ dents})\\div (${nb_dents_r2}\\text{ dents/tour}) = ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2}$ tours pour la roue n$\\degree$2.`
+						texte_corr += `<br> Cela correspond à $(${ppcm(nb_dents_r1,nb_dents_r2)}\\text{ dents})\\div (${nb_dents_r1}\\text{ dents/tour}) = ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1}$`;
+						if (ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1==1) {
+							texte_corr += ` tour `;
+						} else {
+							texte_corr += ` tours `;
+						};						
+						texte_corr +=`pour la roue n$\\degree$1.`
+						texte_corr += `<br>Cela correspond à $(${ppcm(nb_dents_r1,nb_dents_r2)}\\text{ dents})\\div (${nb_dents_r2}\\text{ dents/tour}) = ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2}$`;
+						if (ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2==1) {
+							texte_corr += ` tour `;
+						} else {
+							texte_corr += ` tours `;
+						};				
+						texte_corr += `pour la roue n$\\degree$2.`
 						//roue1 aura fait ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1} tours.<br>`;
 						//texte_corr += `roue2 aura fait ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2} tours.`;
 						//`<br>`+num_alpha(0)+`
@@ -3918,7 +3930,7 @@ function PPCM_Engrenages(){
 						texte = `La roue n$\\degree$1 possède $${nb_dents_r1}$ dents et la roue n$\\degree$2 en a $${nb_dents_r2}$ dents.`;
 						if (ppcm(nb_dents_r1,nb_dents_r2)==(nb_dents_r1*nb_dents_r2)) {
 							texte += katex_Popup2(
-								numero_de_l_exercice+i,
+								numero_de_l_exercice+i*2,
 								1,
 								"nombres premiers entre eux",
 								`Définition : Nombres premiers entre eux`,
@@ -3943,18 +3955,53 @@ function PPCM_Engrenages(){
 						// texte_corr += `roue1 aura fait ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1} tours.<br>`;
 						// texte_corr += `roue2 aura fait ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2} tours.`;
 						texte_corr += `<br>`+num_alpha(1)+` Chaque roue doit tourner de $ppcm(${nb_dents_r1},${nb_dents_r2})=${ppcm(nb_dents_r1,nb_dents_r2)}$ dents.`;
-						texte_corr += `<br> Cela correspond à $(${tex_nombre(ppcm(nb_dents_r1,nb_dents_r2))}\\text{ dents})\\div (${nb_dents_r1}\\text{ dents/tour}) = ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1}$ tours pour la roue n$\\degree$1.`
-						texte_corr += `<br> Cela correspond à $(${tex_nombre(ppcm(nb_dents_r1,nb_dents_r2))}\\text{ dents})\\div (${nb_dents_r2}\\text{ dents/tour}) = ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2}$ tours pour la roue n$\\degree$2.`
-
+						texte_corr += `<br> Cela correspond à $(${tex_nombre(ppcm(nb_dents_r1,nb_dents_r2))}\\text{ dents})\\div (${nb_dents_r1}\\text{ dents/tour}) = ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1}$`;
+						if (ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1==1) {
+							texte_corr += ` tour `;
+						} else {
+							texte_corr += ` tours `;
+						};						
+						texte_corr +=`pour la roue n$\\degree$1.`;						
+						texte_corr += `<br> Cela correspond à $(${tex_nombre(ppcm(nb_dents_r1,nb_dents_r2))}\\text{ dents})\\div (${nb_dents_r2}\\text{ dents/tour}) = ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2}$`;
+						if (ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2==1) {
+							texte_corr += ` tour `;
+						} else {
+							texte_corr += ` tours `;
+						};						
+						texte_corr +=`pour la roue n$\\degree$2.`
 						break;		
 					case 3 : // déterminer le nombre de dents d'une roue connaissant l'autre et le nombre de tours necessaires à la re-synchro
 						nb_dents_r1 = randint(5,80);
 						nb_dents_r2 = randint(5,80,nb_dents_r1);						
 						texte = `La roue n$\\degree$2 a maintenant $${nb_dents_r2}$ dents.`;
-						texte += ` Déterminer le nombre de dents de la roue n$\\degree$1 qui ferait $${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1}$ tours pendant que la roue n$\\degree$2 en fait $${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2}$.`
-						texte_corr = `Puisque la roue n$\\degree$2, qui a $${nb_dents_r2}$ dents, fait $${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2}$ tours, cela représente $${tex_nombre(ppcm(nb_dents_r1,nb_dents_r2))}$ dents.`;
-						texte_corr += `<br>La roue n$\\degree$1 doit donc aussi tourner de $${tex_nombre(ppcm(nb_dents_r1,nb_dents_r2))}$ dents, ceci en $${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1}$ tours.`;
-						texte_corr += `<br> on obtient donc $(${tex_nombre(ppcm(nb_dents_r1,nb_dents_r2))}\\text{ dents})\\div (${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1}\\text{ tours}) = ${nb_dents_r1} \\text{ dents/tours}.$`
+						texte += ` Déterminer le nombre de dents de la roue n$\\degree$1 qui ferait $${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1}$ `;
+						if (ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1==1) {
+							texte_corr += ` tour `;
+						} else {
+							texte_corr += ` tours `;
+						};	
+						texte_corr += ` pendant que la roue n$\\degree$2 en fait $${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2}$.`
+						texte_corr = `Puisque la roue n$\\degree$2, qui a $${nb_dents_r2}$ dents, fait $${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2}$ `;
+						if (ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2==1) {
+							texte_corr += ` tour `;
+						} else {
+							texte_corr += ` tours `;
+						};	
+						texte_corr +=`, cela représente $${tex_nombre(ppcm(nb_dents_r1,nb_dents_r2))}$ dents.`;
+						texte_corr += `<br>La roue n$\\degree$1 doit donc aussi tourner de $${tex_nombre(ppcm(nb_dents_r1,nb_dents_r2))}$ dents, ceci en $${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1}$ `;
+						if (ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1==1) {
+							texte_corr += ` tour `;
+						} else {
+							texte_corr += ` tours `;
+						};							
+						texte_corr += `.`;
+						texte_corr += `<br> on obtient donc $(${tex_nombre(ppcm(nb_dents_r1,nb_dents_r2))}\\text{ dents})\\div (${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1}\\text{`;
+						if (ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1==1) {
+							texte_corr += ` tour `;
+						} else {
+							texte_corr += ` tours `;
+						};
+						texte_corr += `}) = ${nb_dents_r1} \\text{ dents/tour}.$`
 						texte_corr += `<br>La roue n$\\degree$1 a donc : $${nb_dents_r1}$ dents.`;
 						// texte_corr += `<br> roue 2 : ${nb_dents_r2} dents.`;
 						// texte_corr += `<br> ppcm : ${ppcm(nb_dents_r1,nb_dents_r2)}.`;
