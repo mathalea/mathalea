@@ -379,6 +379,20 @@ function rien_si_1(a) {
 }
 
 /**
+* Gère l'écriture de l'exposant en mode text
+* @Example
+* // 'dm'+exposant(3)
+* @Auteur Rémi Angot
+*/
+function exposant(texte){
+	if (sortie_html) {
+		return `<sup>${texte}</sup>`
+	} else {
+		return `\\up{${texte}}`
+	}
+}
+
+/**
 * Ajoute les parenthèses et le signe
 * @Example
 * //(+3) ou (-3)
