@@ -866,6 +866,11 @@ function intro_LaTeX(entete = "Exercices") {
 \\pagestyle{fancy}                      	
 \\usepackage{fancybox}					
 \\usepackage{setspace}	
+\\usepackage{xcolor}
+\\usepackage{pgf,tikz}					
+\\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
+shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
+
 
 \\setlength{\\parindent}{0mm}		
 \\renewcommand{\\arraystretch}{1.5}	
@@ -896,7 +901,7 @@ ${preambule_personnalise(liste_packages)}
 	function intro_LaTeX_coop(){
 
 		let intro_LaTeX_coop = `\\documentclass[12pt]{article}
-\\usepackage[left=1.5cm,right=1.5cm,top=3.5cm,bottom=2cm]{geometry}
+\\usepackage[left=1.5cm,right=1.5cm,top=4cm,bottom=2cm]{geometry}
 \\usepackage[utf8]{inputenc}		        
 \\usepackage[T1]{fontenc}		
 \\usepackage[french]{babel}
@@ -918,6 +923,15 @@ ${preambule_personnalise(liste_packages)}
 \\pagestyle{fancy}                      	
 \\usepackage{fancybox}					
 \\usepackage{setspace}
+\\usepackage{xcolor}
+\\usepackage{pgf,tikz}					% Pour les images et figures gÃ©omÃ©triques
+\\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
+shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
+
+\\renewcommand{\\headrulewidth}{0pt}
+\\renewcommand{\\footrulewidth}{0pt}
+\\fancyhead[L]{}
+\\fancyhead[R]{}
 
 %%% COULEURS %%%
 
@@ -967,10 +981,10 @@ ${preambule_personnalise(liste_packages)}
 \\newmdenv[linecolor=couleur_theme, linewidth=3pt,topline=true,rightline=false,bottomline=false,frametitlerule=false,frametitlefont={\\color{couleur_theme}\\bfseries},frametitlerulewidth=1pt]{methode}
 
 
-\\newmdenv[startcode={\\setlength{\\multicolsep}{0cm}\\setlength{\\columnsep}{.2cm}\\setlength{\\columnseprule}{0pt}\\vspace{0cm}},linecolor=white, linewidth=3pt,innerbottommargin=10pt,innertopmargin=5pt,innerrightmargin=20pt,splittopskip=20pt,splitbottomskip=10pt,everyline=true,tikzsetting={draw=couleur_theme,line width=4pt,dashed,dash pattern= on 10pt off 10pt},frametitleaboveskip=-.6cm,frametitle={\\tikz\\node[anchor= east,rectangle,fill=white]{\\textcolor{couleur_theme}{\\raisebox{-.3\\height}{\\includegraphics[width=.8cm]{\\iconeobjectif}}\\; \\bfseries \\Large Objectifs}};}]{objectif}
+\\newmdenv[startcode={\\setlength{\\multicolsep}{0cm}\\setlength{\\columnsep}{.2cm}\\setlength{\\columnseprule}{0pt}\\vspace{0cm}},linecolor=white, linewidth=3pt,innerbottommargin=10pt,innertopmargin=5pt,innerrightmargin=20pt,splittopskip=20pt,splitbottomskip=10pt,everyline=true,tikzsetting={draw=couleur_theme,line width=4pt,dashed,dash pattern= on 10pt off 10pt},frametitleaboveskip=-.6cm,frametitle={\\tikz\\node[anchor= east,rectangle,fill=white]{\\textcolor{couleur_theme}{\\raisebox{-.3\\height}{}\\; \\bfseries \\Large Objectifs}};}]{objectif}
 
 \\newmdenv[startcode={\\colorlet{couleur_numerotation}{correction}\\renewcommand{\\columnseprulecolor}{\\color{correction}}
-\\setcounter{section}{0}\\arrayrulecolor{correction}},linecolor=white, linewidth=4pt,innerbottommargin=10pt,innertopmargin=5pt,splittopskip=20pt,splitbottomskip=10pt,everyline=true,frametitle=correction,tikzsetting={draw=correction,line width=3pt,dashed,dash pattern= on 15pt off 10pt},frametitleaboveskip=-.4cm,frametitle={\\tikz\\node[anchor= east,rectangle,fill=white]{\\; \\textcolor{correction}{\\raisebox{-.3\\height}{\\includegraphics[width=.6cm]{icone-correction}}\\; \\bfseries \\Large Corrections}};}]{correction}
+\\setcounter{section}{0}\\arrayrulecolor{correction}},linecolor=white, linewidth=4pt,innerbottommargin=10pt,innertopmargin=5pt,splittopskip=20pt,splitbottomskip=10pt,everyline=true,frametitle=correction,tikzsetting={draw=correction,line width=3pt,dashed,dash pattern= on 15pt off 10pt},frametitleaboveskip=-.4cm,frametitle={\\tikz\\node[anchor= east,rectangle,fill=white]{\\; \\textcolor{correction}{\\raisebox{-.3\\height}{}\\; \\bfseries \\Large Corrections}};}]{correction}
 
 \\newmdenv[roundcorner=0,linewidth=0pt,frametitlerule=false, backgroundcolor=gray!40,leftmargin=8cm]{remarque}
 
@@ -978,26 +992,26 @@ ${preambule_personnalise(liste_packages)}
 
 \\newcommand{\\theme}[4]
 {
-	\\fancyhead[L]{}
-	\\fancyhead[R]{}
+	%\\theme{nombres|gestion|grandeurs|geo|algo}{Texte (entrainement, évaluation, mise en route...}{numéro de version ou vide}{titre du thême et niveau}
 	\\fancyhead[C]{
-		\\begin{tikzpicture}[remember picture,overlay]
-		\\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {\\includegraphics{header-#1}};
-		\\node[anchor=east, fill=white] at ($(current page.north east)+(-2,-1.4cm)$) {\\Huge \\textcolor{couleur_theme}{\\bfseries \\#} \\bfseries #2 \\textcolor{couleur_theme}{\\bfseries \\MakeUppercase{#3}}};
-		\\node[anchor=center, color=white] at ($(current page.north)+(0,-2.65cm)$) {\\Large \\bfseries \\MakeUppercase{#4}};
-		\\end{tikzpicture}
+	\\begin{tikzpicture}[line cap=round,line join=round,remember picture, overlay, shift={(current page.north west)},yshift=-8.5cm]
+    \\fill[fill=couleur_theme] (0,5) rectangle (21,6);
+    \\fill[fill=couleur_theme] (6,6)--(7.5,6)--(8.5,7)--(7.5,8)--(6,8)--(7,7)-- cycle;
+    \\fill[fill=couleur_theme] (8,6)--(8.5,6)--(9.5,7)--(8.5,8)--(8,8)--(9,7)-- cycle;  
+    \\fill[fill=couleur_theme] (9,6)--(9.5,6)--(10.5,7)--(9.5,8)--(9,8)--(10,7)-- cycle;  
+    \\node[color=white] at (10.5,5.5) {\\LARGE \\bfseries \\MakeUppercase #4};
+\\end{tikzpicture}
+	\\begin{tikzpicture}[remember picture,overlay]
+	  \\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {};
+	  \\node[anchor=east, fill=white] at ($(current page.north east)+(-2,-1.9cm)$) {\\Huge \\textcolor{couleur_theme}{\\bfseries \\#} #2 \\textcolor{couleur_theme}{\\bfseries \\MakeUppercase{#3}}};
+	\\end{tikzpicture}
 	}
-	\\fancyfoot[C]{
-		\\begin{tikzpicture}[remember picture,overlay]
-		\\node[anchor=south west,inner sep=0pt] at ($(current page.south west)+(0,0)$) {\\includegraphics{footer-#1}};
-		\\end{tikzpicture} 
-	}
+	\\fancyfoot[R]{\\scriptsize Coopmaths.fr -- CC-BY-SA}
+	\\fancyfoot[C]{}
 	\\colorlet{couleur_theme}{#1}
 	\\colorlet{couleur_numerotation}{couleur_theme}
 	\\def\\iconeobjectif{icone-objectif-#1}
 	\\def\\urliconeomethode{icone-methode-#1}
-	\\renewcommand{\\headrulewidth}{0pt} % Pour enlever les traits en en-tête et en pied de page
-	\\renewcommand{\\footrulewidth}{0pt}
 }
 
 \\newcommand{\\version}[1]{
@@ -1008,7 +1022,7 @@ ${preambule_personnalise(liste_packages)}
 	}
 }
 
-${preambule_personnalise(liste_packages)}
+${preambule_personnalise()}
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 %%% Fin du préambule %%%
@@ -1277,21 +1291,6 @@ function preambule_personnalise(){
 
 `
 		break;
-		case 'tikz' :
-			result += `\\usepackage{pgf,tikz}
-\\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
-shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows,babel} % Charge toutes les librairies de Tikz
-\\usepackage{tkz-tab,tkz-euclide,tkz-fct,tkz-base}	% Géométrie euclidienne avec TikZ
-\\usetkzobj{all}\n
-`
-		break;
-		case 'tkz-euclide' :
-			result += `\\usepackage{tkz-tab,tkz-euclide,tkz-fct,tkz-base}	% Géométrie euclidienne avec TikZ
-\\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
-shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows,babel} % Charge toutes les librairies de Tikz
-\\usepackage{tkz-tab,tkz-euclide,tkz-fct,tkz-base}	% Géométrie euclidienne avec TikZ
-\\usetkzobj{all}\n
-`
 		default:
 		    result += `\\usepackage{${packages}}\n`
 		} 
