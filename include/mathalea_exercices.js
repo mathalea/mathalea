@@ -134,20 +134,20 @@ var liste_des_exercices_disponibles = {
 		'3A12' : Fractions_irreductibles,
 		'3A13' : PPCM_Engrenages,
 		'3M30' : Calcul_de_volumes_3e,
-		'3N10': Exercice_developper,
-		'3N11' : Double_distributivite,
-		'3N12' : Developper_Identites_remarquables3,
-		'3N13' : Factoriser_Identites_remarquables3,
-		'3N14' : Resoudre_une_equation_produit_nul,
-		'3N14-2' : Resoudre_une_equation_produit_nul_niv2,
-		'3N15' : Resoudre_une_equation_x2_egal_A,
-		'3G10' : Exercice_Thales,
-		'3G11' : Reciproque_Thales,
+		'3L11': Exercice_developper,
+		'3L11-1' : Double_distributivite,
+		'3L12-1' : Developper_Identites_remarquables3,
+		'3L12' : Factoriser_Identites_remarquables3,
+		'3L14' : Resoudre_une_equation_produit_nul,
+		'3L14-1' : Resoudre_une_equation_produit_nul_niv2,
+		'3L15' : Resoudre_une_equation_x2_egal_A,
+		'3G20' : Exercice_Thales,
+		'3G21' : Reciproque_Thales,
 		'3G30' : Exercice_Trigo_longueurs,
 		'3G31' : Exercice_Trigo_angles,
 		'3F1-act' : fonction_notion_vocabulaire,
-		'3F10' : fonctions_lineaires,
-		'3F11' : fonctions_affines,
+		'3F20' : Lecture_expression_fonctions_lineaires,
+		'3F20-1' : Lecture_expression_fonctions_affines,
 		'3F12' : fonctions_calculs_d_images,
 		'3F12-2' : Image_fonction_algebrique,
 		'3F12-3' : Tableau_de_valeurs,
@@ -5026,7 +5026,7 @@ function Additions_soustractions_multiplications_posees(){
 	sortie_html ? this.spacing_corr=2 : this.spacing_corr = 1; //Important sinon les opérations posées ne sont pas jolies
 	this.nb_questions = 5;
 	// this.pas_de_version_HMTL=true;
-	this.liste_packages = 'xlop'
+	this.liste_packages = 'xlop';
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
@@ -5229,6 +5229,7 @@ function Divisions_euclidiennes(){
 	sortie_html ? this.spacing_corr=2 : this.spacing_corr = 1; //Important sinon opidiv n'est pas joli
 	this.nb_questions = 4;
 	this.sup = 1;
+	this.liste_packages = 'xlop';
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
@@ -5317,6 +5318,7 @@ function Division_decimale(){
 	sortie_html ? this.spacing_corr=2 : this.spacing_corr = 1; //Important sinon opdiv n'est pas joli
 	this.nb_questions = 4;
 	this.sup = 1;
+	this.liste_packages = 'xlop';
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
@@ -5418,6 +5420,7 @@ function Multiplier_decimaux(){
 	this.spacing = 2;
 	this.spacing_corr = 1; //Important sinon le calcul posé ne fonctionne pas avec opmul et spacing
 	this.nb_questions = 4;
+	this.liste_packages = 'xlop';
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
@@ -6092,8 +6095,8 @@ function reperage_point_du_quart_de_plan(){
 	this.quart_de_plan=true;	;
 
 }
-function fonctions_lineaires(){
-	fonctions_affines.call(this);
+function Lecture_expression_fonctions_lineaires(){
+	Lecture_expression_fonctions_affines.call(this);
 	this.titre="Déterminer une fonction linéaire";
 	this.lineaire=true;
 }
