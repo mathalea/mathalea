@@ -865,7 +865,7 @@ function Double_distributivite()
 
 
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions)
-		for (let i = 0, texte, texte_corr, cpt=0, a, b, c, d; i < this.nb_questions && cpt<50 ;) {
+		for (let i = 0, texte, texte_corr, cpt=0, a, b, c, d,type_de_questions; i < this.nb_questions && cpt<50 ;) {
 			type_de_questions = liste_type_de_questions[i];
 			a= randint(2,9);
 			b = randint(2,9);
@@ -936,13 +936,13 @@ Exercice.call(this); // Héritage de la classe Exercice()
         else {type_de_questions_disponibles = [7,8,9]}  // coef de x relatif
 		
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions)
-		for (let i = 0, texte, texte_corr, cpt=0, a, b, type_de_questions,fraction,ds,ns; i < this.nb_questions && cpt<50 ;) {
+		for (let i = 0, texte, texte_corr, cpt=0, a, b, type_de_questions,fraction=[],ds,ns; i < this.nb_questions && cpt<50 ;) {
 			type_de_questions = liste_type_de_questions[i];
 			a= randint(1,9);
 			b = randint(2,9);
-			let fraction = choice(liste_fractions);
-			let ns=fraction[0]
-			let ds=fraction[1]
+			fraction = choice(liste_fractions);
+			ns=fraction[0]
+			ds=fraction[1]
 			switch(type_de_questions){
 			case 1 :
 				texte = `$(x+${a})^2$`; // (x+a)²
@@ -1018,7 +1018,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
 		let liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
 		[1,6],[5,6],[1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[1,8],[3,8],[5,8],[7,8],
 		[1,9],[2,9],[4,9],[5,9],[7,9],[8,9],[1,10],[3,10],[7,10],[9,10]]
-		for (let i = 0,ns,ds ,texte, texte_corr, cpt=0, a, b; i < this.nb_questions && cpt<50 ;) {
+		for (let i = 0,ns,ds ,texte, texte_corr, cpt=0, a, b,fraction=[],ns,ds; i < this.nb_questions && cpt<50 ;) {
 			if(this.sup==1){
 				a= randint(1,9);	 // coef de x est égal à 1
 				texte = `$(x-${a})(x+${a})$`    // (x-a)(x+a)
@@ -1074,7 +1074,7 @@ function Factoriser_Identites_remarquables3()
 		let liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
  		[1,6],[5,6],[1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[1,8],[3,8],[5,8],[7,8],
  		[1,9],[2,9],[4,9],[5,9],[7,9],[8,9],[1,10],[3,10],[7,10],[9,10]]
-		for (let i = 0, texte, texte_corr, cpt=0, a, b, ns,ds,fraction ; i < this.nb_questions && cpt<50 ;) {
+		for (let i = 0, texte, texte_corr, cpt=0, a, b, ns,ds,fraction=[] ; i < this.nb_questions && cpt<50 ;) {
 			if(this.sup==1){
 				a= randint(1,9);	 // coef de x est égal à 1
 				texte = `$x^2-${a*a}$`    // (x-a)(x+a)
@@ -1141,7 +1141,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
         else {type_de_questions_disponibles = [7,8,9]}  // coef de x rationnel
 		
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions)
-		for (let i = 0, texte, texte_corr, cpt=0, a, b ,fraction,ns,ds,type_de_questions; i < this.nb_questions && cpt<50 ;) {
+		for (let i = 0, texte, texte_corr, cpt=0, a, b ,fraction=[],ns,ds,type_de_questions; i < this.nb_questions && cpt<50 ;) {
 			type_de_questions = liste_type_de_questions[i];
 			a= randint(1,9);
 			b = randint(2,9);
