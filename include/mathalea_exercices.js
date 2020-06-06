@@ -5026,7 +5026,7 @@ function Additions_soustractions_multiplications_posees(){
 	sortie_html ? this.spacing_corr=2 : this.spacing_corr = 1; //Important sinon les opérations posées ne sont pas jolies
 	this.nb_questions = 5;
 	// this.pas_de_version_HMTL=true;
-	this.liste_packages = 'xlop'
+	this.liste_packages = 'xlop';
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
@@ -5229,6 +5229,7 @@ function Divisions_euclidiennes(){
 	sortie_html ? this.spacing_corr=2 : this.spacing_corr = 1; //Important sinon opidiv n'est pas joli
 	this.nb_questions = 4;
 	this.sup = 1;
+	this.liste_packages = 'xlop';
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
@@ -5317,6 +5318,7 @@ function Division_decimale(){
 	sortie_html ? this.spacing_corr=2 : this.spacing_corr = 1; //Important sinon opdiv n'est pas joli
 	this.nb_questions = 4;
 	this.sup = 1;
+	this.liste_packages = 'xlop';
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
@@ -5418,6 +5420,7 @@ function Multiplier_decimaux(){
 	this.spacing = 2;
 	this.spacing_corr = 1; //Important sinon le calcul posé ne fonctionne pas avec opmul et spacing
 	this.nb_questions = 4;
+	this.liste_packages = 'xlop';
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
