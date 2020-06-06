@@ -6096,7 +6096,7 @@ function reperage_point_du_quart_de_plan(){
 
 }
 function Lecture_expression_fonctions_lineaires(){
-	fonctions_affines.call(this);
+	Lecture_expression_fonctions_affines.call(this);
 	this.titre="Déterminer une fonction linéaire";
 	this.lineaire=true;
 }
