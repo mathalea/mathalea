@@ -867,6 +867,13 @@ function intro_LaTeX(entete = "Exercices") {
 \\usepackage{fancybox}					
 \\usepackage{setspace}	
 \\usepackage{xcolor}
+	\\definecolor{nombres}{cmyk}{0,.8,.95,0}
+	\\definecolor{gestion}{cmyk}{.75,1,.11,.12}
+	\\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
+	\\definecolor{grandeurs}{cmyk}{.02,.44,1,0}
+	\\definecolor{geo}{cmyk}{.62,.1,0,0}
+	\\definecolor{algo}{cmyk}{.69,.02,.36,0}
+\\definecolor{correction}{cmyk}{.63,.23,.93,.06}
 \\usepackage{pgf,tikz}					
 \\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
 shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
