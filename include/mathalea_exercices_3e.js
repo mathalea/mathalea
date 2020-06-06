@@ -1018,7 +1018,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
 		let liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
 		[1,6],[5,6],[1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[1,8],[3,8],[5,8],[7,8],
 		[1,9],[2,9],[4,9],[5,9],[7,9],[8,9],[1,10],[3,10],[7,10],[9,10]]
-		for (let i = 0,ns,ds ,texte, texte_corr, cpt=0, a, b,fraction=[],ns,ds; i < this.nb_questions && cpt<50 ;) {
+		for (let i = 0,ns,ds ,texte, texte_corr, cpt=0, a, b,fraction=[]; i < this.nb_questions && cpt<50 ;) {
 			if(this.sup==1){
 				a= randint(1,9);	 // coef de x est égal à 1
 				texte = `$(x-${a})(x+${a})$`    // (x-a)(x+a)
