@@ -3016,7 +3016,7 @@ function SVG_machine_maths(id_du_div,w,h,nom,etape1,etape2,etape3,x_ligne1,x_lig
 	 
 	 \\setlength{\\fboxrule}{1.5mm}
 	 \\par\\vspace{0.25cm}
-	 \\noindent\\fcolorbox{orangeCoop}{white}{\\parbox{\\linewidth-2\\fboxrule-2\\fboxsep}{`+texte+`}}
+	 \\noindent\\fcolorbox{nombres}{white}{\\parbox{\\linewidth-2\\fboxrule-2\\fboxsep}{`+texte+`}}
 	 \\par\\vspace{0.25cm}		 
 	 `;
 
@@ -3418,7 +3418,7 @@ function warn_message(texte) {
  * @author Sébastien Lozano
  */
 
-function lampe_message(titre,texte) {
+function lampe_message(titre,texte,couleur) {
 	'use strict';
 	if (sortie_html) {
 		return `
@@ -3434,7 +3434,7 @@ function lampe_message(titre,texte) {
 		`;
 	} else {
 		return `
-		\\begin{bclogo}[couleurBarre=orangeCoop,couleurBord=orangeCoop,epBord=2,couleur=gray!10,logo=\\bclampe,arrondi=0.1]{\\bf `+titre+`}
+		\\begin{bclogo}[couleurBarre=`+couleur+`,couleurBord=`+couleur+`,epBord=2,couleur=gray!10,logo=\\bclampe,arrondi=0.1]{\\bf `+titre+`}
 			`+texte+`
 		\\end{bclogo}
 		`;
