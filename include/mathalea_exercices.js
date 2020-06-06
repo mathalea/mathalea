@@ -6047,7 +6047,7 @@ function Calcul_de_volumes(){
 					h=randint(2,5);
 					l=randint(6,10);
 					texte=`Une pyramide de hauteur $${h}${liste_unites[j][0]}$ et dont la base  est un carré de $${c}${liste_unites[j][0]}$ de côté.`
-					texte_corr=`$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\left(${c*c}${liste_unites[j][0]}\\right)^2\\times${h}${liste_unites[j][0]}`;
+					texte_corr=`$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\left(${c}${liste_unites[j][0]}\\right)^2\\times${h}${liste_unites[j][0]}`;
 					if (calcul(c*c*h/3,false)==arrondi(c*c*h/3,1)) texte_corr+=`=${tex_nombrec(arrondi(calcul(c*c*h/3),1))}${liste_unites[j][1]}$`;
 					else texte_corr+=`\\approx${tex_nombrec(arrondi(calcul(c*c*h/3),1))}${liste_unites[j][1]}$`;
 				}
