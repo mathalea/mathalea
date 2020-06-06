@@ -400,7 +400,7 @@ function ajout_de_LaTeX_statique (url_sans_extension){
 
 // Gestion de l'affichage
 
-var code_LaTeX = '', contenu_fichier = '';
+var code_LaTeX = '', contenu_fichier = '', liste_packages = new Set;
 
 
 function mise_a_jour_du_code(){
@@ -516,6 +516,11 @@ function mise_a_jour_du_code(){
 				code1 += '\n\n'
 				code2 += exercice[i].contenu_correction;
 				code2 += '\n\n'
+				if (typeof exercice[i].liste_packages === 'string') {
+					liste_packages.add(exercice[i].liste_packages)
+				} else { // si c'est un tableau
+					exercice[i].liste_packages.forEach(liste_packages.add,liste_packages)
+				} 
 			}
 				
 			if ($('#supprimer_correction:checked').val()) {
@@ -587,7 +592,7 @@ if (!sortie_html){
 			// Gestion du style pour l'entête du fichier
 
 			contenu_fichier = `
-			
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Document généré avec MathALEA sous licence CC-BY-SA
 %
@@ -836,7 +841,7 @@ window.onload = function()  {
 
 // Gestion des styles LaTeX
 
-function intro_LaTeX(entete="Exercices") {
+function intro_LaTeX(entete = "Exercices") {
 	if (entete=='') {entete='Exercices'}
 		return `\\documentclass[12pt]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
@@ -851,22 +856,21 @@ function intro_LaTeX(entete="Exercices") {
 \\usepackage{tabularx}
 \\usepackage[autolanguage]{numprint}
 \\usepackage{hyperref}
-\\usepackage{pgf,tikz}
-\\usepackage{pgfplots}
-\\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
-	shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows,babel} % Charge toutes les librairies de Tikz
-\\usepackage{tkz-tab,tkz-euclide,tkz-fct,tkz-base}	% Géométrie euclidienne avec TikZ
-\\usetkzobj{all}	
 \\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
 \\usepackage{cancel}
+\\usepackage{textcomp}
 \\usepackage{gensymb}
 \\usepackage{eurosym}
 \\DeclareUnicodeCharacter{20AC}{\\euro{}}
 \\usepackage{fancyhdr,lastpage}          	
 \\pagestyle{fancy}                      	
 \\usepackage{fancybox}					
-\\usepackage{xlop}						
 \\usepackage{setspace}	
+\\usepackage{xcolor}
+\\usepackage{pgf,tikz}					
+\\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
+shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
+
 
 \\setlength{\\parindent}{0mm}		
 \\renewcommand{\\arraystretch}{1.5}	
@@ -886,6 +890,8 @@ function intro_LaTeX(entete="Exercices") {
 \\fancyfoot[R]{\\scriptsize Coopmaths.fr -- CC-BY-SA}
 \\setlength{\\headheight}{14.5pt}
 
+${preambule_personnalise(liste_packages)}
+
 
 \\begin{document}
 
@@ -895,7 +901,7 @@ function intro_LaTeX(entete="Exercices") {
 	function intro_LaTeX_coop(){
 
 		let intro_LaTeX_coop = `\\documentclass[12pt]{article}
-\\usepackage[left=1.5cm,right=1.5cm,top=3.5cm,bottom=2cm]{geometry}
+\\usepackage[left=1.5cm,right=1.5cm,top=4cm,bottom=2cm]{geometry}
 \\usepackage[utf8]{inputenc}		        
 \\usepackage[T1]{fontenc}		
 \\usepackage[french]{babel}
@@ -906,23 +912,26 @@ function intro_LaTeX(entete="Exercices") {
 \\usepackage{enumitem}
 \\usepackage{graphicx}				
 \\usepackage{tabularx}
-\\usepackage[autolanguage]{numprint}
-\\usepackage{pgf,tikz}
-\\usepackage{pgfplots}
-\\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
-	shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows,babel} % Charge toutes les librairies de Tikz
-\\usepackage{tkz-tab,tkz-euclide,tkz-fct,tkz-base}	% Géométrie euclidienne avec TikZ
-\\usetkzobj{all}				
+\\usepackage[autolanguage]{numprint}			
 \\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
 \\usepackage{cancel}
+\\usepackage{textcomp}
 \\usepackage{gensymb}
 \\usepackage{eurosym}
 \\DeclareUnicodeCharacter{20AC}{\\euro{}}
 \\usepackage{fancyhdr,lastpage}          	
 \\pagestyle{fancy}                      	
 \\usepackage{fancybox}					
-\\usepackage{xlop}						
 \\usepackage{setspace}
+\\usepackage{xcolor}
+\\usepackage{pgf,tikz}					% Pour les images et figures gÃ©omÃ©triques
+\\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
+shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
+
+\\renewcommand{\\headrulewidth}{0pt}
+\\renewcommand{\\footrulewidth}{0pt}
+\\fancyhead[L]{}
+\\fancyhead[R]{}
 
 %%% COULEURS %%%
 
@@ -972,10 +981,10 @@ function intro_LaTeX(entete="Exercices") {
 \\newmdenv[linecolor=couleur_theme, linewidth=3pt,topline=true,rightline=false,bottomline=false,frametitlerule=false,frametitlefont={\\color{couleur_theme}\\bfseries},frametitlerulewidth=1pt]{methode}
 
 
-\\newmdenv[startcode={\\setlength{\\multicolsep}{0cm}\\setlength{\\columnsep}{.2cm}\\setlength{\\columnseprule}{0pt}\\vspace{0cm}},linecolor=white, linewidth=3pt,innerbottommargin=10pt,innertopmargin=5pt,innerrightmargin=20pt,splittopskip=20pt,splitbottomskip=10pt,everyline=true,tikzsetting={draw=couleur_theme,line width=4pt,dashed,dash pattern= on 10pt off 10pt},frametitleaboveskip=-.6cm,frametitle={\\tikz\\node[anchor= east,rectangle,fill=white]{\\textcolor{couleur_theme}{\\raisebox{-.3\\height}{\\includegraphics[width=.8cm]{\\iconeobjectif}}\\; \\bfseries \\Large Objectifs}};}]{objectif}
+\\newmdenv[startcode={\\setlength{\\multicolsep}{0cm}\\setlength{\\columnsep}{.2cm}\\setlength{\\columnseprule}{0pt}\\vspace{0cm}},linecolor=white, linewidth=3pt,innerbottommargin=10pt,innertopmargin=5pt,innerrightmargin=20pt,splittopskip=20pt,splitbottomskip=10pt,everyline=true,tikzsetting={draw=couleur_theme,line width=4pt,dashed,dash pattern= on 10pt off 10pt},frametitleaboveskip=-.6cm,frametitle={\\tikz\\node[anchor= east,rectangle,fill=white]{\\textcolor{couleur_theme}{\\raisebox{-.3\\height}{}\\; \\bfseries \\Large Objectifs}};}]{objectif}
 
 \\newmdenv[startcode={\\colorlet{couleur_numerotation}{correction}\\renewcommand{\\columnseprulecolor}{\\color{correction}}
-\\setcounter{section}{0}\\arrayrulecolor{correction}},linecolor=white, linewidth=4pt,innerbottommargin=10pt,innertopmargin=5pt,splittopskip=20pt,splitbottomskip=10pt,everyline=true,frametitle=correction,tikzsetting={draw=correction,line width=3pt,dashed,dash pattern= on 15pt off 10pt},frametitleaboveskip=-.4cm,frametitle={\\tikz\\node[anchor= east,rectangle,fill=white]{\\; \\textcolor{correction}{\\raisebox{-.3\\height}{\\includegraphics[width=.6cm]{icone-correction}}\\; \\bfseries \\Large Corrections}};}]{correction}
+\\setcounter{section}{0}\\arrayrulecolor{correction}},linecolor=white, linewidth=4pt,innerbottommargin=10pt,innertopmargin=5pt,splittopskip=20pt,splitbottomskip=10pt,everyline=true,frametitle=correction,tikzsetting={draw=correction,line width=3pt,dashed,dash pattern= on 15pt off 10pt},frametitleaboveskip=-.4cm,frametitle={\\tikz\\node[anchor= east,rectangle,fill=white]{\\; \\textcolor{correction}{\\raisebox{-.3\\height}{}\\; \\bfseries \\Large Corrections}};}]{correction}
 
 \\newmdenv[roundcorner=0,linewidth=0pt,frametitlerule=false, backgroundcolor=gray!40,leftmargin=8cm]{remarque}
 
@@ -983,26 +992,26 @@ function intro_LaTeX(entete="Exercices") {
 
 \\newcommand{\\theme}[4]
 {
-	\\fancyhead[L]{}
-	\\fancyhead[R]{}
+	%\\theme{nombres|gestion|grandeurs|geo|algo}{Texte (entrainement, évaluation, mise en route...}{numéro de version ou vide}{titre du thême et niveau}
 	\\fancyhead[C]{
-		\\begin{tikzpicture}[remember picture,overlay]
-		\\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {\\includegraphics{header-#1}};
-		\\node[anchor=east, fill=white] at ($(current page.north east)+(-2,-1.4cm)$) {\\Huge \\textcolor{couleur_theme}{\\bfseries \\#} \\bfseries #2 \\textcolor{couleur_theme}{\\bfseries \\MakeUppercase{#3}}};
-		\\node[anchor=center, color=white] at ($(current page.north)+(0,-2.65cm)$) {\\Large \\bfseries \\MakeUppercase{#4}};
-		\\end{tikzpicture}
+	\\begin{tikzpicture}[line cap=round,line join=round,remember picture, overlay, shift={(current page.north west)},yshift=-8.5cm]
+    \\fill[fill=couleur_theme] (0,5) rectangle (21,6);
+    \\fill[fill=couleur_theme] (6,6)--(7.5,6)--(8.5,7)--(7.5,8)--(6,8)--(7,7)-- cycle;
+    \\fill[fill=couleur_theme] (8,6)--(8.5,6)--(9.5,7)--(8.5,8)--(8,8)--(9,7)-- cycle;  
+    \\fill[fill=couleur_theme] (9,6)--(9.5,6)--(10.5,7)--(9.5,8)--(9,8)--(10,7)-- cycle;  
+    \\node[color=white] at (10.5,5.5) {\\LARGE \\bfseries \\MakeUppercase #4};
+\\end{tikzpicture}
+	\\begin{tikzpicture}[remember picture,overlay]
+	  \\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {};
+	  \\node[anchor=east, fill=white] at ($(current page.north east)+(-2,-1.9cm)$) {\\Huge \\textcolor{couleur_theme}{\\bfseries \\#} #2 \\textcolor{couleur_theme}{\\bfseries \\MakeUppercase{#3}}};
+	\\end{tikzpicture}
 	}
-	\\fancyfoot[C]{
-		\\begin{tikzpicture}[remember picture,overlay]
-		\\node[anchor=south west,inner sep=0pt] at ($(current page.south west)+(0,0)$) {\\includegraphics{footer-#1}};
-		\\end{tikzpicture} 
-	}
+	\\fancyfoot[R]{\\scriptsize Coopmaths.fr -- CC-BY-SA}
+	\\fancyfoot[C]{}
 	\\colorlet{couleur_theme}{#1}
 	\\colorlet{couleur_numerotation}{couleur_theme}
 	\\def\\iconeobjectif{icone-objectif-#1}
 	\\def\\urliconeomethode{icone-methode-#1}
-	\\renewcommand{\\headrulewidth}{0pt} % Pour enlever les traits en en-tête et en pied de page
-	\\renewcommand{\\footrulewidth}{0pt}
 }
 
 \\newcommand{\\version}[1]{
@@ -1013,6 +1022,7 @@ function intro_LaTeX(entete="Exercices") {
 	}
 }
 
+${preambule_personnalise()}
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 %%% Fin du préambule %%%
@@ -1027,3 +1037,266 @@ function intro_LaTeX(entete="Exercices") {
 
 
 
+
+
+function preambule_personnalise(){
+	let result = ''
+	for (let packages of liste_packages){
+		switch (packages) {
+		  case 'axe_gradues':
+		    result += `
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Gestion des axes gradués (Olivier Lacroix) %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\\usepackage{xparse}
+\\usepackage{ifthen}
+\\usepackage{xargs}
+
+\\newboolean{demiDroite}
+\\newboolean{affichePointilles}
+\\newboolean{affichePoint}
+\\newboolean{afficheGraduations}
+
+\\makeatletter
+\\newtoks\\@tabtoks
+\\providecommand\\addtabtoks[1]{\\@tabtoks\\expandafter{\\the\\@tabtoks#1}}
+\\providecommand*\\resettabtoks{\\@tabtoks{}}
+\\providecommand*\\printtabtoks{\\the\\@tabtoks}
+\\makeatother
+
+\\DeclareDocumentCommand \\placePoints%
+{ > { \\SplitList { | } } m }%
+{\\ProcessList {#1} {\\mycommand}}
+
+\\newcommand{\\mycommand}[1]{
+\\def\\temp{#1}
+\\expandafter\\placePointsDeuxArg\\temp
+}
+
+\\def\\placePointsDeuxArg#1,#2{\\draw (#1,0) node{\\Large $\\times$} node[above=.2] {\\ensuremath{#2}};}
+
+
+
+
+\\newcommandx{\\axeGradueFraction}[5][5=]{
+\\begin{tikzpicture}[xscale=#4,>=latex]
+	\\def\\Xmin{#1} 
+	\\def\\Xmax{#2} 
+	\\def\\Decoupage{#3}
+	
+	\\ifthenelse { \\equal {#5} {} }
+	{%pas d'argument optionnel, on trace juste l'axe ci-dessous
+	}
+	{% un nombre est Ã  placer sur l'axe avec son label
+		\\placePoints{#5}
+		%\\draw (#5,-.08) -- (#5,.08) node[above] {#6};
+	}
+
+
+		
+	% Xfleche de l'axe
+	\\pgfmathparse{\\Xmax+0.2}\\let\\Xfleche\\pgfmathresult;
+	% dÃ©but du segment reprÃ©sentant l'axe numÃ©ro 1
+	\\ifthenelse{\\equal{\\Xmin}{0}}
+	{
+		\\def\\Xorigine{\\Xmin} 	
+	}
+	{
+		\\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;	
+		% pour la dÃ©co :
+		\\draw (\\Xmin-1/\\Decoupage,-.05) -- (\\Xmin-1/\\Decoupage,.05);
+	}
+	\\pgfmathparse{int(\\Xmax-1)}\\let\\XmaxMoinsUn\\pgfmathresult;
+	% construction de la droite
+	\\draw[->,>=latex] (\\Xorigine,0) -- (\\Xfleche,0);
+	\\foreach \\x in {\\Xmin,...,\\XmaxMoinsUn}{
+			\\draw (\\x,-.1) -- (\\x,.1) node[below=.3] {\\x};
+			\\foreach \\y in {1,...,\\Decoupage}{
+				\\pgfmathparse{\\x+\\y/\\Decoupage}\\let\\Xgrad\\pgfmathresult;
+				\\draw (\\Xgrad,-.05) -- (\\Xgrad,.05);
+			}
+	};
+	% derniÃ¨re graduation Ã  la mano 
+	\\draw (\\Xmax,-.1) -- (\\Xmax,.1) node[below=.3] {\\Xmax};
+
+\\end{tikzpicture}
+}
+
+
+
+\\newcommand{\\axesZoom}[5]{
+{} \\hfill 
+\\begin{tikzpicture}
+	\\def\\XA{#1} % nombre (positif pour l'instant) Ã  placer (avec deux dÃ©cimales)
+	\\def\\Nom{#2} % nom du point Ã  placer. Laisser vide si vous ne souhaitez pas voir le point
+	\\def\\Xmin{#3} % premiÃ¨re valeur de x entiÃ¨re sur l'axe
+	\\setboolean{affichePointilles}{true}  % affiche les pointillÃ©s indiquant le grossissement
+	\\setboolean{affichePoint}{#4} % Est ce que le point doit apparaÃ®tre sur la construction. 
+	\\setboolean{afficheGraduations}{#5} % Est ce que l'on gradue tous les axes ou seulement \\Xmin et \\Xmax sur le premier axe (si false)
+	\\setboolean{demiDroite}{true} %Par dÃ©faut, on construit des demi-droites pour les 6Ã¨mes, si Xmin=0 ou si une des dÃ©cimales l'exige.
+	
+	\\ifthenelse{\\boolean{demiDroite}}
+	{
+		\\def\\DebordementAGauche{0} % mettre 0 pour une demi-droite graduÃ©e partant de l'origine
+	}
+	{
+		\\def\\DebordementAGauche{0.5} % mettre 0.5 dans les autres cas.
+	}	
+	
+	\\pgfmathparse{int(\\Xmin+10)}\\let\\Xmax\\pgfmathresult; % Xmax vaut toujours Xmin+10
+		
+	\\pgfmathparse{int(\\XA)}\\let\\Unites\\pgfmathresult;
+	\\pgfmathparse{int((\\XA-\\Unites)*10)}\\let\\Dixiemes\\pgfmathresult;
+	\\pgfmathparse{int(round((\\XA-\\Unites.\\Dixiemes)*100))}\\let\\Centiemes\\pgfmathresult;	
+
+	\\pgfmathparse{int(\\Unites+1)}\\let\\UnitesMaj\\pgfmathresult;
+	\\pgfmathparse{int(\\Dixiemes+1)}\\let\\DixiemesMaj\\pgfmathresult;
+	\\pgfmathparse{int(\\Centiemes+1)}\\let\\CentiemesMaj\\pgfmathresult;				
+
+	\\pgfmathparse{\\Xmax+1}\\let\\Xfleche\\pgfmathresult;
+	\\ifthenelse{\\equal{\\Xmin}{0}}
+	{
+		\\def\\Xorigine{\\Xmin} 	
+	}
+	{
+		\\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;	
+	}
+
+	\\pgfmathparse{int(\\Xmax-1)}\\let\\XmaxMoinsUn\\pgfmathresult;
+	\\pgfmathparse{int(\\Xmin+1)}\\let\\XminPlusUn\\pgfmathresult;
+		
+	\\draw[->,>=latex] (\\Xorigine,0) -- (\\Xfleche,0);
+	\\foreach \\x in {\\XminPlusUn,...,\\XmaxMoinsUn}{
+		\\ifthenelse{\\boolean{afficheGraduations}}
+		{
+			\\draw (\\x,-.1) -- (\\x,.1) node[above] {\\x};
+		}
+		{
+			\\draw (\\x,-.1) -- (\\x,.1);
+		}
+	};
+	\\foreach \\x in {1,...,9}{
+		\\draw (\\Unites.\\x,-.05) -- (\\Unites.\\x,.05);
+	}
+	\\draw (\\Xmin,-.1) -- (\\Xmin,.1) node[above] {\\Xmin};
+	\\draw (\\Xmax,-.1) -- (\\Xmax,.1) node[above] {\\Xmax};
+	\\ifthenelse{\\not\\equal{\\Unites}{0}}
+	{
+		\\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;		
+	}{}
+	\\draw[->,>=latex] (\\Xorigine,-2) -- (\\Xfleche,-2);
+	\\foreach \\x in {1,...,9}{
+		\\pgfmathparse{int(\\Xmin+\\x)}\\let\\X\\pgfmathresult;
+		\\ifthenelse{\\boolean{afficheGraduations}}
+		{
+			\\draw (\\X,-2.1) -- (\\X,-1.9) node[above] {\\Unites,\\x};
+		}
+		{
+			\\draw (\\X,-2.1) -- (\\X,-1.9);
+		}		
+		\\pgfmathparse{int(\\Dixiemes+\\Xmin)+\\x/10}\\let\\Xtirets\\pgfmathresult;
+		\\draw (\\Xtirets,-2.05) -- (\\Xtirets,-1.95);
+	};
+	
+	\\ifthenelse{\\boolean{afficheGraduations}}
+	{	
+		\\draw (\\Xmax,-2.1) -- (\\Xmax,-1.9) node[above] {\\UnitesMaj};
+		\\draw (\\Xmin,-2.1) -- (\\Xmin,-1.9) node[above] {\\Unites};
+	}
+	{
+		\\draw (\\Xmax,-2.1) -- (\\Xmax,-1.9) ;
+		\\draw (\\Xmin,-2.1) -- (\\Xmin,-1.9) ;		
+	}
+	
+	\\pgfmathparse{int(\\Dixiemes+\\Xmin)}\\let\\XGaucheAxeBis\\pgfmathresult;
+	\\pgfmathparse{int(\\XGaucheAxeBis+1)}\\let\\XDroitAxeBis\\pgfmathresult;
+
+	\\ifthenelse{\\boolean{affichePointilles}}
+	{
+	\\draw[dashed] (\\Unites,0) -- (\\Xmin,-2);
+	\\draw[dashed] (\\UnitesMaj,0) -- (\\Xmax,-2);
+	\\draw[dashed] (\\XGaucheAxeBis,-2) -- (\\Xmin,-4);
+	\\draw[dashed] (\\XDroitAxeBis,-2) -- (\\Xmax,-4);
+	}{}
+	
+	\\ifthenelse{\\not\\equal{\\Dixiemes}{0}}
+	{
+		\\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;		
+	}{}
+	\\draw[->,>=latex] (\\Xorigine,-4) -- (\\Xfleche,-4);
+	\\foreach \\x in {1,...,9}{
+		\\pgfmathparse{int(\\Xmin+\\x)}\\let\\X\\pgfmathresult;
+		\\ifthenelse{\\boolean{afficheGraduations}}
+			{
+			\\draw (\\X,-4.1) -- (\\X,-3.9) node[above] {\\Unites,\\Dixiemes\\x};
+			}
+			{
+			\\draw (\\X,-4.1) -- (\\X,-3.9) ;
+			}
+		};
+
+	
+\\ifthenelse{\\boolean{afficheGraduations}}
+	{
+	\\ifthenelse{\\equal{\\Dixiemes}{9}}
+		{
+		\\draw (\\Xmax,-4.1) -- (\\Xmax,-3.9) node[above] {\\UnitesMaj};		
+		}	
+		{
+		\\draw (\\Xmax,-4.1) -- (\\Xmax,-3.9) node[above] {\\Unites,\\DixiemesMaj};
+		}	
+	
+	\\ifthenelse{\\equal{\\Dixiemes}{0}}
+		{
+		\\draw (\\Xmin,-4.1) -- (\\Xmin,-3.9) node[above] {\\Unites};
+		}
+		{
+		\\draw (\\Xmin,-4.1) -- (\\Xmin,-3.9) node[above] {\\Unites,\\Dixiemes};	
+		}
+	}
+	{
+	\\ifthenelse{\\equal{\\Dixiemes}{9}}
+		{
+		\\draw (\\Xmax,-4.1) -- (\\Xmax,-3.9);		
+		}	
+		{
+		\\draw (\\Xmax,-4.1) -- (\\Xmax,-3.9) ;
+		}	
+	
+	\\ifthenelse{\\equal{\\Dixiemes}{0}}
+		{
+		\\draw (\\Xmin,-4.1) -- (\\Xmin,-3.9) ;
+		}
+		{
+		\\draw (\\Xmin,-4.1) -- (\\Xmin,-3.9) ;	
+		}
+	\\pgfmathparse{int(\\Centiemes+\\Xmin)}\\let\\XGaucheAxeTer\\pgfmathresult;
+	\\draw (\\XGaucheAxeTer,-4) node[below] {\\Nom};
+	}
+	
+	\\ifthenelse{\\boolean{affichePoint}}
+	{
+		\\draw (\\XA,0) node{\\Large $\\times$} node[below] {\\Nom};
+		\\draw (\\XGaucheAxeBis.\\Centiemes,-2) node{\\Large $\\times$} node[below] {\\Nom};
+	}{}
+\\end{tikzpicture}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Fin de la gestion des axes gradués %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+}
+
+`
+		break;
+		case 'bclogo' :
+			result += '\\usepackage[tikz]{bclogo}'
+		break
+		default:
+		    result += `\\usepackage{${packages}}\n`
+		} 
+	}
+	return result
+}

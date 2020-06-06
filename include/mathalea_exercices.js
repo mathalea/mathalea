@@ -72,7 +72,7 @@ var liste_des_exercices_disponibles = {
 		'6N43-2' : Tableau_criteres_de_divisibilite,
 		'6P10' : Proportionnalite_pas_proportionnalite,
 		'6P11' : Proportionnalite_par_linearite,
-		'5N12':Exercice_fractions_simplifier,
+		'5N12': Exercice_fractions_simplifier,
 		'5N12-2': Egalites_entre_fractions,
 		'5N18': Exercice_decomposer_en_facteurs_premiers,
 		'5N110' : Variation_en_pourcentages,
@@ -132,7 +132,7 @@ var liste_des_exercices_disponibles = {
 		'3A11-2' : Decomposition_facteurs_premiers,
 		'3A11-3' : Lister_Diviseurs_Par_Decomposition_facteurs_premiers,
 		'3A12' : Fractions_irreductibles,
-		//'3A13' : PGCD_PPCM_Engrenages,
+		'3A13' : PPCM_Engrenages,
 		'3M30' : Calcul_de_volumes_3e,
 		'3N10': Exercice_developper,
 		'3N11' : Double_distributivite,
@@ -230,6 +230,7 @@ function Exercice() {
    	// this.bouton_aide = modal_pdf(numero_de_l_exercice,url_pdf,texte="Aide",label_bouton="Aide - PDF",icone="file pdf")
    	this.pas_de_version_LaTeX = false ;
    	this.nouvelle_version = function(numero_de_l_exercice){}
+   	this.liste_packages = []; // string ou liste de string avec le nom des packages spécifiques à ajouter dans le préambule
 
 }
 
@@ -250,6 +251,7 @@ function feuille_d_axes_gradues() {
    	this.nb_cols_corr_modifiable = false;
    	this.spacing_modifiable = false;
    	this.spacing_corr_modifiable = false;
+   	this.liste_packages = 'axes_gradues'
 
 
 	this.nouvelle_version = function(numero_de_l_exercice){
@@ -291,6 +293,7 @@ function Lire_abscisse_entiere(){
 	this.spacing = 1;
     this.spacing_corr = 1;
 	this.sup=4;
+	this.liste_packages = ['tkz-euclide']
 
 	this.nouvelle_version = function(numero_de_l_exercice){ // numero_de_l_exercice est 0 pour l'exercice 1
 		let type_de_questions;
@@ -364,6 +367,8 @@ function Placer_un_point_abscisse_entiere(){
 		this.spacing_corr = 1;
 		this.sup=1;
 		this.type_exercice = 'SVGJS';
+   		this.liste_packages = 'tkz-euclide'
+
 	
 	
 		this.nouvelle_version = function(numero_de_l_exercice){ // numero_de_l_exercice est 0 pour l'exercice 1
@@ -553,6 +558,8 @@ function Lire_abscisse_decimale(){
 	this.spacing = 1;
     this.spacing_corr = 1;
 	this.sup=1;
+   	this.liste_packages = 'tkz-euclide'
+
 
 	this.nouvelle_version = function(numero_de_l_exercice){ // numero_de_l_exercice est 0 pour l'exercice 1
 		let type_de_questions;
@@ -625,6 +632,8 @@ function Lire_abscisse_fractionnaire(){
 	this.spacing = 1;
     this.spacing_corr = 1;
 	this.sup=1;
+   	this.liste_packages = 'tkz-euclide'
+
 
 	this.nouvelle_version = function(numero_de_l_exercice){ // numero_de_l_exercice est 0 pour l'exercice 1
 		let type_de_questions;
@@ -699,6 +708,7 @@ function Placer_points_sur_axe(){
     this.spacing_corr = 1;
 	this.sup=1;
 	this.type_exercice = 'SVGJS';
+	this.liste_packages = 'tkz-euclide'
 
 
 	this.nouvelle_version = function(numero_de_l_exercice){ // numero_de_l_exercice est 0 pour l'exercice 1
@@ -1504,6 +1514,7 @@ function Quatre_operations(){
 	this.nb_cols = 2;
 	this.nb_cols_corr = 2;
 	this.sup = 1; // niveau de difficulté
+	this.liste_packages = 'xlop'
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
@@ -5015,6 +5026,7 @@ function Additions_soustractions_multiplications_posees(){
 	sortie_html ? this.spacing_corr=2 : this.spacing_corr = 1; //Important sinon les opérations posées ne sont pas jolies
 	this.nb_questions = 5;
 	// this.pas_de_version_HMTL=true;
+	this.liste_packages = 'xlop'
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions

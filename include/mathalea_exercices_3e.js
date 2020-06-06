@@ -865,7 +865,7 @@ function Double_distributivite()
 
 
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions)
-		for (let i = 0, texte, texte_corr, cpt=0, a, b, c, d; i < this.nb_questions && cpt<50 ;) {
+		for (let i = 0, texte, texte_corr, cpt=0, a, b, c, d,type_de_questions; i < this.nb_questions && cpt<50 ;) {
 			type_de_questions = liste_type_de_questions[i];
 			a= randint(2,9);
 			b = randint(2,9);
@@ -925,8 +925,8 @@ Exercice.call(this); // Héritage de la classe Exercice()
 		this.liste_corrections = []; // Liste de questions corrigées
 		let liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
  		[1,6],[5,6],[1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[1,8],[3,8],[5,8],[7,8],
-		 [1,9],[2,9],[4,9],[5,9],[7,9],[8,9],[1,10],[3,10],[7,10],[9,10]]
-		let type_de_questions_disponibles
+ 		[1,9],[2,9],[4,9],[5,9],[7,9],[8,9],[1,10],[3,10],[7,10],[9,10]]
+		let type_de_questions_disponibles = [];
 		if(this.sup==1){
 		    type_de_questions_disponibles = [1,2,3] // coef de x = 1
         }
@@ -936,7 +936,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
         else {type_de_questions_disponibles = [7,8,9]}  // coef de x relatif
 		
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions)
-		for (let i = 0, texte, texte_corr, cpt=0, a, b, type_de_questions,fraction,ds,ns; i < this.nb_questions && cpt<50 ;) {
+		for (let i = 0, texte, texte_corr, cpt=0, a, b, type_de_questions,fraction=[],ds,ns; i < this.nb_questions && cpt<50 ;) {
 			type_de_questions = liste_type_de_questions[i];
 			a= randint(1,9);
 			b = randint(2,9);
@@ -1018,7 +1018,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
 		let liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
 		[1,6],[5,6],[1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[1,8],[3,8],[5,8],[7,8],
 		[1,9],[2,9],[4,9],[5,9],[7,9],[8,9],[1,10],[3,10],[7,10],[9,10]]
-		for (let i = 0,ns,ds ,texte, texte_corr, cpt=0, a, b; i < this.nb_questions && cpt<50 ;) {
+		for (let i = 0,ns,ds ,texte, texte_corr, cpt=0, a, b,fraction=[],ns,ds; i < this.nb_questions && cpt<50 ;) {
 			if(this.sup==1){
 				a= randint(1,9);	 // coef de x est égal à 1
 				texte = `$(x-${a})(x+${a})$`    // (x-a)(x+a)
@@ -1074,7 +1074,7 @@ function Factoriser_Identites_remarquables3()
 		let liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
  		[1,6],[5,6],[1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[1,8],[3,8],[5,8],[7,8],
  		[1,9],[2,9],[4,9],[5,9],[7,9],[8,9],[1,10],[3,10],[7,10],[9,10]]
-		for (let i = 0, texte, texte_corr, cpt=0, a, b, ns,ds,fraction ; i < this.nb_questions && cpt<50 ;) {
+		for (let i = 0, texte, texte_corr, cpt=0, a, b, ns,ds,fraction=[] ; i < this.nb_questions && cpt<50 ;) {
 			if(this.sup==1){
 				a= randint(1,9);	 // coef de x est égal à 1
 				texte = `$x^2-${a*a}$`    // (x-a)(x+a)
@@ -1123,7 +1123,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
 	this.spacing = 1 ;
 	this.spacing_corr = 1 ;
 	this.nb_questions = 5 ;
-	this.sup=1 ;
+	this.sup = 1 ;
 
 	this.nouvelle_version = function(numero_de_l_exercice) {
 		this.liste_questions = []; // Liste de questions
@@ -1131,7 +1131,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
 		let liste_fractions = [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
 		[1,6],[5,6],[1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[1,8],[3,8],[5,8],[7,8],
 		[1,9],[2,9],[4,9],[5,9],[7,9],[8,9],[1,10],[3,10],[7,10],[9,10]]
-		let type_de_questions_disponibles
+		let type_de_questions_disponibles = [];
 		if(this.sup==1){
 		    type_de_questions_disponibles = [1,2,3] // coef de x = 1
         }
@@ -1141,7 +1141,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
         else {type_de_questions_disponibles = [7,8,9]}  // coef de x rationnel
 		
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions)
-		for (let i = 0, texte, texte_corr, cpt=0, a, b ,fraction,ns,ds,type_de_questions; i < this.nb_questions && cpt<50 ;) {
+		for (let i = 0, texte, texte_corr, cpt=0, a, b ,fraction=[],ns,ds,type_de_questions; i < this.nb_questions && cpt<50 ;) {
 			type_de_questions = liste_type_de_questions[i];
 			a= randint(1,9);
 			b = randint(2,9);
@@ -3532,7 +3532,7 @@ function Fractions_irreductibles(){
 	this.sup = 1 ; 
 	this.titre = "Fractions irréductibles"; 
 	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne =`Décomposer une fraction et son inverse à partir des décompositons en facteurs premier.`;
+	this.consigne =`Décomposer une fraction et son inverse à partir des décompositons en facteurs premiers.`;
 	this.consigne += `<br>`;
 	sortie_html ? this.spacing = 4 : this.spacing = 3;
 	sortie_html ? this.spacing_corr = 4: this.spacing_corr = 3;
@@ -3546,7 +3546,7 @@ function Fractions_irreductibles(){
 		let type_de_questions;
 		if (sortie_html) { // les boutons d'aide uniquement pour la version html
 			//this.bouton_aide = '';
-			//this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A12.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")					
+			this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheArithmetique-3A12.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")					
 			//this.bouton_aide += modal_video('conteMathsNombresPremiers','videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
 		} else { // sortie LaTeX
 		};
@@ -3792,17 +3792,17 @@ function Fractions_irreductibles(){
 };
 
 /**
- * 3A13 - PGCD_PPCM_Engrenages
+ * 3A13 - PPCM_Engrenages
  * @author Sébastien Lozano
  */
  
-function PGCD_PPCM_Engrenages(){
+function PPCM_Engrenages(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = 1 ; 
-	this.titre = "PGCD_PPCM_Engrenages"; 
+	this.titre = "Engrenages"; 
 	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne =`PGCD_PPCM_Engrenages.`;
+	this.consigne =`PPCM_Engrenages.`;
 	this.consigne += `<br>`;
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
@@ -3811,7 +3811,15 @@ function PGCD_PPCM_Engrenages(){
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup = 1;
+	this.liste_packages = 'bclogo';
 
+	var num_ex = '3A13'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
+
+	if (sortie_html) {		
+		var pourcentage = '100%'; // pour l'affichage des svg. On a besoin d'une variable globale
+	} else { // sortie LaTeX
+
+	};
 	this.nouvelle_version = function(numero_de_l_exercice){
 		let type_de_questions;
 		if (sortie_html) { // les boutons d'aide uniquement pour la version html
@@ -3829,28 +3837,64 @@ function PGCD_PPCM_Engrenages(){
 		let type_de_questions_disponibles = [1,2,3,4];
 		//let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
-
+		this.introduction = lampe_message(`Arithmétique des engrenages`,`Boîte de vitesse, transmission de vélo, de moto, perceuse electrique, tout ça fonctionne avec des engrenages! Mais au fait, comment ça marche, les engrenages?`);
 			for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 				type_de_questions = liste_type_de_questions[i];
 				
-	
+				if (sortie_html) {
+					let id_unique = `${num_ex}_${i}_${Date.now()}`
+					var id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
+					//var id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`;
+				 }
+
+				 var nb_dents_r1;
+				 var nb_dents_r2;
+
 				switch (type_de_questions) {
-					case 1 : // périmètre d'un carré de côté x			
-						texte = 'type 1';
-						texte_corr = 'corr type 1';
+					case 1 : // avec de petits nombres on calcule les mutliples
+						nb_dents_r1 = randint(5,30);
+						nb_dents_r2 = randint(5,30,nb_dents_r1);
+						texte = `L'une des roues possède ${nb_dents_r1} et l'autre ${nb_dents_r2}. On cherche à savoir au bout de combien de tours les deux roues seront toutes les deux revenues à leur position initiale.<br>`;
+						texte += `Écrire la liste des multiples de ${nb_dents_r1} et de ${nb_dents_r2}.`
+						if (sortie_html) {						
+							texte += warn_message(`Attention, les roues ci-dessous ne comportent pas le nombre de dents de l'énoncé!`);
+							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;					 							
+							SVG_engrenages(id_du_div,200,200);						
+						};
+						texte_corr = `Correction à détailler, en écrivant la liste des mutliples de chaque nombre de dents jusqu'à un peu plus que le ppcm et en le mettant en valeur.<br>`;
+						texte_corr += `PPCM du nombres de dents puis on calcule le nombre de tours de chaque roue.<br>`;
+						texte_corr += `chaque roue doit tourner de ppcm(${nb_dents_r1},${nb_dents_r2})=${ppcm(nb_dents_r1,nb_dents_r2)} dents <br>`;
+						texte_corr += `roue1 aura fait ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1} tours.<br>`;
+						texte_corr += `roue2 aura fait ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2} tours.`;
 						break;		
-					case 1 : // périmètre d'un carré de côté x			
-						texte = 'type 2';
-						texte_corr = 'corr type 2';
-						break;	
-					case 1 : // périmètre d'un carré de côté x			
-						texte = 'type 3';
-						texte_corr = 'corr type 3';
-						break;	
-					case 1 : // périmètre d'un carré de côté x			
-						texte = 'type 4';
-						texte_corr = 'corr type 4';
+					case 2 : // avec de plus grands nombre, c'est mieux de décomposer en facteurs premiers
+						nb_dents_r1 = randint(31,80);
+						nb_dents_r2 = randint(31,80,nb_dents_r1);
+						texte = `L'une des roues possède ${nb_dents_r1} et l'autre ${nb_dents_r2}. On cherche à savoir au bout de combien de tours les deux roues seront toutes les deux revenues à leur position initiale.`;
+						texte += `Décomposer ${nb_dents_r1} et ${nb_dents_r2} en produit de facteurs premiers.`
+						if (sortie_html) {
+							texte += warn_message(`Attention, les roues ci-dessous ne comportent pas le nombre de dents de l'énoncé!`);
+							texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;					 
+							SVG_engrenages(id_du_div,200,200);						
+						};
+						texte_corr = `Correction à détailler, en décomposant chaque nombre de dents en produit de facteurs premiers. Utilisation de la couleur!<br>`;
+						texte_corr += `$${nb_dents_r1} = ${decomposition_facteurs_premiers(nb_dents_r1)}$.<br>`;
+						texte_corr += `$${nb_dents_r1} = ${decomposition_facteurs_premiers(nb_dents_r2)}$.<br>`;
+						texte_corr += `D'où $ppcm(${nb_dents_r1},${nb_dents_r2})= ${decomposition_facteurs_premiers(ppcm(nb_dents_r1,nb_dents_r2))}$.<br>`;
+						texte_corr += `PPCM du nombres de dents puis on calcule le nombre de tours de chaque roue.<br>`;
+						texte_corr += `chaque roue doit tourner de ppcm(${nb_dents_r1},${nb_dents_r2})=${ppcm(nb_dents_r1,nb_dents_r2)} dents <br>`;
+						texte_corr += `roue1 aura fait ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1} tours.<br>`;
+						texte_corr += `roue2 aura fait ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2} tours.`;
 						break;		
+					case 3 : // 
+						texte = `type ${i}`;
+						texte_corr = `corr type ${i}`;
+						break;		
+					case 4 : // 
+						texte = `type ${i}`;
+						texte_corr = `corr type ${i}`;
+						break;		
+
 				};
 			
 				if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
