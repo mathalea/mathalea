@@ -3840,7 +3840,11 @@ function PPCM_Engrenages(){
 		let type_de_questions_disponibles = [1,2,3,4];
 		//let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
-		this.introduction = lampe_message(`Arithmétique des engrenages`,`Boîte de vitesse, transmission de vélo, de moto, perceuse electrique, tout ça fonctionne avec des engrenages! Mais au fait, comment ça marche, les engrenages?`);
+		this.introduction = lampe_message(
+			`Arithmétique des engrenages`,
+			`Boîte de vitesse, transmission de vélo, de moto, perceuse electrique, tout ça fonctionne avec des engrenages! Mais au fait, comment ça marche, les engrenages?`,
+			`nombres`
+			);
 		if (sortie_html) {						
 			this.introduction += warn_message(`Attention, les roues ci-dessous ne comportent pas le nombre de dents de l'énoncé!`);
 			this.introduction += `<div id="${num_ex}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;					 							
