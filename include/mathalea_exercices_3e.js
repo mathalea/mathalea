@@ -360,7 +360,7 @@ function fonctions_probabilite2(){
  * Trace 5 droites et demande l'expression de la fonction affine ou linéaire correspondante
  * @Auteur Jean-Claude Lhote
  */
-function fonctions_affines(){
+function Lecture_expression_fonctions_affines(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Déterminer une fonction affine";
