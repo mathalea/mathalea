@@ -3878,37 +3878,44 @@ function PPCM_Engrenages(){
 								`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que \\textbf{les nombres a et b sont premiers entre eux}.`
 							);
 						};
-						texte += `<br>`+num_alpha(1)+` En déduire le nombre de tours de chaque roue avant le retour à leur position initiale.`
-						let nb_marge = 4;
+						texte += `<br>`+num_alpha(1)+` En déduire le nombre de tours de chaque roue avant le retour à leur position initiale.`						
 						texte_corr = num_alpha(0)+` Liste des premiers multiples de $${nb_dents_r1}$ : <br>`;
-						for (let k=1;k<(ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1+nb_marge);k++) {
+						// on va faire en sorte de toujours avoir un nombre de multiples multiple de 5
+						let nb_marge = 5-(ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1)%5;
+						let k_max = (ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1+nb_marge);						
+						for (let k=1;k<k_max+1;k++) {
 							texte_corr += `$${k}\\times${nb_dents_r1} = `;
 							if (k==(ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1)) {
 								texte_corr += mise_en_evidence(tex_nombre(k*nb_dents_r1));
-								texte_corr += `$; `;
+								texte_corr += `$ ; `;
 							} else {
-								texte_corr += `${tex_nombre(k*nb_dents_r1)}$; `;
+								texte_corr += `${tex_nombre(k*nb_dents_r1)}$ ; `;
 							};
+							if (k%5==0) {
+								texte_corr += `<br>`;
+							}
 						};
 						texte_corr += `$\\ldots$ `;
 						texte_corr += `<br>`;
 						texte_corr += ` Liste des premiers multiples de ${nb_dents_r2} : <br>`;
-						for (let k=1;k<(ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2+nb_marge);k++) {
+						// on va faire en sorte de toujours avoir un nombre de multiples multiple de 5
+						nb_marge = 5-(ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2)%5;
+						k_max = (ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2+nb_marge);
+						for (let k=1;k<k_max+1;k++) {							
 							texte_corr += `$${k}\\times${nb_dents_r2} = `;
 							if (k==(ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2)) {
 								texte_corr += mise_en_evidence(tex_nombre(k*nb_dents_r2));
-								texte_corr += `$; `;
+								texte_corr += `$ ; `;
 							} else {
-								texte_corr += `${tex_nombre(k*nb_dents_r2)}$; `;
+								texte_corr += `${tex_nombre(k*nb_dents_r2)}$ ; `;
 							};
+							if (k%5==0) {
+								texte_corr += `<br>`;
+							}
 						};
 						texte_corr += `$\\ldots$ `;
 						texte_corr += `<br>`;
 						texte_corr += `Le plus petit multiple commun à $${nb_dents_r1}$ et $${nb_dents_r2}$ vaut donc $ppcm(${nb_dents_r1},${nb_dents_r2}) = ${ppcm(nb_dents_r1,nb_dents_r2)}$.`
-
-						//texte_corr += `Correction à détailler, en écrivant la liste des mutliples de chaque nombre de dents jusqu'à un peu plus que le ppcm et en le mettant en valeur.<br>`;
-						//texte_corr += `PPCM du nombres de dents puis on calcule le nombre de tours de chaque roue.<br>`;
-						//texte_corr += `chaque roue doit tourner de ppcm(${nb_dents_r1},${nb_dents_r2})=${ppcm(nb_dents_r1,nb_dents_r2)} dents <br>`;
 						texte_corr += `<br>`+num_alpha(1)+` Chaque roue doit tourner de $ppcm(${nb_dents_r1},${nb_dents_r2})=${tex_nombre(ppcm(nb_dents_r1,nb_dents_r2))}$ dents.`;
 						texte_corr += `<br> Cela correspond à $(${ppcm(nb_dents_r1,nb_dents_r2)}\\text{ dents})\\div (${nb_dents_r1}\\text{ dents/tour}) = ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1}$`;
 						if (ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1==1) {
@@ -3924,16 +3931,11 @@ function PPCM_Engrenages(){
 							texte_corr += ` tours `;
 						};				
 						texte_corr += `pour la roue n$\\degree$2.`
-						//roue1 aura fait ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1} tours.<br>`;
-						//texte_corr += `roue2 aura fait ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2} tours.`;
-						//`<br>`+num_alpha(0)+`
 						break;		
 					case 2 : // avec de plus grands nombre, c'est mieux de décomposer en facteurs premiers
 						nb_dents_r1 = randint(31,80);
 						nb_dents_r2 = randint(31,80,nb_dents_r1);
 						texte = `La roue n$\\degree$1 possède $${nb_dents_r1}$ dents et la roue n$\\degree$2 en a $${nb_dents_r2}$ dents.`;
-
-						//texte += `<br> On cherche à savoir au bout de combien de tours les deux roues seront toutes les deux revenues à leur position initiale.`;
 						texte += `<br>`+num_alpha(0)+` Décomposer $${nb_dents_r1}$ et $${nb_dents_r2}$ en produit de facteurs premiers.`;
 						if (ppcm(nb_dents_r1,nb_dents_r2)==(nb_dents_r1*nb_dents_r2)) {
 							texte += `<br>Pourquoi peut-on en déduire que ${nb_dents_r1} et ${nb_dents_r2} sont des `;
@@ -3946,20 +3948,10 @@ function PPCM_Engrenages(){
 							);
 						};
 						texte += `<br>`+num_alpha(1)+` En déduire le nombre de tours de chaque roue avant le retour à leur position initiale.`;
-						// if (sortie_html) {
-						// 	texte += warn_message(`Attention, les roues ci-dessous ne comportent pas le nombre de dents de l'énoncé!`);
-						// 	texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;					 
-						// 	SVG_engrenages(id_du_div,200,200);						
-						// };
 						texte_corr = `Pour un nombre de dents plus élevé, il est plus commode d'utiliser les décompositions en produit de facteurs premiers.`
-						//texte_corr = `Correction à détailler, en décomposant chaque nombre de dents en produit de facteurs premiers. Utilisation de la couleur!<br>`;
 						texte_corr += `<br>`+num_alpha(0)+` Décomposition de $${nb_dents_r1}$ en produit de facteurs premiers :  $${nb_dents_r1} = ${decomposition_facteurs_premiers(nb_dents_r1)}$.`;
 						texte_corr += `<br> Décomposition de $${nb_dents_r2}$ en produit de facteurs premiers :  $${nb_dents_r2} = ${decomposition_facteurs_premiers(nb_dents_r2)}$.`;
 						texte_corr += `<br> D'où $ppcm(${nb_dents_r1},${nb_dents_r2})= ${decomposition_facteurs_premiers(ppcm(nb_dents_r1,nb_dents_r2))}$.<br>`;						
-						// texte_corr += `PPCM du nombres de dents puis on calcule le nombre de tours de chaque roue.<br>`;
-						// texte_corr += `chaque roue doit tourner de ppcm(${nb_dents_r1},${nb_dents_r2})=${ppcm(nb_dents_r1,nb_dents_r2)} dents <br>`;
-						// texte_corr += `roue1 aura fait ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1} tours.<br>`;
-						// texte_corr += `roue2 aura fait ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2} tours.`;
 						texte_corr += `<br>`+num_alpha(1)+` Chaque roue doit tourner de $ppcm(${nb_dents_r1},${nb_dents_r2})=${tex_nombre(ppcm(nb_dents_r1,nb_dents_r2))}$ dents.`;
 						texte_corr += `<br> Cela correspond à $(${tex_nombre(ppcm(nb_dents_r1,nb_dents_r2))}\\text{ dents})\\div (${nb_dents_r1}\\text{ dents/tour}) = ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1}$`;
 						if (ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1==1) {
@@ -4009,8 +4001,6 @@ function PPCM_Engrenages(){
 						};
 						texte_corr += `}) = ${nb_dents_r1} \\text{ dents/tour}.$`
 						texte_corr += `<br>La roue n$\\degree$1 a donc : $${nb_dents_r1}$ dents.`;
-						// texte_corr += `<br> roue 2 : ${nb_dents_r2} dents.`;
-						// texte_corr += `<br> ppcm : ${ppcm(nb_dents_r1,nb_dents_r2)}.`;
 						break;		
 				};
 			
