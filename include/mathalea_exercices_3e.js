@@ -3878,7 +3878,7 @@ function PPCM_Engrenages(){
 								`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que \\textbf{les nombres a et b sont premiers entre eux}.`
 							);
 						};
-						texte += `<br>`+num_alpha(1)+` En déduire le nombre de tours de chaque roue avant retour à leur position initiale.`
+						texte += `<br>`+num_alpha(1)+` En déduire le nombre de tours de chaque roue avant le retour à leur position initiale.`
 						let nb_marge = 4;
 						texte_corr = num_alpha(0)+` Liste des premiers multiples de $${nb_dents_r1}$ : <br>`;
 						for (let k=1;k<(ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1+nb_marge);k++) {
@@ -3945,7 +3945,7 @@ function PPCM_Engrenages(){
 								`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que \\textbf{les nombres a et b sont premiers entre eux}.`
 							);
 						};
-						texte += `<br>`+num_alpha(1)+` En déduire le nombre de tours de chaque roue avant retour à leur position initiale.`;
+						texte += `<br>`+num_alpha(1)+` En déduire le nombre de tours de chaque roue avant le retour à leur position initiale.`;
 						// if (sortie_html) {
 						// 	texte += warn_message(`Attention, les roues ci-dessous ne comportent pas le nombre de dents de l'énoncé!`);
 						// 	texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;					 
