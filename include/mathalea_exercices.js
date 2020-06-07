@@ -134,20 +134,20 @@ var liste_des_exercices_disponibles = {
 		'3A12' : Fractions_irreductibles,
 		'3A13' : PPCM_Engrenages,
 		'3M30' : Calcul_de_volumes_3e,
-		'3N10': Exercice_developper,
-		'3N11' : Double_distributivite,
-		'3N12' : Developper_Identites_remarquables3,
-		'3N13' : Factoriser_Identites_remarquables3,
-		'3N14' : Resoudre_une_equation_produit_nul,
-		'3N14-2' : Resoudre_une_equation_produit_nul_niv2,
-		'3N15' : Resoudre_une_equation_x2_egal_A,
-		'3G10' : Exercice_Thales,
-		'3G11' : Reciproque_Thales,
+		'3L11': Exercice_developper,
+		'3L11-1' : Double_distributivite,
+		'3L12-1' : Developper_Identites_remarquables3,
+		'3L12' : Factoriser_Identites_remarquables3,
+		'3L14' : Resoudre_une_equation_produit_nul,
+		'3L14-1' : Resoudre_une_equation_produit_nul_niv2,
+		'3L15' : Resoudre_une_equation_x2_egal_A,
+		'3G20' : Exercice_Thales,
+		'3G21' : Reciproque_Thales,
 		'3G30' : Exercice_Trigo_longueurs,
 		'3G31' : Exercice_Trigo_angles,
 		'3F1-act' : fonction_notion_vocabulaire,
-		'3F10' : fonctions_lineaires,
-		'3F11' : fonctions_affines,
+		'3F20' : Lecture_expression_fonctions_lineaires,
+		'3F20-1' : Lecture_expression_fonctions_affines,
 		'3F12' : fonctions_calculs_d_images,
 		'3F12-2' : Image_fonction_algebrique,
 		'3F12-3' : Tableau_de_valeurs,
@@ -6047,7 +6047,7 @@ function Calcul_de_volumes(){
 					h=randint(2,5);
 					l=randint(6,10);
 					texte=`Une pyramide de hauteur $${h}${liste_unites[j][0]}$ et dont la base  est un carré de $${c}${liste_unites[j][0]}$ de côté.`
-					texte_corr=`$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\left(${c*c}${liste_unites[j][0]}\\right)^2\\times${h}${liste_unites[j][0]}`;
+					texte_corr=`$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\left(${c}${liste_unites[j][0]}\\right)^2\\times${h}${liste_unites[j][0]}`;
 					if (calcul(c*c*h/3,false)==arrondi(c*c*h/3,1)) texte_corr+=`=${tex_nombrec(arrondi(calcul(c*c*h/3),1))}${liste_unites[j][1]}$`;
 					else texte_corr+=`\\approx${tex_nombrec(arrondi(calcul(c*c*h/3),1))}${liste_unites[j][1]}$`;
 				}
@@ -6095,8 +6095,8 @@ function reperage_point_du_quart_de_plan(){
 	this.quart_de_plan=true;	;
 
 }
-function fonctions_lineaires(){
-	fonctions_affines.call(this);
+function Lecture_expression_fonctions_lineaires(){
+	Lecture_expression_fonctions_affines.call(this);
 	this.titre="Déterminer une fonction linéaire";
 	this.lineaire=true;
 }
