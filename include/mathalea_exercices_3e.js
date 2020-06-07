@@ -3982,11 +3982,11 @@ function PPCM_Engrenages(){
 						texte = `La roue n$\\degree$2 a maintenant $${nb_dents_r2}$ dents.`;
 						texte += ` Déterminer le nombre de dents de la roue n$\\degree$1 qui ferait $${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1}$ `;
 						if (ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1==1) {
-							texte_corr += ` tour `;
+							texte += ` tour `;
 						} else {
-							texte_corr += ` tours `;
+							texte += ` tours `;
 						};	
-						texte_corr += ` pendant que la roue n$\\degree$2 en fait $${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2}$.`
+						texte += ` pendant que la roue n$\\degree$2 en fait $${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2}$.`
 						texte_corr = `Puisque la roue n$\\degree$2, qui a $${nb_dents_r2}$ dents, fait $${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2}$ `;
 						if (ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r2==1) {
 							texte_corr += ` tour `;
