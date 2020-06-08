@@ -4229,9 +4229,12 @@ function Antecedent_graphique(){
 		}
 
 		if (this.sup==2) {
-			if (randint(1,3)<3) { // une fois sur 3 il n'y a qu'un seul antécédent
+			if (randint(1,4)<4) { // une fois sur 4 il n'y a qu'un seul antécédent
 				let x0 = randint(-2,2)
 				let fx0 = randint(-4,4)
+				if (!sortie_html) {
+					fx0 = randint(-2,2)
+				}
 				a = randint(-3,3,0);
 				texte += `Déterminer par lecture graphique les antécédents de $${fx0}$ par cette fonction $f$.<br><br>`
 				texte_corr = `$${fx0}$ a un unique antécédent $${x0}$, on note $f(${x0})=${fx0}$.<br>`
@@ -4240,11 +4243,11 @@ function Antecedent_graphique(){
 				fx3=fx1;
 				[[numa,dena],[numb,denb]]=resol_sys_lineaire_2x2(x1,x3,fx1,fx3,c)
 				while (dena==0 || denb==0 || numa==0 ){
-					x1 = randint(-6,-3);
-					x3 = randint(1,6);
-					fx1 = randint(-5,5);
+					x1 = randint(-4,-1);
+					x3 = randint(1,4);
+					sortie_html ? fx1 = randint(-7,7) : fx1 = randint(-3,3);
 					fx3 = fx1;
-					d = randint(-10,10);
+					sortie_html ? c = randint(-6,6) : c = randint(-4,4);
 
 					[[numa,dena],[numb,denb]]=resol_sys_lineaire_2x2(x1,x3,fx1,fx3,c)
 				}
