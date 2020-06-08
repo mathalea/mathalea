@@ -4050,6 +4050,9 @@ function preambule_personnalise(){
 		case 'bclogo' :
 			result += '\\usepackage[tikz]{bclogo}'
 		break
+		case 'tkz-euclide' :
+			result += '\\usepackage{tkz-euclide}\n\\usetkzobj{all}'
+		break
 		default:
 		    result += `\\usepackage{${packages}}\n`
 		} 

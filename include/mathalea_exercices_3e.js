@@ -4037,6 +4037,7 @@ function Image_graphique(){
 	this.taille_div_MG32 = [800,600];
 	this.pas_de_version_LaTeX = false;
 	this.nb_cols = 1;
+	this.liste_packages = 'pgfplots';
 
 
 	this.nouvelle_version = function(numero_de_l_exercice){
@@ -4174,6 +4175,7 @@ function Antecedent_graphique(){
 	this.taille_div_MG32 = [800,600];
 	this.pas_de_version_LaTeX = false;
 	this.nb_cols = 1;
+	this.liste_packages = 'pgfplots';
 
 
 	this.nouvelle_version = function(numero_de_l_exercice){

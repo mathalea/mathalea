@@ -2679,6 +2679,7 @@ function reperage_point_du_plan(){
 	this.sup=1;
 	this.sup2=false;
 	this.quart_de_plan=false;
+	this.liste_packages = 'tkz-euclide';
 
 	
 	this.nouvelle_version = function(numero_de_l_exercice){ // numero_de_l_exercice est 0 pour l'exercice 1
