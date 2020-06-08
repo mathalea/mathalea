@@ -3755,7 +3755,7 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 	\\fancyfoot[R]{
 		%\\scriptsize Coopmaths.fr -- CC-BY-SA
 		\\begin{tikzpicture}[remember picture,overlay]
-	    	\\node[anchor=south east] at ($(current page.south east)+(-4,0.75cm)$) {\\scriptsize {\\bfseries \\href{https://coopmaths.fr/}{Coopmaths.fr} -- \\href{http://creativecommons.fr/licences/}{CC-BY-SA}}}
+	    	\\node[anchor=south east] at ($(current page.south east)+(-4,0.75cm)$) {\\scriptsize {\\bfseries \\href{https://coopmaths.fr/}{Coopmaths.fr} -- \\href{http://creativecommons.fr/licences/}{CC-BY-SA}}};
 	    \\end{tikzpicture}
 		\\begin{tikzpicture}[line cap=round,line join=round,remember picture, overlay, shift={(current page.south west)},xshift=14cm,yshift=-6cm]
 			\\fill[fill=couleur_theme] (\\xini,6)--(\\xini+1.5,6)--(\\xini+2.5,7)--(\\xini+1.5,8)--(\\xini,8)--(\\xini+1,7)-- cycle;
