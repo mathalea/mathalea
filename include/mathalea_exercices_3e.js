@@ -373,6 +373,7 @@ function Lecture_expression_fonctions_affines(){
 	sortie_html? this.spacing_corr = 2 : this.spacing_corr = 1;
 	this.sup=1;
 	this.lineaire=false;
+	this.liste_packages = 'tkz-euclide';
 
 	
 	this.nouvelle_version = function(numero_de_l_exercice){ // numero_de_l_exercice est 0 pour l'exercice 1
