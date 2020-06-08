@@ -2932,9 +2932,10 @@ function Liste_des_diviseurs_5e(){
 	this.sup = 1 ; 
 	this.titre = "Écrire la liste de tous les diviseurs d'un entier."; 
 	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne =`Écrire la liste de tous les diviseurs d'un entier.`;
+	//this.consigne =`Écrire la liste de tous les diviseurs d'un entier.`;
+	this.consigne =``;
 	//this.consigne += `<br>`;
-	sortie_html ? this.spacing = 3 : this.spacing = 2;
+	sortie_html ? this.spacing = 2 : this.spacing = 1;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
 	this.nb_questions = 3;
 	//this.correction_detaillee_disponible = true;
@@ -2969,11 +2970,15 @@ function Liste_des_diviseurs_5e(){
 						// on calcule le nombre de diviseur de M pour prévoir le nombre de lignes du tableau
 						let nbre_diviseurs_M = liste_diviseurs(M).length;
 						
-						texte = `Compléter le tableau suivant et faire la liste de tous les diviseurs de ${M}`;
+						texte = `Compléter le tableau suivant et faire la liste de tous les diviseurs de ${M}`;										
+						if (!sortie_html) {
+							texte += `$\\medskip$`;
+						};
 						texte += `<br>`;						
 						if (sortie_html) {
 							texte += `$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|}\n`
 						} else {
+							
 							texte += `$\\begin{array}{|c|c|c|}\n`
 						};						
 						texte += `\\hline\n`
@@ -2997,8 +3002,10 @@ function Liste_des_diviseurs_5e(){
 						// correction
 
 						texte_corr = `Le tableau suivant contient tous les couples de facteurs dont le produit vaut ${M}`;
+						if (!sortie_html) {
+							texte_corr += `$\\medskip$`;
+						};
 						texte_corr += `<br>`;						
-
 						if (sortie_html) {
 							texte_corr += `$\\def\\arraystretch{2.5}\\begin{array}{|c|c|c|}\n`
 						} else {
@@ -3021,7 +3028,9 @@ function Liste_des_diviseurs_5e(){
 							texte_corr += `\\hline\n`;
 						};		
 						texte_corr += `\\end{array}\n$`
-
+						if (!sortie_html) {
+							texte_corr += `$\\medskip$`;
+						};
 						texte_corr += `<br>`;
 						texte_corr += `${M} a donc ${nbre_diviseurs_M} diviseurs qui sont : `;
 						texte_corr += `1`;
