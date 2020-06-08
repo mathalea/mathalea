@@ -3101,7 +3101,6 @@ function Liste_des_diviseurs_5e(){
  * 5A11 justifier la non primalité réinvestissement des critères de divisibilité
  * Nombres à 3 ou 4 chiffres, un multiple de 2, de 3, de 5, de 7, de 10, sous forme d'un produit de deux nombres premiers inférieurs à 30
  * et un nombre premier inferieur à 529 
- * mfk7
  * @author Sébastien Lozano
  */
 function Premier_ou_pas_5e(){

@@ -2537,12 +2537,16 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 						texte = `Avec la calculatrice, compléter chaque phrase avec le mot "est un diviseur de" ou "est un multiple de" ou "n'est ni une diviseur ni un multiple de".`;
 						texte+= `<br>`;
 						texte_corr =``;
-						for (let j = 0; j<6; j++) {
+						for (let j = 0; j<5; j++) {
 							texte += textes[j];
 							texte +=`<br>`;
 							texte_corr += textes_corr[j];
 							texte_corr +=`<br>`;
 						};
+						texte += textes[5];
+						//texte +=`<br>`;
+						texte_corr += textes_corr[5];
+						texte_corr +=`<br>`;
 						break;
 					case 5 : // liste des diviseurs
 						// on définit un tableau pour les choix du nombre dont on veut les diviseurs
@@ -2563,24 +2567,6 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 						rg_N = randint(0,(tableau_de_choix.length-1));
 						N = tableau_de_choix[rg_N];
 						texte = `Écrire la liste de tous les diviseurs de ${N}.`;
-						// texte_corr = `Pour trouver la liste des diviseurs de ${N} on cherche tous les produits de deux facteurs qui donnent ${N}<br>`;
-						// if (liste_diviseurs(N).length%2==0) {//si il y a un nombre pair de diviseurs
-						// 	for (let m = 0; m<(liste_diviseurs(N).length/2); m++){
-						// 		texte_corr += ``+liste_diviseurs(N)[m]+`$\\times$`+liste_diviseurs(N)[(liste_diviseurs(N).length-m-1)]+`<br>`;
-						// 	};
-						// } else {
-						// 	for (let m = 0; m<((liste_diviseurs(N).length-1)/2); m++){
-						// 		texte_corr += ``+liste_diviseurs(N)[m]+`$\\times$`+liste_diviseurs(N)[(liste_diviseurs(N).length-m-1)]+`<br>`;
-						// 	};
-						// 	texte_corr += ``+liste_diviseurs(N)[(liste_diviseurs(N).length-1)/2]+`$\\times$`+liste_diviseurs(N)[(liste_diviseurs(N).length-1)/2]+`<br>`;
-						// };
-						// texte_corr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${N}<br>`;
-						// texte_corr += `La liste des diviseurs de ${N} est donc `;
-						// texte_corr += `1`;
-						// for (let w = 1; w<liste_diviseurs(N).length; w++) {
-						// 	texte_corr += `; `+liste_diviseurs(N)[w];
-						// };
-
 						texte_corr = `Pour trouver la liste des diviseurs de ${N} on cherche tous les produits de deux facteurs qui donnent ${N}. En écrivant toujours le plus petit facteur en premier.<br>`;
 						texte_corr += `Il est suffisant de chercher des diviseurs inférieurs au plus grand nombre dont le carré vaut ${N}, par exemple ici, ${Math.trunc(Math.sqrt(N))}$\\times$${Math.trunc(Math.sqrt(N))} = ${Math.trunc(Math.sqrt(N))*Math.trunc(Math.sqrt(N))}<${N}`;
 						texte_corr += ` et ${Math.trunc(Math.sqrt(N))+1}$\\times$${Math.trunc(Math.sqrt(N))+1} = ${(Math.trunc(Math.sqrt(N))+1)*(Math.trunc(Math.sqrt(N))+1)}>${N} donc il suffit d'arrêter la recherche de facteur à ${Math.trunc(Math.sqrt(N))}.`;
@@ -2599,7 +2585,7 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres(){
 						texte_corr += `La liste des diviseurs de ${N} est donc `;
 						texte_corr += `1`;
 						for (let w = 1; w<liste_diviseurs(N).length; w++) {
-							texte_corr += `; `+liste_diviseurs(N)[w];
+							texte_corr += ` ; `+liste_diviseurs(N)[w];
 						};
 						texte_corr += `.`;
 						break;							
