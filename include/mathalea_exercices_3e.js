@@ -2653,7 +2653,7 @@ function Premier_ou_pas(){
 		string_rappel +=`.`;
 
 		this.introduction = warn_message(string_rappel,`nombres`,`Coup de pouce`);
-		
+
 			for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 
 				type_de_questions = liste_type_de_questions[i];
@@ -2788,8 +2788,8 @@ function Premier_ou_pas(){
 							texte_corr += `trois divisieurs qui sont 1, ${prime1} et lui-même ${N}=${nombre_avec_espace(prime1*prime2)}, `;
 						} else {
 							texte_corr += `quatre diviseurs qui sont 1, ${prime1}, ${prime2} et lui-même ${N}=${nombre_avec_espace(prime1*prime2)}, `;
-						};
-						texte_corr += texte_en_couleur_et_gras(nombre_avec_espace(prime1*prime2)+` n'est donc pas premier.`);
+						};						
+						texte_corr += texte_en_couleur_et_gras(`${N} = `+nombre_avec_espace(prime1*prime2)+` n'est donc pas premier.`);
 						break;
 					case 7 : // nombre premier inférieur à 529
 						// rang du nombre premier choisi
@@ -2839,9 +2839,10 @@ function Premier_ou_pas_critere_par7_par11(){
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
 	this.nb_questions = 7;
 	//this.correction_detaillee_disponible = true;
-	this.nb_cols = 1;
+	this.nb_cols = 2;
 	this.nb_cols_corr = 1;
 	this.sup = 1;
+	this.liste_packages = `bclogo`;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		let type_de_questions;
@@ -2886,17 +2887,9 @@ function Premier_ou_pas_critere_par7_par11(){
 			string_rappel_b +=`, `+crible_eratosthene_n(100)[k];
 		};
 		string_rappel_b +=`.`;
-		if (sortie_html) {
-			this.introduction =`
-			<br>
-			<div class="ui compact warning message">		
-			<p>`+string_rappel_b+`
-			</p>
-			</div>
-			<br>`;
-		} else {
-			this.introduction = tex_cadre_par_orange(string_rappel_b);	
-		};	
+		
+		this.introduction = warn_message(string_rappel_b,`nombres`,`Coup de pouce`);
+
 			for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 				type_de_questions = liste_type_de_questions[i];
 				
@@ -2906,7 +2899,8 @@ function Premier_ou_pas_critere_par7_par11(){
 					case 1 : // nombre pair
 						N=2*randint(51,4999);
 						texte = nombre_avec_espace(N);						
-						texte_corr = `Comme ${nombre_avec_espace(N)} est pair, il admet donc au moins trois diviseurs qui sont 1, 2 et lui-même,<br> ${nombre_avec_espace(N)} n'est donc pas premier.`;
+						texte_corr = `Comme ${nombre_avec_espace(N)} est pair, il admet donc au moins trois diviseurs qui sont 1, 2 et lui-même, `;
+						texte_corr += texte_en_couleur_et_gras(nombre_avec_espace(N)+` n'est donc pas premier.`);
 						break;		
 					case 2 : // Multiple de 3
 						let sum=0; // pour la valeur de la somme;
@@ -2918,13 +2912,15 @@ function Premier_ou_pas_critere_par7_par11(){
 							texte_corr += ` + `+N.toString().charAt(k);
 							sum +=Number(N.toString().charAt(k));
 						};					
-						texte_corr += ` = ${sum} est un multiple de 3 donc ${nombre_avec_espace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 3 et lui-même,<br> ${nombre_avec_espace(N)} n'est donc pas premier.`;
+						texte_corr += ` = ${sum} est un multiple de 3 donc ${nombre_avec_espace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 3 et lui-même, `;
+						texte_corr += texte_en_couleur_et_gras(nombre_avec_espace(N)+` n'est donc pas premier.`);
 						break;	
 					case 3 : // Multiple de 5
 						N=5*randint(20,1999);
 						texte = nombre_avec_espace(N);
 						texte_corr = `Comme le dernier chiffre de ${nombre_avec_espace(N)} est un ${N.toString().charAt(N.toString().length-1)} alors ${nombre_avec_espace(N)} est divisible par 5, `;
-						texte_corr += `il admet donc au moins trois diviseurs qui sont 1, 5 et lui-même,<br> ${nombre_avec_espace(N)} n'est donc pas premier.`;
+						texte_corr += `il admet donc au moins trois diviseurs qui sont 1, 5 et lui-même, `;
+						texte_corr += texte_en_couleur_et_gras(nombre_avec_espace(N)+` n'est donc pas premier.`);
 						break;	
 					case 4 : // Multiple de 7
 						let N_longueur; // pour la taille du string N
@@ -2947,10 +2943,9 @@ function Premier_ou_pas_critere_par7_par11(){
 							N1_longueur = N1.toString().length;
 							sum1 = Number(N1.toString().substring(0,N1_longueur-1))+5*Number(N1.toString().charAt(N1_longueur-1));
 						};
-						// texte_corr = `Comme ${N.toString().substring(0,N_longueur-1)}-5$\\times$${N.toString().charAt(N_longueur-1)}`;
-						// texte_corr += ` = ${Number(N.toString().substring(0,N_longueur-1))+5*Number(N.toString().charAt(N_longueur-1))} est un multiple de 7 alors 7 divise ${N} aussi, `;
 						texte_corr += `Comme ${N1.toString().substring(0,N1_longueur-1)} + 5$\\times$${N1.toString().charAt(N1_longueur-1)} = ${sum1} est un multiple de 7 alors 7 divise ${N} aussi `;
-						texte_corr += `qui admet donc au moins trois diviseurs : 1, 7 et lui-même,<br> ${nombre_avec_espace(N)} n'est donc pas premier.`;
+						texte_corr += `qui admet donc au moins trois diviseurs : 1, 7 et lui-même, `;
+						texte_corr += texte_en_couleur_et_gras(nombre_avec_espace(N)+` n'est donc pas premier.`);
 						break;
 					case 5 : // multiple de 11
 						let even_sum; // pour la somme des chiffres de rang impair
@@ -3011,8 +3006,8 @@ function Premier_ou_pas_critere_par7_par11(){
 							texte_corr += `${Math.abs(odd_sum-even_sum)} qui est un multiple de 11, `;
 						};
 						texte_corr+= `<br>`;
-						texte_corr += ` cela signifie que ${nombre_avec_espace(N)} est divisible par 11, il admet donc au moins trois diviseurs qui sont 1, 11 et lui-même,`;
-						texte_corr += `<br> ${nombre_avec_espace(N)} n'est donc pas premier.`;
+						texte_corr += ` cela signifie que ${nombre_avec_espace(N)} est divisible par 11, il admet donc au moins trois diviseurs qui sont 1, 11 et lui-même, `;
+						texte_corr += texte_en_couleur_et_gras(nombre_avec_espace(N)+` n'est donc pas premier.`);
 						break;
 					case 6 : // produit de deux nombres premiers inférieurs à 100
 						// rang du premier facteur premier
@@ -3025,11 +3020,11 @@ function Premier_ou_pas_critere_par7_par11(){
 						texte = N;
 						texte_corr = `${N} est le produit de ${prime1} et de ${prime2}, il admet donc au moins `;
 						if (prime1==prime2) {
-							texte_corr += `trois divisieurs qui sont 1, ${prime1} et lui-même ${N}=${nombre_avec_espace(prime1*prime2)}`;
+							texte_corr += `trois divisieurs qui sont 1, ${prime1} et lui-même ${N}=${nombre_avec_espace(prime1*prime2)}, `;
 						} else {
-							texte_corr += `quatre diviseurs qui sont 1, ${prime1}, ${prime2} et lui-même ${N}=${nombre_avec_espace(prime1*prime2)}`;
+							texte_corr += `quatre diviseurs qui sont 1, ${prime1}, ${prime2} et lui-même ${N}=${nombre_avec_espace(prime1*prime2)}, `;
 						};
-						texte_corr +=`<br> ${N} n'est donc pas premier.`; 
+						texte_corr += texte_en_couleur_et_gras(`${N} = `+nombre_avec_espace(prime1*prime2)+` n'est donc pas premier.`);
 						break;
 					case 7 : // nombre premier inférieur à 529
 						// rang du nombre premier choisi
@@ -3043,8 +3038,8 @@ function Premier_ou_pas_critere_par7_par11(){
 							texte_corr += `, `+tab_premiers_a_tester[k];
 						};
 						texte_corr += `.`;
-						texte_corr += `<br> Aucun de ces nombres premiers ne divise ${N}.`;
-						texte_corr +=`<br> ${N} est donc un nombre premier.`; 
+						texte_corr += `<br> Aucun de ces nombres premiers ne divise ${N}, `;
+						texte_corr += texte_en_couleur_et_gras(nombre_avec_espace(Number(N))+` n'est donc pas premier.`);
 						break;								
 				};
 			

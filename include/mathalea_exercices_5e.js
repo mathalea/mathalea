@@ -3212,8 +3212,8 @@ function Premier_ou_pas_5e(){
 							texte_corr += `trois divisieurs qui sont 1, ${prime1} et lui-même ${N}=${nombre_avec_espace(prime1*prime2)} `;
 						} else {
 							texte_corr += `quatre diviseurs qui sont 1, ${prime1}, ${prime2} et lui-même ${N}=${nombre_avec_espace(prime1*prime2)}, `;
-						};
-						texte_corr += texte_en_couleur_et_gras(nombre_avec_espace(prime1*prime2)+` n'est donc pas premier.`);
+						};						
+						texte_corr += texte_en_couleur_et_gras(`${N} = `+nombre_avec_espace(prime1*prime2)+` n'est donc pas premier.`);
 						break;
 					case 7 : // nombre premier inférieur à 29
 						// rang du nombre premier choisi
