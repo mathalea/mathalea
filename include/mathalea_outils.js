@@ -3392,12 +3392,15 @@ function d3jsTests(id_du_div) {
 };
 
 /**
- * Renvoie un encart sur fond d'alert semantic ui en HTML ou dans un cadre orange coopmaths en LaTeX avec le texte 
+ * Renvoie un encart sur fond d'alert semantic ui en HTML ou dans un cadre bclogo en LaTeX avec le texte 
  * @param {string} texte
  * @author Sébastien Lozano 
  */
-function warn_message(texte) {
+function warn_message(texte,couleur,titre) {
 	'use strict';
+	if( typeof(titre) == 'undefined' ){
+        titre = ``;
+    };
 	if (sortie_html) {
 		return `
 		<br>
@@ -3407,7 +3410,12 @@ function warn_message(texte) {
 		</div>
 		`;
 	} else {
-		return tex_cadre_par_orange(texte);							
+		//return tex_cadre_par_orange(texte);							
+		return `
+		\\begin{bclogo}[couleurBarre=`+couleur+`,couleurBord=`+couleur+`,epBord=2,couleur=gray!10,logo=\\bclampe,arrondi=0.1]{\\bf `+titre+`}
+			`+texte+`
+		\\end{bclogo}
+		`;
 	};
 
 };
@@ -3668,6 +3676,7 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 {
 	%\\theme{nombres|gestion|grandeurs|geo|algo}{Texte (entrainement, évaluation, mise en route...}{numéro de version ou vide}{titre du thême et niveau}
 	\\fancyhead[C]{
+		%Tracé du dé
 		\\begin{tikzpicture}[y=0.80pt, x=0.80pt, yscale=-\\globalscale, xscale=\\globalscale,remember picture, overlay, shift={(current page.north west)},xshift=17cm,yshift=9.5cm,fill=couleur_theme]
 			%%%%Arc supérieur gauche%%%%
 			\\path[fill](523.5,1424.25)..controls(474.75,1413)and(404.25,1372.5)..(362.25,1333.5)..controls(322.5,1295.25)and(313.5,1272)..(331.5,1254)..controls(348.75,1236.75)and(369.75,1245)..(410.25,1283.25)..controls(458.25,1328.25)and(517.5,1356.75)..(575.25,1362.75)..controls(635.25,1368.75)and(646.5,1375.5)..(643.5,1404.75)..controls(641.25,1428.75)and(641.25,1428.75)..(596.25,1430.25)..controls(571.5,1431)and(538.5,1428)..(523.5,1424.25)--cycle;

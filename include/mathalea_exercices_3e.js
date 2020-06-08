@@ -3756,7 +3756,7 @@ function Fractions_irreductibles(){
 					//case 4 : // reduction de B sur A 			
 						texte += `<br>`+num_alpha(3)+` Rendre la fraction $\\dfrac{B}{A} = \\dfrac{${tex_nombre(nb2)}}{${tex_nombre(nb1)}}$ irréductible`;
 						texte += ` à l'aide des décompositions obtenues au `+num_alpha(0)+` et au `+num_alpha(1);
-						texte += warn_message(`Une observation judicieuse et argumentée pourra faire gagner du temps!`);
+						texte += warn_message(`Une observation judicieuse et argumentée pourra faire gagner du temps!`,`nombres`,`Coup de pouce`);
 						texte_corr += `<br>`+num_alpha(3)+` $\\dfrac{B}{A}$ est l'inverse de $\\dfrac{A}{B}$ donc $\\dfrac{B}{A} = \\dfrac{${tex_nombre(nb2)}}{${tex_nombre(nb1)}} = `;
 						texte_corr += `\\dfrac{`;
 						texte_corr += `\\cancel{`+decomp_fact_prem_array(nb1/nb1_dist)[0]+`}`;
@@ -3846,7 +3846,7 @@ function PPCM_Engrenages(){
 			`nombres`
 			);
 		if (sortie_html) {						
-			this.introduction += warn_message(`Attention, les roues ci-dessous ne comportent pas le nombre de dents de l'énoncé!`);
+			this.introduction += warn_message(`Attention, les roues ci-dessous ne comportent pas le nombre de dents de l'énoncé!`,`nombres`,`Coup de pouce`);
 			this.introduction += `<div id="${num_ex}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;					 							
 			SVG_engrenages(num_ex,200,200);						
 		};
