@@ -1111,6 +1111,7 @@ function Exercice_Thales(){
 	this.nb_cols_corr = 1;
 	this.quatrieme=false;
 	this.sup = 1; // 1 calcul direct | 2 calcul en deux étapes | 3 version 1&2 sans figure
+	this.liste_packages = 'tkz-euclide';
 	// paramètres communs Html ou Latex
 	
 
@@ -1371,6 +1372,7 @@ function Reciproque_Thales(){
 	this.nb_cols_corr = 1;
 	this.quatrieme = false;
 	this.sup=1;
+	this.liste_packages = 'tkz-euclide'
 
 	// let s1='A',s2='B',s3='C',s4='M',s5='N'
 	// coefficient de l'homothétie compris entre -0,8 et -0,2 ou entre 0,2 et 0,8 pour éviter les constructions trop serrées
@@ -1652,7 +1654,8 @@ function Exercice_Pythagore() {
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup = 1; // 1 calcul de l'hypoténuse 2 calcul d'un côté de l'angle droit 
-	sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5
+	sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+	this.liste_packages = 'tkz-euclide';
 
 	this.nouvelle_version = function (numero_de_l_exercice) {
 
@@ -1859,7 +1862,8 @@ function Exercice_Trigo_longueurs() {
 	this.spacing=1;
 	this.quatrieme=false;
 	this.sup = 1; // 1 utilisation du cosinus exclusivement 2 utilisation des 3 fonctions trigo 
-	sortie_html ? this.spacing_corr = 3 : this.spacing_corr = 1.5
+	sortie_html ? this.spacing_corr = 3 : this.spacing_corr = 1.5;
+	this.liste_packages = 'tkz-euclide';
 
 	this.nouvelle_version = function (numero_de_l_exercice) {
 			let lettre1,lettre2,texte,texte_corr;
@@ -2090,7 +2094,8 @@ function Exercice_Trigo_angles() {
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup = 1; // 1 calcul avec Arccos
-	sortie_html ? this.spacing_corr = 3 : this.spacing_corr = 1.5
+	sortie_html ? this.spacing_corr = 3 : this.spacing_corr = 1.5;
+	this.liste_packages = 'tkz-euclide';
 
 	this.nouvelle_version = function (numero_de_l_exercice) {
 		this.type_exercice = 'MG32';

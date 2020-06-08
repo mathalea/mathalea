@@ -3659,25 +3659,110 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 
 \\newmdenv[roundcorner=0,linewidth=0pt,frametitlerule=false, backgroundcolor=gray!40,leftmargin=8cm]{remarque}
 
-
+% echelle pour le dé
+\\def \\globalscale {0.04}
+% abscisse initiale pour les chevrons
+\\def \\xini {3}
 
 \\newcommand{\\theme}[4]
 {
 	%\\theme{nombres|gestion|grandeurs|geo|algo}{Texte (entrainement, évaluation, mise en route...}{numéro de version ou vide}{titre du thême et niveau}
 	\\fancyhead[C]{
-	\\begin{tikzpicture}[line cap=round,line join=round,remember picture, overlay, shift={(current page.north west)},yshift=-8.5cm]
-    \\fill[fill=couleur_theme] (0,5) rectangle (21,6);
-    \\fill[fill=couleur_theme] (6,6)--(7.5,6)--(8.5,7)--(7.5,8)--(6,8)--(7,7)-- cycle;
-    \\fill[fill=couleur_theme] (8,6)--(8.5,6)--(9.5,7)--(8.5,8)--(8,8)--(9,7)-- cycle;  
-    \\fill[fill=couleur_theme] (9,6)--(9.5,6)--(10.5,7)--(9.5,8)--(9,8)--(10,7)-- cycle;  
-    \\node[color=white] at (10.5,5.5) {\\LARGE \\bfseries \\MakeUppercase #4};
-\\end{tikzpicture}
-	\\begin{tikzpicture}[remember picture,overlay]
-	  \\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {};
-	  \\node[anchor=east, fill=white] at ($(current page.north east)+(-2,-1.9cm)$) {\\Huge \\textcolor{couleur_theme}{\\bfseries \\#} #2 \\textcolor{couleur_theme}{\\bfseries \\MakeUppercase{#3}}};
-	\\end{tikzpicture}
+		\\begin{tikzpicture}[y=0.80pt, x=0.80pt, yscale=-\\globalscale, xscale=\\globalscale,remember picture, overlay, shift={(current page.north west)},xshift=17cm,yshift=9.5cm,fill=couleur_theme]
+			% path150 arc sup gauche
+			\\path[fill] (523.5000,1424.2500) .. controls (474.7500,1413.0000) and
+			(404.2500,1372.5000) .. (362.2500,1333.5000) .. controls (322.5000,1295.2500)
+			and (313.5000,1272.0000) .. (331.5000,1254.0000) .. controls
+			(348.7500,1236.7500) and (369.7500,1245.0000) .. (410.2500,1283.2500) ..
+			controls (458.2500,1328.2500) and (517.5000,1356.7500) .. (575.2500,1362.7500)
+			.. controls (635.2500,1368.7500) and (646.5000,1375.5000) ..
+			(643.5000,1404.7500) .. controls (641.2500,1428.7500) and (641.2500,1428.7500)
+			.. (596.2500,1430.2500) .. controls (571.5000,1431.0000) and
+			(538.5000,1428.0000) .. (523.5000,1424.2500) -- cycle;
+			% path150
+			% path152 face sup
+			\\path[fill] (512.2500,1272.7500) .. controls (490.5000,1260.0000) and
+			(195.0000,878.2500) .. (195.0000,861.7500) .. controls (195.0000,854.2500) and
+			(198.0000,846.0000) .. (202.5000,843.7500) .. controls (210.7500,838.5000) and
+			(677.2500,772.5000) .. (707.2500,772.5000) .. controls (720.0000,772.5000) and
+			(737.2500,781.5000) .. (753.7500,796.5000) .. controls (792.0000,833.2500) and
+			(1057.5000,1179.0000) .. (1057.5000,1193.2500) .. controls
+			(1057.5000,1200.0000) and (1053.0000,1209.0000) .. (1048.5000,1212.7500) ..
+			controls (1038.0000,1220.2500) and (590.2500,1283.2500) ..
+			(551.2500,1282.5000) .. controls (539.2500,1282.5000) and (521.2500,1278.0000)
+			.. (512.2500,1272.7500) -- cycle;
+			% path152
+			% path154 faces gauche et droite
+			\\path[fill] (1061.2500,1167.7500) .. controls (1050.7500,1158.7500) and
+			(978.7500,1068.7500) .. (900.0000,967.5000) .. controls (792.7500,829.5000)
+			and (756.0000,777.0000) .. (753.0000,756.7500) -- (748.5000,729.0000) --
+			(724.5000,745.5000) .. controls (704.2500,759.0000) and (660.0000,767.2500) ..
+			(456.7500,794.2500) .. controls (322.5000,813.0000) and (207.0000,825.7500) ..
+			(200.2500,822.7500) .. controls (193.5000,820.5000) and (187.5000,812.2500) ..
+			(187.5000,804.7500) .. controls (188.2500,797.2500) and (229.5000,688.5000) ..
+			(279.7500,563.2500) .. controls (349.5000,390.7500) and (376.5000,331.5000) ..
+			(391.5000,320.2500) .. controls (406.5000,309.0000) and (462.0000,299.2500) ..
+			(649.5000,273.0000) .. controls (780.7500,254.2500) and (897.0000,240.7500) ..
+			(907.5000,241.5000) .. controls (918.0000,243.0000) and (927.0000,249.0000) ..
+			(928.5000,256.5000) .. controls (930.0000,264.0000) and (912.0000,315.7500) ..
+			(889.5000,372.7500) .. controls (866.2500,429.0000) and (848.2500,476.2500) ..
+			(849.7500,477.7500) .. controls (851.2500,479.2500) and (872.2500,432.0000) ..
+			(897.0000,373.5000) .. controls (936.7500,276.7500) and (942.7500,266.2500) ..
+			(960.0000,266.2500) .. controls (975.0000,266.2500) and (999.0000,292.5000) ..
+			(1089.0000,408.7500) .. controls (1281.0000,654.0000) and (1290.0000,666.7500)
+			.. (1290.0000,691.5000) .. controls (1290.0000,720.0000) and
+			(1104.7500,1175.2500) .. (1090.5000,1180.5000) .. controls
+			(1085.2500,1182.7500) and (1071.7500,1176.7500) .. (1061.2500,1167.7500) --
+			cycle;
+			% path154
+			% path156 arc bas droit
+			\\path[fill] (1329.0000,861.0000) .. controls (1316.2500,848.2500) and
+			(1317.0000,844.5000) .. (1339.5000,788.2500) .. controls (1364.2500,726.7500)
+			and (1367.2500,654.0000) .. (1347.0000,591.0000) .. controls
+			(1330.5000,539.2500) and (1338.0000,522.7500) .. (1375.5000,526.5000) ..
+			controls (1395.7500,528.7500) and (1400.2500,533.2500) .. (1412.2500,566.2500)
+			.. controls (1432.5000,624.0000) and (1426.5000,760.5000) ..
+			(1401.7500,821.2500) .. controls (1386.0000,861.0000) and (1380.7500,866.2500)
+			.. (1361.2500,868.5000) .. controls (1348.5000,870.0000) and
+			(1334.2500,866.2500) .. (1329.0000,861.0000) -- cycle;
+			% path156
+			% path158 arc bas gauche
+			\\path[fill] (196.5000,373.5000) .. controls (181.5000,358.5000) and
+			(186.0000,335.2500) .. (213.7500,294.7500) .. controls (252.7500,237.0000) and
+			(304.5000,190.5000) .. (363.0000,161.2500) .. controls (435.0000,124.5000) and
+			(472.5000,127.5000) .. (472.5000,170.2500) .. controls (472.5000,183.7500) and
+			(462.0000,192.0000) .. (414.7500,213.7500) .. controls (350.2500,243.7500) and
+			(303.7500,283.5000) .. (264.7500,343.5000) .. controls (239.2500,383.2500) and
+			(216.7500,393.7500) .. (196.5000,373.5000) -- cycle;
+			% path158
+		\\end{tikzpicture}
+		\\begin{tikzpicture}[remember picture,overlay]
+			\\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {};
+			\\node[anchor=east, fill=white] at ($(current page.north east)+(-18.8,-2.3cm)$) {\\footnotesize \\bfseries{MathALEA}};
+	  	\\end{tikzpicture}
+		\\begin{tikzpicture}[line cap=round,line join=round,remember picture, overlay, shift={(current page.north west)},yshift=-8.5cm]
+			\\fill[fill=couleur_theme] (0,5) rectangle (21,6);
+			\\fill[fill=couleur_theme] (\\xini,6)--(\\xini+1.5,6)--(\\xini+2.5,7)--(\\xini+1.5,8)--(\\xini,8)--(\\xini+1,7)-- cycle;
+			\\fill[fill=couleur_theme] (\\xini+2,6)--(\\xini+2.5,6)--(\\xini+3.5,7)--(\\xini+2.5,8)--(\\xini+2,8)--(\\xini+3,7)-- cycle;  
+			\\fill[fill=couleur_theme] (\\xini+3,6)--(\\xini+3.5,6)--(\\xini+4.5,7)--(\\xini+3.5,8)--(\\xini+3,8)--(\\xini+4,7)-- cycle;   
+			\\node[color=white] at (10.5,5.5) {\\LARGE \\bfseries{ \\MakeUppercase{ #4}}};
+		\\end{tikzpicture}
+		\\begin{tikzpicture}[remember picture,overlay]
+			\\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {};
+			\\node[anchor=east, fill=white] at ($(current page.north east)+(-2,-1.5cm)$) {\\Huge \\textcolor{couleur_theme}{\\bfseries{\\#}} \\bfseries{#2} \\textcolor{couleur_theme}{\\bfseries \\MakeUppercase{#3}}};
+		\\end{tikzpicture}
 	}
-	\\fancyfoot[R]{\\scriptsize Coopmaths.fr -- CC-BY-SA}
+	\\fancyfoot[R]{
+		%\\scriptsize Coopmaths.fr -- CC-BY-SA
+		\\begin{tikzpicture}[remember picture,overlay]
+	    	\\node[anchor=south east] at ($(current page.south east)+(-4,0.75cm)$) {\\scriptsize {\\bfseries \\href{https://coopmaths.fr/}{Coopmaths.fr} -- \\href{http://creativecommons.fr/licences/}{CC-BY-SA}}};
+	    \\end{tikzpicture}
+		\\begin{tikzpicture}[line cap=round,line join=round,remember picture, overlay, shift={(current page.south west)},xshift=14cm,yshift=-6cm]
+			\\fill[fill=couleur_theme] (\\xini,6)--(\\xini+1.5,6)--(\\xini+2.5,7)--(\\xini+1.5,8)--(\\xini,8)--(\\xini+1,7)-- cycle;
+			\\fill[fill=couleur_theme] (\\xini+2,6)--(\\xini+2.5,6)--(\\xini+3.5,7)--(\\xini+2.5,8)--(\\xini+2,8)--(\\xini+3,7)-- cycle;  
+			\\fill[fill=couleur_theme] (\\xini+3,6)--(\\xini+3.5,6)--(\\xini+4.5,7)--(\\xini+3.5,8)--(\\xini+3,8)--(\\xini+4,7)-- cycle;  
+		\\end{tikzpicture}
+	}
 	\\fancyfoot[C]{}
 	\\colorlet{couleur_theme}{#1}
 	\\colorlet{couleur_numerotation}{couleur_theme}
@@ -3964,6 +4049,9 @@ function preambule_personnalise(){
 		break;
 		case 'bclogo' :
 			result += '\\usepackage[tikz]{bclogo}'
+		break
+		case 'tkz-euclide' :
+			result += '\\usepackage{tkz-euclide}\n\\usetkzobj{all}'
 		break
 		default:
 		    result += `\\usepackage{${packages}}\n`

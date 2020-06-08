@@ -668,8 +668,8 @@ if (!sortie_html){
 
 		// Gestion des paramètres du fichier LaTeX
 
-		$('#options_style_CoopMaths').hide(); 	// par défaut le style est classique donc on 
-		$('a.lien_images').hide();				// cache les options du style Coop
+		$('#options_style_CoopMaths').show(); 	// par défaut le style coop 
+		$('a.lien_images').show();				
 		$(function(){
 			$("input:radio[name='style']").change(function(){
 				if ($('#style_classique:checked').val()){
