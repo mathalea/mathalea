@@ -143,6 +143,7 @@ var liste_des_exercices_disponibles = {
 		'3L15' : Resoudre_une_equation_x2_egal_A,
 		'3G20' : Exercice_Thales,
 		'3G21' : Reciproque_Thales,
+//		'3G22' : Agrandissement_reduction,
 		'3G30' : Exercice_Trigo_longueurs,
 		'3G31' : Exercice_Trigo_angles,
 		'3F1-act' : fonction_notion_vocabulaire,

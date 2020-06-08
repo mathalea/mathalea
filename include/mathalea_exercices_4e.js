@@ -1958,7 +1958,7 @@ function Exercice_Trigo_longueurs() {
 			}
 			else { //sortie Latex
 				texte = `\\begin{minipage}{.5 \\linewidth} 	\\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}`
-				texte += `\n\t\\item Le triangle $${nom_du_triangle}]$ est rectangle en $${s0}$~;`
+				texte += `\n\t\\item Le triangle $${nom_du_triangle}$ est rectangle en $${s0}$~;`
 
 				if (type_de_questions == 1) { // Calcul du coté adjacent (cosinus)
 					texte += `\n\t\\item $${s1 + s2}=${s12}~\\text{cm}$`;
@@ -2022,7 +2022,7 @@ function Exercice_Trigo_longueurs() {
 				texte_corr +=`$\\cos \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s1,s1+s2)}$<br>`;
 				texte_corr +=`Avec les données numériques :<br>`
 				texte_corr +=`$\\dfrac{\\cos\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(s0+s1,s12)}$<br>`;
-				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ égaux~donc~ :}$<br>`
+				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ \\acute{e}gaux~donc~ :}$<br>`
 				texte_corr += `$${s0+s1}=${quatrieme_proportionnelle('\\color{red}{1}',s12,`\\cos\\left(${angle1}\\degree\\right)`)}$<br>` // ${s12}\\times\\cos\\left(${angle1}\\degree\\right)$<br>`;
 				texte_corr += `Soit $${s0 + s1}\\approx${s01}$ cm.`;
 			}
@@ -2031,7 +2031,7 @@ function Exercice_Trigo_longueurs() {
 				texte_corr +=`$\\cos \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s1,s1+s2)}$<br>`;
 				texte_corr +=`Avec les données numériques :<br>`
 				texte_corr +=`$\\dfrac{\\cos\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(s01,s1+s2)}$<br>`;
-				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ égaux~donc~ :}$<br>`
+				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ \\acute{e}gaux~donc~ :}$<br>`
 				texte_corr += `$${s1 + s2}=${quatrieme_proportionnelle(`\\cos\\left(${angle1}\\degree\\right)`,s01,'\\color{red}{1}')}$<br>`// ${s01}\\div\\cos\\left(${angle1}\\degree\\right)$<br>`;
 				texte_corr += `Soit $${s1 + s2}\\approx${s12}$ cm.`;
 			}	
@@ -2040,7 +2040,7 @@ function Exercice_Trigo_longueurs() {
 				texte_corr += `$\\sin \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s2,s1+s2)}$<br>`;
 				texte_corr +=`Avec les données numériques :<br>`
 				texte_corr +=`$\\dfrac{\\sin\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(s0+s2,s12)}$<br>`;
-				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ égaux~donc~ :}$<br>`
+				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ \\acute{e}gaux~donc~ :}$<br>`
 				texte_corr += `$${s0+s2}=${quatrieme_proportionnelle('\\color{red}{1}',s12,`\\sin\\left(${angle1}\\degree\\right)`)}$<br>`
 				texte_corr += `Soit $${s0 + s2}\\approx${s02}$ cm.`;
 			}
@@ -2049,7 +2049,7 @@ function Exercice_Trigo_longueurs() {
 				texte_corr +=`$\\sin \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s2,s1+s2)}$<br>`;
 				texte_corr +=`Avec les données numériques :<br>`
 				texte_corr +=`$\\dfrac{\\sin\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(s02,s1+s2)}$<br>`;
-				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ égaux~donc~ :}$<br>`
+				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ \\acute{e}gaux~donc~ :}$<br>`
 				texte_corr += `$${s1+s2}=${quatrieme_proportionnelle(`\\sin\\left(${angle1}\\degree\\right)`,s02,'\\color{red}{1}')}$<br>`				
 				texte_corr += `Soit $${s1 + s2}\\approx${s12}$ cm.`;
 			}
@@ -2058,7 +2058,7 @@ function Exercice_Trigo_longueurs() {
 				texte_corr += `$\\tan \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s2,s0+s1)}<br>$`;
 				texte_corr +=`Avec les données numériques :<br>`
 				texte_corr +=`$\\dfrac{\\tan\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(s0+s2,s01)}$<br>`;
-				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ égaux~donc~ :}$<br>`
+				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ \\acute{e}gaux~donc~ :}$<br>`
 				texte_corr += `$${s0+s2}=${quatrieme_proportionnelle('\\color{red}{1}',s01,`\\tan\\left(${angle1}\\degree\\right)`)}$<br>`								
 				texte_corr += `Soit $${s0 + s2}\\approx${s02}$ cm.`;
 			}
@@ -2067,7 +2067,7 @@ function Exercice_Trigo_longueurs() {
 				texte_corr +=`$\\tan \\left(\\widehat{${s0+s1+s2}}\\right)=${tex_fraction(s0 + s2,s0+s1)}$<br>`;
 				texte_corr +=`Avec les données numériques :<br>`
 				texte_corr +=`$\\dfrac{\\tan\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(s02,s0+s1)}$<br>`;
-				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ égaux~donc~ :}$<br>`
+				texte_corr +=`$\\bf\\textcolor{red}{Les~ produits~ en~ croix~ sont~ \\acute{e}gaux~donc~ :}$<br>`
 				texte_corr += `$${s0+s1}=${quatrieme_proportionnelle(`\\tan\\left(${angle1}\\degree\\right)`,s02,'\\color{red}{1}')}$<br>`					
 				texte_corr += `Soit $${s0 + s1}\\approx${s01}$ cm.`;
 			}
