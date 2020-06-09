@@ -3914,7 +3914,7 @@ function PPCM_Engrenages(){
 							texte_corr += katex_Popup2(
 								numero_de_l_exercice+2,
 								1,
-								"nombres premiers entre eux ?",
+								"nombres premiers entre eux.",
 								`Définition : Nombres premiers entre eux`,
 								`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que \\textbf{les nombres a et b sont premiers entre eux}.`
 							);
@@ -3960,7 +3960,7 @@ function PPCM_Engrenages(){
 							texte_corr += katex_Popup2(
 								numero_de_l_exercice+4,
 								1,
-								"nombres premiers entre eux ?",
+								"nombres premiers entre eux.",
 								`Définition : Nombres premiers entre eux`,
 								`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que \\textbf{les nombres a et b sont premiers entre eux}.`
 							);
