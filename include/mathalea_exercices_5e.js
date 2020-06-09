@@ -2680,7 +2680,7 @@ function reperage_point_du_plan(){
 	this.spacing = 1;
     this.spacing_corr = 1;
 	this.sup=1;
-	this.sup2=false;
+	this.sup2=true;
 	this.quart_de_plan=false;
 	this.liste_packages = 'tkz-euclide';
 
@@ -2697,8 +2697,7 @@ function reperage_point_du_plan(){
 	w=h;
 	k=Math.pow(2,parseInt(this.sup)-1);
 	let nom=[];
-	if (this.sup2==true) grille=true;
-	else grille=false;
+	grille=this.sup2;
 	if (this.quart_de_plan) {
 		xmin=0;ymin=0;xmax=10;ymax=10;
 	}
@@ -2757,7 +2756,7 @@ function reperage_point_du_plan(){
 		for (let i=0;i<5;i++)	{
 		texte += `\n\t \\tkzDefPoint(${points[i][0]},${points[i][1]}){A}`
 		texte +=`\n\t \\tkzDrawPoint[shape=cross out,color=blue,size=6](A)`
-		texte +=`\n\t \\tkzLabelPoint[above=5pt,fill=white,fill opacity=0.7,text opacity=1,inner sep=0](A){$${nom[i]}$}`
+		texte +=`\n\t \\tkzLabelPoint[above right=3pt,fill=white,fill opacity=0.7,text opacity=1,inner sep=0](A){$${nom[i]}$}`
 		}
 		texte +=`\n\t \\end{tikzpicture}`;
 		this.liste_questions.push(texte);
@@ -2767,7 +2766,7 @@ function reperage_point_du_plan(){
 		for (let i=0;i<5;i++)	{
 		texte_corr += `\n\t \\tkzDefPoint(${points[i][0]},${points[i][1]}){A}`
 		texte_corr +=`\n\t \\tkzDrawPoint[shape=cross out,color=blue,size=6](A)`
-		texte_corr +=`\n\t \\tkzLabelPoint[above=5pt,fill=white,fill opacity=0.7,text opacity=1,inner sep=0](A){$${nom[i]}$}`
+		texte_corr +=`\n\t \\tkzLabelPoint[above right=3pt,fill=white,fill opacity=0.7,text opacity=1,inner sep=0](A){$${nom[i]}$}`
 		texte_corr +=`\n\t \\tkzPointShowCoord(A)`
 		}
 		texte_corr +=`\n\t \\end{tikzpicture}`;
@@ -2775,7 +2774,7 @@ function reperage_point_du_plan(){
 	}
 
 	texte=`Déterminer les coordonnées des points`;
-	texte_corr=`Les coordonnées des points sont :`
+	texte_corr=`Les coordonnées des points sont :<br>`
 	for (i=0;i<4;i++) {
 	texte+=` $${nom[i]}$,`;
 	texte_corr+=` $${nom[i]}(${tex_nombre(points[i][0])};${tex_nombre(points[i][1])})$, `;

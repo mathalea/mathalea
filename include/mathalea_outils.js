@@ -1920,7 +1920,7 @@ function Latex_repere(Xmin,Xmax,Ymin,Ymax,subX,subY,grille){
 	result +=`\n\t \\tkzInit [xmin=${Xmin},xmax=${Xmax},xstep=1,ymin=${Ymin},ymax=${Ymax},ystep=1]`;
 	if (grille) result +=`\n\t \\tkzGrid[sub,subxstep=${1/subX},subystep=${1/subY},color=lightgray,line width=0.3pt](${Xmin},${Ymin})(${Xmax},${Ymax})`;
 	result +=`\n\t \\tkzAxeXY`;
-	result +=`\n\t \\tkzClip`;
+	result +=`\n\t \\tkzClip[space=1]`;
 		return result;
 }
 	
