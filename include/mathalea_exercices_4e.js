@@ -1399,6 +1399,14 @@ function Reciproque_Thales(){
 		let dist24;
 		let dist12 = arrondi(Math.sqrt(x2 * x2 + y2 * y2), 1)
 		let dist13 = arrondi(Math.sqrt(x3 * x3 + y3 * y3), 1)
+		while (dist12==dist13) { //éviter les triangles isocèles imbriqués qui ne nécéssitent aucun calculs.
+			x2 = randint(2, 4)
+			y2 = randint(3, 5)
+			x3 = randint(5, 6)
+			y3 = randint(-2, 1)
+			dist12 = arrondi(Math.sqrt(x2 * x2 + y2 * y2), 1)
+			dist13 = arrondi(Math.sqrt(x3 * x3 + y3 * y3), 1)
+		}
 		let dist15 = arrondi(dist13 * abs(k), 2)
 		let dist14 = arrondi(dist12 * abs(k2), 2); 	
 		let dist35;
@@ -1451,20 +1459,20 @@ function Reciproque_Thales(){
 			else if (this.sup == 2) {  // AN n'est pas donné, il faut le calculer avant.
 				texte = `Dans la figure ci-dessous, $${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s3 + s5}=${s35}$ cm et $${s2 + s4}=${s24}$ cm.<br>`
 				texte_corr=``;
-				if (k > 0) {
+				if (k > 0) { //triangles imbriqués
 					texte_corr += 'On sait que ' + `$${s1 + s5}=${s1 + s3}-${s3 + s5}=${s13}-${s35}=${s15}$` + ' cm.<br>'
 					texte_corr += 'et que ' + `$${s1 + s4}=${s1 + s2}-${s2 + s4}=${s12}-${s24}=${s14}$` + ' cm.<br>'
 				}
-				else {
+				else { // papillon
 					texte_corr += 'On sait que ' + `$${s1 + s5}=${s3 + s5}-${s1 + s3}=${s35}-${s13}=${s15}$` + ' cm.<br>'
 					texte_corr += 'et que ' + `$${s1 + s4}=${s2 + s4}-${s1 + s2}=${s24}-${s12}=${s14}$` + ' cm.<br>'
 				}
 			}
-			else if (randint(1, 2) == 1) {
+			else if (randint(1, 2) == 1) { //triangles imbriqués sans figure
 				texte = `$${s1}$, $${s2}$ et $${s3}$ sont trois point distincts. $${s4} \\in [${s1 + s2}]$ et $${s5} \\in [${s1 + s3}]$ <br> $${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s4}=${s14}$ cm et $${s1 + s5}=${s15}$ cm.`
 				texte_corr = ``;
 			}
-			else {
+			else { // papillon sans figure
 				texte = `Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés dans cet ordre.<br>`
 				texte += `$${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s4}=${s14}$ cm et $${s1 + s5}=${s15}$ cm.`
 				texte_corr = ``;
@@ -1474,12 +1482,12 @@ function Reciproque_Thales(){
 			texte_corr += `D'une part on a $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}=\\dfrac{${s12}\\times${mise_en_evidence(s15)}}{${s14}\\times${mise_en_evidence(s15)}}=${tex_fraction(tex_nombrec(arrondi(dist12*dist15,3)),tex_nombrec(arrondi(dist14*dist15,4)))}$`;
 			texte_corr += `<br>D'autre part on a $\\dfrac{${s1 + s3}}{${s1 + s5}}=\\dfrac{${s13}}{${s15}}=\\dfrac{${s13}\\times${mise_en_evidence(s14)}}{${s15}\\times${mise_en_evidence(s14)}}=${tex_fraction(tex_nombrec(arrondi(dist13*dist14,3)),tex_nombrec(arrondi(dist14*dist15,4)))}$`;
 
-			if (k!=k2) {
+			if (k!=k2) { // droites non parallèles
 
 				texte_corr+=`<br>$\\dfrac{${s1 + s2}}{${s1 + s4}}\\not=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`;
 				texte_corr+=`Donc d'après le théorème de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ ne sont pas parallèles.<br>`
 			}
-			else {
+			else { // droites parallèles
 				texte_corr+=`<br>$\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`; //car les produits en croix sont égaux : $${s12}\\times${s15}=${s13}\\times${s14}=${tex_nombre(arrondi(dist12*dist15,3))}$.<br>`;
 				if (k>0) texte_corr+=`$${s1}$,$${s4}$,$${s2}$ et $${s1}$,$${s5}$,$${s3}$ sont alignés dans le même ordre.<br>`
 				else texte_corr+=`$${s4}$,$${s1}$,$${s2}$ et $${s5}$,$${s1}$,$${s3}$ sont alignés dans le même ordre.<br>`
@@ -1524,23 +1532,23 @@ function Reciproque_Thales(){
 			}
 			else if (this.sup == 2) { // niveau 2 : Calcul intermédiaire nécessaire
 				texte = '\\begin{minipage}{.5 \\linewidth} 	\\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
-				texte += `\n\t \\item ${s1 + s2} = ${s12}cm\n\t \\item ${s1 + s3} = ${s13}cm\n\t \\item ${s3 + s5} = ${s35}cm\n\t \\item ${s2 + s4} = ${s24}cm.<br>`
+				texte += `\n\t \\item ${s1 + s2} = ${s12} cm\n\t \\item ${s1 + s3} = ${s13} cm\n\t \\item ${s3 + s5} = ${s35} cm\n\t \\item ${s2 + s4} = ${s24} cm.<br>`
 				texte += '\\end{itemize} \\bigskip '+`Les droites (${s2 + s3}) et (${s4 + s5}) sont-elles parallèles ?<br>`+'. \\end{minipage}'
-				if (k > 0) {
+				if (k > 0) { // triangles imbriqués
 					texte_corr += 'On sait que ' + `$${s1 + s5}=${s1 + s3}-${s3 + s5}=${s13}-${s35}=${s15}$` + ' cm.<br>'
 					texte_corr += 'et que ' + `$${s1 + s4}=${s1 + s2}-${s2 + s4}=${s12}-${s24}=${s14}$` + ' cm.<br>'
 				}
-				else {
+				else { // papillon
 					texte_corr += 'On sait que ' + `$${s1 + s5}=${s3 + s5}-${s1 + s3}=${s35}-${s13}=${s15}$` + ' cm.<br>'
 					texte_corr += 'et que ' + `$${s1 + s4}=${s2 + s4}-${s1 + s2}=${s24}-${s12}=${s14}$` + ' cm.<br>'
 				}
 			}
 			 // énoncé sans figure
-			else if (randint(1, 2) == 1) {
+			else if (randint(1, 2) == 1) { // triangles imbriqués
 				texte = `$${s1}$, $${s2}$ et $${s3}$ sont trois point distincts. $${s4} \\in [${s1 + s2}]$ et $${s5} \\in [${s1 + s3}]$ <br> $${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s4}=${s14}$ cm et $${s1 + s5}=${s15}$ cm.<br>`
 				texte += `Les droites (${s2 + s3}) et (${s4 + s5}) sont-elles parallèles ?<br>`
 			}
-			else {
+			else { // papillon
 				texte = `Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés dans cet ordre.<br>`
 				texte += `$${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s4}=${s14}$ cm et $${s1 + s5}=${s15}$ cm.<br>`
 				texte += `Les droites (${s2 + s3}) et (${s4 + s5}) sont-elles parallèles ?<br>`
@@ -1576,12 +1584,12 @@ function Reciproque_Thales(){
 			texte_corr += `D'une part on a $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}=\\dfrac{${s12}\\times${mise_en_evidence(s15)}}{${s14}\\times${mise_en_evidence(s15)}}=${tex_fraction(tex_nombrec(arrondi(dist12*dist15,3)),tex_nombrec(arrondi(dist14*dist15,4)))}$`;
 			texte_corr += `<br>D'autre part on a $\\dfrac{${s1 + s3}}{${s1 + s5}}=\\dfrac{${s13}}{${s15}}=\\dfrac{${s13}\\times${mise_en_evidence(s14)}}{${s15}\\times${mise_en_evidence(s14)}}=${tex_fraction(tex_nombrec(arrondi(dist13*dist14,3)),tex_nombrec(arrondi(dist14*dist15,4)))}$`;
 
-			if (k!=k2) {
+			if (k!=k2) { // droites pas parallèles
 
 				texte_corr+=`<br>$\\dfrac{${s1 + s2}}{${s1 + s4}}\\not=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`;
 				texte_corr+=`Donc d'après le théorème de Thales, les droites $(${s2 + s3})$ et $(${s4 + s5})$ ne sont pas parallèles.<br>`
 			}
-			else {
+			else { // droites parallèles
 				texte_corr+=`<br>$\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s1 + s3}}{${s1 + s5}}$.<br>`; //car les produits en croix sont égaux : $${s12}\\times${s15}=${s13}\\times${s14}=${tex_nombre(arrondi(dist12*dist15,3))}$.<br>`;
 				if (k>0) texte_corr+=`$${s1}$,$${s4}$,$${s2}$ et $${s1}$,$${s5}$,$${s3}$ sont alignés dans le même ordre.<br>`
 				else texte_corr+=`$${s4}$,$${s1}$,$${s2}$ et $${s5}$,$${s1}$,$${s3}$ sont alignés dans le même ordre.<br>`
