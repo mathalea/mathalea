@@ -1184,6 +1184,7 @@ function string_nombre(nb){
 		result=partie_entiere.slice(0,partie_entiere.length-i*3)+result;
 	}
 	else result=partie_entiere;
+	if (result[0]==' ') result=result.substring(1,result.length)
 	if (partie_decimale!=undefined)  result+=','+partie_decimale;
 	return result;
 }
@@ -1919,7 +1920,7 @@ function Latex_repere(Xmin,Xmax,Ymin,Ymax,subX,subY,grille){
 	result +=`\n\t \\tkzInit [xmin=${Xmin},xmax=${Xmax},xstep=1,ymin=${Ymin},ymax=${Ymax},ystep=1]`;
 	if (grille) result +=`\n\t \\tkzGrid[sub,subxstep=${1/subX},subystep=${1/subY},color=lightgray,line width=0.3pt](${Xmin},${Ymin})(${Xmax},${Ymax})`;
 	result +=`\n\t \\tkzAxeXY`;
-	result +=`\n\t \\tkzClip`;
+	result +=`\n\t \\tkzClip[space=1]`;
 		return result;
 }
 	
@@ -2005,11 +2006,11 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
 
 	result+=`\n\t \\tkzInit[xmin=${origine},xmax=${calcul(origine+7/pas1)},ymin=-0.5,ymax=0.5,xstep=${calcul(1/pas1)}]`
 
-	if (origine==0) result +=`\n\t \\tkzDrawX[tickwd=2pt];`
-	else result+=`\n\t \\tkzDrawX[left space=0.2,tickwd=2pt];`
+	if (origine==0) result +=`\n\t \\tkzDrawX[tickwd=2pt,label={}];`
+	else result+=`\n\t \\tkzDrawX[left space=0.2,tickwd=2pt,label={}];`
 	result+=`\n\t \\tikzset{arr/.style={postaction=decorate,	decoration={markings,mark=at position 1 with {\\arrow[thick]{#1}}}}}`
 
-	if (origine<0) decalage=arrondi(origine*pas1)
+	if (origine<0) decalage=origine*pas1
 	else decalage=0
 	result+=`\n\t \\foreach \\x in {0,${calcul(1/pas2)},...,7}`
 	result+=`\n\t {\\draw (${decalage}+\\x,-0.05)--(${decalage}+\\x,0.05);}`  	//result+=`\n\t {\\draw (${origine*pas1}+\\x,-0.05)--(${origine*pas1}+\\x,0.05);}`
