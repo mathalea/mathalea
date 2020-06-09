@@ -3266,8 +3266,8 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 	this.titre = "Compter/lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers."; 
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne =`Sans la calculatrice, compter/lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers.`;
-	this.consigne += `<br>`;
-	sortie_html ? this.spacing = 3 : this.spacing = 2;
+	//this.consigne += `<br>`;
+	sortie_html ? this.spacing = 2 : this.spacing = 1;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
 	this.nb_questions = 2;
 	//this.correction_detaillee_disponible = true;
@@ -3352,13 +3352,16 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 						};
 						texte += `$, <br>`;
 						texte +=num_alpha(0)+` Compléter le tableau ci-dessous.`;
+						if (!sortie_html) {
+							texte += `$\\medskip$`;
+						};
 						// on crée le tableau des entetes de lignes et des colonnes
 						let ent_lignes = [];
 						let contenu_lignes=[];
 						let ent_colonnes = [`\\times`];
 						// les entetes des lignes
 						for (let k=0;k<tab_multiplicites_b[0]+1;k++) {
-							ent_lignes.push(tab_premiers_b[0]+`^{`+k+`}`);
+							ent_lignes.push(`\\phantom{plusLarge}`+tab_premiers_b[0]+`^{`+k+`}\\phantom{plusLarge}`);
 						};
 						// les entetes des colonnes 
 						for (let m=0;m<tab_multiplicites_b[1]+1;m++) {
@@ -3385,6 +3388,9 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 						};						
 						texte += `<br>`;
 						texte += tab_C_L(ent_colonnes,ent_lignes,contenu_lignes);
+						if (!sortie_html) {
+							texte += `$\\medskip$`;
+						};
 						texte += `<br>`;
 						texte +=num_alpha(1)+` En déduire le nombre de diviseurs de $${tex_nombre(nombre_a_decomposer_b)}$.<br>`;
 						texte +=num_alpha(2)+` Enfin, dresser la liste des diviseurs de $${tex_nombre(nombre_a_decomposer_b)}$.<br>`;						
@@ -3404,6 +3410,9 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 						};
 						texte_corr += `$, <br>`;
 						texte_corr += num_alpha(0)+` Le tableau donne :`;
+						if (!sortie_html) {
+							texte_corr += `\\par\\vspace{0.25cm}`;
+						};
 						// on crée le tableau des entetes de lignes et des colonnes
 						let ent_lignes_corr = [];
 						let ent_lignes_corr_res = [];
@@ -3447,7 +3456,10 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 						};
 						texte_corr += `<br>`;
 						texte_corr += tab_C_L(ent_colonnes_corr,ent_lignes_corr,contenu_lignes_corr);
-						texte_corr += `<br><br>`;
+						texte_corr += `<br>`;
+						if (!sortie_html) {
+							texte_corr += `\\par\\vspace{0.25cm}`;
+						};
 						texte_corr +=num_alpha(1)+` $${tex_nombre(nombre_a_decomposer_b)}$ a donc `;
 						texte_corr += `$(${tab_multiplicites_b[0]}+1)\\times(${tab_multiplicites_b[1]}+1)\\times(${tab_multiplicites_b[2]}+1) = `;
 						texte_corr += `${tab_multiplicites_b[0]+1}\\times${tab_multiplicites_b[1]+1}\\times${tab_multiplicites_b[2]+1} = `;
@@ -3475,10 +3487,13 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 						texte_corr += `$${tab_premiers_b[2]}^{`+tab_multiplicites_b[2]+`}$ d'où le facteur $(${tab_multiplicites_b[2]}+1)$.`;
 
 						texte_corr += `<br>`;
+						if (!sortie_html) {
+							texte_corr += `\\par\\vspace{0.25cm}`;
+						};
 						texte_corr +=num_alpha(2)+` Enfin, voici la liste des $${(tab_multiplicites_b[0]+1)*(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)}$ diviseurs de $${tex_nombre(nombre_a_decomposer_b)}$ issus du tableau ci-dessus : `;
 						texte_corr += `$1`;
 						for (let w = 1; w<liste_diviseurs(nombre_a_decomposer_b).length; w++) {
-							texte_corr += `\\text{; }`+tex_nombre(liste_diviseurs(nombre_a_decomposer_b)[w]);
+							texte_corr += `\\text{ ; }`+tex_nombre(liste_diviseurs(nombre_a_decomposer_b)[w]);
 						};
 						texte_corr += `.$`;
 						break;		
