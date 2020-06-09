@@ -3514,15 +3514,16 @@ function Fractions_irreductibles(){
 	this.sup = 1 ; 
 	this.titre = "Fractions irréductibles"; 
 	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne =`Décomposer une fraction et son inverse à partir des décompositons en facteurs premiers.`;
-	this.consigne += `<br>`;
-	sortie_html ? this.spacing = 4 : this.spacing = 3;
-	sortie_html ? this.spacing_corr = 4: this.spacing_corr = 3;
+	this.consigne =`Rendre irréductible une fraction et son inverse à partir des décompositons en produit de facteurs premiers.`;
+	//this.consigne += `<br>`;
+	sortie_html ? this.spacing = 4 : this.spacing = 2;
+	sortie_html ? this.spacing_corr = 4: this.spacing_corr = 2;
 	this.nb_questions = 1;
 	//this.correction_detaillee_disponible = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup = 1;
+	this.liste_packages = `bclogo`;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		let type_de_questions;
@@ -3541,6 +3542,8 @@ function Fractions_irreductibles(){
 		//let type_de_questions_disponibles = [1,2,3,4];
 		let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
+
+		this.introduction = warn_message(`À la question `+num_alpha(3)+` une observation judicieuse et argumentée pourra faire gagner du temps!`,`nombres`,`Coup de pouce`);
 
 			for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 				type_de_questions = liste_type_de_questions[i];
@@ -3673,8 +3676,8 @@ function Fractions_irreductibles(){
 
 				switch (type_de_questions) {
 					case 1 : // décomposition de A
-						texte = num_alpha(0)+` Décomposer $A = ${tex_nombre(nb1)}$ en produit de facteurs premiers : `;
-						texte_corr =num_alpha(0)+` La décomposition en produit de facteurs premier de $A = `;
+						texte = num_alpha(0)+` Décomposer $A = ${tex_nombre(nb1)}$ en produit de facteurs premiers : `;						
+						texte_corr = num_alpha(0)+` La décomposition en produit de facteurs premier de $A = `;
 						switch (tab_prem_mult_nb1[0].mult) {
 							case 1 :
 								texte_corr += `${tab_prem_mult_nb1[0].prem}`;
@@ -3720,7 +3723,11 @@ function Fractions_irreductibles(){
 					//	break;	
 					//case 3 : // reduction de A sur B 			
 						texte += `<br>`+num_alpha(2)+` Rendre la fraction $\\dfrac{A}{B} = \\dfrac{${tex_nombre(nb1)}}{${tex_nombre(nb2)}}$ irréductible `;
-						texte += ` à l'aide des décompositions obtenues au `+num_alpha(0)+` et au `+num_alpha(1);
+						if (sortie_html) {
+							texte += ` à l'aide des décompositions obtenues au `+num_alpha(0)+` et au `+num_alpha(1);
+						} else {
+							texte += ` à l'aide des questions `+num_alpha(0)+` et `+num_alpha(1);
+						};	
 						texte_corr += `<br>`+num_alpha(2)+` $\\dfrac{A}{B} = \\dfrac{${tex_nombre(nb1)}}{${tex_nombre(nb2)}} = `;
 						texte_corr += `\\dfrac{`;
 						texte_corr += `\\cancel{`+decomp_fact_prem_array(nb1/nb1_dist)[0]+`}`;
@@ -3737,8 +3744,11 @@ function Fractions_irreductibles(){
 					//	break;	
 					//case 4 : // reduction de B sur A 			
 						texte += `<br>`+num_alpha(3)+` Rendre la fraction $\\dfrac{B}{A} = \\dfrac{${tex_nombre(nb2)}}{${tex_nombre(nb1)}}$ irréductible`;
-						texte += ` à l'aide des décompositions obtenues au `+num_alpha(0)+` et au `+num_alpha(1);
-						texte += warn_message(`Une observation judicieuse et argumentée pourra faire gagner du temps!`,`nombres`,`Coup de pouce`);
+						if (sortie_html) {
+							texte += ` à l'aide des décompositions obtenues au `+num_alpha(0)+` et au `+num_alpha(1);
+						} else {
+							texte += ` à l'aide des questions `+num_alpha(0)+` et `+num_alpha(1);
+						};												
 						texte_corr += `<br>`+num_alpha(3)+` $\\dfrac{B}{A}$ est l'inverse de $\\dfrac{A}{B}$ donc $\\dfrac{B}{A} = \\dfrac{${tex_nombre(nb2)}}{${tex_nombre(nb1)}} = `;
 						texte_corr += `\\dfrac{`;
 						texte_corr += `\\cancel{`+decomp_fact_prem_array(nb1/nb1_dist)[0]+`}`;
