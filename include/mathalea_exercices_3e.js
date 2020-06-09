@@ -1991,7 +1991,7 @@ function fonction_notion_vocabulaire(){
 	 // pas de différence entre la version html et la version latex pour la consigne
 	 this.consigne +=`Calcule les images avec la méthode demandée.`;
 
-	 sortie_html ? this.spacing = 3 : this.spacing = 2;
+	 sortie_html ? this.spacing = 2 : this.spacing = 1;
 	 sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
 	 this.nb_questions = 4;
 	 //this.correction_detaillee_disponible = true;
@@ -2088,10 +2088,10 @@ function fonction_notion_vocabulaire(){
 					case 2 :
 						var j = 0; // pour la sous-numérotation
 						// les variables a,b,c changent sans refaire un appel à randint
-						texte = `Soit $f$ la fonction définie par l'expression algébrique $f(x)=$ ${a}$x+$${b}<br>`;
+						texte = `Soit $f$ la fonction définie par l'expression algébrique $f(x)=$ ${a}$x+$${b}`;
 						if (sortie_html) {
 							// sous-question a/
-							texte += num_alpha(j)+` Calculer l'image de ${c}`;
+							texte += `<br>`+num_alpha(j)+` Calculer l'image de ${c}`;
 							texte +=`<br>`;
 							texte_corr = num_alpha(j)+` Calculons l'image par $f$ de $x= ${c}$ :`;							
 							texte_corr += `<br>$f(${mise_en_evidence('\\textit{\\textbf{x}}')})= ${a} ${mise_en_evidence('\\textit{\\textbf{x}}')}+${b}$`;
@@ -2118,10 +2118,10 @@ function fonction_notion_vocabulaire(){
 					case 3 :
 						var j = 0; // pour la sous-numérotation
 						// les variables a,b,c changent sans refaire un appel à randint
-						texte = `Soit $g$ la fonction définie par $g:x\\longmapsto$ ${a}$x+$${b}<br>`;
+						texte = `Soit $g$ la fonction définie par $g:x\\longmapsto$ ${a}$x+$${b}`;
 						if (sortie_html) {
 							// sous-question a/
-							texte += num_alpha(j)+` Calculer l'image de ${c}`;
+							texte += `<br>`+num_alpha(j)+` Calculer l'image de ${c}`;
 							texte +=`<br>`;
 							texte_corr = num_alpha(j)+` Calculons l'image par $g$ de $x= ${c}$ :`;
 							texte_corr += `<br>$g:${mise_en_evidence('\\textit{\\textbf{x}}')}\\longmapsto ${a} ${mise_en_evidence('\\textit{\\textbf{x}}')}+${b}$`;
