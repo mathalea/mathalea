@@ -1184,6 +1184,7 @@ function string_nombre(nb){
 		result=partie_entiere.slice(0,partie_entiere.length-i*3)+result;
 	}
 	else result=partie_entiere;
+	if (result[0]==' ') result=result.substring(1,result.length)
 	if (partie_decimale!=undefined)  result+=','+partie_decimale;
 	return result;
 }
