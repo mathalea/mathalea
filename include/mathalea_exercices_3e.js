@@ -3393,7 +3393,8 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 						};
 						texte += `<br>`;
 						texte +=num_alpha(1)+` En déduire le nombre de diviseurs de $${tex_nombre(nombre_a_decomposer_b)}$.<br>`;
-						texte +=num_alpha(2)+` Enfin, dresser la liste des diviseurs de $${tex_nombre(nombre_a_decomposer_b)}$.<br>`;						
+						texte +=num_alpha(2)+` Enfin, dresser la liste des diviseurs de $${tex_nombre(nombre_a_decomposer_b)}$.<br>`;	
+
 						// correction
 						texte_corr = `Avec la décomposition en facteurs premiers de $${tex_nombre(nombre_a_decomposer_b)}$ qui est : $`;
 						if (tab_multiplicites_b[0]==1) {
@@ -3410,9 +3411,6 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 						};
 						texte_corr += `$, <br>`;
 						texte_corr += num_alpha(0)+` Le tableau donne :`;
-						if (!sortie_html) {
-							texte_corr += `\\par\\vspace{0.25cm}`;
-						};
 						// on crée le tableau des entetes de lignes et des colonnes
 						let ent_lignes_corr = [];
 						let ent_lignes_corr_res = [];
@@ -3457,9 +3455,6 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 						texte_corr += `<br>`;
 						texte_corr += tab_C_L(ent_colonnes_corr,ent_lignes_corr,contenu_lignes_corr);
 						texte_corr += `<br>`;
-						if (!sortie_html) {
-							texte_corr += `\\par\\vspace{0.25cm}`;
-						};
 						texte_corr +=num_alpha(1)+` $${tex_nombre(nombre_a_decomposer_b)}$ a donc `;
 						texte_corr += `$(${tab_multiplicites_b[0]}+1)\\times(${tab_multiplicites_b[1]}+1)\\times(${tab_multiplicites_b[2]}+1) = `;
 						texte_corr += `${tab_multiplicites_b[0]+1}\\times${tab_multiplicites_b[1]+1}\\times${tab_multiplicites_b[2]+1} = `;
@@ -3485,11 +3480,7 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 							texte_corr += `$${tab_premiers_b[2]}^{`+k+`}$ ou `;
 						};
 						texte_corr += `$${tab_premiers_b[2]}^{`+tab_multiplicites_b[2]+`}$ d'où le facteur $(${tab_multiplicites_b[2]}+1)$.`;
-
 						texte_corr += `<br>`;
-						if (!sortie_html) {
-							texte_corr += `\\par\\vspace{0.25cm}`;
-						};
 						texte_corr +=num_alpha(2)+` Enfin, voici la liste des $${(tab_multiplicites_b[0]+1)*(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)}$ diviseurs de $${tex_nombre(nombre_a_decomposer_b)}$ issus du tableau ci-dessus : `;
 						texte_corr += `$1`;
 						for (let w = 1; w<liste_diviseurs(nombre_a_decomposer_b).length; w++) {
