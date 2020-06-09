@@ -3799,7 +3799,7 @@ function PPCM_Engrenages(){
 	//this.consigne =`Déterminer au bout de combien de tours les deux roues seront toutes les deux revenues à leur position initiale.`;
 	this.consigne =``;
 	//this.consigne += `<br>`;
-	sortie_html ? this.spacing = 3 : this.spacing = 2;
+	sortie_html ? this.spacing = 2 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
 	this.nb_questions = 4;
 	//this.correction_detaillee_disponible = true;
@@ -3907,8 +3907,19 @@ function PPCM_Engrenages(){
 						};
 						texte_corr += `$\\ldots$ `;
 						texte_corr += `<br>`;
-						texte_corr += `Le plus petit multiple commun à $${nb_dents_r1}$ et $${nb_dents_r2}$ vaut donc $ppcm(${nb_dents_r1},${nb_dents_r2}) = ${ppcm(nb_dents_r1,nb_dents_r2)}$.`
-						texte_corr += `<br>`+num_alpha(1)+` Chaque roue doit tourner de $ppcm(${nb_dents_r1},${nb_dents_r2})=${tex_nombre(ppcm(nb_dents_r1,nb_dents_r2))}$ dents.`;
+						texte_corr += `Le plus petit multiple commun à $${nb_dents_r1}$ et $${nb_dents_r2}$ vaut donc $ppcm(${nb_dents_r1},${nb_dents_r2}) = ${ppcm(nb_dents_r1,nb_dents_r2)}$.`;
+						texte_corr += `<br>`;
+						if (ppcm(nb_dents_r1,nb_dents_r2)==(nb_dents_r1*nb_dents_r2)) {
+							texte_corr += `Le $ppcm(`+nb_dents_r1+`;`+nb_dents_r2+`)=`+nb_dents_r1+`\\times`+nb_dents_r2+`$ donc $${nb_dents_r1}$ et $${nb_dents_r2}$ sont des `;
+							texte_corr += katex_Popup2(
+								numero_de_l_exercice+2,
+								1,
+								"nombres premiers entre eux ?",
+								`Définition : Nombres premiers entre eux`,
+								`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que \\textbf{les nombres a et b sont premiers entre eux}.`
+							);
+						};
+						texte_corr += `<br><br>`+num_alpha(1)+` Chaque roue doit tourner de $ppcm(${nb_dents_r1},${nb_dents_r2})=${tex_nombre(ppcm(nb_dents_r1,nb_dents_r2))}$ dents.`;
 						texte_corr += `<br> Cela correspond à $(${ppcm(nb_dents_r1,nb_dents_r2)}\\text{ dents})\\div (${nb_dents_r1}\\text{ dents/tour}) = ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1}$`;
 						if (ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1==1) {
 							texte_corr += ` tour `;
@@ -3932,7 +3943,7 @@ function PPCM_Engrenages(){
 						if (ppcm(nb_dents_r1,nb_dents_r2)==(nb_dents_r1*nb_dents_r2)) {
 							texte += `<br>Pourquoi peut-on en déduire que ${nb_dents_r1} et ${nb_dents_r2} sont des `;
 							texte += katex_Popup2(
-								numero_de_l_exercice+2,
+								numero_de_l_exercice+3,
 								1,
 								"nombres premiers entre eux",
 								`Définition : Nombres premiers entre eux`,
@@ -3944,7 +3955,17 @@ function PPCM_Engrenages(){
 						texte_corr += `<br>`+num_alpha(0)+` Décomposition de $${nb_dents_r1}$ en produit de facteurs premiers :  $${nb_dents_r1} = ${decomposition_facteurs_premiers(nb_dents_r1)}$.`;
 						texte_corr += `<br> Décomposition de $${nb_dents_r2}$ en produit de facteurs premiers :  $${nb_dents_r2} = ${decomposition_facteurs_premiers(nb_dents_r2)}$.`;
 						texte_corr += `<br> D'où $ppcm(${nb_dents_r1},${nb_dents_r2})= ${decomposition_facteurs_premiers(ppcm(nb_dents_r1,nb_dents_r2))}$.<br>`;						
-						texte_corr += `<br>`+num_alpha(1)+` Chaque roue doit tourner de $ppcm(${nb_dents_r1},${nb_dents_r2})=${tex_nombre(ppcm(nb_dents_r1,nb_dents_r2))}$ dents.`;
+						if (ppcm(nb_dents_r1,nb_dents_r2)==(nb_dents_r1*nb_dents_r2)) {
+							texte_corr += `Le $ppcm(`+nb_dents_r1+`;`+nb_dents_r2+`)=`+nb_dents_r1+`\\times`+nb_dents_r2+`$ donc $${nb_dents_r1}$ et $${nb_dents_r2}$ sont des `;
+							texte_corr += katex_Popup2(
+								numero_de_l_exercice+4,
+								1,
+								"nombres premiers entre eux ?",
+								`Définition : Nombres premiers entre eux`,
+								`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que \\textbf{les nombres a et b sont premiers entre eux}.`
+							);
+						};
+						texte_corr += `<br><br>`+num_alpha(1)+` Chaque roue doit tourner de $ppcm(${nb_dents_r1},${nb_dents_r2})=${tex_nombre(ppcm(nb_dents_r1,nb_dents_r2))}$ dents.`;
 						texte_corr += `<br> Cela correspond à $(${tex_nombre(ppcm(nb_dents_r1,nb_dents_r2))}\\text{ dents})\\div (${nb_dents_r1}\\text{ dents/tour}) = ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1}$`;
 						if (ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1==1) {
 							texte_corr += ` tour `;
