@@ -1991,7 +1991,7 @@ function fonction_notion_vocabulaire(){
 	 // pas de différence entre la version html et la version latex pour la consigne
 	 this.consigne +=`Calcule les images avec la méthode demandée.`;
 
-	 sortie_html ? this.spacing = 3 : this.spacing = 2;
+	 sortie_html ? this.spacing = 2 : this.spacing = 1;
 	 sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
 	 this.nb_questions = 4;
 	 //this.correction_detaillee_disponible = true;
@@ -2088,10 +2088,10 @@ function fonction_notion_vocabulaire(){
 					case 2 :
 						var j = 0; // pour la sous-numérotation
 						// les variables a,b,c changent sans refaire un appel à randint
-						texte = `Soit $f$ la fonction définie par l'expression algébrique $f(x)=$ ${a}$x+$${b}<br>`;
+						texte = `Soit $f$ la fonction définie par l'expression algébrique $f(x)=$ ${a}$x+$${b}`;
 						if (sortie_html) {
 							// sous-question a/
-							texte += num_alpha(j)+` Calculer l'image de ${c}`;
+							texte += `<br>`+num_alpha(j)+` Calculer l'image de ${c}`;
 							texte +=`<br>`;
 							texte_corr = num_alpha(j)+` Calculons l'image par $f$ de $x= ${c}$ :`;							
 							texte_corr += `<br>$f(${mise_en_evidence('\\textit{\\textbf{x}}')})= ${a} ${mise_en_evidence('\\textit{\\textbf{x}}')}+${b}$`;
@@ -2118,10 +2118,10 @@ function fonction_notion_vocabulaire(){
 					case 3 :
 						var j = 0; // pour la sous-numérotation
 						// les variables a,b,c changent sans refaire un appel à randint
-						texte = `Soit $g$ la fonction définie par $g:x\\longmapsto$ ${a}$x+$${b}<br>`;
+						texte = `Soit $g$ la fonction définie par $g:x\\longmapsto$ ${a}$x+$${b}`;
 						if (sortie_html) {
 							// sous-question a/
-							texte += num_alpha(j)+` Calculer l'image de ${c}`;
+							texte += `<br>`+num_alpha(j)+` Calculer l'image de ${c}`;
 							texte +=`<br>`;
 							texte_corr = num_alpha(j)+` Calculons l'image par $g$ de $x= ${c}$ :`;
 							texte_corr += `<br>$g:${mise_en_evidence('\\textit{\\textbf{x}}')}\\longmapsto ${a} ${mise_en_evidence('\\textit{\\textbf{x}}')}+${b}$`;
@@ -3073,8 +3073,8 @@ function Decomposition_facteurs_premiers(){
 	this.sup = 1 ; 
 	this.titre = "Décomposition en facteurs premiers d'un entier"; 
 	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne =`&Agrave; l'aide de la calculatrice, décomposer pas à pas les nombres entiers en produit de facteurs premiers.`;	
-	this.consigne += `<br>`;
+	this.consigne =`À l'aide de la calculatrice, décomposer pas à pas les nombres entiers en produit de facteurs premiers.`;	
+	//this.consigne += `<br>`;
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
 	this.nb_questions = 3;
@@ -3082,6 +3082,7 @@ function Decomposition_facteurs_premiers(){
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup = 1;
+	this.liste_packages = `bclogo`;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		let type_de_questions;
@@ -3107,17 +3108,8 @@ function Decomposition_facteurs_premiers(){
 			string_rappel +=`, `+crible_eratosthene_n(100)[k];
 		};
 		string_rappel +=`.`;
-		if (sortie_html) {
-			this.introduction =`
-			<br>
-			<div class="ui compact warning message">		
-			<p>`+string_rappel+`
-			</p>
-			</div>
-			<br>`;
-		} else {
-			this.introduction = tex_cadre_par_orange(string_rappel);							
-		};
+
+		this.introduction = warn_message(string_rappel,`nombres`,`Coup de pouce`);
 
 			for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 				type_de_questions = liste_type_de_questions[i];				
@@ -3167,12 +3159,20 @@ function Decomposition_facteurs_premiers(){
 						texte_corr = `Nous allons successivement tester la divisibilité de $${tex_nombre(nombre_a_decomposer)}$ par tous les nombres premiers inférieurs à `;						
 						texte_corr += `$${tex_nombre(nombre_a_decomposer)}$ en commençant par 2, 3, 5, 7, ...<br>`;
 						texte_corr = `Il est suffisant de tester la divisibilité de $${tex_nombre(nombre_a_decomposer)}$ par tous les nombres premiers inférieurs ou égaux à $\\sqrt{${tex_nombre(nombre_a_decomposer)}}$ c'est à dire inférieurs à $${tex_nombre(racine_premier_1)}$.<br>`;
-						texte_corr += `Ce sont les nombres de la liste : $`;
-						texte_corr += crible_eratosthene_n(racine_premier_1)[0];
+						texte_corr += `Ce sont les nombres de la liste : <br>`;
+						texte_corr += crible_eratosthene_n(racine_premier_1)[0]+` ; `;
 						for (let k=1;k<crible_eratosthene_n(racine_premier_1).length;k++) {
-							texte_corr += `; `+crible_eratosthene_n(racine_premier_1)[k];
+							texte_corr += crible_eratosthene_n(racine_premier_1)[k];
+							if(k!=crible_eratosthene_n(racine_premier_1).length-1) {
+								texte_corr +=` ; `;
+							} else {
+								texte_corr += `.`;
+							}
+							if (k%15==0) {
+								texte_corr += `<br>`;
+							}
 						};
-						texte_corr += `.$<br>`;		
+						texte_corr += `<br>`;		
 						var liste_facteurs_premiers = obtenir_liste_facteurs_premiers(nombre_a_decomposer);
 						var quotient_intermediaire = nombre_a_decomposer;
 						for (let k=0;k<liste_facteurs_premiers.length;k++) {
@@ -3266,8 +3266,8 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 	this.titre = "Compter/lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers."; 
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne =`Sans la calculatrice, compter/lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers.`;
-	this.consigne += `<br>`;
-	sortie_html ? this.spacing = 3 : this.spacing = 2;
+	//this.consigne += `<br>`;
+	sortie_html ? this.spacing = 2 : this.spacing = 1;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
 	this.nb_questions = 2;
 	//this.correction_detaillee_disponible = true;
@@ -3352,13 +3352,16 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 						};
 						texte += `$, <br>`;
 						texte +=num_alpha(0)+` Compléter le tableau ci-dessous.`;
+						if (!sortie_html) {
+							texte += `$\\medskip$`;
+						};
 						// on crée le tableau des entetes de lignes et des colonnes
 						let ent_lignes = [];
 						let contenu_lignes=[];
 						let ent_colonnes = [`\\times`];
 						// les entetes des lignes
 						for (let k=0;k<tab_multiplicites_b[0]+1;k++) {
-							ent_lignes.push(tab_premiers_b[0]+`^{`+k+`}`);
+							ent_lignes.push(`\\phantom{plusLarge}`+tab_premiers_b[0]+`^{`+k+`}\\phantom{plusLarge}`);
 						};
 						// les entetes des colonnes 
 						for (let m=0;m<tab_multiplicites_b[1]+1;m++) {
@@ -3385,9 +3388,13 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 						};						
 						texte += `<br>`;
 						texte += tab_C_L(ent_colonnes,ent_lignes,contenu_lignes);
+						if (!sortie_html) {
+							texte += `$\\medskip$`;
+						};
 						texte += `<br>`;
 						texte +=num_alpha(1)+` En déduire le nombre de diviseurs de $${tex_nombre(nombre_a_decomposer_b)}$.<br>`;
-						texte +=num_alpha(2)+` Enfin, dresser la liste des diviseurs de $${tex_nombre(nombre_a_decomposer_b)}$.<br>`;						
+						texte +=num_alpha(2)+` Enfin, dresser la liste des diviseurs de $${tex_nombre(nombre_a_decomposer_b)}$.<br>`;	
+
 						// correction
 						texte_corr = `Avec la décomposition en facteurs premiers de $${tex_nombre(nombre_a_decomposer_b)}$ qui est : $`;
 						if (tab_multiplicites_b[0]==1) {
@@ -3447,7 +3454,7 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 						};
 						texte_corr += `<br>`;
 						texte_corr += tab_C_L(ent_colonnes_corr,ent_lignes_corr,contenu_lignes_corr);
-						texte_corr += `<br><br>`;
+						texte_corr += `<br>`;
 						texte_corr +=num_alpha(1)+` $${tex_nombre(nombre_a_decomposer_b)}$ a donc `;
 						texte_corr += `$(${tab_multiplicites_b[0]}+1)\\times(${tab_multiplicites_b[1]}+1)\\times(${tab_multiplicites_b[2]}+1) = `;
 						texte_corr += `${tab_multiplicites_b[0]+1}\\times${tab_multiplicites_b[1]+1}\\times${tab_multiplicites_b[2]+1} = `;
@@ -3473,12 +3480,11 @@ function Lister_Diviseurs_Par_Decomposition_facteurs_premiers(){
 							texte_corr += `$${tab_premiers_b[2]}^{`+k+`}$ ou `;
 						};
 						texte_corr += `$${tab_premiers_b[2]}^{`+tab_multiplicites_b[2]+`}$ d'où le facteur $(${tab_multiplicites_b[2]}+1)$.`;
-
 						texte_corr += `<br>`;
 						texte_corr +=num_alpha(2)+` Enfin, voici la liste des $${(tab_multiplicites_b[0]+1)*(tab_multiplicites_b[1]+1)*(tab_multiplicites_b[2]+1)}$ diviseurs de $${tex_nombre(nombre_a_decomposer_b)}$ issus du tableau ci-dessus : `;
 						texte_corr += `$1`;
 						for (let w = 1; w<liste_diviseurs(nombre_a_decomposer_b).length; w++) {
-							texte_corr += `\\text{; }`+tex_nombre(liste_diviseurs(nombre_a_decomposer_b)[w]);
+							texte_corr += `\\text{ ; }`+tex_nombre(liste_diviseurs(nombre_a_decomposer_b)[w]);
 						};
 						texte_corr += `.$`;
 						break;		
@@ -3508,15 +3514,16 @@ function Fractions_irreductibles(){
 	this.sup = 1 ; 
 	this.titre = "Fractions irréductibles"; 
 	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne =`Décomposer une fraction et son inverse à partir des décompositons en facteurs premiers.`;
-	this.consigne += `<br>`;
-	sortie_html ? this.spacing = 4 : this.spacing = 3;
-	sortie_html ? this.spacing_corr = 4: this.spacing_corr = 3;
+	this.consigne =`Rendre irréductible une fraction et son inverse à partir des décompositons en produit de facteurs premiers.`;
+	//this.consigne += `<br>`;
+	sortie_html ? this.spacing = 4 : this.spacing = 2;
+	sortie_html ? this.spacing_corr = 4: this.spacing_corr = 2;
 	this.nb_questions = 1;
 	//this.correction_detaillee_disponible = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup = 1;
+	this.liste_packages = `bclogo`;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		let type_de_questions;
@@ -3535,6 +3542,8 @@ function Fractions_irreductibles(){
 		//let type_de_questions_disponibles = [1,2,3,4];
 		let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions);
+
+		this.introduction = warn_message(`À la question `+num_alpha(3)+` une observation judicieuse et argumentée pourra faire gagner du temps!`,`nombres`,`Coup de pouce`);
 
 			for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 				type_de_questions = liste_type_de_questions[i];
@@ -3667,8 +3676,8 @@ function Fractions_irreductibles(){
 
 				switch (type_de_questions) {
 					case 1 : // décomposition de A
-						texte = num_alpha(0)+` Décomposer $A = ${tex_nombre(nb1)}$ en produit de facteurs premiers : `;
-						texte_corr =num_alpha(0)+` La décomposition en produit de facteurs premier de $A = `;
+						texte = num_alpha(0)+` Décomposer $A = ${tex_nombre(nb1)}$ en produit de facteurs premiers : `;						
+						texte_corr = num_alpha(0)+` La décomposition en produit de facteurs premier de $A = `;
 						switch (tab_prem_mult_nb1[0].mult) {
 							case 1 :
 								texte_corr += `${tab_prem_mult_nb1[0].prem}`;
@@ -3714,7 +3723,11 @@ function Fractions_irreductibles(){
 					//	break;	
 					//case 3 : // reduction de A sur B 			
 						texte += `<br>`+num_alpha(2)+` Rendre la fraction $\\dfrac{A}{B} = \\dfrac{${tex_nombre(nb1)}}{${tex_nombre(nb2)}}$ irréductible `;
-						texte += ` à l'aide des décompositions obtenues au `+num_alpha(0)+` et au `+num_alpha(1);
+						if (sortie_html) {
+							texte += ` à l'aide des décompositions obtenues au `+num_alpha(0)+` et au `+num_alpha(1);
+						} else {
+							texte += ` à l'aide des questions `+num_alpha(0)+` et `+num_alpha(1);
+						};	
 						texte_corr += `<br>`+num_alpha(2)+` $\\dfrac{A}{B} = \\dfrac{${tex_nombre(nb1)}}{${tex_nombre(nb2)}} = `;
 						texte_corr += `\\dfrac{`;
 						texte_corr += `\\cancel{`+decomp_fact_prem_array(nb1/nb1_dist)[0]+`}`;
@@ -3731,8 +3744,11 @@ function Fractions_irreductibles(){
 					//	break;	
 					//case 4 : // reduction de B sur A 			
 						texte += `<br>`+num_alpha(3)+` Rendre la fraction $\\dfrac{B}{A} = \\dfrac{${tex_nombre(nb2)}}{${tex_nombre(nb1)}}$ irréductible`;
-						texte += ` à l'aide des décompositions obtenues au `+num_alpha(0)+` et au `+num_alpha(1);
-						texte += warn_message(`Une observation judicieuse et argumentée pourra faire gagner du temps!`,`nombres`,`Coup de pouce`);
+						if (sortie_html) {
+							texte += ` à l'aide des décompositions obtenues au `+num_alpha(0)+` et au `+num_alpha(1);
+						} else {
+							texte += ` à l'aide des questions `+num_alpha(0)+` et `+num_alpha(1);
+						};												
 						texte_corr += `<br>`+num_alpha(3)+` $\\dfrac{B}{A}$ est l'inverse de $\\dfrac{A}{B}$ donc $\\dfrac{B}{A} = \\dfrac{${tex_nombre(nb2)}}{${tex_nombre(nb1)}} = `;
 						texte_corr += `\\dfrac{`;
 						texte_corr += `\\cancel{`+decomp_fact_prem_array(nb1/nb1_dist)[0]+`}`;
@@ -3783,7 +3799,7 @@ function PPCM_Engrenages(){
 	//this.consigne =`Déterminer au bout de combien de tours les deux roues seront toutes les deux revenues à leur position initiale.`;
 	this.consigne =``;
 	//this.consigne += `<br>`;
-	sortie_html ? this.spacing = 3 : this.spacing = 2;
+	sortie_html ? this.spacing = 2 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
 	this.nb_questions = 4;
 	//this.correction_detaillee_disponible = true;
@@ -3891,8 +3907,19 @@ function PPCM_Engrenages(){
 						};
 						texte_corr += `$\\ldots$ `;
 						texte_corr += `<br>`;
-						texte_corr += `Le plus petit multiple commun à $${nb_dents_r1}$ et $${nb_dents_r2}$ vaut donc $ppcm(${nb_dents_r1},${nb_dents_r2}) = ${ppcm(nb_dents_r1,nb_dents_r2)}$.`
-						texte_corr += `<br>`+num_alpha(1)+` Chaque roue doit tourner de $ppcm(${nb_dents_r1},${nb_dents_r2})=${tex_nombre(ppcm(nb_dents_r1,nb_dents_r2))}$ dents.`;
+						texte_corr += `Le plus petit multiple commun à $${nb_dents_r1}$ et $${nb_dents_r2}$ vaut donc $ppcm(${nb_dents_r1},${nb_dents_r2}) = ${ppcm(nb_dents_r1,nb_dents_r2)}$.`;
+						texte_corr += `<br>`;
+						if (ppcm(nb_dents_r1,nb_dents_r2)==(nb_dents_r1*nb_dents_r2)) {
+							texte_corr += `Le $ppcm(`+nb_dents_r1+`;`+nb_dents_r2+`)=`+nb_dents_r1+`\\times`+nb_dents_r2+`$ donc $${nb_dents_r1}$ et $${nb_dents_r2}$ sont des `;
+							texte_corr += katex_Popup2(
+								numero_de_l_exercice+2,
+								1,
+								"nombres premiers entre eux.",
+								`Définition : Nombres premiers entre eux`,
+								`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que \\textbf{les nombres a et b sont premiers entre eux}.`
+							);
+						};
+						texte_corr += `<br><br>`+num_alpha(1)+` Chaque roue doit tourner de $ppcm(${nb_dents_r1},${nb_dents_r2})=${tex_nombre(ppcm(nb_dents_r1,nb_dents_r2))}$ dents.`;
 						texte_corr += `<br> Cela correspond à $(${ppcm(nb_dents_r1,nb_dents_r2)}\\text{ dents})\\div (${nb_dents_r1}\\text{ dents/tour}) = ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1}$`;
 						if (ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1==1) {
 							texte_corr += ` tour `;
@@ -3916,7 +3943,7 @@ function PPCM_Engrenages(){
 						if (ppcm(nb_dents_r1,nb_dents_r2)==(nb_dents_r1*nb_dents_r2)) {
 							texte += `<br>Pourquoi peut-on en déduire que ${nb_dents_r1} et ${nb_dents_r2} sont des `;
 							texte += katex_Popup2(
-								numero_de_l_exercice+2,
+								numero_de_l_exercice+3,
 								1,
 								"nombres premiers entre eux",
 								`Définition : Nombres premiers entre eux`,
@@ -3928,7 +3955,17 @@ function PPCM_Engrenages(){
 						texte_corr += `<br>`+num_alpha(0)+` Décomposition de $${nb_dents_r1}$ en produit de facteurs premiers :  $${nb_dents_r1} = ${decomposition_facteurs_premiers(nb_dents_r1)}$.`;
 						texte_corr += `<br> Décomposition de $${nb_dents_r2}$ en produit de facteurs premiers :  $${nb_dents_r2} = ${decomposition_facteurs_premiers(nb_dents_r2)}$.`;
 						texte_corr += `<br> D'où $ppcm(${nb_dents_r1},${nb_dents_r2})= ${decomposition_facteurs_premiers(ppcm(nb_dents_r1,nb_dents_r2))}$.<br>`;						
-						texte_corr += `<br>`+num_alpha(1)+` Chaque roue doit tourner de $ppcm(${nb_dents_r1},${nb_dents_r2})=${tex_nombre(ppcm(nb_dents_r1,nb_dents_r2))}$ dents.`;
+						if (ppcm(nb_dents_r1,nb_dents_r2)==(nb_dents_r1*nb_dents_r2)) {
+							texte_corr += `Le $ppcm(`+nb_dents_r1+`;`+nb_dents_r2+`)=`+nb_dents_r1+`\\times`+nb_dents_r2+`$ donc $${nb_dents_r1}$ et $${nb_dents_r2}$ sont des `;
+							texte_corr += katex_Popup2(
+								numero_de_l_exercice+4,
+								1,
+								"nombres premiers entre eux.",
+								`Définition : Nombres premiers entre eux`,
+								`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que \\textbf{les nombres a et b sont premiers entre eux}.`
+							);
+						};
+						texte_corr += `<br><br>`+num_alpha(1)+` Chaque roue doit tourner de $ppcm(${nb_dents_r1},${nb_dents_r2})=${tex_nombre(ppcm(nb_dents_r1,nb_dents_r2))}$ dents.`;
 						texte_corr += `<br> Cela correspond à $(${tex_nombre(ppcm(nb_dents_r1,nb_dents_r2))}\\text{ dents})\\div (${nb_dents_r1}\\text{ dents/tour}) = ${ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1}$`;
 						if (ppcm(nb_dents_r1,nb_dents_r2)/nb_dents_r1==1) {
 							texte_corr += ` tour `;
