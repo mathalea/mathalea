@@ -3073,8 +3073,8 @@ function Decomposition_facteurs_premiers(){
 	this.sup = 1 ; 
 	this.titre = "Décomposition en facteurs premiers d'un entier"; 
 	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne =`&Agrave; l'aide de la calculatrice, décomposer pas à pas les nombres entiers en produit de facteurs premiers.`;	
-	this.consigne += `<br>`;
+	this.consigne =`À l'aide de la calculatrice, décomposer pas à pas les nombres entiers en produit de facteurs premiers.`;	
+	//this.consigne += `<br>`;
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2: this.spacing_corr = 1;
 	this.nb_questions = 3;
@@ -3082,6 +3082,7 @@ function Decomposition_facteurs_premiers(){
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup = 1;
+	this.liste_packages = `bclogo`;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		let type_de_questions;
@@ -3107,17 +3108,8 @@ function Decomposition_facteurs_premiers(){
 			string_rappel +=`, `+crible_eratosthene_n(100)[k];
 		};
 		string_rappel +=`.`;
-		if (sortie_html) {
-			this.introduction =`
-			<br>
-			<div class="ui compact warning message">		
-			<p>`+string_rappel+`
-			</p>
-			</div>
-			<br>`;
-		} else {
-			this.introduction = tex_cadre_par_orange(string_rappel);							
-		};
+
+		this.introduction = warn_message(string_rappel,`nombres`,`Coup de pouce`);
 
 			for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions&&cpt<50;) {
 				type_de_questions = liste_type_de_questions[i];				
@@ -3167,12 +3159,20 @@ function Decomposition_facteurs_premiers(){
 						texte_corr = `Nous allons successivement tester la divisibilité de $${tex_nombre(nombre_a_decomposer)}$ par tous les nombres premiers inférieurs à `;						
 						texte_corr += `$${tex_nombre(nombre_a_decomposer)}$ en commençant par 2, 3, 5, 7, ...<br>`;
 						texte_corr = `Il est suffisant de tester la divisibilité de $${tex_nombre(nombre_a_decomposer)}$ par tous les nombres premiers inférieurs ou égaux à $\\sqrt{${tex_nombre(nombre_a_decomposer)}}$ c'est à dire inférieurs à $${tex_nombre(racine_premier_1)}$.<br>`;
-						texte_corr += `Ce sont les nombres de la liste : $`;
-						texte_corr += crible_eratosthene_n(racine_premier_1)[0];
+						texte_corr += `Ce sont les nombres de la liste : <br>`;
+						texte_corr += crible_eratosthene_n(racine_premier_1)[0]+` ; `;
 						for (let k=1;k<crible_eratosthene_n(racine_premier_1).length;k++) {
-							texte_corr += `; `+crible_eratosthene_n(racine_premier_1)[k];
+							texte_corr += crible_eratosthene_n(racine_premier_1)[k];
+							if(k!=crible_eratosthene_n(racine_premier_1).length-1) {
+								texte_corr +=` ; `;
+							} else {
+								texte_corr += `.`;
+							}
+							if (k%15==0) {
+								texte_corr += `<br>`;
+							}
 						};
-						texte_corr += `.$<br>`;		
+						texte_corr += `<br>`;		
 						var liste_facteurs_premiers = obtenir_liste_facteurs_premiers(nombre_a_decomposer);
 						var quotient_intermediaire = nombre_a_decomposer;
 						for (let k=0;k<liste_facteurs_premiers.length;k++) {
