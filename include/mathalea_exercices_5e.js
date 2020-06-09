@@ -2519,6 +2519,7 @@ function Lire_abscisse_relative(){
 	this.spacing = 1;
     this.spacing_corr = 1;
 	this.sup=4;
+	this.liste_packages = 'tkz-euclide'
 
 	this.nouvelle_version = function(numero_de_l_exercice){ // numero_de_l_exercice est 0 pour l'exercice 1
 		let type_de_questions;
@@ -2593,6 +2594,8 @@ function Placer_points_sur_axe_relatifs(){
     this.spacing_corr = 1;
 	this.sup=1;
 	this.type_exercice = 'SVGJS';
+	
+	this.liste_packages = 'tkz-euclide'
 
 
 	this.nouvelle_version = function(numero_de_l_exercice){ // numero_de_l_exercice est 0 pour l'exercice 1
@@ -2636,20 +2639,20 @@ function Placer_points_sur_axe_relatifs(){
 			abs2 = arrondi(abs0 + x2/pas1 + x22 / pas1/pas2, type_de_questions[i]);
 			abs3 = arrondi(abs0 + x3/pas1 + x33 / pas1/pas2, type_de_questions[i]);
 
-			texte=`Placer les points : ${l1}(${tex_nombrec(abs1)}), ${l2}(${tex_nombrec(abs2)}), ${l3}(${tex_nombrec(abs3)})<br>`
+			texte=`Placer les points : {\\small $${l1}$(${tex_nombrec(abs1)}), $${l2}$(${tex_nombrec(abs2)}), $${l3}$(${tex_nombrec(abs3)})}<br>`
 			if (sortie_html) {
 				texte_corr=''
 				id_unique = `${i}_${Date.now()}`
 				this.contenu += `<div id="div_svg${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 110px;  "></div>`
-				this.contenu +=`<h3>Placer les points : ${l1}(${tex_nombrec(abs1)}), ${l2}(${tex_nombrec(abs2)}), ${l3}(${tex_nombrec(abs3)})</h3>`
+				this.contenu +=`Placer les points : ${l1}(${tex_nombrec(abs1)}), ${l2}(${tex_nombrec(abs2)}), ${l3}(${tex_nombrec(abs3)})`
 				SVG_reperage_sur_un_axe(`div_svg${numero_de_l_exercice}${id_unique}`, abs0, 6, pas1, pas2, [], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false)
 				this.contenu_correction += `<div id="div_svg_corr${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`
 				SVG_reperage_sur_un_axe(`div_svg_corr${numero_de_l_exercice}${id_unique}`, abs0, 6, pas1, pas2, [[l1, x1, x11, true], [l2, x2, x22, true], [l3, x3, x33, true]], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false)
 			}
 			else { //sortie Latex 
-				texte+=Latex_reperage_sur_un_axe(2.4, abs0, pas1, pas2, [], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false);
-				texte_corr=Latex_reperage_sur_un_axe(2.4, abs0, pas1, pas2, [[l1, x1, x11,true], [l2, x2, x22,true], [l3, x3, x33,true]], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false);
-				texte_corr+=`<br>Les points ${l1}(${tex_nombrec(abs1)}), ${l2}(${tex_nombrec(abs2)}), ${l3}(${tex_nombrec(abs3)}) sont placés ci dessus<br>`;
+				texte+=Latex_reperage_sur_un_axe(2, abs0, pas1, pas2, [], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false);
+				texte_corr=`Les points {\\small $${l1}$(${tex_nombrec(abs1)}), $${l2}$(${tex_nombrec(abs2)}), $${l3}$(${tex_nombrec(abs3)})} sont placés ci dessous<br>`;
+				texte_corr+=Latex_reperage_sur_un_axe(2, abs0, pas1, pas2, [[l1, x1, x11,true], [l2, x2, x22,true], [l3, x3, x33,true]], [[calcul(abs0 + 1 / pas1,0), 1, 0], [calcul(abs0 + 2 / pas1,0), 2, 0], [calcul(abs0 + 3 / pas1,0), 3, 0], [calcul(abs0 + 4 / pas1,0), 4, 0], [calcul(abs0 + 5 / pas1,0), 5, 0], [calcul(abs0 + 6 / pas1,0), 6, 0]],false);
 				this.liste_questions.push(texte)
 				this.liste_corrections.push(texte_corr);
 			}
@@ -2677,7 +2680,7 @@ function reperage_point_du_plan(){
 	this.spacing = 1;
     this.spacing_corr = 1;
 	this.sup=1;
-	this.sup2=false;
+	this.sup2=true;
 	this.quart_de_plan=false;
 	this.liste_packages = 'tkz-euclide';
 
@@ -2694,8 +2697,7 @@ function reperage_point_du_plan(){
 	w=h;
 	k=Math.pow(2,parseInt(this.sup)-1);
 	let nom=[];
-	if (this.sup2==true) grille=true;
-	else grille=false;
+	grille=this.sup2;
 	if (this.quart_de_plan) {
 		xmin=0;ymin=0;xmax=10;ymax=10;
 	}
@@ -2754,7 +2756,7 @@ function reperage_point_du_plan(){
 		for (let i=0;i<5;i++)	{
 		texte += `\n\t \\tkzDefPoint(${points[i][0]},${points[i][1]}){A}`
 		texte +=`\n\t \\tkzDrawPoint[shape=cross out,color=blue,size=6](A)`
-		texte +=`\n\t \\tkzLabelPoint[above=5pt,fill=white,fill opacity=0.7,text opacity=1,inner sep=0](A){$${nom[i]}$}`
+		texte +=`\n\t \\tkzLabelPoint[above right=3pt,fill=white,fill opacity=0.7,text opacity=1,inner sep=0](A){$${nom[i]}$}`
 		}
 		texte +=`\n\t \\end{tikzpicture}`;
 		this.liste_questions.push(texte);
@@ -2764,7 +2766,7 @@ function reperage_point_du_plan(){
 		for (let i=0;i<5;i++)	{
 		texte_corr += `\n\t \\tkzDefPoint(${points[i][0]},${points[i][1]}){A}`
 		texte_corr +=`\n\t \\tkzDrawPoint[shape=cross out,color=blue,size=6](A)`
-		texte_corr +=`\n\t \\tkzLabelPoint[above=5pt,fill=white,fill opacity=0.7,text opacity=1,inner sep=0](A){$${nom[i]}$}`
+		texte_corr +=`\n\t \\tkzLabelPoint[above right=3pt,fill=white,fill opacity=0.7,text opacity=1,inner sep=0](A){$${nom[i]}$}`
 		texte_corr +=`\n\t \\tkzPointShowCoord(A)`
 		}
 		texte_corr +=`\n\t \\end{tikzpicture}`;
@@ -2772,7 +2774,7 @@ function reperage_point_du_plan(){
 	}
 
 	texte=`Déterminer les coordonnées des points`;
-	texte_corr=`Les coordonnées des points sont :`
+	texte_corr=`Les coordonnées des points sont :<br>`
 	for (i=0;i<4;i++) {
 	texte+=` $${nom[i]}$,`;
 	texte_corr+=` $${nom[i]}(${tex_nombre(points[i][0])};${tex_nombre(points[i][1])})$, `;
