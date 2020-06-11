@@ -4350,12 +4350,17 @@ function Agrandissement_reduction(){
 					texte_corr =num_alpha(0)+` L'aire de base du cône est : $\\pi \\times R^2$ cm${exposant(2)} $= \\pi \\times ${r}^2$ cm${exposant(2)} $= ${tex_nombrec(r*r)}\\pi$ cm${exposant(2)} $\\approx ${tex_nombrec(arrondi(r*r*Math.PI))}$ cm${exposant(2)}.<br>`
 					texte_corr +=num_alpha(1)+` Le volume du cône est $\\dfrac{AireDeBase}{3}\\times hauteur$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(r*r)}\\pi}{3} \\times ${tex_nombre(h)}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(r*r*h)}}{3}\\pi$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(r*r*h*Math.PI/3))}$ cm${exposant(3)}.<br>`
 					texte_corr +=num_alpha(2)+ `La section est une réduction de la base dans un rapport de $\\dfrac{${h2}}{${tex_nombre(h)}}`
-					if (!Number.isInteger(h) ||pgcd(h2,h1)>1 ) texte_corr +=`=${tex_fraction_reduite(h2*10,h*10)}$.<br>`
+					if (!Number.isInteger(h) ||pgcd(h2,h)>1 ) texte_corr +=`=${tex_fraction_reduite(h2*10,h*10)}$.<br>`
 					else texte_corr +=`$<br>`
-					texte_corr +=`Donc son aire est $\\left(${tex_fraction_reduite(h2*10,h*10)}\\right)^2 \\times ${tex_nombrec(r*r)}\\pi$ cm${exposant(2)} $=${tex_fraction_reduite(h2*h2*100*r*r ,h*h*100)}\\pi$ cm${exposant(2)} $\\approx${tex_nombrec(arrondi(h2*h2*r*r*Math.PI/h/h))}$ cm${exposant(2)}.<br>`
+					texte_corr +=`Dans une réduction de rapport k, les aires sont multipliés par k ${exposant(2)}.<br>`
+					texte_corr +=`Donc son aire est $\\left(${tex_fraction_reduite(h2*10,h*10)}\\right)^2 \\times ${tex_nombrec(r*r)}\\pi$ cm${exposant(2)} $=${tex_fraction_reduite(arrondi(h2*h2*100*r*r) ,arrondi(h*h*100))}\\pi$ cm${exposant(2)} $\\approx${tex_nombrec(arrondi(h2*h2*r*r*Math.PI/h/h))}$ cm${exposant(2)}.<br>`
 					texte_corr +=num_alpha(3)+ ` Dans une réduction de rapport k, les volumes sont multipliés par k ${exposant(3)}.<br>`
-					texte_corr += `Donc le volumle du cône de hauteur OA est : $\\left(${tex_fraction_reduite(h2*10,h*10)}\\right)^3 \\times \\dfrac{${tex_nombrec(r*r*h)}}{3}\\pi$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(Math.PI*h2**3*r*r*h/h**3/3))}$ cm${exposant(3)} '.<br>`
-					texte_corr +=num_alpha(4)+` Calculer le volume du tronc de cône (partie du cône située entre A et A').<br>`
+					texte_corr += `Donc le volumle du cône de hauteur OA' est : $\\left(${tex_fraction_reduite(h2*10,h*10)}\\right)^3 \\times \\dfrac{${tex_nombrec(r*r*h)}}{3}\\pi$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(Math.PI*h2**3*r*r*h/h**3/3))}$ cm${exposant(3)} '.<br>`
+					texte_corr +=num_alpha(4)+` Le volume du tronc de cône est : `
+					texte_corr += `$VolumeCône - VolumeCôneRéduit$<br>Soit : <br>$\\dfrac{${tex_nombrec(r*r*h)}}{3}\\pi$ cm${exposant(3)}$ - \\left(${tex_fraction_reduite(h2*10,h*10)}\\right)^3 \\times \\dfrac{${tex_nombrec(r*r*h)}}{3}\\pi$ cm${exposant(3)} `
+					texte_corr += `$ = \\left(1-\\dfrac{${fraction_simplifiee(h2*10,h*10)[0]**3}}{${fraction_simplifiee(h2*10,h*10)[1]**3}}\\right)\\times \\dfrac{${tex_nombrec(r*r*h)}}{3}\\pi$ cm${exposant(3)} `
+					texte_corr += `$ = \\dfrac{${fraction_simplifiee(h2*10,h*10)[1]**3-fraction_simplifiee(h2*10,h*10)[0]**3}}{${fraction_simplifiee(h2*10,h*10)[1]**3}}\\times \\dfrac{${tex_nombrec(r*r*h)}}{3}\\pi$ cm${exposant(3)} `
+					texte_corr += `$ \\approx ${tex_nombrec(arrondi((fraction_simplifiee(h2*10,h*10)[1]**3-fraction_simplifiee(h2*10,h*10)[0]**3)*r*r*h*Math.PI/(fraction_simplifiee(h2*10,h*10)[1]**3*3)))}$ cm${exposant(3)}<br>`
 					texte_corr +=`Le point O peut être déplacé, et l'angle de vue changé avec l'angle &#x3C6; `
 					 this.MG32codeBase64 = codeBase64
 					 this.MG32code_pour_modifier_la_figure = `
