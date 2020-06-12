@@ -4304,6 +4304,7 @@ function Agrandissement_reduction(){
 		this.nb_questions = 1;
 		this.nb_questions_modifiable = false;
 		sortie_html ? this.spacing_corr = 3.5 : this.spacing_corr = 2.5
+		sortie_html ? this.spacing=3 : this.spacing=2.5
 		this.nb_cols = 1;
 		this.nb_cols_corr = 1;
 		this.quatrieme=false;
@@ -4343,9 +4344,9 @@ function Agrandissement_reduction(){
 					texte = `Un cône a pour rayon ${tex_nombre(r)} cm et pour hauteur SO = ${h1} cm.<br>Le point O' est situé sur la hauteur [SO] à ${h2} cm de S.<br>`
 					texte += `Un plan parallèle à la base passant par O' coupe le cône.<br>`
 					texte+=`On obtient ainsi une section semblable à la base et un cône réduit semblable au grand cône.<br>`
-					texte +=num_alpha(0)+` Calculer l'aire de base du cône.<br>`
-					texte +=num_alpha(1)+` Calculer le volume du cône.<br>`
-					texte +=num_alpha(2)+ ` En déduire l'aire de la section sachant que OA'=${h2} cm.<br>`
+					texte +=num_alpha(0)+` Calculer l'`+katex_Popup2(numero_de_l_exercice+i*3,1,"aire de base du cône",`Formule : Aire du disque de rayon R`,`$Aire=\\pi \\times \\text{R}^{2}$`) +`.<br>`
+					texte +=num_alpha(1)+` Calculer le `+katex_Popup2(numero_de_l_exercice+i*3+1,1,"volume du cône",`Formule : volume d'un cône de rayon R et de hauteur h`,`$Volume= \\dfrac{\\pi \\times \\text{R}^{2} \\times \\text{h}}{3}$`) +`.<br>`
+					texte +=num_alpha(2)+ ` En déduire l'aire de la `+katex_Popup2(numero_de_l_exercice+i*3+2,1,"section",`Définition : section plane d'un solide`,`La section d'un solide par un plan est une figure plane.<br>Dans le cas d'une section d'un cône par un plan parallèle à sa base, cette section est un disque qui est une réduction de la base.<br>Dans une réduction de coefficient k, les aires sont multipliées par k${exposant(2)} et les volumes sont multipliés par k${exposant(3)}.`) +` sachant que OA'=${h2} cm.<br>`
 					texte +=num_alpha(3)+ ` Calculer le volume du cône de hauteur OA'.<br>`
 					texte +=num_alpha(4)+` Calculer le volume du tronc de cône (partie du cône située entre A et A').<br>`
 					texte +=`Le point O peut être déplacé, et l'angle de vue changé avec l'angle &#x3C6; `
