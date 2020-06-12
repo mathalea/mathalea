@@ -4349,7 +4349,7 @@ function Agrandissement_reduction(){
 					texte +=num_alpha(2)+ ` En déduire l'aire de la `+katex_Popup2(numero_de_l_exercice+i*3+2,1,"section",`Définition : section plane d'un solide`,`La section d'un solide par un plan est une figure plane.<br>Dans le cas d'une section d'un cône par un plan parallèle à sa base, cette section est un disque qui est une réduction de la base.<br>Dans une réduction de coefficient k, les aires sont multipliées par k${exposant(2)} et les volumes sont multipliés par k${exposant(3)}.`) +` sachant que OA'=${h2} cm.<br>`
 					texte +=num_alpha(3)+ ` Calculer le volume du cône de hauteur OA'.<br>`
 					texte +=num_alpha(4)+` Calculer le volume du tronc de cône (partie du cône située entre A et A').<br>`
-					texte +=`Le point O peut être déplacé, et l'angle de vue changé avec l'angle &#x3C6; `
+					texte +=`Le point O peut être déplacé, on peut changer le facteur de zoom avec U et on peut changer l'angle de vue &#x3C6; `
 					texte_corr =num_alpha(0)+` L'aire de base du cône est : $\\pi \\times R^2$ cm${exposant(2)} $= \\pi \\times ${tex_nombre(r)}^2$ cm${exposant(2)} $= ${tex_nombrec(r*r)}\\pi$ cm${exposant(2)} $\\approx ${tex_nombrec(arrondi(r*r*Math.PI))}$ cm${exposant(2)}.<br>`
 					texte_corr +=num_alpha(1)+` Le volume du cône est $\\dfrac{\\text{Aire de la base}}{3}\\times \\text{hauteur}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(r*r)}\\pi}{3} \\times ${tex_nombre(h1)}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(r*r*h1)}}{3}\\pi$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(r*r*h1*Math.PI/3))}$ cm${exposant(3)}.<br>`
 					texte_corr +=num_alpha(2)+ ` La section est une réduction de la base de coefficient $\\dfrac{${h2}}{${tex_nombre(h1)}}`
@@ -4364,7 +4364,6 @@ function Agrandissement_reduction(){
 					texte_corr += `$ = \\left(1-\\dfrac{${fraction_simplifiee(h2*10,h1*10)[0]**3}}{${fraction_simplifiee(h2*10,h1*10)[1]**3}}\\right)\\times \\dfrac{${tex_nombrec(r*r*h1)}}{3}\\pi$ cm${exposant(3)} `
 					texte_corr += `$ = \\dfrac{${fraction_simplifiee(h2*10,h1*10)[1]**3-fraction_simplifiee(h2*10,h1*10)[0]**3}}{${fraction_simplifiee(h2*10,h1*10)[1]**3}}\\times \\dfrac{${tex_nombrec(r*r*h1)}}{3}\\pi$ cm${exposant(3)} `
 					texte_corr += `$ \\approx ${tex_nombrec(arrondi((fraction_simplifiee(h2*10,h1*10)[1]**3-fraction_simplifiee(h2*10,h1*10)[0]**3)*r*r*h1*Math.PI/(fraction_simplifiee(h2*10,h1*10)[1]**3*3)))}$ cm${exposant(3)}<br>`
-					texte_corr +=`Le point O peut être déplacé, et l'angle de vue changé avec l'angle &#x3C6; `
 					 this.MG32codeBase64 = codeBase64
 					 this.MG32code_pour_modifier_la_figure = `
 							 mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "r", "${r}");
