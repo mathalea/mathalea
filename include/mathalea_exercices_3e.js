@@ -4449,7 +4449,7 @@ function Agrandissement_reduction(){
 						texte +=`Dans cette partie on considère qu'on remplit le seau à mi-hauteur d'eau.<br>`
 						texte +=num_alpha(3)+` Par lecture graphique, après avoir correctement paramétré la figure, lire le volume d'eau correspondant.<br>`
 						texte +=num_alpha(4)+` Retrouver ce résultat par le calcul.<br>`
-						texte +=`On peut changer le facteur de zoom avec U et on peut saisir les valeurs dans leurs champs de saisie respectifs.`
+						texte +=`On peut changer le facteur de zoom avec U, déplacer le cône avec S et modifier les valeurs avec leurs curseurs respectifs.`
 	
 						texte_corr =num_alpha(0)+` Les triangles SBA et SHL sont semblables car les droites (BA) et (HL) sont parallèles dans le plan du triangle SHL.<br>`
 						texte_corr +=` La tangente de l'angle $\\widehat{HSL}$ est égale dans le triangle SHL à $\\dfrac{\\text{HL}}{\\text{SH}}$ et dans le triangle SBA à $\\dfrac{\\text{BA}}{\\text{SB}}$.<br>`
