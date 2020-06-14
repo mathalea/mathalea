@@ -4299,7 +4299,7 @@ function Agrandissement_reduction() {
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
 	sortie_html ? this.spacing_corr = 3.5 : this.spacing_corr = 2.5
-	sortie_html ? this.spacing = 3 : this.spacing = 2.5
+	sortie_html ? this.spacing = 1.5 : this.spacing = 2
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.quatrieme = false;
@@ -4434,7 +4434,7 @@ function Agrandissement_reduction() {
 					break;
 				case 4: // Un tronc de cône étant donné (seau), calcul de la hauteur du cône dont il est issu, de son volume, puis du volume du seau. Lecture graphique du volume d'eau à mi hauteur et calcul de ce volume
 					r = calcul(randint(15, 20) / 10)
-					r2 = calcul(randint(10, r * 10 - 5) / 10)
+					r2 = calcul(randint(11, r * 10 - 3) / 10)
 					h3 = calcul(randint(10, 15) / 5)
 					h2 = calcul(r2 * h3 / (r - r2))
 					h1 = calcul(h2 + h3)
@@ -4471,19 +4471,19 @@ function Agrandissement_reduction() {
 					texte_corr += `$ = \\dfrac{${fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[1] ** 3 - fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[0] ** 3}}{${fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[1] ** 3}}\\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} `
 					texte_corr += `$ \\approx ${tex_nombrec(arrondi((fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[1] ** 3 - fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[0] ** 3) * r * r * h1 * Math.PI / (fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[1] ** 3 * 3)))}$ dm${exposant(3)}<br>`
 
-					texte_corr += num_alpha(3) + ` Il faut fixer HL à ${tex_nombre(r)} ; BA à ${tex_nombre(r2)} ; BH à ${tex_nombre(h3)} et la hauteur d'eau à ${tex_nombre((h1 - h2) / 2)}.<br>`
+					texte_corr += num_alpha(3) + ` Il faut fixer HL à ${tex_nombre(r*10)} cm ; BA à ${tex_nombre(r2*10)} cm ; BH à ${tex_nombre(h3*10)} cm et la hauteur d'eau à ${tex_nombre((h1 - h2) *5)} cm.<br>`
 					c = h3 / 2
 					texte_corr += `La lecture de $ y = V(x)$ nous donne un volume d'au d'environ ${tex_nombrec(arrondi(Math.PI * (((c + h2) ** 3) * ((r2 / h2) ** 2) - (r2 ** 2) * h2) / 3, 1))} dm${exposant(3)} soit environ ${tex_nombrec(arrondi(Math.PI * (((c + h2) ** 3) * ((r2 / h2) ** 2) - (r2 ** 2) * h2) / 3, 1))} litres d'eau.<br>`
 
 					texte_corr += num_alpha(4) + ` Nous allons déterminer le volume du cône de hauteur SE, puis nous soustrairons le volume du cône de hauteur SB pour obtenir le volume d'eau.<br>`
 					texte_corr += ` Le cône de hauteur SE est une réduction du cône de hauteur SH. Le coefficient de cette réduction est : $\\dfrac{${tex_nombre((h1 + h2) / 2)}}{${tex_nombrec(h1)}}`
-					if (!Number.isInteger(h1) || pgcd(h1 * 100, (h1 + h2) / 50) > 1) texte_corr += `=${tex_fraction_reduite((h1 + h2) * 50, h1 * 100)}$.<br>`
+					if (!Number.isInteger(h1) || pgcd(h1 * 100, (h1 + h2) / 50) > 1) texte_corr += `=${tex_fraction_reduite(calcul((h1 + h2) * 50),calcul( h1 * 100))}$.<br>`
 					else texte_corr += `.$<br>`
 					texte_corr += `Dans une réduction de coefficient k, les volumes sont multipliés par k ${exposant(3)}.<br>`
-					texte_corr += `Donc le volume V du cône de hauteur SE est : $\\left(${tex_fraction_reduite((h1 + h2) * 50, h1 * 100)}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} $\\approx ${tex_nombrec(arrondi(Math.PI * r * r * (h2 + c) ** 3 / (h1 ** 2) / 3))}$ dm${exposant(3)}.<br>`
-					texte_corr += `Notons V' le volume du cône de hauteur SB calculé à la question ` + num_alpha(2) + `Le volume d'eau est donc : `
+					texte_corr += `Donc le volume $V$ du cône de hauteur SE est : $\\left(${tex_fraction_reduite(calcul((h1 + h2) * 50),calcul( h1 * 100))}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} $\\approx ${tex_nombrec(arrondi(Math.PI * r * r * (h2 + c) ** 3 / (h1 ** 2) / 3))}$ dm${exposant(3)}.<br>`
+					texte_corr += `Notons $V'$ le volume du cône de hauteur SB calculé à la question ` + num_alpha(2) + `Le volume d'eau est donc : `
 
-					texte_corr += `V-V' $\\approx ${tex_nombrec(arrondi(Math.PI * r * r * (h2 + c) ** 3 / (h1 ** 2) / 3))} - ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3))}$ dm${exposant(3)}$ \\approx ${tex_nombre(arrondi(Math.PI * r * r * (h2 + c) ** 3 / (h1 ** 2) / 3 - Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3, 1))}$ dm${exposant(3)}.<br>`
+					texte_corr += `$V-V' \\approx ${tex_nombrec(arrondi(Math.PI * r * r * (h2 + c) ** 3 / (h1 ** 2) / 3))}$ dm${exposant(3)}$ - ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3))}$ dm${exposant(3)}$ \\approx ${tex_nombre(arrondi(Math.PI * r * r * (h2 + c) ** 3 / (h1 ** 2) / 3 - Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3, 1))}$ dm${exposant(3)}.<br>`
 					this.MG32codeBase64 = codeBase64
 											 this.MG32code_pour_modifier_la_figure = `
 												 mtg32App.calculate("MG32svg${numero_de_l_exercice}");
