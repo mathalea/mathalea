@@ -4452,64 +4452,64 @@ function Agrandissement_reduction() {
 					texte += num_alpha(4) + ` Calculer le volume du tronc de la pyramide (partie de la pyramide située entre la base et la section).`
 					if (sortie_html) texte += `<br>Le point O peut être déplacé et on peut changer l'angle de vue &#x3C6; `
 					else texte += `
-					\\begin{tikzpicture}[scale=0.6]
-\\definecolor{hhhhhh}{rgb}{0,0,0}
-\\definecolor{phphph}{rgb}{0.5,0.5,0.5}
-\\definecolor{ofofof}{rgb}{0.5,0.5,0.5}
-\\definecolor{ffhhhh}{rgb}{1,0,0}
-\\definecolor{hhofhh}{rgb}{0,0.5,0}
-\\definecolor{hhhhff}{rgb}{0,0,1}
-\\clip (28.4,0) rectangle (0,15.81);
-\\fill[color=black] (3.102,7.944) circle (0.043);
-\\node at (2.673, 8.201) [align=left,inner sep = 0pt, outer sep = 0pt,below right,black,font= \\sf \\fontsize {0.301cm} {0.376cm} \\selectfont] {$\\text{O}$};
-\\fill[color=black] (3.102,12.205) circle (0.043);
-\\node at (2.931, 12.462) [align=left,inner sep = 0pt, outer sep = 0pt,below right,black,font= \\sf \\fontsize {0.301cm} {0.376cm} \\selectfont] {$\\text{O'}$};
-\\draw [color=black , dotted, line width = 0.4](1.457,7.139)--(3.102,7.944);
-\\draw [color=black , dotted, line width = 0.4](3.102,7.944)--(5.432,6.934);
-\\draw [color=black , dotted, line width = 0.4](5.432,6.934)--(1.457,7.139);
-\\draw [color=black , dotted, line width = 0.4](3.102,15.046)--(1.457,7.139);
-\\draw [color=black , dotted, line width = 0.4](3.102,15.046)--(5.432,6.934);
-\\draw [color=black , dotted, line width = 0.4](2.444,11.883)--(3.102,12.205);
-\\draw [color=black , dotted, line width = 0.4](3.102,12.205)--(4.034,11.801);
-\\draw [color=black , dotted, line width = 0.4](2.444,11.883)--(4.034,11.801);
-\\draw [color=black , line width = 0.8](3.102,15.046)--(1.457,7.139);
-\\draw [color=black , line width = 0.8](3.102,15.046)--(5.432,6.934);
-\\draw [color=black , dotted, line width = 0.4](3.102,15.046)--(3.102,7.944);
-\\draw [color=black , line width = 0.8](2.444,11.883)--(4.034,11.801);
-\\node at (1.962, 12.117) [align=left,below right ,black,,font= \\sf \\fontsize {0.322cm} {0.403cm} \\selectfont] {\\textbf{A'}};
-\\node at (4.201, 11.924) [align=left,below right ,black,,font= \\sf \\fontsize {0.322cm} {0.403cm} \\selectfont] {\\textbf{B'}};
-\\node at (0.878, 7.44) [align=left,below right ,black,,font= \\sf \\fontsize {0.322cm} {0.403cm} \\selectfont] {\\textbf{A}};
-\\node at (5.724, 7.068) [align=left,below right ,black,,font= \\sf \\fontsize {0.322cm} {0.403cm} \\selectfont] {\\textbf{B}};
-\\draw [color=ofofof , dotted, line width = 0.4](3.102,7.944)--(3.394,7.817);
-\\draw [color=ofofof , dotted, line width = 0.4](2.828,7.809)--(3.102,7.944);
-\\draw [color=ofofof , dotted, line width = 0.4](2.828,7.809)--(3.119,7.683);
-\\draw [color=ofofof , dotted, line width = 0.4](3.119,7.683)--(3.394,7.817);
-\\draw [color=ofofof , dotted, line width = 0.4](3.394,7.817)--(3.102,7.944)--(2.828,7.809)--(3.119,7.683)--(3.394,7.817)--cycle;
-\\draw [color=ofofof , dotted, line width = 0.4](3.102,12.205)--(3.394,12.079);
-\\draw [color=ofofof , dotted, line width = 0.4](2.828,12.071)--(3.102,12.205);
-\\draw [color=ofofof , dotted, line width = 0.4](2.828,12.071)--(3.119,11.944);
-\\draw [color=ofofof , dotted, line width = 0.4](3.119,11.944)--(3.394,12.079);
-\\draw [color=ofofof , dotted, line width = 0.4](3.394,12.079)--(3.102,12.205)--(2.828,12.071)--(3.119,11.944)--(3.394,12.079)--cycle;
-\\draw [color=ofofof , dotted, line width = 0.4](3.102,8.299)--(3.102,7.944);
-\\draw [color=ofofof , dotted, line width = 0.4](3.394,7.817)--(3.394,8.172);
-\\draw [color=ofofof , dotted, line width = 0.4](3.394,8.172)--(3.102,8.299);
-\\draw [color=ofofof , dotted, line width = 0.4](3.102,8.299)--(3.102,7.944)--(3.394,7.817)--(3.394,8.172)--(3.102,8.299)--cycle;
-\\draw [color=ofofof , dotted, line width = 0.4](3.102,8.299)--(2.828,8.165);
-\\draw [color=ofofof , dotted, line width = 0.4](2.828,8.165)--(2.828,7.809);
-\\draw [color=ofofof , dotted, line width = 0.4](2.828,7.809)--(3.102,7.944)--(3.102,8.299)--(2.828,8.165)--(2.828,7.809)--cycle;
-\\draw [color=ofofof , dotted, line width = 0.4](3.102,12.56)--(3.102,12.205);
-\\draw [color=ofofof , dotted, line width = 0.4](3.394,12.079)--(3.394,12.434);
-\\draw [color=ofofof , dotted, line width = 0.4](3.394,12.434)--(3.102,12.56);
-\\draw [color=ofofof , dotted, line width = 0.4](3.102,12.56)--(3.102,12.205)--(3.394,12.079)--(3.394,12.434)--(3.102,12.56)--cycle;
-\\draw [color=ofofof , dotted, line width = 0.4](3.102,12.56)--(2.828,12.426);
-\\draw [color=ofofof , dotted, line width = 0.4](2.828,12.426)--(2.828,12.071);
-\\draw [color=ofofof , dotted, line width = 0.4](2.828,12.071)--(3.102,12.205)--(3.102,12.56)--(2.828,12.426)--(2.828,12.071)--cycle;
-\\draw [color=ffhhhh , dotted, line width = 0.4](2.444,11.883)--(4.034,11.801)--(3.102,12.205)--(2.444,11.883)--cycle;
-\\fill [color = ffhhhh, opacity = 0.2](2.444,11.883)--(4.034,11.801)--(3.102,12.205)--(2.444,11.883)--cycle;
-\\draw [color=hhofhh , dotted, line width = 0.4](1.457,7.139)--(5.432,6.934)--(3.102,7.944)--(1.457,7.139)--cycle;
-\\fill [color = hhhhff, opacity = 0.2](1.457,7.139)--(5.432,6.934)--(3.102,7.944)--(1.457,7.139)--cycle;
-\\node at (2.716, 15.637) [align=left,below right ,black,,font= \\sf \\fontsize {0.322cm} {0.403cm} \\selectfont] {\\textbf{S}};
-\\end{tikzpicture}
+					\\begin{tikzpicture}[scale=0.7]
+					\\definecolor{hhhhhh}{rgb}{0,0,0}
+					\\definecolor{phphph}{rgb}{0.5,0.5,0.5}
+					\\definecolor{ofofof}{rgb}{0.5,0.5,0.5}
+					\\definecolor{ffhhhh}{rgb}{1,0,0}
+					\\definecolor{hhofhh}{rgb}{0,0.5,0}
+					\\definecolor{hhhhff}{rgb}{0,0,1}
+					\\clip (8.05,0) rectangle (0,12.08);
+					\\fill[color=black] (3.878,2.24) circle (0.054);
+					\\node at (3.341, 2.562) [align=left,inner sep = 0pt, outer sep = 0pt,below right,black,font= \\sf \\fontsize {0.376cm} {0.47cm} \\selectfont] {$\\text{O}$};
+					\\fill[color=black] (3.878,7.567) circle (0.054);
+					\\node at (3.663, 7.889) [align=left,inner sep = 0pt, outer sep = 0pt,below right,black,font= \\sf \\fontsize {0.376cm} {0.47cm} \\selectfont] {$\\text{O'}$};
+					\\draw [color=black , dotted, line width = 0.4](1.822,1.235)--(3.878,2.24);
+					\\draw [color=black , dotted, line width = 0.4](3.878,2.24)--(6.791,0.978);
+					\\draw [color=black , dotted, line width = 0.4](6.791,0.978)--(1.822,1.235);
+					\\draw [color=black , dotted, line width = 0.4](3.878,11.118)--(1.822,1.235);
+					\\draw [color=black , dotted, line width = 0.4](3.878,11.118)--(6.791,0.978);
+					\\draw [color=black , dotted, line width = 0.4](3.055,7.165)--(3.878,7.567);
+					\\draw [color=black , dotted, line width = 0.4](3.878,7.567)--(5.043,7.062);
+					\\draw [color=black , dotted, line width = 0.4](3.055,7.165)--(5.043,7.062);
+					\\draw [color=black , line width = 0.8](3.878,11.118)--(1.822,1.235);
+					\\draw [color=black , line width = 0.8](3.878,11.118)--(6.791,0.978);
+					\\draw [color=black , dotted, line width = 0.4](3.878,11.118)--(3.878,2.24);
+					\\draw [color=black , line width = 0.8](3.055,7.165)--(5.043,7.062);
+					\\node at (2.452, 7.457) [align=left,below right ,black,,font= \\sf \\fontsize {0.403cm} {0.503cm} \\selectfont] {\\textbf{A'}};
+					\\node at (5.251, 7.216) [align=left,below right ,black,,font= \\sf \\fontsize {0.403cm} {0.503cm} \\selectfont] {\\textbf{B'}};
+					\\node at (1.097, 1.61) [align=left,below right ,black,,font= \\sf \\fontsize {0.403cm} {0.503cm} \\selectfont] {\\textbf{A}};
+					\\node at (7.155, 1.145) [align=left,below right ,black,,font= \\sf \\fontsize {0.403cm} {0.503cm} \\selectfont] {\\textbf{B}};
+					\\draw [color=ofofof , dotted, line width = 0.4](3.878,2.24)--(4.242,2.083);
+					\\draw [color=ofofof , dotted, line width = 0.4](3.535,2.073)--(3.878,2.24);
+					\\draw [color=ofofof , dotted, line width = 0.4](3.535,2.073)--(3.899,1.915);
+					\\draw [color=ofofof , dotted, line width = 0.4](3.899,1.915)--(4.242,2.083);
+					\\draw [color=ofofof , dotted, line width = 0.4](4.242,2.083)--(3.878,2.24)--(3.535,2.073)--(3.899,1.915)--(4.242,2.083)--cycle;
+					\\draw [color=ofofof , dotted, line width = 0.4](3.878,7.567)--(4.242,7.409);
+					\\draw [color=ofofof , dotted, line width = 0.4](3.535,7.399)--(3.878,7.567);
+					\\draw [color=ofofof , dotted, line width = 0.4](3.535,7.399)--(3.899,7.241);
+					\\draw [color=ofofof , dotted, line width = 0.4](3.899,7.241)--(4.242,7.409);
+					\\draw [color=ofofof , dotted, line width = 0.4](4.242,7.409)--(3.878,7.567)--(3.535,7.399)--(3.899,7.241)--(4.242,7.409)--cycle;
+					\\draw [color=ofofof , dotted, line width = 0.4](3.878,2.684)--(3.878,2.24);
+					\\draw [color=ofofof , dotted, line width = 0.4](4.242,2.083)--(4.242,2.526);
+					\\draw [color=ofofof , dotted, line width = 0.4](4.242,2.526)--(3.878,2.684);
+					\\draw [color=ofofof , dotted, line width = 0.4](3.878,2.684)--(3.878,2.24)--(4.242,2.083)--(4.242,2.526)--(3.878,2.684)--cycle;
+					\\draw [color=ofofof , dotted, line width = 0.4](3.878,2.684)--(3.535,2.517);
+					\\draw [color=ofofof , dotted, line width = 0.4](3.535,2.517)--(3.535,2.073);
+					\\draw [color=ofofof , dotted, line width = 0.4](3.535,2.073)--(3.878,2.24)--(3.878,2.684)--(3.535,2.517)--(3.535,2.073)--cycle;
+					\\draw [color=ofofof , dotted, line width = 0.4](3.878,8.011)--(3.878,7.567);
+					\\draw [color=ofofof , dotted, line width = 0.4](4.242,7.409)--(4.242,7.853);
+					\\draw [color=ofofof , dotted, line width = 0.4](4.242,7.853)--(3.878,8.011);
+					\\draw [color=ofofof , dotted, line width = 0.4](3.878,8.011)--(3.878,7.567)--(4.242,7.409)--(4.242,7.853)--(3.878,8.011)--cycle;
+					\\draw [color=ofofof , dotted, line width = 0.4](3.878,8.011)--(3.535,7.843);
+					\\draw [color=ofofof , dotted, line width = 0.4](3.535,7.843)--(3.535,7.399);
+					\\draw [color=ofofof , dotted, line width = 0.4](3.535,7.399)--(3.878,7.567)--(3.878,8.011)--(3.535,7.843)--(3.535,7.399)--cycle;
+					\\draw [color=ffhhhh , dotted, line width = 0.4](3.055,7.165)--(5.043,7.062)--(3.878,7.567)--(3.055,7.165)--cycle;
+					\\fill [color = ffhhhh, opacity = 0.2](3.055,7.165)--(5.043,7.062)--(3.878,7.567)--(3.055,7.165)--cycle;
+					\\draw [color=hhofhh , dotted, line width = 0.4](1.822,1.235)--(6.791,0.978)--(3.878,2.24)--(1.822,1.235)--cycle;
+					\\fill [color = hhhhff, opacity = 0.2](1.822,1.235)--(6.791,0.978)--(3.878,2.24)--(1.822,1.235)--cycle;
+					\\node at (3.395, 11.857) [align=left,below right ,black,,font= \\sf \\fontsize {0.403cm} {0.503cm} \\selectfont] {\\textbf{S}};
+					\\end{tikzpicture}
 					`
 					texte_corr = num_alpha(0) + ` L'aire de base de la pyramide est : $\\dfrac{${tex_nombre(c)}\\times${tex_nombre(c2)}}{2}$ cm${exposant(2)} $= ${tex_nombrec(c * c2 / 2)}$ cm${exposant(2)}.<br>`
 					texte_corr += num_alpha(1) + ` Le volume de la pyramide est : $\\dfrac{A_\\text{base} \\times \\text{hauteur}}{3}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(c * c2 / 2)}\\times ${tex_nombre(h1)}}{3}$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(c * c2 * h1 / 6))}$ cm${exposant(3)}.<br>`
