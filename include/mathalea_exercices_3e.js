@@ -4316,11 +4316,11 @@ function Agrandissement_reduction() {
 			this.type_exercice = 'MG32';
 			this.taille_div_MG32 = [600, 700];
 			let codeBase64
-			let choix
-			if (this.sup == 1) choix = randint(1, 3)
+			let choix=5
+		/*	if (this.sup == 1) choix = randint(1, 3)
 			else if (this.sup == 2) choix = randint(4,5)
 			else choix = randint(1, 5)
-			switch (choix) {
+		*/	switch (choix) {
 				case 1: // calcul de l'aire de base, du volume d'une pyramide à base carrée. puis, calcul de la section, du volume de la petite pyramide et du volume du tronc
 					c = calcul(randint(30, 60) / 10)
 					h1 = calcul(randint(12, 20) / 2)
@@ -4577,9 +4577,13 @@ function Agrandissement_reduction() {
 					texte_corr += num_alpha(2) + ` Le volume de glace est la différence entre les deux volumes précédents :<br>`
 					texte_corr += `$${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3,3))}$ cm${exposant(3)}$ - ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3,3))}$ cm${exposant(3)}$ \\approx ${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3-Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3,2))}$ cm${exposant(3)}.<br>`
 $
-					texte_corr += num_alpha(3) + ` Si on verse les $${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3,3))}$ cm${exposant(3)} de glace au fond du cône, la hauteur $h$ vérifie l'équation suivante :<br>`
-					texte_corr += `Equation<br>`
-					texte_corr += num_alpha(4) + ` L'épaisseur de chocolat est alors de <br`
+					texte_corr += num_alpha(3) + ` Si on verse les $${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3,3))}$ cm${exposant(3)} de glace au fond du cône, le cône de glace est une nouvelle réduction du cône complet.<br>`
+					texte_corr += `Soit k\' le coefficient de cette réduction, on a : $\\text{k\'}^3 = 1- \\text{k}^3$`
+					texte_corr +=`, d'où k\' `
+					texte_corr += `$= \\sqrt[3]{1-{\\text{k}^3}}$.<br>`
+					texte_corr += `Donc k\' = $\\sqrt[3]{1 - \\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3} \\approx ${tex_nombre(arrondi(Math.cbrt(1-(h2/h1)**3),3))}$.<br>`
+					texte_corr += `On en déduit que la hauteur de glace est approximativement : $${tex_nombre(arrondi(Math.cbrt(1-(h2/h1)**3),3))} \\times ${tex_nombre(h1)}$ cm $\\approx ${tex_nombre(arrondi(h1*Math.cbrt(1-(h2/h1)**3),3))}$ cm.<br>`
+					texte_corr += num_alpha(4) + ` L'épaisseur de chocolat est alors de : $${tex_nombre(h1)}$ cm $ - ${tex_nombre(arrondi(h1*Math.cbrt(1-(h2/h1)**3),3))}$ cm $\\approx ${tex_nombre(arrondi(10*(h1-h1*Math.cbrt(1-(h2/h1)**3)),1))}$ mm !`
 					this.MG32codeBase64 = codeBase64
 					this.MG32code_pour_modifier_la_figure = `
 							 mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "r", "${r}");
