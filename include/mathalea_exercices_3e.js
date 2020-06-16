@@ -4582,8 +4582,8 @@ $
 					texte_corr +=`, d'où k\' `
 					texte_corr += `$= \\sqrt[3]{1-{\\text{k}^3}}$.<br>`
 					texte_corr += `Donc k\' = $\\sqrt[3]{1 - \\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3} \\approx ${tex_nombre(arrondi(Math.cbrt(1-(h2/h1)**3),4))}$.<br>`
-					texte_corr += `On en déduit que la hauteur de glace est approximativement : $${tex_nombre(arrondi(Math.cbrt(1-(h2/h1)**3),4))} \\times ${tex_nombre(h1)}$ cm $\\approx ${tex_nombre(arrondi(h1*Math.cbrt(1-(h2/h1)**3),3))}$ cm.<br>`
-					texte_corr += num_alpha(4) + ` L'épaisseur de chocolat est alors de : $${tex_nombre(h1)}$ cm $ - ${tex_nombre(arrondi(h1*Math.cbrt(1-(h2/h1)**3),3))}$ cm $\\approx ${tex_nombre(arrondi(10*(h1-h1*Math.cbrt(1-(h2/h1)**3)),2))}$ mm !`
+					texte_corr += `On en déduit que la hauteur de glace est approximativement : $${tex_nombre(arrondi(Math.cbrt(1-(h2/h1)**3),4))} \\times ${tex_nombre(h1)}$ cm $\\approx ${tex_nombre(arrondi(h1*Math.cbrt(1-(h2/h1)**3),4))}$ cm.<br>`
+					texte_corr += num_alpha(4) + ` L'épaisseur de chocolat est alors de : $${tex_nombre(h1)}$ cm $ - ${tex_nombre(arrondi(h1*Math.cbrt(1-(h2/h1)**3),4))}$ cm $\\approx ${tex_nombre(arrondi(10*(h1-h1*Math.cbrt(1-(h2/h1)**3)),3))}$ mm !`
 					this.MG32codeBase64 = codeBase64
 					this.MG32code_pour_modifier_la_figure = `
 							 mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "r", "${r}");
