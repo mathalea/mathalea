@@ -4568,14 +4568,14 @@ function Agrandissement_reduction() {
 					texte += num_alpha(3) + ` Si la glace avait été mise dans le cône avant le chocolat, quelle serait la hauteur atteinte par la glace dans le cône ?<br>`
 					texte += num_alpha(4) + ` Quelle serait alors l'épaisseur de chocolat au dessus de la glace ?<br>`
 					texte += `Le point O peut être déplacé et on peut changer l'angle de vue &#x3C6; `
-					texte_corr = num_alpha(0) + ` Le volume du cône est $\\dfrac{\\text{Aire de la base}}{3}\\times \\text{hauteur}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r)}\\pi}{3} \\times ${tex_nombre(h1)}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3,3))}$ cm${exposant(3)}.<br>`
+					texte_corr = num_alpha(0) + ` Le volume du cône est $\\dfrac{A_\\text{base}}{3}\\times \\text{hauteur}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r)}\\pi}{3} \\times ${tex_nombre(h1)}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3,3))}$ cm${exposant(3)}.<br>`
 					texte_corr += num_alpha(1) + ` Le cône de chocolat est une réduction du cône complet. Le coefficient de réduction est $\\dfrac{${tex_nombre(h2)}}{${tex_nombre(h1)}}`
 					if (!Number.isInteger(h1) || pgcd(h2, h1) > 1) texte_corr += `=${tex_fraction_reduite(h2 * 10, h1 * 10)}$.<br>`
 					else texte_corr += `.$<br>`
-					texte_corr += ` Dans une réduction de coefficient k, , les volumes sont multipliés par k ${exposant(3)}.<br>`
-					texte_corr+= `Donc le volume du cône de hauteur SO' est : $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)}$ \\approx ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3,3))}$ cm${exposant(3)}.<br>`
+					texte_corr += ` Dans une réduction de coefficient k, les volumes sont multipliés par k ${exposant(3)}.<br>`
+					texte_corr+= `Donc le volume du cône de hauteur SO' est : $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} $ \\approx ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3,3))}$ cm${exposant(3)}.<br>`
 					texte_corr += num_alpha(2) + ` Le volume de glace est la différence entre les deux volumes précédents :<br>`
-					texte_corr += `$${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3,3))}$ cm${exposant(3)}$ - ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3,3))}$ cm${exposant(3)}$ \\approx ${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3-Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3,2))}$ cm${exposant(3)}.<br>`
+					texte_corr += `$${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3,3))}$ cm${exposant(3)}$ - ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3,3))}$ cm${exposant(3)} $ \\approx ${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3-Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3,2))}$ cm${exposant(3)}.<br>`
 $
 					texte_corr += num_alpha(3) + ` Si on verse les $${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3,3))}$ cm${exposant(3)} de glace au fond du cône, le cône de glace est une nouvelle réduction du cône complet.<br>`
 					texte_corr += `Soit k\' le coefficient de cette réduction, on a : $\\text{k\'}^3 = 1- \\text{k}^3$`
