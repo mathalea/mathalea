@@ -501,6 +501,20 @@ window.onload = function()  {
 	$('.ui.accordion').accordion(); // active les acordéons (paramètres du fichier .tex)
 	$('.ui.radio.checkbox').checkbox(); // active les boutons radio (pour le style)
 
+	// Gestion du menu déroulant par une fonction auto-exécutante
+	(function menu_deroulant () {
+		const el = document.getElementsByClassName('id_exercice');
+		const el_accordion = document.getElementsByClassName('accordion');
+		// Sélectionne les exercices de la liste des exercices disponibles
+		if (el.length>50) {
+			// S'il y a plus de 50 exercices, l'accordéon est initialisé
+	    	
+	    	$('.ui.accordion').accordion('refresh');
+		} else {
+    		setTimeout(menu_deroulant, 300); // retente dans 300 milliseconds
+		}
+	})();
+
 	// Récupère les paramètres passés dans l'URL
 	//var interrogation_dans_URL = location.href.indexOf("?");
 	let tableau_objets_exercices = getUrlVars();
