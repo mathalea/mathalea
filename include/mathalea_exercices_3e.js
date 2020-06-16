@@ -4580,7 +4580,7 @@ function Agrandissement_reduction() {
 					texte_corr+= `Donc le volume du cône de hauteur SO' est : $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} $ \\approx ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3,3))}$ cm${exposant(3)}.<br>`
 					texte_corr += num_alpha(2) + ` Le volume de glace est la différence entre les deux volumes précédents :<br>`
 					texte_corr += `$${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3,3))}$ cm${exposant(3)}$ - ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3,3))}$ cm${exposant(3)} $ \\approx ${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3-Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3,2))}$ cm${exposant(3)}.<br>`
-					texte_corr += num_alpha(3) + ` Si on verse les $${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3-Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3,2))}$ cm${exposant(3)} de glace au fond du cône, le cône de glace est une nouvelle réduction du cône complet.<br>`
+					texte_corr += num_alpha(3) + ` Si on verse la glace au fond du cône, on obtient une nouvelle réduction du cône complet.<br>`
 					texte_corr += `Soit k\' le coefficient de cette réduction, on a : k\'${exposant(3)} $= 1- \\text{k}^3$`
 					texte_corr +=`, d'où k\' `
 					texte_corr += `$= \\sqrt[3]{1-{\\text{k}^3}}$.<br>`
