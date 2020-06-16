@@ -4298,21 +4298,21 @@ function Agrandissement_reduction() {
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
-	sortie_html ? this.spacing_corr = 3.5 : this.spacing_corr = 2.5
-	sortie_html ? this.spacing = 2.5 : this.spacing = 2
+	sortie_html ? this.spacing_corr = 3.5 : this.spacing_corr = 1.5
+	sortie_html ? this.spacing = 2.5 : this.spacing = 1.5
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.quatrieme = false;
 	this.sup = 1; // 
 	this.sup2 =1;
-	this.pas_de_version_LaTeX = true;
+	this.pas_de_version_LaTeX = false;
 
 
 	this.nouvelle_version = function (numero_de_l_exercice) {
 		this.liste_questions = [];
 		this.liste_corrections = [];
 		let texte, texte_corr, r, r2, h1, h2, h3, c, c2;
-		if (sortie_html) {
+	//	if (sortie_html) {
 			this.type_exercice = 'MG32';
 			this.taille_div_MG32 = [600, 700];
 			let codeBase64
@@ -4347,13 +4347,13 @@ function Agrandissement_reduction() {
 					texte += num_alpha(2) + ` En déduire l'aire de la ` + katex_Popup2(numero_de_l_exercice + i * 4 + 2, 1, "section", `Définition : section plane d'un solide`, `La section d'un solide par un plan est une figure plane.<br>Dans le cas d'une section d'une pyramide par un plan parallèle à sa base, cette section est un polygone qui est une réduction de la base.<br>Dans une réduction de coefficient k, les aires sont multipliées par k${exposant(2)} et les volumes sont multipliés par k${exposant(3)}.`) + ` A'B'C'D' sachant que SO' = ${h2} cm.<br>`
 					texte += num_alpha(3) + ` Calculer le volume de la pyramide SA'B'C'D'.<br>`
 					texte += num_alpha(4) + ` Calculer le volume du tronc de la pyramide (partie de la pyramide située entre la base et la section).<br>`
-					texte += `Le point O peut être déplacé et on peut changer l'angle de vue &#x3C6; `
+					if (sortie_html) texte += `Le point O peut être déplacé et on peut changer l'angle de vue &#x3C6; `
 					texte_corr = num_alpha(0) + ` L'aire de base de la pyramide est : $${tex_nombre(c)}^2$ cm${exposant(2)} $= ${tex_nombrec(c * c)}$ cm${exposant(2)}.<br>`
-					texte_corr += num_alpha(1) + ` Le volume de la pyramide est : $\\dfrac{\\text{Aire de la base} \\times \\text{hauteur}}{3}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(c * c)}\\times ${tex_nombre(h1)}}{3}$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(c * c * h1 / 3))}$ cm${exposant(3)}.<br>`
+					texte_corr += num_alpha(1) + ` Le volume de la pyramide est : $\\dfrac{A_\\text{base} \\times \\text{hauteur}}{3}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(c * c)}\\times ${tex_nombre(h1)}}{3}$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(c * c * h1 / 3))}$ cm${exposant(3)}.<br>`
 					texte_corr += num_alpha(2) + ` La section est une réduction de la base de coefficient $\\dfrac{${h2}}{${tex_nombre(h1)}}`
 					if (!Number.isInteger(h1) || pgcd(h2, h1) > 1) texte_corr += `=${tex_fraction_reduite(h2 * 10, h1 * 10)}$.<br>`
 					else texte_corr += `.$<br>`
-					texte_corr += `Dans une réduction de coefficient k, les aires sont multipliés par k ${exposant(2)}.<br>`
+					texte_corr += `Dans une réduction de coefficient k, les aires sont multipliés par k${exposant(2)}.<br>`
 					texte_corr += `Donc son aire est $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^2 \\times ${tex_nombre(c * c)}$ cm${exposant(2)} $=${tex_fraction_reduite(arrondi(h2 * h2 * 100 * c * c), arrondi(h1 * h1 * 100))}$ cm${exposant(2)} $\\approx ${tex_nombrec(arrondi(h2 * h2 * c * c / h1 / h1, 2))}$ cm${exposant(2)}.<br>`
 					texte_corr += num_alpha(3) + ` Dans une réduction de coefficient k, les volumes sont multipliés par k ${exposant(3)}.<br>`
 					texte_corr += `Donc le volume de la pyramide SA'B'C'D' est : $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3 \\times \\dfrac{${tex_nombrec(c * c * h1)}}{3}$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(h2 ** 3 * c * c / h1 ** 2 / 3))}$ cm${exposant(3)}.<br>`
@@ -4396,18 +4396,18 @@ function Agrandissement_reduction() {
 					texte += num_alpha(2) + ` En déduire l'aire de la ` + katex_Popup2(numero_de_l_exercice + i * 4 + 3, 1, "section", `Définition : Section plane d'un solide`, `La section d'un solide par un plan est une figure plane.<br>Dans le cas d'une section d'un cône par un plan parallèle à sa base, cette section est un disque qui est une réduction de la base.<br>Dans une réduction de coefficient k, les aires sont multipliées par k${exposant(2)} et les volumes sont multipliés par k${exposant(3)}.`) + ` sachant que SO' = ${h2} cm.<br>`
 					texte += num_alpha(3) + ` Calculer le volume du cône de hauteur SO'.<br>`
 					texte += num_alpha(4) + ` Calculer le volume du tronc de cône (partie du cône située entre la base et la section).<br>`
-					texte += `Le point O peut être déplacé et on peut changer l'angle de vue &#x3C6; `
+					if (sortie_html) texte += `Le point O peut être déplacé et on peut changer l'angle de vue &#x3C6; `
 					texte_corr = num_alpha(0) + ` L'aire de base du cône est : $\\pi \\times R^2$ cm${exposant(2)} $= \\pi \\times ${tex_nombre(r)}^2$ cm${exposant(2)} $= ${tex_nombrec(r * r)}\\pi$ cm${exposant(2)} $\\approx ${tex_nombrec(arrondi(r * r * Math.PI))}$ cm${exposant(2)}.<br>`
-					texte_corr += num_alpha(1) + ` Le volume du cône est $\\dfrac{\\text{Aire de la base}}{3}\\times \\text{hauteur}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r)}\\pi}{3} \\times ${tex_nombre(h1)}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3))}$ cm${exposant(3)}.<br>`
+					texte_corr += num_alpha(1) + ` Le volume du cône est $\\dfrac{A_\\text{base}}{3}\\times \\text{hauteur}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r)}\\pi}{3} \\times ${tex_nombre(h1)}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3))}$ cm${exposant(3)}.<br>`
 					texte_corr += num_alpha(2) + ` La section est une réduction de la base de coefficient $\\dfrac{${tex_nombre(h2)}}{${tex_nombre(h1)}}`
 					if (!Number.isInteger(h1) || pgcd(h2, h1) > 1) texte_corr += `=${tex_fraction_reduite(h2 * 10, h1 * 10)}$.<br>`
 					else texte_corr += `.$<br>`
-					texte_corr += `Dans une réduction de coefficient k, les aires sont multipliés par k ${exposant(2)}.<br>`
+					texte_corr += `Dans une réduction de coefficient k, les aires sont multipliés par k${exposant(2)}.<br>`
 					texte_corr += `Donc son aire est $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^2 \\times ${tex_nombrec(r * r)}\\pi$ cm${exposant(2)} $=${tex_fraction_reduite(arrondi(h2 * h2 * 100 * r * r), arrondi(h1 * h1 * 100))}\\pi$ cm${exposant(2)} $\\approx${tex_nombrec(arrondi(h2 * h2 * r * r * Math.PI / h1 / h1))}$ cm${exposant(2)}.<br>`
-					texte_corr += num_alpha(3) + ` Dans une réduction de coefficient k, les volumes sont multipliés par k ${exposant(3)}.<br>`
+					texte_corr += num_alpha(3) + ` Dans une réduction de coefficient k, les volumes sont multipliés par k${exposant(3)}.<br>`
 					texte_corr += `Donc le volume du cône de hauteur SO' est : $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3))}$ cm${exposant(3)} '.<br>`
 					texte_corr += num_alpha(4) + ` Le volume du tronc de cône est : `
-					texte_corr += `$V_\\text{Cône} - V_\\text{Cône Réduit}$<br>Soit : <br>$\\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)}$ - \\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} `
+					texte_corr += `$V_\\text{Cône} - V_\\text{CôneRéduit}$<br>Soit : <br>$\\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)}$ - \\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} `
 					texte_corr += `$ = \\left(1-\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3\\right)\\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} `
 					texte_corr += `$ = \\left(1-\\dfrac{${fraction_simplifiee(h2 * 10, h1 * 10)[0] ** 3}}{${fraction_simplifiee(h2 * 10, h1 * 10)[1] ** 3}}\\right)\\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} `
 					texte_corr += `$ = \\dfrac{${fraction_simplifiee(h2 * 10, h1 * 10)[1] ** 3 - fraction_simplifiee(h2 * 10, h1 * 10)[0] ** 3}}{${fraction_simplifiee(h2 * 10, h1 * 10)[1] ** 3}}\\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} `
@@ -4450,15 +4450,15 @@ function Agrandissement_reduction() {
 					texte += num_alpha(2) + ` En déduire l'aire de la ` + katex_Popup2(numero_de_l_exercice + i * 4 + 2, 1, "section", `Définition : section plane d'un solide`, `La section d'un solide par un plan est une figure plane.<br>Dans le cas d'une section d'une pyramide par un plan parallèle à sa base, cette section est un polygone qui est une réduction de la base.<br>Dans une réduction de coefficient k, les aires sont multipliées par k${exposant(2)} et les volumes sont multipliés par k${exposant(3)}.`) + ` O'A'B' sachant que SO' = ${h2} cm.<br>`
 					texte += num_alpha(3) + ` Calculer le volume de la pyramide SO'A'B'.<br>`
 					texte += num_alpha(4) + ` Calculer le volume du tronc de la pyramide (partie de la pyramide située entre la base et la section).<br>`
-					texte += `Le point O peut être déplacé et on peut changer l'angle de vue &#x3C6; `
+					if (sortie_html) texte += `Le point O peut être déplacé et on peut changer l'angle de vue &#x3C6; `
 					texte_corr = num_alpha(0) + ` L'aire de base de la pyramide est : $\\dfrac{${tex_nombre(c)}\\times${tex_nombre(c2)}}{2}$ cm${exposant(2)} $= ${tex_nombrec(c * c2 / 2)}$ cm${exposant(2)}.<br>`
-					texte_corr += num_alpha(1) + ` Le volume de la pyramide est : $\\dfrac{\\text{Aire de la base} \\times \\text{hauteur}}{3}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(c * c2 / 2)}\\times ${tex_nombre(h1)}}{3}$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(c * c2 * h1 / 6))}$ cm${exposant(3)}.<br>`
+					texte_corr += num_alpha(1) + ` Le volume de la pyramide est : $\\dfrac{A_\\text{base} \\times \\text{hauteur}}{3}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(c * c2 / 2)}\\times ${tex_nombre(h1)}}{3}$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(c * c2 * h1 / 6))}$ cm${exposant(3)}.<br>`
 					texte_corr += num_alpha(2) + ` La section est une réduction de la base de coefficient $\\dfrac{${h2}}{${tex_nombre(h1)}}`
 					if (!Number.isInteger(h1) || pgcd(h2, h1) > 1) texte_corr += `=${tex_fraction_reduite(h2 * 10, h1 * 10)}$.<br>`
 					else texte_corr += `.$<br>`
-					texte_corr += `Dans une réduction de coefficient k, les aires sont multipliés par k ${exposant(2)}.<br>`
+					texte_corr += `Dans une réduction de coefficient k, les aires sont multipliés par k${exposant(2)}.<br>`
 					texte_corr += `Donc son aire est $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^2 \\times ${tex_nombre(c * c2 / 2)}$ cm${exposant(2)} $=${tex_fraction_reduite(arrondi(h2 * h2 * 100 * c * c2), arrondi(h1 * h1 * 200))}$ cm${exposant(2)} $\\approx ${tex_nombrec(arrondi(h2 * h2 * c * c2 / h1 / h1 / 2, 2))}$ cm${exposant(2)}.<br>`
-					texte_corr += num_alpha(3) + ` Dans une réduction de coefficient k, les volumes sont multipliés par k ${exposant(3)}.<br>`
+					texte_corr += num_alpha(3) + ` Dans une réduction de coefficient k, les volumes sont multipliés par k${exposant(3)}.<br>`
 					texte_corr += `Donc le volume de la pyramide SO'A'B' est : $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3 \\times \\dfrac{${tex_nombrec(c * c2 * h1 / 2)}}{3}$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(h2 ** 3 * c * c2 / h1 ** 2 / 6))}$ cm${exposant(3)} '.<br>`
 					texte_corr += num_alpha(4) + ` Le volume du tronc de la pyramide est : `
 					texte_corr += `$V_\\text{SABCD} - V_\\text{SA'B'C'D'}$<br>Soit : <br>$${tex_nombrec(arrondi(c * c2 * h1 / 6))}$ cm${exposant(3)}$ - ${tex_nombrec(arrondi(h2 ** 3 * c * c2 / h1 ** 2 / 6))}$ cm${exposant(3)}$ \\approx ${tex_nombrec(arrondi(c * c2 * h1 / 6 - h2 ** 3 * c * c2 / h1 ** 2 / 6, 2))}$ cm${exposant(3)}.<br>`
@@ -4494,10 +4494,13 @@ function Agrandissement_reduction() {
 					texte += num_alpha(0) + ` Calculer la hauteur du cône obtenu en prolongeant les bords du seau.<br>`
 					texte += num_alpha(1) + ` En déduire le volume de ce cône.<br>`
 					texte += num_alpha(2) + ` En déduire le volume total du seau.<br>`
-					texte += `Dans cette partie on considère qu'on remplit le seau à mi-hauteur d'eau.<br>`
-					texte += num_alpha(3) + ` Par lecture graphique, après avoir correctement paramétré la figure, lire le volume d'eau correspondant.<br>`
-					texte += num_alpha(4) + ` Retrouver ce résultat par le calcul.<br>`
-					texte += `On peut déplacer le cône avec S et modifier les valeurs avec leurs curseurs respectifs.`
+					if (sortie_html) texte += `Dans ces deux prochaines questions, on considère qu'on remplit le seau à mi-hauteur d'eau.<br>`
+					else texte += num_alpha(3) + ` On remplit le seau à mi-hauteur d'eau. Calculer le volume d'eau correspondant.`
+					if (sortie_html) {
+						texte += num_alpha(3) + ` Par lecture graphique, après avoir correctement paramétré la figure, lire le volume d'eau correspondant.<br>`
+						texte += num_alpha(4) + ` Retrouver ce résultat par le calcul.<br>`
+					}
+					if (sortie_html) texte += `On peut déplacer le cône avec S et modifier les valeurs avec leurs curseurs respectifs.`
 
 					texte_corr = num_alpha(0) + ` Les triangles SBA et SHL sont semblables car les droites (BA) et (HL) sont parallèles dans le plan du triangle SHL.<br>`
 					texte_corr += ` La tangente de l'angle $\\widehat{HSL}$ est égale dans le triangle SHL à $\\dfrac{\\text{HL}}{\\text{SH}}$ et dans le triangle SBA à $\\dfrac{\\text{BA}}{\\text{SB}}$.<br>`
@@ -4507,33 +4510,34 @@ function Agrandissement_reduction() {
 					texte_corr += `On en déduit que SH$\\left(${tex_nombre(r)}-${tex_nombre(r2)}\\right)=${tex_nombre(r)}\\times${tex_nombre(h3)}$.<br>`
 					texte_corr += `D'où SH $=\\dfrac{${tex_nombrec(r * h3)}}{${tex_nombrec(r - r2)}}=${tex_nombre(h1)}$ dm ( SB = $${tex_nombre(h2)}$ dm).<br>`
 
-					texte_corr += num_alpha(1) + ` Le volume du cône est $\\dfrac{\\text{Aire de la base}}{3}\\times \\text{hauteur}$ dm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r)}\\pi}{3} \\times ${tex_nombre(h1)}$ dm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} $\\approx ${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3))}$ dm${exposant(3)}.<br>`
+					texte_corr += num_alpha(1) + ` Le volume du cône est $\\dfrac{A_\\text{base}}{3}\\times \\text{hauteur}$ dm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r)}\\pi}{3} \\times ${tex_nombre(h1)}$ dm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} $\\approx ${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3))}$ dm${exposant(3)}.<br>`
 					texte_corr += num_alpha(2) + ` Le seau est un tronc de cône. Pour calculer son volume, on va calculer le volume du cône réduit de hauteur SB et le soustraire du volume du cône de hauteur SH.<br>`
 					texte_corr += ` Le cône de hauteur SB est une réduction du cône de hauteur SH. Le coefficient de cette réduction est : $\\dfrac{${tex_nombre(r2)}}{${tex_nombre(r)}}`
 					if (!Number.isInteger(r) || pgcd(r2 * 10, r * 10) > 1) texte_corr += `=${tex_fraction_reduite(arrondi(r2 * 10), arrondi(r * 10))}$.<br>`
 					else texte_corr += `.$<br>`
-					texte_corr += `Dans une réduction de coefficient k, les volumes sont multipliés par k ${exposant(3)}.<br>`
+					texte_corr += `Dans une réduction de coefficient k, les volumes sont multipliés par k${exposant(3)}.<br>`
 					texte_corr += `Donc le volume du cône de hauteur SB est : $\\left(${tex_fraction_reduite(arrondi(r2 * 10), arrondi(r * 10))}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} $\\approx ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3))}$ dm${exposant(3)} '.<br>`
 					texte_corr += `Le volume du tronc de cône est : `
-					texte_corr += `$V_\\text{Cône} - V_\\text{Cône Réduit}$<br>Soit : <br>$\\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)}$ - \\left(${tex_fraction_reduite(arrondi(r2 * 10), arrondi(r * 10))}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} `
+					texte_corr += `$V_\\text{Cône} - V_\\text{CôneRéduit}$<br>Soit : <br>$\\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)}$ - \\left(${tex_fraction_reduite(arrondi(r2 * 10), arrondi(r * 10))}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} `
 					texte_corr += `$ = \\left(1-\\left(${tex_fraction_reduite(arrondi(r2 * 10), arrondi(r * 10))}\\right)^3\\right)\\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} `
 					texte_corr += `$ = \\left(1-\\dfrac{${fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[0] ** 3}}{${fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[1] ** 3}}\\right)\\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} `
 					texte_corr += `$ = \\dfrac{${fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[1] ** 3 - fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[0] ** 3}}{${fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[1] ** 3}}\\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} `
 					texte_corr += `$ \\approx ${tex_nombrec(arrondi((fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[1] ** 3 - fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[0] ** 3) * r * r * h1 * Math.PI / (fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[1] ** 3 * 3)))}$ dm${exposant(3)}<br>`
-
-					texte_corr += num_alpha(3) + ` Il faut fixer HL à ${tex_nombre(r*10)} cm ; BA à ${tex_nombre(r2*10)} cm ; BH à ${tex_nombre(h3*10)} cm et la hauteur d'eau à ${tex_nombre((h1 - h2) *5)} cm.<br>`
 					c = h3 / 2
-					texte_corr += `La lecture de $ y = V(x)$ nous donne un volume d'au d'environ ${tex_nombrec(arrondi(Math.PI * (((c + h2) ** 3) * ((r2 / h2) ** 2) - (r2 ** 2) * h2) / 3, 1))} dm${exposant(3)} soit environ ${tex_nombrec(arrondi(Math.PI * (((c + h2) ** 3) * ((r2 / h2) ** 2) - (r2 ** 2) * h2) / 3, 1))} litres d'eau.<br>`
-
-					texte_corr += num_alpha(4) + ` Nous allons déterminer le volume du cône de hauteur SE, puis nous soustrairons le volume du cône de hauteur SB pour obtenir le volume d'eau.<br>`
+					if (sortie_html) {
+						texte_corr += num_alpha(3) + ` Il faut fixer HL à ${tex_nombre(r*10)} cm ; BA à ${tex_nombre(r2*10)} cm ; BH à ${tex_nombre(h3*10)} cm et la hauteur d'eau à ${tex_nombre((h1 - h2) *5)} cm.<br>`
+						texte_corr += `La lecture de $ y = V(x)$ nous donne un volume d'au d'environ ${tex_nombrec(arrondi(Math.PI * (((c + h2) ** 3) * ((r2 / h2) ** 2) - (r2 ** 2) * h2) / 3, 1))} dm${exposant(3)} soit environ ${tex_nombrec(arrondi(Math.PI * (((c + h2) ** 3) * ((r2 / h2) ** 2) - (r2 ** 2) * h2) / 3, 1))} litres d'eau.<br>`
+						texte_corr += num_alpha(4)
+					}
+					else texte_corr += num_alpha(3)
+					texte_corr += ` Nous allons déterminer le volume du cône de hauteur SE, puis nous soustrairons le volume du cône de hauteur SB pour obtenir le volume d'eau.<br>`
 					texte_corr += ` Le cône de hauteur SE est une réduction du cône de hauteur SH. Le coefficient de cette réduction est : $\\dfrac{${tex_nombre((h1 + h2) / 2)}}{${tex_nombrec(h1)}}`
-					if (!Number.isInteger(h1) || pgcd(h1 * 100, (h1 + h2) / 50) > 1) texte_corr += `=${tex_fraction_reduite(calcul((h1 + h2) * 50),calcul( h1 * 100))}$.<br>`
+					if (!Number.isInteger(c+h2) || pgcd(h1 * 100, (c + h2) *100) > 1) texte_corr += `=${tex_fraction_reduite(calcul((c + h2) * 100),calcul( h1 * 100))}$.<br>`
 					else texte_corr += `.$<br>`
-					texte_corr += `Dans une réduction de coefficient k, les volumes sont multipliés par k ${exposant(3)}.<br>`
 					texte_corr += `Donc le volume $V$ du cône de hauteur SE est : $\\left(${tex_fraction_reduite(calcul((h1 + h2) * 50),calcul( h1 * 100))}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} $\\approx ${tex_nombrec(arrondi(Math.PI * r * r * (h2 + c) ** 3 / (h1 ** 2) / 3))}$ dm${exposant(3)}.<br>`
-					texte_corr += `Notons $V'$ le volume du cône de hauteur SB calculé à la question ` + num_alpha(2) + `Le volume d'eau est donc : `
+					texte_corr += `Notons $V'$ le volume du cône de hauteur SB calculé à la question ` + num_alpha(2) + `<br> Le volume d'eau est donc : `
 
-					texte_corr += `$V-V' \\approx ${tex_nombrec(arrondi(Math.PI * r * r * (h2 + c) ** 3 / (h1 ** 2) / 3))}$ dm${exposant(3)}$ - ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3))}$ dm${exposant(3)}$ \\approx ${tex_nombre(arrondi(Math.PI * r * r * (h2 + c) ** 3 / (h1 ** 2) / 3 - Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3, 1))}$ dm${exposant(3)}.<br>`
+					texte_corr += `$V-V' \\approx ${tex_nombrec(arrondi(Math.PI * r * r * (h2 + c) ** 3 / (h1 ** 2) / 3))}$ dm${exposant(3)}$ - ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3))}$ dm${exposant(3)}$ \\approx ${tex_nombre(calcul(Math.PI * r * r * (h2 + c) ** 3 / (h1 ** 2) / 3 - Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3, 1))}$ dm${exposant(3)}.<br>`
 					this.MG32codeBase64 = codeBase64
 											 this.MG32code_pour_modifier_la_figure = `
 												 mtg32App.calculate("MG32svg${numero_de_l_exercice}");
@@ -4567,18 +4571,17 @@ function Agrandissement_reduction() {
 					texte += num_alpha(2) + ` Déduire des deux premières questions le volume de glace permettant de remplir le cône.<br>`
 					texte += num_alpha(3) + ` Si la glace avait été mise dans le cône avant le chocolat, quelle serait la hauteur atteinte par la glace dans le cône ?<br>`
 					texte += num_alpha(4) + ` Quelle serait alors l'épaisseur de chocolat au dessus de la glace ?<br>`
-					texte += `Le point O peut être déplacé et on peut changer l'angle de vue &#x3C6; `
+					if (sortie_html) texte += `Le point O peut être déplacé et on peut changer l'angle de vue &#x3C6; `
 					texte_corr = num_alpha(0) + ` Le volume du cône est $\\dfrac{A_\\text{base}}{3}\\times \\text{hauteur}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r)}\\pi}{3} \\times ${tex_nombre(h1)}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3,3))}$ cm${exposant(3)}.<br>`
 					texte_corr += num_alpha(1) + ` Le cône de chocolat est une réduction du cône complet. Le coefficient de réduction est $\\dfrac{${tex_nombre(h2)}}{${tex_nombre(h1)}}`
 					if (!Number.isInteger(h1) || pgcd(h2, h1) > 1) texte_corr += `=${tex_fraction_reduite(h2 * 10, h1 * 10)}$.<br>`
 					else texte_corr += `.$<br>`
-					texte_corr += ` Dans une réduction de coefficient k, les volumes sont multipliés par k ${exposant(3)}.<br>`
+					texte_corr += ` Dans une réduction de coefficient k, les volumes sont multipliés par k${exposant(3)}.<br>`
 					texte_corr+= `Donc le volume du cône de hauteur SO' est : $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} $ \\approx ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3,3))}$ cm${exposant(3)}.<br>`
 					texte_corr += num_alpha(2) + ` Le volume de glace est la différence entre les deux volumes précédents :<br>`
 					texte_corr += `$${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3,3))}$ cm${exposant(3)}$ - ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3,3))}$ cm${exposant(3)} $ \\approx ${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3-Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3,2))}$ cm${exposant(3)}.<br>`
-$
 					texte_corr += num_alpha(3) + ` Si on verse les $${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3-Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3,2))}$ cm${exposant(3)} de glace au fond du cône, le cône de glace est une nouvelle réduction du cône complet.<br>`
-					texte_corr += `Soit k\' le coefficient de cette réduction, on a : $\\text{k\'}^3 = 1- \\text{k}^3$`
+					texte_corr += `Soit k\' le coefficient de cette réduction, on a : k\'${exposant(3)} $= 1- \\text{k}^3$`
 					texte_corr +=`, d'où k\' `
 					texte_corr += `$= \\sqrt[3]{1-{\\text{k}^3}}$.<br>`
 					texte_corr += `Donc k\' = $\\sqrt[3]{1 - \\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3} \\approx ${tex_nombre(arrondi(Math.cbrt(1-(h2/h1)**3),4))}$.<br>`
@@ -4601,7 +4604,7 @@ $
 			liste_de_question_to_contenu_sans_numero(this);
 
 
-		}
+	//	}
 
 	}
 
