@@ -4581,7 +4581,7 @@ $
 					texte_corr += `Soit k\' le coefficient de cette réduction, on a : $\\text{k\'}^3 = 1- \\text{k}^3$`
 					texte_corr +=`, d'où k\' `
 					texte_corr += `$= \\sqrt[3]{1-{\\text{k}^3}}$.<br>`
-					texte_corr += `Donc k\' = $\\sqrt[3]{1 - \\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3} \\approx ${tex_nombre(arrondi(Math.cbrt(1-(h2/h1)**3),3))}$.<br>`
+					texte_corr += `Donc k\' = $\\sqrt[3]{1 - \\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3} \\approx ${tex_nombre(arrondi(Math.cbrt(1-(h2/h1)**3),4))}$.<br>`
 					texte_corr += `On en déduit que la hauteur de glace est approximativement : $${tex_nombre(arrondi(Math.cbrt(1-(h2/h1)**3),3))} \\times ${tex_nombre(h1)}$ cm $\\approx ${tex_nombre(arrondi(h1*Math.cbrt(1-(h2/h1)**3),3))}$ cm.<br>`
 					texte_corr += num_alpha(4) + ` L'épaisseur de chocolat est alors de : $${tex_nombre(h1)}$ cm $ - ${tex_nombre(arrondi(h1*Math.cbrt(1-(h2/h1)**3),3))}$ cm $\\approx ${tex_nombre(arrondi(10*(h1-h1*Math.cbrt(1-(h2/h1)**3)),2))}$ mm !`
 					this.MG32codeBase64 = codeBase64
@@ -4605,7 +4605,7 @@ $
 
 	}
 
-	this.besoin_formulaire_numerique = ['Type d\'exercices', 3, '1 : Calcul d\' aire et de volumes\n 2 : Problème avec graphique\n 3 : Mélange'];
+	this.besoin_formulaire_numerique = ['Type d\'exercices', 3, '1 : Calcul d\' aire et de volumes\n 2 : Problème complexe\n 3 : Mélange'];
 	this.besoin_formulaire2_numerique = ['Coefficient de réduction(problèmes de type1)', 3, '1 : Décimal\n 2 : Non décimal\n 3 : Décimal ou non'];
 
 }
