@@ -4316,11 +4316,11 @@ function Agrandissement_reduction() {
 			this.type_exercice = 'MG32';
 			this.taille_div_MG32 = [600, 700];
 			let codeBase64
-			let choix=5
-		/*	if (this.sup == 1) choix = randint(1, 3)
+			let choix
+			if (this.sup == 1) choix = randint(1, 3)
 			else if (this.sup == 2) choix = randint(4,5)
 			else choix = randint(1, 5)
-		*/	switch (choix) {
+			switch (choix) {
 				case 1: // calcul de l'aire de base, du volume d'une pyramide à base carrée. puis, calcul de la section, du volume de la petite pyramide et du volume du tronc
 					c = calcul(randint(30, 60) / 10)
 					h1 = calcul(randint(12, 20) / 2)
