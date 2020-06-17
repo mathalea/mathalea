@@ -1095,7 +1095,7 @@ function Calculs_de_durees_ou_d_horaires(){
 				
 				if (type_de_questions[i]==1) {
 					texte = `La diffusion d'un film commence à ${d1} et se termine à ${d2}. Combien de temps a duré ce film ?`;
-					texte_corr = `${d2} − ${d1} = ${d}`;
+					texte_corr = `${d2} - ${d1} = ${d}`;
 					texte_corr += '<br>'
 					texte_corr += `Le film dure ${d}.`;
 				}
@@ -1107,7 +1107,7 @@ function Calculs_de_durees_ou_d_horaires(){
 				}
 				if (type_de_questions[i]==3) {
 					texte = `Un film de ${d} termine à ${d2}. À quelle heure a-t-il commencé ?`;
-					texte_corr = `${d2} − ${d} = ${d1}`;
+					texte_corr = `${d2} - ${d} = ${d1}`;
 					texte_corr += '<br>'
 					texte_corr += `Le film a commencé à ${d1}.`;
 				} 
@@ -1137,7 +1137,7 @@ function Calculs_de_durees_ou_d_horaires(){
 				
 				if (type_de_questions[i]==1) {
 					texte = `Sur son service de streaming favori, ${prenom()} commence à regarder une série à ${d1} et celle-ci se termine à ${d2}. Combien de temps a duré l'épisode ?`;
-					texte_corr = `${d2} − ${d1} = ${d}`;
+					texte_corr = `${d2} - ${d1} = ${d}`;
 					texte_corr += '<br>'
 					texte_corr += `La série a duré ${d}.`;
 				}
@@ -1149,7 +1149,7 @@ function Calculs_de_durees_ou_d_horaires(){
 				}
 				if (type_de_questions[i]==3) {
 					texte = `${prenom()} termine de regarder une série de ${d} à ${d2}. À quelle la série a-t-elle commencé ?`;
-					texte_corr = `${d2} − ${d} = ${d1}`;
+					texte_corr = `${d2} - ${d} = ${d1}`;
 					texte_corr += '<br>'
 					texte_corr += `Elle a commencé à ${d1}.`;
 				}
@@ -1169,7 +1169,7 @@ function Calculs_de_durees_ou_d_horaires(){
 				
 				if (type_de_questions[i]==1) {
 					texte = `Une émission télévisée est diffusée de ${d1} à ${d2}. Combien de temps dure-t-elle ?`;
-					texte_corr = `${d2} − ${d1} = ${d}`;
+					texte_corr = `${d2} - ${d1} = ${d}`;
 					texte_corr += '<br>'
 					texte_corr += `L'émission dure ${d}.`;
 				}
@@ -1181,7 +1181,7 @@ function Calculs_de_durees_ou_d_horaires(){
 				}
 				if (type_de_questions[i]==3) {
 					texte = `${prenom()} termine de regarder une émission de ${d} à ${d2}. À quelle heure l'émission a-t-elle commencé ?`;
-					texte_corr = `${d2} − ${d} = ${d1}`;
+					texte_corr = `${d2} - ${d} = ${d1}`;
 					texte_corr += '<br>'
 					texte_corr += `L'émission a commencé à ${d1}.`;
 				}
@@ -1210,7 +1210,7 @@ function Calculs_de_durees_ou_d_horaires(){
 				
 				if (type_de_questions[i]==1) {
 					texte = `Un papa regarde la compétition de gymnastique de sa fille  de ${d1} à ${d2}. Calculer la durée de cette compétition.`;
-					texte_corr = `${d2} − ${d1} = ${d}`;
+					texte_corr = `${d2} - ${d1} = ${d}`;
 					texte_corr += '<br>'
 					texte_corr += `La compétition dure ${d}.`;
 				}
@@ -1222,7 +1222,7 @@ function Calculs_de_durees_ou_d_horaires(){
 				}
 				if (type_de_questions[i]==3) {
 					texte = `Une compétition de gymnastique qui se termine à ${d2} a duré ${d}. À quelle heure a-t-elle commencé.`;
-					texte_corr = `${d2} − ${d} = ${d1}`;
+					texte_corr = `${d2} - ${d} = ${d1}`;
 					texte_corr += '<br>'
 					texte_corr += `La compétition a commencé à ${d1}.`;
 				}
@@ -1251,7 +1251,7 @@ function Calculs_de_durees_ou_d_horaires(){
 				
 				if (type_de_questions[i]==1) {
 					texte = `Un train part à ${d1} et arrive à destination à ${d2}. Calculer la durée du trajet.`;
-					texte_corr = `${d2} − ${d1} = ${d}`;
+					texte_corr = `${d2} - ${d1} = ${d}`;
 					texte_corr += '<br>'
 					texte_corr += `Le trajet dure ${d}.`;
 				}
@@ -1263,7 +1263,7 @@ function Calculs_de_durees_ou_d_horaires(){
 				}
 				if (type_de_questions[i]==3) {
 					texte = `Un train arrive en gare à ${d2} après un trajet de ${d}. À quelle heure le voyage a-t-il commencé ?`;
-					texte_corr = `${d2} − ${d} = ${d1}`;
+					texte_corr = `${d2} - ${d} = ${d1}`;
 					texte_corr += '<br>'
 					texte_corr += `Le voyage a commencé à ${d1}.`;
 				}
@@ -3341,16 +3341,16 @@ function Exercice_conversions_de_longueurs(niveau=1){
 			if (!div&&type_de_questions<4) { // Si il faut multiplier pour convertir
 				
 				resultat = Algebrite.eval(a*prefixe_multi[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
-				texte = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]+unite) + ' = \\dotfill ' + tex_texte('~'+unite) + '$';
+				texte = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]+unite) + ' = \\dotfill ' + tex_texte(unite) + '$';
 
-				texte_corr = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]+unite) + ' =  ' + tex_nombre(a) + '\\times' + tex_nombre(prefixe_multi[k][1]) + tex_texte('~'+unite)
-					 + ' = ' + tex_nombre(resultat) + tex_texte('~'+unite) + '$';
+				texte_corr = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]+unite) + ' =  ' + tex_nombre(a) + '\\times' + tex_nombre(prefixe_multi[k][1]) + tex_texte(unite)
+					 + ' = ' + tex_nombre(resultat) + tex_texte(unite) + '$';
 
 			}else if(div&&type_de_questions<4) {
 				resultat = Algebrite.eval(a/prefixe_div[k][1]).toString(); // Attention aux notations scientifiques pour 10e-8
-				texte = '$ '+ tex_nombre(a) + tex_texte(prefixe_div[k][0]+unite) + ' = \\dotfill ' + tex_texte('~'+unite) + '$';
-				texte_corr = '$ '+ tex_nombre(a) + tex_texte(prefixe_div[k][0]+unite) + ' =  ' + tex_nombre(a) + '\\div' + tex_nombre(prefixe_div[k][1]) + tex_texte('~'+unite)
-					 + ' = ' + tex_nombre(resultat) + tex_texte('~'+unite) + '$';
+				texte = '$ '+ tex_nombre(a) + tex_texte(prefixe_div[k][0]+unite) + ' = \\dotfill ' + tex_texte(unite) + '$';
+				texte_corr = '$ '+ tex_nombre(a) + tex_texte(prefixe_div[k][0]+unite) + ' =  ' + tex_nombre(a) + '\\div' + tex_nombre(prefixe_div[k][1]) + tex_texte(unite)
+					 + ' = ' + tex_nombre(resultat) + tex_texte(unite) + '$';
 			}else{ // pour type de question = 4
 				let unite1 = randint(0,3);
 				let ecart = randint(1,2); // nombre de multiplication par 10 pour passer de l'un à l'autre
@@ -3460,23 +3460,23 @@ function Exercice_conversions(niveau=1){
 						unite = 'o'
 					}
 				resultat = Algebrite.eval(a*prefixe_multi[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
-				texte = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]+unite) + ' = \\dotfill ' + tex_texte('~'+unite) + '$';
-				texte_corr = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]+unite) + ' =  ' + tex_nombre(a) + '\\times' + tex_nombre(prefixe_multi[k][1]) + tex_texte('~'+unite)
-					 + ' = ' + tex_nombre(resultat) + tex_texte('~'+unite) + '$';
+				texte = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]+unite) + ' = \\dotfill ' + tex_texte(unite) + '$';
+				texte_corr = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]+unite) + ' =  ' + tex_nombre(a) + '\\times' + tex_nombre(prefixe_multi[k][1]) + tex_texte(unite)
+					 + ' = ' + tex_nombre(resultat) + tex_texte(unite) + '$';
 
 			}else if(div&&type_de_questions<4&&this.correction_avec_des_fractions) {
 				unite = choice(['m','L','g'])
 				resultat = Algebrite.eval(a/prefixe_div[k][1]).toString(); // Attention aux notations scientifiques pour 10e-8
-				texte = '$ '+ tex_nombre(a) + tex_texte(prefixe_div[k][0]+unite) + ' = \\dotfill ' + tex_texte('~'+unite) + '$';
-				texte_corr = '$ '+ tex_nombre(a) + tex_texte(prefixe_div[k][0]+unite) + ' =  ' + tex_fraction(tex_nombre(a),tex_nombre(prefixe_div[k][1])) + tex_texte('~'+unite)
-					 + ' = ' + tex_nombre(resultat) + tex_texte('~'+unite) + '$';
+				texte = '$ '+ tex_nombre(a) + tex_texte(prefixe_div[k][0]+unite) + ' = \\dotfill ' + tex_texte(unite) + '$';
+				texte_corr = '$ '+ tex_nombre(a) + tex_texte(prefixe_div[k][0]+unite) + ' =  ' + tex_fraction(tex_nombre(a),tex_nombre(prefixe_div[k][1])) + tex_texte(unite)
+					 + ' = ' + tex_nombre(resultat) + tex_texte(unite) + '$';
 
 			}else if(div&&type_de_questions<4) {
 				unite = choice(['m','L','g'])
 				resultat = Algebrite.eval(a/prefixe_div[k][1]).toString(); // Attention aux notations scientifiques pour 10e-8
-				texte = '$ '+ tex_nombre(a) + tex_texte(prefixe_div[k][0]+unite) + ' = \\dotfill ' + tex_texte('~'+unite) + '$';
-				texte_corr = '$ '+ tex_nombre(a) + tex_texte(prefixe_div[k][0]+unite) + ' =  ' + tex_nombre(a) + '\\div' + tex_nombre(prefixe_div[k][1]) + tex_texte('~'+unite)
-					 + ' = ' + tex_nombre(resultat) + tex_texte('~'+unite) + '$';
+				texte = '$ '+ tex_nombre(a) + tex_texte(prefixe_div[k][0]+unite) + ' = \\dotfill ' + tex_texte(unite) + '$';
+				texte_corr = '$ '+ tex_nombre(a) + tex_texte(prefixe_div[k][0]+unite) + ' =  ' + tex_nombre(a) + '\\div' + tex_nombre(prefixe_div[k][1]) + tex_texte(unite)
+					 + ' = ' + tex_nombre(resultat) + tex_texte(unite) + '$';
 			}else{ // pour type de question = 4
 				let unite1 = randint(0,3);
 				let ecart = randint(1,2); // nombre de multiplication par 1000 pour passer de l'un à l'autre
@@ -3581,16 +3581,16 @@ function Exercice_conversions_aires(niveau=1){
 				
 				prefixe_multi = [[' da','\\times10\\times10',100],[' h','\\times100\\times100',10000],[' k','\\times1~000\\times1~000',1000000]];// On réinitialise cette liste qui a pu être modifiée dans le cas des ares
 				resultat = Algebrite.eval(a*prefixe_multi[k][2]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
-				texte = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]+unite) + '^2' + ' = \\dotfill ' + tex_texte('~'+unite)  + '^2' + '$';
-				texte_corr = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]+unite)+ '^2' + ' =  ' + tex_nombre(a) + prefixe_multi[k][1] + tex_texte('~'+unite)  + '^2'
-					 + ' = ' + tex_nombre(resultat) + tex_texte('~'+unite)+ '^2' + '$';
+				texte = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]+unite) + '^2' + ' = \\dotfill ' + tex_texte(unite)  + '^2' + '$';
+				texte_corr = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]+unite)+ '^2' + ' =  ' + tex_nombre(a) + prefixe_multi[k][1] + tex_texte(unite)  + '^2'
+					 + ' = ' + tex_nombre(resultat) + tex_texte(unite)+ '^2' + '$';
 
 			}else if(div&&type_de_questions<4) {
 				k = randint(0,1); // Pas de conversions de mm^2 en m^2 avec des nombres décimaux car résultat inférieur à 10e-8
 				resultat = Algebrite.eval(a/prefixe_multi[k][2]).toString(); // Attention aux notations scientifiques pour 10e-8
-				texte = '$ '+ tex_nombre(a) + tex_texte(prefixe_div[k][0]+unite)+ '^2' + ' = \\dotfill ' + tex_texte('~'+unite)  + '^2' + '$';
-				texte_corr = '$ '+ tex_nombre(a) + tex_texte(prefixe_div[k][0]+unite)+ '^2' + ' =  ' + tex_nombre(a) + prefixe_div[k][1] + tex_texte('~'+unite)  + '^2'
-					 + ' = ' + tex_nombre(resultat) + tex_texte('~'+unite)  + '^2' + '$';
+				texte = '$ '+ tex_nombre(a) + tex_texte(prefixe_div[k][0]+unite)+ '^2' + ' = \\dotfill ' + tex_texte(unite)  + '^2' + '$';
+				texte_corr = '$ '+ tex_nombre(a) + tex_texte(prefixe_div[k][0]+unite)+ '^2' + ' =  ' + tex_nombre(a) + prefixe_div[k][1] + tex_texte(unite)  + '^2'
+					 + ' = ' + tex_nombre(resultat) + tex_texte(unite)  + '^2' + '$';
 			}else if(type_de_questions==4){ 
 				let unite1 = randint(0,3);
 				let ecart = randint(1,2); // nombre de multiplication par 10 pour passer de l'un à l'autre
@@ -3600,24 +3600,24 @@ function Exercice_conversions_aires(niveau=1){
 				let unite2 = unite1+ecart
 				if (randint(0,1)>0) {
 					resultat = Algebrite.eval(a*Math.pow(10,2*ecart));
-					texte = '$ '+ tex_nombre(a) + tex_texte('~'+liste_unite[unite2]) + '^2' + ' = \\dotfill ' + tex_texte('~'+liste_unite[unite1]) + '^2' + '$';
-					texte_corr = '$ '+ tex_nombre(a) + tex_texte('~'+liste_unite[unite2]) + '^2' + ' =  ' + tex_nombre(a) + '\\times' + tex_nombre(Math.pow(10,2*ecart)) + tex_texte('~'+liste_unite[unite1]) + '^2'
-					 + ' = ' + tex_nombre(resultat) + tex_texte('~'+liste_unite[unite1]) + '^2' + '$';	
+					texte = '$ '+ tex_nombre(a) + tex_texte(liste_unite[unite2]) + '^2' + ' = \\dotfill ' + tex_texte(liste_unite[unite1]) + '^2' + '$';
+					texte_corr = '$ '+ tex_nombre(a) + tex_texte(liste_unite[unite2]) + '^2' + ' =  ' + tex_nombre(a) + '\\times' + tex_nombre(Math.pow(10,2*ecart)) + tex_texte(liste_unite[unite1]) + '^2'
+					 + ' = ' + tex_nombre(resultat) + tex_texte(liste_unite[unite1]) + '^2' + '$';	
 
 				} else {
 					resultat = Algebrite.eval(a/Math.pow(10,2*ecart));
-					texte = '$ '+ tex_nombre(a) + tex_texte('~'+liste_unite[unite1]) + '^2' + ' = \\dotfill ' + tex_texte('~'+liste_unite[unite2]) + '^2' + '$';
-					texte_corr = '$ '+ tex_nombre(a) + tex_texte('~'+liste_unite[unite1]) + '^2' + ' =  ' + tex_nombre(a) + '\\div' + tex_nombre(Math.pow(10,2*ecart)) + tex_texte('~'+liste_unite[unite2]) + '^2'
-					 + ' = ' + tex_nombre(resultat) + tex_texte('~'+liste_unite[unite2]) + '^2' + '$';
+					texte = '$ '+ tex_nombre(a) + tex_texte(liste_unite[unite1]) + '^2' + ' = \\dotfill ' + tex_texte(liste_unite[unite2]) + '^2' + '$';
+					texte_corr = '$ '+ tex_nombre(a) + tex_texte(liste_unite[unite1]) + '^2' + ' =  ' + tex_nombre(a) + '\\div' + tex_nombre(Math.pow(10,2*ecart)) + tex_texte(liste_unite[unite2]) + '^2'
+					 + ' = ' + tex_nombre(resultat) + tex_texte(liste_unite[unite2]) + '^2' + '$';
 				}
 				
 			} else if(type_de_questions==5) { // Pour type_de_questions==5
 				prefixe_multi = [['ha',10000],['a',100]];
 				k = randint(0,1)
 				resultat = Algebrite.eval(a*prefixe_multi[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
-				texte = '$ '+ tex_nombre(a) + tex_texte('~'+prefixe_multi[k][0]) + ' = \\dotfill ' + tex_texte('~'+unite)  + '^2' + '$';
-				texte_corr = '$ '+ tex_nombre(a) + tex_texte('~'+prefixe_multi[k][0]) + ' =  ' + tex_nombre(a) + '\\times' + tex_nombre(prefixe_multi[k][1]) + tex_texte('~'+unite)  + '^2'
-					 + ' = ' + tex_nombre(resultat) + tex_texte('~'+unite)+ '^2' + '$';
+				texte = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]) + ' = \\dotfill ' + tex_texte(unite)  + '^2' + '$';
+				texte_corr = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]) + ' =  ' + tex_nombre(a) + '\\times' + tex_nombre(prefixe_multi[k][1]) + tex_texte(unite)  + '^2'
+					 + ' = ' + tex_nombre(resultat) + tex_texte(unite)+ '^2' + '$';
 			}
 				
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
@@ -3661,14 +3661,15 @@ function Exercice_conversions_volumes(niveau=1){
 	this.titre = "Conversions de volume"
 	this.consigne = 'Compléter'
 	this.spacing = 2;
+	this.nb_cols_corr = 1;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let prefixe_multi = [[' da','10\\times10\\times10',1000],[' h','100\\times100\\times100',1000000],[' k','1~000\\times1~000\\times1~000',1000000000]];
-		let prefixe_div = [[' d','10\\div10\\div10',1000],[' c','100\\div100\\div100',1000000,],[' m','1~000\\div1~000\\div1~000',1000000000]]; 
+		let prefixe_multi = [['da','10\\times10\\times10',1000],['h','100\\times100\\times100',1000000],['k','1~000\\times1~000\\times1~000',1000000000]];
+		let prefixe_div = [['d','10\\div10\\div10',1000],['c','100\\div100\\div100',1000000,],['m','1~000\\div1~000\\div1~000',1000000000]]; 
 		let unite = 'm';
-		let liste_unite = [' mm',' cm',' dm',' m',' dam',' hm',' km'];
+		let liste_unite = ['mm','cm','dm','m','dam','hm','km'];
 		for (let i = 0, a, k, div, resultat, type_de_questions, texte, texte_corr, liste_unite_info, cpt=0; i < this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
 			if (this.sup < 5) {
 				type_de_questions = this.sup;
@@ -3698,16 +3699,16 @@ function Exercice_conversions_volumes(niveau=1){
 				
 				
 				resultat = Algebrite.eval(a*prefixe_multi[k][2]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
-				texte = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]+unite) + '^3' + ' = \\dotfill ' + tex_texte('~'+unite)  + '^3' + '$';
-				texte_corr = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]+unite)+ '^3' + ' =  ' + tex_nombre(a) + '\\times' + prefixe_multi[k][1] + tex_texte('~'+unite)  + '^3'
-					 + ' = ' + tex_nombre(resultat) + tex_texte('~'+unite)+ '^3' + '$';
+				texte = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]+unite) + '^3' + ' = \\dotfill ' + tex_texte(unite)  + '^3' + '$';
+				texte_corr = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]+unite)+ '^3' + ' =  ' + tex_nombre(a) + '\\times' + prefixe_multi[k][1] + tex_texte(unite)  + '^3'
+					 + ' = ' + tex_nombre(resultat) + tex_texte(unite)+ '^3' + '$';
 
 			}else if(div&&type_de_questions<4) {
 				k = randint(0,1); // Pas de conversions de mm^3 en m^3 avec des nombres décimaux car résultat inférieur à 10e-8
 				resultat = Algebrite.eval(a/prefixe_multi[k][2]).toString(); // Attention aux notations scientifiques pour 10e-8
-				texte = '$ '+ tex_nombre(a) + tex_texte(prefixe_div[k][0]+unite)+ '^3' + ' = \\dotfill ' + tex_texte('~'+unite)  + '^3' + '$';
-				texte_corr = '$ '+ tex_nombre(a) + tex_texte(prefixe_div[k][0]+unite)+ '^3' + ' =  ' + tex_nombre(a) + '\\div' + prefixe_div[k][1] + tex_texte('~'+unite)  + '^3'
-					 + ' = ' + tex_nombre(resultat) + tex_texte('~'+unite)  + '^3' + '$';
+				texte = '$ '+ tex_nombre(a) + tex_texte(prefixe_div[k][0]+unite)+ '^3' + ' = \\dotfill ' + tex_texte(unite)  + '^3' + '$';
+				texte_corr = '$ '+ tex_nombre(a) + tex_texte(prefixe_div[k][0]+unite)+ '^3' + ' =  ' + tex_nombre(a) + '\\div' + prefixe_div[k][1] + tex_texte(unite)  + '^3'
+					 + ' = ' + tex_nombre(resultat) + tex_texte(unite)  + '^3' + '$';
 			}else if(type_de_questions==4){ 
 				let unite1 = randint(0,3);
 				let ecart = randint(1,2); // nombre de multiplication par 10 pour passer de l'un à l'autre
@@ -3757,9 +3758,9 @@ function Exercice_conversions_volumes(niveau=1){
 			// 	prefixe_multi = [['L',0.001],['dL',0.0001],['cL',0.00001],['mL',0.000001]];
 			// 	k = randint(0,1)
 			// 	resultat = Algebrite.eval(a*prefixe_multi[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
-			// 	texte = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]) + ' = \\dotfill ' + tex_texte('~'+unite)  + '^3' + '$';
-			// 	texte_corr = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]) + ' =  ' + tex_nombre(a) + '\\times' + tex_nombre(prefixe_multi[k][1]) + tex_texte('~'+unite)  + '^3'
-			// 		 + ' = ' + tex_nombre(resultat) + tex_texte('~'+unite)+ '^2' + '$';
+			// 	texte = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]) + ' = \\dotfill ' + tex_texte(unite)  + '^3' + '$';
+			// 	texte_corr = '$ '+ tex_nombre(a) + tex_texte(prefixe_multi[k][0]) + ' =  ' + tex_nombre(a) + '\\times' + tex_nombre(prefixe_multi[k][1]) + tex_texte(unite)  + '^3'
+			// 		 + ' = ' + tex_nombre(resultat) + tex_texte(unite)+ '^2' + '$';
 			// }
 				
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
@@ -3964,7 +3965,7 @@ function Exercice_perimetres_et_aires(difficulte=1){
 						texte = `Un carré $${nom_carre}$ tel que $${nom_carre[0]+nom_carre[1]} = ${cote}$ cm.`;
 					}
 					 
-					texte_corr = `$\\mathcal{P}_{${nom_carre}}=4\\times${cote}~\\text{cm}=${4*cote}~\\text{cm}$<br>\n`;
+					texte_corr = `$\\mathcal{P}_{${nom_carre}}=4\\times${cote}~\\text{cm}=${4*cote}~\\text{cm}$<br>`;
 					texte_corr += `$\\mathcal{A}_{${nom_carre}}=${cote}~\\text{cm}\\times${cote}~\\text{cm}=${cote*cote}~\\text{cm}^2$`;
 					break ;
 				case 'rectangle' : 
@@ -3977,7 +3978,7 @@ function Exercice_perimetres_et_aires(difficulte=1){
 							texte = `Un rectangle $${nom_rectangle}$ tel que $${nom_rectangle[0]+nom_rectangle[1]+' = '+L}$ cm et $${nom_rectangle[1]+nom_rectangle[2]+' = '+l}$ cm.`;
 						}
 					 
-					texte_corr = `$\\mathcal{P}_{${nom_rectangle}}=(${L}~\\text{cm}+${l}~\\text{cm})\\times2=${(L+l)*2}~\\text{cm}$<br>\n`;
+					texte_corr = `$\\mathcal{P}_{${nom_rectangle}}=(${L}~\\text{cm}+${l}~\\text{cm})\\times2=${(L+l)*2}~\\text{cm}$<br>`;
 					texte_corr += `$\\mathcal{A}_{${nom_rectangle}}=${L}~\\text{cm}\\times${l}~\\text{cm}=${L*l}~\\text{cm}^2$`;
 					break ;
 				case 'triangle_rectangle' :
@@ -3994,7 +3995,7 @@ function Exercice_perimetres_et_aires(difficulte=1){
 						texte = `Un triangle rectangle $${nom_triangle}$ a pour côtés : $${a}$ cm, $${c}$ cm et $${b}$ cm.`;	
 					}
 					
-					texte_corr = `$\\mathcal{P}_{${nom_triangle}}=${a}~\\text{cm}+${b}~\\text{cm}+${c}~\\text{cm}=${a+b+c}~\\text{cm}$<br>\n`;
+					texte_corr = `$\\mathcal{P}_{${nom_triangle}}=${a}~\\text{cm}+${b}~\\text{cm}+${c}~\\text{cm}=${a+b+c}~\\text{cm}$<br>`;
 					texte_corr += `$\\mathcal{A}_{${nom_triangle}}=${a}~\\text{cm}\\times${b}~\\text{cm}\\div2=${Algebrite.eval(a*b/2)}~\\text{cm}^2$`;
 					break ;
 				case 'cercle' : 
@@ -4002,13 +4003,13 @@ function Exercice_perimetres_et_aires(difficulte=1){
 					let donne_le_diametre = choice([true,false])
 					if (donne_le_diametre) {
 						texte = `Un cercle de $${2*R}$ cm de diamètre.`;
-						texte_corr = `Le diamètre est de $${2*R}$ cm donc le rayon est de $${R}$~cm.<br>\n`	
+						texte_corr = `Le diamètre est de $${2*R}$ cm donc le rayon est de $${R}$~cm.<br>`	
 					} else {
 						texte = `Un cercle de $${R}$ cm de rayon.`;
 						texte_corr = '';	
 					}
 					 
-					texte_corr += `$\\mathcal{P}=2\\times${R}\\times\\pi~\\text{cm}=${2*R}\\pi~\\text{cm}\\approx${arrondi_virgule(2*R*Math.PI,1)}~\\text{cm}$<br>\n`;
+					texte_corr += `$\\mathcal{P}=2\\times${R}\\times\\pi~\\text{cm}=${2*R}\\pi~\\text{cm}\\approx${arrondi_virgule(2*R*Math.PI,1)}~\\text{cm}$<br>`;
 					texte_corr += `$\\mathcal{A}=${R}\\times${R}\\times\\pi~\\text{cm}^2=${R*R}\\pi~\\text{cm}^2\\approx${arrondi_virgule(R*R*Math.PI,1)}~\\text{cm}^2$`;
 					break ;
 			}
@@ -4266,8 +4267,8 @@ function Pourcentage_d_un_nombre(){
 	this.nb_questions = 5;
 	this.consigne = "Calculer"
 	this.spacing = 2;
-	this.spacing_corr = 3.5;
-	this.nb_cols = 1;
+	this.spacing_corr = 2;
+	this.nb_cols = 2;
 	this.nb_cols_corr = 1; 
 
 	this.nouvelle_version = function(numero_de_l_exercice){
@@ -4282,9 +4283,9 @@ function Pourcentage_d_un_nombre(){
 			if (p==50) {
 			texte_corr = `$${p}~\\%~\\text{de }${n}=${n}\\div${2}=${tex_nombre(Algebrite.eval(n/2))}$`	// calcul de n/2 si p = 50%
 			} else {
-			texte_corr = `$${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=(${p}\\times${n})\\div100=${tex_nombre(p*n)}\\div100=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`	
-	//		texte_corr += `$\\phantom {Blanc}${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=\\dfrac{${p}\\times${n}}{100}=${tex_fraction(p*n,100)}=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`					
-			if (this.sup2) texte_corr += `$${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=(${n}\\div100)\\times${p}=${tex_nombrec(calcul(n/100))}\\times${p}=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`				
+			texte_corr = `$${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=(${p}\\times${n})\\div100=${tex_nombre(p*n)}\\div100=${tex_nombre(Algebrite.eval(p*n/100))}$`	
+	//		texte_corr += `$\\phantom {Blanc}${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=\\dfrac{${p}\\times${n}}{100}=${tex_fraction(p*n,100)}=${tex_nombre(Algebrite.eval(p*n/100))}$`					
+			if (this.sup2) texte_corr += `$${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=(${n}\\div100)\\times${p}=${tex_nombrec(calcul(n/100))}\\times${p}=${tex_nombre(Algebrite.eval(p*n/100))}$`				
 	//		texte_corr += `$\\phantom {Blanc}${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=${tex_fraction(n,100)}\\times${p}=${tex_nombrec(calcul(n/100))}\\times${p}=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`				
 			if (this.sup2) texte_corr += `$${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=${tex_nombrec(calcul(p/100))}\\times${n}=${tex_nombre(Algebrite.eval(p*n/100))}$`				
 				
@@ -5100,6 +5101,7 @@ function Additions_soustractions_multiplications_posees(){
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
+				if (!sortie_html && i==0) {texte_corr = `\\setlength\\itemsep{2em}` + texte_corr}; // espacement entre les questions
 				this.liste_corrections.push(texte_corr);
 				i++;
 			}
