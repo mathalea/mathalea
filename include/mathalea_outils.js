@@ -1146,6 +1146,15 @@ function tex_nombre(nb){
 }
 
 /**
+ * Renvoie un espace insécable pour le mode texte suivant la sorite html ou Latex.
+ * @Auteur Jean-Claude Lhote
+ */
+function sp() {
+	if (sortie_html) return `&nbsp`
+	else return `~`
+}
+
+/**
 * Renvoit un nombre dans le format français (séparateur de classes)
 * Fonctionne sans le mode maths contrairement à tex_nombre()
 * @Auteur Rémi Angot
