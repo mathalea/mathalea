@@ -416,9 +416,9 @@ function ecriture_nombre_relatif(a) {
 function ecriture_nombre_relatifc(a) { 
 	let result = '';
 	if (a>0) {
-		result =mise_en_evidence('(+'+tex_nombrec(a)+')','green');
+		result =mise_en_evidence('(+'+tex_nombrec(a)+')','blue');
 	}else if (a<0) {
-		result = mise_en_evidence('('+tex_nombrec(a)+')','red');
+		result = mise_en_evidence('('+tex_nombrec(a)+')');
 	}else{ // ne pas mettre de parenthèses pour 0
 		result = mise_en_evidence('0','black');
 	}
@@ -447,9 +447,9 @@ function ecriture_algebrique(a) {
 function ecriture_algebriquec(a) {
 	let result = '';
 	if (a>0) {
-		result = mise_en_evidence('+'+tex_nombrec(a),'green');
+		result = mise_en_evidence('+'+tex_nombrec(a),'blue');
 	}else if (a<0) {
-		result = mise_en_evidence(tex_nombrec(a),'red');
+		result = mise_en_evidence(tex_nombrec(a));
 	} else result = mise_en_evidence(tex_nombrec(a),'black');
 	return result;
 }
