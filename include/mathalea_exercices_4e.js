@@ -1107,16 +1107,8 @@ function Exercice_Thales(){
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
-<<<<<<< Updated upstream
-	sortie_html ? this.spacing_corr = 3.5 : this.spacing_corr = 1
-=======
-<<<<<<< Updated upstream
-	sortie_html ? this.spacing_corr = 3.5 : this.spacing_corr = 2.5
-=======
 	sortie_html ? this.spacing_corr = 3.5 : this.spacing_corr = 1;
 	sortie_html ? this.spacing = 2 : this.spacing=1.5;
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.quatrieme=false;
