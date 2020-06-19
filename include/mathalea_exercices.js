@@ -6119,22 +6119,26 @@ function transformations_du_plan6() {
 			let matrice_rot_60_indirect=[[0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),0.5,0],[0,0,1]]
 			let matrice_rot_120_direct=[[-0.5,-Math.sin(Math.PI/3),0],[Math.sin(Math.PI/3),-0.5,0],[0,0,1]]
 			let matrice_rot_120_indirect=[[-0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),-0.5,0],[0,0,1]]
-			
-			let x,y,x1,y1,u,v
+
+			let x,y,x1,y1,u,v,k
 			let texte=``
 			let texte_corr=``
 			let pointA=[],pointA1=[],pointA2=[]
 			let choix_transformation=parseInt(this.sup)
 
-			x=randint(-5,5)
+			x=randint(-5,5) // Point A
 			y=randint(-5,5)
-			x2=randint(-3,3,[0])
+			x2=randint(-3,3,[0])  // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
 			y2=randint(-3,3,[0])
 			u=3 // (u,v) vecteur de translation.
 			v=1
+			k=2 // rapport d'homothétie
+
+
 			let matrice_chgt_repere=[[1,0,x2],[0,1,y2],[0,0,1]]
 			let matrice_chgt_repereinv=[[1,0,-x2],[0,1,-y2],[0,0,1]]
 			let matrice_translation=[[1,0,u],[0,1,v],[0,0,1]]
+			let matrice_homothetie=[[k,0,0],[0,k,0],[0,0,1]]
 
 			let matrice=[[]]
 			pointA=[x,y,1]
@@ -6174,6 +6178,9 @@ function transformations_du_plan6() {
 					break
 				case 12 :
 					matrice=produit_matrice_matrice_3x3(matrice_translation,matrice_chgt_repereinv)
+					break
+				case 13 :
+					matrice=produit_matrice_matrice_3x3(matrice_homothetie,matrice_chgt_repereinv)
 					break
 			
 				}
@@ -6223,7 +6230,7 @@ function transformations_du_plan6() {
 
 
 	}
-	this.besoin_formulaire_numerique = ['Transformation',12, '1 : Symétrie selon la première bissectrice\n 2 : Symétrie selon la deuxième bissectrice\n 3 : symétrie selon (OI)\n 4 : Symétrie selon (OJ)\n 5 : Quart de tour direct\n 6 : Quart de tour indirect\n 7 : Symétrie centrale\n 8 : Rotation de 60° direct\n 9 : Rotation de 60° indirect\n 10 : Rotation 120° direct\n 11 : Rotation 120° indirect\n 12 : Translation (3;1)'];
+	this.besoin_formulaire_numerique = ['Transformation',13, '1 : Symétrie selon la première bissectrice\n 2 : Symétrie selon la deuxième bissectrice\n 3 : symétrie selon (OI)\n 4 : Symétrie selon (OJ)\n 5 : Quart de tour direct\n 6 : Quart de tour indirect\n 7 : Symétrie centrale\n 8 : Rotation de 60° direct\n 9 : Rotation de 60° indirect\n 10 : Rotation 120° direct\n 11 : Rotation 120° indirect\n 12 : Translation (3;1)\n 13 : Homothétie de coefficient 2'];
 
 }
 
