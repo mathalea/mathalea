@@ -6090,6 +6090,7 @@ function Calcul_de_volumes(){
 }
 
 function transformations_du_plan6() {
+	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Trouver l'image d'une figure par une transformation du plan";
 	this.consigne = "";
@@ -6108,7 +6109,7 @@ function transformations_du_plan6() {
 			this.taille_div_MG32 = [700, 700];
 			this.liste_questions = [];
 			this.liste_corrections = []; // Liste de questions corrigées
-			let matrice_sym_obl1=[[0,1,0],[1,0,0],[0,0,1]] // x'=y et y'=x
+/*			let matrice_sym_obl1=[[0,1,0],[1,0,0],[0,0,1]] // x'=y et y'=x
 			let matrice_sym_xxprime=[[1,0,0],[0,-1,0],[0,0,1]] // x'=x et y'=-y
 			let matrice_sym_yyprime=[[-1,0,0],[0,1,0],[0,0,1]] // x'=-x et y'=y
 			let matrice_sym_obl2=[[0,-1,0],[-1,0,0],[0,0,1]] // x'=-y et y'=-x
@@ -6119,29 +6120,31 @@ function transformations_du_plan6() {
 			let matrice_rot_60_indirect=[[0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),0.5,0],[0,0,1]]
 			let matrice_rot_120_direct=[[-0.5,-Math.sin(Math.PI/3),0],[Math.sin(Math.PI/3),-0.5,0],[0,0,1]]
 			let matrice_rot_120_indirect=[[-0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),-0.5,0],[0,0,1]]
-
-			let x,y,x1,y1,u,v,k
+*/
+			let x,y,x1,y1,u,v,k,x2,y2
 			let texte=``
 			let texte_corr=``
-			let pointA=[],pointA1=[],pointA2=[]
+			let pointA=[],pointA1=[]
 			let choix_transformation=parseInt(this.sup)
 
 			x=randint(-5,5) // Point A
 			y=randint(-5,5)
 			x2=randint(-3,3,[0])  // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
 			y2=randint(-3,3,[0])
-			u=3 // (u,v) vecteur de translation.
-			v=1
+//			u=3 // (u,v) vecteur de translation.
+//			v=1
 			k=2 // rapport d'homothétie
 
 
-			let matrice_chgt_repere=[[1,0,x2],[0,1,y2],[0,0,1]]
+/*			let matrice_chgt_repere=[[1,0,x2],[0,1,y2],[0,0,1]]
 			let matrice_chgt_repereinv=[[1,0,-x2],[0,1,-y2],[0,0,1]]
 			let matrice_translation=[[1,0,u],[0,1,v],[0,0,1]]
 			let matrice_homothetie=[[k,0,0],[0,k,0],[0,0,1]]
 
 			let matrice=[[]]
-			pointA=[x,y,1]
+*/			pointA=[x,y,1]
+			pointA1=image_point_par_transformation(choix_transformation,pointA,[x2,y2],k)
+			/*
 			switch (choix_transformation) {
 				case 1 : 
 					matrice=produit_matrice_matrice_3x3(matrice_sym_obl1,matrice_chgt_repereinv)
@@ -6186,8 +6189,8 @@ function transformations_du_plan6() {
 				}
 			pointA1=produit_matrice_vecteur_3x3(matrice,pointA)
 			pointA2=produit_matrice_vecteur_3x3(matrice_chgt_repere,pointA1)
-			x1=pointA2[0]
-			y1=pointA2[1]
+*/			x1=pointA1[0]
+			y1=pointA1[1]
 
 			if (sortie_html) {
 			let codeBase64
@@ -6230,7 +6233,7 @@ function transformations_du_plan6() {
 
 
 	}
-	this.besoin_formulaire_numerique = ['Transformation',13, '1 : Symétrie selon la première bissectrice\n 2 : Symétrie selon la deuxième bissectrice\n 3 : symétrie selon (OI)\n 4 : Symétrie selon (OJ)\n 5 : Quart de tour direct\n 6 : Quart de tour indirect\n 7 : Symétrie centrale\n 8 : Rotation de 60° direct\n 9 : Rotation de 60° indirect\n 10 : Rotation 120° direct\n 11 : Rotation 120° indirect\n 12 : Translation (3;1)\n 13 : Homothétie de coefficient 2'];
+	this.besoin_formulaire_numerique = ['Transformation',13, '1 : Symétrie selon la première bissectrice\n 2 : Symétrie selon la deuxième bissectrice\n 3 : symétrie selon (OI)\n 4 : Symétrie selon (OJ)\n 5 : Quart de tour direct\n 6 : Quart de tour indirect\n 7 : Symétrie centrale\n 8 : Rotation de 60° direct\n 9 : Rotation de 60° indirect\n 10 : Rotation 120° direct\n 11 : Rotation 120° indirect\n 12 : Translation O->O\'\n 13 : Homothétie de coefficient 2'];
 
 }
 

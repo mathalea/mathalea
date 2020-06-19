@@ -523,6 +523,100 @@ function produit_matrice_matrice_3x3(matrice1,matrice2) { // les deux matrices s
  return resultat
 }
 
+function image_point_par_transformation (transformation,pointA,pointO,rapport){ //pointA et pointO sont des tableaux de deux coordonnées on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
+	/* transformation :
+1=symétrie / passant par O
+2=symétrie - passant par O
+3=symétrie | passant par O
+4=symétrie \ passant par O
+5= rotation 90° anti-horaire centre O
+6= rotation 90° horaire centre O
+7= symétrie centrale centre O
+8= rotation 60° anti-horaire centre O
+9= rotation 60° horaire centre O
+10= rotation 120° anti-horaire centre O
+11= rotation 120° horaire centre O
+12= translation coordonnées de O = vecteur de translation
+13= homothétie. centre 0 rapport
+
+
+	*/
+	let matrice_sym_obl1=[[0,1,0],[1,0,0],[0,0,1]] // x'=y et y'=x
+	let matrice_sym_xxprime=[[1,0,0],[0,-1,0],[0,0,1]] // x'=x et y'=-y
+	let matrice_sym_yyprime=[[-1,0,0],[0,1,0],[0,0,1]] // x'=-x et y'=y
+	let matrice_sym_obl2=[[0,-1,0],[-1,0,0],[0,0,1]] // x'=-y et y'=-x
+	let matrice_quart_de_tour_direct=[[0,-1,0],[1,0,0],[0,0,1]] // x'=-y et y'=x
+	let matrice_quart_de_tour_indirect=[[0,1,0],[-1,0,0],[0,0,1]] // x'=y et y'=-x
+	let matrice_sym_centrale=[[-1,0,0],[0,-1,0],[0,0,1]] // x'=-x et y'=-y
+	let matrice_rot_60_direct=[[0.5,-Math.sin(Math.PI/3),0],[Math.sin(Math.PI/3),0.5,0],[0,0,1]]
+	let matrice_rot_60_indirect=[[0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),0.5,0],[0,0,1]]
+	let matrice_rot_120_direct=[[-0.5,-Math.sin(Math.PI/3),0],[Math.sin(Math.PI/3),-0.5,0],[0,0,1]]
+	let matrice_rot_120_indirect=[[-0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),-0.5,0],[0,0,1]]
+
+	let x,y,x1,y1,u,v,k,pointA1=[0,0,0],pointA2=[0,0,0]
+
+	pointA.push(1)
+	x2=pointO[0]  // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
+	y2=pointO[1]
+	u=x2 // (u,v) vecteur de translation.
+	v=y2
+	k=rapport // rapport d'homothétie
+
+
+	let matrice_chgt_repere=[[1,0,x2],[0,1,y2],[0,0,1]]
+	let matrice_chgt_repereinv=[[1,0,-x2],[0,1,-y2],[0,0,1]]
+	let matrice_translation=[[1,0,u],[0,1,v],[0,0,1]]
+	let matrice_homothetie=[[k,0,0],[0,k,0],[0,0,1]]
+
+	let matrice=[[]]
+
+	switch (transformation) {
+		case 1 : 
+			matrice=produit_matrice_matrice_3x3(matrice_sym_obl1,matrice_chgt_repereinv)
+			break
+		case 2 :
+			matrice=produit_matrice_matrice_3x3(matrice_sym_obl2,matrice_chgt_repereinv)
+			break
+		case 3 : 
+			matrice=produit_matrice_matrice_3x3(matrice_sym_xxprime,matrice_chgt_repereinv)
+			break
+		case 4 :
+			matrice=produit_matrice_matrice_3x3(matrice_sym_yyprime,matrice_chgt_repereinv)
+			break
+		case 5 :
+			matrice=produit_matrice_matrice_3x3(matrice_quart_de_tour_direct,matrice_chgt_repereinv)
+			break
+		case 6 : 
+		matrice=produit_matrice_matrice_3x3(matrice_quart_de_tour_indirect,matrice_chgt_repereinv)
+			break
+		case 7 :
+			matrice=produit_matrice_matrice_3x3(matrice_sym_centrale,matrice_chgt_repereinv)
+			break
+		case 8 :
+			matrice=produit_matrice_matrice_3x3(matrice_rot_60_direct,matrice_chgt_repereinv)
+			break
+		case 9 :
+			matrice=produit_matrice_matrice_3x3(matrice_rot_60_indirect,matrice_chgt_repereinv)
+			break
+		case 10 :
+			matrice=produit_matrice_matrice_3x3(matrice_rot_120_direct,matrice_chgt_repereinv)
+			break
+		case 11 :
+			matrice=produit_matrice_matrice_3x3(matrice_rot_120_indirect,matrice_chgt_repereinv)
+			break
+		case 12 :
+			matrice=produit_matrice_matrice_3x3(matrice_translation,matrice_chgt_repereinv)
+			break
+		case 13 :
+			matrice=produit_matrice_matrice_3x3(matrice_homothetie,matrice_chgt_repereinv)
+			break
+	
+		}
+	pointA1=produit_matrice_vecteur_3x3(matrice,pointA)
+	pointA2=produit_matrice_vecteur_3x3(matrice_chgt_repere,pointA1)
+	return pointA2
+}
+
 /**
 * Retourne le signe d'un nombre
 * @Example
