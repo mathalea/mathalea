@@ -497,24 +497,6 @@ Math.degres = function(radians) {
 };
 
 /**
- * 
- * @param {array} matrice M tableau 3x3 nombres
- * @param {array} vecteur A tableau 3 nombres
- * Fonction pouvant être utilisée en 2d avec des coordonnées homogènes
- * elle retourne le vecteur [x,y,z] résultat de M.A
- */
-
-function produit_matrice_vecteur_3x3(matrice,vecteur) { // matrice est un tableau 3x3 sous la forme [[ligne 1],[ligne 2],[ligne 3]] et vecteur est un tableau de 3 nombres [x,y,z]
-	let resultat=[0,0,0]
-	for (let j=0;j<3;j++){ // Chaque ligne de la matrice 
-		for (let i=0;i<3;i++){ // On traite la ligne i de la matrice -> résultat = coordonnée i du vecteur résultat
-			resultat[j]+=matrice[j][i]*vecteur[i];
-		}
-	}
-	return resultat
-}
-
-/**
 * Retourne le signe d'un nombre
 * @Example
 * // + ou -
