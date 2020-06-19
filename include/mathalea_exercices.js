@@ -6119,7 +6119,8 @@ function transformations_du_plan6() {
 			let matrice_rot_60_indirect=[[0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),0.5,0],[0,0,1]]
 			let matrice_rot_120_direct=[[-0.5,-Math.sin(Math.PI/3),0],[Math.sin(Math.PI/3),-0.5,0],[0,0,1]]
 			let matrice_rot_120_indirect=[[-0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),-0.5,0],[0,0,1]]
-			let x,y,x1,y1
+			
+			let x,y,x1,y1,u,v
 			let texte=``
 			let texte_corr=``
 			let pointA=[],pointA1=[],pointA2=[]
@@ -6129,8 +6130,12 @@ function transformations_du_plan6() {
 			y=randint(-5,5)
 			x2=randint(-3,3,[0])
 			y2=randint(-3,3,[0])
+			u=3 // (u,v) vecteur de translation.
+			v=1
 			let matrice_chgt_repere=[[1,0,x2],[0,1,y2],[0,0,1]]
 			let matrice_chgt_repereinv=[[1,0,-x2],[0,1,-y2],[0,0,1]]
+			let matrice_translation=[[1,0,u],[0,1,v],[0,0,1]]
+
 			let matrice=[[]]
 			pointA=[x,y,1]
 			switch (choix_transformation) {
@@ -6166,6 +6171,9 @@ function transformations_du_plan6() {
 					break
 				case 11 :
 					matrice=produit_matrice_matrice_3x3(matrice_rot_120_indirect,matrice_chgt_repereinv)
+					break
+				case 12 :
+					matrice=produit_matrice_matrice_3x3(matrice_translation,matrice_chgt_repereinv)
 					break
 			
 				}
@@ -6215,7 +6223,7 @@ function transformations_du_plan6() {
 
 
 	}
-	this.besoin_formulaire_numerique = ['Transformation',11, '1 : Symétrie selon la première bissectrice\n 2 : Symétrie selon la deuxième bissectrice\n 3 : symétrie selon (OI)\n 4 : Symétrie selon (OJ)\n 5 : Quart de tour direct\n 6 : Quart de tour indirect\n 7 : Symétrie centrale\n 8 : Rotation de 60° direct\n 9 : Rotation de 60° indirect\n 10 : Rotation 120° direct\n 11 : Rotation 120° indirect'];
+	this.besoin_formulaire_numerique = ['Transformation',12, '1 : Symétrie selon la première bissectrice\n 2 : Symétrie selon la deuxième bissectrice\n 3 : symétrie selon (OI)\n 4 : Symétrie selon (OJ)\n 5 : Quart de tour direct\n 6 : Quart de tour indirect\n 7 : Symétrie centrale\n 8 : Rotation de 60° direct\n 9 : Rotation de 60° indirect\n 10 : Rotation 120° direct\n 11 : Rotation 120° indirect\n 12 : Translation (3;1)'];
 
 }
 
