@@ -842,6 +842,7 @@ function Exercice_developper(difficulte=1){
 	this.consigne = 'Développer.';
 	this.spacing = 1;
 	this.nb_questions = 5 ;
+	this.nb_cols_corr = 1;
 
 
 	this.nouvelle_version = function(numero_de_l_exercice){
@@ -1106,7 +1107,16 @@ function Exercice_Thales(){
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
+<<<<<<< Updated upstream
 	sortie_html ? this.spacing_corr = 3.5 : this.spacing_corr = 1
+=======
+<<<<<<< Updated upstream
+	sortie_html ? this.spacing_corr = 3.5 : this.spacing_corr = 2.5
+=======
+	sortie_html ? this.spacing_corr = 3.5 : this.spacing_corr = 1;
+	sortie_html ? this.spacing = 2 : this.spacing=1.5;
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.quatrieme=false;
@@ -1248,7 +1258,7 @@ function Exercice_Thales(){
 			
 		
 	} else {	// sortie Latex
-		texte = '\\begin{minipage}{.5 \\linewidth} 	\\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
+		texte = '\\begin{minipage}{.7 \\linewidth} 	\\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
 		texte += `\n\t\\item Les droites $(${s4+s5})$ et $(${s2+s3})$ sont parallèles.`
 		if (this.sup==1){ //niveau 1 : Calcul direct quatrième proportionnelle
 		
@@ -1303,9 +1313,9 @@ function Exercice_Thales(){
 				}
 			}
 		if (this.sup<3) { // on ne fait la figure que si niveau < 3
-			texte += '\\begin{minipage}{0.5 \\linewidth}'
+			texte += '\\begin{minipage}{0.3 \\linewidth}'
 			// dessin de la figure
-			texte += '\n \\begin{tikzpicture}' // Balise début de figure
+			texte += '\n \\begin{tikzpicture}[scale=0.7]' // Balise début de figure
 			texte += '\n\t \\tkzDefPoints{0/0/'+s1+','+x3+'/'+y3+'/'+s3+','+x2+'/'+y2+'/'+s2+'}' // Placer les points du triangle principal
 			texte += '\n\t \\tkzDrawPolygon(' + s1 + ',' + s2 + ',' + s3 + ')' // Trace le triangle principal
 			// Définit les points M et N par homothétie de centre C et de rapport 0,3<k<0,8
@@ -1367,7 +1377,8 @@ function Reciproque_Thales(){
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
-	sortie_html ? this.spacing_corr = 3.5 : this.spacing_corr = 2.5
+	sortie_html ? this.spacing_corr = 3.5 : this.spacing_corr = 1;
+	sortie_html ? this.spacing = 2 : this.spacing = 1.5 ;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.quatrieme = false;
@@ -1474,10 +1485,10 @@ function Reciproque_Thales(){
 			}
 			else { // papillon sans figure
 				texte = `Les points $${s2}$, $${s1}$, $${s4}$ et $${s3}$, $${s1}$, $${s5}$ sont alignés dans cet ordre.<br>`
-				texte += `$${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s4}=${s14}$ cm et $${s1 + s5}=${s15}$ cm.`
+				texte += `$${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s4}=${s14}$ cm et $${s1 + s5}=${s15}$ cm.<br>`
 				texte_corr = ``;
 				}
-			texte += `<br>Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ?<br>`
+			texte += `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ?<br>`
 			
 			texte_corr += `D'une part on a $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}=\\dfrac{${s12}\\times${mise_en_evidence(s15)}}{${s14}\\times${mise_en_evidence(s15)}}=${tex_fraction(tex_nombrec(arrondi(dist12*dist15,3)),tex_nombrec(arrondi(dist14*dist15,4)))}$`;
 			texte_corr += `<br>D'autre part on a $\\dfrac{${s1 + s3}}{${s1 + s5}}=\\dfrac{${s13}}{${s15}}=\\dfrac{${s13}\\times${mise_en_evidence(s14)}}{${s15}\\times${mise_en_evidence(s14)}}=${tex_fraction(tex_nombrec(arrondi(dist13*dist14,3)),tex_nombrec(arrondi(dist14*dist15,4)))}$`;
@@ -1510,7 +1521,7 @@ function Reciproque_Thales(){
 					mtg32App.calculate("MG32svg${numero_de_l_exercice}");
 					mtg32App.display("MG32svg${numero_de_l_exercice}");
 					`
-				texte += `<br>$\\footnotesize{\\textit{Le point \\thickspace ${s1} peut être déplacé (si la figure est tronquée).}}$<br>`;
+				texte += `$\\footnotesize{\\textit{Le point \\thickspace ${s1} peut être déplacé (si la figure est tronquée).}}$<br>`;
 			}
 			this.liste_questions.push(texte);
 			this.liste_corrections.push(texte_corr);
@@ -1526,14 +1537,14 @@ function Reciproque_Thales(){
 		} else {	// sortie Latex
 			texte_corr=``;
 			if (this.sup == 1) { //niveau 1 : Calcul direct 
-				texte = '\\begin{minipage}{.5 \\linewidth} 	\\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
+				texte = '\\begin{minipage}{.7 \\linewidth} 	\\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
 				texte += `\n\t \\item ${s1 + s2}=${s12} cm \n\t \\item ${s1 + s3}=${s13} cm\n\t \\item ${s1 + s5}=${s15} cm\n\t \\item ${s1 + s4}=${s14} cm.<br>`
-				texte += `\\end{itemize} \\bigskip `+`Les droites (${s2 + s3}) et (${s4 + s5}) sont-elles parallèles ?<br>`+'. \\end{minipage}'
+				texte += `\\end{itemize}  `+`Les droites (${s2 + s3}) et (${s4 + s5}) sont-elles parallèles ?<br>`+'. \\end{minipage}'
 			}
 			else if (this.sup == 2) { // niveau 2 : Calcul intermédiaire nécessaire
-				texte = '\\begin{minipage}{.5 \\linewidth} 	\\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
+				texte = '\\begin{minipage}{.7 \\linewidth} 	\\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
 				texte += `\n\t \\item ${s1 + s2} = ${s12} cm\n\t \\item ${s1 + s3} = ${s13} cm\n\t \\item ${s3 + s5} = ${s35} cm\n\t \\item ${s2 + s4} = ${s24} cm.<br>`
-				texte += '\\end{itemize} \\bigskip '+`Les droites (${s2 + s3}) et (${s4 + s5}) sont-elles parallèles ?<br>`+'. \\end{minipage}'
+				texte += '\\end{itemize}  '+`Les droites (${s2 + s3}) et (${s4 + s5}) sont-elles parallèles ?<br>`+'. \\end{minipage}'
 				if (k > 0) { // triangles imbriqués
 					texte_corr += 'On sait que ' + `$${s1 + s5}=${s1 + s3}-${s3 + s5}=${s13}-${s35}=${s15}$` + ' cm.<br>'
 					texte_corr += 'et que ' + `$${s1 + s4}=${s1 + s2}-${s2 + s4}=${s12}-${s24}=${s14}$` + ' cm.<br>'
@@ -1555,9 +1566,9 @@ function Reciproque_Thales(){
 			}
 
 			if (this.sup < 3) { // on ne fait la figure que si niveau < 3
-				texte += '\\begin{minipage}{0.5 \\linewidth}'
+				texte += '\\begin{minipage}{0.3 \\linewidth}'
 				// dessin de la figure
-				texte += '\n \\begin{tikzpicture}' // Balise début de figure
+				texte += '\n \\begin{tikzpicture}[scale=0.7]' // Balise début de figure
 				texte += '\n\t \\tkzDefPoints{0/0/' + s1 + ',' + x3 + '/' + y3 + '/' + s3 + ',' + x2 + '/' + y2 + '/' + s2 + '}' // Placer les points du triangle principal
 				texte += '\n\t \\tkzDrawPolygon(' + s1 + ',' + s2 + ',' + s3 + ')' // Trace le triangle principal
 				// Définit les points M et N par homothétie de centre C et de rapport 0,3<k<0,8
