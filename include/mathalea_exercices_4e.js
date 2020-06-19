@@ -1106,7 +1106,7 @@ function Exercice_Thales(){
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
-	sortie_html ? this.spacing_corr = 3.5 : this.spacing_corr = 2.5
+	sortie_html ? this.spacing_corr = 3.5 : this.spacing_corr = 1
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.quatrieme=false;
@@ -1723,7 +1723,7 @@ function Exercice_Pythagore() {
 		else {
 		
 			if (type_de_questions < 3) {
-				texte = '\\begin{minipage}{.5 \\linewidth} 	\\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
+				texte = '\\begin{minipage}{.7 \\linewidth} 	\\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
 				texte += '\n\t\\item Le côté ' + `$[${s0 + s1}]$` + ' est perpendiculaire au côté ' + `$[${s0 + s2}]~;$`
 				if (type_de_questions == 1) { //niveau 1 : Calcul de l'hypoténuse
 
@@ -1739,10 +1739,10 @@ function Exercice_Pythagore() {
 					texte += '\n\t\\item ' + `$${s1 + s2 + ' = ' + s12 + '~\\text{cm}~;'}$`
 					texte += '\n\t\\item ' + `$${s0 + s1 + ' = ' + s01 + '~\\text{cm}~;'}$`
 					texte += '\\end{itemize} \\bigskip  Calculer ' + `$${s0 + s2}$` + ' à 0,1 près. \\end{minipage}'
-				}
-				texte += '\\begin{minipage}{0.5 \\linewidth}'
+			}
+				texte += '\\begin{minipage}{0.3 \\linewidth}'
 				// dessin de la figure
-				texte += '\n \\begin{tikzpicture}' // Balise début de figure
+				texte += '\n \\begin{tikzpicture}[scale=0.7]' // Balise début de figure
 				texte += '\n\t \\tkzDefPoints{0/0/' + s0 + ',' + x1 + '/0/B,0/' + y2 + '/C}' // créer les points du triangle initial 
 				// Définit les points M et N par homothétie de centre C et de rapport 0,3<k<0,8
 				texte += '\n\t \\tkzDefPointBy[rotation= center ' + s0 + ' angle ' + alpha1deg + '](B) \\tkzGetPoint{' + s1 + '}' // transformer le premier point par rotation
@@ -1922,7 +1922,7 @@ function Exercice_Trigo_longueurs() {
 				texte += `<br>$\\footnotesize{\\textit{Le point \\thickspace ${s0} peut être déplacé (si la figure est tronquée).}}$<br>`;
 			}
 			else { //sortie Latex
-				texte = `\\begin{minipage}{.5 \\linewidth} 	\\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}`
+				texte = `\\begin{minipage}{.7 \\linewidth} 	\\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}`
 				texte += `\n\t\\item Le triangle $${nom_du_triangle}$ est rectangle en $${s0}$~;`
 
 				if (type_de_questions == 1) { // Calcul du coté adjacent (cosinus)
@@ -1955,9 +1955,9 @@ function Exercice_Trigo_longueurs() {
 					texte += `\n\t\\item L'angle $\\widehat{${s0 + s1 + s2}}$~mesure~$${angle1}\\degree$.<br>`;
 					texte += `\\end{itemize} \\bigskip\n\t  Calculer $${s0 + s1}$ à 0,1 près. \\end{minipage}`
 				}
-				texte += '\\begin{minipage}{0.5 \\linewidth}'
+				texte += '\\begin{minipage}{0.3 \\linewidth}'
 				// dessin de la figure
-				texte += '\n \\begin{tikzpicture}' // Balise début de figure
+				texte += '\n \\begin{tikzpicture}[scale=0.7]' // Balise début de figure
 				texte += '\n\t \\tkzDefPoints{0/0/' + s0 + ',' + x1 + '/0/B,0/' + y2 + '/C}' // créer les points du triangle initial 
 				// Définit les points M et N par homothétie de centre C et de rapport 0,3<k<0,8
 				texte += '\n\t \\tkzDefPointBy[rotation= center ' + s0 + ' angle ' + alpha1deg + '](B) \\tkzGetPoint{' + s1 + '}' // transformer le premier point par rotation
@@ -2172,7 +2172,7 @@ function Exercice_Trigo_angles() {
 			texte += `<br>$\\footnotesize{\\textit{Le point \\thickspace ${s0} peut être déplacé (si la figure est tronquée).}}$<br>`;
 		}
 		else { //sortie Latex
-			texte = `\\begin{minipage}{.5 \\linewidth} 	\\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}`
+			texte = `\\begin{minipage}{.7 \\linewidth} 	\\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}`
 			texte += `\n\t\\item Le triangle $${nom_du_triangle}$ est rectangle en $${s0}$;`
 
 			if (type_de_questions == 1) { // Calcul de l'angle coté adjacent (Arccos)
@@ -2206,9 +2206,9 @@ function Exercice_Trigo_angles() {
 				texte += `\n\t\\item $${s0 + s1}=${s01}~\\text{cm}$`;
 				texte += `\\end{itemize} \\bigskip\n\t  Calculer l'angle $\\widehat{${s0 + s2 + s1}}$ à 1° près. \\end{minipage}`
 			}
-			texte += '\\begin{minipage}{0.5 \\linewidth}'
+			texte += '\\begin{minipage}{0.3 \\linewidth}'
 			// dessin de la figure
-			texte += '\n \\begin{tikzpicture}' // Balise début de figure
+			texte += '\n \\begin{tikzpicture}[scale=0.7]' // Balise début de figure
 			texte += '\n\t \\tkzDefPoints{0/0/' + s0 + ',' + x1 + '/0/B,0/' + y2 + '/C}' // créer les points du triangle initial 
 			// Définit les points M et N par homothétie de centre C et de rapport 0,3<k<0,8
 			texte += '\n\t \\tkzDefPointBy[rotation= center ' + s0 + ' angle ' + alpha1deg + '](B) \\tkzGetPoint{' + s1 + '}' // transformer le premier point par rotation
@@ -2299,8 +2299,8 @@ function Reciproque_Pythagore(){
 	this.titre = "Déterminer si un triangle est rectangle ou pas.";
 	this.consigne = "";
 	this.nb_questions = 3;
-	this.nb_cols = 2;
-	this.nb_cols_corr = 2;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
 	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
