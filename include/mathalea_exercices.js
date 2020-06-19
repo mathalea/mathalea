@@ -6115,6 +6115,10 @@ function transformations_du_plan6() {
 			let matrice_quart_de_tour_direct=[[0,-1,0],[1,0,0],[0,0,1]] // x'=-y et y'=x
 			let matrice_quart_de_tour_indirect=[[0,1,0],[-1,0,0],[0,0,1]] // x'=y et y'=-x
 			let matrice_sym_centrale=[[-1,0,0],[0,-1,0],[0,0,1]] // x'=-x et y'=-y
+			let matrice_rot_60_direct=[[0.5,-Math.sin(Math.PI/3),0],[Math.sin(Math.PI/3),0.5,0],[0,0,1]]
+			let matrice_rot_60_indirect=[[0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),0.5,0],[0,0,1]]
+			let matrice_rot_120_direct=[[-0.5,-Math.sin(Math.PI/3),0],[Math.sin(Math.PI/3),-0.5,0],[0,0,1]]
+			let matrice_rot_120_indirect=[[-0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),-0.5,0],[0,0,1]]
 			let x,y,x1,y1
 			let texte=``
 			let texte_corr=``
@@ -6151,7 +6155,20 @@ function transformations_du_plan6() {
 				case 7 :
 					matrice=produit_matrice_matrice_3x3(matrice_sym_centrale,matrice_chgt_repereinv)
 					break
-			}
+				case 8 :
+					matrice=produit_matrice_matrice_3x3(matrice_rot_60_direct,matrice_chgt_repereinv)
+					break
+				case 9 :
+					matrice=produit_matrice_matrice_3x3(matrice_rot_60_indirect,matrice_chgt_repereinv)
+					break
+				case 10 :
+					matrice=produit_matrice_matrice_3x3(matrice_rot_120_direct,matrice_chgt_repereinv)
+					break
+				case 11 :
+					matrice=produit_matrice_matrice_3x3(matrice_rot_120_indirect,matrice_chgt_repereinv)
+					break
+			
+				}
 			pointA1=produit_matrice_vecteur_3x3(matrice,pointA)
 			pointA2=produit_matrice_vecteur_3x3(matrice_chgt_repere,pointA1)
 			x1=pointA2[0]
@@ -6198,7 +6215,7 @@ function transformations_du_plan6() {
 
 
 	}
-	this.besoin_formulaire_numerique = ['Transformation',7, '1 : Symétrie selon la première bissectrice\n 2 : Symétrie selon la deuxième bissectrice\n 3 : symétrie selon (OI)\n 4 : Symétrie selon (OJ)\n 5 : Quart de tour direct\n 6 : Quart de tour indirect\n 7 : Symétrie centrale'];
+	this.besoin_formulaire_numerique = ['Transformation',11, '1 : Symétrie selon la première bissectrice\n 2 : Symétrie selon la deuxième bissectrice\n 3 : symétrie selon (OI)\n 4 : Symétrie selon (OJ)\n 5 : Quart de tour direct\n 6 : Quart de tour indirect\n 7 : Symétrie centrale\n 8 : Rotation de 60° direct\n 9 : Rotation de 60° indirect\n 10 : Rotation 120° direct\n 11 : Rotation 120° indirect'];
 
 }
 
