@@ -35,6 +35,7 @@ var liste_des_exercices_disponibles = {
 		'6D101' : Heures_decimales,
 		'6D11' : Somme_de_durees,
 		'6D12' : Calculs_de_durees_ou_d_horaires,
+		'6G10' :transformations_du_plan6,
 		'6M11-1' : Perimetre_ou_aire_de_carres_rectangles_triangles,
 		'6M11-2' : Perimetre_ou_aire_de_figures_composees,
 		'6M10' : Reglages_6M10,
