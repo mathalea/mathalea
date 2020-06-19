@@ -4289,6 +4289,7 @@ function Antecedent_graphique() {
 
 }
 /**
+* Problèmes calculs d'aire et de volumes utilisant l'effet d'une réduction sur les aires et les volumes 
 * @auteur Jean-Claude Lhote
 */
 function Agrandissement_reduction() {
@@ -4311,7 +4312,7 @@ function Agrandissement_reduction() {
 	this.nouvelle_version = function (numero_de_l_exercice) {
 		this.liste_questions = [];
 		this.liste_corrections = [];
-		let texte, texte_corr, r, r2, h1, h2, h3, c, c2;
+		let texte, texte_corr, r, r2, h1, h2, h3, c, c2; 
 	//	if (sortie_html) {
 			this.type_exercice = 'MG32';
 			this.taille_div_MG32 = [600, 700];
@@ -4326,13 +4327,13 @@ function Agrandissement_reduction() {
 					h1 = calcul(randint(12, 20) / 2)
 					h2 = randint(3, Math.floor(h1) - 1)
 					if (this.sup2<3)
-						if (this.sup2==1) 
+						if (this.sup2==1) // on veut un coefficient de réduction décimal à 1 chiffre après la virgule
 							while (calcul(h2/h1)!=arrondi(h2/h1,1)) {
 								c = calcul(randint(30, 60) / 10)
 								h1 = calcul(randint(12, 20) / 2)
 								h2 = randint(3, Math.floor(h1) - 1)
 							}
-						else 
+						else // coefficient qui peut être décimal avec plus d'un chiffre ou rationnel non décimal.
 							while (calcul(h2/h1)==arrondi(h2/h1,1)) {
 								c = calcul(randint(30, 60) / 10)
 								h1 = calcul(randint(12, 20) / 2)
@@ -4435,13 +4436,13 @@ function Agrandissement_reduction() {
 					h1 = calcul(randint(12, 20) / 2)
 					h2 = randint(3, Math.floor(h1) - 1)
 					if (this.sup2<3)
-					if (this.sup2==1) 
+					if (this.sup2==1) // coefficient de réduction décimal
 						while (calcul(h2/h1)!=arrondi(h2/h1,1)) {
 							r = calcul(randint(12, 35) / 10)
 							h1 = calcul(randint(12, 20) / 2)
 							h2 = randint(3, Math.floor(h1) - 1)
 						}
-					else 
+					else //coefficient de réduction rationnel
 						while (calcul(h2/h1)==arrondi(h2/h1,1)) {
 							r = calcul(randint(12, 35) / 10)
 							h1 = calcul(randint(12, 20) / 2)
@@ -4579,14 +4580,14 @@ function Agrandissement_reduction() {
 					h1 = calcul(randint(12, 20) / 2)
 					h2 = randint(3, Math.floor(h1) - 1)
 					if (this.sup2<3)
-					if (this.sup2==1) 
+					if (this.sup2==1) // coefficient de réduction décimal
 						while (calcul(h2/h1)!=arrondi(h2/h1,1)) {
 							c = calcul(randint(30, 60) / 10)
 							c2 = calcul(randint(30, 60) / 10)
 							h1 = calcul(randint(12, 20) / 2)
 							h2 = randint(3, Math.floor(h1) - 1)
 						}
-					else 
+					else //coefficient de réduction rationnel
 						while (calcul(h2/h1)==arrondi(h2/h1,1)) {
 							c = calcul(randint(30, 60) / 10)
 							c2 = calcul(randint(30, 60) / 10)
@@ -4695,7 +4696,7 @@ function Agrandissement_reduction() {
 					h3 = calcul(randint(10, 15) / 5)
 					h2 = calcul(r2 * h3 / (r - r2))
 					h1 = calcul(h2 + h3)
-					while (calcul(h2/h1)!=arrondi(h2/h1,1)||calcul((h3/2+h2)/h1)!=arrondi((h3/2+h2)/h1,1)) {
+					while (calcul(h2/h1)!=arrondi(h2/h1,1)||calcul((h3/2+h2)/h1)!=arrondi((h3/2+h2)/h1,1)) { // on impose des coefficients de réduction décimaux dans cet exercice.
 							r = calcul(randint(15, 20) / 10)
 							r2 = calcul(randint(11, r * 10 - 3) / 10)
 							h3 = calcul(randint(10, 15) / 5)
@@ -4804,13 +4805,13 @@ function Agrandissement_reduction() {
 					h2 = randint(1,3)
 
 					if (this.sup2<3)
-					if (this.sup2==1) 
+					if (this.sup2==1) // coefficient de réduction décimal
 						while (calcul(h2/h1)!=arrondi(h2/h1,1)) {
 							r = calcul(randint(20, 28) / 10)
 							h1 = calcul(randint(20, 28) / 2)
 							h2 = randint(1,3)
 						}
-					else 
+					else //coefficient de réduction rationnel
 						while (calcul(h2/h1)==arrondi(h2/h1,1)) {
 							r = calcul(randint(20, 28) / 10)
 							h1 = calcul(randint(20, 28) / 2)
