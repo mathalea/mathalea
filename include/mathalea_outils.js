@@ -514,6 +514,15 @@ function produit_matrice_vecteur_3x3(matrice,vecteur) { // matrice est un tablea
 	return resultat
 }
 
+function produit_matrice_matrice_3x3(matrice1,matrice2) { // les deux matrices sont des tableaux 3x3  [[ligne 1],[ligne 2],[ligne 3]] et le résultat est de la même nature.
+	let resultat = [[0,0,0],[0,0,0],[0,0,0]]
+	for (let j=0;j<3;j++)
+		for (let i=0;i<3;i++)
+			for (let k=0;k<3;k++)
+				resultat[j][i]+=matrice1[j][k]*matrice2[k][i]
+ return resultat
+}
+
 /**
 * Retourne le signe d'un nombre
 * @Example
