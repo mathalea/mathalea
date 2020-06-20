@@ -136,6 +136,7 @@ var liste_des_exercices_disponibles = {
 		'3A12' : Fractions_irreductibles,
 		'3A13' : PPCM_Engrenages,
 		'3M30' : Calcul_de_volumes_3e,
+		'3L10-1' : Parentheses_precedes_de_moins_ou_plus,
 		'3L11': Exercice_developper,
 		'3L11-1' : Double_distributivite,
 		'3L12-1' : Developper_Identites_remarquables3,
