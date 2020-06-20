@@ -139,6 +139,7 @@ var liste_des_exercices_disponibles = {
 		'3L10-1' : Parentheses_precedes_de_moins_ou_plus,
 		'3L11': Exercice_developper,
 		'3L11-1' : Double_distributivite,
+		'3L11-2' : Reduction_si_possible,
 		'3L12-1' : Developper_Identites_remarquables3,
 		'3L12' : Factoriser_Identites_remarquables3,
 		'3L14' : Resoudre_une_equation_produit_nul,
