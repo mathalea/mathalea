@@ -35,7 +35,6 @@ var liste_des_exercices_disponibles = {
 		'6D101' : Heures_decimales,
 		'6D11' : Somme_de_durees,
 		'6D12' : Calculs_de_durees_ou_d_horaires,
-		'6G10' :transformations_du_plan6,
 		'6M11-1' : Perimetre_ou_aire_de_carres_rectangles_triangles,
 		'6M11-2' : Perimetre_ou_aire_de_figures_composees,
 		'6M10' : Reglages_6M10,
@@ -143,6 +142,7 @@ var liste_des_exercices_disponibles = {
 		'3L14' : Resoudre_une_equation_produit_nul,
 		'3L14-1' : Resoudre_une_equation_produit_nul_niv2,
 		'3L15' : Resoudre_une_equation_x2_egal_A,
+		'3G10' :transformations_du_plan,
 		'3G20' : Exercice_Thales,
 		'3G21' : Reciproque_Thales,
 		'3G22' : Agrandissement_reduction,
@@ -6089,153 +6089,6 @@ function Calcul_de_volumes(){
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : pas de conversion\n2 : avec conversion"];
 }
 
-function transformations_du_plan6() {
-	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Trouver l'image d'une figure par une transformation du plan";
-	this.consigne = "";
-	this.nb_questions = 1;
-	this.nb_questions_modifiable = false;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	this.sup = 1; // 1 calcul de l'hypoténuse 2 calcul d'un côté de l'angle droit 
-	sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
-	this.liste_packages = 'tkz-euclide';
-
-	this.nouvelle_version = function (numero_de_l_exercice) {
-
-
-			this.type_exercice = 'MG32';
-			this.taille_div_MG32 = [700, 700];
-			this.liste_questions = [];
-			this.liste_corrections = []; // Liste de questions corrigées
-/*			let matrice_sym_obl1=[[0,1,0],[1,0,0],[0,0,1]] // x'=y et y'=x
-			let matrice_sym_xxprime=[[1,0,0],[0,-1,0],[0,0,1]] // x'=x et y'=-y
-			let matrice_sym_yyprime=[[-1,0,0],[0,1,0],[0,0,1]] // x'=-x et y'=y
-			let matrice_sym_obl2=[[0,-1,0],[-1,0,0],[0,0,1]] // x'=-y et y'=-x
-			let matrice_quart_de_tour_direct=[[0,-1,0],[1,0,0],[0,0,1]] // x'=-y et y'=x
-			let matrice_quart_de_tour_indirect=[[0,1,0],[-1,0,0],[0,0,1]] // x'=y et y'=-x
-			let matrice_sym_centrale=[[-1,0,0],[0,-1,0],[0,0,1]] // x'=-x et y'=-y
-			let matrice_rot_60_direct=[[0.5,-Math.sin(Math.PI/3),0],[Math.sin(Math.PI/3),0.5,0],[0,0,1]]
-			let matrice_rot_60_indirect=[[0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),0.5,0],[0,0,1]]
-			let matrice_rot_120_direct=[[-0.5,-Math.sin(Math.PI/3),0],[Math.sin(Math.PI/3),-0.5,0],[0,0,1]]
-			let matrice_rot_120_indirect=[[-0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),-0.5,0],[0,0,1]]
-*/
-			let x,y,x1,y1,u,v,k,x2,y2
-			let texte=``
-			let texte_corr=``
-			let pointA=[],pointA1=[]
-			let choix_transformation=parseInt(this.sup)
-
-			x=randint(-5,5) // Point A
-			y=randint(-5,5)
-			x2=randint(-3,3,[0])  // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
-			y2=randint(-3,3,[0])
-//			u=3 // (u,v) vecteur de translation.
-//			v=1
-			k=2 // rapport d'homothétie
-
-
-/*			let matrice_chgt_repere=[[1,0,x2],[0,1,y2],[0,0,1]]
-			let matrice_chgt_repereinv=[[1,0,-x2],[0,1,-y2],[0,0,1]]
-			let matrice_translation=[[1,0,u],[0,1,v],[0,0,1]]
-			let matrice_homothetie=[[k,0,0],[0,k,0],[0,0,1]]
-
-			let matrice=[[]]
-*/			pointA=[x,y,1]
-			pointA1=image_point_par_transformation(choix_transformation,pointA,[x2,y2],k)
-			/*
-			switch (choix_transformation) {
-				case 1 : 
-					matrice=produit_matrice_matrice_3x3(matrice_sym_obl1,matrice_chgt_repereinv)
-					break
-				case 2 :
-					matrice=produit_matrice_matrice_3x3(matrice_sym_obl2,matrice_chgt_repereinv)
-					break
-				case 3 : 
-					matrice=produit_matrice_matrice_3x3(matrice_sym_xxprime,matrice_chgt_repereinv)
-					break
-				case 4 :
-					matrice=produit_matrice_matrice_3x3(matrice_sym_yyprime,matrice_chgt_repereinv)
-					break
-				case 5 :
-					matrice=produit_matrice_matrice_3x3(matrice_quart_de_tour_direct,matrice_chgt_repereinv)
-					break
-				case 6 : 
-				matrice=produit_matrice_matrice_3x3(matrice_quart_de_tour_indirect,matrice_chgt_repereinv)
-					break
-				case 7 :
-					matrice=produit_matrice_matrice_3x3(matrice_sym_centrale,matrice_chgt_repereinv)
-					break
-				case 8 :
-					matrice=produit_matrice_matrice_3x3(matrice_rot_60_direct,matrice_chgt_repereinv)
-					break
-				case 9 :
-					matrice=produit_matrice_matrice_3x3(matrice_rot_60_indirect,matrice_chgt_repereinv)
-					break
-				case 10 :
-					matrice=produit_matrice_matrice_3x3(matrice_rot_120_direct,matrice_chgt_repereinv)
-					break
-				case 11 :
-					matrice=produit_matrice_matrice_3x3(matrice_rot_120_indirect,matrice_chgt_repereinv)
-					break
-				case 12 :
-					matrice=produit_matrice_matrice_3x3(matrice_translation,matrice_chgt_repereinv)
-					break
-				case 13 :
-					matrice=produit_matrice_matrice_3x3(matrice_homothetie,matrice_chgt_repereinv)
-					break
-			
-				}
-			pointA1=produit_matrice_vecteur_3x3(matrice,pointA)
-			pointA2=produit_matrice_vecteur_3x3(matrice_chgt_repere,pointA1)
-*/			x1=pointA1[0]
-			y1=pointA1[1]
-
-			if (sortie_html) {
-			let codeBase64
-				codeBase64 = "TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAAJmcv###wEA#wEAAAAAAAAAAAUcAAAC0gAAAQEAAAAAAAAAAQAAAET#####AAAAAQAKQ0NhbGNDb25zdAD#####AAJwaQAWMy4xNDE1OTI2NTM1ODk3OTMyMzg0Nv####8AAAABAApDQ29uc3RhbnRlQAkh+1RELRj#####AAAAAQAKQ1BvaW50QmFzZQD#####AAAAAAAOAAFPAMAoAAAAAAAAAAAAAAAAAAAFAAFAddgAAAAAAEB2OFHrhR64#####wAAAAEAFENEcm9pdGVEaXJlY3Rpb25GaXhlAP####8BAAAAAA4AAAEAAQAAAAEBP#AAAAAAAAD#####AAAAAQAPQ1BvaW50TGllRHJvaXRlAP####8AAAAAAQ4AAUkAwBgAAAAAAAAAAAAAAAAAAAUAAUA5AAAAAAAAAAAAAv####8AAAABAAlDRHJvaXRlQUIA#####wAAAAAAEAAAAQABAAAAAQAAAAP#####AAAAAQAWQ0Ryb2l0ZVBlcnBlbmRpY3VsYWlyZQD#####AAAAAAAOAAABAAEAAAABAAAABP####8AAAABAAlDQ2VyY2xlT0EA#####wEAAAAAAQAAAAEAAAAD#####wAAAAEAEENJbnREcm9pdGVDZXJjbGUA#####wAAAAUAAAAG#####wAAAAEAEENQb2ludExpZUJpcG9pbnQA#####wEAAAAADgAAAQUAAQAAAAcAAAAJAP####8AAAAAAQ4AAUoAwCgAAAAAAADAEAAAAAAAAAUAAgAAAAf#####AAAAAgAHQ1JlcGVyZQD#####AObm5gABAAAAAQAAAAMAAAAJAQEAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAT#wAAAAAAAAAAAAAT#wAAAAAAAA#####wAAAAEACkNVbml0ZXhSZXAA#####wAEdW5pdAAAAAr#####AAAAAQALQ0hvbW90aGV0aWUA#####wAAAAH#####AAAAAQAKQ09wZXJhdGlvbgMAAAABP#AAAAAAAAD#####AAAAAQAPQ1Jlc3VsdGF0VmFsZXVyAAAAC#####8AAAABAAtDUG9pbnRJbWFnZQD#####AQAAAAAQAAJXIgEBAAAAAAMAAAAM#####wAAAAEACUNMb25ndWV1cgD#####AAAAAQAAAA3#####AAAAAQAHQ0NhbGN1bAD#####AAduYmdyYWR4AAIyMAAAAAFANAAAAAAAAAAAABEA#####wAHbmJncmFkeQACMjAAAAABQDQAAAAAAAD#####AAAAAQAUQ0ltcGxlbWVudGF0aW9uUHJvdG8A#####wAUR3JhZHVhdGlvbkF4ZXNSZXBlcmUAAAAbAAAACAAAAAMAAAAKAAAADwAAABD#####AAAAAQATQ0Fic2Npc3NlT3JpZ2luZVJlcAAAAAARAAVhYnNvcgAAAAr#####AAAAAQATQ09yZG9ubmVlT3JpZ2luZVJlcAAAAAARAAVvcmRvcgAAAAoAAAALAAAAABEABnVuaXRleAAAAAr#####AAAAAQAKQ1VuaXRleVJlcAAAAAARAAZ1bml0ZXkAAAAK#####wAAAAEAEENQb2ludERhbnNSZXBlcmUAAAAAEQAAAAAADgAAAQUAAAAACgAAAA4AAAASAAAADgAAABMAAAAWAAAAABEAAAAAAA4AAAEFAAAAAAoAAAANAAAAAA4AAAASAAAADgAAABQAAAAOAAAAEwAAABYAAAAAEQAAAAAADgAAAQUAAAAACgAAAA4AAAASAAAADQAAAAAOAAAAEwAAAA4AAAAVAAAADAAAAAARAAAAFgAAAA4AAAAPAAAADwAAAAARAAAAAAAOAAABBQAAAAAXAAAAGQAAAAwAAAAAEQAAABYAAAAOAAAAEAAAAA8AAAAAEQAAAAAADgAAAQUAAAAAGAAAABv#####AAAAAQAIQ1NlZ21lbnQAAAAAEQEAAAAAEAAAAQABAAAAFwAAABoAAAAXAAAAABEBAAAAABAAAAEAAQAAABgAAAAcAAAABAAAAAARAQAAAAALAAFXAMAUAAAAAAAAwDQAAAAAAAAFAAE#3FZ4mrzfDgAAAB3#####AAAAAgAIQ01lc3VyZVgAAAAAEQAGeENvb3JkAAAACgAAAB8AAAARAAAAABEABWFic3cxAAZ4Q29vcmQAAAAOAAAAIP####8AAAACABJDTGlldU9iamV0UGFyUHRMaWUBAAAAEQBmZmYAAAAfAAAADgAAAA8AAAAfAAAAAgAAAB8AAAAfAAAAEQAAAAARAAVhYnN3MgANMiphYnNvci1hYnN3MQAAAA0BAAAADQIAAAABQAAAAAAAAAAAAAAOAAAAEgAAAA4AAAAhAAAAFgAAAAARAQAAAAALAAABBQAAAAAKAAAADgAAACMAAAAOAAAAEwAAABkBAAAAEQBmZmYAAAAkAAAADgAAAA8AAAAfAAAABQAAAB8AAAAgAAAAIQAAACMAAAAkAAAABAAAAAARAQAAAAALAAFSAEAgAAAAAAAAwCAAAAAAAAAFAAE#0RtOgbToHwAAAB7#####AAAAAgAIQ01lc3VyZVkAAAAAEQAGeUNvb3JkAAAACgAAACYAAAARAAAAABEABW9yZHIxAAZ5Q29vcmQAAAAOAAAAJwAAABkBAAAAEQBmZmYAAAAmAAAADgAAABAAAAAmAAAAAgAAACYAAAAmAAAAEQAAAAARAAVvcmRyMgANMipvcmRvci1vcmRyMQAAAA0BAAAADQIAAAABQAAAAAAAAAAAAAAOAAAAEwAAAA4AAAAoAAAAFgAAAAARAQAAAAALAAABBQAAAAAKAAAADgAAABIAAAAOAAAAKgAAABkBAAAAEQBmZmYAAAArAAAADgAAABAAAAAmAAAABQAAACYAAAAnAAAAKAAAACoAAAAr#####wAAAAIADENDb21tZW50YWlyZQAAAAARAWZmZgAAAAAAAAAAAEAYAAAAAAAAAAAAHwsAAf###wAAAAEAAAAAAAAAAQAAAAAAAAAAAAsjVmFsKGFic3cxKQAAABkBAAAAEQBmZmYAAAAtAAAADgAAAA8AAAAfAAAABAAAAB8AAAAgAAAAIQAAAC0AAAAbAAAAABEBZmZmAAAAAAAAAAAAQBgAAAAAAAAAAAAkCwAB####AAAAAQAAAAAAAAABAAAAAAAAAAAACyNWYWwoYWJzdzIpAAAAGQEAAAARAGZmZgAAAC8AAAAOAAAADwAAAB8AAAAGAAAAHwAAACAAAAAhAAAAIwAAACQAAAAvAAAAGwAAAAARAWZmZgDAIAAAAAAAAD#wAAAAAAAAAAAAJgsAAf###wAAAAIAAAABAAAAAQAAAAAAAAAAAAsjVmFsKG9yZHIxKQAAABkBAAAAEQBmZmYAAAAxAAAADgAAABAAAAAmAAAABAAAACYAAAAnAAAAKAAAADEAAAAbAAAAABEBZmZmAMAcAAAAAAAAAAAAAAAAAAAAAAArCwAB####AAAAAgAAAAEAAAABAAAAAAAAAAAACyNWYWwob3JkcjIpAAAAGQEAAAARAGZmZgAAADMAAAAOAAAAEAAAACYAAAAGAAAAJgAAACcAAAAoAAAAKgAAACsAAAAzAAAAEQD#####AAF4AAEzAAAAAUAIAAAAAAAAAAAAEQD#####AAF5AAEyAAAAAUAAAAAAAAAAAAAAFgD#####AAAAAAAQAAFBAAAAAAAAAAAAQAgAAAAAAAAIAAAAAAoAAAAOAAAANQAAAA4AAAA2AAAAEQD#####AAJ4MQACLTP#####AAAAAQAMQ01vaW5zVW5haXJlAAAAAUAIAAAAAAAAAAAAEQD#####AAJ5MQABMgAAAAFAAAAAAAAAAAAAABYA#####wAAAAAAEAACQScAwC4AAAAAAABACAAAAAAAAAgAAAAACgAAAA4AAAA4AAAADgAAADkAAAARAP####8AAngyAAEyAAAAAUAAAAAAAAAAAAAAEQD#####AAJ5MgABMQAAAAE#8AAAAAAAAAAAABYA#####wAAAAAAEAACTycAAAAAAAAAAABACAAAAAAAAAYAAAAACgAAAA4AAAA7AAAADgAAADwAAAADAP####8A#wAAARAAAAECAQAAAD0BP#AAAAAAAAAAAAADAP####8A#wAAARAAAAECAQAAAD0AP#AAAAAAAAD#####AAAAAQAJQ0Ryb2l0ZU9tAP####8AAAD#ABAAAAECAQAAAAoAAAA9AAAAAT#wAAAAAAAAAAAAHQD#####AAD#AAAQAAABAgEAAAAKAAAAPQAAABwAAAABP#AAAAAAAAD#####AAAAAQAIQ1ZlY3RldXIA#####wB#AH8AEAAAAQACAAAAPQAAADcAAAAAHgD#####AH8AfwAQAAABAAIAAAA9AAAAOgAAAAAO##########8="
-			
-				this.type_exercice = 'MG32';
-				this.MG32codeBase64 = codeBase64
-				this.MG32code_pour_modifier_la_figure = `
-				mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "y", "${y}");
-		        mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "x", "${x}");
-				mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "y1", "${y1}");
-				mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "x1", "${x1}");
-				mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "y2", "${y2}");
-		        mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "x2", "${x2}");
-				mtg32App.calculate("MG32svg${numero_de_l_exercice}");
-	        	mtg32App.display("MG32svg${numero_de_l_exercice}");
-				`
-			this.liste_questions.push(texte);
-			this.liste_corrections.push(texte_corr);
-			liste_de_question_to_contenu_sans_numero(this)
-
-		}
-		else {
-				texte = '\\begin{minipage}{.7 \\linewidth} 	\\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
-				texte += '\n\t\\item Le côté ' + `$[${s0 + s1}]$` + ' est perpendiculaire au côté ' + `$[${s0 + s2}]~;$`
-				texte += '\\end{itemize} \\bigskip\n\t  Calculer ' + `$${s1 + s2}$` + ' à 0,1 près. \\end{minipage}'
-				texte += '\\begin{minipage}{0.3 \\linewidth}'
-				// dessin de la figure
-				texte += '\n \\begin{tikzpicture}[scale=0.7]' // Balise début de figure
-				texte += '\n\t \\tkzDefPoints{0/0/' + s0 + ',' + x1 + '/0/B,0/' + y2 + '/C}' // créer les points du triangle initial 
-				// Définit les points M et N par homothétie de centre C et de rapport 0,3<k<0,8
-				texte += '\\end{minipage}'
-			}
-			this.liste_questions.push(texte) // on envoie la question
-			// correction 
-
-			this.liste_corrections.push(texte_corr)
-
-			liste_de_question_to_contenu_sans_numero(this);
-
-
-	}
-	this.besoin_formulaire_numerique = ['Transformation',13, '1 : Symétrie selon la première bissectrice\n 2 : Symétrie selon la deuxième bissectrice\n 3 : symétrie selon (OI)\n 4 : Symétrie selon (OJ)\n 5 : Quart de tour direct\n 6 : Quart de tour indirect\n 7 : Symétrie centrale\n 8 : Rotation de 60° direct\n 9 : Rotation de 60° indirect\n 10 : Rotation 120° direct\n 11 : Rotation 120° indirect\n 12 : Translation O->O\'\n 13 : Homothétie de coefficient 2'];
-
-}
 
 // Exercices paramétrés pour correspondre au référentiel
 /**
