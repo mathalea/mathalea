@@ -761,7 +761,7 @@ function Distributivite_simple_double_reduction() {
 					texte = `$${lettre_depuis_chiffre(i+1)}=${e}-${printlatex(`(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
 					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${e}-${printlatex(`(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
 					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${e}-(${printlatex(`(${a*c})*x^2+(${a*d})*x+(${b*c})*x+(${b*d})`)})$`;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${e}+${printlatex(`(${-1*a*c})*x^2+(${-1*a*d})*x+(${-1*b*c})*x+(${-1*b*d})`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${e}+(${-1*a*c})*x^2+(${-1*a*d})*x+(${-1*b*c})*x+(${-1*b*d})`)}$`;
 					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${-1*a*c}*x^2+(${-1*b*c-a*d})*x+(${e-b*d})`)}$`;
 					break;
 				case '(ax*b)(cx+d)':
