@@ -730,7 +730,7 @@ function Distributivite_simple_double_reduction() {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = ['cx+e(ax+b)','ex+(ax+b)(cx+d)']//,'e+(ax+b)(cx+d)','e-(ax+b)(cx+d)','(ax*b)(cx+d)'];
+		let type_de_questions_disponibles = ['cx+e(ax+b)','ex+(ax+b)(cx+d)','e+(ax+b)(cx+d)','e-(ax+b)(cx+d)','(ax*b)(cx+d)'];
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		for (let i = 0, texte, texte_corr, a, b, c, d, e, cpt = 0; i < this.nb_questions && cpt < 50;) {
 			a = randint(-11,11,0);
@@ -746,10 +746,31 @@ function Distributivite_simple_double_reduction() {
 					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${c+e*a}*x+(${e*b})`)}$`;
 					break;
 				case 'ex+(ax+b)(cx+d)':
-					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${e}*x+(${b})+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${e}*x+(${b})+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${e}*x+(${b})+(${a*c})*x^2+(${a*d})*x+(${b*c})*x+(${b*d})`)}$`;
+					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${e}*x+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${e}*x+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${e}*x+(${a*c})*x^2+(${a*d})*x+(${b*c})*x+(${b*d})`)}$`;
 					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${a*c}*x^2+(${e+b*c+a*d})*x+(${b*d})`)}$`;
+					break;
+				case 'e+(ax+b)(cx+d)':
+					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${e}+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${e}+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${e}+(${a*c})*x^2+(${a*d})*x+(${b*c})*x+(${b*d})`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${a*c}*x^2+(${b*c+a*d})*x+(${e+b*d})`)}$`;
+					break;
+				case 'e-(ax+b)(cx+d)':
+					texte = `$${lettre_depuis_chiffre(i+1)}=${e}-${printlatex(`(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${e}-${printlatex(`(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${e}-(${printlatex(`(${a*c})*x^2+(${a*d})*x+(${b*c})*x+(${b*d})`)})$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${e}+${printlatex(`(${-1*a*c})*x^2+(${-1*a*d})*x+(${-1*b*c})*x+(${-1*b*d})`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${-1*a*c}*x^2+(${-1*b*c-a*d})*x+(${e-b*d})`)}$`;
+					break;
+				case '(ax*b)(cx+d)':
+					a = randint (-3,3,[0]);
+					b = randint (2,3);
+					texte = `$${lettre_depuis_chiffre(i+1)}=(${printlatex(`${a}*x`)}\\times${b})(${printlatex(`${c}*x+(${d})`)})$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=(${printlatex(`${a}*x`)}\\times${b})(${printlatex(`${c}*x+(${d})`)})$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${a*b}*x`)}\\times(${printlatex(`${c}*x+(${d})`)})$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${a*b*c}*x^2+(${a*b*d})*x`)}$`;
 					break;
 				
 				
