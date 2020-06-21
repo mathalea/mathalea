@@ -730,7 +730,7 @@ function Distributivite_simple_double_reduction() {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = ['cx+e(ax+b)','ex+(ax+b)(cx+d)','e+(ax+b)(cx+d)','e-(ax+b)(cx+d)','(ax*b)(cx+d)'];
+		let type_de_questions_disponibles = ['cx+e(ax+b)','ex+(ax+b)(cx+d)','e+(ax+b)(cx+d)','e-(ax+b)(cx+d)','(ax*b)(cx+d)','e(ax+b)-(d+cx)'];
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		for (let i = 0, texte, texte_corr, a, b, c, d, e, cpt = 0; i < this.nb_questions && cpt < 50;) {
 			a = randint(-11,11,0);
@@ -771,6 +771,13 @@ function Distributivite_simple_double_reduction() {
 					texte_corr = `$${lettre_depuis_chiffre(i+1)}=(${printlatex(`${a}*x`)}\\times${b})(${printlatex(`${c}*x+(${d})`)})$`;
 					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${a*b}*x`)}\\times(${printlatex(`${c}*x+(${d})`)})$`;
 					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${a*b*c}*x^2+(${a*b*d})*x`)}$`;
+					break;
+				case 'e(ax+b)-(d+cx)':
+					texte = `$${lettre_depuis_chiffre(i+1)}=${e}(${printlatex(`${a}*x+(${b})`)})-(${printlatex(`${d}+(${c})*x`)})$`;
+					texte_corr = texte;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`(${e*a})*x+(${e*b})`)}-(${printlatex(`${d}+(${c})*x`)})$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`(${e*a})*x+(${e*b})+(${-d})+(${-c})*x`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`(${e*a-c})*x+(${e*b-d})`)}$`;
 					break;
 				
 				
