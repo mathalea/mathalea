@@ -6198,7 +6198,7 @@ function Lecture_expression_fonctions_lineaires(){
 
 function Resoudre_une_equation_produit_nul_niv2(){
 	Resoudre_une_equation_produit_nul.call(this);
-	this.titre = "Résoudre une équation produit nul niveau2";
+	this.titre = "Résoudre une équation produit nul (niveau 2)";
 	this.sup=2;
 }
 

@@ -1289,7 +1289,7 @@ function Developper_Identites_remarquables3() {
 	this.spacing = 1;
 	this.spacing_corr = 1;
 	this.nb_questions = 5;
-	this.sup = 1;
+	this.sup = 2;
 
 
 	this.nouvelle_version = function (numero_de_l_exercice) {
@@ -1345,7 +1345,7 @@ function Factoriser_Identites_remarquables3() {
 	this.spacing = 1;
 	this.spacing_corr = 1;
 	this.nb_questions = 5;
-	this.sup = 1;
+	this.sup = 2;
 
 	this.nouvelle_version = function (numero_de_l_exercice) {
 		this.liste_questions = []; // Liste de questions

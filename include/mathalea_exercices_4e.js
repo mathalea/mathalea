@@ -952,7 +952,7 @@ function Exercice_developper(difficulte=1){
 		this.liste_corrections = []; // Liste de questions corrigées
 		
 		let lettre = ['x','y','z','t','a','b','c'];
-		let type_de_questions_disponibles = ['simple','simple','simple','simple2','x_en_facteur','developper_et_reduire']
+		let type_de_questions_disponibles = ['simple','simple','simple2','x_en_facteur','developper_et_reduire']
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
 			type_de_questions = liste_type_de_questions[i];
