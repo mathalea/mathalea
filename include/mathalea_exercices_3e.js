@@ -1498,9 +1498,7 @@ function Exercice_equation1_2(){
 	if (!sortie_html) {
 		this.correction_detaillee = false;
 	}
-	this.sup = true; // Avec des nombres relatifs
-	this.sup2 = 4; // Choix du type d'équation 
-	this.nb_questions = 6;
+	this.nb_questions = 3;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
@@ -1508,28 +1506,16 @@ function Exercice_equation1_2(){
 		let liste_type_de_questions = ['ax+b=cx+d','k(ax+b)=cx+d','k-(ax+b)=cx+d'];
 		liste_type_de_questions = combinaison_listes(liste_type_de_questions,this.nb_questions)
 		for (let i = 0, a, b, c, d, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
-			a = randint(1,9);
-			b = randint(1,9);
-			c = randint(1,9);
-			d = randint(1,9);
+			a = randint(-9,9,0);
+			b = randint(-9,9,0);
+			c = randint(-9,9,0);
+			d = randint(-9,9,0);
 			k = randint(2,9)
-			if (this.sup) {
-				a *= choice([-1,1]);
-				b *= choice([-1,1]);
-				c *= choice([-1,1]);
-				d *= choice([-1,1]);
-				k *= choice([-1,1]);
-
-			}
 			if (liste_type_de_questions[i]=='ax+b=cx+d') {
 				if (c==a) {c = randint(1,9,[a])} // sinon on arrive à une division par 0
 				if (!this.sup && a<c) {
 					c = randint(1,9)
 					a = randint(c+1,15) // a sera plus grand que c pour que a-c>0
-				}
-				if (!this.sup && d<b) {
-					b = randint(1,9)
-					d = randint(b+1,15) // d sera plus grand que b pour que d-b>0
 				}
 				texte = `$${rien_si_1(a)}x${ecriture_algebrique(b)}=${rien_si_1(c)}x${ecriture_algebrique(d)}$`;
 				texte_corr = texte+'<br>';
@@ -1563,14 +1549,6 @@ function Exercice_equation1_2(){
 
 			if (liste_type_de_questions[i]=='k(ax+b)=cx+d') {
 				if (c==k*a) {c = randint(1,9,[a])} // sinon on arrive à une division par 0
-				if (!this.sup && k*a<c) {
-					c = randint(1,9)
-					a = randint(Math.floor(c/k),11) // ka sera plus grand que c pour que ka-c>0
-				}
-				if (!this.sup && d<k*b) {
-					b = randint(1,9)
-					d = randint(Math.floor(k*b),Math.floor(k*b)+10) // kd sera plus grand que b pour que kd-b>0
-				}
 				texte = `$${k}(${rien_si_1(a)}x${ecriture_algebrique(b)})=${rien_si_1(c)}x${ecriture_algebrique(d)}$`;
 				texte_corr = texte+'<br>';
 				if (this.correction_detaillee) {
@@ -1656,8 +1634,6 @@ function Exercice_equation1_2(){
 		}
 		liste_de_question_to_contenu(this);
 	}
-	 this.besoin_formulaire_case_a_cocher  = ['Avec des nombres relatifs'];	
-	 this.besoin_formulaire2_numerique = ["Type d'équations",4,"1 : ax=b ou x+a=b ou x-a=b\n2: ax+b=c\n3: ax+b=cx+d\n4: Les 2 types précédents"] 	
 }
 
 
