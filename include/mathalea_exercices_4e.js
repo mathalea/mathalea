@@ -1058,8 +1058,12 @@ function Exercice_equation1(){
 	this.spacing = 2;
 	sortie_html ? this.spacing_corr = 3 : this.spacing_corr = 2;
 	this.correction_detaillee_disponible = true;
+	if (!sortie_html) {
+		this.correction_detaillee = false;
+	}
 	this.sup = true; // Avec des nombres relatifs
 	this.sup2 = 4; // Choix du type d'équation 
+	this.nb_questions = 6;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
@@ -1165,7 +1169,7 @@ function Exercice_equation1(){
 						texte_corr += `On ajoute $${rien_si_1(-1*c)}x$ aux deux membres.<br>`
 					}
 				}
-				texte_corr += `$${rien_si_1(a)}x${ecriture_algebrique(b)}${mise_en_evidence(signe(-1*c)+rien_si_1(abs(c))+'x')}=${c}x+${d}${mise_en_evidence(signe(-1*c)+rien_si_1(abs(c))+'x')}$<br>`;
+				texte_corr += `$${rien_si_1(a)}x${ecriture_algebrique(b)}${mise_en_evidence(signe(-1*c)+rien_si_1(abs(c))+'x')}=${c}x${ecriture_algebrique(d)}${mise_en_evidence(signe(-1*c)+rien_si_1(abs(c))+'x')}$<br>`;
 				texte_corr += `$${rien_si_1(a-c)}x${ecriture_algebrique(b)}=${d}$<br>`
 				if (this.correction_detaillee) {
 					if (b>0) {
@@ -1174,7 +1178,7 @@ function Exercice_equation1(){
 						texte_corr += `On ajoute $${-1*b}$ aux deux membres.<br>`
 					}
 				}
-				texte_corr += `$${rien_si_1(a-c)}x${mise_en_evidence(ecriture_algebrique(-1*b))}=${d}${mise_en_evidence(ecriture_algebrique(-1*b))}$<br>`
+				texte_corr += `$${rien_si_1(a-c)}x${ecriture_algebrique(b)}${mise_en_evidence(ecriture_algebrique(-1*b))}=${d}${mise_en_evidence(ecriture_algebrique(-1*b))}$<br>`
 				texte_corr += `$${rien_si_1(a-c)}x=${d-b}$<br>`
 
 				if (this.correction_detaillee) {texte_corr += `On divise les deux membres par $${a-c}$.<br>`}

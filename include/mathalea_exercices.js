@@ -145,6 +145,8 @@ var liste_des_exercices_disponibles = {
 		'3L11-4': Factoriser_par_nombre_ou_x,
 		'3L12-1' : Developper_Identites_remarquables3,
 		'3L12' : Factoriser_Identites_remarquables3,
+		'3L13' : Exercice_equation1, //identique à 4L20
+		'3L13-1' : Exercice_equation1_2,
 		'3L14' : Resoudre_une_equation_produit_nul,
 		'3L14-1' : Resoudre_une_equation_produit_nul_niv2,
 		'3L15' : Resoudre_une_equation_x2_egal_A,
