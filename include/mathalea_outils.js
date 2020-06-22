@@ -1594,9 +1594,9 @@ function MG32_ajouter_figure(numero_de_l_exercice) {
   		idSvg: `MG32svg${numero_de_l_exercice}`
   	},
   	mtgOptions: {
-  		fig: exercice[numero_de_l_exercice].MG32codeBase64,
-  		isEditable: exercice[numero_de_l_exercice].MG32editable
-  	}
+		  fig: exercice[numero_de_l_exercice].MG32codeBase64,
+		  isEditable: exercice[numero_de_l_exercice].MG32editable
+	  }
   }
   )	
 }
