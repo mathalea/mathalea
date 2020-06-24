@@ -15,6 +15,8 @@ var message_d_erreur = "";
 var liste_packages = new Set;
 
 
+
+
 /**
 * tableau_url_tex est un tableau de tableaux
 * 
@@ -77,7 +79,7 @@ function textarea_to_array(textarea_id_textarea) {
 	tableau.forEach(function(ligne,i){
 		tableau[i]=ligne.split(";");
 		// Regarde s'il y a besoin de modifier le préambule
-		if (tableau[i].includes('6N21')) {besoin_des_axes_gradues=true}
+		//if (tableau[i].includes('6N21')) {besoin_des_axes_gradues=true} inutile avec liste_package
 	});
 	return tableau
 }
@@ -103,6 +105,39 @@ function id_to_url(id){
 
 
 /**
+* Transforme le texte saisi par l'utilisateur en un dictionnaire avec l'id des exercices et les éventuels paramètres (sup, sup2, nb_questions)
+*
+*
+* txt_to_objet_parametres_exercice('6C10,sup=false,nb_questions=5')
+* {id: "6C10", sup: false, nb_questions: 5}
+* @Auteur Rémi Angot
+*/
+function txt_to_objet_parametres_exercice(txt) { //
+    'use strict';
+    let tableau_objets_exercices = new Array
+    	let CleValeur = txt.split(",");
+    	let ObjetParametres = {}
+	    ObjetParametres["id"] = CleValeur[0] // Récupère le premier élément qui est forcément l'id
+	    CleValeur.shift() // Retire ce premier élément
+	    if (CleValeur.length>0){
+	    	for (let i in CleValeur){
+	    		CleValeur[i]=CleValeur[i].split("=")
+		    	// change le type de ce qui ne doit pas être un string
+		    	if (CleValeur[i][1]=="true" || CleValeur[i][1]=="false") {//"true"=>true
+		    		ObjetParametres[CleValeur[i][0]]=(CleValeur[i][1]=="true")
+		    	} else if (!isNaN(CleValeur[i][1])){ //"17"=>17
+		    	ObjetParametres[CleValeur[i][0]]=parseInt(CleValeur[i][1])
+		    	} else {
+		    	ObjetParametres[CleValeur[i][0]]=CleValeur[i][1]	
+		    	}
+			}
+		}
+
+return ObjetParametres;
+}
+
+
+/**
 * Met à jour le code LaTeX à partir de l'identifiant d'un exercice.
 *
 * On regarde d'abord si un exercice aléatoire a le même identifiant.
@@ -111,12 +146,23 @@ function id_to_url(id){
 *
 * @Auteur Rémi Angot
 */
-function item_to_contenu(e){
+function item_to_contenu(txt){
 	// De préférence un exercice aléatoire
+	let dictionnaire = txt_to_objet_parametres_exercice(txt);
+	let e = dictionnaire['id'];
 	let idExerciceMathALEA = e.replace('MATHS','').replace(/\./g,'').replace(/ /g,'')
 	// Pour faire la correspondance entre SACoche et MathALEA, on supprime 'MATHS' et tous les points dans les noms des id
 	if (idExerciceMathALEA in liste_des_exercices_disponibles) {
 			exercice_aleatoire = new liste_des_exercices_disponibles[idExerciceMathALEA];
+			if (dictionnaire['sup']) {
+				exercice_aleatoire.sup = dictionnaire['sup']
+			}
+			if (dictionnaire['sup2']) {
+				exercice_aleatoire.sup2 = dictionnaire['sup2']
+			}
+			if (dictionnaire['nb_questions']) {
+				exercice_aleatoire.nb_questions = dictionnaire['nb_questions']
+			}
 			exercice_aleatoire.nouvelle_version()
 			code_LaTeX += `\n\n%%% ${e} : Exercice aléatoire - ${exercice_aleatoire.titre}%%%\n\n`
 			code_LaTeX += exercice_aleatoire.contenu + '\n\n'
@@ -130,6 +176,9 @@ function item_to_contenu(e){
 
 	// Sinon un exercice statique si le nom de l'item est inclus dans le nom du répertoire
 	} else { if (id_to_url(idExerciceMathALEA)!="pas_d_url") {
+			// Ajout de packages pour les exercices statiques
+			liste_packages.add('xlop')
+			liste_packages.add('tkz-euclide')
 			$.get("../"+id_to_url(idExerciceMathALEA)[0], function( txt ) {
 					code_LaTeX += `\n\n%%% ${e} : Exercice statique - ${id_to_url(idExerciceMathALEA)[0]}%%%\n\n`
 					code_LaTeX += txt + '\n\n'

@@ -709,15 +709,14 @@ let url = new URL(window.location.href);
 		    		ObjetParametres[CleValeur[i][0]]=(CleValeur[i][1]=="true")
 		    	} else if (!isNaN(CleValeur[i][1])){ //"17"=>17
 		    	ObjetParametres[CleValeur[i][0]]=parseInt(CleValeur[i][1])
-		    } else {
+		    	} else {
 		    	ObjetParametres[CleValeur[i][0]]=CleValeur[i][1]	
-		    }
+		    	}
+			}
 		}
-	}
 	tableau_objets_exercices.push(ObjetParametres)
-}
+	}
 return tableau_objets_exercices;
-
 }
 
 function nouvelles_donnees() {
