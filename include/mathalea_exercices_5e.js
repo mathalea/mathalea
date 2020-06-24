@@ -2486,7 +2486,7 @@ function Reduire_une_expression_litterale(){
 						a++
 					}
 					texte = `$${lettre_depuis_chiffre(i+1)}=${tex_nombre(a)}x-${tex_nombre(c)}x$`
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${tex_nombre(a)}x-${tex_nombre(c)}x=${tex_nombrec(a-c)}x$`
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${tex_nombre(a)}x-${tex_nombre(c)}x=${rien_si_1(tex_nombrec(a-c))}x$`
 					break;
 
 				
