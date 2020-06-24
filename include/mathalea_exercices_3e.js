@@ -5411,7 +5411,7 @@ function Transformations_du_plan_et_coordonnees() {
 	this.liste_packages = 'tkz-euclide';
 	this.nouvelle_version = function (numero_de_l_exercice) {
 	this.type_exercice = 'MG32';
-	this.MG32editable=true;
+	this.MG32editable=false;
 	this.taille_div_MG32 = [700, 700];
 	this.liste_questions = [];
 		this.liste_corrections = []; // Liste de questions corrigées
@@ -5422,7 +5422,6 @@ function Transformations_du_plan_et_coordonnees() {
 		let transformation=parseInt(this.sup)-1
 		let liste_type_de_questions=[[1,2,3,4],[7],[5,6,7],[12],[13]]
 		let choix_transformation=combinaison_listes(liste_type_de_questions[transformation],3)
-		console.log(choix_transformation)
 		xA=randint(-5,5) // Point A
 		yA=randint(-5,5)
 		xB=randint(-5,5,[xA]) // Point B
@@ -5432,14 +5431,14 @@ function Transformations_du_plan_et_coordonnees() {
 		xO=randint(-3,3,[0])  // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
 		yO=randint(-3,3,[0])
 		for (let j=0;j<3;j++) k[j]=(randint(1,2)+1)*randint(-1,1,[0]) // rapport d'homothétie
-		point[0]=image_point_par_transformation(choix_transformation[0],[xA,yA],[xO,yO],k[0])
-		point[1]=image_point_par_transformation(choix_transformation[1],[xB,yB],[xA,yA],k[1])
-		point[2]=image_point_par_transformation(choix_transformation[2],[xC,yC],[xB,yB],k[2])
+		point[0]=image_point_par_transformation(choix_transformation[0],[xA,yA],[xO,yO],[xO,yO],k[0])
+		point[1]=image_point_par_transformation(choix_transformation[1],[xB,yB],[xA,yA],[xA,yA],k[1])
+		point[2]=image_point_par_transformation(choix_transformation[2],[xC,yC],[xB,yB],[xB,yB],k[2])
 		for (let i=0;i<3;i++) {
 			switch (choix_transformation[i]){
 				case 1 :
 					bis1=1
-					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d_1)$<br>.`
+					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d_1)$.<br>`
 					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d_1)$ a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
 				break
 
@@ -5504,9 +5503,10 @@ function Transformations_du_plan_et_coordonnees() {
 				break
 			
 				case 12 :
-					AfficheOO=1
-					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la translation de vecteur $\\overrightarrow{O${lettre2[i]}}$.<br>`
-					texte_corr += `L'image de $${lettre1[i]}$ par la translation de vecteur $\\overrightarrow{O${lettre2[i]}}$ a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+					AfficheO=1
+					// AfficheOO=1
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la translation qui transforme O en ${lettre2[i]}.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la translation qui transforme O en ${lettre2[i]} a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
 				break
 			
 				case 13 :

@@ -523,7 +523,7 @@ function produit_matrice_matrice_3x3(matrice1,matrice2) { // les deux matrices s
  return resultat
 }
 
-function image_point_par_transformation (transformation,pointA,pointO,rapport){ //pointA et pointO sont des tableaux de deux coordonnées on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
+function image_point_par_transformation (transformation,pointA,pointO,vecteur,rapport){ //pointA et pointO sont des tableaux de deux coordonnées on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
 	/* transformation :
 1=symétrie / passant par O
 2=symétrie - passant par O
@@ -558,8 +558,8 @@ function image_point_par_transformation (transformation,pointA,pointO,rapport){ 
 	pointA.push(1)
 	x2=pointO[0]  // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
 	y2=pointO[1]
-	u=x2 // (u,v) vecteur de translation.
-	v=y2
+	u=vecteur[0] // (u,v) vecteur de translation.
+	v=vecteur[1]
 	k=rapport // rapport d'homothétie
 
 
