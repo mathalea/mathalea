@@ -5397,3 +5397,348 @@ function Agrandissement_reduction() {
 	this.besoin_formulaire2_numerique = ['Coefficient de réduction(problèmes de type1)', 3, '1 : Décimal\n 2 : Non décimal\n 3 : Décimal ou non'];
 
 }
+function Transformations_du_plan_et_coordonnees() {
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Trouver l'image d'un point par une transformation du plan";
+	this.consigne = "";
+	this.nb_questions = 1;
+	this.nb_questions_modifiable = false;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.sup = 1; // 1 calcul de l'hypoténuse 2 calcul d'un côté de l'angle droit 
+	sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+	this.liste_packages = 'tkz-euclide';
+	this.nouvelle_version = function (numero_de_l_exercice) {
+	this.type_exercice = 'MG32';
+	this.MG32editable=true;
+	this.taille_div_MG32 = [700, 700];
+	this.liste_questions = [];
+		this.liste_corrections = []; // Liste de questions corrigées
+		let xA,yA,xB,yB,xC,yC,k=[],xO,yO
+		let bis1=0,bis2=0,xx=0,yy=0,AfficheO=0,AfficheOO=0
+		let texte=``,texte_corr=``,lettre1=[`A`,`B`,`C`],lettre2=[`O\'`,`A`,`B`]
+		let point=[[]]
+		let transformation=parseInt(this.sup)-1
+		let liste_type_de_questions=[[1,2,3,4],[7],[5,6,7],[12],[13]]
+		let choix_transformation=combinaison_listes(liste_type_de_questions[transformation],3)
+		console.log(choix_transformation)
+		xA=randint(-5,5) // Point A
+		yA=randint(-5,5)
+		xB=randint(-5,5,[xA]) // Point B
+		yB=randint(-5,5)
+		xC=randint(-5,5) // Point C
+		yC=randint(-5,5,[yA,yB])
+		xO=randint(-3,3,[0])  // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
+		yO=randint(-3,3,[0])
+		for (let j=0;j<3;j++) k[j]=(randint(1,2)+1)*randint(-1,1,[0]) // rapport d'homothétie
+		point[0]=image_point_par_transformation(choix_transformation[0],[xA,yA],[xO,yO],k[0])
+		point[1]=image_point_par_transformation(choix_transformation[1],[xB,yB],[xA,yA],k[1])
+		point[2]=image_point_par_transformation(choix_transformation[2],[xC,yC],[xB,yB],k[2])
+		for (let i=0;i<3;i++) {
+			switch (choix_transformation[i]){
+				case 1 :
+					bis1=1
+					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d_1)$<br>.`
+					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d_1)$ a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+				break
+
+				case 2 :
+					bis2=1
+					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d_2)$.<br>`
+					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d_2)$ a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+				break
+
+				case 3 :
+					xx=1
+					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d)$.<br>`
+					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d)$ a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+				break
+
+				case 4 :
+					yy=1
+					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d\')$.<br>`
+					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d\')$ a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+				break
+		
+				case 5 :
+					AfficheO=1
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens anti-horaire.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens anti-horaire a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+				break
+
+				case 6 :
+					AfficheO=1
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens horaire.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens horaire a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+				break
+			
+				case 7 :
+					AfficheO=1
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la symétrie de centre $${lettre2[i]}$.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la symétrie de centre $${lettre2[i]}$ a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+				break
+		
+				case 8 :
+					AfficheO=1
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+				break
+
+				case 9 :
+					AfficheO=1
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+				break
+		
+				case 10 :
+					AfficheO=1
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+				break
+
+				case 11 :
+					AfficheO=1
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 1200° dans le sens horaire.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens horaire a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+				break
+			
+				case 12 :
+					AfficheOO=1
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la translation de vecteur $\\overrightarrow{O${lettre2[i]}}$.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la translation de vecteur $\\overrightarrow{O${lettre2[i]}}$ a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+				break
+			
+				case 13 :
+					AfficheO=1
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport ${k[i]}.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport ${k[i]} a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+				break
+			}
+		}
+		if (sortie_html) {
+			let codeBase64
+			codeBase64 = "TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAAJmcv###wEA#wAAAAAEAACAEwAAgBIAAIAaAACBDAAAAAAFHAAAAtIAAAEBAAAAAAAAAAEAAAB9#####wAAAAEACkNDYWxjQ29uc3QA#####wACcGkAFjMuMTQxNTkyNjUzNTg5NzkzMjM4NDb#####AAAAAQAKQ0NvbnN0YW50ZUAJIftURC0Y#####wAAAAEACkNQb2ludEJhc2UA#####wAAAAAADgABTwDAKAAAAAAAAAAAAAAAAAAABQABQHXYAAAAAABAdjhR64UeuP####8AAAABABRDRHJvaXRlRGlyZWN0aW9uRml4ZQD#####AQAAAAAQAAABAAEAAAABAT#wAAAAAAAA#####wAAAAEAD0NQb2ludExpZURyb2l0ZQD#####AAAAAAEOAAFJAMAYAAAAAAAAAAAAAAAAAAAFAAFAOQAAAAAAAAAAAAL#####AAAAAQAJQ0Ryb2l0ZUFCAP####8AAAAAABAAAAEAAQAAAAEAAAAD#####wAAAAEAFkNEcm9pdGVQZXJwZW5kaWN1bGFpcmUA#####wAAAAAAEAAAAQABAAAAAQAAAAT#####AAAAAQAJQ0NlcmNsZU9BAP####8BAAAAAAEAAAABAAAAA#####8AAAABABBDSW50RHJvaXRlQ2VyY2xlAP####8AAAAFAAAABv####8AAAABABBDUG9pbnRMaWVCaXBvaW50AP####8BAAAAABAAAAEFAAEAAAAHAAAACQD#####AAAAAAEOAAFKAMAoAAAAAAAAwBAAAAAAAAAFAAIAAAAH#####wAAAAIAB0NSZXBlcmUA#####wDm5uYAAQAAAAEAAAADAAAACQEBAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAE#8AAAAAAAAAAAAAE#8AAAAAAAAP####8AAAABAApDVW5pdGV4UmVwAP####8ABHVuaXQAAAAK#####wAAAAEAC0NIb21vdGhldGllAP####8AAAAB#####wAAAAEACkNPcGVyYXRpb24DAAAAAT#wAAAAAAAA#####wAAAAEAD0NSZXN1bHRhdFZhbGV1cgAAAAv#####AAAAAQALQ1BvaW50SW1hZ2UA#####wEAAAAAEAACVyIBAQAAAAADAAAADP####8AAAABAAlDTG9uZ3VldXIA#####wAAAAEAAAAN#####wAAAAEAB0NDYWxjdWwA#####wAHbmJncmFkeAACMjAAAAABQDQAAAAAAAAAAAARAP####8AB25iZ3JhZHkAAjIwAAAAAUA0AAAAAAAA#####wAAAAEAFENJbXBsZW1lbnRhdGlvblByb3RvAP####8AFEdyYWR1YXRpb25BeGVzUmVwZXJlAAAAGwAAAAgAAAADAAAACgAAAA8AAAAQ#####wAAAAEAE0NBYnNjaXNzZU9yaWdpbmVSZXAAAAAAEQAFYWJzb3IAAAAK#####wAAAAEAE0NPcmRvbm5lZU9yaWdpbmVSZXAAAAAAEQAFb3Jkb3IAAAAKAAAACwAAAAARAAZ1bml0ZXgAAAAK#####wAAAAEACkNVbml0ZXlSZXAAAAAAEQAGdW5pdGV5AAAACv####8AAAABABBDUG9pbnREYW5zUmVwZXJlAAAAABEAAAAAABAAAAEFAAAAAAoAAAAOAAAAEgAAAA4AAAATAAAAFgAAAAARAAAAAAAQAAABBQAAAAAKAAAADQAAAAAOAAAAEgAAAA4AAAAUAAAADgAAABMAAAAWAAAAABEAAAAAABAAAAEFAAAAAAoAAAAOAAAAEgAAAA0AAAAADgAAABMAAAAOAAAAFQAAAAwAAAAAEQAAABYAAAAOAAAADwAAAA8AAAAAEQAAAAAAEAAAAQUAAAAAFwAAABkAAAAMAAAAABEAAAAWAAAADgAAABAAAAAPAAAAABEAAAAAABAAAAEFAAAAABgAAAAb#####wAAAAEACENTZWdtZW50AAAAABEBAAAAABAAAAEAAQAAABcAAAAaAAAAFwAAAAARAQAAAAAQAAABAAEAAAAYAAAAHAAAAAQAAAAAEQEAAAAACwABVwDAFAAAAAAAAMA0AAAAAAAABQABP9xWeJq83w4AAAAd#####wAAAAIACENNZXN1cmVYAAAAABEABnhDb29yZAAAAAoAAAAfAAAAEQAAAAARAAVhYnN3MQAGeENvb3JkAAAADgAAACD#####AAAAAgASQ0xpZXVPYmpldFBhclB0TGllAQAAABEAZmZmAAAAHwAAAA4AAAAPAAAAHwAAAAIAAAAfAAAAHwAAABEAAAAAEQAFYWJzdzIADTIqYWJzb3ItYWJzdzEAAAANAQAAAA0CAAAAAUAAAAAAAAAAAAAADgAAABIAAAAOAAAAIQAAABYAAAAAEQEAAAAAEAAAAQUAAAAACgAAAA4AAAAjAAAADgAAABMAAAAZAQAAABEAZmZmAAAAJAAAAA4AAAAPAAAAHwAAAAUAAAAfAAAAIAAAACEAAAAjAAAAJAAAAAQAAAAAEQEAAAAACwABUgBAIAAAAAAAAMAgAAAAAAAABQABP9EbToG06B8AAAAe#####wAAAAIACENNZXN1cmVZAAAAABEABnlDb29yZAAAAAoAAAAmAAAAEQAAAAARAAVvcmRyMQAGeUNvb3JkAAAADgAAACcAAAAZAQAAABEAZmZmAAAAJgAAAA4AAAAQAAAAJgAAAAIAAAAmAAAAJgAAABEAAAAAEQAFb3JkcjIADTIqb3Jkb3Itb3JkcjEAAAANAQAAAA0CAAAAAUAAAAAAAAAAAAAADgAAABMAAAAOAAAAKAAAABYAAAAAEQEAAAAAEAAAAQUAAAAACgAAAA4AAAASAAAADgAAACoAAAAZAQAAABEAZmZmAAAAKwAAAA4AAAAQAAAAJgAAAAUAAAAmAAAAJwAAACgAAAAqAAAAK#####8AAAACAAxDQ29tbWVudGFpcmUAAAAAEQFmZmYAAAAAAAAAAABAGAAAAAAAAAAAAB8LAAH###8AAAABAAAAAAAAAAEAAAAAAAAAAAALI1ZhbChhYnN3MSkAAAAZAQAAABEAZmZmAAAALQAAAA4AAAAPAAAAHwAAAAQAAAAfAAAAIAAAACEAAAAtAAAAGwAAAAARAWZmZgAAAAAAAAAAAEAYAAAAAAAAAAAAJAsAAf###wAAAAEAAAAAAAAAAQAAAAAAAAAAAAsjVmFsKGFic3cyKQAAABkBAAAAEQBmZmYAAAAvAAAADgAAAA8AAAAfAAAABgAAAB8AAAAgAAAAIQAAACMAAAAkAAAALwAAABsAAAAAEQFmZmYAwCAAAAAAAAA#8AAAAAAAAAAAACYLAAH###8AAAACAAAAAQAAAAEAAAAAAAAAAAALI1ZhbChvcmRyMSkAAAAZAQAAABEAZmZmAAAAMQAAAA4AAAAQAAAAJgAAAAQAAAAmAAAAJwAAACgAAAAxAAAAGwAAAAARAWZmZgDAHAAAAAAAAAAAAAAAAAAAAAAAKwsAAf###wAAAAIAAAABAAAAAQAAAAAAAAAAAAsjVmFsKG9yZHIyKQAAABkBAAAAEQBmZmYAAAAzAAAADgAAABAAAAAmAAAABgAAACYAAAAnAAAAKAAAACoAAAArAAAAMwAAABEA#####wABeAABMwAAAAFACAAAAAAAAAAAABEA#####wABeQABMgAAAAFAAAAAAAAAAAAAABYA#####wAAAAAAEAABQQAAAAAAAAAAAEAIAAAAAAAACQAAAAAKAAAADgAAADUAAAAOAAAANgAAABEA#####wACeDEAAi0z#####wAAAAEADENNb2luc1VuYWlyZQAAAAFACAAAAAAAAAAAABEA#####wACeTEAATIAAAABQAAAAAAAAAAAAAARAP####8AAngyAAEyAAAAAUAAAAAAAAAAAAAAEQD#####AAJ5MgABMQAAAAE#8AAAAAAAAAAAABYA#####wEAAAAAEAACTyIAwDEAAAAAAADAQQAAAAAAAAYAAAAACgAAAA4AAAA6AAAADgAAADv#####AAAAAQAJQ0Ryb2l0ZU9tAP####8BAAAAABAAAAEAAQAAAAoAAAA8AAAAAT#wAAAAAAAAAAAABAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAUAIKPXCj1wmAAAAPQAAABEA#####wAEYmlzMQABMQAAAAE#8AAAAAAAAAAAAAwA#####wAAADwAAAAOAAAAPwAAAA8A#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAJAAAAAD4AAABAAAAABQD#####AAAAAAEQAAJkMQEAAT#szMzMzMzNAAAAPAAAAEEAAAADAP####8BAAAAARAAAAEAAQAAADwBP#AAAAAAAAAAAAAEAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABQFkAAAAAAAAAAABDAAAAEQD#####AAN4eCcAATEAAAABP#AAAAAAAAAAAAAMAP####8AAAA8AAAADgAAAEUAAAAPAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAABEAAAARgAAAAUA#####wAAAAABEAABZADAEvfO2RaIAD#wAAAAAAAAAAE#7ChslIjsKgAAADwAAABHAAAAAwD#####AQAAAAEQAAABAAEAAAA8AD#wAAAAAAAAAAAABAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAcBYv######+AAAASQAAABEA#####wADeXknAAExAAAAAT#wAAAAAAAAAAAADAD#####AAAAPAAAAA4AAABLAAAADwD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAASgAAAEwAAAAFAP####8AAAAAARAAAmQnAQABP+zMzMzMzM0AAAA8AAAATQAAAB0A#####wEAAAAAEAAAAQABAAAACgAAADwAAAAcAAAAAT#wAAAAAAAAAAAABAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAUARrhR64UeuAAAATwAAABEA#####wAEYmlzMgABMQAAAAE#8AAAAAAAAAAAAAwA#####wAAADwAAAAOAAAAUQAAAA8A#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAFAAAABSAAAABQD#####AAAAAAEQAAJkMgEAAT#szMzMzMzNAAAAPAAAAFMAAAARAP####8ACUFmZmljaGVPJwABMQAAAAE#8AAAAAAAAAAAAAwA#####wAAAAEAAAABP#AAAAAAAAAAAAAPAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAA8AAAAVgAAAAwA#####wAAAAEAAAANAwAAAAE#8AAAAAAAAAAAAA4AAABVAAAADwD#####AAAAAAAOAAJPJwAAAAAAAAAAAEAIAAAAAAAACQAAAAA8AAAAWP####8AAAABAAhDVmVjdGV1cgD#####Af8AAAAQAAABAAIAAAABAAAAVwAAAAARAP####8ACkFmZmljaGVPTycAATEAAAABP#AAAAAAAAD#####AAAAAQARQ1BvaW50UGFyTXVsdFZlY3QA#####wEAAAAADgACTzMAQDkAAAAAAABACAAAAAAAAAMAAAAAAQAAAFoAAAANAwAAAAE#8AAAAAAAAAAAAA4AAABbAAAAHgD#####AP8AAAAQAAABAAIAAAABAAAAXAAAAAAfAP####8B#wAAABAAAAEFAAAAAAEAAABdAAAAAT#gAAAAAAAAAAAABgD#####Af8AAAAQAAABAAIAAABeAAAAXf####8AAAACAAlDQ2VyY2xlT1IA#####wH#AAAAAgAAAF4AAAABP8mZmZmZmZoAAAAACAD#####AAAAXwAAAGAAAAAJAP####8B#wAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAAYQAAAAkA#####wH#AAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAIAAABh#####wAAAAIABkNMYXRleAD#####AP8AAADAMgAAAAAAAMAxAAAAAAAAAAAAYxAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAABNcb3ZlcnJpZ2h0YXJyb3cge3Z9#####wAAAAEAEUNQb2ludFBhckFic2Npc3NlAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAACQAAAAABAAAAAwAAAAFAJAAAAAAAAAAAAAcA#####wEAAAAAAQAAAAEAAABlAAAACAD#####AAAAVAAAAGYAAAAJAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAAZwAAAAkA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAIAAABnAAAACAD#####AAAATgAAAGYAAAAJAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAAagAAAAkA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAEAAABqAAAACAD#####AAAAQgAAAGYAAAAJAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAAbQAAAAkA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAEAAABtAAAACAD#####AAAASAAAAGYAAAAJAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAAcAAAAAkA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAEAAABwAAAAGwD#####AAAAAAEAAAByEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAyhkKQAAABsA#####wAAAAAAQAAAAAAAAADAGAAAAAAAAAAAAGwQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAEKGQnKQAAABsA#####wAAAAABAAAAbxAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAgoZCNMKDEpKQAAABsA#####wAAAAAAwDUAAAAAAABAFAAAAAAAAAAAAGkQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAIKGQjTCgyKSkAAAARAP####8AAnhCAAExAAAAAT#wAAAAAAAAAAAAEQD#####AAJ5QgABMQAAAAE#8AAAAAAAAAAAABEA#####wACeEMAATEAAAABP#AAAAAAAAAAAAARAP####8AAnlDAAExAAAAAT#wAAAAAAAAAAAAFgD#####AAAAAAAQAAFCAAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAOAAAAdwAAAA4AAAB4AAAAFgD#####AAAAAAAQAAFDAAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAOAAAAeQAAAA4AAAB6AAAADv##########"
+			
+			this.type_exercice = 'MG32';
+			/*
+			booléens permettant l'affichage des éléments si =1 et le masquage si =0
+		bis1 affiche la droite de coefficient directeur 1 passant par O'
+			bis2 affiche la droite de coefficient directeur -1 passant par O'
+			xx' affiche la droite horizontale passant par O'
+			yy' affiche la droite verticale passant par O'
+			AfficheO' affiche O' comme son nom l'indique.
+			AfficheOO' affiche le vecteur OO' vecteur de translation
+			
+			*/
+			this.MG32codeBase64 = codeBase64
+			this.MG32code_pour_modifier_la_figure = `
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "y", "${yA}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "x", "${xA}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "yB", "${yB}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "xB", "${xB}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "yC", "${yC}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "xC", "${xC}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "y2", "${yO}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "x2", "${xO}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "yy'", "${yy}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "xx'", "${xx}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "bis1", "${bis1}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "bis2", "${bis2}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "AfficheO\'", "${AfficheO}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "AfficheOO\'", "${AfficheOO}");
+			
+			mtg32App.calculate("MG32svg${numero_de_l_exercice}");
+			mtg32App.display("MG32svg${numero_de_l_exercice}");
+			`
+			this.liste_questions.push(texte);
+			this.liste_corrections.push(texte_corr);
+			liste_de_question_to_contenu_sans_numero(this)
+
+		}
+		else {
+			texte = ``
+			texte_cor=``
+			this.liste_questions.push(texte) // on envoie la question
+			this.liste_corrections.push(texte_corr)
+			liste_de_question_to_contenu_sans_numero(this);
+		}
+		
+
+
+	}
+	this.besoin_formulaire_numerique = ['Transformations',5, '1 : Symétries axiales\n 2 : Symétries centrales\n 3 : Rotations\n 4 : Translations\n 5 : Homothéties\n'];
+
+}
+	/*
+function Transformations_du_plan_avec_coordonnees() {
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Trouver l'image d'un point par une transformation du plan";
+	this.consigne = "";
+	this.nb_questions = 1;
+	this.nb_questions_modifiable = false;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.sup = 1; // 1 calcul de l'hypoténuse 2 calcul d'un côté de l'angle droit 
+	sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+	this.liste_packages = 'tkz-euclide';
+
+	this.nouvelle_version = function (numero_de_l_exercice) {
+
+
+			this.type_exercice = 'MG32';
+			this.taille_div_MG32 = [700, 700];
+			this.liste_questions = [];
+			this.liste_corrections = []; // Liste de questions corrigées
+			let x,y,x1,y1,k,x2,y2
+		let bis1=0,bis2=0,xx=0,yy=0,AfficheO=0,AfficheOO=0
+			let texte=``
+			let texte_corr=``
+			let pointA1=[]
+			let choix_transformation=parseInt(this.sup)
+
+			x=randint(-5,5) // Point A
+			y=randint(-5,5)
+			x2=randint(-3,3,[0])  // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
+			y2=randint(-3,3,[0])
+			k=2 // rapport d'homothétie
+			pointA1=image_point_par_transformation(choix_transformation,[x,y],[x2,y2],k)
+			x1=pointA1[0]
+			y1=pointA1[1]
+
+			switch (choix_transformation){
+				case 1 :
+					bis1=1
+					texte = `Donner les coordonnées du symétrique de A par rapport à la droite (d1).`
+					texte_corr = `Le symétrique de A par rapport à (d1) a pour coordonnées (${x1},${y1})`
+				break
+
+				case 2 :
+					bis2=1
+					texte = `Donner les coordonnées du symétrique de A par rapport à la droite (d2).`
+					texte_corr = `Le symétrique de A par rapport à (d2) a pour coordonnées (${x1},${y1})`
+				break
+
+				case 3 :
+					xx=1
+					texte = `Donner les coordonnées du symétrique de A par rapport à la droite (d).`
+					texte_corr = `Le symétrique de A par rapport à (d) a pour coordonnées (${x1},${y1})`
+				break
+
+				case 4 :
+					yy=1
+					texte = `Donner les coordonnées du symétrique de A par rapport à la droite (d\').`
+					texte_corr = `Le symétrique de A par rapport à (d\') a pour coordonnées (${x1},${y1})`
+				break
+				case 5 :
+					AfficheO=1
+					texte = `Donner les coordonnées de l'image de A par la rotation de centre O' et d'angle 90° dans le sens anti-horaire.`
+					texte_corr = `L'image de A par la rotation de centre O' et d'angle 90° dans le sens anti-horaire a pour coordonnées (${x1},${y1})`
+				break
+
+				case 6 :
+					AfficheO=1
+					texte = `Donner les coordonnées de l'image de A par la rotation de centre O' et d'angle 90° dans le sens horaire.`
+					texte_corr = `L'image de A par la rotation de centre O' et d'angle 90° dans le sens horaire a pour coordonnées (${x1},${y1})`
+				break
+				case 7 :
+					AfficheO=1
+					texte = `Donner les coordonnées de l'image de A par la symétrie  de centre O'.`
+					texte_corr = `L'image de A par la symétrie  de centre O' a pour coordonnées (${x1},${y1})`
+				break
+			
+				case 8 :
+					AfficheO=1
+					texte = `Donner les coordonnées de l'image de A par la rotation de centre O' et d'angle 60° dans le sens anti-horaire.`
+					texte_corr = `L'image de A par la rotation de centre O' et d'angle 60° dans le sens anti-horaire a pour coordonnées (${x1},${y1})`
+				break
+
+				case 9 :
+					AfficheO=1
+					texte = `Donner les coordonnées de l'image de A par la rotation de centre O' et d'angle 60° dans le sens horaire.`
+					texte_corr = `L'image de A par la rotation de centre O' et d'angle 60° dans le sens horaire a pour coordonnées (${x1},${y1})`
+				break
+				case 10 :
+					AfficheO=1
+					texte = `Donner les coordonnées de l'image de A par la rotation de centre O' et d'angle 120° dans le sens anti-horaire.`
+					texte_corr = `L'image de A par la rotation de centre O' et d'angle 120° dans le sens anti-horaire a pour coordonnées (${x1},${y1})`
+				break
+
+				case 11 :
+					AfficheO=1
+					texte = `Donner les coordonnées de l'image de A par la rotation de centre O' et d'angle 120° dans le sens horaire.`
+					texte_corr = `L'image de A par la rotation de centre O' et d'angle 120° dans le sens horaire a pour coordonnées (${x1},${y1})`
+				break
+				case 12 :
+					AfficheOO=1
+					texte = `Donner les coordonnées de l'image de A par la translation de vecteur $\\overrightarrow{v}$.`
+					texte_corr = `L'image de A par la translation de vecteur $\\overrightarrow{v}$ a pour coordonnées (${x1},${y1})`
+				break
+				case 13 :
+					AfficheO=1
+					texte = `Donner les coordonnées de l'image de A par l'homothétie de centre O' et de rapport ${k}.`
+					texte_corr = `L'image de A par l'homothétie de centre O' et de rapport ${k} a pour coordonnées (${x1},${y1})`
+				break
+			}
+			if (sortie_html) {
+			let codeBase64
+				codeBase64 = "TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAAJmcv###wEA#wEAAAAAAAAAAAUcAAAC2AAAAQEAAAAAAAAAAQAAAGX#####AAAAAQAKQ0NhbGNDb25zdAD#####AAJwaQAWMy4xNDE1OTI2NTM1ODk3OTMyMzg0Nv####8AAAABAApDQ29uc3RhbnRlQAkh+1RELRj#####AAAAAQAKQ1BvaW50QmFzZQD#####AAAAAAAOAAFPAMAoAAAAAAAAAAAAAAAAAAAFAAFAddgAAAAAAEB2OFHrhR64#####wAAAAEAFENEcm9pdGVEaXJlY3Rpb25GaXhlAP####8BAAAAAA4AAAEAAQAAAAEBP#AAAAAAAAD#####AAAAAQAPQ1BvaW50TGllRHJvaXRlAP####8AAAAAAQ4AAUkAwBgAAAAAAAAAAAAAAAAAAAUAAUA8AAAAAAAAAAAAAv####8AAAABAAlDRHJvaXRlQUIA#####wAAAAAAEAAAAQABAAAAAQAAAAP#####AAAAAQAWQ0Ryb2l0ZVBlcnBlbmRpY3VsYWlyZQD#####AAAAAAAOAAABAAEAAAABAAAABP####8AAAABAAlDQ2VyY2xlT0EA#####wEAAAAAAQAAAAEAAAAD#####wAAAAEAEENJbnREcm9pdGVDZXJjbGUA#####wAAAAUAAAAG#####wAAAAEAEENQb2ludExpZUJpcG9pbnQA#####wEAAAAADgAAAQUAAQAAAAcAAAAJAP####8AAAAAAQ4AAUoAwCgAAAAAAADAEAAAAAAAAAUAAgAAAAf#####AAAAAgAHQ1JlcGVyZQD#####AObm5gABAAAAAQAAAAMAAAAJAQEAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAT#wAAAAAAAAAAAAAT#wAAAAAAAA#####wAAAAEACkNVbml0ZXhSZXAA#####wAEdW5pdAAAAAr#####AAAAAQALQ0hvbW90aGV0aWUA#####wAAAAH#####AAAAAQAKQ09wZXJhdGlvbgMAAAABP#AAAAAAAAD#####AAAAAQAPQ1Jlc3VsdGF0VmFsZXVyAAAAC#####8AAAABAAtDUG9pbnRJbWFnZQD#####AQAAAAAQAAJXIgEBAAAAAAMAAAAM#####wAAAAEACUNMb25ndWV1cgD#####AAAAAQAAAA3#####AAAAAQAHQ0NhbGN1bAD#####AAduYmdyYWR4AAIyMAAAAAFANAAAAAAAAAAAABEA#####wAHbmJncmFkeQACMjAAAAABQDQAAAAAAAD#####AAAAAQAUQ0ltcGxlbWVudGF0aW9uUHJvdG8A#####wAUR3JhZHVhdGlvbkF4ZXNSZXBlcmUAAAAbAAAACAAAAAMAAAAKAAAADwAAABD#####AAAAAQATQ0Fic2Npc3NlT3JpZ2luZVJlcAAAAAARAAVhYnNvcgAAAAr#####AAAAAQATQ09yZG9ubmVlT3JpZ2luZVJlcAAAAAARAAVvcmRvcgAAAAoAAAALAAAAABEABnVuaXRleAAAAAr#####AAAAAQAKQ1VuaXRleVJlcAAAAAARAAZ1bml0ZXkAAAAK#####wAAAAEAEENQb2ludERhbnNSZXBlcmUAAAAAEQAAAAAADgAAAQUAAAAACgAAAA4AAAASAAAADgAAABMAAAAWAAAAABEAAAAAAA4AAAEFAAAAAAoAAAANAAAAAA4AAAASAAAADgAAABQAAAAOAAAAEwAAABYAAAAAEQAAAAAADgAAAQUAAAAACgAAAA4AAAASAAAADQAAAAAOAAAAEwAAAA4AAAAVAAAADAAAAAARAAAAFgAAAA4AAAAPAAAADwAAAAARAAAAAAAOAAABBQAAAAAXAAAAGQAAAAwAAAAAEQAAABYAAAAOAAAAEAAAAA8AAAAAEQAAAAAADgAAAQUAAAAAGAAAABv#####AAAAAQAIQ1NlZ21lbnQAAAAAEQEAAAAAEAAAAQABAAAAFwAAABoAAAAXAAAAABEBAAAAABAAAAEAAQAAABgAAAAcAAAABAAAAAARAQAAAAALAAFXAMAUAAAAAAAAwDQAAAAAAAAFAAE#3FZ4mrzfDgAAAB3#####AAAAAgAIQ01lc3VyZVgAAAAAEQAGeENvb3JkAAAACgAAAB8AAAARAAAAABEABWFic3cxAAZ4Q29vcmQAAAAOAAAAIP####8AAAACABJDTGlldU9iamV0UGFyUHRMaWUBAAAAEQBmZmYAAAAfAAAADgAAAA8AAAAfAAAAAgAAAB8AAAAfAAAAEQAAAAARAAVhYnN3MgANMiphYnNvci1hYnN3MQAAAA0BAAAADQIAAAABQAAAAAAAAAAAAAAOAAAAEgAAAA4AAAAhAAAAFgAAAAARAQAAAAAOAAABBQAAAAAKAAAADgAAACMAAAAOAAAAEwAAABkBAAAAEQBmZmYAAAAkAAAADgAAAA8AAAAfAAAABQAAAB8AAAAgAAAAIQAAACMAAAAkAAAABAAAAAARAQAAAAALAAFSAEAgAAAAAAAAwCAAAAAAAAAFAAE#0RtOgbToHwAAAB7#####AAAAAgAIQ01lc3VyZVkAAAAAEQAGeUNvb3JkAAAACgAAACYAAAARAAAAABEABW9yZHIxAAZ5Q29vcmQAAAAOAAAAJwAAABkBAAAAEQBmZmYAAAAmAAAADgAAABAAAAAmAAAAAgAAACYAAAAmAAAAEQAAAAARAAVvcmRyMgANMipvcmRvci1vcmRyMQAAAA0BAAAADQIAAAABQAAAAAAAAAAAAAAOAAAAEwAAAA4AAAAoAAAAFgAAAAARAQAAAAAOAAABBQAAAAAKAAAADgAAABIAAAAOAAAAKgAAABkBAAAAEQBmZmYAAAArAAAADgAAABAAAAAmAAAABQAAACYAAAAnAAAAKAAAACoAAAAr#####wAAAAIADENDb21tZW50YWlyZQAAAAARAWZmZgAAAAAAAAAAAEAYAAAAAAAAAAAAHwsAAf###wAAAAEAAAAAAAAAAQAAAAAAAAAAAAsjVmFsKGFic3cxKQAAABkBAAAAEQBmZmYAAAAtAAAADgAAAA8AAAAfAAAABAAAAB8AAAAgAAAAIQAAAC0AAAAbAAAAABEBZmZmAAAAAAAAAAAAQBgAAAAAAAAAAAAkCwAB####AAAAAQAAAAAAAAABAAAAAAAAAAAACyNWYWwoYWJzdzIpAAAAGQEAAAARAGZmZgAAAC8AAAAOAAAADwAAAB8AAAAGAAAAHwAAACAAAAAhAAAAIwAAACQAAAAvAAAAGwAAAAARAWZmZgDAIAAAAAAAAD#wAAAAAAAAAAAAJgsAAf###wAAAAIAAAABAAAAAQAAAAAAAAAAAAsjVmFsKG9yZHIxKQAAABkBAAAAEQBmZmYAAAAxAAAADgAAABAAAAAmAAAABAAAACYAAAAnAAAAKAAAADEAAAAbAAAAABEBZmZmAMAcAAAAAAAAAAAAAAAAAAAAAAArCwAB####AAAAAgAAAAEAAAABAAAAAAAAAAAACyNWYWwob3JkcjIpAAAAGQEAAAARAGZmZgAAADMAAAAOAAAAEAAAACYAAAAGAAAAJgAAACcAAAAoAAAAKgAAACsAAAAzAAAAEQD#####AAF4AAEzAAAAAUAIAAAAAAAAAAAAEQD#####AAF5AAEyAAAAAUAAAAAAAAAAAAAAFgD#####AAAAAAAQAAFBAAAAAAAAAAAAQAgAAAAAAAAIAAAAAAoAAAAOAAAANQAAAA4AAAA2AAAAEQD#####AAJ4MQACLTP#####AAAAAQAMQ01vaW5zVW5haXJlAAAAAUAIAAAAAAAAAAAAEQD#####AAJ5MQABMgAAAAFAAAAAAAAAAAAAABEA#####wACeDIAATIAAAABQAAAAAAAAAAAAAARAP####8AAnkyAAExAAAAAT#wAAAAAAAAAAAAFgD#####AQAAAAAQAAJPIgAAAAAAAAAAAEAIAAAAAAAABgAAAAAKAAAADgAAADoAAAAOAAAAO#####8AAAABAAlDRHJvaXRlT20A#####wEAAAAADgAAAQABAAAACgAAADwAAAABP#AAAAAAAAAAAAAEAP####8BAAAAAA4AAAAAAAAAAAAAAEAIAAAAAAAABQABQAgo9cKPXCYAAAA9AAAAEQD#####AARiaXMxAAEwAAAAAQAAAAAAAAAAAAAADAD#####AAAAPAAAAA4AAAA#AAAADwD#####AQAAAAAOAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAPgAAAEAAAAAFAP####8AAAAAABAAAmQxAQABP+zMzMzMzM0AAAA8AAAAQQAAAAMA#####wEAAAABDgAAAQABAAAAPAE#8AAAAAAAAAAAAAQA#####wEAAAAADgAAAAAAAAAAAAAAQAgAAAAAAAAFAAFAWQAAAAAAAAAAAEMAAAARAP####8AA3h4JwABMAAAAAEAAAAAAAAAAAAAAAwA#####wAAADwAAAAOAAAARQAAAA8A#####wEAAAAADgAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAEQAAABGAAAABQD#####AAAAAAAQAAFkAQABP+zMzMzMzM0AAAA8AAAARwAAAAMA#####wEAAAABDgAAAQABAAAAPAA#8AAAAAAAAAAAAAQA#####wEAAAAADgAAAAAAAAAAAAAAQAgAAAAAAAAFAAHAWL#######gAAAEkAAAARAP####8AA3l5JwABMAAAAAEAAAAAAAAAAAAAAAwA#####wAAADwAAAAOAAAASwAAAA8A#####wEAAAAADgAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAEoAAABMAAAABQD#####AAAAAAAQAAJkJwEAAT#szMzMzMzNAAAAPAAAAE0AAAAdAP####8BAAAAAA4AAAEAAQAAAAoAAAA8AAAAHAAAAAE#8AAAAAAAAAAAAAQA#####wEAAAAADgAAAAAAAAAAAAAAQAgAAAAAAAAFAAFAEa4UeuFHrgAAAE8AAAARAP####8ABGJpczIAATAAAAABAAAAAAAAAAAAAAAMAP####8AAAA8AAAADgAAAFEAAAAPAP####8BAAAAAA4AAAAAAAAAAAAAAEAIAAAAAAAABQAAAABQAAAAUgAAAAUA#####wAAAAAAEAACZDIBAAE#7MzMzMzMzQAAADwAAABTAAAAEQD#####AAlBZmZpY2hlTycAATAAAAABAAAAAAAAAAAAAAAMAP####8AAAABAAAAAT#wAAAAAAAAAAAADwD#####AQAAAAAOAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAPAAAAFYAAAAMAP####8AAAABAAAADQMAAAABP#AAAAAAAAAAAAAOAAAAVQAAAA8A#####wAAAAAADgACTycAAAAAAAAAAABACAAAAAAAAAUAAAAAPAAAAFj#####AAAAAQAIQ1ZlY3RldXIA#####wH#AAAAEAAAAQACAAAAAQAAAFcAAAAAEQD#####AApBZmZpY2hlT08nAAExAAAAAT#wAAAAAAAA#####wAAAAEAEUNQb2ludFBhck11bHRWZWN0AP####8B#wAAAA4AAk8zAQUAAAAAAQAAAFoAAAANAwAAAAE#8AAAAAAAAAAAAA4AAABbAAAAHgD#####AP8AAAAQAAABAAIAAAABAAAAXAAAAAAfAP####8B#wAAAA4AAAEFAAAAAAEAAABdAAAAAT#gAAAAAAAAAAAABgD#####Af8AAAAOAAABAAIAAABeAAAAXf####8AAAACAAlDQ2VyY2xlT1IA#####wH#AAAAAgAAAF4AAAABP8mZmZmZmZoAAAAACAD#####AAAAXwAAAGAAAAAJAP####8B#wAAAA4AAAAAAAAAAAAAAEAIAAAAAAAABQABAAAAYQAAAAkA#####wH#AAAADgAAAAAAAAAAAAAAQAgAAAAAAAAFAAIAAABh#####wAAAAIABkNMYXRleAD#####AP8AAADAMgAAAAAAAMAxAAAAAAAAAAAAYxAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAABNcb3ZlcnJpZ2h0YXJyb3cge3Z9AAAADv##########"
+			
+				this.type_exercice = 'MG32';
+				/*
+				booléens permettant l'affichage des éléments si =1 et le masquage si =0
+				bis1 affiche la droite de coefficient directeur 1 passant par O'
+				bis2 affiche la droite de coefficient directeur -1 passant par O'
+				xx' affiche la droite horizontale passant par O'
+				yy' affiche la droite verticale passant par O'
+				AfficheO' affiche O' comme son nom l'indique.
+				AfficheOO' affiche le vecteur OO' vecteur de translation
+				
+				this.MG32codeBase64 = codeBase64
+				this.MG32code_pour_modifier_la_figure = `
+				mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "y", "${y}");
+		        mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "x", "${x}");
+				mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "y1", "${y1}");
+				mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "x1", "${x1}");
+				mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "y2", "${y2}");
+				mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "x2", "${x2}");
+				mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "yy'", "${yy}");
+		        mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "xx'", "${xx}");
+				mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "bis1", "${bis1}");
+				mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "bis2", "${bis2}");
+				mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "AfficheO\'", "${AfficheO}");
+				mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "AfficheOO\'", "${AfficheOO}");
+				
+				mtg32App.calculate("MG32svg${numero_de_l_exercice}");
+	        	mtg32App.display("MG32svg${numero_de_l_exercice}");
+				`
+			this.liste_questions.push(texte);
+			this.liste_corrections.push(texte_corr);
+			liste_de_question_to_contenu_sans_numero(this)
+
+		}
+		else {
+				texte = '\\begin{minipage}{.7 \\linewidth} 	\\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
+				texte += '\n\t\\item Le côté ' + `$[${s0 + s1}]$` + ' est perpendiculaire au côté ' + `$[${s0 + s2}]~;$`
+				texte += '\\end{itemize} \\bigskip\n\t  Calculer ' + `$${s1 + s2}$` + ' à 0,1 près. \\end{minipage}'
+				texte += '\\begin{minipage}{0.3 \\linewidth}'
+				// dessin de la figure
+				texte += '\n \\begin{tikzpicture}[scale=0.7]' // Balise début de figure
+				texte += '\n\t \\tkzDefPoints{0/0/' + s0 + ',' + x1 + '/0/B,0/' + y2 + '/C}' // créer les points du triangle initial 
+				// Définit les points M et N par homothétie de centre C et de rapport 0,3<k<0,8
+				texte += '\\end{minipage}'
+			}
+			this.liste_questions.push(texte) // on envoie la question
+			// correction 
+
+			this.liste_corrections.push(texte_corr)
+
+			liste_de_question_to_contenu_sans_numero(this);
+
+
+	}
+	this.besoin_formulaire_numerique = ['Transformation',13, '1 : Symétrie selon la première bissectrice\n 2 : Symétrie selon la deuxième bissectrice\n 3 : symétrie selon (OI)\n 4 : Symétrie selon (OJ)\n 5 : Quart de tour direct\n 6 : Quart de tour indirect\n 7 : Symétrie centrale\n 8 : Rotation de 60° direct\n 9 : Rotation de 60° indirect\n 10 : Rotation 120° direct\n 11 : Rotation 120° indirect\n 12 : Translation O->O\'\n 13 : Homothétie de coefficient 2'];
+
+}
+*/

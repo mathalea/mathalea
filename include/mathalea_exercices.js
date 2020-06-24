@@ -150,6 +150,7 @@ var liste_des_exercices_disponibles = {
 		'3L14' : Resoudre_une_equation_produit_nul,
 		'3L14-1' : Resoudre_une_equation_produit_nul_niv2,
 		'3L15' : Resoudre_une_equation_x2_egal_A,
+		'3G10' : Transformations_du_plan_et_coordonnees,
 		'3G20' : Exercice_Thales,
 		'3G21' : Reciproque_Thales,
 		'3G22' : Agrandissement_reduction,
@@ -239,7 +240,8 @@ function Exercice() {
    	// this.bouton_aide = modal_texte_long(numero_de_l_exercice,titre,texte,label_bouton="Aide",icone="info circle")
    	// this.bouton_aide = modal_youtube(numero_de_l_exercice,id_youtube,texte,label_bouton="Aide - Vidéo",icone="youtube")
    	// this.bouton_aide = modal_pdf(numero_de_l_exercice,url_pdf,texte="Aide",label_bouton="Aide - PDF",icone="file pdf")
-   	this.pas_de_version_LaTeX = false ;
+	   this.pas_de_version_LaTeX = false ;
+	   this.MG32editable=false; //pas d'interface par défaut pour les figures MG32
    	this.nouvelle_version = function(numero_de_l_exercice){}
    	this.liste_packages = []; // string ou liste de string avec le nom des packages spécifiques à ajouter dans le préambule
 
@@ -6180,6 +6182,7 @@ function Calcul_de_volumes(){
 	}
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : pas de conversion\n2 : avec conversion"];
 }
+
 
 // Exercices paramétrés pour correspondre au référentiel
 /**
