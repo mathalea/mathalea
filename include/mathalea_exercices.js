@@ -36,7 +36,7 @@ var liste_des_exercices_disponibles = {
 		'6D101' : Heures_decimales,
 		'6D11' : Somme_de_durees,
 		'6D12' : Calculs_de_durees_ou_d_horaires,
-		'6G10' : Transformations_6,
+		'6G10' : Transformations_6e,
 		'6M11-1' : Perimetre_ou_aire_de_carres_rectangles_triangles,
 		'6M11-2' : Perimetre_ou_aire_de_figures_composees,
 		'6M10' : Reglages_6M10,
@@ -75,6 +75,7 @@ var liste_des_exercices_disponibles = {
 		'6N43-2' : Tableau_criteres_de_divisibilite,
 		'6P10' : Proportionnalite_pas_proportionnalite,
 		'6P11' : Proportionnalite_par_linearite,
+		'5G10' : Transformations_5e,
 		'5N12': Exercice_fractions_simplifier,
 		'5N12-2': Egalites_entre_fractions,
 		'5N18': Exercice_decomposer_en_facteurs_premiers,
@@ -108,6 +109,7 @@ var liste_des_exercices_disponibles = {
 		'5S10-2': Calculer_des_moyennes,
 		'5S10-3': Calculer_des_etendues,
 		'5S20' : fonctions_probabilite1,
+		'4G40' : Transformations_4e,
 		'4L10' : Exercice_developper,
 		'4L20' : Exercice_equation1,
 		'4M30' : Calcul_de_volumes_4e,		
@@ -151,7 +153,8 @@ var liste_des_exercices_disponibles = {
 		'3L14' : Resoudre_une_equation_produit_nul,
 		'3L14-1' : Resoudre_une_equation_produit_nul_niv2,
 		'3L15' : Resoudre_une_equation_x2_egal_A,
-		'3G10' : Transformations_du_plan_et_coordonnees,
+		'3G20' : Transformations_du_plan_et_coordonnees,
+		'3G40' : Transformations_3e,
 		'3G20' : Exercice_Thales,
 		'3G21' : Reciproque_Thales,
 		'3G22' : Agrandissement_reduction,
@@ -6183,16 +6186,16 @@ function Calcul_de_volumes(){
 	}
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : pas de conversion\n2 : avec conversion"];
 }
-function Transformations_6() {
+function Transformations() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Trouver l'image d'un point par une symétrie axiale";
+	this.titre = "Trouver l'image d'un point par une transformation du plan";
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
-	this.sup = 2; // 1 calcul de l'hypoténuse 2 calcul d'un côté de l'angle droit 
+	this.sup = 1; // 1 pour les 6ème, 2 pour les 5èmes, 3 pour les 4èmes, et 4 pour les 3èmes.
 	sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
 	this.liste_packages = 'tkz-euclide';
 	this.nouvelle_version = function (numero_de_l_exercice) {
@@ -6201,23 +6204,25 @@ function Transformations_6() {
 	this.taille_div_MG32 = [700, 700];
 	this.liste_questions = [];
 		this.liste_corrections = []; // Liste de questions corrigées
-		let antecedents=[0,0,0],images=[0,0,0],k=[1,1,1],xO=4,yO=4,xN=3,yN=1 // k : rapports d'homothéties, (xO,yO) point de rencontre des droites et centre, les composantes du vecteur de translation : (xN,yN)
+		let antecedents=[0,0,0],images=[0,0,0],k=[1,1,1],xO=5,yO=4,xN,yN // k : rapports d'homothéties, (xO,yO) point de rencontre des droites et centre, les composantes du vecteur de translation : (xN,yN)
 		let bis1=0,bis2=0,xx=0,yy=0,AfficheO=0,AfficheN=0,AfficheM=0
 		let texte=``,texte_corr=``
 		let point=[[]]
 		let transformation=parseInt(this.sup)-1
 		let liste_type_de_questions=[[1,2,3,4],[1,2,3,4,7],[1,2,3,4,7,12],[1,2,3,4,5,6,7,12,13]]
 		let choix_transformation=combinaison_listes(liste_type_de_questions[transformation],3)
-	
+		xN=randint(-3,3)
+		if (xN==0) yN=randint(-3,3,[0])
+		else yN=randint(-3,3)
 		for (let j=0;j<3;j++) {
 			k[j]=(randint(1,2)+1)*randint(-1,1,[0]) // rapport d'homothétie
 			antecedents[j]=randint(0,99)
-			point[j]=image_point_par_transformation(choix_transformation[j],[antecedents[j]%10,Math.floor(antecedents[j]/10)],[xO,yO],k[j])
+			point[j]=image_point_par_transformation(choix_transformation[j],[antecedents[j]%10,Math.floor(antecedents[j]/10)],[xO,yO],[xN,yN],k[j])
 			images[j]=point[j][0]+point[j][1]*10
-			while (images[j]>99 || images[j]<0) { // On vérifie que l'image est bien un point du réseau sinon, on change.
+			while (point[j][0]<0 || point[j][0]>9 || point[j][1]<0 || point[j][1]>9) { // On vérifie que l'image est bien un point du réseau sinon, on change.
 				k[j]=(randint(1,2)+1)*randint(-1,1,[0]) 
 				antecedents[j]=randint(0,99)
-				point[j]=image_point_par_transformation(choix_transformation[j],[antecedents[j]%10,Math.floor(antecedents[j]/10)],[xO,yO],k[j])	
+				point[j]=image_point_par_transformation(choix_transformation[j],[antecedents[j]%10,Math.floor(antecedents[j]/10)],[xO,yO],[xN,yN],k[j])	
 				images[j]=point[j][0]+point[j][1]*10
 			}
 		}	
@@ -6396,6 +6401,29 @@ function Exercice_Trigo_angles_4e(){
 	this.quatrieme = true;
 	this.titre = "Utiliser le cosinus pour calculer la mesure d'un angle dans un triangle rectangle"
 	Exercice_Trigo_angles.call(this);
+}
+
+function Transformations_6e(){
+	this.sup = 1;
+	Transformations.call(this);
+}
+
+function Transformations_5e(){
+	this.sup = 2;
+	this.titre = `Trouver l'image d'un point par une symétrie axiale ou centrale`
+	Transformations.call(this);
+}
+
+function Transformations_4e(){
+	this.sup = 3;
+	this.titre = `Trouver l'image d'un point par une symétrie axeiale ou centrale ou par une translation`
+	Transformations.call(this);
+}
+
+function Transformations_3e(){
+	this.sup = 4;
+	this.titre = `trouver l'image d'un point par l'une des cinq transformations du plan?`
+	Transformations.call(this);
 }
 
 function Calcul_de_volumes_6e(){

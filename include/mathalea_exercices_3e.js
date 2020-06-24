@@ -5431,9 +5431,9 @@ function Transformations_du_plan_et_coordonnees() {
 		xO=randint(-3,3,[0])  // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
 		yO=randint(-3,3,[0])
 		for (let j=0;j<3;j++) k[j]=(randint(1,2)+1)*randint(-1,1,[0]) // rapport d'homothétie
-		point[0]=image_point_par_transformation(choix_transformation[0],[xA,yA],[xO,yO],k[0])
-		point[1]=image_point_par_transformation(choix_transformation[1],[xB,yB],[xA,yA],k[1])
-		point[2]=image_point_par_transformation(choix_transformation[2],[xC,yC],[xB,yB],k[2])
+		point[0]=image_point_par_transformation(choix_transformation[0],[xA,yA],[xO,yO],[xO,yO],k[0])
+		point[1]=image_point_par_transformation(choix_transformation[1],[xB,yB],[xA,yA],[xA,yA],k[1])
+		point[2]=image_point_par_transformation(choix_transformation[2],[xC,yC],[xB,yB],[xB,yB],k[2])
 		for (let i=0;i<3;i++) {
 			switch (choix_transformation[i]){
 				case 1 :
