@@ -1518,6 +1518,17 @@ function tex_fraction(a,b){
 
 }
 
+
+/**
+* Utilise printlatex et quote de Algebrite
+* @Auteur Rémi Angot
+*/
+
+function printlatex(e){
+	return Algebrite.run(`printlatex(quote(${e}))`)
+}
+
+
 /**
 * Écrit du texte en mode mathématiques
 * @Auteur Rémi Angot

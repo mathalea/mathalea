@@ -609,6 +609,288 @@ function Image_fonction_algebrique() {
 	this.besoin_formulaire_numerique = ['Niveau de difficulté', 5, '1 : Fonctions affines\n2 : Polynome du second degré\n3 : Quotient\n4 : Produit \n5 : Mélange'];
 }
 
+
+
+/**
+* Réduire des expressions lorsque c'est possible
+*
+* @Auteur Rémi Angot
+*/
+function Reduction_si_possible() {
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Réduire une expression";
+	this.consigne = "Réduire les expressions suivantes, si cela est possible.";
+	this.nb_questions = 5;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+
+	this.nouvelle_version = function (numero_de_l_exercice) {
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+
+		let type_de_questions_disponibles = ['ax+b', 'ax+bx', 'ax+bx2', 'ax*b','b*ax','ax+b+cx+d','b+ax+d+cx','ax+b+x'];
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		for (let i = 0, texte, texte_corr, a, b, c, d, cpt = 0; i < this.nb_questions && cpt < 50;) {
+			a = randint(-11,11,0);
+			b = randint(-11,11,[0,a]);
+			c = randint(-11,11,[0]);
+			d = randint(-11,11,0)
+			switch (liste_type_de_questions[i]) {
+				case 'ax+b':
+					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x+(${b})`)}$`;
+					texte_corr = texte
+					break;
+				case 'ax+bx':
+					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x+(${b}*x)`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x+(${b}*x)`)}=${printlatex(`${a+b}x`)}$`;
+					break;
+				case 'ax+bx2':
+					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x+(${b}*x^2)`)}$`;
+					texte_corr = texte
+					break;
+				case 'ax*b':
+					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x`)}\\times${ecriture_parenthese_si_negatif(b)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x`)}\\times${ecriture_parenthese_si_negatif(b)}=${printlatex(`${a*b}*x`)}$`;
+					break;
+				case 'b*ax':
+					a = randint(1,11);
+					texte = `$${lettre_depuis_chiffre(i+1)}=${b}\\times${printlatex(`${a}*x`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${b}\\times${printlatex(`${a}*x`)}=${printlatex(`${b*a}*x`)}$`;
+					break;
+				case 'ax+b+cx+d':
+					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x+(${b})+(${c})*x+(${d})`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x+(${b})+(${c})*x+(${d})`)}`;
+					if (b+d==0) {
+						if (a+c==0) {
+							texte_corr += `=0$`
+						} else {
+							texte_corr += `=${printlatex(`${a+c}*x`)}$`
+						}
+					} else {
+						if (a+c==0) {
+							texte_corr += `=${b+d}$`	
+						} else {
+							texte_corr += `=${printlatex(`${a+c}*x+(${b+d})`)}$`	
+						}
+					}
+					break;
+				case 'b+ax+d+cx':
+					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${b}+(${a})*x+(${d})+(${c})*x`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${b}+(${a})*x+(${d})+(${c})*x`)}`;
+					if (b+d==0) {
+						if (a+c==0) {
+							texte_corr += `=0$`
+						} else {
+							texte_corr += `=${printlatex(`${a+c}*x`)}$`
+						}
+					} else {
+						if (a+c==0) {
+							texte_corr += `=${b+d}$`	
+						} else {
+							texte_corr += `=${printlatex(`${a+c}*x+(${b+d})`)}$`	
+						}
+					}
+					break;
+					case 'ax+b+x':
+					a = randint(-11,11,[0,-1])
+					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x+(${b})+x`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x+(${b})+x`)}=${printlatex(`${a+1}*x+(${b})`)}$`
+					break;
+				
+			}
+			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;
+		}
+		liste_de_question_to_contenu(this);
+	}
+}
+
+
+/**
+* Utiliser la simple ou la double distributivité et réduire l'expression
+*
+* @Auteur Rémi Angot
+*/
+function Distributivite_simple_double_reduction() {
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Utiliser la distributivité (simple ou double) et réduire";
+	this.consigne = "Développer et réduire les expressions suivantes.";
+	this.nb_questions = 5;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
+
+	this.nouvelle_version = function (numero_de_l_exercice) {
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+
+		let type_de_questions_disponibles = ['cx+e(ax+b)','ex+(ax+b)(cx+d)','e+(ax+b)(cx+d)','e-(ax+b)(cx+d)','(ax*b)(cx+d)','e(ax+b)-(d+cx)'];
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		for (let i = 0, texte, texte_corr, a, b, c, d, e, cpt = 0; i < this.nb_questions && cpt < 50;) {
+			a = randint(-11,11,0);
+			b = randint(-11,11,0);
+			c = randint(-11,11,0);
+			d = randint(-11,11,0);
+			e = randint(-11,11,0);
+			switch (liste_type_de_questions[i]) {
+				case 'cx+e(ax+b)':
+					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${c}*x+(${e})*(${a}*x+(${b}))`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${c}*x+(${e})*(${a}*x+(${b}))`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${c}*x+(${e*a})*x+(${e*b})`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${c+e*a}*x+(${e*b})`)}$`;
+					break;
+				case 'ex+(ax+b)(cx+d)':
+					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${e}*x+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${e}*x+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${e}*x+(${a*c})*x^2+(${a*d})*x+(${b*c})*x+(${b*d})`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${a*c}*x^2+(${e+b*c+a*d})*x+(${b*d})`)}$`;
+					break;
+				case 'e+(ax+b)(cx+d)':
+					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${e}+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${e}+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${e}+(${a*c})*x^2+(${a*d})*x+(${b*c})*x+(${b*d})`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${a*c}*x^2+(${b*c+a*d})*x+(${e+b*d})`)}$`;
+					break;
+				case 'e-(ax+b)(cx+d)':
+					texte = `$${lettre_depuis_chiffre(i+1)}=${e}-${printlatex(`(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${e}-${printlatex(`(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${e}-(${printlatex(`(${a*c})*x^2+(${a*d})*x+(${b*c})*x+(${b*d})`)})$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${e}+(${-1*a*c})*x^2+(${-1*a*d})*x+(${-1*b*c})*x+(${-1*b*d})`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${-1*a*c}*x^2+(${-1*b*c-a*d})*x+(${e-b*d})`)}$`;
+					break;
+				case '(ax*b)(cx+d)':
+					a = randint (-3,3,[0]);
+					b = randint (2,3);
+					texte = `$${lettre_depuis_chiffre(i+1)}=(${printlatex(`${a}*x`)}\\times${b})(${printlatex(`${c}*x+(${d})`)})$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=(${printlatex(`${a}*x`)}\\times${b})(${printlatex(`${c}*x+(${d})`)})$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${a*b}*x`)}\\times(${printlatex(`${c}*x+(${d})`)})$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${a*b*c}*x^2+(${a*b*d})*x`)}$`;
+					break;
+				case 'e(ax+b)-(d+cx)':
+					texte = `$${lettre_depuis_chiffre(i+1)}=${e}(${printlatex(`${a}*x+(${b})`)})-(${printlatex(`${d}+(${c})*x`)})$`;
+					texte_corr = texte;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`(${e*a})*x+(${e*b})`)}-(${printlatex(`${d}+(${c})*x`)})$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`(${e*a})*x+(${e*b})+(${-d})+(${-c})*x`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`(${e*a-c})*x+(${e*b-d})`)}$`;
+					break;
+				
+				
+			}
+			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;
+		}
+		liste_de_question_to_contenu(this);
+	}
+}
+
+/**
+* Utiliser la simple ou la double distributivité et réduire l'expression
+*
+* @Auteur Rémi Angot
+*/
+function Factoriser_par_nombre_ou_x() {
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Factoriser une expression";
+	this.consigne = "Factoriser les expressions suivantes.";
+	this.nb_questions = 8;
+	this.nb_cols = 2;
+	this.nb_cols_corr = 2;
+	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
+
+	this.nouvelle_version = function (numero_de_l_exercice) {
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+
+		let type_de_questions_disponibles = ['ka+nkb','-ka+nkb','nka+mkb','nka-mkb','nkx+mkx2','nkx-mkx2','nx2+x','nx2+mx'];
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		for (let i = 0, texte, texte_corr, n, m, couplenm, k, cpt = 0; i < this.nb_questions && cpt < 50;) {
+			k = choice([2,3,5,7,11]);
+			couplenm=choice([[2,3],[3,4],[2,5],[3,5],[4,5],[5,6],[2,7],[3,7],[4,7],[5,7],[6,7],[3,8],[5,8],[7,8],[2,9],[4,9],[5,9],[7,9],[8,9],[3,10],[7,10],[9,10]]); // n et m sont premiers entre eux
+			n = couplenm[0];
+			m = couplenm[1];
+			switch (liste_type_de_questions[i]) {
+				case 'ka+nkb':
+					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${k}*a+(${n*k})*b`)}$`;
+					texte_corr = texte;
+					if (n>0) {
+						texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${k}a+${k}\\times${n}b$`;
+					} else {
+						texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${k}a-${k}\\times${abs(n)}b$`;
+					}
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${k}(${printlatex(`a+(${n})*b`)})$`;
+					break;
+				case '-ka+nkb':
+					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${-k}*a+(${n*k})*b`)}$`;
+					texte_corr = texte;
+					if (n>0) {
+						texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${-k}a+${k}\\times${n}b$`;
+						texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${k}(${printlatex(`-a+${n}*b`)})$`;
+					} else {
+						texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${-k}a+(${-k})\\times${-n}b$`;
+						texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${-k}(${printlatex(`a+(${-n})*b`)})$`;
+					}
+					break;
+				case 'nka+mkb':
+					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${n*k}*a+(${m*k})*b`)}$`;
+					texte_corr = texte;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${k}\\times${n}a+${k}\\times${m}b$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${k}(${n}a+${m}b)$`;
+					break;
+				case 'nka-mkb':
+					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${n*k}*a-(${m*k})*b`)}$`;
+					texte_corr = texte;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${k}\\times${n}a-${k}\\times${m}b$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${k}(${n}a-${m}b)$`;
+					break;
+				case 'nkx+mkx2':
+					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${n*k}*x+(${m*k})*x^2`)}$`;
+					texte_corr = texte;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${k}x\\times${n}+${k}x\\times${m}x$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${k}x(${n}+${m}x)$`;
+					break;
+				case 'nkx-mkx2':
+					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${n*k}*x-(${m*k})*x^2`)}$`;
+					texte_corr = texte;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${k}x\\times${n}-${k}x\\times${m}x$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${k}x(${n}-${m}x)$`;
+					break;
+				case 'nx2+x':
+					texte = `$${lettre_depuis_chiffre(i+1)}=${n}x^2+x$`;
+					texte_corr = texte;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=x\\times ${n}x+x\\times 1$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=x(${n}x+1)$`;
+					break;
+				case 'nx2+mx':
+					texte = `$${lettre_depuis_chiffre(i+1)}=${n}x^2+${m}x$`;
+					texte_corr = texte;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=x\\times ${n}x+x\\times ${m}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=x(${n}x+${m})$`;
+					break;
+				
+				
+			}
+			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;
+		}
+		liste_de_question_to_contenu(this);
+	}
+}
+
 /**
 * Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique
 *
@@ -1007,7 +1289,7 @@ function Developper_Identites_remarquables3() {
 	this.spacing = 1;
 	this.spacing_corr = 1;
 	this.nb_questions = 5;
-	this.sup = 1;
+	this.sup = 2;
 
 
 	this.nouvelle_version = function (numero_de_l_exercice) {
@@ -1063,7 +1345,7 @@ function Factoriser_Identites_remarquables3() {
 	this.spacing = 1;
 	this.spacing_corr = 1;
 	this.nb_questions = 5;
-	this.sup = 1;
+	this.sup = 2;
 
 	this.nouvelle_version = function (numero_de_l_exercice) {
 		this.liste_questions = []; // Liste de questions
@@ -1196,6 +1478,164 @@ function Factoriser_Identites_remarquables2() {
 	}
 	this.besoin_formulaire_numerique = ['Niveau de difficulté', 3, '1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel'];
 }
+
+
+/**
+* Équation du premier degré
+* * Type 1 : ax+b=cx+d
+* * Type 2 : k(ax+b)=cx+d
+* * Type 3 : k-(ax+b)=cx+d
+* * Tous les types
+* @Auteur Rémi Angot
+*/
+function Exercice_equation1_2(){
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Équation du premier degré (utilisant la distributivité)"
+	this.consigne = 'Résoudre les équations suivantes'
+	this.spacing = 2;
+	sortie_html ? this.spacing_corr = 3 : this.spacing_corr = 2;
+	this.correction_detaillee_disponible = true;
+	if (!sortie_html) {
+		this.correction_detaillee = false;
+	}
+	this.nb_questions = 3;
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		let liste_type_de_questions = ['ax+b=cx+d','k(ax+b)=cx+d','k-(ax+b)=cx+d'];
+		liste_type_de_questions = combinaison_listes(liste_type_de_questions,this.nb_questions)
+		for (let i = 0, a, b, c, d, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
+			a = randint(-9,9,0);
+			b = randint(-9,9,0);
+			c = randint(-9,9,0);
+			d = randint(-9,9,0);
+			k = randint(2,9)
+			if (liste_type_de_questions[i]=='ax+b=cx+d') {
+				if (c==a) {c = randint(1,9,[a])} // sinon on arrive à une division par 0
+				if (!this.sup && a<c) {
+					c = randint(1,9)
+					a = randint(c+1,15) // a sera plus grand que c pour que a-c>0
+				}
+				texte = `$${rien_si_1(a)}x${ecriture_algebrique(b)}=${rien_si_1(c)}x${ecriture_algebrique(d)}$`;
+				texte_corr = texte+'<br>';
+				if (this.correction_detaillee) {
+					if (c>0) {
+						texte_corr += `On soustrait $${rien_si_1(c)}x$ aux deux membres.<br>`	
+					} else {
+						texte_corr += `On ajoute $${rien_si_1(-1*c)}x$ aux deux membres.<br>`
+					}
+				}
+				texte_corr += `$${rien_si_1(a)}x${ecriture_algebrique(b)}${mise_en_evidence(signe(-1*c)+rien_si_1(abs(c))+'x')}=${c}x+${d}${mise_en_evidence(signe(-1*c)+rien_si_1(abs(c))+'x')}$<br>`;
+				texte_corr += `$${rien_si_1(a-c)}x${ecriture_algebrique(b)}=${d}$<br>`
+				if (this.correction_detaillee) {
+					if (b>0) {
+						texte_corr += `On soustrait $${b}$ aux deux membres.<br>`	
+					} else {
+						texte_corr += `On ajoute $${-1*b}$ aux deux membres.<br>`
+					}
+				}
+				texte_corr += `$${rien_si_1(a-c)}x${ecriture_algebrique(b)}${mise_en_evidence(ecriture_algebrique(-1*b))}=${d}${mise_en_evidence(ecriture_algebrique(-1*b))}$<br>`
+				texte_corr += `$${rien_si_1(a-c)}x=${d-b}$<br>`
+
+				if (this.correction_detaillee) {texte_corr += `On divise les deux membres par $${a-c}$.<br>`}
+				texte_corr += `$${rien_si_1(a-c)}x${mise_en_evidence('\\div'+ecriture_parenthese_si_negatif(a-c))}=${d-b+mise_en_evidence('\\div'+ecriture_parenthese_si_negatif(a-c))}$<br>`
+				texte_corr += `$x=${tex_fraction(d-b,a-c)}$`
+				if (pgcd(abs(d-b),abs(a-c))>1 || (a-c)<0){
+					texte_corr += `<br>$x=${tex_fraction_reduite(d-b,a-c)}$`
+				}
+				texte_corr += `<br> La solution est $${tex_fraction_reduite(d-b,a-c)}$.`
+			}
+
+			if (liste_type_de_questions[i]=='k(ax+b)=cx+d') {
+				if (c==k*a) {c = randint(1,9,[a])} // sinon on arrive à une division par 0
+				texte = `$${k}(${rien_si_1(a)}x${ecriture_algebrique(b)})=${rien_si_1(c)}x${ecriture_algebrique(d)}$`;
+				texte_corr = texte+'<br>';
+				if (this.correction_detaillee) {
+					texte_corr += 'On développe le membre de gauche.<br>'
+				}
+				texte_corr += `$${k*a}x${ecriture_algebrique(k*b)}=${rien_si_1(c)}x${ecriture_algebrique(d)}$<br>`;
+				if (this.correction_detaillee) {
+					if (c>0) {
+						texte_corr += `On soustrait $${rien_si_1(c)}x$ aux deux membres.<br>`	
+					} else {
+						texte_corr += `On ajoute $${rien_si_1(-1*c)}x$ aux deux membres.<br>`
+					}
+				}
+				texte_corr += `$${k*a}x${ecriture_algebrique(k*b)}${mise_en_evidence(signe(-1*c)+rien_si_1(abs(c))+'x')}=${c}x${ecriture_algebrique(d)}${mise_en_evidence(signe(-1*c)+rien_si_1(abs(c))+'x')}$<br>`;
+				texte_corr += `$${rien_si_1(k*a-c)}x${ecriture_algebrique(k*b)}=${d}$<br>`
+				if (this.correction_detaillee) {
+					if (k*b>0) {
+						texte_corr += `On soustrait $${k*b}$ aux deux membres.<br>`	
+					} else {
+						texte_corr += `On ajoute $${-k*b}$ aux deux membres.<br>`
+					}
+				}
+				texte_corr += `$${rien_si_1(k*a-c)}x${ecriture_algebrique(k*b)}${mise_en_evidence(ecriture_algebrique(-k*b))}=${d}${mise_en_evidence(ecriture_algebrique(-k*b))}$<br>`
+				texte_corr += `$${rien_si_1(k*a-c)}x=${d-k*b}$<br>`
+
+				if (this.correction_detaillee) {texte_corr += `On divise les deux membres par $${k*a-c}$.<br>`}
+				texte_corr += `$${rien_si_1(k*a-c)}x${mise_en_evidence('\\div'+ecriture_parenthese_si_negatif(k*a-c))}=${d-k*b+mise_en_evidence('\\div'+ecriture_parenthese_si_negatif(k*a-c))}$<br>`
+				texte_corr += `$x=${tex_fraction(d-k*b,k*a-c)}$`
+				if (pgcd(abs(d-k*b),abs(k*a-c))>1 || (k*a-c)<0){
+					texte_corr += `<br>$x=${tex_fraction_reduite(d-k*b,k*a-c)}$`
+				}
+				texte_corr += `<br> La solution est $${tex_fraction_reduite(d-k*b,k*a-c)}$.`
+			}
+
+			if (liste_type_de_questions[i]=='k-(ax+b)=cx+d') {
+				if (c==-a) {c = randint(-9,9,[0,a])} // sinon on arrive à une division par 0
+				texte = `$${k}-(${rien_si_1(a)}x${ecriture_algebrique(b)})=${rien_si_1(c)}x${ecriture_algebrique(d)}$`;
+				texte_corr = texte+'<br>';
+				if (this.correction_detaillee) {
+					texte_corr += 'On développe le membre de gauche.<br>'
+				}
+				texte_corr += `$${k}${ecriture_algebrique(-a)}x${ecriture_algebrique(-b)}=${rien_si_1(c)}x${ecriture_algebrique(d)}$<br>`;
+				texte_corr += `$${rien_si_1(-a)}x${ecriture_algebrique(k-b)}=${rien_si_1(c)}x${ecriture_algebrique(d)}$<br>`;
+				
+				//On reprend le cas ax+b=cx+d en changeant les valeurs de a et b
+				a = -a;
+				b = k-b;
+
+				if (this.correction_detaillee) {
+					if (c>0) {
+						texte_corr += `On soustrait $${rien_si_1(c)}x$ aux deux membres.<br>`	
+					} else {
+						texte_corr += `On ajoute $${rien_si_1(-1*c)}x$ aux deux membres.<br>`
+					}
+				}
+				texte_corr += `$${rien_si_1(a)}x${ecriture_algebrique(b)}${mise_en_evidence(signe(-1*c)+rien_si_1(abs(c))+'x')}=${c}x+${d}${mise_en_evidence(signe(-1*c)+rien_si_1(abs(c))+'x')}$<br>`;
+				texte_corr += `$${rien_si_1(a-c)}x${ecriture_algebrique(b)}=${d}$<br>`
+				if (this.correction_detaillee) {
+					if (b>0) {
+						texte_corr += `On soustrait $${b}$ aux deux membres.<br>`	
+					} else {
+						texte_corr += `On ajoute $${-1*b}$ aux deux membres.<br>`
+					}
+				}
+				texte_corr += `$${rien_si_1(a-c)}x${ecriture_algebrique(b)}${mise_en_evidence(ecriture_algebrique(-1*b))}=${d}${mise_en_evidence(ecriture_algebrique(-1*b))}$<br>`
+				texte_corr += `$${rien_si_1(a-c)}x=${d-b}$<br>`
+
+				if (this.correction_detaillee) {texte_corr += `On divise les deux membres par $${a-c}$.<br>`}
+				texte_corr += `$${rien_si_1(a-c)}x${mise_en_evidence('\\div'+ecriture_parenthese_si_negatif(a-c))}=${d-b+mise_en_evidence('\\div'+ecriture_parenthese_si_negatif(a-c))}$<br>`
+				texte_corr += `$x=${tex_fraction(d-b,a-c)}$`
+				if (pgcd(abs(d-b),abs(a-c))>1 || (a-c)<0){
+					texte_corr += `<br>$x=${tex_fraction_reduite(d-b,a-c)}$`
+				}
+				texte_corr += `<br> La solution est $${tex_fraction_reduite(d-b,a-c)}$.`
+			}
+				
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte)//replace(/1x/g,'x')); //remplace 1x par x
+				this.liste_corrections.push(texte_corr) //.replace(/1x/g,'x')); //remplace 1x par x
+				i++;
+			}
+			cpt++;
+		}
+		liste_de_question_to_contenu(this);
+	}
+}
+
 
 /**
 * @auteur Jean-Claude Lhote
