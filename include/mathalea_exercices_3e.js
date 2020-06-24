@@ -5438,7 +5438,7 @@ function Transformations_du_plan_et_coordonnees() {
 			switch (choix_transformation[i]){
 				case 1 :
 					bis1=1
-					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d_1)$<br>.`
+					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d_1)$.<br>`
 					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d_1)$ a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
 				break
 
@@ -5506,7 +5506,7 @@ function Transformations_du_plan_et_coordonnees() {
 					AfficheO=1
 					// AfficheOO=1
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la translation qui transforme O en ${lettre2[i]}.<br>`
-					texte_corr += `L'image de $${lettre1[i]}$ par la translation de vecteur $\\overrightarrow{O${lettre2[i]}}$ a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la translation qui transforme O en ${lettre2[i]} a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
 				break
 			
 				case 13 :
