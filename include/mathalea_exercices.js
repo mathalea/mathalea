@@ -6195,7 +6195,7 @@ function Transformations() {
 	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
-	this.sup = 1; // 1 pour les 6ème, 2 pour les 5èmes, 3 pour les 4èmes, et 4 pour les 3èmes.
+	// this.sup = 1; // 1 pour les 6ème, 2 pour les 5èmes, 3 pour les 4èmes, et 4 pour les 3èmes.
 	sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
 	this.liste_packages = 'tkz-euclide';
 	this.nouvelle_version = function (numero_de_l_exercice) {
