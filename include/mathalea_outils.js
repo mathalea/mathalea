@@ -1610,6 +1610,24 @@ function MG32_ajouter_figure(numero_de_l_exercice) {
 	  }
   }
   )	
+
+	if (exercice[numero_de_l_exercice].MG32codeBase64corr) {
+		MG32_tableau_de_figures.push(
+  // pour chaque figure on précise ici ses options
+  {
+  	idContainer: `MG32divcorr${numero_de_l_exercice}`,
+  	svgOptions: {
+  		width: `${exercice[numero_de_l_exercice].taille_div_MG32[0]}`, 
+  		height: `${exercice[numero_de_l_exercice].taille_div_MG32[1]}`, 
+  		idSvg: `MG32svgcorr${numero_de_l_exercice}`
+  	},
+  	mtgOptions: {
+  		fig: exercice[numero_de_l_exercice].MG32codeBase64corr,
+  		isEditable: false
+  	}
+  }
+  )		
+	}
 }
 
 /**
