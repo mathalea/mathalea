@@ -470,6 +470,9 @@ function mise_a_jour_du_code(){
 				}
 				code2 += '<h3 class="ui dividing header">Exercice '+(i+1)+'</h3>';
 				code2 +=  exercice[i].contenu_correction;
+				if (exercice[i].type_exercice=='MG32' && exercice[i].MG32codeBase64corr){
+					code2 += `<div id="MG32divcorr${i}" class="MG32"></div>`;
+				}
 			}
 			code1 = '<ol>' + code1 + '</ol>';
 			code2 = '<ol>' + code2 + '</ol>'; 
