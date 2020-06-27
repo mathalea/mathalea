@@ -6353,8 +6353,8 @@ function Transformations() {
 
 				case 10 :
 					AfficheO=1
-					texte += num_alpha(i)+ ` Donner le numéro de l'image du point ${antecedents[i]} par l'homothétie de centre O et de rapport $${tex_fraction(1,k2)}$.<br>`
-					texte_corr += num_alpha(i)+ ` L'image du point ${antecedents[i]} par l'homothétie de centre O et de rapport $${tex_fraction(1,k2)}$ est le point ${images[i]}.<br>`
+					texte += num_alpha(i)+ ` Donner le numéro de l'image du point ${antecedents[i]} par l'homothétie de centre O et de rapport $${tex_fraction_reduite(1,k2)}$.<br>`
+					texte_corr += num_alpha(i)+ ` L'image du point ${antecedents[i]} par l'homothétie de centre O et de rapport $${tex_fraction_reduite(1,k2)}$ est le point ${images[i]}.<br>`
 				break
 			}
 		}

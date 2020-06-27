@@ -523,8 +523,10 @@ function produit_matrice_matrice_3x3(matrice1,matrice2) { // les deux matrices s
  return resultat
 }
 
-function image_point_par_transformation (transformation,pointA,pointO,vecteur,rapport){ //pointA et pointO sont des tableaux de deux coordonnées on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
-	/* transformation :
+function image_point_par_transformation (transformation,pointA,pointO,vecteur=[],rapport){ //pointA,centre et pointO sont des tableaux de deux coordonnées
+	// on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
+	// Point O sert pour les rotations et homothéties en tant que centre (il y a un changement d'origine du repère en O pour simplifier l'expression des matrices de transformations.)
+	/* transformations :
 1=symétrie / passant par O
 2=symétrie - passant par O
 3=symétrie | passant par O
