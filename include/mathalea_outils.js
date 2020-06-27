@@ -532,12 +532,13 @@ function image_point_par_transformation (transformation,pointA,pointO,vecteur,ra
 5= rotation 90° anti-horaire centre O
 6= rotation 90° horaire centre O
 7= symétrie centrale centre O
-8= rotation 60° anti-horaire centre O
-9= rotation 60° horaire centre O
-10= rotation 120° anti-horaire centre O
-11= rotation 120° horaire centre O
-12= translation coordonnées de O = vecteur de translation
-13= homothétie. centre 0 rapport
+11= rotation 60° anti-horaire centre O
+12= rotation 60° horaire centre O
+13= rotation 120° anti-horaire centre O
+14= rotation 120° horaire centre O
+8= translation coordonnées de O = vecteur de translation
+9= homothétie. centre O rapport k
+10= homothétie. centre O rapport 1/k
 
 
 	*/
@@ -567,6 +568,7 @@ function image_point_par_transformation (transformation,pointA,pointO,vecteur,ra
 	let matrice_chgt_repereinv=[[1,0,-x2],[0,1,-y2],[0,0,1]]
 	let matrice_translation=[[1,0,u],[0,1,v],[0,0,1]]
 	let matrice_homothetie=[[k,0,0],[0,k,0],[0,0,1]]
+	let matrice_homothetie2=[[1/k,0,0],[0,1/k,0],[0,0,1]]
 
 	let matrice=[[]]
 
@@ -592,25 +594,27 @@ function image_point_par_transformation (transformation,pointA,pointO,vecteur,ra
 		case 7 :
 			matrice=produit_matrice_matrice_3x3(matrice_sym_centrale,matrice_chgt_repereinv)
 			break
-		case 8 :
+		case 11 :
 			matrice=produit_matrice_matrice_3x3(matrice_rot_60_direct,matrice_chgt_repereinv)
 			break
-		case 9 :
+		case 12 :
 			matrice=produit_matrice_matrice_3x3(matrice_rot_60_indirect,matrice_chgt_repereinv)
 			break
-		case 10 :
+		case 13 :
 			matrice=produit_matrice_matrice_3x3(matrice_rot_120_direct,matrice_chgt_repereinv)
 			break
-		case 11 :
+		case 14 :
 			matrice=produit_matrice_matrice_3x3(matrice_rot_120_indirect,matrice_chgt_repereinv)
 			break
-		case 12 :
+		case 8 :
 			matrice=produit_matrice_matrice_3x3(matrice_translation,matrice_chgt_repereinv)
 			break
-		case 13 :
+		case 9 :
 			matrice=produit_matrice_matrice_3x3(matrice_homothetie,matrice_chgt_repereinv)
 			break
-	
+		case 10 :
+			matrice=produit_matrice_matrice_3x3(matrice_homothetie2,matrice_chgt_repereinv)
+			break	
 		}
 	pointA1=produit_matrice_vecteur_3x3(matrice,pointA)
 	pointA2=produit_matrice_vecteur_3x3(matrice_chgt_repere,pointA1)

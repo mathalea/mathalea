@@ -5422,7 +5422,7 @@ function Transformations_du_plan_et_coordonnees() {
 		let texte=``,texte_corr=``,lettre1=[`A`,`B`,`C`],lettre2=[`O\'`,`A`,`B`]
 		let point=[[]]
 		let transformation=parseInt(this.sup)-1
-		let liste_type_de_questions=[[1,2,3,4],[7],[5,6,7],[12],[13]]
+		let liste_type_de_questions=[[1,2,3,4],[7],[5,6,7],[8],[9,10]]
 		let choix_transformation=combinaison_listes(liste_type_de_questions[transformation],3)
 		xA=randint(-5,5) // Point A
 		yA=randint(-5,5)
@@ -5432,7 +5432,9 @@ function Transformations_du_plan_et_coordonnees() {
 		yC=randint(-5,5,[yA,yB])
 		xO=randint(-3,3,[0])  // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
 		yO=randint(-3,3,[0])
-		for (let j=0;j<3;j++) k[j]=(randint(1,2)+1)*randint(-1,1,[0]) // rapport d'homothétie
+		for (let j=0;j<3;j++) 
+			if (choix_transformation[j]==10) k[j]=choice([2,4])*randint(-1,1,[0]) // rapport d'homothétie < 1 ( 0.5 ou 0.25 )
+			else k[j]=choice([1,2,3])*randint(-1,1,[0]) // rapport d'homothétie >=1 (1,2 ou 3) 
 		point[0]=image_point_par_transformation(choix_transformation[0],[xA,yA],[xO,yO],[xO,yO],k[0])
 		point[1]=image_point_par_transformation(choix_transformation[1],[xB,yB],[xA,yA],[xA,yA],k[1])
 		point[2]=image_point_par_transformation(choix_transformation[2],[xC,yC],[xB,yB],[xB,yB],k[2])
@@ -5441,80 +5443,86 @@ function Transformations_du_plan_et_coordonnees() {
 				case 1 :
 					bis1=1
 					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d_1)$.<br>`
-					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d_1)$ a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d_1)$ a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
 				break
 
 				case 2 :
 					bis2=1
 					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d_2)$.<br>`
-					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d_2)$ a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d_2)$ a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
 				break
 
 				case 3 :
 					xx=1
 					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d)$.<br>`
-					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d)$ a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d)$ a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
 				break
 
 				case 4 :
 					yy=1
 					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d\')$.<br>`
-					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d\')$ a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d\')$ a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
 				break
 		
 				case 5 :
 					AfficheO=1
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens anti-horaire.<br>`
-					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens anti-horaire a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens anti-horaire a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
 				break
 
 				case 6 :
 					AfficheO=1
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens horaire.<br>`
-					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens horaire a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens horaire a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
 				break
 			
 				case 7 :
 					AfficheO=1
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la symétrie de centre $${lettre2[i]}$.<br>`
-					texte_corr += `L'image de $${lettre1[i]}$ par la symétrie de centre $${lettre2[i]}$ a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la symétrie de centre $${lettre2[i]}$ a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
 				break
 		
-				case 8 :
-					AfficheO=1
-					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire.<br>`
-					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
-				break
-
-				case 9 :
-					AfficheO=1
-					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire.<br>`
-					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
-				break
-		
-				case 10 :
-					AfficheO=1
-					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire.<br>`
-					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
-				break
-
 				case 11 :
 					AfficheO=1
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
+				break
+
+				case 12 :
+					AfficheO=1
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
+				break
+		
+				case 13 :
+					AfficheO=1
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
+				break
+
+				case 14 :
+					AfficheO=1
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 1200° dans le sens horaire.<br>`
-					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens horaire a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens horaire a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
 				break
 			
-				case 12 :
+				case 8 :
 					AfficheO=1
 					// AfficheOO=1
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la translation qui transforme O en ${lettre2[i]}.<br>`
-					texte_corr += `L'image de $${lettre1[i]}$ par la translation qui transforme O en ${lettre2[i]} a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la translation qui transforme O en ${lettre2[i]} a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
 				break
 			
-				case 13 :
+				case 9 :
 					AfficheO=1
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport ${k[i]}.<br>`
-					texte_corr += `L'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport ${k[i]} a pour coordonnées (${point[i][0]},${point[i][1]}).<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport ${k[i]} a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
+				break
+
+				case 10 :
+					AfficheO=1
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${tex_fraction(1,k[i])}$.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${tex_fraction(1,k[i])}$ a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
 				break
 			}
 		}
