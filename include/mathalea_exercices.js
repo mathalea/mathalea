@@ -6233,7 +6233,7 @@ function Transformations() {
 			// Limitation des points invariants
 			if (choix_transformation[j]==1 && images[j]%11==0) point[j][0]=-1 // Point impossible sur (d1) pour sa symétrie
 			if (choix_transformation[j]==3 && Math.floor(images[j]/10==4)) point[j][0]=-1 // Point impossible sur (d3) pour sa symétrie
-			if (choix_transformation[j]==4 && image[j]%10==4) point[j][0]=-1 // Point impossible sur  (d4) pour sa symétrie
+			if (choix_transformation[j]==4 && images[j]%10==4) point[j][0]=-1 // Point impossible sur  (d4) pour sa symétrie
 			if ((choix_transformation[j]==5 || choix_transformation[j]==5) && antecedents[j]==44) point[j][0]=-1 // point O impossible pour rotation
 			if (choix_transformation[j]==10 && antecedents[j]==44) point[j][0]=-1 // point O impossible par homothétie de rapport 1/k2
 			// pour éviter les points en dehors des clous dans homothétie de rapport 1/k2
@@ -6255,7 +6255,7 @@ function Transformations() {
 				// Limitation des points invariants
 				if (choix_transformation[j]==1 && images[j]%11==0) point[j][0]=-1 // Point impossible sur (d1) pour sa symétrie
 				if (choix_transformation[j]==3 && Math.floor(images[j]/10==4)) point[j][0]=-1 // Point impossible sur (d3) pour sa symétrie
-				if (choix_transformation[j]==4 && image[j]%10==4) point[j][0]=-1 // Point impossible sur  (d4) pour sa symétrie
+				if (choix_transformation[j]==4 && images[j]%10==4) point[j][0]=-1 // Point impossible sur  (d4) pour sa symétrie
 				if ((choix_transformation[j]==5 || choix_transformation[j]==5) && antecedents[j]==44) point[j][0]=-1 // point O impossible pour rotation
 				if (choix_transformation[j]==10 && antecedents[j]==44) point[j][0]=-1 // point O impossible par homothétie de rapport 1/k2
 				
