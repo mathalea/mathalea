@@ -5425,7 +5425,7 @@ function Transformations_du_plan_et_coordonnees() {
 		let texte=``,texte_corr=``,lettre1=[`A`,`B`,`C`],lettre2=[`O\'`,`A`,`B`]
 		let point=[[]]
 		let transformation=parseInt(this.sup)-1
-		let liste_type_de_questions=[[1,2,3,4],[7],[5,6,7],[8],[9,10],[1,2,3,4,5,6,7,8,9,10],[11,12,13,14]]
+		let liste_type_de_questions=[[1,2,3,4],[1,2,3,4,7],[1,2,3,4,7,8],[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10,11,12,13,14]]
 		let choix_transformation=combinaison_listes(liste_type_de_questions[transformation],3)
 		for (let j=0;j<3;j++) 
 		if (choix_transformation[j]==10) k[j]=choice([2,2,2,2,4,4,4,4,5,10])*randint(-1,1,[0]) // rapport d'homothétie < 1 (plus ou moins  0.5, 0.25, 0.2 ou 0,1 ) avec une fréquence divisée par 4 pour 0.2 et 0.1.
@@ -5622,6 +5622,6 @@ function Transformations_du_plan_et_coordonnees() {
 
 
 	}
-	this.besoin_formulaire_numerique = ['Transformations',7, '1 : Symétries axiales\n 2 : Symétries centrales\n 3 : Rotations\n 4 : Translations\n 5 : Homothéties\n 6 : Mélange des 5 tranformations\n 7 : En bonus, 4 autres rotations (trigonométrie nécessaire)'];
+	this.besoin_formulaire_numerique = ['Transformations',5, '1 : Symétries axiales (6ème)\n 2 : Symétries axiales et centrales (5ème)\n 3 : Symétries et translations (4ème)\n 4 : Symétries, translations, rotations et homothéties\n 5 : Les mêmes plus des rotations compliquées\n'];
 
 }
