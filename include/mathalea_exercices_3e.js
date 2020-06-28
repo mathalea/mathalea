@@ -1166,7 +1166,9 @@ function Double_distributivite() {
 					break;
 				case 3://(ax-b)(cx+d)
 					texte = `$(${a}x-${b})(${c}x+${d})$`
-					texte_corr = `$(${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${a * c}x^2+${d * a}x-${b * c}x-${b * d}$`;
+					// if (a*d-b*c>0) 
+					texte_corr = `$(${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2+(${d * a-b * c})*x-${b * d}`)}$`;
+					// else texte_corr = `$(${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${a * c}x^2-${b * c - a*d}x-${b * d}$`;
 					break;
 				case 4://(ax-b)(cx-d)
 					texte = `$(${a}x-${b})(${c}x-${d})$`
@@ -4729,6 +4731,7 @@ function Antecedent_graphique() {
 
 }
 /**
+* Problèmes calculs d'aire et de volumes utilisant l'effet d'une réduction sur les aires et les volumes 
 * @auteur Jean-Claude Lhote
 */
 function Agrandissement_reduction() {
@@ -4751,7 +4754,7 @@ function Agrandissement_reduction() {
 	this.nouvelle_version = function (numero_de_l_exercice) {
 		this.liste_questions = [];
 		this.liste_corrections = [];
-		let texte, texte_corr, r, r2, h1, h2, h3, c, c2;
+		let texte, texte_corr, r, r2, h1, h2, h3, c, c2; 
 	//	if (sortie_html) {
 			this.type_exercice = 'MG32';
 			this.taille_div_MG32 = [600, 700];
@@ -4766,13 +4769,13 @@ function Agrandissement_reduction() {
 					h1 = calcul(randint(12, 20) / 2)
 					h2 = randint(3, Math.floor(h1) - 1)
 					if (this.sup2<3)
-						if (this.sup2==1) 
+						if (this.sup2==1) // on veut un coefficient de réduction décimal à 1 chiffre après la virgule
 							while (calcul(h2/h1)!=arrondi(h2/h1,1)) {
 								c = calcul(randint(30, 60) / 10)
 								h1 = calcul(randint(12, 20) / 2)
 								h2 = randint(3, Math.floor(h1) - 1)
 							}
-						else 
+						else // coefficient qui peut être décimal avec plus d'un chiffre ou rationnel non décimal.
 							while (calcul(h2/h1)==arrondi(h2/h1,1)) {
 								c = calcul(randint(30, 60) / 10)
 								h1 = calcul(randint(12, 20) / 2)
@@ -4875,13 +4878,13 @@ function Agrandissement_reduction() {
 					h1 = calcul(randint(12, 20) / 2)
 					h2 = randint(3, Math.floor(h1) - 1)
 					if (this.sup2<3)
-					if (this.sup2==1) 
+					if (this.sup2==1) // coefficient de réduction décimal
 						while (calcul(h2/h1)!=arrondi(h2/h1,1)) {
 							r = calcul(randint(12, 35) / 10)
 							h1 = calcul(randint(12, 20) / 2)
 							h2 = randint(3, Math.floor(h1) - 1)
 						}
-					else 
+					else //coefficient de réduction rationnel
 						while (calcul(h2/h1)==arrondi(h2/h1,1)) {
 							r = calcul(randint(12, 35) / 10)
 							h1 = calcul(randint(12, 20) / 2)
@@ -5019,14 +5022,14 @@ function Agrandissement_reduction() {
 					h1 = calcul(randint(12, 20) / 2)
 					h2 = randint(3, Math.floor(h1) - 1)
 					if (this.sup2<3)
-					if (this.sup2==1) 
+					if (this.sup2==1) // coefficient de réduction décimal
 						while (calcul(h2/h1)!=arrondi(h2/h1,1)) {
 							c = calcul(randint(30, 60) / 10)
 							c2 = calcul(randint(30, 60) / 10)
 							h1 = calcul(randint(12, 20) / 2)
 							h2 = randint(3, Math.floor(h1) - 1)
 						}
-					else 
+					else //coefficient de réduction rationnel
 						while (calcul(h2/h1)==arrondi(h2/h1,1)) {
 							c = calcul(randint(30, 60) / 10)
 							c2 = calcul(randint(30, 60) / 10)
@@ -5135,7 +5138,7 @@ function Agrandissement_reduction() {
 					h3 = calcul(randint(10, 15) / 5)
 					h2 = calcul(r2 * h3 / (r - r2))
 					h1 = calcul(h2 + h3)
-					while (calcul(h2/h1)!=arrondi(h2/h1,1)||calcul((h3/2+h2)/h1)!=arrondi((h3/2+h2)/h1,1)) {
+					while (calcul(h2/h1)!=arrondi(h2/h1,1)||calcul((h3/2+h2)/h1)!=arrondi((h3/2+h2)/h1,1)) { // on impose des coefficients de réduction décimaux dans cet exercice.
 							r = calcul(randint(15, 20) / 10)
 							r2 = calcul(randint(11, r * 10 - 3) / 10)
 							h3 = calcul(randint(10, 15) / 5)
@@ -5244,13 +5247,13 @@ function Agrandissement_reduction() {
 					h2 = randint(1,3)
 
 					if (this.sup2<3)
-					if (this.sup2==1) 
+					if (this.sup2==1) // coefficient de réduction décimal
 						while (calcul(h2/h1)!=arrondi(h2/h1,1)) {
 							r = calcul(randint(20, 28) / 10)
 							h1 = calcul(randint(20, 28) / 2)
 							h2 = randint(1,3)
 						}
-					else 
+					else //coefficient de réduction rationnel
 						while (calcul(h2/h1)==arrondi(h2/h1,1)) {
 							r = calcul(randint(20, 28) / 10)
 							h1 = calcul(randint(20, 28) / 2)
@@ -5394,5 +5397,231 @@ function Agrandissement_reduction() {
 
 	this.besoin_formulaire_numerique = ['Type d\'exercices', 3, '1 : Calcul d\' aire et de volumes\n 2 : Problème complexe\n 3 : Mélange'];
 	this.besoin_formulaire2_numerique = ['Coefficient de réduction(problèmes de type1)', 3, '1 : Décimal\n 2 : Non décimal\n 3 : Décimal ou non'];
+
+}
+function Transformations_du_plan_et_coordonnees() {
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Trouver l'image d'un point par une transformation du plan";
+	this.consigne = "";
+	this.nb_questions = 1;
+	this.nb_questions_modifiable = false;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.sup = 1; // 1 calcul de l'hypoténuse 2 calcul d'un côté de l'angle droit 
+	sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+	this.liste_packages = 'tkz-euclide';
+	this.nouvelle_version = function (numero_de_l_exercice) {
+	this.type_exercice = 'MG32';
+	this.MG32editable=false;
+	this.taille_div_MG32 = [700, 700];
+	this.MG32codeBase64 = "TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAAJmcv###wEA#wAAAAAEAACAEwAAgBIAAIAaAACBDAAAAAAFHAAAAtIAAAEBAAAAAAAAAAEAAAB9#####wAAAAEACkNDYWxjQ29uc3QA#####wACcGkAFjMuMTQxNTkyNjUzNTg5NzkzMjM4NDb#####AAAAAQAKQ0NvbnN0YW50ZUAJIftURC0Y#####wAAAAEACkNQb2ludEJhc2UA#####wAAAAAADgABTwDAKAAAAAAAAAAAAAAAAAAABQABQHXYAAAAAABAdjhR64UeuP####8AAAABABRDRHJvaXRlRGlyZWN0aW9uRml4ZQD#####AQAAAAAQAAABAAEAAAABAT#wAAAAAAAA#####wAAAAEAD0NQb2ludExpZURyb2l0ZQD#####AAAAAAEOAAFJAMAYAAAAAAAAAAAAAAAAAAAFAAFAOQAAAAAAAAAAAAL#####AAAAAQAJQ0Ryb2l0ZUFCAP####8AAAAAABAAAAEAAQAAAAEAAAAD#####wAAAAEAFkNEcm9pdGVQZXJwZW5kaWN1bGFpcmUA#####wAAAAAAEAAAAQABAAAAAQAAAAT#####AAAAAQAJQ0NlcmNsZU9BAP####8BAAAAAAEAAAABAAAAA#####8AAAABABBDSW50RHJvaXRlQ2VyY2xlAP####8AAAAFAAAABv####8AAAABABBDUG9pbnRMaWVCaXBvaW50AP####8BAAAAABAAAAEFAAEAAAAHAAAACQD#####AAAAAAEOAAFKAMAoAAAAAAAAwBAAAAAAAAAFAAIAAAAH#####wAAAAIAB0NSZXBlcmUA#####wDm5uYAAQAAAAEAAAADAAAACQEBAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAE#8AAAAAAAAAAAAAE#8AAAAAAAAP####8AAAABAApDVW5pdGV4UmVwAP####8ABHVuaXQAAAAK#####wAAAAEAC0NIb21vdGhldGllAP####8AAAAB#####wAAAAEACkNPcGVyYXRpb24DAAAAAT#wAAAAAAAA#####wAAAAEAD0NSZXN1bHRhdFZhbGV1cgAAAAv#####AAAAAQALQ1BvaW50SW1hZ2UA#####wEAAAAAEAACVyIBAQAAAAADAAAADP####8AAAABAAlDTG9uZ3VldXIA#####wAAAAEAAAAN#####wAAAAEAB0NDYWxjdWwA#####wAHbmJncmFkeAACMjAAAAABQDQAAAAAAAAAAAARAP####8AB25iZ3JhZHkAAjIwAAAAAUA0AAAAAAAA#####wAAAAEAFENJbXBsZW1lbnRhdGlvblByb3RvAP####8AFEdyYWR1YXRpb25BeGVzUmVwZXJlAAAAGwAAAAgAAAADAAAACgAAAA8AAAAQ#####wAAAAEAE0NBYnNjaXNzZU9yaWdpbmVSZXAAAAAAEQAFYWJzb3IAAAAK#####wAAAAEAE0NPcmRvbm5lZU9yaWdpbmVSZXAAAAAAEQAFb3Jkb3IAAAAKAAAACwAAAAARAAZ1bml0ZXgAAAAK#####wAAAAEACkNVbml0ZXlSZXAAAAAAEQAGdW5pdGV5AAAACv####8AAAABABBDUG9pbnREYW5zUmVwZXJlAAAAABEAAAAAABAAAAEFAAAAAAoAAAAOAAAAEgAAAA4AAAATAAAAFgAAAAARAAAAAAAQAAABBQAAAAAKAAAADQAAAAAOAAAAEgAAAA4AAAAUAAAADgAAABMAAAAWAAAAABEAAAAAABAAAAEFAAAAAAoAAAAOAAAAEgAAAA0AAAAADgAAABMAAAAOAAAAFQAAAAwAAAAAEQAAABYAAAAOAAAADwAAAA8AAAAAEQAAAAAAEAAAAQUAAAAAFwAAABkAAAAMAAAAABEAAAAWAAAADgAAABAAAAAPAAAAABEAAAAAABAAAAEFAAAAABgAAAAb#####wAAAAEACENTZWdtZW50AAAAABEBAAAAABAAAAEAAQAAABcAAAAaAAAAFwAAAAARAQAAAAAQAAABAAEAAAAYAAAAHAAAAAQAAAAAEQEAAAAACwABVwDAFAAAAAAAAMA0AAAAAAAABQABP9xWeJq83w4AAAAd#####wAAAAIACENNZXN1cmVYAAAAABEABnhDb29yZAAAAAoAAAAfAAAAEQAAAAARAAVhYnN3MQAGeENvb3JkAAAADgAAACD#####AAAAAgASQ0xpZXVPYmpldFBhclB0TGllAQAAABEAZmZmAAAAHwAAAA4AAAAPAAAAHwAAAAIAAAAfAAAAHwAAABEAAAAAEQAFYWJzdzIADTIqYWJzb3ItYWJzdzEAAAANAQAAAA0CAAAAAUAAAAAAAAAAAAAADgAAABIAAAAOAAAAIQAAABYAAAAAEQEAAAAAEAAAAQUAAAAACgAAAA4AAAAjAAAADgAAABMAAAAZAQAAABEAZmZmAAAAJAAAAA4AAAAPAAAAHwAAAAUAAAAfAAAAIAAAACEAAAAjAAAAJAAAAAQAAAAAEQEAAAAACwABUgBAIAAAAAAAAMAgAAAAAAAABQABP9EbToG06B8AAAAe#####wAAAAIACENNZXN1cmVZAAAAABEABnlDb29yZAAAAAoAAAAmAAAAEQAAAAARAAVvcmRyMQAGeUNvb3JkAAAADgAAACcAAAAZAQAAABEAZmZmAAAAJgAAAA4AAAAQAAAAJgAAAAIAAAAmAAAAJgAAABEAAAAAEQAFb3JkcjIADTIqb3Jkb3Itb3JkcjEAAAANAQAAAA0CAAAAAUAAAAAAAAAAAAAADgAAABMAAAAOAAAAKAAAABYAAAAAEQEAAAAAEAAAAQUAAAAACgAAAA4AAAASAAAADgAAACoAAAAZAQAAABEAZmZmAAAAKwAAAA4AAAAQAAAAJgAAAAUAAAAmAAAAJwAAACgAAAAqAAAAK#####8AAAACAAxDQ29tbWVudGFpcmUAAAAAEQFmZmYAAAAAAAAAAABAGAAAAAAAAAAAAB8LAAH###8AAAABAAAAAAAAAAEAAAAAAAAAAAALI1ZhbChhYnN3MSkAAAAZAQAAABEAZmZmAAAALQAAAA4AAAAPAAAAHwAAAAQAAAAfAAAAIAAAACEAAAAtAAAAGwAAAAARAWZmZgAAAAAAAAAAAEAYAAAAAAAAAAAAJAsAAf###wAAAAEAAAAAAAAAAQAAAAAAAAAAAAsjVmFsKGFic3cyKQAAABkBAAAAEQBmZmYAAAAvAAAADgAAAA8AAAAfAAAABgAAAB8AAAAgAAAAIQAAACMAAAAkAAAALwAAABsAAAAAEQFmZmYAwCAAAAAAAAA#8AAAAAAAAAAAACYLAAH###8AAAACAAAAAQAAAAEAAAAAAAAAAAALI1ZhbChvcmRyMSkAAAAZAQAAABEAZmZmAAAAMQAAAA4AAAAQAAAAJgAAAAQAAAAmAAAAJwAAACgAAAAxAAAAGwAAAAARAWZmZgDAHAAAAAAAAAAAAAAAAAAAAAAAKwsAAf###wAAAAIAAAABAAAAAQAAAAAAAAAAAAsjVmFsKG9yZHIyKQAAABkBAAAAEQBmZmYAAAAzAAAADgAAABAAAAAmAAAABgAAACYAAAAnAAAAKAAAACoAAAArAAAAMwAAABEA#####wABeAABMwAAAAFACAAAAAAAAAAAABEA#####wABeQABMgAAAAFAAAAAAAAAAAAAABYA#####wAAAAAAEAABQQAAAAAAAAAAAEAIAAAAAAAACQAAAAAKAAAADgAAADUAAAAOAAAANgAAABEA#####wACeDEAAi0z#####wAAAAEADENNb2luc1VuYWlyZQAAAAFACAAAAAAAAAAAABEA#####wACeTEAATIAAAABQAAAAAAAAAAAAAARAP####8AAngyAAEyAAAAAUAAAAAAAAAAAAAAEQD#####AAJ5MgABMQAAAAE#8AAAAAAAAAAAABYA#####wEAAAAAEAACTyIAwDEAAAAAAADAQQAAAAAAAAYAAAAACgAAAA4AAAA6AAAADgAAADv#####AAAAAQAJQ0Ryb2l0ZU9tAP####8BAAAAABAAAAEAAQAAAAoAAAA8AAAAAT#wAAAAAAAAAAAABAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAUAIKPXCj1wmAAAAPQAAABEA#####wAEYmlzMQABMQAAAAE#8AAAAAAAAAAAAAwA#####wAAADwAAAAOAAAAPwAAAA8A#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAJAAAAAD4AAABAAAAABQD#####AAAAAAEQAAJkMQEAAT#szMzMzMzNAAAAPAAAAEEAAAADAP####8BAAAAARAAAAEAAQAAADwBP#AAAAAAAAAAAAAEAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABQFkAAAAAAAAAAABDAAAAEQD#####AAN4eCcAATEAAAABP#AAAAAAAAAAAAAMAP####8AAAA8AAAADgAAAEUAAAAPAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAABEAAAARgAAAAUA#####wAAAAABEAABZADAEvfO2RaIAD#wAAAAAAAAAAE#7ChslIjsKgAAADwAAABHAAAAAwD#####AQAAAAEQAAABAAEAAAA8AD#wAAAAAAAAAAAABAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAcBYv######+AAAASQAAABEA#####wADeXknAAExAAAAAT#wAAAAAAAAAAAADAD#####AAAAPAAAAA4AAABLAAAADwD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAASgAAAEwAAAAFAP####8AAAAAARAAAmQnAQABP+zMzMzMzM0AAAA8AAAATQAAAB0A#####wEAAAAAEAAAAQABAAAACgAAADwAAAAcAAAAAT#wAAAAAAAAAAAABAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAUARrhR64UeuAAAATwAAABEA#####wAEYmlzMgABMQAAAAE#8AAAAAAAAAAAAAwA#####wAAADwAAAAOAAAAUQAAAA8A#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAFAAAABSAAAABQD#####AAAAAAEQAAJkMgEAAT#szMzMzMzNAAAAPAAAAFMAAAARAP####8ACUFmZmljaGVPJwABMQAAAAE#8AAAAAAAAAAAAAwA#####wAAAAEAAAABP#AAAAAAAAAAAAAPAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAA8AAAAVgAAAAwA#####wAAAAEAAAANAwAAAAE#8AAAAAAAAAAAAA4AAABVAAAADwD#####AAAAAAAOAAJPJwAAAAAAAAAAAEAIAAAAAAAACQAAAAA8AAAAWP####8AAAABAAhDVmVjdGV1cgD#####Af8AAAAQAAABAAIAAAABAAAAVwAAAAARAP####8ACkFmZmljaGVPTycAATEAAAABP#AAAAAAAAD#####AAAAAQARQ1BvaW50UGFyTXVsdFZlY3QA#####wEAAAAADgACTzMAQDkAAAAAAABACAAAAAAAAAMAAAAAAQAAAFoAAAANAwAAAAE#8AAAAAAAAAAAAA4AAABbAAAAHgD#####AP8AAAAQAAABAAIAAAABAAAAXAAAAAAfAP####8B#wAAABAAAAEFAAAAAAEAAABdAAAAAT#gAAAAAAAAAAAABgD#####Af8AAAAQAAABAAIAAABeAAAAXf####8AAAACAAlDQ2VyY2xlT1IA#####wH#AAAAAgAAAF4AAAABP8mZmZmZmZoAAAAACAD#####AAAAXwAAAGAAAAAJAP####8B#wAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAAYQAAAAkA#####wH#AAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAIAAABh#####wAAAAIABkNMYXRleAD#####AP8AAADAMgAAAAAAAMAxAAAAAAAAAAAAYxAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAABNcb3ZlcnJpZ2h0YXJyb3cge3Z9#####wAAAAEAEUNQb2ludFBhckFic2Npc3NlAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAACQAAAAABAAAAAwAAAAFAJAAAAAAAAAAAAAcA#####wEAAAAAAQAAAAEAAABlAAAACAD#####AAAAVAAAAGYAAAAJAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAAZwAAAAkA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAIAAABnAAAACAD#####AAAATgAAAGYAAAAJAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAAagAAAAkA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAEAAABqAAAACAD#####AAAAQgAAAGYAAAAJAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAAbQAAAAkA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAEAAABtAAAACAD#####AAAASAAAAGYAAAAJAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAAcAAAAAkA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAEAAABwAAAAGwD#####AAAAAAEAAAByEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAyhkKQAAABsA#####wAAAAAAQAAAAAAAAADAGAAAAAAAAAAAAGwQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAEKGQnKQAAABsA#####wAAAAABAAAAbxAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAgoZCNMKDEpKQAAABsA#####wAAAAAAwDUAAAAAAABAFAAAAAAAAAAAAGkQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAIKGQjTCgyKSkAAAARAP####8AAnhCAAExAAAAAT#wAAAAAAAAAAAAEQD#####AAJ5QgABMQAAAAE#8AAAAAAAAAAAABEA#####wACeEMAATEAAAABP#AAAAAAAAAAAAARAP####8AAnlDAAExAAAAAT#wAAAAAAAAAAAAFgD#####AAAAAAAQAAFCAAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAOAAAAdwAAAA4AAAB4AAAAFgD#####AAAAAAAQAAFDAAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAOAAAAeQAAAA4AAAB6AAAADv##########"
+	this.MG32codeBase64corr = "TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAAJmcv###wEA#wAAAADEAACIuAAAgIkAAICKAAB9FwAAgCoAAH0TAAB9EgAAgCcAAIAoAAB9FAAAgK4AAIB8AACAhAAAgAsAAIAlAACAIAAAgA0AAIAOAACBWQAAgAwAAIDxAACBJwAAgHkAAIB7AACAegAAgCQAAIFxAACAbQAAgGoAAIC7AACAvAAAfR0AAH0eAACAgAAAgYMAAIAPAACAEwAAgBIAAIAXAACAFgAAgF4AAIBfAACAZQAAfRAAAIDrAACAEAAAgEgAAIAUAAB9KAAAgBoAAIAdAACA6QAAgVAAAIFRAACBDAAAgQ0AAIFSAACBUwAAgB4AAIAcAACAGwAAgBkAAIBgAACBIAAAgN4AAIDfAACBCgAAgOAAAIFDAACASQAAgEoAAIEXAACBGAAAgDMAAIB2AACA7AAAgO0AAIDYAACA2QAAgNoAAIDbAACAcgAAgXkAAIFiAACBZAAAgE0AAIAfAACAIgAAgCMAAIAhAACAxwAAgT0AAIELAACBBAAAgC0AAIFMAACAMAAAgSoAAIErAACALgAAgDEAAIDyAACBaQAAgWcAAIGlAACBdQAAgC8AAIA1AACAWQAAgFwAAH0KAAB9CwAAgUkAAIFLAAB9DgAAfQ8AAH0RAAB9FQAAfSQAAIBuAACAawAAgLAAAIFXAACAsQAAgVYAAICyAACBVAAAgLcAAIC4AACAswAAgPcAAIC0AACAtQAAgQYAAIEfAACBAgAAgY4AAIGPAACBAwAAgOMAAID2AACBBwAAgQkAAIEpAACBKAAAgOgAAIBvAACAcAAAgHQAAIBQAACA3QAAfRkAAH0YAACBbAAAgHEAAIFtAACBbgAAgXIAAIGGAAB9IwAAgQgAAIDkAACA5wAAgOUAAIDuAAB9KwAAfS0AAH0qAAB9LAAAgW8AAIFwAACBeAAAgXcAAH0mAACA8AAAfSUAAIEiAAB9KQAAfScAAIGjAACBpAAAfR8AAH0gAAB9IQAAfSIAAIBiAACAYwAAgGcAAIBoAACAaQAAgMkAAIBLAACArwAAgSwAAIDhAACA4gAAAAAFHAAAAtIAAAEBAAAAAAAAAAEAAACG#####wAAAAEACkNDYWxjQ29uc3QA#####wACcGkAFjMuMTQxNTkyNjUzNTg5NzkzMjM4NDb#####AAAAAQAKQ0NvbnN0YW50ZUAJIftURC0Y#####wAAAAEACkNQb2ludEJhc2UA#####wAAAAAADgABTwDAKAAAAAAAAAAAAAAAAAAABQABQHXYAAAAAABAdjhR64UeuP####8AAAABABRDRHJvaXRlRGlyZWN0aW9uRml4ZQD#####AQAAAAAQAAABAAEAAAABAT#wAAAAAAAA#####wAAAAEAD0NQb2ludExpZURyb2l0ZQD#####AAAAAAEOAAFJAMAYAAAAAAAAAAAAAAAAAAAFAAFAOQAAAAAAAAAAAAL#####AAAAAQAJQ0Ryb2l0ZUFCAP####8AAAAAABAAAAEAAQAAAAEAAAAD#####wAAAAEAFkNEcm9pdGVQZXJwZW5kaWN1bGFpcmUA#####wAAAAAAEAAAAQABAAAAAQAAAAT#####AAAAAQAJQ0NlcmNsZU9BAP####8BAAAAAAEAAAABAAAAA#####8AAAABABBDSW50RHJvaXRlQ2VyY2xlAP####8AAAAFAAAABv####8AAAABABBDUG9pbnRMaWVCaXBvaW50AP####8BAAAAABAAAAEFAAEAAAAHAAAACQD#####AAAAAAEOAAFKAMAoAAAAAAAAwBAAAAAAAAAFAAIAAAAH#####wAAAAIAB0NSZXBlcmUA#####wDm5uYAAQAAAAEAAAADAAAACQEBAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAE#8AAAAAAAAAAAAAE#8AAAAAAAAP####8AAAABAApDVW5pdGV4UmVwAP####8ABHVuaXQAAAAK#####wAAAAEAC0NIb21vdGhldGllAP####8AAAAB#####wAAAAEACkNPcGVyYXRpb24DAAAAAT#wAAAAAAAA#####wAAAAEAD0NSZXN1bHRhdFZhbGV1cgAAAAv#####AAAAAQALQ1BvaW50SW1hZ2UA#####wEAAAAAEAACVyIBAQAAAAADAAAADP####8AAAABAAlDTG9uZ3VldXIA#####wAAAAEAAAAN#####wAAAAEAB0NDYWxjdWwA#####wAHbmJncmFkeAACMjAAAAABQDQAAAAAAAAAAAARAP####8AB25iZ3JhZHkAAjIwAAAAAUA0AAAAAAAA#####wAAAAEAFENJbXBsZW1lbnRhdGlvblByb3RvAP####8AFEdyYWR1YXRpb25BeGVzUmVwZXJlAAAAGwAAAAgAAAADAAAACgAAAA8AAAAQ#####wAAAAEAE0NBYnNjaXNzZU9yaWdpbmVSZXAAAAAAEQAFYWJzb3IAAAAK#####wAAAAEAE0NPcmRvbm5lZU9yaWdpbmVSZXAAAAAAEQAFb3Jkb3IAAAAKAAAACwAAAAARAAZ1bml0ZXgAAAAK#####wAAAAEACkNVbml0ZXlSZXAAAAAAEQAGdW5pdGV5AAAACv####8AAAABABBDUG9pbnREYW5zUmVwZXJlAAAAABEAAAAAABAAAAEFAAAAAAoAAAAOAAAAEgAAAA4AAAATAAAAFgAAAAARAAAAAAAQAAABBQAAAAAKAAAADQAAAAAOAAAAEgAAAA4AAAAUAAAADgAAABMAAAAWAAAAABEAAAAAABAAAAEFAAAAAAoAAAAOAAAAEgAAAA0AAAAADgAAABMAAAAOAAAAFQAAAAwAAAAAEQAAABYAAAAOAAAADwAAAA8AAAAAEQAAAAAAEAAAAQUAAAAAFwAAABkAAAAMAAAAABEAAAAWAAAADgAAABAAAAAPAAAAABEAAAAAABAAAAEFAAAAABgAAAAb#####wAAAAEACENTZWdtZW50AAAAABEBAAAAABAAAAEAAQAAABcAAAAaAAAAFwAAAAARAQAAAAAQAAABAAEAAAAYAAAAHAAAAAQAAAAAEQEAAAAACwABVwDAFAAAAAAAAMA0AAAAAAAABQABP9xWeJq83w4AAAAd#####wAAAAIACENNZXN1cmVYAAAAABEABnhDb29yZAAAAAoAAAAfAAAAEQAAAAARAAVhYnN3MQAGeENvb3JkAAAADgAAACD#####AAAAAgASQ0xpZXVPYmpldFBhclB0TGllAQAAABEAZmZmAAAAHwAAAA4AAAAPAAAAHwAAAAIAAAAfAAAAHwAAABEAAAAAEQAFYWJzdzIADTIqYWJzb3ItYWJzdzEAAAANAQAAAA0CAAAAAUAAAAAAAAAAAAAADgAAABIAAAAOAAAAIQAAABYAAAAAEQEAAAAAEAAAAQUAAAAACgAAAA4AAAAjAAAADgAAABMAAAAZAQAAABEAZmZmAAAAJAAAAA4AAAAPAAAAHwAAAAUAAAAfAAAAIAAAACEAAAAjAAAAJAAAAAQAAAAAEQEAAAAACwABUgBAIAAAAAAAAMAgAAAAAAAABQABP9EbToG06B8AAAAe#####wAAAAIACENNZXN1cmVZAAAAABEABnlDb29yZAAAAAoAAAAmAAAAEQAAAAARAAVvcmRyMQAGeUNvb3JkAAAADgAAACcAAAAZAQAAABEAZmZmAAAAJgAAAA4AAAAQAAAAJgAAAAIAAAAmAAAAJgAAABEAAAAAEQAFb3JkcjIADTIqb3Jkb3Itb3JkcjEAAAANAQAAAA0CAAAAAUAAAAAAAAAAAAAADgAAABMAAAAOAAAAKAAAABYAAAAAEQEAAAAAEAAAAQUAAAAACgAAAA4AAAASAAAADgAAACoAAAAZAQAAABEAZmZmAAAAKwAAAA4AAAAQAAAAJgAAAAUAAAAmAAAAJwAAACgAAAAqAAAAK#####8AAAACAAxDQ29tbWVudGFpcmUAAAAAEQFmZmYAAAAAAAAAAABAGAAAAAAAAAAAAB8LAAH###8AAAABAAAAAAAAAAEAAAAAAAAAAAALI1ZhbChhYnN3MSkAAAAZAQAAABEAZmZmAAAALQAAAA4AAAAPAAAAHwAAAAQAAAAfAAAAIAAAACEAAAAtAAAAGwAAAAARAWZmZgAAAAAAAAAAAEAYAAAAAAAAAAAAJAsAAf###wAAAAEAAAAAAAAAAQAAAAAAAAAAAAsjVmFsKGFic3cyKQAAABkBAAAAEQBmZmYAAAAvAAAADgAAAA8AAAAfAAAABgAAAB8AAAAgAAAAIQAAACMAAAAkAAAALwAAABsAAAAAEQFmZmYAwCAAAAAAAAA#8AAAAAAAAAAAACYLAAH###8AAAACAAAAAQAAAAEAAAAAAAAAAAALI1ZhbChvcmRyMSkAAAAZAQAAABEAZmZmAAAAMQAAAA4AAAAQAAAAJgAAAAQAAAAmAAAAJwAAACgAAAAxAAAAGwAAAAARAWZmZgDAHAAAAAAAAAAAAAAAAAAAAAAAKwsAAf###wAAAAIAAAABAAAAAQAAAAAAAAAAAAsjVmFsKG9yZHIyKQAAABkBAAAAEQBmZmYAAAAzAAAADgAAABAAAAAmAAAABgAAACYAAAAnAAAAKAAAACoAAAArAAAAMwAAABEA#####wABeAABMwAAAAFACAAAAAAAAAAAABEA#####wABeQABMgAAAAFAAAAAAAAAAAAAABYA#####wAAAAAAEAABQQAAAAAAAAAAAEAIAAAAAAAACQAAAAAKAAAADgAAADUAAAAOAAAANgAAABEA#####wACeDEAAi0z#####wAAAAEADENNb2luc1VuYWlyZQAAAAFACAAAAAAAAAAAABEA#####wACeTEAATIAAAABQAAAAAAAAAAAAAARAP####8AAngyAAEyAAAAAUAAAAAAAAAAAAAAEQD#####AAJ5MgABMQAAAAE#8AAAAAAAAAAAABYA#####wEAAAAAEAACTyIAwDEAAAAAAADAQQAAAAAAAAYAAAAACgAAAA4AAAA6AAAADgAAADv#####AAAAAQAJQ0Ryb2l0ZU9tAP####8BAAAAABAAAAEAAQAAAAoAAAA8AAAAAT#wAAAAAAAAAAAABAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAUAIKPXCj1wmAAAAPQAAABEA#####wAEYmlzMQABMQAAAAE#8AAAAAAAAAAAAAwA#####wAAADwAAAAOAAAAPwAAAA8A#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAJAAAAAD4AAABAAAAABQD#####AAAAAAEQAAJkMQEAAT#szMzMzMzNAAAAPAAAAEEAAAADAP####8BAAAAARAAAAEAAQAAADwBP#AAAAAAAAAAAAAEAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABQFkAAAAAAAAAAABDAAAAEQD#####AAN4eCcAATEAAAABP#AAAAAAAAAAAAAMAP####8AAAA8AAAADgAAAEUAAAAPAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAABEAAAARgAAAAUA#####wAAAAABEAABZADAEvfO2RaIAD#wAAAAAAAAAAE#7ChslIjsKgAAADwAAABHAAAAAwD#####AQAAAAEQAAABAAEAAAA8AD#wAAAAAAAAAAAABAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAcBYv######+AAAASQAAABEA#####wADeXknAAExAAAAAT#wAAAAAAAAAAAADAD#####AAAAPAAAAA4AAABLAAAADwD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAASgAAAEwAAAAFAP####8AAAAAARAAAmQnAQABP+zMzMzMzM0AAAA8AAAATQAAAB0A#####wEAAAAAEAAAAQABAAAACgAAADwAAAAcAAAAAT#wAAAAAAAAAAAABAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAUARrhR64UeuAAAATwAAABEA#####wAEYmlzMgABMQAAAAE#8AAAAAAAAAAAAAwA#####wAAADwAAAAOAAAAUQAAAA8A#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAFAAAABSAAAABQD#####AAAAAAEQAAJkMgEAAT#szMzMzMzNAAAAPAAAAFMAAAARAP####8ACUFmZmljaGVPJwABMQAAAAE#8AAAAAAAAAAAAAwA#####wAAAAEAAAABP#AAAAAAAAAAAAAPAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAA8AAAAVgAAAAwA#####wAAAAEAAAANAwAAAAE#8AAAAAAAAAAAAA4AAABVAAAADwD#####AAAAAAAOAAJPJwAAAAAAAAAAAEAIAAAAAAAACQAAAAA8AAAAWP####8AAAABAAhDVmVjdGV1cgD#####Af8AAAAQAAABAAIAAAABAAAAVwAAAAARAP####8ACkFmZmljaGVPTycAATEAAAABP#AAAAAAAAD#####AAAAAQARQ1BvaW50UGFyTXVsdFZlY3QA#####wEAAAAADgACTzMAQDkAAAAAAABACAAAAAAAAAMAAAAAAQAAAFoAAAANAwAAAAE#8AAAAAAAAAAAAA4AAABbAAAAHgD#####AP8AAAAQAAABAAIAAAABAAAAXAAAAAAfAP####8B#wAAABAAAAEFAAAAAAEAAABdAAAAAT#gAAAAAAAAAAAABgD#####Af8AAAAQAAABAAIAAABeAAAAXf####8AAAACAAlDQ2VyY2xlT1IA#####wH#AAAAAgAAAF4AAAABP8mZmZmZmZoAAAAACAD#####AAAAXwAAAGAAAAAJAP####8B#wAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAAYQAAAAkA#####wH#AAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAIAAABh#####wAAAAIABkNMYXRleAD#####AP8AAADAMgAAAAAAAMAxAAAAAAAAAAAAYxAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAABNcb3ZlcnJpZ2h0YXJyb3cge3Z9#####wAAAAEAEUNQb2ludFBhckFic2Npc3NlAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAACQAAAAABAAAAAwAAAAFAJAAAAAAAAAAAAAcA#####wEAAAAAAQAAAAEAAABlAAAACAD#####AAAAVAAAAGYAAAAJAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAAZwAAAAkA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAIAAABnAAAACAD#####AAAATgAAAGYAAAAJAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAAagAAAAkA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAEAAABqAAAACAD#####AAAAQgAAAGYAAAAJAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAAbQAAAAkA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAEAAABtAAAACAD#####AAAASAAAAGYAAAAJAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAAcAAAAAkA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAEAAABwAAAAGwD#####AAAAAAEAAAByEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAyhkKQAAABsA#####wAAAAAAQAAAAAAAAADAGAAAAAAAAAAAAGwQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAEKGQnKQAAABsA#####wAAAAABAAAAbxAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAgoZCNMKDEpKQAAABsA#####wAAAAAAwDUAAAAAAABAFAAAAAAAAAAAAGkQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAIKGQjTCgyKSkAAAARAP####8AAnhCAAExAAAAAT#wAAAAAAAAAAAAEQD#####AAJ5QgABMQAAAAE#8AAAAAAAAAAAABEA#####wACeEMAATEAAAABP#AAAAAAAAAAAAARAP####8AAnlDAAExAAAAAT#wAAAAAAAAAAAAFgD#####AAAAAAAQAAFCAAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAOAAAAdwAAAA4AAAB4AAAAFgD#####AAAAAAAQAAFDAAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAOAAAAeQAAAA4AAAB6AAAAEQD#####AAN4QScAATUAAAABQBQAAAAAAAAAAAARAP####8AA3lBJwABMgAAAAFAAAAAAAAAAAAAABEA#####wADeEInAAE1AAAAAUAUAAAAAAAAAAAAEQD#####AAN5QicAATMAAAABQAgAAAAAAAAAAAARAP####8AA3hDJwABNQAAAAFAFAAAAAAAAAAAABEA#####wADeUMnAAE0AAAAAUAQAAAAAAAAAAAAFgD#####AAAA#wASAAJBJwAAAAAAAAAAAEAIAAAAAAAACQAAAAAKAAAADgAAAH0AAAAOAAAAfgAAABYA#####wAAAP8AEgACQicAAAAAAAAAAABACAAAAAAAAAkAAAAACgAAAA4AAAB#AAAADgAAAIAAAAAWAP####8AAAD#ABIAAkMnAAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAOAAAAgQAAAA4AAACCAAAADv##########"
+
+	this.liste_questions = [];
+		this.liste_corrections = []; // Liste de questions corrigées
+		let xA,yA,xB,yB,xC,yC,k=[],xO,yO
+		let bis1=0,bis2=0,xx=0,yy=0,AfficheO=0,AfficheOO=0
+		let texte=``,texte_corr=``,lettre1=[`A`,`B`,`C`],lettre2=[`O\'`,`A`,`B`]
+		let point=[[]]
+		let transformation=parseInt(this.sup)-1
+		let liste_type_de_questions=[[1,2,3,4],[7],[5,6,7],[8],[9,10],[1,2,3,4,5,6,7,8,9,10],[11,12,13,14]]
+		let choix_transformation=combinaison_listes(liste_type_de_questions[transformation],3)
+		for (let j=0;j<3;j++) 
+		if (choix_transformation[j]==10) k[j]=choice([2,2,2,2,4,4,4,4,5,10])*randint(-1,1,[0]) // rapport d'homothétie < 1 (plus ou moins  0.5, 0.25, 0.2 ou 0,1 ) avec une fréquence divisée par 4 pour 0.2 et 0.1.
+		else k[j]=choice([1,2,2,3,3,4,4,5,5,2.5])*randint(-1,1,[0]) // rapport d'homothétie >=1 (plus ou - 1,2,2.5, 3, 4 ou 5 avec des fréquences divisées par 2 pour 1 et 2.5) 
+
+		xA=randint(-10,10) // Point A
+		yA=randint(-10,10)
+		xB=randint(-10,10,[xA]) // Point B
+		yB=randint(-10,10)
+		xC=randint(-10,10) // Point C
+		yC=randint(-10,10,[yA,yB])
+		xO=randint(-3,3,[0])  // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
+		yO=randint(-3,3,[0])
+	
+		point[0]=image_point_par_transformation(choix_transformation[0],[xA,yA],[xO,yO],[xO,yO],k[0])
+		while (point[0][0]<-13 || point[0][0]>13 || point[0][1]<-13 || point [0][1]>14) { // on teste si A est dans la fenêtre sinon on en choisit un autre
+			xA=randint(-10,10) // Point A
+			yA=randint(-10,10)
+			point[0]=image_point_par_transformation(choix_transformation[0],[xA,yA],[xO,yO],[xO,yO],k[0])
+		}
+
+		if (choix_transformation[1]>4) point[1]=image_point_par_transformation(choix_transformation[1],[xB,yB],[xA,yA],[xA,yA],k[1])
+		else point[1]=image_point_par_transformation(choix_transformation[1],[xB,yB],[xO,yO]) // si c'est une symétrie, l'axe passe par O'
+		while (point[1][0]<-13 || point[1][0]>13 || point[1][1]<-13 || point [1][1]>14) { // on teste si on est dans les clous, sinon on choisit un autre point B
+			xB=randint(-10,10,[xA]) // Point B
+			yB=randint(-10,10)
+			if (choix_transformation[1]>4) point[1]=image_point_par_transformation(choix_transformation[1],[xB,yB],[xA,yA],[xA,yA],k[1])
+			else point[1]=image_point_par_transformation(choix_transformation[1],[xB,yB],[xO,yO]) // si c'est une symétrie, l'axe passe par O'
+		}
+
+		if (choix_transformation[1]>4) point[2]=image_point_par_transformation(choix_transformation[2],[xC,yC],[xB,yB],[xB,yB],k[2])
+		else point[2]=image_point_par_transformation(choix_transformation[2],[xC,yC],[xO,yO]) // si c'est une symétrie, l'axe passe par O'
+		while (point[2][0]<-13 || point[2][0]>13 || point[2][1]<-13 || point [2][1]>14) { // on vérifie que C est dans le repère sinon on change le point C.
+			xC=randint(-10,10) // Point C
+			yC=randint(-10,10,[yA,yB])
+			if (choix_transformation[1]>4) point[2]=image_point_par_transformation(choix_transformation[2],[xC,yC],[xB,yB],[xB,yB],k[2])
+			else point[2]=image_point_par_transformation(choix_transformation[2],[xC,yC],[xO,yO]) // si c'est une symétrie, l'axe passe par O'
+		}
+		// les points sont choisis, on écrit l'énoncé	
+		for (let i=0;i<3;i++) {
+			switch (choix_transformation[i]){
+				case 1 :
+					bis1=1
+					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d_1)$.<br>`
+					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d_1)$ a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
+				break
+
+				case 2 :
+					bis2=1
+					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d_2)$.<br>`
+					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d_2)$ a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
+				break
+
+				case 3 :
+					xx=1
+					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d)$.<br>`
+					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d)$ a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
+				break
+
+				case 4 :
+					yy=1
+					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d\')$.<br>`
+					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d\')$ a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
+				break
+		
+				case 5 :
+					AfficheO=1
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens anti-horaire.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens anti-horaire a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
+				break
+
+				case 6 :
+					AfficheO=1
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens horaire.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens horaire a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
+				break
+			
+				case 7 :
+					AfficheO=1
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la symétrie de centre $${lettre2[i]}$.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la symétrie de centre $${lettre2[i]}$ a pour coordonnées ($${tex_nombrec(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
+				break
+		
+				case 11 :
+					AfficheO=1
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire a pour coordonnées ($${tex_nombre(calcul(point[i][0],2))};${tex_nombre(calcul(point[i][1],2))}$).<br>`
+				break
+
+				case 12 :
+					AfficheO=1
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire a pour coordonnées ($${tex_nombre(calcul(point[i][0],2))};${tex_nombre(calcul(point[i][1],2))}$).<br>`
+				break
+		
+				case 13 :
+					AfficheO=1
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire a pour coordonnées ($${tex_nombre(calcul(point[i][0],2))};${tex_nombre(calcul(point[i][1],2))}$).<br>`
+				break
+
+				case 14 :
+					AfficheO=1
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens horaire.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens horaire a pour coordonnées ($${tex_nombre(calcul(point[i][0],2))};${tex_nombre(calcul(point[i][1],2))}$).<br>`
+				break
+			
+				case 8 :
+					AfficheO=1
+					// AfficheOO=1
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la translation qui transforme O en ${lettre2[i]}.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la translation qui transforme O en ${lettre2[i]} a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
+				break
+			
+				case 9 :
+					AfficheO=1
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${tex_nombre(k[i])}$.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${tex_nombre(k[i])}$ a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
+				break
+
+				case 10 :
+					AfficheO=1
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${tex_fraction_reduite(1,k[i])}$.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${tex_fraction_reduite(1,k[i])}$ a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
+				break
+			}
+		}
+		if (sortie_html) {
+			this.type_exercice = 'MG32'; // on pilote les figures ci-dessous
+			/*
+			booléens permettant l'affichage des éléments si =1 et le masquage si =0
+		bis1 affiche la droite de coefficient directeur 1 passant par O'
+			bis2 affiche la droite de coefficient directeur -1 passant par O'
+			xx' affiche la droite horizontale passant par O'
+			yy' affiche la droite verticale passant par O'
+			AfficheO' affiche O' comme son nom l'indique.
+			AfficheOO' affiche le vecteur OO' vecteur de translation
+			
+			*/
+
+			this.MG32code_pour_modifier_la_figure = `
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "y", "${yA}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "x", "${xA}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "yB", "${yB}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "xB", "${xB}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "yC", "${yC}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "xC", "${xC}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "y2", "${yO}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "x2", "${xO}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "yy'", "${yy}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "xx'", "${xx}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "bis1", "${bis1}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "bis2", "${bis2}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "AfficheO\'", "${AfficheO}");
+			mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "AfficheOO\'", "${AfficheOO}");
+			mtg32App.giveFormula2("MG32svgcorr${numero_de_l_exercice}", "y", "${yA}");
+			mtg32App.giveFormula2("MG32svgcorr${numero_de_l_exercice}", "x", "${xA}");
+			mtg32App.giveFormula2("MG32svgcorr${numero_de_l_exercice}", "yB", "${yB}");
+			mtg32App.giveFormula2("MG32svgcorr${numero_de_l_exercice}", "xB", "${xB}");
+			mtg32App.giveFormula2("MG32svgcorr${numero_de_l_exercice}", "yC", "${yC}");
+			mtg32App.giveFormula2("MG32svgcorr${numero_de_l_exercice}", "xC", "${xC}");
+			mtg32App.giveFormula2("MG32svgcorr${numero_de_l_exercice}", "yA\'", "${point[0][1]}");
+			mtg32App.giveFormula2("MG32svgcorr${numero_de_l_exercice}", "xA\'", "${point[0][0]}");
+			mtg32App.giveFormula2("MG32svgcorr${numero_de_l_exercice}", "yB\'", "${point[1][1]}");
+			mtg32App.giveFormula2("MG32svgcorr${numero_de_l_exercice}", "xB\'", "${point[1][0]}");
+			mtg32App.giveFormula2("MG32svgcorr${numero_de_l_exercice}", "yC\'", "${point[2][1]}");
+			mtg32App.giveFormula2("MG32svgcorr${numero_de_l_exercice}", "xC\'", "${point[2][0]}");
+			mtg32App.giveFormula2("MG32svgcorr${numero_de_l_exercice}", "y2", "${yO}");
+			mtg32App.giveFormula2("MG32svgcorr${numero_de_l_exercice}", "x2", "${xO}");
+			mtg32App.giveFormula2("MG32svgcorr${numero_de_l_exercice}", "yy'", "${yy}");
+			mtg32App.giveFormula2("MG32svgcorr${numero_de_l_exercice}", "xx'", "${xx}");
+			mtg32App.giveFormula2("MG32svgcorr${numero_de_l_exercice}", "bis1", "${bis1}");
+			mtg32App.giveFormula2("MG32svgcorr${numero_de_l_exercice}", "bis2", "${bis2}");
+			mtg32App.giveFormula2("MG32svgcorr${numero_de_l_exercice}", "AfficheO\'", "${AfficheO}");
+			mtg32App.giveFormula2("MG32svgcorr${numero_de_l_exercice}", "AfficheOO\'", "${AfficheOO}");			
+			mtg32App.calculate("MG32svg${numero_de_l_exercice}");
+			mtg32App.display("MG32svg${numero_de_l_exercice}");
+			mtg32App.calculate("MG32svgcorr${numero_de_l_exercice}");
+			mtg32App.display("MG32svgcorr${numero_de_l_exercice}");
+			`
+			this.liste_questions.push(texte);
+			this.liste_corrections.push(texte_corr);
+			liste_de_question_to_contenu_sans_numero(this)
+
+		}
+		else {
+			texte = ``
+			texte_cor=``
+			this.liste_questions.push(texte) // on envoie la question
+			this.liste_corrections.push(texte_corr)
+			liste_de_question_to_contenu_sans_numero(this);
+		}
+		
+
+
+	}
+	this.besoin_formulaire_numerique = ['Transformations',7, '1 : Symétries axiales\n 2 : Symétries centrales\n 3 : Rotations\n 4 : Translations\n 5 : Homothéties\n 6 : Mélange des 5 tranformations\n 7 : En bonus, 4 autres rotations (trigonométrie nécessaire)'];
 
 }
