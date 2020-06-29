@@ -5402,7 +5402,7 @@ function Agrandissement_reduction() {
 function Transformations_du_plan_et_coordonnees() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Trouver l'image d'un point par une transformation du plan";
+	this.titre = "Trouver les coordonnées de l'image d'un point par une transformation du plan";
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;

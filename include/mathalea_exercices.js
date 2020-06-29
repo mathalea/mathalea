@@ -6514,7 +6514,7 @@ function Transformations_4e(){
 function Transformations_3e(){
 	Transformations.call(this);
 	this.sup = 4;
-	this.titre = `Trouver l'image d'un point par une transformation étudiée au collège`
+	this.titre = `Trouver l'image d'un point par une transformation choisie aléatoirement`
 
 }
 
