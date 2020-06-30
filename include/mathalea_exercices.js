@@ -77,6 +77,7 @@ var liste_des_exercices_disponibles = {
 		'6P11' : Proportionnalite_par_linearite,
 		'5G10' : Symetrie_axiale_5e,
 		'5G11' : Transformations_5e,
+		'5G12' : Pavages_et_demi_tour,
 		'5N12': Exercice_fractions_simplifier,
 		'5N12-2': Egalites_entre_fractions,
 		'5N18': Exercice_decomposer_en_facteurs_premiers,
