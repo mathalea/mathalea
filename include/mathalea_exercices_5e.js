@@ -3280,6 +3280,7 @@ function Pavages_et_demi_tour() {
 	let xD=0
 	let zoom=20
 */
+	let texte,texte_corr
 	let tabfigA=[], tabfigB=[],tabfigC=[],tabfigD=[]
 	let nx=5,ny=5,xB=8,yB=0,xC=6,yC=6,xD=0,yD=8,zoom=20,angle=0
 	let xAI=xB+xC-xD
@@ -3288,7 +3289,7 @@ function Pavages_et_demi_tour() {
 	let yAJ=yC+yD-yB
 	let xAxy,yAxy,numAxy
 	let point=[0,0,0],point1=[0,0,0],point2=[0,0,0],point3=[0,0,0]
-	let trouver=false,indexA,numA,indexcentre1,numcentre1,xmil1,ymil1
+	let trouver=false,indexA,numA,indexcentre1,numcentre1,xmil1,ymil1,indexD,numD,indexcentre2,numcentre2,xmil2,ymil2
 
 	for (let y=0;y<ny;y++) {  // On initialise les tableaux avec les coordonnées des points de référence (A,B,C et D) de chaque translaté et son numéro dans le pavage.
 		for (let x=0;x<nx;x++) {
@@ -3301,8 +3302,8 @@ function Pavages_et_demi_tour() {
 			tabfigC.push([xAxy+xC-xAI,yAxy+yC-yAJ,numAxy+2*nx+1])
 		}
 	}
- console.log(tabfigA, tabfigB,tabfigC)
-// Première question : une figure dans tabFigA, une symétrie par rapport au milieu d'un [B'C'], logiquement : l'image est dans tabfigB et B' est l'image de C !
+ console.log(tabfigA, tabfigB,tabfigC,tabfigD)
+// Première question : une figure dans tabfigA, une symétrie par rapport au milieu d'un [B'C'], logiquement : l'image est dans tabfigB et B' est l'image de C !
 	indexA=randint(0,nx*ny-1)
 	numA=tabfigA[indexA][2]
 	indexcentre1=randint(0,nx*ny-1,[indexA]) // indexcentre1 est l'index du bloc de 4 figures A,B,C et D, il sert dans les 4 tableaux.
@@ -3312,12 +3313,10 @@ function Pavages_et_demi_tour() {
 	ymil1=(yB+yC)/2+tabfigB[indexcentre1][1]-yB
 	point=image_point_par_transformation(7,[tabfigC[indexA][0],tabfigC[indexA][1]],[xmil1,ymil1])
 	trouver=false
-	console.log(xmil1,ymil1)
 	while (trouver==false) {
 		for (let j=0;j<nx*ny;j++){
 			if (point[0]==tabfigB[j][0] && point[1]==tabfigB[j][1]) {
 				trouver=true
-				console.log(point[0],tabfigB[j][0],point[1],tabfigB[j][1],trouver)
 				break
 			}
 		}
@@ -3331,12 +3330,41 @@ function Pavages_et_demi_tour() {
 			point=image_point_par_transformation(7,[tabfigC[indexA][0],tabfigC[indexA][1]],[xmil1,ymil1])
 		}
 	}
+	point1=point // On garde les coordonnées pour la correction
+	texte=num_alpha(0)+` Quel est le numéro de la figure symétrique de la figure ${numA} dans la symétrie par rapport au milieu du côté commun aux figures ${numcentre1} et ${numcentre1+1} ?<br>`
+	texte_corr=num_alpha(0)+` La figure symétrique de la figure ${numA} dans la symétrie par rapport au milieu du côté commun aux figures ${numcentre1} et ${numcentre1+1} porte le numéro ${2*numcentre1+1-numA}.<br>`
+// Deuxième question : une figure dans tabfigD, une symétrie par rapport au milieu d'un [C'D'], le résultat est une figure dans tabfigA et C' est l'image de D !
+	indexD=randint(0,nx*ny-1)
+	numD=tabfigD[indexD][2]
+	indexcentre2=randint(0,nx*ny-1,[indexD]) // indexcentre2 est l'index du bloc de 4 figures A,B,C et D, il sert dans les 4 tableaux.
+	numcentre2=tabfigA[indexcentre2][2] // [D'C'] est le segment commun à une figA et à une FigD. ici on prend le N° de la figure A, la figure D est 2*nx+N°figA.
+	//on calcule les coordonnées du milieu de [DC] on ajoute aux coordonnées du milieu de [DC] celles du vecteur DD'.
+	xmil2=(xD+xC)/2+tabfigD[indexcentre2][0]-xD
+	ymil2=(yD+yC)/2+tabfigD[indexcentre2][1]-yD
+	point=image_point_par_transformation(7,[tabfigD[indexA][0],tabfigD[indexA][1]],[xmil2,ymil2])
+	trouver=false
+	while (trouver==false) {
+		for (let j=0;j<nx*ny;j++){
+			if (point[0]==tabfigC[j][0] && point[1]==tabfigC[j][1]) {
+				trouver=true
+				break
+			}
+		}
+		if (trouver==false) {
+			indexD=randint(0,nx*ny-1)
+			numD=tabfigD[indexD][2]
+			indexcentre2=randint(0,nx*ny-1,[indexD]) 
+			numcentre2=tabfigD[indexcentre2][2] 
+			xmil2=(xD+xC)/2+tabfigD[indexcentre2][0]-xD
+			ymil2=(yD+yC)/2+tabfigD[indexcentre2][1]-yD
+			point=image_point_par_transformation(7,[tabfigD[indexA][0],tabfigD[indexA][1]],[xmil2,ymil2])
+				}
+	}
+	point2=point // On garde les coordonnées pour la correction
+	texte+=num_alpha(1)+` Quel est le numéro de la figure symétrique de la figure ${numD} dans la symétrie par rapport au milieu du côté commun aux figures ${numcentre2} et ${numcentre2+2*nx} ?<br>`
+	texte_corr+=num_alpha(1)+` La figure symétrique de la figure ${numD} dans la symétrie par rapport au milieu du côté commun aux figures ${numcentre2} et ${numcentre2+2*nx} porte le numéro ${2*numcentre2+2*nx-numD}.<br>`
+console.log(indexD,point2)
 
-	point1=point
-	console.log(point)
-	let texte=`Quel est le numéro de la figure symétrique de la figure ${numA} dans la symétrie par rapport au milieu du côté commun aux figures ${numcentre1} et ${numcentre1+1} ?<br>`
-	let texte_corr=`La figure symétrique de la figure ${numA} dans la symétrie par rapport au milieu du côté commun aux figures ${numcentre1} et ${numcentre1+1} porte le numéro ${2*numcentre1+1-numA}.<br>`
-	
 	if (sortie_html) {
 
 			this.MG32code_pour_modifier_la_figure = `
