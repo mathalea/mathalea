@@ -5944,7 +5944,7 @@ function Passer_d_une_base_a_l_autre() {
 					chiffre3 = randint(0,b-1);
 					chiffre4 = randint(0,b-1);
 					n = chiffre1*b**3+chiffre2*b**2+chiffre3*b+chiffre4;
-					texte = `Écrire en base ${b} le nombre ${n}`;
+					texte = `Écrire en base ${b} le nombre ${n}.`;
 					texte_corr = `$${n}=${b}\\times${Math.floor(n/b)}+${n%b}$`;
 					texte_corr += `<br>$${Math.floor(n/b)}=${b}\\times${Math.floor(Math.floor(n/b)/b)}+${Math.floor(n/b)%b}$`;
 					texte_corr += `<br>$${Math.floor(Math.floor(n/b)/b)}=${b}\\times${chiffre1}+${chiffre2}$`;
