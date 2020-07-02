@@ -5907,6 +5907,7 @@ function Passer_d_une_base_a_l_autre() {
 	this.nb_questions = 3;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
+	this.spacing = 1;
 	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
 
 	this.nouvelle_version = function (numero_de_l_exercice) {
@@ -5934,8 +5935,8 @@ function Passer_d_une_base_a_l_autre() {
 					chiffre3 = randint(0,b-1);
 					n = chiffre1*b**2+chiffre2*b+chiffre3;
 					texte = `Écrire en base ${b} le nombre ${n}.`;
-					texte_corr = `$${n}=${b}\\times${Math.floor(n/b)}+${n%b}$`;
-					texte_corr += `<br>$${Math.floor(n/b)}=${b}\\times${chiffre1}+${chiffre2}$`;
+					texte_corr = `$${n}=${b}\\times${Math.floor(n/b)}+${mise_en_evidence(n%b)}$`;
+					texte_corr += `<br>$${Math.floor(n/b)}=${b}\\times${mise_en_evidence(chiffre1)}+${mise_en_evidence(chiffre2)}$`;
 					texte_corr += `<br> Finalement $${n}=(${chiffre1}${chiffre2}${chiffre3})_${b}$`
 				break;
 				case 'vers_base_n_4_chiffres':
@@ -5945,9 +5946,9 @@ function Passer_d_une_base_a_l_autre() {
 					chiffre4 = randint(0,b-1);
 					n = chiffre1*b**3+chiffre2*b**2+chiffre3*b+chiffre4;
 					texte = `Écrire en base ${b} le nombre ${n}.`;
-					texte_corr = `$${n}=${b}\\times${Math.floor(n/b)}+${n%b}$`;
-					texte_corr += `<br>$${Math.floor(n/b)}=${b}\\times${Math.floor(Math.floor(n/b)/b)}+${Math.floor(n/b)%b}$`;
-					texte_corr += `<br>$${Math.floor(Math.floor(n/b)/b)}=${b}\\times${chiffre1}+${chiffre2}$`;
+					texte_corr = `$${n}=${b}\\times${Math.floor(n/b)}+${mise_en_evidence(n%b)}$`;
+					texte_corr += `<br>$${Math.floor(n/b)}=${b}\\times${Math.floor(Math.floor(n/b)/b)}+${mise_en_evidence(Math.floor(n/b)%b)}$`;
+					texte_corr += `<br>$${Math.floor(Math.floor(n/b)/b)}=${b}\\times${mise_en_evidence(chiffre1)}+${mise_en_evidence(chiffre2)}$`;
 					texte_corr += `<br> Finalement $${n}=(${chiffre1}${chiffre2}${chiffre3}${chiffre4})_${b}$`
 				break;
 				case 'plus_grand_4_chiffres':
