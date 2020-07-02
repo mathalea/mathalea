@@ -175,6 +175,7 @@ var liste_des_exercices_disponibles = {
 		'2N10' : Developper_Identites_remarquables2,
 		'2N11' : Factoriser_Identites_remarquables2,
 		'PEA11': Passer_d_une_base_a_l_autre,
+		'PEA11-1' : Passer_de_la_base_12_ou_16_a_la_10,
 		'P001' : Code_LaTeX_personnalise,
 		// 'P002': LaTeX_static,
 		'P003' : feuille_d_axes_gradues,
