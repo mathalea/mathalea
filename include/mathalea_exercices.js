@@ -174,6 +174,7 @@ var liste_des_exercices_disponibles = {
 		//'3Tests' : tester_des_fonctions,
 		'2N10' : Developper_Identites_remarquables2,
 		'2N11' : Factoriser_Identites_remarquables2,
+		'PEA11': Passer_d_une_base_a_l_autre,
 		'P001' : Code_LaTeX_personnalise,
 		// 'P002': LaTeX_static,
 		'P003' : feuille_d_axes_gradues,
@@ -6664,6 +6665,7 @@ jQuery(document).ready(function() {
 	let nombre_d_exercices_disponibles_2 = 0;
 	let nombre_d_exercices_disponibles_CM = 0;
 	let nombre_d_exercices_disponibles_prof = 0;
+	let nombre_d_exercices_disponibles_PE = 0;
 	//debut ajout seb section tests
 	let nombre_d_exercices_disponibles_tests = 0;
 	//fin seb section tests
@@ -6674,7 +6676,8 @@ jQuery(document).ready(function() {
 		if (id[0]==3) {nombre_d_exercices_disponibles_3+=1}
 		if (id[0]==2) {nombre_d_exercices_disponibles_2+=1}
 		if (id[0]=='C') {nombre_d_exercices_disponibles_CM+=1}
-		if (id[0]=='P') {nombre_d_exercices_disponibles_prof+=1}
+		if (id[0]=='P' && id[1]=='0') {nombre_d_exercices_disponibles_prof+=1}
+		if (id[0]=='P' && id[1]=='E') {nombre_d_exercices_disponibles_PE+=1}
 		//debut ajout seb section tests
 		if (id[0]=='T') {nombre_d_exercices_disponibles_tests+=1}
 		//fin seb section tests
@@ -6688,6 +6691,7 @@ jQuery(document).ready(function() {
 	let liste_html_des_exercices_2 = []
 	let liste_html_des_exercices_CM = []
 	let liste_html_des_exercices_prof = []
+	let liste_html_des_exercices_PE = []
 	//debut ajout seb section tests
 	let liste_html_des_exercices_tests = []
 	//fin seb section tests
@@ -6712,10 +6716,13 @@ jQuery(document).ready(function() {
 		if (id[0]==2) {
 			liste_html_des_exercices_2 += '<span class="id_exercice">' + id + '</span> - <a class="lien_id_exercice" numero="' + id + '">'  + exercice_tmp.titre + '</a></br>\n';			
 		}
+		if (id[0]=='P' && id[1]=='E') {
+			liste_html_des_exercices_PE += '<span class="id_exercice">' + id + '</span> - <a class="lien_id_exercice" numero="' + id + '">'  + exercice_tmp.titre + '</a></br>\n';			
+		}
 		if (id[0]=='C') {
 			liste_html_des_exercices_CM += '<span class="id_exercice">' + id + '</span> - <a class="lien_id_exercice" numero="' + id + '">'  + exercice_tmp.titre + '</a></br>\n';			
 		}
-		if (id[0]=='P') {
+		if (id[0]=='P' && id[1]=='0') {
 			liste_html_des_exercices_prof += '<span class="id_exercice">' + id + '</span> - <a class="lien_id_exercice" numero="' + id + '">'  + exercice_tmp.titre + '</a></br>\n';			
 		}
 		// //debut ajout seb section tests
@@ -6747,6 +6754,9 @@ jQuery(document).ready(function() {
 		liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Seconde (${nombre_d_exercices_disponibles_2})</div><div class="content">`
 		liste_html_des_exercices += liste_html_des_exercices_2
 		liste_html_des_exercices+=`</div>`
+		liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>CRPE (${nombre_d_exercices_disponibles_PE})</div><div class="content">`
+		liste_html_des_exercices += liste_html_des_exercices_PE
+		liste_html_des_exercices+=`</div>`
 		liste_html_des_exercices+=`</div>`	
 	} else {
 		liste_html_des_exercices += `<div class="ui accordion"><div class="title"><i class="dropdown icon"></i>Sixième (${nombre_d_exercices_disponibles_6})</div><div class="content">`
@@ -6763,6 +6773,9 @@ jQuery(document).ready(function() {
 		liste_html_des_exercices+=`</div>`
 		liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Seconde (${nombre_d_exercices_disponibles_2})</div><div class="content">`
 		liste_html_des_exercices += liste_html_des_exercices_2
+		liste_html_des_exercices+=`</div>`
+		liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>CRPE (${nombre_d_exercices_disponibles_PE})</div><div class="content">`
+		liste_html_des_exercices += liste_html_des_exercices_PE
 		liste_html_des_exercices+=`</div>`
 		liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Calcul mental (${nombre_d_exercices_disponibles_CM})</div><div class="content">`
 		liste_html_des_exercices += liste_html_des_exercices_CM
