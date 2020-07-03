@@ -3328,8 +3328,8 @@ function Pavages_et_demi_tour() {
 	}
 	point1=point // On garde les coordonnées pour la correction
 	texte=`Le point O peut être déplacé pour recadrer éventuellement le pavage.<br>`
-	texte+=num_alpha(0)+` Quel est le numéro de la figure symétrique de la figure ${numA} dans la symétrie par rapport au milieu du côté commun aux figures ${numcentre1} et ${numcentre1+1} ?<br>`
-	texte_corr=num_alpha(0)+` La figure symétrique de la figure ${numA} dans la symétrie par rapport au milieu du côté commun aux figures ${numcentre1} et ${numcentre1+1} porte le numéro ${2*numcentre1+1-numA}.<br>`
+	texte+=num_alpha(0)+texte_en_couleur_et_gras(` Quel est le numéro de la figure symétrique de la figure ${numA} dans la symétrie par rapport au milieu du côté commun aux figures ${numcentre1} et ${numcentre1+1} ?<br>`,`green`)
+	texte_corr=num_alpha(0)+texte_en_couleur_et_gras(` La figure symétrique de la figure ${numA} dans la symétrie par rapport au milieu du côté commun aux figures ${numcentre1} et ${numcentre1+1} porte le numéro ${2*numcentre1+1-numA}.<br>`,`green`)
 // Deuxième question : une figure dans tabfigD, une symétrie par rapport au milieu d'un [C'D'], le résultat est une figure dans tabfigA et C' est l'image de D !
 	indexD=randint(0,nx*ny-1)
 	numD=tabfigD[indexD][2]
@@ -3358,8 +3358,8 @@ function Pavages_et_demi_tour() {
 				}
 	}
 	point2=point // On garde les coordonnées pour la correction
-	texte+=num_alpha(1)+` Quel est le numéro de la figure symétrique de la figure ${numD} dans la symétrie par rapport au milieu du côté commun aux figures ${numcentre2} et ${numcentre2+2*nx} ?<br>`
-	texte_corr+=num_alpha(1)+` La figure symétrique de la figure ${numD} dans la symétrie par rapport au milieu du côté commun aux figures ${numcentre2} et ${numcentre2+2*nx} porte le numéro ${2*numcentre2+2*nx-numD}.<br>`
+	texte+=num_alpha(1)+texte_en_couleur_et_gras(` Quel est le numéro de la figure symétrique de la figure ${numD} dans la symétrie par rapport au milieu du côté commun aux figures ${numcentre2} et ${numcentre2+2*nx} ?<br>`,`red`)
+	texte_corr+=num_alpha(1)+texte_en_couleur_et_gras(` La figure symétrique de la figure ${numD} dans la symétrie par rapport au milieu du côté commun aux figures ${numcentre2} et ${numcentre2+2*nx} porte le numéro ${2*numcentre2+2*nx-numD}.<br>`,`red`)
 // troisième question : une figure dans tabfigC, une symétrie par rapport au symétrique du milieu de [A'D'] par rapport au milieu de [C'D']... pas très clair
 // le résultat est une figure dans tabfigD et le point (C'+ vecteur AC) a pour image D' !
 indexC=randint(0,nx*ny-1)
@@ -3389,8 +3389,8 @@ while (trouver==false) {
 	}
 }
 point3=point // On garde les coordonnées pour la correction
-texte+=num_alpha(2)+` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie par rapport au milieu du côté commun aux figures ${numcentre3} et ${numcentre3+1} ?<br>`
-texte_corr+=num_alpha(2)+` La figure symétrique de la figure ${numC} dans la symétrie par rapport au milieu du côté commun aux figures ${numcentre3} et ${numcentre3+1} porte le numéro ${2*numcentre3+1-numC}.<br>`
+texte+=num_alpha(2)+texte_en_couleur_et_gras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie par rapport au milieu du côté commun aux figures ${numcentre3} et ${numcentre3+1} ?<br>`,`blue`)
+texte_corr+=num_alpha(2)+texte_en_couleur_et_gras(` La figure symétrique de la figure ${numC} dans la symétrie par rapport au milieu du côté commun aux figures ${numcentre3} et ${numcentre3+1} porte le numéro ${2*numcentre3+1-numC}.<br>`,`blue`)
 
 
 let xa=tabfigC[indexA][0]-xC,ya=tabfigC[indexA][1]-yC,xb=tabfigD[indexD][0]-xD,yb=tabfigD[indexD][1]-yD,xc=tabfigC[indexC][0]-xC,yc=tabfigC[indexC][1]-yC
