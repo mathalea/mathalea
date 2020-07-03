@@ -5893,7 +5893,6 @@ function Transformations_du_plan_et_coordonnees() {
 
 }
 
-
 /**
 * Passer d'une écriture en base 10 à l'écriture dans une autre base ou inversement
 *
