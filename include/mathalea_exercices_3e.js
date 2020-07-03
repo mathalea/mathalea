@@ -5402,7 +5402,7 @@ function Agrandissement_reduction() {
 function Transformations_du_plan_et_coordonnees() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Trouver l'image d'un point par une transformation du plan";
+	this.titre = "Trouver les coordonnées de l'image d'un point par une transformation du plan";
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
@@ -5911,31 +5911,276 @@ function Rotations_pavages_3e() {
 	this.MG32codeBase64 = "TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAAJmcv###wEA#wEAAAAAAAAAAAUcAAAC0gAAAQEAAAAAAAAAAQAAAFr#####AAAAAQAKQ0NhbGNDb25zdAD#####AAJwaQAWMy4xNDE1OTI2NTM1ODk3OTMyMzg0Nv####8AAAABAApDQ29uc3RhbnRlQAkh+1RELRj#####AAAAAQAPQ1ZhcmlhYmxlQm9ybmVlAP####8AB25iZ3JhZHlACAAAAAAAAEAAAAAAAAAAQCQAAAAAAAA#8AAAAAAAAAAAATIAAjEwAAExAAAAAgD#####AAduYmdyYWR4QBAAAAAAAABAAAAAAAAAAEAkAAAAAAAAP#AAAAAAAAAAAAEyAAIxMAABMf####8AAAABAApDUG9pbnRCYXNlAP####8AAAAAARAAAU8AAAAAAAAAAABACAAAAAAAAAUAAEA8gAAAAAAAQDSFHrhR64YAAAADAP####8AAAAAABAAAUIAwCgAAAAAAABAFAAAAAAAAAUAAUBWYAAAAAAAQDSFHrhR64YAAAADAP####8AAAAAABAAAUQAwDUAAAAAAADAFAAAAAAAAAUAAUA8gAAAAAAAQFahR64UeuL#####AAAAAQAIQ1NlZ21lbnQA#####wEAAAAAEAAAAQABAAAABQAAAAT#####AAAAAQAPQ1BvaW50TGllRHJvaXRlAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABP+BcFlZPdrwAAAAG#####wAAAAEADUNEZW1pRHJvaXRlT0EA#####wEAAAAADQAAAQABAAAAAwAAAAcAAAAFAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABP80Nbpy059UAAAAIAAAABQD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAUALc#+FzVmbAAAACAAAAAQA#####wEAAAAAEAAAAQABAAAACQAAAAoAAAAFAP####8AAAAAABAAAUMAwCQAAAAAAADAAAAAAAAAAAUAAT#i8C8B+T0bAAAAC#####8AAAABAAlDUG9seWdvbmUA#####wAAAAAAAQAAAAUAAAADAAAABQAAAAwAAAAEAAAAA#####8AAAABAAdDTWlsaWV1AP####8BAAAAARAAAkkxAAAAAAAAAAAAQAgAAAAAAAAFAAAAAAwAAAAEAAAACAD#####AQAAAAEQAAJKMQAAAAAAAAAAAEAIAAAAAAAABQAAAAAFAAAADP####8AAAABABFDU3ltZXRyaWVDZW50cmFsZQD#####AAAADv####8AAAABAAtDUG9pbnRJbWFnZQD#####AAAAAAEQAAFJAAAAAAAAAAAAQAgAAAAAAAAFAAAAAAUAAAAQAAAACgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAAwAAABAAAAAJAP####8AAAAPAAAACgD#####AQAAAAEQAAFKAAAAAAAAAAAAQAgAAAAAAAAFAAAAAAQAAAATAAAACgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAAwAAABMAAAAHAP####8AAAAAAAEAAAAFAAAABAAAAAwAAAASAAAAEQAAAAQAAAAHAP####8AAAAAAAEAAAAFAAAABQAAABQAAAAVAAAADAAAAAX#####AAAAAgAMQ0NvbW1lbnRhaXJlAP####8AAAAAAMAuAAAAAAAAwAgAAAAAAAAAAAADEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAUH#####AAAAAgAHQ1JlcGVyZQD#####AObm5gABAAAAAwAAABEAAAAUAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAT#wAAAAAAAAAAAAAT#wAAAAAAAA#####wAAAAEAEUNQb2ludFBhckFic2Npc3NlAP####8BAAAAABAAAVUAAAAAAAAAAABACAAAAAAAAAUAAAAAAwAAABH#####AAAAAQAPQ1Jlc3VsdGF0VmFsZXVyAAAAAgAAAA0A#####wEAAAAAEAABVgAAAAAAAAAAAEAIAAAAAAAABQAAAAADAAAAFAAAAA4AAAABAAAABAD#####AQAAAAAQAAABAAEAAAADAAAAGgAAAAQA#####wEAAAAAEAAAAQABAAAAAwAAABsAAAAFAP####8BAAAAABAAAlUxAAAAAAAAAAAAQAgAAAAAAAAFAAE#0wPWdtnVKQAAABz#####AAAAAQAMQ1RyYW5zbGF0aW9uAP####8AAAADAAAAGwAAAAoA#####wEAAAAAEAACVjEAAAAAAAAAAABACAAAAAAAAAUAAAAAHgAAAB8AAAAEAP####8BAAAAABAAAAEAAQAAAB4AAAAgAAAABQD#####AQAAAAAQAAJVMgAAAAAAAAAAAEAIAAAAAAAABQABP9k72Tk0HoAAAAAhAAAADwD#####AAAAAwAAACIAAAAKAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAADAAAAIwAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAAUAAAAjAAAACgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAADAAAACMAAAAKAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAAEAAAAIwAAAAcA#####wEAAAAAAQAAAAUAAAAkAAAAJQAAACYAAAAnAAAAJAAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAABIAAAAjAAAACgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAEQAAACMAAAAHAP####8BAAAAAAEAAAAFAAAAJwAAACYAAAApAAAAKgAAACcAAAAKAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAAUAAAAIwAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAABUAAAAjAAAABwD#####AQAAAAABAAAABQAAACUAAAAsAAAALQAAACYAAAAlAAAADwD#####AAAAAwAAAAwAAAAKAP####8AAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAADAAAALwAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAAUAAAAvAAAACgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAADAAAAC8AAAAKAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAAEAAAALwAAAAcA#####wAAAAAAAQAAAAUAAAAwAAAAMQAAADIAAAAzAAAAMAAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAADAAAAAjAAAACgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAMQAAACMAAAAKAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAAyAAAAIwAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAADMAAAAjAAAABwD#####AQAAAAABAAAABQAAADUAAAA2AAAANwAAADgAAAA1#####wAAAAIACENNZXN1cmVYAP####8AAXgAAAAZAAAAIv####8AAAACAAhDTWVzdXJlWQD#####AAF5AAAAGQAAACL#####AAAAAQAHQ0NhbGN1bAD#####AAJ4MQAMaW50KHgrMC4wMDEp#####wAAAAIACUNGb25jdGlvbgL#####AAAAAQAKQ09wZXJhdGlvbgAAAAAOAAAAOgAAAAE#UGJN0vGp#AAAABIA#####wACeTEADGludCh5KzAuMDAxKQAAABMCAAAAFAAAAAAOAAAAOwAAAAE#UGJN0vGp#AAAABIA#####wADbnVtABV4MSoyKyhuYmdyYWR4KzEpKjQqeTEAAAAUAAAAABQCAAAADgAAADwAAAABQAAAAAAAAAAAAAAUAgAAABQCAAAAFAAAAAAOAAAAAgAAAAE#8AAAAAAAAAAAAAFAEAAAAAAAAAAAAA4AAAA9AAAACAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAIgAAACb#####AAAAAQAPQ1ZhbGV1ckFmZmljaGVlAP####8BAAAAAMAYAAAAAAAAwBgAAAAAAAAAAAA#CwAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAgAAAD4AAAASAP####8ABG51bTEABW51bSsxAAAAFAAAAAAOAAAAPgAAAAE#8AAAAAAAAAAAABIA#####wAEbnVtJwARbnVtKyhuYmdyYWR4KzEpKjIAAAAUAAAAAA4AAAA+AAAAFAIAAAAUAAAAAA4AAAACAAAAAT#wAAAAAAAAAAAAAUAAAAAAAAAAAAAAEgD#####AAVudW0nMQAGbnVtJysxAAAAFAAAAAAOAAAAQgAAAAE#8AAAAAAAAAAAAAgA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAACUAAAAtAAAACAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAJgAAADcAAAAIAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAAnAAAAKQAAABUA#####wEAAAAAwBgAAAAAAADAEAAAAAAAAAAAAEYLAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAACAAAAQQAAABUA#####wEAAAAAwBgAAAAAAADAEAAAAAAAAAAAAEQLAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAACAAAAQgAAABUA#####wEAAAAAwBgAAAAAAADAHAAAAAAAAAAAAEULAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAACAAAAQ#####8AAAACABJDTGlldU9iamV0UGFyUHRMaWUA#####wEAAAAAAAAoAAAAFAAAAAAOAAAAAQAAAAE#8AAAAAAAAAAAACIAAAAHAAAAIgAAACMAAAAkAAAAJQAAACYAAAAnAAAAKAAAABYA#####wEAAAAAAAAuAAAAFAAAAAAOAAAAAQAAAAE#8AAAAAAAAAAAACIAAAAHAAAAIgAAACMAAAAlAAAAJgAAACwAAAAtAAAALgAAABYA#####wEAAAAAAAA5AAAAFAAAAAAOAAAAAQAAAAE#8AAAAAAAAAAAACIAAAAHAAAAIgAAACMAAAA1AAAANgAAADcAAAA4AAAAOQAAABYA#####wEAAAAAAAArAAAAFAAAAAAOAAAAAQAAAAE#8AAAAAAAAAAAACIAAAAHAAAAIgAAACMAAAAmAAAAJwAAACkAAAAqAAAAKwAAABYA#####wAAAAAAAABKAAAAFAAAAAAOAAAAAgAAAAE#8AAAAAAAAAAAAB4AAAALAAAAHgAAACAAAAAhAAAAIgAAACMAAAAkAAAAJQAAACYAAAAnAAAAKAAAAEoAAAAWAP####8AAAAAAAAATQAAABQAAAAADgAAAAIAAAABP#AAAAAAAAAAAAAeAAAACwAAAB4AAAAgAAAAIQAAACIAAAAjAAAAJgAAACcAAAApAAAAKgAAACsAAABNAAAAFgD#####AAAAAAAAAEwAAAAUAAAAAA4AAAACAAAAAT#wAAAAAAAAAAAAHgAAAAsAAAAeAAAAIAAAACEAAAAiAAAAIwAAADUAAAA2AAAANwAAADgAAAA5AAAATAAAABYA#####wAAAAAAAABLAAAAFAAAAAAOAAAAAgAAAAE#8AAAAAAAAAAAAB4AAAALAAAAHgAAACAAAAAhAAAAIgAAACMAAAAlAAAAJgAAACwAAAAtAAAALgAAAEsAAAAWAP####8BAAAAAAAAQAAAABQAAAAADgAAAAEAAAABP#AAAAAAAAAAAAAiAAAACgAAACIAAAAjAAAAJgAAADoAAAA7AAAAPAAAAD0AAAA+AAAAPwAAAEAAAAAWAP####8AAAAAAAAAUgAAABQAAAAADgAAAAIAAAABP#AAAAAAAAAAAAAeAAAADgAAAB4AAAAgAAAAIQAAACIAAAAjAAAAJgAAADoAAAA7AAAAPAAAAD0AAAA+AAAAPwAAAEAAAABSAAAAFgD#####AQAAAAAAAEcAAAAUAAAAAA4AAAABAAAAAT#wAAAAAAAAAAAAIgAAAAwAAAAiAAAAIwAAACcAAAApAAAAOgAAADsAAAA8AAAAPQAAAD4AAABBAAAARgAAAEcAAAAWAP####8AAAAAAAAAVAAAABQAAAAADgAAAAIAAAABP#AAAAAAAAAAAAAeAAAAEAAAAB4AAAAgAAAAIQAAACIAAAAjAAAAJwAAACkAAAA6AAAAOwAAADwAAAA9AAAAPgAAAEEAAABGAAAARwAAAFQAAAAWAP####8BAAAAAAAASQAAABQAAAAADgAAAAEAAAABP#AAAAAAAAAAAAAiAAAADQAAACIAAAAjAAAAJgAAADcAAAA6AAAAOwAAADwAAAA9AAAAPgAAAEIAAABDAAAARQAAAEkAAAAWAP####8AAAAAAAAAVgAAABQAAAAADgAAAAIAAAABP#AAAAAAAAAAAAAeAAAAEQAAAB4AAAAgAAAAIQAAACIAAAAjAAAAJgAAADcAAAA6AAAAOwAAADwAAAA9AAAAPgAAAEIAAABDAAAARQAAAEkAAABWAAAAFgD#####AQAAAAAAAEgAAAAUAAAAAA4AAAABAAAAAT#wAAAAAAAAAAAAIgAAAAwAAAAiAAAAIwAAACUAAAAtAAAAOgAAADsAAAA8AAAAPQAAAD4AAABCAAAARAAAAEgAAAAWAP####8AAAAAAAAAWAAAABQAAAAADgAAAAIAAAABP#AAAAAAAAAAAAAeAAAAEAAAAB4AAAAgAAAAIQAAACIAAAAjAAAAJQAAAC0AAAA6AAAAOwAAADwAAAA9AAAAPgAAAEIAAABEAAAASAAAAFj###############8="
 	this.MG32codeBase64corr = "TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAAJmcv###wEA#wEAAAAAAAAAAAUcAAAC0gAAAQEAAAAAAAAAAQAAAFr#####AAAAAQAKQ0NhbGNDb25zdAD#####AAJwaQAWMy4xNDE1OTI2NTM1ODk3OTMyMzg0Nv####8AAAABAApDQ29uc3RhbnRlQAkh+1RELRj#####AAAAAQAPQ1ZhcmlhYmxlQm9ybmVlAP####8AB25iZ3JhZHlACAAAAAAAAEAAAAAAAAAAQCQAAAAAAAA#8AAAAAAAAAAAATIAAjEwAAExAAAAAgD#####AAduYmdyYWR4QBAAAAAAAABAAAAAAAAAAEAkAAAAAAAAP#AAAAAAAAAAAAEyAAIxMAABMf####8AAAABAApDUG9pbnRCYXNlAP####8AAAAAARAAAU8AAAAAAAAAAABACAAAAAAAAAUAAEA8gAAAAAAAQDSFHrhR64YAAAADAP####8AAAAAABAAAUIAwCgAAAAAAABAFAAAAAAAAAUAAUBWYAAAAAAAQDSFHrhR64YAAAADAP####8AAAAAABAAAUQAwDUAAAAAAADAFAAAAAAAAAUAAUA8gAAAAAAAQFahR64UeuL#####AAAAAQAIQ1NlZ21lbnQA#####wEAAAAAEAAAAQABAAAABQAAAAT#####AAAAAQAPQ1BvaW50TGllRHJvaXRlAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABP+BcFlZPdrwAAAAG#####wAAAAEADUNEZW1pRHJvaXRlT0EA#####wEAAAAADQAAAQABAAAAAwAAAAcAAAAFAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABP80Nbpy059UAAAAIAAAABQD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAUALc#+FzVmbAAAACAAAAAQA#####wEAAAAAEAAAAQABAAAACQAAAAoAAAAFAP####8AAAAAABAAAUMAwCQAAAAAAADAAAAAAAAAAAUAAT#i8C8B+T0bAAAAC#####8AAAABAAlDUG9seWdvbmUA#####wAAAAAAAQAAAAUAAAADAAAABQAAAAwAAAAEAAAAA#####8AAAABAAdDTWlsaWV1AP####8BAAAAARAAAkkxAAAAAAAAAAAAQAgAAAAAAAAFAAAAAAwAAAAEAAAACAD#####AQAAAAEQAAJKMQAAAAAAAAAAAEAIAAAAAAAABQAAAAAFAAAADP####8AAAABABFDU3ltZXRyaWVDZW50cmFsZQD#####AAAADv####8AAAABAAtDUG9pbnRJbWFnZQD#####AAAAAAEQAAFJAAAAAAAAAAAAQAgAAAAAAAAFAAAAAAUAAAAQAAAACgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAAwAAABAAAAAJAP####8AAAAPAAAACgD#####AQAAAAEQAAFKAAAAAAAAAAAAQAgAAAAAAAAFAAAAAAQAAAATAAAACgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAAwAAABMAAAAHAP####8AAAAAAAEAAAAFAAAABAAAAAwAAAASAAAAEQAAAAQAAAAHAP####8AAAAAAAEAAAAFAAAABQAAABQAAAAVAAAADAAAAAX#####AAAAAgAMQ0NvbW1lbnRhaXJlAP####8AAAAAAMAuAAAAAAAAwAgAAAAAAAAAAAADEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAUH#####AAAAAgAHQ1JlcGVyZQD#####AObm5gABAAAAAwAAABEAAAAUAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAT#wAAAAAAAAAAAAAT#wAAAAAAAA#####wAAAAEAEUNQb2ludFBhckFic2Npc3NlAP####8BAAAAABAAAVUAAAAAAAAAAABACAAAAAAAAAUAAAAAAwAAABH#####AAAAAQAPQ1Jlc3VsdGF0VmFsZXVyAAAAAgAAAA0A#####wEAAAAAEAABVgAAAAAAAAAAAEAIAAAAAAAABQAAAAADAAAAFAAAAA4AAAABAAAABAD#####AQAAAAAQAAABAAEAAAADAAAAGgAAAAQA#####wEAAAAAEAAAAQABAAAAAwAAABsAAAAFAP####8BAAAAABAAAlUxAAAAAAAAAAAAQAgAAAAAAAAFAAE#0wPWdtnVKQAAABz#####AAAAAQAMQ1RyYW5zbGF0aW9uAP####8AAAADAAAAGwAAAAoA#####wEAAAAAEAACVjEAAAAAAAAAAABACAAAAAAAAAUAAAAAHgAAAB8AAAAEAP####8BAAAAABAAAAEAAQAAAB4AAAAgAAAABQD#####AQAAAAAQAAJVMgAAAAAAAAAAAEAIAAAAAAAABQABP9k72Tk0HoAAAAAhAAAADwD#####AAAAAwAAACIAAAAKAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAADAAAAIwAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAAUAAAAjAAAACgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAADAAAACMAAAAKAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAAEAAAAIwAAAAcA#####wEAAAAAAQAAAAUAAAAkAAAAJQAAACYAAAAnAAAAJAAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAABIAAAAjAAAACgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAEQAAACMAAAAHAP####8BAAAAAAEAAAAFAAAAJwAAACYAAAApAAAAKgAAACcAAAAKAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAAUAAAAIwAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAABUAAAAjAAAABwD#####AQAAAAABAAAABQAAACUAAAAsAAAALQAAACYAAAAlAAAADwD#####AAAAAwAAAAwAAAAKAP####8AAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAADAAAALwAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAAUAAAAvAAAACgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAADAAAAC8AAAAKAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAAEAAAALwAAAAcA#####wAAAAAAAQAAAAUAAAAwAAAAMQAAADIAAAAzAAAAMAAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAADAAAAAjAAAACgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAMQAAACMAAAAKAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAAyAAAAIwAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAADMAAAAjAAAABwD#####AQAAAAABAAAABQAAADUAAAA2AAAANwAAADgAAAA1#####wAAAAIACENNZXN1cmVYAP####8AAXgAAAAZAAAAIv####8AAAACAAhDTWVzdXJlWQD#####AAF5AAAAGQAAACL#####AAAAAQAHQ0NhbGN1bAD#####AAJ4MQAMaW50KHgrMC4wMDEp#####wAAAAIACUNGb25jdGlvbgL#####AAAAAQAKQ09wZXJhdGlvbgAAAAAOAAAAOgAAAAE#UGJN0vGp#AAAABIA#####wACeTEADGludCh5KzAuMDAxKQAAABMCAAAAFAAAAAAOAAAAOwAAAAE#UGJN0vGp#AAAABIA#####wADbnVtABV4MSoyKyhuYmdyYWR4KzEpKjQqeTEAAAAUAAAAABQCAAAADgAAADwAAAABQAAAAAAAAAAAAAAUAgAAABQCAAAAFAAAAAAOAAAAAgAAAAE#8AAAAAAAAAAAAAFAEAAAAAAAAAAAAA4AAAA9AAAACAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAIgAAACb#####AAAAAQAPQ1ZhbGV1ckFmZmljaGVlAP####8BAAAAAMAYAAAAAAAAwBgAAAAAAAAAAAA#CwAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAgAAAD4AAAASAP####8ABG51bTEABW51bSsxAAAAFAAAAAAOAAAAPgAAAAE#8AAAAAAAAAAAABIA#####wAEbnVtJwARbnVtKyhuYmdyYWR4KzEpKjIAAAAUAAAAAA4AAAA+AAAAFAIAAAAUAAAAAA4AAAACAAAAAT#wAAAAAAAAAAAAAUAAAAAAAAAAAAAAEgD#####AAVudW0nMQAGbnVtJysxAAAAFAAAAAAOAAAAQgAAAAE#8AAAAAAAAAAAAAgA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAACUAAAAtAAAACAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAJgAAADcAAAAIAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAAnAAAAKQAAABUA#####wEAAAAAwBgAAAAAAADAEAAAAAAAAAAAAEYLAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAACAAAAQQAAABUA#####wEAAAAAwBgAAAAAAADAEAAAAAAAAAAAAEQLAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAACAAAAQgAAABUA#####wEAAAAAwBgAAAAAAADAHAAAAAAAAAAAAEULAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAACAAAAQ#####8AAAACABJDTGlldU9iamV0UGFyUHRMaWUA#####wEAAAAAAAAoAAAAFAAAAAAOAAAAAQAAAAE#8AAAAAAAAAAAACIAAAAHAAAAIgAAACMAAAAkAAAAJQAAACYAAAAnAAAAKAAAABYA#####wEAAAAAAAAuAAAAFAAAAAAOAAAAAQAAAAE#8AAAAAAAAAAAACIAAAAHAAAAIgAAACMAAAAlAAAAJgAAACwAAAAtAAAALgAAABYA#####wEAAAAAAAA5AAAAFAAAAAAOAAAAAQAAAAE#8AAAAAAAAAAAACIAAAAHAAAAIgAAACMAAAA1AAAANgAAADcAAAA4AAAAOQAAABYA#####wEAAAAAAAArAAAAFAAAAAAOAAAAAQAAAAE#8AAAAAAAAAAAACIAAAAHAAAAIgAAACMAAAAmAAAAJwAAACkAAAAqAAAAKwAAABYA#####wAAAAAAAABKAAAAFAAAAAAOAAAAAgAAAAE#8AAAAAAAAAAAAB4AAAALAAAAHgAAACAAAAAhAAAAIgAAACMAAAAkAAAAJQAAACYAAAAnAAAAKAAAAEoAAAAWAP####8AAAAAAAAATQAAABQAAAAADgAAAAIAAAABP#AAAAAAAAAAAAAeAAAACwAAAB4AAAAgAAAAIQAAACIAAAAjAAAAJgAAACcAAAApAAAAKgAAACsAAABNAAAAFgD#####AAAAAAAAAEwAAAAUAAAAAA4AAAACAAAAAT#wAAAAAAAAAAAAHgAAAAsAAAAeAAAAIAAAACEAAAAiAAAAIwAAADUAAAA2AAAANwAAADgAAAA5AAAATAAAABYA#####wAAAAAAAABLAAAAFAAAAAAOAAAAAgAAAAE#8AAAAAAAAAAAAB4AAAALAAAAHgAAACAAAAAhAAAAIgAAACMAAAAlAAAAJgAAACwAAAAtAAAALgAAAEsAAAAWAP####8BAAAAAAAAQAAAABQAAAAADgAAAAEAAAABP#AAAAAAAAAAAAAiAAAACgAAACIAAAAjAAAAJgAAADoAAAA7AAAAPAAAAD0AAAA+AAAAPwAAAEAAAAAWAP####8AAAAAAAAAUgAAABQAAAAADgAAAAIAAAABP#AAAAAAAAAAAAAeAAAADgAAAB4AAAAgAAAAIQAAACIAAAAjAAAAJgAAADoAAAA7AAAAPAAAAD0AAAA+AAAAPwAAAEAAAABSAAAAFgD#####AQAAAAAAAEcAAAAUAAAAAA4AAAABAAAAAT#wAAAAAAAAAAAAIgAAAAwAAAAiAAAAIwAAACcAAAApAAAAOgAAADsAAAA8AAAAPQAAAD4AAABBAAAARgAAAEcAAAAWAP####8AAAAAAAAAVAAAABQAAAAADgAAAAIAAAABP#AAAAAAAAAAAAAeAAAAEAAAAB4AAAAgAAAAIQAAACIAAAAjAAAAJwAAACkAAAA6AAAAOwAAADwAAAA9AAAAPgAAAEEAAABGAAAARwAAAFQAAAAWAP####8BAAAAAAAASQAAABQAAAAADgAAAAEAAAABP#AAAAAAAAAAAAAiAAAADQAAACIAAAAjAAAAJgAAADcAAAA6AAAAOwAAADwAAAA9AAAAPgAAAEIAAABDAAAARQAAAEkAAAAWAP####8AAAAAAAAAVgAAABQAAAAADgAAAAIAAAABP#AAAAAAAAAAAAAeAAAAEQAAAB4AAAAgAAAAIQAAACIAAAAjAAAAJgAAADcAAAA6AAAAOwAAADwAAAA9AAAAPgAAAEIAAABDAAAARQAAAEkAAABWAAAAFgD#####AQAAAAAAAEgAAAAUAAAAAA4AAAABAAAAAT#wAAAAAAAAAAAAIgAAAAwAAAAiAAAAIwAAACUAAAAtAAAAOgAAADsAAAA8AAAAPQAAAD4AAABCAAAARAAAAEgAAAAWAP####8AAAAAAAAAWAAAABQAAAAADgAAAAIAAAABP#AAAAAAAAAAAAAeAAAAEAAAAB4AAAAgAAAAIQAAACIAAAAjAAAAJQAAAC0AAAA6AAAAOwAAADwAAAA9AAAAPgAAAEIAAABEAAAASAAAAFj###############8="
 
-	this.liste_questions = [];
-	this.liste_corrections = []; // Liste de questions corrigées
-	let texte=``
-	let texte_corr=``
-	if (sortie_html) {
-		this.type_exercice = 'MG32'; // on pilote les figures ci-dessous
-		this.MG32code_pour_modifier_la_figure = `
-			mtg32App.calculate("MG32svg${numero_de_l_exercice}");
-			mtg32App.display("MG32svg${numero_de_l_exercice}");
-			mtg32App.calculate("MG32svgcorr${numero_de_l_exercice}");
-			mtg32App.display("MG32svgcorr${numero_de_l_exercice}");
-			`
-			this.liste_questions.push(texte);
-			this.liste_corrections.push(texte_corr);
-			liste_de_question_to_contenu_sans_numero(this)
 
+/**
+* Passer d'une écriture en base 10 à l'écriture dans une autre base ou inversement
+*
+* * Convertir en base 10
+* * Convertir vers une base entre 2 et 7
+* * Trouver le plus grand nombre à 3 ou 4 chiffres d'une base ainsi que son successeur et le convertir en base 10 ou le plus petit et son prédecesseur
+*
+* @Auteur Rémi Angot
+*/
+function Passer_d_une_base_a_l_autre() {
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Passer de la base 10 à une autre base et inversement";
+	this.consigne = "";
+	this.nb_questions = 3;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.spacing = 1;
+	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
+
+	this.nouvelle_version = function (numero_de_l_exercice) {
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+
+		let type_de_questions_disponibles = ['vers_base_10',choice(['vers_base_n_3_chiffres','vers_base_n_4_chiffres']),choice(['plus_grand_4_chiffres','plus_grand_3_chiffres','plus_petit_4_chiffres','plus_petit_3_chiffres'])];
+		if (this.nb_questions > 3) {
+			type_de_questions_disponibles = ['vers_base_10','vers_base_n_3_chiffres','vers_base_n_4_chiffres','plus_grand_4_chiffres','plus_grand_3_chiffres','plus_petit_4_chiffres','plus_petit_3_chiffres'];
 		}
-		else {
-			texte = ``
-			texte_cor=``
-			this.liste_questions.push(texte) // on envoie la question
-			this.liste_corrections.push(texte_corr)
-			liste_de_question_to_contenu_sans_numero(this);
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		for (let i = 0, texte, texte_corr, b, n, m, chiffre1, chiffre2, chiffre3, chiffre4, cpt = 0; i < this.nb_questions && cpt < 50;) {
+			b = randint(2,7);
+			switch (liste_type_de_questions[i]) {
+				case 'vers_base_10':
+					n = randint(1,b-1)*10+randint(0,b-1);
+					m = randint(1,b-1)*1000+randint(0,b-1)*100+randint(0,b-1)*10+randint(0,b-1);
+					texte = `Les nombre $(${n})_${b}$ et $(${m})_${b}$ sont écrits en base ${b}. Donner leur écriture en base 10.`;
+					texte_corr = `$(${n})_${b}=${n.toString()[0]}\\times${b}+${n.toString()[1]}=${parseInt(n,b)}$`;
+					texte_corr += `<br>$(${m})_${b}=${m.toString()[0]}\\times${b}^3+${m.toString()[1]}\\times${b}^2+${m.toString()[2]}\\times${b}+${m.toString()[3]}=${parseInt(m,b)}$`;
+				break;
+				case 'vers_base_n_3_chiffres':
+					chiffre1 = randint(1,b-1);
+					chiffre2 = randint(0,b-1);
+					chiffre3 = randint(0,b-1);
+					n = chiffre1*b**2+chiffre2*b+chiffre3;
+					texte = `Écrire en base ${b} le nombre ${n}.`;
+					texte_corr = `$${n}=${b}\\times${Math.floor(n/b)}+${mise_en_evidence(n%b)}$`;
+					texte_corr += `<br>$${Math.floor(n/b)}=${b}\\times${mise_en_evidence(chiffre1)}+${mise_en_evidence(chiffre2)}$`;
+					texte_corr += `<br> Finalement $${n}=(${chiffre1}${chiffre2}${chiffre3})_${b}$`
+				break;
+				case 'vers_base_n_4_chiffres':
+					chiffre1 = randint(1,b-1);
+					chiffre2 = randint(0,b-1);
+					chiffre3 = randint(0,b-1);
+					chiffre4 = randint(0,b-1);
+					n = chiffre1*b**3+chiffre2*b**2+chiffre3*b+chiffre4;
+					texte = `Écrire en base ${b} le nombre ${n}.`;
+					texte_corr = `$${n}=${b}\\times${Math.floor(n/b)}+${mise_en_evidence(n%b)}$`;
+					texte_corr += `<br>$${Math.floor(n/b)}=${b}\\times${Math.floor(Math.floor(n/b)/b)}+${mise_en_evidence(Math.floor(n/b)%b)}$`;
+					texte_corr += `<br>$${Math.floor(Math.floor(n/b)/b)}=${b}\\times${mise_en_evidence(chiffre1)}+${mise_en_evidence(chiffre2)}$`;
+					texte_corr += `<br> Finalement $${n}=(${chiffre1}${chiffre2}${chiffre3}${chiffre4})_${b}$`
+				break;
+				case 'plus_grand_4_chiffres':
+					texte = `Quel est le plus grand nombre à 4 chiffres que l'on peut écrire en base ${b}.`;
+					texte +=`<br>Comment s'écrit son successeur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`;
+					texte_corr = `En base ${b} les chiffres sont 0`;
+					for (let i = 1; i < b; i++) {
+						texte_corr += `, ${i}`
+					}
+					texte_corr += ` donc le plus grand nombre à 4 chiffres est $(${b-1}${b-1}${b-1}${b-1})_${b}$ et son successeur immédiat est $(10000)_${b}$.` 
+					texte_corr += `<br> $(10000)_${b}=1\\times${b}^4=${tex_nombre(b**4)}$ donc $(${b-1}${b-1}${b-1}${b-1})_${b}=${b**4}-1=${tex_nombre(b**4-1)}$.`
+				break;
+				case 'plus_grand_3_chiffres':
+					texte = `Quel est le plus grand nombre à 3 chiffres que l'on peut écrire en base ${b}.`;
+					texte +=`<br>Comment s'écrit son successeur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`;
+					texte_corr = `En base ${b} les chiffres sont 0`;
+					for (let i = 1; i < b; i++) {
+						texte_corr += `, ${i}`
+					}
+					texte_corr += ` donc le plus grand nombre à 3 chiffres est $(${b-1}${b-1}${b-1})_${b}$ et son successeur immédiat est $(1000)_${b}$.` 
+					texte_corr += `<br> $(1000)_${b}=1\\times${b}^3=${tex_nombre(b**3)}$ donc $(${b-1}${b-1}${b-1})_${b}=${b**3}-1=${tex_nombre(b**3-1)}$.`
+				break;
+				case 'plus_petit_4_chiffres':
+					texte = `Quel est le plus petit nombre à 4 chiffres que l'on peut écrire en base ${b}.`;
+					texte +=`<br>Comment s'écrit son prédécesseur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`;
+					texte_corr = `En base ${b} les chiffres sont 0`;
+					for (let i = 1; i < b; i++) {
+						texte_corr += `, ${i}`
+					}
+					texte_corr += ` donc le plus petit nombre à 4 chiffres est $(1000)_${b}$ et son prédécesseur immédiat est $(${b-1}${b-1}${b-1})_${b}$.` 
+					texte_corr += `<br> $(1000)_${b}=1\\times${b}^3=${tex_nombre(b**3)}$ donc $(${b-1}${b-1}${b-1})_${b}=${b**3}-1=${tex_nombre(b**3-1)}$.`
+				break;
+				case 'plus_petit_3_chiffres':
+					texte = `Quel est le plus petit nombre à 3 chiffres que l'on peut écrire en base ${b}.`;
+					texte +=`<br>Comment s'écrit son prédécesseur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`;
+					texte_corr = `En base ${b} les chiffres sont 0`;
+					for (let i = 1; i < b; i++) {
+						texte_corr += `, ${i}`
+					}
+					texte_corr += ` donc le plus petit nombre à 3 chiffres est $(100)_${b}$ et son prédécesseur immédiat est $(${b-1}${b-1})_${b}$.` 
+					texte_corr += `<br> $(100)_${b}=1\\times${b}^2=${tex_nombre(b**2)}$ donc $(${b-1}${b-1})_${b}=${b**2}-1=${tex_nombre(b**2-1)}$.`
+				break;
+				
+			}
+			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;
 		}
+		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_numerique = ['Transformations',5, '1 : Symétries axiales (6ème)\n 2 : Symétries axiales et centrales (5ème)\n 3 : Symétries et translations (4ème)\n 4 : Symétries, translations, rotations et homothéties\n 5 : Les mêmes plus des rotations compliquées\n'];
+}
 
+
+/**
+* Passer d'une écriture en base 10 à l'écriture dans une autre base ou inversement
+*
+* * Convertir en base 10
+* * Convertir vers une base entre 2 et 7
+* * Trouver le plus grand nombre à 3 ou 4 chiffres d'une base ainsi que son successeur et le convertir en base 10 ou le plus petit et son prédecesseur
+*
+* @Auteur Rémi Angot
+*/
+function Passer_de_la_base_12_ou_16_a_la_10() {
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Passer de la base 12 ou 16 à la base 10 et inversement";
+	this.consigne = "";
+	this.nb_questions = 3;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.spacing = 1;
+	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
+
+	this.nouvelle_version = function (numero_de_l_exercice) {
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+
+		let type_de_questions_disponibles = ['vers_base_10','vers_base_n_3_chiffres']
+		if (this.nb_questions==3) {
+			type_de_questions_disponibles.push(choice(['vers_base_n_4_chiffres','plus_grand_4_chiffres','plus_petit_4_chiffres','plus_petit_3_chiffres']))
+		}
+		 
+		
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let	b = choice([12,16]);
+		if (b==12) {
+			this.introduction = 'Les symboles que l’on utilise en base 12 sont les dix chiffres habituels, la lettre A pour désigner 10 unités et la lettre B pour désigner 11 unités.';
+		} else {
+			this.introduction = 'Les symboles que l’on utilise en base 16 sont les dix chiffres habituels, la lettre A pour désigner 10 unités, B pour 11 unités, C pour 12 unités, D pour 13 unités, ';
+			this.introduction +='E pour 14 unités et F pour 15 unités.'
+		}
+		for (let i = 0, texte, texte_corr, n, m, chiffre1, chiffre2, chiffre3, chiffre4, cpt = 0; i < this.nb_questions && cpt < 50;) {
+			switch (liste_type_de_questions[i]) {
+				case 'vers_base_10':
+					if (b==12) {
+						n = choice([choice(['A','B'])+randint(0,9),randint(1,9)+choice(['A','B']),choice(['A','B'])+choice(['A','B'])]) 
+						m = choice(['A','B',randint(1,9)])+choice(['A','B',randint(0,9)])+choice(['A','B',randint(0,9)])+choice(['A','B',randint(0,9)]);
+					}	
+					if (b==16) {
+						n = choice(['A','B','C','D','E','F',randint(1,9).toString()])+choice(['A','B','C','D','E','F','0','1','2','3','4','5','6','7','8','9']);
+						m = choice(['A','B','C','D','E','F','0','1','2','3','4','5','6','7','8','9'])+choice(['A','B','C','D','E','F','0','1','2','3','4','5','6','7','8','9'])+choice(['A','B','C','D','E','F','0','1','2','3','4','5','6','7','8','9']);
+					}				
+					texte = `Les nombre $(${n})_{${b}}$ et $(${m})_{${b}}$ sont écrits en base ${b}. Donner leur écriture en base 10.`;
+					texte_corr = `$(${n})_{${b}}=${valeur_base(n.toString()[0])}\\times${b}+${valeur_base(n.toString()[1])}=${tex_nombre(parseInt(n,b))}$`;
+					if (b==12) { //m est un nombre à 4 chiffres
+						texte_corr += `<br>$(${m})_{${b}}=${valeur_base(m.toString()[0])}\\times${b}^3+${valeur_base(m.toString()[1])}\\times${b}^2+${valeur_base(m.toString()[2])}\\times${b}+${valeur_base(m.toString()[3])}=${tex_nombre(parseInt(m,b))}$`;
+					} else { //m est un nombre à 3 chiffres
+						texte_corr += `<br>$(${m})_{${b}}=${valeur_base(m.toString()[0])}\\times${b}^2+${valeur_base(m.toString()[1])}\\times${b}+${valeur_base(m.toString()[2])}=${tex_nombre(parseInt(m,b))}$`;
+					}
+				break;
+				case 'vers_base_n_3_chiffres':
+					if (b==12) {
+						chiffre1 = choice(['A','B',randint(1,9).toString()])
+						chiffre2 = choice(['A','B',randint(0,9).toString()])
+						chiffre3 = choice(['A','B',randint(1,9).toString()])
+					} else {
+						chiffre1 = choice(['A','B','C','D','E','F','1','2','3','4','5','6','7','8','9']);
+						chiffre2 = choice(['A','B','C','D','E','F','0','1','2','3','4','5','6','7','8','9']);
+						chiffre3 = choice(['A','B','C','D','E','F','0','1','2','3','4','5','6','7','8','9']);
+					}
+					n = valeur_base(chiffre1)*b**2+valeur_base(chiffre2)*b+valeur_base(chiffre3);
+					texte = `Écrire en base ${b} le nombre ${nombre_avec_espace(n)}.`;
+					texte_corr = `$${tex_nombre(n)}=${b}\\times${Math.floor(n/b)}+${mise_en_evidence(n%b)}$`;
+					texte_corr += `<br>$${Math.floor(n/b)}=${b}\\times${mise_en_evidence(valeur_base(chiffre1))}+${mise_en_evidence(valeur_base(chiffre2))}$`;
+					texte_corr += `<br> Finalement $${tex_nombre(n)}=(${chiffre1}${chiffre2}${chiffre3})_{${b}}$`
+				break;
+				case 'vers_base_n_4_chiffres':
+					if (b==12) {
+						chiffre1 = choice(['A','B',randint(1,9).toString()])
+						chiffre2 = choice(['A','B',randint(0,9).toString()])
+						chiffre3 = choice(['A','B',randint(1,9).toString()])
+						chiffre4 = choice(['A','B',randint(1,9).toString()])
+					} else {
+						chiffre1 = choice(['A','B','C','D','E','F','1','2','3','4','5','6','7','8','9']);
+						chiffre2 = choice(['A','B','C','D','E','F','0','1','2','3','4','5','6','7','8','9']);
+						chiffre3 = choice(['A','B','C','D','E','F','0','1','2','3','4','5','6','7','8','9']);
+						chiffre4 = choice(['A','B','C','D','E','F','0','1','2','3','4','5','6','7','8','9']);
+					}
+					n = valeur_base(chiffre1)*b**3+valeur_base(chiffre2)*b**2+valeur_base(chiffre3)*b+valeur_base(chiffre4);
+					texte = `Écrire en base ${b} le nombre ${nombre_avec_espace(n)}.`;
+					texte_corr = `$${tex_nombre(n)}=${b}\\times${Math.floor(n/b)}+${mise_en_evidence(n%b)}$`;
+					texte_corr += `<br>$${tex_nombre(Math.floor(n/b))}=${b}\\times${Math.floor(Math.floor(n/b)/b)}+${mise_en_evidence(Math.floor(n/b)%b)}$`;
+					texte_corr += `<br>$${tex_nombre(Math.floor(Math.floor(n/b)/b))}=${b}\\times${mise_en_evidence(valeur_base(chiffre1))}+${mise_en_evidence(valeur_base(chiffre2))}$`;
+					texte_corr += `<br> Finalement $${tex_nombre(n)}=(${chiffre1}${chiffre2}${chiffre3}${chiffre4})_{${b}}$`
+				break;
+				case 'plus_grand_4_chiffres':
+					texte = `Quel est le plus grand nombre à 4 chiffres que l'on peut écrire en base ${b}.`;
+					texte +=`<br>Comment s'écrit son successeur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`;
+					if (b==12) {
+						texte_corr = `En base ${b} le plus grand chiffre est $B$`
+						texte_corr += ` donc le plus grand nombre à 4 chiffres est $(BBBB)_{${b}}$ et son successeur immédiat est $(10000)_{${b}}$.` 
+						texte_corr += `<br> $(10000)_{${b}}=1\\times${b}^4=${tex_nombre(b**4)}$ donc $(BBBB)_{${b}}=${b**4}-1=${tex_nombre(b**4-1)}$.`
+					} else {
+						texte_corr = `En base ${b} le plus grand chiffre est $F$`
+						texte_corr += ` donc le plus grand nombre à 4 chiffres est $(FFFF)_{${b}}$ et son successeur immédiat est $(10000)_{${b}}$.` 
+						texte_corr += `<br> $(10000)_{${b}}=1\\times${b}^4=${tex_nombre(b**4)}$ donc $(FFFF)_{${b}}=${b**4}-1=${tex_nombre(b**4-1)}$.`
+					}
+				break;
+				case 'plus_grand_3_chiffres':
+					texte = `Quel est le plus grand nombre à 3 chiffres que l'on peut écrire en base ${b}.`;
+					texte +=`<br>Comment s'écrit son successeur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`;
+					if (b==12) {
+						texte_corr = `En base ${b} le plus grand chiffre est $B$`
+						texte_corr += ` donc le plus grand nombre à 3 chiffres est $(BBB)_{${b}}$ et son successeur immédiat est $(1000)_{${b}}$.` 
+						texte_corr += `<br> $(1000)_{${b}}=1\\times${b}^3=${tex_nombre(b**3)}$ donc $(BBB)_{${b}}=${b**3}-1=${tex_nombre(b**3-1)}$.`
+					} else {
+						texte_corr = `En base ${b} le plus grand chiffre est $F$`
+						texte_corr += ` donc le plus grand nombre à 3 chiffres est $(FFF)_{${b}}$ et son successeur immédiat est $(1000)_{${b}}$.` 
+						texte_corr += `<br> $(1000)_{${b}}=1\\times${b}^3=${tex_nombre(b**3)}$ donc $(FFF)_{${b}}=${b**3}-1=${tex_nombre(b**3-1)}$.`
+					}
+				break;
+				case 'plus_petit_4_chiffres':
+					texte = `Quel est le plus petit nombre à 4 chiffres que l'on peut écrire en base ${b}.`;
+					texte +=`<br>Comment s'écrit son prédécesseur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`;
+					if (b==12) {
+						texte_corr = `En base ${b} le plus petit chiffre est $0$ et le plus grand chiffre est $B$`
+						texte_corr += ` donc le plus petit nombre à 4 chiffres est $(1000)_{${b}}$ et son prédécesseur immédiat est $(BBB)_{${b}}$.` 
+						texte_corr += `<br> $(1000)_{${b}}=1\\times${b}^3=${tex_nombre(b**3)}$ donc $(BBB)_{${b}}=${b**3}-1=${tex_nombre(b**3-1)}$.`
+					} else {
+						texte_corr = `En base ${b} le plus petit chiffre est $0$ et le plus grand chiffre est $F$`
+						texte_corr += ` donc le plus petit nombre à 4 chiffres est $(1000)_{${b}}$ et son prédécesseur immédiat est $(FFF)_{${b}}$.` 
+						texte_corr += `<br> $(1000)_{${b}}=1\\times${b}^3=${tex_nombre(b**3)}$ donc $(FFF)_{${b}}=${b**3}-1=${tex_nombre(b**3-1)}$.`
+					}
+				break;
+				case 'plus_petit_3_chiffres':
+					texte = `Quel est le plus petit nombre à 3 chiffres que l'on peut écrire en base ${b}.`;
+					texte +=`<br>Comment s'écrit son prédécesseur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`;
+					if (b==12) {
+						texte_corr = `En base ${b} le plus petit chiffre est $0$ et le plus grand chiffre est $B$`
+						texte_corr += ` donc le plus petit nombre à 3 chiffres est $(100)_{${b}}$ et son prédécesseur immédiat est $(BB)_{${b}}$.` 
+						texte_corr += `<br> $(100)_{${b}}=1\\times${b}^2=${tex_nombre(b**2)}$ donc $(BB)_{${b}}=${b**2}-1=${tex_nombre(b**2-1)}$.`
+					} else {
+						texte_corr = `En base ${b} le plus petit chiffre est $0$ et le plus grand chiffre est $F$`
+						texte_corr += ` donc le plus petit nombre à 3 chiffres est $(100)_{${b}}$ et son prédécesseur immédiat est $(FF)_{${b}}$.` 
+						texte_corr += `<br> $(100)_{${b}}=1\\times${b}^2=${tex_nombre(b**2)}$ donc $(FF)_{${b}}=${b**2}-1=${tex_nombre(b**2-1)}$.`
+					}
+				break;
+				
+				
+			}
+			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;
+		}
+		liste_de_question_to_contenu(this);
+	}
 }
