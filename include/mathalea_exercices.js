@@ -157,7 +157,7 @@ var liste_des_exercices_disponibles = {
 		'3L15' : Resoudre_une_equation_x2_egal_A,
 		'3G10-1' : Transformations_du_plan_et_coordonnees,
 		'3G10-2' : Transformations_3e,
-		'3G12-1' : Rotations_pavages_3e,
+		// '3G12-1' : Rotations_pavages_3e,
 		'3G20' : Exercice_Thales,
 		'3G21' : Reciproque_Thales,
 		'3G22' : Agrandissement_reduction,
