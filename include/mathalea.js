@@ -51,6 +51,9 @@ Les réponses modifient les caractéristiques de l'exercice puis le code LaTeX e
 			if (exercice[i].correction_detaillee_disponible){
 				div_parametres_generaux.innerHTML += '<div><label for="form_correction_detaillee'+i+'">Correction détaillée : </label> <input id="form_correction_detaillee'+i+'" type="checkbox" ></div>'
 			}
+			if (!exercice[i].nb_questions_modifiable && !exercice[i].correction_detaillee_disponible && !exercice[i].besoin_formulaire_numerique && !exercice[i].besoin_formulaire_texte) {
+				div_parametres_generaux.innerHTML += '<p><em>Cet exercice ne peut pas être paramétré.</em></p>'
+			}
 		} else {
 			div_parametres_generaux.innerHTML += '<h4 class="ui dividing header">Exercice n°'+ (i+1) +' : '+ exercice[i].titre +'</h4>'
 
