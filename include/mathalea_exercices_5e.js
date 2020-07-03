@@ -3272,11 +3272,11 @@ function Pavages_et_demi_tour() {
 	this.liste_questions = [];
 	this.liste_corrections = []; // Liste de questions corrigées
 	//listes de pavages [nx,ny,xB,yB,xC,yC,xD,yD,zoom,anngle]
-	let paves=[[5,5,4,0,4,4,0,4,22,0],[5,5,6,0,8,8,0,6,40,-9],[5,5,8,0,4,4,2,8,30,-10],[5,5,4,0,6,4,0,6,28,-15],[4,6,8,0,7,4,-1,4,32,0],[5,5,8,0,4,4,0,8,40,0]]
+	let paves=[[5,5,4,0,4,4,0,4,22,0],[5,5,6,0,8,8,0,6,40,-9],[5,5,8,0,4,4,2,8,30,-10],[5,5,4,0,6,4,0,6,28,-15],[4,6,8,0,7,4,-1,4,32,0],[5,5,8,0,4,4,0,8,40,0],[5,5,4,0,3,2*Math.sin(Math.PI/3),2,4*Math.sin(Math.PI/3),15,0]]
 
 	let texte,texte_corr
 	let tabfigA=[], tabfigB=[],tabfigC=[],tabfigD=[]
-	let pave=paves[randint(0,5)]
+	let pave=paves[randint(0,6)]
 	let nx=pave[0],ny=pave[1],xB=pave[2],yB=pave[3],xC=pave[4],yC=pave[5],xD=pave[6],yD=pave[7],Zoom=pave[8],Angle=pave[9]
 	let xAI=xB+xC-xD
 	let yAI=yB+yC-yD
