@@ -3254,6 +3254,7 @@ function Pavages_et_demi_tour() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Trouver l'image d'une figure par une symétrie centrale";
+	this.pas_de_version_LaTeX=true;
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
