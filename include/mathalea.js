@@ -45,6 +45,10 @@ Les réponses modifient les caractéristiques de l'exercice puis le code LaTeX e
 	for (let i = 0; i < nb_exercices; i++) {
 		if(sortie_html) {
 			div_parametres_generaux.innerHTML += '<h4 class="ui dividing header">Exercice n°'+ (i+1) +' : '+ exercice[i].titre +'</h4>'
+			if (exercice[i].pas_de_version_LaTeX) {
+				alert('ok')
+				div_parametres_generaux.innerHTML += "<p><em>Cet exercice n'a pas de version LaTeX et ne peut donc pas être exporté en PDF.</em></p>"
+			}
 			if (exercice[i].nb_questions_modifiable){
 				div_parametres_generaux.innerHTML +='<div><label for="form_nb_questions'+i+'">Nombre de questions : </label> <input id="form_nb_questions'+i+'" type="number"  min="1" max="99"></div>'
 			}
