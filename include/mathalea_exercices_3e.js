@@ -5222,7 +5222,7 @@ function Agrandissement_reduction() {
 					texte_corr += `$ \\approx ${tex_nombrec(arrondi((fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[1] ** 3 - fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[0] ** 3) * r * r * h1 * Math.PI / (fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[1] ** 3 * 3)))}$ dm${exposant(3)}<br>`
 					c = h3 / 2
 					if (sortie_html) {
-						texte_corr += num_alpha(3) + ` Il faut fixer HL à ${tex_nombre(r*10)} cm ; BA à ${tex_nombre(r2*10)} cm ; BH à ${tex_nombre(h3*10)} cm et la hauteur d'eau à ${tex_nombre((h1 - h2) *5)} cm.<br>`
+						texte_corr += num_alpha(3) + ` Il faut fixer HL à ${tex_nombrec(r*10)} cm ; BA à ${tex_nombrec(r2*10)} cm ; BH à ${tex_nombrec(h3*10)} cm et la hauteur d'eau à ${tex_nombrec((h1 - h2) *5)} cm.<br>`
 						texte_corr += `La lecture de $ y = V(x)$ nous donne un volume d'au d'environ ${tex_nombrec(arrondi(Math.PI * (((c + h2) ** 3) * ((r2 / h2) ** 2) - (r2 ** 2) * h2) / 3, 1))} dm${exposant(3)} soit environ ${tex_nombrec(arrondi(Math.PI * (((c + h2) ** 3) * ((r2 / h2) ** 2) - (r2 ** 2) * h2) / 3, 1))} litres d'eau.<br>`
 						texte_corr += num_alpha(4)
 					}
