@@ -525,6 +525,7 @@ Math.degres = function(radians) {
  * @param {array} vecteur A tableau 3 nombres
  * Fonction pouvant être utilisée en 2d avec des coordonnées homogènes
  * elle retourne le vecteur [x,y,z] résultat de M.A
+ * @Auteur Jean-Claude Lhote
  */
 
 function produit_matrice_vecteur_3x3(matrice,vecteur) { // matrice est un tableau 3x3 sous la forme [[ligne 1],[ligne 2],[ligne 3]] et vecteur est un tableau de 3 nombres [x,y,z]
@@ -536,6 +537,13 @@ function produit_matrice_vecteur_3x3(matrice,vecteur) { // matrice est un tablea
 	}
 	return resultat
 }
+/**
+ * 
+ * @param {array} matrice1 Matrice A
+ * @param {array} matrice2 Matrice B
+ * retourne la matrice A.B
+ * @Auteur Jean-Claude Lhote
+ */
 
 function produit_matrice_matrice_3x3(matrice1,matrice2) { // les deux matrices sont des tableaux 3x3  [[ligne 1],[ligne 2],[ligne 3]] et le résultat est de la même nature.
 	let resultat = [[0,0,0],[0,0,0],[0,0,0]]
@@ -545,28 +553,55 @@ function produit_matrice_matrice_3x3(matrice1,matrice2) { // les deux matrices s
 				resultat[j][i]+=matrice1[j][k]*matrice2[k][i]
  return resultat
 }
+/**
+ * 
+ * @param {array} point
+ * calcule les coordonnées d'un point donné par ses coordonnées en repère orthonormal en repère (O,I,J) tel que IOJ=60° 
+ * @Auteur Jean-Claude Lhote
+ */
+function changement_de_base_ortho_tri(point) {
+	point.push(1);
+	return produit_matrice_vecteur_3x3([[1,-Math.cos(Math.PI/3)/Math.sin(Math.PI/3),0],[0,1/Math.sin(Math.PI/3),0],[0,0,1]],point)
+}
+/**
+ * 
+ * @param {array} point 
+ * Changement de base inverse de la fonction précédente
+ * @Auteur Jean-CLaude Lhote
+ */
+function changement_de_base_tri_ortho(point) {
+	point.push(1);
+	return produit_matrice_vecteur_3x3([[1,Math.cos(Math.PI/3),0],[0,Math.sin(Math.PI/3),0],[0,0,1]],point)
+}
 
+	/**
+ * 
+ * @param {number} transformation Entier déterminant la transformation voulue 
+ ** 1=symétrie / passant par O
+ **2=symétrie \ passant par O
+ **3=symétrie _ passant par O
+ **4=symétrie | passant par O
+ **5= rotation 90° anti-horaire centre O
+ **6= rotation 90° horaire centre O
+ **7= symétrie centrale centre O
+ **11= rotation 60° anti-horaire centre O
+ **12= rotation 60° horaire centre O
+ **13= rotation 120° anti-horaire centre O
+ **14= rotation 120° horaire centre O
+ **8= translation coordonnées de O = vecteur de translation
+ **9= homothétie. centre O rapport k
+ **10= homothétie. centre O rapport 1/k
+ * @param {array} pointA Point dont on cherche l'image 
+ * @param {array} pointO Centre du repère local pour les symétries, centre pour les rotations et les homothéties
+ * @param {array} vecteur Vecteur de la translation 
+ * @param {number} rapport rapport d'homothétie
+ * @Auteur Jean-Claude Lhote
+ */
 function image_point_par_transformation (transformation,pointA,pointO,vecteur=[],rapport=1){ //pointA,centre et pointO sont des tableaux de deux coordonnées
 	// on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
+	// nécessite d'être en repère orthonormal...
 	// Point O sert pour les rotations et homothéties en tant que centre (il y a un changement d'origine du repère en O pour simplifier l'expression des matrices de transformations.)
-	/* transformations :
-1=symétrie / passant par O
-2=symétrie - passant par O
-3=symétrie | passant par O
-4=symétrie \ passant par O
-5= rotation 90° anti-horaire centre O
-6= rotation 90° horaire centre O
-7= symétrie centrale centre O
-11= rotation 60° anti-horaire centre O
-12= rotation 60° horaire centre O
-13= rotation 120° anti-horaire centre O
-14= rotation 120° horaire centre O
-8= translation coordonnées de O = vecteur de translation
-9= homothétie. centre O rapport k
-10= homothétie. centre O rapport 1/k
-
-
-	*/
+	
 	let matrice_sym_obl1=[[0,1,0],[1,0,0],[0,0,1]] // x'=y et y'=x
 	let matrice_sym_xxprime=[[1,0,0],[0,-1,0],[0,0,1]] // x'=x et y'=-y
 	let matrice_sym_yyprime=[[-1,0,0],[0,1,0],[0,0,1]] // x'=-x et y'=y
@@ -645,6 +680,108 @@ function image_point_par_transformation (transformation,pointA,pointO,vecteur=[]
 	pointA2=produit_matrice_vecteur_3x3(matrice_chgt_repere,pointA1)
 	return pointA2
 }
+/*
+function image_point_par_transformation_repere_tri (transformation,pointA,pointO,vecteur=[],rapport=1){ //pointA,centre et pointO sont des tableaux de deux coordonnées
+	// on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
+	// ici le rpeère a des axes formant un angle de 60°
+	// Point O sert pour les rotations et homothéties en tant que centre (il y a un changement d'origine du repère en O pour simplifier l'expression des matrices de transformations.)
+	/* transformations :
+1=symétrie / passant par O
+2=symétrie \ passant par O
+3=symétrie _ passant par O
+4=symétrie | passant par O
+5= rotation 90° anti-horaire centre O
+6= rotation 90° horaire centre O
+7= symétrie centrale centre O
+11= rotation 60° anti-horaire centre O
+12= rotation 60° horaire centre O
+13= rotation 120° anti-horaire centre O
+14= rotation 120° horaire centre O
+8= translation coordonnées de O = vecteur de translation
+9= homothétie. centre O rapport k
+10= homothétie. centre O rapport 1/k
+
+
+
+	let matrice_sym_obl1=[[0,1,0],[1,0,0],[0,0,1]] // x'=y et y'=x
+	let matrice_sym_xxprime=[[1,0,0],[0,-1,0],[0,0,1]] // x'=x et y'=-y
+	let matrice_sym_yyprime=[[-1,0,0],[0,1,0],[0,0,1]] // x'=-x et y'=y
+	let matrice_sym_obl2=[[0,-1,0],[-1,0,0],[0,0,1]] // x'=-y et y'=-x
+	let matrice_quart_de_tour_direct=[[0,-1,0],[1,0,0],[0,0,1]] // x'=-y et y'=x
+	let matrice_quart_de_tour_indirect=[[0,1,0],[-1,0,0],[0,0,1]] // x'=y et y'=-x
+	let matrice_sym_centrale=[[-1,0,0],[0,-1,0],[0,0,1]] // x'=-x et y'=-y
+	let matrice_rot_60_direct=[[0.5,-Math.sin(Math.PI/3),0],[Math.sin(Math.PI/3),0.5,0],[0,0,1]]
+	let matrice_rot_60_indirect=[[0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),0.5,0],[0,0,1]]
+	let matrice_rot_120_direct=[[-0.5,-Math.sin(Math.PI/3),0],[Math.sin(Math.PI/3),-0.5,0],[0,0,1]]
+	let matrice_rot_120_indirect=[[-0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),-0.5,0],[0,0,1]]
+
+	let x,y,x1,y1,u,v,k,pointA1=[0,0,0],pointA2=[0,0,0]
+
+	pointA.push(1)
+	x2=pointO[0]  // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
+	y2=pointO[1]
+	u=vecteur[0] // (u,v) vecteur de translation.
+	v=vecteur[1]
+	k=rapport // rapport d'homothétie
+
+
+	let matrice_chgt_repere=[[1,0,x2],[0,1,y2],[0,0,1]]
+	let matrice_chgt_repereinv=[[1,0,-x2],[0,1,-y2],[0,0,1]]
+	let matrice_translation=[[1,0,u],[0,1,v],[0,0,1]]
+	let matrice_homothetie=[[k,0,0],[0,k,0],[0,0,1]]
+	let matrice_homothetie2=[[1/k,0,0],[0,1/k,0],[0,0,1]]
+
+	let matrice=[[]]
+
+	switch (transformation) {
+		case 1 : 
+			matrice=produit_matrice_matrice_3x3(matrice_sym_obl1,matrice_chgt_repereinv)
+			break
+		case 2 :
+			matrice=produit_matrice_matrice_3x3(matrice_sym_obl2,matrice_chgt_repereinv)
+			break
+		case 3 : 
+			matrice=produit_matrice_matrice_3x3(matrice_sym_xxprime,matrice_chgt_repereinv)
+			break
+		case 4 :
+			matrice=produit_matrice_matrice_3x3(matrice_sym_yyprime,matrice_chgt_repereinv)
+			break
+		case 5 :
+			matrice=produit_matrice_matrice_3x3(matrice_quart_de_tour_direct,matrice_chgt_repereinv)
+			break
+		case 6 : 
+		matrice=produit_matrice_matrice_3x3(matrice_quart_de_tour_indirect,matrice_chgt_repereinv)
+			break
+		case 7 :
+			matrice=produit_matrice_matrice_3x3(matrice_sym_centrale,matrice_chgt_repereinv)
+			break
+		case 11 :
+			matrice=produit_matrice_matrice_3x3(matrice_rot_60_direct,matrice_chgt_repereinv)
+			break
+		case 12 :
+			matrice=produit_matrice_matrice_3x3(matrice_rot_60_indirect,matrice_chgt_repereinv)
+			break
+		case 13 :
+			matrice=produit_matrice_matrice_3x3(matrice_rot_120_direct,matrice_chgt_repereinv)
+			break
+		case 14 :
+			matrice=produit_matrice_matrice_3x3(matrice_rot_120_indirect,matrice_chgt_repereinv)
+			break
+		case 8 :
+			matrice=produit_matrice_matrice_3x3(matrice_translation,matrice_chgt_repereinv)
+			break
+		case 9 :
+			matrice=produit_matrice_matrice_3x3(matrice_homothetie,matrice_chgt_repereinv)
+			break
+		case 10 :
+			matrice=produit_matrice_matrice_3x3(matrice_homothetie2,matrice_chgt_repereinv)
+			break	
+		}
+	pointA1=produit_matrice_vecteur_3x3(matrice,pointA)
+	pointA2=produit_matrice_vecteur_3x3(matrice_chgt_repere,pointA1)
+	return pointA2
+}
+*/
 
 /**
 * Retourne le signe d'un nombre

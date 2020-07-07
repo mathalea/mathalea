@@ -1120,6 +1120,7 @@ function Tableau_de_valeurs() {
 }
 
 /**
+ * Développer des expressions de la forme(ax+ou-b)(cx+ou-d)
 * @auteur Jean-Claude Lhote
 */
 function Double_distributivite() {
@@ -1189,6 +1190,7 @@ function Double_distributivite() {
 }
 
 /**
+ * Développer avec les 3 identités remarquables
 * @auteur Jean-Claude Lhote
 */
 function Developper_Identites_remarquables2() {
@@ -1279,6 +1281,7 @@ function Developper_Identites_remarquables2() {
 }
 
 /**
+ * Développer (ax-b)(ax+b)
 * @auteur Jean-Claude Lhote
 */
 function Developper_Identites_remarquables3() {
@@ -1335,6 +1338,7 @@ function Developper_Identites_remarquables3() {
 }
 
 /**
+ * Factoriser a²-b²
 * @auteur Jean-Claude Lhote
 */
 function Factoriser_Identites_remarquables3() {
@@ -1391,6 +1395,7 @@ function Factoriser_Identites_remarquables3() {
 }
 
 /**
+ * Factoriser en utilisant les 3 identités remarquables 
 * @auteur Jean-Claude Lhote
 */
 function Factoriser_Identites_remarquables2() {
@@ -1640,6 +1645,7 @@ function Exercice_equation1_2(){
 
 
 /**
+ * Résolution d'équations de type (ax+b)(cx+d)=0
 * @auteur Jean-Claude Lhote
 * Tout est dans le nom de la fonction.
 */
@@ -1769,6 +1775,7 @@ function Resoudre_une_equation_produit_nul() {
 }
 
 /**
+ * Résoudre une équation de type x²=a
 * @auteur Jean-Claude Lhote
 */
 
@@ -5399,6 +5406,10 @@ function Agrandissement_reduction() {
 	this.besoin_formulaire2_numerique = ['Coefficient de réduction(problèmes de type1)', 3, '1 : Décimal\n 2 : Non décimal\n 3 : Décimal ou non'];
 
 }
+/**
+ * Trouver les coordonnées d'un point transformé d'un autre par une des transformations du plan
+ * @Auteur Jean-Claude Lhote
+ */
 function Transformations_du_plan_et_coordonnees() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()

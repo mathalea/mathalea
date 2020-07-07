@@ -1467,7 +1467,10 @@ function Exercice_Thales(){
 	
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',3,'1 : Calcul direct de deux longueurs \n 2 : Avec calcul intermédiaire\n 3 : Sans figure'];
 }
-
+/**
+ * Reciproque_Thales
+ * @Auteur Jean-Claude Lhote
+ */
 function Reciproque_Thales(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()

@@ -1459,6 +1459,7 @@ function Exercice_angles_triangles(){
 }
 
 /**
+ * Calculs de fréquences dans des séries statistiques
 * @auteur Jean-Claude Lhote
 */
  function Calculer_des_frequences(){
@@ -1606,6 +1607,7 @@ function Exercice_angles_triangles(){
 	this.besoin_formulaire_numerique = ['Type de séries',3,"1 : Lancers de dés \n 2 : Liste de notes\n 3 : Un mois de températures"];
 }
  /**
+  * Calcul de moyennes de série statistiques
 * @auteur Jean-Claude Lhote
 */
 function Calculer_des_moyennes(){
@@ -1693,6 +1695,7 @@ function Calculer_des_moyennes(){
 }
 
  /**
+  * Calculer des étendues de séries statistiques
 * @auteur Jean-Claude Lhote
 */
 function Calculer_des_etendues(){
@@ -3250,6 +3253,11 @@ function Premier_ou_pas_5e(){
 	}
 	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
 };
+
+/**
+ * Trouver l'image d'une figure par une symétrie centrale dans un pavage (7 motifs différents)
+ * @Auteur Jean-Claude Lhote
+ */
 function Pavages_et_demi_tour() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
