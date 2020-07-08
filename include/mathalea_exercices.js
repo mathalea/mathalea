@@ -6053,7 +6053,7 @@ function Pavages_et_reflexion() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Trouver l'image d'une figure par une symétrie axiale";
-//	this.pas_de_version_LaTeX=true;
+	this.pas_de_version_LaTeX=true;
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
@@ -6681,13 +6681,41 @@ function Transformations() {
 
 // Exercices paramétrés pour correspondre au référentiel
 /**
+ * Exercice en html seulement. Symétrie centrale dans un pavage.
+ * @Auteur Jean-Claude Lhote
+ */
+function Pavages_et_demi_tour(){
+	Pavages_et_transformations.call(this)
+	this.titre = "Trouver l'image d'une figure par une symétrie centrale"
+	this.sup=2
+}
+/**
+ * Exercice en html seulement. Translations dans un pavage.
+ * @Auteur Jean-Claude Lhote
+ */
+function Pavages_et_translation(){
+	Pavages_et_transformations.call(this)
+	this.titre = "Trouver l'image d'une figure par une translation"
+	this.sup=3
+}
+/**
+ * Exercice en html seulement. Rotationss dans un pavage.
+ * @Auteur Jean-Claude Lhote
+ */
+function Pavages_et_rotation(){
+	Pavages_et_transformations.call(this)
+	this.titre = "Trouver l'image d'une figure par une rotation"
+	this.sup=4
+}
+
+/**
  * Lire les coordonnées d'un point du quart de plan positif avec une précision allant de l'unité à 0,25.
  * @Auteur Jean-Claude Lhote
  */
 function reperage_point_du_quart_de_plan(){
 	reperage_point_du_plan.call(this);
 	this.titre = "Déterminer les coordonnées (positives) d'un point";
-	this.quart_de_plan=true;	;
+	this.quart_de_plan=true;
 
 }
 function Lecture_expression_fonctions_lineaires(){
