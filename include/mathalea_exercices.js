@@ -38,6 +38,7 @@ var liste_des_exercices_disponibles = {
 		'6D12' : Calculs_de_durees_ou_d_horaires,
 		'6G24' : Transformations_6e,
 		'6G25' : Pavages_et_reflexion,
+		'6G26' : Pavages_et_transformation_6,
 		'6M11-1' : Perimetre_ou_aire_de_carres_rectangles_triangles,
 		'6M11-2' : Perimetre_ou_aire_de_figures_composees,
 		'6M10' : Reglages_6M10,
@@ -6688,6 +6689,15 @@ function Pavages_et_demi_tour(){
 	Pavages_et_transformations.call(this)
 	this.titre = "Trouver l'image d'une figure par une symétrie centrale"
 	this.sup=2
+}
+/**
+ * Exercice en html seulement. Symétrie axiale dans un pavage.
+ * @Auteur Jean-Claude Lhote
+ */
+function Pavages_et_transformation_6(){
+	Pavages_et_transformations.call(this)
+	this.titre = "Trouver l'image d'un carré par une symétrie axiale"
+	this.sup=1
 }
 /**
  * Exercice en html seulement. Translations dans un pavage.
