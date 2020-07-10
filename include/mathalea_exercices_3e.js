@@ -1120,6 +1120,7 @@ function Tableau_de_valeurs() {
 }
 
 /**
+ * Développer des expressions de la forme(ax+ou-b)(cx+ou-d)
 * @auteur Jean-Claude Lhote
 */
 function Double_distributivite() {
@@ -1189,6 +1190,7 @@ function Double_distributivite() {
 }
 
 /**
+ * Développer avec les 3 identités remarquables
 * @auteur Jean-Claude Lhote
 */
 function Developper_Identites_remarquables2() {
@@ -1279,6 +1281,7 @@ function Developper_Identites_remarquables2() {
 }
 
 /**
+ * Développer (ax-b)(ax+b)
 * @auteur Jean-Claude Lhote
 */
 function Developper_Identites_remarquables3() {
@@ -1335,6 +1338,7 @@ function Developper_Identites_remarquables3() {
 }
 
 /**
+ * Factoriser a²-b²
 * @auteur Jean-Claude Lhote
 */
 function Factoriser_Identites_remarquables3() {
@@ -1391,6 +1395,7 @@ function Factoriser_Identites_remarquables3() {
 }
 
 /**
+ * Factoriser en utilisant les 3 identités remarquables 
 * @auteur Jean-Claude Lhote
 */
 function Factoriser_Identites_remarquables2() {
@@ -1640,6 +1645,7 @@ function Exercice_equation1_2(){
 
 
 /**
+ * Résolution d'équations de type (ax+b)(cx+d)=0
 * @auteur Jean-Claude Lhote
 * Tout est dans le nom de la fonction.
 */
@@ -1769,6 +1775,7 @@ function Resoudre_une_equation_produit_nul() {
 }
 
 /**
+ * Résoudre une équation de type x²=a
 * @auteur Jean-Claude Lhote
 */
 
@@ -5222,7 +5229,7 @@ function Agrandissement_reduction() {
 					texte_corr += `$ \\approx ${tex_nombrec(arrondi((fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[1] ** 3 - fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[0] ** 3) * r * r * h1 * Math.PI / (fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[1] ** 3 * 3)))}$ dm${exposant(3)}<br>`
 					c = h3 / 2
 					if (sortie_html) {
-						texte_corr += num_alpha(3) + ` Il faut fixer HL à ${tex_nombre(r*10)} cm ; BA à ${tex_nombre(r2*10)} cm ; BH à ${tex_nombre(h3*10)} cm et la hauteur d'eau à ${tex_nombre((h1 - h2) *5)} cm.<br>`
+						texte_corr += num_alpha(3) + ` Il faut fixer HL à ${tex_nombrec(r*10)} cm ; BA à ${tex_nombrec(r2*10)} cm ; BH à ${tex_nombrec(h3*10)} cm et la hauteur d'eau à ${tex_nombrec((h1 - h2) *5)} cm.<br>`
 						texte_corr += `La lecture de $ y = V(x)$ nous donne un volume d'au d'environ ${tex_nombrec(arrondi(Math.PI * (((c + h2) ** 3) * ((r2 / h2) ** 2) - (r2 ** 2) * h2) / 3, 1))} dm${exposant(3)} soit environ ${tex_nombrec(arrondi(Math.PI * (((c + h2) ** 3) * ((r2 / h2) ** 2) - (r2 ** 2) * h2) / 3, 1))} litres d'eau.<br>`
 						texte_corr += num_alpha(4)
 					}
@@ -5399,6 +5406,10 @@ function Agrandissement_reduction() {
 	this.besoin_formulaire2_numerique = ['Coefficient de réduction(problèmes de type1)', 3, '1 : Décimal\n 2 : Non décimal\n 3 : Décimal ou non'];
 
 }
+/**
+ * Trouver les coordonnées d'un point transformé d'un autre par une des transformations du plan
+ * @Auteur Jean-Claude Lhote
+ */
 function Transformations_du_plan_et_coordonnees() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -5892,7 +5903,6 @@ function Transformations_du_plan_et_coordonnees() {
 	this.besoin_formulaire_numerique = ['Transformations',5, '1 : Symétries axiales (6ème)\n 2 : Symétries axiales et centrales (5ème)\n 3 : Symétries et translations (4ème)\n 4 : Symétries, translations, rotations et homothéties\n 5 : Les mêmes plus des rotations compliquées\n'];
 
 }
-
 
 /**
 * Passer d'une écriture en base 10 à l'écriture dans une autre base ou inversement
