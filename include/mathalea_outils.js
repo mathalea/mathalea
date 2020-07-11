@@ -3844,7 +3844,7 @@ function Triangles(nom,l1,l2,l3,a1,a2,a3) {
 
 	nom = nom();
 
-	// renvoie les côtés du triangle, segments!
+	// renvoie les noms des côtés du triangle, segments!
 	function getCotes() {
 		let cotes = [];
 		let triangle = nom;
@@ -3854,6 +3854,18 @@ function Triangles(nom,l1,l2,l3,a1,a2,a3) {
 		cotes[2]='['+sommets[2]+''+sommets[0]+']';
 
 		return cotes;
+	};
+
+	// renvoie les noms des longueurs des côtés du triangle.
+	function getLongueurs() {
+		let longueurs = [];
+		let triangle = nom;
+		let sommets = triangle.split('');
+		longueurs[0]=sommets[0]+''+sommets[1];
+		longueurs[1]=sommets[1]+''+sommets[2];
+		longueurs[2]=sommets[2]+''+sommets[0];
+
+		return longueurs;
 	};
 
 	// renvoie un booleen selon que les trois longueurs forment un vrai triangle ou non
@@ -3888,6 +3900,7 @@ function Triangles(nom,l1,l2,l3,a1,a2,a3) {
 	this.a3 = a3;
 	this.nom = nom;
 	this.getCotes = getCotes;
+	this.getLongueurs = getLongueurs;
 	this.isTrueTriangle = isTrueTriangle;
 	this.isQuelconque = isQuelconque;	
 };

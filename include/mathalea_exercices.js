@@ -6937,6 +6937,7 @@ function Vocabulaire_des_triangles(){
 					if (this.sup==1) { //sans conversion
 						texte=`triangle quelconque, scalène ? sans conversion ${triangle_quelconque.l1} ; ${triangle_quelconque.l2} ; ${triangle_quelconque.l3}`;
 						texte += `<br> Côtés du triangle ${triangle_quelconque.nom} : ${triangle_quelconque.getCotes(triangle_quelconque.nom)}`;
+						texte += `<br> Longueurs du triangle ${triangle_quelconque.nom} : ${triangle_quelconque.getLongueurs(triangle_quelconque.nom)}`;
 						texte += `<br> ${JSON.stringify(triangle_quelconque)}`;
 						texte_corr = `Correction triangle scalène , quelconque ? sans conversion`;
 					} else {
