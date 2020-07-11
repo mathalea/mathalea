@@ -3830,17 +3830,34 @@ function decomp_fact_prem_array(n) {
  * @author Sébastien Lozano
  */
 function Triangles(l1,l2,l3,a1,a2,a3) {
+	var self = this;
 
+	// liste de noms possibles pour un triangle
 	var nomsPossibles = ['AGE','AIL','AIR','ALU','AME','AMI','ANE','ARC','BAC','BAL','BAR','BEC','BEL','BIO','BIP','BIS'];
 	nomsPossibles.push(['BLE','BOA','BOB','BOF','BOG','BOL','BUT','BYE','COQ','CRI','CRU']);
 
+	// tire au hasard un nom
 	function nom() {
 		let rang = randint(0,nomsPossibles.length-1);
 		return nomsPossibles[rang];
 	};
 
+	function isTrueTriangle() {
+		let longueurs = [self.l1,self.l2,self.l3];
+		console.log('longueurs : '+longueurs);
+		longueurs.sort(function(a,b){
+			return a-b;
+		});
+		console.log('longueurs sort() : '+longueurs);
+		if (longueurs[2] < (longueurs[0]+longueurs[1])) {
+			return true;
+		} else {
+			return false;
+		};
+	};
+
 	function isQuelconque() {
-		if ((l1!=l2) && (l1!=l3) && (l2!=l3)) {
+		if ((self.l1!=self.l2) && (self.l1!=self.l3) && (self.l2!=self.l3)) {
 			return true
 		} else {
 			return false;
@@ -3854,6 +3871,7 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 	this.a2 = a2;
 	this.a3 = a3;
 	this.nom = nom;
+	this.isTrueTriangle = isTrueTriangle;
 	this.isQuelconque = isQuelconque;
 };
 
