@@ -6919,7 +6919,7 @@ function Vocabulaire_des_triangles(){
 			let triangle_isocele = new Triangles();
 			let triangle_equilateral = new Triangles();
 
-			console.log(JSON.stringify(triangle_quelconque)+' ; '+JSON.stringify(triangle_isocele)+' ; '+JSON.stringify(triangle_equilateral));
+			//console.log(JSON.stringify(triangle_quelconque)+' ; '+JSON.stringify(triangle_isocele)+' ; '+JSON.stringify(triangle_equilateral));
 
 
 			switch (liste_type_de_questions[i]) {
@@ -6950,13 +6950,14 @@ function Vocabulaire_des_triangles(){
 						console.log('on retire des longueurs');
 						l1 = randint(1,l_max);
 						l2 = randint(1,l_max,l1);
-						l3 = randint(1,l_max,[l1,l2]);
+						//l3 = randint(1,l_max,[l1,l2]);
 						triangle_isocele.l1 = l1;
 						triangle_isocele.l2 = l1;
 						triangle_isocele.l3 = l2;
 					};
 					if (this.sup==1) { //sans conversion
 						texte=`triangle isocèle sans conversion. ${triangle_isocele.l1} ; ${triangle_isocele.l2} ; ${triangle_isocele.l3}`;
+						texte += `<br> ${JSON.stringify(triangle_isocele)}`;
 						texte_corr=`Correction triangle isocèle sans conversion.`;
 					}
 					else { // avec conversion
@@ -6968,14 +6969,15 @@ function Vocabulaire_des_triangles(){
 					while (!triangle_equilateral.isTrueTriangle()) {
 						console.log('on retire des longueurs');
 						l1 = randint(1,l_max);
-						l2 = randint(1,l_max,l1);
-						l3 = randint(1,l_max,[l1,l2]);
+						//l2 = randint(1,l_max,l1);
+						//l3 = randint(1,l_max,[l1,l2]);
 						triangle_equilateral.l1 = l1;
 						triangle_equilateral.l2 = l1;
 						triangle_equilateral.l3 = l1;
 					};
 					if (this.sup==1) { //sans conversion
 						texte=`triangle équilatéral sans conversion. ${triangle_equilateral.l1} ; ${triangle_equilateral.l2} ; ${triangle_equilateral.l3}`;
+						texte += `<br> ${JSON.stringify(triangle_equilateral)}`;
 						texte_corr=`Correction triangle équilatéral sans conversion.`;					}
 					else { // avec conversion
 						texte=`triangle équilatéral avec conversion.`;
