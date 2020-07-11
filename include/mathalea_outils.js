@@ -3869,6 +3869,18 @@ function Triangles(nom,l1,l2,l3,a1,a2,a3) {
 		return longueurs;
 	};
 
+	// renvoie les noms des angles du triangle.
+	function getAngles() {
+		let angles = [];
+		let triangle = nom;
+		let sommets = triangle.split('');
+		angles[0] = `$\\widehat{${sommets[0]+sommets[1]+sommets[2]}}$`;
+		angles[1] = `$\\widehat{${sommets[1]+sommets[2]+sommets[0]}}$`;
+		angles[2] = `$\\widehat{${sommets[2]+sommets[0]+sommets[1]}}$`;
+
+		return angles;
+	};
+
 	// renvoie un booleen selon que les trois longueurs forment un vrai triangle ou non
 	function isTrueTriangle() {
 		let longueurs = [self.l1,self.l2,self.l3];
@@ -3902,6 +3914,7 @@ function Triangles(nom,l1,l2,l3,a1,a2,a3) {
 	this.nom = nom;
 	this.getCotes = getCotes;
 	this.getLongueurs = getLongueurs;
+	this.getAngles = getAngles;
 	this.isTrueTriangle = isTrueTriangle;
 	this.isQuelconque = isQuelconque;	
 };
