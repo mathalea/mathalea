@@ -1281,7 +1281,8 @@ function tex_enumerate(liste,spacing){
 * @Auteur Rémi Angot
 */
 function tex_enumerate_sans_numero(liste,spacing){
-	return tex_enumerate(liste,spacing).replace('\\begin{enumerate}[label={}]','\\begin{enumerate}[label={}]')
+	//return tex_enumerate(liste,spacing).replace('\\begin{enumerate}[label={}]','\\begin{enumerate}[label={}]')
+	return tex_enumerate(liste,spacing).replace('\\begin{enumerate}','\\begin{enumerate}[label={}]')
 }
 
 /**
@@ -3752,8 +3753,8 @@ function warn_message(texte,couleur,titre) {
  * @author Sébastien Lozano
  */
 
-function lampe_message(titre,texte,couleur) {
-	'use strict';
+function lampe_message({titre,texte,couleur}) {
+	//'use strict';
 	if (sortie_html) {
 		return `
 		<div class="ui compact icon message">

@@ -1897,14 +1897,14 @@ function fonction_notion_vocabulaire() {
 		//let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions);
 
-		this.introduction = lampe_message(
-			`Introduction`,
-			`Lorsqu'un nombre $\\textit{x}$ entre dans une machine mathématique , celle-ci renvoie à la sortie un nombre appelé $\\textit{image de x}$.<br>
+		this.introduction = lampe_message({
+			titre : `Introduction`,
+			texte : `Lorsqu'un nombre $\\textit{x}$ entre dans une machine mathématique , celle-ci renvoie à la sortie un nombre appelé $\\textit{image de x}$.<br>
 				On dit que le nombre de départ est un $\\textit{antécédent}$ du nombre qu'on trouve à la sortie.<br>
 				Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donner des noms $\\textit{f}$ ou $\\textit{g}$ ou $\\textit{h} \\ldots$
 				<br>`,
-			`nombres`
-		);
+			couleur : `nombres`
+		});
 
 		if (sortie_html) { // les boutons d'aide uniquement pour la version html
 			this.bouton_aide = modal_pdf(numero_de_l_exercice, "pdf/FicheFonctions-3F1-act.pdf", "Aide mémoire sur les fonctions (Sébastien Lozano)", "Aide mémoire")
@@ -4273,11 +4273,11 @@ function PPCM_Engrenages() {
 		let type_de_questions_disponibles = [1, 2, 3, 4];
 		//let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions);
-		this.introduction = lampe_message(
-			`Arithmétique des engrenages`,
-			`Boîte de vitesse, transmission de vélo, de moto, perceuse electrique, tout ça fonctionne avec des engrenages! Mais au fait, comment ça marche, les engrenages?`,
-			`nombres`
-		);
+		this.introduction = lampe_message({
+			titre : `Arithmétique des engrenages`,
+			texte : `Boîte de vitesse, transmission de vélo, de moto, perceuse electrique, tout ça fonctionne avec des engrenages! Mais au fait, comment ça marche, les engrenages?`,
+			couleur : `nombres`
+		});
 		if (sortie_html) {
 			this.introduction += warn_message(`Attention, les roues ci-dessous ne comportent pas le nombre de dents de l'énoncé!`, `nombres`, `Coup de pouce`);
 			this.introduction += `<div id="${num_ex}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;

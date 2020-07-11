@@ -6894,11 +6894,35 @@ function Vocabulaire_des_triangles(){
 	this.nb_cols_corr = 1;
 	this.sup=1;
 
-	//this.liste_packages = `bclogo`;
+	this.liste_packages = `bclogo`;
 	
 	let type_de_questions_disponibles;
 	
 	this.nouvelle_version = function(numero_de_l_exercice){
+
+		let texte_intro = ``;
+		if (sortie_html) {			
+			texte_intro += `- Un <b>triangle quelconque</b> est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`;
+			texte_intro += `<br>`;
+			texte_intro += `- Un <b>triangle isocèle</b> est un triangle qui a deux côtés ou deux angles égaux.`;
+			texte_intro += `<br>`;
+			texte_intro += `- Un <b>triangle équilatéral</b> est un triangle qui a trois côtés ou trois angles égaux.`;
+			texte_intro += `<br>`;
+			texte_intro += `- Un <b>triangle rectangle</b> est un triangle qui a un angle droit.`;			
+		} else {
+			texte_intro = tex_enumerate_sans_numero([
+				`Un \\textbf{triangle quelconque} est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`,
+				`Un \\textbf{triangle isocèle} est un triangle qui a deux côtés ou deux angles égaux.`
+				],1
+			);
+		};
+
+		this.introduction = lampe_message({
+			titre : `Quelques définitions`,
+			texte : texte_intro,
+			couleur : `geo`
+		});
+
 		if (this.classe == 6 || this.classe == 5) type_de_questions_disponibles = [1,2,3,5,6]; // 6e et 5e : triangles quelconques, isocèles, équilatéraux
 		else type_de_questions_disponibles = [1,2,3,4,5,6]; // 4e et 3e : on ajoute les triangles rectangles.
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
