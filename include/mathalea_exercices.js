@@ -6911,8 +6911,10 @@ function Vocabulaire_des_triangles(){
 			texte_intro += `- Un <b>triangle rectangle</b> est un triangle qui a un angle droit.`;			
 		} else {
 			texte_intro = tex_enumerate_sans_numero([
-				`Un \\textbf{triangle quelconque} est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`,
-				`Un \\textbf{triangle isocèle} est un triangle qui a deux côtés ou deux angles égaux.`
+				`- Un \\textbf{triangle quelconque} est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`,
+				`- Un \\textbf{triangle isocèle} est un triangle qui a deux côtés ou deux angles égaux.`,
+				`- Un \\textbf{triangle équilatéral} est un triangle qui a trois côtés ou trois angles égaux.`,
+				`- Un \\textbf{triangle rectangle} est un triangle qui a un angle droit.`
 				],1
 			);
 		};
@@ -6920,7 +6922,7 @@ function Vocabulaire_des_triangles(){
 		this.introduction = lampe_message({
 			titre : `Quelques définitions`,
 			texte : texte_intro,
-			couleur : `geo`
+			couleur : `nombres`
 		});
 
 		if (this.classe == 6 || this.classe == 5) type_de_questions_disponibles = [1,2,3,5,6]; // 6e et 5e : triangles quelconques, isocèles, équilatéraux
