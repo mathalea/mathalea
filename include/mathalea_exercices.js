@@ -6888,7 +6888,7 @@ function Vocabulaire_des_triangles(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Vocabulaire des triangles";
 	this.consigne = "Donner la nature des triangles en justifiant.";
-	this.nb_questions = 4;
+	this.nb_questions = 6;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup=1;
@@ -6896,8 +6896,8 @@ function Vocabulaire_des_triangles(){
 	let type_de_questions_disponibles
 	
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.classe == 6 || this.classe == 5) type_de_questions_disponibles = [1,2,3]; // 6e et 5e : triangles quelconques, isocèles, équilatéraux
-		else type_de_questions_disponibles = [1,2,3,4]; // 4e et 3e : on ajoute les triangles rectangles.
+		if (this.classe == 6 || this.classe == 5) type_de_questions_disponibles = [1,2,3,5,6]; // 6e et 5e : triangles quelconques, isocèles, équilatéraux
+		else type_de_questions_disponibles = [1,2,3,4,5,6]; // 4e et 3e : on ajoute les triangles rectangles.
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		
 		this.liste_questions = []; // Liste de questions
@@ -6942,6 +6942,15 @@ function Vocabulaire_des_triangles(){
 						texte_corr=`Correction triangle rectangle avec conversion.`;
 					};
 					break;
+				case 5 : // triangle isocèle par les angles
+					texte=`triangle isocèle par les angles.`;
+					texte_corr=`Correction triangle isocèle par les angles.`;				
+					break;					
+				case 6 : // triangle équilatéral par les angles
+					texte=`triangle équilatéral par les angles.`;
+					texte_corr=`Correction triangle équilatéral par les angles.`;				
+					break;					
+
 			}
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
