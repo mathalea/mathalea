@@ -3829,7 +3829,7 @@ function decomp_fact_prem_array(n) {
  * Classe Triangles 
  * @author Sébastien Lozano
  */
-function Triangles(l1,l2,l3,a1,a2,a3) {
+function Triangles(nom,l1,l2,l3,a1,a2,a3) {
 	var self = this;
 
 	// liste de noms possibles pour un triangle
@@ -3842,13 +3842,28 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		return nomsPossibles[rang];
 	};
 
+	nom = nom();
+
+	// renvoie les côtés du triangle, segments!
+	function getCotes() {
+		let cotes = [];
+		let triangle = nom;
+		let sommets = triangle.split('');
+		cotes[0]='['+sommets[0]+''+sommets[1]+']';
+		cotes[1]='['+sommets[1]+''+sommets[2]+']';
+		cotes[2]='['+sommets[2]+''+sommets[0]+']';
+
+		return cotes;
+	};
+
+	// renvoie un booleen selon que les trois longueurs forment un vrai triangle ou non
 	function isTrueTriangle() {
 		let longueurs = [self.l1,self.l2,self.l3];
-		console.log('longueurs : '+longueurs);
+		//console.log('longueurs : '+longueurs);
 		longueurs.sort(function(a,b){
 			return a-b;
 		});
-		console.log('longueurs sort() : '+longueurs);
+		//console.log('longueurs sort() : '+longueurs);
 		if (longueurs[2] < (longueurs[0]+longueurs[1])) {
 			return true;
 		} else {
@@ -3856,6 +3871,7 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		};
 	};
 
+	// renvoie un booléen selon que le triangle donné à partir de ses trois longueurs est quelconque ou non
 	function isQuelconque() {
 		if ((self.l1!=self.l2) && (self.l1!=self.l3) && (self.l2!=self.l3)) {
 			return true
@@ -3871,8 +3887,9 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 	this.a2 = a2;
 	this.a3 = a3;
 	this.nom = nom;
+	this.getCotes = getCotes;
 	this.isTrueTriangle = isTrueTriangle;
-	this.isQuelconque = isQuelconque;
+	this.isQuelconque = isQuelconque;	
 };
 
 // Gestion des styles LaTeX
