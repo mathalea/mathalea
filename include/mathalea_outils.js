@@ -3825,10 +3825,39 @@ function decomp_fact_prem_array(n) {
 }
 
 
+/**
+ * Classe Triangles 
+ * @author Sébastien Lozano
+ */
+function Triangles(l1,l2,l3,a1,a2,a3) {
 
+	var nomsPossibles = ['AGE','AIL','AIR','ALU','AME','AMI','ANE','ARC','BAC','BAL','BAR','BEC','BEL','BIO','BIP','BIS'];
+	nomsPossibles.push(['BLE','BOA','BOB','BOF','BOG','BOL','BUT','BYE','COQ','CRI','CRU']);
+
+	function nom() {
+		let rang = randint(0,nomsPossibles.length-1);
+		return nomsPossibles[rang];
+	};
+
+	function isQuelconque() {
+		if ((l1!=l2) && (l1!=l3) && (l2!=l3)) {
+			return true
+		} else {
+			return false;
+		};
+	};
+	
+	this.l1 = l1;
+	this.l2 = l2;
+	this.l3 = l3;
+	this.a1 = a1;
+	this.a2 = a2;
+	this.a3 = a3;
+	this.nom = nom;
+	this.isQuelconque = isQuelconque;
+};
 
 // Gestion des styles LaTeX
-
 
 /**
 * Renvoie un texte avec le préambule d'un fichier LaTeX

@@ -6880,6 +6880,7 @@ function Reciproque_Thales_4eme(){
 
 /**
  * Vocabulaire des triangles
+ * 6G20 ; 
  * @author Sébastien Lozano
  */
 
@@ -6892,8 +6893,10 @@ function Vocabulaire_des_triangles(){
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup=1;
+
+	//this.liste_packages = `bclogo`;
 	
-	let type_de_questions_disponibles
+	let type_de_questions_disponibles;
 	
 	this.nouvelle_version = function(numero_de_l_exercice){
 		if (this.classe == 6 || this.classe == 5) type_de_questions_disponibles = [1,2,3,5,6]; // 6e et 5e : triangles quelconques, isocèles, équilatéraux
@@ -6903,11 +6906,23 @@ function Vocabulaire_des_triangles(){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		
-		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+		for (let i = 0, texte, texte_corr,l1,l2,l3,a1,a2,a3, cpt=0; i < this.nb_questions && cpt<50; ) {
+			// on fixe une longueur max en cm
+			let l_max = 20;
+
+			// on tire trois longueurs différentes
+			l1 = randint(0,l_max);
+			l2 = randint(0,l_max,l1);
+			l3 = randint(0,l_max,[l1,l2]);
+
+			// on crée un objet triangle
+			let triangle = new Triangles(l1,l2,l3);
+
+
 			switch (liste_type_de_questions[i]) {
 				case 1 : // triangle quelconque
 				if (this.sup==1) { //sans conversion
-					texte=`triangle quelconque, scalène ? sans conversion`;
+					texte=`triangle quelconque, scalène ? sans conversion ${triangle.l1 + triangle.l2 + triangle.l3} ; ${l1} ; ${l2} ; ${l3} ; ${triangle.nom()} ; ${triangle.isQuelconque()}`;
 					texte_corr = `Correction triangle scalène , quelconque ? sans conversion`;
 				} else {
 					texte=`triangle quelconque, scalène ? avec conversion`;
@@ -6916,7 +6931,7 @@ function Vocabulaire_des_triangles(){
 					break;
 				case 2 : // triangle isocèle
 					if (this.sup==1) { //sans conversion
-						texte=`triangle isocèle sans conversion.`;
+						texte=`triangle isocèle sans conversion. ${l1} ; ${l2} ; ${l3}`;
 						texte_corr=`Correction triangle isocèle sans conversion.`;
 					}
 					else { // avec conversion
