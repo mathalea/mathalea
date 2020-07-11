@@ -36,6 +36,7 @@ var liste_des_exercices_disponibles = {
 		'6D101' : Heures_decimales,
 		'6D11' : Somme_de_durees,
 		'6D12' : Calculs_de_durees_ou_d_horaires,
+		'6G20' : Vocabulaire_des_triangles_6e,
 		'6G24' : Transformations_6e,
 		'6G25-1' : Pavages_et_reflexion,
 		'6G25-2' : Pavages_et_symetries,
@@ -6877,6 +6878,92 @@ function Reciproque_Thales_4eme(){
 	this.quatrieme = true;
 }
 
+/**
+ * Vocabulaire des triangles
+ * @author Sébastien Lozano
+ */
+
+function Vocabulaire_des_triangles(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Vocabulaire des triangles";
+	this.consigne = "Donner la nature des triangles en justifiant.";
+	this.nb_questions = 4;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.sup=1;
+	
+	let type_de_questions_disponibles
+	
+	this.nouvelle_version = function(numero_de_l_exercice){
+		if (this.classe == 6 || this.classe == 5) type_de_questions_disponibles = [1,2,3]; // 6e et 5e : triangles quelconques, isocèles, équilatéraux
+		else type_de_questions_disponibles = [1,2,3,4]; // 4e et 3e : on ajoute les triangles rectangles.
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+			switch (liste_type_de_questions[i]) {
+				case 1 : // triangle quelconque
+				if (this.sup==1) { //sans conversion
+					texte=`triangle quelconque, scalène ? sans conversion`;
+					texte_corr = `Correction triangle scalène , quelconque ? sans conversion`;
+				} else {
+					texte=`triangle quelconque, scalène ? avec conversion`;
+					texte_corr = `Correction triangle scalène , quelconque ? avec conversion`;
+				};
+					break;
+				case 2 : // triangle isocèle
+					if (this.sup==1) { //sans conversion
+						texte=`triangle isocèle sans conversion.`;
+						texte_corr=`Correction triangle isocèle sans conversion.`;
+					}
+					else { // avec conversion
+						texte=`triangle isocèle avec conversion.`;
+						texte_corr=`Correction triangle isocèle avec conversion.`;
+					};
+					break;
+				case 3 : // triangle équilatéral
+					if (this.sup==1) { //sans conversion
+						texte=`triangle équilatéral sans conversion.`;
+						texte_corr=`Correction triangle équilatéral sans conversion.`;					}
+					else { // avec conversion
+						texte=`triangle équilatéral avec conversion.`;
+						texte_corr=`Correction triangle équilatéral avec conversion.`;
+					};
+					break;
+				case 4 : // triangle rectangle
+					if (this.sup==1) { //sans conversion
+						texte=`triangle rectangle sans conversion.`;
+						texte_corr=`Correction triangle rectangle sans conversion.`;					}
+					else { // avec conversion
+						texte=`triangle rectangle avec conversion.`;
+						texte_corr=`Correction triangle rectangle avec conversion.`;
+					};
+					break;
+			}
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}	
+			cpt++;	
+		}
+	liste_de_question_to_contenu(this);
+	}
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : pas de conversion\n2 : avec conversion"];
+}
+
+/**
+ * Vocabulaire des triangles 
+ * 6G20 
+ */
+function Vocabulaire_des_triangles_6e(){
+	this.sup = 1;
+	this.classe = 4;//remettre à this.classe = 6; une fois l'ensemble fait et créer un exo pour 4e/3e
+	Vocabulaire_des_triangles.call(this);
+};
 
 /**
 * @Auteur Rémi Angot
