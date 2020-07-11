@@ -37,7 +37,8 @@ var liste_des_exercices_disponibles = {
 		'6D11' : Somme_de_durees,
 		'6D12' : Calculs_de_durees_ou_d_horaires,
 		'6G24' : Transformations_6e,
-		'6G25' : Pavages_et_reflexion,
+		'6G25-1' : Pavages_et_reflexion,
+		'6G25-2' : Pavages_et_symetries,
 		'6M11-1' : Perimetre_ou_aire_de_carres_rectangles_triangles,
 		'6M11-2' : Perimetre_ou_aire_de_figures_composees,
 		'6M10' : Reglages_6M10,
@@ -127,13 +128,14 @@ var liste_des_exercices_disponibles = {
 		'4N21-2': Puissances_de_dix,
 		'4P10' : problemes_grandeurs_composees,
 		'4R10': Exercice_multiplications_relatifs,
-		'4G10' : Exercice_Pythagore,
-		'4G11' : Reciproque_Pythagore,
-		'4G12' : Problemes_Pythagore,
-		'4G30' : Exercice_Trigo_longueurs_4e,
-		'4G31' : Exercice_Trigo_angles_4e,
-		'4G20' : Thales_4eme,
-		'4G21' : Reciproque_Thales_4eme,
+		'4G11' : Pavages_et_translation,
+		'4G20' : Exercice_Pythagore,
+		'4G21' : Reciproque_Pythagore,
+		'4G22' : Problemes_Pythagore,
+		'4G30' : Thales_4eme,
+		'4G31' : Reciproque_Thales_4eme,
+		'4G40' : Exercice_Trigo_longueurs_4e,
+		'4G41' : Exercice_Trigo_angles_4e,
 		'3A10' : DivisionEuclidienne_multiplesDiviseurs_Criteres,
 		'3A11' : Premier_ou_pas,
 		'3A11-1' : Premier_ou_pas_critere_par7_par11,
@@ -158,7 +160,7 @@ var liste_des_exercices_disponibles = {
 		'3L15' : Resoudre_une_equation_x2_egal_A,
 		'3G10-1' : Transformations_du_plan_et_coordonnees,
 		'3G10-2' : Transformations_3e,
-		// '3G12-1' : Rotations_pavages_3e,
+		'3G12' : Pavages_et_rotation,
 		'3G20' : Exercice_Thales,
 		'3G21' : Reciproque_Thales,
 		'3G22' : Agrandissement_reduction,
@@ -6052,8 +6054,8 @@ function HTML_personnalise() {
 function Pavages_et_reflexion() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Trouver l'image d'une figure par une symétrie axiale";
-//	this.pas_de_version_LaTeX=true;
+	this.titre = "Trouver l'image d'une figure par une symétrie axiale dans un pavage triangulaire";
+	this.pas_de_version_LaTeX=true;
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
@@ -6194,7 +6196,6 @@ function Pavages_et_reflexion() {
 	yM3=tabfigB[indexc][1]
 	xN3=point[0]
 	yN3=point[1]
-	console.log(tabfigA,tabfigB,indexaxe3,xM3,yM3,xmil3,ymil3,xN3,yN3)
 
 	texte+=num_alpha(2)+texte_en_couleur_et_gras(` Quel est le numéro de la figure symétrique de la figure ${numc} dans la symétrie par rapport à la droite $(d_3)$ ?<br>`,`blue`)
 	texte_corr+=num_alpha(2)+texte_en_couleur_et_gras(` La figure symétrique de la figure ${numc} dans la symétrie par rapport à la droite $(d_3)$ porte le numéro ${cnum}.<br>`,`blue`)
@@ -6681,13 +6682,50 @@ function Transformations() {
 
 // Exercices paramétrés pour correspondre au référentiel
 /**
+ * Exercice en html seulement. Symétrie centrale dans un pavage.
+ * @Auteur Jean-Claude Lhote
+ */
+function Pavages_et_demi_tour(){
+	Pavages_et_transformations.call(this)
+	this.titre = "Trouver l'image d'une figure par une symétrie centrale dans un pavage"
+	this.sup=2
+}
+/**
+ * Exercice en html seulement. Symétrie axiale dans un pavage.
+ * @Auteur Jean-Claude Lhote
+ */
+function Pavages_et_symetries(){
+	Pavages_et_transformations.call(this)
+	this.titre = "Trouver l'image d'une figure par une symétrie axiale dans un pavage carré"
+	this.sup=1
+}
+/**
+ * Exercice en html seulement. Translations dans un pavage.
+ * @Auteur Jean-Claude Lhote
+ */
+function Pavages_et_translation(){
+	Pavages_et_transformations.call(this)
+	this.titre = "Trouver l'image d'une figure par une translation dans un pavage"
+	this.sup=3
+}
+/**
+ * Exercice en html seulement. Rotationss dans un pavage.
+ * @Auteur Jean-Claude Lhote
+ */
+function Pavages_et_rotation(){
+	Pavages_et_transformations.call(this)
+	this.titre = "Trouver l'image d'une figure par une rotation de 90 degrés dans un pavage"
+	this.sup=4
+}
+
+/**
  * Lire les coordonnées d'un point du quart de plan positif avec une précision allant de l'unité à 0,25.
  * @Auteur Jean-Claude Lhote
  */
 function reperage_point_du_quart_de_plan(){
 	reperage_point_du_plan.call(this);
 	this.titre = "Déterminer les coordonnées (positives) d'un point";
-	this.quart_de_plan=true;	;
+	this.quart_de_plan=true;
 
 }
 function Lecture_expression_fonctions_lineaires(){
