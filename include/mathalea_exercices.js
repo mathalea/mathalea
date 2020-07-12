@@ -6969,7 +6969,6 @@ function Vocabulaire_des_triangles(){
 						console.log('on retire des angles');
 						a1 = randint(a_min,a_max);
 						a2 = randint(a_min,a_max,a1);
-						//a3 = randint(a_min,a_max,[a1,a2]);
 						a3 = 180 - a1 - a2;
 						triangle_quelconque.a1 = a1;
 						triangle_quelconque.a2 = a2;
@@ -6986,7 +6985,6 @@ function Vocabulaire_des_triangles(){
 						console.log('on retire des longueurs');
 						l1 = randint(l_min,l_max);
 						l2 = randint(l_min,l_max,l1);
-						//l3 = randint(1,l_max,[l1,l2]);
 						triangle_isocele.l1 = l1;
 						triangle_isocele.l2 = l1;
 						triangle_isocele.l3 = l2;
@@ -7000,7 +6998,6 @@ function Vocabulaire_des_triangles(){
 						console.log('on retire des longueurs');
 						l1 = randint(l_min,l_max);
 						l2 = randint(l_min,l_max,l1);
-						//l3 = randint(1,l_max,[l1,l2]);
 						triangle_isocele.l1 = l1;
 						triangle_isocele.l2 = l1;
 						triangle_isocele.l3 = l2;
@@ -7013,38 +7010,39 @@ function Vocabulaire_des_triangles(){
 					while (!triangle_equilateral.isTrueTriangleLongueurs()) {
 						console.log('on retire des longueurs');
 						l1 = randint(l_min,l_max);
-						//l2 = randint(1,l_max,l1);
-						//l3 = randint(1,l_max,[l1,l2]);
 						triangle_equilateral.l1 = l1;
 						triangle_equilateral.l2 = l1;
 						triangle_equilateral.l3 = l1;
 					};
 					texte = `${triangle_equilateral.nom} est un triangle tel que ${triangle_equilateral.getLongueurs()[0]} = ${triangle_equilateral.l1} cm ; `;
 					texte += `${triangle_equilateral.getLongueurs()[1]} = ${triangle_equilateral.l2} cm et ${triangle_equilateral.getLongueurs()[2]} = ${triangle_equilateral.l3} cm.`;
-					texte_corr=`Les longeurs des trois côtés du triangle ${triangle_equilateral.nom} sont égales donc c'est un triangle équilatéral.`;					
+					texte_corr =`Les longeurs des trois côtés du triangle ${triangle_equilateral.nom} sont égales donc c'est un triangle équilatéral.`;					
 					break;
 				case 6 : // triangle équilatéral avec conversion
 					while (!triangle_equilateral.isTrueTriangleLongueurs()) {
 						console.log('on retire des longueurs');
 						l1 = randint(l_min,l_max);
-						//l2 = randint(1,l_max,l1);
-						//l3 = randint(1,l_max,[l1,l2]);
 						triangle_equilateral.l1 = l1;
 						triangle_equilateral.l2 = l1;
 						triangle_equilateral.l3 = l1;
 					};
 					texte = `${triangle_equilateral.nom} est un triangle tel que ${triangle_equilateral.getLongueurs()[0]} = ${triangle_equilateral.l1} cm ; `;
 					texte += `${triangle_equilateral.getLongueurs()[1]} = ${triangle_equilateral.l2*10} mm et ${triangle_equilateral.getLongueurs()[2]} = ${triangle_equilateral.l3/10} dm.`;
-					texte_corr=`Les longeurs des trois côtés du triangle ${triangle_equilateral.nom} sont égales donc c'est un triangle équilatéral.`;					
+					texte_corr =`${triangle_equilateral.getLongueurs()[1]} = ${triangle_equilateral.l2*10} mm = ${triangle_equilateral.l2} cm.`;
+					texte_corr +=`<br> ${triangle_equilateral.getLongueurs()[2]} = ${triangle_equilateral.l3/10} dm = ${triangle_equilateral.l3} cm.`;
+					texte_corr +=`<br> ${triangle_equilateral.getLongueurs()[0]} = ${triangle_equilateral.l1} cm.`;
+					texte_corr += `<br> Les longeurs des trois côtés du triangle ${triangle_equilateral.nom} sont égales donc c'est un triangle équilatéral.`;					
 					break;
 				case 7 : // triangle rectangle pas de conversion necessaire
-					//if (this.sup==1) { //sans conversion
-						texte=`triangle rectangle sans conversion.`;
-						texte_corr=`Correction triangle rectangle sans conversion.`;					
-					// } else { // avec conversion
-					// 	texte=`triangle rectangle avec conversion.`;
-					// 	texte_corr=`Correction triangle rectangle avec conversion.`;
-					// };
+					triangle_rectangle.l1 = randint(l_min,l_max);
+					triangle_rectangle.l2 = randint(l_min,l_max,l1);
+					triangle_rectangle.a1 = 90;
+
+					texte = `${triangle_rectangle.nom} est un triangle tel que ${triangle_rectangle.getLongueurs()[0]} = ${triangle_rectangle.l1} cm ; `;
+					texte += `${triangle_rectangle.getLongueurs()[1]} = ${triangle_rectangle.l2} cm et ${triangle_rectangle.getAngles()[0]} = ${triangle_rectangle.a1} $\\degree$.`;
+					texte_corr = `L'angle ${triangle_rectangle.getAngles()[0]} du triangle ${triangle_rectangle.nom} est un angle droit donc ${triangle_rectangle.nom} est rectangle en ${triangle_rectangle.getSommets()[1]}`;
+					
+
 					break;
 				case 8 : // triangle isocèle rectangle sans conversion
 					texte=`triangle isocèle rectangle sans conversion.`;
