@@ -36,6 +36,7 @@ var liste_des_exercices_disponibles = {
 		'6D101' : Heures_decimales,
 		'6D11' : Somme_de_durees,
 		'6D12' : Calculs_de_durees_ou_d_horaires,
+		'6G20' : Vocabulaire_des_triangles_6e,
 		'6G24' : Transformations_6e,
 		'6G25-1' : Pavages_et_reflexion,
 		'6G25-2' : Pavages_et_symetries,
@@ -6877,6 +6878,237 @@ function Reciproque_Thales_4eme(){
 	this.quatrieme = true;
 }
 
+/**
+ * Vocabulaire des triangles
+ * 6G20 ; 
+ * @author Sébastien Lozano
+ */
+
+function Vocabulaire_des_triangles(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Vocabulaire des triangles";
+	this.consigne = "Donner la nature des triangles en justifiant.";
+	this.nb_questions = 11;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.sup=1;
+
+	this.liste_packages = `bclogo`;
+	
+	let type_de_questions_disponibles;
+	
+	this.nouvelle_version = function(numero_de_l_exercice){
+
+		let texte_intro = ``;
+		if (sortie_html) {			
+			texte_intro += `- Un <b>triangle quelconque</b> est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`;
+			texte_intro += `<br>`;
+			texte_intro += `- Un <b>triangle isocèle</b> est un triangle qui a deux côtés ou deux angles égaux.`;
+			texte_intro += `<br>`;
+			texte_intro += `- Un <b>triangle équilatéral</b> est un triangle qui a trois côtés ou trois angles égaux.`;
+			texte_intro += `<br>`;
+			texte_intro += `- Un <b>triangle rectangle</b> est un triangle qui a un angle droit.`;			
+		} else {
+			texte_intro = tex_enumerate_sans_numero([
+				`- Un \\textbf{triangle quelconque} est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`,
+				`- Un \\textbf{triangle isocèle} est un triangle qui a deux côtés ou deux angles égaux.`,
+				`- Un \\textbf{triangle équilatéral} est un triangle qui a trois côtés ou trois angles égaux.`,
+				`- Un \\textbf{triangle rectangle} est un triangle qui a un angle droit.`
+				],1
+			);
+		};
+
+		this.introduction = lampe_message({
+			titre : `Quelques définitions`,
+			texte : texte_intro,
+			couleur : `nombres`
+		});
+
+		if (this.classe == 6 || this.classe == 5) type_de_questions_disponibles = [1,2,3,5,6]; // 6e et 5e : triangles quelconques, isocèles, équilatéraux
+		else type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9,10,11]; // 4e et 3e : on ajoute les triangles rectangles.
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		//let liste_type_de_questions = type_de_questions_disponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		for (let i = 0, texte, texte_corr,l1,l2,l3,a1,a2,a3, cpt=0; i < this.nb_questions && cpt<50; ) {
+			// on fixe longueur min et max en cm
+			let l_min = 2;
+			let l_max = 20;
+			// on fixe angle min et max en degré
+			let a_min = 30;
+			let a_max = 100;
+
+			// on crée les triangles
+			let triangle_quelconque = new Triangles();
+			let triangle_isocele = new Triangles();
+			let triangle_equilateral = new Triangles();
+			let triangle_rectangle = new Triangles();
+			let triangle_isocele_rectangle = new Triangles();
+
+			switch (liste_type_de_questions[i]) {
+				case 1 : // triangle quelconque par les longueurs sans conversion
+					while (!triangle_quelconque.isTrueTriangleLongueurs()) {
+						console.log('on retire des longueurs');
+						l1 = randint(l_min,l_max);
+						l2 = randint(l_min,l_max,l1);
+						l3 = randint(l_min,l_max,[l1,l2]);
+						triangle_quelconque.l1 = l1;
+						triangle_quelconque.l2 = l2;
+						triangle_quelconque.l3 = l3;
+					};
+
+					texte = `${triangle_quelconque.nom} est un triangle tel que ${triangle_quelconque.getLongueurs()[0]} = ${triangle_quelconque.l1} cm ; `;
+					texte += `${triangle_quelconque.getLongueurs()[1]} = ${triangle_quelconque.l2} cm et ${triangle_quelconque.getLongueurs()[2]} = ${triangle_quelconque.l3} cm.`;
+					texte_corr = `Les 3 côtés du triangle ${triangle_quelconque.nom} sont différents donc ${triangle_quelconque.nom} est un triangle quelconque.`;
+					break;
+				case 2 : // triangle quelconque par les angles
+					while (!triangle_quelconque.isTrueTriangleAngles()) {
+						console.log('on retire des angles');
+						a1 = randint(a_min,a_max);
+						a2 = randint(a_min,a_max,a1);
+						a3 = randint(a_min,a_max,[a1,a2]);
+						//a3 = 180 - a1 - a2;
+						triangle_quelconque.a1 = a1;
+						triangle_quelconque.a2 = a2;
+						triangle_quelconque.a3 = a3;
+					};
+
+					texte = `${triangle_quelconque.nom} est un triangle tel que ${triangle_quelconque.getAngles()[0]} = ${triangle_quelconque.a1} $\\degree$ ; `;
+					texte += ` ${triangle_quelconque.getAngles()[1]} = ${triangle_quelconque.a2} $\\degree$ et  ${triangle_quelconque.getAngles()[2]} = ${triangle_quelconque.a3} $\\degree$ .`;
+					texte_corr = `Les 3 angles du triangle ${triangle_quelconque.nom} sont différents donc ${triangle_quelconque.nom} est un triangle quelconque.`;
+					break;
+
+				case 3 : // triangle isocèle sans conversion
+					while (!triangle_isocele.isTrueTriangleLongueurs()) {
+						console.log('on retire des longueurs');
+						l1 = randint(l_min,l_max);
+						l2 = randint(l_min,l_max,l1);
+						triangle_isocele.l1 = l1;
+						triangle_isocele.l2 = l1;
+						triangle_isocele.l3 = l2;
+					};
+					texte = `${triangle_isocele.nom} est un triangle tel que ${triangle_isocele.getLongueurs()[0]} = ${triangle_isocele.l1} cm ; `;
+					texte += `${triangle_isocele.getLongueurs()[1]} = ${triangle_isocele.l2} cm et ${triangle_isocele.getLongueurs()[2]} = ${triangle_isocele.l3} cm.`;
+					texte_corr = `Les longueurs des côtés ${triangle_isocele.getCotes()[0]} et ${triangle_isocele.getCotes()[1]} du triangle ${triangle_isocele.nom} valent toutes les deux ${triangle_isocele.l1} cm donc ${triangle_isocele.nom} est un triangle isocèle.`;
+					break;
+				case 4 : // triangle isocèle avec conversion
+					while (!triangle_isocele.isTrueTriangleLongueurs()) {
+						console.log('on retire des longueurs');
+						l1 = randint(l_min,l_max);
+						l2 = randint(l_min,l_max,l1);
+						triangle_isocele.l1 = l1;
+						triangle_isocele.l2 = l1;
+						triangle_isocele.l3 = l2;
+					};
+					texte = `${triangle_isocele.nom} est un triangle tel que ${triangle_isocele.getLongueurs()[0]} = ${triangle_isocele.l1 *10} mm ; `;
+					texte += `${triangle_isocele.getLongueurs()[1]} = ${triangle_isocele.l2} cm et ${triangle_isocele.getLongueurs()[2]} = ${triangle_isocele.l3} cm.`;
+					texte_corr = `${triangle_isocele.getLongueurs()[0]} = ${triangle_isocele.l1 *10} mm = ${triangle_isocele.l1} cm = ${triangle_isocele.getLongueurs()[1]}, ${triangle_isocele.nom} a donc deux côtés égaux, c'est un triangle isocèle.`;
+					break;
+				case 5 : // triangle équilatéral sans conversion
+					while (!triangle_equilateral.isTrueTriangleLongueurs()) {
+						console.log('on retire des longueurs');
+						l1 = randint(l_min,l_max);
+						triangle_equilateral.l1 = l1;
+						triangle_equilateral.l2 = l1;
+						triangle_equilateral.l3 = l1;
+					};
+					texte = `${triangle_equilateral.nom} est un triangle tel que ${triangle_equilateral.getLongueurs()[0]} = ${triangle_equilateral.l1} cm ; `;
+					texte += `${triangle_equilateral.getLongueurs()[1]} = ${triangle_equilateral.l2} cm et ${triangle_equilateral.getLongueurs()[2]} = ${triangle_equilateral.l3} cm.`;
+					texte_corr =`Les longeurs des trois côtés du triangle ${triangle_equilateral.nom} sont égales donc c'est un triangle équilatéral.`;					
+					break;
+				case 6 : // triangle équilatéral avec conversion
+					while (!triangle_equilateral.isTrueTriangleLongueurs()) {
+						console.log('on retire des longueurs');
+						l1 = randint(l_min,l_max);
+						triangle_equilateral.l1 = l1;
+						triangle_equilateral.l2 = l1;
+						triangle_equilateral.l3 = l1;
+					};
+					texte = `${triangle_equilateral.nom} est un triangle tel que ${triangle_equilateral.getLongueurs()[0]} = ${triangle_equilateral.l1} cm ; `;
+					texte += `${triangle_equilateral.getLongueurs()[1]} = ${triangle_equilateral.l2*10} mm et ${triangle_equilateral.getLongueurs()[2]} = ${triangle_equilateral.l3/10} dm.`;
+					texte_corr =`${triangle_equilateral.getLongueurs()[1]} = ${triangle_equilateral.l2*10} mm = ${triangle_equilateral.l2} cm.`;
+					texte_corr +=`<br> ${triangle_equilateral.getLongueurs()[2]} = ${triangle_equilateral.l3/10} dm = ${triangle_equilateral.l3} cm.`;
+					texte_corr +=`<br> ${triangle_equilateral.getLongueurs()[0]} = ${triangle_equilateral.l1} cm.`;
+					texte_corr += `<br> Les longeurs des trois côtés du triangle ${triangle_equilateral.nom} sont égales donc c'est un triangle équilatéral.`;					
+					break;
+				case 7 : // triangle rectangle pas de conversion necessaire
+					triangle_rectangle.l1 = randint(l_min,l_max);
+					triangle_rectangle.l2 = randint(l_min,l_max,l1);
+					triangle_rectangle.a1 = 90;
+
+					texte = `${triangle_rectangle.nom} est un triangle tel que ${triangle_rectangle.getLongueurs()[0]} = ${triangle_rectangle.l1} cm ; `;
+					texte += `${triangle_rectangle.getLongueurs()[1]} = ${triangle_rectangle.l2} cm et ${triangle_rectangle.getAngles()[0]} = ${triangle_rectangle.a1} $\\degree$.`;
+					texte_corr = `L'angle ${triangle_rectangle.getAngles()[0]} du triangle ${triangle_rectangle.nom} est un angle droit donc ${triangle_rectangle.nom} est rectangle en ${triangle_rectangle.getSommets()[1]}`;					
+					break;
+				case 8 : // triangle isocèle rectangle sans conversion
+					triangle_isocele_rectangle.l1 = randint(l_min,l_max);
+					triangle_isocele_rectangle.l2 = triangle_isocele_rectangle.l1;
+					triangle_isocele_rectangle.a1 = 90;
+
+					texte = `${triangle_isocele_rectangle.nom} est un triangle tel que ${triangle_isocele_rectangle.getLongueurs()[0]} = ${triangle_isocele_rectangle.l1} cm ; `;
+					texte += `${triangle_isocele_rectangle.getLongueurs()[1]} = ${triangle_isocele_rectangle.l2} cm et ${triangle_isocele_rectangle.getAngles()[0]} = ${triangle_isocele_rectangle.a1} $\\degree$.`;
+					texte_corr = `L'angle ${triangle_isocele_rectangle.getAngles()[0]} du triangle ${triangle_isocele_rectangle.nom} est un angle droit donc ${triangle_isocele_rectangle.nom} est rectangle en ${triangle_isocele_rectangle.getSommets()[1]}`;					
+					texte_corr += `<br> ${triangle_isocele_rectangle.getLongueurs()[0]} = ${triangle_isocele_rectangle.getLongueurs()[1]} = ${triangle_isocele_rectangle.l1} cm donc ${triangle_isocele_rectangle.nom} est isocèle en ${triangle_isocele_rectangle.getSommets()[1]}`;					
+					texte_corr += `<br> Le triangle ${triangle_isocele_rectangle.nom} est donc isocèle et rectangle en ${triangle_isocele_rectangle.getSommets()[1]}`
+					break;
+				case 9 : // triangle isocèle rectangle avec conversion
+					triangle_isocele_rectangle.l1 = randint(l_min,l_max);
+					triangle_isocele_rectangle.l2 = triangle_isocele_rectangle.l1;
+					triangle_isocele_rectangle.a1 = 90;
+
+					texte = `${triangle_isocele_rectangle.nom} est un triangle tel que ${triangle_isocele_rectangle.getLongueurs()[0]} = ${triangle_isocele_rectangle.l1*10} mm ; `;
+					texte += `${triangle_isocele_rectangle.getLongueurs()[1]} = ${triangle_isocele_rectangle.l2} cm et ${triangle_isocele_rectangle.getAngles()[0]} = ${triangle_isocele_rectangle.a1} $\\degree$.`;
+					texte_corr = `L'angle ${triangle_isocele_rectangle.getAngles()[0]} du triangle ${triangle_isocele_rectangle.nom} est un angle droit donc ${triangle_isocele_rectangle.nom} est rectangle en ${triangle_isocele_rectangle.getSommets()[1]}`;					
+					texte_corr += `<br> ${triangle_isocele_rectangle.getLongueurs()[0]} = ${triangle_isocele_rectangle.l1*10} mm = ${triangle_isocele_rectangle.l1} cm =${triangle_isocele_rectangle.getLongueurs()[1]} donc ${triangle_isocele_rectangle.nom} est isocèle en ${triangle_isocele_rectangle.getSommets()[1]}`;					
+					texte_corr += `<br> Le triangle ${triangle_isocele_rectangle.nom} est donc isocèle et rectangle en ${triangle_isocele_rectangle.getSommets()[1]}`
+					break;
+				case 10 : // triangle isocèle par les angles
+					a3 =-1;
+					while (a3<0) {
+						triangle_isocele.a1 = randint(a_min,a_max);
+						triangle_isocele.a2 = triangle_isocele.a1;
+						a3 = 180 - 2*triangle_isocele.a1;
+						triangle_isocele.a3 = a3;
+					};
+					texte = `${triangle_isocele.nom} est un triangle tel que ${triangle_isocele.getAngles()[0]} = ${triangle_isocele.a1} $\\degree$ ; `;
+					texte += ` ${triangle_isocele.getAngles()[1]} = ${triangle_isocele.a2} $\\degree$ et  ${triangle_isocele.getAngles()[2]} = ${triangle_isocele.a3} $\\degree$ .`;
+					texte_corr = `Le triangle ${triangle_isocele.nom} a deux angles égaux, ${triangle_isocele.getAngles()[0]} = ${triangle_isocele.getAngles()[1]} = ${triangle_isocele.a1} $\\degree$ donc ${triangle_isocele.nom} est un triangle isocèle en ${triangle_isocele.getSommets()[0]}.`;		
+					break;					
+				case 11 : // triangle équilatéral par les angles
+					triangle_equilateral.a1 = 60;
+					triangle_equilateral.a2 = 60;
+					triangle_equilateral.a3 = 60;
+
+					texte = `${triangle_equilateral.nom} est un triangle tel que ${triangle_equilateral.getAngles()[0]} = ${triangle_equilateral.a1} $\\degree$ ; `;
+					texte += ` ${triangle_equilateral.getAngles()[1]} = ${triangle_equilateral.a2} $\\degree$ et  ${triangle_equilateral.getAngles()[2]} = ${triangle_equilateral.a3} $\\degree$ .`;
+					texte_corr = `Le triangle ${triangle_equilateral.nom} a trois angles égaux, ${triangle_equilateral.getAngles()[0]} = ${triangle_equilateral.getAngles()[1]} = ${triangle_equilateral.getAngles()[2]} = ${triangle_equilateral.a1} $\\degree$ donc ${triangle_equilateral.nom} est un triangle équilateral.`;		
+					break;					
+
+			}
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}	
+			cpt++;	
+		}
+	liste_de_question_to_contenu(this);
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : pas de conversion\n2 : avec conversion"];
+}
+
+/**
+ * Vocabulaire des triangles 
+ * 6G20 
+ */
+function Vocabulaire_des_triangles_6e(){
+	this.sup = 1;
+	this.classe = 4;//remettre à this.classe = 6; une fois l'ensemble fait et créer un exo pour 4e/3e
+	Vocabulaire_des_triangles.call(this);
+};
 
 /**
 * @Auteur Rémi Angot
