@@ -7067,7 +7067,7 @@ function Vocabulaire_des_triangles(){
 					triangle_rectangle.a1 = 90;
 
 					texte = `${triangle_rectangle.getNom()} est un triangle tel que ${triangle_rectangle.getLongueurs()[0]} = ${triangle_rectangle.l1} cm ; `;
-					texte += `${triangle_rectangle.getLongueurs()[1]} = ${triangle_rectangle.l2} cm et ${triangle_rectangle.getAngles()[0]} = ${triangle_rectangle.a1} $\\degree$.`;
+					texte += `${triangle_rectangle.getLongueurs()[1]} = ${triangle_rectangle.l2} cm et ${triangle_rectangle.getAngles()[0]} = ${triangle_rectangle.a1}$\\degree$.`;
 					texte_corr = `L'angle ${triangle_rectangle.getAngles()[0]} du triangle ${triangle_rectangle.getNom()} est un angle droit donc ${triangle_rectangle.getNom()} est rectangle en ${triangle_rectangle.getSommets()[1]}`;					
 					break;
 				case 8 : // triangle isocèle rectangle sans conversion
@@ -7076,7 +7076,7 @@ function Vocabulaire_des_triangles(){
 					triangle_isocele_rectangle.a1 = 90;
 
 					texte = `${triangle_isocele_rectangle.getNom()} est un triangle tel que ${triangle_isocele_rectangle.getLongueurs()[0]} = ${triangle_isocele_rectangle.l1} cm ; `;
-					texte += `${triangle_isocele_rectangle.getLongueurs()[1]} = ${triangle_isocele_rectangle.l2} cm et ${triangle_isocele_rectangle.getAngles()[0]} = ${triangle_isocele_rectangle.a1} $\\degree$.`;
+					texte += `${triangle_isocele_rectangle.getLongueurs()[1]} = ${triangle_isocele_rectangle.l2} cm et ${triangle_isocele_rectangle.getAngles()[0]} = ${triangle_isocele_rectangle.a1}$\\degree$.`;
 					texte_corr = `L'angle ${triangle_isocele_rectangle.getAngles()[0]} du triangle ${triangle_isocele_rectangle.getNom()} est un angle droit donc ${triangle_isocele_rectangle.getNom()} est rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
 					texte_corr += `<br> ${triangle_isocele_rectangle.getLongueurs()[0]} = ${triangle_isocele_rectangle.getLongueurs()[1]} = ${triangle_isocele_rectangle.l1} cm donc ${triangle_isocele_rectangle.getNom()} est isocèle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
 					texte_corr += `<br> Le triangle ${triangle_isocele_rectangle.getNom()} est donc isocèle et rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`
@@ -7087,7 +7087,7 @@ function Vocabulaire_des_triangles(){
 					triangle_isocele_rectangle.a1 = 90;
 
 					texte = `${triangle_isocele_rectangle.getNom()} est un triangle tel que ${triangle_isocele_rectangle.getLongueurs()[0]} = ${triangle_isocele_rectangle.l1*10} mm ; `;
-					texte += `${triangle_isocele_rectangle.getLongueurs()[1]} = ${triangle_isocele_rectangle.l2} cm et ${triangle_isocele_rectangle.getAngles()[0]} = ${triangle_isocele_rectangle.a1} $\\degree$.`;
+					texte += `${triangle_isocele_rectangle.getLongueurs()[1]} = ${triangle_isocele_rectangle.l2} cm et ${triangle_isocele_rectangle.getAngles()[0]} = ${triangle_isocele_rectangle.a1}$\\degree$.`;
 					texte_corr = `L'angle ${triangle_isocele_rectangle.getAngles()[0]} du triangle ${triangle_isocele_rectangle.getNom()} est un angle droit donc ${triangle_isocele_rectangle.getNom()} est rectangle en ${triangle_isocele_rectangle.getSommets()[1]}`;					
 					texte_corr += `<br> ${triangle_isocele_rectangle.getLongueurs()[0]} = ${triangle_isocele_rectangle.l1*10} mm = ${triangle_isocele_rectangle.l1} cm =${triangle_isocele_rectangle.getLongueurs()[1]} donc ${triangle_isocele_rectangle.getNom()} est isocèle en ${triangle_isocele_rectangle.getSommets()[1]}`;					
 					texte_corr += `<br> Le triangle ${triangle_isocele_rectangle.getNom()} est donc isocèle et rectangle en ${triangle_isocele_rectangle.getSommets()[1]}`
