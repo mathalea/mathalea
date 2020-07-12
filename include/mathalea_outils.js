@@ -3882,7 +3882,7 @@ function Triangles(nom,l1,l2,l3,a1,a2,a3) {
 	};
 
 	// renvoie un booleen selon que les trois longueurs forment un vrai triangle ou non
-	function isTrueTriangle() {
+	function isTrueTriangleLongueurs() {
 		let longueurs = [self.l1,self.l2,self.l3];
 		//console.log('longueurs : '+longueurs);
 		longueurs.sort(function(a,b){
@@ -3896,9 +3896,18 @@ function Triangles(nom,l1,l2,l3,a1,a2,a3) {
 		};
 	};
 
-	// renvoie un booléen selon que le triangle donné à partir de ses trois longueurs est quelconque ou non
+	// renvoie un booleen selon que les trois angles forment un vrai triangle ou non
+	function isTrueTriangleAngles() {
+		if ((self.a1 + self.a2 + self.a3) == 180) {
+			return true;
+		} else {
+			return false;
+		};
+	};
+
+	// renvoie un booléen selon que le triangle donné à partir de ses trois longueurs ou trois angles est quelconque ou non
 	function isQuelconque() {
-		if ((self.l1!=self.l2) && (self.l1!=self.l3) && (self.l2!=self.l3)) {
+		if (((self.l1!=self.l2) && (self.l1!=self.l3) && (self.l2!=self.l3))||((self.a1!=self.a2) && (self.a1!=self.a3) && (self.a2!=self.a3))) {
 			return true
 		} else {
 			return false;
@@ -3915,7 +3924,8 @@ function Triangles(nom,l1,l2,l3,a1,a2,a3) {
 	this.getCotes = getCotes;
 	this.getLongueurs = getLongueurs;
 	this.getAngles = getAngles;
-	this.isTrueTriangle = isTrueTriangle;
+	this.isTrueTriangleLongueurs = isTrueTriangleLongueurs;
+	this.isTrueTriangleAngles = isTrueTriangleAngles;
 	this.isQuelconque = isQuelconque;	
 };
 

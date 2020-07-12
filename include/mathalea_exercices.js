@@ -6950,7 +6950,7 @@ function Vocabulaire_des_triangles(){
 
 			switch (liste_type_de_questions[i]) {
 				case 1 : // triangle quelconque
-					while (!triangle_quelconque.isTrueTriangle()) {
+					while (!triangle_quelconque.isTrueTriangleLongueurs()) {
 						console.log('on retire des longueurs');
 						l1 = randint(1,l_max);
 						l2 = randint(1,l_max,l1);
@@ -6973,7 +6973,7 @@ function Vocabulaire_des_triangles(){
 					// };
 					break;
 				case 2 : // triangle isocèle sans conversion
-					while (!triangle_isocele.isTrueTriangle()) {
+					while (!triangle_isocele.isTrueTriangleLongueurs()) {
 						console.log('on retire des longueurs');
 						l1 = randint(1,l_max);
 						l2 = randint(1,l_max,l1);
@@ -6992,7 +6992,7 @@ function Vocabulaire_des_triangles(){
 					// };
 					break;
 				case 3 : // triangle isocèle avec conversion
-					while (!triangle_isocele.isTrueTriangle()) {
+					while (!triangle_isocele.isTrueTriangleLongueurs()) {
 						console.log('on retire des longueurs');
 						l1 = randint(1,l_max);
 						l2 = randint(1,l_max,l1);
@@ -7012,7 +7012,7 @@ function Vocabulaire_des_triangles(){
 					//};
 					break;
 				case 4 : // triangle équilatéral sans conversion
-					while (!triangle_equilateral.isTrueTriangle()) {
+					while (!triangle_equilateral.isTrueTriangleLongueurs()) {
 						console.log('on retire des longueurs');
 						l1 = randint(1,l_max);
 						//l2 = randint(1,l_max,l1);
@@ -7031,7 +7031,7 @@ function Vocabulaire_des_triangles(){
 					// };
 					break;
 				case 5 : // triangle équilatéral avec conversion
-					while (!triangle_equilateral.isTrueTriangle()) {
+					while (!triangle_equilateral.isTrueTriangleLongueurs()) {
 						console.log('on retire des longueurs');
 						l1 = randint(1,l_max);
 						//l2 = randint(1,l_max,l1);
