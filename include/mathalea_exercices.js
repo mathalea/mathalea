@@ -7077,8 +7077,13 @@ function Vocabulaire_des_triangles(){
 					texte_corr = `Le triangle ${triangle_isocele.nom} a deux angles égaux, ${triangle_isocele.getAngles()[0]} = ${triangle_isocele.getAngles()[1]} = ${triangle_isocele.a1} $\\degree$ donc ${triangle_isocele.nom} est un triangle isocèle en ${triangle_isocele.getSommets()[0]}.`;		
 					break;					
 				case 11 : // triangle équilatéral par les angles
-					texte=`triangle équilatéral par les angles.`;
-					texte_corr=`Correction triangle équilatéral par les angles.`;				
+					triangle_equilateral.a1 = 60;
+					triangle_equilateral.a2 = 60;
+					triangle_equilateral.a3 = 60;
+
+					texte = `${triangle_equilateral.nom} est un triangle tel que ${triangle_equilateral.getAngles()[0]} = ${triangle_equilateral.a1} $\\degree$ ; `;
+					texte += ` ${triangle_equilateral.getAngles()[1]} = ${triangle_equilateral.a2} $\\degree$ et  ${triangle_equilateral.getAngles()[2]} = ${triangle_equilateral.a3} $\\degree$ .`;
+					texte_corr = `Le triangle ${triangle_equilateral.nom} a trois angles égaux, ${triangle_equilateral.getAngles()[0]} = ${triangle_equilateral.getAngles()[1]} = ${triangle_equilateral.getAngles()[2]} = ${triangle_equilateral.a1} $\\degree$ donc ${triangle_equilateral.nom} est un triangle équilateral.`;		
 					break;					
 
 			}
