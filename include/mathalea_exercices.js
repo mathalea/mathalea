@@ -6952,10 +6952,10 @@ function Vocabulaire_des_triangles(){
 			couleur : `nombres`
 		});
 
-		if (this.classe == 6) type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9]; //6e tout sauf par les angles
+		if (this.classe == 6) type_de_questions_disponibles = [1,3,4,5,6,7,8,9]; //6e tout sauf par les angles
 		else if (this.classe==5) type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9,10,11]; // 5e : on ajoute la caractéisation par les angles
-		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		//let liste_type_de_questions = type_de_questions_disponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
+		//let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = type_de_questions_disponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
 
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
