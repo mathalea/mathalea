@@ -3647,6 +3647,7 @@ function Exercice_conversions_aires(niveau=1){
 	this.titre = "Conversions d'aires"
 	this.consigne = 'Compléter'
 	this.spacing = 2;
+	this.nb_cols_corr =1;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
