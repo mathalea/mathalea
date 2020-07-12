@@ -7065,8 +7065,16 @@ function Vocabulaire_des_triangles(){
 					texte_corr += `<br> Le triangle ${triangle_isocele_rectangle.nom} est donc isocèle et rectangle en ${triangle_isocele_rectangle.getSommets()[1]}`
 					break;
 				case 10 : // triangle isocèle par les angles
-					texte=`triangle isocèle par les angles.`;
-					texte_corr=`Correction triangle isocèle par les angles.`;				
+					a3 =-1;
+					while (a3<0) {
+						triangle_isocele.a1 = randint(a_min,a_max);
+						triangle_isocele.a2 = triangle_isocele.a1;
+						a3 = 180 - 2*triangle_isocele.a1;
+						triangle_isocele.a3 = a3;
+					};
+					texte = `${triangle_isocele.nom} est un triangle tel que ${triangle_isocele.getAngles()[0]} = ${triangle_isocele.a1} $\\degree$ ; `;
+					texte += ` ${triangle_isocele.getAngles()[1]} = ${triangle_isocele.a2} $\\degree$ et  ${triangle_isocele.getAngles()[2]} = ${triangle_isocele.a3} $\\degree$ .`;
+					texte_corr = `Le triangle ${triangle_isocele.nom} a deux angles égaux, ${triangle_isocele.getAngles()[0]} = ${triangle_isocele.getAngles()[1]} = ${triangle_isocele.a1} $\\degree$ donc ${triangle_isocele.nom} est un triangle isocèle en ${triangle_isocele.getSommets()[0]}.`;		
 					break;					
 				case 11 : // triangle équilatéral par les angles
 					texte=`triangle équilatéral par les angles.`;
