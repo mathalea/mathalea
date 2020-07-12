@@ -6965,7 +6965,7 @@ function Vocabulaire_des_triangles(){
 					texte_corr = `Les 3 côtés du triangle ${triangle_quelconque.nom} sont différents donc ${triangle_quelconque.nom} est un triangle quelconque.`;
 					break;
 				case 2 : // triangle quelconque par les angles
-					while (!triangle_quelconque.isTrueTriangleAngles()) {
+					while (!triangle_quelconque.isTrueTriangleAngles() && a3>0) {
 						console.log('on retire des angles');
 						a1 = randint(a_min,a_max);
 						a2 = randint(a_min,a_max,a1);
