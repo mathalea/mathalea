@@ -3831,30 +3831,35 @@ function decomp_fact_prem_array(n) {
  * @author Sébastien Lozano
  */
 function Triangles(nom,l1,l2,l3,a1,a2,a3) {
+	'use strict';
 	var self = this;
 
 	// liste de noms possibles pour un triangle
-	var nomsPossibles = ['AGE','AIL','AIR','ALU','AME','AMI','ANE','ARC','BAC','BAL','BAR','BEC','BEL','BIO','BIP','BIS','BLE','BOA','BOB','BOF','BOG','BOL','BUT','BYE','COQ','CRI','CRU','DUC','DUO','DUR','EAU','ECU','EGO','EPI','FER','FIL','FUN','GPS','ICE','JET','KIF','KIR','MAC','NEM','PAS','PIC','PIF','PIN','POT','RAI','RAP','RAT','RIF','SEL','TAF','TIC','TAC','TOC','TOP','UNI','WOK','YAK','YEN','ZEN','ZIG','ZAG'];
+	let nomsPossibles = ['AGE','AIL','AIR','ALU','AME','AMI','ANE','ARC','BAC','BAL','BAR','BEC','BEL','BIO','BIP','BIS','BLE','BOA','BOB','BOF','BOG','BOL','BUT','BYE','COQ','CRI','CRU','DUC','DUO','DUR','EAU','ECU','EGO','EPI','FER','FIL','FUN','GPS','ICE','JET','KIF','KIR','MAC','NEM','PAS','PIC','PIF','PIN','POT','RAI','RAP','RAT','RIF','SEL','TAF','TIC','TAC','TOC','TOP','UNI','WOK','YAK','YEN','ZEN','ZIG','ZAG'];
 
-	// tire au hasard un nom
-	function nom() {
-		let rang = randint(0,nomsPossibles.length-1);
-		// console.log('nomsPossibles.length-1 : '+(nomsPossibles.length-1));
-		// console.log('rang : '+rang);
-		// console.log('nom du triangle : '+nomsPossibles[rang]);
-		return nomsPossibles[rang];
-	};
+	// // tire au hasard un nom
+	// function nom() {
+	// 	let rang = randint(0,nomsPossibles.length-1);
+	// 	return nomsPossibles[rang];
+	// };
 
-	nom = nom();
+	//nom = nom();
+
+	this.nom = choice(nomsPossibles);
+
+	// renvoie le nom choisi
+	function getNom() {
+		return '$'+self.nom+'$';
+	}
 
 	// renvoie les noms des côtés du triangle, segments!
 	function getCotes() {
 		let cotes = [];
-		let triangle = nom;
+		let triangle = self.nom;
 		let sommets = triangle.split('');
-		cotes[0]='['+sommets[0]+''+sommets[1]+']';
-		cotes[1]='['+sommets[1]+''+sommets[2]+']';
-		cotes[2]='['+sommets[2]+''+sommets[0]+']';
+		cotes[0]='$['+sommets[0]+''+sommets[1]+']$';
+		cotes[1]='$['+sommets[1]+''+sommets[2]+']$';
+		cotes[2]='$['+sommets[2]+''+sommets[0]+']$';
 
 		return cotes;
 	};
@@ -3862,11 +3867,11 @@ function Triangles(nom,l1,l2,l3,a1,a2,a3) {
 	// renvoie les noms des longueurs des côtés du triangle.
 	function getLongueurs() {
 		let longueurs = [];
-		let triangle = nom;
+		let triangle = self.nom;
 		let sommets = triangle.split('');
-		longueurs[0]=sommets[0]+''+sommets[1];
-		longueurs[1]=sommets[1]+''+sommets[2];
-		longueurs[2]=sommets[2]+''+sommets[0];
+		longueurs[0]='$'+sommets[0]+''+sommets[1]+'$';
+		longueurs[1]='$'+sommets[1]+''+sommets[2]+'$';
+		longueurs[2]='$'+sommets[2]+''+sommets[0]+'$';
 
 		return longueurs;
 	};
@@ -3874,19 +3879,22 @@ function Triangles(nom,l1,l2,l3,a1,a2,a3) {
 	// renvoie les noms des angles du triangle.
 	function getAngles() {
 		let angles = [];
-		let triangle = nom;
+		let triangle = self.nom;
 		let sommets = triangle.split('');
-		angles[0] = `$\\; \\widehat{${sommets[0]+sommets[1]+sommets[2]}}$`;
-		angles[1] = `$\\; \\widehat{${sommets[1]+sommets[2]+sommets[0]}}$`;
-		angles[2] = `$\\; \\widehat{${sommets[2]+sommets[0]+sommets[1]}}$`;
+		angles[0] = `$\\;\\widehat{${sommets[0]+sommets[1]+sommets[2]}}$`;
+		angles[1] = `$\\;\\widehat{${sommets[1]+sommets[2]+sommets[0]}}$`;
+		angles[2] = `$\\;\\widehat{${sommets[2]+sommets[0]+sommets[1]}}$`;
 
 		return angles;
 	};
 
 	// renvoie les noms des angles du triangle.
 	function getSommets() {
-		let triangle = nom;
+		let triangle = self.nom;
 		let sommets = triangle.split('');
+		sommets[0] = '$'+sommets[0]+'$';
+		sommets[1] = '$'+sommets[1]+'$';
+		sommets[2] = '$'+sommets[2]+'$';
 
 		return sommets;
 	};
@@ -3930,7 +3938,8 @@ function Triangles(nom,l1,l2,l3,a1,a2,a3) {
 	this.a1 = a1;
 	this.a2 = a2;
 	this.a3 = a3;
-	this.nom = nom;
+	//this.nom = nom;
+	this.getNom = getNom;
 	this.getCotes = getCotes;
 	this.getLongueurs = getLongueurs;
 	this.getAngles = getAngles;
