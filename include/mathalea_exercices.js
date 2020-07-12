@@ -6983,41 +6983,30 @@ function Vocabulaire_des_triangles(){
 				case 3 : // triangle isocèle sans conversion
 					while (!triangle_isocele.isTrueTriangleLongueurs()) {
 						console.log('on retire des longueurs');
-						l1 = randint(1,l_max);
-						l2 = randint(1,l_max,l1);
+						l1 = randint(l_min,l_max);
+						l2 = randint(l_min,l_max,l1);
 						//l3 = randint(1,l_max,[l1,l2]);
 						triangle_isocele.l1 = l1;
 						triangle_isocele.l2 = l1;
 						triangle_isocele.l3 = l2;
 					};
-					//if (this.sup==1) { //sans conversion
-						texte=`triangle isocèle sans conversion. ${triangle_isocele.l1} ; ${triangle_isocele.l2} ; ${triangle_isocele.l3}`;
-						texte += `<br> ${JSON.stringify(triangle_isocele)}`;
-						texte_corr=`Correction triangle isocèle sans conversion.`;
-					//} else { // avec conversion
-					// 	texte=`triangle isocèle avec conversion.`;
-					// 	texte_corr=`Correction triangle isocèle avec conversion.`;
-					// };
+					texte = `${triangle_isocele.nom} est un triangle tel que ${triangle_isocele.getLongueurs()[0]} = ${triangle_isocele.l1} cm ; `;
+					texte += `${triangle_isocele.getLongueurs()[1]} = ${triangle_isocele.l2} cm et ${triangle_isocele.getLongueurs()[2]} = ${triangle_isocele.l3} cm.`;
+					texte_corr = `Les longueurs des côtés ${triangle_isocele.getCotes()[0]} et ${triangle_isocele.getCotes()[1]} du triangle ${triangle_isocele.nom} valent toutes les deux ${triangle_isocele.l1} cm donc ${triangle_isocele.nom} est un triangle isocèle.`;
 					break;
 				case 4 : // triangle isocèle avec conversion
 					while (!triangle_isocele.isTrueTriangleLongueurs()) {
 						console.log('on retire des longueurs');
-						l1 = randint(1,l_max);
-						l2 = randint(1,l_max,l1);
+						l1 = randint(l_min,l_max);
+						l2 = randint(l_min,l_max,l1);
 						//l3 = randint(1,l_max,[l1,l2]);
 						triangle_isocele.l1 = l1;
 						triangle_isocele.l2 = l1;
 						triangle_isocele.l3 = l2;
 					};
-					// if (this.sup==1) { //sans conversion
-					// 	texte=`triangle isocèle sans conversion. ${triangle_isocele.l1} ; ${triangle_isocele.l2} ; ${triangle_isocele.l3}`;
-					// 	texte += `<br> ${JSON.stringify(triangle_isocele)}`;
-					// 	texte_corr=`Correction triangle isocèle sans conversion.`;
-					// }
-					// else { // avec conversion
-						texte=`triangle isocèle avec conversion.`;
-						texte_corr=`Correction triangle isocèle avec conversion.`;
-					//};
+					texte = `${triangle_isocele.nom} est un triangle tel que ${triangle_isocele.getLongueurs()[0]} = ${triangle_isocele.l1 *10} mm ; `;
+					texte += `${triangle_isocele.getLongueurs()[1]} = ${triangle_isocele.l2} cm et ${triangle_isocele.getLongueurs()[2]} = ${triangle_isocele.l3} cm.`;
+					texte_corr = `${triangle_isocele.getLongueurs()[0]} = ${triangle_isocele.l1 *10} mm = ${triangle_isocele.l1} cm = ${triangle_isocele.getLongueurs()[1]}, ${triangle_isocele.nom} a donc deux côtés égaux, c'est un triangle isocèle.`;
 					break;
 				case 5 : // triangle équilatéral sans conversion
 					while (!triangle_equilateral.isTrueTriangleLongueurs()) {
