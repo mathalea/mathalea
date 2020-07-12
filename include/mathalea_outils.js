@@ -3874,9 +3874,9 @@ function Triangles(nom,l1,l2,l3,a1,a2,a3) {
 		let angles = [];
 		let triangle = nom;
 		let sommets = triangle.split('');
-		angles[0] = `$\\widehat{${sommets[0]+sommets[1]+sommets[2]}}$`;
-		angles[1] = `$\\widehat{${sommets[1]+sommets[2]+sommets[0]}}$`;
-		angles[2] = `$\\widehat{${sommets[2]+sommets[0]+sommets[1]}}$`;
+		angles[0] = `$\\; \\widehat{${sommets[0]+sommets[1]+sommets[2]}}$`;
+		angles[1] = `$\\; \\widehat{${sommets[1]+sommets[2]+sommets[0]}}$`;
+		angles[2] = `$\\; \\widehat{${sommets[2]+sommets[0]+sommets[1]}}$`;
 
 		return angles;
 	};

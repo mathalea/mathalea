@@ -6889,7 +6889,7 @@ function Vocabulaire_des_triangles(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Vocabulaire des triangles";
 	this.consigne = "Donner la nature des triangles en justifiant.";
-	this.nb_questions = 10;
+	this.nb_questions = 11;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup=1;
@@ -6927,15 +6927,19 @@ function Vocabulaire_des_triangles(){
 
 		if (this.classe == 6 || this.classe == 5) type_de_questions_disponibles = [1,2,3,5,6]; // 6e et 5e : triangles quelconques, isocèles, équilatéraux
 		else type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9,10,11]; // 4e et 3e : on ajoute les triangles rectangles.
-		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		
+		// let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = type_de_questions_disponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
+
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		
 		for (let i = 0, texte, texte_corr,l1,l2,l3,a1,a2,a3, cpt=0; i < this.nb_questions && cpt<50; ) {
-			// on fixe une longueur max en cm
+			// on fixe longueur min et max en cm
+			let l_min = 2;
 			let l_max = 20;
-			let a_max = 170;
+			// on fixe angle min et max en degré
+			let a_min = 30;
+			let a_max = 150;
 
 			// on crée les triangles
 			let triangle_quelconque = new Triangles();
@@ -6948,49 +6952,32 @@ function Vocabulaire_des_triangles(){
 				case 1 : // triangle quelconque par les longueurs sans conversion
 					while (!triangle_quelconque.isTrueTriangleLongueurs()) {
 						console.log('on retire des longueurs');
-						l1 = randint(1,l_max);
-						l2 = randint(1,l_max,l1);
-						l3 = randint(1,l_max,[l1,l2]);
+						l1 = randint(l_min,l_max);
+						l2 = randint(l_min,l_max,l1);
+						l3 = randint(l_min,l_max,[l1,l2]);
 						triangle_quelconque.l1 = l1;
 						triangle_quelconque.l2 = l2;
 						triangle_quelconque.l3 = l3;
 					};
 
-					//if (this.sup==1) { //sans conversion
-						texte=`triangle quelconque, scalène ? sans conversion ${triangle_quelconque.l1} ; ${triangle_quelconque.l2} ; ${triangle_quelconque.l3}`;
-						texte += `<br> Côtés du triangle ${triangle_quelconque.nom} : ${triangle_quelconque.getCotes(triangle_quelconque.nom)}`;
-						texte += `<br> Longueurs du triangle ${triangle_quelconque.nom} : ${triangle_quelconque.getLongueurs(triangle_quelconque.nom)}`;
-						texte += `<br> Angles du triangle ${triangle_quelconque.nom} : ${triangle_quelconque.getAngles(triangle_quelconque.nom)}`;
-						texte += `<br> ${JSON.stringify(triangle_quelconque)}`;
-						texte_corr = `Correction triangle scalène , quelconque ? sans conversion`;
-					// } else {
-					// 	texte=`triangle quelconque, scalène ? avec conversion`;
-					// 	texte_corr = `Correction triangle scalène , quelconque ? avec conversion`;
-					// };
+					texte = `${triangle_quelconque.nom} est un triangle tel que ${triangle_quelconque.getLongueurs()[0]} = ${triangle_quelconque.l1} cm ; `;
+					texte += `${triangle_quelconque.getLongueurs()[1]} = ${triangle_quelconque.l2} cm et ${triangle_quelconque.getLongueurs()[2]} = ${triangle_quelconque.l3} cm.`;
+					texte_corr = `Les 3 côtés du triangle ${triangle_quelconque.nom} sont différents donc ${triangle_quelconque.nom} est un triangle quelconque.`;
 					break;
 				case 2 : // triangle quelconque par les angles
 					while (!triangle_quelconque.isTrueTriangleAngles()) {
-						console.log('on retire des longueurs');
-						l1 = randint(1,l_max);
-						l2 = randint(1,l_max,l1);
-						l3 = randint(1,l_max,[l1,l2]);
-						triangle_quelconque.l1 = l1;
-						triangle_quelconque.l2 = l2;
-						triangle_quelconque.l3 = l3;
+						console.log('on retire des angles');
+						a1 = randint(a_min,a_max);
+						a2 = randint(a_min,a_max,a1);
+						a3 = 180 - a1 - a2;
+						triangle_quelconque.a1 = a1;
+						triangle_quelconque.a2 = a2;
+						triangle_quelconque.a3 = a3;
 					};
 
-
-					//if (this.sup==1) { //sans conversion
-						texte=`triangle quelconque, scalène ? sans conversion ${triangle_quelconque.l1} ; ${triangle_quelconque.l2} ; ${triangle_quelconque.l3}`;
-						texte += `<br> Côtés du triangle ${triangle_quelconque.nom} : ${triangle_quelconque.getCotes(triangle_quelconque.nom)}`;
-						texte += `<br> Longueurs du triangle ${triangle_quelconque.nom} : ${triangle_quelconque.getLongueurs(triangle_quelconque.nom)}`;
-						texte += `<br> Angles du triangle ${triangle_quelconque.nom} : ${triangle_quelconque.getAngles(triangle_quelconque.nom)}`;
-						texte += `<br> ${JSON.stringify(triangle_quelconque)}`;
-						texte_corr = `Correction triangle scalène , quelconque ? sans conversion`;
-					// } else {
-					// 	texte=`triangle quelconque, scalène ? avec conversion`;
-					// 	texte_corr = `Correction triangle scalène , quelconque ? avec conversion`;
-					// };
+					texte = `${triangle_quelconque.nom} est un triangle tel que ${triangle_quelconque.getAngles()[0]} = ${triangle_quelconque.a1} $\\degree$ ; `;
+					texte += ` ${triangle_quelconque.getAngles()[1]} = ${triangle_quelconque.a2} $\\degree$ et  ${triangle_quelconque.getAngles()[2]} = ${triangle_quelconque.a3} $\\degree$ .`;
+					texte_corr = `Les 3 angles du triangle ${triangle_quelconque.nom} sont différents donc ${triangle_quelconque.nom} est un triangle quelconque.`;
 					break;
 
 				case 3 : // triangle isocèle sans conversion
