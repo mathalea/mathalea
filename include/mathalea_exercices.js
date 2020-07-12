@@ -81,6 +81,7 @@ var liste_des_exercices_disponibles = {
 		'5G10' : Symetrie_axiale_5e,
 		'5G11' : Transformations_5e,
 		'5G12' : Pavages_et_demi_tour,
+		'5G20-1' : Vocabulaire_des_triangles_5e,		   
 		'5N12': Exercice_fractions_simplifier,
 		'5N12-2': Egalites_entre_fractions,
 		'5N18': Exercice_decomposer_en_facteurs_premiers,
@@ -6880,7 +6881,7 @@ function Reciproque_Thales_4eme(){
 
 /**
  * Vocabulaire des triangles
- * 6G20 ; 
+ * 6G20 ; 5G20-1 
  * @author Sébastien Lozano
  */
 
@@ -6889,7 +6890,12 @@ function Vocabulaire_des_triangles(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Vocabulaire des triangles";
 	this.consigne = "Donner la nature des triangles en justifiant.";
-	this.nb_questions = 11;
+	if (this.classe ==6) {
+		this.nb_questions = 9;
+	} else if (this.classe ==5) {
+		this.nb_questions = 11;
+	};
+	
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup=1;
@@ -6901,22 +6907,42 @@ function Vocabulaire_des_triangles(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 
 		let texte_intro = ``;
-		if (sortie_html) {			
-			texte_intro += `- Un <b>triangle quelconque</b> est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`;
-			texte_intro += `<br>`;
-			texte_intro += `- Un <b>triangle isocèle</b> est un triangle qui a deux côtés ou deux angles égaux.`;
-			texte_intro += `<br>`;
-			texte_intro += `- Un <b>triangle équilatéral</b> est un triangle qui a trois côtés ou trois angles égaux.`;
-			texte_intro += `<br>`;
-			texte_intro += `- Un <b>triangle rectangle</b> est un triangle qui a un angle droit.`;			
+		if (sortie_html) {
+			if (this.classe == 6 ) {
+				texte_intro += `- Un <b>triangle quelconque</b> est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`;
+				texte_intro += `<br>`;
+				texte_intro += `- Un <b>triangle isocèle</b> est un triangle qui a deux côtés égaux.`;
+				texte_intro += `<br>`;
+				texte_intro += `- Un <b>triangle équilatéral</b> est un triangle qui a trois côtés égaux.`;
+				texte_intro += `<br>`;
+				texte_intro += `- Un <b>triangle rectangle</b> est un triangle qui a un angle droit.`;
+			} else if (this.classe ==5) {			
+				texte_intro += `- Un <b>triangle quelconque</b> est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`;
+				texte_intro += `<br>`;
+				texte_intro += `- Un <b>triangle isocèle</b> est un triangle qui a deux côtés ou deux angles égaux.`;
+				texte_intro += `<br>`;
+				texte_intro += `- Un <b>triangle équilatéral</b> est un triangle qui a trois côtés ou trois angles égaux.`;
+				texte_intro += `<br>`;
+				texte_intro += `- Un <b>triangle rectangle</b> est un triangle qui a un angle droit.`;
+			};			
 		} else {
-			texte_intro = tex_enumerate_sans_numero([
-				`- Un \\textbf{triangle quelconque} est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`,
-				`- Un \\textbf{triangle isocèle} est un triangle qui a deux côtés ou deux angles égaux.`,
-				`- Un \\textbf{triangle équilatéral} est un triangle qui a trois côtés ou trois angles égaux.`,
-				`- Un \\textbf{triangle rectangle} est un triangle qui a un angle droit.`
-				],1
-			);
+			if (this.classe ==6) {
+				texte_intro = tex_enumerate_sans_numero([
+					`- Un \\textbf{triangle quelconque} est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`,
+					`- Un \\textbf{triangle isocèle} est un triangle qui a deux côtés.`,
+					`- Un \\textbf{triangle équilatéral} est un triangle qui a trois côtés.`,
+					`- Un \\textbf{triangle rectangle} est un triangle qui a un angle droit.`
+					],1
+				);
+			} else if (this.classe ==5) {
+				texte_intro = tex_enumerate_sans_numero([
+					`- Un \\textbf{triangle quelconque} est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`,
+					`- Un \\textbf{triangle isocèle} est un triangle qui a deux côtés ou deux angles égaux.`,
+					`- Un \\textbf{triangle équilatéral} est un triangle qui a trois côtés ou trois angles égaux.`,
+					`- Un \\textbf{triangle rectangle} est un triangle qui a un angle droit.`
+					],1
+				);
+			}
 		};
 
 		this.introduction = lampe_message({
@@ -6925,8 +6951,8 @@ function Vocabulaire_des_triangles(){
 			couleur : `nombres`
 		});
 
-		if (this.classe == 6 || this.classe == 5) type_de_questions_disponibles = [1,2,3,5,6]; // 6e et 5e : triangles quelconques, isocèles, équilatéraux
-		else type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9,10,11]; // 4e et 3e : on ajoute les triangles rectangles.
+		if (this.classe == 6) type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9]; //6e tout sauf par les angles
+		else if (this.classe==5) type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9,10,11]; // 5e : on ajoute la caractéisation par les angles
 		//let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let liste_type_de_questions = type_de_questions_disponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
 
@@ -7103,10 +7129,22 @@ function Vocabulaire_des_triangles(){
 /**
  * Vocabulaire des triangles 
  * 6G20 
+ * @author Sébastien Lozano
  */
 function Vocabulaire_des_triangles_6e(){
 	this.sup = 1;
-	this.classe = 4;//remettre à this.classe = 6; une fois l'ensemble fait et créer un exo pour 4e/3e
+	this.classe = 6;
+	Vocabulaire_des_triangles.call(this);
+};
+
+/**
+ * Vocabulaire des triangles 
+ * 5G20-1
+ * @author Sébastien Lozano
+ */
+function Vocabulaire_des_triangles_5e(){
+	this.sup = 1;
+	this.classe = 5;
 	Vocabulaire_des_triangles.call(this);
 };
 
