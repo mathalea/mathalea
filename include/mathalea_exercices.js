@@ -6889,7 +6889,7 @@ function Vocabulaire_des_triangles(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Vocabulaire des triangles";
 	this.consigne = "Donner la nature des triangles en justifiant.";
-	this.nb_questions = 6;
+	this.nb_questions = 10;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup=1;
@@ -6926,7 +6926,7 @@ function Vocabulaire_des_triangles(){
 		});
 
 		if (this.classe == 6 || this.classe == 5) type_de_questions_disponibles = [1,2,3,5,6]; // 6e et 5e : triangles quelconques, isocèles, équilatéraux
-		else type_de_questions_disponibles = [1,2,3,4,5,6]; // 4e et 3e : on ajoute les triangles rectangles.
+		else type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9,10]; // 4e et 3e : on ajoute les triangles rectangles.
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		
 		this.liste_questions = []; // Liste de questions
@@ -6960,19 +6960,19 @@ function Vocabulaire_des_triangles(){
 						triangle_quelconque.l3 = l3;
 					};
 					triangle_quelconque					
-					if (this.sup==1) { //sans conversion
+					//if (this.sup==1) { //sans conversion
 						texte=`triangle quelconque, scalène ? sans conversion ${triangle_quelconque.l1} ; ${triangle_quelconque.l2} ; ${triangle_quelconque.l3}`;
 						texte += `<br> Côtés du triangle ${triangle_quelconque.nom} : ${triangle_quelconque.getCotes(triangle_quelconque.nom)}`;
 						texte += `<br> Longueurs du triangle ${triangle_quelconque.nom} : ${triangle_quelconque.getLongueurs(triangle_quelconque.nom)}`;
 						texte += `<br> Angles du triangle ${triangle_quelconque.nom} : ${triangle_quelconque.getAngles(triangle_quelconque.nom)}`;
 						texte += `<br> ${JSON.stringify(triangle_quelconque)}`;
 						texte_corr = `Correction triangle scalène , quelconque ? sans conversion`;
-					} else {
-						texte=`triangle quelconque, scalène ? avec conversion`;
-						texte_corr = `Correction triangle scalène , quelconque ? avec conversion`;
-					};
+					// } else {
+					// 	texte=`triangle quelconque, scalène ? avec conversion`;
+					// 	texte_corr = `Correction triangle scalène , quelconque ? avec conversion`;
+					// };
 					break;
-				case 2 : // triangle isocèle
+				case 2 : // triangle isocèle sans conversion
 					while (!triangle_isocele.isTrueTriangle()) {
 						console.log('on retire des longueurs');
 						l1 = randint(1,l_max);
@@ -6982,17 +6982,36 @@ function Vocabulaire_des_triangles(){
 						triangle_isocele.l2 = l1;
 						triangle_isocele.l3 = l2;
 					};
-					if (this.sup==1) { //sans conversion
+					//if (this.sup==1) { //sans conversion
 						texte=`triangle isocèle sans conversion. ${triangle_isocele.l1} ; ${triangle_isocele.l2} ; ${triangle_isocele.l3}`;
 						texte += `<br> ${JSON.stringify(triangle_isocele)}`;
 						texte_corr=`Correction triangle isocèle sans conversion.`;
-					}
-					else { // avec conversion
+					//} else { // avec conversion
+					// 	texte=`triangle isocèle avec conversion.`;
+					// 	texte_corr=`Correction triangle isocèle avec conversion.`;
+					// };
+					break;
+				case 3 : // triangle isocèle avec conversion
+					while (!triangle_isocele.isTrueTriangle()) {
+						console.log('on retire des longueurs');
+						l1 = randint(1,l_max);
+						l2 = randint(1,l_max,l1);
+						//l3 = randint(1,l_max,[l1,l2]);
+						triangle_isocele.l1 = l1;
+						triangle_isocele.l2 = l1;
+						triangle_isocele.l3 = l2;
+					};
+					// if (this.sup==1) { //sans conversion
+					// 	texte=`triangle isocèle sans conversion. ${triangle_isocele.l1} ; ${triangle_isocele.l2} ; ${triangle_isocele.l3}`;
+					// 	texte += `<br> ${JSON.stringify(triangle_isocele)}`;
+					// 	texte_corr=`Correction triangle isocèle sans conversion.`;
+					// }
+					// else { // avec conversion
 						texte=`triangle isocèle avec conversion.`;
 						texte_corr=`Correction triangle isocèle avec conversion.`;
-					};
+					//};
 					break;
-				case 3 : // triangle équilatéral
+				case 4 : // triangle équilatéral sans conversion
 					while (!triangle_equilateral.isTrueTriangle()) {
 						console.log('on retire des longueurs');
 						l1 = randint(1,l_max);
@@ -7002,29 +7021,56 @@ function Vocabulaire_des_triangles(){
 						triangle_equilateral.l2 = l1;
 						triangle_equilateral.l3 = l1;
 					};
-					if (this.sup==1) { //sans conversion
+					//if (this.sup==1) { //sans conversion
 						texte=`triangle équilatéral sans conversion. ${triangle_equilateral.l1} ; ${triangle_equilateral.l2} ; ${triangle_equilateral.l3}`;
 						texte += `<br> ${JSON.stringify(triangle_equilateral)}`;
-						texte_corr=`Correction triangle équilatéral sans conversion.`;					}
-					else { // avec conversion
+						texte_corr=`Correction triangle équilatéral sans conversion.`;					
+					// } else { // avec conversion
+					// 	texte=`triangle équilatéral avec conversion.`;
+					// 	texte_corr=`Correction triangle équilatéral avec conversion.`;
+					// };
+					break;
+				case 5 : // triangle équilatéral avec conversion
+					while (!triangle_equilateral.isTrueTriangle()) {
+						console.log('on retire des longueurs');
+						l1 = randint(1,l_max);
+						//l2 = randint(1,l_max,l1);
+						//l3 = randint(1,l_max,[l1,l2]);
+						triangle_equilateral.l1 = l1;
+						triangle_equilateral.l2 = l1;
+						triangle_equilateral.l3 = l1;
+					};
+					// if (this.sup==1) { //sans conversion
+					// 	texte=`triangle équilatéral sans conversion. ${triangle_equilateral.l1} ; ${triangle_equilateral.l2} ; ${triangle_equilateral.l3}`;
+					// 	texte += `<br> ${JSON.stringify(triangle_equilateral)}`;
+					// 	texte_corr=`Correction triangle équilatéral sans conversion.`;					}
+					// } else { // avec conversion
 						texte=`triangle équilatéral avec conversion.`;
 						texte_corr=`Correction triangle équilatéral avec conversion.`;
-					};
+					//};
 					break;
-				case 4 : // triangle rectangle
-					if (this.sup==1) { //sans conversion
+				case 6 : // triangle rectangle pas de conversion necessaire
+					//if (this.sup==1) { //sans conversion
 						texte=`triangle rectangle sans conversion.`;
-						texte_corr=`Correction triangle rectangle sans conversion.`;					}
-					else { // avec conversion
-						texte=`triangle rectangle avec conversion.`;
-						texte_corr=`Correction triangle rectangle avec conversion.`;
-					};
+						texte_corr=`Correction triangle rectangle sans conversion.`;					
+					// } else { // avec conversion
+					// 	texte=`triangle rectangle avec conversion.`;
+					// 	texte_corr=`Correction triangle rectangle avec conversion.`;
+					// };
 					break;
-				case 5 : // triangle isocèle par les angles
+				case 7 : // triangle isocèle rectangle sans conversion
+					texte=`triangle isocèle rectangle sans conversion.`;
+					texte_corr=`Correction triangle isocèle rectangle sans conversion.`;				
+					break;	
+				case 8 : // triangle isocèle rectangle avec conversion
+					texte=`triangle isocèle rectangle avec conversion.`;
+					texte_corr=`Correction triangle isocèle rectangle avec conversion.`;				
+					break;	
+				case 9 : // triangle isocèle par les angles
 					texte=`triangle isocèle par les angles.`;
 					texte_corr=`Correction triangle isocèle par les angles.`;				
 					break;					
-				case 6 : // triangle équilatéral par les angles
+				case 10 : // triangle équilatéral par les angles
 					texte=`triangle équilatéral par les angles.`;
 					texte_corr=`Correction triangle équilatéral par les angles.`;				
 					break;					
@@ -7039,7 +7085,7 @@ function Vocabulaire_des_triangles(){
 		}
 	liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : pas de conversion\n2 : avec conversion"];
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : pas de conversion\n2 : avec conversion"];
 }
 
 /**
