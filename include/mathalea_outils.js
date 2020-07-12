@@ -3834,12 +3834,14 @@ function Triangles(nom,l1,l2,l3,a1,a2,a3) {
 	var self = this;
 
 	// liste de noms possibles pour un triangle
-	var nomsPossibles = ['AGE','AIL','AIR','ALU','AME','AMI','ANE','ARC','BAC','BAL','BAR','BEC','BEL','BIO','BIP','BIS'];
-	nomsPossibles.push(['BLE','BOA','BOB','BOF','BOG','BOL','BUT','BYE','COQ','CRI','CRU']);
+	var nomsPossibles = ['AGE','AIL','AIR','ALU','AME','AMI','ANE','ARC','BAC','BAL','BAR','BEC','BEL','BIO','BIP','BIS','BLE','BOA','BOB','BOF','BOG','BOL','BUT','BYE','COQ','CRI','CRU'];
 
 	// tire au hasard un nom
 	function nom() {
 		let rang = randint(0,nomsPossibles.length-1);
+		// console.log('nomsPossibles.length-1 : '+(nomsPossibles.length-1));
+		// console.log('rang : '+rang);
+		// console.log('nom du triangle : '+nomsPossibles[rang]);
 		return nomsPossibles[rang];
 	};
 

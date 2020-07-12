@@ -6939,7 +6939,7 @@ function Vocabulaire_des_triangles(){
 			let l_max = 20;
 			// on fixe angle min et max en degré
 			let a_min = 30;
-			let a_max = 150;
+			let a_max = 100;
 
 			// on crée les triangles
 			let triangle_quelconque = new Triangles();
@@ -6969,6 +6969,7 @@ function Vocabulaire_des_triangles(){
 						console.log('on retire des angles');
 						a1 = randint(a_min,a_max);
 						a2 = randint(a_min,a_max,a1);
+						//a3 = randint(a_min,a_max,[a1,a2]);
 						a3 = 180 - a1 - a2;
 						triangle_quelconque.a1 = a1;
 						triangle_quelconque.a2 = a2;
@@ -7011,40 +7012,30 @@ function Vocabulaire_des_triangles(){
 				case 5 : // triangle équilatéral sans conversion
 					while (!triangle_equilateral.isTrueTriangleLongueurs()) {
 						console.log('on retire des longueurs');
-						l1 = randint(1,l_max);
+						l1 = randint(l_min,l_max);
 						//l2 = randint(1,l_max,l1);
 						//l3 = randint(1,l_max,[l1,l2]);
 						triangle_equilateral.l1 = l1;
 						triangle_equilateral.l2 = l1;
 						triangle_equilateral.l3 = l1;
 					};
-					//if (this.sup==1) { //sans conversion
-						texte=`triangle équilatéral sans conversion. ${triangle_equilateral.l1} ; ${triangle_equilateral.l2} ; ${triangle_equilateral.l3}`;
-						texte += `<br> ${JSON.stringify(triangle_equilateral)}`;
-						texte_corr=`Correction triangle équilatéral sans conversion.`;					
-					// } else { // avec conversion
-					// 	texte=`triangle équilatéral avec conversion.`;
-					// 	texte_corr=`Correction triangle équilatéral avec conversion.`;
-					// };
+					texte = `${triangle_equilateral.nom} est un triangle tel que ${triangle_equilateral.getLongueurs()[0]} = ${triangle_equilateral.l1} cm ; `;
+					texte += `${triangle_equilateral.getLongueurs()[1]} = ${triangle_equilateral.l2} cm et ${triangle_equilateral.getLongueurs()[2]} = ${triangle_equilateral.l3} cm.`;
+					texte_corr=`Les longeurs des trois côtés du triangle ${triangle_equilateral.nom} sont égales donc c'est un triangle équilatéral.`;					
 					break;
 				case 6 : // triangle équilatéral avec conversion
 					while (!triangle_equilateral.isTrueTriangleLongueurs()) {
 						console.log('on retire des longueurs');
-						l1 = randint(1,l_max);
+						l1 = randint(l_min,l_max);
 						//l2 = randint(1,l_max,l1);
 						//l3 = randint(1,l_max,[l1,l2]);
 						triangle_equilateral.l1 = l1;
 						triangle_equilateral.l2 = l1;
 						triangle_equilateral.l3 = l1;
 					};
-					// if (this.sup==1) { //sans conversion
-					// 	texte=`triangle équilatéral sans conversion. ${triangle_equilateral.l1} ; ${triangle_equilateral.l2} ; ${triangle_equilateral.l3}`;
-					// 	texte += `<br> ${JSON.stringify(triangle_equilateral)}`;
-					// 	texte_corr=`Correction triangle équilatéral sans conversion.`;					}
-					// } else { // avec conversion
-						texte=`triangle équilatéral avec conversion.`;
-						texte_corr=`Correction triangle équilatéral avec conversion.`;
-					//};
+					texte = `${triangle_equilateral.nom} est un triangle tel que ${triangle_equilateral.getLongueurs()[0]} = ${triangle_equilateral.l1} cm ; `;
+					texte += `${triangle_equilateral.getLongueurs()[1]} = ${triangle_equilateral.l2*10} mm et ${triangle_equilateral.getLongueurs()[2]} = ${triangle_equilateral.l3/10} dm.`;
+					texte_corr=`Les longeurs des trois côtés du triangle ${triangle_equilateral.nom} sont égales donc c'est un triangle équilatéral.`;					
 					break;
 				case 7 : // triangle rectangle pas de conversion necessaire
 					//if (this.sup==1) { //sans conversion
