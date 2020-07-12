@@ -6883,19 +6883,23 @@ function Reciproque_Thales_4eme(){
 
 /**
  * Vocabulaire des triangles
- * 6G20 ; 5G20-1 
+ * 6G20 ; 6G20-1 ; 5G20-1 
  * @author Sébastien Lozano
  */
 
 function Vocabulaire_des_triangles(){
 	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Vocabulaire des triangles";
+	Exercice.call(this); // Héritage de la classe Exercice()	
 	this.consigne = "Donner la nature des triangles en justifiant.";
-	if (this.classe ==6) {
+	if (this.classe == 6) {
+		this.titre = "Vocabulaire des triangles";
 		this.nb_questions = 9;
-	} else if (this.classe ==5) {
+	} else if (this.classe == 5) {
+		this.titre = "Vocabulaire des triangles";
 		this.nb_questions = 11;
+	} else if (this.classe == 6_0) {
+		this.titre = "Vocabulaire des triangles - mise en route";
+		this.nb_questions = 4;
 	};
 	
 	this.nb_cols = 1;
@@ -6910,7 +6914,7 @@ function Vocabulaire_des_triangles(){
 
 		let texte_intro = ``;
 		if (sortie_html) {
-			if (this.classe == 6 ) {
+			if ((this.classe == 6) || (this.classe == 6_0)) {
 				texte_intro += `- Un <b>triangle quelconque</b> est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`;
 				texte_intro += `<br>`;
 				texte_intro += `- Un <b>triangle isocèle</b> est un triangle qui a deux côtés égaux.`;
@@ -6928,7 +6932,7 @@ function Vocabulaire_des_triangles(){
 				texte_intro += `- Un <b>triangle rectangle</b> est un triangle qui a un angle droit.`;
 			};			
 		} else {
-			if (this.classe ==6) {
+			if ((this.classe ==6) || (this.classe ==6_0)) {
 				texte_intro = tex_enumerate_sans_numero([
 					`- Un \\textbf{triangle quelconque} est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`,
 					`- Un \\textbf{triangle isocèle} est un triangle qui a deux côtés.`,
@@ -6953,7 +6957,7 @@ function Vocabulaire_des_triangles(){
 			couleur : `nombres`
 		});
 
-		if (this.classe == 6_0) type_de_questions_disponibles = [3,5,7]; //6e facile isocèle, équilatéral et rectangle.
+		if (this.classe == 6_0) type_de_questions_disponibles = [1,3,5,7]; //6e facile isocèle, équilatéral et rectangle.
 		else if (this.classe == 6) type_de_questions_disponibles = [1,3,4,5,6,7,8,9]; //6e tout sauf par les angles
 		else if (this.classe==5) type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9,10,11]; // 5e : on ajoute la caractéisation par les angles
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -7136,7 +7140,7 @@ function Vocabulaire_des_triangles(){
  */
 function Vocabulaire_des_triangles_6e_facile(){
 	this.sup = 1;
-	this.classe = 6_0;
+	this.classe = 6_0;	
 	Vocabulaire_des_triangles.call(this);
 };
 
