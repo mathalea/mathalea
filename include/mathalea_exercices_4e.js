@@ -3024,6 +3024,11 @@ function Puissances_d_un_relatif_2(){
 	
 }
 
+/**
+* 4N21-2 -- Puissances de 10
+* * Travailler des résultats automatisés 
+* @author Sébastien Lozano
+*/
 function Puissances_de_dix() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
