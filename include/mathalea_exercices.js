@@ -6917,17 +6917,17 @@ function Vocabulaire_des_triangles(){
 			if ((this.classe == 6) || (this.classe == 6_0)) {
 				texte_intro += `- Un <b>triangle quelconque</b> est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`;
 				texte_intro += `<br>`;
-				texte_intro += `- Un <b>triangle isocèle</b> est un triangle qui a deux côtés égaux.`;
+				texte_intro += `- Un <b>triangle isocèle</b> est un triangle qui a deux côtés de même longueur.`;
 				texte_intro += `<br>`;
-				texte_intro += `- Un <b>triangle équilatéral</b> est un triangle qui a trois côtés égaux.`;
+				texte_intro += `- Un <b>triangle équilatéral</b> est un triangle qui a trois côtés de même longueur.`;
 				texte_intro += `<br>`;
 				texte_intro += `- Un <b>triangle rectangle</b> est un triangle qui a un angle droit.`;
 			} else if (this.classe ==5) {			
 				texte_intro += `- Un <b>triangle quelconque</b> est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`;
 				texte_intro += `<br>`;
-				texte_intro += `- Un <b>triangle isocèle</b> est un triangle qui a deux côtés ou deux angles égaux.`;
+				texte_intro += `- Un <b>triangle isocèle</b> est un triangle qui a deux côtés ou deux angles de même mesure.`;
 				texte_intro += `<br>`;
-				texte_intro += `- Un <b>triangle équilatéral</b> est un triangle qui a trois côtés ou trois angles égaux.`;
+				texte_intro += `- Un <b>triangle équilatéral</b> est un triangle qui a trois côtés ou trois angles de même mesure.`;
 				texte_intro += `<br>`;
 				texte_intro += `- Un <b>triangle rectangle</b> est un triangle qui a un angle droit.`;
 			};			
@@ -6935,16 +6935,16 @@ function Vocabulaire_des_triangles(){
 			if ((this.classe ==6) || (this.classe ==6_0)) {
 				texte_intro = tex_enumerate_sans_numero([
 					`- Un \\textbf{triangle quelconque} est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`,
-					`- Un \\textbf{triangle isocèle} est un triangle qui a deux côtés.`,
-					`- Un \\textbf{triangle équilatéral} est un triangle qui a trois côtés.`,
+					`- Un \\textbf{triangle isocèle} est un triangle qui a deux côtés de même longueur.`,
+					`- Un \\textbf{triangle équilatéral} est un triangle qui a trois côtés de même longueur.`,
 					`- Un \\textbf{triangle rectangle} est un triangle qui a un angle droit.`
 					],1
 				);
 			} else if (this.classe ==5) {
 				texte_intro = tex_enumerate_sans_numero([
 					`- Un \\textbf{triangle quelconque} est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`,
-					`- Un \\textbf{triangle isocèle} est un triangle qui a deux côtés ou deux angles égaux.`,
-					`- Un \\textbf{triangle équilatéral} est un triangle qui a trois côtés ou trois angles égaux.`,
+					`- Un \\textbf{triangle isocèle} est un triangle qui a deux côtés ou deux angles de même mesure.`,
+					`- Un \\textbf{triangle équilatéral} est un triangle qui a trois côtés ou trois angles de même mesure.`,
 					`- Un \\textbf{triangle rectangle} est un triangle qui a un angle droit.`
 					],1
 				);
