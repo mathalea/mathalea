@@ -3931,7 +3931,7 @@ function Triangles(nom,l1,l2,l3,a1,a2,a3) {
 
 	// renvoie un booléen selon que le triangle donné à partir de ses trois longueurs ou trois angles est quelconque ou non
 	function isQuelconque() {
-		if (((self.l1!=self.l2) && (self.l1!=self.l3) && (self.l2!=self.l3))||((self.a1!=self.a2) && (self.a1!=self.a3) && (self.a2!=self.a3))) {
+		if ( ( ((self.l1!=self.l2) && (self.l1!=self.l3) && (self.l2!=self.l3) ) || ( (self.a1!=self.a2) && (self.a1!=self.a3) && (self.a2!=self.a3) ) ) && ( (self.a1 != 90) || (self.a2 != 90) || (self.a3 != 90) ) ) {
 			return true
 		} else {
 			return false;
