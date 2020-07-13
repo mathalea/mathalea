@@ -7073,8 +7073,16 @@ function Vocabulaire_des_triangles(){
 					triangle_rectangle.a1 = 90;
 
 					texte = `${triangle_rectangle.getNom()} est un triangle tel que ${triangle_rectangle.getLongueurs()[0]} $= ${triangle_rectangle.l1}$ cm ; `;
-					texte += `${triangle_rectangle.getLongueurs()[1]} $= ${triangle_rectangle.l2}$ cm et ${triangle_rectangle.getAngles()[0]} $= ${triangle_rectangle.a1}\\degree$.`;
-					texte_corr = `L'angle ${triangle_rectangle.getAngles()[0]} du triangle ${triangle_rectangle.getNom()} est un angle droit donc ${triangle_rectangle.getNom()} est rectangle en ${triangle_rectangle.getSommets()[1]}.`;					
+					texte += `${triangle_rectangle.getLongueurs()[1]} $= ${triangle_rectangle.l2}$ cm `;
+					texte += `et `;
+					if ((this.classe == 6) || (this.classe == 6_0)) {
+						texte += ` qui a un angle droit en ${triangle_rectangle.getSommets()[1]}.`;
+						texte_corr = `Le triangle ${triangle_rectangle.getNom()} a un angle droit en ${triangle_rectangle.getSommets()[1]} donc ${triangle_rectangle.getNom()} est rectangle en ${triangle_rectangle.getSommets()[1]}.`;					
+					} else {
+						texte += `${triangle_rectangle.getAngles()[0]} $= ${triangle_rectangle.a1}\\degree$.`;
+						texte_corr = `L'angle ${triangle_rectangle.getAngles()[0]} du triangle ${triangle_rectangle.getNom()} est un angle droit donc ${triangle_rectangle.getNom()} est rectangle en ${triangle_rectangle.getSommets()[1]}.`;					
+					};					
+
 					break;
 				case 8 : // triangle isocèle rectangle sans conversion
 					triangle_isocele_rectangle.l1 = randint(l_min,l_max);
