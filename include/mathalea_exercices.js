@@ -36,8 +36,8 @@ var liste_des_exercices_disponibles = {
 		'6D101' : Heures_decimales,
 		'6D11' : Somme_de_durees,
 		'6D12' : Calculs_de_durees_ou_d_horaires,
-		'6G20' : Vocabulaire_des_triangles_6e_facile,
-		'6G20-1' : Vocabulaire_des_triangles_6e,
+		//'6G20' : Vocabulaire_des_triangles_6e_facile,
+		'6G20' : Vocabulaire_des_triangles_6e,
 		'6G24' : Transformations_6e,
 		'6G25-1' : Pavages_et_reflexion,
 		'6G25-2' : Pavages_et_symetries,
@@ -6891,30 +6891,30 @@ function Vocabulaire_des_triangles(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()	
 	this.consigne = "Donner la nature des triangles en justifiant.";
-	if (this.classe == 6_0) {
-		this.titre = "Vocabulaire des triangles - mise en route";
-		this.nb_questions = 4;
-	} else if (this.classe == 6) {
-		this.titre = "Vocabulaire des triangles";
-		this.nb_questions = 9;
-	} else if (this.classe == 5) {
-		this.titre = "Vocabulaire des triangles";
-		this.nb_questions = 11;
-	};
-	
+	this.sup=1;
+	this.titre = "Vocabulaire des triangles";	
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
-	this.sup=1;
+
 
 	this.liste_packages = `bclogo`;
 	
 	let type_de_questions_disponibles;
 	
 	this.nouvelle_version = function(numero_de_l_exercice){
+		if (this.classe == 6) {
+			if (this.sup == 1) {
+				this.nb_questions = 4;
+			} else {
+				this.nb_questions = 9;
+			}	
+		} else if (this.classe == 5) {			
+			this.nb_questions = 11;
+		};
 
 		let texte_intro = ``;
 		if (sortie_html) {
-			if ((this.classe == 6) || (this.classe == 6_0)) {
+			if (this.classe == 6) {
 				texte_intro += `- Un <b>triangle quelconque</b> est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`;
 				texte_intro += `<br>`;
 				texte_intro += `- Un <b>triangle isocèle</b> est un triangle qui a deux côtés de même longueur.`;
@@ -6932,7 +6932,7 @@ function Vocabulaire_des_triangles(){
 				texte_intro += `- Un <b>triangle rectangle</b> est un triangle qui a un angle droit.`;
 			};			
 		} else {
-			if ((this.classe ==6) || (this.classe ==6_0)) {
+			if (this.classe == 6) {
 				texte_intro = tex_enumerate_sans_numero([
 					`- Un \\textbf{triangle quelconque} est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`,
 					`- Un \\textbf{triangle isocèle} est un triangle qui a deux côtés de même longueur.`,
@@ -6940,7 +6940,7 @@ function Vocabulaire_des_triangles(){
 					`- Un \\textbf{triangle rectangle} est un triangle qui a un angle droit.`
 					],1
 				);
-			} else if (this.classe ==5) {
+			} else if (this.classe == 5) {
 				texte_intro = tex_enumerate_sans_numero([
 					`- Un \\textbf{triangle quelconque} est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`,
 					`- Un \\textbf{triangle isocèle} est un triangle qui a deux côtés ou deux angles de même mesure.`,
@@ -6957,9 +6957,15 @@ function Vocabulaire_des_triangles(){
 			couleur : `nombres`
 		});
 
-		if (this.classe == 6_0) type_de_questions_disponibles = [1,3,5,7]; //6e facile isocèle, équilatéral et rectangle.
-		else if (this.classe == 6) type_de_questions_disponibles = [1,3,4,5,6,7,8,9]; //6e tout sauf par les angles
-		else if (this.classe==5) type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9,10,11]; // 5e : on ajoute la caractéisation par les angles
+		if (this.classe == 6) {
+			if (this.sup == 1) {
+				type_de_questions_disponibles = [1,3,5,7]; //6e facile isocèle, équilatéral et rectangle.
+			} else if (this.sup == 2) {
+				type_de_questions_disponibles = [1,3,4,5,6,7,8,9]; //6e tout sauf par les angles
+			};
+		} else if (this.classe==5) {
+			type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9,10,11]; // 5e : on ajoute la caractéisation par les angles
+		};
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		//let liste_type_de_questions = type_de_questions_disponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
 
@@ -6983,8 +6989,7 @@ function Vocabulaire_des_triangles(){
 
 			switch (liste_type_de_questions[i]) {
 				case 1 : // triangle quelconque par les longueurs sans conversion
-					while (!triangle_quelconque.isTrueTriangleLongueurs()) {
-						console.log('on retire des longueurs');
+					while (!triangle_quelconque.isTrueTriangleLongueurs()) {						
 						l1 = randint(l_min,l_max);
 						l2 = randint(l_min,l_max,l1);
 						l3 = randint(l_min,l_max,[l1,l2]);
@@ -6999,11 +7004,9 @@ function Vocabulaire_des_triangles(){
 					break;
 				case 2 : // triangle quelconque par les angles
 					while (!triangle_quelconque.isTrueTriangleAngles()) {
-						console.log('on retire des angles');
 						a1 = randint(a_min,a_max);
 						a2 = randint(a_min,a_max,a1);
 						a3 = randint(a_min,a_max,[a1,a2]);
-						//a3 = 180 - a1 - a2;
 						triangle_quelconque.a1 = a1;
 						triangle_quelconque.a2 = a2;
 						triangle_quelconque.a3 = a3;
@@ -7016,7 +7019,6 @@ function Vocabulaire_des_triangles(){
 
 				case 3 : // triangle isocèle sans conversion
 					while (!triangle_isocele.isTrueTriangleLongueurs()) {
-						console.log('on retire des longueurs');
 						l1 = randint(l_min,l_max);
 						l2 = randint(l_min,l_max,l1);
 						triangle_isocele.l1 = l1;
@@ -7029,7 +7031,6 @@ function Vocabulaire_des_triangles(){
 					break;
 				case 4 : // triangle isocèle avec conversion
 					while (!triangle_isocele.isTrueTriangleLongueurs()) {
-						console.log('on retire des longueurs');
 						l1 = randint(l_min,l_max);
 						l2 = randint(l_min,l_max,l1);
 						triangle_isocele.l1 = l1;
@@ -7042,7 +7043,6 @@ function Vocabulaire_des_triangles(){
 					break;
 				case 5 : // triangle équilatéral sans conversion
 					while (!triangle_equilateral.isTrueTriangleLongueurs()) {
-						console.log('on retire des longueurs');
 						l1 = randint(l_min,l_max);
 						triangle_equilateral.l1 = l1;
 						triangle_equilateral.l2 = l1;
@@ -7054,7 +7054,6 @@ function Vocabulaire_des_triangles(){
 					break;
 				case 6 : // triangle équilatéral avec conversion
 					while (!triangle_equilateral.isTrueTriangleLongueurs()) {
-						console.log('on retire des longueurs');
 						l1 = randint(l_min,l_max);
 						triangle_equilateral.l1 = l1;
 						triangle_equilateral.l2 = l1;
@@ -7075,7 +7074,7 @@ function Vocabulaire_des_triangles(){
 					texte = `${triangle_rectangle.getNom()} est un triangle tel que ${triangle_rectangle.getLongueurs()[0]} $= ${triangle_rectangle.l1}$ cm ; `;
 					texte += `${triangle_rectangle.getLongueurs()[1]} $= ${triangle_rectangle.l2}$ cm `;
 					texte += `et `;
-					if ((this.classe == 6) || (this.classe == 6_0)) {
+					if (this.classe == 6) {
 						texte += ` qui a un angle droit en ${triangle_rectangle.getSommets()[1]}.`;
 						texte_corr = `Le triangle ${triangle_rectangle.getNom()} a un angle droit en ${triangle_rectangle.getSommets()[1]} donc ${triangle_rectangle.getNom()} est rectangle en ${triangle_rectangle.getSommets()[1]}.`;					
 					} else {
@@ -7092,7 +7091,7 @@ function Vocabulaire_des_triangles(){
 					texte = `${triangle_isocele_rectangle.getNom()} est un triangle tel que ${triangle_isocele_rectangle.getLongueurs()[0]}$= ${triangle_isocele_rectangle.l1}$ cm ; `;
 					texte += `${triangle_isocele_rectangle.getLongueurs()[1]} $= ${triangle_isocele_rectangle.l2}$ cm `;
 					texte += `et `;
-					if ((this.classe == 6) || (this.classe == 6_0)) {
+					if (this.classe == 6)  {
 						texte += `qui a un angle droit en ${triangle_isocele_rectangle.getSommets()[1]}.`;
 						texte_corr = `Le triangle ${triangle_isocele_rectangle.getNom()} a un angle droit en ${triangle_isocele_rectangle.getSommets()[1]} donc ${triangle_isocele_rectangle.getNom()} est rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
 						texte_corr += `<br> ${triangle_isocele_rectangle.getLongueurs()[0]} $=$ ${triangle_isocele_rectangle.getLongueurs()[1]} $= ${triangle_isocele_rectangle.l1}$ cm donc ${triangle_isocele_rectangle.getNom()} est isocèle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
@@ -7112,7 +7111,7 @@ function Vocabulaire_des_triangles(){
 					texte = `${triangle_isocele_rectangle.getNom()} est un triangle tel que ${triangle_isocele_rectangle.getLongueurs()[0]} $= ${triangle_isocele_rectangle.l1*10}$ mm ; `;
 					texte += `${triangle_isocele_rectangle.getLongueurs()[1]} $= ${triangle_isocele_rectangle.l2}$ cm`;
 					texte += ` et `;
-					if ((this.classe == 6) || (this.classe == 6_0)) {
+					if (this.classe == 6) {
 						texte += `qui a un angle droit en ${triangle_isocele_rectangle.getSommets()[1]}.`;
 						texte_corr = `Le triangle ${triangle_isocele_rectangle.getNom()} a un angle droit en ${triangle_isocele_rectangle.getSommets()[1]} donc ${triangle_isocele_rectangle.getNom()} est rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
 						texte_corr += `<br> ${triangle_isocele_rectangle.getLongueurs()[0]} $= ${triangle_isocele_rectangle.l1*10}$ mm $= ${triangle_isocele_rectangle.l1}$ cm =${triangle_isocele_rectangle.getLongueurs()[1]} donc ${triangle_isocele_rectangle.getNom()} est isocèle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
@@ -7156,27 +7155,18 @@ function Vocabulaire_des_triangles(){
 		}
 	liste_de_question_to_contenu(this);
 	}
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : pas de conversion\n2 : avec conversion"];
+
+	if (this.classe == 6) {
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : mise en route\n2 : complète avec conversion"];
+	};
 }
 
 /**
  * Vocabulaire des triangles 
- * 6G20 
- * @author Sébastien Lozano
- */
-function Vocabulaire_des_triangles_6e_facile(){
-	this.sup = 1;
-	this.classe = 6_0;	
-	Vocabulaire_des_triangles.call(this);
-};
-
-/**
- * Vocabulaire des triangles 
- * 6G20-1 
+ * 6G20
  * @author Sébastien Lozano
  */
 function Vocabulaire_des_triangles_6e(){
-	this.sup = 1;
 	this.classe = 6;
 	Vocabulaire_des_triangles.call(this);
 };
@@ -7187,7 +7177,6 @@ function Vocabulaire_des_triangles_6e(){
  * @author Sébastien Lozano
  */
 function Vocabulaire_des_triangles_5e(){
-	this.sup = 1;
 	this.classe = 5;
 	Vocabulaire_des_triangles.call(this);
 };

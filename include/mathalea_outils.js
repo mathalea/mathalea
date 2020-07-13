@@ -3851,14 +3851,6 @@ function Triangles(nom,l1,l2,l3,a1,a2,a3) {
 	// liste de noms possibles pour un triangle
 	let nomsPossibles = ['AGE','AIL','AIR','ALU','AME','AMI','ANE','ARC','BAC','BAL','BAR','BEC','BEL','BIO','BIP','BIS','BLE','BOA','BOB','BOF','BOG','BOL','BUT','BYE','COQ','CRI','CRU','DUC','DUO','DUR','EAU','ECU','EGO','EPI','FER','FIL','FUN','GPS','ICE','JET','KIF','KIR','MAC','NEM','PAS','PIC','PIF','PIN','POT','RAI','RAP','RAT','RIF','SEL','TAF','TIC','TAC','TOC','TOP','UNI','WOK','YAK','YEN','ZEN','ZIG','ZAG'];
 
-	// // tire au hasard un nom
-	// function nom() {
-	// 	let rang = randint(0,nomsPossibles.length-1);
-	// 	return nomsPossibles[rang];
-	// };
-
-	//nom = nom();
-
 	this.nom = choice(nomsPossibles);
 
 	// renvoie le nom choisi
