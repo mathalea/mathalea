@@ -7090,10 +7090,19 @@ function Vocabulaire_des_triangles(){
 					triangle_isocele_rectangle.a1 = 90;
 
 					texte = `${triangle_isocele_rectangle.getNom()} est un triangle tel que ${triangle_isocele_rectangle.getLongueurs()[0]}$= ${triangle_isocele_rectangle.l1}$ cm ; `;
-					texte += `${triangle_isocele_rectangle.getLongueurs()[1]} $= ${triangle_isocele_rectangle.l2}$ cm et ${triangle_isocele_rectangle.getAngles()[0]} $= ${triangle_isocele_rectangle.a1}\\degree$.`;
-					texte_corr = `L'angle ${triangle_isocele_rectangle.getAngles()[0]} du triangle ${triangle_isocele_rectangle.getNom()} est un angle droit donc ${triangle_isocele_rectangle.getNom()} est rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
-					texte_corr += `<br> ${triangle_isocele_rectangle.getLongueurs()[0]} $=$ ${triangle_isocele_rectangle.getLongueurs()[1]} $= ${triangle_isocele_rectangle.l1}$ cm donc ${triangle_isocele_rectangle.getNom()} est isocèle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
-					texte_corr += `<br> Le triangle ${triangle_isocele_rectangle.getNom()} est donc isocèle et rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`
+					texte += `${triangle_isocele_rectangle.getLongueurs()[1]} $= ${triangle_isocele_rectangle.l2}$ cm `;
+					texte += `et `;
+					if ((this.classe == 6) || (this.classe == 6_0)) {
+						texte += `qui a un angle droit en ${triangle_isocele_rectangle.getSommets()[1]}.`;
+						texte_corr = `Le triangle ${triangle_isocele_rectangle.getNom()} a un angle droit en ${triangle_isocele_rectangle.getSommets()[1]} donc ${triangle_isocele_rectangle.getNom()} est rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
+						texte_corr += `<br> ${triangle_isocele_rectangle.getLongueurs()[0]} $=$ ${triangle_isocele_rectangle.getLongueurs()[1]} $= ${triangle_isocele_rectangle.l1}$ cm donc ${triangle_isocele_rectangle.getNom()} est isocèle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
+						texte_corr += `<br> Le triangle ${triangle_isocele_rectangle.getNom()} est donc isocèle et rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`	
+					} else {
+						texte += `${triangle_isocele_rectangle.getAngles()[0]} $= ${triangle_isocele_rectangle.a1}\\degree$.`;
+						texte_corr = `L'angle ${triangle_isocele_rectangle.getAngles()[0]} du triangle ${triangle_isocele_rectangle.getNom()} est un angle droit donc ${triangle_isocele_rectangle.getNom()} est rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
+						texte_corr += `<br> ${triangle_isocele_rectangle.getLongueurs()[0]} $=$ ${triangle_isocele_rectangle.getLongueurs()[1]} $= ${triangle_isocele_rectangle.l1}$ cm donc ${triangle_isocele_rectangle.getNom()} est isocèle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
+						texte_corr += `<br> Le triangle ${triangle_isocele_rectangle.getNom()} est donc isocèle et rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`	
+					};					
 					break;
 				case 9 : // triangle isocèle rectangle avec conversion
 					triangle_isocele_rectangle.l1 = randint(l_min,l_max);
@@ -7101,10 +7110,19 @@ function Vocabulaire_des_triangles(){
 					triangle_isocele_rectangle.a1 = 90;
 
 					texte = `${triangle_isocele_rectangle.getNom()} est un triangle tel que ${triangle_isocele_rectangle.getLongueurs()[0]} $= ${triangle_isocele_rectangle.l1*10}$ mm ; `;
-					texte += `${triangle_isocele_rectangle.getLongueurs()[1]} $= ${triangle_isocele_rectangle.l2}$ cm et ${triangle_isocele_rectangle.getAngles()[0]} $= ${triangle_isocele_rectangle.a1}\\degree$.`;
-					texte_corr = `L'angle ${triangle_isocele_rectangle.getAngles()[0]} du triangle ${triangle_isocele_rectangle.getNom()} est un angle droit donc ${triangle_isocele_rectangle.getNom()} est rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
-					texte_corr += `<br> ${triangle_isocele_rectangle.getLongueurs()[0]} $= ${triangle_isocele_rectangle.l1*10}$ mm $= ${triangle_isocele_rectangle.l1}$ cm =${triangle_isocele_rectangle.getLongueurs()[1]} donc ${triangle_isocele_rectangle.getNom()} est isocèle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
-					texte_corr += `<br> Le triangle ${triangle_isocele_rectangle.getNom()} est donc isocèle et rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`;
+					texte += `${triangle_isocele_rectangle.getLongueurs()[1]} $= ${triangle_isocele_rectangle.l2}$ cm`;
+					texte += `et `;
+					if ((this.classe == 6) || (this.classe == 6_0)) {
+						texte += `qui a un angle droit en ${triangle_isocele_rectangle.getSommets()[1]}.`;
+						texte_corr = `Le triangle ${triangle_isocele_rectangle.getNom()} a un angle droit en ${triangle_isocele_rectangle.getSommets()[1]} donc ${triangle_isocele_rectangle.getNom()} est rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
+						texte_corr += `<br> ${triangle_isocele_rectangle.getLongueurs()[0]} $= ${triangle_isocele_rectangle.l1*10}$ mm $= ${triangle_isocele_rectangle.l1}$ cm =${triangle_isocele_rectangle.getLongueurs()[1]} donc ${triangle_isocele_rectangle.getNom()} est isocèle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
+						texte_corr += `<br> Le triangle ${triangle_isocele_rectangle.getNom()} est donc isocèle et rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`;
+					} else {
+						texte += `${triangle_isocele_rectangle.getAngles()[0]} $= ${triangle_isocele_rectangle.a1}\\degree$.`;
+						texte_corr = `L'angle ${triangle_isocele_rectangle.getAngles()[0]} du triangle ${triangle_isocele_rectangle.getNom()} est un angle droit donc ${triangle_isocele_rectangle.getNom()} est rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
+						texte_corr += `<br> ${triangle_isocele_rectangle.getLongueurs()[0]} $= ${triangle_isocele_rectangle.l1*10}$ mm $= ${triangle_isocele_rectangle.l1}$ cm =${triangle_isocele_rectangle.getLongueurs()[1]} donc ${triangle_isocele_rectangle.getNom()} est isocèle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
+						texte_corr += `<br> Le triangle ${triangle_isocele_rectangle.getNom()} est donc isocèle et rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`;
+					};
 					break;
 				case 10 : // triangle isocèle par les angles
 					a3 =-1;
