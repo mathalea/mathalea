@@ -7111,7 +7111,7 @@ function Vocabulaire_des_triangles(){
 
 					texte = `${triangle_isocele_rectangle.getNom()} est un triangle tel que ${triangle_isocele_rectangle.getLongueurs()[0]} $= ${triangle_isocele_rectangle.l1*10}$ mm ; `;
 					texte += `${triangle_isocele_rectangle.getLongueurs()[1]} $= ${triangle_isocele_rectangle.l2}$ cm`;
-					texte += `et `;
+					texte += ` et `;
 					if ((this.classe == 6) || (this.classe == 6_0)) {
 						texte += `qui a un angle droit en ${triangle_isocele_rectangle.getSommets()[1]}.`;
 						texte_corr = `Le triangle ${triangle_isocele_rectangle.getNom()} a un angle droit en ${triangle_isocele_rectangle.getSommets()[1]} donc ${triangle_isocele_rectangle.getNom()} est rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
