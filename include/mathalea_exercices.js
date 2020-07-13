@@ -126,7 +126,7 @@ var liste_des_exercices_disponibles = {
 		'4N21': Puissances_d_un_relatif_1,
 		'4N21-1': Puissances_d_un_relatif_2,
 		'4N21-2': Puissances_de_dix,
-		'4P10' : problemes_grandeurs_composees,
+		'4P10' : Problemes_grandeurs_composees,
 		'4R10': Exercice_multiplications_relatifs,
 		'4G11' : Pavages_et_translation,
 		'4G20' : Exercice_Pythagore,
@@ -1400,7 +1400,7 @@ function Tables_additions_soustractions(){
 * Par défaut ce sont les tables de 2 à 9 mais on peut choisir les tables que l'on veut
 * @Auteur Rémi Angot
 */
-function Tables_de_multiplications(tables_par_defaut='2;3;4;5;6;7;8;9'){
+function Tables_de_multiplications(tables_par_defaut='2-3-4-5-6-7-8-9'){
 //Multiplier deux nombres 
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = tables_par_defaut ;
@@ -1414,13 +1414,13 @@ function Tables_de_multiplications(tables_par_defaut='2;3;4;5;6;7;8;9'){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		if (!this.sup) { // Si aucune table n'est saisie
-			this.sup = '2;3;4;5;6;7;8;9'
+			this.sup = '2-3-4-5-6-7-8-9'
 		}
 		let tables = []
 		if (typeof(this.sup)=='number'){ // Si c'est un nombre c'est qu'il y a qu'une seule table
 			tables[0] = this.sup
 		} else {
-			tables = this.sup.split(";");// Sinon on créé un tableau à partir des valeurs séparées par des ;
+			tables = this.sup.split("-");// Sinon on créé un tableau à partir des valeurs séparées par des -
 		}	
 		let couples = creer_couples(tables,[2,3,4,5,6,7,8,9,10],this.nb_questions); //Liste tous les couples possibles (2,3)≠(3,2)
 		var type_de_questions = 'a_trous';
@@ -1461,7 +1461,7 @@ function Tables_de_multiplications(tables_par_defaut='2;3;4;5;6;7;8;9'){
 		}
 		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_texte = ['Choix des tables','Nombres séparés par des points-virgules'] // Texte, tooltip
+	this.besoin_formulaire_texte = ['Choix des tables','Nombres séparés par des tirets'] // Texte, tooltip
 	this.besoin_formulaire2_numerique = ['Style de questions',3,'1 : Classique\n2: À trous\n3: Mélangé'] 
 }
 
@@ -1471,7 +1471,7 @@ function Tables_de_multiplications(tables_par_defaut='2;3;4;5;6;7;8;9'){
 * Par défaut ce sont les tables de 2 à 9 mais on peut choisir les tables que l'on veut
 * @Auteur Rémi Angot
 */
-function Tables_de_divisions(tables_par_defaut='2;3;4;5;6;7;8;9'){
+function Tables_de_divisions(tables_par_defaut='2-3-4-5-6-7-8-9'){
 //Diviser deux nombres 
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = tables_par_defaut ;
@@ -1485,13 +1485,13 @@ function Tables_de_divisions(tables_par_defaut='2;3;4;5;6;7;8;9'){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		if (!this.sup) { // Si aucune table n'est saisie
-			this.sup = '2;3;4;5;6;7;8;9'
+			this.sup = '2-3-4-5-6-7-8-9'
 		}
 		let tables = []
 		if (typeof(this.sup)=='number'){ // Si c'est un nombre c'est qu'il y a qu'une seule table
 			tables[0] = this.sup
 		} else {
-			tables = this.sup.split(";");// Sinon on créé un tableau à partir des valeurs séparées par des ;
+			tables = this.sup.split("-");// Sinon on créé un tableau à partir des valeurs séparées par des -
 		}	
 		let couples = creer_couples(tables,[2,3,4,5,6,7,8,9,10],this.nb_questions); //Liste tous les couples possibles (2,3)≠(3,2)
 		let liste_type_de_questions = combinaison_listes(['classique','a_trous'],this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -1524,7 +1524,7 @@ function Tables_de_divisions(tables_par_defaut='2;3;4;5;6;7;8;9'){
 		}
 		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_texte = ['Choix des tables','Nombres séparés par des points-virgules'] // Texte, tooltip
+	this.besoin_formulaire_texte = ['Choix des tables','Nombres séparés par des tirets'] // Texte, tooltip
 	this.besoin_formulaire2_numerique = ['Style de questions',3,'1 : Classique\n2: À trous\n3: Mélangé'] 
 }
 
@@ -1534,7 +1534,7 @@ function Tables_de_divisions(tables_par_defaut='2;3;4;5;6;7;8;9'){
 * Par défaut ce sont les tables de 2 à 9 mais on peut choisir les tables que l'on veut
 * @Auteur Rémi Angot
 */
-function Tables_de_multiplications_et_divisions(tables_par_defaut='2;3;4;5;6;7;8;9'){
+function Tables_de_multiplications_et_divisions(tables_par_defaut='2-3-4-5-6-7-8-9'){
 //Multiplier ou diviser deux nombres 
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = tables_par_defaut ;
@@ -1548,13 +1548,13 @@ function Tables_de_multiplications_et_divisions(tables_par_defaut='2;3;4;5;6;7;8
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		if (!this.sup) { // Si aucune table n'est saisie
-			this.sup = '2;3;4;5;6;7;8;9'
+			this.sup = '2-3-4-5-6-7-8-9'
 		}
 		let tables = []
 		if (typeof(this.sup)=='number'){ // Si c'est un nombre c'est qu'il y a qu'une seule table
 			tables[0] = this.sup
 		} else {
-			tables = this.sup.split(";");// Sinon on créé un tableau à partir des valeurs séparées par des ;
+			tables = this.sup.split("-");// Sinon on créé un tableau à partir des valeurs séparées par des ;
 		}	
 		let couples = creer_couples(tables,[2,3,4,5,6,7,8,9,10],this.nb_questions); //Liste tous les couples possibles (2,3)≠(3,2)
 		let liste_type_de_questions = combinaison_listes(['classique','a_trous'],this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -1605,7 +1605,7 @@ function Tables_de_multiplications_et_divisions(tables_par_defaut='2;3;4;5;6;7;8
 		}
 		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_texte = ['Choix des tables','Nombres séparés par des points-virgules'] // Texte, tooltip
+	this.besoin_formulaire_texte = ['Choix des tables','Nombres séparés par des tirets'] // Texte, tooltip
 	this.besoin_formulaire2_numerique = ['Style de questions',3,'1 : Classique\n2: À trous\n3: Mélangé'] 
 }
 
@@ -2608,7 +2608,7 @@ function Double_moitie_tiers_triple(){
 * Les 2 facteurs peuvent terminer par aucun, 1, 2 ou 3 zéros
 * @Auteur Rémi Angot
 */
-function Exercice_tables_de_multiplications_et_multiples_de_10(tables_par_defaut='2;3;4;5;6;7;8;9'){
+function Exercice_tables_de_multiplications_et_multiples_de_10(tables_par_defaut='2-3-4-5-6-7-8-9'){
 //Multiplier deux nombres 
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = tables_par_defaut ;
@@ -2620,13 +2620,13 @@ function Exercice_tables_de_multiplications_et_multiples_de_10(tables_par_defaut
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		if (!this.sup) { // Si aucune table n'est saisie
-			this.sup = '2;3;4;5;6;7;8;9'
+			this.sup = '2-3-4-5-6-7-8-9'
 		}
 		let tables = []
 		if (typeof(this.sup)=='number'){ // Si c'est un nombre c'est qu'il y a qu'une seule table
 			tables[0] = this.sup
 		} else {
-			tables = this.sup.split(";");// Sinon on créé un tableau à partir des valeurs séparées par des ;
+			tables = this.sup.split("-");// Sinon on créé un tableau à partir des valeurs séparées par des ;
 		}
 		let couples = creer_couples(tables,[2,3,4,5,6,7,8,9,10],this.nb_questions); //Liste tous les couples possibles (2,3)≠(3,2)
 		for (let i = 0, a, b, k1, k2, texte, texte_corr,melange; i < this.nb_questions; i++) {
@@ -2654,14 +2654,14 @@ function Exercice_tables_de_multiplications_et_multiples_de_10(tables_par_defaut
 		}
 		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_texte = ['Choix des tables','Nombres séparés par des points-virgules'] // Texte, tooltip
+	this.besoin_formulaire_texte = ['Choix des tables','Nombres séparés par des tirets'] // Texte, tooltip
 }
 
 /**
 * Multiplier deux nombres décimaux
 * @Auteur Rémi Angot
 */
-function Exercice_tables_de_multiplications_et_decimaux(tables_par_defaut='2;3;4;5;6;7;8;9'){
+function Exercice_tables_de_multiplications_et_decimaux(tables_par_defaut='2-3-4-5-6-7-8-9'){
 //Multiplier deux nombres 
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = tables_par_defaut ;
@@ -2673,13 +2673,13 @@ function Exercice_tables_de_multiplications_et_decimaux(tables_par_defaut='2;3;4
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		if (!this.sup) { // Si aucune table n'est saisie
-			this.sup = '2;3;4;5;6;7;8;9'
+			this.sup = '2-3-4-5-6-7-8-9'
 		}
 		let tables = []
 		if (typeof(this.sup)=='number'){ // Si c'est un nombre c'est qu'il y a qu'une seule table
 			tables[0] = this.sup
 		} else {
-			tables = this.sup.split(";");// Sinon on créé un tableau à partir des valeurs séparées par des ;
+			tables = this.sup.split("-");// Sinon on créé un tableau à partir des valeurs séparées par des ;
 		}
 		let couples = creer_couples(tables,[2,3,4,5,6,7,8,9,10],this.nb_questions); //Liste tous les couples possibles (2,3)≠(3,2)
 		for (let i = 0, a, b, k1, k2, couple, texte, texte_corr; i < this.nb_questions; i++) {
@@ -2703,7 +2703,7 @@ function Exercice_tables_de_multiplications_et_decimaux(tables_par_defaut='2;3;4
 		}
 		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_texte = ['Choix des tables','Nombres séparés par des points-virgules'] // Texte, tooltip
+	this.besoin_formulaire_texte = ['Choix des tables','Nombres séparés par des tirets'] // Texte, tooltip
 }
 
 /**
