@@ -6821,7 +6821,7 @@ function Calcul_de_volumes_3e(){
 
 function Exercice_6N12(){
 	Tables_de_multiplications.call(this);
-	this.sup = "10;100;1000";
+	this.sup = "10-100-1000";
 	this.titre = 'Multiplier un entier par 10, 100, 1 000...';
 }
 
