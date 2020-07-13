@@ -1543,6 +1543,20 @@ function texte_en_couleur_et_gras(texte,couleur="#f15929"){
 }
 
 /**
+* Met gras un texte
+* @param {string} texte à mettre en gras
+* @Auteur Rémi Angot
+*/
+function texte_gras(texte){
+	if (sortie_html) {
+		return `<b>${texte}</b>`	
+	}
+	else {
+		return `\\textbf${texte}`
+	}	
+}
+
+/**
 * Affiche un lien vers une URL
 * @param {string} texte à afficher
 * @param {string} URL
