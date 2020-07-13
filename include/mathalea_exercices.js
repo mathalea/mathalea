@@ -6891,15 +6891,15 @@ function Vocabulaire_des_triangles(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()	
 	this.consigne = "Donner la nature des triangles en justifiant.";
-	if (this.classe == 6) {
+	if (this.classe == 6_0) {
+		this.titre = "Vocabulaire des triangles - mise en route";
+		this.nb_questions = 4;
+	} else if (this.classe == 6) {
 		this.titre = "Vocabulaire des triangles";
 		this.nb_questions = 9;
 	} else if (this.classe == 5) {
 		this.titre = "Vocabulaire des triangles";
 		this.nb_questions = 11;
-	} else if (this.classe == 6_0) {
-		this.titre = "Vocabulaire des triangles - mise en route";
-		this.nb_questions = 4;
 	};
 	
 	this.nb_cols = 1;
