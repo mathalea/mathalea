@@ -235,7 +235,7 @@ function Exercice() {
     this.nb_questions = 10;
     this.nb_cols = 2;
     this.nb_cols_corr = 2;
-    this.spacing = 2;
+    this.spacing = 1.5;
     this.spacing_corr = 1;
     this.beamer = false;
 
