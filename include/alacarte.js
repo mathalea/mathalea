@@ -38,30 +38,6 @@ tableau_url_tex.forEach(creeIdPourComparaison)
 
 
 
-/**
-* Remplace un id d'item par un ou des id d'exercices de MathALEA
-*
-* Utile si un item doit être évalué par plusieurs exercices de MathALEA
-*
-* Peut éventuellement servir à faire la "traduction" d'un référentiel SACoche en référentiel MathALEA
-*
-* @Auteur Rémi Angot
-*/
-function selection_exercices_aleatoires(text) {
-	let liste_des_exercices_a_echanger = {
-		// liste statique à construire en attendant un meilleur système
-		'CM' : 'CM001;CM002',
-		// échange 'CM' par 'CM001;CM002'
-		'6N10' : '6N10-1;6N10-2'
-		// 'C10' : 'CM001 CM002 CM003'
-		}
-	$.each(liste_des_exercices_a_echanger,function(id){
-		if (text.includes(id)) {
-			text=text.replace(id,liste_des_exercices_a_echanger[id])
-		}
-	});
-	return text
-}
 
 /**
 * Récupère le texte saisi pour le transformer en tableau de tableaux. 
@@ -73,8 +49,6 @@ function selection_exercices_aleatoires(text) {
 function textarea_to_array(textarea_id_textarea) {
 	let text = textarea_id_textarea.value//.replace(/[ ]/g,'');
 	// récupère le texte en effaçant tous les espaces
-	text = selection_exercices_aleatoires(text)
-
 	let tableau = text.split("\n");
 	tableau.forEach(function(ligne,i){
 		tableau[i]=ligne.split(";");
@@ -385,8 +359,6 @@ function entete_eleve(prenom="",nom=""){
 	return `\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n
 \\newpage
-
-\\setcounter{${counter}}{0}
 \\NomCopie{${prenom.toUpperCase()} ${nom.toUpperCase()}}
 \\bigskip
 `
@@ -399,9 +371,14 @@ var intro_correction = '\n%%%%%%%%%%%%%%%%\n%%%CORRECTION%%%\n%%%%%%%%%%%%%%%%' 
 function macro_nom_copie(style='classique') {
 	if (style=='classique') {
 		return `\\newcommand\\NomCopie[1]{\\fancyhead[L]{#1}
-		\\fancyhead[R]{${$("#entete_droit_du_fichier").val()}}}`
+		\\fancyhead[R]{${$("#entete_droit_du_fichier").val()}}
+		\\setcounter{exo}{0}
+	}\n\n`
+
 	} else {
-		return `\\newcommand\\NomCopie[1]{\\theme{${$('input[name=theme]:checked').val()}}{${$("#entete_du_fichier").val()}}{${$("#entete_droit_du_fichier").val()}}{#1}}\n\n`
+		return `\\newcommand\\NomCopie[1]{\\theme{${$('input[name=theme]:checked').val()}}{${$("#entete_du_fichier").val()}}{${$("#entete_droit_du_fichier").val()}}{#1}
+	\\setcounter{section}{0}
+	}\n\n`
 	}
 }
 

@@ -36,6 +36,7 @@ var liste_des_exercices_disponibles = {
 		'6D101' : Heures_decimales,
 		'6D11' : Somme_de_durees,
 		'6D12' : Calculs_de_durees_ou_d_horaires,
+		//'6G20' : Vocabulaire_des_triangles_6e_facile,
 		'6G20' : Vocabulaire_des_triangles_6e,
 		'6G24' : Transformations_6e,
 		'6G25-1' : Pavages_et_reflexion,
@@ -82,6 +83,7 @@ var liste_des_exercices_disponibles = {
 		'5G10' : Symetrie_axiale_5e,
 		'5G11' : Transformations_5e,
 		'5G12' : Pavages_et_demi_tour,
+		'5G20-1' : Vocabulaire_des_triangles_5e,		   
 		'5N12': Exercice_fractions_simplifier,
 		'5N12-2': Egalites_entre_fractions,
 		'5N18': Exercice_decomposer_en_facteurs_premiers,
@@ -128,7 +130,7 @@ var liste_des_exercices_disponibles = {
 		'4N21': Puissances_d_un_relatif_1,
 		'4N21-1': Puissances_d_un_relatif_2,
 		'4N21-2': Puissances_de_dix,
-		'4P10' : problemes_grandeurs_composees,
+		'4P10' : Problemes_grandeurs_composees,
 		'4R10': Exercice_multiplications_relatifs,
 		'4G11' : Pavages_et_translation,
 		'4G20' : Exercice_Pythagore,
@@ -160,6 +162,7 @@ var liste_des_exercices_disponibles = {
 		'3L14' : Resoudre_une_equation_produit_nul,
 		'3L14-1' : Resoudre_une_equation_produit_nul_niv2,
 		'3L15' : Resoudre_une_equation_x2_egal_A,
+		'3P10' : Evolutions_en_pourcentage,
 		'3G10-1' : Transformations_du_plan_et_coordonnees,
 		'3G10-2' : Transformations_3e,
 		'3G12' : Pavages_et_rotation,
@@ -233,7 +236,7 @@ function Exercice() {
     this.nb_questions = 10;
     this.nb_cols = 2;
     this.nb_cols_corr = 2;
-    this.spacing = 2;
+    this.spacing = 1.5;
     this.spacing_corr = 1;
     this.beamer = false;
 
@@ -1402,7 +1405,7 @@ function Tables_additions_soustractions(){
 * Par défaut ce sont les tables de 2 à 9 mais on peut choisir les tables que l'on veut
 * @Auteur Rémi Angot
 */
-function Tables_de_multiplications(tables_par_defaut='2;3;4;5;6;7;8;9'){
+function Tables_de_multiplications(tables_par_defaut='2-3-4-5-6-7-8-9'){
 //Multiplier deux nombres 
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = tables_par_defaut ;
@@ -1416,13 +1419,13 @@ function Tables_de_multiplications(tables_par_defaut='2;3;4;5;6;7;8;9'){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		if (!this.sup) { // Si aucune table n'est saisie
-			this.sup = '2;3;4;5;6;7;8;9'
+			this.sup = '2-3-4-5-6-7-8-9'
 		}
 		let tables = []
 		if (typeof(this.sup)=='number'){ // Si c'est un nombre c'est qu'il y a qu'une seule table
 			tables[0] = this.sup
 		} else {
-			tables = this.sup.split(";");// Sinon on créé un tableau à partir des valeurs séparées par des ;
+			tables = this.sup.split("-");// Sinon on créé un tableau à partir des valeurs séparées par des -
 		}	
 		let couples = creer_couples(tables,[2,3,4,5,6,7,8,9,10],this.nb_questions); //Liste tous les couples possibles (2,3)≠(3,2)
 		var type_de_questions = 'a_trous';
@@ -1463,7 +1466,7 @@ function Tables_de_multiplications(tables_par_defaut='2;3;4;5;6;7;8;9'){
 		}
 		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_texte = ['Choix des tables','Nombres séparés par des points-virgules'] // Texte, tooltip
+	this.besoin_formulaire_texte = ['Choix des tables','Nombres séparés par des tirets'] // Texte, tooltip
 	this.besoin_formulaire2_numerique = ['Style de questions',3,'1 : Classique\n2: À trous\n3: Mélangé'] 
 }
 
@@ -1473,7 +1476,7 @@ function Tables_de_multiplications(tables_par_defaut='2;3;4;5;6;7;8;9'){
 * Par défaut ce sont les tables de 2 à 9 mais on peut choisir les tables que l'on veut
 * @Auteur Rémi Angot
 */
-function Tables_de_divisions(tables_par_defaut='2;3;4;5;6;7;8;9'){
+function Tables_de_divisions(tables_par_defaut='2-3-4-5-6-7-8-9'){
 //Diviser deux nombres 
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = tables_par_defaut ;
@@ -1487,13 +1490,13 @@ function Tables_de_divisions(tables_par_defaut='2;3;4;5;6;7;8;9'){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		if (!this.sup) { // Si aucune table n'est saisie
-			this.sup = '2;3;4;5;6;7;8;9'
+			this.sup = '2-3-4-5-6-7-8-9'
 		}
 		let tables = []
 		if (typeof(this.sup)=='number'){ // Si c'est un nombre c'est qu'il y a qu'une seule table
 			tables[0] = this.sup
 		} else {
-			tables = this.sup.split(";");// Sinon on créé un tableau à partir des valeurs séparées par des ;
+			tables = this.sup.split("-");// Sinon on créé un tableau à partir des valeurs séparées par des -
 		}	
 		let couples = creer_couples(tables,[2,3,4,5,6,7,8,9,10],this.nb_questions); //Liste tous les couples possibles (2,3)≠(3,2)
 		let liste_type_de_questions = combinaison_listes(['classique','a_trous'],this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -1526,7 +1529,7 @@ function Tables_de_divisions(tables_par_defaut='2;3;4;5;6;7;8;9'){
 		}
 		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_texte = ['Choix des tables','Nombres séparés par des points-virgules'] // Texte, tooltip
+	this.besoin_formulaire_texte = ['Choix des tables','Nombres séparés par des tirets'] // Texte, tooltip
 	this.besoin_formulaire2_numerique = ['Style de questions',3,'1 : Classique\n2: À trous\n3: Mélangé'] 
 }
 
@@ -1536,7 +1539,7 @@ function Tables_de_divisions(tables_par_defaut='2;3;4;5;6;7;8;9'){
 * Par défaut ce sont les tables de 2 à 9 mais on peut choisir les tables que l'on veut
 * @Auteur Rémi Angot
 */
-function Tables_de_multiplications_et_divisions(tables_par_defaut='2;3;4;5;6;7;8;9'){
+function Tables_de_multiplications_et_divisions(tables_par_defaut='2-3-4-5-6-7-8-9'){
 //Multiplier ou diviser deux nombres 
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = tables_par_defaut ;
@@ -1550,13 +1553,13 @@ function Tables_de_multiplications_et_divisions(tables_par_defaut='2;3;4;5;6;7;8
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		if (!this.sup) { // Si aucune table n'est saisie
-			this.sup = '2;3;4;5;6;7;8;9'
+			this.sup = '2-3-4-5-6-7-8-9'
 		}
 		let tables = []
 		if (typeof(this.sup)=='number'){ // Si c'est un nombre c'est qu'il y a qu'une seule table
 			tables[0] = this.sup
 		} else {
-			tables = this.sup.split(";");// Sinon on créé un tableau à partir des valeurs séparées par des ;
+			tables = this.sup.split("-");// Sinon on créé un tableau à partir des valeurs séparées par des ;
 		}	
 		let couples = creer_couples(tables,[2,3,4,5,6,7,8,9,10],this.nb_questions); //Liste tous les couples possibles (2,3)≠(3,2)
 		let liste_type_de_questions = combinaison_listes(['classique','a_trous'],this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -1607,7 +1610,7 @@ function Tables_de_multiplications_et_divisions(tables_par_defaut='2;3;4;5;6;7;8
 		}
 		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_texte = ['Choix des tables','Nombres séparés par des points-virgules'] // Texte, tooltip
+	this.besoin_formulaire_texte = ['Choix des tables','Nombres séparés par des tirets'] // Texte, tooltip
 	this.besoin_formulaire2_numerique = ['Style de questions',3,'1 : Classique\n2: À trous\n3: Mélangé'] 
 }
 
@@ -2749,7 +2752,7 @@ function Double_moitie_tiers_triple(){
 * Les 2 facteurs peuvent terminer par aucun, 1, 2 ou 3 zéros
 * @Auteur Rémi Angot
 */
-function Exercice_tables_de_multiplications_et_multiples_de_10(tables_par_defaut='2;3;4;5;6;7;8;9'){
+function Exercice_tables_de_multiplications_et_multiples_de_10(tables_par_defaut='2-3-4-5-6-7-8-9'){
 //Multiplier deux nombres 
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = tables_par_defaut ;
@@ -2761,13 +2764,13 @@ function Exercice_tables_de_multiplications_et_multiples_de_10(tables_par_defaut
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		if (!this.sup) { // Si aucune table n'est saisie
-			this.sup = '2;3;4;5;6;7;8;9'
+			this.sup = '2-3-4-5-6-7-8-9'
 		}
 		let tables = []
 		if (typeof(this.sup)=='number'){ // Si c'est un nombre c'est qu'il y a qu'une seule table
 			tables[0] = this.sup
 		} else {
-			tables = this.sup.split(";");// Sinon on créé un tableau à partir des valeurs séparées par des ;
+			tables = this.sup.split("-");// Sinon on créé un tableau à partir des valeurs séparées par des ;
 		}
 		let couples = creer_couples(tables,[2,3,4,5,6,7,8,9,10],this.nb_questions); //Liste tous les couples possibles (2,3)≠(3,2)
 		for (let i = 0, a, b, k1, k2, texte, texte_corr,melange; i < this.nb_questions; i++) {
@@ -2795,14 +2798,14 @@ function Exercice_tables_de_multiplications_et_multiples_de_10(tables_par_defaut
 		}
 		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_texte = ['Choix des tables','Nombres séparés par des points-virgules'] // Texte, tooltip
+	this.besoin_formulaire_texte = ['Choix des tables','Nombres séparés par des tirets'] // Texte, tooltip
 }
 
 /**
 * Multiplier deux nombres décimaux
 * @Auteur Rémi Angot
 */
-function Exercice_tables_de_multiplications_et_decimaux(tables_par_defaut='2;3;4;5;6;7;8;9'){
+function Exercice_tables_de_multiplications_et_decimaux(tables_par_defaut='2-3-4-5-6-7-8-9'){
 //Multiplier deux nombres 
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.sup = tables_par_defaut ;
@@ -2814,13 +2817,13 @@ function Exercice_tables_de_multiplications_et_decimaux(tables_par_defaut='2;3;4
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		if (!this.sup) { // Si aucune table n'est saisie
-			this.sup = '2;3;4;5;6;7;8;9'
+			this.sup = '2-3-4-5-6-7-8-9'
 		}
 		let tables = []
 		if (typeof(this.sup)=='number'){ // Si c'est un nombre c'est qu'il y a qu'une seule table
 			tables[0] = this.sup
 		} else {
-			tables = this.sup.split(";");// Sinon on créé un tableau à partir des valeurs séparées par des ;
+			tables = this.sup.split("-");// Sinon on créé un tableau à partir des valeurs séparées par des ;
 		}
 		let couples = creer_couples(tables,[2,3,4,5,6,7,8,9,10],this.nb_questions); //Liste tous les couples possibles (2,3)≠(3,2)
 		for (let i = 0, a, b, k1, k2, couple, texte, texte_corr; i < this.nb_questions; i++) {
@@ -2844,7 +2847,7 @@ function Exercice_tables_de_multiplications_et_decimaux(tables_par_defaut='2;3;4
 		}
 		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_texte = ['Choix des tables','Nombres séparés par des points-virgules'] // Texte, tooltip
+	this.besoin_formulaire_texte = ['Choix des tables','Nombres séparés par des tirets'] // Texte, tooltip
 }
 
 /**
@@ -3788,6 +3791,7 @@ function Exercice_conversions_aires(niveau=1){
 	this.titre = "Conversions d'aires"
 	this.consigne = 'Compléter'
 	this.spacing = 2;
+	this.nb_cols_corr =1;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
@@ -6961,7 +6965,7 @@ function Calcul_de_volumes_3e(){
 
 function Exercice_6N12(){
 	Tables_de_multiplications.call(this);
-	this.sup = "10;100;1000";
+	this.sup = "10-100-1000";
 	this.titre = 'Multiplier un entier par 10, 100, 1 000...';
 }
 
@@ -7020,53 +7024,110 @@ function Reciproque_Thales_4eme(){
 
 /**
  * Vocabulaire des triangles
- * 6G20 ; 
+ * 6G20 ; 6G20-1 ; 5G20-1 
  * @author Sébastien Lozano
  */
 
 function Vocabulaire_des_triangles(){
 	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Vocabulaire des triangles";
+	Exercice.call(this); // Héritage de la classe Exercice()	
 	this.consigne = "Donner la nature des triangles en justifiant.";
-	this.nb_questions = 11;
+	this.sup=1;
+	this.titre = "Vocabulaire des triangles";	
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
-	this.sup=1;
+	this.nb_questions_modifiable = false;
+
 
 	this.liste_packages = `bclogo`;
 	
 	let type_de_questions_disponibles;
 	
 	this.nouvelle_version = function(numero_de_l_exercice){
-
-		let texte_intro = ``;
-		if (sortie_html) {			
-			texte_intro += `- Un <b>triangle quelconque</b> est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`;
-			texte_intro += `<br>`;
-			texte_intro += `- Un <b>triangle isocèle</b> est un triangle qui a deux côtés ou deux angles égaux.`;
-			texte_intro += `<br>`;
-			texte_intro += `- Un <b>triangle équilatéral</b> est un triangle qui a trois côtés ou trois angles égaux.`;
-			texte_intro += `<br>`;
-			texte_intro += `- Un <b>triangle rectangle</b> est un triangle qui a un angle droit.`;			
-		} else {
-			texte_intro = tex_enumerate_sans_numero([
-				`- Un \\textbf{triangle quelconque} est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`,
-				`- Un \\textbf{triangle isocèle} est un triangle qui a deux côtés ou deux angles égaux.`,
-				`- Un \\textbf{triangle équilatéral} est un triangle qui a trois côtés ou trois angles égaux.`,
-				`- Un \\textbf{triangle rectangle} est un triangle qui a un angle droit.`
-				],1
-			);
+		if (this.classe == 6) {
+			if (this.sup == 1) {
+				this.nb_questions = 4;
+			} else {
+				//this.nb_questions = 9;
+				this.nb_questions = 5;
+			}	
+		} else if (this.classe == 5) {			
+			//this.nb_questions = 11;
+			this.nb_questions = 5;
 		};
 
-		this.introduction = lampe_message({
-			titre : `Quelques définitions`,
-			texte : texte_intro,
-			couleur : `nombres`
-		});
+		let texte_intro = ``;
+		if (sortie_html) {
+			if (this.classe == 6) {
+				texte_intro += `- Un <b>triangle quelconque</b> est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`;
+				texte_intro += `<br>`;
+				texte_intro += `- Un <b>triangle isocèle</b> est un triangle qui a deux côtés de même longueur.`;
+				texte_intro += `<br>`;
+				texte_intro += `- Un <b>triangle équilatéral</b> est un triangle qui a trois côtés de même longueur.`;
+				texte_intro += `<br>`;
+				texte_intro += `- Un <b>triangle rectangle</b> est un triangle qui a un angle droit.`;
+			} else if (this.classe ==5) {			
+				texte_intro += `- Un <b>triangle quelconque</b> est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`;
+				texte_intro += `<br>`;
+				texte_intro += `- Un <b>triangle isocèle</b> est un triangle qui a deux côtés ou deux angles de même mesure.`;
+				texte_intro += `<br>`;
+				texte_intro += `- Un <b>triangle équilatéral</b> est un triangle qui a trois côtés ou trois angles de même mesure.`;
+				texte_intro += `<br>`;
+				texte_intro += `- Un <b>triangle rectangle</b> est un triangle qui a un angle droit.`;
+			};	
+			// this.introduction = lampe_message({
+			// 	titre : `Quelques définitions`,
+			// 	texte : texte_intro,
+			// 	couleur : `nombres`
+			// });
 
-		if (this.classe == 6 || this.classe == 5) type_de_questions_disponibles = [1,2,3,5,6]; // 6e et 5e : triangles quelconques, isocèles, équilatéraux
-		else type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9,10,11]; // 4e et 3e : on ajoute les triangles rectangles.
+			this.bouton_aide = modal_texte_long(
+				numero_de_l_exercice,
+				`<i class="lightbulb outline icon"></i> Quelques définitions`,
+				texte_intro,
+				"Aide",
+				"info circle"
+			);
+
+		} else {
+			if (this.classe == 6) {
+				texte_intro = tex_enumerate_sans_numero([
+					`- Un \\textbf{triangle quelconque} est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`,
+					`- Un \\textbf{triangle isocèle} est un triangle qui a deux côtés de même longueur.`,
+					`- Un \\textbf{triangle équilatéral} est un triangle qui a trois côtés de même longueur.`,
+					`- Un \\textbf{triangle rectangle} est un triangle qui a un angle droit.`
+					],1
+				);
+			} else if (this.classe == 5) {
+				texte_intro = tex_enumerate_sans_numero([
+					`- Un \\textbf{triangle quelconque} est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.`,
+					`- Un \\textbf{triangle isocèle} est un triangle qui a deux côtés ou deux angles de même mesure.`,
+					`- Un \\textbf{triangle équilatéral} est un triangle qui a trois côtés ou trois angles de même mesure.`,
+					`- Un \\textbf{triangle rectangle} est un triangle qui a un angle droit.`
+					],1
+				);
+			}
+
+			this.introduction = lampe_message({
+				titre : `Quelques définitions`,
+				texte : texte_intro,
+				couleur : `nombres`
+			});
+		};
+
+
+
+		if (this.classe == 6) {
+			if (this.sup == 1) {
+				type_de_questions_disponibles = [1,3,5,7]; //6e facile isocèle, équilatéral et rectangle.
+			} else if (this.sup == 2) {
+				//type_de_questions_disponibles = [1,3,4,5,6,7,8,9]; //6e tout sauf par les angles
+				type_de_questions_disponibles = [1,4,6,8,9]; //6e les autres cas sauf par les angles
+			};
+		} else if (this.classe==5) {
+			// type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9,10,11]; // 5e : on ajoute la caractéisation par les angles
+			type_de_questions_disponibles = [choice([1,2]),choice([3,4,10]),choice([5,6,11]),7,choice([8,9])]; // 5e : tout sauf les basiques de 6e, on ajoute la caractéisation par les angles
+		};
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		//let liste_type_de_questions = type_de_questions_disponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
 
@@ -7090,8 +7151,7 @@ function Vocabulaire_des_triangles(){
 
 			switch (liste_type_de_questions[i]) {
 				case 1 : // triangle quelconque par les longueurs sans conversion
-					while (!triangle_quelconque.isTrueTriangleLongueurs()) {
-						console.log('on retire des longueurs');
+					while (!triangle_quelconque.isTrueTriangleLongueurs()) {						
 						l1 = randint(l_min,l_max);
 						l2 = randint(l_min,l_max,l1);
 						l3 = randint(l_min,l_max,[l1,l2]);
@@ -7100,110 +7160,130 @@ function Vocabulaire_des_triangles(){
 						triangle_quelconque.l3 = l3;
 					};
 
-					texte = `${triangle_quelconque.nom} est un triangle tel que ${triangle_quelconque.getLongueurs()[0]} = ${triangle_quelconque.l1} cm ; `;
-					texte += `${triangle_quelconque.getLongueurs()[1]} = ${triangle_quelconque.l2} cm et ${triangle_quelconque.getLongueurs()[2]} = ${triangle_quelconque.l3} cm.`;
-					texte_corr = `Les 3 côtés du triangle ${triangle_quelconque.nom} sont différents donc ${triangle_quelconque.nom} est un triangle quelconque.`;
+					texte = `${triangle_quelconque.getNom()} est un triangle tel que ${triangle_quelconque.getLongueurs()[0]} $= ${triangle_quelconque.l1}$ cm ; `;
+					texte += `${triangle_quelconque.getLongueurs()[1]} $= ${triangle_quelconque.l2}$ cm et ${triangle_quelconque.getLongueurs()[2]} $= ${triangle_quelconque.l3}$ cm.`;
+					texte_corr = `Les 3 côtés du triangle ${triangle_quelconque.getNom()} sont différents donc ${triangle_quelconque.getNom()} est un triangle quelconque.`;
 					break;
 				case 2 : // triangle quelconque par les angles
 					while (!triangle_quelconque.isTrueTriangleAngles()) {
-						console.log('on retire des angles');
 						a1 = randint(a_min,a_max);
 						a2 = randint(a_min,a_max,a1);
 						a3 = randint(a_min,a_max,[a1,a2]);
-						//a3 = 180 - a1 - a2;
 						triangle_quelconque.a1 = a1;
 						triangle_quelconque.a2 = a2;
 						triangle_quelconque.a3 = a3;
 					};
 
-					texte = `${triangle_quelconque.nom} est un triangle tel que ${triangle_quelconque.getAngles()[0]} = ${triangle_quelconque.a1} $\\degree$ ; `;
-					texte += ` ${triangle_quelconque.getAngles()[1]} = ${triangle_quelconque.a2} $\\degree$ et  ${triangle_quelconque.getAngles()[2]} = ${triangle_quelconque.a3} $\\degree$ .`;
-					texte_corr = `Les 3 angles du triangle ${triangle_quelconque.nom} sont différents donc ${triangle_quelconque.nom} est un triangle quelconque.`;
+					texte = `${triangle_quelconque.getNom()} est un triangle tel que ${triangle_quelconque.getAngles()[0]} $= ${triangle_quelconque.a1}\\degree$ ; `;
+					texte += ` ${triangle_quelconque.getAngles()[1]} $= ${triangle_quelconque.a2}\\degree$ et  ${triangle_quelconque.getAngles()[2]} $= ${triangle_quelconque.a3}\\degree$ .`;
+					texte_corr = `Les 3 angles du triangle ${triangle_quelconque.getNom()} sont différents donc ${triangle_quelconque.getNom()} est un triangle quelconque.`;
 					break;
 
 				case 3 : // triangle isocèle sans conversion
 					while (!triangle_isocele.isTrueTriangleLongueurs()) {
-						console.log('on retire des longueurs');
 						l1 = randint(l_min,l_max);
 						l2 = randint(l_min,l_max,l1);
 						triangle_isocele.l1 = l1;
 						triangle_isocele.l2 = l1;
 						triangle_isocele.l3 = l2;
 					};
-					texte = `${triangle_isocele.nom} est un triangle tel que ${triangle_isocele.getLongueurs()[0]} = ${triangle_isocele.l1} cm ; `;
-					texte += `${triangle_isocele.getLongueurs()[1]} = ${triangle_isocele.l2} cm et ${triangle_isocele.getLongueurs()[2]} = ${triangle_isocele.l3} cm.`;
-					texte_corr = `Les longueurs des côtés ${triangle_isocele.getCotes()[0]} et ${triangle_isocele.getCotes()[1]} du triangle ${triangle_isocele.nom} valent toutes les deux ${triangle_isocele.l1} cm donc ${triangle_isocele.nom} est un triangle isocèle.`;
+					texte = `${triangle_isocele.getNom()} est un triangle tel que ${triangle_isocele.getLongueurs()[0]} $= ${triangle_isocele.l1}$ cm ; `;
+					texte += `${triangle_isocele.getLongueurs()[1]} $= ${triangle_isocele.l2}$ cm et ${triangle_isocele.getLongueurs()[2]} $= ${triangle_isocele.l3}$ cm.`;
+					texte_corr = `Les longueurs des côtés ${triangle_isocele.getCotes()[0]} et ${triangle_isocele.getCotes()[1]} du triangle ${triangle_isocele.getNom()} valent toutes les deux $${triangle_isocele.l1}$ cm donc ${triangle_isocele.getNom()} est un triangle isocèle en ${triangle_isocele.getSommets()[1]}.`;
 					break;
 				case 4 : // triangle isocèle avec conversion
 					while (!triangle_isocele.isTrueTriangleLongueurs()) {
-						console.log('on retire des longueurs');
 						l1 = randint(l_min,l_max);
 						l2 = randint(l_min,l_max,l1);
 						triangle_isocele.l1 = l1;
 						triangle_isocele.l2 = l1;
 						triangle_isocele.l3 = l2;
 					};
-					texte = `${triangle_isocele.nom} est un triangle tel que ${triangle_isocele.getLongueurs()[0]} = ${triangle_isocele.l1 *10} mm ; `;
-					texte += `${triangle_isocele.getLongueurs()[1]} = ${triangle_isocele.l2} cm et ${triangle_isocele.getLongueurs()[2]} = ${triangle_isocele.l3} cm.`;
-					texte_corr = `${triangle_isocele.getLongueurs()[0]} = ${triangle_isocele.l1 *10} mm = ${triangle_isocele.l1} cm = ${triangle_isocele.getLongueurs()[1]}, ${triangle_isocele.nom} a donc deux côtés égaux, c'est un triangle isocèle.`;
+					texte = `${triangle_isocele.getNom()} est un triangle tel que ${triangle_isocele.getLongueurs()[0]} $= ${triangle_isocele.l1 *10}$ mm ; `;
+					texte += `${triangle_isocele.getLongueurs()[1]} $= ${triangle_isocele.l2}$ cm et ${triangle_isocele.getLongueurs()[2]} $= ${triangle_isocele.l3}$ cm.`;
+					texte_corr = `${triangle_isocele.getLongueurs()[0]} $= ${triangle_isocele.l1 *10}$ mm $= ${triangle_isocele.l1}$ cm = ${triangle_isocele.getLongueurs()[1]}, ${triangle_isocele.getNom()} a donc deux côtés égaux, c'est un triangle isocèle en ${triangle_isocele.getSommets()[1]}.`;
 					break;
 				case 5 : // triangle équilatéral sans conversion
 					while (!triangle_equilateral.isTrueTriangleLongueurs()) {
-						console.log('on retire des longueurs');
 						l1 = randint(l_min,l_max);
 						triangle_equilateral.l1 = l1;
 						triangle_equilateral.l2 = l1;
 						triangle_equilateral.l3 = l1;
 					};
-					texte = `${triangle_equilateral.nom} est un triangle tel que ${triangle_equilateral.getLongueurs()[0]} = ${triangle_equilateral.l1} cm ; `;
-					texte += `${triangle_equilateral.getLongueurs()[1]} = ${triangle_equilateral.l2} cm et ${triangle_equilateral.getLongueurs()[2]} = ${triangle_equilateral.l3} cm.`;
-					texte_corr =`Les longeurs des trois côtés du triangle ${triangle_equilateral.nom} sont égales donc c'est un triangle équilatéral.`;					
+					texte = `${triangle_equilateral.getNom()} est un triangle tel que ${triangle_equilateral.getLongueurs()[0]} $= ${triangle_equilateral.l1}$ cm ; `;
+					texte += `${triangle_equilateral.getLongueurs()[1]} $= ${triangle_equilateral.l2}$ cm et ${triangle_equilateral.getLongueurs()[2]} $= ${triangle_equilateral.l3}$ cm.`;
+					texte_corr =`Les longeurs des trois côtés du triangle ${triangle_equilateral.getNom()} sont égales donc c'est un triangle équilatéral.`;					
 					break;
 				case 6 : // triangle équilatéral avec conversion
 					while (!triangle_equilateral.isTrueTriangleLongueurs()) {
-						console.log('on retire des longueurs');
 						l1 = randint(l_min,l_max);
 						triangle_equilateral.l1 = l1;
 						triangle_equilateral.l2 = l1;
 						triangle_equilateral.l3 = l1;
 					};
-					texte = `${triangle_equilateral.nom} est un triangle tel que ${triangle_equilateral.getLongueurs()[0]} = ${triangle_equilateral.l1} cm ; `;
-					texte += `${triangle_equilateral.getLongueurs()[1]} = ${triangle_equilateral.l2*10} mm et ${triangle_equilateral.getLongueurs()[2]} = ${triangle_equilateral.l3/10} dm.`;
-					texte_corr =`${triangle_equilateral.getLongueurs()[1]} = ${triangle_equilateral.l2*10} mm = ${triangle_equilateral.l2} cm.`;
-					texte_corr +=`<br> ${triangle_equilateral.getLongueurs()[2]} = ${triangle_equilateral.l3/10} dm = ${triangle_equilateral.l3} cm.`;
-					texte_corr +=`<br> ${triangle_equilateral.getLongueurs()[0]} = ${triangle_equilateral.l1} cm.`;
-					texte_corr += `<br> Les longeurs des trois côtés du triangle ${triangle_equilateral.nom} sont égales donc c'est un triangle équilatéral.`;					
+					texte = `${triangle_equilateral.getNom()} est un triangle tel que ${triangle_equilateral.getLongueurs()[0]} $= ${triangle_equilateral.l1}$ cm ; `;
+					texte += `${triangle_equilateral.getLongueurs()[1]} $= ${triangle_equilateral.l2*10}$ mm et ${triangle_equilateral.getLongueurs()[2]} $= ${tex_nombre(triangle_equilateral.l3/10)}$ dm.`;
+					texte_corr =`${triangle_equilateral.getLongueurs()[1]} $= ${triangle_equilateral.l2*10}$ mm $= ${triangle_equilateral.l2}$ cm.`;
+					texte_corr +=`<br> ${triangle_equilateral.getLongueurs()[2]} $= ${tex_nombre(triangle_equilateral.l3/10)}$ dm $= ${triangle_equilateral.l3}$ cm.`;
+					texte_corr +=`<br> ${triangle_equilateral.getLongueurs()[0]} $= ${triangle_equilateral.l1}$ cm.`;
+					texte_corr += `<br> Les longeurs des trois côtés du triangle ${triangle_equilateral.getNom()} sont égales donc c'est un triangle équilatéral.`;					
 					break;
 				case 7 : // triangle rectangle pas de conversion necessaire
 					triangle_rectangle.l1 = randint(l_min,l_max);
 					triangle_rectangle.l2 = randint(l_min,l_max,l1);
 					triangle_rectangle.a1 = 90;
 
-					texte = `${triangle_rectangle.nom} est un triangle tel que ${triangle_rectangle.getLongueurs()[0]} = ${triangle_rectangle.l1} cm ; `;
-					texte += `${triangle_rectangle.getLongueurs()[1]} = ${triangle_rectangle.l2} cm et ${triangle_rectangle.getAngles()[0]} = ${triangle_rectangle.a1} $\\degree$.`;
-					texte_corr = `L'angle ${triangle_rectangle.getAngles()[0]} du triangle ${triangle_rectangle.nom} est un angle droit donc ${triangle_rectangle.nom} est rectangle en ${triangle_rectangle.getSommets()[1]}`;					
+					texte = `${triangle_rectangle.getNom()} est un triangle tel que ${triangle_rectangle.getLongueurs()[0]} $= ${triangle_rectangle.l1}$ cm ; `;
+					texte += `${triangle_rectangle.getLongueurs()[1]} $= ${triangle_rectangle.l2}$ cm `;
+					texte += `et `;
+					if (this.classe == 6) {
+						texte += ` qui a un angle droit en ${triangle_rectangle.getSommets()[1]}.`;
+						texte_corr = `Le triangle ${triangle_rectangle.getNom()} a un angle droit en ${triangle_rectangle.getSommets()[1]} donc ${triangle_rectangle.getNom()} est rectangle en ${triangle_rectangle.getSommets()[1]}.`;					
+					} else {
+						texte += `${triangle_rectangle.getAngles()[0]} $= ${triangle_rectangle.a1}\\degree$.`;
+						texte_corr = `L'angle ${triangle_rectangle.getAngles()[0]} du triangle ${triangle_rectangle.getNom()} est un angle droit donc ${triangle_rectangle.getNom()} est rectangle en ${triangle_rectangle.getSommets()[1]}.`;					
+					};					
+
 					break;
 				case 8 : // triangle isocèle rectangle sans conversion
 					triangle_isocele_rectangle.l1 = randint(l_min,l_max);
 					triangle_isocele_rectangle.l2 = triangle_isocele_rectangle.l1;
 					triangle_isocele_rectangle.a1 = 90;
 
-					texte = `${triangle_isocele_rectangle.nom} est un triangle tel que ${triangle_isocele_rectangle.getLongueurs()[0]} = ${triangle_isocele_rectangle.l1} cm ; `;
-					texte += `${triangle_isocele_rectangle.getLongueurs()[1]} = ${triangle_isocele_rectangle.l2} cm et ${triangle_isocele_rectangle.getAngles()[0]} = ${triangle_isocele_rectangle.a1} $\\degree$.`;
-					texte_corr = `L'angle ${triangle_isocele_rectangle.getAngles()[0]} du triangle ${triangle_isocele_rectangle.nom} est un angle droit donc ${triangle_isocele_rectangle.nom} est rectangle en ${triangle_isocele_rectangle.getSommets()[1]}`;					
-					texte_corr += `<br> ${triangle_isocele_rectangle.getLongueurs()[0]} = ${triangle_isocele_rectangle.getLongueurs()[1]} = ${triangle_isocele_rectangle.l1} cm donc ${triangle_isocele_rectangle.nom} est isocèle en ${triangle_isocele_rectangle.getSommets()[1]}`;					
-					texte_corr += `<br> Le triangle ${triangle_isocele_rectangle.nom} est donc isocèle et rectangle en ${triangle_isocele_rectangle.getSommets()[1]}`
+					texte = `${triangle_isocele_rectangle.getNom()} est un triangle tel que ${triangle_isocele_rectangle.getLongueurs()[0]}$= ${triangle_isocele_rectangle.l1}$ cm ; `;
+					texte += `${triangle_isocele_rectangle.getLongueurs()[1]} $= ${triangle_isocele_rectangle.l2}$ cm `;
+					texte += `et `;
+					if (this.classe == 6)  {
+						texte += `qui a un angle droit en ${triangle_isocele_rectangle.getSommets()[1]}.`;
+						texte_corr = `Le triangle ${triangle_isocele_rectangle.getNom()} a un angle droit en ${triangle_isocele_rectangle.getSommets()[1]} donc ${triangle_isocele_rectangle.getNom()} est rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
+						texte_corr += `<br> ${triangle_isocele_rectangle.getLongueurs()[0]} $=$ ${triangle_isocele_rectangle.getLongueurs()[1]} $= ${triangle_isocele_rectangle.l1}$ cm donc ${triangle_isocele_rectangle.getNom()} est isocèle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
+						texte_corr += `<br> Le triangle ${triangle_isocele_rectangle.getNom()} est donc isocèle et rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`	
+					} else {
+						texte += `${triangle_isocele_rectangle.getAngles()[0]} $= ${triangle_isocele_rectangle.a1}\\degree$.`;
+						texte_corr = `L'angle ${triangle_isocele_rectangle.getAngles()[0]} du triangle ${triangle_isocele_rectangle.getNom()} est un angle droit donc ${triangle_isocele_rectangle.getNom()} est rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
+						texte_corr += `<br> ${triangle_isocele_rectangle.getLongueurs()[0]} $=$ ${triangle_isocele_rectangle.getLongueurs()[1]} $= ${triangle_isocele_rectangle.l1}$ cm donc ${triangle_isocele_rectangle.getNom()} est isocèle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
+						texte_corr += `<br> Le triangle ${triangle_isocele_rectangle.getNom()} est donc isocèle et rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`	
+					};					
 					break;
 				case 9 : // triangle isocèle rectangle avec conversion
 					triangle_isocele_rectangle.l1 = randint(l_min,l_max);
 					triangle_isocele_rectangle.l2 = triangle_isocele_rectangle.l1;
 					triangle_isocele_rectangle.a1 = 90;
 
-					texte = `${triangle_isocele_rectangle.nom} est un triangle tel que ${triangle_isocele_rectangle.getLongueurs()[0]} = ${triangle_isocele_rectangle.l1*10} mm ; `;
-					texte += `${triangle_isocele_rectangle.getLongueurs()[1]} = ${triangle_isocele_rectangle.l2} cm et ${triangle_isocele_rectangle.getAngles()[0]} = ${triangle_isocele_rectangle.a1} $\\degree$.`;
-					texte_corr = `L'angle ${triangle_isocele_rectangle.getAngles()[0]} du triangle ${triangle_isocele_rectangle.nom} est un angle droit donc ${triangle_isocele_rectangle.nom} est rectangle en ${triangle_isocele_rectangle.getSommets()[1]}`;					
-					texte_corr += `<br> ${triangle_isocele_rectangle.getLongueurs()[0]} = ${triangle_isocele_rectangle.l1*10} mm = ${triangle_isocele_rectangle.l1} cm =${triangle_isocele_rectangle.getLongueurs()[1]} donc ${triangle_isocele_rectangle.nom} est isocèle en ${triangle_isocele_rectangle.getSommets()[1]}`;					
-					texte_corr += `<br> Le triangle ${triangle_isocele_rectangle.nom} est donc isocèle et rectangle en ${triangle_isocele_rectangle.getSommets()[1]}`
+					texte = `${triangle_isocele_rectangle.getNom()} est un triangle tel que ${triangle_isocele_rectangle.getLongueurs()[0]} $= ${triangle_isocele_rectangle.l1*10}$ mm ; `;
+					texte += `${triangle_isocele_rectangle.getLongueurs()[1]} $= ${triangle_isocele_rectangle.l2}$ cm`;
+					texte += ` et `;
+					if (this.classe == 6) {
+						texte += `qui a un angle droit en ${triangle_isocele_rectangle.getSommets()[1]}.`;
+						texte_corr = `Le triangle ${triangle_isocele_rectangle.getNom()} a un angle droit en ${triangle_isocele_rectangle.getSommets()[1]} donc ${triangle_isocele_rectangle.getNom()} est rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
+						texte_corr += `<br> ${triangle_isocele_rectangle.getLongueurs()[0]} $= ${triangle_isocele_rectangle.l1*10}$ mm $= ${triangle_isocele_rectangle.l1}$ cm =${triangle_isocele_rectangle.getLongueurs()[1]} donc ${triangle_isocele_rectangle.getNom()} est isocèle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
+						texte_corr += `<br> Le triangle ${triangle_isocele_rectangle.getNom()} est donc isocèle et rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`;
+					} else {
+						texte += `${triangle_isocele_rectangle.getAngles()[0]} $= ${triangle_isocele_rectangle.a1}\\degree$.`;
+						texte_corr = `L'angle ${triangle_isocele_rectangle.getAngles()[0]} du triangle ${triangle_isocele_rectangle.getNom()} est un angle droit donc ${triangle_isocele_rectangle.getNom()} est rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
+						texte_corr += `<br> ${triangle_isocele_rectangle.getLongueurs()[0]} $= ${triangle_isocele_rectangle.l1*10}$ mm $= ${triangle_isocele_rectangle.l1}$ cm =${triangle_isocele_rectangle.getLongueurs()[1]} donc ${triangle_isocele_rectangle.getNom()} est isocèle en ${triangle_isocele_rectangle.getSommets()[1]}.`;					
+						texte_corr += `<br> Le triangle ${triangle_isocele_rectangle.getNom()} est donc isocèle et rectangle en ${triangle_isocele_rectangle.getSommets()[1]}.`;
+					};
 					break;
 				case 10 : // triangle isocèle par les angles
 					a3 =-1;
@@ -7213,18 +7293,18 @@ function Vocabulaire_des_triangles(){
 						a3 = 180 - 2*triangle_isocele.a1;
 						triangle_isocele.a3 = a3;
 					};
-					texte = `${triangle_isocele.nom} est un triangle tel que ${triangle_isocele.getAngles()[0]} = ${triangle_isocele.a1} $\\degree$ ; `;
-					texte += ` ${triangle_isocele.getAngles()[1]} = ${triangle_isocele.a2} $\\degree$ et  ${triangle_isocele.getAngles()[2]} = ${triangle_isocele.a3} $\\degree$ .`;
-					texte_corr = `Le triangle ${triangle_isocele.nom} a deux angles égaux, ${triangle_isocele.getAngles()[0]} = ${triangle_isocele.getAngles()[1]} = ${triangle_isocele.a1} $\\degree$ donc ${triangle_isocele.nom} est un triangle isocèle en ${triangle_isocele.getSommets()[0]}.`;		
+					texte = `${triangle_isocele.getNom()} est un triangle tel que ${triangle_isocele.getAngles()[0]} $= ${triangle_isocele.a1}\\degree$ ; `;
+					texte += ` ${triangle_isocele.getAngles()[1]} $= ${triangle_isocele.a2}\\degree$ et  ${triangle_isocele.getAngles()[2]} $= ${triangle_isocele.a3}\\degree$ .`;
+					texte_corr = `Le triangle ${triangle_isocele.getNom()} a deux angles égaux, ${triangle_isocele.getAngles()[0]} = ${triangle_isocele.getAngles()[1]} $= ${triangle_isocele.a1}\\degree$ donc ${triangle_isocele.getNom()} est un triangle isocèle en ${triangle_isocele.getSommets()[0]}.`;		
 					break;					
 				case 11 : // triangle équilatéral par les angles
 					triangle_equilateral.a1 = 60;
 					triangle_equilateral.a2 = 60;
 					triangle_equilateral.a3 = 60;
 
-					texte = `${triangle_equilateral.nom} est un triangle tel que ${triangle_equilateral.getAngles()[0]} = ${triangle_equilateral.a1} $\\degree$ ; `;
-					texte += ` ${triangle_equilateral.getAngles()[1]} = ${triangle_equilateral.a2} $\\degree$ et  ${triangle_equilateral.getAngles()[2]} = ${triangle_equilateral.a3} $\\degree$ .`;
-					texte_corr = `Le triangle ${triangle_equilateral.nom} a trois angles égaux, ${triangle_equilateral.getAngles()[0]} = ${triangle_equilateral.getAngles()[1]} = ${triangle_equilateral.getAngles()[2]} = ${triangle_equilateral.a1} $\\degree$ donc ${triangle_equilateral.nom} est un triangle équilateral.`;		
+					texte = `${triangle_equilateral.getNom()} est un triangle tel que ${triangle_equilateral.getAngles()[0]} $= ${triangle_equilateral.a1}\\degree$ ; `;
+					texte += ` ${triangle_equilateral.getAngles()[1]} $= ${triangle_equilateral.a2}\\degree$ et  ${triangle_equilateral.getAngles()[2]} $= ${triangle_equilateral.a3}\\degree$.`;
+					texte_corr = `Le triangle ${triangle_equilateral.getNom()} a trois angles égaux, ${triangle_equilateral.getAngles()[0]} = ${triangle_equilateral.getAngles()[1]} = ${triangle_equilateral.getAngles()[2]} $= ${triangle_equilateral.a1}\\degree$ donc ${triangle_equilateral.getNom()} est un triangle équilateral.`;		
 					break;					
 
 			}
@@ -7237,16 +7317,29 @@ function Vocabulaire_des_triangles(){
 		}
 	liste_de_question_to_contenu(this);
 	}
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : pas de conversion\n2 : avec conversion"];
+
+	if (this.classe == 6) {
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : sans conversions de longueurs\n2 : avec conversions de longueurs"];
+	};
 }
 
 /**
  * Vocabulaire des triangles 
- * 6G20 
+ * 6G20
+ * @author Sébastien Lozano
  */
 function Vocabulaire_des_triangles_6e(){
-	this.sup = 1;
-	this.classe = 4;//remettre à this.classe = 6; une fois l'ensemble fait et créer un exo pour 4e/3e
+	this.classe = 6;
+	Vocabulaire_des_triangles.call(this);
+};
+
+/**
+ * Vocabulaire des triangles 
+ * 5G20-1
+ * @author Sébastien Lozano
+ */
+function Vocabulaire_des_triangles_5e(){
+	this.classe = 5;
 	Vocabulaire_des_triangles.call(this);
 };
 
