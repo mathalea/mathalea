@@ -6296,12 +6296,12 @@ function Evolutions_en_pourcentage() {
 							texte = `Un ${etablissement} avait $${tex_nombre(depart)}$ élèves en ${anneeDerniere}. Depuis, le nombre d'élèves a augmenté de $${taux}~\\%$. Calculer le nombre d'élèves dans ce ${etablissement} cette année.`
 							texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\%=${100+taux}~\\%$.`
 							texte_corr += `<br>$${tex_nombre(depart)}\\times ${100+taux}~\\% = ${tex_nombre(arrive)}$`
-							texte_corr += `<br>Il y a maintenant ${tex_nombre(arrive)} élèves dans ce ${etablissement}.`
+							texte_corr += `<br>Il y a maintenant ${string_nombre(arrive)} élèves dans ce ${etablissement}.`
 						} else {
 							texte = `Un ${etablissement} avait $${tex_nombre(depart)}$ élèves en ${anneeDerniere}. Depuis, le nombre d'élèves a diminué de $${abs(taux)}~\\%$. Calculer le nombre d'élèves dans ce ${etablissement} cette année.`
 							texte_corr = `Une diminution de $${taux}~\\%$ revient à multiplier par $100~\\% ${taux}~\\%=${100+taux}~\\%$.`
 							texte_corr += `<br>$${tex_nombre(depart)}\\times ${100+taux}~\\% = ${tex_nombre(arrive)}$`
-							texte_corr += `<br>Il y a maintenant ${tex_nombre(arrive)} élèves dans ce ${etablissement}.`
+							texte_corr += `<br>Il y a maintenant ${string_nombre(arrive)} élèves dans ce ${etablissement}.`
 						}
 						break;
 						case 'initiale' :
