@@ -161,6 +161,7 @@ var liste_des_exercices_disponibles = {
 		'3L14' : Resoudre_une_equation_produit_nul,
 		'3L14-1' : Resoudre_une_equation_produit_nul_niv2,
 		'3L15' : Resoudre_une_equation_x2_egal_A,
+		'3P10' : Evolutions_en_pourcentage,
 		'3G10-1' : Transformations_du_plan_et_coordonnees,
 		'3G10-2' : Transformations_3e,
 		'3G12' : Pavages_et_rotation,

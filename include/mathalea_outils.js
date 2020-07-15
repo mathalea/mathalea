@@ -1582,7 +1582,7 @@ function tex_prix(nb){
 	if (nombre==nombre.toFixed(0)){
 		result = nombre
 	} else {
-		result = nombre.toFixed(2).toString().replace('.',',');
+		result = nombre.toFixed(2).toString().replace('.',','); //Ne gère pas l'espace des milliers
 	}
 	return result;
 	
