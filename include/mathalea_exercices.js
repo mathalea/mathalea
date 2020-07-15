@@ -6895,6 +6895,7 @@ function Vocabulaire_des_triangles(){
 	this.titre = "Vocabulaire des triangles";	
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
+	this.nb_questions_modifiable = false;
 
 
 	this.liste_packages = `bclogo`;
