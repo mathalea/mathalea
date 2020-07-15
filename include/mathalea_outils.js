@@ -3844,7 +3844,7 @@ function decomp_fact_prem_array(n) {
  * Classe Triangles 
  * @author Sébastien Lozano
  */
-function Triangles(nom,l1,l2,l3,a1,a2,a3) {
+function Triangles(l1,l2,l3,a1,a2,a3) {
 	'use strict';
 	var self = this;
 

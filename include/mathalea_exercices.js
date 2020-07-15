@@ -6895,6 +6895,7 @@ function Vocabulaire_des_triangles(){
 	this.titre = "Vocabulaire des triangles";	
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
+	this.nb_questions_modifiable = false;
 
 
 	this.liste_packages = `bclogo`;
@@ -6906,10 +6907,12 @@ function Vocabulaire_des_triangles(){
 			if (this.sup == 1) {
 				this.nb_questions = 4;
 			} else {
-				this.nb_questions = 9;
+				//this.nb_questions = 9;
+				this.nb_questions = 5;
 			}	
 		} else if (this.classe == 5) {			
-			this.nb_questions = 11;
+			//this.nb_questions = 11;
+			this.nb_questions = 5;
 		};
 
 		let texte_intro = ``;
@@ -6930,7 +6933,21 @@ function Vocabulaire_des_triangles(){
 				texte_intro += `- Un <b>triangle équilatéral</b> est un triangle qui a trois côtés ou trois angles de même mesure.`;
 				texte_intro += `<br>`;
 				texte_intro += `- Un <b>triangle rectangle</b> est un triangle qui a un angle droit.`;
-			};			
+			};	
+			// this.introduction = lampe_message({
+			// 	titre : `Quelques définitions`,
+			// 	texte : texte_intro,
+			// 	couleur : `nombres`
+			// });
+
+			this.bouton_aide = modal_texte_long(
+				numero_de_l_exercice,
+				`<i class="lightbulb outline icon"></i> Quelques définitions`,
+				texte_intro,
+				"Aide",
+				"info circle"
+			);
+
 		} else {
 			if (this.classe == 6) {
 				texte_intro = tex_enumerate_sans_numero([
@@ -6949,22 +6966,26 @@ function Vocabulaire_des_triangles(){
 					],1
 				);
 			}
+
+			this.introduction = lampe_message({
+				titre : `Quelques définitions`,
+				texte : texte_intro,
+				couleur : `nombres`
+			});
 		};
 
-		this.introduction = lampe_message({
-			titre : `Quelques définitions`,
-			texte : texte_intro,
-			couleur : `nombres`
-		});
+
 
 		if (this.classe == 6) {
 			if (this.sup == 1) {
 				type_de_questions_disponibles = [1,3,5,7]; //6e facile isocèle, équilatéral et rectangle.
 			} else if (this.sup == 2) {
-				type_de_questions_disponibles = [1,3,4,5,6,7,8,9]; //6e tout sauf par les angles
+				//type_de_questions_disponibles = [1,3,4,5,6,7,8,9]; //6e tout sauf par les angles
+				type_de_questions_disponibles = [1,4,6,8,9]; //6e les autres cas sauf par les angles
 			};
 		} else if (this.classe==5) {
-			type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9,10,11]; // 5e : on ajoute la caractéisation par les angles
+			// type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9,10,11]; // 5e : on ajoute la caractéisation par les angles
+			type_de_questions_disponibles = [choice([1,2]),choice([3,4,10]),choice([5,6,11]),7,choice([8,9])]; // 5e : tout sauf les basiques de 6e, on ajoute la caractéisation par les angles
 		};
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		//let liste_type_de_questions = type_de_questions_disponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
@@ -7157,7 +7178,7 @@ function Vocabulaire_des_triangles(){
 	}
 
 	if (this.classe == 6) {
-	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : mise en route\n2 : complète avec conversion"];
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : sans conversions de longueurs\n2 : avec conversions de longueurs"];
 	};
 }
 
