@@ -6930,7 +6930,21 @@ function Vocabulaire_des_triangles(){
 				texte_intro += `- Un <b>triangle équilatéral</b> est un triangle qui a trois côtés ou trois angles de même mesure.`;
 				texte_intro += `<br>`;
 				texte_intro += `- Un <b>triangle rectangle</b> est un triangle qui a un angle droit.`;
-			};			
+			};	
+			// this.introduction = lampe_message({
+			// 	titre : `Quelques définitions`,
+			// 	texte : texte_intro,
+			// 	couleur : `nombres`
+			// });
+
+			this.bouton_aide = modal_texte_long(
+				numero_de_l_exercice,
+				`<i class="lightbulb outline icon"></i> Quelques définitions`,
+				texte_intro,
+				"Aide",
+				"info circle"
+			);
+
 		} else {
 			if (this.classe == 6) {
 				texte_intro = tex_enumerate_sans_numero([
@@ -6949,13 +6963,15 @@ function Vocabulaire_des_triangles(){
 					],1
 				);
 			}
+
+			this.introduction = lampe_message({
+				titre : `Quelques définitions`,
+				texte : texte_intro,
+				couleur : `nombres`
+			});
 		};
 
-		this.introduction = lampe_message({
-			titre : `Quelques définitions`,
-			texte : texte_intro,
-			couleur : `nombres`
-		});
+
 
 		if (this.classe == 6) {
 			if (this.sup == 1) {
@@ -7157,7 +7173,7 @@ function Vocabulaire_des_triangles(){
 	}
 
 	if (this.classe == 6) {
-	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : mise en route\n2 : complète avec conversion"];
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : sans conversions de longueurs\n2 : avec conversions de longueurs"];
 	};
 }
 
