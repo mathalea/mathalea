@@ -6906,10 +6906,12 @@ function Vocabulaire_des_triangles(){
 			if (this.sup == 1) {
 				this.nb_questions = 4;
 			} else {
-				this.nb_questions = 9;
+				//this.nb_questions = 9;
+				this.nb_questions = 5;
 			}	
 		} else if (this.classe == 5) {			
-			this.nb_questions = 11;
+			//this.nb_questions = 11;
+			this.nb_questions = 7;
 		};
 
 		let texte_intro = ``;
@@ -6977,10 +6979,12 @@ function Vocabulaire_des_triangles(){
 			if (this.sup == 1) {
 				type_de_questions_disponibles = [1,3,5,7]; //6e facile isocèle, équilatéral et rectangle.
 			} else if (this.sup == 2) {
-				type_de_questions_disponibles = [1,3,4,5,6,7,8,9]; //6e tout sauf par les angles
+				//type_de_questions_disponibles = [1,3,4,5,6,7,8,9]; //6e tout sauf par les angles
+				type_de_questions_disponibles = [1,4,6,8,9]; //6e les autres cas sauf par les angles
 			};
 		} else if (this.classe==5) {
-			type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9,10,11]; // 5e : on ajoute la caractéisation par les angles
+			// type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9,10,11]; // 5e : on ajoute la caractéisation par les angles
+			type_de_questions_disponibles = [1,2,4,6,9,10,11]; // 5e : tout sauf les basiques de 6e, on ajoute la caractéisation par les angles
 		};
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		//let liste_type_de_questions = type_de_questions_disponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
