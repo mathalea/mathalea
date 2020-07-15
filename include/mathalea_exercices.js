@@ -6911,7 +6911,7 @@ function Vocabulaire_des_triangles(){
 			}	
 		} else if (this.classe == 5) {			
 			//this.nb_questions = 11;
-			this.nb_questions = 7;
+			this.nb_questions = 5;
 		};
 
 		let texte_intro = ``;
@@ -6984,7 +6984,7 @@ function Vocabulaire_des_triangles(){
 			};
 		} else if (this.classe==5) {
 			// type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9,10,11]; // 5e : on ajoute la caractéisation par les angles
-			type_de_questions_disponibles = [1,2,4,6,9,10,11]; // 5e : tout sauf les basiques de 6e, on ajoute la caractéisation par les angles
+			type_de_questions_disponibles = [choice([1,2]),choice([3,4,10]),choice([5,6,11]),7,choice([8,9])]; // 5e : tout sauf les basiques de 6e, on ajoute la caractéisation par les angles
 		};
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		//let liste_type_de_questions = type_de_questions_disponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
