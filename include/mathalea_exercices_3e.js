@@ -6345,3 +6345,49 @@ function Evolutions_en_pourcentage() {
 	}
 	this.besoin_formulaire_numerique = ['Niveau de difficulté', 4, '1 : Déterminer le résultat après une variation en pourcentage\n2 : Exprimer une variation en pourcentage\n3 : Calculer la valeur initiale en connaissant la variation et la situation finale\n4 : Mélange des 3 types de problèmes'];
 }
+
+
+/**
+* Déterminer le coefficient de proportionnalité associé à une évolution en pourcentage
+*
+* 
+* @Auteur Rémi Angot
+*/
+function Coefficient_evolution() {
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Coefficient multiplicateur d'une variation en pourcentage";
+	this.consigne = "Compléter";
+	this.nb_questions = 4;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+
+	this.nouvelle_version = function (numero_de_l_exercice) {
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		let type_de_questions_disponibles = ['+','-'];
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		for (let i = 0, texte, texte_corr, taux, coeff, cpt = 0; i < this.nb_questions && cpt < 50;) {
+			taux = choice([randint(1,9)*10,randint(1,9)]);
+			switch (liste_type_de_questions[i]){
+				case '+' :
+				texte = `Augmenter de ${taux} % revient à multiplier par...`;
+				coeff = tex_prix(calcul(1+taux/100));
+				texte_corr = `Augmenter de ${taux} % revient à multiplier par ${coeff} car $100~\\% + ${taux}~\\% = ${100+taux}~\\%$.`;
+				break;
+				case '-' :
+				texte = `Diminuer de ${taux} % revient à multiplier par...`;
+				coeff = tex_prix(calcul(1-taux/100));
+				texte_corr = `Diminuer de ${taux} % revient à multiplier par ${coeff} car $100~\\% - ${taux}~\\% = ${100-taux}~\\%$.`;
+				break;
+			}
+			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;
+		}
+		liste_de_question_to_contenu(this);
+	}
+}
