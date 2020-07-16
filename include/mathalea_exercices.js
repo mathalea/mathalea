@@ -2157,7 +2157,6 @@ function Trouver_solution_mathador(min,max) {
 			part1_d=expression_en_cours_d.pop();
 
 			op=operations_restantes.pop();
-console.log(part1_f,op,part2_f,part1_d,op,part2_d)
 			if (op=='\\times'){
 				c=a*b;
 				expression_en_cours_f.push(`${part1_f}${op}${part2_f}`);
@@ -2210,7 +2209,6 @@ console.log(part1_f,op,part2_f,part1_d,op,part2_d)
 
 		if (nombres_restants.length==1&&operations_restantes.length==0)	{
 			solution=nombres_restants[0];
-			console.log(expression_en_cours_f[0],expression_en_cours_d[0])
 			if (solution>=min&solution<=max) {
 				eureka=true;
 				if (expression_en_cours_f[0][0]=='\\'&&expression_en_cours_f[0][1]==`l`){
@@ -2221,7 +2219,6 @@ console.log(part1_f,op,part2_f,part1_d,op,part2_d)
 					expression_en_cours_d[0]=expression_en_cours_d[0].substring(6,expression_en_cours_d[0].length)
 					expression_en_cours_d[0]=expression_en_cours_d[0].substring(0,expression_en_cours_d[0].length-7)
 					}
-				console.log(expression_en_cours_f[0],expression_en_cours_d[0])
 				return [tirage,solution,operations_successives,expression_en_cours_f,expression_en_cours_d]
 				}
 			else operations_successives=[]		
