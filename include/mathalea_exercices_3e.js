@@ -6218,50 +6218,51 @@ function Evolutions_en_pourcentage() {
 		let type_de_situations_disponibles = ['prix','etablissement'];
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let liste_type_de_situations = combinaison_listes(type_de_situations_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		for (let i = 0, texte, texte_corr, depart, arrive, taux, cpt = 0; i < this.nb_questions && cpt < 50;) {
+		for (let i = 0, texte, texte_corr, depart, arrive, taux, coeff, cpt = 0; i < this.nb_questions && cpt < 50;) {
 
 			switch (liste_type_de_situations[i]) {
 				case 'prix':
 					depart = choice([calcul(randint(11,99)/10),randint(11,99),randint(11,99)*10]);
 					taux = choice([10,20,30,40,60]);
 					taux *= choice([-1,1]);
+					coeff = tex_nombrec(1+taux/100)
 					arrive = calcul(depart*(1+taux/100));
 					switch (liste_type_de_questions[i]){
 						case 'finale' :
 						if (taux>0) {
 							texte = `Un article coûtait $${tex_prix(depart)}$ € et son prix a augmenté de $${taux}~\\%$. Calculer son nouveau prix.`
-							texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\%=${100+taux}~\\%$.`
-							texte_corr += `<br>$${tex_prix(depart)}\\times ${100+taux}~\\% = ${tex_prix(arrive)}$`
+							texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.`
+							texte_corr += `<br>$${tex_prix(depart)}\\times ${coeff} = ${tex_prix(arrive)}$`
 							texte_corr += `<br>Le nouveau prix de cet article est ${tex_prix(arrive)} €.`
 						} else {
 							texte = `Un article coûtait $${tex_prix(depart)}$ € et son prix est soldé à $${taux}~\\%$. Calculer son nouveau prix.`
-							texte_corr = `Une diminution de $${taux}~\\%$ revient à multiplier par $100~\\% ${taux}~\\%=${100+taux}~\\%$.`
-							texte_corr += `<br>$${tex_prix(depart)}\\times ${100+taux}~\\% = ${tex_prix(arrive)}$`
+							texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.`
+							texte_corr += `<br>$${tex_prix(depart)}\\times ${coeff} = ${tex_prix(arrive)}$`
 							texte_corr += `<br>Le nouveau prix de cet article est ${tex_prix(arrive)} €.`
 						}
 						break;
 						case 'initiale' :
 						if (taux>0) {
-							texte = `Après une augmentation de  $${taux}~\\%$ un article coûte maintenant $${tex_prix(arrive)}$ €. Calculer son prix avant l'augmentation.`
-							texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\%=${100+taux}~\\%$. Pour retrouver le prix initial, on va donc diviser le prix final par $${100+taux}~\\%$.`
-							texte_corr += `<br>$${tex_prix(arrive)}\\div ${100+taux}~\\% = ${tex_prix(depart)}$`
+							texte = `Après une augmentation de $${taux}~\\%$ un article coûte maintenant $${tex_prix(arrive)}$ €. Calculer son prix avant l'augmentation.`
+							texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\%=${100+taux}~\\% = ${coeff}$.<br>Pour retrouver le prix initial, on va donc diviser le prix final par ${coeff}.`
+							texte_corr += `<br>$${tex_prix(arrive)}\\div ${coeff} = ${tex_prix(depart)}$`
 							texte_corr += `<br>Avant l'augmentation cet article coûtait ${tex_prix(depart)} €.`
 						} else {
 							texte = `Soldé à $${taux}~\\%$ un article coûte maintenant $${tex_prix(arrive)}$ €. Calculer son prix avant les soldes.`
-							texte_corr = `Une diminution de $${taux}~\\%$ revient à multiplier par $100~\\% ${taux}~\\%=${100+taux}~\\%$. Pour retrouver le prix initial, on va donc diviser le prix final par $${100+taux}~\\%$.`
-							texte_corr += `<br>$${tex_prix(arrive)}\\div ${100+taux}~\\% = ${tex_prix(depart)}$`
+							texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.<br>Pour retrouver le prix initial, on va donc diviser le prix final par ${coeff}.`
+							texte_corr += `<br>$${tex_prix(arrive)}\\div ${coeff} = ${tex_prix(depart)}$`
 							texte_corr += `<br>Avant les soldes cet article coûtait ${tex_prix(depart)} €.`
 						}
 						break;
 						case 'evolution' :
 						if (taux>0) {
 							texte = `Un article qui coûtait $${tex_prix(depart)}$ € coûte maintenant $${tex_prix(arrive)}$ €. Exprimer l'augmentation du prix en pourcentage.`
-							texte_corr = `$${tex_prix(arrive)}\\div ${tex_prix(depart)} = ${tex_nombrec((100+taux)/100)} =  ${100+taux}~\\% = 100~\\%+${taux}~\\%$`
-							texte_corr += `<br>Le prix a été multiplié par $100~\\%+${taux}~\\%$, il a donc augmenté de $${taux}~\\%$.`
+							texte_corr = `$${tex_prix(arrive)}\\div ${tex_prix(depart)} = ${coeff} =  ${100+taux}~\\% = 100~\\%+${taux}~\\%$`
+							texte_corr += `<br>Le prix a été multiplié par ${coeff}, il a donc augmenté de $${taux}~\\%$.`
 						} else {
 							texte = `Un article qui coûtait $${tex_prix(depart)}$ € coûte maintenant $${tex_prix(arrive)}$ €. Exprimer la réduction du prix en pourcentage.`
-							texte_corr = `$${tex_prix(arrive)}\\div ${tex_prix(depart)} = ${tex_nombrec((100+taux)/100)} =  ${100+taux}~\\% = 100~\\%${taux}~\\%$`
-							texte_corr += `<br>Le prix a été multiplié par $100~\\%${taux}~\\%$, il a donc diminué de $${abs(taux)}~\\%$.`
+							texte_corr = `$${tex_prix(arrive)}\\div ${tex_prix(depart)} = ${coeff} =  ${100+taux}~\\% = 100~\\%${taux}~\\%$`
+							texte_corr += `<br>Le prix a été multiplié par ${coeff}, il a donc diminué de $${abs(taux)}~\\%$.`
 						}
 						break;
 					}
@@ -6286,6 +6287,7 @@ function Evolutions_en_pourcentage() {
 						break;
 					}
 					arrive = calcul(depart*(1+taux/100));
+					coeff = tex_nombrec(1+taux/100)
 					let date = new Date()
 					let cetteAnnee = date.getFullYear();
 					let anneeDerniere = cetteAnnee-1;
@@ -6294,38 +6296,38 @@ function Evolutions_en_pourcentage() {
 						case 'finale' :
 						if (taux>0) {
 							texte = `Un ${etablissement} avait $${tex_nombre(depart)}$ élèves en ${anneeDerniere}. Depuis, le nombre d'élèves a augmenté de $${taux}~\\%$. Calculer le nombre d'élèves dans ce ${etablissement} cette année.`
-							texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\%=${100+taux}~\\%$.`
-							texte_corr += `<br>$${tex_nombre(depart)}\\times ${100+taux}~\\% = ${tex_nombre(arrive)}$`
+							texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.`
+							texte_corr += `<br>$${tex_nombre(depart)}\\times ${coeff} = ${tex_nombre(arrive)}$`
 							texte_corr += `<br>Il y a maintenant ${string_nombre(arrive)} élèves dans ce ${etablissement}.`
 						} else {
 							texte = `Un ${etablissement} avait $${tex_nombre(depart)}$ élèves en ${anneeDerniere}. Depuis, le nombre d'élèves a diminué de $${abs(taux)}~\\%$. Calculer le nombre d'élèves dans ce ${etablissement} cette année.`
-							texte_corr = `Une diminution de $${taux}~\\%$ revient à multiplier par $100~\\% ${taux}~\\%=${100+taux}~\\%$.`
-							texte_corr += `<br>$${tex_nombre(depart)}\\times ${100+taux}~\\% = ${tex_nombre(arrive)}$`
+							texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.`
+							texte_corr += `<br>$${tex_nombre(depart)}\\times ${coeff} = ${tex_nombre(arrive)}$`
 							texte_corr += `<br>Il y a maintenant ${string_nombre(arrive)} élèves dans ce ${etablissement}.`
 						}
 						break;
 						case 'initiale' :
 						if (taux>0) {
 							texte = `Depuis ${anneeDerniere} le nombre d'élèves d'un ${etablissement} a augmenté de $${taux}~\\%$. Il y a maintenant $${tex_nombre(arrive)}$ élèves. Calculer le nombre d'élèves en ${anneeDerniere} dans cet établissement.`
-							texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\%=${100+taux}~\\%$. Pour retrouver le nombre initial d'élèves, on va donc diviser le nombre actuel d'élèves par $${100+taux}~\\%$.`
-							texte_corr += `<br>$${tex_nombre(arrive)}\\div ${100+taux}~\\% = ${tex_nombre(depart)}$`
+							texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.<br>Pour retrouver le nombre initial d'élèves, on va donc diviser le nombre actuel d'élèves par ${coeff}.`
+							texte_corr += `<br>$${tex_nombre(arrive)}\\div ${coeff} = ${tex_nombre(depart)}$`
 							texte_corr += `<br>En ${anneeDerniere}, il y avait ${string_nombre(depart)} élèves dans ce ${etablissement}.`
 						} else {
 							texte = `Depuis ${anneeDerniere} le nombre d'élèves d'un ${etablissement} a diminué de $${taux}~\\%$. Il y a maintenant $${tex_nombre(arrive)}$ élèves. Calculer le nombre d'élèves en ${anneeDerniere} dans cet établissement.`
-							texte_corr = `Une diminution de $${taux}~\\%$ revient à multiplier par $100~\\% ${taux}~\\%=${100+taux}~\\%$. Pour retrouver le nombre initial d'élèves, on va donc diviser le nombre actuel d'élèves par $${100+taux}~\\%$.`
-							texte_corr += `<br>$${tex_nombre(arrive)}\\div ${100+taux}~\\% = ${tex_nombre(depart)}$`
+							texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.<br>Pour retrouver le nombre initial d'élèves, on va donc diviser le nombre actuel d'élèves par ${coeff}.`
+							texte_corr += `<br>$${tex_nombre(arrive)}\\div ${coeff} = ${tex_nombre(depart)}$`
 							texte_corr += `<br>En ${anneeDerniere}, il y avait ${string_nombre(depart)} élèves dans ce ${etablissement}.`
 						}
 						break;
 						case 'evolution' :
 						texte = `En ${anneeDerniere}, il y avait $${tex_nombre(depart)}$ élèves dans un ${etablissement}. En ${cetteAnnee}, ils sont $${tex_nombre(arrive)}$. Exprimer la variation du nombre d'élèves de cet établissement en pourcentage.`
 						if (taux>0) {
-							texte_corr = `$${tex_nombre(arrive)}\\div ${tex_nombre(depart)} = ${tex_nombrec((100+taux)/100)} =  ${100+taux}~\\% = 100~\\%+${taux}~\\%$`
-							texte_corr += `<br>Le nombre d'élèves a été multiplié par $100~\\%+${taux}~\\%$, il a donc augmenté de $${taux}~\\%$.`
+							texte_corr = `$${tex_nombre(arrive)}\\div ${tex_nombre(depart)} = ${coeff} =  ${100+taux}~\\% = 100~\\%+${taux}~\\%$`
+							texte_corr += `<br>Le nombre d'élèves a été multiplié par ${coeff}, il a donc augmenté de $${taux}~\\%$.`
 						} else {
 							texte = `Un article qui coûtait $${tex_nombre(depart)}$ € coûte maintenant $${tex_nombre(arrive)}$ €. Exprimer la réduction du prix en pourcentage.`
-							texte_corr = `$${tex_nombre(arrive)}\\div ${tex_prix(depart)} = ${tex_nombrec((100+taux)/100)} =  ${100+taux}~\\% = 100~\\%${taux}~\\%$`
-							texte_corr += `<br>Le nombre d'élèves a été multiplié par $100~\\%${taux}~\\%$, il a donc diminué de $${abs(taux)}~\\%$.`
+							texte_corr = `$${tex_nombre(arrive)}\\div ${tex_prix(depart)} = ${coeff} =  ${100+taux}~\\% = 100~\\%${taux}~\\%$`
+							texte_corr += `<br>Le nombre d'élèves a été multiplié par ${coeff}, il a donc diminué de $${abs(taux)}~\\%$.`
 						}
 						break;
 					}
