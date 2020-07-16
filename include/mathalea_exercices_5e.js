@@ -3833,19 +3833,166 @@ function Ecrire_une_expression_numerique(){
 	this.nb_questions = 4;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
+	this.sup2=false; // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = range1(1)
-		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-
+		let type_de_questions_disponibles = range1(5)
+		let a,b,c,d,e,f,expf1,expn1,decimal=1
 		let expression,calculs_successifs,tirage,cible,solution_mathador,quidam
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		if (this.sup2) decimal=10;
+
+
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
-	
+			a=randint(2*decimal,10*decimal)/decimal
+			b=randint(2*decimal,10*decimal,[a*decimal])/decimal
+			c=randint(2*decimal,10*decimal)/decimal
+			d=randint(2*decimal,10*decimal,[c*decimal])/decimal
+			e=randint(2*decimal,10*decimal)/decimal
+			f=randint(2*decimal,10*decimal,[e*decimal])/decimal
+
 			switch (liste_type_de_questions[i]){
-				case 1 : // traduire un calcul mathador
+				case 1 : // expressions de base (1 opération)
+					switch (randint(0,3)) {
+						case 0 : //somme de deux nombres
+							expf1=`La somme de ${a} et ${b}.`
+							expn1=`$${a}+${b}$`
+							break
+						case 1 : // différence de deux nombres
+							expf1=`La différence de ${a+b} et ${b}.`
+							expn1=`$${a+b}-${b}$`
+							break
+						case 2 : // produit de deux nombres
+							expf1=`Le produit de ${a} par ${b}.`
+							expn1=`$${a}\\times${b}$`
+							break
+						case 3 : // différence de deux nombres
+							expf1=`Le quotient de ${a} par ${b}.`
+							expn1=`$${a}\\div${b}$`
+							break
+					}
+				case 2 : // expressions de niveau 1 (2 opérations)
+					switch (randint(0,5)) {
+						case 0 : //a(b+c)
+							expf1=`Le produit de ${a} par la somme de ${b} et ${c}`
+							expn1=`$${a}(${b}+${c})$`
+							break
+						case 1 : // a(b-c)
+							expf1=`Le produit de ${a} par la différence de ${b+c} et ${c}`
+							expn1=`$${a}(${b+c}-${c})$`
+							break
+						case 2 : // a/(b+c)
+							expf1=`Le quotient de ${a} par la somme de ${b} et ${c}`
+							expn1=`$${a}\\div(${b}+${c})$ ou $\\dfrac{${a}}{${b}+${c}}$`
+							break
+						case 3 : // différence de deux nombres
+							expf1=`Le quotient de ${a} par la différence de ${b+c} et ${c}`
+							expn1=`$${a}\\div(${b+c}-${c})$ ou $\\dfrac{${a}}{${b+c}-${c}}$`
+							break			
+						case 4 : // (a+b)/c
+							expf1=`Le quotient de la somme de ${a} et ${b} par ${c}`
+							expn1=`$(${a}+${b})\\div${c}$ ou $\\dfrac{${a}+${b}}{${c}}$`
+							break
+						case 5 : // différence de deux nombres
+							expf1=`Le quotient de la différence de ${a+b} et ${b} par ${c}`
+							expn1=`$(${a+b}-${b})\\div${c}$ ou $\\dfrac{${a+b}-${b}}{${c}}$`
+							break			
+									
+					}
+				case 3 : // expressions de niveau 2 (3 opérations)
+					switch (randint(0,13)) {
+						case 0 : // (a+b)(c+d)
+							expf1=`Le produit de la somme de ${a} et ${b} par la somme de ${c} et ${d}`
+							expn1=`$(${a}+${b})(${c}+${d})$`
+							break
+						case 1 : // (a+b)(c-d)
+							expf1=`Le produit de la somme de ${a} et ${b} par la différence de ${c+d} et ${d}`
+							expn1=`$(${a}+${b})(${c+d}-${d})$`
+							break
+						case 2 : // (a-b)(c+d)
+							expf1=`Le produit de la différence de ${a+b} et ${b} par la somme de ${c} et ${d}`
+							expn1=`$(${a+b}-${b})(${c}+${d})$`
+							break
+						case 3 : // (a-b)(c-d)
+							expf1=`Le produit de la différence de ${a+b} et ${b} par la différence de ${c+d} et ${d}`
+							expn1=`$(${a+b}-${b})(${c+d}-${d})$`
+							break			
+						case 4 : // (a+b)/(c+d)
+							expf1=`Le quotient de la somme de ${a} et ${b} par la somme de ${c} et ${d}`
+							expn1=`$(${a}+${b})\\div(${c}+${d})$ ou $\\dfrac{${a}+${b}}{${c}+${d}}$`
+							break
+						case 5 : // (a-b)/(c+d)
+							expf1=`Le quotient de la différence de ${a+b} et ${b} par la somme de ${c} et ${d}`
+							expn1=`$(${a+b}-${b})\\div(${c}+${d})$ ou $\\dfrac{${a+b}-${b}}{${c}+${d}}$`
+							break			
+						case 6 : // (a+b)/(c-d)
+							expf1=`Le quotient de la somme de ${a} et ${b} par la différence de ${c+d} et ${d}`
+							expn1=`$(${a}+${b})\\div(${c+d}-${d})$ ou $\\dfrac{${a}+${b}}{${c+d}-${d}}$`
+							break
+						case 7 : // (a-b)/(c-d)
+							expf1=`Le quotient de la différence de ${a+b} et ${b} par la différence de ${c+d} et ${d}`
+							expn1=`$(${a+b}-${b})\\div(${c+d}-${d})$ ou $\\dfrac{${a+b}-${b}}{${c+d}-${d}}$`
+							break			
+						case 8 : // ab+cd
+							expf1=`La somme du produit de ${a} par ${b} et du produit de ${c} par ${d}`
+							expn1=`$${a}\\times${b}+${c}\\times${d}$`
+							break
+						case 9 : // ab-cd
+							if (a<c) a=a+c
+							if (b<d) b=b+d
+							expf1=`La différence du produit de ${a} par ${b} et du produit de ${c} par ${d}`
+							expn1=`$${a}\\times${b}-${c}\\times${d}$`
+							break			
+						case 10 : // ab+c/d
+							expf1=`La somme du produit de ${a} par ${b} et du quotient de ${c} par ${d}`
+							expn1=`$${a}\\times${b}+${c}\\div${d}$ ou $${a}\\times${b}+\\dfrac{${c}}{${d}}$`
+							break
+						case 11 : // ab-c/d
+							expf1=`La différence du produit de ${a} par ${b} et du quotient de ${c} par ${d}`
+							expn1=`$${a}\\times${b}-${c}\\div${d}$ ou $${a}\\times${b}-\\dfrac{${c}}{${d}}$`
+							break	
+						case 12 : // a/b+c/d
+							expf1=`La somme du quotient de ${a} par ${b} et du quotient de ${c} par ${d}`
+							expn1=`$${a}\\div${b}+${c}\\div${d}$ ou $\\dfrac{${a}}{${b}}+\\dfrac{${c}}{${d}}$`
+							break	
+						case 13 : // a/b-c/d		
+							expf1=`La différence du quotient de ${a} par ${b} et du quotient de ${c} par ${d}`
+							expn1=`$${a}\\div${b}-${c}\\div${d}$ ou $\\dfrac{${a}}{${b}}-\\dfrac{${c}}{${d}}$`
+							break	
+					}
+					break ;
+				case 4 : // expressions complexes
+					switch (randint(0,5)) {
+						case 0 : // 2(a+bc)
+							expf1=`Le double de la somme de ${a} et du produit de ${b} par ${c}`
+							expn1=`$2(${a}+${b}\\times${c})$`
+							break
+						case 1 : // 3(a+b)/c
+							expf1=`Le triple du quotient de la somme de ${a} et ${b} par ${c}`
+							expn1=`$3(${a}+${b})\\div${c}$ ou $3\\times\\dfrac{${a}+${b}}{${c}}$`
+							break
+						case 2 : // (a-b)/3
+							expf1=`Le tiers de la différence de ${a+b} et ${b}`
+							expn1=`$(${a+b}-${b})\\div 3$ ou $\\dfrac{${a+b}-${b}}{3}$`
+							break
+						case 3 : // (a-b)/3*2(c+d)
+							expf1=`Le produit du tiers de la différence de ${a+b} et ${b} par le double de la somme de ${c} et ${d}`
+							expn1=`$\\left((${a+b}-${b})\\div 3\\right)\\times 2(${c}+${d})$`
+							break			
+						case 4 : // 3(a+b)-2(c+d)
+							expf1=`La différence du triple de la somme de ${a} et ${b} et du double de la somme de ${c} et ${d}`
+							expn1=`$3(${a}+${b})-2(${c}+${d})$`
+							break
+						case 5 : // 2(a-b)+3(c+d)
+							expf1=`La somme du double de la différence de ${a+b} et ${b} et du triple de la somme de ${c} et ${d}`
+							expn1=`$2(${a+b}-${b})+3(${c}+${d})$`
+							break	
+					}		
+					break ;
+				case 5 : // traduire un calcul mathador
 					solution_mathador=Trouver_solution_mathador(30,90)
 					tirage=solution_mathador[0]
 					cible=solution_mathador[1]
@@ -3857,77 +4004,13 @@ function Ecrire_une_expression_numerique(){
 						texte+=`$${solution_mathador[2][i]}$<br>`
 					}
 					texte+=`Écrit cette succession d'opérations en une seule expression.`
-					texte_corr = `L'expression correspondante au calcul de ${quidam} est $${expression}$ ou $${solution_mathador[4]}$.`
+					texte_corr = `L'expression correspondante au calcul de ${quidam} est<br>$${expression}$ ou $${solution_mathador[4]}$.`
 					break ;
-				case 2 : // 3x
-					texte = `Exprimer le triple de $${x}$  en fonction de $${x}$.`
-					texte_corr = `Le triple de $${x}$  se note : $3${x}$.`
-					break ;
-				case 3 : // x/2
-					texte = `Exprimer la moitié de $${x}$ en fonction de $${x}$.`
-					texte_corr = `La moitié de $${x}$  se note :  $${tex_fraction(x,2)}=${x}\\div2=0,5${x}$.`
-					break ;
-				case 4 : // x/4
-					texte = `Exprimer le quart de $${x}$  en fonction de $${x}$.`
-					texte_corr = `Le quart de $${x}$  se note :  $${tex_fraction(x,4)}=${x}\\div4=0,25${x}$.`
-					break ;
-				case 5 : // x+1
-					texte = `$${x}$ étant un nombre entier, exprimer l'entier suivant en fonction de $${x}$.`
-					texte_corr = `Le successeur de $${x}$ se note :  $${x}+1$.`
-					break ;
-				case 6 : // x-1
-					texte = `$${x}$ étant un nombre entier, exprimer l'entier précédent en fonction de $${x}$.`
-					texte_corr = `Le prédecesseur de $${x}$  se note :  $${x}-1$.`
-					break ;
-				case 6 : // x^2
-					texte = `Exprimer le carré de $${x}$  en fonction de $${x}$.`
-					texte_corr = `Le carré de $${x}$  se note : $${x}^2$.`
-					break ;
-				case 7 : // x^3
-					texte = `Exprimer le cube de $${x}$  en fonction de $${x}$.`
-					texte_corr = `Le cube de $${x}$  se note : $${x}^3$.`
-					break ;
-				case 8 : // -x
-					texte = `Exprimer l'opposé de $${x}$  en fonction de $${x}$.`
-					texte_corr = `L'opposé de $${x}$  se note : $-${x}$.`
-					break ;
-				case 9 : // 1/x
-					texte = `Exprimer l'inverse de $${x}$  en fonction de $${x}$.`
-					texte_corr = `L'inverse de $${x}$ se note : $${tex_fraction(1,x)}$.`
-					break ;
-				case 10 : // x+k
-					texte = `Exprimer la somme de $${x}$ et ${k} en fonction de $${x}$.`
-					texte_corr = `La somme de $${x}$ et ${k} se note : $${x}+${k}$.`
-					break ;
-				case 11 : // kx
-					texte = `Exprimer le produit de $${x}$  par ${k} en fonction de $${x}$.`
-					texte_corr = `Le produit de $${x}$ par ${k} se note : $${k}${x}$.`
-					break ;
-				case 12 : // x/k
-					texte = `Exprimer le quotient de $${x}$ par ${k} en fonction de $${x}$.`
-					texte_corr = `Le quotient de $${x}$ par ${k} se note : $${tex_fraction(x,k)}$.`
-					break ;
-				case 13 : // k/x
-					texte = `Exprimer le quotient de ${k} par $${x}$ en fonction de $${x}$.`
-					texte_corr = `Le quotient de ${k} par $${x}$ se note : $${tex_fraction(k,x)}$.`
-					break ;
-				case 14 : //xy
-					texte = `Comment se note le produit de $${x}$ par $${y}$ ?`
-					texte_corr = `Le produit de $${x}$ par $${y}$ se note $${x}${y}$.`
-					break ;
-				case 15 : //pair
-					texte = `Écrire une expression littérale qui permet de représenter un nombre pair.`
-					texte_corr = `Un nombre pair peut s'écrire sous la forme $2n$ avec $n$ un entier naturel.`
-					break ; 
-				case 16 : //impair
-					texte = `Écrire une expression littérale qui permet de représenter un nombre impair.`
-					texte_corr = `Un nombre impair peut s'écrire sous la forme $2n+1$ avec $n$ un entier naturel.`
-					break ;
-				case 17 : //multiple de k
-					texte = `Écrire une expression littérale qui permet de représenter un multiple de ${k}.`
-					texte_corr = `Un multiple de ${k} peut s'écrire sous la forme $${k}n$ avec $n$ un entier naturel.`
-					break ; 
 
+			}
+			if (liste_type_de_questions[i]<5) {
+				texte=`Traduire la phrase suivante par une expression numérique :<br>${expf1}`
+				texte_corr=`${expf1} s'écrit<br>${expn1}`
 			}
 			
 			
