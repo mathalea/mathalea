@@ -6390,5 +6390,4 @@ function Coefficient_evolution() {
 		}
 		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_numerique = ['Niveau de difficulté', 4, '1 : Déterminer le résultat après une variation en pourcentage\n2 : Exprimer une variation en pourcentage\n3 : Calculer la valeur initiale en connaissant la variation et la situation finale\n4 : Mélange des 3 types de problèmes'];
 }
