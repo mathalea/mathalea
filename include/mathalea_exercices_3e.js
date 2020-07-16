@@ -6426,5 +6426,5 @@ function Coefficient_evolution() {
 		}
 		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_numerique = ['Niveau de difficulté', 3, '1 : Déterminer coefficient\n2 : Exprimer une variation en pourcentage\n3 : Mélange des 2 types de questions'];
+	this.besoin_formulaire_numerique = ['Niveau de difficulté', 3, '1 : Déterminer le coefficient\n2 : Exprimer une variation en pourcentage\n3 : Mélange des 2 types de questions'];
 }
