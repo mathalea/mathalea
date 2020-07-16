@@ -2102,7 +2102,8 @@ function Le_compte_est_bonV3(){
 			expression=solution_mathador[3]
 
 			texte=`Le tirage est le suivant : $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ <br>La cible est : $${solution}$`
-			texte_corr=`Pour le tirage $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ et pour la cible $${solution}$, la solution est : $${expression}=${solution}$<br>`
+			texte_corr=`Pour le tirage $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ et pour la cible $${solution}$, la solution est : $${expression}=${solution}$ `
+			texte_corr+=`ou $${solution_mathador[4]}$.<br>`
 			texte_corr+=`En effet : <br>`
 			for (let i=0;i<4;i++) {
 				texte_corr+=`$${solution_mathador[2][i]}$<br>`
@@ -2129,7 +2130,7 @@ function Le_compte_est_bonV3(){
  */
 function Trouver_solution_mathador(min,max) {
 'use strict'
-	let eureka,a,b,c,d,e,tirage,nombres_restants,operations_restantes,expression_en_cours,op,part1,part2,operations_successives=[],solution
+	let eureka,a,b,c,d,e,tirage,nombres_restants,operations_restantes,expression_en_cours_f,expression_en_cours_d,op,part1_f,part2_f,part1_d,part2_d,operations_successives=[],solution
 	let liste_choix=[1,2,2,3,3,4,4,4,4,5,6,6,6,6,7,7,8,8,8,8,9,9,9,9,10,11,12,13,14,15,16,17,18,19,20];
 	eureka=false;
 	while (eureka==false){
@@ -2143,30 +2144,38 @@ function Trouver_solution_mathador(min,max) {
 		nombres_restants=shuffle(tirage);
 		operations_restantes=['\\times','+','-','\\div'];
 		operations_restantes=shuffle(operations_restantes);
-		expression_en_cours=[`${nombres_restants[0]}`,`${nombres_restants[1]}`,`${nombres_restants[2]}`,`${nombres_restants[3]}`,`${nombres_restants[4]}`];
+		expression_en_cours_f=[`${nombres_restants[0]}`,`${nombres_restants[1]}`,`${nombres_restants[2]}`,`${nombres_restants[3]}`,`${nombres_restants[4]}`];
+		expression_en_cours_d=[`${nombres_restants[0]}`,`${nombres_restants[1]}`,`${nombres_restants[2]}`,`${nombres_restants[3]}`,`${nombres_restants[4]}`];
+
 		while (nombres_restants.length>1){
 			b=nombres_restants.pop();
 			a=nombres_restants.pop();
-			part2=expression_en_cours.pop();
-			part1=expression_en_cours.pop();
+			part2_f=expression_en_cours_f.pop();
+			part1_f=expression_en_cours_f.pop();
+			part2_d=expression_en_cours_d.pop();
+			part1_d=expression_en_cours_d.pop();
+
 			op=operations_restantes.pop();
+console.log(part1_f,op,part2_f,part1_d,op,part2_d)
 			if (op=='\\times'){
 				c=a*b;
-				expression_en_cours.push(`${part1}${op}${part2}`);
+				expression_en_cours_f.push(`${part1_f}${op}${part2_f}`);
+				expression_en_cours_d.push(`${part1_d}${op}${part2_d}`);
 				nombres_restants.push(c);
 			}
 			else if (op=='\\div'){
 				if (a%b==0) {
 					c=a/b;
-					if (part1[0]=='\\'){
-						part1=part1.substring(6,part1.length)
-						part1=part1.substring(0,part1.length-7)
+					if (part1_f[0]=='\\'){
+						part1_f=part1_f.substring(6,part1_f.length)
+						part1_f=part1_f.substring(0,part1_f.length-7)
 						}
-					if (part2[0]=='\\'){
-						part2=part2.substring(6,part2.length)
-						part2=part2.substring(0,part2.length-7)
+					if (part2_f[0]=='\\'){
+						part2_f=part2_f.substring(6,part2_f.length)
+						part2_f=part2_f.substring(0,part2_f.length-7)
 						}
-					expression_en_cours.push(`\\dfrac{${part1}}{${part2}}`);
+					expression_en_cours_f.push(`\\dfrac{${part1_f}}{${part2_f}}`);
+					expression_en_cours_d.push(`${part1_d}${op}${part2_d}`);
 					nombres_restants.push(c);	
 				}
 				else break;
@@ -2174,18 +2183,24 @@ function Trouver_solution_mathador(min,max) {
 			else if (op=='-'){
 				if (a>b) {
 					c=a-b;
-					expression_en_cours.push(`\\left(${part1}${op}${part2}\\right)`);
+					expression_en_cours_f.push(`\\left(${part1_f}${op}${part2_f}\\right)`);
+					expression_en_cours_d.push(`\\left(${part1_d}${op}${part2_d}\\right)`);
 					nombres_restants.push(c);	
 				}
 				else break;
 			}
 			else if (op=='+'){
 				c=a+b;
-				if (part2.substring(0,2)=='\\l'){
-					part2=part2.substring(6,part2.length)
-					part2=part2.substring(0,part2.length-7)
+				if (part2_f.substring(0,2)=='\\l'){
+					part2_f=part2_f.substring(6,part2_f.length)
+					part2_f=part2_f.substring(0,part2_f.length-7)
 					}
-				expression_en_cours.push(`\\left(${part1}${op}${part2}\\right)`);
+				expression_en_cours_f.push(`\\left(${part1_f}${op}${part2_f}\\right)`);
+				if (part2_d.substring(0,2)=='\\l'){
+					part2_d=part2_d.substring(6,part2_d.length)
+					part2_d=part2_d.substring(0,part2_d.length-7)
+					}
+				expression_en_cours_d.push(`\\left(${part1_d}${op}${part2_d}\\right)`);
 				nombres_restants.push(c);
 			}
 			operations_successives.push(`${a}`+op+`${b}=${c}`)
@@ -2194,15 +2209,19 @@ function Trouver_solution_mathador(min,max) {
 
 		if (nombres_restants.length==1&&operations_restantes.length==0)	{
 			solution=nombres_restants[0];
+			console.log(expression_en_cours_f[0],expression_en_cours_d[0])
 			if (solution>=min&solution<=max) {
 				eureka=true;
-				//texte=`Le tirage est le suivant : $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ <br>La cible est : $${solution}$`
-				if (expression_en_cours[0][0]=='\\'){
-				expression_en_cours[0]=expression_en_cours[0].substring(6,expression_en_cours[0].length)
-				expression_en_cours[0]=expression_en_cours[0].substring(0,expression_en_cours[0].length-7)
+				if (expression_en_cours_f[0][0]=='\\'&&expression_en_cours_f[0][1]==`l`){
+				expression_en_cours_f[0]=expression_en_cours_f[0].substring(6,expression_en_cours_f[0].length)
+				expression_en_cours_f[0]=expression_en_cours_f[0].substring(0,expression_en_cours_f[0].length-7)
 				}
-				//texte_corr=`La solution est : $${expression_en_cours[0]}=${solution}$`
-				return [tirage,solution,operations_successives,expression_en_cours]
+				if (expression_en_cours_d[0][0]=='\\'&&expression_en_cours_d[0][1]==`l`){
+					expression_en_cours_d[0]=expression_en_cours_d[0].substring(6,expression_en_cours_d[0].length)
+					expression_en_cours_d[0]=expression_en_cours_d[0].substring(0,expression_en_cours_d[0].length-7)
+					}
+				console.log(expression_en_cours_f[0],expression_en_cours_d[0])
+				return [tirage,solution,operations_successives,expression_en_cours_f,expression_en_cours_d]
 				}
 			else operations_successives=[]		
 			}

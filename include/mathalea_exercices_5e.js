@@ -3857,7 +3857,7 @@ function Ecrire_une_expression_numerique(){
 						texte+=`$${solution_mathador[2][i]}$<br>`
 					}
 					texte+=`Écrit cette succession d'opérations en une seule expression.`
-					texte_corr = `L'expression correspondante au calcul de ${quidam} est $${expression}$.`
+					texte_corr = `L'expression correspondante au calcul de ${quidam} est $${expression}$ ou $${solution_mathador[4]}$.`
 					break ;
 				case 2 : // 3x
 					texte = `Exprimer le triple de $${x}$  en fonction de $${x}$.`
