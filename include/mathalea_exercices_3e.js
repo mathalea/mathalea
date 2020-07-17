@@ -6281,7 +6281,7 @@ function Evolutions_en_pourcentage() {
 							depart = 20*randint(17,60);
 							taux = 5*randint(1,3);
 						break;
-						case 2 : 
+						case 3 : 
 							depart = 100*randint(4,12);
 							taux = randint(1,11);
 						break;
@@ -6374,14 +6374,8 @@ function Coefficient_evolution() {
 		texte_aide += '<br>- Diminuer un nombre de 20 % revient à le multiplier par $1-\\dfrac{20}{100}=1-0,20=0,8$.'
 		texte_aide += '<br><br>- Augmenter un nombre de 5 % revient à le multiplier par $1+\\dfrac{5}{100}=1+0,05=1,05$.'
 
+		this.bouton_aide = modal_url(numero_de_l_exercice,'/aide/3P10');
 
-		this.bouton_aide = modal_texte_long(
-				numero_de_l_exercice,
-				`<i class="lightbulb outline icon"></i> Augmenter ou diminuer d'un pourcentage`,
-				texte_aide,
-				"Aide",
-				"info circle"
-			);
 		let type_de_questions_disponibles = [];
 		if (this.sup==1) {
 			type_de_questions_disponibles = ['coef+','coef-'];
