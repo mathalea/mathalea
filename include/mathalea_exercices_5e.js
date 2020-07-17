@@ -3929,13 +3929,12 @@ function Ecrire_une_expression_numerique(){
 				case 3:
 					texte=`Traduire la phrase suivante par une expression numérique et effectuer le calcul en respectant les priorités opératoires :<br>${expf}`
 					texte_corr=`${expf} s'écrit ${expn}.<br>`
-					if (expn.indexOf('ou')>0) expn=expn.substring(0,expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
-					texte_corr+=`${expn} = ${expc}.`
+					texte_corr+=`${expc}.`
 					break
 				case 4:
 					if (expn.indexOf('ou')>0) expn=expn.substring(0,expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
 					texte=`Calculer l'expression suivante en respectant les priorités opératoires :<br>${expn}`
-					texte_corr=`${expn} = ${expc}.`
+					texte_corr=`${expc}.`
 					break
  		
 			}
@@ -3976,23 +3975,23 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 				case 0 : //somme de deux nombres
 					expf=`La somme de ${tex_nombre(a)} et ${tex_nombre(b)}`
 					expn=`$${tex_nombre(a)}+${tex_nombre(b)}$`
-					expc=`$${tex_nombre(a+b)}$`
+					expc=`$${tex_nombre(a)}+${tex_nombre(b)} = ${tex_nombre(a+b)}$`
 					break
 				case 1 : // différence de deux nombres
 					expf=`La différence de ${tex_nombre(a+b)} et ${tex_nombre(b)}`
 					expn=`$${tex_nombre(a+b)}-${tex_nombre(b)}$`
-					expc=`$${tex_nombre(a+b-b)}$`
+					expc=`$${tex_nombre(a+b)}-${tex_nombre(b)} = ${tex_nombre(a+b-b)}$`
 					break
 				case 2 : // produit de deux nombres
 					expf=`Le produit de ${tex_nombre(a)} par ${tex_nombre(b)}`
 					expn=`$${tex_nombre(a)}\\times${tex_nombre(b)}$`
-					expc=`$${tex_nombrec(a*b)}$`
+					expc=`$${tex_nombre(a)}\\times${tex_nombre(b)} = ${tex_nombrec(a*b)}$`
 					break
 				case 3 : // quotient de deux nombres
 					a=Math.round(a)
 					expf=`Le quotient de ${tex_nombre(a*b)} par ${tex_nombre(b)}`
 					expn=`$${tex_nombre(a*b)}\\div${tex_nombre(b)}$`
-					expc=`$${tex_nombrec(a)}$`
+					expc=`$${tex_nombre(a*b)}\\div${tex_nombre(b)} = ${tex_nombrec(a)}$`
 					break
 			}
 			break
@@ -4001,33 +4000,33 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 				case 0 : //a(b+c)
 					expf=`Le produit de ${tex_nombre(a)} par la somme de ${tex_nombre(b)} et ${tex_nombre(c)}`
 					expn=`$${tex_nombre(a)}(${tex_nombre(b)}+${tex_nombre(c)})$`
-					expc=`$${tex_nombre(a)}\\times${tex_nombrec(b+c)}=${tex_nombre(a*(b+c))}$`
+					expc=`$${tex_nombre(a)}(${tex_nombre(b)}+${tex_nombre(c)}) = ${tex_nombre(a)}\\times${tex_nombrec(b+c)}=${tex_nombrec(a*(b+c))}$`
 					break
 				case 1 : // a(b-c)
 					if (b<c) b=b+c // b-c positif
 					expf=`Le produit de ${tex_nombre(a)} par la différence de ${tex_nombre(b)} et ${tex_nombre(c)}`
 					expn=`$${tex_nombre(a)}(${tex_nombre(b)}-${tex_nombre(c)})$`
-					expc=`$${tex_nombre(a)}\\times${tex_nombrec(b-c)}=${tex_nombre(a*(b-c))}$`
+					expc=`$${tex_nombre(a)}(${tex_nombre(b)}-${tex_nombre(c)}) = ${tex_nombre(a)}\\times${tex_nombrec(b-c)}=${tex_nombrec(a*(b-c))}$`
 					break
 				case 2 : // a/(b+c)
 					a=a*(b+c) // on s'assure que le quotient tombe juste...
 					expf=`Le quotient de ${tex_nombre(a)} par la somme de ${tex_nombre(b)} et ${tex_nombre(c)}`
 					expn=`$${tex_nombre(a)}\\div(${tex_nombre(b)}+${tex_nombre(c)})$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}+${tex_nombre(c)}}$`
-					expc=`$${tex_nombre(a)}\\div${tex_nombrec(b+c)}=${tex_nombre(a)}$`
+					expc=`$${tex_nombre(a)}\\div(${tex_nombre(b)}+${tex_nombre(c)}) = ${tex_nombre(a)}\\div${tex_nombrec(b+c)}=${tex_nombrec(a/(b+c))}$`
 					break
 				case 3 : // a/(b-c)
 					if (b<c) b=b+c // b-c positif
 					a=a*(b-c) // on s'assure que le quotient tombe juste
 					expf=`Le quotient de ${tex_nombre(a)} par la différence de ${tex_nombre(b)} et ${tex_nombre(c)}`
 					expn=`$${tex_nombre(a)}\\div(${b}-${tex_nombre(c)})$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}-${tex_nombre(c)}}$`
-					expc=`$${tex_nombre(a)}\\div${tex_nombrec(b-c)}=${tex_nombrec(a/(b-c))}$`
+					expc=`$${tex_nombre(a)}\\div(${b}-${tex_nombre(c)}) = ${tex_nombre(a)}\\div${tex_nombrec(b-c)}=${tex_nombrec(a/(b-c))}$`
 					break			
 				case 4 : // (a+b)/c
 					a=a*c
 					b=b*c // on s'assure que le quotient tombe juste
 					expf=`Le quotient de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par ${tex_nombre(c)}`
 					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div${tex_nombre(c)}$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}}$`
-					expc=`$${tex_nombrec(a+b)}\\div${tex_nombre(c)}=${tex_nombrec((a+b)/c)}$`
+					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div${tex_nombre(c)} = ${tex_nombrec(a+b)}\\div${tex_nombre(c)}=${tex_nombrec((a+b)/c)}$`
 					break
 				case 5 : // (a-b)/c
 					if (a<b) a=a+b // a-b positif
@@ -4035,7 +4034,7 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 					b=b*c // on s'assure que le quotient tombe juste
 					expf=`Le quotient de la différence de ${tex_nombre(a)} et ${tex_nombre(b)} par ${tex_nombre(c)}`
 					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div${tex_nombre(c)}$ ou $\\dfrac{${tex_nombre(a)}-${tex_nombre(b)}}{${tex_nombre(c)}}$`
-					expc=`$${tex_nombrec(a-b)}\\div${tex_nombre(c)}=${tex_nombrec((a-b)/c)}$`
+					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div${tex_nombre(c)} = ${tex_nombrec(a-b)}\\div${tex_nombre(c)}=${tex_nombrec((a-b)/c)}$`
 					break			
 							
 			}
@@ -4045,60 +4044,100 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 				case 0 : // (a+b)(c+d)
 					expf=`Le produit de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
 					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)})$`
+					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a+b)}\\times${tex_nombrec(c+d)} = ${tex_nombrec((a+b)*(c+d))}$`
 					break
 				case 1 : // (a+b)(c-d)
-					expf=`Le produit de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par la différence de ${tex_nombre(c+d)} et ${tex_nombre(d)}`
-					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})(${tex_nombre(c+d)}-${tex_nombre(d)})$`
+					if (c<d) c=c+d
+					expf=`Le produit de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par la différence de ${tex_nombre(c)} et ${tex_nombre(d)}`
+					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})(${tex_nombre(c)}-${tex_nombre(d)})$`
+					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})(${tex_nombre(c)}-${tex_nombre(d)}) = ${tex_nombrec(a+b)}\\times${tex_nombrec(c-d)} = ${tex_nombrec((a+b)*(c-d))}$`
 					break
 				case 2 : // (a-b)(c+d)
-					expf=`Le produit de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)} par la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
-					expn=`$(${tex_nombre(a+b)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)})$`
+					if (a<b) a=a+b
+					expf=`Le produit de la différence de ${tex_nombre(a)} et ${tex_nombre(b)} par la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
+					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)})$`
+					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\times${tex_nombrec(c+d)} = ${tex_nombrec((a-b)*(c+d))}$`
 					break
 				case 3 : // (a-b)(c-d)
-					expf=`Le produit de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)} par la différence de ${tex_nombre(c+d)} et ${tex_nombre(d)}`
-					expn=`$(${tex_nombre(a+b)}-${tex_nombre(b)})(${tex_nombre(c+d)}-${tex_nombre(d)})$`
+					if (a<b) a=a+b
+					if (c<d) c=c+d
+					expf=`Le produit de la différence de ${tex_nombre(a)} et ${tex_nombre(b)} par la différence de ${tex_nombre(c)} et ${tex_nombre(d)}`
+					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}-${tex_nombre(d)})$`
+					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}-${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\times${tex_nombrec(c-d)} = ${tex_nombrec((a-b)*(c-d))}$`
 					break			
 				case 4 : // (a+b)/(c+d)
+					a=a*(c+d)
+					b=b*(c+d)
 					expf=`Le quotient de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
 					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div(${tex_nombre(c)}+${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}+${tex_nombre(d)}}$`
+					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a+b)}\\div${tex_nombrec(c+d)} = ${tex_nombrec((a+b)/(c+d))}$`
 					break
 				case 5 : // (a-b)/(c+d)
-					expf=`Le quotient de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)} par la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
-					expn=`$(${tex_nombre(a+b)}-${tex_nombre(b)})\\div(${tex_nombre(c)}+${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a+b)}-${tex_nombre(b)}}{${tex_nombre(c)}+${tex_nombre(d)}}$`
+					a=a*(c+d)
+					b=b*(c+d)
+					if (a<b) a=a+b
+					expf=`Le quotient de la différence de ${tex_nombre(a)} et ${tex_nombre(b)} par la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
+					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div(${tex_nombre(c)}+${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a)}-${tex_nombre(b)}}{${tex_nombre(c)}+${tex_nombre(d)}}$`
+					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\div${tex_nombrec(c+d)} = ${tex_nombrec((a-b)/(c+d))}$`
 					break			
 				case 6 : // (a+b)/(c-d)
-					expf=`Le quotient de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par la différence de ${tex_nombre(c+d)} et ${tex_nombre(d)}`
-					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div(${tex_nombre(c+d)}-${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c+d)}-${tex_nombre(d)}}$`
+					if (c<d) c=c+d
+					a=a*(c-d)
+					b=b*(c-d)
+					expf=`Le quotient de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par la différence de ${tex_nombre(c)} et ${tex_nombre(d)}`
+					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div(${tex_nombre(c)}-${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}-${tex_nombre(d)}}$`
+					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div(${tex_nombre(c)}-${tex_nombre(d)}) = ${tex_nombrec(a+b)}\\div${tex_nombrec(c-d)} = ${tex_nombrec((a+b)/(c-d))}$`
 					break
 				case 7 : // (a-b)/(c-d)
-					expf=`Le quotient de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)} par la différence de ${tex_nombre(c+d)} et ${tex_nombre(d)}`
-					expn=`$(${tex_nombre(a+b)}-${tex_nombre(b)})\\div(${tex_nombre(c+d)}-${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a+b)}-${tex_nombre(b)}}{${tex_nombre(c+d)}-${tex_nombre(d)}}$`
+					if (c<d) c=c+d
+					if (a<b) a=a+b
+					a=a*(c-d)
+					b=b*(c-d)
+					expf=`Le quotient de la différence de ${tex_nombre(a)} et ${tex_nombre(b)} par la différence de ${tex_nombre(c)} et ${tex_nombre(d)}`
+					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div(${tex_nombre(c)}-${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a)}-${tex_nombre(b)}}{${tex_nombre(c)}-${tex_nombre(d)}}$`
+					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div(${tex_nombre(c)}-${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\div${tex_nombrec(c-d)} = ${tex_nombrec((a-b)/(c-d))}$`
 					break			
 				case 8 : // ab+cd
 					expf=`La somme du produit de ${tex_nombre(a)} par ${tex_nombre(b)} et du produit de ${tex_nombre(c)} par ${tex_nombre(d)}`
 					expn=`$${tex_nombre(a)}\\times${tex_nombre(b)}+${tex_nombre(c)}\\times${tex_nombre(d)}$`
+					expc=`$${tex_nombre(a)}\\times${tex_nombre(b)}+${tex_nombre(c)}\\times${tex_nombre(d)} = ${tex_nombrec(a*b)}+${tex_nombrec(c*d)} = ${tex_nombrec(a*b+c*d)}$`
 					break
 				case 9 : // ab-cd
-					if (a<c) a=a+c
-					if (b<d) b=b+d
+					if (a*b<d*c) a=a+c
+					if (a*b<d*c) b=b+d
 					expf=`La différence du produit de ${tex_nombre(a)} par ${tex_nombre(b)} et du produit de ${tex_nombre(c)} par ${tex_nombre(d)}`
 					expn=`$${tex_nombre(a)}\\times${tex_nombre(b)}-${tex_nombre(c)}\\times${tex_nombre(d)}$`
+					expc=`$${tex_nombre(a)}\\times${tex_nombre(b)}-${tex_nombre(c)}\\times${tex_nombre(d)} = ${tex_nombrec(a*b)}-${tex_nombrec(c*d)} = ${tex_nombrec(a*b-c*d)}$`
 					break			
 				case 10 : // ab+c/d
+					c=c*d
 					expf=`La somme du produit de ${tex_nombre(a)} par ${tex_nombre(b)} et du quotient de ${tex_nombre(c)} par ${tex_nombre(d)}`
 					expn=`$${tex_nombre(a)}\\times${tex_nombre(b)}+${tex_nombre(c)}\\div${tex_nombre(d)}$ ou $${tex_nombre(a)}\\times${tex_nombre(b)}+\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
+					expc=`$${tex_nombre(a)}\\times${tex_nombre(b)}+${tex_nombre(c)}\\div${tex_nombre(d)} = ${tex_nombrec(a*b)}+${tex_nombrec(c/d)} = ${tex_nombrec(a*b+c/d)}$`
 					break
 				case 11 : // ab-c/d
+					c=c*d
+					if (a*b<c/d) a=a*c
+					if (a*b<c/d) b=b*c
 					expf=`La différence du produit de ${tex_nombre(a)} par ${tex_nombre(b)} et du quotient de ${tex_nombre(c)} par ${tex_nombre(d)}`
 					expn=`$${tex_nombre(a)}\\times${tex_nombre(b)}-${tex_nombre(c)}\\div${tex_nombre(d)}$ ou $${tex_nombre(a)}\\times${tex_nombre(b)}-\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
+					expc=`$${tex_nombre(a)}\\times${tex_nombre(b)}-${tex_nombre(c)}\\div${tex_nombre(d)} = ${tex_nombrec(a*b)}-${tex_nombrec(c/d)} = ${tex_nombrec(a*b-c/d)}$`
 					break	
 				case 12 : // a/b+c/d
+					a=a*b
+					c=c*d
 					expf=`La somme du quotient de ${tex_nombre(a)} par ${tex_nombre(b)} et du quotient de ${tex_nombre(c)} par ${tex_nombre(d)}`
 					expn=`$${tex_nombre(a)}\\div${tex_nombre(b)}+${tex_nombre(c)}\\div${tex_nombre(d)}$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}}+\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
+					expc=`$${tex_nombre(a)}\\div${tex_nombre(b)}+${tex_nombre(c)}\\div${tex_nombre(d)} = ${tex_nombrec(a/b)}+${tex_nombrec(c/d)} = ${tex_nombrec(a/b+c/d)}$`
 					break	
 				case 13 : // a/b-c/d		
+					a=a*b
+					c=c*d
+					if (a/b<c/d) a=a*c
+					if (a/c<c/d) a=a*d
 					expf=`La différence du quotient de ${tex_nombre(a)} par ${tex_nombre(b)} et du quotient de ${tex_nombre(c)} par ${tex_nombre(d)}`
 					expn=`$${tex_nombre(a)}\\div${tex_nombre(b)}-${tex_nombre(c)}\\div${tex_nombre(d)}$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}}-\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
+					expc=`$${tex_nombre(a)}\\div${tex_nombre(b)}-${tex_nombre(c)}\\div${tex_nombre(d)} = ${tex_nombrec(a/b)}-${tex_nombrec(c/d)} = ${tex_nombrec(a/b-c/d)}$`
 					break	
 			}
 			break ;
@@ -4107,48 +4146,65 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 				case 0 : // 2(a+bc)
 					expf=`Le double de la somme de ${tex_nombre(a)} et du produit de ${tex_nombre(b)} par ${tex_nombre(c)}`
 					expn=`$2(${tex_nombre(a)}+${tex_nombre(b)}\\times${tex_nombre(c)})$`
+					expc=`$2(${tex_nombre(a)}+${tex_nombre(b)}\\times${tex_nombre(c)}) = 2(${tex_nombre(a)}+${tex_nombrec(b*c)}) = 2\\times ${tex_nombrec(a+b*c)}$`
 					break
 				case 1 : // 3(a+b)/c
+					a=a*c
+					b=b*c
 					expf=`Le triple du quotient de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par ${tex_nombre(c)}`
 					expn=`$3(${tex_nombre(a)}+${tex_nombre(b)})\\div${tex_nombre(c)}$ ou $3\\times\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}}$`
+					expc=`$3(${tex_nombre(a)}+${tex_nombre(b)})\\div${tex_nombre(c)} = 3\\times ${tex_nombre(a+b)}\\div${tex_nombre(c)} = ${tex_nombrec(3*(a+b))}\\div${tex_nombre(c)} = ${tex_nombrec(3*(a+b)/c)}$`
 					break
 				case 2 : // (a-b)/3
-					expf=`Le tiers de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)}`
-					expn=`$(${tex_nombre(a+b)}-${tex_nombre(b)})\\div 3$ ou $\\dfrac{${tex_nombre(a+b)}-${tex_nombre(b)}}{3}$`
+					if (a<b) a=a+b
+					a=3*a
+					b=3*b
+					expf=`Le tiers de la différence de ${tex_nombre(a)} et ${tex_nombre(b)}`
+					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div 3$ ou $\\dfrac{${tex_nombre(a)}-${tex_nombre(b)}}{3}$`
+					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div 3 = ${tex_nombrec(a-b)}\\div 3 = ${tex_nombrec((a-b)/3)}$`
 					break
 				case 3 : // (a-b)/3*2(c+d)
-					expf=`Le produit du tiers de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)} par le double de la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
-					expn=`$\\left((${tex_nombre(a+b)}-${tex_nombre(b)})\\div 3\\right)\\times 2(${tex_nombre(c)}+${tex_nombre(d)})$`
+					if (a<b) a=a+b
+					a=3*a
+					b=3*b
+					expf=`Le produit du tiers de la différence de ${tex_nombre(a)} et ${tex_nombre(b)} par le double de la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
+					expn=`$\\left((${tex_nombre(a)}-${tex_nombre(b)})\\div 3\\right)\\times 2(${tex_nombre(c)}+${tex_nombre(d)})$`
+					expc=`$\\left((${tex_nombre(a)}-${tex_nombre(b)})\\div 3\\right)\\times 2(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\div 3 \\times 2 \\times${tex_nombrec(c+d)} = ${tex_nombrec((a-b)/3)} \\times 2 \\times ${tex_nombrec(c+d)} =  ${tex_nombrec(2*(a-b)/3)} \\times ${tex_nombrec(c+d)} = ${tex_nombrec(2*(c+d)*(a-b)/3)}$`
 					break			
 				case 4 : // 3(a+b)-2(c+d)
+					if (3*(a+b)<2*(c+d)) a=a+c+d
 					expf=`La différence du triple de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} et du double de la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
 					expn=`$3(${tex_nombre(a)}+${tex_nombre(b)})-2(${tex_nombre(c)}+${tex_nombre(d)})$`
+					expc=`$3(${tex_nombre(a)}+${tex_nombre(b)})-2(${tex_nombre(c)}+${tex_nombre(d)}) = 3 \\times ${tex_nombrec(a+b)} - 2 \\times ${tex_nombrec(c+d)} = ${tex_nombrec(3*(a+b))} - ${tex_nombrec(2*(c+d))} = ${tex_nombrec(3*(a+b)-2*(c+d))}$`
 					break
 				case 5 : // 2(a-b)+3(c+d)
-					expf=`La somme du double de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)} et du triple de la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
-					expn=`$2(${tex_nombre(a+b)}-${tex_nombre(b)})+3(${tex_nombre(c)}+${tex_nombre(d)})$`
+					if (a<b) a=a+b
+					expf=`La somme du double de la différence de ${tex_nombre(a)} et ${tex_nombre(b)} et du triple de la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
+					expn=`$2(${tex_nombre(a)}-${tex_nombre(b)})+3(${tex_nombre(c)}+${tex_nombre(d)})$`
+					expc=`$2(${tex_nombre(a)}-${tex_nombre(b)})+3(${tex_nombre(c)}+${tex_nombre(d)}) = 2 \\times ${tex_nombrec(a-b)} + 3 \\times ${tex_nombrec(c+d)} = ${tex_nombrec(2*(a-b))} + ${tex_nombrec(3*(c+d))} = ${tex_nombrec(2*(a-b)+3*(c+d))}$`
 					break	
 			}		
 			break ;
 		case 4 : // 4 opérations
 			switch (randint(1,3)) {
 				case 1 : // (a+b)/(c(d+e))
+					a=a*c*(d+e)
+					b=b*c*(d+e)
 					expf=`Le quotient de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par le produit de ${tex_nombre(c)} par la somme de ${tex_nombre(d)} et ${tex_nombre(e)}`
-					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div(${tex_nombre(c)}(${tex_nombre(d)}+${tex_nombre(e)})$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}(${tex_nombre(d)}+${tex_nombre(e)})}$`
-					texte=`Traduire la phrase suivante par une expression numérique :<br>${expf}`
-					texte_corr=`${expf} s'écrit<br>${expn}`
+					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div(${tex_nombre(c)}(${tex_nombre(d)}+${tex_nombre(e)}))$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}(${tex_nombre(d)}+${tex_nombre(e)})}$`
+					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div(${tex_nombre(c)}(${tex_nombre(d)}+${tex_nombre(e)})) = ${tex_nombrec(a+b)} \\div (${tex_nombre(c)} \\times ${tex_nombrec(d+e)}) = ${tex_nombrec(a+b)} \\div ${tex_nombre(c*(d+e))} = ${tex_nombrec((a+b)/(c*(d+e)))}$`
 					break
 				case 2 : //(a-b)*(c+de)
-					expf=`Le produit de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)} par la somme de ${tex_nombre(c)} et du produit de ${tex_nombre(d)} par ${tex_nombre(e)}`
-					expn=`$(${tex_nombre(a+b)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}\\times${tex_nombre(e)})$`
-					texte=`Traduire la phrase suivante par une expression numérique :<br>${expf}`
-					texte_corr=`${expf} s'écrit<br>${expn}`
+					if (a<b) a=a+b
+					expf=`Le produit de la différence de ${tex_nombre(a)} et ${tex_nombre(b)} par la somme de ${tex_nombre(c)} et du produit de ${tex_nombre(d)} par ${tex_nombre(e)}`
+					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}\\times${tex_nombre(e)})$`
+					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}\\times${tex_nombre(e)}) = ${tex_nombrec(a-b)}(${tex_nombre(c)}+${tex_nombrec(d*e)}) = ${tex_nombrec(a-b)} \\times ${tex_nombre(c+d*e)} = ${tex_nombrec((a-b)*(c+d*e))}$`
 					break
 				case 3 : // ab+cd/e
+					c=c*e
 					expf=`La somme du produit de ${tex_nombre(a)} par ${tex_nombre(b)} et du quotient du produit de ${tex_nombre(c)} et ${tex_nombre(d)} par ${tex_nombre(e)}`
 					expn=`$${tex_nombre(a)}\\times${tex_nombre(b)}+${tex_nombre(c)}\\times${tex_nombre(d)}\\div${tex_nombre(e)}$ ou $${tex_nombre(a)}\\times${tex_nombre(b)}+\\dfrac{${tex_nombre(c)}\\times${tex_nombre(d)}}{${tex_nombre(e)}}$`
-					texte=`Traduire la phrase suivante par une expression numérique :<br>${expf}`
-					texte_corr=`${expf} s'écrit<br>${expn}`
+					expc=`$${tex_nombre(a)}\\times${tex_nombre(b)}+${tex_nombre(c)}\\times${tex_nombre(d)}\\div${tex_nombre(e)} = ${tex_nombrec(a*b)} + ${tex_nombrec(c*d)} \\div ${tex_nombre(e)} = ${tex_nombrec(a*b)} + ${tex_nombrec(c*d/e)} = ${tex_nombrec(a*b+c*d/e)}$`
 					break
 			}
 			break
