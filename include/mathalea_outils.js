@@ -1590,6 +1590,13 @@ function tex_prix(nb){
 
 
 /**
+* Convertit en majuscule la première lettre
+* @Auteur Rémi Angot
+*/
+function premiere_lettre_en_majuscule(text){return (text+'').charAt(0).toUpperCase()+text.substr(1);}
+
+
+/**
 * Renvoit le nombre de chiffres de la partie décimale 
 * @Auteur Rémi Angot
 */
