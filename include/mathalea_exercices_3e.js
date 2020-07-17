@@ -6181,7 +6181,7 @@ function Passer_de_la_base_12_ou_16_a_la_10() {
 /**
 * Problèmes de variations en pourcentage
 *
-* * Situations variées : prix soldé ou augmenté, effectif d'un collège ou lycée // A FAIRE : consommation électrique, population d'une commune, nombre d'étudiants, facture de téképhone/gaz/électricité, budget essence/loisirs)
+* * Situations variées : prix soldé ou augmenté, effectif d'un collège ou lycée, facture, population d'une ville
 * 
 * * Calculer le résultat d'une évolution 
 * * Exprimer l'évolution en pourcentage
@@ -6215,7 +6215,7 @@ function Evolutions_en_pourcentage() {
 		if (this.sup==4) {
 			type_de_questions_disponibles = ['finale','evolution','initiale'];
 		}
-		let type_de_situations_disponibles = ['prix','etablissement'];
+		let type_de_situations_disponibles = ['prix','etablissement','facture','population'];
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let liste_type_de_situations = combinaison_listes(type_de_situations_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		for (let i = 0, texte, texte_corr, depart, arrive, taux, coeff, cpt = 0; i < this.nb_questions && cpt < 50;) {
@@ -6281,7 +6281,7 @@ function Evolutions_en_pourcentage() {
 							depart = 20*randint(17,60);
 							taux = 5*randint(1,3);
 						break;
-						case 2 : 
+						case 3 : 
 							depart = 100*randint(4,12);
 							taux = randint(1,11);
 						break;
@@ -6291,7 +6291,7 @@ function Evolutions_en_pourcentage() {
 					let date = new Date()
 					let cetteAnnee = date.getFullYear();
 					let anneeDerniere = cetteAnnee-1;
-					let etablissement = choice(['collège','lycee']);
+					let etablissement = choice(['collège','lycée']);
 					switch (liste_type_de_questions[i]){
 						case 'finale' :
 						if (taux>0) {
@@ -6328,6 +6328,100 @@ function Evolutions_en_pourcentage() {
 							texte = `Un article qui coûtait $${tex_nombre(depart)}$ € coûte maintenant $${tex_nombre(arrive)}$ €. Exprimer la réduction du prix en pourcentage.`
 							texte_corr = `$${tex_nombre(arrive)}\\div ${tex_prix(depart)} = ${coeff} =  ${100+taux}~\\% = 100~\\%${taux}~\\%$`
 							texte_corr += `<br>Le nombre d'élèves a été multiplié par ${coeff}, il a donc diminué de $${abs(taux)}~\\%$.`
+						}
+						break;
+					}
+				break;
+				case 'facture':
+					depart = randint(700,1400);
+					taux = randint(1,12);
+					taux *= choice([-1,1]);
+					coeff = tex_nombrec(1+taux/100)
+					arrive = calcul(depart*(1+taux/100));
+					let facture = choice(["ma facture annuelle d'électricité","ma facture annuelle de gaz","ma taxe d'habitation","mon ordinateur","mon vélo électrique"])
+					switch (liste_type_de_questions[i]){
+						case 'finale' :
+						if (taux>0) {
+							texte = `Le prix de ${facture} était de $${tex_prix(depart)}$ € l'année dernière et il a augmenté de $${taux}~\\%$. Calculer son nouveau prix.`
+							texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.`
+							texte_corr += `<br>$${tex_prix(depart)}\\times ${coeff} = ${tex_prix(arrive)}$`
+							texte_corr += `<br>Le prix de ${facture} est maintenant de ${tex_prix(arrive)} €.`
+						} else {
+							texte = `Le prix de ${facture} était de $${tex_prix(depart)}$ € l'année dernière et il a diminué de $${abs(taux)}~\\%$. Calculer son nouveau prix.`
+							texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.`
+							texte_corr += `<br>$${tex_prix(depart)}\\times ${coeff} = ${tex_prix(arrive)}$`
+							texte_corr += `<br>Le prix de ${facture} est maintenant de ${tex_prix(arrive)} €.`
+						}
+						break;
+						case 'initiale' :
+						if (taux>0) {
+							texte = `Après une augmentation de $${taux}~\\%$ le prix de ${facture} est maintenant $${tex_prix(arrive)}$ €. Calculer son prix avant l'augmentation.`
+							texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\%=${100+taux}~\\% = ${coeff}$.<br>Pour retrouver le prix initial, on va donc diviser le prix final par ${coeff}.`
+							texte_corr += `<br>$${tex_prix(arrive)}\\div ${coeff} = ${tex_prix(depart)}$`
+							texte_corr += `<br>Avant l'augmentation le prix de ${facture} était de ${tex_prix(depart)} €.`
+						} else {
+							texte = `Après une diminution de $${abs(taux)}~\\%$ ${facture} coûte maintenant $${tex_prix(arrive)}$ €. Calculer son prix avant les soldes.`
+							texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.<br>Pour retrouver le prix initial, on va donc diviser le prix final par ${coeff}.`
+							texte_corr += `<br>$${tex_prix(arrive)}\\div ${coeff} = ${tex_prix(depart)}$`
+							texte_corr += `<br>Avant la diminution le prix de ${facture} était de ${tex_prix(depart)} €.`
+						}
+						break;
+						case 'evolution' :
+						if (taux>0) {
+							texte = `Le prix de ${facture} est passé de $${tex_prix(depart)}$ € à $${tex_prix(arrive)}$ €. Exprimer cette augmentation en pourcentage.`
+							texte_corr = `$${tex_prix(arrive)}\\div ${tex_prix(depart)} = ${coeff} =  ${100+taux}~\\% = 100~\\%+${taux}~\\%$`
+							texte_corr += `<br>Le prix a été multiplié par ${coeff}, il a donc augmenté de $${taux}~\\%$.`
+						} else {
+							texte = `Le prix de ${facture} est passé de $${tex_prix(depart)}$ € à $${tex_prix(arrive)}$ €. Exprimer cette diminution en pourcentage.`
+							texte_corr = `$${tex_prix(arrive)}\\div ${tex_prix(depart)} = ${coeff} =  ${100+taux}~\\% = 100~\\%${taux}~\\%$`
+							texte_corr += `<br>Le prix a été multiplié par ${coeff}, il a donc diminué de $${abs(taux)}~\\%$.`
+						}
+						break;
+					}
+				break;
+				case 'population':
+					depart = choice([randint(11,99)*1000,randint(11,99)*10000]);
+					taux = randint(5,35);
+					taux *= choice([-1,1]);
+					coeff = tex_nombrec(1+taux/100)
+					arrive = calcul(depart*(1+taux/100));
+					let nb = randint(5,15);
+					switch (liste_type_de_questions[i]){
+						case 'finale' :
+						if (taux>0) {
+							texte = `Il y a ${nb} ans, la population d'une ville était de $${tex_nombre(depart)}$ habitants. Depuis, elle a augmenté de $${taux}~\\%$. Calculer le nombre d'habitants actuel de cette ville.`
+							texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.`
+							texte_corr += `<br>$${tex_nombre(depart)}\\times ${coeff} = ${tex_nombre(arrive)}$`
+							texte_corr += `<br>La population de cette ville est maintenant de $${tex_nombre(arrive)}$ habitants.`
+						} else {
+							texte = `Il y a ${nb} ans, la population d'une ville était de $${tex_nombre(depart)}$ habitants. Depuis, elle a diminué de $${abs(taux)}~\\%$. Calculer le nombre d'habitants actuel de cette ville.`
+							texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.`
+							texte_corr += `<br>$${tex_nombre(depart)}\\times ${coeff} = ${tex_nombre(arrive)}$`
+							texte_corr += `<br>La population de cette ville est maintenant de $${tex_nombre(arrive)}$ habitants.`
+						}
+						break;
+						case 'initiale' :
+						if (taux>0) {
+							texte = `En ${nb} ans, la population d'une ville a augmenté de $${taux}~\\%$ et est maintenant $${tex_nombre(arrive)}$ habitants. Calculer sa population d'il y a ${nb} ans.`
+							texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\%=${100+taux}~\\% = ${coeff}$.<br>Pour retrouver la population initiale, on va donc diviser le nombre d'habitants actuel par ${coeff}.`
+							texte_corr += `<br>$${tex_nombre(arrive)}\\div ${coeff} = ${tex_nombre(depart)}$`
+							texte_corr += `<br>Il y a ${nb} ans cette ville comptait $${tex_nombre(depart)}$ habitants.`
+						} else {
+							texte = `En ${nb} ans, la population d'une ville a diminué de $${abs(taux)}~\\%$ et est maintenant $${tex_nombre(arrive)}$ habitants. Calculer sa population d'il y a ${nb} ans.`
+							texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.<br>Pour retrouver la population initiale, on va donc diviser le nombre d'habitants actuel par ${coeff}.`
+							texte_corr += `<br>$${tex_nombre(arrive)}\\div ${coeff} = ${tex_nombre(depart)}$`
+							texte_corr += `<br>Il y a ${nb} ans cette ville comptait $${tex_nombre(depart)}$ habitants.`
+						}
+						break;
+						case 'evolution' :
+						if (taux>0) {
+							texte = `En ${nb} ans, la population d'une ville est passé de $${tex_nombre(depart)}$ habitants à $${tex_nombre(arrive)}$. Exprimer cette augmentation en pourcentage.`
+							texte_corr = `$${tex_nombre(arrive)}\\div ${tex_nombre(depart)} = ${coeff} =  ${100+taux}~\\% = 100~\\%+${taux}~\\%$`
+							texte_corr += `<br>La population a été multipliée par ${coeff} elle a donc augmenté de $${abs(taux)}~\\%$.`
+						} else {
+							texte = `En ${nb} ans, la population d'une ville est passé de $${tex_nombre(depart)}$ habitants à $${tex_nombre(arrive)}$. Exprimer cette diminution en pourcentage.`
+							texte_corr = `$${tex_nombre(arrive)}\\div ${tex_nombre(depart)} = ${coeff} =  ${100+taux}~\\% = 100~\\%${taux}~\\%$`
+							texte_corr += `<br>La population a été multipliée par ${coeff} elle a donc diminué de $${abs(taux)}~\\%$.`
 						}
 						break;
 					}
@@ -6374,14 +6468,8 @@ function Coefficient_evolution() {
 		texte_aide += '<br>- Diminuer un nombre de 20 % revient à le multiplier par $1-\\dfrac{20}{100}=1-0,20=0,8$.'
 		texte_aide += '<br><br>- Augmenter un nombre de 5 % revient à le multiplier par $1+\\dfrac{5}{100}=1+0,05=1,05$.'
 
+		this.bouton_aide = modal_url(numero_de_l_exercice,'/aide/3P10');
 
-		this.bouton_aide = modal_texte_long(
-				numero_de_l_exercice,
-				`<i class="lightbulb outline icon"></i> Augmenter ou diminuer d'un pourcentage`,
-				texte_aide,
-				"Aide",
-				"info circle"
-			);
 		let type_de_questions_disponibles = [];
 		if (this.sup==1) {
 			type_de_questions_disponibles = ['coef+','coef-'];

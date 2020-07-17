@@ -1590,6 +1590,13 @@ function tex_prix(nb){
 
 
 /**
+* Convertit en majuscule la première lettre
+* @Auteur Rémi Angot
+*/
+function premiere_lettre_en_majuscule(text){return (text+'').charAt(0).toUpperCase()+text.substr(1);}
+
+
+/**
 * Renvoit le nombre de chiffres de la partie décimale 
 * @Auteur Rémi Angot
 */
@@ -2640,6 +2647,8 @@ function modal_texte_court(numero_de_l_exercice,texte,label_bouton="Aide",icone=
 	return creer_modal(numero_de_l_exercice,contenu,label_bouton,icone)
 }
 
+
+
 /**
 * Créé un bouton pour une aide modale avec un texte et une vidéo YouTube
 * @param numero_de_l_exercice
@@ -2666,6 +2675,20 @@ function modal_youtube(numero_de_l_exercice,id_youtube,texte,label_bouton="Aide 
 function modal_texte_long(numero_de_l_exercice,titre,texte,label_bouton="Aide",icone="info circle"){
 	let contenu = `<div class="header">${titre}</div>`
 	contenu += `<div class="content">${texte}</div>`
+	return creer_modal(numero_de_l_exercice,contenu,label_bouton,icone)
+}
+
+/**
+* Créé un bouton pour une aide modale avec un titre et un texte
+* @param numero_de_l_exercice
+* @param titre
+* @param texte
+* @param label_bouton Titre du bouton (par défaut Aide)
+* @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
+* @Auteur Rémi Angot
+*/	
+function modal_url(numero_de_l_exercice,url,label_bouton="Aide",icone="info circle"){
+	let contenu = `<iframe width="100%" height="600"  src="${url}" frameborder="0" ></iframe>`
 	return creer_modal(numero_de_l_exercice,contenu,label_bouton,icone)
 }
 
