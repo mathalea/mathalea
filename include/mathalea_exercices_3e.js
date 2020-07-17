@@ -6291,7 +6291,7 @@ function Evolutions_en_pourcentage() {
 					let date = new Date()
 					let cetteAnnee = date.getFullYear();
 					let anneeDerniere = cetteAnnee-1;
-					let etablissement = choice(['collège','lycee']);
+					let etablissement = choice(['collège','lycée']);
 					switch (liste_type_de_questions[i]){
 						case 'finale' :
 						if (taux>0) {
@@ -6389,12 +6389,12 @@ function Evolutions_en_pourcentage() {
 					switch (liste_type_de_questions[i]){
 						case 'finale' :
 						if (taux>0) {
-							texte = `Il y a ${nb} ans, la population d'une ville était de $${tex_nombre(depart)}$ habitants. Depuis, elle a augmenté de $${taux}~\\%$. Calculer le nombre d'habitant actuel de cette ville.`
+							texte = `Il y a ${nb} ans, la population d'une ville était de $${tex_nombre(depart)}$ habitants. Depuis, elle a augmenté de $${taux}~\\%$. Calculer le nombre d'habitants actuel de cette ville.`
 							texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.`
 							texte_corr += `<br>$${tex_nombre(depart)}\\times ${coeff} = ${tex_nombre(arrive)}$`
 							texte_corr += `<br>La population de cette ville est maintenant de $${tex_nombre(arrive)}$ habitants.`
 						} else {
-							texte = `Il y a ${nb} ans, la population d'une ville était de $${tex_nombre(depart)}$ habitants. Depuis, elle a diminué de $${abs(taux)}~\\%$. Calculer le nombre d'habitant actuel de cette ville.`
+							texte = `Il y a ${nb} ans, la population d'une ville était de $${tex_nombre(depart)}$ habitants. Depuis, elle a diminué de $${abs(taux)}~\\%$. Calculer le nombre d'habitants actuel de cette ville.`
 							texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.`
 							texte_corr += `<br>$${tex_nombre(depart)}\\times ${coeff} = ${tex_nombre(arrive)}$`
 							texte_corr += `<br>La population de cette ville est maintenant de $${tex_nombre(arrive)}$ habitants.`
