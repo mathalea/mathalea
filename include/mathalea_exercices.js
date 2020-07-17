@@ -18,7 +18,7 @@ var liste_des_exercices_disponibles = {
 		'CM016' : Diviser_par_10_100_1000,
 		'CM017' : Diviser_decimal_par_10_100_1000,
 		'CM018' : Somme_de_deux_nombres_maries_et_un_entier,
-		'CM019' : Le_compte_est_bonV2,
+		'CM019' : Le_compte_est_bonV3,
 		'6C10' : Additions_soustractions_multiplications_posees,
 		'6C11' : Divisions_euclidiennes,
 		'6C10-1' :Tables_de_multiplications,
@@ -79,6 +79,11 @@ var liste_des_exercices_disponibles = {
 		'6N43-2' : Tableau_criteres_de_divisibilite,
 		'6P10' : Proportionnalite_pas_proportionnalite,
 		'6P11' : Proportionnalite_par_linearite,
+		'5C11' : Traduire_une_phrase_par_une_expression,
+		'5C11-1' : Traduire_une_expression_par_une_phrase,
+		'5C11-2' : Ecrire_une_expression_mathador,
+		'5C12' : Calculer_une_expression_numerique,
+		'5C12-1' : Traduire_une_phrase_par_une_expression_et_calculer,
 		'5G10' : Symetrie_axiale_5e,
 		'5G11' : Transformations_5e,
 		'5G12' : Pavages_et_demi_tour,
@@ -1960,7 +1965,7 @@ function Somme_de_deux_nombres_maries_et_un_entier(){
  * Générateur de tirages pour un compte est bon avec en correction la solution mathador (4 opérations différentes).
  * @Auteur Jean-Claude Lhote
  */
-
+/*
 function Le_compte_est_bonV2(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -2005,6 +2010,7 @@ function Le_compte_est_bonV2(){
 					part2=expression_en_cours.pop();
 					part1=expression_en_cours.pop();
 					op=operations_restantes.pop();
+					console.log(part1,op,part2,'   ',a,op,b)
 					if (op=='\\times'){
 						c=a*b;
 						expression_en_cours.push(`${part1}${op}${part2}`);
@@ -2070,6 +2076,160 @@ function Le_compte_est_bonV2(){
 	this.besoin_formulaire_numerique = ['Limite inférieure',max_solution];
 	this.besoin_formulaire2_numerique = ['Limite supérieure',100];
 }
+*/
+function Le_compte_est_bonV3(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Générateur de \"Le compte est bon\"";
+	this.consigne = "Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.";
+	this.nb_questions = 5;
+	this.nb_cols = 2;
+	this.nb_cols_corr = 2;
+	this.sup=30;
+	this.sup2=70;
+	var max_solution=70;
+	
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		let solution_mathador=[];
+		let tirage,solution,expression
+		let min_solution=parseInt(this.sup);
+		max_solution=parseInt(this.sup2);
+		if (min_solution>max_solution) {
+			min_solution=max_solution;
+			this.sup=this.sup2;
+		}
+		for (let i = 0, texte, texte_corr,cpt=0; i < this.nb_questions && cpt<50; ) {
+			solution_mathador=Trouver_solution_mathador(min_solution,max_solution)
+			tirage=solution_mathador[0]
+			solution=solution_mathador[1]
+			expression=solution_mathador[3]
+
+			texte=`Le tirage est le suivant : $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ <br>La cible est : $${solution}$`
+			texte_corr=`Pour le tirage $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ et pour la cible $${solution}$, la solution est : $${expression}=${solution}$ `
+			texte_corr+=`ou $${solution_mathador[4]}$.<br>`
+			texte_corr+=`En effet : <br>`
+			for (let i=0;i<4;i++) {
+				texte_corr+=`$${solution_mathador[2][i]}$<br>`
+			}
+						if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+							this.liste_questions.push(texte);
+							this.liste_corrections.push(texte_corr);
+							i++;
+						}		
+			cpt++;	
+		}
+	liste_de_question_to_contenu(this);
+	}
+	this.besoin_formulaire_numerique = ['Limite inférieure',max_solution];
+	this.besoin_formulaire2_numerique = ['Limite supérieure',100];
+}
+/**
+ * 
+ * @param {number} min Valeur minimum pour la solution
+ * @param {number} max Valeur maximum pour la solution
+ * Cette fonction produit aléatoirement un tirage de 5 nombres, une solution, un tableau contenant les calculs successifs, une chaine contenant l'expression mathador correspondante
+ * @returns {array} [tirage=[a,b,c,d,e],solution (compris entre min et max),operations_successives=[string1,string2,string3,string4,string5],expression]
+ * les string1 à 5 ainsi que l'expresion sont ) mettre en mode maths.
+ */
+function Trouver_solution_mathador(min,max) {
+'use strict'
+	let eureka,a,b,c,d,e,tirage,nombres_restants,operations_restantes,expression_en_cours_f,expression_en_cours_d,op,part1_f,part2_f,part1_d,part2_d,operations_successives=[],solution
+	let liste_choix=[1,2,2,3,3,4,4,4,4,5,6,6,6,6,7,7,8,8,8,8,9,9,9,9,10,11,12,13,14,15,16,17,18,19,20];
+	eureka=false;
+	while (eureka==false){
+		tirage=[];
+		a=parseInt(choice(liste_choix))
+		b=parseInt(choice(liste_choix,[13,14,15,16,17,18,19,20,a]))
+		c=parseInt(choice(liste_choix,[12,13,14,15,16,17,18,19,20,a,b]))
+		d=parseInt(choice(liste_choix,[12,13,14,15,16,17,18,19,20,b,c]))
+		e=parseInt(choice(liste_choix,[12,13,14,15,16,17,18,19,20]))
+		tirage.push(a,b,c,d,e);
+		nombres_restants=shuffle(tirage);
+		operations_restantes=['\\times','+','-','\\div'];
+		operations_restantes=shuffle(operations_restantes);
+		expression_en_cours_f=[`${nombres_restants[0]}`,`${nombres_restants[1]}`,`${nombres_restants[2]}`,`${nombres_restants[3]}`,`${nombres_restants[4]}`];
+		expression_en_cours_d=[`${nombres_restants[0]}`,`${nombres_restants[1]}`,`${nombres_restants[2]}`,`${nombres_restants[3]}`,`${nombres_restants[4]}`];
+
+		while (nombres_restants.length>1){
+			b=nombres_restants.pop();
+			a=nombres_restants.pop();
+			part2_f=expression_en_cours_f.pop();
+			part1_f=expression_en_cours_f.pop();
+			part2_d=expression_en_cours_d.pop();
+			part1_d=expression_en_cours_d.pop();
+
+			op=operations_restantes.pop();
+			if (op=='\\times'){
+				c=a*b;
+				expression_en_cours_f.push(`${part1_f}${op}${part2_f}`);
+				expression_en_cours_d.push(`${part1_d}${op}${part2_d}`);
+				nombres_restants.push(c);
+			}
+			else if (op=='\\div'){
+				if (a%b==0) {
+					c=a/b;
+					if (part1_f[0]=='\\'){
+						part1_f=part1_f.substring(6,part1_f.length)
+						part1_f=part1_f.substring(0,part1_f.length-7)
+						}
+					if (part2_f[0]=='\\'){
+						part2_f=part2_f.substring(6,part2_f.length)
+						part2_f=part2_f.substring(0,part2_f.length-7)
+						}
+					expression_en_cours_f.push(`\\dfrac{${part1_f}}{${part2_f}}`);
+					expression_en_cours_d.push(`${part1_d}${op}${part2_d}`);
+					nombres_restants.push(c);	
+				}
+				else break;
+			}
+			else if (op=='-'){
+				if (a>b) {
+					c=a-b;
+					expression_en_cours_f.push(`\\left(${part1_f}${op}${part2_f}\\right)`);
+					expression_en_cours_d.push(`\\left(${part1_d}${op}${part2_d}\\right)`);
+					nombres_restants.push(c);	
+				}
+				else break;
+			}
+			else if (op=='+'){
+				c=a+b;
+				if (part2_f.substring(0,2)=='\\l'){
+					part2_f=part2_f.substring(6,part2_f.length)
+					part2_f=part2_f.substring(0,part2_f.length-7)
+					}
+				expression_en_cours_f.push(`\\left(${part1_f}${op}${part2_f}\\right)`);
+				if (part2_d.substring(0,2)=='\\l'){
+					part2_d=part2_d.substring(6,part2_d.length)
+					part2_d=part2_d.substring(0,part2_d.length-7)
+					}
+				expression_en_cours_d.push(`\\left(${part1_d}${op}${part2_d}\\right)`);
+				nombres_restants.push(c);
+			}
+			operations_successives.push(`${a}`+op+`${b}=${c}`)
+	
+		}
+
+		if (nombres_restants.length==1&&operations_restantes.length==0)	{
+			solution=nombres_restants[0];
+			if (solution>=min&solution<=max) {
+				eureka=true;
+				if (expression_en_cours_f[0][0]=='\\'&&expression_en_cours_f[0][1]==`l`){
+				expression_en_cours_f[0]=expression_en_cours_f[0].substring(6,expression_en_cours_f[0].length)
+				expression_en_cours_f[0]=expression_en_cours_f[0].substring(0,expression_en_cours_f[0].length-7)
+				}
+				if (expression_en_cours_d[0][0]=='\\'&&expression_en_cours_d[0][1]==`l`){
+					expression_en_cours_d[0]=expression_en_cours_d[0].substring(6,expression_en_cours_d[0].length)
+					expression_en_cours_d[0]=expression_en_cours_d[0].substring(0,expression_en_cours_d[0].length-7)
+					}
+				return [tirage,solution,operations_successives,expression_en_cours_f,expression_en_cours_d]
+				}
+			else operations_successives=[]		
+			}
+		else operations_successives=[]
+		}
+	}
 
 
 /**
