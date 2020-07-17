@@ -3826,6 +3826,7 @@ function Pavages_et_transformations() {
 }
 function Ecrire_une_expression_mathador(){
 	'use strict'
+	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Traduire une succession d\'opérations par une expression"
 	this.consigne = "";
 	this.nb_questions = 4;

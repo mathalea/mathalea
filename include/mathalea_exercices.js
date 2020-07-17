@@ -83,7 +83,7 @@ var liste_des_exercices_disponibles = {
 		'5C11-1' : Traduire_une_expression_par_une_phrase,
 		'5C11-2' : Ecrire_une_expression_mathador,
 		'5C12' : Calculer_une_expression_numerique,
-		'5C12-2' : Traduire_une_phrase_par_une_expression_et_calculer,
+		'5C12-1' : Traduire_une_phrase_par_une_expression_et_calculer,
 		'5G10' : Symetrie_axiale_5e,
 		'5G11' : Transformations_5e,
 		'5G12' : Pavages_et_demi_tour,
