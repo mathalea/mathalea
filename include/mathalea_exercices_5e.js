@@ -3824,225 +3824,120 @@ function Pavages_et_transformations() {
 	}
 	this.besoin_formulaire_numerique = ['Transformations',4, '1 : Symétries axiales\n 2 : Symétries centrales\n 3 : Translations\n 4 : Translations\n 5 : Homothéties\n'];
 }
+function Ecrire_une_expression_mathador(){
+	'use strict'
+	this.titre = "Traduire une succession d\'opérations par une expression"
+	this.consigne = "";
+	this.nb_questions = 4;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
 
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		let expression,calculs_successifs,tirage,cible,solution_mathador,quidam
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+ 			// traduire un calcul mathador
+			solution_mathador=Trouver_solution_mathador(30,90)
+			tirage=solution_mathador[0]
+			cible=solution_mathador[1]
+			calculs_successifs=solution_mathador[2]
+			expression=solution_mathador[3]
+			quidam=prenom()
+			texte = `${quidam} a trouvé une solution mathador pour le tirage suivant $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ et pour la cible $${cible}$, voici ses calculs :<br>`
+			for (let j=0;j<4;j++) {
+				texte+=`$${calculs_successifs[j]}$<br>`
+			}
+			texte+=`Écrit cette succession d'opérations en une seule expression.`
+			texte_corr = `L'expression correspondante au calcul de ${quidam} est<br>$${expression}$ ou $${solution_mathador[4]}$.`
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		console.log(this.liste_questions,this.liste_corrections)
+		liste_de_question_to_contenu(this);
+	}
+}
+
+function Traduire_une_phrase_par_une_expression() {
+	Ecrire_une_expression_numerique.call(this)
+	this.version=1
+	this.titre="Traduire une phrase par une expression"
+	this.sup=false
+	this.sup2=false
+}
+function Traduire_une_expression_par_une_phrase() {
+	Ecrire_une_expression_numerique.call(this)
+	this.version=2
+	this.titre="Traduire une expression par une phrase"
+}
+function Traduire_une_phrase_par_une_expression_et_calculer() {
+	Ecrire_une_expression_numerique.call(this)
+	this.version=3
+	this.titre="Traduire une phrase par une expression et la calculer"
+}
+function Calculer_une_expression_numerique() {
+	Ecrire_une_expression_numerique.call(this)
+	this.version=4
+	this.titre="Calculer une expression numérique en détaillant les calculs"
+}
 function Ecrire_une_expression_numerique(){
 	'use strict'
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Écrire une expression numérique";
 	this.consigne = "";
 	this.nb_questions = 4;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup2=false; // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
-	this.sup=1
+	this.sup=false
+	this.version=1 // 1 pour ecrire une expression, 2 pour écrire la phrase, 3 pour écrire l'expression et la calculer, 4 pour calculer une expression numérique
 	this.nouvelle_version = function(numero_de_l_exercice){
+		let type_de_questions_disponibles
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-
-		let type_de_questions_disponibles
-		if (this.sup==1) type_de_questions_disponibles=[1]
-		else if (this.sup==2) type_de_questions_disponibles=[2,3]
-		else if (this.sup==3) type_de_questions_disponibles=[5]
-		else if (this.sup==4) type_de_questions_disponibles=[4]
-		else type_de_questions_disponibles=[1,2,3,4,5]
-
-		let a,b,c,d,e,f,expf,expn,decimal=1
-		let expression,calculs_successifs,tirage,cible,solution_mathador,quidam
-		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		if (!this.sup) { // Si aucune liste n'est saisie
+		type_de_questions_disponibles = [1,2,3,4,5]
+		}
+		else {
+			if (typeof(this.sup)=='number'){ // Si c'est un nombre c'est qu'il y a qu'une expression
+			type_de_questions_disponibles[0] = this.sup
+				this.nb_questions=1
+			} else {
+				type_de_questions_disponibles = this.sup.split("-");// Sinon on créé un tableau à partir des valeurs séparées par des -
+				this.nb_questions=type_de_questions_disponibles.length
+			}	
+		}
+		let expf,expn,expc,decimal=1
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) 
 		if (this.sup2) decimal=10;
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
-			a=arrondi(randint(2*decimal,10*decimal)/decimal,1)
-			b=arrondi(randint(2*decimal,10*decimal,[a*decimal])/decimal,1)
-			c=arrondi(randint(2*decimal,10*decimal)/decimal,1)
-			d=arrondi(randint(2*decimal,10*decimal,[c*decimal])/decimal,1)
-			e=arrondi(randint(2*decimal,10*decimal)/decimal,1)  
-			f=arrondi(randint(2*decimal,10*decimal,[e*decimal])/decimal,1)
-
-			switch (liste_type_de_questions[i]){
-				case 1 : // expressions de base (1 opération)
-					switch (randint(0,3)) {
-						case 0 : //somme de deux nombres
-							expf=`La somme de ${tex_nombre(a)} et ${tex_nombre(b)}`
-							expn=`$${tex_nombre(a)}+${tex_nombre(b)}$`
-							break
-						case 1 : // différence de deux nombres
-							expf=`La différence de ${tex_nombre(a+b)} et ${tex_nombre(b)}`
-							expn=`$${tex_nombre(a+b)}-${tex_nombre(b)}$`
-							break
-						case 2 : // produit de deux nombres
-							expf=`Le produit de ${tex_nombre(a)} par ${tex_nombre(b)}`
-							expn=`$${tex_nombre(a)}\\times${tex_nombre(b)}$`
-							break
-						case 3 : // différence de deux nombres
-							expf=`Le quotient de ${tex_nombre(a)} par ${tex_nombre(b)}`
-							expn=`$${tex_nombre(a)}\\div${tex_nombre(b)}$`
-							break
-					}
+			[expf,expn,expc]=Choisir_expression_numerique(parseInt(liste_type_de_questions[i]),decimal)
+			switch (this.version) {
+				case 1:
+					texte=`Traduire la phrase suivante par une expression numérique :<br>${expf}`
+					texte_corr=`${expf} s'écrit<br>${expn}.`
 					break
-				case 2 : // expressions de niveau 1 (2 opérations)
-					switch (randint(0,5)) {
-						case 0 : //a(b+c)
-							expf=`Le produit de ${tex_nombre(a)} par la somme de ${tex_nombre(b)} et ${tex_nombre(c)}`
-							expn=`$${tex_nombre(a)}(${tex_nombre(b)}+${tex_nombre(c)})$`
-							break
-						case 1 : // a(b-c)
-							expf=`Le produit de ${tex_nombre(a)} par la différence de ${tex_nombre(b+c)} et ${tex_nombre(c)}`
-							expn=`$${tex_nombre(a)}(${tex_nombre(b+c)}-${tex_nombre(c)})$`
-							break
-						case 2 : // a/(b+c)
-							expf=`Le quotient de ${tex_nombre(a)} par la somme de ${tex_nombre(b)} et ${tex_nombre(c)}`
-							expn=`$${tex_nombre(a)}\\div(${tex_nombre(b)}+${tex_nombre(c)})$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}+${tex_nombre(c)}}$`
-							break
-						case 3 : // différence de deux nombres
-							expf=`Le quotient de ${tex_nombre(a)} par la différence de ${tex_nombre(b+c)} et ${tex_nombre(c)}`
-							expn=`$${tex_nombre(a)}\\div(${b+c}-${tex_nombre(c)})$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b+c)}-${tex_nombre(c)}}$`
-							break			
-						case 4 : // (a+b)/c
-							expf=`Le quotient de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par ${tex_nombre(c)}`
-							expn=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div${tex_nombre(c)}$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}}$`
-							break
-						case 5 : // différence de deux nombres
-							expf=`Le quotient de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)} par ${tex_nombre(c)}`
-							expn=`$(${tex_nombre(a+b)}-${tex_nombre(b)})\\div${tex_nombre(c)}$ ou $\\dfrac{${tex_nombre(a+b)}-${tex_nombre(b)}}{${tex_nombre(c)}}$`
-							break			
-									
-					}
+				case 2:
+					if (expn.indexOf('ou')>0) expn=expn.substring(0,expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
+					texte=`Traduire le calcul suivant par une phrase en français :<br>${expn}`
+					texte_corr=`L'expression numérique ${expn} permet de calculer :<br>${expf}`
 					break
-				case 3 : // expressions de niveau 2 (3 opérations)
-					switch (randint(0,13)) {
-						case 0 : // (a+b)(c+d)
-							expf=`Le produit de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
-							expn=`$(${tex_nombre(a)}+${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)})$`
-							break
-						case 1 : // (a+b)(c-d)
-							expf=`Le produit de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par la différence de ${tex_nombre(c+d)} et ${tex_nombre(d)}`
-							expn=`$(${tex_nombre(a)}+${tex_nombre(b)})(${tex_nombre(c+d)}-${tex_nombre(d)})$`
-							break
-						case 2 : // (a-b)(c+d)
-							expf=`Le produit de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)} par la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
-							expn=`$(${tex_nombre(a+b)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)})$`
-							break
-						case 3 : // (a-b)(c-d)
-							expf=`Le produit de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)} par la différence de ${tex_nombre(c+d)} et ${tex_nombre(d)}`
-							expn=`$(${tex_nombre(a+b)}-${tex_nombre(b)})(${tex_nombre(c+d)}-${tex_nombre(d)})$`
-							break			
-						case 4 : // (a+b)/(c+d)
-							expf=`Le quotient de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
-							expn=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div(${tex_nombre(c)}+${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}+${tex_nombre(d)}}$`
-							break
-						case 5 : // (a-b)/(c+d)
-							expf=`Le quotient de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)} par la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
-							expn=`$(${tex_nombre(a+b)}-${tex_nombre(b)})\\div(${tex_nombre(c)}+${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a+b)}-${tex_nombre(b)}}{${tex_nombre(c)}+${tex_nombre(d)}}$`
-							break			
-						case 6 : // (a+b)/(c-d)
-							expf=`Le quotient de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par la différence de ${tex_nombre(c+d)} et ${tex_nombre(d)}`
-							expn=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div(${tex_nombre(c+d)}-${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c+d)}-${tex_nombre(d)}}$`
-							break
-						case 7 : // (a-b)/(c-d)
-							expf=`Le quotient de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)} par la différence de ${tex_nombre(c+d)} et ${tex_nombre(d)}`
-							expn=`$(${tex_nombre(a+b)}-${tex_nombre(b)})\\div(${tex_nombre(c+d)}-${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a+b)}-${tex_nombre(b)}}{${tex_nombre(c+d)}-${tex_nombre(d)}}$`
-							break			
-						case 8 : // ab+cd
-							expf=`La somme du produit de ${tex_nombre(a)} par ${tex_nombre(b)} et du produit de ${tex_nombre(c)} par ${tex_nombre(d)}`
-							expn=`$${tex_nombre(a)}\\times${tex_nombre(b)}+${tex_nombre(c)}\\times${tex_nombre(d)}$`
-							break
-						case 9 : // ab-cd
-							if (a<c) a=a+c
-							if (b<d) b=b+d
-							expf=`La différence du produit de ${tex_nombre(a)} par ${tex_nombre(b)} et du produit de ${tex_nombre(c)} par ${tex_nombre(d)}`
-							expn=`$${tex_nombre(a)}\\times${tex_nombre(b)}-${tex_nombre(c)}\\times${tex_nombre(d)}$`
-							break			
-						case 10 : // ab+c/d
-							expf=`La somme du produit de ${tex_nombre(a)} par ${tex_nombre(b)} et du quotient de ${tex_nombre(c)} par ${tex_nombre(d)}`
-							expn=`$${tex_nombre(a)}\\times${tex_nombre(b)}+${tex_nombre(c)}\\div${tex_nombre(d)}$ ou $${tex_nombre(a)}\\times${tex_nombre(b)}+\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
-							break
-						case 11 : // ab-c/d
-							expf=`La différence du produit de ${tex_nombre(a)} par ${tex_nombre(b)} et du quotient de ${tex_nombre(c)} par ${tex_nombre(d)}`
-							expn=`$${tex_nombre(a)}\\times${tex_nombre(b)}-${tex_nombre(c)}\\div${tex_nombre(d)}$ ou $${tex_nombre(a)}\\times${tex_nombre(b)}-\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
-							break	
-						case 12 : // a/b+c/d
-							expf=`La somme du quotient de ${tex_nombre(a)} par ${tex_nombre(b)} et du quotient de ${tex_nombre(c)} par ${tex_nombre(d)}`
-							expn=`$${tex_nombre(a)}\\div${tex_nombre(b)}+${tex_nombre(c)}\\div${tex_nombre(d)}$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}}+\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
-							break	
-						case 13 : // a/b-c/d		
-							expf=`La différence du quotient de ${tex_nombre(a)} par ${tex_nombre(b)} et du quotient de ${tex_nombre(c)} par ${tex_nombre(d)}`
-							expn=`$${tex_nombre(a)}\\div${tex_nombre(b)}-${tex_nombre(c)}\\div${tex_nombre(d)}$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}}-\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
-							break	
-					}
-					break ;
-				case 4 : // expressions complexes
-					switch (randint(0,5)) {
-						case 0 : // 2(a+bc)
-							expf=`Le double de la somme de ${tex_nombre(a)} et du produit de ${tex_nombre(b)} par ${tex_nombre(c)}`
-							expn=`$2(${tex_nombre(a)}+${tex_nombre(b)}\\times${tex_nombre(c)})$`
-							break
-						case 1 : // 3(a+b)/c
-							expf=`Le triple du quotient de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par ${tex_nombre(c)}`
-							expn=`$3(${tex_nombre(a)}+${tex_nombre(b)})\\div${tex_nombre(c)}$ ou $3\\times\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}}$`
-							break
-						case 2 : // (a-b)/3
-							expf=`Le tiers de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)}`
-							expn=`$(${tex_nombre(a+b)}-${tex_nombre(b)})\\div 3$ ou $\\dfrac{${tex_nombre(a+b)}-${tex_nombre(b)}}{3}$`
-							break
-						case 3 : // (a-b)/3*2(c+d)
-							expf=`Le produit du tiers de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)} par le double de la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
-							expn=`$\\left((${tex_nombre(a+b)}-${tex_nombre(b)})\\div 3\\right)\\times 2(${tex_nombre(c)}+${tex_nombre(d)})$`
-							break			
-						case 4 : // 3(a+b)-2(c+d)
-							expf=`La différence du triple de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} et du double de la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
-							expn=`$3(${tex_nombre(a)}+${tex_nombre(b)})-2(${tex_nombre(c)}+${tex_nombre(d)})$`
-							break
-						case 5 : // 2(a-b)+3(c+d)
-							expf=`La somme du double de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)} et du triple de la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
-							expn=`$2(${tex_nombre(a+b)}-${tex_nombre(b)})+3(${tex_nombre(c)}+${tex_nombre(d)})$`
-							break	
-					}		
-					break ;
-				case 5 : 
-					switch (randint(0,3)) {
-						case 0 : // traduire un calcul mathador
-							solution_mathador=Trouver_solution_mathador(30,90)
-							tirage=solution_mathador[0]
-							cible=solution_mathador[1]
-							calculs_successifs=solution_mathador[2]
-							expression=solution_mathador[3]
-							quidam=prenom()
-							texte = `${quidam} a trouvé une solution mathador pour le tirage suivant $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ et pour la cible $${cible}$, voici ses calculs :<br>`
-							for (let i=0;i<4;i++) {
-								texte+=`$${solution_mathador[2][i]}$<br>`
-							}
-							texte+=`Écrit cette succession d'opérations en une seule expression.`
-							texte_corr = `L'expression correspondante au calcul de ${quidam} est<br>$${expression}$ ou $${solution_mathador[4]}$.`
-							break ;
-						case 1 : // (a+b)/(c(d+e))
-							expf=`Le quotient de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par le produit de ${tex_nombre(c)} par la somme de ${tex_nombre(d)} et ${tex_nombre(e)}`
-							expn=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div(${tex_nombre(c)}(${tex_nombre(d)}+${tex_nombre(e)})$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}(${tex_nombre(d)}+${tex_nombre(e)})}$`
-							texte=`Traduire la phrase suivante par une expression numérique :<br>${expf}`
-							texte_corr=`${expf} s'écrit<br>${expn}`
-							break
-						case 2 : //(a-b)*(c+de)
-							expf=`Le produit de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)} par la somme de ${tex_nombre(c)} et du produit de ${tex_nombre(d)} par ${tex_nombre(e)}`
-							expn=`$(${tex_nombre(a+b)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}\\times${tex_nombre(e)})$`
-							texte=`Traduire la phrase suivante par une expression numérique :<br>${expf}`
-							texte_corr=`${expf} s'écrit<br>${expn}`
-							break
-						case 3 : // ab+cd/e
-							expf=`La somme du produit de ${tex_nombre(a)} par ${tex_nombre(b)} et du quotient du produit de ${tex_nombre(c)} et ${tex_nombre(d)} par ${tex_nombre(e)}`
-							expn=`$${tex_nombre(a)}\\times${tex_nombre(b)}+${tex_nombre(c)}\\times${tex_nombre(d)}\\div${tex_nombre(e)}$ ou $${tex_nombre(a)}\\times${tex_nombre(b)}+\\dfrac{${tex_nombre(c)}\\times${tex_nombre(d)}}{${tex_nombre(e)}}$`
-							texte=`Traduire la phrase suivante par une expression numérique :<br>${expf}`
-							texte_corr=`${expf} s'écrit<br>${expn}`
-							break
-
-						break
-						}
-						
+				case 3:
+					texte=`Traduire la phrase suivante par une expression numérique et effectuer le calcul en respectant les priorités opératoires :<br>${expf}`
+					texte_corr=`${expf} s'écrit ${expn}.<br>`
+					if (expn.indexOf('ou')>0) expn=expn.substring(0,expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
+					texte_corr+=`${expn} = ${expc}.`
+					break
+				case 4:
+					if (expn.indexOf('ou')>0) expn=expn.substring(0,expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
+					texte=`Calculer l'expression suivante en respectant les priorités opératoires :<br>${expn}`
+					texte_corr=`${expn} = ${expc}.`
+					break
+ 		
 			}
-			if (liste_type_de_questions[i]<5) {
-				texte=`Traduire la phrase suivante par une expression numérique :<br>${expf}`
-				texte_corr=`${expf} s'écrit<br>${expn}`
-			}
-			
-			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
@@ -4052,7 +3947,210 @@ function Ecrire_une_expression_numerique(){
 		}
 		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_numerique = ['Niveau de difficulté',5,"1 : Expressions de base\n2 : Expressions à deux ou trois opérations\n3 : Expressions à 4 opérations\n4 : Expressions complexes\n5 : Mélange"]; 
+	this.besoin_formulaire_texte = ['Choix des expressions','Nombres séparés par des tirets\n 1 : Expressions de base à une opération\n2 : Expressions à deux opérations\n3 : Expressions à 3 opérations\n4 : Expressions à 4 opérations\n5 : Expressions complexes'] // Texte, tooltip
 	this.besoin_formulaire2_case_a_cocher = ["Avec décimaux.",false]
 
+}
+
+/**
+ * Chosis aléatoirement une expressions numérique parmi de nombreuses variantes.
+ * @param {number} nb_operations fixe la complexité de l'expression à retourner
+ * @param {number} decimal 1 si on veut des entiers, 10, 100, 1000 selon le nombre de chiffres après la virgule qu'on veut
+ * retourne
+ * * l'expression en français commençant par une majuscule sans point final
+ * * l'expression en mode maths LaTex
+ * * Le détaillé du calcul en mode maths LaTex 
+ */
+function Choisir_expression_numerique(nb_operations,decimal) {
+	let expf,expn,expc,arrondir=Math.log10(decimal)
+	let a=arrondi(randint(2*decimal,10*decimal)/decimal,arrondir)
+	let b=arrondi(randint(2*decimal,10*decimal,[a*decimal])/decimal,arrondir)
+	let c=arrondi(randint(2*decimal,10*decimal)/decimal,arrondir)
+	let d=arrondi(randint(2*decimal,10*decimal,[c*decimal])/decimal,arrondir)
+	let e=arrondi(randint(2*decimal,10*decimal)/decimal,arrondir)  
+	let f=arrondi(randint(2*decimal,10*decimal,[e*decimal])/decimal,arrondir)
+	switch (nb_operations){
+		case 1 : // expressions de base (1 opération)
+			switch (randint(0,3)) {
+				case 0 : //somme de deux nombres
+					expf=`La somme de ${tex_nombre(a)} et ${tex_nombre(b)}`
+					expn=`$${tex_nombre(a)}+${tex_nombre(b)}$`
+					expc=`$${tex_nombre(a+b)}$`
+					break
+				case 1 : // différence de deux nombres
+					expf=`La différence de ${tex_nombre(a+b)} et ${tex_nombre(b)}`
+					expn=`$${tex_nombre(a+b)}-${tex_nombre(b)}$`
+					expc=`$${tex_nombre(a+b-b)}$`
+					break
+				case 2 : // produit de deux nombres
+					expf=`Le produit de ${tex_nombre(a)} par ${tex_nombre(b)}`
+					expn=`$${tex_nombre(a)}\\times${tex_nombre(b)}$`
+					expc=`$${tex_nombrec(a*b)}$`
+					break
+				case 3 : // quotient de deux nombres
+					a=Math.round(a)
+					expf=`Le quotient de ${tex_nombre(a*b)} par ${tex_nombre(b)}`
+					expn=`$${tex_nombre(a*b)}\\div${tex_nombre(b)}$`
+					expc=`$${tex_nombrec(a)}$`
+					break
+			}
+			break
+		case 2 : // expressions de niveau 1 (2 opérations)
+			switch (randint(0,5)) {
+				case 0 : //a(b+c)
+					expf=`Le produit de ${tex_nombre(a)} par la somme de ${tex_nombre(b)} et ${tex_nombre(c)}`
+					expn=`$${tex_nombre(a)}(${tex_nombre(b)}+${tex_nombre(c)})$`
+					expc=`$${tex_nombre(a)}\\times${tex_nombrec(b+c)}=${tex_nombre(a*(b+c))}$`
+					break
+				case 1 : // a(b-c)
+					if (b<c) b=b+c // b-c positif
+					expf=`Le produit de ${tex_nombre(a)} par la différence de ${tex_nombre(b)} et ${tex_nombre(c)}`
+					expn=`$${tex_nombre(a)}(${tex_nombre(b)}-${tex_nombre(c)})$`
+					expc=`$${tex_nombre(a)}\\times${tex_nombrec(b-c)}=${tex_nombre(a*(b-c))}$`
+					break
+				case 2 : // a/(b+c)
+					a=a*(b+c) // on s'assure que le quotient tombe juste...
+					expf=`Le quotient de ${tex_nombre(a)} par la somme de ${tex_nombre(b)} et ${tex_nombre(c)}`
+					expn=`$${tex_nombre(a)}\\div(${tex_nombre(b)}+${tex_nombre(c)})$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}+${tex_nombre(c)}}$`
+					expc=`$${tex_nombre(a)}\\div${tex_nombrec(b+c)}=${tex_nombre(a)}$`
+					break
+				case 3 : // a/(b-c)
+					if (b<c) b=b+c // b-c positif
+					a=a*(b-c) // on s'assure que le quotient tombe juste
+					expf=`Le quotient de ${tex_nombre(a)} par la différence de ${tex_nombre(b)} et ${tex_nombre(c)}`
+					expn=`$${tex_nombre(a)}\\div(${b}-${tex_nombre(c)})$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}-${tex_nombre(c)}}$`
+					expc=`$${tex_nombre(a)}\\div${tex_nombrec(b-c)}=${tex_nombrec(a/(b-c))}$`
+					break			
+				case 4 : // (a+b)/c
+					a=a*c
+					b=b*c // on s'assure que le quotient tombe juste
+					expf=`Le quotient de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par ${tex_nombre(c)}`
+					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div${tex_nombre(c)}$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}}$`
+					expc=`$${tex_nombrec(a+b)}\\div${tex_nombre(c)}=${tex_nombrec((a+b)/c)}$`
+					break
+				case 5 : // (a-b)/c
+					if (a<b) a=a+b // a-b positif
+					a=a*c
+					b=b*c // on s'assure que le quotient tombe juste
+					expf=`Le quotient de la différence de ${tex_nombre(a)} et ${tex_nombre(b)} par ${tex_nombre(c)}`
+					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div${tex_nombre(c)}$ ou $\\dfrac{${tex_nombre(a)}-${tex_nombre(b)}}{${tex_nombre(c)}}$`
+					expc=`$${tex_nombrec(a-b)}\\div${tex_nombre(c)}=${tex_nombrec((a-b)/c)}$`
+					break			
+							
+			}
+			break
+		case 3 : // expressions de niveau 2 (3 opérations)
+			switch (randint(0,13)) {
+				case 0 : // (a+b)(c+d)
+					expf=`Le produit de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
+					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)})$`
+					break
+				case 1 : // (a+b)(c-d)
+					expf=`Le produit de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par la différence de ${tex_nombre(c+d)} et ${tex_nombre(d)}`
+					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})(${tex_nombre(c+d)}-${tex_nombre(d)})$`
+					break
+				case 2 : // (a-b)(c+d)
+					expf=`Le produit de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)} par la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
+					expn=`$(${tex_nombre(a+b)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)})$`
+					break
+				case 3 : // (a-b)(c-d)
+					expf=`Le produit de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)} par la différence de ${tex_nombre(c+d)} et ${tex_nombre(d)}`
+					expn=`$(${tex_nombre(a+b)}-${tex_nombre(b)})(${tex_nombre(c+d)}-${tex_nombre(d)})$`
+					break			
+				case 4 : // (a+b)/(c+d)
+					expf=`Le quotient de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
+					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div(${tex_nombre(c)}+${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}+${tex_nombre(d)}}$`
+					break
+				case 5 : // (a-b)/(c+d)
+					expf=`Le quotient de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)} par la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
+					expn=`$(${tex_nombre(a+b)}-${tex_nombre(b)})\\div(${tex_nombre(c)}+${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a+b)}-${tex_nombre(b)}}{${tex_nombre(c)}+${tex_nombre(d)}}$`
+					break			
+				case 6 : // (a+b)/(c-d)
+					expf=`Le quotient de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par la différence de ${tex_nombre(c+d)} et ${tex_nombre(d)}`
+					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div(${tex_nombre(c+d)}-${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c+d)}-${tex_nombre(d)}}$`
+					break
+				case 7 : // (a-b)/(c-d)
+					expf=`Le quotient de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)} par la différence de ${tex_nombre(c+d)} et ${tex_nombre(d)}`
+					expn=`$(${tex_nombre(a+b)}-${tex_nombre(b)})\\div(${tex_nombre(c+d)}-${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a+b)}-${tex_nombre(b)}}{${tex_nombre(c+d)}-${tex_nombre(d)}}$`
+					break			
+				case 8 : // ab+cd
+					expf=`La somme du produit de ${tex_nombre(a)} par ${tex_nombre(b)} et du produit de ${tex_nombre(c)} par ${tex_nombre(d)}`
+					expn=`$${tex_nombre(a)}\\times${tex_nombre(b)}+${tex_nombre(c)}\\times${tex_nombre(d)}$`
+					break
+				case 9 : // ab-cd
+					if (a<c) a=a+c
+					if (b<d) b=b+d
+					expf=`La différence du produit de ${tex_nombre(a)} par ${tex_nombre(b)} et du produit de ${tex_nombre(c)} par ${tex_nombre(d)}`
+					expn=`$${tex_nombre(a)}\\times${tex_nombre(b)}-${tex_nombre(c)}\\times${tex_nombre(d)}$`
+					break			
+				case 10 : // ab+c/d
+					expf=`La somme du produit de ${tex_nombre(a)} par ${tex_nombre(b)} et du quotient de ${tex_nombre(c)} par ${tex_nombre(d)}`
+					expn=`$${tex_nombre(a)}\\times${tex_nombre(b)}+${tex_nombre(c)}\\div${tex_nombre(d)}$ ou $${tex_nombre(a)}\\times${tex_nombre(b)}+\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
+					break
+				case 11 : // ab-c/d
+					expf=`La différence du produit de ${tex_nombre(a)} par ${tex_nombre(b)} et du quotient de ${tex_nombre(c)} par ${tex_nombre(d)}`
+					expn=`$${tex_nombre(a)}\\times${tex_nombre(b)}-${tex_nombre(c)}\\div${tex_nombre(d)}$ ou $${tex_nombre(a)}\\times${tex_nombre(b)}-\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
+					break	
+				case 12 : // a/b+c/d
+					expf=`La somme du quotient de ${tex_nombre(a)} par ${tex_nombre(b)} et du quotient de ${tex_nombre(c)} par ${tex_nombre(d)}`
+					expn=`$${tex_nombre(a)}\\div${tex_nombre(b)}+${tex_nombre(c)}\\div${tex_nombre(d)}$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}}+\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
+					break	
+				case 13 : // a/b-c/d		
+					expf=`La différence du quotient de ${tex_nombre(a)} par ${tex_nombre(b)} et du quotient de ${tex_nombre(c)} par ${tex_nombre(d)}`
+					expn=`$${tex_nombre(a)}\\div${tex_nombre(b)}-${tex_nombre(c)}\\div${tex_nombre(d)}$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}}-\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
+					break	
+			}
+			break ;
+		case 5 : // expressions complexes
+			switch (randint(0,5)) {
+				case 0 : // 2(a+bc)
+					expf=`Le double de la somme de ${tex_nombre(a)} et du produit de ${tex_nombre(b)} par ${tex_nombre(c)}`
+					expn=`$2(${tex_nombre(a)}+${tex_nombre(b)}\\times${tex_nombre(c)})$`
+					break
+				case 1 : // 3(a+b)/c
+					expf=`Le triple du quotient de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par ${tex_nombre(c)}`
+					expn=`$3(${tex_nombre(a)}+${tex_nombre(b)})\\div${tex_nombre(c)}$ ou $3\\times\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}}$`
+					break
+				case 2 : // (a-b)/3
+					expf=`Le tiers de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)}`
+					expn=`$(${tex_nombre(a+b)}-${tex_nombre(b)})\\div 3$ ou $\\dfrac{${tex_nombre(a+b)}-${tex_nombre(b)}}{3}$`
+					break
+				case 3 : // (a-b)/3*2(c+d)
+					expf=`Le produit du tiers de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)} par le double de la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
+					expn=`$\\left((${tex_nombre(a+b)}-${tex_nombre(b)})\\div 3\\right)\\times 2(${tex_nombre(c)}+${tex_nombre(d)})$`
+					break			
+				case 4 : // 3(a+b)-2(c+d)
+					expf=`La différence du triple de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} et du double de la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
+					expn=`$3(${tex_nombre(a)}+${tex_nombre(b)})-2(${tex_nombre(c)}+${tex_nombre(d)})$`
+					break
+				case 5 : // 2(a-b)+3(c+d)
+					expf=`La somme du double de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)} et du triple de la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
+					expn=`$2(${tex_nombre(a+b)}-${tex_nombre(b)})+3(${tex_nombre(c)}+${tex_nombre(d)})$`
+					break	
+			}		
+			break ;
+		case 4 : // 4 opérations
+			switch (randint(1,3)) {
+				case 1 : // (a+b)/(c(d+e))
+					expf=`Le quotient de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par le produit de ${tex_nombre(c)} par la somme de ${tex_nombre(d)} et ${tex_nombre(e)}`
+					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div(${tex_nombre(c)}(${tex_nombre(d)}+${tex_nombre(e)})$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}(${tex_nombre(d)}+${tex_nombre(e)})}$`
+					texte=`Traduire la phrase suivante par une expression numérique :<br>${expf}`
+					texte_corr=`${expf} s'écrit<br>${expn}`
+					break
+				case 2 : //(a-b)*(c+de)
+					expf=`Le produit de la différence de ${tex_nombre(a+b)} et ${tex_nombre(b)} par la somme de ${tex_nombre(c)} et du produit de ${tex_nombre(d)} par ${tex_nombre(e)}`
+					expn=`$(${tex_nombre(a+b)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}\\times${tex_nombre(e)})$`
+					texte=`Traduire la phrase suivante par une expression numérique :<br>${expf}`
+					texte_corr=`${expf} s'écrit<br>${expn}`
+					break
+				case 3 : // ab+cd/e
+					expf=`La somme du produit de ${tex_nombre(a)} par ${tex_nombre(b)} et du quotient du produit de ${tex_nombre(c)} et ${tex_nombre(d)} par ${tex_nombre(e)}`
+					expn=`$${tex_nombre(a)}\\times${tex_nombre(b)}+${tex_nombre(c)}\\times${tex_nombre(d)}\\div${tex_nombre(e)}$ ou $${tex_nombre(a)}\\times${tex_nombre(b)}+\\dfrac{${tex_nombre(c)}\\times${tex_nombre(d)}}{${tex_nombre(e)}}$`
+					texte=`Traduire la phrase suivante par une expression numérique :<br>${expf}`
+					texte_corr=`${expf} s'écrit<br>${expn}`
+					break
+			}
+			break
+		}
+		return [expf,expn,expc]
 }
