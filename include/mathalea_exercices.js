@@ -6883,7 +6883,7 @@ function Reciproque_Thales_4eme(){
 
 /**
  * Vocabulaire des triangles
- * 6G20 ; 6G20-1 ; 5G20-1 
+ * 6G20 ; 5G20-1 
  * @author Sébastien Lozano
  */
 
