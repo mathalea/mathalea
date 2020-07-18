@@ -3916,6 +3916,7 @@ function Ecrire_une_expression_numerique(){
 		if (this.sup2) decimal=10;
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
 			nb_operations=parseInt(liste_type_de_questions[i])
+			if (this.version>2&&nb_operations==1) nb_operations++
 			resultats=Choisir_expression_numerique(nb_operations,decimal)
 			expf=resultats[0]
 			expn=resultats[1]
@@ -3924,22 +3925,27 @@ function Ecrire_une_expression_numerique(){
 			console.log(i+1,nb_operations,souscas)
 			switch (this.version) {
 				case 1:
-					texte=`Traduire la phrase suivante par une expression numérique :<br>${expf}`
+					this.consigne=`Traduire la phrase par un calcul (il n’est pas demandé d’effectuer ce calcul).`
+					texte= `${expf}.`
 					texte_corr=`${expf} s'écrit<br>${expn}.`
 					break
 				case 2:
 					if (expn.indexOf('ou')>0) expn=expn.substring(0,expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
-					texte=`Traduire le calcul suivant par une phrase en français :<br>${expn}`
-					texte_corr=`L'expression numérique ${expn} permet de calculer :<br>${expf}`
+					this.consigne=`Traduire le calcul par une phrase en français.`
+					texte=`${expn}`
+					expf=`l`+expf.substring(1);
+					texte_corr=`Le calcul ${expn} permet de calculer ${expf}`
 					break
 				case 3:
-					texte=`Traduire la phrase suivante par une expression numérique et effectuer le calcul en respectant les priorités opératoires :<br>${expf}`
+					this.consigne=`Traduire la phrase par un calcul et effectuer ce calcul en respectant les priorités opératoires.`
+					texte=`${expf}.`
 					texte_corr=`${expf} s'écrit ${expn}.<br>`
 					texte_corr+=`${expc}.`
 					break
 				case 4:
 					if (expn.indexOf('ou')>0) expn=expn.substring(0,expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
-					texte=`Calculer l'expression suivante en respectant les priorités opératoires :<br>${expn}`
+					this.consigne=`Calculer l'expression en respectant les priorités opératoires.`
+					texte=`${expn}.`
 					texte_corr=`${expc}.`
 					break
  		
