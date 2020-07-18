@@ -3312,14 +3312,14 @@ function Problemes_grandeurs_composees(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Résoudre des problèmes de grandeurs composées et de conversion d'unités complexes";
 	this.consigne = "";
-	this.nb_questions = 1;
+	this.nb_questions = 3;
 	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	sortie_html? this.spacing = 3 : this.spacing = 1.5; 
 	sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
 	this.sup=false;
-	this.sup2=1;
+
 	
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
@@ -3602,7 +3602,7 @@ function Problemes_grandeurs_composees(){
 						break;
 				case 8 : //problème de prix massique
 					index1=randint(0,7)
-					index2=randint(0,5,[index])
+					index2=randint(0,5,[index1])
 					index=randint(0,5,[index1,index2])
 					masse=arrondi(randint(fruits[index1][2],fruits[index1][3])/10)
 					masse2=arrondi(randint(fruits[index2][2],fruits[index2][3])/10)
