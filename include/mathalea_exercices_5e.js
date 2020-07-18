@@ -3952,7 +3952,7 @@ function Ecrire_une_expression_numerique(){
 		if (this.sup2) decimal=10;
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
 			nb_operations=parseInt(liste_type_de_questions[i])
-			if (this.niveau=6) nb_operations=nb_operations%2+1
+			if (this.niveau=6) nb_operations=1
 			if (this.version>2&&nb_operations==1) nb_operations++
 			resultats=Choisir_expression_numerique(nb_operations,decimal)
 			expf=resultats[0]
