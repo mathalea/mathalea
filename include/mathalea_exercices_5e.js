@@ -3517,13 +3517,7 @@ function Pavages_et_transformations() {
 			}
 			texte += num_alpha(2) + texte_en_couleur_et_gras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie par rapport à ${s2} ?<br>`, `blue`)
 			texte_corr += num_alpha(2) + texte_en_couleur_et_gras(` La figure symétrique de la figure ${numC} dans la symétrie par rapport à ${s2} porte le numéro ${num3}.<br>`, `blue`)
-/*			xa = tabfigC[indexA][0] - xC // On calcule les coordonnées des points de référence des figures à transformer.
-			ya = tabfigC[indexA][1] - yC
-			xb = tabfigD[indexD][0] - xD
-			yb = tabfigD[indexD][1] - yD
-			xc = tabfigC[indexC][0] - xC
-			yc = tabfigC[indexC][1] - yC
-*/			break
+			break
 
 		case 3 : //translations
 			let iB1,iB2,iB3,iC1,iA1,iD1
@@ -3824,6 +3818,10 @@ function Pavages_et_transformations() {
 	}
 	this.besoin_formulaire_numerique = ['Transformations',4, '1 : Symétries axiales\n 2 : Symétries centrales\n 3 : Translations\n 4 : Translations\n 5 : Homothéties\n'];
 }
+/**
+ * Transformer un programme de calcul avec les 4 opérations dans un ordre aléatoire en un seul calcul.
+ * @Auteur Jean-Claude Lhote
+ */
 function Ecrire_une_expression_mathador(){
 	'use strict'
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -3862,7 +3860,30 @@ function Ecrire_une_expression_mathador(){
 		liste_de_question_to_contenu(this);
 	}
 }
-
+/**
+ * @Auteur Jean-Claude Lhote
+ */
+function Traduire_une_phrase_par_une_expression_6() {
+	Traduire_une_phrase_par_une_expression.call(this)
+	this.niveau=6
+}
+/**
+ * @Auteur Jean-Claude Lhote
+ */
+function Traduire_une_expression_par_une_phrase_6() {
+	Traduire_une_expression_par_une_phrase.call(this)
+	this.niveau=6
+}
+/**
+ * @Auteur Jean-Claude Lhote
+ */
+function Traduire_une_phrase_par_une_expression_et_calculer_6() {
+	Traduire_une_phrase_par_une_expression_et_calculer.call(this)
+	this.niveau=6
+}
+/**
+ * @Auteur Jean-Claude Lhote
+ */
 function Traduire_une_phrase_par_une_expression() {
 	Ecrire_une_expression_numerique.call(this)
 	this.version=1
@@ -3870,21 +3891,35 @@ function Traduire_une_phrase_par_une_expression() {
 	this.sup=false
 	this.sup2=false
 }
+/**
+ * @Auteur Jean-Claude Lhote
+ */
 function Traduire_une_expression_par_une_phrase() {
 	Ecrire_une_expression_numerique.call(this)
 	this.version=2
 	this.titre="Traduire une expression par une phrase"
 }
+/**
+ * @Auteur Jean-Claude Lhote
+ */
 function Traduire_une_phrase_par_une_expression_et_calculer() {
 	Ecrire_une_expression_numerique.call(this)
 	this.version=3
 	this.titre="Traduire une phrase par une expression et la calculer"
 }
+/**
+ * @Auteur Jean-Claude Lhote
+ */
 function Calculer_une_expression_numerique() {
 	Ecrire_une_expression_numerique.call(this)
 	this.version=4
 	this.titre="Calculer une expression numérique en détaillant les calculs"
 }
+
+/**
+ * Fonction noyau pour les 7 fonctions précédentes qui utilisent les mêmes variables et la fonction Choisir_expression_numerique
+ * @Auteur Jean-Claude Lhote
+ */
 function Ecrire_une_expression_numerique(){
 	'use strict'
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -3895,6 +3930,7 @@ function Ecrire_une_expression_numerique(){
 	this.sup2=false; // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
 	this.sup=false
 	this.version=1 // 1 pour ecrire une expression, 2 pour écrire la phrase, 3 pour écrire l'expression et la calculer, 4 pour calculer une expression numérique
+	this.niveau=5
 	this.nouvelle_version = function(numero_de_l_exercice){
 		let type_de_questions_disponibles
 		this.liste_questions = []; // Liste de questions
@@ -3916,6 +3952,7 @@ function Ecrire_une_expression_numerique(){
 		if (this.sup2) decimal=10;
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
 			nb_operations=parseInt(liste_type_de_questions[i])
+			if (this.niveau=6) nb_operations=nb_operations%2+1
 			if (this.version>2&&nb_operations==1) nb_operations++
 			resultats=Choisir_expression_numerique(nb_operations,decimal)
 			expf=resultats[0]
@@ -3972,6 +4009,7 @@ function Ecrire_une_expression_numerique(){
  * * l'expression en français commençant par une majuscule sans point final
  * * l'expression en mode maths LaTex
  * * Le détaillé du calcul en mode maths LaTex 
+ * @Auteur Jean-Claude Lhote
  */
 function Choisir_expression_numerique(nb_operations,decimal) {
 	let expf,expn,expc,arrondir=Math.log10(decimal)
@@ -3992,9 +4030,10 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 					expc=`$${tex_nombre(a)}+${tex_nombre(b)} = ${tex_nombre(a+b)}$`
 					break
 				case 1 : // différence de deux nombres
-					expf=`La différence de ${tex_nombre(a+b)} et ${tex_nombre(b)}`
-					expn=`$${tex_nombre(a+b)}-${tex_nombre(b)}$`
-					expc=`$${tex_nombre(a+b)}-${tex_nombre(b)} = ${tex_nombre(a+b-b)}$`
+					if(a<b) a=a+b
+					expf=`La différence de ${tex_nombre(a)} et ${tex_nombre(b)}`
+					expn=`$${tex_nombre(a)}-${tex_nombre(b)}$`
+					expc=`$${tex_nombre(a)}-${tex_nombre(b)} = ${tex_nombre(a-b)}$`
 					break
 				case 2 : // produit de deux nombres
 					expf=`Le produit de ${tex_nombre(a)} par ${tex_nombre(b)}`
@@ -4018,7 +4057,7 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 					expc=`$${tex_nombre(a)}(${tex_nombre(b)}+${tex_nombre(c)}) = ${tex_nombre(a)}\\times${tex_nombrec(b+c)}=${tex_nombrec(a*(b+c))}$`
 					break
 				case 1 : // a(b-c)
-					if (b<c) b=calcul(b+c) // b-c positif
+					if (b<=c) b=calcul(b+c) // b-c positif
 					expf=`Le produit de ${tex_nombre(a)} par la différence de ${tex_nombre(b)} et ${tex_nombre(c)}`
 					expn=`$${tex_nombre(a)}(${tex_nombre(b)}-${tex_nombre(c)})$`
 					expc=`$${tex_nombre(a)}(${tex_nombre(b)}-${tex_nombre(c)}) = ${tex_nombre(a)}\\times${tex_nombrec(b-c)}=${tex_nombrec(a*(b-c))}$`
@@ -4030,8 +4069,8 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 					expc=`$${tex_nombre(a)}\\div(${tex_nombre(b)}+${tex_nombre(c)}) = ${tex_nombre(a)}\\div${tex_nombrec(b+c)}=${tex_nombrec(a/(b+c))}$`
 					break
 				case 3 : // a/(b-c)
-					if (b<c) b=calcul(b+c) // b-c positif
-					a=calcul(a*(b-c)) // on s'assure que le quotient tombe juste
+					if (b<=c) b=calcul(b+c) // b-c positif
+ 					a=calcul(a*(b-c)) // on s'assure que le quotient tombe juste
 					expf=`Le quotient de ${tex_nombre(a)} par la différence de ${tex_nombre(b)} et ${tex_nombre(c)}`
 					expn=`$${tex_nombre(a)}\\div(${b}-${tex_nombre(c)})$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}-${tex_nombre(c)}}$`
 					expc=`$${tex_nombre(a)}\\div(${b}-${tex_nombre(c)}) = ${tex_nombre(a)}\\div${tex_nombrec(b-c)}=${tex_nombrec(a/(b-c))}$`
@@ -4044,7 +4083,7 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div${tex_nombre(c)} = ${tex_nombrec(a+b)}\\div${tex_nombre(c)}=${tex_nombrec((a+b)/c)}$`
 					break
 				case 5 : // (a-b)/c
-					if (a<b) a=calcul(a+b) // a-b positif
+					if (a<=b) a=calcul(a+b) // a-b positif
 					a=calcul(a*c)
 					b=calcul(b*c) // on s'assure que le quotient tombe juste
 					expf=`Le quotient de la différence de ${tex_nombre(a)} et ${tex_nombre(b)} par ${tex_nombre(c)}`
@@ -4063,20 +4102,20 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a+b)}\\times${tex_nombrec(c+d)} = ${tex_nombrec((a+b)*(c+d))}$`
 					break
 				case 1 : // (a+b)(c-d)
-					if (c<d) c=calcul(c+d)
+					if (c<=d) c=calcul(c+d)
 					expf=`Le produit de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par la différence de ${tex_nombre(c)} et ${tex_nombre(d)}`
 					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})(${tex_nombre(c)}-${tex_nombre(d)})$`
 					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})(${tex_nombre(c)}-${tex_nombre(d)}) = ${tex_nombrec(a+b)}\\times${tex_nombrec(c-d)} = ${tex_nombrec((a+b)*(c-d))}$`
 					break
 				case 2 : // (a-b)(c+d)
-					if (a<b) a=calcul(a+b)
+					if (a<=b) a=calcul(a+b)
 					expf=`Le produit de la différence de ${tex_nombre(a)} et ${tex_nombre(b)} par la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
 					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)})$`
 					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\times${tex_nombrec(c+d)} = ${tex_nombrec((a-b)*(c+d))}$`
 					break
 				case 3 : // (a-b)(c-d)
-					if (a<b) a=calcul(a+b)
-					if (c<d) c=calcul(c+d)
+					if (a<=b) a=calcul(a+b)
+					if (c<=d) c=calcul(c+d)
 					expf=`Le produit de la différence de ${tex_nombre(a)} et ${tex_nombre(b)} par la différence de ${tex_nombre(c)} et ${tex_nombre(d)}`
 					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}-${tex_nombre(d)})$`
 					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}-${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\times${tex_nombrec(c-d)} = ${tex_nombrec((a-b)*(c-d))}$`
@@ -4091,13 +4130,13 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 				case 5 : // (a-b)/(c+d)
 					a=calcul(a*(c+d))
 					b=calcul(b*(c+d))
-					if (a<b) a=calcul(a+b)
+					if (a<=b) a=calcul(a+b)
 					expf=`Le quotient de la différence de ${tex_nombre(a)} et ${tex_nombre(b)} par la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
 					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div(${tex_nombre(c)}+${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a)}-${tex_nombre(b)}}{${tex_nombre(c)}+${tex_nombre(d)}}$`
 					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\div${tex_nombrec(c+d)} = ${tex_nombrec((a-b)/(c+d))}$`
 					break			
 				case 6 : // (a+b)/(c-d)
-					if (c<d) c=calcul(c+d)
+					if (c<=d) c=calcul(c+d)
 					a=calcul(a*(c-d))
 					b=calcul(b*(c-d))
 					expf=`Le quotient de la somme de ${tex_nombre(a)} et ${tex_nombre(b)} par la différence de ${tex_nombre(c)} et ${tex_nombre(d)}`
@@ -4105,8 +4144,8 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div(${tex_nombre(c)}-${tex_nombre(d)}) = ${tex_nombrec(a+b)}\\div${tex_nombrec(c-d)} = ${tex_nombrec((a+b)/(c-d))}$`
 					break
 				case 7 : // (a-b)/(c-d)
-					if (c<d) c=calcul(c+d)
-					if (a<b) a=calcul(a+b)
+					if (c<=d) c=calcul(c+d)
+					if (a<=b) a=calcul(a+b)
 					a=calcul(a*(c-d))
 					b=calcul(b*(c-d))
 					expf=`Le quotient de la différence de ${tex_nombre(a)} et ${tex_nombre(b)} par la différence de ${tex_nombre(c)} et ${tex_nombre(d)}`
@@ -4173,7 +4212,7 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 					expc=`$3(${tex_nombre(a)}+${tex_nombre(b)})\\div${tex_nombre(c)} = 3\\times ${tex_nombre(a+b)}\\div${tex_nombre(c)} = ${tex_nombrec(3*(a+b))}\\div${tex_nombre(c)} = ${tex_nombrec(3*(a+b)/c)}$`
 					break
 				case 2 : // (a-b)/3
-					if (a<b) a=calcul(a+b)
+					if (a<=b) a=calcul(a+b)
 					a=calcul(3*a)
 					b=calcul(3*b)
 					expf=`Le tiers de la différence de ${tex_nombre(a)} et ${tex_nombre(b)}`
@@ -4181,7 +4220,7 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div 3 = ${tex_nombrec(a-b)}\\div 3 = ${tex_nombrec((a-b)/3)}$`
 					break
 				case 3 : // (a-b)/3*2(c+d)
-					if (a<b) a=calcul(a+b)
+					if (a<=b) a=calcul(a+b)
 					a=calcul(3*a)
 					b=calcul(3*b)
 					expf=`Le produit du tiers de la différence de ${tex_nombre(a)} et ${tex_nombre(b)} par le double de la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
@@ -4195,7 +4234,7 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 					expc=`$3(${tex_nombre(a)}+${tex_nombre(b)})-2(${tex_nombre(c)}+${tex_nombre(d)}) = 3 \\times ${tex_nombrec(a+b)} - 2 \\times ${tex_nombrec(c+d)} = ${tex_nombrec(3*(a+b))} - ${tex_nombrec(2*(c+d))} = ${tex_nombrec(3*(a+b)-2*(c+d))}$`
 					break
 				case 5 : // 2(a-b)+3(c+d)
-					if (a<b) a=calcul(a+b)
+					if (a<=b) a=calcul(a+b)
 					expf=`La somme du double de la différence de ${tex_nombre(a)} et ${tex_nombre(b)} et du triple de la somme de ${tex_nombre(c)} et ${tex_nombre(d)}`
 					expn=`$2(${tex_nombre(a)}-${tex_nombre(b)})+3(${tex_nombre(c)}+${tex_nombre(d)})$`
 					expc=`$2(${tex_nombre(a)}-${tex_nombre(b)})+3(${tex_nombre(c)}+${tex_nombre(d)}) = 2 \\times ${tex_nombrec(a-b)} + 3 \\times ${tex_nombrec(c+d)} = ${tex_nombrec(2*(a-b))} + ${tex_nombrec(3*(c+d))} = ${tex_nombrec(2*(a-b)+3*(c+d))}$`
@@ -4213,7 +4252,7 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div(${tex_nombre(c)}(${tex_nombre(d)}+${tex_nombre(e)})) = ${tex_nombrec(a+b)} \\div (${tex_nombre(c)} \\times ${tex_nombrec(d+e)}) = ${tex_nombrec(a+b)} \\div ${tex_nombre(c*(d+e))} = ${tex_nombrec((a+b)/(c*(d+e)))}$`
 					break
 				case 2 : //(a-b)*(c+de)
-					if (a<b) a=calcul(a+b)
+					if (a<=b) a=calcul(a+b)
 					expf=`Le produit de la différence de ${tex_nombre(a)} et ${tex_nombre(b)} par la somme de ${tex_nombre(c)} et du produit de ${tex_nombre(d)} par ${tex_nombre(e)}`
 					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}\\times${tex_nombre(e)})$`
 					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}\\times${tex_nombre(e)}) = ${tex_nombrec(a-b)}(${tex_nombre(c)}+${tex_nombrec(d*e)}) = ${tex_nombrec(a-b)} \\times ${tex_nombre(c+d*e)} = ${tex_nombrec((a-b)*(c+d*e))}$`
