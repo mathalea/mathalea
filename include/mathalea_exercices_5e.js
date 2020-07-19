@@ -3860,34 +3860,13 @@ function Ecrire_une_expression_mathador(){
 		liste_de_question_to_contenu(this);
 	}
 }
-/**
- * @Auteur Jean-Claude Lhote
- */
-function Traduire_une_phrase_par_une_expression_6() {
-	Traduire_une_phrase_par_une_expression.call(this)
-	this.niveau=6
-}
-/**
- * @Auteur Jean-Claude Lhote
- */
-function Traduire_une_expression_par_une_phrase_6() {
-	Traduire_une_expression_par_une_phrase.call(this)
-	this.niveau=6
-}
-/**
- * @Auteur Jean-Claude Lhote
- */
-function Traduire_une_phrase_par_une_expression_et_calculer_6() {
-	Traduire_une_phrase_par_une_expression_et_calculer.call(this)
-	this.niveau=6
-}
+
 /**
  * @Auteur Jean-Claude Lhote
  */
 function Traduire_une_phrase_par_une_expression() {
 	Ecrire_une_expression_numerique.call(this)
 	this.version=1
-	this.niveau=5
 	this.titre="Traduire une phrase par une expression"
 	this.sup=false
 	this.sup2=false
@@ -3898,7 +3877,6 @@ function Traduire_une_phrase_par_une_expression() {
 function Traduire_une_expression_par_une_phrase() {
 	Ecrire_une_expression_numerique.call(this)
 	this.version=2
-	this.niveau=5
 	this.titre="Traduire une expression par une phrase"
 }
 /**
@@ -3907,7 +3885,6 @@ function Traduire_une_expression_par_une_phrase() {
 function Traduire_une_phrase_par_une_expression_et_calculer() {
 	Ecrire_une_expression_numerique.call(this)
 	this.version=3
-	this.niveau=5
 	this.titre="Traduire une phrase par une expression et la calculer"
 }
 /**
@@ -3916,7 +3893,6 @@ function Traduire_une_phrase_par_une_expression_et_calculer() {
 function Calculer_une_expression_numerique() {
 	Ecrire_une_expression_numerique.call(this)
 	this.version=4
-	this.niveau=5
 	this.titre="Calculer une expression numérique en détaillant les calculs"
 }
 
@@ -3934,7 +3910,7 @@ function Ecrire_une_expression_numerique(){
 	this.sup2=false; // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
 	this.sup=false
 	this.version=1 // 1 pour ecrire une expression, 2 pour écrire la phrase, 3 pour écrire l'expression et la calculer, 4 pour calculer une expression numérique
-	this.niveau=5
+
 	this.nouvelle_version = function(numero_de_l_exercice){
 		let type_de_questions_disponibles
 		this.liste_questions = []; // Liste de questions
