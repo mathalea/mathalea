@@ -3847,7 +3847,7 @@ function Ecrire_une_expression_mathador(){
 			for (let j=0;j<4;j++) {
 				texte+=`$${calculs_successifs[j]}$<br>`
 			}
-			texte+=`Écrit cette succession d'opérations en une seule expression.`
+			texte+=`Écris cette succession d'opérations en une seule expression.`
 			texte_corr = `L'expression correspondante au calcul de ${quidam} est<br>$${expression}$ ou $${solution_mathador[4]}$.`
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
