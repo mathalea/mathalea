@@ -3887,6 +3887,7 @@ function Traduire_une_phrase_par_une_expression_et_calculer_6() {
 function Traduire_une_phrase_par_une_expression() {
 	Ecrire_une_expression_numerique.call(this)
 	this.version=1
+	this.niveau=5
 	this.titre="Traduire une phrase par une expression"
 	this.sup=false
 	this.sup2=false
@@ -3897,6 +3898,7 @@ function Traduire_une_phrase_par_une_expression() {
 function Traduire_une_expression_par_une_phrase() {
 	Ecrire_une_expression_numerique.call(this)
 	this.version=2
+	this.niveau=5
 	this.titre="Traduire une expression par une phrase"
 }
 /**
@@ -3905,6 +3907,7 @@ function Traduire_une_expression_par_une_phrase() {
 function Traduire_une_phrase_par_une_expression_et_calculer() {
 	Ecrire_une_expression_numerique.call(this)
 	this.version=3
+	this.niveau=5
 	this.titre="Traduire une phrase par une expression et la calculer"
 }
 /**
@@ -3913,6 +3916,7 @@ function Traduire_une_phrase_par_une_expression_et_calculer() {
 function Calculer_une_expression_numerique() {
 	Ecrire_une_expression_numerique.call(this)
 	this.version=4
+	this.niveau=5
 	this.titre="Calculer une expression numérique en détaillant les calculs"
 }
 
@@ -3952,7 +3956,6 @@ function Ecrire_une_expression_numerique(){
 		if (this.sup2) decimal=10;
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
 			nb_operations=parseInt(liste_type_de_questions[i])
-			if (this.niveau=6) nb_operations=1
 			if (this.version>2&&nb_operations==1) nb_operations++
 			resultats=Choisir_expression_numerique(nb_operations,decimal)
 			expf=resultats[0]
@@ -3971,7 +3974,7 @@ function Ecrire_une_expression_numerique(){
 					this.consigne=`Traduire le calcul par une phrase en français.`
 					texte=`${expn}`
 					expf=`l`+expf.substring(1);
-					texte_corr=`Le calcul ${expn} permet de calculer ${expf}`
+					texte_corr=`${expn} est ${expf}.`
 					break
 				case 3:
 					this.consigne=`Traduire la phrase par un calcul et effectuer ce calcul en respectant les priorités opératoires.`

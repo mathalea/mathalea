@@ -25,6 +25,7 @@ var liste_des_exercices_disponibles = {
 		'6C10-2' :Exercice_tables_de_multiplications_et_multiples_de_10,
 		'6C10-3' :Exercice_tables_de_multiplications_et_decimaux,
 		'6C10-4': Exercice_tables_d_additions,
+		'6C13' : Vocabulaire_et_operations,
 		'6C13-1' : Traduire_une_phrase_par_une_expression_6,
 		'6C13-2' : Traduire_une_expression_par_une_phrase_6,
 		'6C13-3' : Traduire_une_phrase_par_une_expression_et_calculer_6,
@@ -1963,123 +1964,77 @@ function Somme_de_deux_nombres_maries_et_un_entier(){
 	}
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
+function Vocabulaire_et_operations() {
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Traduire des phrases en calculs et réciproquement";
+	this.consigne = "";
+	this.nb_questions = 5;
+	this.nb_cols = 2;
+	this.nb_cols_corr = 2;
+	this.sup=4;
+	this.sup2=false;
+	
+	this.nouvelle_version = function(numero_de_l_exercice){
+		let decimal
+		let expf,expn,expc,resultats
+		let type_de_questions_disponibles
+		if (this.sup<4) type_de_questions_disponibles=[parseInt(this.sup)]
+		else type_de_questions_disponibles=[1,2,3]
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) 
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		if (this.sup2) decimal=10**randint(1,2)
+		else decimal=1
 
+		for (let i = 0,texte,texte_corr,cpt=0; i < this.nb_questions && cpt<50; ) {
+			resultats=Choisir_expression_numerique(1,decimal)
+			expf=resultats[0]
+			expn=resultats[1]
+			expc=resultats[2]
+			texte=``
+			texte_corr=``
+			switch (liste_type_de_questions[i]) {
+				case 1:
+					texte+=num_alpha(i)+`Traduire la phrase par un calcul (il n’est pas demandé d’effectuer ce calcul) : `
+					expf=`l`+expf.substring(1);
+					texte+= `${expf}.`
+					texte_corr+=num_alpha(i)+`${expf} s'écrit ${expn}.`
+					break
+				case 2:
+					if (expn.indexOf('ou')>0) expn=expn.substring(0,expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
+					texte+=num_alpha(i)+`Traduire le calcul par une phrase en français : `
+					texte+=`${expn}`
+					expf=`l`+expf.substring(1);
+					texte_corr+=num_alpha(i)+`${expn} est ${expf}.`
+					break
+				case 3:
+					texte+=num_alpha(i)+`Traduire la phrase par un calcul et effectuer ce calcul : `
+					expf=`l`+expf.substring(1);
+					texte+=`${expf}.`
+					expf=`L`+expf.substring(1);
+					texte_corr+=num_alpha(i)+`${expf} s'écrit ${expn}.<br>`
+					texte_corr+=`${expc}.`
+					break
+			}
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}		
+			cpt++;	
+		}
+	liste_de_question_to_contenu_sans_numero(this);
+	}
+	this.besoin_formulaire_numerique = ['Type de questions',4,'1 : Phrase -> Calcul\n 2 : Calcul -> Phrase\n 3 : Phrase -> Calcul + résultat\n 4 : Mélange'];
+	this.besoin_formulaire2_case_a_cocher = ['Décimaux',false];
+
+}
 /**
  * Générateur de tirages pour un compte est bon avec en correction la solution mathador (4 opérations différentes).
  * @Auteur Jean-Claude Lhote
  */
-/*
-function Le_compte_est_bonV2(){
-	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Générateur de \"Le compte est bon\"";
-	this.consigne = "Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.";
-	this.nb_questions = 5;
-	this.nb_cols = 2;
-	this.nb_cols_corr = 2;
-	this.sup=30;
-	this.sup2=70;
-	var max_solution=70;
-	
-	this.nouvelle_version = function(numero_de_l_exercice){
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		let eureka;
-		let solution=0;
-		let min_solution=parseInt(this.sup);
-		max_solution=parseInt(this.sup2);
-		if (min_solution>max_solution) {
-			min_solution=max_solution;
-			this.sup=this.sup2;
-		}
-		let liste_choix=[1,2,2,3,3,4,4,4,4,5,6,6,6,6,7,7,8,8,8,8,9,9,9,9,10,11,12,13,14,15,16,17,18,19,20];
-		for (let i = 0, texte, texte_corr, a, b, c, d, e, f,tirage,expression_en_cours,operations_restantes,nombres_restants,op,part1,part2,cpt=0; i < this.nb_questions && cpt<50; ) {
-			eureka=false;
-			while (eureka==false){
-				tirage=[];
-				a=parseInt(choice(liste_choix))
-				b=parseInt(choice(liste_choix,[13,14,15,16,17,18,19,20,a]))
-				c=parseInt(choice(liste_choix,[12,13,14,15,16,17,18,19,20,a,b]))
-				d=parseInt(choice(liste_choix,[12,13,14,15,16,17,18,19,20,b,c]))
-				e=parseInt(choice(liste_choix,[12,13,14,15,16,17,18,19,20]))
-				tirage.push(a,b,c,d,e);
-				nombres_restants=shuffle(tirage);
-				operations_restantes=['\\times','+','-','\\div'];
-				operations_restantes=shuffle(operations_restantes);
-				expression_en_cours=[`${nombres_restants[0]}`,`${nombres_restants[1]}`,`${nombres_restants[2]}`,`${nombres_restants[3]}`,`${nombres_restants[4]}`];
-				while (nombres_restants.length>1){
-					b=nombres_restants.pop();
-					a=nombres_restants.pop();
-					part2=expression_en_cours.pop();
-					part1=expression_en_cours.pop();
-					op=operations_restantes.pop();
-					console.log(part1,op,part2,'   ',a,op,b)
-					if (op=='\\times'){
-						c=a*b;
-						expression_en_cours.push(`${part1}${op}${part2}`);
-						nombres_restants.push(c);
-					}
-					else if (op=='\\div'){
-						if (a%b==0) {
-							c=a/b;
-							if (part1[0]=='\\'){
-								part1=part1.substring(6,part1.length)
-								part1=part1.substring(0,part1.length-7)
-								}
-							if (part2[0]=='\\'){
-								part2=part2.substring(6,part2.length)
-								part2=part2.substring(0,part2.length-7)
-								}
-							expression_en_cours.push(`\\dfrac{${part1}}{${part2}}`);
-							nombres_restants.push(c);	
-						}
-						else break;
-					}
-					else if (op=='-'){
-						if (a>b) {
-							c=a-b;
-							expression_en_cours.push(`\\left(${part1}${op}${part2}\\right)`);
-							nombres_restants.push(c);	
-						}
-						else break;
-					}
-					else if (op=='+'){
-						c=a+b;
-						if (part2.substring(0,2)=='\\l'){
-							part2=part2.substring(6,part2.length)
-							part2=part2.substring(0,part2.length-7)
-							}
-						expression_en_cours.push(`\\left(${part1}${op}${part2}\\right)`);
-						nombres_restants.push(c);
-					}
-				}
 
-				if (nombres_restants.length==1&&operations_restantes.length==0)	{
-					solution=nombres_restants[0];
-					if (solution>=min_solution&solution<=max_solution) {
-						eureka=true;
-						texte=`Le tirage est le suivant : $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ <br>La cible est : $${solution}$`
-						if (expression_en_cours[0][0]=='\\'){
-						expression_en_cours[0]=expression_en_cours[0].substring(6,expression_en_cours[0].length)
-						expression_en_cours[0]=expression_en_cours[0].substring(0,expression_en_cours[0].length-7)
-						}
-						texte_corr=`La solution est : $${expression_en_cours[0]}=${solution}$`
-						if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-							this.liste_questions.push(texte);
-							this.liste_corrections.push(texte_corr);
-							i++;
-						}		
-					}
-				}
-			}
-			cpt++;	
-		}
-	liste_de_question_to_contenu(this);
-	}
-	this.besoin_formulaire_numerique = ['Limite inférieure',max_solution];
-	this.besoin_formulaire2_numerique = ['Limite supérieure',100];
-}
-*/
 function Le_compte_est_bonV3(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -2129,7 +2084,7 @@ function Le_compte_est_bonV3(){
 	this.besoin_formulaire2_numerique = ['Limite supérieure',100];
 }
 /**
- * 
+ * @Auteur Jean-Claude Lhote 
  * @param {number} min Valeur minimum pour la solution
  * @param {number} max Valeur maximum pour la solution
  * Cette fonction produit aléatoirement un tirage de 5 nombres, une solution, un tableau contenant les calculs successifs, une chaine contenant l'expression mathador correspondante
