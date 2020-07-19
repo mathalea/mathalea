@@ -3741,3 +3741,72 @@ function Problemes_grandeurs_composees(){
 	this.besoin_formulaire_texte = ['Choix des grandeurs','Nombres séparés par des tirets\n 1 : Energie consommée\n 2 :  Volumes\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesses\n 8 : Prix massique\n 9 : Prix horaire\n 10 : Densité de population\n 11 : Masse volumique\n 12 : Concentration massique\n 13 : Débits\n 14 : Transfert de fichiers'] // Texte, tooltip
 
 };
+
+
+/**
+* Un nombre à 2 chiffres (non multiple de 10) + 9
+* @Auteur Rémi Angot
+* SVG Benjamin Angot
+*/
+function Egalite_Pythagore(){
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Égalité de Pythagore";
+	this.consigne = "Pour chaque triangle, donner l'égalité de Pythagore";
+	this.nb_questions = 1;
+	this.nb_cols = 2;
+	this.nb_cols_corr = 2;
+	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		// this.bouton_aide = modal_texte_court(numero_de_l_exercice,"Ajouter 9 revient à ajouter 10 et à soustraire 1.")
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+
+		for (let i = 0, texte, texte_corr, a, b, cpt=0; i < this.nb_questions && cpt<50; ) {
+			const triangle = new Triangles;
+			let nom = triangle.getNom()
+			let A = nom[1];
+			let B = nom[2];
+			let C = nom[3];
+			let fig1 = `<svg width="400" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+			  <polygon points="40,40 240,40 40,140 " fill="none" stroke="black" />
+			  <polygon points="40,40 50,40 50,50 40,50" fill="none" stroke="black" />
+			  <text x="30" y="40" text-anchor="middle" alignment-baseline="central">${A}</text> 
+			  <text x="250" y="40" text-anchor="middle" alignment-baseline="central">${B}</text>
+			  <text x="30" y="140" text-anchor="middle" alignment-baseline="central">${C}</text>
+			</svg>`
+
+			let fig2 = `<svg width="400" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+			  <polygon points="40,40 240,40 240,140 " fill="none" stroke="black" />
+			  <polygon points="240,40 230,40 230,50 240,50" fill="none" stroke="black" />
+			  <text x="30" y="40" text-anchor="middle" alignment-baseline="central">${A}</text> 
+			  <text x="250" y="40" text-anchor="middle" alignment-baseline="central">${B}</text>
+			  <text x="250" y="140" text-anchor="middle" alignment-baseline="central">${C}</text>
+			</svg>`
+
+			let fig3 = `<svg width="400" height="200" viewBox="-20 -20 200 100" xmlns="http://www.w3.org/2000/svg">
+			  <polygon points="0,0 0,60 40,60" fill="none" stroke="black" />
+			  <polygon points="0,0 5,0 5,5 0,5" fill="none" stroke="black" />
+			  <text x="90" y="100" text-anchor="middle" alignment-baseline="central">${A}</text> 
+			  <text x="0" y="0" text-anchor="middle" alignment-baseline="central">${B}</text>
+			  <text x="-10" y="40" text-anchor="middle" alignment-baseline="central">${C}</text>
+			</svg>`
+
+			texte = choice([fig1,fig2]);
+
+
+			texte_corr = `${nom} est rectangle en ${A}, donc d'après le théorème de Pythagore, on a : $${B}${C}^2=${A}${C}^2+${A}${B}^2$.`
+			
+			
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+}
