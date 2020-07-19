@@ -3847,7 +3847,7 @@ function Ecrire_une_expression_mathador(){
 			for (let j=0;j<4;j++) {
 				texte+=`$${calculs_successifs[j]}$<br>`
 			}
-			texte+=`Écrit cette succession d'opérations en une seule expression.`
+			texte+=`Écris cette succession d'opérations en une seule expression.`
 			texte_corr = `L'expression correspondante au calcul de ${quidam} est<br>$${expression}$ ou $${solution_mathador[4]}$.`
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
@@ -3860,27 +3860,7 @@ function Ecrire_une_expression_mathador(){
 		liste_de_question_to_contenu(this);
 	}
 }
-/**
- * @Auteur Jean-Claude Lhote
- */
-function Traduire_une_phrase_par_une_expression_6() {
-	Traduire_une_phrase_par_une_expression.call(this)
-	this.niveau=6
-}
-/**
- * @Auteur Jean-Claude Lhote
- */
-function Traduire_une_expression_par_une_phrase_6() {
-	Traduire_une_expression_par_une_phrase.call(this)
-	this.niveau=6
-}
-/**
- * @Auteur Jean-Claude Lhote
- */
-function Traduire_une_phrase_par_une_expression_et_calculer_6() {
-	Traduire_une_phrase_par_une_expression_et_calculer.call(this)
-	this.niveau=6
-}
+
 /**
  * @Auteur Jean-Claude Lhote
  */
@@ -3930,7 +3910,7 @@ function Ecrire_une_expression_numerique(){
 	this.sup2=false; // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
 	this.sup=false
 	this.version=1 // 1 pour ecrire une expression, 2 pour écrire la phrase, 3 pour écrire l'expression et la calculer, 4 pour calculer une expression numérique
-	this.niveau=5
+
 	this.nouvelle_version = function(numero_de_l_exercice){
 		let type_de_questions_disponibles
 		this.liste_questions = []; // Liste de questions
@@ -3952,7 +3932,6 @@ function Ecrire_une_expression_numerique(){
 		if (this.sup2) decimal=10;
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
 			nb_operations=parseInt(liste_type_de_questions[i])
-			if (this.niveau=6) nb_operations=1
 			if (this.version>2&&nb_operations==1) nb_operations++
 			resultats=Choisir_expression_numerique(nb_operations,decimal)
 			expf=resultats[0]
@@ -3971,7 +3950,7 @@ function Ecrire_une_expression_numerique(){
 					this.consigne=`Traduire le calcul par une phrase en français.`
 					texte=`${expn}`
 					expf=`l`+expf.substring(1);
-					texte_corr=`Le calcul ${expn} permet de calculer ${expf}`
+					texte_corr=`${expn} est ${expf}.`
 					break
 				case 3:
 					this.consigne=`Traduire la phrase par un calcul et effectuer ce calcul en respectant les priorités opératoires.`
