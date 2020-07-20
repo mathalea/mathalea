@@ -3744,7 +3744,7 @@ function Problemes_grandeurs_composees(){
 
 
 /**
-* Un nombre à 2 chiffres (non multiple de 10) + 9
+* À partir d'un triangle rectangle, il faut donner l'égalité de Pythagore ou compléter une égalité.
 * @Auteur Rémi Angot
 * SVG Benjamin Angot
 */
@@ -3797,7 +3797,7 @@ function Egalite_Pythagore(){
 			  <text x="30" y="140" text-anchor="middle" alignment-baseline="central">${C}</text>
 			</svg></div>`
 				if (this.sup2) {
-					texte = `${nom} est rectangle en ${A}.<br>`
+					texte = `${nom} est rectangle en $${A}$.<br>`
 				}
 				if (this.sup==1){
 					texte_corr = texte_corr1;
@@ -3826,7 +3826,7 @@ function Egalite_Pythagore(){
 			  <text x="250" y="140" text-anchor="middle" alignment-baseline="central">${C}</text>
 			</svg></div>`
 			if (this.sup2) {
-					texte = `${nom} est rectangle en ${B}.<br>`
+					texte = `${nom} est rectangle en $${B}$.<br>`
 				}
 				if (this.sup==1){
 					texte_corr = texte_corr2
@@ -3855,7 +3855,7 @@ function Egalite_Pythagore(){
 			  <text x="30" y="40" text-anchor="middle" alignment-baseline="central">${C}</text>
 			</svg></div>`
 			if (this.sup2) {
-					texte = `${nom} est rectangle en ${C}.<br>`
+					texte = `${nom} est rectangle en $${C}$.<br>`
 				}
 				if (this.sup==1){
 					texte_corr = texte_corr3
@@ -3884,7 +3884,7 @@ function Egalite_Pythagore(){
 			  <text x="150" y="240" text-anchor="middle" alignment-baseline="central">${C}</text>
 			</svg></div>`
 			if (this.sup2) {
-					texte = `${nom} est rectangle en ${B}.<br>`
+					texte = `${nom} est rectangle en $${B}$.<br>`
 				}
 				if (this.sup==1){
 					texte_corr = texte_corr2
@@ -3913,7 +3913,7 @@ function Egalite_Pythagore(){
 			  <text x="-10" y="0" text-anchor="middle" alignment-baseline="central">${C}</text>
 			</svg></div>`
 			if (this.sup2) {
-					texte = `${nom} est rectangle en ${A}.<br>`
+					texte = `${nom} est rectangle en $${A}$.<br>`
 				}
 				if (this.sup==1){
 					texte_corr = texte_corr1;
@@ -3942,7 +3942,7 @@ function Egalite_Pythagore(){
 			  <text x="-10" y="0" text-anchor="middle" alignment-baseline="central">${A}</text>
 			</svg></div>`
 			if (this.sup2) {
-					texte = `${nom} est rectangle en ${C}.<br>`
+					texte = `${nom} est rectangle en $${C}$.<br>`
 				}
 				if (this.sup==1){
 					texte_corr = texte_corr1;
