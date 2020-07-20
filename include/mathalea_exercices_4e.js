@@ -3751,53 +3751,113 @@ function Problemes_grandeurs_composees(){
 function Egalite_Pythagore(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Égalité de Pythagore";
-	this.consigne = "Pour chaque triangle, donner l'égalité de Pythagore";
-	this.nb_questions = 1;
+	this.nb_questions = 4;
 	this.nb_cols = 2;
 	this.nb_cols_corr = 2;
+	this.pas_de_version_LaTeX = true ;
+	this.sup = 1;
 	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		// this.bouton_aide = modal_texte_court(numero_de_l_exercice,"Ajouter 9 revient à ajouter 10 et à soustraire 1.")
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
+		let liste_type_de_questions = combinaison_listes(range1(1),this.nb_questions);
+		if (this.sup==1) {
+			this.consigne = "Pour chaque triangle, donner l'égalité de Pythagore.";
+		} else {
+			this.consigne = "Compléter."
+		}
 
 		for (let i = 0, texte, texte_corr, a, b, cpt=0; i < this.nb_questions && cpt<50; ) {
 			const triangle = new Triangles;
+
 			let nom = triangle.getNom()
 			let A = nom[1];
 			let B = nom[2];
 			let C = nom[3];
-			let fig1 = `<svg width="400" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+			let texte_corr1 = `${nom} est rectangle en ${A}, donc d'après le théorème de Pythagore, on a : $${B}${C}^2=${A}${C}^2+${A}${B}^2$.`
+			let texte_corr2 = `${nom} est rectangle en ${B}, donc d'après le théorème de Pythagore, on a : $${A}${C}^2=${B}${C}^2+${B}${A}^2$.`
+			let texte_corr3 = `${nom} est rectangle en ${C}, donc d'après le théorème de Pythagore, on a : $${A}${B}^2=${C}${A}^2+${C}${B}^2$.`
+
+			switch (liste_type_de_questions[i]){
+				case 1 :
+				texte = `<div><svg width="400" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
 			  <polygon points="40,40 240,40 40,140 " fill="none" stroke="black" />
 			  <polygon points="40,40 50,40 50,50 40,50" fill="none" stroke="black" />
 			  <text x="30" y="40" text-anchor="middle" alignment-baseline="central">${A}</text> 
 			  <text x="250" y="40" text-anchor="middle" alignment-baseline="central">${B}</text>
 			  <text x="30" y="140" text-anchor="middle" alignment-baseline="central">${C}</text>
-			</svg>`
-
-			let fig2 = `<svg width="400" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+			</svg></div>`
+				if (this.sup==1){
+					texte_corr = texte_corr1;
+				} else {
+					texte +=`$${A}${B}^2=\\ldots$`
+					texte_corr = `${nom} est rectangle en ${A}, donc d'après le théorème de Pythagore, on a : $${B}${C}^2=${A}${C}^2+${A}${B}^2$ d'où $${A}${B}^2=${B}${C}^2-${A}${C}^2$`
+				}
+				break;
+				case 2 :
+				texte = `<div><svg width="400" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
 			  <polygon points="40,40 240,40 240,140 " fill="none" stroke="black" />
 			  <polygon points="240,40 230,40 230,50 240,50" fill="none" stroke="black" />
 			  <text x="30" y="40" text-anchor="middle" alignment-baseline="central">${A}</text> 
 			  <text x="250" y="40" text-anchor="middle" alignment-baseline="central">${B}</text>
 			  <text x="250" y="140" text-anchor="middle" alignment-baseline="central">${C}</text>
-			</svg>`
+			</svg></div>`
+				if (this.sup==1){
+					texte_corr = texte_corr2
+				}
+				break;
+				case 3 :
+				texte = `<div><svg width="200" height"300" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+			  <polygon points="40,40 140,40 40,240" fill="none" stroke="black" />
+			  <polygon points="40,40 50,40 50,50 40,50" fill="none" stroke="black" />
+			  <text x="30" y="240" text-anchor="middle" alignment-baseline="central">${A}</text> 
+			  <text x="150" y="40" text-anchor="middle" alignment-baseline="central">${B}</text>
+			  <text x="30" y="40" text-anchor="middle" alignment-baseline="central">${C}</text>
+			</svg></div>`
+				if (this.sup==1){
+					texte_corr = texte_corr3
+				}
+				break;
+				case 4 :
+				texte = `<div><svg width="200" height"300" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+			  <polygon points="40,40 140,40 140,240" fill="none" stroke="black" />
+			  <polygon points="140,40 140,50 130,50 130,40" fill="none" stroke="black" />
+			  <text x="30" y="40" text-anchor="middle" alignment-baseline="central">${A}</text> 
+			  <text x="150" y="40" text-anchor="middle" alignment-baseline="central">${B}</text>
+			  <text x="150" y="240" text-anchor="middle" alignment-baseline="central">${C}</text>
+			</svg></div>`
+				if (this.sup==1){
+					texte_corr = texte_corr2
+				}
+				break;
+				case 5 :
+				texte = `<div><svg width="400" height"200" viewBox="-40 -40 400 200" xmlns="http://www.w3.org/2000/svg">
+			  <polygon points="0,0 200,0 40,80.6" fill="none" stroke="black" />
+			  <polygon points="40,80.6 50,76.2 46,67.2 36,71.8" fill="none" stroke="black" />
+			  <text x="40" y="90.6" text-anchor="middle" alignment-baseline="central">${A}</text> 
+			  <text x="210" y="0" text-anchor="middle" alignment-baseline="central">${B}</text>
+			  <text x="-10" y="0" text-anchor="middle" alignment-baseline="central">${C}</text>
+			</svg></div>`
+				if (this.sup==1){
+					texte_corr = texte_corr1
+				}
+				break;
+				case 6 :
+				texte = `<div><svg width="400" height"200" viewBox="-40 -140 400 200"  xmlns="http://www.w3.org/2000/svg">
+			  <polygon points="0,0 200,0 40,-80.6" fill="none" stroke="black" />
+			  <polygon points="40,-80.6 50,-76.2 46,-67.2 36,-71.8" fill="none" stroke="black" />
+			  <text x="40" y="-90.6" text-anchor="middle" alignment-baseline="central">${C}</text> 
+			  <text x="210" y="0" text-anchor="middle" alignment-baseline="central">${B}</text>
+			  <text x="-10" y="0" text-anchor="middle" alignment-baseline="central">${A}</text>
+			</svg></div>`
+				if (this.sup==1){
+					texte_corr = texte_corr1
+				}
+				break;
 
-			let fig3 = `<svg width="400" height="200" viewBox="-20 -20 200 100" xmlns="http://www.w3.org/2000/svg">
-			  <polygon points="0,0 0,60 40,60" fill="none" stroke="black" />
-			  <polygon points="0,0 5,0 5,5 0,5" fill="none" stroke="black" />
-			  <text x="90" y="100" text-anchor="middle" alignment-baseline="central">${A}</text> 
-			  <text x="0" y="0" text-anchor="middle" alignment-baseline="central">${B}</text>
-			  <text x="-10" y="40" text-anchor="middle" alignment-baseline="central">${C}</text>
-			</svg>`
-
-			texte = choice([fig1,fig2]);
-
-
-			texte_corr = `${nom} est rectangle en ${A}, donc d'après le théorème de Pythagore, on a : $${B}${C}^2=${A}${C}^2+${A}${B}^2$.`
-			
-			
+			}
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
@@ -3808,5 +3868,5 @@ function Egalite_Pythagore(){
 		}
 		liste_de_question_to_contenu(this);
 	}
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+	this.besoin_formulaire_numerique = ['Type de questions',2,"1 : Donner l'égalité\n2 : Compléter une égalité avec une addition ou une soustraction"];
 }
