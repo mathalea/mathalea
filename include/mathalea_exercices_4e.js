@@ -3756,13 +3756,14 @@ function Egalite_Pythagore(){
 	this.nb_cols_corr = 2;
 	this.pas_de_version_LaTeX = true ;
 	this.sup = 1;
+	this.sup2 = false;
 	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		// this.bouton_aide = modal_texte_court(numero_de_l_exercice,"Ajouter 9 revient à ajouter 10 et à soustraire 1.")
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let liste_type_de_questions = combinaison_listes(range1(1),this.nb_questions);
+		let liste_type_de_questions = combinaison_listes(range1(6),this.nb_questions);
 		if (this.sup==1) {
 			this.consigne = "Pour chaque triangle, donner l'égalité de Pythagore.";
 		} else {
@@ -3777,8 +3778,14 @@ function Egalite_Pythagore(){
 			let B = nom[2];
 			let C = nom[3];
 			let texte_corr1 = `${nom} est rectangle en ${A}, donc d'après le théorème de Pythagore, on a : $${B}${C}^2=${A}${C}^2+${A}${B}^2$.`
+			let texte_corr1AB = `${nom} est rectangle en ${A}, donc d'après le théorème de Pythagore, on a : $${B}${C}^2=${A}${C}^2+${A}${B}^2$ d'où $${A}${B}^2=${B}${C}^2-${A}${C}^2$.`
+			let texte_corr1AC = `${nom} est rectangle en ${A}, donc d'après le théorème de Pythagore, on a : $${B}${C}^2=${A}${C}^2+${A}${B}^2$ d'où $${A}${C}^2=${B}${C}^2-${A}${B}^2$.` 
 			let texte_corr2 = `${nom} est rectangle en ${B}, donc d'après le théorème de Pythagore, on a : $${A}${C}^2=${B}${C}^2+${B}${A}^2$.`
+			let texte_corr2AB = `${nom} est rectangle en ${B}, donc d'après le théorème de Pythagore, on a : $${A}${C}^2=${B}${C}^2+${A}${B}^2$ d'où $${A}${B}^2=${A}${C}^2-${B}${C}^2$.`
+			let texte_corr2BC = `${nom} est rectangle en ${B}, donc d'après le théorème de Pythagore, on a : $${A}${C}^2=${B}${C}^2+${A}${B}^2$ d'où $${B}${C}^2=${A}${C}^2-${A}${B}^2$.`
 			let texte_corr3 = `${nom} est rectangle en ${C}, donc d'après le théorème de Pythagore, on a : $${A}${B}^2=${C}${A}^2+${C}${B}^2$.`
+			let texte_corr3BC = `${nom} est rectangle en ${C}, donc d'après le théorème de Pythagore, on a : $${A}${B}^2=${A}${C}^2+${B}${C}^2$ d'où $${B}${C}^2=${A}${B}^2-${A}${C}^2$.`
+			let texte_corr3AC = `${nom} est rectangle en ${C}, donc d'après le théorème de Pythagore, on a : $${A}${B}^2=${A}${C}^2+${B}${C}^2$ d'où $${A}${C}^2=${A}${B}^2-${B}${C}^2$.`
 
 			switch (liste_type_de_questions[i]){
 				case 1 :
@@ -3789,11 +3796,25 @@ function Egalite_Pythagore(){
 			  <text x="250" y="40" text-anchor="middle" alignment-baseline="central">${B}</text>
 			  <text x="30" y="140" text-anchor="middle" alignment-baseline="central">${C}</text>
 			</svg></div>`
+				if (this.sup2) {
+					texte = `${nom} est rectangle en ${A}.<br>`
+				}
 				if (this.sup==1){
 					texte_corr = texte_corr1;
 				} else {
-					texte +=`$${A}${B}^2=\\ldots$`
-					texte_corr = `${nom} est rectangle en ${A}, donc d'après le théorème de Pythagore, on a : $${B}${C}^2=${A}${C}^2+${A}${B}^2$ d'où $${A}${B}^2=${B}${C}^2-${A}${C}^2$`
+					let cas = randint(1,3)
+					if (cas==1) {
+						texte +=`$${A}${B}^2=\\ldots$`;
+						texte_corr = texte_corr1AB;	
+					}
+					if (cas==2){
+						texte +=`$${A}${C}^2=\\ldots$`;
+						texte_corr = texte_corr1AC;		
+					}
+					if (cas==3){
+						texte +=`$${B}${C}^2=\\ldots$`;
+						texte_corr = texte_corr1;		
+					}
 				}
 				break;
 				case 2 :
@@ -3804,8 +3825,25 @@ function Egalite_Pythagore(){
 			  <text x="250" y="40" text-anchor="middle" alignment-baseline="central">${B}</text>
 			  <text x="250" y="140" text-anchor="middle" alignment-baseline="central">${C}</text>
 			</svg></div>`
+			if (this.sup2) {
+					texte = `${nom} est rectangle en ${B}.<br>`
+				}
 				if (this.sup==1){
 					texte_corr = texte_corr2
+				} else {
+					let cas = randint(1,3)
+					if (cas==1) {
+						texte +=`$${A}${B}^2=\\ldots$`;
+						texte_corr = texte_corr2AB;	
+					}
+					if (cas==2){
+						texte +=`$${A}${C}^2=\\ldots$`;
+						texte_corr = texte_corr2;		
+					}
+					if (cas==3){
+						texte +=`$${B}${C}^2=\\ldots$`;
+						texte_corr = texte_corr2BC;		
+					}
 				}
 				break;
 				case 3 :
@@ -3816,8 +3854,25 @@ function Egalite_Pythagore(){
 			  <text x="150" y="40" text-anchor="middle" alignment-baseline="central">${B}</text>
 			  <text x="30" y="40" text-anchor="middle" alignment-baseline="central">${C}</text>
 			</svg></div>`
+			if (this.sup2) {
+					texte = `${nom} est rectangle en ${C}.<br>`
+				}
 				if (this.sup==1){
 					texte_corr = texte_corr3
+				} else {
+					let cas = randint(1,3)
+					if (cas==1) {
+						texte +=`$${A}${B}^2=\\ldots$`;
+						texte_corr = texte_corr3;	
+					}
+					if (cas==2){
+						texte +=`$${A}${C}^2=\\ldots$`;
+						texte_corr = texte_corr3AC;		
+					}
+					if (cas==3){
+						texte +=`$${B}${C}^2=\\ldots$`;
+						texte_corr = texte_corr3BC;		
+					}
 				}
 				break;
 				case 4 :
@@ -3828,8 +3883,25 @@ function Egalite_Pythagore(){
 			  <text x="150" y="40" text-anchor="middle" alignment-baseline="central">${B}</text>
 			  <text x="150" y="240" text-anchor="middle" alignment-baseline="central">${C}</text>
 			</svg></div>`
+			if (this.sup2) {
+					texte = `${nom} est rectangle en ${B}.<br>`
+				}
 				if (this.sup==1){
 					texte_corr = texte_corr2
+				} else {
+					let cas = randint(1,3)
+					if (cas==1) {
+						texte +=`$${A}${B}^2=\\ldots$`;
+						texte_corr = texte_corr2AB;	
+					}
+					if (cas==2){
+						texte +=`$${A}${C}^2=\\ldots$`;
+						texte_corr = texte_corr2;		
+					}
+					if (cas==3){
+						texte +=`$${B}${C}^2=\\ldots$`;
+						texte_corr = texte_corr2BC;		
+					}
 				}
 				break;
 				case 5 :
@@ -3840,8 +3912,25 @@ function Egalite_Pythagore(){
 			  <text x="210" y="0" text-anchor="middle" alignment-baseline="central">${B}</text>
 			  <text x="-10" y="0" text-anchor="middle" alignment-baseline="central">${C}</text>
 			</svg></div>`
+			if (this.sup2) {
+					texte = `${nom} est rectangle en ${A}.<br>`
+				}
 				if (this.sup==1){
-					texte_corr = texte_corr1
+					texte_corr = texte_corr1;
+				} else {
+					let cas = randint(1,3)
+					if (cas==1) {
+						texte +=`$${A}${B}^2=\\ldots$`;
+						texte_corr = texte_corr1AB;	
+					}
+					if (cas==2){
+						texte +=`$${A}${C}^2=\\ldots$`;
+						texte_corr = texte_corr1AC;		
+					}
+					if (cas==3){
+						texte +=`$${B}${C}^2=\\ldots$`;
+						texte_corr = texte_corr1;		
+					}
 				}
 				break;
 				case 6 :
@@ -3852,13 +3941,27 @@ function Egalite_Pythagore(){
 			  <text x="210" y="0" text-anchor="middle" alignment-baseline="central">${B}</text>
 			  <text x="-10" y="0" text-anchor="middle" alignment-baseline="central">${A}</text>
 			</svg></div>`
-				if (this.sup==1){
-					texte_corr = texte_corr1
+			if (this.sup2) {
+					texte = `${nom} est rectangle en ${C}.<br>`
 				}
-				break;
-
+				if (this.sup==1){
+					texte_corr = texte_corr1;
+				} else {
+					let cas = randint(1,3)
+					if (cas==1) {
+						texte +=`$${A}${B}^2=\\ldots$`;
+						texte_corr = texte_corr1AB;	
+					}
+					if (cas==2){
+						texte +=`$${A}${C}^2=\\ldots$`;
+						texte_corr = texte_corr1AC;		
+					}
+					if (cas==3){
+						texte +=`$${B}${C}^2=\\ldots$`;
+						texte_corr = texte_corr1;		
+					}
+				}
 			}
-			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
@@ -3869,4 +3972,5 @@ function Egalite_Pythagore(){
 		liste_de_question_to_contenu(this);
 	}
 	this.besoin_formulaire_numerique = ['Type de questions',2,"1 : Donner l'égalité\n2 : Compléter une égalité avec une addition ou une soustraction"];
+	this.besoin_formulaire2_case_a_cocher = ['Sans figures']
 }
