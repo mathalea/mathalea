@@ -4294,21 +4294,36 @@ function PPCM_Engrenages() {
 
 			var nb_dents_r1;
 			var nb_dents_r2;
+			let txt_popup = `Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que `;
+						//txt_popup += texte_gras('les nombres a et b sont premiers entre eux');
+						if (sortie_html) {
+							txt_popup += '<b>les nombres a et b sont premiers entre eux</b>';
+						} else {
+							txt_popup += '$\\textbf{les nombres a et b sont premiers entre eux}$';
+						};
 
 			switch (type_de_questions) {
 				case 1: // avec de petits nombres on calcule les mutliples
 					nb_dents_r1 = randint(5, 30);
 					nb_dents_r2 = randint(5, 30, nb_dents_r1);
-					texte = `La roue n$\\degree$1 possède $${nb_dents_r1}$ dents et la roue n$\\degree$2 en a $${nb_dents_r2}$ dents.`;
+					texte = `La roue n$\\degree$1 possède $${nb_dents_r1}$ dents et la roue n$\\degree$2 a $${nb_dents_r2}$ dents.`;
 					texte += `<br>` + num_alpha(0) + ` Écrire la liste des multiples de $${nb_dents_r1}$ et de $${nb_dents_r2}$.`
 					if (ppcm(nb_dents_r1, nb_dents_r2) == (nb_dents_r1 * nb_dents_r2)) {
 						texte += `<br>Pourquoi peut-on en déduire que ${nb_dents_r1} et ${nb_dents_r2} sont des `;
+						// let txt_popup = `Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que `;
+						// //txt_popup += texte_gras('les nombres a et b sont premiers entre eux');
+						// if (sortie_html) {
+						// 	txt_popup += '<b>les nombres a et b sont premiers entre eux</b>';
+						// } else {
+						// 	txt_popup += '$\\textbf{les nombres a et b sont premiers entre eux}$';
+						// };
+						//${texte_gras('les nombres a et b sont premiers entre eux')}.`;
 						texte += katex_Popup2(
 							numero_de_l_exercice + 1,
 							1,
 							"nombres premiers entre eux ?",
 							`Définition : Nombres premiers entre eux`,
-							`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que \\textbf{les nombres a et b sont premiers entre eux}.`
+							txt_popup
 						);
 					};
 					texte += `<br>` + num_alpha(1) + ` En déduire le nombre de tours de chaque roue avant le retour à leur position initiale.`
@@ -4357,7 +4372,7 @@ function PPCM_Engrenages() {
 							1,
 							"nombres premiers entre eux.",
 							`Définition : Nombres premiers entre eux`,
-							`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que \\textbf{les nombres a et b sont premiers entre eux}.`
+							txt_popup//`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que ${texte_gras('les nombres a et b sont premiers entre eux')}.`
 						);
 					};
 					texte_corr += `<br><br>` + num_alpha(1) + ` Chaque roue doit tourner de $ppcm(${nb_dents_r1},${nb_dents_r2})=${tex_nombre(ppcm(nb_dents_r1, nb_dents_r2))}$ dents.`;
@@ -4379,7 +4394,7 @@ function PPCM_Engrenages() {
 				case 2: // avec de plus grands nombre, c'est mieux de décomposer en facteurs premiers
 					nb_dents_r1 = randint(31, 80);
 					nb_dents_r2 = randint(31, 80, nb_dents_r1);
-					texte = `La roue n$\\degree$1 possède $${nb_dents_r1}$ dents et la roue n$\\degree$2 en a $${nb_dents_r2}$ dents.`;
+					texte = `La roue n$\\degree$1 possède $${nb_dents_r1}$ dents et la roue n$\\degree$2 a $${nb_dents_r2}$ dents.`;
 					texte += `<br>` + num_alpha(0) + ` Décomposer $${nb_dents_r1}$ et $${nb_dents_r2}$ en produit de facteurs premiers.`;
 					if (ppcm(nb_dents_r1, nb_dents_r2) == (nb_dents_r1 * nb_dents_r2)) {
 						texte += `<br>Pourquoi peut-on en déduire que ${nb_dents_r1} et ${nb_dents_r2} sont des `;
@@ -4388,7 +4403,7 @@ function PPCM_Engrenages() {
 							1,
 							"nombres premiers entre eux",
 							`Définition : Nombres premiers entre eux`,
-							`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que \\textbf{les nombres a et b sont premiers entre eux}.`
+							txt_popup//`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que ${texte_gras('les nombres a et b sont premiers entre eux')}.`
 						);
 					};
 					texte += `<br>` + num_alpha(1) + ` En déduire le nombre de tours de chaque roue avant le retour à leur position initiale.`;
@@ -4403,7 +4418,7 @@ function PPCM_Engrenages() {
 							1,
 							"nombres premiers entre eux.",
 							`Définition : Nombres premiers entre eux`,
-							`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que \\textbf{les nombres a et b sont premiers entre eux}.`
+							txt_popup//`Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que ${texte_gras('les nombres a et b sont premiers entre eux')}.`
 						);
 					};
 					texte_corr += `<br><br>` + num_alpha(1) + ` Chaque roue doit tourner de $ppcm(${nb_dents_r1},${nb_dents_r2})=${tex_nombre(ppcm(nb_dents_r1, nb_dents_r2))}$ dents.`;
