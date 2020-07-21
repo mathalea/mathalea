@@ -415,7 +415,6 @@ function Lecture_expression_fonctions_affines() {
 			SVG_Tracer_droite(mon_svg, 500, 500, -5, 5, -5, 5, liste_droites[2][0], liste_droites[2][1], 'green', 'd3');
 			SVG_Tracer_droite(mon_svg, 500, 500, -5, 5, -5, 5, liste_droites[3][0], liste_droites[3][1], 'brown', 'd4');
 			SVG_Tracer_droite(mon_svg, 500, 500, -5, 5, -5, 5, liste_droites[4][0], liste_droites[4][1], 'purple', 'd5');
-			// this.consigne = `<div style="width: ${h}px; height: ${h}px; display : table ">${mon_svg.svg()}</div>`;
 			this.consigne = `<div style="width: 50%; display : table ">${mon_svg.svg()}</div>`;
 
 
