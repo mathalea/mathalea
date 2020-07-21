@@ -173,6 +173,7 @@ var liste_des_exercices_disponibles = {
 		'3G10-2' : Transformations_3e,
 		'3G12' : Pavages_et_rotation,
 		'3G20' : Exercice_Thales,
+		'3G20-1' : Problemes_Thales,
 		'3G21' : Reciproque_Thales,
 		'3G22' : Agrandissement_reduction,
 		'3G30' : Exercice_Trigo_longueurs,

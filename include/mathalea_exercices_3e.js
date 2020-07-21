@@ -415,7 +415,6 @@ function Lecture_expression_fonctions_affines() {
 			SVG_Tracer_droite(mon_svg, 500, 500, -5, 5, -5, 5, liste_droites[2][0], liste_droites[2][1], 'green', 'd3');
 			SVG_Tracer_droite(mon_svg, 500, 500, -5, 5, -5, 5, liste_droites[3][0], liste_droites[3][1], 'brown', 'd4');
 			SVG_Tracer_droite(mon_svg, 500, 500, -5, 5, -5, 5, liste_droites[4][0], liste_droites[4][1], 'purple', 'd5');
-			// this.consigne = `<div style="width: ${h}px; height: ${h}px; display : table ">${mon_svg.svg()}</div>`;
 			this.consigne = `<div style="width: 50%; display : table ">${mon_svg.svg()}</div>`;
 
 
@@ -6504,4 +6503,108 @@ function Coefficient_evolution() {
 		liste_de_question_to_contenu(this);
 	}
 	this.besoin_formulaire_numerique = ['Niveau de difficulté', 3, '1 : Déterminer le coefficient\n2 : Exprimer une variation en pourcentage\n3 : Mélange des 2 types de questions'];
+}
+
+/**
+* Banque de problèmes utilisant le théorème de Thalès et différentes propriétés de géométrie
+* @Auteur Rémi Angot
+*/
+function Problemes_Thales(){
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Problèmes avec le théorème de Thalès";
+	this.nb_questions = 1;
+	this.nb_questions_modifiable = false;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		let texte='';
+		let texte_corr='';
+		let type_de_questions = randint(1,1);
+		
+
+			switch (type_de_questions){
+				case 1 :
+				let x = randint(6,10);
+				let k = calcul(randint(12,19)/10);
+				let y = calcul(randint(30,50)/10);
+				let [A,B,C,D,E]=polygone(5)
+				texte = `On sait que $${A}${E}=${tex_nombre(x)}$ cm ; $${A}${D}=${tex_nombrec(k*x)}$ cm et $${E}${B}=${tex_nombre(y)}$ cm.<br>`;
+				texte += `Calculer la valeur exacte de $${D}${C}$.`
+				if (sortie_html) {
+					// Pour le svg toutes les longueurs sont multipliées par 20
+					let fig1 = `<div><svg width="450" height="300" viewBox="-40 -40 450 300" xmlns="http://www.w3.org/2000/svg">
+					  <polygon points="0,0 ${calcul(k*x*20)},0 ${calcul(k*x*20)},${calcul(k*y*20)}  " fill="none" stroke="black" />
+					  <line x1="${calcul(x*20)}" y1="0" x2="${calcul(x*20)}" y2="${calcul(y*20)}" stroke="black" /> //[BE]
+					  <polyline points="${calcul(x*20-10)},0 ${calcul(x*20-10)},10 ${calcul(x*20)},10" fill="none" stroke="black" />  //Angle droit en E
+					  <polyline points="${calcul(k*x*20-10)},0 ${calcul(k*x*20-10)},10 ${calcul(k*x*20)},10" fill="none" stroke="black" />  //Angle droit en D
+					  <text x="-10" y="-10" text-anchor="middle" alignment-baseline="central">${A}</text> 
+					  <text x="${calcul(x*20)}" y="-10" text-anchor="middle" alignment-baseline="central">${E}</text> 
+					  <text x="${calcul(x*20)}" y="${calcul(y*20+10)}" text-anchor="middle" alignment-baseline="central">${B}</text> 
+					  <text x="${calcul(k*x*20+10)}" y="-10" text-anchor="middle" alignment-baseline="central">${D}</text>
+					  <text x="${calcul(k*x*20+10)}" y="${calcul(k*y*20+10)}" text-anchor="middle" alignment-baseline="central">${C}</text>
+					</svg></div>`
+
+					let fig2 = `<div><svg width="450" height="300" viewBox="-40 -260 450 300" xmlns="http://www.w3.org/2000/svg">
+					  <polygon points="0,0 ${calcul(k*x*20)},0 ${calcul(k*x*20)},${calcul(-k*y*20)}  " fill="none" stroke="black" />
+					  <line x1="${calcul(x*20)}" y1="0" x2="${calcul(x*20)}" y2="${calcul(-y*20)}" stroke="black" /> //[BE]
+					  <polyline points="${calcul(x*20-10)},0 ${calcul(x*20-10)},-10 ${calcul(x*20)},-10" fill="none" stroke="black" />  //Angle droit en E
+					  <polyline points="${calcul(k*x*20-10)},0 ${calcul(k*x*20-10)},-10 ${calcul(k*x*20)},-10" fill="none" stroke="black" />  //Angle droit en D
+					  <text x="-10" y="-10" text-anchor="middle" alignment-baseline="central">${A}</text> 
+					  <text x="${calcul(x*20)}" y="10" text-anchor="middle" alignment-baseline="central">${E}</text> 
+					  <text x="${calcul(x*20)}" y="${calcul(-y*20-10)}" text-anchor="middle" alignment-baseline="central">${B}</text> 
+					  <text x="${calcul(k*x*20+10)}" y="10" text-anchor="middle" alignment-baseline="central">${D}</text>
+					  <text x="${calcul(k*x*20+10)}" y="${calcul(-k*y*20-10)}" text-anchor="middle" alignment-baseline="central">${C}</text>
+					</svg></div>`					
+
+					texte += choice([fig1,fig2])
+
+					
+
+				} else {
+					let fig1 = `\\begin{tikzpicture}[scale=.6]
+\\draw (0,0)--(${calcul(k*x)},0)--(${calcul(k*x)},${-k*y})--cycle;
+\\draw (${x},0)--(${x},${-y});
+\\draw (${x},0) rectangle ++(-.5,-.5);
+\\draw (${calcul(k*x)},0) rectangle ++(-.5,-.5);
+\\node [above left] at (0,0) {${A}};
+\\node [above] at (${x},0) {${E}};
+\\node [above right] at (${k*x},0) {${D}};
+\\node [below right] at (${k*x},${-k*y}) {${C}};
+\\node [below] at (${x},${-y}) {${B}};
+\\end{tikzpicture}`
+
+				let fig2 = `\\begin{tikzpicture}[scale=.6]
+\\draw (0,0)--(${calcul(k*x)},0)--(${calcul(k*x)},${k*y})--cycle;
+\\draw (${x},0)--(${x},${y});
+\\draw (${x},0) rectangle ++(.5,.5);
+\\draw (${calcul(k*x)},0) rectangle ++(.5,.5);
+\\node [below left] at (0,0) {${A}};
+\\node [below] at (${x},0) {${E}};
+\\node [below right] at (${k*x},0) {${D}};
+\\node [above right] at (${k*x},${k*y}) {${C}};
+\\node [above] at (${x},${y}) {${B}};
+\\end{tikzpicture}`
+
+				texte += '<br>'+choice([fig1,fig2])
+
+				}
+					
+				texte_corr = `Les droites $(${E}${B})$ et $(${D}${C})$ sont perpendiculaires à la même droite $(${A}${D})$, elles sont donc parallèles entre elles.`
+				texte_corr += `<br>De plus les points $${A}$, $${E}$, $${D}$  et $${A}$, $${B}$, $${C}$ sont alignés dans cet ordre donc d'après le théorème de Thalès on a :`				
+				texte_corr += `<br><br>$\\dfrac{${A}${E}}{${A}${D}}=\\dfrac{${E}${B}}{${D}${C}}=\\dfrac{${A}${B}}{${A}${C}}$`
+				texte_corr += `<br><br>$\\dfrac{${tex_nombre(x)}}{${tex_nombrec(k*x)}}=\\dfrac{${tex_nombre(y)}}{${D}${C}}$`
+				texte_corr += `<br><br>$${D}${C}=\\dfrac{${tex_nombrec(k*x)}\\times${tex_nombre(y)}}{${tex_nombre(x)}}=${tex_nombrec(k*y)}$`
+				break;
+				}
+			
+	this.liste_questions[0]=texte;
+	this.liste_corrections[0]=texte_corr;
+	liste_de_question_to_contenu(this);
+	// this.besoin_formulaire_numerique = ['Type de questions',2,"1 : Donner l'égalité\n2 : Compléter une égalité avec une addition ou une soustraction"];
+	// this.besoin_formulaire2_case_a_cocher = ['Sans figures']
+	}
 }
