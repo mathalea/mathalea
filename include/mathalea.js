@@ -742,6 +742,15 @@ function nouvelles_donnees() {
 
 window.onload = function()  {
 //$( document ).ready(function() {	
+	if (div_signaletique) {
+		dragElement(div_signaletique); // Pour déplacer la signalétique
+	}
+	if (div_horloge) {
+		dragElement(div_horloge);
+		horloge(); // Mettre à jour l'heure
+	}
+	
+
 	$('.ui.dropdown').dropdown(); // Pour le menu des exercices
 	$('.ui.accordion').accordion('refresh');
 	$('.ui.checkbox').checkbox();
@@ -847,9 +856,10 @@ window.onload = function()  {
 
 // Gestion de la signalétique
 const div_signaletique = document.getElementById("signaletique")
+const div_horloge = document.getElementById("horloge")
+
 //Source : https://www.w3schools.com/howto/howto_js_draggable.asp
 // Make the DIV element draggable:
-dragElement(div_signaletique);
 
 function dragElement(elmnt) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -887,44 +897,73 @@ function dragElement(elmnt) {
   }
 }
 
-document.addEventListener('keydown', (event) => {
-	const nomTouche = event.key;
+function horloge()
+	{
+	let date = new Date;
+	let heure = date.getHours();
+	let min = date.getMinutes();
+	if (min < 10)
+		min0 = "0";
+	else
+		min0 = "";
+	if (heure < 10)
+		heure0 = "0";
+	else
+		heure0 = "";
+	let heure_dynamique = heure0 + heure + ":" + min0 + min;
+	div_horloge.innerHTML=heure_dynamique.fontsize(20);
+	let timer_horloge = setTimeout("horloge()", 1000)
+}
 
-	if (nomTouche === 's') {
-		if (div_signaletique.innerHTML=='<img src="images/silence.png" width="100px">') {
-			div_signaletique.innerHTML = ''
-		} else {
-			div_signaletique.innerHTML = '<img src="images/silence.png" width="100px">'
+if (div_signaletique && div_horloge) {
+	document.addEventListener('keydown', (event) => {
+		const nomTouche = event.key;
+
+		if (nomTouche === 's') {
+			if (div_signaletique.innerHTML=='<img src="images/silence.png" width="100px">') {
+				div_signaletique.innerHTML = ''
+				clearTimeout(timer_horloge);
+			} else {
+				div_signaletique.innerHTML = '<img src="images/silence.png" width="100px">'
+			}
 		}
-	}
-	if (nomTouche === 'r') {
-		if (div_signaletique.innerHTML=='<img src="images/feu_rouge.png" width="100px">') {
-			div_signaletique.innerHTML = ''
-		} else {
-			div_signaletique.innerHTML = '<img src="images/feu_rouge.png" width="100px">'
+		if (nomTouche === 'r') {
+			if (div_signaletique.innerHTML=='<img src="images/feu_rouge.png" width="100px">') {
+				div_signaletique.innerHTML = ''
+			} else {
+				div_signaletique.innerHTML = '<img src="images/feu_rouge.png" width="100px">'
+			}
 		}
-	}
-	if (nomTouche === 'o') {
-		if (div_signaletique.innerHTML=='<img src="images/feu_orange.png" width="100px">') {
-			div_signaletique.innerHTML = ''
-		} else {
-			div_signaletique.innerHTML = '<img src="images/feu_orange.png" width="100px">'
+		if (nomTouche === 'o') {
+			if (div_signaletique.innerHTML=='<img src="images/feu_orange.png" width="100px">') {
+				div_signaletique.innerHTML = ''
+			} else {
+				div_signaletique.innerHTML = '<img src="images/feu_orange.png" width="100px">'
+			}
 		}
-	}
-	if (nomTouche === 'v') {
-		if (div_signaletique.innerHTML=='<img src="images/feu_vert.png" width="100px">') {
-			div_signaletique.innerHTML = ''
-		} else {
-			div_signaletique.innerHTML = '<img src="images/feu_vert.png" width="100px">'
+		if (nomTouche === 'v') {
+			if (div_signaletique.innerHTML=='<img src="images/feu_vert.png" width="100px">') {
+				div_signaletique.innerHTML = ''
+			} else {
+				div_signaletique.innerHTML = '<img src="images/feu_vert.png" width="100px">'
+			}
 		}
-	}
-	if (nomTouche === 'c') {
-		if (div_signaletique.innerHTML=='<img src="images/chuchoter.png" width="100px">') {
-			div_signaletique.innerHTML = ''
-		} else {
-			div_signaletique.innerHTML = '<img src="images/chuchoter.png" width="100px">'
+		if (nomTouche === 'c') {
+			if (div_signaletique.innerHTML=='<img src="images/chuchoter.png" width="100px">') {
+				div_signaletique.innerHTML = ''
+			} else {
+				div_signaletique.innerHTML = '<img src="images/chuchoter.png" width="100px">'
+			}
 		}
-	}
-}, false);
+		if (nomTouche === 't') {
+			if (div_horloge.style.visibility=='visible') {
+				div_horloge.style.visibility = 'hidden'
+			} else {
+				div_horloge.style.visibility = 'visible'
+			}
+		}
+	}, false);
+}
+	
 
   
