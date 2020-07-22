@@ -4282,7 +4282,7 @@ function PPCM_Engrenages() {
 
 			var nb_dents_r1;
 			var nb_dents_r2;
-			let txt_popup = `Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que `;
+			let txt_popup = `Étant donnés deux nombres entiers a et b, lorsque le plus petit multiple commun à $a$ et $b$ vaut $a \\times b$ ( $ppcm(a,b)=a\\times b$ ), on dit que `;
 						//txt_popup += texte_gras('les nombres a et b sont premiers entre eux');
 						if (sortie_html) {
 							txt_popup += '<b>les nombres a et b sont premiers entre eux</b>';
