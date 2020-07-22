@@ -19,14 +19,25 @@ function Point(arg1,arg2,arg3,positionLabel = 'above left') {
 	}
 	this.positionLabel = positionLabel;
 	
-	this.milieu = function (A,B) { this.x = calcul((A.x+B.x)/2); this.y = calcul((A.y+B.y)/2) ;} ;
-	this.translationVecteur = function (v) {
-		this.x = calcul(this.x+v.x);
-		this.y = calcul(this.y+v.y);
+	this.milieu = function (A,B) { 
+		this.x = calcul((A.x+B.x)/2);
+		this.y = calcul((A.y+B.y)/2);
+	}
+	this.translationVecteur = function (A,v) { //Image de A dans la translation de vecteur v
+		this.x = calcul(A.x+v.x);
+		this.y = calcul(A.y+v.y);
 	} ;
-	this.translation = function(A,B) {
-		this.x = calcul(this.x+B.x-A.x);
-		this.y = calcul(this.y+B.y-A.y);
+	this.translation = function(O,A,B) { //Image de O dans la translation qui transforme A en B
+		this.x = calcul(O.x+B.x-A.x);
+		this.y = calcul(O.y+B.y-A.y);
+	}
+	this.homothetie = function(A,O,k) { //Image de A dans l'homothétie de centre O et de rapport k
+		this.x = calcul(O.x+k*(A.x-O.x))
+		this.y = calcul(O.y+k*(A.y-O.y))
+		return this
+	}
+	this.rotation = function(A,O,angle) { //Image de A dans la rotation de centre O et d'angle 
+
 	}
 	this.xSVG = function(coeff=20) {
 		return this.x*coeff;
@@ -50,28 +61,28 @@ function LabelPoints(...points) {
 		for (let point of points){
 			switch (point.positionLabel){
 				case 'left':
-				code += `<text x="${calcul(point.xSVG(coeff)-10)}" y="${point.ySVG(coeff)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text> `; 
+				code += `<text x="${calcul(point.xSVG(coeff)-10)}" y="${point.ySVG(coeff)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text>\n `; 
 				break;
 				case 'right':
-				code += `<text x="${calcul(point.xSVG(coeff)+10)}" y="${point.ySVG(coeff)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text> `; 
+				code += `<text x="${calcul(point.xSVG(coeff)+10)}" y="${point.ySVG(coeff)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text>\n `; 
 				break;
 				case 'below':
-				code += `<text x="${point.xSVG(coeff)}" y="${calcul(point.ySVG(coeff)+10)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text> `; 
+				code += `<text x="${point.xSVG(coeff)}" y="${calcul(point.ySVG(coeff)+10)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text>\n `; 
 				break;
 				case 'above':
-				code += `<text x="${point.xSVG(coeff)}" y="${calcul(point.ySVG(coeff)-10)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text> `; 
+				code += `<text x="${point.xSVG(coeff)}" y="${calcul(point.ySVG(coeff)-10)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text>\n `; 
 				break;
 				case 'above right':
-				code += `<text x="${calcul(point.xSVG(coeff)+10)}" y="${calcul(point.ySVG(coeff)-10)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text> `; 
+				code += `<text x="${calcul(point.xSVG(coeff)+10)}" y="${calcul(point.ySVG(coeff)-10)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text>\n `; 
 				break;
 				case 'below left':
-				code += `<text x="${calcul(point.xSVG(coeff)-10)}" y="${calcul(point.ySVG(coeff)+10)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text> `; 
+				code += `<text x="${calcul(point.xSVG(coeff)-10)}" y="${calcul(point.ySVG(coeff)+10)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text>\n `; 
 				break;
 				case 'below right':
-				code += `<text x="${calcul(point.xSVG(coeff)+10)}" y="${calcul(point.ySVG(coeff)+10)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text> `; 
+				code += `<text x="${calcul(point.xSVG(coeff)+10)}" y="${calcul(point.ySVG(coeff)+10)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text>\n `; 
 				break;
 				default :
-				code += `<text x="${calcul(point.xSVG(coeff)-10)}" y="${calcul(point.ySVG(coeff)-10)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text> `; 
+				code += `<text x="${calcul(point.xSVG(coeff)-10)}" y="${calcul(point.ySVG(coeff)-10)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text>\n `; 
 				break;
 			}
 		}
@@ -166,7 +177,7 @@ function Polygone(...points){
 function codeFigure(...objets){
 	let code = ''
 	if (sortie_html) {
-		code = `<div><svg width="450" height="300" viewBox="-40 -260 450 300" xmlns="http://www.w3.org/2000/svg">\n`
+		code = `<div><svg width="600" height="600" viewBox="-20 -300 600 600" xmlns="http://www.w3.org/2000/svg">\n`
 		for (let objet of objets){
 			code +=objet.svg() + '\n'
 		}
