@@ -25,6 +25,7 @@ var liste_des_exercices_disponibles = {
 		'6C10-2' :Exercice_tables_de_multiplications_et_multiples_de_10,
 		'6C10-3' :Exercice_tables_de_multiplications_et_decimaux,
 		'6C10-4': Exercice_tables_d_additions,
+		'6C13' : Vocabulaire_et_operations,
 		'6C20' : Additionner_soustraires_decimaux,
 		'6C21' : Divisions_euclidiennes_niv2,
 		'6C30' : Multiplier_decimaux,
@@ -79,6 +80,9 @@ var liste_des_exercices_disponibles = {
 		'6N43-2' : Tableau_criteres_de_divisibilite,
 		'6P10' : Proportionnalite_pas_proportionnalite,
 		'6P11' : Proportionnalite_par_linearite,
+		'5A10' : Liste_des_diviseurs_5e,
+		'5A11' : Premier_ou_pas_5e,
+		'5A13': Exercice_decomposer_en_facteurs_premiers,
 		'5C11' : Traduire_une_phrase_par_une_expression,
 		'5C11-1' : Traduire_une_expression_par_une_phrase,
 		'5C11-2' : Ecrire_une_expression_mathador,
@@ -88,39 +92,35 @@ var liste_des_exercices_disponibles = {
 		'5G11' : Transformations_5e,
 		'5G12' : Pavages_et_demi_tour,
 		'5G20-1' : Vocabulaire_des_triangles_5e,		   
-		'5N12': Exercice_fractions_simplifier,
-		'5N12-2': Egalites_entre_fractions,
-		'5N18': Exercice_decomposer_en_facteurs_premiers,
+		'5G31' : Exercice_angles_triangles,
+		'5N13': Exercice_fractions_simplifier,
+		'5N13-2': Egalites_entre_fractions,
 		'5N110' : Variation_en_pourcentages,
-		'5N21': Exercice_comparer_deux_fractions,
-		'5N21-1': Exercice_comparer_quatre_fractions,
-		'5N22': Exercice_additionner_des_fractions_5e,
-		'5N22-1': Exercice_additionner_ou_soustraire_des_fractions_5e,
-		'5A10' : Liste_des_diviseurs_5e,
-		'5A11' : Premier_ou_pas_5e,
+		'5N14': Exercice_comparer_deux_fractions,
+		'5N14-2': Exercice_comparer_quatre_fractions,
+		'5N20': Exercice_additionner_des_fractions_5e,
+		'5N20-2': Exercice_additionner_ou_soustraire_des_fractions_5e,
 		'5L10' : Ecrire_une_expression_litterale,
-		'5L101' : Traduire_un_programme_de_calcul,
-		'5L11' : Calculer_la_valeur_d_une_expression_litterale,
-		'5L11-1' : Exercice_substituer,
-		'5L111' : Tester_une_egalite,
+		'5L10-2' : Traduire_un_programme_de_calcul,
 		'5L12' : Reduire_une_expression_litterale,
-		'5M10' : Exercice_angles_triangles,
-		'5M10-1' : Aire_du_parallelogramme,
-		'5M30' : Calcul_de_volumes_5e,
-		'5R10' : Lire_abscisse_relative,
-		'5R10-2' : Placer_points_sur_axe_relatifs,
-		'5R12-1' : reperage_point_du_quart_de_plan,
+		'5L13' : Calculer_la_valeur_d_une_expression_litterale,
+		'5L13-2' : Exercice_substituer,
+		'5L14' : Tester_une_egalite,
+		'5M10' : Aire_du_parallelogramme,
+		'5M20' : Calcul_de_volumes_5e,
+		'5R11' : Lire_abscisse_relative,
+		'5R11-2' : Placer_points_sur_axe_relatifs,
+		'5R12' : reperage_point_du_quart_de_plan,
 		'5R12-2' : reperage_point_du_plan,
 		'5R20': Exercice_additions_relatifs,
 		'5R20-2': Exercice_additions_relatifs_a_trou,
 		'5R20-3': Exercice_additions_de_5_relatifs, //on pourrait le corriger avec regroupement des termes de même signe
 		'5R21': Exercice_soustractions_relatifs,
-		'5R31': Exercice_additions_et_soustraction_de_relatifsV2,
-		'5R31-2': Exercice_simplification_somme_algebrique,
-		'5S10': Calculer_des_frequences,
-		'5S10-2': Calculer_des_moyennes,
-		'5S10-3': Calculer_des_etendues,
-		'5S20' : fonctions_probabilite1,
+		'5R22': Exercice_additions_et_soustraction_de_relatifsV2,
+		'5R22-2': Exercice_simplification_somme_algebrique,
+		'5S13': Calculer_des_frequences,
+		'5S14': Calculer_des_moyennes,
+		'5S21' : fonctions_probabilite1,
 		'4G40' : Transformations_4e,
 		'4L10' : Exercice_developper,
 		'4L20' : Exercice_equation1,
@@ -138,6 +138,7 @@ var liste_des_exercices_disponibles = {
 		'4R10': Exercice_multiplications_relatifs,
 		'4G11' : Pavages_et_translation,
 		'4G20' : Exercice_Pythagore,
+		'4G20-1' : Egalite_Pythagore,
 		'4G21' : Reciproque_Pythagore,
 		'4G22' : Problemes_Pythagore,
 		'4G30' : Thales_4eme,
@@ -172,6 +173,7 @@ var liste_des_exercices_disponibles = {
 		'3G10-2' : Transformations_3e,
 		'3G12' : Pavages_et_rotation,
 		'3G20' : Exercice_Thales,
+		'3G20-1' : Problemes_Thales,
 		'3G21' : Reciproque_Thales,
 		'3G22' : Agrandissement_reduction,
 		'3G30' : Exercice_Trigo_longueurs,
@@ -182,8 +184,9 @@ var liste_des_exercices_disponibles = {
 		'3F12-3' : Tableau_de_valeurs,
 		'3F12-4' : Image_graphique,
 		'3F13' : Antecedent_graphique,
-		'3F20' : Lecture_expression_fonctions_lineaires,
-		'3F20-1' : Lecture_expression_fonctions_affines,
+		'3F21' : Lecture_expression_fonctions_lineaires,
+		'3F21-1' : Lecture_expression_fonctions_affines,
+		'3S15': Calculer_des_etendues,
 		'3S20' : fonctions_probabilite2,
 		//'3SVGtest' : svglibs,
 		//'3Tests' : tester_des_fonctions,
@@ -1960,123 +1963,77 @@ function Somme_de_deux_nombres_maries_et_un_entier(){
 	}
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
+function Vocabulaire_et_operations() {
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Traduire des phrases en calculs et réciproquement";
+	this.consigne = "";
+	this.nb_questions = 5;
+	this.nb_cols = 2;
+	this.nb_cols_corr = 2;
+	this.sup=4;
+	this.sup2=false;
+	
+	this.nouvelle_version = function(numero_de_l_exercice){
+		let decimal
+		let expf,expn,expc,resultats
+		let type_de_questions_disponibles
+		if (this.sup<4) type_de_questions_disponibles=[parseInt(this.sup)]
+		else type_de_questions_disponibles=[1,2,3]
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) 
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		if (this.sup2) decimal=10**randint(1,2)
+		else decimal=1
 
+		for (let i = 0,texte,texte_corr,cpt=0; i < this.nb_questions && cpt<50; ) {
+			resultats=Choisir_expression_numerique(1,decimal)
+			expf=resultats[0]
+			expn=resultats[1]
+			expc=resultats[2]
+			texte=``
+			texte_corr=``
+			switch (liste_type_de_questions[i]) {
+				case 1:
+					texte+=num_alpha(i)+`Traduire la phrase par un calcul (il n’est pas demandé d’effectuer ce calcul) : `
+					expf=`l`+expf.substring(1);
+					texte+= `${expf}.`
+					texte_corr+=num_alpha(i)+`${expf} s'écrit ${expn}.`
+					break
+				case 2:
+					if (expn.indexOf('ou')>0) expn=expn.substring(0,expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
+					texte+=num_alpha(i)+`Traduire le calcul par une phrase en français : `
+					texte+=`${expn}`
+					expf=`l`+expf.substring(1);
+					texte_corr+=num_alpha(i)+`${expn} est ${expf}.`
+					break
+				case 3:
+					texte+=num_alpha(i)+`Traduire la phrase par un calcul et effectuer ce calcul : `
+					expf=`l`+expf.substring(1);
+					texte+=`${expf}.`
+					expf=`L`+expf.substring(1);
+					texte_corr+=num_alpha(i)+`${expf} s'écrit ${expn}.<br>`
+					texte_corr+=`${expc}.`
+					break
+			}
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}		
+			cpt++;	
+		}
+	liste_de_question_to_contenu_sans_numero(this);
+	}
+	this.besoin_formulaire_numerique = ['Type de questions',4,'1 : Phrase -> Calcul\n 2 : Calcul -> Phrase\n 3 : Phrase -> Calcul + résultat\n 4 : Mélange'];
+	this.besoin_formulaire2_case_a_cocher = ['Décimaux',false];
+
+}
 /**
  * Générateur de tirages pour un compte est bon avec en correction la solution mathador (4 opérations différentes).
  * @Auteur Jean-Claude Lhote
  */
-/*
-function Le_compte_est_bonV2(){
-	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Générateur de \"Le compte est bon\"";
-	this.consigne = "Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.";
-	this.nb_questions = 5;
-	this.nb_cols = 2;
-	this.nb_cols_corr = 2;
-	this.sup=30;
-	this.sup2=70;
-	var max_solution=70;
-	
-	this.nouvelle_version = function(numero_de_l_exercice){
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		let eureka;
-		let solution=0;
-		let min_solution=parseInt(this.sup);
-		max_solution=parseInt(this.sup2);
-		if (min_solution>max_solution) {
-			min_solution=max_solution;
-			this.sup=this.sup2;
-		}
-		let liste_choix=[1,2,2,3,3,4,4,4,4,5,6,6,6,6,7,7,8,8,8,8,9,9,9,9,10,11,12,13,14,15,16,17,18,19,20];
-		for (let i = 0, texte, texte_corr, a, b, c, d, e, f,tirage,expression_en_cours,operations_restantes,nombres_restants,op,part1,part2,cpt=0; i < this.nb_questions && cpt<50; ) {
-			eureka=false;
-			while (eureka==false){
-				tirage=[];
-				a=parseInt(choice(liste_choix))
-				b=parseInt(choice(liste_choix,[13,14,15,16,17,18,19,20,a]))
-				c=parseInt(choice(liste_choix,[12,13,14,15,16,17,18,19,20,a,b]))
-				d=parseInt(choice(liste_choix,[12,13,14,15,16,17,18,19,20,b,c]))
-				e=parseInt(choice(liste_choix,[12,13,14,15,16,17,18,19,20]))
-				tirage.push(a,b,c,d,e);
-				nombres_restants=shuffle(tirage);
-				operations_restantes=['\\times','+','-','\\div'];
-				operations_restantes=shuffle(operations_restantes);
-				expression_en_cours=[`${nombres_restants[0]}`,`${nombres_restants[1]}`,`${nombres_restants[2]}`,`${nombres_restants[3]}`,`${nombres_restants[4]}`];
-				while (nombres_restants.length>1){
-					b=nombres_restants.pop();
-					a=nombres_restants.pop();
-					part2=expression_en_cours.pop();
-					part1=expression_en_cours.pop();
-					op=operations_restantes.pop();
-					console.log(part1,op,part2,'   ',a,op,b)
-					if (op=='\\times'){
-						c=a*b;
-						expression_en_cours.push(`${part1}${op}${part2}`);
-						nombres_restants.push(c);
-					}
-					else if (op=='\\div'){
-						if (a%b==0) {
-							c=a/b;
-							if (part1[0]=='\\'){
-								part1=part1.substring(6,part1.length)
-								part1=part1.substring(0,part1.length-7)
-								}
-							if (part2[0]=='\\'){
-								part2=part2.substring(6,part2.length)
-								part2=part2.substring(0,part2.length-7)
-								}
-							expression_en_cours.push(`\\dfrac{${part1}}{${part2}}`);
-							nombres_restants.push(c);	
-						}
-						else break;
-					}
-					else if (op=='-'){
-						if (a>b) {
-							c=a-b;
-							expression_en_cours.push(`\\left(${part1}${op}${part2}\\right)`);
-							nombres_restants.push(c);	
-						}
-						else break;
-					}
-					else if (op=='+'){
-						c=a+b;
-						if (part2.substring(0,2)=='\\l'){
-							part2=part2.substring(6,part2.length)
-							part2=part2.substring(0,part2.length-7)
-							}
-						expression_en_cours.push(`\\left(${part1}${op}${part2}\\right)`);
-						nombres_restants.push(c);
-					}
-				}
 
-				if (nombres_restants.length==1&&operations_restantes.length==0)	{
-					solution=nombres_restants[0];
-					if (solution>=min_solution&solution<=max_solution) {
-						eureka=true;
-						texte=`Le tirage est le suivant : $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ <br>La cible est : $${solution}$`
-						if (expression_en_cours[0][0]=='\\'){
-						expression_en_cours[0]=expression_en_cours[0].substring(6,expression_en_cours[0].length)
-						expression_en_cours[0]=expression_en_cours[0].substring(0,expression_en_cours[0].length-7)
-						}
-						texte_corr=`La solution est : $${expression_en_cours[0]}=${solution}$`
-						if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-							this.liste_questions.push(texte);
-							this.liste_corrections.push(texte_corr);
-							i++;
-						}		
-					}
-				}
-			}
-			cpt++;	
-		}
-	liste_de_question_to_contenu(this);
-	}
-	this.besoin_formulaire_numerique = ['Limite inférieure',max_solution];
-	this.besoin_formulaire2_numerique = ['Limite supérieure',100];
-}
-*/
 function Le_compte_est_bonV3(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -2126,7 +2083,7 @@ function Le_compte_est_bonV3(){
 	this.besoin_formulaire2_numerique = ['Limite supérieure',100];
 }
 /**
- * 
+ * @Auteur Jean-Claude Lhote 
  * @param {number} min Valeur minimum pour la solution
  * @param {number} max Valeur maximum pour la solution
  * Cette fonction produit aléatoirement un tirage de 5 nombres, une solution, un tableau contenant les calculs successifs, une chaine contenant l'expression mathador correspondante

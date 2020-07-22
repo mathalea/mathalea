@@ -1344,6 +1344,22 @@ function html_enumerate(liste,spacing){
 
 
 /**
+* Renvoit une liste HTML ou LaTeX suivant le contexte
+* 
+* @param liste une liste de questions
+* @param spacing interligne (line-height en css)
+* @Auteur Rémi Angot
+*/
+function enumerate(liste,spacing){
+	if (sortie_html) {
+		return html_enumerate(liste,spacing)
+	} else {
+		return tex_enumerate(liste,spacing)
+	}
+}
+
+
+/**
 *  Renvoit un paragraphe HTML à partir d'un string
 * 
 * @param string
