@@ -60,6 +60,7 @@ function liste_de_question_to_contenu_sans_numero_et_sans_consigne(argument) {
  * @param {number} b deuxième nombre 
  * @param {number} tolerance seuil positif en dessous duquel une valeur est considérée comme nulle
  * valeur de tolérance par défaut : 0.000001 = constante epsilon définie ci-dessous.
+ * @Auteur Jean-Claude Lhote
  */
 const epsilon=0.000001;
  function egal(a,b,tolerance=epsilon){
