@@ -3881,6 +3881,16 @@ function decomp_fact_prem_array(n) {
 
 /**
  * Classe Triangles 
+ * Choisi un nom au hasard dans un tableau statique
+ * La méthode getNom() permet de récupérer ce nom et fournit un string en mode maths. Si le triangle se nomme AGE, alors getNom() renvoit un tableau de 5 éléments $ ; A ; G ; E et $, les $ traduisent le mode maths
+ * Pour l'exemple le triangle se nomme AGE
+ * La méthode getCotes() renvoie un tableau contenant les noms des segments des côtés du triangle en mode maths. [AG], [GE] et [EA] dans cet ordre.
+ * La méthode getLongueurs() renvoie un tableau contenant les noms des longueurs des côtés du triangle en mode maths. AG, GE et EA dans cet ordre.
+ * La méthode getAngles() renvoie un tableau contenant les noms des angles du triangle en mode maths. AGE, GEA et EAG dans cet ordre.
+ * La méthode getSommets() renvoie un tableau contenant les noms des sommets du triangle en mode maths. A, G et E dans cet ordre.
+ * La méthode isTrueTriangleLongueurs() renvoie un booléen si le triangle définit à partir des longueurs est un vrai triangle non plat. Non Finalisée
+ * La méthode isTrueTriangleAngles() renvoie un booléen si le triangle définit à partir des angles existe. Non Finalisée
+ * La méthode isQuelconque() renvoie  un booléen si le triangle définit à partir des angles ou des longueurs existe et est quelconque. Non Finalisée
  * @author Sébastien Lozano
  */
 function Triangles(l1,l2,l3,a1,a2,a3) {
@@ -3946,6 +3956,7 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 
 	// renvoie un booleen selon que les trois longueurs forment un vrai triangle ou non
 	function isTrueTriangleLongueurs() {
+		// Vérfier l'existence de l1, l2 et l3 !!!
 		let longueurs = [self.l1,self.l2,self.l3];
 		//console.log('longueurs : '+longueurs);
 		longueurs.sort(function(a,b){
@@ -3961,6 +3972,7 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 
 	// renvoie un booleen selon que les trois angles forment un vrai triangle ou non
 	function isTrueTriangleAngles() {
+		// Vérfier l'existence de a1, a2 et a3 !!!
 		if ((self.a1 + self.a2 + self.a3) == 180) {
 			return true;
 		} else {
@@ -3970,6 +3982,7 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 
 	// renvoie un booléen selon que le triangle donné à partir de ses trois longueurs ou trois angles est quelconque ou non
 	function isQuelconque() {
+		// Vérifier que le triangle existe !!!
 		if ( ( ((self.l1!=self.l2) && (self.l1!=self.l3) && (self.l2!=self.l3) ) || ( (self.a1!=self.a2) && (self.a1!=self.a3) && (self.a2!=self.a3) ) ) && ( (self.a1 != 90) || (self.a2 != 90) || (self.a3 != 90) ) ) {
 			return true
 		} else {
@@ -3989,9 +4002,9 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 	this.getLongueurs = getLongueurs;
 	this.getAngles = getAngles;
 	this.getSommets = getSommets;
-	this.isTrueTriangleLongueurs = isTrueTriangleLongueurs;
-	this.isTrueTriangleAngles = isTrueTriangleAngles;
-	this.isQuelconque = isQuelconque;	
+	//this.isTrueTriangleLongueurs = isTrueTriangleLongueurs;
+	//this.isTrueTriangleAngles = isTrueTriangleAngles;
+	//this.isQuelconque = isQuelconque;	
 };
 
 // Gestion des styles LaTeX
