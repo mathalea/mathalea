@@ -1,4 +1,34 @@
 /**
+ * v= new Vecteur('V') // son nom
+ * v= new Vecteur(x,y) // ses composantes
+ * v=new Vecteur(A,B) // son origine et son extrémité (deux Points)
+ * v=new Vecteur('V',x,y) // son nom et ses composantes.
+ * 
+ * @Auteur Jean-Claude Lhote
+ */
+function Vecteur(arg1,arg2)  {
+	if (arguments.length==1) {
+		this.nom = arg1
+	} else if (arguments.length==2) {
+		if (typeof(arg1)=='number') {
+			this.x = arg1;
+			this.y = arg2;
+		}
+		else {
+			this.origin=arg1;
+			this.extremite=arg2;
+			this.x=arg2.x-arg1.x;
+			this.y=arg2.y-arg1.y;
+		}
+	} else {
+		this.nom = arg1;
+		this.x = arg2;
+		this.y = arg3;
+	}
+
+}
+
+/**
 * A = new Point('A') //son nom
 * A = new Point(x,y) //ses coordonnées
 * A = new Point('A',x,y) //son nom et ses coordonnées
