@@ -26,6 +26,16 @@ function Vecteur(arg1,arg2)  {
 		this.y = arg3;
 	}
 
+	this.norme = function (V) {
+		return calcul(Math.sqrt(this.x**2+this.y**2))
+	}
+
+	this.oppose = function(V) {
+		this.x=-V.x
+		this.y=-V.y
+		return this
+	}
+	
 }
 
 /**
