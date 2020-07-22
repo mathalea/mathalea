@@ -19,24 +19,21 @@ function Point(arg1,arg2,arg3,positionLabel = 'above left') {
 	}
 	this.positionLabel = positionLabel;
 	
-	this.milieu = function (A,B) { 
-		this.x = calcul((A.x+B.x)/2);
-		this.y = calcul((A.y+B.y)/2);
-	}
-	this.translationVecteur = function (A,v) { //Image de A dans la translation de vecteur v
-		this.x = calcul(A.x+v.x);
-		this.y = calcul(A.y+v.y);
+	this.translationVecteur = function (v) { //Image du point dans la translation de vecteur v
+		this.x = calcul(this.x+v.x);
+		this.y = calcul(this.y+v.y);
 	} ;
-	this.translation = function(O,A,B) { //Image de O dans la translation qui transforme A en B
-		this.x = calcul(O.x+B.x-A.x);
-		this.y = calcul(O.y+B.y-A.y);
+	this.translation = function(O,A,B) { //Image du point dans la translation qui transforme A en B
+		this.x = calcul(this.x+B.x-A.x);
+		this.y = calcul(this.y+B.y-A.y);
 	}
-	this.homothetie = function(A,O,k) { //Image de A dans l'homothétie de centre O et de rapport k
-		this.x = calcul(O.x+k*(A.x-O.x))
-		this.y = calcul(O.y+k*(A.y-O.y))
-		return this
+	this.homothetie = function(O,k) { //Image du point dans l'homothétie de centre O et de rapport k
+		this.x = calcul(O.x+k*(this.x-O.x))
+		this.y = calcul(O.y+k*(this.y-O.y))
 	}
-	this.rotation = function(A,O,angle) { //Image de A dans la rotation de centre O et d'angle 
+	this.rotation = function(O,angle) { //Image de A dans la rotation de centre O et d'angle 
+		this.x = calcul(O.x+(this.x-O.x)*Math.cos(angle*Math.PI/180)-(this.y-O.y)*Math.sin(angle*Math.PI/180));
+    	this.y = calcul(O.y+(this.x-O.x)*Math.sin(angle*Math.PI/180)+(this.y-O.y)*Math.cos(angle*Math.PI/180));
 
 	}
 	this.xSVG = function(coeff=20) {
@@ -48,17 +45,31 @@ function Point(arg1,arg2,arg3,positionLabel = 'above left') {
 }
 
 /**
-* M = new PointParTranslation(O,A,B) //M est l'image de O dans la translation qui transforme A en B
-* M = new PointParTranslation(O,A,B,'M') //M est l'image de O dans la translation qui transforme A en B et se nomme M
-* M = new PointParTranslation(O,A,B,'M','below') //M est l'image de O dans la translation qui transforme A en B, se nomme M et le nom est en dessous du point
+* M = new PointParTranslation2Points(O,A,B) //M est l'image de O dans la translation qui transforme A en B
+* M = new PointParTranslation2Points(O,A,B,'M') //M est l'image de O dans la translation qui transforme A en B et se nomme M
+* M = new PointParTranslation2Points(O,A,B,'M','below') //M est l'image de O dans la translation qui transforme A en B, se nomme M et le nom est en dessous du point
 *
 * @Auteur Rémi Angot
 */
-function PointParTranslation(O,A,B,nom='',positionLabel = 'above left') {
+function PointParTranslation2Points(O,A,B,nom='',positionLabel = 'above left') {
 	Point.call(this,nom);
 	this.positionLabel=positionLabel;
 	this.x = calcul(O.x+B.x-A.x);
 	this.y = calcul(O.y+B.y-A.y);
+}
+
+/**
+* M = new PointParTranslation(O,v) //M est l'image de O dans la translation de vecteur v
+* M = new PointParTranslation(O,v,'M') //M est l'image de O dans la translation de vecteur v et se nomme M
+* M = new PointParTranslation(O,v,'M','below') //M est l'image de O dans la translation de vecteur v, se nomme M et le nom est en dessous du point
+*
+* @Auteur Rémi Angot
+*/
+function PointParTranslation(O,v,nom='',positionLabel = 'above left') {
+	Point.call(this,nom);
+	this.positionLabel=positionLabel;
+	this.x = calcul(O.x+v.x);
+	this.y = calcul(O.y+v.y);
 }
 
 /**
@@ -84,6 +95,19 @@ function PointParHomothetie(A,O,k,nom='',positionLabel = 'above left') {
 */
 function PointSurSegment(A,B,l,nom='',positionLabel = 'above left') {
 	PointParHomothetie.call(this,B,A,calcul(l/longueur(A,B)),nom,positionLabel);
+}
+
+/**
+* M = new PointMilieu(A,B) //M est le milieu de [AB]
+* M = new PointMilieu(A,B,'M') //M est le milieu de [AB] et se nomme M
+* M = new PointMilieu(A,B,'M','below') //M est le milieu de [AB], se nomme M et le nom est en dessous du point
+*
+* @Auteur Rémi Angot
+*/
+function PointMilieu(A,B,nom='',positionLabel = 'above left') {
+	Point.call(this,nom);
+	this.x = calcul((A.x+B.x)/2);
+	this.y = calcul((A.y+B.y)/2);
 }
 
 
@@ -224,6 +248,40 @@ function Polygone(...points){
 	}
 }
 
+/**
+ * v = new Vecteur('V') // son nom
+ * v = new Vecteur(x,y) // ses composantes
+ * v =new Vecteur(A,B) // son origine et son extrémité (deux Points)
+ * v =new Vecteur(x,y,'v') // son nom et ses composantes.
+ * 
+ * @Auteur Jean-Claude Lhote et Rémi Angot
+ */
+function Vecteur(arg1,arg2,nom='')  {
+	if (arguments.length==1) {
+		this.nom = arg1
+	} else {
+		if (typeof(arg1)=='number') {
+			this.x = arg1;
+			this.y = arg2;
+		} else {
+			this.x = arg2.x-arg1.x;
+			this.y = arg2.y-arg1.y;
+		
+		}
+		this.nom = nom
+	}
+	this.norme = function () {
+		return calcul(Math.sqrt(this.x**2+this.y**2))
+	}
+	this.oppose = function() {
+		this.x=-this.x
+		this.y=-this.y
+	}
+	
+}
+
+
+
 
 /**
 * longueur(A,B) renvoit la distance de A à B
@@ -232,6 +290,15 @@ function Polygone(...points){
 */
 function longueur(A,B){
 	return calcul(Math.sqrt((B.x-A.x)**2+(B.y-A.y)**2));
+}
+
+/**
+* norme(V) renvoit la norme du vecteur
+*
+* @Auteur Rémi Angot
+*/
+function norme(v){
+	return calcul(Math.sqrt(v.x**2+v.y**2))
 }
 
 
