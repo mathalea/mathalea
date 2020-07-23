@@ -1,5 +1,5 @@
 let mesObjets = [];
-
+/*
 /**
  * v= new Vecteur('V') // son nom
  * v= new Vecteur(x,y) // ses composantes
@@ -7,7 +7,6 @@ let mesObjets = [];
  * v=new Vecteur('V',x,y) // son nom et ses composantes.
  * 
  * @Auteur Jean-Claude Lhote
- */
 function Vecteur(arg1,arg2)  {
 	if (arguments.length==1) {
 		this.nom = arg1
@@ -39,6 +38,11 @@ function Vecteur(arg1,arg2)  {
 	}
 	
 }
+function vecteur(...args) {
+	return new Vecteur(...args)
+}
+*/
+
 
 /**
 * A = new Point('A') //son nom
@@ -245,6 +249,7 @@ function PointParProjectionOrtho(M,d,nom='',positionLabel='above left') {
 		this.y=calcul(k*(a*b*M.x+a*a*A.y-a*a*c/b)-c/b)
 	}
 	this.positionLabel = positionLabel;
+	mesObjets.push(this);
 }
 function pointParProjectionOrtho(...args) {
 	return new PointParProjectionOrtho(...args)
@@ -361,22 +366,35 @@ function Droite(arg1,arg2,arg3,arg4,color='black') {
 	}
 	this.normal= new Vecteur(this.a,this.b)
 	this.directeur= new Vecteur(-this.b,this.a)
+	mesObjets.push(this);
 }
-
+function droite(...args) {
+	return new Droite(...args)
+}
 /**
  * d = new DroiteParPointEtVecteur(A,v,'red')
  * Définit une droite par point et vecteur directeur
  * @Auteur Jean-Claude Lhote
  */
 function DroiteParPointEtVecteur(A,v,color='black') {
-	let B=new Point(calcul(A.x+v.x),calcul(A.y+v.y))
-	Droite.call(this,A,B)
-	this.color=color
+	let B=new Point(calcul(A.x+v.x),calcul(A.y+v.y));
+	Droite.call(this,A,B);
+	this.color=color;
+	mesObjets.push(this);
 }
 function droiteParPointEtVecteur(...args) {
 	return new DroiteParPointEtVecteur(...args)
 }
 
+function DroiteParPointEtPente(A,k) {
+	let B=new Point(calcul(A.x+1),calcul(A.y+k));
+	Droite.call(this,A,B);
+	this.color=color;
+	mesObjets.push(this);
+}
+function droiteParPointEtPente(...args) {
+	return new DroiteParPointEtPente(...args)
+}
 /**
 * A = new Segment(A,B) //2 extrémités
 * A = new Segment(A,B,'black') //2 extrémités et la couleur
