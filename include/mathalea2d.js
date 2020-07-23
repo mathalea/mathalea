@@ -243,8 +243,7 @@ function pointParProjectionOrtho(...args) {
 	return new PointParProjectionOrtho(...args)
 }
 /**
-* (new LabelPoints(A,B)).svg() //renvoie le code SVG pour nommer les points A et B
-* (new LabelPoints(A,B)).tikz() //renvoie le code TikZ pour nommer les points A et B
+* labelPoints(A,B) pour nommer les points A et B
 * Le nombre d'arguments n'est pas limité
 *
 * @Auteur Rémi Angot
@@ -295,10 +294,10 @@ function labelPoints(...args){
 	return new LabelPoints(...args)
 }
 /**
- * d = droite(A,B) // Deux points de passage
- * d = droite(A,B,'(d)') // Deux points et le nom
- * d = droite(a,b,c,'(d)') // coefficient de ax +by + c=0 (équation de la droite (a,b)!=(0,0))
- * d = droite(A,B,'(d)','black')
+ * d = droite(A,B) // La droite passant par A et B
+ * d = droite(A,B,'(d)') // La droite passant par A et B se nommant (d)
+ * d = droite(a,b,c,'(d)') // La droite définie par les coefficients de ax +by + c=0 (équation de la droite (a,b)!=(0,0))
+ * d = droite(A,B,'(d)','blue') //La droite passant par A et B se nommant (d) et de couleur bleue
  * 
  * @Auteur Jean-Claude Lhote
  */
@@ -374,8 +373,7 @@ function droite(...args){
 }
 
 /**
- * d = droiteParPointEtVecteur(A,v,'red')
- * Définit une droite par point et vecteur directeur
+ * d = droiteParPointEtVecteur(A,v,'red') //Droite passant par A, de vecteur directeur v et de couleur rouge
  * @Auteur Jean-Claude Lhote
  */
 function DroiteParPointEtVecteur(A,v,color='black') {
@@ -388,10 +386,10 @@ function droiteParPointEtVecteur(...args) {
 }
 
 /**
-* A = segment(A,B) //2 extrémités
-* A = segment(A,B,'black') //2 extrémités et la couleur
-* A = segment(x1,y1,x2,y2) //les coordonnées des deux extrémités
-* A = segment(x1,y1,x2,y2,'black') //les coordonnées des deux extrémités et la couleur
+* * s = segment(A,B) //Segment d'extrémités A et B
+* s = segment(A,B,'blue') //Segment d'extrémités A et B et de couleur bleue
+* s = segment(x1,y1,x2,y2) //Segment définit par les coordonnées des deux extrémités
+* s = segment(x1,y1,x2,y2,'blue') //Segment définit par les coordonnées des deux extrémités et de couleur bleue
 *
 * @Auteur Rémi Angot
 */
@@ -438,10 +436,10 @@ function segment(...args){
 }
 
 /**
-* tracePoint(A) 
-* tracePoint(A,.5)
-* tracePoint(A,.5,'blue')
-* tracePoints(A,B,C,D)
+* tracePoint(A) // Place une croix à l'emplacement du point A
+* tracePoint(A,.5) //Place une croix de taille 5 mm à l'emplacement du point A
+* tracePoint(A,.5,'blue') //Place une croix bleue de taille 5 mm à l'emplacement du point A
+* tracePoints(A,B,C,D) // Place une croix pour les différents points
 * La taille n'a un effet que sur la sortie SVG
 * @Auteur Rémi Angot
 */
@@ -616,14 +614,24 @@ function angleradian(A,O,B){
 function codeFigure(...objets){
 	let code = ''
 	if (sortie_html) {
-		code = `<div><svg width="600" height="600" viewBox="-20 -300 600 600" xmlns="http://www.w3.org/2000/svg">\n`
+		code = `<div><svg width="600" height="400" viewBox="-20 -200 600 400" xmlns="http://www.w3.org/2000/svg">\n`
 		for (let objet of objets){
 			code +=objet.svg() + '\n'
 		}
 		code += `</svg></div>`
 		
 	} else {
-		code = `\\begin{tikzpicture}\n`
+		code = `\\begin{tikzpicture}\n
+\\tikzset{
+    point/.style={
+        thick,
+        draw,
+        cross out,
+        inner sep=0pt,
+        minimum width=5pt,
+        minimum height=5pt,
+    },
+}\n\n`
 		for (let objet of objets){
 			code += '\t' + objet.tikz() + '\n'
 		}
@@ -639,7 +647,7 @@ function codeFigure(...objets){
 */
 function codeSvg(...objets){
 	let code = ''
-	code = `<div><svg width="600" height="600" viewBox="-20 -300 600 600" xmlns="http://www.w3.org/2000/svg">\n`
+	code = `<svg width="600" height="400" viewBox="-20 -200 600 400" xmlns="http://www.w3.org/2000/svg">\n`
 	for (let objet of objets){
 		if (Array.isArray(objet)) {
 			for (let i = 0; i < objet.length; i++) {
@@ -656,7 +664,7 @@ function codeSvg(...objets){
   			
   		}
 	}
-	code += `</svg></div>`;
+	code += `</svg>`;
 	return code;
 }
 
@@ -677,7 +685,7 @@ function codeTikz(...objets){
         minimum width=5pt,
         minimum height=5pt,
     },
-}`
+}\n\n`
 	for (let objet of objets){
 		if (Array.isArray(objet)) {
 			for (let i = 0; i < objet.length; i++) {
