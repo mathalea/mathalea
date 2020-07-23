@@ -457,5 +457,44 @@ function codeFigure(...objets){
 	return code
 }
 
+/**
+* codeSvg(segment(A,B),polygone(D,E,F),labelPoints(A,B))
+*
+* @Auteur Rémi Angot
+*/
+function codeSvg(...objets){
+	let code = ''
+	code = `<div><svg width="600" height="600" viewBox="-20 -300 600 600" xmlns="http://www.w3.org/2000/svg">\n`
+	for (let objet of objets){
+		try {
+			code +=objet.svg() + '\n';
+		} catch (error) {
+  			
+  		}
+	}
+	code += `</svg></div>`;
+	return code;
+}
+
+/**
+* codeTikz(segment(A,B),polygone(D,E,F),labelPoints(A,B))
+*
+* @Auteur Rémi Angot
+*/
+function codeTikz(...objets){
+	let code = ''
+	code = `\\begin{tikzpicture}\n`
+	for (let objet of objets){
+		try {
+			code += '\t' + objet.tikz() + '\n'
+		} catch (error) {
+  			
+  		}
+	code += `\\end{tikzpicture}\n`
+	}
+	code += `</svg></div>`;
+	return code;
+}
+
 
 
