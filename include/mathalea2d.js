@@ -241,8 +241,68 @@ function LabelPoints(...points) {
 function labelPoints(...args){
 	return new LabelPoints(...args)
 }
-
-
+/**
+ *  d= new Droite(A,B) // Deux points de passage
+ * d = new Droite(A,B,'(d)') // Deux points et le nom
+ * d = new Droite(a,b,c,'(d)') // coefficient de ax +by + c=0 (équation de la droite (a,b)!=(0,0))
+ * d = new Droite(A,B,'(d)','black')
+ * 
+ * @param {*} arg1 
+ * @param {*} arg2 
+ * @param {*} arg3 
+ * @param {*} arg4 
+ * @param {*} color 
+ */
+function Droite(arg1,arg2,arg3,arg4,color='black') {
+	if (arguments.length==2) {
+		this.x1 = arg1.x;
+		this.y1 = arg1.y;
+		this.x2 = arg2.x;
+		this.y2 = arg2.y;
+		this.a=this.y1-this.y2
+		this.b=this.x2-this.x1
+		this.c=(this.x1-this.x2)*this.y1+(this.y2-this.y1)*this.x1
+		this.color = color;
+	} else if (arguments.length==3) {
+		if (typeof(arg1)=='number') { // droite d'équation ax +by +c =0
+			this.a=arg1;
+			this.b=arg2;
+			this.c=arg3;
+			this.color=color;
+		}
+		else {
+		this.x1 = arg1.x;
+		this.y1 = arg1.y;
+		this.x2 = arg2.x;
+		this.y2 = arg2.y;
+		this.a=this.y1-this.y2
+		this.b=this.x2-this.x1
+		this.c=(this.x1-this.x2)*this.y1+(this.y2-this.y1)*this.x1
+		this.name = arg3;
+		this.color=color;
+		}
+	}
+	else if (arguments.length==4) {
+		if (typeof(arg1)=='number') {
+			this.a=arg1;
+			this.b=arg2;
+			this.c=arg3;
+			this.nom=nom;
+			this.color=color
+		}
+		else {
+		this.x1 = arg1.x;
+		this.y1 = arg1.y;
+		this.x2 = arg2.x;
+		this.y2 = arg2.y;
+		this.a=this.y1-this.y2
+		this.b=this.x2-this.x1
+		this.c=(this.x1-this.x2)*this.y1+(this.y2-this.y1)*this.x1
+		this.nom=arg3;
+		this.color=arg4;
+		}
+	}
+}
 /**
 * A = new Segment(A,B) //2 extrémités
 * A = new Segment(A,B,'black') //2 extrémités et la couleur
