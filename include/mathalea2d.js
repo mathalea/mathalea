@@ -278,7 +278,7 @@ function Polygone(...points){
 	}
 }
 function polygone(...args){
-	return new polygone(...args)
+	return new Polygone(...args)
 }
 
 /**
@@ -342,7 +342,7 @@ function CodageAngleDroit(A,O,B,d = .3)  {
 	}
 }
 function codageAngleDroit(...args){
-	return new codageAngleDroit(...args)
+	return new CodageAngleDroit(...args)
 }
 
 
