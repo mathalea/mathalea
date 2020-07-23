@@ -295,10 +295,10 @@ function labelPoints(...args){
 	return new LabelPoints(...args)
 }
 /**
- *  d= new Droite(A,B) // Deux points de passage
- * d = new Droite(A,B,'(d)') // Deux points et le nom
- * d = new Droite(a,b,c,'(d)') // coefficient de ax +by + c=0 (équation de la droite (a,b)!=(0,0))
- * d = new Droite(A,B,'(d)','black')
+ * d = droite(A,B) // Deux points de passage
+ * d = droite(A,B,'(d)') // Deux points et le nom
+ * d = droite(a,b,c,'(d)') // coefficient de ax +by + c=0 (équation de la droite (a,b)!=(0,0))
+ * d = droite(A,B,'(d)','black')
  * 
  * @Auteur Jean-Claude Lhote
  */
@@ -360,6 +360,9 @@ function Droite(arg1,arg2,arg3,arg4,color='black') {
 		let B1 = pointSurSegment(B,A,-5);
 		return `<line x1="${calcul(A1.x*coeff)}" y1="${calcul(-A1.y*coeff)}" x2="${calcul(B1.x*coeff)}" y2="${calcul(-B1.y*coeff)}" stroke="${this.color}" />`
 	}
+	this.tikz = function{
+		// A FAIRE
+	}
 	mesObjets.push(this)
 }
 function droite(...args){
@@ -415,7 +418,7 @@ function Segment(arg1,arg2,arg3,arg4,color='black'){
 
 	this.svg = function(coeff=20){
 
-		return `<line x1="${this.x1*coeff}" y1="${-this.y1*coeff}" x2="${this.x2*coeff}" y2="${-this.y2*coeff}" stroke="${this.color}" />`
+		return `<line x1="${calcul(this.x1*coeff)}" y1="${calcul(-this.y1*coeff)}" x2="${calcul(this.x2*coeff)}" y2="${calcul(-this.y2*coeff)}" stroke="${this.color}" />`
 	}
 	this.tikz = function(){
 		if (this.color=='black') {
@@ -428,6 +431,33 @@ function Segment(arg1,arg2,arg3,arg4,color='black'){
 }
 function segment(...args){
 	return new Segment(...args)
+}
+
+/**
+* tracePoint(A) 
+* tracePoint(A,.5)
+* tracePoint(A,.5,'blue')
+* tracePoints(A,B,C,D)
+* @Auteur Rémi Angot
+*/
+function TracePoint(A,taille=0.3,color='black'){
+	this.svg = function(coeff=20){
+		let code = `<line x1="${calcul((A.x-taille)*coeff)}" y1="${calcul((-A.y-taille)*coeff)}" x2="${calcul((A.x+taille)*coeff)}" y2="${calcul((-A.y+taille)*coeff)}" stroke="${color}" />`
+		code += `\n<line x1="${calcul((A.x-taille)*coeff)}" y1="${calcul((-A.y+taille)*coeff)}" x2="${calcul((A.x+taille)*coeff)}" y2="${calcul((-A.y-taille)*coeff)}" stroke="${color}" />`
+		return code 
+	}
+	this.tikz = function(){
+		// A FAIRE
+	}
+	mesObjets.push(this);
+}
+function tracePoint(...args){
+	return new TracePoint(...args)
+}
+function tracePoints(...points){
+	for (let point of points){
+		mesObjets.push(new TracePoint(point))
+	}
 }
 
 /**
