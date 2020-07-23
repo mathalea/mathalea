@@ -42,6 +42,12 @@ function Point(arg1,arg2,arg3,positionLabel = 'above left') {
 	this.ySVG = function(coeff=20) {
 		return -this.y*coeff;
 	}
+	if (!this.nom) {
+		this.nom = '';
+	}
+}
+function point(...args){
+	return new Point(...args)
 }
 
 /**
@@ -57,6 +63,9 @@ function PointParTranslation2Points(O,A,B,nom='',positionLabel = 'above left') {
 	this.x = calcul(O.x+B.x-A.x);
 	this.y = calcul(O.y+B.y-A.y);
 }
+function pointParTranslation2Points(...args){
+	return new PointParTranslation2Points(...args)
+}
 
 /**
 * M = new PointParTranslation(O,v) //M est l'image de O dans la translation de vecteur v
@@ -70,6 +79,9 @@ function PointParTranslation(O,v,nom='',positionLabel = 'above left') {
 	this.positionLabel=positionLabel;
 	this.x = calcul(O.x+v.x);
 	this.y = calcul(O.y+v.y);
+}
+function pointParTranslation(...args){
+	return new PointParTranslation(...args)
 }
 
 /**
@@ -85,6 +97,9 @@ function PointParHomothetie(A,O,k,nom='',positionLabel = 'above left') {
 	this.x = calcul(O.x+k*(A.x-O.x))
 	this.y = calcul(O.y+k*(A.y-O.y))
 }
+function pointParhomothetie(...args){
+	return new PointParHomothetie(...args)
+}
 
 /**
 * M = new PointSurSegment(A,B,l) //M est le point de [AB] à l cm de A
@@ -95,6 +110,9 @@ function PointParHomothetie(A,O,k,nom='',positionLabel = 'above left') {
 */
 function PointSurSegment(A,B,l,nom='',positionLabel = 'above left') {
 	PointParHomothetie.call(this,B,A,calcul(l/longueur(A,B)),nom,positionLabel);
+}
+function pointSurSegment(...args){
+	return new PointSurSegment(...args)
 }
 
 /**
@@ -108,6 +126,9 @@ function PointMilieu(A,B,nom='',positionLabel = 'above left') {
 	Point.call(this,nom);
 	this.x = calcul((A.x+B.x)/2);
 	this.y = calcul((A.y+B.y)/2);
+}
+function pointMilieu(...args){
+	return new PointMilieu(...args)
 }
 
 
@@ -124,11 +145,14 @@ function PointParRotation(A,O,angle,nom='',positionLabel = 'above left') {
     this.y = calcul(O.y+(A.x-O.x)*Math.sin(angle*Math.PI/180)+(A.y-O.y)*Math.cos(angle*Math.PI/180));
     this.positionLabel = positionLabel;
 }
+function pointParRotation(...args){
+	return new PointParRotation(...args)
+}
 
 
 /**
-* (new LabelPoints(A,B)).svg() //renvoit le code SVG pour nommer les points A et B
-* (new LabelPoints(A,B)).tikz() //renvoit le code TikZ pour nommer les points A et B
+* (new LabelPoints(A,B)).svg() //renvoie le code SVG pour nommer les points A et B
+* (new LabelPoints(A,B)).tikz() //renvoie le code TikZ pour nommer les points A et B
 * Le nombre d'arguments n'est pas limité
 *
 * @Auteur Rémi Angot
@@ -169,10 +193,13 @@ function LabelPoints(...points) {
 	this.tikz = function(){
 		let code = "";
 		for (let point of points){
-			code += `\\draw (${point.x},${point.y}) node[${point.positionLabel}] {${point.nom}};\n`;
+			code += `\t\\draw (${point.x},${point.y}) node[${point.positionLabel}] {${point.nom}};\n`;
 		}
 		return code
 	}
+}
+function labelPoints(...args){
+	return new LabelPoints(...args)
 }
 
 
@@ -215,11 +242,14 @@ function Segment(arg1,arg2,arg3,arg4,color='black'){
 	}
 	this.tikz = function(){
 		if (this.color=='black') {
-			return `\\draw (${this.x1},${this.y1})--(${this.x2},${this.y2});`
+			return `\t\\draw (${this.x1},${this.y1})--(${this.x2},${this.y2});`
 		} else {
-			return `\\draw[${color}] (${this.x1},${this.y1})--(${this.x2},${this.y2});`
+			return `\t\\draw[${color}] (${this.x1},${this.y1})--(${this.x2},${this.y2});`
 		}
 	}
+}
+function segment(...args){
+	return new Segment(...args)
 }
 
 /**
@@ -244,8 +274,11 @@ function Polygone(...points){
 		for (let point of points){
 			liste_points += `(${point.x},${point.y})--`
 		}
-		return `\\draw ${liste_points}cycle;`
+		return `\t\\draw ${liste_points}cycle;`
 	}
+}
+function polygone(...args){
+	return new polygone(...args)
 }
 
 /**
@@ -276,15 +309,47 @@ function Vecteur(arg1,arg2,nom='')  {
 	this.oppose = function() {
 		this.x=-this.x
 		this.y=-this.y
+	}	
+}
+function vecteur(...args){
+	return new Vecteur(...args)
+}
+
+/**
+ * CodageAngleDroit(A,O,B) //Fait un codage d'angle droit de 3 mm pour l'angle direct AOB
+ * CodageAngleDroit(A,O,B,.5) //Fait un codage d'angle droit de 5 mm pour l'angle direct AOB
+ 
+ * 
+ * @Auteur Rémi Angot
+ */
+function CodageAngleDroit(A,O,B,d = .3)  {
+	let a = new PointSurSegment(O,B,d);
+	let b = {};
+	if (angle(A,O,B)>0) {
+		b = new PointParRotation(O,a,90)
+	} else {
+		b = new PointParRotation(O,a,-90)
 	}
-	
+	let c = new PointSurSegment(O,A,d);
+	let s1 = new Segment(a,b)
+	let s2 = new Segment(b,c)
+	console.log(a,b,c,s1,s2)
+	this.svg = function() {
+		return s1.svg()+'\n'+s2.svg()
+	}
+	this.tikz = function() {
+		return s1.tikz()+'\n'+s2.tikz()
+	}
+}
+function codageAngleDroit(...args){
+	return new codageAngleDroit(...args)
 }
 
 
 
 
 /**
-* longueur(A,B) renvoit la distance de A à B
+* longueur(A,B) renvoie la distance de A à B
 *
 * @Auteur Rémi Angot
 */
@@ -293,12 +358,37 @@ function longueur(A,B){
 }
 
 /**
-* norme(V) renvoit la norme du vecteur
+* norme(V) renvoie la norme du vecteur
 *
 * @Auteur Rémi Angot
 */
 function norme(v){
 	return calcul(Math.sqrt(v.x**2+v.y**2))
+}
+
+/**
+* angle(A,O,B) renvoie l'angle AOB en degré
+*
+* @Auteur Rémi Angot
+*/
+function angle(A,O,B){
+	let OA = longueur(O,A);
+	let OB = longueur(O,B);
+	let AB = longueur(A,B);
+	return calcul(Math.acos((AB**2-OA**2-OB**2)/(-2*OA*OB))*180/Math.PI,2)
+}
+
+/**
+* angleradian(A,O,B) renvoie l'angle AOB en radian
+*
+* @Auteur Rémi Angot
+*/
+function angleradian(A,O,B){
+	let OA = longueur(O,A);
+	let OB = longueur(O,B);
+	let AB = longueur(A,B);
+	let cos = calcul((AB**2-OA**2-OB**2)/(-2*OA*OB),.1)
+	return calcul(Math.acos((AB**2-OA**2-OB**2)/(-2*OA*OB)),2)
 }
 
 
