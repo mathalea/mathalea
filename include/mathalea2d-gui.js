@@ -10,8 +10,7 @@ A = point(a,0,'A','left')
 B = point(5,6,'B','above')
 C = point(10,0,'C','right')
 polygone(A,B,C)
-labelPoints(A,B,C)
-	  `,
+labelPoints(A,B,C)`,
 	  mode:  "javascript",
 	  lineNumbers: true,
 	  autofocus: true,
@@ -21,7 +20,6 @@ labelPoints(A,B,C)
 	buttonSubmit.onclick = function() {
 		executeCode(`mesObjets=[];${myCodeMirror.getValue()}`);
 		divSvg.innerHTML = codeSvg(mesObjets);
-		// divSvg.innerHTML = executeCode(myCodeMirror.getValue());
 	 };
 
 	
