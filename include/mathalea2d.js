@@ -189,6 +189,32 @@ function pointParRotation(...args){
 	return new PointParRotation(...args)
 }
 
+/**
+ * M = new PointParSymetrieAxiale(A,d) M est l'image de A dans la symétrie axiale d'axe d.
+ * d est un objet de type Droite (son équation ax+by+c=0 renseignée)
+ * A est un objet de type Point (ses coordonnées x et y renseignées)
+ * @Auteur Jean-Claude Lhote
+ */
+function PointParSymetrieAxiale(A,d,nom='',positionLabel = 'above left') {
+	Point.call(this,nom);
+	let a=d.a,b=d.b,c=d.c,k=1/(a*a+b*b)
+	if (d.a==0) {
+		this.x=A.x
+		this.y=calcul(-(A.y+2*c/b))
+	}
+	else if (d.b==0) {
+		this.y=A.y
+		this.x=calcul(-(A.x+2*c/a))
+	}
+	else {
+		this.x=calcul(k*((b*b-a*a)*A.x-2*a*b*A.y-2*a*c))
+		this.y=calcul(k*((a*a-b*b)*A.y-2*a*b*A.x+a*a*c/b-b*c)-c/b)
+	}
+	this.positionLabel = positionLabel;
+}
+function pointParSymetrieAxiale(...args){
+	return new PointParSymetrieAxiale(...args)
+}
 
 /**
 * (new LabelPoints(A,B)).svg() //renvoie le code SVG pour nommer les points A et B
@@ -255,6 +281,7 @@ function labelPoints(...args){
  */
 function Droite(arg1,arg2,arg3,arg4,color='black') {
 	if (arguments.length==2) {
+		console.log(typeof(arg1))
 		this.x1 = arg1.x;
 		this.y1 = arg1.y;
 		this.x2 = arg2.x;
