@@ -54,7 +54,35 @@ function liste_de_question_to_contenu_sans_numero_et_sans_consigne(argument) {
 
 	
 }
-
+/**
+ * fonctions de comparaison pour les nombres en virgule flottante afin d'éviter les effets de la conversion en virgule flottante.
+ * @param {number} a premier nombre 
+ * @param {number} b deuxième nombre 
+ * @param {number} tolerance seuil positif en dessous duquel une valeur est considérée comme nulle
+ * valeur de tolérance par défaut : 0.000001 = constante epsilon définie ci-dessous.
+ * @Auteur Jean-Claude Lhote
+ */
+const epsilon=0.000001;
+ function egal(a,b,tolerance=epsilon){
+	if (Math.abs(a-b)<tolerance) return true
+	else return false
+}
+function superieur(a,b,tolerance=epsilon){
+	if (a-b>tolerance&&(!egal(a,b,tolerance))) return true
+	else return false
+}
+function inferieur(a,b,tolerance=epsilon){
+	if (b-a>tolerance&&(!egal(a,b,tolerance))) return true
+	else return false
+}
+function superieurouegal(a,b,tolerance=epsilon) {
+	if (a-b>tolerance||egal(a,b,tolerance)) return true
+	else return false
+}
+function inferieurouegal(a,b,tolerance=epsilon) {
+	if (b-a>tolerance||egal(a,b,tolerance)) return true
+	else return false
+}
 
 
 /**

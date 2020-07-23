@@ -1,6 +1,46 @@
 let mesObjets = [];
 
 /**
+ * v= new Vecteur('V') // son nom
+ * v= new Vecteur(x,y) // ses composantes
+ * v=new Vecteur(A,B) // son origine et son extrémité (deux Points)
+ * v=new Vecteur('V',x,y) // son nom et ses composantes.
+ * 
+ * @Auteur Jean-Claude Lhote
+ */
+function Vecteur(arg1,arg2)  {
+	if (arguments.length==1) {
+		this.nom = arg1
+	} else if (arguments.length==2) {
+		if (typeof(arg1)=='number') {
+			this.x = arg1;
+			this.y = arg2;
+		}
+		else {
+			this.origin=arg1;
+			this.extremite=arg2;
+			this.x=arg2.x-arg1.x;
+			this.y=arg2.y-arg1.y;
+		}
+	} else {
+		this.nom = arg1;
+		this.x = arg2;
+		this.y = arg3;
+	}
+
+	this.norme = function (V) {
+		return calcul(Math.sqrt(this.x**2+this.y**2))
+	}
+
+	this.oppose = function(V) {
+		this.x=-V.x
+		this.y=-V.y
+		return this
+	}
+	
+}
+
+/**
 * A = new Point('A') //son nom
 * A = new Point(x,y) //ses coordonnées
 * A = new Point(x,y,'A') //ses coordonnées et son nom
@@ -158,7 +198,57 @@ function pointParRotation(...args){
 	return new PointParRotation(...args)
 }
 
+/**
+ * M = new PointParSymetrieAxiale(A,d) M est l'image de A dans la symétrie axiale d'axe d.
+ * d est un objet de type Droite (son équation ax+by+c=0 renseignée)
+ * A est un objet de type Point (ses coordonnées x et y renseignées)
+ * @Auteur Jean-Claude Lhote
+ */
+function PointParSymetrieAxiale(A,d,nom='',positionLabel = 'above left') {
+	Point.call(this,nom);
+	let a=d.a,b=d.b,c=d.c,k=1/(a*a+b*b)
+	if (a==0) {
+		this.x=A.x
+		this.y=calcul(-(A.y+2*c/b))
+	}
+	else if (b==0) {
+		this.y=A.y
+		this.x=calcul(-(A.x+2*c/a))
+	}
+	else {
+		this.x=calcul(k*((b*b-a*a)*A.x-2*a*b*A.y-2*a*c))
+		this.y=calcul(k*((a*a-b*b)*A.y-2*a*b*A.x+a*a*c/b-b*c)-c/b)
+	}
+	this.positionLabel = positionLabel;
+}
+function pointParSymetrieAxiale(...args){
+	return new PointParSymetrieAxiale(...args)
+}
 
+/**
+ * N = new PointParProjectionOrtho(M,d,'N','below left')
+ *@Auteur Jean-Claude Lhote
+ */
+function PointParProjectionOrtho(M,d,nom='',positionLabel='above left') {
+	Point.call(this,nom);
+	let a=d.a,b=d.b,c=d.c,k=1/(a*a+b*b)
+	if (a==0) {
+		this.x=M.x
+		this.y=calcul(-c/b)
+	}
+	else if (b==0) {
+		this.y=M.y
+		this.x=calcul(-c/a)
+	}
+	else {
+		this.x=calcul(k*(-b*b*M.x-a*b*M.y+a*c))
+		this.y=calcul(k*(a*b*M.x+a*a*A.y-a*a*c/b)-c/b)
+	}
+	this.positionLabel = positionLabel;
+}
+function pointParProjectionOrtho(...args) {
+	return new PointParProjectionOrtho(...args)
+}
 /**
 * (new LabelPoints(A,B)).svg() //renvoie le code SVG pour nommer les points A et B
 * (new LabelPoints(A,B)).tikz() //renvoie le code TikZ pour nommer les points A et B
@@ -211,7 +301,81 @@ function LabelPoints(...points) {
 function labelPoints(...args){
 	return new LabelPoints(...args)
 }
+/**
+ *  d= new Droite(A,B) // Deux points de passage
+ * d = new Droite(A,B,'(d)') // Deux points et le nom
+ * d = new Droite(a,b,c,'(d)') // coefficient de ax +by + c=0 (équation de la droite (a,b)!=(0,0))
+ * d = new Droite(A,B,'(d)','black')
+ * 
+ * @Auteur Jean-Claude Lhote
+ */
+function Droite(arg1,arg2,arg3,arg4,color='black') {
+	if (arguments.length==2) {
+		console.log(typeof(arg1))
+		this.x1 = arg1.x;
+		this.y1 = arg1.y;
+		this.x2 = arg2.x;
+		this.y2 = arg2.y;
+		this.a=this.y1-this.y2
+		this.b=this.x2-this.x1
+		this.c=(this.x1-this.x2)*this.y1+(this.y2-this.y1)*this.x1
+		this.color = color;
+	} else if (arguments.length==3) {
+		if (typeof(arg1)=='number') { // droite d'équation ax +by +c =0
+			this.a=arg1;
+			this.b=arg2;
+			this.c=arg3;
+			this.color=color;
+		}
+		else {
+		this.x1 = arg1.x;
+		this.y1 = arg1.y;
+		this.x2 = arg2.x;
+		this.y2 = arg2.y;
+		this.a=this.y1-this.y2
+		this.b=this.x2-this.x1
+		this.c=(this.x1-this.x2)*this.y1+(this.y2-this.y1)*this.x1
+		this.name = arg3;
+		this.color=color;
+		}
+	}
+	else if (arguments.length==4) {
+		if (typeof(arg1)=='number') {
+			this.a=arg1;
+			this.b=arg2;
+			this.c=arg3;
+			this.nom=nom;
+			this.color=color
+		}
+		else {
+		this.x1 = arg1.x;
+		this.y1 = arg1.y;
+		this.x2 = arg2.x;
+		this.y2 = arg2.y;
+		this.a=this.y1-this.y2
+		this.b=this.x2-this.x1
+		this.c=(this.x1-this.x2)*this.y1+(this.y2-this.y1)*this.x1
+		this.nom=arg3;
+		this.color=arg4;
+		}
+	}
+	this.normal= new Vecteur(this.a,this.b)
+	this.directeur= new Vecteur(-this.b,this.a)
+}
 
+/**
+ * d = new DroiteParPointEtVecteur(A,v,'red')
+ * Définit une droite par point et vecteur directeur
+ * @Auteur Jean-Claude Lhote
+ */
+function DroiteParPointEtVecteur(A,v,color='black') {
+	let B=new Point(calcul(A.x+v.x),calcul(A.y+v.y))
+	Droite.call(this,A,B)
+	this.color=color
+}
+function droiteParPointEtVecteur(...args) {
+	return new DroiteParPointEtVecteur(...args)
+}
 
 /**
 * A = new Segment(A,B) //2 extrémités
