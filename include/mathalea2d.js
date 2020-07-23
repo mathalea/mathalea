@@ -285,7 +285,7 @@ function LabelPoints(...points) {
 	this.tikz = function(){
 		let code = "";
 		for (let point of points){
-			code += `\t\\draw (${point.x},${point.y}) node[${point.positionLabel}] {${point.nom}};\n`;
+			code += `\\draw (${point.x},${point.y}) node[${point.positionLabel}] {${point.nom}};\n`;
 		}
 		return code
 	}
@@ -360,8 +360,12 @@ function Droite(arg1,arg2,arg3,arg4,color='black') {
 		let B1 = pointSurSegment(B,A,-5);
 		return `<line x1="${calcul(A1.x*coeff)}" y1="${calcul(-A1.y*coeff)}" x2="${calcul(B1.x*coeff)}" y2="${calcul(-B1.y*coeff)}" stroke="${this.color}" />`
 	}
-	this.tikz = function{
-		// A FAIRE
+	this.tikz = function() {
+		let A = point(this.x1,this.y1);
+		let B = point(this.x2,this.y2);
+		let A1 = pointSurSegment(A,B,-5);
+		let B1 = pointSurSegment(B,A,-5);
+		return `\\draw[${color}] (${A1.x},${A1.y})--(${B1.x},${B1.y});`
 	}
 	mesObjets.push(this)
 }
@@ -422,9 +426,9 @@ function Segment(arg1,arg2,arg3,arg4,color='black'){
 	}
 	this.tikz = function(){
 		if (this.color=='black') {
-			return `\t\\draw (${this.x1},${this.y1})--(${this.x2},${this.y2});`
+			return `\\draw (${this.x1},${this.y1})--(${this.x2},${this.y2});`
 		} else {
-			return `\t\\draw[${color}] (${this.x1},${this.y1})--(${this.x2},${this.y2});`
+			return `\\draw[${color}] (${this.x1},${this.y1})--(${this.x2},${this.y2});`
 		}
 	}
 	mesObjets.push(this);
@@ -438,6 +442,7 @@ function segment(...args){
 * tracePoint(A,.5)
 * tracePoint(A,.5,'blue')
 * tracePoints(A,B,C,D)
+* La taille n'a un effet que sur la sortie SVG
 * @Auteur Rémi Angot
 */
 function TracePoint(A,taille=0.3,color='black'){
@@ -447,7 +452,7 @@ function TracePoint(A,taille=0.3,color='black'){
 		return code 
 	}
 	this.tikz = function(){
-		// A FAIRE
+		return `\\node[point] at (${A.x},${A.y}) {};`
 	}
 	mesObjets.push(this);
 }
@@ -482,7 +487,7 @@ function Polygone(...points){
 		for (let point of points){
 			liste_points += `(${point.x},${point.y})--`
 		}
-		return `\t\\draw ${liste_points}cycle;`
+		return `\\draw ${liste_points}cycle;`
 	}
 	mesObjets.push(this);
 }
@@ -662,7 +667,17 @@ function codeSvg(...objets){
 */
 function codeTikz(...objets){
 	let code = ''
-	code = `\\begin{tikzpicture}\n`
+	code = `\\begin{tikzpicture}\n
+\\tikzset{
+    point/.style={
+        thick,
+        draw,
+        cross out,
+        inner sep=0pt,
+        minimum width=5pt,
+        minimum height=5pt,
+    },
+}`
 	for (let objet of objets){
 		if (Array.isArray(objet)) {
 			for (let i = 0; i < objet.length; i++) {
