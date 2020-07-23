@@ -198,11 +198,11 @@ function pointParRotation(...args){
 function PointParSymetrieAxiale(A,d,nom='',positionLabel = 'above left') {
 	Point.call(this,nom);
 	let a=d.a,b=d.b,c=d.c,k=1/(a*a+b*b)
-	if (d.a==0) {
+	if (a==0) {
 		this.x=A.x
 		this.y=calcul(-(A.y+2*c/b))
 	}
-	else if (d.b==0) {
+	else if (b==0) {
 		this.y=A.y
 		this.x=calcul(-(A.x+2*c/a))
 	}
@@ -216,6 +216,30 @@ function pointParSymetrieAxiale(...args){
 	return new PointParSymetrieAxiale(...args)
 }
 
+/**
+ * N = new PointParProjectionOrtho(M,d,'N','below left')
+ *@Auteur Jean-Claude Lhote
+ */
+function PointParProjectionOrtho(M,d,nom='',positionLabel='above left') {
+	Point.call(this,nom);
+	let a=d.a,b=d.b,c=d.c,k=1/(a*a+b*b)
+	if (a==0) {
+		this.x=M.x
+		this.y=calcul(-c/b)
+	}
+	else if (b==0) {
+		this.y=M.y
+		this.x=calcul(-c/a)
+	}
+	else {
+		this.x=calcul(k*(-b*b*M.x-a*b*M.y+a*c))
+		this.y=calcul(k*(a*b*M.x+a*a*A.y-a*a*c/b)-c/b)
+	}
+	this.positionLabel = positionLabel;
+}
+function pointParProjectionOrtho(...args) {
+	return new PointParProjectionOrtho(...args)
+}
 /**
 * (new LabelPoints(A,B)).svg() //renvoie le code SVG pour nommer les points A et B
 * (new LabelPoints(A,B)).tikz() //renvoie le code TikZ pour nommer les points A et B
@@ -273,11 +297,7 @@ function labelPoints(...args){
  * d = new Droite(a,b,c,'(d)') // coefficient de ax +by + c=0 (équation de la droite (a,b)!=(0,0))
  * d = new Droite(A,B,'(d)','black')
  * 
- * @param {*} arg1 
- * @param {*} arg2 
- * @param {*} arg3 
- * @param {*} arg4 
- * @param {*} color 
+ * @Auteur Jean-Claude Lhote
  */
 function Droite(arg1,arg2,arg3,arg4,color='black') {
 	if (arguments.length==2) {
@@ -329,7 +349,24 @@ function Droite(arg1,arg2,arg3,arg4,color='black') {
 		this.color=arg4;
 		}
 	}
+	this.normal= new Vecteur(this.a,this.b)
+	this.directeur= new Vecteur(-this.b,this.a)
 }
+
+/**
+ * d = new DroiteParPointEtVecteur(A,v,'red')
+ * Définit une droite par point et vecteur directeur
+ * @Auteur Jean-Claude Lhote
+ */
+function DroiteParPointEtVecteur(A,v,color='black') {
+	let B=new Point(calcul(A.x+v.x),calcul(A.y+v.y))
+	Droite.call(this,A,B)
+	this.color=color
+}
+function droiteParPointEtVecteur(...args) {
+	return new DroiteParPointEtVecteur(...args)
+}
+
 /**
 * A = new Segment(A,B) //2 extrémités
 * A = new Segment(A,B,'black') //2 extrémités et la couleur
