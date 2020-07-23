@@ -1,3 +1,5 @@
+let mesObjets = [];
+
 /**
  * v= new Vecteur('V') // son nom
  * v= new Vecteur(x,y) // ses composantes
@@ -85,6 +87,7 @@ function Point(arg1,arg2,arg3,positionLabel = 'above left') {
 	if (!this.nom) {
 		this.nom = '';
 	}
+	mesObjets.push(this);
 }
 function point(...args){
 	return new Point(...args)
@@ -102,6 +105,7 @@ function PointParTranslation2Points(O,A,B,nom='',positionLabel = 'above left') {
 	this.positionLabel=positionLabel;
 	this.x = calcul(O.x+B.x-A.x);
 	this.y = calcul(O.y+B.y-A.y);
+	mesObjets.push(this);
 }
 function pointParTranslation2Points(...args){
 	return new PointParTranslation2Points(...args)
@@ -119,6 +123,7 @@ function PointParTranslation(O,v,nom='',positionLabel = 'above left') {
 	this.positionLabel=positionLabel;
 	this.x = calcul(O.x+v.x);
 	this.y = calcul(O.y+v.y);
+	mesObjets.push(this);
 }
 function pointParTranslation(...args){
 	return new PointParTranslation(...args)
@@ -136,6 +141,7 @@ function PointParHomothetie(A,O,k,nom='',positionLabel = 'above left') {
 	this.positionLabel=positionLabel;
 	this.x = calcul(O.x+k*(A.x-O.x))
 	this.y = calcul(O.y+k*(A.y-O.y))
+	mesObjets.push(this);
 }
 function pointParhomothetie(...args){
 	return new PointParHomothetie(...args)
@@ -150,6 +156,7 @@ function pointParhomothetie(...args){
 */
 function PointSurSegment(A,B,l,nom='',positionLabel = 'above left') {
 	PointParHomothetie.call(this,B,A,calcul(l/longueur(A,B)),nom,positionLabel);
+	mesObjets.push(this);
 }
 function pointSurSegment(...args){
 	return new PointSurSegment(...args)
@@ -166,6 +173,7 @@ function PointMilieu(A,B,nom='',positionLabel = 'above left') {
 	Point.call(this,nom);
 	this.x = calcul((A.x+B.x)/2);
 	this.y = calcul((A.y+B.y)/2);
+	mesObjets.push(this);
 }
 function pointMilieu(...args){
 	return new PointMilieu(...args)
@@ -184,6 +192,7 @@ function PointParRotation(A,O,angle,nom='',positionLabel = 'above left') {
 	this.x = calcul(O.x+(A.x-O.x)*Math.cos(angle*Math.PI/180)-(A.y-O.y)*Math.sin(angle*Math.PI/180));
     this.y = calcul(O.y+(A.x-O.x)*Math.sin(angle*Math.PI/180)+(A.y-O.y)*Math.cos(angle*Math.PI/180));
     this.positionLabel = positionLabel;
+    mesObjets.push(this);
 }
 function pointParRotation(...args){
 	return new PointParRotation(...args)
@@ -287,6 +296,7 @@ function LabelPoints(...points) {
 		}
 		return code
 	}
+	mesObjets.push(this);
 }
 function labelPoints(...args){
 	return new LabelPoints(...args)
@@ -411,6 +421,7 @@ function Segment(arg1,arg2,arg3,arg4,color='black'){
 			return `\t\\draw[${color}] (${this.x1},${this.y1})--(${this.x2},${this.y2});`
 		}
 	}
+	mesObjets.push(this);
 }
 function segment(...args){
 	return new Segment(...args)
@@ -440,6 +451,7 @@ function Polygone(...points){
 		}
 		return `\t\\draw ${liste_points}cycle;`
 	}
+	mesObjets.push(this);
 }
 function polygone(...args){
 	return new Polygone(...args)
@@ -473,7 +485,8 @@ function Vecteur(arg1,arg2,nom='')  {
 	this.oppose = function() {
 		this.x=-this.x
 		this.y=-this.y
-	}	
+	}
+	mesObjets.push(this);	
 }
 function vecteur(...args){
 	return new Vecteur(...args)
@@ -504,6 +517,7 @@ function CodageAngleDroit(A,O,B,d = .3)  {
 	this.tikz = function() {
 		return s1.tikz()+'\n'+s2.tikz()
 	}
+	mesObjets.push(this);
 }
 function codageAngleDroit(...args){
 	return new CodageAngleDroit(...args)
@@ -590,6 +604,16 @@ function codeSvg(...objets){
 	let code = ''
 	code = `<div><svg width="600" height="600" viewBox="-20 -300 600 600" xmlns="http://www.w3.org/2000/svg">\n`
 	for (let objet of objets){
+		if (Array.isArray(objet)) {
+			console.log(objet)
+			for (let i = 0; i < objet.length; i++) {
+				try {
+					code += '\t' + objet[i].svg() + '\n'
+				} catch (error){
+					
+				}
+			}
+		}
 		try {
 			code +=objet.svg() + '\n';
 		} catch (error) {
@@ -609,14 +633,22 @@ function codeTikz(...objets){
 	let code = ''
 	code = `\\begin{tikzpicture}\n`
 	for (let objet of objets){
+		if (Array.isArray(objet)) {
+			for (let i = 0; i < objet.length; i++) {
+				try {
+					code += '\t' + objet[i].tikz() + '\n'
+				} catch (error){
+
+				}
+			}
+		}
 		try {
 			code += '\t' + objet.tikz() + '\n'
 		} catch (error) {
   			
   		}
-	code += `\\end{tikzpicture}\n`
 	}
-	code += `</svg></div>`;
+	code += `\\end{tikzpicture}\n`
 	return code;
 }
 
