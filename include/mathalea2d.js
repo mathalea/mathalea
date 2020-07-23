@@ -450,9 +450,8 @@ function codeTikz(...objets){
 		} catch (error) {
   			
   		}
-	code += `\\end{tikzpicture}\n`
 	}
-	code += `</svg></div>`;
+	code += `\\end{tikzpicture}\n`
 	return code;
 }
 
