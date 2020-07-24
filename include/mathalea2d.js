@@ -1,43 +1,16 @@
 let mesObjets = [];
 
 /**
- * v = vecteur('V') // son nom
- * v = vecteur(x,y) // ses composantes
- * v = vecteur(A,B) // son origine et son extrémité (deux Points)
- * v = vecteur('V',x,y) // son nom et ses composantes.
- * 
- * @Auteur Jean-Claude Lhote
- */
-function Vecteur(arg1,arg2)  {
-	if (arguments.length==1) {
-		this.nom = arg1
-	} else if (arguments.length==2) {
-		if (typeof(arg1)=='number') {
-			this.x = arg1;
-			this.y = arg2;
-		}
-		else {
-			this.origin=arg1;
-			this.extremite=arg2;
-			this.x=arg2.x-arg1.x;
-			this.y=arg2.y-arg1.y;
-		}
-	} else {
-		this.nom = arg1;
-		this.x = arg2;
-		this.y = arg3;
-	}
-
-	this.norme = function () {
-		return calcul(Math.sqrt(this.x**2+this.y**2))
-	}
-
-	this.oppose = function() {
-		this.x=-this.x
-		this.y=-this.y
-	}
+* Classe parente de tous les objets de MathALEA2D
+*
+* @Auteur Rémi Angot
+*/
+function ObjetMathalea2D() {
+	this.positionLabel = 'above left';
+	this.isVisible = true;
 	mesObjets.push(this);
 }
+
 
 /**
 * A = point('A') //son nom
@@ -48,6 +21,7 @@ function Vecteur(arg1,arg2)  {
 * @Auteur Rémi Angot
 */
 function Point(arg1,arg2,arg3,positionLabel = 'above left') {
+	ObjetMathalea2D.call(this);
 	if (arguments.length==1) {
 		this.nom = arg1 
 	} else if (arguments.length==2) {
@@ -86,7 +60,7 @@ function Point(arg1,arg2,arg3,positionLabel = 'above left') {
 	if (!this.nom) {
 		this.nom = '';
 	}
-	mesObjets.push(this);
+
 }
 function point(...args){
 	return new Point(...args)
@@ -249,6 +223,7 @@ function pointParProjectionOrtho(...args) {
 * @Auteur Rémi Angot
 */
 function LabelPoints(...points) {
+	ObjetMathalea2D.call(this);
 	this.svg = function(coeff){
 		let code = "";
 		for (let point of points){
@@ -288,7 +263,7 @@ function LabelPoints(...points) {
 		}
 		return code
 	}
-	mesObjets.push(this);
+
 }
 function labelPoints(...args){
 	return new LabelPoints(...args)
@@ -302,6 +277,7 @@ function labelPoints(...args){
  * @Auteur Jean-Claude Lhote
  */
 function Droite(arg1,arg2,arg3,arg4,color='black') {
+	ObjetMathalea2D.call(this);
 	if (arguments.length==2) {
 		this.x1 = arg1.x;
 		this.y1 = arg1.y;
@@ -366,7 +342,6 @@ function Droite(arg1,arg2,arg3,arg4,color='black') {
 		let B1 = pointSurSegment(B,A,-5);
 		return `\\draw[${color}] (${A1.x},${A1.y})--(${B1.x},${B1.y});`
 	}
-	mesObjets.push(this)
 }
 function droite(...args){
 	return new Droite(...args)
@@ -394,6 +369,7 @@ function droiteParPointEtVecteur(...args) {
 * @Auteur Rémi Angot
 */
 function Segment(arg1,arg2,arg3,arg4,color='black'){
+	ObjetMathalea2D.call(this);
 	if (arguments.length==2) {
 		this.x1 = arg1.x;
 		this.y1 = arg1.y;
@@ -429,7 +405,7 @@ function Segment(arg1,arg2,arg3,arg4,color='black'){
 			return `\\draw[${color}] (${this.x1},${this.y1})--(${this.x2},${this.y2});`
 		}
 	}
-	mesObjets.push(this);
+
 }
 function segment(...args){
 	return new Segment(...args)
@@ -444,6 +420,7 @@ function segment(...args){
 * @Auteur Rémi Angot
 */
 function TracePoint(A,taille=0.3,color='black'){
+	ObjetMathalea2D.call(this);
 	this.svg = function(coeff=20){
 		let code = `<line x1="${calcul((A.x-taille)*coeff)}" y1="${calcul((-A.y-taille)*coeff)}" x2="${calcul((A.x+taille)*coeff)}" y2="${calcul((-A.y+taille)*coeff)}" stroke="${color}" />`
 		code += `\n<line x1="${calcul((A.x-taille)*coeff)}" y1="${calcul((-A.y+taille)*coeff)}" x2="${calcul((A.x+taille)*coeff)}" y2="${calcul((-A.y-taille)*coeff)}" stroke="${color}" />`
@@ -452,7 +429,7 @@ function TracePoint(A,taille=0.3,color='black'){
 	this.tikz = function(){
 		return `\\node[point] at (${A.x},${A.y}) {};`
 	}
-	mesObjets.push(this);
+
 }
 function tracePoint(...args){
 	return new TracePoint(...args)
@@ -469,6 +446,7 @@ function tracePoints(...points){
 * @Auteur Rémi Angot
 */
 function Polygone(...points){
+	ObjetMathalea2D.call(this);
 	this.nom = '';
 	for (let point of points){
 		this.nom += point.nom
@@ -487,7 +465,7 @@ function Polygone(...points){
 		}
 		return `\\draw ${liste_points}cycle;`
 	}
-	mesObjets.push(this);
+
 }
 function polygone(...args){
 	return new Polygone(...args)
@@ -502,6 +480,7 @@ function polygone(...args){
  * @Auteur Jean-Claude Lhote et Rémi Angot
  */
 function Vecteur(arg1,arg2,nom='')  {
+	ObjetMathalea2D.call(this);
 	if (arguments.length==1) {
 		this.nom = arg1
 	} else {
@@ -522,7 +501,7 @@ function Vecteur(arg1,arg2,nom='')  {
 		this.x=-this.x
 		this.y=-this.y
 	}
-	mesObjets.push(this);	
+	
 }
 function vecteur(...args){
 	return new Vecteur(...args)
@@ -536,6 +515,7 @@ function vecteur(...args){
  * @Auteur Rémi Angot
  */
 function CodageAngleDroit(A,O,B,d = .3)  {
+	ObjetMathalea2D.call(this);
 	let a = new PointSurSegment(O,B,d);
 	let b = {};
 	if (angle(A,O,B)>0) {
@@ -552,7 +532,7 @@ function CodageAngleDroit(A,O,B,d = .3)  {
 	this.tikz = function() {
 		return s1.tikz()+'\n'+s2.tikz()
 	}
-	mesObjets.push(this);
+
 }
 function codageAngleDroit(...args){
 	return new CodageAngleDroit(...args)
@@ -605,41 +585,6 @@ function angleradian(A,O,B){
 }
 
 
-
-/**
-* codeFigure(new Line(A,B),new Polygone(D,E,F),new LabelPoints(A,B))
-*
-* @Auteur Rémi Angot
-*/
-function codeFigure(...objets){
-	let code = ''
-	if (sortie_html) {
-		code = `<div><svg width="600" height="400" viewBox="-20 -200 600 400" xmlns="http://www.w3.org/2000/svg">\n`
-		for (let objet of objets){
-			code +=objet.svg() + '\n'
-		}
-		code += `</svg></div>`
-		
-	} else {
-		code = `\\begin{tikzpicture}\n
-\\tikzset{
-    point/.style={
-        thick,
-        draw,
-        cross out,
-        inner sep=0pt,
-        minimum width=5pt,
-        minimum height=5pt,
-    },
-}\n\n`
-		for (let objet of objets){
-			code += '\t' + objet.tikz() + '\n'
-		}
-		code += `\\end{tikzpicture}\n`
-	}
-	return code
-}
-
 /**
 * codeSvg(segment(A,B),polygone(D,E,F),labelPoints(A,B))
 *
@@ -652,14 +597,18 @@ function codeSvg(...objets){
 		if (Array.isArray(objet)) {
 			for (let i = 0; i < objet.length; i++) {
 				try {
-					code += '\t' + objet[i].svg() + '\n'
+					if (objet[i].isVisible) {
+						code += '\t' + objet[i].svg() + '\n'
+					}
 				} catch (error){
 					
 				}
 			}
 		}
 		try {
-			code +=objet.svg() + '\n';
+			if (objet.isVisible) {
+				code +=objet.svg() + '\n';
+			}
 		} catch (error) {
   			
   		}

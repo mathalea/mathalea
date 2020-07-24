@@ -46,7 +46,7 @@ codageAngleDroit(B,A,C)`,
 	//Autocomplétion
 	myCodeMirror.on('inputRead', function onChange(editor, input) {
 		if (input.text[0] === ';' || input.text[0] === ' ') { return; }
-		myCodeMirror.execCommand("autocomplete")
+		CodeMirror.commands.autocomplete(editor, null, {completeSingle: false});
 	});
 
 	buttonSubmit.onclick = function() {
