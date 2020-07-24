@@ -1,4 +1,5 @@
 window.onload = function()  {
+	$('.ui.dropdown') .dropdown(); //Pour les menus
 	let divEditeur = document.getElementById("editeur");
 	let divSvg = document.getElementById("svg");
 	let divSortieSvg = document.getElementById("sortieSvg");
@@ -17,24 +18,43 @@ codageAngleDroit(B,A,C)`,
 	  mode:  "javascript",
 	  lineNumbers: true,
 	  autofocus: true,
+	  theme: 'monokai',
+	  autoCloseBrackets: true,
+	  showHint: true,
+	  extraKeys: {"Ctrl-Space": "autocomplete"},
+      matchBrackets: true,
+      lineWrapping: true,
 	});
 	let myCodeMirrorSvg = CodeMirror(divSortieSvg, {
 	  value: '',
-	  mode:  "svg",
+	  mode:  "htmlmixed",
+	  readOnly : true,
 	  lineNumbers: true,
 	});
 	let myCodeMirrorTikz = CodeMirror(divSortieTikz, {
 	  value: '',
-	  mode:  "latex",
+	  mode:  "stex",
+	  readOnly : true,
 	  lineNumbers: true,
 	});
 
+	//Récupère le dernier script validé
+	if(localStorage.getItem('Script Mathalea 2D')) {
+		myCodeMirror.setValue(localStorage.getItem('Script Mathalea 2D'));
+}
+
+	//Autocomplétion
+	myCodeMirror.on('inputRead', function onChange(editor, input) {
+		if (input.text[0] === ';' || input.text[0] === ' ') { return; }
+		CodeMirror.commands.autocomplete(editor, null, {completeSingle: false});
+	});
 
 	buttonSubmit.onclick = function() {
 		executeCode(`mesObjets=[];${myCodeMirror.getValue()}`);
 		divSvg.innerHTML = codeSvg(mesObjets);
 		myCodeMirrorSvg.setValue(codeSvg(mesObjets));
 		myCodeMirrorTikz.setValue(codeTikz(mesObjets));
+		localStorage.setItem('Script Mathalea 2D',myCodeMirror.getValue())
 	 };
 
 

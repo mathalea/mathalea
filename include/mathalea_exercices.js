@@ -3814,12 +3814,14 @@ function Exercice_conversions_aires(niveau=1){
 					 + ' = ' + tex_nombre(resultat) + tex_texte(unite)+ '^2' + '$';
 
 			}else if(div&&type_de_questions<4) {
+				prefixe_div = [[' d','\\div10\\div10',100],[' c','\\div100\\div100',10000],[' m','\\div1~000\\div1~000',1000000]]; 
 				k = randint(0,1); // Pas de conversions de mm^2 en m^2 avec des nombres décimaux car résultat inférieur à 10e-8
-				resultat = Algebrite.eval(a/prefixe_multi[k][2]).toString(); // Attention aux notations scientifiques pour 10e-8
+				resultat = Algebrite.eval(a/prefixe_div[k][2]).toString(); // Attention aux notations scientifiques pour 10e-8
 				texte = '$ '+ tex_nombre(a) + tex_texte(prefixe_div[k][0]+unite)+ '^2' + ' = \\dotfill ' + tex_texte(unite)  + '^2' + '$';
 				texte_corr = '$ '+ tex_nombre(a) + tex_texte(prefixe_div[k][0]+unite)+ '^2' + ' =  ' + tex_nombre(a) + prefixe_div[k][1] + tex_texte(unite)  + '^2'
 					 + ' = ' + tex_nombre(resultat) + tex_texte(unite)  + '^2' + '$';
 			}else if(type_de_questions==4){ 
+		
 				let unite1 = randint(0,3);
 				let ecart = randint(1,2); // nombre de multiplication par 10 pour passer de l'un à l'autre
 				if (ecart>4-unite1) {
@@ -3833,6 +3835,7 @@ function Exercice_conversions_aires(niveau=1){
 					 + ' = ' + tex_nombre(resultat) + tex_texte(liste_unite[unite1]) + '^2' + '$';	
 
 				} else {
+		
 					resultat = Algebrite.eval(a/Math.pow(10,2*ecart));
 					texte = '$ '+ tex_nombre(a) + tex_texte(liste_unite[unite1]) + '^2' + ' = \\dotfill ' + tex_texte(liste_unite[unite2]) + '^2' + '$';
 					texte_corr = '$ '+ tex_nombre(a) + tex_texte(liste_unite[unite1]) + '^2' + ' =  ' + tex_nombre(a) + '\\div' + tex_nombre(Math.pow(10,2*ecart)) + tex_texte(liste_unite[unite2]) + '^2'
