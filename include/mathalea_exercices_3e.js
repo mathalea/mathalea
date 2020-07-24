@@ -1924,7 +1924,7 @@ function fonction_notion_vocabulaire() {
 					// machine						
 					x = randint(2, 99);//augmenter les possibles pour éviter les questions déjà posées?	
 					if (sortie_html) {
-						texte += machine_maths_video(`videos/machineMaths-g.mp4`);
+						texte += machine_maths_video(`videos/machineMaths-f.mp4`);
 					} else { // sortie Latex avec Tikz
 						texte += tikz_machine_maths('f', '---', `P\\acute{e}rim\\grave{e}tre`, `d'un\\,carr\\acute{e}`, `carr\\acute{e}\\,de`, `c\\hat{o}t\\acute{e}\\,${x}\\,cm`, `P\\acute{e}rim\\grave{e}tre`, `???\\,cm`);
 					};
@@ -2037,7 +2037,7 @@ function fonction_notion_vocabulaire() {
 					// machine
 					x = randint(2, 99);//augmenter les possibles pour éviter les questions déjà posées?	
 					if (sortie_html) {
-						texte += machine_maths_video(`videos/machineMaths-f.mp4`);
+						texte += machine_maths_video(`videos/machineMaths-g.mp4`);
 					} else { // sortie Latex avec Tikz
 						texte += tikz_machine_maths('g', '---', `Aire`, `d'un\\,carr\\acute{e}`, `carr\\acute{e}\\,de`, `c\\hat{o}t\\acute{e}\\,${x}\\,cm`, `Aire`, `???\\,cm^2`);
 					};
