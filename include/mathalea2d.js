@@ -321,9 +321,9 @@ function Droite(arg1,arg2,arg3,arg4,color='black') {
 		this.y1 = arg1.y;
 		this.x2 = arg2.x;
 		this.y2 = arg2.y;
-		this.a=this.y1-this.y2
-		this.b=this.x2-this.x1
-		this.c=(this.x1-this.x2)*this.y1+(this.y2-this.y1)*this.x1
+		this.a=calcul(this.y1-this.y2)
+		this.b=calcul(this.x2-this.x1)
+		this.c=calcul((this.x1-this.x2)*this.y1+(this.y2-this.y1)*this.x1)
 		this.color = color;
 	} else if (arguments.length==3) {
 		if (typeof(arg1)=='number') { // droite d'équation ax +by +c =0
@@ -337,9 +337,9 @@ function Droite(arg1,arg2,arg3,arg4,color='black') {
 		this.y1 = arg1.y;
 		this.x2 = arg2.x;
 		this.y2 = arg2.y;
-		this.a=this.y1-this.y2
-		this.b=this.x2-this.x1
-		this.c=(this.x1-this.x2)*this.y1+(this.y2-this.y1)*this.x1
+		this.a=calcul(this.y1-this.y2)
+		this.b=calcul(this.x2-this.x1)
+		this.c=calcul((this.x1-this.x2)*this.y1+(this.y2-this.y1)*this.x1)
 		this.name = arg3;
 		this.color=color;
 		}
@@ -357,20 +357,49 @@ function Droite(arg1,arg2,arg3,arg4,color='black') {
 		this.y1 = arg1.y;
 		this.x2 = arg2.x;
 		this.y2 = arg2.y;
-		this.a=this.y1-this.y2
-		this.b=this.x2-this.x1
-		this.c=(this.x1-this.x2)*this.y1+(this.y2-this.y1)*this.x1
+		this.a=calcul(this.y1-this.y2)
+		this.b=calcul(this.x2-this.x1)
+		this.c=calcul((this.x1-this.x2)*this.y1+(this.y2-this.y1)*this.x1)
 		this.nom=arg3;
 		this.color=arg4;
 		}
 	}
+	if (b!=0) this.pente=calcul(-a/b)
 	this.normal= new Vecteur(this.a,this.b)
-	this.directeur= new Vecteur(-this.b,this.a)
+	this.directeur= new Vecteur(calcul(-this.b),this.a)
 	mesObjets.push(this);
 }
 function droite(...args) {
 	return new Droite(...args)
 }
+/**
+ * @Auteur Jean-Claude Lhote
+ */
+function DroiteParPointEtParallele(A,d,color='black') {
+	DroiteParPointEtVecteur.call(A,d.directeur,color);
+	mesObjets.push(this);
+}
+/**
+ * @Auteur Jean-Claude Lhote
+ */
+function DroiteParPointEtPerpendiculaire(A,d,color='black'){
+	DroiteParPointEtVecteur.call(A,d.normal,color);
+	mesObjets.push(this);
+}
+function droiteParPointEtParallele(...args){
+	return new DroiteParPointEtParallele(...args);
+}
+function droiteParPointEtPerpendiculaire(...args){
+	return new DroiteParPointEtPerpendiculaire(...args);
+}
+function DroiteHorizontaleParPoint(A,color='black'){
+	DroiteParPointEtPente.call(A,0,color)
+	mesObjets.push(this)
+}
+function DroiteVerticaleParPoint(A,color='black'){
+	DroiteParPointEtVecteur.call(A,new Vecteur(0,1),color)
+}
+
 /**
  * d = new DroiteParPointEtVecteur(A,v,'red')
  * Définit une droite par point et vecteur directeur
@@ -458,7 +487,7 @@ function Polygone(...points){
 	this.svg = function(coeff=20){
 		let liste_points = "";
 		for (let point of points){
-			liste_points += `${point.x*coeff},${-point.y*coeff} `; 
+			liste_points += `${calcul(point.x*coeff)},${calcul(-point.y*coeff)} `; 
 		}
 		return `<polygon points="${liste_points}" fill="none" stroke="black" />`
 	}
@@ -491,8 +520,8 @@ function Vecteur(arg1,arg2,nom='')  {
 			this.x = arg1;
 			this.y = arg2;
 		} else {
-			this.x = arg2.x-arg1.x;
-			this.y = arg2.y-arg1.y;
+			this.x = calcul(arg2.x-arg1.x);
+			this.y = calcul(arg2.y-arg1.y);
 		
 		}
 		this.nom = nom
