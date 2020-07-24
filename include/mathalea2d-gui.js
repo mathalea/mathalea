@@ -19,6 +19,11 @@ codageAngleDroit(B,A,C)`,
 	  lineNumbers: true,
 	  autofocus: true,
 	  theme: 'monokai',
+	  autoCloseBrackets: true,
+	  showHint: true,
+	  extraKeys: {"Ctrl-Space": "autocomplete"},
+      matchBrackets: true,
+      lineWrapping: true,
 	});
 	let myCodeMirrorSvg = CodeMirror(divSortieSvg, {
 	  value: '',
@@ -38,6 +43,11 @@ codageAngleDroit(B,A,C)`,
 		myCodeMirror.setValue(localStorage.getItem('Script Mathalea 2D'));
 }
 
+	//Autocomplétion
+	myCodeMirror.on('inputRead', function onChange(editor, input) {
+		if (input.text[0] === ';' || input.text[0] === ' ') { return; }
+		myCodeMirror.execCommand("autocomplete")
+	});
 
 	buttonSubmit.onclick = function() {
 		executeCode(`mesObjets=[];${myCodeMirror.getValue()}`);
