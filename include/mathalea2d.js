@@ -1,3 +1,5 @@
+"use strict";
+
 let mesObjets = [];
 /*
 /**
@@ -354,10 +356,9 @@ function droite(...args){
  * @Auteur Jean-Claude Lhote
  */
 function DroiteParPointEtVecteur(A,v,color='black') {
-	let B=new Point(calcul(A.x+v.x),calcul(A.y+v.y));
-	Droite.call(this,A,B);
-	this.color=color;
-	mesObjets.push(this);
+	let B = new Point(calcul(A.x+v.x),calcul(A.y+v.y))
+	Droite.call(this,A,B)
+	this.color=color
 }
 function droiteParPointEtVecteur(...args) {
 	return new DroiteParPointEtVecteur(...args)
@@ -447,21 +448,6 @@ function Segment(arg1,arg2,arg3,arg4,color='black'){
 			return `\\draw[${color}] (${this.x1},${this.y1})--(${this.x2},${this.y2});`
 		}
 	}
-	if (this.style=='e'){
-		alert('ok')
-		let A = point(this.x1,this.y1)
-		let B = point(this.x2,this.y2)
-		let M = pointSurSegment(B,A,.2)
-		let B1 = pointParRotation(M,B,90)
-		let B2 = pointParRotation(M,B,-90)
-		let s1 = segment(B1,B2)
-		let N = pointSurSegment(A,B,.2)
-		let A1 = pointParRotation(N,A,90)
-		let A2 = pointParRotation(N,A,-90)
-		let s2 = segment(A1,A2)
-		mesObjets.push(s1,s2)
-	}
-
 }
 function segment(...args){
 	return new Segment(...args)
@@ -560,18 +546,104 @@ function polygone(...args){
 * @Auteur Rémi Angot
 */
 function Carre(A,B){
-	C = pointParRotation(A,B,-90,)
-	D = pointParRotation(B,A,90,)
-	polygone(A,B,C,D)
-	labelPoints(A,B,C,D)
-	codageAngleDroit(D,C,B)
-	codageAngleDroit(C,B,A)
-	codageAngleDroit(A,D,C)
-	codageAngleDroit(B,A,D)
-	return [C,D]
+	let c = pointParRotation(A,B,-90,)
+	let d = pointParRotation(B,A,90,)
+	let p = polygone(A,B,c,d)
+	let codage1 = codageAngleDroit(d,c,B)
+	let codage2 = codageAngleDroit(c,B,A)
+	let codage3 = codageAngleDroit(A,d,c)
+	let codage4 = codageAngleDroit(B,A,d)
+	let a = 'coucou'
+	return [c,d]
 }
 function carre(...args){
 	return new Carre(...args)
+}
+
+/**
+* carreIndirect(A,B) //Trace le carré indirect qui a pour côté [AB] et code les 4 angles droits
+* let [C,D] = carreIndirect(A,B) //Renvoie les point C et D tel que ABCD est un incarré direct
+*
+* @Auteur Rémi Angot
+*/
+function CarreIndirect(A,B){
+	let c = pointParRotation(A,B,90,)
+	let d = pointParRotation(B,A,-90,)
+	let p = polygone(A,B,c,d)
+	let codage1 = codageAngleDroit(B,c,d)
+	let codage2 = codageAngleDroit(A,B,c)
+	let codage3 = codageAngleDroit(c,d,A)
+	let codage4 = codageAngleDroit(d,A,B)
+	return [c,d]
+}
+function carreIndirect(...args){
+	return new CarreIndirect(...args)
+}
+
+/**
+* polygoneRegulier(A,B,n) //Trace le polygone régulier direct à n côtés qui a pour côté [AB]
+* let [C,D,E,F,G,H] = polygoneRegulier(A,B,8) //Renvoie les sommets de l'hexagone
+*
+* @Auteur Rémi Angot
+*/
+function PolygoneRegulier(A,B,n){
+	let p = [A,B]
+	for (let i=1 ; i<n-1 ; i++){
+		p[i+1] = pointParRotation(p[i-1],p[i],calcul(180-360/n))
+		segment(p[i-1],p[i])
+	}
+		segment(p[n-2],p[n-1])
+		segment(p[n-1],p[0])
+		p.shift() // supprime A
+		p.shift() // supprime B
+	return p // renvoie les autres sommets
+}
+function polygoneRegulier(...args){
+	return new PolygoneRegulier(...args)
+}
+
+/**
+* polygoneRegulierIndirect(A,B,n) //Trace le polygone régulier indirect à n côtés qui a pour côté [AB]
+* let [C,D,E,F,G,H] = polygoneRegulierIndirect (A,B,8) //Renvoie les sommets de l'hexagone
+*
+* @Auteur Rémi Angot
+*/
+function PolygoneRegulierIndirect(A,B,n){
+	let p = [A,B]
+	for (let i=1 ; i<n-1 ; i++){
+		p[i+1] = pointParRotation(p[i-1],p[i],calcul(-180+360/n))
+		segment(p[i-1],p[i])
+	}
+		segment(p[n-2],p[n-1])
+		segment(p[n-1],p[0])
+		p.shift() // supprime A
+		p.shift() // supprime B
+	return p // renvoie les autres sommets
+}
+function polygoneRegulierIndirect(...args){
+	return new PolygoneRegulierIndirect(...args)
+}
+
+/**
+* polygoneRegulierParCentreEtRayon(O,r,n) //Trace le polygone régulier à n côtés et de rayon r
+* let [A,B,C,D] = polygoneRegulierParCentreEtRayon(O,r,4) //Renvoie les 4 sommets du carré
+*
+* @Auteur Rémi Angot
+*/
+function PolygoneRegulierParCentreEtRayon(O,r,n){
+	let p = [];
+	p[0] = point(calcul(O.x+r),O.y);
+	console.log(p[0])
+	for (let i=1; i<n ; i++){
+		p[i] = pointParRotation(p[i-1],O,calcul(360/n))
+		console.log(p[i])
+		segment(p[i-1],p[i])
+	}
+	segment(p[n-1],p[0])
+	return p 
+
+function polygoneRegulierParCentreEtRayon(...args){
+	return new PolygoneRegulierParCentreEtRayon(...args)
 }
 
 /**
