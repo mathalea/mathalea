@@ -391,7 +391,37 @@ function DroiteParPointEtVecteur(A,v,color='black') {
 function droiteParPointEtVecteur(...args) {
 	return new DroiteParPointEtVecteur(...args)
 }
-
+/**
+ * @Auteur Jean-Claude Lhote
+ */
+function DroiteParPointEtParallele(A,d,color='black') {
+	DroiteParPointEtVecteur.call(A,d.directeur,color);
+	mesObjets.push(this);
+}
+/**
+ * @Auteur Jean-Claude Lhote
+ */
+function DroiteParPointEtPerpendiculaire(A,d,color='black'){
+	DroiteParPointEtVecteur.call(A,d.normal,color);
+	mesObjets.push(this);
+}
+function droiteParPointEtParallele(...args){
+	return new DroiteParPointEtParallele(...args);
+}
+function droiteParPointEtPerpendiculaire(...args){
+	return new DroiteParPointEtPerpendiculaire(...args);
+}
+function DroiteHorizontaleParPoint(A,color='black'){
+	DroiteParPointEtPente.call(A,0,color)
+	mesObjets.push(this)
+}
+function DroiteVerticaleParPoint(A,color='black'){
+	DroiteParPointEtVecteur.call(A,new Vecteur(0,1),color)
+}
+/**
+ * 
+ *@Auteur Jean-Claude Lhote
+ */
 function DroiteParPointEtPente(A,k) {
 	let B=new Point(calcul(A.x+1),calcul(A.y+k));
 	Droite.call(this,A,B);
