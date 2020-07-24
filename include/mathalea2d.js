@@ -238,8 +238,8 @@ function PointParProjectionOrtho(M,d,nom='',positionLabel='above left') {
 		this.x=calcul(-c/a)
 	}
 	else {
-		this.x=calcul(k*(-b*b*M.x-a*b*M.y+a*c))
-		this.y=calcul(k*(a*b*M.x+a*a*A.y-a*a*c/b)-c/b)
+		this.x=calcul(k*(-b*b*M.x-a*b*M.y-a*c))
+		this.y=calcul(k*(-a*b*M.x+a*a*M.y+a*a*c/b)-c/b)
 	}
 	this.positionLabel = positionLabel;
 	mesObjets.push(this);
