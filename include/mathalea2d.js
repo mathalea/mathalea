@@ -10,11 +10,6 @@ function ObjetMathalea2D() {
 	this.isVisible = true;
 	mesObjets.push(this);
 }
-function vecteur(...args) {
-	return new Vecteur(...args)
-}
-*/
-
 
 /**
 * A = point('A') //son nom
@@ -202,7 +197,8 @@ function pointParSymetrieAxiale(...args){
  */
 function PointParProjectionOrtho(M,d,nom='',positionLabel='above left') {
 	Point.call(this,nom);
-	let a=d.a,b=d.b,c=d.c,k=1/(a*a+b*b)
+	let a=d.a,b=d.b,c=d.c,k=calcul(1/(a*a+b*b))
+	console.log(a,b,c)
 	if (a==0) {
 		this.x=M.x
 		this.y=calcul(-c/b)
@@ -212,7 +208,7 @@ function PointParProjectionOrtho(M,d,nom='',positionLabel='above left') {
 		this.x=calcul(-c/a)
 	}
 	else {
-		this.x=calcul(k*(-b*b*M.x-a*b*M.y-a*c))
+		this.x=calcul(k*(b*b*M.x-a*b*M.y-a*c))
 		this.y=calcul(k*(-a*b*M.x+a*a*M.y+a*a*c/b)-c/b)
 	}
 	this.positionLabel = positionLabel;
