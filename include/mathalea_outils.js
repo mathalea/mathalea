@@ -3829,17 +3829,17 @@ function warn_message(texte,couleur,titre) {
 };
 
 /**
- *  Renvoie un encart sur fond d'alert semantic ui en HTML ou dans un cadre bclogo en LaTeX avec le texte + icone lampe
- * @param {string} texte 
+ * @returns un encart sur fond d'alert semantic ui en HTML ou dans un cadre bclogo en LaTeX avec le texte + icone info
+ * @param {object} 
  * @author Sébastien Lozano
  */
 
-function lampe_message({titre,texte,couleur}) {
+function info_message({titre,texte,couleur}) {
 	//'use strict';
 	if (sortie_html) {
 		return `
 		<div class="ui compact icon message">
-			<i class="lightbulb outline icon"></i>
+			<i class="info circle icon"></i>
 			<div class="content">
 		  		<div class="header">
 					`+titre+`
@@ -3850,12 +3850,48 @@ function lampe_message({titre,texte,couleur}) {
 		`;
 	} else {
 		return `
-		\\begin{bclogo}[couleurBarre=`+couleur+`,couleurBord=`+couleur+`,epBord=2,couleur=gray!10,logo=\\bclampe,arrondi=0.1]{\\bf `+titre+`}
+		\\begin{bclogo}[couleurBarre=`+couleur+`,couleurBord=`+couleur+`,epBord=2,couleur=gray!10,logo=\\bcinfo,arrondi=0.1]{\\bf `+titre+`}
 			`+texte+`
 		\\end{bclogo}
 		`;
 	};
 };
+
+/**
+ * @returns un encart sur fond d'alert semantic ui en HTML ou dans un cadre bclogo en LaTeX avec le texte + icone lampe
+ * @param {object} 
+ * @author Sébastien Lozano
+ */
+
+function lampe_message({titre,texte,couleur}) {
+	//'use strict';
+	// if (sortie_html) {
+	// 	return `
+	// 	<div class="ui compact icon message">
+	// 		<i class="lightbulb outline icon"></i>
+	// 		<div class="content">
+	// 	  		<div class="header">
+	// 				`+titre+`
+	// 	  		</div>
+	// 	  		<p>`+texte+`</p>
+	// 		</div>
+	//   	</div>
+	// 	`;
+	// } else {
+	// 	return `
+	// 	\\begin{bclogo}[couleurBarre=`+couleur+`,couleurBord=`+couleur+`,epBord=2,couleur=gray!10,logo=\\bclampe,arrondi=0.1]{\\bf `+titre+`}
+	// 		`+texte+`
+	// 	\\end{bclogo}
+	// 	`;
+	// };
+	return info_message({
+		titre:titre,
+		texte:texte,
+		couleur:couleur
+	})
+};
+
+
 
 /**
  * Renvoie deux engrenages en HTML pour le moment
