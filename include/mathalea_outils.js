@@ -4066,8 +4066,8 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 	this.getLongueurs = getLongueurs;
 	this.getAngles = getAngles;
 	this.getSommets = getSommets;
-	//this.isTrueTriangleLongueurs = isTrueTriangleLongueurs;
-	//this.isTrueTriangleAngles = isTrueTriangleAngles;
+	this.isTrueTriangleLongueurs = isTrueTriangleLongueurs;
+	this.isTrueTriangleAngles = isTrueTriangleAngles;
 	//this.isQuelconque = isQuelconque;	
 };
 
