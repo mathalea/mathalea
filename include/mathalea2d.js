@@ -472,6 +472,27 @@ function polygone(...args){
 }
 
 /**
+* carre(A,B) //Trace le carré direct qui a pour côté [AB] et code les 4 angles droits
+* let [C,D] = carre(A,B) //Renvoie les point C et D tel que ABCD est un carré direct
+*
+* @Auteur Rémi Angot
+*/
+function Carre(A,B){
+	C = pointParRotation(A,B,-90,)
+	D = pointParRotation(B,A,90,)
+	polygone(A,B,C,D)
+	labelPoints(A,B,C,D)
+	codageAngleDroit(D,C,B)
+	codageAngleDroit(C,B,A)
+	codageAngleDroit(A,D,C)
+	codageAngleDroit(B,A,D)
+	return [C,D]
+}
+function carre(...args){
+	return new Carre(...args)
+}
+
+/**
  * v = vecteur('V') // son nom
  * v = vecteur(x,y) // ses composantes
  * v = vecteur(A,B) // son origine et son extrémité (deux Points)
