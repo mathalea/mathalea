@@ -2106,7 +2106,8 @@ function Le_compte_est_bonV4(){
 		}
 		else {
 			if (typeof(this.sup2)=='number'){ // Si c'est un nombre c'est qu'il y a qu'une seule grandeur
-				min=this.sup2
+				min=0
+				max=this.sup2
 			} else {
 				minmax = this.sup2.split("-");// Sinon on créé un tableau à partir des valeurs séparées par des -
 				min=minmax[0]
@@ -2143,7 +2144,7 @@ function Le_compte_est_bonV4(){
 	liste_de_question_to_contenu(this);
 	}
 	this.besoin_formulaire_texte = ['Choix des nombres du tirage (de aucun à cinq)','Nombres séparés par des tirets'] // Texte, tooltip
-	this.besoin_formulaire2_texte = ['Intervalle pour la cible (ou rien pour cible non contrainte)','Minimum-Maximum'] // Texte, tooltip
+	this.besoin_formulaire2_texte = ['Intervalle pour la cible (ou rien pour cible non contrainte)','Minimum-Maximum (éviter de trop contraindre la cible, cela peut bloquer le programme)'] // Texte, tooltip
 
 	// this.besoin_formulaire2_numerique = ['Limite supérieure',100];
 }
