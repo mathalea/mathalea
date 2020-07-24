@@ -7064,7 +7064,8 @@ function Vocabulaire_des_triangles(){
 
 			this.bouton_aide = modal_texte_long(
 				numero_de_l_exercice,
-				`<i class="lightbulb outline icon"></i> Quelques définitions`,
+				//`<i class="lightbulb outline icon"></i> Quelques définitions`,
+				`<i class="info circle icon"></i> Quelques définitions`,
 				texte_intro,
 				"Aide",
 				"info circle"
