@@ -1,4 +1,5 @@
 window.onload = function()  {
+	$('.ui.dropdown') .dropdown(); //Pour les menus
 	let divEditeur = document.getElementById("editeur");
 	let divSvg = document.getElementById("svg");
 	let divSortieSvg = document.getElementById("sortieSvg");
@@ -17,17 +18,25 @@ codageAngleDroit(B,A,C)`,
 	  mode:  "javascript",
 	  lineNumbers: true,
 	  autofocus: true,
+	  theme: 'monokai',
 	});
 	let myCodeMirrorSvg = CodeMirror(divSortieSvg, {
 	  value: '',
-	  mode:  "svg",
+	  mode:  "htmlmixed",
+	  readOnly : true,
 	  lineNumbers: true,
 	});
 	let myCodeMirrorTikz = CodeMirror(divSortieTikz, {
 	  value: '',
-	  mode:  "latex",
+	  mode:  "stex",
+	  readOnly : true,
 	  lineNumbers: true,
 	});
+
+	//Récupère le dernier script validé
+	if(localStorage.getItem('Script Mathalea 2D')) {
+		myCodeMirror.setValue(localStorage.getItem('Script Mathalea 2D'));
+}
 
 
 	buttonSubmit.onclick = function() {
@@ -35,6 +44,7 @@ codageAngleDroit(B,A,C)`,
 		divSvg.innerHTML = codeSvg(mesObjets);
 		myCodeMirrorSvg.setValue(codeSvg(mesObjets));
 		myCodeMirrorTikz.setValue(codeTikz(mesObjets));
+		localStorage.setItem('Script Mathalea 2D',myCodeMirror.getValue())
 	 };
 
 
