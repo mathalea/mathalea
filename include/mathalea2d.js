@@ -355,7 +355,7 @@ function Droite(arg1,arg2,arg3,arg4,color='black') {
 		this.color=arg4;
 		}
 	}
-	if (b!=0) this.pente=calcul(-a/b)
+	if (this.b!=0) this.pente=calcul(-this.a/this.b)
 	this.normal= new Vecteur(this.a,this.b)
 	this.directeur= new Vecteur(-this.b,this.a)
 	this.svg = function(coeff=20){
