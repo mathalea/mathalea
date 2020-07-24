@@ -1,10 +1,10 @@
 let mesObjets = [];
 /*
 /**
- * v= new Vecteur('V') // son nom
- * v= new Vecteur(x,y) // ses composantes
- * v=new Vecteur(A,B) // son origine et son extrémité (deux Points)
- * v=new Vecteur('V',x,y) // son nom et ses composantes.
+ * v = vecteur('V') // son nom
+ * v = vecteur(x,y) // ses composantes
+ * v = vecteur(A,B) // son origine et son extrémité (deux Points)
+ * v = vecteur('V',x,y) // son nom et ses composantes.
  * 
  * @Auteur Jean-Claude Lhote
 function Vecteur(arg1,arg2)  {
@@ -27,16 +27,15 @@ function Vecteur(arg1,arg2)  {
 		this.y = arg3;
 	}
 
-	this.norme = function (V) {
+	this.norme = function () {
 		return calcul(Math.sqrt(this.x**2+this.y**2))
 	}
 
-	this.oppose = function(V) {
-		this.x=-V.x
-		this.y=-V.y
-		return this
+	this.oppose = function() {
+		this.x=-this.x
+		this.y=-this.y
 	}
-	
+	mesObjets.push(this);
 }
 function vecteur(...args) {
 	return new Vecteur(...args)
@@ -45,10 +44,10 @@ function vecteur(...args) {
 
 
 /**
-* A = new Point('A') //son nom
-* A = new Point(x,y) //ses coordonnées
-* A = new Point(x,y,'A') //ses coordonnées et son nom
-* A = new Point(x,y,,'A';below') //ses coordonnées,son nom et la position de son label
+* A = point('A') //son nom
+* A = point(x,y) //ses coordonnées
+* A = point(x,y,'A') //ses coordonnées et son nom
+* A = point(x,y,,'A';below') //ses coordonnées,son nom et la position de son label
 *
 * @Auteur Rémi Angot
 */
@@ -98,9 +97,9 @@ function point(...args){
 }
 
 /**
-* M = new PointParTranslation2Points(O,A,B) //M est l'image de O dans la translation qui transforme A en B
-* M = new PointParTranslation2Points(O,A,B,'M') //M est l'image de O dans la translation qui transforme A en B et se nomme M
-* M = new PointParTranslation2Points(O,A,B,'M','below') //M est l'image de O dans la translation qui transforme A en B, se nomme M et le nom est en dessous du point
+* M = pointParTranslation2Points(O,A,B) //M est l'image de O dans la translation qui transforme A en B
+* M = pointParTranslation2Points(O,A,B,'M') //M est l'image de O dans la translation qui transforme A en B et se nomme M
+* M = pointParTranslation2Points(O,A,B,'M','below') //M est l'image de O dans la translation qui transforme A en B, se nomme M et le nom est en dessous du point
 *
 * @Auteur Rémi Angot
 */
@@ -109,16 +108,15 @@ function PointParTranslation2Points(O,A,B,nom='',positionLabel = 'above left') {
 	this.positionLabel=positionLabel;
 	this.x = calcul(O.x+B.x-A.x);
 	this.y = calcul(O.y+B.y-A.y);
-	mesObjets.push(this);
 }
 function pointParTranslation2Points(...args){
 	return new PointParTranslation2Points(...args)
 }
 
 /**
-* M = new PointParTranslation(O,v) //M est l'image de O dans la translation de vecteur v
-* M = new PointParTranslation(O,v,'M') //M est l'image de O dans la translation de vecteur v et se nomme M
-* M = new PointParTranslation(O,v,'M','below') //M est l'image de O dans la translation de vecteur v, se nomme M et le nom est en dessous du point
+* M = pointParTranslation(O,v) //M est l'image de O dans la translation de vecteur v
+* M = pointParTranslation(O,v,'M') //M est l'image de O dans la translation de vecteur v et se nomme M
+* M = pointParTranslation(O,v,'M','below') //M est l'image de O dans la translation de vecteur v, se nomme M et le nom est en dessous du point
 *
 * @Auteur Rémi Angot
 */
@@ -127,16 +125,15 @@ function PointParTranslation(O,v,nom='',positionLabel = 'above left') {
 	this.positionLabel=positionLabel;
 	this.x = calcul(O.x+v.x);
 	this.y = calcul(O.y+v.y);
-	mesObjets.push(this);
 }
 function pointParTranslation(...args){
 	return new PointParTranslation(...args)
 }
 
 /**
-* M = new PointParHomothetie(A,O,k) //M est l'image de A dans l'homothétie de centre O et de rapport k
-* M = new PointParHomothetie(A,O,k,'M') //M est l'image de A dans l'homothétie de centre O et de rapport k et se nomme M
-* M = new PointParHomothetie(A,O,k,'M','below') //M est l'image de A dans l'homothétie de centre O et de rapport k, se nomme M et le nom est en dessous du point
+* M = pointParHomothetie(A,O,k) //M est l'image de A dans l'homothétie de centre O et de rapport k
+* M = pointParHomothetie(A,O,k,'M') //M est l'image de A dans l'homothétie de centre O et de rapport k et se nomme M
+* M = pointParHomothetie(A,O,k,'M','below') //M est l'image de A dans l'homothétie de centre O et de rapport k, se nomme M et le nom est en dessous du point
 *
 * @Auteur Rémi Angot
 */
@@ -145,31 +142,29 @@ function PointParHomothetie(A,O,k,nom='',positionLabel = 'above left') {
 	this.positionLabel=positionLabel;
 	this.x = calcul(O.x+k*(A.x-O.x))
 	this.y = calcul(O.y+k*(A.y-O.y))
-	mesObjets.push(this);
 }
 function pointParhomothetie(...args){
 	return new PointParHomothetie(...args)
 }
 
 /**
-* M = new PointSurSegment(A,B,l) //M est le point de [AB] à l cm de A
-* M = new PointSurSegment(A,B,l,'M') //M est le point de [AB] à l cm de A et se nomme M
-* M = new PointSurSegment(A,B,l,'M','below') //M est le point de [AB] à l cm de A, se nomme M et le nom est en dessous du point
+* M = pointSurSegment(A,B,l) //M est le point de [AB] à l cm de A
+* M = pointSurSegment(A,B,l,'M') //M est le point de [AB] à l cm de A et se nomme M
+* M = pointSurSegment(A,B,l,'M','below') //M est le point de [AB] à l cm de A, se nomme M et le nom est en dessous du point
 *
 * @Auteur Rémi Angot
 */
 function PointSurSegment(A,B,l,nom='',positionLabel = 'above left') {
 	PointParHomothetie.call(this,B,A,calcul(l/longueur(A,B)),nom,positionLabel);
-	mesObjets.push(this);
 }
 function pointSurSegment(...args){
 	return new PointSurSegment(...args)
 }
 
 /**
-* M = new PointMilieu(A,B) //M est le milieu de [AB]
-* M = new PointMilieu(A,B,'M') //M est le milieu de [AB] et se nomme M
-* M = new PointMilieu(A,B,'M','below') //M est le milieu de [AB], se nomme M et le nom est en dessous du point
+* M = pointMilieu(A,B) //M est le milieu de [AB]
+* M = pointMilieu(A,B,'M') //M est le milieu de [AB] et se nomme M
+* M = pointMilieu(A,B,'M','below') //M est le milieu de [AB], se nomme M et le nom est en dessous du point
 *
 * @Auteur Rémi Angot
 */
@@ -177,7 +172,6 @@ function PointMilieu(A,B,nom='',positionLabel = 'above left') {
 	Point.call(this,nom);
 	this.x = calcul((A.x+B.x)/2);
 	this.y = calcul((A.y+B.y)/2);
-	mesObjets.push(this);
 }
 function pointMilieu(...args){
 	return new PointMilieu(...args)
@@ -185,9 +179,9 @@ function pointMilieu(...args){
 
 
 /**
-* M = new PointParRotation(A,O,angle) //M est l'image de A dans la rotation de centre O et d'angle angle
-* M = new PointParRotation(A,O,angle,'M') //M est l'image de A dans la rotation de centre O et d'angle angle et se nomme M
-* M = new PointParRotation(A,O,angle,'M','below') //M est l'image de A dans la rotation de centre O et d'angle angle, se nomme M et le nom est en dessous
+* M = pointParRotation(A,O,angle) //M est l'image de A dans la rotation de centre O et d'angle angle
+* M = pointParRotation(A,O,angle,'M') //M est l'image de A dans la rotation de centre O et d'angle angle et se nomme M
+* M = pointParRotation(A,O,angle,'M','below') //M est l'image de A dans la rotation de centre O et d'angle angle, se nomme M et le nom est en dessous
 * 
 * @Auteur Rémi Angot et Jean-Claude Lhote
 */
@@ -196,14 +190,13 @@ function PointParRotation(A,O,angle,nom='',positionLabel = 'above left') {
 	this.x = calcul(O.x+(A.x-O.x)*Math.cos(angle*Math.PI/180)-(A.y-O.y)*Math.sin(angle*Math.PI/180));
     this.y = calcul(O.y+(A.x-O.x)*Math.sin(angle*Math.PI/180)+(A.y-O.y)*Math.cos(angle*Math.PI/180));
     this.positionLabel = positionLabel;
-    mesObjets.push(this);
 }
 function pointParRotation(...args){
 	return new PointParRotation(...args)
 }
 
 /**
- * M = new PointParSymetrieAxiale(A,d) M est l'image de A dans la symétrie axiale d'axe d.
+ * M = pointParSymetrieAxiale(A,d)// M est l'image de A dans la symétrie axiale d'axe d.
  * d est un objet de type Droite (son équation ax+by+c=0 renseignée)
  * A est un objet de type Point (ses coordonnées x et y renseignées)
  * @Auteur Jean-Claude Lhote
@@ -230,7 +223,7 @@ function pointParSymetrieAxiale(...args){
 }
 
 /**
- * N = new PointParProjectionOrtho(M,d,'N','below left')
+ * N = pointParProjectionOrtho(M,d,'N','below left')
  *@Auteur Jean-Claude Lhote
  */
 function PointParProjectionOrtho(M,d,nom='',positionLabel='above left') {
@@ -255,8 +248,7 @@ function pointParProjectionOrtho(...args) {
 	return new PointParProjectionOrtho(...args)
 }
 /**
-* (new LabelPoints(A,B)).svg() //renvoie le code SVG pour nommer les points A et B
-* (new LabelPoints(A,B)).tikz() //renvoie le code TikZ pour nommer les points A et B
+* labelPoints(A,B) pour nommer les points A et B
 * Le nombre d'arguments n'est pas limité
 *
 * @Auteur Rémi Angot
@@ -297,7 +289,7 @@ function LabelPoints(...points) {
 	this.tikz = function(){
 		let code = "";
 		for (let point of points){
-			code += `\t\\draw (${point.x},${point.y}) node[${point.positionLabel}] {${point.nom}};\n`;
+			code += `\\draw (${point.x},${point.y}) node[${point.positionLabel}] {${point.nom}};\n`;
 		}
 		return code
 	}
@@ -307,16 +299,15 @@ function labelPoints(...args){
 	return new LabelPoints(...args)
 }
 /**
- *  d= new Droite(A,B) // Deux points de passage
- * d = new Droite(A,B,'(d)') // Deux points et le nom
- * d = new Droite(a,b,c,'(d)') // coefficient de ax +by + c=0 (équation de la droite (a,b)!=(0,0))
- * d = new Droite(A,B,'(d)','black')
+ * d = droite(A,B) // La droite passant par A et B
+ * d = droite(A,B,'(d)') // La droite passant par A et B se nommant (d)
+ * d = droite(a,b,c,'(d)') // La droite définie par les coefficients de ax +by + c=0 (équation de la droite (a,b)!=(0,0))
+ * d = droite(A,B,'(d)','blue') //La droite passant par A et B se nommant (d) et de couleur bleue
  * 
  * @Auteur Jean-Claude Lhote
  */
 function Droite(arg1,arg2,arg3,arg4,color='black') {
 	if (arguments.length==2) {
-		console.log(typeof(arg1))
 		this.x1 = arg1.x;
 		this.y1 = arg1.y;
 		this.x2 = arg2.x;
@@ -366,43 +357,29 @@ function Droite(arg1,arg2,arg3,arg4,color='black') {
 	}
 	if (b!=0) this.pente=calcul(-a/b)
 	this.normal= new Vecteur(this.a,this.b)
-	this.directeur= new Vecteur(calcul(-this.b),this.a)
-	mesObjets.push(this);
-}
-function droite(...args) {
-	return new Droite(...args)
-}
-/**
- * @Auteur Jean-Claude Lhote
- */
-function DroiteParPointEtParallele(A,d,color='black') {
-	DroiteParPointEtVecteur.call(A,d.directeur,color);
-	mesObjets.push(this);
-}
-/**
- * @Auteur Jean-Claude Lhote
- */
-function DroiteParPointEtPerpendiculaire(A,d,color='black'){
-	DroiteParPointEtVecteur.call(A,d.normal,color);
-	mesObjets.push(this);
-}
-function droiteParPointEtParallele(...args){
-	return new DroiteParPointEtParallele(...args);
-}
-function droiteParPointEtPerpendiculaire(...args){
-	return new DroiteParPointEtPerpendiculaire(...args);
-}
-function DroiteHorizontaleParPoint(A,color='black'){
-	DroiteParPointEtPente.call(A,0,color)
+	this.directeur= new Vecteur(-this.b,this.a)
+	this.svg = function(coeff=20){
+		let A = point(this.x1,this.y1);
+		let B = point(this.x2,this.y2);
+		let A1 = pointSurSegment(A,B,-5);
+		let B1 = pointSurSegment(B,A,-5);
+		return `<line x1="${calcul(A1.x*coeff)}" y1="${calcul(-A1.y*coeff)}" x2="${calcul(B1.x*coeff)}" y2="${calcul(-B1.y*coeff)}" stroke="${this.color}" />`
+	}
+	this.tikz = function() {
+		let A = point(this.x1,this.y1);
+		let B = point(this.x2,this.y2);
+		let A1 = pointSurSegment(A,B,-5);
+		let B1 = pointSurSegment(B,A,-5);
+		return `\\draw[${color}] (${A1.x},${A1.y})--(${B1.x},${B1.y});`
+	}
 	mesObjets.push(this)
 }
-function DroiteVerticaleParPoint(A,color='black'){
-	DroiteParPointEtVecteur.call(A,new Vecteur(0,1),color)
+function droite(...args){
+	return new Droite(...args)
 }
 
 /**
- * d = new DroiteParPointEtVecteur(A,v,'red')
- * Définit une droite par point et vecteur directeur
+ * d = droiteParPointEtVecteur(A,v,'red') //Droite passant par A, de vecteur directeur v et de couleur rouge
  * @Auteur Jean-Claude Lhote
  */
 function DroiteParPointEtVecteur(A,v,color='black') {
@@ -425,10 +402,10 @@ function droiteParPointEtPente(...args) {
 	return new DroiteParPointEtPente(...args)
 }
 /**
-* A = new Segment(A,B) //2 extrémités
-* A = new Segment(A,B,'black') //2 extrémités et la couleur
-* A = new Segment(x1,y1,x2,y2) //les coordonnées des deux extrémités
-* A = new Segment(x1,y1,x2,y2,'black') //les coordonnées des deux extrémités et la couleur
+* * s = segment(A,B) //Segment d'extrémités A et B
+* s = segment(A,B,'blue') //Segment d'extrémités A et B et de couleur bleue
+* s = segment(x1,y1,x2,y2) //Segment définit par les coordonnées des deux extrémités
+* s = segment(x1,y1,x2,y2,'blue') //Segment définit par les coordonnées des deux extrémités et de couleur bleue
 *
 * @Auteur Rémi Angot
 */
@@ -459,13 +436,13 @@ function Segment(arg1,arg2,arg3,arg4,color='black'){
 
 	this.svg = function(coeff=20){
 
-		return `<line x1="${this.x1*coeff}" y1="${-this.y1*coeff}" x2="${this.x2*coeff}" y2="${-this.y2*coeff}" stroke="${this.color}" />`
+		return `<line x1="${calcul(this.x1*coeff)}" y1="${calcul(-this.y1*coeff)}" x2="${calcul(this.x2*coeff)}" y2="${calcul(-this.y2*coeff)}" stroke="${this.color}" />`
 	}
 	this.tikz = function(){
 		if (this.color=='black') {
-			return `\t\\draw (${this.x1},${this.y1})--(${this.x2},${this.y2});`
+			return `\\draw (${this.x1},${this.y1})--(${this.x2},${this.y2});`
 		} else {
-			return `\t\\draw[${color}] (${this.x1},${this.y1})--(${this.x2},${this.y2});`
+			return `\\draw[${color}] (${this.x1},${this.y1})--(${this.x2},${this.y2});`
 		}
 	}
 	mesObjets.push(this);
@@ -475,7 +452,35 @@ function segment(...args){
 }
 
 /**
-* new Polygone(A,B,C,D,E) //Trace ABCDE
+* tracePoint(A) // Place une croix à l'emplacement du point A
+* tracePoint(A,.5) //Place une croix de taille 5 mm à l'emplacement du point A
+* tracePoint(A,.5,'blue') //Place une croix bleue de taille 5 mm à l'emplacement du point A
+* tracePoints(A,B,C,D) // Place une croix pour les différents points
+* La taille n'a un effet que sur la sortie SVG
+* @Auteur Rémi Angot
+*/
+function TracePoint(A,taille=0.3,color='black'){
+	this.svg = function(coeff=20){
+		let code = `<line x1="${calcul((A.x-taille)*coeff)}" y1="${calcul((-A.y-taille)*coeff)}" x2="${calcul((A.x+taille)*coeff)}" y2="${calcul((-A.y+taille)*coeff)}" stroke="${color}" />`
+		code += `\n<line x1="${calcul((A.x-taille)*coeff)}" y1="${calcul((-A.y+taille)*coeff)}" x2="${calcul((A.x+taille)*coeff)}" y2="${calcul((-A.y-taille)*coeff)}" stroke="${color}" />`
+		return code 
+	}
+	this.tikz = function(){
+		return `\\node[point] at (${A.x},${A.y}) {};`
+	}
+	mesObjets.push(this);
+}
+function tracePoint(...args){
+	return new TracePoint(...args)
+}
+function tracePoints(...points){
+	for (let point of points){
+		mesObjets.push(new TracePoint(point))
+	}
+}
+
+/**
+* polygone(A,B,C,D,E) //Trace ABCDE
 *
 * @Auteur Rémi Angot
 */
@@ -496,7 +501,7 @@ function Polygone(...points){
 		for (let point of points){
 			liste_points += `(${point.x},${point.y})--`
 		}
-		return `\t\\draw ${liste_points}cycle;`
+		return `\\draw ${liste_points}cycle;`
 	}
 	mesObjets.push(this);
 }
@@ -505,10 +510,10 @@ function polygone(...args){
 }
 
 /**
- * v = new Vecteur('V') // son nom
- * v = new Vecteur(x,y) // ses composantes
- * v =new Vecteur(A,B) // son origine et son extrémité (deux Points)
- * v =new Vecteur(x,y,'v') // son nom et ses composantes.
+ * v = vecteur('V') // son nom
+ * v = vecteur(x,y) // ses composantes
+ * v = vecteur(A,B) // son origine et son extrémité (deux Points)
+ * v = vecteur(x,y,'v') // son nom et ses composantes.
  * 
  * @Auteur Jean-Claude Lhote et Rémi Angot
  */
@@ -540,8 +545,8 @@ function vecteur(...args){
 }
 
 /**
- * CodageAngleDroit(A,O,B) //Fait un codage d'angle droit de 3 mm pour l'angle direct AOB
- * CodageAngleDroit(A,O,B,.5) //Fait un codage d'angle droit de 5 mm pour l'angle direct AOB
+ * codageAngleDroit(A,O,B) //Fait un codage d'angle droit de 3 mm pour l'angle direct AOB
+ * codageAngleDroit(A,O,B,.5) //Fait un codage d'angle droit de 5 mm pour l'angle direct AOB
  
  * 
  * @Auteur Rémi Angot
@@ -557,7 +562,6 @@ function CodageAngleDroit(A,O,B,d = .3)  {
 	let c = new PointSurSegment(O,A,d);
 	let s1 = new Segment(a,b)
 	let s2 = new Segment(b,c)
-	console.log(a,b,c,s1,s2)
 	this.svg = function() {
 		return s1.svg()+'\n'+s2.svg()
 	}
@@ -626,14 +630,24 @@ function angleradian(A,O,B){
 function codeFigure(...objets){
 	let code = ''
 	if (sortie_html) {
-		code = `<div><svg width="600" height="600" viewBox="-20 -300 600 600" xmlns="http://www.w3.org/2000/svg">\n`
+		code = `<div><svg width="600" height="400" viewBox="-20 -200 600 400" xmlns="http://www.w3.org/2000/svg">\n`
 		for (let objet of objets){
 			code +=objet.svg() + '\n'
 		}
 		code += `</svg></div>`
 		
 	} else {
-		code = `\\begin{tikzpicture}\n`
+		code = `\\begin{tikzpicture}\n
+\\tikzset{
+    point/.style={
+        thick,
+        draw,
+        cross out,
+        inner sep=0pt,
+        minimum width=5pt,
+        minimum height=5pt,
+    },
+}\n\n`
 		for (let objet of objets){
 			code += '\t' + objet.tikz() + '\n'
 		}
@@ -649,10 +663,9 @@ function codeFigure(...objets){
 */
 function codeSvg(...objets){
 	let code = ''
-	code = `<div><svg width="600" height="600" viewBox="-20 -300 600 600" xmlns="http://www.w3.org/2000/svg">\n`
+	code = `<svg width="600" height="400" viewBox="-20 -200 600 400" xmlns="http://www.w3.org/2000/svg">\n`
 	for (let objet of objets){
 		if (Array.isArray(objet)) {
-			console.log(objet)
 			for (let i = 0; i < objet.length; i++) {
 				try {
 					code += '\t' + objet[i].svg() + '\n'
@@ -667,7 +680,7 @@ function codeSvg(...objets){
   			
   		}
 	}
-	code += `</svg></div>`;
+	code += `</svg>`;
 	return code;
 }
 
@@ -678,7 +691,17 @@ function codeSvg(...objets){
 */
 function codeTikz(...objets){
 	let code = ''
-	code = `\\begin{tikzpicture}\n`
+	code = `\\begin{tikzpicture}\n
+\\tikzset{
+    point/.style={
+        thick,
+        draw,
+        cross out,
+        inner sep=0pt,
+        minimum width=5pt,
+        minimum height=5pt,
+    },
+}\n\n`
 	for (let objet of objets){
 		if (Array.isArray(objet)) {
 			for (let i = 0; i < objet.length; i++) {
