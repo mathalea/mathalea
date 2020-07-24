@@ -2097,32 +2097,35 @@ function Le_compte_est_bonV4(){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		let solution_mathador=[];
-		let tirage,solution,expression
-		let niveau=parseInt(this.sup);
+		let tirage,solution,expression,min,max,texte,texte_corr
+		let minmax=[]
 		let a,b,c,d,e
+		if (!this.sup2) { // Si rien n'est saisi
+			min=0
+			max=100
+		}
+		else {
+			if (typeof(this.sup2)=='number'){ // Si c'est un nombre c'est qu'il y a qu'une seule grandeur
+				min=this.sup2
+			} else {
+				minmax = this.sup2.split("-");// Sinon on créé un tableau à partir des valeurs séparées par des -
+				min=minmax[0]
+				max=minmax[1]
+			}	
+		}
+		if (!this.sup) { // Si rien n'est saisi
+			solution_mathador=Trouver_solution_mathador(min,max)
+		}
+		else {
+			if (typeof(this.sup)=='number'){ // Si c'est un nombre c'est qu'il y a qu'une seule grandeur
+				solution_mathador=Trouver_solution_mathador(min,max,this.sup)
+			} else {
+				tirage = this.sup.split("-");// Sinon on créé un tableau à partir des valeurs séparées par des -
+				for (let i=0;i<tirage.length;i++) tirage[i]=parseInt(tirage[i])
+				solution_mathador=Trouver_solution_mathador(min,max,...tirage)
+			}	
+		}
 
-		for (let i = 0, texte, texte_corr,cpt=0; i < this.nb_questions && cpt<50; ) {
-			switch (niveau) {
-				case 1 : 
-
-					solution=100+randint(0,25)
-					solution_mathador=Trouver_solution_mathador(solution-5,solution+5,100,50)
-
-				break;
-
-				case 2 :
-					solution=100+randint(0,25)
-					solution_mathador=Trouver_solution_mathador(solution-5,solution+5,50,10)
-
-				break;
-
-				case 3 : 
-					solution=100+randint(0,25)
-					solution_mathador=Trouver_solution_mathador(solution-5,solution+5,4,25)
-
-				break;
-			}
-			console.log(solution_mathador)
 			tirage=solution_mathador[0]
 			solution=solution_mathador[1]
 			expression=solution_mathador[3]
@@ -2134,16 +2137,14 @@ function Le_compte_est_bonV4(){
 			for (let i=0;i<4;i++) {
 				texte_corr+=`$${solution_mathador[2][i]}$<br>`
 			}
-						if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-							this.liste_questions.push(texte);
-							this.liste_corrections.push(texte_corr);
-							i++;
-						}		
-			cpt++;	
-		}
+			this.liste_questions.push(texte);
+			this.liste_corrections.push(texte_corr);
+			
 	liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_numerique = ['Types de calcul',3];
+	this.besoin_formulaire_texte = ['Choix des nombres du tirage (de aucun à cinq)','Nombres séparés par des tirets'] // Texte, tooltip
+	this.besoin_formulaire2_texte = ['Intervalle pour la cible (ou rien pour cible non contrainte)','Minimum-Maximum'] // Texte, tooltip
+
 	// this.besoin_formulaire2_numerique = ['Limite supérieure',100];
 }
 /**
