@@ -447,10 +447,50 @@ function Segment(arg1,arg2,arg3,arg4,color='black'){
 			return `\\draw[${color}] (${this.x1},${this.y1})--(${this.x2},${this.y2});`
 		}
 	}
+	if (this.style=='e'){
+		alert('ok')
+		let A = point(this.x1,this.y1)
+		let B = point(this.x2,this.y2)
+		let M = pointSurSegment(B,A,.2)
+		let B1 = pointParRotation(M,B,90)
+		let B2 = pointParRotation(M,B,-90)
+		let s1 = segment(B1,B2)
+		let N = pointSurSegment(A,B,.2)
+		let A1 = pointParRotation(N,A,90)
+		let A2 = pointParRotation(N,A,-90)
+		let s2 = segment(A1,A2)
+		mesObjets.push(s1,s2)
+	}
 
 }
 function segment(...args){
 	return new Segment(...args)
+}
+
+/**
+* * s = segment(A,B) //Segment d'extrémités A et B
+* s = segment(A,B,'blue') //Segment d'extrémités A et B et de couleur bleue
+* s = segment(x1,y1,x2,y2) //Segment définit par les coordonnées des deux extrémités
+* s = segment(x1,y1,x2,y2,'blue') //Segment définit par les coordonnées des deux extrémités et de couleur bleue
+*
+* @Auteur Rémi Angot
+*/
+function SegmentAvecExtremites(...args){
+	Segment.call(this,...args);
+	
+	let A = point(this.x1,this.y1)
+	let B = point(this.x2,this.y2)
+	let M = pointSurSegment(B,A,.2)
+	let B1 = pointParRotation(M,B,90)
+	let B2 = pointParRotation(M,B,-90)
+	let s1 = segment(B1,B2)
+	let N = pointSurSegment(A,B,.2)
+	let A1 = pointParRotation(N,A,90)
+	let A2 = pointParRotation(N,A,-90)
+	let s2 = segment(A1,A2)
+}
+function segmentAvecExtremites(...args){
+	return new SegmentAvecExtremites(...args)
 }
 
 /**
