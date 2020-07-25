@@ -541,11 +541,11 @@ function polygone(...args){
 
 /**
 * carre(A,B) //Trace le carré direct qui a pour côté [AB] et code les 4 angles droits
-* let [C,D] = carre(A,B) //Renvoie les point C et D tel que ABCD est un carré direct
 *
 * @Auteur Rémi Angot
 */
 function Carre(A,B){
+	Polygone.call(this)
 	let c = pointParRotation(A,B,-90,)
 	let d = pointParRotation(B,A,90,)
 	let p = polygone(A,B,c,d)
@@ -553,8 +553,7 @@ function Carre(A,B){
 	let codage2 = codageAngleDroit(c,B,A)
 	let codage3 = codageAngleDroit(A,d,c)
 	let codage4 = codageAngleDroit(B,A,d)
-	let a = 'coucou'
-	return [c,d]
+	this.listePoints = [A,B,c,d]
 }
 function carre(...args){
 	return new Carre(...args)
@@ -562,11 +561,11 @@ function carre(...args){
 
 /**
 * carreIndirect(A,B) //Trace le carré indirect qui a pour côté [AB] et code les 4 angles droits
-* let [C,D] = carreIndirect(A,B) //Renvoie les point C et D tel que ABCD est un incarré direct
 *
 * @Auteur Rémi Angot
 */
 function CarreIndirect(A,B){
+	Polygone.call(this)
 	let c = pointParRotation(A,B,90,)
 	let d = pointParRotation(B,A,-90,)
 	let p = polygone(A,B,c,d)
@@ -574,7 +573,7 @@ function CarreIndirect(A,B){
 	let codage2 = codageAngleDroit(A,B,c)
 	let codage3 = codageAngleDroit(c,d,A)
 	let codage4 = codageAngleDroit(d,A,B)
-	return [c,d]
+	this.listePoints = [A,B,c,d]
 }
 function carreIndirect(...args){
 	return new CarreIndirect(...args)
@@ -582,21 +581,19 @@ function carreIndirect(...args){
 
 /**
 * polygoneRegulier(A,B,n) //Trace le polygone régulier direct à n côtés qui a pour côté [AB]
-* let [C,D,E,F,G,H] = polygoneRegulier(A,B,8) //Renvoie les sommets de l'hexagone
 *
 * @Auteur Rémi Angot
 */
 function PolygoneRegulier(A,B,n){
+	Polygone.call(this)
 	let p = [A,B]
 	for (let i=1 ; i<n-1 ; i++){
 		p[i+1] = pointParRotation(p[i-1],p[i],calcul(180-360/n))
 		segment(p[i-1],p[i])
 	}
-		segment(p[n-2],p[n-1])
-		segment(p[n-1],p[0])
-		p.shift() // supprime A
-		p.shift() // supprime B
-	return p // renvoie les autres sommets
+	segment(p[n-2],p[n-1])
+	segment(p[n-1],p[0])
+	this.listePoints = p
 }
 function polygoneRegulier(...args){
 	return new PolygoneRegulier(...args)
@@ -604,21 +601,23 @@ function polygoneRegulier(...args){
 
 /**
 * polygoneRegulierIndirect(A,B,n) //Trace le polygone régulier indirect à n côtés qui a pour côté [AB]
-* let [C,D,E,F,G,H] = polygoneRegulierIndirect (A,B,8) //Renvoie les sommets de l'hexagone
+* p = polygoneRegulierIndirect (A,B,8) 
+* C = p.listePoints[2]
+* C.nom = 'C'
+//Renvoie les sommets de l'hexagone
 *
 * @Auteur Rémi Angot
 */
 function PolygoneRegulierIndirect(A,B,n){
+	Polygone.call(this)
 	let p = [A,B]
 	for (let i=1 ; i<n-1 ; i++){
 		p[i+1] = pointParRotation(p[i-1],p[i],calcul(-180+360/n))
 		segment(p[i-1],p[i])
 	}
-		segment(p[n-2],p[n-1])
-		segment(p[n-1],p[0])
-		p.shift() // supprime A
-		p.shift() // supprime B
-	return p // renvoie les autres sommets
+	segment(p[n-2],p[n-1])
+	segment(p[n-1],p[0])
+	this.listePoints = p
 }
 function polygoneRegulierIndirect(...args){
 	return new PolygoneRegulierIndirect(...args)
@@ -631,17 +630,16 @@ function polygoneRegulierIndirect(...args){
 * @Auteur Rémi Angot
 */
 function PolygoneRegulierParCentreEtRayon(O,r,n){
+	Polygone.call(this)	
 	let p = [];
 	p[0] = point(calcul(O.x+r),O.y);
-	console.log(p[0])
 	for (let i=1; i<n ; i++){
 		p[i] = pointParRotation(p[i-1],O,calcul(360/n))
-		console.log(p[i])
 		segment(p[i-1],p[i])
 	}
 	segment(p[n-1],p[0])
-	return p 
-
+ 	this.listePoints = p
+ }
 function polygoneRegulierParCentreEtRayon(...args){
 	return new PolygoneRegulierParCentreEtRayon(...args)
 }
