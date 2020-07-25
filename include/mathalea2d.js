@@ -10,6 +10,7 @@ let mesObjets = [];
 function ObjetMathalea2D() {
 	this.positionLabel = 'above left';
 	this.isVisible = true;
+	this.color = 'black';
 	mesObjets.push(this);
 }
 
@@ -229,7 +230,12 @@ function LabelPoints(...points) {
 	ObjetMathalea2D.call(this);
 	this.svg = function(coeff){
 		let code = "";
-		for (let point of points){
+		if (Array.isArray(points[0])) { //Si le premier argument est un tableau
+			this.listePoints = points[0]
+		} else {
+			this.listePoints = points
+		}
+		for (let point of this.listePoints){
 			switch (point.positionLabel){
 				case 'left':
 				code += `<text x="${calcul(point.xSVG(coeff)-10)}" y="${point.ySVG(coeff)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text>\n `; 
@@ -413,6 +419,7 @@ function droiteParPointEtPente(...args) {
 */
 function Segment(arg1,arg2,arg3,arg4,color='black'){
 	ObjetMathalea2D.call(this);
+	this.extremites='';
 	if (arguments.length==2) {
 		this.x1 = arg1.x;
 		this.y1 = arg1.y;
@@ -438,15 +445,37 @@ function Segment(arg1,arg2,arg3,arg4,color='black'){
 	}
 
 	this.svg = function(coeff=20){
-
+		if (this.extremites.length>1) {
+			let A = point(this.x1,this.y1)
+			let B = point(this.x2,this.y2)
+			if (this.extremites.substr(-1)=='|') { //si ça termine par | on le rajoute en B
+				let M = pointSurSegment(B,A,.2)
+				let B1 = pointParRotation(M,B,90)
+				let B2 = pointParRotation(M,B,-90)
+				let s1 = segment(B1,B2,this.color)	
+			}
+			if (this.extremites[0]=='|') { //si ça commence par | on le rajoute en A
+				let N = pointSurSegment(A,B,.2)
+				let A1 = pointParRotation(N,A,90)
+				let A2 = pointParRotation(N,A,-90)
+				let s2 = segment(A1,A2,this.color)	
+			}		
+		}
 		return `<line x1="${calcul(this.x1*coeff)}" y1="${calcul(-this.y1*coeff)}" x2="${calcul(this.x2*coeff)}" y2="${calcul(-this.y2*coeff)}" stroke="${this.color}" />`
 	}
 	this.tikz = function(){
-		if (this.color=='black') {
-			return `\\draw (${this.x1},${this.y1})--(${this.x2},${this.y2});`
-		} else {
-			return `\\draw[${color}] (${this.x1},${this.y1})--(${this.x2},${this.y2});`
+		let tableauOptions = [];
+		if (this.color.length>1 && this.color!=='black'){
+			tableauOptions.push(this.color)
 		}
+		if (this.extremites.length>1) {
+			tableauOptions.push(this.extremites)
+		}
+		let optionsDraw = []
+		if (tableauOptions.length>0) {
+			optionsDraw = "["+tableauOptions.join(',')+"]"
+		}
+		return `\\draw${optionsDraw} (${this.x1},${this.y1})--(${this.x2},${this.y2});`
 	}
 }
 function segment(...args){
@@ -723,7 +752,7 @@ function PolygoneRegulierParCentreEtRayon(O,r,n){
 	let p = [];
 	p[0] = point(calcul(O.x+r),O.y);
 	for (let i=1; i<n ; i++){
-		p[i] = pointParRotation(p[i-1],O,calcul(360/n))
+		p[i] = pointParRotation(p[i-1],O,calcul(-360/n))
 		segment(p[i-1],p[i])
 	}
 	segment(p[n-1],p[0])
@@ -844,6 +873,34 @@ function angleradian(A,O,B){
 	let AB = longueur(A,B);
 	let cos = calcul((AB**2-OA**2-OB**2)/(-2*OA*OB),.1)
 	return calcul(Math.acos((AB**2-OA**2-OB**2)/(-2*OA*OB)),2)
+}
+
+/**
+* nommePolygone(p1,'ABCDEF') // Nomme tous les sommets de p1 (dans l'ordre de création des points)
+* @Auteur Rémi Angot
+*/
+function nommePolygone(p,nom){
+	for (let i=0 ; i < p.listePoints.length ; i++){
+  		p.listePoints[i].nom = nom[i] 
+	}
+	labelPoints(p.listePoints)
+}
+
+
+/**
+* deplaceLabel(p1,'AB','below') // Si il y a un point nommé 'A' ou 'B' dans le polygone son nom sera mis en dessous du point
+* @Auteur Rémi Angot
+*/
+function deplaceLabel(p,nom,positionLabel){
+	for (let i=0 ; i < p.listePoints.length ; i++){
+		for (let lettre in nom){
+			if (p.listePoints[i].nom == nom[lettre]){
+	  			p.listePoints[i].positionLabel = positionLabel
+	  			labelPoints(p.listePoints[i])
+	  		}
+		}
+	  		
+	} 
 }
 
 
