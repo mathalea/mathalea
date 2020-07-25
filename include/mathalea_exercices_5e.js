@@ -4260,9 +4260,9 @@ function Constructibilite_des_triangles(){
 	Exercice.call(this); // Héritage de la classe Exercice()	
 	this.consigne = `Dire si les triangles suivants sont constructibles en justifiant.`;
 	this.sup=1;
-	if (this.exo == this.beta+'5G2-1') { // via longueurs
+	if (this.exo == this.beta+'5G21-1') { // via longueurs
 		this.titre = `Constructibilité des triangles via les longueurs`;
-	} else if (this.exo == this.beta+'5G2-2') {//via angles
+	} else if (this.exo == this.beta+'5G21-2') {//via angles
 		this.titre = `Constructibilité des triangles via les angles`;
 	} else {			
 		this.titre = "Constructibilité des triangles";	
@@ -4283,7 +4283,7 @@ function Constructibilite_des_triangles(){
 			texte: "En cours de réalisation"
 		});
 
-		if (this.exo == this.beta+'5G2-1') { // via longueurs
+		if (this.exo == this.beta+'5G21-1') { // via longueurs
 			if (this.sup ==1) {
 				type_de_questions_disponibles = [1,2,3,9];
 				this.nb_questions = type_de_questions_disponibles.length;	
@@ -4291,7 +4291,7 @@ function Constructibilite_des_triangles(){
 				type_de_questions_disponibles = [1,2,4,9];
 				this.nb_questions = type_de_questions_disponibles.length;	
 			};
-		} else if (this.exo == this.beta+'5G2-2') {//via angles
+		} else if (this.exo == this.beta+'5G21-2') {//via angles
 			if (this.sup ==1) {
 				type_de_questions_disponibles = [5,6,7,9];
 				this.nb_questions = type_de_questions_disponibles.length;	
@@ -4359,9 +4359,9 @@ function Constructibilite_des_triangles(){
 		}
 	liste_de_question_to_contenu(this);
 	}
-		if (this.exo == this.beta+'5G2-1') {
+		if (this.exo == this.beta+'5G21-1') {
 			this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : 3 longueurs\n2 : 2 longueurs et le périmètre"];
-		} else if (this.exo == this.beta+'5G2-2') {
+		} else if (this.exo == this.beta+'5G21-2') {
 			this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : 3 angles\n2 : 2 angles et le 3e en fonction du 1er ou du 2eme"];
 		} else {
 			//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : sans conversions de longueurs\n2 : avec conversions de longueurs"];
@@ -4375,7 +4375,7 @@ function Constructibilite_des_triangles(){
  */
 function Constructibilite_des_triangles_longueurs(){
 	this.beta = `beta`;
-	this.exo = this.beta+`5G2-1`;
+	this.exo = this.beta+`5G21-1`;
 	//this.titre = `Constructibilité des triangles via les longueurs`;
 	Constructibilite_des_triangles.call(this);
 };
@@ -4387,7 +4387,7 @@ function Constructibilite_des_triangles_longueurs(){
  */
 function Constructibilite_des_triangles_angles(){
 	this.beta = `beta`;
-	this.exo = this.beta+`5G2-2`;
+	this.exo = this.beta+`5G21-2`;
 	//this.titre = `Constructibilité des triangles via les angles`;
 	Constructibilite_des_triangles.call(this);
 };
