@@ -4311,10 +4311,26 @@ function Constructibilite_des_triangles(){
 		this.liste_corrections = []; // Liste de questions corrigées
 		
 		for (let i = 0, texte, texte_corr,l1,l2,l3,a1,a2,a3, cpt=0; i < this.nb_questions && cpt<50; ) {
+			
+			// on fixe longueur min et max en cm
+			let l_min = 2;
+			let l_max = 20;
+			// on fixe angle min et max en degré
+			let a_min = 30;
+			let a_max = 100;
+
+			// on crée un objet triangle 
+			let triangle = new Triangles();
 
 			switch (liste_type_de_questions[i]) {
 				case 1 : // 3 longueurs constructible
-					texte = `3 longueurs --> constructible`;
+					l1 = randint(l_min,l_max);
+					l2 = randint(l_min,l_max,l1);
+					l3 = randint(l_min,l_max,[l1,l2]);
+					triangle.l1 = l1;
+					triangle.l2 = l2;
+					triangle.l3 = l3;
+					texte = `3 longueurs --> constructible ${l1} ; ${l2} ; ${l3} ; Vrai triangle : `+triangle.isTrueTriangleLongueurs();
 					texte+=  ` <br>Combien de tels triangles?`
 					texte_corr = `3 longueurs --> constructible`;
 					texte_corr+=  ` <br>Combien de tels triangles?`

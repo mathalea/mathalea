@@ -4022,10 +4022,8 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 
 	// renvoie un booleen selon que les trois longueurs forment un vrai triangle ou non
 	function isTrueTriangleLongueurs() {
-		// Vérfier l'existence de l1, l2 et l3 !!!
-		if ((self.l1 == "undefined") || (self.l2 == "undefined") || (self.l3 == "undefined") ) {
-			console.log('l1, l2 ou l3 n\'est pas défini');
-			return;
+		if ((typeof self.l1 == "undefined") || (typeof self.l2 == "undefined") || (typeof self.l3 == "undefined")) {
+			return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
 		}
 		let longueurs = [self.l1,self.l2,self.l3];
 		//console.log('longueurs : '+longueurs);
