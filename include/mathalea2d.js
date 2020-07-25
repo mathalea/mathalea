@@ -1,5 +1,7 @@
-let mesObjets = [];
+"use strict";
 
+let mesObjets = [];
+/*
 /**
 * Classe parente de tous les objets de MathALEA2D
 *
@@ -10,7 +12,6 @@ function ObjetMathalea2D() {
 	this.isVisible = true;
 	mesObjets.push(this);
 }
-
 
 /**
 * A = point('A') //son nom
@@ -113,7 +114,7 @@ function PointParHomothetie(A,O,k,nom='',positionLabel = 'above left') {
 	this.x = calcul(O.x+k*(A.x-O.x))
 	this.y = calcul(O.y+k*(A.y-O.y))
 }
-function pointParhomothetie(...args){
+function pointParHomothetie(...args){
 	return new PointParHomothetie(...args)
 }
 
@@ -198,7 +199,8 @@ function pointParSymetrieAxiale(...args){
  */
 function PointParProjectionOrtho(M,d,nom='',positionLabel='above left') {
 	Point.call(this,nom);
-	let a=d.a,b=d.b,c=d.c,k=1/(a*a+b*b)
+	let a=d.a,b=d.b,c=d.c,k=calcul(1/(a*a+b*b))
+	console.log(a,b,c)
 	if (a==0) {
 		this.x=M.x
 		this.y=calcul(-c/b)
@@ -208,10 +210,11 @@ function PointParProjectionOrtho(M,d,nom='',positionLabel='above left') {
 		this.x=calcul(-c/a)
 	}
 	else {
-		this.x=calcul(k*(-b*b*M.x-a*b*M.y+a*c))
-		this.y=calcul(k*(a*b*M.x+a*a*A.y-a*a*c/b)-c/b)
+		this.x=calcul(k*(b*b*M.x-a*b*M.y-a*c))
+		this.y=calcul(k*(-a*b*M.x+a*a*M.y+a*a*c/b)-c/b)
 	}
 	this.positionLabel = positionLabel;
+	mesObjets.push(this);
 }
 function pointParProjectionOrtho(...args) {
 	return new PointParProjectionOrtho(...args)
@@ -283,9 +286,9 @@ function Droite(arg1,arg2,arg3,arg4,color='black') {
 		this.y1 = arg1.y;
 		this.x2 = arg2.x;
 		this.y2 = arg2.y;
-		this.a=this.y1-this.y2
-		this.b=this.x2-this.x1
-		this.c=(this.x1-this.x2)*this.y1+(this.y2-this.y1)*this.x1
+		this.a=calcul(this.y1-this.y2)
+		this.b=calcul(this.x2-this.x1)
+		this.c=calcul((this.x1-this.x2)*this.y1+(this.y2-this.y1)*this.x1)
 		this.color = color;
 	} else if (arguments.length==3) {
 		if (typeof(arg1)=='number') { // droite d'équation ax +by +c =0
@@ -299,9 +302,9 @@ function Droite(arg1,arg2,arg3,arg4,color='black') {
 		this.y1 = arg1.y;
 		this.x2 = arg2.x;
 		this.y2 = arg2.y;
-		this.a=this.y1-this.y2
-		this.b=this.x2-this.x1
-		this.c=(this.x1-this.x2)*this.y1+(this.y2-this.y1)*this.x1
+		this.a=calcul(this.y1-this.y2)
+		this.b=calcul(this.x2-this.x1)
+		this.c=calcul((this.x1-this.x2)*this.y1+(this.y2-this.y1)*this.x1)
 		this.name = arg3;
 		this.color=color;
 		}
@@ -319,13 +322,14 @@ function Droite(arg1,arg2,arg3,arg4,color='black') {
 		this.y1 = arg1.y;
 		this.x2 = arg2.x;
 		this.y2 = arg2.y;
-		this.a=this.y1-this.y2
-		this.b=this.x2-this.x1
-		this.c=(this.x1-this.x2)*this.y1+(this.y2-this.y1)*this.x1
+		this.a=calcul(this.y1-this.y2)
+		this.b=calcul(this.x2-this.x1)
+		this.c=calcul((this.x1-this.x2)*this.y1+(this.y2-this.y1)*this.x1)
 		this.nom=arg3;
 		this.color=arg4;
 		}
 	}
+	if (this.b!=0) this.pente=calcul(-this.a/this.b)
 	this.normal= new Vecteur(this.a,this.b)
 	this.directeur= new Vecteur(-this.b,this.a)
 	this.svg = function(coeff=20){
@@ -352,14 +356,53 @@ function droite(...args){
  * @Auteur Jean-Claude Lhote
  */
 function DroiteParPointEtVecteur(A,v,color='black') {
-	let B=new Point(calcul(A.x+v.x),calcul(A.y+v.y))
+	let B = new Point(calcul(A.x+v.x),calcul(A.y+v.y))
 	Droite.call(this,A,B)
 	this.color=color
 }
 function droiteParPointEtVecteur(...args) {
 	return new DroiteParPointEtVecteur(...args)
 }
-
+/**
+ * @Auteur Jean-Claude Lhote
+ */
+function DroiteParPointEtParallele(A,d,color='black') {
+	DroiteParPointEtVecteur.call(A,d.directeur,color);
+	mesObjets.push(this);
+}
+/**
+ * @Auteur Jean-Claude Lhote
+ */
+function DroiteParPointEtPerpendiculaire(A,d,color='black'){
+	DroiteParPointEtVecteur.call(A,d.normal,color);
+	mesObjets.push(this);
+}
+function droiteParPointEtParallele(...args){
+	return new DroiteParPointEtParallele(...args);
+}
+function droiteParPointEtPerpendiculaire(...args){
+	return new DroiteParPointEtPerpendiculaire(...args);
+}
+function DroiteHorizontaleParPoint(A,color='black'){
+	DroiteParPointEtPente.call(A,0,color)
+	mesObjets.push(this)
+}
+function DroiteVerticaleParPoint(A,color='black'){
+	DroiteParPointEtVecteur.call(A,new Vecteur(0,1),color)
+}
+/**
+ * 
+ *@Auteur Jean-Claude Lhote
+ */
+function DroiteParPointEtPente(A,k) {
+	let B=new Point(calcul(A.x+1),calcul(A.y+k));
+	Droite.call(this,A,B);
+	this.color=color;
+	mesObjets.push(this);
+}
+function droiteParPointEtPente(...args) {
+	return new DroiteParPointEtPente(...args)
+}
 /**
 * * s = segment(A,B) //Segment d'extrémités A et B
 * s = segment(A,B,'blue') //Segment d'extrémités A et B et de couleur bleue
@@ -405,10 +448,35 @@ function Segment(arg1,arg2,arg3,arg4,color='black'){
 			return `\\draw[${color}] (${this.x1},${this.y1})--(${this.x2},${this.y2});`
 		}
 	}
-
 }
 function segment(...args){
 	return new Segment(...args)
+}
+
+/**
+* * s = segment(A,B) //Segment d'extrémités A et B
+* s = segment(A,B,'blue') //Segment d'extrémités A et B et de couleur bleue
+* s = segment(x1,y1,x2,y2) //Segment définit par les coordonnées des deux extrémités
+* s = segment(x1,y1,x2,y2,'blue') //Segment définit par les coordonnées des deux extrémités et de couleur bleue
+*
+* @Auteur Rémi Angot
+*/
+function SegmentAvecExtremites(...args){
+	Segment.call(this,...args);
+	
+	let A = point(this.x1,this.y1)
+	let B = point(this.x2,this.y2)
+	let M = pointSurSegment(B,A,.2)
+	let B1 = pointParRotation(M,B,90)
+	let B2 = pointParRotation(M,B,-90)
+	let s1 = segment(B1,B2)
+	let N = pointSurSegment(A,B,.2)
+	let A1 = pointParRotation(N,A,90)
+	let A2 = pointParRotation(N,A,-90)
+	let s2 = segment(A1,A2)
+}
+function segmentAvecExtremites(...args){
+	return new SegmentAvecExtremites(...args)
 }
 
 /**
@@ -447,49 +515,222 @@ function tracePoints(...points){
 */
 function Polygone(...points){
 	ObjetMathalea2D.call(this);
+	if (Array.isArray(points[0])) { //Si le premier argument est un tableau
+		this.listePoints = points[0]
+	} else {
+		this.listePoints = points
+	}
 	this.nom = '';
 	for (let point of points){
 		this.nom += point.nom
 	}
 	this.svg = function(coeff=20){
-		let liste_points = "";
-		for (let point of points){
-			liste_points += `${point.x*coeff},${-point.y*coeff} `; 
+		let binomeXY = "";
+		for (let point of this.listePoints){
+			binomeXY += `${calcul(point.x*coeff)},${calcul(-point.y*coeff)} `; 
 		}
-		return `<polygon points="${liste_points}" fill="none" stroke="black" />`
+		return `<polygon points="${binomeXY}" fill="none" stroke="black" />`
 	}
 	this.tikz = function(){
-		let liste_points = "";
-		for (let point of points){
-			liste_points += `(${point.x},${point.y})--`
+		let binomeXY = "";
+		for (let point of this.listePoints){
+			binomeXY += `(${point.x},${point.y})--`
 		}
-		return `\\draw ${liste_points}cycle;`
+		return `\\draw ${binomeXY}cycle;`
 	}
 
 }
 function polygone(...args){
 	return new Polygone(...args)
 }
+/**
+* polygoneParTranslation(p,A,B) //Trace l'image de p dans la translation qui transfome A en B
+*
+* @Auteur Rémi Angot
+*/
+function PolygoneParTranslation2Points(p,A,B){
+	Polygone.call(this);
+	let p2=[]
+	for (let i = 0 ; i < p.listePoints.length ; i++ ){
+  		p2[i] = pointParTranslation2Points(p.listePoints[i],A,B)
+	}
+	return polygone(p2)
+}
+function polygoneParTranslation2Points(...args){
+	return new PolygoneParTranslation2Points(...args)
+}
+
+/**
+* polygoneParTranslation(p,v) //Trace l'image de p dans la translation de vecteur v
+*
+* @Auteur Rémi Angot
+*/
+function PolygoneParTranslation(p,v){
+	Polygone.call(this);
+	let p2=[]
+	for (let i = 0 ; i < p.listePoints.length ; i++ ){
+  		p2[i] = pointParTranslation(p.listePoints[i],v)
+	}
+	return polygone(p2)
+}
+function polygoneParTranslation(...args){
+	return new PolygoneParTranslation(...args)
+}
+
+/**
+* polygoneParHomothetie(p,O,k) //Trace l'image de p dans l'homothétie de centre O et de rapport k
+*
+* @Auteur Rémi Angot
+*/
+function PolygoneParHomothetie(p,O,k){
+	Polygone.call(this);
+	let p2=[]
+	for (let i = 0 ; i < p.listePoints.length ; i++ ){
+  		p2[i] = pointParHomothetie(p.listePoints[i],O,k)
+	}
+	return polygone(p2)
+}
+function polygoneParHomothetie(...args){
+	return new PolygoneParHomothetie(...args)
+}
+
+/**
+* polygoneParRotation(p,O,a) //Trace l'image de p dans la rotation de centre O et d'angle a
+*
+* @Auteur Rémi Angot
+*/
+function PolygoneParRotation(p,O,angle){
+	Polygone.call(this);
+	let p2=[]
+	for (let i = 0 ; i < p.listePoints.length ; i++ ){
+  		p2[i] = pointParRotation(p.listePoints[i],O,angle)
+	}
+	return polygone(p2)
+}
+function polygoneParRotation(...args){
+	return new PolygoneParRotation(...args)
+}
+
+/**
+* polygoneParSymetrieAxiale(p,d) //Trace l'image de p dans la symétrie d'axe (d)
+*
+* @Auteur Rémi Angot
+*/
+function PolygoneParSymetrieAxiale(p,d){
+	Polygone.call(this);
+	let p2=[]
+	for (let i = 0 ; i < p.listePoints.length ; i++ ){
+  		p2[i] = pointParSymetrieAxiale(p.listePoints[i],d)
+	}
+	return polygone(p2)
+}
+function polygoneParSymetrieAxiale(...args){
+	return new PolygoneParSymetrieAxiale(...args)
+}
 
 /**
 * carre(A,B) //Trace le carré direct qui a pour côté [AB] et code les 4 angles droits
-* let [C,D] = carre(A,B) //Renvoie les point C et D tel que ABCD est un carré direct
 *
 * @Auteur Rémi Angot
 */
 function Carre(A,B){
-	C = pointParRotation(A,B,-90,)
-	D = pointParRotation(B,A,90,)
-	polygone(A,B,C,D)
-	labelPoints(A,B,C,D)
-	codageAngleDroit(D,C,B)
-	codageAngleDroit(C,B,A)
-	codageAngleDroit(A,D,C)
-	codageAngleDroit(B,A,D)
-	return [C,D]
+	Polygone.call(this)
+	let c = pointParRotation(A,B,-90)
+	let d = pointParRotation(B,A,90)
+	let p = polygone(A,B,c,d)
+	let codage1 = codageAngleDroit(d,c,B)
+	let codage2 = codageAngleDroit(c,B,A)
+	let codage3 = codageAngleDroit(A,d,c)
+	let codage4 = codageAngleDroit(B,A,d)
+	this.listePoints = [A,B,c,d]
 }
 function carre(...args){
 	return new Carre(...args)
+}
+
+/**
+* carreIndirect(A,B) //Trace le carré indirect qui a pour côté [AB] et code les 4 angles droits
+*
+* @Auteur Rémi Angot
+*/
+function CarreIndirect(A,B){
+	Polygone.call(this)
+	let c = pointParRotation(A,B,90)
+	let d = pointParRotation(B,A,-90)
+	let p = polygone(A,B,c,d)
+	let codage1 = codageAngleDroit(B,c,d)
+	let codage2 = codageAngleDroit(A,B,c)
+	let codage3 = codageAngleDroit(c,d,A)
+	let codage4 = codageAngleDroit(d,A,B)
+	this.listePoints = [A,B,c,d]
+}
+function carreIndirect(...args){
+	return new CarreIndirect(...args)
+}
+
+/**
+* polygoneRegulier(A,B,n) //Trace le polygone régulier direct à n côtés qui a pour côté [AB]
+*
+* @Auteur Rémi Angot
+*/
+function PolygoneRegulier(A,B,n){
+	Polygone.call(this)
+	let p = [A,B]
+	for (let i=1 ; i<n-1 ; i++){
+		p[i+1] = pointParRotation(p[i-1],p[i],calcul(180-360/n))
+		segment(p[i-1],p[i])
+	}
+	segment(p[n-2],p[n-1])
+	segment(p[n-1],p[0])
+	this.listePoints = p
+}
+function polygoneRegulier(...args){
+	return new PolygoneRegulier(...args)
+}
+
+/**
+* polygoneRegulierIndirect(A,B,n) //Trace le polygone régulier indirect à n côtés qui a pour côté [AB]
+* p = polygoneRegulierIndirect (A,B,8) 
+* C = p.listePoints[2]
+* C.nom = 'C'
+//Renvoie les sommets de l'hexagone
+*
+* @Auteur Rémi Angot
+*/
+function PolygoneRegulierIndirect(A,B,n){
+	Polygone.call(this)
+	let p = [A,B]
+	for (let i=1 ; i<n-1 ; i++){
+		p[i+1] = pointParRotation(p[i-1],p[i],calcul(-180+360/n))
+		segment(p[i-1],p[i])
+	}
+	segment(p[n-2],p[n-1])
+	segment(p[n-1],p[0])
+	this.listePoints = p
+}
+function polygoneRegulierIndirect(...args){
+	return new PolygoneRegulierIndirect(...args)
+}
+
+/**
+* polygoneRegulierParCentreEtRayon(O,r,n) //Trace le polygone régulier à n côtés et de rayon r
+* let [A,B,C,D] = polygoneRegulierParCentreEtRayon(O,r,4) //Renvoie les 4 sommets du carré
+*
+* @Auteur Rémi Angot
+*/
+function PolygoneRegulierParCentreEtRayon(O,r,n){
+	Polygone.call(this)	
+	let p = [];
+	p[0] = point(calcul(O.x+r),O.y);
+	for (let i=1; i<n ; i++){
+		p[i] = pointParRotation(p[i-1],O,calcul(360/n))
+		segment(p[i-1],p[i])
+	}
+	segment(p[n-1],p[0])
+ 	this.listePoints = p
+ }
+function polygoneRegulierParCentreEtRayon(...args){
+	return new PolygoneRegulierParCentreEtRayon(...args)
 }
 
 /**
@@ -509,8 +750,8 @@ function Vecteur(arg1,arg2,nom='')  {
 			this.x = arg1;
 			this.y = arg2;
 		} else {
-			this.x = arg2.x-arg1.x;
-			this.y = arg2.y-arg1.y;
+			this.x = calcul(arg2.x-arg1.x);
+			this.y = calcul(arg2.y-arg1.y);
 		
 		}
 		this.nom = nom
