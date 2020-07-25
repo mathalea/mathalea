@@ -4257,7 +4257,7 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 function Constructibilite_des_triangles(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()	
-	this.consigne = "Dire si les triangles suivants sont constructibles en justifiant.";
+	this.consigne = `Dire si les triangles suivants sont constructibles en justifiant.`;
 	this.sup=1;
 	this.titre = "Constructibilité des triangles";	
 	this.nb_cols = 1;
@@ -4283,7 +4283,10 @@ function Constructibilite_des_triangles(){
 		} else {
 			this.nb_questions =10;
 		};
-
+		this.consigne+=info_message({
+			titre : "Exercice BETA",
+			texte: "En cours de réalisation"
+		});
 		let texte_intro = ``;
 		if (sortie_html) {
 			if (this.classe == 6) {
