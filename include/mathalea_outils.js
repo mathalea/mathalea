@@ -3802,6 +3802,8 @@ function d3jsTests(id_du_div) {
 /**
  * Renvoie un encart sur fond d'alert semantic ui en HTML ou dans un cadre bclogo en LaTeX avec le texte 
  * @param {string} texte
+ * @param {string} couleur
+ * @param {string} titre
  * @author Sébastien Lozano 
  */
 function warn_message(texte,couleur,titre) {
