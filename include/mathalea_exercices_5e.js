@@ -4326,12 +4326,23 @@ function Constructibilite_des_triangles(){
 				case 1 : // 3 longueurs constructible
 					l1 = randint(l_min,l_max);
 					l2 = randint(l_min,l_max,l1);
-					l3 = randint(l_min,l_max,[l1,l2]);
+					//l3 = randint(l_min,l_max,[l1,l2]);
+					l3 = randint(l_min,l_max);
 					triangle.l1 = l1;
 					triangle.l2 = l2;
 					triangle.l3 = l3;
-					texte = `3 longueurs --> constructible ${l1} ; ${l2} ; ${l3} ; Vrai triangle : `+triangle.isTrueTriangleLongueurs();
+					texte = `3 longueurs --> constructible ${l1} ; ${l2} ; ${l3}`;
+					texte+= `<br>Vrai triangle? `+triangle.isTrueTriangleLongueurs();
+					texte+= `<br>Triangle Plat? `+triangle.isPlatTriangleLongueurs();
 					texte+=  ` <br>Combien de tels triangles?`
+					if (triangle.isTrueTriangleLongueurs()) {
+						texte+=`2 à isométrie près, si on considère que direct et indirect ne sont pas superposables.`;	
+					};
+					if (triangle.isPlatTriangleLongueurs()) {
+						texte+=`1 seul.`;	
+					};
+
+					texte+=``;
 					texte_corr = `3 longueurs --> constructible`;
 					texte_corr+=  ` <br>Combien de tels triangles?`
 					break;

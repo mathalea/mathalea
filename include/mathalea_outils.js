@@ -4038,6 +4038,24 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		};
 	};
 
+	// renvoie un booleen selon que les trois longueurs forment un vrai triangle ou non
+	function isPlatTriangleLongueurs() {
+		if ((typeof self.l1 == "undefined") || (typeof self.l2 == "undefined") || (typeof self.l3 == "undefined")) {
+			return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
+		}
+		let longueurs = [self.l1,self.l2,self.l3];
+		//console.log('longueurs : '+longueurs);
+		longueurs.sort(function(a,b){
+			return a-b;
+		});
+		//console.log('longueurs sort() : '+longueurs);
+		if (longueurs[2] == (longueurs[0]+longueurs[1])) {
+			return true;
+		} else {
+			return false;
+		};
+	};
+
 	// renvoie un booleen selon que les trois angles forment un vrai triangle ou non
 	function isTrueTriangleAngles() {
 		// Vérfier l'existence de a1, a2 et a3 !!!
@@ -4071,6 +4089,7 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 	this.getAngles = getAngles;
 	this.getSommets = getSommets;
 	this.isTrueTriangleLongueurs = isTrueTriangleLongueurs;
+	this.isPlatTriangleLongueurs = isPlatTriangleLongueurs;
 	this.isTrueTriangleAngles = isTrueTriangleAngles;
 	//this.isQuelconque = isQuelconque;	
 };
