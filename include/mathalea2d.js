@@ -114,7 +114,7 @@ function PointParHomothetie(A,O,k,nom='',positionLabel = 'above left') {
 	this.x = calcul(O.x+k*(A.x-O.x))
 	this.y = calcul(O.y+k*(A.y-O.y))
 }
-function pointParhomothetie(...args){
+function pointParHomothetie(...args){
 	return new PointParHomothetie(...args)
 }
 
@@ -515,28 +515,117 @@ function tracePoints(...points){
 */
 function Polygone(...points){
 	ObjetMathalea2D.call(this);
+	if (Array.isArray(points[0])) { //Si le premier argument est un tableau
+		this.listePoints = points[0]
+	} else {
+		this.listePoints = points
+	}
 	this.nom = '';
 	for (let point of points){
 		this.nom += point.nom
 	}
 	this.svg = function(coeff=20){
-		let liste_points = "";
-		for (let point of points){
-			liste_points += `${calcul(point.x*coeff)},${calcul(-point.y*coeff)} `; 
+		let binomeXY = "";
+		for (let point of this.listePoints){
+			binomeXY += `${calcul(point.x*coeff)},${calcul(-point.y*coeff)} `; 
 		}
-		return `<polygon points="${liste_points}" fill="none" stroke="black" />`
+		return `<polygon points="${binomeXY}" fill="none" stroke="black" />`
 	}
 	this.tikz = function(){
-		let liste_points = "";
-		for (let point of points){
-			liste_points += `(${point.x},${point.y})--`
+		let binomeXY = "";
+		for (let point of this.listePoints){
+			binomeXY += `(${point.x},${point.y})--`
 		}
-		return `\\draw ${liste_points}cycle;`
+		return `\\draw ${binomeXY}cycle;`
 	}
 
 }
 function polygone(...args){
 	return new Polygone(...args)
+}
+/**
+* polygoneParTranslation(p,A,B) //Trace l'image de p dans la translation qui transfome A en B
+*
+* @Auteur Rémi Angot
+*/
+function PolygoneParTranslation2Points(p,A,B){
+	Polygone.call(this);
+	let p2=[]
+	for (let i = 0 ; i < p.listePoints.length ; i++ ){
+  		p2[i] = pointParTranslation2Points(p.listePoints[i],A,B)
+	}
+	return polygone(p2)
+}
+function polygoneParTranslation2Points(...args){
+	return new PolygoneParTranslation2Points(...args)
+}
+
+/**
+* polygoneParTranslation(p,v) //Trace l'image de p dans la translation de vecteur v
+*
+* @Auteur Rémi Angot
+*/
+function PolygoneParTranslation(p,v){
+	Polygone.call(this);
+	let p2=[]
+	for (let i = 0 ; i < p.listePoints.length ; i++ ){
+  		p2[i] = pointParTranslation(p.listePoints[i],v)
+	}
+	return polygone(p2)
+}
+function polygoneParTranslation(...args){
+	return new PolygoneParTranslation(...args)
+}
+
+/**
+* polygoneParHomothetie(p,O,k) //Trace l'image de p dans l'homothétie de centre O et de rapport k
+*
+* @Auteur Rémi Angot
+*/
+function PolygoneParHomothetie(p,O,k){
+	Polygone.call(this);
+	let p2=[]
+	for (let i = 0 ; i < p.listePoints.length ; i++ ){
+  		p2[i] = pointParHomothetie(p.listePoints[i],O,k)
+	}
+	return polygone(p2)
+}
+function polygoneParHomothetie(...args){
+	return new PolygoneParHomothetie(...args)
+}
+
+/**
+* polygoneParRotation(p,O,a) //Trace l'image de p dans la rotation de centre O et d'angle a
+*
+* @Auteur Rémi Angot
+*/
+function PolygoneParRotation(p,O,angle){
+	Polygone.call(this);
+	let p2=[]
+	for (let i = 0 ; i < p.listePoints.length ; i++ ){
+  		p2[i] = pointParRotation(p.listePoints[i],O,angle)
+	}
+	return polygone(p2)
+}
+function polygoneParRotation(...args){
+	return new PolygoneParRotation(...args)
+}
+
+/**
+* polygoneParSymetrieAxiale(p,d) //Trace l'image de p dans la symétrie d'axe (d)
+*
+* @Auteur Rémi Angot
+*/
+function PolygoneParSymetrieAxiale(p,d){
+	Polygone.call(this);
+	let p2=[]
+	for (let i = 0 ; i < p.listePoints.length ; i++ ){
+  		p2[i] = pointParSymetrieAxiale(p.listePoints[i],d)
+	}
+	return polygone(p2)
+}
+function polygoneParSymetrieAxiale(...args){
+	return new PolygoneParSymetrieAxiale(...args)
 }
 
 /**
@@ -546,8 +635,8 @@ function polygone(...args){
 */
 function Carre(A,B){
 	Polygone.call(this)
-	let c = pointParRotation(A,B,-90,)
-	let d = pointParRotation(B,A,90,)
+	let c = pointParRotation(A,B,-90)
+	let d = pointParRotation(B,A,90)
 	let p = polygone(A,B,c,d)
 	let codage1 = codageAngleDroit(d,c,B)
 	let codage2 = codageAngleDroit(c,B,A)
@@ -566,8 +655,8 @@ function carre(...args){
 */
 function CarreIndirect(A,B){
 	Polygone.call(this)
-	let c = pointParRotation(A,B,90,)
-	let d = pointParRotation(B,A,-90,)
+	let c = pointParRotation(A,B,90)
+	let d = pointParRotation(B,A,-90)
 	let p = polygone(A,B,c,d)
 	let codage1 = codageAngleDroit(B,c,d)
 	let codage2 = codageAngleDroit(A,B,c)
