@@ -93,12 +93,12 @@ var liste_des_exercices_disponibles = {
 		'5G11' : Transformations_5e,
 		'5G12' : Pavages_et_demi_tour,
 		'beta5G2' : Constructibilite_des_triangles,// pour développer l'exercice global
-		'beta5G21-1' : Constructibilite_des_triangles_longueurs,// pour développer l'exercice global
-		'beta5G22-2' : Constructibilite_des_triangles_angles,// pour développer l'exercice global
-		//'5G21-1' : Constructibilite_des_triangles_longueurs,
-		//'5G21-2' : Constructibilite_des_triangles_angles,
+		'beta5G21-1' : Constructibilite_des_triangles_longueurs,// pour développer l'exercice global		
+		//'5G21-1' : Constructibilite_des_triangles_longueurs,		
 		'5G20-1' : Vocabulaire_des_triangles_5e,		   
 		'5G31' : Exercice_angles_triangles,
+		'beta5G31-1' : Constructibilite_des_triangles_angles,// pour développer l'exercice global
+		//'5G31-1' : Constructibilite_des_triangles_angles,
 		'5N13': Exercice_fractions_simplifier,
 		'5N13-2': Egalites_entre_fractions,
 		'5N110' : Variation_en_pourcentages,

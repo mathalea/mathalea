@@ -4251,7 +4251,7 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 /**
  * Constructibilité des triangles
  * Préciser ici les numéros des exos
- * beta5G2 ; beta5G2-1 ; beta5G2-2
+ * beta5G2 ; beta5G21-1 ; beta5G31-1
  * @author Sébastien Lozano
  */
 
@@ -4262,7 +4262,7 @@ function Constructibilite_des_triangles(){
 	this.sup=1;
 	if (this.exo == this.beta+'5G21-1') { // via longueurs
 		this.titre = `Constructibilité des triangles via les longueurs`;
-	} else if (this.exo == this.beta+'5G21-2') {//via angles
+	} else if (this.exo == this.beta+'5G31-1') {//via angles
 		this.titre = `Constructibilité des triangles via les angles`;
 	} else {			
 		this.titre = "Constructibilité des triangles";	
@@ -4291,7 +4291,7 @@ function Constructibilite_des_triangles(){
 				type_de_questions_disponibles = [1,2,4,9];
 				this.nb_questions = type_de_questions_disponibles.length;	
 			};
-		} else if (this.exo == this.beta+'5G21-2') {//via angles
+		} else if (this.exo == this.beta+'5G31-1') {//via angles
 			if (this.sup ==1) {
 				type_de_questions_disponibles = [5,6,7,9];
 				this.nb_questions = type_de_questions_disponibles.length;	
@@ -4361,7 +4361,7 @@ function Constructibilite_des_triangles(){
 	}
 		if (this.exo == this.beta+'5G21-1') {
 			this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : 3 longueurs\n2 : 2 longueurs et le périmètre"];
-		} else if (this.exo == this.beta+'5G21-2') {
+		} else if (this.exo == this.beta+'5G31-1') {
 			this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : 3 angles\n2 : 2 angles et le 3e en fonction du 1er ou du 2eme"];
 		} else {
 			//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : sans conversions de longueurs\n2 : avec conversions de longueurs"];
@@ -4370,7 +4370,7 @@ function Constructibilite_des_triangles(){
 
 /**
  * Vocabulaire des triangles 
- * beta5G2-1
+ * beta5G21-1
  * @author Sébastien Lozano
  */
 function Constructibilite_des_triangles_longueurs(){
@@ -4382,12 +4382,12 @@ function Constructibilite_des_triangles_longueurs(){
 
 /**
  * Vocabulaire des triangles 
- * beta5G2-2
+ * beta5G31-1
  * @author Sébastien Lozano
  */
 function Constructibilite_des_triangles_angles(){
 	this.beta = `beta`;
-	this.exo = this.beta+`5G21-2`;
+	this.exo = this.beta+`5G31-1`;
 	//this.titre = `Constructibilité des triangles via les angles`;
 	Constructibilite_des_triangles.call(this);
 };
