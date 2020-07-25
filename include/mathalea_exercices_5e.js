@@ -4285,22 +4285,22 @@ function Constructibilite_des_triangles(){
 
 		if (this.exo == this.beta+'5G21-1') { // via longueurs
 			if (this.sup ==1) {
-				type_de_questions_disponibles = [1,2,3,9];
+				type_de_questions_disponibles = [1,2,3];
 				this.nb_questions = type_de_questions_disponibles.length;	
 			} else if (this.sup ==2) {
-				type_de_questions_disponibles = [1,2,4,9];
+				type_de_questions_disponibles = [1,2,4];
 				this.nb_questions = type_de_questions_disponibles.length;	
 			};
 		} else if (this.exo == this.beta+'5G31-1') {//via angles
 			if (this.sup ==1) {
-				type_de_questions_disponibles = [5,6,7,9];
+				type_de_questions_disponibles = [5,6,7];
 				this.nb_questions = type_de_questions_disponibles.length;	
 			} else if (this.sup ==2) {
-				type_de_questions_disponibles = [5,6,8,9];
+				type_de_questions_disponibles = [5,6,8];
 				this.nb_questions = type_de_questions_disponibles.length;	
 			};
 		} else {			
-			type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9];
+			type_de_questions_disponibles = [1,2,3,4,5,6,7,8];
 			this.nb_questions = type_de_questions_disponibles.length;
 		};
 
@@ -4315,11 +4315,15 @@ function Constructibilite_des_triangles(){
 			switch (liste_type_de_questions[i]) {
 				case 1 : // 3 longueurs constructible
 					texte = `3 longueurs --> constructible`;
+					texte+=  ` <br>Combien de tels triangles?`
 					texte_corr = `3 longueurs --> constructible`;
+					texte_corr+=  ` <br>Combien de tels triangles?`
 					break;
 				case 2 : // 3 longueurs plat
 					texte = `3 longueurs --> plat `;
+					texte+=  ` <br>Combien de tels triangles? Pertinent?`
 					texte_corr = `3 longueurs --> plat`;
+					texte_corr+=  ` <br>Combien de tels triangles? Pertinent?`
 					break;
 				case 3 : // 3 longueurs non constructible
 					texte = `3 longueurs  --> non constructible`;
@@ -4327,15 +4331,21 @@ function Constructibilite_des_triangles(){
 					break;
 				case 4 : // 2 longueurs et le périmètre
 					texte = `2 longueurs et le périmètre --> constructible`;
+					texte+=  ` <br>Combien de tels triangles?`
 					texte_corr = `2 longueurs et le périmètre --> constructible`;
+					texte_corr+=  ` <br>Combien de tels triangles?`
 					break;
 				case 5 : //3 angles constructible
 					texte = `3 angles --> constructible`;
+					texte+=  ` <br>Combien de tels triangles?`
 					texte_corr = `3 angles --> constructible`;
+					texte_corr+=  ` <br>Combien de tels triangles?`
 					break;
 				case 6 : // 3 angles plat
-					texte = `3 angles --> plat`;
-					texte_corr = `3 angles --> plat`;
+					texte = `3 angles --> plat. Pertient?`;
+					texte+=  ` <br>Combien de tels triangles?`
+					texte_corr = `3 angles --> plat. Pertinent?`;
+					texte_corr+=  ` <br>Combien de tels triangles?`
 					break;
 				case 7 : // 3 angles non constructible
 					texte = `3 angles --> non constructible`;
@@ -4343,11 +4353,9 @@ function Constructibilite_des_triangles(){
 					break;				
 				case 8 : // 2 angles et le 3e fonction du 1er ou du 2eme
 					texte = `2 angles et le 3e fonction du 1er ou du 2eme --> constructible`;
+					texte+=  ` <br>Combien de tels triangles?`
 					texte_corr = `2 angles et le 3e fonction du 1er ou du 2eme --> constructible`;
-					break;
-				case 9 : //Lorsque le triangle est constructible ou plat, combien de tels triangles?
-					texte = `Lorsque le triangle est constructible ou plat, combien de tels triangles?`;
-					texte_corr = `Lorsque le triangle est constructible ou plat, combien de tels triangles?`;
+					texte_corr+=  ` <br>Combien de tels triangles?`
 					break;
 			}
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
