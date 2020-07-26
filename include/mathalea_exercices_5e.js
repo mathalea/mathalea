@@ -4250,8 +4250,8 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 
 /**
  * Constructibilité des triangles
- * Préciser ici les numéros des exos
- * beta5G2 ; beta5G21-1 ; beta5G31-1
+ * Préciser ici les numéros des exos 
+ * beta5G2,beta5G21-1,beta5G31-1
  * @author Sébastien Lozano
  */
 
@@ -4324,6 +4324,14 @@ function Constructibilite_des_triangles(){
 
 			switch (liste_type_de_questions[i]) {
 				case 1 : // 3 longueurs constructible
+					while (!triangle.isTrueTriangleLongueurs()) {						
+						l1 = randint(l_min,l_max);
+						l2 = randint(l_min,l_max,l1);
+						l3 = randint(l_min,l_max);
+						triangle.l1 = l1;
+						triangle.l2 = l2;
+						triangle.l3 = l3;
+					};
 					l1 = randint(l_min,l_max);
 					l2 = randint(l_min,l_max,l1);
 					//l3 = randint(l_min,l_max,[l1,l2]);
@@ -4354,7 +4362,9 @@ function Constructibilite_des_triangles(){
 					break;
 				case 3 : // 3 longueurs non constructible
 					texte = `3 longueurs  --> non constructible`;
+					texte+=  ` <br>Combien de tels triangles?`
 					texte_corr = `3 longueurs -->  non constructible`;
+					texte_corr+=  ` <br>Combien de tels triangles?`
 					break;
 				case 4 : // 2 longueurs et le périmètre
 					texte = `2 longueurs et le périmètre --> constructible`;
@@ -4376,7 +4386,9 @@ function Constructibilite_des_triangles(){
 					break;
 				case 7 : // 3 angles non constructible
 					texte = `3 angles --> non constructible`;
+					texte+=  ` <br>Combien de tels triangles?`
 					texte_corr = `3 angles --> non constructible`;
+					texte_corr+=  ` <br>Combien de tels triangles?`
 					break;				
 				case 8 : // 2 angles et le 3e fonction du 1er ou du 2eme
 					texte = `2 angles et le 3e fonction du 1er ou du 2eme --> constructible`;
