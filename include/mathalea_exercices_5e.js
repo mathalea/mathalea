@@ -4262,13 +4262,13 @@ function Constructibilite_des_triangles(){
 	this.sup=1;
 	if (this.exo == this.beta+'5G21-1') { // via longueurs
 		this.titre = `Constructibilité des triangles via les longueurs`;
-		this.consigne = `Justifier si les longueurs données permettent de construire un triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0!`;
+		this.consigne = `Justifier si les longueurs données permettent de construire le triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0!`;
 	} else if (this.exo == this.beta+'5G31-1') {//via angles
 		this.titre = `Constructibilité des triangles via les angles`;
-		this.consigne = `Justifier si les angles donnés permettent de construire un triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0!`;
+		this.consigne = `Justifier si les angles donnés permettent de construire le triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0!`;
 	} else {			
 		this.titre = "Constructibilité des triangles";	
-		this.consigne = `Justifier si les longueurs ou les angles donnés permettent de construire un triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0!`;
+		this.consigne = `Justifier si les longueurs ou les angles donnés permettent de construire le triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0!`;
 	};
 	//this.titre = "Constructibilité des triangles";	
 	this.nb_cols = 1;
@@ -4324,7 +4324,7 @@ function Constructibilite_des_triangles(){
 
 			// on crée un objet triangle 
 			let triangle = new Triangles();
-
+			
 			switch (liste_type_de_questions[i]) {
 				case 1 : // 3 longueurs constructible
 					while (!triangle.isTrueTriangleLongueurs()) {						
@@ -4333,11 +4333,24 @@ function Constructibilite_des_triangles(){
 						l3 = randint(l_min,l_max);
 						triangle.l1 = l1;
 						triangle.l2 = l2;
-						triangle.l3 = l3;
+						triangle.l3 = l3;						
 					};
-					texte = `${triangle.getNom()} est tel que ${triangle.getLongueurs()[0]} $= ${triangle.l1}$ cm ; `;					
+					texte = `${triangle.getNom()} tel que ${triangle.getLongueurs()[0]} $= ${triangle.l1}$ cm ; `;					
 					texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et ${triangle.getLongueurs()[2]} $= ${triangle.l3}$ cm.`;
-					texte_corr = ``;
+					// on crée l'objet longueurs + valeurs des côtés du triangle
+					let current_triangle = [];
+					for (let i=0;i<3;i++) {
+						current_triangle.push({longueur: triangle.getLongueurs()[i], valeur: triangle.getLongueursValeurs()[i]});
+					};
+					// on trie les couples longueurs/valeurs du triangle selon les valeurs croissantes.
+					current_triangle.sort(function (a, b) {
+						return a.valeur - b.valeur;
+					  });
+					texte_corr = `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].longueur} = ${current_triangle[2].valeur} cm, c'est le plus grand côté.`;
+					texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = ${current_triangle[0].valeur} + ${current_triangle[1].valeur} = ${current_triangle[2].valeur} cm aussi.`;
+					texte_corr += `<br> On peut donc construire le triangle ${triangle.getNom()}.`;
+					texte_corr += `<br><br>  Si on considère que le triangle nommé dans le sens des aiguilles d'une montre et celui nommé dans le sens inverse sont différents, ${texte_gras('deux tels triangles existent')}.`;
+					texte_corr += `<br> Les deux étant obtenus l'un à partir de l'autre par symétire axiale.`;
 					// l1 = randint(l_min,l_max);
 					// l2 = randint(l_min,l_max,l1);
 					// //l3 = randint(l_min,l_max,[l1,l2]);
