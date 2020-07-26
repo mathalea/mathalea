@@ -4324,12 +4324,13 @@ function Constructibilite_des_triangles(){
 
 			// on crée un objet triangle 
 			let triangle = new Triangles();
+			let current_triangle = [];
 			
 			switch (liste_type_de_questions[i]) {
 				case 1 : // 3 longueurs constructible
 					while (!triangle.isTrueTriangleLongueurs()) {						
 						l1 = randint(l_min,l_max);
-						l2 = randint(l_min,l_max,l1);
+						l2 = randint(l_min,l_max);
 						l3 = randint(l_min,l_max);
 						triangle.l1 = l1;
 						triangle.l2 = l2;
@@ -4338,7 +4339,7 @@ function Constructibilite_des_triangles(){
 					texte = `${triangle.getNom()} tel que ${triangle.getLongueurs()[0]} $= ${triangle.l1}$ cm ; `;					
 					texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et ${triangle.getLongueurs()[2]} $= ${triangle.l3}$ cm.`;
 					// on crée l'objet longueurs + valeurs des côtés du triangle
-					let current_triangle = [];
+					// let current_triangle = [];
 					for (let i=0;i<3;i++) {
 						current_triangle.push({longueur: triangle.getLongueurs()[i], valeur: triangle.getLongueursValeurs()[i]});
 					};
@@ -4347,7 +4348,8 @@ function Constructibilite_des_triangles(){
 						return a.valeur - b.valeur;
 					  });
 					texte_corr = `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].longueur} = ${current_triangle[2].valeur} cm, c'est le plus grand côté.`;
-					texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = ${current_triangle[0].valeur} + ${current_triangle[1].valeur} = ${current_triangle[2].valeur} cm aussi.`;
+					texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = ${current_triangle[0].valeur} + ${current_triangle[1].valeur} = ${calcul(current_triangle[0].valeur + current_triangle[1].valeur)} cm.`;
+					texte_corr += `<br> On constate que ${current_triangle[0].longueur} + ${current_triangle[1].longueur} > ${current_triangle[2].longueur}`;
 					texte_corr += `<br> ${texte_en_couleur('On peut donc construire le triangle '+triangle.getNom())}.`;
 					texte_corr += `<br><br>  Si on considère que le triangle nommé dans le sens des aiguilles d'une montre et celui nommé dans le sens inverse sont différents, ${texte_en_couleur('deux tels triangles existent')}.`;
 					texte_corr += `<br> Les deux étant obtenus l'un à partir de l'autre par symétire axiale.`;
@@ -4374,10 +4376,33 @@ function Constructibilite_des_triangles(){
 					// texte_corr+=  ` <br>Combien de tels triangles?`
 					break;
 				case 2 : // 3 longueurs plat
-					texte = `3 longueurs --> plat `;
-					texte+=  ` <br>Combien de tels triangles? Pertinent?`
-					texte_corr = `3 longueurs --> plat`;
-					texte_corr+=  ` <br>Combien de tels triangles? Pertinent?`
+				while (!triangle.isPlatTriangleLongueurs()) {						
+					l1 = randint(l_min,l_max);
+					l2 = randint(l_min,l_max);
+					l3 = calcul(l1+l2);
+					triangle.l1 = l1;
+					triangle.l2 = l2;
+					triangle.l3 = l3;						
+				};
+				texte = `${triangle.getNom()} tel que ${triangle.getLongueurs()[0]} $= ${triangle.l1}$ cm ; `;					
+				texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et ${triangle.getLongueurs()[2]} $= ${triangle.l3}$ cm.`;
+				// on crée l'objet longueurs + valeurs des côtés du triangle
+				// let current_triangle = [];
+				for (let i=0;i<3;i++) {
+					current_triangle.push({longueur: triangle.getLongueurs()[i], valeur: triangle.getLongueursValeurs()[i]});
+				};
+				// on trie les couples longueurs/valeurs du triangle selon les valeurs croissantes.
+				current_triangle.sort(function (a, b) {
+					return a.valeur - b.valeur;
+				  });
+				texte_corr = `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].longueur} = ${current_triangle[2].valeur} cm, c'est le plus grand côté.`;
+				texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = ${current_triangle[0].valeur} + ${current_triangle[1].valeur} = ${current_triangle[2].valeur} cm aussi.`;
+				texte_corr += `<br> ${texte_en_couleur('On peut donc construire le triangle '+triangle.getNom()+' c\'est un triangle plat')}.`;
+				texte_corr += `<br><br>${texte_en_couleur('Un seul triangle de ce type existe')}.`;				
+					// texte = `3 longueurs --> plat `;
+					// texte+=  ` <br>Combien de tels triangles? Pertinent?`
+					// texte_corr = `3 longueurs --> plat`;
+					// texte_corr+=  ` <br>Combien de tels triangles? Pertinent?`
 					break;
 				case 3 : // 3 longueurs non constructible
 					texte = `3 longueurs  --> non constructible`;
