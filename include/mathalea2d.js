@@ -280,7 +280,8 @@ function labelPoints(...args){
 /**
 * texteParPoint('mon texte',A) // Écrit 'mon texte' avec A au centre du texte
 * texteParPoint('mon texte',A,'gauche') // Écrit 'mon texte' à gauche de A (qui sera la fin du texte)
-* texteParPoint('mon texte',A) // Écrit 'mon texte' à droite de A (qui sera le début du texte)
+* texteParPoint('mon texte',A,'droite') // Écrit 'mon texte' à droite de A (qui sera le début du texte)
+* texteParPoint('mon texte',A,45) // Écrit 'mon texte' à centré sur A avec une rotation de 45°
 *
 * @Auteur Rémi Angot
 */
@@ -288,17 +289,22 @@ function TexteParPoint(texte,A,orientation = "milieu") {
 	ObjetMathalea2D.call(this);
 	this.svg = function(coeff){
 		let code =''
-		switch (orientation){
-			case 'milieu':
-			code = `<text x="${A.xSVG(coeff)}" y="${A.ySVG(coeff)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${texte}</text>\n `; 
-			break;
-			case 'gauche':
-			code = `<text x="${A.xSVG(coeff)}" y="${A.ySVG(coeff)}" text-anchor="end" alignment-baseline="central" fill="${this.color}">${texte}</text>\n `; 
-			break;
-			case 'droite':
-			code = `<text x="${A.xSVG(coeff)}" y="${A.ySVG(coeff)}" text-anchor="start" alignment-baseline="central" fill="${this.color}">${texte}</text>\n `; 
-			break;
+		if (Number.isInteger(orientation)) {
+			code = `<text x="${A.xSVG(coeff)}" y="${A.ySVG(coeff)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(coeff)})">${texte}</text>\n `; 
+		} else {
+			switch (orientation){
+				case 'milieu':
+				code = `<text x="${A.xSVG(coeff)}" y="${A.ySVG(coeff)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}" transform="rotate(${angle} ${A.xSVG(coeff)} ${A.ySVG(coeff)})">${texte}</text>\n `; 
+				break;
+				case 'gauche':
+				code = `<text x="${A.xSVG(coeff)}" y="${A.ySVG(coeff)}" text-anchor="end" alignment-baseline="central" fill="${this.color}">${texte}</text>\n `; 
+				break;
+				case 'droite':
+				code = `<text x="${A.xSVG(coeff)}" y="${A.ySVG(coeff)}" text-anchor="start" alignment-baseline="central" fill="${this.color}">${texte}</text>\n `; 
+				break;
+			}
 		}
+			
 		return code
 	}
 	this.tikz = function(){
@@ -408,7 +414,7 @@ function droite(...args){
  * d = mediatrice(A,B,'blue') // Médiatrice de [AB] en bleu
  * d = mediatrice(A,B,'blue',false) // Médiatrice de [AB] en bleu sans codage
  * 
- * @Auteur Jean-Claude Lhote
+ * @Auteur Rémi Angot
  */
 function Mediatrice(A,B,color = 'black',codage = true){
 	this.color = color
@@ -424,6 +430,28 @@ function Mediatrice(A,B,color = 'black',codage = true){
 }
 function mediatrice(...args){
 	return new Mediatrice(...args)
+}
+
+/**
+ * d = bissectrice(A,B) // Médiatrice de [AB]
+ * d = bissectrice(A,B,'blue') // Médiatrice de [AB] en bleu
+ * d = bissectrice(A,B,'blue',false) // Médiatrice de [AB] en bleu sans codage
+ * 
+ * @Auteur Rémi Angot
+ */
+function Bissectrice(A,O,B,color = 'black',codage = true){
+	this.color = color
+	let demiangle = calcul(angle(A,O,B)/2)
+	let m = pointSurSegment(O,B,3)
+	let M = pointParRotation(m,O,demiangle)
+	let d = demiDroite(O,M)	
+	if (codage) {
+	}
+	d.color = this.color 
+	return d
+}
+function bissectrice(...args){
+	return new Bissectrice(...args)
 }
 
 /**
@@ -585,10 +613,24 @@ function segmentAvecExtremites(...args){
 function DemiDroite(A,B,color='black'){
 	let B1 = pointSurSegment(B,A,-10)
 	Segment.call(this,A,B1,color);
-	this.extremites='|-'
 }
 function demiDroite(...args){
 	return new DemiDroite(...args)
+}
+
+/**
+* * s = DemiDroiteAvecExtremite(A,B) //Segment d'extrémités A et B
+* s = DemiDroiteAvecExtremite(A,B,'blue') //Segment d'extrémités A et B et de couleur bleue
+*
+* @Auteur Rémi Angot
+*/
+function DemiDroiteAvecExtremite(A,B,color='black'){
+	let B1 = pointSurSegment(B,A,-10)
+	Segment.call(this,A,B1,color);
+	this.extremites='|-'
+}
+function demiDroiteAvecExtremite(...args){
+	return new DemiDroiteAvecExtremite(...args)
 }
 
 /**
