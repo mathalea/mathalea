@@ -441,7 +441,7 @@ function mediatrice(...args){
  */
 function Bissectrice(A,O,B,color = 'black',codage = true){
 	this.color = color
-	let demiangle = calcul(angle(A,O,B)/2)
+	let demiangle = calcul(angleOriente(A,O,B)/2)
 	let m = pointSurSegment(O,B,3)
 	let M = pointParRotation(m,O,demiangle)
 	let d = demiDroite(O,M)	
@@ -1055,12 +1055,12 @@ function angle(A,O,B){
 	return calcul(Math.acos((AB**2-OA**2-OB**2)/(-2*OA*OB))*180/Math.PI,2)
 }
 /**
- * retourne la valeur signée de l'angle AOB en degré.
+ * Retourne la valeur signée de l'angle AOB en degré.
  * @Auteur Jean-Claude Lhote
  */
-function angleoriente(A,O,B){
-	let A2=pointParRotation(A,O,90);
-	return Signe(A2.x*B.x+A2.y*B.y)*angle(A,O,B)
+function angleOriente(A,O,B){
+	let A2 = pointParRotation(A,O,90);
+	return unSiPositifMoinsUnSinon(A2.x*B.x+A2.y*B.y)*angle(A,O,B)
 }
 /**
 * angleradian(A,O,B) renvoie l'angle AOB en radian

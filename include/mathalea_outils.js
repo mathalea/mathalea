@@ -875,7 +875,7 @@ function signe(a) { // + ou -
  * @Auteur Jean-Claude Lhote
  */
 
-function Signe(a) {
+function unSiPositifMoinsUnSinon(a) {
 	if (a<0) return -1;
 	else return 1;
 }
