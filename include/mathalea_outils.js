@@ -1596,7 +1596,7 @@ function texte_gras(texte){
 		return `<b>${texte}</b>`	
 	}
 	else {
-		return `\\textbf${texte}`
+		return `\\textbf{${texte}}`
 	}	
 }
 

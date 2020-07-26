@@ -4348,8 +4348,8 @@ function Constructibilite_des_triangles(){
 					  });
 					texte_corr = `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].longueur} = ${current_triangle[2].valeur} cm, c'est le plus grand côté.`;
 					texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = ${current_triangle[0].valeur} + ${current_triangle[1].valeur} = ${current_triangle[2].valeur} cm aussi.`;
-					texte_corr += `<br> On peut donc construire le triangle ${triangle.getNom()}.`;
-					texte_corr += `<br><br>  Si on considère que le triangle nommé dans le sens des aiguilles d'une montre et celui nommé dans le sens inverse sont différents, ${texte_gras('deux tels triangles existent')}.`;
+					texte_corr += `<br> ${texte_en_couleur('On peut donc construire le triangle '+triangle.getNom())}.`;
+					texte_corr += `<br><br>  Si on considère que le triangle nommé dans le sens des aiguilles d'une montre et celui nommé dans le sens inverse sont différents, ${texte_en_couleur('deux tels triangles existent')}.`;
 					texte_corr += `<br> Les deux étant obtenus l'un à partir de l'autre par symétire axiale.`;
 					// l1 = randint(l_min,l_max);
 					// l2 = randint(l_min,l_max,l1);
