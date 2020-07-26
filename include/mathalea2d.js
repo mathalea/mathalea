@@ -201,7 +201,6 @@ function pointParSymetrieAxiale(...args){
 function PointParProjectionOrtho(M,d,nom='',positionLabel='above left') {
 	Point.call(this,nom);
 	let a=d.a,b=d.b,c=d.c,k=calcul(1/(a*a+b*b))
-	console.log(a,b,c)
 	if (a==0) {
 		this.x=M.x
 		this.y=calcul(-c/b)
@@ -336,20 +335,20 @@ function Droite(arg1,arg2,arg3,arg4,color='black') {
 		}
 	}
 	if (this.b!=0) this.pente=calcul(-this.a/this.b)
-	this.normal= new Vecteur(this.a,this.b)
-	this.directeur= new Vecteur(-this.b,this.a)
+	this.normal= vecteur(this.a,this.b)
+	this.directeur= vecteur(-this.b,this.a)
 	this.svg = function(coeff=20){
 		let A = point(this.x1,this.y1);
 		let B = point(this.x2,this.y2);
-		let A1 = pointSurSegment(A,B,-5);
-		let B1 = pointSurSegment(B,A,-5);
+		let A1 = pointSurSegment(A,B,-10);
+		let B1 = pointSurSegment(B,A,-10);
 		return `<line x1="${calcul(A1.x*coeff)}" y1="${calcul(-A1.y*coeff)}" x2="${calcul(B1.x*coeff)}" y2="${calcul(-B1.y*coeff)}" stroke="${this.color}" />`
 	}
 	this.tikz = function() {
 		let A = point(this.x1,this.y1);
 		let B = point(this.x2,this.y2);
-		let A1 = pointSurSegment(A,B,-5);
-		let B1 = pointSurSegment(B,A,-5);
+		let A1 = pointSurSegment(A,B,-10);
+		let B1 = pointSurSegment(B,A,-10);
 		return `\\draw[${color}] (${A1.x},${A1.y})--(${B1.x},${B1.y});`
 	}
 }
@@ -362,9 +361,9 @@ function droite(...args){
  * @Auteur Jean-Claude Lhote
  */
 function DroiteParPointEtVecteur(A,v,color='black') {
-	let B = new Point(calcul(A.x+v.x),calcul(A.y+v.y))
+	let B = point(calcul(A.x+v.x),calcul(A.y+v.y))
 	Droite.call(this,A,B)
-	this.color=color
+	this.color = color
 }
 function droiteParPointEtVecteur(...args) {
 	return new DroiteParPointEtVecteur(...args)
@@ -373,37 +372,45 @@ function droiteParPointEtVecteur(...args) {
  * @Auteur Jean-Claude Lhote
  */
 function DroiteParPointEtParallele(A,d,color='black') {
-	DroiteParPointEtVecteur.call(A,d.directeur,color);
-	mesObjets.push(this);
-}
-/**
- * @Auteur Jean-Claude Lhote
- */
-function DroiteParPointEtPerpendiculaire(A,d,color='black'){
-	DroiteParPointEtVecteur.call(A,d.normal,color);
+	DroiteParPointEtVecteur.call(this,A,d.directeur,color);
 	mesObjets.push(this);
 }
 function droiteParPointEtParallele(...args){
 	return new DroiteParPointEtParallele(...args);
 }
+/**
+ * @Auteur Jean-Claude Lhote
+ */
+function DroiteParPointEtPerpendiculaire(A,d,color='black'){
+	DroiteParPointEtVecteur.call(this,A,d.normal,color);
+	mesObjets.push(this);
+}
 function droiteParPointEtPerpendiculaire(...args){
 	return new DroiteParPointEtPerpendiculaire(...args);
 }
+
 function DroiteHorizontaleParPoint(A,color='black'){
-	DroiteParPointEtPente.call(A,0,color)
+	DroiteParPointEtPente.call(this,A,0,color)
 	mesObjets.push(this)
 }
+function droiteHorizontaleParPoint(...args){
+	return new DroiteHorizontaleParPoint(...args);
+}
+
 function DroiteVerticaleParPoint(A,color='black'){
-	DroiteParPointEtVecteur.call(A,new Vecteur(0,1),color)
+	DroiteParPointEtVecteur.call(this,A,vecteur(0,1),color)
+}
+function droiteVerticaleParPoint(...args){
+	return new DroiteVerticaleParPoint(...args);
 }
 /**
  * 
  *@Auteur Jean-Claude Lhote
  */
-function DroiteParPointEtPente(A,k) {
-	let B=new Point(calcul(A.x+1),calcul(A.y+k));
+function DroiteParPointEtPente(A,k,color='black') {
+	let B = point(calcul(A.x+1),calcul(A.y+k));
 	Droite.call(this,A,B);
-	this.color=color;
+	this.color = color;
 	mesObjets.push(this);
 }
 function droiteParPointEtPente(...args) {
@@ -792,6 +799,7 @@ function Vecteur(arg1,arg2,nom='')  {
 		this.x=-this.x
 		this.y=-this.y
 	}
+
 	
 }
 function vecteur(...args){

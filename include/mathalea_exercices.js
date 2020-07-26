@@ -140,6 +140,7 @@ var liste_des_exercices_disponibles = {
 		'4G11' : Pavages_et_translation,
 		'4G20' : Exercice_Pythagore,
 		'4G20-1' : Egalite_Pythagore,
+		'4G20-2' : Racine_caree_de_carres_parfaits,
 		'4G21' : Reciproque_Pythagore,
 		'4G22' : Problemes_Pythagore,
 		'4G30' : Thales_4eme,
