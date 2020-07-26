@@ -4288,7 +4288,7 @@ function Constructibilite_des_triangles(){
 				type_de_questions_disponibles = [1,2,3];
 				this.nb_questions = type_de_questions_disponibles.length;	
 			} else if (this.sup ==2) {
-				type_de_questions_disponibles = [1,2,4];
+				type_de_questions_disponibles = [choice([1,2,3]),4];
 				this.nb_questions = type_de_questions_disponibles.length;	
 			};
 		} else if (this.exo == this.beta+'5G31-1') {//via angles
@@ -4296,7 +4296,7 @@ function Constructibilite_des_triangles(){
 				type_de_questions_disponibles = [5,6,7];
 				this.nb_questions = type_de_questions_disponibles.length;	
 			} else if (this.sup ==2) {
-				type_de_questions_disponibles = [5,6,8];
+				type_de_questions_disponibles = [choice([5,6,7]),8];
 				this.nb_questions = type_de_questions_disponibles.length;	
 			};
 		} else {			
