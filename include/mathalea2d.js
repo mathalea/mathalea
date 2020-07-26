@@ -8,7 +8,7 @@ let mesObjets = [];
 * @Auteur Rémi Angot
 */
 function ObjetMathalea2D() {
-	this.positionLabel = 'above left';
+	this.positionLabel = 'above';
 	this.isVisible = true;
 	this.color = 'black';
 	mesObjets.push(this);
@@ -22,7 +22,7 @@ function ObjetMathalea2D() {
 *
 * @Auteur Rémi Angot
 */
-function Point(arg1,arg2,arg3,positionLabel = 'above left') {
+function Point(arg1,arg2,arg3,positionLabel = 'above') {
 	ObjetMathalea2D.call(this);
 	if (arguments.length==1) {
 		this.nom = arg1 
@@ -75,7 +75,7 @@ function point(...args){
 *
 * @Auteur Rémi Angot
 */
-function PointParTranslation2Points(O,A,B,nom='',positionLabel = 'above left') {
+function PointParTranslation2Points(O,A,B,nom='',positionLabel = 'above') {
 	Point.call(this,nom);
 	this.positionLabel=positionLabel;
 	this.x = calcul(O.x+B.x-A.x);
@@ -92,7 +92,7 @@ function pointParTranslation2Points(...args){
 *
 * @Auteur Rémi Angot
 */
-function PointParTranslation(O,v,nom='',positionLabel = 'above left') {
+function PointParTranslation(O,v,nom='',positionLabel = 'above') {
 	Point.call(this,nom);
 	this.positionLabel=positionLabel;
 	this.x = calcul(O.x+v.x);
@@ -109,7 +109,7 @@ function pointParTranslation(...args){
 *
 * @Auteur Rémi Angot
 */
-function PointParHomothetie(A,O,k,nom='',positionLabel = 'above left') {
+function PointParHomothetie(A,O,k,nom='',positionLabel = 'above') {
 	Point.call(this,nom);
 	this.positionLabel=positionLabel;
 	this.x = calcul(O.x+k*(A.x-O.x))
@@ -126,7 +126,7 @@ function pointParHomothetie(...args){
 *
 * @Auteur Rémi Angot
 */
-function PointSurSegment(A,B,l,nom='',positionLabel = 'above left') {
+function PointSurSegment(A,B,l,nom='',positionLabel = 'above') {
 	PointParHomothetie.call(this,B,A,calcul(l/longueur(A,B)),nom,positionLabel);
 }
 function pointSurSegment(...args){
@@ -140,7 +140,7 @@ function pointSurSegment(...args){
 *
 * @Auteur Rémi Angot
 */
-function PointMilieu(A,B,nom='',positionLabel = 'above left') {
+function PointMilieu(A,B,nom='',positionLabel = 'above') {
 	Point.call(this,nom);
 	this.x = calcul((A.x+B.x)/2);
 	this.y = calcul((A.y+B.y)/2);
@@ -157,7 +157,7 @@ function pointMilieu(...args){
 * 
 * @Auteur Rémi Angot et Jean-Claude Lhote
 */
-function PointParRotation(A,O,angle,nom='',positionLabel = 'above left') {
+function PointParRotation(A,O,angle,nom='',positionLabel = 'above') {
 	Point.call(this,nom);
 	this.x = calcul(O.x+(A.x-O.x)*Math.cos(angle*Math.PI/180)-(A.y-O.y)*Math.sin(angle*Math.PI/180));
     this.y = calcul(O.y+(A.x-O.x)*Math.sin(angle*Math.PI/180)+(A.y-O.y)*Math.cos(angle*Math.PI/180));
@@ -173,7 +173,7 @@ function pointParRotation(...args){
  * A est un objet de type Point (ses coordonnées x et y renseignées)
  * @Auteur Jean-Claude Lhote
  */
-function PointParSymetrieAxiale(A,d,nom='',positionLabel = 'above left') {
+function PointParSymetrieAxiale(A,d,nom='',positionLabel = 'above') {
 	Point.call(this,nom);
 	let a=d.a,b=d.b,c=d.c,k=1/(a*a+b*b)
 	if (a==0) {
@@ -198,7 +198,7 @@ function pointParSymetrieAxiale(...args){
  * N = pointParProjectionOrtho(M,d,'N','below left')
  *@Auteur Jean-Claude Lhote
  */
-function PointParProjectionOrtho(M,d,nom='',positionLabel='above left') {
+function PointParProjectionOrtho(M,d,nom = '',positionLabel = 'above') {
 	Point.call(this,nom);
 	let a=d.a,b=d.b,c=d.c,k=calcul(1/(a*a+b*b))
 	if (a==0) {
@@ -237,28 +237,28 @@ function LabelPoints(...points) {
 		for (let point of this.listePoints){
 			switch (point.positionLabel){
 				case 'left':
-				code += `<text x="${calcul(point.xSVG(coeff)-10)}" y="${point.ySVG(coeff)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text>\n `; 
+				code += `<text x="${calcul(point.xSVG(coeff)-10)}" y="${point.ySVG(coeff)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'right':
-				code += `<text x="${calcul(point.xSVG(coeff)+10)}" y="${point.ySVG(coeff)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text>\n `; 
+				code += `<text x="${calcul(point.xSVG(coeff)+10)}" y="${point.ySVG(coeff)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'below':
-				code += `<text x="${point.xSVG(coeff)}" y="${calcul(point.ySVG(coeff)+10)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text>\n `; 
+				code += `<text x="${point.xSVG(coeff)}" y="${calcul(point.ySVG(coeff)+10)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'above':
-				code += `<text x="${point.xSVG(coeff)}" y="${calcul(point.ySVG(coeff)-10)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text>\n `; 
+				code += `<text x="${point.xSVG(coeff)}" y="${calcul(point.ySVG(coeff)-10)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'above right':
-				code += `<text x="${calcul(point.xSVG(coeff)+10)}" y="${calcul(point.ySVG(coeff)-10)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text>\n `; 
+				code += `<text x="${calcul(point.xSVG(coeff)+10)}" y="${calcul(point.ySVG(coeff)-10)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'below left':
-				code += `<text x="${calcul(point.xSVG(coeff)-10)}" y="${calcul(point.ySVG(coeff)+10)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text>\n `; 
+				code += `<text x="${calcul(point.xSVG(coeff)-10)}" y="${calcul(point.ySVG(coeff)+10)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'below right':
-				code += `<text x="${calcul(point.xSVG(coeff)+10)}" y="${calcul(point.ySVG(coeff)+10)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text>\n `; 
+				code += `<text x="${calcul(point.xSVG(coeff)+10)}" y="${calcul(point.ySVG(coeff)+10)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				default :
-				code += `<text x="${calcul(point.xSVG(coeff)-10)}" y="${calcul(point.ySVG(coeff)-10)}" text-anchor="middle" alignment-baseline="central">${point.nom}</text>\n `; 
+				code += `<text x="${calcul(point.xSVG(coeff)-10)}" y="${calcul(point.ySVG(coeff)-10)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 			}
 		}
@@ -276,6 +276,53 @@ function LabelPoints(...points) {
 function labelPoints(...args){
 	return new LabelPoints(...args)
 }
+
+/**
+* texteParPoint('mon texte',A) // Écrit 'mon texte' avec A au centre du texte
+* texteParPoint('mon texte',A,'gauche') // Écrit 'mon texte' à gauche de A (qui sera la fin du texte)
+* texteParPoint('mon texte',A) // Écrit 'mon texte' à droite de A (qui sera le début du texte)
+*
+* @Auteur Rémi Angot
+*/
+function TexteParPoint(texte,A,orientation = "milieu") {
+	ObjetMathalea2D.call(this);
+	this.svg = function(coeff){
+		let code =''
+		switch (orientation){
+			case 'milieu':
+			code = `<text x="${A.xSVG(coeff)}" y="${A.ySVG(coeff)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${texte}</text>\n `; 
+			break;
+			case 'gauche':
+			code = `<text x="${A.xSVG(coeff)}" y="${A.ySVG(coeff)}" text-anchor="end" alignment-baseline="central" fill="${this.color}">${texte}</text>\n `; 
+			break;
+			case 'droite':
+			code = `<text x="${A.xSVG(coeff)}" y="${A.ySVG(coeff)}" text-anchor="start" alignment-baseline="central" fill="${this.color}">${texte}</text>\n `; 
+			break;
+		}
+		return code
+	}
+	this.tikz = function(){
+		let anchor = '';
+		if (orientation=='gauche') {
+			anchor = 'east'
+		}
+		if (orientation=='droite') {
+			anchor = 'west'
+		}
+		if (orientation=='milieu') {
+			anchor = 'center'
+		}
+		let code = `\\draw (${A.x},${A.y}) node[anchor = ${anchor}] {${texte}};`;
+		return code
+	}
+
+}
+function texteParPoint(...args){
+	return new TexteParPoint(...args)
+}
+
+
+
 /**
  * d = droite(A,B) // La droite passant par A et B
  * d = droite(A,B,'(d)') // La droite passant par A et B se nommant (d)
@@ -357,6 +404,29 @@ function droite(...args){
 }
 
 /**
+ * d = mediatrice(A,B) // Médiatrice de [AB]
+ * d = mediatrice(A,B,'blue') // Médiatrice de [AB] en bleu
+ * d = mediatrice(A,B,'blue',false) // Médiatrice de [AB] en bleu sans codage
+ * 
+ * @Auteur Jean-Claude Lhote
+ */
+function Mediatrice(A,B,color = 'black',codage = true){
+	this.color = color
+	let O = pointMilieu(A,B)
+	let M = pointParRotation(A,O,90)
+	let N = pointParRotation(A,O,-90)
+	if (codage) {
+		let c = codageAngleDroit(M,O,B,this.color)
+	}
+	let d = droite(M,N)
+	d.color = this.color 
+	return d
+}
+function mediatrice(...args){
+	return new Mediatrice(...args)
+}
+
+/**
  * d = droiteParPointEtVecteur(A,v,'red') //Droite passant par A, de vecteur directeur v et de couleur rouge
  * @Auteur Jean-Claude Lhote
  */
@@ -426,6 +496,7 @@ function droiteParPointEtPente(...args) {
 */
 function Segment(arg1,arg2,arg3,arg4,color='black'){
 	ObjetMathalea2D.call(this);
+	this.color = color;
 	this.extremites='';
 	if (arguments.length==2) {
 		this.x1 = arg1.x;
@@ -490,29 +561,34 @@ function segment(...args){
 }
 
 /**
-* * s = segment(A,B) //Segment d'extrémités A et B
-* s = segment(A,B,'blue') //Segment d'extrémités A et B et de couleur bleue
-* s = segment(x1,y1,x2,y2) //Segment définit par les coordonnées des deux extrémités
-* s = segment(x1,y1,x2,y2,'blue') //Segment définit par les coordonnées des deux extrémités et de couleur bleue
+* s = segmentAvecExtremites(A,B) //Segment d'extrémités A et B
+* s = segmentAvecExtremites(A,B,'blue') //Segment d'extrémités A et B et de couleur bleue
+* s = segmentAvecExtremites(x1,y1,x2,y2) //Segment définit par les coordonnées des deux extrémités
+* s = segmentAvecExtremites(x1,y1,x2,y2,'blue') //Segment définit par les coordonnées des deux extrémités et de couleur bleue
 *
 * @Auteur Rémi Angot
 */
 function SegmentAvecExtremites(...args){
 	Segment.call(this,...args);
-	
-	let A = point(this.x1,this.y1)
-	let B = point(this.x2,this.y2)
-	let M = pointSurSegment(B,A,.2)
-	let B1 = pointParRotation(M,B,90)
-	let B2 = pointParRotation(M,B,-90)
-	let s1 = segment(B1,B2)
-	let N = pointSurSegment(A,B,.2)
-	let A1 = pointParRotation(N,A,90)
-	let A2 = pointParRotation(N,A,-90)
-	let s2 = segment(A1,A2)
+	this.extremites='|-|'
 }
 function segmentAvecExtremites(...args){
 	return new SegmentAvecExtremites(...args)
+}
+
+/**
+* * s = DemiDroite(A,B) //Segment d'extrémités A et B
+* s = DemiDroite(A,B,'blue') //Segment d'extrémités A et B et de couleur bleue
+*
+* @Auteur Rémi Angot
+*/
+function DemiDroite(A,B,color='black'){
+	let B1 = pointSurSegment(B,A,-10)
+	Segment.call(this,A,B1,color);
+	this.extremites='|-'
+}
+function demiDroite(...args){
+	return new DemiDroite(...args)
 }
 
 /**
@@ -525,9 +601,10 @@ function segmentAvecExtremites(...args){
 */
 function TracePoint(A,taille=0.3,color='black'){
 	ObjetMathalea2D.call(this);
+	this.color = color;
 	this.svg = function(coeff=20){
-		let code = `<line x1="${calcul((A.x-taille)*coeff)}" y1="${calcul((-A.y-taille)*coeff)}" x2="${calcul((A.x+taille)*coeff)}" y2="${calcul((-A.y+taille)*coeff)}" stroke="${color}" />`
-		code += `\n<line x1="${calcul((A.x-taille)*coeff)}" y1="${calcul((-A.y+taille)*coeff)}" x2="${calcul((A.x+taille)*coeff)}" y2="${calcul((-A.y-taille)*coeff)}" stroke="${color}" />`
+		let code = `<line x1="${calcul((A.x-taille)*coeff)}" y1="${calcul((-A.y-taille)*coeff)}" x2="${calcul((A.x+taille)*coeff)}" y2="${calcul((-A.y+taille)*coeff)}" stroke="${this.color}" />`
+		code += `\n<line x1="${calcul((A.x-taille)*coeff)}" y1="${calcul((-A.y+taille)*coeff)}" x2="${calcul((A.x+taille)*coeff)}" y2="${calcul((-A.y-taille)*coeff)}" stroke="${this.color}" />`
 		return code 
 	}
 	this.tikz = function(){
@@ -546,26 +623,30 @@ function tracePoints(...points){
 
 /**
 * polygone(A,B,C,D,E) //Trace ABCDE
-*
+* polygone([A,B,C,D],"blue") // Trace ABCD en bleu
 * @Auteur Rémi Angot
 */
 function Polygone(...points){
 	ObjetMathalea2D.call(this);
 	if (Array.isArray(points[0])) { //Si le premier argument est un tableau
 		this.listePoints = points[0]
+		if (points[1]) {
+			this.color = points[1]
+		}
+		this.nom = this.listePoints.join()
 	} else {
 		this.listePoints = points
-	}
-	this.nom = '';
-	for (let point of points){
-		this.nom += point.nom
+		this.nom = this.listePoints.join()
 	}
 	this.svg = function(coeff=20){
-		let binomeXY = "";
-		for (let point of this.listePoints){
-			binomeXY += `${calcul(point.x*coeff)},${calcul(-point.y*coeff)} `; 
+		if (this.isVisible) {
+			let binomeXY = "";
+			for (let point of this.listePoints){
+				binomeXY += `${calcul(point.x*coeff)},${calcul(-point.y*coeff)} `; 
+			}
+			return `<polygon points="${binomeXY}" fill="none" stroke="${this.color}" />`
 		}
-		return `<polygon points="${binomeXY}" fill="none" stroke="black" />`
+			
 	}
 	this.tikz = function(){
 		let binomeXY = "";
@@ -578,6 +659,47 @@ function Polygone(...points){
 }
 function polygone(...args){
 	return new Polygone(...args)
+}
+
+/**
+* polyline(A,B,C,D,E) //Trace la ligne brisée ABCDE
+*
+* @Auteur Rémi Angot
+*/
+function Polyline(...points){
+	ObjetMathalea2D.call(this);
+	if (Array.isArray(points[0])) { //Si le premier argument est un tableau
+		this.listePoints = points[0]
+		this.color = points[1]
+	} else {
+		this.listePoints = points
+	}
+	this.nom = '';
+	for (let point of points){
+		this.nom += point.nom
+	}
+	this.svg = function(coeff=20){
+		if (this.isVisible) {
+			let binomeXY = "";
+			for (let point of this.listePoints){
+				binomeXY += `${calcul(point.x*coeff)},${calcul(-point.y*coeff)} `; 
+			}
+			return `<polyline points="${binomeXY}" fill="none" stroke="${this.color}" />`
+		}
+			
+	}
+	this.tikz = function(){
+		let binomeXY = "";
+		for (let point of this.listePoints){
+			binomeXY += `(${point.x},${point.y})--`
+		}
+		binomeXY = binomeXY.substr(0,binomeXY.length-2)
+		return `\\draw ${binomeXY};`
+	}
+
+}
+function polyline(...args){
+	return new Polyline(...args)
 }
 /**
 * polygoneParTranslation(p,A,B) //Trace l'image de p dans la translation qui transfome A en B
@@ -669,16 +791,17 @@ function polygoneParSymetrieAxiale(...args){
 *
 * @Auteur Rémi Angot
 */
-function Carre(A,B){
-	Polygone.call(this)
+function Carre(A,B,color){
+	ObjetMathalea2D.call(this)
+	this.color = color
 	let c = pointParRotation(A,B,-90)
 	let d = pointParRotation(B,A,90)
-	let p = polygone(A,B,c,d)
-	let codage1 = codageAngleDroit(d,c,B)
-	let codage2 = codageAngleDroit(c,B,A)
-	let codage3 = codageAngleDroit(A,d,c)
-	let codage4 = codageAngleDroit(B,A,d)
+	let codage1 = codageAngleDroit(d,c,B,this.color)
+	let codage2 = codageAngleDroit(c,B,A,this.color)
+	let codage3 = codageAngleDroit(A,d,c,this.color)
+	let codage4 = codageAngleDroit(B,A,d,this.color)
 	this.listePoints = [A,B,c,d]
+	return polygone(this.listePoints,color)
 }
 function carre(...args){
 	return new Carre(...args)
@@ -689,16 +812,17 @@ function carre(...args){
 *
 * @Auteur Rémi Angot
 */
-function CarreIndirect(A,B){
-	Polygone.call(this)
+function CarreIndirect(A,B,colot){
+	ObjetMathalea2D.call(this)
+	this.color = color
 	let c = pointParRotation(A,B,90)
 	let d = pointParRotation(B,A,-90)
-	let p = polygone(A,B,c,d)
-	let codage1 = codageAngleDroit(B,c,d)
-	let codage2 = codageAngleDroit(A,B,c)
-	let codage3 = codageAngleDroit(c,d,A)
-	let codage4 = codageAngleDroit(d,A,B)
+	let codage1 = codageAngleDroit(B,c,d,this.color)
+	let codage2 = codageAngleDroit(A,B,c,this.color)
+	let codage3 = codageAngleDroit(c,d,A,this.color)
+	let codage4 = codageAngleDroit(d,A,B,this.color)
 	this.listePoints = [A,B,c,d]
+	return polygone(this.listePoints,color)
 }
 function carreIndirect(...args){
 	return new CarreIndirect(...args)
@@ -714,10 +838,7 @@ function PolygoneRegulier(A,B,n){
 	let p = [A,B]
 	for (let i=1 ; i<n-1 ; i++){
 		p[i+1] = pointParRotation(p[i-1],p[i],calcul(180-360/n))
-		segment(p[i-1],p[i])
 	}
-	segment(p[n-2],p[n-1])
-	segment(p[n-1],p[0])
 	this.listePoints = p
 }
 function polygoneRegulier(...args){
@@ -807,30 +928,57 @@ function vecteur(...args){
 }
 
 /**
+* * c = cercle(O,r) //Cercle de centre O et de rayon r
+*
+* @Auteur Rémi Angot
+*/
+function Cercle(O,r,color = 'black'){
+	ObjetMathalea2D.call(this);
+	this.color = color;
+	
+	this.svg = function(coeff=20){
+		return `<circle cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" r="${r*coeff}" stroke="${this.color}" fill="none"/> />`
+	}
+	this.tikz = function(){
+		return `\\draw (${O.x},${O.y}) circle (${r});`
+	}
+}
+function cercle(...args){
+	return new Cercle(...args)
+}
+
+/**
+* * c = cercle(O,r) //Cercle de centre O et de rayon r
+*
+* @Auteur Rémi Angot
+*/
+function CercleCentrePoint(O,M,color = 'black'){
+	Cercle.call(this,O,longueur(O,M),color);
+}
+function cercleCentrePoint(...args){
+	return new CercleCentrePoint(...args)
+}
+
+/**
  * codageAngleDroit(A,O,B) //Fait un codage d'angle droit de 3 mm pour l'angle direct AOB
  * codageAngleDroit(A,O,B,.5) //Fait un codage d'angle droit de 5 mm pour l'angle direct AOB
  
  * 
  * @Auteur Rémi Angot
  */
-function CodageAngleDroit(A,O,B,d = .3)  {
+function CodageAngleDroit(A,O,B,color='black',d = .3)  {
 	ObjetMathalea2D.call(this);
-	let a = new PointSurSegment(O,B,d);
+	this.color = color;
+	let a = pointSurSegment(O,B,d);
 	let b = {};
 	if (angle(A,O,B)>0) {
-		b = new PointParRotation(O,a,90)
+		b = pointParRotation(O,a,90)
 	} else {
-		b = new PointParRotation(O,a,-90)
+		b = pointParRotation(O,a,-90)
 	}
-	let c = new PointSurSegment(O,A,d);
-	let s1 = new Segment(a,b)
-	let s2 = new Segment(b,c)
-	this.svg = function() {
-		return s1.svg()+'\n'+s2.svg()
-	}
-	this.tikz = function() {
-		return s1.tikz()+'\n'+s2.tikz()
-	}
+	let c = pointSurSegment(O,A,d);
+	return polyline([a,b,c],color)
+	
 
 }
 function codageAngleDroit(...args){
