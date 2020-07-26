@@ -4048,10 +4048,10 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		let longueurs = [self.l1,self.l2,self.l3];
 		//console.log('longueurs : '+longueurs);
 		longueurs.sort(function(a,b){
-			return a-b;
+			return calcul(a-b);
 		});
 		//console.log('longueurs sort() : '+longueurs);
-		if (longueurs[2] == (longueurs[0]+longueurs[1])) {
+		if (longueurs[2] == calcul(longueurs[0]+longueurs[1])) {
 			return true;
 		} else {
 			return false;
