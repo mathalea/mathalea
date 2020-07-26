@@ -285,8 +285,9 @@ function labelPoints(...args){
 *
 * @Auteur Rémi Angot
 */
-function TexteParPoint(texte,A,orientation = "milieu") {
+function TexteParPoint(texte,A,orientation = "milieu",color = 'black') {
 	ObjetMathalea2D.call(this);
+	this.color=color
 	this.svg = function(coeff){
 		let code =''
 		if (Number.isInteger(orientation)) {
@@ -388,6 +389,12 @@ function Droite(arg1,arg2,arg3,arg4,color='black') {
 		}
 	}
 	if (this.b!=0) this.pente=calcul(-this.a/this.b)
+	if (this.b==0) {
+		this.angleAvecHorizontale = 90
+	} else {
+		this.angleAvecHorizontale = calcul(Math.atan(this.pente)*180/Math.PI,1)
+
+	}
 	this.normal= vecteur(this.a,this.b)
 	this.directeur= vecteur(-this.b,this.a)
 	this.svg = function(coeff=20){
@@ -442,7 +449,7 @@ function mediatrice(...args){
 function Bissectrice(A,O,B,color = 'black',codage = true){
 	this.color = color
 	let demiangle = calcul(angleOriente(A,O,B)/2)
-	let m = pointSurSegment(O,B,3)
+	let m = pointSurSegment(O,A,3)
 	let M = pointParRotation(m,O,demiangle)
 	let d = demiDroite(O,M)	
 	if (codage) {
@@ -546,9 +553,9 @@ function Segment(arg1,arg2,arg3,arg4,color='black'){
 		this.color = color
 	}
 
-	this.longueur = function(){
-		return calcul(Math.sqrt((this.x2-this.x1)**2+(this.y2-this.y1)**2));
-	}
+	this.longueur = calcul(Math.sqrt((this.x2-this.x1)**2+(this.y2-this.y1)**2));
+
+	this.angleAvecHorizontale = calcul(Math.atan2(this.y2-this.y1, this.x2-this.x1)*180/Math.PI); 
 
 	this.svg = function(coeff=20){
 		if (this.extremites.length>1) {
@@ -999,7 +1006,6 @@ function cercleCentrePoint(...args){
 /**
  * codageAngleDroit(A,O,B) //Fait un codage d'angle droit de 3 mm pour l'angle direct AOB
  * codageAngleDroit(A,O,B,.5) //Fait un codage d'angle droit de 5 mm pour l'angle direct AOB
- 
  * 
  * @Auteur Rémi Angot
  */
@@ -1016,14 +1022,86 @@ function CodageAngleDroit(A,O,B,color='black',d = .3)  {
 	let c = pointSurSegment(O,A,d);
 	return polyline([a,b,c],color)
 	
-
 }
 function codageAngleDroit(...args){
 	return new CodageAngleDroit(...args)
 }
 
+/**
+ * CoteSegment(A,B) // Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
+ * 
+ * @Auteur Rémi Angot
+ */
+function CoteSegment(A,B,color='black',d = .5)  {
+	ObjetMathalea2D.call(this);
+	this.color = color;
+	let O = pointMilieu(A,B)
+	let M = pointParRotation(A,O,-90)
+	let N = pointSurSegment(O,M,d)
+	let s = segment(A,B)
+	s.isVisible = false
+	let longueur = string_nombre(arrondi(s.longueur,1))
+	let angle
+	if (B.x>A.x) {
+		angle = -parseInt(s.angleAvecHorizontale)
+	} else {
+		angle = 180-parseInt(s.angleAvecHorizontale)
+	}
+	return texteParPoint(longueur,N,angle,this.color)
+	
+}
+function coteSegment(...args){
+	return new CoteSegment(...args)
+}
 
+/**
+ * CodeSegment(A,B,'X','blue') // Code le segment [AB] avec une croix bleue
+ * 
+ * @Auteur Rémi Angot
+ */
+function CodeSegment(A,B,mark='||',color='black')  {
+	ObjetMathalea2D.call(this);
+	this.color = color;
+	let O = pointMilieu(A,B)
+	let s = segment(A,B)
+	s.isVisible = false
+	let angle
+	if (B.x>A.x) {
+		angle = -parseInt(s.angleAvecHorizontale)
+	} else {
+		angle = 180-parseInt(s.angleAvecHorizontale)
+	}
+	return texteParPoint(mark,O,angle,this.color)
+	
+}
+function codeSegment(...args){
+	return new CodeSegment(...args)
+}
 
+/**
+ * CodeSegment(A,B,'X','blue') // Code le segment [AB] avec une croix bleue
+ * 
+ * @Auteur Rémi Angot
+ */
+function CodeSegments(mark = '||',color = 'black',...args)  {
+	ObjetMathalea2D.call(this);
+	console.log(args.length)
+	if (Array.isArray(args[0])) { // Si on donne une liste de points
+		for (let i = 0; i < args[0].length-1; i++) {
+			codeSegment(args[0][i],args[0][i+1],mark,color)
+		}
+			codeSegment(args[0][args[0].length-1],args[0][0],mark,color)
+	} else {
+		for (let i = 0; i < args.length; i+=2) {
+			codeSegment(args[i],args[i+1],mark,color)
+		}
+	}
+		
+	
+}
+function codeSegments(...args){
+	return new CodeSegments(...args)
+}
 
 /**
 * longueur(A,B) renvoie la distance de A à B
@@ -1054,6 +1132,7 @@ function angle(A,O,B){
 	let AB = longueur(A,B);
 	return calcul(Math.acos((AB**2-OA**2-OB**2)/(-2*OA*OB))*180/Math.PI,2)
 }
+
 /**
  * Retourne la valeur signée de l'angle AOB en degré.
  * @Auteur Jean-Claude Lhote
