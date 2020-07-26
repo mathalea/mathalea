@@ -4405,10 +4405,43 @@ function Constructibilite_des_triangles(){
 					// texte_corr+=  ` <br>Combien de tels triangles? Pertinent?`
 					break;
 				case 3 : // 3 longueurs non constructible
-					texte = `3 longueurs  --> non constructible`;
-					texte+=  ` <br>Combien de tels triangles?`
-					texte_corr = `3 longueurs -->  non constructible`;
-					texte_corr+=  ` <br>Combien de tels triangles?`
+				  	// on initialise les longueurs sinon la méthode isTrueTriangleLongueurs() renvoie false!
+					l1 = randint(l_min,l_max);
+					l2 = randint(l_min,l_max);
+					l3 = randint(l_min,l_max);
+					triangle.l1 = l1;
+					triangle.l2 = l2;
+					triangle.l3 = l3;	
+
+					while (triangle.isTrueTriangleLongueurs()) {						
+						l1 = randint(l_min,l_max);
+						l2 = randint(l_min,l_max);
+						l3 = randint(l_min,l_max);
+						triangle.l1 = l1;
+						triangle.l2 = l2;
+						triangle.l3 = l3;						
+					};
+					texte = `${triangle.getNom()} tel que ${triangle.getLongueurs()[0]} $= ${triangle.l1}$ cm ; `;					
+					texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et ${triangle.getLongueurs()[2]} $= ${triangle.l3}$ cm.`;
+					// on crée l'objet longueurs + valeurs des côtés du triangle
+					// let current_triangle = [];
+					for (let i=0;i<3;i++) {
+						current_triangle.push({longueur: triangle.getLongueurs()[i], valeur: triangle.getLongueursValeurs()[i]});
+					};
+					// on trie les couples longueurs/valeurs du triangle selon les valeurs croissantes.
+					current_triangle.sort(function (a, b) {
+						return a.valeur - b.valeur;
+					});
+	
+					texte_corr = `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].longueur} = ${current_triangle[2].valeur} cm, c'est le plus grand côté.`;
+					texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = ${current_triangle[0].valeur} + ${current_triangle[1].valeur} = ${calcul(current_triangle[0].valeur + current_triangle[1].valeur)} cm.`;
+					texte_corr += `<br> On constate que ${current_triangle[0].longueur} + ${current_triangle[1].longueur} < ${current_triangle[2].longueur}`;
+					texte_corr += `<br> ${texte_en_couleur('On ne peut donc pas construire le triangle '+triangle.getNom())}.`;
+					texte_corr += `<br><br>  ${texte_en_couleur('Aucun triangle de ce type n\'existe')}.`;
+					// texte = `3 longueurs  --> non constructible`;
+					// texte+=  ` <br>Combien de tels triangles?`
+					// texte_corr = `3 longueurs -->  non constructible`;
+					// texte_corr+=  ` <br>Combien de tels triangles?`
 					break;
 				case 4 : // 2 longueurs et le périmètre
 					texte = `2 longueurs et le périmètre --> constructible`;
