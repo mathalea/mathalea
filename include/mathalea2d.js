@@ -1012,7 +1012,14 @@ function angle(A,O,B){
 	let AB = longueur(A,B);
 	return calcul(Math.acos((AB**2-OA**2-OB**2)/(-2*OA*OB))*180/Math.PI,2)
 }
-
+/**
+ * retourne la valeur signée de l'angle AOB en degré.
+ * @Auteur Jean-Claude Lhote
+ */
+function angleoriente(A,O,B){
+	let A2=pointParRotation(A,O,90);
+	return Signe(A2.x*B.x+A2.y*B.y)*angle(A,O,B)
+}
 /**
 * angleradian(A,O,B) renvoie l'angle AOB en radian
 *

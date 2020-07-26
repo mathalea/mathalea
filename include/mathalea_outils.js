@@ -826,7 +826,17 @@ function signe(a) { // + ou -
 	}
 	return result;
 };
+/**
+ * 
+ * @param {number} a 
+ * -1 si a est négatif, 1 sinon.
+ * @Auteur Jean-Claude Lhote
+ */
 
+function Signe(a) {
+	if (a<0) return -1;
+	else return 1;
+}
 
 /**
 * Retourne un string avec la somme des chiffres
