@@ -4247,3 +4247,182 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 		}
 		return [expf,expn,expc,souscas]
 }
+
+/**
+ * Constructibilité des triangles
+ * Préciser ici les numéros des exos
+ * beta5G2 ; beta5G21-1 ; beta5G31-1
+ * @author Sébastien Lozano
+ */
+
+function Constructibilite_des_triangles(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()	
+	this.consigne = `Dire si les triangles suivants sont constructibles en justifiant.`;
+	this.sup=1;
+	if (this.exo == this.beta+'5G21-1') { // via longueurs
+		this.titre = `Constructibilité des triangles via les longueurs`;
+	} else if (this.exo == this.beta+'5G31-1') {//via angles
+		this.titre = `Constructibilité des triangles via les angles`;
+	} else {			
+		this.titre = "Constructibilité des triangles";	
+	};
+	//this.titre = "Constructibilité des triangles";	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.nb_questions_modifiable = false;
+
+
+	this.liste_packages = `bclogo`;
+	
+	let type_de_questions_disponibles;
+	
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.introduction=info_message({
+			titre : "Exercice BETA",
+			texte: "En cours de réalisation"
+		});
+
+		if (this.exo == this.beta+'5G21-1') { // via longueurs
+			if (this.sup ==1) {
+				type_de_questions_disponibles = [1,2,3];
+				this.nb_questions = type_de_questions_disponibles.length;	
+			} else if (this.sup ==2) {
+				type_de_questions_disponibles = [choice([1,2,3]),4];
+				this.nb_questions = type_de_questions_disponibles.length;	
+			};
+		} else if (this.exo == this.beta+'5G31-1') {//via angles
+			if (this.sup ==1) {
+				type_de_questions_disponibles = [5,6,7];
+				this.nb_questions = type_de_questions_disponibles.length;	
+			} else if (this.sup ==2) {
+				type_de_questions_disponibles = [choice([5,6,7]),8];
+				this.nb_questions = type_de_questions_disponibles.length;	
+			};
+		} else {			
+			type_de_questions_disponibles = [1,2,3,4,5,6,7,8];
+			this.nb_questions = type_de_questions_disponibles.length;
+		};
+
+		//let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = type_de_questions_disponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		for (let i = 0, texte, texte_corr,l1,l2,l3,a1,a2,a3, cpt=0; i < this.nb_questions && cpt<50; ) {
+			
+			// on fixe longueur min et max en cm
+			let l_min = 2;
+			let l_max = 20;
+			// on fixe angle min et max en degré
+			let a_min = 30;
+			let a_max = 100;
+
+			// on crée un objet triangle 
+			let triangle = new Triangles();
+
+			switch (liste_type_de_questions[i]) {
+				case 1 : // 3 longueurs constructible
+					l1 = randint(l_min,l_max);
+					l2 = randint(l_min,l_max,l1);
+					//l3 = randint(l_min,l_max,[l1,l2]);
+					l3 = randint(l_min,l_max);
+					triangle.l1 = l1;
+					triangle.l2 = l2;
+					triangle.l3 = l3;
+					texte = `3 longueurs --> constructible ${l1} ; ${l2} ; ${l3}`;
+					texte+= `<br>Vrai triangle? `+triangle.isTrueTriangleLongueurs();
+					texte+= `<br>Triangle Plat? `+triangle.isPlatTriangleLongueurs();
+					texte+=  ` <br>Combien de tels triangles?`
+					if (triangle.isTrueTriangleLongueurs()) {
+						texte+=`2 à isométrie près, si on considère que direct et indirect ne sont pas superposables.`;	
+					};
+					if (triangle.isPlatTriangleLongueurs()) {
+						texte+=`1 seul.`;	
+					};
+
+					texte+=``;
+					texte_corr = `3 longueurs --> constructible`;
+					texte_corr+=  ` <br>Combien de tels triangles?`
+					break;
+				case 2 : // 3 longueurs plat
+					texte = `3 longueurs --> plat `;
+					texte+=  ` <br>Combien de tels triangles? Pertinent?`
+					texte_corr = `3 longueurs --> plat`;
+					texte_corr+=  ` <br>Combien de tels triangles? Pertinent?`
+					break;
+				case 3 : // 3 longueurs non constructible
+					texte = `3 longueurs  --> non constructible`;
+					texte_corr = `3 longueurs -->  non constructible`;
+					break;
+				case 4 : // 2 longueurs et le périmètre
+					texte = `2 longueurs et le périmètre --> constructible`;
+					texte+=  ` <br>Combien de tels triangles?`
+					texte_corr = `2 longueurs et le périmètre --> constructible`;
+					texte_corr+=  ` <br>Combien de tels triangles?`
+					break;
+				case 5 : //3 angles constructible
+					texte = `3 angles --> constructible`;
+					texte+=  ` <br>Combien de tels triangles?`
+					texte_corr = `3 angles --> constructible`;
+					texte_corr+=  ` <br>Combien de tels triangles?`
+					break;
+				case 6 : // 3 angles plat
+					texte = `3 angles --> plat. Pertient?`;
+					texte+=  ` <br>Combien de tels triangles?`
+					texte_corr = `3 angles --> plat. Pertinent?`;
+					texte_corr+=  ` <br>Combien de tels triangles?`
+					break;
+				case 7 : // 3 angles non constructible
+					texte = `3 angles --> non constructible`;
+					texte_corr = `3 angles --> non constructible`;
+					break;				
+				case 8 : // 2 angles et le 3e fonction du 1er ou du 2eme
+					texte = `2 angles et le 3e fonction du 1er ou du 2eme --> constructible`;
+					texte+=  ` <br>Combien de tels triangles?`
+					texte_corr = `2 angles et le 3e fonction du 1er ou du 2eme --> constructible`;
+					texte_corr+=  ` <br>Combien de tels triangles?`
+					break;
+			}
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}	
+			cpt++;	
+		}
+	liste_de_question_to_contenu(this);
+	}
+		if (this.exo == this.beta+'5G21-1') {
+			this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : 3 longueurs\n2 : 2 longueurs et le périmètre"];
+		} else if (this.exo == this.beta+'5G31-1') {
+			this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : 3 angles\n2 : 2 angles et le 3e en fonction du 1er ou du 2eme"];
+		} else {
+			//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : sans conversions de longueurs\n2 : avec conversions de longueurs"];
+		};
+}
+
+/**
+ * Vocabulaire des triangles 
+ * beta5G21-1
+ * @author Sébastien Lozano
+ */
+function Constructibilite_des_triangles_longueurs(){
+	this.beta = `beta`;
+	this.exo = this.beta+`5G21-1`;
+	//this.titre = `Constructibilité des triangles via les longueurs`;
+	Constructibilite_des_triangles.call(this);
+};
+
+/**
+ * Vocabulaire des triangles 
+ * beta5G31-1
+ * @author Sébastien Lozano
+ */
+function Constructibilite_des_triangles_angles(){
+	this.beta = `beta`;
+	this.exo = this.beta+`5G31-1`;
+	//this.titre = `Constructibilité des triangles via les angles`;
+	Constructibilite_des_triangles.call(this);
+};
