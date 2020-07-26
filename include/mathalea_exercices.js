@@ -20,6 +20,7 @@ var liste_des_exercices_disponibles = {
 		'CM018' : Somme_de_deux_nombres_maries_et_un_entier,
 		'CM019' : Le_compte_est_bonV3,
 		'CM020' : Le_compte_est_bonV4,
+		'BetaCM021' : LeVraiCompteEstBon,
 		'6C10' : Additions_soustractions_multiplications_posees,
 		'6C11' : Divisions_euclidiennes,
 		'6C10-1' :Tables_de_multiplications,
@@ -2043,23 +2044,41 @@ function LeVraiCompteEstBon(){ //en construction
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Générateur de \"Le compte est bon\"";
 	this.consigne = "Écrire un calcul égal au nombre cible en utilisant les nombres du tirage.";
-	this.nb_questions = 5;
+	this.nb_questions = 1;
 	this.nb_cols = 2;
 	this.nb_cols_corr = 2;
-	this.sup=30;
-	this.sup2=70;
+	this.sup="1-2-3-4-5-6";
 	var max_solution=70;
 	
 	this.nouvelle_version = function(numero_de_l_exercice){
+		let tirage,tirage2,N1,N2,N3,N4,N5,N6
+		if (!this.sup) tirage = [1,2,3,4,5,6]
+		else tirage = this.sup.split("-");
+		for (let i=0;i<6;i++) tirage[i]=parseInt(tirage[i])
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let tirage,solution,expression
-		let min_solution=parseInt(this.sup);
-		max_solution=parseInt(this.sup2);
-		if (min_solution>max_solution) {
-			min_solution=max_solution;
-			this.sup=this.sup2;
+		let calculs=[[]],operations=['+','*','-','/','opp+','inv*'],solution,liste_index_solution
+		let nb_operande=tirage.length
+		let index=0
+		for (let i=0;i<tirage.length;i++) {
+			N1=tirage[i]
+		//	tirage2=enleve_element_No_bis(tirage,i)
+			for (let op=0;op<operations.length;op++) {
+				for (let j=0;j<tirage.length;j++) {
+					if (j!=i) {
+						N2=tirage[j]
+						if (op==0&&j>i) calculs[index].push([N1,operations[op],N2,calcul(N1+N2)])
+						if (op==1&&j>i) calculs[index].push([N1,operations[op],N2,calcul(N1*N2)])
+						if (op==2&& N1>N2) calculs[index].push([N1,operations[op],N2,calcul(N1-N2)])
+						if (op==3&& estentier(calcul(N1/N2))) calculs[index].push([N1,operations[op],N2,calcul(N1/N2)])
+					}
+				}
+			}
 		}
+		console.log(calculs)
+
+
+/*
 		for (let i = 0, texte, texte_corr,cpt=0; i < this.nb_questions && cpt<50; ) {
 			solution_mathador=Trouver_solution_mathador(min_solution,max_solution)
 			tirage=solution_mathador[0]
@@ -2080,10 +2099,10 @@ function LeVraiCompteEstBon(){ //en construction
 						}		
 			cpt++;	
 		}
-	liste_de_question_to_contenu(this);
+	*/
+	// liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_numerique = ['Limite inférieure',max_solution];
-	this.besoin_formulaire2_numerique = ['Limite supérieure',100];
+	this.besoin_formulaire_texte = ['Choix des nombres du tirage (de aucun à cinq)','Nombres séparés par des tirets'] // Texte, tooltip
 }
 /**
  * Générateur de tirages pour un compte est bon avec en correction la solution mathador (4 opérations différentes).

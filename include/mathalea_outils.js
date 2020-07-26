@@ -83,6 +83,10 @@ function inferieurouegal(a,b,tolerance=epsilon) {
 	if (b-a>tolerance||egal(a,b,tolerance)) return true
 	else return false
 }
+function estentier(a,tolerance=epsilon) {
+	if (Math.abs(calcul(a-Math.round(a)))<tolerance) return true
+	else return false
+}
 
 
 /**
@@ -204,6 +208,44 @@ function enleve_element(array,item){
 		}
 	}
 }
+/**
+ * Enlève toutes les occurences d'un élément d'un tableau donné mais sans modifier le tableau en paramètre et renvoie le tableau modifié
+ * @Auteur Rémi Angot & Jean-Claude Lhote
+ */
+
+function enleve_element_bis(array,item) {
+	let tableaucopie=[]
+	for(i = 0;i<array.length;i++) {
+		tableaucopie.push(array[i])
+		}
+	for(var i = tableaucopie.length - 1; i >= 0; i--){
+		if(tableaucopie[i] == item) {
+			tableaucopie.splice(i, 1);
+		}
+	}
+	return tableaucopie
+}
+
+/**
+ * Enlève l'élément index d'un tableau
+ * @Auteur Jean-Claude Lhote
+ */
+function enleve_element_No(array,index) {
+	array.splice(index,1)
+}
+/**
+ * Enlève l'élément index d'un tableau sans modifier le tableau et retourne le résultat
+ * @Auteur Jean-Claude Lhote
+ */
+function enleve_element_No_bis(array,index){
+	let tableaucopie=[]
+	for(i = 0;i<array.length;i++) {
+		tableaucopie.push(array[i])
+	}
+	tableaucopie.splice(index,1)
+	return tableaucopie
+}
+
 
 /**
 * Retourne un élément au hasard de la liste sans appartenir à une liste donnée
