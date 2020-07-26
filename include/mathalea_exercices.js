@@ -20,6 +20,7 @@ var liste_des_exercices_disponibles = {
 		'CM018' : Somme_de_deux_nombres_maries_et_un_entier,
 		'CM019' : Le_compte_est_bonV3,
 		'CM020' : Le_compte_est_bonV4,
+		'BetaCM021' : LeVraiCompteEstBon,
 		'6C10' : Additions_soustractions_multiplications_posees,
 		'6C11' : Divisions_euclidiennes,
 		'6C10-1' :Tables_de_multiplications,
@@ -92,8 +93,13 @@ var liste_des_exercices_disponibles = {
 		'5G10' : Symetrie_axiale_5e,
 		'5G11' : Transformations_5e,
 		'5G12' : Pavages_et_demi_tour,
+		'beta5G2' : Constructibilite_des_triangles,// pour développer l'exercice global
+		'beta5G21-1' : Constructibilite_des_triangles_longueurs,// pour développer l'exercice global		
+		//'5G21-1' : Constructibilite_des_triangles_longueurs,		
 		'5G20-1' : Vocabulaire_des_triangles_5e,		   
 		'5G31' : Exercice_angles_triangles,
+		'beta5G31-1' : Constructibilite_des_triangles_angles,// pour développer l'exercice global
+		//'5G31-1' : Constructibilite_des_triangles_angles,
 		'5N13': Exercice_fractions_simplifier,
 		'5N13-2': Egalites_entre_fractions,
 		'5N110' : Variation_en_pourcentages,
@@ -2031,6 +2037,73 @@ function Vocabulaire_et_operations() {
 	this.besoin_formulaire2_case_a_cocher = ['Décimaux',false];
 
 }
+
+
+function LeVraiCompteEstBon(){ //en construction
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Générateur de \"Le compte est bon\"";
+	this.consigne = "Écrire un calcul égal au nombre cible en utilisant les nombres du tirage.";
+	this.nb_questions = 1;
+	this.nb_cols = 2;
+	this.nb_cols_corr = 2;
+	this.sup="1-2-3-4-5-6";
+	var max_solution=70;
+	
+	this.nouvelle_version = function(numero_de_l_exercice){
+		let tirage,tirage2,N1,N2,N3,N4,N5,N6
+		if (!this.sup) tirage = [1,2,3,4,5,6]
+		else tirage = this.sup.split("-");
+		for (let i=0;i<6;i++) tirage[i]=parseInt(tirage[i])
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		let calculs=[[]],operations=['+','*','-','/','opp+','inv*'],solution,liste_index_solution
+		let nb_operande=tirage.length
+		let index=0
+		for (let i=0;i<tirage.length;i++) {
+			N1=tirage[i]
+		//	tirage2=enleve_element_No_bis(tirage,i)
+			for (let op=0;op<operations.length;op++) {
+				for (let j=0;j<tirage.length;j++) {
+					if (j!=i) {
+						N2=tirage[j]
+						if (op==0&&j>i) calculs[index].push([N1,operations[op],N2,calcul(N1+N2)])
+						if (op==1&&j>i) calculs[index].push([N1,operations[op],N2,calcul(N1*N2)])
+						if (op==2&& N1>N2) calculs[index].push([N1,operations[op],N2,calcul(N1-N2)])
+						if (op==3&& estentier(calcul(N1/N2))) calculs[index].push([N1,operations[op],N2,calcul(N1/N2)])
+					}
+				}
+			}
+		}
+		console.log(calculs)
+
+
+/*
+		for (let i = 0, texte, texte_corr,cpt=0; i < this.nb_questions && cpt<50; ) {
+			solution_mathador=Trouver_solution_mathador(min_solution,max_solution)
+			tirage=solution_mathador[0]
+			solution=solution_mathador[1]
+			expression=solution_mathador[3]
+
+			texte=`Le tirage est le suivant : $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ <br>La cible est : $${solution}$`
+			texte_corr=`Pour le tirage $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ et pour la cible $${solution}$, la solution est : $${expression}=${solution}$ `
+			texte_corr+=`ou $${solution_mathador[4]}$.<br>`
+			texte_corr+=`En effet : <br>`
+			for (let i=0;i<4;i++) {
+				texte_corr+=`$${solution_mathador[2][i]}$<br>`
+			}
+						if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+							this.liste_questions.push(texte);
+							this.liste_corrections.push(texte_corr);
+							i++;
+						}		
+			cpt++;	
+		}
+	*/
+	// liste_de_question_to_contenu(this);
+	}
+	this.besoin_formulaire_texte = ['Choix des nombres du tirage (de aucun à cinq)','Nombres séparés par des tirets'] // Texte, tooltip
+}
 /**
  * Générateur de tirages pour un compte est bon avec en correction la solution mathador (4 opérations différentes).
  * @Auteur Jean-Claude Lhote
@@ -2084,12 +2157,17 @@ function Le_compte_est_bonV3(){
 	this.besoin_formulaire_numerique = ['Limite inférieure',max_solution];
 	this.besoin_formulaire2_numerique = ['Limite supérieure',100];
 }
-function Le_compte_est_bonV4(){
+/**
+ * @Auteur Jean-Claude Lhote
+ * 
+ * Dans cette version, il est possible de choisir 1,2,3,4 ou 5 nombres du tirage et de contraindre la cible entre deux valeurs
+ */
+ function Le_compte_est_bonV4(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Générateur de \"Le compte est bon\" version semi-aléatoire";
 	this.consigne = "Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.";
-	this.nb_questions = 5;
+	this.nb_questions = 1;
 	this.nb_cols = 2;
 	this.nb_cols_corr = 2;
 	this.sup=1;
@@ -7139,7 +7217,8 @@ function Vocabulaire_des_triangles(){
 
 			this.bouton_aide = modal_texte_long(
 				numero_de_l_exercice,
-				`<i class="lightbulb outline icon"></i> Quelques définitions`,
+				//`<i class="lightbulb outline icon"></i> Quelques définitions`,
+				`<i class="info circle icon"></i> Quelques définitions`,
 				texte_intro,
 				"Aide",
 				"info circle"
