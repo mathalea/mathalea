@@ -859,10 +859,7 @@ function PolygoneRegulierIndirect(A,B,n){
 	let p = [A,B]
 	for (let i=1 ; i<n-1 ; i++){
 		p[i+1] = pointParRotation(p[i-1],p[i],calcul(-180+360/n))
-		segment(p[i-1],p[i])
 	}
-	segment(p[n-2],p[n-1])
-	segment(p[n-1],p[0])
 	this.listePoints = p
 }
 function polygoneRegulierIndirect(...args){
@@ -881,9 +878,7 @@ function PolygoneRegulierParCentreEtRayon(O,r,n){
 	p[0] = point(calcul(O.x+r),O.y);
 	for (let i=1; i<n ; i++){
 		p[i] = pointParRotation(p[i-1],O,calcul(-360/n))
-		segment(p[i-1],p[i])
 	}
-	segment(p[n-1],p[0])
  	this.listePoints = p
  }
 function polygoneRegulierParCentreEtRayon(...args){
