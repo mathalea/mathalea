@@ -7222,7 +7222,7 @@ function Vocabulaire_des_triangles(){
 						triangle_quelconque.l3 = l3;
 					};
 
-					texte = `${triangle_quelconque.getNom()} est un triangle tel que ${triangle_quelconque.getLongueurs()[0]} $= ${triangle_quelconque.l1}$ ccm ; `;
+					texte = `${triangle_quelconque.getNom()} est un triangle tel que ${triangle_quelconque.getLongueurs()[0]} $= ${triangle_quelconque.l1}$ cm ; `;
 					texte += `${triangle_quelconque.getLongueurs()[1]} $= ${triangle_quelconque.l2}$ cm et ${triangle_quelconque.getLongueurs()[2]} $= ${triangle_quelconque.l3}$ cm.`;
 					texte_corr = `Les 3 côtés du triangle ${triangle_quelconque.getNom()} sont différents donc ${triangle_quelconque.getNom()} est un triangle quelconque.`;
 					break;

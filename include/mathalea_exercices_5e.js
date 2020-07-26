@@ -4258,14 +4258,17 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 function Constructibilite_des_triangles(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()	
-	this.consigne = `Dire si les triangles suivants sont constructibles en justifiant.`;
+	//this.consigne = `Dire si les triangles suivants sont constructibles en justifiant.`;
 	this.sup=1;
 	if (this.exo == this.beta+'5G21-1') { // via longueurs
 		this.titre = `Constructibilité des triangles via les longueurs`;
+		this.consigne = `Justifier si les longueurs données permettent de construire un triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0!`;
 	} else if (this.exo == this.beta+'5G31-1') {//via angles
 		this.titre = `Constructibilité des triangles via les angles`;
+		this.consigne = `Justifier si les angles donnés permettent de construire un triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0!`;
 	} else {			
 		this.titre = "Constructibilité des triangles";	
+		this.consigne = `Justifier si les longueurs ou les angles donnés permettent de construire un triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0!`;
 	};
 	//this.titre = "Constructibilité des triangles";	
 	this.nb_cols = 1;
@@ -4332,27 +4335,30 @@ function Constructibilite_des_triangles(){
 						triangle.l2 = l2;
 						triangle.l3 = l3;
 					};
-					l1 = randint(l_min,l_max);
-					l2 = randint(l_min,l_max,l1);
-					//l3 = randint(l_min,l_max,[l1,l2]);
-					l3 = randint(l_min,l_max);
-					triangle.l1 = l1;
-					triangle.l2 = l2;
-					triangle.l3 = l3;
-					texte = `3 longueurs --> constructible ${l1} ; ${l2} ; ${l3}`;
-					texte+= `<br>Vrai triangle? `+triangle.isTrueTriangleLongueurs();
-					texte+= `<br>Triangle Plat? `+triangle.isPlatTriangleLongueurs();
-					texte+=  ` <br>Combien de tels triangles?`
-					if (triangle.isTrueTriangleLongueurs()) {
-						texte+=`2 à isométrie près, si on considère que direct et indirect ne sont pas superposables.`;	
-					};
-					if (triangle.isPlatTriangleLongueurs()) {
-						texte+=`1 seul.`;	
-					};
+					texte = `${triangle.getNom()} est tel que ${triangle.getLongueurs()[0]} $= ${triangle.l1}$ cm ; `;					
+					texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et ${triangle.getLongueurs()[2]} $= ${triangle.l3}$ cm.`;
+					texte_corr = ``;
+					// l1 = randint(l_min,l_max);
+					// l2 = randint(l_min,l_max,l1);
+					// //l3 = randint(l_min,l_max,[l1,l2]);
+					// l3 = randint(l_min,l_max);
+					// triangle.l1 = l1;
+					// triangle.l2 = l2;
+					// triangle.l3 = l3;
+					// texte = `3 longueurs --> constructible ${l1} ; ${l2} ; ${l3}`;
+					// texte+= `<br>Vrai triangle? `+triangle.isTrueTriangleLongueurs();
+					// texte+= `<br>Triangle Plat? `+triangle.isPlatTriangleLongueurs();
+					// texte+=  ` <br>Combien de tels triangles?`
+					// if (triangle.isTrueTriangleLongueurs()) {
+					// 	texte+=`2 à isométrie près, si on considère que direct et indirect ne sont pas superposables.`;	
+					// };
+					// if (triangle.isPlatTriangleLongueurs()) {
+					// 	texte+=`1 seul.`;	
+					// };
 
-					texte+=``;
-					texte_corr = `3 longueurs --> constructible`;
-					texte_corr+=  ` <br>Combien de tels triangles?`
+					// texte+=``;
+					// texte_corr = `3 longueurs --> constructible`;
+					// texte_corr+=  ` <br>Combien de tels triangles?`
 					break;
 				case 2 : // 3 longueurs plat
 					texte = `3 longueurs --> plat `;
