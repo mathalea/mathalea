@@ -20,7 +20,7 @@ var liste_des_exercices_disponibles = {
 		'CM018' : Somme_de_deux_nombres_maries_et_un_entier,
 		'CM019' : Le_compte_est_bonV3,
 		'CM020' : Le_compte_est_bonV4,
-		'BetaCM021' : LeVraiCompteEstBon,
+		'BetaCM021' : Compte_Est_Bon,
 		'6C10' : Additions_soustractions_multiplications_posees,
 		'6C11' : Divisions_euclidiennes,
 		'6C10-1' :Tables_de_multiplications,
@@ -2038,7 +2038,70 @@ function Vocabulaire_et_operations() {
 
 }
 
+function Compte_Est_Bon() {
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Atteindre le résultat souhaité avec 6 nombres et les 4 opérations";
+	this.consigne = "Trouve le résultat en utilisant les quatre opérations et les nombres du tirage (une seule fois).";
+	this.nb_questions = 5;
+	this.nb_cols = 2;
+	this.nb_cols_corr = 2;
+	this.sup=1; // niveau de calcul souhaité
+	
+	this.nouvelle_version = function(numero_de_l_exercice){
+		let type_de_questions,a,b,c,d,e,f,cible,tirage
+		if (!this.sup) { // Si rien n'est saisi
+			type_de_questions=combinaison_listes([1,2,3],this.nb_questions)
+		}
+		else {
+			if (typeof(this.sup)=='number'){ // Si c'est un nombre c'est qu'il y a qu'une seule grandeur
+			type_de_questions=combinaison_listes([parseInt(this.sup)],this.nb_questions)
+			} else {
+				type_de_questions = this.sup.split("-");// Sinon on créé un tableau à partir des valeurs séparées par des -
+				for (let i=0;i<type_de_questions.length;i++) type_de_questions[i]=parseInt(type_de_questions[i])
+				this.nb_questions=type_de_questions.length;
+			}	
+		}
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+	
+		for (let i = 0,texte,texte_corr,cpt=0; i < this.nb_questions && cpt<50; ) {
+			switch (type_de_questions[i]) {
+				case 1:
+					a=randint(2,9)
+					b=randint(2,8,a)
+					c=randint(1,9,[a,b])
+					d=randint(1,9,[a,b,c])
+					cible=calcul(a*100+b*10+c+d)
+					tirage = shuffle([100,10,a,b,c,d])
+					texte_corr=`Le compte est bon : $${cible}=100\\times${a}+10\\times${b}+${c}+${d}$`
+					break
+				case 2:
 
+					break
+				case 3:
+
+					break
+			}
+			texte = `Voici le tirage : `
+			for (let i =0;i<5;i++) texte+=`${tirage[i]} ; `
+			texte+=`${tirage[5]}.<br>`
+			texte+=`Et le nombre à trouver est : ${cible}.`
+
+
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}		
+			cpt++;	
+		}
+	liste_de_question_to_contenu(this);
+	}
+	this.besoin_formulaire_texte = ['Niveaux de difficultés)','Nombres séparés par des tirets'] // Texte, tooltip
+
+}
+/*
 function LeVraiCompteEstBon(){ //en construction
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -2051,34 +2114,157 @@ function LeVraiCompteEstBon(){ //en construction
 	var max_solution=70;
 	
 	this.nouvelle_version = function(numero_de_l_exercice){
-		let tirage,tirage2,N1,N2,N3,N4,N5,N6
+		let tirage,tirage2,tirage3,tirage4,tirage5,N1,N2,N3,N4,N5,N6,R1,R2,R3,R4,R5,op1,op2,op3,op4,op5
 		if (!this.sup) tirage = [1,2,3,4,5,6]
 		else tirage = this.sup.split("-");
+		let cible=124;
 		for (let i=0;i<6;i++) tirage[i]=parseInt(tirage[i])
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let calculs=[[]],operations=['+','*','-','/','opp+','inv*'],solution,liste_index_solution
+		let calculs=[[],[],[],[],[]],operations=['+','*','-','/','opp+','inv*'],solutions=[[]],liste_index_solution
 		let nb_operande=tirage.length
 		let index=0
-		for (let i=0;i<tirage.length;i++) {
+		for (let i=0;i<tirage.length;i++) {  // première opération : N1 op N2 = R1 
 			N1=tirage[i]
-		//	tirage2=enleve_element_No_bis(tirage,i)
 			for (let op=0;op<operations.length;op++) {
 				for (let j=0;j<tirage.length;j++) {
 					if (j!=i) {
 						N2=tirage[j]
-						if (op==0&&j>i) calculs[index].push([N1,operations[op],N2,calcul(N1+N2)])
-						if (op==1&&j>i) calculs[index].push([N1,operations[op],N2,calcul(N1*N2)])
-						if (op==2&& N1>N2) calculs[index].push([N1,operations[op],N2,calcul(N1-N2)])
-						if (op==3&& estentier(calcul(N1/N2))) calculs[index].push([N1,operations[op],N2,calcul(N1/N2)])
+						// On push les index et non les nombres et les opérations seul le résultat est un nombre
+						if (op==0&&j>i) calculs[index].push([i,op,j,calcul(N1+N2)]) // On évite les doublons une fois calculé a+b, on ne fait pas b+a (j>i)
+						if (op==1&&j>i) calculs[index].push([i,op,j,calcul(N1*N2)]) // idem
+						if (op==2&& N1>N2) calculs[index].push([i,op,j,calcul(N1-N2)]) // si on peut calculer a-b, on ne pourra pas calculer b-a (négatif)
+						if (op==3&& estentier(calcul(N1/N2))) calculs[index].push([i,op,j,calcul(N1/N2)]) // si on peut calculer a/b, on ne pourra pas calculer b/a (non entier)
+						// pas de soustraction opposée ni de division inversée, les couples (a,b) et (b,a) sont tous là donc ce serait redondant
+						if (calculs[index][calculs[index].length-1][3]==cible) { // si le résultat est la cible, alors on transfert le calcul dans solutions et on le retire des calculs
+							solutions.push(calculs[index].pop())
+						}
 					}
 				}
 			}
 		}
-		console.log(calculs)
+		alert('premier niveau passé')
+	
+		index++	// on passe au deuxième niveau.
+		for (let i=0;i<calculs[index-1].length;i++) { // chaque calcul de niveau 1 opération peut générer des calculs de niveau 2 opérations
+			N1=calculs[index-1][i][0]; // index de N1 dans le tirage
+			N2=calculs[index-1][i][2]; // index de N2 dans le tirage
+			R1=calculs[index-1][i][3]; // résultat de N1 op1 N2
+			op1=calculs[index-1][i][1]; // index de op1 dans operations
+			tirage2=range(5,[N1,N2])
+			for (let k=0;k<tirage2.length;k++) tirage2[k]=parseInt(tirage2[k])
+			for (let op=0;op<operations.length;op++) {
+				for (let j in tirage2) {
+					// on va prendre N3 autre que N1 et N2 qui ont déjà été utilisés
+						N3=tirage[j];
+						if (op==0) calculs[index].push([N1,op1,N2,R1,op,parseInt(j),calcul(N3+R1)])
+						if (op==1) calculs[index].push([N1,op1,N2,R1,op,parseInt(j),calcul(N3*R1)])
+						if (op==2&&R1>N3) calculs[index].push([N1,op1,N2,R1,op,parseInt(j),calcul(R1-N3)])
+						if (op==3&& estentier(R1/N3)) calculs[index].push([N1,op1,N2,R1,op,parseInt(j),calcul(R1/N3)])
+						if (op==4&& N3>R1) calculs[index].push([N1,op1,N2,R1,op,parseInt(j),calcul(N3-R1)])
+						if (op==4&& estentier(N3/R1)) calculs[index].push([N1,op1,N2,R1,op,parseInt(j),calcul(N3/R1)])
+						if (calculs[index][calculs[index].length-1][6]==cible) { // si le résultat est la cible, alors on transfert le calcul dans solutions et on le retire des calculs
+							solutions.push(calculs[index].pop())
+						}
+				}
+			}
+		}
+		alert('deuxième niveau passé')
+	
+		index++ // vers l'infini et au delà ! 3ème niveau !
+		for (let i=0;i<calculs[index-1].length;i++) { // chaque calcul de niveau 2 opérations peut générer des calculs de niveau 3 opérations
+			N1=calculs[index-1][i][0]; // index de N1 dans le tirage
+			N2=calculs[index-1][i][2]; // index de N2 dans le tirage
+			R1=calculs[index-1][i][3]; // résultat de N1 op1 N2
+			op1=calculs[index-1][i][1]; // index de op1 dans operations
+			N3=calculs[index-1][i][5];
+			op2=calculs[index-1][i][4];
+			R2=calculs[index-1][i][6];
+			tirage3=range(5,[N1,N2,N3])
+			for (let k=0;k<tirage3.length;k++) tirage3[k]=parseInt(tirage2[k])
+				for (let op=0;op<operations.length;op++) {
+					for (let j in tirage3) {
+						N4=tirage[j];
+						if (op==0) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op,parseInt(j),calcul(N4+R2)])
+						if (op==1) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op,parseInt(j),calcul(N4*R2)])
+						if (op==2&&R2>N4) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op,parseInt(j),calcul(R2-N4)])
+						if (op==3&& estentier(R2/N4)) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op,parseInt(j),calcul(R2/N4)])
+						if (op==4&& N4>R2) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op,parseInt(j),calcul(N4-R2)])
+						if (op==4&& estentier(N4/R2)) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op,parseInt(j),calcul(N4/R2)])
+						if (calculs[index][calculs[index].length-1][9]==cible) { // si le résultat est la cible, alors on transfert le calcul dans solutions et on le retire des calculs
+							solutions.push(calculs[index].pop())
+						}
+					}
+				}
+			}
+		
+		alert('troisième niveau passé')
 
-
-/*
+		index++ //là ça devient lourd ! 
+		for (let i=0;i<calculs[index-1].length;i++) { // chaque calcul de niveau 3 opérations peut générer des calculs de niveau 4 opérations
+			N1=calculs[index-1][i][0]; // index de N1 dans le tirage
+			N2=calculs[index-1][i][2]; // index de N2 dans le tirage
+			R1=calculs[index-1][i][3]; // résultat de N1 op1 N2
+			op1=calculs[index-1][i][1]; // index de op1 dans operations
+			N3=calculs[index-1][i][5];
+			op2=calculs[index-1][i][4];
+			R2=calculs[index-1][i][6];
+			N4=calculs[index-1][i][8];
+			op3=calculs[index-1][i][7];
+			R3=calculs[index-1][i][9];
+			tirage4=range(5,[N1,N2,N3,N4])
+			tirage4[0]=parseInt(tirage2[0])
+			tirage4[1]=parseInt(tirage2[1])
+			
+			for (let op=0;op<operations.length;op++) {
+				for (let j in tirage4) {
+						N5=tirage[j];
+						if (op==0) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op3,N4,R3,op,parseInt(j),calcul(N5+R3)])
+						if (op==1) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op3,N4,R3,op,parseInt(j),calcul(N5*R3)])
+						if (op==2&&R3>N5) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op3,N4,R3,op,parseInt(j),calcul(R3-N5)])
+						if (op==3&& estentier(R3/N5)) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op3,N4,R3,op,parseInt(j),calcul(R3/N5)])
+						if (op==4&& N5>R3) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op3,N4,R3,op,parseInt(j),calcul(N5-R3)])
+						if (op==4&& estentier(N5/R3)) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op3,N4,R3,op,parseInt(j),calcul(N5/R3)])
+						if (calculs[index][calculs[index].length-1][12]==cible) { // si le résultat est la cible, alors on transfert le calcul dans solutions et on le retire des calculs
+							solutions.push(calculs[index].pop())
+						}
+					}
+			}
+		}
+		alert('quatrième niveau passé')
+	
+		index++
+		for (let i=0;i<calculs[index-1].length;i++) { // chaque calcul de niveau 3 opérations peut générer des calculs de niveau 4 opérations
+			N1=calculs[index-1][i][0]; // index de N1 dans le tirage
+			N2=calculs[index-1][i][2]; // index de N2 dans le tirage
+			R1=calculs[index-1][i][3]; // résultat de N1 op1 N2
+			op1=calculs[index-1][i][1]; // index de op1 dans operations
+			N3=calculs[index-1][i][5];
+			op2=calculs[index-1][i][4];
+			R2=calculs[index-1][i][6];
+			N4=calculs[index-1][i][8];
+			op3=calculs[index-1][i][7];
+			R3=calculs[index-1][i][9];
+			N5=calculs[index-1][i][11];
+			op4=calculs[index-1][i][10];
+			R4=calculs[index-1][i][12];
+			tirage5=range(5,[N1,N2,N3,N4,N5])
+			tirage5[0]=parseInt(tirage5[0])
+			for (let op=0;op<operations.length;op++) {
+				for (let j in tirage5) {
+						N6=tirage[j];
+						if (op==0) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op3,N4,R3,op4,N5,R4,op,parseInt(j),calcul(N6+R4)])
+						if (op==1) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op3,N4,R3,op4,N5,R4,op,parseInt(j),calcul(N6*R4)])
+						if (op==2&&R4>N6) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op3,N4,R3,op4,N5,R4,op,parseInt(j),calcul(R4-N6)])
+						if (op==3&& estentier(R4/N6)) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op3,N4,R3,op4,N5,R4,op,parseInt(j),calcul(R4/N6)])
+						if (op==4&& N6>R4) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op3,N4,R3,op4,N5,R4,op,parseInt(j),calcul(N6-R4)])
+						if (op==4&& estentier(N6/R4)) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op3,N4,R3,op4,N5,R4,op,parseInt(j),calcul(N6/R4)])
+						if (calculs[index][calculs[index].length-1][15]==cible) { // si le résultat est la cible, alors on transfert le calcul dans solutions et on le retire des calculs
+							solutions.push(calculs[index].pop())
+						}
+					}
+			}
+		}
 		for (let i = 0, texte, texte_corr,cpt=0; i < this.nb_questions && cpt<50; ) {
 			solution_mathador=Trouver_solution_mathador(min_solution,max_solution)
 			tirage=solution_mathador[0]
@@ -2099,11 +2285,12 @@ function LeVraiCompteEstBon(){ //en construction
 						}		
 			cpt++;	
 		}
-	*/
 	// liste_de_question_to_contenu(this);
 	}
 	this.besoin_formulaire_texte = ['Choix des nombres du tirage (de aucun à cinq)','Nombres séparés par des tirets'] // Texte, tooltip
 }
+*/
+
 /**
  * Générateur de tirages pour un compte est bon avec en correction la solution mathador (4 opérations différentes).
  * @Auteur Jean-Claude Lhote
