@@ -4283,7 +4283,7 @@ function Constructibilite_des_triangles(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.introduction=info_message({
 			titre : "Exercice BETA",
-			texte: "En cours de réalisation <br>Est-il préférable de mettre du conditionnel dans les corrections?<br>type8 non finalisé"
+			texte: "En cours de réalisation <br>Est-il préférable de mettre du conditionnel dans les corrections?<br>type8 correction non finalisée"
 
 		});
 
@@ -4628,7 +4628,8 @@ function Constructibilite_des_triangles(){
 					current_triangle.sort(function (a, b) {
 						return a.valeur - b.valeur;
 					});
-					texte_corr = `Dans le triangle ${triangle.getNom()}, ${current_triangle[0].angle} + ${current_triangle[1].angle} + ${current_triangle[2].angle} = $${current_triangle[0].valeur}\\degree + ${current_triangle[1].valeur}\\degree + ${current_triangle[2].valeur}\\degree = ${calcul(current_triangle[0].valeur + current_triangle[1].valeur + current_triangle[2].valeur)}\\degree$.`;
+					texte_corr += `CORRECTION NON FINALISEE`;
+					texte_corr += `<br>Dans le triangle ${triangle.getNom()}, ${current_triangle[0].angle} + ${current_triangle[1].angle} + ${current_triangle[2].angle} = $${current_triangle[0].valeur}\\degree + ${current_triangle[1].valeur}\\degree + ${current_triangle[2].valeur}\\degree = ${calcul(current_triangle[0].valeur + current_triangle[1].valeur + current_triangle[2].valeur)}\\degree$.`;
 					texte_corr += `<br> On constate que la somme des trois angles du triangle vaut bien $180\\degree$.`;
 					texte_corr += `<br> ${texte_en_couleur('On peut donc construire le triangle '+triangle.getNom())}.`;
 					texte_corr += `<br><br>  ${texte_en_couleur('Une infinité de tels triangles existent')}.`;
