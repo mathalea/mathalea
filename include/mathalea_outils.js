@@ -4004,12 +4004,15 @@ function decomp_fact_prem_array(n) {
  * Pour l'exemple le triangle se nomme AGE
  * La méthode getCotes() renvoie un tableau contenant les noms des segments des côtés du triangle en mode maths. [AG], [GE] et [EA] dans cet ordre.
  * La méthode getLongueurs() renvoie un tableau contenant les noms des longueurs des côtés du triangle en mode maths. AG, GE et EA dans cet ordre.
+ * La méthode getLongueursValeurs() renvoie un tableau contenant les valeurs des longueurs des côtés du triangle.
  * La méthode getAngles() renvoie un tableau contenant les noms des angles du triangle en mode maths. AGE, GEA et EAG dans cet ordre.
+ * La méthode getAnglesValeurs() renvoie un tableau contenant les valeurs des angles du triangle.
  * La méthode getSommets() renvoie un tableau contenant les noms des sommets du triangle en mode maths. A, G et E dans cet ordre.
  * La méthode getPerimetre() renvoie le périmètre du triangle
  * La méthode isTrueTriangleLongueurs() renvoie un booléen si le triangle définit à partir des longueurs est un vrai triangle non plat.
  * La méthode isPlatTriangleLongueurs() renvoie un booléen si le triangle définit à partir des longueurs est un triangle plat.
- * La méthode isTrueTriangleAngles() renvoie un booléen si le triangle définit à partir des angles existe. Non Finalisée
+ * La méthode isTrueTriangleAngles() renvoie un booléen si le triangle définit à partir des angles existe et n'est pas un triangle plat.
+ * La méthode isPlatTriangleAngles() renvoie un booléen si le triangle définit à partir des angles existe et est un triangle plat.
  * La méthode isQuelconque() renvoie  un booléen si le triangle définit à partir des angles ou des longueurs existe et est quelconque. Non Finalisée
  * @author Sébastien Lozano
  */
@@ -4073,6 +4076,20 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		angles[0] = `$\\;\\widehat{${sommets[0]+sommets[1]+sommets[2]}}$`;
 		angles[1] = `$\\;\\widehat{${sommets[1]+sommets[2]+sommets[0]}}$`;
 		angles[2] = `$\\;\\widehat{${sommets[2]+sommets[0]+sommets[1]}}$`;
+
+		return angles;
+	};
+
+	// renvoie les valeurs des angles du triangle.
+	function getAnglesValeurs() {		
+		if ((typeof self.a1 == "undefined") || (typeof self.a2 == "undefined") || (typeof self.a3 == "undefined")) {
+			//return false;
+			return ['L\'un des angles de l\'objet triangle n\'est pas définie'];
+		}
+		let angles = [];
+		angles[0]=self.a1;
+		angles[1]=self.a2;
+		angles[2]=self.a3;
 
 		return angles;
 	};
@@ -4198,6 +4215,7 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 	this.getLongueurs = getLongueurs;
 	this.getLongueursValeurs = getLongueursValeurs;
 	this.getAngles = getAngles;
+	this.getAnglesValeurs = getAnglesValeurs;
 	this.getSommets = getSommets;
 	this.getPerimetre = getPerimetre;
 	this.isTrueTriangleLongueurs = isTrueTriangleLongueurs;
