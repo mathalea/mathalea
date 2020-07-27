@@ -4482,8 +4482,7 @@ function Constructibilite_des_triangles(){
 						triangle.a1 = a1;
 						triangle.a2 = a2;
 						triangle.a3 = a3;
-					};
-					console.log(current_triangle);
+					};					
 					texte = ``;
 					texte_corr = ``;
 					texte = `${triangle.getNom()} tel que ${triangle.getAngles()[0]} $= ${triangle.a1}\\degree$ ; `;					
@@ -4497,12 +4496,11 @@ function Constructibilite_des_triangles(){
 					current_triangle.sort(function (a, b) {
 						return a.valeur - b.valeur;
 					  });
-					texte_corr = `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].longueur} = $${current_triangle[2].valeur}$ cm, c'est le plus grand côté.`;
-					texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = $${current_triangle[0].valeur} + ${current_triangle[1].valeur} = ${calcul(current_triangle[0].valeur + current_triangle[1].valeur)}$ cm.`;
-					texte_corr += `<br> On constate que ${current_triangle[0].longueur} + ${current_triangle[1].longueur} > ${current_triangle[2].longueur}`;
+					texte_corr = `Dans le triangle ${triangle.getNom()}, ${current_triangle[0].angle} + ${current_triangle[1].angle} + ${current_triangle[2].angle} = $${current_triangle[0].valeur}\\degree + ${current_triangle[1].valeur}\\degree + ${current_triangle[2].valeur}\\degree = ${calcul(current_triangle[0].valeur + current_triangle[1].valeur + current_triangle[2].valeur)}\\degree$.`;
+					texte_corr += `<br> On constate que la somme des trois angles du triangle vaut bien $180\\degree$.`;
 					texte_corr += `<br> ${texte_en_couleur('On peut donc construire le triangle '+triangle.getNom())}.`;
-					texte_corr += `<br><br>  Si on considère que le triangle nommé dans le sens des aiguilles d'une montre et celui nommé dans le sens inverse sont différents, ${texte_en_couleur('deux tels triangles existent')}.`;
-					texte_corr += `<br> Les deux étant obtenus l'un à partir de l'autre par symétire axiale.`;
+					texte_corr += `<br><br>  ${texte_en_couleur('Une infinité de tels triangles existent')}.`;
+					texte_corr += `<br> On les obtient les uns à partir des autres par homothétie.`;
 					// texte = `3 angles --> constructible ${triangle.a1} ; ${triangle.a2} ; ${triangle.a3}`;
 					// texte+= `<br>Vrai triangle? `+triangle.isTrueTriangleAngles();
 					// texte+= `<br>Triangle Plat? `+triangle.isPlatTriangleAngles();
