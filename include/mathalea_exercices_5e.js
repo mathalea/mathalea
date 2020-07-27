@@ -4475,12 +4475,12 @@ function Constructibilite_des_triangles(){
 					// texte_corr+=  ` <br>Combien de tels triangles?`
 					break;
 				case 5 : //3 angles constructible
-					a1 = randint(a_min,a_max);
-					a2 = randint(a_min,a_max);
-					a3 = randint(a_min,a_max);
-					triangle.a1 = 10;
-					triangle.a2 = 20;
-					triangle.a3 = 150;
+					a1 = randint(a_min,a_max,[0,180]);
+					a2 = randint(a_min,a_max,[0,180]);
+					a3 = calcul(180-a1-a2);
+					triangle.a1 = a1;
+					triangle.a2 = a2;
+					triangle.a3 = a3;
 					texte = `3 angles --> constructible ${triangle.a1} ; ${triangle.a2} ; ${triangle.a3}`;
 					texte+= `<br>Vrai triangle? `+triangle.isTrueTriangleAngles();
 					texte+= `<br>Triangle Plat? `+triangle.isPlatTriangleAngles();
