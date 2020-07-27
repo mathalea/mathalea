@@ -2135,7 +2135,36 @@ function Compte_Est_Bon() {
 					}
 					break
 				case 3:
-
+					a=randint(2,5)
+					b=randint(3,8,a)
+					c=randint(3,9,[a,b])
+					switch (choix[i]) {
+						case 1 :
+							cible=calcul(a*(100+b*10)+c)
+							tirage = shuffle([50,2,10,a,b,c])
+							texte_corr=`Le compte est bon : $${cible}=${a}\\times(50\\times2+10\\times${b})+${c}$`
+							break;
+						case 2 :
+							cible=calcul(a*(100+b*10)-c)
+							tirage = shuffle([50,2,10,a,b,c])
+							texte_corr=`Le compte est bon : $${cible}=${a}\\times(50\\times2+10\\times${b})-${c}$`
+							break;
+						case 3 :
+							cible=calcul(a*(100+b*10)+c)
+							tirage = shuffle([25,4,10,a,b,c])
+							texte_corr=`Le compte est bon : $${cible}=${a}\\times(25\\times4+10\\times${b})+${c}$`
+							break;
+						case 4 :
+							cible=calcul(a*(100+b*10)-c)
+							tirage = shuffle([25,4,10,a,b,c])
+							texte_corr=`Le compte est bon : $${cible}=${a}\\times(25\\times4+10\\times${b})-${c}$`
+							break;
+						default :
+						cible=calcul(a*(100+b*10)+c)
+						tirage = shuffle([25,75,10,a,b,c])
+						texte_corr=`Le compte est bon : $${cible}=${a}\\times((25+75)+10\\times${b})+${c}$`
+							
+					}
 					break
 			}
 			texte = `Voici le tirage : `
