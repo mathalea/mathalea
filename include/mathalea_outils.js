@@ -1648,7 +1648,7 @@ function texte_gras(texte){
 		return `<b>${texte}</b>`	
 	}
 	else {
-		return `\\textbf${texte}`
+		return `\\textbf{${texte}}`
 	}	
 }
 
@@ -4006,7 +4006,9 @@ function decomp_fact_prem_array(n) {
  * La méthode getLongueurs() renvoie un tableau contenant les noms des longueurs des côtés du triangle en mode maths. AG, GE et EA dans cet ordre.
  * La méthode getAngles() renvoie un tableau contenant les noms des angles du triangle en mode maths. AGE, GEA et EAG dans cet ordre.
  * La méthode getSommets() renvoie un tableau contenant les noms des sommets du triangle en mode maths. A, G et E dans cet ordre.
- * La méthode isTrueTriangleLongueurs() renvoie un booléen si le triangle définit à partir des longueurs est un vrai triangle non plat. Non Finalisée
+ * La méthode getPerimetre() renvoie le périmètre du triangle
+ * La méthode isTrueTriangleLongueurs() renvoie un booléen si le triangle définit à partir des longueurs est un vrai triangle non plat.
+ * La méthode isPlatTriangleLongueurs() renvoie un booléen si le triangle définit à partir des longueurs est un triangle plat.
  * La méthode isTrueTriangleAngles() renvoie un booléen si le triangle définit à partir des angles existe. Non Finalisée
  * La méthode isQuelconque() renvoie  un booléen si le triangle définit à partir des angles ou des longueurs existe et est quelconque. Non Finalisée
  * @author Sébastien Lozano
@@ -4049,6 +4051,20 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		return longueurs;
 	};
 
+	// renvoie les valeurs des longueurs des côtés du triangle.
+	function getLongueursValeurs() {		
+		if ((typeof self.l1 == "undefined") || (typeof self.l2 == "undefined") || (typeof self.l3 == "undefined")) {
+			//return false;
+			return ['L\'une des longueurs de l\'objet triangle n\'est pas définie'];
+		}
+		let longueurs = [];
+		longueurs[0]=self.l1;
+		longueurs[1]=self.l2;
+		longueurs[2]=self.l3;
+
+		return longueurs;
+	};
+
 	// renvoie les noms des angles du triangle.
 	function getAngles() {
 		let angles = [];
@@ -4072,18 +4088,29 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		return sommets;
 	};
 
+	// renvoie le périmètre du triangle
+	function getPerimetre() {
+		if ((typeof self.l1 == "undefined") || (typeof self.l2 == "undefined") || (typeof self.l3 == "undefined")) {
+			//return false;
+			return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
+		} else {
+			return calcul(self.l1 + self.l2 + self.l3);
+		};			
+	};
+
 	// renvoie un booleen selon que les trois longueurs forment un vrai triangle ou non
 	function isTrueTriangleLongueurs() {
 		if ((typeof self.l1 == "undefined") || (typeof self.l2 == "undefined") || (typeof self.l3 == "undefined")) {
-			return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
+			return false;
+			//return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
 		}
 		let longueurs = [self.l1,self.l2,self.l3];
 		//console.log('longueurs : '+longueurs);
 		longueurs.sort(function(a,b){
-			return a-b;
+			return calcul(a-b);
 		});
 		//console.log('longueurs sort() : '+longueurs);
-		if (longueurs[2] < (longueurs[0]+longueurs[1])) {
+		if (longueurs[2] < calcul(longueurs[0]+longueurs[1])) {
 			return true;
 		} else {
 			return false;
@@ -4093,15 +4120,16 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 	// renvoie un booleen selon que les trois longueurs forment un vrai triangle ou non
 	function isPlatTriangleLongueurs() {
 		if ((typeof self.l1 == "undefined") || (typeof self.l2 == "undefined") || (typeof self.l3 == "undefined")) {
-			return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
+			//return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
+			return false;
 		}
 		let longueurs = [self.l1,self.l2,self.l3];
 		//console.log('longueurs : '+longueurs);
 		longueurs.sort(function(a,b){
-			return a-b;
+			return calcul(a-b);
 		});
 		//console.log('longueurs sort() : '+longueurs);
-		if (longueurs[2] == (longueurs[0]+longueurs[1])) {
+		if (longueurs[2] == calcul(longueurs[0]+longueurs[1])) {
 			return true;
 		} else {
 			return false;
@@ -4138,8 +4166,10 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 	this.getNom = getNom;
 	this.getCotes = getCotes;
 	this.getLongueurs = getLongueurs;
+	this.getLongueursValeurs = getLongueursValeurs;
 	this.getAngles = getAngles;
 	this.getSommets = getSommets;
+	this.getPerimetre = getPerimetre;
 	this.isTrueTriangleLongueurs = isTrueTriangleLongueurs;
 	this.isPlatTriangleLongueurs = isPlatTriangleLongueurs;
 	this.isTrueTriangleAngles = isTrueTriangleAngles;
