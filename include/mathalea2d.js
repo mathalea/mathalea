@@ -430,6 +430,7 @@ function Mediatrice(A,B,color = 'black',codage = true){
 	let N = pointParRotation(A,O,-90)
 	if (codage) {
 		let c = codageAngleDroit(M,O,B,this.color)
+		let mark = codeSegments('X',this.color,A,O, O,B)
 	}
 	let d = droite(M,N)
 	d.color = this.color 
@@ -619,7 +620,7 @@ function segmentAvecExtremites(...args){
 */
 function DemiDroite(A,B,color='black'){
 	let B1 = pointSurSegment(B,A,-10)
-	Segment.call(this,A,B1,color);
+	return segment(A,B1,color);
 }
 function demiDroite(...args){
 	return new DemiDroite(...args)
@@ -836,20 +837,27 @@ function polygoneParSymetrieAxiale(...args){
 }
 
 /**
-* carre(A,B) //Trace le carré direct qui a pour côté [AB] et code les 4 angles droits
+* carre(A,B) //Trace le carré direct qui a pour côté [AB] et code les 4 angles droits et 4 côtés de même longueur
+* carre(A,B,'blue') //Trace en bleu le carré direct qui a pour côté [AB] et code les 4 angles droits et 4 côtés de même longueur
+* carre(A,B,'blue',false) //Trace en bleu le carré direct qui a pour côté [AB] sans codages
+* carre(A,B,'blue','S','red') //Trace en bleu le carré direct qui a pour côté [AB] et code les 4 angles droits et 4 côtés de même longueur avec la marque choisie en rouge
 *
 * @Auteur Rémi Angot
 */
-function Carre(A,B,color){
+function Carre(A,B,color,codage=true,mark='X',colorcodage){
 	ObjetMathalea2D.call(this)
 	this.color = color
+	colorcodage ? this.colorcodage = colorcodage : this.colorcodage = color;
 	let c = pointParRotation(A,B,-90)
 	let d = pointParRotation(B,A,90)
-	let codage1 = codageAngleDroit(d,c,B,this.color)
-	let codage2 = codageAngleDroit(c,B,A,this.color)
-	let codage3 = codageAngleDroit(A,d,c,this.color)
-	let codage4 = codageAngleDroit(B,A,d,this.color)
 	this.listePoints = [A,B,c,d]
+	if (codage) {
+		let codage1 = codageAngleDroit(d,c,B,this.colorcodage)
+		let codage2 = codageAngleDroit(c,B,A,this.colorcodage)
+		let codage3 = codageAngleDroit(A,d,c,this.colorcodage)
+		let codage4 = codageAngleDroit(B,A,d,this.colorcodage)
+		let codage = codeSegments(mark,this.colorcodage,this.listePoints)
+	}
 	return polygone(this.listePoints,color)
 }
 function carre(...args){
@@ -861,16 +869,20 @@ function carre(...args){
 *
 * @Auteur Rémi Angot
 */
-function CarreIndirect(A,B,colot){
+function CarreIndirect(A,B,color,codage=true,mark='X',colorcodage){
 	ObjetMathalea2D.call(this)
 	this.color = color
+	colorcodage ? this.colorcodage = colorcodage : this.colorcodage = color;
 	let c = pointParRotation(A,B,90)
 	let d = pointParRotation(B,A,-90)
-	let codage1 = codageAngleDroit(B,c,d,this.color)
-	let codage2 = codageAngleDroit(A,B,c,this.color)
-	let codage3 = codageAngleDroit(c,d,A,this.color)
-	let codage4 = codageAngleDroit(d,A,B,this.color)
 	this.listePoints = [A,B,c,d]
+	if (codage) {
+		let codage1 = codageAngleDroit(d,c,B,this.colorcodage)
+		let codage2 = codageAngleDroit(c,B,A,this.colorcodage)
+		let codage3 = codageAngleDroit(A,d,c,this.colorcodage)
+		let codage4 = codageAngleDroit(B,A,d,this.colorcodage)
+		let codage = codeSegments(mark,this.colorcodage,this.listePoints)
+	}
 	return polygone(this.listePoints,color)
 }
 function carreIndirect(...args){
@@ -1012,15 +1024,15 @@ function cercleCentrePoint(...args){
 function CodageAngleDroit(A,O,B,color='black',d = .3)  {
 	ObjetMathalea2D.call(this);
 	this.color = color;
-	let a = pointSurSegment(O,B,d);
-	let b = {};
-	if (angle(A,O,B)>0) {
-		b = pointParRotation(O,a,90)
+	let a = pointSurSegment(O,A,d);
+	let b = pointSurSegment(O,B,d);
+	let o = {};
+	if (angleOriente(A,O,B)>0) {
+		o = pointParRotation(O,a,-90)
 	} else {
-		b = pointParRotation(O,a,-90)
+		o = pointParRotation(O,a,90)
 	}
-	let c = pointSurSegment(O,A,d);
-	return polyline([a,b,c],color)
+	return polyline([a,o,b],color)
 	
 }
 function codageAngleDroit(...args){
@@ -1085,7 +1097,6 @@ function codeSegment(...args){
  */
 function CodeSegments(mark = '||',color = 'black',...args)  {
 	ObjetMathalea2D.call(this);
-	console.log(args.length)
 	if (Array.isArray(args[0])) { // Si on donne une liste de points
 		for (let i = 0; i < args[0].length-1; i++) {
 			codeSegment(args[0][i],args[0][i+1],mark,color)
