@@ -568,6 +568,20 @@ function Segment(arg1,arg2,arg3,arg4,color='black'){
 				let B2 = pointParRotation(M,B,-90)
 				let s1 = segment(B1,B2,this.color)	
 			}
+			if (this.extremites.substr(-1)=='>') { //si ça termine par > on rajoute une flèche en B
+				let M = pointSurSegment(B,A,.2)
+				let B1 = pointParRotation(B,M,90)
+				let B2 = pointParRotation(B,M,-90)
+				let s1 = segment(B,B1,this.color)	
+				let s2 = segment(B,B2,this.color)	
+			}
+			if (this.extremites[0]=='<') { //si ça comment par < on rajoute une flèche en A
+				let M = pointSurSegment(A,B,.2)
+				let A1 = pointParRotation(A,M,90)
+				let A2 = pointParRotation(A,M,-90)
+				let s1 = segment(A,A1,this.color)	
+				let s2 = segment(A,A2,this.color)	
+			}
 			if (this.extremites[0]=='|') { //si ça commence par | on le rajoute en A
 				let N = pointSurSegment(A,B,.2)
 				let A1 = pointParRotation(N,A,90)
@@ -786,6 +800,39 @@ function polygoneParTranslation(...args){
 }
 
 /**
+* polygoneParTranslation(p,v) //Trace l'image de p dans la translation de vecteur v
+* polygoneParTranslationAnimee(p,v,'blue','dur="2s" repeatCount=3') // Polygone en bleu, animation de 2s répétée 3 fois
+*
+*
+* @Auteur Rémi Angot
+*/
+
+function PolygoneParTranslationAnimee(p,v,color,animation='dur="2s" repeatCount="indefinite"'){
+	Polygone.call(this);
+	this.color = color
+	let p2=[]
+	for (let i = 0 ; i < p.listePoints.length ; i++ ){
+  		p2[i] = pointParTranslation(p.listePoints[i],v)
+	}
+	this.svg = function(coeff=20){
+		if (this.isVisible) {
+			let copieDuPolygone = p
+			copieDuPolygone.color = color
+			let code =  `<g> ${p.svg(coeff)}`
+			code += `<animateMotion path="M 0 0 l ${v.xSVG(coeff)} ${v.ySVG(coeff)} " ${animation} />`
+       		code += `</polygon></g>`
+			return code
+		}
+			
+	}
+
+}
+
+function polygoneParTranslationAnimee(...args){
+	return new PolygoneParTranslationAnimee(...args)
+}
+
+/**
 * polygoneParHomothetie(p,O,k) //Trace l'image de p dans l'homothétie de centre O et de rapport k
 *
 * @Auteur Rémi Angot
@@ -894,8 +941,9 @@ function carreIndirect(...args){
 *
 * @Auteur Rémi Angot
 */
-function PolygoneRegulier(A,B,n){
+function PolygoneRegulier(A,B,n,color){
 	Polygone.call(this)
+	this.color = color
 	let p = [A,B]
 	for (let i=1 ; i<n-1 ; i++){
 		p[i+1] = pointParRotation(p[i-1],p[i],calcul(180-360/n))
@@ -915,8 +963,9 @@ function polygoneRegulier(...args){
 *
 * @Auteur Rémi Angot
 */
-function PolygoneRegulierIndirect(A,B,n){
+function PolygoneRegulierIndirect(A,B,n,color){
 	Polygone.call(this)
+	this.color = color
 	let p = [A,B]
 	for (let i=1 ; i<n-1 ; i++){
 		p[i+1] = pointParRotation(p[i-1],p[i],calcul(-180+360/n))
@@ -933,8 +982,9 @@ function polygoneRegulierIndirect(...args){
 *
 * @Auteur Rémi Angot
 */
-function PolygoneRegulierParCentreEtRayon(O,r,n){
+function PolygoneRegulierParCentreEtRayon(O,r,n,color){
 	Polygone.call(this)	
+	this.color = color
 	let p = [];
 	p[0] = point(calcul(O.x+r),O.y);
 	for (let i=1; i<n ; i++){
@@ -975,6 +1025,17 @@ function Vecteur(arg1,arg2,nom='')  {
 	this.oppose = function() {
 		this.x=-this.x
 		this.y=-this.y
+	}
+	this.xSVG = function(coeff=20) {
+		return this.x*coeff;
+	}
+	this.ySVG = function(coeff=20) {
+		return -this.y*coeff;
+	}
+	this.representant = function(A){
+		let B = point(A.x+this.x,A.y+this.y)
+		let s = segment(A,B)
+		s.extremites = '|->'
 	}
 
 	
