@@ -4287,7 +4287,7 @@ function Constructibilite_des_triangles(){
 
 		if (this.exo == this.beta+'5G21-1') { // via longueurs
 			if (this.sup ==1) {
-				type_de_questions_disponibles = [1,2,3];
+				type_de_questions_disponibles = shuffle([1,2,3]);
 				this.nb_questions = type_de_questions_disponibles.length;	
 			} else if (this.sup ==2) {
 				type_de_questions_disponibles = [choice([1,2,3]),4];
@@ -4295,7 +4295,7 @@ function Constructibilite_des_triangles(){
 			};
 		} else if (this.exo == this.beta+'5G31-1') {//via angles
 			if (this.sup ==1) {
-				type_de_questions_disponibles = [5,6,7];
+				type_de_questions_disponibles = shuffle([5,6,7]);
 				this.nb_questions = type_de_questions_disponibles.length;	
 			} else if (this.sup ==2) {
 				type_de_questions_disponibles = [choice([5,6,7]),8];
@@ -4535,7 +4535,6 @@ function Constructibilite_des_triangles(){
 					texte_corr = ``;
 					switch (angle_rg) {
 						case 0 :
-							console.log(angle_rg);
 							a1 = randint(a_min,a_max);
 							triangle.a1 = a1;
 							operation = operations_possibles[randint(0,2)];
@@ -4564,7 +4563,6 @@ function Constructibilite_des_triangles(){
 							texte_corr += `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].angle} est le ${operation} de ${current_triangle[1].angle} = $${current_triangle[1].valeur}\\degree$  d'où ${current_triangle[2].angle} = $${current_triangle[2].valeur}\\degree$.`;
 							break;
 						case 1 : 
-							console.log(angle_rg);
 							a2 = randint(a_min,a_max);
 							triangle.a2 = a2;
 							operation = operations_possibles[randint(0,2)];
