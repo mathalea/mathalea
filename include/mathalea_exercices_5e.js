@@ -4325,6 +4325,7 @@ function Constructibilite_des_triangles(){
 
 			// on crée un objet triangle 
 			let triangle = new Triangles();
+			// on crée un tableau pour le triangle courant
 			let current_triangle = [];
 			
 			switch (liste_type_de_questions[i]) {
@@ -4340,7 +4341,6 @@ function Constructibilite_des_triangles(){
 					texte = `${triangle.getNom()} tel que ${triangle.getLongueurs()[0]} $= ${triangle.l1}$ cm ; `;					
 					texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et ${triangle.getLongueurs()[2]} $= ${triangle.l3}$ cm.`;
 					// on crée l'objet longueurs + valeurs des côtés du triangle
-					// let current_triangle = [];
 					for (let i=0;i<3;i++) {
 						current_triangle.push({longueur: triangle.getLongueurs()[i], valeur: triangle.getLongueursValeurs()[i]});
 					};
@@ -4354,27 +4354,6 @@ function Constructibilite_des_triangles(){
 					texte_corr += `<br> ${texte_en_couleur('On peut donc construire le triangle '+triangle.getNom())}.`;
 					texte_corr += `<br><br>  Si on considère que le triangle nommé dans le sens des aiguilles d'une montre et celui nommé dans le sens inverse sont différents, ${texte_en_couleur('deux tels triangles existent')}.`;
 					texte_corr += `<br> Les deux étant obtenus l'un à partir de l'autre par symétire axiale.`;
-					// l1 = randint(l_min,l_max);
-					// l2 = randint(l_min,l_max,l1);
-					// //l3 = randint(l_min,l_max,[l1,l2]);
-					// l3 = randint(l_min,l_max);
-					// triangle.l1 = l1;
-					// triangle.l2 = l2;
-					// triangle.l3 = l3;
-					// texte = `3 longueurs --> constructible ${l1} ; ${l2} ; ${l3}`;
-					// texte+= `<br>Vrai triangle? `+triangle.isTrueTriangleLongueurs();
-					// texte+= `<br>Triangle Plat? `+triangle.isPlatTriangleLongueurs();
-					// texte+=  ` <br>Combien de tels triangles?`
-					// if (triangle.isTrueTriangleLongueurs()) {
-					// 	texte+=`2 à isométrie près, si on considère que direct et indirect ne sont pas superposables.`;	
-					// };
-					// if (triangle.isPlatTriangleLongueurs()) {
-					// 	texte+=`1 seul.`;	
-					// };
-
-					// texte+=``;
-					// texte_corr = `3 longueurs --> constructible`;
-					// texte_corr+=  ` <br>Combien de tels triangles?`
 					break;
 				case 2 : // 3 longueurs plat
 					while (!triangle.isPlatTriangleLongueurs()) {						
@@ -4399,10 +4378,6 @@ function Constructibilite_des_triangles(){
 					texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = $${current_triangle[0].valeur} + ${current_triangle[1].valeur} = ${current_triangle[2].valeur}$ cm aussi.`;
 					texte_corr += `<br> ${texte_en_couleur('On peut donc construire le triangle '+triangle.getNom()+' c\'est un triangle plat')}.`;
 					texte_corr += `<br><br>${texte_en_couleur('Un seul triangle de ce type existe')}.`;				
-					// texte = `3 longueurs --> plat `;
-					// texte+=  ` <br>Combien de tels triangles? Pertinent?`
-					// texte_corr = `3 longueurs --> plat`;
-					// texte_corr+=  ` <br>Combien de tels triangles? Pertinent?`
 					break;
 				case 3 : // 3 longueurs non constructible
 				  	// on initialise les longueurs sinon la méthode isTrueTriangleLongueurs() renvoie false!
@@ -4437,10 +4412,6 @@ function Constructibilite_des_triangles(){
 					texte_corr += `<br> On constate que ${current_triangle[0].longueur} + ${current_triangle[1].longueur} < ${current_triangle[2].longueur}`;
 					texte_corr += `<br> ${texte_en_couleur('On ne peut donc pas construire le triangle '+triangle.getNom())}.`;
 					texte_corr += `<br><br>  ${texte_en_couleur('Aucun triangle de ce type n\'existe')}.`;
-					// texte = `3 longueurs  --> non constructible`;
-					// texte+=  ` <br>Combien de tels triangles?`
-					// texte_corr = `3 longueurs -->  non constructible`;
-					// texte_corr+=  ` <br>Combien de tels triangles?`
 					break;
 				case 4 : // 2 longueurs et le périmètre
 					while (!triangle.isTrueTriangleLongueurs()) {						
@@ -4454,7 +4425,6 @@ function Constructibilite_des_triangles(){
 					texte = `${triangle.getNom()} tel que ${triangle.getLongueurs()[0]} $= ${triangle.l1}$ cm ; `;					
 					texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et dont le périmètre vaut $${triangle.getPerimetre()}$ cm.`;
 					// on crée l'objet longueurs + valeurs des côtés du triangle
-					// let current_triangle = [];
 					for (let i=0;i<3;i++) {
 						current_triangle.push({longueur: triangle.getLongueurs()[i], valeur: triangle.getLongueursValeurs()[i]});
 					};
@@ -4469,10 +4439,6 @@ function Constructibilite_des_triangles(){
 					texte_corr += `<br> ${texte_en_couleur('On peut donc construire le triangle '+triangle.getNom())}.`;
 					texte_corr += `<br><br>  Si on considère que le triangle nommé dans le sens des aiguilles d'une montre et celui nommé dans le sens inverse sont différents, ${texte_en_couleur('deux tels triangles existent')}.`;
 					texte_corr += `<br> Les deux étant obtenus l'un à partir de l'autre par symétire axiale.`;
-					// texte = `2 longueurs et le périmètre --> constructible`;
-					// texte+=  ` <br>Combien de tels triangles?`
-					// texte_corr = `2 longueurs et le périmètre --> constructible`;
-					// texte_corr+=  ` <br>Combien de tels triangles?`
 					break;
 				case 5 : //3 angles constructible
 					while (!triangle.isTrueTriangleAngles()) {	
@@ -4488,7 +4454,6 @@ function Constructibilite_des_triangles(){
 					texte = `${triangle.getNom()} tel que ${triangle.getAngles()[0]} $= ${triangle.a1}\\degree$ ; `;					
 					texte += `${triangle.getAngles()[1]} $= ${triangle.a2}\\degree$ et ${triangle.getAngles()[2]} $= ${triangle.a3}\\degree$.`;
 					// on crée l'objet longueurs + valeurs des côtés du triangle
-					// let current_triangle = [];
 					for (let i=0;i<3;i++) {
 						current_triangle.push({angle: triangle.getAngles()[i], valeur: triangle.getAnglesValeurs()[i]});
 					};
@@ -4504,11 +4469,6 @@ function Constructibilite_des_triangles(){
 					// texte = `3 angles --> constructible ${triangle.a1} ; ${triangle.a2} ; ${triangle.a3}`;
 					// texte+= `<br>Vrai triangle? `+triangle.isTrueTriangleAngles();
 					// texte+= `<br>Triangle Plat? `+triangle.isPlatTriangleAngles();
-
-					// //texte = `3 angles --> constructible`;
-					// texte+=  ` <br>Combien de tels triangles?`
-					// texte_corr = `3 angles --> constructible`;
-					// texte_corr+=  ` <br>Combien de tels triangles?`
 					break;
 				case 6 : // 3 angles plat
 					texte = `3 angles --> plat. Pertient?`;
