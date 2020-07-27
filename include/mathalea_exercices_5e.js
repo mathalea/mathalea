@@ -4258,7 +4258,6 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 function Constructibilite_des_triangles(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()	
-	//this.consigne = `Dire si les triangles suivants sont constructibles en justifiant.`;
 	this.sup=1;
 	if (this.exo == this.beta+'5G21-1') { // via longueurs
 		this.titre = `Constructibilité des triangles via les longueurs`;
@@ -4270,11 +4269,10 @@ function Constructibilite_des_triangles(){
 		this.titre = "Constructibilité des triangles";	
 		this.consigne = `Justifier si les longueurs ou les angles donnés permettent de construire le triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0!`;
 	};
-	//this.titre = "Constructibilité des triangles";	
+	
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.nb_questions_modifiable = false;
-
 
 	this.liste_packages = `bclogo`;
 	
@@ -4466,9 +4464,6 @@ function Constructibilite_des_triangles(){
 					texte_corr += `<br> ${texte_en_couleur('On peut donc construire le triangle '+triangle.getNom())}.`;
 					texte_corr += `<br><br>  ${texte_en_couleur('Une infinité de tels triangles existent')}.`;
 					texte_corr += `<br> On les obtient les uns à partir des autres par homothétie.`;
-					// texte = `3 angles --> constructible ${triangle.a1} ; ${triangle.a2} ; ${triangle.a3}`;
-					// texte+= `<br>Vrai triangle? `+triangle.isTrueTriangleAngles();
-					// texte+= `<br>Triangle Plat? `+triangle.isPlatTriangleAngles();
 					break;
 				case 6 : // 3 angles plat
 					while (!triangle.isPlatTriangleAngles()) {	
@@ -4536,108 +4531,73 @@ function Constructibilite_des_triangles(){
 					let angle_rg = randint(0,1);
 					let operations_possibles = ['triple','quadruple','quart'];
 					let operation = '';					
-					console.log(angle_rg);
 					texte = ``;
+					texte_corr = ``;
 					switch (angle_rg) {
 						case 0 :
 							console.log(angle_rg);
 							a1 = randint(a_min,a_max);
 							triangle.a1 = a1;
 							operation = operations_possibles[randint(0,2)];
-							texte += `${triangle.getNom()} tel que ${triangle.getAngles()[0]} $= ${triangle.a1}\\degree$ ; `;
-							//texte += `${triangle.getAngles()[1]} $= ${triangle.a2}\\degree$ et ${triangle.getAngles()[2]} est le ${operation} de ${triangle.getAngles()[1]}.`;
-							//console.log(operation);
+							texte += `${triangle.getNom()} tel que ${triangle.getAngles()[0]} $= ${triangle.a1}\\degree$ ; `;						
 							switch (operation) {
 								case 'triple' :
 									a2 = calcul((180-a1)/4);
 									a3 = calcul(3*a2);				
-									triangle.a2 = a2;
-									triangle.a3 = a3;
-									texte += `${triangle.getAngles()[1]} $= ${triangle.a2}\\degree$ et ${triangle.getAngles()[2]} est le ${operation} de ${triangle.getAngles()[1]}.`;
 									break;
-								// case 'tiers' :
-								// 	a2 = calcul(3*(180-a1)/4);
-								// 	a3 = calcul(a2);
-								// 	break;
 								case 'quadruple' :
 									a2 = calcul((180-a1)/5);
 									a3 = calcul(4*a2);
-									triangle.a2 = a2;
-									triangle.a3 = a3;
-									texte += `${triangle.getAngles()[1]} $= ${triangle.a2}\\degree$ et ${triangle.getAngles()[2]} est le ${operation} de ${triangle.getAngles()[1]}.`;
 									break;
 								case 'quart' :
 									a2 = calcul(4*(180-a1)/5);
 									a3 = calcul(a2/4);
-									triangle.a2 = a2;
-									triangle.a3 = a3;
-									texte += `${triangle.getAngles()[1]} $= ${triangle.a2}\\degree$ et ${triangle.getAngles()[2]} est le ${operation} de ${triangle.getAngles()[1]}.`;
 									break;
 							};
+							triangle.a2 = a2;
+							triangle.a3 = a3;
+							texte += `${triangle.getAngles()[1]} $= ${triangle.a2}\\degree$ et ${triangle.getAngles()[2]} est le ${operation} de ${triangle.getAngles()[1]}.`;
+							// on crée l'objet longueurs + valeurs des côtés du triangle
+							for (let i=0;i<3;i++) {
+								current_triangle.push({angle: triangle.getAngles()[i], valeur: triangle.getAnglesValeurs()[i]});
+							};								
+							texte_corr += `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].angle} est le ${operation} de ${current_triangle[1].angle} = $${current_triangle[1].valeur}\\degree$  d'où ${current_triangle[2].angle} = $${current_triangle[2].valeur}\\degree$.`;
 							break;
 						case 1 : 
-							//console.log(angle_rg);
+							console.log(angle_rg);
 							a2 = randint(a_min,a_max);
 							triangle.a2 = a2;
 							operation = operations_possibles[randint(0,2)];
-							texte += `${triangle.getNom()} tel que ${triangle.getAngles()[1]} $= ${triangle.a2}\\degree$ ; `;
-							//texte += `${triangle.getAngles()[0]} $= ${triangle.a1}\\degree$ et ${triangle.getAngles()[2]} est le ${operation} de ${triangle.getAngles()[1]}.`;
-							//console.log(operation);
+							texte += `${triangle.getNom()} tel que ${triangle.getAngles()[1]} $= ${triangle.a2}\\degree$ ; `;							
 							switch (operation) {
 								case 'triple' :
 									a1 = calcul((180-a2)/4);
 									a3 = calcul(3*a1);
-									triangle.a1 = a1;
-									triangle.a3 = a3;
-									texte += `${triangle.getAngles()[0]} $= ${triangle.a1}\\degree$ et ${triangle.getAngles()[2]} est le ${operation} de ${triangle.getAngles()[1]}.`;
 									break;
-								// case 'tiers' :
-								// 	a2 = calcul(3*(180-a1)/4);
-								// 	a3 = calcul(a2);
-								// 	break;
 								case 'quadruple' :
 									a1 = calcul((180-a2)/5);
 									a3 = calcul(4*a1);
-									triangle.a1 = a1;
-									triangle.a3 = a3;		
-									texte += `${triangle.getAngles()[0]} $= ${triangle.a1}\\degree$ et ${triangle.getAngles()[2]} est le ${operation} de ${triangle.getAngles()[1]}.`;
 									break;
 								case 'quart' :
 									a1 = calcul(4*(180-a2)/5);
 									a3 = calcul(a1/4);
-									triangle.a1 = a1;
-									triangle.a3 = a3;		
-									texte += `${triangle.getAngles()[0]} $= ${triangle.a1}\\degree$ et ${triangle.getAngles()[2]} est le ${operation} de ${triangle.getAngles()[1]}.`;
 									break;
 							};
+							triangle.a1 = a1;
+							triangle.a3 = a3;
+							texte += `${triangle.getAngles()[0]} $= ${triangle.a1}\\degree$ et ${triangle.getAngles()[2]} est le ${operation} de ${triangle.getAngles()[0]}.`;
+							// on crée l'objet longueurs + valeurs des côtés du triangle
+							for (let i=0;i<3;i++) {
+								current_triangle.push({angle: triangle.getAngles()[i], valeur: triangle.getAnglesValeurs()[i]});
+							};
+							texte_corr += `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].angle} est le ${operation} de ${current_triangle[0].angle} = $${current_triangle[0].valeur}\\degree$  d'où ${current_triangle[2].angle} = $${current_triangle[2].valeur}\\degree$.`;
 							break;
 					};
-					// triangle.a1 = a1;
-					// triangle.a2 = a2;
-					// triangle.a3 = a3;
-				
-					//texte = ``;
-					texte_corr = ``;
-					//texte = `${triangle.getNom()} tel que ${triangle.getAngles()[0]} $= ${triangle.a1}\\degree$ ; `;					
-					//texte += `${triangle.getAngles()[1]} $= ${triangle.a2}\\degree$ et ${triangle.getAngles()[2]} $= ${triangle.a3}\\degree$.`;
-					// on crée l'objet longueurs + valeurs des côtés du triangle
-					for (let i=0;i<3;i++) {
-						current_triangle.push({angle: triangle.getAngles()[i], valeur: triangle.getAnglesValeurs()[i]});
-					};
-					// on trie les couples longueurs/valeurs du triangle selon les valeurs croissantes.
-					current_triangle.sort(function (a, b) {
-						return a.valeur - b.valeur;
-					});
-					texte_corr += `CORRECTION NON FINALISEE`;
-					texte_corr += `<br>Dans le triangle ${triangle.getNom()}, ${current_triangle[0].angle} + ${current_triangle[1].angle} + ${current_triangle[2].angle} = $${current_triangle[0].valeur}\\degree + ${current_triangle[1].valeur}\\degree + ${current_triangle[2].valeur}\\degree = ${calcul(current_triangle[0].valeur + current_triangle[1].valeur + current_triangle[2].valeur)}\\degree$.`;
+					texte_corr += `<br>Donc ${current_triangle[0].angle} + ${current_triangle[1].angle} + ${current_triangle[2].angle} = $${current_triangle[0].valeur}\\degree + ${current_triangle[1].valeur}\\degree + ${current_triangle[2].valeur}\\degree = ${calcul(current_triangle[0].valeur + current_triangle[1].valeur + current_triangle[2].valeur)}\\degree$.`;							
 					texte_corr += `<br> On constate que la somme des trois angles du triangle vaut bien $180\\degree$.`;
 					texte_corr += `<br> ${texte_en_couleur('On peut donc construire le triangle '+triangle.getNom())}.`;
 					texte_corr += `<br><br>  ${texte_en_couleur('Une infinité de tels triangles existent')}.`;
 					texte_corr += `<br> On les obtient les uns à partir des autres par homothétie.`;
-					// texte = `2 angles et le 3e fonction du 1er ou du 2eme --> constructible`;
-					// texte+=  ` <br>Combien de tels triangles?`
-					// texte_corr = `2 angles et le 3e fonction du 1er ou du 2eme --> constructible`;
-					// texte_corr+=  ` <br>Combien de tels triangles?`
 					break;
 			}
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
