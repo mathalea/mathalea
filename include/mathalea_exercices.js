@@ -2049,7 +2049,7 @@ function Compte_Est_Bon() {
 	this.sup=1; // niveau de calcul souhaité
 	
 	this.nouvelle_version = function(numero_de_l_exercice){
-		let type_de_questions,a,b,c,d,e,f,cible,tirage
+		let type_de_questions,a,b,c,d,e,f,cible,tirage,choix
 		if (!this.sup) { // Si rien n'est saisi
 			type_de_questions=combinaison_listes([1,2,3],this.nb_questions)
 		}
@@ -2068,14 +2068,36 @@ function Compte_Est_Bon() {
 		for (let i = 0,texte,texte_corr,cpt=0; i < this.nb_questions && cpt<50; ) {
 			switch (type_de_questions[i]) {
 				case 1:
+					choix=randint(1,4)
 					a=randint(2,9)
 					b=randint(2,8,a)
 					c=randint(1,9,[a,b])
 					d=randint(1,9,[a,b,c])
-					cible=calcul(a*100+b*10+c+d)
-					tirage = shuffle([100,10,a,b,c,d])
-					texte_corr=`Le compte est bon : $${cible}=100\\times${a}+10\\times${b}+${c}+${d}$`
+					switch (choix) {
+						case 1 :
+							cible=calcul(a*100+b*10+c+d)
+							tirage = shuffle([100,10,a,b,c,d])
+							texte_corr=`Le compte est bon : $${cible}=100\\times${a}+10\\times${b}+${c}+${d}$`
+							break;
+						case 2 :
+							cible=calcul(a*100+b*10+c-d)
+							tirage = shuffle([100,10,a,b,c,d])
+							texte_corr=`Le compte est bon : $${cible}=100\\times${a}+10\\times${b}+${c}-${d}$`
+							break;
+						case 3 :
+							cible=calcul(a*100-b*10+c+d)
+							tirage = shuffle([100,10,a,b,c,d])
+							texte_corr=`Le compte est bon : $${cible}=100\\times${a}-10\\times${b}+${c}+${d}$`
+							break;
+						case 4 :
+							cible=calcul(a*100-b*10+c-d)
+							tirage = shuffle([100,10,a,b,c,d])
+							texte_corr=`Le compte est bon : $${cible}=100\\times${a}-10\\times${b}+${c}-${d}$`
+							break;
+							
+					}
 					break
+
 				case 2:
 
 					break
