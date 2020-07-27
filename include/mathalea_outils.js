@@ -3954,6 +3954,7 @@ function decomp_fact_prem_array(n) {
  * La méthode getLongueurs() renvoie un tableau contenant les noms des longueurs des côtés du triangle en mode maths. AG, GE et EA dans cet ordre.
  * La méthode getAngles() renvoie un tableau contenant les noms des angles du triangle en mode maths. AGE, GEA et EAG dans cet ordre.
  * La méthode getSommets() renvoie un tableau contenant les noms des sommets du triangle en mode maths. A, G et E dans cet ordre.
+ * La méthode getPerimetre() renvoie le périmètre du triangle
  * La méthode isTrueTriangleLongueurs() renvoie un booléen si le triangle définit à partir des longueurs est un vrai triangle non plat.
  * La méthode isPlatTriangleLongueurs() renvoie un booléen si le triangle définit à partir des longueurs est un triangle plat.
  * La méthode isTrueTriangleAngles() renvoie un booléen si le triangle définit à partir des angles existe. Non Finalisée
@@ -4035,6 +4036,16 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		return sommets;
 	};
 
+	// renvoie le périmètre du triangle
+	function getPerimetre() {
+		if ((typeof self.l1 == "undefined") || (typeof self.l2 == "undefined") || (typeof self.l3 == "undefined")) {
+			//return false;
+			return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
+		} else {
+			return calcul(self.l1 + self.l2 + self.l3);
+		};			
+	};
+
 	// renvoie un booleen selon que les trois longueurs forment un vrai triangle ou non
 	function isTrueTriangleLongueurs() {
 		if ((typeof self.l1 == "undefined") || (typeof self.l2 == "undefined") || (typeof self.l3 == "undefined")) {
@@ -4106,6 +4117,7 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 	this.getLongueursValeurs = getLongueursValeurs;
 	this.getAngles = getAngles;
 	this.getSommets = getSommets;
+	this.getPerimetre = getPerimetre;
 	this.isTrueTriangleLongueurs = isTrueTriangleLongueurs;
 	this.isPlatTriangleLongueurs = isPlatTriangleLongueurs;
 	this.isTrueTriangleAngles = isTrueTriangleAngles;

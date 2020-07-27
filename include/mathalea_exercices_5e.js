@@ -4283,7 +4283,8 @@ function Constructibilite_des_triangles(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.introduction=info_message({
 			titre : "Exercice BETA",
-			texte: "En cours de réalisation"
+			texte: "En cours de réalisation <br>Est-il préférable de mettre du conditionnel dans les corrections?"
+
 		});
 
 		if (this.exo == this.beta+'5G21-1') { // via longueurs
@@ -4347,8 +4348,8 @@ function Constructibilite_des_triangles(){
 					current_triangle.sort(function (a, b) {
 						return a.valeur - b.valeur;
 					  });
-					texte_corr = `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].longueur} = ${current_triangle[2].valeur} cm, c'est le plus grand côté.`;
-					texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = ${current_triangle[0].valeur} + ${current_triangle[1].valeur} = ${calcul(current_triangle[0].valeur + current_triangle[1].valeur)} cm.`;
+					texte_corr = `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].longueur} = $${current_triangle[2].valeur}$ cm, c'est le plus grand côté.`;
+					texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = $${current_triangle[0].valeur} + ${current_triangle[1].valeur} = ${calcul(current_triangle[0].valeur + current_triangle[1].valeur)}$ cm.`;
 					texte_corr += `<br> On constate que ${current_triangle[0].longueur} + ${current_triangle[1].longueur} > ${current_triangle[2].longueur}`;
 					texte_corr += `<br> ${texte_en_couleur('On peut donc construire le triangle '+triangle.getNom())}.`;
 					texte_corr += `<br><br>  Si on considère que le triangle nommé dans le sens des aiguilles d'une montre et celui nommé dans le sens inverse sont différents, ${texte_en_couleur('deux tels triangles existent')}.`;
@@ -4387,7 +4388,6 @@ function Constructibilite_des_triangles(){
 				texte = `${triangle.getNom()} tel que ${triangle.getLongueurs()[0]} $= ${triangle.l1}$ cm ; `;					
 				texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et ${triangle.getLongueurs()[2]} $= ${triangle.l3}$ cm.`;
 				// on crée l'objet longueurs + valeurs des côtés du triangle
-				// let current_triangle = [];
 				for (let i=0;i<3;i++) {
 					current_triangle.push({longueur: triangle.getLongueurs()[i], valeur: triangle.getLongueursValeurs()[i]});
 				};
@@ -4395,8 +4395,8 @@ function Constructibilite_des_triangles(){
 				current_triangle.sort(function (a, b) {
 					return a.valeur - b.valeur;
 				  });
-				texte_corr = `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].longueur} = ${current_triangle[2].valeur} cm, c'est le plus grand côté.`;
-				texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = ${current_triangle[0].valeur} + ${current_triangle[1].valeur} = ${current_triangle[2].valeur} cm aussi.`;
+				texte_corr = `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].longueur} = $${current_triangle[2].valeur}$ cm, c'est le plus grand côté.`;
+				texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = $${current_triangle[0].valeur} + ${current_triangle[1].valeur} = ${current_triangle[2].valeur}$ cm aussi.`;
 				texte_corr += `<br> ${texte_en_couleur('On peut donc construire le triangle '+triangle.getNom()+' c\'est un triangle plat')}.`;
 				texte_corr += `<br><br>${texte_en_couleur('Un seul triangle de ce type existe')}.`;				
 					// texte = `3 longueurs --> plat `;
@@ -4424,7 +4424,6 @@ function Constructibilite_des_triangles(){
 					texte = `${triangle.getNom()} tel que ${triangle.getLongueurs()[0]} $= ${triangle.l1}$ cm ; `;					
 					texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et ${triangle.getLongueurs()[2]} $= ${triangle.l3}$ cm.`;
 					// on crée l'objet longueurs + valeurs des côtés du triangle
-					// let current_triangle = [];
 					for (let i=0;i<3;i++) {
 						current_triangle.push({longueur: triangle.getLongueurs()[i], valeur: triangle.getLongueursValeurs()[i]});
 					};
@@ -4433,8 +4432,8 @@ function Constructibilite_des_triangles(){
 						return a.valeur - b.valeur;
 					});
 	
-					texte_corr = `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].longueur} = ${current_triangle[2].valeur} cm, c'est le plus grand côté.`;
-					texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = ${current_triangle[0].valeur} + ${current_triangle[1].valeur} = ${calcul(current_triangle[0].valeur + current_triangle[1].valeur)} cm.`;
+					texte_corr = `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].longueur} = $${current_triangle[2].valeur}$ cm, c'est le plus grand côté.`;
+					texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = $${current_triangle[0].valeur} + ${current_triangle[1].valeur} = ${calcul(current_triangle[0].valeur + current_triangle[1].valeur)}$ cm.`;
 					texte_corr += `<br> On constate que ${current_triangle[0].longueur} + ${current_triangle[1].longueur} < ${current_triangle[2].longueur}`;
 					texte_corr += `<br> ${texte_en_couleur('On ne peut donc pas construire le triangle '+triangle.getNom())}.`;
 					texte_corr += `<br><br>  ${texte_en_couleur('Aucun triangle de ce type n\'existe')}.`;
@@ -4444,10 +4443,36 @@ function Constructibilite_des_triangles(){
 					// texte_corr+=  ` <br>Combien de tels triangles?`
 					break;
 				case 4 : // 2 longueurs et le périmètre
-					texte = `2 longueurs et le périmètre --> constructible`;
-					texte+=  ` <br>Combien de tels triangles?`
-					texte_corr = `2 longueurs et le périmètre --> constructible`;
-					texte_corr+=  ` <br>Combien de tels triangles?`
+					while (!triangle.isTrueTriangleLongueurs()) {						
+						l1 = randint(l_min,l_max);
+						l2 = randint(l_min,l_max);
+						l3 = randint(l_min,l_max);
+						triangle.l1 = l1;
+						triangle.l2 = l2;
+						triangle.l3 = l3;						
+					};
+					texte = `${triangle.getNom()} tel que ${triangle.getLongueurs()[0]} $= ${triangle.l1}$ cm ; `;					
+					texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et dont le périmètre vaut $${triangle.getPerimetre()}$ cm.`;
+					// on crée l'objet longueurs + valeurs des côtés du triangle
+					// let current_triangle = [];
+					for (let i=0;i<3;i++) {
+						current_triangle.push({longueur: triangle.getLongueurs()[i], valeur: triangle.getLongueursValeurs()[i]});
+					};
+					// on trie les couples longueurs/valeurs du triangle selon les valeurs croissantes.
+					current_triangle.sort(function (a, b) {
+						return a.valeur - b.valeur;
+					});
+					texte_corr = `Puisque le périmètre vaut $${triangle.getPerimetre()}$ cm alors la troisième longueur vaut ${triangle.getLongueurs()[2]} = $${triangle.getPerimetre()} - ${triangle.l1} - ${triangle.l2} = ${triangle.l3}$ cm.`
+					texte_corr += `<br> Donc dans le triangle ${triangle.getNom()}, ${current_triangle[2].longueur} = $${current_triangle[2].valeur}$ cm, est le plus grand côté.`;
+					texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = $${current_triangle[0].valeur} + ${current_triangle[1].valeur} = ${calcul(current_triangle[0].valeur + current_triangle[1].valeur)}$ cm.`;
+					texte_corr += `<br> On constate que ${current_triangle[0].longueur} + ${current_triangle[1].longueur} > ${current_triangle[2].longueur}`;
+					texte_corr += `<br> ${texte_en_couleur('On peut donc construire le triangle '+triangle.getNom())}.`;
+					texte_corr += `<br><br>  Si on considère que le triangle nommé dans le sens des aiguilles d'une montre et celui nommé dans le sens inverse sont différents, ${texte_en_couleur('deux tels triangles existent')}.`;
+					texte_corr += `<br> Les deux étant obtenus l'un à partir de l'autre par symétire axiale.`;
+					// texte = `2 longueurs et le périmètre --> constructible`;
+					// texte+=  ` <br>Combien de tels triangles?`
+					// texte_corr = `2 longueurs et le périmètre --> constructible`;
+					// texte_corr+=  ` <br>Combien de tels triangles?`
 					break;
 				case 5 : //3 angles constructible
 					texte = `3 angles --> constructible`;
