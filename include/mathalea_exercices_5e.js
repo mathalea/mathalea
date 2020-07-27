@@ -4320,8 +4320,8 @@ function Constructibilite_des_triangles(){
 			let l_min = 2;
 			let l_max = 20;
 			// on fixe angle min et max en degré
-			let a_min = 30;
-			let a_max = 100;
+			let a_min = 0;
+			let a_max = 180;
 
 			// on crée un objet triangle 
 			let triangle = new Triangles();
@@ -4475,7 +4475,17 @@ function Constructibilite_des_triangles(){
 					// texte_corr+=  ` <br>Combien de tels triangles?`
 					break;
 				case 5 : //3 angles constructible
-					texte = `3 angles --> constructible`;
+					a1 = randint(a_min,a_max);
+					a2 = randint(a_min,a_max);
+					a3 = randint(a_min,a_max);
+					triangle.a1 = 10;
+					triangle.a2 = 20;
+					triangle.a3 = 150;
+					texte = `3 angles --> constructible ${triangle.a1} ; ${triangle.a2} ; ${triangle.a3}`;
+					texte+= `<br>Vrai triangle? `+triangle.isTrueTriangleAngles();
+					texte+= `<br>Triangle Plat? `+triangle.isPlatTriangleAngles();
+
+					//texte = `3 angles --> constructible`;
 					texte+=  ` <br>Combien de tels triangles?`
 					texte_corr = `3 angles --> constructible`;
 					texte_corr+=  ` <br>Combien de tels triangles?`

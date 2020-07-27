@@ -4136,14 +4136,18 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		};
 	};
 
-	// renvoie un booleen selon que les trois angles forment un vrai triangle ou non
+	// renvoie un booleen selon que les trois angles forment un vrai triangle non plat ou non
 	function isTrueTriangleAngles() {
 		if ((typeof self.a1 == "undefined") || (typeof self.a2 == "undefined") || (typeof self.a3 == "undefined")) {
 			return false;
 			//return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
 		}
 		if ((self.a1 + self.a2 + self.a3) == 180) {
-			return true;
+			if ((self.a1==0 && self.a2==0) || (self.a2==0 && self.a3==0) || (self.a3==0 && self.a1==0)) {
+				return false;
+			} else {
+				return true;
+			};
 		} else {
 			return false;
 		};
