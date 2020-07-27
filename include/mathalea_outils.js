@@ -4144,7 +4144,7 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 			//return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
 		}
 		// si l'un des angles est négatif ça ne va pas
-		if ((typeof self.a1 < 0) || (typeof self.a2 < 0) || (typeof self.a3 < 0)) {
+		if ((self.a1 < 0) || (self.a2 < 0) || (self.a3 < 0)) {
 			return false;
 			//return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
 		}
