@@ -4261,13 +4261,13 @@ function Constructibilite_des_triangles(){
 	this.sup=1;
 	if (this.exo == this.beta+'5G21-1') { // via longueurs
 		this.titre = `Constructibilité des triangles via les longueurs`;
-		this.consigne = `Justifier si les longueurs données permettent de construire le triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0!`;
+		this.consigne = `Justifier si les longueurs données permettent de construire le triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0 !`;
 	} else if (this.exo == this.beta+'5G31-1') {//via angles
 		this.titre = `Constructibilité des triangles via les angles`;
-		this.consigne = `Justifier si les angles donnés permettent de construire le triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0!`;
+		this.consigne = `Justifier si les angles donnés permettent de construire le triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0 !`;
 	} else {			
 		this.titre = "Constructibilité des triangles";	
-		this.consigne = `Justifier si les longueurs ou les angles donnés permettent de construire le triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0!`;
+		this.consigne = `Justifier si les longueurs ou les angles donnés permettent de construire le triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0 !`;
 	};
 	
 	this.nb_cols = 1;
@@ -4340,15 +4340,15 @@ function Constructibilite_des_triangles(){
 					texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et ${triangle.getLongueurs()[2]} $= ${triangle.l3}$ cm.`;
 					// on crée l'objet longueurs + valeurs des côtés du triangle
 					for (let i=0;i<3;i++) {
-						current_triangle.push({longueur: triangle.getLongueurs()[i], valeur: triangle.getLongueursValeurs()[i]});
+						current_triangle.push({longueur: triangle.getLongueurs()[i], cote: triangle.getCotes()[i] , valeur: triangle.getLongueursValeurs()[i]});
 					};
 					// on trie les couples longueurs/valeurs du triangle selon les valeurs croissantes.
 					current_triangle.sort(function (a, b) {
 						return a.valeur - b.valeur;
 					  });
-					texte_corr = `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].longueur} = $${current_triangle[2].valeur}$ cm, c'est le plus grand côté.`;
-					texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = $${current_triangle[0].valeur} + ${current_triangle[1].valeur} = ${calcul(current_triangle[0].valeur + current_triangle[1].valeur)}$ cm.`;
-					texte_corr += `<br> On constate que ${current_triangle[0].longueur} + ${current_triangle[1].longueur} > ${current_triangle[2].longueur}`;
+					texte_corr = `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].cote} qui mesure $${current_triangle[2].valeur}$ cm est le plus grand côté.`;
+					texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = $${current_triangle[0].valeur}$ cm + $${current_triangle[1].valeur}$ cm = $${calcul(current_triangle[0].valeur + current_triangle[1].valeur)}$ cm.`;
+					texte_corr += `<br> On constate que ${current_triangle[0].longueur} + ${current_triangle[1].longueur} > ${current_triangle[2].longueur}.`;
 					texte_corr += `<br> ${texte_en_couleur('On peut donc construire le triangle '+triangle.getNom())}.`;
 					texte_corr += `<br><br>  Si on considère que le triangle nommé dans le sens des aiguilles d'une montre et celui nommé dans le sens inverse sont différents, ${texte_en_couleur('deux tels triangles existent')}.`;
 					texte_corr += `<br> Les deux étant obtenus l'un à partir de l'autre par symétire axiale.`;
@@ -4366,16 +4366,16 @@ function Constructibilite_des_triangles(){
 					texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et ${triangle.getLongueurs()[2]} $= ${triangle.l3}$ cm.`;
 					// on crée l'objet longueurs + valeurs des côtés du triangle
 					for (let i=0;i<3;i++) {
-						current_triangle.push({longueur: triangle.getLongueurs()[i], valeur: triangle.getLongueursValeurs()[i]});
+						current_triangle.push({longueur: triangle.getLongueurs()[i], cote: triangle.getCotes()[i] , valeur: triangle.getLongueursValeurs()[i]});
 					};
 					// on trie les couples longueurs/valeurs du triangle selon les valeurs croissantes.
 					current_triangle.sort(function (a, b) {
 						return a.valeur - b.valeur;
 					});
-					texte_corr = `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].longueur} = $${current_triangle[2].valeur}$ cm, c'est le plus grand côté.`;
-					texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = $${current_triangle[0].valeur} + ${current_triangle[1].valeur} = ${current_triangle[2].valeur}$ cm aussi.`;
+					texte_corr = `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].cote} qui mesure $${current_triangle[2].valeur}$ cm est le plus grand côté.`;
+					texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = $${current_triangle[0].valeur}$ cm + $${current_triangle[1].valeur}$ cm = $${current_triangle[2].valeur}$ cm aussi.`;
 					texte_corr += `<br> ${texte_en_couleur('On peut donc construire le triangle '+triangle.getNom()+' c\'est un triangle plat')}.`;
-					texte_corr += `<br><br>${texte_en_couleur('Un seul triangle de ce type existe')}.`;				
+					texte_corr += `<br><br>${texte_en_couleur('Un seul triangle de ce type existe')}, il s'agit du segment ${current_triangle[2].cote} sur lequel on place le point ${current_triangle[0].longueur.split('')[2]}.`;				
 					break;
 				case 3 : // 3 longueurs non constructible
 				  	// on initialise les longueurs sinon la méthode isTrueTriangleLongueurs() renvoie false!
@@ -4398,20 +4398,21 @@ function Constructibilite_des_triangles(){
 					texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et ${triangle.getLongueurs()[2]} $= ${triangle.l3}$ cm.`;
 					// on crée l'objet longueurs + valeurs des côtés du triangle
 					for (let i=0;i<3;i++) {
-						current_triangle.push({longueur: triangle.getLongueurs()[i], valeur: triangle.getLongueursValeurs()[i]});
+						current_triangle.push({longueur: triangle.getLongueurs()[i], cote: triangle.getCotes()[i] , valeur: triangle.getLongueursValeurs()[i]});
 					};
 					// on trie les couples longueurs/valeurs du triangle selon les valeurs croissantes.
 					current_triangle.sort(function (a, b) {
 						return a.valeur - b.valeur;
 					});
 	
-					texte_corr = `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].longueur} = $${current_triangle[2].valeur}$ cm, c'est le plus grand côté.`;
-					texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = $${current_triangle[0].valeur} + ${current_triangle[1].valeur} = ${calcul(current_triangle[0].valeur + current_triangle[1].valeur)}$ cm.`;
-					texte_corr += `<br> On constate que ${current_triangle[0].longueur} + ${current_triangle[1].longueur} < ${current_triangle[2].longueur}`;
+					texte_corr = `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].cote} qui mesure $${current_triangle[2].valeur}$ cm est le plus grand côté.`;
+					texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = $${current_triangle[0].valeur}$ cm + $${current_triangle[1].valeur}$ cm = $${calcul(current_triangle[0].valeur + current_triangle[1].valeur)}$ cm.`;
+					texte_corr += `<br> On constate que ${current_triangle[0].longueur} + ${current_triangle[1].longueur} < ${current_triangle[2].longueur}, les longueurs données ne permettent donc pas de satisfaire à l'inégalité triangulaire.`;
 					texte_corr += `<br> ${texte_en_couleur('On ne peut donc pas construire le triangle '+triangle.getNom())}.`;
 					texte_corr += `<br><br>  ${texte_en_couleur('Aucun triangle de ce type n\'existe')}.`;
 					break;
 				case 4 : // 2 longueurs et le périmètre
+					// on utilise la méthode isTrueTriangleLongueurs(), le triangle ne sera pas plat.
 					while (!triangle.isTrueTriangleLongueurs()) {						
 						l1 = randint(l_min,l_max);
 						l2 = randint(l_min,l_max);
@@ -4424,15 +4425,15 @@ function Constructibilite_des_triangles(){
 					texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et dont le périmètre vaut $${triangle.getPerimetre()}$ cm.`;
 					// on crée l'objet longueurs + valeurs des côtés du triangle
 					for (let i=0;i<3;i++) {
-						current_triangle.push({longueur: triangle.getLongueurs()[i], valeur: triangle.getLongueursValeurs()[i]});
+						current_triangle.push({longueur: triangle.getLongueurs()[i], cote: triangle.getCotes()[i] , valeur: triangle.getLongueursValeurs()[i]});
 					};
 					// on trie les couples longueurs/valeurs du triangle selon les valeurs croissantes.
 					current_triangle.sort(function (a, b) {
 						return a.valeur - b.valeur;
 					});
-					texte_corr = `Puisque le périmètre vaut $${triangle.getPerimetre()}$ cm alors la troisième longueur vaut ${triangle.getLongueurs()[2]} = $${triangle.getPerimetre()} - ${triangle.l1} - ${triangle.l2} = ${triangle.l3}$ cm.`
-					texte_corr += `<br> Donc dans le triangle ${triangle.getNom()}, ${current_triangle[2].longueur} = $${current_triangle[2].valeur}$ cm, est le plus grand côté.`;
-					texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = $${current_triangle[0].valeur} + ${current_triangle[1].valeur} = ${calcul(current_triangle[0].valeur + current_triangle[1].valeur)}$ cm.`;
+					texte_corr = `Puisque le périmètre vaut $${triangle.getPerimetre()}$ cm alors la troisième longueur vaut ${triangle.getLongueurs()[2]} = $${triangle.getPerimetre()}$ cm - $${triangle.l1}$ cm - $${triangle.l2}$ cm = $${triangle.l3}$ cm.`
+					texte_corr += `<br> Donc dans le triangle ${triangle.getNom()}, ${current_triangle[2].cote} qui mesure $${current_triangle[2].valeur}$ cm est le plus grand côté.`;
+					texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = $${current_triangle[0].valeur}$ cm + $${current_triangle[1].valeur}$ cm = $${calcul(current_triangle[0].valeur + current_triangle[1].valeur)}$ cm.`;
 					texte_corr += `<br> On constate que ${current_triangle[0].longueur} + ${current_triangle[1].longueur} > ${current_triangle[2].longueur}`;
 					texte_corr += `<br> ${texte_en_couleur('On peut donc construire le triangle '+triangle.getNom())}.`;
 					texte_corr += `<br><br>  Si on considère que le triangle nommé dans le sens des aiguilles d'une montre et celui nommé dans le sens inverse sont différents, ${texte_en_couleur('deux tels triangles existent')}.`;
@@ -4462,8 +4463,8 @@ function Constructibilite_des_triangles(){
 					texte_corr = `Dans le triangle ${triangle.getNom()}, ${current_triangle[0].angle} + ${current_triangle[1].angle} + ${current_triangle[2].angle} = $${current_triangle[0].valeur}\\degree + ${current_triangle[1].valeur}\\degree + ${current_triangle[2].valeur}\\degree = ${calcul(current_triangle[0].valeur + current_triangle[1].valeur + current_triangle[2].valeur)}\\degree$.`;
 					texte_corr += `<br> On constate que la somme des trois angles du triangle vaut bien $180\\degree$.`;
 					texte_corr += `<br> ${texte_en_couleur('On peut donc construire le triangle '+triangle.getNom())}.`;
-					texte_corr += `<br><br>  ${texte_en_couleur('Une infinité de tels triangles existent')}.`;
-					texte_corr += `<br> On les obtient les uns à partir des autres par homothétie.`;
+					texte_corr += `<br><br>  ${texte_en_couleur('Il existe une infinité de triangles avec ces mesures.')}`;
+					texte_corr += `<br> On les obtient les uns à partir des autres par un agrandissement ou une réduction.`;
 					break;
 				case 6 : // 3 angles plat
 					while (!triangle.isPlatTriangleAngles()) {	
@@ -4490,7 +4491,7 @@ function Constructibilite_des_triangles(){
 					texte_corr += `<br> On constate que la somme des trois angles du triangle vaut bien $180\\degree$.`;
 					texte_corr += `<br> ${texte_en_couleur('On peut donc construire le triangle '+triangle.getNom())}.`;
 					texte_corr += `<br> Deux des trois angles du triangle valent $0\\degree$, ${texte_en_couleur(triangle.getNom()+' est donc un triangle plat')}.`
-					texte_corr += `<br><br>  ${texte_en_couleur('Une infinité de tels triangles existent')}.`;
+					texte_corr += `<br><br>  ${texte_en_couleur('Il existe une infinité de triangles avec ces mesures.')}`;
 					texte_corr += `<br> On les obtient en traçant des segments et en plaçant le troisième sommet sur ce segment, les longueurs n'ayant aucune importance.`;
 					break;
 				case 7 : // 3 angles non constructible
@@ -4538,7 +4539,7 @@ function Constructibilite_des_triangles(){
 							a1 = randint(a_min,a_max);
 							triangle.a1 = a1;
 							operation = operations_possibles[randint(0,2)];
-							texte += `${triangle.getNom()} tel que ${triangle.getAngles()[0]} $= ${triangle.a1}\\degree$ ; `;						
+							texte += `${triangle.getNom()} tel que ${triangle.getAngles()[0]} $= ${tex_nombre(triangle.a1)}\\degree$ ; `;						
 							switch (operation) {
 								case 'triple' :
 									a2 = calcul((180-a1)/4);
@@ -4555,18 +4556,18 @@ function Constructibilite_des_triangles(){
 							};
 							triangle.a2 = a2;
 							triangle.a3 = a3;
-							texte += `${triangle.getAngles()[1]} $= ${triangle.a2}\\degree$ et ${triangle.getAngles()[2]} est le ${operation} de ${triangle.getAngles()[1]}.`;
+							texte += `${triangle.getAngles()[1]} $= ${tex_nombre(triangle.a2)}\\degree$ et ${triangle.getAngles()[2]} est le ${operation} de ${triangle.getAngles()[1]}.`;
 							// on crée l'objet longueurs + valeurs des côtés du triangle
 							for (let i=0;i<3;i++) {
 								current_triangle.push({angle: triangle.getAngles()[i], valeur: triangle.getAnglesValeurs()[i]});
 							};								
-							texte_corr += `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].angle} est le ${operation} de ${current_triangle[1].angle} = $${current_triangle[1].valeur}\\degree$  d'où ${current_triangle[2].angle} = $${current_triangle[2].valeur}\\degree$.`;
+							texte_corr += `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].angle} est le ${operation} de ${current_triangle[1].angle} = $${tex_nombre(current_triangle[1].valeur)}\\degree$  d'où ${current_triangle[2].angle} = $${tex_nombre(current_triangle[2].valeur)}\\degree$.`;
 							break;
 						case 1 : 
 							a2 = randint(a_min,a_max);
 							triangle.a2 = a2;
 							operation = operations_possibles[randint(0,2)];
-							texte += `${triangle.getNom()} tel que ${triangle.getAngles()[1]} $= ${triangle.a2}\\degree$ ; `;							
+							texte += `${triangle.getNom()} tel que ${triangle.getAngles()[1]} $= ${tex_nombre(triangle.a2)}\\degree$ ; `;							
 							switch (operation) {
 								case 'triple' :
 									a1 = calcul((180-a2)/4);
@@ -4583,19 +4584,19 @@ function Constructibilite_des_triangles(){
 							};
 							triangle.a1 = a1;
 							triangle.a3 = a3;
-							texte += `${triangle.getAngles()[0]} $= ${triangle.a1}\\degree$ et ${triangle.getAngles()[2]} est le ${operation} de ${triangle.getAngles()[0]}.`;
+							texte += `${triangle.getAngles()[0]} $= ${tex_nombre(triangle.a1)}\\degree$ et ${triangle.getAngles()[2]} est le ${operation} de ${triangle.getAngles()[0]}.`;
 							// on crée l'objet longueurs + valeurs des côtés du triangle
 							for (let i=0;i<3;i++) {
 								current_triangle.push({angle: triangle.getAngles()[i], valeur: triangle.getAnglesValeurs()[i]});
 							};
-							texte_corr += `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].angle} est le ${operation} de ${current_triangle[0].angle} = $${current_triangle[0].valeur}\\degree$  d'où ${current_triangle[2].angle} = $${current_triangle[2].valeur}\\degree$.`;
+							texte_corr += `Dans le triangle ${triangle.getNom()}, ${current_triangle[2].angle} est le ${operation} de ${current_triangle[0].angle} = $${tex_nombre(current_triangle[0].valeur)}\\degree$  d'où ${current_triangle[2].angle} = $${tex_nombre(current_triangle[2].valeur)}\\degree$.`;
 							break;
 					};
-					texte_corr += `<br>Donc ${current_triangle[0].angle} + ${current_triangle[1].angle} + ${current_triangle[2].angle} = $${current_triangle[0].valeur}\\degree + ${current_triangle[1].valeur}\\degree + ${current_triangle[2].valeur}\\degree = ${calcul(current_triangle[0].valeur + current_triangle[1].valeur + current_triangle[2].valeur)}\\degree$.`;							
+					texte_corr += `<br>Donc ${current_triangle[0].angle} + ${current_triangle[1].angle} + ${current_triangle[2].angle} = $${tex_nombre(current_triangle[0].valeur)}\\degree + ${tex_nombre(current_triangle[1].valeur)}\\degree + ${tex_nombre(current_triangle[2].valeur)}\\degree = ${tex_nombrec(current_triangle[0].valeur + current_triangle[1].valeur + current_triangle[2].valeur)}\\degree$.`;							
 					texte_corr += `<br> On constate que la somme des trois angles du triangle vaut bien $180\\degree$.`;
 					texte_corr += `<br> ${texte_en_couleur('On peut donc construire le triangle '+triangle.getNom())}.`;
-					texte_corr += `<br><br>  ${texte_en_couleur('Une infinité de tels triangles existent')}.`;
-					texte_corr += `<br> On les obtient les uns à partir des autres par homothétie.`;
+					texte_corr += `<br><br>  ${texte_en_couleur('Il existe une infinité de triangles avec ces mesures.')}`;
+					texte_corr += `<br> On les obtient les uns à partir des autres par un agrandissement ou une réduction.`;
 					break;
 			}
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
