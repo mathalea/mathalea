@@ -4503,10 +4503,42 @@ function Constructibilite_des_triangles(){
 					// texte_corr+=  ` <br>Combien de tels triangles?`
 					break;
 				case 7 : // 3 angles non constructible
-					texte = `3 angles --> non constructible`;
-					texte+=  ` <br>Combien de tels triangles?`
-					texte_corr = `3 angles --> non constructible`;
-					texte_corr+=  ` <br>Combien de tels triangles?`
+					// on initialise les angles sinon la méthode isTrueTriangleAngles() renvoie false!
+					a1 = randint(a_min,a_max);
+					a2 = randint(a_min,a_max);
+					a3 = randint(a_min,a_max);
+					triangle.a1 = a1;
+					triangle.a2 = a2;
+					triangle.a3 = a3;	
+					while (triangle.isTrueTriangleAngles()) {	
+						a1 = randint(a_min,a_max);
+						a2 = randint(a_min,a_max);
+						a3 = randint(a_min,a_max);
+						triangle.a1 = a1;
+						triangle.a2 = a2;
+						triangle.a3 = a3;
+					};					
+					texte = ``;
+					texte_corr = ``;
+					texte = `${triangle.getNom()} tel que ${triangle.getAngles()[0]} $= ${triangle.a1}\\degree$ ; `;					
+					texte += `${triangle.getAngles()[1]} $= ${triangle.a2}\\degree$ et ${triangle.getAngles()[2]} $= ${triangle.a3}\\degree$.`;
+					// on crée l'objet longueurs + valeurs des côtés du triangle
+					for (let i=0;i<3;i++) {
+						current_triangle.push({angle: triangle.getAngles()[i], valeur: triangle.getAnglesValeurs()[i]});
+					};
+					// on trie les couples longueurs/valeurs du triangle selon les valeurs croissantes.
+					current_triangle.sort(function (a, b) {
+						return a.valeur - b.valeur;
+					});
+					texte_corr = `Dans le triangle ${triangle.getNom()}, ${current_triangle[0].angle} + ${current_triangle[1].angle} + ${current_triangle[2].angle} = $${current_triangle[0].valeur}\\degree + ${current_triangle[1].valeur}\\degree + ${current_triangle[2].valeur}\\degree = ${calcul(current_triangle[0].valeur + current_triangle[1].valeur + current_triangle[2].valeur)}\\degree$.`;
+					texte_corr += `<br> Si le triangle était constructible, la somme des trois angles vaudrait $180\\degree$,`;
+					texte_corr += ` or ce n'est pas le cas.`
+					texte_corr += `<br> ${texte_en_couleur('On ne peut donc pas construire le triangle '+triangle.getNom())}.`;
+					texte_corr += `<br><br>  ${texte_en_couleur('Aucun triangle de ce type n\'existe')}.`;
+					// texte = `3 angles --> non constructible`;
+					// texte+=  ` <br>Combien de tels triangles?`
+					// texte_corr = `3 angles --> non constructible`;
+					// texte_corr+=  ` <br>Combien de tels triangles?`
 					break;				
 				case 8 : // 2 angles et le 3e fonction du 1er ou du 2eme
 					texte = `2 angles et le 3e fonction du 1er ou du 2eme --> constructible`;
