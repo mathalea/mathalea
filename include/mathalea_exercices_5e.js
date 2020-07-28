@@ -4263,18 +4263,21 @@ function Constructibilite_des_triangles(){
 		this.titre = `Constructibilité des triangles via les longueurs`;
 		//this.consigne = `Justifier si les longueurs données permettent de construire le triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0 !`;
 		this.consigne = `Justifier si les longueurs données permettent de construire le triangle.`;
-		this.consigne += `<br>Dire chaque fois s'il existe plusieurs triangles constructibles ou s'il n'en existe pas.`;
+		//this.consigne += `<br>Dire chaque fois s'il existe plusieurs triangles constructibles ou s'il n'en existe pas.`;
+		this.consigne += `<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.`
 		
 	} else if (this.exo == this.beta+'5G31-1') {//via angles
 		this.titre = `Constructibilité des triangles via les angles`;
 		//this.consigne = `Justifier si les angles donnés permettent de construire le triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0 !`;
 		this.consigne = `Justifier si les angles donnés permettent de construire le triangle.`;
-		this.consigne += `<br>Dire chaque fois s'il existe plusieurs triangles constructibles ou s'il n'en existe pas.`;
+		//this.consigne += `<br>Dire chaque fois s'il existe plusieurs triangles constructibles ou s'il n'en existe pas.`;
+		this.consigne += `<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.`
 	} else {			
 		this.titre = "Constructibilité des triangles";	
 		//this.consigne = `Justifier si les longueurs ou les angles donnés permettent de construire le triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0 !`;
 		this.consigne = `Justifier si les longueurs ou les angles donnés permettent de construire le triangle.`;
-		this.consigne += `<br>Dire chaque fois s'il existe plusieurs triangles constructibles ou s'il n'en existe pas.`;
+		//this.consigne += `<br>Dire chaque fois s'il existe plusieurs triangles constructibles ou s'il n'en existe pas.`;
+		this.consigne += `<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.`
 
 	};
 	
@@ -4289,7 +4292,7 @@ function Constructibilite_des_triangles(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.introduction=info_message({
 			titre : "Exercice BETA",
-			texte: "En cours de réalisation <br>Est-il préférable de mettre du conditionnel dans les corrections?<br>type8 correction non finalisée"
+			texte: "En cours de réalisation <br>Est-il préférable de mettre du conditionnel dans les corrections?"
 
 		});
 
