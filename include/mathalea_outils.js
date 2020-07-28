@@ -580,7 +580,7 @@ function valeur_base(n) {
 };
 
 /**
-* Convertit un angle de radian vers degrés
+* Convertit un angle de radian vers degrés et fonction inverse
 * @Example
 * // PI->180
 * @Auteur Jean-Claude Lhote
@@ -588,6 +588,9 @@ function valeur_base(n) {
 Math.degres = function(radians) {
 	return radians * 180 / Math.PI;
 };
+Math.radians = function(degres) {
+	return degres*Math.PI/180
+}
 
 /**
  * 
