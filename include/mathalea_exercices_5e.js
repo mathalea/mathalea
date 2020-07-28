@@ -4251,6 +4251,9 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 /**
  * Constructibilité des triangles
  * Préciser ici les numéros des exos 
+ * 5G2 exercice parent il faudra supprimmer la version beta5G2 de la liste des choix du fichier mathalea_exercices.js
+ * 5G21-1
+ * 5G31-1
  * beta5G2,beta5G21-1,beta5G31-1
  * @author Sébastien Lozano
  */
@@ -4290,11 +4293,11 @@ function Constructibilite_des_triangles(){
 	let type_de_questions_disponibles;
 	
 	this.nouvelle_version = function(numero_de_l_exercice){
-		this.introduction=info_message({
-			titre : "Exercice BETA",
-			texte: "En cours de réalisation <br>Est-il préférable de mettre du conditionnel dans les corrections?"
+		// this.introduction=info_message({
+		// 	titre : "Exercice BETA",
+		// 	texte: "En cours de réalisation <br>Est-il préférable de mettre du conditionnel dans les corrections?"
 
-		});
+		// });
 
 		if (this.exo == this.beta+'5G21-1') { // via longueurs
 			if (this.sup ==1) {
@@ -4643,7 +4646,7 @@ function Constructibilite_des_triangles(){
  * @author Sébastien Lozano
  */
 function Constructibilite_des_triangles_longueurs(){
-	this.beta = `beta`;
+	this.beta = ``;
 	this.exo = this.beta+`5G21-1`;
 	//this.titre = `Constructibilité des triangles via les longueurs`;
 	Constructibilite_des_triangles.call(this);
@@ -4655,7 +4658,7 @@ function Constructibilite_des_triangles_longueurs(){
  * @author Sébastien Lozano
  */
 function Constructibilite_des_triangles_angles(){
-	this.beta = `beta`;
+	this.beta = ``;
 	this.exo = this.beta+`5G31-1`;
 	//this.titre = `Constructibilité des triangles via les angles`;
 	Constructibilite_des_triangles.call(this);
