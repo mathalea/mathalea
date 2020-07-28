@@ -1339,7 +1339,8 @@ function angle(A,O,B){
  */
 function angleOriente(A,O,B){
 	let A2 = pointParRotation(A,O,90);
-	return unSiPositifMoinsUnSinon(A2.x*B.x+A2.y*B.y)*angle(A,O,B)
+	let v=Vecteur(O,B),u=Vecteur(O,A2)
+	return unSiPositifMoinsUnSinon(v.x*u.x+v.y*u.y)*angle(A,O,B)
 }
 /**
 * angleradian(A,O,B) renvoie l'angle AOB en radian
