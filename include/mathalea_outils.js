@@ -875,7 +875,7 @@ function signe(a) { // + ou -
  * @Auteur Jean-Claude Lhote
  */
 
-function Signe(a) {
+function unSiPositifMoinsUnSinon(a) {
 	if (a<0) return -1;
 	else return 1;
 }
@@ -1648,7 +1648,7 @@ function texte_gras(texte){
 		return `<b>${texte}</b>`	
 	}
 	else {
-		return `\\textbf${texte}`
+		return `\\textbf{${texte}}`
 	}	
 }
 
@@ -4004,10 +4004,15 @@ function decomp_fact_prem_array(n) {
  * Pour l'exemple le triangle se nomme AGE
  * La méthode getCotes() renvoie un tableau contenant les noms des segments des côtés du triangle en mode maths. [AG], [GE] et [EA] dans cet ordre.
  * La méthode getLongueurs() renvoie un tableau contenant les noms des longueurs des côtés du triangle en mode maths. AG, GE et EA dans cet ordre.
+ * La méthode getLongueursValeurs() renvoie un tableau contenant les valeurs des longueurs des côtés du triangle.
  * La méthode getAngles() renvoie un tableau contenant les noms des angles du triangle en mode maths. AGE, GEA et EAG dans cet ordre.
+ * La méthode getAnglesValeurs() renvoie un tableau contenant les valeurs des angles du triangle.
  * La méthode getSommets() renvoie un tableau contenant les noms des sommets du triangle en mode maths. A, G et E dans cet ordre.
- * La méthode isTrueTriangleLongueurs() renvoie un booléen si le triangle définit à partir des longueurs est un vrai triangle non plat. Non Finalisée
- * La méthode isTrueTriangleAngles() renvoie un booléen si le triangle définit à partir des angles existe. Non Finalisée
+ * La méthode getPerimetre() renvoie le périmètre du triangle
+ * La méthode isTrueTriangleLongueurs() renvoie un booléen si le triangle définit à partir des longueurs est un vrai triangle non plat.
+ * La méthode isPlatTriangleLongueurs() renvoie un booléen si le triangle définit à partir des longueurs est un triangle plat.
+ * La méthode isTrueTriangleAngles() renvoie un booléen si le triangle définit à partir des angles existe et n'est pas un triangle plat.
+ * La méthode isPlatTriangleAngles() renvoie un booléen si le triangle définit à partir des angles existe et est un triangle plat.
  * La méthode isQuelconque() renvoie  un booléen si le triangle définit à partir des angles ou des longueurs existe et est quelconque. Non Finalisée
  * @author Sébastien Lozano
  */
@@ -4049,6 +4054,20 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		return longueurs;
 	};
 
+	// renvoie les valeurs des longueurs des côtés du triangle.
+	function getLongueursValeurs() {		
+		if ((typeof self.l1 == "undefined") || (typeof self.l2 == "undefined") || (typeof self.l3 == "undefined")) {
+			//return false;
+			return ['L\'une des longueurs de l\'objet triangle n\'est pas définie'];
+		}
+		let longueurs = [];
+		longueurs[0]=self.l1;
+		longueurs[1]=self.l2;
+		longueurs[2]=self.l3;
+
+		return longueurs;
+	};
+
 	// renvoie les noms des angles du triangle.
 	function getAngles() {
 		let angles = [];
@@ -4057,6 +4076,20 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		angles[0] = `$\\;\\widehat{${sommets[0]+sommets[1]+sommets[2]}}$`;
 		angles[1] = `$\\;\\widehat{${sommets[1]+sommets[2]+sommets[0]}}$`;
 		angles[2] = `$\\;\\widehat{${sommets[2]+sommets[0]+sommets[1]}}$`;
+
+		return angles;
+	};
+
+	// renvoie les valeurs des angles du triangle.
+	function getAnglesValeurs() {		
+		if ((typeof self.a1 == "undefined") || (typeof self.a2 == "undefined") || (typeof self.a3 == "undefined")) {
+			//return false;
+			return ['L\'un des angles de l\'objet triangle n\'est pas définie'];
+		}
+		let angles = [];
+		angles[0]=self.a1;
+		angles[1]=self.a2;
+		angles[2]=self.a3;
 
 		return angles;
 	};
@@ -4072,47 +4105,89 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		return sommets;
 	};
 
+	// renvoie le périmètre du triangle
+	function getPerimetre() {
+		if ((typeof self.l1 == "undefined") || (typeof self.l2 == "undefined") || (typeof self.l3 == "undefined")) {
+			//return false;
+			return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
+		} else {
+			return calcul(self.l1 + self.l2 + self.l3);
+		};			
+	};
+
 	// renvoie un booleen selon que les trois longueurs forment un vrai triangle ou non
 	function isTrueTriangleLongueurs() {
 		if ((typeof self.l1 == "undefined") || (typeof self.l2 == "undefined") || (typeof self.l3 == "undefined")) {
-			return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
+			return false;
+			//return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
 		}
 		let longueurs = [self.l1,self.l2,self.l3];
 		//console.log('longueurs : '+longueurs);
 		longueurs.sort(function(a,b){
-			return a-b;
+			return calcul(a-b);
 		});
 		//console.log('longueurs sort() : '+longueurs);
-		if (longueurs[2] < (longueurs[0]+longueurs[1])) {
+		if (longueurs[2] < calcul(longueurs[0]+longueurs[1])) {
 			return true;
 		} else {
 			return false;
 		};
 	};
 
-	// renvoie un booleen selon que les trois longueurs forment un vrai triangle ou non
+	// renvoie un booleen selon que les trois longueurs forment un triangle plat ou non
 	function isPlatTriangleLongueurs() {
 		if ((typeof self.l1 == "undefined") || (typeof self.l2 == "undefined") || (typeof self.l3 == "undefined")) {
-			return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
+			//return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
+			return false;
 		}
 		let longueurs = [self.l1,self.l2,self.l3];
 		//console.log('longueurs : '+longueurs);
 		longueurs.sort(function(a,b){
-			return a-b;
+			return calcul(a-b);
 		});
 		//console.log('longueurs sort() : '+longueurs);
-		if (longueurs[2] == (longueurs[0]+longueurs[1])) {
+		if (longueurs[2] == calcul(longueurs[0]+longueurs[1])) {
 			return true;
 		} else {
 			return false;
 		};
 	};
 
-	// renvoie un booleen selon que les trois angles forment un vrai triangle ou non
+	// renvoie un booleen selon que les trois angles forment un vrai triangle non plat ou non
 	function isTrueTriangleAngles() {
-		// Vérfier l'existence de a1, a2 et a3 !!!
+		// si l'un des angles n'est pas defini ça ne va pas
+		if ((typeof self.a1 == "undefined") || (typeof self.a2 == "undefined") || (typeof self.a3 == "undefined")) {
+			return false;
+			//return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
+		}
+		// si l'un des angles est négatif ça ne va pas
+		if ((self.a1 < 0) || (self.a2 < 0) || (self.a3 < 0)) {
+			return false;
+			//return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
+		}
 		if ((self.a1 + self.a2 + self.a3) == 180) {
-			return true;
+			if ((self.a1==0 && self.a2==0) || (self.a2==0 && self.a3==0) || (self.a3==0 && self.a1==0)) {
+				return false;
+			} else {
+				return true;
+			};
+		} else {
+			return false;
+		};
+	};
+
+	// renvoie un booleen selon que les trois angles forment un triangle plat ou non
+	function isPlatTriangleAngles() {
+		if ((typeof self.a1 == "undefined") || (typeof self.a2 == "undefined") || (typeof self.a3 == "undefined")) {
+			return false;
+			//return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
+		};
+		if ((self.a1 + self.a2 + self.a3) == 180) {
+			if ((self.a1==0 && self.a2==0) || (self.a2==0 && self.a3==0) || (self.a3==0 && self.a1==0)) {
+				return true;
+			} else {
+				return false;
+			};
 		} else {
 			return false;
 		};
@@ -4138,11 +4213,15 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 	this.getNom = getNom;
 	this.getCotes = getCotes;
 	this.getLongueurs = getLongueurs;
+	this.getLongueursValeurs = getLongueursValeurs;
 	this.getAngles = getAngles;
+	this.getAnglesValeurs = getAnglesValeurs;
 	this.getSommets = getSommets;
+	this.getPerimetre = getPerimetre;
 	this.isTrueTriangleLongueurs = isTrueTriangleLongueurs;
 	this.isPlatTriangleLongueurs = isPlatTriangleLongueurs;
 	this.isTrueTriangleAngles = isTrueTriangleAngles;
+	this.isPlatTriangleAngles = isPlatTriangleAngles;
 	//this.isQuelconque = isQuelconque;	
 };
 
