@@ -167,6 +167,15 @@ function pointParRotation(...args){
 	return new PointParRotation(...args)
 }
 
+function PointParSimilitude(A,O,a,k,nom='',positionLabel = 'above') {
+	Point.call(this,nom);
+	let ra=Math.radians(a)
+	this.x=calcul(O.x+k*(Math.cos(ra)*(A.x-O.x)-Math.sin(ra)*(A.y-O.y)))
+	this.y=calcul(O.y+k*(Math.cos(ra)*(A.y-O.y)+Math.sin(ra)*(A.x-O.x)))
+}
+function pointParSimilitude(...args) {
+	return new PointParSimilitude(...args)
+}
 
 
 /**
