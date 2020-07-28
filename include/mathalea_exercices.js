@@ -39,7 +39,7 @@ var liste_des_exercices_disponibles = {
 		'6D101' : Heures_decimales,
 		'6D11' : Somme_de_durees,
 		'6D12' : Calculs_de_durees_ou_d_horaires,
-		//'6G20' : Vocabulaire_des_triangles_6e_facile,
+		'beta6G10' : Notation_segment_droite_demi_droite,
 		'6G20' : Vocabulaire_des_triangles_6e,
 		'6G24' : Transformations_6e,
 		'6G25-1' : Pavages_et_reflexion,
@@ -7666,6 +7666,56 @@ function Vocabulaire_des_triangles(){
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : sans conversions de longueurs\n2 : avec conversions de longueurs"];
 	};
 }
+
+/**
+* Décrire segment, droite et demi-droite
+* @Auteur Rémi Angot
+*/
+function  Notation_segment_droite_demi_droite(){
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Notation des droites, segments et demi-droites";
+	this.consigne = "Décrire la figure";
+	this.nb_questions = 3;
+	this.nb_cols = 2;
+	this.nb_cols_corr = 2;
+	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+			let xA=randint(1,15)
+			let yA=randint(-5,5)
+			let xB=randint(1,15,[xA-1,xA,xA+1])
+			let yB=randint(-5,5,[yA-1,yA,yA+1])
+			let xC=randint(1,15,[xA-1,xA,xA+1,xB-1,xB,xB+1])
+			let yC=randint(-5,5,[yA-1,yA,yA+1,yB-1,yB,yB+1])
+			let A = point(xA,yA,'A')
+			let B = point(xB,yB,'B')
+			let C = point(xC,yC,'C')
+			n = labelPoints(A,B,C)
+			s = segment(A,B)
+			d1 = droite(B,C)
+			d2 = demiDroite(A,C)
+
+			sortie_html ? texte = codeSvg(n,s,d1,d2) : texte = codeTikz(n,s,d1,d2)
+			texte_corr = `Trace $[AB], (BC), [AC).$`
+			
+			
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+}
+
 
 /**
  * Vocabulaire des triangles 
