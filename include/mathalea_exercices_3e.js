@@ -2966,7 +2966,7 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 					textes_corr[5] = `${p2} n'est ni un multiple ni un diviseur de ${p1}`;
 					// on mélange pour que l'ordre change!
 					shuffle2tableaux(textes, textes_corr);
-					texte = `Avec la calculatrice, compléter chaque phrase avec le mot "est un diviseur de" ou "est un multiple de" ou "n'est ni une diviseur ni un multiple de".`;
+					texte = `Avec la calculatrice, compléter chaque phrase avec "est un diviseur de" ou "est un multiple de" ou "n'est ni une diviseur ni un multiple de".`;
 					texte += `<br>`;
 					texte_corr = ``;
 					for (let j = 0; j < 5; j++) {
