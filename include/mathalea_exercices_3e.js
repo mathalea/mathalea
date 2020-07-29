@@ -1155,9 +1155,9 @@ function Double_distributivite() {
 					break;
 				case 3://(ax-b)(cx+d)
 					texte = `$(${a}x-${b})(${c}x+${d})$`
-					// if (a*d-b*c>0) 
-					texte_corr = `$(${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2+(${d * a-b * c})*x-${b * d}`)}$`;
-					// else texte_corr = `$(${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${a * c}x^2-${b * c - a*d}x-${b * d}$`;
+					if (egal(a*d-b*c,0)) 
+					texte_corr = `$(${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2-${b * d}`)}$`;
+					else texte_corr = `$(${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2+(${d * a-b * c})*x-${b * d}`)}$`;
 					break;
 				case 4://(ax-b)(cx-d)
 					texte = `$(${a}x-${b})(${c}x-${d})$`
