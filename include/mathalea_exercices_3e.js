@@ -2832,7 +2832,6 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 	this.titre = "Division Euclidienne - Diviseurs - Multiples";
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `Divisions euclidiennes - Diviseurs - Multiples.`;
-	//this.consigne += `<br>`;
 	//sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing = 1 : this.spacing = 2;
 	//sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
@@ -3049,8 +3048,8 @@ function Premier_ou_pas() {
 	this.titre = "Primalité ou pas";
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `Justifier que les nombres suivants sont premiers ou pas.`;
-	//this.consigne += `<br>`;	
-	sortie_html ? this.spacing = 3 : this.spacing = 2;
+	//sortie_html ? this.spacing = 3 : this.spacing = 2;
+	sortie_html ? this.spacing = 1 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
 	this.nb_questions = 5;
 	//this.correction_detaillee_disponible = true;
@@ -3101,7 +3100,11 @@ function Premier_ou_pas() {
 					break;
 				case 2: // Multiple de 3
 					let sum = 0; // pour la valeur de la somme;
-					N = 3 * randint(34, 3333);
+					N = 3 * randint(34, 3333); // on initialise avant la boucle car on a peut être de la chance
+					while ( (N % 2 == 0) || (N % 5 == 0)) {
+						N = 3 * randint(34, 3333);
+					};
+					//N = 3 * randint(34, 3333);
 					texte = nombre_avec_espace(N);
 					texte_corr = `Comme ` + N.toString().charAt(0);
 					sum = Number(N.toString().charAt(0));
