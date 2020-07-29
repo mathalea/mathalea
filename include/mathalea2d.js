@@ -1241,6 +1241,14 @@ function vecteur(...args){
 	return new Vecteur(...args)
 }
 
+function Arc(A,O,B,color='black') {
+	ObjetMathalea2D.call(this);
+	this.color=color;
+	let l=longueur(O,A);
+	this.svg = function(coeff=20){
+		return `<path d="M${A.xSVG(coeff)} ${A.ySVG(coeff)} a ${l} ${l} 0 0 1 ${B.xSVG(coeff)} ${B.ySVG(coeff)} fill${color}"/>`
+	}
+}
 /**
 * * c = cercle(O,r) //Cercle de centre O et de rayon r
 *
@@ -1257,7 +1265,7 @@ function Cercle(O,r,color = 'black'){
 		return `\\draw (${O.x},${O.y}) circle (${r});`
 	}
 }
-function cercle(...args){
+function cercle(...args){ 
 	return new Cercle(...args)
 }
 
