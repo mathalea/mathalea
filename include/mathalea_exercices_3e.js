@@ -3239,7 +3239,7 @@ function Premier_ou_pas() {
 					};
 					texte_corr += `.`;
 					texte_corr += `<br> Aucun de ces nombres premiers ne divise ${N}, `;
-					texte_corr += texte_en_couleur_et_gras(nombre_avec_espace(N) + ` n'est donc pas premier.`);
+					texte_corr += texte_en_couleur_et_gras(nombre_avec_espace(N) + ` est donc un nombre premier.`);
 					break;
 			};
 
