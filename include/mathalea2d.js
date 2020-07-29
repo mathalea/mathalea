@@ -877,8 +877,9 @@ function polygoneParHomothetie(...args){
 *
 * @Auteur Rémi Angot
 */
-function PolygoneParRotation(p,O,angle){
+function PolygoneParRotation(p,O,angle,color){
 	Polygone.call(this);
+	this.color = color
 	let p2=[]
 	for (let i = 0 ; i < p.listePoints.length ; i++ ){
   		p2[i] = pointParRotation(p.listePoints[i],O,angle)
@@ -894,15 +895,92 @@ function polygoneParRotation(...args){
 *
 * @Auteur Rémi Angot
 */
-function SegmentParRotation(s,O,angle,color){
+function SegmentParRotation(s,O,angle,color='black'){
 	Segment.call(this);
 	this.color = color
 	let A = pointParRotation(s.extremite1,O,angle)
 	let B = pointParRotation(s.extremite2,O,angle)
-	return segment(A,B)
+	this.x1 = A.x
+	this.y1 = A.y
+	this.x2 = B.x
+	this.y2 = B.y
 }
 function segmentParRotation(...args){
 	return new SegmentParRotation(...args)
+}
+
+/**
+* new DroiteParRotation(d,O,a) //Trace l'image de d dans la rotation de centre O et d'angle a
+*
+* @Auteur Rémi Angot
+*/
+function DroiteParRotation(d,O,angle,color='black'){
+	this.color = color
+	let A = point(d.x1,d.y1)
+	let B = point(d.x2,d.y2)
+	let A2 = pointParRotation(A,O,angle)
+	let B2 = pointParRotation(B,O,angle)
+	return droite(A2,B2)
+}
+
+/**
+* new DemiDroiteParRotation(d,O,a) //Trace l'image de d dans la rotation de centre O et d'angle a
+*
+* @Auteur Rémi Angot
+*/
+function DemiDroiteParRotation(d,O,angle,color='black'){
+	this.color = color
+	let A = point(d.x1,d.y1)
+	let B = point(d.x2,d.y2)
+	let A2 = pointParRotation(A,O,angle)
+	let B2 = pointParRotation(B,O,angle)
+	return demiDroite(A2,B2)
+}
+
+/**
+* rotation(objet,O,a) //Trace l'image d'un objet (point, droite, demi-droite, segment, polygone) dans la rotation de centre O et d'angle a
+*
+* @Auteur Rémi Angot
+*/
+function rotation(...args){
+	if (args[0].constructor==Segment) {
+		return new SegmentParRotation(...args)
+	}
+	if (args[0].constructor==Polygone) {
+		return new PolygoneParRotation(...args)
+	}
+	if ([Point,PointMilieu,PointSurSegment,PointParHomothetie,PointParTranslation,PointParTranslation2Points,PointParRotation,PointParProjectionOrtho,PointParSymetrieAxiale].includes(args[0].constructor)) {
+		return new PointParRotation(...args)
+	}
+	if (args[0].constructor==Droite) {
+		return new DroiteParRotation(...args)
+	}
+	if (args[0].constructor==DemiDroite) {
+		return new DemiDroiteParRotation(...args)
+	}
+}
+
+/**
+* translation(objet,O,a) //Trace l'image d'un objet (point, droite, demi-droite, segment, polygone) dans la translation de centre O et d'angle a
+*
+* @Auteur Rémi Angot
+*/
+function translation(...args){
+	if (args[0].constructor==Segment) {
+		return new SegmentParTranslation(...args)
+	}
+	if (args[0].constructor==Polygone) {
+		return new PolygoneParTranslation(...args)
+	}
+	if ([Point,PointMilieu,PointSurSegment,PointParHomothetie,PointParTranslation,PointParTranslation2Points,PointParRotation,PointParProjectionOrtho,PointParSymetrieAxiale].includes(args[0].constructor)) {
+		return new PointParTranslation(...args)
+	}
+	if (args[0].constructor==Droite) {
+		return new DroiteParTranslation(...args)
+	}
+	if (args[0].constructor==DemiDroite) {
+		return new DemiDroiteParTranslation(...args)
+	}
 }
 
 /**
@@ -1184,7 +1262,7 @@ function cercle(...args){
 }
 
 /**
-* * c = cercle(O,r) //Cercle de centre O et de rayon r
+*  c = cercle(O,r) //Cercle de centre O et de rayon r
 *
 * @Auteur Rémi Angot
 */
@@ -1194,6 +1272,38 @@ function CercleCentrePoint(O,M,color = 'black'){
 function cercleCentrePoint(...args){
 	return new CercleCentrePoint(...args)
 }
+
+/**
+*  repere(xmin,ymin,xmax,ymax,thick)
+*
+* @Auteur Rémi Angot
+*/
+
+function Repere(xmin=-1,ymin=-10,xmax=30,ymax=10,thick=.2){
+	let objets = []
+	objets.push(segment(xmin,0,xmax,0), segment(0,ymin,0,ymax) )
+	for (let x=xmin ; x<=xmax ; x++){
+	  objets.push(segment(x,-thick,x,thick))
+	}
+	for (let y=ymin ; y<=ymax ; y++){
+	  objets.push(segment(-thick,y,thick,y))
+	}
+	this.svg = function(coeff=20){
+		return codeSvg(...objets)
+	}
+	this.tikz = function(coeff=20){
+		return codeTikz(...objets)
+	}
+	this.commentaire = `Repère(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, thick = ${thick})`
+
+}
+function repere(...args){
+	return new Repere(...args)
+}
+
+	
+
+
 
 /**
  * codageAngleDroit(A,O,B) //Fait un codage d'angle droit de 3 mm pour l'angle direct AOB

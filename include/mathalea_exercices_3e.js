@@ -2650,9 +2650,10 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 	this.titre = "Division Euclidienne - Diviseurs - Multiples";
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `Divisions euclidiennes - Diviseurs - Multiples.`;
-	//this.consigne += `<br>`;
-	sortie_html ? this.spacing = 3 : this.spacing = 2;
-	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
+	//sortie_html ? this.spacing = 3 : this.spacing = 2;
+	sortie_html ? this.spacing = 1 : this.spacing = 2;
+	//sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
+	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 2;
 	this.nb_questions = 5;
 	//this.correction_detaillee_disponible = true;
 	this.nb_cols = 1;
@@ -2710,7 +2711,7 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 						rg_diviseur = (liste_diviseurs(dividende).length - 1) / 2 + 1;
 					}
 					diviseur = liste_diviseurs(dividende)[rg_diviseur - 1]; // on choisit le diviseur central de dividende, ATTENTION rang des tableaux commence à 0 
-					let candidats_diviseurs = [diviseur - 1, diviseur, diviseur + 1]; // on prend l'entier précédetn et le successeur de ce diviseur
+					let candidats_diviseurs = [diviseur - 1, diviseur, diviseur + 1]; // on prend l'entier précédent et le successeur de ce diviseur
 					// Faut-il que je conditionne pour éviter le diviseur 1 ?
 					candidats_diviseurs = shuffle(candidats_diviseurs); // on mélange le tableau
 					texte = 'Les trois divisions euclidiennes suivantes sont exactes : <br>';
@@ -2722,19 +2723,19 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 					texte += `<br>`;
 					texte += `Sans calculer, dire si les nombres ${nombre_avec_espace(candidats_diviseurs[0])}; ${nombre_avec_espace(candidats_diviseurs[1])}; ${nombre_avec_espace(candidats_diviseurs[2])} sont des diviseurs de ${nombre_avec_espace(dividende)}. Justifier.`;
 					texte_corr = ``;
-					if (dividende % candidats_diviseurs[0] == 0) {
+					if (egal(dividende % candidats_diviseurs[0],0)) { //egal() est une fonction de JC pour éviter les problèmes de virgule flottante
 						texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[0])} vaut 0 donc ${nombre_avec_espace(candidats_diviseurs[0])} est un diviseur de ${nombre_avec_espace(dividende)}`;
 					} else {
 						texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[0])} ne vaut pas 0 donc ${nombre_avec_espace(candidats_diviseurs[0])} n'est pas un diviseur de ${nombre_avec_espace(dividende)}`;
 					}
 					texte_corr += `<br>`;
-					if (dividende % candidats_diviseurs[1] == 0) {
+					if (egal(dividende % candidats_diviseurs[1],0)) { //egal() est une fonction de JC pour éviter les problèmes de virgule flottante
 						texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[1])} vaut 0 donc ${nombre_avec_espace(candidats_diviseurs[1])} divise ${nombre_avec_espace(dividende)}`;
 					} else {
 						texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[1])} ne vaut pas 0 donc ${nombre_avec_espace(candidats_diviseurs[1])} ne divise pas ${nombre_avec_espace(dividende)}`;
 					}
 					texte_corr += `<br>`;
-					if (dividende % candidats_diviseurs[1] == 0) {
+					if (egal(dividende % candidats_diviseurs[2],0)) { //egal() est une fonction de JC pour éviter les problèmes de virgule flottante
 						texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[2])} vaut 0 donc ${nombre_avec_espace(dividende)} est divisible par ${nombre_avec_espace(candidats_diviseurs[2])}`;
 					} else {
 						texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[2])} ne vaut pas 0 donc ${nombre_avec_espace(dividende)} n'est pas divisible par ${nombre_avec_espace(candidats_diviseurs[2])}`;
@@ -2782,7 +2783,7 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 					textes_corr[5] = `${p2} n'est ni un multiple ni un diviseur de ${p1}`;
 					// on mélange pour que l'ordre change!
 					shuffle2tableaux(textes, textes_corr);
-					texte = `Avec la calculatrice, compléter chaque phrase avec le mot "est un diviseur de" ou "est un multiple de" ou "n'est ni une diviseur ni un multiple de".`;
+					texte = `Avec la calculatrice, compléter chaque phrase avec "est un diviseur de" ou "est un multiple de" ou "n'est ni un diviseur ni un multiple de".`;
 					texte += `<br>`;
 					texte_corr = ``;
 					for (let j = 0; j < 5; j++) {
@@ -2865,8 +2866,8 @@ function Premier_ou_pas() {
 	this.titre = "Primalité ou pas";
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `Justifier que les nombres suivants sont premiers ou pas.`;
-	//this.consigne += `<br>`;	
-	sortie_html ? this.spacing = 3 : this.spacing = 2;
+	//sortie_html ? this.spacing = 3 : this.spacing = 2;
+	sortie_html ? this.spacing = 1 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
 	this.nb_questions = 5;
 	//this.correction_detaillee_disponible = true;
@@ -2917,7 +2918,10 @@ function Premier_ou_pas() {
 					break;
 				case 2: // Multiple de 3
 					let sum = 0; // pour la valeur de la somme;
-					N = 3 * randint(34, 3333);
+					N = 3 * randint(34, 3333); // on initialise avant la boucle car on a peut être de la chance
+					while ( (N % 2 == 0) || (N % 5 == 0)) {
+						N = 3 * randint(34, 3333);
+					};
 					texte = nombre_avec_espace(N);
 					texte_corr = `Comme ` + N.toString().charAt(0);
 					sum = Number(N.toString().charAt(0));
@@ -3045,14 +3049,17 @@ function Premier_ou_pas() {
 					N = crible_eratosthene_n(529)[r]; //on choisit un nombre premier inférieur à 529
 					texte = N + ``;
 					let tab_premiers_a_tester = crible_eratosthene_n(Math.trunc(Math.sqrt(N)));
-					texte_corr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
+					//texte_corr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
+					texte_corr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
 					texte_corr += tab_premiers_a_tester[0];
 					for (let k = 1; k < tab_premiers_a_tester.length; k++) {
 						texte_corr += `, ` + tab_premiers_a_tester[k];
 					};
-					texte_corr += `.`;
-					texte_corr += `<br> Aucun de ces nombres premiers ne divise ${N}, `;
-					texte_corr += texte_en_couleur_et_gras(nombre_avec_espace(N) + ` n'est donc pas premier.`);
+					//texte_corr += `.`;
+					// texte_corr += `<br> Aucun de ces nombres premiers ne divise ${N}, `;
+					texte_corr += `, le reste n'est jamais nul.`;
+					// texte_corr += texte_en_couleur_et_gras(nombre_avec_espace(N) + ` est donc un nombre premier.`);
+					texte_corr += `<br>`+texte_en_couleur_et_gras(nombre_avec_espace(N) + ` est donc un nombre premier.`);
 					break;
 			};
 
