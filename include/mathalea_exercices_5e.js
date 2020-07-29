@@ -3107,7 +3107,7 @@ function Liste_des_diviseurs_5e(){
 
 /**
  * 5A11 justifier la non primalité réinvestissement des critères de divisibilité
- * Nombres à 3 ou 4 chiffres, un multiple de 2, de 3, de 5, de 7, de 10, sous forme d'un produit de deux nombres premiers inférieurs à 30
+ * Nombres à 3 ou 4 chiffres, un multiple de 2, de 3, de 5, de 7, de 9, de 10, sous forme d'un produit de deux nombres premiers inférieurs à 30
  * et un nombre premier inferieur à 529 
  * @author Sébastien Lozano
  */
@@ -3168,7 +3168,10 @@ function Premier_ou_pas_5e(){
 						break;		
 					case 2 : // Multiple de 3
 						let sum3=0; // pour la valeur de la somme;
-						N=3*randint(34,3333);
+						N=3*randint(34,3333);// on initialise avant la boucle car on a peut être de la chance
+						while ( (N % 2 == 0) || (N % 5 == 0)) {
+							N = 3 * randint(34, 3333);
+						};
 						texte = nombre_avec_espace(N);
 						texte_corr = `Comme `+ N.toString().charAt(0);
 						sum3 = Number(N.toString().charAt(0));
@@ -3188,7 +3191,10 @@ function Premier_ou_pas_5e(){
 						break;	
 					case 4 : // Multiple de 9
 						let sum9=0; // pour la valeur de la somme;
-						N=9*randint(12,1111);
+						N=9*randint(12,1111);// on initialise avant la boucle car on a peut être de la chance
+						while ( (N % 2 == 0) || (N % 5 == 0)) {
+							N = 9 * randint(34, 3333);
+						};
 						texte = nombre_avec_espace(N);
 						texte_corr = `Comme `+ N.toString().charAt(0);
 						sum9 = Number(N.toString().charAt(0));
@@ -3229,14 +3235,17 @@ function Premier_ou_pas_5e(){
 						N=crible_eratosthene_n(29)[r]; //on choisit un nombre premier inférieur à 529
 						texte = N+``;
 						let tab_premiers_a_tester = crible_eratosthene_n(N);
-						texte_corr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à ${N}, c'est à dire par les nombres `;
+						//texte_corr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
+						texte_corr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;						
 						texte_corr += tab_premiers_a_tester[0];
 						for (let k=1;k<tab_premiers_a_tester.length;k++) {
 							texte_corr += `, `+tab_premiers_a_tester[k];
 						};
-						texte_corr += `.`;
-						texte_corr += `<br> Aucun de ces nombres premiers ne divise ${N}, `;
-						texte_corr += texte_en_couleur_et_gras(nombre_avec_espace(N)+` est donc premier.`);
+						//texte_corr += `.`;
+						// texte_corr += `<br> Aucun de ces nombres premiers ne divise ${N}, `;
+						texte_corr += `, le reste n'est jamais nul.`;
+						// texte_corr += texte_en_couleur_et_gras(nombre_avec_espace(N) + ` est donc un nombre premier.`);
+						texte_corr += `<br>`+texte_en_couleur_et_gras(nombre_avec_espace(N) + ` est donc un nombre premier.`);
 						break;								
 				};
 			
