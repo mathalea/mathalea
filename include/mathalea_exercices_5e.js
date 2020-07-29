@@ -3107,7 +3107,7 @@ function Liste_des_diviseurs_5e(){
 
 /**
  * 5A11 justifier la non primalité réinvestissement des critères de divisibilité
- * Nombres à 3 ou 4 chiffres, un multiple de 2, de 3, de 5, de 7, de 10, sous forme d'un produit de deux nombres premiers inférieurs à 30
+ * Nombres à 3 ou 4 chiffres, un multiple de 2, de 3, de 5, de 7, de 9, de 10, sous forme d'un produit de deux nombres premiers inférieurs à 30
  * et un nombre premier inferieur à 529 
  * @author Sébastien Lozano
  */
@@ -3168,7 +3168,10 @@ function Premier_ou_pas_5e(){
 						break;		
 					case 2 : // Multiple de 3
 						let sum3=0; // pour la valeur de la somme;
-						N=3*randint(34,3333);
+						N=3*randint(34,3333);// on initialise avant la boucle car on a peut être de la chance
+						while ( (N % 2 == 0) || (N % 5 == 0)) {
+							N = 3 * randint(34, 3333);
+						};
 						texte = nombre_avec_espace(N);
 						texte_corr = `Comme `+ N.toString().charAt(0);
 						sum3 = Number(N.toString().charAt(0));
@@ -3188,7 +3191,10 @@ function Premier_ou_pas_5e(){
 						break;	
 					case 4 : // Multiple de 9
 						let sum9=0; // pour la valeur de la somme;
-						N=9*randint(12,1111);
+						N=9*randint(12,1111);// on initialise avant la boucle car on a peut être de la chance
+						while ( (N % 2 == 0) || (N % 5 == 0)) {
+							N = 9 * randint(34, 3333);
+						};
 						texte = nombre_avec_espace(N);
 						texte_corr = `Comme `+ N.toString().charAt(0);
 						sum9 = Number(N.toString().charAt(0));

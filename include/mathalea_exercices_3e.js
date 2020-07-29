@@ -3104,7 +3104,6 @@ function Premier_ou_pas() {
 					while ( (N % 2 == 0) || (N % 5 == 0)) {
 						N = 3 * randint(34, 3333);
 					};
-					//N = 3 * randint(34, 3333);
 					texte = nombre_avec_espace(N);
 					texte_corr = `Comme ` + N.toString().charAt(0);
 					sum = Number(N.toString().charAt(0));
