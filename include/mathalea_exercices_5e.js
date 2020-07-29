@@ -3235,14 +3235,17 @@ function Premier_ou_pas_5e(){
 						N=crible_eratosthene_n(29)[r]; //on choisit un nombre premier inférieur à 529
 						texte = N+``;
 						let tab_premiers_a_tester = crible_eratosthene_n(N);
-						texte_corr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à ${N}, c'est à dire par les nombres `;
+						//texte_corr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
+						texte_corr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;						
 						texte_corr += tab_premiers_a_tester[0];
 						for (let k=1;k<tab_premiers_a_tester.length;k++) {
 							texte_corr += `, `+tab_premiers_a_tester[k];
 						};
-						texte_corr += `.`;
-						texte_corr += `<br> Aucun de ces nombres premiers ne divise ${N}, `;
-						texte_corr += texte_en_couleur_et_gras(nombre_avec_espace(N)+` est donc premier.`);
+						//texte_corr += `.`;
+						// texte_corr += `<br> Aucun de ces nombres premiers ne divise ${N}, `;
+						texte_corr += `, le reste n'est jamais nul.`;
+						// texte_corr += texte_en_couleur_et_gras(nombre_avec_espace(N) + ` est donc un nombre premier.`);
+						texte_corr += `<br>`+texte_en_couleur_et_gras(nombre_avec_espace(N) + ` est donc un nombre premier.`);
 						break;								
 				};
 			
