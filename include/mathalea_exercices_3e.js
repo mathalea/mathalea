@@ -2833,8 +2833,10 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `Divisions euclidiennes - Diviseurs - Multiples.`;
 	//this.consigne += `<br>`;
-	sortie_html ? this.spacing = 3 : this.spacing = 2;
-	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
+	//sortie_html ? this.spacing = 3 : this.spacing = 2;
+	sortie_html ? this.spacing = 1 : this.spacing = 2;
+	//sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
+	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 2;
 	this.nb_questions = 5;
 	//this.correction_detaillee_disponible = true;
 	this.nb_cols = 1;
@@ -2892,7 +2894,7 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 						rg_diviseur = (liste_diviseurs(dividende).length - 1) / 2 + 1;
 					}
 					diviseur = liste_diviseurs(dividende)[rg_diviseur - 1]; // on choisit le diviseur central de dividende, ATTENTION rang des tableaux commence à 0 
-					let candidats_diviseurs = [diviseur - 1, diviseur, diviseur + 1]; // on prend l'entier précédetn et le successeur de ce diviseur
+					let candidats_diviseurs = [diviseur - 1, diviseur, diviseur + 1]; // on prend l'entier précédent et le successeur de ce diviseur
 					// Faut-il que je conditionne pour éviter le diviseur 1 ?
 					candidats_diviseurs = shuffle(candidats_diviseurs); // on mélange le tableau
 					texte = 'Les trois divisions euclidiennes suivantes sont exactes : <br>';
@@ -2904,19 +2906,19 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 					texte += `<br>`;
 					texte += `Sans calculer, dire si les nombres ${nombre_avec_espace(candidats_diviseurs[0])}; ${nombre_avec_espace(candidats_diviseurs[1])}; ${nombre_avec_espace(candidats_diviseurs[2])} sont des diviseurs de ${nombre_avec_espace(dividende)}. Justifier.`;
 					texte_corr = ``;
-					if (dividende % candidats_diviseurs[0] == 0) {
+					if (egal(dividende % candidats_diviseurs[0],0)) { //egal() est une fonction de JC pour éviter les problèmes de virgule flottante
 						texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[0])} vaut 0 donc ${nombre_avec_espace(candidats_diviseurs[0])} est un diviseur de ${nombre_avec_espace(dividende)}`;
 					} else {
 						texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[0])} ne vaut pas 0 donc ${nombre_avec_espace(candidats_diviseurs[0])} n'est pas un diviseur de ${nombre_avec_espace(dividende)}`;
 					}
 					texte_corr += `<br>`;
-					if (dividende % candidats_diviseurs[1] == 0) {
+					if (egal(dividende % candidats_diviseurs[1],0)) { //egal() est une fonction de JC pour éviter les problèmes de virgule flottante
 						texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[1])} vaut 0 donc ${nombre_avec_espace(candidats_diviseurs[1])} divise ${nombre_avec_espace(dividende)}`;
 					} else {
 						texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[1])} ne vaut pas 0 donc ${nombre_avec_espace(candidats_diviseurs[1])} ne divise pas ${nombre_avec_espace(dividende)}`;
 					}
 					texte_corr += `<br>`;
-					if (dividende % candidats_diviseurs[1] == 0) {
+					if (egal(dividende % candidats_diviseurs[2],0)) { //egal() est une fonction de JC pour éviter les problèmes de virgule flottante
 						texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[2])} vaut 0 donc ${nombre_avec_espace(dividende)} est divisible par ${nombre_avec_espace(candidats_diviseurs[2])}`;
 					} else {
 						texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[2])} ne vaut pas 0 donc ${nombre_avec_espace(dividende)} n'est pas divisible par ${nombre_avec_espace(candidats_diviseurs[2])}`;
