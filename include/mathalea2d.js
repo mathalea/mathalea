@@ -1333,6 +1333,15 @@ function arc(...args) {
 function arcPointPointAngle(...args){
 	return new ArcPointPointAngle(...args)
 }
+/**
+ * @Auteur Jean-Claude Lhote &  Rémi Angot
+ * @param {Point} M 
+ * @param {Point} N 
+ * @param {number} angle orienté compris entre -360 et +360
+ * @param {boolean} rayon si true : les rayons sont tracés.
+ * @param {string} fill couleur de remplissage à 50%
+ * @param {string} color couleur du trait.
+ */
 function ArcPointPointAngle(M,N,angle,rayon=false,fill='none',color='black'){
 	ObjetMathalea2D.call(this);
 	this.color=color;
