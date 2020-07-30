@@ -1728,6 +1728,7 @@ function fonction_notion_vocabulaire() {
 				var id_du_div_diag = `div_svg_diag${numero_de_l_exercice}${id_unique}`;
 				var id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`;
 			}
+			let txt_info;
 
 			switch (type_de_questions) {
 				case 1: // périmètre d'un carré de côté x			
@@ -1801,10 +1802,12 @@ function fonction_notion_vocabulaire() {
 					};
 
 					// sous question e/
+					txt_info =  `Voici le diagramme d'une machine qui triple `;
 					if (sortie_html) {
 						texte += num_alpha(j) + ` &Eacute;crire la réponse à la question ` + num_alpha(j - 1) + ` sous forme de diagramme.<br>`;
-						texte += `Voici le diagramme d'une machine qui triple `;
-						texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						//texte += `Voici le diagramme d'une machine qui triple `;
+						//texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						txt_info += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 						SVG_machine_diag_3F1_act_mono(id_du_div_diag, 800, 100, 'f', 'x', [['3', '3x']]);
 						texte_corr += num_alpha(j) + ` C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
 						texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
@@ -1812,11 +1815,17 @@ function fonction_notion_vocabulaire() {
 						j++;//incrémente la sous question
 					} else { // sortie LaTeX
 						texte += `\\item   \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
-						texte += `Voici le diagramme d'une machine qui triple <br> `;
-						texte += tikz_machine_diag(`f`, `x`, [[`\\times 3`, `3x`]]);
+						//texte += `Voici le diagramme d'une machine qui triple <br> `;
+						//texte += tikz_machine_diag(`f`, `x`, [[`\\times 3`, `3x`]]);
+						txt_info += '<br>'+tikz_machine_diag(`f`, `x`, [[`\\times 3`, `3x`]]);
 						texte_corr += `\\item  C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
 						texte_corr += tikz_machine_diag(`f`, `x`, [[`\\times 4`, `4x`]]);
 					};
+					texte += info_message({
+						titre:'Exemple',
+						texte:txt_info,
+						couleur:'nombres'
+					});
 
 					// sous question f/
 					if (sortie_html) {
@@ -1918,10 +1927,12 @@ function fonction_notion_vocabulaire() {
 					};
 
 					// sous question e/
+					txt_info =  `Voici le diagramme d'une machine qui double `;
 					if (sortie_html) {
 						texte += num_alpha(j) + ` &Eacute;crire la réponse à la question ` + num_alpha(j - 1) + ` sous forme de diagramme.<br>`;
-						texte += `Voici le diagramme d'une machine qui double `;
-						texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						// texte += `Voici le diagramme d'une machine qui double `;
+						// texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						txt_info += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 						SVG_machine_diag_3F1_act_mono(id_du_div_diag, 800, 100, 'g', 'x', [['2', '2x']]);
 						texte_corr += num_alpha(j) + ` C'est une machine qui multiplie un nombre par lui-même, donc sous forme de diagramme.<br>`;
 						texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
@@ -1929,11 +1940,17 @@ function fonction_notion_vocabulaire() {
 						j++;//incrémente la sous question
 					} else {
 						texte += `\\item  \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
-						texte += `Voici le diagramme d'une machine qui double <br>`;
-						texte += tikz_machine_diag(`g`, `x`, [[`\\times 2`, `2x`]]);
+						// texte += `Voici le diagramme d'une machine qui double <br>`;
+						// texte += tikz_machine_diag(`g`, `x`, [[`\\times 2`, `2x`]]);
+						txt_info += '<br>'+tikz_machine_diag(`g`, `x`, [[`\\times 2`, `2x`]]);
 						texte_corr += `\\item C'est une machine qui multiplie un nombre par lui-même, donc sous forme de diagramme.<br>`;
 						texte_corr += tikz_machine_diag(`g`, `x`, [[`\\times x`, `x^2`]]);
 					};
+					texte += info_message({
+						titre:'Exemple',
+						texte:txt_info,
+						couleur:'nombres'
+					});
 
 					// sous question f/
 					if (sortie_html) {
@@ -2035,10 +2052,12 @@ function fonction_notion_vocabulaire() {
 					};
 
 					// sous question e/
+					txt_info = `Voici le diagramme d'une machine qui double puis qui ajoute 5 `;
 					if (sortie_html) {
 						texte += num_alpha(j) + ` &Eacute;crire la réponse à la question ` + num_alpha(j - 1) + ` sous forme de diagramme.<br>`;
-						texte += `Voici le diagramme d'une machine qui double puis qui ajoute 5 `;
-						texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						// texte += `Voici le diagramme d'une machine qui double puis qui ajoute 5 `;
+						// texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						txt_info += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 						SVG_machine_diag_3F12(id_du_div_diag, 800, 100, 'h', 'x', [['2', '2x'], ['5', '2x+5']]);
 						texte_corr += num_alpha(j) + ` C'est une machine qui triple un nombre et ajoute 1, donc sous forme de diagramme.<br>`;
 						texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
@@ -2046,11 +2065,17 @@ function fonction_notion_vocabulaire() {
 						j++;//incrémente la sous question
 					} else {
 						texte += `\\item  \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
-						texte += `Voici le diagramme d'une machine qui double puis qui ajoute 5 <br>`;
-						texte += tikz_machine_diag(`h`, `x`, [[`\\times 2`, `2x`], [`+5`, `2x+5`]]);
+						// texte += `Voici le diagramme d'une machine qui double puis qui ajoute 5 <br>`;
+						// texte += tikz_machine_diag(`h`, `x`, [[`\\times 2`, `2x`], [`+5`, `2x+5`]]);
+						txt_info +='<br>'+tikz_machine_diag(`h`, `x`, [[`\\times 2`, `2x`], [`+5`, `2x+5`]]);
 						texte_corr += `\\item C'est une machine qui triple un nombre et ajoute 1, donc sous forme de diagramme.<br>`;
 						texte_corr += tikz_machine_diag(`h`, `x`, [[`\\times 3`, `3x`], [`+1`, `3x+1`]]);
 					};
+					texte += info_message({
+						titre:'Exemple',
+						texte:txt_info,
+						couleur:'nombres'
+					});
 
 					// sous question f/
 					if (sortie_html) {
@@ -2125,7 +2150,8 @@ function fonction_notion_vocabulaire() {
 					// sous question b/
 					x = randint(1, 9);//augmenter les possibles pour éviter les questions déjà posées?
 					if (sortie_html) {
-						texte += num_alpha(j) + ` Quelle est une valeur possible du nombre de départ si la machine renvoie  2 ?<br>`;
+						//texte += num_alpha(j) + ` Quelle est une valeur possible du nombre de départ si la machine renvoie  2 ?<br>`;
+						texte += num_alpha(j) + ` Quelle est une valeur possible du nombre de départ si la machine renvoie  2 ? En existe-t-il plusieurs ?<br>`;
 						texte_corr += num_alpha(j) + ` Si la machine renvoie 2 alors le nombre de départ  a exactement 2 diviseurs, tous les`;
 						texte_corr += katex_Popup('nombres premiers', 'Nombre premier', 'Un nombre entier est un <b>nombre premier</b> si il a exactement deux diviseurs, 1 et lui-même.');
 						texte_corr += `conviennent.<br>`;
@@ -2133,7 +2159,8 @@ function fonction_notion_vocabulaire() {
 						texte_corr += `7 est premier donc 7 est <b>un autre</b> antécédent de 2 par la fonction d.<br>`;
 						j++;//incrémente la sous question
 					} else {
-						texte += `\\item Quelle est une valeur possible du nombre de départ si la machine renvoie  2 ?`;
+						//texte += `\\item Quelle est une valeur possible du nombre de départ si la machine renvoie  2 ?`;
+						texte += `\\item Quelle est une valeur possible du nombre de départ si la machine renvoie  2 ? En existe-til plusieurs ?`;
 						texte_corr += ` \\item Si la machine renvoie 2 alors le nombre de départ  a exactement 2 diviseurs, tous les`;
 						texte_corr += `\\textbf{nombres premiers} \\footnote{\\textbf{Nombre premier :} Un nombre entier est un \\textbf{nombre premier} si il a exactement deux diviseurs, 1 et lui-même.}`;
 						texte_corr += `conviennent.<br>`;
@@ -2180,11 +2207,13 @@ function fonction_notion_vocabulaire() {
 
 					// sous question d/
 					if (sortie_html) {
-						texte += num_alpha(j) + ` Peut-on trouver deux antécédents de 3 par la fonction d ?<br>`;
+						// texte += num_alpha(j) + ` Peut-on trouver deux antécédents de 3 par la fonction d ?<br>`;
+						texte += num_alpha(j) + ` Peut-on trouver plusieurs antécédents de 3 par la fonction d ? Qu'ont-ils de commun ?<br>`;
 						texte_corr += num_alpha(j) + ` Il faut trouver des nombres qui ont exactement 3 diviseurs.<br>`;
 						j++;//incrémente la sous question
 					} else {
-						texte += `\\item  Peut-on trouver deux antécédents de 3 par la fonction d ?`;
+						//texte += `\\item  Peut-on trouver deux antécédents de 3 par la fonction d ?`;
+						texte += `\\item  Peut-on trouver plusieurs antécédents de 3 par la fonction d ? Qu'ont-ils de commun ?`;
 						texte_corr += `\\item Il faut trouver des nombres qui ont exactement 3 diviseurs.<br>`;
 					}
 					texte_corr += `La liste des diviseurs de 9 est `;
@@ -2778,9 +2807,9 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 					let n2 = nombre_avec_espace(randint(2, 999, liste_diviseurs(n1)));
 					let p2 = nombre_avec_espace(randint(2, 999, liste_diviseurs(p1)));
 					textes[4] = `${n1} $\\ldots\\ldots\\ldots\\ldots$ ${n2}`;
-					textes_corr[4] = `${n1} n'est ni un multiple ni un diviseur de ${n2}`;
+					textes_corr[4] = `${n1} n'est ni un multiple ni un diviseur de ${n2} car ${n1}=${n2}$\\times$${Math.trunc(n1/n2)}+${texte_en_couleur(n1%n2)} et ${n2}=${n1}$\\times$${Math.trunc(n2/n1)}+${texte_en_couleur(n2%n1)}`;
 					textes[5] = `${p2} $\\ldots\\ldots\\ldots\\ldots$ ${p1}`;
-					textes_corr[5] = `${p2} n'est ni un multiple ni un diviseur de ${p1}`;
+					textes_corr[5] = `${p2} n'est ni un multiple ni un diviseur de ${p1} car ${p1}=${p2}$\\times$${Math.trunc(p1/p2)}+${texte_en_couleur(p1%p2)} et ${p2}=${p1}$\\times$${Math.trunc(p2/p1)}+${texte_en_couleur(p2%p1)}`;
 					// on mélange pour que l'ordre change!
 					shuffle2tableaux(textes, textes_corr);
 					texte = `Avec la calculatrice, compléter chaque phrase avec "est un diviseur de" ou "est un multiple de" ou "n'est ni un diviseur ni un multiple de".`;
@@ -3159,7 +3188,10 @@ function Premier_ou_pas_critere_par7_par11() {
 					break;
 				case 2: // Multiple de 3
 					let sum = 0; // pour la valeur de la somme;
-					N = 3 * randint(34, 3333);
+					N=3*randint(34,3333);// on initialise avant la boucle car on a peut être de la chance
+					while ( (N % 2 == 0) || (N % 5 == 0)) {
+						N = 3 * randint(34, 3333);
+					};
 					texte = nombre_avec_espace(N);
 					texte_corr = `Comme ` + N.toString().charAt(0);
 					sum = Number(N.toString().charAt(0));
