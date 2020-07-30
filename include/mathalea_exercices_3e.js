@@ -1809,11 +1809,6 @@ function fonction_notion_vocabulaire() {
 						//texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 						txt_info += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 						SVG_machine_diag_3F1_act_mono(id_du_div_diag, 800, 100, 'f', 'x', [['3', '3x']]);
-						texte += info_message({
-							titre:'Exemple',
-							texte:txt_info,
-							couleur:'nombres'
-						});
 						texte_corr += num_alpha(j) + ` C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
 						texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 						SVG_machine_diag_3F1_act_mono(id_du_div_corr, 800, 100, 'f', 'x', [['4', '4x']]);
@@ -1823,14 +1818,14 @@ function fonction_notion_vocabulaire() {
 						//texte += `Voici le diagramme d'une machine qui triple <br> `;
 						//texte += tikz_machine_diag(`f`, `x`, [[`\\times 3`, `3x`]]);
 						txt_info += '<br>'+tikz_machine_diag(`f`, `x`, [[`\\times 3`, `3x`]]);
-						texte += info_message({
-							titre:'Exemple',
-							texte:txt_info,
-							couleur:'nombres'
-						});
 						texte_corr += `\\item  C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
 						texte_corr += tikz_machine_diag(`f`, `x`, [[`\\times 4`, `4x`]]);
 					};
+					texte += info_message({
+						titre:'Exemple',
+						texte:txt_info,
+						couleur:'nombres'
+					});
 
 					// sous question f/
 					if (sortie_html) {
@@ -1932,10 +1927,12 @@ function fonction_notion_vocabulaire() {
 					};
 
 					// sous question e/
+					txt_info =  `Voici le diagramme d'une machine qui double `;
 					if (sortie_html) {
 						texte += num_alpha(j) + ` &Eacute;crire la réponse à la question ` + num_alpha(j - 1) + ` sous forme de diagramme.<br>`;
-						texte += `Voici le diagramme d'une machine qui double `;
-						texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						// texte += `Voici le diagramme d'une machine qui double `;
+						// texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						txt_info += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 						SVG_machine_diag_3F1_act_mono(id_du_div_diag, 800, 100, 'g', 'x', [['2', '2x']]);
 						texte_corr += num_alpha(j) + ` C'est une machine qui multiplie un nombre par lui-même, donc sous forme de diagramme.<br>`;
 						texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
@@ -1943,11 +1940,17 @@ function fonction_notion_vocabulaire() {
 						j++;//incrémente la sous question
 					} else {
 						texte += `\\item  \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
-						texte += `Voici le diagramme d'une machine qui double <br>`;
-						texte += tikz_machine_diag(`g`, `x`, [[`\\times 2`, `2x`]]);
+						// texte += `Voici le diagramme d'une machine qui double <br>`;
+						// texte += tikz_machine_diag(`g`, `x`, [[`\\times 2`, `2x`]]);
+						txt_info += '<br>'+tikz_machine_diag(`g`, `x`, [[`\\times 2`, `2x`]]);
 						texte_corr += `\\item C'est une machine qui multiplie un nombre par lui-même, donc sous forme de diagramme.<br>`;
 						texte_corr += tikz_machine_diag(`g`, `x`, [[`\\times x`, `x^2`]]);
 					};
+					texte += info_message({
+						titre:'Exemple',
+						texte:txt_info,
+						couleur:'nombres'
+					});
 
 					// sous question f/
 					if (sortie_html) {
@@ -2049,10 +2052,12 @@ function fonction_notion_vocabulaire() {
 					};
 
 					// sous question e/
+					txt_info = `Voici le diagramme d'une machine qui double puis qui ajoute 5 `;
 					if (sortie_html) {
 						texte += num_alpha(j) + ` &Eacute;crire la réponse à la question ` + num_alpha(j - 1) + ` sous forme de diagramme.<br>`;
-						texte += `Voici le diagramme d'une machine qui double puis qui ajoute 5 `;
-						texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						// texte += `Voici le diagramme d'une machine qui double puis qui ajoute 5 `;
+						// texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						txt_info += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 						SVG_machine_diag_3F12(id_du_div_diag, 800, 100, 'h', 'x', [['2', '2x'], ['5', '2x+5']]);
 						texte_corr += num_alpha(j) + ` C'est une machine qui triple un nombre et ajoute 1, donc sous forme de diagramme.<br>`;
 						texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
@@ -2060,11 +2065,17 @@ function fonction_notion_vocabulaire() {
 						j++;//incrémente la sous question
 					} else {
 						texte += `\\item  \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
-						texte += `Voici le diagramme d'une machine qui double puis qui ajoute 5 <br>`;
-						texte += tikz_machine_diag(`h`, `x`, [[`\\times 2`, `2x`], [`+5`, `2x+5`]]);
+						// texte += `Voici le diagramme d'une machine qui double puis qui ajoute 5 <br>`;
+						// texte += tikz_machine_diag(`h`, `x`, [[`\\times 2`, `2x`], [`+5`, `2x+5`]]);
+						txt_info +='<br>'+tikz_machine_diag(`h`, `x`, [[`\\times 2`, `2x`], [`+5`, `2x+5`]]);
 						texte_corr += `\\item C'est une machine qui triple un nombre et ajoute 1, donc sous forme de diagramme.<br>`;
 						texte_corr += tikz_machine_diag(`h`, `x`, [[`\\times 3`, `3x`], [`+1`, `3x+1`]]);
 					};
+					texte += info_message({
+						titre:'Exemple',
+						texte:txt_info,
+						couleur:'nombres'
+					});
 
 					// sous question f/
 					if (sortie_html) {
