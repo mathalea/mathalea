@@ -144,11 +144,19 @@ function PointMilieu(A,B,nom='',positionLabel = 'above') {
 	Point.call(this,nom);
 	this.x = calcul((A.x+B.x)/2);
 	this.y = calcul((A.y+B.y)/2);
+	this.positionLabel=positionLabel;
 }
 function pointMilieu(...args){
 	return new PointMilieu(...args)
 }
-
+function PointIntersectionDD(d,f,nom='',positionLabel = 'above'){
+	let	Hy=calcul((-f.c+d.c*f.a/d.a)/(f.b-f.a*d.b/d.a))
+	let Hx=calcul(-d.c/d.a-d.b*Hy/d.a)
+	Point.call(this,Hx,Hy,nom,positionLabel)
+}
+function pointIntersectionDD(...args){
+	return new PointIntersectionDD(...args)
+}
 
 /**
 * M = pointParRotation(A,O,angle) //M est l'image de A dans la rotation de centre O et d'angle angle
