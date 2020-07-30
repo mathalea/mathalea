@@ -1,3 +1,4 @@
+/* auteur Stéphane Guyon*/
 function proprietes_racine_caree(){
     Exercice.call(this); // Héritage de la classe Exercice()
         this.titre = "Connaître les propriétés calculatoires des racines carrées";
