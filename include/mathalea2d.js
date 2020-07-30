@@ -10,7 +10,7 @@ let mesObjets = [];
 function ObjetMathalea2D() {
 	this.positionLabel = 'above';
 	this.isVisible = true;
-	this.color = 'black';
+		this.color = 'black';
 	mesObjets.push(this);
 }
 
@@ -469,7 +469,7 @@ function droite(...args){
  * 
  * @Auteur Rémi Angot
  */
-function Mediatrice(A,B,color = 'black',codage = true){
+function MediatriceSegment(A,B,color = 'black',codage = true){
 	this.color = color
 	this.codage = codage
 	let O = pointMilieu(A,B)
@@ -492,6 +492,18 @@ function Mediatrice(A,B,color = 'black',codage = true){
 		code += '\n'+ d.svg(coeff)
 		return code
 	}
+}
+
+function mediatriceSegment(...args){
+	return new MediatriceSegment(...args)
+}
+function Mediatrice(A,B,color = 'black'){
+	this.color = color
+	let O = pointMilieu(A,B)
+	let M = pointParRotation(A,O,90)
+	let N = pointParRotation(A,O,-90)
+	Droite.call(this,M,N)
+	this.color=color
 }
 function mediatrice(...args){
 	return new Mediatrice(...args)
@@ -958,6 +970,9 @@ function DroiteParRotation(d,O,angle,color='black'){
 	let B2 = pointParRotation(B,O,angle)
 	return droite(A2,B2)
 }
+function droiteParRotation(...args){
+	return new DroiteParRotation(...args)
+}	
 
 /**
 * new DemiDroiteParRotation(d,O,a) //Trace l'image de d dans la rotation de centre O et d'angle a
@@ -1306,25 +1321,32 @@ function Arc(M,Omega,angle,rayon=false,fill='none',color='black') {
 	}
 	let N=pointParRotation(M,Omega,angle)
 	if (rayon) 	this.svg = function(coeff=20){
-		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${fill}" opacity=0.5/>`
+		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${fill}" opacity="0.5"/>`
 		}
 	else 	this.svg = function(coeff=20){
-		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}" opacity=0.5/>`
+		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}" opacity="0.5"/>`
 	}
 }
 function arc(...args) {
 	return new Arc(...args)
 }
-
+function arcPointPointAngle(...args){
+	return new ArcPointPointAngle(...args)
+}
 function ArcPointPointAngle(M,N,angle,rayon=false,fill='none',color='black'){
 	ObjetMathalea2D.call(this);
 	this.color=color;
 	this.fill=fill;
-	let anglerot
+	let anglerot,large,sweep,Omegax,Omegay
 	if (angle<0) anglerot=calcul((angle+180)/2)
 	else anglerot=calcul((angle-180)/2)
-	let d=mediatrice(M,N),e=droite(N,M),f=droiteParRotation(e,N,anglerot);
-	
+	let d,e,f;
+	d=mediatrice(M,N,'black');
+	d.isVisible=false
+	e=droite(N,M);
+	e.isVisible=false
+	f=droiteParRotation(e,N,anglerot);
+	f.isVisible=false
 	if (angle>180) {
 		angle=angle-360
 		large=1
@@ -1339,16 +1361,15 @@ function ArcPointPointAngle(M,N,angle,rayon=false,fill='none',color='black'){
 		large=0
 		sweep=1-(angle>0)
 	}
-	// mais où est Omega ?
-	let Omegax,Omegay
-	Omegay=calcul((-f.c+e.c*f.a/e.a)/(f.b-f.a*e.b/e.a))
-	Omegax=calcul(-e.c/e.a-e.b*Omegay/e.a)
+	Omegay=calcul((-f.c+d.c*f.a/d.a)/(f.b-f.a*d.b/d.a))
+	Omegax=calcul(-d.c/d.a-d.b*Omegay/d.a)
 	let Omega=point(Omegax,Omegay)
+	let l=longueur(Omega,M)
 	if (rayon) 	this.svg = function(coeff=20){
-		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${fill}"/>`
+		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${fill}" opacity="0.5"/>`
 		}
 	else 	this.svg = function(coeff=20){
-		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}"/>`
+		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}" opacity="0.5"/>`
 	}
 }
 
