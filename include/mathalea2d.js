@@ -10,7 +10,7 @@ let mesObjets = [];
 function ObjetMathalea2D() {
 	this.positionLabel = 'above';
 	this.isVisible = true;
-		this.color = 'black';
+	this.color = 'black';
 	mesObjets.push(this);
 }
 
@@ -154,6 +154,7 @@ function PointIntersectionDD(d,f,nom='',positionLabel = 'above'){
 	let Hx=calcul(-d.c/d.a-d.b*Hy/d.a)
 	Point.call(this,Hx,Hy,nom,positionLabel)
 }
+
 function pointIntersectionDD(...args){
 	return new PointIntersectionDD(...args)
 }
@@ -236,6 +237,34 @@ function PointParProjectionOrtho(M,d,nom = '',positionLabel = 'above') {
 }
 function pointParProjectionOrtho(...args) {
 	return new PointParProjectionOrtho(...args)
+}
+
+function HauteurTriangle(A,B,C,color='black'){
+	let d=droite(B,C)
+	d.isVisible=false
+	let p=pointParProjectionOrtho(A,d)
+	let q=pointParRotation(B,p,90)
+	Droite.call(this,p,q)
+	this.color=color
+}
+function hauteurTriangle(...args){
+	return new HauteurTriangle(...args)
+}
+function OrthoCentre(A,B,C){
+	let d=hauteurTriangle(B,A,C)
+	let e=hauteurTriangle(A,B,C)
+	PointIntersectionDD.call(d,e)
+}
+function orthocentre(...args){
+	return new OrthoCentre(...args)
+}
+function CentreCercleCirconscrit(A,B,C){
+	let d=mediatrice(A,B)
+	let e=mediatrice(B,C)
+	PointIntersectionDD.call(d,e)
+}
+function centreCercleCirconscrit(...args){
+	return new CentreCercleCirconscrit(...args)
 }
 /**
 * labelPoints(A,B) pour nommer les points A et B
@@ -477,7 +506,7 @@ function droite(...args){
  * 
  * @Auteur Rémi Angot
  */
-function MediatriceSegment(A,B,color = 'black',codage = true){
+function Mediatrice(A,B,color = 'black',codage = true){
 	this.color = color
 	this.codage = codage
 	let O = pointMilieu(A,B)
@@ -500,18 +529,6 @@ function MediatriceSegment(A,B,color = 'black',codage = true){
 		code += '\n'+ d.svg(coeff)
 		return code
 	}
-}
-
-function mediatriceSegment(...args){
-	return new MediatriceSegment(...args)
-}
-function Mediatrice(A,B,color = 'black'){
-	this.color = color
-	let O = pointMilieu(A,B)
-	let M = pointParRotation(A,O,90)
-	let N = pointParRotation(A,O,-90)
-	Droite.call(this,M,N)
-	this.color=color
 }
 function mediatrice(...args){
 	return new Mediatrice(...args)
@@ -978,9 +995,6 @@ function DroiteParRotation(d,O,angle,color='black'){
 	let B2 = pointParRotation(B,O,angle)
 	return droite(A2,B2)
 }
-function droiteParRotation(...args){
-	return new DroiteParRotation(...args)
-}	
 
 /**
 * new DemiDroiteParRotation(d,O,a) //Trace l'image de d dans la rotation de centre O et d'angle a
@@ -1329,41 +1343,20 @@ function Arc(M,Omega,angle,rayon=false,fill='none',color='black') {
 	}
 	let N=pointParRotation(M,Omega,angle)
 	if (rayon) 	this.svg = function(coeff=20){
-		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${fill}" opacity="0.5"/>`
+		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${fill}"/>`
 		}
 	else 	this.svg = function(coeff=20){
-		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}" opacity="0.5"/>`
+		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}"/>`
 	}
 }
 function arc(...args) {
 	return new Arc(...args)
 }
-function arcPointPointAngle(...args){
-	return new ArcPointPointAngle(...args)
-}
-/**
- * @Auteur Jean-Claude Lhote &  Rémi Angot
- * @param {Point} M 
- * @param {Point} N 
- * @param {number} angle orienté compris entre -360 et +360
- * @param {boolean} rayon si true : les rayons sont tracés.
- * @param {string} fill couleur de remplissage à 50%
- * @param {string} color couleur du trait.
- */
+
 function ArcPointPointAngle(M,N,angle,rayon=false,fill='none',color='black'){
 	ObjetMathalea2D.call(this);
 	this.color=color;
 	this.fill=fill;
-	let anglerot,large,sweep,Omegax,Omegay
-	if (angle<0) anglerot=calcul((angle+180)/2)
-	else anglerot=calcul((angle-180)/2)
-	let d,e,f;
-	d=mediatrice(M,N,'black');
-	d.isVisible=false
-	e=droite(N,M);
-	e.isVisible=false
-	f=droiteParRotation(e,N,anglerot);
-	f.isVisible=false
 	if (angle>180) {
 		angle=angle-360
 		large=1
@@ -1378,15 +1371,13 @@ function ArcPointPointAngle(M,N,angle,rayon=false,fill='none',color='black'){
 		large=0
 		sweep=1-(angle>0)
 	}
-	Omegay=calcul((-f.c+d.c*f.a/d.a)/(f.b-f.a*d.b/d.a))
-	Omegax=calcul(-d.c/d.a-d.b*Omegay/d.a)
-	let Omega=point(Omegax,Omegay)
-	let l=longueur(Omega,M)
+	// mais où est Omega ?
+	let Omega//
 	if (rayon) 	this.svg = function(coeff=20){
-		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${fill}" opacity="0.5"/>`
+		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${fill}"/>`
 		}
 	else 	this.svg = function(coeff=20){
-		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}" opacity="0.5"/>`
+		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}"/>`
 	}
 }
 
