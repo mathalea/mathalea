@@ -1728,6 +1728,7 @@ function fonction_notion_vocabulaire() {
 				var id_du_div_diag = `div_svg_diag${numero_de_l_exercice}${id_unique}`;
 				var id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`;
 			}
+			let txt_info;
 
 			switch (type_de_questions) {
 				case 1: // périmètre d'un carré de côté x			
@@ -1801,19 +1802,32 @@ function fonction_notion_vocabulaire() {
 					};
 
 					// sous question e/
+					txt_info =  `Voici le diagramme d'une machine qui triple `;
 					if (sortie_html) {
 						texte += num_alpha(j) + ` &Eacute;crire la réponse à la question ` + num_alpha(j - 1) + ` sous forme de diagramme.<br>`;
-						texte += `Voici le diagramme d'une machine qui triple `;
-						texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						//texte += `Voici le diagramme d'une machine qui triple `;
+						//texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						txt_info += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 						SVG_machine_diag_3F1_act_mono(id_du_div_diag, 800, 100, 'f', 'x', [['3', '3x']]);
+						texte += info_message({
+							titre:'Exemple',
+							texte:txt_info,
+							couleur:'nombres'
+						});
 						texte_corr += num_alpha(j) + ` C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
 						texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 						SVG_machine_diag_3F1_act_mono(id_du_div_corr, 800, 100, 'f', 'x', [['4', '4x']]);
 						j++;//incrémente la sous question
 					} else { // sortie LaTeX
 						texte += `\\item   \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
-						texte += `Voici le diagramme d'une machine qui triple <br> `;
-						texte += tikz_machine_diag(`f`, `x`, [[`\\times 3`, `3x`]]);
+						//texte += `Voici le diagramme d'une machine qui triple <br> `;
+						//texte += tikz_machine_diag(`f`, `x`, [[`\\times 3`, `3x`]]);
+						txt_info += '<br>'+tikz_machine_diag(`f`, `x`, [[`\\times 3`, `3x`]]);
+						texte += info_message({
+							titre:'Exemple',
+							texte:txt_info,
+							couleur:'nombres'
+						});
 						texte_corr += `\\item  C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
 						texte_corr += tikz_machine_diag(`f`, `x`, [[`\\times 4`, `4x`]]);
 					};
@@ -2125,7 +2139,8 @@ function fonction_notion_vocabulaire() {
 					// sous question b/
 					x = randint(1, 9);//augmenter les possibles pour éviter les questions déjà posées?
 					if (sortie_html) {
-						texte += num_alpha(j) + ` Quelle est une valeur possible du nombre de départ si la machine renvoie  2 ?<br>`;
+						//texte += num_alpha(j) + ` Quelle est une valeur possible du nombre de départ si la machine renvoie  2 ?<br>`;
+						texte += num_alpha(j) + ` Quelle est une valeur possible du nombre de départ si la machine renvoie  2 ? En existe-t-il plusieurs ?<br>`;
 						texte_corr += num_alpha(j) + ` Si la machine renvoie 2 alors le nombre de départ  a exactement 2 diviseurs, tous les`;
 						texte_corr += katex_Popup('nombres premiers', 'Nombre premier', 'Un nombre entier est un <b>nombre premier</b> si il a exactement deux diviseurs, 1 et lui-même.');
 						texte_corr += `conviennent.<br>`;
@@ -2133,7 +2148,8 @@ function fonction_notion_vocabulaire() {
 						texte_corr += `7 est premier donc 7 est <b>un autre</b> antécédent de 2 par la fonction d.<br>`;
 						j++;//incrémente la sous question
 					} else {
-						texte += `\\item Quelle est une valeur possible du nombre de départ si la machine renvoie  2 ?`;
+						//texte += `\\item Quelle est une valeur possible du nombre de départ si la machine renvoie  2 ?`;
+						texte += `\\item Quelle est une valeur possible du nombre de départ si la machine renvoie  2 ? En existe-til plusieurs ?`;
 						texte_corr += ` \\item Si la machine renvoie 2 alors le nombre de départ  a exactement 2 diviseurs, tous les`;
 						texte_corr += `\\textbf{nombres premiers} \\footnote{\\textbf{Nombre premier :} Un nombre entier est un \\textbf{nombre premier} si il a exactement deux diviseurs, 1 et lui-même.}`;
 						texte_corr += `conviennent.<br>`;
@@ -2180,11 +2196,13 @@ function fonction_notion_vocabulaire() {
 
 					// sous question d/
 					if (sortie_html) {
-						texte += num_alpha(j) + ` Peut-on trouver deux antécédents de 3 par la fonction d ?<br>`;
+						// texte += num_alpha(j) + ` Peut-on trouver deux antécédents de 3 par la fonction d ?<br>`;
+						texte += num_alpha(j) + ` Peut-on trouver plusieurs antécédents de 3 par la fonction d ? Qu'ont-ils de commun ?<br>`;
 						texte_corr += num_alpha(j) + ` Il faut trouver des nombres qui ont exactement 3 diviseurs.<br>`;
 						j++;//incrémente la sous question
 					} else {
-						texte += `\\item  Peut-on trouver deux antécédents de 3 par la fonction d ?`;
+						//texte += `\\item  Peut-on trouver deux antécédents de 3 par la fonction d ?`;
+						texte += `\\item  Peut-on trouver plusieurs antécédents de 3 par la fonction d ? Qu'ont-ils de commun ?`;
 						texte_corr += `\\item Il faut trouver des nombres qui ont exactement 3 diviseurs.<br>`;
 					}
 					texte_corr += `La liste des diviseurs de 9 est `;
