@@ -1306,10 +1306,10 @@ function Arc(M,Omega,angle,rayon=false,fill='none',color='black') {
 	}
 	let N=pointParRotation(M,Omega,angle)
 	if (rayon) 	this.svg = function(coeff=20){
-		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${fill}"/>`
+		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${fill}" opacity=0.5/>`
 		}
 	else 	this.svg = function(coeff=20){
-		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}"/>`
+		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}" opacity=0.5/>`
 	}
 }
 function arc(...args) {
@@ -1320,6 +1320,11 @@ function ArcPointPointAngle(M,N,angle,rayon=false,fill='none',color='black'){
 	ObjetMathalea2D.call(this);
 	this.color=color;
 	this.fill=fill;
+	let anglerot
+	if (angle<0) anglerot=calcul((angle+180)/2)
+	else anglerot=calcul((angle-180)/2)
+	let d=mediatrice(M,N),e=droite(N,M),f=droiteParRotation(e,N,anglerot);
+	
 	if (angle>180) {
 		angle=angle-360
 		large=1
@@ -1335,7 +1340,10 @@ function ArcPointPointAngle(M,N,angle,rayon=false,fill='none',color='black'){
 		sweep=1-(angle>0)
 	}
 	// mais où est Omega ?
-	let Omega//
+	let Omegax,Omegay
+	Omegay=calcul((-f.c+e.c*f.a/e.a)/(f.b-f.a*e.b/e.a))
+	Omegax=calcul(-e.c/e.a-e.b*Omegay/e.a)
+	let Omega=point(Omegax,Omegay)
 	if (rayon) 	this.svg = function(coeff=20){
 		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${fill}"/>`
 		}
