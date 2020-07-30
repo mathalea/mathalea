@@ -1240,15 +1240,46 @@ function Vecteur(arg1,arg2,nom='')  {
 function vecteur(...args){
 	return new Vecteur(...args)
 }
-
-function Arc(A,O,B,color='black') {
+/**
+ * @Auteur Jean-Claude Lhote
+ * @param {object} M point de départ de l'arc
+ * @param {object} Omega centre de l'arc
+ * @param {number} angle compris entre -360 et 360 valeur négative = sens indirect
+ * @param {boolean} rayon booléen si true, les rayons délimitant l'arc sont ajoutés
+ * @param {boolean} fill
+ * @param {string} color 
+ */
+function Arc(M,Omega,angle,rayon=false,fill='none',color='black') {
 	ObjetMathalea2D.call(this);
 	this.color=color;
-	let l=longueur(O,A);
-	this.svg = function(coeff=20){
-		return `<path d="M${A.xSVG(coeff)} ${A.ySVG(coeff)} a ${l} ${l} 0 0 1 ${B.xSVG(coeff)} ${B.ySVG(coeff)} fill${color}"/>`
+	this.fill=fill;
+	let l=longueur(Omega,M),large=0,sweep=0
+	if (angle>180) {
+		angle=angle-360
+		large=1
+		sweep=0
+	}
+	else if (angle<-180) {
+		angle=360+angle
+		large=1
+		sweep=1
+	}
+	else {
+		large=0
+		sweep=1-(angle>0)
+	}
+	let N=pointParRotation(M,Omega,angle)
+	if (rayon) 	this.svg = function(coeff=20){
+		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${fill}"/>`
+		}
+	else 	this.svg = function(coeff=20){
+		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}"/>`
 	}
 }
+function arc(...args) {
+	return new Arc(...args)
+}
+
 /**
 * * c = cercle(O,r) //Cercle de centre O et de rayon r
 *
@@ -1259,7 +1290,7 @@ function Cercle(O,r,color = 'black'){
 	this.color = color;
 	
 	this.svg = function(coeff=20){
-		return `<circle cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" r="${r*coeff}" stroke="${this.color}" fill="none"/> />`
+		return `<circle cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" r="${r*coeff}" stroke="${this.color}" fill="none"/>`
 	}
 	this.tikz = function(){
 		return `\\draw (${O.x},${O.y}) circle (${r});`
