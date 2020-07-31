@@ -204,6 +204,7 @@ var liste_des_exercices_disponibles = {
 		'2N11' : Extraire_un_carre_parfait_d_une_racine_carree,
 		'2N11-1' : Simplifier_une_somme_de_racines_carrees,
 		'2N12' : Double_distributivité_avec_racine_caree,
+		'2N12-1' : identites_remarquables_et_racine_caree,
 		'2N21' : Déterminer_la_parité_d_une_expression,
 		'2L10' : Developper_Identites_remarquables2,
 		'2L11' : Factoriser_Identites_remarquables2,
