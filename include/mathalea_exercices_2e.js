@@ -964,7 +964,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
 
 }
 
-}
+
 function Extraire_un_carre_parfait_d_une_racine_carree() {
     Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Extraire un carré parfait d'une racine carrée";
