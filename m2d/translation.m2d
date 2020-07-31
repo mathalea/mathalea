@@ -1,0 +1,12 @@
+A = point(4,1)
+B = point(2,6)
+v = vecteur(12,randint(-3,3))
+v.representant(B)
+nb_cotes = randint(3,8)
+p = polygoneRegulierParCentreEtRayon(A,4,nb_cotes,'blue')
+translationAnimee(p,v)
+// On peut paramétrer l'animation (durée, nombre de fois, démarage...)
+//translationAnimee(p,v,'dur="1s" repeatCount="2" begin="2s"')
+
+p2 = polygoneParTranslation(p,v)
+p2.color='lightblue'
