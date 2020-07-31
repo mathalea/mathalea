@@ -259,6 +259,8 @@ function OrthoCentre(A,B,C,nom='',positionLabel='above'){
 	Point.call(this,nom)
 	let d=hauteurTriangle(B,A,C)
 	let e=hauteurTriangle(A,B,C)
+	d.isVisible=false
+	e.isVisible=false
 	let p=pointIntersectionDD(d,e)
 	this.x=p.x
 	this.y=p.y
@@ -271,7 +273,9 @@ function CentreCercleCirconscrit(A,B,C,nom='',positionLabel='above'){
 	Point.call(this,nom)
 	let d=mediatrice(A,B)
 	let e=mediatrice(B,C)
-	p=pointIntersectionDD.call(d,e)
+	d.isVisible=false
+	e.isVisible=false
+	p=pointIntersectionDD(d,e)
 	this.x=p.x
 	this.y=p.y
 	this.positionLabel=positionLabel
@@ -511,6 +515,16 @@ function Droite(arg1,arg2,arg3,arg4,color='black') {
 function droite(...args){
 	return new Droite(...args)
 }
+function Mediatrice(A,B,color = 'black'){
+	let O = pointMilieu(A,B)
+	let M = pointParRotation(A,O,90)
+	let N = pointParRotation(A,O,-90)
+	Droite.call(this,M,N)
+	this.color=color
+}
+function mediatrice(...args){
+	return new Mediatrice(...args)
+}
 
 /**
  * d = mediatrice(A,B) // Médiatrice de [AB]
@@ -519,7 +533,7 @@ function droite(...args){
  * 
  * @Auteur Rémi Angot
  */
-function Mediatrice(A,B,color = 'black',codage = true){
+function MediatriceSegment(A,B,color = 'black',codage = true){
 	this.color = color
 	this.codage = codage
 	let O = pointMilieu(A,B)
@@ -543,8 +557,8 @@ function Mediatrice(A,B,color = 'black',codage = true){
 		return code
 	}
 }
-function mediatrice(...args){
-	return new Mediatrice(...args)
+function mediatriceSegment(...args){
+	return new MediatriceSegment(...args)
 }
 
 /**
