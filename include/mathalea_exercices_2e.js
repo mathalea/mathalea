@@ -426,7 +426,7 @@ function proprietes_racine_caree(){
                         $\\phantom{\\sqrt{${d}}\\times \\sqrt{${c}}}=${c}\\sqrt{${b}}$ `;
                             
                         break ;
-                
+                    
                 }		
                 if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
                     this.liste_questions.push(texte);
