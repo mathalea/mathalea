@@ -8,5 +8,5 @@ translationAnimee(p,v)
 // On peut paramétrer l'animation (durée, nombre de fois, démarage...)
 //translationAnimee(p,v,'dur="1s" repeatCount="2" begin="2s"')
 
-p2 = polygoneParTranslation(p,v)
+p2 = translation(p,v)
 p2.color='lightblue'
