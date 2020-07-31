@@ -1983,7 +1983,7 @@ function fonction_notion_vocabulaire() {
 				case 3: // somme de 1 et du triple de x
 					var j = 0; // pour la sous-numérotation
 					// consigne
-					texte = `La $\\mathbf{machine\\,h}$ renvoie la somme du triple de du nombre de départ et de 1.`;
+					texte = `La $\\mathbf{machine\\,h}$ renvoie la somme du triple du nombre de départ et de 1.`;
 					texte += `<br>`;
 					// machine
 					x = randint(2, 99);//augmenter les possibles pour éviter les questions déjà posées?	
