@@ -144,10 +144,26 @@ function milieu(A,B,nom,positionLabel){
 * M = pointSurSegment(A,B,l,'M') //M est le point de [AB] à l cm de A et se nomme M
 * M = pointSurSegment(A,B,l,'M','below') //M est le point de [AB] à l cm de A, se nomme M et le nom est en dessous du point
 *
+* M = pointSurSegment(A,B,'h','M') // M est un point au hasard sur [AB] (on peut écrire n'importe quel texte à la place de 'h')
+* M = pointSurSegment(A,B) // M est un point au hasard sur [AB] 
 * @Auteur Rémi Angot
 */
 function pointSurSegment(A,B,l,nom,positionLabel){
+	if (l===undefined || typeof l =='string') {
+		l = calcul(longueur(A,B)*randint(15,85)/100)
+	}
 	return homothetie(B,A,calcul(l/longueur(A,B)),nom,positionLabel)
+}
+
+/**
+* M = pointIntersectionDD(d1,d2,'M','below') //M est le point d'intersection des droites (d1) et (d2)
+*
+* @Auteur Jean-Claude Lhote
+*/
+function pointIntersectionDD(d,f,nom='',positionLabel = 'above'){
+	let y = calcul((-f.c+d.c*f.a/d.a)/(f.b-f.a*d.b/d.a))
+	let x = calcul(-d.c/d.a-d.b*y/d.a)
+	return point(x,y,nom,positionLabel)
 }
 
 
@@ -345,7 +361,7 @@ function droite(...args){
 * d = droiteParPointEtVecteur(A,v,'d1',red') //Droite passant par A, de vecteur directeur v et de couleur rouge
 * @Auteur Jean-Claude Lhote
 */
-function droiteParPointEtVecteur(A,v,nom,color) {
+function droiteParPointEtVecteur(A,v,nom='',color='black') {
 	let B = point(calcul(A.x+v.x),calcul(A.y+v.y))
 	return droite(A,B,nom,color)
 }
@@ -353,28 +369,28 @@ function droiteParPointEtVecteur(A,v,nom,color) {
 * d = droiteParPointEtParallele(A,d,'d1',red') // Trace en rouge la parallèle à la droite (d) passant par A
 * @Auteur Jean-Claude Lhote
 */
-function droiteParPointEtParallele(A,d,nom,color){
+function droiteParPointEtParallele(A,d,nom='',color='black'){
 	return droiteParPointEtVecteur(A,d.directeur,nom,color);
 }
 /**
 * d = droiteParPointEtPerpendiculaire(A,d,'d1',red') // Trace en rouge la perpendiculaire à la droite (d) passant par A
 * @Auteur Jean-Claude Lhote
 */
-function droiteParPointEtPerpendiculaire(A,d,nom,color){
+function droiteParPointEtPerpendiculaire(A,d,nom='',color='black'){
 	return droiteParPointEtVecteur(A,d.normal,nom,color);
 }
 /**
 * d = droiteHorizontaleParPoint(A,'d1',red') // Trace en rouge la droite horizontale passant par A
 * @Auteur Jean-Claude Lhote
 */
-function droiteHorizontaleParPoint(A,nom,color){
+function droiteHorizontaleParPoint(A,nom='',color='black'){
 	return droiteParPointEtPente(A,0,nom,color)
 }
 /**
 * d = droiteVerticaleParPoint(A,'d1',red') // Trace en rouge la droite verticale passant par A
 * @Auteur Jean-Claude Lhote
 */
-function droiteVerticaleParPoint(A,nom,color){
+function droiteVerticaleParPoint(A,nom='',color){
 	return droiteParPointEtVecteur(A,vecteur(0,1),nom,color)
 }
 
@@ -382,7 +398,7 @@ function droiteVerticaleParPoint(A,nom,color){
 * d = droiteParPointEtPente(A,p,'d1',red') //Droite passant par A, de pente p et de couleur rouge
 *@Auteur Jean-Claude Lhote
 */
-function droiteParPointEtPente(A,k,nom,color) {
+function droiteParPointEtPente(A,k,nom='',color='black') {
 	let B = point(calcul(A.x+1),calcul(A.y+k));
 	return droite(A,B,nom,color);
 }
@@ -438,6 +454,8 @@ function bissectrice(A,O,B,color = 'black'){
 	let M = rotation(m,O,demiangle)
 	return demiDroite(O,M,this.color)	
 }
+
+
 
 
 /*
@@ -1226,6 +1244,93 @@ function rotationAnimee(...args){
 %%%%%%%%%%%%%% LE TRIANGLE %%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
+
+/**
+ * Médiane issue de A relative à [BC]
+ * @Auteur Jean-Claude Lhote
+ * @param {Point} A 
+ * @param {Point} B 
+ * @param {Point} C 
+ * @param {string} color 
+ */
+function medianeTriangle(A,B,C,color='black'){
+	let I = milieu(B,C)
+	return droite(A,I,'',color)
+}	
+
+/**
+ * Centre de gravité du triangle ABC
+ * @Auteur Jean-Claude Lhote
+ * @param {Point} A 
+ * @param {Point} B 
+ * @param {Point} C 
+ * @param {string} color 
+ */
+function centreGraviteTriangle(A,B,C,nom=''){
+	let d=medianeTriangle(B,A,C)
+	let e=medianeTriangle(A,B,C)
+	d.isVisible=false
+	e.isVisible=false
+	let p=pointIntersectionDD(d,e)
+	let x=p.x
+	let y=p.y
+	return point(x,y,'',nom)
+}
+
+/**
+ * Hauteur issue de A relative à [BC]
+ * @Auteur Jean-Claude Lhote
+ * @param {Point} A 
+ * @param {Point} B 
+ * @param {Point} C 
+ * @param {string} color 
+ */
+function hauteurTriangle(A,B,C,color='black'){
+	let d = droite(B,C)
+	d.isVisible = false
+	let p = projectionOrtho(A,d)
+	let q = rotation(B,p,90)
+	return droite(p,q,'',color)
+}
+
+/**
+ * Orthocentre du triangle ABC
+ * @Auteur Jean-Claude Lhote
+ * @param {Point} A 
+ * @param {Point} B 
+ * @param {Point} C 
+ * @param {string} color 
+ */
+function orthoCentre(A,B,C,nom='',positionLabel='above'){
+	let d = hauteurTriangle(B,A,C)
+	let e = hauteurTriangle(A,B,C)
+	d.isVisible=false
+	e.isVisible=false
+	let p = pointIntersectionDD(d,e)
+	let x = p.x
+	let y = p.y
+	return point(x,y,nom,positionLabel)
+}
+
+/**
+ * Centre du cercle circonscrit au triangle ABC
+ * @Auteur Jean-Claude Lhote
+ * @param {Point} A 
+ * @param {Point} B 
+ * @param {Point} C 
+ * @param {string} color 
+ */
+function centreCercleCirconscrit(A,B,C,nom='',positionLabel='above'){
+	let d = mediatrice(A,B)
+	let e = mediatrice(B,C)
+	d.isVisible = false
+	e.isVisible = false
+	let p = pointIntersectionDD(d,e)
+	let x = p.x
+	let y = p.y
+	return point(x,y,nom,positionLabel)	
+}
+
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
