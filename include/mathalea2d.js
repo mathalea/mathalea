@@ -365,6 +365,24 @@ function Droite(arg1,arg2,arg3,arg4,color='black') {
 			this.b=arg2;
 			this.c=arg3;
 			this.color=color;
+			if (egal(a,0)) {
+				this.x1=0
+				this.x2=1
+				this.y1=calcul(-c/b)
+				this.y2=calcul(-c/b)
+			}
+			else if (egal(b,0)) {
+				this.y1=0
+				this.y2=1
+				this.x1=calcul(-c/a)
+				this.x2=calcul(-c/a)	
+			}
+			else {
+				this.x1=0
+				this.y1=calcul(-c/b)
+				this.x2=1
+				this.y2=calcul((-c-a)/b)
+			}
 		}
 		else {
 		this.x1 = arg1.x;
@@ -383,6 +401,24 @@ function Droite(arg1,arg2,arg3,arg4,color='black') {
 			this.a=arg1;
 			this.b=arg2;
 			this.c=arg3;
+			if (egal(a,0)) {
+				this.x1=0
+				this.x2=1
+				this.y1=calcul(-c/b)
+				this.y2=calcul(-c/b)
+			}
+			else if (egal(b,0)) {
+				this.y1=0
+				this.y2=1
+				this.x1=calcul(-c/a)
+				this.x2=calcul(-c/a)	
+			}
+			else {
+				this.x1=0
+				this.y1=calcul(-c/b)
+				this.x2=1
+				this.y2=calcul((-c-a)/b)
+			}
 			this.nom=nom;
 			this.color=color
 		}
@@ -1279,6 +1315,35 @@ function Arc(M,Omega,angle,rayon=false,fill='none',color='black') {
 function arc(...args) {
 	return new Arc(...args)
 }
+
+function ArcPointPointAngle(M,N,angle,rayon=false,fill='none',color='black'){
+	ObjetMathalea2D.call(this);
+	this.color=color;
+	this.fill=fill;
+	if (angle>180) {
+		angle=angle-360
+		large=1
+		sweep=0
+	}
+	else if (angle<-180) {
+		angle=360+angle
+		large=1
+		sweep=1
+	}
+	else {
+		large=0
+		sweep=1-(angle>0)
+	}
+	// mais où est Omega ?
+	let Omega//
+	if (rayon) 	this.svg = function(coeff=20){
+		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${fill}"/>`
+		}
+	else 	this.svg = function(coeff=20){
+		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}"/>`
+	}
+}
+
 
 /**
 * * c = cercle(O,r) //Cercle de centre O et de rayon r
