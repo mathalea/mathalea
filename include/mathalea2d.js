@@ -563,7 +563,7 @@ function Vecteur(arg1,arg2,nom='')  {
 	this.representant = function(A){
 		let B = point(A.x+this.x,A.y+this.y)
 		let s = segment(A,B)
-		s.extremites = '|->'
+		s.styleExtremites = '|->'
 	}
 	
 }
@@ -999,8 +999,8 @@ function translation(O,v,nom='',positionLabel = 'above') {
 	}
 	if (O.constructor==Polygone) {
 		let p2=[]
-		for (let i = 0 ; i < A.listePoints.length ; i++ ){
-	  		p2[i] = translation(A.listePoints[i],O,v)
+		for (let i = 0 ; i < O.listePoints.length ; i++ ){
+	  		p2[i] = translation(O.listePoints[i],O,v)
 		}
 		return polygone(p2)
 	}
@@ -1044,8 +1044,8 @@ function translation2Points(O,A,B,nom='',positionLabel = 'above') {
 	}
 	if (O.constructor==Polygone) {
 		let p2=[]
-		for (let i = 0 ; i < A.listePoints.length ; i++ ){
-	  		p2[i] = translation2Points(A.listePoints[i],O,A,B)
+		for (let i = 0 ; i < O.listePoints.length ; i++ ){
+	  		p2[i] = translation2Points(O.listePoints[i],O,A,B)
 		}
 		return polygone(p2)
 	}
