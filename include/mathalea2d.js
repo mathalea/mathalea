@@ -150,9 +150,11 @@ function pointMilieu(...args){
 	return new PointMilieu(...args)
 }
 function PointIntersectionDD(d,f,nom='',positionLabel = 'above'){
-	let	Hy=calcul((-f.c+d.c*f.a/d.a)/(f.b-f.a*d.b/d.a))
-	let Hx=calcul(-d.c/d.a-d.b*Hy/d.a)
-	Point.call(this,Hx,Hy,nom,positionLabel)
+	Point.call(this,nom)
+	this.y=calcul((-f.c+d.c*f.a/d.a)/(f.b-f.a*d.b/d.a))
+	this.x=calcul(-d.c/d.a-d.b*this.y/d.a)
+	this.positionLabel=positionLabel
+	console.log(this)
 }
 
 function pointIntersectionDD(...args){
@@ -240,6 +242,7 @@ function pointParProjectionOrtho(...args) {
 }
 
 function HauteurTriangle(A,B,C,color='black'){
+	
 	let d=droite(B,C)
 	d.isVisible=false
 	let p=pointParProjectionOrtho(A,d)
@@ -247,21 +250,31 @@ function HauteurTriangle(A,B,C,color='black'){
 	Droite.call(this,p,q)
 	this.color=color
 }
+
 function hauteurTriangle(...args){
 	return new HauteurTriangle(...args)
 }
-function OrthoCentre(A,B,C){
+
+function OrthoCentre(A,B,C,nom='',positionLabel='above'){
+	Point.call(this,nom)
 	let d=hauteurTriangle(B,A,C)
 	let e=hauteurTriangle(A,B,C)
-	PointIntersectionDD.call(d,e)
+	let p=pointIntersectionDD(d,e)
+	this.x=p.x
+	this.y=p.y
+	this.positionLabel=positionLabel
 }
 function orthocentre(...args){
 	return new OrthoCentre(...args)
 }
-function CentreCercleCirconscrit(A,B,C){
+function CentreCercleCirconscrit(A,B,C,nom='',positionLabel='above'){
+	Point.call(this,nom)
 	let d=mediatrice(A,B)
 	let e=mediatrice(B,C)
-	PointIntersectionDD.call(d,e)
+	p=pointIntersectionDD.call(d,e)
+	this.x=p.x
+	this.y=p.y
+	this.positionLabel=positionLabel
 }
 function centreCercleCirconscrit(...args){
 	return new CentreCercleCirconscrit(...args)
