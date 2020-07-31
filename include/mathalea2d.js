@@ -954,7 +954,7 @@ function ArcPointPointAngle(M,N,angle,rayon=false,fill='none',color='black'){
 */
 
 /**
-* M = translation(O,v) //M est l'image de O dans la translation de vecteur v
+* M = tion(O,v) //M est l'image de O dans la translation de vecteur v
 * M = translation(O,v,'M') //M est l'image de O dans la translation de vecteur v et se nomme M
 * M = translation(O,v,'M','below') //M est l'image de O dans la translation de vecteur v, se nomme M et le nom est en dessous du point
 *
@@ -972,6 +972,27 @@ function translation(O,v,nom='',positionLabel = 'above') {
 	  		p2[i] = translation(A.listePoints[i],O,v)
 		}
 		return polygone(p2)
+	}
+	if (O.constructor==Droite) {
+		let M = translation(point(O.x1,O.y1),v)
+		let N = translation(point(O.x2,O.y2),v)
+		return droite(M,N)
+	}
+	if (O.constructor==Segment) {
+		let M = translation(O.extremite1,v)
+		let N = translation(O.extremite2,v)
+		let s = segment(M,N)
+		s.styleExtremites = O.styleExtremites
+		return s
+	}
+	if (O.constructor==DemiDroite) {
+		console.log(O.extremite1)
+		let M = translation(O.extremite1,v)
+		console.log(M)
+		let N = translation(O.extremite2,v)
+		let s = demiDroite(M,N)
+		s.styleExtremites = O.styleExtremites
+		return s
 	}
 
 }
@@ -996,6 +1017,25 @@ function translation2Points(O,A,B,nom='',positionLabel = 'above') {
 	  		p2[i] = translation2Points(A.listePoints[i],O,A,B)
 		}
 		return polygone(p2)
+	}
+	if (O.constructor==Droite) {
+		let M = translation2Points(point(O.x1,O.y1),A,B)
+		let N = translation2Points(point(O.x2,O.y2),A,B)
+		return droite(M,N)
+	}
+	if (O.constructor==Segment) {
+		let M = translation2Points(O.extremite1,A,B)
+		let N = translation2Points(O.extremite2,A,B)
+		let s = segment(M,N)
+		s.styleExtremites = O.styleExtremites
+		return s
+	}
+	if (O.constructor==DemiDroite) {
+		let M = translation2Points(O.extremite1,A,B)
+		let N = translation2Points(O.extremite2,A,B)
+		let s = demiDroite(M,N)
+		s.styleExtremites = O.styleExtremites
+		return s
 	}
 
 }
