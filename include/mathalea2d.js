@@ -240,7 +240,52 @@ function PointParProjectionOrtho(M,d,nom = '',positionLabel = 'above') {
 function pointParProjectionOrtho(...args) {
 	return new PointParProjectionOrtho(...args)
 }
-
+/**
+ * Médiane issue de A relative à [BC]
+ * @Auteur Jean-Claude Lhote
+ * @param {Point} A 
+ * @param {Point} B 
+ * @param {Point} C 
+ * @param {string} color 
+ */
+function MedianeTriangle(A,B,C,color='black'){
+	let I=pointMilieu(B,C)
+	Droite.call(this,A,I)
+	this.color=color
+}	
+function medianeTriangle(...args){
+	return new MedianeTriangle(...args)
+}
+/**
+ * Centre de gravité du triangle ABC
+ * @Auteur Jean-Claude Lhote
+ * @param {Point} A 
+ * @param {Point} B 
+ * @param {Point} C 
+ * @param {string} color 
+ */
+function CentreGraviteTriangle(A,B,C,nom='',positionLabel='above'){
+	Point.call(this,nom)
+	let d=medianeTriangle(B,A,C)
+	let e=medianeTriangle(A,B,C)
+	d.isVisible=false
+	e.isVisible=false
+	let p=pointIntersectionDD(d,e)
+	this.x=p.x
+	this.y=p.y
+	this.positionLabel=positionLabel
+}
+function centreGraviteTriangle(...args){
+	return new CentreGraviteTriangle(...args)
+}
+/**
+ * Hauteur issue de A relative à [BC]
+ * @Auteur Jean-Claude Lhote
+ * @param {Point} A 
+ * @param {Point} B 
+ * @param {Point} C 
+ * @param {string} color 
+ */
 function HauteurTriangle(A,B,C,color='black'){
 	
 	let d=droite(B,C)
@@ -254,7 +299,14 @@ function HauteurTriangle(A,B,C,color='black'){
 function hauteurTriangle(...args){
 	return new HauteurTriangle(...args)
 }
-
+/**
+ * Orthocentre du triangle ABC
+ * @Auteur Jean-Claude Lhote
+ * @param {Point} A 
+ * @param {Point} B 
+ * @param {Point} C 
+ * @param {string} color 
+ */
 function OrthoCentre(A,B,C,nom='',positionLabel='above'){
 	Point.call(this,nom)
 	let d=hauteurTriangle(B,A,C)
@@ -269,6 +321,14 @@ function OrthoCentre(A,B,C,nom='',positionLabel='above'){
 function orthocentre(...args){
 	return new OrthoCentre(...args)
 }
+/**
+ * Centre du cercle circonscrit au triangle ABC
+ * @Auteur Jean-Claude Lhote
+ * @param {Point} A 
+ * @param {Point} B 
+ * @param {Point} C 
+ * @param {string} color 
+ */
 function CentreCercleCirconscrit(A,B,C,nom='',positionLabel='above'){
 	Point.call(this,nom)
 	let d=mediatrice(A,B)
