@@ -1,5 +1,68 @@
 /* auteur Stéphane Guyon*/
 
+function valeur_absolue_et_equation(){
+Exercice.call(this); // Héritage de la classe Exercice()
+    this.titre = "Résoudre une équation avec des valeurs absolues";
+    this.consigne = "Résoudre dans $\\mathbb{R}$ les équations suivantes  :"
+    this.nb_questions = 4;
+    this.nb_cols = 2;
+    this.nb_cols_corr = 2;
+    this.sup = 1 ; // 
+
+    this.nouvelle_version = function(numero_de_l_exercice){
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    let type_de_questions_disponibles = [1,2,2,2,2,2];
+    let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) ;
+    for (let i = 0, a,b,c,d,e, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+            type_de_questions = liste_type_de_questions[i];
+    switch (type_de_questions){
+                        // Cas par cas, on définit le type de nombres que l'on souhaite
+                        // Combien de chiffres ? Quelles valeurs ?
+            
+                case 1 : 
+        
+                a = randint(1,15)*choice([-1,1]);
+                b = randint(1,15)*(-1);
+                    
+                    texte = `$\\vert x ${ecriture_algebrique(a)}\\vert =${b}$`;
+                    {texte_corr = ` ${b} étant négatif, il n'existe pas de solution à cette équation. $S=\\emptyset$`;}
+                   
+
+                        
+                    break ;
+               case 2 : 
+        
+                a = randint(1,15)*choice([-1,1]);
+                b = randint(1,15);
+                c=-a;
+                      texte = `$\\vert x ${ecriture_algebrique(a)}\\vert =${b}$`;
+                   
+                    texte_corr = `Résoudre cette équation est équivalent à résoudre ces deux équations :<br>
+                    $x ${ecriture_algebrique(a)} =${b}$ et    $x ${ecriture_algebrique(a)} =${-b}$<br>
+                    Il existe donc deux solutions à cette équation :<br>
+                    $x_1=${c} ${ecriture_algebrique(b)}$ et $x_2=${c} -${ecriture_parenthese_si_negatif(b)}$<br>
+                    $S=\\{${c-b};${c+b}\\}$`;
+                            
+                  
+
+                        
+                    break ;
+        
+            }       
+            if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+                this.liste_questions.push(texte);
+                this.liste_corrections.push(texte_corr);
+                i++;
+            }
+            cpt++;  
+        }
+        liste_de_question_to_contenu(this);
+    }
+    
+}
+/* auteur Stéphane Guyon*/
+
 
 function valeur_absolue(){
 Exercice.call(this); // Héritage de la classe Exercice()
