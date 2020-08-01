@@ -68,7 +68,7 @@ window.onload = function()  {
 		let codeSvgcomplet = codeSvg(mesObjets)
 		divSvg.innerHTML = codeSvgcomplet;		
 		myCodeMirrorSvg.setValue(codeSvgcomplet);
-		mesObjets = mesObjetsCopie.slice() // on érinitialise mesObjets à l'état où il était avant que codeSvg n'ajoute des objets
+		mesObjets = mesObjetsCopie.slice() // on réinitialise mesObjets à l'état où il était avant que codeSvg n'ajoute des objets
 		myCodeMirrorTikz.setValue(codeTikz(mesObjets));
 	};
 

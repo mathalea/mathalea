@@ -1,11 +1,10 @@
 /* auteur Stéphane Guyon*/
 
-
-function ensemble_de_nombres(){
+function valeur_absolue_et_equation(){
 Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient.";
-    this.consigne = "Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient. :"
-    this.nb_questions = 5;
+    this.titre = "Résoudre une équation avec des valeurs absolues";
+    this.consigne = "Résoudre dans $\\mathbb{R}$ les équations suivantes  :"
+    this.nb_questions = 4;
     this.nb_cols = 2;
     this.nb_cols_corr = 2;
     this.sup = 1 ; // 
@@ -13,7 +12,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
     this.nouvelle_version = function(numero_de_l_exercice){
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9];
+    let type_de_questions_disponibles = [1,2,2,2,2,2];
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) ;
     for (let i = 0, a,b,c,d,e, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
             type_de_questions = liste_type_de_questions[i];
@@ -23,123 +22,32 @@ Exercice.call(this); // Héritage de la classe Exercice()
             
                 case 1 : 
         
-                a = randint(0,150);
-                
+                a = randint(1,15)*choice([-1,1]);
+                b = randint(1,15)*(-1);
                     
-                    texte = `$${a} \\in \\dots$`;
-                    texte_corr = `$${a}$ est un entier naturel, on a donc $${a}\\in \\mathbb{N}$
-                    `;
-
+                    texte = `$\\vert x ${ecriture_algebrique(a)}\\vert =${b}$`;
+                    {texte_corr = ` ${b} étant négatif, il n'existe pas de solution à cette équation. $S=\\emptyset$`;}
+                   
 
                         
                     break ;
-                case 2 : 
+               case 2 : 
         
-                a = randint(0,150)*(-1);
-                
-                    
-                    texte = `$${a} \\in \\dots$`;
-                    texte_corr = `$${a}$ est un entier relatif, on a donc $${a}\\in \\mathbb{Z}$
-                    `;
-
+                a = randint(1,15)*choice([-1,1]);
+                b = randint(1,15);
+                c=-a;
+                      texte = `$\\vert x ${ecriture_algebrique(a)}\\vert =${b}$`;
+                   
+                    texte_corr = `Résoudre cette équation est équivalent à résoudre ces deux équations :<br>
+                    $x ${ecriture_algebrique(a)} =${b}$ et    $x ${ecriture_algebrique(a)} =${-b}$<br>
+                    Il existe donc deux solutions à cette équation :<br>
+                    $x_1=${c} ${ecriture_algebrique(b)}$ et $x_2=${c} -${ecriture_parenthese_si_negatif(b)}$<br>
+                    $S=\\{${c-b};${c+b}\\}$`;
+                            
+                  
 
                         
                     break ;
-                case 3 : 
-        
-                d = randint(0,9);
-                b = randint(0,9)*choice([-1,1]);
-                c = randint(0,9);
-                a=b+c/10+d/100;
-                a=a*choice([-1,1])
-                    
-                    texte = `$${tex_nombrec(b+c/10+d/100)}\\in \\dots$`;
-                    texte_corr = `$${tex_nombrec(b+c/10+d/100)}$ est un nombre décimal, on a donc $${tex_nombrec(b+c/10+d/100)}\\in \\mathbb{D}$
-                    `;
-
-
-                        
-                    break ;
-                    case 4 : 
-        
-                a = randint(2,16);
-                b = randint(0,9);
-                c = randint(0,9);
-                
-                    
-                    texte = `$\\sqrt{${tex_nombrec(a*a)}}\\in \\dots$`;
-                    texte_corr = `$\\sqrt{${a*a}}=${a}$  est un entier naturel, on a donc $\\sqrt{${tex_nombrec(a*a)}}\\in \\mathbb{N}$
-                    `;
-
-
-                        
-                    break ; 
-                    case 5 : 
-        
-                a = randint(2,16);
-                b = randint(2,6);
-                c = randint(0,9);
-            
-                    
-                    texte = `$\\dfrac{${tex_nombrec(b*a)}}{${a}}\\in \\dots$`;
-                    texte_corr = `$\\dfrac{${tex_nombrec(b*a)}}{${a}}=\\dfrac{${b}\\times ${a}}{${a}}=${b}$  est un entier naturel, on a donc $\\dfrac{${tex_nombrec(b*a)}}{${a}}\\in \\mathbb{N}$
-                    `;
-
-
-                        
-                    break ; 
-                case 6 : 
-        
-                a = choice([3,5,7,11,13,17,19,23,29,31,37,39,41,43,47,53,57,61,67,71,73,79,83,87,89]);
-                b = choice([3,5,7,11,13,17,19,23,29,31,37,39,41,43,47,53,57,61,67,71,73,79,83,87,89],[a]);
-                
-            
-                    
-                    texte = `$\\dfrac{${a}}{${b}}\\in \\dots$`;
-                    texte_corr = `$\\dfrac{${a}}{${b}}$ n'est pas un nombre décimal. On a donc $\\dfrac{${a}}{${b}}\\in \\mathbb{Q}$
-                    `;
-
-
-                        
-                    break ; 
-                case 7 : 
-        
-                
-                b = choice([4,5,8,10]);
-                a= randint(4,100);
-                while (a%b==0)
-                    {a=randint(4,100);}
-                
-                
-            
-                    
-                    texte = `$\\dfrac{${a}}{${b}}\\in \\dots$`;
-                    texte_corr = `$\\dfrac{${a}}{${b}}=${tex_nombre(a/b)}$  est un nombre décimal. On a donc $\\dfrac{${a}}{${b}}\\in \\mathbb{D}$
-                    `;
-
-
-                        
-                    break ; 
-            case 8 : 
-        
-                
-                a = randint(2,100,[4,9,16,25,36,49,64,81]);
-                texte = `$\\sqrt{${a}} \\in \\dots$`;
-                texte_corr = `$\\sqrt{${a}}$  est un nombre irrationnel. On a donc $\\sqrt{${a}}\\in \\mathbb{R}$
-                    `;
-
-
-                        
-                    break ; 
-            case 9 : 
-                a=randint(2,9)
-                texte = `$${a}\\pi \\in \\dots$`;
-                texte_corr = `$${a}\\pi$   est un nombre irrationnel. On a donc $${a}\\pi \\in \\mathbb{R}$
-                    `;
-
-
-                        
-                    break ; 
         
             }       
             if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
@@ -153,8 +61,86 @@ Exercice.call(this); // Héritage de la classe Exercice()
     }
     
 }
+/* auteur Stéphane Guyon*/
 
-function identites_remarquables_et_racine_caree(){
+
+function valeur_absolue(){
+Exercice.call(this); // Héritage de la classe Exercice()
+    this.titre = "Utiliser la notion de valeur absolue d'une quantité";
+    this.consigne = "Déterminer la valeur du nombre proposé :"
+    this.nb_questions = 5;
+    this.nb_cols = 2;
+    this.nb_cols_corr = 2;
+    this.sup = 1 ; // 
+
+    this.nouvelle_version = function(numero_de_l_exercice){
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    let type_de_questions_disponibles = [1,2,3];
+    let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) ;
+    for (let i = 0, a,b,c,d,e, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+            type_de_questions = liste_type_de_questions[i];
+    switch (type_de_questions){
+                        // Cas par cas, on définit le type de nombres que l'on souhaite
+                        // Combien de chiffres ? Quelles valeurs ?
+            
+                case 1 : 
+        
+                a = randint(1,150)*choice([-1,1]);
+             
+                    
+                    texte = `$\\vert ${a}\\vert = \\dots$`;
+                    if (a>0) {texte_corr = `$\\vert ${a}\\vert = ${a}$`;}
+                    else {texte_corr = `$\\vert ${a}\\vert = ${-a}$`;}
+
+
+                        
+                    break ;
+               case 2 : 
+        
+                a = randint(1,5);
+             
+                    
+                    texte = `$\\vert \\pi - ${a}\\vert = \\dots$`;
+                    if (a>3) {texte_corr = `On a : $\\pi - ${a}<0 $ donc $\\vert \\pi - ${a}\\vert = ${ a}-\\pi$`;}
+                    else {texte_corr = `On a : $\\pi - ${a}>0 $ donc $\\vert \\pi - ${a}\\vert = \\pi - ${a }$`;}
+
+
+                        
+                    break ;
+                 case 3 : 
+        
+                a = randint(2,5);
+                b = randint(2,7,4); 
+                c= Math.sqrt(b);
+
+                    texte = `$\\vert \\sqrt{${b}} - ${a}\\vert = \\dots $`;
+                  
+                    if (c>a) {texte_corr = `On a : $${b} > ${a*a}$ donc $\\sqrt{${b}} > ${a}$ <br>
+                        $\\sqrt{${b}}- ${a}$ est donc un nombre positif, il en resulte que  $\\vert \\sqrt{${b}} - ${a}\\vert = \\sqrt{${b}} - ${a}$`;}
+                    else {texte_corr = `On a : $${b}< ${a*a}$ donc $\\sqrt{${b}} < ${a}$ <br>
+                        $\\sqrt{${b}}- ${a}$ est donc un nombre négatif, il en resulte que  $\\vert \\sqrt{${b}} -${a}\\vert = ${a}-\\sqrt{${b}}  $`;}
+
+
+                        
+                    break ;
+        
+            }       
+            if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+                this.liste_questions.push(texte);
+                this.liste_corrections.push(texte_corr);
+                i++;
+            }
+            cpt++;  
+        }
+        liste_de_question_to_contenu(this);
+    }
+    
+}
+/* auteur Stéphane Guyon*/
+
+
+function identites_remarquables_et_racine_carree(){
 Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Développer les identités remarquables avec des racines carrées";
     this.consigne = "Effectuer les calculs suivants :"
@@ -275,7 +261,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
     
 
 }
-function Double_distributivité_avec_racine_caree(){
+function Double_distributivité_avec_racine_carree(){
 Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Appliquer la double distributivité avec les racines carrées";
     this.consigne = " Effectuer les calculs suivants :"
@@ -355,10 +341,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
 
 }
 
+
+
 function parite()
 {
 Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Déterminer la parité d'un entier naturel.";
+    this.titre = "Déterminer la parité d'une expression.";
     this.consigne = "Soit $n$ un entier naturel."
     this.nb_questions = 4;
     this.nb_cols = 2;
@@ -664,7 +652,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
     
 }
 
-function proprietes_racine_caree(){
+function proprietes_racine_carree(){
     Exercice.call(this); // Héritage de la classe Exercice()
         this.titre = "Connaître les propriétés calculatoires des racines carrées";
         this.consigne = "Effectuer, si possible, les calculs suivants :"
@@ -888,7 +876,7 @@ function Simplifier_une_somme_de_racines_carrees() {
     this.besoin_formulaire_numerique = ['Niveau de difficulté', 2, "1 : En donnat la racine carrée unité\n2 : Sans indication"];
 }
 
-function Existence_d_une_racine_caree(){
+function Existence_d_une_racine_carree(){
 Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Existence d'une racine carrée.";
     this.consigne = " Dire si le nombre proposé existe ou non, en justifiant."
