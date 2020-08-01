@@ -90,7 +90,7 @@ function TracePoint(A,color='black',taille=0.3,){
 	this.color = color;
 	this.svg = function(){
 		let code = `<line x1="${calcul((A.x-taille)*this.coeff)}" y1="${calcul((-A.y-taille)*this.coeff)}" x2="${calcul((A.x+taille)*this.coeff)}" y2="${calcul((-A.y+taille)*this.coeff)}" stroke="${this.color}" />`
-		code += `\n<line x1="${calcul((A.x-taille)*this.coeff)}" y1="${calcul((-A.y+taille)*this.coeff)}" x2="${calcul((A.x+taille)*this.coeff)}" y2="${calcul((-A.y-taille)*this.coeff)}" stroke="${this.color}" />`
+		code += `\n\t<line x1="${calcul((A.x-taille)*this.coeff)}" y1="${calcul((-A.y+taille)*this.coeff)}" x2="${calcul((A.x+taille)*this.coeff)}" y2="${calcul((-A.y-taille)*this.coeff)}" stroke="${this.color}" />`
 		return code 
 	}
 	this.tikz = function(){
@@ -188,28 +188,28 @@ function LabelPoint(...points) {
 		for (let point of this.listePoints){
 			switch (point.positionLabel){
 				case 'left':
-				code += `<text x="${calcul(point.xSVG()-15)}" y="${point.ySVG()}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${calcul(point.xSVG()-15)}" y="${point.ySVG()}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'right':
-				code += `<text x="${calcul(point.xSVG()+15)}" y="${point.ySVG()}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${calcul(point.xSVG()+15)}" y="${point.ySVG()}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'below':
-				code += `<text x="${point.xSVG()}" y="${calcul(point.ySVG()+15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${point.xSVG()}" y="${calcul(point.ySVG()+15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'above':
-				code += `<text x="${point.xSVG()}" y="${calcul(point.ySVG()-15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${point.xSVG()}" y="${calcul(point.ySVG()-15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'above right':
-				code += `<text x="${calcul(point.xSVG()+15)}" y="${calcul(point.ySVG()-15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${calcul(point.xSVG()+15)}" y="${calcul(point.ySVG()-15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'below left':
-				code += `<text x="${calcul(point.xSVG()-15)}" y="${calcul(point.ySVG()+15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${calcul(point.xSVG()-15)}" y="${calcul(point.ySVG()+15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'below right':
-				code += `<text x="${calcul(point.xSVG()+15)}" y="${calcul(point.ySVG()+15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${calcul(point.xSVG()+15)}" y="${calcul(point.ySVG()+15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				default :
-				code += `<text x="${calcul(point.xSVG()-15)}" y="${calcul(point.ySVG()-15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${calcul(point.xSVG()-15)}" y="${calcul(point.ySVG()-15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 			}
 		}
@@ -222,7 +222,7 @@ function LabelPoint(...points) {
 			style = `,${this.color}`
 		}
 		for (let point of points){
-			code += `\\draw (${point.x},${point.y}) node[${point.positionLabel}${style}] {${point.nom}};\n`;
+			code += `\t\\draw (${point.x},${point.y}) node[${point.positionLabel}${style}] {${point.nom}};\n`;
 		}
 		return code
 	}
@@ -341,6 +341,12 @@ function Droite(arg1,arg2,arg3,arg4,color) {
 	this.normal= vecteur(this.a,this.b)
 	this.directeur= vecteur(-this.b,this.a)
 	this.svg = function(){
+		if (this.epaisseur!=1) {
+			this.style += ` stroke-width="${this.epaisseur}" `
+		}
+		if (this.pointilles) {
+			this.style += ` stroke-dasharray="4 3" `
+		}
 		let A = point(this.x1,this.y1);
 		let B = point(this.x2,this.y2);
 		let A1 = pointSurSegment(A,B,-10);
@@ -348,11 +354,26 @@ function Droite(arg1,arg2,arg3,arg4,color) {
 		return `<line x1="${A1.xSVG()}" y1="${A1.ySVG()}" x2="${B1.xSVG()}" y2="${B1.ySVG()}" stroke="${this.color}" ${this.style} />`
 	}
 	this.tikz = function() {
+		let tableauOptions = [];
+		if (this.color.length>1 && this.color!=='black'){
+			tableauOptions.push(this.color)
+		}
+		if (this.epaisseur!=1) {
+			tableauOptions.push(`line width = ${epaisseur}`) 
+		}
+		if (this.pointilles) {
+			tableauOptions.push(`dashed`) 
+		}
+		
+		let optionsDraw = []
+		if (tableauOptions.length>0) {
+			optionsDraw = "["+tableauOptions.join(',')+"]"
+		}
 		let A = point(this.x1,this.y1);
 		let B = point(this.x2,this.y2);
 		let A1 = pointSurSegment(A,B,-10);
 		let B1 = pointSurSegment(B,A,-10);
-		return `\\draw[${this.color}] (${A1.x},${A1.y})--(${B1.x},${B1.y});`
+		return `\\draw${optionsDraw} (${A1.x},${A1.y})--(${B1.x},${B1.y});`
 	}
 }
 function droite(...args){
@@ -607,6 +628,12 @@ function Segment(arg1,arg2,arg3,arg4,color){
 	this.angleAvecHorizontale = calcul(Math.atan2(this.y2-this.y1, this.x2-this.x1)*180/Math.PI); 
 
 	this.svg = function(){
+		if (this.epaisseur!=1) {
+			this.style += ` stroke-width="${this.epaisseur}" `
+		}
+		if (this.pointilles) {
+			this.style += ` stroke-dasharray="4 3" `
+		}
 		let code = ''
 		let A = point(this.x1,this.y1)
 		let B = point(this.x2,this.y2)
@@ -622,14 +649,14 @@ function Segment(arg1,arg2,arg3,arg4,color){
 				let B1 = rotation(B,M,90)
 				let B2 = rotation(B,M,-90)
 				code += `<line x1="${B.xSVG()}" y1="${B.ySVG()}" x2="${B1.xSVG()}" y2="${B1.ySVG()}" stroke="${this.color}" />`
-				code += `\n<line x1="${B.xSVG()}" y1="${B.ySVG()}" x2="${B2.xSVG()}" y2="${B2.ySVG()}" stroke="${this.color}" />`
+				code += `\n\t<line x1="${B.xSVG()}" y1="${B.ySVG()}" x2="${B2.xSVG()}" y2="${B2.ySVG()}" stroke="${this.color}" />`
 			}
 			if (this.styleExtremites[0]=='<') { //si ça comment par < on rajoute une flèche en A
 				let M = pointSurSegment(A,B,.2)
 				let A1 = rotation(A,M,90)
 				let A2 = rotation(A,M,-90)
 				code += `<line x1="${A.xSVG()}" y1="${A.ySVG()}" x2="${A1.xSVG()}" y2="${A1.ySVG()}" stroke="${this.color}" />`
-				code += `\n<line x1="${A.xSVG()}" y1="${A.ySVG()}" x2="${A2.xSVG()}" y2="${A2.ySVG()}" stroke="${this.color}" />`
+				code += `\n\t<line x1="${A.xSVG()}" y1="${A.ySVG()}" x2="${A2.xSVG()}" y2="${A2.ySVG()}" stroke="${this.color}" />`
 
 			}
 			if (this.styleExtremites[0]=='|') { //si ça commence par | on le rajoute en A
@@ -640,18 +667,24 @@ function Segment(arg1,arg2,arg3,arg4,color){
 
 			}		
 		}
-		code +=`\n<line x1="${A.xSVG()}" y1="${A.ySVG()}" x2="${B.xSVG()}" y2="${B.ySVG()}" stroke="${this.color}" ${this.style} />`
+		code +=`\n\t<line x1="${A.xSVG()}" y1="${A.ySVG()}" x2="${B.xSVG()}" y2="${B.ySVG()}" stroke="${this.color}" ${this.style} />`
 		return code
 	}
 	this.tikz = function(){
+		let optionsDraw = []
 		let tableauOptions = [];
 		if (this.color.length>1 && this.color!=='black'){
 			tableauOptions.push(this.color)
 		}
+		if (this.epaisseur!=1) {
+			tableauOptions.push(`line width = ${epaisseur}`) 
+		}
+		if (this.pointilles) {
+			tableauOptions.push(`dashed`) 
+		}
 		if (this.styleExtremites.length>1) {
 			tableauOptions.push(this.styleExtremites)
 		}
-		let optionsDraw = []
 		if (tableauOptions.length>0) {
 			optionsDraw = "["+tableauOptions.join(',')+"]"
 		}
@@ -743,11 +776,27 @@ function Polygone(...points){
 		return `<polygon points="${binomeXY}" fill="none" stroke="${this.color}" ${this.style} />`
 	}
 	this.tikz = function(){
+		let tableauOptions = [];
+		if (this.color.length>1 && this.color!=='black'){
+			tableauOptions.push(this.color)
+		}
+		if (this.epaisseur!=1) {
+			tableauOptions.push(`line width = ${epaisseur}`) 
+		}
+		if (this.pointilles) {
+			tableauOptions.push(`dashed`) 
+		}
+		
+		let optionsDraw = []
+		if (tableauOptions.length>0) {
+			optionsDraw = "["+tableauOptions.join(',')+"]"
+		}
+		
 		let binomeXY = "";
 		for (let point of this.listePoints){
 			binomeXY += `(${point.x},${point.y})--`
 		}
-		return `\\draw ${binomeXY}cycle;`
+		return `\\draw${optionsDraw} ${binomeXY}cycle;`
 	}
 
 }
@@ -879,10 +928,30 @@ function Cercle(O,r,color){
 	}
 	
 	this.svg = function(){
-		return `<circle cx="${O.xSVG()}" cy="${O.ySVG()}" r="${r*this.coeff}" stroke="${this.color}" fill="none"/>`
+		if (this.epaisseur!=1) {
+			this.style += ` stroke-width="${this.epaisseur}" `
+		}
+		if (this.pointilles) {
+			this.style += ` stroke-dasharray="4 3" `
+		}
+		return `<circle cx="${O.xSVG()}" cy="${O.ySVG()}" r="${r*this.coeff}" stroke="${this.color}" ${this.style} fill="none"/>`
 	}
 	this.tikz = function(){
-		return `\\draw${this.styleTikz} (${O.x},${O.y}) circle (${r});`
+		let optionsDraw = []
+		let tableauOptions = [];
+		if (this.color.length>1 && this.color!=='black'){
+			tableauOptions.push(this.color)
+		}
+		if (this.epaisseur!=1) {
+			tableauOptions.push(`line width = ${epaisseur}`) 
+		}
+		if (this.pointilles) {
+			tableauOptions.push(`dashed`) 
+		}
+		if (tableauOptions.length>0) {
+			optionsDraw = "["+tableauOptions.join(',')+"]"
+		}
+		return `\\draw${optionsDraw} (${O.x},${O.y}) circle (${r});`
 	}
 }
 function cercle(...args){ 
@@ -1815,7 +1884,7 @@ function codeSvg(...objets){
 		}
 		try {
 			if (objet.isVisible) {
-				code +=objet.svg() + '\n';
+				code += '\t' + objet.svg() + '\n';
 			}
 		} catch (error) {
   			
@@ -1842,19 +1911,26 @@ function codeTikz(...objets){
         minimum width=5pt,
         minimum height=5pt,
     },
-}\n\n`
+}
+\\clip (-1,-5) rectangle (15,10);
+
+\n\n`
 	for (let objet of objets){
 		if (Array.isArray(objet)) {
 			for (let i = 0; i < objet.length; i++) {
 				try {
-					code += '\t' + objet[i].tikz() + '\n'
+					if (objet[i].isVisible) {
+						code += '\t' + objet[i].tikz() + '\n'
+					}
 				} catch (error){
 
 				}
 			}
 		}
 		try {
-			code += '\t' + objet.tikz() + '\n'
+			if (objet[i].isVisible) {
+				code += '\t' + objet.tikz() + '\n'
+			}
 		} catch (error) {
   			
   		}
