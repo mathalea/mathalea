@@ -13,7 +13,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
     this.nouvelle_version = function(numero_de_l_exercice){
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles = [1,2];
+    let type_de_questions_disponibles = [1,2,3];
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) ;
     for (let i = 0, a,b,c,d,e, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
             type_de_questions = liste_type_de_questions[i];
@@ -41,6 +41,22 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     texte = `$\\vert \\pi - ${a}\\vert = \\dots$`;
                     if (a>3) {texte_corr = `On a : $\\pi - ${a}<0 $ donc $\\vert \\pi - ${a}\\vert = ${ a}-\\pi$`;}
                     else {texte_corr = `On a : $\\pi - ${a}>0 $ donc $\\vert \\pi - ${a}\\vert = \\pi - ${a }$`;}
+
+
+                        
+                    break ;
+                 case 3 : 
+        
+                a = randint(2,5);
+                b = randint(2,7,4); 
+                c= Math.sqrt(b);
+
+                    texte = `$\\vert \\sqrt{${b}} - ${a}\\vert = \\dots $`;
+                  
+                    if (c>a) {texte_corr = `On a : $${b} > ${a*a}$ donc $\\sqrt{${b}} > ${a}$ <br>
+                        $\\sqrt{${b}}- ${a}$ est donc un nombre positif, il en resulte que  $\\vert \\sqrt{${b}} - ${a}\\vert = \\sqrt{${b}} - ${a}$`;}
+                    else {texte_corr = `On a : $${b}< ${a*a}$ donc $\\sqrt{${b}} < ${a}$ <br>
+                        $\\sqrt{${b}}- ${a}$ est donc un nombre négatif, il en resulte que  $\\vert \\sqrt{${b}} -${a}\\vert = ${a}-\\sqrt{${b}}  $`;}
 
 
                         
