@@ -374,26 +374,30 @@ Exercice.call(this); // Héritage de la classe Exercice()
                 c = randint(2,6);
                     
                     texte = `Que peut-on dire de la parité de ${a}$n$ ?`;
-                    if (a%2==0) {
+                        if (a%2==0 && a!=2) {
                         texte_corr = `${a}$n=2\\times ${tex_nombre(a/2)}n$<br>
                         Comme $${tex_nombre(a/2)}n$ est un entier naturel, ${a}$n$ s'écrit comme le double d'un entier naturel, il est donc pair`;
                         }
-                    else {
+                        if (a==2) {
+                        texte_corr = `${a}$n=2\\times n$<br>
+                        Comme $n$ est un entier naturel, ${a}$n$ s'écrit comme le double d'un entier naturel, il est donc pair`;
+                        }
+                   
                         if (a==3) {
-                            texte_corr = `${a}$n=2n+n$<br>
+                        texte_corr = `${a}$n=2n+n$<br>
                             Comme $n$ est un entier naturel, $2 n$ est un nombre pair.<br>
                             Si $n$ est pair, $2n+n$ est la somme de deux nombres pairs, il sera donc pair. <br>
                             Si $n$ est impair, $2n+n$ est la somme d'un nombre pair et d'un impair, il sera donc impair. <br>
                             Au final, ${a}$n$ a donc la même parité que $n$.`;
                             }
-                        else {
-                            texte_corr = `${a}$n=2\\times ${tex_nombre((a-1)/2)}n+n$<br>
+                        if  (a%2!=0 && a!=3) {
+                        texte_corr = `${a}$n=2\\times ${tex_nombre((a-1)/2)}n+n$<br>
                             Comme $${tex_nombre((a-1)/2)}n$ est un entier naturel, $2\\times ${tex_nombre((a-1)/2)}n$ est un nombre pair.<br>
                             Si $n$ est pair, $2\\times${tex_nombre((a-1)/2)}n+n$ est la somme de deux nombres pairs, il sera donc pair. <br>
                             Si $n$ est impair, $2\\times${tex_nombre((a-1)/2)}n+n$ est la somme d'un nombre pair et d'un impair, il sera donc impair. <br>
                             Au final, ${a}$n$ a donc la même parité que $n$.`;
                             }
-                        }
+                        
                                         
                     break ;
                 case 2 : 
