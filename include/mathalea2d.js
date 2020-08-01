@@ -26,8 +26,10 @@ function ObjetMathalea2D() {
 	this.isVisible = true;
 	this.color = 'black';
 	this.style = '' //stroke-dasharray="4 3" pour des hachures //stroke-width="2" pour un trait plus épais
-	this.styleTikz = ''
-	this.coeff = 20 // 1 cm est représenté par 20 pixels
+	this.styleTikz = '';
+	this.coeff = 20; // 1 cm est représenté par 20 pixels
+	this.epaisseur = 1;
+	this.pointilles = false;
 	mesObjets.push(this);
 }
 
@@ -88,7 +90,7 @@ function TracePoint(A,color='black',taille=0.3,){
 	this.color = color;
 	this.svg = function(){
 		let code = `<line x1="${calcul((A.x-taille)*this.coeff)}" y1="${calcul((-A.y-taille)*this.coeff)}" x2="${calcul((A.x+taille)*this.coeff)}" y2="${calcul((-A.y+taille)*this.coeff)}" stroke="${this.color}" />`
-		code += `\n<line x1="${calcul((A.x-taille)*this.coeff)}" y1="${calcul((-A.y+taille)*this.coeff)}" x2="${calcul((A.x+taille)*this.coeff)}" y2="${calcul((-A.y-taille)*this.coeff)}" stroke="${this.color}" />`
+		code += `\n\t<line x1="${calcul((A.x-taille)*this.coeff)}" y1="${calcul((-A.y+taille)*this.coeff)}" x2="${calcul((A.x+taille)*this.coeff)}" y2="${calcul((-A.y-taille)*this.coeff)}" stroke="${this.color}" />`
 		return code 
 	}
 	this.tikz = function(){
@@ -166,6 +168,9 @@ function pointIntersectionDD(d,f,nom='',positionLabel = 'above'){
 	return point(x,y,nom,positionLabel)
 }
 
+function pointIntersectionDD(...args){
+	return new PointIntersectionDD(...args)
+}
 
 
 /**
@@ -186,28 +191,28 @@ function LabelPoint(...points) {
 		for (let point of this.listePoints){
 			switch (point.positionLabel){
 				case 'left':
-				code += `<text x="${calcul(point.xSVG()-15)}" y="${point.ySVG()}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${calcul(point.xSVG()-15)}" y="${point.ySVG()}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'right':
-				code += `<text x="${calcul(point.xSVG()+15)}" y="${point.ySVG()}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${calcul(point.xSVG()+15)}" y="${point.ySVG()}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'below':
-				code += `<text x="${point.xSVG()}" y="${calcul(point.ySVG()+15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${point.xSVG()}" y="${calcul(point.ySVG()+15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'above':
-				code += `<text x="${point.xSVG()}" y="${calcul(point.ySVG()-15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${point.xSVG()}" y="${calcul(point.ySVG()-15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'above right':
-				code += `<text x="${calcul(point.xSVG()+15)}" y="${calcul(point.ySVG()-15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${calcul(point.xSVG()+15)}" y="${calcul(point.ySVG()-15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'below left':
-				code += `<text x="${calcul(point.xSVG()-15)}" y="${calcul(point.ySVG()+15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${calcul(point.xSVG()-15)}" y="${calcul(point.ySVG()+15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'below right':
-				code += `<text x="${calcul(point.xSVG()+15)}" y="${calcul(point.ySVG()+15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${calcul(point.xSVG()+15)}" y="${calcul(point.ySVG()+15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				default :
-				code += `<text x="${calcul(point.xSVG()-15)}" y="${calcul(point.ySVG()-15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${calcul(point.xSVG()-15)}" y="${calcul(point.ySVG()-15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 			}
 		}
@@ -220,7 +225,7 @@ function LabelPoint(...points) {
 			style = `,${this.color}`
 		}
 		for (let point of points){
-			code += `\\draw (${point.x},${point.y}) node[${point.positionLabel}${style}] {${point.nom}};\n`;
+			code += `\t\\draw (${point.x},${point.y}) node[${point.positionLabel}${style}] {$${point.nom}$};\n`;
 		}
 		return code
 	}
@@ -339,6 +344,12 @@ function Droite(arg1,arg2,arg3,arg4,color) {
 	this.normal= vecteur(this.a,this.b)
 	this.directeur= vecteur(-this.b,this.a)
 	this.svg = function(){
+		if (this.epaisseur!=1) {
+			this.style += ` stroke-width="${this.epaisseur}" `
+		}
+		if (this.pointilles) {
+			this.style += ` stroke-dasharray="4 3" `
+		}
 		let A = point(this.x1,this.y1);
 		let B = point(this.x2,this.y2);
 		let A1 = pointSurSegment(A,B,-10);
@@ -346,15 +357,40 @@ function Droite(arg1,arg2,arg3,arg4,color) {
 		return `<line x1="${A1.xSVG()}" y1="${A1.ySVG()}" x2="${B1.xSVG()}" y2="${B1.ySVG()}" stroke="${this.color}" ${this.style} />`
 	}
 	this.tikz = function() {
+		let tableauOptions = [];
+		if (this.color.length>1 && this.color!=='black'){
+			tableauOptions.push(this.color)
+		}
+		if (this.epaisseur!=1) {
+			tableauOptions.push(`line width = ${epaisseur}`) 
+		}
+		if (this.pointilles) {
+			tableauOptions.push(`dashed`) 
+		}
+		
+		let optionsDraw = []
+		if (tableauOptions.length>0) {
+			optionsDraw = "["+tableauOptions.join(',')+"]"
+		}
 		let A = point(this.x1,this.y1);
 		let B = point(this.x2,this.y2);
 		let A1 = pointSurSegment(A,B,-10);
 		let B1 = pointSurSegment(B,A,-10);
-		return `\\draw[${this.color}] (${A1.x},${A1.y})--(${B1.x},${B1.y});`
+		return `\\draw${optionsDraw} (${A1.x},${A1.y})--(${B1.x},${B1.y});`
 	}
 }
 function droite(...args){
 	return new Droite(...args)
+}
+function Mediatrice(A,B,color = 'black'){
+	let O = pointMilieu(A,B)
+	let M = pointParRotation(A,O,90)
+	let N = pointParRotation(A,O,-90)
+	Droite.call(this,M,N)
+	this.color=color
+}
+function mediatrice(...args){
+	return new Mediatrice(...args)
 }
 
 /**
@@ -605,6 +641,12 @@ function Segment(arg1,arg2,arg3,arg4,color){
 	this.angleAvecHorizontale = calcul(Math.atan2(this.y2-this.y1, this.x2-this.x1)*180/Math.PI); 
 
 	this.svg = function(){
+		if (this.epaisseur!=1) {
+			this.style += ` stroke-width="${this.epaisseur}" `
+		}
+		if (this.pointilles) {
+			this.style += ` stroke-dasharray="4 3" `
+		}
 		let code = ''
 		let A = point(this.x1,this.y1)
 		let B = point(this.x2,this.y2)
@@ -620,14 +662,14 @@ function Segment(arg1,arg2,arg3,arg4,color){
 				let B1 = rotation(B,M,90)
 				let B2 = rotation(B,M,-90)
 				code += `<line x1="${B.xSVG()}" y1="${B.ySVG()}" x2="${B1.xSVG()}" y2="${B1.ySVG()}" stroke="${this.color}" />`
-				code += `\n<line x1="${B.xSVG()}" y1="${B.ySVG()}" x2="${B2.xSVG()}" y2="${B2.ySVG()}" stroke="${this.color}" />`
+				code += `\n\t<line x1="${B.xSVG()}" y1="${B.ySVG()}" x2="${B2.xSVG()}" y2="${B2.ySVG()}" stroke="${this.color}" />`
 			}
 			if (this.styleExtremites[0]=='<') { //si ça comment par < on rajoute une flèche en A
 				let M = pointSurSegment(A,B,.2)
 				let A1 = rotation(A,M,90)
 				let A2 = rotation(A,M,-90)
 				code += `<line x1="${A.xSVG()}" y1="${A.ySVG()}" x2="${A1.xSVG()}" y2="${A1.ySVG()}" stroke="${this.color}" />`
-				code += `\n<line x1="${A.xSVG()}" y1="${A.ySVG()}" x2="${A2.xSVG()}" y2="${A2.ySVG()}" stroke="${this.color}" />`
+				code += `\n\t<line x1="${A.xSVG()}" y1="${A.ySVG()}" x2="${A2.xSVG()}" y2="${A2.ySVG()}" stroke="${this.color}" />`
 
 			}
 			if (this.styleExtremites[0]=='|') { //si ça commence par | on le rajoute en A
@@ -638,18 +680,24 @@ function Segment(arg1,arg2,arg3,arg4,color){
 
 			}		
 		}
-		code +=`\n<line x1="${A.xSVG()}" y1="${A.ySVG()}" x2="${B.xSVG()}" y2="${B.ySVG()}" stroke="${this.color}" ${this.style} />`
+		code +=`\n\t<line x1="${A.xSVG()}" y1="${A.ySVG()}" x2="${B.xSVG()}" y2="${B.ySVG()}" stroke="${this.color}" ${this.style} />`
 		return code
 	}
 	this.tikz = function(){
+		let optionsDraw = []
 		let tableauOptions = [];
 		if (this.color.length>1 && this.color!=='black'){
 			tableauOptions.push(this.color)
 		}
+		if (this.epaisseur!=1) {
+			tableauOptions.push(`line width = ${epaisseur}`) 
+		}
+		if (this.pointilles) {
+			tableauOptions.push(`dashed`) 
+		}
 		if (this.styleExtremites.length>1) {
 			tableauOptions.push(this.styleExtremites)
 		}
-		let optionsDraw = []
 		if (tableauOptions.length>0) {
 			optionsDraw = "["+tableauOptions.join(',')+"]"
 		}
@@ -728,18 +776,40 @@ function Polygone(...points){
 		this.nom = this.listePoints.join()
 	}
 	this.svg = function(coeff=20){
+		if (this.epaisseur!=1) {
+			this.style += ` stroke-width="${this.epaisseur}" `
+		}
+		if (this.pointilles) {
+			this.style += ` stroke-dasharray="4 3" `
+		}
 		let binomeXY = "";
 		for (let point of this.listePoints){
 			binomeXY += `${calcul(point.x*coeff)},${calcul(-point.y*coeff)} `; 
 		}
-		return `<polygon points="${binomeXY}" fill="none" stroke="${this.color}" />`
+		return `<polygon points="${binomeXY}" fill="none" stroke="${this.color}" ${this.style} />`
 	}
 	this.tikz = function(){
+		let tableauOptions = [];
+		if (this.color.length>1 && this.color!=='black'){
+			tableauOptions.push(this.color)
+		}
+		if (this.epaisseur!=1) {
+			tableauOptions.push(`line width = ${epaisseur}`) 
+		}
+		if (this.pointilles) {
+			tableauOptions.push(`dashed`) 
+		}
+		
+		let optionsDraw = []
+		if (tableauOptions.length>0) {
+			optionsDraw = "["+tableauOptions.join(',')+"]"
+		}
+		
 		let binomeXY = "";
 		for (let point of this.listePoints){
 			binomeXY += `(${point.x},${point.y})--`
 		}
-		return `\\draw ${binomeXY}cycle;`
+		return `\\draw${optionsDraw} ${binomeXY}cycle;`
 	}
 
 }
@@ -871,10 +941,30 @@ function Cercle(O,r,color){
 	}
 	
 	this.svg = function(){
-		return `<circle cx="${O.xSVG()}" cy="${O.ySVG()}" r="${r*this.coeff}" stroke="${this.color}" fill="none"/>`
+		if (this.epaisseur!=1) {
+			this.style += ` stroke-width="${this.epaisseur}" `
+		}
+		if (this.pointilles) {
+			this.style += ` stroke-dasharray="4 3" `
+		}
+		return `<circle cx="${O.xSVG()}" cy="${O.ySVG()}" r="${r*this.coeff}" stroke="${this.color}" ${this.style} fill="none"/>`
 	}
 	this.tikz = function(){
-		return `\\draw${this.styleTikz} (${O.x},${O.y}) circle (${r});`
+		let optionsDraw = []
+		let tableauOptions = [];
+		if (this.color.length>1 && this.color!=='black'){
+			tableauOptions.push(this.color)
+		}
+		if (this.epaisseur!=1) {
+			tableauOptions.push(`line width = ${epaisseur}`) 
+		}
+		if (this.pointilles) {
+			tableauOptions.push(`dashed`) 
+		}
+		if (tableauOptions.length>0) {
+			optionsDraw = "["+tableauOptions.join(',')+"]"
+		}
+		return `\\draw${optionsDraw} (${O.x},${O.y}) circle (${r});`
 	}
 }
 function cercle(...args){ 
@@ -986,8 +1076,9 @@ function translation(O,v,nom='',positionLabel = 'above') {
 	}
 	if (O.constructor==Polygone) {
 		let p2=[]
+		console.log(O.listePoints)
 		for (let i = 0 ; i < O.listePoints.length ; i++ ){
-	  		p2[i] = translation(O.listePoints[i],O,v)
+	  		p2[i] = translation(O.listePoints[i],v)
 		}
 		return polygone(p2)
 	}
@@ -1004,9 +1095,7 @@ function translation(O,v,nom='',positionLabel = 'above') {
 		return s
 	}
 	if (O.constructor==DemiDroite) {
-		console.log(O.extremite1)
 		let M = translation(O.extremite1,v)
-		console.log(M)
 		let N = translation(O.extremite2,v)
 		let s = demiDroite(M,N)
 		s.styleExtremites = O.styleExtremites
@@ -1078,6 +1167,25 @@ function rotation(A,O,angle,nom,positionLabel){
 		}
 		return polygone(p2)
 	}
+	if (A.constructor==Droite) {
+		let M = rotation(point(A.x1,A.y1),O,angle)
+		let N = rotation(point(A.x2,A.y2),O,angle)
+		return droite(M,N)
+	}
+	if (A.constructor==Segment) {
+		let M = rotation(A.extremite1,O,angle)
+		let N = rotation(A.extremite2,O,angle)
+		let s = segment(M,N)
+		s.styleExtremites = A.styleExtremites
+		return s
+	}
+	if (A.constructor==DemiDroite) {
+		let M = rotation(A.extremite1,O,angle)
+		let N = rotation(A.extremite2,O,angle)
+		let s = demiDroite(M,N)
+		s.styleExtremites = A.styleExtremites
+		return s
+	}
 		
 }
 
@@ -1100,6 +1208,25 @@ function homothetie(A,O,k,nom,positionLabel){
 	  		p2[i] = homothetie(A.listePoints[i],O,k)
 		}
 		return polygone(p2)
+	}
+	if (A.constructor==Droite) {
+		let M = homothetie(point(A.x1,A.y1),O,k)
+		let N = homothetie(point(A.x2,A.y2),O,k)
+		return droite(M,N)
+	}
+	if (A.constructor==Segment) {
+		let M = homothetie(A.extremite1,O,k)
+		let N = homothetie(A.extremite2,O,k)
+		let s = segment(M,N)
+		s.styleExtremites = A.styleExtremites
+		return s
+	}
+	if (A.constructor==DemiDroite) {
+		let M = homothetie(A.extremite1,O,k)
+		let N = homothetie(A.extremite2,O,k)
+		let s = demiDroite(M,N)
+		s.styleExtremites = A.styleExtremites
+		return s
 	}
 }
 
@@ -1134,10 +1261,25 @@ function symetrieAxiale(A,d,nom='',positionLabel = 'above') {
 		}
 		return polygone(p2)
 	}
-}
-
-function pointParSymetrieAxiale(...args){
-	return new PointParSymetrieAxiale(...args)
+	if (A.constructor==Droite) {
+		let M = symetrieAxiale(point(A.x1,A.y1),d)
+		let N = symetrieAxiale(point(A.x2,A.y2),d)
+		return droite(M,N)
+	}
+	if (A.constructor==Segment) {
+		let M = symetrieAxiale(A.extremite1,d)
+		let N = symetrieAxiale(A.extremite2,d)
+		let s = segment(M,N)
+		s.styleExtremites = A.styleExtremites
+		return s
+	}
+	if (A.constructor==DemiDroite) {
+		let M = symetrieAxiale(A.extremite1,d)
+		let N = symetrieAxiale(A.extremite2,d)
+		let s = demiDroite(M,N)
+		s.styleExtremites = A.styleExtremites
+		return s
+	}
 }
 
 /**
@@ -1163,10 +1305,39 @@ function projectionOrtho(M,d,nom = ' ',positionLabel = 'above') {
 }
 
 function similitude(A,O,a,k,nom=' ',positionLabel = 'above') {
-	let ra = Math.radians(a)
-	let x = calcul(O.x+k*(Math.cos(ra)*(A.x-O.x)-Math.sin(ra)*(A.y-O.y)))
-	let y = calcul(O.y+k*(Math.cos(ra)*(A.y-O.y)+Math.sin(ra)*(A.x-O.x)))
-	return point(x,y,nom,positionLabel)
+	if (A.constructor==Point) {
+		let ra = Math.radians(a)
+		let x = calcul(O.x+k*(Math.cos(ra)*(A.x-O.x)-Math.sin(ra)*(A.y-O.y)))
+		let y = calcul(O.y+k*(Math.cos(ra)*(A.y-O.y)+Math.sin(ra)*(A.x-O.x)))
+		return point(x,y,nom,positionLabel)
+	}
+	if (A.constructor==Polygone) {
+		let p2=[]
+		for (let i = 0 ; i < A.listePoints.length ; i++ ){
+	  		p2[i] = similitude(A.listePoints[i],O,a,k)
+		}
+		return polygone(p2)
+	}
+	if (A.constructor==Droite) {
+		let M = similitude(point(A.x1,A.y1),O,a,k)
+		let N = similitude(point(A.x2,A.y2),O,a,k)
+		return droite(M,N)
+	}
+	if (A.constructor==Segment) {
+		let M = similitude(A.extremite1,O,a,k)
+		let N = similitude(A.extremite2,O,a,k)
+		let s = segment(M,N)
+		s.styleExtremites = A.styleExtremites
+		return s
+	}
+	if (A.constructor==DemiDroite) {
+		let M = similitude(A.extremite1,O,a,k)
+		let N = similitude(A.extremite2,O,a,k)
+		let s = demiDroite(M,N)
+		s.styleExtremites = A.styleExtremites
+		return s
+	}
+		
 }
 
 
@@ -1226,9 +1397,10 @@ function RotationAnimee(liste,O,angle,animation='begin="0s" dur="2s" repeatCount
    attributeName="transform"
    type="rotate"
    from="0 ${O.xSVG()} ${O.ySVG()}"
-   to="${angle} ${O.xSVG()} ${O.ySVG()}"
+   to="${-angle} ${O.xSVG()} ${O.ySVG()}"
 	${animation}
 		/>`
+		code += `<animateMotion path="M 0 0 l 20 0 " ${animation} />`
    		code += `</g>`
 		return code
 		
@@ -1238,6 +1410,96 @@ function RotationAnimee(liste,O,angle,animation='begin="0s" dur="2s" repeatCount
 function rotationAnimee(...args){
 	return new RotationAnimee(...args)
 }
+
+/**
+* homothetieAnimee(s,O,k) //Animation de la homothetie de centre O et de rapport k pour s
+* homothetieAnimee([a,b,c],O,k) //Animation de la homothetie de centre O et de rapport k pour les objets a, b et v
+* 
+* @Auteur Rémi Angot
+*/
+function HomothetieAnimee(liste,O,k,animation='begin="0s" dur="2s" repeatCount="indefinite"'){
+	ObjetMathalea2D.call(this)
+	this.svg = function(){
+		let code =  `<g> `
+		if (Array.isArray(liste)) {
+			for(const objet of liste){
+				code += '\n' + objet.svg()
+			}
+		} else { //si ce n'est pas une liste
+		code += '\n' + liste.svg()
+	}
+
+	code += `<animateTransform
+	attributeName="transform" 
+	type="translate"
+	from="0,0"
+	to="${-O.xSVG()},${-O.ySVG()}" 
+	${animation}
+	additive="sum"
+	/>`	
+	code += `<animateTransform
+	attributeName="transform"
+	type="scale"
+	from="1"
+	to="${abs(k)}"
+	${animation}
+	additive="sum"
+
+	/>`
+	code += `</g>`
+	return code
+
+}
+
+}
+function homothetieAnimee(...args){
+	return new HomothetieAnimee(...args)
+}
+
+/**
+* symetrieAnimee(s,d) //Animation de la symetrie d'axe (d) pour s
+* symetrieAnimee([a,b,c],d) //Animation de la symetrie d'axe (d) pour les objets a, b et v
+* 
+* @Auteur Rémi Angot
+*/
+// function SymetrieAnimee(liste,d,animation='begin="0s" dur="2s" repeatCount="indefinite"'){
+// 	ObjetMathalea2D.call(this)
+// 	this.svg = function(){
+// 		let code =  `<g> `
+// 		if (Array.isArray(liste)) {
+// 			for(const objet of liste){
+// 				code += '\n' + objet.svg()
+// 			}
+// 		} else { //si ce n'est pas une liste
+// 		code += '\n' + liste.svg()
+// 	}
+
+// 	// code += `<animateTransform
+// 	// attributeName="transform" 
+// 	// type="translate"
+// 	// from="0,0"
+// 	// to="${-O.xSVG()},${-O.ySVG()}" 
+// 	// ${animation}
+// 	// additive="sum"
+// 	// />`	
+// 	code += `<animateTransform
+// 	attributeName="transform"
+// 	type="scale"
+// 	from="1,1"
+// 	to="1,-1"
+// 	${animation}
+// 	additive="sum"
+
+// 	/>`
+// 	code += `</g>`
+// 	return code
+
+// }
+
+// }
+// function symetrieAnimee(...args){
+// 	return new SymetrieAnimee(...args)
+// }
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1366,10 +1628,10 @@ function codageAngleDroit(...args){
 }
 
 /**
- * CoteSegment(A,B) // Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
- * 
- * @Auteur Rémi Angot
- */
+* CoteSegment(A,B) // Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
+* 
+* @Auteur Rémi Angot
+*/
 function CoteSegment(A,B,color='black',d = .5)  {
 	ObjetMathalea2D.call(this);
 	this.color = color;
@@ -1391,6 +1653,21 @@ function CoteSegment(A,B,color='black',d = .5)  {
 function coteSegment(...args){
 	return new CoteSegment(...args)
 }
+
+/**
+* afficheMesureAngle(A,B,C) // Affiche la mesure de l'angle ABC arrondie au degré près
+* 
+* @Auteur Rémi Angot
+*/
+function afficheMesureAngle(A,B,C,color='black',distance = 1.5)  {
+	let d = bissectrice(A,B,C)
+	d.isVisible = false
+	let M = pointSurSegment(d.extremite1,d.extremite2,distance)
+	let dessinArc = arc(pointSurSegment(A,B,.8),A,angleOriente(B,A,C))
+	let mesureAngle = arrondi_virgule(angle(A,C,B),0) + '°'
+	return texteParPoint(mesureAngle,M,'milieu',color)
+}
+
 
 /**
  * CodeSegment(A,B,'X','blue') // Code le segment [AB] avec une croix bleue
@@ -1514,7 +1791,7 @@ function TexteParPoint(texte,A,orientation = "milieu",color) {
 		} else {
 			switch (orientation){
 				case 'milieu':
-				code = `<text x="${A.xSVG()}" y="${A.ySVG()}" text-anchor="middle" alignment-baseline="central" fill="${this.color}" transform="rotate(${angle} ${A.xSVG()} ${A.ySVG()})">${texte}</text>\n `; 
+				code = `<text x="${A.xSVG()}" y="${A.ySVG()}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${texte}</text>\n `; 
 				break;
 				case 'gauche':
 				code = `<text x="${A.xSVG()}" y="${A.ySVG()}" text-anchor="end" alignment-baseline="central" fill="${this.color}">${texte}</text>\n `; 
@@ -1635,7 +1912,7 @@ function codeSvg(...objets){
 		}
 		try {
 			if (objet.isVisible) {
-				code +=objet.svg() + '\n';
+				code += '\t' + objet.svg() + '\n';
 			}
 		} catch (error) {
   			
@@ -1662,19 +1939,26 @@ function codeTikz(...objets){
         minimum width=5pt,
         minimum height=5pt,
     },
-}\n\n`
+}
+\\clip (-1,-5) rectangle (15,10);
+
+\n\n`
 	for (let objet of objets){
 		if (Array.isArray(objet)) {
 			for (let i = 0; i < objet.length; i++) {
 				try {
-					code += '\t' + objet[i].tikz() + '\n'
+					if (objet[i].isVisible) {
+						code += '\t' + objet[i].tikz() + '\n'
+					}
 				} catch (error){
 
 				}
 			}
 		}
 		try {
-			code += '\t' + objet.tikz() + '\n'
+			if (objet[i].isVisible) {
+				code += '\t' + objet.tikz() + '\n'
+			}
 		} catch (error) {
   			
   		}
