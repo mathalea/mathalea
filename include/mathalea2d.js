@@ -1663,7 +1663,9 @@ function afficheMesureAngle(A,B,C,color='black',distance = 1.5)  {
 	let d = bissectrice(A,B,C)
 	d.isVisible = false
 	let M = pointSurSegment(d.extremite1,d.extremite2,distance)
-	return texteParPoint(arrondi_virgule(angle(A,C,B),0)+'°',M,'milieu',color)
+	let dessinArc = arc(pointSurSegment(A,B,.8),A,angleOriente(B,A,C))
+	let mesureAngle = arrondi_virgule(angle(A,C,B),0) + '°'
+	return texteParPoint(mesureAngle,M,'milieu',color)
 }
 
 
@@ -1789,7 +1791,7 @@ function TexteParPoint(texte,A,orientation = "milieu",color) {
 		} else {
 			switch (orientation){
 				case 'milieu':
-				code = `<text x="${A.xSVG()}" y="${A.ySVG()}" text-anchor="middle" alignment-baseline="central" fill="${this.color}" transform="rotate(${angle} ${A.xSVG()} ${A.ySVG()})">${texte}</text>\n `; 
+				code = `<text x="${A.xSVG()}" y="${A.ySVG()}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${texte}</text>\n `; 
 				break;
 				case 'gauche':
 				code = `<text x="${A.xSVG()}" y="${A.ySVG()}" text-anchor="end" alignment-baseline="central" fill="${this.color}">${texte}</text>\n `; 
