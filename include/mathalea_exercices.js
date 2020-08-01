@@ -209,6 +209,7 @@ var liste_des_exercices_disponibles = {
 		'2N21' : parite,
 		'2N22' : valeur_absolue,
 		'2N23' :valeur_absolue_et_equation,
+		'2N24' : intervalles_de_R,
 		'2L10' : Developper_Identites_remarquables2,
 		'2L11' : Factoriser_Identites_remarquables2,
 		'PEA11': Passer_d_une_base_a_l_autre,

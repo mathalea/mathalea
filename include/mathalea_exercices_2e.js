@@ -1,4 +1,142 @@
 /* auteur Stéphane Guyon*/
+function intervalles_de_R(){
+Exercice.call(this); // Héritage de la classe Exercice()
+    this.titre = "Associer un intervalle de  $\\mathbb{R}$ à une inéquation et son schéma sur une droite graduée";
+    this.consigne = "Répondre aux questions suivantes: :"
+    this.nb_questions = 4;
+    this.nb_cols = 2;
+    this.nb_cols_corr = 2;
+    this.sup = 1 ; // 
+
+    this.nouvelle_version = function(numero_de_l_exercice){
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    let type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+    let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) ;
+    for (let i = 0, a,b,c,d,e, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+            type_de_questions = liste_type_de_questions[i];
+    switch (type_de_questions){
+                        // Cas par cas, on définit le type de nombres que l'on souhaite
+                        // Combien de chiffres ? Quelles valeurs ?
+            
+                case 1 : 
+                    a = randint(1,15);
+                    b = randint(a,25);
+                    texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x>${a}$`;
+                    texte_corr = `$I=]${a};+\\infty[$`;                     
+                    break ;
+                
+                case 2 : 
+                    a = randint(1,15);
+                    b = randint(a,25); 
+                    texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x\\geqslant ${a}$`;
+                    texte_corr = `$I=[${a};+\\infty[$`;
+                    break ;
+
+                case 3 : 
+                    a = randint(1,15);
+                    b = randint(a,25);
+                    texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x<${a}$`;
+                    texte_corr = `$I=]-\\infty;${a}[$`; 
+                    break ;
+                case 4 : 
+                    a = randint(1,15);
+                    b = randint(a,25);
+                    texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x\\leqslant ${a}$`;
+                    texte_corr = `$I=]-\\infty;${a}]$`;
+                    break ;
+                case 5 : 
+                    a = randint(1,15);
+                    c=a+1;
+                    b = randint(c,25);                    
+                    texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a} < x < ${b}$`;
+                    texte_corr = `$I=]${a};${b}[$`;
+                    break ;
+
+                case 6 : 
+                    a = randint(1,15);
+                    c=a+1;
+                    b = randint(c,25);                    
+                    texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}\\leqslant x<${b}$`;
+                    texte_corr = `$I=[${a};${b}[$`;
+                    break ;
+                
+                case 7 : 
+                    a = randint(1,15);
+                    c=a+1;
+                    b = randint(c,25);
+                    texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}\\leqslant x\\leqslant ${b}$`;
+                    texte_corr = `$I=[${a};${b}]$`;
+                    break ;
+                
+                case 8 :
+                    a = randint(1,15);
+                    c=a+1;
+                    b = randint(c,25);
+                    texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}< x\\leqslant ${b}$`;
+                    texte_corr = `$I=]${a};${b}]$`;
+                    break ;
+                
+                case 9 : 
+                    a = randint(1,15);
+                    c=a+1;
+                    b = randint(c,25);
+                    texte = `Déterminer l'inéquation correspondant à $x \\in ]${a};${b}]$`;
+                    texte_corr = `$${a}< x\\leqslant ${b}$`;  
+                
+                case 10 : 
+                    a = randint(1,15);
+                    c=a+1;
+                    b = randint(c,25);
+                    texte = `Déterminer l'inéquation correspondant à $x \\in [${a};${b}]$`;
+                    texte_corr = `$${a}\\leqslant x\\leqslant ${b}$`;  
+                case 11 : 
+                    a = randint(1,15);
+                    c=a+1;
+                    b = randint(c,25);
+                    texte = `Déterminer l'inéquation correspondant à $x \\in [${a};${b}[$`;
+                    texte_corr = `$${a}\\leqslant x< ${b}$`; 
+
+                case 12 : 
+                    a = randint(1,15);
+                    c=a+1;
+                    b = randint(c,25);
+                    texte = `Déterminer l'inéquation correspondant à $x \\in [${a};+\\infty[$`;
+                    texte_corr = `$x \\geqslant ${a}$`;  
+
+                case 13 : 
+                    a = randint(1,15);
+                    c=a+1;
+                    b = randint(c,25);
+                    texte = `Déterminer l'inéquation correspondant à $x \\in ]${a};+\\infty[$`;
+                    texte_corr = `$x > ${a}$`;    
+                 
+                case 14 : 
+                    a = randint(1,15);
+                    c=a+1;
+                    b = randint(c,25);
+                    texte = `Déterminer l'inéquation correspondant à $x \\in ]-\\infty;${a}[$`;
+                    texte_corr = `$x < ${a}$`;    
+                case 15 : 
+                    a = randint(1,15);
+                    c=a+1;
+                    b = randint(c,25);
+                    texte = `Déterminer l'inéquation correspondant à $x \\in ]-\\infty;${a}]$`;
+                    texte_corr = `$x \\leqslant ${a}$`;    
+             } 
+            if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+                this.liste_questions.push(texte);
+                this.liste_corrections.push(texte_corr);
+                i++;
+            }
+            cpt++;  
+        }
+        liste_de_question_to_contenu(this);
+    }
+    
+}
+/* auteur Stéphane Guyon*/
+
 
 function valeur_absolue_et_equation(){
 Exercice.call(this); // Héritage de la classe Exercice()
