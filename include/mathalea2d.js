@@ -168,11 +168,6 @@ function pointIntersectionDD(d,f,nom='',positionLabel = 'above'){
 	return point(x,y,nom,positionLabel)
 }
 
-function pointIntersectionDD(...args){
-	return new PointIntersectionDD(...args)
-}
-
-
 /**
 * labelPoint(A,B) pour nommer les points A et B
 * Le nombre d'arguments n'est pas limité
