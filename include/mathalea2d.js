@@ -986,8 +986,9 @@ function translation(O,v,nom='',positionLabel = 'above') {
 	}
 	if (O.constructor==Polygone) {
 		let p2=[]
+		console.log(O.listePoints)
 		for (let i = 0 ; i < O.listePoints.length ; i++ ){
-	  		p2[i] = translation(O.listePoints[i],O,v)
+	  		p2[i] = translation(O.listePoints[i],v)
 		}
 		return polygone(p2)
 	}
@@ -1004,9 +1005,7 @@ function translation(O,v,nom='',positionLabel = 'above') {
 		return s
 	}
 	if (O.constructor==DemiDroite) {
-		console.log(O.extremite1)
 		let M = translation(O.extremite1,v)
-		console.log(M)
 		let N = translation(O.extremite2,v)
 		let s = demiDroite(M,N)
 		s.styleExtremites = O.styleExtremites
@@ -1078,6 +1077,25 @@ function rotation(A,O,angle,nom,positionLabel){
 		}
 		return polygone(p2)
 	}
+	if (A.constructor==Droite) {
+		let M = rotation(point(A.x1,A.y1),O,angle)
+		let N = rotation(point(A.x2,A.y2),O,angle)
+		return droite(M,N)
+	}
+	if (A.constructor==Segment) {
+		let M = rotation(A.extremite1,O,angle)
+		let N = rotation(A.extremite2,O,angle)
+		let s = segment(M,N)
+		s.styleExtremites = A.styleExtremites
+		return s
+	}
+	if (A.constructor==DemiDroite) {
+		let M = rotation(A.extremite1,O,angle)
+		let N = rotation(A.extremite2,O,angle)
+		let s = demiDroite(M,N)
+		s.styleExtremites = A.styleExtremites
+		return s
+	}
 		
 }
 
@@ -1100,6 +1118,25 @@ function homothetie(A,O,k,nom,positionLabel){
 	  		p2[i] = homothetie(A.listePoints[i],O,k)
 		}
 		return polygone(p2)
+	}
+	if (A.constructor==Droite) {
+		let M = homothetie(point(A.x1,A.y1),O,k)
+		let N = homothetie(point(A.x2,A.y2),O,k)
+		return droite(M,N)
+	}
+	if (A.constructor==Segment) {
+		let M = homothetie(A.extremite1,O,k)
+		let N = homothetie(A.extremite2,O,k)
+		let s = segment(M,N)
+		s.styleExtremites = A.styleExtremites
+		return s
+	}
+	if (A.constructor==DemiDroite) {
+		let M = homothetie(A.extremite1,O,k)
+		let N = homothetie(A.extremite2,O,k)
+		let s = demiDroite(M,N)
+		s.styleExtremites = A.styleExtremites
+		return s
 	}
 }
 
@@ -1134,10 +1171,25 @@ function symetrieAxiale(A,d,nom='',positionLabel = 'above') {
 		}
 		return polygone(p2)
 	}
-}
-
-function pointParSymetrieAxiale(...args){
-	return new PointParSymetrieAxiale(...args)
+	if (A.constructor==Droite) {
+		let M = symetrieAxiale(point(A.x1,A.y1),d)
+		let N = symetrieAxiale(point(A.x2,A.y2),d)
+		return droite(M,N)
+	}
+	if (A.constructor==Segment) {
+		let M = symetrieAxiale(A.extremite1,d)
+		let N = symetrieAxiale(A.extremite2,d)
+		let s = segment(M,N)
+		s.styleExtremites = A.styleExtremites
+		return s
+	}
+	if (A.constructor==DemiDroite) {
+		let M = symetrieAxiale(A.extremite1,d)
+		let N = symetrieAxiale(A.extremite2,d)
+		let s = demiDroite(M,N)
+		s.styleExtremites = A.styleExtremites
+		return s
+	}
 }
 
 /**
@@ -1163,10 +1215,39 @@ function projectionOrtho(M,d,nom = ' ',positionLabel = 'above') {
 }
 
 function similitude(A,O,a,k,nom=' ',positionLabel = 'above') {
-	let ra = Math.radians(a)
-	let x = calcul(O.x+k*(Math.cos(ra)*(A.x-O.x)-Math.sin(ra)*(A.y-O.y)))
-	let y = calcul(O.y+k*(Math.cos(ra)*(A.y-O.y)+Math.sin(ra)*(A.x-O.x)))
-	return point(x,y,nom,positionLabel)
+	if (A.constructor==Point) {
+		let ra = Math.radians(a)
+		let x = calcul(O.x+k*(Math.cos(ra)*(A.x-O.x)-Math.sin(ra)*(A.y-O.y)))
+		let y = calcul(O.y+k*(Math.cos(ra)*(A.y-O.y)+Math.sin(ra)*(A.x-O.x)))
+		return point(x,y,nom,positionLabel)
+	}
+	if (A.constructor==Polygone) {
+		let p2=[]
+		for (let i = 0 ; i < A.listePoints.length ; i++ ){
+	  		p2[i] = similitude(A.listePoints[i],O,a,k)
+		}
+		return polygone(p2)
+	}
+	if (A.constructor==Droite) {
+		let M = similitude(point(A.x1,A.y1),O,a,k)
+		let N = similitude(point(A.x2,A.y2),O,a,k)
+		return droite(M,N)
+	}
+	if (A.constructor==Segment) {
+		let M = similitude(A.extremite1,O,a,k)
+		let N = similitude(A.extremite2,O,a,k)
+		let s = segment(M,N)
+		s.styleExtremites = A.styleExtremites
+		return s
+	}
+	if (A.constructor==DemiDroite) {
+		let M = similitude(A.extremite1,O,a,k)
+		let N = similitude(A.extremite2,O,a,k)
+		let s = demiDroite(M,N)
+		s.styleExtremites = A.styleExtremites
+		return s
+	}
+		
 }
 
 
@@ -1226,9 +1307,10 @@ function RotationAnimee(liste,O,angle,animation='begin="0s" dur="2s" repeatCount
    attributeName="transform"
    type="rotate"
    from="0 ${O.xSVG()} ${O.ySVG()}"
-   to="${angle} ${O.xSVG()} ${O.ySVG()}"
+   to="${-angle} ${O.xSVG()} ${O.ySVG()}"
 	${animation}
 		/>`
+		code += `<animateMotion path="M 0 0 l 20 0 " ${animation} />`
    		code += `</g>`
 		return code
 		
@@ -1238,6 +1320,96 @@ function RotationAnimee(liste,O,angle,animation='begin="0s" dur="2s" repeatCount
 function rotationAnimee(...args){
 	return new RotationAnimee(...args)
 }
+
+/**
+* homothetieAnimee(s,O,k) //Animation de la homothetie de centre O et de rapport k pour s
+* homothetieAnimee([a,b,c],O,k) //Animation de la homothetie de centre O et de rapport k pour les objets a, b et v
+* 
+* @Auteur Rémi Angot
+*/
+function HomothetieAnimee(liste,O,k,animation='begin="0s" dur="2s" repeatCount="indefinite"'){
+	ObjetMathalea2D.call(this)
+	this.svg = function(){
+		let code =  `<g> `
+		if (Array.isArray(liste)) {
+			for(const objet of liste){
+				code += '\n' + objet.svg()
+			}
+		} else { //si ce n'est pas une liste
+		code += '\n' + liste.svg()
+	}
+
+	code += `<animateTransform
+	attributeName="transform" 
+	type="translate"
+	from="0,0"
+	to="${-O.xSVG()},${-O.ySVG()}" 
+	${animation}
+	additive="sum"
+	/>`	
+	code += `<animateTransform
+	attributeName="transform"
+	type="scale"
+	from="1"
+	to="${k}"
+	${animation}
+	additive="sum"
+
+	/>`
+	code += `</g>`
+	return code
+
+}
+
+}
+function symetrieAnimee(...args){
+	return new symetrieAnimee(...args)
+}
+
+/**
+* symetrieAnimee(s,d) //Animation de la symetrie d'axe (d) pour s
+* symetrieAnimee([a,b,c],d) //Animation de la symetrie d'axe (d) pour les objets a, b et v
+* 
+* @Auteur Rémi Angot
+*/
+// function SymetrieAnimee(liste,d,animation='begin="0s" dur="2s" repeatCount="indefinite"'){
+// 	ObjetMathalea2D.call(this)
+// 	this.svg = function(){
+// 		let code =  `<g> `
+// 		if (Array.isArray(liste)) {
+// 			for(const objet of liste){
+// 				code += '\n' + objet.svg()
+// 			}
+// 		} else { //si ce n'est pas une liste
+// 		code += '\n' + liste.svg()
+// 	}
+
+// 	// code += `<animateTransform
+// 	// attributeName="transform" 
+// 	// type="translate"
+// 	// from="0,0"
+// 	// to="${-O.xSVG()},${-O.ySVG()}" 
+// 	// ${animation}
+// 	// additive="sum"
+// 	// />`	
+// 	code += `<animateTransform
+// 	attributeName="transform"
+// 	type="scale"
+// 	from="1,1"
+// 	to="1,-1"
+// 	${animation}
+// 	additive="sum"
+
+// 	/>`
+// 	code += `</g>`
+// 	return code
+
+// }
+
+// }
+// function symetrieAnimee(...args){
+// 	return new SymetrieAnimee(...args)
+// }
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
