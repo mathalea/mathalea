@@ -26,8 +26,10 @@ function ObjetMathalea2D() {
 	this.isVisible = true;
 	this.color = 'black';
 	this.style = '' //stroke-dasharray="4 3" pour des hachures //stroke-width="2" pour un trait plus épais
-	this.styleTikz = ''
-	this.coeff = 20 // 1 cm est représenté par 20 pixels
+	this.styleTikz = '';
+	this.coeff = 20; // 1 cm est représenté par 20 pixels
+	this.epaisseur = 1;
+	this.pointilles = false;
 	mesObjets.push(this);
 }
 
@@ -728,11 +730,17 @@ function Polygone(...points){
 		this.nom = this.listePoints.join()
 	}
 	this.svg = function(coeff=20){
+		if (this.epaisseur!=1) {
+			this.style += ` stroke-width="${this.epaisseur}" `
+		}
+		if (this.pointilles) {
+			this.style += ` stroke-dasharray="4 3" `
+		}
 		let binomeXY = "";
 		for (let point of this.listePoints){
 			binomeXY += `${calcul(point.x*coeff)},${calcul(-point.y*coeff)} `; 
 		}
-		return `<polygon points="${binomeXY}" fill="none" stroke="${this.color}" />`
+		return `<polygon points="${binomeXY}" fill="none" stroke="${this.color}" ${this.style} />`
 	}
 	this.tikz = function(){
 		let binomeXY = "";
@@ -1351,7 +1359,7 @@ function HomothetieAnimee(liste,O,k,animation='begin="0s" dur="2s" repeatCount="
 	attributeName="transform"
 	type="scale"
 	from="1"
-	to="${k}"
+	to="${abs(k)}"
 	${animation}
 	additive="sum"
 
@@ -1362,8 +1370,8 @@ function HomothetieAnimee(liste,O,k,animation='begin="0s" dur="2s" repeatCount="
 }
 
 }
-function symetrieAnimee(...args){
-	return new symetrieAnimee(...args)
+function homothetieAnimee(...args){
+	return new HomothetieAnimee(...args)
 }
 
 /**
