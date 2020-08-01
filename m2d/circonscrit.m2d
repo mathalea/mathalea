@@ -1,0 +1,11 @@
+A = point(10,0,'A','left')
+B = point(randint(13,17),randint(-2,2),'B','right')
+C = point(randint(8,12),randint(5,10),'C','above')
+t = polygone(A,B,C)
+O = centreCercleCirconscrit(A,B,C,'O')
+c = cercleCentrePoint(O,A)
+t.epaisseur = 2
+t.color = 'blue'
+c.pointilles = true
+labelPoint(A,B,C,O)
+tracePoint(O)
