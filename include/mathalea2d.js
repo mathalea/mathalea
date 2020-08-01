@@ -162,7 +162,7 @@ function pointSurSegment(A,B,l,nom,positionLabel){
 *
 * @Auteur Jean-Claude Lhote
 */
-function pointIntersectionDD(d,f,nom='',positionLabel = 'above'){
+function PointIntersectionDD(d,f,nom='',positionLabel = 'above'){
 	let y = calcul((-f.c+d.c*f.a/d.a)/(f.b-f.a*d.b/d.a))
 	let x = calcul(-d.c/d.a-d.b*y/d.a)
 	return point(x,y,nom,positionLabel)
