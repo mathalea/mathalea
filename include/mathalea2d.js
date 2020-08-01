@@ -168,6 +168,9 @@ function pointIntersectionDD(d,f,nom='',positionLabel = 'above'){
 	return point(x,y,nom,positionLabel)
 }
 
+function pointIntersectionDD(...args){
+	return new PointIntersectionDD(...args)
+}
 
 
 /**
@@ -378,6 +381,16 @@ function Droite(arg1,arg2,arg3,arg4,color) {
 }
 function droite(...args){
 	return new Droite(...args)
+}
+function Mediatrice(A,B,color = 'black'){
+	let O = pointMilieu(A,B)
+	let M = pointParRotation(A,O,90)
+	let N = pointParRotation(A,O,-90)
+	Droite.call(this,M,N)
+	this.color=color
+}
+function mediatrice(...args){
+	return new Mediatrice(...args)
 }
 
 /**
