@@ -225,7 +225,7 @@ function LabelPoint(...points) {
 			style = `,${this.color}`
 		}
 		for (let point of points){
-			code += `\t\\draw (${point.x},${point.y}) node[${point.positionLabel}${style}] {${point.nom}};\n`;
+			code += `\t\\draw (${point.x},${point.y}) node[${point.positionLabel}${style}] {$${point.nom}$};\n`;
 		}
 		return code
 	}
@@ -1628,10 +1628,10 @@ function codageAngleDroit(...args){
 }
 
 /**
- * CoteSegment(A,B) // Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
- * 
- * @Auteur Rémi Angot
- */
+* CoteSegment(A,B) // Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
+* 
+* @Auteur Rémi Angot
+*/
 function CoteSegment(A,B,color='black',d = .5)  {
 	ObjetMathalea2D.call(this);
 	this.color = color;
@@ -1653,6 +1653,19 @@ function CoteSegment(A,B,color='black',d = .5)  {
 function coteSegment(...args){
 	return new CoteSegment(...args)
 }
+
+/**
+* afficheMesureAngle(A,B,C) // Affiche la mesure de l'angle ABC arrondie au degré près
+* 
+* @Auteur Rémi Angot
+*/
+function afficheMesureAngle(A,B,C,color='black',distance = 1.5)  {
+	let d = bissectrice(A,B,C)
+	d.isVisible = false
+	let M = pointSurSegment(d.extremite1,d.extremite2,distance)
+	return texteParPoint(arrondi_virgule(angle(A,C,B),0)+'°',M,'milieu',color)
+}
+
 
 /**
  * CodeSegment(A,B,'X','blue') // Code le segment [AB] avec une croix bleue
