@@ -513,14 +513,18 @@ function Polyline(...points){
 		this.nom += point.nom
 	}
 	this.svg = function(coeff=20){
-		if (this.isVisible) {
-			let binomeXY = "";
-			for (let point of this.listePoints){
-				binomeXY += `${calcul(point.x*coeff)},${calcul(-point.y*coeff)} `; 
-			}
-			return `<polyline points="${binomeXY}" fill="none" stroke="${this.color}" ${this.style} />`
+		if (this.epaisseur!=1) {
+			this.style += ` stroke-width="${this.epaisseur}" `
 		}
-			
+		if (this.pointilles) {
+			this.style += ` stroke-dasharray="4 3" `
+		}
+		let binomeXY = "";
+		for (let point of this.listePoints){
+			binomeXY += `${calcul(point.x*coeff)},${calcul(-point.y*coeff)} `; 
+		
+		return `<polyline points="${binomeXY}" fill="none" stroke="${this.color}" ${this.style} />`
+		}		
 	}
 	this.tikz = function(){
 		let binomeXY = "";
@@ -685,7 +689,7 @@ function Segment(arg1,arg2,arg3,arg4,color){
 			tableauOptions.push(this.color)
 		}
 		if (this.epaisseur!=1) {
-			tableauOptions.push(`line width = ${epaisseur}`) 
+			tableauOptions.push(`line width = ${this.epaisseur}`) 
 		}
 		if (this.pointilles) {
 			tableauOptions.push(`dashed`) 
@@ -951,7 +955,7 @@ function Cercle(O,r,color){
 			tableauOptions.push(this.color)
 		}
 		if (this.epaisseur!=1) {
-			tableauOptions.push(`line width = ${epaisseur}`) 
+			tableauOptions.push(`line width = ${this.epaisseur}`) 
 		}
 		if (this.pointilles) {
 			tableauOptions.push(`dashed`) 
@@ -1759,6 +1763,70 @@ function Axe(xmin=-1,ymin=-10,xmax=30,ymax=10,thick=.2){
 }
 function axe(...args){
 	return new Axe(...args)
+}
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%% LES INTERVALLES %%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+*/
+
+
+function CrochetD(A){
+	ObjetMathalea2D.call(this)
+	this.epaisseur = 2
+	this.color = 'blue'
+	this.svg = function(){
+		if (this.epaisseur!=1) {
+			this.style += ` stroke-width="${this.epaisseur}" `
+		}
+		if (this.pointilles) {
+			this.style += ` stroke-dasharray="4 3" `
+		}
+		code = `<polyline points="${calcul(A.xSVG()+.2*this.coeff)},${calcul(.4*this.coeff)} ${A.xSVG()},${calcul(.4*this.coeff)} ${A.xSVG()},${calcul(-.4*this.coeff)} ${calcul(A.xSVG()+.2*this.coeff)},${calcul(-.4*this.coeff)}" fill="none" stroke="${this.color}" ${this.style} />`
+		code += `\n\t<text x="${A.xSVG()}" y="${1*this.coeff}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${A.nom}</text>\n `; 
+		return code
+	}
+	this.tikz = function() {
+		code = `\\draw[very thick] (${calcul(A.x+.15)},.2)--(${A.x},.2)--(${A.x},-.2)--(${calcul(A.x+.15)},-.2);`
+		code += `\n\t\\draw (${A.x},-.2) node[below] {$${A.nom}$};`;
+		return code
+	}
+}
+function crochetD(...args){
+	return new CrochetD(...args)
+}
+
+function CrochetG(A){
+	ObjetMathalea2D.call(this)
+	this.epaisseur = 2
+	this.color = 'blue'
+	this.svg = function(){
+		if (this.epaisseur!=1) {
+			this.style += ` stroke-width="${this.epaisseur}" `
+		}
+		if (this.pointilles) {
+			this.style += ` stroke-dasharray="4 3" `
+		}
+		code = `<polyline points="${calcul(A.xSVG()-.2*this.coeff)},${calcul(.4*this.coeff)} ${A.xSVG()},${calcul(.4*this.coeff)} ${A.xSVG()},${calcul(-.4*this.coeff)} ${calcul(A.xSVG()-.2*this.coeff)},${calcul(-.4*this.coeff)}" fill="none" stroke="${this.color}" ${this.style} />`
+		code += `\n\t<text x="${A.xSVG()}" y="${1*this.coeff}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${A.nom}</text>\n `; 
+		return code
+	}
+	this.tikz = function() {
+		code = `\\draw[very thick] (${calcul(A.x-.15)},.2)--(${A.x},.2)--(${A.x},-.2)--(${calcul(A.x-.15)},-.2);`
+		code += `\n\t\\draw (${A.x},-.2) node[below] {$${A.nom}$};`;
+		return code
+	}
+}
+function crochetG(...args){
+	return new CrochetG(...args)
+}
+
+function intervalle(A,B){
+	let s = segment(A,B)
+	s.epaisseur = 2
+	s.color = 'blue'
+	return s
 }
 
 
