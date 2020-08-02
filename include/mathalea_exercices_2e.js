@@ -1,7 +1,7 @@
 /* auteur Stéphane Guyon*/
 function union_et_intersection_intervalles_de_R(){
 Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Utiliser et comprendre les symboles $I\\cup J$ et $I\\cap J$ avec les intervalles de $\\mathbb{R}$";
+    this.titre = "Utiliser et comprendre les symboles $I\\cup J$ et $I\\cap J$ avec les intervalles de $\\mathbb{R}.$";
     this.consigne = "Répondre aux questions suivantes: :"
     this.nb_questions = 4;
     this.nb_cols = 2;
@@ -11,14 +11,14 @@ Exercice.call(this); // Héritage de la classe Exercice()
     this.nouvelle_version = function(numero_de_l_exercice){
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles = [1,2,3,4,5,6];
+    let type_de_questions_disponibles = [1];
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) ;
-    for (let i = 0, a,b,c,d,e,f, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+    for (let i = 0, a,b,c,d,s, e,f,A,B,c1,c2,int, axe, texte, texte_corr, cpt=0; 
+        i < this.nb_questions && cpt<50; ) {
             type_de_questions = liste_type_de_questions[i];
     switch (type_de_questions){
                         // Cas par cas, on définit le type de nombres que l'on souhaite
                         // Combien de chiffres ? Quelles valeurs ?
-            
                 case 1 : 
                     a = randint(1,15);
                         e=a+1;
@@ -27,7 +27,16 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c = randint(e,35);
                         e=c+1;
                     d = randint(e,45);
-                    texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cap [${c};${d}]$`;
+                    s = segment(0,0,10,0);
+                    s.styleExtremites = '->';
+                    A = point(2,0,a);
+                    B = point(6,0,b);
+                    c1 = crochetG(A);
+                    c2 = crochetD(B);
+                    int = intervalle(A,B);
+
+                    texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cap [${c};${d}].$`
+                      ;
                     texte_corr = `Aucun réel ne peut appartenir à chacun des deux ensembles.<br>
                     $I=\\emptyset$`;                     
                     break ;
@@ -39,9 +48,9 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c = randint(e,35);
                         e=c+1;
                     d = randint(e,45);
-                    texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cup [${c};${d}]$`;
+                    texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cup [${c};${d}].$`;
                     texte_corr = `Les deux ensembles sont disjoints, ils n'ont aucun élément en commun.<br>
-                    On ne peut pas simplifier l'écriture de $I$ qui s'écrit donc $I=[${a};${b}] \\cup [${c};${d}]$`;                     
+                    On ne peut pas simplifier l'écriture de $I$ qui s'écrit donc $I=[${a};${b}] \\cup [${c};${d}].$`;                     
                     break ;
                 case 3 : 
                     a = randint(1,15);
@@ -51,7 +60,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c = randint(16,e);
                         e=b+1;
                     d = randint(e,65);
-                    texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cap [${c};${d}]$`;
+                    texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cap [${c};${d}].$`;
                     texte_corr = `$I=[${c};${b}]$`;                     
                     break ;
                 case 4 : 
@@ -62,7 +71,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c = randint(16,e);
                         e=b+1;
                     d = randint(e,65);
-                    texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cup [${c};${d}]$`;
+                    texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cup [${c};${d}].$`;
                     texte_corr = `$I=[${a};${d}]$`;                     
                     break ;
                 case 5 : 
@@ -74,8 +83,8 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c = randint(e,f);
                         e=c+1;
                     d = randint(e,f);
-                    texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cap [${c};${d}]$`;
-                    texte_corr = `On $[${c};${d}]\\subset [${a};${b}]$ donc $I=[${c};${d}]$`;                     
+                    texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cap [${c};${d}].$`;
+                    texte_corr = `On $[${c};${d}]\\subset [${a};${b}]$ donc $I=[${c};${d}].$`;                     
                     break ;
                  case 6 : 
                     a = randint(1,15);
@@ -86,8 +95,8 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c = randint(e,f);
                         e=c+1;
                     d = randint(e,f);
-                    texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cup [${c};${d}]$`;
-                    texte_corr = `On $[${c};${d}]\\subset [${a};${b}]$ donc $I=[${a};${b}]$`;                     
+                    texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cup [${c};${d}].$`;
+                    texte_corr = `On $[${c};${d}]\\subset [${a};${b}]$ donc $I=[${a};${b}].$`;                     
                     break ;
              } 
             if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
