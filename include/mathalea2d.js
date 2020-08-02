@@ -1399,7 +1399,6 @@ function RotationAnimee(liste,O,angle,animation='begin="0s" dur="2s" repeatCount
    to="${-angle} ${O.xSVG()} ${O.ySVG()}"
 	${animation}
 		/>`
-		//code += `<animateMotion path="M 0 0 l 0 0 " ${animation} />`
    		code += `</g>`
 		return code
 		
@@ -1885,6 +1884,35 @@ function TexteParPoint(texte,A,orientation = "milieu",color) {
 }
 function texteParPoint(...args){
 	return new TexteParPoint(...args)
+}
+
+/**
+* texteParPoint('mon texte',A) // Écrit 'mon texte' avec A au centre du texte
+* texteParPoint('mon texte',A,'gauche') // Écrit 'mon texte' à gauche de A (qui sera la fin du texte)
+* texteParPoint('mon texte',A,'droite') // Écrit 'mon texte' à droite de A (qui sera le début du texte)
+* texteParPoint('mon texte',A,45) // Écrit 'mon texte' à centré sur A avec une rotation de 45°
+*
+* @Auteur Rémi Angot
+*/
+function LatexParPoint(texte,A,color) {
+	ObjetMathalea2D.call(this);
+	this.color=color
+	this.svg = function(){
+		return `<foreignObject style="overflow: visible;" y="${A.ySVG()}" x="${A.xSVG()}" width="200" height="50"><div>${texte}</div></foreignObject`
+	}
+	this.tikz = function(){
+		let code = `\\draw (${A.x},${A.y}) node[anchor = center] {${texte}};`;
+		return code
+	}
+
+}
+function latexParPoint(...args){
+	return new LatexParPoint(...args)
+}
+
+function latexParCoordonnees(texte,x,y){
+	let A = point(x,y)
+	return latexParPoint(texte,A)
 }
 
 /*
