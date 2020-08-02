@@ -2066,7 +2066,7 @@ function mathalea2d(xmin,ymin,xmax,ymax,...objets){
 		}
 		code += `</svg>`;
 	} else {
-		code = `\\begin{tikzpicture}\n
+		code = `\\begin{tikzpicture}[baseline]\n
 		\\tikzset{
 			point/.style={
 				thick,
@@ -2077,31 +2077,31 @@ function mathalea2d(xmin,ymin,xmax,ymax,...objets){
 				minimum height=5pt,
 			},
 		}
-		\\clip (-1,-5) rectangle (15,10);
+		\\clip (${xmin},${ymin}) rectangle (${xmax},${ymax});
 
 
 		`
 	//code += codeTikz(...objets)
 	for (let objet of objets){
-		if (Array.isArray(objet)) {
-			for (let i = 0; i < objet.length; i++) {
-				try {
-					if (objet[i].isVisible) {
-						code += '\t' + objet[i].tikz() + '\n'
-					}
-				} catch (error){
+			if (Array.isArray(objet)) {
+				for (let i = 0; i < objet.length; i++) {
+					try {
+						if (objet[i].isVisible) {
+							code += '\t' + objet[i].tikz() + '\n'
+						}
+					} catch (error){
 
+					}
 				}
 			}
-		}
-		try {
-			if (objet[i].isVisible) {
-				code += '\t' + objet.tikz() + '\n'
-			}
-		} catch (error) {
+			try {
+				if (objet.isVisible) {
+					code += '\t' + objet.tikz() + '\n';
+				}
+			} catch (error) {
 
+			}
 		}
-	}
 	code += `\\end{tikzpicture}`
 	}
 	return code

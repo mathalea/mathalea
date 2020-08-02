@@ -7799,7 +7799,7 @@ function Exercice_intervalle(){
 	this.titre = "Ajouter 9";
 	this.consigne = "Calculer";
 	this.nb_questions = 10;
-	this.nb_cols = 2;
+	this.nb_cols = 1;
 	this.nb_cols_corr = 2;
 	
 
@@ -7817,7 +7817,7 @@ function Exercice_intervalle(){
 			let c2 = crochetD(B)
 			let int = intervalle(A,B)
 
-			texte = mathalea2d(-1,-3,12,3,d,c1,c2,i)
+			texte = mathalea2d(-1,-1,12,1,d,c1,c2,int)
  			texte_corr = ``
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
