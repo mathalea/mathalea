@@ -1399,7 +1399,7 @@ function RotationAnimee(liste,O,angle,animation='begin="0s" dur="2s" repeatCount
    to="${-angle} ${O.xSVG()} ${O.ySVG()}"
 	${animation}
 		/>`
-		code += `<animateMotion path="M 0 0 l 20 0 " ${animation} />`
+		//code += `<animateMotion path="M 0 0 l 0 0 " ${animation} />`
    		code += `</g>`
 		return code
 		
