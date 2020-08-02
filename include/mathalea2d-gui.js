@@ -70,6 +70,14 @@ window.onload = function()  {
 		myCodeMirrorSvg.setValue(codeSvgcomplet);
 		mesObjets = mesObjetsCopie.slice() // on réinitialise mesObjets à l'état où il était avant que codeSvg n'ajoute des objets
 		myCodeMirrorTikz.setValue(codeTikz(mesObjets));
+
+		renderMathInElement(document.body, {
+  				delimiters: [
+  				{left: "\\[", right: "\\]", display: true},
+  				{left: "$", right: "$", display: false}
+  				],
+  				"throwOnError":true,"errorColor":"#CC0000","strict":"warn","trust":false
+  			});
 	};
 
 
