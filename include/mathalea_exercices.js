@@ -211,6 +211,7 @@ var liste_des_exercices_disponibles = {
 		'2N23' :valeur_absolue_et_equation,
 		'2L10' : Developper_Identites_remarquables2,
 		'2L11' : Factoriser_Identites_remarquables2,
+		'betaI' : Exercice_intervalle,
 		'PEA11': Passer_d_une_base_a_l_autre,
 		'PEA11-1' : Passer_de_la_base_12_ou_16_a_la_10,
 		'P001' : Code_LaTeX_personnalise,
@@ -2535,7 +2536,6 @@ function Trouver_solution_mathador(min,max,A=1,B=4,C=8,D=3,E=5) {
 		else d=D
 		if (nb_determines<5)	e=parseInt(choice(liste_choix,[12,13,14,15,16,17,18,19,20]))
 		else e=E
-		console.log(a,b,c,d,e)
 		tirage.push(a,b,c,d,e);
 		nombres_restants=shuffle(tirage);
 		operations_restantes=['\\times','+','-','\\div'];
@@ -2614,7 +2614,6 @@ function Trouver_solution_mathador(min,max,A=1,B=4,C=8,D=3,E=5) {
 					expression_en_cours_d[0]=expression_en_cours_d[0].substring(6,expression_en_cours_d[0].length)
 					expression_en_cours_d[0]=expression_en_cours_d[0].substring(0,expression_en_cours_d[0].length-7)
 					}
-				console.log(tirage,solution)
 				return [tirage,solution,operations_successives,expression_en_cours_f,expression_en_cours_d]
 				}
 			else operations_successives=[]		
@@ -7767,15 +7766,59 @@ function  Notation_segment_droite_demi_droite(){
 			let A = point(xA,yA,'A')
 			let B = point(xB,yB,'B')
 			let C = point(xC,yC,'C')
-			n = labelPoints(A,B,C)
-			s = segment(A,B)
-			d1 = droite(B,C)
-			d2 = demiDroite(A,C)
+			let n = labelPoint(A,B,C)
+			let s = segment(A,B)
+			let d1 = droite(B,C)
+			let d2 = demiDroite(A,C)
 
-			sortie_html ? texte = codeSvg(n,s,d1,d2) : texte = codeTikz(n,s,d1,d2)
+			texte = mathalea2d(-1,-6,15,6,n,s,d1,d2)
 			texte_corr = `Trace $[AB], (BC), [AC).$`
 			
-			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+}
+
+
+
+
+
+/**
+* EXERCICE A EFFACER UNE FOIS UTILISE PAR STEPHANE
+* @Auteur Rémi Angot
+*/
+function Exercice_intervalle(){
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Ajouter 9";
+	this.consigne = "Calculer";
+	this.nb_questions = 10;
+	this.nb_cols = 2;
+	this.nb_cols_corr = 2;
+	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.bouton_aide = modal_texte_court(numero_de_l_exercice,"Ajouter 9 revient à ajouter 10 et à soustraire 1.")
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+
+		for (let i = 0, texte, texte_corr, a, b, cpt=0; i < this.nb_questions && cpt<50; ) {
+			let d = segment(0,0,10,0)
+			d.styleExtremites = '->'
+			let A = point(2,0,randint(2,10))
+			let B = point(6,0,randint(20,60))
+			let c1 = crochetG(A)
+			let c2 = crochetD(B)
+			let int = intervalle(A,B)
+
+			texte = mathalea2d(-1,-3,12,3,d,c1,c2,i)
+ 			texte_corr = ``
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);

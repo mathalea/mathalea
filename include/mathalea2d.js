@@ -2033,6 +2033,79 @@ function codeTikz(...objets){
 
 
 
+/**
+* mathalea2d(xmin,xmax,ymin,ymax,objets)
+*
+* @Auteur Rémi Angot
+*/
+function mathalea2d(xmin,ymin,xmax,ymax,...objets){
+	ObjetMathalea2D.call(this)
+	let code = ''
+	if (sortie_html) {
+		code = `<svg width="${(xmax-xmin)*this.coeff}" height="${(ymax-ymin)*this.coeff}" viewBox="${xmin*this.coeff} ${-ymax*this.coeff} ${(xmax-xmin)*this.coeff} ${(ymax-ymin)*this.coeff}" xmlns="http://www.w3.org/2000/svg">\n`;
+		//code += codeSvg(...objets);
+		for (let objet of objets){
+			if (Array.isArray(objet)) {
+				for (let i = 0; i < objet.length; i++) {
+					try {
+						if (objet[i].isVisible) {
+							code += '\t' + objet[i].svg() + '\n'
+						}
+					} catch (error){
+
+					}
+				}
+			}
+			try {
+				if (objet.isVisible) {
+					code += '\t' + objet.svg() + '\n';
+				}
+			} catch (error) {
+
+			}
+		}
+		code += `</svg>`;
+	} else {
+		code = `\\begin{tikzpicture}\n
+		\\tikzset{
+			point/.style={
+				thick,
+				draw,
+				cross out,
+				inner sep=0pt,
+				minimum width=5pt,
+				minimum height=5pt,
+			},
+		}
+		\\clip (-1,-5) rectangle (15,10);
+
+
+		`
+	//code += codeTikz(...objets)
+	for (let objet of objets){
+		if (Array.isArray(objet)) {
+			for (let i = 0; i < objet.length; i++) {
+				try {
+					if (objet[i].isVisible) {
+						code += '\t' + objet[i].tikz() + '\n'
+					}
+				} catch (error){
+
+				}
+			}
+		}
+		try {
+			if (objet[i].isVisible) {
+				code += '\t' + objet.tikz() + '\n'
+			}
+		} catch (error) {
+
+		}
+	}
+	code += `\\end{tikzpicture}`
+	}
+	return code
+}
 
 
 
