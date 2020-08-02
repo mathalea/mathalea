@@ -1302,6 +1302,55 @@ function projectionOrtho(M,d,nom = ' ',positionLabel = 'above') {
 	}
 	return point(x,y,nom,positionLabel)
 }
+/**
+ * N = affiniteOrtho(M,d,rapport,'N','rgiht')
+ * @Auteur = Jean-Claude Lhote
+ */
+function affiniteOrtho(M, d, k, nom = ' ', positionLabel = 'above') {
+	if (A.constructor == Point) {
+		let a = d.a, b = d.b, c = d.c, q = calcul(1 / (a * a + b * b));
+		let x, y;
+		if (a == 0) {
+			x = M.x
+			y = calcul(k * y + c * (k - 1) / b)
+		}
+		else if (b == 0) {
+			y = M.y
+			x = calcul(k * x + c * (k - 1) / a)
+		}
+		else {
+			x = calcul(q * (b * b * M.x - a * b * M.y - a * c) * (1 - k) + k * M.x)
+			y = calcul(q * (-a * b * M.x + a * a * M.y + a * a * c / b) * (1 - k) + k * c / b - c / b)
+		}
+		return point(x, y, nom, positionLabel)
+	}
+	if (A.constructor == Polygone) {
+		let p2 = []
+		for (let i = 0; i < A.listePoints.length; i++) {
+			p2[i] = affiniteOrtho(A.listePoints[i], d)
+		}
+		return polygone(p2)
+	}
+	if (A.constructor == Droite) {
+		let M = affiniteOrtho(point(A.x1, A.y1), d)
+		let N = affiniteOrtho(point(A.x2, A.y2), d)
+		return droite(M, N)
+	}
+	if (A.constructor == Segment) {
+		let M = affiniteOrtho(A.extremite1, d)
+		let N = affiniteOrtho(A.extremite2, d)
+		let s = segment(M, N)
+		s.styleExtremites = A.styleExtremites
+		return s
+	}
+	if (A.constructor == DemiDroite) {
+		let M = affiniteOrtho(A.extremite1, d)
+		let N = affiniteOrtho(A.extremite2, d)
+		let s = demiDroite(M, N)
+		s.styleExtremites = A.styleExtremites
+		return s
+	}
+}
 
 function similitude(A,O,a,k,nom=' ',positionLabel = 'above') {
 	if (A.constructor==Point) {
