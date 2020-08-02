@@ -10,9 +10,9 @@ window.onload = function()  {
 		value: `a=randint(0,6)
 		A = point(a,0,'A','left')
 		B = point(8,1,'B','right')
-		C = pointParRotation(B,A,90,'C','above')
+		C = rotation(B,A,90,'C','above')
 		polygone(A,B,C)
-		labelPoints(A,B,C)
+		labelPoint(A,B,C)
 		codageAngleDroit(B,A,C)`,
 		mode:  "javascript",
 		lineNumbers: true,
@@ -68,7 +68,7 @@ window.onload = function()  {
 		let codeSvgcomplet = codeSvg(mesObjets)
 		divSvg.innerHTML = codeSvgcomplet;		
 		myCodeMirrorSvg.setValue(codeSvgcomplet);
-		mesObjets = mesObjetsCopie.slice() // on érinitialise mesObjets à l'état où il était avant que codeSvg n'ajoute des objets
+		mesObjets = mesObjetsCopie.slice() // on réinitialise mesObjets à l'état où il était avant que codeSvg n'ajoute des objets
 		myCodeMirrorTikz.setValue(codeTikz(mesObjets));
 	};
 
