@@ -1327,25 +1327,25 @@ function affiniteOrtho(M, d, k, nom = ' ', positionLabel = 'above') {
 	if (A.constructor == Polygone) {
 		let p2 = []
 		for (let i = 0; i < A.listePoints.length; i++) {
-			p2[i] = affiniteOrtho(A.listePoints[i], d)
+			p2[i] = affiniteOrtho(A.listePoints[i], d,k)
 		}
 		return polygone(p2)
 	}
 	if (A.constructor == Droite) {
-		let M = affiniteOrtho(point(A.x1, A.y1), d)
-		let N = affiniteOrtho(point(A.x2, A.y2), d)
+		let M = affiniteOrtho(point(A.x1, A.y1), d,k)
+		let N = affiniteOrtho(point(A.x2, A.y2), d,k)
 		return droite(M, N)
 	}
 	if (A.constructor == Segment) {
-		let M = affiniteOrtho(A.extremite1, d)
-		let N = affiniteOrtho(A.extremite2, d)
+		let M = affiniteOrtho(A.extremite1, d,k)
+		let N = affiniteOrtho(A.extremite2, d,k)
 		let s = segment(M, N)
 		s.styleExtremites = A.styleExtremites
 		return s
 	}
 	if (A.constructor == DemiDroite) {
-		let M = affiniteOrtho(A.extremite1, d)
-		let N = affiniteOrtho(A.extremite2, d)
+		let M = affiniteOrtho(A.extremite1, d,k)
+		let N = affiniteOrtho(A.extremite2, d,k)
 		let s = demiDroite(M, N)
 		s.styleExtremites = A.styleExtremites
 		return s
