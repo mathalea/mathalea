@@ -1,0 +1,13 @@
+A = point(2,2)
+D = point(11,8)
+d = droite(point(10,0),point(11,10))
+p = polygoneRegulierParCentreEtRayon(A,randint(2,5),choice([3,8]))
+p2 = symetrieAxiale(p,d)
+symetrieAnimee(p,d)
+p.epaisseur = 2
+p.color = 'blue'
+p2.epaisseur = 2
+p2.color = 'blue'
+d.epaisseur = 3
+d.color = 'red'
+texteParPoint('(d)',D,'droite')
