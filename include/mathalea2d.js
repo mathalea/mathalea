@@ -774,17 +774,19 @@ function Polygone(...points){
 		this.listePoints = points
 		this.nom = this.listePoints.join()
 	}
-	this.svg = function(coeff=20){
+	let binomeXY = "";
+		for (let point of this.listePoints){
+			binomeXY += `${calcul(point.x*this.coeff)},${calcul(-point.y*this.coeff)} `; 
+		}
+	this.binomesXY = binomeXY
+	this.svg = function(){
 		if (this.epaisseur!=1) {
 			this.style += ` stroke-width="${this.epaisseur}" `
 		}
 		if (this.pointilles) {
 			this.style += ` stroke-dasharray="4 3" `
 		}
-		let binomeXY = "";
-		for (let point of this.listePoints){
-			binomeXY += `${calcul(point.x*coeff)},${calcul(-point.y*coeff)} `; 
-		}
+		
 		return `<polygon points="${binomeXY}" fill="none" stroke="${this.color}" ${this.style} />`
 	}
 	this.tikz = function(){
@@ -1415,36 +1417,18 @@ function rotationAnimee(...args){
 * 
 * @Auteur Rémi Angot
 */
-function HomothetieAnimee(liste,O,k,animation='begin="0s" dur="2s" repeatCount="indefinite"'){
+function HomothetieAnimee(p,O,k,animation='begin="0s" dur="2s" repeatCount="indefinite"'){
 	ObjetMathalea2D.call(this)
 	this.svg = function(){
-		let code =  `<g> `
-		if (Array.isArray(liste)) {
-			for(const objet of liste){
-				code += '\n' + objet.svg()
-			}
-		} else { //si ce n'est pas une liste
-		code += '\n' + liste.svg()
-	}
-
-	code += `<animateTransform
-	attributeName="transform" 
-	type="translate"
-	from="0,0"
-	to="${-O.xSVG()},${-O.ySVG()}" 
-	${animation}
-	additive="sum"
-	/>`	
-	code += `<animateTransform
-	attributeName="transform"
-	type="scale"
-	from="1"
-	to="${abs(k)}"
-	${animation}
-	additive="sum"
-
-	/>`
-	code += `</g>`
+	let binomesXY1 = p.binomesXY
+	let p2 = homothetie(p,O,k)
+	let binomesXY2 = p2.binomesXY
+	code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="none" >
+  <animate attributeName="points" dur="2s" repeatCount="indefinite"
+    from="${binomesXY1}"
+      to="${binomesXY2}"
+  />
+</polygon>`
 	return code
 
 }
@@ -1460,44 +1444,26 @@ function homothetieAnimee(...args){
 * 
 * @Auteur Rémi Angot
 */
-// function SymetrieAnimee(liste,d,animation='begin="0s" dur="2s" repeatCount="indefinite"'){
-// 	ObjetMathalea2D.call(this)
-// 	this.svg = function(){
-// 		let code =  `<g> `
-// 		if (Array.isArray(liste)) {
-// 			for(const objet of liste){
-// 				code += '\n' + objet.svg()
-// 			}
-// 		} else { //si ce n'est pas une liste
-// 		code += '\n' + liste.svg()
-// 	}
+function SymetrieAnimee(p,d,animation='begin="0s" dur="2s" repeatCount="indefinite"'){
+	ObjetMathalea2D.call(this)
+	this.svg = function(){
+		let binomesXY1 = p.binomesXY
+		let p2 = symetrieAxiale(p,d)
+		let binomesXY2 = p2.binomesXY
+		code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="none" >
+	  <animate attributeName="points" dur="2s" repeatCount="indefinite"
+	    from="${binomesXY1}"
+	      to="${binomesXY2}"
+	  />
+	</polygon>`
+	return code
 
-// 	// code += `<animateTransform
-// 	// attributeName="transform" 
-// 	// type="translate"
-// 	// from="0,0"
-// 	// to="${-O.xSVG()},${-O.ySVG()}" 
-// 	// ${animation}
-// 	// additive="sum"
-// 	// />`	
-// 	code += `<animateTransform
-// 	attributeName="transform"
-// 	type="scale"
-// 	from="1,1"
-// 	to="1,-1"
-// 	${animation}
-// 	additive="sum"
+}
 
-// 	/>`
-// 	code += `</g>`
-// 	return code
-
-// }
-
-// }
-// function symetrieAnimee(...args){
-// 	return new SymetrieAnimee(...args)
-// }
+}
+function symetrieAnimee(...args){
+	return new SymetrieAnimee(...args)
+}
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
