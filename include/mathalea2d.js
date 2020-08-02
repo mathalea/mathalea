@@ -1306,21 +1306,22 @@ function projectionOrtho(M,d,nom = ' ',positionLabel = 'above') {
  * N = affiniteOrtho(M,d,rapport,'N','rgiht')
  * @Auteur = Jean-Claude Lhote
  */
-function affiniteOrtho(M, d, k, nom = ' ', positionLabel = 'above') {
+function affiniteOrtho(A, d, k, nom = ' ', positionLabel = 'above') {
 	if (A.constructor == Point) {
+		console.log(d)
 		let a = d.a, b = d.b, c = d.c, q = calcul(1 / (a * a + b * b));
 		let x, y;
 		if (a == 0) {
-			x = M.x
-			y = calcul(k * y + c * (k - 1) / b)
+			x = A.x
+			y = calcul(k * A.y + c * (k - 1) / b)
 		}
 		else if (b == 0) {
-			y = M.y
-			x = calcul(k * x + c * (k - 1) / a)
+			y = A.y
+			x = calcul(k * A.x + c * (k - 1) / a)
 		}
 		else {
-			x = calcul(q * (b * b * M.x - a * b * M.y - a * c) * (1 - k) + k * M.x)
-			y = calcul(q * (-a * b * M.x + a * a * M.y + a * a * c / b) * (1 - k) + k * c / b - c / b)
+			x = calcul(q * (b * b * A.x - a * b * A.y - a * c) * (1 - k) + k * A.x)
+			y = calcul(q * ( a * a * A.y -a * b * A.x + a * a * c / b) * (1 - k) + k * c / b +k*A.y-c/b)
 		}
 		return point(x, y, nom, positionLabel)
 	}
