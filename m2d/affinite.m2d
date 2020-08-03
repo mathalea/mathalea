@@ -1,0 +1,7 @@
+C = point(5,5,'C','above')
+A = point(7,3,'A')
+d=droite(C,A) // On place les points C et A e on définit la droite(CA)
+p=carre(C,A) // Le carré direct de sommets C puis A
+q=affiniteOrtho(p,d,0.5) // q est le carré "applati" par l'affinité
+r=polygoneRegulierIndirect(C,A,6) // L'hexagone régulier indirect de sommets C puis A
+s=affiniteOrtho(r,d,0.8) // sa version applatie par l'affinité de rapport 0.8
