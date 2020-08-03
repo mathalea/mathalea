@@ -1,5 +1,6 @@
-/* auteur Stéphane Guyon*/
-function union_et_intersection_intervalles_de_R(){
+
+function union_et_intersection_intervalles_de_R()
+{
 Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Utiliser et comprendre les symboles $I\\cup J$ et $I\\cap J$ avec les intervalles de $\\mathbb{R}.$";
     this.consigne = "Répondre aux questions suivantes: :"
@@ -8,15 +9,18 @@ Exercice.call(this); // Héritage de la classe Exercice()
     this.nb_cols_corr = 2;
     this.sup = 1 ; // 
 
-    this.nouvelle_version = function(numero_de_l_exercice){
+    this.nouvelle_version = function(numero_de_l_exercice)
+    {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let type_de_questions_disponibles = [1];
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) ;
     for (let i = 0, a,b,c,d,s, e,f,A,B,c1,c2,int, axe, texte, texte_corr, cpt=0; 
-        i < this.nb_questions && cpt<50; ) {
+        i < this.nb_questions && cpt<50; ) 
+        {
             type_de_questions = liste_type_de_questions[i];
-    switch (type_de_questions){
+        switch (type_de_questions)
+            {
                         // Cas par cas, on définit le type de nombres que l'on souhaite
                         // Combien de chiffres ? Quelles valeurs ?
                 case 1 : 
@@ -98,18 +102,19 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cup [${c};${d}].$`;
                     texte_corr = `On $[${c};${d}]\\subset [${a};${b}]$ donc $I=[${a};${b}].$`;                     
                     break ;
-             } 
-            if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+            } 
+            if (this.liste_questions.indexOf(texte)==-1)
+                { // Si la question n'a jamais été posée, on en créé une autre
                 this.liste_questions.push(texte);
                 this.liste_corrections.push(texte_corr);
                 i++;
-            }
+                }
             cpt++;  
         }
         liste_de_question_to_contenu(this);
     }
-    
-}
+}   
+ 
 /* auteur Stéphane Guyon*/
 function intervalles_de_R(){
 Exercice.call(this); // Héritage de la classe Exercice()
@@ -906,7 +911,9 @@ Exercice.call(this); // Héritage de la classe Exercice()
     
 }
 
+
 function proprietes_racine_carree(){
+
     Exercice.call(this); // Héritage de la classe Exercice()
         this.titre = "Connaître les propriétés calculatoires des racines carrées";
         this.consigne = "Effectuer, si possible, les calculs suivants :"
