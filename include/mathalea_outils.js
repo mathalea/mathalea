@@ -4098,13 +4098,14 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 	};
 
 	// renvoie les noms des angles du triangle.
-	function getSommets() {
+	function getSommets(math=true) {
 		let triangle = self.nom;
 		let sommets = triangle.split('');
+		if (math==true) {
 		sommets[0] = '$'+sommets[0]+'$';
 		sommets[1] = '$'+sommets[1]+'$';
 		sommets[2] = '$'+sommets[2]+'$';
-
+		}
 		return sommets;
 	};
 

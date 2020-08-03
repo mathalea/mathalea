@@ -96,7 +96,8 @@ var liste_des_exercices_disponibles = {
 		//'beta5G2' : Constructibilite_des_triangles,// pour développer l'exercice global
 		//'beta5G21-1' : Constructibilite_des_triangles_longueurs,// pour développer l'exercice global		
 		'5G21-1' : Constructibilite_des_triangles_longueurs,		
-		'5G20-1' : Vocabulaire_des_triangles_5e,		   
+		'5G20-1' : Vocabulaire_des_triangles_5e,	
+		'5G22' : DroiteRemarquableDuTriangle,	   
 		'5G31' : Exercice_angles_triangles,
 		//'beta5G31-1' : Constructibilite_des_triangles_angles,// pour développer l'exercice global
 		'5G31-1' : Constructibilite_des_triangles_angles,
