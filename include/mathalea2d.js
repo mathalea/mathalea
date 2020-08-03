@@ -1745,7 +1745,7 @@ function codeSegments(...args){
 * @Auteur Rémi Angot
 */
 
-function Axe(xmin=-1,ymin=-10,xmax=30,ymax=10,thick=.2){
+function Axes(xmin=-1,ymin=-10,xmax=30,ymax=10,thick=.2){
 	let objets = []
 	objets.push(segment(xmin,0,xmax,0), segment(0,ymin,0,ymax) )
 	for (let x=xmin ; x<=xmax ; x++){
@@ -1763,8 +1763,8 @@ function Axe(xmin=-1,ymin=-10,xmax=30,ymax=10,thick=.2){
 	this.commentaire = `Repère(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, thick = ${thick})`
 
 }
-function axe(...args){
-	return new Axe(...args)
+function axes(...args){
+	return new Axes(...args)
 }
 
 /*
