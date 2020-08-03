@@ -8061,7 +8061,14 @@ jQuery(document).ready(function() {
 		liste_des_exercices = $('#choix_des_exercices').val().replace(/\s/g, "").replace(";", ",").split(",");
 		mise_a_jour_de_la_liste_d_exercice();
 
-
+	// Actualise KaTeX pour les titres d'exercices utilisant LaTeX
+	renderMathInElement(document.body, {
+            delimiters: [
+			{left: "\\[", right: "\\]", display: true},
+			{left: "$", right: "$", display: false}
+			],
+			"throwOnError":true,"errorColor":"#CC0000","strict":"warn","trust":false
+		});
 
 });
 
