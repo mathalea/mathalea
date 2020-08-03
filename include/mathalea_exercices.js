@@ -208,7 +208,9 @@ var liste_des_exercices_disponibles = {
 		'2N20' : ensemble_de_nombres,
 		'2N21' : parite,
 		'2N22' : valeur_absolue,
-		'2N23' :valeur_absolue_et_equation,
+		'2N23' : valeur_absolue_et_equation,
+		'2N24' : intervalles_de_R,
+		'2N25' : union_et_intersection_intervalles_de_R,
 		'2L10' : Developper_Identites_remarquables2,
 		'2L11' : Factoriser_Identites_remarquables2,
 		'betaI' : Exercice_intervalle,
@@ -8059,7 +8061,14 @@ jQuery(document).ready(function() {
 		liste_des_exercices = $('#choix_des_exercices').val().replace(/\s/g, "").replace(";", ",").split(",");
 		mise_a_jour_de_la_liste_d_exercice();
 
-
+	// Actualise KaTeX pour les titres d'exercices utilisant LaTeX
+	renderMathInElement(document.body, {
+            delimiters: [
+			{left: "\\[", right: "\\]", display: true},
+			{left: "$", right: "$", display: false}
+			],
+			"throwOnError":true,"errorColor":"#CC0000","strict":"warn","trust":false
+		});
 
 });
 

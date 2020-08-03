@@ -162,7 +162,7 @@ function pointSurSegment(A,B,l,nom,positionLabel){
 *
 * @Auteur Jean-Claude Lhote
 */
-function PointIntersectionDD(d,f,nom='',positionLabel = 'above'){
+function pointIntersectionDD(d,f,nom='',positionLabel = 'above'){
 	let y = calcul((-f.c+d.c*f.a/d.a)/(f.b-f.a*d.b/d.a))
 	let x = calcul(-d.c/d.a-d.b*y/d.a)
 	return point(x,y,nom,positionLabel)
@@ -377,16 +377,7 @@ function Droite(arg1,arg2,arg3,arg4,color) {
 function droite(...args){
 	return new Droite(...args)
 }
-function Mediatrice(A,B,color = 'black'){
-	let O = pointMilieu(A,B)
-	let M = pointParRotation(A,O,90)
-	let N = pointParRotation(A,O,-90)
-	Droite.call(this,M,N)
-	this.color=color
-}
-function mediatrice(...args){
-	return new Mediatrice(...args)
-}
+
 
 /**
 * d = droiteParPointEtVecteur(A,v,'d1',red') //Droite passant par A, de vecteur directeur v et de couleur rouge
@@ -454,6 +445,11 @@ function mediatrice(A,B,nom='',color='black'){
     return droite(M,N,nom,color)
 }
 
+/**
+ * m = codageMediatrice(A,B,'blue') // Ajoute le codage du milieu et de l'angle droit pour la médiatrice de [AB] en bleu
+ * 
+ * @Auteur Rémi Angot
+ */
 function CodageMediatrice(A,B,color='black'){
 	ObjetMathalea2D.call(this)
 	this.color = color
@@ -471,9 +467,8 @@ function codageMediatrice(...args){
 }
 
 /**
- * d = bissectrice(A,B) // Médiatrice de [AB]
- * d = bissectrice(A,B,'blue') // Médiatrice de [AB] en bleu
- * d = bissectrice(A,B,'blue') // Médiatrice de [AB] en bleu
+ * d = bissectrice(A,B) // Bissectrice de [AB]
+ * d = bissectrice(A,B,'blue') // Bissectrice de [AB] en bleu
  * 
  * @Auteur Rémi Angot
  */
@@ -512,7 +507,7 @@ function Polyline(...points){
 	for (let point of points){
 		this.nom += point.nom
 	}
-	this.svg = function(coeff=20){
+	this.svg = function(){
 		if (this.epaisseur!=1) {
 			this.style += ` stroke-width="${this.epaisseur}" `
 		}
@@ -521,10 +516,9 @@ function Polyline(...points){
 		}
 		let binomeXY = "";
 		for (let point of this.listePoints){
-			binomeXY += `${calcul(point.x*coeff)},${calcul(-point.y*coeff)} `; 
-		
-		return `<polyline points="${binomeXY}" fill="none" stroke="${this.color}" ${this.style} />`
+			binomeXY += `${calcul(point.x*this.coeff)},${calcul(-point.y*this.coeff)} `; 		
 		}		
+		return `<polyline points="${binomeXY}" fill="none" stroke="${this.color}" ${this.style} />`
 	}
 	this.tikz = function(){
 		let binomeXY = "";
@@ -728,8 +722,8 @@ function segmentAvecExtremites(...args){
 */
 
 /**
-* s = DemiDroite(A,B) //Demi-droite d'origine A passant par B
-* s = DemiDroite(A,B,'blue') //Demi-droite d'origine A passant par B et de couleur bleue
+* s = demiDroite(A,B) //Demi-droite d'origine A passant par B
+* s = demiDroite(A,B,'blue') //Demi-droite d'origine A passant par B et de couleur bleue
 *
 * @Auteur Rémi Angot
 */
@@ -931,7 +925,7 @@ function deplaceLabel(p,nom,positionLabel){
 */
 
 /**
-* * c = cercle(O,r) //Cercle de centre O et de rayon r
+* c = cercle(O,r) //Cercle de centre O et de rayon r
 * @Auteur Rémi Angot
 */
 function Cercle(O,r,color){
@@ -973,7 +967,8 @@ function cercle(...args){
 }
 
 /**
-*  c = cercle(O,r) //Cercle de centre O et de rayon r
+*  c = cercleCentrePoint(O,A) //Cercle de centre O passant par A
+*  c = cercleCentrePoint(O,A,'blue') //Cercle de centre O passant par A en bleu
 *
 * @Auteur Rémi Angot
 */
@@ -1077,7 +1072,6 @@ function translation(O,v,nom='',positionLabel = 'above') {
 	}
 	if (O.constructor==Polygone) {
 		let p2=[]
-		console.log(O.listePoints)
 		for (let i = 0 ; i < O.listePoints.length ; i++ ){
 	  		p2[i] = translation(O.listePoints[i],v)
 		}
@@ -1310,7 +1304,6 @@ function projectionOrtho(M,d,nom = ' ',positionLabel = 'above') {
  */
 function affiniteOrtho(A, d, k, nom = ' ', positionLabel = 'above') {
 	if (A.constructor == Point) {
-		console.log(d)
 		let a = d.a, b = d.b, c = d.c, q = calcul(1 / (a * a + b * b));
 		let x, y;
 		if (a == 0) {
@@ -1620,7 +1613,7 @@ function centreCercleCirconscrit(A,B,C,nom='',positionLabel='above'){
 * 
 * @Auteur Rémi Angot
 */
-function CodageAngleDroit(A,O,B,color='black',d = .3)  {
+function codageAngleDroit(A,O,B,color='black',d = .3)  {
 	ObjetMathalea2D.call(this);
 	this.color = color;
 	let a = pointSurSegment(O,A,d);
@@ -1631,18 +1624,12 @@ function CodageAngleDroit(A,O,B,color='black',d = .3)  {
 	} else {
 		o = rotation(O,a,90)
 	}
-	this.svg = function(){
-		polyline([a,o,b],color).svg()
-	}
-	return polyline([a,o,b],color)
-	
-}
-function codageAngleDroit(...args){
-	return new CodageAngleDroit(...args)
+	return polyline([a,o,b],color)	
 }
 
+
 /**
-* CoteSegment(A,B) // Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
+* coteSegment(A,B) // Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
 * 
 * @Auteur Rémi Angot
 */
@@ -1684,7 +1671,7 @@ function afficheMesureAngle(A,B,C,color='black',distance = 1.5)  {
 
 
 /**
- * CodeSegment(A,B,'X','blue') // Code le segment [AB] avec une croix bleue
+ * codeSegment(A,B,'X','blue') // Code le segment [AB] avec une croix bleue
  * Attention le premier argument ne peut pas être un segment 
  *
  * @Auteur Rémi Angot
