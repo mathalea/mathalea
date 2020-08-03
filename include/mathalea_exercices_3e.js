@@ -440,7 +440,7 @@ function Lecture_expression_fonctions_affines() {
 
 		liste_de_question_to_contenu_sans_numero(this);
 		if (!this.lineaire) this.contenu_correction = `Il s’agit de fonctions affines, elles sont donc de la forme $f(x)=ax+b$, $b$ étant l’ordonnée à l’origine et $a$ la pente de la droite.\n` + this.contenu_correction;
-		else this.contenu_correction = `Il s’agit de fonctions linéaires, elles sont donc de la forme $f(x)=ax$, $a$ étant la `+katex_Popup2(numero_de_l_exercice,1,`pente`,`pente d'une droite`,`La pente d'une droite donne le taux d'accroissement de y par rapport à x : lorsque x augmente de 1, alors y augmente de a.`)+` de la droite.\n` + this.contenu_correction ;
+		else this.contenu_correction = `Il s’agit de fonctions linéaires, elles sont donc de la forme $f(x)=ax$, $a$ étant la `+katex_Popup2(numero_de_l_exercice,1,`pente`,`pente d'une droite`,`La pente (le a de y=ax ou y=ax+b) d'une droite donne le taux d'accroissement de y par rapport à x : lorsque x augmente de 1, alors y augmente de a.`)+` de la droite.\n` + this.contenu_correction ;
 	}
 	this.besoin_formulaire_numerique = ['Niveau de difficulté', 3, "1 : Coefficient directeur entier\n2 : Coefficient directeur 'en demis'\n3 : Coefficient directeur 'en quarts'"];
 }
