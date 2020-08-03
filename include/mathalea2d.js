@@ -1508,6 +1508,26 @@ function symetrieAnimee(...args){
 	return new SymetrieAnimee(...args)
 }
 
+function AffiniteOrthoAnimee(p,d,k,animation='begin="0s" dur="2s" repeatCount="indefinite"'){
+	ObjetMathalea2D.call(this)
+	this.svg = function(){
+		let binomesXY1 = p.binomesXY
+		let p2 = affiniteOrtho(p,d,k)
+		let binomesXY2 = p2.binomesXY
+		code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="none" >
+	  <animate attributeName="points" dur="2s" repeatCount="indefinite"
+	    from="${binomesXY1}"
+	      to="${binomesXY2}"
+	  />
+	</polygon>`
+	return code
+
+}
+
+}
+function affiniteOrthoAnimee(...args){
+	return new AffiniteOrthoAnimee(...args)
+}
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%% LE TRIANGLE %%%%%%%%%%%%%%
