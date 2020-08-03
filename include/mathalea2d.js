@@ -162,7 +162,7 @@ function pointSurSegment(A,B,l,nom,positionLabel){
 *
 * @Auteur Jean-Claude Lhote
 */
-function pointIntersectionDD(d,f,nom='',positionLabel = 'above'){
+function PointIntersectionDD(d,f,nom='',positionLabel = 'above'){
 	let y = calcul((-f.c+d.c*f.a/d.a)/(f.b-f.a*d.b/d.a))
 	let x = calcul(-d.c/d.a-d.b*y/d.a)
 	return point(x,y,nom,positionLabel)
@@ -774,17 +774,19 @@ function Polygone(...points){
 		this.listePoints = points
 		this.nom = this.listePoints.join()
 	}
-	this.svg = function(coeff=20){
+	let binomeXY = "";
+		for (let point of this.listePoints){
+			binomeXY += `${calcul(point.x*this.coeff)},${calcul(-point.y*this.coeff)} `; 
+		}
+	this.binomesXY = binomeXY
+	this.svg = function(){
 		if (this.epaisseur!=1) {
 			this.style += ` stroke-width="${this.epaisseur}" `
 		}
 		if (this.pointilles) {
 			this.style += ` stroke-dasharray="4 3" `
 		}
-		let binomeXY = "";
-		for (let point of this.listePoints){
-			binomeXY += `${calcul(point.x*coeff)},${calcul(-point.y*coeff)} `; 
-		}
+		
 		return `<polygon points="${binomeXY}" fill="none" stroke="${this.color}" ${this.style} />`
 	}
 	this.tikz = function(){
@@ -1302,6 +1304,56 @@ function projectionOrtho(M,d,nom = ' ',positionLabel = 'above') {
 	}
 	return point(x,y,nom,positionLabel)
 }
+/**
+ * N = affiniteOrtho(M,d,rapport,'N','rgiht')
+ * @Auteur = Jean-Claude Lhote
+ */
+function affiniteOrtho(A, d, k, nom = ' ', positionLabel = 'above') {
+	if (A.constructor == Point) {
+		console.log(d)
+		let a = d.a, b = d.b, c = d.c, q = calcul(1 / (a * a + b * b));
+		let x, y;
+		if (a == 0) {
+			x = A.x
+			y = calcul(k * A.y + c * (k - 1) / b)
+		}
+		else if (b == 0) {
+			y = A.y
+			x = calcul(k * A.x + c * (k - 1) / a)
+		}
+		else {
+			x = calcul(q * (b * b * A.x - a * b * A.y - a * c) * (1 - k) + k * A.x)
+			y = calcul(q * ( a * a * A.y -a * b * A.x + a * a * c / b) * (1 - k) + k * c / b +k*A.y-c/b)
+		}
+		return point(x, y, nom, positionLabel)
+	}
+	if (A.constructor == Polygone) {
+		let p2 = []
+		for (let i = 0; i < A.listePoints.length; i++) {
+			p2[i] = affiniteOrtho(A.listePoints[i], d,k)
+		}
+		return polygone(p2)
+	}
+	if (A.constructor == Droite) {
+		let M = affiniteOrtho(point(A.x1, A.y1), d,k)
+		let N = affiniteOrtho(point(A.x2, A.y2), d,k)
+		return droite(M, N)
+	}
+	if (A.constructor == Segment) {
+		let M = affiniteOrtho(A.extremite1, d,k)
+		let N = affiniteOrtho(A.extremite2, d,k)
+		let s = segment(M, N)
+		s.styleExtremites = A.styleExtremites
+		return s
+	}
+	if (A.constructor == DemiDroite) {
+		let M = affiniteOrtho(A.extremite1, d,k)
+		let N = affiniteOrtho(A.extremite2, d,k)
+		let s = demiDroite(M, N)
+		s.styleExtremites = A.styleExtremites
+		return s
+	}
+}
 
 function similitude(A,O,a,k,nom=' ',positionLabel = 'above') {
 	if (A.constructor==Point) {
@@ -1399,7 +1451,6 @@ function RotationAnimee(liste,O,angle,animation='begin="0s" dur="2s" repeatCount
    to="${-angle} ${O.xSVG()} ${O.ySVG()}"
 	${animation}
 		/>`
-		code += `<animateMotion path="M 0 0 l 20 0 " ${animation} />`
    		code += `</g>`
 		return code
 		
@@ -1416,36 +1467,18 @@ function rotationAnimee(...args){
 * 
 * @Auteur Rémi Angot
 */
-function HomothetieAnimee(liste,O,k,animation='begin="0s" dur="2s" repeatCount="indefinite"'){
+function HomothetieAnimee(p,O,k,animation='begin="0s" dur="2s" repeatCount="indefinite"'){
 	ObjetMathalea2D.call(this)
 	this.svg = function(){
-		let code =  `<g> `
-		if (Array.isArray(liste)) {
-			for(const objet of liste){
-				code += '\n' + objet.svg()
-			}
-		} else { //si ce n'est pas une liste
-		code += '\n' + liste.svg()
-	}
-
-	code += `<animateTransform
-	attributeName="transform" 
-	type="translate"
-	from="0,0"
-	to="${-O.xSVG()},${-O.ySVG()}" 
-	${animation}
-	additive="sum"
-	/>`	
-	code += `<animateTransform
-	attributeName="transform"
-	type="scale"
-	from="1"
-	to="${abs(k)}"
-	${animation}
-	additive="sum"
-
-	/>`
-	code += `</g>`
+	let binomesXY1 = p.binomesXY
+	let p2 = homothetie(p,O,k)
+	let binomesXY2 = p2.binomesXY
+	code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="none" >
+  <animate attributeName="points" dur="2s" repeatCount="indefinite"
+    from="${binomesXY1}"
+      to="${binomesXY2}"
+  />
+</polygon>`
 	return code
 
 }
@@ -1461,44 +1494,26 @@ function homothetieAnimee(...args){
 * 
 * @Auteur Rémi Angot
 */
-// function SymetrieAnimee(liste,d,animation='begin="0s" dur="2s" repeatCount="indefinite"'){
-// 	ObjetMathalea2D.call(this)
-// 	this.svg = function(){
-// 		let code =  `<g> `
-// 		if (Array.isArray(liste)) {
-// 			for(const objet of liste){
-// 				code += '\n' + objet.svg()
-// 			}
-// 		} else { //si ce n'est pas une liste
-// 		code += '\n' + liste.svg()
-// 	}
+function SymetrieAnimee(p,d,animation='begin="0s" dur="2s" repeatCount="indefinite"'){
+	ObjetMathalea2D.call(this)
+	this.svg = function(){
+		let binomesXY1 = p.binomesXY
+		let p2 = symetrieAxiale(p,d)
+		let binomesXY2 = p2.binomesXY
+		code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="none" >
+	  <animate attributeName="points" dur="2s" repeatCount="indefinite"
+	    from="${binomesXY1}"
+	      to="${binomesXY2}"
+	  />
+	</polygon>`
+	return code
 
-// 	// code += `<animateTransform
-// 	// attributeName="transform" 
-// 	// type="translate"
-// 	// from="0,0"
-// 	// to="${-O.xSVG()},${-O.ySVG()}" 
-// 	// ${animation}
-// 	// additive="sum"
-// 	// />`	
-// 	code += `<animateTransform
-// 	attributeName="transform"
-// 	type="scale"
-// 	from="1,1"
-// 	to="1,-1"
-// 	${animation}
-// 	additive="sum"
+}
 
-// 	/>`
-// 	code += `</g>`
-// 	return code
-
-// }
-
-// }
-// function symetrieAnimee(...args){
-// 	return new SymetrieAnimee(...args)
-// }
+}
+function symetrieAnimee(...args){
+	return new SymetrieAnimee(...args)
+}
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1885,6 +1900,35 @@ function TexteParPoint(texte,A,orientation = "milieu",color) {
 }
 function texteParPoint(...args){
 	return new TexteParPoint(...args)
+}
+
+/**
+* texteParPoint('mon texte',A) // Écrit 'mon texte' avec A au centre du texte
+* texteParPoint('mon texte',A,'gauche') // Écrit 'mon texte' à gauche de A (qui sera la fin du texte)
+* texteParPoint('mon texte',A,'droite') // Écrit 'mon texte' à droite de A (qui sera le début du texte)
+* texteParPoint('mon texte',A,45) // Écrit 'mon texte' à centré sur A avec une rotation de 45°
+*
+* @Auteur Rémi Angot
+*/
+function LatexParPoint(texte,A,color) {
+	ObjetMathalea2D.call(this);
+	this.color=color
+	this.svg = function(){
+		return `<foreignObject style="overflow: visible;" y="${A.ySVG()}" x="${A.xSVG()}" width="200" height="50"><div>${texte}</div></foreignObject`
+	}
+	this.tikz = function(){
+		let code = `\\draw (${A.x},${A.y}) node[anchor = center] {${texte}};`;
+		return code
+	}
+
+}
+function latexParPoint(...args){
+	return new LatexParPoint(...args)
+}
+
+function latexParCoordonnees(texte,x,y){
+	let A = point(x,y)
+	return latexParPoint(texte,A)
 }
 
 /*
