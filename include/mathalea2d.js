@@ -239,7 +239,7 @@ function labelPoint(...args){
 /**
 * d = droite(A,B) // La droite passant par A et B
 * d = droite(A,B,'(d)') // La droite passant par A et B se nommant (d)
-* d = droite(a,b,c,'(d)') // La droite définie par les icients de ax +by + c=0 (équation de la droite (a,b)!=(0,0))
+* d = droite(a,b,c,'(d)') // La droite définie par les coefficients de ax +by + c=0 (équation de la droite (a,b)!=(0,0))
 * d = droite(A,B,'(d)','blue') //La droite passant par A et B se nommant (d) et de couleur bleue
 * 
 * @Auteur Jean-Claude Lhote
@@ -446,17 +446,17 @@ function mediatrice(A,B,nom='',color='black'){
 }
 
 /**
- * m = codageMediatrice(A,B,'blue') // Ajoute le codage du milieu et de l'angle droit pour la médiatrice de [AB] en bleu
+ * m = codageMediatrice(A,B,'blue','X') // Ajoute le codage du milieu et de l'angle droit pour la médiatrice de [AB] en bleu
  * 
  * @Auteur Rémi Angot
  */
-function CodageMediatrice(A,B,color='black'){
+function CodageMediatrice(A,B,color='black',mark='X'){
 	ObjetMathalea2D.call(this)
 	this.color = color
 	let O = milieu(A,B)
     let M = rotation(A,O,90)
 	let c = codageAngleDroit(M,O,B,this.color).svg()
-	let v = mark = codeSegments('X',this.color,A,O, O,B).svg()
+	let v = mark = codeSegments(mark,this.color,A,O, O,B).svg()
 	this.svg = function(){
 		return c + '\n' + v
 	}
@@ -1652,11 +1652,11 @@ function codageAngleDroit(A,O,B,color='black',d = .3)  {
 
 
 /**
-* coteSegment(A,B) // Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
+* afficheLongueurSegment(A,B) // Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
 * 
 * @Auteur Rémi Angot
 */
-function CoteSegment(A,B,color='black',d = .5)  {
+function AfficheLongueurSegment(A,B,color='black',d = .5)  {
 	ObjetMathalea2D.call(this);
 	this.color = color;
 	let O = milieu(A,B)
@@ -1674,8 +1674,8 @@ function CoteSegment(A,B,color='black',d = .5)  {
 	return texteParPoint(longueur,N,angle,this.color)
 	
 }
-function coteSegment(...args){
-	return new CoteSegment(...args)
+function afficheLongueurSegment(...args){
+	return new AfficheLongueurSegment(...args)
 }
 
 /**
@@ -1999,6 +1999,20 @@ function angleradian(A,O,B){
 	let AB = longueur(A,B);
 	let cos = calcul((AB**2-OA**2-OB**2)/(-2*OA*OB),.1)
 	return calcul(Math.acos((AB**2-OA**2-OB**2)/(-2*OA*OB)),2)
+}
+
+
+/**
+* couleurAleatoire() renvoie le code d'une couleur au hasard
+*
+* @Auteur Rémi Angot
+*/
+function couleurAleatoire() {
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += choice([0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F']);
+  }
+  return color;
 }
 
 /*
