@@ -4692,7 +4692,7 @@ function DroiteRemarquableDuTriangle(){
 			t[i] = polygone(A[i],B[i],C[i])
 			d[i] = hauteurTriangle(A[i],B[i],C[i])
 			n[i] = labelPoint(A[i],B[i],C[i])
-			c[i] = CodageHauteurTriangle(A[i],B[i],C[i])
+			c[i] = codageHauteurTriangle(A[i],B[i],C[i],'red')
 			objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i]]
 			texte = `Quelle est la nature de la
 			 droite tracée pour le triangle ?<br>` + mathalea2d(0,0,10,10,...objets[i])
