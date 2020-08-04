@@ -4682,17 +4682,20 @@ function DroiteRemarquableDuTriangle(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let triangles=[],sommets=[[]],A=[],B=[],C=[],t=[],d=[]
+		let triangles=[],sommets=[[]],A=[],B=[],C=[],t=[],d=[],n=[],c=[],objets=[]
 		for (let i = 0, a, b, texte, texte_corr, cpt=0; i < 3;i++) {// this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
 			triangles[i] = new Triangles();
 			sommets[i]=triangles[i].getSommets(false);
-			A[i] = point(5,5,sommets[i][0])
-			B[i] = point(randint(6,10),8,sommets[i][1])
-			C[i] = point(0,randint(7,12),sommets[i][2])
+			A[i] = point(randint(1,4),randint(1,4),sommets[i][0],'below left')
+			B[i] = point(randint(5,9),randint(1,4),sommets[i][1],'below right')
+			C[i] = point(randint(A[i].x,B[i].x),randint(6,8),sommets[i][2],'above')
 			t[i] = polygone(A[i],B[i],C[i])
 			d[i] = hauteurTriangle(A[i],B[i],C[i])
-			labelPoint(A[i],B[i],C[i])
-			texte = `Quelle est la nature de la droite tracée pour le triangle ?` + mathalea2d(0,0,15,15,A[i],B[i],C[i],t[i],d[i])
+			n[i] = labelPoint(A[i],B[i],C[i])
+			c[i] = CodageHauteurTriangle(A[i],B[i],C[i])
+			objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i]]
+			texte = `Quelle est la nature de la
+			 droite tracée pour le triangle ?<br>` + mathalea2d(0,0,10,10,...objets[i])
 			texte_corr = ``
 
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre

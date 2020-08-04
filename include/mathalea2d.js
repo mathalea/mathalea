@@ -347,8 +347,8 @@ function Droite(arg1,arg2,arg3,arg4,color) {
 		}
 		let A = point(this.x1,this.y1);
 		let B = point(this.x2,this.y2);
-		let A1 = pointSurSegment(A,B,-10);
-		let B1 = pointSurSegment(B,A,-10);
+		let A1 = pointSurSegment(A,B,-50);
+		let B1 = pointSurSegment(B,A,-50);
 		return `<line x1="${A1.xSVG()}" y1="${A1.ySVG()}" x2="${B1.xSVG()}" y2="${B1.ySVG()}" stroke="${this.color}" ${this.style} />`
 	}
 	this.tikz = function() {
@@ -1425,8 +1425,8 @@ function translationAnimee(...args){
 }
 
 /**
-* rotationAnimee(s,O,a,v) //Animation de la rotation de centre O et d'angle a pour s
-* rotationAnimee([a,b,c],O,a,v) //Animation de la rotation de centre O et d'angle a pour les objets a, b et v
+* rotationAnimee(s,O,a) //Animation de la rotation de centre O et d'angle a pour s
+* rotationAnimee([a,b,c],O,a) //Animation de la rotation de centre O et d'angle a pour les objets a, b et c
 * 
 * @Auteur Rémi Angot
 */
@@ -1581,10 +1581,69 @@ function centreGraviteTriangle(A,B,C,nom=''){
  */
 function hauteurTriangle(A,B,C,color='black'){
 	let d = droite(B,C)
-	d.isVisible = false
+	d.isVisible=false
 	let p = projectionOrtho(A,d)
-	let q = rotation(B,p,90)
-	return droite(p,q,'',color)
+	return droite(p,A,'',color)
+}
+function CodageHauteurTriangle(A,B,C,color='black'){
+	ObjetMathalea2D.call(this)
+	this.color = color
+	let d = droite(B,C)
+	let p = projectionOrtho(A,d)
+	let q = rotation(A,p,-90)
+	if (B.x<C.x) {
+		if (p.x>C.x || p.x<B.x) {
+			d.isVisible=true
+			d.pointilles=true
+		}
+		else d.isVisible = false
+	}	
+	else if (C.x<B.x) {
+		if (p.x<C.x || p.x>B.x) {
+		d.isVisible=true
+		d.pointilles=true
+		}
+		else d.isVisible=false
+	}
+	else if (B.y<C.y) {
+		if (p.y>C.y || p.y<B.y) {
+			d.isVisible=true
+			d.pointilles=true
+		}
+		else d.isVisible=false
+	}
+	else if (C.y<B.y) {
+		if (p.y<C.y || p.y>B.y) {
+			d.isVisible=true
+			d.pointilles=true
+		}
+		else d.isVisible=false
+	}
+	let c = codageAngleDroit(A,p,q,this.color).svg()
+	this.svg = function(){
+		return c.svg() + '\n' + d.svg()
+	}
+	this.tikz = function(){
+		return c.tikz() + '\n' + d.tikz()
+	}
+}
+function codageHauteurTriangle(...args) {
+	new CodageHauteurTriangle(...args)
+}
+function CodageMedianeTriangle(A,B,C,color='black'){
+	ObjetMathalea2D.call(this)
+	this.color = color
+	let O = milieu(B,C)
+	let c = codeSegments('//',this.color,B,O,O,C)
+	this.svg = function(){
+		return c.svg()
+	}
+	this.tikz = function(){
+		return c.tikz()
+	}
+}
+function codageMedianeTriangle(...args) {
+	new CodageMedianeTriangle(...args)
 }
 
 /**
