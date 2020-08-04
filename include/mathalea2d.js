@@ -1630,11 +1630,11 @@ function CodageHauteurTriangle(A,B,C,color='black'){
 function codageHauteurTriangle(...args) {
 	new CodageHauteurTriangle(...args)
 }
-function CodageMedianeTriangle(A,B,C,color='black'){
+function CodageMedianeTriangle(A,B,C,color='black',mark='//'){
 	ObjetMathalea2D.call(this)
 	this.color = color
 	let O = milieu(B,C)
-	let c = codeSegments('//',this.color,B,O,O,C)
+	let c = codeSegments(mark,this.color,B,O,O,C)
 	this.svg = function(){
 		return c.svg()
 	}
