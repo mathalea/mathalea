@@ -186,28 +186,28 @@ function LabelPoint(...points) {
 		for (let point of this.listePoints){
 			switch (point.positionLabel){
 				case 'left':
-				code += `\t<text x="${calcul(point.xSVG()-15)}" y="${point.ySVG()}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${calcul(point.xSVG()-15)}" y="${point.ySVG()}" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'right':
-				code += `\t<text x="${calcul(point.xSVG()+15)}" y="${point.ySVG()}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${calcul(point.xSVG()+15)}" y="${point.ySVG()}" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'below':
-				code += `\t<text x="${point.xSVG()}" y="${calcul(point.ySVG()+15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${point.xSVG()}" y="${calcul(point.ySVG()+15)}" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'above':
-				code += `\t<text x="${point.xSVG()}" y="${calcul(point.ySVG()-15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${point.xSVG()}" y="${calcul(point.ySVG()-15)}" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'above right':
-				code += `\t<text x="${calcul(point.xSVG()+15)}" y="${calcul(point.ySVG()-15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${calcul(point.xSVG()+15)}" y="${calcul(point.ySVG()-15)}" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'below left':
-				code += `\t<text x="${calcul(point.xSVG()-15)}" y="${calcul(point.ySVG()+15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${calcul(point.xSVG()-15)}" y="${calcul(point.ySVG()+15)}" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'below right':
-				code += `\t<text x="${calcul(point.xSVG()+15)}" y="${calcul(point.ySVG()+15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${calcul(point.xSVG()+15)}" y="${calcul(point.ySVG()+15)}" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				default :
-				code += `\t<text x="${calcul(point.xSVG()-15)}" y="${calcul(point.ySVG()-15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${calcul(point.xSVG()-15)}" y="${calcul(point.ySVG()-15)}" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 			}
 		}
@@ -239,7 +239,7 @@ function labelPoint(...args){
 /**
 * d = droite(A,B) // La droite passant par A et B
 * d = droite(A,B,'(d)') // La droite passant par A et B se nommant (d)
-* d = droite(a,b,c,'(d)') // La droite définie par les icients de ax +by + c=0 (équation de la droite (a,b)!=(0,0))
+* d = droite(a,b,c,'(d)') // La droite définie par les coefficients de ax +by + c=0 (équation de la droite (a,b)!=(0,0))
 * d = droite(A,B,'(d)','blue') //La droite passant par A et B se nommant (d) et de couleur bleue
 * 
 * @Auteur Jean-Claude Lhote
@@ -446,17 +446,17 @@ function mediatrice(A,B,nom='',color='black'){
 }
 
 /**
- * m = codageMediatrice(A,B,'blue') // Ajoute le codage du milieu et de l'angle droit pour la médiatrice de [AB] en bleu
+ * m = codageMediatrice(A,B,'blue','X') // Ajoute le codage du milieu et de l'angle droit pour la médiatrice de [AB] en bleu
  * 
  * @Auteur Rémi Angot
  */
-function CodageMediatrice(A,B,color='black'){
+function CodageMediatrice(A,B,color='black',mark='X'){
 	ObjetMathalea2D.call(this)
 	this.color = color
 	let O = milieu(A,B)
     let M = rotation(A,O,90)
 	let c = codageAngleDroit(M,O,B,this.color).svg()
-	let v = mark = codeSegments('X',this.color,A,O, O,B).svg()
+	let v = mark = codeSegments(mark,this.color,A,O, O,B).svg()
 	this.svg = function(){
 		return c + '\n' + v
 	}
@@ -1013,6 +1013,9 @@ function Arc(M,Omega,angle,rayon=false,fill='none',color='black') {
 		}
 	else 	this.svg = function(){
 		return `<path d="M${M.xSVG()} ${M.ySVG()} A ${l*this.coeff} ${l*this.coeff} 0 ${large} ${sweep} ${N.xSVG()} ${N.ySVG()}" stroke="${this.color}" fill="${fill}"/>`
+	}
+	this.tikz = function(){
+		return `\\draw (${M.x},${M.y}) arc (0:${angle}:${longueur(Omega,M)}) ;`
 	}
 }
 function arc(...args) {
@@ -1649,11 +1652,11 @@ function codageAngleDroit(A,O,B,color='black',d = .3)  {
 
 
 /**
-* coteSegment(A,B) // Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
+* afficheLongueurSegment(A,B) // Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
 * 
 * @Auteur Rémi Angot
 */
-function CoteSegment(A,B,color='black',d = .5)  {
+function AfficheLongueurSegment(A,B,color='black',d = .5)  {
 	ObjetMathalea2D.call(this);
 	this.color = color;
 	let O = milieu(A,B)
@@ -1671,8 +1674,8 @@ function CoteSegment(A,B,color='black',d = .5)  {
 	return texteParPoint(longueur,N,angle,this.color)
 	
 }
-function coteSegment(...args){
-	return new CoteSegment(...args)
+function afficheLongueurSegment(...args){
+	return new AfficheLongueurSegment(...args)
 }
 
 /**
@@ -1765,7 +1768,7 @@ function codeSegments(...args){
 * @Auteur Rémi Angot
 */
 
-function Axe(xmin=-1,ymin=-10,xmax=30,ymax=10,thick=.2){
+function Axes(xmin=-1,ymin=-10,xmax=30,ymax=10,thick=.2){
 	let objets = []
 	objets.push(segment(xmin,0,xmax,0), segment(0,ymin,0,ymax) )
 	for (let x=xmin ; x<=xmax ; x++){
@@ -1783,8 +1786,8 @@ function Axe(xmin=-1,ymin=-10,xmax=30,ymax=10,thick=.2){
 	this.commentaire = `Repère(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, thick = ${thick})`
 
 }
-function axe(...args){
-	return new Axe(...args)
+function axes(...args){
+	return new Axes(...args)
 }
 
 /*
@@ -1806,7 +1809,7 @@ function CrochetD(A){
 			this.style += ` stroke-dasharray="4 3" `
 		}
 		code = `<polyline points="${calcul(A.xSVG()+.2*this.coeff)},${calcul(.4*this.coeff)} ${A.xSVG()},${calcul(.4*this.coeff)} ${A.xSVG()},${calcul(-.4*this.coeff)} ${calcul(A.xSVG()+.2*this.coeff)},${calcul(-.4*this.coeff)}" fill="none" stroke="${this.color}" ${this.style} />`
-		code += `\n\t<text x="${A.xSVG()}" y="${1*this.coeff}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${A.nom}</text>\n `; 
+		code += `\n\t<text x="${A.xSVG()}" y="${1*this.coeff}" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${A.nom}</text>\n `; 
 		return code
 	}
 	this.tikz = function() {
@@ -1831,7 +1834,7 @@ function CrochetG(A){
 			this.style += ` stroke-dasharray="4 3" `
 		}
 		code = `<polyline points="${calcul(A.xSVG()-.2*this.coeff)},${calcul(.4*this.coeff)} ${A.xSVG()},${calcul(.4*this.coeff)} ${A.xSVG()},${calcul(-.4*this.coeff)} ${calcul(A.xSVG()-.2*this.coeff)},${calcul(-.4*this.coeff)}" fill="none" stroke="${this.color}" ${this.style} />`
-		code += `\n\t<text x="${A.xSVG()}" y="${1*this.coeff}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${A.nom}</text>\n `; 
+		code += `\n\t<text x="${A.xSVG()}" y="${1*this.coeff}" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${A.nom}</text>\n `; 
 		return code
 	}
 	this.tikz = function() {
@@ -1844,10 +1847,12 @@ function crochetG(...args){
 	return new CrochetG(...args)
 }
 
-function intervalle(A,B){
-	let s = segment(A,B)
-	s.epaisseur = 2
-	s.color = 'blue'
+function intervalle(A,B,color = 'blue', h=0){
+	let A1 = point(A.x,A.y+h)
+	let B1 = point(B.x,B.y+h)
+	let s = segment(A1,B1)
+	s.epaisseur = 3
+	s.color = color
 	return s
 }
 
@@ -1872,17 +1877,17 @@ function TexteParPoint(texte,A,orientation = "milieu",color) {
 	this.svg = function(){
 		let code =''
 		if (Number.isInteger(orientation)) {
-			code = `<text x="${A.xSVG()}" y="${A.ySVG()}" text-anchor="middle" alignment-baseline="central" fill="${this.color}" transform="rotate(${orientation} ${A.xSVG()} ${A.ySVG()})">${texte}</text>\n `; 
+			code = `<text x="${A.xSVG()}" y="${A.ySVG()}" text-anchor="middle" dominant-baseline="central" fill="${this.color}" transform="rotate(${orientation} ${A.xSVG()} ${A.ySVG()})">${texte}</text>\n `; 
 		} else {
 			switch (orientation){
 				case 'milieu':
-				code = `<text x="${A.xSVG()}" y="${A.ySVG()}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${texte}</text>\n `; 
+				code = `<text x="${A.xSVG()}" y="${A.ySVG()}" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${texte}</text>\n `; 
 				break;
 				case 'gauche':
-				code = `<text x="${A.xSVG()}" y="${A.ySVG()}" text-anchor="end" alignment-baseline="central" fill="${this.color}">${texte}</text>\n `; 
+				code = `<text x="${A.xSVG()}" y="${A.ySVG()}" text-anchor="end" dominant-baseline="central" fill="${this.color}">${texte}</text>\n `; 
 				break;
 				case 'droite':
-				code = `<text x="${A.xSVG()}" y="${A.ySVG()}" text-anchor="start" alignment-baseline="central" fill="${this.color}">${texte}</text>\n `; 
+				code = `<text x="${A.xSVG()}" y="${A.ySVG()}" text-anchor="start" dominant-baseline="central" fill="${this.color}">${texte}</text>\n `; 
 				break;
 			}
 		}
@@ -1994,6 +1999,20 @@ function angleradian(A,O,B){
 	let AB = longueur(A,B);
 	let cos = calcul((AB**2-OA**2-OB**2)/(-2*OA*OB),.1)
 	return calcul(Math.acos((AB**2-OA**2-OB**2)/(-2*OA*OB)),2)
+}
+
+
+/**
+* couleurAleatoire() renvoie le code d'une couleur au hasard
+*
+* @Auteur Rémi Angot
+*/
+function couleurAleatoire() {
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += choice([0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F']);
+  }
+  return color;
 }
 
 /*

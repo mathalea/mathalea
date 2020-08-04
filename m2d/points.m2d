@@ -1,0 +1,12 @@
+A = point(3,2) // on place un point, il n'est pas tracé mais peut servir pour les constructions
+B = point(6,3,'B')
+C = point(10,6,'C','right') // le 3e paramètre est le nom du point et le 4e est le positionnement du nom vis-à-vis du point, on peut aussi combiner above ou below avec left ou right
+D = point(1,7,'D','below right')
+tracePoint(A,B,C,D) // Repère les points avec une croix
+labelPoint(A,B,C,D) // Ajoute le nom des points sauf pour la variable A à laquelle on n'a pas donné de nom au point
+// B est noté par défaut au dessus du point (option : above)
+axes() // Pour tracer les axes des abscisses et des ordonnées
+// On pourrait utiliser les commandes suivantes
+// A.nom = 'A'
+// A.positionLabel = 'below'
+
