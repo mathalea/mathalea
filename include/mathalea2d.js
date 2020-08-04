@@ -1847,10 +1847,12 @@ function crochetG(...args){
 	return new CrochetG(...args)
 }
 
-function intervalle(A,B){
-	let s = segment(A,B)
-	s.epaisseur = 2
-	s.color = 'blue'
+function intervalle(A,B,color = 'blue', h=0){
+	let A1 = point(A.x,A.y+h)
+	let B1 = point(B.x,B.y+h)
+	let s = segment(A1,B1)
+	s.epaisseur = 3
+	s.color = color
 	return s
 }
 
