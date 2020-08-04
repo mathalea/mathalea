@@ -455,10 +455,13 @@ function CodageMediatrice(A,B,color='black',mark='X'){
 	this.color = color
 	let O = milieu(A,B)
     let M = rotation(A,O,90)
-	let c = codageAngleDroit(M,O,B,this.color).svg()
-	let v = mark = codeSegments(mark,this.color,A,O, O,B).svg()
+	let c = codageAngleDroit(M,O,B,this.color)
+	let v = mark = codeSegments(mark,this.color,A,O, O,B)
 	this.svg = function(){
-		return c + '\n' + v
+		return c.svg() + '\n' + v.svg()
+	}
+	this.tikz = function(){
+		return c.tikz() + '\n' + v.tikz()
 	}
 }
 
@@ -856,7 +859,6 @@ function carreIndirect(A,B,color){
 }
 
 function CodageCarre(c,color = 'black',mark='X'){
-	ObjetMathalea2D.call(this)
 	let objets = []
 	objets.push(codeSegments(mark,color,c.listePoints))
 	objets.push(codageAngleDroit(c.listePoints[0],c.listePoints[1],c.listePoints[2],color))
@@ -864,10 +866,10 @@ function CodageCarre(c,color = 'black',mark='X'){
 	objets.push(codageAngleDroit(c.listePoints[2],c.listePoints[3],c.listePoints[0],color))
 	objets.push(codageAngleDroit(c.listePoints[3],c.listePoints[0],c.listePoints[1],color))
 	this.svg = function(){
-		return codeSvg(objets)
+		return objets[0].svg()+objets[1].svg()+objets[2].svg()+objets[3].svg()+objets[4].svg()
 	}
 	this.tikz = function(){
-		return codeTikz(objets)
+		return objets[0].tikz()+objets[1].tikz()+objets[2].tikz()+objets[3].tikz()+objets[4].tikz()
 	}
 }
 
