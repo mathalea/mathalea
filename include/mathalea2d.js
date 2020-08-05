@@ -186,28 +186,28 @@ function LabelPoint(...points) {
 		for (let point of this.listePoints){
 			switch (point.positionLabel){
 				case 'left':
-				code += `\t<text x="${calcul(point.xSVG()-15)}" y="${point.ySVG()}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${calcul(point.xSVG()-15)}" y="${point.ySVG()}" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'right':
-				code += `\t<text x="${calcul(point.xSVG()+15)}" y="${point.ySVG()}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${calcul(point.xSVG()+15)}" y="${point.ySVG()}" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'below':
-				code += `\t<text x="${point.xSVG()}" y="${calcul(point.ySVG()+15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${point.xSVG()}" y="${calcul(point.ySVG()+15)}" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'above':
-				code += `\t<text x="${point.xSVG()}" y="${calcul(point.ySVG()-15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${point.xSVG()}" y="${calcul(point.ySVG()-15)}" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'above right':
-				code += `\t<text x="${calcul(point.xSVG()+15)}" y="${calcul(point.ySVG()-15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${calcul(point.xSVG()+15)}" y="${calcul(point.ySVG()-15)}" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'below left':
-				code += `\t<text x="${calcul(point.xSVG()-15)}" y="${calcul(point.ySVG()+15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${calcul(point.xSVG()-15)}" y="${calcul(point.ySVG()+15)}" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				case 'below right':
-				code += `\t<text x="${calcul(point.xSVG()+15)}" y="${calcul(point.ySVG()+15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${calcul(point.xSVG()+15)}" y="${calcul(point.ySVG()+15)}" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 				default :
-				code += `\t<text x="${calcul(point.xSVG()-15)}" y="${calcul(point.ySVG()-15)}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
+				code += `\t<text x="${calcul(point.xSVG()-15)}" y="${calcul(point.ySVG()-15)}" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${point.nom}</text>\n `; 
 				break;
 			}
 		}
@@ -239,7 +239,7 @@ function labelPoint(...args){
 /**
 * d = droite(A,B) // La droite passant par A et B
 * d = droite(A,B,'(d)') // La droite passant par A et B se nommant (d)
-* d = droite(a,b,c,'(d)') // La droite définie par les icients de ax +by + c=0 (équation de la droite (a,b)!=(0,0))
+* d = droite(a,b,c,'(d)') // La droite définie par les coefficients de ax +by + c=0 (équation de la droite (a,b)!=(0,0))
 * d = droite(A,B,'(d)','blue') //La droite passant par A et B se nommant (d) et de couleur bleue
 * 
 * @Auteur Jean-Claude Lhote
@@ -347,8 +347,8 @@ function Droite(arg1,arg2,arg3,arg4,color) {
 		}
 		let A = point(this.x1,this.y1);
 		let B = point(this.x2,this.y2);
-		let A1 = pointSurSegment(A,B,-10);
-		let B1 = pointSurSegment(B,A,-10);
+		let A1 = pointSurSegment(A,B,-50);
+		let B1 = pointSurSegment(B,A,-50);
 		return `<line x1="${A1.xSVG()}" y1="${A1.ySVG()}" x2="${B1.xSVG()}" y2="${B1.ySVG()}" stroke="${this.color}" ${this.style} />`
 	}
 	this.tikz = function() {
@@ -446,19 +446,22 @@ function mediatrice(A,B,nom='',color='black'){
 }
 
 /**
- * m = codageMediatrice(A,B,'blue') // Ajoute le codage du milieu et de l'angle droit pour la médiatrice de [AB] en bleu
+ * m = codageMediatrice(A,B,'blue','X') // Ajoute le codage du milieu et de l'angle droit pour la médiatrice de [AB] en bleu
  * 
  * @Auteur Rémi Angot
  */
-function CodageMediatrice(A,B,color='black'){
+function CodageMediatrice(A,B,color='black',mark='X'){
 	ObjetMathalea2D.call(this)
 	this.color = color
 	let O = milieu(A,B)
     let M = rotation(A,O,90)
-	let c = codageAngleDroit(M,O,B,this.color).svg()
-	let v = mark = codeSegments('X',this.color,A,O, O,B).svg()
+	let c = codageAngleDroit(M,O,B,this.color)
+	let v = codeSegments(mark,this.color,A,O, O,B)
 	this.svg = function(){
-		return c + '\n' + v
+		return c.svg() + '\n' + v.svg()
+	}
+	this.tikz = function(){
+		return c.tikz() + '\n' + v.tikz()
 	}
 }
 
@@ -856,7 +859,6 @@ function carreIndirect(A,B,color){
 }
 
 function CodageCarre(c,color = 'black',mark='X'){
-	ObjetMathalea2D.call(this)
 	let objets = []
 	objets.push(codeSegments(mark,color,c.listePoints))
 	objets.push(codageAngleDroit(c.listePoints[0],c.listePoints[1],c.listePoints[2],color))
@@ -864,10 +866,10 @@ function CodageCarre(c,color = 'black',mark='X'){
 	objets.push(codageAngleDroit(c.listePoints[2],c.listePoints[3],c.listePoints[0],color))
 	objets.push(codageAngleDroit(c.listePoints[3],c.listePoints[0],c.listePoints[1],color))
 	this.svg = function(){
-		return codeSvg(objets)
+		return objets[0].svg()+objets[1].svg()+objets[2].svg()+objets[3].svg()+objets[4].svg()
 	}
 	this.tikz = function(){
-		return codeTikz(objets)
+		return objets[0].tikz()+objets[1].tikz()+objets[2].tikz()+objets[3].tikz()+objets[4].tikz()
 	}
 }
 
@@ -888,6 +890,50 @@ function polygoneRegulierParCentreEtRayon(O,r,n,color='black'){
 	}
 	return polygone(p,color)
  }
+
+/**
+* t = triangle2points2longueurs(A,B,4,7) // Trace le triangle ABC tel que AC = 4 cm et BC = 7 cm (par défaut C a l'ordonnée la plus grande possible)
+* C = t.listePoints[2] // Récupère le 3e sommet dans la variable C
+* t = triangle2points2longueurs(A,B,4,7,2) // Trace le triangle ABC tel que AC = 4 cm et BC = 7 cm (C aura l'ordonnée la plus petite possible)
+* @Auteur Rémi Angot
+*/
+function triangle2points2longueurs(A,B,l1,l2,n=1){
+	let c1 = cercle(A,l1)
+	let c2 = cercle(B,l2)
+	let C
+	if (n==1) {
+		C = pointIntersectionCC(c1,c2)
+	} else {
+		C = pointIntersectionCC(c1,c2,'',2)
+	}
+	c1.isVisible = false
+	c2.isVisible = false
+	return polygone(A,B,C)
+}
+
+/**
+* t = triangle2points2angles(A,B,40,60) // Trace le triangle ABC tel que CAB = +40° et CBA = -60°
+* C = t.listePoints[2] // Récupère le 3e sommet dans la variable C
+* t = triangle2points2angles(A,B,40,60,2) // Trace le triangle ABC tel que CAB = -40° et CBA = 60°
+* @Auteur Rémi Angot
+*/
+function triangle2points2angles(A,B,a1,a2,n=1){
+	if (n==1) {
+		a2 *=-1
+	} else {
+		a1 *=-1
+	}
+	let a = pointSurSegment(A,B,1)
+	let c1 = rotation(a,A,a1)
+	let b = pointSurSegment(B,A,1)
+	let c2 = rotation(b,B,a2)
+	let dAc1 = droite(A,c1)
+	let dBc2 = droite(B,c2)
+	dAc1.isVisible = false
+	dBc2.isVisible = false
+	let C = pointIntersectionDD(dAc1,dBc2,'C')
+	return polygone(A,B,C)
+}
 
 /**
 * nommePolygone(p1,'ABCDEF') // Nomme tous les sommets de p1 (dans l'ordre de création des points)
@@ -934,7 +980,8 @@ function Cercle(O,r,color){
 		this.color = color;
 		this.styleTikz = `[${color}]`
 	}
-	
+	this.centre = O
+	this.rayon = r
 	this.svg = function(){
 		if (this.epaisseur!=1) {
 			this.style += ` stroke-width="${this.epaisseur}" `
@@ -964,6 +1011,58 @@ function Cercle(O,r,color){
 }
 function cercle(...args){ 
 	return new Cercle(...args)
+}
+
+/**
+* M = pointIntersectionCC(c1,c2,'M') // M est le point d'intersection le plus haut des cercles c1 et c2
+* M = pointIntersectionCC(c1,c2,'M',2) // M est le point d'intersection le plus bas des cercles c1 et c2
+* La fonction ne renvoie rien si les cercles n'ont pas de points d'intersection
+* @Auteur Rémi Angot
+* @Source https://stackoverflow.com/questions/12219802/a-javascript-function-that-returns-the-x-y-points-of-intersection-between-two-ci
+*/
+function pointIntersectionCC(c1,c2,nom='',n=1){
+	let O1 = c1.centre
+	let O2 = c2.centre
+	let r0 = c1.rayon
+	let r1 = c2.rayon
+	let x0 = O1.x
+	let x1 = O2.x
+	let y0 = O1.y
+	let y1 = O2.y
+	let a, dx, dy, d, h, rx, ry;
+	let x2, y2;
+	dx = x1 - x0;
+	dy = y1 - y0;
+	d = Math.sqrt((dy*dy) + (dx*dx));
+	if (d > (r0 + r1)) {
+		return false;
+	}
+	if (d < Math.abs(r0 - r1)) {
+		return false;
+	}
+	a = ((r0*r0) - (r1*r1) + (d*d)) / (2.0 * d) ;
+	x2 = x0 + (dx * a/d);
+	y2 = y0 + (dy * a/d);
+	h = Math.sqrt((r0*r0) - (a*a));
+	rx = -dy * (h/d);
+	ry = dx * (h/d);
+	let xi = x2 + rx;
+	let xi_prime = x2 - rx;
+	let yi = y2 + ry;
+	let yi_prime = y2 - ry;
+	if (n==1) {
+		if (yi_prime>yi) {
+			return point(xi_prime,yi_prime,nom)
+		} else {
+			return point(xi,yi,nom)
+		}
+	} else {
+		if (yi_prime>yi) {
+			return point(xi,yi,nom)
+		} else {
+			return point(xi_prime,yi_prime,nom)
+		}
+	}
 }
 
 /**
@@ -1013,6 +1112,9 @@ function Arc(M,Omega,angle,rayon=false,fill='none',color='black') {
 		}
 	else 	this.svg = function(){
 		return `<path d="M${M.xSVG()} ${M.ySVG()} A ${l*this.coeff} ${l*this.coeff} 0 ${large} ${sweep} ${N.xSVG()} ${N.ySVG()}" stroke="${this.color}" fill="${fill}"/>`
+	}
+	this.tikz = function(){
+		return `\\draw (${M.x},${M.y}) arc (0:${angle}:${longueur(Omega,M)}) ;`
 	}
 }
 function arc(...args) {
@@ -1420,8 +1522,8 @@ function translationAnimee(...args){
 }
 
 /**
-* rotationAnimee(s,O,a,v) //Animation de la rotation de centre O et d'angle a pour s
-* rotationAnimee([a,b,c],O,a,v) //Animation de la rotation de centre O et d'angle a pour les objets a, b et v
+* rotationAnimee(s,O,a) //Animation de la rotation de centre O et d'angle a pour s
+* rotationAnimee([a,b,c],O,a) //Animation de la rotation de centre O et d'angle a pour les objets a, b et c
 * 
 * @Auteur Rémi Angot
 */
@@ -1576,10 +1678,73 @@ function centreGraviteTriangle(A,B,C,nom=''){
  */
 function hauteurTriangle(A,B,C,color='black'){
 	let d = droite(B,C)
-	d.isVisible = false
+	d.isVisible=false
 	let p = projectionOrtho(A,d)
-	let q = rotation(B,p,90)
-	return droite(p,q,'',color)
+	return droite(p,A,'',color)
+}
+function CodageHauteurTriangle(A,B,C,color='black'){
+	ObjetMathalea2D.call(this)
+	this.color = color
+	let d = droite(B,C)
+	let p = projectionOrtho(A,d)
+	let q = rotation(A,p,-90)
+	if (B.x<C.x) {
+		if (p.x>C.x || p.x<B.x) {
+			d.isVisible=true
+			d.pointilles=true
+		}
+		else d.isVisible = false
+	}	
+	else if (C.x<B.x) {
+		if (p.x<C.x || p.x>B.x) {
+		d.isVisible=true
+		d.pointilles=true
+		}
+		else d.isVisible=false
+	}
+	else if (B.y<C.y) {
+		if (p.y>C.y || p.y<B.y) {
+			d.isVisible=true
+			d.pointilles=true
+		}
+		else d.isVisible=false
+	}
+	else if (C.y<B.y) {
+		if (p.y<C.y || p.y>B.y) {
+			d.isVisible=true
+			d.pointilles=true
+		}
+		else d.isVisible=false
+	}
+	let c = codageAngleDroit(A,p,q,this.color)
+	this.svg = function(){
+		if (d.isVisible) {
+			return c.svg() + '\n\t' + d.svg()
+		} else {
+			return c.svg()
+		}
+	}
+	this.tikz = function(){
+		return c.tikz() + '\n\t' + d.tikz()
+	}
+}
+function codageHauteurTriangle(...args) {
+	return new CodageHauteurTriangle(...args)
+}
+function CodageMedianeTriangle(A,B,C,color='black',mark='//'){
+	ObjetMathalea2D.call(this)
+	this.color = color
+	let O = milieu(B,C)
+	let c = codeSegments(mark,this.color,B,O,O,C)
+	this.svg = function(){
+		return c.svg()
+	}
+	this.tikz = function(){
+		return c.tikz()
+	}
+}
+function codageMedianeTriangle(...args) {
+	return new CodageMedianeTriangle(...args)
 }
 
 /**
@@ -1649,11 +1814,11 @@ function codageAngleDroit(A,O,B,color='black',d = .3)  {
 
 
 /**
-* coteSegment(A,B) // Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
+* afficheLongueurSegment(A,B) // Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
 * 
 * @Auteur Rémi Angot
 */
-function CoteSegment(A,B,color='black',d = .5)  {
+function AfficheLongueurSegment(A,B,color='black',d = .5)  {
 	ObjetMathalea2D.call(this);
 	this.color = color;
 	let O = milieu(A,B)
@@ -1671,8 +1836,8 @@ function CoteSegment(A,B,color='black',d = .5)  {
 	return texteParPoint(longueur,N,angle,this.color)
 	
 }
-function coteSegment(...args){
-	return new CoteSegment(...args)
+function afficheLongueurSegment(...args){
+	return new AfficheLongueurSegment(...args)
 }
 
 /**
@@ -1806,7 +1971,7 @@ function CrochetD(A){
 			this.style += ` stroke-dasharray="4 3" `
 		}
 		code = `<polyline points="${calcul(A.xSVG()+.2*this.coeff)},${calcul(.4*this.coeff)} ${A.xSVG()},${calcul(.4*this.coeff)} ${A.xSVG()},${calcul(-.4*this.coeff)} ${calcul(A.xSVG()+.2*this.coeff)},${calcul(-.4*this.coeff)}" fill="none" stroke="${this.color}" ${this.style} />`
-		code += `\n\t<text x="${A.xSVG()}" y="${1*this.coeff}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${A.nom}</text>\n `; 
+		code += `\n\t<text x="${A.xSVG()}" y="${1*this.coeff}" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${A.nom}</text>\n `; 
 		return code
 	}
 	this.tikz = function() {
@@ -1831,7 +1996,7 @@ function CrochetG(A){
 			this.style += ` stroke-dasharray="4 3" `
 		}
 		code = `<polyline points="${calcul(A.xSVG()-.2*this.coeff)},${calcul(.4*this.coeff)} ${A.xSVG()},${calcul(.4*this.coeff)} ${A.xSVG()},${calcul(-.4*this.coeff)} ${calcul(A.xSVG()-.2*this.coeff)},${calcul(-.4*this.coeff)}" fill="none" stroke="${this.color}" ${this.style} />`
-		code += `\n\t<text x="${A.xSVG()}" y="${1*this.coeff}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${A.nom}</text>\n `; 
+		code += `\n\t<text x="${A.xSVG()}" y="${1*this.coeff}" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${A.nom}</text>\n `; 
 		return code
 	}
 	this.tikz = function() {
@@ -1844,10 +2009,12 @@ function crochetG(...args){
 	return new CrochetG(...args)
 }
 
-function intervalle(A,B){
-	let s = segment(A,B)
-	s.epaisseur = 2
-	s.color = 'blue'
+function intervalle(A,B,color = 'blue', h=0){
+	let A1 = point(A.x,A.y+h)
+	let B1 = point(B.x,B.y+h)
+	let s = segment(A1,B1)
+	s.epaisseur = 3
+	s.color = color
 	return s
 }
 
@@ -1872,17 +2039,17 @@ function TexteParPoint(texte,A,orientation = "milieu",color) {
 	this.svg = function(){
 		let code =''
 		if (Number.isInteger(orientation)) {
-			code = `<text x="${A.xSVG()}" y="${A.ySVG()}" text-anchor="middle" alignment-baseline="central" fill="${this.color}" transform="rotate(${orientation} ${A.xSVG()} ${A.ySVG()})">${texte}</text>\n `; 
+			code = `<text x="${A.xSVG()}" y="${A.ySVG()}" text-anchor="middle" dominant-baseline="central" fill="${this.color}" transform="rotate(${orientation} ${A.xSVG()} ${A.ySVG()})">${texte}</text>\n `; 
 		} else {
 			switch (orientation){
 				case 'milieu':
-				code = `<text x="${A.xSVG()}" y="${A.ySVG()}" text-anchor="middle" alignment-baseline="central" fill="${this.color}">${texte}</text>\n `; 
+				code = `<text x="${A.xSVG()}" y="${A.ySVG()}" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${texte}</text>\n `; 
 				break;
 				case 'gauche':
-				code = `<text x="${A.xSVG()}" y="${A.ySVG()}" text-anchor="end" alignment-baseline="central" fill="${this.color}">${texte}</text>\n `; 
+				code = `<text x="${A.xSVG()}" y="${A.ySVG()}" text-anchor="end" dominant-baseline="central" fill="${this.color}">${texte}</text>\n `; 
 				break;
 				case 'droite':
-				code = `<text x="${A.xSVG()}" y="${A.ySVG()}" text-anchor="start" alignment-baseline="central" fill="${this.color}">${texte}</text>\n `; 
+				code = `<text x="${A.xSVG()}" y="${A.ySVG()}" text-anchor="start" dominant-baseline="central" fill="${this.color}">${texte}</text>\n `; 
 				break;
 			}
 		}
@@ -1994,6 +2161,20 @@ function angleradian(A,O,B){
 	let AB = longueur(A,B);
 	let cos = calcul((AB**2-OA**2-OB**2)/(-2*OA*OB),.1)
 	return calcul(Math.acos((AB**2-OA**2-OB**2)/(-2*OA*OB)),2)
+}
+
+
+/**
+* couleurAleatoire() renvoie le code d'une couleur au hasard
+*
+* @Auteur Rémi Angot
+*/
+function couleurAleatoire() {
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += choice([0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F']);
+  }
+  return color;
 }
 
 /*
