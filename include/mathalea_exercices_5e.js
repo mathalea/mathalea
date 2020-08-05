@@ -3865,7 +3865,6 @@ function Ecrire_une_expression_mathador(){
 			}
 			cpt++;	
 		}
-		console.log(this.liste_questions,this.liste_corrections)
 		liste_de_question_to_contenu(this);
 	}
 }
@@ -3947,7 +3946,6 @@ function Ecrire_une_expression_numerique(){
 			expn=resultats[1]
 			expc=resultats[2]
 			souscas=resultats[3]
-			console.log(i+1,nb_operations,souscas)
 			switch (this.version) {
 				case 1:
 					this.consigne=`Traduire la phrase par un calcul (il n’est pas demandé d’effectuer ce calcul).`
@@ -4672,3 +4670,39 @@ function Constructibilite_des_triangles_angles(){
 	//this.titre = `Constructibilité des triangles via les angles`;
 	Constructibilite_des_triangles.call(this);
 };
+
+function DroiteRemarquableDuTriangle(){
+	Exercice.call(this); // Héritage de la classe Exercice()
+
+	this.titre = "Déterminer la nature d'une droite remarquable"
+	this.consigne = 'Définir'
+	this.spacing = 2;
+	this.nb_questions=1
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		let triangles=[],sommets=[[]],A=[],B=[],C=[],t=[],d=[],n=[],c=[],objets=[]
+		for (let i = 0, a, b, texte, texte_corr, cpt=0; i < 3;i++) {// this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
+			triangles[i] = new Triangles();
+			sommets[i]=triangles[i].getSommets(false);
+			A[i] = point(randint(1,4),randint(1,4),sommets[i][0],'below left')
+			B[i] = point(randint(5,9),randint(1,4),sommets[i][1],'below right')
+			C[i] = point(randint(A[i].x,B[i].x),randint(6,8),sommets[i][2],'above')
+			t[i] = polygone(A[i],B[i],C[i])
+			d[i] = hauteurTriangle(A[i],B[i],C[i])
+			n[i] = labelPoint(A[i],B[i],C[i])
+			c[i] = codageHauteurTriangle(A[i],B[i],C[i],'red')
+			objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i]]
+			texte = `Quelle est la nature de la
+			 droite tracée pour le triangle ?<br>` + mathalea2d(0,0,10,10,...objets[i])
+			texte_corr = ``
+
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+			}
+		}
+		liste_de_question_to_contenu(this);
+	}
+}
