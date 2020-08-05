@@ -1621,10 +1621,14 @@ function CodageHauteurTriangle(A,B,C,color='black'){
 	}
 	let c = codageAngleDroit(A,p,q,this.color)
 	this.svg = function(){
-		return c.svg() + '\n' + d.svg()
+		if (d.isVisible) {
+			return c.svg() + '\n\t' + d.svg()
+		} else {
+			return c.svg()
+		}
 	}
 	this.tikz = function(){
-		return c.tikz() + '\n' + d.tikz()
+		return c.tikz() + '\n\t' + d.tikz()
 	}
 }
 function codageHauteurTriangle(...args) {
