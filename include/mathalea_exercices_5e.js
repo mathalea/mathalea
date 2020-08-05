@@ -4693,6 +4693,7 @@ function DroiteRemarquableDuTriangle(){
 			d[i] = hauteurTriangle(A[i],B[i],C[i])
 			n[i] = labelPoint(A[i],B[i],C[i])
 			c[i] = codageHauteurTriangle(A[i],B[i],C[i],'red')
+			console.log(c[i])
 			objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i]]
 			texte = `Quelle est la nature de la
 			 droite tracée pour le triangle ?<br>` + mathalea2d(0,0,10,10,...objets[i])

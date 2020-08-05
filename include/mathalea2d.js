@@ -1619,7 +1619,7 @@ function CodageHauteurTriangle(A,B,C,color='black'){
 		}
 		else d.isVisible=false
 	}
-	let c = codageAngleDroit(A,p,q,this.color).svg()
+	let c = codageAngleDroit(A,p,q,this.color)
 	this.svg = function(){
 		return c.svg() + '\n' + d.svg()
 	}
@@ -1628,7 +1628,7 @@ function CodageHauteurTriangle(A,B,C,color='black'){
 	}
 }
 function codageHauteurTriangle(...args) {
-	new CodageHauteurTriangle(...args)
+	return new CodageHauteurTriangle(...args)
 }
 function CodageMedianeTriangle(A,B,C,color='black',mark='//'){
 	ObjetMathalea2D.call(this)
@@ -1643,7 +1643,7 @@ function CodageMedianeTriangle(A,B,C,color='black',mark='//'){
 	}
 }
 function codageMedianeTriangle(...args) {
-	new CodageMedianeTriangle(...args)
+	return  CodageMedianeTriangle(...args)
 }
 
 /**
