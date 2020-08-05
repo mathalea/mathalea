@@ -891,7 +891,7 @@ function polygoneRegulierParCentreEtRayon(O,r,n,color='black'){
 	return polygone(p,color)
  }
 
- /**
+/**
 * t = triangle2points2longueurs(A,B,4,7) // Trace le triangle ABC tel que AC = 4 cm et BC = 7 cm (par défaut C a l'ordonnée la plus grande possible)
 * C = t.listePoints[2] // Récupère le 3e sommet dans la variable C
 * t = triangle2points2longueurs(A,B,4,7,2) // Trace le triangle ABC tel que AC = 4 cm et BC = 7 cm (C aura l'ordonnée la plus petite possible)
@@ -908,6 +908,30 @@ function triangle2points2longueurs(A,B,l1,l2,n=1){
 	}
 	c1.isVisible = false
 	c2.isVisible = false
+	return polygone(A,B,C)
+}
+
+/**
+* t = triangle2points2angles(A,B,40,60) // Trace le triangle ABC tel que CAB = +40° et CBA = -60°
+* C = t.listePoints[2] // Récupère le 3e sommet dans la variable C
+* t = triangle2points2angles(A,B,40,60,2) // Trace le triangle ABC tel que CAB = -40° et CBA = 60°
+* @Auteur Rémi Angot
+*/
+function triangle2points2angles(A,B,a1,a2,n=1){
+	if (n==1) {
+		a2 *=-1
+	} else {
+		a1 *=-1
+	}
+	let a = pointSurSegment(A,B,1)
+	let c1 = rotation(a,A,a1)
+	let b = pointSurSegment(B,A,1)
+	let c2 = rotation(b,B,a2)
+	let dAc1 = droite(A,c1)
+	let dBc2 = droite(B,c2)
+	dAc1.isVisible = false
+	dBc2.isVisible = false
+	let C = pointIntersectionDD(dAc1,dBc2,'C')
 	return polygone(A,B,C)
 }
 
