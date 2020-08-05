@@ -456,7 +456,7 @@ function CodageMediatrice(A,B,color='black',mark='X'){
 	let O = milieu(A,B)
     let M = rotation(A,O,90)
 	let c = codageAngleDroit(M,O,B,this.color)
-	let v = mark = codeSegments(mark,this.color,A,O, O,B)
+	let v = codeSegments(mark,this.color,A,O, O,B)
 	this.svg = function(){
 		return c.svg() + '\n' + v.svg()
 	}
@@ -892,6 +892,50 @@ function polygoneRegulierParCentreEtRayon(O,r,n,color='black'){
  }
 
 /**
+* t = triangle2points2longueurs(A,B,4,7) // Trace le triangle ABC tel que AC = 4 cm et BC = 7 cm (par défaut C a l'ordonnée la plus grande possible)
+* C = t.listePoints[2] // Récupère le 3e sommet dans la variable C
+* t = triangle2points2longueurs(A,B,4,7,2) // Trace le triangle ABC tel que AC = 4 cm et BC = 7 cm (C aura l'ordonnée la plus petite possible)
+* @Auteur Rémi Angot
+*/
+function triangle2points2longueurs(A,B,l1,l2,n=1){
+	let c1 = cercle(A,l1)
+	let c2 = cercle(B,l2)
+	let C
+	if (n==1) {
+		C = pointIntersectionCC(c1,c2)
+	} else {
+		C = pointIntersectionCC(c1,c2,'',2)
+	}
+	c1.isVisible = false
+	c2.isVisible = false
+	return polygone(A,B,C)
+}
+
+/**
+* t = triangle2points2angles(A,B,40,60) // Trace le triangle ABC tel que CAB = +40° et CBA = -60°
+* C = t.listePoints[2] // Récupère le 3e sommet dans la variable C
+* t = triangle2points2angles(A,B,40,60,2) // Trace le triangle ABC tel que CAB = -40° et CBA = 60°
+* @Auteur Rémi Angot
+*/
+function triangle2points2angles(A,B,a1,a2,n=1){
+	if (n==1) {
+		a2 *=-1
+	} else {
+		a1 *=-1
+	}
+	let a = pointSurSegment(A,B,1)
+	let c1 = rotation(a,A,a1)
+	let b = pointSurSegment(B,A,1)
+	let c2 = rotation(b,B,a2)
+	let dAc1 = droite(A,c1)
+	let dBc2 = droite(B,c2)
+	dAc1.isVisible = false
+	dBc2.isVisible = false
+	let C = pointIntersectionDD(dAc1,dBc2,'C')
+	return polygone(A,B,C)
+}
+
+/**
 * nommePolygone(p1,'ABCDEF') // Nomme tous les sommets de p1 (dans l'ordre de création des points)
 * @Auteur Rémi Angot
 */
@@ -936,7 +980,8 @@ function Cercle(O,r,color){
 		this.color = color;
 		this.styleTikz = `[${color}]`
 	}
-	
+	this.centre = O
+	this.rayon = r
 	this.svg = function(){
 		if (this.epaisseur!=1) {
 			this.style += ` stroke-width="${this.epaisseur}" `
@@ -966,6 +1011,58 @@ function Cercle(O,r,color){
 }
 function cercle(...args){ 
 	return new Cercle(...args)
+}
+
+/**
+* M = pointIntersectionCC(c1,c2,'M') // M est le point d'intersection le plus haut des cercles c1 et c2
+* M = pointIntersectionCC(c1,c2,'M',2) // M est le point d'intersection le plus bas des cercles c1 et c2
+* La fonction ne renvoie rien si les cercles n'ont pas de points d'intersection
+* @Auteur Rémi Angot
+* @Source https://stackoverflow.com/questions/12219802/a-javascript-function-that-returns-the-x-y-points-of-intersection-between-two-ci
+*/
+function pointIntersectionCC(c1,c2,nom='',n=1){
+	let O1 = c1.centre
+	let O2 = c2.centre
+	let r0 = c1.rayon
+	let r1 = c2.rayon
+	let x0 = O1.x
+	let x1 = O2.x
+	let y0 = O1.y
+	let y1 = O2.y
+	let a, dx, dy, d, h, rx, ry;
+	let x2, y2;
+	dx = x1 - x0;
+	dy = y1 - y0;
+	d = Math.sqrt((dy*dy) + (dx*dx));
+	if (d > (r0 + r1)) {
+		return false;
+	}
+	if (d < Math.abs(r0 - r1)) {
+		return false;
+	}
+	a = ((r0*r0) - (r1*r1) + (d*d)) / (2.0 * d) ;
+	x2 = x0 + (dx * a/d);
+	y2 = y0 + (dy * a/d);
+	h = Math.sqrt((r0*r0) - (a*a));
+	rx = -dy * (h/d);
+	ry = dx * (h/d);
+	let xi = x2 + rx;
+	let xi_prime = x2 - rx;
+	let yi = y2 + ry;
+	let yi_prime = y2 - ry;
+	if (n==1) {
+		if (yi_prime>yi) {
+			return point(xi_prime,yi_prime,nom)
+		} else {
+			return point(xi,yi,nom)
+		}
+	} else {
+		if (yi_prime>yi) {
+			return point(xi,yi,nom)
+		} else {
+			return point(xi_prime,yi_prime,nom)
+		}
+	}
 }
 
 /**
@@ -1621,10 +1718,14 @@ function CodageHauteurTriangle(A,B,C,color='black'){
 	}
 	let c = codageAngleDroit(A,p,q,this.color)
 	this.svg = function(){
-		return c.svg() + '\n' + d.svg()
+		if (d.isVisible) {
+			return c.svg() + '\n\t' + d.svg()
+		} else {
+			return c.svg()
+		}
 	}
 	this.tikz = function(){
-		return c.tikz() + '\n' + d.tikz()
+		return c.tikz() + '\n\t' + d.tikz()
 	}
 }
 function codageHauteurTriangle(...args) {
@@ -1643,7 +1744,7 @@ function CodageMedianeTriangle(A,B,C,color='black',mark='//'){
 	}
 }
 function codageMedianeTriangle(...args) {
-	return  CodageMedianeTriangle(...args)
+	return new CodageMedianeTriangle(...args)
 }
 
 /**
