@@ -1021,7 +1021,6 @@ function pointIntersectionLC(d,C,nom='',n=1){
 	let xO = O.x
 	let yO = O.y
 	let Delta,delta,xi,yi,xi_prime,yi_prime
-	console.log(a,b,c,r,xO,yO)
 	if (b==0) { // la droite est verticale
 		xi=calcul(-c/a)	
 		xi_prime=xi
@@ -1055,15 +1054,16 @@ function pointIntersectionLC(d,C,nom='',n=1){
 		console.log(Delta)
 		if (Delta<0) return false
 		else if (egal(Delta,0)) { //un seul point d'intersection
-			delta=Calcul(Math.sqrt(Delta))
-			xi=calcul((-(a*c/b+yO*a/b-xO)-delta)/(2*(1+(a/b)**2)))
+			delta=calcul(Math.sqrt(Delta))
+			xi=calcul((-2*(a*c/(b*b)+yO*a/b-xO)-delta)/(2*(1+(a/b)**2)))
 			xi_prime=xi
 			yi=calcul((-a*xi-c)/b)
 			yi_prime=yi
 		}
 		else  {//deux points d'intersection
-		xi=calcul((-(a*c/b+yO*a/b-xO)-delta)/(2*(1+(a/b)**2)))
-		xi_prime=calcul((-(a*c/b+yO*a/b-xO)+delta)/(2*(1+(a/b)**2)))
+		delta=calcul(Math.sqrt(Delta))
+		xi=calcul((-2*(a*c/(b*b)+yO*a/b-xO)-delta)/(2*(1+(a/b)**2)))
+		xi_prime=calcul((-2*(a*c/(b*b)+yO*a/b-xO)+delta)/(2*(1+(a/b)**2)))
 		yi=calcul((-a*xi-c)/b)
 		yi_prime=calcul((-a*xi_prime-c)/b)
 		}
