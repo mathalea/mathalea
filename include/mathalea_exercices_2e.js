@@ -1,8 +1,8 @@
 
 function Distance(){
 Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Résoudre une équation avec des valeurs absolues";
-    this.consigne = "Résoudre dans $\\mathbb{R}$ les équations suivantes  :"
+    this.titre = "Utiliser la mesure de la distance de deux points dans un repère orthonormé";
+   
     this.nb_questions = 4;
     this.nb_cols = 2;
     this.nb_cols_corr = 2;
@@ -13,7 +13,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
     this.liste_corrections = []; // Liste de questions corrigées
     let type_de_questions_disponibles = [1];
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) ;
-    for (let i = 0, a,b,c,d,e, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+    for (let i = 0, a,b,c,d,e,xA,yA,xB,yB,AB,XAB,YAB, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
             type_de_questions = liste_type_de_questions[i];
     switch (type_de_questions){
                         // Cas par cas, on définit le type de nombres que l'on souhaite
@@ -22,23 +22,25 @@ Exercice.call(this); // Héritage de la classe Exercice()
                 case 1 : 
         
               
-                   xA=2
-                   yA=3
-                   xB=4
-                   yB=5
+                   xA=randint(0,9)*choice([-1,1])
+                   yA=randint(0,9)*choice([-1,1])
+                   xB=randint(0,9)*choice([-1,1])
+                   yB=randint(0,9)*choice([-1,1])
                    A = point(xA,yA,'A','red');
                    B = point(xB,yB,'B','red');
-                   
-                    
-                    texte = `$A\\left(${xA};${yA}\\right)$ et $B\\left(${xB};${yB}\\right)$  `;
-                   
-                    {texte_corr = ` `;}
-                    texte_corr += mathalea2d(
+                   XAB=(xB-xA)*(xB-xA)
+                
+                    texte =`Dans un repère orthonormé (O,I,J), on donne les points suivants :`
+                    texte +=` $A\\left(${xA};${yA}\\right)$ et $B\\left(${xB};${yB}\\right)$`
+                    texte += `<br>Calculer la distance $AB$ en justifiant le calcul :`;
+                                   
+                    texte_corr = mathalea2d(
                         -9,-9,9,9, 
                         tracePoint(A,B),
-                        
-                        grille(-9,-9,9,9,'black',0.6),
-                        )
+                        labelPoint(A,B),
+                        grille(-6,-6,6,6),
+                        );
+                     texte_corr += `${XAB}`
 
                         
                     break ;
