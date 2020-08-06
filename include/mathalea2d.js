@@ -1959,10 +1959,10 @@ function axes(...args){
 */
 
 
-function CrochetD(A){
+function CrochetD(A,color = 'blue'){
 	ObjetMathalea2D.call(this)
 	this.epaisseur = 2
-	this.color = 'blue'
+	this.color = color
 	this.svg = function(){
 		if (this.epaisseur!=1) {
 			this.style += ` stroke-width="${this.epaisseur}" `
@@ -1975,8 +1975,8 @@ function CrochetD(A){
 		return code
 	}
 	this.tikz = function() {
-		code = `\\draw[very thick] (${calcul(A.x+.15)},.2)--(${A.x},.2)--(${A.x},-.2)--(${calcul(A.x+.15)},-.2);`
-		code += `\n\t\\draw (${A.x},-.2) node[below] {$${A.nom}$};`;
+		code = `\\draw[very thick,${this.color}] (${calcul(A.x+.15)},.2)--(${A.x},.2)--(${A.x},-.2)--(${calcul(A.x+.15)},-.2);`
+		code += `\n\t\\draw[${this.color}] (${A.x},-.2) node[below] {$${A.nom}$};`;
 		return code
 	}
 }
@@ -1984,10 +1984,10 @@ function crochetD(...args){
 	return new CrochetD(...args)
 }
 
-function CrochetG(A){
+function CrochetG(A,color = 'blue'){
 	ObjetMathalea2D.call(this)
 	this.epaisseur = 2
-	this.color = 'blue'
+	this.color = color
 	this.svg = function(){
 		if (this.epaisseur!=1) {
 			this.style += ` stroke-width="${this.epaisseur}" `
@@ -2000,8 +2000,8 @@ function CrochetG(A){
 		return code
 	}
 	this.tikz = function() {
-		code = `\\draw[very thick] (${calcul(A.x-.15)},.2)--(${A.x},.2)--(${A.x},-.2)--(${calcul(A.x-.15)},-.2);`
-		code += `\n\t\\draw (${A.x},-.2) node[below] {$${A.nom}$};`;
+		code = `\\draw[very thick,${this.color}] (${calcul(A.x-.15)},.2)--(${A.x},.2)--(${A.x},-.2)--(${calcul(A.x-.15)},-.2);`
+		code += `\n\t\\draw[${this.color}] (${A.x},-.2) node[below] {$${A.nom}$};`;
 		return code
 	}
 }
