@@ -13,7 +13,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
     {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles = [1,2,3];
+    let type_de_questions_disponibles = [3];
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) ;
     for (let i = 0, a,b,c,d,s, e,f,A,B,c1,c2,c3,c4, X1,X2,int,int1,int2, axe, texte, texte_corr, cpt=0; 
         i < this.nb_questions && cpt<50; ) 
@@ -35,7 +35,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     s.styleExtremites = '->';
                     X1 = point(0,0);
                     X2 = point(12,0);
-                    A = point(2,0,a);
+                    A = point(2,0,a,'red');
                     B = point(5,0,b);
                     C = point(6,0,c);
                     D = point(9,0,d);
@@ -43,17 +43,15 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c2 = crochetG(B);
                     c3 = crochetD(C);
                     c4 = crochetG(D);
-                    int = intervalle(X1,X2,'red',0);
-                    int1 = intervalle(A,B,'red',-.1);
-                    int2 = intervalle(C,D,'blue',.1);
+                    int = intervalle(X1,X2,'black',0);
+                    int1 = intervalle(A,B,'red',0);
+                    int2 = intervalle(C,D,'blue',0);
 
 
                     texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cap [${c};${d}].$`
                       ;
                         
-                    texte_corr = mathalea2d(-1,-3,18,1,d,int,c1,c2,int1,c3,c4,int2)
-                    
-
+                    texte_corr = mathalea2d(-2,-2,15,2,int,int1,int2,A,B,C,D,c1,c2,c3,c4)
                     texte_corr +=`<br>Aucun réel n'appartient aux deux ensembles.<br>
                     $I=\\emptyset$`;                     
                     break ;
@@ -77,11 +75,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c2 = crochetG(B);
                     c3 = crochetD(C);
                     c4 = crochetG(D);
-                    int = intervalle(X1,X2);
-                    int1 = intervalle(A,B);
-                    int2 = intervalle(C,D);
+                    int = intervalle(X1,X2,'black',0);
+                    int1 = intervalle(A,B,'red',0);
+                    int2 = intervalle(C,D,'blue',0);
                     texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cup [${c};${d}].$`;
-                    texte_corr = `Les deux ensembles sont disjoints, ils n'ont aucun élément en commun.<br>
+                    texte_corr = mathalea2d(-2,-2,15,2,int,int1,int2,A,B,C,D,c1,c2,c3,c4)
+                    texte_corr += `<br>Les deux ensembles sont disjoints, ils n'ont aucun élément en commun.<br>
                     On ne peut pas simplifier l'écriture de $I$ qui s'écrit donc $I=[${a};${b}] \\cup [${c};${d}].$`;                     
                     break ;
                 case 3 : 
@@ -92,9 +91,23 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c = randint(16,e);
                         e=b+1;
                     d = randint(e,65);
+                    s = segment(0,0,10,0);
+                    s.styleExtremites = '->';
+                    X1 = point(0,0);
+                    X2 = point(12,0);
+                    A = point(2,0,a);
+                    B = point(6,0,b);
+                    C = point(5,0,c);
+                    D = point(9,0,d);
+                    c1 = crochetD(A,'red');
+                    c2 = crochetG(B,'red');
+                    c3 = crochetD(C,'blue');
+                    c4 = crochetG(D,'blue');
+                    int = intervalle(X1,X2,'black',0);
+                    int1 = intervalle(A,B,'red',-0.1);
+                    int2 = intervalle(C,D,'blue',0.1);
                     texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cap [${c};${d}].$`;
-                    texte_corr = mathalea2d(-1,-3,18,1,d,int,c1,c2,int1,c3,c4,int2)
-                    
+                    texte_corr = mathalea2d(-2,-2,15,2,int,int1,int2,A,B,C,D,c1,c2,c3,c4)
 
                     texte_corr += `<br>$I=[${c};${b}]$`;                     
                     break ;
