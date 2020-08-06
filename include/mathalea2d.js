@@ -1019,6 +1019,15 @@ function Cercle(O,r,color){
 function cercle(...args){ 
 	return new Cercle(...args)
 }
+
+/**
+ * 
+ * @param {Droite} d la droite qui intecepte (ou pas le cercle)
+ * @param {Cercle} C le cercle
+ * @param {string} nom le nom du point d'intersection
+ * @param {entier} n 1 pour le premier point, 2 sinon. Si il n'y a qu'un seul point d'intesection, l'un ou l'autre renvoie ce point.
+ * @Auteur Jean-Claude Lhote
+ */
 function pointIntersectionLC(d,C,nom='',n=1){
 	let O = C.centre
 	let r = C.rayon
