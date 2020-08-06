@@ -635,6 +635,7 @@ function Segment(arg1,arg2,arg3,arg4,color){
 	this.extremite2 = point(this.x2,this.y2)
 	this.longueur = calcul(Math.sqrt((this.x2-this.x1)**2+(this.y2-this.y1)**2));
 	this.angleAvecHorizontale = calcul(Math.atan2(this.y2-this.y1, this.x2-this.x1)*180/Math.PI); 
+	this.opacite = 1
 
 	this.svg = function(){
 		if (this.epaisseur!=1) {
@@ -642,6 +643,9 @@ function Segment(arg1,arg2,arg3,arg4,color){
 		}
 		if (this.pointilles) {
 			this.style += ` stroke-dasharray="4 3" `
+		}
+		if (this.opacite !=1) {
+			this.style += ` stroke-opacity="${this.opacite}" `
 		}
 		let code = ''
 		let A = point(this.x1,this.y1)
@@ -687,6 +691,9 @@ function Segment(arg1,arg2,arg3,arg4,color){
 		}
 		if (this.epaisseur!=1) {
 			tableauOptions.push(`line width = ${this.epaisseur}`) 
+		}
+		if (this.opacite!=1) {
+			tableauOptions.push(`opacity = ${this.opacite}`) 
 		}
 		if (this.pointilles) {
 			tableauOptions.push(`dashed`) 
@@ -1996,8 +2003,8 @@ function codeSegments(...args){
 */
 
 /**
-* axe(xmin,ymin,xmax,ymax,thick)
-*
+* axes(xmin,ymin,xmax,ymax,thick) // Trace les axes des abscisses et des ordinnées
+* 
 * @Auteur Rémi Angot
 */
 
@@ -2010,11 +2017,19 @@ function Axes(xmin=-1,ymin=-10,xmax=30,ymax=10,thick=.2){
 	for (let y=ymin ; y<=ymax ; y++){
 	  objets.push(segment(-thick,y,thick,y))
 	}
-	this.svg = function(coeff=20){
-		return codeSvg(...objets)
+	this.svg = function(){
+		code = ''
+		for (objet of objets){
+			code += '\n\t' + objet.svg()
+		}
+		return code
 	}
-	this.tikz = function(coeff=20){
-		return codeTikz(...objets)
+	this.tikz = function(){
+		code = ''
+		for (objet of objets){
+			code += '\n\t' + objet.tikz()
+		}
+		return code
 	}
 	this.commentaire = `Repère(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, thick = ${thick})`
 
@@ -2022,6 +2037,49 @@ function Axes(xmin=-1,ymin=-10,xmax=30,ymax=10,thick=.2){
 function axes(...args){
 	return new Axes(...args)
 }
+
+/**
+* axes(xmin,ymin,xmax,ymax,thick) // Trace les axes des abscisses et des ordinnées
+* 
+* @Auteur Rémi Angot
+*/
+function Grille(xmin = -1, ymin = -10, xmax = 20, ymax = 10, color = 'gray', opacite = .4){
+	ObjetMathalea2D.call(this)
+	this.color = color
+	this.opacite = opacite
+	let listeSegments = []
+	for (i = xmin ; i <= xmax ; i++){
+	  listeSegments[i] = segment(i,ymin,i,ymax)
+	  listeSegments[i].color = this.color
+	  listeSegments[i].opacite = this.opacite
+	}
+	for (i = ymin ; i <= ymax ; i++){
+	  listeSegments[i] = segment(xmin,i,xmax,i)
+	  listeSegments[i].color = this.color
+	  listeSegments[i].opacite = this.opacite
+	}
+	this.commentaire = `Grille(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, color = ${color}, opacite = ${opacite})`
+	this.svg = function(){
+		code = ''
+		for (s of listeSegments){
+			code += '\n\t' + s.svg()
+		}
+		return code
+	}
+	this.tikz = function(){
+		code = ''
+		for (s of listeSegments){
+			code += '\n\t' + s.tikz()
+		}
+		return code
+	}
+}
+
+function grille(...args){
+	return new Grille(...args)
+}
+
+	
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
