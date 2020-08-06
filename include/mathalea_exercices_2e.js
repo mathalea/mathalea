@@ -11,7 +11,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
     this.nouvelle_version = function(numero_de_l_exercice){
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles = [1,2,2,2,2,2];
+    let type_de_questions_disponibles = [1];
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) ;
     for (let i = 0, a,b,c,d,e, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
             type_de_questions = liste_type_de_questions[i];
@@ -21,35 +21,28 @@ Exercice.call(this); // Héritage de la classe Exercice()
             
                 case 1 : 
         
-               a=randint(1,9);
-                   xA=randint(1,9)*choice([-1,1])
-                   yA=randint(1,9)*choice([-1,1])
-                   xB=randint(1,9)*choice([-1,1])
-                   yB=randint(1,9)*choice([-1,1])
+              
+                   xA=2
+                   yA=3
+                   xB=4
+                   yB=5
+                   A = point(xA,yA,'A','red');
+                   B = point(xB,yB,'B','red');
+                   
                     
                     texte = `$A\\left(${xA};${yA}\\right)$ et $B\\left(${xB};${yB}\\right)$  `;
-                    {texte_corr = ` ${b} étant négatif, il n'existe pas de solution à cette équation. $S=\\emptyset$`;}
                    
+                    {texte_corr = ` `;}
+                    texte_corr += mathalea2d(
+                        -9,-9,9,9, 
+                        tracePoint(A,B),
+                        
+                        grille(-9,-9,9,9,'black',0.6),
+                        )
 
                         
                     break ;
-               case 2 : 
-        
-                a = randint(1,15)*choice([-1,1]);
-                b = randint(1,15);
-                c=-a;
-                      texte = `$\\vert x ${ecriture_algebrique(a)}\\vert =${b}$`;
-                   
-                    texte_corr = `Résoudre cette équation est équivalent à résoudre ces deux équations :<br>
-                    $x ${ecriture_algebrique(a)} =${b}$ et    $x ${ecriture_algebrique(a)} =${-b}$<br>
-                    Il existe donc deux solutions à cette équation :<br>
-                    $x_1=${c} ${ecriture_algebrique(b)}$ et $x_2=${c} -${ecriture_parenthese_si_negatif(b)}$<br>
-                    $S=\\{${c-b};${c+b}\\}$`;
-                            
-                  
-
-                        
-                    break ;
+             
         
             }       
             if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
