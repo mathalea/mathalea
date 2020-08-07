@@ -1312,7 +1312,7 @@ function ArcPointPointAngle(M,N,angle,rayon=false,fill='none',color='black'){
 	d.isVisible=false
 	e=droite(N,M);
 	e.isVisible=false
-	f=droiteParRotation(e,N,anglerot);
+	f=rotation(e,N,anglerot);
 	f.isVisible=false
 	if (angle>180) {
 		angle=angle-360
