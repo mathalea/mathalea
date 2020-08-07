@@ -1,5 +1,176 @@
+
+function Distance(){
+Exercice.call(this); // Héritage de la classe Exercice()
+    this.titre = "Utiliser la mesure de la distance de deux points dans un repère orthonormé";
+   
+    this.nb_questions = 2;
+    this.nb_cols = 2;
+    this.nb_cols_corr = 2;
+    this.sup = 1 ; // 
+
+    this.nouvelle_version = function(numero_de_l_exercice)
+    {
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    let type_de_questions_disponibles = [1];
+     if (this.sup == 1) {
+            type_de_questions_disponibles = [1] // coef de x = 1
+        }
+      if (this.sup == 2) {
+            type_de_questions_disponibles = [1] // coef de x = 1
+        }
+    let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) ;
+    for (let i = 0, a,b,c,d,e,g,xA,yA,xB,yB,AB,XAB,YAB,t,l, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) 
+    {
+    type_de_questions = liste_type_de_questions[i];
+    switch (type_de_questions){
+                        // Cas par cas, on définit le type de nombres que l'on souhaite
+                        // Combien de chiffres ? Quelles valeurs ?
+            
+                case 1 : 
+        
+                    g =grille(-9,-9,9,9)
+                    xA=randint(0,5)*choice([-1,1])
+                    yA=randint(0,5)*choice([-1,1])
+                    xB=randint(0,5)*choice([-1,1])
+                    yB=randint(0,5)*choice([-1,1])
+                    A = point(xA,yA,'A','red')
+                    B = point(xB,yB,'B','red')
+                    t=tracePoint(A,B)
+                    l=labelPoint(A,B)
+                    a=axes(-2,-9,9,9)
+                    XAB=(xB-xA)*(xB-xA)
+                    YAB=(yB-yA)*(yB-yA);
+                    AB=XAB+YAB;
+                
+                    texte =`Dans un repère orthonormé (O,I,J), on donne les points suivants :`
+                    texte +=` $A\\left(${xA};${yA}\\right)$ et $B\\left(${xB};${yB}\\right)$`
+                    texte += `<br>Calculer la distance $AB$ en justifiant le calcul.`;
+                                   
+                    texte_corr = mathalea2d(-9,-9,9,9,g ,A,B,t,l,a)
+                    texte_corr += `<br>On sait d'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d'un repère orthonormé,`
+                    texte_corr +=` alors on a : $AB=\\sqrt{\\left(x_B-x_A\\right)^{2}+\\left(y_B-y_A\\right)^{2}}$<br>`
+                    texte_corr +=`On applique la relation à l'énoncé : $AB=\\sqrt{\\left(${xB}-${xA}\\right)^{2}+\\left(${yB}-${yA}\\right)^{2}}$<br>`
+                    texte_corr += `$\\phantom{On applique la relation à l'énoncé :        } AB=\\sqrt{${XAB}+${YAB}}$<br>`
+                    texte_corr +=`$\\phantom{On applique la relation à l'énoncé :        } AB=\\sqrt{${tex_nombre(XAB+YAB)}}$<br>`
+                    if (AB%100==0 && AB!=100)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=10\\sqrt{${tex_nombre((AB))/100}}$<br>`}
+                    if (AB%81==0 && AB!=81)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=9\\sqrt{${tex_nombre((AB))/81}}$<br>`}
+                    if (AB%64==0 && AB!=64)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=8\\sqrt{${tex_nombre((AB))/64}}$<br>`}
+                    if (AB%49==0 && AB!=49)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=7\\sqrt{${tex_nombre((AB))/49}}$<br>`}
+                     if (AB%36==0&& AB!=36)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=6\\sqrt{${tex_nombre((AB))/36}}$<br>`}
+                     if (AB%25==0 && AB!=25)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=5\\sqrt{${tex_nombre((AB))/25}}$<br>`}
+                     if (AB%64!=0 && AB%16==0&& AB!=16)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=4\\sqrt{${tex_nombre((AB))/16}}$<br>`}
+                    if (AB%81!=0 && AB%9==0 && AB!=9)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=3\\sqrt{${tex_nombre((AB))/9}}$<br>`}
+                    if (AB%16!=0 && AB%64!==0 &&AB%4==0 && AB!=4)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=2\\sqrt{${tex_nombre((AB))/4}}$<br>`}
+                      if (AB==100)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=10$<br>`}
+                    if (AB==81)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=9$<br>`}
+                      if (AB==64)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=8$<br>`}
+                      if (AB==49)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=7$<br>`}
+                      if (AB==36)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=6$<br>`}
+                      if (AB==25)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=5$<br>`}
+                      if (AB==16)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=4$<br>`}
+                      if (AB==9)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=3$<br>`}
+                      if (AB==4)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=2$<br>`}
+                     ;   
+                   break ;
+             case 2 : 
+        
+              
+                   xA=randint(0,9)*choice([-1,1])
+                   yA=randint(0,9)*choice([-1,1])
+                   xB=randint(0,9)*choice([-1,1])
+                   yB=randint(0,9)*choice([-1,1])
+                   
+
+                   XAB=(xB-xA)*(xB-xA)
+                   YAB=(yB-yA)*(yB-yA);
+                   AB=XAB+YAB;
+                
+                    texte =`Dans un repère orthonormé (O,I,J), on donne les points suivants :`
+                    texte +=` $A\\left(${xA};${yA}\\right)$ et $B\\left(${xB};${yB}\\right)$`
+                    texte += `<br>Calculer la distance $AB$ en justifiant le calcul.`;
+                                   
+                    texte_corr = mathalea2d(-9,-9,9,9, grille(-9,-9,9,9),A = point(2,3,'A','red'),B = point(3,4,'B','red'),tracePoint(A,B),labelPoint(A,B),axes(-2,-9,9,9))
+                    texte_corr += `<br>On sait d'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d'un repère orthonormé,`
+                    texte_corr +=` alors on a : $AB=\\sqrt{\\left(x_B-x_A\\right)^{2}+\\left(y_B-y_A\\right)^{2}}$<br>`
+                    texte_corr +=`On applique la relation à l'énoncé : $AB=\\sqrt{\\left(${xB}-${xA}\\right)^{2}+\\left(${yB}-${yA}\\right)^{2}}$<br>`
+                    texte_corr += `$\\phantom{On applique la relation à l'énoncé :        } AB=\\sqrt{${XAB}+${YAB}}$<br>`
+                    texte_corr +=`$\\phantom{On applique la relation à l'énoncé :        } AB=\\sqrt{${tex_nombre(XAB+YAB)}}$<br>`
+                    if (AB%100==0 && AB!=100)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=10\\sqrt{${tex_nombre((AB))/100}}$<br>`}
+                    if (AB%81==0 && AB!=81)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=9\\sqrt{${tex_nombre((AB))/81}}$<br>`}
+                    if (AB%64==0 && AB!=64)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=8\\sqrt{${tex_nombre((AB))/64}}$<br>`}
+                    if (AB%49==0 && AB!=49)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=7\\sqrt{${tex_nombre((AB))/49}}$<br>`}
+                     if (AB%36==0&& AB!=36)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=6\\sqrt{${tex_nombre((AB))/36}}$<br>`}
+                     if (AB%25==0 && AB!=25)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=5\\sqrt{${tex_nombre((AB))/25}}$<br>`}
+                     if (AB%64!=0 && AB%16==0&& AB!=16)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=4\\sqrt{${tex_nombre((AB))/16}}$<br>`}
+                    if (AB%81!=0 && AB%9==0 && AB!=9)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=3\\sqrt{${tex_nombre((AB))/9}}$<br>`}
+                    if (AB%16!=0 && AB%64!==0 &&AB%4==0 && AB!=4)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=2\\sqrt{${tex_nombre((AB))/4}}$<br>`}
+                      if (AB==100)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=10$<br>`}
+                    if (AB==81)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=9$<br>`}
+                      if (AB==64)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=8$<br>`}
+                      if (AB==49)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=7$<br>`}
+                      if (AB==36)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=6$<br>`}
+                      if (AB==25)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=5$<br>`}
+                      if (AB==16)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=4$<br>`}
+                      if (AB==9)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=3$<br>`}
+                      if (AB==4)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=2$<br>`}
+                     ;   
+                   break ;
+            } 
+            if (this.liste_questions.indexOf(texte)==-1)
+                { // Si la question n'a jamais été posée, on en créé une autre
+                this.liste_questions.push(texte);
+                this.liste_corrections.push(texte_corr);
+                i++;
+                }
+            cpt++;  
+        }
+        liste_de_question_to_contenu(this);
+    }
+     this.besoin_formulaire_numerique = ['Niveau de difficulté', 2, '1 : Application de la formule 2 : Application en situation'];
+}   
+
 /* auteur Stéphane Guyon*/
-function union_et_intersection_intervalles_de_R(){
+
+
+function union_et_intersection_intervalles_de_R()
+{
 Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Utiliser et comprendre les symboles $I\\cup J$ et $I\\cap J$ avec les intervalles de $\\mathbb{R}.$";
     this.consigne = "Répondre aux questions suivantes: :"
@@ -8,15 +179,18 @@ Exercice.call(this); // Héritage de la classe Exercice()
     this.nb_cols_corr = 2;
     this.sup = 1 ; // 
 
-    this.nouvelle_version = function(numero_de_l_exercice){
+    this.nouvelle_version = function(numero_de_l_exercice)
+    {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles = [1];
+    let type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9,10];
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) ;
-    for (let i = 0, a,b,c,d,s, e,f,A,B,c1,c2,int, axe, texte, texte_corr, cpt=0; 
-        i < this.nb_questions && cpt<50; ) {
+    for (let i = 0, a,b,c,d,s, e,f,A,B,c1,c2,c3,c4, X1,X2,int,int1,int2, axe, texte, texte_corr, cpt=0; 
+        i < this.nb_questions && cpt<50; ) 
+        {
             type_de_questions = liste_type_de_questions[i];
-    switch (type_de_questions){
+        switch (type_de_questions)
+            {
                         // Cas par cas, on définit le type de nombres que l'on souhaite
                         // Combien de chiffres ? Quelles valeurs ?
                 case 1 : 
@@ -29,15 +203,28 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     d = randint(e,45);
                     s = segment(0,0,10,0);
                     s.styleExtremites = '->';
-                    A = point(2,0,a);
-                    B = point(6,0,b);
-                    c1 = crochetG(A);
-                    c2 = crochetD(B);
-                    int = intervalle(A,B);
+                    X1 = point(0,0);
+                    X2 = point(12,0);
+                    A = point(2,0,a,'red');
+                    B = point(5,0,b);
+                    C = point(6,0,c);
+                    D = point(9,0,d);
+                    c1 = crochetD(A,'red');
+                    c2 = crochetG(B,'red');
+                    c3 = crochetD(C,'blue');
+                    c4 = crochetG(D,'blue');
+                    int = intervalle(X1,X2,'black',0);
+                    int1 = intervalle(A,B,'red',0);
+                    int2 = intervalle(C,D,'blue',0);
+
 
                     texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cap [${c};${d}].$`
                       ;
-                    texte_corr = `Aucun réel ne peut appartenir à chacun des deux ensembles.<br>
+                        
+                    texte_corr = mathalea2d(-2,-2,15,2,int,int1,int2,A,B,C,D,c1,c2,c3,c4)
+                    texte_corr += `<br>On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}]$.`
+                    texte_corr += `<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge :<br>`
+                    texte_corr += `<br>Les deux ensembles sont disjoints, ils n'ont aucun élément en commun.<br>
                     $I=\\emptyset$`;                     
                     break ;
                 case 2 : 
@@ -48,8 +235,26 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c = randint(e,35);
                         e=c+1;
                     d = randint(e,45);
+                      s = segment(0,0,10,0);
+                    s.styleExtremites = '->';
+                    X1 = point(0,0);
+                    X2 = point(12,0);
+                    A = point(2,0,a);
+                    B = point(5,0,b);
+                    C = point(6,0,c);
+                    D = point(9,0,d);
+                     c1 = crochetD(A,'red');
+                    c2 = crochetG(B,'red');
+                    c3 = crochetD(C,'blue');
+                    c4 = crochetG(D,'blue');
+                    int = intervalle(X1,X2,'black',0);
+                    int1 = intervalle(A,B,'red',0);
+                    int2 = intervalle(C,D,'blue',0);
                     texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cup [${c};${d}].$`;
-                    texte_corr = `Les deux ensembles sont disjoints, ils n'ont aucun élément en commun.<br>
+                    texte_corr = mathalea2d(-2,-2,15,2,int,int1,int2,A,B,C,D,c1,c2,c3,c4)
+                    texte_corr += `<br>On cherche les réels qui sont ou bien dans $[${a};${b}]$, ou bien dans $[${c};${d}]$.`
+                    texte_corr += `<br>On donc regarde la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>`
+                    texte_corr += `<br>Les deux ensembles sont disjoints, ils n'ont aucun élément en commun.<br>
                     On ne peut pas simplifier l'écriture de $I$ qui s'écrit donc $I=[${a};${b}] \\cup [${c};${d}].$`;                     
                     break ;
                 case 3 : 
@@ -60,8 +265,27 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c = randint(16,e);
                         e=b+1;
                     d = randint(e,65);
+                    s = segment(0,0,10,0);
+                    s.styleExtremites = '->';
+                    X1 = point(0,0);
+                    X2 = point(12,0);
+                    A = point(2,0,a);
+                    B = point(6,0,b);
+                    C = point(5,0,c);
+                    D = point(9,0,d);
+                    c1 = crochetD(A,'red');
+                    c2 = crochetG(B,'red');
+                    c3 = crochetD(C,'blue');
+                    c4 = crochetG(D,'blue');
+                    int = intervalle(X1,X2,'black',0);
+                    int1 = intervalle(A,B,'red',-0.1);
+                    int2 = intervalle(C,D,'blue',0.1);
                     texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cap [${c};${d}].$`;
-                    texte_corr = `$I=[${c};${b}]$`;                     
+                    texte_corr = mathalea2d(-2,-2,15,2,int,int1,int2,A,B,C,D,c1,c2,c3,c4)
+
+                    texte_corr += `<br>On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}]$.`
+                    texte_corr += `<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge :<br>`
+                     texte_corr += `$I=[${c};${b}]$`;                     
                     break ;
                 case 4 : 
                    a = randint(1,15);
@@ -71,8 +295,26 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c = randint(16,e);
                         e=b+1;
                     d = randint(e,65);
+                    s = segment(0,0,10,0);
+                    s.styleExtremites = '->';
+                    X1 = point(0,0);
+                    X2 = point(12,0);
+                    A = point(2,0,a);
+                    B = point(6,0,b);
+                    C = point(5,0,c);
+                    D = point(9,0,d);
+                    c1 = crochetD(A,'red');
+                    c2 = crochetG(B,'red');
+                    c3 = crochetD(C,'blue');
+                    c4 = crochetG(D,'blue');
+                    int = intervalle(X1,X2,'black',0);
+                    int1 = intervalle(A,B,'red',-0.1);
+                    int2 = intervalle(C,D,'blue',0.1);
                     texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cup [${c};${d}].$`;
-                    texte_corr = `$I=[${a};${d}]$`;                     
+                     texte_corr = mathalea2d(-2,-2,15,2,int,int1,int2,A,B,C,D,c1,c2,c3,c4)
+                     texte_corr += `<br>On cherche les réels qui sont ou bien dans $[${a};${b}]$, ou bien dans $[${c};${d}]$.`
+                    texte_corr += `<br>On donc regarde la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>`
+                    texte_corr += `$I=[${a};${d}]$`;                     
                     break ;
                 case 5 : 
                     a = randint(1,15);
@@ -83,8 +325,26 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c = randint(e,f);
                         e=c+1;
                     d = randint(e,f);
+                     s = segment(0,0,10,0);
+                    s.styleExtremites = '->';
+                    X1 = point(0,0);
+                    X2 = point(12,0);
+                    A = point(2,0,a);
+                    B = point(9,0,b);
+                    C = point(5,0,c);
+                    D = point(7,0,d);
+                    c1 = crochetD(A,'red');
+                    c2 = crochetG(B,'red');
+                    c3 = crochetD(C,'blue');
+                    c4 = crochetG(D,'blue');
+                    int = intervalle(X1,X2,'black',0);
+                    int1 = intervalle(A,B,'red',-0.1);
+                    int2 = intervalle(C,D,'blue',0.1);
                     texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cap [${c};${d}].$`;
-                    texte_corr = `On $[${c};${d}]\\subset [${a};${b}]$ donc $I=[${c};${d}].$`;                     
+                    texte_corr = mathalea2d(-2,-2,15,2,int,int1,int2,A,B,C,D,c1,c2,c3,c4)
+                    texte_corr += `<br>On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}]$.`
+                    texte_corr += `<br>On donc regarde la partie de l'intervalle qui est coloriée en bleu et rouge :<br>`
+                    texte_corr += `On observe que $[${c};${d}]\\subset [${a};${b}]$ donc $I=[${c};${d}].$`;                     
                     break ;
                  case 6 : 
                     a = randint(1,15);
@@ -95,21 +355,163 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c = randint(e,f);
                         e=c+1;
                     d = randint(e,f);
+                       s = segment(0,0,10,0);
+                    s.styleExtremites = '->';
+                    X1 = point(0,0);
+                    X2 = point(12,0);
+                    A = point(2,0,a);
+                    B = point(9,0,b);
+                    C = point(5,0,c);
+                    D = point(7,0,d);
+                    c1 = crochetD(A,'red');
+                    c2 = crochetG(B,'red');
+                    c3 = crochetD(C,'blue');
+                    c4 = crochetG(D,'blue');
+                    int = intervalle(X1,X2,'black',0);
+                    int1 = intervalle(A,B,'red',-0.1);
+                    int2 = intervalle(C,D,'blue',0.1);
                     texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cup [${c};${d}].$`;
-                    texte_corr = `On $[${c};${d}]\\subset [${a};${b}]$ donc $I=[${a};${b}].$`;                     
+                     texte_corr = mathalea2d(-2,-2,15,2,int,int1,int2,A,B,C,D,c1,c2,c3,c4)
+                     texte_corr += `<br>On cherche les réels qui sont ou bien dans $[${a};${b}]$, ou bien dans $[${c};${d}]$.`
+                    texte_corr += `<br>On donc regarde la partie de l'intervalle qui est coloriée soit en bleu, soit en rouge, soit en bleu et rouge :<br>`
+                    texte_corr += `On $[${c};${d}]\\subset [${a};${b}]$ donc $I=[${a};${b}].$`;                     
                     break ;
-             } 
-            if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+                case 7 : 
+                    a = randint(1,15);
+                        e=a+1;
+                    b = randint(e,25);
+                        e=b+1;
+                    c = randint(e,35);
+                        e=c+1;
+                    d = randint(e,45);
+                    s = segment(0,0,10,0);
+                    s.styleExtremites = '->';
+                    X1 = point(0,0);
+                    X2 = point(12,0);
+                    A = point(2,0,a,'red');
+                    B = point(5,0,b);
+                    C = point(6,0,c);
+                    D = point(9,0,d);
+                    c1 = crochetG(A,'red');
+                    c2 = crochetG(B,'red');
+                    c3 = crochetD(C,'blue');
+                    c4 = crochetG(D,'blue');
+                    int = intervalle(X1,X2,'black',0);
+                    int1 = intervalle(A,B,'red',0);
+                    int2 = intervalle(C,D,'blue',0);
+
+
+                    texte = `Donner si possible, une écriture simplifiée de $I=]${a};${b}] \\cap [${c};${d}].$`
+                      ;
+                        
+                    texte_corr = mathalea2d(-2,-2,15,2,int,int1,int2,A,B,C,D,c1,c2,c3,c4)
+                    texte_corr += `<br>On cherche les réels qui sont à la fois dans $]${a};${b}]$ et dans $[${c};${d}]$.`
+                    texte_corr += `<br>On donc regarde la partie de l'intervalle qui est coloriée en bleu et rouge :<br>`
+                    texte_corr +=`<br>Aucun réel n'appartient aux deux ensembles.<br>
+                    $I=\\emptyset$`;                     
+                    break ;
+                case 8 : 
+                    a = randint(1,15);
+                        e=a+1;
+                    b = randint(e,25);
+                        e=b+1;
+                    c = randint(e,35);
+                        e=c+1;
+                    d = randint(e,45);
+                      s = segment(0,0,10,0);
+                    s.styleExtremites = '->';
+                    X1 = point(0,0);
+                    X2 = point(12,0);
+                    A = point(2,0,a);
+                    B = point(5,0,b);
+                    C = point(6,0,c);
+                    D = point(9,0,d);
+                    c1 = crochetD(A,'red');
+                    c2 = crochetG(B,'red');
+                    c3 = crochetD(C,'blue');
+                    c4 = crochetD(D,'blue');
+                    int = intervalle(X1,X2,'black',0);
+                    int1 = intervalle(A,B,'red',0);
+                    int2 = intervalle(C,D,'blue',0);
+                    texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cup [${c};${d}[.$`;
+                    texte_corr = mathalea2d(-2,-2,15,2,int,int1,int2,A,B,C,D,c1,c2,c3,c4)
+                    texte_corr += `<br>On cherche les réels qui sont ou bien dans $[${a};${b}]$, ou bien dans $[${c};${d}[$.`
+                    texte_corr += `<br>On donc regarde la partie de l'intervalle qui est coloriée soit en bleu, soit en rouge, soit en bleu et rouge :`
+                    texte_corr += `<br>Les deux ensembles sont disjoints, ils n'ont aucun élément en commun.<br>
+                    On ne peut pas simplifier l'écriture de $I$ qui s'écrit donc $I=[${a};${b}] \\cup [${c};${d}[.$`;                     
+                    break ;
+                case 9 : 
+                    a = randint(1,15);
+                        e=a+4;
+                    b = randint(29,45);
+                        e=b-1;
+                    c = randint(16,e);
+                        e=b+1;
+                    d = randint(e,65);
+                    s = segment(0,0,10,0);
+                    s.styleExtremites = '->';
+                    X1 = point(0,0);
+                    X2 = point(12,0);
+                    A = point(2,0,a);
+                    B = point(6,0,b);
+                    C = point(5,0,c);
+                    D = point(9,0,d);
+                    c1 = crochetG(A,'red');
+                    c2 = crochetD(B,'red');
+                    c3 = crochetD(C,'blue');
+                    c4 = crochetG(D,'blue');
+                    int = intervalle(X1,X2,'black',0);
+                    int1 = intervalle(A,B,'red',-0.1);
+                    int2 = intervalle(C,D,'blue',0.1);
+                    texte = `Donner si possible, une écriture simplifiée de $I=]${a};${b}[ \\cap [${c};${d}].$`;
+                    texte_corr = mathalea2d(-2,-2,15,2,int,int1,int2,A,B,C,D,c1,c2,c3,c4)
+
+                    texte_corr += `<br>On cherche les réels qui sont à la fois dans $]${a};${b}[$ et dans $[${c};${d}]$.`
+                    texte_corr += `<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge :<br>`
+                     texte_corr += `$I=[${c};${b}[$`;                     
+                    break ;
+                case 10 : 
+                   a = randint(1,15);
+                        e=a+4;
+                    b = randint(29,45);
+                        e=b-1;
+                    c = randint(16,e);
+                        e=b+1;
+                    d = randint(e,65);
+                    s = segment(0,0,10,0);
+                    s.styleExtremites = '->';
+                    X1 = point(0,0);
+                    X2 = point(12,0);
+                    A = point(2,0,a);
+                    B = point(6,0,b);
+                    C = point(5,0,c);
+                    D = point(9,0,d);
+                    c1 = crochetG(A,'red');
+                    c2 = crochetD(B,'red');
+                    c3 = crochetG(C,'blue');
+                    c4 = crochetD(D,'blue');
+                    int = intervalle(X1,X2,'black',0);
+                    int1 = intervalle(A,B,'red',-0.1);
+                    int2 = intervalle(C,D,'blue',0.1);
+                    texte = `Donner si possible, une écriture simplifiée de $I=]${a};${b}[ \\cup ]${c};${d}[.$`;
+                     texte_corr = mathalea2d(-2,-2,15,2,int,int1,int2,A,B,C,D,c1,c2,c3,c4)
+                     texte_corr += `<br>On cherche les réels qui sont ou bien dans $]${a};${b}[$, ou bien dans $]${c};${d}[$.`
+                    texte_corr += `<br>On donc regarde la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>`
+                    texte_corr += `$I=]${a};${d}[$`;                     
+                    break ;
+            } 
+            if (this.liste_questions.indexOf(texte)==-1)
+                { // Si la question n'a jamais été posée, on en créé une autre
                 this.liste_questions.push(texte);
                 this.liste_corrections.push(texte_corr);
                 i++;
-            }
+                }
             cpt++;  
         }
         liste_de_question_to_contenu(this);
     }
-    
-}
+}   
+ 
 /* auteur Stéphane Guyon*/
 function intervalles_de_R(){
 Exercice.call(this); // Héritage de la classe Exercice()
@@ -123,10 +525,20 @@ Exercice.call(this); // Héritage de la classe Exercice()
     this.nouvelle_version = function(numero_de_l_exercice){
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+    let type_de_questions_disponibles = [1,2,3,4,5,6,7,8,9,10,11,12,13,14];
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) ;
-    for (let i = 0, a,b,c,d,e, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+    for (let i = 0, a,b,c,d,e,s,X1,X2,X,A,B,c1,c2,int,int1, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
             type_de_questions = liste_type_de_questions[i];
+       
+      
+        s = segment(0,0,12,0);
+        s.styleExtremites = '->';
+        X1 = point(0,0);
+        X2 = point(12,0);
+       
+            
+        int = intervalle(X1,X2,'black',0);
+    
     switch (type_de_questions){
                         // Cas par cas, on définit le type de nombres que l'on souhaite
                         // Combien de chiffres ? Quelles valeurs ?
@@ -134,107 +546,188 @@ Exercice.call(this); // Héritage de la classe Exercice()
                 case 1 : 
                     a = randint(1,15);
                     b = randint(a,25);
-                    texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x>${a}$`;
-                    texte_corr = `$I=]${a};+\\infty[$`;                     
+                    A = point(2,0,a);
+                    B = point(6,0,b);
+                    X = point(11.5,0);
+                    c1 = crochetG(A,'red');
+                    int1 = intervalle(A,X2,'red',-0.1);
+                    texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x>${a}$ et représenter l'intervalle sur une droite graduée.`;
+                    texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,B,c1)
+                    texte_corr += `<br>$I=]${a};+\\infty[$`;                     
                     break ;
                 
                 case 2 : 
                     a = randint(1,15);
                     b = randint(a,25); 
-                    texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x\\geqslant ${a}$`;
-                    texte_corr = `$I=[${a};+\\infty[$`;
+                    A = point(2,0,a);
+                    B = point(6,0,b);
+                     X2 = point(12,0);
+                    c1 = crochetD(A,'red');
+                    int1 = intervalle(A,X2,'red',-0.1);
+                    texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x\\geqslant ${a}$ et représenter l'intervalle sur une droite graduée.`;
+                    texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,c1)
+                    texte_corr += `$I=[${a};+\\infty[$`;
                     break ;
 
                 case 3 : 
                     a = randint(1,15);
                     b = randint(a,25);
-                    texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x<${a}$`;
-                    texte_corr = `$I=]-\\infty;${a}[$`; 
+                    A = point(2,0,a);
+                    B = point(6,0,b);
+                    c1 = crochetD(A,'red');
+                    int1 = intervalle(X1,A,'red',-0.1);
+                    texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x<${a}$ et représenter l'intervalle sur une droite graduée.`;
+                    texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,c1)
+                    texte_corr += `$I=]-\\infty;${a}[$`; 
                     break ;
+                
                 case 4 : 
                     a = randint(1,15);
                     b = randint(a,25);
-                    texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x\\leqslant ${a}$`;
-                    texte_corr = `$I=]-\\infty;${a}]$`;
+                     A = point(2,0,a);
+                    B = point(6,0,b);
+                    c1 = crochetG(A,'red');
+                    int1 = intervalle(X1,A,'red',-0.1);
+                    texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x\\leqslant ${a}$ et représenter l'intervalle sur une droite graduée.`;
+                    texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,c1)
+                    texte_corr += `$I=]-\\infty;${a}]$`;
                     break ;
+                
                 case 5 : 
                     a = randint(1,15);
                     c=a+1;
-                    b = randint(c,25);                    
-                    texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a} < x < ${b}$`;
-                    texte_corr = `$I=]${a};${b}[$`;
+                    b = randint(c,25);  
+                    A = point(2,0,a);
+                    B = point(6,0,b);
+                    c1 = crochetG(A,'red');
+                    c2 = crochetD(B,'red');
+                    int1 = intervalle(A,B,'red',-0.1);                  
+                    texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a} < x < ${b}$ et représenter l'intervalle sur une droite graduée.`;
+                     texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,B,c1,c2)
+                     texte_corr += `$I=]${a};${b}[$`;
                     break ;
 
                 case 6 : 
                     a = randint(1,15);
                     c=a+1;
-                    b = randint(c,25);                    
-                    texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}\\leqslant x<${b}$`;
-                    texte_corr = `$I=[${a};${b}[$`;
+                    b = randint(c,25);    
+                     A = point(2,0,a);
+                    B = point(6,0,b);
+                    c1 = crochetD(A,'red');
+                    c2 = crochetD(B,'red');
+                    int1 = intervalle(A,B,'red',-0.1);                  
+                    texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}\\leqslant x<${b}$ et représenter l'intervalle sur une droite graduée.`;
+                                 texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,B,c1,c2)
+                                 texte_corr += `$I=[${a};${b}[$`;
                     break ;
                 
                 case 7 : 
                     a = randint(1,15);
                     c=a+1;
                     b = randint(c,25);
-                    texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}\\leqslant x\\leqslant ${b}$`;
-                    texte_corr = `$I=[${a};${b}]$`;
+                       A = point(2,0,a);
+                    B = point(6,0,b);
+                    c1 = crochetD(A,'red');
+                    c2 = crochetG(B,'red');
+                    int1 = intervalle(A,B,'red',-0.1);  
+                    texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}\\leqslant x\\leqslant ${b}$ et représenter l'intervalle sur une droite graduée.`;
+                      texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,B,c1,c2)
+                      texte_corr += `$I=[${a};${b}]$`;
                     break ;
                 
                 case 8 :
                     a = randint(1,15);
                     c=a+1;
                     b = randint(c,25);
-                    texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}< x\\leqslant ${b}$`;
-                    texte_corr = `$I=]${a};${b}]$`;
+                    A = point(2,0,a);
+                    B = point(6,0,b);
+                    c1 = crochetG(A,'red');
+                    c2 = crochetG(B,'red');
+                    int1 = intervalle(A,B,'red',-0.1);  
+                    texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}< x\\leqslant ${b}$ et représenter l'intervalle sur une droite graduée.`;
+                      texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,B,c1,c2)
+                      texte_corr += `$I=]${a};${b}]$`;
                     break ;
                 
                 case 9 : 
                     a = randint(1,15);
                     c=a+1;
                     b = randint(c,25);
-                    texte = `Déterminer l'inéquation correspondant à $x \\in ]${a};${b}]$`;
-                    texte_corr = `$${a}< x\\leqslant ${b}$`;  
-                
+                    A = point(2,0,a);
+                    B = point(6,0,b);
+                    c1 = crochetG(A,'red');
+                    c2 = crochetG(B,'red');
+                    int1 = intervalle(A,B,'red',-0.1);  
+                    texte = `Déterminer l'inéquation correspondant à $x \\in ]${a};${b}]$ et représenter l'intervalle sur une droite graduée.`;
+                    texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,B,c1,c2)
+                    texte_corr += `$${a}< x\\leqslant ${b}$`;  
+                     break ;
                 case 10 : 
                     a = randint(1,15);
                     c=a+1;
                     b = randint(c,25);
-                    texte = `Déterminer l'inéquation correspondant à $x \\in [${a};${b}]$`;
-                    texte_corr = `$${a}\\leqslant x\\leqslant ${b}$`;  
+                    A = point(2,0,a);
+                    B = point(6,0,b);
+                    c1 = crochetD(A,'red');
+                    c2 = crochetG(B,'red');
+                    int1 = intervalle(A,B,'red',-0.1);  
+                    texte = `Déterminer l'inéquation correspondant à $x \\in [${a};${b}]$ et représenter l'intervalle sur une droite graduée.`; 
+                     texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,B,c1,c2)
+                     texte_corr += `$${a}\\leqslant x\\leqslant ${b}$`;  
+                     break ;
                 case 11 : 
                     a = randint(1,15);
                     c=a+1;
                     b = randint(c,25);
-                    texte = `Déterminer l'inéquation correspondant à $x \\in [${a};${b}[$`;
-                    texte_corr = `$${a}\\leqslant x< ${b}$`; 
-
+                     A = point(2,0,a);
+                    B = point(6,0,b);
+                    c1 = crochetD(A,'red');
+                    c2 = crochetD(B,'red');
+                    int1 = intervalle(A,B,'red',-0.1);  
+                    texte = `Déterminer l'inéquation correspondant à $x \\in [${a};${b}[$ et représenter l'intervalle sur une droite graduée.`;
+                       texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,B,c1,c2)  
+                     texte_corr += `$${a}\\leqslant x< ${b}$`; 
+                     break ;
                 case 12 : 
                     a = randint(1,15);
                     c=a+1;
                     b = randint(c,25);
-                    texte = `Déterminer l'inéquation correspondant à $x \\in [${a};+\\infty[$`;
-                    texte_corr = `$x \\geqslant ${a}$`;  
-
+                    A = point(2,0,a);
+                    B = point(12,0,b);
+                    c1 = crochetG(A,'red');
+                    
+                    int1 = intervalle(A,B,'red',-0.1);  texte = `Déterminer l'inéquation correspondant à $x \\in ]${a};+\\infty[ et représenter l'intervalle sur une droite graduée.$`;
+                       texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,B,c1)  
+                       texte_corr += `$x > ${a}$`;    
+                         break ;
                 case 13 : 
                     a = randint(1,15);
                     c=a+1;
                     b = randint(c,25);
-                    texte = `Déterminer l'inéquation correspondant à $x \\in ]${a};+\\infty[$`;
-                    texte_corr = `$x > ${a}$`;    
-                 
+                     A = point(7,0,a);
+                    B = point(12,0,b);
+                    c1 = crochetD(A,'red');
+                    
+                    int1 = intervalle(X1,A,'red',-0.1);
+                    texte = `Déterminer l'inéquation correspondant à $x \\in ]-\\infty;${a}[$ et représenter l'intervalle sur une droite graduée.`;
+                      texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,B,c1)  
+                      texte_corr += `$x < ${a}$`; 
+                         break ;   
                 case 14 : 
                     a = randint(1,15);
                     c=a+1;
                     b = randint(c,25);
-                    texte = `Déterminer l'inéquation correspondant à $x \\in ]-\\infty;${a}[$`;
-                    texte_corr = `$x < ${a}$`;    
-                case 15 : 
-                    a = randint(1,15);
-                    c=a+1;
-                    b = randint(c,25);
-                    texte = `Déterminer l'inéquation correspondant à $x \\in ]-\\infty;${a}]$`;
-                    texte_corr = `$x \\leqslant ${a}$`;    
+                       A = point(7,0,a);
+                    B = point(12,0,b);
+                    c1 = crochetG(A,'red');
+                    
+                    int1 = intervalle(X1,A,'red',-0.1);
+                    texte = `Déterminer l'inéquation correspondant à $x \\in ]-\\infty;${a}]$ et représenter l'intervalle sur une droite graduée.`;
+                      texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,B,c1)  
+                      texte_corr += `$x \\leqslant ${a}$`;   
+                         break ;
+
+                
              } 
             if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
                 this.liste_questions.push(texte);
@@ -906,7 +1399,9 @@ Exercice.call(this); // Héritage de la classe Exercice()
     
 }
 
+
 function proprietes_racine_carree(){
+
     Exercice.call(this); // Héritage de la classe Exercice()
         this.titre = "Connaître les propriétés calculatoires des racines carrées";
         this.consigne = "Effectuer, si possible, les calculs suivants :"

@@ -1,0 +1,14 @@
+A = point(3,2,'A','left')
+B = point(10,3,'B','right')
+C = point(6,6,'C')
+p = polygone(A,B,C)
+d1 = mediatrice(A,B,'','blue') // trace la médiatrice de [AB] sans la nommer
+d2 = mediatrice(B,C,'','blue')
+d3 = mediatrice(A,C,'','blue')
+O = centreCercleCirconscrit(A,B,C)
+c = cercleCentrePoint(O,A,'green')
+codageMediatrice(A,B,'red') // par défaut la marque du codage est X
+codageMediatrice(B,C,'red','O') 
+codageMediatrice(C,A,'red','Δ') // on peut aussi utiliser des caractères spéciaux pour le codage
+c.epaisseur = 2 // augmente l'épaisseur du cercle
+p.epaisseur = 2 // augmente l'épaisseur du triangle
