@@ -1295,6 +1295,16 @@ function ArcPointPointAngle(M,N,angle,rayon=false,fill='none',color='black'){
 	ObjetMathalea2D.call(this);
 	this.color=color;
 	this.fill=fill;
+	let anglerot,large,sweep,Omegax,Omegay
+	if (angle<0) anglerot=calcul((angle+180)/2)
+	else anglerot=calcul((angle-180)/2)
+	let d,e,f;
+	d=mediatrice(M,N,'black');
+	d.isVisible=false
+	e=droite(N,M);
+	e.isVisible=false
+	f=droiteParRotation(e,N,anglerot);
+	f.isVisible=false
 	if (angle>180) {
 		angle=angle-360
 		large=1
@@ -1309,16 +1319,20 @@ function ArcPointPointAngle(M,N,angle,rayon=false,fill='none',color='black'){
 		large=0
 		sweep=1-(angle>0)
 	}
-	// mais où est Omega ?
-	let Omega//
-	if (rayon) 	this.svg = function(){
-		return `<path d="M${M.xSVG()} ${M.ySVG()} A ${l*this.coeff} ${l*this.coeff} 0 ${large} ${sweep} ${N.xSVG()} ${N.ySVG()} L ${Omega.xSVG()} ${Omega.ySVG()} Z" stroke="${this.color}" fill="${fill}"/>`
+	Omegay=calcul((-f.c+d.c*f.a/d.a)/(f.b-f.a*d.b/d.a))
+	Omegax=calcul(-d.c/d.a-d.b*Omegay/d.a)
+	let Omega=point(Omegax,Omegay)
+	let l=longueur(Omega,M)
+	if (rayon) 	this.svg = function(coeff=20){
+		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${fill}" opacity="0.5"/>`
 		}
-	else 	this.svg = function(){
-		return `<path d="M${M.xSVG()} ${M.ySVG()} A ${l*this.coeff} ${l*this.coeff} 0 ${large} ${sweep} ${N.xSVG()} ${N.ySVG()}" stroke="${this.color}" fill="${fill}"/>`
+	else 	this.svg = function(coeff=20){
+		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}" opacity="0.5"/>`
 	}
 }
-
+function arcPointPointAngle(...args){
+	return new ArcPointPointAngle(...args)
+}
 
 
 
