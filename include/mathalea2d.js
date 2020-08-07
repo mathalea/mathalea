@@ -1263,6 +1263,9 @@ function Arc(M,Omega,angle,rayon=false,fill='none',color='black') {
 	this.color=color;
 	this.fill=fill;
 	let l=longueur(Omega,M),large=0,sweep=0
+	let d=droite(Omega,M)
+	d.isVisible=false
+	let azimut=d.angleAvecHorizontale
 	if (angle>180) {
 		angle=angle-360
 		large=1
@@ -1285,7 +1288,7 @@ function Arc(M,Omega,angle,rayon=false,fill='none',color='black') {
 		return `<path d="M${M.xSVG()} ${M.ySVG()} A ${l*this.coeff} ${l*this.coeff} 0 ${large} ${sweep} ${N.xSVG()} ${N.ySVG()}" stroke="${this.color}" fill="${fill}"/>`
 	}
 	this.tikz = function(){
-		return `\\draw (${M.x},${M.y}) arc (0:${angle}:${longueur(Omega,M)}) ;`
+		return `\\draw (${M.x},${M.y}) arc (${azimut}:${angle+azimut}:${longueur(Omega,M)}) ;`
 	}
 }
 function arc(...args) {
