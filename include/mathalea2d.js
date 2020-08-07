@@ -157,6 +157,12 @@ function pointSurSegment(A,B,l,nom,positionLabel){
 	}
 	return homothetie(B,A,calcul(l/longueur(A,B)),nom,positionLabel)
 }
+function pointSurCercle(c,angle,nom,positionLabel){
+	if (typeof(angle)!='number') angle=randint(-180,180)
+	let x=c.centre.x+c.rayon*Math.cos(Math.radians(angle))
+	let y=c.centre.y+c.rayon*Math.sin(Math.radians(angle))
+	return point(x,y,nom,positionLabel)
+}
 
 /**
 * M = pointIntersectionDD(d1,d2,'M','below') //M est le point d'intersection des droites (d1) et (d2)
