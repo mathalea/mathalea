@@ -2031,6 +2031,28 @@ function grille(...args){
 	return new Grille(...args)
 }
 
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% LES COURBES DE FONCTIONS %%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+*/
+
+/**
+* courbe(f,xmin,xmax,color,step) // Trace la courbe de f
+* 
+* @Auteur Rémi Angot
+*/
+
+function courbe(f,xmin=-1,xmax=30,color,step=.1){
+	ObjetMathalea2D.call(this)
+	let points = []
+	for (let x = xmin ; x<=xmax ; x+=step){
+		points.push(point(x,f(x)))
+	}
+	return polyline([...points],color)	
+}
+	
 	
 
 /*
