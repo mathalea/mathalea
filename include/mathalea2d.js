@@ -1958,11 +1958,15 @@ function codeSegments(...args){
 
 function Axes(xmin=-1,ymin=-10,xmax=30,ymax=10,thick=.2,step=1){
 	let objets = []
-	objets.push(segment(xmin,0,xmax,0), segment(0,ymin,0,ymax) )
-	for (let x=xmin ; x<=xmax ; x+=step){
+	abscisse = segment(xmin,0,xmax,0)
+	abscisse.styleExtremites = '->'
+	ordonnee = segment(0,ymin,0,ymax)
+	ordonnee.styleExtremites = '->'
+	objets.push(abscisse,ordonnee)
+	for (let x=xmin ; x<xmax ; x+=step){
 	  objets.push(segment(x,-thick,x,thick))
 	}
-	for (let y=ymin ; y<=ymax ; y+=step){
+	for (let y=ymin ; y<ymax ; y+=step){
 	  objets.push(segment(-thick,y,thick,y))
 	}
 	this.svg = function(){
