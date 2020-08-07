@@ -977,6 +977,7 @@ function triangle2points2angles(A,B,a1,a2,n=1){
  * @param {number} a l'angle au sommet A (angle compris entre 0 et 180 sinon il y est contraint)
  * @param {number} l la longueur du deuxième côté de l'angle
  * @param {number} n n=1 l'angle a est pris dans le sens direct, n différent de 1, l'angle a est pris dans le sens indirect.
+ * t = triangle2points1angle1longueur(A,B,40,6) // Trace le triangle ABC tel que CAB = 40° et AC=6
  * @Auteur Jean-Claude Lhote
  */
 function triangle2points1angle1longueur(A,B,a,l,n=1){
@@ -998,6 +999,7 @@ function triangle2points1angle1longueur(A,B,a,l,n=1){
  * n=2 l'angle est pris dans le sens indirect et le point est le plus près de A
  * n=3 l'angle a est pris dans le sens direct et le point est le plus loin de A
  * n=4 l'angle est pris dans le sens indirect et le point est le plus loin de A
+ * t = triangle2points1angle1longueurOppose(A,B,40,6) // Trace le triangle ABC tel que CAB = 40° et BC=6 Le point C est celui des deux points possible le plus près de A
  * @Auteur Jean-Claude Lhote
  */
 function triangle2points1angle1longueurOppose(A,B,a,l,n=1){
@@ -1104,7 +1106,7 @@ function cercle(...args){
 }
 
 /**
- * 
+ * I = pointItersectionLC(d,c,'I',1) // I est le premier point d'intersection si il existe de la droite (d) et du cercle (c)
  * @param {Droite} d la droite qui intecepte (ou pas le cercle)
  * @param {Cercle} C le cercle
  * @param {string} nom le nom du point d'intersection
@@ -1150,7 +1152,6 @@ function pointIntersectionLC(d,C,nom='',n=1){
 	}
 	else { //cas général
 		Delta=calcul((2*(a*c/(b*b)+yO*a/b-xO))**2-4*(1+(a/b)**2)*(xO*xO+yO*yO+(c/b)**2+2*yO*c/b-r*r))
-		console.log(Delta)
 		if (Delta<0) return false
 		else if (egal(Delta,0)) { //un seul point d'intersection
 			delta=calcul(Math.sqrt(Delta))
@@ -1290,7 +1291,15 @@ function Arc(M,Omega,angle,rayon=false,fill='none',color='black') {
 function arc(...args) {
 	return new Arc(...args)
 }
-
+/**
+ * 
+ * @param {Point} M //première extrémité de l'arc
+ * @param {Point} N //deuxième extrémité de l'arc
+ * @param {number} angle //angle au centre de l'arc compris entre -360 et +360 !
+ * @param {boolean} rayon //si true, l'arc est fermé par deux rayons aux extrémités
+ * @param {string} fill //couleur de remplissage (par défaut 'none'= sans remplissage) 
+ * @param {string} color //couleur de l'arc
+ */
 function ArcPointPointAngle(M,N,angle,rayon=false,fill='none',color='black'){
 	ObjetMathalea2D.call(this);
 	this.color=color;
@@ -1334,7 +1343,19 @@ function arcPointPointAngle(...args){
 	return new ArcPointPointAngle(...args)
 }
 
+function arcPointPointAngle(...args) {
+	return new ArcPointPointAngle(...args)
+}
 
+function traceCompas(O,A,angle,pointilles=false,opacite=1,epaisseur=1,color='black') {
+	let B=rotation(A,O,-angle/2)
+	let a=arc(B,O,angle,false)
+	a.epaisseur=epaisseur
+	a.opacite=opacite
+	a.color=color
+	a.pointilles=pointilles
+	return a
+}
 
 
 /*
