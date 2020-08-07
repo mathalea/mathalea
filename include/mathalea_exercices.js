@@ -197,9 +197,6 @@ var liste_des_exercices_disponibles = {
 		'3F21-1' : Lecture_expression_fonctions_affines,
 		'3S15': Calculer_des_etendues,
 		'3S20' : fonctions_probabilite2,
-		//'3SVGtest' : svglibs,
-		//'3Tests' : tester_des_fonctions,
-		
 		'2N10' : Existence_d_une_racine_carree,
 		'2N10-1' : proprietes_racine_carree,
 		'2N11' : Extraire_un_carre_parfait_d_une_racine_carree,
@@ -212,6 +209,7 @@ var liste_des_exercices_disponibles = {
 		'2N23' : valeur_absolue_et_equation,
 		'2N24' : intervalles_de_R,
 		'2N25' : union_et_intersection_intervalles_de_R,
+		'2G10' : Distance,
 		'2L10' : Developper_Identites_remarquables2,
 		'2L11' : Factoriser_Identites_remarquables2,
 		'betaI' : Exercice_intervalle,
