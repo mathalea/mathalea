@@ -1338,6 +1338,9 @@ function ArcPointPointAngle(M,N,angle,rayon=false,fill='none',color='black'){
 	else 	this.svg = function(coeff=20){
 		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}" opacity="0.5"/>`
 	}
+	this.tikz = function(){
+		return `\\draw (${M.x},${M.y}) arc (0:${angle}:${longueur(Omega,M)}) ;`
+	}
 }
 function arcPointPointAngle(...args){
 	return new ArcPointPointAngle(...args)
@@ -1654,7 +1657,17 @@ function affiniteOrtho(A, d, k, nom = ' ', positionLabel = 'above') {
 		return s
 	}
 }
-
+/**
+ * 
+ * @param {Point} A // Le point dont on veut l'image
+ * @param {Point} O // Le centre de la similitude
+ * @param {number} a // L'angle de la rotation
+ * @param {number} k // le rapport de l'homothétie
+ * @param {string} nom 
+ * @param {string} positionLabel 
+ * M = similitude(B,O,30,0.7,'M') // Le point M est l'image de B dans la similitude de centre O d'angle 30° et de rapport 0.7
+ * @Auteur Jean-Claude Lhote
+ */
 function similitude(A,O,a,k,nom=' ',positionLabel = 'above') {
 	if (A.constructor==Point) {
 		let ra = Math.radians(a)
