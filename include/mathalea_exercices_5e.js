@@ -4678,6 +4678,8 @@ function DroiteRemarquableDuTriangle(){
 	this.consigne = 'Définir'
 	this.spacing = 2;
 	this.nb_questions=1
+	this.nb_cols=1
+	this.nb_cols_corr=1
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions

@@ -1000,6 +1000,7 @@ function triangle2points2angles(A,B,a1,a2,n=1){
  * @param {number} a l'angle au sommet A (angle compris entre 0 et 180 sinon il y est contraint)
  * @param {number} l la longueur du deuxième côté de l'angle
  * @param {number} n n=1 l'angle a est pris dans le sens direct, n différent de 1, l'angle a est pris dans le sens indirect.
+ * t = triangle2points1angle1longueur(A,B,40,6) // Trace le triangle ABC tel que CAB = 40° et AC=6
  * @Auteur Jean-Claude Lhote
  */
 function triangle2points1angle1longueur(A,B,a,l,n=1){
@@ -1021,6 +1022,7 @@ function triangle2points1angle1longueur(A,B,a,l,n=1){
  * n=2 l'angle est pris dans le sens indirect et le point est le plus près de A
  * n=3 l'angle a est pris dans le sens direct et le point est le plus loin de A
  * n=4 l'angle est pris dans le sens indirect et le point est le plus loin de A
+ * t = triangle2points1angle1longueurOppose(A,B,40,6) // Trace le triangle ABC tel que CAB = 40° et BC=6 Le point C est celui des deux points possible le plus près de A
  * @Auteur Jean-Claude Lhote
  */
 function triangle2points1angle1longueurOppose(A,B,a,l,n=1){
@@ -1127,7 +1129,7 @@ function cercle(...args){
 }
 
 /**
- * 
+ * I = pointItersectionLC(d,c,'I',1) // I est le premier point d'intersection si il existe de la droite (d) et du cercle (c)
  * @param {Droite} d la droite qui intecepte (ou pas le cercle)
  * @param {Cercle} C le cercle
  * @param {string} nom le nom du point d'intersection
@@ -1173,7 +1175,6 @@ function pointIntersectionLC(d,C,nom='',n=1){
 	}
 	else { //cas général
 		Delta=calcul((2*(a*c/(b*b)+yO*a/b-xO))**2-4*(1+(a/b)**2)*(xO*xO+yO*yO+(c/b)**2+2*yO*c/b-r*r))
-		console.log(Delta)
 		if (Delta<0) return false
 		else if (egal(Delta,0)) { //un seul point d'intersection
 			delta=calcul(Math.sqrt(Delta))
@@ -1285,6 +1286,9 @@ function Arc(M,Omega,angle,rayon=false,fill='none',color='black') {
 	this.color=color;
 	this.fill=fill;
 	let l=longueur(Omega,M),large=0,sweep=0
+	let d=droite(Omega,M)
+	d.isVisible=false
+	let azimut=d.angleAvecHorizontale
 	if (angle>180) {
 		angle=angle-360
 		large=1
@@ -1325,17 +1329,35 @@ function Arc(M,Omega,angle,rayon=false,fill='none',color='black') {
 		return `<path d="M${M.xSVG()} ${M.ySVG()} A ${l*this.coeff} ${l*this.coeff} 0 ${large} ${sweep} ${N.xSVG()} ${N.ySVG()}" stroke="${this.color}" fill="${fill}" ${this.style}/>`
 	}
 	this.tikz = function(){
-		return `\\draw (${M.x},${M.y}) arc (0:${angle}:${longueur(Omega,M)}) ;`
+		return `\\draw (${M.x},${M.y}) arc (${azimut}:${angle+azimut}:${longueur(Omega,M)}) ;`
 	}
 }
 function arc(...args) {
 	return new Arc(...args)
 }
-
+/**
+ * 
+ * @param {Point} M //première extrémité de l'arc
+ * @param {Point} N //deuxième extrémité de l'arc
+ * @param {number} angle //angle au centre de l'arc compris entre -360 et +360 !
+ * @param {boolean} rayon //si true, l'arc est fermé par deux rayons aux extrémités
+ * @param {string} fill //couleur de remplissage (par défaut 'none'= sans remplissage) 
+ * @param {string} color //couleur de l'arc
+ */
 function ArcPointPointAngle(M,N,angle,rayon=false,fill='none',color='black'){
 	ObjetMathalea2D.call(this);
 	this.color=color;
 	this.fill=fill;
+	let anglerot,large,sweep,Omegax,Omegay
+	if (angle<0) anglerot=calcul((angle+180)/2)
+	else anglerot=calcul((angle-180)/2)
+	let d,e,f;
+	d=mediatrice(M,N,'black');
+	d.isVisible=false
+	e=droite(N,M);
+	e.isVisible=false
+	f=rotation(e,N,anglerot);
+	f.isVisible=false
 	if (angle>180) {
 		angle=angle-360
 		large=1
@@ -1350,18 +1372,37 @@ function ArcPointPointAngle(M,N,angle,rayon=false,fill='none',color='black'){
 		large=0
 		sweep=1-(angle>0)
 	}
-	// mais où est Omega ?
-	let Omega//
-	if (rayon) 	this.svg = function(){
-		return `<path d="M${M.xSVG()} ${M.ySVG()} A ${l*this.coeff} ${l*this.coeff} 0 ${large} ${sweep} ${N.xSVG()} ${N.ySVG()} L ${Omega.xSVG()} ${Omega.ySVG()} Z" stroke="${this.color}" fill="${fill}"/>`
+	Omegay=calcul((-f.c+d.c*f.a/d.a)/(f.b-f.a*d.b/d.a))
+	Omegax=calcul(-d.c/d.a-d.b*Omegay/d.a)
+	let Omega=point(Omegax,Omegay)
+	let l=longueur(Omega,M)
+	if (rayon) 	this.svg = function(coeff=20){
+		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${fill}" opacity="0.5"/>`
 		}
-	else 	this.svg = function(){
-		return `<path d="M${M.xSVG()} ${M.ySVG()} A ${l*this.coeff} ${l*this.coeff} 0 ${large} ${sweep} ${N.xSVG()} ${N.ySVG()}" stroke="${this.color}" fill="${fill}"/>`
+	else 	this.svg = function(coeff=20){
+		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}" opacity="0.5"/>`
+	}
+	this.tikz = function(){
+		return `\\draw (${M.x},${M.y}) arc (0:${angle}:${longueur(Omega,M)}) ;`
 	}
 }
+function arcPointPointAngle(...args){
+	return new ArcPointPointAngle(...args)
+}
 
+function arcPointPointAngle(...args) {
+	return new ArcPointPointAngle(...args)
+}
 
-
+function traceCompas(O,A,angle,pointilles=false,opacite=1,epaisseur=1,color='black') {
+	let B=rotation(A,O,-angle/2)
+	let a=arc(B,O,angle,false)
+	a.epaisseur=epaisseur
+	a.opacite=opacite
+	a.color=color
+	a.pointilles=pointilles
+	return a
+}
 
 
 /*
@@ -1660,7 +1701,17 @@ function affiniteOrtho(A, d, k, nom = ' ', positionLabel = 'above') {
 		return s
 	}
 }
-
+/**
+ * 
+ * @param {Point} A // Le point dont on veut l'image
+ * @param {Point} O // Le centre de la similitude
+ * @param {number} a // L'angle de la rotation
+ * @param {number} k // le rapport de l'homothétie
+ * @param {string} nom 
+ * @param {string} positionLabel 
+ * M = similitude(B,O,30,0.7,'M') // Le point M est l'image de B dans la similitude de centre O d'angle 30° et de rapport 0.7
+ * @Auteur Jean-Claude Lhote
+ */
 function similitude(A,O,a,k,nom=' ',positionLabel = 'above') {
 	if (A.constructor==Point) {
 		let ra = Math.radians(a)
