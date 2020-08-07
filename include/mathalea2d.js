@@ -134,7 +134,7 @@ function tracePoint(...args){
 *
 * @Auteur Rémi Angot
 */
-function milieu(A,B,nom,positionLabel){
+function milieu(A,B,nom,positionLabel= 'above'){
 	ObjetMathalea2D.call(this)
 	let x = calcul((A.x+B.x)/2);
 	let y = calcul((A.y+B.y)/2);
@@ -151,13 +151,24 @@ function milieu(A,B,nom,positionLabel){
 * M = pointSurSegment(A,B) // M est un point au hasard sur [AB] 
 * @Auteur Rémi Angot
 */
-function pointSurSegment(A,B,l,nom,positionLabel){
+function pointSurSegment(A,B,l,nom,positionLabel= 'above'){
 	if (l===undefined || typeof l =='string') {
 		l = calcul(longueur(A,B)*randint(15,85)/100)
 	}
 	return homothetie(B,A,calcul(l/longueur(A,B)),nom,positionLabel)
 }
-function pointSurCercle(c,angle,nom,positionLabel){
+/**
+ * 
+ * @param {Cercle} c 
+ * @param {number} angle 
+ * @param {string} nom 
+ * @param {string} positionLabel 
+ * M = pointSurCercle(c,'','M') // M est un point choisi au hasard sur le cercle c et se nomme M.
+ * N = pointSurCercle(c,90) // N est le point du cercle c situé à 90° par rapport à l'horizontale, donc au dessus du centre de c
+ * P = pointSurCercle(c,-90) // P est le point du cercle c situé à l'opposé du point N précédent.
+ * @Auteur Jean-Claude Lhote
+ */
+function pointSurCercle(c,angle,nom,positionLabel= 'above'){
 	if (typeof(angle)!='number') angle=randint(-180,180)
 	let x=c.centre.x+c.rayon*Math.cos(Math.radians(angle))
 	let y=c.centre.y+c.rayon*Math.sin(Math.radians(angle))
@@ -981,6 +992,53 @@ function triangle2points2angles(A,B,a1,a2,n=1){
 	dBc2.isVisible = false
 	let C = pointIntersectionDD(dAc1,dBc2,'C')
 	return polygone(A,B,C)
+}
+/**
+ * 
+ * @param {Point} A Le sommet pour l'angle donné = première extrémité du segment de base du triangle
+ * @param {Point} B L'autre extrémité du segment de base
+ * @param {number} a l'angle au sommet A (angle compris entre 0 et 180 sinon il y est contraint)
+ * @param {number} l la longueur du deuxième côté de l'angle
+ * @param {number} n n=1 l'angle a est pris dans le sens direct, n différent de 1, l'angle a est pris dans le sens indirect.
+ * @Auteur Jean-Claude Lhote
+ */
+function triangle2points1angle1longueur(A,B,a,l,n=1){
+	if (n==1) {
+		a =Math.abs(a)%180
+	} else {
+		a =-(Math.abs(a)%180)
+	}
+	let P = pointSurSegment(A,B,l)
+	let Q = rotation(P,A,a)
+	return polygone(A,B,Q)
+}
+/**
+ * @param {Point} A Le sommet pour l'angle donné = première extrémité du segment de base du triangle
+ * @param {Point} B L'autre extrémité du segment de base
+ * @param {number} a l'angle au sommet A (angle compris entre 0 et 180 sinon il y est contraint)
+ * @param {number} l la longueur du côté opposé à l'angle
+ * @param {number} n n=1 l'angle a est pris dans le sens direct et le point est le plus près de A
+ * n=2 l'angle est pris dans le sens indirect et le point est le plus près de A
+ * n=3 l'angle a est pris dans le sens direct et le point est le plus loin de A
+ * n=4 l'angle est pris dans le sens indirect et le point est le plus loin de A
+ * @Auteur Jean-Claude Lhote
+ */
+function triangle2points1angle1longueurOppose(A,B,a,l,n=1){
+	let M
+	if (n%2==1) {
+		a =Math.abs(a)%180
+	} else {
+		a =-(Math.abs(a)%180)
+	}
+	let d = droite(A,B)
+	let e = rotation(d,A,a)
+	let c=cercle(B,l)
+	d.isVisible=false
+	e.isVisible=false
+	c.isVisible=false
+	if ((n+1)>>1==1)	M=pointIntersectionLC(e,c,'',1)
+	else  M=pointIntersectionLC(e,c,'',2)
+	return polygone(A,B,M)
 }
 
 /**
