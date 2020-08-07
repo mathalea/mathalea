@@ -29,6 +29,7 @@ function ObjetMathalea2D() {
 	this.styleTikz = '';
 	this.coeff = 20; // 1 cm est représenté par 20 pixels
 	this.epaisseur = 1;
+	this.opacite = 1;
 	this.pointilles = false;
 	mesObjets.push(this);
 }
@@ -345,6 +346,9 @@ function Droite(arg1,arg2,arg3,arg4,color) {
 		if (this.pointilles) {
 			this.style += ` stroke-dasharray="4 3" `
 		}
+		if (this.opacite !=1) {
+			this.style += ` stroke-opacity="${this.opacite}" `
+		}
 		let A = point(this.x1,this.y1);
 		let B = point(this.x2,this.y2);
 		let A1 = pointSurSegment(A,B,-50);
@@ -357,10 +361,13 @@ function Droite(arg1,arg2,arg3,arg4,color) {
 			tableauOptions.push(this.color)
 		}
 		if (this.epaisseur!=1) {
-			tableauOptions.push(`line width = ${epaisseur}`) 
+			tableauOptions.push(`line width = ${this.epaisseur}`) 
 		}
 		if (this.pointilles) {
 			tableauOptions.push(`dashed`) 
+		}
+		if (this.opacite !=1) {
+			tableauOptions.push(`opacity = ${this.opacite}`)
 		}
 		
 		let optionsDraw = []
@@ -635,7 +642,6 @@ function Segment(arg1,arg2,arg3,arg4,color){
 	this.extremite2 = point(this.x2,this.y2)
 	this.longueur = calcul(Math.sqrt((this.x2-this.x1)**2+(this.y2-this.y1)**2));
 	this.angleAvecHorizontale = calcul(Math.atan2(this.y2-this.y1, this.x2-this.x1)*180/Math.PI); 
-	this.opacite = 1
 
 	this.svg = function(){
 		if (this.epaisseur!=1) {
@@ -790,6 +796,9 @@ function Polygone(...points){
 		if (this.pointilles) {
 			this.style += ` stroke-dasharray="4 3" `
 		}
+		if (this.opacite !=1) {
+			this.style += ` stroke-opacity="${this.opacite}" `
+		}
 		
 		return `<polygon points="${binomeXY}" fill="none" stroke="${this.color}" ${this.style} />`
 	}
@@ -799,10 +808,13 @@ function Polygone(...points){
 			tableauOptions.push(this.color)
 		}
 		if (this.epaisseur!=1) {
-			tableauOptions.push(`line width = ${epaisseur}`) 
+			tableauOptions.push(`line width = ${this.epaisseur}`) 
 		}
 		if (this.pointilles) {
 			tableauOptions.push(`dashed`) 
+		}
+		if (this.opacite !=1) {
+			tableauOptions.push(`opacity=${this.opacity}`)
 		}
 		
 		let optionsDraw = []
@@ -996,6 +1008,10 @@ function Cercle(O,r,color){
 		if (this.pointilles) {
 			this.style += ` stroke-dasharray="4 3" `
 		}
+		if (this.opacite !=1) {
+			this.style += ` stroke-opacity="${this.opacite}" `
+		}
+
 		return `<circle cx="${O.xSVG()}" cy="${O.ySVG()}" r="${r*this.coeff}" stroke="${this.color}" ${this.style} fill="none"/>`
 	}
 	this.tikz = function(){
@@ -1009,6 +1025,9 @@ function Cercle(O,r,color){
 		}
 		if (this.pointilles) {
 			tableauOptions.push(`dashed`) 
+		}
+		if (this.opacite !=1) {
+			tableauOptions.push(`opacity = ${this.opacite}`)
 		}
 		if (tableauOptions.length>0) {
 			optionsDraw = "["+tableauOptions.join(',')+"]"
@@ -2017,13 +2036,17 @@ function codeSegments(...args){
 * @Auteur Rémi Angot
 */
 
-function Axes(xmin=-1,ymin=-10,xmax=30,ymax=10,thick=.2){
+function Axes(xmin=-1,ymin=-10,xmax=30,ymax=10,thick=.2,step=1){
 	let objets = []
-	objets.push(segment(xmin,0,xmax,0), segment(0,ymin,0,ymax) )
-	for (let x=xmin ; x<=xmax ; x++){
+	abscisse = segment(xmin,0,xmax,0)
+	abscisse.styleExtremites = '->'
+	ordonnee = segment(0,ymin,0,ymax)
+	ordonnee.styleExtremites = '->'
+	objets.push(abscisse,ordonnee)
+	for (let x=xmin ; x<xmax ; x+=step){
 	  objets.push(segment(x,-thick,x,thick))
 	}
-	for (let y=ymin ; y<=ymax ; y++){
+	for (let y=ymin ; y<ymax ; y+=step){
 	  objets.push(segment(-thick,y,thick,y))
 	}
 	this.svg = function(){
@@ -2048,36 +2071,43 @@ function axes(...args){
 }
 
 /**
-* axes(xmin,ymin,xmax,ymax,thick) // Trace les axes des abscisses et des ordinnées
+* grille(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les axes des abscisses et des ordinnées
 * 
 * @Auteur Rémi Angot
 */
-function Grille(xmin = -1, ymin = -10, xmax = 20, ymax = 10, color = 'gray', opacite = .4){
+function Grille(xmin = -1, ymin = -10, xmax = 20, ymax = 10, color = 'gray', opacite = .4, step = 1){
 	ObjetMathalea2D.call(this)
 	this.color = color
 	this.opacite = opacite
-	let listeSegments = []
-	for (i = xmin ; i <= xmax ; i++){
-	  listeSegments[i] = segment(i,ymin,i,ymax)
-	  listeSegments[i].color = this.color
-	  listeSegments[i].opacite = this.opacite
+	let listeSegmentsV = []
+	let listeSegmentsH = []
+	for (i = xmin ; i <= xmax ; i+= step){
+	  listeSegmentsV[i] = segment(i,ymin,i,ymax)
+	  listeSegmentsV[i].color = this.color
+	  listeSegmentsV[i].opacite = this.opacite
 	}
-	for (i = ymin ; i <= ymax ; i++){
-	  listeSegments[i] = segment(xmin,i,xmax,i)
-	  listeSegments[i].color = this.color
-	  listeSegments[i].opacite = this.opacite
+	for (i = ymin ; i <= ymax ; i+= step){
+	  listeSegmentsH[i] = segment(xmin,i,xmax,i)
+	  listeSegmentsH[i].color = this.color
+	  listeSegmentsH[i].opacite = this.opacite
 	}
-	this.commentaire = `Grille(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, color = ${color}, opacite = ${opacite})`
+	this.commentaire = `Grille(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, color = ${color}, opacite = ${opacite}, pas = ${step})`
 	this.svg = function(){
 		code = ''
-		for (s of listeSegments){
+		for (s of listeSegmentsV){
+			code += '\n\t' + s.svg()
+		}
+		for (s of listeSegmentsH){
 			code += '\n\t' + s.svg()
 		}
 		return code
 	}
 	this.tikz = function(){
 		code = ''
-		for (s of listeSegments){
+		for (s of listeSegmentsV){
+			code += '\n\t' + s.tikz()
+		}
+		for (s of listeSegmentsH){
 			code += '\n\t' + s.tikz()
 		}
 		return code
@@ -2088,6 +2118,28 @@ function grille(...args){
 	return new Grille(...args)
 }
 
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% LES COURBES DE FONCTIONS %%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+*/
+
+/**
+* courbe(f,xmin,xmax,color,step) // Trace la courbe de f
+* 
+* @Auteur Rémi Angot
+*/
+
+function courbe(f,xmin=-1,xmax=30,color,step=.1){
+	ObjetMathalea2D.call(this)
+	let points = []
+	for (let x = xmin ; x<=xmax ; x+=step){
+		points.push(point(x,f(x)))
+	}
+	return polyline([...points],color)	
+}
+	
 	
 
 /*
