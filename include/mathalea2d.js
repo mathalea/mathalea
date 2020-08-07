@@ -514,8 +514,10 @@ function Polyline(...points){
 		this.listePoints = points
 	}
 	this.nom = '';
-	for (let point of points){
-		this.nom += point.nom
+	if (points.length<15) { // Ne nomme pas les ligne brisée trop grande (pratique pour les courbes de fonctions)
+		for (let point of points){
+			this.nom += point.nom
+		}
 	}
 	this.svg = function(){
 		if (this.epaisseur!=1) {
@@ -524,6 +526,9 @@ function Polyline(...points){
 		if (this.pointilles) {
 			this.style += ` stroke-dasharray="4 3" `
 		}
+		if (this.opacite !=1) {
+			this.style += ` stroke-opacity="${this.opacite}" `
+		}
 		let binomeXY = "";
 		for (let point of this.listePoints){
 			binomeXY += `${calcul(point.x*this.coeff)},${calcul(-point.y*this.coeff)} `; 		
@@ -531,12 +536,30 @@ function Polyline(...points){
 		return `<polyline points="${binomeXY}" fill="none" stroke="${this.color}" ${this.style} />`
 	}
 	this.tikz = function(){
+		let tableauOptions = [];
+		if (this.color.length>1 && this.color!=='black'){
+			tableauOptions.push(this.color)
+		}
+		if (this.epaisseur!=1) {
+			tableauOptions.push(`line width = ${this.epaisseur}`) 
+		}
+		if (this.pointilles) {
+			tableauOptions.push(`dashed`) 
+		}
+		if (this.opacite !=1) {
+			tableauOptions.push(`opacity = ${this.opacite}`)
+		}
+		
+		let optionsDraw = []
+		if (tableauOptions.length>0) {
+			optionsDraw = "["+tableauOptions.join(',')+"]"
+		}
 		let binomeXY = "";
 		for (let point of this.listePoints){
 			binomeXY += `(${point.x},${point.y})--`
 		}
 		binomeXY = binomeXY.substr(0,binomeXY.length-2)
-		return `\\draw ${binomeXY};`
+		return `\\draw${optionsDraw} ${binomeXY};`
 	}
 
 }
@@ -2051,13 +2074,19 @@ function grille(...args){
 * @Auteur Rémi Angot
 */
 
-function courbe(f,xmin=-1,xmax=30,color,step=.1){
+function courbe(f,xmin=-1,xmax=30,color = 'black',step=.1){
 	ObjetMathalea2D.call(this)
+	this.color = color
 	let points = []
-	for (let x = xmin ; x<=xmax ; x+=step){
-		points.push(point(x,f(x)))
+	for (let x = xmin ; x<=xmax ; x = calcul(x+step)){
+		if (isFinite(f(x))) {
+			points.push(point(x,f(x)))
+		} else {
+			console.log(x,f(x))
+		}
 	}
-	return polyline([...points],color)	
+	let p = polyline([...points],this.color)
+	return p
 }
 	
 	
