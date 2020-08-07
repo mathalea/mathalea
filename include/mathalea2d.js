@@ -157,6 +157,12 @@ function pointSurSegment(A,B,l,nom,positionLabel){
 	}
 	return homothetie(B,A,calcul(l/longueur(A,B)),nom,positionLabel)
 }
+function pointSurCercle(c,angle,nom,positionLabel){
+	if (typeof(angle)!='number') angle=randint(-180,180)
+	let x=c.centre.x+c.rayon*Math.cos(Math.radians(angle))
+	let y=c.centre.y+c.rayon*Math.sin(Math.radians(angle))
+	return point(x,y,nom,positionLabel)
+}
 
 /**
 * M = pointIntersectionDD(d1,d2,'M','below') //M est le point d'intersection des droites (d1) et (d2)
@@ -1060,6 +1066,86 @@ function Cercle(O,r,color){
 }
 function cercle(...args){ 
 	return new Cercle(...args)
+}
+
+/**
+ * 
+ * @param {Droite} d la droite qui intecepte (ou pas le cercle)
+ * @param {Cercle} C le cercle
+ * @param {string} nom le nom du point d'intersection
+ * @param {entier} n 1 pour le premier point, 2 sinon. Si il n'y a qu'un seul point d'intesection, l'un ou l'autre renvoie ce point.
+ * @Auteur Jean-Claude Lhote
+ */
+function pointIntersectionLC(d,C,nom='',n=1){
+	let O = C.centre
+	let r = C.rayon
+	let a = d.a
+	let b=d.b
+	let c=d.c 
+	let xO = O.x
+	let yO = O.y
+	let Delta,delta,xi,yi,xi_prime,yi_prime
+	if (b==0) { // la droite est verticale
+		xi=calcul(-c/a)	
+		xi_prime=xi
+		Delta=calcul(4*(-xO*xO-c*c/(a*a)-2*xO*c/a+r*r))
+		if (Delta<0) return false
+		else if (egal(Delta,0)) { //un seul point d'intersection
+			yi=calcul(yO+Math.sqrt(Delta)/2)
+			yi_prime=yi
+		}
+		else {//deux points d'intersection
+		yi=calcul(yO-Math.sqrt(Delta)/2)
+		yi_prime=calcul(yO+Math.sqrt(Delta)/2)
+		}
+	}
+	else if (a==0) { // la droite est horizontale
+		yi=calcul(-c/b)
+		yi_prime=yi
+		Delta=calcul(4*(-yO*yO-c*c/(b*b)-2*yO*c/b+r*r))
+		if (Delta<0) return false
+		else if (egal(Delta,0)) { //un seul point d'intersection
+			xi=calcul(xO+Math.sqrt(Delta)/2)
+			xi_prime=xi
+		}
+		else {//deux points d'intersection
+		xi=calcul(xO-Math.sqrt(Delta)/2)
+		xi_prime=calcul(xO+Math.sqrt(Delta)/2)
+		}
+	}
+	else { //cas général
+		Delta=calcul((2*(a*c/(b*b)+yO*a/b-xO))**2-4*(1+(a/b)**2)*(xO*xO+yO*yO+(c/b)**2+2*yO*c/b-r*r))
+		console.log(Delta)
+		if (Delta<0) return false
+		else if (egal(Delta,0)) { //un seul point d'intersection
+			delta=calcul(Math.sqrt(Delta))
+			xi=calcul((-2*(a*c/(b*b)+yO*a/b-xO)-delta)/(2*(1+(a/b)**2)))
+			xi_prime=xi
+			yi=calcul((-a*xi-c)/b)
+			yi_prime=yi
+		}
+		else  {//deux points d'intersection
+		delta=calcul(Math.sqrt(Delta))
+		xi=calcul((-2*(a*c/(b*b)+yO*a/b-xO)-delta)/(2*(1+(a/b)**2)))
+		xi_prime=calcul((-2*(a*c/(b*b)+yO*a/b-xO)+delta)/(2*(1+(a/b)**2)))
+		yi=calcul((-a*xi-c)/b)
+		yi_prime=calcul((-a*xi_prime-c)/b)
+		}
+	}
+	if (n==1) {
+		if (yi_prime>yi) {
+			return point(xi_prime,yi_prime,nom)
+		} else {
+			return point(xi,yi,nom)
+		}
+	} else {
+		if (yi_prime>yi) {
+			return point(xi,yi,nom)
+		} else {
+			return point(xi_prime,yi_prime,nom)
+		}
+	}
+
 }
 
 /**
