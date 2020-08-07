@@ -1999,28 +1999,35 @@ function Grille(xmin = -1, ymin = -10, xmax = 20, ymax = 10, color = 'gray', opa
 	ObjetMathalea2D.call(this)
 	this.color = color
 	this.opacite = opacite
-	let listeSegments = []
+	let listeSegmentsV = []
+	let listeSegmentsH = []
 	for (i = xmin ; i <= xmax ; i+= step){
-	  listeSegments[i] = segment(i,ymin,i,ymax)
-	  listeSegments[i].color = this.color
-	  listeSegments[i].opacite = this.opacite
+	  listeSegmentsV[i] = segment(i,ymin,i,ymax)
+	  listeSegmentsV[i].color = this.color
+	  listeSegmentsV[i].opacite = this.opacite
 	}
 	for (i = ymin ; i <= ymax ; i+= step){
-	  listeSegments[i] = segment(xmin,i,xmax,i)
-	  listeSegments[i].color = this.color
-	  listeSegments[i].opacite = this.opacite
+	  listeSegmentsH[i] = segment(xmin,i,xmax,i)
+	  listeSegmentsH[i].color = this.color
+	  listeSegmentsH[i].opacite = this.opacite
 	}
 	this.commentaire = `Grille(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, color = ${color}, opacite = ${opacite}, pas = ${step})`
 	this.svg = function(){
 		code = ''
-		for (s of listeSegments){
+		for (s of listeSegmentsV){
+			code += '\n\t' + s.svg()
+		}
+		for (s of listeSegmentsH){
 			code += '\n\t' + s.svg()
 		}
 		return code
 	}
 	this.tikz = function(){
 		code = ''
-		for (s of listeSegments){
+		for (s of listeSegmentsV){
+			code += '\n\t' + s.tikz()
+		}
+		for (s of listeSegmentsH){
 			code += '\n\t' + s.tikz()
 		}
 		return code
