@@ -4678,6 +4678,8 @@ function DroiteRemarquableDuTriangle(){
 	this.consigne = 'Définir'
 	this.spacing = 2;
 	this.nb_questions=1
+	this.nb_cols=1
+	this.nb_cols_corr=1
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
@@ -4690,13 +4692,22 @@ function DroiteRemarquableDuTriangle(){
 			B[i] = point(randint(5,9),randint(1,4),sommets[i][1],'below right')
 			C[i] = point(randint(A[i].x,B[i].x),randint(6,8),sommets[i][2],'above')
 			t[i] = polygone(A[i],B[i],C[i])
-			d[i] = hauteurTriangle(A[i],B[i],C[i])
 			n[i] = labelPoint(A[i],B[i],C[i])
-			c[i] = codageHauteurTriangle(A[i],B[i],C[i],'red')
+			if (randint(1,2)==1) {
+				d[i] = hauteurTriangle(A[i],B[i],C[i])
+				d[i].epaisseur=2
+				c[i] = codageHauteurTriangle(A[i],B[i],C[i])
+				texte_corr=`La droite tracée est la hauteur issue de $${sommets[i][0]}$ dans le triangle ${triangles[i].getNom()}.`
+			}
+			else {
+				d[i] = mediatrice(A[i],B[i])
+				d[i].epaisseur=2
+				c[i] = codageMediatrice(A[i],B[i])
+				texte_corr=`La droite tracée est la médiatrice du segment [$${sommets[i][0]}${sommets[i][1]}]$.`
+
+			}
 			objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i]]
-			texte = `Quelle est la nature de la
-			 droite tracée pour le triangle ?<br>` + mathalea2d(0,0,10,10,...objets[i])
-			texte_corr = ``
+			texte = `Quelle est la nature de la droite tracée en gras pour le triangle ${triangles[i].getNom()} ?<br>` + mathalea2d(0,0,10,10,...objets[i])
 
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
