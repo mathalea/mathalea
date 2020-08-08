@@ -4001,7 +4001,8 @@ function decomp_fact_prem_array(n) {
 
 
 /**
- * Classe Triangles 
+ * @class
+ * @classdesc Classe Triangles - Méthodes utiles pour les triangles *  
  * Choisi un nom au hasard dans un tableau statique
  * La méthode getNom() permet de récupérer ce nom et fournit un string en mode maths. Si le triangle se nomme AGE, alors getNom() renvoit un tableau de 5 éléments $ ; A ; G ; E et $, les $ traduisent le mode maths
  * Pour l'exemple le triangle se nomme AGE
@@ -4228,6 +4229,37 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 	this.isPlatTriangleAngles = isPlatTriangleAngles;
 	//this.isQuelconque = isQuelconque;	
 };
+
+/**
+ * @class
+ * @classdesc Classe Relatif - Méthodes utiles sur les relatifs
+ * @author Sébastien Lozano
+ */
+function Relatif() {
+	'use strict';
+	var self = this;
+
+	/**
+	 * Récupère le signe d'un relatif
+	 * @return {number} -1 ou 1
+	 */
+	function getSigne(n) {
+		try {
+			console.log(typeof n);
+			if(n<0) {
+				return -1;
+			};
+			if(n>0) {
+				return 1;
+			};
+		} catch(error) {
+			console.log(error.message);			
+		}
+	};
+
+	this.getSigne = getSigne;
+
+}
 
 // Gestion des styles LaTeX
 

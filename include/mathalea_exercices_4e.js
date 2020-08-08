@@ -4107,6 +4107,7 @@ function Signe_produit_quotient_relatifs(){
 		this.liste_corrections = []; // Liste de questions corrigées
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+			let c = new Relatif;
 			// on ne choisit que des nombres compris entre 1 et 20
 			let nb_max = 20;
 			let a = randint(1,nb_max);// on tire un entier positif
@@ -4148,7 +4149,7 @@ function Signe_produit_quotient_relatifs(){
 					texte_corr = `$ ${ecriture_nombre_relatif(a)} $ est $ ${signe_a} $ et $ ${ecriture_nombre_relatif(b)} $ est $ ${signe_b} $ donc $ ${ecriture_nombre_relatif(a)} \\times ${ecriture_nombre_relatif(b)} $ est $ ${signe_produit}$`;
 					break;
 				case 2 : // 3 facteurs
-					texte = `txt2`;
+					texte = `${c.getSigne('rrr')} ${JSON.stringify(c)}`;
 					texte_corr = `txt2`;
 					break;
 				case 3 : // 4 facteurs
