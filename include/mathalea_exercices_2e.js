@@ -14,15 +14,15 @@ Exercice.call(this); // Héritage de la classe Exercice()
     {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles = [1];
+    let type_de_questions_disponibles = [1,2];
      if (this.sup == 1) {
             type_de_questions_disponibles = [1] 
         }
       if (this.sup == 2) {
-            type_de_questions_disponibles = [1] 
-        }
+            type_de_questions_disponibles = [2] 
+           }
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) ;
-    for (let i = 0, a,ux,uy,d,e,g,xA,yA,xB,yB,xC,yC,AB,XAB,YAB,XAC,YAC,AC,t,l, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) 
+    for (let i = 0, a,ux,uy,d,e,g,xA,yA,xB,yB,xC,yC,AB,XAB,YAB,XAC,YAC,AC,t,l,xI0,xI1,yI0,yI1, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) 
     {
     type_de_questions = liste_type_de_questions[i];
     switch (type_de_questions){
@@ -44,63 +44,64 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     XAB=(xB-xA)*(xB-xA)
                     YAB=(yB-yA)*(yB-yA);
                     AB=XAB+YAB;
-                
+                    xI0= fraction_simplifiee(xA+xB,2)[0]
+                    xI1= fraction_simplifiee(xA+xB,2)[1]
+                    yI0= fraction_simplifiee(yA+yB,2)[0]
+                    yI1= fraction_simplifiee(yA+yB,2)[1]
                     texte =`Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :`
                     texte +=` $A\\left(${xA};${yA}\\right)$ et $B\\left(${xB};${yB}\\right)$`
-                    texte += `<br>Déterminer les coordonnées du milieu du segment $[AB]$ `;
+                    texte += `<br>Déterminer les coordonnées du point $I$ milieu du segment $[AB]$ `;
                                    
                     
                     texte_corr = `On sait d'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d'un repère orthonormé,`
-                    texte_corr +=` alors les coordonnées du point $I$ milieu de $[AB]$ sont <br>`
+                    texte_corr +=`<br> alors les coordonnées du point $I$ milieu de $[AB]$ sont `
                     texte_corr +=`$I\\left(\\dfrac{x_A+x_B}{2};\\dfrac{y_A+y_B}{2}\\right)$ <br>`
                     texte_corr +=`On applique la relation à l'énoncé : `
                     texte_corr +=`$\\begin{cases}x_I=\\dfrac{${xA}+${ecriture_parenthese_si_negatif(xB)}}{2} \\\\ y_I=\\dfrac{${yA}+${ecriture_parenthese_si_negatif(yB)}}{2}\\end{cases}$`
-                    texte_corr += `<br>Ce qui donne au final : $ I\\left(${tex_nombre((xA+xB)/2)};${tex_nombre((yA+yB)/2)}\\right)$`
-
+                    texte_corr += `<br>On en déduit :  $\\begin{cases}x_I=\\dfrac{${tex_nombre(xA+xB)}}{2}\\\\y_I=\\dfrac{${tex_nombre(yA+yB)}}{2}\\end{cases}$`
+                    if (xI1!=1 && yI1!=1) {texte_corr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};\\dfrac{${yI0}}{${yI1}};\\right)$`}
+                    if (xI1==1 && yI1!=1) {texte_corr += `  <br>Ce qui donne au final : $ I\\left(${xI0};\\dfrac{${yI0}}{${yI1}}\\right)$`}
+                    if (xI1!=1 && yI1==1) {texte_corr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};${yI0}\\right)$`}
+                    if (xI1==1 && yI1==1) {texte_corr += `  <br>Ce qui donne au final : $ I\\left(${xI0};${yI0}\\right)$`}
                    
 
                      ;   
                    break ;
              case 2 : 
         
-              
-                   xA=randint(0,5)*choice([-1,1])
-                   yA=randint(0,9)*choice([-1,1])
-                   ux=randint(0,9)*choice([-1,1])
-                   uy=randint(0,9)*choice([-1,1])
-                   xB=xA+ux
-                   yB=yA+uy
-                   xC=xA+uy*choice([-1,1])
-                   yC=yA+ux*choice([-1,1])
-
-                   XAB=(xB-xA)*(xB-xA)
-                   YAB=(yB-yA)*(yB-yA);
-                   AB=XAB+YAB;
-                   XAC=(xC-xA)*(xC-xA)
-                   YAC=(yC-yA)*(yC-yA);
-                   AC=XAC+YAC;
-                
-                    texte =`Dans un repère orthonormé (O,I,J), on donne les points suivants :`
-                    texte +=` $A\\left(${xA};${yA}\\right)$ ; $B\\left(${xB};${yB}\\right)$`
-                    texte += `<br>Le point $C\\left(${xC};${yC}\\right)$ appartient-il au cercle de centre $A$ passant par $B$ ?`;
+                g =grille(-9,-9,9,9)
+                    xA=randint(0,5)*choice([-1,1])
+                    yA=randint(0,5)*choice([-1,1])
+                    xI=randint(0,5)*choice([-1,1])
+                    yI=randint(0,5)*choice([-1,1])
+                    A = point(xA,yA,'A','red')
+                    B = point(xB,yB,'B','red')
+                    t=tracePoint(A,B)
+                    l=labelPoint(A,B)
+                    a=axes(-2,-9,9,9)
+                    XAB=(xB-xA)*(xB-xA)
+                    YAB=(yB-yA)*(yB-yA);
+                    AB=XAB+YAB;
+                    xI0= fraction_simplifiee(xA+xB,2)[0]
+                    xI1= fraction_simplifiee(xA+xB,2)[1]
+                    yI0= fraction_simplifiee(yA+yB,2)[0]
+                    yI1= fraction_simplifiee(yA+yB,2)[1]
+                    texte =`Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :`
+                    texte +=` $A\\left(${xA};${yA}\\right)$ et $I\\left(${xI};${yI}\\right)$`
+                    texte += `<br>Déterminer les coordonnées du point $B$ tel que I soit le milieu du segment $[AB]$ `;
                                    
-                    texte_corr = `Le point $C$ appartient au cercle de centre $A$ passant par $B$ si et seulement si $CA=CB.$`
-                    texte_corr += `<br>On calcule séparément donc ces deux distances :`
-                    texte_corr += `<br>On sait d'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d'un repère orthonormé,`
-                    texte_corr +=` alors on a : $AB=\\sqrt{\\left(x_B-x_A\\right)^{2}+\\left(y_B-y_A\\right)^{2}}$<br>`
-                    texte_corr +=`On applique la relation à l'énoncé : $AB=\\sqrt{\\left(${xB}-${ecriture_parenthese_si_negatif(xA)}\\right)^{2}+\\left(${yB}-${ecriture_parenthese_si_negatif(yA)}\\right)^{2}}$<br>`
-                    texte_corr += `$\\phantom{On applique la relation à l'énoncé :        } AB=\\sqrt{${XAB}+${YAB}}$<br>`
-                    texte_corr +=`$\\phantom{On applique la relation à l'énoncé :        } AB=\\sqrt{${tex_nombre(XAB+YAB)}}$<br>`
                     
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=2$<br>`}
-                    texte_corr +=`De même : $AC=\\sqrt{\\left(${xC}-${ecriture_parenthese_si_negatif(xA)}\\right)^{2}+\\left(${yC}-${ecriture_parenthese_si_negatif(yA)}\\right)^{2}}$<br>`
-                    texte_corr += `$\\phantom{De même :       } AC=\\sqrt{${XAC}+${YAC}}$<br>`
-                    texte_corr +=`$\\phantom{De même :       } AC=\\sqrt{${tex_nombre(XAC+YAC)}}$<br>`
+                    texte_corr = `On sait d'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d'un repère orthonormé,`
+                    texte_corr +=` <br>alors les coordonnées du point $I$ milieu de $[AB]$ sont `
+                    texte_corr +=`$I\\left(\\dfrac{x_A+x_B}{2};\\dfrac{y_A+y_B}{2}\\right)$ <br>`
+                    texte_corr +=`On applique la relation à l'énoncé : `
+                    texte_corr +=`$\\begin{cases}${xI}=\\dfrac{${xA}+x_B}{2} \\\\ ${yI}=\\dfrac{${yA}+y_B}{2}\\end{cases}$`
+                    texte_corr +=`$\\iff \\begin{cases}x_B=2\\times ${xI} -${ecriture_parenthese_si_negatif(xA)} \\\\ y_B=2\\times ${yI}-${ecriture_parenthese_si_negatif(yA)}\\end{cases}$`
+                    texte_corr += `<br>On en déduit :  $\\begin{cases}x_B={${tex_nombre(2*xI-xA)}}\\\\y_B=${tex_nombre(2*yI-yA)}\\end{cases}$`
+                   texte_corr += `<br>Au final : $B\\left( ${tex_nombre(2*xI-xA)};${tex_nombre(2*yI-yA)}\\right)$`
                    
-                        { texte_corr +=`$\\phantom{De même :  } AC=2$<br>`}
-                    texte_corr +=`On observe que $AC=AB$ donc le point $A$ est équidistant de $B$ et $C$.`
-                     texte_corr +=`<br>Le point $C$ appartient bien au cercle de centre $A$ et passant par $B$.`
-                    ;   
+
+                     ;   
                    break ;
              case 3 : 
         
@@ -154,7 +155,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
         }
         liste_de_question_to_contenu(this);
     }
-     this.besoin_formulaire_numerique = ['Niveau de difficulté', 2, '1 : Application directe de la formule 2 : Application en situation'];
+     this.besoin_formulaire_numerique = ['Niveau de difficulté', 2, '1 : Application directe de la formule 2 : Application indirecte de la formule '];
 }  
 
 
@@ -248,6 +249,8 @@ Exercice.call(this); // Héritage de la classe Exercice()
                         { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=3$<br>`}
                       if (AB==4)
                         { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=2$<br>`}
+                     if (AB==1)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=1$<br>`}
 
                      ;   
                    break ;
@@ -317,6 +320,9 @@ Exercice.call(this); // Héritage de la classe Exercice()
                         { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=3$<br>`}
                       if (AB==4)
                         { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=2$<br>`}
+                      if (AB==1)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=1$<br>`}
+
                     texte_corr +=`De même : $AC=\\sqrt{\\left(${xC}-${ecriture_parenthese_si_negatif(xA)}\\right)^{2}+\\left(${yC}-${ecriture_parenthese_si_negatif(yA)}\\right)^{2}}$<br>`
                     texte_corr += `$\\phantom{De même :       } AC=\\sqrt{${XAC}+${YAC}}$<br>`
                     texte_corr +=`$\\phantom{De même :       } AC=\\sqrt{${tex_nombre(XAC+YAC)}}$<br>`
@@ -356,6 +362,9 @@ Exercice.call(this); // Héritage de la classe Exercice()
                         { texte_corr +=`$\\phantom{De même :  } AC=3$<br>`}
                       if (AC==4)
                         { texte_corr +=`$\\phantom{De même :  } AC=2$<br>`}
+                      if (AC==1)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AC=1$<br>`}
+
                     texte_corr +=`On observe que $AC=AB$ donc le point $A$ est équidistant de $B$ et $C$.`
                      texte_corr +=`<br>Le point $C$ appartient bien au cercle de centre $A$ et passant par $B$.`
                     ;   
@@ -426,6 +435,9 @@ Exercice.call(this); // Héritage de la classe Exercice()
                         { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=3$<br>`}
                       if (AB==4)
                         { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=2$<br>`}
+                     if (AB==1)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=1$<br>`}
+
                     texte_corr +=`De même : $AC=\\sqrt{\\left(${xC}-${ecriture_parenthese_si_negatif(xA)}\\right)^{2}+\\left(${yC}-${ecriture_parenthese_si_negatif(yA)}\\right)^{2}}$<br>`
                     texte_corr += `$\\phantom{De même :       } AC=\\sqrt{${XAC}+${YAC}}$<br>`
                     texte_corr +=`$\\phantom{De même :       } AC=\\sqrt{${tex_nombre(XAC+YAC)}}$<br>`
@@ -465,6 +477,9 @@ Exercice.call(this); // Héritage de la classe Exercice()
                         { texte_corr +=`$\\phantom{De même :  } AC=3$<br>`}
                       if (AC==4)
                         { texte_corr +=`$\\phantom{De même :  } AC=2$<br>`}
+                     if (AC==1)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AC=1$<br>`}
+
                     texte_corr +=`On observe que $AC\\neq AB$ donc le point $C$ n'appartient pas au cercle de centre $A$ et passant par $B$`
 
                     ;   
