@@ -4011,3 +4011,166 @@ function Egalite_Pythagore(){
 	this.besoin_formulaire_numerique = ['Type de questions',2,"1 : Donner l'égalité\n2 : Compléter une égalité avec une addition ou une soustraction"];
 	this.besoin_formulaire2_case_a_cocher = ['Sans figures']
 }
+
+/**
+ * Signe d'un produit ou d'on quotient de relatifs
+ * Plusieurs niveaux 2, 3 ou 4 factieurs, un quotient de 2 nombres, 1  nombre sur un produit de deux nombres, un prooduit de 2 nombres sur un nombre, un quotient de produit de 2 nombres
+ * 4C1 exercice parent  ?
+ * @author Sébastien Lozano
+ */
+
+function Signe_produit_quotient_relatifs(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()	
+	this.sup=1;
+	if (this.exo == this.beta+'4C10-1') { 
+		this.titre = `Signe d'un produit de nombres relatifs`;			
+	} else if (this.exo == this.beta+'4C10-2') {//via angles
+		this.titre = `Signe d'un quotient de nombres relatifs`;
+	} else {			
+		this.titre = `Signe d'un produit ou d'un quotient de nombres relatifs`;	
+	};
+
+	this.consigne = `Donner le signe des expressions numériques.`;
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.nb_questions_modifiable = false;
+
+	//this.liste_packages = `bclogo`;
+	
+	let type_de_questions_disponibles;
+	
+	this.nouvelle_version = function(numero_de_l_exercice){
+		// this.introduction=info_message({
+		// 	titre : "Exercice BETA",
+		// 	texte: "En cours de réalisation <br>Est-il préférable de mettre du conditionnel dans les corrections?"
+
+		// });
+		console.log(typeof this.sup)
+
+		if (this.exo == this.beta+'4C10-1') { // signe d'un produit
+			switch(this.sup) {
+				case 1 : // 2 facteurs
+					type_de_questions_disponibles = [1];
+					this.nb_questions = type_de_questions_disponibles.length;	
+					break;
+				case 2 : // 3 facteurs
+					type_de_questions_disponibles = [2];
+					this.nb_questions = type_de_questions_disponibles.length;	
+					break;
+				case 3 : // 4 facteurs
+					type_de_questions_disponibles = [3];
+					this.nb_questions = type_de_questions_disponibles.length;	
+					break;
+				case 4 : // Mélange
+					type_de_questions_disponibles = [1,2,3];
+					this.nb_questions = type_de_questions_disponibles.length;	
+					break;
+			};
+		} else if (this.exo == this.beta+'4C10-2') {// signe d'un quotient
+			switch(this.sup) {
+				case 1 : // quotient de 2 nombres
+					type_de_questions_disponibles = [4];
+					this.nb_questions = type_de_questions_disponibles.length;	
+					break;
+				case 2 : // quotient d'1 nombre sur un produit de 2 nombres
+					type_de_questions_disponibles = [5];
+					this.nb_questions = type_de_questions_disponibles.length;	
+					break;
+				case 3 : // quotient d'1 produit de 2 nombres sur 1 nombre
+					type_de_questions_disponibles = [6];
+					this.nb_questions = type_de_questions_disponibles.length;	
+					break;
+				case 4 : // quotient de 2 produits de 2 nombres
+					type_de_questions_disponibles = [7];
+					this.nb_questions = type_de_questions_disponibles.length;	
+					break;
+				case 5 : // Mélange
+					type_de_questions_disponibles = [4,5,6,7];
+					this.nb_questions = type_de_questions_disponibles.length;	
+					break;
+			};
+		} else {// signe d'un produit et/ou d'un quotient
+			type_de_questions_disponibles = [1,2,3,4,5,6,7];
+			this.nb_questions = type_de_questions_disponibles.length;
+		};
+
+		//let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = type_de_questions_disponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+			
+			switch (liste_type_de_questions[i]) {
+				case 1 : // 2 facteurs
+					texte = `txt1`;
+					texte_corr = `txt1`;
+					break;
+				case 2 : // 3 facteurs
+					texte = `txt2`;
+					texte_corr = `txt2`;
+					break;
+				case 3 : // 4 facteurs
+					texte = `txt3`;
+					texte_corr = `txt3`;
+					break;
+				case 4 : // quotient de 2 nombres
+					texte = `txt4`;
+					texte_corr = `txt4`;
+					break;
+				case 5 : // quotient d'1 nombre sur un produit de 2 nombres
+					texte = `txt5`;
+					texte_corr = `txt5`;
+					break;
+				case 6 : // quotient d'1 produit de 2 nombres sur 1 nombre
+					texte = `txt6`;
+					texte_corr = `txt6`;
+					break;
+				case 7 : // quotient de 2 produits de 2 nombres
+					texte = `txt7`;
+					texte_corr = `txt7`;
+					break;
+			
+			};
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}	
+			cpt++;	
+		}
+	liste_de_question_to_contenu(this);
+	}
+		if (this.exo == this.beta+'4C10-1') {
+			this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : 2 facteurs\n2 : 3 facteurs\n3 : 4 facteurs\n4 : Mélange"];
+		} else if (this.exo == this.beta+'4C10-2') {
+			this.besoin_formulaire_numerique = ['Niveau de difficulté',5,"1 : quotient de 2 nombres\n2 : quotient d'un nombre sur un produit de deux facteurs\n3 : quotient d'un produit de deux factueurs sur un nombre\n4 : Quotient de deux produits de deux facteurs\n5 : Mélange"];
+		} else {
+			//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : sans conversions de longueurs\n2 : avec conversions de longueurs"];
+		};
+}
+
+/**
+ * Signe du produit de relatifs
+ * 4C10-1
+ * @author Sébastien Lozano
+ */
+function Signe_produit_relatifs(){
+	this.beta = ``;
+	this.exo = this.beta+`4C10-1`;
+	Signe_produit_quotient_relatifs.call(this);
+};
+
+/**
+ * Signe du produit de relatifs
+ * 4C10-2
+ * @author Sébastien Lozano
+ */
+function Signe_quotient_relatifs(){
+	this.beta = ``;
+	this.exo = this.beta+`4C10-2`;
+	Signe_produit_quotient_relatifs.call(this);
+};
