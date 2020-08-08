@@ -4024,8 +4024,10 @@ function Signe_produit_quotient_relatifs(){
 	Exercice.call(this); // Héritage de la classe Exercice()	
 	this.sup=1;
 	if (this.exo == this.beta+'4C10-1') { 
+		this.sup = 4;
 		this.titre = `Signe d'un produit de nombres relatifs`;			
 	} else if (this.exo == this.beta+'4C10-2') {//via angles
+		this.sup = 5;
 		this.titre = `Signe d'un quotient de nombres relatifs`;
 	} else {			
 		this.titre = `Signe d'un produit ou d'un quotient de nombres relatifs`;	
@@ -4044,7 +4046,7 @@ function Signe_produit_quotient_relatifs(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		// this.introduction=info_message({
 		// 	titre : "Exercice BETA",
-		// 	texte: "En cours de réalisation <br>Est-il préférable de mettre du conditionnel dans les corrections?"
+		// 	texte: "En cours de réalisation "
 
 		// });
 		
@@ -4105,11 +4107,45 @@ function Signe_produit_quotient_relatifs(){
 		this.liste_corrections = []; // Liste de questions corrigées
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+			// on ne choisit que des nombres compris entre 1 et 20
+			let nb_max = 20;
+			let a = randint(1,nb_max);// on tire un entier positif
+			let b = randint(1,nb_max);// on tire un entier positif
+			let k = choice([[-1,-1],[-1,1],[1,-1]]); // Les deux nombres relatifs ne peuvent pas être tous les deux positifs
+			a = a*k[0]; // on fixe le signe de a
+			let signe_a;// string avec le signe de a;
+			if (k[0]<0) {
+				signe_a = 'négatif';
+			} else {
+				signe_a = 'positif';
+			};
+			b = b*k[1]; // on fixe le signe de b
+			let signe_b;// string avec le signe de b;
+			if (k[1]<0) {
+				signe_b = 'négatif';
+			} else {
+				signe_b = 'positif';
+			};
+
+			if (a==1){// on ne veut pas du nombre 1
+				a=-1;
+				signe_a = 'négatif';
+			};
+			if (b==1){// on ne veut pas du nombre 1
+				b=-1;
+				signe_b = 'négatif';
+			};
+			let signe_produit;
+			if (k[0]==k[1]) {
+				signe_produit = 'positif';
+			} else {
+				signe_produit = 'négatif';
+			};
 			
 			switch (liste_type_de_questions[i]) {
 				case 1 : // 2 facteurs
-					texte = `txt1`;
-					texte_corr = `txt1`;
+					texte = `$ ${ecriture_nombre_relatif(a)} \\times ${ecriture_nombre_relatif(b)} $`;
+					texte_corr = `$ ${ecriture_nombre_relatif(a)} $ est $ ${signe_a} $ et $ ${ecriture_nombre_relatif(b)} $ est $ ${signe_b} $ donc $ ${ecriture_nombre_relatif(a)} \\times ${ecriture_nombre_relatif(b)} $ est $ ${signe_produit}$`;
 					break;
 				case 2 : // 3 facteurs
 					texte = `txt2`;
