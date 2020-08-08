@@ -4047,7 +4047,9 @@ function Signe_produit_quotient_relatifs(){
 		// 	texte: "En cours de réalisation <br>Est-il préférable de mettre du conditionnel dans les corrections?"
 
 		// });
-		console.log(typeof this.sup)
+		
+		this.sup=Number(this.sup); // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
+		//console.log(typeof this.sup)
 
 		if (this.exo == this.beta+'4C10-1') { // signe d'un produit
 			switch(this.sup) {
@@ -4145,9 +4147,9 @@ function Signe_produit_quotient_relatifs(){
 	liste_de_question_to_contenu(this);
 	}
 		if (this.exo == this.beta+'4C10-1') {
-			this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : 2 facteurs\n2 : 3 facteurs\n3 : 4 facteurs\n4 : Mélange"];
+			this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : deux facteurs\n2 : trois facteurs\n3 : quatre facteurs\n4 : Mélange"];
 		} else if (this.exo == this.beta+'4C10-2') {
-			this.besoin_formulaire_numerique = ['Niveau de difficulté',5,"1 : quotient de 2 nombres\n2 : quotient d'un nombre sur un produit de deux facteurs\n3 : quotient d'un produit de deux factueurs sur un nombre\n4 : Quotient de deux produits de deux facteurs\n5 : Mélange"];
+			this.besoin_formulaire_numerique = ['Niveau de difficulté',5,"1 : quotient de deux nombres\n2 : quotient d'un nombre sur un produit de deux facteurs\n3 : quotient d'un produit de deux factueurs sur un nombre\n4 : Quotient de deux produits de deux facteurs\n5 : Mélange"];
 		} else {
 			//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : sans conversions de longueurs\n2 : avec conversions de longueurs"];
 		};
