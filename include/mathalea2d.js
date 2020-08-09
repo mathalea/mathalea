@@ -487,11 +487,11 @@ function droiteParPointEtPente(A,k,nom='',color='black') {
  }
 
 /**
- * m = codageMediatrice(A,B,'blue','X') // Ajoute le codage du milieu et de l'angle droit pour la médiatrice de [AB] en bleu
+ * m = codageMediatrice(A,B,'blue','×') // Ajoute le codage du milieu et de l'angle droit pour la médiatrice de [AB] en bleu
  * 
  * @Auteur Rémi Angot
  */
- function CodageMediatrice(A,B,color='black',mark='X'){
+ function CodageMediatrice(A,B,color='black',mark='×'){
  	ObjetMathalea2D.call(this)
  	this.color = color
  	let O = milieu(A,B)
@@ -512,11 +512,11 @@ function droiteParPointEtPente(A,k,nom='',color='black') {
 
 
 /**
- * m = constructionMediatrice(A,B,false,'blue','X') // Trace et code la médiatrice en laissant apparent les traits de construction au compas
+ * m = constructionMediatrice(A,B,false,'blue','×') // Trace et code la médiatrice en laissant apparent les traits de construction au compas
  * 
  * @Auteur Rémi Angot
  */
- function ConstructionMediatrice(A,B,detail = false, color='blue', markmilieu='X', markrayons='//',couleurMediatrice = 'red', epaisseurMediatrice = 2){
+ function ConstructionMediatrice(A,B,detail = false, color='blue', markmilieu='×', markrayons='//',couleurMediatrice = 'red', epaisseurMediatrice = 2){
  	ObjetMathalea2D.call(this)
  	let O = milieu(A,B)
  	let m = rotation(A,O,90)
@@ -579,11 +579,11 @@ function droiteParPointEtPente(A,k,nom='',color='black') {
  }
 
 /**
- * m = constructionMediatrice(A,B,false,'blue','X') // Trace et code la médiatrice en laissant apparent les traits de construction au compas
+ * m = constructionMediatrice(A,B,false,'blue','×') // Trace et code la médiatrice en laissant apparent les traits de construction au compas
  * 
  * @Auteur Rémi Angot
  */
- function ConstructionBissectrice(A,O,B,detail = false, color='blue', mark='X',tailleLosange = 5,couleurBissectrice = 'red', epaiseurBissectrice = 2){
+ function ConstructionBissectrice(A,O,B,detail = false, color='blue', mark='×',tailleLosange = 5,couleurBissectrice = 'red', epaiseurBissectrice = 2){
  	ObjetMathalea2D.call(this)
  	let M = pointSurSegment(O,A,tailleLosange)
  	let N = pointSurSegment(O,B,tailleLosange)
@@ -1035,7 +1035,7 @@ function carreIndirect(A,B,color){
 	return polygoneRegulierIndirect(A,B,4,color)
 }
 
-function CodageCarre(c,color = 'black',mark='X'){
+function CodageCarre(c,color = 'black',mark='×'){
 	let objets = []
 	objets.push(codeSegments(mark,color,c.listePoints))
 	objets.push(codageAngleDroit(c.listePoints[0],c.listePoints[1],c.listePoints[2],color))
@@ -2253,7 +2253,7 @@ function afficheMesureAngle(A,B,C,color='black',distance = 1.5)  {
 
 
 /**
- * codeSegment(A,B,'X','blue') // Code le segment [AB] avec une croix bleue
+ * codeSegment(A,B,'×','blue') // Code le segment [AB] avec une croix bleue
  * Attention le premier argument ne peut pas être un segment 
  *
  * @Auteur Rémi Angot
@@ -2278,10 +2278,10 @@ function afficheMesureAngle(A,B,C,color='black',distance = 1.5)  {
  }
 
 /**
- * codeSegments('X','blue',A,B, B,C, C,D) // Code les segments [AB], [BC] et [CD] avec une croix bleue
- * codeSegments('X','blue',[A,B,C,D]) // Code les segments [AB], [BC], [CD] et [DA] (attention, chemin fermé,pratique pour des polygones pas pour des lignes brisées)
- * codeSegments('X','blue',s1,s2,s3) // Code les segments s1, s2 et s3 avec une croix bleue
- * codeSegments('X','blue',p.listePoints) // Code tous les segments du polygone avec une croix bleue
+ * codeSegments('×','blue',A,B, B,C, C,D) // Code les segments [AB], [BC] et [CD] avec une croix bleue
+ * codeSegments('×','blue',[A,B,C,D]) // Code les segments [AB], [BC], [CD] et [DA] (attention, chemin fermé,pratique pour des polygones pas pour des lignes brisées)
+ * codeSegments('×','blue',s1,s2,s3) // Code les segments s1, s2 et s3 avec une croix bleue
+ * codeSegments('×','blue',p.listePoints) // Code tous les segments du polygone avec une croix bleue
  *
  * @Auteur Rémi Angot
  */
@@ -2566,17 +2566,22 @@ function TexteParPoint(texte,A,orientation = "milieu",color) {
 		return code
 	}
 	this.tikz = function(){
-		let anchor = '';
-		if (orientation=='gauche') {
-			anchor = 'east'
+		let code = ''
+		if (Number.isInteger(orientation)) {
+			code = `\\draw (${A.x},${A.y}) node[anchor = center, rotate = ${orientation}] {${texte}}`;
+		} else {
+			let anchor = '';
+			if (orientation=='gauche') {
+				anchor = 'node[anchor = east]'
+			}
+			if (orientation=='droite') {
+				anchor = 'node[anchor = west]'
+			}
+			if (orientation=='milieu') {
+				anchor = 'node[anchor = center]'
+			}
+			code = `\\draw (${A.x},${A.y}) ${anchor} {${texte}};`;
 		}
-		if (orientation=='droite') {
-			anchor = 'west'
-		}
-		if (orientation=='milieu') {
-			anchor = 'center'
-		}
-		let code = `\\draw (${A.x},${A.y}) node[anchor = ${anchor}] {${texte}};`;
 		return code
 	}
 
