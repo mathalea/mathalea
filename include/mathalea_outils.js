@@ -4001,7 +4001,8 @@ function decomp_fact_prem_array(n) {
 
 
 /**
- * Classe Triangles 
+ * @class
+ * @classdesc Classe Triangles - Méthodes utiles pour les triangles *  
  * Choisi un nom au hasard dans un tableau statique
  * La méthode getNom() permet de récupérer ce nom et fournit un string en mode maths. Si le triangle se nomme AGE, alors getNom() renvoit un tableau de 5 éléments $ ; A ; G ; E et $, les $ traduisent le mode maths
  * Pour l'exemple le triangle se nomme AGE
@@ -4024,7 +4025,7 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 	var self = this;
 
 	// liste de noms possibles pour un triangle
-	let nomsPossibles = ['AGE','AIL','AIR','ALU','AME','AMI','ANE','ARC','BAC','BAL','BAR','BEC','BEL','BIO','BIP','BIS','BLE','BOA','BOB','BOF','BOG','BOL','BUT','BYE','COQ','CRI','CRU','DUC','DUO','DUR','EAU','ECU','EGO','EPI','FER','FIL','FUN','GPS','ICE','JET','KIF','KIR','MAC','NEM','PAS','PIC','PIF','PIN','POT','RAI','RAP','RAT','RIF','SEL','TAF','TIC','TAC','TOC','TOP','UNI','WOK','YAK','YEN','ZEN','ZIG','ZAG'];
+	let nomsPossibles = ['AGE','AIL','AIR','ALU','AME','AMI','ANE','ARC','BAC','BAL','BAR','BEC','BEL','BIO','BIP','BIS','BLE','BOA','BOF','BOG','BOL','BUT','BYE','COQ','CRI','CRU','DUC','DUO','DUR','EAU','ECU','EGO','EPI','FER','FIL','FUN','GPS','ICE','JET','KIF','KIR','MAC','NEM','PAS','PIC','PIF','PIN','POT','RAI','RAP','RAT','RIF','SEL','TAF','TIC','TAC','TOC','TOP','UNI','WOK','YAK','YEN','ZEN','ZIG','ZAG'];
 
 	this.nom = choice(nomsPossibles);
 
@@ -4228,6 +4229,137 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 	this.isPlatTriangleAngles = isPlatTriangleAngles;
 	//this.isQuelconque = isQuelconque;	
 };
+
+/**
+ * @class
+ * @classdesc Classe Relatif - Méthodes utiles sur les relatifs
+ * @param {...any} relatifs est un paramètre du reste
+ * @author Sébastien Lozano
+ */
+function Relatif(...relatifs) {
+	//'use strict'; pas de use strict avec un paramètre du reste
+	var self = this;
+	this.relatifs = relatifs;
+
+	/**
+	 * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs, 
+	 * Si 0 fait partie des relatifs on renvoie une erreur
+	 * @return {array} renvoie un tableau de -1 ou 1
+	 */
+	function getSigneNumber() {		
+		let signes = [];
+		try {
+			// port du string interdit !			
+			relatifs.forEach(function(element) {
+				if (typeof element == 'string') {
+					throw new TypeError(`${element} est un string !`);
+				};
+				if (element == 0) {
+					throw new RangeError(`${element} a été exclu des valeurs possibles.`)
+				}
+			});	
+			// Quoi faire sans nombres ?
+			if (relatifs.length == 0) {
+				throw new Error(`C'est mieux avec quelques nombres !`)
+			};
+			relatifs.forEach(function(element){
+				if (element < 0) {
+					signes.push(-1);
+				};
+				if (element > 0 ) {
+					signes.push(1);
+				};
+			})
+		}
+		catch(err) {
+			console.log(err.message);	
+			console.log(err.stack);		
+		}
+		finally {
+			return signes;
+		}
+	};
+
+	/** 
+	 * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs
+	 * @return {array} renvoie un tableau de strings valant 'négatif' ou 'positif'
+	*/
+	function getSigneString() {
+		let signesString = [];
+		let signes = getSigneNumber();
+		signes.forEach(function(element){
+			if (element == -1) {
+				signesString.push('négatif');
+			};
+			if ( element == 1) {
+				signesString.push('positif');
+			};
+		});
+		return signesString;
+	};
+
+	/**
+	 * 	 
+	 * @param  {...any} n deux ou plus de nombres relatifs
+	 * @return {number} le signe du produit 1 ou -1
+	 * @example getSigneProduitNumber(1,-4,-7) renvoie 1
+	 */
+
+	function getSigneProduitNumber(...n) {
+		let produit = 1;
+		try {
+			// port du string interdit !			
+			n.forEach(function(element) {
+				if (typeof element == 'string') {
+					throw new TypeError(`${element} est un string !`);
+				};
+				if (element == 0) {
+					throw new RangeError(`${element} a été exclu des valeurs possibles.`);
+				};
+			});	
+			// Quoi faire sans nombres ?
+			if (n.length == 0) {
+				throw new Error(`C'est mieux avec quelques nombres !`)
+			};
+			n.forEach(function(element){
+				produit = produit * element;	
+			});		
+			if ( produit < 0 ) {
+				return -1;
+			};
+			if ( produit > 0 ) {
+				return 1
+			};			
+		}
+		catch(err) {
+			console.log(err.message);	
+			console.log(err.stack);		
+		};
+	};
+
+		/**
+	 * 	 
+	 * @param  {...any} n deux ou plus de nombres relatifs
+	 * @return {number} le signe du produit 1 ou -1
+	 * @example getSigneProduitNumber(1,-4,-7) renvoie 1
+	 */
+
+	function getSigneProduitString(...n) {
+		let produit = getSigneProduitNumber(...n);
+			if ( produit == -1 ) {
+				return 'négatif';
+			};
+			if ( produit == 1 ) {
+				return 'positif'
+			};			
+	};
+
+	this.getSigneNumber = getSigneNumber;
+	this.getSigneString = getSigneString;
+	this.getSigneProduitNumber = getSigneProduitNumber;
+	this.getSigneProduitString = getSigneProduitString;
+
+}
 
 // Gestion des styles LaTeX
 
