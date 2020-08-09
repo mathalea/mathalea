@@ -1447,7 +1447,24 @@ function cercleCentrePoint(...args){
  		return `<path d="M${M.xSVG()} ${M.ySVG()} A ${l*this.coeff} ${l*this.coeff} 0 ${large} ${sweep} ${N.xSVG()} ${N.ySVG()}" stroke="${this.color}" fill="${fill}" ${this.style}/>`
  	}
  	this.tikz = function(){
- 		return `\\draw (${M.x},${M.y}) arc (${azimut}:${angle+azimut}:${longueur(Omega,M)}) ;`
+ 		let optionsDraw = []
+		let tableauOptions = [];
+		if (this.color.length>1 && this.color!=='black'){
+			tableauOptions.push(this.color)
+		}
+		if (this.epaisseur!=1) {
+			tableauOptions.push(`line width = ${this.epaisseur}`) 
+		}
+		if (this.pointilles) {
+			tableauOptions.push(`dashed`) 
+		}
+		if (this.opacite !=1) {
+			tableauOptions.push(`opacity = ${this.opacite}`)
+		}
+		if (tableauOptions.length>0) {
+			optionsDraw = "["+tableauOptions.join(',')+"]"
+		}
+ 		return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${angle+azimut}:${longueur(Omega,M)}) ;`
  	}
  }
  function arc(...args) {
