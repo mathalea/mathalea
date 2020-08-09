@@ -4056,17 +4056,17 @@ function Signe_produit_quotient_relatifs(){
 		if (this.exo == this.beta+'4C10-1') { // signe d'un produit
 			switch(this.sup) {
 				case 1 : // 2 facteurs
-					type_de_questions_disponibles = [1];
+					type_de_questions_disponibles = [1,1,1];
 					//this.nb_questions = type_de_questions_disponibles.length;	
 					this.nb_questions = 3;
 					break;
 				case 2 : // 3 facteurs
-					type_de_questions_disponibles = [2];
+					type_de_questions_disponibles = [2,2,2];
 					//this.nb_questions = type_de_questions_disponibles.length;	
 					this.nb_questions = 3;
 					break;
 				case 3 : // 4 facteurs
-					type_de_questions_disponibles = [3];
+					type_de_questions_disponibles = [3,3,3];
 					//this.nb_questions = type_de_questions_disponibles.length;	
 					this.nb_questions = 3;
 					break;
@@ -4078,22 +4078,22 @@ function Signe_produit_quotient_relatifs(){
 		} else if (this.exo == this.beta+'4C10-2') {// signe d'un quotient
 			switch(this.sup) {
 				case 1 : // quotient de 2 nombres
-					type_de_questions_disponibles = [4];
+					type_de_questions_disponibles = [4,4,4];
 					//this.nb_questions = type_de_questions_disponibles.length;	
 					this.nb_questions = 3;
 					break;
 				case 2 : // quotient d'1 nombre sur un produit de 2 nombres
-					type_de_questions_disponibles = [5];
+					type_de_questions_disponibles = [5,5,5];
 					//this.nb_questions = type_de_questions_disponibles.length;	
 					this.nb_questions = 3;
 					break;
 				case 3 : // quotient d'1 produit de 2 nombres sur 1 nombre
-					type_de_questions_disponibles = [6];
+					type_de_questions_disponibles = [6,6,6];
 					//this.nb_questions = type_de_questions_disponibles.length;	
 					this.nb_questions = 3;
 					break;
 				case 4 : // quotient de 2 produits de 2 nombres
-					type_de_questions_disponibles = [7];
+					type_de_questions_disponibles = [7,7,7];
 					//this.nb_questions = type_de_questions_disponibles.length;	
 					this.nb_questions = 3;
 					break;
