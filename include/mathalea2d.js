@@ -2308,6 +2308,28 @@ function afficheMesureAngle(A,B,C,color='black',distance = 1.5)  {
 			}
 		}
 		return code
+	}
+	this.tikz = function(){
+ 		let code = ''
+		if (Array.isArray(args[0])) { // Si on donne une liste de points
+			for (let i = 0; i < args[0].length-1; i++) {
+				code += codeSegment(args[0][i],args[0][i+1],mark,color).tikz()
+				code += '\n'
+			}
+			code += codeSegment(args[0][args[0].length-1],args[0][0],mark,color).tikz()
+			code += '\n'
+		} else if (args[0].constructor==Segment) {
+			for (let i = 0; i < args.length; i++) {
+				code += codeSegment(args[i].extremite1,args[i].extremite2,mark,color).tikz()
+				code += '\n'
+			}
+		}else {
+			for (let i = 0; i < args.length; i+=2) {
+				code += codeSegment(args[i],args[i+1],mark,color).tikz()
+				code += '\n'
+			}
+		}
+		return code
 	}	
 	
 }
