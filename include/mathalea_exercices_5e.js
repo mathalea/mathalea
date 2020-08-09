@@ -4688,9 +4688,9 @@ function DroiteRemarquableDuTriangle(){
 		for (let i = 0, a, b, texte, texte_corr, cpt=0; i < 3;i++) {// this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
 			triangles[i] = new Triangles();
 			sommets[i]=triangles[i].getSommets(false);
-			A[i] = point(randint(1,4),randint(1,4),sommets[i][0],'below left')
-			B[i] = point(randint(5,9),randint(1,4),sommets[i][1],'below right')
-			C[i] = point(randint(A[i].x,B[i].x),randint(6,8),sommets[i][2],'above')
+			A[i] = point(randint(1,4)>>1,randint(1,4)>>1,sommets[i][0],'below left')
+			B[i] = point(randint(5,9)>>1,randint(1,4)>>1,sommets[i][1],'below right')
+			C[i] = point(randint(A[i].x,B[i].x)>>1,randint(6,8)>>1,sommets[i][2],'above')
 			t[i] = polygone(A[i],B[i],C[i])
 			n[i] = labelPoint(A[i],B[i],C[i])
 			if (randint(1,2)==1) {
@@ -4707,7 +4707,7 @@ function DroiteRemarquableDuTriangle(){
 
 			}
 			objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i]]
-			texte = `Quelle est la nature de la droite tracée en gras pour le triangle ${triangles[i].getNom()} ?<br>` + mathalea2d(0,0,10,10,...objets[i])
+			texte = `Quelle est la nature de la droite tracée en gras pour le triangle ${triangles[i].getNom()} ?<br>` + mathalea2d(0,0,5,5,...objets[i])
 
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
