@@ -4116,35 +4116,46 @@ function Signe_produit_quotient_relatifs(){
 			
 			switch (liste_type_de_questions[i]) {
 				case 1 : // 2 facteurs
-					//texte = `$ ${ecriture_nombre_relatif(a)} \\times ${ecriture_nombre_relatif(b)} $`;
-					//texte_corr = `$ ${ecriture_nombre_relatif(a)} $ est $ ${signe_a} $ et $ ${ecriture_nombre_relatif(b)} $ est $ ${signe_b} $ donc $ ${ecriture_nombre_relatif(a)} \\times ${ecriture_nombre_relatif(b)} $ est $ ${signe_produit}$`;
-					texte = 'tt';
-					texte_corr = 'tt';
+					texte = `$ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} $`;
+					texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]} et $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`;
+					texte_corr+= ` donc $ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(num.relatifs[0],num.relatifs[1]))}.`;
+					//texte = 'tt';
+					//texte_corr = 'tt';
 					break;
 				case 2 : // 3 facteurs
-					texte = `${num.getSigneNumber()} ${num.getSigneString()} ${num.getSigneProduitNumber(num.relatifs[0],num.relatifs[1])} ${num.getSigneProduitString(num.relatifs[0],num.relatifs[1])} ${JSON.stringify(num)}`;
-					texte+= `<br> ${typeof num.relatifs}`
-					texte_corr = `txt2`;
+					texte = `$ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} \\times ${ecriture_nombre_relatif(num.relatifs[2])} $`;
+					texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`;
+					texte_corr += ` et $ ${ecriture_nombre_relatif(num.relatifs[2])} $ est ${num.getSigneString()[2]}`;
+					texte_corr+= ` donc $ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} \\times ${ecriture_nombre_relatif(num.relatifs[2])} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(num.relatifs[0],num.relatifs[1],num.relatifs[2]))}.`;
 					break;
 				case 3 : // 4 facteurs
-					texte = `txt3`;
-					texte_corr = `txt3`;
+					texte = `$ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} \\times ${ecriture_nombre_relatif(num.relatifs[2])} \\times ${ecriture_nombre_relatif(num.relatifs[3])} $`;
+					texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}, `;
+					texte_corr += `$ ${ecriture_nombre_relatif(num.relatifs[2])} $ est ${num.getSigneString()[2]} et $ ${ecriture_nombre_relatif(num.relatifs[3])} $ est ${num.getSigneString()[3]}`;
+					texte_corr+= ` donc $ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} \\times ${ecriture_nombre_relatif(num.relatifs[2])} \\times ${ecriture_nombre_relatif(num.relatifs[3])} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(num.relatifs[0],num.relatifs[1],num.relatifs[2],num.relatifs[3]))}.`;
 					break;
 				case 4 : // quotient de 2 nombres
-					texte = `txt4`;
-					texte_corr = `txt4`;
+					texte = `$ \\dfrac{${ecriture_nombre_relatif(num.relatifs[0])}}{${ecriture_nombre_relatif(num.relatifs[1])}} $`;
+					texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]} et $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`;
+					texte_corr+= ` donc $ \\frac{${ecriture_nombre_relatif(num.relatifs[0])}}{${ecriture_nombre_relatif(num.relatifs[1])}} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(num.relatifs[0],num.relatifs[1]))}.`;
 					break;
 				case 5 : // quotient d'1 nombre sur un produit de 2 nombres
-					texte = `txt5`;
-					texte_corr = `txt5`;
+					texte = `$ \\dfrac{${ecriture_nombre_relatif(num.relatifs[0])}}{${ecriture_nombre_relatif(num.relatifs[1])} \\times ${ecriture_nombre_relatif(num.relatifs[2])}} $`;
+					texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`;
+					texte_corr += ` et $ ${ecriture_nombre_relatif(num.relatifs[2])} $ est ${num.getSigneString()[2]}`;
+					texte_corr+= ` donc $ \\frac{${ecriture_nombre_relatif(num.relatifs[0])}}{${ecriture_nombre_relatif(num.relatifs[1])} \\times ${ecriture_nombre_relatif(num.relatifs[2])}} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(num.relatifs[0],num.relatifs[1],num.relatifs[2]))}.`;
 					break;
 				case 6 : // quotient d'1 produit de 2 nombres sur 1 nombre
-					texte = `txt6`;
-					texte_corr = `txt6`;
+					texte = `$ \\dfrac{${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])}}{${ecriture_nombre_relatif(num.relatifs[2])}} $`;
+					texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`;
+					texte_corr += ` et $ ${ecriture_nombre_relatif(num.relatifs[2])} $ est ${num.getSigneString()[2]}`;
+					texte_corr+= ` donc $ \\frac{${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])}}{${ecriture_nombre_relatif(num.relatifs[2])}} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(num.relatifs[0],num.relatifs[1],num.relatifs[2]))}.`;
 					break;
 				case 7 : // quotient de 2 produits de 2 nombres
-					texte = `txt7`;
-					texte_corr = `txt7`;
+					texte = `$ \\dfrac{${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])}}{${ecriture_nombre_relatif(num.relatifs[2])} \\times ${ecriture_nombre_relatif(num.relatifs[3])}} $`;
+					texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}, `;
+					texte_corr += `$ ${ecriture_nombre_relatif(num.relatifs[2])} $ est ${num.getSigneString()[2]} et $ ${ecriture_nombre_relatif(num.relatifs[3])} $ est ${num.getSigneString()[3]}`;
+					texte_corr+= ` donc $ \\frac{${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])}}{${ecriture_nombre_relatif(num.relatifs[2])} \\times ${ecriture_nombre_relatif(num.relatifs[3])}} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(num.relatifs[0],num.relatifs[1],num.relatifs[2],num.relatifs[3]))}.`;
 					break;
 			
 			};
