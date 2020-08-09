@@ -4106,50 +4106,24 @@ function Signe_produit_quotient_relatifs(){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		
-		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
-			let c = new Relatif;
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {			
 			// on ne choisit que des nombres compris entre 1 et 20
 			let nb_max = 20;
-			let a = randint(1,nb_max);// on tire un entier positif
-			let b = randint(1,nb_max);// on tire un entier positif
-			let k = choice([[-1,-1],[-1,1],[1,-1]]); // Les deux nombres relatifs ne peuvent pas être tous les deux positifs
-			a = a*k[0]; // on fixe le signe de a
-			let signe_a;// string avec le signe de a;
-			if (k[0]<0) {
-				signe_a = 'négatif';
-			} else {
-				signe_a = 'positif';
-			};
-			b = b*k[1]; // on fixe le signe de b
-			let signe_b;// string avec le signe de b;
-			if (k[1]<0) {
-				signe_b = 'négatif';
-			} else {
-				signe_b = 'positif';
-			};
-
-			if (a==1){// on ne veut pas du nombre 1
-				a=-1;
-				signe_a = 'négatif';
-			};
-			if (b==1){// on ne veut pas du nombre 1
-				b=-1;
-				signe_b = 'négatif';
-			};
-			let signe_produit;
-			if (k[0]==k[1]) {
-				signe_produit = 'positif';
-			} else {
-				signe_produit = 'négatif';
-			};
+			// on choisit un signe au hasard
+			let signe = randint(-1,1,[0]);
+			// Le tableau des relatifs necessaires, il m'en faut max 4 !
+			let num = new Relatif(randint(-1,1,[0])*randint(1,nb_max),randint(-1,1,[0])*randint(1,nb_max),randint(-1,1,[0])*randint(1,nb_max),randint(-1,1,[0])*randint(1,nb_max));
 			
 			switch (liste_type_de_questions[i]) {
 				case 1 : // 2 facteurs
-					texte = `$ ${ecriture_nombre_relatif(a)} \\times ${ecriture_nombre_relatif(b)} $`;
-					texte_corr = `$ ${ecriture_nombre_relatif(a)} $ est $ ${signe_a} $ et $ ${ecriture_nombre_relatif(b)} $ est $ ${signe_b} $ donc $ ${ecriture_nombre_relatif(a)} \\times ${ecriture_nombre_relatif(b)} $ est $ ${signe_produit}$`;
+					//texte = `$ ${ecriture_nombre_relatif(a)} \\times ${ecriture_nombre_relatif(b)} $`;
+					//texte_corr = `$ ${ecriture_nombre_relatif(a)} $ est $ ${signe_a} $ et $ ${ecriture_nombre_relatif(b)} $ est $ ${signe_b} $ donc $ ${ecriture_nombre_relatif(a)} \\times ${ecriture_nombre_relatif(b)} $ est $ ${signe_produit}$`;
+					texte = 'tt';
+					texte_corr = 'tt';
 					break;
 				case 2 : // 3 facteurs
-					texte = `${c.getSigne('rrr')} ${JSON.stringify(c)}`;
+					texte = `${num.getSigneNumber()} ${num.getSigneString()} ${num.getSigneProduitNumber(num.relatifs[0],num.relatifs[1])} ${num.getSigneProduitString(num.relatifs[0],num.relatifs[1])} ${JSON.stringify(num)}`;
+					texte+= `<br> ${typeof num.relatifs}`
 					texte_corr = `txt2`;
 					break;
 				case 3 : // 4 facteurs
