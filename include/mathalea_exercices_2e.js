@@ -3,7 +3,7 @@
 
 function Milieu(){
 Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Déterminer les coordonnées du milieu de deux points dans un repère";
+    this.titre = "Déterminer les coordonnées milieu d’un segment dans un repère";
    
     this.nb_questions = 2;
     this.nb_cols = 2;
@@ -161,7 +161,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
 
 function Distance(){
 Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Utiliser la mesure de la distance de deux points dans un repère orthonormé";
+    this.titre = "Utiliser la distance entre deux points dans un repère orthonormé";
    
     this.nb_questions = 2;
     this.nb_cols = 2;
@@ -504,7 +504,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
 function union_et_intersection_intervalles_de_R()
 {
 Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Utiliser et comprendre les symboles $I\\cup J$ et $I\\cap J$ avec les intervalles de $\\mathbb{R}.$";
+    this.titre = "Utiliser et comprendre les symboles $I\\cup J$ et $I\\cap J$ avec les intervalles de $\\mathbb{R}$";
     this.consigne = "Répondre aux questions suivantes: :"
     this.nb_questions = 4;
     this.nb_cols = 2;
@@ -1421,7 +1421,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
 function parite()
 {
 Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Déterminer la parité d'une expression.";
+    this.titre = "Déterminer la parité d'une expression";
     this.consigne = "Soit $n$ un entier naturel."
     this.nb_questions = 4;
     this.nb_cols = 2;
@@ -1580,7 +1580,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
 
 function ensemble_de_nombres(){
 Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient.";
+    this.titre = "Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient";
     this.consigne = "Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient. :"
     this.nb_questions = 5;
     this.nb_cols = 2;
@@ -1867,8 +1867,8 @@ function proprietes_racine_carree(){
 
 function Simplifier_une_somme_de_racines_carrees() {
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Simplifier une somme de racine carrée";
-    this.consigne = " Simplifier une somme de racine carrée"
+    this.titre = "Simplifier une somme de racines carrées";
+    this.consigne = " Simplifier une somme de racines carrées"
     this.nb_questions = 4;
     this.nb_cols = 2;
     this.nb_cols_corr = 2;
@@ -1897,7 +1897,7 @@ function Simplifier_une_somme_de_racines_carrees() {
             let f3 = e3 * a3
             let f = f1 + f2 + f3
 
-            texte = `Ecrire $A=${e1}\\sqrt{${d1}} ${ecriture_algebrique(e2)}\\sqrt{${d2}} ${ecriture_algebrique(e3)}\\sqrt{${d3}}$ sous la forme $a\\sqrt{${c}}$ où $a$ est un entier:`
+            texte = `Écrire $A=${e1}\\sqrt{${d1}} ${ecriture_algebrique(e2)}\\sqrt{${d2}} ${ecriture_algebrique(e3)}\\sqrt{${d3}}$ sous la forme $a\\sqrt{${c}}$ où $a$ est un entier:`
             texte_corr = `On cherche le plus grand carré parfait diviseur de ${d1}, ${d2} et ${d3}. <br>
                 On trouve $${d1}=${b1} \\times ${c}~~$, $~~${d2}=${b2} \\times ${c}~~$	et $${d3}=${b3} \\times ${c}$<br>
                 On a donc  : $\\sqrt{${d1}}=\\sqrt{${a1}^{2} \\times ${c} }=${a1}\\times \\sqrt{${c}}$,
@@ -1921,7 +1921,7 @@ function Simplifier_une_somme_de_racines_carrees() {
 
 function Existence_d_une_racine_carree(){
 Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Existence d'une racine carrée.";
+    this.titre = "Existence d'une racine carrée";
     this.consigne = " Dire si le nombre proposé existe ou non, en justifiant."
     this.nb_questions = 5;
     this.nb_cols = 2;
