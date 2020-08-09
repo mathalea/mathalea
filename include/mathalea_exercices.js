@@ -213,6 +213,7 @@ var liste_des_exercices_disponibles = {
 		'2N24' : intervalles_de_R,
 		'2N25' : union_et_intersection_intervalles_de_R,
 		'2G10' : Distance,
+		'2G11' : Milieu,
 		'2L10' : Developper_Identites_remarquables2,
 		'2L11' : Factoriser_Identites_remarquables2,
 		'betaI' : Exercice_intervalle,
