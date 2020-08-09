@@ -1966,9 +1966,10 @@ function RotationAnimee(liste,O,angle,animation='begin="0s" dur="2s" repeatCount
 	return code
 
 }
-
 }
-
+function rotationAnimee(...args){
+	return new RotationAnimee(...args)
+}
 /**
 * homothetieAnimee(s,O,k) //Animation de la homothetie de centre O et de rapport k pour s
 * homothetieAnimee([a,b,c],O,k) //Animation de la homothetie de centre O et de rapport k pour les objets a, b et v
