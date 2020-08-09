@@ -1968,9 +1968,6 @@ function RotationAnimee(liste,O,angle,animation='begin="0s" dur="2s" repeatCount
 }
 
 }
-function rotationAnimee(...args){
-	return new RotationAnimee(...args)
-}
 
 /**
 * homothetieAnimee(s,O,k) //Animation de la homothetie de centre O et de rapport k pour s
@@ -1983,6 +1980,7 @@ function HomothetieAnimee(p,O,k,animation='begin="0s" dur="2s" repeatCount="inde
 	this.svg = function(){
 		let binomesXY1 = p.binomesXY
 		let p2 = homothetie(p,O,k)
+		p2.isVisible=false
 		let binomesXY2 = p2.binomesXY
 		code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="none" >
 		<animate attributeName="points" dur="2s" repeatCount="indefinite"
@@ -2010,6 +2008,7 @@ function SymetrieAnimee(p,d,animation='begin="0s" dur="2s" repeatCount="indefini
 	this.svg = function(){
 		let binomesXY1 = p.binomesXY
 		let p2 = symetrieAxiale(p,d)
+		p2.isVisible=false
 		let binomesXY2 = p2.binomesXY
 		code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="none" >
 		<animate attributeName="points" dur="2s" repeatCount="indefinite"
@@ -2031,6 +2030,7 @@ function AffiniteOrthoAnimee(p,d,k,animation='begin="0s" dur="2s" repeatCount="i
 	this.svg = function(){
 		let binomesXY1 = p.binomesXY
 		let p2 = affiniteOrtho(p,d,k)
+		p2.isVisible=false
 		let binomesXY2 = p2.binomesXY
 		code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="none" >
 		<animate attributeName="points" dur="2s" repeatCount="indefinite"
