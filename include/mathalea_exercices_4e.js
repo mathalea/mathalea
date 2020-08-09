@@ -4011,3 +4011,197 @@ function Egalite_Pythagore(){
 	this.besoin_formulaire_numerique = ['Type de questions',2,"1 : Donner l'égalité\n2 : Compléter une égalité avec une addition ou une soustraction"];
 	this.besoin_formulaire2_case_a_cocher = ['Sans figures']
 }
+
+/**
+ * Signe d'un produit ou d'on quotient de relatifs
+ * Plusieurs niveaux 2, 3 ou 4 factieurs, un quotient de 2 nombres, 1  nombre sur un produit de deux nombres, un prooduit de 2 nombres sur un nombre, un quotient de produit de 2 nombres
+ * 4C1 exercice parent  ?
+ * @author Sébastien Lozano
+ */
+
+function Signe_produit_quotient_relatifs(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()	
+	this.sup=1;
+	if (this.exo == this.beta+'4C10-1') { 
+		this.sup = 4;
+		this.titre = `Signe d'un produit de nombres relatifs`;			
+	} else if (this.exo == this.beta+'4C10-2') {//via angles
+		this.sup = 5;
+		this.titre = `Signe d'un quotient de nombres relatifs`;
+	} else {			
+		this.titre = `Signe d'un produit ou d'un quotient de nombres relatifs`;	
+	};
+
+	this.consigne = `Donner le signe des expressions numériques.`;
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.nb_questions_modifiable = false;
+
+	//this.liste_packages = `bclogo`;
+	
+	let type_de_questions_disponibles;
+	
+	this.nouvelle_version = function(numero_de_l_exercice){
+		// this.introduction=info_message({
+		// 	titre : "Exercice BETA",
+		// 	texte: "En cours de réalisation "
+
+		// });
+		
+		this.sup=Number(this.sup); // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
+		//console.log(typeof this.sup)
+
+		if (this.exo == this.beta+'4C10-1') { // signe d'un produit
+			switch(this.sup) {
+				case 1 : // 2 facteurs
+					type_de_questions_disponibles = [1,1,1];
+					//this.nb_questions = type_de_questions_disponibles.length;	
+					this.nb_questions = 3;
+					break;
+				case 2 : // 3 facteurs
+					type_de_questions_disponibles = [2,2,2];
+					//this.nb_questions = type_de_questions_disponibles.length;	
+					this.nb_questions = 3;
+					break;
+				case 3 : // 4 facteurs
+					type_de_questions_disponibles = [3,3,3];
+					//this.nb_questions = type_de_questions_disponibles.length;	
+					this.nb_questions = 3;
+					break;
+				case 4 : // Mélange
+					type_de_questions_disponibles = [1,2,3];
+					this.nb_questions = type_de_questions_disponibles.length;	
+					break;
+			};
+		} else if (this.exo == this.beta+'4C10-2') {// signe d'un quotient
+			switch(this.sup) {
+				case 1 : // quotient de 2 nombres
+					type_de_questions_disponibles = [4,4,4];
+					//this.nb_questions = type_de_questions_disponibles.length;	
+					this.nb_questions = 3;
+					break;
+				case 2 : // quotient d'1 nombre sur un produit de 2 nombres
+					type_de_questions_disponibles = [5,5,5];
+					//this.nb_questions = type_de_questions_disponibles.length;	
+					this.nb_questions = 3;
+					break;
+				case 3 : // quotient d'1 produit de 2 nombres sur 1 nombre
+					type_de_questions_disponibles = [6,6,6];
+					//this.nb_questions = type_de_questions_disponibles.length;	
+					this.nb_questions = 3;
+					break;
+				case 4 : // quotient de 2 produits de 2 nombres
+					type_de_questions_disponibles = [7,7,7];
+					//this.nb_questions = type_de_questions_disponibles.length;	
+					this.nb_questions = 3;
+					break;
+				case 5 : // Mélange
+					type_de_questions_disponibles = [4,5,6,7];
+					this.nb_questions = type_de_questions_disponibles.length;	
+					break;
+			};
+		} else {// signe d'un produit et/ou d'un quotient
+			type_de_questions_disponibles = [1,2,3,4,5,6,7];
+			this.nb_questions = type_de_questions_disponibles.length;
+		};
+
+		//let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = type_de_questions_disponibles // Tous les types de questions sont posées --> à remettre comme ci dessus
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {			
+			// on ne choisit que des nombres compris entre 1 et 20
+			let nb_max = 20;
+			// on choisit un signe au hasard
+			let signe = randint(-1,1,[0]);
+			// Le tableau des relatifs necessaires, il m'en faut max 4 !
+			let num = new Relatif(randint(-1,1,[0])*randint(1,nb_max),randint(-1,1,[0])*randint(1,nb_max),randint(-1,1,[0])*randint(1,nb_max),randint(-1,1,[0])*randint(1,nb_max));
+			
+			switch (liste_type_de_questions[i]) {
+				case 1 : // 2 facteurs
+					texte = `$ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} $`;
+					texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]} et $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`;
+					texte_corr+= ` donc $ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(num.relatifs[0],num.relatifs[1]))}.`;
+					//texte = 'tt';
+					//texte_corr = 'tt';
+					break;
+				case 2 : // 3 facteurs
+					texte = `$ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} \\times ${ecriture_nombre_relatif(num.relatifs[2])} $`;
+					texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`;
+					texte_corr += ` et $ ${ecriture_nombre_relatif(num.relatifs[2])} $ est ${num.getSigneString()[2]}`;
+					texte_corr+= ` donc $ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} \\times ${ecriture_nombre_relatif(num.relatifs[2])} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(num.relatifs[0],num.relatifs[1],num.relatifs[2]))}.`;
+					break;
+				case 3 : // 4 facteurs
+					texte = `$ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} \\times ${ecriture_nombre_relatif(num.relatifs[2])} \\times ${ecriture_nombre_relatif(num.relatifs[3])} $`;
+					texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}, `;
+					texte_corr += `$ ${ecriture_nombre_relatif(num.relatifs[2])} $ est ${num.getSigneString()[2]} et $ ${ecriture_nombre_relatif(num.relatifs[3])} $ est ${num.getSigneString()[3]}`;
+					texte_corr+= ` donc $ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} \\times ${ecriture_nombre_relatif(num.relatifs[2])} \\times ${ecriture_nombre_relatif(num.relatifs[3])} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(num.relatifs[0],num.relatifs[1],num.relatifs[2],num.relatifs[3]))}.`;
+					break;
+				case 4 : // quotient de 2 nombres
+					texte = `$ \\dfrac{${ecriture_nombre_relatif(num.relatifs[0])}}{${ecriture_nombre_relatif(num.relatifs[1])}} $`;
+					texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]} et $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`;
+					texte_corr+= ` donc $ \\frac{${ecriture_nombre_relatif(num.relatifs[0])}}{${ecriture_nombre_relatif(num.relatifs[1])}} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(num.relatifs[0],num.relatifs[1]))}.`;
+					break;
+				case 5 : // quotient d'1 nombre sur un produit de 2 nombres
+					texte = `$ \\dfrac{${ecriture_nombre_relatif(num.relatifs[0])}}{${ecriture_nombre_relatif(num.relatifs[1])} \\times ${ecriture_nombre_relatif(num.relatifs[2])}} $`;
+					texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`;
+					texte_corr += ` et $ ${ecriture_nombre_relatif(num.relatifs[2])} $ est ${num.getSigneString()[2]}`;
+					texte_corr+= ` donc $ \\frac{${ecriture_nombre_relatif(num.relatifs[0])}}{${ecriture_nombre_relatif(num.relatifs[1])} \\times ${ecriture_nombre_relatif(num.relatifs[2])}} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(num.relatifs[0],num.relatifs[1],num.relatifs[2]))}.`;
+					break;
+				case 6 : // quotient d'1 produit de 2 nombres sur 1 nombre
+					texte = `$ \\dfrac{${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])}}{${ecriture_nombre_relatif(num.relatifs[2])}} $`;
+					texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`;
+					texte_corr += ` et $ ${ecriture_nombre_relatif(num.relatifs[2])} $ est ${num.getSigneString()[2]}`;
+					texte_corr+= ` donc $ \\frac{${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])}}{${ecriture_nombre_relatif(num.relatifs[2])}} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(num.relatifs[0],num.relatifs[1],num.relatifs[2]))}.`;
+					break;
+				case 7 : // quotient de 2 produits de 2 nombres
+					texte = `$ \\dfrac{${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])}}{${ecriture_nombre_relatif(num.relatifs[2])} \\times ${ecriture_nombre_relatif(num.relatifs[3])}} $`;
+					texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}, `;
+					texte_corr += `$ ${ecriture_nombre_relatif(num.relatifs[2])} $ est ${num.getSigneString()[2]} et $ ${ecriture_nombre_relatif(num.relatifs[3])} $ est ${num.getSigneString()[3]}`;
+					texte_corr+= ` donc $ \\frac{${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])}}{${ecriture_nombre_relatif(num.relatifs[2])} \\times ${ecriture_nombre_relatif(num.relatifs[3])}} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(num.relatifs[0],num.relatifs[1],num.relatifs[2],num.relatifs[3]))}.`;
+					break;
+			
+			};
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}	
+			cpt++;	
+		}
+	liste_de_question_to_contenu(this);
+	}
+		if (this.exo == this.beta+'4C10-1') {
+			this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : deux facteurs\n2 : trois facteurs\n3 : quatre facteurs\n4 : Mélange"];
+		} else if (this.exo == this.beta+'4C10-2') {
+			this.besoin_formulaire_numerique = ['Niveau de difficulté',5,"1 : quotient de deux nombres\n2 : quotient d'un nombre sur un produit de deux facteurs\n3 : quotient d'un produit de deux factueurs sur un nombre\n4 : Quotient de deux produits de deux facteurs\n5 : Mélange"];
+		} else {
+			//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : sans conversions de longueurs\n2 : avec conversions de longueurs"];
+		};
+}
+
+/**
+ * Signe du produit de relatifs
+ * 4C10-1
+ * @author Sébastien Lozano
+ */
+function Signe_produit_relatifs(){
+	this.beta = ``;
+	this.exo = this.beta+`4C10-1`;
+	Signe_produit_quotient_relatifs.call(this);
+};
+
+/**
+ * Signe du produit de relatifs
+ * 4C10-2
+ * @author Sébastien Lozano
+ */
+function Signe_quotient_relatifs(){
+	this.beta = ``;
+	this.exo = this.beta+`4C10-2`;
+	Signe_produit_quotient_relatifs.call(this);
+};
