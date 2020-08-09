@@ -2122,7 +2122,11 @@ this.svg = function(){
 	}
 }
 this.tikz = function(){
-	return c.tikz() + '\n\t' + d.tikz()
+	if (d.isVisible) {
+		return c.tikz() + '\n\t' + d.tikz()
+	} else {
+		return c.tikz()
+	}
 }
 }
 function codageHauteurTriangle(...args) {
