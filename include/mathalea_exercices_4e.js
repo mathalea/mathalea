@@ -4251,42 +4251,35 @@ function Puissances_encadrement() {
 		this.liste_corrections = []; // Liste de questions corrigées
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
-			// nombre entier positif, un entre 1 et 10, puis 10 et 100 puis ....100 000 et 1 000 000
-			// 
-			//let entiers_positifs = [randint(1,10),randint(11,100),randint(101,1000),randint(1001,10000),randint(10001,100000),randint(100001,1000000)];
+			// nombre entier positif, entre 1 et 10, puis 10 et 100 puis ....100 000 et 1 000 000
 			let ent_pos = [];
-			ent_pos.push({
-				val:`$${randint(1,10)}$`,
-				puissance_inf:`$10^{0}$`,
-				puissance_sup:`$10^{1}$`
-			});
-			ent_pos.push({
-				val:`$${randint(11,100)}$`,
-				puissance_inf:`$10^{1}$`,
-				puissance_sup:`$10^{2}$`
-			});
-			ent_pos.push({
-				val:`$${randint(101,1000)}$`,
-				puissance_inf:`$10^{2}$`,
-				puissance_sup:`$10^{3}$`
-			});
-			ent_pos.push({
-				val:`$${randint(1001,10000)}$`,
-				puissance_inf:`$10^{3}$`,
-				puissance_sup:`$10^{4}$`
-			});
-			ent_pos.push({
-				val:`$${randint(10001,100000)}$`,
-				puissance_inf:`$10^{4}$`,
-				puissance_sup:`$10^{5}$`
-			});
-			ent_pos.push({
-				val:`$${randint(100001,100000)}$`,
-				puissance_inf:`$10^{5}$`,
-				puissance_sup:`$10^{6}$`
-			});
+			for (let i=0;i<6;i++) {
+				ent_pos.push({
+					val:`$${tex_nombre(randint(10**i+1,10**(i+1)))}$`,
+					puissance_inf:`$10^{${i}}$`,
+					puissance_sup:`$10^{${i+1}}$`
+				});
+			};
 
-			let nb_entier_positif = randint(50,100000000);
+			// nombre décimal positif 1 et 10 000 avec 1,2,3 puis 4 décimales
+			let dec_pos = [];
+			for (let i=0;i<4;i++) {
+				dec_pos.push({
+					val:`$${tex_nombre(randint(10**i+1,10**(i+1)))}$`,
+					puissance_inf:`$10^{${i}}$`,
+					puissance_sup:`$10^{${i+1}}$`
+				});
+			};			
+			// nombre décimal positif inférieur à 1, entre 0,1 et 1 puis entre 0,01 et 0,1 puis 0,001 et 0,0001
+			let dec_pos_inf_un = []; 
+			for (let i=0;i<4;i++) {
+				dec_pos_inf_un.push({
+					val:`$${tex_nombre(randint(10**i+1,10**(i+1)))}$`,
+					puissance_inf:`$10^{${i}}$`,
+					puissance_sup:`$10^{${i+1}}$`
+				});
+			};			
+			
 			let nb_decimal_positif =randint(50,100)/10;
 			let nb_decimal_positif_inf_un = randint(1,100)/100;
 			
