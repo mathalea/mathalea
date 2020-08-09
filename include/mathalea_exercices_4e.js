@@ -4205,7 +4205,7 @@ function Signe_quotient_relatifs() {
 function Puissances_encadrement() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()	
-	this.sup=1;
+	this.sup=4;
 	this.nb_questions = 6;
 	this.titre = `Encadrer avec des puissances de 10`;	
 
@@ -4229,17 +4229,17 @@ function Puissances_encadrement() {
 					//this.nb_questions = 3;
 					break;
 				case 2 : // nombre décimal positif
-					type_de_questions_disponibles = [2];
+					type_de_questions_disponibles = [7,8,9,10];
 					//this.nb_questions = type_de_questions_disponibles.length;	
 					//this.nb_questions = 3;
 					break;
 				case 3 : // nombre décimal positif inférieur à 1
-					type_de_questions_disponibles = [3];
+					type_de_questions_disponibles = [11,12,13,14];
 					//this.nb_questions = type_de_questions_disponibles.length;	
 					//this.nb_questions = 3;
 					break;
 				case 4 : // Mélange
-					type_de_questions_disponibles = [1,1,2,2,3,3];
+					type_de_questions_disponibles = [choice([1,2,3]),choice([4,5,6]),choice([7,8]),choice([9,10]),choice([11,12]),choice([13,14])];
 					//this.nb_questions = type_de_questions_disponibles.length;	
 					break;
 			};
@@ -4265,7 +4265,7 @@ function Puissances_encadrement() {
 			let dec_pos = [];
 			for (let i=0;i<4;i++) {
 				dec_pos.push({
-					val:`$${tex_nombre(randint(10**i+1,10**(i+1)))}$`,
+					val:`$${tex_nombre(randint(10000,100000)/(10**(4-i)))}$`,
 					puissance_inf:`$10^{${i}}$`,
 					puissance_sup:`$10^{${i+1}}$`
 				});
@@ -4274,14 +4274,11 @@ function Puissances_encadrement() {
 			let dec_pos_inf_un = []; 
 			for (let i=0;i<4;i++) {
 				dec_pos_inf_un.push({
-					val:`$${tex_nombre(randint(10**i+1,10**(i+1)))}$`,
-					puissance_inf:`$10^{${i}}$`,
-					puissance_sup:`$10^{${i+1}}$`
+					val:`$${tex_nombre(randint(10**(4-i-1)+1,10**(4-i))/10000)}$`,
+					puissance_inf:`$10^{${-(i+1)}}$`,
+					puissance_sup:`$10^{${-i}}$`
 				});
 			};			
-			
-			let nb_decimal_positif =randint(50,100)/10;
-			let nb_decimal_positif_inf_un = randint(1,100)/100;
 			
 			switch (liste_type_de_questions[i]) {
 				case 1 : // nombre enier positif
@@ -4309,13 +4306,37 @@ function Puissances_encadrement() {
 					texte_corr = `${ent_pos[5].puissance_inf} $\\leqslant$ ${ent_pos[5].val} $\\leqslant$ ${ent_pos[5].puissance_sup}`;
 					break;																				
 				case 7 : // nombre décimal positif
-					texte = `b ${nb_decimal_positif}`;
-					texte_corr = `${nb_decimal_positif}`;
+					texte = `${dec_pos[0].val}`;
+					texte_corr = `${dec_pos[0].puissance_inf} $\\leqslant$ ${dec_pos[0].val} $\\leqslant$ ${dec_pos[0].puissance_sup}`;
 					break;
-				case 8 : // nombre décimal positif inferieur à 1
-					texte = `${nb_decimal_positif_inf_un}`;
-					texte_corr = `${nb_decimal_positif_inf_un}`;
+				case 8 : // nombre décimal positif
+					texte = `${dec_pos[1].val}`;
+					texte_corr = `${dec_pos[1].puissance_inf} $\\leqslant$ ${dec_pos[1].val} $\\leqslant$ ${dec_pos[1].puissance_sup}`;
+					break;
+				case 9 : // nombre décimal positif
+					texte = `${dec_pos[2].val}`;
+					texte_corr = `${dec_pos[2].puissance_inf} $\\leqslant$ ${dec_pos[2].val} $\\leqslant$ ${dec_pos[2].puissance_sup}`;
+					break;
+				case 10 : // nombre décimal positif
+					texte = `${dec_pos[3].val}`;
+					texte_corr = `${dec_pos[3].puissance_inf} $\\leqslant$ ${dec_pos[3].val} $\\leqslant$ ${dec_pos[3].puissance_sup}`;
+					break;
+				case 11 : // nombre décimal positif inferieur à 1
+					texte = `${dec_pos_inf_un[0].val}`;
+					texte_corr = `${dec_pos_inf_un[0].puissance_inf} $\\leqslant$ ${dec_pos_inf_un[0].val} $\\leqslant$ ${dec_pos_inf_un[0].puissance_sup}`;
 					break;		
+				case 12 : // nombre décimal positif inferieur à 1
+					texte = `${dec_pos_inf_un[1].val}`;
+					texte_corr = `${dec_pos_inf_un[1].puissance_inf} $\\leqslant$ ${dec_pos_inf_un[1].val} $\\leqslant$ ${dec_pos_inf_un[1].puissance_sup}`;
+					break;		
+				case 13 : // nombre décimal positif inferieur à 1
+					texte = `${dec_pos_inf_un[2].val}`;
+					texte_corr = `${dec_pos_inf_un[2].puissance_inf} $\\leqslant$ ${dec_pos_inf_un[2].val} $\\leqslant$ ${dec_pos_inf_un[2].puissance_sup}`;
+					break;		
+				case 14 : // nombre décimal positif inferieur à 1
+					texte = `${dec_pos_inf_un[3].val}`;
+					texte_corr = `${dec_pos_inf_un[3].puissance_inf} $\\leqslant$ ${dec_pos_inf_un[3].val} $\\leqslant$ ${dec_pos_inf_un[3].puissance_sup}`;
+					break;	
 			};
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
