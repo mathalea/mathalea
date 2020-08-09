@@ -15,6 +15,7 @@
 let mesObjets = []; // Liste de tous les objets construits
 //Liste utilisée quand il n'y a qu'une seule construction sur la page web
 
+let pixelsParCm = 20
 
 /*
 * Classe parente de tous les objets de MathALEA2D
@@ -27,11 +28,29 @@ function ObjetMathalea2D() {
 	this.color = 'black';
 	this.style = '' //stroke-dasharray="4 3" pour des hachures //stroke-width="2" pour un trait plus épais
 	this.styleTikz = '';
-	this.coeff = 20; // 1 cm est représenté par 20 pixels
+	this.coeff = pixelsParCm; // 1 cm est représenté par 20 pixels
 	this.epaisseur = 1;
 	this.opacite = 1;
 	this.pointilles = false;
 	mesObjets.push(this);
+}
+
+function initialise(){
+	let txt = `
+alert('ok')
+	function ObjetMathalea2D() {
+	this.positionLabel = 'above';
+	this.isVisible = true;
+	this.color = 'black';
+	this.style = '' //stroke-dasharray="4 3" pour des hachures //stroke-width="2" pour un trait plus épais
+	this.styleTikz = '';
+	this.coeff = 40; // 1 cm est représenté par 20 pixels
+	this.epaisseur = 1;
+	this.opacite = 1;
+	this.pointilles = false;
+	mesObjets.push(this);
+}`
+	return Function(txt)();
 }
 
 /*
@@ -2353,7 +2372,7 @@ function codeSegments(...args){
 * @Auteur Rémi Angot
 */
 
-function Axes(xmin=-1,ymin=-10,xmax=30,ymax=10,thick=.2,step=1){
+function Axes(xmin=-30,ymin=-30,xmax=30,ymax=30,thick=.2,step=1){
 	let objets = []
 	abscisse = segment(xmin,0,xmax,0)
 	abscisse.styleExtremites = '->'
@@ -2388,11 +2407,67 @@ function axes(...args){
 }
 
 /**
+* labelX(xmin,xmax,step,color,pos) // Place des graduations
+* 
+* @Auteur Rémi Angot
+*/
+function labelX(xmin=1,xmax=20,step=1,color='black',pos=-.6){
+	let objets = []
+	for (x=xmin ; x<=xmax ; x = calcul(x+step)){
+		objets.push(texteParPoint(x,point(x,pos),'milieu',color))
+	}
+	this.svg = function(){
+		code = ''
+		for (objet of objets){
+			code += '\n\t' + objet.svg()
+		}
+		return code
+	}
+	this.tikz = function(){
+		code = ''
+		for (objet of objets){
+			code += '\n\t' + objet.tikz()
+		}
+		return code
+	}
+	this.commentaire = `labelX(xmin=${xmin},xmax=${xmax},step=${step},color=${color},pos=${pos})`
+
+}
+
+/**
+* labelY(ymin,ymax,step,color,pos) // Place des graduations
+* 
+* @Auteur Rémi Angot
+*/
+function labelY(ymin=1,ymax=20,step=1,color='black',pos=-.6){
+	let objets = []
+	for (y=ymin ; y<=ymax ; y = calcul(y+step)){
+		objets.push(texteParPoint(y,point(pos,y),'milieu',color))
+	}
+	this.svg = function(){
+		code = ''
+		for (objet of objets){
+			code += '\n\t' + objet.svg()
+		}
+		return code
+	}
+	this.tikz = function(){
+		code = ''
+		for (objet of objets){
+			code += '\n\t' + objet.tikz()
+		}
+		return code
+	}
+	this.commentaire = `labelX(ymin=${ymin},ymax=${ymax},step=${step},color=${color},pos=${pos})`
+
+}
+
+/**
 * grille(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les axes des abscisses et des ordinnées
 * 
 * @Auteur Rémi Angot
 */
-function Grille(xmin = -1, ymin = -10, xmax = 20, ymax = 10, color = 'gray', opacite = .4, step = 1){
+function Grille(xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', opacite = .4, step = 1){
 	ObjetMathalea2D.call(this)
 	this.color = color
 	this.opacite = opacite
@@ -2456,7 +2531,7 @@ function courbe(f,xmin=-1,xmax=30,color = 'black',step=.1){
 		if (isFinite(f(x))) {
 			points.push(point(x,f(x)))
 		} else {
-			console.log(x,f(x))
+
 		}
 	}
 	let p = polyline([...points],this.color)
@@ -2593,6 +2668,19 @@ function TexteParPoint(texte,A,orientation = "milieu",color) {
 function texteParPoint(...args){
 	return new TexteParPoint(...args)
 }
+
+/**
+* texteParPoint('mon texte',x,y) // Écrit 'mon texte' avec le point de coordonnées (x,y) au centre du texte
+* texteParPoint('mon texte',x,y,'gauche') // Écrit 'mon texte' à gauche de le point de coordonnées (x,y) (qui sera la fin du texte)
+* texteParPoint('mon texte',x,y,'droite') // Écrit 'mon texte' à droite de le point de coordonnées (x,y) (qui sera le début du texte)
+* texteParPoint('mon texte',x,y,45) // Écrit 'mon texte' à centré sur le point de coordonnées (x,y) avec une rotation de 45°
+*
+* @Auteur Rémi Angot
+*/
+function texteParPosition(texte,x,y,orientation = "milieu",color){
+	return new TexteParPoint(texte,point(x,y),orientation = "milieu",color)
+}
+
 
 /**
 * texteParPoint('mon texte',A) // Écrit 'mon texte' avec A au centre du texte
