@@ -4057,15 +4057,18 @@ function Signe_produit_quotient_relatifs(){
 			switch(this.sup) {
 				case 1 : // 2 facteurs
 					type_de_questions_disponibles = [1];
-					this.nb_questions = type_de_questions_disponibles.length;	
+					//this.nb_questions = type_de_questions_disponibles.length;	
+					this.nb_questions = 3;
 					break;
 				case 2 : // 3 facteurs
 					type_de_questions_disponibles = [2];
-					this.nb_questions = type_de_questions_disponibles.length;	
+					//this.nb_questions = type_de_questions_disponibles.length;	
+					this.nb_questions = 3;
 					break;
 				case 3 : // 4 facteurs
 					type_de_questions_disponibles = [3];
-					this.nb_questions = type_de_questions_disponibles.length;	
+					//this.nb_questions = type_de_questions_disponibles.length;	
+					this.nb_questions = 3;
 					break;
 				case 4 : // Mélange
 					type_de_questions_disponibles = [1,2,3];
@@ -4076,19 +4079,23 @@ function Signe_produit_quotient_relatifs(){
 			switch(this.sup) {
 				case 1 : // quotient de 2 nombres
 					type_de_questions_disponibles = [4];
-					this.nb_questions = type_de_questions_disponibles.length;	
+					//this.nb_questions = type_de_questions_disponibles.length;	
+					this.nb_questions = 3;
 					break;
 				case 2 : // quotient d'1 nombre sur un produit de 2 nombres
 					type_de_questions_disponibles = [5];
-					this.nb_questions = type_de_questions_disponibles.length;	
+					//this.nb_questions = type_de_questions_disponibles.length;	
+					this.nb_questions = 3;
 					break;
 				case 3 : // quotient d'1 produit de 2 nombres sur 1 nombre
 					type_de_questions_disponibles = [6];
-					this.nb_questions = type_de_questions_disponibles.length;	
+					//this.nb_questions = type_de_questions_disponibles.length;	
+					this.nb_questions = 3;
 					break;
 				case 4 : // quotient de 2 produits de 2 nombres
 					type_de_questions_disponibles = [7];
-					this.nb_questions = type_de_questions_disponibles.length;	
+					//this.nb_questions = type_de_questions_disponibles.length;	
+					this.nb_questions = 3;
 					break;
 				case 5 : // Mélange
 					type_de_questions_disponibles = [4,5,6,7];
