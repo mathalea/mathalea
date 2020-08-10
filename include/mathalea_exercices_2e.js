@@ -1,9 +1,8 @@
  
 
-
-function Milieu(){
+function Modelisation_coordonnees(){
 Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Déterminer les coordonnées du milieu de deux points dans un repère";
+    this.titre = "Déterminer la nature d'un polygone.";
    
     this.nb_questions = 2;
     this.nb_cols = 2;
@@ -14,15 +13,18 @@ Exercice.call(this); // Héritage de la classe Exercice()
     {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles = [1,2];
+    let type_de_questions_disponibles = [1];
      if (this.sup == 1) {
             type_de_questions_disponibles = [1] 
         }
       if (this.sup == 2) {
             type_de_questions_disponibles = [2] 
            }
+    if (this.sup == 3) {
+            type_de_questions_disponibles = [3,4] 
+           }
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) ;
-    for (let i = 0, a,ux,uy,d,e,g,xA,yA,xB,yB,xC,yC,AB,XAB,YAB,XAC,YAC,AC,t,l,xI0,xI1,yI0,yI1, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) 
+    for (let i = 0, a,ux,uy,d,e,g,xA,yA,xB,yB,xC,yC,xD,yD,AB,XAB,YAB,XAC,YAC,XBC,YBC,AC,t,l,xI0,xI1,yI0,yI1,xJ0,xJ1,yJ0,yJ1, A,B,C,D,T,L,P,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) 
     {
     type_de_questions = liste_type_de_questions[i];
     switch (type_de_questions){
@@ -31,16 +33,184 @@ Exercice.call(this); // Héritage de la classe Exercice()
             
                 case 1 : 
         
-                    g =grille(-9,-9,9,9)
+                  
                     xA=randint(0,5)*choice([-1,1])
+                    yA=randint(0,5)*choice([-1,1])
+                    ux=randint(1,5)*choice([-1,1])
+                    uy=randint(1,5)*choice([-1,1])
+                    xB=xA+ux
+                  
+                    yB=yA+uy
+                   
+                    xC=xA-uy
+                    yC=yA+ux
+                      XAB=(xB-xA)*(xB-xA)
+                   YAB=(yB-yA)*(yB-yA);
+                   AB=XAB+YAB;
+                   XAC=(xC-xA)*(xC-xA)
+                   YAC=(yC-yA)*(yC-yA)
+                   XBC=(xC-xB)*(xC-xB)
+                   YBC=(yC-yB)*(yC-yB)
+                   AC=XAC+YAC;
+                    texte =`Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :`
+                    texte +=` $A\\left(${xA};${yA}\\right)$ ; $B\\left(${xB};${yB}\\right)$ et $C\\left(${xC};${yC}\\right)$`
+                    texte += `<br>Déterminer la nature du triangle $ABC$ `;
+                                   
+                    
+                    texte_corr = `A partir du repère, on a envie de prouver que$ABC$ est un triangle isocèle en $A$.`
+                    texte_corr +=`<br> On calcule donc séparément les distances $AB$ et $AC$ `
+                    texte_corr += `<br>On sait d'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d'un repère orthonormé,`
+                    texte_corr +=` alors on a : $AB=\\sqrt{\\left(x_B-x_A\\right)^{2}+\\left(y_B-y_A\\right)^{2}}$<br>`
+                    texte_corr +=`On applique la relation à l'énoncé : $AB=\\sqrt{\\left(${xB}-${ecriture_parenthese_si_negatif(xA)}\\right)^{2}+\\left(${yB}-${ecriture_parenthese_si_negatif(yA)}\\right)^{2}}$<br>`
+                    texte_corr += `$\\phantom{On applique la relation à l'énoncé :        } AB=\\sqrt{${XAB}+${YAB}}$<br>`
+                    texte_corr +=`$\\phantom{On applique la relation à l'énoncé :        } AB=\\sqrt{${tex_nombre(XAB+YAB)}}$<br>`
+                    if (AB%100==0 && AB!=100)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=10\\sqrt{${tex_nombre((AB))/100}}$<br>`}
+                    if (AB%81==0 && AB!=81)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=9\\sqrt{${tex_nombre((AB))/81}}$<br>`}
+                    if (AB%64==0 && AB!=64)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=8\\sqrt{${tex_nombre((AB))/64}}$<br>`}
+                    if (AB%49==0 && AB!=49)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=7\\sqrt{${tex_nombre((AB))/49}}$<br>`}
+                     if (AB%36==0&& AB!=36)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=6\\sqrt{${tex_nombre((AB))/36}}$<br>`}
+                     if (AB%25==0 && AB!=25)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=5\\sqrt{${tex_nombre((AB))/25}}$<br>`}
+                     if (AB%64!=0 && AB%16==0&& AB!=16)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=4\\sqrt{${tex_nombre((AB))/16}}$<br>`}
+                    if (AB%81!=0 && AB%9==0 && AB!=9)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=3\\sqrt{${tex_nombre((AB))/9}}$<br>`}
+                    if (AB%16!=0 && AB%64!==0 &&AB%4==0 && AB!=4)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=2\\sqrt{${tex_nombre((AB))/4}}$<br>`}
+                      if (AB==100)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=10$<br>`}
+                    if (AB==81)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=9$<br>`}
+                      if (AB==64)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=8$<br>`}
+                      if (AB==49)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=7$<br>`}
+                      if (AB==36)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=6$<br>`}
+                      if (AB==25)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=5$<br>`}
+                      if (AB==16)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=4$<br>`}
+                      if (AB==9)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=3$<br>`}
+                      if (AB==4)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=2$<br>`}
+                      if (AB==1)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=1$<br>`}
+
+                    texte_corr +=`De même : $AC=\\sqrt{\\left(${xC}-${ecriture_parenthese_si_negatif(xA)}\\right)^{2}+\\left(${yC}-${ecriture_parenthese_si_negatif(yA)}\\right)^{2}}$<br>`
+                    texte_corr += `$\\phantom{De même :       } AC=\\sqrt{${XAC}+${YAC}}$<br>`
+                    texte_corr +=`$\\phantom{De même :       } AC=\\sqrt{${tex_nombre(XAC+YAC)}}$<br>`
+                    if (AC%100==0 && AC!=100)
+                        { texte_corr +=`$\\phantom{De même :  } AC=10\\sqrt{${tex_nombre((AC))/100}}$<br>`}
+                    if (AC%81==0 && AC!=81)
+                        { texte_corr +=`$\\phantom{De même :  } AC=9\\sqrt{${tex_nombre((AC))/81}}$<br>`}
+                    if (AC%64==0 && AC!=64)
+                        { texte_corr +=`$\\phantom{De même :  } AC=8\\sqrt{${tex_nombre((AC))/64}}$<br>`}
+                    if (AC%49==0 && AC!=49)
+                        { texte_corr +=`$\\phantom{De même :  } AC=7\\sqrt{${tex_nombre((AC))/49}}$<br>`}
+                     if (AC%36==0&& AC!=36)
+                        { texte_corr +=`$\\phantom{De même :  } AC=6\\sqrt{${tex_nombre((AC))/36}}$<br>`}
+                     if (AC%25==0 && AC!=25)
+                        { texte_corr +=`$\\phantom{De même :  } AC=5\\sqrt{${tex_nombre((AC))/25}}$<br>`}
+                     if (AC%64!=0 && AC%16==0&& AC!=16)
+                        { texte_corr +=`$\\phantom{De même :  } AC=4\\sqrt{${tex_nombre((AC))/16}}$<br>`}
+                    if (AC%81!=0 && AC%9==0 && AC!=9)
+                        { texte_corr +=`$\\phantom{De même :  } AC=3\\sqrt{${tex_nombre((AC))/9}}$<br>`}
+                    if (AC%16!=0 && AC%64!==0 &&AC%4==0 && AC!=4)
+                        { texte_corr +=`$\\phantom{De même :  } AC=2\\sqrt{${tex_nombre((AC))/4}}$<br>`}
+                      if (AC==100)
+                        { texte_corr +=`$\\phantom{De même :  } AC=10$<br>`}
+                    if (AC==81)
+                        { texte_corr +=`$\\phantom{De même :  } AC=9$<br>`}
+                      if (AC==64)
+                        { texte_corr +=`$\\phantom{De même :  } AC=8$<br>`}
+                      if (AC==49)
+                        { texte_corr +=`$\\phantom{De même :  } AC=7$<br>`}
+                      if (AC==36)
+                        { texte_corr +=`$\\phantom{De même :  } AC=6$<br>`}
+                      if (AC==25)
+                        { texte_corr +=`$\\phantom{De même :  } AC=5$<br>`}
+                      if (AC==16)
+                        { texte_corr +=`$\\phantom{De même :  } AC=4$<br>`}
+                      if (AC==9)
+                        { texte_corr +=`$\\phantom{De même :  } AC=3$<br>`}
+                      if (AC==4)
+                        { texte_corr +=`$\\phantom{De même :  } AC=2$<br>`}
+                      if (AC==1)
+                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AC=1$<br>`}
+
+                    texte_corr +=`On observe que $AC=AB$ donc le triangle $ABC$ est isocèle.`
+                    texte_corr +=`<br>On calcule $BC$ pour vérifier s'il est ou non  équilatéral.`
+                    texte_corr +=`<br>On obtient : $BC=\\sqrt{${XBC}+${YBC}}=\\sqrt{${tex_nombre(XBC+YBC)}}$<br>`
+                     if (XBC+YBC==XAB+YAB){texte_corr+=`Le triangle $ABC$ est équilatéral.`}
+                        else {texte_corr +=`Le triangle $ABC$ est simplement isocèle, il n'est pas équilatéral.`}
+
+                     ;   
+                   break ;
+             case 2 : 
+        
+               
+            } 
+            if (this.liste_questions.indexOf(texte)==-1)
+                { // Si la question n'a jamais été posée, on en créé une autre
+                this.liste_questions.push(texte);
+                this.liste_corrections.push(texte_corr);
+                i++;
+                }
+            cpt++;  
+        }
+        liste_de_question_to_contenu(this);
+    }
+     this.besoin_formulaire_numerique = ['Niveau de difficulté', 3, '1 : Application directe de la formule 2 : Application indirecte de la formule 3: Caractériser un parallélogramme.'];
+}  
+
+
+
+function Milieu(){
+Exercice.call(this); // Héritage de la classe Exercice()
+    this.titre = "Déterminer les coordonnées milieu d’un segment dans un repère";
+   
+    this.nb_questions = 2;
+    this.nb_cols = 2;
+    this.nb_cols_corr = 2;
+    this.sup = 1 ; // 
+
+    this.nouvelle_version = function(numero_de_l_exercice)
+    {
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    let type_de_questions_disponibles = [1,2,3,4];
+     if (this.sup == 1) {
+            type_de_questions_disponibles = [1] 
+        }
+      if (this.sup == 2) {
+            type_de_questions_disponibles = [2] 
+           }
+    if (this.sup == 3) {
+            type_de_questions_disponibles = [3,4] 
+           }
+    let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) ;
+    for (let i = 0, a,ux,uy,d,e,g,xA,yA,xB,yB,xC,yC,xD,yD,AB,XAB,YAB,XAC,YAC,AC,t,l,xI0,xI1,yI0,yI1,xJ0,xJ1,yJ0,yJ1, A,B,C,D,T,L,P,texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) 
+    {
+    type_de_questions = liste_type_de_questions[i];
+    switch (type_de_questions){
+                        // Cas par cas, on définit le type de nombres que l'on souhaite
+                        // Combien de chiffres ? Quelles valeurs ?
+            
+                case 1 : 
+        
+                     xA=randint(0,9)*choice([-1,1])
                     yA=randint(0,5)*choice([-1,1])
                     xB=randint(0,5)*choice([-1,1])
                     yB=randint(0,5)*choice([-1,1])
-                    A = point(xA,yA,'A','red')
-                    B = point(xB,yB,'B','red')
-                    t=tracePoint(A,B)
-                    l=labelPoint(A,B)
-                    a=axes(-2,-9,9,9)
+                    if (xB==xA&&yA==yB) {xB=xB+randint(1,5)*choice([-1,1])}
+                   
                     XAB=(xB-xA)*(xB-xA)
                     YAB=(yB-yA)*(yB-yA);
                     AB=XAB+YAB;
@@ -48,12 +218,21 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     xI1= fraction_simplifiee(xA+xB,2)[1]
                     yI0= fraction_simplifiee(yA+yB,2)[0]
                     yI1= fraction_simplifiee(yA+yB,2)[1]
+                    
+                    g =grille(-9,-9,9,9)               
+                    A = point(xA,yA,'A','red')
+                    B = point(xB,yB,'B','red')
+                    a=axes(xmin=-9,ymin=-9,xmax=9,ymax=9,thick=.2,step=1)
+                    s = segment(A,B,'blue')
+                    T=tracePoint(A,B) // Repère les points avec une croix
+                    L=labelPoint(A,B)
                     texte =`Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :`
                     texte +=` $A\\left(${xA};${yA}\\right)$ et $B\\left(${xB};${yB}\\right)$`
                     texte += `<br>Déterminer les coordonnées du point $I$ milieu du segment $[AB]$ `;
                                    
                     
-                    texte_corr = `On sait d'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d'un repère orthonormé,`
+                    texte_corr = mathalea2d(-9,-9,9,9,T,L,g,a,s)
+                    texte_corr += `<br>On sait d'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d'un repère orthonormé,`
                     texte_corr +=`<br> alors les coordonnées du point $I$ milieu de $[AB]$ sont `
                     texte_corr +=`$I\\left(\\dfrac{x_A+x_B}{2};\\dfrac{y_A+y_B}{2}\\right)$ <br>`
                     texte_corr +=`On applique la relation à l'énoncé : `
@@ -69,16 +248,13 @@ Exercice.call(this); // Héritage de la classe Exercice()
                    break ;
              case 2 : 
         
-                g =grille(-9,-9,9,9)
-                    xA=randint(0,5)*choice([-1,1])
+                    
+                     xA=randint(0,9)*choice([-1,1])
                     yA=randint(0,5)*choice([-1,1])
                     xI=randint(0,5)*choice([-1,1])
                     yI=randint(0,5)*choice([-1,1])
-                    A = point(xA,yA,'A','red')
-                    B = point(xB,yB,'B','red')
-                    t=tracePoint(A,B)
-                    l=labelPoint(A,B)
-                    a=axes(-2,-9,9,9)
+                      if (xI==xA&&yI==yA) {xI=xI+randint(1,5)*choice([-1,1])}
+                    
                     XAB=(xB-xA)*(xB-xA)
                     YAB=(yB-yA)*(yB-yA);
                     AB=XAB+YAB;
@@ -86,12 +262,20 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     xI1= fraction_simplifiee(xA+xB,2)[1]
                     yI0= fraction_simplifiee(yA+yB,2)[0]
                     yI1= fraction_simplifiee(yA+yB,2)[1]
+                      g =grille(-9,-9,9,9)               
+                    A = point(xA,yA,'A','red')
+                    B = point(xB,yB,'B','red')
+                    a=axes(xmin=-9,ymin=-9,xmax=9,ymax=9,thick=.2,step=1)
+                    s = segment(A,B,'blue')
+                    T=tracePoint(A,B) // Repère les points avec une croix
+                    L=labelPoint(A,B)
                     texte =`Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :`
                     texte +=` $A\\left(${xA};${yA}\\right)$ et $I\\left(${xI};${yI}\\right)$`
                     texte += `<br>Déterminer les coordonnées du point $B$ tel que I soit le milieu du segment $[AB]$ `;
                                    
                     
-                    texte_corr = `On sait d'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d'un repère orthonormé,`
+                      texte_corr = mathalea2d(-9,-9,9,9,T,L,s,g,a)
+                    texte_corr += `<br>On sait d'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d'un repère orthonormé,`
                     texte_corr +=` <br>alors les coordonnées du point $I$ milieu de $[AB]$ sont `
                     texte_corr +=`$I\\left(\\dfrac{x_A+x_B}{2};\\dfrac{y_A+y_B}{2}\\right)$ <br>`
                     texte_corr +=`On applique la relation à l'énoncé : `
@@ -104,43 +288,127 @@ Exercice.call(this); // Héritage de la classe Exercice()
                      ;   
                    break ;
              case 3 : 
-        
-              
-                   xA=randint(0,5)*choice([-1,1])
+                                 
+                    xA=randint(0,9)*choice([-1,1])
                    yA=randint(0,9)*choice([-1,1])
-                   ux=randint(0,9)*choice([-1,1])
-                   uy=randint(0,9)*choice([-1,1])
+                   ux=randint(1,9)*choice([-1,1])
+                   uy=randint(1,9)*choice([-1,1])
                    xB=xA+ux
                    yB=yA+uy
-                   xC=xA+uy*choice([-1,1])+randint(1,3)
-                   yC=yA+ux*choice([-1,1])
-
-                   XAB=(xB-xA)*(xB-xA)
-                   YAB=(yB-yA)*(yB-yA);
-                   AB=XAB+YAB;
-                   XAC=(xC-xA)*(xC-xA)
-                   YAC=(yC-yA)*(yC-yA);
-                   AC=XAC+YAC;
+                   xC=randint(0,5)*choice([-1,1])
+                   yC=randint(0,9)*choice([-1,1])
+                    if (xC==xA&&yA==yC) {xC=xC+randint(1,5)*choice([-1,1])}
+                   xD=xC+ux
+                   yD=yC+uy
+                   xI0= fraction_simplifiee(xA+xD,2)[0]
+                   xI1= fraction_simplifiee(xA+xD,2)[1]
+                   yI0= fraction_simplifiee(yA+yD,2)[0]
+                   yI1= fraction_simplifiee(yA+yD,2)[1]
+                   xJ0= fraction_simplifiee(xB+xC,2)[0]
+                   xJ1= fraction_simplifiee(xB+xC,2)[1]
+                   yJ0= fraction_simplifiee(yB+yC,2)[0]
+                   yJ1= fraction_simplifiee(yB+yC,2)[1]
+                       g =grille(-9,-9,9,9)               
+                    A = point(xA,yA,'A','red')
+                    B = point(xB,yB,'B','red')
+                    a=axes(xmin=-9,ymin=-9,xmax=9,ymax=9,thick=.2,step=1)
+                    s = segment(A,B,'blue')
+                    T=tracePoint(A,B) // Repère les points avec une croix
+                    L=labelPoint(A,B)
+                 
                 
-                    texte =`Dans un repère orthonormé (O,I,J), on donne les points suivants :`
+                    texte =`Dans un repère orthonormé (O,I,J), on donne les 4 points suivants :<br>`
                     texte +=` $A\\left(${xA};${yA}\\right)$ ; $B\\left(${xB};${yB}\\right).$`
-                    texte += `<br>Le point $C\\left(${xC};${yC}\\right)$ appartient-il au cercle de centre $A$ passant par $B$ ?`;
+                    texte +=` $C\\left(${xC};${yC}\\right)$ ; $D\\left(${xD};${yD}\\right).$`
+                    texte += `<br>Déterminer si le quadrilatère $ABDC$ est un parallélogramme.`;
                                    
-                    texte_corr = `Le point $C$ appartient au cercle de centre $A$ passant par $B$ si et seulement si $CA=CB.$`
-                    texte_corr += `<br>On calcule séparément donc ces deux distances :`
-                    texte_corr += `<br>On sait d'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d'un repère orthonormé,`
-                    texte_corr +=` <br>alors on a : $AB=\\sqrt{\\left(x_B-x_A\\right)^{2}+\\left(y_B-y_A\\right)^{2}}.$<br>`
-                    texte_corr +=`On applique la relation à l'énoncé : $AB=\\sqrt{\\left(${xB}-${ecriture_parenthese_si_negatif(xA)}\\right)^{2}+\\left(${yB}-${ecriture_parenthese_si_negatif(yA)}\\right)^{2}}$<br>`
-                    texte_corr += `$\\phantom{On applique la relation à l'énoncé :        } AB=\\sqrt{${XAB}+${YAB}}$<br>`
-                    texte_corr +=`$\\phantom{On applique la relation à l'énoncé :        } AB=\\sqrt{${tex_nombre(XAB+YAB)}}$<br>`
-                   
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=2$<br>`}
-                    texte_corr +=`De même : $AC=\\sqrt{\\left(${xC}-${ecriture_parenthese_si_negatif(xA)}\\right)^{2}+\\left(${yC}-${ecriture_parenthese_si_negatif(yA)}\\right)^{2}}$<br>`
-                    texte_corr += `$\\phantom{De même :       } AC=\\sqrt{${XAC}+${YAC}}$<br>`
-                    texte_corr +=`$\\phantom{De même :       } AC=\\sqrt{${tex_nombre(XAC+YAC)}}$<br>`
-                   
-                        { texte_corr +=`$\\phantom{De même :  } AC=2$<br>`}
-                    texte_corr +=`On observe que $AC\\neq AB$ donc le point $C$ n'appartient pas au cercle de centre $A$ et passant par $B$`
+                      texte_corr = mathalea2d(-9,-9,9,9,T,L,s,g,a)
+                    texte_corr += `<br>On sait que ABDC est un parallélogramme si et seulement si ses diagonales se coupent en leur milieu.$`
+                    texte_corr += `<br>On cherche donc les coordonnées du milieu de chacune des deux diagonales du quadrilatère :`
+                    texte_corr += `On sait d'après le cours, que si $A(x_A;y_A)$ et $D(x_D;y_D)$ sont deux points d'un repère ,`
+                    texte_corr +=`<br> alors les coordonnées du point $I$ milieu de $[AD]$ sont `
+                    texte_corr +=`$I\\left(\\dfrac{x_A+x_D}{2};\\dfrac{y_A+y_D}{2}\\right)$ <br>`
+                    texte_corr +=`On applique la relation à l'énoncé : `
+                    texte_corr +=`$\\begin{cases}x_I=\\dfrac{${xA}+${ecriture_parenthese_si_negatif(xD)}}{2} \\\\ y_I=\\dfrac{${yA}+${ecriture_parenthese_si_negatif(yD)}}{2}\\end{cases}$`
+                    texte_corr += `<br>On en déduit :  $\\begin{cases}x_I=\\dfrac{${tex_nombre(xA+xD)}}{2}\\\\y_I=\\dfrac{${tex_nombre(yA+yD)}}{2}\\end{cases}$`
+                    if (xI1!=1 && yI1!=1) {texte_corr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};\\dfrac{${yI0}}{${yI1}};\\right)$`}
+                    if (xI1==1 && yI1!=1) {texte_corr += `  <br>Ce qui donne au final : $ I\\left(${xI0};\\dfrac{${yI0}}{${yI1}}\\right)$`}
+                    if (xI1!=1 && yI1==1) {texte_corr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};${yI0}\\right)$`}
+                    if (xI1==1 && yI1==1) {texte_corr += `  <br>Ce qui donne au final : $ I\\left(${xI0};${yI0}\\right)$`}
+                   texte_corr +=`<br> Les coordonnées du point $J$ milieu de $[BC]$ sont `
+                    texte_corr +=`$J\\left(\\dfrac{x_B+x_C}{2};\\dfrac{y_B+y_C}{2}\\right)$ <br>`
+                    texte_corr +=`On applique la relation à l'énoncé : `
+                    texte_corr +=`$\\begin{cases}x_J=\\dfrac{${xB}+${ecriture_parenthese_si_negatif(xC)}}{2} \\\\ y_J=\\dfrac{${yB}+${ecriture_parenthese_si_negatif(yC)}}{2}\\end{cases}$`
+                    texte_corr += `<br>On en déduit :  $\\begin{cases}x_J=\\dfrac{${tex_nombre(xB+xC)}}{2}\\\\y_J=\\dfrac{${tex_nombre(yB+yC)}}{2}\\end{cases}$`
+                    if (xJ1!=1 && yJ1!=1) {texte_corr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};\\dfrac{${yJ0}}{${yJ1}};\\right)$`}
+                    if (xJ1==1 && yJ1!=1) {texte_corr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};\\dfrac{${yJ0}}{${yJ1}}\\right)$`}
+                    if (xJ1!=1 && yJ1==1) {texte_corr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};${yJ0}\\right)$`}
+                    if (xJ1==1 && yJ1==1) {texte_corr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};${yJ0}\\right)$`}
+                     texte_corr += `<br>On observe que $I$ et $J$ ont les mêmes coordonnées, donc les deux diagonales du quadrilatère se coupent en leur milieu.`
+                        texte_corr += `<br>$ABDC$ est donc un parallélogramme.`
+
+                    ;   
+                   break ;
+             case 4 : 
+                    
+                                     
+              
+                   xA=randint(0,9)*choice([-1,1])
+                   yA=randint(0,9)*choice([-1,1])
+                   ux=randint(1,9)*choice([-1,1])
+                   uy=randint(1,9)*choice([-1,1])
+                   xB=xA+ux
+                   yB=yA+uy
+                   xC=randint(0,5)*choice([-1,1])
+                   yC=randint(0,9)*choice([-1,1])
+                   if (xC==xA&&yA==yC) {xC=xC+randint(1,5)*choice([-1,1])}
+                   xD=xC+ux+randint(1,2)*choice([-1,1])
+                   yD=yC+uy+randint(0,1)*choice([-1,1])
+                   xI0= fraction_simplifiee(xA+xD,2)[0]
+                   xI1= fraction_simplifiee(xA+xD,2)[1]
+                   yI0= fraction_simplifiee(yA+yD,2)[0]
+                   yI1= fraction_simplifiee(yA+yD,2)[1]
+                   xJ0= fraction_simplifiee(xB+xC,2)[0]
+                   xJ1= fraction_simplifiee(xB+xC,2)[1]
+                   yJ0= fraction_simplifiee(yB+yC,2)[0]
+                   yJ1= fraction_simplifiee(yB+yC,2)[1]
+                       g =grille(-9,-9,9,9)               
+                    A = point(xA,yA,'A','red')
+                    B = point(xB,yB,'B','red')
+                    a=axes(xmin=-9,ymin=-9,xmax=9,ymax=9,thick=.2,step=1)
+                    s = segment(A,B,'blue')
+                    T=tracePoint(A,B) // Repère les points avec une croix
+                    L=labelPoint(A,B)
+                
+                    texte =`Dans un repère orthonormé (O,I,J), on donne les 4 points suivants :<br>`
+                    texte +=` $A\\left(${xA};${yA}\\right)$ ; $B\\left(${xB};${yB}\\right).$`
+                    texte +=` $C\\left(${xC};${yC}\\right)$ ; $D\\left(${xD};${yD}\\right).$`
+                    texte += `<br>Déterminer si le quadrilatère $ABDC$ est un parallélogramme.`;
+                                   
+                    texte_corr = mathalea2d(-9,-9,9,9,T,L,s,g,a)
+                    texte_corr += `<br>On sait que ABDC est un parallélogramme si et seulement si ses diagonales se coupent en leur milieu.$`
+                    texte_corr += `<br>On cherche donc les coordonnées du milieu de chacune des deux diagonales du quadrilatère :`
+                    texte_corr += `On sait d'après le cours, que si $A(x_A;y_A)$ et $D(x_D;y_D)$ sont deux points d'un repère ,`
+                    texte_corr +=`<br> alors les coordonnées du point $I$ milieu de $[AD]$ sont `
+                    texte_corr +=`$I\\left(\\dfrac{x_A+x_D}{2};\\dfrac{y_A+y_D}{2}\\right)$ <br>`
+                    texte_corr +=`On applique la relation à l'énoncé : `
+                    texte_corr +=`$\\begin{cases}x_I=\\dfrac{${xA}+${ecriture_parenthese_si_negatif(xD)}}{2} \\\\ y_I=\\dfrac{${yA}+${ecriture_parenthese_si_negatif(yD)}}{2}\\end{cases}$`
+                    texte_corr += `<br>On en déduit :  $\\begin{cases}x_I=\\dfrac{${tex_nombre(xA+xD)}}{2}\\\\y_I=\\dfrac{${tex_nombre(yA+yD)}}{2}\\end{cases}$`
+                    if (xI1!=1 && yI1!=1) {texte_corr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};\\dfrac{${yI0}}{${yI1}};\\right)$`}
+                    if (xI1==1 && yI1!=1) {texte_corr += `  <br>Ce qui donne au final : $ I\\left(${xI0};\\dfrac{${yI0}}{${yI1}}\\right)$`}
+                    if (xI1!=1 && yI1==1) {texte_corr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};${yI0}\\right)$`}
+                    if (xI1==1 && yI1==1) {texte_corr += `  <br>Ce qui donne au final : $ I\\left(${xI0};${yI0}\\right)$`}
+                    texte_corr +=`<br> Les coordonnées du point $J$ milieu de $[BC]$ sont `
+                    texte_corr +=`$J\\left(\\dfrac{x_B+x_C}{2};\\dfrac{y_B+y_C}{2}\\right)$ <br>`
+                    texte_corr +=`On applique la relation à l'énoncé : `
+                    texte_corr +=`$\\begin{cases}x_J=\\dfrac{${xB}+${ecriture_parenthese_si_negatif(xC)}}{2} \\\\ y_J=\\dfrac{${yB}+${ecriture_parenthese_si_negatif(yC)}}{2}\\end{cases}$`
+                    texte_corr += `<br>On en déduit :  $\\begin{cases}x_J=\\dfrac{${tex_nombre(xB+xC)}}{2}\\\\y_J=\\dfrac{${tex_nombre(yB+yC)}}{2}\\end{cases}$`
+                    if (xJ1!=1 && yJ1!=1) {texte_corr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};\\dfrac{${yJ0}}{${yJ1}};\\right)$`}
+                    if (xJ1==1 && yJ1!=1) {texte_corr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};\\dfrac{${yJ0}}{${yJ1}}\\right)$`}
+                    if (xJ1!=1 && yJ1==1) {texte_corr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};${yJ0}\\right)$`}
+                    if (xJ1==1 && yJ1==1) {texte_corr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};${yJ0}\\right)$`}
+                     texte_corr += `<br>On observe que $I$ et $J$ n'ont pas les mêmes coordonnées, donc les deux diagonales du quadrilatère ne se coupent pas en leur milieu.`
+                        texte_corr += `<br>$ABDC$ n'est donc pas un parallélogramme.`
 
                     ;   
                    break ;
@@ -155,13 +423,13 @@ Exercice.call(this); // Héritage de la classe Exercice()
         }
         liste_de_question_to_contenu(this);
     }
-     this.besoin_formulaire_numerique = ['Niveau de difficulté', 2, '1 : Application directe de la formule 2 : Application indirecte de la formule '];
+     this.besoin_formulaire_numerique = ['Niveau de difficulté', 3, '1 : Application directe de la formule 2 : Application indirecte de la formule 3: Caractériser un parallélogramme.'];
 }  
 
 
 function Distance(){
 Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Utiliser la mesure de la distance de deux points dans un repère orthonormé";
+    this.titre = "Utiliser la distance entre deux points dans un repère orthonormé";
    
     this.nb_questions = 2;
     this.nb_cols = 2;
@@ -194,6 +462,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     yA=randint(0,5)*choice([-1,1])
                     xB=randint(0,5)*choice([-1,1])
                     yB=randint(0,5)*choice([-1,1])
+                    if (xB==xA&&yA==yB) {xB=xB+randint(1,5)*choice([-1,1])}
                     A = point(xA,yA,'A','red')
                     B = point(xB,yB,'B','red')
                     t=tracePoint(A,B)
@@ -504,7 +773,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
 function union_et_intersection_intervalles_de_R()
 {
 Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Utiliser et comprendre les symboles $I\\cup J$ et $I\\cap J$ avec les intervalles de $\\mathbb{R}.$";
+    this.titre = "Utiliser et comprendre les symboles $\\cup $ et $\\cap $ avec les intervalles de $\\mathbb{R}$";
     this.consigne = "Répondre aux questions suivantes: :"
     this.nb_questions = 4;
     this.nb_cols = 2;
@@ -1421,7 +1690,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
 function parite()
 {
 Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Déterminer la parité d'une expression.";
+    this.titre = "Déterminer la parité d'une expression";
     this.consigne = "Soit $n$ un entier naturel."
     this.nb_questions = 4;
     this.nb_cols = 2;
@@ -1580,7 +1849,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
 
 function ensemble_de_nombres(){
 Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient.";
+    this.titre = "Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient";
     this.consigne = "Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient. :"
     this.nb_questions = 5;
     this.nb_cols = 2;
@@ -1867,8 +2136,8 @@ function proprietes_racine_carree(){
 
 function Simplifier_une_somme_de_racines_carrees() {
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Simplifier une somme de racine carrée";
-    this.consigne = " Simplifier une somme de racine carrée"
+    this.titre = "Simplifier une somme de racines carrées";
+    this.consigne = " Simplifier une somme de racines carrées"
     this.nb_questions = 4;
     this.nb_cols = 2;
     this.nb_cols_corr = 2;
@@ -1897,7 +2166,7 @@ function Simplifier_une_somme_de_racines_carrees() {
             let f3 = e3 * a3
             let f = f1 + f2 + f3
 
-            texte = `Ecrire $A=${e1}\\sqrt{${d1}} ${ecriture_algebrique(e2)}\\sqrt{${d2}} ${ecriture_algebrique(e3)}\\sqrt{${d3}}$ sous la forme $a\\sqrt{${c}}$ où $a$ est un entier:`
+            texte = `Écrire $A=${e1}\\sqrt{${d1}} ${ecriture_algebrique(e2)}\\sqrt{${d2}} ${ecriture_algebrique(e3)}\\sqrt{${d3}}$ sous la forme $a\\sqrt{${c}}$ où $a$ est un entier:`
             texte_corr = `On cherche le plus grand carré parfait diviseur de ${d1}, ${d2} et ${d3}. <br>
                 On trouve $${d1}=${b1} \\times ${c}~~$, $~~${d2}=${b2} \\times ${c}~~$	et $${d3}=${b3} \\times ${c}$<br>
                 On a donc  : $\\sqrt{${d1}}=\\sqrt{${a1}^{2} \\times ${c} }=${a1}\\times \\sqrt{${c}}$,
@@ -1921,7 +2190,7 @@ function Simplifier_une_somme_de_racines_carrees() {
 
 function Existence_d_une_racine_carree(){
 Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Existence d'une racine carrée.";
+    this.titre = "Existence d'une racine carrée";
     this.consigne = " Dire si le nombre proposé existe ou non, en justifiant."
     this.nb_questions = 5;
     this.nb_cols = 2;
