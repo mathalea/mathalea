@@ -610,7 +610,6 @@ function droiteParPointEtPente(A,k,nom='',color='black') {
 	let mark2=rotation(M,O,demiangle/2)
 	let t1=texteParPoint(mark,mark1,Math.round(droite(O,A).angleAvecHorizontale+demiangle/2-90),color)
 	let t2=texteParPoint(mark,mark2,Math.round(droite(O,A).angleAvecHorizontale+3*demiangle/2-90),color)
-	console.log(t1,t1.svg())
 	let b = pointSurSegment(O,B,1)
 	let a1 = arcPointPointAngle(a,M,demiangle,this.color)
 	let a2 = arcPointPointAngle(M,b,demiangle,this.color)
@@ -1453,8 +1452,10 @@ function cercleCentrePoint(...args){
  	this.fill=fill;
  	let l=longueur(Omega,M),large=0,sweep=0
  	let d=droite(Omega,M)
- 	d.isVisible=false
- 	let azimut=d.angleAvecHorizontale
+	d.isVisible=false
+	let A=point(Omega.x+1,Omega.y)
+	let azimut=angleOriente(A,Omega,M)
+	let anglefin=azimut+angle
  	if (angle>180) {
  		angle=angle-360
  		large=1
@@ -1468,7 +1469,7 @@ function cercleCentrePoint(...args){
  	else {
  		large=0
  		sweep=1-(angle>0)
- 	}
+	 }
  	let N=rotation(M,Omega,angle)
  	if (rayon) 	this.svg = function(){
  		if (this.epaisseur!=1) {
@@ -1512,13 +1513,15 @@ function cercleCentrePoint(...args){
 		if (tableauOptions.length>0) {
 			optionsDraw = "["+tableauOptions.join(',')+"]"
 		}
- 		return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${angle+azimut}:${longueur(Omega,M)}) ;`
+		let bords=`(${M.x},${M.y})`
+		if (rayon) bords=`(${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) `
+			return `\\draw${optionsDraw} ${bords} arc (${azimut}:${anglefin}:${longueur(Omega,M)}) ;`
  	}
  }
  function arc(...args) {
  	return new Arc(...args)
  }
-/**
+ /**
  * 
  * @param {Point} M //première extrémité de l'arc
  * @param {Point} N //deuxième extrémité de l'arc
@@ -1526,57 +1529,36 @@ function cercleCentrePoint(...args){
  * @param {boolean} rayon //si true, l'arc est fermé par deux rayons aux extrémités
  * @param {string} fill //couleur de remplissage (par défaut 'none'= sans remplissage) 
  * @param {string} color //couleur de l'arc
+ * @Auteur Jean-Claude Lhote
  */
  function ArcPointPointAngle(M,N,angle,rayon=false,fill='none',color='black'){
- 	ObjetMathalea2D.call(this);
- 	this.color=color;
- 	this.fill=fill;
- 	let anglerot,large,sweep,Omegax,Omegay
- 	if (angle<0) anglerot=calcul((angle+180)/2)
- 		else anglerot=calcul((angle-180)/2)
- 			let d,e,f;
- 		d=mediatrice(M,N,'black');
- 		d.isVisible=false
- 		e=droite(N,M);
- 		e.isVisible=false
- 		f=rotation(e,N,anglerot);
- 		f.isVisible=false
- 		if (angle>180) {
- 			angle=angle-360
- 			large=1
- 			sweep=0
- 		}
- 		else if (angle<-180) {
- 			angle=360+angle
- 			large=1
- 			sweep=1
- 		}
- 		else {
- 			large=0
- 			sweep=1-(angle>0)
- 		}
- 		Omegay=calcul((-f.c+d.c*f.a/d.a)/(f.b-f.a*d.b/d.a))
- 		Omegax=calcul(-d.c/d.a-d.b*Omegay/d.a)
- 		let Omega=point(Omegax,Omegay)
- 		let l=longueur(Omega,M)
- 		if (rayon) 	this.svg = function(coeff=20){
- 			return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${fill}" opacity="0.5"/>`
- 		}
- 		else 	this.svg = function(coeff=20){
- 			return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}" opacity="0.5"/>`
- 		}
- 		this.tikz = function(){
- 			return `\\draw (${M.x},${M.y}) arc (0:${angle}:${longueur(Omega,M)}) ;`
- 		}
- 	}
+	let anglerot,Omegax,Omegay
+	if (angle<0) anglerot=calcul((angle+180)/2)
+	else anglerot=calcul((angle-180)/2)
+	let d,e,f;
+	d=mediatrice(M,N,'black');
+	d.isVisible=false
+	e=droite(N,M);
+	e.isVisible=false
+	f=rotation(e,N,anglerot);
+	f.isVisible=false
+	Omegay=calcul((-f.c+d.c*f.a/d.a)/(f.b-f.a*d.b/d.a))
+	Omegax=calcul(-d.c/d.a-d.b*Omegay/d.a)
+	let Omega=point(Omegax,Omegay)
+	let l=longueur(Omega,M)
+	let a=arc(M,Omega,angle,rayon,fill,color)
+	a.isVisible=false
+	ObjetMathalea2D.call(this);
+	this.svg=a.svg
+	this.tikz=a.tikz
+ }
  	function arcPointPointAngle(...args){
  		return new ArcPointPointAngle(...args)
  	}
-
- 	function arcPointPointAngle(...args) {
- 		return new ArcPointPointAngle(...args)
- 	}
-
+/**
+ * m = traceCompas(O, A, 20) trace un arc de cercle de centre O qui commence 10° avant A et finit 10° après.
+ *@Auteur Jean-Claude Lhote
+ */
  	function traceCompas(O,A,angle=20,color='gray',opacite=.7, epaisseur = 1, pointilles  = false) {
  		let B = rotation(A,O,-angle/2)
  		let a = arc(B,O,angle,false)
