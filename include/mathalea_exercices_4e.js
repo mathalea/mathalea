@@ -4381,6 +4381,8 @@ function Problemes_additifs_fractions() {
 		this.liste_corrections = []; // Liste de questions corrigées
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+			// on aura besoin des méthodes de la classe Fraction()
+			let frac = new Fraction();
 			// le tableau d'objet contenant tout le necesssaire, fractions, énoncé, question ... pour les problème avec 3 fractions
 			let pb_3_f = [];
 			// les numérateurs et dénominateurs des 3 fractions attention les deux premières doivent être inférieures à 1/2 si on veut qu'elles soient toutes positives !
@@ -4390,6 +4392,7 @@ function Problemes_additifs_fractions() {
 			let dt2 = 2*nt2 + randint(1,3);
 			let nt3 = dt1*dt2-nt1*dt2-nt2*dt1,
 			dt3 = dt1*dt2; 
+			let prenom = prenomM();
 			pb_3_f.push({
 				fractions: [nt1,dt1,nt2,dt2,nt3,dt3],//[n1,d1,n2,d2,d1d2-n1d2-d2d1,d1d2] la somme des trois vaut 1 ! 
 				enonce: ``,
@@ -4397,12 +4400,17 @@ function Problemes_additifs_fractions() {
 				correction: ``
 			});
 			pb_3_f[0].enonce = `Le triathlon des neiges de la vallée des loups comprend trois épreuves qui s'enchaînent : VTT, ski de fonc et course à pied.`;
-			pb_3_f[0].enonce += `<br>${prenomM()}, un passionné de cette épreuve, s'entraîne régulièrement sur le même circuit. `;
+			pb_3_f[0].enonce += `<br>${prenom}, un passionné de cette épreuve, s'entraîne régulièrement sur le même circuit. `;
 			pb_3_f[0].enonce += `<br>À chaque entraînement, il parcourt le circuit de la façon suivante : $\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}$ à VTT, `
 			pb_3_f[0].enonce += `$\\dfrac{${pb_3_f[0].fractions[2]}}{${pb_3_f[0].fractions[3]}}$ à ski de fond et le reste à pied.`;
 
 			pb_3_f[0].correction = `Calculons d'abord la distance à pied : $1-\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}-\\dfrac{${pb_3_f[0].fractions[2]}}{${pb_3_f[0].fractions[3]}} = \\dfrac{${pb_3_f[0].fractions[4]}}{${pb_3_f[0].fractions[5]}}$`
-			let frac = new Fraction();
+			pb_3_f[0].correction += `${prenom} fait donc $\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}$ de VTT, `;
+			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[2]}}{${pb_3_f[0].fractions[3]}}$ de ski de fond et `;
+			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[4]}}{${pb_3_f[0].fractions[5]}}$ de course à pied.`;
+			let frac_rangees = frac.sortFractions(pb_3_f[0].fractions[0],pb_3_f[0].fractions[1],pb_3_f[0].fractions[2],pb_3_f[0].fractions[3],pb_3_f[0].fractions[4],pb_3_f[0].fractions[5]); 
+			pb_3_f[0].correction += `<br>Rangeons ces fractions dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
+			
 			
 			switch (liste_type_de_questions[i]) {
 				case 1 : // Triathlon des neiges --> VTT, ski de fond, course
