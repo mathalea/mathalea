@@ -44,7 +44,7 @@ function Exercice_decomposer_en_facteurs_premiers(){
 			facteurs.sort(compare_nombres); //classe les facteurs dans l'ordre croissant
 			for (var k = 0; k < facteurs.length-1; k++) {
 				facteurs[k]
-				texte_corr += facteurs[k] + ' \\times '
+				texte_corr += facteurs[k] + ' \\times  '
 			}
 			texte_corr += facteurs[facteurs.length-1] + ' $';	
 			
@@ -230,11 +230,11 @@ function Exercice_multiplications_relatifs(max=10){
 				b=-1
 			}
 			if (this.sup2){
-				texte = '$ '+ a + ' \\times ' + ecriture_parenthese_si_negatif(b) + ' = \\dotfill $';
-				texte_corr = '$ '+ a + ' \\times ' + ecriture_parenthese_si_negatif(b) + ' = ' + (a * b) +' $';
+				texte = '$ '+ a + ' \\times  ' + ecriture_parenthese_si_negatif(b) + ' = \\dotfill $';
+				texte_corr = '$ '+ a + ' \\times  ' + ecriture_parenthese_si_negatif(b) + ' = ' + (a * b) +' $';
 			} else {
-				texte = '$ '+ ecriture_nombre_relatif(a) + ' \\times ' + ecriture_nombre_relatif(b) + ' = \\dotfill $';
-				texte_corr = '$ '+ ecriture_nombre_relatifc(a) + ' \\times ' + ecriture_nombre_relatifc(b) + ' = ' + ecriture_nombre_relatifc(a * b) +' $';
+				texte = '$ '+ ecriture_nombre_relatif(a) + ' \\times  ' + ecriture_nombre_relatif(b) + ' = \\dotfill $';
+				texte_corr = '$ '+ ecriture_nombre_relatifc(a) + ' \\times  ' + ecriture_nombre_relatifc(b) + ' = ' + ecriture_nombre_relatifc(a * b) +' $';
 			}
 				
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
@@ -294,7 +294,7 @@ function Exercice_comparer_deux_fractions (max=11){
 			if (!sortie_html) {
 				texte=texte.replace('\\quad$ et $\\quad','\\ldots\\ldots\\ldots')
 			}
-			texte_corr = `$${tex_fraction(a,b)}=${tex_fraction(a+mise_en_evidence('\\times '+k),b+mise_en_evidence('\\times '+k))}=${tex_fraction(a*k,b*k)}\\quad$`
+			texte_corr = `$${tex_fraction(a,b)}=${tex_fraction(a+mise_en_evidence('\\times  '+k),b+mise_en_evidence('\\times  '+k))}=${tex_fraction(a*k,b*k)}\\quad$`
 			if (ordre_des_fractions==1) {
 				texte_corr += `  et   $\\quad${tex_fraction(a*k,b*k)} ${signe} ${tex_fraction(a*k+ecart,b*k)}\\quad$ donc $\\quad${tex_fraction(a,b)} ${signe} ${tex_fraction(a*k+ecart,b*k)}$ `;
 			} else {
@@ -350,9 +350,9 @@ function Exercice_comparer_quatre_fractions (){
 				n4 = randint(1,11);
 			}
 			let tableau_fractions=[[n1,d1,`$${tex_fraction(n1,d1)}$`,`$${tex_fraction(n1,d1)}$`]]
-			tableau_fractions.push([n2,d2,`$${tex_fraction(n2,d2)}=${tex_fraction(n2+mise_en_evidence("\\times"+Algebrite.eval(d1/d2)),d2+mise_en_evidence("\\times"+Algebrite.eval(d1/d2)))}=${tex_fraction(Algebrite.eval(n2*d1/d2),d1)}$`,`$${tex_fraction(Algebrite.eval(n2*d1/d2),d1)}$`])
-			tableau_fractions.push([n3,d3,`$${tex_fraction(n3,d3)}=${tex_fraction(n3+mise_en_evidence("\\times"+Algebrite.eval(d1/d3)),d3+mise_en_evidence("\\times"+Algebrite.eval(d1/d3)))}=${tex_fraction(Algebrite.eval(n3*d1/d3),d1)}$`,`$${tex_fraction(Algebrite.eval(n3*d1/d3),d1)}$`])
-			tableau_fractions.push([n4,d4,`$${tex_fraction(n4,d4)}=${tex_fraction(n4+mise_en_evidence("\\times"+Algebrite.eval(d1/d4)),d4+mise_en_evidence("\\times"+Algebrite.eval(d1/d4)))}=${tex_fraction(Algebrite.eval(n4*d1/d4),d1)}$`,`$${tex_fraction(Algebrite.eval(n4*d1/d4),d1)}$`])
+			tableau_fractions.push([n2,d2,`$${tex_fraction(n2,d2)}=${tex_fraction(n2+mise_en_evidence("\\times "+Algebrite.eval(d1/d2)),d2+mise_en_evidence("\\times "+Algebrite.eval(d1/d2)))}=${tex_fraction(Algebrite.eval(n2*d1/d2),d1)}$`,`$${tex_fraction(Algebrite.eval(n2*d1/d2),d1)}$`])
+			tableau_fractions.push([n3,d3,`$${tex_fraction(n3,d3)}=${tex_fraction(n3+mise_en_evidence("\\times "+Algebrite.eval(d1/d3)),d3+mise_en_evidence("\\times "+Algebrite.eval(d1/d3)))}=${tex_fraction(Algebrite.eval(n3*d1/d3),d1)}$`,`$${tex_fraction(Algebrite.eval(n3*d1/d3),d1)}$`])
+			tableau_fractions.push([n4,d4,`$${tex_fraction(n4,d4)}=${tex_fraction(n4+mise_en_evidence("\\times "+Algebrite.eval(d1/d4)),d4+mise_en_evidence("\\times "+Algebrite.eval(d1/d4)))}=${tex_fraction(Algebrite.eval(n4*d1/d4),d1)}$`,`$${tex_fraction(Algebrite.eval(n4*d1/d4),d1)}$`])
 			tableau_fractions.push([k,1,`$${k}=${tex_fraction(d1*k,d1)}$`,`$${tex_fraction(k*d1,d1)}$`])
 			tableau_fractions.sort(compare_fractions)
 			let tableau_fractions_enonce=shuffle(tableau_fractions)
@@ -429,10 +429,10 @@ function Exercice_additionner_des_fractions_5e(max=11){
 				texte = texte = `$${tex_fraction(c,d)}+${tex_fraction(a,b)}=$`;
 			}
 			if (ordre_des_fractions==1) {
-				texte_corr = `$${tex_fraction(a,b)}+${tex_fraction(c,d)}=${tex_fraction(a+mise_en_evidence('\\times'+k),b+mise_en_evidence('\\times'+k))}+${tex_fraction(c,d)}`
+				texte_corr = `$${tex_fraction(a,b)}+${tex_fraction(c,d)}=${tex_fraction(a+mise_en_evidence('\\times '+k),b+mise_en_evidence('\\times '+k))}+${tex_fraction(c,d)}`
 				texte_corr += `=${tex_fraction(a*k,b*k)}+${tex_fraction(c,d)}=${tex_fraction(a*k+`+`+c,d)}=${tex_fraction(a*k+c,d)}$`;
 			} else {
-				texte_corr = `$${tex_fraction(c,d)}+${tex_fraction(a,b)}=${tex_fraction(c,d)}+${tex_fraction(a+mise_en_evidence('\\times'+k),b+mise_en_evidence('\\times'+k))}`
+				texte_corr = `$${tex_fraction(c,d)}+${tex_fraction(a,b)}=${tex_fraction(c,d)}+${tex_fraction(a+mise_en_evidence('\\times '+k),b+mise_en_evidence('\\times '+k))}`
 				texte_corr += `=${tex_fraction(c,d)}+${tex_fraction(a*k,b*k)}=${tex_fraction(c+'+'+a*k,d)}=${tex_fraction(a*k+c,d)}$`;
 			}
 			// Est-ce que le résultat est simplifiable ?
@@ -440,7 +440,7 @@ function Exercice_additionner_des_fractions_5e(max=11){
 			if ((a*k+c)%d==0) { // si le résultat est un entier
 				texte_corr +=`$=${Algebrite.eval((a*k+c)/d)}$`
 			} else if (s!=1) {
-				texte_corr +=`$=${tex_fraction(Algebrite.eval((a*k+c)/s)+mise_en_evidence('\\times'+s),Algebrite.eval(d/s)+mise_en_evidence('\\times'+s))}=${tex_fraction(Algebrite.eval((a*k+c)/s),Algebrite.eval(d/s))}$`
+				texte_corr +=`$=${tex_fraction(Algebrite.eval((a*k+c)/s)+mise_en_evidence('\\times '+s),Algebrite.eval(d/s)+mise_en_evidence('\\times '+s))}=${tex_fraction(Algebrite.eval((a*k+c)/s),Algebrite.eval(d/s))}$`
 			}
 			this.liste_questions.push(texte);
 			this.liste_corrections.push(texte_corr);
@@ -493,16 +493,16 @@ function Exercice_additionner_ou_soustraire_des_fractions_5e(max=11){
 					texte = texte = `$${tex_fraction(c,d)}+${tex_fraction(a,b)}=$`;
 				}
 				if (ordre_des_fractions==1) {
-					texte_corr = `$${tex_fraction(a,b)}+${tex_fraction(c,d)}=${tex_fraction(a+mise_en_evidence('\\times'+k),b+mise_en_evidence('\\times'+k))}+${tex_fraction(c,d)}`
+					texte_corr = `$${tex_fraction(a,b)}+${tex_fraction(c,d)}=${tex_fraction(a+mise_en_evidence('\\times '+k),b+mise_en_evidence('\\times '+k))}+${tex_fraction(c,d)}`
 					texte_corr += `=${tex_fraction(a*k,b*k)}+${tex_fraction(c,d)}=${tex_fraction(a*k+`+`+c,d)}=${tex_fraction(a*k+c,d)}$`;
 				} else {
-					texte_corr = `$${tex_fraction(c,d)}+${tex_fraction(a,b)}=${tex_fraction(c,d)}+${tex_fraction(a+mise_en_evidence('\\times'+k),b+mise_en_evidence('\\times'+k))}`
+					texte_corr = `$${tex_fraction(c,d)}+${tex_fraction(a,b)}=${tex_fraction(c,d)}+${tex_fraction(a+mise_en_evidence('\\times '+k),b+mise_en_evidence('\\times '+k))}`
 					texte_corr += `=${tex_fraction(c,d)}+${tex_fraction(a*k,b*k)}=${tex_fraction(c+'+'+a*k,d)}=${tex_fraction(a*k+c,d)}$`;
 				}
 				// Est-ce que le résultat est simplifiable ?
 				let s = pgcd(a*k+c,d);
 				if (s!=1) {
-					texte_corr +=`$=${tex_fraction(Algebrite.eval((a*k+c)/s)+mise_en_evidence('\\times'+s),Algebrite.eval(d/s)+mise_en_evidence('\\times'+s))}=${tex_fraction(Algebrite.eval((a*k+c)/s),Algebrite.eval(d/s))}$`
+					texte_corr +=`$=${tex_fraction(Algebrite.eval((a*k+c)/s)+mise_en_evidence('\\times '+s),Algebrite.eval(d/s)+mise_en_evidence('\\times '+s))}=${tex_fraction(Algebrite.eval((a*k+c)/s),Algebrite.eval(d/s))}$`
 				}
 			} else{ //une soustraction
 				if ((a/b)>(c/d)) {
@@ -511,10 +511,10 @@ function Exercice_additionner_ou_soustraire_des_fractions_5e(max=11){
 					texte = texte = `$${tex_fraction(c,d)}-${tex_fraction(a,b)}=$`;
 				}
 				if ((a/b)>(c/d)) {
-					texte_corr = `$${tex_fraction(a,b)}-${tex_fraction(c,d)}=${tex_fraction(a+mise_en_evidence('\\times'+k),b+mise_en_evidence('\\times'+k))}-${tex_fraction(c,d)}`
+					texte_corr = `$${tex_fraction(a,b)}-${tex_fraction(c,d)}=${tex_fraction(a+mise_en_evidence('\\times '+k),b+mise_en_evidence('\\times '+k))}-${tex_fraction(c,d)}`
 					texte_corr += `=${tex_fraction(a*k,b*k)}-${tex_fraction(c,d)}=${tex_fraction(a*k+`-`+c,d)}=${tex_fraction(a*k-c,d)}$`;
 				} else {
-					texte_corr = `$${tex_fraction(c,d)}-${tex_fraction(a,b)}=${tex_fraction(c,d)}-${tex_fraction(a+mise_en_evidence('\\times'+k),b+mise_en_evidence('\\times'+k))}`
+					texte_corr = `$${tex_fraction(c,d)}-${tex_fraction(a,b)}=${tex_fraction(c,d)}-${tex_fraction(a+mise_en_evidence('\\times '+k),b+mise_en_evidence('\\times '+k))}`
 					texte_corr += `=${tex_fraction(c,d)}-${tex_fraction(a*k,b*k)}=${tex_fraction(c+'-'+a*k,d)}=${tex_fraction(c-a*k,d)}$`;
 				}
 				// Est-ce que le résultat est simplifiable ?
@@ -522,7 +522,7 @@ function Exercice_additionner_ou_soustraire_des_fractions_5e(max=11){
 				if (abs(a*k-c)%d==0){ //si la fraction peut-être un nombre entier
 					texte_corr += `$=${Algebrite.eval((abs(a*k-c))/d)}$`
 				} else if (s!=1) {
-					texte_corr +=`$=${tex_fraction(Algebrite.eval((abs(a*k-c))/s)+mise_en_evidence('\\times'+s),Algebrite.eval(d/s)+mise_en_evidence('\\times'+s))}=${tex_fraction(Algebrite.eval((abs(a*k-c))/s),Algebrite.eval(d/s))}$`
+					texte_corr +=`$=${tex_fraction(Algebrite.eval((abs(a*k-c))/s)+mise_en_evidence('\\times '+s),Algebrite.eval(d/s)+mise_en_evidence('\\times '+s))}=${tex_fraction(Algebrite.eval((abs(a*k-c))/s),Algebrite.eval(d/s))}$`
 				}
 			}
 				
@@ -620,7 +620,7 @@ function Exercice_additionner_des_fractions(){
 			// a/b+c/d = num/den (résultat non simplifié)
 
 			if (type_de_questions=='ppcm' || type_de_questions=='premiers_entre_eux') {
-				texte_corr += `=${tex_fraction(a+mise_en_evidence('\\times'+k1),b+mise_en_evidence('\\times'+k1))}+${tex_fraction(c+mise_en_evidence('\\times'+k2),d+mise_en_evidence('\\times'+k2))}`
+				texte_corr += `=${tex_fraction(a+mise_en_evidence('\\times '+k1),b+mise_en_evidence('\\times '+k1))}+${tex_fraction(c+mise_en_evidence('\\times '+k2),d+mise_en_evidence('\\times '+k2))}`
 				//texte_corr += `=${tex_fraction(a*k1,b*k1)}+${tex_fraction(c*k2,d*k2)}`;
 				num = a*k1+c*k2;
 				den = b*k1
@@ -629,7 +629,7 @@ function Exercice_additionner_des_fractions(){
 			} 
 
 			if (type_de_questions=='d_multiple_de_b') {
-				texte_corr += `=${tex_fraction(a+mise_en_evidence('\\times'+k),b+mise_en_evidence('\\times'+k))}+${tex_fraction(c,d)}`
+				texte_corr += `=${tex_fraction(a+mise_en_evidence('\\times '+k),b+mise_en_evidence('\\times '+k))}+${tex_fraction(c,d)}`
 				//texte_corr += `=${tex_fraction(a*k1,b*k1)}+${tex_fraction(c*k2,d*k2)}`;
 				num = a*k+c;
 				den = b*k
@@ -637,7 +637,7 @@ function Exercice_additionner_des_fractions(){
 			}
 
 			if (type_de_questions=='b_multiple_de_d') {
-				texte_corr += `=${tex_fraction(a,b)}+${tex_fraction(c+mise_en_evidence('\\times'+k),d+mise_en_evidence('\\times'+k))}`
+				texte_corr += `=${tex_fraction(a,b)}+${tex_fraction(c+mise_en_evidence('\\times '+k),d+mise_en_evidence('\\times '+k))}`
 				//texte_corr += `=${tex_fraction(a*k1,b*k1)}+${tex_fraction(c*k2,d*k2)}`;
 				num = a+c*k;
 				den = b
@@ -655,12 +655,12 @@ function Exercice_additionner_des_fractions(){
 				if (choice([true,false])) {
 					texte = `$${n}+${tex_fraction(a,b)}=$`;
 					texte_corr = texte ;
-					texte_corr += `$${tex_fraction(n+'\\times'+b,b)}+${tex_fraction(a,b)}`;
+					texte_corr += `$${tex_fraction(n+'\\times '+b,b)}+${tex_fraction(a,b)}`;
 					texte_corr += `=${tex_fraction(n*b+'+'+ecriture_parenthese_si_negatif(a),b)}`;
 				} else {
 					texte = `$${tex_fraction(a,b)}+${ecriture_parenthese_si_negatif(n)}=$`;
 					texte_corr = texte ;
-					texte_corr += `$${tex_fraction(a,b)}+${tex_fraction(n+'\\times'+b,b)}`;
+					texte_corr += `$${tex_fraction(a,b)}+${tex_fraction(n+'\\times '+b,b)}`;
 					texte_corr += `=${tex_fraction(a+'+'+ecriture_parenthese_si_negatif(n*b),b)}`
 				}
 				num = n*b+a
@@ -780,7 +780,7 @@ function Exercice_additionner_ou_soustraire_des_fractions(){
 			// a/b(+ou-)c/d = num/den (résultat non simplifié)
 
 			if (type_de_questions=='ppcm' || type_de_questions=='premiers_entre_eux') {
-				texte_corr += `=${tex_fraction(a+mise_en_evidence('\\times'+k1),b+mise_en_evidence('\\times'+k1))}${plus_ou_moins}${tex_fraction(c+mise_en_evidence('\\times'+k2),d+mise_en_evidence('\\times'+k2))}`
+				texte_corr += `=${tex_fraction(a+mise_en_evidence('\\times '+k1),b+mise_en_evidence('\\times '+k1))}${plus_ou_moins}${tex_fraction(c+mise_en_evidence('\\times '+k2),d+mise_en_evidence('\\times '+k2))}`
 				num = calcul(a*k1+plus_ou_moins+ecriture_nombre_relatif(c*k2));
 				den = b*k1
 				texte_corr += `=${tex_fraction(a*k1+plus_ou_moins+ecriture_parenthese_si_negatif(c*k2),den)}`
@@ -788,14 +788,14 @@ function Exercice_additionner_ou_soustraire_des_fractions(){
 			} 
 
 			if (type_de_questions=='d_multiple_de_b') {
-				texte_corr += `=${tex_fraction(a+mise_en_evidence('\\times'+k),b+mise_en_evidence('\\times'+k))}${plus_ou_moins}${tex_fraction(c,d)}`
+				texte_corr += `=${tex_fraction(a+mise_en_evidence('\\times '+k),b+mise_en_evidence('\\times '+k))}${plus_ou_moins}${tex_fraction(c,d)}`
 				num = calcul(a*k+plus_ou_moins+ecriture_nombre_relatif(c));
 				den = b*k
 				texte_corr += `=${tex_fraction(a*k+plus_ou_moins+ecriture_parenthese_si_negatif(c),den)}`
 			}
 
 			if (type_de_questions=='b_multiple_de_d') {
-				texte_corr += `=${tex_fraction(a,b)}${plus_ou_moins}${tex_fraction(c+mise_en_evidence('\\times'+k),d+mise_en_evidence('\\times'+k))}`
+				texte_corr += `=${tex_fraction(a,b)}${plus_ou_moins}${tex_fraction(c+mise_en_evidence('\\times '+k),d+mise_en_evidence('\\times '+k))}`
 				num = calcul(a+plus_ou_moins+ecriture_nombre_relatif(c*k));
 				den = b
 				texte_corr += `=${tex_fraction(a+plus_ou_moins+ecriture_parenthese_si_negatif(c*k),den)}`
@@ -816,7 +816,7 @@ function Exercice_additionner_ou_soustraire_des_fractions(){
 					}
 					texte = `$${n}${plus_ou_moins}${tex_fraction(a,b)}=$`;
 					texte_corr = texte ;
-					texte_corr += `$${tex_fraction(n+mise_en_evidence('\\times'+b),mise_en_evidence(b))}${plus_ou_moins}${tex_fraction(a,b)}`;
+					texte_corr += `$${tex_fraction(n+mise_en_evidence('\\times '+b),mise_en_evidence(b))}${plus_ou_moins}${tex_fraction(a,b)}`;
 					texte_corr += `=${tex_fraction(n*b+plus_ou_moins+ecriture_parenthese_si_negatif(a),b)}`;
 				} else {
 					// a/b +-n
@@ -826,7 +826,7 @@ function Exercice_additionner_ou_soustraire_des_fractions(){
 					}
 					texte = `$${tex_fraction(a,b)}${plus_ou_moins}${ecriture_parenthese_si_negatif(n)}=$`;
 					texte_corr = texte ;
-					texte_corr += `$${tex_fraction(a,b)}${plus_ou_moins}${tex_fraction(n+mise_en_evidence('\\times'+b),mise_en_evidence(b))}`;
+					texte_corr += `$${tex_fraction(a,b)}${plus_ou_moins}${tex_fraction(n+mise_en_evidence('\\times '+b),mise_en_evidence(b))}`;
 					texte_corr += `=${tex_fraction(a+'+'+ecriture_parenthese_si_negatif(n*b),b)}`
 				}
 				num = calcul(n*b+plus_ou_moins+ecriture_parenthese_si_negatif(a))
@@ -1187,15 +1187,15 @@ function Exercice_substituer(difficulte=1){
 			switch (type_de_questions){
 				case 1 :
 					texte = `$${lettre_depuis_chiffre(i+1)}=${k}x$`;
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${k}x=${k}\\times ${x}=${k*x}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${k}x=${k}\\times  ${x}=${k*x}$`;
 					break ;
 				case 2 :
 					texte = `$${lettre_depuis_chiffre(i+1)}=${k}x-y$`;
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${k}x-y=${k}\\times ${x}-${y}=${k*x-y}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${k}x-y=${k}\\times  ${x}-${y}=${k*x-y}$`;
 					break ;
 				case 3 :
 					texte = `$${lettre_depuis_chiffre(i+1)}=xy$`;
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=xy=${x}\\times ${y}=${x*y}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=xy=${x}\\times  ${y}=${x*y}$`;
 					break ;
 				case 4 :
 					texte = `$${lettre_depuis_chiffre(i+1)}=x+y$`;
@@ -1203,15 +1203,15 @@ function Exercice_substituer(difficulte=1){
 					break ;
 				case 5 :
 					texte = `$${lettre_depuis_chiffre(i+1)}=xy+z$`;
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=xy+z=${x}\\times ${y}+${z}=${x*y+z}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=xy+z=${x}\\times  ${y}+${z}=${x*y+z}$`;
 					break ;
 				case 6 :
 					texte = `$${lettre_depuis_chiffre(i+1)}=x(y+z)$`;
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=x(y+z)=${x}\\times(${y}+${z})=${x*(y+z)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=x(y+z)=${x}\\times (${y}+${z})=${x*(y+z)}$`;
 					break ;
 				case 7 :
 					texte = `$${lettre_depuis_chiffre(i+1)}=x^2+${ecriture_parenthese_si_negatif(k)}y$`;
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=x^2+${ecriture_parenthese_si_negatif(k)}y=${x}^2+${ecriture_parenthese_si_negatif(k)}\\times ${y}=${x*x}+${ecriture_parenthese_si_negatif(k)}\\times ${y}=${x*x+k*y}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=x^2+${ecriture_parenthese_si_negatif(k)}y=${x}^2+${ecriture_parenthese_si_negatif(k)}\\times  ${y}=${x*x}+${ecriture_parenthese_si_negatif(k)}\\times  ${y}=${x*x+k*y}$`;
 					break ;
 				case 8 :
 					texte = `$${lettre_depuis_chiffre(i+1)}=x^2+y^2$`;
@@ -1219,11 +1219,11 @@ function Exercice_substituer(difficulte=1){
 					break ;
 				case 9 :
 					texte = `$${lettre_depuis_chiffre(i+1)}=${k}x^2+y^2$`;
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${k}x^2+y^2=${k}\\times ${x}^2+${y}^2=${k}\\times ${x*x}+${y*y}=${k*x*x+y*y}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${k}x^2+y^2=${k}\\times  ${x}^2+${y}^2=${k}\\times  ${x*x}+${y*y}=${k*x*x+y*y}$`;
 					break ;
 				case 10 :
 					texte = `$${lettre_depuis_chiffre(i+1)}=${k}x^2+${ecriture_parenthese_si_negatif(k2)}x+${ecriture_parenthese_si_negatif(k3)}$`;
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${k}x^2+${ecriture_parenthese_si_negatif(k2)}x+${ecriture_parenthese_si_negatif(k3)}=${k}\\times ${x}^2+${ecriture_parenthese_si_negatif(k2)}\\times ${ecriture_parenthese_si_negatif(x)}+${ecriture_parenthese_si_negatif(k3)}=${k}\\times ${x*x}+${ecriture_parenthese_si_negatif(k2)}\\times ${x}+${ecriture_parenthese_si_negatif(k3)}=${k*x*x+k2*x+k3}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${k}x^2+${ecriture_parenthese_si_negatif(k2)}x+${ecriture_parenthese_si_negatif(k3)}=${k}\\times  ${x}^2+${ecriture_parenthese_si_negatif(k2)}\\times  ${ecriture_parenthese_si_negatif(x)}+${ecriture_parenthese_si_negatif(k3)}=${k}\\times  ${x*x}+${ecriture_parenthese_si_negatif(k2)}\\times  ${x}+${ecriture_parenthese_si_negatif(k3)}=${k*x*x+k2*x+k3}$`;
 					break ;
 				
 			}
@@ -1327,11 +1327,11 @@ function Exercice_angles_triangles(){
 					if (this.correction_detaillee) {
 						texte_corr += `Les angles à la base d'un triangle isocèle sont de même mesure.<br>`
 						texte_corr +=`D'où $\\widehat{${s1+s2+s3}}=\\widehat{${s2+s3+s1}}$.<br>`
-						texte_corr +=`On a donc : $\\widehat{${s2+s1+s3}}+2\\times \\widehat{${s2+s3+s1}}=180\\degree$.<br>`;
-						texte_corr +=`Soit  $${angle1}\\degree+2\\times \\widehat{${s2+s3+s1}}=180\\degree$.<br>`;
-						texte_corr +=`D'où $2\\times \\widehat{${s2+s3+s1}}=180\\degree-${angle1}\\degree$.<br>D'où `;
+						texte_corr +=`On a donc : $\\widehat{${s2+s1+s3}}+2\\times  \\widehat{${s2+s3+s1}}=180\\degree$.<br>`;
+						texte_corr +=`Soit  $${angle1}\\degree+2\\times  \\widehat{${s2+s3+s1}}=180\\degree$.<br>`;
+						texte_corr +=`D'où $2\\times  \\widehat{${s2+s3+s1}}=180\\degree-${angle1}\\degree$.<br>D'où `;
 					}
-					texte_corr += `$\\widehat{${s2+s3+s1}}=\\left(180\\degree-${angle1}\\degree\\right)\\div 2=${180-angle1}\\degree\\div 2=${tex_nombrec((180-angle1)/2)}\\degree$<br>`;
+					texte_corr += `$\\widehat{${s2+s3+s1}}=\\left(180\\degree-${angle1}\\degree\\right)\\div  2=${180-angle1}\\degree\\div  2=${tex_nombrec((180-angle1)/2)}\\degree$<br>`;
 					texte_corr += `L'angle $\\widehat{${s2+s3+s1}}$ mesure $${tex_nombrec((180-angle1)/2)}\\degree$.`;
 					break ;
 				case 4 : // triangle isocèle, angle à la base connu
@@ -1343,7 +1343,7 @@ function Exercice_angles_triangles(){
 					texte_corr+=`Les deux angles à la base d'un triangle isocèle sont égaux.<br>`;
 					texte_corr += `Donc $\\widehat{${s1+s2+s3}}=\\widehat{${s2+s3+s1}}=${angle2}\\degree$.<br>D'où `
 					}
-					texte_corr += `$\\widehat{${s2+s1+s3}}=180\\degree-2\\times${angle2}\\degree=180\\degree-${2*angle2}\\degree=${180-2*angle2}\\degree$.<br>`;
+					texte_corr += `$\\widehat{${s2+s1+s3}}=180\\degree-2\\times ${angle2}\\degree=180\\degree-${2*angle2}\\degree=${180-2*angle2}\\degree$.<br>`;
 					texte_corr += `L'angle $\\widehat{${s2+s1+s3}}$ mesure $${180-2*angle2}\\degree$.`;
 					break ;
 				case 5 :  // cas non aléatoires triangle rectangle isocèle
@@ -1353,54 +1353,54 @@ function Exercice_angles_triangles(){
 
 					if (this.correction_detaillee) {
 						texte_corr += `Comme $\\widehat{${s2+s1+s3}}=\\widehat{${s2+s3+s1}}$,<br>`;
-						texte_corr += `on a : $2 \\times \\widehat{${s2+s1+s3}} + 90\\degree=180\\degree$.<br>D'où `;
-						texte_corr += ` $2 \\times \\widehat{${s2+s1+s3}}=180\\degree-90\\degree=90\\degree$.<br>D'où `;
+						texte_corr += `on a : $2 \\times  \\widehat{${s2+s1+s3}} + 90\\degree=180\\degree$.<br>D'où `;
+						texte_corr += ` $2 \\times  \\widehat{${s2+s1+s3}}=180\\degree-90\\degree=90\\degree$.<br>D'où `;
 					}
-					texte_corr += `$\\widehat{${s2+s1+s3}}=90\\degree \\div 2=45\\degree$.<br>`;
+					texte_corr += `$\\widehat{${s2+s1+s3}}=90\\degree \\div  2=45\\degree$.<br>`;
 					texte_corr += `L'angle $\\widehat{${s2+s1+s3}}$ mesure $45\\degree$.`;
 				
 					break ;
 				case 6 : // cas non aléatoires triangle rectangle 30,60,90
 					texte = `$${s1+s2+s3}$ est un triangle rectangle en $${s1}$. L'angle $\\widehat{${s1+s2+s3}}$ mesure le double de l'angle $\\widehat{${s1+s3+s2}}$.<br>Quelles sont les mesures des angles $\\widehat{${s1+s2+s3}}$ et $\\widehat{${s1+s3+s2}}$ ?`;
 					if (this.correction_detaillee) {
-						texte_corr += `Comme $\\widehat{${s1+s2+s3}}=2\\times\\widehat{${s1+s3+s2}}$ et comme $\\widehat{${s1+s2+s3}}$ et $\\widehat{${s1+s3+s2}}$ sont complémentaires,<br>`;
-						texte_corr += `on a : $2 \\times \\widehat{${s1+s3+s2}} + \\widehat{${s1+s3+s2}}=90\\degree$.<br>D'où `;
-						texte_corr += ` $3 \\times \\widehat{${s1+s3+s2}}=90\\degree$.<br>D'où `;
+						texte_corr += `Comme $\\widehat{${s1+s2+s3}}=2\\times \\widehat{${s1+s3+s2}}$ et comme $\\widehat{${s1+s2+s3}}$ et $\\widehat{${s1+s3+s2}}$ sont complémentaires,<br>`;
+						texte_corr += `on a : $2 \\times  \\widehat{${s1+s3+s2}} + \\widehat{${s1+s3+s2}}=90\\degree$.<br>D'où `;
+						texte_corr += ` $3 \\times  \\widehat{${s1+s3+s2}}=90\\degree$.<br>D'où `;
 					}
-					texte_corr += `$\\widehat{${s1+s3+s2}}=90\\degree \\div 3=30\\degree$.<br>`;
-					texte_corr += `$\\widehat{${s1+s2+s3}}=2\\times\\widehat{${s1+s3+s2}}=2\\times 30\\degree=60\\degree$<br>`;
+					texte_corr += `$\\widehat{${s1+s3+s2}}=90\\degree \\div  3=30\\degree$.<br>`;
+					texte_corr += `$\\widehat{${s1+s2+s3}}=2\\times \\widehat{${s1+s3+s2}}=2\\times  30\\degree=60\\degree$<br>`;
 					texte_corr += `L'angle $\\widehat{${s1+s3+s2}}$ mesure $30\\degree$ et l'angle $\\widehat{${s1+s2+s3}}$ mesure $60\\degree$.`;
 				
 					break ;
 				case 7 :// cas non aléatoires triangle rectangle 18,72,90
 				texte = `$${s1+s2+s3}$ est un triangle rectangle en $${s1}$. L'angle $\\widehat{${s1+s3+s2}}$ mesure le quart de l'angle $\\widehat{${s1+s2+s3}}$.<br>Quelles sont les mesures des angles $\\widehat{${s1+s2+s3}}$ et $\\widehat{${s1+s3+s2}}$ ?`;
 				if (this.correction_detaillee) {
-					texte_corr += `Comme $\\widehat{${s1+s2+s3}}=\\dfrac{\\widehat{${s1+s3+s2}}}{4}$, on a $\\widehat{${s1+s3+s2}}=4\\times\\widehat{${s1+s2+s3}}$.<br>`;
+					texte_corr += `Comme $\\widehat{${s1+s2+s3}}=\\dfrac{\\widehat{${s1+s3+s2}}}{4}$, on a $\\widehat{${s1+s3+s2}}=4\\times \\widehat{${s1+s2+s3}}$.<br>`;
 					texte_corr += `De plus $\\widehat{${s1+s2+s3}}$ et $\\widehat{${s1+s3+s2}}$ sont complémentaires.<br>`;
-					texte_corr += `D'où : $4 \\times \\widehat{${s1+s2+s3}} + \\widehat{${s1+s2+s3}}=90\\degree$.<br>D'où `;
-					texte_corr += ` $5 \\times \\widehat{${s1+s2+s3}}=90\\degree$.<br>D'où `;
+					texte_corr += `D'où : $4 \\times  \\widehat{${s1+s2+s3}} + \\widehat{${s1+s2+s3}}=90\\degree$.<br>D'où `;
+					texte_corr += ` $5 \\times  \\widehat{${s1+s2+s3}}=90\\degree$.<br>D'où `;
 				}
-				texte_corr += `$\\widehat{${s1+s2+s3}}=90\\degree \\div 5=18\\degree$.<br>`;
-				texte_corr += `$\\widehat{${s1+s3+s2}}=4\\times\\widehat{${s1+s2+s3}}=4\\times 18\\degree=72\\degree$.<br>`;
+				texte_corr += `$\\widehat{${s1+s2+s3}}=90\\degree \\div  5=18\\degree$.<br>`;
+				texte_corr += `$\\widehat{${s1+s3+s2}}=4\\times \\widehat{${s1+s2+s3}}=4\\times  18\\degree=72\\degree$.<br>`;
 				texte_corr += `L'angle $\\widehat{${s1+s3+s2}}$ mesure $72\\degree$ et l'angle $\\widehat{${s1+s2+s3}}$ mesure $18\\degree$.`;
 					break ;
 				case 8 :// cas non aléatoires triangle rectangle 15,75,90
 				texte = `$${s1+s2+s3}$ est un triangle rectangle en $${s1}$. L'angle $\\widehat{${s1+s2+s3}}$ est cinq fois plus grand que l'angle $\\widehat{${s1+s3+s2}}$.<br>Quelles sont les mesures des angles $\\widehat{${s1+s2+s3}}$ et $\\widehat{${s1+s3+s2}}$ ?`;
 				if (this.correction_detaillee) {
-					texte_corr += `$\\widehat{${s1+s2+s3}}=5\\times\\widehat{${s1+s3+s2}}$ et comme $\\widehat{${s1+s2+s3}}$ et $\\widehat{${s1+s3+s2}}$ sont complémentaires,<br>`;
-					texte_corr += ` on a : $5 \\times \\widehat{${s1+s3+s2}} + \\widehat{${s1+s3+s2}}=90\\degree$.<br>D'où `;
-					texte_corr += ` $6 \\times \\widehat{${s1+s3+s2}}=90\\degree$.<br>D'où `;
+					texte_corr += `$\\widehat{${s1+s2+s3}}=5\\times \\widehat{${s1+s3+s2}}$ et comme $\\widehat{${s1+s2+s3}}$ et $\\widehat{${s1+s3+s2}}$ sont complémentaires,<br>`;
+					texte_corr += ` on a : $5 \\times  \\widehat{${s1+s3+s2}} + \\widehat{${s1+s3+s2}}=90\\degree$.<br>D'où `;
+					texte_corr += ` $6 \\times  \\widehat{${s1+s3+s2}}=90\\degree$.<br>D'où `;
 				}
-				texte_corr += `$\\widehat{${s1+s3+s2}}=90\\degree \\div 6=15\\degree$<br>`;
-				texte_corr += `$\\widehat{${s1+s2+s3}}=5\\times\\widehat{${s1+s3+s2}}=5\\times 15\\degree=75\\degree$<br>`;
+				texte_corr += `$\\widehat{${s1+s3+s2}}=90\\degree \\div  6=15\\degree$<br>`;
+				texte_corr += `$\\widehat{${s1+s2+s3}}=5\\times \\widehat{${s1+s3+s2}}=5\\times  15\\degree=75\\degree$<br>`;
 				texte_corr += `L'angle $\\widehat{${s1+s3+s2}}$ mesure $15\\degree$ et l'angle $\\widehat{${s1+s2+s3}}$ mesure $75\\degree$.`;
 				break ;
 				case 9 : //cas non aléatoire triangle équilatéral
 					texte = `$${s1+s2+s3}$ est un triangle dont les trois angles sont égaux. Quelles sont les mesures de ses angles ?`;
 					if (this.correction_detaillee) {
 						texte_corr += `De plus, $\\widehat{${s1+s2+s3}}=\\widehat{${s1+s3+s2}}=\\widehat{${s2+s1+s3}}$<br>`
-						texte_corr += `D'où $3\\times\\widehat{${s1+s2+s3}}=180\\degree$.<br>`;
-						texte_corr += `D'où : $\\widehat{${s1+s2+s3}}=180\\degree\\div 3=60\\degree$.<br>`;
+						texte_corr += `D'où $3\\times \\widehat{${s1+s2+s3}}=180\\degree$.<br>`;
+						texte_corr += `D'où : $\\widehat{${s1+s2+s3}}=180\\degree\\div  3=60\\degree$.<br>`;
 					}	
 					texte_corr += `On a donc $\\widehat{${s1+s2+s3}}=\\widehat{${s1+s3+s2}}=\\widehat{${s2+s1+s3}}=60\\degree$.<br>`;
 					texte_corr += `Le triangle $${s1+s2+s3}$ est un triangle équilatéral.`
@@ -1408,39 +1408,39 @@ function Exercice_angles_triangles(){
 				case 10 : //cas non aléatoire triangle rectangle 22.5, 67.5,90
 					texte = `$${s1+s2+s3}$ est un triangle rectangle en $${s1}$. L'angle $\\widehat{${s1+s3+s2}}$ mesure le tiers de l'angle $\\widehat{${s1+s2+s3}}$.<br>Quelles sont les mesures des angles $\\widehat{${s1+s2+s3}}$ et $\\widehat{${s1+s3+s2}}$ ?`;
 					if (this.correction_detaillee) {
-						texte_corr += `Comme $\\widehat{${s1+s2+s3}}=\\dfrac{\\widehat{${s1+s3+s2}}}{3}$, on a $\\widehat{${s1+s3+s2}}=3\\times\\widehat{${s1+s2+s3}}$.<br>`;
+						texte_corr += `Comme $\\widehat{${s1+s2+s3}}=\\dfrac{\\widehat{${s1+s3+s2}}}{3}$, on a $\\widehat{${s1+s3+s2}}=3\\times \\widehat{${s1+s2+s3}}$.<br>`;
 						texte_corr += `De plus $\\widehat{${s1+s2+s3}}$ et $\\widehat{${s1+s3+s2}}$ sont complémentaires.<br>`;
-						texte_corr += `D'où : $3 \\times \\widehat{${s1+s2+s3}} + \\widehat{${s1+s2+s3}}=90\\degree$.<br>D'où `;
-						texte_corr += ` $4 \\times \\widehat{${s1+s2+s3}}=90\\degree$.<br>D'où `;
+						texte_corr += `D'où : $3 \\times  \\widehat{${s1+s2+s3}} + \\widehat{${s1+s2+s3}}=90\\degree$.<br>D'où `;
+						texte_corr += ` $4 \\times  \\widehat{${s1+s2+s3}}=90\\degree$.<br>D'où `;
 					}
-					texte_corr += `$\\widehat{${s1+s2+s3}}=90\\degree \\div 4=22,5\\degree$.<br>`;
-					texte_corr += `$\\widehat{${s1+s3+s2}}=3\\times\\widehat{${s1+s2+s3}}=3\\times 22,5\\degree=67,5\\degree$<br>`;
+					texte_corr += `$\\widehat{${s1+s2+s3}}=90\\degree \\div  4=22,5\\degree$.<br>`;
+					texte_corr += `$\\widehat{${s1+s3+s2}}=3\\times \\widehat{${s1+s2+s3}}=3\\times  22,5\\degree=67,5\\degree$<br>`;
 					texte_corr += `L'angle $\\widehat{${s1+s3+s2}}$ mesure $67,5\\degree$ et l'angle $\\widehat{${s1+s2+s3}}$ mesure $22,5\\degree$.`;
 					break ;
 				case 11 : //cas non aléatoire triangle 67.5 , 67.5 , 45.
 					texte = `$${s1+s2+s3}$ est un triangle isocèle en $${s1}$. L'angle $\\widehat{${s2+s1+s3}}$ mesure les deux tiers de l'angle $\\widehat{${s1+s2+s3}}$.<br>Quelles sont les mesures des angles $\\widehat{${s1+s2+s3}}$, $\\widehat{${s1+s3+s2}}$ et $\\widehat{${s2+s1+s3}}$ ?`;
 					if (this.correction_detaillee) {
-						texte_corr += `Comme $\\widehat{${s2+s1+s3}}=\\dfrac{2\\times \\widehat{${s1+s3+s2}}}{3}$, on a $\\widehat{${s1+s3+s2}}=\\dfrac{3\\times\\widehat{${s2+s1+s3}}}{2}$.<br>`;
-						texte_corr += `De plus $\\widehat{${s1+s3+s2}}$ et $\\widehat{${s1+s2+s3}}$ sont égaux, alors $\\widehat{${s1+s2+s3}}=\\dfrac{3\\times\\widehat{${s2+s1+s3}}}{2}$.<br>`;
-						texte_corr += `D'où : $\\dfrac{3 \\times \\widehat{${s2+s1+s3}}}{2}\\times 2 + \\widehat{${s2+s1+s3}}=180\\degree$.<br>`;
-						texte_corr += `D'où : $3 \\times \\widehat{${s2+s1+s3}} + \\widehat{${s2+s1+s3}}=180\\degree$.<br>D'où `;
-						texte_corr += ` $4 \\times \\widehat{${s2+s1+s3}}=180\\degree$.<br>D'où `;
+						texte_corr += `Comme $\\widehat{${s2+s1+s3}}=\\dfrac{2\\times  \\widehat{${s1+s3+s2}}}{3}$, on a $\\widehat{${s1+s3+s2}}=\\dfrac{3\\times \\widehat{${s2+s1+s3}}}{2}$.<br>`;
+						texte_corr += `De plus $\\widehat{${s1+s3+s2}}$ et $\\widehat{${s1+s2+s3}}$ sont égaux, alors $\\widehat{${s1+s2+s3}}=\\dfrac{3\\times \\widehat{${s2+s1+s3}}}{2}$.<br>`;
+						texte_corr += `D'où : $\\dfrac{3 \\times  \\widehat{${s2+s1+s3}}}{2}\\times  2 + \\widehat{${s2+s1+s3}}=180\\degree$.<br>`;
+						texte_corr += `D'où : $3 \\times  \\widehat{${s2+s1+s3}} + \\widehat{${s2+s1+s3}}=180\\degree$.<br>D'où `;
+						texte_corr += ` $4 \\times  \\widehat{${s2+s1+s3}}=180\\degree$.<br>D'où `;
 					}
-					texte_corr += `$\\widehat{${s2+s1+s3}}=180\\degree \\div 4=45\\degree$.<br>`;
-					texte_corr += `$\\widehat{${s1+s3+s2}}=\\dfrac{3\\times\\widehat{${s2+s1+s3}}}{2}=\\dfrac{3\\times 45\\degree}{2}=\\dfrac{135\\degree}{2}=67,5\\degree$<br>`;
+					texte_corr += `$\\widehat{${s2+s1+s3}}=180\\degree \\div  4=45\\degree$.<br>`;
+					texte_corr += `$\\widehat{${s1+s3+s2}}=\\dfrac{3\\times \\widehat{${s2+s1+s3}}}{2}=\\dfrac{3\\times  45\\degree}{2}=\\dfrac{135\\degree}{2}=67,5\\degree$<br>`;
 					texte_corr += `L'angle $\\widehat{${s1+s3+s2}}$ mesure $67,5\\degree$, l'angle $\\widehat{${s1+s2+s3}}$ mesure $67,5\\degree$ et l'angle $\\widehat{${s2+s1+s3}}$ mesure $45\\degree$`;
 					break;
 					case 12 : //cas non aléatoire triangle 72 , 72 , 36.
 					texte = `$${s1+s2+s3}$ est un triangle isocèle en $${s1}$. L'angle $\\widehat{${s1+s2+s3}}$ mesure le double de l'angle $\\widehat{${s2+s1+s3}}$.<br>Quelles sont les mesures des angles $\\widehat{${s1+s2+s3}}$, $\\widehat{${s1+s3+s2}}$ et $\\widehat{${s2+s1+s3}}$ ?`;
 					if (this.correction_detaillee) {
-						texte_corr += `On a $\\widehat{${s1+s2+s3}}=2\\times \\widehat{${s2+s1+s3}}$.<br>`;
-						texte_corr += `De plus $\\widehat{${s1+s3+s2}}$ et $\\widehat{${s1+s2+s3}}$ sont égaux, alors $\\widehat{${s1+s3+s2}}=2\\times\\widehat{${s2+s1+s3}}$.<br>`;
-						texte_corr += `D'où : $2 \\times \\widehat{${s2+s1+s3}}\\times 2 + \\widehat{${s2+s1+s3}}=180\\degree$.<br>`;
-						texte_corr += `D'où : $4 \\times \\widehat{${s2+s1+s3}} + \\widehat{${s2+s1+s3}}=180\\degree$.<br>D'où `;
-						texte_corr += ` $5 \\times \\widehat{${s2+s1+s3}}=180\\degree$.<br>D'où `;
+						texte_corr += `On a $\\widehat{${s1+s2+s3}}=2\\times  \\widehat{${s2+s1+s3}}$.<br>`;
+						texte_corr += `De plus $\\widehat{${s1+s3+s2}}$ et $\\widehat{${s1+s2+s3}}$ sont égaux, alors $\\widehat{${s1+s3+s2}}=2\\times \\widehat{${s2+s1+s3}}$.<br>`;
+						texte_corr += `D'où : $2 \\times  \\widehat{${s2+s1+s3}}\\times  2 + \\widehat{${s2+s1+s3}}=180\\degree$.<br>`;
+						texte_corr += `D'où : $4 \\times  \\widehat{${s2+s1+s3}} + \\widehat{${s2+s1+s3}}=180\\degree$.<br>D'où `;
+						texte_corr += ` $5 \\times  \\widehat{${s2+s1+s3}}=180\\degree$.<br>D'où `;
 					}
-					texte_corr += `$\\widehat{${s2+s1+s3}}=180\\degree \\div 5=36\\degree$.<br>`;
-					texte_corr += `$\\widehat{${s1+s3+s2}}=2\\times\\widehat{${s2+s1+s3}}=2\\times 36\\degree=72\\degree$<br>`;
+					texte_corr += `$\\widehat{${s2+s1+s3}}=180\\degree \\div  5=36\\degree$.<br>`;
+					texte_corr += `$\\widehat{${s1+s3+s2}}=2\\times \\widehat{${s2+s1+s3}}=2\\times  36\\degree=72\\degree$<br>`;
 					texte_corr += `L'angle $\\widehat{${s1+s3+s2}}$ mesure $72\\degree$, l'angle $\\widehat{${s1+s2+s3}}$ mesure $72\\degree$ et l'angle $\\widehat{${s2+s1+s3}}$ mesure $36\\degree$`;
 					break;
 				
@@ -1813,7 +1813,7 @@ function Variation_en_pourcentages(){
 					texte = `Un article coûtait ${tex_prix(prix)} € et son prix diminue de ${taux}~\\%.`	
 				}
 				
-				texte_corr = `$\\text{Diminution : }${tex_fraction(taux,100)}\\times ${tex_prix(prix)} = ${tex_prix(Algebrite.eval(prix*taux))}\\div100=${tex_prix(Algebrite.eval(prix*taux/100))}$ €`
+				texte_corr = `$\\text{Diminution : }${tex_fraction(taux,100)}\\times  ${tex_prix(prix)} = ${tex_prix(Algebrite.eval(prix*taux))}\\div 100=${tex_prix(Algebrite.eval(prix*taux/100))}$ €`
 				texte_corr += `<br>`
 				texte_corr += `$\\text{Nouveau prix : }${tex_prix(prix)}-${tex_prix(Algebrite.eval(prix*taux/100))}=${tex_prix(Algebrite.eval(prix-prix*taux/100))}$ €`
 			} else {
@@ -1823,7 +1823,7 @@ function Variation_en_pourcentages(){
 					texte = `Un article coûtait ${tex_prix(prix)} € et son prix augmente de ${taux}~\\%.`
 
 				}
-				texte_corr = `$\\text{Augmentation : }${tex_fraction(taux,100)}\\times ${tex_prix(prix)}= ${tex_prix(Algebrite.eval(prix*taux))}\\div100=${tex_prix(Algebrite.eval(prix*taux/100))}$ €`
+				texte_corr = `$\\text{Augmentation : }${tex_fraction(taux,100)}\\times  ${tex_prix(prix)}= ${tex_prix(Algebrite.eval(prix*taux))}\\div 100=${tex_prix(Algebrite.eval(prix*taux/100))}$ €`
 				texte_corr += `<br>`
 				texte_corr += `$\\text{Nouveau prix : }${tex_prix(prix)}+${tex_prix(Algebrite.eval(prix*taux/100))}=${tex_prix(Algebrite.eval(prix*(1+taux/100)))}$ €`
 			}
@@ -1879,11 +1879,11 @@ function Ecrire_une_expression_litterale(){
 					break ;
 				case 3 : // x/2
 					texte = `Exprimer la moitié de $${x}$ en fonction de $${x}$.`
-					texte_corr = `La moitié de $${x}$  se note :  $${tex_fraction(x,2)}=${x}\\div2=0,5${x}$.`
+					texte_corr = `La moitié de $${x}$  se note :  $${tex_fraction(x,2)}=${x}\\div 2=0,5${x}$.`
 					break ;
 				case 4 : // x/4
 					texte = `Exprimer le quart de $${x}$  en fonction de $${x}$.`
-					texte_corr = `Le quart de $${x}$  se note :  $${tex_fraction(x,4)}=${x}\\div4=0,25${x}$.`
+					texte_corr = `Le quart de $${x}$  se note :  $${tex_fraction(x,4)}=${x}\\div 4=0,25${x}$.`
 					break ;
 				case 5 : // x+1
 					texte = `$${x}$ étant un nombre entier, exprimer l'entier suivant en fonction de $${x}$.`
@@ -1989,7 +1989,7 @@ function Traduire_un_programme_de_calcul(){
 					texte = `Voici un programme de calcul : \n`
 					texte += itemize([`Ajoute ${a}`,`Multiplie par ${b}`,`Ajoute ${c}`])
 					texte += `Si on note $x$ le nombre de départ, quel est le résultat du programme de calcul ?`
-					texte_corr = `$x\\xrightarrow{+${a}} x+${a}\\xrightarrow{\\times ${b}}(x+${a})\\times ${b}=${b}x+${a*b}\\xrightarrow{+${c}}${b}x+${a*b+c}$`
+					texte_corr = `$x\\xrightarrow{+${a}} x+${a}\\xrightarrow{\\times  ${b}}(x+${a})\\times  ${b}=${b}x+${a*b}\\xrightarrow{+${c}}${b}x+${a*b+c}$`
 					texte_corr += '<br>'
 					texte_corr += `Le résultat du programme est donc $${b}x+${a*b+c}$.`
 					break ;
@@ -1997,7 +1997,7 @@ function Traduire_un_programme_de_calcul(){
 					texte = `Voici un programme de calcul : \n`
 					texte += itemize([`Multiplie par ${a}`,`Ajoute ${b}`,`Multiplie par ${c}`])
 					texte += `Si on note $y$ le nombre de départ, quel est le résultat du programme de calcul ?`
-					texte_corr = `$y\\xrightarrow{\\times ${a}} ${a}y\\xrightarrow{+${b}}${a}y+${b} \\xrightarrow{\\times ${c}}(${a}y+${b})\\times${c}=${a*c}y+${b*c}$`
+					texte_corr = `$y\\xrightarrow{\\times  ${a}} ${a}y\\xrightarrow{+${b}}${a}y+${b} \\xrightarrow{\\times  ${c}}(${a}y+${b})\\times ${c}=${a*c}y+${b*c}$`
 					texte_corr += '<br>'
 					texte_corr += `Le résultat du programme est donc $${a*c}y+${b*c}$.`
 					break ;
@@ -2005,7 +2005,7 @@ function Traduire_un_programme_de_calcul(){
 					texte = `Voici un programme de calcul : \n`
 					texte += itemize([`Multiplie par ${a}`,`Ajoute ${b}`,`Enlève le double du nombre de départ`])
 					texte += `Si on note $a$ le nombre de départ, quel est le résultat du programme de calcul ?`
-					texte_corr = `$a\\xrightarrow{\\times ${a}} ${a}a\\xrightarrow{+${b}}${a}a+${b} \\xrightarrow{-2a}${a}a+${b}-2a=${a-2}a+${b}$`
+					texte_corr = `$a\\xrightarrow{\\times  ${a}} ${a}a\\xrightarrow{+${b}}${a}a+${b} \\xrightarrow{-2a}${a}a+${b}-2a=${a-2}a+${b}$`
 					texte_corr += '<br>'
 					texte_corr += `Le résultat du programme est donc $${a-2}a+${b}$.`
 					break ;
@@ -2013,7 +2013,7 @@ function Traduire_un_programme_de_calcul(){
 					texte = `Voici un programme de calcul : \n`
 					texte += itemize([`Multiplie par ${a}`,`Ajoute ${b}`,`Ajoute le triple du nombre de départ`])
 					texte += `Si on note $t$ le nombre de départ, quel est le résultat du programme de calcul ?`
-					texte_corr = `$t\\xrightarrow{\\times ${a}} ${a}t\\xrightarrow{+${b}}${a}t+${b} \\xrightarrow{+3t}${a}t+${b}+3t=${a+3}t+${b}$`
+					texte_corr = `$t\\xrightarrow{\\times  ${a}} ${a}t\\xrightarrow{+${b}}${a}t+${b} \\xrightarrow{+3t}${a}t+${b}+3t=${a+3}t+${b}$`
 					texte_corr += '<br>'
 					texte_corr += `Le résultat du programme est donc $${a+3}t+${b}$.`
 					break ;
@@ -2021,7 +2021,7 @@ function Traduire_un_programme_de_calcul(){
 					texte = `Voici un programme de calcul : \n`
 					texte += itemize([`Multiplie par ${a}`,`Ajoute ${b}`,`Multiplie par ${c}`,`Enlève ${d}`])
 					texte += `Si on note $x$ le nombre de départ, quel est le résultat du programme de calcul ?`
-					texte_corr = `$x\\xrightarrow{\\times ${a}} ${a}x\\xrightarrow{+${b}}${a}x+${b} \\xrightarrow{\\times ${c}}(${a}x+${b})\\times ${c}=${a*c}x+${b*c}\\xrightarrow{-${d}}${a*c}x+${b*c-d}$`
+					texte_corr = `$x\\xrightarrow{\\times  ${a}} ${a}x\\xrightarrow{+${b}}${a}x+${b} \\xrightarrow{\\times  ${c}}(${a}x+${b})\\times  ${c}=${a*c}x+${b*c}\\xrightarrow{-${d}}${a*c}x+${b*c-d}$`
 					texte_corr += '<br>'
 					texte_corr += `Le résultat du programme est donc $${a*c}x+${b*c-d}$.`
 					break ;
@@ -2029,7 +2029,7 @@ function Traduire_un_programme_de_calcul(){
 					texte = `Voici un programme de calcul : \n`
 					texte += itemize([`Multiplie par ${a}`,`Ajoute ${b}`, `Multiplie par ${c}`,`Ajoute le nombre de départ`])
 					texte += `Si on note $y$ le nombre de départ, quel est le résultat du programme de calcul ?`
-					texte_corr = `$y\\xrightarrow{\\times ${a}} ${a}y\\xrightarrow{+${b}}${a}y+${b} \\xrightarrow{\\times ${c}}(${a}y+${b})\\times ${c}=${a*c}y+${b*c}\\rightarrow ${a*c}y+${b*c}+y=${a*c+1}y+${b*c}$`
+					texte_corr = `$y\\xrightarrow{\\times  ${a}} ${a}y\\xrightarrow{+${b}}${a}y+${b} \\xrightarrow{\\times  ${c}}(${a}y+${b})\\times  ${c}=${a*c}y+${b*c}\\rightarrow ${a*c}y+${b*c}+y=${a*c+1}y+${b*c}$`
 					texte_corr += '<br>'
 					texte_corr += `Le résultat du programme est donc $${a*c+1}y+${b*c}$.`
 					break ;
@@ -2092,7 +2092,7 @@ function Calculer_la_valeur_d_une_expression_litterale(){
 					b = randint(1,10,[a,x])
 					texte = `Calculer $${a}x+${b}$ pour $x=${x}$.`
 					texte_corr = `Pour $x=${x}$ : <br>`
-					texte_corr += `$${a}x+${b}=${a}\\times${x}+${b}=${a*x}+${b}=${a*x+b}$`
+					texte_corr += `$${a}x+${b}=${a}\\times ${x}+${b}=${a*x}+${b}=${a*x+b}$`
 					break ;
 				case 2 : // a(x+b)
 					a = randint(2,10)
@@ -2100,7 +2100,7 @@ function Calculer_la_valeur_d_une_expression_litterale(){
 					b = randint(1,10,[a,x])
 					texte = `Calculer $${a}(x+${b})$ pour $x=${x}$.`
 					texte_corr = `Pour $x=${x}$ : <br>`
-					texte_corr += `$${a}(x+${b})=${a}\\times(${x}+${b})=${a}\\times${x+b}=${a*(x+b)}$`
+					texte_corr += `$${a}(x+${b})=${a}\\times (${x}+${b})=${a}\\times ${x+b}=${a*(x+b)}$`
 					break ;
 				case 3 : // x^2+y^2
 					x = randint(2,10)
@@ -2124,7 +2124,7 @@ function Calculer_la_valeur_d_une_expression_litterale(){
 					y = choice([1,2,3,5,10])
 					texte = `Calculer $${a}x^2+${b}(x-1)+${c}y^3$ pour $x=${x}$ et $y=${y}$.`
 					texte_corr = `Pour $x=${x}$ et $y=${y}$ : <br>`
-					texte_corr += `$${a}x^2+${b}(x-1)+${c}y^3=${a}\\times${x}^2+${b}(${x}-1)+${c}\\times${y}^3=${a}\\times${x**2}+${b}\\times${x-1}+${c}\\times${y**3}=${a*x**2+b*(x-1)+c*y**3}$.`
+					texte_corr += `$${a}x^2+${b}(x-1)+${c}y^3=${a}\\times ${x}^2+${b}(${x}-1)+${c}\\times ${y}^3=${a}\\times ${x**2}+${b}\\times ${x-1}+${c}\\times ${y**3}=${a*x**2+b*(x-1)+c*y**3}$.`
 					break ;
 				case 6 : // ax^2+bx+c
 					a = randint(2,5)
@@ -2133,7 +2133,7 @@ function Calculer_la_valeur_d_une_expression_litterale(){
 					x = randint(3,6)
 					texte = `Calculer $${a}x^2+${b}x+${c}$ pour $x=${x}$.`
 					texte_corr = `Pour $x=${x}$ : <br>`
-					texte_corr += `$${a}x^2+${b}x+${c}=${a}\\times${x}^2+${b}\\times${x}+${c}=${a}\\times${x**2}+${b*x}+${c}=${a*x**2+b*x+c}$`
+					texte_corr += `$${a}x^2+${b}x+${c}=${a}\\times ${x}^2+${b}\\times ${x}+${c}=${a}\\times ${x**2}+${b*x}+${c}=${a*x**2+b*x+c}$`
 					break ;
 				case 7 : // ax^2+bx-c
 					a = randint(2,5)
@@ -2142,7 +2142,7 @@ function Calculer_la_valeur_d_une_expression_litterale(){
 					x = randint(3,6)
 					texte = `Calculer $${a}x^2+${b}x-${c}$ pour $x=${x}$.`
 					texte_corr = `Pour $x=${x}$ : <br>`
-					texte_corr += `$${a}x^2+${b}x-${c}=${a}\\times${x}^2+${b}\\times${x}-${c}=${a}\\times${x**2}+${b*x}-${c}=${a*x**2+b*x-c}$`
+					texte_corr += `$${a}x^2+${b}x-${c}=${a}\\times ${x}^2+${b}\\times ${x}-${c}=${a}\\times ${x**2}+${b*x}-${c}=${a*x**2+b*x-c}$`
 					break ;
 				case 8 : // ax^2-bx+c
 					a = randint(2,5)
@@ -2151,7 +2151,7 @@ function Calculer_la_valeur_d_une_expression_litterale(){
 					x = randint(3,6)
 					texte = `Calculer $${a}x^2-${b}x+${c}$ pour $x=${x}$.`
 					texte_corr = `Pour $x=${x}$ : <br>`
-					texte_corr += `$${a}x^2-${b}x+${c}=${a}\\times${x}^2-${b}\\times${x}+${c}=${a}\\times${x**2}-${b*x}+${c}=${a*x**2-b*x+c}$`
+					texte_corr += `$${a}x^2-${b}x+${c}=${a}\\times ${x}^2-${b}\\times ${x}+${c}=${a}\\times ${x**2}-${b*x}+${c}=${a*x**2-b*x+c}$`
 					break ;
 				
 				case 9 : // axy+x+y
@@ -2160,7 +2160,7 @@ function Calculer_la_valeur_d_une_expression_litterale(){
 					y = randint(2,10,x)
 					texte = `Calculer $${a}xy+x+y$ pour $x=${x}$ et $y=${y}$.`
 					texte_corr = `Pour $x=${x}$ et $y=${y}$ : <br>`
-					texte_corr += `$${a}xy+x+y=${a}\\times${x}\\times${y}+${x}+${y}=${a*x*y}+${x}+${y}=${a*x*y+x+y}$`
+					texte_corr += `$${a}xy+x+y=${a}\\times ${x}\\times ${y}+${x}+${y}=${a*x*y}+${x}+${y}=${a*x*y+x+y}$`
 					break ;
 				case 10 : // (ax+b)(cy-d)
 					a = randint(2,10)
@@ -2171,7 +2171,7 @@ function Calculer_la_valeur_d_une_expression_litterale(){
 					d = randint(1,Math.min(10,c*y))
 					texte = `Calculer $(${a}x+${b})(${c}y-${d})$ pour $x=${x}$ et $y=${y}$.`
 					texte_corr = `Pour $x=${x}$ et $y=${y}$ : <br>`
-					texte_corr += `$(${a}x+${b})(${c}y-${d})=(${a}\\times${x}+${b})(${c}\\times${y}-${d})=${a*x+b}\\times${c*y-d}=${(a*x+b)*(c*y-d)}$`
+					texte_corr += `$(${a}x+${b})(${c}y-${d})=(${a}\\times ${x}+${b})(${c}\\times ${y}-${d})=${a*x+b}\\times ${c*y-d}=${(a*x+b)*(c*y-d)}$`
 					break ;
 				
 			}
@@ -2240,10 +2240,10 @@ function Tester_une_egalite(){
 
 					texte = `Tester l'égalité $3x-${ecriture_parenthese_si_negatif(a)}=2x+${ecriture_parenthese_si_negatif(b)}~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
-					texte_corr += `$3x-${ecriture_parenthese_si_negatif(a)}=3\\times${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(a)}=${3*x1-a}$ <br> $2x+${ecriture_parenthese_si_negatif(b)}=2\\times${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(b)}=${2*x1+b}$<br>`
+					texte_corr += `$3x-${ecriture_parenthese_si_negatif(a)}=3\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(a)}=${3*x1-a}$ <br> $2x+${ecriture_parenthese_si_negatif(b)}=2\\times ${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(b)}=${2*x1+b}$<br>`
 					texte_corr += `$${3*x1-a}\\not=${2*x1+b}$ donc l'égalité n'est pas vraie.<br><br>`
 					texte_corr += `Pour $x=${ecriture_parenthese_si_negatif(x2)}$ : <br>`
-					texte_corr += `$3x-${ecriture_parenthese_si_negatif(a)}=3\\times${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(a)}=${3*x2-a}$ <br> $2x+${ecriture_parenthese_si_negatif(b)}=2\\times${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(b)}=${2*x2+b}$<br>`
+					texte_corr += `$3x-${ecriture_parenthese_si_negatif(a)}=3\\times ${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(a)}=${3*x2-a}$ <br> $2x+${ecriture_parenthese_si_negatif(b)}=2\\times ${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(b)}=${2*x2+b}$<br>`
 					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.`
 					break ;
 				case 2 : // 3x+a=5x-b   x=(a+b)/2 donc a et b impairs pour une solution entière  
@@ -2262,10 +2262,10 @@ function Tester_une_egalite(){
 
 					texte = `Tester l'égalité $3x+${ecriture_parenthese_si_negatif(a)}=5x-${ecriture_parenthese_si_negatif(b)}~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
-					texte_corr += `$3x+${ecriture_parenthese_si_negatif(a)}=3\\times${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(a)}=${3*x1+a}$ <br> $5x-${ecriture_parenthese_si_negatif(b)}=5\\times${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(b)}=${5*x1-b}$<br>`
+					texte_corr += `$3x+${ecriture_parenthese_si_negatif(a)}=3\\times ${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(a)}=${3*x1+a}$ <br> $5x-${ecriture_parenthese_si_negatif(b)}=5\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(b)}=${5*x1-b}$<br>`
 					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
 					texte_corr += `Pour $x=${x2}$ : <br>`
-					texte_corr += `$3x+${ecriture_parenthese_si_negatif(a)}=3\\times${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(a)}=${3*x2+a}$ <br> $5x-${ecriture_parenthese_si_negatif(b)}=5\\times${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(b)}=${5*x2-b}$<br>`
+					texte_corr += `$3x+${ecriture_parenthese_si_negatif(a)}=3\\times ${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(a)}=${3*x2+a}$ <br> $5x-${ecriture_parenthese_si_negatif(b)}=5\\times ${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(b)}=${5*x2-b}$<br>`
 					texte_corr += `$${3*x2+a}\\not=${5*x2-b}$ donc l'égalité n'est pas vraie.`
 					break ;
 				case 3 : // 10(x-a)=4(2x+b) x=(10a+4b)/2
@@ -2284,10 +2284,10 @@ function Tester_une_egalite(){
 
 					texte = `Tester l'égalité $10(x-${ecriture_parenthese_si_negatif(a)})=4(2x+${ecriture_parenthese_si_negatif(b)})~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
-					texte_corr += `$10(x-${ecriture_parenthese_si_negatif(a)})=10\\times(${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(a)})=10\\times${x1-a}=${10*(x1-a)}$ <br> $4(2x+${ecriture_parenthese_si_negatif(b)})=4\\times(2\\times${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(b)})=4\\times${2*x1+b}=${4*(2*x1+b)}$<br>`
+					texte_corr += `$10(x-${ecriture_parenthese_si_negatif(a)})=10\\times (${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(a)})=10\\times ${x1-a}=${10*(x1-a)}$ <br> $4(2x+${ecriture_parenthese_si_negatif(b)})=4\\times (2\\times ${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(b)})=4\\times ${2*x1+b}=${4*(2*x1+b)}$<br>`
 					texte_corr += `$${10*(x1-a)}\\not=${4*(2*x1+b)}$ donc l'égalité n'est pas vraie.<br><br>`
 					texte_corr += `Pour $x=${x2}$ : <br>`
-					texte_corr += `$10(x-${ecriture_parenthese_si_negatif(a)})=10\\times(${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(a)})=10\\times${x2-a}=${10*(x2-a)}$ <br> $4(2x+${ecriture_parenthese_si_negatif(b)})=4\\times(2\\times${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(b)})=4\\times${2*x2+b}=${4*(2*x2+b)}$<br>`
+					texte_corr += `$10(x-${ecriture_parenthese_si_negatif(a)})=10\\times (${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(a)})=10\\times ${x2-a}=${10*(x2-a)}$ <br> $4(2x+${ecriture_parenthese_si_negatif(b)})=4\\times (2\\times ${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(b)})=4\\times ${2*x2+b}=${4*(2*x2+b)}$<br>`
 					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.`
 					break ;
 				case 4 : // ax+b=(a+1)x-c x=b+c
@@ -2308,10 +2308,10 @@ function Tester_une_egalite(){
 
 					texte = `Tester l'égalité $${ecriture_parenthese_si_negatif(a)}x+${ecriture_parenthese_si_negatif(b)}=${a+1}x-${ecriture_parenthese_si_negatif(c)}~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
-					texte_corr += `$${a}x+${ecriture_parenthese_si_negatif(b)}=${ecriture_parenthese_si_negatif(a)}\\times${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(b)}=${a*x1+b}$ <br> $${a+1}x-${ecriture_parenthese_si_negatif(c)}=${a+1}\\times${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(c)}=${(a+1)*x1-c}$<br>`
+					texte_corr += `$${a}x+${ecriture_parenthese_si_negatif(b)}=${ecriture_parenthese_si_negatif(a)}\\times ${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(b)}=${a*x1+b}$ <br> $${a+1}x-${ecriture_parenthese_si_negatif(c)}=${a+1}\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(c)}=${(a+1)*x1-c}$<br>`
 					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
 					texte_corr += `Pour $x=${x2}$ : <br>`
-					texte_corr += `$${a}x+${ecriture_parenthese_si_negatif(b)}=${ecriture_parenthese_si_negatif(a)}\\times${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(b)}=${a*x2+b}$ <br> $${a+1}x-${ecriture_parenthese_si_negatif(c)}=${a+1}\\times${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(c)}=${(a+1)*x2-c}$<br>`
+					texte_corr += `$${a}x+${ecriture_parenthese_si_negatif(b)}=${ecriture_parenthese_si_negatif(a)}\\times ${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(b)}=${a*x2+b}$ <br> $${a+1}x-${ecriture_parenthese_si_negatif(c)}=${a+1}\\times ${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(c)}=${(a+1)*x2-c}$<br>`
 					texte_corr += `$${a*x2+b}\\not=${(a+1)*x2-c}$ donc l'égalité n'est pas vraie.`
 					break ;
 				case 5 : // a-2x=b+2x x=(a-b)/4
@@ -2330,10 +2330,10 @@ function Tester_une_egalite(){
 
 					texte = `Tester l'égalité $${a}-2x=${b}+2x~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
-					texte_corr += `$${a}-2x=${a}-2\\times${ecriture_parenthese_si_negatif(x1)}=${a-2*x1}$ <br> $${b}+2x=${b}+2\\times${ecriture_parenthese_si_negatif(x1)}=${b+2*x1}$<br>`
+					texte_corr += `$${a}-2x=${a}-2\\times ${ecriture_parenthese_si_negatif(x1)}=${a-2*x1}$ <br> $${b}+2x=${b}+2\\times ${ecriture_parenthese_si_negatif(x1)}=${b+2*x1}$<br>`
 					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
 					texte_corr += `Pour $x=${x2}$ : <br>`
-					texte_corr += `$${a}-2x=${a}-2\\times${ecriture_parenthese_si_negatif(x2)}=${a-2*x2}$ <br> $${b}+2x=${b}+2\\times${ecriture_parenthese_si_negatif(x2)}=${b+2*x2}$<br>`
+					texte_corr += `$${a}-2x=${a}-2\\times ${ecriture_parenthese_si_negatif(x2)}=${a-2*x2}$ <br> $${b}+2x=${b}+2\\times ${ecriture_parenthese_si_negatif(x2)}=${b+2*x2}$<br>`
 					texte_corr += `$${a-2*x2}\\not=${b+2*x2}$ donc l'égalité n'est pas vraie.`
 					break ;
 				case 6 : // ax-ab=x²-bx (a-x)(x-b)=0 solutions a et b.
@@ -2353,13 +2353,13 @@ function Tester_une_egalite(){
 					}
 					texte = `Tester l'égalité $${a}x-${ecriture_parenthese_si_negatif(a*b)}=x^2-${ecriture_parenthese_si_negatif(b)}x~$ pour $~x=${x1}~$ , pour $~x=${x2}~$ puis pour $~x=${x3}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
-					texte_corr += `$${a}x-${ecriture_parenthese_si_negatif(a*b)}=${a}\\times${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(a*b)}=${a*x1-a*b}$ <br> $x^2-${b}\\times x=${ecriture_parenthese_si_negatif(x1)}^2-${ecriture_parenthese_si_negatif(b)}\\times${ecriture_parenthese_si_negatif(x1)}=${x1*x1}-${ecriture_parenthese_si_negatif(b*x1)}=${x1*x1-b*x1}$<br>`
+					texte_corr += `$${a}x-${ecriture_parenthese_si_negatif(a*b)}=${a}\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(a*b)}=${a*x1-a*b}$ <br> $x^2-${b}\\times  x=${ecriture_parenthese_si_negatif(x1)}^2-${ecriture_parenthese_si_negatif(b)}\\times ${ecriture_parenthese_si_negatif(x1)}=${x1*x1}-${ecriture_parenthese_si_negatif(b*x1)}=${x1*x1-b*x1}$<br>`
 					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
 					texte_corr += `Pour $x=${x2}$ : <br>`
-					texte_corr += `$${a}x-${ecriture_parenthese_si_negatif(a*b)}=${a}\\times${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(a*b)}=${a*x2-a*b}$ <br> $x^2-${b}\\times x=${ecriture_parenthese_si_negatif(x2)}^2-${ecriture_parenthese_si_negatif(b)}\\times${ecriture_parenthese_si_negatif(x2)}=${x2*x2}-${ecriture_parenthese_si_negatif(b*x2)}=${x2*x2-b*x2}$<br>`
+					texte_corr += `$${a}x-${ecriture_parenthese_si_negatif(a*b)}=${a}\\times ${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(a*b)}=${a*x2-a*b}$ <br> $x^2-${b}\\times  x=${ecriture_parenthese_si_negatif(x2)}^2-${ecriture_parenthese_si_negatif(b)}\\times ${ecriture_parenthese_si_negatif(x2)}=${x2*x2}-${ecriture_parenthese_si_negatif(b*x2)}=${x2*x2-b*x2}$<br>`
 					texte_corr += `$${a*x2-a*b}\\not=${x2*x2-b*x2}$ donc l'égalité n'est pas vraie.<br><br>`
 					texte_corr += `Pour $x=${x3}$ : <br>`
-					texte_corr += `$${a}x-${ecriture_parenthese_si_negatif(a*b)}=${a}\\times${ecriture_parenthese_si_negatif(x3)}-${ecriture_parenthese_si_negatif(a*b)}=${a*x3-a*b}$ <br> $x^2-${b}\\times x=${ecriture_parenthese_si_negatif(x3)}^2-${ecriture_parenthese_si_negatif(b)}\\times${ecriture_parenthese_si_negatif(x3)}=${x3*x3}-${ecriture_parenthese_si_negatif(b*x3)}=${x3*x3-b*x3}$<br>`
+					texte_corr += `$${a}x-${ecriture_parenthese_si_negatif(a*b)}=${a}\\times ${ecriture_parenthese_si_negatif(x3)}-${ecriture_parenthese_si_negatif(a*b)}=${a*x3-a*b}$ <br> $x^2-${b}\\times  x=${ecriture_parenthese_si_negatif(x3)}^2-${ecriture_parenthese_si_negatif(b)}\\times ${ecriture_parenthese_si_negatif(x3)}=${x3*x3}-${ecriture_parenthese_si_negatif(b*x3)}=${x3*x3-b*x3}$<br>`
 					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
 					break ;
 				case 7 : // adx-bd=acx²-bcx  --- (ax-b)(d-cx)=0 solutions b/a et d/c.
@@ -2383,13 +2383,13 @@ function Tester_une_egalite(){
 					}
 					texte = `Tester l'égalité $${a*d}x-${ecriture_parenthese_si_negatif(b*d)}=${a*c}x^2-${ecriture_parenthese_si_negatif(b*c)}x~$ pour $~x=${x1}~$, pour $~x=${x2}~$ puis pour $~x=${x3}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
-					texte_corr += `$${a*d}x-${ecriture_parenthese_si_negatif(b*d)}=${a*d}\\times${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(b*d)}=${a*d*x1-d*b}$ <br> $${a*c}x^2-${ecriture_parenthese_si_negatif(b*c)}x=${a*c}\\times${ecriture_parenthese_si_negatif(x1)}^2-${ecriture_parenthese_si_negatif(b*c)}\\times${ecriture_parenthese_si_negatif(x1)}=${a*c*x1*x1}-${ecriture_parenthese_si_negatif(b*c*x1)}=${a*c*x1*x1-b*c*x1}$<br>`
+					texte_corr += `$${a*d}x-${ecriture_parenthese_si_negatif(b*d)}=${a*d}\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(b*d)}=${a*d*x1-d*b}$ <br> $${a*c}x^2-${ecriture_parenthese_si_negatif(b*c)}x=${a*c}\\times ${ecriture_parenthese_si_negatif(x1)}^2-${ecriture_parenthese_si_negatif(b*c)}\\times ${ecriture_parenthese_si_negatif(x1)}=${a*c*x1*x1}-${ecriture_parenthese_si_negatif(b*c*x1)}=${a*c*x1*x1-b*c*x1}$<br>`
 					texte_corr += `$${a*d*x1-d*b}\\not=${a*c*x1*x1-b*c*x1}$ donc l'égalité n'est pas vraie.<br><br>`
 					texte_corr += `Pour $x=${x2}$ : <br>`
-					texte_corr += `$${a*d}x-${ecriture_parenthese_si_negatif(b*d)}=${a*d}\\times${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(b*d)}=${a*d*x2-d*b}$ <br> $${a*c}x^2-${ecriture_parenthese_si_negatif(b*c)}x=${a*c}\\times${ecriture_parenthese_si_negatif(x2)}^2-${ecriture_parenthese_si_negatif(b*c)}\\times${ecriture_parenthese_si_negatif(x2)}=${a*c*x2*x2}-${ecriture_parenthese_si_negatif(b*c*x2)}=${a*c*x2*x2-b*c*x2}$<br>`
+					texte_corr += `$${a*d}x-${ecriture_parenthese_si_negatif(b*d)}=${a*d}\\times ${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(b*d)}=${a*d*x2-d*b}$ <br> $${a*c}x^2-${ecriture_parenthese_si_negatif(b*c)}x=${a*c}\\times ${ecriture_parenthese_si_negatif(x2)}^2-${ecriture_parenthese_si_negatif(b*c)}\\times ${ecriture_parenthese_si_negatif(x2)}=${a*c*x2*x2}-${ecriture_parenthese_si_negatif(b*c*x2)}=${a*c*x2*x2-b*c*x2}$<br>`
 					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
 					texte_corr += `Pour $x=${x3}$ : <br>`
-					texte_corr += `$${a*d}x-${ecriture_parenthese_si_negatif(b*d)}=${a*d}\\times${ecriture_parenthese_si_negatif(x3)}-${ecriture_parenthese_si_negatif(b*d)}=${a*d*x3-d*b}$ <br> $${a*c}x^2-${ecriture_parenthese_si_negatif(b*c)}x=${a*c}\\times${ecriture_parenthese_si_negatif(x3)}^2-${ecriture_parenthese_si_negatif(b*c)}\\times${ecriture_parenthese_si_negatif(x3)}=${a*c*x3*x3}-${ecriture_parenthese_si_negatif(b*c*x3)}=${a*c*x3*x3-b*c*x3}$<br>`
+					texte_corr += `$${a*d}x-${ecriture_parenthese_si_negatif(b*d)}=${a*d}\\times ${ecriture_parenthese_si_negatif(x3)}-${ecriture_parenthese_si_negatif(b*d)}=${a*d*x3-d*b}$ <br> $${a*c}x^2-${ecriture_parenthese_si_negatif(b*c)}x=${a*c}\\times ${ecriture_parenthese_si_negatif(x3)}^2-${ecriture_parenthese_si_negatif(b*c)}\\times ${ecriture_parenthese_si_negatif(x3)}=${a*c*x3*x3}-${ecriture_parenthese_si_negatif(b*c*x3)}=${a*c*x3*x3-b*c*x3}$<br>`
 					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
 					break ;
 			}
@@ -2901,9 +2901,9 @@ function Aire_du_parallelogramme(){
 		texte_corr = `Dans chaque parallélogramme, le segment en pointillés est ${texte_en_couleur_et_gras("perpendiculaire")} à deux côtés opposés, c'est donc une ${texte_en_couleur_et_gras("hauteur")}.<br>`
 		texte_corr += `Pour obtenir l'aire, il faut multiplier cette ${texte_en_couleur_et_gras("hauteur")} par la longueur de la ${texte_en_couleur_et_gras("base")} correspondante.`
 		texte_corr += "<br><br>"
-		texte_corr += `$\\mathcal{A}_{ABCD}=${c1}~\\text{cm}\\times ${h1}~\\text{cm}=${c1*h1}~\\text{cm}^2$`
-		texte_corr += `<br>$\\mathcal{A}_{EFGH}=${c2}~\\text{cm}\\times ${h2}~\\text{cm}=${c2*h2}~\\text{cm}^2$`
-		texte_corr += `<br>$\\mathcal{A}_{MNOP}=${c3}~\\text{cm}\\times ${h3}~\\text{cm}=${c3*h3}~\\text{cm}^2$`
+		texte_corr += `$\\mathcal{A}_{ABCD}=${c1}~\\text{cm}\\times  ${h1}~\\text{cm}=${c1*h1}~\\text{cm}^2$`
+		texte_corr += `<br>$\\mathcal{A}_{EFGH}=${c2}~\\text{cm}\\times  ${h2}~\\text{cm}=${c2*h2}~\\text{cm}^2$`
+		texte_corr += `<br>$\\mathcal{A}_{MNOP}=${c3}~\\text{cm}\\times  ${h3}~\\text{cm}=${c3*h3}~\\text{cm}^2$`
 		
 
 		this.MG32codeBase64 = codeBase64
@@ -3068,18 +3068,18 @@ function Liste_des_diviseurs_5e(){
 						N = tableau_de_choix[rg_N];
 						texte = `Écrire la liste de tous les diviseurs de ${N}.`;
 						texte_corr = `Pour trouver la liste des diviseurs de ${N} on cherche tous les produits de deux facteurs qui donnent ${N}. En écrivant toujours le plus petit facteur en premier.<br>`;
-						texte_corr += `Il est suffisant de chercher des diviseurs inférieurs au plus grand nombre dont le carré vaut ${N}, par exemple ici, ${Math.trunc(Math.sqrt(N))}$\\times$${Math.trunc(Math.sqrt(N))} = ${Math.trunc(Math.sqrt(N))*Math.trunc(Math.sqrt(N))}<${N}`;
-						texte_corr += ` et ${Math.trunc(Math.sqrt(N))+1}$\\times$${Math.trunc(Math.sqrt(N))+1} = ${(Math.trunc(Math.sqrt(N))+1)*(Math.trunc(Math.sqrt(N))+1)}>${N} donc il suffit d'arrêter la recherche de facteur à ${Math.trunc(Math.sqrt(N))}.`;
-						texte_corr += ` En effet, si ${N} est le produit de deux entiers p$\\times$q avec p < q alors si p$\\times$p > ${N} c'est que q$\\times$q < ${N} mais dans ce cas p serait supérieur à q sinon p$\\times$q serait inférieur à ${N} ce qui ne doit pas être le cas.<br>`
+						texte_corr += `Il est suffisant de chercher des diviseurs inférieurs au plus grand nombre dont le carré vaut ${N}, par exemple ici, ${Math.trunc(Math.sqrt(N))}$\\times $${Math.trunc(Math.sqrt(N))} = ${Math.trunc(Math.sqrt(N))*Math.trunc(Math.sqrt(N))}<${N}`;
+						texte_corr += ` et ${Math.trunc(Math.sqrt(N))+1}$\\times $${Math.trunc(Math.sqrt(N))+1} = ${(Math.trunc(Math.sqrt(N))+1)*(Math.trunc(Math.sqrt(N))+1)}>${N} donc il suffit d'arrêter la recherche de facteur à ${Math.trunc(Math.sqrt(N))}.`;
+						texte_corr += ` En effet, si ${N} est le produit de deux entiers p$\\times $q avec p < q alors si p$\\times $p > ${N} c'est que q$\\times $q < ${N} mais dans ce cas p serait supérieur à q sinon p$\\times $q serait inférieur à ${N} ce qui ne doit pas être le cas.<br>`
 						if (liste_diviseurs(N).length%2==0) {//si il y a un nombre pair de diviseurs
 							for (let m = 0; m<(liste_diviseurs(N).length/2); m++){
-								texte_corr += ``+liste_diviseurs(N)[m]+`$\\times$`+liste_diviseurs(N)[(liste_diviseurs(N).length-m-1)]+` = ${N}<br>`;
+								texte_corr += ``+liste_diviseurs(N)[m]+`$\\times $`+liste_diviseurs(N)[(liste_diviseurs(N).length-m-1)]+` = ${N}<br>`;
 							};
 						} else {
 							for (let m = 0; m<((liste_diviseurs(N).length-1)/2); m++){
-								texte_corr += ``+liste_diviseurs(N)[m]+`$\\times$`+liste_diviseurs(N)[(liste_diviseurs(N).length-m-1)]+`<br>`;
+								texte_corr += ``+liste_diviseurs(N)[m]+`$\\times $`+liste_diviseurs(N)[(liste_diviseurs(N).length-m-1)]+`<br>`;
 							};
-							texte_corr += ``+liste_diviseurs(N)[(liste_diviseurs(N).length-1)/2]+`$\\times$`+liste_diviseurs(N)[(liste_diviseurs(N).length-1)/2]+` = ${N}<br>`;
+							texte_corr += ``+liste_diviseurs(N)[(liste_diviseurs(N).length-1)/2]+`$\\times $`+liste_diviseurs(N)[(liste_diviseurs(N).length-1)/2]+` = ${N}<br>`;
 						};
 						texte_corr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${N}.<br>`;
 						texte_corr += `La liste des diviseurs de ${N} est donc `;
@@ -3219,7 +3219,7 @@ function Premier_ou_pas_5e(){
 						let r2 = randint(0,crible_eratosthene_n(30).length-1);
 						let prime1 = crible_eratosthene_n(100)[r1]; // on tire un nombre premier inférieur à 100, il n'y en a que 25!
 						let prime2 = crible_eratosthene_n(100)[r2]; // on tire un autre nombre premier inférieur à 100, ça peut être le même qu'avant!
-						N=prime1+`$\\times$`+prime2;
+						N=prime1+`$\\times $`+prime2;
 						texte = N;
 						texte_corr = `${N} est le produit de ${prime1} et de ${prime2}, il admet donc au moins `;
 						if (prime1==prime2) {
@@ -3882,11 +3882,32 @@ function Traduire_une_phrase_par_une_expression() {
 /**
  * @Auteur Jean-Claude Lhote
  */
+function Traduire_une_phrase_par_une_expression_litterale() {
+	Ecrire_une_expression_numerique.call(this)
+	this.version=1
+	this.titre="Traduire une phrase par une expression"
+	this.sup=false
+	this.sup2=false
+	this.litteral=true
+}
+/**
+ * @Auteur Jean-Claude Lhote
+ */
 function Traduire_une_expression_par_une_phrase() {
 	Ecrire_une_expression_numerique.call(this)
 	this.version=2
 	this.titre="Traduire une expression par une phrase"
 }
+/**
+ * @Auteur Jean-Claude Lhote
+ */
+function Traduire_une_expression_litterale_par_une_phrase() {
+	Ecrire_une_expression_numerique.call(this)
+	this.version=2
+	this.titre="Traduire une expression par une phrase"
+	this.litteral=true
+}
+
 /**
  * @Auteur Jean-Claude Lhote
  */
@@ -3898,10 +3919,28 @@ function Traduire_une_phrase_par_une_expression_et_calculer() {
 /**
  * @Auteur Jean-Claude Lhote
  */
+function Traduire_une_phrase_par_une_expression_litterale_et_calculer() {
+	Ecrire_une_expression_numerique.call(this)
+	this.version=3
+	this.titre="Traduire une phrase par une expression et la calculer"
+	this.litteral=true
+}
+/**
+ * @Auteur Jean-Claude Lhote
+ */
 function Calculer_une_expression_numerique() {
 	Ecrire_une_expression_numerique.call(this)
 	this.version=4
 	this.titre="Calculer une expression numérique en détaillant les calculs"
+}
+/**
+ * @Auteur Jean-Claude Lhote
+ */
+function Calculer_une_expression_litterale() {
+	Ecrire_une_expression_numerique.call(this)
+	this.version=4
+	this.titre="Calculer une expression numérique en détaillant les calculs"
+	this.litteral=true
 }
 
 /**
@@ -3938,10 +3977,15 @@ function Ecrire_une_expression_numerique(){
 		let expf,expn,expc,decimal=1,souscas,nb_operations,resultats
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) 
 		if (this.sup2) decimal=10;
-		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+		for (let i = 0, texte, texte_corr,val1,val2, cpt=0; i < this.nb_questions && cpt<50; ) {
 			nb_operations=parseInt(liste_type_de_questions[i])
-			if (this.version>2&&nb_operations==1) nb_operations++
-			resultats=Choisir_expression_numerique(nb_operations,decimal)
+			val1=randint(2,5)
+			val2=randint(6,9)
+			if (this.version>2&&nb_operations==1&&!this.litteral) nb_operations++
+			if (!this.litteral)
+				resultats=Choisir_expression_numerique(nb_operations,decimal)
+			else 
+				resultats=Choisir_expression_litterale(nb_operations,decimal,val1,val2)
 			expf=resultats[0]
 			expn=resultats[1]
 			expc=resultats[2]
@@ -3961,14 +4005,18 @@ function Ecrire_une_expression_numerique(){
 					break
 				case 3:
 					this.consigne=`Traduire la phrase par un calcul et effectuer ce calcul en respectant les priorités opératoires.`
-					texte=`${expf}.`
+					if (!this.litteral) texte=`${expf}.`
+					else if (souscas==2) texte=`${expf} puis calculer pour $x=${val1}$ et $y=${val2}$.`
+					else texte =`${expf} puis calculer pour $x=${val1}$.`
 					texte_corr=`${expf} s'écrit ${expn}.<br>`
 					texte_corr+=`${expc}.`
 					break
 				case 4:
 					if (expn.indexOf('ou')>0) expn=expn.substring(0,expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
-					this.consigne=`Calculer l'expression en respectant les priorités opératoires.`
-					texte=`${expn}.`
+					this.consigne=`Calculer en respectant les priorités opératoires.`
+					if (!this.litteral) texte=`${expn}.`
+					else if (souscas==2) texte=`Pour $x=${val1}$ et $y=${val2}$, calculer ${expn}.`
+					else texte =`Pour $x=${val1}$, calculer ${expn}.`
 					texte_corr=`${expc}.`
 					break
  		
@@ -4023,14 +4071,14 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 					break
 				case 2 : // produit de deux nombres
 					expf=`Le produit de ${nombre_avec_espace(a)} par ${nombre_avec_espace(b)}`
-					expn=`$${tex_nombre(a)}\\times${tex_nombre(b)}$`
-					expc=`$${tex_nombre(a)}\\times${tex_nombre(b)} = ${tex_nombrec(a*b)}$`
+					expn=`$${tex_nombre(a)}\\times ${tex_nombre(b)}$`
+					expc=`$${tex_nombre(a)}\\times ${tex_nombre(b)} = ${tex_nombrec(a*b)}$`
 					break
 				case 3 : // quotient de deux nombres
 					a=calcul(Math.round(a)*b)
 					expf=`Le quotient de ${nombre_avec_espace(a)} par ${nombre_avec_espace(b)}`
-					expn=`$${tex_nombre(a)}\\div${tex_nombre(b)}$`
-					expc=`$${tex_nombre(a)}\\div${tex_nombre(b)} = ${tex_nombrec(a)}$`
+					expn=`$${tex_nombre(a)}\\div ${tex_nombre(b)}$`
+					expc=`$${tex_nombre(a)}\\div ${tex_nombre(b)} = ${tex_nombrec(a)}$`
 					break
 			}
 			break
@@ -4040,41 +4088,41 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 				case 0 : //a(b+c)
 					expf=`Le produit de ${nombre_avec_espace(a)} par la somme de ${nombre_avec_espace(b)} et ${nombre_avec_espace(c)}`
 					expn=`$${tex_nombre(a)}(${tex_nombre(b)}+${tex_nombre(c)})$`
-					expc=`$${tex_nombre(a)}(${tex_nombre(b)}+${tex_nombre(c)}) = ${tex_nombre(a)}\\times${tex_nombrec(b+c)}=${tex_nombrec(a*(b+c))}$`
+					expc=`$${tex_nombre(a)}(${tex_nombre(b)}+${tex_nombre(c)}) = ${tex_nombre(a)}\\times ${tex_nombrec(b+c)}=${tex_nombrec(a*(b+c))}$`
 					break
 				case 1 : // a(b-c)
 					if (b<=c) b=calcul(b+c) // b-c positif
 					expf=`Le produit de ${nombre_avec_espace(a)} par la différence de ${nombre_avec_espace(b)} et ${nombre_avec_espace(c)}`
 					expn=`$${tex_nombre(a)}(${tex_nombre(b)}-${tex_nombre(c)})$`
-					expc=`$${tex_nombre(a)}(${tex_nombre(b)}-${tex_nombre(c)}) = ${tex_nombre(a)}\\times${tex_nombrec(b-c)}=${tex_nombrec(a*(b-c))}$`
+					expc=`$${tex_nombre(a)}(${tex_nombre(b)}-${tex_nombre(c)}) = ${tex_nombre(a)}\\times ${tex_nombrec(b-c)}=${tex_nombrec(a*(b-c))}$`
 					break
 				case 2 : // a/(b+c)
 					a=calcul(a*(b+c)) // on s'assure que le quotient tombe juste...
 					expf=`Le quotient de ${nombre_avec_espace(a)} par la somme de ${nombre_avec_espace(b)} et ${nombre_avec_espace(c)}`
-					expn=`$${tex_nombre(a)}\\div(${tex_nombre(b)}+${tex_nombre(c)})$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}+${tex_nombre(c)}}$`
-					expc=`$${tex_nombre(a)}\\div(${tex_nombre(b)}+${tex_nombre(c)}) = ${tex_nombre(a)}\\div${tex_nombrec(b+c)}=${tex_nombrec(a/(b+c))}$`
+					expn=`$${tex_nombre(a)}\\div (${tex_nombre(b)}+${tex_nombre(c)})$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}+${tex_nombre(c)}}$`
+					expc=`$${tex_nombre(a)}\\div (${tex_nombre(b)}+${tex_nombre(c)}) = ${tex_nombre(a)}\\div ${tex_nombrec(b+c)}=${tex_nombrec(a/(b+c))}$`
 					break
 				case 3 : // a/(b-c)
 					if (b<=c) b=calcul(b+c) // b-c positif
  					a=calcul(a*(b-c)) // on s'assure que le quotient tombe juste
 					expf=`Le quotient de ${nombre_avec_espace(a)} par la différence de ${nombre_avec_espace(b)} et ${nombre_avec_espace(c)}`
-					expn=`$${tex_nombre(a)}\\div(${b}-${tex_nombre(c)})$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}-${tex_nombre(c)}}$`
-					expc=`$${tex_nombre(a)}\\div(${b}-${tex_nombre(c)}) = ${tex_nombre(a)}\\div${tex_nombrec(b-c)}=${tex_nombrec(a/(b-c))}$`
+					expn=`$${tex_nombre(a)}\\div (${b}-${tex_nombre(c)})$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}-${tex_nombre(c)}}$`
+					expc=`$${tex_nombre(a)}\\div (${b}-${tex_nombre(c)}) = ${tex_nombre(a)}\\div ${tex_nombrec(b-c)}=${tex_nombrec(a/(b-c))}$`
 					break			
 				case 4 : // (a+b)/c
 					a=calcul(a*c)
 					b=calcul(b*c) // on s'assure que le quotient tombe juste
 					expf=`Le quotient de la somme de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par ${nombre_avec_espace(c)}`
-					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div${tex_nombre(c)}$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}}$`
-					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div${tex_nombre(c)} = ${tex_nombrec(a+b)}\\div${tex_nombre(c)}=${tex_nombrec((a+b)/c)}$`
+					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div ${tex_nombre(c)}$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}}$`
+					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div ${tex_nombre(c)} = ${tex_nombrec(a+b)}\\div ${tex_nombre(c)}=${tex_nombrec((a+b)/c)}$`
 					break
 				case 5 : // (a-b)/c
 					if (a<=b) a=calcul(a+b) // a-b positif
 					a=calcul(a*c)
 					b=calcul(b*c) // on s'assure que le quotient tombe juste
 					expf=`Le quotient de la différence de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par ${nombre_avec_espace(c)}`
-					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div${tex_nombre(c)}$ ou $\\dfrac{${tex_nombre(a)}-${tex_nombre(b)}}{${tex_nombre(c)}}$`
-					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div${tex_nombre(c)} = ${tex_nombrec(a-b)}\\div${tex_nombre(c)}=${tex_nombrec((a-b)/c)}$`
+					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div ${tex_nombre(c)}$ ou $\\dfrac{${tex_nombre(a)}-${tex_nombre(b)}}{${tex_nombre(c)}}$`
+					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div ${tex_nombre(c)} = ${tex_nombrec(a-b)}\\div ${tex_nombre(c)}=${tex_nombrec((a-b)/c)}$`
 					break			
 							
 			}
@@ -4085,49 +4133,49 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 				case 0 : // (a+b)(c+d)
 					expf=`Le produit de la somme de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par la somme de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)}`
 					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)})$`
-					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a+b)}\\times${tex_nombrec(c+d)} = ${tex_nombrec((a+b)*(c+d))}$`
+					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a+b)}\\times ${tex_nombrec(c+d)} = ${tex_nombrec((a+b)*(c+d))}$`
 					break
 				case 1 : // (a+b)(c-d)
 					if (c<=d) c=calcul(c+d)
 					expf=`Le produit de la somme de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par la différence de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)}`
 					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})(${tex_nombre(c)}-${tex_nombre(d)})$`
-					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})(${tex_nombre(c)}-${tex_nombre(d)}) = ${tex_nombrec(a+b)}\\times${tex_nombrec(c-d)} = ${tex_nombrec((a+b)*(c-d))}$`
+					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})(${tex_nombre(c)}-${tex_nombre(d)}) = ${tex_nombrec(a+b)}\\times ${tex_nombrec(c-d)} = ${tex_nombrec((a+b)*(c-d))}$`
 					break
 				case 2 : // (a-b)(c+d)
 					if (a<=b) a=calcul(a+b)
 					expf=`Le produit de la différence de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par la somme de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)}`
 					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)})$`
-					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\times${tex_nombrec(c+d)} = ${tex_nombrec((a-b)*(c+d))}$`
+					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\times ${tex_nombrec(c+d)} = ${tex_nombrec((a-b)*(c+d))}$`
 					break
 				case 3 : // (a-b)(c-d)
 					if (a<=b) a=calcul(a+b)
 					if (c<=d) c=calcul(c+d)
 					expf=`Le produit de la différence de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par la différence de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)}`
 					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}-${tex_nombre(d)})$`
-					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}-${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\times${tex_nombrec(c-d)} = ${tex_nombrec((a-b)*(c-d))}$`
+					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}-${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\times ${tex_nombrec(c-d)} = ${tex_nombrec((a-b)*(c-d))}$`
 					break			
 				case 4 : // (a+b)/(c+d)
 					a=calcul(a*(c+d))
 					b=calcul(b*(c+d))
 					expf=`Le quotient de la somme de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par la somme de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)}`
-					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div(${tex_nombre(c)}+${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}+${tex_nombre(d)}}$`
-					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a+b)}\\div${tex_nombrec(c+d)} = ${tex_nombrec((a+b)/(c+d))}$`
+					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div (${tex_nombre(c)}+${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}+${tex_nombre(d)}}$`
+					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div (${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a+b)}\\div ${tex_nombrec(c+d)} = ${tex_nombrec((a+b)/(c+d))}$`
 					break
 				case 5 : // (a-b)/(c+d)
 					a=calcul(a*(c+d))
 					b=calcul(b*(c+d))
 					if (a<=b) a=calcul(a+b)
 					expf=`Le quotient de la différence de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par la somme de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)}`
-					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div(${tex_nombre(c)}+${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a)}-${tex_nombre(b)}}{${tex_nombre(c)}+${tex_nombre(d)}}$`
-					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\div${tex_nombrec(c+d)} = ${tex_nombrec((a-b)/(c+d))}$`
+					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div (${tex_nombre(c)}+${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a)}-${tex_nombre(b)}}{${tex_nombre(c)}+${tex_nombre(d)}}$`
+					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div (${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\div ${tex_nombrec(c+d)} = ${tex_nombrec((a-b)/(c+d))}$`
 					break			
 				case 6 : // (a+b)/(c-d)
 					if (c<=d) c=calcul(c+d)
 					a=calcul(a*(c-d))
 					b=calcul(b*(c-d))
 					expf=`Le quotient de la somme de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par la différence de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)}`
-					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div(${tex_nombre(c)}-${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}-${tex_nombre(d)}}$`
-					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div(${tex_nombre(c)}-${tex_nombre(d)}) = ${tex_nombrec(a+b)}\\div${tex_nombrec(c-d)} = ${tex_nombrec((a+b)/(c-d))}$`
+					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div (${tex_nombre(c)}-${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}-${tex_nombre(d)}}$`
+					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div (${tex_nombre(c)}-${tex_nombre(d)}) = ${tex_nombrec(a+b)}\\div ${tex_nombrec(c-d)} = ${tex_nombrec((a+b)/(c-d))}$`
 					break
 				case 7 : // (a-b)/(c-d)
 					if (c<=d) c=calcul(c+d)
@@ -4135,41 +4183,41 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 					a=calcul(a*(c-d))
 					b=calcul(b*(c-d))
 					expf=`Le quotient de la différence de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par la différence de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)}`
-					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div(${tex_nombre(c)}-${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a)}-${tex_nombre(b)}}{${tex_nombre(c)}-${tex_nombre(d)}}$`
-					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div(${tex_nombre(c)}-${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\div${tex_nombrec(c-d)} = ${tex_nombrec((a-b)/(c-d))}$`
+					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div (${tex_nombre(c)}-${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a)}-${tex_nombre(b)}}{${tex_nombre(c)}-${tex_nombre(d)}}$`
+					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div (${tex_nombre(c)}-${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\div ${tex_nombrec(c-d)} = ${tex_nombrec((a-b)/(c-d))}$`
 					break			
 				case 8 : // ab+cd
 					expf=`La somme du produit de ${nombre_avec_espace(a)} par ${nombre_avec_espace(b)} et du produit de ${nombre_avec_espace(c)} par ${nombre_avec_espace(d)}`
-					expn=`$${tex_nombre(a)}\\times${tex_nombre(b)}+${tex_nombre(c)}\\times${tex_nombre(d)}$`
-					expc=`$${tex_nombre(a)}\\times${tex_nombre(b)}+${tex_nombre(c)}\\times${tex_nombre(d)} = ${tex_nombrec(a*b)}+${tex_nombrec(c*d)} = ${tex_nombrec(a*b+c*d)}$`
+					expn=`$${tex_nombre(a)}\\times ${tex_nombre(b)}+${tex_nombre(c)}\\times ${tex_nombre(d)}$`
+					expc=`$${tex_nombre(a)}\\times ${tex_nombre(b)}+${tex_nombre(c)}\\times ${tex_nombre(d)} = ${tex_nombrec(a*b)}+${tex_nombrec(c*d)} = ${tex_nombrec(a*b+c*d)}$`
 					break
 				case 9 : // ab-cd
 					if (a*b<d*c) a=calcul(a+c)
 					if (a*b<d*c) b=calcul(b+d)
 					expf=`La différence du produit de ${nombre_avec_espace(a)} par ${nombre_avec_espace(b)} et du produit de ${nombre_avec_espace(c)} par ${nombre_avec_espace(d)}`
-					expn=`$${tex_nombre(a)}\\times${tex_nombre(b)}-${tex_nombre(c)}\\times${tex_nombre(d)}$`
-					expc=`$${tex_nombre(a)}\\times${tex_nombre(b)}-${tex_nombre(c)}\\times${tex_nombre(d)} = ${tex_nombrec(a*b)}-${tex_nombrec(c*d)} = ${tex_nombrec(a*b-c*d)}$`
+					expn=`$${tex_nombre(a)}\\times ${tex_nombre(b)}-${tex_nombre(c)}\\times ${tex_nombre(d)}$`
+					expc=`$${tex_nombre(a)}\\times ${tex_nombre(b)}-${tex_nombre(c)}\\times ${tex_nombre(d)} = ${tex_nombrec(a*b)}-${tex_nombrec(c*d)} = ${tex_nombrec(a*b-c*d)}$`
 					break			
 				case 10 : // ab+c/d
 					c=calcul(c*d)
 					expf=`La somme du produit de ${nombre_avec_espace(a)} par ${nombre_avec_espace(b)} et du quotient de ${nombre_avec_espace(c)} par ${nombre_avec_espace(d)}`
-					expn=`$${tex_nombre(a)}\\times${tex_nombre(b)}+${tex_nombre(c)}\\div${tex_nombre(d)}$ ou $${tex_nombre(a)}\\times${tex_nombre(b)}+\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
-					expc=`$${tex_nombre(a)}\\times${tex_nombre(b)}+${tex_nombre(c)}\\div${tex_nombre(d)} = ${tex_nombrec(a*b)}+${tex_nombrec(c/d)} = ${tex_nombrec(a*b+c/d)}$`
+					expn=`$${tex_nombre(a)}\\times ${tex_nombre(b)}+${tex_nombre(c)}\\div ${tex_nombre(d)}$ ou $${tex_nombre(a)}\\times ${tex_nombre(b)}+\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
+					expc=`$${tex_nombre(a)}\\times ${tex_nombre(b)}+${tex_nombre(c)}\\div ${tex_nombre(d)} = ${tex_nombrec(a*b)}+${tex_nombrec(c/d)} = ${tex_nombrec(a*b+c/d)}$`
 					break
 				case 11 : // ab-c/d
 					c=c*d
 					if (a*b<c/d) a=calcul(a*c)
 					if (a*b<c/d) b=calcul(b*c)
 					expf=`La différence du produit de ${nombre_avec_espace(a)} par ${nombre_avec_espace(b)} et du quotient de ${nombre_avec_espace(c)} par ${nombre_avec_espace(d)}`
-					expn=`$${tex_nombre(a)}\\times${tex_nombre(b)}-${tex_nombre(c)}\\div${tex_nombre(d)}$ ou $${tex_nombre(a)}\\times${tex_nombre(b)}-\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
-					expc=`$${tex_nombre(a)}\\times${tex_nombre(b)}-${tex_nombre(c)}\\div${tex_nombre(d)} = ${tex_nombrec(a*b)}-${tex_nombrec(c/d)} = ${tex_nombrec(a*b-c/d)}$`
+					expn=`$${tex_nombre(a)}\\times ${tex_nombre(b)}-${tex_nombre(c)}\\div ${tex_nombre(d)}$ ou $${tex_nombre(a)}\\times ${tex_nombre(b)}-\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
+					expc=`$${tex_nombre(a)}\\times ${tex_nombre(b)}-${tex_nombre(c)}\\div ${tex_nombre(d)} = ${tex_nombrec(a*b)}-${tex_nombrec(c/d)} = ${tex_nombrec(a*b-c/d)}$`
 					break	
 				case 12 : // a/b+c/d
 					a=calcul(a*b)
 					c=calcul(c*d)
 					expf=`La somme du quotient de ${nombre_avec_espace(a)} par ${nombre_avec_espace(b)} et du quotient de ${nombre_avec_espace(c)} par ${nombre_avec_espace(d)}`
-					expn=`$${tex_nombre(a)}\\div${tex_nombre(b)}+${tex_nombre(c)}\\div${tex_nombre(d)}$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}}+\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
-					expc=`$${tex_nombre(a)}\\div${tex_nombre(b)}+${tex_nombre(c)}\\div${tex_nombre(d)} = ${tex_nombrec(a/b)}+${tex_nombrec(c/d)} = ${tex_nombrec(a/b+c/d)}$`
+					expn=`$${tex_nombre(a)}\\div ${tex_nombre(b)}+${tex_nombre(c)}\\div ${tex_nombre(d)}$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}}+\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
+					expc=`$${tex_nombre(a)}\\div ${tex_nombre(b)}+${tex_nombre(c)}\\div ${tex_nombre(d)} = ${tex_nombrec(a/b)}+${tex_nombrec(c/d)} = ${tex_nombrec(a/b+c/d)}$`
 					break	
 				case 13 : // a/b-c/d		
 					a=calcul(a*b)
@@ -4177,8 +4225,8 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 					if (a/b<c/d) a=calcul(a*c)
 					if (a/c<c/d) a=calcul(a*d)
 					expf=`La différence du quotient de ${nombre_avec_espace(a)} par ${nombre_avec_espace(b)} et du quotient de ${nombre_avec_espace(c)} par ${nombre_avec_espace(d)}`
-					expn=`$${tex_nombre(a)}\\div${tex_nombre(b)}-${tex_nombre(c)}\\div${tex_nombre(d)}$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}}-\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
-					expc=`$${tex_nombre(a)}\\div${tex_nombre(b)}-${tex_nombre(c)}\\div${tex_nombre(d)} = ${tex_nombrec(a/b)}-${tex_nombrec(c/d)} = ${tex_nombrec(a/b-c/d)}$`
+					expn=`$${tex_nombre(a)}\\div ${tex_nombre(b)}-${tex_nombre(c)}\\div ${tex_nombre(d)}$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}}-\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
+					expc=`$${tex_nombre(a)}\\div ${tex_nombre(b)}-${tex_nombre(c)}\\div ${tex_nombre(d)} = ${tex_nombrec(a/b)}-${tex_nombrec(c/d)} = ${tex_nombrec(a/b-c/d)}$`
 					break	
 			}
 			break ;
@@ -4187,43 +4235,43 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 			switch (souscas) {
 				case 0 : // 2(a+bc)
 					expf=`Le double de la somme de ${nombre_avec_espace(a)} et du produit de ${nombre_avec_espace(b)} par ${nombre_avec_espace(c)}`
-					expn=`$2(${tex_nombre(a)}+${tex_nombre(b)}\\times${tex_nombre(c)})$`
-					expc=`$2(${tex_nombre(a)}+${tex_nombre(b)}\\times${tex_nombre(c)}) = 2(${tex_nombre(a)}+${tex_nombrec(b*c)}) = 2\\times ${tex_nombrec(a+b*c)}$`
+					expn=`$2(${tex_nombre(a)}+${tex_nombre(b)}\\times ${tex_nombre(c)})$`
+					expc=`$2(${tex_nombre(a)}+${tex_nombre(b)}\\times ${tex_nombre(c)}) = 2(${tex_nombre(a)}+${tex_nombrec(b*c)}) = 2\\times  ${tex_nombrec(a+b*c)}$`
 					break
 				case 1 : // 3(a+b)/c
 					a=calcul(a*c)
 					b=calcul(b*c)
 					expf=`Le triple du quotient de la somme de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par ${nombre_avec_espace(c)}`
-					expn=`$3(${tex_nombre(a)}+${tex_nombre(b)})\\div${tex_nombre(c)}$ ou $3\\times\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}}$`
-					expc=`$3(${tex_nombre(a)}+${tex_nombre(b)})\\div${tex_nombre(c)} = 3\\times ${tex_nombre(a+b)}\\div${tex_nombre(c)} = ${tex_nombrec(3*(a+b))}\\div${tex_nombre(c)} = ${tex_nombrec(3*(a+b)/c)}$`
+					expn=`$3(${tex_nombre(a)}+${tex_nombre(b)})\\div ${tex_nombre(c)}$ ou $3\\times \\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}}$`
+					expc=`$3(${tex_nombre(a)}+${tex_nombre(b)})\\div ${tex_nombre(c)} = 3\\times  ${tex_nombre(a+b)}\\div ${tex_nombre(c)} = ${tex_nombrec(3*(a+b))}\\div ${tex_nombre(c)} = ${tex_nombrec(3*(a+b)/c)}$`
 					break
 				case 2 : // (a-b)/3
 					if (a<=b) a=calcul(a+b)
 					a=calcul(3*a)
 					b=calcul(3*b)
 					expf=`Le tiers de la différence de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)}`
-					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div 3$ ou $\\dfrac{${tex_nombre(a)}-${tex_nombre(b)}}{3}$`
-					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div 3 = ${tex_nombrec(a-b)}\\div 3 = ${tex_nombrec((a-b)/3)}$`
+					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div  3$ ou $\\dfrac{${tex_nombre(a)}-${tex_nombre(b)}}{3}$`
+					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div  3 = ${tex_nombrec(a-b)}\\div  3 = ${tex_nombrec((a-b)/3)}$`
 					break
 				case 3 : // (a-b)/3*2(c+d)
 					if (a<=b) a=calcul(a+b)
 					a=calcul(3*a)
 					b=calcul(3*b)
 					expf=`Le produit du tiers de la différence de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par le double de la somme de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)}`
-					expn=`$\\left((${tex_nombre(a)}-${tex_nombre(b)})\\div 3\\right)\\times 2(${tex_nombre(c)}+${tex_nombre(d)})$`
-					expc=`$\\left((${tex_nombre(a)}-${tex_nombre(b)})\\div 3\\right)\\times 2(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\div 3 \\times 2 \\times${tex_nombrec(c+d)} = ${tex_nombrec((a-b)/3)} \\times 2 \\times ${tex_nombrec(c+d)} =  ${tex_nombrec(2*(a-b)/3)} \\times ${tex_nombrec(c+d)} = ${tex_nombrec(2*(c+d)*(a-b)/3)}$`
+					expn=`$\\left((${tex_nombre(a)}-${tex_nombre(b)})\\div  3\\right)\\times  2(${tex_nombre(c)}+${tex_nombre(d)})$`
+					expc=`$\\left((${tex_nombre(a)}-${tex_nombre(b)})\\div  3\\right)\\times  2(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\div  3 \\times  2 \\times ${tex_nombrec(c+d)} = ${tex_nombrec((a-b)/3)} \\times  2 \\times  ${tex_nombrec(c+d)} =  ${tex_nombrec(2*(a-b)/3)} \\times  ${tex_nombrec(c+d)} = ${tex_nombrec(2*(c+d)*(a-b)/3)}$`
 					break			
 				case 4 : // 3(a+b)-2(c+d)
 					if (3*(a+b)<2*(c+d)) a=calcul(a+c+d)
 					expf=`La différence du triple de la somme de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} et du double de la somme de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)}`
 					expn=`$3(${tex_nombre(a)}+${tex_nombre(b)})-2(${tex_nombre(c)}+${tex_nombre(d)})$`
-					expc=`$3(${tex_nombre(a)}+${tex_nombre(b)})-2(${tex_nombre(c)}+${tex_nombre(d)}) = 3 \\times ${tex_nombrec(a+b)} - 2 \\times ${tex_nombrec(c+d)} = ${tex_nombrec(3*(a+b))} - ${tex_nombrec(2*(c+d))} = ${tex_nombrec(3*(a+b)-2*(c+d))}$`
+					expc=`$3(${tex_nombre(a)}+${tex_nombre(b)})-2(${tex_nombre(c)}+${tex_nombre(d)}) = 3 \\times  ${tex_nombrec(a+b)} - 2 \\times  ${tex_nombrec(c+d)} = ${tex_nombrec(3*(a+b))} - ${tex_nombrec(2*(c+d))} = ${tex_nombrec(3*(a+b)-2*(c+d))}$`
 					break
 				case 5 : // 2(a-b)+3(c+d)
 					if (a<=b) a=calcul(a+b)
 					expf=`La somme du double de la différence de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} et du triple de la somme de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)}`
 					expn=`$2(${tex_nombre(a)}-${tex_nombre(b)})+3(${tex_nombre(c)}+${tex_nombre(d)})$`
-					expc=`$2(${tex_nombre(a)}-${tex_nombre(b)})+3(${tex_nombre(c)}+${tex_nombre(d)}) = 2 \\times ${tex_nombrec(a-b)} + 3 \\times ${tex_nombrec(c+d)} = ${tex_nombrec(2*(a-b))} + ${tex_nombrec(3*(c+d))} = ${tex_nombrec(2*(a-b)+3*(c+d))}$`
+					expc=`$2(${tex_nombre(a)}-${tex_nombre(b)})+3(${tex_nombre(c)}+${tex_nombre(d)}) = 2 \\times  ${tex_nombrec(a-b)} + 3 \\times  ${tex_nombrec(c+d)} = ${tex_nombrec(2*(a-b))} + ${tex_nombrec(3*(c+d))} = ${tex_nombrec(2*(a-b)+3*(c+d))}$`
 					break	
 			}		
 			break ;
@@ -4234,25 +4282,295 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 					a=calcul(a*c*(d+e))
 					b=calcul(b*c*(d+e))
 					expf=`Le quotient de la somme de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par le produit de ${nombre_avec_espace(c)} par la somme de ${nombre_avec_espace(d)} et ${nombre_avec_espace(e)}`
-					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div(${tex_nombre(c)}(${tex_nombre(d)}+${tex_nombre(e)}))$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}(${tex_nombre(d)}+${tex_nombre(e)})}$`
-					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div(${tex_nombre(c)}(${tex_nombre(d)}+${tex_nombre(e)})) = ${tex_nombrec(a+b)} \\div (${tex_nombre(c)} \\times ${tex_nombrec(d+e)}) = ${tex_nombrec(a+b)} \\div ${tex_nombre(c*(d+e))} = ${tex_nombrec((a+b)/(c*(d+e)))}$`
+					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div (${tex_nombre(c)}(${tex_nombre(d)}+${tex_nombre(e)}))$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}(${tex_nombre(d)}+${tex_nombre(e)})}$`
+					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div (${tex_nombre(c)}(${tex_nombre(d)}+${tex_nombre(e)})) = ${tex_nombrec(a+b)} \\div  (${tex_nombre(c)} \\times  ${tex_nombrec(d+e)}) = ${tex_nombrec(a+b)} \\div  ${tex_nombre(c*(d+e))} = ${tex_nombrec((a+b)/(c*(d+e)))}$`
 					break
 				case 2 : //(a-b)*(c+de)
 					if (a<=b) a=calcul(a+b)
 					expf=`Le produit de la différence de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par la somme de ${nombre_avec_espace(c)} et du produit de ${nombre_avec_espace(d)} par ${nombre_avec_espace(e)}`
-					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}\\times${tex_nombre(e)})$`
-					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}\\times${tex_nombre(e)}) = ${tex_nombrec(a-b)}(${tex_nombre(c)}+${tex_nombrec(d*e)}) = ${tex_nombrec(a-b)} \\times ${tex_nombre(c+d*e)} = ${tex_nombrec((a-b)*(c+d*e))}$`
+					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}\\times ${tex_nombre(e)})$`
+					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}\\times ${tex_nombre(e)}) = ${tex_nombrec(a-b)}(${tex_nombre(c)}+${tex_nombrec(d*e)}) = ${tex_nombrec(a-b)} \\times  ${tex_nombre(c+d*e)} = ${tex_nombrec((a-b)*(c+d*e))}$`
 					break
 				case 3 : // ab+cd/e
 					c=calcul(c*e)
 					expf=`La somme du produit de ${nombre_avec_espace(a)} par ${nombre_avec_espace(b)} et du quotient du produit de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)} par ${nombre_avec_espace(e)}`
-					expn=`$${tex_nombre(a)}\\times${tex_nombre(b)}+${tex_nombre(c)}\\times${tex_nombre(d)}\\div${tex_nombre(e)}$ ou $${tex_nombre(a)}\\times${tex_nombre(b)}+\\dfrac{${tex_nombre(c)}\\times${tex_nombre(d)}}{${tex_nombre(e)}}$`
-					expc=`$${tex_nombre(a)}\\times${tex_nombre(b)}+${tex_nombre(c)}\\times${tex_nombre(d)}\\div${tex_nombre(e)} = ${tex_nombrec(a*b)} + ${tex_nombrec(c*d)} \\div ${tex_nombre(e)} = ${tex_nombrec(a*b)} + ${tex_nombrec(c*d/e)} = ${tex_nombrec(a*b+c*d/e)}$`
+					expn=`$${tex_nombre(a)}\\times ${tex_nombre(b)}+${tex_nombre(c)}\\times ${tex_nombre(d)}\\div ${tex_nombre(e)}$ ou $${tex_nombre(a)}\\times ${tex_nombre(b)}+\\dfrac{${tex_nombre(c)}\\times ${tex_nombre(d)}}{${tex_nombre(e)}}$`
+					expc=`$${tex_nombre(a)}\\times ${tex_nombre(b)}+${tex_nombre(c)}\\times ${tex_nombre(d)}\\div ${tex_nombre(e)} = ${tex_nombrec(a*b)} + ${tex_nombrec(c*d)} \\div  ${tex_nombre(e)} = ${tex_nombrec(a*b)} + ${tex_nombrec(c*d/e)} = ${tex_nombrec(a*b+c*d/e)}$`
 					break
 			}
 			break
 		}
 		return [expf,expn,expc,souscas]
+}
+function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2) {
+	let expf,expl,expc,arrondir=Math.log10(decimal)
+	let a=arrondi(randint(2*decimal,10*decimal)/decimal,arrondir)
+	let b=arrondi(randint(2*decimal,10*decimal,[a*decimal])/decimal,arrondir)
+	let c=arrondi(randint(2*decimal,10*decimal)/decimal,arrondir)
+	let d=arrondi(randint(2*decimal,10*decimal,[c*decimal])/decimal,arrondir)
+	let e=arrondi(randint(2*decimal,10*decimal)/decimal,arrondir)  
+	let f=arrondi(randint(2*decimal,10*decimal,[e*decimal])/decimal,arrondir)
+    let souscas
+    let l1 = 'x'
+	let l2 = 'y'
+	let nbval=1
+	nb_operations%=3 // Je limite à 3 opérations : les autres ne sont pas faits.
+	switch (nb_operations){
+		case 1 : // expressions de base (1 opération)
+			souscas=randint(0,3)
+			switch (souscas) {
+				case 0 : //somme de deux nombres
+					expf=`La somme de ${nombre_avec_espace(a)} et ${l1}`
+					expl=`$${tex_nombre(a)}+${l1}$`
+					expc=`$${tex_nombre(a)}+${l1}=${tex_nombre(a)}+${tex_nombre(val1)}=${tex_nombre(a+val1)}$`
+					break
+				case 1 : // différence de deux nombres
+					if (val1>b) {
+					expf=`La différence de ${l1} et ${nombre_avec_espace(b)}`
+					expl=`$${l1}-${tex_nombre(b)}$`
+					expc=`$${l1}-${tex_nombre(b)}=${tex_nombre(val1)}-${tex_nombre(b)}=${tex_nombre(val1-b)}$`
+					}
+					else {
+					expf=`La différence de ${nombre_avec_espace(b)} et ${l1}`
+					expl=`$${tex_nombre(b)}-${l1}$`
+					expc=`$${tex_nombre(b)}-${l1}=${tex_nombre(b)}-${tex_nombre(val1)}=${tex_nombre(b-val1)}$`
+					}
+					break
+				case 2 : // produit de deux nombres
+					expf=`Le produit de ${l1} par ${nombre_avec_espace(b)}`
+					expl=`$${l1}\\times ${tex_nombre(b)} = ${tex_nombrec(b)}${l1}$`
+					expc=`$${tex_nombrec(b)}${l1} = ${tex_nombrec(b)}\\times ${val1}=${tex_nombre(b*val1)}$`
+					break
+				case 3 : // quotient de deux nombres
+
+					expf=`Le quotient de ${l1} par ${nombre_avec_espace(b)}`
+					expl=`$${l1}\\div ${tex_nombre(b)}$`
+					if (estentier(val1/b*1000))	expc=`$${l1}\\div ${tex_nombre(b)} = ${val1}\\div ${tex_nombre(b)} = ${tex_nombrec(val1/b)}$`
+					else expc=`$${l1}\\div ${tex_nombre(b)} = ${val1}\\div ${tex_nombre(b)}=${tex_fraction(val1,tex_nombre(b))}${simplification_de_fraction_avec_etapes(val1,tex_nombre(b))}$`
+					break
+			}
+			break
+		case 2 : // expressions de niveau 1 (2 opérations)
+			souscas=randint(0,5)
+			switch (souscas) {
+				case 0 : //a(b+c)
+					expf=`Le produit de ${nombre_avec_espace(a)} par la somme de ${nombre_avec_espace(b)} et ${l1}`
+					expl=`$${tex_nombre(a)}(${tex_nombre(b)}+${l1})$`
+					expc=`$${tex_nombre(a)}(${tex_nombre(b)}+${l1})=${tex_nombre(a)}(${tex_nombre(b)}+${val1})=${tex_nombre(a)}\\times ${tex_nombre(b+val1)} = ${tex_nombre(a*(b+val1))}$`
+					break
+				case 1 : // a(b-c)
+					if (b<=c) b=calcul(b+c) // b-c positif
+					expf=`Le produit de ${l1} par la différence de ${b} et ${nombre_avec_espace(c)}`
+					expl=`$${l1}(${tex_nombre(b)}-${tex_nombre(c)})=${l1}\\times ${tex_nombrec(b-c)}=${tex_nombrec(b-c)}${l1}$`
+					expc=`$${l1}(${tex_nombre(b)}-${tex_nombre(c)}) = ${tex_nombre(val1)}(${tex_nombre(b)}-${tex_nombre(c)})=${tex_nombre(val1)}\\times ${tex_nombrec(b-c)}=${tex_nombrec(val1*(b-c))}$`
+					break
+				case 2 : // a/(b+c)
+					a=calcul(a*(val1+c)) // on s'assure que le quotient tombe juste...
+					expf=`Le quotient de ${nombre_avec_espace(a)} par la somme de ${l1} et ${nombre_avec_espace(c)}`
+					expl=`$${tex_nombre(a)}\\div (${l1}+${tex_nombre(c)})$ ou $\\dfrac{${tex_nombre(a)}}{${l1}+${tex_nombre(c)}}$`
+					expc=`$${tex_nombre(a)}\\div (${l1}+${tex_nombre(c)})=${tex_nombre(a)}\\div (${tex_nombre(val1)}+${tex_nombre(c)}) = ${tex_nombre(a)}\\div ${tex_nombrec(val1+c)}=${tex_nombrec(a/(val1+c))}$`
+					break
+				case 3 : // a/(b-c)
+					if (b<=val1) b=calcul(b+val1) // b-c positif
+ 					a=calcul(a*(b-val1)) // on s'assure que le quotient tombe juste
+					expf=`Le quotient de ${nombre_avec_espace(a)} par la différence de ${nombre_avec_espace(b)} et ${l1}`
+					expl=`$${tex_nombre(a)}\\div (${b}-${l1})$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}-${l1}}$`
+					expc=`$${tex_nombre(a)}\\div (${b}-${l1})=${tex_nombre(a)}\\div (${b}-${val1})=${tex_nombre(a)}\\div ${tex_nombrec(b-val1)}=${tex_nombrec(a/(b-val1))}$`
+					break			
+				case 4 : // (a+b)/c
+					a=calcul(a*val1)
+					b=calcul(b*val1) // on s'assure que le quotient tombe juste
+					expf=`Le quotient de la somme de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par ${l1}`
+					expl=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div  ${l1}$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${l1}}$`
+					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div  ${l1}=(${tex_nombre(a)}+${tex_nombre(b)})\\div ${val1}= ${tex_nombrec(a+b)}\\div ${val1}=${tex_nombrec((a+b)/val1)}$`
+					break
+				case 5 : // (a-b)/c
+					a=calcul(a*c)+val1 // on s'assure que le quotient tombe juste et que a-b>0
+					expf=`Le quotient de la différence de ${nombre_avec_espace(a)} et ${l1} par ${nombre_avec_espace(c)}`
+					expl=`$(${tex_nombre(a)}-${l1})\\div ${tex_nombre(c)}$ ou $\\dfrac{${tex_nombre(a)}-${l1}}{${tex_nombre(c)}}$`
+					expc=`$(${tex_nombre(a)}-${l1})\\div ${tex_nombre(c)}=(${tex_nombre(a)}-${val1})\\div ${tex_nombre(c)}= ${tex_nombrec(a-val1)}\\div ${tex_nombre(c)}=${tex_nombrec((a-val1)/c)}$`
+					break			
+							
+			}
+			break
+		case 3 : // expressions de niveau 2 (3 opérations)
+			souscas=randint(0,6)
+			nbval=2
+			switch (souscas) {
+				case 0 : // (a+b)(c+d)
+					expf=`Le produit de la somme de ${l1} et ${nombre_avec_espace(b)} par la somme de ${nombre_avec_espace(c)} et ${l2}`
+					expl=`$(${l1}+${tex_nombre(b)})(${tex_nombre(c)}+${l2})$`
+					expc=`$(${l1}+${tex_nombre(b)})(${tex_nombre(c)}+${l2})=(${val1}+${tex_nombre(b)})(${tex_nombre(c)}+${val2})= ${tex_nombrec(val1+b)}\\times ${tex_nombrec(c+val2)} = ${tex_nombrec((val1+b)*(c+val2))}$`
+					break
+				case 1 : // (a+b)(c-d)
+					if (c<=val2) c=calcul(c+val2)
+					expf=`Le produit de la somme de ${nombre_avec_espace(a)} et ${l1} par la différence de ${nombre_avec_espace(c)} et ${l2}`
+					expl=`$(${tex_nombre(a)}+${l1})(${tex_nombre(c)}-${l2})$`
+					expc=`$(${tex_nombre(a)}+${l1})(${tex_nombre(c)}-${l2})=(${tex_nombre(a)}+${val1})(${tex_nombre(c)}-${val2})= ${tex_nombrec(a+val1)}\\times ${tex_nombrec(c-val2)} = ${tex_nombrec((a+val1)*(c-val2))}$`
+					break
+				case 2 : // (a-b)(c+d)
+					if (a<=val2) a=calcul(a+val2)
+					expf=`Le produit de la différence de ${nombre_avec_espace(a)} et ${l2} par la somme de ${l1} et ${nombre_avec_espace(d)}`
+					expl=`$(${tex_nombre(a)}-${l2})(${l1}+${tex_nombre(d)})$`
+					expc=`$(${tex_nombre(a)}-${l2})(${l1}+${tex_nombre(d)})=(${tex_nombre(a)}-${val2})(${val1}+${tex_nombre(d)})=${tex_nombrec(a-val2)}\\times ${tex_nombrec(val1+d)} = ${tex_nombrec((a-val2)*(val1+d))}$`
+					break
+				case 3 : // (a-b)(c-d)
+					if (a<=val1) a=calcul(a+val1)
+					if (c<=val2) c=calcul(c+val2)
+					expf=`Le produit de la différence de ${nombre_avec_espace(a)} et ${l1} par la différence de ${nombre_avec_espace(c)} et ${l2}`
+					expl=`$(${tex_nombre(a)}-${l1})(${tex_nombre(c)}-${l2})$`
+					expc=`$(${tex_nombre(a)}-${l1})(${tex_nombre(c)}-${l2})=(${tex_nombre(a)}-${val1})(${tex_nombre(c)}-${val2})= ${tex_nombrec(a-val1)}\\times ${tex_nombrec(c-val2)} = ${tex_nombrec((a-val1)*(c-val2))}$`
+					break			
+				case 4 : // (a+b)/(c+d)
+					a=calcul(a*(c+val2)-val1)
+					d=val2
+					b=val1
+					expf=`Le quotient de la somme de ${nombre_avec_espace(a)} et ${l1} par la somme de ${nombre_avec_espace(c)} et ${l2}`
+					expl=`$(${tex_nombre(a)}+${l1})\\div (${tex_nombre(c)}+${l2})$ ou $\\dfrac{${tex_nombre(a)}+${l1}}{${tex_nombre(c)}+${l2}}$`
+					expc=`$(${tex_nombre(a)}+${l1})\\div (${tex_nombre(c)}+${l2})=(${tex_nombre(a)}+${tex_nombre(b)})\\div (${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a+b)}\\div ${tex_nombrec(c+d)} = ${tex_nombrec((a+b)/(c+d))}$`
+					break
+				case 5 : // (a-b)/(c+d)
+					a=calcul(a*(c+val1)+val2)
+					d=val1
+					b=val2
+					expf=`Le quotient de la différence de ${nombre_avec_espace(a)} et ${l2} par la somme de ${nombre_avec_espace(c)} et ${l1}`
+					expl=`$(${tex_nombre(a)}-${l2})\\div (${tex_nombre(c)}+${l1})$ ou $\\dfrac{${tex_nombre(a)}-${l2}}{${tex_nombre(c)}+${l1}}$`
+					expc=`$(${tex_nombre(a)}-${l2})\\div (${tex_nombre(c)}+${l1})=(${tex_nombre(a)}-${tex_nombre(b)})\\div (${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\div ${tex_nombrec(c+d)} = ${tex_nombrec((a-b)/(c+d))}$`
+					break			
+				case 6 : // (a+b)/(c-d)
+					if (c<=val2) c=calcul(c+val2)
+					d=val2
+					if (a*(c-d)>val1 ) a=calcul(a*(c-d)-val1)
+					else a=calcul((a+val1)*(c-d)-val1)
+					b=val1
+					expf=`Le quotient de la somme de ${nombre_avec_espace(a)} et ${l1} par la différence de ${nombre_avec_espace(c)} et ${l2}`
+					expl=`$(${tex_nombre(a)}+${l1})\\div (${tex_nombre(c)}-${l2})$ ou $\\dfrac{${tex_nombre(a)}+${l1}}{${tex_nombre(c)}-${l2}}$`
+					expc=`$(${tex_nombre(a)}+${l1})\\div (${tex_nombre(c)}-${l2})=(${tex_nombre(a)}+${tex_nombre(b)})\\div (${tex_nombre(c)}-${tex_nombre(d)}) = ${tex_nombrec(a+b)}\\div ${tex_nombrec(c-d)} = ${tex_nombrec((a+b)/(c-d))}$`
+					break
+				case 7 : // (a-b)/(c-d)
+					if (c<=d) c=calcul(c+d)
+					if (a<=b) a=calcul(a+b)
+					a=calcul(a*(c-d))
+					b=calcul(b*(c-d))
+					expf=`Le quotient de la différence de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par la différence de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)}`
+					expl=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div (${tex_nombre(c)}-${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a)}-${tex_nombre(b)}}{${tex_nombre(c)}-${tex_nombre(d)}}$`
+					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div (${tex_nombre(c)}-${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\div ${tex_nombrec(c-d)} = ${tex_nombrec((a-b)/(c-d))}$`
+					break			
+				case 8 : // ab+cd
+					expf=`La somme du produit de ${nombre_avec_espace(a)} par ${nombre_avec_espace(b)} et du produit de ${nombre_avec_espace(c)} par ${nombre_avec_espace(d)}`
+					expl=`$${tex_nombre(a)}\\times ${tex_nombre(b)}+${tex_nombre(c)}\\times ${tex_nombre(d)}$`
+					expc=`$${tex_nombre(a)}\\times ${tex_nombre(b)}+${tex_nombre(c)}\\times ${tex_nombre(d)} = ${tex_nombrec(a*b)}+${tex_nombrec(c*d)} = ${tex_nombrec(a*b+c*d)}$`
+					break
+				case 9 : // ab-cd
+					if (a*b<d*c) a=calcul(a+c)
+					if (a*b<d*c) b=calcul(b+d)
+					expf=`La différence du produit de ${nombre_avec_espace(a)} par ${nombre_avec_espace(b)} et du produit de ${nombre_avec_espace(c)} par ${nombre_avec_espace(d)}`
+					expl=`$${tex_nombre(a)}\\times ${tex_nombre(b)}-${tex_nombre(c)}\\times ${tex_nombre(d)}$`
+					expc=`$${tex_nombre(a)}\\times ${tex_nombre(b)}-${tex_nombre(c)}\\times ${tex_nombre(d)} = ${tex_nombrec(a*b)}-${tex_nombrec(c*d)} = ${tex_nombrec(a*b-c*d)}$`
+					break			
+				case 10 : // ab+c/d
+					c=calcul(c*d)
+					expf=`La somme du produit de ${nombre_avec_espace(a)} par ${nombre_avec_espace(b)} et du quotient de ${nombre_avec_espace(c)} par ${nombre_avec_espace(d)}`
+					expl=`$${tex_nombre(a)}\\times ${tex_nombre(b)}+${tex_nombre(c)}\\div ${tex_nombre(d)}$ ou $${tex_nombre(a)}\\times ${tex_nombre(b)}+\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
+					expc=`$${tex_nombre(a)}\\times ${tex_nombre(b)}+${tex_nombre(c)}\\div ${tex_nombre(d)} = ${tex_nombrec(a*b)}+${tex_nombrec(c/d)} = ${tex_nombrec(a*b+c/d)}$`
+					break
+				case 11 : // ab-c/d
+					c=c*d
+					if (a*b<c/d) a=calcul(a*c)
+					if (a*b<c/d) b=calcul(b*c)
+					expf=`La différence du produit de ${nombre_avec_espace(a)} par ${nombre_avec_espace(b)} et du quotient de ${nombre_avec_espace(c)} par ${nombre_avec_espace(d)}`
+					expl=`$${tex_nombre(a)}\\times ${tex_nombre(b)}-${tex_nombre(c)}\\div ${tex_nombre(d)}$ ou $${tex_nombre(a)}\\times ${tex_nombre(b)}-\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
+					expc=`$${tex_nombre(a)}\\times ${tex_nombre(b)}-${tex_nombre(c)}\\div ${tex_nombre(d)} = ${tex_nombrec(a*b)}-${tex_nombrec(c/d)} = ${tex_nombrec(a*b-c/d)}$`
+					break	
+				case 12 : // a/b+c/d
+					a=calcul(a*b)
+					c=calcul(c*d)
+					expf=`La somme du quotient de ${nombre_avec_espace(a)} par ${nombre_avec_espace(b)} et du quotient de ${nombre_avec_espace(c)} par ${nombre_avec_espace(d)}`
+					expl=`$${tex_nombre(a)}\\div ${tex_nombre(b)}+${tex_nombre(c)}\\div ${tex_nombre(d)}$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}}+\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
+					expc=`$${tex_nombre(a)}\\div ${tex_nombre(b)}+${tex_nombre(c)}\\div ${tex_nombre(d)} = ${tex_nombrec(a/b)}+${tex_nombrec(c/d)} = ${tex_nombrec(a/b+c/d)}$`
+					break	
+				case 13 : // a/b-c/d		
+					a=calcul(a*b)
+					c=calcul(c*d)
+					if (a/b<c/d) a=calcul(a*c)
+					if (a/c<c/d) a=calcul(a*d)
+					expf=`La différence du quotient de ${nombre_avec_espace(a)} par ${nombre_avec_espace(b)} et du quotient de ${nombre_avec_espace(c)} par ${nombre_avec_espace(d)}`
+					expl=`$${tex_nombre(a)}\\div ${tex_nombre(b)}-${tex_nombre(c)}\\div ${tex_nombre(d)}$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}}-\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
+					expc=`$${tex_nombre(a)}\\div ${tex_nombre(b)}-${tex_nombre(c)}\\div ${tex_nombre(d)} = ${tex_nombrec(a/b)}-${tex_nombrec(c/d)} = ${tex_nombrec(a/b-c/d)}$`
+					break	
+			}
+			break ;
+		case 5 : // expressions complexes
+		souscas=randint(0,5)
+			switch (souscas) {
+				case 0 : // 2(a+bc)
+					expf=`Le double de la somme de ${nombre_avec_espace(a)} et du produit de ${nombre_avec_espace(b)} par ${nombre_avec_espace(c)}`
+					expl=`$2(${tex_nombre(a)}+${tex_nombre(b)}\\times ${tex_nombre(c)})$`
+					expc=`$2(${tex_nombre(a)}+${tex_nombre(b)}\\times ${tex_nombre(c)}) = 2(${tex_nombre(a)}+${tex_nombrec(b*c)}) = 2\\times  ${tex_nombrec(a+b*c)}$`
+					break
+				case 1 : // 3(a+b)/c
+					a=calcul(a*c)
+					b=calcul(b*c)
+					expf=`Le triple du quotient de la somme de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par ${nombre_avec_espace(c)}`
+					expl=`$3(${tex_nombre(a)}+${tex_nombre(b)})\\div ${tex_nombre(c)}$ ou $3\\times \\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}}$`
+					expc=`$3(${tex_nombre(a)}+${tex_nombre(b)})\\div ${tex_nombre(c)} = 3\\times  ${tex_nombre(a+b)}\\div ${tex_nombre(c)} = ${tex_nombrec(3*(a+b))}\\div ${tex_nombre(c)} = ${tex_nombrec(3*(a+b)/c)}$`
+					break
+				case 2 : // (a-b)/3
+					if (a<=b) a=calcul(a+b)
+					a=calcul(3*a)
+					b=calcul(3*b)
+					expf=`Le tiers de la différence de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)}`
+					expl=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div  3$ ou $\\dfrac{${tex_nombre(a)}-${tex_nombre(b)}}{3}$`
+					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div  3 = ${tex_nombrec(a-b)}\\div  3 = ${tex_nombrec((a-b)/3)}$`
+					break
+				case 3 : // (a-b)/3*2(c+d)
+					if (a<=b) a=calcul(a+b)
+					a=calcul(3*a)
+					b=calcul(3*b)
+					expf=`Le produit du tiers de la différence de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par le double de la somme de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)}`
+					expl=`$\\left((${tex_nombre(a)}-${tex_nombre(b)})\\div  3\\right)\\times  2(${tex_nombre(c)}+${tex_nombre(d)})$`
+					expc=`$\\left((${tex_nombre(a)}-${tex_nombre(b)})\\div  3\\right)\\times  2(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\div  3 \\times  2 \\times ${tex_nombrec(c+d)} = ${tex_nombrec((a-b)/3)} \\times  2 \\times  ${tex_nombrec(c+d)} =  ${tex_nombrec(2*(a-b)/3)} \\times  ${tex_nombrec(c+d)} = ${tex_nombrec(2*(c+d)*(a-b)/3)}$`
+					break			
+				case 4 : // 3(a+b)-2(c+d)
+					if (3*(a+b)<2*(c+d)) a=calcul(a+c+d)
+					expf=`La différence du triple de la somme de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} et du double de la somme de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)}`
+					expl=`$3(${tex_nombre(a)}+${tex_nombre(b)})-2(${tex_nombre(c)}+${tex_nombre(d)})$`
+					expc=`$3(${tex_nombre(a)}+${tex_nombre(b)})-2(${tex_nombre(c)}+${tex_nombre(d)}) = 3 \\times  ${tex_nombrec(a+b)} - 2 \\times  ${tex_nombrec(c+d)} = ${tex_nombrec(3*(a+b))} - ${tex_nombrec(2*(c+d))} = ${tex_nombrec(3*(a+b)-2*(c+d))}$`
+					break
+				case 5 : // 2(a-b)+3(c+d)
+					if (a<=b) a=calcul(a+b)
+					expf=`La somme du double de la différence de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} et du triple de la somme de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)}`
+					expl=`$2(${tex_nombre(a)}-${tex_nombre(b)})+3(${tex_nombre(c)}+${tex_nombre(d)})$`
+					expc=`$2(${tex_nombre(a)}-${tex_nombre(b)})+3(${tex_nombre(c)}+${tex_nombre(d)}) = 2 \\times  ${tex_nombrec(a-b)} + 3 \\times  ${tex_nombrec(c+d)} = ${tex_nombrec(2*(a-b))} + ${tex_nombrec(3*(c+d))} = ${tex_nombrec(2*(a-b)+3*(c+d))}$`
+					break	
+			}		
+			break ;
+		case 4 : // 4 opérations
+		souscas=randint(1,3)
+			switch (souscas) {
+				case 1 : // (a+b)/(c(d+e))
+					a=calcul(a*c*(d+e))
+					b=calcul(b*c*(d+e))
+					expf=`Le quotient de la somme de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par le produit de ${nombre_avec_espace(c)} par la somme de ${nombre_avec_espace(d)} et ${nombre_avec_espace(e)}`
+					expl=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div (${tex_nombre(c)}(${tex_nombre(d)}+${tex_nombre(e)}))$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}(${tex_nombre(d)}+${tex_nombre(e)})}$`
+					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div (${tex_nombre(c)}(${tex_nombre(d)}+${tex_nombre(e)})) = ${tex_nombrec(a+b)} \\div  (${tex_nombre(c)} \\times  ${tex_nombrec(d+e)}) = ${tex_nombrec(a+b)} \\div  ${tex_nombre(c*(d+e))} = ${tex_nombrec((a+b)/(c*(d+e)))}$`
+					break
+				case 2 : //(a-b)*(c+de)
+					if (a<=b) a=calcul(a+b)
+					expf=`Le produit de la différence de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par la somme de ${nombre_avec_espace(c)} et du produit de ${nombre_avec_espace(d)} par ${nombre_avec_espace(e)}`
+					expl=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}\\times ${tex_nombre(e)})$`
+					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}\\times ${tex_nombre(e)}) = ${tex_nombrec(a-b)}(${tex_nombre(c)}+${tex_nombrec(d*e)}) = ${tex_nombrec(a-b)} \\times  ${tex_nombre(c+d*e)} = ${tex_nombrec((a-b)*(c+d*e))}$`
+					break
+				case 3 : // ab+cd/e
+					c=calcul(c*e)
+					expf=`La somme du produit de ${nombre_avec_espace(a)} par ${nombre_avec_espace(b)} et du quotient du produit de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)} par ${nombre_avec_espace(e)}`
+					expl=`$${tex_nombre(a)}\\times ${tex_nombre(b)}+${tex_nombre(c)}\\times ${tex_nombre(d)}\\div ${tex_nombre(e)}$ ou $${tex_nombre(a)}\\times ${tex_nombre(b)}+\\dfrac{${tex_nombre(c)}\\times ${tex_nombre(d)}}{${tex_nombre(e)}}$`
+					expc=`$${tex_nombre(a)}\\times ${tex_nombre(b)}+${tex_nombre(c)}\\times ${tex_nombre(d)}\\div ${tex_nombre(e)} = ${tex_nombrec(a*b)} + ${tex_nombrec(c*d)} \\div  ${tex_nombre(e)} = ${tex_nombrec(a*b)} + ${tex_nombrec(c*d/e)} = ${tex_nombrec(a*b+c*d/e)}$`
+					break
+			}
+			break
+		}
+		return [expf,expl,expc,nbval]
 }
 
 /**
@@ -4688,9 +5006,9 @@ function DroiteRemarquableDuTriangle(){
 		for (let i = 0, a, b, texte, texte_corr, cpt=0; i < 3;i++) {// this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
 			triangles[i] = new Triangles();
 			sommets[i]=triangles[i].getSommets(false);
-			A[i] = point(randint(1,4),randint(1,4),sommets[i][0],'below left')
-			B[i] = point(randint(5,9),randint(1,4),sommets[i][1],'below right')
-			C[i] = point(randint(A[i].x,B[i].x),randint(6,8),sommets[i][2],'above')
+			A[i] = point(randint(1,4)>>1,randint(1,4)>>1,sommets[i][0],'below left')
+			B[i] = point(randint(5,9)>>1,randint(1,4)>>1,sommets[i][1],'below right')
+			C[i] = point(randint(A[i].x,B[i].x)>>1,randint(6,8)>>1,sommets[i][2],'above')
 			t[i] = polygone(A[i],B[i],C[i])
 			n[i] = labelPoint(A[i],B[i],C[i])
 			if (randint(1,2)==1) {
@@ -4707,7 +5025,7 @@ function DroiteRemarquableDuTriangle(){
 
 			}
 			objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i]]
-			texte = `Quelle est la nature de la droite tracée en gras pour le triangle ${triangles[i].getNom()} ?<br>` + mathalea2d(0,0,10,10,...objets[i])
+			texte = `Quelle est la nature de la droite tracée en gras pour le triangle ${triangles[i].getNom()} ?<br>` + mathalea2d(0,0,5,5,...objets[i])
 
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
