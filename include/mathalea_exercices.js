@@ -221,6 +221,7 @@ var liste_des_exercices_disponibles = {
 		'2G10' : Distance,
 		'2G11' : Milieu,
 		'2G12' : Nature_polygone,
+		'2G20' : calcul_coordonnees_vecteurs,
 		'2L10' : Developper_Identites_remarquables2,
 		'2L11' : Factoriser_Identites_remarquables2,
 		'betaI' : Exercice_intervalle,
