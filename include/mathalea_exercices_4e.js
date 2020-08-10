@@ -4408,8 +4408,8 @@ function Problemes_additifs_fractions() {
 				case 1 : // Triathlon des neiges --> VTT, ski de fond, course
 					texte = `${pb_3_f[0].enonce} <br> ${pb_3_f[0].question}`;
 					texte += `<br> ${pb_3_f[0].correction}`;
-					texte += `<br> ${frac.sort2Fractions(nt1,dt1,nt2,dt2)}`;
-					texte += `<br> ${frac.sortFractions(1,2,1,3,1,4,1,5,1,6,1,7,1,8,1,9,1,10,1,11,1,12,1,13)}`;
+					texte += `<br> ${frac.sortFractions(nt1,dt1,nt2,dt2)}`;
+					texte += `<br> ${frac.sortFractions(1,2,3,4,5)}`;
 					texte_corr = `1`;
 					break;
 				case 2 : //Miss Math --> Noémie, Samia, Alexia

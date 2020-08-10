@@ -4374,44 +4374,22 @@ function Relatif(...relatifs) {
 
 	/**
 	 * 
-	 * @param {} param0 les numerateurs et les denominateurs des deux fractions n1,d1,n2,d2
-	 * @return {array} renvoie un tableau avec le num et le den de la plus petit fraction en premier
-	 */
-	function sort2Fractions(n1,d1,n2,d2) {
-		try {
-			if (typeof n1 == 'undefined' || typeof d1 == 'undefined' || typeof n2 == 'undefined' || typeof d2 == 'undefined' ) {
-				throw new TypeError(`L'un des éléments n'est pas défini !`);
-			};
-			if (typeof n1 != 'number' || typeof d1 != 'number' || typeof n2 != 'number' || typeof d2 != 'number' ) {
-				throw new TypeError(`L'un des éléments n'est pas un nombre !`);
-			};
-			if ( !Number.isInteger(n1) || !Number.isInteger(d1) || !Number.isInteger(n2) || !Number.isInteger(d2)) {
-				throw new TypeError(`L'un des nombres n'est pas entier !`);
-			};
-			if ((n1/d1)>(n2/d2)) {
-				return [n2,d2,n1,d1];
-			};				
-			if ((n1/d1)<(n2/d2)) {
-				return [n1,d1,n2,d2] ;
-			};				
-			// Sinon il y a égalité donc peu importe
-			return [n1,d1,n2,d2];
-		}
-		catch (e) {
-			console.log(e.message);
-		};		 
-	};
-
-
-	/**
-	 * 
 	 * @param  {...any} fractions contient la liste des num et den dans l'ordre n1,d1,n2,d2, ... de deux ou plus de fractions
 	 * @return {array} renvoie un tableau de num et den triés selon la croissance des quotients [[n_frac_min,d_frac_min],...,[n_frac_max,d_frac_max]]
 	 * 
 	 */
 	function sortFractions(...fractions) {
-		try {
-			if (fractions.length <= 0 ) {
+		try {		
+			fractions.forEach(function(element) {
+				if (typeof element != 'number') {
+					throw new TypeError(`${element} n'est pas un nombre !`);
+				};
+				if ( (fractions.indexOf(element)%2 == 1) && (element == 0)) {
+					throw new RangeError(`${element} est exclu des valeurs possibles pour les dénominateurs !`)
+				};
+			});	
+			console.log(fractions.length);
+			if (Math.floor(fractions.length/2) <= 1 ) {
 				throw new Error(`Il faut au moins deux fractions !`);
 			};
 			if (fractions.length%2 != 0) {
@@ -4443,7 +4421,6 @@ function Relatif(...relatifs) {
 		};
 	};
 
-	this.sort2Fractions = sort2Fractions;
 	this.sortFractions = sortFractions;
 
  };
