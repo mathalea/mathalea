@@ -3974,7 +3974,7 @@ function Ecrire_une_expression_numerique(){
 				this.nb_questions=type_de_questions_disponibles.length
 			}	
 		}
-		let expf,expn,expc,decimal=1,souscas,nb_operations,resultats
+		let expf,expn,expc,decimal=1,nbval,nb_operations,resultats
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) 
 		if (this.sup2) decimal=10;
 		for (let i = 0, texte, texte_corr,val1,val2, cpt=0; i < this.nb_questions && cpt<50; ) {
@@ -3989,7 +3989,7 @@ function Ecrire_une_expression_numerique(){
 			expf=resultats[0]
 			expn=resultats[1]
 			expc=resultats[2]
-			souscas=resultats[3]
+			nbval=resultats[3]
 			switch (this.version) {
 				case 1:
 					this.consigne=`Traduire la phrase par un calcul (il n’est pas demandé d’effectuer ce calcul).`
@@ -4006,18 +4006,22 @@ function Ecrire_une_expression_numerique(){
 				case 3:
 					this.consigne=`Traduire la phrase par un calcul et effectuer ce calcul en respectant les priorités opératoires.`
 					if (!this.litteral) texte=`${expf}.`
-					else if (souscas==2) texte=`${expf} puis calculer pour $x=${val1}$ et $y=${val2}$.`
+					else if (nbval==2) texte=`${expf} puis calculer pour $x=${val1}$ et $y=${val2}$.` //nbval contient le nombre de valeurs en cas de calcul littéral
 					else texte =`${expf} puis calculer pour $x=${val1}$.`
 					texte_corr=`${expf} s'écrit ${expn}.<br>`
-					texte_corr+=`${expc}.`
+					if (!this.litteral) texte_corr=`${expc}.`
+					else if (nbval==2) texte_corr+=`Pour $x=${val1}$ et $y=${val2}$ : ${expc}.`
+					else texte_corr +=`Pour $x=${val1}$ : ${expc}.`
 					break
 				case 4:
 					if (expn.indexOf('ou')>0) expn=expn.substring(0,expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
 					this.consigne=`Calculer en respectant les priorités opératoires.`
 					if (!this.litteral) texte=`${expn}.`
-					else if (souscas==2) texte=`Pour $x=${val1}$ et $y=${val2}$, calculer ${expn}.`
+					else if (nbval==2) texte=`Pour $x=${val1}$ et $y=${val2}$, calculer ${expn}.`
 					else texte =`Pour $x=${val1}$, calculer ${expn}.`
-					texte_corr=`${expc}.`
+					if (!this.litteral) texte_corr=`${expc}.`
+					else if (nbval==2) texte_corr=`Pour $x=${val1}$ et $y=${val2}$ : ${expc}.`
+					else texte =`Pour $x=${val1}$ : ${expc}.`
 					break
  		
 			}
@@ -4314,10 +4318,11 @@ function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2) {
     let l1 = 'x'
 	let l2 = 'y'
 	let nbval=1
-	nb_operations%=3 // Je limite à 3 opérations : les autres ne sont pas faits.
+	nb_operations%=4 // Je limite à 3 opérations : les autres ne sont pas faits.
 	switch (nb_operations){
 		case 1 : // expressions de base (1 opération)
 			souscas=randint(0,3)
+			console.log('case 1 :',souscas)
 			switch (souscas) {
 				case 0 : //somme de deux nombres
 					expf=`La somme de ${nombre_avec_espace(a)} et ${l1}`
@@ -4352,6 +4357,7 @@ function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2) {
 			break
 		case 2 : // expressions de niveau 1 (2 opérations)
 			souscas=randint(0,5)
+			console.log('case 2 :',souscas)
 			switch (souscas) {
 				case 0 : //a(b+c)
 					expf=`Le produit de ${nombre_avec_espace(a)} par la somme de ${nombre_avec_espace(b)} et ${l1}`
@@ -4394,7 +4400,8 @@ function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2) {
 			}
 			break
 		case 3 : // expressions de niveau 2 (3 opérations)
-			souscas=randint(0,6)
+			souscas=randint(0,13)
+			console.log('case 3 :',souscas)
 			nbval=2
 			switch (souscas) {
 				case 0 : // (a+b)(c+d)
@@ -4448,60 +4455,72 @@ function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2) {
 					expc=`$(${tex_nombre(a)}+${l1})\\div (${tex_nombre(c)}-${l2})=(${tex_nombre(a)}+${tex_nombre(b)})\\div (${tex_nombre(c)}-${tex_nombre(d)}) = ${tex_nombrec(a+b)}\\div ${tex_nombrec(c-d)} = ${tex_nombrec((a+b)/(c-d))}$`
 					break
 				case 7 : // (a-b)/(c-d)
+					d=val2;
+					b=val1;
 					if (c<=d) c=calcul(c+d)
 					if (a<=b) a=calcul(a+b)
-					a=calcul(a*(c-d))
-					b=calcul(b*(c-d))
-					expf=`Le quotient de la différence de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par la différence de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)}`
-					expl=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div (${tex_nombre(c)}-${tex_nombre(d)})$ ou $\\dfrac{${tex_nombre(a)}-${tex_nombre(b)}}{${tex_nombre(c)}-${tex_nombre(d)}}$`
-					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})\\div (${tex_nombre(c)}-${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\div ${tex_nombrec(c-d)} = ${tex_nombrec((a-b)/(c-d))}$`
+					a=calcul(a*(c-d)+b)
+					expf=`Le quotient de la différence de ${nombre_avec_espace(a)} et ${l1} par la différence de ${nombre_avec_espace(c)} et ${l2}`
+					expl=`$(${tex_nombre(a)}-${l1})\\div (${tex_nombre(c)}-${l2})$ ou $\\dfrac{${tex_nombre(a)}-${l1}}{${tex_nombre(c)}-${l2}}$`
+					expc=`$(${tex_nombre(a)}-${l1})\\div (${tex_nombre(c)}-${l2})=(${tex_nombre(a)}-${tex_nombre(b)})\\div (${tex_nombre(c)}-${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\div ${tex_nombrec(c-d)} = ${tex_nombrec((a-b)/(c-d))}$`
 					break			
 				case 8 : // ab+cd
-					expf=`La somme du produit de ${nombre_avec_espace(a)} par ${nombre_avec_espace(b)} et du produit de ${nombre_avec_espace(c)} par ${nombre_avec_espace(d)}`
-					expl=`$${tex_nombre(a)}\\times ${tex_nombre(b)}+${tex_nombre(c)}\\times ${tex_nombre(d)}$`
-					expc=`$${tex_nombre(a)}\\times ${tex_nombre(b)}+${tex_nombre(c)}\\times ${tex_nombre(d)} = ${tex_nombrec(a*b)}+${tex_nombrec(c*d)} = ${tex_nombrec(a*b+c*d)}$`
+					b=val1;
+					d=val2;
+					expf=`La somme du produit de ${nombre_avec_espace(a)} par ${l1} et du produit de ${nombre_avec_espace(c)} par ${l2}`
+					expl=`$${tex_nombre(a)}${l1}+${tex_nombre(c)}${l2}$`
+					expc=`$${tex_nombre(a)}${l1}+${tex_nombre(c)}${l2}=${tex_nombre(a)}\\times ${tex_nombre(b)}+${tex_nombre(c)}\\times ${tex_nombre(d)} = ${tex_nombrec(a*b)}+${tex_nombrec(c*d)} = ${tex_nombrec(a*b+c*d)}$`
 					break
 				case 9 : // ab-cd
+				d=val2
+				b=val1
 					if (a*b<d*c) a=calcul(a+c)
-					if (a*b<d*c) b=calcul(b+d)
-					expf=`La différence du produit de ${nombre_avec_espace(a)} par ${nombre_avec_espace(b)} et du produit de ${nombre_avec_espace(c)} par ${nombre_avec_espace(d)}`
-					expl=`$${tex_nombre(a)}\\times ${tex_nombre(b)}-${tex_nombre(c)}\\times ${tex_nombre(d)}$`
-					expc=`$${tex_nombre(a)}\\times ${tex_nombre(b)}-${tex_nombre(c)}\\times ${tex_nombre(d)} = ${tex_nombrec(a*b)}-${tex_nombrec(c*d)} = ${tex_nombrec(a*b-c*d)}$`
+					while (a*b<d*c) a=calcul(a+c)
+					expf=`La différence du produit de ${nombre_avec_espace(a)} par ${l1} et du produit de ${nombre_avec_espace(c)} par ${l2}`
+					expl=`$${tex_nombre(a)}${l1}-${tex_nombre(c)}${l2}$`
+					expc=`$${tex_nombre(a)}${l1}-${tex_nombre(c)}${l2}=${tex_nombre(a)}\\times ${tex_nombre(b)}-${tex_nombre(c)}\\times ${tex_nombre(d)} = ${tex_nombrec(a*b)}-${tex_nombrec(c*d)} = ${tex_nombrec(a*b-c*d)}$`
 					break			
 				case 10 : // ab+c/d
+					d=val1
+					b=val2
 					c=calcul(c*d)
-					expf=`La somme du produit de ${nombre_avec_espace(a)} par ${nombre_avec_espace(b)} et du quotient de ${nombre_avec_espace(c)} par ${nombre_avec_espace(d)}`
-					expl=`$${tex_nombre(a)}\\times ${tex_nombre(b)}+${tex_nombre(c)}\\div ${tex_nombre(d)}$ ou $${tex_nombre(a)}\\times ${tex_nombre(b)}+\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
-					expc=`$${tex_nombre(a)}\\times ${tex_nombre(b)}+${tex_nombre(c)}\\div ${tex_nombre(d)} = ${tex_nombrec(a*b)}+${tex_nombrec(c/d)} = ${tex_nombrec(a*b+c/d)}$`
+					expf=`La somme du produit de ${nombre_avec_espace(a)} par ${l2} et du quotient de ${nombre_avec_espace(c)} par ${l1}`
+					expl=`$${tex_nombre(a)}${l2}+${tex_nombre(c)}\\div ${l1}$ ou $${tex_nombre(a)}${l2}+\\dfrac{${tex_nombre(c)}}{${l1}}$`
+					expc=`$${tex_nombre(a)}${l2}+${tex_nombre(c)}\\div ${l1}=${tex_nombre(a)}\\times ${tex_nombre(b)}+${tex_nombre(c)}\\div ${tex_nombre(d)} = ${tex_nombrec(a*b)}+${tex_nombrec(c/d)} = ${tex_nombrec(a*b+c/d)}$`
 					break
 				case 11 : // ab-c/d
+					d=val2
+					b=val1
 					c=c*d
-					if (a*b<c/d) a=calcul(a*c)
-					if (a*b<c/d) b=calcul(b*c)
-					expf=`La différence du produit de ${nombre_avec_espace(a)} par ${nombre_avec_espace(b)} et du quotient de ${nombre_avec_espace(c)} par ${nombre_avec_espace(d)}`
-					expl=`$${tex_nombre(a)}\\times ${tex_nombre(b)}-${tex_nombre(c)}\\div ${tex_nombre(d)}$ ou $${tex_nombre(a)}\\times ${tex_nombre(b)}-\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
-					expc=`$${tex_nombre(a)}\\times ${tex_nombre(b)}-${tex_nombre(c)}\\div ${tex_nombre(d)} = ${tex_nombrec(a*b)}-${tex_nombrec(c/d)} = ${tex_nombrec(a*b-c/d)}$`
+					while (a*b<c/d) a=calcul(a*c)
+					expf=`La différence du produit de ${nombre_avec_espace(a)} par ${l1} et du quotient de ${nombre_avec_espace(c)} par ${l2}`
+					expl=`$${tex_nombre(a)}${l1}-${tex_nombre(c)}\\div ${l2}$ ou $${tex_nombre(a)}\\times ${l1}-\\dfrac{${tex_nombre(c)}}{${l2}}$`
+					expc=`${tex_nombre(a)}${l1}-${tex_nombre(c)}\\div ${l2}=${tex_nombre(a)}\\times ${tex_nombre(b)}-${tex_nombre(c)}\\div ${tex_nombre(d)} = ${tex_nombrec(a*b)}-${tex_nombrec(c/d)} = ${tex_nombrec(a*b-c/d)}$`
 					break	
 				case 12 : // a/b+c/d
+					d=val1
+					b=val2
 					a=calcul(a*b)
 					c=calcul(c*d)
-					expf=`La somme du quotient de ${nombre_avec_espace(a)} par ${nombre_avec_espace(b)} et du quotient de ${nombre_avec_espace(c)} par ${nombre_avec_espace(d)}`
-					expl=`$${tex_nombre(a)}\\div ${tex_nombre(b)}+${tex_nombre(c)}\\div ${tex_nombre(d)}$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}}+\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
-					expc=`$${tex_nombre(a)}\\div ${tex_nombre(b)}+${tex_nombre(c)}\\div ${tex_nombre(d)} = ${tex_nombrec(a/b)}+${tex_nombrec(c/d)} = ${tex_nombrec(a/b+c/d)}$`
+					expf=`La somme du quotient de ${nombre_avec_espace(a)} par ${l2} et du quotient de ${nombre_avec_espace(c)} par ${l1}`
+					expl=`$${tex_nombre(a)}\\div ${l2}+${tex_nombre(c)}\\div ${l1}$ ou $\\dfrac{${tex_nombre(a)}}{${l2}}+\\dfrac{${tex_nombre(c)}}{${l1}}$`
+					expc=`$${tex_nombre(a)}\\div ${l2}+${tex_nombre(c)}\\div ${l1}=${tex_nombre(a)}\\div ${tex_nombre(b)}+${tex_nombre(c)}\\div ${tex_nombre(d)} = ${tex_nombrec(a/b)}+${tex_nombrec(c/d)} = ${tex_nombrec(a/b+c/d)}$`
 					break	
-				case 13 : // a/b-c/d		
+				case 13 : // a/b-c/d
+					d=val2
+					b=val1		
 					a=calcul(a*b)
 					c=calcul(c*d)
-					if (a/b<c/d) a=calcul(a*c)
-					if (a/c<c/d) a=calcul(a*d)
-					expf=`La différence du quotient de ${nombre_avec_espace(a)} par ${nombre_avec_espace(b)} et du quotient de ${nombre_avec_espace(c)} par ${nombre_avec_espace(d)}`
-					expl=`$${tex_nombre(a)}\\div ${tex_nombre(b)}-${tex_nombre(c)}\\div ${tex_nombre(d)}$ ou $\\dfrac{${tex_nombre(a)}}{${tex_nombre(b)}}-\\dfrac{${tex_nombre(c)}}{${tex_nombre(d)}}$`
-					expc=`$${tex_nombre(a)}\\div ${tex_nombre(b)}-${tex_nombre(c)}\\div ${tex_nombre(d)} = ${tex_nombrec(a/b)}-${tex_nombrec(c/d)} = ${tex_nombrec(a/b-c/d)}$`
+					while (a/b<c/d) a=calcul(a*c)
+					expf=`La différence du quotient de ${nombre_avec_espace(a)} par ${l1} et du quotient de ${nombre_avec_espace(c)} par ${l2}`
+					expl=`$${tex_nombre(a)}\\div ${l1}-${tex_nombre(c)}\\div ${l2}$ ou $\\dfrac{${tex_nombre(a)}}{${l1}}-\\dfrac{${tex_nombre(c)}}{${l2}}$`
+					expc=`$${tex_nombre(a)}\\div ${l1}-${tex_nombre(c)}\\div ${l2}=${tex_nombre(a)}\\div ${tex_nombre(b)}-${tex_nombre(c)}\\div ${tex_nombre(d)} = ${tex_nombrec(a/b)}-${tex_nombrec(c/d)} = ${tex_nombrec(a/b-c/d)}$`
 					break	
 			}
 			break ;
 		case 5 : // expressions complexes
 		souscas=randint(0,5)
+		console.log('case 5 :',souscas)
 			switch (souscas) {
 				case 0 : // 2(a+bc)
 					expf=`Le double de la somme de ${nombre_avec_espace(a)} et du produit de ${nombre_avec_espace(b)} par ${nombre_avec_espace(c)}`
@@ -4547,6 +4566,7 @@ function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2) {
 			break ;
 		case 4 : // 4 opérations
 		souscas=randint(1,3)
+		console.log('case 4 :',souscas)
 			switch (souscas) {
 				case 1 : // (a+b)/(c(d+e))
 					a=calcul(a*c*(d+e))
