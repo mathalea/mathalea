@@ -4483,7 +4483,8 @@ function Relatif(...relatifs) {
 				fractions_reduites.push(denominateur_commun);
 			};
 
-			return [fractions,'-',liste_denominateurs,'-',denominateur_commun,'-',fractions_reduites];
+			//return [fractions,'-',liste_denominateurs,'-',denominateur_commun,'-',fractions_reduites];
+			return fractions_reduites;
 
 		}
 		catch (e) {
