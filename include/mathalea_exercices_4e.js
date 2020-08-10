@@ -4367,7 +4367,8 @@ function Problemes_additifs_fractions() {
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	//this.nb_questions_modifiable = false;
-
+	sortie_html? this.spacing = 3 : this.spacing = 1.5; 
+	sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
 
 	let type_de_questions_disponibles;
 	
@@ -4390,34 +4391,36 @@ function Problemes_additifs_fractions() {
 			let dt1 = 2*nt1 + randint(1,3);
 			let nt2 = randint(2,10);
 			let dt2 = 2*nt2 + randint(1,3);
-			let nt3 = dt1*dt2-nt1*dt2-nt2*dt1,
+			let nt3 = dt1*dt2-nt1*dt2-nt2*dt1,//la somme des trois vaut 1 !
 			dt3 = dt1*dt2; 
 			let prenom = prenomM();
 			pb_3_f.push({
-				fractions: [nt1,dt1,nt2,dt2,nt3,dt3],//[n1,d1,n2,d2,d1d2-n1d2-d2d1,d1d2] la somme des trois vaut 1 ! 
+				fractions: [nt1,dt1,'VTT',nt2,dt2,'ski de fond',nt3,dt3,'pied'],
 				enonce: ``,
 				question: `Pour quelle discipline, la distance est-elle la plus grande ?`,
 				correction: ``
 			});
 			pb_3_f[0].enonce = `Le triathlon des neiges de la vallée des loups comprend trois épreuves qui s'enchaînent : VTT, ski de fonc et course à pied.`;
 			pb_3_f[0].enonce += `<br>${prenom}, un passionné de cette épreuve, s'entraîne régulièrement sur le même circuit. `;
-			pb_3_f[0].enonce += `<br>À chaque entraînement, il parcourt le circuit de la façon suivante : $\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}$ à VTT, `
-			pb_3_f[0].enonce += `$\\dfrac{${pb_3_f[0].fractions[2]}}{${pb_3_f[0].fractions[3]}}$ à ski de fond et le reste à pied.`;
+			pb_3_f[0].enonce += `<br>À chaque entraînement, il parcourt le circuit de la façon suivante : $\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}$ à ${pb_3_f[0].fractions[2]}, `
+			pb_3_f[0].enonce += `$\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}}$ à ${pb_3_f[0].fractions[5]} et le reste à ${pb_3_f[0].fractions[8]}.`;
 
-			pb_3_f[0].correction = `Calculons d'abord la distance à pied : $1-\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}-\\dfrac{${pb_3_f[0].fractions[2]}}{${pb_3_f[0].fractions[3]}} = \\dfrac{${pb_3_f[0].fractions[4]}}{${pb_3_f[0].fractions[5]}}$`
-			pb_3_f[0].correction += `${prenom} fait donc $\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}$ de VTT, `;
-			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[2]}}{${pb_3_f[0].fractions[3]}}$ de ski de fond et `;
-			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[4]}}{${pb_3_f[0].fractions[5]}}$ de course à pied.`;
-			let frac_rangees = frac.sortFractions(pb_3_f[0].fractions[0],pb_3_f[0].fractions[1],pb_3_f[0].fractions[2],pb_3_f[0].fractions[3],pb_3_f[0].fractions[4],pb_3_f[0].fractions[5]); 
+			pb_3_f[0].correction = `Calculons d'abord la distance à pied : $1-\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}-\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}} = \\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}}$`
+			pb_3_f[0].correction += `<br>${prenom} fait donc $\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}$ à ${pb_3_f[0].fractions[2]}, `;
+			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}}$ à ${pb_3_f[0].fractions[5]} et `;
+			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}}$ à ${pb_3_f[0].fractions[8]}.`;
+			let frac_rangees = frac.sortFractions(pb_3_f[0].fractions[0],pb_3_f[0].fractions[1],pb_3_f[0].fractions[3],pb_3_f[0].fractions[4],pb_3_f[0].fractions[6],pb_3_f[0].fractions[7]); 
 			pb_3_f[0].correction += `<br>Rangeons ces fractions dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
+			pb_3_f[0].correction += `<br> Donc c'est ${texte_en_couleur_et_gras(`à ${pb_3_f[0].fractions[pb_3_f[0].fractions.indexOf(frac_rangees[5])+1]}`)} que ${prenom} fait la plus grande distance.`
 			
 			
 			switch (liste_type_de_questions[i]) {
 				case 1 : // Triathlon des neiges --> VTT, ski de fond, course
 					texte = `${pb_3_f[0].enonce} <br> ${pb_3_f[0].question}`;
+					texte += `<br>`;
 					texte += `<br> ${pb_3_f[0].correction}`;
-					texte += `<br> ${frac.sortFractions(nt1,dt1,nt2,dt2)}`;
-					texte += `<br> ${frac.sortFractions(1,2,3,4,5)}`;
+					// texte += `<br> ${frac.sortFractions(nt1,dt1,nt2,dt2)}`;
+					// texte += `<br> ${frac.sortFractions(1,2,3,4,5)}`;
 					texte_corr = `1`;
 					break;
 				case 2 : //Miss Math --> Noémie, Samia, Alexia
