@@ -4381,20 +4381,32 @@ function Problemes_additifs_fractions() {
 		this.liste_corrections = []; // Liste de questions corrigées
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
-			let problemes_trois_fractions = [];
-			let fractions_triathlon = [`$\\dfrac{1}{2}$`,`$\\dfrac{3}{4}$`];
-			let enonce_triathlon = `Le triathlon des neiges de la vallée des loups comprend trois épreuves qui s'enchaînent : VTT, ski de fonc et course à pied.`;
-			enonce_triathlon += `<br>${prenomM()}, un passionné de cette épreuve, s'entraîne régulièrement sur le même circuit.`;
-			enonce_triathlon += `<br>À chaque entraînement, il parcourt le circuit de la façon suivante : `;			
-			// problemes.push({
-			// 	enonce: 
-			// })
+			// le tableau d'objet contenant tout le necesssaire, fractions, énoncé, question ... pour les problème avec 3 fractions
+			let pb_3_f = [];
+			// les numérateurs et dénominateurs des 3 fractions attention les deux premières doivent être inférieures à 1/2 si on veut qu'elles soient toutes positives !
+			let nt1 = randint(1,6);
+			let dt1 = 2*nt1 + randint(1,3);
+			let nt2 = randint(2,10);
+			let dt2 = 2*nt2 + randint(1,3);
+			let nt3 = dt1*dt2-nt1*dt2-nt2*dt1,
+			dt3 = dt1*dt2; 
+			pb_3_f.push({
+				fractions: [nt1,dt1,nt2,dt2,nt3,dt3],//[n1,d1,n2,d2,d1d2-n1d2-d2d1,d1d2] la somme des trois vaut 1 ! 
+				enonce: ``,
+				question: `Pour quelle discipline, la distance est-elle la plus grande ?`,
+				correction: ``
+			});
+			pb_3_f[0].enonce = `Le triathlon des neiges de la vallée des loups comprend trois épreuves qui s'enchaînent : VTT, ski de fonc et course à pied.`;
+			pb_3_f[0].enonce += `<br>${prenomM()}, un passionné de cette épreuve, s'entraîne régulièrement sur le même circuit. `;
+			pb_3_f[0].enonce += `<br>À chaque entraînement, il parcourt le circuit de la façon suivante : $\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}$ à VTT, `
+			pb_3_f[0].enonce += `$\\dfrac{${pb_3_f[0].fractions[2]}}{${pb_3_f[0].fractions[3]}}$ à ski de fond et le reste à pied.`;
 
-
+			pb_3_f[0].correction = `Calculons d'abord la distance à pied : $1-\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}-\\dfrac{${pb_3_f[0].fractions[2]}}{${pb_3_f[0].fractions[3]}} = \\dfrac{${pb_3_f[0].fractions[4]}}{${pb_3_f[0].fractions[5]}}$`
 			
 			switch (liste_type_de_questions[i]) {
 				case 1 : // Triathlon des neiges --> VTT, ski de fond, course
-					texte = `1 ${enonce_triathlon}`;
+					texte = `${pb_3_f[0].enonce} <br> ${pb_3_f[0].question}`;
+					texte += `<br> ${pb_3_f[0].correction}`;
 					texte_corr = `1`;
 					break;
 				case 2 : //Miss Math --> Noémie, Samia, Alexia

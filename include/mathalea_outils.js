@@ -3752,6 +3752,7 @@ function texte_ou_pas(texte) {
  * @param {array} tab_entetes_colonnes contient les entetes des colonnes
  * @param {array} tab_entetes_lignes contient les entetes des lignes
  * @param {array} tab_lignes contient les elements de chaque ligne
+ * @author Sébastien Lozano
  */
 function tab_C_L(tab_entetes_colonnes,tab_entetes_lignes,tab_lignes) {
 	'use strict';
@@ -4359,7 +4360,17 @@ function Relatif(...relatifs) {
 	this.getSigneProduitNumber = getSigneProduitNumber;
 	this.getSigneProduitString = getSigneProduitString;
 
-}
+};
+
+/**
+ * @class Fraction
+ * @classdesc Classe Fraction - Méthodes utiles sur les fractions
+ * @author Sébastien Lozano
+ */
+
+ function Fraction() {
+
+ };
 
 // Gestion des styles LaTeX
 
