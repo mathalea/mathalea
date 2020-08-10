@@ -4349,3 +4349,79 @@ function Puissances_encadrement() {
 	};
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : nombre enier positif\n2 : nombre décimal positif\n3 : nombre enier positif inférieur à un\n4 : Mélange"];
 };
+
+/**
+ * Problèmes additifs et de comparaion sur les rationnels
+ * 4C25-0
+ * @author Sébastien Lozano
+ */
+function Problemes_additifs_fractions() {
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()	
+	this.sup=1;
+	this.nb_questions = 5;
+	this.titre = `Problèmes additifs et de comparaison sur les rationnels`;	
+
+	this.consigne = `Justifier vos réponses aux problèmes suivants.`;
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	//this.nb_questions_modifiable = false;
+
+
+	let type_de_questions_disponibles;
+	
+	this.nouvelle_version = function(numero_de_l_exercice){
+		type_de_questions_disponibles = [1,2,3,4,5];
+		
+		//let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+			let problemes_trois_fractions = [];
+			let fractions_triathlon = [`$\\dfrac{1}{2}$`,`$\\dfrac{3}{4}$`];
+			let enonce_triathlon = `Le triathlon des neiges de la vallée des loups comprend trois épreuves qui s'enchaînent : VTT, ski de fonc et course à pied.`;
+			enonce_triathlon += `<br>${prenomM()}, un passionné de cette épreuve, s'entraîne régulièrement sur le même circuit.`;
+			enonce_triathlon += `<br>À chaque entraînement, il parcourt le circuit de la façon suivante : `;			
+			// problemes.push({
+			// 	enonce: 
+			// })
+
+
+			
+			switch (liste_type_de_questions[i]) {
+				case 1 : // Triathlon des neiges --> VTT, ski de fond, course
+					texte = `1 ${enonce_triathlon}`;
+					texte_corr = `1`;
+					break;
+				case 2 : //Miss Math --> Noémie, Samia, Alexia
+					texte = `2`;
+					texte_corr = `2`;
+					break;
+				case 3 : // Mandala --> carmin, ocre jaune, turquoise, pourpre
+					texte = `3`;
+					texte_corr = `3`;
+					break;
+				case 4 : // Jardin --> légumes, plantes aromatiques, semis, fraisiers
+					texte = `4`;
+					texte_corr = `4`;
+					break;
+				case 5 : // Stade --> pays organisatuers, supporters, sponsors, vente libre
+					texte = `5`;
+					texte_corr = `5`;
+					break;	
+			};
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}	
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+	};
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : nombre enier positif\n2 : nombre décimal positif\n3 : nombre enier positif inférieur à un\n4 : Mélange"];
+};
