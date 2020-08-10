@@ -583,8 +583,8 @@ function droiteParPointEtPente(A,k,nom='',color='black') {
  	return new ConstructionMediatrice(...args)
  }
 /**
- * d = bissectrice(A,B) // Bissectrice de [AB]
- * d = bissectrice(A,B,'blue') // Bissectrice de [AB] en bleu
+ * d = bissectrice(A,O,B) // Bissectrice de l'angle AOB
+ * d = bissectrice(A,O,B,'blue') // Bissectrice de l'angle AOB en bleu
  * 
  * @Auteur Rémi Angot
  */
@@ -596,6 +596,35 @@ function droiteParPointEtPente(A,k,nom='',color='black') {
  	let M = rotation(m,O,demiangle)
  	return demiDroite(O,M,this.color)	
  }
+ /**
+  * m = codagebissectrice(A,O,B) ajoute des arcs marqués de part et d'autres de la bissectrice mais ne trace pas celle-ci.
+  * @Auteur Jean-Claude Lhote
+  */
+ function CodageBissectrice(A,O,B,color='black',mark='×'){
+	ObjetMathalea2D.call(this)
+	this.color = color
+	let a = pointSurSegment(O,A,1)
+	let demiangle = calcul(angleOriente(A,O,B)/2)
+	let M = rotation(a,O,demiangle)
+	let mark1=rotation(a,O,demiangle/2)
+	let mark2=rotation(M,O,demiangle/2)
+	let t1=texteParPoint(mark,mark1,Math.round(droite(O,A).angleAvecHorizontale+demiangle/2-90),color)
+	let t2=texteParPoint(mark,mark2,Math.round(droite(O,A).angleAvecHorizontale+3*demiangle/2-90),color)
+	console.log(t1,t1.svg())
+	let b = pointSurSegment(O,B,1)
+	let a1 = arcPointPointAngle(a,M,demiangle,this.color)
+	let a2 = arcPointPointAngle(M,b,demiangle,this.color)
+	this.svg = function(){
+		return a1.svg() + '\n' + a2.svg() + '\n' + t1.svg() + '\n' +t2.svg()
+	}
+	this.tikz = function(){
+		return a1.tikz() + '\n' + a2.tikz()+ '\n' + t1.tikz() + '\n' +t2.tikz()
+	}
+}
+
+function codageBissectrice(...args){
+	return new CodageBissectrice(...args)
+}
 
 /**
  * m = constructionMediatrice(A,B,false,'blue','×') // Trace et code la médiatrice en laissant apparent les traits de construction au compas

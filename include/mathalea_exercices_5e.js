@@ -5040,13 +5040,20 @@ function DroiteRemarquableDuTriangle(){
 	this.nb_questions=1
 	this.nb_cols=1
 	this.nb_cols_corr=1
+	this.sup=1
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		pixelsParCm=30
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		let triangles=[],sommets=[[]],A=[],B=[],C=[],t=[],d=[],n=[],c=[],objets=[],A0,B0,C0,tri,G,g,AA,BB,CC,na=[],nb=[],nc=[]
-		for (let i = 0, a, angle,rapport, texte, texte_corr, cpt=0; i < 3;i++) {// this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
+		let type_de_questions_disponibles,liste_type_de_questions
+		if (this.sup==1) type_de_questions_disponibles=[1,2]
+		if (this.sup==2) type_de_questions_disponibles=[3,4]
+		if (this.sup==3) type_de_questions_disponibles=[1,2,3,4]
+		liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions)
+		console.log(liste_type_de_questions)
+		for (let i = 0, a, angle,rapport, texte, texte_corr, cpt=0; i < this.nb_questions;i++) {// this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
 			triangles[i] = new Triangles();
 			sommets[i]= triangles[i].getSommets(false);
 
@@ -5070,23 +5077,46 @@ function DroiteRemarquableDuTriangle(){
 			nb[i]=texteParPoint(sommets[i][1],BB,0)
 			nc[i]=texteParPoint(sommets[i][2],CC,0)
 
+			switch (liste_type_de_questions[i]) {
+				case 1 :
+					console.log('case 1')
+					d[i] = hauteurTriangle(C[i],B[i],A[i],'blue')
+					d[i].epaisseur=1
+					c[i] = codageHauteurTriangle(C[i],B[i],A[i])
+					objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i],na[i],nb[i],nc[i]]
+					texte_corr=`La droite tracée est la hauteur issue de $${sommets[i][0]}$ dans le triangle ${triangles[i].getNom()}.<br>`
+					texte_corr+=mathalea2d(-1,-2,8,8,...objets[i])
+					break
+				case 2 :
+					console.log('case 2')
+					d[i] = mediatrice(A[i],B[i],true,'blue')
+					d[i].epaisseur=1
+					c[i] = codageMediatrice(A[i],B[i])
+					objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i],na[i],nb[i],nc[i]]
+					texte_corr=`La droite tracée est la médiatrice du segment [$${sommets[i][0]}${sommets[i][1]}]$.<br>`
+					texte_corr+=mathalea2d(-1,-2,8,8,...objets[i],constructionMediatrice(A[i],B[i],true,color='red', markmilieu='×', markrayons='//',couleurMediatrice = 'blue', epaisseurMediatrice = 1))
+					break
+				case 3 :
+					console.log('case 3')
+					d[i] = medianeTriangle(C[i],B[i],A[i],'blue')
+					d[i].epaisseur=1
+					c[i] = codageMedianeTriangle(C[i],B[i],A[i],color='black',mark='//')
+					objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i],na[i],nb[i],nc[i]]
+					texte_corr=`La droite tracée est la médiane issue de $${sommets[i][0]}$ dans le triangle ${triangles[i].getNom()}.<br>`
+					texte_corr+=mathalea2d(-1,-2,8,8,...objets[i])
+					break
+				case 4 :
+					console.log('case 4')
+					d[i] = bissectrice(A[i],B[i],C[i],'blue')
+					d[i].epaisseur=1
+					c[i] = codageBissectrice(A[i],B[i],C[i])
+					objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i],na[i],nb[i],nc[i]]
+					texte_corr=`La droite tracée est la bissectrice de l'angle $\\widehat{${sommets[i][0]}${sommets[i][1]}${sommets[i][2]}}$.<br>`
+					texte_corr+=mathalea2d(-1,-2,8,8,...objets[i],constructionBissectrice(A[i],B[i],C[i],detail = false, color='red', mark='×',tailleLosange = 3,couleurBissectrice = 'blue', epaiseurBissectrice = 1))
+					break
 
-			if (randint(1,2)==1) {
-				d[i] = hauteurTriangle(C[i],B[i],A[i],'blue')
-				d[i].epaisseur=1
-				c[i] = codageHauteurTriangle(C[i],B[i],A[i])
-				objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i],na[i],nb[i],nc[i]]
-				texte_corr=`La droite tracée est la hauteur issue de $${sommets[i][0]}$ dans le triangle ${triangles[i].getNom()}.<br>`
-				texte_corr+=mathalea2d(-1,-2,8,8,...objets[i])
 			}
-			else {
-				d[i] = mediatrice(A[i],B[i],true,'blue')
-				d[i].epaisseur=1
-				c[i] = codageMediatrice(A[i],B[i])
-				objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i],na[i],nb[i],nc[i]]
-				texte_corr=`La droite tracée est la médiatrice du segment [$${sommets[i][0]}${sommets[i][1]}]$.<br>`
-				texte_corr+=mathalea2d(-1,-2,8,8,...objets[i],constructionMediatrice(A[i],B[i],true,color='red', markmilieu='×', markrayons='//',couleurMediatrice = 'blue', epaisseurMediatrice = 1))
-			}
+
 			texte = `Quelle est la nature de la droite tracée en bleu pour le triangle ${triangles[i].getNom()} ?<br>` + mathalea2d(-1,-2,8,8,...objets[i])
 
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
@@ -5097,4 +5127,5 @@ function DroiteRemarquableDuTriangle(){
 		liste_de_question_to_contenu(this);
 		pixelsParCm=20
 	}
+	this.besoin_formulaire_numerique = ['Type de droites',3,"1 : Hauteurs et Médiatrices\n2 : Médianes et Bissectrices\n3 : Toutes les droites"]
 }
