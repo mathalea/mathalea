@@ -2639,7 +2639,7 @@ function TexteParPoint(texte,A,orientation = "milieu",color) {
 	this.svg = function(){
 		let code =''
 		if (Number.isInteger(orientation)) {
-			code = `<text x="${A.xSVG()}" y="${A.ySVG()}" text-anchor="middle" dominant-baseline="central" fill="${this.color}" transform="rotate(${orientation} ${A.xSVG()} ${A.ySVG()})">${texte}</text>\n `; 
+			code = `<text x="${A.xSVG()}" y="${A.ySVG()}" text-anchor="middle" dominant-baseline="central" fill="${this.color}" transform="rotate(${-orientation} ${A.xSVG()} ${A.ySVG()})">${texte}</text>\n `; 
 		} else {
 			switch (orientation){
 				case 'milieu':
@@ -2658,7 +2658,7 @@ function TexteParPoint(texte,A,orientation = "milieu",color) {
 	}
 	this.tikz = function(){
 		let code = ''
-		if (Number.isInteger(orientation)) {
+		if (typeof(orientation)=='number') {
 			code = `\\draw (${A.x},${A.y}) node[anchor = center, rotate = ${orientation}] {${texte}}`;
 		} else {
 			let anchor = '';
