@@ -4413,7 +4413,8 @@ function Problemes_additifs_fractions() {
 			pb_3_f[0].correction += `<br>Rangeons ces fractions dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
 			pb_3_f[0].correction += `<br> Donc c'est ${texte_en_couleur_et_gras(`à ${pb_3_f[0].fractions[pb_3_f[0].fractions.indexOf(frac_rangees[5])+1]}`)} que ${prenom} fait la plus grande distance.`
 			
-			
+			pb_3_f[0].correction += `<br> ${parseInt(Algebrite.run(`lcm(${2},${3},${4})`))}`;
+			pb_3_f[0].correction += `<br> ${frac.ppcm(2,3,4,7)}`;
 			switch (liste_type_de_questions[i]) {
 				case 1 : // Triathlon des neiges --> VTT, ski de fond, course
 					texte = `${pb_3_f[0].enonce} <br> ${pb_3_f[0].question}`;

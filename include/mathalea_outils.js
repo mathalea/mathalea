@@ -4421,7 +4421,64 @@ function Relatif(...relatifs) {
 		};
 	};
 
+	/**
+	 * 
+	 * @param  {...any} n fonction locale pour trouver le ppcm d'un nombre indeterminé d'entiers
+	 * @return {number} renvoie le ppcm des nombres entiers passés dans le paramètre du reste n
+	 */
+	function ppcm(...n) {
+		try {
+			n.forEach(function(element) {
+				if (typeof element != 'number') {
+					throw new TypeError(`${element} n'est pas un nombre !`);
+				};
+			});
+			// Quoi faire sans nombres ?
+			if (n.length == 0) {
+				throw new Error(`C'est mieux avec quelques nombres !`)
+			};
+			return parseInt(Algebrite.run(`lcm(${n})`));
+
+		}
+		catch (e) {
+			console.log(e.message);
+		};
+		
+
+	};
+
+	/**
+	 * 
+	 * @param  {...any} fractions contient la liste des num et den dans l'ordre n1,d1,n2,d2, ... de deux ou plus de fractions
+	 * @return {array} renvoie un tableau de num et den avec le même denom dans l'ordre initial
+	 * 
+	 */
+	function reduceSameDenom(...fractions) {
+		try {		
+			fractions.forEach(function(element) {
+				if (typeof element != 'number') {
+					throw new TypeError(`${element} n'est pas un nombre !`);
+				};
+				if ( (fractions.indexOf(element)%2 == 1) && (element == 0)) {
+					throw new RangeError(`${element} est exclu des valeurs possibles pour les dénominateurs !`)
+				};
+			});	
+			console.log(fractions.length);
+			if (Math.floor(fractions.length/2) <= 1 ) {
+				throw new Error(`Il faut au moins deux fractions !`);
+			};
+			if (fractions.length%2 != 0) {
+				throw new Error(`Il faut un nombre pair de valeurs puisque q'une fraction est représentée par son numérateur et son dénominateur`);
+			};
+
+		}
+		catch (e) {
+			console.log(e.message);
+		};
+	};
+
 	this.sortFractions = sortFractions;
+	
 
  };
 
