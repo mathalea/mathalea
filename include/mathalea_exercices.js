@@ -137,6 +137,7 @@ var liste_des_exercices_disponibles = {
 		'4C10-1': Signe_produit_relatifs,
 		'4C10-2': Signe_quotient_relatifs,
 		'4C10-3': Exercice_multiplications_relatifs,
+		'4C25-0': Problemes_additifs_fractions,
 		'4C30-1': Puissances_encadrement,
 		'4G40' : Transformations_4e,
 		'4L10' : Exercice_developper,

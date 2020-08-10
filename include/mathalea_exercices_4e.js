@@ -4349,3 +4349,124 @@ function Puissances_encadrement() {
 	};
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : nombre enier positif\n2 : nombre décimal positif\n3 : nombre enier positif inférieur à un\n4 : Mélange"];
 };
+
+/**
+ * Problèmes additifs et de comparaion sur les rationnels
+ * 4C25-0
+ * @author Sébastien Lozano
+ */
+function Problemes_additifs_fractions() {
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()	
+	this.sup=1;
+	this.nb_questions = 5;
+	this.titre = `Problèmes additifs et de comparaison sur les rationnels`;	
+
+	this.consigne = `Justifier vos réponses aux problèmes suivants.`;
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	//this.nb_questions_modifiable = false;
+	sortie_html? this.spacing = 3 : this.spacing = 2; 
+	sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
+
+	let type_de_questions_disponibles;
+	
+	this.nouvelle_version = function(numero_de_l_exercice){
+		type_de_questions_disponibles = [1,2,3,4,5];
+		
+		//let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+			// on aura besoin des méthodes de la classe Fraction()
+			let frac = new Fraction();
+			// le tableau d'objet contenant tout le necesssaire, fractions, énoncé, question ... pour les problème avec 3 fractions
+			let pb_3_f = [];
+			// les numérateurs et dénominateurs des 3 fractions attention les deux premières doivent être inférieures à 1/2 si on veut qu'elles soient toutes positives !
+			let nt1 = randint(1,6);
+			let dt1 = 2*nt1 + randint(1,3);
+			let nt2 = randint(2,10);
+			let dt2 = 2*nt2 + randint(1,3);
+			let nt3 = dt1*dt2-nt1*dt2-nt2*dt1,//la somme des trois vaut 1 !
+			dt3 = dt1*dt2; 
+			//let prenom = prenomM();
+			pb_3_f.push({
+				prenoms: [prenomM()],
+				fractions: [nt1,dt1,'VTT',nt2,dt2,'ski de fond',nt3,dt3,'pied'],
+				enonce: ``,
+				question: `Pour quelle discipline, la distance est-elle la plus grande ?`,
+				correction: ``
+			});
+			pb_3_f[0].enonce = `Le triathlon des neiges de la vallée des loups comprend trois épreuves qui s'enchaînent : VTT, ski de fonc et course à pied.`;
+			pb_3_f[0].enonce += `<br>${pb_3_f[0].prenoms[0]}, un passionné de cette épreuve, s'entraîne régulièrement sur le même circuit. `;
+			pb_3_f[0].enonce += `<br>À chaque entraînement, il parcourt le circuit de la façon suivante : $\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}$ à ${pb_3_f[0].fractions[2]}, `
+			pb_3_f[0].enonce += `$\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}}$ à ${pb_3_f[0].fractions[5]} et le reste à ${pb_3_f[0].fractions[8]}.`;
+
+			pb_3_f[0].correction = `Calculons d'abord la distance à pied : $1-\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}-\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}} = \\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}}$`
+			pb_3_f[0].correction += `<br>${pb_3_f[0].prenoms[0]} fait donc $\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}$ à ${pb_3_f[0].fractions[2]}, `;
+			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}}$ à ${pb_3_f[0].fractions[5]} et `;
+			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}}$ à ${pb_3_f[0].fractions[8]}.`;			
+			pb_3_f[0].correction += `<br>Réduisons ces fractions au même dénominateur :`;
+			let frac_meme_denom = frac.reduceSameDenominateur(pb_3_f[0].fractions[0],pb_3_f[0].fractions[1],pb_3_f[0].fractions[3],pb_3_f[0].fractions[4],pb_3_f[0].fractions[6],pb_3_f[0].fractions[7]);			
+			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ ; `;
+			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ et `;
+			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$.`;
+			let frac_rangees = frac.sortFractions(pb_3_f[0].fractions[0],pb_3_f[0].fractions[1],pb_3_f[0].fractions[3],pb_3_f[0].fractions[4],pb_3_f[0].fractions[6],pb_3_f[0].fractions[7]); 
+			pb_3_f[0].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
+			pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[0].fractions[pb_3_f[0].fractions.indexOf(frac_rangees[5])+1]} que ${pb_3_f[0].prenoms[0]} fait la plus grande distance.`)}`;			
+
+			pb_3_f.push({
+				//prenoms: [prenomF(),prenomF(),prenomF()],
+				fractions: [nt1,dt1,prenomF(),nt2,dt2,prenomF(),nt3,dt3,prenomF()],
+				enonce: ``,
+				question: `Qui a été elue ?`,
+				correction: ``
+			});
+			let currentDate = new Date();
+			let currentAnnee = currentDate.getFullYear();
+			pb_3_f[1].enonce = `À l'élection de Miss Math ${currentAnnee}, ${pb_3_f[1].fractions[2]} a remporté $\\dfrac{${pb_3_f[1].fractions[0]}}{${pb_3_f[1].fractions[1]}}$ des suffrages, `;
+			pb_3_f[1].enonce += `${pb_3_f[1].fractions[5]} $\\dfrac{${pb_3_f[1].fractions[3]}}{${pb_3_f[1].fractions[4]}}$ et `;
+			pb_3_f[1].enonce += `${pb_3_f[1].fractions[8]} tous les autres.`;
+			//pb_3_f[1].enonce += `<br> ${pb_3_f[1].fractions}`;
+
+			switch (liste_type_de_questions[i]) {
+				case 1 : // Triathlon des neiges --> VTT, ski de fond, course
+					texte = `${pb_3_f[0].enonce} <br> ${pb_3_f[0].question}`;
+					texte += `<br>`;
+					texte += `<br> ${pb_3_f[0].correction}`;
+					texte_corr = `1`;
+					break;
+				case 2 : //Miss Math --> Noémie, Samia, Alexia
+					texte = `${pb_3_f[1].enonce} <br> ${pb_3_f[1].question}`;
+					texte += `<br>`;
+					texte += `<br> ${pb_3_f[1].correction}`;
+					texte_corr = `2`;
+					break;
+				case 3 : // Mandala --> carmin, ocre jaune, turquoise, pourpre
+					texte = `3`;
+					texte_corr = `3`;
+					break;
+				case 4 : // Jardin --> légumes, plantes aromatiques, semis, fraisiers
+					texte = `4`;
+					texte_corr = `4`;
+					break;
+				case 5 : // Stade --> pays organisatuers, supporters, sponsors, vente libre
+					texte = `5`;
+					texte_corr = `5`;
+					break;	
+			};
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}	
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+	};
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : nombre enier positif\n2 : nombre décimal positif\n3 : nombre enier positif inférieur à un\n4 : Mélange"];
+};

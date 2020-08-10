@@ -3752,6 +3752,7 @@ function texte_ou_pas(texte) {
  * @param {array} tab_entetes_colonnes contient les entetes des colonnes
  * @param {array} tab_entetes_lignes contient les entetes des lignes
  * @param {array} tab_lignes contient les elements de chaque ligne
+ * @author Sébastien Lozano
  */
 function tab_C_L(tab_entetes_colonnes,tab_entetes_lignes,tab_lignes) {
 	'use strict';
@@ -4359,7 +4360,143 @@ function Relatif(...relatifs) {
 	this.getSigneProduitNumber = getSigneProduitNumber;
 	this.getSigneProduitString = getSigneProduitString;
 
-}
+};
+
+/**
+ * @class Fraction
+ * @classdesc Classe Fraction - Méthodes utiles sur les fractions
+ * @author Sébastien Lozano
+ */
+
+ function Fraction() {
+	 //'use strict'; pas de use strict avec un paramètre du reste
+	 var self = this;
+
+	/**
+	 * 
+	 * @param  {...any} fractions contient la liste des num et den dans l'ordre n1,d1,n2,d2, ... de deux ou plus de fractions
+	 * @return {array} renvoie un tableau de num et den triés selon la croissance des quotients [[n_frac_min,d_frac_min],...,[n_frac_max,d_frac_max]]
+	 * 
+	 */
+	function sortFractions(...fractions) {
+		try {		
+			fractions.forEach(function(element) {
+				if (typeof element != 'number') {
+					throw new TypeError(`${element} n'est pas un nombre !`);
+				};
+				if ( (fractions.indexOf(element)%2 == 1) && (element == 0)) {
+					throw new RangeError(`${element} est exclu des valeurs possibles pour les dénominateurs !`)
+				};
+			});	
+			console.log(fractions.length);
+			if (Math.floor(fractions.length/2) <= 1 ) {
+				throw new Error(`Il faut au moins deux fractions !`);
+			};
+			if (fractions.length%2 != 0) {
+				throw new Error(`Il faut un nombre pair de valeurs puisque q'une fraction est représentée par son numérateur et son dénominateur`);
+			};
+			let changed;
+			do{
+			 	changed = false;
+			 	for (let i=0; i<(fractions.length-1); i+=2) {
+					//  console.log('i'+i);
+					//  console.log(fractions[i]);
+					//  console.log(fractions[i+1]);
+					//  console.log(fractions[i+2]);
+					//  console.log(fractions[i+3]);
+					if ((fractions[i]/fractions[i+1]) > (fractions[i+2]/fractions[i+3])) {
+						let tmp = [fractions[i],fractions[i+1]];
+						fractions[i]=fractions[i+2];
+						fractions[i+1] = fractions[i+3];
+						fractions[i+2] = tmp [0];
+						fractions[i+3] = tmp[1];
+						changed = true;
+					};
+				 };
+			} while(changed);
+			return fractions;
+		}
+		catch (e) {
+			console.log(e.message);
+		};
+	};
+
+	/**
+	 * fonction locale pour trouver le ppcm d'un nombre indeterminé d'entiers
+	 * @param  {[...integer]} n parametre du reste contenant une liste d'entiers
+	 * @return {number} renvoie le ppcm des nombres entiers passés dans le paramètre du reste n
+	 */
+	function ppcm([...n]) {
+		try {
+			n.forEach(function(element) {
+				if (typeof element != 'number') {
+					throw new TypeError(`${element} n'est pas un nombre !`);
+				};
+			});
+			// Quoi faire sans nombres ?
+			if (n.length == 0) {
+				throw new Error(`C'est mieux avec quelques nombres !`)
+			};
+			return parseInt(Algebrite.run(`lcm(${n})`));
+
+		}
+		catch (e) {
+			console.log(e.message);
+		};
+		
+
+	};
+
+	/**
+	 * 
+	 * @param  {...any} fractions contient la liste des num et den dans l'ordre n1,d1,n2,d2, ... de deux ou plus de fractions
+	 * @return {array} renvoie un tableau de num et den avec le même denom dans l'ordre initial
+	 * 
+	 */
+	function reduceSameDenominateur(...fractions) {
+		try {		
+			fractions.forEach(function(element) {
+				if (typeof element != 'number') {
+					throw new TypeError(`${element} n'est pas un nombre !`);
+				};
+				if ( (fractions.indexOf(element)%2 == 1) && (element == 0)) {
+					throw new RangeError(`${element} est exclu des valeurs possibles pour les dénominateurs !`)
+				};
+			});	
+			console.log(fractions.length);
+			if (Math.floor(fractions.length/2) <= 1 ) {
+				throw new Error(`Il faut au moins deux fractions !`);
+			};
+			if (fractions.length%2 != 0) {
+				throw new Error(`Il faut un nombre pair de valeurs puisque q'une fraction est représentée par son numérateur et son dénominateur`);
+			};
+			let denominateur_commun;
+			let liste_denominateurs = [];
+			for (let i=0; i<fractions.length-1; i+=2) {
+				liste_denominateurs.push(fractions[i+1]);
+			};
+			denominateur_commun = ppcm(liste_denominateurs);
+			let fractions_reduites = [];
+			for (let i=0; i<fractions.length-1; i+=2) {
+				//on calcule le nouveau numérateur
+				fractions_reduites.push(fractions[i]*denominateur_commun/fractions[i+1]);
+				fractions_reduites.push(denominateur_commun);
+			};
+
+			//return [fractions,'-',liste_denominateurs,'-',denominateur_commun,'-',fractions_reduites];
+			return fractions_reduites;
+
+		}
+		catch (e) {
+			console.log(e.message);
+		};
+	};
+
+	this.sortFractions = sortFractions;
+	this.reduceSameDenominateur = reduceSameDenominateur;
+	
+
+ };
 
 // Gestion des styles LaTeX
 
