@@ -4422,11 +4422,11 @@ function Relatif(...relatifs) {
 	};
 
 	/**
-	 * 
-	 * @param  {...any} n fonction locale pour trouver le ppcm d'un nombre indeterminé d'entiers
+	 * fonction locale pour trouver le ppcm d'un nombre indeterminé d'entiers
+	 * @param  {[...integer]} n parametre du reste contenant une liste d'entiers
 	 * @return {number} renvoie le ppcm des nombres entiers passés dans le paramètre du reste n
 	 */
-	function ppcm(...n) {
+	function ppcm([...n]) {
 		try {
 			n.forEach(function(element) {
 				if (typeof element != 'number') {
@@ -4453,7 +4453,7 @@ function Relatif(...relatifs) {
 	 * @return {array} renvoie un tableau de num et den avec le même denom dans l'ordre initial
 	 * 
 	 */
-	function reduceSameDenom(...fractions) {
+	function reduceSameDenominateur(...fractions) {
 		try {		
 			fractions.forEach(function(element) {
 				if (typeof element != 'number') {
@@ -4470,6 +4470,20 @@ function Relatif(...relatifs) {
 			if (fractions.length%2 != 0) {
 				throw new Error(`Il faut un nombre pair de valeurs puisque q'une fraction est représentée par son numérateur et son dénominateur`);
 			};
+			let denominateur_commun;
+			let liste_denominateurs = [];
+			for (let i=0; i<fractions.length-1; i+=2) {
+				liste_denominateurs.push(fractions[i+1]);
+			};
+			denominateur_commun = ppcm(liste_denominateurs);
+			let fractions_reduites = [];
+			for (let i=0; i<fractions.length-1; i+=2) {
+				//on calcule le nouveau numérateur
+				fractions_reduites.push(fractions[i]*denominateur_commun/fractions[i+1]);
+				fractions_reduites.push(denominateur_commun);
+			};
+
+			return [fractions,'-',liste_denominateurs,'-',denominateur_commun,'-',fractions_reduites];
 
 		}
 		catch (e) {
@@ -4478,6 +4492,7 @@ function Relatif(...relatifs) {
 	};
 
 	this.sortFractions = sortFractions;
+	this.reduceSameDenominateur = reduceSameDenominateur;
 	
 
  };
