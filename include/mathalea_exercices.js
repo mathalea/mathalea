@@ -129,7 +129,7 @@ var liste_des_exercices_disponibles = {
 		'5S13': Calculer_des_frequences,
 		'5S14': Calculer_des_moyennes,
 		'5S21' : fonctions_probabilite1,
-		'4C1': Signe_produit_quotient_relatifs,
+		'4C10-0': Signe_produit_quotient_relatifs,
 		'4C10-1': Signe_produit_relatifs,
 		'4C10-2': Signe_quotient_relatifs,
 		'4C10-3': Exercice_multiplications_relatifs,

@@ -4015,7 +4015,7 @@ function Egalite_Pythagore(){
 /**
  * Signe d'un produit ou d'on quotient de relatifs
  * Plusieurs niveaux 2, 3 ou 4 factieurs, un quotient de 2 nombres, 1  nombre sur un produit de deux nombres, un prooduit de 2 nombres sur un nombre, un quotient de produit de 2 nombres
- * 4C1 exercice parent  ?
+ * 4C10-0 exercice parent  ?
  * @author Sébastien Lozano
  */
 
