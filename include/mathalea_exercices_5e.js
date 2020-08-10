@@ -4010,8 +4010,8 @@ function Ecrire_une_expression_numerique(){
 					else texte =`${expf} puis calculer pour $x=${val1}$.`
 					texte_corr=`${expf} s'écrit ${expn}.<br>`
 					if (!this.litteral) texte_corr=`${expc}.`
-					else if (nbval==2) texte_corr+=`Pour $x=${val1}$ et $y=${val2}$ : ${expc}.`
-					else texte_corr +=`Pour $x=${val1}$ : ${expc}.`
+					else if (nbval==2) texte_corr+=`Pour $x=${val1}$ et $y=${val2}$ :<br> ${expc}.`
+					else texte_corr +=`Pour $x=${val1}$ :<br>${expc}.`
 					break
 				case 4:
 					if (expn.indexOf('ou')>0) expn=expn.substring(0,expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
@@ -4020,8 +4020,8 @@ function Ecrire_une_expression_numerique(){
 					else if (nbval==2) texte=`Pour $x=${val1}$ et $y=${val2}$, calculer ${expn}.`
 					else texte =`Pour $x=${val1}$, calculer ${expn}.`
 					if (!this.litteral) texte_corr=`${expc}.`
-					else if (nbval==2) texte_corr=`Pour $x=${val1}$ et $y=${val2}$ : ${expc}.`
-					else texte_corr=`Pour $x=${val1}$ : ${expc}.`
+					else if (nbval==2) texte_corr=`Pour $x=${val1}$ et $y=${val2}$ :<br>${expc}.`
+					else texte_corr=`Pour $x=${val1}$ :<br>${expc}.`
 					break
  		
 			}
@@ -4535,7 +4535,7 @@ function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2) {
 					c=val2
 					expf=`Le double de la somme de ${l1} et du produit de ${nombre_avec_espace(b)} par ${l2}`
 					expl=`$2(${l1}+${tex_nombre(b)}${l2})$`
-					expc=`$2(${l1}+${tex_nombre(b)}${l2})=2(${tex_nombre(a)}+${tex_nombre(b)}\\times ${tex_nombre(c)}) = 2(${tex_nombre(a)}+${tex_nombrec(b*c)}) = 2\\times  ${tex_nombrec(a+b*c)}$`
+					expc=`$2(${l1}+${tex_nombre(b)}${l2})=2(${tex_nombre(a)}+${tex_nombre(b)}\\times ${tex_nombre(c)}) = 2(${tex_nombre(a)}+${tex_nombrec(b*c)}) = 2\\times ${tex_nombrec(a+b*c)}=${tex_nombrec(2*(a+b*c))}$`
 					break
 				case 1 : // 3(a+b)/c
 					b=val1
@@ -5042,32 +5042,52 @@ function DroiteRemarquableDuTriangle(){
 	this.nb_cols_corr=1
 
 	this.nouvelle_version = function(numero_de_l_exercice){
+		pixelsParCm=30
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let triangles=[],sommets=[[]],A=[],B=[],C=[],t=[],d=[],n=[],c=[],objets=[]
-		for (let i = 0, a, b, texte, texte_corr, cpt=0; i < 3;i++) {// this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
+		let triangles=[],sommets=[[]],A=[],B=[],C=[],t=[],d=[],n=[],c=[],objets=[],A0,B0,C0,tri,G,g,AA,BB,CC,na=[],nb=[],nc=[]
+		for (let i = 0, a, angle,rapport, texte, texte_corr, cpt=0; i < 3;i++) {// this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
 			triangles[i] = new Triangles();
-			sommets[i]=triangles[i].getSommets(false);
-			A[i] = point(randint(1,4)>>1,randint(1,4)>>1,sommets[i][0],'below left')
-			B[i] = point(randint(5,9)>>1,randint(1,4)>>1,sommets[i][1],'below right')
-			C[i] = point(randint(A[i].x,B[i].x)>>1,randint(6,8)>>1,sommets[i][2],'above')
+			sommets[i]= triangles[i].getSommets(false);
+
+			A0 = point(3,randint(1,2))
+			B0 = point(6,randint(1,2))
+			angle = choice([50,60,70,75,80,100,110,120])
+			rapport=randint(7,13)/10
+			C0 = similitude(B0,A0,angle,rapport)
+			tri = polygone(A0,B0,C0)
+			G = centreGraviteTriangle(A0,B0,C0)
+			a=randint(0,360)
+			A[i] =rotation(A0,G,a,sommets[i][0],'below left')
+			B[i] = rotation(B0,G,a,sommets[i][1],'below right')
+			C[i] = rotation(C0,G,a,sommets[i][2],'above')
 			t[i] = polygone(A[i],B[i],C[i])
-			n[i] = labelPoint(A[i],B[i],C[i])
+			AA= homothetie(A[i],G,1.3)
+			BB= homothetie(B[i],G,1.3)
+			CC= homothetie(C[i],G,1.3)
+
+			na[i]=texteParPoint(sommets[i][0],AA,0)
+			nb[i]=texteParPoint(sommets[i][1],BB,0)
+			nc[i]=texteParPoint(sommets[i][2],CC,0)
+
+
 			if (randint(1,2)==1) {
-				d[i] = hauteurTriangle(A[i],B[i],C[i])
-				d[i].epaisseur=2
-				c[i] = codageHauteurTriangle(A[i],B[i],C[i])
-				texte_corr=`La droite tracée est la hauteur issue de $${sommets[i][0]}$ dans le triangle ${triangles[i].getNom()}.`
+				d[i] = hauteurTriangle(C[i],B[i],A[i],'blue')
+				d[i].epaisseur=1
+				c[i] = codageHauteurTriangle(C[i],B[i],A[i])
+				objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i],na[i],nb[i],nc[i]]
+				texte_corr=`La droite tracée est la hauteur issue de $${sommets[i][0]}$ dans le triangle ${triangles[i].getNom()}.<br>`
+				texte_corr+=mathalea2d(-1,-2,8,8,...objets[i])
 			}
 			else {
-				d[i] = mediatrice(A[i],B[i])
-				d[i].epaisseur=2
+				d[i] = mediatrice(A[i],B[i],true,'blue')
+				d[i].epaisseur=1
 				c[i] = codageMediatrice(A[i],B[i])
-				texte_corr=`La droite tracée est la médiatrice du segment [$${sommets[i][0]}${sommets[i][1]}]$.`
-
+				objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i],na[i],nb[i],nc[i]]
+				texte_corr=`La droite tracée est la médiatrice du segment [$${sommets[i][0]}${sommets[i][1]}]$.<br>`
+				texte_corr+=mathalea2d(-1,-2,8,8,...objets[i],constructionMediatrice(A[i],B[i],true,color='red', markmilieu='×', markrayons='//',couleurMediatrice = 'blue', epaisseurMediatrice = 1))
 			}
-			objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i]]
-			texte = `Quelle est la nature de la droite tracée en gras pour le triangle ${triangles[i].getNom()} ?<br>` + mathalea2d(0,0,5,5,...objets[i])
+			texte = `Quelle est la nature de la droite tracée en bleu pour le triangle ${triangles[i].getNom()} ?<br>` + mathalea2d(-1,-2,8,8,...objets[i])
 
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
@@ -5075,5 +5095,6 @@ function DroiteRemarquableDuTriangle(){
 			}
 		}
 		liste_de_question_to_contenu(this);
+		pixelsParCm=20
 	}
 }
