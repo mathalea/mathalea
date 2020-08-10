@@ -4402,11 +4402,14 @@ function Problemes_additifs_fractions() {
 			pb_3_f[0].enonce += `$\\dfrac{${pb_3_f[0].fractions[2]}}{${pb_3_f[0].fractions[3]}}$ à ski de fond et le reste à pied.`;
 
 			pb_3_f[0].correction = `Calculons d'abord la distance à pied : $1-\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}-\\dfrac{${pb_3_f[0].fractions[2]}}{${pb_3_f[0].fractions[3]}} = \\dfrac{${pb_3_f[0].fractions[4]}}{${pb_3_f[0].fractions[5]}}$`
+			let frac = new Fraction();
 			
 			switch (liste_type_de_questions[i]) {
 				case 1 : // Triathlon des neiges --> VTT, ski de fond, course
 					texte = `${pb_3_f[0].enonce} <br> ${pb_3_f[0].question}`;
 					texte += `<br> ${pb_3_f[0].correction}`;
+					texte += `<br> ${frac.sort2Fractions(nt1,dt1,nt2,dt2)}`;
+					texte += `<br> ${frac.sortFractions(1,2,1,3,1,4,1,5,1,6,1,7,1,8,1,9,1,10,1,11,1,12,1,13)}`;
 					texte_corr = `1`;
 					break;
 				case 2 : //Miss Math --> Noémie, Samia, Alexia

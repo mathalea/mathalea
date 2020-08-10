@@ -4369,6 +4369,82 @@ function Relatif(...relatifs) {
  */
 
  function Fraction() {
+	 //'use strict'; pas de use strict avec un paramètre du reste
+	 var self = this;
+
+	/**
+	 * 
+	 * @param {} param0 les numerateurs et les denominateurs des deux fractions n1,d1,n2,d2
+	 * @return {array} renvoie un tableau avec le num et le den de la plus petit fraction en premier
+	 */
+	function sort2Fractions(n1,d1,n2,d2) {
+		try {
+			if (typeof n1 == 'undefined' || typeof d1 == 'undefined' || typeof n2 == 'undefined' || typeof d2 == 'undefined' ) {
+				throw new TypeError(`L'un des éléments n'est pas défini !`);
+			};
+			if (typeof n1 != 'number' || typeof d1 != 'number' || typeof n2 != 'number' || typeof d2 != 'number' ) {
+				throw new TypeError(`L'un des éléments n'est pas un nombre !`);
+			};
+			if ( !Number.isInteger(n1) || !Number.isInteger(d1) || !Number.isInteger(n2) || !Number.isInteger(d2)) {
+				throw new TypeError(`L'un des nombres n'est pas entier !`);
+			};
+			if ((n1/d1)>(n2/d2)) {
+				return [n2,d2,n1,d1];
+			};				
+			if ((n1/d1)<(n2/d2)) {
+				return [n1,d1,n2,d2] ;
+			};				
+			// Sinon il y a égalité donc peu importe
+			return [n1,d1,n2,d2];
+		}
+		catch (e) {
+			console.log(e.message);
+		};		 
+	};
+
+
+	/**
+	 * 
+	 * @param  {...any} fractions contient la liste des num et den dans l'ordre n1,d1,n2,d2, ... de deux ou plus de fractions
+	 * @return {array} renvoie un tableau de num et den triés selon la croissance des quotients [[n_frac_min,d_frac_min],...,[n_frac_max,d_frac_max]]
+	 * 
+	 */
+	function sortFractions(...fractions) {
+		try {
+			if (fractions.length <= 0 ) {
+				throw new Error(`Il faut au moins deux fractions !`);
+			};
+			if (fractions.length%2 != 0) {
+				throw new Error(`Il faut un nombre pair de valeurs puisque q'une fraction est représentée par son numérateur et son dénominateur`);
+			};
+			let changed;
+			do{
+			 	changed = false;
+			 	for (let i=0; i<(fractions.length-1); i+=2) {
+					//  console.log('i'+i);
+					//  console.log(fractions[i]);
+					//  console.log(fractions[i+1]);
+					//  console.log(fractions[i+2]);
+					//  console.log(fractions[i+3]);
+					if ((fractions[i]/fractions[i+1]) > (fractions[i+2]/fractions[i+3])) {
+						let tmp = [fractions[i],fractions[i+1]];
+						fractions[i]=fractions[i+2];
+						fractions[i+1] = fractions[i+3];
+						fractions[i+2] = tmp [0];
+						fractions[i+3] = tmp[1];
+						changed = true;
+					};
+				 };
+			} while(changed);
+			return fractions;
+		}
+		catch (e) {
+			console.log(e.message);
+		};
+	};
+
+	this.sort2Fractions = sort2Fractions;
+	this.sortFractions = sortFractions;
 
  };
 
