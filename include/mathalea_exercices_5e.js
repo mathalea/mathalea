@@ -4022,7 +4022,6 @@ function Ecrire_une_expression_numerique(){
 					if (!this.litteral) texte_corr=`${expc}.`
 					else if (nbval==2) texte_corr=`Pour $x=${val1}$ et $y=${val2}$ : ${expc}.`
 					else texte_corr=`Pour $x=${val1}$ : ${expc}.`
-					console.log(texte,texte_corr)
 					break
  		
 			}
@@ -4323,6 +4322,7 @@ function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2) {
 		case 1 : // expressions de base (1 opération)
 			nbval=1
 			souscas=randint(0,3)
+			console.log('case 1 :',souscas)
 			switch (souscas) {
 				case 0 : //somme de deux nombres
 					expf=`La somme de ${nombre_avec_espace(a)} et ${l1}`
