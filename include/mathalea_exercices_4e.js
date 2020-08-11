@@ -4434,7 +4434,7 @@ function Problemes_additifs_fractions() {
 				//prenoms: [prenomF(),prenomF(),prenomF()],
 				fractions: [nt1,dt1,p1,nt2,dt2,p2,nt3,dt3,p3],
 				enonce: ``,
-				question: `Qui a été elue ?`,
+				question: `Qui a été élue ?`,
 				correction: ``
 			});
 			let currentDate = new Date();
