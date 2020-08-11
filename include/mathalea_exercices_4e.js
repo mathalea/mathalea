@@ -4257,7 +4257,9 @@ function Puissances_encadrement() {
 				ent_pos.push({
 					val:`$${tex_nombre(randint(10**i+1,10**(i+1)))}$`,
 					puissance_inf:`$10^{${i}}$`,
-					puissance_sup:`$10^{${i+1}}$`
+					puissance_sup:`$10^{${i+1}}$`,
+					puissance_inf_num:`$${tex_nombre(10**i)}$`,
+					puissance_sup_num:`$${tex_nombre(10**(i+1))}$`
 				});
 			};
 
@@ -4267,7 +4269,9 @@ function Puissances_encadrement() {
 				dec_pos.push({
 					val:`$${tex_nombre(randint(10000,100000)/(10**(4-i)))}$`,
 					puissance_inf:`$10^{${i}}$`,
-					puissance_sup:`$10^{${i+1}}$`
+					puissance_sup:`$10^{${i+1}}$`,
+					puissance_inf_num:`$${tex_nombre(10**i)}$`,
+					puissance_sup_num:`$${tex_nombre(10**(i+1))}$`
 				});
 			};			
 			// nombre décimal positif inférieur à 1, entre 0,1 et 1 puis entre 0,01 et 0,1 puis 0,001 et 0,0001
@@ -4276,7 +4280,10 @@ function Puissances_encadrement() {
 				dec_pos_inf_un.push({
 					val:`$${tex_nombre(randint(10**(4-i-1)+1,10**(4-i))/10000)}$`,
 					puissance_inf:`$10^{${-(i+1)}}$`,
-					puissance_sup:`$10^{${-i}}$`
+					puissance_sup:`$10^{${-i}}$`,
+					puissance_inf_num:`$${tex_nombre(10**(-(i+1)))}$`,
+					puissance_sup_num:`$${tex_nombre(10**(-i))}$`
+
 				});
 			};			
 			
@@ -4284,58 +4291,72 @@ function Puissances_encadrement() {
 				case 1 : // nombre enier positif
 					texte = `${ent_pos[0].val}`;
 					texte_corr = `${ent_pos[0].puissance_inf} $\\leqslant$ ${ent_pos[0].val} $\\leqslant$ ${ent_pos[0].puissance_sup}`;
+					texte_corr += ` car ${ent_pos[0].puissance_inf} = ${ent_pos[0].puissance_inf_num} et ${ent_pos[0].puissance_sup} = ${ent_pos[0].puissance_sup_num}`;
 					break;
 				case 2 : // nombre enier positif
 					texte = `${ent_pos[1].val}`;
 					texte_corr = `${ent_pos[1].puissance_inf} $\\leqslant$ ${ent_pos[1].val} $\\leqslant$ ${ent_pos[1].puissance_sup}`;
+					texte_corr += ` car ${ent_pos[1].puissance_inf} = ${ent_pos[1].puissance_inf_num} et ${ent_pos[1].puissance_sup} = ${ent_pos[1].puissance_sup_num}`;
 					break;
 				case 3 : // nombre enier positif
 					texte = `${ent_pos[2].val}`;
 					texte_corr = `${ent_pos[2].puissance_inf} $\\leqslant$ ${ent_pos[2].val} $\\leqslant$ ${ent_pos[2].puissance_sup}`;
+					texte_corr += ` car ${ent_pos[2].puissance_inf} = ${ent_pos[2].puissance_inf_num} et ${ent_pos[2].puissance_sup} = ${ent_pos[2].puissance_sup_num}`;
 					break;
 				case 4 : // nombre enier positif
 					texte = `${ent_pos[3].val}`;
 					texte_corr = `${ent_pos[3].puissance_inf} $\\leqslant$ ${ent_pos[3].val} $\\leqslant$ ${ent_pos[3].puissance_sup}`;
+					texte_corr += ` car ${ent_pos[3].puissance_inf} = ${ent_pos[3].puissance_inf_num} et ${ent_pos[3].puissance_sup} = ${ent_pos[3].puissance_sup_num}`;
 					break;
 				case 5 : // nombre enier positif
 					texte = `${ent_pos[4].val}`;
 					texte_corr = `${ent_pos[4].puissance_inf} $\\leqslant$ ${ent_pos[4].val} $\\leqslant$ ${ent_pos[4].puissance_sup}`;
+					texte_corr += ` car ${ent_pos[4].puissance_inf} = ${ent_pos[4].puissance_inf_num} et ${ent_pos[4].puissance_sup} = ${ent_pos[4].puissance_sup_num}`;
 					break;
 				case 6 : // nombre enier positif
 					texte = `${ent_pos[5].val}`;
 					texte_corr = `${ent_pos[5].puissance_inf} $\\leqslant$ ${ent_pos[5].val} $\\leqslant$ ${ent_pos[5].puissance_sup}`;
+					texte_corr += ` car ${ent_pos[5].puissance_inf} = ${ent_pos[5].puissance_inf_num} et ${ent_pos[5].puissance_sup} = ${ent_pos[5].puissance_sup_num}`;
 					break;																				
 				case 7 : // nombre décimal positif
 					texte = `${dec_pos[0].val}`;
 					texte_corr = `${dec_pos[0].puissance_inf} $\\leqslant$ ${dec_pos[0].val} $\\leqslant$ ${dec_pos[0].puissance_sup}`;
+					texte_corr += ` car ${dec_pos[0].puissance_inf} = ${dec_pos[0].puissance_inf_num} et ${dec_pos[0].puissance_sup} = ${dec_pos[0].puissance_sup_num}`;
 					break;
 				case 8 : // nombre décimal positif
 					texte = `${dec_pos[1].val}`;
 					texte_corr = `${dec_pos[1].puissance_inf} $\\leqslant$ ${dec_pos[1].val} $\\leqslant$ ${dec_pos[1].puissance_sup}`;
+					texte_corr += ` car ${dec_pos[1].puissance_inf} = ${dec_pos[1].puissance_inf_num} et ${dec_pos[1].puissance_sup} = ${dec_pos[1].puissance_sup_num}`;
 					break;
 				case 9 : // nombre décimal positif
 					texte = `${dec_pos[2].val}`;
 					texte_corr = `${dec_pos[2].puissance_inf} $\\leqslant$ ${dec_pos[2].val} $\\leqslant$ ${dec_pos[2].puissance_sup}`;
+					texte_corr += ` car ${dec_pos[2].puissance_inf} = ${dec_pos[2].puissance_inf_num} et ${dec_pos[2].puissance_sup} = ${dec_pos[2].puissance_sup_num}`;
 					break;
 				case 10 : // nombre décimal positif
 					texte = `${dec_pos[3].val}`;
 					texte_corr = `${dec_pos[3].puissance_inf} $\\leqslant$ ${dec_pos[3].val} $\\leqslant$ ${dec_pos[3].puissance_sup}`;
+					texte_corr += ` car ${dec_pos[3].puissance_inf} = ${dec_pos[3].puissance_inf_num} et ${dec_pos[3].puissance_sup} = ${dec_pos[3].puissance_sup_num}`;
 					break;
 				case 11 : // nombre décimal positif inferieur à 1
 					texte = `${dec_pos_inf_un[0].val}`;
 					texte_corr = `${dec_pos_inf_un[0].puissance_inf} $\\leqslant$ ${dec_pos_inf_un[0].val} $\\leqslant$ ${dec_pos_inf_un[0].puissance_sup}`;
+					texte_corr += ` car ${dec_pos_inf_un[0].puissance_inf} = ${dec_pos_inf_un[0].puissance_inf_num} et ${dec_pos_inf_un[0].puissance_sup} = ${dec_pos_inf_un[0].puissance_sup_num}`;
 					break;		
 				case 12 : // nombre décimal positif inferieur à 1
 					texte = `${dec_pos_inf_un[1].val}`;
 					texte_corr = `${dec_pos_inf_un[1].puissance_inf} $\\leqslant$ ${dec_pos_inf_un[1].val} $\\leqslant$ ${dec_pos_inf_un[1].puissance_sup}`;
+					texte_corr += ` car ${dec_pos_inf_un[1].puissance_inf} = ${dec_pos_inf_un[1].puissance_inf_num} et ${dec_pos_inf_un[1].puissance_sup} = ${dec_pos_inf_un[1].puissance_sup_num}`;
 					break;		
 				case 13 : // nombre décimal positif inferieur à 1
 					texte = `${dec_pos_inf_un[2].val}`;
 					texte_corr = `${dec_pos_inf_un[2].puissance_inf} $\\leqslant$ ${dec_pos_inf_un[2].val} $\\leqslant$ ${dec_pos_inf_un[2].puissance_sup}`;
+					texte_corr += ` car ${dec_pos_inf_un[2].puissance_inf} = ${dec_pos_inf_un[2].puissance_inf_num} et ${dec_pos_inf_un[2].puissance_sup} = ${dec_pos_inf_un[2].puissance_sup_num}`;
 					break;		
 				case 14 : // nombre décimal positif inferieur à 1
 					texte = `${dec_pos_inf_un[3].val}`;
 					texte_corr = `${dec_pos_inf_un[3].puissance_inf} $\\leqslant$ ${dec_pos_inf_un[3].val} $\\leqslant$ ${dec_pos_inf_un[3].puissance_sup}`;
+					texte_corr += ` car ${dec_pos_inf_un[3].puissance_inf} = ${dec_pos_inf_un[3].puissance_inf_num} et ${dec_pos_inf_un[3].puissance_sup} = ${dec_pos_inf_un[3].puissance_sup_num}`;
 					break;	
 			};
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
