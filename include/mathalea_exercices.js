@@ -109,10 +109,14 @@ var liste_des_exercices_disponibles = {
 		'5N20': Exercice_additionner_des_fractions_5e,
 		'5N20-2': Exercice_additionner_ou_soustraire_des_fractions_5e,
 		'5L10' : Ecrire_une_expression_litterale,
+		'5L10-1' : Traduire_une_phrase_par_une_expression_litterale,
 		'5L10-2' : Traduire_un_programme_de_calcul,
+		'5L10-3' : Traduire_une_expression_litterale_par_une_phrase,
 		'5L12' : Reduire_une_expression_litterale,
 		'5L13' : Calculer_la_valeur_d_une_expression_litterale,
+		'5L13-1' : Calculer_une_expression_litterale,
 		'5L13-2' : Exercice_substituer,
+		'5L13-3' : Traduire_une_phrase_par_une_expression_litterale_et_calculer,
 		'5L14' : Tester_une_egalite,
 		'5M10' : Aire_du_parallelogramme,
 		'5M20' : Calcul_de_volumes_5e,
@@ -216,9 +220,9 @@ var liste_des_exercices_disponibles = {
 		'2N25' : union_et_intersection_intervalles_de_R,
 		'2G10' : Distance,
 		'2G11' : Milieu,
+		'2G12' : Modelisation_coordonnees,
 		'2L10' : Developper_Identites_remarquables2,
 		'2L11' : Factoriser_Identites_remarquables2,
-		'betaI' : Exercice_intervalle,
 		'PEA11': Passer_d_une_base_a_l_autre,
 		'PEA11-1' : Passer_de_la_base_12_ou_16_a_la_10,
 		'P001' : Code_LaTeX_personnalise,
@@ -7792,53 +7796,6 @@ function  Notation_segment_droite_demi_droite(){
 	}
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
-
-
-
-
-
-/**
-* EXERCICE A EFFACER UNE FOIS UTILISE PAR STEPHANE
-* @Auteur Rémi Angot
-*/
-function Exercice_intervalle(){
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Ajouter 9";
-	this.consigne = "Calculer";
-	this.nb_questions = 10;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 2;
-	
-
-	this.nouvelle_version = function(numero_de_l_exercice){
-		this.bouton_aide = modal_texte_court(numero_de_l_exercice,"Ajouter 9 revient à ajouter 10 et à soustraire 1.")
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-
-		for (let i = 0, texte, texte_corr, a, b, cpt=0; i < this.nb_questions && cpt<50; ) {
-			let d = segment(0,0,10,0)
-			d.styleExtremites = '->'
-			let A = point(2,0,randint(2,10))
-			let B = point(6,0,randint(20,60))
-			let c1 = crochetG(A)
-			let c2 = crochetD(B)
-			let int = intervalle(A,B)
-
-			texte = mathalea2d(-1,-1,12,1,d,c1,c2,int)
- 			texte_corr = ``
-			
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
-				i++;
-			}
-			cpt++;	
-		}
-		liste_de_question_to_contenu(this);
-	}
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
-}
-
 
 /**
  * Vocabulaire des triangles 
