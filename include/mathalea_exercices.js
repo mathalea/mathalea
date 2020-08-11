@@ -233,7 +233,7 @@ var liste_des_exercices_disponibles = {
 		'LaTeX' : Code_LaTeX_personnalise,
 		// 'Perso' : HTML_personnalise,
 		// 'TsvgjsKatex' : tests_SVGJS_KATEX,
-		
+		'Beta3G23' : TrianglesSemblables,
 	};
 
 //Pour modifier les exercices lorsqu'ils sont en mode diaporama

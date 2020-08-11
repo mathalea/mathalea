@@ -1224,19 +1224,20 @@ function triangle2points2angles(A,B,a1,a2,n=1){
  	}
 
 /**
- * nommePolygone (p,'ABCDE',1.2) nomme les sommets du polygone p. Les labels sont placés à la distance entre centre de gravité et le sommet multipliée par 1.2 
+ * nommePolygone (p,'ABCDE',0.5) nomme les sommets du polygone p. Les labels sont placés à une distance paramètrable en cm des sommets (0.5 par défaut)
  * @Auteur Jean-Claude Lhote
  */
-function nommePolygone(p,nom,k=1.15){
+function nommePolygone(p,nom,k=0.5){
 	let G=barycentre(p)
-	let V,v
+	let V,v,labels=[]
 	for (let i=0,point; i < p.listePoints.length ; i++){
 		p.listePoints[i].nom = nom[i] 
 		V=vecteur(G,p.listePoints[i])
-		v=homothetie(V,G,0.5/V.norme())
+		v=homothetie(V,G,k/V.norme())
 		point=translation(p.listePoints[i],v)
-		texteParPoint(p.listePoints[i].nom,point,'milieu')
+		labels.push(texteParPoint(p.listePoints[i].nom,point,'milieu'))
 	}
+	return labels
 }
 
 
@@ -1255,7 +1256,15 @@ function deplaceLabel(p,nom,positionLabel){
 
 	} 
 }
-
+/**
+ * aireTriangle(p) retourne l'aire du triangle si p est un triangle, false sinon.
+ * @Auteur Jean-Claude Lhote
+ */
+function aireTriangle(p){
+	if (p.listePoints.length!=3) return false
+	let A=p.listePoints[0],B=p.listePoints[1],C=p.listePoints[2]
+	return	1/2*Math.abs((B.x-A.x)*(C.y-A.y)-(C.x-A.x)*(B.y-A.y))
+}
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3008,7 +3017,7 @@ function mathalea2d({xmin = 0, ymin = 0, xmax = 15, ymax = 6, pixelsParCm = 20, 
 			}
 		}
 		code += `\n</svg>`;
-		pixelsParCm = 20;
+//		pixelsParCm = 20;
 	} else {
 		if (scale == 1) {
 			code = `\\begin{tikzpicture}[baseline]\n`
