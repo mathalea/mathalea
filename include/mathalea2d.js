@@ -274,6 +274,23 @@ function LabelPoint(...points) {
 function labelPoint(...args){
 	return new LabelPoint(...args)
 }	
+/**
+ * P = barycentre(p,'P','below') Crée le point P barycentre du polygone p, son nom 'P' sera placé sous le point si il est tracé et labelisé.
+ * @param {Polygone} p 
+ * @Auteur Jean-Claude Lhote
+ */
+function barycentre(p,nom,positionLabel= 'above') {
+	ObjetMathalea2D.call(this)
+	let sommex=0,sommey=0,nbsommets=0
+	for (let point of p.listePoints){
+		sommex+= point.x
+		sommey+= point.y
+		nbsommets++
+	}
+	let x = calcul(sommex/nbsommets);
+	let y = calcul(sommey/nbsommets);
+	return new Point(x,y,nom,positionLabel)
+}
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
