@@ -4418,9 +4418,16 @@ function Problemes_additifs_fractions() {
 			pb_3_f[0].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
 			pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[0].fractions[pb_3_f[0].fractions.indexOf(frac_rangees[5])+1]} que ${pb_3_f[0].prenoms[0]} fait la plus grande distance.`)}`;			
 
+			// les 3 prénomns doivent être distincts
+			let p1,p2,p3; // les 3 prénoms
+			while ( p1==p2 || p1 == p3 || p2 == p3 ) {
+				p1 = prenomF();
+				p2 = prenomF();
+				p3 = prenomF();
+			};
 			pb_3_f.push({
 				//prenoms: [prenomF(),prenomF(),prenomF()],
-				fractions: [nt1,dt1,prenomF(),nt2,dt2,prenomF(),nt3,dt3,prenomF()],
+				fractions: [nt1,dt1,p1,nt2,dt2,p2,nt3,dt3,p3],
 				enonce: ``,
 				question: `Qui a été elue ?`,
 				correction: ``
