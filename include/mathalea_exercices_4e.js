@@ -4455,12 +4455,12 @@ function Problemes_additifs_fractions() {
 			let pb_4_f = [];
 			// les numérateurs et dénominateurs des 4 fractions attention les trois premières doivent être inférieures à 1/3 si on veut qu'elles soient toutes positives !
 			let nq1 = randint(1,4);
-			let dq1 = 3*nq1 + randint(1,3);
+			let dq1 = 3*nq1 + 1;
 			let nq2 = randint(1,4);
-			let dq2 = 3*nq2 + randint(1,3);
+			let dq2 = 3*nq2 + 1;
 			let nq3 = randint(1,4);
-			let dq3 = 3*nq3 + randint(1,3);
-			let nq4 = 1,//la somme des quatre vaut 1 !
+			let dq3 = 3*nq3 + 1;
+			let nq4 = dq1*dq2*dq3-nq1*dq2*dq3 - nq2*dq1*dq3 - nq3*dq1*dq2,//la somme des quatre vaut 1 !
 			dq4 = dq1*dq2*dq3; 
 			pb_4_f.push({
 				//prenoms: [prenomF(),prenomF(),prenomF()],
