@@ -4454,7 +4454,7 @@ function Problemes_additifs_fractions() {
 			pb_3_f[1].correction += `$\\dfrac{${pb_3_f[1].fractions[6]}}{${pb_3_f[1].fractions[7]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$.`;
 			frac_rangees = frac.sortFractions(pb_3_f[1].fractions[0],pb_3_f[1].fractions[1],pb_3_f[1].fractions[3],pb_3_f[1].fractions[4],pb_3_f[1].fractions[6],pb_3_f[1].fractions[7]); 
 			pb_3_f[1].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
-			pb_3_f[1].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[1].fractions[pb_3_f[1].fractions.indexOf(frac_rangees[5])+1]} qui a été elue.`)}`;			
+			pb_3_f[1].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc ${pb_3_f[1].fractions[pb_3_f[1].fractions.indexOf(frac_rangees[5])+1]} qui a été élue.`)}`;			
 
 			// le tableau d'objets contenant tout le necesssaire, fractions, énoncé, question ... pour les problème avec 4 fractions
 			let pb_4_f = [];
