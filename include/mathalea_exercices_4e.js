@@ -4015,18 +4015,18 @@ function Egalite_Pythagore(){
 /**
  * Signe d'un produit ou d'on quotient de relatifs
  * Plusieurs niveaux 2, 3 ou 4 factieurs, un quotient de 2 nombres, 1  nombre sur un produit de deux nombres, un prooduit de 2 nombres sur un nombre, un quotient de produit de 2 nombres
- * 4C1 exercice parent  ?
+ * 4C10-0 exercice parent  ?
  * @author Sébastien Lozano
  */
 
-function Signe_produit_quotient_relatifs(){
+function Signe_produit_quotient_relatifs() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()	
 	this.sup=1;
 	if (this.exo == this.beta+'4C10-1') { 
 		this.sup = 4;
 		this.titre = `Signe d'un produit de nombres relatifs`;			
-	} else if (this.exo == this.beta+'4C10-2') {//via angles
+	} else if (this.exo == this.beta+'4C10-2') {
 		this.sup = 5;
 		this.titre = `Signe d'un quotient de nombres relatifs`;
 	} else {			
@@ -4039,16 +4039,9 @@ function Signe_produit_quotient_relatifs(){
 	this.nb_cols_corr = 1;
 	this.nb_questions_modifiable = false;
 
-	//this.liste_packages = `bclogo`;
-	
 	let type_de_questions_disponibles;
 	
 	this.nouvelle_version = function(numero_de_l_exercice){
-		// this.introduction=info_message({
-		// 	titre : "Exercice BETA",
-		// 	texte: "En cours de réalisation "
-
-		// });
 		
 		this.sup=Number(this.sup); // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
 		//console.log(typeof this.sup)
@@ -4116,8 +4109,6 @@ function Signe_produit_quotient_relatifs(){
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {			
 			// on ne choisit que des nombres compris entre 1 et 20
 			let nb_max = 20;
-			// on choisit un signe au hasard
-			let signe = randint(-1,1,[0]);
 			// Le tableau des relatifs necessaires, il m'en faut max 4 !
 			let num = new Relatif(randint(-1,1,[0])*randint(1,nb_max),randint(-1,1,[0])*randint(1,nb_max),randint(-1,1,[0])*randint(1,nb_max),randint(-1,1,[0])*randint(1,nb_max));
 			
@@ -4182,14 +4173,14 @@ function Signe_produit_quotient_relatifs(){
 		} else {
 			//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : sans conversions de longueurs\n2 : avec conversions de longueurs"];
 		};
-}
+};
 
 /**
  * Signe du produit de relatifs
  * 4C10-1
  * @author Sébastien Lozano
  */
-function Signe_produit_relatifs(){
+function Signe_produit_relatifs() {
 	this.beta = ``;
 	this.exo = this.beta+`4C10-1`;
 	Signe_produit_quotient_relatifs.call(this);
@@ -4200,8 +4191,282 @@ function Signe_produit_relatifs(){
  * 4C10-2
  * @author Sébastien Lozano
  */
-function Signe_quotient_relatifs(){
+function Signe_quotient_relatifs() {
 	this.beta = ``;
 	this.exo = this.beta+`4C10-2`;
 	Signe_produit_quotient_relatifs.call(this);
+};
+
+/**
+ * Encadrer par des puissances de 10
+ * 4C30-1
+ * @author Sébastien Lozano
+ */
+function Puissances_encadrement() {
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()	
+	this.sup=4;
+	this.nb_questions = 6;
+	this.titre = `Encadrer avec des puissances de 10`;	
+
+	this.consigne = `Encadrer les nombres suivants par deux puisances de 10 d'exposants consécutifs.`;
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	//this.nb_questions_modifiable = false;
+
+
+	let type_de_questions_disponibles;
+	
+	this.nouvelle_version = function(numero_de_l_exercice){
+		
+		this.sup=Number(this.sup); // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
+
+			switch(this.sup) {
+				case 1 : // nombre enier positif
+					type_de_questions_disponibles = [1,2,3,4,5,6];
+					//this.nb_questions = type_de_questions_disponibles.length;	
+					//this.nb_questions = 3;
+					break;
+				case 2 : // nombre décimal positif
+					type_de_questions_disponibles = [7,8,9,10];
+					//this.nb_questions = type_de_questions_disponibles.length;	
+					//this.nb_questions = 3;
+					break;
+				case 3 : // nombre décimal positif inférieur à 1
+					type_de_questions_disponibles = [11,12,13,14];
+					//this.nb_questions = type_de_questions_disponibles.length;	
+					//this.nb_questions = 3;
+					break;
+				case 4 : // Mélange
+					type_de_questions_disponibles = [choice([1,2,3]),choice([4,5,6]),choice([7,8]),choice([9,10]),choice([11,12]),choice([13,14])];
+					//this.nb_questions = type_de_questions_disponibles.length;	
+					break;
+			};
+
+		//let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+			// nombre entier positif, entre 1 et 10, puis 10 et 100 puis ....100 000 et 1 000 000
+			let ent_pos = [];
+			for (let i=0;i<6;i++) {
+				ent_pos.push({
+					val:`$${tex_nombre(randint(10**i+1,10**(i+1)))}$`,
+					puissance_inf:`$10^{${i}}$`,
+					puissance_sup:`$10^{${i+1}}$`
+				});
+			};
+
+			// nombre décimal positif 1 et 10 000 avec 1,2,3 puis 4 décimales
+			let dec_pos = [];
+			for (let i=0;i<4;i++) {
+				dec_pos.push({
+					val:`$${tex_nombre(randint(10000,100000)/(10**(4-i)))}$`,
+					puissance_inf:`$10^{${i}}$`,
+					puissance_sup:`$10^{${i+1}}$`
+				});
+			};			
+			// nombre décimal positif inférieur à 1, entre 0,1 et 1 puis entre 0,01 et 0,1 puis 0,001 et 0,0001
+			let dec_pos_inf_un = []; 
+			for (let i=0;i<4;i++) {
+				dec_pos_inf_un.push({
+					val:`$${tex_nombre(randint(10**(4-i-1)+1,10**(4-i))/10000)}$`,
+					puissance_inf:`$10^{${-(i+1)}}$`,
+					puissance_sup:`$10^{${-i}}$`
+				});
+			};			
+			
+			switch (liste_type_de_questions[i]) {
+				case 1 : // nombre enier positif
+					texte = `${ent_pos[0].val}`;
+					texte_corr = `${ent_pos[0].puissance_inf} $\\leqslant$ ${ent_pos[0].val} $\\leqslant$ ${ent_pos[0].puissance_sup}`;
+					break;
+				case 2 : // nombre enier positif
+					texte = `${ent_pos[1].val}`;
+					texte_corr = `${ent_pos[1].puissance_inf} $\\leqslant$ ${ent_pos[1].val} $\\leqslant$ ${ent_pos[1].puissance_sup}`;
+					break;
+				case 3 : // nombre enier positif
+					texte = `${ent_pos[2].val}`;
+					texte_corr = `${ent_pos[2].puissance_inf} $\\leqslant$ ${ent_pos[2].val} $\\leqslant$ ${ent_pos[2].puissance_sup}`;
+					break;
+				case 4 : // nombre enier positif
+					texte = `${ent_pos[3].val}`;
+					texte_corr = `${ent_pos[3].puissance_inf} $\\leqslant$ ${ent_pos[3].val} $\\leqslant$ ${ent_pos[3].puissance_sup}`;
+					break;
+				case 5 : // nombre enier positif
+					texte = `${ent_pos[4].val}`;
+					texte_corr = `${ent_pos[4].puissance_inf} $\\leqslant$ ${ent_pos[4].val} $\\leqslant$ ${ent_pos[4].puissance_sup}`;
+					break;
+				case 6 : // nombre enier positif
+					texte = `${ent_pos[5].val}`;
+					texte_corr = `${ent_pos[5].puissance_inf} $\\leqslant$ ${ent_pos[5].val} $\\leqslant$ ${ent_pos[5].puissance_sup}`;
+					break;																				
+				case 7 : // nombre décimal positif
+					texte = `${dec_pos[0].val}`;
+					texte_corr = `${dec_pos[0].puissance_inf} $\\leqslant$ ${dec_pos[0].val} $\\leqslant$ ${dec_pos[0].puissance_sup}`;
+					break;
+				case 8 : // nombre décimal positif
+					texte = `${dec_pos[1].val}`;
+					texte_corr = `${dec_pos[1].puissance_inf} $\\leqslant$ ${dec_pos[1].val} $\\leqslant$ ${dec_pos[1].puissance_sup}`;
+					break;
+				case 9 : // nombre décimal positif
+					texte = `${dec_pos[2].val}`;
+					texte_corr = `${dec_pos[2].puissance_inf} $\\leqslant$ ${dec_pos[2].val} $\\leqslant$ ${dec_pos[2].puissance_sup}`;
+					break;
+				case 10 : // nombre décimal positif
+					texte = `${dec_pos[3].val}`;
+					texte_corr = `${dec_pos[3].puissance_inf} $\\leqslant$ ${dec_pos[3].val} $\\leqslant$ ${dec_pos[3].puissance_sup}`;
+					break;
+				case 11 : // nombre décimal positif inferieur à 1
+					texte = `${dec_pos_inf_un[0].val}`;
+					texte_corr = `${dec_pos_inf_un[0].puissance_inf} $\\leqslant$ ${dec_pos_inf_un[0].val} $\\leqslant$ ${dec_pos_inf_un[0].puissance_sup}`;
+					break;		
+				case 12 : // nombre décimal positif inferieur à 1
+					texte = `${dec_pos_inf_un[1].val}`;
+					texte_corr = `${dec_pos_inf_un[1].puissance_inf} $\\leqslant$ ${dec_pos_inf_un[1].val} $\\leqslant$ ${dec_pos_inf_un[1].puissance_sup}`;
+					break;		
+				case 13 : // nombre décimal positif inferieur à 1
+					texte = `${dec_pos_inf_un[2].val}`;
+					texte_corr = `${dec_pos_inf_un[2].puissance_inf} $\\leqslant$ ${dec_pos_inf_un[2].val} $\\leqslant$ ${dec_pos_inf_un[2].puissance_sup}`;
+					break;		
+				case 14 : // nombre décimal positif inferieur à 1
+					texte = `${dec_pos_inf_un[3].val}`;
+					texte_corr = `${dec_pos_inf_un[3].puissance_inf} $\\leqslant$ ${dec_pos_inf_un[3].val} $\\leqslant$ ${dec_pos_inf_un[3].puissance_sup}`;
+					break;	
+			};
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}	
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+	};
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : nombre enier positif\n2 : nombre décimal positif\n3 : nombre enier positif inférieur à un\n4 : Mélange"];
+};
+
+/**
+ * Problèmes additifs et de comparaion sur les rationnels
+ * 4C25-0
+ * @author Sébastien Lozano
+ */
+function Problemes_additifs_fractions() {
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()	
+	this.sup=1;
+	this.nb_questions = 5;
+	this.titre = `Problèmes additifs et de comparaison sur les rationnels`;	
+
+	this.consigne = `Justifier vos réponses aux problèmes suivants.`;
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	//this.nb_questions_modifiable = false;
+	sortie_html? this.spacing = 3 : this.spacing = 2; 
+	sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
+
+	let type_de_questions_disponibles;
+	
+	this.nouvelle_version = function(numero_de_l_exercice){
+		type_de_questions_disponibles = [1,2,3,4,5];
+		
+		//let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+			// on aura besoin des méthodes de la classe Fraction()
+			let frac = new Fraction();
+			// le tableau d'objet contenant tout le necesssaire, fractions, énoncé, question ... pour les problème avec 3 fractions
+			let pb_3_f = [];
+			// les numérateurs et dénominateurs des 3 fractions attention les deux premières doivent être inférieures à 1/2 si on veut qu'elles soient toutes positives !
+			let nt1 = randint(1,6);
+			let dt1 = 2*nt1 + randint(1,3);
+			let nt2 = randint(2,10);
+			let dt2 = 2*nt2 + randint(1,3);
+			let nt3 = dt1*dt2-nt1*dt2-nt2*dt1,//la somme des trois vaut 1 !
+			dt3 = dt1*dt2; 
+			//let prenom = prenomM();
+			pb_3_f.push({
+				prenoms: [prenomM()],
+				fractions: [nt1,dt1,'VTT',nt2,dt2,'ski de fond',nt3,dt3,'pied'],
+				enonce: ``,
+				question: `Pour quelle discipline, la distance est-elle la plus grande ?`,
+				correction: ``
+			});
+			pb_3_f[0].enonce = `Le triathlon des neiges de la vallée des loups comprend trois épreuves qui s'enchaînent : VTT, ski de fonc et course à pied.`;
+			pb_3_f[0].enonce += `<br>${pb_3_f[0].prenoms[0]}, un passionné de cette épreuve, s'entraîne régulièrement sur le même circuit. `;
+			pb_3_f[0].enonce += `<br>À chaque entraînement, il parcourt le circuit de la façon suivante : $\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}$ à ${pb_3_f[0].fractions[2]}, `
+			pb_3_f[0].enonce += `$\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}}$ à ${pb_3_f[0].fractions[5]} et le reste à ${pb_3_f[0].fractions[8]}.`;
+
+			pb_3_f[0].correction = `Calculons d'abord la distance à pied : $1-\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}-\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}} = \\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}}$`
+			pb_3_f[0].correction += `<br>${pb_3_f[0].prenoms[0]} fait donc $\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}$ à ${pb_3_f[0].fractions[2]}, `;
+			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}}$ à ${pb_3_f[0].fractions[5]} et `;
+			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}}$ à ${pb_3_f[0].fractions[8]}.`;			
+			pb_3_f[0].correction += `<br>Réduisons ces fractions au même dénominateur :`;
+			let frac_meme_denom = frac.reduceSameDenominateur(pb_3_f[0].fractions[0],pb_3_f[0].fractions[1],pb_3_f[0].fractions[3],pb_3_f[0].fractions[4],pb_3_f[0].fractions[6],pb_3_f[0].fractions[7]);			
+			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ ; `;
+			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ et `;
+			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$.`;
+			let frac_rangees = frac.sortFractions(pb_3_f[0].fractions[0],pb_3_f[0].fractions[1],pb_3_f[0].fractions[3],pb_3_f[0].fractions[4],pb_3_f[0].fractions[6],pb_3_f[0].fractions[7]); 
+			pb_3_f[0].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
+			pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[0].fractions[pb_3_f[0].fractions.indexOf(frac_rangees[5])+1]} que ${pb_3_f[0].prenoms[0]} fait la plus grande distance.`)}`;			
+
+			pb_3_f.push({
+				//prenoms: [prenomF(),prenomF(),prenomF()],
+				fractions: [nt1,dt1,prenomF(),nt2,dt2,prenomF(),nt3,dt3,prenomF()],
+				enonce: ``,
+				question: `Qui a été elue ?`,
+				correction: ``
+			});
+			let currentDate = new Date();
+			let currentAnnee = currentDate.getFullYear();
+			pb_3_f[1].enonce = `À l'élection de Miss Math ${currentAnnee}, ${pb_3_f[1].fractions[2]} a remporté $\\dfrac{${pb_3_f[1].fractions[0]}}{${pb_3_f[1].fractions[1]}}$ des suffrages, `;
+			pb_3_f[1].enonce += `${pb_3_f[1].fractions[5]} $\\dfrac{${pb_3_f[1].fractions[3]}}{${pb_3_f[1].fractions[4]}}$ et `;
+			pb_3_f[1].enonce += `${pb_3_f[1].fractions[8]} tous les autres.`;
+			//pb_3_f[1].enonce += `<br> ${pb_3_f[1].fractions}`;
+
+			switch (liste_type_de_questions[i]) {
+				case 1 : // Triathlon des neiges --> VTT, ski de fond, course
+					texte = `${pb_3_f[0].enonce} <br> ${pb_3_f[0].question}`;
+					texte += `<br>`;
+					texte += `<br> ${pb_3_f[0].correction}`;
+					texte_corr = `1`;
+					break;
+				case 2 : //Miss Math --> Noémie, Samia, Alexia
+					texte = `${pb_3_f[1].enonce} <br> ${pb_3_f[1].question}`;
+					texte += `<br>`;
+					texte += `<br> ${pb_3_f[1].correction}`;
+					texte_corr = `2`;
+					break;
+				case 3 : // Mandala --> carmin, ocre jaune, turquoise, pourpre
+					texte = `3`;
+					texte_corr = `3`;
+					break;
+				case 4 : // Jardin --> légumes, plantes aromatiques, semis, fraisiers
+					texte = `4`;
+					texte_corr = `4`;
+					break;
+				case 5 : // Stade --> pays organisatuers, supporters, sponsors, vente libre
+					texte = `5`;
+					texte_corr = `5`;
+					break;	
+			};
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}	
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+	};
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : nombre enier positif\n2 : nombre décimal positif\n3 : nombre enier positif inférieur à un\n4 : Mélange"];
 };

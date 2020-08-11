@@ -98,52 +98,43 @@ function point(...args){
 
 /**
 * tracePoint(A) // Place une croix à l'emplacement du point A
-* tracePoint(A,'blue',.5) //Place une croix bleue de taille 5 mm à l'emplacement du point A
 * tracePoint(A,B,C,D) // Place une croix pour les différents points
-* tracePoint([A,B,C,D],'blue') // Place une croix pour les différents points
 * tracePoint(A,B,C,D,'blue') // Place une croix pour les différents points
-* La taille n'a un effet que sur la sortie SVG
 * @Auteur Rémi Angot
 */
-function TracePoint(A,color='black',taille=0.3,){
+function TracePoint(...points){
 	ObjetMathalea2D.call(this);
-	this.color = color;
+	this.taille=0.3
+	if (typeof points[points.length-1] === 'string') {
+		this.color = points[points.length-1]
+	}
 	this.svg = function(){
-		let code = `<line x1="${calcul((A.x-taille)*this.coeff)}" y1="${calcul((-A.y-taille)*this.coeff)}" x2="${calcul((A.x+taille)*this.coeff)}" y2="${calcul((-A.y+taille)*this.coeff)}" stroke="${this.color}" />`
-		code += `\n\t<line x1="${calcul((A.x-taille)*this.coeff)}" y1="${calcul((-A.y+taille)*this.coeff)}" x2="${calcul((A.x+taille)*this.coeff)}" y2="${calcul((-A.y-taille)*this.coeff)}" stroke="${this.color}" />`
+		let code = ''
+		for (let A of points){
+			if (A.constructor == Point){
+				code += `<line x1="${calcul((A.x-this.taille)*this.coeff)}" y1="${calcul((-A.y-this.taille)*this.coeff)}" x2="${calcul((A.x+this.taille)*this.coeff)}" y2="${calcul((-A.y+this.taille)*this.coeff)}" stroke="${this.color}" />`
+				code += `\n\t<line x1="${calcul((A.x-this.taille)*this.coeff)}" y1="${calcul((-A.y+this.taille)*this.coeff)}" x2="${calcul((A.x+this.taille)*this.coeff)}" y2="${calcul((-A.y-this.taille)*this.coeff)}" stroke="${this.color}" />`
+			}
+				
+		}
 		return code 
 	}
 	this.tikz = function(){
-		if (color =='black') {
-			return `\\node[point] at (${A.x},${A.y}) {};`
-		} else {
-			return `\\node[point,${color}] at (${A.x},${A.y}) {};`
+		let code = ''
+		for (let A of points){
+			if (A.constructor == Point){
+				if (color =='black') {
+					code += `\n\\node[point] at (${A.x},${A.y}) {};`
+				} else {
+					return `\n\\node[point,${color}] at (${A.x},${A.y}) {};`
+				}	 
+			}
 		}
+	return code		
 	}
 }
-function tracePoint(...args){
-	let obj = []
-	if (args[1] && args[1].constructor==Point) { // Si le 2e argument est un point
-		if (typeof args[args.length-1] === 'string') { // Si le dernier est un string
-			for (let i = 0; i < args.length-1; i++) {
-				obj[i] = new TracePoint(args[i],args[args.length-1]) // Trace tous les points avec le dernier paramètre
-			}
-		} else {
-			for (let i = 0; i < args.length; i++) {
-				obj[i] = new TracePoint(args[i]) 
-			}
-		}
-
-	} else if (Array.isArray(args[0])) { // Si le 1er argument est une liste
-		let listeDePoints = args[0]
-		let parametres = args.slice() // On reprend tous les arguments sauf le premier
-		parametres.shift() // On reprend tous les arguments sauf le premier
-		for (let i = 0; i < listeDePoints.length; i++) {
-			obj[i] = new TracePoint(listeDePoints[i],parametres) 
-		}
-	} else {
-		return new TracePoint(...args)
-	}
+function tracePoint(...args){ 
+	return new TracePoint(...args)
 }
 
 function tracePointSurDroite(A,O){
@@ -979,6 +970,8 @@ function demiDroiteAvecExtremite(A,B,color='black'){
 */
 function Polygone(...points){
 	ObjetMathalea2D.call(this);
+	this.couleurDeRemplissage = ''
+	this.opaciteDeRemplissage = .7
 	if (Array.isArray(points[0])) { //Si le premier argument est un tableau
 		this.listePoints = points[0]
 		if (points[1]) {
@@ -1001,11 +994,17 @@ function Polygone(...points){
 		if (this.pointilles) {
 			this.style += ` stroke-dasharray="4 3" `
 		}
+		if (this.couleurDeRemplissage =='') {
+			this.style += ` fill="none" ` 
+		} else {
+			this.style += ` fill="${this.couleurDeRemplissage}" `
+			this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
+		}	
 		if (this.opacite !=1) {
 			this.style += ` stroke-opacity="${this.opacite}" `
 		}
 		
-		return `<polygon points="${binomeXY}" fill="none" stroke="${this.color}" ${this.style} />`
+		return `<polygon points="${binomeXY}" stroke="${this.color}" ${this.style} />`
 	}
 	this.tikz = function(){
 		let tableauOptions = [];
@@ -1255,6 +1254,8 @@ function Cercle(O,r,color){
 	}
 	this.centre = O
 	this.rayon = r
+	this.couleurDeRemplissage = ''
+	this.opaciteDeRemplissage = .7
 	this.svg = function(){
 		if (this.epaisseur!=1) {
 			this.style += ` stroke-width="${this.epaisseur}" `
@@ -1264,6 +1265,12 @@ function Cercle(O,r,color){
 		}
 		if (this.opacite !=1) {
 			this.style += ` stroke-opacity="${this.opacite}" `
+		}
+		if (this.couleurDeRemplissage =='') {
+			this.style += ` fill="none" ` 
+		} else {
+			this.style += ` fill="${this.couleurDeRemplissage}" `
+			this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
 		}
 
 		return `<circle cx="${O.xSVG()}" cy="${O.ySVG()}" r="${r*this.coeff}" stroke="${this.color}" ${this.style} fill="none"/>`
@@ -2384,34 +2391,37 @@ function codeSegments(...args){
 * @Auteur Rémi Angot
 */
 
-function Axes(xmin=-30,ymin=-30,xmax=30,ymax=30,thick=.2,step=1){
+function Axes(xmin=-30,ymin=-30,xmax=30,ymax=30,thick=0.2,step=1){
+	ObjetMathalea2D.call(this)
 	let objets = []
-	abscisse = segment(xmin,0,xmax,0)
+	let abscisse = segment(xmin,0,xmax,0)
 	abscisse.styleExtremites = '->'
-	ordonnee = segment(0,ymin,0,ymax)
+	let ordonnee = segment(0,ymin,0,ymax)
 	ordonnee.styleExtremites = '->'
 	objets.push(abscisse,ordonnee)
 	for (let x=xmin ; x<xmax ; x+=step){
-		objets.push(segment(x,-thick,x,thick))
+		let s = segment(x,-thick,x,thick)
+		objets.push(s)
 	}
 	for (let y=ymin ; y<ymax ; y+=step){
-		objets.push(segment(-thick,y,thick,y))
+		let s = segment(-thick,y,thick,y)
+		objets.push(s)
 	}
 	this.svg = function(){
-		code = ''
-		for (objet of objets){
-			code += '\n\t' + objet.svg()
+		let code = ''
+		for (s of objets){
+			code += '\n\t' + s.svg()
 		}
 		return code
 	}
 	this.tikz = function(){
-		code = ''
-		for (objet of objets){
-			code += '\n\t' + objet.tikz()
+		let code = ''
+		for (s of objets){
+			code += '\n\t' + s.tikz()
 		}
 		return code
 	}
-	this.commentaire = `Repère(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, thick = ${thick})`
+	this.commentaire = `Axes(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, thick = ${thick})`
 
 }
 function axes(...args){
@@ -2483,35 +2493,30 @@ function Grille(xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', op
 	ObjetMathalea2D.call(this)
 	this.color = color
 	this.opacite = opacite
-	let listeSegmentsV = []
-	let listeSegmentsH = []
-	for (i = xmin ; i <= xmax ; i+= step){
-		listeSegmentsV[i] = segment(i,ymin,i,ymax)
-		listeSegmentsV[i].color = this.color
-		listeSegmentsV[i].opacite = this.opacite
+	let objets = []
+	for (let i = xmin ; i <= xmax ; i+= step){
+		let s = segment(i,ymin,i,ymax)
+		s.color = this.color
+		s.opacite = this.opacite
+		objets.push(s)
 	}
-	for (i = ymin ; i <= ymax ; i+= step){
-		listeSegmentsH[i] = segment(xmin,i,xmax,i)
-		listeSegmentsH[i].color = this.color
-		listeSegmentsH[i].opacite = this.opacite
+	for (let i = ymin ; i <= ymax ; i+= step){
+		let s = segment(xmin,i,xmax,i)
+		s.color = this.color
+		s.opacite = this.opacite
+		objets.push(s)
 	}
 	this.commentaire = `Grille(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, color = ${color}, opacite = ${opacite}, pas = ${step})`
 	this.svg = function(){
-		code = ''
-		for (s of listeSegmentsV){
-			code += '\n\t' + s.svg()
-		}
-		for (s of listeSegmentsH){
+		let code = ''
+		for (s of objets){
 			code += '\n\t' + s.svg()
 		}
 		return code
 	}
 	this.tikz = function(){
-		code = ''
-		for (s of listeSegmentsV){
-			code += '\n\t' + s.tikz()
-		}
-		for (s of listeSegmentsH){
+		let code = ''
+		for (s of objets){
 			code += '\n\t' + s.tikz()
 		}
 		return code
@@ -2888,10 +2893,12 @@ function codeTikz(...objets){
 *
 * @Auteur Rémi Angot
 */
-function mathalea2d(xmin,ymin,xmax,ymax,...objets){
+
+function mathalea2d({xmin = 0, ymin = 0, xmax = 15, ymax = 6, ppc = 20, scale = 1 } = {},...objets){
 	ObjetMathalea2D.call(this)
 	let code = ''
 	if (sortie_html) {
+		pixelsParCm = ppc;
 		code = `<svg width="${(xmax-xmin)*this.coeff}" height="${(ymax-ymin)*this.coeff}" viewBox="${xmin*this.coeff} ${-ymax*this.coeff} ${(xmax-xmin)*this.coeff} ${(ymax-ymin)*this.coeff}" xmlns="http://www.w3.org/2000/svg">\n`;
 		//code += codeSvg(...objets);
 		for (let objet of objets){
@@ -2914,9 +2921,16 @@ function mathalea2d(xmin,ymin,xmax,ymax,...objets){
 
 			}
 		}
-		code += `</svg>`;
+		code += `\n</svg>`;
+		pixelsParCm = 20;
 	} else {
-		code = `\\begin{tikzpicture}[baseline]\n
+		if (scale == 1) {
+			code = `\\begin{tikzpicture}[baseline]\n`
+		} else {
+			code = `\\begin{tikzpicture}[baseline,scale = ${scale}]\n`
+		}
+
+		code += `
 		\\tikzset{
 			point/.style={
 				thick,
@@ -2952,7 +2966,7 @@ function mathalea2d(xmin,ymin,xmax,ymax,...objets){
 
 		}
 	}
-	code += `\\end{tikzpicture}`
+	code += `\n\\end{tikzpicture}`
 }
 return code
 }

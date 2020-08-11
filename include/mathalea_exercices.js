@@ -133,10 +133,12 @@ var liste_des_exercices_disponibles = {
 		'5S13': Calculer_des_frequences,
 		'5S14': Calculer_des_moyennes,
 		'5S21' : fonctions_probabilite1,
-		//'4C1': Signe_produit_quotient_relatifs,
-		//'4C10-1': Signe_produit_relatifs,
-		//'4C10-2': Signe_quotient_relatifs,
-		//'4C10-3': Exercice_multiplications_relatifs,
+		'4C10-0': Signe_produit_quotient_relatifs,
+		'4C10-1': Signe_produit_relatifs,
+		'4C10-2': Signe_quotient_relatifs,
+		'4C10-3': Exercice_multiplications_relatifs,
+		'4C25-0': Problemes_additifs_fractions,
+		'4C30-1': Puissances_encadrement,
 		'4G40' : Transformations_4e,
 		'4L10' : Exercice_developper,
 		'4L20' : Exercice_equation1,
@@ -218,9 +220,9 @@ var liste_des_exercices_disponibles = {
 		'2N25' : union_et_intersection_intervalles_de_R,
 		'2G10' : Distance,
 		'2G11' : Milieu,
+		'2G12' : Modelisation_coordonnees,
 		'2L10' : Developper_Identites_remarquables2,
 		'2L11' : Factoriser_Identites_remarquables2,
-		'betaI' : Exercice_intervalle,
 		'PEA11': Passer_d_une_base_a_l_autre,
 		'PEA11-1' : Passer_de_la_base_12_ou_16_a_la_10,
 		'P001' : Code_LaTeX_personnalise,
@@ -7794,53 +7796,6 @@ function  Notation_segment_droite_demi_droite(){
 	}
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
-
-
-
-
-
-/**
-* EXERCICE A EFFACER UNE FOIS UTILISE PAR STEPHANE
-* @Auteur Rémi Angot
-*/
-function Exercice_intervalle(){
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Ajouter 9";
-	this.consigne = "Calculer";
-	this.nb_questions = 10;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 2;
-	
-
-	this.nouvelle_version = function(numero_de_l_exercice){
-		this.bouton_aide = modal_texte_court(numero_de_l_exercice,"Ajouter 9 revient à ajouter 10 et à soustraire 1.")
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-
-		for (let i = 0, texte, texte_corr, a, b, cpt=0; i < this.nb_questions && cpt<50; ) {
-			let d = segment(0,0,10,0)
-			d.styleExtremites = '->'
-			let A = point(2,0,randint(2,10))
-			let B = point(6,0,randint(20,60))
-			let c1 = crochetG(A)
-			let c2 = crochetD(B)
-			let int = intervalle(A,B)
-
-			texte = mathalea2d(-1,-1,12,1,d,c1,c2,int)
- 			texte_corr = ``
-			
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
-				i++;
-			}
-			cpt++;	
-		}
-		liste_de_question_to_contenu(this);
-	}
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
-}
-
 
 /**
  * Vocabulaire des triangles 
