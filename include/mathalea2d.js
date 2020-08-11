@@ -1225,14 +1225,16 @@ function triangle2points2angles(A,B,a1,a2,n=1){
  	}
 
 /**
-* nommePolygone(p1,'ABCDEF') // Nomme tous les sommets de p1 (dans l'ordre de création des points)
-* @Auteur Rémi Angot
-*/
-function nommePolygone(p,nom){
-	for (let i=0 ; i < p.listePoints.length ; i++){
+ * nommePolygone (p,'ABCDE',1.2) nomme les sommets du polygone p. Les labels sont placés à la distance entre centre de gravité et le sommet multipliée par 1.2 
+ * @Auteur Jean-Claude Lhote
+ */
+function nommePolygone(p,nom,k=1.15){
+	let G=barycentre(p)
+	for (let i=0,point; i < p.listePoints.length ; i++){
 		p.listePoints[i].nom = nom[i] 
+		point=homothetie(p.listePoints[i],G,k)
+		texteParPoint(p.listePoints[i].nom,point,'milieu')
 	}
-	labelPoint(p.listePoints)
 }
 
 
