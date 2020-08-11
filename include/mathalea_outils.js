@@ -4243,9 +4243,10 @@ function Relatif(...relatifs) {
 	this.relatifs = relatifs;
 
 	/**
-	 * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs, 
-	 * Si 0 fait partie des relatifs on renvoie une erreur
+	 * * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs, 
+	 * * Si 0 fait partie des relatifs on renvoie une erreur
 	 * @return {array} renvoie un tableau de -1 ou 1
+	 * @example getSigneNumber(-1,-2,8,-9,4) renvoie [-1,-1,1,-1,1]
 	 */
 	function getSigneNumber() {		
 		let signes = [];
@@ -4282,8 +4283,9 @@ function Relatif(...relatifs) {
 	};
 
 	/** 
-	 * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs
+	 * * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs
 	 * @return {array} renvoie un tableau de strings valant 'négatif' ou 'positif'
+	 * @example getSigneNumber(-1,-2,8,-9,4) renvoie le tableau de strings [négatif,négatif,positif,négatif,positif]
 	*/
 	function getSigneString() {
 		let signesString = [];
@@ -4301,8 +4303,8 @@ function Relatif(...relatifs) {
 
 	/**
 	 * 	 
-	 * @param  {...any} n deux ou plus de nombres relatifs
-	 * @return {number} le signe du produit 1 ou -1
+	 * @param  {...any} n une liste de deux ou plus de nombres relatifs
+	 * @return {number} le signe du produit des nombres de cette liste. 1 ou -1
 	 * @example getSigneProduitNumber(1,-4,-7) renvoie 1
 	 */
 
@@ -4338,11 +4340,11 @@ function Relatif(...relatifs) {
 		};
 	};
 
-		/**
+	/**
 	 * 	 
-	 * @param  {...any} n deux ou plus de nombres relatifs
-	 * @return {number} le signe du produit 1 ou -1
-	 * @example getSigneProduitNumber(1,-4,-7) renvoie 1
+	 * @param  {...any} n une liste de deux ou plus de nombres relatifs
+	 * @return {string} un string désignant le signe du produit des nombres de cette liste. postif1 ou négatif
+	 * @example getSigneProduitNumber(1,-4,-7) renvoie le string positif
 	 */
 
 	function getSigneProduitString(...n) {
