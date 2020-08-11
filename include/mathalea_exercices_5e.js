@@ -4322,7 +4322,6 @@ function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2) {
 		case 1 : // expressions de base (1 opération)
 			nbval=1
 			souscas=randint(0,3)
-			console.log('case 1 :',souscas)
 			switch (souscas) {
 				case 0 : //somme de deux nombres
 					expf=`La somme de ${nombre_avec_espace(a)} et ${l1}`
@@ -5043,7 +5042,6 @@ function DroiteRemarquableDuTriangle(){
 	this.sup=1
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		pixelsParCm=30
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		let triangles=[],sommets=[[]],A=[],B=[],C=[],t=[],d=[],n=[],c=[],objets=[],A0,B0,C0,tri,G,g,AA,BB,CC,na=[],nb=[],nc=[]
@@ -5052,7 +5050,6 @@ function DroiteRemarquableDuTriangle(){
 		if (this.sup==2) type_de_questions_disponibles=[3,4]
 		if (this.sup==3) type_de_questions_disponibles=[1,2,3,4]
 		liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions)
-		console.log(liste_type_de_questions)
 		for (let i = 0, a, angle,rapport, texte, texte_corr, cpt=0; i < this.nb_questions;i++) {// this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
 			triangles[i] = new Triangles();
 			sommets[i]= triangles[i].getSommets(false);
@@ -5079,40 +5076,36 @@ function DroiteRemarquableDuTriangle(){
 
 			switch (liste_type_de_questions[i]) {
 				case 1 :
-					console.log('case 1')
 					d[i] = hauteurTriangle(C[i],B[i],A[i],'blue')
 					d[i].epaisseur=1
 					c[i] = codageHauteurTriangle(C[i],B[i],A[i])
 					objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i],na[i],nb[i],nc[i]]
 					texte_corr=`La droite tracée est la hauteur issue de $${sommets[i][0]}$ dans le triangle ${triangles[i].getNom()}.<br>`
-					texte_corr+=mathalea2d(-1,-2,8,8,...objets[i])
+					texte_corr+= mathalea2d({xmin:-1,ymin:-2,xmax:8,ymax:8,scale:.5,ppc:30},...objets[i])
 					break
 				case 2 :
-					console.log('case 2')
 					d[i] = mediatrice(A[i],B[i],true,'blue')
 					d[i].epaisseur=1
 					c[i] = codageMediatrice(A[i],B[i])
 					objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i],na[i],nb[i],nc[i]]
 					texte_corr=`La droite tracée est la médiatrice du segment [$${sommets[i][0]}${sommets[i][1]}]$.<br>`
-					texte_corr+=mathalea2d(-1,-2,8,8,...objets[i],constructionMediatrice(A[i],B[i],true,color='red', markmilieu='×', markrayons='//',couleurMediatrice = 'blue', epaisseurMediatrice = 1))
+					texte_corr+= mathalea2d({xmin:-1,ymin:-2,xmax:8,ymax:8,scale:.5,ppc:30},...objets[i],constructionMediatrice(A[i],B[i],true,color='red', markmilieu='×', markrayons='//',couleurMediatrice = 'blue', epaisseurMediatrice = 1))
 					break
 				case 3 :
-					console.log('case 3')
 					d[i] = medianeTriangle(C[i],B[i],A[i],'blue')
 					d[i].epaisseur=1
 					c[i] = codageMedianeTriangle(C[i],B[i],A[i],color='black',mark='//')
 					objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i],na[i],nb[i],nc[i]]
 					texte_corr=`La droite tracée est la médiane issue de $${sommets[i][0]}$ dans le triangle ${triangles[i].getNom()}.<br>`
-					texte_corr+=mathalea2d(-1,-2,8,8,...objets[i])
+					texte_corr+= mathalea2d({xmin:-1,ymin:-2,xmax:8,ymax:8,scale:.5,ppc:30},...objets[i])
 					break
 				case 4 :
-					console.log('case 4')
 					d[i] = bissectrice(A[i],B[i],C[i],'blue')
 					d[i].epaisseur=1
 					c[i] = codageBissectrice(A[i],B[i],C[i])
 					objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i],na[i],nb[i],nc[i]]
 					texte_corr=`La droite tracée est la bissectrice de l'angle $\\widehat{${sommets[i][0]}${sommets[i][1]}${sommets[i][2]}}$.<br>`
-					texte_corr+=mathalea2d(-1,-2,8,8,...objets[i],constructionBissectrice(A[i],B[i],C[i],detail = false, color='red', mark='×',tailleLosange = 3,couleurBissectrice = 'blue', epaiseurBissectrice = 1))
+					texte_corr+= mathalea2d({xmin:-1,ymin:-2,xmax:8,ymax:8,scale:.5,ppc:30},...objets[i],constructionBissectrice(A[i],B[i],C[i],detail = false, color='red', mark='×',tailleLosange = 3,couleurBissectrice = 'blue', epaiseurBissectrice = 1))
 					break
 
 			}
@@ -5125,7 +5118,6 @@ function DroiteRemarquableDuTriangle(){
 			}
 		}
 		liste_de_question_to_contenu(this);
-		pixelsParCm=20
 	}
 	this.besoin_formulaire_numerique = ['Type de droites',3,"1 : Hauteurs et Médiatrices\n2 : Médianes et Bissectrices\n3 : Toutes les droites"]
 }
