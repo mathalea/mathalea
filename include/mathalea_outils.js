@@ -4423,7 +4423,7 @@ function Relatif(...relatifs) {
 
 	/**
 	 * fonction locale pour trouver le ppcm d'un nombre indeterminé d'entiers
-	 * @param  {[...integer]} n parametre du reste contenant une liste d'entiers
+	 * @param  {integer} n parametre du reste contenant une liste d'entiers
 	 * @return {number} renvoie le ppcm des nombres entiers passés dans le paramètre du reste n
 	 */
 	function ppcm([...n]) {
