@@ -4526,6 +4526,33 @@ function Problemes_additifs_fractions() {
 			pb_4_f[1].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$, $\\dfrac{${frac_rangees[6]}}{${frac_rangees[7]}}$.`
 			pb_4_f[1].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc par ${pb_4_f[1].fractions[pb_4_f[1].fractions.indexOf(frac_rangees[7])+1]} que le jardin est le plus occupé.`)}`;	
 
+			pb_4_f.push({// indice 2 le stade
+				//prenoms: [prenomF(),prenomF(),prenomF()],
+				fractions: [nq1,dq1,'le pays organisateur',nq2,dq2,'l\'ensemble des supporters des deux équipes en jeu',nq3,dq3,'les sponsors et officiels',nq4,dq4,'les places en vente libre'],
+				enonce: ``,
+				question: `Quelle est la catégorie la plus importante dans le stade ?`,
+				correction: ``
+			});
+			pb_4_f[2].enonce = `Pour chaque match, les places du stade sont mises en vente dans les proportions suivantes :  $\\dfrac{${pb_4_f[2].fractions[0]}}{${pb_4_f[2].fractions[1]}}$ pour ${pb_4_f[2].fractions[2]}, `;
+			pb_4_f[2].enonce += `$\\dfrac{${pb_4_f[2].fractions[3]}}{${pb_4_f[2].fractions[4]}}$ pour  ${pb_4_f[2].fractions[5]}, `;
+			pb_4_f[2].enonce += `$\\dfrac{${pb_4_f[2].fractions[6]}}{${pb_4_f[2].fractions[7]}}$ pour  ${pb_4_f[2].fractions[8]} et `;
+			pb_4_f[2].enonce += `le reste pour ${pb_4_f[2].fractions[11]}.`;
+			
+			pb_4_f[2].correction = `Calculons d'abord la fraction du stade occupée par ${pb_4_f[2].fractions[11]} : $1-\\dfrac{${pb_4_f[2].fractions[0]}}{${pb_4_f[2].fractions[1]}}-\\dfrac{${pb_4_f[2].fractions[3]}}{${pb_4_f[2].fractions[4]}} -\\dfrac{${pb_4_f[2].fractions[6]}}{${pb_4_f[2].fractions[7]}}= \\dfrac{${pb_4_f[2].fractions[9]}}{${pb_4_f[2].fractions[10]}}$`
+			pb_4_f[2].correction += `<br>Le stade est donc occupé de la façon suivante : $\\dfrac{${pb_4_f[2].fractions[0]}}{${pb_4_f[2].fractions[1]}}$ pour ${pb_4_f[2].fractions[2]}, `;
+			pb_4_f[2].correction += `$\\dfrac{${pb_4_f[2].fractions[3]}}{${pb_4_f[2].fractions[4]}}$ pour ${pb_4_f[2].fractions[5]}, `;
+			pb_4_f[2].correction += `$\\dfrac{${pb_4_f[2].fractions[6]}}{${pb_4_f[2].fractions[7]}}$ pour ${pb_4_f[2].fractions[8]} et `;			
+			pb_4_f[2].correction += `$\\dfrac{${pb_4_f[2].fractions[9]}}{${pb_4_f[2].fractions[10]}}$ pour ${pb_4_f[2].fractions[11]}`;
+			pb_4_f[2].correction += `<br>Réduisons ces fractions au même dénominateur :`;
+			frac_meme_denom = frac.reduceSameDenominateur(pb_4_f[2].fractions[0],pb_4_f[2].fractions[1],pb_4_f[2].fractions[3],pb_4_f[2].fractions[4],pb_4_f[2].fractions[6],pb_4_f[2].fractions[7],pb_4_f[2].fractions[9],pb_4_f[2].fractions[10]);			
+			pb_4_f[2].correction += `$\\dfrac{${pb_4_f[2].fractions[0]}}{${pb_4_f[2].fractions[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ ; `;
+			pb_4_f[2].correction += `$\\dfrac{${pb_4_f[2].fractions[3]}}{${pb_4_f[2].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ ; `;
+			pb_4_f[2].correction += `$\\dfrac{${pb_4_f[2].fractions[6]}}{${pb_4_f[2].fractions[7]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$ et `;
+			pb_4_f[2].correction += `$\\dfrac{${pb_4_f[2].fractions[9]}}{${pb_4_f[2].fractions[10]}} = \\dfrac{${frac_meme_denom[6]}}{${frac_meme_denom[7]}}$.`;
+			frac_rangees = frac.sortFractions(pb_4_f[2].fractions[0],pb_4_f[2].fractions[1],pb_4_f[2].fractions[3],pb_4_f[2].fractions[4],pb_4_f[2].fractions[6],pb_4_f[2].fractions[7],pb_4_f[2].fractions[9],pb_4_f[2].fractions[10]);			
+			pb_4_f[2].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$, $\\dfrac{${frac_rangees[6]}}{${frac_rangees[7]}}$.`
+			pb_4_f[2].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc pour ${pb_4_f[2].fractions[pb_4_f[2].fractions.indexOf(frac_rangees[7])+1]} que le nombre de places est le plus important.`)}`;	
+
 			switch (liste_type_de_questions[i]) {
 				case 1 : // Triathlon des neiges --> VTT, ski de fond, course
 					texte = `${pb_3_f[0].enonce} <br> ${pb_3_f[0].question}`;
@@ -4552,7 +4579,9 @@ function Problemes_additifs_fractions() {
 					texte_corr = `4`;
 					break;
 				case 5 : // Stade --> pays organisatuers, supporters, sponsors, vente libre
-					texte = `5`;
+					texte = `${pb_4_f[2].enonce} <br> ${pb_4_f[2].question}`;
+					texte += `<br>`;
+					texte += `<br> ${pb_4_f[2].correction}`;
 					texte_corr = `5`;
 					break;	
 			};
