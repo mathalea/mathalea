@@ -4376,9 +4376,9 @@ function Relatif(...relatifs) {
 
 	/**
 	 * 
-	 * @param  {...any} fractions contient la liste des num et den dans l'ordre n1,d1,n2,d2, ... de deux ou plus de fractions
-	 * @return {array} renvoie un tableau de num et den triés selon la croissance des quotients [[n_frac_min,d_frac_min],...,[n_frac_max,d_frac_max]]
-	 * 
+	 * @param  {...any} fractions contient la liste des numérateurs et denominateurs dans l'ordre n1,d1,n2,d2, ... de deux ou plus de fractions
+	 * @return {array} renvoie un tableau avec les numérateurs et les dénominateurs triés selon la croissance des quotients [n_frac_min,d_frac_min,...,n_frac_max,d_frac_max]
+	 * @example sortFraction(1,2,1,5,1,4,1,3) renvoie [1,5,1,4,1,3,1,2] 
 	 */
 	function sortFractions(...fractions) {
 		try {		
@@ -4427,6 +4427,7 @@ function Relatif(...relatifs) {
 	 * fonction locale pour trouver le ppcm d'un nombre indeterminé d'entiers
 	 * @param  {integer} n parametre du reste contenant une liste d'entiers
 	 * @return {number} renvoie le ppcm des nombres entiers passés dans le paramètre du reste n
+	 * @example ppcm(2,6,4,15) renvoie 60
 	 */
 	function ppcm([...n]) {
 		try {
@@ -4445,15 +4446,15 @@ function Relatif(...relatifs) {
 		catch (e) {
 			console.log(e.message);
 		};
-		
-
 	};
 
 	/**
 	 * 
-	 * @param  {...any} fractions contient la liste des num et den dans l'ordre n1,d1,n2,d2, ... de deux ou plus de fractions
-	 * @return {array} renvoie un tableau de num et den avec le même denom dans l'ordre initial
-	 * 
+	 * @param  {...any} fractions contient la liste des numérateurs et des dénominateurs dans l'ordre n1,d1,n2,d2, ... de deux ou plus de fractions
+	 * @return {array} renvoie un tableau de numérateurs et de dénominateurs avec le même dénominateur dans l'ordre initial.
+	 * * Le dénominateur choisi est toujours le ppcm
+	 * * Les fractions ne sont pas réduites
+	 * @example reduceSameDenominateur(1,2,1,5,2,3) renvoie [15,30,6,30,20,30]
 	 */
 	function reduceSameDenominateur(...fractions) {
 		try {		
