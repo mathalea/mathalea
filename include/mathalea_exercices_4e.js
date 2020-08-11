@@ -4387,12 +4387,17 @@ function Problemes_additifs_fractions() {
 			// le tableau d'objets contenant tout le necesssaire, fractions, énoncé, question ... pour les problème avec 3 fractions
 			let pb_3_f = [];
 			// les numérateurs et dénominateurs des 3 fractions attention les deux premières doivent être inférieures à 1/2 si on veut qu'elles soient toutes positives !
-			let nt1 = randint(1,6);
-			let dt1 = 2*nt1 + randint(1,3);
-			let nt2 = randint(2,10);
-			let dt2 = 2*nt2 + randint(1,3);
-			let nt3 = dt1*dt2-nt1*dt2-nt2*dt1,//la somme des trois vaut 1 !
-			dt3 = dt1*dt2; 
+			// et on veut des fractions distinctes !
+			let nt1,nt2,nt3,dt1,dt2,dt3;
+			while ( (nt1==nt2 && dt1==dt2) || (nt1==nt3 && dt1==dt3) || (nt3==nt2 && dt3==dt2) ) {
+				nt1 = randint(1,6);
+				dt1 = 2*nt1 + randint(1,3);
+				nt2 = randint(2,10);
+				dt2 = 2*nt2 + randint(1,3);
+				nt3 = dt1*dt2-nt1*dt2-nt2*dt1;//la somme des trois vaut 1 !
+				dt3 = dt1*dt2; 
+			};		
+			
 			pb_3_f.push({// indice 0 le triathlon des neiges
 				prenoms: [prenomM()],
 				fractions: [nt1,dt1,'VTT',nt2,dt2,'ski de fond',nt3,dt3,'pied'],
@@ -4454,15 +4459,18 @@ function Problemes_additifs_fractions() {
 			// le tableau d'objets contenant tout le necesssaire, fractions, énoncé, question ... pour les problème avec 4 fractions
 			let pb_4_f = [];
 			// les numérateurs et dénominateurs des 4 fractions attention les trois premières doivent être inférieures à 1/3 si on veut qu'elles soient toutes positives !
-			let nq1 = randint(1,4);
-			let dq1 = 3*nq1 + 1;
-			let nq2 = randint(1,4);
-			let dq2 = 3*nq2 + 1;
-			let nq3 = randint(1,4);
-			let dq3 = 3*nq3 + 1;
-			let nq4 = dq1*dq2*dq3-nq1*dq2*dq3 - nq2*dq1*dq3 - nq3*dq1*dq2,//la somme des quatre vaut 1 !
-			dq4 = dq1*dq2*dq3; 
-
+			// et on veut des fractions distinctes 
+			let nq1,nq2,nq3,nq4,dq1,dq2,dq3,dq4;
+			while ( (nq1==nq2 && dq1==dq2) || (nq1==nq3 && dq1==dq3) || (nq1==nq4 && dq1==dq4) || (nq2==nq3 && dq2==dq3) || (nq2==nq4 && dq2==dq4) || (nq3==nq4 && dq3==dq4)) {
+				nq1 = randint(1,4);
+				dq1 = 3*nq1 + 1;
+				nq2 = randint(1,4);
+				dq2 = 3*nq2 + 1;
+				nq3 = randint(1,4);
+				dq3 = 3*nq3 + 1;
+				nq4 = dq1*dq2*dq3-nq1*dq2*dq3 - nq2*dq1*dq3 - nq3*dq1*dq2;//la somme des quatre vaut 1 !
+				dq4 = dq1*dq2*dq3; 
+			};
 			pb_4_f.push({// indice 0 le mandala
 				prenoms: [prenom()],
 				fractions: [nq1,dq1,'carmin',nq2,dq2,'ocre jaune',nq3,dq3,'turquoise',nq4,dq4,'pourpre'],
