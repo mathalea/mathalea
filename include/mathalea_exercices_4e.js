@@ -4384,7 +4384,7 @@ function Problemes_additifs_fractions() {
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
 			// on aura besoin des méthodes de la classe Fraction()
 			let frac = new Fraction();
-			// le tableau d'objet contenant tout le necesssaire, fractions, énoncé, question ... pour les problème avec 3 fractions
+			// le tableau d'objets contenant tout le necesssaire, fractions, énoncé, question ... pour les problème avec 3 fractions
 			let pb_3_f = [];
 			// les numérateurs et dénominateurs des 3 fractions attention les deux premières doivent être inférieures à 1/2 si on veut qu'elles soient toutes positives !
 			let nt1 = randint(1,6);
@@ -4393,7 +4393,6 @@ function Problemes_additifs_fractions() {
 			let dt2 = 2*nt2 + randint(1,3);
 			let nt3 = dt1*dt2-nt1*dt2-nt2*dt1,//la somme des trois vaut 1 !
 			dt3 = dt1*dt2; 
-			//let prenom = prenomM();
 			pb_3_f.push({
 				prenoms: [prenomM()],
 				fractions: [nt1,dt1,'VTT',nt2,dt2,'ski de fond',nt3,dt3,'pied'],
@@ -4420,7 +4419,7 @@ function Problemes_additifs_fractions() {
 			pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[0].fractions[pb_3_f[0].fractions.indexOf(frac_rangees[5])+1]} que ${pb_3_f[0].prenoms[0]} fait la plus grande distance.`)}`;			
 
 			pb_3_f.push({
-				prenoms: [prenomF(),prenomF(),prenomF()],
+				//prenoms: [prenomF(),prenomF(),prenomF()],
 				fractions: [nt1,dt1,prenomF(),nt2,dt2,prenomF(),nt3,dt3,prenomF()],
 				enonce: ``,
 				question: `Qui a été elue ?`,
@@ -4433,7 +4432,7 @@ function Problemes_additifs_fractions() {
 			pb_3_f[1].enonce += `${pb_3_f[1].fractions[8]} tous les autres.`;
 			
 			pb_3_f[1].correction = `Calculons d'abord la fraction des suffrages remportés par ${pb_3_f[1].fractions[8]} : $1-\\dfrac{${pb_3_f[1].fractions[0]}}{${pb_3_f[1].fractions[1]}}-\\dfrac{${pb_3_f[1].fractions[3]}}{${pb_3_f[1].fractions[4]}} = \\dfrac{${pb_3_f[1].fractions[6]}}{${pb_3_f[1].fractions[7]}}$`
-			pb_3_f[1].correction += `<br>${pb_3_f[1].fractions[2]} a donc remporté $\\dfrac{${pb_3_f[1].fractions[0]}}{${pb_3_f[1].fractions[1]}}$ à ${pb_3_f[1].fractions[2]}, `;
+			pb_3_f[1].correction += `<br>${pb_3_f[1].fractions[2]} a donc remporté $\\dfrac{${pb_3_f[1].fractions[0]}}{${pb_3_f[1].fractions[1]}}$, `;
 			pb_3_f[1].correction += `${pb_3_f[1].fractions[5]} a remporté $\\dfrac{${pb_3_f[1].fractions[3]}}{${pb_3_f[1].fractions[4]}}$ et `;
 			pb_3_f[1].correction += `${pb_3_f[1].fractions[8]} $\\dfrac{${pb_3_f[1].fractions[6]}}{${pb_3_f[1].fractions[7]}}$.`;			
 			pb_3_f[1].correction += `<br>Réduisons ces fractions au même dénominateur :`;
@@ -4444,6 +4443,44 @@ function Problemes_additifs_fractions() {
 			frac_rangees = frac.sortFractions(pb_3_f[1].fractions[0],pb_3_f[1].fractions[1],pb_3_f[1].fractions[3],pb_3_f[1].fractions[4],pb_3_f[1].fractions[6],pb_3_f[1].fractions[7]); 
 			pb_3_f[1].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
 			pb_3_f[1].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[1].fractions[pb_3_f[1].fractions.indexOf(frac_rangees[5])+1]} qui a été elue.`)}`;			
+
+			// le tableau d'objets contenant tout le necesssaire, fractions, énoncé, question ... pour les problème avec 4 fractions
+			let pb_4_f = [];
+			// les numérateurs et dénominateurs des 4 fractions attention les trois premières doivent être inférieures à 1/3 si on veut qu'elles soient toutes positives !
+			let nq1 = randint(1,4);
+			let dq1 = 3*nq1 + randint(1,3);
+			let nq2 = randint(1,4);
+			let dq2 = 3*nq2 + randint(1,3);
+			let nq3 = randint(1,4);
+			let dq3 = 3*nq3 + randint(1,3);
+			let nq4 = 1,//la somme des quatre vaut 1 !
+			dq4 = dq1*dq2*dq3; 
+			pb_4_f.push({
+				//prenoms: [prenomF(),prenomF(),prenomF()],
+				fractions: [nq1,dq1,'la culture des légumes',nq2,dq2,'la culture des plantes aromatiques',nq3,dq3,'une serre servant aux semis',nq4,dq4,'la culture des fraisiers'],
+				enonce: ``,
+				question: `Quelle fraction du jardin occupent les fraisiers ?`,
+				correction: ``
+			});
+			pb_4_f[0].enonce = `Un jardin est aménagé selon les proportions suivantes :  $\\dfrac{${pb_4_f[0].fractions[0]}}{${pb_4_f[0].fractions[1]}}$ par ${pb_4_f[0].fractions[2]}, `;
+			pb_4_f[0].enonce += `$\\dfrac{${pb_4_f[0].fractions[3]}}{${pb_4_f[0].fractions[4]}}$ par  ${pb_4_f[0].fractions[5]}, `;
+			pb_4_f[0].enonce += `$\\dfrac{${pb_4_f[0].fractions[6]}}{${pb_4_f[0].fractions[7]}}$ par  ${pb_4_f[0].fractions[8]} et `;
+			pb_4_f[0].enonce += `le reste par ${pb_4_f[0].fractions[11]}.`;
+			
+			pb_4_f[0].correction = `Calculons d'abord la fraction du jardin occupée par ${pb_4_f[0].fractions[11]} : $1-\\dfrac{${pb_4_f[0].fractions[0]}}{${pb_4_f[0].fractions[1]}}-\\dfrac{${pb_4_f[0].fractions[3]}}{${pb_4_f[0].fractions[4]}} -\\dfrac{${pb_4_f[0].fractions[6]}}{${pb_4_f[0].fractions[7]}}= \\dfrac{${pb_4_f[0].fractions[9]}}{${pb_4_f[0].fractions[10]}}$`
+			pb_4_f[0].correction += `<br>Lee jardin est donc occupé de la façon suivante : $\\dfrac{${pb_4_f[0].fractions[0]}}{${pb_4_f[0].fractions[1]}}$ par ${pb_4_f[0].fractions[2]}, `;
+			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractions[3]}}{${pb_4_f[0].fractions[4]}}$ par ${pb_4_f[0].fractions[5]}, `;
+			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractions[6]}}{${pb_4_f[0].fractions[7]}}$ par ${pb_4_f[0].fractions[8]} et `;			
+			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractions[9]}}{${pb_4_f[0].fractions[10]}}$ par ${pb_4_f[0].fractions[11]}`;
+			pb_4_f[0].correction += `<br>Réduisons ces fractions au même dénominateur :`;
+			frac_meme_denom = frac.reduceSameDenominateur(pb_4_f[0].fractions[0],pb_4_f[0].fractions[1],pb_4_f[0].fractions[3],pb_4_f[0].fractions[4],pb_4_f[0].fractions[6],pb_4_f[0].fractions[7],pb_4_f[0].fractions[9],pb_4_f[0].fractions[10]);			
+			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractions[0]}}{${pb_4_f[0].fractions[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ ; `;
+			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractions[3]}}{${pb_4_f[0].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ ; `;
+			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractions[6]}}{${pb_4_f[0].fractions[7]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$ et `;
+			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractions[9]}}{${pb_4_f[0].fractions[10]}} = \\dfrac{${frac_meme_denom[6]}}{${frac_meme_denom[7]}}$.`;
+			frac_rangees = frac.sortFractions(pb_4_f[0].fractions[0],pb_4_f[0].fractions[1],pb_4_f[0].fractions[3],pb_4_f[0].fractions[4],pb_4_f[0].fractions[6],pb_4_f[0].fractions[7],pb_4_f[0].fractions[9],pb_4_f[0].fractions[10]);			
+			pb_4_f[0].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$, $\\dfrac{${frac_rangees[6]}}{${frac_rangees[7]}}$.`
+			pb_4_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc par ${pb_4_f[0].fractions[pb_4_f[0].fractions.indexOf(frac_rangees[7])+1]} que le jardin est le plus occupé.`)}`;	
 
 			switch (liste_type_de_questions[i]) {
 				case 1 : // Triathlon des neiges --> VTT, ski de fond, course
@@ -4463,7 +4500,9 @@ function Problemes_additifs_fractions() {
 					texte_corr = `3`;
 					break;
 				case 4 : // Jardin --> légumes, plantes aromatiques, semis, fraisiers
-					texte = `4`;
+					texte = `${pb_4_f[0].enonce} <br> ${pb_4_f[0].question}`;
+					texte += `<br>`;
+					texte += `<br> ${pb_4_f[0].correction}`;
 					texte_corr = `4`;
 					break;
 				case 5 : // Stade --> pays organisatuers, supporters, sponsors, vente libre
