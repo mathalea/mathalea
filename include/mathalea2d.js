@@ -970,6 +970,8 @@ function demiDroiteAvecExtremite(A,B,color='black'){
 */
 function Polygone(...points){
 	ObjetMathalea2D.call(this);
+	this.couleurDeRemplissage = ''
+	this.opaciteDeRemplissage = .7
 	if (Array.isArray(points[0])) { //Si le premier argument est un tableau
 		this.listePoints = points[0]
 		if (points[1]) {
@@ -992,11 +994,17 @@ function Polygone(...points){
 		if (this.pointilles) {
 			this.style += ` stroke-dasharray="4 3" `
 		}
+		if (this.couleurDeRemplissage =='') {
+			this.style += ` fill="none" ` 
+		} else {
+			this.style += ` fill="${this.couleurDeRemplissage}" `
+			this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
+		}	
 		if (this.opacite !=1) {
 			this.style += ` stroke-opacity="${this.opacite}" `
 		}
 		
-		return `<polygon points="${binomeXY}" fill="none" stroke="${this.color}" ${this.style} />`
+		return `<polygon points="${binomeXY}" stroke="${this.color}" ${this.style} />`
 	}
 	this.tikz = function(){
 		let tableauOptions = [];
@@ -1246,6 +1254,8 @@ function Cercle(O,r,color){
 	}
 	this.centre = O
 	this.rayon = r
+	this.couleurDeRemplissage = ''
+	this.opaciteDeRemplissage = .7
 	this.svg = function(){
 		if (this.epaisseur!=1) {
 			this.style += ` stroke-width="${this.epaisseur}" `
@@ -1255,6 +1265,12 @@ function Cercle(O,r,color){
 		}
 		if (this.opacite !=1) {
 			this.style += ` stroke-opacity="${this.opacite}" `
+		}
+		if (this.couleurDeRemplissage =='') {
+			this.style += ` fill="none" ` 
+		} else {
+			this.style += ` fill="${this.couleurDeRemplissage}" `
+			this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
 		}
 
 		return `<circle cx="${O.xSVG()}" cy="${O.ySVG()}" r="${r*this.coeff}" stroke="${this.color}" ${this.style} fill="none"/>`
