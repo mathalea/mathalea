@@ -4470,3 +4470,60 @@ function Problemes_additifs_fractions() {
 	};
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : nombre enier positif\n2 : nombre décimal positif\n3 : nombre enier positif inférieur à un\n4 : Mélange"];
 };
+
+/**
+* Problème avec lecture de représentation graphique d'une fonction
+* @Auteur Rémi Angot
+*/
+function Exploiter_representation_graphique(){
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Problème s'appuyant sur la lecture d'une représentation graphique";
+	this.consigne = "Calculer";
+	this.nb_questions = 1;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.nb_questions_modifiable = false;
+	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+
+		let t1 = randint(5,9)
+		let f = x =>calcul(-1/3*x*(x-t1))
+
+		let g1 = grille(-1,-1,t1+2,8)
+		g1.color = 'black'
+		g1.opacite = 1
+		let g2 = grille(-1,-1,t1+2,8,'gray',.2,.2)
+		let a = axes(0,0,t1+1,8)
+		let texte1 = texteParPosition('hauteur (en mètre)',0.2,7.3,'droite')
+		let l1 = labelX(0,t1+1)
+		let l2 = labelY(1,6,1,'black',-.6,5)
+		let c = courbe(f,0,t1)
+		c.epaisseur = 2
+		c.color = 'blue'
+		let texte2 = texteParPosition('temps (en s)',t1+.5,0.4,'droite')
+		
+		this.introduction = 'On a représenté ci-dessous l’évolution de la hauteur d’un projectile lancé depuis le sol (en mètre) en fonction du temps (en seconde).'
+
+		this.introduction += '<br><br>' + mathalea2d({
+			xmin : -1,
+			ymin : -1,
+			xmax : t1+3,
+			ymax : 8,
+			pixelsParCm : 40,
+		},g1,g2,a,c,texte1,texte2,l1,l2)
+
+		this.introduction += '<br><br>' + 'À l’aide de ce graphique, répondre aux questions suivantes :'
+
+		this.liste_questions.push('Au bout de combien de temps le projectile retombe-t-il au sol ?')
+		this.liste_corrections.push(`Au bout de ${t1} s, le projectile retombe au sol car sa hauteur est à nouveau de 0 m.`)
+
+		this.liste_questions.push('Quelle est la hauteur maximale atteinte par le projectile ?')
+		this.liste_corrections.push(`Le point le plus haut de la courbe a pour abscisse ${tex_nombrec(t1/2)} et pour ordonnee ${f(t1/2)} donc la hauteur maximale est de ${f(t1/2)} m.`)
+
+		liste_de_question_to_contenu(this);
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+}
