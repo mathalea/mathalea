@@ -2261,9 +2261,9 @@ function AfficheLongueurSegment(A,B,color='black',d = .5)  {
 	let longueur = string_nombre(arrondi(s.longueur,1))
 	let angle
 	if (B.x>A.x) {
-		angle = -parseInt(s.angleAvecHorizontale)
+		angle = parseInt(s.angleAvecHorizontale)
 	} else {
-		angle = 180-parseInt(s.angleAvecHorizontale)
+		angle = parseInt(s.angleAvecHorizontale)-180
 	}
 	return texteParPoint(longueur,N,angle,this.color)
 	
@@ -2301,9 +2301,9 @@ function afficheMesureAngle(A,B,C,color='black',distance = 1.5)  {
  	s.isVisible = false
  	let angle
  	if (B.x>A.x) {
- 		angle = -parseInt(s.angleAvecHorizontale)
+ 		angle = parseInt(s.angleAvecHorizontale)
  	} else {
- 		angle = 180-parseInt(s.angleAvecHorizontale)
+ 		angle =parseInt(s.angleAvecHorizontale)-180
  	}
  	return texteParPoint(mark,O,angle,this.color)
 
