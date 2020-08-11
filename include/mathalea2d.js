@@ -1229,9 +1229,12 @@ function triangle2points2angles(A,B,a1,a2,n=1){
  */
 function nommePolygone(p,nom,k=1.15){
 	let G=barycentre(p)
+	let V,v
 	for (let i=0,point; i < p.listePoints.length ; i++){
 		p.listePoints[i].nom = nom[i] 
-		point=homothetie(p.listePoints[i],G,k)
+		V=vecteur(G,p.listePoints[i])
+		v=homothetie(V,G,0.5/V.norme())
+		point=translation(p.listePoints[i],v)
 		texteParPoint(p.listePoints[i].nom,point,'milieu')
 	}
 }
@@ -1633,14 +1636,17 @@ function translation(O,v,nom='',positionLabel = 'above') {
 		s.styleExtremites = O.styleExtremites
 		return s
 	}
-	if (O.constructor==DemiDroite) {
+	/*if (O.constructor==DemiDroite) {
 		let M = translation(O.extremite1,v)
 		let N = translation(O.extremite2,v)
 		let s = demiDroite(M,N)
 		s.styleExtremites = O.styleExtremites
 		return s
 	}
-
+*/
+	if (A.constructor==Vecteur) {
+			return A
+	}
 }
 
 /**
@@ -1676,14 +1682,17 @@ function translation2Points(O,A,B,nom='',positionLabel = 'above') {
 		s.styleExtremites = O.styleExtremites
 		return s
 	}
-	if (O.constructor==DemiDroite) {
+/*	if (O.constructor==DemiDroite) {
 		let M = translation2Points(O.extremite1,A,B)
 		let N = translation2Points(O.extremite2,A,B)
 		let s = demiDroite(M,N)
 		s.styleExtremites = O.styleExtremites
 		return s
 	}
-
+*/
+	if (A.constructor==Vecteur) {
+		return A
+			}
 }
 
 /**
@@ -1718,14 +1727,20 @@ function rotation(A,O,angle,nom,positionLabel){
 		s.styleExtremites = A.styleExtremites
 		return s
 	}
-	if (A.constructor==DemiDroite) {
+	/*if (A.constructor==DemiDroite) {
 		let M = rotation(A.extremite1,O,angle)
 		let N = rotation(A.extremite2,O,angle)
 		let s = demiDroite(M,N)
 		s.styleExtremites = A.styleExtremites
 		return s
 	}
-
+*/
+	if (A.constructor==Vecteur) {
+		let x = calcul(A.x*Math.cos(angle*Math.PI/180)-A.y*Math.sin(angle*Math.PI/180))
+		let y = calcul(A.x*Math.sin(angle*Math.PI/180)+A.y*Math.cos(angle*Math.PI/180));
+		let v = vecteur(x,y)
+	return v
+	}
 }
 
 /**
@@ -1760,12 +1775,19 @@ function homothetie(A,O,k,nom,positionLabel){
 		s.styleExtremites = A.styleExtremites
 		return s
 	}
-	if (A.constructor==DemiDroite) {
+/*	if (A.constructor==DemiDroite) {
 		let M = homothetie(A.extremite1,O,k)
 		let N = homothetie(A.extremite2,O,k)
 		let s = demiDroite(M,N)
 		s.styleExtremites = A.styleExtremites
 		return s
+	}
+	*/
+	if (A.constructor==Vecteur) {
+		let x = A.x
+		let y = A.y
+		let v = vecteur(x*k,y*k)
+		return v
 	}
 }
 
@@ -1776,9 +1798,9 @@ function homothetie(A,O,k,nom,positionLabel){
  * @Auteur Jean-Claude Lhote
  */
  function symetrieAxiale(A,d,nom='',positionLabel = 'above') {
- 	if (A.constructor==Point) {
- 		let x,y
- 		let a=d.a,b=d.b,c=d.c,k=1/(a*a+b*b)
+	let x,y
+	let a=d.a,b=d.b,c=d.c,k=1/(a*a+b*b)
+		if (A.constructor==Point) {
  		if (a==0) {
  			x=A.x
  			y=calcul(-(A.y+2*c/b))
@@ -1812,13 +1834,24 @@ function homothetie(A,O,k,nom,positionLabel){
  		s.styleExtremites = A.styleExtremites
  		return s
  	}
- 	if (A.constructor==DemiDroite) {
+ /*	if (A.constructor==DemiDroite) {
  		let M = symetrieAxiale(A.extremite1,d)
  		let N = symetrieAxiale(A.extremite2,d)
  		let s = demiDroite(M,N)
  		s.styleExtremites = A.styleExtremites
  		return s
- 	}
+	 }*/
+	 if (A.constructor==Vecteur) {
+		let O
+		if (egal(b,0)) {
+			O=point(calcul(-c/a),0)
+		}
+		else O=point(0,calcul(-c/b))
+		let M=translation(O,A)
+		let N=symetrieAxiale(M,d)
+		let v = vecteur(O,N)
+		return v
+	}
  }
 
 /**
@@ -1828,6 +1861,7 @@ function homothetie(A,O,k,nom,positionLabel){
 function projectionOrtho(M,d,nom = ' ',positionLabel = 'above') {
 	let a=d.a,b=d.b,c=d.c,k=calcul(1/(a*a+b*b));
 	let x,y;
+	if (M.constructor == Point) {
 	if (a==0) {
 		x=M.x
 		y=calcul(-c/b)
@@ -1841,15 +1875,26 @@ function projectionOrtho(M,d,nom = ' ',positionLabel = 'above') {
 		y=calcul(k*(-a*b*M.x+a*a*M.y+a*a*c/b)-c/b)
 	}
 	return point(x,y,nom,positionLabel)
+	}
+	if (M.constructor==Vecteur) {
+		let O
+		if (egal(b,0)) 
+			O=point(calcul(-c/a),0)
+		else O=point(0,calcul(-c/b))
+		let A=translation(O,M)
+		let N=projectionOrtho(A,d)
+		let v = vecteur(O,N)
+		return v
+	}
 }
 /**
  * N = affiniteOrtho(M,d,rapport,'N','rgiht')
  * @Auteur = Jean-Claude Lhote
  */
  function affiniteOrtho(A, d, k, nom = ' ', positionLabel = 'above') {
+	let a = d.a, b = d.b, c = d.c, q = calcul(1 / (a * a + b * b));
+	let x, y;
  	if (A.constructor == Point) {
- 		let a = d.a, b = d.b, c = d.c, q = calcul(1 / (a * a + b * b));
- 		let x, y;
  		if (a == 0) {
  			x = A.x
  			y = calcul(k * A.y + c * (k - 1) / b)
@@ -1883,13 +1928,24 @@ function projectionOrtho(M,d,nom = ' ',positionLabel = 'above') {
  		s.styleExtremites = A.styleExtremites
  		return s
  	}
- 	if (A.constructor == DemiDroite) {
+ /*	if (A.constructor == DemiDroite) {
  		let M = affiniteOrtho(A.extremite1, d,k)
  		let N = affiniteOrtho(A.extremite2, d,k)
  		let s = demiDroite(M, N)
  		s.styleExtremites = A.styleExtremites
  		return s
- 	}
+	 }*/
+	 if (A.constructor==Vecteur) {
+		let O
+		if (egal(b,0)) {
+			O=point(calcul(-c/a),0)
+		}
+		else O=point(0,calcul(-c/b))
+		let M=translation(O,A)
+		let N=affiniteOrtho(M,d,k)
+		let v = vecteur(O,N)
+		return v
+	}
  }
 /**
  * 
@@ -1928,13 +1984,18 @@ function projectionOrtho(M,d,nom = ' ',positionLabel = 'above') {
  		s.styleExtremites = A.styleExtremites
  		return s
  	}
- 	if (A.constructor==DemiDroite) {
+ 	/*if (A.constructor==DemiDroite) {
  		let M = similitude(A.extremite1,O,a,k)
  		let N = similitude(A.extremite2,O,a,k)
  		let s = demiDroite(M,N)
  		s.styleExtremites = A.styleExtremites
  		return s
- 	}
+ 	}*/
+	 if (A.constructor==Vecteur){
+		 let V=rotation(A,O,a)
+		 let v=homothetie(V,O,k)
+		 return v
+	 }
 
  }
 
