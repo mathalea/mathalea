@@ -2636,18 +2636,19 @@ function grille(...args){
 * @Auteur Rémi Angot
 */
 
-function courbe(f,xmin=-1,xmax=30,color = 'black',step=.1){
+function courbe(f,xmin=-1,xmax=30,color = 'black',epaisseur = 2,step=.1,xscale=1,yscale=1){
 	ObjetMathalea2D.call(this)
 	this.color = color
 	let points = []
-	for (let x = xmin ; x<=xmax ; x = calcul(x+step)){
-		if (isFinite(f(x))) {
-			points.push(point(x,f(x)))
+	for (let x = calcul(xmin/xscale) ; x<=calcul(xmax/xscale) ; x = calcul(x+step)){
+		if (isFinite(f(x*xscale))) {
+			points.push(point(x,f(x*xscale)/yscale))
 		} else {
 
 		}
 	}
 	let p = polyline([...points],this.color)
+	p.epaisseur = epaisseur
 	return p
 }
 

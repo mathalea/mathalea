@@ -4105,26 +4105,46 @@ function Signe_produit_quotient_relatifs() {
 
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
+
+		function orth_facteur_négatifs(n) {
+			if (n>=2) {
+				return `facteurs négatifs`;
+			} else {
+				return `facteur négatif`;
+			};
+		};
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {			
 			// on ne choisit que des nombres compris entre 1 et 20
 			let nb_max = 20;
 			// Le tableau des relatifs necessaires, il m'en faut max 4 !
 			let num = new Relatif(randint(-1,1,[0])*randint(1,nb_max),randint(-1,1,[0])*randint(1,nb_max),randint(-1,1,[0])*randint(1,nb_max),randint(-1,1,[0])*randint(1,nb_max));
-			
+						
 			switch (liste_type_de_questions[i]) {
 				case 1 : // 2 facteurs
 					texte = `$ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} $`;
-					texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]} et $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`;
-					texte_corr+= `<br>donc $ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(num.relatifs[0],num.relatifs[1]))}.`;
-					//texte = 'tt';
-					//texte_corr = 'tt';
+					texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]} et $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}.`;
+					if ( num.getCardNegatifs(num.relatifs[0],num.relatifs[1])%2 == 0 ) {
+						texte_corr += `<br>Les deux facteurs sont de même signe donc le produit est positif.`;
+					} else {
+						texte_corr += `<br>Les deux facteurs sont de signe différent donc le produit est négatif.`;
+					};					
+					texte_corr+= `<br>Donc $ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(num.relatifs[0],num.relatifs[1]))}.`;
 					break;
 				case 2 : // 3 facteurs
 					texte = `$ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} \\times ${ecriture_nombre_relatif(num.relatifs[2])} $`;
 					texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`;
-					texte_corr += ` et $ ${ecriture_nombre_relatif(num.relatifs[2])} $ est ${num.getSigneString()[2]}`;
-					texte_corr+= `<br>donc $ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} \\times ${ecriture_nombre_relatif(num.relatifs[2])} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(num.relatifs[0],num.relatifs[1],num.relatifs[2]))}.`;
+					texte_corr += ` et $ ${ecriture_nombre_relatif(num.relatifs[2])} $ est ${num.getSigneString()[2]}.`;
+					if ( num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2])%2 == 0 ) {
+						if ( num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2]) == 0 ) {
+							texte_corr += `<br>Tous ${num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2])} les facteurs sont positifs donc le produit est positif.`;
+						} else {
+							texte_corr += `<br>Il y a ${num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2])} ${orth_facteur_négatifs(num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2]))}, le nombre de facteurs négatifs est pair donc le produit est positif.`;
+						};						
+					} else {
+						texte_corr += `<br>Il y a ${num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2])} ${orth_facteur_négatifs(num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2]))}, le nombre de facteurs négatifs est impair donc le produit est négatif.`;
+					};	
+					texte_corr+= `<br>Donc $ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} \\times ${ecriture_nombre_relatif(num.relatifs[2])} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(num.relatifs[0],num.relatifs[1],num.relatifs[2]))}.`;
 					break;
 				case 3 : // 4 facteurs
 					texte = `$ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} \\times ${ecriture_nombre_relatif(num.relatifs[2])} \\times ${ecriture_nombre_relatif(num.relatifs[3])} $`;
@@ -4244,8 +4264,8 @@ function Puissances_encadrement() {
 					break;
 			};
 
-		//let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		// let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
 
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
@@ -4257,7 +4277,9 @@ function Puissances_encadrement() {
 				ent_pos.push({
 					val:`$${tex_nombre(randint(10**i+1,10**(i+1)))}$`,
 					puissance_inf:`$10^{${i}}$`,
-					puissance_sup:`$10^{${i+1}}$`
+					puissance_sup:`$10^{${i+1}}$`,
+					puissance_inf_num:`$${tex_nombre(10**i)}$`,
+					puissance_sup_num:`$${tex_nombre(10**(i+1))}$`
 				});
 			};
 
@@ -4267,7 +4289,9 @@ function Puissances_encadrement() {
 				dec_pos.push({
 					val:`$${tex_nombre(randint(10000,100000)/(10**(4-i)))}$`,
 					puissance_inf:`$10^{${i}}$`,
-					puissance_sup:`$10^{${i+1}}$`
+					puissance_sup:`$10^{${i+1}}$`,
+					puissance_inf_num:`$${tex_nombre(10**i)}$`,
+					puissance_sup_num:`$${tex_nombre(10**(i+1))}$`
 				});
 			};			
 			// nombre décimal positif inférieur à 1, entre 0,1 et 1 puis entre 0,01 et 0,1 puis 0,001 et 0,0001
@@ -4276,7 +4300,10 @@ function Puissances_encadrement() {
 				dec_pos_inf_un.push({
 					val:`$${tex_nombre(randint(10**(4-i-1)+1,10**(4-i))/10000)}$`,
 					puissance_inf:`$10^{${-(i+1)}}$`,
-					puissance_sup:`$10^{${-i}}$`
+					puissance_sup:`$10^{${-i}}$`,
+					puissance_inf_num:`$${tex_nombre(10**(-(i+1)))}$`,
+					puissance_sup_num:`$${tex_nombre(10**(-i))}$`
+
 				});
 			};			
 			
@@ -4284,58 +4311,72 @@ function Puissances_encadrement() {
 				case 1 : // nombre enier positif
 					texte = `${ent_pos[0].val}`;
 					texte_corr = `${ent_pos[0].puissance_inf} $\\leqslant$ ${ent_pos[0].val} $\\leqslant$ ${ent_pos[0].puissance_sup}`;
+					texte_corr += ` car ${ent_pos[0].puissance_inf} = ${ent_pos[0].puissance_inf_num} et ${ent_pos[0].puissance_sup} = ${ent_pos[0].puissance_sup_num}`;
 					break;
 				case 2 : // nombre enier positif
 					texte = `${ent_pos[1].val}`;
 					texte_corr = `${ent_pos[1].puissance_inf} $\\leqslant$ ${ent_pos[1].val} $\\leqslant$ ${ent_pos[1].puissance_sup}`;
+					texte_corr += ` car ${ent_pos[1].puissance_inf} = ${ent_pos[1].puissance_inf_num} et ${ent_pos[1].puissance_sup} = ${ent_pos[1].puissance_sup_num}`;
 					break;
 				case 3 : // nombre enier positif
 					texte = `${ent_pos[2].val}`;
 					texte_corr = `${ent_pos[2].puissance_inf} $\\leqslant$ ${ent_pos[2].val} $\\leqslant$ ${ent_pos[2].puissance_sup}`;
+					texte_corr += ` car ${ent_pos[2].puissance_inf} = ${ent_pos[2].puissance_inf_num} et ${ent_pos[2].puissance_sup} = ${ent_pos[2].puissance_sup_num}`;
 					break;
 				case 4 : // nombre enier positif
 					texte = `${ent_pos[3].val}`;
 					texte_corr = `${ent_pos[3].puissance_inf} $\\leqslant$ ${ent_pos[3].val} $\\leqslant$ ${ent_pos[3].puissance_sup}`;
+					texte_corr += ` car ${ent_pos[3].puissance_inf} = ${ent_pos[3].puissance_inf_num} et ${ent_pos[3].puissance_sup} = ${ent_pos[3].puissance_sup_num}`;
 					break;
 				case 5 : // nombre enier positif
 					texte = `${ent_pos[4].val}`;
 					texte_corr = `${ent_pos[4].puissance_inf} $\\leqslant$ ${ent_pos[4].val} $\\leqslant$ ${ent_pos[4].puissance_sup}`;
+					texte_corr += ` car ${ent_pos[4].puissance_inf} = ${ent_pos[4].puissance_inf_num} et ${ent_pos[4].puissance_sup} = ${ent_pos[4].puissance_sup_num}`;
 					break;
 				case 6 : // nombre enier positif
 					texte = `${ent_pos[5].val}`;
 					texte_corr = `${ent_pos[5].puissance_inf} $\\leqslant$ ${ent_pos[5].val} $\\leqslant$ ${ent_pos[5].puissance_sup}`;
+					texte_corr += ` car ${ent_pos[5].puissance_inf} = ${ent_pos[5].puissance_inf_num} et ${ent_pos[5].puissance_sup} = ${ent_pos[5].puissance_sup_num}`;
 					break;																				
 				case 7 : // nombre décimal positif
 					texte = `${dec_pos[0].val}`;
 					texte_corr = `${dec_pos[0].puissance_inf} $\\leqslant$ ${dec_pos[0].val} $\\leqslant$ ${dec_pos[0].puissance_sup}`;
+					texte_corr += ` car ${dec_pos[0].puissance_inf} = ${dec_pos[0].puissance_inf_num} et ${dec_pos[0].puissance_sup} = ${dec_pos[0].puissance_sup_num}`;
 					break;
 				case 8 : // nombre décimal positif
 					texte = `${dec_pos[1].val}`;
 					texte_corr = `${dec_pos[1].puissance_inf} $\\leqslant$ ${dec_pos[1].val} $\\leqslant$ ${dec_pos[1].puissance_sup}`;
+					texte_corr += ` car ${dec_pos[1].puissance_inf} = ${dec_pos[1].puissance_inf_num} et ${dec_pos[1].puissance_sup} = ${dec_pos[1].puissance_sup_num}`;
 					break;
 				case 9 : // nombre décimal positif
 					texte = `${dec_pos[2].val}`;
 					texte_corr = `${dec_pos[2].puissance_inf} $\\leqslant$ ${dec_pos[2].val} $\\leqslant$ ${dec_pos[2].puissance_sup}`;
+					texte_corr += ` car ${dec_pos[2].puissance_inf} = ${dec_pos[2].puissance_inf_num} et ${dec_pos[2].puissance_sup} = ${dec_pos[2].puissance_sup_num}`;
 					break;
 				case 10 : // nombre décimal positif
 					texte = `${dec_pos[3].val}`;
 					texte_corr = `${dec_pos[3].puissance_inf} $\\leqslant$ ${dec_pos[3].val} $\\leqslant$ ${dec_pos[3].puissance_sup}`;
+					texte_corr += ` car ${dec_pos[3].puissance_inf} = ${dec_pos[3].puissance_inf_num} et ${dec_pos[3].puissance_sup} = ${dec_pos[3].puissance_sup_num}`;
 					break;
 				case 11 : // nombre décimal positif inferieur à 1
 					texte = `${dec_pos_inf_un[0].val}`;
 					texte_corr = `${dec_pos_inf_un[0].puissance_inf} $\\leqslant$ ${dec_pos_inf_un[0].val} $\\leqslant$ ${dec_pos_inf_un[0].puissance_sup}`;
+					texte_corr += ` car ${dec_pos_inf_un[0].puissance_inf} = ${dec_pos_inf_un[0].puissance_inf_num} et ${dec_pos_inf_un[0].puissance_sup} = ${dec_pos_inf_un[0].puissance_sup_num}`;
 					break;		
 				case 12 : // nombre décimal positif inferieur à 1
 					texte = `${dec_pos_inf_un[1].val}`;
 					texte_corr = `${dec_pos_inf_un[1].puissance_inf} $\\leqslant$ ${dec_pos_inf_un[1].val} $\\leqslant$ ${dec_pos_inf_un[1].puissance_sup}`;
+					texte_corr += ` car ${dec_pos_inf_un[1].puissance_inf} = ${dec_pos_inf_un[1].puissance_inf_num} et ${dec_pos_inf_un[1].puissance_sup} = ${dec_pos_inf_un[1].puissance_sup_num}`;
 					break;		
 				case 13 : // nombre décimal positif inferieur à 1
 					texte = `${dec_pos_inf_un[2].val}`;
 					texte_corr = `${dec_pos_inf_un[2].puissance_inf} $\\leqslant$ ${dec_pos_inf_un[2].val} $\\leqslant$ ${dec_pos_inf_un[2].puissance_sup}`;
+					texte_corr += ` car ${dec_pos_inf_un[2].puissance_inf} = ${dec_pos_inf_un[2].puissance_inf_num} et ${dec_pos_inf_un[2].puissance_sup} = ${dec_pos_inf_un[2].puissance_sup_num}`;
 					break;		
 				case 14 : // nombre décimal positif inferieur à 1
 					texte = `${dec_pos_inf_un[3].val}`;
 					texte_corr = `${dec_pos_inf_un[3].puissance_inf} $\\leqslant$ ${dec_pos_inf_un[3].val} $\\leqslant$ ${dec_pos_inf_un[3].puissance_sup}`;
+					texte_corr += ` car ${dec_pos_inf_un[3].puissance_inf} = ${dec_pos_inf_un[3].puissance_inf_num} et ${dec_pos_inf_un[3].puissance_sup} = ${dec_pos_inf_un[3].puissance_sup_num}`;
 					break;	
 			};
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
@@ -4384,17 +4425,21 @@ function Problemes_additifs_fractions() {
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
 			// on aura besoin des méthodes de la classe Fraction()
 			let frac = new Fraction();
-			// le tableau d'objet contenant tout le necesssaire, fractions, énoncé, question ... pour les problème avec 3 fractions
+			// le tableau d'objets contenant tout le necesssaire, fractions, énoncé, question ... pour les problème avec 3 fractions
 			let pb_3_f = [];
 			// les numérateurs et dénominateurs des 3 fractions attention les deux premières doivent être inférieures à 1/2 si on veut qu'elles soient toutes positives !
-			let nt1 = randint(1,6);
-			let dt1 = 2*nt1 + randint(1,3);
-			let nt2 = randint(2,10);
-			let dt2 = 2*nt2 + randint(1,3);
-			let nt3 = dt1*dt2-nt1*dt2-nt2*dt1,//la somme des trois vaut 1 !
-			dt3 = dt1*dt2; 
-			//let prenom = prenomM();
-			pb_3_f.push({
+			// et on veut des fractions distinctes !
+			let nt1,nt2,nt3,dt1,dt2,dt3;
+			while ( (nt1==nt2 && dt1==dt2) || (nt1==nt3 && dt1==dt3) || (nt3==nt2 && dt3==dt2) ) {
+				nt1 = randint(1,6);
+				dt1 = 2*nt1 + randint(1,3);
+				nt2 = randint(2,10);
+				dt2 = 2*nt2 + randint(1,3);
+				nt3 = dt1*dt2-nt1*dt2-nt2*dt1;//la somme des trois vaut 1 !
+				dt3 = dt1*dt2; 
+			};		
+			
+			pb_3_f.push({// indice 0 le triathlon des neiges
 				prenoms: [prenomM()],
 				fractions: [nt1,dt1,'VTT',nt2,dt2,'ski de fond',nt3,dt3,'pied'],
 				enonce: ``,
@@ -4406,7 +4451,7 @@ function Problemes_additifs_fractions() {
 			pb_3_f[0].enonce += `<br>À chaque entraînement, il parcourt le circuit de la façon suivante : $\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}$ à ${pb_3_f[0].fractions[2]}, `
 			pb_3_f[0].enonce += `$\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}}$ à ${pb_3_f[0].fractions[5]} et le reste à ${pb_3_f[0].fractions[8]}.`;
 
-			pb_3_f[0].correction = `Calculons d'abord la distance à pied : $1-\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}-\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}} = \\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}}$`
+			pb_3_f[0].correction = `Calculons d'abord la distance à ${pb_3_f[0].fractions[8]} : $1-\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}-\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}} = \\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}}$`
 			pb_3_f[0].correction += `<br>${pb_3_f[0].prenoms[0]} fait donc $\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}$ à ${pb_3_f[0].fractions[2]}, `;
 			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}}$ à ${pb_3_f[0].fractions[5]} et `;
 			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}}$ à ${pb_3_f[0].fractions[8]}.`;			
@@ -4419,11 +4464,18 @@ function Problemes_additifs_fractions() {
 			pb_3_f[0].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
 			pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[0].fractions[pb_3_f[0].fractions.indexOf(frac_rangees[5])+1]} que ${pb_3_f[0].prenoms[0]} fait la plus grande distance.`)}`;			
 
-			pb_3_f.push({
+			// les 3 prénomns doivent être distincts
+			let p1,p2,p3; // les 3 prénoms
+			while ( p1==p2 || p1 == p3 || p2 == p3 ) {
+				p1 = prenomF();
+				p2 = prenomF();
+				p3 = prenomF();
+			};
+			pb_3_f.push({// indice 1 Miss Math
 				//prenoms: [prenomF(),prenomF(),prenomF()],
-				fractions: [nt1,dt1,prenomF(),nt2,dt2,prenomF(),nt3,dt3,prenomF()],
+				fractions: [nt1,dt1,p1,nt2,dt2,p2,nt3,dt3,p3],
 				enonce: ``,
-				question: `Qui a été elue ?`,
+				question: `Qui a été élue ?`,
 				correction: ``
 			});
 			let currentDate = new Date();
@@ -4431,7 +4483,116 @@ function Problemes_additifs_fractions() {
 			pb_3_f[1].enonce = `À l'élection de Miss Math ${currentAnnee}, ${pb_3_f[1].fractions[2]} a remporté $\\dfrac{${pb_3_f[1].fractions[0]}}{${pb_3_f[1].fractions[1]}}$ des suffrages, `;
 			pb_3_f[1].enonce += `${pb_3_f[1].fractions[5]} $\\dfrac{${pb_3_f[1].fractions[3]}}{${pb_3_f[1].fractions[4]}}$ et `;
 			pb_3_f[1].enonce += `${pb_3_f[1].fractions[8]} tous les autres.`;
-			//pb_3_f[1].enonce += `<br> ${pb_3_f[1].fractions}`;
+			
+			pb_3_f[1].correction = `Calculons d'abord la fraction des suffrages remportés par ${pb_3_f[1].fractions[8]} : $1-\\dfrac{${pb_3_f[1].fractions[0]}}{${pb_3_f[1].fractions[1]}}-\\dfrac{${pb_3_f[1].fractions[3]}}{${pb_3_f[1].fractions[4]}} = \\dfrac{${pb_3_f[1].fractions[6]}}{${pb_3_f[1].fractions[7]}}$`
+			pb_3_f[1].correction += `<br>${pb_3_f[1].fractions[2]} a donc remporté $\\dfrac{${pb_3_f[1].fractions[0]}}{${pb_3_f[1].fractions[1]}}$, `;
+			pb_3_f[1].correction += `${pb_3_f[1].fractions[5]} a remporté $\\dfrac{${pb_3_f[1].fractions[3]}}{${pb_3_f[1].fractions[4]}}$ et `;
+			pb_3_f[1].correction += `${pb_3_f[1].fractions[8]} $\\dfrac{${pb_3_f[1].fractions[6]}}{${pb_3_f[1].fractions[7]}}$.`;			
+			pb_3_f[1].correction += `<br>Réduisons ces fractions au même dénominateur :`;
+			frac_meme_denom = frac.reduceSameDenominateur(pb_3_f[1].fractions[0],pb_3_f[1].fractions[1],pb_3_f[1].fractions[3],pb_3_f[1].fractions[4],pb_3_f[1].fractions[6],pb_3_f[1].fractions[7]);			
+			pb_3_f[1].correction += `$\\dfrac{${pb_3_f[1].fractions[0]}}{${pb_3_f[1].fractions[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ ; `;
+			pb_3_f[1].correction += `$\\dfrac{${pb_3_f[1].fractions[3]}}{${pb_3_f[1].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ et `;
+			pb_3_f[1].correction += `$\\dfrac{${pb_3_f[1].fractions[6]}}{${pb_3_f[1].fractions[7]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$.`;
+			frac_rangees = frac.sortFractions(pb_3_f[1].fractions[0],pb_3_f[1].fractions[1],pb_3_f[1].fractions[3],pb_3_f[1].fractions[4],pb_3_f[1].fractions[6],pb_3_f[1].fractions[7]); 
+			pb_3_f[1].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
+			pb_3_f[1].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc ${pb_3_f[1].fractions[pb_3_f[1].fractions.indexOf(frac_rangees[5])+1]} qui a été élue.`)}`;			
+
+			// le tableau d'objets contenant tout le necesssaire, fractions, énoncé, question ... pour les problème avec 4 fractions
+			let pb_4_f = [];
+			// les numérateurs et dénominateurs des 4 fractions attention les trois premières doivent être inférieures à 1/3 si on veut qu'elles soient toutes positives !
+			// et on veut des fractions distinctes 
+			let nq1,nq2,nq3,nq4,dq1,dq2,dq3,dq4;
+			while ( (nq1==nq2 && dq1==dq2) || (nq1==nq3 && dq1==dq3) || (nq1==nq4 && dq1==dq4) || (nq2==nq3 && dq2==dq3) || (nq2==nq4 && dq2==dq4) || (nq3==nq4 && dq3==dq4)) {
+				nq1 = randint(1,4);
+				dq1 = 3*nq1 + 1;
+				nq2 = randint(1,4);
+				dq2 = 3*nq2 + 1;
+				nq3 = randint(1,4);
+				dq3 = 3*nq3 + 1;
+				nq4 = dq1*dq2*dq3-nq1*dq2*dq3 - nq2*dq1*dq3 - nq3*dq1*dq2;//la somme des quatre vaut 1 !
+				dq4 = dq1*dq2*dq3; 
+			};
+			pb_4_f.push({// indice 0 le mandala
+				prenoms: [prenom()],
+				fractions: [nq1,dq1,'carmin',nq2,dq2,'ocre jaune',nq3,dq3,'turquoise',nq4,dq4,'pourpre'],
+				enonce: ``,
+				question: `Quelle est elle la couleur qui recouvre le plus de surface ?`,
+				correction: ``
+			});
+			pb_4_f[0].enonce = `${pb_4_f[0].prenoms[0]} colorie un mandala selon les proportions suivantes :  $\\dfrac{${pb_4_f[0].fractions[0]}}{${pb_4_f[0].fractions[1]}}$ en ${pb_4_f[0].fractions[2]}, `;
+			pb_4_f[0].enonce += `$\\dfrac{${pb_4_f[0].fractions[3]}}{${pb_4_f[0].fractions[4]}}$ en  ${pb_4_f[0].fractions[5]}, `;
+			pb_4_f[0].enonce += `$\\dfrac{${pb_4_f[0].fractions[6]}}{${pb_4_f[0].fractions[7]}}$ en  ${pb_4_f[0].fractions[8]} et `;
+			pb_4_f[0].enonce += `le reste en ${pb_4_f[0].fractions[11]}.`;
+			
+			pb_4_f[0].correction = `Calculons d'abord la fraction du mandala recouverte en ${pb_4_f[0].fractions[11]} : $1-\\dfrac{${pb_4_f[0].fractions[0]}}{${pb_4_f[0].fractions[1]}}-\\dfrac{${pb_4_f[0].fractions[3]}}{${pb_4_f[0].fractions[4]}} -\\dfrac{${pb_4_f[0].fractions[6]}}{${pb_4_f[0].fractions[7]}}= \\dfrac{${pb_4_f[0].fractions[9]}}{${pb_4_f[0].fractions[10]}}$`
+			pb_4_f[0].correction += `<br>Le mandala est donc colorié de la façon suivante : $\\dfrac{${pb_4_f[0].fractions[0]}}{${pb_4_f[0].fractions[1]}}$ en ${pb_4_f[0].fractions[2]}, `;
+			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractions[3]}}{${pb_4_f[0].fractions[4]}}$ en ${pb_4_f[0].fractions[5]}, `;
+			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractions[6]}}{${pb_4_f[0].fractions[7]}}$ en ${pb_4_f[0].fractions[8]} et `;			
+			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractions[9]}}{${pb_4_f[0].fractions[10]}}$ en ${pb_4_f[0].fractions[11]}`;
+			pb_4_f[0].correction += `<br>Réduisons ces fractions au même dénominateur :`;
+			frac_meme_denom = frac.reduceSameDenominateur(pb_4_f[0].fractions[0],pb_4_f[0].fractions[1],pb_4_f[0].fractions[3],pb_4_f[0].fractions[4],pb_4_f[0].fractions[6],pb_4_f[0].fractions[7],pb_4_f[0].fractions[9],pb_4_f[0].fractions[10]);			
+			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractions[0]}}{${pb_4_f[0].fractions[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ ; `;
+			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractions[3]}}{${pb_4_f[0].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ ; `;
+			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractions[6]}}{${pb_4_f[0].fractions[7]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$ et `;
+			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractions[9]}}{${pb_4_f[0].fractions[10]}} = \\dfrac{${frac_meme_denom[6]}}{${frac_meme_denom[7]}}$.`;
+			frac_rangees = frac.sortFractions(pb_4_f[0].fractions[0],pb_4_f[0].fractions[1],pb_4_f[0].fractions[3],pb_4_f[0].fractions[4],pb_4_f[0].fractions[6],pb_4_f[0].fractions[7],pb_4_f[0].fractions[9],pb_4_f[0].fractions[10]);			
+			pb_4_f[0].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$, $\\dfrac{${frac_rangees[6]}}{${frac_rangees[7]}}$.`
+			pb_4_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc le ${pb_4_f[0].fractions[pb_4_f[0].fractions.indexOf(frac_rangees[7])+1]} qui recouvre le plus de surface du mandala.`)}`;	
+
+			
+			pb_4_f.push({// indice 1 le jardin
+				//prenoms: [prenomF(),prenomF(),prenomF()],
+				fractions: [nq1,dq1,'la culture des légumes',nq2,dq2,'la culture des plantes aromatiques',nq3,dq3,'une serre servant aux semis',nq4,dq4,'la culture des fraisiers'],
+				enonce: ``,
+				question: `Quelle est la culture qui occupe le plus de surface ?`,
+				correction: ``
+			});
+			pb_4_f[1].enonce = `Un jardin est aménagé selon les proportions suivantes :  $\\dfrac{${pb_4_f[1].fractions[0]}}{${pb_4_f[1].fractions[1]}}$ par ${pb_4_f[1].fractions[2]}, `;
+			pb_4_f[1].enonce += `$\\dfrac{${pb_4_f[1].fractions[3]}}{${pb_4_f[1].fractions[4]}}$ par  ${pb_4_f[1].fractions[5]}, `;
+			pb_4_f[1].enonce += `$\\dfrac{${pb_4_f[1].fractions[6]}}{${pb_4_f[1].fractions[7]}}$ par  ${pb_4_f[1].fractions[8]} et `;
+			pb_4_f[1].enonce += `le reste par ${pb_4_f[1].fractions[11]}.`;
+			
+			pb_4_f[1].correction = `Calculons d'abord la fraction du jardin occupée par ${pb_4_f[1].fractions[11]} : $1-\\dfrac{${pb_4_f[1].fractions[0]}}{${pb_4_f[1].fractions[1]}}-\\dfrac{${pb_4_f[1].fractions[3]}}{${pb_4_f[1].fractions[4]}} -\\dfrac{${pb_4_f[1].fractions[6]}}{${pb_4_f[1].fractions[7]}}= \\dfrac{${pb_4_f[1].fractions[9]}}{${pb_4_f[1].fractions[10]}}$`
+			pb_4_f[1].correction += `<br>Le jardin est donc occupé de la façon suivante : $\\dfrac{${pb_4_f[1].fractions[0]}}{${pb_4_f[1].fractions[1]}}$ par ${pb_4_f[1].fractions[2]}, `;
+			pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[3]}}{${pb_4_f[1].fractions[4]}}$ par ${pb_4_f[1].fractions[5]}, `;
+			pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[6]}}{${pb_4_f[1].fractions[7]}}$ par ${pb_4_f[1].fractions[8]} et `;			
+			pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[9]}}{${pb_4_f[1].fractions[10]}}$ par ${pb_4_f[1].fractions[11]}`;
+			pb_4_f[1].correction += `<br>Réduisons ces fractions au même dénominateur :`;
+			frac_meme_denom = frac.reduceSameDenominateur(pb_4_f[1].fractions[0],pb_4_f[1].fractions[1],pb_4_f[1].fractions[3],pb_4_f[1].fractions[4],pb_4_f[1].fractions[6],pb_4_f[1].fractions[7],pb_4_f[1].fractions[9],pb_4_f[1].fractions[10]);			
+			pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[0]}}{${pb_4_f[1].fractions[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ ; `;
+			pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[3]}}{${pb_4_f[1].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ ; `;
+			pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[6]}}{${pb_4_f[1].fractions[7]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$ et `;
+			pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[9]}}{${pb_4_f[1].fractions[10]}} = \\dfrac{${frac_meme_denom[6]}}{${frac_meme_denom[7]}}$.`;
+			frac_rangees = frac.sortFractions(pb_4_f[1].fractions[0],pb_4_f[1].fractions[1],pb_4_f[1].fractions[3],pb_4_f[1].fractions[4],pb_4_f[1].fractions[6],pb_4_f[1].fractions[7],pb_4_f[1].fractions[9],pb_4_f[1].fractions[10]);			
+			pb_4_f[1].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$, $\\dfrac{${frac_rangees[6]}}{${frac_rangees[7]}}$.`
+			pb_4_f[1].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc par ${pb_4_f[1].fractions[pb_4_f[1].fractions.indexOf(frac_rangees[7])+1]} que le jardin est le plus occupé.`)}`;	
+
+			pb_4_f.push({// indice 2 le stade
+				//prenoms: [prenomF(),prenomF(),prenomF()],
+				fractions: [nq1,dq1,'le pays organisateur',nq2,dq2,'l\'ensemble des supporters des deux équipes en jeu',nq3,dq3,'les sponsors et officiels',nq4,dq4,'les places en vente libre'],
+				enonce: ``,
+				question: `Quelle est la catégorie la plus importante dans le stade ?`,
+				correction: ``
+			});
+			pb_4_f[2].enonce = `Pour chaque match, les places du stade sont mises en vente dans les proportions suivantes :  $\\dfrac{${pb_4_f[2].fractions[0]}}{${pb_4_f[2].fractions[1]}}$ pour ${pb_4_f[2].fractions[2]}, `;
+			pb_4_f[2].enonce += `$\\dfrac{${pb_4_f[2].fractions[3]}}{${pb_4_f[2].fractions[4]}}$ pour  ${pb_4_f[2].fractions[5]}, `;
+			pb_4_f[2].enonce += `$\\dfrac{${pb_4_f[2].fractions[6]}}{${pb_4_f[2].fractions[7]}}$ pour  ${pb_4_f[2].fractions[8]} et `;
+			pb_4_f[2].enonce += `le reste pour ${pb_4_f[2].fractions[11]}.`;
+			
+			pb_4_f[2].correction = `Calculons d'abord la fraction du stade occupée par ${pb_4_f[2].fractions[11]} : $1-\\dfrac{${pb_4_f[2].fractions[0]}}{${pb_4_f[2].fractions[1]}}-\\dfrac{${pb_4_f[2].fractions[3]}}{${pb_4_f[2].fractions[4]}} -\\dfrac{${pb_4_f[2].fractions[6]}}{${pb_4_f[2].fractions[7]}}= \\dfrac{${pb_4_f[2].fractions[9]}}{${pb_4_f[2].fractions[10]}}$`
+			pb_4_f[2].correction += `<br>Le stade est donc occupé de la façon suivante : $\\dfrac{${pb_4_f[2].fractions[0]}}{${pb_4_f[2].fractions[1]}}$ pour ${pb_4_f[2].fractions[2]}, `;
+			pb_4_f[2].correction += `$\\dfrac{${pb_4_f[2].fractions[3]}}{${pb_4_f[2].fractions[4]}}$ pour ${pb_4_f[2].fractions[5]}, `;
+			pb_4_f[2].correction += `$\\dfrac{${pb_4_f[2].fractions[6]}}{${pb_4_f[2].fractions[7]}}$ pour ${pb_4_f[2].fractions[8]} et `;			
+			pb_4_f[2].correction += `$\\dfrac{${pb_4_f[2].fractions[9]}}{${pb_4_f[2].fractions[10]}}$ pour ${pb_4_f[2].fractions[11]}`;
+			pb_4_f[2].correction += `<br>Réduisons ces fractions au même dénominateur :`;
+			frac_meme_denom = frac.reduceSameDenominateur(pb_4_f[2].fractions[0],pb_4_f[2].fractions[1],pb_4_f[2].fractions[3],pb_4_f[2].fractions[4],pb_4_f[2].fractions[6],pb_4_f[2].fractions[7],pb_4_f[2].fractions[9],pb_4_f[2].fractions[10]);			
+			pb_4_f[2].correction += `$\\dfrac{${pb_4_f[2].fractions[0]}}{${pb_4_f[2].fractions[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ ; `;
+			pb_4_f[2].correction += `$\\dfrac{${pb_4_f[2].fractions[3]}}{${pb_4_f[2].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ ; `;
+			pb_4_f[2].correction += `$\\dfrac{${pb_4_f[2].fractions[6]}}{${pb_4_f[2].fractions[7]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$ et `;
+			pb_4_f[2].correction += `$\\dfrac{${pb_4_f[2].fractions[9]}}{${pb_4_f[2].fractions[10]}} = \\dfrac{${frac_meme_denom[6]}}{${frac_meme_denom[7]}}$.`;
+			frac_rangees = frac.sortFractions(pb_4_f[2].fractions[0],pb_4_f[2].fractions[1],pb_4_f[2].fractions[3],pb_4_f[2].fractions[4],pb_4_f[2].fractions[6],pb_4_f[2].fractions[7],pb_4_f[2].fractions[9],pb_4_f[2].fractions[10]);			
+			pb_4_f[2].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$, $\\dfrac{${frac_rangees[6]}}{${frac_rangees[7]}}$.`
+			pb_4_f[2].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc pour ${pb_4_f[2].fractions[pb_4_f[2].fractions.indexOf(frac_rangees[7])+1]} que le nombre de places est le plus important.`)}`;	
 
 			switch (liste_type_de_questions[i]) {
 				case 1 : // Triathlon des neiges --> VTT, ski de fond, course
@@ -4447,15 +4608,21 @@ function Problemes_additifs_fractions() {
 					texte_corr = `2`;
 					break;
 				case 3 : // Mandala --> carmin, ocre jaune, turquoise, pourpre
-					texte = `3`;
+					texte = `${pb_4_f[0].enonce} <br> ${pb_4_f[0].question}`;
+					texte += `<br>`;
+					texte += `<br> ${pb_4_f[0].correction}`;
 					texte_corr = `3`;
 					break;
 				case 4 : // Jardin --> légumes, plantes aromatiques, semis, fraisiers
-					texte = `4`;
+					texte = `${pb_4_f[1].enonce} <br> ${pb_4_f[1].question}`;
+					texte += `<br>`;
+					texte += `<br> ${pb_4_f[1].correction}`;
 					texte_corr = `4`;
 					break;
 				case 5 : // Stade --> pays organisatuers, supporters, sponsors, vente libre
-					texte = `5`;
+					texte = `${pb_4_f[2].enonce} <br> ${pb_4_f[2].question}`;
+					texte += `<br>`;
+					texte += `<br> ${pb_4_f[2].correction}`;
 					texte_corr = `5`;
 					break;	
 			};
@@ -4478,7 +4645,7 @@ function Problemes_additifs_fractions() {
 function Exploiter_representation_graphique(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Problème s'appuyant sur la lecture d'une représentation graphique";
-	this.consigne = "Calculer";
+	this.consigne = "";
 	this.nb_questions = 1;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -4489,20 +4656,23 @@ function Exploiter_representation_graphique(){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 
-		let t1 = randint(5,9)
-		let f = x =>calcul(-1/3*x*(x-t1))
+		// Parabole qui a pour zéro, 0 et 6,8 ou 10
+		// Et qui a pour maximum un multiple de 5
+		let t1 = choice([6,8,10])
+		let a = 1/(-t1/2*(t1/2-t1))*choice([10,15,20,25,30]) // on divise par l'image du max et on multiplie par la valeur souhaitée
+		let f = x =>calcul(-a*x*(x-t1))
 
+		// Mettre des dixièmes de secondes à la place des secondes
+		let xscale = choice([1,.1])
 		let g1 = grille(-1,-1,t1+2,8)
 		g1.color = 'black'
 		g1.opacite = 1
 		let g2 = grille(-1,-1,t1+2,8,'gray',.2,.2)
-		let a = axes(0,0,t1+1,8)
+		let g3 = axes(0,0,t1+1,8)
 		let texte1 = texteParPosition('hauteur (en mètre)',0.2,7.3,'droite')
-		let l1 = labelX(0,t1+1)
+		let l1 = labelX(0,t1+1,1,'black',-.6,xscale)
 		let l2 = labelY(1,6,1,'black',-.6,5)
-		let c = courbe(f,0,t1)
-		c.epaisseur = 2
-		c.color = 'blue'
+		let c = courbe(f,0,t1,'blue',2,.1,1,5)
 		let texte2 = texteParPosition('temps (en s)',t1+.5,0.4,'droite')
 		
 		this.introduction = 'On a représenté ci-dessous l’évolution de la hauteur d’un projectile lancé depuis le sol (en mètre) en fonction du temps (en seconde).'
@@ -4513,15 +4683,15 @@ function Exploiter_representation_graphique(){
 			xmax : t1+3,
 			ymax : 8,
 			pixelsParCm : 40,
-		},g1,g2,a,c,texte1,texte2,l1,l2)
+		},g1,g2,g3,c,texte1,texte2,l1,l2)
 
 		this.introduction += '<br><br>' + 'À l’aide de ce graphique, répondre aux questions suivantes :'
 
 		this.liste_questions.push('Au bout de combien de temps le projectile retombe-t-il au sol ?')
-		this.liste_corrections.push(`Au bout de ${t1} s, le projectile retombe au sol car sa hauteur est à nouveau de 0 m.`)
+		this.liste_corrections.push(`Au bout de ${tex_nombrec(t1*xscale)} s, le projectile retombe au sol car la courbe passe par le point de coordonnées $(${tex_nombrec(t1*xscale)}~;~0)$.`)
 
 		this.liste_questions.push('Quelle est la hauteur maximale atteinte par le projectile ?')
-		this.liste_corrections.push(`Le point le plus haut de la courbe a pour abscisse ${tex_nombrec(t1/2)} et pour ordonnee ${f(t1/2)} donc la hauteur maximale est de ${f(t1/2)} m.`)
+		this.liste_corrections.push(`Le point le plus haut de la courbe a pour abscisse $${tex_nombrec(t1/2*xscale)}$ et pour ordonnée ${f(t1/2)} donc la hauteur maximale est de ${f(t1/2)} m.`)
 
 		liste_de_question_to_contenu(this);
 	}

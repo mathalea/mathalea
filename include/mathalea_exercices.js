@@ -7881,6 +7881,7 @@ jQuery(document).ready(function() {
 	let nombre_d_exercices_disponibles_CM = 0;
 	let nombre_d_exercices_disponibles_prof = 0;
 	let nombre_d_exercices_disponibles_PE = 0;
+	let nombre_d_exercices_disponibles_beta = 0;
 	//debut ajout seb section tests
 	let nombre_d_exercices_disponibles_tests = 0;
 	//fin seb section tests
@@ -7893,9 +7894,8 @@ jQuery(document).ready(function() {
 		if (id[0]=='C') {nombre_d_exercices_disponibles_CM+=1}
 		if (id[0]=='P' && id[1]=='0') {nombre_d_exercices_disponibles_prof+=1}
 		if (id[0]=='P' && id[1]=='E') {nombre_d_exercices_disponibles_PE+=1}
-		//debut ajout seb section tests
-		if (id[0]=='T') {nombre_d_exercices_disponibles_tests+=1}
-		//fin seb section tests
+		if (id[0]=='b' && id[1]=='e') {nombre_d_exercices_disponibles_beta+=1}
+		
 	}
 
 	//
@@ -7907,9 +7907,7 @@ jQuery(document).ready(function() {
 	let liste_html_des_exercices_CM = []
 	let liste_html_des_exercices_prof = []
 	let liste_html_des_exercices_PE = []
-	//debut ajout seb section tests
-	let liste_html_des_exercices_tests = []
-	//fin seb section tests
+	let liste_html_des_exercices_beta = []
 
 
 	// Affiche de la liste des exercices disponibles 
@@ -7940,17 +7938,22 @@ jQuery(document).ready(function() {
 		if (id[0]=='P' && id[1]=='0') {
 			liste_html_des_exercices_prof += '<span class="id_exercice">' + id + '</span> - <a class="lien_id_exercice" numero="' + id + '">'  + exercice_tmp.titre + '</a></br>\n';			
 		}
-		// //debut ajout seb section tests
-		// if (id[0]=='T') {
-		// 	liste_html_des_exercices_tests += '<span class="id_exercice">' + id + '</span> - <a class="lien_id_exercice" numero="' + id + '">'  + exercice_tmp.titre + '</a></br>\n';			
-		// }
-		// //fin seb section tests
+		if (id[0]=='b' && id[1]=='e') {
+			liste_html_des_exercices_beta += '<span class="id_exercice">' + id + '</span> - <a class="lien_id_exercice" numero="' + id + '">'  + exercice_tmp.titre + '</a></br>\n';			
+		}
+		
 
 	}
 
 
 	// Change l'ordre des exercices suivant l'URL
-	if (window.location.href.indexOf('cm.html')>0) {
+	if (window.location.href.indexOf('beta')>0) {
+		liste_html_des_exercices += `<div class="ui accordion"><div class="active title"><i class="dropdown icon"></i>Beta (${nombre_d_exercices_disponibles_beta})</div><div class="active content">`
+		liste_html_des_exercices += liste_html_des_exercices_beta
+		liste_html_des_exercices+=`</div>`
+		liste_html_des_exercices+=`</div>`	
+	}
+	else if (window.location.href.indexOf('cm.html')>0) {
 		liste_html_des_exercices += `<div class="ui accordion"><div class="active title"><i class="dropdown icon"></i>Calcul mental (${nombre_d_exercices_disponibles_CM})</div><div class="active content">`
 		liste_html_des_exercices += liste_html_des_exercices_CM
 		liste_html_des_exercices+=`</div>`
@@ -7995,11 +7998,6 @@ jQuery(document).ready(function() {
 		liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Calcul mental (${nombre_d_exercices_disponibles_CM})</div><div class="content">`
 		liste_html_des_exercices += liste_html_des_exercices_CM
 		liste_html_des_exercices+=`</div>`
-		// //debut ajout seb section tests
-		// liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Section Tests (${nombre_d_exercices_disponibles_tests})</div><div class="content">`
-		// liste_html_des_exercices += liste_html_des_exercices_tests
-		// liste_html_des_exercices+=`</div>`
-		//fin seb section tests
 		// Ajoute les outils prof sur mathalealatex
 		if (window.location.href.indexOf('mathalealatex.html')>0) {
 			liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Outils pour le professeur (${nombre_d_exercices_disponibles_prof})</div><div class="content">`
