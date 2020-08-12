@@ -4495,8 +4495,12 @@ function Problemes_additifs_fractions() {
 			pb_3_f[1].correction += `$\\dfrac{${pb_3_f[1].fractions[0]}}{${pb_3_f[1].fractions[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ ; `;
 			pb_3_f[1].correction += `$\\dfrac{${pb_3_f[1].fractions[3]}}{${pb_3_f[1].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ et `;
 			pb_3_f[1].correction += `$\\dfrac{${pb_3_f[1].fractions[6]}}{${pb_3_f[1].fractions[7]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$.`;
+
+			frac_meme_denom_rangees = frac.sortFractions(frac_meme_denom[0],frac_meme_denom[1],frac_meme_denom[2],frac_meme_denom[3],frac_meme_denom[4],frac_meme_denom[5]); 
+			pb_3_f[1].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_meme_denom_rangees[0]}}{${frac_meme_denom_rangees[1]}}$, $\\dfrac{${frac_meme_denom_rangees[2]}}{${frac_meme_denom_rangees[3]}}$, $\\dfrac{${frac_meme_denom_rangees[4]}}{${frac_meme_denom_rangees[5]}}$.`
+
 			frac_rangees = frac.sortFractions(pb_3_f[1].fractions[0],pb_3_f[1].fractions[1],pb_3_f[1].fractions[3],pb_3_f[1].fractions[4],pb_3_f[1].fractions[6],pb_3_f[1].fractions[7]); 
-			pb_3_f[1].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
+			pb_3_f[1].correction += `<br>Enfin, nous pouvons ranger les fractions initiales dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
 			pb_3_f[1].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc ${pb_3_f[1].fractions[pb_3_f[1].fractions.indexOf(frac_rangees[5])+1]} qui a été élue.`)}`;			
 
 			// le tableau d'objets contenant tout le necesssaire, fractions, énoncé, question ... pour les problème avec 4 fractions
@@ -4549,9 +4553,13 @@ function Problemes_additifs_fractions() {
 			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractions[3]}}{${pb_4_f[0].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ ; `;
 			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractions[6]}}{${pb_4_f[0].fractions[7]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$ et `;
 			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractions[9]}}{${pb_4_f[0].fractions[10]}} = \\dfrac{${frac_meme_denom[6]}}{${frac_meme_denom[7]}}$.`;
+
+			frac_meme_denom_rangees = frac.sortFractions(frac_meme_denom[0],frac_meme_denom[1],frac_meme_denom[2],frac_meme_denom[3],frac_meme_denom[4],frac_meme_denom[5],frac_meme_denom[6],frac_meme_denom[7]); 
+			pb_4_f[0].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_meme_denom_rangees[0]}}{${frac_meme_denom_rangees[1]}}$, $\\dfrac{${frac_meme_denom_rangees[2]}}{${frac_meme_denom_rangees[3]}}$, $\\dfrac{${frac_meme_denom_rangees[4]}}{${frac_meme_denom_rangees[5]}}$, $\\dfrac{${frac_meme_denom_rangees[6]}}{${frac_meme_denom_rangees[7]}}$.`
+			
 			frac_rangees = frac.sortFractions(pb_4_f[0].fractions[0],pb_4_f[0].fractions[1],pb_4_f[0].fractions[3],pb_4_f[0].fractions[4],pb_4_f[0].fractions[6],pb_4_f[0].fractions[7],pb_4_f[0].fractions[9],pb_4_f[0].fractions[10]);			
-			pb_4_f[0].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$, $\\dfrac{${frac_rangees[6]}}{${frac_rangees[7]}}$.`
-			pb_4_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc le ${pb_4_f[0].fractions[pb_4_f[0].fractions.indexOf(frac_rangees[7])+1]} qui recouvre le plus de surface du mandala.`)}`;	
+			pb_4_f[0].correction += `<br>Enfin, nous pouvons ranger les fractions initiales dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$, $\\dfrac{${frac_rangees[6]}}{${frac_rangees[7]}}$.`
+			pb_4_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc en ${pb_4_f[0].fractions[pb_4_f[0].fractions.indexOf(frac_rangees[7])+1]} que le mandala est le plus recouvert.`)}`;	
 
 			
 			pb_4_f.push({// indice 1 le jardin
@@ -4578,8 +4586,12 @@ function Problemes_additifs_fractions() {
 			pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[3]}}{${pb_4_f[1].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ ; `;
 			pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[6]}}{${pb_4_f[1].fractions[7]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$ et `;
 			pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[9]}}{${pb_4_f[1].fractions[10]}} = \\dfrac{${frac_meme_denom[6]}}{${frac_meme_denom[7]}}$.`;
+
+			frac_meme_denom_rangees = frac.sortFractions(frac_meme_denom[0],frac_meme_denom[1],frac_meme_denom[2],frac_meme_denom[3],frac_meme_denom[4],frac_meme_denom[5],frac_meme_denom[6],frac_meme_denom[7]); 
+			pb_4_f[1].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_meme_denom_rangees[0]}}{${frac_meme_denom_rangees[1]}}$, $\\dfrac{${frac_meme_denom_rangees[2]}}{${frac_meme_denom_rangees[3]}}$, $\\dfrac{${frac_meme_denom_rangees[4]}}{${frac_meme_denom_rangees[5]}}$, $\\dfrac{${frac_meme_denom_rangees[6]}}{${frac_meme_denom_rangees[7]}}$.`
+
 			frac_rangees = frac.sortFractions(pb_4_f[1].fractions[0],pb_4_f[1].fractions[1],pb_4_f[1].fractions[3],pb_4_f[1].fractions[4],pb_4_f[1].fractions[6],pb_4_f[1].fractions[7],pb_4_f[1].fractions[9],pb_4_f[1].fractions[10]);			
-			pb_4_f[1].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$, $\\dfrac{${frac_rangees[6]}}{${frac_rangees[7]}}$.`
+			pb_4_f[1].correction += `<br>Enfin, nous pouvons ranger les fractions initiales dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$, $\\dfrac{${frac_rangees[6]}}{${frac_rangees[7]}}$.`
 			pb_4_f[1].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc par ${pb_4_f[1].fractions[pb_4_f[1].fractions.indexOf(frac_rangees[7])+1]} que le jardin est le plus occupé.`)}`;	
 
 			pb_4_f.push({// indice 2 le stade
@@ -4606,8 +4618,12 @@ function Problemes_additifs_fractions() {
 			pb_4_f[2].correction += `$\\dfrac{${pb_4_f[2].fractions[3]}}{${pb_4_f[2].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ ; `;
 			pb_4_f[2].correction += `$\\dfrac{${pb_4_f[2].fractions[6]}}{${pb_4_f[2].fractions[7]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$ et `;
 			pb_4_f[2].correction += `$\\dfrac{${pb_4_f[2].fractions[9]}}{${pb_4_f[2].fractions[10]}} = \\dfrac{${frac_meme_denom[6]}}{${frac_meme_denom[7]}}$.`;
+
+			frac_meme_denom_rangees = frac.sortFractions(frac_meme_denom[0],frac_meme_denom[1],frac_meme_denom[2],frac_meme_denom[3],frac_meme_denom[4],frac_meme_denom[5],frac_meme_denom[6],frac_meme_denom[7]); 
+			pb_4_f[2].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_meme_denom_rangees[0]}}{${frac_meme_denom_rangees[1]}}$, $\\dfrac{${frac_meme_denom_rangees[2]}}{${frac_meme_denom_rangees[3]}}$, $\\dfrac{${frac_meme_denom_rangees[4]}}{${frac_meme_denom_rangees[5]}}$, $\\dfrac{${frac_meme_denom_rangees[6]}}{${frac_meme_denom_rangees[7]}}$.`
+
 			frac_rangees = frac.sortFractions(pb_4_f[2].fractions[0],pb_4_f[2].fractions[1],pb_4_f[2].fractions[3],pb_4_f[2].fractions[4],pb_4_f[2].fractions[6],pb_4_f[2].fractions[7],pb_4_f[2].fractions[9],pb_4_f[2].fractions[10]);			
-			pb_4_f[2].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$, $\\dfrac{${frac_rangees[6]}}{${frac_rangees[7]}}$.`
+			pb_4_f[2].correction += `<br>Enfin, nous pouvons ranger les fractions initiales dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$, $\\dfrac{${frac_rangees[6]}}{${frac_rangees[7]}}$.`
 			pb_4_f[2].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc pour ${pb_4_f[2].fractions[pb_4_f[2].fractions.indexOf(frac_rangees[7])+1]} que le nombre de places est le plus important.`)}`;	
 
 			switch (liste_type_de_questions[i]) {
