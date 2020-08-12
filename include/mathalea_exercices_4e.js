@@ -4106,14 +4106,6 @@ function Signe_produit_quotient_relatifs() {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 
-		function orth_facteur_négatifs(n) {
-			if (n>=2) {
-				return `facteurs négatifs`;
-			} else {
-				return `facteur négatif`;
-			};
-		};
-		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {			
 			// on ne choisit que des nombres compris entre 1 et 20
 			let nb_max = 20;
@@ -4124,26 +4116,28 @@ function Signe_produit_quotient_relatifs() {
 				case 1 : // 2 facteurs
 					texte = `$ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} $`;
 					texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]} et $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}.`;
-					if ( num.getCardNegatifs(num.relatifs[0],num.relatifs[1])%2 == 0 ) {
-						texte_corr += `<br>Les deux facteurs sont de même signe donc le produit est positif.`;
-					} else {
-						texte_corr += `<br>Les deux facteurs sont de signe différent donc le produit est négatif.`;
-					};					
+					// if ( num.getCardNegatifs(num.relatifs[0],num.relatifs[1])%2 == 0 ) {
+					// 	texte_corr += `<br>Les deux facteurs sont de même signe donc le produit est positif.`;
+					// } else {
+					// 	texte_corr += `<br>Les deux facteurs sont de signe différent donc le produit est négatif.`;
+					// };
+					texte_corr += `<br> ${num.setRegleProduitFacteurs(num.relatifs[0],num.relatifs[1])}`;					
 					texte_corr+= `<br>Donc $ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(num.relatifs[0],num.relatifs[1]))}.`;
 					break;
 				case 2 : // 3 facteurs
 					texte = `$ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} \\times ${ecriture_nombre_relatif(num.relatifs[2])} $`;
 					texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]}, $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`;
 					texte_corr += ` et $ ${ecriture_nombre_relatif(num.relatifs[2])} $ est ${num.getSigneString()[2]}.`;
-					if ( num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2])%2 == 0 ) {
-						if ( num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2]) == 0 ) {
-							texte_corr += `<br>Tous ${num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2])} les facteurs sont positifs donc le produit est positif.`;
-						} else {
-							texte_corr += `<br>Il y a ${num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2])} ${orth_facteur_négatifs(num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2]))}, le nombre de facteurs négatifs est pair donc le produit est positif.`;
-						};						
-					} else {
-						texte_corr += `<br>Il y a ${num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2])} ${orth_facteur_négatifs(num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2]))}, le nombre de facteurs négatifs est impair donc le produit est négatif.`;
-					};	
+					texte_corr += `<br> ${num.setRegleProduitFacteurs(num.relatifs[0],num.relatifs[1],num.relatifs[2])}`;					
+					// if ( num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2])%2 == 0 ) {
+					// 	if ( num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2]) == 0 ) {
+					// 		texte_corr += `<br>Tous ${num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2])} les facteurs sont positifs donc le produit est positif.`;
+					// 	} else {
+					// 		texte_corr += `<br>Il y a ${num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2])} ${orth_facteur_négatifs(num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2]))}, le nombre de facteurs négatifs est pair donc le produit est positif.`;
+					// 	};						
+					// } else {
+					// 	texte_corr += `<br>Il y a ${num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2])} ${orth_facteur_négatifs(num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2]))}, le nombre de facteurs négatifs est impair donc le produit est négatif.`;
+					// };	
 					texte_corr+= `<br>Donc $ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} \\times ${ecriture_nombre_relatif(num.relatifs[2])} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(num.relatifs[0],num.relatifs[1],num.relatifs[2]))}.`;
 					break;
 				case 3 : // 4 facteurs

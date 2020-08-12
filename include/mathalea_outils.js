@@ -4440,11 +4440,12 @@ function Relatif(...relatifs) {
 	 * 	 
 	 * @param  {...any} n une liste de deux ou plus de nombres relatifs
 	 * @return {string} Renvoie le nombre d'éléments négatifs des nombres de cette liste.
-	 * @example getCardNegatifs(1,-4,-7) renvoie 2
-	 * @example getCardNegatifs(4,-5,7,7,-8,-9) renvoie 3
+	 * * la liste d'entiers doit être passé dans un tableau
+	 * @example getCardNegatifs([1,-4,-7]) renvoie 2
+	 * @example getCardNegatifs([4,-5,7,7,-8,-9]) renvoie 3
 	 */
 
-	function getCardNegatifs(...n) {
+	function getCardNegatifs([...n]) {
 		let card = 0;
 		try {
 			// port du string interdit !			
@@ -4471,12 +4472,81 @@ function Relatif(...relatifs) {
 			console.log(err.message);	
 		};
 	};
+	
+	/**
+	 * Fonction locale
+	 * @param {integer} n un entier désignant le cardinal de facteurs négatifs dans un produit
+	 * @return un string au singulier ou au pluriel
+	 * @example orth_facteurs_negatifs(0) ou orth_facteurs_negatifs(1) renvoie 'facteur negatif'
+	 * @example orth_facteurs_negatifs(7) renvoie 'facteurs negatifs'
+	 */
+	function orth_facteurs_négatifs(n) {
+		if (n>=2) {
+			return `facteurs négatifs`;
+		} else {
+			return `facteur négatif`;
+		};
+	};
+
+	/**
+	 * 	 
+	 * @param  {...any} n une liste de deux ou plus de nombres relatifs
+	 * @return {string} Renvoie la règle qui permet de justifier le signe d'un produit de relatifs adaptée à la liste passée en paramètre.	 
+	 * @example setRegleProduitFacteurs(1,-2,-8,5) renvoie ...
+	 */
+
+	function setRegleProduitFacteurs(...n) {
+		//let card = 0;
+		try {
+			// port du string interdit !			
+			n.forEach(function(element) {
+				if (typeof element == 'string') {
+					throw new TypeError(`${element} est un string !`);
+				};
+			});	
+			// Quoi faire sans nombres ?
+			if (n.length == 0) {
+				throw new Error(`C'est mieux avec quelques nombres !`)
+			};
+
+						// if ( num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2])%2 == 0 ) {
+					// 	if ( num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2]) == 0 ) {
+					// 		texte_corr += `<br>Tous ${num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2])} les facteurs sont positifs donc le produit est positif.`;
+					// 	} else {
+					// 		texte_corr += `<br>Il y a ${num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2])} ${orth_facteur_négatifs(num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2]))}, le nombre de facteurs négatifs est pair donc le produit est positif.`;
+					// 	};						
+					// } else {
+					// 	texte_corr += `<br>Il y a ${num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2])} ${orth_facteur_négatifs(num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2]))}, le nombre de facteurs négatifs est impair donc le produit est négatif.`;
+					// };
+			if (n.length == 2) {
+				if ( getCardNegatifs(n)%2 == 0 ) {
+					return `Les deux facteurs sont de même signe donc le produit est positif.`;
+				} else {
+					return `Les deux facteurs sont de signe différent donc le produit est négatif.`;
+				};
+			} else if (n.length > 2 ) {
+				if ( getCardNegatifs(n)%2 == 0 ) {
+					if ( getCardNegatifs(n) == 0 ) {
+						return `Tous ${getCardNegatifs(n)} les facteurs sont positifs donc le produit est positif.`;
+					} else {
+						return `Il y a ${getCardNegatifs(n)} ${orth_facteurs_négatifs(getCardNegatifs(n))}, le nombre de facteurs négatifs est pair donc le produit est positif.`;
+					};						
+				} else {
+					return `Il y a ${getCardNegatifs(n)} ${orth_facteurs_négatifs(getCardNegatifs(n))}, le nombre de facteurs négatifs est impair donc le produit est négatif.`;
+				};
+			};
+		}
+		catch(err) {
+			console.log(err.message);	
+		};
+	};
 
 	this.getSigneNumber = getSigneNumber;
 	this.getSigneString = getSigneString;
 	this.getSigneProduitNumber = getSigneProduitNumber;
 	this.getSigneProduitString = getSigneProduitString;
 	this.getCardNegatifs = getCardNegatifs;
+	this.setRegleProduitFacteurs = setRegleProduitFacteurs;
 
 };
 
@@ -4542,6 +4612,7 @@ function Relatif(...relatifs) {
 	/**
 	 * fonction locale pour trouver le ppcm d'un nombre indeterminé d'entiers
 	 * @param  {integer} n parametre du reste contenant une liste d'entiers
+	 * * la liste d'entiers doit être passé dans un tableau
 	 * @return {number} renvoie le ppcm des nombres entiers passés dans le paramètre du reste n
 	 * @example ppcm(2,6,4,15) renvoie 60
 	 */
