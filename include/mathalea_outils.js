@@ -4012,11 +4012,6 @@ function decomp_fact_prem_array(n) {
  * * @param {number} a3  un des angles du triangle
  * @author Sébastien Lozano
  */
-
- /**
-  * 
-
-  */
 function Triangles(l1,l2,l3,a1,a2,a3) {
 	'use strict';
 	var self = this;
@@ -4329,7 +4324,7 @@ function Relatif(...relatifs) {
 	/**
 	 * * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs, 
 	 * * Si 0 fait partie des relatifs on renvoie une erreur
-	 * @return {array} renvoie un tableau de -1 ou 1
+	 * @return {array} Renvoie un tableau de -1 ou 1
 	 * @example getSigneNumber(-1,-2,8,-9,4) renvoie [-1,-1,1,-1,1]
 	 */
 	function getSigneNumber() {		
@@ -4368,7 +4363,7 @@ function Relatif(...relatifs) {
 
 	/** 
 	 * * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs
-	 * @return {array} renvoie un tableau de strings valant 'négatif' ou 'positif'
+	 * @return {array} Renvoie un tableau de strings valant 'négatif' ou 'positif'
 	 * @example getSigneNumber(-1,-2,8,-9,4) renvoie le tableau de strings [négatif,négatif,positif,négatif,positif]
 	*/
 	function getSigneString() {
@@ -4388,7 +4383,7 @@ function Relatif(...relatifs) {
 	/**
 	 * 	 
 	 * @param  {...any} n une liste de deux ou plus de nombres relatifs
-	 * @return {number} le signe du produit des nombres de cette liste. 1 ou -1
+	 * @return {number} Renvoie le signe du produit des nombres de cette liste. 1 ou -1
 	 * @example getSigneProduitNumber(1,-4,-7) renvoie 1
 	 */
 
@@ -4427,7 +4422,7 @@ function Relatif(...relatifs) {
 	/**
 	 * 	 
 	 * @param  {...any} n une liste de deux ou plus de nombres relatifs
-	 * @return {string} un string désignant le signe du produit des nombres de cette liste. postif1 ou négatif
+	 * @return {string} Renvoie un string désignant le signe du produit des nombres de cette liste. postif1 ou négatif
 	 * @example getSigneProduitNumber(1,-4,-7) renvoie le string positif
 	 */
 
@@ -4441,10 +4436,29 @@ function Relatif(...relatifs) {
 			};			
 	};
 
+	/**
+	 * 	 
+	 * @param  {...any} n une liste de deux ou plus de nombres relatifs
+	 * @return {string} Renvoie le nombre d'éléments négatifs des nombres de cette liste.
+	 * @example getCardNegatifs(1,-4,-7) renvoie 2
+	 * @example getCardNegatifs(4,-5,7,7,-8,-9) renvoie 3
+	 */
+
+	function getCardNegatifs(...n) {
+		let produit = getSigneProduitNumber(...n);
+			if ( produit == -1 ) {
+				return 'négatif';
+			};
+			if ( produit == 1 ) {
+				return 'positif'
+			};			
+	};
+
 	this.getSigneNumber = getSigneNumber;
 	this.getSigneString = getSigneString;
 	this.getSigneProduitNumber = getSigneProduitNumber;
 	this.getSigneProduitString = getSigneProduitString;
+	this.getCardNegatifs = getCardNegatifs;
 
 };
 

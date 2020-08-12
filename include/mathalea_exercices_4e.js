@@ -4116,9 +4116,12 @@ function Signe_produit_quotient_relatifs() {
 				case 1 : // 2 facteurs
 					texte = `$ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} $`;
 					texte_corr = `$ ${ecriture_nombre_relatif(num.relatifs[0])} $ est ${num.getSigneString()[0]} et $ ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${num.getSigneString()[1]}`;
+					if ( num.getCardNegatifs()%2 == 0 ) {
+						texte_corr += `<br>Les deux facteurs sont de même signe donc le produit est positif.`;
+					} else {
+						texte_corr += `<br>Les deux facteurs sont de signe différent donc le produit est négatif.`;
+					};					
 					texte_corr+= `<br>donc $ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} $ est ${texte_en_couleur_et_gras(num.getSigneProduitString(num.relatifs[0],num.relatifs[1]))}.`;
-					//texte = 'tt';
-					//texte_corr = 'tt';
 					break;
 				case 2 : // 3 facteurs
 					texte = `$ ${ecriture_nombre_relatif(num.relatifs[0])} \\times ${ecriture_nombre_relatif(num.relatifs[1])} \\times ${ecriture_nombre_relatif(num.relatifs[2])} $`;
