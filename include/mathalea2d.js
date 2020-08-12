@@ -792,10 +792,10 @@ function polyline(...args){
  		this.x=-this.x
  		this.y=-this.y
  	}
- 	this.xSVG = function() {
+ 	this.xSVG = function(coeff) {
  		return this.x*coeff;
  	}
- 	this.ySVG = function() {
+ 	this.ySVG = function(coeff) {
  		return -this.y*coeff;
  	}
  	this.representant = function(A){
@@ -998,12 +998,15 @@ function Polygone(...points){
 		this.listePoints = points
 		this.nom = this.listePoints.join()
 	}
-	let binomeXY = "";
-	for (let point of this.listePoints){
-		binomeXY += `${calcul(point.x*coeff)},${calcul(-point.y*coeff)} `; 
+	this.binomesXY = function(coeff){
+		let liste = "";
+		for (let point of this.listePoints){
+			liste += `${calcul(point.x*coeff)},${calcul(-point.y*coeff)} `; 
+		}
+		return liste
 	}
-	this.binomesXY = binomeXY
 	this.svg = function(coeff){
+		
 		if (this.epaisseur!=1) {
 			this.style += ` stroke-width="${this.epaisseur}" `
 		}
@@ -1020,7 +1023,7 @@ function Polygone(...points){
 			this.style += ` stroke-opacity="${this.opacite}" `
 		}
 		
-		return `<polygon points="${binomeXY}" stroke="${this.color}" ${this.style} />`
+		return `<polygon points="${this.binomesXY(coeff)}" stroke="${this.color}" ${this.style} />`
 	}
 	this.tikz = function(){
 		let tableauOptions = [];
@@ -2085,10 +2088,10 @@ function rotationAnimee(...args){
 function HomothetieAnimee(p,O,k,animation='begin="0s" dur="2s" repeatCount="indefinite"'){
 	ObjetMathalea2D.call(this)
 	this.svg = function(coeff){
-		let binomesXY1 = p.binomesXY
+		let binomesXY1 = p.binomesXY(coeff)
 		let p2 = homothetie(p,O,k)
 		p2.isVisible=false
-		let binomesXY2 = p2.binomesXY
+		let binomesXY2 = p2.binomesXY(coeff)
 		code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="none" >
 		<animate attributeName="points" dur="2s" repeatCount="indefinite"
 		from="${binomesXY1}"
@@ -2113,10 +2116,10 @@ function homothetieAnimee(...args){
 function SymetrieAnimee(p,d,animation='begin="0s" dur="2s" repeatCount="indefinite"'){
 	ObjetMathalea2D.call(this)
 	this.svg = function(coeff){
-		let binomesXY1 = p.binomesXY
+		let binomesXY1 = p.binomesXY(coeff)
 		let p2 = symetrieAxiale(p,d)
 		p2.isVisible=false
-		let binomesXY2 = p2.binomesXY
+		let binomesXY2 = p2.binomesXY(coeff)
 		code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="none" >
 		<animate attributeName="points" dur="2s" repeatCount="indefinite"
 		from="${binomesXY1}"
@@ -2135,10 +2138,10 @@ function symetrieAnimee(...args){
 function AffiniteOrthoAnimee(p,d,k,animation='begin="0s" dur="2s" repeatCount="indefinite"'){
 	ObjetMathalea2D.call(this)
 	this.svg = function(coeff){
-		let binomesXY1 = p.binomesXY
+		let binomesXY1 = p.binomesXY(coeff)
 		let p2 = affiniteOrtho(p,d,k)
 		p2.isVisible=false
-		let binomesXY2 = p2.binomesXY
+		let binomesXY2 = p2.binomesXY(coeff)
 		code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="none" >
 		<animate attributeName="points" dur="2s" repeatCount="indefinite"
 		from="${binomesXY1}"
