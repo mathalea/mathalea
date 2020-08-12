@@ -6504,23 +6504,31 @@ function TrianglesSemblables() {
 		let type_de_questions = randint(1,1);
 		switch (type_de_questions){
 			case 1 :
-				let trouve=false,aireABC,A,B,C,M,p,q,r,X,G,Gq,nom1
+				let trouve=false,aireABC,A,B,C,M,p,q,r,X,G,Gq,nom1,grid
 				while (!trouve) {
-				A=point(choice([0,2,4]),choice([0,2,4]),'A')
-				B=point(choice([6,8,10]),choice([2,4,6]),'B')
+				A=point(choice([0,3]),choice([0,3]),'A')
+				B=point(choice([6,9]),choice([6,9]),'B')
 				C=rotation(B,A,90,'C')
-				C.x+=choice([2,4])
-				C.y+=choice([-2,0,2])
+				C.x+=choice([0,3,6])
+				C.y+=choice([-3,0,3])
 				p=polygone(A,B,C)
 				aireABC=aireTriangle(p) // Je savais bien que cette formule servirait un jour !
-				if (aireABC<10&&aireABC>5) trouve=true
+				if (aireABC<11&&aireABC>5) trouve=true
 				}
 				G=barycentre(p)
-				p=rotation(p,G,choice([0,90,180,270]))
+				console.log(G.x,G.y)
+				p=rotation(p,G,choice([0,90,270]))
 				p.couleurDeRemplissage='gray'
 				p.opaciteDeRemplissage=0.5
 				nom1=nommePolygone(p,'ABC',0.4)
-				texte=mathalea2d({xmin:-4,ymin:-4,xmax:15,ymax:15,pixelsParCm:20,scale:0.5},p,nom1)
+				grid=grille(-6,-3,24,18)
+				M=point(6,12)
+				q=rotation(p,M,90)
+				Gq=barycentre(q)
+				r=rotation(q,Gq,choice([0,90,180,270]))
+				r.couleurDeRemplissage='red'
+				r.opaciteDeRemplissage=0.5
+				texte=mathalea2d({xmin:-6,ymin:-3,xmax:24,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r)
 				this.liste_questions[0]=texte;
 				this.liste_corrections[0]=texte_corr;
 				liste_de_question_to_contenu(this);

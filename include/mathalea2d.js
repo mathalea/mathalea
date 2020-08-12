@@ -3017,7 +3017,7 @@ function mathalea2d({xmin = 0, ymin = 0, xmax = 15, ymax = 6, pixelsParCm = 20, 
 			}
 		}
 		code += `\n</svg>`;
-//		pixelsParCm = 20;
+		pixelsParCm = 20;
 	} else {
 		if (scale == 1) {
 			code = `\\begin{tikzpicture}[baseline]\n`
