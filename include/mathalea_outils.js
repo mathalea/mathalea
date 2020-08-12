@@ -4445,13 +4445,31 @@ function Relatif(...relatifs) {
 	 */
 
 	function getCardNegatifs(...n) {
-		let produit = getSigneProduitNumber(...n);
-			if ( produit == -1 ) {
-				return 'négatif';
+		let card = 0;
+		try {
+			// port du string interdit !			
+			n.forEach(function(element) {
+				if (typeof element == 'string') {
+					throw new TypeError(`${element} est un string !`);
+				};
+				if (element == 0) {
+					throw new RangeError(`${element} a été exclu des valeurs possibles.`);
+				};
+			});	
+			// Quoi faire sans nombres ?
+			if (n.length == 0) {
+				throw new Error(`C'est mieux avec quelques nombres !`)
 			};
-			if ( produit == 1 ) {
-				return 'positif'
-			};			
+			n.forEach(function(element){
+				if (element < 0) {
+					card = card +1;
+				};
+			});
+			return card;						
+		}
+		catch(err) {
+			console.log(err.message);	
+		};
 	};
 
 	this.getSigneNumber = getSigneNumber;
