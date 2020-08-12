@@ -4422,7 +4422,7 @@ function Problemes_additifs_fractions() {
 			let denoms_amis = frac.denominateurs_amis;
 			// on choisit un tableau dedans
 			let denoms_cool_3 = denoms_amis[randint(0,denoms_amis.length-1)];
-			while ( (nt1==nt2 && dt1==dt2) || (nt1==nt3 && dt1==dt3) || (nt3==nt2 && dt3==dt2) || (nt1/dt1 >= 1/2) || (nt2/dt2 >= 1/2)) {
+			while ( (nt1==nt2 && dt1==dt2) || (nt1==nt3 && dt1==dt3) || (nt3==nt2 && dt3==dt2) || (nt1==nt4 && dt1==dt4) || (nt4==nt2 && dt4==dt2) || (nt1/dt1 >= 1/2) || (nt2/dt2 >= 1/2)) {
 				nt1 = randint(1,6);
 				//dt1 = 2*nt1 + randint(1,3);
 				dt1 = choice(denoms_cool_3);
@@ -4457,8 +4457,12 @@ function Problemes_additifs_fractions() {
 			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ ; `;
 			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ et `;
 			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$.`;
+
+			let frac_meme_denom_rangees = frac.sortFractions(frac_meme_denom[0],frac_meme_denom[1],frac_meme_denom[2],frac_meme_denom[3],frac_meme_denom[4],frac_meme_denom[5]); 
+			pb_3_f[0].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_meme_denom_rangees[0]}}{${frac_meme_denom_rangees[1]}}$, $\\dfrac{${frac_meme_denom_rangees[2]}}{${frac_meme_denom_rangees[3]}}$, $\\dfrac{${frac_meme_denom_rangees[4]}}{${frac_meme_denom_rangees[5]}}$.`
+
 			let frac_rangees = frac.sortFractions(pb_3_f[0].fractions[0],pb_3_f[0].fractions[1],pb_3_f[0].fractions[3],pb_3_f[0].fractions[4],pb_3_f[0].fractions[6],pb_3_f[0].fractions[7]); 
-			pb_3_f[0].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
+			pb_3_f[0].correction += `<br>Enfin, nous pouvons ranger les fractions initiales dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
 			pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[0].fractions[pb_3_f[0].fractions.indexOf(frac_rangees[5])+1]} que ${pb_3_f[0].prenoms[0]} fait la plus grande distance.`)}`;			
 
 			// les 3 prénomns doivent être distincts
@@ -4506,7 +4510,7 @@ function Problemes_additifs_fractions() {
 			//let denoms_amis = frac.denominateurs_amis;
 			// on choisit un tableau dedans
 			let denoms_cool_4 = denoms_amis[randint(0,denoms_amis.length-1)];
-			while ( (nq1==nq2 && dq1==dq2) || (nq1==nq3 && dq1==dq3) || (nq1==nq4 && dq1==dq4) || (nq2==nq3 && dq2==dq3) || (nq2==nq4 && dq2==dq4) || (nq3==nq4 && dq3==dq4) || (nq1/dq1 >= 1/3) || (nq2/dq2 >= 1/3) || (nq3/dq3 >= 1/3) ) {
+			while ( (nq1==nq2 && dq1==dq2) || (nq1==nq3 && dq1==dq3) || (nq1==nq4 && dq1==dq4) || (nq1==nq5 && dq1==dq5) || (nq2==nq3 && dq2==dq3) || (nq2==nq4 && dq2==dq4) || (nq2==nq5 && dq2==dq5) || (nq3==nq4 && dq3==dq4) ||  (nq3==nq5 && dq3==dq5) || (nq1/dq1 >= 1/3) || (nq2/dq2 >= 1/3) || (nq3/dq3 >= 1/3) ) {
 				nq1 = randint(1,6);
 				//dq1 = 3*nq1 + 1;				
 				dq1 = choice(denoms_cool_4);
