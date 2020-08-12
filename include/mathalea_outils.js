@@ -4488,15 +4488,13 @@ function Relatif(...relatifs) {
 		};
 	};
 
-	/**
-	 * 	 
-	 * @param  {...any} n une liste de deux ou plus de nombres relatifs
+	/** 	 
+	 * @param  {...any} n une liste de deux ou plus de nombres relatifs qui constituent les facteurs du produit
 	 * @return {string} Renvoie la règle qui permet de justifier le signe d'un produit de relatifs adaptée à la liste passée en paramètre.	 
-	 * @example setRegleProduitFacteurs(1,-2,-8,5) renvoie ...
+	 * @example setRegleProduitFacteurs([1,-2,-8,5]) renvoie le string 'Il y a 2 facteurs négatifs, le nombre de facteurs négatifs est pair donc le produit est positif.'
 	 */
 
-	function setRegleProduitFacteurs(...n) {
-		//let card = 0;
+	function setRegleSigneProduit(...n) {
 		try {
 			// port du string interdit !			
 			n.forEach(function(element) {
@@ -4508,16 +4506,6 @@ function Relatif(...relatifs) {
 			if (n.length == 0) {
 				throw new Error(`C'est mieux avec quelques nombres !`)
 			};
-
-						// if ( num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2])%2 == 0 ) {
-					// 	if ( num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2]) == 0 ) {
-					// 		texte_corr += `<br>Tous ${num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2])} les facteurs sont positifs donc le produit est positif.`;
-					// 	} else {
-					// 		texte_corr += `<br>Il y a ${num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2])} ${orth_facteur_négatifs(num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2]))}, le nombre de facteurs négatifs est pair donc le produit est positif.`;
-					// 	};						
-					// } else {
-					// 	texte_corr += `<br>Il y a ${num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2])} ${orth_facteur_négatifs(num.getCardNegatifs(num.relatifs[0],num.relatifs[1],num.relatifs[2]))}, le nombre de facteurs négatifs est impair donc le produit est négatif.`;
-					// };
 			if (n.length == 2) {
 				if ( getCardNegatifs(n)%2 == 0 ) {
 					return `Les deux facteurs sont de même signe donc le produit est positif.`;
@@ -4527,7 +4515,7 @@ function Relatif(...relatifs) {
 			} else if (n.length > 2 ) {
 				if ( getCardNegatifs(n)%2 == 0 ) {
 					if ( getCardNegatifs(n) == 0 ) {
-						return `Tous ${getCardNegatifs(n)} les facteurs sont positifs donc le produit est positif.`;
+						return `Tous les facteurs sont positifs donc le produit est positif.`;
 					} else {
 						return `Il y a ${getCardNegatifs(n)} ${orth_facteurs_négatifs(getCardNegatifs(n))}, le nombre de facteurs négatifs est pair donc le produit est positif.`;
 					};						
@@ -4541,12 +4529,56 @@ function Relatif(...relatifs) {
 		};
 	};
 
+		/**
+	 * 	 
+	 * @param  {...any} num une liste de deux ou plus de nombres relatifs qui constituent les facteurs du numérateur
+	 * @param  {...any} den une liste de deux ou plus de nombres relatifs qui constituent les facteurs du dénominateur
+	 * @return {string} Renvoie la règle qui permet de justifier le signe d'un produit de relatifs adaptée à la liste passée en paramètre.	 
+	 * @example setRegleProduitQuotient([1,-2],[-8,5]) renvoie le string 'La somme des facteurs négatifs du numérateur et des facteurs négatifs du dénominateur vaut 2, ce nombre est pair donc le quotient est positif.'
+	 */
+
+	function setRegleSigneQuotient(...n) {
+		try {
+			// port du string interdit !			
+			n.forEach(function(element) {
+				if (typeof element == 'string') {
+					throw new TypeError(`${element} est un string !`);
+				};
+			});	
+			// Quoi faire sans nombres ?
+			if (n.length == 0) {
+				throw new Error(`C'est mieux avec quelques nombres !`)
+			};
+			if (n.length == 2)  {
+				if ( getCardNegatifs(n)%2 == 0 ) {
+					return `Le numératueur et le dénominateur sont de même signe donc le quotient est positif.`;
+				} else {
+					return `Les numérateur et le dénominateur sont de signe différent donc le quotient est négatif.`;
+				};
+			} else if (n.length > 2) {
+				if ( getCardNegatifs(n)%2 == 0 ) {
+					if ( getCardNegatifs(n) == 0 ) {
+						return `Tous les facteurs du numérateur et tous les facteurs du dénominateur sont positifs donc le quotient est positif.`;
+					} else {						
+						return `La somme des facteurs négatifs du numérateur et des facteurs négatifs du dénominateur vaut ${getCardNegatifs(n)}, ce nombre est pair donc le quotient est positif.`;
+					};						
+				} else {
+					return `La somme des facteurs négatifs du numérateur et des facteurs négatifs du dénominateur vaut ${getCardNegatifs(n)}, ce nombre est impair donc le quotient est négatif.`;
+				};
+			};
+		}
+		catch(err) {
+			console.log(err.message);	
+		};
+	};
+
 	this.getSigneNumber = getSigneNumber;
 	this.getSigneString = getSigneString;
 	this.getSigneProduitNumber = getSigneProduitNumber;
 	this.getSigneProduitString = getSigneProduitString;
 	this.getCardNegatifs = getCardNegatifs;
-	this.setRegleProduitFacteurs = setRegleProduitFacteurs;
+	this.setRegleSigneProduit = setRegleSigneProduit;
+	this.setRegleSigneQuotient = setRegleSigneQuotient;
 
 };
 
