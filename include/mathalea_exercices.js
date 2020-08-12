@@ -133,11 +133,11 @@ var liste_des_exercices_disponibles = {
 		'5S13': Calculer_des_frequences,
 		'5S14': Calculer_des_moyennes,
 		'5S21' : fonctions_probabilite1,
-		'4C10-0': Signe_produit_quotient_relatifs,
-		'4C10-1': Signe_produit_relatifs,
-		'4C10-2': Signe_quotient_relatifs,
+		'beta4C10-0': Signe_produit_quotient_relatifs,
+		'beta4C10-1': Signe_produit_relatifs,
+		'beta4C10-2': Signe_quotient_relatifs,
 		'4C10-3': Exercice_multiplications_relatifs,
-		'4C25-0': Problemes_additifs_fractions,
+		'beta4C25-0': Problemes_additifs_fractions,
 		'4C30-1': Puissances_encadrement,
 		'4G40' : Transformations_4e,
 		'4L10' : Exercice_developper,
@@ -4635,7 +4635,7 @@ function Exercice_perimetres_et_aires(difficulte=1){
 			switch (type_de_questions){
 				case 'carre' :
 					let cote = randint(2,11);
-					let nom_carre = polygone(4);
+					let nom_carre = creerNomDePolygone(4);
 					if (choice([true,false])){ // 2 énoncés possibles équiprobables
 						texte = `Un carré $${nom_carre}$ de $${cote}$ cm de côté .`;
 					} else {
@@ -4648,7 +4648,7 @@ function Exercice_perimetres_et_aires(difficulte=1){
 				case 'rectangle' : 
 					let L = randint(3,11);
 					let l = randint(2,L-1);
-					let nom_rectangle = polygone(4);
+					let nom_rectangle = creerNomDePolygone(4);
 					if (choice([true,false])){ // 2 énoncés possibles équiprobables
 							texte = `Un rectangle $${nom_rectangle}$ de $${L}$ cm de longueur et de $${l}$ cm de largeur.`;
 						} else{
@@ -4664,7 +4664,7 @@ function Exercice_perimetres_et_aires(difficulte=1){
 					let a = triplet[0];
 					let b = triplet[1];
 					let c = triplet[2];
-					let nom_triangle = polygone(3);
+					let nom_triangle = creerNomDePolygone(3);
 					if (choice([true,false])){
 						texte = `Un triangle $${nom_triangle}$ rectangle en $${nom_triangle[1]}$ tel que $${nom_triangle[0]+nom_triangle[1]+' = '+a}$ cm, $${nom_triangle[1]+nom_triangle[2]+' = '+b}$ cm\
  et $${nom_triangle[0]+nom_triangle[2]+' = '+c}$ cm.`;

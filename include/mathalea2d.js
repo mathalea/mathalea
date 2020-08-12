@@ -2359,15 +2359,41 @@ function AfficheLongueurSegment(A,B,color='black',d = .5)  {
 	let longueur = string_nombre(arrondi(s.longueur,1))
 	let angle
 	if (B.x>A.x) {
-		angle = parseInt(s.angleAvecHorizontale)
+		angle = -parseInt(s.angleAvecHorizontale)
 	} else {
-		angle = parseInt(s.angleAvecHorizontale)-180
+		angle = -parseInt(s.angleAvecHorizontale)+180
 	}
-	return texteParPoint(longueur,N,angle,this.color)
+	return texteParPoint(longueur+' cm',N,angle,this.color)
 	
 }
 function afficheLongueurSegment(...args){
 	return new AfficheLongueurSegment(...args)
+}
+
+/**
+* texteSurSegment(A,B) // Écrit un texte au milieu de [AB] au dessus si A est le point le plus à gauche sinon au dessous
+* 
+* @Auteur Rémi Angot
+*/
+function TexteSurSegment(texte,A,B,color='black',d = .5)  {
+	ObjetMathalea2D.call(this);
+	this.color = color;
+	let O = milieu(A,B)
+	let M = rotation(A,O,-90)
+	let N = pointSurSegment(O,M,d)
+	let s = segment(A,B)
+	s.isVisible = false
+	let angle
+	if (B.x>A.x) {
+		angle = -parseInt(s.angleAvecHorizontale)
+	} else {
+		angle = -parseInt(s.angleAvecHorizontale)+180
+	}
+	return texteParPoint(texte,N,angle,this.color)
+	
+}
+function texteSurSegment(...args){
+	return new TexteSurSegment(...args)
 }
 
 /**
@@ -2528,7 +2554,7 @@ function LabelX(xmin=1,xmax=20,step=1,color='black',pos=-.6,coeff=1){
 	ObjetMathalea2D.call(this)
 	let objets = []
 	for (x=xmin ; x<=xmax ; x = calcul(x+step)){
-		objets.push(texteParPoint(Intl.NumberFormat("fr-FR",{maximumFractionDigits:20}).format(x*coeff).toString(),point(x,pos),'milieu',color))
+		objets.push(texteParPoint(Intl.NumberFormat("fr-FR",{maximumFractionDigits:20}).format(calcul(x*coeff)).toString(),point(x,pos),'milieu',color))
 	}
 	this.svg = function(coeff){
 		code = ''
@@ -2560,7 +2586,7 @@ function LabelY(ymin=1,ymax=20,step=1,color='black',pos=-.6,coeff=1){
 	ObjetMathalea2D.call(this)
 	let objets = []
 	for (y=ymin ; y<=ymax ; y = calcul(y+step)){
-		objets.push(texteParPoint(Intl.NumberFormat("fr-FR",{maximumFractionDigits:20}).format(y*coeff).toString(),point(pos,y),'milieu',color))
+		objets.push(texteParPoint(Intl.NumberFormat("fr-FR",{maximumFractionDigits:20}).format(calcul(y*coeff)).toString(),point(pos,y),'milieu',color))
 	}
 	this.svg = function(coeff){
 		code = ''
@@ -2764,7 +2790,7 @@ function TexteParPoint(texte,A,orientation = "milieu",color) {
 	this.tikz = function(){
 		let code = ''
 		if (typeof(orientation)=='number') {
-			code = `\\draw (${A.x},${A.y}) node[anchor = center, rotate = ${orientation}] {${texte}}`;
+			code = `\\draw (${A.x},${A.y}) node[anchor = center, rotate = ${-orientation}] {${texte}};`;
 		} else {
 			let anchor = '';
 			if (orientation=='gauche') {

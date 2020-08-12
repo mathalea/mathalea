@@ -1126,7 +1126,7 @@ function trie_positifs_negatifs(liste){
 * Créé un string de nbsommets caractères dans l'ordre alphabétique et en majuscule qui ne soit pas dans la liste donnée en 2e argument
 * @Auteur Rémi Angot
 */
-function polygone(nbsommets,liste_a_eviter=[]){ 
+function creerNomDePolygone(nbsommets,liste_a_eviter=[]){ 
 	let premiersommet = randint(65,90-nbsommets);
 	let polygone="";
 	while(est_deja_donne(String.fromCharCode(premiersommet),liste_a_eviter)){
@@ -4440,11 +4440,12 @@ function Relatif(...relatifs) {
 	 * 	 
 	 * @param  {...any} n une liste de deux ou plus de nombres relatifs
 	 * @return {string} Renvoie le nombre d'éléments négatifs des nombres de cette liste.
-	 * @example getCardNegatifs(1,-4,-7) renvoie 2
-	 * @example getCardNegatifs(4,-5,7,7,-8,-9) renvoie 3
+	 * * la liste d'entiers doit être passé dans un tableau
+	 * @example getCardNegatifs([1,-4,-7]) renvoie 2
+	 * @example getCardNegatifs([4,-5,7,7,-8,-9]) renvoie 3
 	 */
 
-	function getCardNegatifs(...n) {
+	function getCardNegatifs([...n]) {
 		let card = 0;
 		try {
 			// port du string interdit !			
@@ -4471,12 +4472,113 @@ function Relatif(...relatifs) {
 			console.log(err.message);	
 		};
 	};
+	
+	/**
+	 * Fonction locale
+	 * @param {integer} n un entier désignant le cardinal de facteurs négatifs dans un produit
+	 * @return un string au singulier ou au pluriel
+	 * @example orth_facteurs_negatifs(0) ou orth_facteurs_negatifs(1) renvoie 'facteur negatif'
+	 * @example orth_facteurs_negatifs(7) renvoie 'facteurs negatifs'
+	 */
+	function orth_facteurs_négatifs(n) {
+		if (n>=2) {
+			return `facteurs négatifs`;
+		} else {
+			return `facteur négatif`;
+		};
+	};
+
+	/** 	 
+	 * @param  {...any} n une liste de deux ou plus de nombres relatifs qui constituent les facteurs du produit
+	 * @return {string} Renvoie la règle qui permet de justifier le signe d'un produit de relatifs adaptée à la liste passée en paramètre.	 
+	 * @example setRegleProduitFacteurs([1,-2,-8,5]) renvoie le string 'Il y a 2 facteurs négatifs, le nombre de facteurs négatifs est pair donc le produit est positif.'
+	 */
+
+	function setRegleSigneProduit(...n) {
+		try {
+			// port du string interdit !			
+			n.forEach(function(element) {
+				if (typeof element == 'string') {
+					throw new TypeError(`${element} est un string !`);
+				};
+			});	
+			// Quoi faire sans nombres ?
+			if (n.length == 0) {
+				throw new Error(`C'est mieux avec quelques nombres !`)
+			};
+			if (n.length == 2) {
+				if ( getCardNegatifs(n)%2 == 0 ) {
+					return `Les deux facteurs sont de même signe donc le produit est positif.`;
+				} else {
+					return `Les deux facteurs sont de signe différent donc le produit est négatif.`;
+				};
+			} else if (n.length > 2 ) {
+				if ( getCardNegatifs(n)%2 == 0 ) {
+					if ( getCardNegatifs(n) == 0 ) {
+						return `Tous les facteurs sont positifs donc le produit est positif.`;
+					} else {
+						return `Il y a ${getCardNegatifs(n)} ${orth_facteurs_négatifs(getCardNegatifs(n))}, le nombre de facteurs négatifs est pair donc le produit est positif.`;
+					};						
+				} else {
+					return `Il y a ${getCardNegatifs(n)} ${orth_facteurs_négatifs(getCardNegatifs(n))}, le nombre de facteurs négatifs est impair donc le produit est négatif.`;
+				};
+			};
+		}
+		catch(err) {
+			console.log(err.message);	
+		};
+	};
+
+		/**
+	 * 	 
+	 * @param  {...any} num une liste de deux ou plus de nombres relatifs qui constituent les facteurs du numérateur
+	 * @param  {...any} den une liste de deux ou plus de nombres relatifs qui constituent les facteurs du dénominateur
+	 * @return {string} Renvoie la règle qui permet de justifier le signe d'un produit de relatifs adaptée à la liste passée en paramètre.	 
+	 * @example setRegleProduitQuotient([1,-2],[-8,5]) renvoie le string 'La somme des facteurs négatifs du numérateur et des facteurs négatifs du dénominateur vaut 2, ce nombre est pair donc le quotient est positif.'
+	 */
+
+	function setRegleSigneQuotient(...n) {
+		try {
+			// port du string interdit !			
+			n.forEach(function(element) {
+				if (typeof element == 'string') {
+					throw new TypeError(`${element} est un string !`);
+				};
+			});	
+			// Quoi faire sans nombres ?
+			if (n.length == 0) {
+				throw new Error(`C'est mieux avec quelques nombres !`)
+			};
+			if (n.length == 2)  {
+				if ( getCardNegatifs(n)%2 == 0 ) {
+					return `Le numératueur et le dénominateur sont de même signe donc le quotient est positif.`;
+				} else {
+					return `Les numérateur et le dénominateur sont de signe différent donc le quotient est négatif.`;
+				};
+			} else if (n.length > 2) {
+				if ( getCardNegatifs(n)%2 == 0 ) {
+					if ( getCardNegatifs(n) == 0 ) {
+						return `Tous les facteurs du numérateur et tous les facteurs du dénominateur sont positifs donc le quotient est positif.`;
+					} else {						
+						return `La somme des facteurs négatifs du numérateur et des facteurs négatifs du dénominateur vaut ${getCardNegatifs(n)}, ce nombre est pair donc le quotient est positif.`;
+					};						
+				} else {
+					return `La somme des facteurs négatifs du numérateur et des facteurs négatifs du dénominateur vaut ${getCardNegatifs(n)}, ce nombre est impair donc le quotient est négatif.`;
+				};
+			};
+		}
+		catch(err) {
+			console.log(err.message);	
+		};
+	};
 
 	this.getSigneNumber = getSigneNumber;
 	this.getSigneString = getSigneString;
 	this.getSigneProduitNumber = getSigneProduitNumber;
 	this.getSigneProduitString = getSigneProduitString;
 	this.getCardNegatifs = getCardNegatifs;
+	this.setRegleSigneProduit = setRegleSigneProduit;
+	this.setRegleSigneQuotient = setRegleSigneQuotient;
 
 };
 
@@ -4489,6 +4591,10 @@ function Relatif(...relatifs) {
  function Fraction() {
 	 //'use strict'; pas de use strict avec un paramètre du reste
 	 var self = this;
+	 /**
+	  * @constant {array} denominateurs_amis tableau de tableaux de dénominateurs qui vont bien ensemble pour les calculs
+	  */
+	 let denominateurs_amis = [[12,2,3,4,6],[16,2,4,8],[18,2,3,6,9],[20,2,4,5,10],[24,2,3,4,8,12],[30,2,3,5,6]]
 
 	/**
 	 * 
@@ -4506,7 +4612,7 @@ function Relatif(...relatifs) {
 					throw new RangeError(`${element} est exclu des valeurs possibles pour les dénominateurs !`)
 				};
 			});	
-			console.log(fractions.length);
+			//console.log(fractions.length);
 			if (Math.floor(fractions.length/2) <= 1 ) {
 				throw new Error(`Il faut au moins deux fractions !`);
 			};
@@ -4542,6 +4648,7 @@ function Relatif(...relatifs) {
 	/**
 	 * fonction locale pour trouver le ppcm d'un nombre indeterminé d'entiers
 	 * @param  {integer} n parametre du reste contenant une liste d'entiers
+	 * * la liste d'entiers doit être passé dans un tableau
 	 * @return {number} renvoie le ppcm des nombres entiers passés dans le paramètre du reste n
 	 * @example ppcm(2,6,4,15) renvoie 60
 	 */
@@ -4582,7 +4689,7 @@ function Relatif(...relatifs) {
 					throw new RangeError(`${element} est exclu des valeurs possibles pour les dénominateurs !`)
 				};
 			});	
-			console.log(fractions.length);
+			//console.log(fractions.length);
 			if (Math.floor(fractions.length/2) <= 1 ) {
 				throw new Error(`Il faut au moins deux fractions !`);
 			};
@@ -4613,6 +4720,7 @@ function Relatif(...relatifs) {
 
 	this.sortFractions = sortFractions;
 	this.reduceSameDenominateur = reduceSameDenominateur;
+	this.denominateurs_amis = denominateurs_amis;
 	
 
  };
