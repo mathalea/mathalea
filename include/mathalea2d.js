@@ -610,14 +610,14 @@ function droiteParPointEtPente(A,k,nom='',color='black') {
  function CodageBissectrice(A,O,B,color='black',mark='×'){
 	ObjetMathalea2D.call(this)
 	this.color = color
-	let a = pointSurSegment(O,A,1)
+	let a = pointSurSegment(O,A,1.5)
 	let demiangle = calcul(angleOriente(A,O,B)/2)
 	let M = rotation(a,O,demiangle)
 	let mark1=rotation(a,O,demiangle/2)
 	let mark2=rotation(M,O,demiangle/2)
-	let t1=texteParPoint(mark,mark1,Math.round(droite(O,A).angleAvecHorizontale+demiangle/2-90),color)
-	let t2=texteParPoint(mark,mark2,Math.round(droite(O,A).angleAvecHorizontale+3*demiangle/2-90),color)
-	let b = pointSurSegment(O,B,1)
+	let t1=texteParPoint(mark,mark1,Math.round(droite(O,A).angleAvecHorizontale+demiangle/2),color)
+	let t2=texteParPoint(mark,mark2,Math.round(droite(O,A).angleAvecHorizontale+3*demiangle/2),color)
+	let b = pointSurSegment(O,B,1.5)
 	let a1 = arcPointPointAngle(a,M,demiangle,this.color)
 	let a2 = arcPointPointAngle(M,b,demiangle,this.color)
 	this.svg = function(coeff){
