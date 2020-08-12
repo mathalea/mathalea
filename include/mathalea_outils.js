@@ -4010,10 +4010,6 @@ function decomp_fact_prem_array(n) {
  * * @param {number} a1 un des angles du triangle
  * * @param {number} a2 un des angles du triangle
  * * @param {number} a3  un des angles du triangle
- * La méthode isPlatTriangleLongueurs() renvoie un booléen si le triangle définit à partir des longueurs est un triangle plat.
- * La méthode isTrueTriangleAngles() renvoie un booléen si le triangle définit à partir des angles existe et n'est pas un triangle plat.
- * La méthode isPlatTriangleAngles() renvoie un booléen si le triangle définit à partir des angles existe et est un triangle plat.
- * La méthode isQuelconque() renvoie  un booléen si le triangle définit à partir des angles ou des longueurs existe et est quelconque. Non Finalisée
  * @author Sébastien Lozano
  */
 
