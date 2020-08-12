@@ -3474,7 +3474,6 @@ function Decomposition_facteurs_premiers() {
 					for (let k = 1; k < tab_premiers.length; k++) {
 						if (tab_multiplicites[k] == 1) {
 							texte_corr += `\\times ${tab_premiers[k]}`;
-							//console.log('typeof : '+typeof tab_multiplicites[k]);
 						} else {
 							texte_corr += `\\times ${tab_premiers[k]}^{${tab_multiplicites[k]}}`;
 						};
@@ -6542,6 +6541,7 @@ function TrianglesSemblables() {
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.nouvelle_version = function(numero_de_l_exercice){
+		let coeff=50
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		let texte='';
@@ -6549,7 +6549,7 @@ function TrianglesSemblables() {
 		let type_de_questions = randint(1,1);
 		switch (type_de_questions){
 			case 1 :
-				let trouve=false,aireABC,A,B,C,M,p,q,r,s,X,G,Gq,nom1,grid
+				let trouve=false,aireABC,A,B,C,M,p,q,r,s,X,G,Gq,nom1,grid,tA,sAB,dAB,pABC,lab
 				while (!trouve) {
 				A=point(choice([0,3]),choice([0,3]),'A')
 				B=point(choice([6,9]),choice([6,9]),'B')
@@ -6561,7 +6561,6 @@ function TrianglesSemblables() {
 				if (aireABC<11&&aireABC>5) trouve=true
 				}
 				G=barycentre(p)
-				console.log(G.x,G.y)
 				p=rotation(p,G,choice([0,90,270]))
 				p.couleurDeRemplissage='gray'
 				p.opaciteDeRemplissage=0.5
@@ -6577,7 +6576,12 @@ function TrianglesSemblables() {
 				r.opaciteDeRemplissage=0.5
 				s.couleurDeRemplissage='blue'
 				s.opaciteDeRemplissage=0.5
-				texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r,s)
+				tA=tracePoint(A,B,C)
+				sAB=segment(A,B)
+				dAB=droite(A,B)
+				pABC=polygone(A,B,C)
+				lab=labelPoint(A,B,C)
+				texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:50,scale:0.5},p,nom1,grid,r,s,tA,sAB,dAB,pABC,lab)
 				this.liste_questions[0]=texte;
 				this.liste_corrections[0]=texte_corr;
 				liste_de_question_to_contenu(this);

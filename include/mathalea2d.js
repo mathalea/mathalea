@@ -15,7 +15,7 @@
 let mesObjets = []; // Liste de tous les objets construits
 //Liste utilisée quand il n'y a qu'une seule construction sur la page web
 
-coeff = 20
+// coeff = 20
 
 /*
 * Classe parente de tous les objets de MathALEA2D
@@ -3047,7 +3047,7 @@ function mathalea2d({xmin = 0, ymin = 0, xmax = 15, ymax = 6, pixelsParCm = 20, 
 			}
 		}
 		code += `\n</svg>`;
-		pixelsParCm = 20;
+//		pixelsParCm = 20;
 	} else {
 		if (scale == 1) {
 			code = `\\begin{tikzpicture}[baseline]\n`
