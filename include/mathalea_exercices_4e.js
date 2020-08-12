@@ -4488,26 +4488,31 @@ function Problemes_additifs_fractions() {
 			// les numérateurs et dénominateurs des 4 fractions attention les trois premières doivent être inférieures à 1/3 si on veut qu'elles soient toutes positives !
 			// et on veut des fractions distinctes 
 			let nq1,nq2,nq3,nq4,dq1,dq2,dq3,dq4;
+			// on aura besoin de simplifier la 4eme fraction
+			let nq5,dq5;
 			// on récupère les dénominateurs qui vont bien
 			let denoms_amis = frac.denominateurs_amis;
 			// on choisit un tableau dedans
 			let denoms_cool = denoms_amis[randint(0,denoms_amis.length-1)];
 			while ( (nq1==nq2 && dq1==dq2) || (nq1==nq3 && dq1==dq3) || (nq1==nq4 && dq1==dq4) || (nq2==nq3 && dq2==dq3) || (nq2==nq4 && dq2==dq4) || (nq3==nq4 && dq3==dq4) || (nq1/dq1 >= 1/3) || (nq2/dq2 >= 1/3) || (nq3/dq3 >= 1/3) ) {
-				nq1 = randint(1,4);
+				nq1 = randint(1,6);
 				//dq1 = 3*nq1 + 1;				
 				dq1 = choice(denoms_cool);
-				nq2 = randint(1,4);				
+				nq2 = randint(1,6);				
 				//dq2 = 3*nq2 + 1;
 				dq2 = choice(denoms_cool,[dq1]);
-				nq3 = randint(1,4);
+				nq3 = randint(1,6);
 				//dq3 = 3*nq3 + 1;
 				dq3 = choice(denoms_cool,[dq1,dq2]);
 				nq4 = dq1*dq2*dq3-nq1*dq2*dq3 - nq2*dq1*dq3 - nq3*dq1*dq2;//la somme des quatre vaut 1 !
-				dq4 = dq1*dq2*dq3; 
+				dq4 = dq1*dq2*dq3;
+				nq5 = frac.fraction_simplifiee(nq4,dq4)[0];
+				dq5 = frac.fraction_simplifiee(nq4,dq4)[1];
 			};
 			pb_4_f.push({// indice 0 le mandala
 				prenoms: [prenom()],
-				fractions: [nq1,dq1,'carmin',nq2,dq2,'ocre jaune',nq3,dq3,'turquoise',nq4,dq4,'pourpre'],
+				// fractions: [nq1,dq1,'carmin',nq2,dq2,'ocre jaune',nq3,dq3,'turquoise',nq4,dq4,'pourpre'],
+				fractions: [nq1,dq1,'carmin',nq2,dq2,'ocre jaune',nq3,dq3,'turquoise',nq5,dq5,'pourpre'],
 				enonce: ``,
 				question: `Quelle est elle la couleur qui recouvre le plus de surface ?`,
 				correction: ``
@@ -4535,7 +4540,8 @@ function Problemes_additifs_fractions() {
 			
 			pb_4_f.push({// indice 1 le jardin
 				//prenoms: [prenomF(),prenomF(),prenomF()],
-				fractions: [nq1,dq1,'la culture des légumes',nq2,dq2,'la culture des plantes aromatiques',nq3,dq3,'une serre servant aux semis',nq4,dq4,'la culture des fraisiers'],
+				//fractions: [nq1,dq1,'la culture des légumes',nq2,dq2,'la culture des plantes aromatiques',nq3,dq3,'une serre servant aux semis',nq4,dq4,'la culture des fraisiers'],
+				fractions: [nq1,dq1,'la culture des légumes',nq2,dq2,'la culture des plantes aromatiques',nq3,dq3,'une serre servant aux semis',nq5,dq5,'la culture des fraisiers'],
 				enonce: ``,
 				question: `Quelle est la culture qui occupe le plus de surface ?`,
 				correction: ``
@@ -4562,7 +4568,8 @@ function Problemes_additifs_fractions() {
 
 			pb_4_f.push({// indice 2 le stade
 				//prenoms: [prenomF(),prenomF(),prenomF()],
-				fractions: [nq1,dq1,'le pays organisateur',nq2,dq2,'l\'ensemble des supporters des deux équipes en jeu',nq3,dq3,'les sponsors et officiels',nq4,dq4,'les places en vente libre'],
+				//fractions: [nq1,dq1,'le pays organisateur',nq2,dq2,'l\'ensemble des supporters des deux équipes en jeu',nq3,dq3,'les sponsors et officiels',nq4,dq4,'les places en vente libre'],
+				fractions: [nq1,dq1,'le pays organisateur',nq2,dq2,'l\'ensemble des supporters des deux équipes en jeu',nq3,dq3,'les sponsors et officiels',nq5,dq5,'les places en vente libre'],
 				enonce: ``,
 				question: `Quelle est la catégorie la plus importante dans le stade ?`,
 				correction: ``
