@@ -6485,3 +6485,59 @@ function Problemes_Thales(){
 	// this.besoin_formulaire2_case_a_cocher = ['Sans figures']
 	}
 }
+/**
+ * @Auteur Jean-Claude Lhote
+ */
+function TrianglesSemblables() {
+	'use strict'
+	Exercice.call(this)
+	this.titre = "Reconnaître des triangles semblables dans différentes configurations";
+	this.nb_questions = 1;
+	this.nb_questions_modifiable = false;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		let texte='';
+		let texte_corr='';
+		let type_de_questions = randint(1,1);
+		switch (type_de_questions){
+			case 1 :
+				let trouve=false,aireABC,A,B,C,M,p,q,r,s,X,G,Gq,nom1,grid
+				while (!trouve) {
+				A=point(choice([0,3]),choice([0,3]),'A')
+				B=point(choice([6,9]),choice([6,9]),'B')
+				C=rotation(B,A,90,'C')
+				C.x+=choice([0,3,6])
+				C.y+=choice([-3,0,3])
+				p=polygone(A,B,C)
+				aireABC=aireTriangle(p) // Je savais bien que cette formule servirait un jour !
+				if (aireABC<11&&aireABC>5) trouve=true
+				}
+				G=barycentre(p)
+				console.log(G.x,G.y)
+				p=rotation(p,G,choice([0,90,270]))
+				p.couleurDeRemplissage='gray'
+				p.opaciteDeRemplissage=0.5
+				nom1=nommePolygone(p,'ABC',0.4)
+				grid=grille(-3,-3,27,18, 'gray', .4,1)
+				M=point(9,12)
+				q=rotation(p,M,90)
+				Gq=barycentre(q)
+				r=rotation(q,Gq,choice([0,90,180,270]))
+				X=milieu(r.listePoints[0],r.listePoints[1])
+				s=rotation(r,X,180)
+				r.couleurDeRemplissage='red'
+				r.opaciteDeRemplissage=0.5
+				s.couleurDeRemplissage='blue'
+				s.opaciteDeRemplissage=0.5
+				texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r,s)
+				this.liste_questions[0]=texte;
+				this.liste_corrections[0]=texte_corr;
+				liste_de_question_to_contenu(this);
+				break;
+			
+		}
+	}
+}

@@ -273,6 +273,23 @@ function LabelPoint(...points) {
 function labelPoint(...args){
 	return new LabelPoint(...args)
 }	
+/**
+ * P = barycentre(p,'P','below') Crée le point P barycentre du polygone p, son nom 'P' sera placé sous le point si il est tracé et labelisé.
+ * @param {Polygone} p 
+ * @Auteur Jean-Claude Lhote
+ */
+function barycentre(p,nom,positionLabel= 'above') {
+	ObjetMathalea2D.call(this)
+	let sommex=0,sommey=0,nbsommets=0
+	for (let point of p.listePoints){
+		sommex+= point.x
+		sommey+= point.y
+		nbsommets++
+	}
+	let x = calcul(sommex/nbsommets);
+	let y = calcul(sommey/nbsommets);
+	return new Point(x,y,nom,positionLabel)
+}
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -775,10 +792,10 @@ function polyline(...args){
  		this.x=-this.x
  		this.y=-this.y
  	}
- 	this.xSVG = function() {
+ 	this.xSVG = function(coeff) {
  		return this.x*coeff;
  	}
- 	this.ySVG = function() {
+ 	this.ySVG = function(coeff) {
  		return -this.y*coeff;
  	}
  	this.representant = function(A){
@@ -981,12 +998,15 @@ function Polygone(...points){
 		this.listePoints = points
 		this.nom = this.listePoints.join()
 	}
-	let binomeXY = "";
-	for (let point of this.listePoints){
-		binomeXY += `${calcul(point.x*coeff)},${calcul(-point.y*coeff)} `; 
+	this.binomesXY = function(coeff){
+		let liste = "";
+		for (let point of this.listePoints){
+			liste += `${calcul(point.x*coeff)},${calcul(-point.y*coeff)} `; 
+		}
+		return liste
 	}
-	this.binomesXY = binomeXY
 	this.svg = function(coeff){
+		
 		if (this.epaisseur!=1) {
 			this.style += ` stroke-width="${this.epaisseur}" `
 		}
@@ -1003,7 +1023,7 @@ function Polygone(...points){
 			this.style += ` stroke-opacity="${this.opacite}" `
 		}
 		
-		return `<polygon points="${binomeXY}" stroke="${this.color}" ${this.style} />`
+		return `<polygon points="${this.binomesXY(coeff)}" stroke="${this.color}" ${this.style} />`
 	}
 	this.tikz = function(){
 		let tableauOptions = [];
@@ -1207,14 +1227,20 @@ function triangle2points2angles(A,B,a1,a2,n=1){
  	}
 
 /**
-* nommePolygone(p1,'ABCDEF') // Nomme tous les sommets de p1 (dans l'ordre de création des points)
-* @Auteur Rémi Angot
-*/
-function nommePolygone(p,nom){
-	for (let i=0 ; i < p.listePoints.length ; i++){
+ * nommePolygone (p,'ABCDE',0.5) nomme les sommets du polygone p. Les labels sont placés à une distance paramètrable en cm des sommets (0.5 par défaut)
+ * @Auteur Jean-Claude Lhote
+ */
+function nommePolygone(p,nom,k=0.5){
+	let G=barycentre(p)
+	let V,v,labels=[]
+	for (let i=0,point; i < p.listePoints.length ; i++){
 		p.listePoints[i].nom = nom[i] 
+		V=vecteur(G,p.listePoints[i])
+		v=homothetie(V,G,k/V.norme())
+		point=translation(p.listePoints[i],v)
+		labels.push(texteParPoint(p.listePoints[i].nom,point,'milieu'))
 	}
-	labelPoint(p.listePoints)
+	return labels
 }
 
 
@@ -1233,7 +1259,15 @@ function deplaceLabel(p,nom,positionLabel){
 
 	} 
 }
-
+/**
+ * aireTriangle(p) retourne l'aire du triangle si p est un triangle, false sinon.
+ * @Auteur Jean-Claude Lhote
+ */
+function aireTriangle(p){
+	if (p.listePoints.length!=3) return false
+	let A=p.listePoints[0],B=p.listePoints[1],C=p.listePoints[2]
+	return	1/2*Math.abs((B.x-A.x)*(C.y-A.y)-(C.x-A.x)*(B.y-A.y))
+}
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1458,8 +1492,10 @@ function cercleCentrePoint(...args){
  	this.fill=fill;
  	let l=longueur(Omega,M),large=0,sweep=0
  	let d=droite(Omega,M)
- 	d.isVisible=false
- 	let azimut=d.angleAvecHorizontale
+	d.isVisible=false
+	let A=point(Omega.x+1,Omega.y)
+	let azimut=angleOriente(A,Omega,M)
+	let anglefin=azimut+angle
  	if (angle>180) {
  		angle=angle-360
  		large=1
@@ -1473,7 +1509,7 @@ function cercleCentrePoint(...args){
  	else {
  		large=0
  		sweep=1-(angle>0)
- 	}
+	 }
  	let N=rotation(M,Omega,angle)
  	if (rayon) 	this.svg = function(coeff){
  		if (this.epaisseur!=1) {
@@ -1517,13 +1553,15 @@ function cercleCentrePoint(...args){
 		if (tableauOptions.length>0) {
 			optionsDraw = "["+tableauOptions.join(',')+"]"
 		}
- 		return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${angle+azimut}:${longueur(Omega,M)}) ;`
+		let bords=`(${M.x},${M.y})`
+		if (rayon) bords=`(${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) `
+			return `\\draw${optionsDraw} ${bords} arc (${azimut}:${anglefin}:${longueur(Omega,M)}) ;`
  	}
  }
  function arc(...args) {
  	return new Arc(...args)
  }
-/**
+ /**
  * 
  * @param {Point} M //première extrémité de l'arc
  * @param {Point} N //deuxième extrémité de l'arc
@@ -1531,57 +1569,36 @@ function cercleCentrePoint(...args){
  * @param {boolean} rayon //si true, l'arc est fermé par deux rayons aux extrémités
  * @param {string} fill //couleur de remplissage (par défaut 'none'= sans remplissage) 
  * @param {string} color //couleur de l'arc
+ * @Auteur Jean-Claude Lhote
  */
  function ArcPointPointAngle(M,N,angle,rayon=false,fill='none',color='black'){
- 	ObjetMathalea2D.call(this);
- 	this.color=color;
- 	this.fill=fill;
- 	let anglerot,large,sweep,Omegax,Omegay
- 	if (angle<0) anglerot=calcul((angle+180)/2)
- 		else anglerot=calcul((angle-180)/2)
- 			let d,e,f;
- 		d=mediatrice(M,N,'black');
- 		d.isVisible=false
- 		e=droite(N,M);
- 		e.isVisible=false
- 		f=rotation(e,N,anglerot);
- 		f.isVisible=false
- 		if (angle>180) {
- 			angle=angle-360
- 			large=1
- 			sweep=0
- 		}
- 		else if (angle<-180) {
- 			angle=360+angle
- 			large=1
- 			sweep=1
- 		}
- 		else {
- 			large=0
- 			sweep=1-(angle>0)
- 		}
- 		Omegay=calcul((-f.c+d.c*f.a/d.a)/(f.b-f.a*d.b/d.a))
- 		Omegax=calcul(-d.c/d.a-d.b*Omegay/d.a)
- 		let Omega=point(Omegax,Omegay)
- 		let l=longueur(Omega,M)
- 		if (rayon) 	this.svg = function(coeff=20){
- 			return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${fill}" opacity="0.5"/>`
- 		}
- 		else 	this.svg = function(coeff=20){
- 			return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}" opacity="0.5"/>`
- 		}
- 		this.tikz = function(){
- 			return `\\draw (${M.x},${M.y}) arc (0:${angle}:${longueur(Omega,M)}) ;`
- 		}
- 	}
+	let anglerot,Omegax,Omegay
+	if (angle<0) anglerot=calcul((angle+180)/2)
+	else anglerot=calcul((angle-180)/2)
+	let d,e,f;
+	d=mediatrice(M,N,'black');
+	d.isVisible=false
+	e=droite(N,M);
+	e.isVisible=false
+	f=rotation(e,N,anglerot);
+	f.isVisible=false
+	Omegay=calcul((-f.c+d.c*f.a/d.a)/(f.b-f.a*d.b/d.a))
+	Omegax=calcul(-d.c/d.a-d.b*Omegay/d.a)
+	let Omega=point(Omegax,Omegay)
+	let l=longueur(Omega,M)
+	let a=arc(M,Omega,angle,rayon,fill,color)
+	a.isVisible=false
+	ObjetMathalea2D.call(this);
+	this.svg=a.svg
+	this.tikz=a.tikz
+ }
  	function arcPointPointAngle(...args){
  		return new ArcPointPointAngle(...args)
  	}
-
- 	function arcPointPointAngle(...args) {
- 		return new ArcPointPointAngle(...args)
- 	}
-
+/**
+ * m = traceCompas(O, A, 20) trace un arc de cercle de centre O qui commence 10° avant A et finit 10° après.
+ *@Auteur Jean-Claude Lhote
+ */
  	function traceCompas(O,A,angle=20,color='gray',opacite=.7, epaisseur = 1, pointilles  = false) {
  		let B = rotation(A,O,-angle/2)
  		let a = arc(B,O,angle,false)
@@ -1631,14 +1648,17 @@ function translation(O,v,nom='',positionLabel = 'above') {
 		s.styleExtremites = O.styleExtremites
 		return s
 	}
-	if (O.constructor==DemiDroite) {
+	/*if (O.constructor==DemiDroite) {
 		let M = translation(O.extremite1,v)
 		let N = translation(O.extremite2,v)
 		let s = demiDroite(M,N)
 		s.styleExtremites = O.styleExtremites
 		return s
 	}
-
+*/
+	if (A.constructor==Vecteur) {
+			return A
+	}
 }
 
 /**
@@ -1674,14 +1694,17 @@ function translation2Points(O,A,B,nom='',positionLabel = 'above') {
 		s.styleExtremites = O.styleExtremites
 		return s
 	}
-	if (O.constructor==DemiDroite) {
+/*	if (O.constructor==DemiDroite) {
 		let M = translation2Points(O.extremite1,A,B)
 		let N = translation2Points(O.extremite2,A,B)
 		let s = demiDroite(M,N)
 		s.styleExtremites = O.styleExtremites
 		return s
 	}
-
+*/
+	if (A.constructor==Vecteur) {
+		return A
+			}
 }
 
 /**
@@ -1716,14 +1739,20 @@ function rotation(A,O,angle,nom,positionLabel){
 		s.styleExtremites = A.styleExtremites
 		return s
 	}
-	if (A.constructor==DemiDroite) {
+	/*if (A.constructor==DemiDroite) {
 		let M = rotation(A.extremite1,O,angle)
 		let N = rotation(A.extremite2,O,angle)
 		let s = demiDroite(M,N)
 		s.styleExtremites = A.styleExtremites
 		return s
 	}
-
+*/
+	if (A.constructor==Vecteur) {
+		let x = calcul(A.x*Math.cos(angle*Math.PI/180)-A.y*Math.sin(angle*Math.PI/180))
+		let y = calcul(A.x*Math.sin(angle*Math.PI/180)+A.y*Math.cos(angle*Math.PI/180));
+		let v = vecteur(x,y)
+	return v
+	}
 }
 
 /**
@@ -1758,12 +1787,19 @@ function homothetie(A,O,k,nom,positionLabel){
 		s.styleExtremites = A.styleExtremites
 		return s
 	}
-	if (A.constructor==DemiDroite) {
+/*	if (A.constructor==DemiDroite) {
 		let M = homothetie(A.extremite1,O,k)
 		let N = homothetie(A.extremite2,O,k)
 		let s = demiDroite(M,N)
 		s.styleExtremites = A.styleExtremites
 		return s
+	}
+	*/
+	if (A.constructor==Vecteur) {
+		let x = A.x
+		let y = A.y
+		let v = vecteur(x*k,y*k)
+		return v
 	}
 }
 
@@ -1774,9 +1810,9 @@ function homothetie(A,O,k,nom,positionLabel){
  * @Auteur Jean-Claude Lhote
  */
  function symetrieAxiale(A,d,nom='',positionLabel = 'above') {
- 	if (A.constructor==Point) {
- 		let x,y
- 		let a=d.a,b=d.b,c=d.c,k=1/(a*a+b*b)
+	let x,y
+	let a=d.a,b=d.b,c=d.c,k=1/(a*a+b*b)
+		if (A.constructor==Point) {
  		if (a==0) {
  			x=A.x
  			y=calcul(-(A.y+2*c/b))
@@ -1810,13 +1846,24 @@ function homothetie(A,O,k,nom,positionLabel){
  		s.styleExtremites = A.styleExtremites
  		return s
  	}
- 	if (A.constructor==DemiDroite) {
+ /*	if (A.constructor==DemiDroite) {
  		let M = symetrieAxiale(A.extremite1,d)
  		let N = symetrieAxiale(A.extremite2,d)
  		let s = demiDroite(M,N)
  		s.styleExtremites = A.styleExtremites
  		return s
- 	}
+	 }*/
+	 if (A.constructor==Vecteur) {
+		let O
+		if (egal(b,0)) {
+			O=point(calcul(-c/a),0)
+		}
+		else O=point(0,calcul(-c/b))
+		let M=translation(O,A)
+		let N=symetrieAxiale(M,d)
+		let v = vecteur(O,N)
+		return v
+	}
  }
 
 /**
@@ -1826,6 +1873,7 @@ function homothetie(A,O,k,nom,positionLabel){
 function projectionOrtho(M,d,nom = ' ',positionLabel = 'above') {
 	let a=d.a,b=d.b,c=d.c,k=calcul(1/(a*a+b*b));
 	let x,y;
+	if (M.constructor == Point) {
 	if (a==0) {
 		x=M.x
 		y=calcul(-c/b)
@@ -1839,15 +1887,26 @@ function projectionOrtho(M,d,nom = ' ',positionLabel = 'above') {
 		y=calcul(k*(-a*b*M.x+a*a*M.y+a*a*c/b)-c/b)
 	}
 	return point(x,y,nom,positionLabel)
+	}
+	if (M.constructor==Vecteur) {
+		let O
+		if (egal(b,0)) 
+			O=point(calcul(-c/a),0)
+		else O=point(0,calcul(-c/b))
+		let A=translation(O,M)
+		let N=projectionOrtho(A,d)
+		let v = vecteur(O,N)
+		return v
+	}
 }
 /**
  * N = affiniteOrtho(M,d,rapport,'N','rgiht')
  * @Auteur = Jean-Claude Lhote
  */
  function affiniteOrtho(A, d, k, nom = ' ', positionLabel = 'above') {
+	let a = d.a, b = d.b, c = d.c, q = calcul(1 / (a * a + b * b));
+	let x, y;
  	if (A.constructor == Point) {
- 		let a = d.a, b = d.b, c = d.c, q = calcul(1 / (a * a + b * b));
- 		let x, y;
  		if (a == 0) {
  			x = A.x
  			y = calcul(k * A.y + c * (k - 1) / b)
@@ -1881,13 +1940,24 @@ function projectionOrtho(M,d,nom = ' ',positionLabel = 'above') {
  		s.styleExtremites = A.styleExtremites
  		return s
  	}
- 	if (A.constructor == DemiDroite) {
+ /*	if (A.constructor == DemiDroite) {
  		let M = affiniteOrtho(A.extremite1, d,k)
  		let N = affiniteOrtho(A.extremite2, d,k)
  		let s = demiDroite(M, N)
  		s.styleExtremites = A.styleExtremites
  		return s
- 	}
+	 }*/
+	 if (A.constructor==Vecteur) {
+		let O
+		if (egal(b,0)) {
+			O=point(calcul(-c/a),0)
+		}
+		else O=point(0,calcul(-c/b))
+		let M=translation(O,A)
+		let N=affiniteOrtho(M,d,k)
+		let v = vecteur(O,N)
+		return v
+	}
  }
 /**
  * 
@@ -1926,13 +1996,18 @@ function projectionOrtho(M,d,nom = ' ',positionLabel = 'above') {
  		s.styleExtremites = A.styleExtremites
  		return s
  	}
- 	if (A.constructor==DemiDroite) {
+ 	/*if (A.constructor==DemiDroite) {
  		let M = similitude(A.extremite1,O,a,k)
  		let N = similitude(A.extremite2,O,a,k)
  		let s = demiDroite(M,N)
  		s.styleExtremites = A.styleExtremites
  		return s
- 	}
+ 	}*/
+	 if (A.constructor==Vecteur){
+		 let V=rotation(A,O,a)
+		 let v=homothetie(V,O,k)
+		 return v
+	 }
 
  }
 
@@ -2013,10 +2088,10 @@ function rotationAnimee(...args){
 function HomothetieAnimee(p,O,k,animation='begin="0s" dur="2s" repeatCount="indefinite"'){
 	ObjetMathalea2D.call(this)
 	this.svg = function(coeff){
-		let binomesXY1 = p.binomesXY
+		let binomesXY1 = p.binomesXY(coeff)
 		let p2 = homothetie(p,O,k)
 		p2.isVisible=false
-		let binomesXY2 = p2.binomesXY
+		let binomesXY2 = p2.binomesXY(coeff)
 		code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="none" >
 		<animate attributeName="points" dur="2s" repeatCount="indefinite"
 		from="${binomesXY1}"
@@ -2041,10 +2116,10 @@ function homothetieAnimee(...args){
 function SymetrieAnimee(p,d,animation='begin="0s" dur="2s" repeatCount="indefinite"'){
 	ObjetMathalea2D.call(this)
 	this.svg = function(coeff){
-		let binomesXY1 = p.binomesXY
+		let binomesXY1 = p.binomesXY(coeff)
 		let p2 = symetrieAxiale(p,d)
 		p2.isVisible=false
-		let binomesXY2 = p2.binomesXY
+		let binomesXY2 = p2.binomesXY(coeff)
 		code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="none" >
 		<animate attributeName="points" dur="2s" repeatCount="indefinite"
 		from="${binomesXY1}"
@@ -2063,10 +2138,10 @@ function symetrieAnimee(...args){
 function AffiniteOrthoAnimee(p,d,k,animation='begin="0s" dur="2s" repeatCount="indefinite"'){
 	ObjetMathalea2D.call(this)
 	this.svg = function(coeff){
-		let binomesXY1 = p.binomesXY
+		let binomesXY1 = p.binomesXY(coeff)
 		let p2 = affiniteOrtho(p,d,k)
 		p2.isVisible=false
-		let binomesXY2 = p2.binomesXY
+		let binomesXY2 = p2.binomesXY(coeff)
 		code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="none" >
 		<animate attributeName="points" dur="2s" repeatCount="indefinite"
 		from="${binomesXY1}"
@@ -2284,9 +2359,9 @@ function AfficheLongueurSegment(A,B,color='black',d = .5)  {
 	let longueur = string_nombre(arrondi(s.longueur,1))
 	let angle
 	if (B.x>A.x) {
-		angle = -parseInt(s.angleAvecHorizontale)
+		angle = parseInt(s.angleAvecHorizontale)
 	} else {
-		angle = 180-parseInt(s.angleAvecHorizontale)
+		angle = parseInt(s.angleAvecHorizontale)-180
 	}
 	return texteParPoint(longueur,N,angle,this.color)
 	
@@ -2324,9 +2399,9 @@ function afficheMesureAngle(A,B,C,color='black',distance = 1.5)  {
  	s.isVisible = false
  	let angle
  	if (B.x>A.x) {
- 		angle = -parseInt(s.angleAvecHorizontale)
+ 		angle = parseInt(s.angleAvecHorizontale)
  	} else {
- 		angle = 180-parseInt(s.angleAvecHorizontale)
+ 		angle =parseInt(s.angleAvecHorizontale)-180
  	}
  	return texteParPoint(mark,O,angle,this.color)
 
@@ -2564,18 +2639,19 @@ function grille(...args){
 * @Auteur Rémi Angot
 */
 
-function courbe(f,xmin=-1,xmax=30,color = 'black',step=.1){
+function courbe(f,xmin=-1,xmax=30,color = 'black',epaisseur = 2,step=.1,xscale=1,yscale=1){
 	ObjetMathalea2D.call(this)
 	this.color = color
 	let points = []
-	for (let x = xmin ; x<=xmax ; x = calcul(x+step)){
-		if (isFinite(f(x))) {
-			points.push(point(x,f(x)))
+	for (let x = calcul(xmin/xscale) ; x<=calcul(xmax/xscale) ; x = calcul(x+step)){
+		if (isFinite(f(x*xscale))) {
+			points.push(point(x,f(x*xscale)/yscale))
 		} else {
 
 		}
 	}
 	let p = polyline([...points],this.color)
+	p.epaisseur = epaisseur
 	return p
 }
 
@@ -2687,7 +2763,7 @@ function TexteParPoint(texte,A,orientation = "milieu",color) {
 	}
 	this.tikz = function(){
 		let code = ''
-		if (Number.isInteger(orientation)) {
+		if (typeof(orientation)=='number') {
 			code = `\\draw (${A.x},${A.y}) node[anchor = center, rotate = ${orientation}] {${texte}}`;
 		} else {
 			let anchor = '';

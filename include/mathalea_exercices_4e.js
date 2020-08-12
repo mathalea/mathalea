@@ -4630,7 +4630,7 @@ function Problemes_additifs_fractions() {
 function Exploiter_representation_graphique(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Problème s'appuyant sur la lecture d'une représentation graphique";
-	this.consigne = "Calculer";
+	this.consigne = "";
 	this.nb_questions = 1;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -4640,41 +4640,100 @@ function Exploiter_representation_graphique(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
+		let type_de_probleme = 'temperature'
+		let a,b,c,d,f,t1,t2,l1,l2,l3,g1,g2,graphique,texte1,texte2
+		switch (type_de_probleme){
+			case 'projectile' : 
+				// Parabole qui a pour zéro, 0 et 6,8 ou 10
+				// Et qui a pour maximum un multiple de 5
+				t1 = choice([6,8,10])
+				a = 1/(-t1/2*(t1/2-t1))*choice([10,15,20,25,30]) // on divise par l'image du max et on multiplie par la valeur souhaitée
+				f = x =>calcul(-a*x*(x-t1))
 
-		let t1 = randint(5,9)
-		let f = x =>calcul(-1/3*x*(x-t1))
+				// Mettre des dixièmes de secondes à la place des secondes
+				let xscale = choice([1,.1])
+				g1 = grille(-1,-1,t1+2,8)
+				g1.color = 'black'
+				g1.opacite = 1
+				g2 = grille(-1,-1,t1+2,8,'gray',.2,.2)
+				g3 = axes(0,0,t1+1,8)
+				texte1 = texteParPosition('hauteur (en mètre)',0.2,7.3,'droite')
+				l1 = labelX(0,t1+1,1,'black',-.6,xscale)
+				l2 = labelY(1,6,1,'black',-.6,5)
+				graphique = courbe(f,0,t1,'blue',2,.1,1,5)
+				texte2 = texteParPosition('temps (en s)',t1+.5,0.4,'droite')
+				
+				this.introduction = 'On a représenté ci-dessous l’évolution de la hauteur d’un projectile lancé depuis le sol (en mètre) en fonction du temps (en seconde).'
 
-		let g1 = grille(-1,-1,t1+2,8)
-		g1.color = 'black'
-		g1.opacite = 1
-		let g2 = grille(-1,-1,t1+2,8,'gray',.2,.2)
-		let a = axes(0,0,t1+1,8)
-		let texte1 = texteParPosition('hauteur (en mètre)',0.2,7.3,'droite')
-		let l1 = labelX(0,t1+1)
-		let l2 = labelY(1,6,1,'black',-.6,5)
-		let c = courbe(f,0,t1)
-		c.epaisseur = 2
-		c.color = 'blue'
-		let texte2 = texteParPosition('temps (en s)',t1+.5,0.4,'droite')
-		
-		this.introduction = 'On a représenté ci-dessous l’évolution de la hauteur d’un projectile lancé depuis le sol (en mètre) en fonction du temps (en seconde).'
+				this.introduction += '<br><br>' + mathalea2d({
+					xmin : -1,
+					ymin : -1,
+					xmax : t1+3,
+					ymax : 8,
+					pixelsParCm : 40,
+				},g1,g2,g3,graphique,texte1,texte2,l1,l2)
 
-		this.introduction += '<br><br>' + mathalea2d({
-			xmin : -1,
-			ymin : -1,
-			xmax : t1+3,
-			ymax : 8,
-			pixelsParCm : 40,
-		},g1,g2,a,c,texte1,texte2,l1,l2)
+				this.introduction += '<br><br>' + 'À l’aide de ce graphique, répondre aux questions suivantes :'
 
-		this.introduction += '<br><br>' + 'À l’aide de ce graphique, répondre aux questions suivantes :'
+				this.liste_questions.push('Au bout de combien de temps le projectile retombe-t-il au sol ?')
+				this.liste_corrections.push(`Au bout de ${tex_nombrec(t1*xscale)} s, le projectile retombe au sol car la courbe passe par le point de coordonnées $(${tex_nombrec(t1*xscale)}~;~0)$.`)
 
-		this.liste_questions.push('Au bout de combien de temps le projectile retombe-t-il au sol ?')
-		this.liste_corrections.push(`Au bout de ${t1} s, le projectile retombe au sol car sa hauteur est à nouveau de 0 m.`)
+				this.liste_questions.push('Quelle est la hauteur maximale atteinte par le projectile ?')
+				this.liste_corrections.push(`Le point le plus haut de la courbe a pour abscisse $${tex_nombrec(t1/2*xscale)}$ et pour ordonnée $${f(t1/2)}$ donc la hauteur maximale est de $${f(t1/2)}$ m.`)
 
-		this.liste_questions.push('Quelle est la hauteur maximale atteinte par le projectile ?')
-		this.liste_corrections.push(`Le point le plus haut de la courbe a pour abscisse ${tex_nombrec(t1/2)} et pour ordonnee ${f(t1/2)} donc la hauteur maximale est de ${f(t1/2)} m.`)
+			break;
+			case 'temperature':
+				let x1 = 4;
+				let x2 = choice([12,14,16]);
+				let x3 = choice([16,18,20,22])
+				let fx1 = randint(-3,-1);
+				let fx2 = randint(4, 7);
+				let fx3 = randint(-1,3);
+				d = randint(1,3);
+				c = randint(-5, 5);
+				let numa,dena,numb,denb,numc,denc
 
+				[[numa, dena], [numb, denb], [numc, denc]] = resol_sys_lineaire_3x3(x1, x2, x3, fx1, fx2, fx3, d)
+
+				a = numa / dena;
+				b = numb / denb;
+				c = numc / denc;
+
+				f = x => a*x**3+b*x**2+c*x+d
+
+				console.log(cherche_min_max_f ([a,b,c,d]))
+
+				g1 = grille(-1,-3,12,8)
+				g1.color = 'black'
+				g1.opacite = 1
+				g2 = grille(-1,-3,12,8,'gray',.2,.2)
+				g3 = axes(0,-3,12,8)
+				texte1 = texteParPosition('température (en °C)',0.2,7.3,'droite')
+				l1 = labelX(1,12,1,'black',-.6,2)
+				l2 = labelY(1,7,1,'black',-.6,1)
+				l3 = labelY(-3,1,1,'black',-.6,1)
+				graphique = courbe(f,0,24,'blue',2,.1,2,1)
+				texte2 = texteParPosition('temps (en h)',12.5,0.4,'droite')
+				this.introduction = 'On a représenté ci-dessous l’évolution de la température sur une journée.'
+				this.introduction += '<br><br>' + mathalea2d({
+					xmin : -1,
+					ymin : -4,
+					xmax : 16,
+					ymax : 8,
+					pixelsParCm : 40,
+				},g1,g2,g3,graphique,texte1,texte2,l1,l2,l3)
+
+				this.introduction += '<br><br>' + 'À l’aide de ce graphique, répondre aux questions suivantes :'
+
+				this.liste_questions.push('Au bout de combien de temps le projectile retombe-t-il au sol ?')
+				//this.liste_corrections.push(`Au bout de ${tex_nombrec(t1*xscale)} s, le projectile retombe au sol car la courbe passe par le point de coordonnées $(${tex_nombrec(t1*xscale)}~;~0)$.`)
+
+				this.liste_questions.push('Quelle est la hauteur maximale atteinte par le projectile ?')
+				//this.liste_corrections.push(`Le point le plus haut de la courbe a pour abscisse $${tex_nombrec(t1/2*xscale)}$ et pour ordonnée $${f(t1/2)}$ donc la hauteur maximale est de $${f(t1/2)}$ m.`)
+
+			break;
+		}
+			
 		liste_de_question_to_contenu(this);
 	}
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
