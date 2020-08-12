@@ -6400,15 +6400,16 @@ function Problemes_Thales(){
 		this.liste_corrections = []; // Liste de questions corrigées
 		let texte='';
 		let texte_corr='';
-		let type_de_questions = randint(1,1);
+		let type_de_questions = randint(1,2);
+		let A,B,C,D,M,N,x,k,y,p,p2,codage1,codage2,codage3,codage4,sMN,sBD,sCote,texte1,texte2,texte3,texte4,labels,BC,BD,MN
 		
 
 			switch (type_de_questions){
 				case 1 :
-				let x = randint(6,10);
-				let k = calcul(randint(12,19)/10);
-				let y = calcul(randint(30,50)/10);
-				let [A,B,C,D,E]=polygone(5)
+				x = randint(6,10);
+				k = calcul(randint(12,19)/10);
+				y = calcul(randint(30,50)/10);
+				[A,B,C,D,E]=creerNomDePolygone(5)
 				texte = `On sait que $${A}${E}=${tex_nombre(x)}$ cm ; $${A}${D}=${tex_nombrec(k*x)}$ cm et $${E}${B}=${tex_nombre(y)}$ cm.<br>`;
 				texte += `Calculer la valeur exacte de $${D}${C}$.`
 				if (sortie_html) {
@@ -6475,6 +6476,50 @@ function Problemes_Thales(){
 				texte_corr += `<br><br>$\\dfrac{${A}${E}}{${A}${D}}=\\dfrac{${E}${B}}{${D}${C}}=\\dfrac{${A}${B}}{${A}${C}}$`
 				texte_corr += `<br><br>$\\dfrac{${tex_nombre(x)}}{${tex_nombrec(k*x)}}=\\dfrac{${tex_nombre(y)}}{${D}${C}}$`
 				texte_corr += `<br><br>$${D}${C}=\\dfrac{${tex_nombrec(k*x)}\\times${tex_nombre(y)}}{${tex_nombre(x)}}=${tex_nombrec(k*y)}$`
+				break;
+
+
+				case 2 : 
+					BC = randint(2,6)
+					BD = 2*BC
+					MN = calcul(BD*choice([0.2,0.3,0.4]))
+					A = point(0,4,'A','above')
+					B = point(7,4,'B','above')
+					C = point(7,0,'C','below')
+					D = point(0,0,'D','below')
+					p = polygone(A,B,C,D)
+					codage1 = codageAngleDroit(D,A,B)
+					codage2 = codageAngleDroit(A,B,C)
+					codage3 = codageAngleDroit(B,C,D)
+					codage4 = codageAngleDroit(C,D,A)
+					M = pointSurSegment(A,B,longueur(A,B)/3,'M','above')
+					N = pointSurSegment(A,D,longueur(A,D)/3,'N','left')
+					sMN = segment(M,N)
+					sBD = segment(B,D)
+					sCote = segment(point(N.x-1.3,N.y),point(D.x-1.3,D.y))
+					sCote.styleExtremites='<->'
+					texte1 = texteParPoint('?',milieu(point(N.x-1.5,N.y),point(D.x-1.5,D.y)),'gauche')
+					texte2 = texteSurSegment(nombre_avec_espace(BD)+' cm',B,D)
+					texte3 = texteSurSegment(nombre_avec_espace(MN)+' cm',M,N)
+					texte4 = texteSurSegment(nombre_avec_espace(BC)+' cm',B,C)
+
+					labels = labelPoint(M,N,A,B,C,D)
+
+					texte = 'Sur la figure ci-dessous $ABCD$ est un rectangle et $(MN)$ est parallèle à la diagonale $(BD)$.'
+					texte += '<br>Calculer la longueur $DN$ au millimètre près.<br><br>'
+					texte += mathalea2d({
+						xmin : -2,
+						xmax : 9,
+						ymin : -1.5,
+						ymax : 5,
+						scale : .8
+					}, p,codage1,codage2,codage3,codage4,sMN,sBD,sCote,texte1,texte2,texte3,texte4,labels)
+
+					texte_corr = "Dans le triangle $ABD$, $M$ est un point de $[AB]$, $N$ est un point de $[AD]$ et $(MN)$ est parallèle à $(BD)$ donc d'après le théorème de Thalès on a : "
+					texte_corr += `<br><br> $${tex_fraction('AM','AB')}=${tex_fraction('AN','AD')}=${tex_fraction('MN','BD')}$`
+					texte_corr += `<br><br> $${tex_fraction('AM','AB')}=${tex_fraction('AN',BC)}=${tex_fraction(tex_nombre(MN),tex_nombre(BD))}$`
+					texte_corr += `<br><br> $AN = ${tex_fraction(BC+'\\times'+tex_nombre(MN),BD)}=${tex_nombre(arrondi(calcul(BC*MN/BD),1))}$`
+				
 				break;
 				}
 			

@@ -1126,7 +1126,7 @@ function trie_positifs_negatifs(liste){
 * Créé un string de nbsommets caractères dans l'ordre alphabétique et en majuscule qui ne soit pas dans la liste donnée en 2e argument
 * @Auteur Rémi Angot
 */
-function polygone(nbsommets,liste_a_eviter=[]){ 
+function creerNomDePolygone(nbsommets,liste_a_eviter=[]){ 
 	let premiersommet = randint(65,90-nbsommets);
 	let polygone="";
 	while(est_deja_donne(String.fromCharCode(premiersommet),liste_a_eviter)){
