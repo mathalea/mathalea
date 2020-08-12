@@ -6504,7 +6504,7 @@ function TrianglesSemblables() {
 		let type_de_questions = randint(1,1);
 		switch (type_de_questions){
 			case 1 :
-				let trouve=false,aireABC,A,B,C,M,p,q,r,X,G,Gq,nom1,grid
+				let trouve=false,aireABC,A,B,C,M,p,q,r,s,X,G,Gq,nom1,grid
 				while (!trouve) {
 				A=point(choice([0,3]),choice([0,3]),'A')
 				B=point(choice([6,9]),choice([6,9]),'B')
@@ -6521,14 +6521,18 @@ function TrianglesSemblables() {
 				p.couleurDeRemplissage='gray'
 				p.opaciteDeRemplissage=0.5
 				nom1=nommePolygone(p,'ABC',0.4)
-				grid=grille(-6,-3,24,18)
-				M=point(6,12)
+				grid=grille(-3,-3,27,18, 'gray', .4,1)
+				M=point(9,12)
 				q=rotation(p,M,90)
 				Gq=barycentre(q)
 				r=rotation(q,Gq,choice([0,90,180,270]))
+				X=milieu(r.listePoints[0],r.listePoints[1])
+				s=rotation(r,X,180)
 				r.couleurDeRemplissage='red'
 				r.opaciteDeRemplissage=0.5
-				texte=mathalea2d({xmin:-6,ymin:-3,xmax:24,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r)
+				s.couleurDeRemplissage='blue'
+				s.opaciteDeRemplissage=0.5
+				texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r,s)
 				this.liste_questions[0]=texte;
 				this.liste_corrections[0]=texte_corr;
 				liste_de_question_to_contenu(this);
