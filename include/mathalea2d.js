@@ -15,7 +15,7 @@
 let mesObjets = []; // Liste de tous les objets construits
 //Liste utilisée quand il n'y a qu'une seule construction sur la page web
 
-// coeff = 20
+coeff = 20
 
 /*
 * Classe parente de tous les objets de MathALEA2D
