@@ -4382,6 +4382,7 @@ function Puissances_encadrement() {
  * @author Sébastien Lozano
  */
 function Problemes_additifs_fractions() {
+	//A la fin ne laisser que 2 questions avec un [choice(1,2),choice(3,4,5)]
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()	
 	this.sup=1;
@@ -4487,13 +4488,20 @@ function Problemes_additifs_fractions() {
 			// les numérateurs et dénominateurs des 4 fractions attention les trois premières doivent être inférieures à 1/3 si on veut qu'elles soient toutes positives !
 			// et on veut des fractions distinctes 
 			let nq1,nq2,nq3,nq4,dq1,dq2,dq3,dq4;
-			while ( (nq1==nq2 && dq1==dq2) || (nq1==nq3 && dq1==dq3) || (nq1==nq4 && dq1==dq4) || (nq2==nq3 && dq2==dq3) || (nq2==nq4 && dq2==dq4) || (nq3==nq4 && dq3==dq4)) {
+			// on récupère les dénominateurs qui vont bien
+			let denoms_amis = frac.denominateurs_amis;
+			// on choisit un tableau dedans
+			let denoms_cool = denoms_amis[randint(0,denoms_amis.length-1)];
+			while ( (nq1==nq2 && dq1==dq2) || (nq1==nq3 && dq1==dq3) || (nq1==nq4 && dq1==dq4) || (nq2==nq3 && dq2==dq3) || (nq2==nq4 && dq2==dq4) || (nq3==nq4 && dq3==dq4) || (nq1/dq1 >= 1/3) || (nq2/dq2 >= 1/3) || (nq3/dq3 >= 1/3) ) {
 				nq1 = randint(1,4);
-				dq1 = 3*nq1 + 1;
-				nq2 = randint(1,4);
-				dq2 = 3*nq2 + 1;
+				//dq1 = 3*nq1 + 1;				
+				dq1 = choice(denoms_cool);
+				nq2 = randint(1,4);				
+				//dq2 = 3*nq2 + 1;
+				dq2 = choice(denoms_cool,[dq1]);
 				nq3 = randint(1,4);
-				dq3 = 3*nq3 + 1;
+				//dq3 = 3*nq3 + 1;
+				dq3 = choice(denoms_cool,[dq1,dq2]);
 				nq4 = dq1*dq2*dq3-nq1*dq2*dq3 - nq2*dq1*dq3 - nq3*dq1*dq2;//la somme des quatre vaut 1 !
 				dq4 = dq1*dq2*dq3; 
 			};

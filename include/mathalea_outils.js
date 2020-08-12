@@ -4591,6 +4591,10 @@ function Relatif(...relatifs) {
  function Fraction() {
 	 //'use strict'; pas de use strict avec un paramètre du reste
 	 var self = this;
+	 /**
+	  * @constant {array} denominateurs_amis tableau de tableaux de dénominateurs qui vont bien ensemble pour les calculs
+	  */
+	 let denominateurs_amis = [[12,2,3,4,6],[16,2,4,8],[18,2,3,6,9],[20,2,4,5,10],[24,2,3,4,8,12],[30,2,3,5,6]]
 
 	/**
 	 * 
@@ -4608,7 +4612,7 @@ function Relatif(...relatifs) {
 					throw new RangeError(`${element} est exclu des valeurs possibles pour les dénominateurs !`)
 				};
 			});	
-			console.log(fractions.length);
+			//console.log(fractions.length);
 			if (Math.floor(fractions.length/2) <= 1 ) {
 				throw new Error(`Il faut au moins deux fractions !`);
 			};
@@ -4685,7 +4689,7 @@ function Relatif(...relatifs) {
 					throw new RangeError(`${element} est exclu des valeurs possibles pour les dénominateurs !`)
 				};
 			});	
-			console.log(fractions.length);
+			//console.log(fractions.length);
 			if (Math.floor(fractions.length/2) <= 1 ) {
 				throw new Error(`Il faut au moins deux fractions !`);
 			};
@@ -4716,6 +4720,7 @@ function Relatif(...relatifs) {
 
 	this.sortFractions = sortFractions;
 	this.reduceSameDenominateur = reduceSameDenominateur;
+	this.denominateurs_amis = denominateurs_amis;
 	
 
  };
