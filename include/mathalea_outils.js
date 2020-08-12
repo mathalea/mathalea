@@ -2602,7 +2602,28 @@ function cherche_min_max_f ([a,b,c,d]) {
 	let x2=(-2*b+Math.sqrt(delta))/(6*a)
 	return  [[x1,a*x1**3+b*x1**2+c*x1+d],[x2,a*x2**3+b*x2**2+c*x2+d]]
 }
-
+function cherche_polynome_deg3_a_extrema_fixes(x1,x2,y1) {
+	//let b={num : randint(1,10),den : choice([2,3,4,5])}
+	//let a={num : b.num,den : calcul(b.den*(x1+x2))}
+	//let c={num : calcul(-b.num*(x1**2+x2**2+x1*x2)),den : calcul((x1+x2)*b.den)}
+	let a=1
+	let b=calcul(a*(x1+x2))
+	let c=-b*(x1**2+x2**2+x1*x2)/(x1+x2)
+	let signeDelta=unSiPositifMoinsUnSinon(1+4*(1-(x1*x2)/(x1+x2)**2))
+	let k=6*(x1+x2)
+	let d=calcul(y1-k*(a*x1**3/3+b*x1**2/2+c*x1))
+	if (signeDelta<0) {
+		console.log('Il y a un problème Delta est négatif, il est préférable que x1 et x2 soient de signes contraires')
+		return false
+	}
+	else console.log(cherche_min_max_f(a,b,c,d))
+	// on a : ax^2+bx+c=0 pour x1 et x2 (c'est la dérivée de f), on va intégrer et ajouter la valeur d pour que y1 soit entier.
+	let y2=calcul(d+k*(a*x2**3/3+b*x2**2/2+c*x2))
+	if (y1<y2) 
+		return [k*a/3,k*b/2,k*c,d,y1,y2]
+	else 
+		return [k*a/3,k*b/2,k*c,d,y2,y1]
+}
 /**
  * Fonction pour simplifier l'ecriture lorsque l'exposant vaut 0 ou 1
  * retourne 1, la base ou rien
