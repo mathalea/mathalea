@@ -4416,18 +4416,29 @@ function Problemes_additifs_fractions() {
 			// les numérateurs et dénominateurs des 3 fractions attention les deux premières doivent être inférieures à 1/2 si on veut qu'elles soient toutes positives !
 			// et on veut des fractions distinctes !
 			let nt1,nt2,nt3,dt1,dt2,dt3;
-			while ( (nt1==nt2 && dt1==dt2) || (nt1==nt3 && dt1==dt3) || (nt3==nt2 && dt3==dt2) ) {
+			// on aura besoin de simplifier la 3eme fraction
+			let nt4,dt4;
+			// on récupère les dénominateurs qui vont bien
+			let denoms_amis = frac.denominateurs_amis;
+			// on choisit un tableau dedans
+			let denoms_cool_3 = denoms_amis[randint(0,denoms_amis.length-1)];
+			while ( (nt1==nt2 && dt1==dt2) || (nt1==nt3 && dt1==dt3) || (nt3==nt2 && dt3==dt2) || (nt1/dt1 >= 1/2) || (nt2/dt2 >= 1/2)) {
 				nt1 = randint(1,6);
-				dt1 = 2*nt1 + randint(1,3);
+				//dt1 = 2*nt1 + randint(1,3);
+				dt1 = choice(denoms_cool_3);
 				nt2 = randint(2,10);
-				dt2 = 2*nt2 + randint(1,3);
+				//dt2 = 2*nt2 + randint(1,3);
+				dt2 = choice(denoms_cool_3,[dt1]);
 				nt3 = dt1*dt2-nt1*dt2-nt2*dt1;//la somme des trois vaut 1 !
 				dt3 = dt1*dt2; 
+				nt4 = frac.fraction_simplifiee(nt3,dt3)[0];
+				dt4 = frac.fraction_simplifiee(nt3,dt3)[1];
 			};		
 			
 			pb_3_f.push({// indice 0 le triathlon des neiges
 				prenoms: [prenomM()],
-				fractions: [nt1,dt1,'VTT',nt2,dt2,'ski de fond',nt3,dt3,'pied'],
+				// fractions: [nt1,dt1,'VTT',nt2,dt2,'ski de fond',nt3,dt3,'pied'],
+				fractions: [nt1,dt1,'VTT',nt2,dt2,'ski de fond',nt4,dt4,'pied'],
 				enonce: ``,
 				question: `Pour quelle discipline, la distance est-elle la plus grande ?`,
 				correction: ``
@@ -4459,7 +4470,8 @@ function Problemes_additifs_fractions() {
 			};
 			pb_3_f.push({// indice 1 Miss Math
 				//prenoms: [prenomF(),prenomF(),prenomF()],
-				fractions: [nt1,dt1,p1,nt2,dt2,p2,nt3,dt3,p3],
+				//fractions: [nt1,dt1,p1,nt2,dt2,p2,nt3,dt3,p3],
+				fractions: [nt1,dt1,p1,nt2,dt2,p2,nt4,dt4,p3],
 				enonce: ``,
 				question: `Qui a été élue ?`,
 				correction: ``
@@ -4491,19 +4503,19 @@ function Problemes_additifs_fractions() {
 			// on aura besoin de simplifier la 4eme fraction
 			let nq5,dq5;
 			// on récupère les dénominateurs qui vont bien
-			let denoms_amis = frac.denominateurs_amis;
+			//let denoms_amis = frac.denominateurs_amis;
 			// on choisit un tableau dedans
-			let denoms_cool = denoms_amis[randint(0,denoms_amis.length-1)];
+			let denoms_cool_4 = denoms_amis[randint(0,denoms_amis.length-1)];
 			while ( (nq1==nq2 && dq1==dq2) || (nq1==nq3 && dq1==dq3) || (nq1==nq4 && dq1==dq4) || (nq2==nq3 && dq2==dq3) || (nq2==nq4 && dq2==dq4) || (nq3==nq4 && dq3==dq4) || (nq1/dq1 >= 1/3) || (nq2/dq2 >= 1/3) || (nq3/dq3 >= 1/3) ) {
 				nq1 = randint(1,6);
 				//dq1 = 3*nq1 + 1;				
-				dq1 = choice(denoms_cool);
+				dq1 = choice(denoms_cool_4);
 				nq2 = randint(1,6);				
 				//dq2 = 3*nq2 + 1;
-				dq2 = choice(denoms_cool,[dq1]);
+				dq2 = choice(denoms_cool_4,[dq1]);
 				nq3 = randint(1,6);
 				//dq3 = 3*nq3 + 1;
-				dq3 = choice(denoms_cool,[dq1,dq2]);
+				dq3 = choice(denoms_cool_4,[dq1,dq2]);
 				nq4 = dq1*dq2*dq3-nq1*dq2*dq3 - nq2*dq1*dq3 - nq3*dq1*dq2;//la somme des quatre vaut 1 !
 				dq4 = dq1*dq2*dq3;
 				nq5 = frac.fraction_simplifiee(nq4,dq4)[0];

@@ -942,6 +942,7 @@ const ppcm = (a,b) => { return parseInt(Algebrite.run(`lcm(${a},${b})`))}
 
 /**
 * Retourne le numérateur et le dénominateur de la fraction passée en argument sous la forme (numérateur,dénominateur)réduite au maximum dans un tableau [numérateur,dénominateur]
+* * **ATTENTION Fonction clonée dans la classe Fraction()**
 * @Auteur Rémi Angot
 */
 function fraction_simplifiee(n,d){ 
@@ -4719,7 +4720,8 @@ function Relatif(...relatifs) {
 	};
 
 	/**
-	* Retourne le numérateur et le dénominateur de la fraction passée en argument sous la forme (numérateur,dénominateur)réduite au maximum dans un tableau [numérateur,dénominateur]
+	 * **ATTENTION Fonction clonée dans la boîte à outils**
+	* @return Retourne le numérateur et le dénominateur de la fraction passée en argument sous la forme (numérateur,dénominateur)réduite au maximum dans un tableau [numérateur,dénominateur]
 	* @author Rémi Angot
 	*/
 	function fraction_simplifiee(n,d){ 
