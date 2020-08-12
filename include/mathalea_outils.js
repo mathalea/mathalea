@@ -4004,38 +4004,43 @@ function decomp_fact_prem_array(n) {
 /**
  * @class
  * @classdesc Classe Triangles - Méthodes utiles pour les triangles *  
- * Choisi un nom au hasard dans un tableau statique
- * La méthode getNom() permet de récupérer ce nom et fournit un string en mode maths. Si le triangle se nomme AGE, alors getNom() renvoit un tableau de 5 éléments $ ; A ; G ; E et $, les $ traduisent le mode maths
- * Pour l'exemple le triangle se nomme AGE
- * La méthode getCotes() renvoie un tableau contenant les noms des segments des côtés du triangle en mode maths. [AG], [GE] et [EA] dans cet ordre.
- * La méthode getLongueurs() renvoie un tableau contenant les noms des longueurs des côtés du triangle en mode maths. AG, GE et EA dans cet ordre.
- * La méthode getLongueursValeurs() renvoie un tableau contenant les valeurs des longueurs des côtés du triangle.
- * La méthode getAngles() renvoie un tableau contenant les noms des angles du triangle en mode maths. AGE, GEA et EAG dans cet ordre.
- * La méthode getAnglesValeurs() renvoie un tableau contenant les valeurs des angles du triangle.
- * La méthode getSommets() renvoie un tableau contenant les noms des sommets du triangle en mode maths. A, G et E dans cet ordre.
- * La méthode getPerimetre() renvoie le périmètre du triangle
- * La méthode isTrueTriangleLongueurs() renvoie un booléen si le triangle définit à partir des longueurs est un vrai triangle non plat.
- * La méthode isPlatTriangleLongueurs() renvoie un booléen si le triangle définit à partir des longueurs est un triangle plat.
- * La méthode isTrueTriangleAngles() renvoie un booléen si le triangle définit à partir des angles existe et n'est pas un triangle plat.
- * La méthode isPlatTriangleAngles() renvoie un booléen si le triangle définit à partir des angles existe et est un triangle plat.
- * La méthode isQuelconque() renvoie  un booléen si le triangle définit à partir des angles ou des longueurs existe et est quelconque. Non Finalisée
+ * * @param {number} l1 une des longueurs du triangle 
+ * * @param {number} l2 une des longueurs du triangle 
+ * * @param {number} l3 une des longueurs du triangle 
+ * * @param {number} a1 un des angles du triangle
+ * * @param {number} a2 un des angles du triangle
+ * * @param {number} a3  un des angles du triangle
  * @author Sébastien Lozano
  */
 function Triangles(l1,l2,l3,a1,a2,a3) {
 	'use strict';
 	var self = this;
 
-	// liste de noms possibles pour un triangle
+	/**
+	 * @constant {array} nomsPossibles liste de noms possibles pour un triangle
+	 */
 	let nomsPossibles = ['AGE','AIL','AIR','ALU','AME','AMI','ANE','ARC','BAC','BAL','BAR','BEC','BEL','BIO','BIP','BIS','BLE','BOA','BOF','BOG','BOL','BUT','BYE','COQ','CRI','CRU','DUC','DUO','DUR','EAU','ECU','EGO','EPI','FER','FIL','FUN','GPS','ICE','JET','KIF','KIR','MAC','NEM','PAS','PIC','PIF','PIN','POT','RAI','RAP','RAT','RIF','SEL','TAF','TIC','TAC','TOC','TOP','UNI','WOK','YAK','YEN','ZEN','ZIG','ZAG'];
 
+	/**
+	 * @property {string} nom nom du triangle, tiré au hasard dans un tableau
+	 */
 	this.nom = choice(nomsPossibles);
 
-	// renvoie le nom choisi
+
+	/**
+	 * @return {string} Renvoie le nom du triangle tiré au hasard 
+	 * * les strings sont EN MODE MATHS le premier caractère du string est un $
+	 * @example si triangle est une instance de la classe Triangle() triangle.getNom() renvoie le string '$AMI$' si AMI est le nom tiré au hasard 
+	 */
 	function getNom() {
 		return '$'+self.nom+'$';
 	}
 
-	// renvoie les noms des côtés du triangle, segments!
+	/**
+	 * @return {array} Renvoie un tableau contenant le nom des côtés, segments, du triangle tiré au hasard
+	 * * les strings sont EN MODE MATHS le premier caractère du string est un $
+	 * @example si triangle est une instance de la classe Triangle() triangle.getCotes() renvoie le tableau de strings ['$[AM]$','$[MI]$','$[IA]$'] dans cet ordre si AMI est le nom tiré au hasard  
+	 */
 	function getCotes() {
 		let cotes = [];
 		let triangle = self.nom;
@@ -4047,7 +4052,11 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		return cotes;
 	};
 
-	// renvoie les noms des longueurs des côtés du triangle.
+	/**
+	 * @return {array} Renvoie un tableau contenant le nom des longueurs des côtés du triangle tiré au hasard
+	 * * les strings sont EN MODE MATHS le premier caractère du string est un $
+	 * @example si triangle est une instance de la classe Triangle() triangle.getCotes() renvoie le tableau de strings ['$AM$','$MI$','$IA$'] dans cet ordre si AMI est le nom tiré au hasard  
+	 */
 	function getLongueurs() {
 		let longueurs = [];
 		let triangle = self.nom;
@@ -4058,8 +4067,10 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 
 		return longueurs;
 	};
-
-	// renvoie les valeurs des longueurs des côtés du triangle.
+	
+	/**
+	 * @return {array} Renvoie un tableau avec les valeurs des longueurs des côtés du triangle passées en paramètre à l'instance de la classe
+	 */
 	function getLongueursValeurs() {		
 		if ((typeof self.l1 == "undefined") || (typeof self.l2 == "undefined") || (typeof self.l3 == "undefined")) {
 			//return false;
@@ -4073,7 +4084,11 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		return longueurs;
 	};
 
-	// renvoie les noms des angles du triangle.
+
+	/**
+	 * @return {array} Renvoie un tableau de strings avec les noms des angles du triangle.
+	 * * les strings sont EN MODE MATHS le premier caractère du string est un $
+	 */
 	function getAngles() {
 		let angles = [];
 		let triangle = self.nom;
@@ -4085,7 +4100,9 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		return angles;
 	};
 
-	// renvoie les valeurs des angles du triangle.
+	/**
+	 * @return {array} Renvoie un tableau avec les valeurs des angles du triangle passées en paramètre à l'instance de la classe
+	 */
 	function getAnglesValeurs() {		
 		if ((typeof self.a1 == "undefined") || (typeof self.a2 == "undefined") || (typeof self.a3 == "undefined")) {
 			//return false;
@@ -4099,7 +4116,10 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		return angles;
 	};
 
-	// renvoie les noms des angles du triangle.
+	/**
+	 * @return {array} Renvoie un tableau de strings avec les noms des sommets du triangle.
+	 * * les strings sont EN MODE MATHS le premier caractère du string est un $
+	 */
 	function getSommets(math=true) {
 		let triangle = self.nom;
 		let sommets = triangle.split('');
@@ -4111,7 +4131,14 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		return sommets;
 	};
 
-	// renvoie le périmètre du triangle
+	/**
+	 * @return {array} Renvoie le périmètre de l'instance de la classe Triangle() avec les valeurs des longueurs des côtés du triangle passées en paramètre à l'instance 
+	 * @example let triangle = new Triangle();
+	 * * triangle.l1 = 2;
+	 * * triangle.l2 = 3;
+	 * * triangle.l3 = 4
+	 * * triangle.getPerimetre() renvoie 9
+	 */
 	function getPerimetre() {
 		if ((typeof self.l1 == "undefined") || (typeof self.l2 == "undefined") || (typeof self.l3 == "undefined")) {
 			//return false;
@@ -4121,7 +4148,19 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		};			
 	};
 
-	// renvoie un booleen selon que les trois longueurs forment un vrai triangle ou non
+	/**
+	 * @return {array} Renvoie un booleen selon que les trois longueurs passées à l'instance de la classe forment un vrai triangle ou non
+	 * @example let triangle = new Triangle();
+	 * * triangle.l1 = 2;
+	 * * triangle.l2 = 3;
+	 * * triangle.l3 = 7
+	 * * triangle.isTrueTriangleLongueurs() renvoie false
+	 * @example let triangle = new Triangle();
+	 * * triangle.l1 = 2;
+	 * * triangle.l2 = 3;
+	 * * triangle.l3 = 4
+	 * * triangle.isTrueTriangleLongueurs() renvoie true
+	 */
 	function isTrueTriangleLongueurs() {
 		if ((typeof self.l1 == "undefined") || (typeof self.l2 == "undefined") || (typeof self.l3 == "undefined")) {
 			return false;
@@ -4140,7 +4179,19 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		};
 	};
 
-	// renvoie un booleen selon que les trois longueurs forment un triangle plat ou non
+	/**
+	 * @return {array} Renvoie un booleen selon que les trois longueurs passées à l'instance de la classe forment un triangle plat ou non
+	 * @example let triangle = new Triangle();
+	 * * triangle.l1 = 2;
+	 * * triangle.l2 = 3;
+	 * * triangle.l3 = 5
+	 * * triangle.isTrueTriangleLongueurs() renvoie true
+	 * @example let triangle = new Triangle();
+	 * * triangle.l1 = 2;
+	 * * triangle.l2 = 3;
+	 * * triangle.l3 = 4
+	 * * triangle.isTrueTriangleLongueurs() renvoie false
+	 */
 	function isPlatTriangleLongueurs() {
 		if ((typeof self.l1 == "undefined") || (typeof self.l2 == "undefined") || (typeof self.l3 == "undefined")) {
 			//return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
@@ -4159,7 +4210,20 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		};
 	};
 
-	// renvoie un booleen selon que les trois angles forment un vrai triangle non plat ou non
+	/**
+	 * @return {array} Renvoie un booleen selon que les trois angles passés à l'instance de la classe forment un vrai triangle ou non
+	 * @example let triangle = new Triangle();
+	 * * triangle.a1 = 100;
+	 * * triangle.a2 = 40;
+	 * * triangle.a3 = 50
+	 * * triangle.isTrueTriangleAngles() renvoie false
+	 * @example let triangle = new Triangle();
+	 * * triangle.a1 = 80;
+	 * * triangle.a2 = 40;
+	 * * triangle.a3 = 60
+	 * * triangle.isTrueTriangleAngles() renvoie true
+	 */
+
 	function isTrueTriangleAngles() {
 		// si l'un des angles n'est pas defini ça ne va pas
 		if ((typeof self.a1 == "undefined") || (typeof self.a2 == "undefined") || (typeof self.a3 == "undefined")) {
@@ -4183,6 +4247,19 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 	};
 
 	// renvoie un booleen selon que les trois angles forment un triangle plat ou non
+	/**
+	 * @return {array} Renvoie un booleen selon que les trois angles passés à l'instance de la classe forment un triangle plat ou non
+	 * @example let triangle = new Triangle();
+	 * * triangle.a1 = 0;
+	 * * triangle.a2 = 0;
+	 * * triangle.a3 = 180
+	 * * triangle.isTrueTriangleAngles() renvoie true
+	 * @example let triangle = new Triangle();
+	 * * triangle.a1 = 80;
+	 * * triangle.a2 = 40;
+	 * * triangle.a3 = 60
+	 * * triangle.isTrueTriangleAngles() renvoie false
+	 */
 	function isPlatTriangleAngles() {
 		if ((typeof self.a1 == "undefined") || (typeof self.a2 == "undefined") || (typeof self.a3 == "undefined")) {
 			return false;
@@ -4199,7 +4276,9 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		};
 	};
 
-	// renvoie un booléen selon que le triangle donné à partir de ses trois longueurs ou trois angles est quelconque ou non
+	/**
+	 * Méthode non finalisée
+	 */
 	function isQuelconque() {
 		// Vérifier que le triangle existe !!!
 		if ( ( ((self.l1!=self.l2) && (self.l1!=self.l3) && (self.l2!=self.l3) ) || ( (self.a1!=self.a2) && (self.a1!=self.a3) && (self.a2!=self.a3) ) ) && ( (self.a1 != 90) || (self.a2 != 90) || (self.a3 != 90) ) ) {
@@ -4243,9 +4322,10 @@ function Relatif(...relatifs) {
 	this.relatifs = relatifs;
 
 	/**
-	 * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs, 
-	 * Si 0 fait partie des relatifs on renvoie une erreur
-	 * @return {array} renvoie un tableau de -1 ou 1
+	 * * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs, 
+	 * * Si 0 fait partie des relatifs on renvoie une erreur
+	 * @return {array} Renvoie un tableau de -1 ou 1
+	 * @example getSigneNumber(-1,-2,8,-9,4) renvoie [-1,-1,1,-1,1]
 	 */
 	function getSigneNumber() {		
 		let signes = [];
@@ -4282,8 +4362,9 @@ function Relatif(...relatifs) {
 	};
 
 	/** 
-	 * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs
-	 * @return {array} renvoie un tableau de strings valant 'négatif' ou 'positif'
+	 * * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs
+	 * @return {array} Renvoie un tableau de strings valant 'négatif' ou 'positif'
+	 * @example getSigneNumber(-1,-2,8,-9,4) renvoie le tableau de strings [négatif,négatif,positif,négatif,positif]
 	*/
 	function getSigneString() {
 		let signesString = [];
@@ -4301,8 +4382,8 @@ function Relatif(...relatifs) {
 
 	/**
 	 * 	 
-	 * @param  {...any} n deux ou plus de nombres relatifs
-	 * @return {number} le signe du produit 1 ou -1
+	 * @param  {...any} n une liste de deux ou plus de nombres relatifs
+	 * @return {number} Renvoie le signe du produit des nombres de cette liste. 1 ou -1
 	 * @example getSigneProduitNumber(1,-4,-7) renvoie 1
 	 */
 
@@ -4338,11 +4419,11 @@ function Relatif(...relatifs) {
 		};
 	};
 
-		/**
+	/**
 	 * 	 
-	 * @param  {...any} n deux ou plus de nombres relatifs
-	 * @return {number} le signe du produit 1 ou -1
-	 * @example getSigneProduitNumber(1,-4,-7) renvoie 1
+	 * @param  {...any} n une liste de deux ou plus de nombres relatifs
+	 * @return {string} Renvoie un string désignant le signe du produit des nombres de cette liste. postif1 ou négatif
+	 * @example getSigneProduitNumber(1,-4,-7) renvoie le string positif
 	 */
 
 	function getSigneProduitString(...n) {
@@ -4355,10 +4436,47 @@ function Relatif(...relatifs) {
 			};			
 	};
 
+	/**
+	 * 	 
+	 * @param  {...any} n une liste de deux ou plus de nombres relatifs
+	 * @return {string} Renvoie le nombre d'éléments négatifs des nombres de cette liste.
+	 * @example getCardNegatifs(1,-4,-7) renvoie 2
+	 * @example getCardNegatifs(4,-5,7,7,-8,-9) renvoie 3
+	 */
+
+	function getCardNegatifs(...n) {
+		let card = 0;
+		try {
+			// port du string interdit !			
+			n.forEach(function(element) {
+				if (typeof element == 'string') {
+					throw new TypeError(`${element} est un string !`);
+				};
+				if (element == 0) {
+					throw new RangeError(`${element} a été exclu des valeurs possibles.`);
+				};
+			});	
+			// Quoi faire sans nombres ?
+			if (n.length == 0) {
+				throw new Error(`C'est mieux avec quelques nombres !`)
+			};
+			n.forEach(function(element){
+				if (element < 0) {
+					card = card +1;
+				};
+			});
+			return card;						
+		}
+		catch(err) {
+			console.log(err.message);	
+		};
+	};
+
 	this.getSigneNumber = getSigneNumber;
 	this.getSigneString = getSigneString;
 	this.getSigneProduitNumber = getSigneProduitNumber;
 	this.getSigneProduitString = getSigneProduitString;
+	this.getCardNegatifs = getCardNegatifs;
 
 };
 
@@ -4374,9 +4492,9 @@ function Relatif(...relatifs) {
 
 	/**
 	 * 
-	 * @param  {...any} fractions contient la liste des num et den dans l'ordre n1,d1,n2,d2, ... de deux ou plus de fractions
-	 * @return {array} renvoie un tableau de num et den triés selon la croissance des quotients [[n_frac_min,d_frac_min],...,[n_frac_max,d_frac_max]]
-	 * 
+	 * @param  {...any} fractions contient la liste des numérateurs et denominateurs dans l'ordre n1,d1,n2,d2, ... de deux ou plus de fractions
+	 * @return {array} renvoie un tableau avec les numérateurs et les dénominateurs triés selon la croissance des quotients [n_frac_min,d_frac_min,...,n_frac_max,d_frac_max]
+	 * @example sortFraction(1,2,1,5,1,4,1,3) renvoie [1,5,1,4,1,3,1,2] 
 	 */
 	function sortFractions(...fractions) {
 		try {		
@@ -4423,8 +4541,9 @@ function Relatif(...relatifs) {
 
 	/**
 	 * fonction locale pour trouver le ppcm d'un nombre indeterminé d'entiers
-	 * @param  {[...integer]} n parametre du reste contenant une liste d'entiers
+	 * @param  {integer} n parametre du reste contenant une liste d'entiers
 	 * @return {number} renvoie le ppcm des nombres entiers passés dans le paramètre du reste n
+	 * @example ppcm(2,6,4,15) renvoie 60
 	 */
 	function ppcm([...n]) {
 		try {
@@ -4443,15 +4562,15 @@ function Relatif(...relatifs) {
 		catch (e) {
 			console.log(e.message);
 		};
-		
-
 	};
 
 	/**
 	 * 
-	 * @param  {...any} fractions contient la liste des num et den dans l'ordre n1,d1,n2,d2, ... de deux ou plus de fractions
-	 * @return {array} renvoie un tableau de num et den avec le même denom dans l'ordre initial
-	 * 
+	 * @param  {...any} fractions contient la liste des numérateurs et des dénominateurs dans l'ordre n1,d1,n2,d2, ... de deux ou plus de fractions
+	 * @return {array} renvoie un tableau de numérateurs et de dénominateurs avec le même dénominateur dans l'ordre initial.
+	 * * Le dénominateur choisi est toujours le ppcm
+	 * * Les fractions ne sont pas réduites
+	 * @example reduceSameDenominateur(1,2,1,5,2,3) renvoie [15,30,6,30,20,30]
 	 */
 	function reduceSameDenominateur(...fractions) {
 		try {		
