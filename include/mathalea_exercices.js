@@ -7947,7 +7947,7 @@ jQuery(document).ready(function() {
 
 
 	// Change l'ordre des exercices suivant l'URL
-	if (window.location.href.indexOf('beta.html')>0) {
+	if (window.location.href.indexOf('beta')>0) {
 		liste_html_des_exercices += `<div class="ui accordion"><div class="active title"><i class="dropdown icon"></i>Beta (${nombre_d_exercices_disponibles_beta})</div><div class="active content">`
 		liste_html_des_exercices += liste_html_des_exercices_beta
 		liste_html_des_exercices+=`</div>`
