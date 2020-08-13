@@ -4584,12 +4584,12 @@ function Relatif(...relatifs) {
 };
 
 /**
- * @class Fraction
+ * @class ListeFraction
  * @classdesc Classe Fraction - Méthodes utiles sur les fractions
  * @author Sébastien Lozano
  */
 
- function Fraction() {
+ function ListeFraction() {
 	 //'use strict'; pas de use strict avec un paramètre du reste
 	 var self = this;
 	 /**
