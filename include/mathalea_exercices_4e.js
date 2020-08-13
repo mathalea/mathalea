@@ -4382,11 +4382,12 @@ function Puissances_encadrement() {
  * @author Sébastien Lozano
  */
 function Problemes_additifs_fractions() {
-	//A la fin ne laisser que 2 questions avec un [choice(1,2),choice(3,4,5)]
+	//A la fin ne laisser que 2 questions avec un [choice([1,2]),choice([3,4,5])]
 	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()	
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.beta = true;	
 	this.sup=1;
-	this.nb_questions = 5;
+	// this.nb_questions = 5;
 	this.titre = `Problèmes additifs et de comparaison sur les rationnels`;	
 
 	this.consigne = `Justifier vos réponses aux problèmes suivants.`;
@@ -4400,10 +4401,18 @@ function Problemes_additifs_fractions() {
 	let type_de_questions_disponibles;
 	
 	this.nouvelle_version = function(numero_de_l_exercice){
-		type_de_questions_disponibles = [1,2,3,4,5];
+		if (this.beta) {
+			this.nb_questions = 5;
+			type_de_questions_disponibles = [1,2,3,4,5];			
+		} else {
+			this.nb_questions = 2;
+			type_de_questions_disponibles = [choice([1,2]),choice([3,4,5])];			
+
+		};	
+		//let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"	
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
-		//let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
+		
 
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
@@ -4631,31 +4640,31 @@ function Problemes_additifs_fractions() {
 					texte = `${pb_3_f[0].enonce} <br> ${pb_3_f[0].question}`;
 					texte += `<br>`;
 					texte += `<br> ${pb_3_f[0].correction}`;
-					texte_corr = `1`;
+					texte_corr = `${pb_3_f[0].correction}`;
 					break;
 				case 2 : //Miss Math --> Noémie, Samia, Alexia
 					texte = `${pb_3_f[1].enonce} <br> ${pb_3_f[1].question}`;
 					texte += `<br>`;
 					texte += `<br> ${pb_3_f[1].correction}`;
-					texte_corr = `2`;
+					texte_corr = `${pb_3_f[1].correction}`;
 					break;
 				case 3 : // Mandala --> carmin, ocre jaune, turquoise, pourpre
 					texte = `${pb_4_f[0].enonce} <br> ${pb_4_f[0].question}`;
 					texte += `<br>`;
 					texte += `<br> ${pb_4_f[0].correction}`;
-					texte_corr = `3`;
+					texte_corr = `${pb_4_f[0].correction}`;
 					break;
 				case 4 : // Jardin --> légumes, plantes aromatiques, semis, fraisiers
 					texte = `${pb_4_f[1].enonce} <br> ${pb_4_f[1].question}`;
 					texte += `<br>`;
 					texte += `<br> ${pb_4_f[1].correction}`;
-					texte_corr = `4`;
+					texte_corr = `${pb_4_f[1].correction}`;
 					break;
 				case 5 : // Stade --> pays organisatuers, supporters, sponsors, vente libre
 					texte = `${pb_4_f[2].enonce} <br> ${pb_4_f[2].question}`;
 					texte += `<br>`;
 					texte += `<br> ${pb_4_f[2].correction}`;
-					texte_corr = `5`;
+					texte_corr = `${pb_4_f[2].correction}`;
 					break;	
 			};
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
