@@ -15,7 +15,7 @@
 *
 * @Auteur Rémi Angot
 */
-function Fraction2(num,den) {
+function Fraction(num,den) {
     this.num=num ;
     this.den=den ;
     this.numIrred=fraction_simplifiee(this.num,this.den)[0]
@@ -33,33 +33,40 @@ function Fraction2(num,den) {
     this.inverseIrred = function(){
         return fraction(this.denIrred,this.numIrred)
     }
+    this.sommeFraction =function(f2) {
+        return fraction(this.num*f2.den+f2.num*this.den,this.den*f2.den)
+    }
+    this.sommeFractions = function(...fractions){
+        let s=fraction(this.num,this.den)
+        for (let f of fractions) {
+            s=s.sommeFraction(f)
+        }
+        return s
+    }
+    this.produitFraction = function(f2) {
+        return fraction(this.num*f2.num,this.den*f2.den)
+    }
+    this.puissanceFraction = function(n) {
+        return fraction(this.num**n,this.den**n)
+    }
+    this.produitFractions = function(...fractions){
+        let p=fraction(this.num,this.den)
+        for (let f of fractions) {
+            p=p.produitFraction(f)
+        }
+        return p
+    }
+    this.difference2Fractions = function(f2) {
+        return sommeFraction(this,f2.oppose())
+    }
 }
+
 function fraction (a,b) {
-    return new Fraction2(a,b)
+    return new Fraction(a,b)
 }
-function somme2Fractions(f1,f2) {
- return fraction(f1.num*f2.den+f2.num*f1.den,f1.den*f2.den)
-}
-function produit2Fractions(f1,f2) {
-    return fraction(f1.num*f2.num,f1.den*f2.den)
-}
-function puissanceFraction(f,n){
-    return fraction(f.num**n,f.den**n)
-}
-function produitFractions(...fractions){
-    let p=fraction(1,1)
-    for (let f of fractions) {
-        p=produit2Fractions(p,f)
-    }
-    return p
-}
-function sommeFractions(...fractions){
-    let s=fraction(0,1)
-    for (let f of fractions) {
-        s=somme2Fractions(s,f)
-    }
-    return s
-}
-function difference2Fractions(f1,f2){
-    return somme2Fractions(f1,f2.oppose())
-}
+
+
+
+
+
+
