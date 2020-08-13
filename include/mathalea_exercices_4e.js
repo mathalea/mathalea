@@ -4814,7 +4814,7 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 	this.titre = "Tester si un nombre est solution d'une équation";
 	this.consigne = "";
 	//this.nb_questions = 3;
-	this.nb_questions = 8;
+	this.nb_questions = 9;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup=1;
@@ -4827,7 +4827,7 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 		let type_de_questions_disponibles; // = range1(5)
 	//	let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		// if (this.sup2==false) type_de_questions_disponibles=[1,2,3,4,5,8]
-		if (this.sup2==false) type_de_questions_disponibles=[1,2,3,4,5,6,7,8]
+		if (this.sup2==false) type_de_questions_disponibles=[1,2,3,4,5,6,7,8,9]
 		else type_de_questions_disponibles=[6,7,3]
 		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
@@ -4977,7 +4977,7 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 					}
 					texte = `$${a}x-${ecriture_parenthese_si_negatif(a*b)}=x^2-${ecriture_parenthese_si_negatif(b)}x~$ pour $~x=${x1}~$ , pour $~x=${x2}~$ puis pour $~x=${x3}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
-					texte_corr += `$${a}x-${ecriture_parenthese_si_negatif(a*b)}=${a}\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(a*b)}=${a*x1-a*b}$ <br> $x^2-${b}\\times  x=${ecriture_parenthese_si_negatif(x1)}^2-${ecriture_parenthese_si_negatif(b)}\\times ${ecriture_parenthese_si_negatif(x1)}=${x1*x1}-${ecriture_parenthese_si_negatif(b*x1)}=${x1*x1-b*x1}$<br>`
+					texte_corr += `$${a}x-${ecriture_parenthese_si_negatif(a*b)}=${a}\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(a*b)}=${a*x1-a*b}$ <br> $x^2-${ecriture_parenthese_si_negatif(b)}\\times  x=${ecriture_parenthese_si_negatif(x1)}^2-${ecriture_parenthese_si_negatif(b)}\\times ${ecriture_parenthese_si_negatif(x1)}=${x1*x1}-${ecriture_parenthese_si_negatif(b*x1)}=${x1*x1-b*x1}$<br>`
 					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
 					texte_corr += `${texte_en_couleur(`$x=${x1}$ est donc solution de l'équation $${a}x-${ecriture_parenthese_si_negatif(a*b)}=x^2-${ecriture_parenthese_si_negatif(b)}x~$`)}<br><br>`
 					texte_corr += `Pour $x=${x2}$ : <br>`
@@ -5046,6 +5046,39 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 						texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
 						texte_corr += `${texte_en_couleur(`$x=${x1}$ est donc solution de l'équation $12x-${ecriture_parenthese_si_negatif(4*a)}=4(2x+${ecriture_parenthese_si_negatif(b)})~$`)}<br><br>`
 						break ;
+					case 9 : // x²-bx-ax+ab=0 (a-x)(x-b)=0 solutions a et b.
+						if (this.sup==1) {
+						b = randint(2,9)
+						a = randint(2,9)
+						x3 = b
+						x1 = a
+						x2 = randint(1,9,[x1,x3])
+						}
+						else {
+							do {
+								a = randint(-9,9,[0,1])
+								b = randint(-9,9,[0,a])
+								x1 = a
+								x3 = b
+								x2 = randint(-9,9,[x1,x3])
+							} while (((a+b)==0) || ((a+b) == 1))
+						}
+						texte = `$x^2-${ecriture_parenthese_si_negatif(b+a)}x-${ecriture_parenthese_si_negatif(a*b)}=0~$ pour $~x=${x1}~$ , pour $~x=${x2}~$ puis pour $~x=${x3}$`
+						texte_corr = `Pour $x=${x1}$ : <br>`
+						texte_corr += `$$x^2-${ecriture_parenthese_si_negatif(b+a)}\\times  x=${ecriture_parenthese_si_negatif(x1)}^2-${ecriture_parenthese_si_negatif(b)}\\times ${ecriture_parenthese_si_negatif(x1)}=${x1*x1}-${ecriture_parenthese_si_negatif(b*x1)}=${x1*x1-b*x1}$<br>`
+						texte_corr += `$${a}x-${ecriture_parenthese_si_negatif(a*b)}=${a}\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(a*b)}=${a*x1-a*b}$ <br> $x^2-${b}\\times  x=${ecriture_parenthese_si_negatif(x1)}^2-${ecriture_parenthese_si_negatif(b)}\\times ${ecriture_parenthese_si_negatif(x1)}=${x1*x1}-${ecriture_parenthese_si_negatif(b*x1)}=${x1*x1-b*x1}$<br>`
+						texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
+						texte_corr += `${texte_en_couleur(`$x=${x1}$ est donc solution de l'équation $${a}x-${ecriture_parenthese_si_negatif(a*b)}=x^2-${ecriture_parenthese_si_negatif(b)}x~$`)}<br><br>`
+						texte_corr += `Pour $x=${x2}$ : <br>`
+						texte_corr += `$${a}x-${ecriture_parenthese_si_negatif(a*b)}=${a}\\times ${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(a*b)}=${a*x2-a*b}$ <br> $x^2-${b}\\times  x=${ecriture_parenthese_si_negatif(x2)}^2-${ecriture_parenthese_si_negatif(b)}\\times ${ecriture_parenthese_si_negatif(x2)}=${x2*x2}-${ecriture_parenthese_si_negatif(b*x2)}=${x2*x2-b*x2}$<br>`
+						texte_corr += `$${a*x2-a*b}\\not=${x2*x2-b*x2}$ donc l'égalité n'est pas vraie.<br>`
+						texte_corr += `${texte_en_couleur(`$x=${x2}$ n'est donc pas solution de l'équation $${a}x-${ecriture_parenthese_si_negatif(a*b)}=x^2-${ecriture_parenthese_si_negatif(b)}x~$`)}<br><br>`
+						texte_corr += `Pour $x=${x3}$ : <br>`
+						texte_corr += `$${a}x-${ecriture_parenthese_si_negatif(a*b)}=${a}\\times ${ecriture_parenthese_si_negatif(x3)}-${ecriture_parenthese_si_negatif(a*b)}=${a*x3-a*b}$ <br> $x^2-${b}\\times  x=${ecriture_parenthese_si_negatif(x3)}^2-${ecriture_parenthese_si_negatif(b)}\\times ${ecriture_parenthese_si_negatif(x3)}=${x3*x3}-${ecriture_parenthese_si_negatif(b*x3)}=${x3*x3-b*x3}$<br>`
+						texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
+						texte_corr += `${texte_en_couleur(`$x=${x3}$ est donc solution de l'équation $${a}x-${ecriture_parenthese_si_negatif(a*b)}=x^2-${ecriture_parenthese_si_negatif(b)}x~$`)}`
+						break ;
+	
 			}
 			
 			
