@@ -5005,26 +5005,26 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 					texte_corr += `$${a*d}x-${ecriture_parenthese_si_negatif(b*d)}=${a*d}\\times ${ecriture_parenthese_si_negatif(x3)}-${ecriture_parenthese_si_negatif(b*d)}=${a*d*x3-d*b}$ <br> $${a*c}x^2-${ecriture_parenthese_si_negatif(b*c)}x=${a*c}\\times ${ecriture_parenthese_si_negatif(x3)}^2-${ecriture_parenthese_si_negatif(b*c)}\\times ${ecriture_parenthese_si_negatif(x3)}=${a*c*x3*x3}-${ecriture_parenthese_si_negatif(b*c*x3)}=${a*c*x3*x3-b*c*x3}$<br>`
 					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
 					break ;
-					case 8 : // 10(x-a)=4(2x+b) x=(10a+4b)/2
+					case 8 : // 12x-4a=4(2x+b) x=(4a+4b)/4
 						if (this.sup==1) {
 						a = randint(1,3)
 						b = randint(1,3)
-						x2 = parseInt(Algebrite.eval((10*a+4*b)/2))
+						x2 = parseInt(Algebrite.eval((4*a+4*b)/4))
 						x1 = randint(9,x2)
 						}
 						else {
 							a = randint(-3,3,[0])
 							b = randint(-3,3,[0])	
-							x2 = parseInt(Algebrite.eval((10*a+4*b)/2))
+							x2 = parseInt(Algebrite.eval((4*a+4*b)/4))
 							x1 = randint(-9,9,[0,x2])
 						}
 
-						texte = `$10(x-${ecriture_parenthese_si_negatif(a)})=4(2x+${ecriture_parenthese_si_negatif(b)})~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
+						texte = `$12x-${ecriture_parenthese_si_negatif(4*a)}=4(2x+${ecriture_parenthese_si_negatif(b)})~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
 						texte_corr = `Pour $x=${x1}$ : <br>`
-						texte_corr += `$10(x-${ecriture_parenthese_si_negatif(a)})=10\\times (${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(a)})=10\\times ${x1-a}=${10*(x1-a)}$ <br> $4(2x+${ecriture_parenthese_si_negatif(b)})=4\\times (2\\times ${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(b)})=4\\times ${2*x1+b}=${4*(2*x1+b)}$<br>`
-						texte_corr += `$${10*(x1-a)}\\not=${4*(2*x1+b)}$ donc l'égalité n'est pas vraie.<br><br>`
+						texte_corr += `$12x-${ecriture_parenthese_si_negatif(4*a)}=12\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(4*a)}=${12*x1-4*a}$ <br> $4(2x+${ecriture_parenthese_si_negatif(b)})=4\\times (2\\times ${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(b)})=4\\times ${2*x1+b}=${4*(2*x1+b)}$<br>`
+						texte_corr += `$${12*x1-4*a}\\not=${4*(2*x1+b)}$ donc l'égalité n'est pas vraie.<br><br>`
 						texte_corr += `Pour $x=${x2}$ : <br>`
-						texte_corr += `$10(x-${ecriture_parenthese_si_negatif(a)})=10\\times (${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(a)})=10\\times ${x2-a}=${10*(x2-a)}$ <br> $4(2x+${ecriture_parenthese_si_negatif(b)})=4\\times (2\\times ${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(b)})=4\\times ${2*x2+b}=${4*(2*x2+b)}$<br>`
+						texte_corr += `$12x-${ecriture_parenthese_si_negatif(4*a)}=12\\times ${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(4*a)}=${12*x2-4*a}$ <br> $4(2x+${ecriture_parenthese_si_negatif(b)})=4\\times (2\\times ${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(b)})=4\\times ${2*x2+b}=${4*(2*x2+b)}$<br>`
 						texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.`
 						break ;
 			}
