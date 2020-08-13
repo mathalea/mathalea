@@ -60,7 +60,12 @@ function Fraction(num,den) {
     this.differenceFraction = function(f2) {
         return this.sommeFraction(f2.oppose())
     }
-    this.representation = function (depart = 0, type = 'gateau') {
+    /**
+     * 
+     * @param {number} depart N° de la première part coloriée (0 correspond à la droite du centre) 
+     * @param {*} type 'gateau' ou 'segment' ou 'barre'
+     */
+    this.representation = function (depart = 0, type = 'gateau',couleur='gray') {
 
         if (type == 'gateau') {
             let n = quotientier(this.numIrred, this.denIrred)
@@ -75,8 +80,12 @@ function Fraction(num,den) {
                 }
                 dep = rotation(point(4 + k * 5, 2), O, depart * 360 / this.denIrred)
                 for (let j = 0; j < Math.min(this.denIrred, num); j++) {
+<<<<<<< Updated upstream
                     a = arc(dep, O, 360 / this.denIrred, true, fill = 'gray', color = 'black')
                     a.opacite=0.3
+=======
+                    a = arc(dep, O, 360 / this.denIrred, true, fill = couleur)
+>>>>>>> Stashed changes
                     dep = rotation(dep, O, 360 / this.denIrred)
                 }
                 num -= this.denIrred
@@ -90,8 +99,12 @@ function Fraction(num,den) {
             }
             dep = rotation(point(4 + k * 5, 2), O, depart * 360 / this.denIrred)
             for (let j = 0; j < Math.min(this.denIrred, num); j++) {
+<<<<<<< Updated upstream
                 a = arc(dep, O, 360 / this.denIrred, true, fill = 'gray', color = 'black')
                 a.opacite=0.3
+=======
+                a = arc(dep, O, 360 / this.denIrred, true, fill = couleur)
+>>>>>>> Stashed changes
                 dep = rotation(dep, O, 360 / this.denIrred)
             }
         }
