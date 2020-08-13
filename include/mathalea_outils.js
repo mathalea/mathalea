@@ -1141,25 +1141,31 @@ function trie_positifs_negatifs(liste){
 function creerNomDePolygone(nbsommets,liste_a_eviter=[]){ 
 	let premiersommet = randint(65,90-nbsommets);
 	let polygone="";
-	while(est_deja_donne(String.fromCharCode(premiersommet),liste_a_eviter)){
-		premiersommet = randint(65,90-nbsommets);
-	}
-
 	for (let i=0;i<nbsommets;i++){
 		polygone += String.fromCharCode(premiersommet+i)
+	}
+
+	while(possedeUnCaractereInterdit(polygone,liste_a_eviter)){
+		polygone="";
+		premiersommet = randint(65,90-nbsommets);
+		for (let i=0;i<nbsommets;i++){
+			polygone += String.fromCharCode(premiersommet+i)
+		}
 	}
 	return polygone
 }
 
 /**
-* Vérifie dans une liste si un élément commence par premiersommet et renvoit true si c'est le cas
+* Vérifie dans un texte si un de ses caractères appartient à une liste à éviter
 * @Auteur Rémi Angot
 */
-function est_deja_donne(premiersommet,liste_a_eviter) {
+function possedeUnCaractereInterdit(texte,liste_a_eviter) {
 	let result = false
-	for (let i = 0; i < liste_a_eviter.length; i++) {
-		if (premiersommet==liste_a_eviter[i][0]) {
-			result = true;
+	for (mot_a_eviter of liste_a_eviter) {
+		for (let i = 0 ; i < mot_a_eviter.length; i++) {
+			if (texte.indexOf(mot_a_eviter[i])>-1) {
+				result = true
+			}
 		}
 	}
 	return result;
