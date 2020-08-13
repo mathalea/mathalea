@@ -15,6 +15,14 @@
 *
 * @Auteur Rémi Angot
 */
+/**
+ * @class
+ * @classdesc Classe parente de tous les objets de fractions
+ * @param {number} num numérateur
+ * @param {number} den dénominateur
+ * @author Jean-Claude Lhote et Sébastien Lozano
+ */
+
 function Fraction(num,den) {
 
     this.num = num || 0;
@@ -107,6 +115,24 @@ function Fraction(num,den) {
 
         }
     }
+
+    /**
+     * 
+     * @param {integer} n entier par lequel multiplier la fraction 
+     * @return {object} fraction multipliée par n
+     */
+    this.multiplieEntier = function(n) {
+        return fraction(n*this.num,this.den);
+    };
+
+        /**
+     * 
+     * @param {integer} n entier par lequel multiplier la fraction 
+     * @return {object} fraction multipliée par n simplifiée
+     */
+    this.multiplieEntierIrred = function(n) {
+        return fraction(fraction_simplifiee(n*this.num,this.den)[0],fraction_simplifiee(n*this.num,this.den)[1]);
+    };
 }
 
 function fraction (a,b) {
