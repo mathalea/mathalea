@@ -4410,7 +4410,7 @@ function Problemes_additifs_fractions() {
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
 			// on aura besoin des méthodes de la classe Fraction()
-			let frac = new Fraction();
+			let frac = new ListeFraction();
 			// le tableau d'objets contenant tout le necesssaire, fractions, énoncé, question ... pour les problème avec 3 fractions
 			let pb_3_f = [];
 			// les numérateurs et dénominateurs des 3 fractions attention les deux premières doivent être inférieures à 1/2 si on veut qu'elles soient toutes positives !
