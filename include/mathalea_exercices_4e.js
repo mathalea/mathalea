@@ -4796,7 +4796,8 @@ function Tester_si_un_nombre_est_solution_d_une_equation_temp() {
 	Tester_une_egalite.call(this);
 	this.titre = 'Tester si un nombre est solution d\'une équation';
 	this.consigne = `Adapter l'énoncé 5L14 actuel de Rémi afin de tester si 'un nombre est ou non solution d'une équation.`;
-	this.consigne += `<br>LA seule chose à faire c'est d'ajouter un cas pour le second degré de type expression = 0`;
+	this.consigne += `<br>Chose à faire : ajouter un cas de type ax+b=c(dx+e) --> OK`;
+	this.consigne += `<br>Chose à faire : ajouter un cas pour le second degré de type expression = 0 `;
 	this.consigne += `<br> -->puis décliner pour avoir une version sur le second degré`;
 	this.consigne += `<br> -->puis décliner pour avoir une version sur le premier degré`;
 	this.consigne += `<br> Dans l'exercice d'origine, on propose chaque fois une vlaeur qui convient et une qui ne convient pas donc c'est top !`;
