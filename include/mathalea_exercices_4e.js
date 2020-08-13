@@ -4812,7 +4812,8 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Tester si un nombre est solution d'une équation";
 	this.consigne = "";
-	this.nb_questions = 3;
+	//this.nb_questions = 3;
+	this.nb_questions = 6;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup=1;
