@@ -1555,9 +1555,8 @@ function cercleCentrePoint(...args){
 		if (tableauOptions.length>0) {
 			optionsDraw = "["+tableauOptions.join(',')+"]"
 		}
-		let bords=`(${M.x},${M.y})`
-		if (rayon) bords=`(${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) `
-			return `\\draw${optionsDraw} ${bords} arc (${azimut}:${anglefin}:${longueur(Omega,M)}) ;`
+		if (rayon) `\\fill  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega,M)}) -- cycle ;`
+		else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega,M)}) ;`
  	}
  }
  function arc(...args) {
