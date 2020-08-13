@@ -544,7 +544,7 @@ function droiteParPointEtPente(A,k,nom='',color='black') {
  * 
  * @Auteur Rémi Angot
  */
- function ConstructionMediatrice(A,B,detail = false, color='blue', markmilieu='×', markrayons='//',couleurMediatrice = 'red', epaisseurMediatrice = 2){
+ function ConstructionMediatrice(A,B,detail = false, color='blue', markmilieu='×', markrayons='||',couleurMediatrice = 'red', epaisseurMediatrice = 2){
  	ObjetMathalea2D.call(this)
  	let O = milieu(A,B)
  	let m = rotation(A,O,90)

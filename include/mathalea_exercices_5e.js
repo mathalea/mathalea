@@ -5082,7 +5082,7 @@ function DroiteRemarquableDuTriangle(){
 					c[i] = codageMediatrice(A[i],B[i])
 					objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i]]
 					texte_corr=`La droite tracée est la médiatrice du segment [$${sommets[i][0]}${sommets[i][1]}]$.<br>`
-					texte_corr+= mathalea2d({xmin:-3,ymin:-3,xmax:8,ymax:8,scale:.5,ppc:20},...objets[i],constructionMediatrice(A[i],B[i],true,color='red', markmilieu='×', markrayons='//',couleurMediatrice = 'blue', epaisseurMediatrice = 1))
+					texte_corr+= mathalea2d({xmin:-3,ymin:-3,xmax:8,ymax:8,scale:.5,ppc:20},...objets[i],constructionMediatrice(A[i],B[i],true,color='gray', markmilieu='×', markrayons='||',couleurMediatrice = 'blue', epaisseurMediatrice = 1))
 					break
 				case 3 :
 					d[i] = medianeTriangle(C[i],B[i],A[i],'blue')
