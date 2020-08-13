@@ -88,14 +88,14 @@ function estentier(a,tolerance=epsilon) {
 	else return false
 }
 function quotientier(a, b) {
-	if (a.isInteger && b.isInteger) {
+	if (Number.isInteger(a) && Number.isInteger(b)) {
 		let reste = a
 		let quotient = 0
-		while (reste > d) {
-			reste -= d
-			q++
+		while (reste > b) {
+			reste -= b
+			quotient++
 		}
-		return q
+		return quotient
 	}
 	else return false
 }
