@@ -3825,67 +3825,6 @@ function tab_C_L(tab_entetes_colonnes,tab_entetes_lignes,tab_lignes) {
 };
 
 /**
- * Pour les tests de la bibliothèque d3.js
- * @param {string} id_du_div 
- * @author Sébastien Lozano 
- */
-
-function d3jsTests(id_du_div) {
-	'use strict';
-	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
-	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
-	window.SVGExist[id_du_div] = setInterval(function() {
-		
-		if ($(`#${id_du_div}`).length ) {
-			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
-
-			document.getElementById(id_du_div).innerHTML = `8`;
-			var width = 1300;
-			var height = 300;
-			var svg = d3.select('#'+id_du_div)
-				.append("svg")
-				.attr("width", width)
-				.attr("height", height);
-				var circleMove = svg.append("circle")
-				.attr("cx",150)
-				.attr("cy",50)
-				.attr("r",30);
-				
-				 circleMove
-				.transition()
-				 .duration(500)
-				.attr("cx", 850)
-				.transition()
-				.duration(500)
-				.attr("cx",150)
-				.transition()
-				.duration(500)
-				.attr("cx",650)
-				.transition()
-				.duration(500)
-				.attr("cx",350)
-				.transition()
-				.duration(500)
-				.attr("cx",500);
-
-				var positions = [850, 200, 800, 250, 750, 300, 700, 350, 650, 400, 600, 450, 550, 500];
-				function animateMulti(node, positions, i) {
-					node.transition()
-						.duration(300)
-						.attr("cx", positions[i])
-						.on('end',  function() {
-							if (i < (positions.length - 1)) {
-								animateMulti(d3.select(this), positions, ++i);
-							}
-						});
-				}
-				animateMulti(circleMultiTransition, positions, 0);
-		clearInterval(SVGExist[id_du_div]);//Arrête le timer
-		};
-	}, 100); // Vérifie toutes les 100ms
-};
-
-/**
  * Renvoie un encart sur fond d'alert semantic ui en HTML ou dans un cadre bclogo en LaTeX avec le texte 
  * @param {string} texte
  * @param {string} couleur
