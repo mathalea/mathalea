@@ -87,7 +87,18 @@ function estentier(a,tolerance=epsilon) {
 	if (Math.abs(calcul(a-Math.round(a)))<tolerance) return true
 	else return false
 }
-
+function quotientier(a, b) {
+	if (a.isInteger && b.isInteger) {
+		let reste = a
+		let quotient = 0
+		while (reste > d) {
+			reste -= d
+			q++
+		}
+		return q
+	}
+	else return false
+}
 
 /**
 * Créé tous les couples possibles avec un élément de E1 et un élément de E2.
