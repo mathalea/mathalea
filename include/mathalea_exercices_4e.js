@@ -4789,23 +4789,6 @@ function Exploiter_representation_graphique(){
 /**
  * Tester si un nombre est solution d'une équation
  * * 4L14-0
- * * adaptation de l'exo 5L14 de Rémi
- * @author Sébastien Lozano
- */
-function Tester_si_un_nombre_est_solution_d_une_equation_temp() {
-	Tester_une_egalite.call(this);
-	this.titre = 'Tester si un nombre est solution d\'une équation';
-	this.consigne = `Adapter l'énoncé 5L14 actuel de Rémi afin de tester si 'un nombre est ou non solution d'une équation.`;
-	this.consigne += `<br>Chose à faire : ajouter un cas de type ax+b=c(dx+e) --> OK`;
-	this.consigne += `<br>Chose à faire : ajouter un cas pour le second degré de type expression = 0 `;
-	this.consigne += `<br> -->puis décliner pour avoir une version sur le second degré`;
-	this.consigne += `<br> -->puis décliner pour avoir une version sur le premier degré`;
-	this.consigne += `<br> Dans l'exercice d'origine, on propose chaque fois une vlaeur qui convient et une qui ne convient pas donc c'est top !`;
-};
-
-/**
- * Tester si un nombre est solution d'une équation
- * * 4L14-0
  * * adaptation de l'exo 5L14 de Rémi Angot
  * @author Sébastien Lozano
  */
@@ -4814,11 +4797,11 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 	this.titre = "Tester si un nombre est solution d'une équation";
 	this.consigne = "";
 	//this.nb_questions = 3;
-	this.nb_questions = 9;
+	//this.nb_questions = 9;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup=1;
-	this.sup2=false;
+	//this.sup2=false;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
@@ -4827,11 +4810,20 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 		let type_de_questions_disponibles; // = range1(5)
 	//	let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		// if (this.sup2==false) type_de_questions_disponibles=[1,2,3,4,5,8]
-		if (this.sup2==false) type_de_questions_disponibles=[1,2,3,4,5,6,7,8,9]
-		else type_de_questions_disponibles=[6,7,3]
+		if (this.exo=='4L14-1') {
+			this.nb_questions = 6;
+			type_de_questions_disponibles=[1,2,3,4,5,8];
+			
+		} else if (this.exo=='4L14-2') {
+			type_de_questions_disponibles=[9,6,7];
+			this.nb_questions = 3;
+		} else {
+			type_de_questions_disponibles=[1,2,3,4,5,8,6,7,9];
+			this.nb_questions = 9;
+		}
 		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
-		this.consigne = `Justifier si les nombres proposés sont des solutions de l'équation donnée ou non.`;
+		this.consigne = `Justifier si les nombres proposés sont des solutions de l'équation donnée ou non. ${this.sup2} - ${this.exo}`;
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
 			let a, b, x1, x2
@@ -5092,5 +5084,31 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 
 	}
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-	this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 }
+
+/**
+ * Tester si un nombre est solution d'une équation degré 1
+ * * 4L14-1
+ * * adaptation de l'exo 5L14 de Rémi Angot
+ * @author Sébastien Lozano
+ */
+function Tester_si_un_nombre_est_solution_d_une_equation_deg1(){
+	this.exo='4L14-1';	
+	Tester_si_un_nombre_est_solution_d_une_equation.call(this);	
+	this.titre = `Tester si un nombre est solution d'une équation du premier degré`;
+};
+
+/**
+ * Tester si un nombre est solution d'une équation degré 2
+ * * 4L14-1
+ * * adaptation de l'exo 5L14 de Rémi Angot
+ * @author Sébastien Lozano
+ */
+function Tester_si_un_nombre_est_solution_d_une_equation_deg2(){
+	this.exo='4L14-2';
+	Tester_si_un_nombre_est_solution_d_une_equation.call(this);
+	this.titre = `Tester si un nombre est solution d'une équation du second degré`;
+	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+};
+
