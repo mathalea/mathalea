@@ -2630,7 +2630,24 @@ function cherche_polynome_deg3_a_extrema_fixes(x1,x2,y1,a=1) {
 	let d=calcul(y1-(2*a*x1**3+3*b*x1**2+6*c*x1))
 	// on calcule y2=f(x2) qui est l'autre point où la dérivée s'annule.
 	let y2=calcul(d+2*a*x2**3+3*b*x2**2+6*c*x2)
-	return [2*a,3*b,6*c,d,min(y2,y1),max(y2,y1)] // On retourne les 4 coefficients de f suivi du min(y1,y2) et enfin du max(y1,y2)
+	return [2*a,3*b,6*c,d,Math.min(y2,y1),Math.max(y2,y1)] // On retourne les 4 coefficients de f suivi du min(y1,y2) et enfin du max(y1,y2)
+}
+
+function cherche_polynome_deg3_a_extrema_entiers(x1,x2,y1,y2) { // je voulais ajouter "ou presque" dans le nom de fonction, mais ça faisait trop long !
+	let resultat=[],trouve=false
+	for (let a=1;a<10;a++) {
+		resultat=cherche_polynome_deg3_a_extrema_fixes(x1,x2,y1,a)
+		if (egal(resultat[4],y1)) 
+			if (egal(resultat[5],y2)) {
+				trouve=true
+				return resultat
+			}
+		else if (egal(resultat[4],y2)) {
+			trouve=true
+			return resultat
+		}
+	}
+	if (!trouve) return 'Pas trouvé'
 }
 
 /**
