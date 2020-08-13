@@ -141,6 +141,7 @@ var liste_des_exercices_disponibles = {
 		'4C30-1': Puissances_encadrement,
 		'4G40' : Transformations_4e,
 		'4L10' : Exercice_developper,
+		'beta4L14-0' : Tester_si_un_nombre_est_solution_d_une_equation,
 		'4L20' : Exercice_equation1,
 		'4M30' : Calcul_de_volumes_4e,		
 		'4N10': Exercice_additionner_des_fractions,
