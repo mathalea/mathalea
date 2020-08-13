@@ -16,8 +16,9 @@
 * @Auteur Rémi Angot
 */
 function Fraction(num,den) {
-    this.num=num ;
-    this.den=den ;
+
+    this.num = num || 0; ;
+    this.den=den || 1;;
     this.numIrred=fraction_simplifiee(this.num,this.den)[0]
     this.denIrred=fraction_simplifiee(this.num,this.den)[1]   
     this.oppose = function(){
@@ -64,6 +65,8 @@ function Fraction(num,den) {
 function fraction (a,b) {
     return new Fraction(a,b)
 }
+
+let Frac = new Fraction();
 
 
 
