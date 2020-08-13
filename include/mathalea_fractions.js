@@ -56,8 +56,8 @@ function Fraction(num,den) {
         }
         return p
     }
-    this.difference2Fractions = function(f2) {
-        return sommeFraction(this,f2.oppose())
+    this.differenceFraction = function(f2) {
+        return this.sommeFraction(f2.oppose())
     }
 }
 
