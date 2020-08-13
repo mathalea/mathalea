@@ -76,6 +76,7 @@ function Fraction(num,den) {
                 dep = rotation(point(4 + k * 5, 2), O, depart * 360 / this.denIrred)
                 for (let j = 0; j < Math.min(this.denIrred, num); j++) {
                     a = arc(dep, O, 360 / this.denIrred, true, fill = 'gray', color = 'black')
+                    a.opacite=0.3
                     dep = rotation(dep, O, 360 / this.denIrred)
                 }
                 num -= this.denIrred
@@ -90,6 +91,7 @@ function Fraction(num,den) {
             dep = rotation(point(4 + k * 5, 2), O, depart * 360 / this.denIrred)
             for (let j = 0; j < Math.min(this.denIrred, num); j++) {
                 a = arc(dep, O, 360 / this.denIrred, true, fill = 'gray', color = 'black')
+                a.opacite=0.3
                 dep = rotation(dep, O, 360 / this.denIrred)
             }
         }
