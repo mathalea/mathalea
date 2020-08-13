@@ -4813,7 +4813,7 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 	this.titre = "Tester si un nombre est solution d'une équation";
 	this.consigne = "";
 	//this.nb_questions = 3;
-	this.nb_questions = 6;
+	this.nb_questions = 8;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup=1;
@@ -4825,7 +4825,8 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 
 		let type_de_questions_disponibles; // = range1(5)
 	//	let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		if (this.sup2==false) type_de_questions_disponibles=[1,2,3,4,5,8]
+		// if (this.sup2==false) type_de_questions_disponibles=[1,2,3,4,5,8]
+		if (this.sup2==false) type_de_questions_disponibles=[1,2,3,4,5,6,7,8]
 		else type_de_questions_disponibles=[6,7,3]
 		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
@@ -4877,17 +4878,19 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 					texte = `$3x+${ecriture_parenthese_si_negatif(a)}=5x-${ecriture_parenthese_si_negatif(b)}~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
 					texte_corr += `$3x+${ecriture_parenthese_si_negatif(a)}=3\\times ${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(a)}=${3*x1+a}$ <br> $5x-${ecriture_parenthese_si_negatif(b)}=5\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(b)}=${5*x1-b}$<br>`
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
+					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`;
+					texte_corr += `${texte_en_couleur(`$x=${x1}$ est donc solution de l'équation $3x+${ecriture_parenthese_si_negatif(a)}=5x-${ecriture_parenthese_si_negatif(b)}~$`)}<br><br>`
 					texte_corr += `Pour $x=${x2}$ : <br>`
 					texte_corr += `$3x+${ecriture_parenthese_si_negatif(a)}=3\\times ${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(a)}=${3*x2+a}$ <br> $5x-${ecriture_parenthese_si_negatif(b)}=5\\times ${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(b)}=${5*x2-b}$<br>`
-					texte_corr += `$${3*x2+a}\\not=${5*x2-b}$ donc l'égalité n'est pas vraie.`
+					texte_corr += `$${3*x2+a}\\not=${5*x2-b}$ donc l'égalité n'est pas vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x2}$ n'est donc pas solution de l'équation $3x+${ecriture_parenthese_si_negatif(a)}=5x-${ecriture_parenthese_si_negatif(b)}~$`)}`;
 					break ;
 				case 3 : // 10(x-a)=4(2x+b) x=(10a+4b)/2
 					if (this.sup==1) {
 					a = randint(1,3)
 					b = randint(1,3)
 					x2 = parseInt(Algebrite.eval((10*a+4*b)/2))
-					x1 = randint(9,x2)
+					x1 = randint(1,9,x2)
 					}
 					else {
 						a = randint(-3,3,[0])
@@ -4899,10 +4902,12 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 					texte = `$10(x-${ecriture_parenthese_si_negatif(a)})=4(2x+${ecriture_parenthese_si_negatif(b)})~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
 					texte_corr += `$10(x-${ecriture_parenthese_si_negatif(a)})=10\\times (${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(a)})=10\\times ${x1-a}=${10*(x1-a)}$ <br> $4(2x+${ecriture_parenthese_si_negatif(b)})=4\\times (2\\times ${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(b)})=4\\times ${2*x1+b}=${4*(2*x1+b)}$<br>`
-					texte_corr += `$${10*(x1-a)}\\not=${4*(2*x1+b)}$ donc l'égalité n'est pas vraie.<br><br>`
+					texte_corr += `$${10*(x1-a)}\\not=${4*(2*x1+b)}$ donc l'égalité n'est pas vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x1}$ n'est donc pas solution de l'équation $10(x-${ecriture_parenthese_si_negatif(a)})=4(2x+${ecriture_parenthese_si_negatif(b)})~$`)}<br><br>`;
 					texte_corr += `Pour $x=${x2}$ : <br>`
 					texte_corr += `$10(x-${ecriture_parenthese_si_negatif(a)})=10\\times (${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(a)})=10\\times ${x2-a}=${10*(x2-a)}$ <br> $4(2x+${ecriture_parenthese_si_negatif(b)})=4\\times (2\\times ${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(b)})=4\\times ${2*x2+b}=${4*(2*x2+b)}$<br>`
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.`
+					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x2}$ est donc solution de l'équation $10(x-${ecriture_parenthese_si_negatif(a)})=4(2x+${ecriture_parenthese_si_negatif(b)})~$`)}`
 					break ;
 				case 4 : // ax+b=(a+1)x-c x=b+c
 					if (this.sup==1) {
@@ -4923,10 +4928,12 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 					texte = `$${ecriture_parenthese_si_negatif(a)}x+${ecriture_parenthese_si_negatif(b)}=${a+1}x-${ecriture_parenthese_si_negatif(c)}~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
 					texte_corr += `$${a}x+${ecriture_parenthese_si_negatif(b)}=${ecriture_parenthese_si_negatif(a)}\\times ${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(b)}=${a*x1+b}$ <br> $${a+1}x-${ecriture_parenthese_si_negatif(c)}=${a+1}\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(c)}=${(a+1)*x1-c}$<br>`
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
+					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x1}$ est donc solution de l'équation $${ecriture_parenthese_si_negatif(a)}x+${ecriture_parenthese_si_negatif(b)}=${a+1}x-${ecriture_parenthese_si_negatif(c)}~$`)}<br><br>`
 					texte_corr += `Pour $x=${x2}$ : <br>`
 					texte_corr += `$${a}x+${ecriture_parenthese_si_negatif(b)}=${ecriture_parenthese_si_negatif(a)}\\times ${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(b)}=${a*x2+b}$ <br> $${a+1}x-${ecriture_parenthese_si_negatif(c)}=${a+1}\\times ${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(c)}=${(a+1)*x2-c}$<br>`
-					texte_corr += `$${a*x2+b}\\not=${(a+1)*x2-c}$ donc l'égalité n'est pas vraie.`
+					texte_corr += `$${a*x2+b}\\not=${(a+1)*x2-c}$ donc l'égalité n'est pas vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x1}$ n'est donc pas solution de l'équation $${ecriture_parenthese_si_negatif(a)}x+${ecriture_parenthese_si_negatif(b)}=${a+1}x-${ecriture_parenthese_si_negatif(c)}~$`)}<br><br>`
 					break ;
 				case 5 : // a-2x=b+2x x=(a-b)/4
 					if (this.sup==1) {
@@ -4945,10 +4952,12 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 					texte = `$${a}-2x=${b}+2x~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
 					texte_corr += `$${a}-2x=${a}-2\\times ${ecriture_parenthese_si_negatif(x1)}=${a-2*x1}$ <br> $${b}+2x=${b}+2\\times ${ecriture_parenthese_si_negatif(x1)}=${b+2*x1}$<br>`
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
+					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x1}$ est donc solution de l'équation $${a}-2x=${b}+2x~$ pour $~x=${x1}~$`)}<br><br>`
 					texte_corr += `Pour $x=${x2}$ : <br>`
 					texte_corr += `$${a}-2x=${a}-2\\times ${ecriture_parenthese_si_negatif(x2)}=${a-2*x2}$ <br> $${b}+2x=${b}+2\\times ${ecriture_parenthese_si_negatif(x2)}=${b+2*x2}$<br>`
-					texte_corr += `$${a-2*x2}\\not=${b+2*x2}$ donc l'égalité n'est pas vraie.`
+					texte_corr += `$${a-2*x2}\\not=${b+2*x2}$ donc l'égalité n'est pas vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x1}$ n'est donc pas solution de l'équation $${a}-2x=${b}+2x~$ pour $~x=${x1}~$`)}<br><br>`
 					break ;
 				case 6 : // ax-ab=x²-bx (a-x)(x-b)=0 solutions a et b.
 					if (this.sup==1) {
@@ -4968,13 +4977,16 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 					texte = `$${a}x-${ecriture_parenthese_si_negatif(a*b)}=x^2-${ecriture_parenthese_si_negatif(b)}x~$ pour $~x=${x1}~$ , pour $~x=${x2}~$ puis pour $~x=${x3}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
 					texte_corr += `$${a}x-${ecriture_parenthese_si_negatif(a*b)}=${a}\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(a*b)}=${a*x1-a*b}$ <br> $x^2-${b}\\times  x=${ecriture_parenthese_si_negatif(x1)}^2-${ecriture_parenthese_si_negatif(b)}\\times ${ecriture_parenthese_si_negatif(x1)}=${x1*x1}-${ecriture_parenthese_si_negatif(b*x1)}=${x1*x1-b*x1}$<br>`
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
+					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x1}$ est donc solution de l'équation $${a}x-${ecriture_parenthese_si_negatif(a*b)}=x^2-${ecriture_parenthese_si_negatif(b)}x~$`)}<br><br>`
 					texte_corr += `Pour $x=${x2}$ : <br>`
 					texte_corr += `$${a}x-${ecriture_parenthese_si_negatif(a*b)}=${a}\\times ${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(a*b)}=${a*x2-a*b}$ <br> $x^2-${b}\\times  x=${ecriture_parenthese_si_negatif(x2)}^2-${ecriture_parenthese_si_negatif(b)}\\times ${ecriture_parenthese_si_negatif(x2)}=${x2*x2}-${ecriture_parenthese_si_negatif(b*x2)}=${x2*x2-b*x2}$<br>`
-					texte_corr += `$${a*x2-a*b}\\not=${x2*x2-b*x2}$ donc l'égalité n'est pas vraie.<br><br>`
+					texte_corr += `$${a*x2-a*b}\\not=${x2*x2-b*x2}$ donc l'égalité n'est pas vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x2}$ n'est donc pas solution de l'équation $${a}x-${ecriture_parenthese_si_negatif(a*b)}=x^2-${ecriture_parenthese_si_negatif(b)}x~$`)}<br><br>`
 					texte_corr += `Pour $x=${x3}$ : <br>`
 					texte_corr += `$${a}x-${ecriture_parenthese_si_negatif(a*b)}=${a}\\times ${ecriture_parenthese_si_negatif(x3)}-${ecriture_parenthese_si_negatif(a*b)}=${a*x3-a*b}$ <br> $x^2-${b}\\times  x=${ecriture_parenthese_si_negatif(x3)}^2-${ecriture_parenthese_si_negatif(b)}\\times ${ecriture_parenthese_si_negatif(x3)}=${x3*x3}-${ecriture_parenthese_si_negatif(b*x3)}=${x3*x3-b*x3}$<br>`
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
+					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x3}$ est donc solution de l'équation $${a}x-${ecriture_parenthese_si_negatif(a*b)}=x^2-${ecriture_parenthese_si_negatif(b)}x~$`)}`
 					break ;
 				case 7 : // adx-bd=acx²-bcx  --- (ax-b)(d-cx)=0 solutions b/a et d/c.
 					if (this.sup==1) {
@@ -4998,13 +5010,16 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 					texte = `$${a*d}x-${ecriture_parenthese_si_negatif(b*d)}=${a*c}x^2-${ecriture_parenthese_si_negatif(b*c)}x~$ pour $~x=${x1}~$, pour $~x=${x2}~$ puis pour $~x=${x3}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
 					texte_corr += `$${a*d}x-${ecriture_parenthese_si_negatif(b*d)}=${a*d}\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(b*d)}=${a*d*x1-d*b}$ <br> $${a*c}x^2-${ecriture_parenthese_si_negatif(b*c)}x=${a*c}\\times ${ecriture_parenthese_si_negatif(x1)}^2-${ecriture_parenthese_si_negatif(b*c)}\\times ${ecriture_parenthese_si_negatif(x1)}=${a*c*x1*x1}-${ecriture_parenthese_si_negatif(b*c*x1)}=${a*c*x1*x1-b*c*x1}$<br>`
-					texte_corr += `$${a*d*x1-d*b}\\not=${a*c*x1*x1-b*c*x1}$ donc l'égalité n'est pas vraie.<br><br>`
+					texte_corr += `$${a*d*x1-d*b}\\not=${a*c*x1*x1-b*c*x1}$ donc l'égalité n'est pas vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x1}$ n'est donc pas solution de l'équation $${a*d}x-${ecriture_parenthese_si_negatif(b*d)}=${a*c}x^2-${ecriture_parenthese_si_negatif(b*c)}x~$`)}<br><br>`
 					texte_corr += `Pour $x=${x2}$ : <br>`
 					texte_corr += `$${a*d}x-${ecriture_parenthese_si_negatif(b*d)}=${a*d}\\times ${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(b*d)}=${a*d*x2-d*b}$ <br> $${a*c}x^2-${ecriture_parenthese_si_negatif(b*c)}x=${a*c}\\times ${ecriture_parenthese_si_negatif(x2)}^2-${ecriture_parenthese_si_negatif(b*c)}\\times ${ecriture_parenthese_si_negatif(x2)}=${a*c*x2*x2}-${ecriture_parenthese_si_negatif(b*c*x2)}=${a*c*x2*x2-b*c*x2}$<br>`
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
+					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x2}$ est donc solution de l'équation $${a*d}x-${ecriture_parenthese_si_negatif(b*d)}=${a*c}x^2-${ecriture_parenthese_si_negatif(b*c)}x~$`)}<br><br>`
 					texte_corr += `Pour $x=${x3}$ : <br>`
 					texte_corr += `$${a*d}x-${ecriture_parenthese_si_negatif(b*d)}=${a*d}\\times ${ecriture_parenthese_si_negatif(x3)}-${ecriture_parenthese_si_negatif(b*d)}=${a*d*x3-d*b}$ <br> $${a*c}x^2-${ecriture_parenthese_si_negatif(b*c)}x=${a*c}\\times ${ecriture_parenthese_si_negatif(x3)}^2-${ecriture_parenthese_si_negatif(b*c)}\\times ${ecriture_parenthese_si_negatif(x3)}=${a*c*x3*x3}-${ecriture_parenthese_si_negatif(b*c*x3)}=${a*c*x3*x3-b*c*x3}$<br>`
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
+					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x3}$ est donc solution de l'équation $${a*d}x-${ecriture_parenthese_si_negatif(b*d)}=${a*c}x^2-${ecriture_parenthese_si_negatif(b*c)}x~$`)}`
 					break ;
 					case 8 : // 12x-4a=4(2x+b) x=(4a+4b)/4
 						if (this.sup==1) {
@@ -5023,10 +5038,12 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 						texte = `$12x-${ecriture_parenthese_si_negatif(4*a)}=4(2x+${ecriture_parenthese_si_negatif(b)})~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
 						texte_corr = `Pour $x=${x1}$ : <br>`
 						texte_corr += `$12x-${ecriture_parenthese_si_negatif(4*a)}=12\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(4*a)}=${12*x1-4*a}$ <br> $4(2x+${ecriture_parenthese_si_negatif(b)})=4\\times (2\\times ${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(b)})=4\\times ${2*x1+b}=${4*(2*x1+b)}$<br>`
-						texte_corr += `$${12*x1-4*a}\\not=${4*(2*x1+b)}$ donc l'égalité n'est pas vraie.<br><br>`
+						texte_corr += `$${12*x1-4*a}\\not=${4*(2*x1+b)}$ donc l'égalité n'est pas vraie.<br>`
+						texte_corr += `${texte_en_couleur(`$x=${x1}$ n'est donc pas solution de l'équation $12x-${ecriture_parenthese_si_negatif(4*a)}=4(2x+${ecriture_parenthese_si_negatif(b)})~$`)}<br><br>`
 						texte_corr += `Pour $x=${x2}$ : <br>`
 						texte_corr += `$12x-${ecriture_parenthese_si_negatif(4*a)}=12\\times ${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(4*a)}=${12*x2-4*a}$ <br> $4(2x+${ecriture_parenthese_si_negatif(b)})=4\\times (2\\times ${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(b)})=4\\times ${2*x2+b}=${4*(2*x2+b)}$<br>`
-						texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.`
+						texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
+						texte_corr += `${texte_en_couleur(`$x=${x1}$ est donc solution de l'équation $12x-${ecriture_parenthese_si_negatif(4*a)}=4(2x+${ecriture_parenthese_si_negatif(b)})~$`)}<br><br>`
 						break ;
 			}
 			
