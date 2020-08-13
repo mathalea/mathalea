@@ -5,6 +5,16 @@ window.onload = function()  {
 	let divSortieSvg = document.getElementById("sortieSvg");
 	let divSortieTikz = document.getElementById("sortieTikz");
 	let buttonSubmit = document.getElementById("submit");
+	let buttonTelecharger
+
+	if (document.getElementById("telecharger")) {
+		buttonTelecharger = document.getElementById("telecharger")
+		buttonTelecharger.onclick = function() {
+			download(myCodeMirrorSvg.getValue(), 'mathalea2d.svg', 'text/plain');
+		}
+	}
+
+	
 
 	let myCodeMirror = CodeMirror(divEditeur, {
 		value: `a=randint(0,6)
@@ -63,6 +73,9 @@ window.onload = function()  {
 
 	buttonSubmit.onclick = function() {
 		localStorage.setItem('Script Mathalea 2D',myCodeMirror.getValue()) // On sauvegarde dans le navigateur le code du script
+		if (buttonTelecharger) {
+			buttonTelecharger.style.visibility = 'visible'
+		}
 		executeCode(`mesObjets=[];${myCodeMirror.getValue()}`);
 		let mesObjetsCopie = mesObjets.slice() // codeSVG va ajouter des objets supplémentaires donc on en garde une copie
 		let codeSvgcomplet = codeSvg(mesObjets)
@@ -200,6 +213,7 @@ window.onload = function()  {
 		  // We save the viewBox coordinates based on the last pointer offsets
 		  viewBox.x = newViewBox.x;
 		  viewBox.y = newViewBox.y;
+		  myCodeMirrorSvg.setValue(divSvg.innerHTML)
 		}
 
 
@@ -222,6 +236,8 @@ window.onload = function()  {
 function executeCode(txt){
 	return Function(txt)();
 }
+
+
 
 
 	

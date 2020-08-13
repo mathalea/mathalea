@@ -87,7 +87,18 @@ function estentier(a,tolerance=epsilon) {
 	if (Math.abs(calcul(a-Math.round(a)))<tolerance) return true
 	else return false
 }
-
+function quotientier(a, b) {
+	if (a.isInteger && b.isInteger) {
+		let reste = a
+		let quotient = 0
+		while (reste > d) {
+			reste -= d
+			q++
+		}
+		return q
+	}
+	else return false
+}
 
 /**
 * Créé tous les couples possibles avec un élément de E1 et un élément de E2.
@@ -2602,6 +2613,24 @@ function cherche_min_max_f ([a,b,c,d]) {
 	let x1=(-2*b-Math.sqrt(delta))/(6*a)
 	let x2=(-2*b+Math.sqrt(delta))/(6*a)
 	return  [[x1,a*x1**3+b*x1**2+c*x1+d],[x2,a*x2**3+b*x2**2+c*x2+d]]
+}
+/**
+ * retourne les coefficients d'un polynome de degré 3 dont la dérivée s'annule pour x1 et y2 et tel que f(x1)=y1 ainsi que le minimum local et le maximum local.
+ * le paramètre supplémentaire a (fixé à 1 par défaut) est le facteur par 
+ * @Auteur Jean-Claude Lhote
+ */
+function cherche_polynome_deg3_a_extrema_fixes(x1,x2,y1,a=1) {
+	// a,b et c sont les coefficient de ax^2+bx+c qui s'annullent pour x1 et x2.
+	// a=1 signifie que la dérivée est x^2-(x1+x2)x+(x1*x2) et f(x)=2x^2-3(x1+x2)x+6(x1*x2)x+d
+	// a est le facteur qui multiplie tous les coeffs de f. Si a est entier et que x1 et x2 le sont, alors y2 le sera.
+	// On peut jouer sur a pour agrandir f ou la diminuer... mais alors les valeurs risquent de ne plus être entières.
+	let b=calcul(-a*(x1+x2))
+	let c=a*x1*x2
+	// on a : ax^2+bx+c=0 pour x1 et x2 (c'est la dérivée de f), on va intégrer et ajouter la valeur d pour que y1 soit entier.
+	let d=calcul(y1-(2*a*x1**3+3*b*x1**2+6*c*x1))
+	// on calcule y2=f(x2) qui est l'autre point où la dérivée s'annule.
+	let y2=calcul(d+2*a*x2**3+3*b*x2**2+6*c*x2)
+	return [2*a,3*b,6*c,d,min(y2,y1),max(y2,y1)] // On retourne les 4 coefficients de f suivi du min(y1,y2) et enfin du max(y1,y2)
 }
 
 /**

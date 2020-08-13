@@ -6479,13 +6479,14 @@ function Problemes_Thales(){
 
 
 				case 2 : 
+					let [nomA,nomB,nomC,nomD] = creerNomDePolygone(4,['M','N'])
 					BC = randint(2,6)
 					BD = 2*BC
 					MN = calcul(BD*choice([0.2,0.3,0.4]))
-					A = point(0,4,'A','above')
-					B = point(7,4,'B','above')
-					C = point(7,0,'C','below')
-					D = point(0,0,'D','below')
+					A = point(0,4,nomA,'above')
+					B = point(7,4,nomB,'above')
+					C = point(7,0,nomC,'below')
+					D = point(0,0,nomD,'below')
 					p = polygone(A,B,C,D)
 					codage1 = codageAngleDroit(D,A,B)
 					codage2 = codageAngleDroit(A,B,C)
@@ -6504,7 +6505,7 @@ function Problemes_Thales(){
 
 					labels = labelPoint(M,N,A,B,C,D)
 
-					texte = 'Sur la figure ci-dessous $ABCD$ est un rectangle et $(MN)$ est parallèle à la diagonale $(BD)$.'
+					texte = `Sur la figure ci-dessous $${nomA+nomB+nomC+nomD}$ est un rectangle et $(MN)$ est parallèle à la diagonale $(${nomB+nomD})$.`
 					texte += '<br>Calculer la longueur $DN$ au millimètre près.<br><br>'
 					texte += mathalea2d({
 						xmin : -2,
@@ -6514,10 +6515,10 @@ function Problemes_Thales(){
 						scale : .8
 					}, p,codage1,codage2,codage3,codage4,sMN,sBD,sCote,texte1,texte2,texte3,texte4,labels)
 
-					texte_corr = "Dans le triangle $ABD$, $M$ est un point de $[AB]$, $N$ est un point de $[AD]$ et $(MN)$ est parallèle à $(BD)$ donc d'après le théorème de Thalès on a : "
-					texte_corr += `<br><br> $${tex_fraction('AM','AB')}=${tex_fraction('AN','AD')}=${tex_fraction('MN','BD')}$`
-					texte_corr += `<br><br> $${tex_fraction('AM','AB')}=${tex_fraction('AN',BC)}=${tex_fraction(tex_nombre(MN),tex_nombre(BD))}$`
-					texte_corr += `<br><br> $AN = ${tex_fraction(BC+'\\times'+tex_nombre(MN),BD)}=${tex_nombre(arrondi(calcul(BC*MN/BD),1))}$`
+					texte_corr = `Dans le triangle $${nomA+nomB+nomD}$, $M$ est un point de $[${nomA+nomB}]$, $N$ est un point de $[${nomA+nomD}]$ et $(MN)$ est parallèle à $(${nomB+nomD})$ donc d'après le théorème de Thalès on a : `
+					texte_corr += `<br><br> $${tex_fraction(nomA+'M',nomA+nomB)}=${tex_fraction(nomA+'N',nomA+nomD)}=${tex_fraction('MN',nomB+nomD)}$`
+					texte_corr += `<br><br> $${tex_fraction(nomA+'M',nomA+nomB)}=${tex_fraction(nomA+'N',BC)}=${tex_fraction(tex_nombre(MN),tex_nombre(BD))}$`
+					texte_corr += `<br><br> $${nomA}N = ${tex_fraction(BC+'\\times'+tex_nombre(MN),BD)}=${tex_nombre(arrondi(calcul(BC*MN/BD),1))}$ cm`
 				
 				break;
 				}
@@ -6549,7 +6550,7 @@ function TrianglesSemblables() {
 		let type_de_questions = randint(1,1);
 		switch (type_de_questions){
 			case 1 :
-				let trouve=false,aireABC,A,B,C,M,p,q,r,s,X,G,Gq,nom1,grid,tA,sAB,dAB,pABC,lab
+				let trouve=false,aireABC,A,B,C,M,p,q,r,s,X,G,Gq,nom1,grid
 				while (!trouve) {
 				A=point(choice([0,3]),choice([0,3]),'A')
 				B=point(choice([6,9]),choice([6,9]),'B')
@@ -6576,12 +6577,7 @@ function TrianglesSemblables() {
 				r.opaciteDeRemplissage=0.5
 				s.couleurDeRemplissage='blue'
 				s.opaciteDeRemplissage=0.5
-				tA=tracePoint(A,B,C)
-				sAB=segment(A,B)
-				dAB=droite(A,B)
-				pABC=polygone(A,B,C)
-				lab=labelPoint(A,B,C)
-				texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:50,scale:0.5},p,nom1,grid,r,s,tA,sAB,dAB,pABC,lab)
+				texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r,s)
 				this.liste_questions[0]=texte;
 				this.liste_corrections[0]=texte_corr;
 				liste_de_question_to_contenu(this);

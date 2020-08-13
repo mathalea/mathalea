@@ -5044,7 +5044,7 @@ function DroiteRemarquableDuTriangle(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let triangles=[],sommets=[[]],A=[],B=[],C=[],t=[],d=[],n=[],c=[],objets=[],A0,B0,C0,tri,G,g,AA,BB,CC,na=[],nb=[],nc=[]
+		let triangles=[],sommets=[[]],A=[],B=[],C=[],t=[],d=[],n=[],c=[],objets=[],A0,B0,C0,tri,G
 		let type_de_questions_disponibles,liste_type_de_questions
 		if (this.sup==1) type_de_questions_disponibles=[1,2]
 		if (this.sup==2) type_de_questions_disponibles=[3,4]
@@ -5061,56 +5061,49 @@ function DroiteRemarquableDuTriangle(){
 			C0 = similitude(B0,A0,angle,rapport)
 			tri = polygone(A0,B0,C0)
 			G = centreGraviteTriangle(A0,B0,C0)
-			a=randint(0,360)
+			a=randint(0,30)*12-180
 			A[i] =rotation(A0,G,a,sommets[i][0],'below left')
 			B[i] = rotation(B0,G,a,sommets[i][1],'below right')
 			C[i] = rotation(C0,G,a,sommets[i][2],'above')
 			t[i] = polygone(A[i],B[i],C[i])
-			AA= homothetie(A[i],G,1.3)
-			BB= homothetie(B[i],G,1.3)
-			CC= homothetie(C[i],G,1.3)
-
-			na[i]=texteParPoint(sommets[i][0],AA,0)
-			nb[i]=texteParPoint(sommets[i][1],BB,0)
-			nc[i]=texteParPoint(sommets[i][2],CC,0)
-
+			n[i] = nommePolygone(t[i],`${sommets[i][0]}${sommets[i][1]}${sommets[i][2]}`)
 			switch (liste_type_de_questions[i]) {
 				case 1 :
 					d[i] = hauteurTriangle(C[i],B[i],A[i],'blue')
 					d[i].epaisseur=1
 					c[i] = codageHauteurTriangle(C[i],B[i],A[i])
-					objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i],na[i],nb[i],nc[i]]
+					objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i]]
 					texte_corr=`La droite tracée est la hauteur issue de $${sommets[i][0]}$ dans le triangle ${triangles[i].getNom()}.<br>`
-					texte_corr+= mathalea2d({xmin:-1,ymin:-2,xmax:8,ymax:8,scale:.5,ppc:30},...objets[i])
+					texte_corr+= mathalea2d({xmin:-3,ymin:-3,xmax:8,ymax:8,scale:.5,ppc:20},...objets[i])
 					break
 				case 2 :
 					d[i] = mediatrice(A[i],B[i],true,'blue')
 					d[i].epaisseur=1
 					c[i] = codageMediatrice(A[i],B[i])
-					objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i],na[i],nb[i],nc[i]]
+					objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i]]
 					texte_corr=`La droite tracée est la médiatrice du segment [$${sommets[i][0]}${sommets[i][1]}]$.<br>`
-					texte_corr+= mathalea2d({xmin:-1,ymin:-2,xmax:8,ymax:8,scale:.5,ppc:30},...objets[i],constructionMediatrice(A[i],B[i],true,color='red', markmilieu='×', markrayons='//',couleurMediatrice = 'blue', epaisseurMediatrice = 1))
+					texte_corr+= mathalea2d({xmin:-3,ymin:-3,xmax:8,ymax:8,scale:.5,ppc:20},...objets[i],constructionMediatrice(A[i],B[i],true,color='gray', markmilieu='×', markrayons='||',couleurMediatrice = 'blue', epaisseurMediatrice = 1))
 					break
 				case 3 :
 					d[i] = medianeTriangle(C[i],B[i],A[i],'blue')
 					d[i].epaisseur=1
 					c[i] = codageMedianeTriangle(C[i],B[i],A[i],color='black',mark='//')
-					objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i],na[i],nb[i],nc[i]]
+					objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i]]
 					texte_corr=`La droite tracée est la médiane issue de $${sommets[i][0]}$ dans le triangle ${triangles[i].getNom()}.<br>`
-					texte_corr+= mathalea2d({xmin:-1,ymin:-2,xmax:8,ymax:8,scale:.5,ppc:30},...objets[i])
+					texte_corr+= mathalea2d({xmin:-3,ymin:-3,xmax:8,ymax:8,scale:.5,ppc:20},...objets[i])
 					break
 				case 4 :
 					d[i] = bissectrice(A[i],B[i],C[i],'blue')
 					d[i].epaisseur=1
 					c[i] = codageBissectrice(A[i],B[i],C[i])
-					objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i],na[i],nb[i],nc[i]]
+					objets[i]=[A[i],B[i],C[i],t[i],d[i],n[i],c[i]]
 					texte_corr=`La droite tracée est la bissectrice de l'angle $\\widehat{${sommets[i][0]}${sommets[i][1]}${sommets[i][2]}}$.<br>`
-					texte_corr+= mathalea2d({xmin:-1,ymin:-2,xmax:8,ymax:8,scale:.5,ppc:30},...objets[i],constructionBissectrice(A[i],B[i],C[i],detail = false, color='red', mark='×',tailleLosange = 3,couleurBissectrice = 'blue', epaiseurBissectrice = 1))
+					texte_corr+= mathalea2d({xmin:-3,ymin:-3,xmax:8,ymax:8,scale:.5,ppc:20},...objets[i],constructionBissectrice(A[i],B[i],C[i],detail = false, color='red', mark='×',tailleLosange = 3,couleurBissectrice = 'blue', epaiseurBissectrice = 1))
 					break
 
 			}
 
-			texte = `Quelle est la nature de la droite tracée en bleu pour le triangle ${triangles[i].getNom()} ?<br>` + mathalea2d(-1,-2,8,8,...objets[i])
+			texte = `Quelle est la nature de la droite tracée en bleu pour le triangle ${triangles[i].getNom()} ?<br>` + mathalea2d({xmin:-3,ymin:-3,xmax:8,ymax:8,scale:.5,ppc:20},...objets[i])
 
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
