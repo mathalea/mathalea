@@ -6550,7 +6550,7 @@ function TrianglesSemblables() {
 		let type_de_questions = randint(1,1);
 		switch (type_de_questions){
 			case 1 :
-				let trouve=false,aireABC,A,B,C,M,p,q,r,s,X,G,Gq,nom1,grid,tA,sAB,dAB,pABC,lab
+				let trouve=false,aireABC,A,B,C,M,p,q,r,s,X,G,Gq,nom1,grid
 				while (!trouve) {
 				A=point(choice([0,3]),choice([0,3]),'A')
 				B=point(choice([6,9]),choice([6,9]),'B')
@@ -6577,12 +6577,7 @@ function TrianglesSemblables() {
 				r.opaciteDeRemplissage=0.5
 				s.couleurDeRemplissage='blue'
 				s.opaciteDeRemplissage=0.5
-				tA=tracePoint(A,B,C)
-				sAB=segment(A,B)
-				dAB=droite(A,B)
-				pABC=polygone(A,B,C)
-				lab=labelPoint(A,B,C)
-				texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:50,scale:0.5},p,nom1,grid,r,s,tA,sAB,dAB,pABC,lab)
+				texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r,s)
 				this.liste_questions[0]=texte;
 				this.liste_corrections[0]=texte_corr;
 				liste_de_question_to_contenu(this);

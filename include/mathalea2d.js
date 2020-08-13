@@ -391,14 +391,16 @@ else if (arguments.length==4) {
 	}
 }
 if (this.b!=0) this.pente=calcul(-this.a/this.b)
-	if (this.b==0) {
+/*	if (this.b==0) {
 		this.angleAvecHorizontale = 90
 	} else {
 		this.angleAvecHorizontale = calcul(Math.atan(this.pente)*180/Math.PI,1)
 
 	}
+	*/
 	this.normal= vecteur(this.a,this.b)
 	this.directeur= vecteur(-this.b,this.a)
+	this.angleAvecHorizontale=angleOriente(point(0,1),point(0,0),point(this.directeur.x,this.directeur.y))
 	this.svg = function(coeff){
 		if (this.epaisseur!=1) {
 			this.style += ` stroke-width="${this.epaisseur}" `
@@ -542,7 +544,7 @@ function droiteParPointEtPente(A,k,nom='',color='black') {
  * 
  * @Auteur Rémi Angot
  */
- function ConstructionMediatrice(A,B,detail = false, color='blue', markmilieu='×', markrayons='//',couleurMediatrice = 'red', epaisseurMediatrice = 2){
+ function ConstructionMediatrice(A,B,detail = false, color='blue', markmilieu='×', markrayons='||',couleurMediatrice = 'red', epaisseurMediatrice = 2){
  	ObjetMathalea2D.call(this)
  	let O = milieu(A,B)
  	let m = rotation(A,O,90)
@@ -610,14 +612,14 @@ function droiteParPointEtPente(A,k,nom='',color='black') {
  function CodageBissectrice(A,O,B,color='black',mark='×'){
 	ObjetMathalea2D.call(this)
 	this.color = color
-	let a = pointSurSegment(O,A,1)
+	let a = pointSurSegment(O,A,1.5)
 	let demiangle = calcul(angleOriente(A,O,B)/2)
 	let M = rotation(a,O,demiangle)
 	let mark1=rotation(a,O,demiangle/2)
 	let mark2=rotation(M,O,demiangle/2)
-	let t1=texteParPoint(mark,mark1,Math.round(droite(O,A).angleAvecHorizontale+demiangle/2-90),color)
-	let t2=texteParPoint(mark,mark2,Math.round(droite(O,A).angleAvecHorizontale+3*demiangle/2-90),color)
-	let b = pointSurSegment(O,B,1)
+	let t1=texteParPoint(mark,mark1,Math.round(droite(O,A).angleAvecHorizontale+demiangle/2),color)
+	let t2=texteParPoint(mark,mark2,Math.round(droite(O,A).angleAvecHorizontale+3*demiangle/2),color)
+	let b = pointSurSegment(O,B,1.5)
 	let a1 = arcPointPointAngle(a,M,demiangle,this.color)
 	let a2 = arcPointPointAngle(M,b,demiangle,this.color)
 	this.svg = function(coeff){
@@ -853,8 +855,8 @@ function Segment(arg1,arg2,arg3,arg4,color){
 	this.extremite1 = point(this.x1,this.y1)
 	this.extremite2 = point(this.x2,this.y2)
 	this.longueur = calcul(Math.sqrt((this.x2-this.x1)**2+(this.y2-this.y1)**2));
-	this.angleAvecHorizontale = calcul(Math.atan2(this.y2-this.y1, this.x2-this.x1)*180/Math.PI); 
-
+//	this.angleAvecHorizontale = calcul(Math.atan2(this.y2-this.y1, this.x2-this.x1)*180/Math.PI); 
+	this.angleAvecHorizontale = angleOriente(point(this.x1+1,this.y1),this.extremite1,this.extremite2)
 	this.svg = function(coeff){
 		if (this.epaisseur!=1) {
 			this.style += ` stroke-width="${this.epaisseur}" `
@@ -2425,9 +2427,9 @@ function afficheMesureAngle(A,B,C,color='black',distance = 1.5)  {
  	s.isVisible = false
  	let angle
  	if (B.x>A.x) {
- 		angle = parseInt(s.angleAvecHorizontale)
+ 		angle = -parseInt(s.angleAvecHorizontale)
  	} else {
- 		angle =parseInt(s.angleAvecHorizontale)-180
+ 		angle =-parseInt(s.angleAvecHorizontale)+180
  	}
  	return texteParPoint(mark,O,angle,this.color)
 
