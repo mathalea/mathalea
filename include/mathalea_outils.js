@@ -2615,7 +2615,7 @@ function cherche_min_max_f ([a,b,c,d]) {
 	return  [[x1,a*x1**3+b*x1**2+c*x1+d],[x2,a*x2**3+b*x2**2+c*x2+d]]
 }
 /**
- * retourne les coefficients d'un polynome de degré 3 dont la dérivée s'annule pour x1 et y2 et tel que f(x1)=y1 ainsi que le minimum local et le maximum local.
+ * retourne les coefficients d'un polynome de degré 3 dont la dérivée s'annule pour x1 et y2 et tel que f(x1)=y1 ainsi que y1 et y2.
  * le paramètre supplémentaire a (fixé à 1 par défaut) est le facteur par 
  * @Auteur Jean-Claude Lhote
  */
@@ -2630,20 +2630,22 @@ function cherche_polynome_deg3_a_extrema_fixes(x1,x2,y1,a=1) {
 	let d=calcul(y1-(2*a*x1**3+3*b*x1**2+6*c*x1))
 	// on calcule y2=f(x2) qui est l'autre point où la dérivée s'annule.
 	let y2=calcul(d+2*a*x2**3+3*b*x2**2+6*c*x2)
-	return [2*a,3*b,6*c,d,Math.min(y2,y1),Math.max(y2,y1)] // On retourne les 4 coefficients de f suivi du min(y1,y2) et enfin du max(y1,y2)
+	return [2*a,3*b,6*c,d,y1,y2] // On retourne les 4 coefficients de f suivi du min(y1,y2) et enfin du max(y1,y2)
 }
 
 function cherche_polynome_deg3_a_extrema_entiers(x1,x2,y1,y2) { // je voulais ajouter "ou presque" dans le nom de fonction, mais ça faisait trop long !
 	let resultat=[],trouve=false
-	for (let a=1;a<10;a++) {
+	for (let a=-1;a<1;a+=0.00005) {
 		resultat=cherche_polynome_deg3_a_extrema_fixes(x1,x2,y1,a)
 		if (egal(resultat[4],y1)) 
-			if (egal(resultat[5],y2)) {
+			if (egal(resultat[5],y2,0.001)) {
 				trouve=true
+				resultat.push('trouvé')
 				return resultat
 			}
-		else if (egal(resultat[4],y2)) {
+		else if (egal(resultat[4],y2,0.001)) {
 			trouve=true
+			resultat.push('trouvé')
 			return resultat
 		}
 	}
