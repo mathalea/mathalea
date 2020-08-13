@@ -4954,11 +4954,11 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 					texte_corr = `Pour $x=${x1}$ : <br>`
 					texte_corr += `$${a}-2x=${a}-2\\times ${ecriture_parenthese_si_negatif(x1)}=${a-2*x1}$ <br> $${b}+2x=${b}+2\\times ${ecriture_parenthese_si_negatif(x1)}=${b+2*x1}$<br>`
 					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
-					texte_corr += `${texte_en_couleur(`$x=${x1}$ est donc solution de l'équation $${a}-2x=${b}+2x~$ pour $~x=${x1}~$`)}<br><br>`
+					texte_corr += `${texte_en_couleur(`$x=${x1}$ est donc solution de l'équation $${a}-2x=${b}+2x~$`)}<br><br>`
 					texte_corr += `Pour $x=${x2}$ : <br>`
 					texte_corr += `$${a}-2x=${a}-2\\times ${ecriture_parenthese_si_negatif(x2)}=${a-2*x2}$ <br> $${b}+2x=${b}+2\\times ${ecriture_parenthese_si_negatif(x2)}=${b+2*x2}$<br>`
 					texte_corr += `$${a-2*x2}\\not=${b+2*x2}$ donc l'égalité n'est pas vraie.<br>`
-					texte_corr += `${texte_en_couleur(`$x=${x1}$ n'est donc pas solution de l'équation $${a}-2x=${b}+2x~$ pour $~x=${x1}~$`)}<br><br>`
+					texte_corr += `${texte_en_couleur(`$x=${x1}$ n'est donc pas solution de l'équation $${a}-2x=${b}+2x~$`)}<br><br>`
 					break ;
 				case 6 : // ax-ab=x²-bx (a-x)(x-b)=0 solutions a et b.
 					if (this.sup==1) {
@@ -5065,18 +5065,17 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 						}
 						texte = `$x^2-${ecriture_parenthese_si_negatif(b+a)}x-${ecriture_parenthese_si_negatif(a*b)}=0~$ pour $~x=${x1}~$ , pour $~x=${x2}~$ puis pour $~x=${x3}$`
 						texte_corr = `Pour $x=${x1}$ : <br>`
-						texte_corr += `$$x^2-${ecriture_parenthese_si_negatif(b+a)}\\times  x=${ecriture_parenthese_si_negatif(x1)}^2-${ecriture_parenthese_si_negatif(b)}\\times ${ecriture_parenthese_si_negatif(x1)}=${x1*x1}-${ecriture_parenthese_si_negatif(b*x1)}=${x1*x1-b*x1}$<br>`
-						texte_corr += `$${a}x-${ecriture_parenthese_si_negatif(a*b)}=${a}\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(a*b)}=${a*x1-a*b}$ <br> $x^2-${b}\\times  x=${ecriture_parenthese_si_negatif(x1)}^2-${ecriture_parenthese_si_negatif(b)}\\times ${ecriture_parenthese_si_negatif(x1)}=${x1*x1}-${ecriture_parenthese_si_negatif(b*x1)}=${x1*x1-b*x1}$<br>`
+						texte_corr += `$x^2-${ecriture_parenthese_si_negatif(b+a)}\\times  x+${ecriture_parenthese_si_negatif(a*b)}=${ecriture_parenthese_si_negatif(x1)}^2-${ecriture_parenthese_si_negatif(a+b)}\\times ${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(a*b)}=${x1*x1}-${ecriture_parenthese_si_negatif((a+b)*x1)}+${ecriture_parenthese_si_negatif(a*b)}=${x1*x1-(a+b)*x1+a*b}$<br> $0=0$ !<br>`						
 						texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
-						texte_corr += `${texte_en_couleur(`$x=${x1}$ est donc solution de l'équation $${a}x-${ecriture_parenthese_si_negatif(a*b)}=x^2-${ecriture_parenthese_si_negatif(b)}x~$`)}<br><br>`
+						texte_corr += `${texte_en_couleur(`$x=${x1}$ est donc solution de l'équation $x^2-${ecriture_parenthese_si_negatif(b+a)}x-${ecriture_parenthese_si_negatif(a*b)}=0~$`)}<br><br>`
 						texte_corr += `Pour $x=${x2}$ : <br>`
-						texte_corr += `$${a}x-${ecriture_parenthese_si_negatif(a*b)}=${a}\\times ${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(a*b)}=${a*x2-a*b}$ <br> $x^2-${b}\\times  x=${ecriture_parenthese_si_negatif(x2)}^2-${ecriture_parenthese_si_negatif(b)}\\times ${ecriture_parenthese_si_negatif(x2)}=${x2*x2}-${ecriture_parenthese_si_negatif(b*x2)}=${x2*x2-b*x2}$<br>`
-						texte_corr += `$${a*x2-a*b}\\not=${x2*x2-b*x2}$ donc l'égalité n'est pas vraie.<br>`
-						texte_corr += `${texte_en_couleur(`$x=${x2}$ n'est donc pas solution de l'équation $${a}x-${ecriture_parenthese_si_negatif(a*b)}=x^2-${ecriture_parenthese_si_negatif(b)}x~$`)}<br><br>`
+						texte_corr += `$x^2-${ecriture_parenthese_si_negatif(b+a)}\\times  x+${ecriture_parenthese_si_negatif(a*b)}=${ecriture_parenthese_si_negatif(x2)}^2-${ecriture_parenthese_si_negatif(a+b)}\\times ${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(a*b)}=${x2*x2}-${ecriture_parenthese_si_negatif((a+b)*x2)}+${ecriture_parenthese_si_negatif(a*b)}=${x2*x2-(a+b)*x2+a*b}$<br> $0=0$ !<br>`
+						texte_corr += `$${x2*x2-(a+b)*x2+a*b}\\not=0$ donc l'égalité n'est pas vraie.<br>`
+						texte_corr += `${texte_en_couleur(`$x=${x2}$ n'est donc pas solution de l'équation $x^2-${ecriture_parenthese_si_negatif(b+a)}x-${ecriture_parenthese_si_negatif(a*b)}=0~$`)}<br><br>`
 						texte_corr += `Pour $x=${x3}$ : <br>`
-						texte_corr += `$${a}x-${ecriture_parenthese_si_negatif(a*b)}=${a}\\times ${ecriture_parenthese_si_negatif(x3)}-${ecriture_parenthese_si_negatif(a*b)}=${a*x3-a*b}$ <br> $x^2-${b}\\times  x=${ecriture_parenthese_si_negatif(x3)}^2-${ecriture_parenthese_si_negatif(b)}\\times ${ecriture_parenthese_si_negatif(x3)}=${x3*x3}-${ecriture_parenthese_si_negatif(b*x3)}=${x3*x3-b*x3}$<br>`
+						texte_corr += `$x^2-${ecriture_parenthese_si_negatif(b+a)}\\times  x+${ecriture_parenthese_si_negatif(a*b)}=${ecriture_parenthese_si_negatif(x3)}^2-${ecriture_parenthese_si_negatif(a+b)}\\times ${ecriture_parenthese_si_negatif(x3)}+${ecriture_parenthese_si_negatif(a*b)}=${x3*x3}-${ecriture_parenthese_si_negatif((a+b)*x3)}+${ecriture_parenthese_si_negatif(a*b)}=${x3*x3-(a+b)*x3+a*b}$<br> $0=0$ !<br>`
 						texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
-						texte_corr += `${texte_en_couleur(`$x=${x3}$ est donc solution de l'équation $${a}x-${ecriture_parenthese_si_negatif(a*b)}=x^2-${ecriture_parenthese_si_negatif(b)}x~$`)}`
+						texte_corr += `${texte_en_couleur(`$x=${x3}$ est donc solution de l'équation $x^2-${ecriture_parenthese_si_negatif(b+a)}x-${ecriture_parenthese_si_negatif(a*b)}=0~$`)}`
 						break ;
 	
 			}
