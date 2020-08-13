@@ -4802,6 +4802,7 @@ function Exploiter_representation_graphique(){
  * @author Sébastien Lozano
  */
 function Tester_si_un_nombre_est_solution_d_une_equation(){
+	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Tester si un nombre est solution d'une équation";
 	this.consigne = "";
@@ -4832,10 +4833,10 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 		}
 		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
-		this.consigne = `Justifier si les nombres proposés sont des solutions de l'équation donnée ou non. ${this.sup2} - ${this.exo}`;
+		this.consigne = `Justifier si les nombres proposés sont des solutions de l'équation donnée ou non.`;
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
-			let a, b, x1, x2
+			let a, b, c, d, x1, x2, x3
 			switch (liste_type_de_questions[i]){
 				case 1 : // 3x-a=2x+b   x=a+b  
 					if (this.sup==1) {
@@ -5066,16 +5067,16 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 						}
 						texte = `$x^2-${ecriture_parenthese_si_negatif(b+a)}x-${ecriture_parenthese_si_negatif(a*b)}=0~$ pour $~x=${x1}~$ , pour $~x=${x2}~$ puis pour $~x=${x3}$`
 						texte_corr = `Pour $x=${x1}$ : <br>`
-						texte_corr += `$x^2-${ecriture_parenthese_si_negatif(b+a)}\\times  x+${ecriture_parenthese_si_negatif(a*b)}=${ecriture_parenthese_si_negatif(x1)}^2-${ecriture_parenthese_si_negatif(a+b)}\\times ${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(a*b)}=${x1*x1}-${ecriture_parenthese_si_negatif((a+b)*x1)}+${ecriture_parenthese_si_negatif(a*b)}=${x1*x1-(a+b)*x1+a*b}$<br> $0=0$ !<br>`						
-						texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
+						texte_corr += `$x^2-${ecriture_parenthese_si_negatif(b+a)}\\times  x+${ecriture_parenthese_si_negatif(a*b)}=${ecriture_parenthese_si_negatif(x1)}^2-${ecriture_parenthese_si_negatif(a+b)}\\times ${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(a*b)}=${x1*x1}-${ecriture_parenthese_si_negatif((a+b)*x1)}+${ecriture_parenthese_si_negatif(a*b)}=${x1*x1-(a+b)*x1+a*b}$<br>`						
+						texte_corr += `On trouve bien $0$ pour le membre de gauche donc l'égalité est vraie.<br>`
 						texte_corr += `${texte_en_couleur(`$x=${x1}$ est donc solution de l'équation $x^2-${ecriture_parenthese_si_negatif(b+a)}x-${ecriture_parenthese_si_negatif(a*b)}=0~$`)}<br><br>`
 						texte_corr += `Pour $x=${x2}$ : <br>`
 						texte_corr += `$x^2-${ecriture_parenthese_si_negatif(b+a)}\\times  x+${ecriture_parenthese_si_negatif(a*b)}=${ecriture_parenthese_si_negatif(x2)}^2-${ecriture_parenthese_si_negatif(a+b)}\\times ${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(a*b)}=${x2*x2}-${ecriture_parenthese_si_negatif((a+b)*x2)}+${ecriture_parenthese_si_negatif(a*b)}=${x2*x2-(a+b)*x2+a*b}$<br> $0=0$ !<br>`
 						texte_corr += `$${x2*x2-(a+b)*x2+a*b}\\not=0$ donc l'égalité n'est pas vraie.<br>`
 						texte_corr += `${texte_en_couleur(`$x=${x2}$ n'est donc pas solution de l'équation $x^2-${ecriture_parenthese_si_negatif(b+a)}x-${ecriture_parenthese_si_negatif(a*b)}=0~$`)}<br><br>`
 						texte_corr += `Pour $x=${x3}$ : <br>`
-						texte_corr += `$x^2-${ecriture_parenthese_si_negatif(b+a)}\\times  x+${ecriture_parenthese_si_negatif(a*b)}=${ecriture_parenthese_si_negatif(x3)}^2-${ecriture_parenthese_si_negatif(a+b)}\\times ${ecriture_parenthese_si_negatif(x3)}+${ecriture_parenthese_si_negatif(a*b)}=${x3*x3}-${ecriture_parenthese_si_negatif((a+b)*x3)}+${ecriture_parenthese_si_negatif(a*b)}=${x3*x3-(a+b)*x3+a*b}$<br> $0=0$ !<br>`
-						texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
+						texte_corr += `$x^2-${ecriture_parenthese_si_negatif(b+a)}\\times  x+${ecriture_parenthese_si_negatif(a*b)}=${ecriture_parenthese_si_negatif(x3)}^2-${ecriture_parenthese_si_negatif(a+b)}\\times ${ecriture_parenthese_si_negatif(x3)}+${ecriture_parenthese_si_negatif(a*b)}=${x3*x3}-${ecriture_parenthese_si_negatif((a+b)*x3)}+${ecriture_parenthese_si_negatif(a*b)}=${x3*x3-(a+b)*x3+a*b}$<br>`
+						texte_corr += `On trouve bien $0$ pour le membre de gauche donc l'égalité est vraie.<br>`
 						texte_corr += `${texte_en_couleur(`$x=${x3}$ est donc solution de l'équation $x^2-${ecriture_parenthese_si_negatif(b+a)}x-${ecriture_parenthese_si_negatif(a*b)}=0~$`)}`
 						break ;
 	
