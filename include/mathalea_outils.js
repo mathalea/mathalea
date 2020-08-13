@@ -942,6 +942,7 @@ const ppcm = (a,b) => { return parseInt(Algebrite.run(`lcm(${a},${b})`))}
 
 /**
 * Retourne le numérateur et le dénominateur de la fraction passée en argument sous la forme (numérateur,dénominateur)réduite au maximum dans un tableau [numérateur,dénominateur]
+* * **ATTENTION Fonction clonée dans la classe Fraction()**
 * @Auteur Rémi Angot
 */
 function fraction_simplifiee(n,d){ 
@@ -4718,9 +4719,28 @@ function Relatif(...relatifs) {
 		};
 	};
 
+	/**
+	 * **ATTENTION Fonction clonée dans la boîte à outils**
+	* @return Retourne le numérateur et le dénominateur de la fraction passée en argument sous la forme (numérateur,dénominateur)réduite au maximum dans un tableau [numérateur,dénominateur]
+	* @author Rémi Angot
+	*/
+	function fraction_simplifiee(n,d){ 
+		let p=pgcd(n,d);
+		let ns = n/p;
+		let ds = d/p;
+		if (ns<0 && ds<0) {
+			[ns,ds] = [-ns,-ds]
+		}
+		if (ns>0 && ds<0) {
+			[ns,ds] = [-ns,-ds]
+		}
+		return [ns,ds];
+	}
+
 	this.sortFractions = sortFractions;
 	this.reduceSameDenominateur = reduceSameDenominateur;
 	this.denominateurs_amis = denominateurs_amis;
+	this.fraction_simplifiee = fraction_simplifiee;
 	
 
  };
