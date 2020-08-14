@@ -4491,7 +4491,7 @@ function Relatif(...relatifs) {
 			};
 			if (n.length == 2)  {
 				if ( getCardNegatifs(n)%2 == 0 ) {
-					return `Le numératueur et le dénominateur sont de même signe donc le quotient est positif.`;
+					return `Le numérateur et le dénominateur sont de même signe donc le quotient est positif.`;
 				} else {
 					return `Les numérateur et le dénominateur sont de signe différent donc le quotient est négatif.`;
 				};
