@@ -2570,12 +2570,12 @@ function MatriceCarree(table){
 		let n=this.dim // taille de la matrice = nxn
 		let determinant=0,M
 		for (let i=0;i<n;i++) { // on travaille sur la ligne du haut de la matrice :ligne 0 i est la colonne de 0 à n-1
-			if (n==1) determinant=this.table[0][0]
-			else if (n==2)
-				determinant=this.table[0][0]*this.table[1][1]-this.table[1][0]*this.table[0][1]
+		//	if (n==1) determinant=this.table[0][0]
+			if (n==2)
+				determinant=calcul(this.table[0][0]*this.table[1][1]-this.table[1][0]*this.table[0][1])
 			else {
 				M=this.matrice_reduite(0,i)
-				determinant+=(-1)**(i)*M.determinant()
+				determinant+=calcul(((-1)**i)*this.table[0][i]*M.determinant())
 			}
 		}
 		return determinant
@@ -2605,7 +2605,7 @@ function MatriceCarree(table){
 				ligne = []
 				for (let j = 0; j < n; j++) {
 					M = this.matrice_reduite(i, j)
-					ligne.push((-1) ** (i + j) * M.determinant())
+					ligne.push(calcul((-1) ** (i + j) * M.determinant()))
 				}
 				resultat.push(ligne)
 			}
@@ -2629,7 +2629,7 @@ function MatriceCarree(table){
 		for (let i=0;i<n;i++) {
 			ligne=[]
 			for (let j=0;j<n;j++) {
-				ligne.push(k*this.table[i][j])
+				ligne.push(calcul(k*this.table[i][j]))
 			}
 			resultat.push(ligne)
 		}
@@ -2637,13 +2637,11 @@ function MatriceCarree(table){
 	}
 	this.multiplieVecteur = function (V) { // Vecteur est un simple array pour l'instant
 		let n = this.dim, resultat=[], somme
-		console.log(this.table,n,V)
 		if (n == V.length) {
 			for (let i = 0; i < n; i++) {
 				somme = 0
 				for (let j = 0; j < n; j++) {
-					console.log(this.table[i][j],V[j])
-					somme += this.table[i][j] * V[j]
+					somme += calcul(this.table[i][j] * V[j])
 				}
 				resultat.push(somme)
 			}
@@ -2665,7 +2663,7 @@ function MatriceCarree(table){
 			ligne=[]
 			for (let j=0;j<n;j++) {
 				somme=0
-				for (let k=0;k<n;k++) somme+=this.table[i][k]*M.table[k][j]
+				for (let k=0;k<n;k++) somme+=calcul(this.table[i][k]*M.table[k][j])
 				ligne.push(somme)
 			}
 			resultat.push(ligne)
