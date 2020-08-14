@@ -4431,11 +4431,11 @@ function Problemes_additifs_fractions() {
 			let denoms_amis = frac.denominateurs_amis;
 			// on choisit un tableau dedans
 			let denoms_cool_3 = denoms_amis[randint(0,denoms_amis.length-1)];
-			while ( (nt1==nt2 && dt1==dt2) || (nt1==nt3 && dt1==dt3) || (nt3==nt2 && dt3==dt2) || (nt1==nt4 && dt1==dt4) || (nt4==nt2 && dt4==dt2) || (nt1/dt1 >= 1/2) || (nt2/dt2 >= 1/2)) {
+			while ( (nt1==nt2 && dt1==dt2) || (nt1==nt3 && dt1==dt3) || (nt3==nt2 && dt3==dt2) || (nt1==nt4 && dt1==dt4) || (nt4==nt2 && dt4==dt2) || (nt1/dt1 >= 1/2) || (nt2/dt2 >= 1/2) || (nt4==nt1) || (nt4==nt2)) {
 				nt1 = randint(1,6);
 				//dt1 = 2*nt1 + randint(1,3);
 				dt1 = choice(denoms_cool_3);
-				nt2 = randint(2,10);
+				nt2 = randint(2,10,[nt1]);//on évite nt1 pour pouvoir retrouver le texte de la plus grande fraction
 				//dt2 = 2*nt2 + randint(1,3);
 				dt2 = choice(denoms_cool_3,[dt1]);
 				nt3 = dt1*dt2-nt1*dt2-nt2*dt1;//la somme des trois vaut 1 !
@@ -4465,7 +4465,7 @@ function Problemes_additifs_fractions() {
 
 			//pb_3_f[0].correction += `Calculons d'abord la distance à ${pb_3_f[0].fractions[8]} : $1-\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}-\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}} = \\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}}$`
 			pb_3_f[0].correction += `Calculons alors la distance à ${pb_3_f[0].fractions[8]} : `;
-			pb_3_f[0].correction +=` $1-\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}-\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}} = \\dfrac{${frac_meme_denom[1]}}{${frac_meme_denom[1]}}-\\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}-\\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}} = \\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}}$`;
+			pb_3_f[0].correction +=` $1-\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}-\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}} = \\dfrac{${frac_meme_denom[1]}}{${frac_meme_denom[1]}}-\\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}-\\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}} = \\dfrac{${frac_meme_denom[1]}-${frac_meme_denom[0]}-${frac_meme_denom[2]}}{${frac_meme_denom[3]}} = \\dfrac{${frac_meme_denom[1]-frac_meme_denom[0]-frac_meme_denom[2]}}{${frac_meme_denom[1]}}= \\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}}$`;
 
 			pb_3_f[0].correction += `<br>${pb_3_f[0].prenoms[0]} fait donc $\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}$ à ${pb_3_f[0].fractions[2]}, `;
 			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}}$ à ${pb_3_f[0].fractions[5]} et `;
@@ -4481,17 +4481,23 @@ function Problemes_additifs_fractions() {
 			//pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ ; `;
 			//pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ et `;
 			//pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$.`;
-
-			let frac_meme_denom_rangees = frac.sortFractions(frac_meme_denom[0],frac_meme_denom[1],frac_meme_denom[2],frac_meme_denom[3],frac_meme_denom[4],frac_meme_denom[5]); 
-			pb_3_f[0].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_meme_denom_rangees[0]}}{${frac_meme_denom_rangees[1]}}$, $\\dfrac{${frac_meme_denom_rangees[2]}}{${frac_meme_denom_rangees[3]}}$, $\\dfrac{${frac_meme_denom_rangees[4]}}{${frac_meme_denom_rangees[5]}}$.`
-
-			let frac_rangees = frac.sortFractions(pb_3_f[0].fractions[0],pb_3_f[0].fractions[1],pb_3_f[0].fractions[3],pb_3_f[0].fractions[4],pb_3_f[0].fractions[6],pb_3_f[0].fractions[7]); 
-			//pb_3_f[0].correction += `<br>Enfin, nous pouvons ranger les fractions initiales dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
-			pb_3_f[0].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
-			//pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[0].fractions[pb_3_f[0].fractions.indexOf(frac_rangees[5])+1]} que ${pb_3_f[0].prenoms[0]} fait la plus grande distance.`)}`;			
-			pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[0].fractions[pb_3_f[0].fractions.indexOf(frac_rangees[5])+1]} que ${pb_3_f[0].prenoms[0]} fait la plus grande distance.`)}`;			
-			pb_3_f[0].correction += `<br>${JSON.stringify(pb_3_f[0].fractions)}`
-			pb_3_f[0].correction += `<br>${JSON.stringify(frac_rangees)}`
+			let frac_rangees,frac_meme_denom_rangees;
+			if ( (calcul(nt1/dt1)==calcul(nt2/dt2)) && (calcul(nt1/dt1)==calcul(nt3/dt3)) ) {
+				pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`Les trois fractions sont équivalentes, ${pb_3_f[0].prenoms[0]} parcours donc la même distance dans les trois disciplines.`)}`;			
+			} else {
+				frac_meme_denom_rangees = frac.sortFractions(frac_meme_denom[0],frac_meme_denom[1],frac_meme_denom[2],frac_meme_denom[3],frac_meme_denom[4],frac_meme_denom[5]); 
+				pb_3_f[0].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_meme_denom_rangees[0]}}{${frac_meme_denom_rangees[1]}}$, $\\dfrac{${frac_meme_denom_rangees[2]}}{${frac_meme_denom_rangees[3]}}$, $\\dfrac{${frac_meme_denom_rangees[4]}}{${frac_meme_denom_rangees[5]}}$.`
+	
+				frac_rangees = frac.sortFractions(pb_3_f[0].fractions[0],pb_3_f[0].fractions[1],pb_3_f[0].fractions[3],pb_3_f[0].fractions[4],pb_3_f[0].fractions[6],pb_3_f[0].fractions[7]); 
+				//pb_3_f[0].correction += `<br>Enfin, nous pouvons ranger les fractions initiales dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
+				pb_3_f[0].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
+				//pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[0].fractions[pb_3_f[0].fractions.indexOf(frac_rangees[5])+1]} que ${pb_3_f[0].prenoms[0]} fait la plus grande distance.`)}`;			
+	
+				pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[0].fractions[pb_3_f[0].fractions.indexOf(frac_rangees[4])+2]} que ${pb_3_f[0].prenoms[0]} fait la plus grande distance.`)}`;			
+			}
+			// pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[0].fractions[pb_3_f[0].fractions.indexOf(frac_rangees[4])+2]} que ${pb_3_f[0].prenoms[0]} fait la plus grande distance.`)}`;			
+			// pb_3_f[0].correction += `<br>${JSON.stringify(pb_3_f[0].fractions)}`
+			// pb_3_f[0].correction += `<br>${JSON.stringify(frac_rangees)}`
 
 			// les 3 prénomns doivent être distincts
 			let p1,p2,p3; // les 3 prénoms
