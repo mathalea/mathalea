@@ -2542,9 +2542,43 @@ function tex_graphique(f,xmin=-5,xmax=5,ymin=-5,ymax=5,xstep=1,ystep=1) {
 	\\end{tikzpicture}`
 }
 
-
-
-
+/**
+ * Calcule le déterminant d'une Matrice carrée. nxn
+ * @Auteur Jean-Claude Lhote
+ */
+function determinant_matrice(M){
+	let n=M.length // taille de la matrice = nxn
+	let determinant=0
+	for (let i=0;i<n;i++) { // on travaille sur la ligne du haut de la matrice :ligne 0 i est la colonne de 0 à n-1
+		if (n==2)
+			determinant=M[0][0]*M[1][1]-M[1][0]*M[0][1]
+		else 
+			determinant+=(-1)**(i)*determinant_matrice(matrice_reduite(M,0,i))
+	}
+	return determinant
+}
+/**
+ * m=matrice_reduite(M,l,c) retourne la matrice obtenue à partir de la matrice M (carrée) en enlevant la ligne l et la colonne c
+ *  Extrait une matrice carrée de rang n-1 en rayant la ligne l et la colonne c
+ * Utilisée dans le calcul du déterminant d'une matrice carrée.
+ * @Auteur Jean-Claude Lhote
+ */
+function matrice_reduite(M,l,c) {
+	let  resultat=[],ligne
+	for (let i=0;i<M.length;i++) {
+		if (i!=l) {
+			ligne=[]
+			for (let j=0;j<M.length;j++){
+				if (j!=c) ligne.push(M[i][j])
+				console.log(ligne)
+			}
+			console.log(ligne)
+			if (ligne.length>0) resultat.push(ligne)
+			console.log(resultat)
+		}
+	}
+	return resultat
+}
 
 
 /**
