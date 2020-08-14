@@ -4448,9 +4448,9 @@ function Relatif(...relatifs) {
 			};
 			if (n.length == 2) {
 				if ( getCardNegatifs(n)%2 == 0 ) {
-					return `Les deux facteurs sont de même signe donc le produit est positif.`;
+					return `Les deux facteurs ont le même signe donc le produit est positif.`;
 				} else {
-					return `Les deux facteurs sont de signe différent donc le produit est négatif.`;
+					return `Les deux facteurs ont un signe différent donc le produit est négatif.`;
 				};
 			} else if (n.length > 2 ) {
 				if ( getCardNegatifs(n)%2 == 0 ) {
@@ -4491,9 +4491,9 @@ function Relatif(...relatifs) {
 			};
 			if (n.length == 2)  {
 				if ( getCardNegatifs(n)%2 == 0 ) {
-					return `Le numérateur et le dénominateur sont de même signe donc le quotient est positif.`;
+					return `Le numérateur et le dénominateur ont le même signe donc le quotient est positif.`;
 				} else {
-					return `Les numérateur et le dénominateur sont de signe différent donc le quotient est négatif.`;
+					return `Les numérateur et le dénominateur ont un signe différent donc le quotient est négatif.`;
 				};
 			} else if (n.length > 2) {
 				if ( getCardNegatifs(n)%2 == 0 ) {
