@@ -1529,36 +1529,10 @@ function Arc(M,Omega,angle,rayon=false,fill='none',color='black') {
 		if (this.epaisseur!=1) {
 			this.style += ` stroke-width="${this.epaisseur}" `
 		}
-		if (this.pointilles) {
-			this.style += ` stroke-dasharray="4 3" `
-		}
-		if (this.opacite !=1) {
-			this.style += ` stroke-opacity="${this.opacite}" `
-		}
-		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}" ${this.style}/>`
-	}
-	this.tikz = function(){
-		let optionsDraw = []
-	   let tableauOptions = [];
-	   if (this.color.length>1 && this.color!=='black'){
-		   tableauOptions.push(this.color)
-	   }
-	   if (this.epaisseur!=1) {
-		   tableauOptions.push(`line width = ${this.epaisseur}`) 
-	   }
-	   if (this.pointilles) {
-		   tableauOptions.push(`dashed`) 
-	   }
-	   if (this.opacite !=1) {
-		   tableauOptions.push(`opacity = ${this.opacite}`)
-	   }
-	   if (tableauOptions.length>0) {
-		   optionsDraw = "["+tableauOptions.join(',')+"]"
-	   }
-	   if (rayon) return `\\fill  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega,M)}) -- cycle ;`
-	   else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega,M)}) ;`
-	}
-}
+		if (rayon) `\\fill  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega,M)}) -- cycle ;`
+		else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega,M)}) ;`
+ 	}
+ }
  function arc(...args) {
  	return new Arc(...args)
  }
