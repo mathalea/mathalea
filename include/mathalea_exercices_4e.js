@@ -4426,12 +4426,13 @@ function Problemes_additifs_fractions() {
 			// et on veut des fractions distinctes !
 			let nt1,nt2,nt3,dt1,dt2,dt3;
 			// on aura besoin de simplifier la 3eme fraction
-			let nt4,dt4;
+			//let nt4,dt4;
 			// on récupère les dénominateurs qui vont bien
 			let denoms_amis = frac.denominateurs_amis;
 			// on choisit un tableau dedans
 			let denoms_cool_3 = denoms_amis[randint(0,denoms_amis.length-1)];
-			while ( (nt1==nt2 && dt1==dt2) || (nt1==nt3 && dt1==dt3) || (nt3==nt2 && dt3==dt2) || (nt1==nt4 && dt1==dt4) || (nt4==nt2 && dt4==dt2) || (nt1/dt1 >= 1/2) || (nt2/dt2 >= 1/2) || (nt4==nt1) || (nt4==nt2)) {
+			// while ( (nt1==nt2 && dt1==dt2) || (nt1==nt3 && dt1==dt3) || (nt3==nt2 && dt3==dt2) || (nt1==nt4 && dt1==dt4) || (nt4==nt2 && dt4==dt2) || (nt1/dt1 >= 1/2) || (nt2/dt2 >= 1/2) || (nt4==nt1) || (nt4==nt2)) {
+			while ( (nt1==nt2 && dt1==dt2) || (nt1==nt3 && dt1==dt3) || (nt3==nt2 && dt3==dt2) || (nt1/dt1 >= 1/2) || (nt2/dt2 >= 1/2) ) {				
 				nt1 = randint(1,6);
 				//dt1 = 2*nt1 + randint(1,3);
 				dt1 = choice(denoms_cool_3);
@@ -4440,47 +4441,63 @@ function Problemes_additifs_fractions() {
 				dt2 = choice(denoms_cool_3,[dt1]);
 				nt3 = dt1*dt2-nt1*dt2-nt2*dt1;//la somme des trois vaut 1 !
 				dt3 = dt1*dt2; 
-				nt4 = frac.fraction_simplifiee(nt3,dt3)[0];
-				dt4 = frac.fraction_simplifiee(nt3,dt3)[1];
+				//nt4 = frac.fraction_simplifiee(nt3,dt3)[0];
+				//dt4 = frac.fraction_simplifiee(nt3,dt3)[1];
 			};		
 			
+			// pb_3_f.push({// indice 0 le triathlon des neiges
+			// 	prenoms: [prenomM()],
+			// 	// fractions: [nt1,dt1,'VTT',nt2,dt2,'ski de fond',nt3,dt3,'pied'],
+			// 	fractions: [nt1,dt1,'VTT',nt2,dt2,'ski de fond',nt4,dt4,'pied'],
+			// 	enonce: ``,
+			// 	question: `Pour quelle discipline, la distance est-elle la plus grande ?`,
+			// 	correction: ``
+			// });
 			pb_3_f.push({// indice 0 le triathlon des neiges
 				prenoms: [prenomM()],
-				// fractions: [nt1,dt1,'VTT',nt2,dt2,'ski de fond',nt3,dt3,'pied'],
-				fractions: [nt1,dt1,'VTT',nt2,dt2,'ski de fond',nt4,dt4,'pied'],
+				//fractions: [nt1,dt1,'VTT',nt2,dt2,'ski de fond',nt3,dt3,'pied'],
+				fractionsSimp: [frac.fraction_simplifiee(nt1,dt1)[0],frac.fraction_simplifiee(nt1,dt1)[1],'VTT',frac.fraction_simplifiee(nt2,dt2)[0],frac.fraction_simplifiee(nt2,dt2)[1],'ski de fond',frac.fraction_simplifiee(nt3,dt3)[0],frac.fraction_simplifiee(nt3,dt3)[1],'pied'],
+				fractionsB: {
+					f1:frac.fraction_simplifiee(nt1,dt1),
+					sport1:'VTT',
+					f2:frac.fraction_simplifiee(nt2,dt2),
+					sport2:'ski de fond',
+					f3:frac.fraction_simplifiee(nt3,dt3),
+					sport3:'pied'},
 				enonce: ``,
 				question: `Pour quelle discipline, la distance est-elle la plus grande ?`,
 				correction: ``
 			});
 			pb_3_f[0].enonce = `Le triathlon des neiges de la vallée des loups comprend trois épreuves qui s'enchaînent : VTT, ski de fonc et course à pied.`;
 			pb_3_f[0].enonce += `<br>${pb_3_f[0].prenoms[0]}, un passionné de cette épreuve, s'entraîne régulièrement sur le même circuit. `;
-			pb_3_f[0].enonce += `<br>À chaque entraînement, il parcourt le circuit de la façon suivante : $\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}$ à ${pb_3_f[0].fractions[2]}, `
-			pb_3_f[0].enonce += `$\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}}$ à ${pb_3_f[0].fractions[5]} et le reste à ${pb_3_f[0].fractions[8]}.`;
+			pb_3_f[0].enonce += `<br>À chaque entraînement, il parcourt le circuit de la façon suivante : $\\dfrac{${pb_3_f[0].fractionsB.f1[0]}}{${pb_3_f[0].fractionsB.f1[1]}}$ à ${pb_3_f[0].fractionsB.sport1}, `
+			pb_3_f[0].enonce += `$\\dfrac{${pb_3_f[0].fractionsB.f2[0]}}{${pb_3_f[0].fractionsB.f2[1]}}$ à ${pb_3_f[0].fractionsB.sport2} et le reste à ${pb_3_f[0].fractionsB.sport3}.`;
 
 			pb_3_f[0].correction = `Il s'agit d'un problème additif. Il va être necessaire de réduire les fractions au même dénominateur pour les additionner, les soustraire ou les comparer.<br>`;
 			pb_3_f[0].correction += `Réduisons les fractions de l'énoncé au même dénominateur :  `;
-			let frac_meme_denom = frac.reduceSameDenominateur(pb_3_f[0].fractions[0],pb_3_f[0].fractions[1],pb_3_f[0].fractions[3],pb_3_f[0].fractions[4],pb_3_f[0].fractions[6],pb_3_f[0].fractions[7]);			
-			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ et `;
-			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$.<br>`;
+			let frac_meme_denom = frac.reduceSameDenominateur(pb_3_f[0].fractionsB.f1[0],pb_3_f[0].fractionsB.f1[1],pb_3_f[0].fractionsB.f2[0],pb_3_f[0].fractionsB.f2[1],pb_3_f[0].fractionsB.f3[0],pb_3_f[0].fractionsB.f3[1]);			
+			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractionsB.f1[0]}}{${pb_3_f[0].fractionsB.f1[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ et `;
+			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractionsB.f2[0]}}{${pb_3_f[0].fractionsB.f2[1]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$.<br>`;
 
 			//pb_3_f[0].correction += `Calculons d'abord la distance à ${pb_3_f[0].fractions[8]} : $1-\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}-\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}} = \\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}}$`
-			pb_3_f[0].correction += `Calculons alors la distance à ${pb_3_f[0].fractions[8]} : `;
-			pb_3_f[0].correction +=` $1-\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}-\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}} = \\dfrac{${frac_meme_denom[1]}}{${frac_meme_denom[1]}}-\\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}-\\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}} = \\dfrac{${frac_meme_denom[1]}-${frac_meme_denom[0]}-${frac_meme_denom[2]}}{${frac_meme_denom[3]}} = \\dfrac{${frac_meme_denom[1]-frac_meme_denom[0]-frac_meme_denom[2]}}{${frac_meme_denom[1]}}= \\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}}$`;
+			pb_3_f[0].correction += `Calculons alors la distance à ${pb_3_f[0].fractionsB.sport3} : `;
+			pb_3_f[0].correction +=` $1-\\dfrac{${pb_3_f[0].fractionsB.f1[0]}}{${pb_3_f[0].fractionsB.f1[1]}}-\\dfrac{${pb_3_f[0].fractionsB.f2[0]}}{${pb_3_f[0].fractionsB.f2[1]}} = \\dfrac{${frac_meme_denom[1]}}{${frac_meme_denom[1]}}-\\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}-\\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}} = \\dfrac{${frac_meme_denom[1]}-${frac_meme_denom[0]}-${frac_meme_denom[2]}}{${frac_meme_denom[3]}} = \\dfrac{${frac_meme_denom[1]-frac_meme_denom[0]-frac_meme_denom[2]}}{${frac_meme_denom[1]}}= \\dfrac{${pb_3_f[0].fractionsB.f3[0]}}{${pb_3_f[0].fractionsB.f3[1]}}$`;
 
-			pb_3_f[0].correction += `<br>${pb_3_f[0].prenoms[0]} fait donc $\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}$ à ${pb_3_f[0].fractions[2]}, `;
-			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}}$ à ${pb_3_f[0].fractions[5]} et `;
-			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}}$ à ${pb_3_f[0].fractions[8]}.`;			
+			pb_3_f[0].correction += `<br>${pb_3_f[0].prenoms[0]} fait donc $\\dfrac{${pb_3_f[0].fractionsB.f1[0]}}{${pb_3_f[0].fractionsB.f1[1]}}$ à ${pb_3_f[0].fractionsB.sport1}, `;
+			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractionsB.f2[0]}}{${pb_3_f[0].fractionsB.f2[1]}}$ à ${pb_3_f[0].fractionsB.sport2} et `;
+			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractionsB.f3[0]}}{${pb_3_f[0].fractionsB.f3[1]}}$ à ${pb_3_f[0].fractionsB.sport3}.`;			
 
 			pb_3_f[0].correction += `<br> Avec les mêmes dénominateurs pour pouvoir comparer, `;
-			pb_3_f[0].correction += `${pb_3_f[0].prenoms[0]} fait donc $\\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ à ${pb_3_f[0].fractions[2]}, `;
-			pb_3_f[0].correction += `$\\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ à ${pb_3_f[0].fractions[5]} et `;
-			pb_3_f[0].correction += `$\\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$ à ${pb_3_f[0].fractions[8]}.`;			
+			pb_3_f[0].correction += `${pb_3_f[0].prenoms[0]} fait donc $\\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ à ${pb_3_f[0].fractionsB.sport1}, `;
+			pb_3_f[0].correction += `$\\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ à ${pb_3_f[0].fractionsB.sport2} et `;
+			pb_3_f[0].correction += `$\\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$ à ${pb_3_f[0].fractionsB.sport3}.`;			
 
 			//pb_3_f[0].correction += `<br>Réduisons ces fractions au même dénominateur :`;
 			//let frac_meme_denom = frac.reduceSameDenominateur(pb_3_f[0].fractions[0],pb_3_f[0].fractions[1],pb_3_f[0].fractions[3],pb_3_f[0].fractions[4],pb_3_f[0].fractions[6],pb_3_f[0].fractions[7]);			
 			//pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ ; `;
 			//pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ et `;
 			//pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$.`;
+
 			let frac_rangees,frac_meme_denom_rangees;
 			if ( (calcul(nt1/dt1)==calcul(nt2/dt2)) && (calcul(nt1/dt1)==calcul(nt3/dt3)) ) {
 				pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`Les trois fractions sont équivalentes, ${pb_3_f[0].prenoms[0]} parcours donc la même distance dans les trois disciplines.`)}`;			
@@ -4488,12 +4505,13 @@ function Problemes_additifs_fractions() {
 				frac_meme_denom_rangees = frac.sortFractions(frac_meme_denom[0],frac_meme_denom[1],frac_meme_denom[2],frac_meme_denom[3],frac_meme_denom[4],frac_meme_denom[5]); 
 				pb_3_f[0].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_meme_denom_rangees[0]}}{${frac_meme_denom_rangees[1]}}$, $\\dfrac{${frac_meme_denom_rangees[2]}}{${frac_meme_denom_rangees[3]}}$, $\\dfrac{${frac_meme_denom_rangees[4]}}{${frac_meme_denom_rangees[5]}}$.`
 	
-				frac_rangees = frac.sortFractions(pb_3_f[0].fractions[0],pb_3_f[0].fractions[1],pb_3_f[0].fractions[3],pb_3_f[0].fractions[4],pb_3_f[0].fractions[6],pb_3_f[0].fractions[7]); 
+				frac_rangees = frac.sortFractions(pb_3_f[0].fractionsB.f1[0],pb_3_f[0].fractionsB.f1[1],pb_3_f[0].fractionsB.f2[0],pb_3_f[0].fractionsB.f2[1],pb_3_f[0].fractionsB.f3[0],pb_3_f[0].fractionsB.f3[1]); 
 				//pb_3_f[0].correction += `<br>Enfin, nous pouvons ranger les fractions initiales dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
 				pb_3_f[0].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
 				//pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[0].fractions[pb_3_f[0].fractions.indexOf(frac_rangees[5])+1]} que ${pb_3_f[0].prenoms[0]} fait la plus grande distance.`)}`;			
+				//pb_3_f[0].correction += `<br>${frac_rangees} --- ${pb_3_f[0].fractionsSimp}`;
 	
-				pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[0].fractions[pb_3_f[0].fractions.indexOf(frac_rangees[4])+2]} que ${pb_3_f[0].prenoms[0]} fait la plus grande distance.`)}`;			
+				pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[0].fractionsSimp[pb_3_f[0].fractionsSimp.indexOf(frac_rangees[4])+2]} que ${pb_3_f[0].prenoms[0]} fait la plus grande distance.`)}`;			
 			}
 			// pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[0].fractions[pb_3_f[0].fractions.indexOf(frac_rangees[4])+2]} que ${pb_3_f[0].prenoms[0]} fait la plus grande distance.`)}`;			
 			// pb_3_f[0].correction += `<br>${JSON.stringify(pb_3_f[0].fractions)}`
@@ -4509,7 +4527,7 @@ function Problemes_additifs_fractions() {
 			pb_3_f.push({// indice 1 Miss Math
 				//prenoms: [prenomF(),prenomF(),prenomF()],
 				//fractions: [nt1,dt1,p1,nt2,dt2,p2,nt3,dt3,p3],
-				fractions: [nt1,dt1,p1,nt2,dt2,p2,nt4,dt4,p3],
+				fractions: [nt1,dt1,p1,nt2,dt2,p2,frac.fraction_simplifiee(nt3,dt3)[0],frac.fraction_simplifiee(nt3,dt3)[1],p3],
 				enonce: ``,
 				question: `Qui a été élue ?`,
 				correction: ``
