@@ -2604,11 +2604,16 @@ function resol_sys_lineaire_3x3(x1,x2,x3,fx1,fx2,fx3,d) {
 	let determinant=matrice.determinant() //(x1**3)*x2*x2*x3+x2*x1*x1*(x3**3)+x1*x3*x3*(x2**3)-x1*x2*x2*(x3**3)-x2*x3*x3*(x1**3)-x3*x1*x1*(x2**3);
 	if (determinant==0) return [[0,0],[0,0],[0,0]];
 	else {
-		let a=((x2*x2*x3-x2*x3*x3)*y1+(x3*x3*x1-x1*x1*x3)*y2+(x1*x1*x2-x2*x2*x1)*y3);
-		let b=(((x3**3)*x2-(x2**3)*x3)*y1+((x1**3)*x3-(x3**3)*x1)*y2+((x2**3)*x1-(x1**3)*x2)*y3);
-		let c=(((x2**3)*x3*x3-x2*x2*(x3**3))*y1+(x1*x1*(x3**3)-(x1**3)*x3*x3)*y2+((x1**3)*x2*x2-(x2**3)*x1*x1)*y3);
-		return [fraction_simplifiee(a,determinant),fraction_simplifiee(b,determinant),fraction_simplifiee(c,determinant)];
-	}s
+		let [a,b,c]=matrice.cofacteurs().transposee().multiplieVecteur([y1,y2,y3])
+//		let a=((x2*x2*x3-x2*x3*x3)*y1+(x3*x3*x1-x1*x1*x3)*y2+(x1*x1*x2-x2*x2*x1)*y3);
+//		let b=(((x3**3)*x2-(x2**3)*x3)*y1+((x1**3)*x3-(x3**3)*x1)*y2+((x2**3)*x1-(x1**3)*x2)*y3);
+//		let c=(((x2**3)*x3*x3-x2*x2*(x3**3))*y1+(x1*x1*(x3**3)-(x1**3)*x3*x3)*y2+((x1**3)*x2*x2-(x2**3)*x1*x1)*y3);
+		if (Number.isInteger(a)&&Number.isInteger(b)&&Number.isInteger(c)&&Number.isInteger(determinant)){ // ici on retourne un tableau de couples [num,den] entiers !
+			let fa=fraction(a,determinant), fb=fraction(b,determinant), fc=fraction(c,determinant)
+			return [[fa.numIrred,fa.denIrred],[fb.numIrred,fb.denIrred],[fb.numIrred,fb.denIrred]];
+		} // pour l'instant on ne manipule que des entiers, mais on peut imaginer que ce ne soit pas le cas... dans ce cas, la forme est numérateur = nombre & dénominateur=1
+		else return [[calcul(a/determinant),1],[calcul(b/determinant),1],[calcul(b/determinant),1]]
+	}
 }
 /**
  * Fonction qui cherche une fonction polynomiale de degré 3 dont les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d
