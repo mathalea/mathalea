@@ -34,23 +34,6 @@ function ObjetMathalea2D() {
 	mesObjets.push(this);
 }
 
-function initialise(){
-	let txt = `
-alert('ok')
-	function ObjetMathalea2D() {
-	this.positionLabel = 'above';
-	this.isVisible = true;
-	this.color = 'black';
-	this.style = '' //stroke-dasharray="4 3" pour des hachures //stroke-width="2" pour un trait plus épais
-	this.styleTikz = '';
-	coeff = 40; // 1 cm est représenté par 20 pixels
-	this.epaisseur = 1;
-	this.opacite = 1;
-	this.pointilles = false;
-	mesObjets.push(this);
-}`
-	return Function(txt)();
-}
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -652,20 +635,7 @@ function ConstructionBissectrice(A,O,B,detail = false, color='blue', mark='×',t
  		let codes = codeSegments(mark,color,O,M, M,P, O,N, N,P)
  		objets.push(sMP,sNP,codes)
 	}
-	this.svg = function(coeff){
-		code = ''
-		for (objet of objets){
-			code += '\n\t' + objet.svg(coeff)
-		}
-		return code
-	}
-	this.tikz = function(){
-		code = ''
-		for (objet of objets){
-			code += '\n\t' + objet.tikz()
-		}
-		return code
-	}
+	objetsToSvgEtTikz(objets)
 }
 
 function constructionBissectrice(...args){
@@ -1098,12 +1068,8 @@ function CodageCarre(c,color = 'black',mark='×'){
 	objets.push(codageAngleDroit(c.listePoints[1],c.listePoints[2],c.listePoints[3],color))
 	objets.push(codageAngleDroit(c.listePoints[2],c.listePoints[3],c.listePoints[0],color))
 	objets.push(codageAngleDroit(c.listePoints[3],c.listePoints[0],c.listePoints[1],color))
-	this.svg = function(coeff){
-		return objets[0].svg(coeff)+objets[1].svg(coeff)+objets[2].svg(coeff)+objets[3].svg(coeff)+objets[4].svg(coeff)
-	}
-	this.tikz = function(){
-		return objets[0].tikz()+objets[1].tikz()+objets[2].tikz()+objets[3].tikz()+objets[4].tikz()
-	}
+	
+	objetsToSvgEtTikz(objets)
 }
 
 function codageCarre(...args){
@@ -2522,20 +2488,7 @@ function Axes(xmin=-30,ymin=-30,xmax=30,ymax=30,thick=0.2,xstep=1,ystep=1,epaiss
 		s.color = color
 		objets.push(s)
 	}
-	this.svg = function(coeff){
-		let code = ''
-		for (s of objets){
-			code += '\n\t' + s.svg(coeff)
-		}
-		return code
-	}
-	this.tikz = function(){
-		let code = ''
-		for (s of objets){
-			code += '\n\t' + s.tikz()
-		}
-		return code
-	}
+	objetsToSvgEtTikz(objets)
 	this.commentaire = `Axes(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, thick = ${thick})`
 
 }
@@ -2554,20 +2507,7 @@ function LabelX(xmin=1,xmax=20,step=1,color='black',pos=-.6,coeff=1){
 	for (x=Math.ceil(xmin/coeff) ; calcul(x*coeff)<=xmax ; x = calcul(x+step)){
 		objets.push(texteParPoint(Intl.NumberFormat("fr-FR",{maximumFractionDigits:20}).format(calcul(x*coeff)).toString(),point(x,pos),'milieu',color))
 	}
-	this.svg = function(coeff){
-		code = ''
-		for (objet of objets){
-			code += '\n\t' + objet.svg(coeff)
-		}
-		return code
-	}
-	this.tikz = function(){
-		code = ''
-		for (objet of objets){
-			code += '\n\t' + objet.tikz()
-		}
-		return code
-	}
+	objetsToSvgEtTikz(objets)
 	this.commentaire = `labelX(xmin=${xmin},xmax=${xmax},step=${step},color=${color},pos=${pos},coeff=${coeff})`
 
 }
@@ -2586,20 +2526,7 @@ function LabelY(ymin=1,ymax=20,step=1,color='black',pos=-.6,coeff=1){
 	for (y=Math.ceil(ymin/coeff) ; calcul(y*coeff)<=ymax ; y = calcul(y+step)){
 		objets.push(texteParPoint(Intl.NumberFormat("fr-FR",{maximumFractionDigits:20}).format(calcul(y*coeff)).toString(),point(pos,y),'milieu',color))
 	}
-	this.svg = function(coeff){
-		code = ''
-		for (objet of objets){
-			code += '\n\t' + objet.svg(coeff)
-		}
-		return code
-	}
-	this.tikz = function(){
-		code = ''
-		for (objet of objets){
-			code += '\n\t' + objet.tikz()
-		}
-		return code
-	}
+	objetsToSvgEtTikz(objets)
 	this.commentaire = `labelX(ymin=${ymin},ymax=${ymax},step=${step},color=${color},pos=${pos})`
 
 }
@@ -2643,20 +2570,7 @@ function Grille(xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', op
 		objets.push(s)
 	}
 	this.commentaire = `Grille(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, color = ${color}, opacite = ${opacite}, pas = ${step})`
-	this.svg = function(coeff){
-		let code = ''
-		for (s of objets){
-			code += '\n\t' + s.svg(coeff)
-		}
-		return code
-	}
-	this.tikz = function(){
-		let code = ''
-		for (s of objets){
-			code += '\n\t' + s.tikz()
-		}
-		return code
-	}
+	objetsToSvgEtTikz(objets)
 }
 
 function grille(...args){
