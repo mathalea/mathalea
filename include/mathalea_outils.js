@@ -3735,6 +3735,20 @@ function detect_safari_chrome_browser(){
 
 /**
 * Retourne la liste des nombres premiers inférieurs à N N<300 N exclu
+* @param {integer} k On cherchera un multiple de k
+* @param {integer} n Ce multiple sera supérieur ou égal à n
+* @author Rémi Angot
+*/
+function premierMultipleSuperieur(k,n){
+	let result = n
+	while (result%k!=0){
+		result+=1
+	}
+	return result
+}
+
+/**
+* Retourne la liste des nombres premiers inférieurs à N N<300 N exclu
 * @param {number} borneSup
 * @author Sébastien Lozano
 */
