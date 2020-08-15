@@ -1039,25 +1039,31 @@ function trie_positifs_negatifs(liste){
 function creerNomDePolygone(nbsommets,liste_a_eviter=[]){ 
 	let premiersommet = randint(65,90-nbsommets);
 	let polygone="";
-	while(est_deja_donne(String.fromCharCode(premiersommet),liste_a_eviter)){
-		premiersommet = randint(65,90-nbsommets);
-	}
-
 	for (let i=0;i<nbsommets;i++){
 		polygone += String.fromCharCode(premiersommet+i)
+	}
+
+	while(possedeUnCaractereInterdit(polygone,liste_a_eviter)){
+		polygone="";
+		premiersommet = randint(65,90-nbsommets);
+		for (let i=0;i<nbsommets;i++){
+			polygone += String.fromCharCode(premiersommet+i)
+		}
 	}
 	return polygone
 }
 
 /**
-* Vérifie dans une liste si un élément commence par premiersommet et renvoit true si c'est le cas
+* Vérifie dans un texte si un de ses caractères appartient à une liste à éviter
 * @Auteur Rémi Angot
 */
-function est_deja_donne(premiersommet,liste_a_eviter) {
+function possedeUnCaractereInterdit(texte,liste_a_eviter) {
 	let result = false
-	for (let i = 0; i < liste_a_eviter.length; i++) {
-		if (premiersommet==liste_a_eviter[i][0]) {
-			result = true;
+	for (mot_a_eviter of liste_a_eviter) {
+		for (let i = 0 ; i < mot_a_eviter.length; i++) {
+			if (texte.indexOf(mot_a_eviter[i])>-1) {
+				result = true
+			}
 		}
 	}
 	return result;
@@ -4518,9 +4524,9 @@ function Relatif(...relatifs) {
 			};
 			if (n.length == 2) {
 				if ( getCardNegatifs(n)%2 == 0 ) {
-					return `Les deux facteurs sont de même signe donc le produit est positif.`;
+					return `Les deux facteurs ont le même signe donc le produit est positif.`;
 				} else {
-					return `Les deux facteurs sont de signe différent donc le produit est négatif.`;
+					return `Les deux facteurs ont un signe différent donc le produit est négatif.`;
 				};
 			} else if (n.length > 2 ) {
 				if ( getCardNegatifs(n)%2 == 0 ) {
@@ -4561,19 +4567,21 @@ function Relatif(...relatifs) {
 			};
 			if (n.length == 2)  {
 				if ( getCardNegatifs(n)%2 == 0 ) {
-					return `Le numératueur et le dénominateur sont de même signe donc le quotient est positif.`;
+					return `Le numérateur et le dénominateur ont le même signe donc le quotient est positif.`;
 				} else {
-					return `Les numérateur et le dénominateur sont de signe différent donc le quotient est négatif.`;
+					return `Les numérateur et le dénominateur ont un signe différent donc le quotient est négatif.`;
 				};
 			} else if (n.length > 2) {
 				if ( getCardNegatifs(n)%2 == 0 ) {
 					if ( getCardNegatifs(n) == 0 ) {
 						return `Tous les facteurs du numérateur et tous les facteurs du dénominateur sont positifs donc le quotient est positif.`;
 					} else {						
-						return `La somme des facteurs négatifs du numérateur et des facteurs négatifs du dénominateur vaut ${getCardNegatifs(n)}, ce nombre est pair donc le quotient est positif.`;
+						//return `La somme du nombre de facteurs négatifs du numérateur et du nombre de facteurs négatifs du dénominateur vaut ${getCardNegatifs(n)}, ce nombre est pair donc le quotient est positif.`;
+						return `Quand on compte les facteurs négatifs du numérateur et du dénominateur, on trouve ${getCardNegatifs(n)}, ce nombre est pair donc le quotient est positif.`;
 					};						
 				} else {
-					return `La somme des facteurs négatifs du numérateur et des facteurs négatifs du dénominateur vaut ${getCardNegatifs(n)}, ce nombre est impair donc le quotient est négatif.`;
+					//return `La somme du nombre de facteurs négatifs du numérateur et du nombre de facteurs négatifs du dénominateur vaut ${getCardNegatifs(n)}, ce nombre est impair donc le quotient est négatif.`;
+					return `Quand on compte les facteurs négatifs du numérateur et du dénominateur, on trouve ${getCardNegatifs(n)}, ce nombre est impair donc le quotient est négatif.`;
 				};
 			};
 		}

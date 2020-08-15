@@ -4382,11 +4382,12 @@ function Puissances_encadrement() {
  * @author Sébastien Lozano
  */
 function Problemes_additifs_fractions() {
-	//A la fin ne laisser que 2 questions avec un [choice(1,2),choice(3,4,5)]
+	//A la fin ne laisser que 2 questions avec un [choice([1,2]),choice([3,4,5])]
 	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()	
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.beta = true;	
 	this.sup=1;
-	this.nb_questions = 5;
+	// this.nb_questions = 5;
 	this.titre = `Problèmes additifs et de comparaison sur les rationnels`;	
 
 	this.consigne = `Justifier vos réponses aux problèmes suivants.`;
@@ -4400,10 +4401,18 @@ function Problemes_additifs_fractions() {
 	let type_de_questions_disponibles;
 	
 	this.nouvelle_version = function(numero_de_l_exercice){
-		type_de_questions_disponibles = [1,2,3,4,5];
+		if (this.beta) {
+			this.nb_questions = 5;
+			type_de_questions_disponibles = [1,2,3,4,5];			
+		} else {
+			this.nb_questions = 2;
+			type_de_questions_disponibles = [choice([1,2]),choice([3,4,5])];			
+
+		};	
+		//let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"	
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
-		//let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
+		
 
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
@@ -4422,11 +4431,11 @@ function Problemes_additifs_fractions() {
 			let denoms_amis = frac.denominateurs_amis;
 			// on choisit un tableau dedans
 			let denoms_cool_3 = denoms_amis[randint(0,denoms_amis.length-1)];
-			while ( (nt1==nt2 && dt1==dt2) || (nt1==nt3 && dt1==dt3) || (nt3==nt2 && dt3==dt2) || (nt1==nt4 && dt1==dt4) || (nt4==nt2 && dt4==dt2) || (nt1/dt1 >= 1/2) || (nt2/dt2 >= 1/2)) {
+			while ( (nt1==nt2 && dt1==dt2) || (nt1==nt3 && dt1==dt3) || (nt3==nt2 && dt3==dt2) || (nt1==nt4 && dt1==dt4) || (nt4==nt2 && dt4==dt2) || (nt1/dt1 >= 1/2) || (nt2/dt2 >= 1/2) || (nt4==nt1) || (nt4==nt2)) {
 				nt1 = randint(1,6);
 				//dt1 = 2*nt1 + randint(1,3);
 				dt1 = choice(denoms_cool_3);
-				nt2 = randint(2,10);
+				nt2 = randint(2,10,[nt1]);//on évite nt1 pour pouvoir retrouver le texte de la plus grande fraction
 				//dt2 = 2*nt2 + randint(1,3);
 				dt2 = choice(denoms_cool_3,[dt1]);
 				nt3 = dt1*dt2-nt1*dt2-nt2*dt1;//la somme des trois vaut 1 !
@@ -4448,22 +4457,47 @@ function Problemes_additifs_fractions() {
 			pb_3_f[0].enonce += `<br>À chaque entraînement, il parcourt le circuit de la façon suivante : $\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}$ à ${pb_3_f[0].fractions[2]}, `
 			pb_3_f[0].enonce += `$\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}}$ à ${pb_3_f[0].fractions[5]} et le reste à ${pb_3_f[0].fractions[8]}.`;
 
-			pb_3_f[0].correction = `Calculons d'abord la distance à ${pb_3_f[0].fractions[8]} : $1-\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}-\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}} = \\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}}$`
+			pb_3_f[0].correction = `Il s'agit d'un problème additif. Il va être necessaire de réduire les fractions au même dénominateur pour les additionner, les soustraire ou les comparer.<br>`;
+			pb_3_f[0].correction += `Réduisons les fractions de l'énoncé au même dénominateur :  `;
+			let frac_meme_denom = frac.reduceSameDenominateur(pb_3_f[0].fractions[0],pb_3_f[0].fractions[1],pb_3_f[0].fractions[3],pb_3_f[0].fractions[4],pb_3_f[0].fractions[6],pb_3_f[0].fractions[7]);			
+			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ et `;
+			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$.<br>`;
+
+			//pb_3_f[0].correction += `Calculons d'abord la distance à ${pb_3_f[0].fractions[8]} : $1-\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}-\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}} = \\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}}$`
+			pb_3_f[0].correction += `Calculons alors la distance à ${pb_3_f[0].fractions[8]} : `;
+			pb_3_f[0].correction +=` $1-\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}-\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}} = \\dfrac{${frac_meme_denom[1]}}{${frac_meme_denom[1]}}-\\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}-\\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}} = \\dfrac{${frac_meme_denom[1]}-${frac_meme_denom[0]}-${frac_meme_denom[2]}}{${frac_meme_denom[3]}} = \\dfrac{${frac_meme_denom[1]-frac_meme_denom[0]-frac_meme_denom[2]}}{${frac_meme_denom[1]}}= \\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}}$`;
+
 			pb_3_f[0].correction += `<br>${pb_3_f[0].prenoms[0]} fait donc $\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}$ à ${pb_3_f[0].fractions[2]}, `;
 			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}}$ à ${pb_3_f[0].fractions[5]} et `;
 			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}}$ à ${pb_3_f[0].fractions[8]}.`;			
-			pb_3_f[0].correction += `<br>Réduisons ces fractions au même dénominateur :`;
-			let frac_meme_denom = frac.reduceSameDenominateur(pb_3_f[0].fractions[0],pb_3_f[0].fractions[1],pb_3_f[0].fractions[3],pb_3_f[0].fractions[4],pb_3_f[0].fractions[6],pb_3_f[0].fractions[7]);			
-			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ ; `;
-			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ et `;
-			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$.`;
 
-			let frac_meme_denom_rangees = frac.sortFractions(frac_meme_denom[0],frac_meme_denom[1],frac_meme_denom[2],frac_meme_denom[3],frac_meme_denom[4],frac_meme_denom[5]); 
-			pb_3_f[0].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_meme_denom_rangees[0]}}{${frac_meme_denom_rangees[1]}}$, $\\dfrac{${frac_meme_denom_rangees[2]}}{${frac_meme_denom_rangees[3]}}$, $\\dfrac{${frac_meme_denom_rangees[4]}}{${frac_meme_denom_rangees[5]}}$.`
+			pb_3_f[0].correction += `<br> Avec les mêmes dénominateurs pour pouvoir comparer, `;
+			pb_3_f[0].correction += `${pb_3_f[0].prenoms[0]} fait donc $\\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ à ${pb_3_f[0].fractions[2]}, `;
+			pb_3_f[0].correction += `$\\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ à ${pb_3_f[0].fractions[5]} et `;
+			pb_3_f[0].correction += `$\\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$ à ${pb_3_f[0].fractions[8]}.`;			
 
-			let frac_rangees = frac.sortFractions(pb_3_f[0].fractions[0],pb_3_f[0].fractions[1],pb_3_f[0].fractions[3],pb_3_f[0].fractions[4],pb_3_f[0].fractions[6],pb_3_f[0].fractions[7]); 
-			pb_3_f[0].correction += `<br>Enfin, nous pouvons ranger les fractions initiales dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
-			pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[0].fractions[pb_3_f[0].fractions.indexOf(frac_rangees[5])+1]} que ${pb_3_f[0].prenoms[0]} fait la plus grande distance.`)}`;			
+			//pb_3_f[0].correction += `<br>Réduisons ces fractions au même dénominateur :`;
+			//let frac_meme_denom = frac.reduceSameDenominateur(pb_3_f[0].fractions[0],pb_3_f[0].fractions[1],pb_3_f[0].fractions[3],pb_3_f[0].fractions[4],pb_3_f[0].fractions[6],pb_3_f[0].fractions[7]);			
+			//pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ ; `;
+			//pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ et `;
+			//pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$.`;
+			let frac_rangees,frac_meme_denom_rangees;
+			if ( (calcul(nt1/dt1)==calcul(nt2/dt2)) && (calcul(nt1/dt1)==calcul(nt3/dt3)) ) {
+				pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`Les trois fractions sont équivalentes, ${pb_3_f[0].prenoms[0]} parcours donc la même distance dans les trois disciplines.`)}`;			
+			} else {
+				frac_meme_denom_rangees = frac.sortFractions(frac_meme_denom[0],frac_meme_denom[1],frac_meme_denom[2],frac_meme_denom[3],frac_meme_denom[4],frac_meme_denom[5]); 
+				pb_3_f[0].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_meme_denom_rangees[0]}}{${frac_meme_denom_rangees[1]}}$, $\\dfrac{${frac_meme_denom_rangees[2]}}{${frac_meme_denom_rangees[3]}}$, $\\dfrac{${frac_meme_denom_rangees[4]}}{${frac_meme_denom_rangees[5]}}$.`
+	
+				frac_rangees = frac.sortFractions(pb_3_f[0].fractions[0],pb_3_f[0].fractions[1],pb_3_f[0].fractions[3],pb_3_f[0].fractions[4],pb_3_f[0].fractions[6],pb_3_f[0].fractions[7]); 
+				//pb_3_f[0].correction += `<br>Enfin, nous pouvons ranger les fractions initiales dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
+				pb_3_f[0].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
+				//pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[0].fractions[pb_3_f[0].fractions.indexOf(frac_rangees[5])+1]} que ${pb_3_f[0].prenoms[0]} fait la plus grande distance.`)}`;			
+	
+				pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[0].fractions[pb_3_f[0].fractions.indexOf(frac_rangees[4])+2]} que ${pb_3_f[0].prenoms[0]} fait la plus grande distance.`)}`;			
+			}
+			// pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[0].fractions[pb_3_f[0].fractions.indexOf(frac_rangees[4])+2]} que ${pb_3_f[0].prenoms[0]} fait la plus grande distance.`)}`;			
+			// pb_3_f[0].correction += `<br>${JSON.stringify(pb_3_f[0].fractions)}`
+			// pb_3_f[0].correction += `<br>${JSON.stringify(frac_rangees)}`
 
 			// les 3 prénomns doivent être distincts
 			let p1,p2,p3; // les 3 prénoms
@@ -4631,31 +4665,31 @@ function Problemes_additifs_fractions() {
 					texte = `${pb_3_f[0].enonce} <br> ${pb_3_f[0].question}`;
 					texte += `<br>`;
 					texte += `<br> ${pb_3_f[0].correction}`;
-					texte_corr = `1`;
+					texte_corr = `${pb_3_f[0].correction}`;
 					break;
 				case 2 : //Miss Math --> Noémie, Samia, Alexia
 					texte = `${pb_3_f[1].enonce} <br> ${pb_3_f[1].question}`;
 					texte += `<br>`;
 					texte += `<br> ${pb_3_f[1].correction}`;
-					texte_corr = `2`;
+					texte_corr = `${pb_3_f[1].correction}`;
 					break;
 				case 3 : // Mandala --> carmin, ocre jaune, turquoise, pourpre
 					texte = `${pb_4_f[0].enonce} <br> ${pb_4_f[0].question}`;
 					texte += `<br>`;
 					texte += `<br> ${pb_4_f[0].correction}`;
-					texte_corr = `3`;
+					texte_corr = `${pb_4_f[0].correction}`;
 					break;
 				case 4 : // Jardin --> légumes, plantes aromatiques, semis, fraisiers
 					texte = `${pb_4_f[1].enonce} <br> ${pb_4_f[1].question}`;
 					texte += `<br>`;
 					texte += `<br> ${pb_4_f[1].correction}`;
-					texte_corr = `4`;
+					texte_corr = `${pb_4_f[1].correction}`;
 					break;
 				case 5 : // Stade --> pays organisatuers, supporters, sponsors, vente libre
 					texte = `${pb_4_f[2].enonce} <br> ${pb_4_f[2].question}`;
 					texte += `<br>`;
 					texte += `<br> ${pb_4_f[2].correction}`;
-					texte_corr = `5`;
+					texte_corr = `${pb_4_f[2].correction}`;
 					break;	
 			};
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
@@ -4851,35 +4885,20 @@ function Exploiter_representation_graphique(){
 /**
  * Tester si un nombre est solution d'une équation
  * * 4L14-0
- * * adaptation de l'exo 5L14 de Rémi
- * @author Sébastien Lozano
- */
-function Tester_si_un_nombre_est_solution_d_une_equation_temp() {
-	Tester_une_egalite.call(this);
-	this.titre = 'Tester si un nombre est solution d\'une équation';
-	this.consigne = `Adapter l'énoncé 5L14 actuel de Rémi afin de tester si 'un nombre est ou non solution d'une équation.`;
-	this.consigne += `<br>LA seule chose à faire c'est d'ajouter un cas pour le second degré de type expression = 0`;
-	this.consigne += `<br> -->puis décliner pour avoir une version sur le second degré`;
-	this.consigne += `<br> -->puis décliner pour avoir une version sur le premier degré`;
-	this.consigne += `<br> Dans l'exercice d'origine, on propose chaque fois une vlaeur qui convient et une qui ne convient pas donc c'est top !`;
-};
-
-/**
- * Tester si un nombre est solution d'une équation
- * * 4L14-0
  * * adaptation de l'exo 5L14 de Rémi Angot
  * @author Sébastien Lozano
  */
 function Tester_si_un_nombre_est_solution_d_une_equation(){
+	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Tester si un nombre est solution d'une équation";
 	this.consigne = "";
 	//this.nb_questions = 3;
-	this.nb_questions = 6;
+	//this.nb_questions = 9;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup=1;
-	this.sup2=false;
+	//this.sup2=false;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
@@ -4887,14 +4906,24 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 
 		let type_de_questions_disponibles; // = range1(5)
 	//	let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		if (this.sup2==false) type_de_questions_disponibles=[1,2,3,4,5,8]
-		else type_de_questions_disponibles=[6,7,3]
+		// if (this.sup2==false) type_de_questions_disponibles=[1,2,3,4,5,8]
+		if (this.exo=='4L14-1') {
+			this.nb_questions = 6;
+			type_de_questions_disponibles=[1,2,3,4,5,8];
+			
+		} else if (this.exo=='4L14-2') {
+			type_de_questions_disponibles=[9,6,7];
+			this.nb_questions = 3;
+		} else {
+			type_de_questions_disponibles=[1,2,3,4,5,8,6,7,9];
+			this.nb_questions = 9;
+		}
 		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
 		this.consigne = `Justifier si les nombres proposés sont des solutions de l'équation donnée ou non.`;
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
-			let a, b, x1, x2
+			let a, b, c, d, x1, x2, x3
 			switch (liste_type_de_questions[i]){
 				case 1 : // 3x-a=2x+b   x=a+b  
 					if (this.sup==1) {
@@ -4939,17 +4968,19 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 					texte = `$3x+${ecriture_parenthese_si_negatif(a)}=5x-${ecriture_parenthese_si_negatif(b)}~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
 					texte_corr += `$3x+${ecriture_parenthese_si_negatif(a)}=3\\times ${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(a)}=${3*x1+a}$ <br> $5x-${ecriture_parenthese_si_negatif(b)}=5\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(b)}=${5*x1-b}$<br>`
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
+					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`;
+					texte_corr += `${texte_en_couleur(`$x=${x1}$ est donc solution de l'équation $3x+${ecriture_parenthese_si_negatif(a)}=5x-${ecriture_parenthese_si_negatif(b)}~$`)}<br><br>`
 					texte_corr += `Pour $x=${x2}$ : <br>`
 					texte_corr += `$3x+${ecriture_parenthese_si_negatif(a)}=3\\times ${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(a)}=${3*x2+a}$ <br> $5x-${ecriture_parenthese_si_negatif(b)}=5\\times ${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(b)}=${5*x2-b}$<br>`
-					texte_corr += `$${3*x2+a}\\not=${5*x2-b}$ donc l'égalité n'est pas vraie.`
+					texte_corr += `$${3*x2+a}\\not=${5*x2-b}$ donc l'égalité n'est pas vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x2}$ n'est donc pas solution de l'équation $3x+${ecriture_parenthese_si_negatif(a)}=5x-${ecriture_parenthese_si_negatif(b)}~$`)}`;
 					break ;
 				case 3 : // 10(x-a)=4(2x+b) x=(10a+4b)/2
 					if (this.sup==1) {
 					a = randint(1,3)
 					b = randint(1,3)
 					x2 = parseInt(Algebrite.eval((10*a+4*b)/2))
-					x1 = randint(9,x2)
+					x1 = randint(1,9,x2)
 					}
 					else {
 						a = randint(-3,3,[0])
@@ -4961,10 +4992,12 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 					texte = `$10(x-${ecriture_parenthese_si_negatif(a)})=4(2x+${ecriture_parenthese_si_negatif(b)})~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
 					texte_corr += `$10(x-${ecriture_parenthese_si_negatif(a)})=10\\times (${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(a)})=10\\times ${x1-a}=${10*(x1-a)}$ <br> $4(2x+${ecriture_parenthese_si_negatif(b)})=4\\times (2\\times ${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(b)})=4\\times ${2*x1+b}=${4*(2*x1+b)}$<br>`
-					texte_corr += `$${10*(x1-a)}\\not=${4*(2*x1+b)}$ donc l'égalité n'est pas vraie.<br><br>`
+					texte_corr += `$${10*(x1-a)}\\not=${4*(2*x1+b)}$ donc l'égalité n'est pas vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x1}$ n'est donc pas solution de l'équation $10(x-${ecriture_parenthese_si_negatif(a)})=4(2x+${ecriture_parenthese_si_negatif(b)})~$`)}<br><br>`;
 					texte_corr += `Pour $x=${x2}$ : <br>`
 					texte_corr += `$10(x-${ecriture_parenthese_si_negatif(a)})=10\\times (${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(a)})=10\\times ${x2-a}=${10*(x2-a)}$ <br> $4(2x+${ecriture_parenthese_si_negatif(b)})=4\\times (2\\times ${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(b)})=4\\times ${2*x2+b}=${4*(2*x2+b)}$<br>`
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.`
+					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x2}$ est donc solution de l'équation $10(x-${ecriture_parenthese_si_negatif(a)})=4(2x+${ecriture_parenthese_si_negatif(b)})~$`)}`
 					break ;
 				case 4 : // ax+b=(a+1)x-c x=b+c
 					if (this.sup==1) {
@@ -4985,10 +5018,12 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 					texte = `$${ecriture_parenthese_si_negatif(a)}x+${ecriture_parenthese_si_negatif(b)}=${a+1}x-${ecriture_parenthese_si_negatif(c)}~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
 					texte_corr += `$${a}x+${ecriture_parenthese_si_negatif(b)}=${ecriture_parenthese_si_negatif(a)}\\times ${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(b)}=${a*x1+b}$ <br> $${a+1}x-${ecriture_parenthese_si_negatif(c)}=${a+1}\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(c)}=${(a+1)*x1-c}$<br>`
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
+					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x1}$ est donc solution de l'équation $${ecriture_parenthese_si_negatif(a)}x+${ecriture_parenthese_si_negatif(b)}=${a+1}x-${ecriture_parenthese_si_negatif(c)}~$`)}<br><br>`
 					texte_corr += `Pour $x=${x2}$ : <br>`
 					texte_corr += `$${a}x+${ecriture_parenthese_si_negatif(b)}=${ecriture_parenthese_si_negatif(a)}\\times ${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(b)}=${a*x2+b}$ <br> $${a+1}x-${ecriture_parenthese_si_negatif(c)}=${a+1}\\times ${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(c)}=${(a+1)*x2-c}$<br>`
-					texte_corr += `$${a*x2+b}\\not=${(a+1)*x2-c}$ donc l'égalité n'est pas vraie.`
+					texte_corr += `$${a*x2+b}\\not=${(a+1)*x2-c}$ donc l'égalité n'est pas vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x1}$ n'est donc pas solution de l'équation $${ecriture_parenthese_si_negatif(a)}x+${ecriture_parenthese_si_negatif(b)}=${a+1}x-${ecriture_parenthese_si_negatif(c)}~$`)}<br><br>`
 					break ;
 				case 5 : // a-2x=b+2x x=(a-b)/4
 					if (this.sup==1) {
@@ -5007,10 +5042,12 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 					texte = `$${a}-2x=${b}+2x~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
 					texte_corr += `$${a}-2x=${a}-2\\times ${ecriture_parenthese_si_negatif(x1)}=${a-2*x1}$ <br> $${b}+2x=${b}+2\\times ${ecriture_parenthese_si_negatif(x1)}=${b+2*x1}$<br>`
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
+					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x1}$ est donc solution de l'équation $${a}-2x=${b}+2x~$`)}<br><br>`
 					texte_corr += `Pour $x=${x2}$ : <br>`
 					texte_corr += `$${a}-2x=${a}-2\\times ${ecriture_parenthese_si_negatif(x2)}=${a-2*x2}$ <br> $${b}+2x=${b}+2\\times ${ecriture_parenthese_si_negatif(x2)}=${b+2*x2}$<br>`
-					texte_corr += `$${a-2*x2}\\not=${b+2*x2}$ donc l'égalité n'est pas vraie.`
+					texte_corr += `$${a-2*x2}\\not=${b+2*x2}$ donc l'égalité n'est pas vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x1}$ n'est donc pas solution de l'équation $${a}-2x=${b}+2x~$`)}<br><br>`
 					break ;
 				case 6 : // ax-ab=x²-bx (a-x)(x-b)=0 solutions a et b.
 					if (this.sup==1) {
@@ -5029,14 +5066,17 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 					}
 					texte = `$${a}x-${ecriture_parenthese_si_negatif(a*b)}=x^2-${ecriture_parenthese_si_negatif(b)}x~$ pour $~x=${x1}~$ , pour $~x=${x2}~$ puis pour $~x=${x3}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
-					texte_corr += `$${a}x-${ecriture_parenthese_si_negatif(a*b)}=${a}\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(a*b)}=${a*x1-a*b}$ <br> $x^2-${b}\\times  x=${ecriture_parenthese_si_negatif(x1)}^2-${ecriture_parenthese_si_negatif(b)}\\times ${ecriture_parenthese_si_negatif(x1)}=${x1*x1}-${ecriture_parenthese_si_negatif(b*x1)}=${x1*x1-b*x1}$<br>`
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
+					texte_corr += `$${a}x-${ecriture_parenthese_si_negatif(a*b)}=${a}\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(a*b)}=${a*x1-a*b}$ <br> $x^2-${ecriture_parenthese_si_negatif(b)}\\times  x=${ecriture_parenthese_si_negatif(x1)}^2-${ecriture_parenthese_si_negatif(b)}\\times ${ecriture_parenthese_si_negatif(x1)}=${x1*x1}-${ecriture_parenthese_si_negatif(b*x1)}=${x1*x1-b*x1}$<br>`
+					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x1}$ est donc solution de l'équation $${a}x-${ecriture_parenthese_si_negatif(a*b)}=x^2-${ecriture_parenthese_si_negatif(b)}x~$`)}<br><br>`
 					texte_corr += `Pour $x=${x2}$ : <br>`
 					texte_corr += `$${a}x-${ecriture_parenthese_si_negatif(a*b)}=${a}\\times ${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(a*b)}=${a*x2-a*b}$ <br> $x^2-${b}\\times  x=${ecriture_parenthese_si_negatif(x2)}^2-${ecriture_parenthese_si_negatif(b)}\\times ${ecriture_parenthese_si_negatif(x2)}=${x2*x2}-${ecriture_parenthese_si_negatif(b*x2)}=${x2*x2-b*x2}$<br>`
-					texte_corr += `$${a*x2-a*b}\\not=${x2*x2-b*x2}$ donc l'égalité n'est pas vraie.<br><br>`
+					texte_corr += `$${a*x2-a*b}\\not=${x2*x2-b*x2}$ donc l'égalité n'est pas vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x2}$ n'est donc pas solution de l'équation $${a}x-${ecriture_parenthese_si_negatif(a*b)}=x^2-${ecriture_parenthese_si_negatif(b)}x~$`)}<br><br>`
 					texte_corr += `Pour $x=${x3}$ : <br>`
 					texte_corr += `$${a}x-${ecriture_parenthese_si_negatif(a*b)}=${a}\\times ${ecriture_parenthese_si_negatif(x3)}-${ecriture_parenthese_si_negatif(a*b)}=${a*x3-a*b}$ <br> $x^2-${b}\\times  x=${ecriture_parenthese_si_negatif(x3)}^2-${ecriture_parenthese_si_negatif(b)}\\times ${ecriture_parenthese_si_negatif(x3)}=${x3*x3}-${ecriture_parenthese_si_negatif(b*x3)}=${x3*x3-b*x3}$<br>`
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
+					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x3}$ est donc solution de l'équation $${a}x-${ecriture_parenthese_si_negatif(a*b)}=x^2-${ecriture_parenthese_si_negatif(b)}x~$`)}`
 					break ;
 				case 7 : // adx-bd=acx²-bcx  --- (ax-b)(d-cx)=0 solutions b/a et d/c.
 					if (this.sup==1) {
@@ -5060,13 +5100,16 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 					texte = `$${a*d}x-${ecriture_parenthese_si_negatif(b*d)}=${a*c}x^2-${ecriture_parenthese_si_negatif(b*c)}x~$ pour $~x=${x1}~$, pour $~x=${x2}~$ puis pour $~x=${x3}$`
 					texte_corr = `Pour $x=${x1}$ : <br>`
 					texte_corr += `$${a*d}x-${ecriture_parenthese_si_negatif(b*d)}=${a*d}\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(b*d)}=${a*d*x1-d*b}$ <br> $${a*c}x^2-${ecriture_parenthese_si_negatif(b*c)}x=${a*c}\\times ${ecriture_parenthese_si_negatif(x1)}^2-${ecriture_parenthese_si_negatif(b*c)}\\times ${ecriture_parenthese_si_negatif(x1)}=${a*c*x1*x1}-${ecriture_parenthese_si_negatif(b*c*x1)}=${a*c*x1*x1-b*c*x1}$<br>`
-					texte_corr += `$${a*d*x1-d*b}\\not=${a*c*x1*x1-b*c*x1}$ donc l'égalité n'est pas vraie.<br><br>`
+					texte_corr += `$${a*d*x1-d*b}\\not=${a*c*x1*x1-b*c*x1}$ donc l'égalité n'est pas vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x1}$ n'est donc pas solution de l'équation $${a*d}x-${ecriture_parenthese_si_negatif(b*d)}=${a*c}x^2-${ecriture_parenthese_si_negatif(b*c)}x~$`)}<br><br>`
 					texte_corr += `Pour $x=${x2}$ : <br>`
 					texte_corr += `$${a*d}x-${ecriture_parenthese_si_negatif(b*d)}=${a*d}\\times ${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(b*d)}=${a*d*x2-d*b}$ <br> $${a*c}x^2-${ecriture_parenthese_si_negatif(b*c)}x=${a*c}\\times ${ecriture_parenthese_si_negatif(x2)}^2-${ecriture_parenthese_si_negatif(b*c)}\\times ${ecriture_parenthese_si_negatif(x2)}=${a*c*x2*x2}-${ecriture_parenthese_si_negatif(b*c*x2)}=${a*c*x2*x2-b*c*x2}$<br>`
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
+					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x2}$ est donc solution de l'équation $${a*d}x-${ecriture_parenthese_si_negatif(b*d)}=${a*c}x^2-${ecriture_parenthese_si_negatif(b*c)}x~$`)}<br><br>`
 					texte_corr += `Pour $x=${x3}$ : <br>`
 					texte_corr += `$${a*d}x-${ecriture_parenthese_si_negatif(b*d)}=${a*d}\\times ${ecriture_parenthese_si_negatif(x3)}-${ecriture_parenthese_si_negatif(b*d)}=${a*d*x3-d*b}$ <br> $${a*c}x^2-${ecriture_parenthese_si_negatif(b*c)}x=${a*c}\\times ${ecriture_parenthese_si_negatif(x3)}^2-${ecriture_parenthese_si_negatif(b*c)}\\times ${ecriture_parenthese_si_negatif(x3)}=${a*c*x3*x3}-${ecriture_parenthese_si_negatif(b*c*x3)}=${a*c*x3*x3-b*c*x3}$<br>`
-					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br><br>`
+					texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
+					texte_corr += `${texte_en_couleur(`$x=${x3}$ est donc solution de l'équation $${a*d}x-${ecriture_parenthese_si_negatif(b*d)}=${a*c}x^2-${ecriture_parenthese_si_negatif(b*c)}x~$`)}`
 					break ;
 					case 8 : // 12x-4a=4(2x+b) x=(4a+4b)/4
 						if (this.sup==1) {
@@ -5085,11 +5128,45 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 						texte = `$12x-${ecriture_parenthese_si_negatif(4*a)}=4(2x+${ecriture_parenthese_si_negatif(b)})~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
 						texte_corr = `Pour $x=${x1}$ : <br>`
 						texte_corr += `$12x-${ecriture_parenthese_si_negatif(4*a)}=12\\times ${ecriture_parenthese_si_negatif(x1)}-${ecriture_parenthese_si_negatif(4*a)}=${12*x1-4*a}$ <br> $4(2x+${ecriture_parenthese_si_negatif(b)})=4\\times (2\\times ${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(b)})=4\\times ${2*x1+b}=${4*(2*x1+b)}$<br>`
-						texte_corr += `$${12*x1-4*a}\\not=${4*(2*x1+b)}$ donc l'égalité n'est pas vraie.<br><br>`
+						texte_corr += `$${12*x1-4*a}\\not=${4*(2*x1+b)}$ donc l'égalité n'est pas vraie.<br>`
+						texte_corr += `${texte_en_couleur(`$x=${x1}$ n'est donc pas solution de l'équation $12x-${ecriture_parenthese_si_negatif(4*a)}=4(2x+${ecriture_parenthese_si_negatif(b)})~$`)}<br><br>`
 						texte_corr += `Pour $x=${x2}$ : <br>`
 						texte_corr += `$12x-${ecriture_parenthese_si_negatif(4*a)}=12\\times ${ecriture_parenthese_si_negatif(x2)}-${ecriture_parenthese_si_negatif(4*a)}=${12*x2-4*a}$ <br> $4(2x+${ecriture_parenthese_si_negatif(b)})=4\\times (2\\times ${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(b)})=4\\times ${2*x2+b}=${4*(2*x2+b)}$<br>`
-						texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.`
+						texte_corr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>`
+						texte_corr += `${texte_en_couleur(`$x=${x1}$ est donc solution de l'équation $12x-${ecriture_parenthese_si_negatif(4*a)}=4(2x+${ecriture_parenthese_si_negatif(b)})~$`)}<br><br>`
 						break ;
+					case 9 : // x²-bx-ax+ab=0 (a-x)(x-b)=0 solutions a et b.
+						if (this.sup==1) {
+						b = randint(2,9)
+						a = randint(2,9)
+						x3 = b
+						x1 = a
+						x2 = randint(1,9,[x1,x3])
+						}
+						else {
+							do {
+								a = randint(-9,9,[0,1])
+								b = randint(-9,9,[0,a])
+								x1 = a
+								x3 = b
+								x2 = randint(-9,9,[x1,x3])
+							} while (((a+b)==0) || ((a+b) == 1))
+						}
+						texte = `$x^2-${ecriture_parenthese_si_negatif(b+a)}x-${ecriture_parenthese_si_negatif(a*b)}=0~$ pour $~x=${x1}~$ , pour $~x=${x2}~$ puis pour $~x=${x3}$`
+						texte_corr = `Pour $x=${x1}$ : <br>`
+						texte_corr += `$x^2-${ecriture_parenthese_si_negatif(b+a)}\\times  x+${ecriture_parenthese_si_negatif(a*b)}=${ecriture_parenthese_si_negatif(x1)}^2-${ecriture_parenthese_si_negatif(a+b)}\\times ${ecriture_parenthese_si_negatif(x1)}+${ecriture_parenthese_si_negatif(a*b)}=${x1*x1}-${ecriture_parenthese_si_negatif((a+b)*x1)}+${ecriture_parenthese_si_negatif(a*b)}=${x1*x1-(a+b)*x1+a*b}$<br>`						
+						texte_corr += `On trouve bien $0$ pour le membre de gauche donc l'égalité est vraie.<br>`
+						texte_corr += `${texte_en_couleur(`$x=${x1}$ est donc solution de l'équation $x^2-${ecriture_parenthese_si_negatif(b+a)}x-${ecriture_parenthese_si_negatif(a*b)}=0~$`)}<br><br>`
+						texte_corr += `Pour $x=${x2}$ : <br>`
+						texte_corr += `$x^2-${ecriture_parenthese_si_negatif(b+a)}\\times  x+${ecriture_parenthese_si_negatif(a*b)}=${ecriture_parenthese_si_negatif(x2)}^2-${ecriture_parenthese_si_negatif(a+b)}\\times ${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(a*b)}=${x2*x2}-${ecriture_parenthese_si_negatif((a+b)*x2)}+${ecriture_parenthese_si_negatif(a*b)}=${x2*x2-(a+b)*x2+a*b}$<br> $0=0$ !<br>`
+						texte_corr += `$${x2*x2-(a+b)*x2+a*b}\\not=0$ donc l'égalité n'est pas vraie.<br>`
+						texte_corr += `${texte_en_couleur(`$x=${x2}$ n'est donc pas solution de l'équation $x^2-${ecriture_parenthese_si_negatif(b+a)}x-${ecriture_parenthese_si_negatif(a*b)}=0~$`)}<br><br>`
+						texte_corr += `Pour $x=${x3}$ : <br>`
+						texte_corr += `$x^2-${ecriture_parenthese_si_negatif(b+a)}\\times  x+${ecriture_parenthese_si_negatif(a*b)}=${ecriture_parenthese_si_negatif(x3)}^2-${ecriture_parenthese_si_negatif(a+b)}\\times ${ecriture_parenthese_si_negatif(x3)}+${ecriture_parenthese_si_negatif(a*b)}=${x3*x3}-${ecriture_parenthese_si_negatif((a+b)*x3)}+${ecriture_parenthese_si_negatif(a*b)}=${x3*x3-(a+b)*x3+a*b}$<br>`
+						texte_corr += `On trouve bien $0$ pour le membre de gauche donc l'égalité est vraie.<br>`
+						texte_corr += `${texte_en_couleur(`$x=${x3}$ est donc solution de l'équation $x^2-${ecriture_parenthese_si_negatif(b+a)}x-${ecriture_parenthese_si_negatif(a*b)}=0~$`)}`
+						break ;
+	
 			}
 			
 			
@@ -5104,5 +5181,31 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 
 	}
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-	this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 }
+
+/**
+ * Tester si un nombre est solution d'une équation degré 1
+ * * 4L14-1
+ * * adaptation de l'exo 5L14 de Rémi Angot
+ * @author Sébastien Lozano
+ */
+function Tester_si_un_nombre_est_solution_d_une_equation_deg1(){
+	this.exo='4L14-1';	
+	Tester_si_un_nombre_est_solution_d_une_equation.call(this);	
+	this.titre = `Tester si un nombre est solution d'une équation du premier degré`;
+};
+
+/**
+ * Tester si un nombre est solution d'une équation degré 2
+ * * 4L14-1
+ * * adaptation de l'exo 5L14 de Rémi Angot
+ * @author Sébastien Lozano
+ */
+function Tester_si_un_nombre_est_solution_d_une_equation_deg2(){
+	this.exo='4L14-2';
+	Tester_si_un_nombre_est_solution_d_une_equation.call(this);
+	this.titre = `Tester si un nombre est solution d'une équation du second degré`;
+	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+};
+

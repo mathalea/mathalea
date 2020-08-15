@@ -2273,7 +2273,7 @@ function Tester_une_egalite(){
 					a = randint(1,3)
 					b = randint(1,3)
 					x2 = parseInt(Algebrite.eval((10*a+4*b)/2))
-					x1 = randint(9,x2)
+					x1 = randint(1,9,x2)
 					}
 					else {
 						a = randint(-3,3,[0])
