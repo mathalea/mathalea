@@ -2459,7 +2459,7 @@ function Reciproque_Pythagore(){
 		let liste_triplets_pythagoriciens =  [[3,4,5],[5,12,13],[6,8,10],[7,24,25],[8,15,17],[9,12,15],[9,40,41], [10,24,26], [11,60,61], [12,16,20], [12,35,37], [13,84,85], [14,48,50], [15,20,25], [15,36,39], [16,30,34], [16,63,65], [18,24,30], [18,80,82],  [20,21,29], [20,48,52], [21,28,35], [21,72,75], [24,32,40], [24,45,51], [24,70,74], [25,60,65], [27,36,45], [28,45,53], [28,96,100], [30,40,50], [30,72,78], [32,60,68], [33,44,55], [33,56,65], [35,84,91], [36,48,60], [36,77,85], [39,52,65], [39,80,89], [40,42,58], [40,75,85], [42,56,70], [45,60,75], [48,55,73], [48,64,80], [51,68,85], [54,72,90], [57,76,95], [60,63,87], [60,80,100], [65,72,97]]
 		let liste_noms_triangles = []; // on mémorise les noms des triangles pour ne pas les redonner
 		for (let i = 0, texte, texte_corr, AB,BC,AC,a,b,c,nom_triangle,triplet, ordre_des_cotes, cpt=0; i < this.nb_questions && cpt<50; ) {
-			nom_triangle = creerNomDePolygone(3,liste_noms_triangles);
+			nom_triangle = polygone(3,liste_noms_triangles);
 			liste_noms_triangles.push(nom_triangle)
 			A = nom_triangle[0];
 			B = nom_triangle[1];
@@ -2544,7 +2544,7 @@ function Problemes_Pythagore(){
 		let liste_triplets_pythagoriciens =  [[3,4,5],[5,12,13],[6,8,10],[7,24,25],[8,15,17],[9,12,15],[9,40,41], [10,24,26], [11,60,61], [12,16,20], [12,35,37], [13,84,85], [14,48,50], [15,20,25], [15,36,39], [16,30,34], [16,63,65], [18,24,30], [18,80,82],  [20,21,29], [20,48,52], [21,28,35], [21,72,75], [24,32,40], [24,45,51], [24,70,74], [25,60,65], [27,36,45], [28,45,53], [28,96,100], [30,40,50], [30,72,78], [32,60,68], [33,44,55], [33,56,65], [35,84,91], [36,48,60], [36,77,85], [39,52,65], [39,80,89], [40,42,58], [40,75,85], [42,56,70], [45,60,75], [48,55,73], [48,64,80], [51,68,85], [54,72,90], [57,76,95], [60,63,87], [60,80,100], [65,72,97]];
 		let liste_noms_quadrilateres = ['L','M','N','O'] // pour que le O ne soit pas une des 4 lettres
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
-			let nom_quadrilatere = creerNomDePolygone(4,liste_noms_quadrilateres);
+			let nom_quadrilatere = polygone(4,liste_noms_quadrilateres);
 			liste_noms_quadrilateres.push(nom_quadrilatere)
 			let A = nom_quadrilatere[0];
 			let B = nom_quadrilatere[1];
@@ -4721,8 +4721,8 @@ function Exploiter_representation_graphique(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let type_de_probleme = choice(['projectile','temperature','velo'])
-		let a,b,c,d,f,t1,t2,l1,l2,l3,g1,g2,graphique,texte1,texte2,fille
+		let type_de_probleme = 'temperature'
+		let a,b,c,d,f,t1,t2,l1,l2,l3,g1,g2,graphique,texte1,texte2
 		switch (type_de_probleme){
 			case 'projectile' : 
 				// Parabole qui a pour zéro, 0 et 6,8 ou 10
@@ -4811,68 +4811,6 @@ function Exploiter_representation_graphique(){
 
 				this.liste_questions.push('Quelle est la hauteur maximale atteinte par le projectile ?')
 				//this.liste_corrections.push(`Le point le plus haut de la courbe a pour abscisse $${tex_nombrec(t1/2*xscale)}$ et pour ordonnée $${f(t1/2)}$ donc la hauteur maximale est de $${f(t1/2)}$ m.`)
-
-			break;
-			case 'velo' : 
-				let v1 = randint(1,4)
-				let v2 = randint(1,3,v1)
-				let v3 = v1+v2
-				g1 = grille(-1,-1,6,8)
-				g1.color = 'black'
-				g1.opacite = 1
-				g2 = grille(-1,-1,6,8,'gray',.2,.2)
-				g3 = axes(0,0,6,7)
-				texte1 = texteParPosition('distance (en km)',0.2,7.3,'droite')
-				l1 = labelX(0,5,1,'black',-.6,10)
-				l2 = labelY(1,6,1,'black',-.6)
-				texte2 = texteParPosition('temps (en min)',6.5,0.4,'droite')
-				let situation = randint(1,3)
-				let tempsPause
-				let periodeRapide
-				if (situation==1){
-					l = polyline(point(0,0),point(1,v1),point(2,v1+v2),point(3,v1+v2),point(4,0))
-					tempsPause = 20
-					periodeRapide = 'de la 20e à la 30e minute'
-				}
-				if (situation==2){
-					l = polyline(point(0,0),point(1,v3),point(2,v3),point(3,v2),point(4,0))
-					tempsPause = 10
-					periodeRapide = 'durant les 10 premières minutes'
-
-				}
-				if (situation==3){
-					l = polyline(point(0,0),point(1,v3),point(2,v2),point(3,v2),point(4,0))
-					tempsPause = 20
-					periodeRapide = 'durant les 10 premières minutes'
-				}
-				l.epaisseur=2
-				l.color = 'blue'
-
-				fille = prenomF()
-				this.introduction = `${fille} fait du vélo avec son smartphone sur une voie-verte rectiligne qui part de chez elle. Une application lui permet de voir à quelle distance de chez elle, elle se trouve.`
-
-				this.introduction += '<br><br>' + mathalea2d({
-					xmin : -1,
-					ymin : -1,
-					xmax : 9,
-					ymax : 8,
-					pixelsParCm : 40,
-				},g1,g2,g3,l,texte1,texte2,l1,l2)
-
-				this.introduction += '<br><br>' + 'À l’aide de ce graphique, répondre aux questions suivantes :'
-
-				this.liste_questions.push('Pendant combien de temps a-t-elle fait du vélo ?')
-				this.liste_corrections.push(`Elle a fait du vélo pendant 40 minutes.`)
-
-				this.liste_questions.push('Quelle distance a-t-elle parcourue au total ?')
-				this.liste_corrections.push(`Le point le plus loin de sa maison est à ${v3} km et ensuite elle revient chez elle, donc la distance totale est de ${2*v3} km.`)
-
-				this.liste_questions.push(`Que se passe-t-il après ${tempsPause} minutes de vélo ?`)
-				this.liste_corrections.push(`La distance reste constante alors qu'elle est sur un chemin rectiligne. Elle a donc fait une pause.`)
-			
-				this.liste_questions.push('À quel moment a-t-elle été la plus rapide ?')
-				this.liste_corrections.push(`Elle a été la plus rapide ${periodeRapide} où elle a effectué ${v3} km en 10 minutes.`)
-			
 
 			break;
 		}
