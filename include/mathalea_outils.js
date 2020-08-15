@@ -2504,7 +2504,7 @@ function MatriceCarree(table){
 	}
 	this.cofacteurs = function () { // renvoie la matrice des cofacteurs. 
 		let n = this.dim, resultat = [], ligne, M
-		if (n > 1) {
+		if (n > 2) {
 			for (let i = 0; i < n; i++) {
 				ligne = []
 				for (let j = 0; j < n; j++) {
@@ -2514,7 +2514,11 @@ function MatriceCarree(table){
 				resultat.push(ligne)
 			}
 		}
+		else if (n==2) {
+			resultat=[[this.table[1][1],-this.table[1][0]],[-this.table[0][1],this.table[0][0]]]
+		}
 		else return false
+		console.log(resultat)
 		return matriceCarree(resultat)
 	}
 	this.transposee=function() { // retourne la matrice transposée
@@ -2590,7 +2594,12 @@ function matriceCarree(table){
 function resol_sys_lineaire_2x2(x1,x2,fx1,fx2,c) {
 	let matrice=matriceCarree([[x1**2,x1],[x2**2,x2]])
 	let determinant=matrice.determinant();
-	return [fraction_simplifiee(x2*(fx1-c)-x1*(fx2-c),determinant),fraction_simplifiee(x1*x1*(fx2-c)-x2*x2*(fx1-c),determinant)];
+	let [a,b]=matrice.cofacteurs().transposee().multiplieVecteur([fx1-c,fx2-c])
+	if (Number.isInteger(a)&&Number.isInteger(b)&&Number.isInteger(determinant)){
+	let fa=fraction(a,determinant), fb=fraction(b,determinant)
+	return [[fa.numIrred,fa.denIrred],[fb.numIrred,fb.denIrred]];
+	}
+	else return [[calcul(a/determinant),1],[calcul(b/determinant),1]]
 }
 /**
  * Fonction qui retourne les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d à partir des données de x1,x2,x3,f(x1),f(x2),f(x3) et d (entiers !)
@@ -2601,16 +2610,13 @@ function resol_sys_lineaire_2x2(x1,x2,fx1,fx2,c) {
 function resol_sys_lineaire_3x3(x1,x2,x3,fx1,fx2,fx3,d) {
 	let matrice=matriceCarree([[x1**3,x1**2,x1],[x2**3,x2**2,x2],[x3**3,x3**2,x3]]) 
 	let y1=fx1-d, y2=fx2-d, y3=fx3-d;
-	let determinant=matrice.determinant() //(x1**3)*x2*x2*x3+x2*x1*x1*(x3**3)+x1*x3*x3*(x2**3)-x1*x2*x2*(x3**3)-x2*x3*x3*(x1**3)-x3*x1*x1*(x2**3);
+	let determinant=matrice.determinant()
 	if (determinant==0) return [[0,0],[0,0],[0,0]];
 	else {
 		let [a,b,c]=matrice.cofacteurs().transposee().multiplieVecteur([y1,y2,y3])
-//		let a=((x2*x2*x3-x2*x3*x3)*y1+(x3*x3*x1-x1*x1*x3)*y2+(x1*x1*x2-x2*x2*x1)*y3);
-//		let b=(((x3**3)*x2-(x2**3)*x3)*y1+((x1**3)*x3-(x3**3)*x1)*y2+((x2**3)*x1-(x1**3)*x2)*y3);
-//		let c=(((x2**3)*x3*x3-x2*x2*(x3**3))*y1+(x1*x1*(x3**3)-(x1**3)*x3*x3)*y2+((x1**3)*x2*x2-(x2**3)*x1*x1)*y3);
 		if (Number.isInteger(a)&&Number.isInteger(b)&&Number.isInteger(c)&&Number.isInteger(determinant)){ // ici on retourne un tableau de couples [num,den] entiers !
 			let fa=fraction(a,determinant), fb=fraction(b,determinant), fc=fraction(c,determinant)
-			return [[fa.numIrred,fa.denIrred],[fb.numIrred,fb.denIrred],[fb.numIrred,fb.denIrred]];
+			return [[fa.numIrred,fa.denIrred],[fb.numIrred,fb.denIrred],[fc.numIrred,fc.denIrred]];
 		} // pour l'instant on ne manipule que des entiers, mais on peut imaginer que ce ne soit pas le cas... dans ce cas, la forme est numérateur = nombre & dénominateur=1
 		else return [[calcul(a/determinant),1],[calcul(b/determinant),1],[calcul(b/determinant),1]]
 	}
