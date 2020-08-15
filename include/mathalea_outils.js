@@ -4524,9 +4524,9 @@ function Relatif(...relatifs) {
 			};
 			if (n.length == 2) {
 				if ( getCardNegatifs(n)%2 == 0 ) {
-					return `Les deux facteurs sont de même signe donc le produit est positif.`;
+					return `Les deux facteurs ont le même signe donc le produit est positif.`;
 				} else {
-					return `Les deux facteurs sont de signe différent donc le produit est négatif.`;
+					return `Les deux facteurs ont un signe différent donc le produit est négatif.`;
 				};
 			} else if (n.length > 2 ) {
 				if ( getCardNegatifs(n)%2 == 0 ) {
@@ -4567,19 +4567,21 @@ function Relatif(...relatifs) {
 			};
 			if (n.length == 2)  {
 				if ( getCardNegatifs(n)%2 == 0 ) {
-					return `Le numératueur et le dénominateur sont de même signe donc le quotient est positif.`;
+					return `Le numérateur et le dénominateur ont le même signe donc le quotient est positif.`;
 				} else {
-					return `Les numérateur et le dénominateur sont de signe différent donc le quotient est négatif.`;
+					return `Les numérateur et le dénominateur ont un signe différent donc le quotient est négatif.`;
 				};
 			} else if (n.length > 2) {
 				if ( getCardNegatifs(n)%2 == 0 ) {
 					if ( getCardNegatifs(n) == 0 ) {
 						return `Tous les facteurs du numérateur et tous les facteurs du dénominateur sont positifs donc le quotient est positif.`;
 					} else {						
-						return `La somme des facteurs négatifs du numérateur et des facteurs négatifs du dénominateur vaut ${getCardNegatifs(n)}, ce nombre est pair donc le quotient est positif.`;
+						//return `La somme du nombre de facteurs négatifs du numérateur et du nombre de facteurs négatifs du dénominateur vaut ${getCardNegatifs(n)}, ce nombre est pair donc le quotient est positif.`;
+						return `Quand on compte les facteurs négatifs du numérateur et du dénominateur, on trouve ${getCardNegatifs(n)}, ce nombre est pair donc le quotient est positif.`;
 					};						
 				} else {
-					return `La somme des facteurs négatifs du numérateur et des facteurs négatifs du dénominateur vaut ${getCardNegatifs(n)}, ce nombre est impair donc le quotient est négatif.`;
+					//return `La somme du nombre de facteurs négatifs du numérateur et du nombre de facteurs négatifs du dénominateur vaut ${getCardNegatifs(n)}, ce nombre est impair donc le quotient est négatif.`;
+					return `Quand on compte les facteurs négatifs du numérateur et du dénominateur, on trouve ${getCardNegatifs(n)}, ce nombre est impair donc le quotient est négatif.`;
 				};
 			};
 		}
