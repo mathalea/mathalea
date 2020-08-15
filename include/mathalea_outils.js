@@ -88,14 +88,14 @@ function estentier(a,tolerance=epsilon) {
 	else return false
 }
 function quotientier(a, b) {
-	if (a.isInteger && b.isInteger) {
+	if (Number.isInteger(a) && Number.isInteger(b)) {
 		let reste = a
 		let quotient = 0
-		while (reste > d) {
-			reste -= d
-			q++
+		while (reste > b) {
+			reste -= b
+			quotient++
 		}
-		return q
+		return quotient
 	}
 	else return false
 }
@@ -224,7 +224,7 @@ function enleve_element(array,item){
  * @Auteur Rémi Angot & Jean-Claude Lhote
  */
 
-function enleve_element_bis(array,item) {
+function enleve_element_bis(array,item=undefined) {
 	let tableaucopie=[]
 	for(i = 0;i<array.length;i++) {
 		tableaucopie.push(array[i])
@@ -686,17 +686,17 @@ function image_point_par_transformation (transformation,pointA,pointO,vecteur=[]
 	// nécessite d'être en repère orthonormal...
 	// Point O sert pour les rotations et homothéties en tant que centre (il y a un changement d'origine du repère en O pour simplifier l'expression des matrices de transformations.)
 	
-	let matrice_sym_obl1=[[0,1,0],[1,0,0],[0,0,1]] // x'=y et y'=x
-	let matrice_sym_xxprime=[[1,0,0],[0,-1,0],[0,0,1]] // x'=x et y'=-y
-	let matrice_sym_yyprime=[[-1,0,0],[0,1,0],[0,0,1]] // x'=-x et y'=y
-	let matrice_sym_obl2=[[0,-1,0],[-1,0,0],[0,0,1]] // x'=-y et y'=-x
-	let matrice_quart_de_tour_direct=[[0,-1,0],[1,0,0],[0,0,1]] // x'=-y et y'=x
-	let matrice_quart_de_tour_indirect=[[0,1,0],[-1,0,0],[0,0,1]] // x'=y et y'=-x
-	let matrice_sym_centrale=[[-1,0,0],[0,-1,0],[0,0,1]] // x'=-x et y'=-y
-	let matrice_rot_60_direct=[[0.5,-Math.sin(Math.PI/3),0],[Math.sin(Math.PI/3),0.5,0],[0,0,1]]
-	let matrice_rot_60_indirect=[[0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),0.5,0],[0,0,1]]
-	let matrice_rot_120_direct=[[-0.5,-Math.sin(Math.PI/3),0],[Math.sin(Math.PI/3),-0.5,0],[0,0,1]]
-	let matrice_rot_120_indirect=[[-0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),-0.5,0],[0,0,1]]
+	let matrice_sym_obl1=matriceCarree([[0,1,0],[1,0,0],[0,0,1]]) // x'=y et y'=x
+	let matrice_sym_xxprime=matriceCarree([[1,0,0],[0,-1,0],[0,0,1]]) // x'=x et y'=-y
+	let matrice_sym_yyprime=matriceCarree([[-1,0,0],[0,1,0],[0,0,1]]) // x'=-x et y'=y
+	let matrice_sym_obl2=matriceCarree([[0,-1,0],[-1,0,0],[0,0,1]]) // x'=-y et y'=-x
+	let matrice_quart_de_tour_direct=matriceCarree([[0,-1,0],[1,0,0],[0,0,1]]) // x'=-y et y'=x
+	let matrice_quart_de_tour_indirect=matriceCarree([[0,1,0],[-1,0,0],[0,0,1]]) // x'=y et y'=-x
+	let matrice_sym_centrale=matriceCarree([[-1,0,0],[0,-1,0],[0,0,1]]) // x'=-x et y'=-y
+	let matrice_rot_60_direct=matriceCarree([[0.5,-Math.sin(Math.PI/3),0],[Math.sin(Math.PI/3),0.5,0],[0,0,1]])
+	let matrice_rot_60_indirect=matriceCarree([[0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),0.5,0],[0,0,1]])
+	let matrice_rot_120_direct=matriceCarree([[-0.5,-Math.sin(Math.PI/3),0],[Math.sin(Math.PI/3),-0.5,0],[0,0,1]])
+	let matrice_rot_120_indirect=matriceCarree([[-0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),-0.5,0],[0,0,1]])
 
 	let x,y,x1,y1,u,v,k,pointA1=[0,0,0],pointA2=[0,0,0]
 
@@ -708,164 +708,62 @@ function image_point_par_transformation (transformation,pointA,pointO,vecteur=[]
 	k=rapport // rapport d'homothétie
 
 
-	let matrice_chgt_repere=[[1,0,x2],[0,1,y2],[0,0,1]]
-	let matrice_chgt_repereinv=[[1,0,-x2],[0,1,-y2],[0,0,1]]
-	let matrice_translation=[[1,0,u],[0,1,v],[0,0,1]]
-	let matrice_homothetie=[[k,0,0],[0,k,0],[0,0,1]]
-	let matrice_homothetie2=[[1/k,0,0],[0,1/k,0],[0,0,1]]
+	let matrice_chgt_repere=matriceCarree([[1,0,x2],[0,1,y2],[0,0,1]])
+	let matrice_chgt_repereinv=matriceCarree([[1,0,-x2],[0,1,-y2],[0,0,1]])
+	let matrice_translation=matriceCarree([[1,0,u],[0,1,v],[0,0,1]])
+	let matrice_homothetie=matriceCarree([[k,0,0],[0,k,0],[0,0,1]])
+	let matrice_homothetie2=matriceCarree([[1/k,0,0],[0,1/k,0],[0,0,1]])
 
-	let matrice=[[]]
-
-	switch (transformation) {
-		case 1 : 
-			matrice=produit_matrice_matrice_3x3(matrice_sym_obl1,matrice_chgt_repereinv)
-			break
-		case 2 :
-			matrice=produit_matrice_matrice_3x3(matrice_sym_obl2,matrice_chgt_repereinv)
-			break
-		case 3 : 
-			matrice=produit_matrice_matrice_3x3(matrice_sym_xxprime,matrice_chgt_repereinv)
-			break
-		case 4 :
-			matrice=produit_matrice_matrice_3x3(matrice_sym_yyprime,matrice_chgt_repereinv)
-			break
-		case 5 :
-			matrice=produit_matrice_matrice_3x3(matrice_quart_de_tour_direct,matrice_chgt_repereinv)
-			break
-		case 6 : 
-		matrice=produit_matrice_matrice_3x3(matrice_quart_de_tour_indirect,matrice_chgt_repereinv)
-			break
-		case 7 :
-			matrice=produit_matrice_matrice_3x3(matrice_sym_centrale,matrice_chgt_repereinv)
-			break
-		case 11 :
-			matrice=produit_matrice_matrice_3x3(matrice_rot_60_direct,matrice_chgt_repereinv)
-			break
-		case 12 :
-			matrice=produit_matrice_matrice_3x3(matrice_rot_60_indirect,matrice_chgt_repereinv)
-			break
-		case 13 :
-			matrice=produit_matrice_matrice_3x3(matrice_rot_120_direct,matrice_chgt_repereinv)
-			break
-		case 14 :
-			matrice=produit_matrice_matrice_3x3(matrice_rot_120_indirect,matrice_chgt_repereinv)
-			break
-		case 8 :
-			matrice=produit_matrice_matrice_3x3(matrice_translation,matrice_chgt_repereinv)
-			break
-		case 9 :
-			matrice=produit_matrice_matrice_3x3(matrice_homothetie,matrice_chgt_repereinv)
-			break
-		case 10 :
-			matrice=produit_matrice_matrice_3x3(matrice_homothetie2,matrice_chgt_repereinv)
-			break	
-		}
-	pointA1=produit_matrice_vecteur_3x3(matrice,pointA)
-	pointA2=produit_matrice_vecteur_3x3(matrice_chgt_repere,pointA1)
-	return pointA2
-}
-/*
-function image_point_par_transformation_repere_tri (transformation,pointA,pointO,vecteur=[],rapport=1){ //pointA,centre et pointO sont des tableaux de deux coordonnées
-	// on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
-	// ici le rpeère a des axes formant un angle de 60°
-	// Point O sert pour les rotations et homothéties en tant que centre (il y a un changement d'origine du repère en O pour simplifier l'expression des matrices de transformations.)
-	/* transformations :
-1=symétrie / passant par O
-2=symétrie \ passant par O
-3=symétrie _ passant par O
-4=symétrie | passant par O
-5= rotation 90° anti-horaire centre O
-6= rotation 90° horaire centre O
-7= symétrie centrale centre O
-11= rotation 60° anti-horaire centre O
-12= rotation 60° horaire centre O
-13= rotation 120° anti-horaire centre O
-14= rotation 120° horaire centre O
-8= translation coordonnées de O = vecteur de translation
-9= homothétie. centre O rapport k
-10= homothétie. centre O rapport 1/k
-
-
-
-	let matrice_sym_obl1=[[0,1,0],[1,0,0],[0,0,1]] // x'=y et y'=x
-	let matrice_sym_xxprime=[[1,0,0],[0,-1,0],[0,0,1]] // x'=x et y'=-y
-	let matrice_sym_yyprime=[[-1,0,0],[0,1,0],[0,0,1]] // x'=-x et y'=y
-	let matrice_sym_obl2=[[0,-1,0],[-1,0,0],[0,0,1]] // x'=-y et y'=-x
-	let matrice_quart_de_tour_direct=[[0,-1,0],[1,0,0],[0,0,1]] // x'=-y et y'=x
-	let matrice_quart_de_tour_indirect=[[0,1,0],[-1,0,0],[0,0,1]] // x'=y et y'=-x
-	let matrice_sym_centrale=[[-1,0,0],[0,-1,0],[0,0,1]] // x'=-x et y'=-y
-	let matrice_rot_60_direct=[[0.5,-Math.sin(Math.PI/3),0],[Math.sin(Math.PI/3),0.5,0],[0,0,1]]
-	let matrice_rot_60_indirect=[[0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),0.5,0],[0,0,1]]
-	let matrice_rot_120_direct=[[-0.5,-Math.sin(Math.PI/3),0],[Math.sin(Math.PI/3),-0.5,0],[0,0,1]]
-	let matrice_rot_120_indirect=[[-0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),-0.5,0],[0,0,1]]
-
-	let x,y,x1,y1,u,v,k,pointA1=[0,0,0],pointA2=[0,0,0]
-
-	pointA.push(1)
-	x2=pointO[0]  // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
-	y2=pointO[1]
-	u=vecteur[0] // (u,v) vecteur de translation.
-	v=vecteur[1]
-	k=rapport // rapport d'homothétie
-
-
-	let matrice_chgt_repere=[[1,0,x2],[0,1,y2],[0,0,1]]
-	let matrice_chgt_repereinv=[[1,0,-x2],[0,1,-y2],[0,0,1]]
-	let matrice_translation=[[1,0,u],[0,1,v],[0,0,1]]
-	let matrice_homothetie=[[k,0,0],[0,k,0],[0,0,1]]
-	let matrice_homothetie2=[[1/k,0,0],[0,1/k,0],[0,0,1]]
-
-	let matrice=[[]]
+	let matrice
 
 	switch (transformation) {
 		case 1 : 
-			matrice=produit_matrice_matrice_3x3(matrice_sym_obl1,matrice_chgt_repereinv)
+			matrice=matrice_sym_obl1.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 2 :
-			matrice=produit_matrice_matrice_3x3(matrice_sym_obl2,matrice_chgt_repereinv)
+			matrice=matrice_sym_obl2.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 3 : 
-			matrice=produit_matrice_matrice_3x3(matrice_sym_xxprime,matrice_chgt_repereinv)
+			matrice=matrice_sym_xxprime.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 4 :
-			matrice=produit_matrice_matrice_3x3(matrice_sym_yyprime,matrice_chgt_repereinv)
+			matrice=matrice_sym_yyprime.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 5 :
-			matrice=produit_matrice_matrice_3x3(matrice_quart_de_tour_direct,matrice_chgt_repereinv)
+			matrice=matrice_quart_de_tour_direct.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 6 : 
-		matrice=produit_matrice_matrice_3x3(matrice_quart_de_tour_indirect,matrice_chgt_repereinv)
+		matrice=matrice_quart_de_tour_indirect.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 7 :
-			matrice=produit_matrice_matrice_3x3(matrice_sym_centrale,matrice_chgt_repereinv)
+			matrice=matrice_sym_centrale.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 11 :
-			matrice=produit_matrice_matrice_3x3(matrice_rot_60_direct,matrice_chgt_repereinv)
+			matrice=matrice_rot_60_direct.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 12 :
-			matrice=produit_matrice_matrice_3x3(matrice_rot_60_indirect,matrice_chgt_repereinv)
+			matrice=matrice_rot_60_indirect.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 13 :
-			matrice=produit_matrice_matrice_3x3(matrice_rot_120_direct,matrice_chgt_repereinv)
+			matrice=matrice_rot_120_direct.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 14 :
-			matrice=produit_matrice_matrice_3x3(matrice_rot_120_indirect,matrice_chgt_repereinv)
+			matrice=matrice_rot_120_indirect.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 8 :
-			matrice=produit_matrice_matrice_3x3(matrice_translation,matrice_chgt_repereinv)
+			matrice=matrice_translation.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 9 :
-			matrice=produit_matrice_matrice_3x3(matrice_homothetie,matrice_chgt_repereinv)
+			matrice=matrice_homothetie.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 10 :
-			matrice=produit_matrice_matrice_3x3(matrice_homothetie2,matrice_chgt_repereinv)
+			matrice=matrice_homothetie2.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break	
 		}
-	pointA1=produit_matrice_vecteur_3x3(matrice,pointA)
-	pointA2=produit_matrice_vecteur_3x3(matrice_chgt_repere,pointA1)
+	pointA1=matrice.multiplieVecteur(pointA)
+	pointA2=matrice_chgt_repere.multiplieVecteur(pointA1)
 	return pointA2
 }
-*/
 
 /**
 * Retourne le signe d'un nombre
@@ -2548,10 +2446,141 @@ function tex_graphique(f,xmin=-5,xmax=5,ymin=-5,ymax=5,xstep=1,ystep=1) {
 	\\end{tikzpicture}`
 }
 
+/**
+ *  Classe MatriceCarree
+ *  @Auteur Jean-Claude Lhote
+ */
+function MatriceCarree(table){
+	let ligne
+	this.table=[]
+	if (typeof(table)=='number') {
+		this.dim=table // si c'est un nombre qui est passé en argument, c'est le rang, et on rempli la table de 0
+		for (let i=0;i<this.dim;i++){
+			ligne=[]
+			for (let j=0;j<this.dim;j++)
+				ligne.push(0)
+			this.table.push(ligne)
+		}
+	}
+	else { // si l'argument est une table, on la copie dans this.table et sa longueur donne la dimension de la matrice
+		this.dim=table.length
+		this.table=table.slice()
+	}
+/**
+ * Méthode : Calcule le déterminant de la matrice carrée
+ * @Auteur Jean-Claude Lhote
+ */
+	this.determinant=function() {
+		let n=this.dim // taille de la matrice = nxn
+		let determinant=0,M
+		for (let i=0;i<n;i++) { // on travaille sur la ligne du haut de la matrice :ligne 0 i est la colonne de 0 à n-1
+		//	if (n==1) determinant=this.table[0][0]
+			if (n==2)
+				determinant=calcul(this.table[0][0]*this.table[1][1]-this.table[1][0]*this.table[0][1])
+			else {
+				M=this.matrice_reduite(0,i)
+				determinant+=calcul(((-1)**i)*this.table[0][i]*M.determinant())
+			}
+		}
+		return determinant
+	}
+/**
+ * Méthode : m=M.matrice_reduite(l,c) retourne une nouvelle matrice obtenue à partir de la matrice M (carrée) en enlevant la ligne l et la colonne c
+ * (Utilisée dans le calcul du déterminant d'une matrice carrée.)
+ * @Auteur Jean-Claude Lhote
+ */
+	this.matrice_reduite=function(l,c){
+		let  resultat=[],ligne
+		for (let i=0;i<this.table.length;i++) {
+			if (i!=l) {
+				ligne=[]
+				for (let j=0;j<this.table.length;j++){
+					if (j!=c) ligne.push(this.table[i][j])
+				}
+				if (ligne.length>0) resultat.push(ligne)
+			}
+		}
+		return matriceCarree(resultat)
+	}
+	this.cofacteurs = function () { // renvoie la matrice des cofacteurs. 
+		let n = this.dim, resultat = [], ligne, M
+		if (n > 1) {
+			for (let i = 0; i < n; i++) {
+				ligne = []
+				for (let j = 0; j < n; j++) {
+					M = this.matrice_reduite(i, j)
+					ligne.push(calcul((-1) ** (i + j) * M.determinant()))
+				}
+				resultat.push(ligne)
+			}
+		}
+		else return false
+		return matriceCarree(resultat)
+	}
+	this.transposee=function() { // retourne la matrice transposée
+		let n=this.dim,resultat=[],ligne
+		for (let i=0;i<n;i++) {
+			ligne=[]
+			for (let j=0;j<n;j++) {
+				ligne.push(this.table[j][i])
+			}
+			resultat.push(ligne)
+		}
+		return matriceCarree(resultat)
+	}
+	this.multiplieParReel=function(k){ // retourne k * la matrice
+		let n=this.dim,resultat=[],ligne
+		for (let i=0;i<n;i++) {
+			ligne=[]
+			for (let j=0;j<n;j++) {
+				ligne.push(calcul(k*this.table[i][j]))
+			}
+			resultat.push(ligne)
+		}
+		return matriceCarree(resultat)
+	}
+	this.multiplieVecteur = function (V) { // Vecteur est un simple array pour l'instant
+		let n = this.dim, resultat=[], somme
+		if (n == V.length) {
+			for (let i = 0; i < n; i++) {
+				somme = 0
+				for (let j = 0; j < n; j++) {
+					somme += calcul(this.table[i][j] * V[j])
+				}
+				resultat.push(somme)
+			}
+			return resultat
+		}
+		else return false
+	}
+	this.inverse=function() { // retourne la matrice inverse (si elle existe)
+		let n=this.dim,resultat=[],ligne
+		let d=this.determinant()
+		if (!egal(d,0)) {
+			return this.cofacteurs().transposee().multiplieParReel(calcul(1/d))
+		}
+		else return false
+	}
+	this.multiplieMatriceCarree=function(M){
+		let n=this.dim,resultat=[],ligne,somme
+		for (let i=0;i<n;i++) {
+			ligne=[]
+			for (let j=0;j<n;j++) {
+				somme=0
+				for (let k=0;k<n;k++) somme+=calcul(this.table[i][k]*M.table[k][j])
+				ligne.push(somme)
+			}
+			resultat.push(ligne)
+		}
+		return matriceCarree(resultat)
+	}
+}
 
+function matriceCarree(table){
+	return new MatriceCarree(table)
+}
 
-
-
+// Fin de la classe MAtriceCarree
 
 /**
  * Fonction qui retourne les coefficients a et b de f(x)=ax²+bx+c à partir des données de x1,x2,f(x1),f(x2) et c.
@@ -2559,25 +2588,27 @@ function tex_graphique(f,xmin=-5,xmax=5,ymin=-5,ymax=5,xstep=1,ystep=1) {
  * @Auteur Jean-Claude Lhote
  */
 function resol_sys_lineaire_2x2(x1,x2,fx1,fx2,c) {
-	let determinant=x1*x1*x2-x2*x2*x1;
+	let matrice=matriceCarree([[x1**2,x1],[x2**2,x2]])
+	let determinant=matrice.determinant();
 	return [fraction_simplifiee(x2*(fx1-c)-x1*(fx2-c),determinant),fraction_simplifiee(x1*x1*(fx2-c)-x2*x2*(fx1-c),determinant)];
 }
 /**
- * Fonction qui retourne les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d à partir des données de x1,x2,x3,f(x1),f(x2),f(x3) et d.
+ * Fonction qui retourne les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d à partir des données de x1,x2,x3,f(x1),f(x2),f(x3) et d (entiers !)
  * sous forme de fraction irréductible. Si pas de solution (déterminant nul) alors retourne [[0,0],[0,0],[0,0]]
  * @Auteur Jean-Claude Lhote
  */
 
-function resol_sys_lineaire_3x3(x1,x2,x3,fx1,fx2,fx3,d) { 
+function resol_sys_lineaire_3x3(x1,x2,x3,fx1,fx2,fx3,d) {
+	let matrice=matriceCarree([[x1**3,x1**2,x1],[x2**3,x2**2,x2],[x3**3,x3**2,x3]]) 
 	let y1=fx1-d, y2=fx2-d, y3=fx3-d;
-	let determinant=(x1**3)*x2*x2*x3+x2*x1*x1*(x3**3)+x1*x3*x3*(x2**3)-x1*x2*x2*(x3**3)-x2*x3*x3*(x1**3)-x3*x1*x1*(x2**3);
+	let determinant=matrice.determinant() //(x1**3)*x2*x2*x3+x2*x1*x1*(x3**3)+x1*x3*x3*(x2**3)-x1*x2*x2*(x3**3)-x2*x3*x3*(x1**3)-x3*x1*x1*(x2**3);
 	if (determinant==0) return [[0,0],[0,0],[0,0]];
 	else {
 		let a=((x2*x2*x3-x2*x3*x3)*y1+(x3*x3*x1-x1*x1*x3)*y2+(x1*x1*x2-x2*x2*x1)*y3);
 		let b=(((x3**3)*x2-(x2**3)*x3)*y1+((x1**3)*x3-(x3**3)*x1)*y2+((x2**3)*x1-(x1**3)*x2)*y3);
 		let c=(((x2**3)*x3*x3-x2*x2*(x3**3))*y1+(x1*x1*(x3**3)-(x1**3)*x3*x3)*y2+((x1**3)*x2*x2-(x2**3)*x1*x1)*y3);
 		return [fraction_simplifiee(a,determinant),fraction_simplifiee(b,determinant),fraction_simplifiee(c,determinant)];
-	}
+	}s
 }
 /**
  * Fonction qui cherche une fonction polynomiale de degré 3 dont les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d
@@ -2599,7 +2630,6 @@ for (let i=0,x1,x2,x3,fx1,fx2,fx3,d;;i++) {
 	coefs=resol_sys_lineaire_3x3(x1,x2,x3,fx1,fx2,fx3,d);
 	if (coefs[0][1]!=0&&coefs[0][1]<10&&coefs[1][1]<10&&coefs[2][1]<10) trouve=true;
 	if(trouve) {
-		console.log(i);
 		coefs.push([x1,fx1])
 		coefs.push([x2,fx2])
 		coefs.push([x3,fx3])
@@ -2621,22 +2651,33 @@ function cherche_min_max_f ([a,b,c,d]) {
 	return  [[x1,a*x1**3+b*x1**2+c*x1+d],[x2,a*x2**3+b*x2**2+c*x2+d]]
 }
 /**
- * retourne les coefficients d'un polynome de degré 3 dont la dérivée s'annule pour x1 et y2 et tel que f(x1)=y1 ainsi que le minimum local et le maximum local.
- * le paramètre supplémentaire a (fixé à 1 par défaut) est le facteur par 
+ * retourne les coefficients d'un polynome de degré 3 dont la dérivée s'annule en  x1 et x2 et tel que f(x1)=y1 et f(x2)=y2.
  * @Auteur Jean-Claude Lhote
  */
-function cherche_polynome_deg3_a_extrema_fixes(x1,x2,y1,a=1) {
-	// a,b et c sont les coefficient de ax^2+bx+c qui s'annullent pour x1 et x2.
-	// a=1 signifie que la dérivée est x^2-(x1+x2)x+(x1*x2) et f(x)=2x^2-3(x1+x2)x+6(x1*x2)x+d
-	// a est le facteur qui multiplie tous les coeffs de f. Si a est entier et que x1 et x2 le sont, alors y2 le sera.
-	// On peut jouer sur a pour agrandir f ou la diminuer... mais alors les valeurs risquent de ne plus être entières.
-	let b=calcul(-a*(x1+x2))
-	let c=a*x1*x2
-	// on a : ax^2+bx+c=0 pour x1 et x2 (c'est la dérivée de f), on va intégrer et ajouter la valeur d pour que y1 soit entier.
-	let d=calcul(y1-(2*a*x1**3+3*b*x1**2+6*c*x1))
-	// on calcule y2=f(x2) qui est l'autre point où la dérivée s'annule.
-	let y2=calcul(d+2*a*x2**3+3*b*x2**2+6*c*x2)
-	return [2*a,3*b,6*c,d,min(y2,y1),max(y2,y1)] // On retourne les 4 coefficients de f suivi du min(y1,y2) et enfin du max(y1,y2)
+function cherche_polynome_deg3_a_extrema_fixes(x1,x2,y1,y2) {
+	let M=matriceCarree([[x1**3,x1**2,x1,1],[x2**3,x2**2,x2,1],[3*x1**2,2*x1,1,0],[3*x2**2,2*x2,1,0]])
+	let R=[y1,y2,0,0]
+	if (!egal(M.determinant(),0)) return M.inverse().multiplieVecteur(R)
+	else return false
+}
+
+function cherche_polynome_deg3_a_extrema_entiers(x1,x2,y1,y2) { // je voulais ajouter "ou presque" dans le nom de fonction, mais ça faisait trop long !
+	let resultat=[],trouve=false
+	for (let a=-1;a<1;a+=0.00005) {
+		resultat=cherche_polynome_deg3_a_extrema_fixes(x1,x2,y1,a)
+		if (egal(resultat[4],y1)) 
+			if (egal(resultat[5],y2,0.001)) {
+				trouve=true
+				resultat.push('trouvé')
+				return resultat
+			}
+		else if (egal(resultat[4],y2,0.001)) {
+			trouve=true
+			resultat.push('trouvé')
+			return resultat
+		}
+	}
+	if (!trouve) return 'Pas trouvé'
 }
 
 /**
