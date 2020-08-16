@@ -4542,6 +4542,7 @@ function Problemes_additifs_fractions() {
 						pb_3_f[i].correction += `$\\dfrac{${pb_3_f[i].fractionsB.f2[0]}}{${pb_3_f[i].fractionsB.f2[1]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$.<br>`;
 					};			
 				} else {
+					frac_meme_denom = frac.reduceSameDenominateur(pb_3_f[i].fractionsB.f1[0],pb_3_f[i].fractionsB.f1[1],pb_3_f[i].fractionsB.f2[0],pb_3_f[i].fractionsB.f2[1],pb_3_f[i].fractionsB.f3[0],pb_3_f[i].fractionsB.f3[1]);
 					pb_3_f[i].correction += `Les fractions de l'énoncé ont déjà le même dénominateur.`
 				};
 			};
@@ -4759,8 +4760,8 @@ function Problemes_additifs_fractions() {
 			for (let i=0; i<3; i++) {
 				pb_4_f[i].correction = `Il s'agit d'un problème additif. Il va être necessaire de réduire les fractions au même dénominateur pour les additionner, les soustraire ou les comparer.<br>`;
 				
-				if (!(dt1==dt2)) {
-					pb_4_f[i].correction += `Réduisons les fractions de l'énoncé au même dénominateur :  `;
+				if (!((dq1==dq2) && (dq1==dq3))) {
+					pb_4_f[i].correction += `${!((dq1==dq2) && (dq1==dq3))} - ${dq1} - ${dq2} - ${dq3} - Réduisons les fractions de l'énoncé au même dénominateur :  `;
 					frac_meme_denom = frac.reduceSameDenominateur(pb_4_f[i].fractionsB.f1[0],pb_4_f[i].fractionsB.f1[1],pb_4_f[i].fractionsB.f2[0],pb_4_f[i].fractionsB.f2[1],pb_4_f[i].fractionsB.f3[0],pb_4_f[i].fractionsB.f3[1],pb_4_f[i].fractionsB.f4[0],pb_4_f[i].fractionsB.f4[1]);
 					if (frac_meme_denom[1] == dq1) {
 						pb_4_f[i].correction += `$\\dfrac{${pb_4_f[i].fractionsB.f1[0]}}{${pb_4_f[i].fractionsB.f1[1]}}$, `;
@@ -4778,7 +4779,9 @@ function Problemes_additifs_fractions() {
 						pb_4_f[i].correction += `$\\dfrac{${pb_4_f[i].fractionsB.f3[0]}}{${pb_4_f[i].fractionsB.f3[1]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$.<br>`;
 					};			
 				} else {
-					pb_4_f[i].correction += `Les fractions de l'énoncé ont déjà le même dénominateur.`
+					frac_meme_denom = frac.reduceSameDenominateur(pb_4_f[i].fractionsB.f1[0],pb_4_f[i].fractionsB.f1[1],pb_4_f[i].fractionsB.f2[0],pb_4_f[i].fractionsB.f2[1],pb_4_f[i].fractionsB.f3[0],pb_4_f[i].fractionsB.f3[1],pb_4_f[i].fractionsB.f4[0],pb_4_f[i].fractionsB.f4[1]);
+					pb_4_f[i].correction += `Les fractions de l'énoncé ont déjà le même dénominateur : `
+					pb_4_f[i].correction += `$\\dfrac{${pb_4_f[i].fractionsB.f1[0]}}{${pb_4_f[i].fractionsB.f1[1]}}$, $\\dfrac{${pb_4_f[i].fractionsB.f2[0]}}{${pb_4_f[i].fractionsB.f2[1]}}$ et $\\dfrac{${pb_4_f[i].fractionsB.f3[0]}}{${pb_4_f[i].fractionsB.f3[1]}}$.<br>`;
 				};
 			};
 
