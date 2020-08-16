@@ -555,8 +555,20 @@ function droiteParPointEtPente(A,k,nom='',color='black') {
  		let codes = codeSegments(markrayons,color,A,M, B,M, A,N, B,N)
  		objets.push(sAM,sBM,sAN,sBN,codes)
  	}
- 	objetsToSvgEtTikz(objets);
- }
+	this.svg = function (coeff) {
+		code = '';
+		for (objet of objets) {
+			code += '\n\t' + objet.svg(coeff);
+		}
+		return code;
+	};
+	this.tikz = function () {
+		code = '';
+		for (objet of objets) {
+			code += '\n\t' + objet.tikz();
+		}
+		return code;
+	}; }
 
  
  function constructionMediatrice(...args){
@@ -635,7 +647,20 @@ function ConstructionBissectrice(A,O,B,detail = false, color='blue', mark='×',t
  		let codes = codeSegments(mark,color,O,M, M,P, O,N, N,P)
  		objets.push(sMP,sNP,codes)
 	}
-	objetsToSvgEtTikz(objets)
+	this.svg = function (coeff) {
+		code = '';
+		for (objet of objets) {
+			code += '\n\t' + objet.svg(coeff);
+		}
+		return code;
+	};
+	this.tikz = function () {
+		code = '';
+		for (objet of objets) {
+			code += '\n\t' + objet.tikz();
+		}
+		return code;
+	};
 }
 
 function constructionBissectrice(...args){
@@ -1069,7 +1094,20 @@ function CodageCarre(c,color = 'black',mark='×'){
 	objets.push(codageAngleDroit(c.listePoints[2],c.listePoints[3],c.listePoints[0],color))
 	objets.push(codageAngleDroit(c.listePoints[3],c.listePoints[0],c.listePoints[1],color))
 	
-	objetsToSvgEtTikz(objets)
+	this.svg = function (coeff) {
+		code = '';
+		for (objet of objets) {
+			code += '\n\t' + objet.svg(coeff);
+		}
+		return code;
+	};
+	this.tikz = function () {
+		code = '';
+		for (objet of objets) {
+			code += '\n\t' + objet.tikz();
+		}
+		return code;
+	};
 }
 
 function codageCarre(...args){
@@ -2466,7 +2504,20 @@ function Axes(xmin=-30,ymin=-30,xmax=30,ymax=30,thick=0.2,xstep=1,ystep=1,epaiss
 		s.color = color
 		objets.push(s)
 	}
-	objetsToSvgEtTikz(objets)
+	this.svg = function (coeff) {
+		code = '';
+		for (objet of objets) {
+			code += '\n\t' + objet.svg(coeff);
+		}
+		return code;
+	};
+	this.tikz = function () {
+		code = '';
+		for (objet of objets) {
+			code += '\n\t' + objet.tikz();
+		}
+		return code;
+	};
 	this.commentaire = `Axes(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, thick = ${thick})`
 
 }
@@ -2485,7 +2536,20 @@ function LabelX(xmin=1,xmax=20,step=1,color='black',pos=-.6,coeff=1){
 	for (x=Math.ceil(xmin/coeff) ; calcul(x*coeff)<=xmax ; x = calcul(x+step)){
 		objets.push(texteParPoint(Intl.NumberFormat("fr-FR",{maximumFractionDigits:20}).format(calcul(x*coeff)).toString(),point(x,pos),'milieu',color))
 	}
-	objetsToSvgEtTikz(objets)
+	this.svg = function (coeff) {
+		code = '';
+		for (objet of objets) {
+			code += '\n\t' + objet.svg(coeff);
+		}
+		return code;
+	};
+	this.tikz = function () {
+		code = '';
+		for (objet of objets) {
+			code += '\n\t' + objet.tikz();
+		}
+		return code;
+	};
 	this.commentaire = `labelX(xmin=${xmin},xmax=${xmax},step=${step},color=${color},pos=${pos},coeff=${coeff})`
 
 }
@@ -2504,7 +2568,20 @@ function LabelY(ymin=1,ymax=20,step=1,color='black',pos=-.6,coeff=1){
 	for (y=Math.ceil(ymin/coeff) ; calcul(y*coeff)<=ymax ; y = calcul(y+step)){
 		objets.push(texteParPoint(Intl.NumberFormat("fr-FR",{maximumFractionDigits:20}).format(calcul(y*coeff)).toString(),point(pos,y),'milieu',color))
 	}
-	objetsToSvgEtTikz(objets)
+	this.svg = function (coeff) {
+		code = '';
+		for (objet of objets) {
+			code += '\n\t' + objet.svg(coeff);
+		}
+		return code;
+	};
+	this.tikz = function () {
+		code = '';
+		for (objet of objets) {
+			code += '\n\t' + objet.tikz();
+		}
+		return code;
+	};
 	this.commentaire = `labelX(ymin=${ymin},ymax=${ymax},step=${step},color=${color},pos=${pos})`
 
 }
@@ -2548,7 +2625,20 @@ function Grille(xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', op
 		objets.push(s)
 	}
 	this.commentaire = `Grille(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, color = ${color}, opacite = ${opacite}, pas = ${step})`
-	objetsToSvgEtTikz(objets)
+	this.svg = function (coeff) {
+		code = '';
+		for (objet of objets) {
+			code += '\n\t' + objet.svg(coeff);
+		}
+		return code;
+	};
+	this.tikz = function () {
+		code = '';
+		for (objet of objets) {
+			code += '\n\t' + objet.tikz();
+		}
+		return code;
+	};
 }
 
 function grille(...args){
@@ -2597,7 +2687,20 @@ function Repere({xmin =-10, xmax = 10, ymin =-10, ymax = 10, xscale = 1, yscale 
 		objets.push(texteParPosition(legendeY,calcul(positionLegendeY[0]/xscale),calcul(positionLegendeY[1]/yscale),'droite'))
 
 
-		objetsToSvgEtTikz(objets)
+		this.svg = function (coeff) {
+			code = '';
+			for (objet of objets) {
+				code += '\n\t' + objet.svg(coeff);
+			}
+			return code;
+		};
+		this.tikz = function () {
+			code = '';
+			for (objet of objets) {
+				code += '\n\t' + objet.tikz();
+			}
+			return code;
+		};
 
 		return [xscale,yscale]
 
@@ -2888,29 +2991,6 @@ function couleurAleatoire() {
 %%%%%%% LES FONCTIONS - FORMATAGE %%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
-
-/**
- * Créé la sortie SVG et la sortie Tikz à partir de la liste objets
- * @param {Array} objets 
- * @auteur Rémi Angot
- */
-function objetsToSvgEtTikz(objets) {
-	this.svg = function (coeff) {
-		code = '';
-		for (objet of objets) {
-			code += '\n\t' + objet.svg(coeff);
-		}
-		return code;
-	};
-	this.tikz = function () {
-		code = '';
-		for (objet of objets) {
-			code += '\n\t' + objet.tikz();
-		}
-		return code;
-	};
-}
-
 
 /**
 * codeSvg(segment(A,B),polygone(D,E,F),labelPoints(A,B))
