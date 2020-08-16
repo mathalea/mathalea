@@ -1,0 +1,11 @@
+pixelsParCm = 30
+f = x => x**(1/5) // L'élévation à la puissance se fait avec **
+r = repere({ // On donne un nom au repère pour l'utiliser dans les réglages de la courbe
+  xmin : 0, // On utilise les deux points et pas le "égal"
+  ymin : 0, // N'oubliez pas les virgules
+  xmax : 100,
+  xscale : 10 // Permet de changer l'unité utilisée pour les abscisses
+})
+// Le repère n'utilisant pas l'unité de base, il faut préciser à la courbe le nom du repère en 6e argument
+courbe(f,0,100,'blue',2,r) // xmin = 0, xmax = 10, couleur bleue
+courbe(x=>x/2,0,20,'red',5,r) // Essayez d'enlever le dernier argument pour voir l'importance de préciser le repère
