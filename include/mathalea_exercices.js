@@ -7837,9 +7837,9 @@ function Parallele_et_Perpendiculaires(){
 		function initialise_variables() {
 			if (sortie_html) { // repère -10 || 10
 				Xmin=-1
-				Ymin=-6
+				Ymin=-9
 				Xmax=15
-				Ymax=9
+				Ymax=6
 				ppc=20
 				sc=.5
 			} else { // repère -5 || 5
@@ -7854,8 +7854,8 @@ function Parallele_et_Perpendiculaires(){
 		B=point(6,randint(-2,2,0),'B')
 		d=droite(A,B)
 		d.isVisible=true
-		C=point(2,randint(5,8),'C')
-		D=point(9,randint(-8,-5),'D')
+		C=point(randint(3,4),randint(3,5),'C')
+		D=point(randint(8,9),randint(-8,-5),'D')
 		traces=tracePoint(A,B,C,D)
 		labels=labelPoint(A,B,C,D)
 		g=grille(-1,-15,15,15)
@@ -7870,8 +7870,9 @@ function Parallele_et_Perpendiculaires(){
 		cB=codageAngleDroit(A,B,BB)
 		cC=codageAngleDroit(C,CC,B)
 		cD=codageAngleDroit(D,DD,B)
-		enonce=`Trace les droites perpendiculaires à (AB) passant par B,C et D.<br>`
-		enonce+=`Mesure ensuite la distance entre le point A et le point d'intersection de ta droite avec la droite (AB).<br>`
+		enonce=`Reproduis la figure ci-dessous sur ton cahier.<br>`
+		enonce+=`Trace les droites perpendiculaires à (AB) passant par B,C et D.<br>`
+		enonce+=`Mesure ensuite la distance entre le point A et les point d'intersection de tes droites avec la droite (AB).<br>`
 		enonce+=`Compare cette mesure avec celle de l'ordinateur dans la correction<br>`
 		enonce+=mathalea2d({xmin : Xmin,ymin : Ymin,xmax : Xmax,ymax : Ymax,pixelsParCm : ppc,scale :sc},traces,labels,g,d)
 		correction=`voici la figure qu'il fallait réaliser.<br>`
