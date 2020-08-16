@@ -3000,6 +3000,7 @@ function seyes(xmin, ymin, xmax, ymax) {
     }
     return code;
   };
+  return objets
 }
 
 function Repere({
