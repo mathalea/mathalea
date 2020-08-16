@@ -4616,7 +4616,7 @@ function Relatif(...relatifs) {
 
 /**
  * @class ListeFraction
- * @classdesc Classe Fraction - Méthodes utiles sur les fractions
+ * @classdesc Classe Fraction - Méthodes utiles sur les collections de fractions
  * @author Sébastien Lozano
  */
 
@@ -4625,8 +4625,10 @@ function Relatif(...relatifs) {
 	 var self = this;
 	 /**
 	  * @constant {array} denominateurs_amis tableau de tableaux de dénominateurs qui vont bien ensemble pour les calculs
+	  * le tableau [12,2,3,4,6] faisait planter 4C25-0
 	  */
-	 let denominateurs_amis = [[12,2,3,4,6],[16,2,4,8],[18,2,3,6,9],[20,2,4,5,10],[24,2,3,4,8,12],[30,2,3,5,6]]
+	 //let denominateurs_amis = [[12,2,3,4,6],[16,2,4,8],[18,2,3,6,9],[20,2,4,5,10],[24,2,3,4,8,12],[30,2,3,5,6],[32,2,16,4,8],[36,2,18,4,9],[40,2,20,4,10,5,8]]
+	 let denominateurs_amis = [[16,2,4,8],[18,2,3,6,9],[20,2,4,5,10],[24,2,3,4,8,12],[30,2,3,5,6],[32,2,16,4,8],[36,2,18,4,9],[40,2,20,4,10,5,8]]
 
 	/**
 	 * 
@@ -4775,6 +4777,147 @@ function Relatif(...relatifs) {
 	
 
  };
+
+ /**
+  * @constructor Construit un objet Fraction(a,b)
+  * @param {integer} a 
+  * @param {integer} b 
+  */
+ function fraction (a,b) {
+    return new Fraction(a,b)
+}
+
+/**
+ * @constant {object} Frac objet générique pour accéder à tout moment aux méthodes et proprétés de la classe Fraction()
+ */
+
+let Frac = new Fraction();
+
+/**
+ * @class
+ * @classdesc Méthodes utiles sur les fractions
+ * @param {number} num numérateur
+ * @param {number} den dénominateur
+ * @author Jean-Claude Lhote et Sébastien Lozano
+ */
+
+function Fraction(num,den) {
+	/**
+	 * @property {integer} numérateur optionnel, par défaut la valeur vaut 0
+	 */
+	this.num = num || 0;
+	/**
+	 * @property {integer} dénominateur optionnel, par défaut la valeur vaut 1
+	 */
+	this.den=den || 1;
+	
+    this.numIrred=fraction_simplifiee(this.num,this.den)[0]
+    this.denIrred=fraction_simplifiee(this.num,this.den)[1]   
+    this.oppose = function(){
+        return fraction(-this.num,this.den)
+    }
+    this.opposeIrred = function(){
+        return fraction(-this.numIrred,this.denIrred)
+    }
+  
+    this.inverse = function(){
+        return fraction(this.den,this.num)
+    }
+    this.inverseIrred = function(){
+        return fraction(this.denIrred,this.numIrred)
+    }
+    this.sommeFraction =function(f2) {
+        return fraction(this.num*f2.den+f2.num*this.den,this.den*f2.den)
+    }
+    this.sommeFractions = function(...fractions){
+        let s=fraction(this.num,this.den)
+        for (let f of fractions) {
+            s=s.sommeFraction(f)
+        }
+        return s
+    }
+    this.produitFraction = function(f2) {
+        return fraction(this.num*f2.num,this.den*f2.den)
+    }
+    this.puissanceFraction = function(n) {
+        return fraction(this.num**n,this.den**n)
+    }
+    this.produitFractions = function(...fractions){
+        let p=fraction(this.num,this.den)
+        for (let f of fractions) {
+            p=p.produitFraction(f)
+        }
+        return p
+    }
+    this.differenceFraction = function(f2) {
+        return this.sommeFraction(f2.oppose())
+    }
+    /**
+     * 
+     * @param {number} depart N° de la première part coloriée (0 correspond à la droite du centre) 
+     * @param {*} type 'gateau' ou 'segment' ou 'barre'
+     */
+    this.representation = function (depart = 0, type = 'gateau',couleur='gray') {
+
+        if (type == 'gateau') {
+            let n = quotientier(this.numIrred, this.denIrred)
+            let num = this.numIrred
+            let k,dep
+            for (k = 0; k < n; k++) {
+                let O = point(2 + k * 5, 2)
+                let C = cercle(O, 2)
+                let s, a
+                for (let i = 0; i < this.denIrred; i++) {
+                    s = segment(O, rotation(point(4+k*5, 2), O, i * 360 / this.denIrred))
+                }
+                dep = rotation(point(4 + k * 5, 2), O, depart * 360 / this.denIrred)
+                for (let j = 0; j < Math.min(this.denIrred, num); j++) {
+                    a = arc(dep, O, 360 / this.denIrred, true, fill = couleur)
+                    a.opacite=0.3
+                    dep = rotation(dep, O, 360 / this.denIrred)
+                }
+                num -= this.denIrred
+            }
+            console.log(k,n)
+            let O = point(2 + k * 5, 2)
+            let C = cercle(O, 2)
+            let s, a
+            for (let i = 0; i < this.denIrred; i++) {
+                s = segment(O, rotation(point(4+k*5, 2), O, i * 360 / this.denIrred))
+            }
+            dep = rotation(point(4 + k * 5, 2), O, depart * 360 / this.denIrred)
+            for (let j = 0; j < Math.min(this.denIrred, num); j++) {
+                a = arc(dep, O, 360 / this.denIrred, true, fill = couleur)
+                a.opacite=0.3
+                dep = rotation(dep, O, 360 / this.denIrred)
+            }
+        }
+        else if (type == 'segment') {
+
+        }
+        else {
+
+        }
+    }
+
+    /**
+     * 
+     * @param {integer} n entier par lequel multiplier la fraction 
+     * @return {object} fraction multipliée par n
+     */
+    this.multiplieEntier = function(n) {
+        return fraction(n*this.num,this.den);
+    };
+
+        /**
+     * 
+     * @param {integer} n entier par lequel multiplier la fraction 
+     * @return {object} fraction multipliée par n simplifiée
+     */
+    this.multiplieEntierIrred = function(n) {
+        return fraction(fraction_simplifiee(n*this.num,this.den)[0],fraction_simplifiee(n*this.num,this.den)[1]);
+    };
+}
 
 // Gestion des styles LaTeX
 
