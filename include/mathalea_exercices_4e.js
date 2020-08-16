@@ -4403,8 +4403,8 @@ function Problemes_additifs_fractions() {
 		if (this.beta) {
 			// this.nb_questions = 5;
 			// type_de_questions_disponibles = [1,2,3,4,5];			
-			this.nb_questions = 1;
-			type_de_questions_disponibles = [3];			
+			this.nb_questions = 2;
+			type_de_questions_disponibles = [3,4];			
 
 		} else {
 			this.nb_questions = 2;
@@ -4629,7 +4629,7 @@ function Problemes_additifs_fractions() {
 			
 			pb_4_f.push({// indice 0 le mandala
 				prenoms: [prenom()],
-				fractions: [nq1,dq1,'carmin',nq2,dq2,'ocre jaune',nq3,dq3,'turquoise',nq4,dq4,'pourpre'],
+				//fractions: [nq1,dq1,'carmin',nq2,dq2,'ocre jaune',nq3,dq3,'turquoise',nq4,dq4,'pourpre'],
 				fractionsSimp: [
 					frac.fraction_simplifiee(nq1,dq1)[0],frac.fraction_simplifiee(nq1,dq1)[1],'carmin',
 					frac.fraction_simplifiee(nq2,dq2)[0],frac.fraction_simplifiee(nq2,dq2)[1],'ocre jaune',
@@ -4648,14 +4648,42 @@ function Problemes_additifs_fractions() {
 				question: `Quelle est elle la couleur qui recouvre le plus de surface ?`,
 				correction: ``
 			});
+			pb_4_f.push({// indice 1 le jardin
+				prenoms: [],
+				//fractions: [nq1,dq1,'la culture des légumes',nq2,dq2,'la culture des plantes aromatiques',nq3,dq3,'une serre servant aux semis',nq4,dq4,'la culture des fraisiers'],
+				fractions: [nq1,dq1,'la culture des légumes',nq2,dq2,'la culture des plantes aromatiques',nq3,dq3,'une serre servant aux semis',nq4,dq4,'la culture des fraisiers'],
+				fractionsSimp: [
+					frac.fraction_simplifiee(nq1,dq1)[0],frac.fraction_simplifiee(nq1,dq1)[1],'la culture des légumes',
+					frac.fraction_simplifiee(nq2,dq2)[0],frac.fraction_simplifiee(nq2,dq2)[1],'la culture des plantes aromatiques',
+					frac.fraction_simplifiee(nq3,dq3)[0],frac.fraction_simplifiee(nq3,dq3)[1],'une serre servant aux semis',
+					frac.fraction_simplifiee(nq4,dq4)[0],frac.fraction_simplifiee(nq4,dq4)[1],'la culture des fraisiers'],
+				fractionsB: {
+					f1:frac.fraction_simplifiee(nq1,dq1),
+					cat1:'la culture des légumes',
+					f2:frac.fraction_simplifiee(nq2,dq2),
+					cat2:'la culture des plantes aromatiques',
+					f3:frac.fraction_simplifiee(nq3,dq3),
+					cat3:'une serre servant aux semis',
+					f4:frac.fraction_simplifiee(nq4,dq4),
+					cat4:'la culture des fraisiers'},
+				enonce: ``,
+				question: `Quelle est la culture qui occupe le plus de surface ?`,
+				correction: ``
+			});
 
 			pb_4_f[0].enonce = `${pb_4_f[0].prenoms[0]} colorie un mandala selon les proportions suivantes :  $\\dfrac{${pb_4_f[0].fractionsB.f1[0]}}{${pb_4_f[0].fractionsB.f1[1]}}$ en ${pb_4_f[0].fractionsB.cat1}, `;
 			pb_4_f[0].enonce += `$\\dfrac{${pb_4_f[0].fractionsB.f2[0]}}{${pb_4_f[0].fractionsB.f2[1]}}$ en  ${pb_4_f[0].fractionsB.cat2}, `;
 			pb_4_f[0].enonce += `$\\dfrac{${pb_4_f[0].fractionsB.f3[0]}}{${pb_4_f[0].fractionsB.f3[1]}}$ en  ${pb_4_f[0].fractionsB.cat3} et `;
 			pb_4_f[0].enonce += `le reste en ${pb_4_f[0].fractionsB.cat4}.`;
 
+			pb_4_f[1].enonce = `Un jardin est aménagé selon les proportions suivantes :  $\\dfrac{${pb_4_f[1].fractionsB.f1[0]}}{${pb_4_f[1].fractionsB.f1[1]}}$ par ${pb_4_f[1].fractionsB.cat1}, `;
+			pb_4_f[1].enonce += `$\\dfrac{${pb_4_f[1].fractionsB.f2[0]}}{${pb_4_f[1].fractionsB.f2[1]}}$ par  ${pb_4_f[1].fractionsB.cat2}, `;
+			pb_4_f[1].enonce += `$\\dfrac{${pb_4_f[1].fractionsB.f3[0]}}{${pb_4_f[1].fractionsB.f3[1]}}$ par  ${pb_4_f[1].fractionsB.cat3} et `;
+			pb_4_f[1].enonce += `le reste par ${pb_4_f[1].fractionsB.cat4}.`;
+
+
 			//let frac_meme_denom;
-			for (let i=0; i<1; i++) {
+			for (let i=0; i<2; i++) {
 				pb_4_f[i].correction = `Il s'agit d'un problème additif. Il va être necessaire de réduire les fractions au même dénominateur pour les additionner, les soustraire ou les comparer.<br>`;
 				
 				if (!(dt1==dt2)) {
@@ -4682,9 +4710,9 @@ function Problemes_additifs_fractions() {
 			};
 
 				pb_4_f[0].correction += `Calculons alors la fraction du mandala recouverte en `;
-				//pb_4_f[1].correction += `Calculons d'abord la fraction des suffrages remportés par `;
+				pb_4_f[1].correction += `Calculons d'abord la fraction du jardin occupée par `;
 			
-			for (let i=0; i<1; i++) {
+			for (let i=0; i<2; i++) {
 				pb_4_f[i].correction += `${pb_4_f[i].fractionsB.cat3} : `;
 				pb_4_f[i].correction += `$1-\\dfrac{${pb_4_f[i].fractionsB.f1[0]}}{${pb_4_f[i].fractionsB.f1[1]}}-\\dfrac{${pb_4_f[i].fractionsB.f2[0]}}{${pb_4_f[i].fractionsB.f2[1]}} = `;
 				pb_4_f[i].correction +=`\\dfrac{${frac_meme_denom[1]}}{${frac_meme_denom[1]}}-\\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}-\\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}} = `;
@@ -4703,7 +4731,7 @@ function Problemes_additifs_fractions() {
 			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractionsB.f4[0]}}{${pb_4_f[0].fractionsB.f4[1]}}$ en ${pb_4_f[0].fractionsB.cat4}.`;			
 
 			pb_4_f[0].correction += `<br> Avec les mêmes dénominateurs pour pouvoir comparer, `;
-			pb_4_f[0].correction += `Le mandala est donc colorié de la façon suivante : $\\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ en ${pb_4_f[0].fractionsB.cat1}, `;
+			pb_4_f[0].correction += `le mandala est donc colorié de la façon suivante : $\\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ en ${pb_4_f[0].fractionsB.cat1}, `;
 			pb_4_f[0].correction += `$\\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ en ${pb_4_f[0].fractionsB.cat2}, `;
 			pb_4_f[0].correction += `$\\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$ en ${pb_4_f[0].fractionsB.cat3} et `;			
 			pb_4_f[0].correction += `$\\dfrac{${frac_meme_denom[6]}}{${frac_meme_denom[7]}}$ en ${pb_4_f[0].fractionsB.cat4}.`;			
@@ -4721,38 +4749,55 @@ function Problemes_additifs_fractions() {
 	
 				pb_4_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc en ${pb_4_f[0].fractionsSimp[pb_4_f[0].fractionsSimp.indexOf(frac_rangees[6])+2]} que le mandala est le plus recouvert.`)}`;			
 			};
-			
-			pb_4_f.push({// indice 1 le jardin
-				//prenoms: [prenomF(),prenomF(),prenomF()],
-				//fractions: [nq1,dq1,'la culture des légumes',nq2,dq2,'la culture des plantes aromatiques',nq3,dq3,'une serre servant aux semis',nq4,dq4,'la culture des fraisiers'],
-				fractions: [nq1,dq1,'la culture des légumes',nq2,dq2,'la culture des plantes aromatiques',nq3,dq3,'une serre servant aux semis',nq4,dq4,'la culture des fraisiers'],
-				enonce: ``,
-				question: `Quelle est la culture qui occupe le plus de surface ?`,
-				correction: ``
-			});
-			pb_4_f[1].enonce = `Un jardin est aménagé selon les proportions suivantes :  $\\dfrac{${pb_4_f[1].fractions[0]}}{${pb_4_f[1].fractions[1]}}$ par ${pb_4_f[1].fractions[2]}, `;
-			pb_4_f[1].enonce += `$\\dfrac{${pb_4_f[1].fractions[3]}}{${pb_4_f[1].fractions[4]}}$ par  ${pb_4_f[1].fractions[5]}, `;
-			pb_4_f[1].enonce += `$\\dfrac{${pb_4_f[1].fractions[6]}}{${pb_4_f[1].fractions[7]}}$ par  ${pb_4_f[1].fractions[8]} et `;
-			pb_4_f[1].enonce += `le reste par ${pb_4_f[1].fractions[11]}.`;
-			
-			pb_4_f[1].correction = `Calculons d'abord la fraction du jardin occupée par ${pb_4_f[1].fractions[11]} : $1-\\dfrac{${pb_4_f[1].fractions[0]}}{${pb_4_f[1].fractions[1]}}-\\dfrac{${pb_4_f[1].fractions[3]}}{${pb_4_f[1].fractions[4]}} -\\dfrac{${pb_4_f[1].fractions[6]}}{${pb_4_f[1].fractions[7]}}= \\dfrac{${pb_4_f[1].fractions[9]}}{${pb_4_f[1].fractions[10]}}$`
-			pb_4_f[1].correction += `<br>Le jardin est donc occupé de la façon suivante : $\\dfrac{${pb_4_f[1].fractions[0]}}{${pb_4_f[1].fractions[1]}}$ par ${pb_4_f[1].fractions[2]}, `;
-			pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[3]}}{${pb_4_f[1].fractions[4]}}$ par ${pb_4_f[1].fractions[5]}, `;
-			pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[6]}}{${pb_4_f[1].fractions[7]}}$ par ${pb_4_f[1].fractions[8]} et `;			
-			pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[9]}}{${pb_4_f[1].fractions[10]}}$ par ${pb_4_f[1].fractions[11]}`;
-			pb_4_f[1].correction += `<br>Réduisons ces fractions au même dénominateur :`;
-			frac_meme_denom = frac.reduceSameDenominateur(pb_4_f[1].fractions[0],pb_4_f[1].fractions[1],pb_4_f[1].fractions[3],pb_4_f[1].fractions[4],pb_4_f[1].fractions[6],pb_4_f[1].fractions[7],pb_4_f[1].fractions[9],pb_4_f[1].fractions[10]);			
-			pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[0]}}{${pb_4_f[1].fractions[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ ; `;
-			pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[3]}}{${pb_4_f[1].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ ; `;
-			pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[6]}}{${pb_4_f[1].fractions[7]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$ et `;
-			pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[9]}}{${pb_4_f[1].fractions[10]}} = \\dfrac{${frac_meme_denom[6]}}{${frac_meme_denom[7]}}$.`;
 
-			frac_meme_denom_rangees = frac.sortFractions(frac_meme_denom[0],frac_meme_denom[1],frac_meme_denom[2],frac_meme_denom[3],frac_meme_denom[4],frac_meme_denom[5],frac_meme_denom[6],frac_meme_denom[7]); 
-			pb_4_f[1].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_meme_denom_rangees[0]}}{${frac_meme_denom_rangees[1]}}$, $\\dfrac{${frac_meme_denom_rangees[2]}}{${frac_meme_denom_rangees[3]}}$, $\\dfrac{${frac_meme_denom_rangees[4]}}{${frac_meme_denom_rangees[5]}}$, $\\dfrac{${frac_meme_denom_rangees[6]}}{${frac_meme_denom_rangees[7]}}$.`
 
-			frac_rangees = frac.sortFractions(pb_4_f[1].fractions[0],pb_4_f[1].fractions[1],pb_4_f[1].fractions[3],pb_4_f[1].fractions[4],pb_4_f[1].fractions[6],pb_4_f[1].fractions[7],pb_4_f[1].fractions[9],pb_4_f[1].fractions[10]);			
-			pb_4_f[1].correction += `<br>Enfin, nous pouvons ranger les fractions initiales dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$, $\\dfrac{${frac_rangees[6]}}{${frac_rangees[7]}}$.`
-			pb_4_f[1].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc par ${pb_4_f[1].fractions[pb_4_f[1].fractions.indexOf(frac_rangees[7])+1]} que le jardin est le plus occupé.`)}`;	
+			pb_4_f[1].correction += `<br>Le jardin est donc occupé de la façon suivante : $\\dfrac{${pb_4_f[1].fractionsB.f1[0]}}{${pb_4_f[1].fractionsB.f1[1]}}$ par ${pb_4_f[1].fractionsB.cat1}, `;
+			pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractionsB.f2[0]}}{${pb_4_f[1].fractionsB.f2[1]}}$ par ${pb_4_f[1].fractionsB.cat2}, `;
+			pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractionsB.f3[0]}}{${pb_4_f[1].fractionsB.f3[1]}}$ par ${pb_4_f[1].fractionsB.cat3} et `;			
+			pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractionsB.f4[0]}}{${pb_4_f[1].fractionsB.f4[1]}}$ par ${pb_4_f[1].fractionsB.cat4}.`;			
+
+			pb_4_f[1].correction += `<br> Avec les mêmes dénominateurs pour pouvoir comparer, `;
+			pb_4_f[1].correction += `le jardin est donc occupé de la façon suivante : $\\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ par ${pb_4_f[1].fractionsB.cat1}, `;
+			pb_4_f[1].correction += `$\\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ par ${pb_4_f[1].fractionsB.cat2}, `;
+			pb_4_f[1].correction += `$\\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$ par ${pb_4_f[1].fractionsB.cat3} et `;			
+			pb_4_f[1].correction += `$\\dfrac{${frac_meme_denom[6]}}{${frac_meme_denom[7]}}$ par ${pb_4_f[1].fractionsB.cat4}.`;			
+
+			//let frac_rangees,frac_meme_denom_rangees;
+			if ( (calcul(nq1/dq1)==calcul(nq2/dq2)) && (calcul(nq1/dq1)==calcul(nq3/dq3)) && (calcul(nq1/dq1)==calcul(nq4/dq4)) ) {
+				pb_4_f[1].correction += `<br> ${texte_en_couleur_et_gras(`Les quatre fractions sont équivalentes, la même surface du jardin est donc occupée par les quatre cultures.`)}`;			
+			} else {
+				frac_meme_denom_rangees = frac.sortFractions(frac_meme_denom[0],frac_meme_denom[1],frac_meme_denom[2],frac_meme_denom[3],frac_meme_denom[4],frac_meme_denom[5],frac_meme_denom[6],frac_meme_denom[7]); 
+				pb_4_f[1].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_meme_denom_rangees[0]}}{${frac_meme_denom_rangees[1]}}$, $\\dfrac{${frac_meme_denom_rangees[2]}}{${frac_meme_denom_rangees[3]}}$, $\\dfrac{${frac_meme_denom_rangees[4]}}{${frac_meme_denom_rangees[5]}}$, $\\dfrac{${frac_meme_denom_rangees[6]}}{${frac_meme_denom_rangees[7]}}$.`
+	
+				frac_rangees = frac.sortFractions(pb_4_f[1].fractionsB.f1[0],pb_4_f[1].fractionsB.f1[1],pb_4_f[1].fractionsB.f2[0],pb_4_f[1].fractionsB.f2[1],pb_4_f[1].fractionsB.f3[0],pb_4_f[1].fractionsB.f3[1],pb_4_f[1].fractionsB.f4[0],pb_4_f[1].fractionsB.f4[1]); 
+
+				pb_4_f[1].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$, $\\dfrac{${frac_rangees[6]}}{${frac_rangees[7]}}$.`
+	
+				pb_4_f[1].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc par ${pb_4_f[1].fractionsSimp[pb_4_f[1].fractionsSimp.indexOf(frac_rangees[6])+2]} que le jardin est le plus occupé.`)}`;	
+			};
+
+
+
+			
+//=============indice 1============			
+			// pb_4_f[1].correction = `Calculons d'abord la fraction du jardin occupée par ${pb_4_f[1].fractions[11]} : $1-\\dfrac{${pb_4_f[1].fractions[0]}}{${pb_4_f[1].fractions[1]}}-\\dfrac{${pb_4_f[1].fractions[3]}}{${pb_4_f[1].fractions[4]}} -\\dfrac{${pb_4_f[1].fractions[6]}}{${pb_4_f[1].fractions[7]}}= \\dfrac{${pb_4_f[1].fractions[9]}}{${pb_4_f[1].fractions[10]}}$`
+			// pb_4_f[1].correction += `<br>Le jardin est donc occupé de la façon suivante : $\\dfrac{${pb_4_f[1].fractions[0]}}{${pb_4_f[1].fractions[1]}}$ par ${pb_4_f[1].fractions[2]}, `;
+			// pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[3]}}{${pb_4_f[1].fractions[4]}}$ par ${pb_4_f[1].fractions[5]}, `;
+			// pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[6]}}{${pb_4_f[1].fractions[7]}}$ par ${pb_4_f[1].fractions[8]} et `;			
+			// pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[9]}}{${pb_4_f[1].fractions[10]}}$ par ${pb_4_f[1].fractions[11]}`;
+			// pb_4_f[1].correction += `<br>Réduisons ces fractions au même dénominateur :`;
+			// frac_meme_denom = frac.reduceSameDenominateur(pb_4_f[1].fractions[0],pb_4_f[1].fractions[1],pb_4_f[1].fractions[3],pb_4_f[1].fractions[4],pb_4_f[1].fractions[6],pb_4_f[1].fractions[7],pb_4_f[1].fractions[9],pb_4_f[1].fractions[10]);			
+			// pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[0]}}{${pb_4_f[1].fractions[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ ; `;
+			// pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[3]}}{${pb_4_f[1].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ ; `;
+			// pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[6]}}{${pb_4_f[1].fractions[7]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$ et `;
+			// pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[9]}}{${pb_4_f[1].fractions[10]}} = \\dfrac{${frac_meme_denom[6]}}{${frac_meme_denom[7]}}$.`;
+
+			// frac_meme_denom_rangees = frac.sortFractions(frac_meme_denom[0],frac_meme_denom[1],frac_meme_denom[2],frac_meme_denom[3],frac_meme_denom[4],frac_meme_denom[5],frac_meme_denom[6],frac_meme_denom[7]); 
+			// pb_4_f[1].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_meme_denom_rangees[0]}}{${frac_meme_denom_rangees[1]}}$, $\\dfrac{${frac_meme_denom_rangees[2]}}{${frac_meme_denom_rangees[3]}}$, $\\dfrac{${frac_meme_denom_rangees[4]}}{${frac_meme_denom_rangees[5]}}$, $\\dfrac{${frac_meme_denom_rangees[6]}}{${frac_meme_denom_rangees[7]}}$.`
+
+			// frac_rangees = frac.sortFractions(pb_4_f[1].fractions[0],pb_4_f[1].fractions[1],pb_4_f[1].fractions[3],pb_4_f[1].fractions[4],pb_4_f[1].fractions[6],pb_4_f[1].fractions[7],pb_4_f[1].fractions[9],pb_4_f[1].fractions[10]);			
+			// pb_4_f[1].correction += `<br>Enfin, nous pouvons ranger les fractions initiales dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$, $\\dfrac{${frac_rangees[6]}}{${frac_rangees[7]}}$.`
+			// pb_4_f[1].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc par ${pb_4_f[1].fractions[pb_4_f[1].fractions.indexOf(frac_rangees[7])+1]} que le jardin est le plus occupé.`)}`;	
 
 			pb_4_f.push({// indice 2 le stade
 				//prenoms: [prenomF(),prenomF(),prenomF()],
