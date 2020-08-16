@@ -987,6 +987,21 @@ function calcul(expression,arrondir=false){
 }
 
 /**
+* Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux
+* Le 2e argument facultatif permet de préciser l'arrondi souhaité
+* @Auteur Rémi Angot
+*/
+function nombreDecimal(expression,arrondir=false){
+	if (!arrondir) {
+		return string_nombre(calcul(expression))
+	} else {
+		return string_nombre(calcul(expression,1))
+	}
+}
+
+
+
+/**
 * Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux et retourne un string avec la virgule comme séparateur décimal
 * @Auteur Rémi Angot
 */
