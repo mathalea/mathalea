@@ -41,6 +41,9 @@ var liste_des_exercices_disponibles = {
 		'6D12' : Calculs_de_durees_ou_d_horaires,
 		'beta6G10' : Notation_segment_droite_demi_droite,
 		'beta6G12' : Parallele_et_Perpendiculaires,
+		'6G11' : Tracer_des_perpendiculaires,
+		'6G12' : Tracer_des_paralleles,
+		'6G13' : Tracer_des_perpendiculaires_et_des_paralleles,
 		'6G20' : Vocabulaire_des_triangles_6e,
 		'6G24' : Transformations_6e,
 		'6G25-1' : Pavages_et_reflexion,
@@ -7257,6 +7260,25 @@ function Transformations() {
 }
 
 // Exercices paramétrés pour correspondre au référentiel
+function Tracer_des_perpendiculaires(){
+	Parallele_et_Perpendiculaires.call(this)
+	this.titre = "Tracer des perpendiculaires"
+	this.sup=1
+	this.besoin_formulaire_numerique=false
+}
+function Tracer_des_paralleles(){
+	Parallele_et_Perpendiculaires.call(this)
+	this.titre = "Tracer des parallèles"
+	this.sup=2
+	this.besoin_formulaire_numerique=false
+}
+function Tracer_des_perpendiculaires_et_des_paralleles(){
+	Parallele_et_Perpendiculaires.call(this)
+	this.titre = "Tracer des perpendiculaires et des perpendiculaires"
+	this.sup=3
+	this.nb_questions=2
+	this.besoin_formulaire_numerique=false
+}
 /**
  * Exercice en html seulement. Symétrie centrale dans un pavage.
  * @Auteur Jean-Claude Lhote
@@ -7925,8 +7947,10 @@ function Parallele_et_Perpendiculaires() {
 					D = point(randint(7, 8), randint(-7, -6), 'D')
 					E=point(randint(4,5),randint(4,5),'E')
 					F=point(2,-3,'F','above left')
-					traces = tracePoint(A, B, C, D,E,F)
-					labels = labelPoint(A, B, C, D,E,F)
+					traces_enonce = tracePoint(A, B, C, D,E,F)
+					labels_enonce = labelPoint(A, B, C, D,E,F)
+					traces_correction = tracePoint(A, B, C, D,E,F)
+					labels_correction = labelPoint(A, B, C, D,E,F)
 					dE = droiteParPointEtParallele(E, d)
 					dC = droiteParPointEtParallele(C, d)
 					dD = droiteParPointEtParallele(D, d)
@@ -7940,9 +7964,9 @@ function Parallele_et_Perpendiculaires() {
 					lE = arrondi(longueur(EE, A) * k, 1)
 					enonce = `Reproduis la figure ci-dessous sur ton cahier puis trace les droites parallèles à (AB) passant par C,D et E.<br>`
 					enonce += `Mesure ensuite la distance entre le point A et les points d'intersection de tes droites avec la droite (AF) et compare ces mesures avec celles de l'ordinateur dans la correction<br>`
-					enonce += mathalea2d({ xmin: Xmin, ymin: Ymin, xmax: Xmax, ymax: Ymax, pixelsParCm: ppc, scale: sc }, traces, labels, g, d,p, carreaux)
+					enonce += mathalea2d({ xmin: Xmin, ymin: Ymin, xmax: Xmax, ymax: Ymax, pixelsParCm: ppc, scale: sc }, traces_enonce, labels_enonce, g, d,p, carreaux)
 					correction = `voici la figure qu'il fallait réaliser.<br>`
-					correction += mathalea2d({ xmin: Xmin, ymin: Ymin, xmax: Xmax, ymax: Ymax, pixelsParCm: ppc, scale: sc }, traces, labels, g, d,p, dE, dC, dD, carreaux)
+					correction += mathalea2d({ xmin: Xmin, ymin: Ymin, xmax: Xmax, ymax: Ymax, pixelsParCm: ppc, scale: sc }, traces_correction, labels_correction, g, d,p, dE, dC, dD, carreaux)
 					correction += `<br>La parallèles à (AB) passant par C coupe (AF) à environ $${tex_nombre(lC)}$cm de A.<br>`
 					correction += `<br>La paralllèle à (AB) passant par D coupe (AF) à environ $${tex_nombre(lD)}$cm de A.<br>`
 					correction += `<br>La paralllèle à (AB) passant par E coupe (AF) à environ $${tex_nombre(lE)}$cm de A.<br>`					
@@ -7960,7 +7984,7 @@ function Parallele_et_Perpendiculaires() {
 
 		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
+//	this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
 	this.besoin_formulaire2_numerique = ['Type de cahier', 2, `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)`]
 
 }
