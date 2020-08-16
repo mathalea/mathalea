@@ -2671,7 +2671,8 @@ function cherche_polynome_deg3_a_extrema_fixes(x1,x2,y1,y2) {
 	if (!egal(M.determinant(),0)) return M.inverse().multiplieVecteur(R)
 	else return false
 }
-
+// fonction devenue inutile : à remplacer par cherche_polynome_deg3_a_extrema_fixes(x1,x2,y1,y2) qui produit un résultat exact, sans mouliner !
+/*
 function cherche_polynome_deg3_a_extrema_entiers(x1,x2,y1,y2) { // je voulais ajouter "ou presque" dans le nom de fonction, mais ça faisait trop long !
 	let resultat=[],trouve=false
 	for (let a=-1;a<1;a+=0.00005) {
@@ -2690,6 +2691,7 @@ function cherche_polynome_deg3_a_extrema_entiers(x1,x2,y1,y2) { // je voulais aj
 	}
 	if (!trouve) return 'Pas trouvé'
 }
+*/
 
 /**
  * Fonction pour simplifier l'ecriture lorsque l'exposant vaut 0 ou 1

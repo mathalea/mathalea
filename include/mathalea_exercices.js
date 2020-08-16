@@ -7841,9 +7841,14 @@ function Parallele_et_Perpendiculaires(){
 				Xmax=15
 				Ymax=6
 				ppc=20
-				sc=.5
+				sc=0.5
 			} else { // repère -5 || 5
-
+				Xmin=-1
+				Ymin=-9
+				Xmax=15
+				Ymax=6
+				ppc=20
+				sc=0.5
 			}
 		};
 
@@ -7851,11 +7856,11 @@ function Parallele_et_Perpendiculaires(){
 
 		let A,B,C,D,CC,DD,d,labels,traces,enonce,correction,dB,dC,dD,g,lC,lD,cB,cC,cD,BB
 		A=point(0,0,'A')
-		B=point(6,randint(-2,2,0),'B')
+		B=point(10,randint(-3,2,0)*2,'B')
 		d=droite(A,B)
 		d.isVisible=true
-		C=point(randint(3,4),randint(3,5),'C')
-		D=point(randint(8,9),randint(-8,-5),'D')
+		C=point(randint(1,3),randint(3,5),'C')
+		D=point(randint(7,8),randint(-8,-6),'D')
 		traces=tracePoint(A,B,C,D)
 		labels=labelPoint(A,B,C,D)
 		g=grille(-1,-15,15,15)
@@ -7865,20 +7870,20 @@ function Parallele_et_Perpendiculaires(){
 		BB=rotation(A,B,-90)
 		CC=pointIntersectionDD(dC,d)
 		DD=pointIntersectionDD(dD,d)
-		lC=arrondi(longueur(CC,A),1)
-		lD=arrondi(longueur(DD,A),1)
+		lC=arrondi(longueur(CC,A)/2,1)
+		lD=arrondi(longueur(DD,A)/2,1)
 		cB=codageAngleDroit(A,B,BB)
 		cC=codageAngleDroit(C,CC,B)
 		cD=codageAngleDroit(D,DD,B)
 		enonce=`Reproduis la figure ci-dessous sur ton cahier.<br>`
 		enonce+=`Trace les droites perpendiculaires à (AB) passant par B,C et D.<br>`
-		enonce+=`Mesure ensuite la distance entre le point A et les point d'intersection de tes droites avec la droite (AB).<br>`
+		enonce+=`Mesure ensuite la distance entre le point A et les points d'intersection de tes droites avec la droite (AB).<br>`
 		enonce+=`Compare cette mesure avec celle de l'ordinateur dans la correction<br>`
-		enonce+=mathalea2d({xmin : Xmin,ymin : Ymin,xmax : Xmax,ymax : Ymax,pixelsParCm : ppc,scale :sc},traces,labels,g,d)
+		enonce += mathalea2d({ xmin: Xmin, ymin: Ymin, xmax: Xmax, ymax: Ymax, pixelsParCm: ppc, scale: sc }, traces, labels, g, d)
 		correction=`voici la figure qu'il fallait réaliser.<br>`
-		correction+=mathalea2d({xmin : Xmin,ymin : Ymin,xmax : Xmax,ymax : Ymax,pixelsParCm : ppc,scale :sc},traces,labels,g,d,dB,dC,dD,cC,cB,cD)
-		correction+=`<br>La perpendiculaire à (d) passant par C coupe (AB) à ${lC}cm de A.<br>`
-		correction+=`<br>La perpendiculaire à (d) passant par D coupe (AB) à ${lD}cm de A.<br>`
+		correction += mathalea2d({ xmin: Xmin, ymin: Ymin, xmax: Xmax, ymax: Ymax, pixelsParCm: ppc, scale: sc }, traces, labels, g, d, dB, dC, dD, cC, cB, cD)
+		correction+=`<br>La perpendiculaire à (d) passant par C coupe (AB) à $${tex_nombre(lC)}$cm de A.<br>`
+		correction+=`<br>La perpendiculaire à (d) passant par D coupe (AB) à $${tex_nombre(lD)}$cm de A.<br>`
 	//	if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 		this.liste_questions.push(enonce+'<br>'+correction);
 	//	this.liste_corrections.push(texte_corr);
