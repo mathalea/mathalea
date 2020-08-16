@@ -7822,75 +7822,84 @@ function Vocabulaire_des_triangles_5e(){
 	Vocabulaire_des_triangles.call(this);
 };
 
-function Parallele_et_Perpendiculaires(){
+function Parallele_et_Perpendiculaires() {
 	'use strict'
 	Exercice.call(this);
 	this.titre = "Tracer des parallèles et des perpendiculaires";
 	this.nb_questions = 1;
-	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
-	this.nouvelle_version = function(numero_de_l_exercice){
+	this.sup = 1;
+	this.sup2 = 1;
+	this.nouvelle_version = function (numero_de_l_exercice) {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let Xmin,Xmax,Ymin,Ymax,ppc,sc
+		let Xmin, Xmax, Ymin, Ymax, ppc, sc
 		function initialise_variables() {
 			if (sortie_html) { // repère -10 || 10
-				Xmin=-1
-				Ymin=-9
-				Xmax=15
-				Ymax=6
-				ppc=20
-				sc=0.5
+				Xmin = -1
+				Ymin = -9
+				Xmax = 15
+				Ymax = 6
+				ppc = 20
 			} else { // repère -5 || 5
-				Xmin=-1
-				Ymin=-9
-				Xmax=15
-				Ymax=6
-				ppc=20
-				sc=0.5
+				Xmin = -1
+				Ymin = -9
+				Xmax = 15
+				Ymax = 6
+				ppc = 20
 			}
 		};
 
 		initialise_variables();
+		if (this.sup2 == 1) sc = 0.5
+		else sc = 0.8
 
-		let A,B,C,D,CC,DD,d,labels,traces,enonce,correction,dB,dC,dD,g,lC,lD,cB,cC,cD,BB
-		A=point(0,0,'A')
-		B=point(10,randint(-3,2,0)*2,'B')
-		d=droite(A,B)
-		d.isVisible=true
-		C=point(randint(1,3),randint(3,5),'C')
-		D=point(randint(7,8),randint(-8,-6),'D')
-		traces=tracePoint(A,B,C,D)
-		labels=labelPoint(A,B,C,D)
-		g=grille(-1,-15,15,15)
-		dB=droiteParPointEtPerpendiculaire(B,d)
-		dC=droiteParPointEtPerpendiculaire(C,d)
-		dD=droiteParPointEtPerpendiculaire(D,d)
-		BB=rotation(A,B,-90)
-		CC=pointIntersectionDD(dC,d)
-		DD=pointIntersectionDD(dD,d)
-		lC=arrondi(longueur(CC,A)/2,1)
-		lD=arrondi(longueur(DD,A)/2,1)
-		cB=codageAngleDroit(A,B,BB)
-		cC=codageAngleDroit(C,CC,B)
-		cD=codageAngleDroit(D,DD,B)
-		enonce=`Reproduis la figure ci-dessous sur ton cahier.<br>`
-		enonce+=`Trace les droites perpendiculaires à (AB) passant par B,C et D.<br>`
-		enonce+=`Mesure ensuite la distance entre le point A et les points d'intersection de tes droites avec la droite (AB).<br>`
-		enonce+=`Compare cette mesure avec celle de l'ordinateur dans la correction<br>`
-		enonce += mathalea2d({ xmin: Xmin, ymin: Ymin, xmax: Xmax, ymax: Ymax, pixelsParCm: ppc, scale: sc }, traces, labels, g, d)
-		correction=`voici la figure qu'il fallait réaliser.<br>`
-		correction += mathalea2d({ xmin: Xmin, ymin: Ymin, xmax: Xmax, ymax: Ymax, pixelsParCm: ppc, scale: sc }, traces, labels, g, d, dB, dC, dD, cC, cB, cD)
-		correction+=`<br>La perpendiculaire à (d) passant par C coupe (AB) à $${tex_nombre(lC)}$cm de A.<br>`
-		correction+=`<br>La perpendiculaire à (d) passant par D coupe (AB) à $${tex_nombre(lD)}$cm de A.<br>`
-	//	if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-		this.liste_questions.push(enonce+'<br>'+correction);
-	//	this.liste_corrections.push(texte_corr);
-	//	}	
-		liste_de_question_to_contenu(this);	
+		let A, B, C, D, CC, DD, d, labels, traces, enonce, correction, dB, dC, dD, g, lC, lD, cB, cC, cD, BB, carreaux, k
+		for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+			A = point(0, 0, 'A')
+			B = point(12, randint(-4, 4, 0), 'B')
+			d = droite(A, B)
+			d.isVisible = true
+			C = point(randint(1, 2), randint(3, 4), 'C')
+			D = point(randint(7, 8), randint(-7, -6), 'D')
+			traces = tracePoint(A, B, C, D)
+			labels = labelPoint(A, B, C, D)
+			g = grille(-1, -15, 15, 15, "gray", 0.7)
+			dB = droiteParPointEtPerpendiculaire(B, d)
+			dC = droiteParPointEtPerpendiculaire(C, d)
+			dD = droiteParPointEtPerpendiculaire(D, d)
+			BB = rotation(A, B, 90)
+			CC = pointIntersectionDD(dC, d)
+			DD = pointIntersectionDD(dD, d)
+			if (this.sup2 == 1) k = 0.5
+			else k = 0.8
+			lC = arrondi(longueur(CC, A) * k, 1)
+			lD = arrondi(longueur(DD, A) * k, 1)
+			cB = codageAngleDroit(A, B, BB)
+			cC = codageAngleDroit(C, CC, B)
+			cD = codageAngleDroit(D, DD, B)
+			if (this.sup2 == 2) carreaux = seyes(Xmin, Ymin, Xmax, Ymax)
+			else carreaux = ''
+			enonce = `Reproduis la figure ci-dessous sur ton cahier puis trace les droites perpendiculaires à (AB) passant par B,C et D.<br>`
+			enonce += `Mesure ensuite la distance entre le point A et les points d'intersection de tes droites avec la droite (AB) et compare ces mesures avec celles de l'ordinateur dans la correction<br>`
+			enonce += mathalea2d({ xmin: Xmin, ymin: Ymin, xmax: Xmax, ymax: Ymax, pixelsParCm: ppc, scale: sc }, traces, labels, g, d, carreaux)
+			correction = `voici la figure qu'il fallait réaliser.<br>`
+			correction += mathalea2d({ xmin: Xmin, ymin: Ymin, xmax: Xmax, ymax: Ymax, pixelsParCm: ppc, scale: sc }, traces, labels, g, d, dB, dC, dD, cC, cB, cD, carreaux)
+			correction += `<br>La perpendiculaire à (d) passant par C coupe (AB) à environ $${tex_nombre(lC)}$cm de A.<br>`
+			correction += `<br>La perpendiculaire à (d) passant par D coupe (AB) à environ $${tex_nombre(lD)}$cm de A.<br>`
+			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(enonce + '<br>');
+				this.liste_corrections.push(correction + '<br>');
+				i++;
+			}
+			cpt++;
+		}
+
+		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_numerique=['Type de questions',3,`1 : Parallèles\n 2 : Perpendiculaires\n 3 : Mélange`]
+	this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Parallèles\n 2 : Perpendiculaires\n 3 : Mélange`]
+	this.besoin_formulaire2_numerique = ['Type de cahier', 2, `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)`]
 
 }
 

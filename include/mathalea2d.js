@@ -84,7 +84,7 @@ function point(...args) {
  */
 function TracePoint(...points) {
   ObjetMathalea2D.call(this);
-  this.taille = 0.3;
+  this.taille = 0.2;
   if (typeof points[points.length - 1] === "string") {
     this.color = points[points.length - 1];
   }
@@ -2539,7 +2539,7 @@ function centreCercleCirconscrit(A, B, C, nom = "", positionLabel = "above") {
  *
  * @Auteur Rémi Angot
  */
-function codageAngleDroit(A, O, B, color = "black", d = 0.3) {
+function codageAngleDroit(A, O, B, color = "black", d = 0.4) {
   ObjetMathalea2D.call(this);
   this.color = color;
   let a = pointSurSegment(O, A, d);
@@ -2972,7 +2972,7 @@ function grille(...args) {
  */
 function seyes(xmin, ymin, xmax, ymax) {
   objets = [];
-  for (let y = 0; y <= ymax; y = calcul(y + 0.25)) {
+  for (let y = ymin; y <= ymax; y = calcul(y + 0.25)) {
     if (y % 1 != 0) {
       let d = segment(xmin, y, xmax, y);
       d.color = "red";
@@ -2981,6 +2981,7 @@ function seyes(xmin, ymin, xmax, ymax) {
     }
   }
   objets.push(grille(xmin, ymin, xmax, ymax, "blue", 2));
+  return objets
   this.svg = function (coeff) {
     code = "";
     for (objet of objets) {
