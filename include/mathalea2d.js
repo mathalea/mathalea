@@ -15,7 +15,7 @@
 let mesObjets = []; // Liste de tous les objets construits
 //Liste utilisée quand il n'y a qu'une seule construction sur la page web
 
-coeff = 20;
+pixelsParCm = 20;
 
 /*
  * Classe parente de tous les objets de MathALEA2D
@@ -2955,6 +2955,11 @@ function Grille(
   };
 }
 
+/**
+ * grille(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les axes des abscisses et des ordinnées
+ *
+ * @Auteur Rémi Angot
+ */
 function grille(...args) {
   return new Grille(...args);
 }
@@ -2976,12 +2981,11 @@ function seyes(xmin, ymin, xmax, ymax) {
     if (y % 1 != 0) {
       let d = segment(xmin, y, xmax, y);
       d.color = "red";
-      d.opacite = 0.5;
+      d.opacite = 0.2;
       objets.push(d);
     }
   }
-  objets.push(grille(xmin, ymin, xmax, ymax, "blue", 2));
-  return objets
+  objets.push(grille(xmin, ymin, xmax, ymax, "blue", 0.5, 1));
   this.svg = function (coeff) {
     code = "";
     for (objet of objets) {
@@ -3195,14 +3199,14 @@ function repere(...args) {
 */
 
 /**
- * courbe(f,xmin,xmax,color,repere,step) // Trace la courbe de f
+ * courbe(f,xmin,xmax,color,epaisseur,repere,step) // Trace la courbe de f
  *
  * @Auteur Rémi Angot
  */
 
 function courbe(
   f,
-  xmin = -1,
+  xmin = -20,
   xmax = 30,
   color = "black",
   epaisseur = 2,
@@ -3454,8 +3458,12 @@ function latexParCoordonnees(texte, x, y) {
  *
  * @Auteur Rémi Angot
  */
-function longueur(A, B) {
-  return calcul(Math.sqrt((B.x - A.x) ** 2 + (B.y - A.y) ** 2));
+function longueur(A, B, arrondi) {
+  if (arrondi === undefined) {
+    return calcul(Math.sqrt((B.x - A.x) ** 2 + (B.y - A.y) ** 2));
+  } else {
+    return calcul(Math.sqrt((B.x - A.x) ** 2 + (B.y - A.y) ** 2), arrondi);
+  }
 }
 
 /**
@@ -3554,14 +3562,14 @@ function codeSvg(...objets) {
       for (let i = 0; i < objet.length; i++) {
         try {
           if (objet[i].isVisible) {
-            code += "\t" + objet[i].svg(coeff) + "\n";
+            code += "\t" + objet[i].svg(pixelsParCm) + "\n";
           }
         } catch (error) {}
       }
     }
     try {
       if (objet.isVisible) {
-        code += "\t" + objet.svg(coeff) + "\n";
+        code += "\t" + objet.svg(pixelsParCm) + "\n";
       }
     } catch (error) {}
   }
