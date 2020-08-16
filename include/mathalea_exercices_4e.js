@@ -4382,7 +4382,6 @@ function Puissances_encadrement() {
  * @author Sébastien Lozano
  */
 function Problemes_additifs_fractions() {
-	//A la fin ne laisser que 2 questions avec un [choice([1,2]),choice([3,4,5])]
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.beta = true;	
@@ -4402,8 +4401,11 @@ function Problemes_additifs_fractions() {
 	
 	this.nouvelle_version = function(numero_de_l_exercice){
 		if (this.beta) {
-			this.nb_questions = 5;
-			type_de_questions_disponibles = [1,2,3,4,5];			
+			// this.nb_questions = 5;
+			// type_de_questions_disponibles = [1,2,3,4,5];			
+			this.nb_questions = 1;
+			type_de_questions_disponibles = [3];			
+
 		} else {
 			this.nb_questions = 2;
 			type_de_questions_disponibles = [choice([1,2]),choice([3,4,5])];			
@@ -4425,97 +4427,41 @@ function Problemes_additifs_fractions() {
 			// les numérateurs et dénominateurs des 3 fractions attention les deux premières doivent être inférieures à 1/2 si on veut qu'elles soient toutes positives !
 			// et on veut des fractions distinctes !
 			let nt1,nt2,nt3,dt1,dt2,dt3;
-			// on aura besoin de simplifier la 3eme fraction
-			//let nt4,dt4;
+			let n1,n2,n3,d1,d2,d3;
 			// on récupère les dénominateurs qui vont bien
 			let denoms_amis = frac.denominateurs_amis;
 			// on choisit un tableau dedans
 			let denoms_cool_3 = denoms_amis[randint(0,denoms_amis.length-1)];
-			// while ( (nt1==nt2 && dt1==dt2) || (nt1==nt3 && dt1==dt3) || (nt3==nt2 && dt3==dt2) || (nt1==nt4 && dt1==dt4) || (nt4==nt2 && dt4==dt2) || (nt1/dt1 >= 1/2) || (nt2/dt2 >= 1/2) || (nt4==nt1) || (nt4==nt2)) {
-			while ( (nt1==nt2 && dt1==dt2) || (nt1==nt3 && dt1==dt3) || (nt3==nt2 && dt3==dt2) || (nt1/dt1 >= 1/2) || (nt2/dt2 >= 1/2) ) {				
-				nt1 = randint(1,6);
-				//dt1 = 2*nt1 + randint(1,3);
-				dt1 = choice(denoms_cool_3);
-				nt2 = randint(2,10,[nt1]);//on évite nt1 pour pouvoir retrouver le texte de la plus grande fraction
-				//dt2 = 2*nt2 + randint(1,3);
-				dt2 = choice(denoms_cool_3,[dt1]);
-				nt3 = dt1*dt2-nt1*dt2-nt2*dt1;//la somme des trois vaut 1 !
-				dt3 = dt1*dt2; 
-				//nt4 = frac.fraction_simplifiee(nt3,dt3)[0];
-				//dt4 = frac.fraction_simplifiee(nt3,dt3)[1];
+			while ( (nt1==nt2) || (nt1==nt3) || (nt2==nt3) || (nt1/dt1 >= 1/2) || (nt2/dt2 >= 1/2) ) {
+				n1 = randint(1,6);
+				d1 = choice(denoms_cool_3);
+				n2 = randint(2,10,[n1]);//on évite n1 pour pouvoir retrouver le texte de la plus grande fraction
+				d2 = choice(denoms_cool_3,[d1]);
+				n3 = d1*d2-n1*d2-n2*d1;//la somme des trois vaut 1 !
+				d3 = d1*d2; 
+
+				nt1 = frac.fraction_simplifiee(n1,d1)[0];
+				dt1 = frac.fraction_simplifiee(n1,d1)[1];
+				nt2 = frac.fraction_simplifiee(n2,d2)[0];
+				dt2 = frac.fraction_simplifiee(n2,d2)[1];
+				nt3 = frac.fraction_simplifiee(n3,d3)[0];
+				dt3 = frac.fraction_simplifiee(n3,d3)[1];
 			};		
 			
-			// pb_3_f.push({// indice 0 le triathlon des neiges
-			// 	prenoms: [prenomM()],
-			// 	// fractions: [nt1,dt1,'VTT',nt2,dt2,'ski de fond',nt3,dt3,'pied'],
-			// 	fractions: [nt1,dt1,'VTT',nt2,dt2,'ski de fond',nt4,dt4,'pied'],
-			// 	enonce: ``,
-			// 	question: `Pour quelle discipline, la distance est-elle la plus grande ?`,
-			// 	correction: ``
-			// });
 			pb_3_f.push({// indice 0 le triathlon des neiges
-				prenoms: [prenomM()],
-				//fractions: [nt1,dt1,'VTT',nt2,dt2,'ski de fond',nt3,dt3,'pied'],
+				prenoms: [prenomM()],				
 				fractionsSimp: [frac.fraction_simplifiee(nt1,dt1)[0],frac.fraction_simplifiee(nt1,dt1)[1],'VTT',frac.fraction_simplifiee(nt2,dt2)[0],frac.fraction_simplifiee(nt2,dt2)[1],'ski de fond',frac.fraction_simplifiee(nt3,dt3)[0],frac.fraction_simplifiee(nt3,dt3)[1],'pied'],
 				fractionsB: {
 					f1:frac.fraction_simplifiee(nt1,dt1),
-					sport1:'VTT',
+					cat1:'VTT',
 					f2:frac.fraction_simplifiee(nt2,dt2),
-					sport2:'ski de fond',
+					cat2:'ski de fond',
 					f3:frac.fraction_simplifiee(nt3,dt3),
-					sport3:'pied'},
+					cat3:'pied'},
 				enonce: ``,
 				question: `Pour quelle discipline, la distance est-elle la plus grande ?`,
 				correction: ``
 			});
-			pb_3_f[0].enonce = `Le triathlon des neiges de la vallée des loups comprend trois épreuves qui s'enchaînent : VTT, ski de fonc et course à pied.`;
-			pb_3_f[0].enonce += `<br>${pb_3_f[0].prenoms[0]}, un passionné de cette épreuve, s'entraîne régulièrement sur le même circuit. `;
-			pb_3_f[0].enonce += `<br>À chaque entraînement, il parcourt le circuit de la façon suivante : $\\dfrac{${pb_3_f[0].fractionsB.f1[0]}}{${pb_3_f[0].fractionsB.f1[1]}}$ à ${pb_3_f[0].fractionsB.sport1}, `
-			pb_3_f[0].enonce += `$\\dfrac{${pb_3_f[0].fractionsB.f2[0]}}{${pb_3_f[0].fractionsB.f2[1]}}$ à ${pb_3_f[0].fractionsB.sport2} et le reste à ${pb_3_f[0].fractionsB.sport3}.`;
-
-			pb_3_f[0].correction = `Il s'agit d'un problème additif. Il va être necessaire de réduire les fractions au même dénominateur pour les additionner, les soustraire ou les comparer.<br>`;
-			pb_3_f[0].correction += `Réduisons les fractions de l'énoncé au même dénominateur :  `;
-			let frac_meme_denom = frac.reduceSameDenominateur(pb_3_f[0].fractionsB.f1[0],pb_3_f[0].fractionsB.f1[1],pb_3_f[0].fractionsB.f2[0],pb_3_f[0].fractionsB.f2[1],pb_3_f[0].fractionsB.f3[0],pb_3_f[0].fractionsB.f3[1]);			
-			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractionsB.f1[0]}}{${pb_3_f[0].fractionsB.f1[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ et `;
-			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractionsB.f2[0]}}{${pb_3_f[0].fractionsB.f2[1]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$.<br>`;
-
-			//pb_3_f[0].correction += `Calculons d'abord la distance à ${pb_3_f[0].fractions[8]} : $1-\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}}-\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}} = \\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}}$`
-			pb_3_f[0].correction += `Calculons alors la distance à ${pb_3_f[0].fractionsB.sport3} : `;
-			pb_3_f[0].correction +=` $1-\\dfrac{${pb_3_f[0].fractionsB.f1[0]}}{${pb_3_f[0].fractionsB.f1[1]}}-\\dfrac{${pb_3_f[0].fractionsB.f2[0]}}{${pb_3_f[0].fractionsB.f2[1]}} = \\dfrac{${frac_meme_denom[1]}}{${frac_meme_denom[1]}}-\\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}-\\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}} = \\dfrac{${frac_meme_denom[1]}-${frac_meme_denom[0]}-${frac_meme_denom[2]}}{${frac_meme_denom[3]}} = \\dfrac{${frac_meme_denom[1]-frac_meme_denom[0]-frac_meme_denom[2]}}{${frac_meme_denom[1]}}= \\dfrac{${pb_3_f[0].fractionsB.f3[0]}}{${pb_3_f[0].fractionsB.f3[1]}}$`;
-
-			pb_3_f[0].correction += `<br>${pb_3_f[0].prenoms[0]} fait donc $\\dfrac{${pb_3_f[0].fractionsB.f1[0]}}{${pb_3_f[0].fractionsB.f1[1]}}$ à ${pb_3_f[0].fractionsB.sport1}, `;
-			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractionsB.f2[0]}}{${pb_3_f[0].fractionsB.f2[1]}}$ à ${pb_3_f[0].fractionsB.sport2} et `;
-			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractionsB.f3[0]}}{${pb_3_f[0].fractionsB.f3[1]}}$ à ${pb_3_f[0].fractionsB.sport3}.`;			
-
-			pb_3_f[0].correction += `<br> Avec les mêmes dénominateurs pour pouvoir comparer, `;
-			pb_3_f[0].correction += `${pb_3_f[0].prenoms[0]} fait donc $\\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ à ${pb_3_f[0].fractionsB.sport1}, `;
-			pb_3_f[0].correction += `$\\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ à ${pb_3_f[0].fractionsB.sport2} et `;
-			pb_3_f[0].correction += `$\\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$ à ${pb_3_f[0].fractionsB.sport3}.`;			
-
-			//pb_3_f[0].correction += `<br>Réduisons ces fractions au même dénominateur :`;
-			//let frac_meme_denom = frac.reduceSameDenominateur(pb_3_f[0].fractions[0],pb_3_f[0].fractions[1],pb_3_f[0].fractions[3],pb_3_f[0].fractions[4],pb_3_f[0].fractions[6],pb_3_f[0].fractions[7]);			
-			//pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[0]}}{${pb_3_f[0].fractions[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ ; `;
-			//pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[3]}}{${pb_3_f[0].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ et `;
-			//pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractions[6]}}{${pb_3_f[0].fractions[7]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$.`;
-
-			let frac_rangees,frac_meme_denom_rangees;
-			if ( (calcul(nt1/dt1)==calcul(nt2/dt2)) && (calcul(nt1/dt1)==calcul(nt3/dt3)) ) {
-				pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`Les trois fractions sont équivalentes, ${pb_3_f[0].prenoms[0]} parcours donc la même distance dans les trois disciplines.`)}`;			
-			} else {
-				frac_meme_denom_rangees = frac.sortFractions(frac_meme_denom[0],frac_meme_denom[1],frac_meme_denom[2],frac_meme_denom[3],frac_meme_denom[4],frac_meme_denom[5]); 
-				pb_3_f[0].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_meme_denom_rangees[0]}}{${frac_meme_denom_rangees[1]}}$, $\\dfrac{${frac_meme_denom_rangees[2]}}{${frac_meme_denom_rangees[3]}}$, $\\dfrac{${frac_meme_denom_rangees[4]}}{${frac_meme_denom_rangees[5]}}$.`
-	
-				frac_rangees = frac.sortFractions(pb_3_f[0].fractionsB.f1[0],pb_3_f[0].fractionsB.f1[1],pb_3_f[0].fractionsB.f2[0],pb_3_f[0].fractionsB.f2[1],pb_3_f[0].fractionsB.f3[0],pb_3_f[0].fractionsB.f3[1]); 
-				//pb_3_f[0].correction += `<br>Enfin, nous pouvons ranger les fractions initiales dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
-				pb_3_f[0].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
-				//pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[0].fractions[pb_3_f[0].fractions.indexOf(frac_rangees[5])+1]} que ${pb_3_f[0].prenoms[0]} fait la plus grande distance.`)}`;			
-				//pb_3_f[0].correction += `<br>${frac_rangees} --- ${pb_3_f[0].fractionsSimp}`;
-	
-				pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[0].fractionsSimp[pb_3_f[0].fractionsSimp.indexOf(frac_rangees[4])+2]} que ${pb_3_f[0].prenoms[0]} fait la plus grande distance.`)}`;			
-			}
-			// pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[0].fractions[pb_3_f[0].fractions.indexOf(frac_rangees[4])+2]} que ${pb_3_f[0].prenoms[0]} fait la plus grande distance.`)}`;			
-			// pb_3_f[0].correction += `<br>${JSON.stringify(pb_3_f[0].fractions)}`
-			// pb_3_f[0].correction += `<br>${JSON.stringify(frac_rangees)}`
 
 			// les 3 prénomns doivent être distincts
 			let p1,p2,p3; // les 3 prénoms
@@ -4525,99 +4471,261 @@ function Problemes_additifs_fractions() {
 				p3 = prenomF();
 			};
 			pb_3_f.push({// indice 1 Miss Math
-				//prenoms: [prenomF(),prenomF(),prenomF()],
-				//fractions: [nt1,dt1,p1,nt2,dt2,p2,nt3,dt3,p3],
-				fractions: [nt1,dt1,p1,nt2,dt2,p2,frac.fraction_simplifiee(nt3,dt3)[0],frac.fraction_simplifiee(nt3,dt3)[1],p3],
+				prenoms: [],				
+				//fractions: [nt1,dt1,p1,nt2,dt2,p2,frac.fraction_simplifiee(nt3,dt3)[0],frac.fraction_simplifiee(nt3,dt3)[1],p3],
+				fractionsSimp: [frac.fraction_simplifiee(nt1,dt1)[0],frac.fraction_simplifiee(nt1,dt1)[1],p1,frac.fraction_simplifiee(nt2,dt2)[0],frac.fraction_simplifiee(nt2,dt2)[1],p2,frac.fraction_simplifiee(nt3,dt3)[0],frac.fraction_simplifiee(nt3,dt3)[1],p3],
+				fractionsB: {
+					f1:frac.fraction_simplifiee(nt1,dt1),
+					cat1:p1,
+					f2:frac.fraction_simplifiee(nt2,dt2),
+					cat2:p2,
+					f3:frac.fraction_simplifiee(nt3,dt3),
+					cat3:p3},
 				enonce: ``,
 				question: `Qui a été élue ?`,
 				correction: ``
 			});
 			let currentDate = new Date();
 			let currentAnnee = currentDate.getFullYear();
-			pb_3_f[1].enonce = `À l'élection de Miss Math ${currentAnnee}, ${pb_3_f[1].fractions[2]} a remporté $\\dfrac{${pb_3_f[1].fractions[0]}}{${pb_3_f[1].fractions[1]}}$ des suffrages, `;
-			pb_3_f[1].enonce += `${pb_3_f[1].fractions[5]} $\\dfrac{${pb_3_f[1].fractions[3]}}{${pb_3_f[1].fractions[4]}}$ et `;
-			pb_3_f[1].enonce += `${pb_3_f[1].fractions[8]} tous les autres.`;
 			
-			pb_3_f[1].correction = `Calculons d'abord la fraction des suffrages remportés par ${pb_3_f[1].fractions[8]} : $1-\\dfrac{${pb_3_f[1].fractions[0]}}{${pb_3_f[1].fractions[1]}}-\\dfrac{${pb_3_f[1].fractions[3]}}{${pb_3_f[1].fractions[4]}} = \\dfrac{${pb_3_f[1].fractions[6]}}{${pb_3_f[1].fractions[7]}}$`
-			pb_3_f[1].correction += `<br>${pb_3_f[1].fractions[2]} a donc remporté $\\dfrac{${pb_3_f[1].fractions[0]}}{${pb_3_f[1].fractions[1]}}$, `;
-			pb_3_f[1].correction += `${pb_3_f[1].fractions[5]} a remporté $\\dfrac{${pb_3_f[1].fractions[3]}}{${pb_3_f[1].fractions[4]}}$ et `;
-			pb_3_f[1].correction += `${pb_3_f[1].fractions[8]} $\\dfrac{${pb_3_f[1].fractions[6]}}{${pb_3_f[1].fractions[7]}}$.`;			
-			pb_3_f[1].correction += `<br>Réduisons ces fractions au même dénominateur :`;
-			frac_meme_denom = frac.reduceSameDenominateur(pb_3_f[1].fractions[0],pb_3_f[1].fractions[1],pb_3_f[1].fractions[3],pb_3_f[1].fractions[4],pb_3_f[1].fractions[6],pb_3_f[1].fractions[7]);			
-			pb_3_f[1].correction += `$\\dfrac{${pb_3_f[1].fractions[0]}}{${pb_3_f[1].fractions[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ ; `;
-			pb_3_f[1].correction += `$\\dfrac{${pb_3_f[1].fractions[3]}}{${pb_3_f[1].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ et `;
-			pb_3_f[1].correction += `$\\dfrac{${pb_3_f[1].fractions[6]}}{${pb_3_f[1].fractions[7]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$.`;
 
-			frac_meme_denom_rangees = frac.sortFractions(frac_meme_denom[0],frac_meme_denom[1],frac_meme_denom[2],frac_meme_denom[3],frac_meme_denom[4],frac_meme_denom[5]); 
-			pb_3_f[1].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_meme_denom_rangees[0]}}{${frac_meme_denom_rangees[1]}}$, $\\dfrac{${frac_meme_denom_rangees[2]}}{${frac_meme_denom_rangees[3]}}$, $\\dfrac{${frac_meme_denom_rangees[4]}}{${frac_meme_denom_rangees[5]}}$.`
+			pb_3_f[0].enonce += `Le triathlon des neiges de la vallée des loups comprend trois épreuves qui s'enchaînent : VTT, ski de fonc et course à pied.`;
+			pb_3_f[0].enonce += `<br>${pb_3_f[0].prenoms[0]}, un passionné de cette épreuve, s'entraîne régulièrement sur le même circuit. `;
+			pb_3_f[0].enonce += `<br>À chaque entraînement, il parcourt le circuit de la façon suivante : $\\dfrac{${pb_3_f[0].fractionsB.f1[0]}}{${pb_3_f[0].fractionsB.f1[1]}}$ à ${pb_3_f[0].fractionsB.cat1}, `
+			pb_3_f[0].enonce += `$\\dfrac{${pb_3_f[0].fractionsB.f2[0]}}{${pb_3_f[0].fractionsB.f2[1]}}$ à ${pb_3_f[0].fractionsB.cat2} et le reste à ${pb_3_f[0].fractionsB.cat3}.`;
 
-			frac_rangees = frac.sortFractions(pb_3_f[1].fractions[0],pb_3_f[1].fractions[1],pb_3_f[1].fractions[3],pb_3_f[1].fractions[4],pb_3_f[1].fractions[6],pb_3_f[1].fractions[7]); 
-			pb_3_f[1].correction += `<br>Enfin, nous pouvons ranger les fractions initiales dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
-			pb_3_f[1].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc ${pb_3_f[1].fractions[pb_3_f[1].fractions.indexOf(frac_rangees[5])+1]} qui a été élue.`)}`;			
+			pb_3_f[1].enonce = `À l'élection de Miss Math ${currentAnnee}, ${pb_3_f[1].fractionsB.cat1} a remporté $\\dfrac{${pb_3_f[1].fractionsB.f1[0]}}{${pb_3_f[1].fractionsB.f1[1]}}$ des suffrages, `;
+			pb_3_f[1].enonce += `${pb_3_f[1].fractionsB.cat2} $\\dfrac{${pb_3_f[1].fractionsB.f2[0]}}{${pb_3_f[1].fractionsB.f2[1]}}$ et `;
+			pb_3_f[1].enonce += `${pb_3_f[1].fractionsB.cat3} tous les autres.`;
+
+			let frac_meme_denom;
+			for (let i=0; i<2; i++) {
+				pb_3_f[i].correction = `Il s'agit d'un problème additif. Il va être necessaire de réduire les fractions au même dénominateur pour les additionner, les soustraire ou les comparer.<br>`;
+				
+				if (!(dt1==dt2)) {
+					pb_3_f[i].correction += `Réduisons les fractions de l'énoncé au même dénominateur :  `;
+					frac_meme_denom = frac.reduceSameDenominateur(pb_3_f[i].fractionsB.f1[0],pb_3_f[i].fractionsB.f1[1],pb_3_f[i].fractionsB.f2[0],pb_3_f[i].fractionsB.f2[1],pb_3_f[i].fractionsB.f3[0],pb_3_f[i].fractionsB.f3[1]);
+					if (frac_meme_denom[1] == dt1) {
+						pb_3_f[i].correction += `$\\dfrac{${pb_3_f[i].fractionsB.f1[0]}}{${pb_3_f[i].fractionsB.f1[1]}}$ et `;
+						pb_3_f[i].correction += `$\\dfrac{${pb_3_f[i].fractionsB.f2[0]}}{${pb_3_f[i].fractionsB.f2[1]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$.<br>`;	
+					} else if (frac_meme_denom[1] == dt2) {
+						pb_3_f[i].correction += `$\\dfrac{${pb_3_f[i].fractionsB.f1[0]}}{${pb_3_f[i].fractionsB.f1[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ et `;
+						pb_3_f[i].correction += `$\\dfrac{${pb_3_f[i].fractionsB.f2[0]}}{${pb_3_f[i].fractionsB.f2[1]}}$<br>`;
+					} else {
+						pb_3_f[i].correction += `$\\dfrac{${pb_3_f[i].fractionsB.f1[0]}}{${pb_3_f[i].fractionsB.f1[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ et `;
+						pb_3_f[i].correction += `$\\dfrac{${pb_3_f[i].fractionsB.f2[0]}}{${pb_3_f[i].fractionsB.f2[1]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$.<br>`;
+					};			
+				} else {
+					pb_3_f[i].correction += `Les fractions de l'énoncé ont déjà le même dénominateur.`
+				};
+			};
+
+				pb_3_f[0].correction += `Calculons alors la distance à `;
+				pb_3_f[1].correction += `Calculons d'abord la fraction des suffrages remportés par `;
+			
+			for (let i=0; i<2; i++) {
+				pb_3_f[i].correction += `${pb_3_f[i].fractionsB.cat3} : `;
+				pb_3_f[i].correction += `$1-\\dfrac{${pb_3_f[i].fractionsB.f1[0]}}{${pb_3_f[i].fractionsB.f1[1]}}-\\dfrac{${pb_3_f[i].fractionsB.f2[0]}}{${pb_3_f[i].fractionsB.f2[1]}} = `;
+				pb_3_f[i].correction +=`\\dfrac{${frac_meme_denom[1]}}{${frac_meme_denom[1]}}-\\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}-\\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}} = `;
+				pb_3_f[i].correction +=`\\dfrac{${frac_meme_denom[1]}-${frac_meme_denom[0]}-${frac_meme_denom[2]}}{${frac_meme_denom[3]}} = `;
+				pb_3_f[i].correction += `\\dfrac{${frac_meme_denom[1]-frac_meme_denom[0]-frac_meme_denom[2]}}{${frac_meme_denom[1]}}`;
+				if (!(frac_meme_denom[1]==pb_3_f[0].fractionsB.f3[1])) {
+					pb_3_f[i].correction +=` = \\dfrac{${pb_3_f[i].fractionsB.f3[0]}}{${pb_3_f[i].fractionsB.f3[1]}}$`;
+				} else {
+					pb_3_f[i].correction +=`$`;
+				};	
+			};		
+
+			pb_3_f[0].correction += `<br>${pb_3_f[0].prenoms[0]} fait donc $\\dfrac{${pb_3_f[0].fractionsB.f1[0]}}{${pb_3_f[0].fractionsB.f1[1]}}$ à ${pb_3_f[0].fractionsB.cat1}, `;
+			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractionsB.f2[0]}}{${pb_3_f[0].fractionsB.f2[1]}}$ à ${pb_3_f[0].fractionsB.cat2} et `;
+			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractionsB.f3[0]}}{${pb_3_f[0].fractionsB.f3[1]}}$ à ${pb_3_f[0].fractionsB.cat3}.`;			
+
+			pb_3_f[0].correction += `<br> Avec les mêmes dénominateurs pour pouvoir comparer, `;
+			pb_3_f[0].correction += `${pb_3_f[0].prenoms[0]} fait donc $\\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ à ${pb_3_f[0].fractionsB.cat1}, `;
+			pb_3_f[0].correction += `$\\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ à ${pb_3_f[0].fractionsB.cat2} et `;
+			pb_3_f[0].correction += `$\\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$ à ${pb_3_f[0].fractionsB.cat3}.`;			
+
+			let frac_rangees,frac_meme_denom_rangees;
+			if ( (calcul(nt1/dt1)==calcul(nt2/dt2)) && (calcul(nt1/dt1)==calcul(nt3/dt3)) ) {
+				pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`Les trois fractions sont équivalentes, ${pb_3_f[0].prenoms[0]} parcours donc la même distance dans les trois disciplines.`)}`;			
+			} else {
+				frac_meme_denom_rangees = frac.sortFractions(frac_meme_denom[0],frac_meme_denom[1],frac_meme_denom[2],frac_meme_denom[3],frac_meme_denom[4],frac_meme_denom[5]); 
+				pb_3_f[0].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_meme_denom_rangees[0]}}{${frac_meme_denom_rangees[1]}}$, $\\dfrac{${frac_meme_denom_rangees[2]}}{${frac_meme_denom_rangees[3]}}$, $\\dfrac{${frac_meme_denom_rangees[4]}}{${frac_meme_denom_rangees[5]}}$.`
+	
+				frac_rangees = frac.sortFractions(pb_3_f[0].fractionsB.f1[0],pb_3_f[0].fractionsB.f1[1],pb_3_f[0].fractionsB.f2[0],pb_3_f[0].fractionsB.f2[1],pb_3_f[0].fractionsB.f3[0],pb_3_f[0].fractionsB.f3[1]); 
+
+				pb_3_f[0].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
+	
+				pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[0].fractionsSimp[pb_3_f[0].fractionsSimp.indexOf(frac_rangees[4])+2]} que ${pb_3_f[0].prenoms[0]} fait la plus grande distance.`)}`;			
+			}
+
+			pb_3_f[1].correction += `<br>${pb_3_f[1].fractionsB.cat1} a donc remporté $\\dfrac{${pb_3_f[1].fractionsB.f1[0]}}{${pb_3_f[1].fractionsB.f1[1]}}$, `;
+			pb_3_f[1].correction += `${pb_3_f[1].fractionsB.cat2} a remporté $\\dfrac{${pb_3_f[1].fractionsB.f2[0]}}{${pb_3_f[1].fractionsB.f2[1]}}$ et `;
+			pb_3_f[1].correction += `${pb_3_f[1].fractionsB.cat3} $\\dfrac{${pb_3_f[1].fractionsB.f3[0]}}{${pb_3_f[1].fractionsB.f3[1]}}$.`;			
+
+			pb_3_f[1].correction += `<br> Avec les mêmes dénominateurs pour pouvoir comparer, `;
+			pb_3_f[1].correction += `${pb_3_f[1].fractionsB.cat1} remporte donc $\\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$, `;
+			pb_3_f[1].correction += `${pb_3_f[1].fractionsB.cat2} $\\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ et `;
+			pb_3_f[1].correction += `${pb_3_f[1].fractionsB.cat3} $\\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$.`;			
+
+			//let frac_rangees,frac_meme_denom_rangees;
+			if ( (calcul(nt1/dt1)==calcul(nt2/dt2)) && (calcul(nt1/dt1)==calcul(nt3/dt3)) ) {
+				pb_3_f[1].correction += `<br> ${texte_en_couleur_et_gras(`Les trois fractions sont équivalentes, les trois candidates ont donc remporté le même nombre de suffrages.`)}`;			
+			} else {
+				frac_meme_denom_rangees = frac.sortFractions(frac_meme_denom[0],frac_meme_denom[1],frac_meme_denom[2],frac_meme_denom[3],frac_meme_denom[4],frac_meme_denom[5]); 
+				pb_3_f[1].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_meme_denom_rangees[0]}}{${frac_meme_denom_rangees[1]}}$, $\\dfrac{${frac_meme_denom_rangees[2]}}{${frac_meme_denom_rangees[3]}}$, $\\dfrac{${frac_meme_denom_rangees[4]}}{${frac_meme_denom_rangees[5]}}$.`
+	
+				frac_rangees = frac.sortFractions(pb_3_f[1].fractionsB.f1[0],pb_3_f[1].fractionsB.f1[1],pb_3_f[1].fractionsB.f2[0],pb_3_f[1].fractionsB.f2[1],pb_3_f[1].fractionsB.f3[0],pb_3_f[1].fractionsB.f3[1]); 
+
+				pb_3_f[1].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
+	
+				pb_3_f[1].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc ${pb_3_f[1].fractionsSimp[pb_3_f[1].fractionsSimp.indexOf(frac_rangees[4])+2]} qui a été élue.`)}`;			
+			}
 
 			// le tableau d'objets contenant tout le necesssaire, fractions, énoncé, question ... pour les problème avec 4 fractions
 			let pb_4_f = [];
 			// les numérateurs et dénominateurs des 4 fractions attention les trois premières doivent être inférieures à 1/3 si on veut qu'elles soient toutes positives !
 			// et on veut des fractions distinctes 
 			let nq1,nq2,nq3,nq4,dq1,dq2,dq3,dq4;
-			// on aura besoin de simplifier la 4eme fraction
-			let nq5,dq5;
+			let n4,d4;// en plus parce qu'il y a 4 fractions
 			// on récupère les dénominateurs qui vont bien
 			//let denoms_amis = frac.denominateurs_amis;
 			// on choisit un tableau dedans
-			let denoms_cool_4 = denoms_amis[randint(0,denoms_amis.length-1)];
-			while ( (nq1==nq2 && dq1==dq2) || (nq1==nq3 && dq1==dq3) || (nq1==nq4 && dq1==dq4) || (nq1==nq5 && dq1==dq5) || (nq2==nq3 && dq2==dq3) || (nq2==nq4 && dq2==dq4) || (nq2==nq5 && dq2==dq5) || (nq3==nq4 && dq3==dq4) ||  (nq3==nq5 && dq3==dq5) || (nq1/dq1 >= 1/3) || (nq2/dq2 >= 1/3) || (nq3/dq3 >= 1/3) ) {
-				nq1 = randint(1,6);
-				//dq1 = 3*nq1 + 1;				
-				dq1 = choice(denoms_cool_4);
-				nq2 = randint(1,6);				
-				//dq2 = 3*nq2 + 1;
-				dq2 = choice(denoms_cool_4,[dq1]);
-				nq3 = randint(1,6);
-				//dq3 = 3*nq3 + 1;
-				dq3 = choice(denoms_cool_4,[dq1,dq2]);
-				nq4 = dq1*dq2*dq3-nq1*dq2*dq3 - nq2*dq1*dq3 - nq3*dq1*dq2;//la somme des quatre vaut 1 !
-				dq4 = dq1*dq2*dq3;
-				nq5 = frac.fraction_simplifiee(nq4,dq4)[0];
-				dq5 = frac.fraction_simplifiee(nq4,dq4)[1];
+			let denoms_cool_4 = denoms_amis[randint(2,denoms_amis.length-1)];
+			//while ( (nq1==nq2 && dq1==dq2) || (nq1==nq3 && dq1==dq3) || (nq1==nq4 && dq1==dq4) || (nq1==nq5 && dq1==dq5) || (nq2==nq3 && dq2==dq3) || (nq2==nq4 && dq2==dq4) || (nq2==nq5 && dq2==dq5) || (nq3==nq4 && dq3==dq4) ||  (nq3==nq5 && dq3==dq5) || (nq1/dq1 >= 1/3) || (nq2/dq2 >= 1/3) || (nq3/dq3 >= 1/3) ) {
+			while ( (nq1==nq2) || (nq1==nq3) || (nq1==nq4) || (nq2==nq3) || (nq2==nq4) || (nq3==nq4) || (nq1/dq1 >= 1/3) || (nq2/dq2 >= 1/3) || (nq3/dq3 >= 1/3) ) {
+				n1 = randint(1,5);
+				d1 = choice(denoms_cool_4);
+				n2 = randint(1,11,[n1]);//on évite n1 pour pouvoir retrouver le texte de la plus grande fraction
+				d2 = choice(denoms_cool_4);
+				n3 = randint(1,17,[n1,n2]);//on évite n1 et n2 pour pouvoir retrouver le texte de la plus grande fraction
+				d3 = choice(denoms_cool_4);
+				n4 = d1*d2*d3-n1*d2*d3 - n2*d1*d3 - n3*d1*d2;//la somme des quatre vaut 1 !
+				d4 = d1*d2*d3;
+
+				nq1 = frac.fraction_simplifiee(n1,d1)[0];
+				dq1 = frac.fraction_simplifiee(n1,d1)[1];
+				nq2 = frac.fraction_simplifiee(n2,d2)[0];
+				dq2 = frac.fraction_simplifiee(n2,d2)[1];
+				nq3 = frac.fraction_simplifiee(n3,d3)[0];
+				dq3 = frac.fraction_simplifiee(n3,d3)[1];
+				nq4 = frac.fraction_simplifiee(n4,d4)[0];
+				dq4 = frac.fraction_simplifiee(n4,d4)[1];
+
+				// nq1 = randint(1,6);
+				// //dq1 = 3*nq1 + 1;				
+				// dq1 = choice(denoms_cool_4);
+				// nq2 = randint(1,6);				
+				// //dq2 = 3*nq2 + 1;
+				// dq2 = choice(denoms_cool_4,[dq1]);
+				// nq3 = randint(1,6);
+				// //dq3 = 3*nq3 + 1;
+				// dq3 = choice(denoms_cool_4,[dq1,dq2]);
+				// nq4 = dq1*dq2*dq3-nq1*dq2*dq3 - nq2*dq1*dq3 - nq3*dq1*dq2;//la somme des quatre vaut 1 !
+				// dq4 = dq1*dq2*dq3;
+				// nq5 = frac.fraction_simplifiee(nq4,dq4)[0];
+				// dq5 = frac.fraction_simplifiee(nq4,dq4)[1];
 			};
+			
 			pb_4_f.push({// indice 0 le mandala
 				prenoms: [prenom()],
-				// fractions: [nq1,dq1,'carmin',nq2,dq2,'ocre jaune',nq3,dq3,'turquoise',nq4,dq4,'pourpre'],
-				fractions: [nq1,dq1,'carmin',nq2,dq2,'ocre jaune',nq3,dq3,'turquoise',nq5,dq5,'pourpre'],
+				fractions: [nq1,dq1,'carmin',nq2,dq2,'ocre jaune',nq3,dq3,'turquoise',nq4,dq4,'pourpre'],
+				fractionsSimp: [
+					frac.fraction_simplifiee(nq1,dq1)[0],frac.fraction_simplifiee(nq1,dq1)[1],'carmin',
+					frac.fraction_simplifiee(nq2,dq2)[0],frac.fraction_simplifiee(nq2,dq2)[1],'ocre jaune',
+					frac.fraction_simplifiee(nq3,dq3)[0],frac.fraction_simplifiee(nq3,dq3)[1],'turquoise',
+					frac.fraction_simplifiee(nq4,dq4)[0],frac.fraction_simplifiee(nq4,dq4)[1],'pourpre'],
+				fractionsB: {
+					f1:frac.fraction_simplifiee(nq1,dq1),
+					cat1:'carmin',
+					f2:frac.fraction_simplifiee(nq2,dq2),
+					cat2:'ocre jaune',
+					f3:frac.fraction_simplifiee(nq3,dq3),
+					cat3:'turquoise',
+					f4:frac.fraction_simplifiee(nq4,dq4),
+					cat4:'pourpre'},
 				enonce: ``,
 				question: `Quelle est elle la couleur qui recouvre le plus de surface ?`,
 				correction: ``
 			});
-			pb_4_f[0].enonce = `${pb_4_f[0].prenoms[0]} colorie un mandala selon les proportions suivantes :  $\\dfrac{${pb_4_f[0].fractions[0]}}{${pb_4_f[0].fractions[1]}}$ en ${pb_4_f[0].fractions[2]}, `;
-			pb_4_f[0].enonce += `$\\dfrac{${pb_4_f[0].fractions[3]}}{${pb_4_f[0].fractions[4]}}$ en  ${pb_4_f[0].fractions[5]}, `;
-			pb_4_f[0].enonce += `$\\dfrac{${pb_4_f[0].fractions[6]}}{${pb_4_f[0].fractions[7]}}$ en  ${pb_4_f[0].fractions[8]} et `;
-			pb_4_f[0].enonce += `le reste en ${pb_4_f[0].fractions[11]}.`;
-			
-			pb_4_f[0].correction = `Calculons d'abord la fraction du mandala recouverte en ${pb_4_f[0].fractions[11]} : $1-\\dfrac{${pb_4_f[0].fractions[0]}}{${pb_4_f[0].fractions[1]}}-\\dfrac{${pb_4_f[0].fractions[3]}}{${pb_4_f[0].fractions[4]}} -\\dfrac{${pb_4_f[0].fractions[6]}}{${pb_4_f[0].fractions[7]}}= \\dfrac{${pb_4_f[0].fractions[9]}}{${pb_4_f[0].fractions[10]}}$`
-			pb_4_f[0].correction += `<br>Le mandala est donc colorié de la façon suivante : $\\dfrac{${pb_4_f[0].fractions[0]}}{${pb_4_f[0].fractions[1]}}$ en ${pb_4_f[0].fractions[2]}, `;
-			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractions[3]}}{${pb_4_f[0].fractions[4]}}$ en ${pb_4_f[0].fractions[5]}, `;
-			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractions[6]}}{${pb_4_f[0].fractions[7]}}$ en ${pb_4_f[0].fractions[8]} et `;			
-			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractions[9]}}{${pb_4_f[0].fractions[10]}}$ en ${pb_4_f[0].fractions[11]}`;
-			pb_4_f[0].correction += `<br>Réduisons ces fractions au même dénominateur :`;
-			frac_meme_denom = frac.reduceSameDenominateur(pb_4_f[0].fractions[0],pb_4_f[0].fractions[1],pb_4_f[0].fractions[3],pb_4_f[0].fractions[4],pb_4_f[0].fractions[6],pb_4_f[0].fractions[7],pb_4_f[0].fractions[9],pb_4_f[0].fractions[10]);			
-			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractions[0]}}{${pb_4_f[0].fractions[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ ; `;
-			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractions[3]}}{${pb_4_f[0].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ ; `;
-			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractions[6]}}{${pb_4_f[0].fractions[7]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$ et `;
-			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractions[9]}}{${pb_4_f[0].fractions[10]}} = \\dfrac{${frac_meme_denom[6]}}{${frac_meme_denom[7]}}$.`;
 
-			frac_meme_denom_rangees = frac.sortFractions(frac_meme_denom[0],frac_meme_denom[1],frac_meme_denom[2],frac_meme_denom[3],frac_meme_denom[4],frac_meme_denom[5],frac_meme_denom[6],frac_meme_denom[7]); 
-			pb_4_f[0].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_meme_denom_rangees[0]}}{${frac_meme_denom_rangees[1]}}$, $\\dfrac{${frac_meme_denom_rangees[2]}}{${frac_meme_denom_rangees[3]}}$, $\\dfrac{${frac_meme_denom_rangees[4]}}{${frac_meme_denom_rangees[5]}}$, $\\dfrac{${frac_meme_denom_rangees[6]}}{${frac_meme_denom_rangees[7]}}$.`
-			
-			frac_rangees = frac.sortFractions(pb_4_f[0].fractions[0],pb_4_f[0].fractions[1],pb_4_f[0].fractions[3],pb_4_f[0].fractions[4],pb_4_f[0].fractions[6],pb_4_f[0].fractions[7],pb_4_f[0].fractions[9],pb_4_f[0].fractions[10]);			
-			pb_4_f[0].correction += `<br>Enfin, nous pouvons ranger les fractions initiales dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$, $\\dfrac{${frac_rangees[6]}}{${frac_rangees[7]}}$.`
-			pb_4_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc en ${pb_4_f[0].fractions[pb_4_f[0].fractions.indexOf(frac_rangees[7])+1]} que le mandala est le plus recouvert.`)}`;	
+			pb_4_f[0].enonce = `${pb_4_f[0].prenoms[0]} colorie un mandala selon les proportions suivantes :  $\\dfrac{${pb_4_f[0].fractionsB.f1[0]}}{${pb_4_f[0].fractionsB.f1[1]}}$ en ${pb_4_f[0].fractionsB.cat1}, `;
+			pb_4_f[0].enonce += `$\\dfrac{${pb_4_f[0].fractionsB.f2[0]}}{${pb_4_f[0].fractionsB.f2[1]}}$ en  ${pb_4_f[0].fractionsB.cat2}, `;
+			pb_4_f[0].enonce += `$\\dfrac{${pb_4_f[0].fractionsB.f3[0]}}{${pb_4_f[0].fractionsB.f3[1]}}$ en  ${pb_4_f[0].fractionsB.cat3} et `;
+			pb_4_f[0].enonce += `le reste en ${pb_4_f[0].fractionsB.cat4}.`;
 
+			//let frac_meme_denom;
+			for (let i=0; i<1; i++) {
+				pb_4_f[i].correction = `Il s'agit d'un problème additif. Il va être necessaire de réduire les fractions au même dénominateur pour les additionner, les soustraire ou les comparer.<br>`;
+				
+				if (!(dt1==dt2)) {
+					pb_4_f[i].correction += `Réduisons les fractions de l'énoncé au même dénominateur :  `;
+					frac_meme_denom = frac.reduceSameDenominateur(pb_4_f[i].fractionsB.f1[0],pb_4_f[i].fractionsB.f1[1],pb_4_f[i].fractionsB.f2[0],pb_4_f[i].fractionsB.f2[1],pb_4_f[i].fractionsB.f3[0],pb_4_f[i].fractionsB.f3[1],pb_4_f[i].fractionsB.f4[0],pb_4_f[i].fractionsB.f4[1]);
+					if (frac_meme_denom[1] == dq1) {
+						pb_4_f[i].correction += `$\\dfrac{${pb_4_f[i].fractionsB.f1[0]}}{${pb_4_f[i].fractionsB.f1[1]}}$, `;
+					} else {
+						pb_4_f[i].correction += `$\\dfrac{${pb_4_f[i].fractionsB.f1[0]}}{${pb_4_f[i].fractionsB.f1[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$, `;
+					};
+					if (frac_meme_denom[1] == dq2) {
+						pb_4_f[i].correction += `$\\dfrac{${pb_4_f[i].fractionsB.f2[0]}}{${pb_4_f[i].fractionsB.f2[1]}}$ et `;
+					} else {
+						pb_4_f[i].correction += `$\\dfrac{${pb_4_f[i].fractionsB.f2[0]}}{${pb_4_f[i].fractionsB.f2[1]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ et `;						
+					};
+					if (frac_meme_denom[1] == dq3) {
+						pb_4_f[i].correction += `$\\dfrac{${pb_4_f[i].fractionsB.f3[0]}}{${pb_4_f[i].fractionsB.f3[1]}}$.<br>`;
+					} else {
+						pb_4_f[i].correction += `$\\dfrac{${pb_4_f[i].fractionsB.f3[0]}}{${pb_4_f[i].fractionsB.f3[1]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$.<br>`;
+					};			
+				} else {
+					pb_4_f[i].correction += `Les fractions de l'énoncé ont déjà le même dénominateur.`
+				};
+			};
+
+				pb_4_f[0].correction += `Calculons alors la fraction du mandala recouverte en `;
+				//pb_4_f[1].correction += `Calculons d'abord la fraction des suffrages remportés par `;
+			
+			for (let i=0; i<1; i++) {
+				pb_4_f[i].correction += `${pb_4_f[i].fractionsB.cat3} : `;
+				pb_4_f[i].correction += `$1-\\dfrac{${pb_4_f[i].fractionsB.f1[0]}}{${pb_4_f[i].fractionsB.f1[1]}}-\\dfrac{${pb_4_f[i].fractionsB.f2[0]}}{${pb_4_f[i].fractionsB.f2[1]}} = `;
+				pb_4_f[i].correction +=`\\dfrac{${frac_meme_denom[1]}}{${frac_meme_denom[1]}}-\\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}-\\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}} = `;
+				pb_4_f[i].correction +=`\\dfrac{${frac_meme_denom[1]}-${frac_meme_denom[0]}-${frac_meme_denom[2]}}{${frac_meme_denom[3]}} = `;
+				pb_4_f[i].correction += `\\dfrac{${frac_meme_denom[1]-frac_meme_denom[0]-frac_meme_denom[2]}}{${frac_meme_denom[1]}}`;
+				if (!(frac_meme_denom[1]==pb_3_f[0].fractionsB.f3[1])) {
+					pb_4_f[i].correction +=` = \\dfrac{${pb_4_f[i].fractionsB.f3[0]}}{${pb_4_f[i].fractionsB.f3[1]}}$`;
+				} else {
+					pb_4_f[i].correction +=`$`;
+				};	
+			};		
+
+			pb_4_f[0].correction += `<br>Le mandala est donc colorié de la façon suivante : $\\dfrac{${pb_4_f[0].fractionsB.f1[0]}}{${pb_4_f[0].fractionsB.f1[1]}}$ en ${pb_4_f[0].fractionsB.cat1}, `;
+			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractionsB.f2[0]}}{${pb_4_f[0].fractionsB.f2[1]}}$ en ${pb_4_f[0].fractionsB.cat2}, `;
+			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractionsB.f3[0]}}{${pb_4_f[0].fractionsB.f3[1]}}$ en ${pb_4_f[0].fractionsB.cat3} et `;			
+			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractionsB.f4[0]}}{${pb_4_f[0].fractionsB.f4[1]}}$ en ${pb_4_f[0].fractionsB.cat4}.`;			
+
+			pb_4_f[0].correction += `<br> Avec les mêmes dénominateurs pour pouvoir comparer, `;
+			pb_4_f[0].correction += `Le mandala est donc colorié de la façon suivante : $\\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ en ${pb_4_f[0].fractionsB.cat1}, `;
+			pb_4_f[0].correction += `$\\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ en ${pb_4_f[0].fractionsB.cat2}, `;
+			pb_4_f[0].correction += `$\\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$ en ${pb_4_f[0].fractionsB.cat3} et `;			
+			pb_4_f[0].correction += `$\\dfrac{${frac_meme_denom[6]}}{${frac_meme_denom[7]}}$ en ${pb_4_f[0].fractionsB.cat4}.`;			
+
+			//let frac_rangees,frac_meme_denom_rangees;
+			if ( (calcul(nq1/dq1)==calcul(nq2/dq2)) && (calcul(nq1/dq1)==calcul(nq3/dq3)) && (calcul(nq1/dq1)==calcul(nq4/dq4)) ) {
+				pb_4_f[0].correction += `<br> ${texte_en_couleur_et_gras(`Les quatre fractions sont équivalentes, ${pb_4_f[0].prenoms[0]} colorie donc la même surface avec les quatre couleurs.`)}`;			
+			} else {
+				frac_meme_denom_rangees = frac.sortFractions(frac_meme_denom[0],frac_meme_denom[1],frac_meme_denom[2],frac_meme_denom[3],frac_meme_denom[4],frac_meme_denom[5],frac_meme_denom[6],frac_meme_denom[7]); 
+				pb_4_f[0].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_meme_denom_rangees[0]}}{${frac_meme_denom_rangees[1]}}$, $\\dfrac{${frac_meme_denom_rangees[2]}}{${frac_meme_denom_rangees[3]}}$, $\\dfrac{${frac_meme_denom_rangees[4]}}{${frac_meme_denom_rangees[5]}}$, $\\dfrac{${frac_meme_denom_rangees[6]}}{${frac_meme_denom_rangees[7]}}$.`
+	
+				frac_rangees = frac.sortFractions(pb_4_f[0].fractionsB.f1[0],pb_4_f[0].fractionsB.f1[1],pb_4_f[0].fractionsB.f2[0],pb_4_f[0].fractionsB.f2[1],pb_4_f[0].fractionsB.f3[0],pb_4_f[0].fractionsB.f3[1],pb_4_f[0].fractionsB.f4[0],pb_4_f[0].fractionsB.f4[1]); 
+
+				pb_4_f[0].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$, $\\dfrac{${frac_rangees[6]}}{${frac_rangees[7]}}$.`
+	
+				pb_4_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc en ${pb_4_f[0].fractionsSimp[pb_4_f[0].fractionsSimp.indexOf(frac_rangees[6])+2]} que le mandala est le plus recouvert.`)}`;			
+			};
 			
 			pb_4_f.push({// indice 1 le jardin
 				//prenoms: [prenomF(),prenomF(),prenomF()],
 				//fractions: [nq1,dq1,'la culture des légumes',nq2,dq2,'la culture des plantes aromatiques',nq3,dq3,'une serre servant aux semis',nq4,dq4,'la culture des fraisiers'],
-				fractions: [nq1,dq1,'la culture des légumes',nq2,dq2,'la culture des plantes aromatiques',nq3,dq3,'une serre servant aux semis',nq5,dq5,'la culture des fraisiers'],
+				fractions: [nq1,dq1,'la culture des légumes',nq2,dq2,'la culture des plantes aromatiques',nq3,dq3,'une serre servant aux semis',nq4,dq4,'la culture des fraisiers'],
 				enonce: ``,
 				question: `Quelle est la culture qui occupe le plus de surface ?`,
 				correction: ``
@@ -4649,7 +4757,7 @@ function Problemes_additifs_fractions() {
 			pb_4_f.push({// indice 2 le stade
 				//prenoms: [prenomF(),prenomF(),prenomF()],
 				//fractions: [nq1,dq1,'le pays organisateur',nq2,dq2,'l\'ensemble des supporters des deux équipes en jeu',nq3,dq3,'les sponsors et officiels',nq4,dq4,'les places en vente libre'],
-				fractions: [nq1,dq1,'le pays organisateur',nq2,dq2,'l\'ensemble des supporters des deux équipes en jeu',nq3,dq3,'les sponsors et officiels',nq5,dq5,'les places en vente libre'],
+				fractions: [nq1,dq1,'le pays organisateur',nq2,dq2,'l\'ensemble des supporters des deux équipes en jeu',nq3,dq3,'les sponsors et officiels',nq4,dq4,'les places en vente libre'],
 				enonce: ``,
 				question: `Quelle est la catégorie la plus importante dans le stade ?`,
 				correction: ``
