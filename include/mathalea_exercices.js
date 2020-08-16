@@ -7844,13 +7844,13 @@ function Parallele_et_Perpendiculaires() {
 				Xmin = -1
 				Ymin = -9
 				Xmax = 15
-				Ymax = 6
+				Ymax = 9
 				ppc = 20
 			} else { // repère -5 || 5
 				Xmin = -1
 				Ymin = -9
 				Xmax = 15
-				Ymax = 6
+				Ymax = 9
 				ppc = 20
 			}
 		};
@@ -7859,7 +7859,7 @@ function Parallele_et_Perpendiculaires() {
 		if (this.sup2 == 1) sc = 0.5
 		else sc = 0.8
 
-		let A, B, C, D,E,F, CC, DD,EE, d, labels, traces, enonce, correction, dB, dC, dD,dE, g, lC, lD,lE, cB, cC, cD, BB, carreaux, k,p
+		let A, B, C, D,xE,E,F, CC, DD,EE, d, labels_enonce,labels_correction, traces_enonce,traces_correction,s1,s2, enonce, correction, dB, dC, dD,dE, g, lC, lD,lE, cB, cC, cD, BB, carreaux, k,p
 		for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
 
 			g = grille(-1, -15, 15, 15, "gray", 0.7)
@@ -7874,12 +7874,25 @@ function Parallele_et_Perpendiculaires() {
 			switch (liste_type_de_questions[i]) {
 				case 1:
 					A = point(0, 0, 'A')
-					B = point(12, randint(-4, 4, 0), 'B')
+					B = point(10, randint(-4, 4, [-1,0,1]), 'B')
 					d = droite(A, B)
 					d.isVisible = true
 					C = point(randint(1, 2), randint(3, 4), 'C')
 					D = point(randint(7, 8), randint(-7, -6), 'D')
 					dB = droiteParPointEtPerpendiculaire(B, d)
+					xE=11
+					E=pointSurDroite(dB,11,'E','left')
+					while(!Number.isInteger(E.y)) {
+						xE++
+						E=pointSurDroite(dB,xE,'E','left')
+					}
+					F=point(E.x,B.y)
+					s1=segment(B,F,'red')
+					s1.epaisseur=2
+					s1.pointilles=true
+					s2=segment(F,E,'blue')
+					s2.epaisseur=2
+					s2.pointilles=true					
 					dC = droiteParPointEtPerpendiculaire(C, d)
 					dD = droiteParPointEtPerpendiculaire(D, d)
 					BB = rotation(A, B, 90)
@@ -7890,15 +7903,18 @@ function Parallele_et_Perpendiculaires() {
 					cB = codageAngleDroit(A, B, BB)
 					cC = codageAngleDroit(C, CC, B)
 					cD = codageAngleDroit(D, DD, B)
-					traces = tracePoint(A, B, C, D)
-					labels = labelPoint(A, B, C, D)
+					traces_enonce = tracePoint(A, B, C, D)
+					traces_correction = tracePoint(A,B,C,D,E)
+					labels_enonce = labelPoint(A, B, C, D)
+					labels_correction = labelPoint(A, B, C, D,E)
 					enonce = `Reproduis la figure ci-dessous sur ton cahier puis trace les droites perpendiculaires à (AB) passant par B,C et D.<br>`
 					enonce += `Mesure ensuite la distance entre le point A et les points d'intersection de tes droites avec la droite (AB) et compare ces mesures avec celles de l'ordinateur dans la correction<br>`
-					enonce += mathalea2d({ xmin: Xmin, ymin: Ymin, xmax: Xmax, ymax: Ymax, pixelsParCm: ppc, scale: sc }, traces, labels, g, d, carreaux)
+					enonce += mathalea2d({ xmin: Xmin, ymin: Ymin, xmax: Xmax, ymax: Ymax, pixelsParCm: ppc, scale: sc }, traces_enonce, labels_enonce, g, d, carreaux)
 					correction = `voici la figure qu'il fallait réaliser.<br>`
-					correction += mathalea2d({ xmin: Xmin, ymin: Ymin, xmax: Xmax, ymax: Ymax, pixelsParCm: ppc, scale: sc }, traces, labels, g, d, dB, dC, dD, cC, cB, cD, carreaux)
+					correction += mathalea2d({ xmin: Xmin, ymin: Ymin, xmax: Xmax, ymax: Ymax, pixelsParCm: ppc, scale: sc }, traces_correction, labels_correction,s1,s2, g, d, dB, dC, dD, cC, cB, cD, carreaux)
 					correction += `<br>La perpendiculaire à (d) passant par C coupe (AB) à environ $${tex_nombre(lC)}$cm de A.<br>`
 					correction += `<br>La perpendiculaire à (d) passant par D coupe (AB) à environ $${tex_nombre(lD)}$cm de A.<br>`
+					correction += `Pour la perpendiculaire en B, contrôle la position du point E.<br>`
 					break;
 				case 2:
 					A = point(2, 0, 'A')

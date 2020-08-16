@@ -188,6 +188,15 @@ function pointSurCercle(c, angle, nom, positionLabel = "above") {
   let y = c.centre.y + c.rayon * Math.sin(Math.radians(angle));
   return point(x, y, nom, positionLabel);
 }
+/**
+ * P=pointSurDroite(d,x) retourne un point sur la droite d dont l'abscisse est x. Si c'est impossible (droite verticale) alors ce sera le point dont l'ordonnée vaut x.
+ * @Auteur Jean-Claude Lhote
+ */
+function pointSurDroite(d,x, nom, positionLabel = "above"){ // si d est parallèle à l'axe des ordonnées, le paramètre x servira pour y.
+  if (d.b==0) return point(calcul(-d.c/d.a),x,nom,positionLabel);
+  else if (d.a==0) return point(x,calcul(-d.c/d.b),nom,positionLabel)
+  else return point(x,calcul((-d.c-d.a*x)/d.b),nom,positionLabel)
+}
 
 /**
  * M = pointIntersectionDD(d1,d2,'M','below') //M est le point d'intersection des droites (d1) et (d2)
