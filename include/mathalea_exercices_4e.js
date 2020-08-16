@@ -4901,38 +4901,53 @@ function Problemes_additifs_fractions() {
 			switch (liste_type_de_questions[i]) {
 				case 1 : // Triathlon des neiges --> VTT, ski de fond, course
 					texte = `${pb_3_f[0].enonce} <br> ${pb_3_f[0].question}`;
-					texte += `<br>`;
-					texte += `<br> ${pb_3_f[0].correction}`;
-					texte_corr = ``;
-					//texte_corr = `${pb_3_f[0].correction}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> ${pb_3_f[0].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${pb_3_f[0].correction}`;
+					};
 					break;
 				case 2 : //Miss Math --> Noémie, Samia, Alexia
 					texte = `${pb_3_f[1].enonce} <br> ${pb_3_f[1].question}`;
-					texte += `<br>`;
-					texte += `<br> ${pb_3_f[1].correction}`;
-					texte_corr = ``;
-					//texte_corr = `${pb_3_f[1].correction}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> ${pb_3_f[1].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${pb_3_f[1].correction}`;
+					};
 					break;
 				case 3 : // Mandala --> carmin, ocre jaune, turquoise, pourpre
 					texte = `${pb_4_f[0].enonce} <br> ${pb_4_f[0].question}`;
-					texte += `<br>`;
-					texte += `<br> ${pb_4_f[0].correction}`;
-					texte_corr = ``;
-					//texte_corr = `${pb_4_f[0].correction}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> ${pb_4_f[0].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${pb_4_f[0].correction}`;
+					};
 					break;
 				case 4 : // Jardin --> légumes, plantes aromatiques, semis, fraisiers
 					texte = `${pb_4_f[1].enonce} <br> ${pb_4_f[1].question}`;
-					texte += `<br>`;
-					texte += `<br> ${pb_4_f[1].correction}`;
-					texte_corr = ``;
-					//texte_corr = `${pb_4_f[1].correction}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> ${pb_4_f[1].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${pb_4_f[1].correction}`;
+					};
 					break;
 				case 5 : // Stade --> pays organisatuers, supporters, sponsors, vente libre
 					texte = `${pb_4_f[2].enonce} <br> ${pb_4_f[2].question}`;
-					texte += `<br>`;
-					texte += `<br> ${pb_4_f[2].correction}`;
-					texte_corr = ``;
-					//texte_corr = `${pb_4_f[2].correction}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> ${pb_4_f[2].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${pb_4_f[2].correction}`;
+					};
 					break;	
 			};
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
