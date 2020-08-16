@@ -2441,23 +2441,27 @@ function codeSegments(...args){
 function Axes(xmin=-30,ymin=-30,xmax=30,ymax=30,thick=0.2,xstep=1,ystep=1,epaisseur=2,color='black'){
 	ObjetMathalea2D.call(this)
 	let objets = []
-	let abscisse = segment(xmin,0,xmax,0)
+	let yabscisse
+	ymin > 0 ? yabscisse = ymin : yabscisse = 0
+	let xordonnee
+	xmin > 0 ? xordonnee = xmin : xordonnee = 0
+	let abscisse = segment(xmin,yabscisse,xmax,yabscisse)
 	abscisse.styleExtremites = '->'
 	abscisse.epaisseur = epaisseur
 	abscisse.color = color
-	let ordonnee = segment(0,ymin,0,ymax)
+	let ordonnee = segment(xordonnee,ymin,xordonnee,ymax)
 	ordonnee.styleExtremites = '->'
 	ordonnee.epaisseur = epaisseur
 	objets.push(abscisse,ordonnee)
 	ordonnee.color = color
 	for (let x=xmin ; x<xmax ; x = calcul(x+xstep)){
-		let s = segment(x,-thick,x,thick)
+		let s = segment(x,yabscisse-thick,x,yabscisse+thick)
 		s.epaisseur = epaisseur
 		s.color = color
 		objets.push(s)
 	}
 	for (let y=ymin ; y<ymax ; y=calcul(y+ystep)){
-		let s = segment(-thick,y,thick,y)
+		let s = segment(xordonnee-thick,y,xordonnee+thick,y)
 		s.epaisseur = epaisseur
 		s.color = color
 		objets.push(s)
@@ -2558,9 +2562,8 @@ function Repere({xmin =-10, xmax = 10, ymin =-10, ymax = 10, xscale = 1, yscale 
 	grilleSecondaireDistance = .1, grilleSecondaireColor = 'gray', grilleSecondaireOpacite = .3,
 	grilleSecondairePointilles = false, grilleSecondaireVisible = false,
 	graduationsxMin = xmin, graduationsxMax = xmax, graduationsyMin = ymin, graduationsyMax = ymax,
-	positionLabelX = -.6, positionLabelY = -.6, legendeX = 'x', legendeY = 'y', positionLegendeX = [xmax+.2,.3], 
-	positionLegendeY = [.3,ymax+.2]}={}) {
-		
+	positionLabelX = -.6, positionLabelY = -.6, legendeX = 'x', legendeY = 'y', positionLegendeX, 
+	positionLegendeY}={}) {
 		ObjetMathalea2D.call(this)
 		let objets = [];
 		if (grillePrincipaleVisible){
@@ -2570,15 +2573,25 @@ function Repere({xmin =-10, xmax = 10, ymin =-10, ymax = 10, xscale = 1, yscale 
 			objets.push(grille(calcul(xmin/xscale),calcul(ymin/yscale),calcul(xmax/xscale),calcul(ymax/yscale),grilleSecondaireColor,grilleSecondaireOpacite,grilleSecondaireDistance,grilleSecondairePointilles))
 		}
 		objets.push(axes(calcul(xmin/xscale),calcul(ymin/yscale),calcul(xmax/xscale),calcul(ymax/yscale),.2,xstep,ystep,axesEpaisseur,axesColor))
-
+		let yabscisse
+		ymin > 0 ? yabscisse = ymin : yabscisse = 0
+		let xordonnee
+		xmin > 0 ? xordonnee = xmin : xordonnee = 0
 		if (afficheZero){
-			objets.push(labelX(premierMultipleSuperieur(xstep,graduationsxMin),graduationsxMax,xstep,graduationColor,positionLabelX,xscale))
-			objets.push(labelY(premierMultipleSuperieur(ystep,graduationsyMin),graduationsyMax,ystep,graduationColor,positionLabelY,yscale))
+			objets.push(labelX(premierMultipleSuperieur(xstep,graduationsxMin),graduationsxMax,xstep,graduationColor,calcul(yabscisse/yscale)+positionLabelX,xscale))
+			objets.push(labelY(premierMultipleSuperieur(ystep,graduationsyMin),graduationsyMax,ystep,graduationColor,calcul(xordonnee/xscale)+positionLabelY,yscale))
 		} else {
-			objets.push(labelX(premierMultipleSuperieur(xstep,graduationsxMin),-1,xstep,graduationColor,positionLabelX,xscale))
-			objets.push(labelY(premierMultipleSuperieur(ystep,graduationsyMin),-1,ystep,graduationColor,positionLabelY,yscale))
-			objets.push(labelX(xstep,graduationsxMax,xstep,graduationColor,positionLabelX,xscale))
-			objets.push(labelY(ystep,graduationsyMax,ystep,graduationColor,positionLabelY,yscale))
+			objets.push(labelX(premierMultipleSuperieur(xstep,graduationsxMin),-1,xstep,graduationColor,calcul(yabscisse/yscale)+positionLabelX,xscale))
+			objets.push(labelY(premierMultipleSuperieur(ystep,graduationsyMin),-1,ystep,graduationColor,calcul(xordonnee/xscale)+positionLabelY,yscale))
+			objets.push(labelX(Math.max(xstep,premierMultipleSuperieur(xstep,graduationsxMin)),graduationsxMax,xstep,graduationColor,calcul(yabscisse/yscale)+positionLabelX,xscale))
+			objets.push(labelY(Math.max(ystep,premierMultipleSuperieur(ystep,graduationsyMin)),graduationsyMax,ystep,graduationColor,calcul(xordonnee/xscale)+positionLabelY,yscale))
+		}
+
+		if (positionLegendeX === undefined){
+			positionLegendeX = [xmax+.2,yabscisse+.3]
+		}
+		if (positionLegendeY === undefined){
+			positionLegendeY = [xordonnee+.3,ymax+.2]
 		}
 		objets.push(texteParPosition(legendeX,calcul(positionLegendeX[0]/xscale),calcul(positionLegendeX[1]/yscale),'droite'))
 		objets.push(texteParPosition(legendeY,calcul(positionLegendeY[0]/xscale),calcul(positionLegendeY[1]/yscale),'droite'))
@@ -2612,7 +2625,6 @@ function courbe(f,xmin=-1,xmax=30,color = 'black',epaisseur = 2,r=[1,1],step=.1,
 	this.color = color
 	let xscale = r[0]
 	let yscale = r[1]
-	console.log(yscale)
 	let points = []
 	for (let x = calcul(xmin/xscale) ; x<=calcul(xmax/xscale) ; x = calcul(x+step)){
 		if (isFinite(f(x*xscale))) {
