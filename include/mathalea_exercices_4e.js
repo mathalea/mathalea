@@ -4403,9 +4403,6 @@ function Problemes_additifs_fractions() {
 		if (this.beta) {
 			this.nb_questions = 5;
 			type_de_questions_disponibles = [1,2,3,4,5];			
-			// this.nb_questions = 1;
-			// type_de_questions_disponibles = [5];			
-
 		} else {
 			this.nb_questions = 2;
 			type_de_questions_disponibles = [choice([1,2]),choice([3,4,5])];			
@@ -4423,7 +4420,9 @@ function Problemes_additifs_fractions() {
 			// on aura besoin des méthodes de la classe Fraction()
 			let frac = new ListeFraction();
 			// on récupère les dénominateurs qui vont bien
-			let denoms_amis = frac.denominateurs_amis;
+			//let denoms_amis = frac.denominateurs_amis;
+			//C'est mieux avec ceux là, l'algo trouve plus rapidement une solution avec les contraintes à ajouter dans mathsalea_outils.js quand ça sera possible. 
+			let denoms_amis = [[40,2,20,4,10,5,8],[60,2,30,3,20,4,15,5,12,6,10],[80,2,40,4,20,5,16,8,10]]; 
 			// on aura besoin de ranger tout ça !
 			let frac_rangees,frac_meme_denom_rangees;
 
@@ -4437,7 +4436,7 @@ function Problemes_additifs_fractions() {
 			// et on veut des fractions distinctes !
 			let nt1,nt2,nt3,dt1,dt2,dt3;
 			let n1,n2,n3,d1,d2,d3;
-			// on choisit un tableau dedans
+			// on choisit un tableau de dénominateurs qui vont bien 
 			let denoms_cool_3 = denoms_amis[randint(0,denoms_amis.length-1)];
 			while ( (nt1==nt2) || (nt1==nt3) || (nt2==nt3) || (nt1/dt1 >= 1/2) || (nt2/dt2 >= 1/2) ) {
 				n1 = randint(1,6);
@@ -4634,7 +4633,7 @@ function Problemes_additifs_fractions() {
 			// et on veut des fractions distinctes 
 			let nq1,nq2,nq3,nq4,dq1,dq2,dq3,dq4;
 			let n4,d4;// en plus parce qu'il y a 4 fractions
-			// on choisit un tableau dedans
+			// on choisit un tableau de dénominateurs qui vont bien 
 			let denoms_cool_4 = denoms_amis[randint(2,denoms_amis.length-1)];			
 			while ( (nq1==nq2) || (nq1==nq3) || (nq1==nq4) || (nq2==nq3) || (nq2==nq4) || (nq3==nq4) || (nq1/dq1 >= 1/3) || (nq2/dq2 >= 1/3) || (nq3/dq3 >= 1/3) ) {
 				n1 = randint(1,5);
@@ -4904,31 +4903,36 @@ function Problemes_additifs_fractions() {
 					texte = `${pb_3_f[0].enonce} <br> ${pb_3_f[0].question}`;
 					texte += `<br>`;
 					texte += `<br> ${pb_3_f[0].correction}`;
-					texte_corr = `${pb_3_f[0].correction}`;
+					texte_corr = ``;
+					//texte_corr = `${pb_3_f[0].correction}`;
 					break;
 				case 2 : //Miss Math --> Noémie, Samia, Alexia
 					texte = `${pb_3_f[1].enonce} <br> ${pb_3_f[1].question}`;
 					texte += `<br>`;
 					texte += `<br> ${pb_3_f[1].correction}`;
-					texte_corr = `${pb_3_f[1].correction}`;
+					texte_corr = ``;
+					//texte_corr = `${pb_3_f[1].correction}`;
 					break;
 				case 3 : // Mandala --> carmin, ocre jaune, turquoise, pourpre
 					texte = `${pb_4_f[0].enonce} <br> ${pb_4_f[0].question}`;
 					texte += `<br>`;
 					texte += `<br> ${pb_4_f[0].correction}`;
-					texte_corr = `${pb_4_f[0].correction}`;
+					texte_corr = ``;
+					//texte_corr = `${pb_4_f[0].correction}`;
 					break;
 				case 4 : // Jardin --> légumes, plantes aromatiques, semis, fraisiers
 					texte = `${pb_4_f[1].enonce} <br> ${pb_4_f[1].question}`;
 					texte += `<br>`;
 					texte += `<br> ${pb_4_f[1].correction}`;
-					texte_corr = `${pb_4_f[1].correction}`;
+					texte_corr = ``;
+					//texte_corr = `${pb_4_f[1].correction}`;
 					break;
 				case 5 : // Stade --> pays organisatuers, supporters, sponsors, vente libre
 					texte = `${pb_4_f[2].enonce} <br> ${pb_4_f[2].question}`;
 					texte += `<br>`;
 					texte += `<br> ${pb_4_f[2].correction}`;
-					texte_corr = `${pb_4_f[2].correction}`;
+					texte_corr = ``;
+					//texte_corr = `${pb_4_f[2].correction}`;
 					break;	
 			};
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
