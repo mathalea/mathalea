@@ -2518,7 +2518,6 @@ function MatriceCarree(table){
 			resultat=[[this.table[1][1],-this.table[1][0]],[-this.table[0][1],this.table[0][0]]]
 		}
 		else return false
-		console.log(resultat)
 		return matriceCarree(resultat)
 	}
 	this.transposee=function() { // retourne la matrice transposée
@@ -4887,7 +4886,6 @@ function Fraction(num,den) {
                 }
                 num -= this.denIrred
             }
-            console.log(k,n)
             let O = point(2 + k * 5, 2)
             let C = cercle(O, 2)
             let s, a
