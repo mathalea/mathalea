@@ -4403,8 +4403,8 @@ function Problemes_additifs_fractions() {
 		if (this.beta) {
 			// this.nb_questions = 5;
 			// type_de_questions_disponibles = [1,2,3,4,5];			
-			this.nb_questions = 2;
-			type_de_questions_disponibles = [3,4];			
+			this.nb_questions = 3;
+			type_de_questions_disponibles = [3,4,5];			
 
 		} else {
 			this.nb_questions = 2;
@@ -4422,14 +4422,19 @@ function Problemes_additifs_fractions() {
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
 			// on aura besoin des méthodes de la classe Fraction()
 			let frac = new ListeFraction();
+			// on récupère les dénominateurs qui vont bien
+			let denoms_amis = frac.denominateurs_amis;
+
+			//======================================================
+			//======== 		AVEC 3 FRACTIONS			  	========
+			//======================================================
+
 			// le tableau d'objets contenant tout le necesssaire, fractions, énoncé, question ... pour les problème avec 3 fractions
 			let pb_3_f = [];
 			// les numérateurs et dénominateurs des 3 fractions attention les deux premières doivent être inférieures à 1/2 si on veut qu'elles soient toutes positives !
 			// et on veut des fractions distinctes !
 			let nt1,nt2,nt3,dt1,dt2,dt3;
 			let n1,n2,n3,d1,d2,d3;
-			// on récupère les dénominateurs qui vont bien
-			let denoms_amis = frac.denominateurs_amis;
 			// on choisit un tableau dedans
 			let denoms_cool_3 = denoms_amis[randint(0,denoms_amis.length-1)];
 			while ( (nt1==nt2) || (nt1==nt3) || (nt2==nt3) || (nt1/dt1 >= 1/2) || (nt2/dt2 >= 1/2) ) {
@@ -4448,7 +4453,10 @@ function Problemes_additifs_fractions() {
 				dt3 = frac.fraction_simplifiee(n3,d3)[1];
 			};		
 			
-			pb_3_f.push({// indice 0 le triathlon des neiges
+			//======================================================
+			//========= indice 0 le triathlon des neiges  ==========
+			//======================================================
+			pb_3_f.push({
 				prenoms: [prenomM()],				
 				fractionsSimp: [frac.fraction_simplifiee(nt1,dt1)[0],frac.fraction_simplifiee(nt1,dt1)[1],'VTT',frac.fraction_simplifiee(nt2,dt2)[0],frac.fraction_simplifiee(nt2,dt2)[1],'ski de fond',frac.fraction_simplifiee(nt3,dt3)[0],frac.fraction_simplifiee(nt3,dt3)[1],'pied'],
 				fractionsB: {
@@ -4470,7 +4478,11 @@ function Problemes_additifs_fractions() {
 				p2 = prenomF();
 				p3 = prenomF();
 			};
-			pb_3_f.push({// indice 1 Miss Math
+
+			//======================================================
+			//=========== 		indice 1 Miss Math		 ===========
+			//======================================================
+			pb_3_f.push({
 				prenoms: [],				
 				//fractions: [nt1,dt1,p1,nt2,dt2,p2,frac.fraction_simplifiee(nt3,dt3)[0],frac.fraction_simplifiee(nt3,dt3)[1],p3],
 				fractionsSimp: [frac.fraction_simplifiee(nt1,dt1)[0],frac.fraction_simplifiee(nt1,dt1)[1],p1,frac.fraction_simplifiee(nt2,dt2)[0],frac.fraction_simplifiee(nt2,dt2)[1],p2,frac.fraction_simplifiee(nt3,dt3)[0],frac.fraction_simplifiee(nt3,dt3)[1],p3],
@@ -4488,16 +4500,24 @@ function Problemes_additifs_fractions() {
 			let currentDate = new Date();
 			let currentAnnee = currentDate.getFullYear();
 			
-
+			//======================================================
+			//====== énoncé indice 0 le triathlon des neiges  ======
+			//======================================================
 			pb_3_f[0].enonce += `Le triathlon des neiges de la vallée des loups comprend trois épreuves qui s'enchaînent : VTT, ski de fonc et course à pied.`;
 			pb_3_f[0].enonce += `<br>${pb_3_f[0].prenoms[0]}, un passionné de cette épreuve, s'entraîne régulièrement sur le même circuit. `;
 			pb_3_f[0].enonce += `<br>À chaque entraînement, il parcourt le circuit de la façon suivante : $\\dfrac{${pb_3_f[0].fractionsB.f1[0]}}{${pb_3_f[0].fractionsB.f1[1]}}$ à ${pb_3_f[0].fractionsB.cat1}, `
 			pb_3_f[0].enonce += `$\\dfrac{${pb_3_f[0].fractionsB.f2[0]}}{${pb_3_f[0].fractionsB.f2[1]}}$ à ${pb_3_f[0].fractionsB.cat2} et le reste à ${pb_3_f[0].fractionsB.cat3}.`;
 
+			//======================================================
+			//=========== énoncé indice 1 Miss Math		 ===========
+			//======================================================
 			pb_3_f[1].enonce = `À l'élection de Miss Math ${currentAnnee}, ${pb_3_f[1].fractionsB.cat1} a remporté $\\dfrac{${pb_3_f[1].fractionsB.f1[0]}}{${pb_3_f[1].fractionsB.f1[1]}}$ des suffrages, `;
 			pb_3_f[1].enonce += `${pb_3_f[1].fractionsB.cat2} $\\dfrac{${pb_3_f[1].fractionsB.f2[0]}}{${pb_3_f[1].fractionsB.f2[1]}}$ et `;
 			pb_3_f[1].enonce += `${pb_3_f[1].fractionsB.cat3} tous les autres.`;
 
+			//======================================================
+			//=========== 		Correction Commune  	 ===========
+			//======================================================
 			let frac_meme_denom;
 			for (let i=0; i<2; i++) {
 				pb_3_f[i].correction = `Il s'agit d'un problème additif. Il va être necessaire de réduire les fractions au même dénominateur pour les additionner, les soustraire ou les comparer.<br>`;
@@ -4520,9 +4540,19 @@ function Problemes_additifs_fractions() {
 				};
 			};
 
+			//======================================================
+			//==== Correction indice 0 le triathlon des neiges  ====
+			//======================================================
 				pb_3_f[0].correction += `Calculons alors la distance à `;
+
+			//======================================================
+			//======== 		Correction indice 1 Miss Math  	========
+			//======================================================
 				pb_3_f[1].correction += `Calculons d'abord la fraction des suffrages remportés par `;
-			
+
+			//======================================================
+			//=========== 		Correction Commune  	 ===========
+			//======================================================			
 			for (let i=0; i<2; i++) {
 				pb_3_f[i].correction += `${pb_3_f[i].fractionsB.cat3} : `;
 				pb_3_f[i].correction += `$1-\\dfrac{${pb_3_f[i].fractionsB.f1[0]}}{${pb_3_f[i].fractionsB.f1[1]}}-\\dfrac{${pb_3_f[i].fractionsB.f2[0]}}{${pb_3_f[i].fractionsB.f2[1]}} = `;
@@ -4536,6 +4566,9 @@ function Problemes_additifs_fractions() {
 				};	
 			};		
 
+			//======================================================
+			//==== Conclusion indice 0 le triathlon des neiges  ====
+			//======================================================
 			pb_3_f[0].correction += `<br>${pb_3_f[0].prenoms[0]} fait donc $\\dfrac{${pb_3_f[0].fractionsB.f1[0]}}{${pb_3_f[0].fractionsB.f1[1]}}$ à ${pb_3_f[0].fractionsB.cat1}, `;
 			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractionsB.f2[0]}}{${pb_3_f[0].fractionsB.f2[1]}}$ à ${pb_3_f[0].fractionsB.cat2} et `;
 			pb_3_f[0].correction += `$\\dfrac{${pb_3_f[0].fractionsB.f3[0]}}{${pb_3_f[0].fractionsB.f3[1]}}$ à ${pb_3_f[0].fractionsB.cat3}.`;			
@@ -4557,8 +4590,11 @@ function Problemes_additifs_fractions() {
 				pb_3_f[0].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`
 	
 				pb_3_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc à ${pb_3_f[0].fractionsSimp[pb_3_f[0].fractionsSimp.indexOf(frac_rangees[4])+2]} que ${pb_3_f[0].prenoms[0]} fait la plus grande distance.`)}`;			
-			}
+			};
 
+			//======================================================
+			//======== 		Conclusion indice 1 Miss Math  	========
+			//======================================================
 			pb_3_f[1].correction += `<br>${pb_3_f[1].fractionsB.cat1} a donc remporté $\\dfrac{${pb_3_f[1].fractionsB.f1[0]}}{${pb_3_f[1].fractionsB.f1[1]}}$, `;
 			pb_3_f[1].correction += `${pb_3_f[1].fractionsB.cat2} a remporté $\\dfrac{${pb_3_f[1].fractionsB.f2[0]}}{${pb_3_f[1].fractionsB.f2[1]}}$ et `;
 			pb_3_f[1].correction += `${pb_3_f[1].fractionsB.cat3} $\\dfrac{${pb_3_f[1].fractionsB.f3[0]}}{${pb_3_f[1].fractionsB.f3[1]}}$.`;			
@@ -4581,6 +4617,10 @@ function Problemes_additifs_fractions() {
 	
 				pb_3_f[1].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc ${pb_3_f[1].fractionsSimp[pb_3_f[1].fractionsSimp.indexOf(frac_rangees[4])+2]} qui a été élue.`)}`;			
 			}
+
+			//======================================================
+			//======== 		AVEC 4 FRACTIONS			  	========
+			//======================================================
 
 			// le tableau d'objets contenant tout le necesssaire, fractions, énoncé, question ... pour les problème avec 4 fractions
 			let pb_4_f = [];
@@ -4626,8 +4666,12 @@ function Problemes_additifs_fractions() {
 				// nq5 = frac.fraction_simplifiee(nq4,dq4)[0];
 				// dq5 = frac.fraction_simplifiee(nq4,dq4)[1];
 			};
+
+			//======================================================
+			//=========== 		indice 0 le mandala		 ===========
+			//======================================================
 			
-			pb_4_f.push({// indice 0 le mandala
+			pb_4_f.push({// 
 				prenoms: [prenom()],
 				//fractions: [nq1,dq1,'carmin',nq2,dq2,'ocre jaune',nq3,dq3,'turquoise',nq4,dq4,'pourpre'],
 				fractionsSimp: [
@@ -4648,10 +4692,15 @@ function Problemes_additifs_fractions() {
 				question: `Quelle est elle la couleur qui recouvre le plus de surface ?`,
 				correction: ``
 			});
+
+			//======================================================
+			//===========		indice 1 le jardin	 	 ===========
+			//======================================================
+
 			pb_4_f.push({// indice 1 le jardin
 				prenoms: [],
 				//fractions: [nq1,dq1,'la culture des légumes',nq2,dq2,'la culture des plantes aromatiques',nq3,dq3,'une serre servant aux semis',nq4,dq4,'la culture des fraisiers'],
-				fractions: [nq1,dq1,'la culture des légumes',nq2,dq2,'la culture des plantes aromatiques',nq3,dq3,'une serre servant aux semis',nq4,dq4,'la culture des fraisiers'],
+				//fractions: [nq1,dq1,'la culture des légumes',nq2,dq2,'la culture des plantes aromatiques',nq3,dq3,'une serre servant aux semis',nq4,dq4,'la culture des fraisiers'],
 				fractionsSimp: [
 					frac.fraction_simplifiee(nq1,dq1)[0],frac.fraction_simplifiee(nq1,dq1)[1],'la culture des légumes',
 					frac.fraction_simplifiee(nq2,dq2)[0],frac.fraction_simplifiee(nq2,dq2)[1],'la culture des plantes aromatiques',
@@ -4671,16 +4720,35 @@ function Problemes_additifs_fractions() {
 				correction: ``
 			});
 
+			//======================================================
+			//===========	indice 2 le stade		 	 ===========
+			//======================================================
+
+
+			//======================================================
+			//===========	énoncé indice 0 le mandala 	 ===========
+			//======================================================
 			pb_4_f[0].enonce = `${pb_4_f[0].prenoms[0]} colorie un mandala selon les proportions suivantes :  $\\dfrac{${pb_4_f[0].fractionsB.f1[0]}}{${pb_4_f[0].fractionsB.f1[1]}}$ en ${pb_4_f[0].fractionsB.cat1}, `;
 			pb_4_f[0].enonce += `$\\dfrac{${pb_4_f[0].fractionsB.f2[0]}}{${pb_4_f[0].fractionsB.f2[1]}}$ en  ${pb_4_f[0].fractionsB.cat2}, `;
 			pb_4_f[0].enonce += `$\\dfrac{${pb_4_f[0].fractionsB.f3[0]}}{${pb_4_f[0].fractionsB.f3[1]}}$ en  ${pb_4_f[0].fractionsB.cat3} et `;
 			pb_4_f[0].enonce += `le reste en ${pb_4_f[0].fractionsB.cat4}.`;
 
+			//======================================================
+			//===========	énoncé indice 1 le jardin 	 ===========
+			//======================================================
 			pb_4_f[1].enonce = `Un jardin est aménagé selon les proportions suivantes :  $\\dfrac{${pb_4_f[1].fractionsB.f1[0]}}{${pb_4_f[1].fractionsB.f1[1]}}$ par ${pb_4_f[1].fractionsB.cat1}, `;
 			pb_4_f[1].enonce += `$\\dfrac{${pb_4_f[1].fractionsB.f2[0]}}{${pb_4_f[1].fractionsB.f2[1]}}$ par  ${pb_4_f[1].fractionsB.cat2}, `;
 			pb_4_f[1].enonce += `$\\dfrac{${pb_4_f[1].fractionsB.f3[0]}}{${pb_4_f[1].fractionsB.f3[1]}}$ par  ${pb_4_f[1].fractionsB.cat3} et `;
 			pb_4_f[1].enonce += `le reste par ${pb_4_f[1].fractionsB.cat4}.`;
 
+			//======================================================
+			//===========	énoncé indice 2 le stade 	 ===========
+			//======================================================
+
+
+			//======================================================
+			//=========== 		Correction Commune  	 ===========
+			//======================================================
 
 			//let frac_meme_denom;
 			for (let i=0; i<2; i++) {
@@ -4709,9 +4777,23 @@ function Problemes_additifs_fractions() {
 				};
 			};
 
+			//======================================================
+			//===========	Correction indice 0 le mandala==========
+			//======================================================
 				pb_4_f[0].correction += `Calculons alors la fraction du mandala recouverte en `;
+
+			//======================================================
+			//===========	Correction indice 1 le jardin===========
+			//======================================================
 				pb_4_f[1].correction += `Calculons d'abord la fraction du jardin occupée par `;
-			
+
+			//======================================================
+			//===========	énoncé indice 2 le stade 	 ===========
+			//======================================================
+
+			//======================================================
+			//=========== 		Correction Commune  	 ===========
+			//======================================================			
 			for (let i=0; i<2; i++) {
 				pb_4_f[i].correction += `${pb_4_f[i].fractionsB.cat3} : `;
 				pb_4_f[i].correction += `$1-\\dfrac{${pb_4_f[i].fractionsB.f1[0]}}{${pb_4_f[i].fractionsB.f1[1]}}-\\dfrac{${pb_4_f[i].fractionsB.f2[0]}}{${pb_4_f[i].fractionsB.f2[1]}} = `;
@@ -4724,6 +4806,10 @@ function Problemes_additifs_fractions() {
 					pb_4_f[i].correction +=`$`;
 				};	
 			};		
+
+			//======================================================
+			//=========== Conclusion indice 0 le mandala ===========
+			//======================================================
 
 			pb_4_f[0].correction += `<br>Le mandala est donc colorié de la façon suivante : $\\dfrac{${pb_4_f[0].fractionsB.f1[0]}}{${pb_4_f[0].fractionsB.f1[1]}}$ en ${pb_4_f[0].fractionsB.cat1}, `;
 			pb_4_f[0].correction += `$\\dfrac{${pb_4_f[0].fractionsB.f2[0]}}{${pb_4_f[0].fractionsB.f2[1]}}$ en ${pb_4_f[0].fractionsB.cat2}, `;
@@ -4750,7 +4836,9 @@ function Problemes_additifs_fractions() {
 				pb_4_f[0].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc en ${pb_4_f[0].fractionsSimp[pb_4_f[0].fractionsSimp.indexOf(frac_rangees[6])+2]} que le mandala est le plus recouvert.`)}`;			
 			};
 
-
+			//======================================================
+			//=========== Conclusion indice 1 le jardin	 ===========
+			//======================================================
 			pb_4_f[1].correction += `<br>Le jardin est donc occupé de la façon suivante : $\\dfrac{${pb_4_f[1].fractionsB.f1[0]}}{${pb_4_f[1].fractionsB.f1[1]}}$ par ${pb_4_f[1].fractionsB.cat1}, `;
 			pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractionsB.f2[0]}}{${pb_4_f[1].fractionsB.f2[1]}}$ par ${pb_4_f[1].fractionsB.cat2}, `;
 			pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractionsB.f3[0]}}{${pb_4_f[1].fractionsB.f3[1]}}$ par ${pb_4_f[1].fractionsB.cat3} et `;			
@@ -4776,28 +4864,14 @@ function Problemes_additifs_fractions() {
 				pb_4_f[1].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc par ${pb_4_f[1].fractionsSimp[pb_4_f[1].fractionsSimp.indexOf(frac_rangees[6])+2]} que le jardin est le plus occupé.`)}`;	
 			};
 
+			//======================================================
+			//=========== Conclusion indice 2 le stade	 ===========
+			//======================================================
+
 
 
 			
-//=============indice 1============			
-			// pb_4_f[1].correction = `Calculons d'abord la fraction du jardin occupée par ${pb_4_f[1].fractions[11]} : $1-\\dfrac{${pb_4_f[1].fractions[0]}}{${pb_4_f[1].fractions[1]}}-\\dfrac{${pb_4_f[1].fractions[3]}}{${pb_4_f[1].fractions[4]}} -\\dfrac{${pb_4_f[1].fractions[6]}}{${pb_4_f[1].fractions[7]}}= \\dfrac{${pb_4_f[1].fractions[9]}}{${pb_4_f[1].fractions[10]}}$`
-			// pb_4_f[1].correction += `<br>Le jardin est donc occupé de la façon suivante : $\\dfrac{${pb_4_f[1].fractions[0]}}{${pb_4_f[1].fractions[1]}}$ par ${pb_4_f[1].fractions[2]}, `;
-			// pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[3]}}{${pb_4_f[1].fractions[4]}}$ par ${pb_4_f[1].fractions[5]}, `;
-			// pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[6]}}{${pb_4_f[1].fractions[7]}}$ par ${pb_4_f[1].fractions[8]} et `;			
-			// pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[9]}}{${pb_4_f[1].fractions[10]}}$ par ${pb_4_f[1].fractions[11]}`;
-			// pb_4_f[1].correction += `<br>Réduisons ces fractions au même dénominateur :`;
-			// frac_meme_denom = frac.reduceSameDenominateur(pb_4_f[1].fractions[0],pb_4_f[1].fractions[1],pb_4_f[1].fractions[3],pb_4_f[1].fractions[4],pb_4_f[1].fractions[6],pb_4_f[1].fractions[7],pb_4_f[1].fractions[9],pb_4_f[1].fractions[10]);			
-			// pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[0]}}{${pb_4_f[1].fractions[1]}} = \\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}$ ; `;
-			// pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[3]}}{${pb_4_f[1].fractions[4]}} = \\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}$ ; `;
-			// pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[6]}}{${pb_4_f[1].fractions[7]}} = \\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}}$ et `;
-			// pb_4_f[1].correction += `$\\dfrac{${pb_4_f[1].fractions[9]}}{${pb_4_f[1].fractions[10]}} = \\dfrac{${frac_meme_denom[6]}}{${frac_meme_denom[7]}}$.`;
-
-			// frac_meme_denom_rangees = frac.sortFractions(frac_meme_denom[0],frac_meme_denom[1],frac_meme_denom[2],frac_meme_denom[3],frac_meme_denom[4],frac_meme_denom[5],frac_meme_denom[6],frac_meme_denom[7]); 
-			// pb_4_f[1].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $\\dfrac{${frac_meme_denom_rangees[0]}}{${frac_meme_denom_rangees[1]}}$, $\\dfrac{${frac_meme_denom_rangees[2]}}{${frac_meme_denom_rangees[3]}}$, $\\dfrac{${frac_meme_denom_rangees[4]}}{${frac_meme_denom_rangees[5]}}$, $\\dfrac{${frac_meme_denom_rangees[6]}}{${frac_meme_denom_rangees[7]}}$.`
-
-			// frac_rangees = frac.sortFractions(pb_4_f[1].fractions[0],pb_4_f[1].fractions[1],pb_4_f[1].fractions[3],pb_4_f[1].fractions[4],pb_4_f[1].fractions[6],pb_4_f[1].fractions[7],pb_4_f[1].fractions[9],pb_4_f[1].fractions[10]);			
-			// pb_4_f[1].correction += `<br>Enfin, nous pouvons ranger les fractions initiales dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$, $\\dfrac{${frac_rangees[6]}}{${frac_rangees[7]}}$.`
-			// pb_4_f[1].correction += `<br> ${texte_en_couleur_et_gras(`C'est donc par ${pb_4_f[1].fractions[pb_4_f[1].fractions.indexOf(frac_rangees[7])+1]} que le jardin est le plus occupé.`)}`;	
+//=============indice 2============			
 
 			pb_4_f.push({// indice 2 le stade
 				//prenoms: [prenomF(),prenomF(),prenomF()],
