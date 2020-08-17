@@ -4009,7 +4009,16 @@ function Calculer_une_expression_litteraleBis() {
 					texte_corr += `Le calcul serait le suivant : ${expc}.<br>`;
 					texte_corr += `Pour n'importe quelles valeurs de $x$ et de $y$ choisies, les étapes sont les mêmes, elles respectent les règles de priorité opératoire.<br>`
 					texte_corr += `La dernière opération dans ${expn} est donc ...`;
-					break
+					let indices = [];
+					let tableau = expc.split(`\\div`);
+					let element = 'div';
+					let idx = tableau.indexOf(element);
+					while (idx != -1) {
+					indices.push(idx);
+					idx = tableau.indexOf(element, idx + 1);
+					}
+					texte_corr += `<br> ${tableau} <br> ${indices}`
+					break;
  		
 			}
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
