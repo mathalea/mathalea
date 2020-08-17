@@ -41,6 +41,9 @@ var liste_des_exercices_disponibles = {
 		'6D12' : Calculs_de_durees_ou_d_horaires,
 		'beta6G10' : Notation_segment_droite_demi_droite,
 		'beta6G12' : Parallele_et_Perpendiculaires,
+		'6G11' : Tracer_des_perpendiculaires,
+		'6G12-1' : Tracer_des_paralleles,
+		'6G12-2' : Tracer_des_perpendiculaires_et_des_paralleles,
 		'6G20' : Vocabulaire_des_triangles_6e,
 		'6G24' : Transformations_6e,
 		'6G25-1' : Pavages_et_reflexion,
@@ -7258,6 +7261,25 @@ function Transformations() {
 }
 
 // Exercices paramétrés pour correspondre au référentiel
+function Tracer_des_perpendiculaires(){
+	Parallele_et_Perpendiculaires.call(this)
+	this.titre = "Tracer des perpendiculaires"
+	this.sup=1
+	this.besoin_formulaire_numerique=false
+}
+function Tracer_des_paralleles(){
+	Parallele_et_Perpendiculaires.call(this)
+	this.titre = "Tracer des parallèles"
+	this.sup=2
+	this.besoin_formulaire_numerique=false
+}
+function Tracer_des_perpendiculaires_et_des_paralleles(){
+	Parallele_et_Perpendiculaires.call(this)
+	this.titre = "Tracer des perpendiculaires et des perpendiculaires"
+	this.sup=3
+	this.nb_questions=2
+	this.besoin_formulaire_numerique=false
+}
 /**
  * Exercice en html seulement. Symétrie centrale dans un pavage.
  * @Auteur Jean-Claude Lhote
@@ -7620,7 +7642,7 @@ function Vocabulaire_des_triangles(){
 						triangle_isocele.l2 = l1;
 						triangle_isocele.l3 = l2;
 					};
-					texte = `${triangle_isocele.getNom()} est un triangle tel que ${triangle_isocele.getLongueurs()[0]} $= ${triangle_isocele.l1}$ cm ; `;
+					texte = `${triangle_isgocele.getNom()} est un triangle tel que ${triangle_isocele.getLongueurs()[0]} $= ${triangle_isocele.l1}$ cm ; `;
 					texte += `${triangle_isocele.getLongueurs()[1]} $= ${triangle_isocele.l2}$ cm et ${triangle_isocele.getLongueurs()[2]} $= ${triangle_isocele.l3}$ cm.`;
 					texte_corr = `Les longueurs des côtés ${triangle_isocele.getCotes()[0]} et ${triangle_isocele.getCotes()[1]} du triangle ${triangle_isocele.getNom()} valent toutes les deux $${triangle_isocele.l1}$ cm donc ${triangle_isocele.getNom()} est un triangle isocèle en ${triangle_isocele.getSommets()[1]}.`;
 					break;
@@ -7823,70 +7845,148 @@ function Vocabulaire_des_triangles_5e(){
 	Vocabulaire_des_triangles.call(this);
 };
 
-function Parallele_et_Perpendiculaires(){
+function Parallele_et_Perpendiculaires() {
 	'use strict'
 	Exercice.call(this);
 	this.titre = "Tracer des parallèles et des perpendiculaires";
 	this.nb_questions = 1;
-	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
-	this.nouvelle_version = function(numero_de_l_exercice){
+	this.sup = 1;
+	this.sup2 = 1;
+	this.nouvelle_version = function (numero_de_l_exercice) {
+		let type_de_questions_disponibles
+		if (this.sup == 3) type_de_questions_disponibles = [1,2]; //Perpendiculaires ou parallèles
+		else type_de_questions_disponibles = [parseInt(this.sup)] // Le choix 1 ou 2
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions)
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let Xmin,Xmax,Ymin,Ymax,ppc,sc
+		let Xmin, Xmax, Ymin, Ymax, ppc, sc
 		function initialise_variables() {
 			if (sortie_html) { // repère -10 || 10
-				Xmin=-1
-				Ymin=-9
-				Xmax=15
-				Ymax=6
-				ppc=20
-				sc=.5
+				Xmin = -1
+				Ymin = -9
+				Xmax = 15
+				Ymax = 9
+				ppc = 20
 			} else { // repère -5 || 5
-
+				Xmin = -1
+				Ymin = -9
+				Xmax = 15
+				Ymax = 9
+				ppc = 20
 			}
 		};
 
 		initialise_variables();
+		if (this.sup2 == 1) sc = 0.5
+		else sc = 0.8
 
-		let A,B,C,D,CC,DD,d,labels,traces,enonce,correction,dB,dC,dD,g,lC,lD,cB,cC,cD,BB
-		A=point(0,0,'A')
-		B=point(6,randint(-2,2,0),'B')
-		d=droite(A,B)
-		d.isVisible=true
-		C=point(randint(3,4),randint(3,5),'C')
-		D=point(randint(8,9),randint(-8,-5),'D')
-		traces=tracePoint(A,B,C,D)
-		labels=labelPoint(A,B,C,D)
-		g=grille(-1,-15,15,15)
-		dB=droiteParPointEtPerpendiculaire(B,d)
-		dC=droiteParPointEtPerpendiculaire(C,d)
-		dD=droiteParPointEtPerpendiculaire(D,d)
-		BB=rotation(A,B,-90)
-		CC=pointIntersectionDD(dC,d)
-		DD=pointIntersectionDD(dD,d)
-		lC=arrondi(longueur(CC,A),1)
-		lD=arrondi(longueur(DD,A),1)
-		cB=codageAngleDroit(A,B,BB)
-		cC=codageAngleDroit(C,CC,B)
-		cD=codageAngleDroit(D,DD,B)
-		enonce=`Reproduis la figure ci-dessous sur ton cahier.<br>`
-		enonce+=`Trace les droites perpendiculaires à (AB) passant par B,C et D.<br>`
-		enonce+=`Mesure ensuite la distance entre le point A et les point d'intersection de tes droites avec la droite (AB).<br>`
-		enonce+=`Compare cette mesure avec celle de l'ordinateur dans la correction<br>`
-		enonce+=mathalea2d({xmin : Xmin,ymin : Ymin,xmax : Xmax,ymax : Ymax,pixelsParCm : ppc,scale :sc},traces,labels,g,d)
-		correction=`voici la figure qu'il fallait réaliser.<br>`
-		correction+=mathalea2d({xmin : Xmin,ymin : Ymin,xmax : Xmax,ymax : Ymax,pixelsParCm : ppc,scale :sc},traces,labels,g,d,dB,dC,dD,cC,cB,cD)
-		correction+=`<br>La perpendiculaire à (d) passant par C coupe (AB) à ${lC}cm de A.<br>`
-		correction+=`<br>La perpendiculaire à (d) passant par D coupe (AB) à ${lD}cm de A.<br>`
-	//	if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-		this.liste_questions.push(enonce+'<br>'+correction);
-	//	this.liste_corrections.push(texte_corr);
-	//	}	
-		liste_de_question_to_contenu(this);	
+		let A, B, C, D,xE,E,F, CC, DD,EE, d, labels_enonce,labels_correction, traces_enonce,traces_correction,s1,s2, enonce, correction, dB, dC, dD,dE, g, lC, lD,lE, cB, cC, cD, BB, carreaux, k,p
+		for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+
+			g = grille(-1, -15, 15, 15, "gray", 0.7)
+			if (this.sup2 == 2) {
+				 k = 0.8
+				 carreaux = seyes(Xmin, Ymin, Xmax, Ymax)
+			}
+			else {
+				k = 0.5
+				carreaux = ''
+			}
+			switch (liste_type_de_questions[i]) {
+				case 1:
+					A = point(0, 0, 'A')
+					B = point(10, randint(-4, 4, [-1,0,1]), 'B')
+					d = droite(A, B)
+					d.isVisible = true
+					C = point(randint(1, 2), randint(3, 4), 'C')
+					D = point(randint(7, 8), randint(-7, -6), 'D')
+					dB = droiteParPointEtPerpendiculaire(B, d)
+					xE=11
+					E=pointSurDroite(dB,11,'E','left')
+					while(!Number.isInteger(E.y)) {
+						xE++
+						E=pointSurDroite(dB,xE,'E','left')
+					}
+					F=point(E.x,B.y)
+					s1=segment(B,F,'red')
+					s1.epaisseur=2
+					s1.pointilles=true
+					s2=segment(F,E,'blue')
+					s2.epaisseur=2
+					s2.pointilles=true					
+					dC = droiteParPointEtPerpendiculaire(C, d)
+					dD = droiteParPointEtPerpendiculaire(D, d)
+					BB = rotation(A, B, 90)
+					CC = pointIntersectionDD(dC, d)
+					DD = pointIntersectionDD(dD, d)
+					lC = arrondi(longueur(CC, A) * k, 1)
+					lD = arrondi(longueur(DD, A) * k, 1)
+					cB = codageAngleDroit(A, B, BB)
+					cC = codageAngleDroit(C, CC, B)
+					cD = codageAngleDroit(D, DD, B)
+					traces_enonce = tracePoint(A, B, C, D)
+					traces_correction = tracePoint(A,B,C,D,E)
+					labels_enonce = labelPoint(A, B, C, D)
+					labels_correction = labelPoint(A, B, C, D,E)
+					enonce = `Reproduis la figure ci-dessous sur ton cahier puis trace les droites perpendiculaires à (AB) passant par B,C et D.<br>`
+					enonce += `Mesure ensuite la distance entre le point A et les points d'intersection de tes droites avec la droite (AB) et compare ces mesures avec celles de l'ordinateur dans la correction<br>`
+					enonce += mathalea2d({ xmin: Xmin, ymin: Ymin, xmax: Xmax, ymax: Ymax, pixelsParCm: ppc, scale: sc }, traces_enonce, labels_enonce, g, d, carreaux)
+					correction = `voici la figure qu'il fallait réaliser.<br>`
+					correction += mathalea2d({ xmin: Xmin, ymin: Ymin, xmax: Xmax, ymax: Ymax, pixelsParCm: ppc, scale: sc }, traces_correction, labels_correction,s1,s2, g, d, dB, dC, dD, cC, cB, cD, carreaux)
+					correction += `<br>La perpendiculaire à (d) passant par C coupe (AB) à environ $${tex_nombre(lC)}$cm de A.<br>`
+					correction += `<br>La perpendiculaire à (d) passant par D coupe (AB) à environ $${tex_nombre(lD)}$cm de A.<br>`
+					correction += `Pour la perpendiculaire en B, contrôle la position du point E.<br>`
+					break;
+				case 2:
+					A = point(2, 0, 'A')
+					B = point(12, randint(-4, 4, 0), 'B')
+					d = droite(A, B)
+					d.isVisible = true
+					C = point(randint(1, 2), randint(3, 4), 'C')
+					D = point(randint(7, 8), randint(-7, -6), 'D')
+					E=point(randint(4,5),randint(4,5),'E')
+					F=point(2,-3,'F','above left')
+					traces_enonce = tracePoint(A, B, C, D,E,F)
+					labels_enonce = labelPoint(A, B, C, D,E,F)
+					traces_correction = tracePoint(A, B, C, D,E,F)
+					labels_correction = labelPoint(A, B, C, D,E,F)
+					dE = droiteParPointEtParallele(E, d)
+					dC = droiteParPointEtParallele(C, d)
+					dD = droiteParPointEtParallele(D, d)
+					p=droite(A,F)
+					p.isVisible=true
+					CC = pointIntersectionDD(dC, p)
+					DD = pointIntersectionDD(dD, p)
+					EE = pointIntersectionDD(dE, p)
+					lC = arrondi(longueur(CC, A) * k, 1)
+					lD = arrondi(longueur(DD, A) * k, 1)
+					lE = arrondi(longueur(EE, A) * k, 1)
+					enonce = `Reproduis la figure ci-dessous sur ton cahier puis trace les droites parallèles à (AB) passant par C,D et E.<br>`
+					enonce += `Mesure ensuite la distance entre le point A et les points d'intersection de tes droites avec la droite (AF) et compare ces mesures avec celles de l'ordinateur dans la correction<br>`
+					enonce += mathalea2d({ xmin: Xmin, ymin: Ymin, xmax: Xmax, ymax: Ymax, pixelsParCm: ppc, scale: sc }, traces_enonce, labels_enonce, g, d,p, carreaux)
+					correction = `voici la figure qu'il fallait réaliser.<br>`
+					correction += mathalea2d({ xmin: Xmin, ymin: Ymin, xmax: Xmax, ymax: Ymax, pixelsParCm: ppc, scale: sc }, traces_correction, labels_correction, g, d,p, dE, dC, dD, carreaux)
+					correction += `<br>La parallèles à (AB) passant par C coupe (AF) à environ $${tex_nombre(lC)}$cm de A.<br>`
+					correction += `<br>La paralllèle à (AB) passant par D coupe (AF) à environ $${tex_nombre(lD)}$cm de A.<br>`
+					correction += `<br>La paralllèle à (AB) passant par E coupe (AF) à environ $${tex_nombre(lE)}$cm de A.<br>`					
+
+			break ;
+			}
+
+			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(enonce + '<br>');
+				this.liste_corrections.push(correction + '<br>');
+				i++;
+			}
+			cpt++;
+		}
+
+		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_numerique=['Type de questions',3,`1 : Parallèles\n 2 : Perpendiculaires\n 3 : Mélange`]
+//	this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
+	this.besoin_formulaire2_numerique = ['Type de cahier', 2, `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)`]
 
 }
 

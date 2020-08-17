@@ -84,7 +84,7 @@ function point(...args) {
  */
 function TracePoint(...points) {
   ObjetMathalea2D.call(this);
-  this.taille = 0.3;
+  this.taille = 0.2;
   if (typeof points[points.length - 1] === "string") {
     this.color = points[points.length - 1];
   }
@@ -187,6 +187,15 @@ function pointSurCercle(c, angle, nom, positionLabel = "above") {
   let x = c.centre.x + c.rayon * Math.cos(Math.radians(angle));
   let y = c.centre.y + c.rayon * Math.sin(Math.radians(angle));
   return point(x, y, nom, positionLabel);
+}
+/**
+ * P=pointSurDroite(d,x) retourne un point sur la droite d dont l'abscisse est x. Si c'est impossible (droite verticale) alors ce sera le point dont l'ordonnée vaut x.
+ * @Auteur Jean-Claude Lhote
+ */
+function pointSurDroite(d,x, nom, positionLabel = "above"){ // si d est parallèle à l'axe des ordonnées, le paramètre x servira pour y.
+  if (d.b==0) return point(calcul(-d.c/d.a),x,nom,positionLabel);
+  else if (d.a==0) return point(x,calcul(-d.c/d.b),nom,positionLabel)
+  else return point(x,calcul((-d.c-d.a*x)/d.b),nom,positionLabel)
 }
 
 /**
@@ -2539,7 +2548,7 @@ function centreCercleCirconscrit(A, B, C, nom = "", positionLabel = "above") {
  *
  * @Auteur Rémi Angot
  */
-function codageAngleDroit(A, O, B, color = "black", d = 0.3) {
+function codageAngleDroit(A, O, B, color = "black", d = 0.4) {
   ObjetMathalea2D.call(this);
   this.color = color;
   let a = pointSurSegment(O, A, d);
@@ -3000,6 +3009,7 @@ function seyes(xmin, ymin, xmax, ymax) {
     }
     return code;
   };
+  return objets
 }
 
 function Repere({
