@@ -4386,9 +4386,12 @@ function Problemes_additifs_fractions() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.beta = true;	
 	this.sup=1;
-	// this.nb_questions = 5;
+	if (this.beta) {
+		this.nb_questions = 5;
+	} else {
+		this.nb_questions = 2;
+	};	
 	this.titre = `Problèmes additifs et de comparaison sur les rationnels`;	
-
 	this.consigne = `Justifier vos réponses aux problèmes suivants.`;
 	
 	this.nb_cols = 1;
@@ -4401,17 +4404,13 @@ function Problemes_additifs_fractions() {
 	
 	this.nouvelle_version = function(numero_de_l_exercice){
 		if (this.beta) {
-			this.nb_questions = 5;
 			type_de_questions_disponibles = [1,2,3,4,5];			
 		} else {
-			this.nb_questions = 2;
 			type_de_questions_disponibles = [choice([1,2]),choice([3,4,5])];			
-
 		};	
+
 		//let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"	
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
-		
-		
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus				
 
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
