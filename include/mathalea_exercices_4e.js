@@ -4384,7 +4384,7 @@ function Puissances_encadrement() {
 function Problemes_additifs_fractions() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 5;
