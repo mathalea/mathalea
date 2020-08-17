@@ -5466,7 +5466,7 @@ function Forme_litterale_introduire_une_lettre(){
 				};
 			};
 			
-			// deux fonctions pour gérer la chaine de sortie et supprimer le coeff 1 !
+			// une fonction pour gérer la chaine de sortie et supprimer le coeff 1 !
 			function sliceUn(n) {
 				if (n==1) {
 					return ``;
@@ -5481,7 +5481,7 @@ function Forme_litterale_introduire_une_lettre(){
 				{elt1:{lettre:'c',article:'un',sing:'crayon',plur:'crayons'},elt2:{lettre:'g',article:'une',sing:'gomme',plur:'gommes'}},
 				{elt1:{lettre:'r',article:'une',sing:'règle',plur:'règles'},elt2:{lettre:'e',article:'une',sing:'équerre',plur:'équerres'}},
 				{elt1:{lettre:'p',article:'une',sing:'poire',plur:'poires'},elt2:{lettre:'b',article:'une',sing:'banane',plur:'bananes'}},
-				{elt1:{lettre:'c',article:'un',sing:'couteau',plur:'couteaux'},elt2:{lettre:'f',article:'une',sing:'fourchette',plur:'fourchette'}},
+				{elt1:{lettre:'c',article:'un',sing:'couteau',plur:'couteaux'},elt2:{lettre:'f',article:'une',sing:'fourchette',plur:'fourchettes'}},
 				{elt1:{lettre:'m',article:'un',sing:'marteau',plur:'marteau'},elt2:{lettre:'e',article:'une',sing:'enclume',plur:'enclumes'}},
 			]
 			// par trois
