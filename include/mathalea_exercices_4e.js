@@ -4560,7 +4560,7 @@ function Problemes_additifs_fractions() {
 			//=========== 		Correction Commune  	 ===========
 			//======================================================			
 			for (let i=0; i<2; i++) {
-				pb_3_f[i].correction += `${pb_3_f[i].fractionsB.cat3} : `;
+				pb_3_f[i].correction += `${pb_3_f[i].fractionsB.cat3} : <br>`;
 				pb_3_f[i].correction += `$1-\\dfrac{${pb_3_f[i].fractionsB.f1[0]}}{${pb_3_f[i].fractionsB.f1[1]}}-\\dfrac{${pb_3_f[i].fractionsB.f2[0]}}{${pb_3_f[i].fractionsB.f2[1]}} = `;
 				pb_3_f[i].correction +=`\\dfrac{${frac_meme_denom[1]}}{${frac_meme_denom[1]}}-\\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}-\\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}} = `;
 				pb_3_f[i].correction +=`\\dfrac{${frac_meme_denom[1]}-${frac_meme_denom[0]}-${frac_meme_denom[2]}}{${frac_meme_denom[3]}} = `;
@@ -4803,7 +4803,7 @@ function Problemes_additifs_fractions() {
 			//=========== 		Correction Commune  	 ===========
 			//======================================================			
 			for (let i=0; i<3; i++) {
-				pb_4_f[i].correction += `${pb_4_f[i].fractionsB.cat3} : `;
+				pb_4_f[i].correction += `${pb_4_f[i].fractionsB.cat3} : <br>`;
 				pb_4_f[i].correction += `$1-\\dfrac{${pb_4_f[i].fractionsB.f1[0]}}{${pb_4_f[i].fractionsB.f1[1]}}-\\dfrac{${pb_4_f[i].fractionsB.f2[0]}}{${pb_4_f[i].fractionsB.f2[1]}}-\\dfrac{${pb_4_f[i].fractionsB.f3[0]}}{${pb_4_f[i].fractionsB.f3[1]}} = `;
 				pb_4_f[i].correction +=`\\dfrac{${frac_meme_denom[1]}}{${frac_meme_denom[1]}}-\\dfrac{${frac_meme_denom[0]}}{${frac_meme_denom[1]}}-\\dfrac{${frac_meme_denom[2]}}{${frac_meme_denom[3]}}-\\dfrac{${frac_meme_denom[4]}}{${frac_meme_denom[5]}} = `;
 				pb_4_f[i].correction +=`\\dfrac{${frac_meme_denom[1]}-${frac_meme_denom[0]}-${frac_meme_denom[2]}-${frac_meme_denom[4]}}{${frac_meme_denom[1]}} = `;
