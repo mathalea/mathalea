@@ -9519,23 +9519,25 @@ function Mettre_en_equation_sans_resoudre(){
 				question:``,
 				correction:`$${n}\\times ${objets.elt1.lettre} + ${p}\\times ${objets.elt2.lettre} = ${sliceUn(n)}${objets.elt1.lettre} + ${sliceUn(p)}${objets.elt2.lettre}$.`
 			})
-			let a,A,B,C,D;
+			let a,po,A,B,C,D,Moncarre;
 			switch (liste_type_de_questions[i]){
 				case 1 : 
 					texte = `${enonces[0].enonce}`;
 					texte = `to be continued ...`
 					a=randint(0,6)
-					A = point(a,0,'A','left')
-					B = point(8,1,'B','right')
-					C = rotation(A,B,90,'C','above')
-					D = rotation(B,A,270,'D','below')					
+					A = point(a,0)
+					B = point(8,1)
+					C = rotation(A,B,90)
+					D = rotation(B,A,270)
+					po=polygone(A,B,C,D)
+					Moncarre=nommePolygone(po,"ABCD")					
 					texte += mathalea2d({
-						xmin : -1,
-						ymin : -4,
-						xmax : 16,
-						ymax : 8,
-						pixelsParCm : 40,
-					},A,B,C,D,polygone(A,B,C,D),labelPoint(A,B,C,D),
+						xmin : -15,
+						ymin : -15,
+						xmax : 15,
+						ymax : 15,
+						pixelsParCm : 20,
+					},po,Moncarre,
 					codageAngleDroit(A,B,C),
 					codageAngleDroit(B,C,D),
 					codageAngleDroit(C,D,A),
