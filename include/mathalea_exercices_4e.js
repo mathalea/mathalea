@@ -5407,7 +5407,7 @@ function Tester_si_un_nombre_est_solution_d_une_equation_deg2(){
 
 /**
  * Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue
- * * 4L13-0
+ * * 4P20-0
  * @author Sébastien Lozano
  */
 function Forme_litterale_introduire_une_lettre(){
@@ -5514,7 +5514,7 @@ function Forme_litterale_introduire_une_lettre(){
 /**
  * Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue afin de mettre en équation un problème
  * à partir de figure géométriques élémentaires
- * * 4L13-1
+ * * 4L13-0
  * @author Sébastien Lozano
  */
 function Mettre_en_equation_sans_resoudre(){
