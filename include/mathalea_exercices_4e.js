@@ -5418,9 +5418,9 @@ function Forme_litterale_introduire_une_lettre(){
 	this.beta = true;	
 	this.sup=1;
 	if (this.beta) {
-		this.nb_questions = 5;
+		this.nb_questions = 3;
 	} else {
-		this.nb_questions = 2;
+		this.nb_questions = 3;
 	};	
 
 	this.titre = "Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue";
@@ -5444,13 +5444,13 @@ function Forme_litterale_introduire_une_lettre(){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		
-		if (this.exo=='rrr') {
-			type_de_questions_disponibles=[1,2,3,4,5,8];
-		} else if (this.exo=='rrrr') {
-			type_de_questions_disponibles=[9,6,7];			
-		} else {
+		// if (this.exo=='rrr') {
+		// 	type_de_questions_disponibles=[1,2,3,4,5,8];
+		// } else if (this.exo=='rrrr') {
+		// 	type_de_questions_disponibles=[9,6,7];			
+		// } else {
 			type_de_questions_disponibles=[1];			
-		}
+	//	}
 		let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		//let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
 		//this.consigne = `Exprimer le prix total de son achat, en fonction des lettres introduites dans l'énoncé.`;
