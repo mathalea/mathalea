@@ -5549,16 +5549,10 @@ function Mettre_en_equation_sans_resoudre(){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		
-		// if (this.exo=='rrr') {
-		// 	type_de_questions_disponibles=[1,2,3,4,5,8];
-		// } else if (this.exo=='rrrr') {
-		// 	type_de_questions_disponibles=[9,6,7];			
-		// } else {
-			type_de_questions_disponibles=[1];			
-	//	}
+		type_de_questions_disponibles=[1];			
+
 		let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		//let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
-		//this.consigne = `Exprimer le prix total de son achat, en fonction des lettres introduites dans l'énoncé.`;
+		//let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
 			
@@ -5601,57 +5595,27 @@ function Mettre_en_equation_sans_resoudre(){
 				question:``,
 				correction:`$${n}\\times ${objets.elt1.lettre} + ${p}\\times ${objets.elt2.lettre} = ${sliceUn(n)}${objets.elt1.lettre} + ${sliceUn(p)}${objets.elt2.lettre}$.`
 			})
+			let a,A,B,C,D;
 			switch (liste_type_de_questions[i]){
 				case 1 : 
 					texte = `${enonces[0].enonce}`;
 					texte = `to be continued ...`
-					if (sortie_html) {
-						texte += `
-						<svg width="600" height="400" viewBox="-20 -200 600 400" xmlns="http://www.w3.org/2000/svg">
-	<polygon points="60,0 160,-20 140,-120 40,-100 " stroke="black" fill="none"></polygon>
-		<text x="45" y="0" text-anchor="middle" dominant-baseline="central" fill="black">A</text>
- 	<text x="175" y="-20" text-anchor="middle" dominant-baseline="central" fill="black">B</text>
- 	<text x="140" y="-135" text-anchor="middle" dominant-baseline="central" fill="black">C</text>
- 	<text x="40" y="-115" text-anchor="middle" dominant-baseline="central" fill="black">D</text>
- 
-	<polyline points="67.8446,-1.56893 66.2756,-9.41352 58.431,-7.84464 " fill="none" stroke="black"></polyline>
-	<polyline points="41.569,-92.1554 49.4136,-93.7244 47.8446,-101.569 " fill="none" stroke="black"></polyline>
-	<polyline points="132.155,-118.431 133.724,-110.586 141.569,-112.155 " fill="none" stroke="black"></polyline>
-	<polyline points="158.431,-27.8446 150.586,-26.2756 152.155,-18.4311 " fill="none" stroke="black"></polyline>
-</svg>
-						`;
-					} else {
-						texte += `
-						\\begin{tikzpicture}
-
-	\\tikzset{
-		point/.style={
-			thick,
-			draw,
-			cross out,
-			inner sep=0pt,
-			minimum width=5pt,
-			minimum height=5pt,
-		},
-	}
-	\\clip (-1,-5) rectangle (15,10);
-
-	
-
-	\\draw (3,0)--(8,1)--(7,6)--(2,5)--cycle;
-		\draw (3,0) node[left] {$A$};
-	\\draw (8,1) node[right] {$B$};
-	\\draw (7,6) node[above] {$C$};
-	\\draw (2,5) node[above] {$D$};
-
-	\\draw (3.39223,0.0784464)--(3.31378,0.470676)--(2.92155,0.392232);
-	\\draw (2.07845,4.60777)--(2.47068,4.68622)--(2.39223,5.07845);
-	\\draw (6.60777,5.92155)--(6.68622,5.52932)--(7.07845,5.60777);
-	\\draw (7.92155,1.39223)--(7.52932,1.31378)--(7.60777,0.921554);
-\\end{tikzpicture}
-
-						`;
-					}
+					a=randint(0,6)
+					A = point(a,0,'A','left')
+					B = point(8,1,'B','right')
+					C = rotation(A,B,90,'C','above')
+					D = rotation(B,A,270,'D','below')					
+					texte += mathalea2d({
+						xmin : -1,
+						ymin : -4,
+						xmax : 16,
+						ymax : 8,
+						pixelsParCm : 40,
+					},A,B,C,D,polygone(A,B,C,D),labelPoint(A,B,C,D),
+					codageAngleDroit(A,B,C),
+					codageAngleDroit(B,C,D),
+					codageAngleDroit(C,D,A),
+					codageAngleDroit(D,A,B))
 					if (this.beta) {
 						texte += `<br>`;
 						//texte += `<br> ${texte_en_couleur(enonces[0].correction)}`;
