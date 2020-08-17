@@ -5405,3 +5405,109 @@ function Tester_si_un_nombre_est_solution_d_une_equation_deg2(){
 	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 };
 
+
+
+/**
+ * Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue
+ * * 4L13-0
+ * @author Sébastien Lozano
+ */
+function Forme_litterale_introduire_une_lettre(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.beta = true;	
+	this.sup=1;
+	if (this.beta) {
+		this.nb_questions = 5;
+	} else {
+		this.nb_questions = 2;
+	};	
+
+	this.titre = "Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue";
+	this.consigne = "Exprimer le prix total de l'achat, en fonction des lettres introduites dans l'énoncé.";
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	//this.nb_questions_modifiable = false;
+	//sortie_html? this.spacing = 3 : this.spacing = 2; 
+	//sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
+
+	let type_de_questions_disponibles;	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		if (this.beta) {
+			type_de_questions_disponibles = [1];			
+		} else {
+			type_de_questions_disponibles = [1];			
+		};
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		if (this.exo=='rrr') {
+			type_de_questions_disponibles=[1,2,3,4,5,8];
+		} else if (this.exo=='rrrr') {
+			type_de_questions_disponibles=[9,6,7];			
+		} else {
+			type_de_questions_disponibles=[1];			
+		}
+		let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		//let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
+		//this.consigne = `Exprimer le prix total de son achat, en fonction des lettres introduites dans l'énoncé.`;
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+			
+			// une fonction pour gérer le pluriel 
+			function pluriel(n,obj) {
+				if (n>1) {
+					return obj.plur
+				} else {
+					return obj.sing
+				};
+			};			
+
+			// on definit un tableau de couples possibles
+			// par deux
+			let par_deux = [
+				{elt1:{lettre:'c',article:'un',sing:'crayon',plur:'crayons'},elt2:{lettre:'g',article:'une',sing:'gomme',plur:'gommes'}},
+				{elt1:{lettre:'r',article:'une',sing:'règle',plur:'règles'},elt2:{lettre:'e',article:'une',sing:'équerre',plur:'équerres'}},
+			]
+			// par trois
+			// par quatre 
+			let enonces = [];
+			let n = randint(1,6);
+			let p = randint(1,6);
+			let objets = par_deux[randint(0,par_deux.length-1)];
+			enonces.push({
+				enonce:`${prenom()} veut acheter ${n} ${pluriel(n,objets.elt1)} et ${p} ${pluriel(n,objets.elt2)}.
+				<br>On note $${objets.elt1.lettre}$	le prix d'${objets.elt1.article} ${objets.elt1.sing} et $${objets.elt2.lettre}$	le prix d'${objets.elt2.article} ${objets.elt2.sing}.`,
+				question:``,
+				correction:`$${n}\\times ${objets.elt1.lettre} + ${p}\\times ${objets.elt2.lettre}$ = prévoir une écriture simplifiée, sans coeff 1 et symboles $\\times$ ...`
+			})
+			switch (liste_type_de_questions[i]){
+				case 1 : 
+					texte = `${enonces[0].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> ${enonces[0].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[0].correction}`;
+					};
+					break;				
+			}
+			
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+}
