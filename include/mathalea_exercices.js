@@ -1,250 +1,250 @@
 var liste_des_exercices_disponibles = {
-		'CM000' : Tables_additions_soustractions,
-		'CM001' : Tables_de_multiplications,
-		'CM002' : Tables_de_divisions,
-		'CM003' : Tables_de_multiplications_et_divisions,
-		'CM004' : Quatre_operations,
-		'CM005' : Ajouter9,
-		'CM006' : Soustraire9,
-		'CM007' : Ajouter11,
-		'CM008' : Soustraire11,
-		'CM009' : Moitie,
-		'CM010' : Tiers,
-		'CM011' : Quart,
-		'CM012' : Complement_a_100,
-		'CM013' : Complement_a_une_dizaine,
-		'CM014' : Double_moitie_tiers_triple,
-		'CM015' : Somme_de_deux_nombres_maries,
-		'CM016' : Diviser_par_10_100_1000,
-		'CM017' : Diviser_decimal_par_10_100_1000,
-		'CM018' : Somme_de_deux_nombres_maries_et_un_entier,
-		'CM019' : Le_compte_est_bonV3,
-		'CM020' : Le_compte_est_bonV4,
-		'BetaCM021' : Compte_Est_Bon,
-		'6C10' : Additions_soustractions_multiplications_posees,
-		'6C11' : Divisions_euclidiennes,
-		'6C10-1' :Tables_de_multiplications,
-		'6C10-2' :Exercice_tables_de_multiplications_et_multiples_de_10,
-		'6C10-3' :Exercice_tables_de_multiplications_et_decimaux,
-		'6C10-4': Exercice_tables_d_additions,
-		'6C13' : Vocabulaire_et_operations,
-		'6C20' : Additionner_soustraires_decimaux,
-		'6C21' : Divisions_euclidiennes_niv2,
-		'6C30' : Multiplier_decimaux,
-		'6C30-1': Multiplier_decimaux_par_10_100_1000,
-		'6C31' : Division_decimale,
-		'6C32': Probleme_course,
-		'6C33' : Priorites,
-		'6D10' : Conversions_de_durees,
-		'6D101' : Heures_decimales,
-		'6D11' : Somme_de_durees,
-		'6D12' : Calculs_de_durees_ou_d_horaires,
-    "6G10": Notation_segment_droite_demi_droite,
-    "6G10-1": Description_segment_droite_demi_droite,
-    "beta6G12": Parallele_et_Perpendiculaires,
-    "6G11": Tracer_des_perpendiculaires,
-    "6G12-1": Tracer_des_paralleles,
-    "6G12-2": Tracer_des_perpendiculaires_et_des_paralleles,
-		'6G20' : Vocabulaire_des_triangles_6e,
-		'6G24' : Transformations_6e,
-		'6G25-1' : Pavages_et_reflexion,
-		'6G25-2' : Pavages_et_symetries,
-		'6M11-1' : Perimetre_ou_aire_de_carres_rectangles_triangles,
-		'6M11-2' : Perimetre_ou_aire_de_figures_composees,
-		'6M10' : Reglages_6M10,
-		'6M12' : Reglages_6M12,
-		'6M20' : Aire_de_triangles,
-		'6M22' : Reglages_6M22,
-		'6M22-1' : Perimetre_aire_disques,
-		'6M22-2' : Perimetre_aire_et_portions_de_disques,
-		// '6M13' : Reglages_6M23,
-		'6M23' : Exercice_conversions_aires,
-		'6M25' : Connaitre_formules_de_perimetre_et_aires,
-		'6M30' : Calcul_de_volumes_6e,
-		'6M31' : Exercice_conversions_volumes,
-		'6M31-2' : Unites_de_volumes_et_de_capacite,
-		'6N10-1': Exercice_numeration_entier,
-		'6N10-2': Decomposition_nombre_decimal,
-		'6N11' : Lire_abscisse_entiere,
-		'6N11-2' : Placer_un_point_abscisse_entiere,
-		'6N12' : Exercice_6N12,
-		'6N13' : Exercice_6N13,
-		'6N20' : Exercice_fractions_decomposer,
-		'6N20-2':Exercice_fractions_differentes_ecritures,
-		'6N21' : Lire_abscisse_fractionnaire,
-		'6N23' : Exercice_ecriture_decimale_a_partir_de_fraction_decimale,
-		'6N23-1' : Exercice_differentes_ecritures_nombres_decimaux,
-		'6N24' : Exercice_6N24,
-		'6N24-1' : Exercice_multiplier_ou_diviser_un_nombre_entier_par_10_100_1000,
-		'6N30' : Lire_abscisse_decimale,
-		'6N30-2' : Placer_points_sur_axe,
-		'6N31' : Comparer_decimaux,
-		'6N33' : Fraction_d_un_nombre,
-		'6N33-1' : Pourcentage_d_un_nombre,
-		'6N34' : Reglages_6N34,
-		'6N41' : Egalites_entre_fractions,
-		'6N43' : Criteres_de_divisibilite,
-		'6N43-2' : Tableau_criteres_de_divisibilite,
-		'6P10' : Proportionnalite_pas_proportionnalite,
-		'6P11' : Proportionnalite_par_linearite,
-		'5A10' : Liste_des_diviseurs_5e,
-		'5A11' : Premier_ou_pas_5e,
-		'5A13': Exercice_decomposer_en_facteurs_premiers,
-		'5C11' : Traduire_une_phrase_par_une_expression,
-		'5C11-1' : Traduire_une_expression_par_une_phrase,
-		'5C11-2' : Ecrire_une_expression_mathador,
-		'5C12' : Calculer_une_expression_numerique,
-		'5C12-1' : Traduire_une_phrase_par_une_expression_et_calculer,
-		'5G10' : Symetrie_axiale_5e,
-		'5G11' : Transformations_5e,
-		'5G12' : Pavages_et_demi_tour,
-		//'beta5G2' : Constructibilite_des_triangles,// pour développer l'exercice global
-		//'beta5G21-1' : Constructibilite_des_triangles_longueurs,// pour développer l'exercice global		
-		'5G21-1' : Constructibilite_des_triangles_longueurs,		
-		'5G20-1' : Vocabulaire_des_triangles_5e,	
-		'5G22' : DroiteRemarquableDuTriangle,	   
-		'5G31' : Exercice_angles_triangles,
-		//'beta5G31-1' : Constructibilite_des_triangles_angles,// pour développer l'exercice global
-		'5G31-1' : Constructibilite_des_triangles_angles,
-		'5N13': Exercice_fractions_simplifier,
-		'5N13-2': Egalites_entre_fractions,
-		'5N110' : Variation_en_pourcentages,
-		'5N14': Exercice_comparer_deux_fractions,
-		'5N14-2': Exercice_comparer_quatre_fractions,
-		'5N20': Exercice_additionner_des_fractions_5e,
-		'5N20-2': Exercice_additionner_ou_soustraire_des_fractions_5e,
-		'5L10' : Ecrire_une_expression_litterale,
-		'5L10-1' : Traduire_une_phrase_par_une_expression_litterale,
-		'5L10-2' : Traduire_un_programme_de_calcul,
-		'5L10-3' : Traduire_une_expression_litterale_par_une_phrase,
-		'5L12' : Reduire_une_expression_litterale,
-		'5L13' : Calculer_la_valeur_d_une_expression_litterale,
-		'5L13-1' : Calculer_une_expression_litterale,
-		'5L13-2' : Exercice_substituer,
-		'5L13-3' : Traduire_une_phrase_par_une_expression_litterale_et_calculer,
-		'beta5L13-4' : Calculer_une_expression_litteraleBis,
-		'5L14' : Tester_une_egalite,
-		'5M10' : Aire_du_parallelogramme,
-		'5M20' : Calcul_de_volumes_5e,
-		'5R11' : Lire_abscisse_relative,
-		'5R11-2' : Placer_points_sur_axe_relatifs,
-		'5R12' : reperage_point_du_quart_de_plan,
-		'5R12-2' : reperage_point_du_plan,
-		'5R20': Exercice_additions_relatifs,
-		'5R20-2': Exercice_additions_relatifs_a_trou,
-		'5R20-3': Exercice_additions_de_5_relatifs, //on pourrait le corriger avec regroupement des termes de même signe
-		'5R21': Exercice_soustractions_relatifs,
-		'5R22': Exercice_additions_et_soustraction_de_relatifsV2,
-		'5R22-2': Exercice_simplification_somme_algebrique,
-		'5S13': Calculer_des_frequences,
-		'5S14': Calculer_des_moyennes,
-		'5S21' : fonctions_probabilite1,
-		'4C10-0': Signe_produit_quotient_relatifs,
-		'4C10-1': Signe_produit_relatifs,
-		'4C10-2': Signe_quotient_relatifs,
-		'4C10-3': Exercice_multiplications_relatifs,
-		'4C25-0': Problemes_additifs_fractions,
-		'4C30-1': Puissances_encadrement,
-		'4G40' : Transformations_4e,
-		'4L10' : Exercice_developper,
-		'beta4L13-0' : Forme_litterale_introduire_une_lettre,
-		'4L14-0' : Tester_si_un_nombre_est_solution_d_une_equation,
-		'4L14-1' : Tester_si_un_nombre_est_solution_d_une_equation_deg1,
-		'4L14-2' : Tester_si_un_nombre_est_solution_d_une_equation_deg2,
-		'4L20' : Exercice_equation1,
-		'4M30' : Calcul_de_volumes_4e,		
-		'4N10': Exercice_additionner_des_fractions,
-		'4N11': Exercice_additionner_ou_soustraire_des_fractions,
-		'4N12': Exercice_trouver_l_inverse,
-		'4N13': Exercice_multiplier_fractions,
-		'4N14': Exercice_diviser_fractions,
-		'4N15': Exercice_additionner_fraction_produit,
-		'4N21': Puissances_d_un_relatif_1,
-		'4N21-1': Puissances_d_un_relatif_2,
-		'4N21-2': Puissances_de_dix,
-		'beta4F12' : Exploiter_representation_graphique,
-		'4P10' : Problemes_grandeurs_composees,		
-		'4G11' : Pavages_et_translation,
-		'4G20' : Exercice_Pythagore,
-		'4G20-1' : Egalite_Pythagore,
-		'4G20-2' : Racine_caree_de_carres_parfaits,
-		'4G21' : Reciproque_Pythagore,
-		'4G22' : Problemes_Pythagore,
-		'4G30' : Thales_4eme,
-		'4G31' : Reciproque_Thales_4eme,
-		'4G40' : Exercice_Trigo_longueurs_4e,
-		'4G41' : Exercice_Trigo_angles_4e,
-		'3A10' : DivisionEuclidienne_multiplesDiviseurs_Criteres,
-		'3A11' : Premier_ou_pas,
-		'3A11-1' : Premier_ou_pas_critere_par7_par11,
-		'3A11-2' : Decomposition_facteurs_premiers,
-		'3A11-3' : Lister_Diviseurs_Par_Decomposition_facteurs_premiers,
-		'3A12' : Fractions_irreductibles,
-		'3A13' : PPCM_Engrenages,
-		'3M30' : Calcul_de_volumes_3e,
-		'3L10' : Oppose_expression,
-		'3L10-1' : Parentheses_precedes_de_moins_ou_plus,
-		'3L11': Exercice_developper,
-		'3L11-1' : Double_distributivite,
-		'3L11-2' : Reduction_si_possible,
-		'3L11-3': Distributivite_simple_double_reduction,
-		'3L11-4': Factoriser_par_nombre_ou_x,
-		'3L12-1' : Developper_Identites_remarquables3,
-		'3L12' : Factoriser_Identites_remarquables3,
-		'3L13' : Exercice_equation1, //identique à 4L20
-		'3L13-1' : Exercice_equation1_2,
-		'3L14' : Resoudre_une_equation_produit_nul,
-		'3L14-1' : Resoudre_une_equation_produit_nul_niv2,
-		'3L15' : Resoudre_une_equation_x2_egal_A,
-		'3P10' : Evolutions_en_pourcentage,
-		'3P10-1' : Coefficient_evolution,
-		'3G10-1' : Transformations_du_plan_et_coordonnees,
-		'3G10-2' : Transformations_3e,
-		'3G12' : Pavages_et_rotation,
-		'3G20' : Exercice_Thales,
-		'3G20-1' : Problemes_Thales,
-		'3G21' : Reciproque_Thales,
-		'3G22' : Agrandissement_reduction,
-		'3G30' : Exercice_Trigo_longueurs,
-		'3G31' : Exercice_Trigo_angles,
-		'3F1-act' : fonction_notion_vocabulaire,
-		'3F12' : fonctions_calculs_d_images,
-		'3F12-2' : Image_fonction_algebrique,
-		'3F12-3' : Tableau_de_valeurs,
-		'3F12-4' : Image_graphique,
-		'3F13' : Antecedent_graphique,
-		'3F21' : Lecture_expression_fonctions_lineaires,
-		'3F21-1' : Lecture_expression_fonctions_affines,
-		'3S15': Calculer_des_etendues,
-		'3S20' : fonctions_probabilite2,
-		'2N10' : Existence_d_une_racine_carree,
-		'2N10-1' : proprietes_racine_carree,
-		'2N11' : Extraire_un_carre_parfait_d_une_racine_carree,
-		'2N11-1' : Simplifier_une_somme_de_racines_carrees,
-		'2N12' : Double_distributivité_avec_racine_carree,
-		'2N12-1' : identites_remarquables_et_racine_carree,
-		'2N20' : ensemble_de_nombres,
-		'2N21' : parite,
-		'2N22' : valeur_absolue,
-		'2N23' : valeur_absolue_et_equation,
-		'2N24' : intervalles_de_R,
-		'2N25' : union_et_intersection_intervalles_de_R,
-		'2G10' : Distance,
-		'2G11' : Milieu,
-		'2G12' : Modelisation_coordonnees,
-		'2L10' : Developper_Identites_remarquables2,
-		'2L11' : Factoriser_Identites_remarquables2,
-		'PEA11': Passer_d_une_base_a_l_autre,
-		'PEA11-1' : Passer_de_la_base_12_ou_16_a_la_10,
-		'P001' : Code_LaTeX_personnalise,
-		// 'P002': LaTeX_static,
-		'P003' : feuille_d_axes_gradues,
-		'cours': Questions_de_cours,
-		'LaTeX' : Code_LaTeX_personnalise,
-		// 'Perso' : HTML_personnalise,
-		// 'TsvgjsKatex' : tests_SVGJS_KATEX,
-		'beta3G23' : TrianglesSemblables,
-	};
+  CM000: Tables_additions_soustractions,
+  CM001: Tables_de_multiplications,
+  CM002: Tables_de_divisions,
+  CM003: Tables_de_multiplications_et_divisions,
+  CM004: Quatre_operations,
+  CM005: Ajouter9,
+  CM006: Soustraire9,
+  CM007: Ajouter11,
+  CM008: Soustraire11,
+  CM009: Moitie,
+  CM010: Tiers,
+  CM011: Quart,
+  CM012: Complement_a_100,
+  CM013: Complement_a_une_dizaine,
+  CM014: Double_moitie_tiers_triple,
+  CM015: Somme_de_deux_nombres_maries,
+  CM016: Diviser_par_10_100_1000,
+  CM017: Diviser_decimal_par_10_100_1000,
+  CM018: Somme_de_deux_nombres_maries_et_un_entier,
+  CM019: Le_compte_est_bonV3,
+  CM020: Le_compte_est_bonV4,
+  BetaCM021: Compte_Est_Bon,
+  "6C10": Additions_soustractions_multiplications_posees,
+  "6C11": Divisions_euclidiennes,
+  "6C10-1": Tables_de_multiplications,
+  "6C10-2": Exercice_tables_de_multiplications_et_multiples_de_10,
+  "6C10-3": Exercice_tables_de_multiplications_et_decimaux,
+  "6C10-4": Exercice_tables_d_additions,
+  "6C13": Vocabulaire_et_operations,
+  "6C20": Additionner_soustraires_decimaux,
+  "6C21": Divisions_euclidiennes_niv2,
+  "6C30": Multiplier_decimaux,
+  "6C30-1": Multiplier_decimaux_par_10_100_1000,
+  "6C31": Division_decimale,
+  "6C32": Probleme_course,
+  "6C33": Priorites,
+  "6D10": Conversions_de_durees,
+  "6D101": Heures_decimales,
+  "6D11": Somme_de_durees,
+  "6D12": Calculs_de_durees_ou_d_horaires,
+  "6G10": Notation_segment_droite_demi_droite,
+  "6G10-1": Description_segment_droite_demi_droite,
+  "6G11": Tracer_des_perpendiculaires,
+  "6G12": Tracer_des_paralleles,
+  //
+  "6G12-2": Tracer_des_perpendiculaires_et_des_paralleles,
+  "6G20": Vocabulaire_des_triangles_6e,
+  "6G24": Transformations_6e,
+  "6G25-1": Pavages_et_reflexion,
+  "6G25-2": Pavages_et_symetries,
+  "6M11-1": Perimetre_ou_aire_de_carres_rectangles_triangles,
+  "6M11-2": Perimetre_ou_aire_de_figures_composees,
+  "6M10": Reglages_6M10,
+  "6M12": Reglages_6M12,
+  "6M20": Aire_de_triangles,
+  "6M22": Reglages_6M22,
+  "6M22-1": Perimetre_aire_disques,
+  "6M22-2": Perimetre_aire_et_portions_de_disques,
+  // '6M13' : Reglages_6M23,
+  "6M23": Exercice_conversions_aires,
+  "6M25": Connaitre_formules_de_perimetre_et_aires,
+  "6M30": Calcul_de_volumes_6e,
+  "6M31": Exercice_conversions_volumes,
+  "6M31-2": Unites_de_volumes_et_de_capacite,
+  "6N10-1": Exercice_numeration_entier,
+  "6N10-2": Decomposition_nombre_decimal,
+  "6N11": Lire_abscisse_entiere,
+  "6N11-2": Placer_un_point_abscisse_entiere,
+  "6N12": Exercice_6N12,
+  "6N13": Exercice_6N13,
+  "6N20": Exercice_fractions_decomposer,
+  "6N20-2": Exercice_fractions_differentes_ecritures,
+  "6N21": Lire_abscisse_fractionnaire,
+  "6N23": Exercice_ecriture_decimale_a_partir_de_fraction_decimale,
+  "6N23-1": Exercice_differentes_ecritures_nombres_decimaux,
+  "6N24": Exercice_6N24,
+  "6N24-1": Exercice_multiplier_ou_diviser_un_nombre_entier_par_10_100_1000,
+  "6N30": Lire_abscisse_decimale,
+  "6N30-2": Placer_points_sur_axe,
+  "6N31": Comparer_decimaux,
+  "6N33": Fraction_d_un_nombre,
+  "6N33-1": Pourcentage_d_un_nombre,
+  "6N34": Reglages_6N34,
+  "6N41": Egalites_entre_fractions,
+  "6N43": Criteres_de_divisibilite,
+  "6N43-2": Tableau_criteres_de_divisibilite,
+  "6P10": Proportionnalite_pas_proportionnalite,
+  "6P11": Proportionnalite_par_linearite,
+  "5A10": Liste_des_diviseurs_5e,
+  "5A11": Premier_ou_pas_5e,
+  "5A13": Exercice_decomposer_en_facteurs_premiers,
+  "5C11": Traduire_une_phrase_par_une_expression,
+  "5C11-1": Traduire_une_expression_par_une_phrase,
+  "5C11-2": Ecrire_une_expression_mathador,
+  "5C12": Calculer_une_expression_numerique,
+  "5C12-1": Traduire_une_phrase_par_une_expression_et_calculer,
+  "5G10": Symetrie_axiale_5e,
+  "5G11": Transformations_5e,
+  "5G12": Pavages_et_demi_tour,
+  //'beta5G2' : Constructibilite_des_triangles,// pour développer l'exercice global
+  //'beta5G21-1' : Constructibilite_des_triangles_longueurs,// pour développer l'exercice global
+  "5G21-1": Constructibilite_des_triangles_longueurs,
+  "5G20-1": Vocabulaire_des_triangles_5e,
+  "5G22": DroiteRemarquableDuTriangle,
+  "5G31": Exercice_angles_triangles,
+  //'beta5G31-1' : Constructibilite_des_triangles_angles,// pour développer l'exercice global
+  "5G31-1": Constructibilite_des_triangles_angles,
+  "5N13": Exercice_fractions_simplifier,
+  "5N13-2": Egalites_entre_fractions,
+  "5N110": Variation_en_pourcentages,
+  "5N14": Exercice_comparer_deux_fractions,
+  "5N14-2": Exercice_comparer_quatre_fractions,
+  "5N20": Exercice_additionner_des_fractions_5e,
+  "5N20-2": Exercice_additionner_ou_soustraire_des_fractions_5e,
+  "5L10": Ecrire_une_expression_litterale,
+  "5L10-1": Traduire_une_phrase_par_une_expression_litterale,
+  "5L10-2": Traduire_un_programme_de_calcul,
+  "5L10-3": Traduire_une_expression_litterale_par_une_phrase,
+  "5L12": Reduire_une_expression_litterale,
+  "5L13": Calculer_la_valeur_d_une_expression_litterale,
+  "5L13-1": Calculer_une_expression_litterale,
+  "5L13-2": Exercice_substituer,
+  "5L13-3": Traduire_une_phrase_par_une_expression_litterale_et_calculer,
+  "beta5L13-4": Calculer_une_expression_litteraleBis,
+  "5L14": Tester_une_egalite,
+  "5M10": Aire_du_parallelogramme,
+  "5M20": Calcul_de_volumes_5e,
+  "5R11": Lire_abscisse_relative,
+  "5R11-2": Placer_points_sur_axe_relatifs,
+  "5R12": reperage_point_du_quart_de_plan,
+  "5R12-2": reperage_point_du_plan,
+  "5R20": Exercice_additions_relatifs,
+  "5R20-2": Exercice_additions_relatifs_a_trou,
+  "5R20-3": Exercice_additions_de_5_relatifs, //on pourrait le corriger avec regroupement des termes de même signe
+  "5R21": Exercice_soustractions_relatifs,
+  "5R22": Exercice_additions_et_soustraction_de_relatifsV2,
+  "5R22-2": Exercice_simplification_somme_algebrique,
+  "5S13": Calculer_des_frequences,
+  "5S14": Calculer_des_moyennes,
+  "5S21": fonctions_probabilite1,
+  "4C10-0": Signe_produit_quotient_relatifs,
+  "4C10-1": Signe_produit_relatifs,
+  "4C10-2": Signe_quotient_relatifs,
+  "4C10-3": Exercice_multiplications_relatifs,
+  "4C25-0": Problemes_additifs_fractions,
+  "4C30-1": Puissances_encadrement,
+  "4G40": Transformations_4e,
+  "4L10": Exercice_developper,
+ // "beta4L13-0": Forme_litterale_introduire_une_lettre,
+  "4L14-0": Tester_si_un_nombre_est_solution_d_une_equation,
+//  "4L14-1": Tester_si_un_nombre_est_solution_d_une_equation_deg1,
+  "4L14-2": Tester_si_un_nombre_est_solution_d_une_equation_deg2,
+  "4L20": Exercice_equation1,
+  "4M30": Calcul_de_volumes_4e,
+  "4N10": Exercice_additionner_des_fractions,
+  "4N11": Exercice_additionner_ou_soustraire_des_fractions,
+  "4N12": Exercice_trouver_l_inverse,
+  "4N13": Exercice_multiplier_fractions,
+  "4N14": Exercice_diviser_fractions,
+  "4N15": Exercice_additionner_fraction_produit,
+  "4N21": Puissances_d_un_relatif_1,
+  "4N21-1": Puissances_d_un_relatif_2,
+  "4N21-2": Puissances_de_dix,
+  beta4F12: Exploiter_representation_graphique,
+  "4P10": Problemes_grandeurs_composees,
+  "4G11": Pavages_et_translation,
+  "4G20": Exercice_Pythagore,
+  "4G20-1": Egalite_Pythagore,
+  "4G20-2": Racine_caree_de_carres_parfaits,
+  "4G21": Reciproque_Pythagore,
+  "4G22": Problemes_Pythagore,
+  "4G30": Thales_4eme,
+  "4G31": Reciproque_Thales_4eme,
+  "4G40": Exercice_Trigo_longueurs_4e,
+  "4G41": Exercice_Trigo_angles_4e,
+  "3A10": DivisionEuclidienne_multiplesDiviseurs_Criteres,
+  "3A11": Premier_ou_pas,
+  "3A11-1": Premier_ou_pas_critere_par7_par11,
+  "3A11-2": Decomposition_facteurs_premiers,
+  "3A11-3": Lister_Diviseurs_Par_Decomposition_facteurs_premiers,
+  "3A12": Fractions_irreductibles,
+  "3A13": PPCM_Engrenages,
+  "3M30": Calcul_de_volumes_3e,
+  "3L10": Oppose_expression,
+  "3L10-1": Parentheses_precedes_de_moins_ou_plus,
+  "3L11": Exercice_developper,
+  "3L11-1": Double_distributivite,
+  "3L11-2": Reduction_si_possible,
+  "3L11-3": Distributivite_simple_double_reduction,
+  "3L11-4": Factoriser_par_nombre_ou_x,
+  "3L12-1": Developper_Identites_remarquables3,
+  "3L12": Factoriser_Identites_remarquables3,
+  "3L13": Exercice_equation1, //identique à 4L20
+  "3L13-1": Exercice_equation1_2,
+  "3L14": Resoudre_une_equation_produit_nul,
+  "3L14-1": Resoudre_une_equation_produit_nul_niv2,
+  "3L15": Resoudre_une_equation_x2_egal_A,
+  "3P10": Evolutions_en_pourcentage,
+  "3P10-1": Coefficient_evolution,
+  "3G10-1": Transformations_du_plan_et_coordonnees,
+  "3G10-2": Transformations_3e,
+  "3G12": Pavages_et_rotation,
+  "3G20": Exercice_Thales,
+  "3G20-1": Problemes_Thales,
+  "3G21": Reciproque_Thales,
+  "3G22": Agrandissement_reduction,
+  "3G30": Exercice_Trigo_longueurs,
+  "3G31": Exercice_Trigo_angles,
+  "3F1-act": fonction_notion_vocabulaire,
+  "3F12": fonctions_calculs_d_images,
+  "3F12-2": Image_fonction_algebrique,
+  "3F12-3": Tableau_de_valeurs,
+  "3F12-4": Image_graphique,
+  "3F13": Antecedent_graphique,
+  "3F21": Lecture_expression_fonctions_lineaires,
+  "3F21-1": Lecture_expression_fonctions_affines,
+  "3S15": Calculer_des_etendues,
+  "3S20": fonctions_probabilite2,
+  "2N10": Existence_d_une_racine_carree,
+  "2N10-1": proprietes_racine_carree,
+  "2N11": Extraire_un_carre_parfait_d_une_racine_carree,
+  "2N11-1": Simplifier_une_somme_de_racines_carrees,
+  "2N12": Double_distributivité_avec_racine_carree,
+  "2N12-1": identites_remarquables_et_racine_carree,
+  "2N20": ensemble_de_nombres,
+  "2N21": parite,
+  "2N22": valeur_absolue,
+  "2N23": valeur_absolue_et_equation,
+  "2N24": intervalles_de_R,
+  "2N25": union_et_intersection_intervalles_de_R,
+  "2G10": Distance,
+  "2G11": Milieu,
+  "2G12": Modelisation_coordonnees,
+  "2L10": Developper_Identites_remarquables2,
+  "2L11": Factoriser_Identites_remarquables2,
+  PEA11: Passer_d_une_base_a_l_autre,
+  "PEA11-1": Passer_de_la_base_12_ou_16_a_la_10,
+  P001: Code_LaTeX_personnalise,
+  // 'P002': LaTeX_static,
+  P003: feuille_d_axes_gradues,
+  cours: Questions_de_cours,
+  LaTeX: Code_LaTeX_personnalise,
+  // 'Perso' : HTML_personnalise,
+  // 'TsvgjsKatex' : tests_SVGJS_KATEX,
+  beta3G23: TrianglesSemblables,
+};
 
 //Pour modifier les exercices lorsqu'ils sont en mode diaporama
 var est_diaporama = false;
@@ -11640,7 +11640,8 @@ function Parallele_et_Perpendiculaires() {
       i < this.nb_questions && cpt < 50;
 
     ) {
-      g = grille(-1, -15, 15, 15, "gray", 0.7);
+      if (this.sup2<3) g = grille(-1, -15, 15, 15, "gray", 0.7);
+      else g=''
       if (this.sup2 == 2) {
         k = 0.8;
         carreaux = seyes(Xmin, Ymin, Xmax, Ymax);
@@ -11673,19 +11674,22 @@ function Parallele_et_Perpendiculaires() {
           dC = droiteParPointEtPerpendiculaire(C, d);
           dD = droiteParPointEtPerpendiculaire(D, d);
           BB = rotation(A, B, 90);
-          CC = pointIntersectionDD(dC, d);
-          DD = pointIntersectionDD(dD, d);
+          CC = pointIntersectionDD(dC, d,'M');
+          DD = pointIntersectionDD(dD, d,'N');
           lC = arrondi(longueur(CC, A) * k, 1);
           lD = arrondi(longueur(DD, A) * k, 1);
           cB = codageAngleDroit(A, B, BB);
           cC = codageAngleDroit(C, CC, B);
           cD = codageAngleDroit(D, DD, B);
           traces_enonce = tracePoint(A, B, C, D);
-          traces_correction = tracePoint(A, B, C, D, E);
+          traces_correction = tracePoint(A, B, C, D, E,CC,DD);
           labels_enonce = labelPoint(A, B, C, D);
-          labels_correction = labelPoint(A, B, C, D, E);
-          enonce = `Reproduis la figure ci-dessous sur ton cahier puis trace les droites perpendiculaires à (AB) passant par B,C et D.<br>`;
-          enonce += `Mesure ensuite la distance entre le point A et les points d'intersection de tes droites avec la droite (AB) et compare ces mesures avec celles de l'ordinateur dans la correction<br>`;
+          labels_correction = labelPoint(A, B, C, D, E,CC,DD);
+          enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
+          enonce += num_alpha(1)+`Tracer la droite perpendiculaires à $(AB)$ passant par $B$.<br>`
+          enonce += num_alpha(2)+`Tracer la droite perpendiculaires à $(AB)$ passant par $C$ et nommer $M$ le point d'intersection de cette droite avec la droite $(AB)$.<br>`;
+          enonce += num_alpha(3)+`Tracer la droite perpendiculaires à $(AB)$ passant par $D$ et nommer $N$ le point d'intersection de cette droite avec la droite $(AB)$.<br>`;
+          enonce += num_alpha(4)+`Mesurer ensuite la distance $AM$ et $AN$.<br> Pour l'auto-correction comparer ces mesures avec celles données dans la correction<br>`;
           enonce += mathalea2d(
             {
               xmin: Xmin,
@@ -11701,8 +11705,7 @@ function Parallele_et_Perpendiculaires() {
             d,
             carreaux
           );
-          correction = `voici la figure qu'il fallait réaliser.<br>`;
-          correction += mathalea2d(
+          correction = mathalea2d(
             {
               xmin: Xmin,
               ymin: Ymin,
@@ -11725,40 +11728,41 @@ function Parallele_et_Perpendiculaires() {
             cD,
             carreaux
           );
-          correction += `<br>La perpendiculaire à (d) passant par C coupe (AB) à environ $${tex_nombre(
+          correction += `<br>$AM \\approx ${tex_nombre(
             lC
-          )}$cm de A.<br>`;
-          correction += `<br>La perpendiculaire à (d) passant par D coupe (AB) à environ $${tex_nombre(
-            lD
-          )}$cm de A.<br>`;
-          correction += `Pour la perpendiculaire en B, contrôle la position du point E.<br>`;
+          )}$ cm et $AN \\approx ${tex_nombre(lD)}$ cm.<br>`;
+          correction += `Pour la perpendiculaire en $B$, contrôle la position du point $E$.<br>`;
           break;
         case 2:
-          A = point(2, 0, "A");
+          A = point(2, 0, "A",'above left');
           B = point(12, randint(-4, 4, 0), "B");
           d = droite(A, B);
           d.isVisible = true;
-          C = point(randint(1, 2), randint(3, 4), "C");
-          D = point(randint(7, 8), randint(-7, -6), "D");
-          E = point(randint(4, 5), randint(4, 5), "E");
+          C = point(randint(1, 2), randint(3, 4), "C",'above left');
+          D = point(randint(7, 8), randint(-7, -6), "D",'below right');
+          E = point(randint(4, 5), randint(4, 5), "E",'below right');
           F = point(2, -3, "F", "above left");
           traces_enonce = tracePoint(A, B, C, D, E, F);
           labels_enonce = labelPoint(A, B, C, D, E, F);
-          traces_correction = tracePoint(A, B, C, D, E, F);
-          labels_correction = labelPoint(A, B, C, D, E, F);
+
           dE = droiteParPointEtParallele(E, d);
           dC = droiteParPointEtParallele(C, d);
           dD = droiteParPointEtParallele(D, d);
           p = droite(A, F);
           p.isVisible = true;
-          CC = pointIntersectionDD(dC, p);
-          DD = pointIntersectionDD(dD, p);
-          EE = pointIntersectionDD(dE, p);
+          CC = pointIntersectionDD(dC, p,'M','below right');
+          DD = pointIntersectionDD(dD, p,'N','above left');
+          EE = pointIntersectionDD(dE, p,'O','above left');
+          traces_correction = tracePoint(A, B, C, D, E, F);
+          labels_correction = labelPoint(A, B, C, D, E, F,CC,DD,EE);
           lC = arrondi(longueur(CC, A) * k, 1);
           lD = arrondi(longueur(DD, A) * k, 1);
           lE = arrondi(longueur(EE, A) * k, 1);
-          enonce = `Reproduis la figure ci-dessous sur ton cahier puis trace les droites parallèles à (AB) passant par C,D et E.<br>`;
-          enonce += `Mesure ensuite la distance entre le point A et les points d'intersection de tes droites avec la droite (AF) et compare ces mesures avec celles de l'ordinateur dans la correction<br>`;
+          enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
+          enonce +=num_alpha(1)+`Tracer la droite parallèle à $(AB)$ passant par $C$ et nomme $M$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
+          enonce +=num_alpha(2)+`Tracer la droite parallèle à $(AB)$ passant par $D$ et nomme $N$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
+          enonce +=num_alpha(3)+`Tracer la droite parallèle à $(AB)$ passant par $E$ et nomme $O$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
+          enonce += num_alpha(4)+`Mesurer les distances $AM$, $AN$ et $AO$. Pour l'auto-correction, comparer ces mesures avec celles données par  l'ordinateur dans la correction.<br>`;
           enonce += mathalea2d(
             {
               xmin: Xmin,
@@ -11775,8 +11779,7 @@ function Parallele_et_Perpendiculaires() {
             p,
             carreaux
           );
-          correction = `voici la figure qu'il fallait réaliser.<br>`;
-          correction += mathalea2d(
+          correction = mathalea2d(
             {
               xmin: Xmin,
               ymin: Ymin,
@@ -11795,15 +11798,13 @@ function Parallele_et_Perpendiculaires() {
             dD,
             carreaux
           );
-          correction += `<br>La parallèles à (AB) passant par C coupe (AF) à environ $${tex_nombre(
+          correction += `<br>$AM \\approx ${tex_nombre(
             lC
-          )}$cm de A.<br>`;
-          correction += `<br>La paralllèle à (AB) passant par D coupe (AF) à environ $${tex_nombre(
+          )}$ cm, $AN \\approx ${tex_nombre(
             lD
-          )}$cm de A.<br>`;
-          correction += `<br>La paralllèle à (AB) passant par E coupe (AF) à environ $${tex_nombre(
+          )}$ cm et $AO \\approx${tex_nombre(
             lE
-          )}$cm de A.<br>`;
+          )}$.<br>`;
 
           break;
       }
@@ -11822,8 +11823,8 @@ function Parallele_et_Perpendiculaires() {
   //	this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
   this.besoin_formulaire2_numerique = [
     "Type de cahier",
-    2,
-    `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)`,
+    3,
+    `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`,
   ];
 }
 
