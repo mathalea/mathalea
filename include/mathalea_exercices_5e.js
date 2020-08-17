@@ -3964,7 +3964,7 @@ function Reduire_dinstinction_somme_produit() {
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	//this.sup2=false; // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
-	this.titre = `Réduire - distinction entre le produit et la somme`;	
+	this.titre = `Réduire un produit et une somme à partir des mêmes éléments algébriques pour distinguer la différence`;	
 	let type_de_questions_disponibles
 	this.nouvelle_version = function(numero_de_l_exercice){
 		//let type_de_questions_disponibles
