@@ -5092,33 +5092,32 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Tester si un nombre est solution d'une équation";
 	this.consigne = "";
-	//this.nb_questions = 3;
-	//this.nb_questions = 9;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup=1;
 	//this.sup2=false;
+	if (this.exo=='4L14-1') {
+		this.nb_questions = 6;
+	} else if (this.exo=='4L14-2') {
+		this.nb_questions = 3;
+	} else {
+		this.nb_questions = 9;
+	}
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 
-		let type_de_questions_disponibles; // = range1(5)
-	//	let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		// if (this.sup2==false) type_de_questions_disponibles=[1,2,3,4,5,8]
+		let type_de_questions_disponibles;
 		if (this.exo=='4L14-1') {
-			this.nb_questions = 6;
 			type_de_questions_disponibles=[1,2,3,4,5,8];
-			
 		} else if (this.exo=='4L14-2') {
-			type_de_questions_disponibles=[9,6,7];
-			this.nb_questions = 3;
+			type_de_questions_disponibles=[9,6,7];			
 		} else {
-			type_de_questions_disponibles=[1,2,3,4,5,8,6,7,9];
-			this.nb_questions = 9;
+			type_de_questions_disponibles=[1,2,3,4,5,8,6,7,9];			
 		}
-		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
+		let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		//let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
 		this.consigne = `Justifier si les nombres proposés sont des solutions de l'équation donnée ou non.`;
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
@@ -5136,8 +5135,7 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 						a = randint(-6,6,[0])
 						b = randint(-6,6,[a,0])	
 						x2 = a + b
-						x1 = randint(-10,10,[0,x2])
-						
+						x1 = randint(-10,10,[0,x2])						
 					}
 
 					texte = `$3x-${ecriture_parenthese_si_negatif(a)}=2x+${ecriture_parenthese_si_negatif(b)}~$ pour $~x=${x1}~$ puis pour $~x=${x2}$`
@@ -5357,7 +5355,7 @@ function Tester_si_un_nombre_est_solution_d_une_equation(){
 						texte_corr += `On trouve bien $0$ pour le membre de gauche donc l'égalité est vraie.<br>`
 						texte_corr += `${texte_en_couleur(`$x=${x1}$ est donc solution de l'équation $x^2-${ecriture_parenthese_si_negatif(b+a)}x-${ecriture_parenthese_si_negatif(a*b)}=0~$`)}<br><br>`
 						texte_corr += `Pour $x=${x2}$ : <br>`
-						texte_corr += `$x^2-${ecriture_parenthese_si_negatif(b+a)}\\times  x+${ecriture_parenthese_si_negatif(a*b)}=${ecriture_parenthese_si_negatif(x2)}^2-${ecriture_parenthese_si_negatif(a+b)}\\times ${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(a*b)}=${x2*x2}-${ecriture_parenthese_si_negatif((a+b)*x2)}+${ecriture_parenthese_si_negatif(a*b)}=${x2*x2-(a+b)*x2+a*b}$<br> $0=0$ !<br>`
+						texte_corr += `$x^2-${ecriture_parenthese_si_negatif(b+a)}\\times  x+${ecriture_parenthese_si_negatif(a*b)}=${ecriture_parenthese_si_negatif(x2)}^2-${ecriture_parenthese_si_negatif(a+b)}\\times ${ecriture_parenthese_si_negatif(x2)}+${ecriture_parenthese_si_negatif(a*b)}=${x2*x2}-${ecriture_parenthese_si_negatif((a+b)*x2)}+${ecriture_parenthese_si_negatif(a*b)}=${x2*x2-(a+b)*x2+a*b}$<br>`
 						texte_corr += `$${x2*x2-(a+b)*x2+a*b}\\not=0$ donc l'égalité n'est pas vraie.<br>`
 						texte_corr += `${texte_en_couleur(`$x=${x2}$ n'est donc pas solution de l'équation $x^2-${ecriture_parenthese_si_negatif(b+a)}x-${ecriture_parenthese_si_negatif(a*b)}=0~$`)}<br><br>`
 						texte_corr += `Pour $x=${x3}$ : <br>`
