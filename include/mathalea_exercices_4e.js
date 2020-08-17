@@ -8528,21 +8528,45 @@ function Exploiter_representation_graphique() {
 
         break;
       case "temperature":
-        // let x1 = 4;
-        // let x2 = choice([12,14,16]);
-        // let x3 = choice([16,18,20,22])
-        // let fx1 = randint(-3,-1);
-        // let fx2 = randint(4, 7);
-        // let fx3 = randint(-1,3);
-        // d = randint(1,3);
-        // c = randint(-5, 5);
-        [a, b, c, d] = cherche_polynome_deg3_a_extrema_fixes(6, 15, -1, 7);
+        let x1 = 4;
+        let x2 = choice([12, 14, 16]);
+        let x3 = choice([16, 18, 20, 22]);
+        let fx1 = randint(-3, -1);
+        let fx2 = randint(4, 7);
+        let fx3 = randint(-1, 3);
+        d = randint(1, 3);
+        c = randint(-5, 5);
+        let numa, dena, numb, denb, numc, denc;
 
-		f = (x) => a * x ** 3 + b * x ** 2 + c * x + d;
-		console.log(f(6))
+        [[numa, dena], [numb, denb], [numc, denc]] = resol_sys_lineaire_3x3(
+          x1,
+          x2,
+          x3,
+          fx1,
+          fx2,
+          fx3,
+          d
+        );
 
-		let monRepere = repere({xmin:0,xmax:24,ymin:-5,ymax:10,xscale:2,legendeX:'Température (en °C)'})
-		graphique = courbe(f, 0, 24, "blue", 2,monRepere);
+        a = numa / dena;
+        b = numb / denb;
+        c = numc / denc;
+
+        f = (x) => a * x ** 3 + b * x ** 2 + c * x + d;
+
+        console.log(cherche_min_max_f([a, b, c, d]));
+
+        g1 = grille(-1, -3, 12, 8);
+        g1.color = "black";
+        g1.opacite = 1;
+        g2 = grille(-1, -3, 12, 8, "gray", 0.2, 0.2);
+        g3 = axes(0, -3, 12, 8);
+        texte1 = texteParPosition("température (en °C)", 0.2, 7.3, "droite");
+        l1 = labelX(1, 12, 1, "black", -0.6, 2);
+        l2 = labelY(1, 7, 1, "black", -0.6, 1);
+        l3 = labelY(-3, 1, 1, "black", -0.6, 1);
+        graphique = courbe(f, 0, 24, "blue", 2, 0.1, 2, 1);
+        texte2 = texteParPosition("temps (en h)", 12.5, 0.4, "droite");
         this.introduction =
           "On a représenté ci-dessous l’évolution de la température sur une journée.";
         this.introduction +=
