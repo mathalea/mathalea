@@ -5464,13 +5464,25 @@ function Forme_litterale_introduire_une_lettre(){
 				} else {
 					return obj.sing
 				};
-			};			
+			};
+			
+			// deux fonctions pour gérer la chaine de sortie et supprimer le coeff 1 !
+			function sliceUn(n) {
+				if (n==1) {
+					return ``;
+				} else {
+					return `${n}`;
+				};
+			};
 
 			// on definit un tableau de couples possibles
 			// par deux
 			let par_deux = [
 				{elt1:{lettre:'c',article:'un',sing:'crayon',plur:'crayons'},elt2:{lettre:'g',article:'une',sing:'gomme',plur:'gommes'}},
 				{elt1:{lettre:'r',article:'une',sing:'règle',plur:'règles'},elt2:{lettre:'e',article:'une',sing:'équerre',plur:'équerres'}},
+				{elt1:{lettre:'p',article:'une',sing:'poire',plur:'poires'},elt2:{lettre:'b',article:'une',sing:'banane',plur:'bananes'}},
+				{elt1:{lettre:'c',article:'un',sing:'couteau',plur:'couteaux'},elt2:{lettre:'f',article:'une',sing:'fourchette',plur:'fourchette'}},
+				{elt1:{lettre:'m',article:'un',sing:'marteau',plur:'marteau'},elt2:{lettre:'e',article:'une',sing:'enclume',plur:'enclumes'}},
 			]
 			// par trois
 			// par quatre 
@@ -5482,17 +5494,17 @@ function Forme_litterale_introduire_une_lettre(){
 				enonce:`${prenom()} veut acheter ${n} ${pluriel(n,objets.elt1)} et ${p} ${pluriel(n,objets.elt2)}.
 				<br>On note $${objets.elt1.lettre}$	le prix d'${objets.elt1.article} ${objets.elt1.sing} et $${objets.elt2.lettre}$	le prix d'${objets.elt2.article} ${objets.elt2.sing}.`,
 				question:``,
-				correction:`$${n}\\times ${objets.elt1.lettre} + ${p}\\times ${objets.elt2.lettre}$ = prévoir une écriture simplifiée, sans coeff 1 et symboles $\\times$ ...`
+				correction:`$${n}\\times ${objets.elt1.lettre} + ${p}\\times ${objets.elt2.lettre} = ${sliceUn(n)}${objets.elt1.lettre} + ${sliceUn(p)}${objets.elt2.lettre}$.`
 			})
 			switch (liste_type_de_questions[i]){
 				case 1 : 
 					texte = `${enonces[0].enonce}`;
 					if (this.beta) {
 						texte += `<br>`;
-						texte += `<br> ${enonces[0].correction}`;
+						texte += `<br> ${texte_en_couleur(enonces[0].correction)}`;
 						texte_corr = ``;	
 					} else {
-						texte_corr = `${enonces[0].correction}`;
+						texte_corr = `${ texte_en_couleur(enonces[0].correction)}`;
 					};
 					break;				
 			}
