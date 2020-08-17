@@ -192,10 +192,11 @@ function pointSurCercle(c, angle, nom, positionLabel = "above") {
  * P=pointSurDroite(d,x) retourne un point sur la droite d dont l'abscisse est x. Si c'est impossible (droite verticale) alors ce sera le point dont l'ordonnée vaut x.
  * @Auteur Jean-Claude Lhote
  */
-function pointSurDroite(d,x, nom, positionLabel = "above"){ // si d est parallèle à l'axe des ordonnées, le paramètre x servira pour y.
-  if (d.b==0) return point(calcul(-d.c/d.a),x,nom,positionLabel);
-  else if (d.a==0) return point(x,calcul(-d.c/d.b),nom,positionLabel)
-  else return point(x,calcul((-d.c-d.a*x)/d.b),nom,positionLabel)
+function pointSurDroite(d, x, nom, positionLabel = "above") {
+  // si d est parallèle à l'axe des ordonnées, le paramètre x servira pour y.
+  if (d.b == 0) return point(calcul(-d.c / d.a), x, nom, positionLabel);
+  else if (d.a == 0) return point(x, calcul(-d.c / d.b), nom, positionLabel);
+  else return point(x, calcul((-d.c - d.a * x) / d.b), nom, positionLabel);
 }
 
 /**
@@ -3009,7 +3010,7 @@ function seyes(xmin, ymin, xmax, ymax) {
     }
     return code;
   };
-  return objets
+  return objets;
 }
 
 function Repere({
@@ -3195,7 +3196,8 @@ function Repere({
     return code;
   };
 
-  return [xscale, yscale];
+  this.xscale = xscale;
+  this.yscale = yscale;
 }
 
 function repere(...args) {
@@ -3225,8 +3227,14 @@ function courbe(
 ) {
   ObjetMathalea2D.call(this);
   this.color = color;
-  let xscale = r[0];
-  let yscale = r[1];
+  let xscale, yscale;
+  if (r.constructor === Repere) {
+    xscale = r.xscale;
+    yscale = r.yscale;
+  } else {
+    xscale = r[0];
+    yscale = r[1];
+  }
   let points = [];
   for (
     let x = calcul(xmin / xscale);
