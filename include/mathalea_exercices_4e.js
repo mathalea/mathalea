@@ -9317,7 +9317,6 @@ function Tester_si_un_nombre_est_solution_d_une_equation() {
  * * adaptation de l'exo 5L14 de Rémi Angot
  * @author Sébastien Lozano
  */
-<<<<<<< HEAD
 function Tester_si_un_nombre_est_solution_d_une_equation_deg2(){
 	this.exo='4L14-2';
 	Tester_si_un_nombre_est_solution_d_une_equation.call(this);
@@ -9559,11 +9558,4 @@ function Mettre_en_equation_sans_resoudre(){
 	}
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
 	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
-=======
-function Tester_si_un_nombre_est_solution_d_une_equation_deg2() {
-  this.exo = "4L14-2";
-  Tester_si_un_nombre_est_solution_d_une_equation.call(this);
-  this.titre = `Tester si un nombre est solution d'une équation du second degré`;
-  //this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];
->>>>>>> master
 }
