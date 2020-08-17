@@ -9310,6 +9310,11 @@ function Tester_si_un_nombre_est_solution_d_une_equation() {
  * * adaptation de l'exo 5L14 de Rémi Angot
  * @author Sébastien Lozano
  */
+function Tester_si_un_nombre_est_solution_d_une_equation_deg1(){
+	this.exo='4L14-1';	
+	Tester_si_un_nombre_est_solution_d_une_equation.call(this);	
+	this.titre = `Tester si un nombre est solution d'une équation du premier degré`;
+};
 
 /**
  * Tester si un nombre est solution d'une équation degré 2
