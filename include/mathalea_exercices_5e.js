@@ -4015,10 +4015,12 @@ function Calculer_une_expression_litteraleBis() {
 
 /**
  * Fork de la fonction de JC avec ajout de la dernière opération dans le tableau de sortie
- * @param {*} nb_operations 
- * @param {*} decimal 
- * @param {*} val1 
- * @param {*} val2 
+ * @param {number} nb_operations 
+ * @param {number} decimal 
+ * @param {number} val1 
+ * @param {number} val2 
+ * @returns [expf,expl,expc,nbval,last_op]
+ * @author Jean Claude Lhote forked by Sébastien LOZANO
  */
 function Choisir_expression_litteraleBis(nb_operations,decimal,val1=1,val2=2) {
 	let expf,expl,expc,arrondir=Math.log10(decimal)
