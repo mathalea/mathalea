@@ -8528,45 +8528,21 @@ function Exploiter_representation_graphique() {
 
         break;
       case "temperature":
-        let x1 = 4;
-        let x2 = choice([12, 14, 16]);
-        let x3 = choice([16, 18, 20, 22]);
-        let fx1 = randint(-3, -1);
-        let fx2 = randint(4, 7);
-        let fx3 = randint(-1, 3);
-        d = randint(1, 3);
-        c = randint(-5, 5);
-        let numa, dena, numb, denb, numc, denc;
+        // let x1 = 4;
+        // let x2 = choice([12,14,16]);
+        // let x3 = choice([16,18,20,22])
+        // let fx1 = randint(-3,-1);
+        // let fx2 = randint(4, 7);
+        // let fx3 = randint(-1,3);
+        // d = randint(1,3);
+        // c = randint(-5, 5);
+        [a, b, c, d] = cherche_polynome_deg3_a_extrema_fixes(6, 15, -1, 7);
 
-        [[numa, dena], [numb, denb], [numc, denc]] = resol_sys_lineaire_3x3(
-          x1,
-          x2,
-          x3,
-          fx1,
-          fx2,
-          fx3,
-          d
-        );
+		f = (x) => a * x ** 3 + b * x ** 2 + c * x + d;
+		console.log(f(6))
 
-        a = numa / dena;
-        b = numb / denb;
-        c = numc / denc;
-
-        f = (x) => a * x ** 3 + b * x ** 2 + c * x + d;
-
-        console.log(cherche_min_max_f([a, b, c, d]));
-
-        g1 = grille(-1, -3, 12, 8);
-        g1.color = "black";
-        g1.opacite = 1;
-        g2 = grille(-1, -3, 12, 8, "gray", 0.2, 0.2);
-        g3 = axes(0, -3, 12, 8);
-        texte1 = texteParPosition("température (en °C)", 0.2, 7.3, "droite");
-        l1 = labelX(1, 12, 1, "black", -0.6, 2);
-        l2 = labelY(1, 7, 1, "black", -0.6, 1);
-        l3 = labelY(-3, 1, 1, "black", -0.6, 1);
-        graphique = courbe(f, 0, 24, "blue", 2, 0.1, 2, 1);
-        texte2 = texteParPosition("temps (en h)", 12.5, 0.4, "droite");
+		let monRepere = repere({xmin:0,xmax:24,ymin:-5,ymax:10,xscale:2,legendeX:'Température (en °C)'})
+		graphique = courbe(f, 0, 24, "blue", 2,monRepere);
         this.introduction =
           "On a représenté ci-dessous l’évolution de la température sur une journée.";
         this.introduction +=
@@ -8579,15 +8555,8 @@ function Exploiter_representation_graphique() {
               ymax: 8,
               pixelsParCm: 40,
             },
-            g1,
-            g2,
-            g3,
+            monRepere,
             graphique,
-            texte1,
-            texte2,
-            l1,
-            l2,
-            l3
           );
 
         this.introduction +=
@@ -9317,11 +9286,6 @@ function Tester_si_un_nombre_est_solution_d_une_equation() {
  * * adaptation de l'exo 5L14 de Rémi Angot
  * @author Sébastien Lozano
  */
-function Tester_si_un_nombre_est_solution_d_une_equation_deg1() {
-  this.exo = "4L14-1";
-  Tester_si_un_nombre_est_solution_d_une_equation.call(this);
-  this.titre = `Tester si un nombre est solution d'une équation du premier degré`;
-}
 
 /**
  * Tester si un nombre est solution d'une équation degré 2
@@ -9333,185 +9297,5 @@ function Tester_si_un_nombre_est_solution_d_une_equation_deg2() {
   this.exo = "4L14-2";
   Tester_si_un_nombre_est_solution_d_une_equation.call(this);
   this.titre = `Tester si un nombre est solution d'une équation du second degré`;
-  //this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];
-}
-
-/**
- * Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue
- * * 4L13-0
- * @author Sébastien Lozano
- */
-function Forme_litterale_introduire_une_lettre() {
-  "use strict";
-  Exercice.call(this); // Héritage de la classe Exercice()
-  this.beta = true;
-  this.sup = 1;
-  if (this.beta) {
-    this.nb_questions = 3;
-  } else {
-    this.nb_questions = 3;
-  }
-
-  this.titre =
-    "Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue";
-  this.consigne =
-    "Exprimer le prix total de l'achat, en fonction des lettres introduites dans l'énoncé.";
-
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
-  //this.nb_questions_modifiable = false;
-  //sortie_html? this.spacing = 3 : this.spacing = 2;
-  //sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
-
-  let type_de_questions_disponibles;
-
-  this.nouvelle_version = function (numero_de_l_exercice) {
-    if (this.beta) {
-      type_de_questions_disponibles = [1];
-    } else {
-      type_de_questions_disponibles = [1];
-    }
-
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
-
-    // if (this.exo=='rrr') {
-    // 	type_de_questions_disponibles=[1,2,3,4,5,8];
-    // } else if (this.exo=='rrrr') {
-    // 	type_de_questions_disponibles=[9,6,7];
-    // } else {
-    type_de_questions_disponibles = [1];
-    //	}
-    let liste_type_de_questions = combinaison_listes(
-      type_de_questions_disponibles,
-      this.nb_questions
-    ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    //let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
-    //this.consigne = `Exprimer le prix total de son achat, en fonction des lettres introduites dans l'énoncé.`;
-
-    for (
-      let i = 0, texte, texte_corr, cpt = 0;
-      i < this.nb_questions && cpt < 50;
-
-    ) {
-      // une fonction pour gérer le pluriel
-      function pluriel(n, obj) {
-        if (n > 1) {
-          return obj.plur;
-        } else {
-          return obj.sing;
-        }
-      }
-
-      // deux fonctions pour gérer la chaine de sortie et supprimer le coeff 1 !
-      function sliceUn(n) {
-        if (n == 1) {
-          return ``;
-        } else {
-          return `${n}`;
-        }
-      }
-
-      // on definit un tableau de couples possibles
-      // par deux
-      let par_deux = [
-        {
-          elt1: { lettre: "c", article: "un", sing: "crayon", plur: "crayons" },
-          elt2: { lettre: "g", article: "une", sing: "gomme", plur: "gommes" },
-        },
-        {
-          elt1: { lettre: "r", article: "une", sing: "règle", plur: "règles" },
-          elt2: {
-            lettre: "e",
-            article: "une",
-            sing: "équerre",
-            plur: "équerres",
-          },
-        },
-        {
-          elt1: { lettre: "p", article: "une", sing: "poire", plur: "poires" },
-          elt2: {
-            lettre: "b",
-            article: "une",
-            sing: "banane",
-            plur: "bananes",
-          },
-        },
-        {
-          elt1: {
-            lettre: "c",
-            article: "un",
-            sing: "couteau",
-            plur: "couteaux",
-          },
-          elt2: {
-            lettre: "f",
-            article: "une",
-            sing: "fourchette",
-            plur: "fourchette",
-          },
-        },
-        {
-          elt1: {
-            lettre: "m",
-            article: "un",
-            sing: "marteau",
-            plur: "marteau",
-          },
-          elt2: {
-            lettre: "e",
-            article: "une",
-            sing: "enclume",
-            plur: "enclumes",
-          },
-        },
-      ];
-      // par trois
-      // par quatre
-      let enonces = [];
-      let n = randint(1, 6);
-      let p = randint(1, 6);
-      let objets = par_deux[randint(0, par_deux.length - 1)];
-      enonces.push({
-        enonce: `${prenom()} veut acheter ${n} ${pluriel(
-          n,
-          objets.elt1
-        )} et ${p} ${pluriel(n, objets.elt2)}.
-				<br>On note $${objets.elt1.lettre}$	le prix d'${objets.elt1.article} ${
-          objets.elt1.sing
-        } et $${objets.elt2.lettre}$	le prix d'${objets.elt2.article} ${
-          objets.elt2.sing
-        }.`,
-        question: ``,
-        correction: `$${n}\\times ${objets.elt1.lettre} + ${p}\\times ${
-          objets.elt2.lettre
-        } = ${sliceUn(n)}${objets.elt1.lettre} + ${sliceUn(p)}${
-          objets.elt2.lettre
-        }$.`,
-      });
-      switch (liste_type_de_questions[i]) {
-        case 1:
-          texte = `${enonces[0].enonce}`;
-          if (this.beta) {
-            texte += `<br>`;
-            texte += `<br> ${texte_en_couleur(enonces[0].correction)}`;
-            texte_corr = ``;
-          } else {
-            texte_corr = `${texte_en_couleur(enonces[0].correction)}`;
-          }
-          break;
-      }
-
-      if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
-        i++;
-      }
-      cpt++;
-    }
-    liste_de_question_to_contenu(this);
-  };
-  //this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
   //this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];
 }

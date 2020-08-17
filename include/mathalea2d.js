@@ -1798,6 +1798,28 @@ function traceCompas(
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% LES COURBES DE BÉZIER %%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+*/
+
+function CourbeDeBezier(A, B, C) {
+  ObjetMathalea2D.call(this);
+  this.svg = function (coeff) {
+    let code = `<path d="M${A.xSVG(coeff)} ${A.ySVG(coeff)} Q ${B.xSVG(
+      coeff
+    )} ${B.ySVG(coeff)}, ${C.xSVG(coeff)} ${C.ySVG(
+      coeff
+    )}" stroke="black" fill="transparent"/>`;
+    return code;
+  };
+}
+
+function courbeDeBezier(...args) {
+  return new CourbeDeBezier(...args);
+}
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% LES TRANSFORMATIONS %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
