@@ -11902,35 +11902,60 @@ function Proportionnalite_par_linearite_bis(){
           return 0;
         }
       };
+
       // un compteur pour les sous-questions
       let k=0;
       let k_corr=0;
-      // on crée un tableau d'objets pour les situations possibles	
-      let n1 = randint(1,9),
-      n2 = randint(1,9,[n1]),
-      n3 = n1+n2,
-      n4 = diffInt(n1,n2),
-      n_max=randint(10,19,[n3]);		
+      // on crée un tableau d'objets pour les situations possibles
+      let n1,n2,n3,n4,n_max;
+      do {
+        n1 = randint(1,9);
+        n2 = randint(1,9,[n1]);
+        n3 = n1+n2;
+        n4 = diffInt(n1,n2);
+        n_max=randint(10,19,[n3]);
+      }	while (n4==1);
+      //n1 sera toujours le plus grand sinon on intervertit les deux
+      let temp;
+      if (n1<n2) {
+        temp = n1;
+        n1 = n2;
+        n2 = temp;
+      };	
 			let situations = [
-        {lieu:`la boulangerie "Au bon pain"`,achat_sing:`pain au chocolat`,achat_plur:`pains au chocolat`,prenom1:prenom(),prenom2:prenom(),prenom3:prenom(),prenom4:prenom(),prenom_max:prenom(),n1:n1,n2:n2,n3:n3,n4:n4,n_max:n_max,pu:0.9,pu_string:`0,90 €`}
+        {lieu:`la boulangerie "Au bon pain"`,achat_sing:`pain au chocolat`,achat_plur:`pains au chocolat`,prenom1:prenom(),prenom2:prenom(),prenom3:prenom(),prenom4:prenom(),prenom_max:prenom(),n1:n1,n2:n2,n3:n3,n4:n4,n_max:n_max,pu:0.9}
 			]
 			let enonces = [];
       let situation = situations[randint(0,situations.length-1)];
-      console.log(situation)
+      
 			enonces.push({
         enonce:`
-          Dans ${situation.lieu}, ${situation.prenom1} achète $${situation.n1}$ ${pluriel(situation.n1,situation)} et paie $${tex_prix(situation.pu*situation.n1)} €$.
-          <br>${situation.prenom2} achète ${situation.n2} ${pluriel(situation.n2,situation)} et paie ${tex_prix(situation.pu*situation.n2)} €.
-          <br>${num_alpha(k++)} Combien paiera ${situation.prenom3} pour ${situation.n3} ${pluriel(situation.n3,situation)} ?
-          <br>${num_alpha(k++)} Combien paiera ${situation.prenom4} pour ${situation.n4} ${pluriel(situation.n4,situation)} ?
-          <br>${num_alpha(k++)} Quel est le nombre maximum de ${situation.achat_plur} que ${situation.prenom_max} pourra acheter avec ${tex_prix(situation.pu*situation.n_max)} € ?
+          Dans ${situation.lieu}, ${situation.prenom1} achète $${situation.n1}$ ${pluriel(situation.n1,situation)} et paie $${tex_prix(situation.pu*situation.n1)}€$.
+          <br>${situation.prenom2} achète $${situation.n2}$ ${pluriel(situation.n2,situation)} et paie $${tex_prix(situation.pu*situation.n2)}€$.
+          <br>${num_alpha(k++)} Combien paiera ${situation.prenom3} pour $${situation.n3}$ ${pluriel(situation.n3,situation)} ?
+          <br>${num_alpha(k++)} Combien paiera ${situation.prenom4} pour $${situation.n4}$ ${pluriel(situation.n4,situation)} ?
+          <br>${num_alpha(k++)} Quel est le nombre maximum de ${situation.achat_plur} que ${situation.prenom_max} pourra acheter avec $${tex_prix(situation.pu*situation.n_max)}€$ ?
           `,
 				question:``,
         correction:`
-        C'est une situation de proportionnalité. Ici, nous allons utiliser les propriétés de linéarité de la proportionnalité. Inutile de calculer d'emblée le prix unitaire.
-        <br>${num_alpha(k_corr++)} Pour ${situation.n1} ${pluriel(situation.n1,situation)}, on paie ${tex_prix(situation.pu*situation.n1)} €.
-        <br> Pour ${situation.n2} ${pluriel(situation.n2,situation)}, on paie ${tex_prix(situation.pu*situation.n2)} €.
-        <br> Donc pour ${situation.n1}+${situation.n2} ${pluriel(situation.n1,situation)}, on paie ${tex_prix(situation.pu*situation.n1)} €
+        C'est une situation de proportionnalité. Nous pouvons donc utiliser les propriétés de linéarité de la proportionnalité.
+        <br>C'est ce que nous allons faire pour les deux premères questions.
+        <br>${num_alpha(k_corr++)} Pour $${situation.n1}$ ${pluriel(situation.n1,situation)}, on paie $${tex_prix(situation.pu*situation.n1)}€$.
+        <br> Pour $${situation.n2}$ ${pluriel(situation.n2,situation)}, on paie $${tex_prix(situation.pu*situation.n2)}€$.
+        <br> Donc pour $${situation.n1}+${situation.n2}$ ${pluriel(situation.n3,situation)}, on paie $${tex_prix(situation.pu*situation.n1)} € + ${tex_prix(situation.pu*situation.n2)}€$.
+        <br> ${texte_en_couleur(`${situation.prenom3} paiera donc $${tex_prix(situation.pu*situation.n3)}€$ pour $${situation.n3}$ ${pluriel(situation.n3,situation)}.`)}
+
+        <br>${num_alpha(k_corr++)} Pour $${situation.n1}$ ${pluriel(situation.n1,situation)}, on paie $${tex_prix(situation.pu*situation.n1)}€$.
+        <br> Pour $${situation.n2}$ ${pluriel(situation.n2,situation)}, on paie $${tex_prix(situation.pu*situation.n2)}€$.
+        <br> Donc pour $${situation.n1}-${situation.n2}$ ${pluriel(situation.n4,situation)}, on paie $${tex_prix(situation.pu*situation.n1)}€-${tex_prix(situation.pu*situation.n2)}€$.
+        <br> ${texte_en_couleur(`${situation.prenom4} paiera donc $${tex_prix(situation.pu*situation.n4)}€$ pour $${situation.n4}$ ${pluriel(situation.n4,situation)}.`)}
+
+        <br>${num_alpha(k_corr++)} On peut utiliser l'une ou l'autre des informations de l'énoncé pour répondre en revenant à l'unité.
+        <br> Par exemple pour $${situation.n1}$ ${pluriel(situation.n1,situation)}, on paie $${tex_prix(situation.pu*situation.n1)}€$.
+        <br> Donc $1$ ${situation.achat_sing} coûte $${tex_prix(situation.pu*situation.n1)}\\div ${situation.n1} = ${tex_prix(situation.pu)}€$.
+        <br> Pour $${tex_prix(situation.pu*situation.n_max)}€$ nous aurons donc $${tex_prix(situation.pu*situation.n_max)}\\div ${tex_prix(situation.pu)}€ = ${situation.n_max}$ ${pluriel(situation.n_max,situation)}.
+
+        <br> ${texte_en_couleur(`Avec $${tex_prix(situation.pu*situation.n_max)}€$, ${situation.prenom_max} pourra donc acheter $${situation.n_max}$ ${pluriel(situation.n_max,situation)}.`)}
         `
 			})
 			switch (liste_type_de_questions[i]){
@@ -11938,7 +11963,7 @@ function Proportionnalite_par_linearite_bis(){
 					texte = `${enonces[0].enonce}`;
 					if (this.beta) {
 						texte += `<br>`;
-						texte += `<br> ${enonces[0].correction}`;
+						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte_corr = ``;	
 					} else {
 						texte_corr = `${enonces[0].correction}`;
