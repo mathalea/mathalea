@@ -9518,7 +9518,7 @@ function Mettre_en_equation_sans_resoudre(){
 			// on choisit le nombre de côtés su polygone
       let n = randint(3,8);
       //on choisit un nom pour la variable
-      let variables = ['x','y','z','t'];
+      let variables = ['t','u','v','w','y','z'];
       let inc = variables[randint(0,variables.length-1)];
       //on choisit une unité
       let unites = ['mm','cm','dm','m','dam','hm','km'];
@@ -9563,7 +9563,7 @@ function Mettre_en_equation_sans_resoudre(){
         Cette longueur est notée $${polygone.let_cote}$, le périmètre de la figure, exprimé en fonction de $${polygone.let_cote}$, vaut donc $${polygone.nb_cotes}\\times ${polygone.let_cote}$.<br>
         D'après l'énoncé, ce périmètre vaut ${polygone.perimetre}.<br>
         L'équation suivante permet donc de résoudre le problème : <br>
-        ${texte_en_couleur(`$${polygone.nb_cotes}\\times ${polygone.let_cote} = ${polygone.perimetre}$.`)}`
+        ${texte_en_couleur(`$${polygone.nb_cotes}\\times$ ${polygone.let_cote} $= ${polygone.perimetre}$.`)}`
 			})
 			switch (liste_type_de_questions[i]){
 				case 1 : 
