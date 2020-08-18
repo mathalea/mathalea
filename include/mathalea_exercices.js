@@ -11642,7 +11642,8 @@ function Parallele_et_Perpendiculaires() {
       i < this.nb_questions && cpt < 50;
 
     ) {
-      g = grille(-1, -15, 15, 15, "gray", 0.7);
+      if (this.sup2<3) g = grille(-1, -15, 15, 15, "gray", 0.7);
+      else g=''
       if (this.sup2 == 2) {
         k = 0.8;
         carreaux = seyes(Xmin, Ymin, Xmax, Ymax);
@@ -11675,19 +11676,22 @@ function Parallele_et_Perpendiculaires() {
           dC = droiteParPointEtPerpendiculaire(C, d);
           dD = droiteParPointEtPerpendiculaire(D, d);
           BB = rotation(A, B, 90);
-          CC = pointIntersectionDD(dC, d);
-          DD = pointIntersectionDD(dD, d);
+          CC = pointIntersectionDD(dC, d,'M');
+          DD = pointIntersectionDD(dD, d,'N');
           lC = arrondi(longueur(CC, A) * k, 1);
           lD = arrondi(longueur(DD, A) * k, 1);
           cB = codageAngleDroit(A, B, BB);
           cC = codageAngleDroit(C, CC, B);
           cD = codageAngleDroit(D, DD, B);
           traces_enonce = tracePoint(A, B, C, D);
-          traces_correction = tracePoint(A, B, C, D, E);
+          traces_correction = tracePoint(A, B, C, D, E,CC,DD);
           labels_enonce = labelPoint(A, B, C, D);
-          labels_correction = labelPoint(A, B, C, D, E);
-          enonce = `Reproduis la figure ci-dessous sur ton cahier puis trace les droites perpendiculaires à (AB) passant par B,C et D.<br>`;
-          enonce += `Mesure ensuite la distance entre le point A et les points d'intersection de tes droites avec la droite (AB) et compare ces mesures avec celles de l'ordinateur dans la correction<br>`;
+          labels_correction = labelPoint(A, B, C, D, E,CC,DD);
+          enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
+          enonce += num_alpha(1)+`Tracer la droite perpendiculaires à $(AB)$ passant par $B$.<br>`
+          enonce += num_alpha(2)+`Tracer la droite perpendiculaires à $(AB)$ passant par $C$ et nommer $M$ le point d'intersection de cette droite avec la droite $(AB)$.<br>`;
+          enonce += num_alpha(3)+`Tracer la droite perpendiculaires à $(AB)$ passant par $D$ et nommer $N$ le point d'intersection de cette droite avec la droite $(AB)$.<br>`;
+          enonce += num_alpha(4)+`Mesurer ensuite la distance $AM$ et $AN$.<br> Pour l'auto-correction comparer ces mesures avec celles données dans la correction<br>`;
           enonce += mathalea2d(
             {
               xmin: Xmin,
@@ -11703,8 +11707,7 @@ function Parallele_et_Perpendiculaires() {
             d,
             carreaux
           );
-          correction = `voici la figure qu'il fallait réaliser.<br>`;
-          correction += mathalea2d(
+          correction = mathalea2d(
             {
               xmin: Xmin,
               ymin: Ymin,
@@ -11727,40 +11730,41 @@ function Parallele_et_Perpendiculaires() {
             cD,
             carreaux
           );
-          correction += `<br>La perpendiculaire à (d) passant par C coupe (AB) à environ $${tex_nombre(
+          correction += `<br>$AM \\approx ${tex_nombre(
             lC
-          )}$cm de A.<br>`;
-          correction += `<br>La perpendiculaire à (d) passant par D coupe (AB) à environ $${tex_nombre(
-            lD
-          )}$cm de A.<br>`;
-          correction += `Pour la perpendiculaire en B, contrôle la position du point E.<br>`;
+          )}$ cm et $AN \\approx ${tex_nombre(lD)}$ cm.<br>`;
+          correction += `Pour la perpendiculaire en $B$, contrôle la position du point $E$.<br>`;
           break;
         case 2:
-          A = point(2, 0, "A");
+          A = point(2, 0, "A",'above left');
           B = point(12, randint(-4, 4, 0), "B");
           d = droite(A, B);
           d.isVisible = true;
-          C = point(randint(1, 2), randint(3, 4), "C");
-          D = point(randint(7, 8), randint(-7, -6), "D");
-          E = point(randint(4, 5), randint(4, 5), "E");
+          C = point(randint(1, 2), randint(3, 4), "C",'above left');
+          D = point(randint(7, 8), randint(-7, -6), "D",'below right');
+          E = point(randint(4, 5), randint(4, 5), "E",'below right');
           F = point(2, -3, "F", "above left");
           traces_enonce = tracePoint(A, B, C, D, E, F);
           labels_enonce = labelPoint(A, B, C, D, E, F);
-          traces_correction = tracePoint(A, B, C, D, E, F);
-          labels_correction = labelPoint(A, B, C, D, E, F);
+
           dE = droiteParPointEtParallele(E, d);
           dC = droiteParPointEtParallele(C, d);
           dD = droiteParPointEtParallele(D, d);
           p = droite(A, F);
           p.isVisible = true;
-          CC = pointIntersectionDD(dC, p);
-          DD = pointIntersectionDD(dD, p);
-          EE = pointIntersectionDD(dE, p);
+          CC = pointIntersectionDD(dC, p,'M','below right');
+          DD = pointIntersectionDD(dD, p,'N','above left');
+          EE = pointIntersectionDD(dE, p,'O','above left');
+          traces_correction = tracePoint(A, B, C, D, E, F);
+          labels_correction = labelPoint(A, B, C, D, E, F,CC,DD,EE);
           lC = arrondi(longueur(CC, A) * k, 1);
           lD = arrondi(longueur(DD, A) * k, 1);
           lE = arrondi(longueur(EE, A) * k, 1);
-          enonce = `Reproduis la figure ci-dessous sur ton cahier puis trace les droites parallèles à (AB) passant par C,D et E.<br>`;
-          enonce += `Mesure ensuite la distance entre le point A et les points d'intersection de tes droites avec la droite (AF) et compare ces mesures avec celles de l'ordinateur dans la correction<br>`;
+          enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
+          enonce +=num_alpha(1)+`Tracer la droite parallèle à $(AB)$ passant par $C$ et nomme $M$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
+          enonce +=num_alpha(2)+`Tracer la droite parallèle à $(AB)$ passant par $D$ et nomme $N$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
+          enonce +=num_alpha(3)+`Tracer la droite parallèle à $(AB)$ passant par $E$ et nomme $O$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
+          enonce += num_alpha(4)+`Mesurer les distances $AM$, $AN$ et $AO$. Pour l'auto-correction, comparer ces mesures avec celles données par  l'ordinateur dans la correction.<br>`;
           enonce += mathalea2d(
             {
               xmin: Xmin,
@@ -11777,8 +11781,7 @@ function Parallele_et_Perpendiculaires() {
             p,
             carreaux
           );
-          correction = `voici la figure qu'il fallait réaliser.<br>`;
-          correction += mathalea2d(
+          correction = mathalea2d(
             {
               xmin: Xmin,
               ymin: Ymin,
@@ -11797,15 +11800,13 @@ function Parallele_et_Perpendiculaires() {
             dD,
             carreaux
           );
-          correction += `<br>La parallèles à (AB) passant par C coupe (AF) à environ $${tex_nombre(
+          correction += `<br>$AM \\approx ${tex_nombre(
             lC
-          )}$cm de A.<br>`;
-          correction += `<br>La paralllèle à (AB) passant par D coupe (AF) à environ $${tex_nombre(
+          )}$ cm, $AN \\approx ${tex_nombre(
             lD
-          )}$cm de A.<br>`;
-          correction += `<br>La paralllèle à (AB) passant par E coupe (AF) à environ $${tex_nombre(
+          )}$ cm et $AO \\approx${tex_nombre(
             lE
-          )}$cm de A.<br>`;
+          )}$.<br>`;
 
           break;
       }
@@ -11824,8 +11825,8 @@ function Parallele_et_Perpendiculaires() {
   //	this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
   this.besoin_formulaire2_numerique = [
     "Type de cahier",
-    2,
-    `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)`,
+    3,
+    `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`,
   ];
 }
 
