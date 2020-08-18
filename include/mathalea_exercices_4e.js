@@ -9528,6 +9528,7 @@ function Mettre_en_equation_sans_resoudre(){
           codeSegments('X','blue',po.listePoints),
           texteSurSegment(`${inc}`,po.listePoints[0],po.listePoints[1]) 
         )};
+        console.log(JSON.stringify(polynome.fig));
       
 			let enonces = [];
 			enonces.push({
