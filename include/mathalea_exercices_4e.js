@@ -9453,7 +9453,7 @@ function Mettre_en_equation_sans_resoudre(){
 	};	
 
 	this.titre = "Mettre en équation un problème sans objectif de résolution";
-	this.consigne = "On considère la figure suivante.<br>Donner une équation qui permet de résoudre ce problème.<br>On ne demande pas de résoudre l'équation.";
+	this.consigne = "On considère la figure suivante où l'unité est le mm.<br>Donner une équation qui permet de résoudre ce problème.<br>On ne demande pas de résoudre l'équation.";
 	
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -9480,71 +9480,67 @@ function Mettre_en_equation_sans_resoudre(){
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
 			
-			// une fonction pour gérer le pluriel 
-			function pluriel(n,obj) {
-				if (n>1) {
-					return obj.plur
-				} else {
-					return obj.sing
-				};
-			};
-			
-			// une fonction pour gérer la chaine de sortie et supprimer le coeff 1 !
-			function sliceUn(n) {
-				if (n==1) {
-					return ``;
-				} else {
-					return `${n}`;
-				};
-			};
+      // une fonction pour dire le nom du polygone
+      function myPolyName(n) {
+        let sortie = {
+          name:``,
+          nameParSommets:``
+        };
+        switch (n) {
+          case 3:
+            sortie.name = `triangle équilatéral`;
+            sortie.nameParSommets = `ABC`;
+            break;
+          case 4:
+            sortie.name = `carré`;
+            sortie.nameParSommets = `ABCD`;
+            break;
+          case 5:
+            sortie.name = `pentagone régulier`
+            sortie.nameParSommets = `ABCDE`;
+            break;
+        };
+        return sortie;
+      };
 
-			// on definit un tableau de couples possibles
-			// par deux
-			let par_deux = [
-				{elt1:{lettre:'c',article:'un',sing:'crayon',plur:'crayons'},elt2:{lettre:'g',article:'une',sing:'gomme',plur:'gommes'}},
-				{elt1:{lettre:'r',article:'une',sing:'règle',plur:'règles'},elt2:{lettre:'e',article:'une',sing:'équerre',plur:'équerres'}},
-				{elt1:{lettre:'p',article:'une',sing:'poire',plur:'poires'},elt2:{lettre:'b',article:'une',sing:'banane',plur:'bananes'}},
-				{elt1:{lettre:'c',article:'un',sing:'couteau',plur:'couteaux'},elt2:{lettre:'f',article:'une',sing:'fourchette',plur:'fourchettes'}},
-				{elt1:{lettre:'m',article:'un',sing:'marteau',plur:'marteau'},elt2:{lettre:'e',article:'une',sing:'enclume',plur:'enclumes'}},
-			]
-			// par trois
-			// par quatre 
+			// on definit un tableau avec les polygones possibles
+      let n = randint(3,5);
+      let variables = ['x','y','z','t'];
+      let inc = variables[randint(0,variables.length-1)];
+      let po;
+			let polynome = {
+        nb_cotes:n,
+        nom:myPolyName(n).name,
+        let_cote:inc,
+        perimetre:randint(200,500),
+        fig:mathalea2d(
+          {
+          xmin : -5,
+          ymin : -5,
+          xmax : 5,
+          ymax : 5,
+          pixelsParCm : 20
+          },
+          po=polygoneRegulierParCentreEtRayon(point(0,0),4,n),
+          po.opacite=0.5,
+          po.epaisseur=2,
+          nommePolygone(po,myPolyName(n).nameParSommets),
+          codeSegments('X','blue',po.listePoints),
+          texteSurSegment(`${inc}`,po.listePoints[0],po.listePoints[1]) 
+        )};
+      
 			let enonces = [];
-			let n = randint(1,6);
-			let p = randint(1,6);
-			let objets = par_deux[randint(0,par_deux.length-1)];
 			enonces.push({
-				enonce:`${prenom()} veut acheter ${n} ${pluriel(n,objets.elt1)} et ${p} ${pluriel(n,objets.elt2)}.
-				<br>On note $${objets.elt1.lettre}$	le prix d'${objets.elt1.article} ${objets.elt1.sing} et $${objets.elt2.lettre}$	le prix d'${objets.elt2.article} ${objets.elt2.sing}.`,
+				enonce:`${prenom()} se demande pour quelle valeur de ${polynome.let_cote}, le périmètre du ${polynome.nom} est égal à ${polynome.perimetre} mm .<br> ${polynome.fig}`,
 				question:``,
-				correction:`$${n}\\times ${objets.elt1.lettre} + ${p}\\times ${objets.elt2.lettre} = ${sliceUn(n)}${objets.elt1.lettre} + ${sliceUn(p)}${objets.elt2.lettre}$.`
+				correction:`Équation $${polynome.nb_cotes}\\times ${polynome.let_cote} = ${polynome.perimetre}$.`
 			})
-			let a,po,A,B,C,D,Moncarre;
 			switch (liste_type_de_questions[i]){
 				case 1 : 
 					texte = `${enonces[0].enonce}`;
-					texte = `to be continued ...`
-					a=randint(0,6)
-					A = point(a,0)
-					B = point(8,1)
-					C = rotation(A,B,90)
-					D = rotation(B,A,270)
-					po=polygone(A,B,C,D)
-					Moncarre=nommePolygone(po,"ABCD")					
-					texte += mathalea2d({
-						xmin : -15,
-						ymin : -15,
-						xmax : 15,
-						ymax : 15,
-						pixelsParCm : 20,
-					},po,Moncarre,
-					codageAngleDroit(A,B,C),
-					codageAngleDroit(B,C,D),
-					codageAngleDroit(C,D,A),
-					codageAngleDroit(D,A,B))
 					if (this.beta) {
 						texte += `<br>`;
-						//texte += `<br> ${texte_en_couleur(enonces[0].correction)}`;
+						texte += `<br> ${texte_en_couleur(enonces[0].correction)}`;
 						texte_corr = ``;	
 					} else {
 						texte_corr = `${ texte_en_couleur(enonces[0].correction)}`;
