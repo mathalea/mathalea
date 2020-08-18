@@ -11689,12 +11689,8 @@ function Parallele_et_Perpendiculaires() {
           cB = codageAngleDroit(A, B, BB);
           cC = codageAngleDroit(C, CC, B);
           cD = codageAngleDroit(D, DD, B);
-          p=polygone(A,C,D,B)
-        let nompo=nommePolygone(p,'CQFD')
-          console.log(JSON.stringify(nompo),JSON.stringify(p))
           objets_correction.push(s1,s2,dC,dD,dB,cB,cC,cD,d,g,carreaux,tracePoint(A, B, C, D, E,CC,DD),labelPoint(A, B, C, D, E,CC,DD),afficheCoteSegment(segment(A,CC),'',-0.5,'red',1,-0.5,'red'),afficheCoteSegment(segment(A,DD),'',0.5,'red',1,0.5,'red'))
-    //      objets_enonce.push(tracePoint(A, B, C, D),labelPoint(A, B, C, D),d,g,carreaux);
-    objets_enonce.push(p,d,g,carreaux);
+          objets_enonce.push(tracePoint(A, B, C, D),labelPoint(A, B, C, D),d,g,carreaux);
           enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
           enonce += num_alpha(1)+`Tracer la droite perpendiculaires à $(AB)$ passant par $B$.<br>`
           enonce += num_alpha(2)+`Tracer la droite perpendiculaires à $(AB)$ passant par $C$ et nommer $M$ le point d'intersection de cette droite avec la droite $(AB)$.<br>`;
