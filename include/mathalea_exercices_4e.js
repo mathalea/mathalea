@@ -9453,7 +9453,7 @@ function Mettre_en_equation_sans_resoudre(){
 	};	
 
 	this.titre = "Mettre en équation un problème sans objectif de résolution";
-	this.consigne = "On considère la figure suivante où l'unité est le mm.<br>Donner une équation qui permet de résoudre ce problème.<br>On ne demande pas de résoudre l'équation.";
+	this.consigne = "Donner une équation qui permet de résoudre le problème.<br>On ne demande pas de résoudre l'équation.";
 	
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -9557,7 +9557,7 @@ function Mettre_en_equation_sans_resoudre(){
       
 			let enonces = [];
 			enonces.push({
-				enonce:`${prenom()} se demande pour quelle valeur de ${polygone.let_cote}, exprimée en $${polygone.unite}$, le périmètre du ${polygone.nom} est égal à $${polygone.perimetre}$ $${polygone.unite}$ .<br> ${polygone.fig}`,
+				enonce:`On considère la figure suivante où l'unité est le ${polygone.unite}.<br>${prenom()} se demande pour quelle valeur de ${polygone.let_cote}, exprimée en $${polygone.unite}$, le périmètre du ${polygone.nom} est égal à $${polygone.perimetre}$ $${polygone.unite}$ .<br> ${polygone.fig}`,
 				question:``,
         correction:`La figure est un ${polygone.nom}, il a donc ${polygone.nb_cotes} côtés de même longueur.<br>
         Cette longueur est notée $${polygone.let_cote}$, le périmètre de la figure, exprimé en fonction de $${polygone.let_cote}$, vaut donc $${polygone.nb_cotes}\\times ${polygone.let_cote}$.<br>
