@@ -9515,25 +9515,31 @@ function Mettre_en_equation_sans_resoudre(){
         return sortie;
       };
 
-			// on definit un tableau avec les polygones possibles
+			// on choisit le nombre de côtés su polygone
       let n = randint(3,8);
+      //on choisit un nom pour la variable
       let variables = ['x','y','z','t'];
       let inc = variables[randint(0,variables.length-1)];
-      //let po;
+      //on choisit une unité
+      let unites = ['mm','cm','dm','m','dam','hm','km'];
+      let unite = unites[randint(0,unites.length-1)];
+      //on prépare le polygone
       let po=polygoneRegulierParCentreEtRayon(point(0,0),4,n);
       po.opacite=0.5;
       po.epaisseur=2;
+      //on pépare la côte
       let s=segment(po.listePoints[0],po.listePoints[1]);
-      s.styleExtremites=`<->`;
+      s.styleExtremites=`<->`;      
+      // on finit les appels
       let mesAppels = [
-        po,     
-        nommePolygone(po,myPolyName(n).nameParSommets),
-        codeSegments('X','blue',po.listePoints),
-        //texteSurSegment(`${inc}`,)
+        po,       
+        codeSegments('X','blue',po.listePoints),        
         afficheCoteSegment(s,`${inc}`,1,'red',2,0.5,'black')
       ];
-			let polynome = {
+      // on prépare l'objet polygone
+			let polygone = {
         nb_cotes:n,
+        unite:unite,
         nom:myPolyName(n).name,
         let_cote:inc,
         perimetre:randint(200,500),
@@ -9545,25 +9551,30 @@ function Mettre_en_equation_sans_resoudre(){
           ymax : 5,
           pixelsParCm : 20
           },
-          mesAppels  
-        )};
-        
+
+          mesAppels,
+          nommePolygone(po,myPolyName(n).nameParSommets)  
+        )};      
       
 			let enonces = [];
 			enonces.push({
-				enonce:`${prenom()} se demande pour quelle valeur de ${polynome.let_cote}, le périmètre du ${polynome.nom} est égal à ${polynome.perimetre} mm .<br> ${polynome.fig}`,
+				enonce:`${prenom()} se demande pour quelle valeur de ${polygone.let_cote}, exprimée en $${polygone.unite}$, le périmètre du ${polygone.nom} est égal à $${polygone.perimetre}$ $${polygone.unite}$ .<br> ${polygone.fig}`,
 				question:``,
-				correction:`Équation $${polynome.nb_cotes}\\times ${polynome.let_cote} = ${polynome.perimetre}$.`
+        correction:`La figure est un ${polygone.nom}, il a donc ${polygone.nb_cotes} côtés de même longueur.<br>
+        Cette longueur est notée $${polygone.let_cote}$, le périmètre de la figure, exprimé en fonction de $${polygone.let_cote}$, vaut donc $${polygone.nb_cotes}\\times ${polygone.let_cote}$.<br>
+        D'après l'énoncé, ce périmètre vaut ${polygone.perimetre}.<br>
+        L'équation suivante permet donc de résoudre le problème : <br>
+        ${texte_en_couleur(`$${polygone.nb_cotes}\\times ${polygone.let_cote} = ${polygone.perimetre}$.`)}`
 			})
 			switch (liste_type_de_questions[i]){
 				case 1 : 
 					texte = `${enonces[0].enonce}`;
 					if (this.beta) {
 						texte += `<br>`;
-						texte += `<br> ${texte_en_couleur(enonces[0].correction)}`;
+						texte += `<br> ${enonces[0].correction}`;
 						texte_corr = ``;	
 					} else {
-						texte_corr = `${ texte_en_couleur(enonces[0].correction)}`;
+						texte_corr = `${enonces[0].correction}`;
 					};
 					break;				
 			}
