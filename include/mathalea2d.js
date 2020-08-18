@@ -1385,7 +1385,8 @@ function triangle2points1angle1longueurOppose(A, B, a, l, n = 1) {
  * nommePolygone (p,'ABCDE',0.5) nomme les sommets du polygone p. Les labels sont placés à une distance paramètrable en cm des sommets (0.5 par défaut)
  * @Auteur Jean-Claude Lhote
  */
-function nommePolygone(p, nom = "", k = 0.5) {
+function NommePolygone(p, nom = "", k = 0.5) {
+  ObjetMathalea2D.call(this)
   let G = barycentre(p);
   let V,
     v,
@@ -1397,7 +1398,24 @@ function nommePolygone(p, nom = "", k = 0.5) {
     point = translation(p.listePoints[i], v);
     labels.push(texteParPoint(p.listePoints[i].nom, point, "milieu"));
   }
-  return labels;
+  this.svg = function (coeff) {
+    code = "";
+    for (objet of labels) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    code = "";
+    for (objet of labels) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+}
+
+function nommePolygone(...args){
+  return new NommePolygone(...args)
 }
 
 /**
