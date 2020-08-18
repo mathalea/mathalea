@@ -9546,9 +9546,9 @@ function Mettre_en_equation_sans_resoudre(){
         perimetre:randint(200,500),
         fig:mathalea2d(
           {
-          xmin : -5,
+          xmin : -7,
           ymin : -5,
-          xmax : 5,
+          xmax : 7,
           ymax : 5,
           pixelsParCm : 20
           },
