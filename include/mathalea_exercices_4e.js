@@ -9447,9 +9447,9 @@ function Mettre_en_equation_sans_resoudre(){
 	this.beta = true;	
 	this.sup=1;
 	if (this.beta) {
-		this.nb_questions = 3;
+		this.nb_questions = 9;
 	} else {
-		this.nb_questions = 3;
+		this.nb_questions = 9;
 	};	
 
 	this.titre = "Mettre en équation un problème sans objectif de résolution";
@@ -9499,23 +9499,38 @@ function Mettre_en_equation_sans_resoudre(){
             sortie.name = `pentagone régulier`
             sortie.nameParSommets = `ABCDE`;
             break;
+          case 6:
+              sortie.name = `hexagone régulier`
+              sortie.nameParSommets = `ABCDEF`;
+              break;
+          case 7:
+            sortie.name = `heptagone régulier`
+            sortie.nameParSommets = `ABCDEFG`;
+            break;
+          case 8:
+              sortie.name = `octogone régulier`
+              sortie.nameParSommets = `ABCDEFGH`;
+              break;
         };
         return sortie;
       };
 
 			// on definit un tableau avec les polygones possibles
-      let n = randint(3,5);
+      let n = randint(3,8);
       let variables = ['x','y','z','t'];
       let inc = variables[randint(0,variables.length-1)];
       //let po;
       let po=polygoneRegulierParCentreEtRayon(point(0,0),4,n);
       po.opacite=0.5;
       po.epaisseur=2;
+      let s=segment(po.listePoints[0],po.listePoints[1]);
+      s.styleExtremites=`<->`;
       let mesAppels = [
         po,     
         nommePolygone(po,myPolyName(n).nameParSommets),
         codeSegments('X','blue',po.listePoints),
-        texteSurSegment(`${inc}`,po.listePoints[0],po.listePoints[1])
+        //texteSurSegment(`${inc}`,)
+        afficheCoteSegment(s,`${inc}`,1,'red',2,0.5,'black')
       ];
 			let polynome = {
         nb_cotes:n,
