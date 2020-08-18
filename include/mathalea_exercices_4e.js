@@ -9575,3 +9575,107 @@ function Mettre_en_equation_sans_resoudre(){
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
 	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 }
+
+
+
+/**
+ * Graphiques_et_proportionnalite
+ * 4P10-1
+ * @author Sébastien Lozano
+ */
+function Graphiques_et_proportionnalite() {
+  'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.beta = true;	
+	this.sup=1;
+	if (this.beta) {
+		this.nb_questions = 4;
+	} else {
+		this.nb_questions = 2;
+	};	
+
+	this.titre = "Graphiques_et_proportionnalite";
+	this.consigne = "Graphiques_et_proportionnalite";
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	//this.nb_questions_modifiable = false;
+	//sortie_html? this.spacing = 3 : this.spacing = 2; 
+	//sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
+
+	let type_de_questions_disponibles;	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		if (this.beta) {
+			type_de_questions_disponibles = [1];			
+		} else {
+			type_de_questions_disponibles = [1];			
+		};
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		type_de_questions_disponibles=[1];			
+
+		let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		//let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+			
+
+      let a = randint(-3,3);
+      let b = randint(-5,5);
+      let f = (x) => a*x+b;
+      // on finit les appels
+      let mesAppels = [
+        repere(),
+        f,
+        courbe(f)   
+      ];
+      // on prépare l'objet polygone
+let  fig = mathalea2d(
+          {
+          xmin : -7,
+          ymin : -5,
+          xmax : 7,
+          ymax : 5,
+          pixelsParCm : 20
+          },
+          mesAppels          
+        );      
+      
+			let enonces = [];
+			enonces.push({
+				enonce:`bla bla bla <br> ${fig}`,
+				question:``,
+        correction:`Correction
+        <br>${texte_en_couleur(`Conclusion`)}
+        `
+			})
+			switch (liste_type_de_questions[i]){
+				case 1 : 
+					texte = `${enonces[0].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[0].correction}`;
+					};
+					break;				
+			}
+			
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	  
+}
