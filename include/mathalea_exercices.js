@@ -11710,30 +11710,29 @@ function Parallele_et_Perpendiculaires() {
           correction += `Pour la perpendiculaire en $B$, contrôle la position du point $E$.<br>`;
           break;
         case 2:
-          A = point(2, 0, "A",'above left');
+          A = point(2, 0, "A",'below left');
           B = point(12, randint(-4, 4, 0), "B");
           d = droite(A, B);
           d.isVisible = true;
-          C = point(randint(1, 2), randint(3, 4), "C",'above left');
+          C = point(0, randint(3, 4), "C",'above');
           D = point(randint(7, 8), randint(-7, -6), "D",'below right');
-          E = point(randint(4, 5), randint(4, 5), "E",'below right');
-          F = point(2, -3, "F", "above left");
-          traces_enonce = tracePoint(A, B, C, D, E, F);
-          labels_enonce = labelPoint(A, B, C, D, E, F);
-
+          E = point(randint(4, 5), randint(5,6), "E",'below right');
+          F = point(2, -3, "F", "left");
+ 
           dE = droiteParPointEtParallele(E, d);
           dC = droiteParPointEtParallele(C, d);
           dD = droiteParPointEtParallele(D, d);
           p = droite(A, F);
           p.isVisible = true;
-          CC = pointIntersectionDD(dC, p,'M','below right');
+          CC = pointIntersectionDD(dC, p,'M','above left');
           DD = pointIntersectionDD(dD, p,'N','above left');
           EE = pointIntersectionDD(dE, p,'O','above left');
-          traces_correction = tracePoint(A, B, C, D, E, F);
-          labels_correction = labelPoint(A, B, C, D, E, F,CC,DD,EE);
           lC = arrondi(longueur(CC, A) * k, 1);
           lD = arrondi(longueur(DD, A) * k, 1);
           lE = arrondi(longueur(EE, A) * k, 1);
+          objets_correction.push(dC,dD,dE,d,p,g,carreaux,tracePoint(A, B, C, D, E,F),labelPoint(A, B, C, D, E,F,CC,DD,EE),afficheCoteSegment(segment(A,CC),`${tex_nombre(lC)} cm`,.2,'red',1,0.5,'red'),afficheCoteSegment(segment(DD,A),`${tex_nombre(lD)} cm`,-0.2,'green',1,-0.5,'green'),afficheCoteSegment(segment(A,EE),`${tex_nombre(lE)} cm`,-0.2,'blue',1,-0.5,'blue'))
+          objets_enonce.push(tracePoint(A, B, C, D,E,F),labelPoint(A, B, C, D,E,F),d,g,p,carreaux);
+        
           enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
           enonce +=num_alpha(1)+`Tracer la droite parallèle à $(AB)$ passant par $C$ et nomme $M$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
           enonce +=num_alpha(2)+`Tracer la droite parallèle à $(AB)$ passant par $D$ et nomme $N$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
@@ -11748,12 +11747,7 @@ function Parallele_et_Perpendiculaires() {
               pixelsParCm: ppc,
               scale: sc,
             },
-            traces_enonce,
-            labels_enonce,
-            g,
-            d,
-            p,
-            carreaux
+           objets_enonce
           );
           correction = mathalea2d(
             {
@@ -11764,15 +11758,7 @@ function Parallele_et_Perpendiculaires() {
               pixelsParCm: ppc,
               scale: sc,
             },
-            traces_correction,
-            labels_correction,
-            g,
-            d,
-            p,
-            dE,
-            dC,
-            dD,
-            carreaux
+            objets_correction
           );
           correction += `<br>$AM \\approx ${tex_nombre(
             lC
@@ -11780,7 +11766,7 @@ function Parallele_et_Perpendiculaires() {
             lD
           )}$ cm et $AO \\approx${tex_nombre(
             lE
-          )}$.<br>`;
+          )}$ cm.<br>`;
 
           break;
       }

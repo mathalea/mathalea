@@ -5748,3 +5748,194 @@ function DroiteRemarquableDuTriangle(){
 	}
 	this.besoin_formulaire_numerique = ['Type de droites',3,"1 : Hauteurs et Médiatrices\n2 : Médianes et Bissectrices\n3 : Toutes les droites"]
 }
+function Construire_par_Symetrie() {
+	"use strict";
+	Exercice.call(this);
+	this.titre = "Construire par Symétrie...";
+	this.nb_questions = 1;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.sup = 1;
+	this.sup2 = 1;
+	this.nouvelle_version = function (numero_de_l_exercice) {
+	  let type_de_questions_disponibles;
+	  if (this.sup == 3) type_de_questions_disponibles = [1, 2];
+	  //Symétrie axiale ou centrale
+	  else type_de_questions_disponibles = [parseInt(this.sup)]; // Le choix 1 ou 2
+	  let liste_type_de_questions = combinaison_listes(
+		type_de_questions_disponibles,
+		this.nb_questions
+	  );
+	  this.liste_questions = []; // Liste de questions
+	  this.liste_corrections = []; // Liste de questions corrigées
+	  let Xmin, Xmax, Ymin, Ymax, ppc, sc;
+	  function initialise_variables() {
+		if (sortie_html) {
+		  // repère -10 || 10
+		  Xmin = -1;
+		  Ymin = -9;
+		  Xmax = 15;
+		  Ymax = 9;
+		  ppc = 20;
+		} else {
+		  // repère -5 || 5
+		  Xmin = -1;
+		  Ymin = -9;
+		  Xmax = 15;
+		  Ymax = 9;
+		  ppc = 20;
+		}
+	  }
+  
+	  initialise_variables();
+	  if (this.sup2 == 1) sc = 0.5;
+	  else sc = 0.8;
+  
+	  let A,
+		B,
+		C,
+		D,
+		xE,
+		E,
+		F,
+		d,
+		enonce,
+		correction,
+		g,
+		carreaux,
+		k,
+		objets_enonce=[],
+		objets_correction=[],
+		params={
+		  xmin: Xmin,
+		  ymin: Ymin,
+		  xmax: Xmax,
+		  ymax: Ymax,
+		  pixelsParCm: ppc,
+		  scale: sc,
+		},
+		p1,p2,p1nom,p2nom;
+	  for (
+		let i = 0, texte, texte_corr, cpt = 0;
+		i < this.nb_questions && cpt < 50;
+  
+	  ) {
+		if (this.sup2<3) g = grille(-1, -15, 15, 15, "gray", 0.7);
+		else g=''
+		if (this.sup2 == 2) {
+		  k = 0.8;
+		  carreaux = seyes(Xmin, Ymin, Xmax, Ymax);
+		} else {
+		  k = 0.5;
+		  carreaux = "";
+		}
+		switch (liste_type_de_questions[i]) {
+		  case 1:
+			A = point(0, 0, "A",'above left');
+			B = point(10, randint(-4, 4, [-1, 0, 1]), "B",'above right');
+			d = droite(A, B);
+			d.isVisible = true;
+			C = point(randint(2, 3), randint(3, 4), "C",'above left');
+			D = point(randint(7, 8), randint(-7, -6), "D");
+			dB = droiteParPointEtPerpendiculaire(B, d);
+			xE = 11;
+			E = pointSurDroite(dB, 11, "E", "left");
+			while (!Number.isInteger(E.y)) {
+			  xE++;
+			  E = pointSurDroite(dB, xE, "E", "left");
+			}
+			F = point(E.x, B.y);
+			objets_correction.push(d,g,carreaux,tracePoint(A, B, C, D, E),labelPoint(A, B, C, D, E))
+			objets_enonce.push(tracePoint(A, B, C, D),labelPoint(A, B, C, D),d,g,carreaux);
+			enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
+			enonce += num_alpha(1)+`Tracer la droite perpendiculaires à $(AB)$ passant par $B$.<br>`
+			enonce += num_alpha(2)+`Tracer la droite perpendiculaires à $(AB)$ passant par $C$ et nommer $M$ le point d'intersection de cette droite avec la droite $(AB)$.<br>`;
+			enonce += num_alpha(3)+`Tracer la droite perpendiculaires à $(AB)$ passant par $D$ et nommer $N$ le point d'intersection de cette droite avec la droite $(AB)$.<br>`;
+			enonce += num_alpha(4)+`Mesurer ensuite la distance $AM$ et $AN$.<br> Pour l'auto-correction comparer ces mesures avec celles données dans la correction<br>`;
+			enonce += mathalea2d( params
+			  ,
+			  objets_enonce
+			);
+			correction = mathalea2d(
+			  params,
+			 objets_correction
+			);
+			correction += `<br>$AM \\approx ${tex_nombre(
+			  lC
+			)}$ cm et $AN \\approx ${tex_nombre(lD)}$ cm.<br>`;
+			correction += `Pour la perpendiculaire en $B$, contrôle la position du point $E$.<br>`;
+			break;
+		  case 2:
+			A = point(2, 0, "A",'above left');
+			B = point(12, randint(-4, 4, 0), "B");
+			d = droite(A, B);
+			d.isVisible = true;
+			C = point(randint(1, 2), randint(3, 4), "C",'above left');
+			D = point(randint(7, 8), randint(-7, -6), "D",'below right');
+			E = point(randint(4, 5), randint(4, 5), "E",'below right');
+			F = point(2, -3, "F", "above left");
+			traces_enonce = tracePoint(A, B, C, D, E, F);
+			labels_enonce = labelPoint(A, B, C, D, E, F);
+  
+			dE = droiteParPointEtParallele(E, d);
+			dC = droiteParPointEtParallele(C, d);
+			dD = droiteParPointEtParallele(D, d);
+			p = droite(A, F);
+			p.isVisible = true;
+			enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
+			enonce +=num_alpha(1)+`Tracer la droite parallèle à $(AB)$ passant par $C$ et nomme $M$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
+			enonce +=num_alpha(2)+`Tracer la droite parallèle à $(AB)$ passant par $D$ et nomme $N$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
+			enonce +=num_alpha(3)+`Tracer la droite parallèle à $(AB)$ passant par $E$ et nomme $O$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
+			enonce += num_alpha(4)+`Mesurer les distances $AM$, $AN$ et $AO$. Pour l'auto-correction, comparer ces mesures avec celles données par  l'ordinateur dans la correction.<br>`;
+			enonce += mathalea2d(
+			  {
+				xmin: Xmin,
+				ymin: Ymin,
+				xmax: Xmax,
+				ymax: Ymax,
+				pixelsParCm: ppc,
+				scale: sc,
+			  },
+			  objets_enonce
+			  );
+			correction = mathalea2d(
+			  {
+				xmin: Xmin,
+				ymin: Ymin,
+				xmax: Xmax,
+				ymax: Ymax,
+				pixelsParCm: ppc,
+				scale: sc,
+			  },
+			  objets_correction
+			);
+			correction += `<br>$AM \\approx ${tex_nombre(
+			  lC
+			)}$ cm, $AN \\approx ${tex_nombre(
+			  lD
+			)}$ cm et $AO \\approx${tex_nombre(
+			  lE
+			)}$.<br>`;
+  
+			break;
+		}
+  
+		if (this.liste_questions.indexOf(texte) == -1) {
+		  // Si la question n'a jamais été posée, on en créé une autre
+		  this.liste_questions.push(enonce + "<br>");
+		  this.liste_corrections.push(correction + "<br>");
+		  i++;
+		}
+		cpt++;
+	  }
+  
+	  liste_de_question_to_contenu(this);
+	};
+	//	this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
+	this.besoin_formulaire2_numerique = [
+	  "Type de cahier",
+	  3,
+	  `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`,
+	];
+  }
+  
