@@ -9310,6 +9310,11 @@ function Tester_si_un_nombre_est_solution_d_une_equation() {
  * * adaptation de l'exo 5L14 de Rémi Angot
  * @author Sébastien Lozano
  */
+function Tester_si_un_nombre_est_solution_d_une_equation_deg1(){
+	this.exo='4L14-1';	
+	Tester_si_un_nombre_est_solution_d_une_equation.call(this);	
+	this.titre = `Tester si un nombre est solution d'une équation du premier degré`;
+};
 
 /**
  * Tester si un nombre est solution d'une équation degré 2
@@ -9317,9 +9322,244 @@ function Tester_si_un_nombre_est_solution_d_une_equation() {
  * * adaptation de l'exo 5L14 de Rémi Angot
  * @author Sébastien Lozano
  */
-function Tester_si_un_nombre_est_solution_d_une_equation_deg2() {
-  this.exo = "4L14-2";
-  Tester_si_un_nombre_est_solution_d_une_equation.call(this);
-  this.titre = `Tester si un nombre est solution d'une équation du second degré`;
-  //this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];
+function Tester_si_un_nombre_est_solution_d_une_equation_deg2(){
+	this.exo='4L14-2';
+	Tester_si_un_nombre_est_solution_d_une_equation.call(this);
+	this.titre = `Tester si un nombre est solution d'une équation du second degré`;
+	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+};
+
+/**
+ * Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue
+ * * 4P20-0
+ * @author Sébastien Lozano
+ */
+function Forme_litterale_introduire_une_lettre(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.beta = true;	
+	this.sup=1;
+	if (this.beta) {
+		this.nb_questions = 3;
+	} else {
+		this.nb_questions = 3;
+	};	
+
+	this.titre = "Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue";
+	this.consigne = "Exprimer le prix total de l'achat, en fonction des lettres introduites dans l'énoncé.";
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	//this.nb_questions_modifiable = false;
+	//sortie_html? this.spacing = 3 : this.spacing = 2; 
+	//sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
+
+	let type_de_questions_disponibles;	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		if (this.beta) {
+			type_de_questions_disponibles = [1];			
+		} else {
+			type_de_questions_disponibles = [1];			
+		};
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		type_de_questions_disponibles=[1];			
+		let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		//let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+			
+			// une fonction pour gérer le pluriel 
+			function pluriel(n,obj) {
+				if (n>1) {
+					return obj.plur
+				} else {
+					return obj.sing
+				};
+			};
+			
+			// une fonction pour gérer la chaine de sortie et supprimer le coeff 1 !
+			function sliceUn(n) {
+				if (n==1) {
+					return ``;
+				} else {
+					return `${n}`;
+				};
+			};
+
+			// on definit un tableau de couples possibles
+			// par deux
+			let par_deux = [
+				{elt1:{lettre:'c',article:'un',sing:'crayon',plur:'crayons'},elt2:{lettre:'g',article:'une',sing:'gomme',plur:'gommes'}},
+				{elt1:{lettre:'r',article:'une',sing:'règle',plur:'règles'},elt2:{lettre:'e',article:'une',sing:'équerre',plur:'équerres'}},
+				{elt1:{lettre:'p',article:'une',sing:'poire',plur:'poires'},elt2:{lettre:'b',article:'une',sing:'banane',plur:'bananes'}},
+				{elt1:{lettre:'c',article:'un',sing:'couteau',plur:'couteaux'},elt2:{lettre:'f',article:'une',sing:'fourchette',plur:'fourchettes'}},
+				{elt1:{lettre:'m',article:'un',sing:'marteau',plur:'marteau'},elt2:{lettre:'e',article:'une',sing:'enclume',plur:'enclumes'}},
+			]
+			let enonces = [];
+			let n = randint(1,6);
+			let p = randint(1,6);
+			let objets = par_deux[randint(0,par_deux.length-1)];
+			enonces.push({
+				enonce:`${prenom()} veut acheter ${n} ${pluriel(n,objets.elt1)} et ${p} ${pluriel(n,objets.elt2)}.
+				<br>On note $${objets.elt1.lettre}$	le prix d'${objets.elt1.article} ${objets.elt1.sing} et $${objets.elt2.lettre}$	le prix d'${objets.elt2.article} ${objets.elt2.sing}.`,
+				question:``,
+				correction:`$${n}\\times ${objets.elt1.lettre} + ${p}\\times ${objets.elt2.lettre} = ${sliceUn(n)}${objets.elt1.lettre} + ${sliceUn(p)}${objets.elt2.lettre}$.`
+			})
+			switch (liste_type_de_questions[i]){
+				case 1 : 
+					texte = `${enonces[0].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> ${texte_en_couleur(enonces[0].correction)}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${ texte_en_couleur(enonces[0].correction)}`;
+					};
+					break;				
+			}
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+}
+
+/**
+ * Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue afin de mettre en équation un problème
+ * à partir de figure géométriques élémentaires
+ * * 4L13-0
+ * @author Sébastien Lozano
+ */
+function Mettre_en_equation_sans_resoudre(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.beta = true;	
+	this.sup=1;
+	if (this.beta) {
+		this.nb_questions = 3;
+	} else {
+		this.nb_questions = 3;
+	};	
+
+	this.titre = "Mettre en équation un problème sans objectif de résolution";
+	this.consigne = "On considère la figure suivante où l'unité est le mm.<br>Donner une équation qui permet de résoudre ce problème.<br>On ne demande pas de résoudre l'équation.";
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	//this.nb_questions_modifiable = false;
+	//sortie_html? this.spacing = 3 : this.spacing = 2; 
+	//sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
+
+	let type_de_questions_disponibles;	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		if (this.beta) {
+			type_de_questions_disponibles = [1];			
+		} else {
+			type_de_questions_disponibles = [1];			
+		};
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		type_de_questions_disponibles=[1];			
+
+		let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		//let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+			
+      // une fonction pour dire le nom du polygone
+      function myPolyName(n) {
+        let sortie = {
+          name:``,
+          nameParSommets:``
+        };
+        switch (n) {
+          case 3:
+            sortie.name = `triangle équilatéral`;
+            sortie.nameParSommets = `ABC`;
+            break;
+          case 4:
+            sortie.name = `carré`;
+            sortie.nameParSommets = `ABCD`;
+            break;
+          case 5:
+            sortie.name = `pentagone régulier`
+            sortie.nameParSommets = `ABCDE`;
+            break;
+        };
+        return sortie;
+      };
+
+			// on definit un tableau avec les polygones possibles
+      let n = randint(3,5);
+      let variables = ['x','y','z','t'];
+      let inc = variables[randint(0,variables.length-1)];
+      let po;
+			let polynome = {
+        nb_cotes:n,
+        nom:myPolyName(n).name,
+        let_cote:inc,
+        perimetre:randint(200,500),
+        fig:mathalea2d(
+          {
+          xmin : -5,
+          ymin : -5,
+          xmax : 5,
+          ymax : 5,
+          pixelsParCm : 20
+          },
+          po=polygoneRegulierParCentreEtRayon(point(0,0),4,n),
+          po.opacite=0.5,
+          po.epaisseur=2,
+          nommePolygone(po,myPolyName(n).nameParSommets),
+          codeSegments('X','blue',po.listePoints),
+          texteSurSegment(`${inc}`,po.listePoints[0],po.listePoints[1]) 
+        )};
+        console.log(JSON.stringify(polynome.fig));
+      
+			let enonces = [];
+			enonces.push({
+				enonce:`${prenom()} se demande pour quelle valeur de ${polynome.let_cote}, le périmètre du ${polynome.nom} est égal à ${polynome.perimetre} mm .<br> ${polynome.fig}`,
+				question:``,
+				correction:`Équation $${polynome.nb_cotes}\\times ${polynome.let_cote} = ${polynome.perimetre}$.`
+			})
+			switch (liste_type_de_questions[i]){
+				case 1 : 
+					texte = `${enonces[0].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> ${texte_en_couleur(enonces[0].correction)}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${ texte_en_couleur(enonces[0].correction)}`;
+					};
+					break;				
+			}
+			
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 }

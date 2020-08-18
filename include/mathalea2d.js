@@ -1149,7 +1149,7 @@ function Polygone(...points) {
       tableauOptions.push(`dashed`);
     }
     if (this.opacite != 1) {
-      tableauOptions.push(`opacity=${this.opacity}`);
+      tableauOptions.push(`opacity=${this.opacite}`);
     }
 
     let optionsDraw = [];
