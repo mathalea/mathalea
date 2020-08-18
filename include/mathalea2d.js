@@ -978,9 +978,41 @@ function Segment(arg1, arg2, arg3, arg4, color) {
           this.color
         }" />`;
       }
+      if (this.styleExtremites.substr(-1) == "<") {
+        //si ça termine par < on rajoute une flèche inversée en B
+        let M = pointSurSegment(B, A, -0.2);
+        let B1 = rotation(B, M, 90);
+        let B2 = rotation(B, M, -90);
+        code += `<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
+          coeff
+        )}" x2="${B1.xSVG(coeff)}" y2="${B1.ySVG(coeff)}" stroke="${
+          this.color
+        }" />`;
+        code += `\n\t<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
+          coeff
+        )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${
+          this.color
+        }" />`;
+      }
       if (this.styleExtremites[0] == "<") {
-        //si ça comment par < on rajoute une flèche en A
+        //si ça commence par < on rajoute une flèche en A
         let M = pointSurSegment(A, B, 0.2);
+        let A1 = rotation(A, M, 90);
+        let A2 = rotation(A, M, -90);
+        code += `<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
+          coeff
+        )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${
+          this.color
+        }" />`;
+        code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
+          coeff
+        )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${
+          this.color
+        }" />`;
+      }
+      if (this.styleExtremites[0] == ">") {
+        //si ça commence par > on rajoute une flèche inversée en A
+        let M = pointSurSegment(A, B, -0.2);
         let A1 = rotation(A, M, 90);
         let A2 = rotation(A, M, -90);
         code += `<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
