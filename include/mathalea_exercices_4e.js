@@ -9507,7 +9507,16 @@ function Mettre_en_equation_sans_resoudre(){
       let n = randint(3,5);
       let variables = ['x','y','z','t'];
       let inc = variables[randint(0,variables.length-1)];
-      let po;
+      //let po;
+      let po=polygoneRegulierParCentreEtRayon(point(0,0),4,n);
+      po.opacite=0.5;
+      po.epaisseur=2;
+      let mesAppels = [
+        po,     
+        nommePolygone(po,myPolyName(n).nameParSommets),
+        codeSegments('X','blue',po.listePoints),
+        texteSurSegment(`${inc}`,po.listePoints[0],po.listePoints[1])
+      ];
 			let polynome = {
         nb_cotes:n,
         nom:myPolyName(n).name,
@@ -9521,14 +9530,9 @@ function Mettre_en_equation_sans_resoudre(){
           ymax : 5,
           pixelsParCm : 20
           },
-          po=polygoneRegulierParCentreEtRayon(point(0,0),4,n),
-          po.opacite=0.5,
-          po.epaisseur=2,
-          nommePolygone(po,myPolyName(n).nameParSommets),
-          codeSegments('X','blue',po.listePoints),
-          texteSurSegment(`${inc}`,po.listePoints[0],po.listePoints[1]) 
+          mesAppels  
         )};
-        console.log(JSON.stringify(polynome.fig));
+        
       
 			let enonces = [];
 			enonces.push({
