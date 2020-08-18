@@ -9534,7 +9534,8 @@ function Mettre_en_equation_sans_resoudre(){
       let mesAppels = [
         po,       
         codeSegments('X','blue',po.listePoints),        
-        afficheCoteSegment(s,`${inc}`,1,'red',2,0.5,'black')
+        afficheCoteSegment(s,`${inc}`,1,'red',2,0.5,'black'),
+        nommePolygone(po,myPolyName(n).nameParSommets)  
       ];
       // on prépare l'objet polygone
 			let polygone = {
@@ -9551,9 +9552,7 @@ function Mettre_en_equation_sans_resoudre(){
           ymax : 5,
           pixelsParCm : 20
           },
-
-          mesAppels,
-          nommePolygone(po,myPolyName(n).nameParSommets)  
+          mesAppels          
         )};      
       
 			let enonces = [];
