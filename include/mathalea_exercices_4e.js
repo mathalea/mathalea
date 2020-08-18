@@ -9589,13 +9589,13 @@ function Graphiques_et_proportionnalite() {
 	this.beta = true;	
 	this.sup=1;
 	if (this.beta) {
-		this.nb_questions = 4;
+		this.nb_questions = 1;
 	} else {
-		this.nb_questions = 2;
+		this.nb_questions = 1;
 	};	
 
-	this.titre = "Graphiques_et_proportionnalite";
-	this.consigne = "Graphiques_et_proportionnalite";
+	this.titre = "Résoudre un problème de proportionnalité à l'aide d'un graphique";
+	this.consigne = "";
 	
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -9617,27 +9617,39 @@ function Graphiques_et_proportionnalite() {
 		
 		type_de_questions_disponibles=[1];			
 
-		let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		//let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
-      let a = randint(-3,3);
-      let b = randint(-5,5);
-      let f = (x) => a*x+b;
+      //let a = randint(-3,3);
+      //let b = randint(-5,5);      
+      let r;
       // on finit les appels
-      let mesAppels = [
-        repere(),
-        f,
-        courbe(f)   
+      let mesAppels = [        
+        r = repere({
+          xmin: 0,
+          ymin: 0,
+          ymax: 20,
+          xmax: 10,
+          xscale: 1,
+          yscale:2,
+          legendeX: "poids en kg",
+          legendeY: "prix en €",
+          grilleSecondaireVisible: true,
+          grilleSecondaireDistance : 0.2,
+          positionLegendeY:[0.3,20+0.4]
+        }),
       ];
+      let f = x => calcul(1.6*x/r.yscale);
+      mesAppels.push(f,courbe(f,0,10,'blue',1.5));
       // on prépare l'objet polygone
       let  fig = mathalea2d(
           {
-          xmin : -7,
-          ymin : -5,
-          xmax : 7,
-          ymax : 5,
-          pixelsParCm : 20
+          xmin : -1,
+          ymin : -2,
+          xmax : 13,
+          ymax : 11,
+          pixelsParCm : 40
           },
           mesAppels          
       );      
@@ -9652,7 +9664,8 @@ function Graphiques_et_proportionnalite() {
 			})
 			switch (liste_type_de_questions[i]){
 				case 1 : 
-					texte = `${enonces[0].enonce}`;
+          //texte = `${enonces[0].enonce}`;
+          texte = `${fig}`;
 					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
