@@ -2649,7 +2649,44 @@ function afficheMesureAngle(A, B, C, color = "black", distance = 1.5) {
   let mesureAngle = arrondi_virgule(angle(A, C, B), 0) + "°";
   return texteParPoint(mesureAngle, M, "milieu", color);
 }
+/**
+ * macote=afficheCoteSegment(s,'x',-1,'red',2) affiche une côte sur une flèche rouge d'epaisseur 2 placée 1cm sous le segment s avec le texte 'x' écrit en noir (par defaut) 0,5cm au-dessus (par defaut) 
+ * @Auteur Jean-Claude Lhote
+ */
+function AfficheCoteSegment(s,Cote='',positionCote=0.5,couleurCote='black',epaisseurCote=1,positionValeur=0.5,couleurValeur='black'){
+  // let longueur=s.longueur
+  ObjetMathalea2D.call(this)
+  let objets=[]
+  let valeur
+  let A=s.extremite1
+  let B=s.extremite2
+  let v=similitude(vecteur(A,B),A,90,positionCote/s.longueur)
+  let cote=segment(translation(A,v),translation(B,v))
+  cote.styleExtremites='<->'
+  cote.epaisseur=epaisseurCote
+  if(Cote=='') valeur=afficheLongueurSegment(cote.extremite1,cote.extremite2,couleurValeur,positionValeur)
+  else valeur=texteSurSegment(Cote,cote.extremite1,cote.extremite2,couleurValeur,positionValeur)
+  objets.push(cote)
+  objets.push(valeur)
+  this.svg = function (coeff) {
+    code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
 
+}
+function afficheCoteSegment(...args){
+  return new afficheCoteSegment(...args)
+}
 /**
  * codeSegment(A,B,'×','blue') // Code le segment [AB] avec une croix bleue
  * Attention le premier argument ne peut pas être un segment
