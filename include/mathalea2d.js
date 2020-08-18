@@ -1418,7 +1418,7 @@ function triangle2points1angle1longueurOppose(A, B, a, l, n = 1) {
  * @Auteur Jean-Claude Lhote
  */
 function NommePolygone(p, nom = "", k = 0.5) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this);
   let G = barycentre(p);
   let V,
     v,
@@ -1446,8 +1446,8 @@ function NommePolygone(p, nom = "", k = 0.5) {
   };
 }
 
-function nommePolygone(...args){
-  return new NommePolygone(...args)
+function nommePolygone(...args) {
+  return new NommePolygone(...args);
 }
 
 /**
@@ -2700,24 +2700,45 @@ function afficheMesureAngle(A, B, C, color = "black", distance = 1.5) {
   return texteParPoint(mesureAngle, M, "milieu", color);
 }
 /**
- * macote=afficheCoteSegment(s,'x',-1,'red',2) affiche une côte sur une flèche rouge d'epaisseur 2 placée 1cm sous le segment s avec le texte 'x' écrit en noir (par defaut) 0,5cm au-dessus (par defaut) 
+ * macote=afficheCoteSegment(s,'x',-1,'red',2) affiche une côte sur une flèche rouge d'epaisseur 2 placée 1cm sous le segment s avec le texte 'x' écrit en noir (par defaut) 0,5cm au-dessus (par defaut)
  * @Auteur Jean-Claude Lhote
  */
-function AfficheCoteSegment(s,Cote='',positionCote=0.5,couleurCote='black',epaisseurCote=1,positionValeur=0.5,couleurValeur='black'){
+function AfficheCoteSegment(
+  s,
+  Cote = "",
+  positionCote = 0.5,
+  couleurCote = "black",
+  epaisseurCote = 1,
+  positionValeur = 0.5,
+  couleurValeur = "black"
+) {
   // let longueur=s.longueur
-  ObjetMathalea2D.call(this)
-  let objets=[]
-  let valeur
-  let A=s.extremite1
-  let B=s.extremite2
-  let v=similitude(vecteur(A,B),A,90,positionCote/s.longueur)
-  let cote=segment(translation(A,v),translation(B,v),couleurCote)
-  cote.styleExtremites='<->'
-  cote.epaisseur=epaisseurCote
-  if(Cote=='') valeur=afficheLongueurSegment(cote.extremite1,cote.extremite2,couleurValeur,positionValeur)
-  else valeur=texteSurSegment(Cote,cote.extremite1,cote.extremite2,couleurValeur,positionValeur)
-  objets.push(cote)
-  objets.push(valeur)
+  ObjetMathalea2D.call(this);
+  let objets = [];
+  let valeur;
+  let A = s.extremite1;
+  let B = s.extremite2;
+  let v = similitude(vecteur(A, B), A, 90, positionCote / s.longueur);
+  let cote = segment(translation(A, v), translation(B, v), couleurCote);
+  cote.styleExtremites = "<->";
+  cote.epaisseur = epaisseurCote;
+  if (Cote == "")
+    valeur = afficheLongueurSegment(
+      cote.extremite1,
+      cote.extremite2,
+      couleurValeur,
+      positionValeur
+    );
+  else
+    valeur = texteSurSegment(
+      Cote,
+      cote.extremite1,
+      cote.extremite2,
+      couleurValeur,
+      positionValeur
+    );
+  objets.push(cote);
+  objets.push(valeur);
   this.svg = function (coeff) {
     code = "";
     for (objet of objets) {
@@ -2732,10 +2753,9 @@ function AfficheCoteSegment(s,Cote='',positionCote=0.5,couleurCote='black',epais
     }
     return code;
   };
-
 }
-function afficheCoteSegment(...args){
-  return new AfficheCoteSegment(...args)
+function afficheCoteSegment(...args) {
+  return new AfficheCoteSegment(...args);
 }
 /**
  * codeSegment(A,B,'×','blue') // Code le segment [AB] avec une croix bleue
@@ -3358,6 +3378,57 @@ function courbe(
   let p = polyline([...points], this.color);
   p.epaisseur = epaisseur;
   return p;
+}
+
+/**
+ * @SOURCE : https://gist.github.com/ericelliott/80905b159e1f3b28634ce0a690682957
+ */
+// y1: start value
+// y2: end value
+// mu: the current frame of the interpolation,
+//     in a linear range from 0-1.
+const cosineInterpolate = (y1, y2, mu) => {
+  const mu2 = (1 - Math.cos(mu * Math.PI)) / 2;
+  return y1 * (1 - mu2) + y2 * mu2;
+};
+
+function CourbeInterpolee(tableau, color = "black", epaisseur = 2, r = [1, 1]) {
+  mesCourbes = [];
+  for (let i = 0; i < tableau.length - 1; i++) {
+    let x0 = tableau[i][0];
+    let y0 = tableau[i][1];
+    let x1 = tableau[i + 1][0];
+    let y1 = tableau[i + 1][1];
+    let f = (x) => cosineInterpolate(y0, y1, calcul((x - x0) / (x1 - x0)));
+    let c = courbe(f, x0, x1, color, epaisseur, r);
+    mesCourbes.push(c);
+    this.svg = function (coeff) {
+      code = "";
+      for (objet of mesCourbes) {
+        code += "\n\t" + objet.svg(coeff);
+      }
+      return code;
+    };
+    this.tikz = function () {
+      code = "";
+      for (objet of mesCourbes) {
+        code += "\n\t" + objet.tikz();
+      }
+      return code;
+    };
+  }
+}
+/**
+ *
+ * @param {array} tableau de coordonnées [x,y]
+ * @param {string} couleur
+ * @param {number} epaisseur
+ * @param {objet} repere (ou tableau [xscale,yscale])
+ *
+ * @auteur Rémi Angot
+ */
+function courbeInterpolee(...args) {
+  return new CourbeInterpolee(...args);
 }
 
 /*
