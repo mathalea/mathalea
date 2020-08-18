@@ -9589,7 +9589,7 @@ function Graphiques_et_proportionnalite() {
 	this.beta = true;	
 	this.sup=1;
 	if (this.beta) {
-		this.nb_questions = 1;
+		this.nb_questions = 2;
 	} else {
 		this.nb_questions = 1;
 	};	
@@ -9621,42 +9621,50 @@ function Graphiques_et_proportionnalite() {
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
-      //let a = randint(-3,3);
-      //let b = randint(-5,5);      
+      // on prévoit un tableau avec des situations
+      let situations = [
+        {lieu:`l'épicerie`,prenom:prenom(),fruits:'oranges',prix_unitaire:1.6,qte_max:10,qte2:3,legendeX:"poids en kg",legendeY:"prix en €",fig:{}},
+        {lieu:`la boulangerie`,prenom:prenom(),fruits:'baguettes',prix_unitaire:0.7,qte_max:10,qte2:3,legendeX:"quantité",legendeY:"prix en €",fig:{}}
+      ]
+      // on en choisit une
+      let situation = situations[randint(0,situations.length-1)];    
       let r;
+      let xscale=1;
+      let yscale=2;
       // on finit les appels
       let mesAppels = [        
         r = repere({
           xmin: 0,
           ymin: 0,
-          ymax: 20,
-          xmax: 10,
-          xscale: 1,
-          yscale:2,
-          legendeX: "poids en kg",
-          legendeY: "prix en €",
+          ymax: situation.qte_max*situation.prix_unitaire+4,
+          xmax: situation.qte_max,
+          xscale: xscale,
+          yscale:yscale,
+          legendeX: situation.legendeX,
+          legendeY: situation.legendeY,
           grilleSecondaireVisible: true,
           grilleSecondaireDistance : 0.2,
-          positionLegendeY:[0.3,20+0.4]
+          positionLegendeY:[0.3,situation.qte_max*situation.prix_unitaire+4+0.4]
         }),
       ];
-      let f = x => calcul(1.6*x/r.yscale);
-      mesAppels.push(f,courbe(f,0,10,'blue',1.5));
+      let f = x => calcul(situation.prix_unitaire*x);
+      mesAppels.push(f,courbe(f,0,situation.qte_max,'blue',1.5,r));
       // on prépare l'objet polygone
       let  fig = mathalea2d(
           {
-          xmin : -1,
-          ymin : -2,
-          xmax : 13,
-          ymax : 11,
+          xmin : -xscale,
+          ymin : -yscale,
+          xmax : situation.qte_max/xscale+3,
+          ymax : (situation.qte_max*situation.prix_unitaire+4)/2+1,
           pixelsParCm : 40
           },
           mesAppels          
-      );      
+      );
+      situation.fig = fig;      
       
 			let enonces = [];
 			enonces.push({
-				enonce:`bla bla bla <br> <br> ${fig}`,
+				enonce:` À ${situation.lieu}, ${situation.prenom} ...<br> <br> ${situation.fig}`,
 				question:``,
         correction:`Correction
         <br>${texte_en_couleur(`Conclusion`)}
@@ -9664,8 +9672,8 @@ function Graphiques_et_proportionnalite() {
 			})
 			switch (liste_type_de_questions[i]){
 				case 1 : 
-          //texte = `${enonces[0].enonce}`;
-          texte = `${fig}`;
+          texte = `${enonces[0].enonce}`;
+          //texte = `${fig}`;
 					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
