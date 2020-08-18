@@ -2661,7 +2661,7 @@ function AfficheCoteSegment(s,Cote='',positionCote=0.5,couleurCote='black',epais
   let A=s.extremite1
   let B=s.extremite2
   let v=similitude(vecteur(A,B),A,90,positionCote/s.longueur)
-  let cote=segment(translation(A,v),translation(B,v))
+  let cote=segment(translation(A,v),translation(B,v),couleurCote)
   cote.styleExtremites='<->'
   cote.epaisseur=epaisseurCote
   if(Cote=='') valeur=afficheLongueurSegment(cote.extremite1,cote.extremite2,couleurValeur,positionValeur)
@@ -2685,7 +2685,7 @@ function AfficheCoteSegment(s,Cote='',positionCote=0.5,couleurCote='black',epais
 
 }
 function afficheCoteSegment(...args){
-  return new afficheCoteSegment(...args)
+  return new AfficheCoteSegment(...args)
 }
 /**
  * codeSegment(A,B,'×','blue') // Code le segment [AB] avec une croix bleue
