@@ -2713,32 +2713,20 @@ function AfficheCoteSegment(
   couleurValeur = "black"
 ) {
   // let longueur=s.longueur
-  ObjetMathalea2D.call(this);
-  let objets = [];
-  let valeur;
-  let A = s.extremite1;
-  let B = s.extremite2;
-  let v = similitude(vecteur(A, B), A, 90, positionCote / s.longueur);
-  let cote = segment(translation(A, v), translation(B, v), couleurCote);
-  cote.styleExtremites = "<->";
-  cote.epaisseur = epaisseurCote;
-  if (Cote == "")
-    valeur = afficheLongueurSegment(
-      cote.extremite1,
-      cote.extremite2,
-      couleurValeur,
-      positionValeur
-    );
-  else
-    valeur = texteSurSegment(
-      Cote,
-      cote.extremite1,
-      cote.extremite2,
-      couleurValeur,
-      positionValeur
-    );
-  objets.push(cote);
-  objets.push(valeur);
+  ObjetMathalea2D.call(this)
+  let objets=[]
+  let valeur
+  let A=s.extremite1
+  let B=s.extremite2
+  let v=similitude(vecteur(A,B),A,90,positionCote/s.longueur)
+  let cote=segment(translation(A,v),translation(B,v),couleurCote)
+  if (longueur(A,B)>1)  cote.styleExtremites='<->'
+  else cote.styleExtremites='>-<'
+  cote.epaisseur=epaisseurCote
+  if(Cote=='') valeur=afficheLongueurSegment(cote.extremite1,cote.extremite2,couleurValeur,positionValeur)
+  else valeur=texteSurSegment(Cote,cote.extremite1,cote.extremite2,couleurValeur,positionValeur)
+  objets.push(cote)
+  objets.push(valeur)
   this.svg = function (coeff) {
     code = "";
     for (objet of objets) {
