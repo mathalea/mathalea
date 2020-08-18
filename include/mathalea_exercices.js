@@ -97,7 +97,8 @@ var liste_des_exercices_disponibles = {
 		'5C12-1' : Traduire_une_phrase_par_une_expression_et_calculer,
 		'5G10' : Symetrie_axiale_5e,
 		'5G11' : Transformations_5e,
-		'5G12' : Pavages_et_demi_tour,
+    '5G12' : Pavages_et_demi_tour,
+    'beta5G10-1' : Construire_par_Symetrie,
 		//'beta5G2' : Constructibilite_des_triangles,// pour développer l'exercice global
 		//'beta5G21-1' : Constructibilite_des_triangles_longueurs,// pour développer l'exercice global		
 		'5G21-1' : Constructibilite_des_triangles_longueurs,		

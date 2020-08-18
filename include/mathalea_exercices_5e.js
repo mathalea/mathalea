@@ -5793,12 +5793,13 @@ function Construire_par_Symetrie() {
   
 	  let A,
 		B,
-		C,
-		D,
+		C,CC,cC,sC,sCF,
+		D,DD,cD,sD,sDE,
 		xE,
-		E,
-		F,
+		E,EE,cE,sE,sED,
+		F,FF,cF,sF,sFC,
 		d,
+		dB,
 		enonce,
 		correction,
 		g,
@@ -5831,27 +5832,51 @@ function Construire_par_Symetrie() {
 		}
 		switch (liste_type_de_questions[i]) {
 		  case 1:
-			A = point(0, 0, "A",'above left');
-			B = point(10, randint(-4, 4, [-1, 0, 1]), "B",'above right');
+			A = point(0, randint(-1,1), "A",'above left');
+			B = point(6, randint(-1,1,A.y), "B",'above left');
 			d = droite(A, B);
 			d.isVisible = true;
 			C = point(randint(2, 3), randint(3, 4), "C",'above left');
-			D = point(randint(7, 8), randint(-7, -6), "D");
+			D = point(randint(10, 13), randint(-4, -3), "D",'above right');
 			dB = droiteParPointEtPerpendiculaire(B, d);
-			xE = 11;
-			E = pointSurDroite(dB, 11, "E", "left");
+			xE = 7;
+			E = pointSurDroite(dB, xE, "E", "above left");
 			while (!Number.isInteger(E.y)) {
 			  xE++;
-			  E = pointSurDroite(dB, xE, "E", "left");
+			  E = pointSurDroite(dB, xE, "E", "above left");
 			}
-			F = point(E.x, B.y);
-			objets_correction.push(d,g,carreaux,tracePoint(A, B, C, D, E),labelPoint(A, B, C, D, E))
-			objets_enonce.push(tracePoint(A, B, C, D),labelPoint(A, B, C, D),d,g,carreaux);
+			F = point(E.x+1,5-B.y,'F','above left');
+			CC=symetrieAxiale(C,d,'C\'','below left')
+			DD=symetrieAxiale(D,d,'D\'','below left')
+			EE=symetrieAxiale(E,d,'E\'','below left')
+			FF=symetrieAxiale(F,d,'F\'','below left')
+			cC=codageMediatrice(C,CC,'red','|')
+			cD=codageMediatrice(D,DD,'blue','||')
+			cE=codageMediatrice(E,EE,'green','O')
+			cF=codageMediatrice(F,FF,'purple','V')
+			sC=segment(C,CC)
+			sD=segment(D,DD)
+			sE=segment(E,EE)
+			sF=segment(F,FF)
+			sCF=segment(C,FF,'gray')
+			sCF.pointilles=true
+			sED=segment(EE,D,'gray')
+			sED.pointilles=true
+			sDE=segment(DD,E,'gray')
+			sDE.pointilles=true
+			sFC=segment(CC,F,'gray')
+			sFC.pointilles=true
+
+
+
+			objets_correction.push(d,g,carreaux,tracePoint(A, B, C, D, E,F,CC,DD,EE,FF),labelPoint(A, B, C, D, E,F,CC,DD,EE,FF),cC,cD,cE,cF,sC,sD,sE,sF,sCF,sFC,sED,sDE)
+			objets_enonce.push(tracePoint(A, B, C, D,E,F),g,labelPoint(A, B, C, D,E,F),d,carreaux);
 			enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
-			enonce += num_alpha(1)+`Tracer la droite perpendiculaires à $(AB)$ passant par $B$.<br>`
-			enonce += num_alpha(2)+`Tracer la droite perpendiculaires à $(AB)$ passant par $C$ et nommer $M$ le point d'intersection de cette droite avec la droite $(AB)$.<br>`;
-			enonce += num_alpha(3)+`Tracer la droite perpendiculaires à $(AB)$ passant par $D$ et nommer $N$ le point d'intersection de cette droite avec la droite $(AB)$.<br>`;
-			enonce += num_alpha(4)+`Mesurer ensuite la distance $AM$ et $AN$.<br> Pour l'auto-correction comparer ces mesures avec celles données dans la correction<br>`;
+			enonce += num_alpha(1)+`Construire le point $C\'$ symétrique de $C$ par rapport à la droite $(AB)$.<br>`
+			enonce += num_alpha(2)+`Construire le point $D\'$ symétrique de $D$ par rapport à la droite $(AB)$.<br>`
+			enonce += num_alpha(3)+`Construire le point $E\'$ symétrique de $E$ par rapport à la droite $(AB)$.<br>`
+			enonce += num_alpha(4)+`Construire le point $F\'$ symétrique de $E$ par rapport à la droite $(AB)$.<br>`
+			enonce += num_alpha(5)+`Coder la figure.<br>`;
 			enonce += mathalea2d( params
 			  ,
 			  objets_enonce
@@ -5860,10 +5885,7 @@ function Construire_par_Symetrie() {
 			  params,
 			 objets_correction
 			);
-			correction += `<br>$AM \\approx ${tex_nombre(
-			  lC
-			)}$ cm et $AN \\approx ${tex_nombre(lD)}$ cm.<br>`;
-			correction += `Pour la perpendiculaire en $B$, contrôle la position du point $E$.<br>`;
+			correction+=`<br>Contrôler la figure en vérifiant que les segments en poinbtillés se coupent bien sur la droite $(AB)$`
 			break;
 		  case 2:
 			A = point(2, 0, "A",'above left');
@@ -5909,14 +5931,6 @@ function Construire_par_Symetrie() {
 			  },
 			  objets_correction
 			);
-			correction += `<br>$AM \\approx ${tex_nombre(
-			  lC
-			)}$ cm, $AN \\approx ${tex_nombre(
-			  lD
-			)}$ cm et $AO \\approx${tex_nombre(
-			  lE
-			)}$.<br>`;
-  
 			break;
 		}
   
