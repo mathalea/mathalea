@@ -4200,7 +4200,7 @@ function Calculer_une_expression_litteraleBis() {
 					if (this.beta) {
 						texte += `<br><br>`;
 						texte += `Pour fixer les idées, choissions des valeurs pour $x$ et $y$, par exemple $x=${val1}$ et $y=${val2}$<br>`
-						texte += `Le calcul serait le suivant : ${expc}.<br>`;
+						texte += `Le calcul serait le suivant :<br> ${expc}.<br>`;
 						texte += `Pour n'importe quelles valeurs de $x$ et de $y$ choisies, les étapes sont les mêmes, elles respectent les priorités opératoires.<br>`
 						texte += texte_en_couleur(`La dernière opération dans ${expn} est donc une ${last_op}`);
 						texte_corr = ``;	
