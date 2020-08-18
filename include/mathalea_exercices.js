@@ -87,7 +87,7 @@ var liste_des_exercices_disponibles = {
 		'6N43-2' : Tableau_criteres_de_divisibilite,
 		'6P10' : Proportionnalite_pas_proportionnalite,
     '6P11' : Proportionnalite_par_linearite,
-    //'beta6P11-1' : Proportionnalite_par_linearite_bis,
+    'beta6P11-1' : Proportionnalite_par_linearite_bis,
 		'5A10' : Liste_des_diviseurs_5e,
 		'5A11' : Premier_ou_pas_5e,
 		'5A13': Exercice_decomposer_en_facteurs_premiers,
@@ -11829,6 +11829,135 @@ function Parallele_et_Perpendiculaires() {
     3,
     `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`,
   ];
+}
+
+
+/**
+ * Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue
+ * * 6P11-1
+ * @author Sébastien Lozano
+ */
+function Proportionnalite_par_linearite_bis(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.beta = true;	
+	this.sup=1;
+	if (this.beta) {
+		this.nb_questions = 3;
+	} else {
+		this.nb_questions = 3;
+	};	
+
+	this.titre = "Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité.";
+	this.consigne = "";
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	//this.nb_questions_modifiable = false;
+	//sortie_html? this.spacing = 3 : this.spacing = 2; 
+	//sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
+
+	let type_de_questions_disponibles;	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		if (this.beta) {
+			type_de_questions_disponibles = [1];			
+		} else {
+			type_de_questions_disponibles = [1];			
+		};
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		type_de_questions_disponibles=[1];			
+		let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		//let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+			
+			// une fonction pour gérer le pluriel 
+			function pluriel(n,obj) {
+				if (n>1) {
+					return obj.achat_plur
+				} else {
+					return obj.achat_sing
+				};
+			};
+			
+			// une fonction pour gérer la chaine de sortie et supprimer le coeff 1 !
+			function sliceUn(n) {
+				if (n==1) {
+					return ``;
+				} else {
+					return `${n}`;
+				};
+      };
+      
+      //une fonction pour calculer la différence positive entre deux entiers
+      function diffInt(n,p) {
+        if (n>p) {
+          return calcul(n-p);
+        } else if (n<p) {
+          return calcul(p-n);
+        } else {
+          return 0;
+        }
+      };
+      // un compteur pour les sous-questions
+      let k=0;
+      let k_corr=0;
+      // on crée un tableau d'objets pour les situations possibles	
+      let n1 = randint(1,9),
+      n2 = randint(1,9,[n1]),
+      n3 = n1+n2,
+      n4 = diffInt(n1,n2),
+      n_max=randint(10,19,[n3]);		
+			let situations = [
+        {lieu:`la boulangerie "Au bon pain"`,achat_sing:`pain au chocolat`,achat_plur:`pains au chocolat`,prenom1:prenom(),prenom2:prenom(),prenom3:prenom(),prenom4:prenom(),prenom_max:prenom(),n1:n1,n2:n2,n3:n3,n4:n4,n_max:n_max,pu:0.9,pu_string:`0,90 €`}
+			]
+			let enonces = [];
+      let situation = situations[randint(0,situations.length-1)];
+      console.log(situation)
+			enonces.push({
+        enonce:`
+          Dans ${situation.lieu}, ${situation.prenom1} achète $${situation.n1}$ ${pluriel(situation.n1,situation)} et paie $${tex_prix(situation.pu*situation.n1)} €$.
+          <br>${situation.prenom2} achète ${situation.n2} ${pluriel(situation.n2,situation)} et paie ${tex_prix(situation.pu*situation.n2)} €.
+          <br>${num_alpha(k++)} Combien paiera ${situation.prenom3} pour ${situation.n3} ${pluriel(situation.n3,situation)} ?
+          <br>${num_alpha(k++)} Combien paiera ${situation.prenom4} pour ${situation.n4} ${pluriel(situation.n4,situation)} ?
+          <br>${num_alpha(k++)} Quel est le nombre maximum de ${situation.achat_plur} que ${situation.prenom_max} pourra acheter avec ${tex_prix(situation.pu*situation.n_max)} € ?
+          `,
+				question:``,
+        correction:`
+        C'est une situation de proportionnalité. Ici, nous allons utiliser les propriétés de linéarité de la proportionnalité. Inutile de calculer d'emblée le prix unitaire.
+        <br>${num_alpha(k_corr++)} Pour ${situation.n1} ${pluriel(situation.n1,situation)}, on paie ${tex_prix(situation.pu*situation.n1)} €.
+        <br> Pour ${situation.n2} ${pluriel(situation.n2,situation)}, on paie ${tex_prix(situation.pu*situation.n2)} €.
+        <br> Donc pour ${situation.n1}+${situation.n2} ${pluriel(situation.n1,situation)}, on paie ${tex_prix(situation.pu*situation.n1)} €
+        `
+			})
+			switch (liste_type_de_questions[i]){
+				case 1 : 
+					texte = `${enonces[0].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> ${enonces[0].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[0].correction}`;
+					};
+					break;				
+			}
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 }
 
 /**
