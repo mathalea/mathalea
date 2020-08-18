@@ -2680,7 +2680,8 @@ function AfficheCoteSegment(s,Cote='',positionCote=0.5,couleurCote='black',epais
   let B=s.extremite2
   let v=similitude(vecteur(A,B),A,90,positionCote/s.longueur)
   let cote=segment(translation(A,v),translation(B,v),couleurCote)
-  cote.styleExtremites='<->'
+  if (longueur(A,B)>1)  cote.styleExtremites='<->'
+  else cote.styleExtremites='>-<'
   cote.epaisseur=epaisseurCote
   if(Cote=='') valeur=afficheLongueurSegment(cote.extremite1,cote.extremite2,couleurValeur,positionValeur)
   else valeur=texteSurSegment(Cote,cote.extremite1,cote.extremite2,couleurValeur,positionValeur)

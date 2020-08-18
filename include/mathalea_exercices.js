@@ -11663,7 +11663,7 @@ function Parallele_et_Perpendiculaires() {
           B = point(10, randint(-4, 4, [-1, 0, 1]), "B");
           d = droite(A, B);
           d.isVisible = true;
-          C = point(randint(1, 2), randint(3, 4), "C");
+          C = point(randint(2, 3), randint(3, 4), "C");
           D = point(randint(7, 8), randint(-7, -6), "D");
           dB = droiteParPointEtPerpendiculaire(B, d);
           xE = 11;
@@ -11689,7 +11689,7 @@ function Parallele_et_Perpendiculaires() {
           cB = codageAngleDroit(A, B, BB);
           cC = codageAngleDroit(C, CC, B);
           cD = codageAngleDroit(D, DD, B);
-          objets_correction.push(s1,s2,dC,dD,dB,cB,cC,cD,d,g,carreaux,tracePoint(A, B, C, D, E,CC,DD),labelPoint(A, B, C, D, E,CC,DD),afficheCoteSegment(segment(A,CC),'',-0.5,'red',1,-0.5,'red'),afficheCoteSegment(segment(A,DD),'',0.5,'red',1,0.5,'red'))
+          objets_correction.push(s1,s2,dC,dD,dB,cB,cC,cD,d,g,carreaux,tracePoint(A, B, C, D, E,CC,DD),labelPoint(A, B, C, D, E,CC,DD),afficheCoteSegment(segment(A,CC),'',0.5,'red',1,0.5,'red'),afficheCoteSegment(segment(A,DD),'',-0.5,'red',1,-0.5,'red'))
           objets_enonce.push(tracePoint(A, B, C, D),labelPoint(A, B, C, D),d,g,carreaux);
           enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
           enonce += num_alpha(1)+`Tracer la droite perpendiculaires à $(AB)$ passant par $B$.<br>`
