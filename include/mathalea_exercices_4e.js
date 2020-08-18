@@ -8454,8 +8454,8 @@ function Exploiter_representation_graphique() {
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let type_de_probleme = "temperature";
-    let a, b, c, d, f, t1, t2, l1, l2, l3, g1, g2, graphique, texte1, texte2;
+    let type_de_probleme = choice(["temperature","projectile",]);
+    let a, b, c, d, f, t1, t2, l1, l2, l3, g1, g2, r, graphique, texte1, texte2;
     switch (type_de_probleme) {
       case "projectile":
         // Parabole qui a pour zéro, 0 et 6,8 ou 10
@@ -8528,45 +8528,28 @@ function Exploiter_representation_graphique() {
 
         break;
       case "temperature":
-        let x1 = 4;
-        let x2 = choice([12, 14, 16]);
-        let x3 = choice([16, 18, 20, 22]);
-        let fx1 = randint(-3, -1);
-        let fx2 = randint(4, 7);
-        let fx3 = randint(-1, 3);
-        d = randint(1, 3);
-        c = randint(-5, 5);
-        let numa, dena, numb, denb, numc, denc;
-
-        [[numa, dena], [numb, denb], [numc, denc]] = resol_sys_lineaire_3x3(
-          x1,
-          x2,
-          x3,
-          fx1,
-          fx2,
-          fx3,
-          d
+        r = repere({
+          xmin: 0,
+          ymin: -5,
+          ymax: 10,
+          xmax: 24,
+          xscale: 2,
+          legendeX: "Heure",
+          legendeY: "Température (en °C)",
+        });
+        graphique = courbeInterpolee(
+          [
+            [-2, 1],
+            [4, -5],
+            [16, 6],
+            [26, 1],
+          ],
+          "blue",
+          2,
+          r,
+          0,
+          24
         );
-
-        a = numa / dena;
-        b = numb / denb;
-        c = numc / denc;
-
-        f = (x) => a * x ** 3 + b * x ** 2 + c * x + d;
-
-        console.log(cherche_min_max_f([a, b, c, d]));
-
-        g1 = grille(-1, -3, 12, 8);
-        g1.color = "black";
-        g1.opacite = 1;
-        g2 = grille(-1, -3, 12, 8, "gray", 0.2, 0.2);
-        g3 = axes(0, -3, 12, 8);
-        texte1 = texteParPosition("température (en °C)", 0.2, 7.3, "droite");
-        l1 = labelX(1, 12, 1, "black", -0.6, 2);
-        l2 = labelY(1, 7, 1, "black", -0.6, 1);
-        l3 = labelY(-3, 1, 1, "black", -0.6, 1);
-        graphique = courbe(f, 0, 24, "blue", 2, 0.1, 2, 1);
-        texte2 = texteParPosition("temps (en h)", 12.5, 0.4, "droite");
         this.introduction =
           "On a représenté ci-dessous l’évolution de la température sur une journée.";
         this.introduction +=
@@ -8574,13 +8557,13 @@ function Exploiter_representation_graphique() {
           mathalea2d(
             {
               xmin: -1,
-              ymin: -4,
+              ymin: -6,
               xmax: 16,
-              ymax: 8,
+              ymax: 12,
               pixelsParCm: 40,
             },
-            monRepere,
-            graphique,
+            r,
+            graphique
           );
 
         this.introduction +=
@@ -9310,11 +9293,11 @@ function Tester_si_un_nombre_est_solution_d_une_equation() {
  * * adaptation de l'exo 5L14 de Rémi Angot
  * @author Sébastien Lozano
  */
-function Tester_si_un_nombre_est_solution_d_une_equation_deg1(){
-	this.exo='4L14-1';	
-	Tester_si_un_nombre_est_solution_d_une_equation.call(this);	
-	this.titre = `Tester si un nombre est solution d'une équation du premier degré`;
-};
+function Tester_si_un_nombre_est_solution_d_une_equation_deg1() {
+  this.exo = "4L14-1";
+  Tester_si_un_nombre_est_solution_d_une_equation.call(this);
+  this.titre = `Tester si un nombre est solution d'une équation du premier degré`;
+}
 
 /**
  * Tester si un nombre est solution d'une équation degré 2
@@ -9322,117 +9305,181 @@ function Tester_si_un_nombre_est_solution_d_une_equation_deg1(){
  * * adaptation de l'exo 5L14 de Rémi Angot
  * @author Sébastien Lozano
  */
-function Tester_si_un_nombre_est_solution_d_une_equation_deg2(){
-	this.exo='4L14-2';
-	Tester_si_un_nombre_est_solution_d_une_equation.call(this);
-	this.titre = `Tester si un nombre est solution d'une équation du second degré`;
-	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
-};
+function Tester_si_un_nombre_est_solution_d_une_equation_deg2() {
+  this.exo = "4L14-2";
+  Tester_si_un_nombre_est_solution_d_une_equation.call(this);
+  this.titre = `Tester si un nombre est solution d'une équation du second degré`;
+  //this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];
+}
 
 /**
  * Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue
  * * 4P20-0
  * @author Sébastien Lozano
  */
-function Forme_litterale_introduire_une_lettre(){
-	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
-	this.sup=1;
-	if (this.beta) {
-		this.nb_questions = 3;
-	} else {
-		this.nb_questions = 3;
-	};	
+function Forme_litterale_introduire_une_lettre() {
+  "use strict";
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.beta = true;
+  this.sup = 1;
+  if (this.beta) {
+    this.nb_questions = 3;
+  } else {
+    this.nb_questions = 3;
+  }
 
-	this.titre = "Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue";
-	this.consigne = "Exprimer le prix total de l'achat, en fonction des lettres introduites dans l'énoncé.";
-	
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	//this.nb_questions_modifiable = false;
-	//sortie_html? this.spacing = 3 : this.spacing = 2; 
-	//sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
+  this.titre =
+    "Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue";
+  this.consigne =
+    "Exprimer le prix total de l'achat, en fonction des lettres introduites dans l'énoncé.";
 
-	let type_de_questions_disponibles;	
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  //this.nb_questions_modifiable = false;
+  //sortie_html? this.spacing = 3 : this.spacing = 2;
+  //sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
 
-	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
-			type_de_questions_disponibles = [1];			
-		} else {
-			type_de_questions_disponibles = [1];			
-		};
+  let type_de_questions_disponibles;
 
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		type_de_questions_disponibles=[1];			
-		let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		//let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
-		
-		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
-			
-			// une fonction pour gérer le pluriel 
-			function pluriel(n,obj) {
-				if (n>1) {
-					return obj.plur
-				} else {
-					return obj.sing
-				};
-			};
-			
-			// une fonction pour gérer la chaine de sortie et supprimer le coeff 1 !
-			function sliceUn(n) {
-				if (n==1) {
-					return ``;
-				} else {
-					return `${n}`;
-				};
-			};
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    if (this.beta) {
+      type_de_questions_disponibles = [1];
+    } else {
+      type_de_questions_disponibles = [1];
+    }
 
-			// on definit un tableau de couples possibles
-			// par deux
-			let par_deux = [
-				{elt1:{lettre:'c',article:'un',sing:'crayon',plur:'crayons'},elt2:{lettre:'g',article:'une',sing:'gomme',plur:'gommes'}},
-				{elt1:{lettre:'r',article:'une',sing:'règle',plur:'règles'},elt2:{lettre:'e',article:'une',sing:'équerre',plur:'équerres'}},
-				{elt1:{lettre:'p',article:'une',sing:'poire',plur:'poires'},elt2:{lettre:'b',article:'une',sing:'banane',plur:'bananes'}},
-				{elt1:{lettre:'c',article:'un',sing:'couteau',plur:'couteaux'},elt2:{lettre:'f',article:'une',sing:'fourchette',plur:'fourchettes'}},
-				{elt1:{lettre:'m',article:'un',sing:'marteau',plur:'marteau'},elt2:{lettre:'e',article:'une',sing:'enclume',plur:'enclumes'}},
-			]
-			let enonces = [];
-			let n = randint(1,6);
-			let p = randint(1,6);
-			let objets = par_deux[randint(0,par_deux.length-1)];
-			enonces.push({
-				enonce:`${prenom()} veut acheter ${n} ${pluriel(n,objets.elt1)} et ${p} ${pluriel(n,objets.elt2)}.
-				<br>On note $${objets.elt1.lettre}$	le prix d'${objets.elt1.article} ${objets.elt1.sing} et $${objets.elt2.lettre}$	le prix d'${objets.elt2.article} ${objets.elt2.sing}.`,
-				question:``,
-				correction:`$${n}\\times ${objets.elt1.lettre} + ${p}\\times ${objets.elt2.lettre} = ${sliceUn(n)}${objets.elt1.lettre} + ${sliceUn(p)}${objets.elt2.lettre}$.`
-			})
-			switch (liste_type_de_questions[i]){
-				case 1 : 
-					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
-						texte += `<br>`;
-						texte += `<br> ${texte_en_couleur(enonces[0].correction)}`;
-						texte_corr = ``;	
-					} else {
-						texte_corr = `${ texte_en_couleur(enonces[0].correction)}`;
-					};
-					break;				
-			}
-			
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
-				i++;
-			}
-			cpt++;	
-		}
-		liste_de_question_to_contenu(this);
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    type_de_questions_disponibles = [1];
+    let liste_type_de_questions = combinaison_listes(
+      type_de_questions_disponibles,
+      this.nb_questions
+    ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    //let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
 
-	}
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+    for (
+      let i = 0, texte, texte_corr, cpt = 0;
+      i < this.nb_questions && cpt < 50;
+
+    ) {
+      // une fonction pour gérer le pluriel
+      function pluriel(n, obj) {
+        if (n > 1) {
+          return obj.plur;
+        } else {
+          return obj.sing;
+        }
+      }
+
+      // une fonction pour gérer la chaine de sortie et supprimer le coeff 1 !
+      function sliceUn(n) {
+        if (n == 1) {
+          return ``;
+        } else {
+          return `${n}`;
+        }
+      }
+
+      // on definit un tableau de couples possibles
+      // par deux
+      let par_deux = [
+        {
+          elt1: { lettre: "c", article: "un", sing: "crayon", plur: "crayons" },
+          elt2: { lettre: "g", article: "une", sing: "gomme", plur: "gommes" },
+        },
+        {
+          elt1: { lettre: "r", article: "une", sing: "règle", plur: "règles" },
+          elt2: {
+            lettre: "e",
+            article: "une",
+            sing: "équerre",
+            plur: "équerres",
+          },
+        },
+        {
+          elt1: { lettre: "p", article: "une", sing: "poire", plur: "poires" },
+          elt2: {
+            lettre: "b",
+            article: "une",
+            sing: "banane",
+            plur: "bananes",
+          },
+        },
+        {
+          elt1: {
+            lettre: "c",
+            article: "un",
+            sing: "couteau",
+            plur: "couteaux",
+          },
+          elt2: {
+            lettre: "f",
+            article: "une",
+            sing: "fourchette",
+            plur: "fourchettes",
+          },
+        },
+        {
+          elt1: {
+            lettre: "m",
+            article: "un",
+            sing: "marteau",
+            plur: "marteau",
+          },
+          elt2: {
+            lettre: "e",
+            article: "une",
+            sing: "enclume",
+            plur: "enclumes",
+          },
+        },
+      ];
+      let enonces = [];
+      let n = randint(1, 6);
+      let p = randint(1, 6);
+      let objets = par_deux[randint(0, par_deux.length - 1)];
+      enonces.push({
+        enonce: `${prenom()} veut acheter ${n} ${pluriel(
+          n,
+          objets.elt1
+        )} et ${p} ${pluriel(n, objets.elt2)}.
+				<br>On note $${objets.elt1.lettre}$	le prix d'${objets.elt1.article} ${
+          objets.elt1.sing
+        } et $${objets.elt2.lettre}$	le prix d'${objets.elt2.article} ${
+          objets.elt2.sing
+        }.`,
+        question: ``,
+        correction: `$${n}\\times ${objets.elt1.lettre} + ${p}\\times ${
+          objets.elt2.lettre
+        } = ${sliceUn(n)}${objets.elt1.lettre} + ${sliceUn(p)}${
+          objets.elt2.lettre
+        }$.`,
+      });
+      switch (liste_type_de_questions[i]) {
+        case 1:
+          texte = `${enonces[0].enonce}`;
+          if (this.beta) {
+            texte += `<br>`;
+            texte += `<br> ${texte_en_couleur(enonces[0].correction)}`;
+            texte_corr = ``;
+          } else {
+            texte_corr = `${texte_en_couleur(enonces[0].correction)}`;
+          }
+          break;
+      }
+
+      if (this.liste_questions.indexOf(texte) == -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
+        this.liste_questions.push(texte);
+        this.liste_corrections.push(texte_corr);
+        i++;
+      }
+      cpt++;
+    }
+    liste_de_question_to_contenu(this);
+  };
+  //this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+  //this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];
 }
 
 /**
@@ -9441,50 +9488,57 @@ function Forme_litterale_introduire_une_lettre(){
  * * 4L13-0
  * @author Sébastien Lozano
  */
-function Mettre_en_equation_sans_resoudre(){
-	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
-	this.sup=1;
-	if (this.beta) {
-		this.nb_questions = 9;
-	} else {
-		this.nb_questions = 9;
-	};	
+function Mettre_en_equation_sans_resoudre() {
+  "use strict";
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.beta = true;
+  this.sup = 1;
+  if (this.beta) {
+    this.nb_questions = 9;
+  } else {
+    this.nb_questions = 9;
+  }
 
-	this.titre = "Mettre en équation un problème sans objectif de résolution";
-	this.consigne = "On considère la figure suivante où l'unité est le mm.<br>Donner une équation qui permet de résoudre ce problème.<br>On ne demande pas de résoudre l'équation.";
-	
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	//this.nb_questions_modifiable = false;
-	//sortie_html? this.spacing = 3 : this.spacing = 2; 
-	//sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
+  this.titre = "Mettre en équation un problème sans objectif de résolution";
+  this.consigne =
+    "On considère la figure suivante où l'unité est le mm.<br>Donner une équation qui permet de résoudre ce problème.<br>On ne demande pas de résoudre l'équation.";
 
-	let type_de_questions_disponibles;	
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  //this.nb_questions_modifiable = false;
+  //sortie_html? this.spacing = 3 : this.spacing = 2;
+  //sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
 
-	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
-			type_de_questions_disponibles = [1];			
-		} else {
-			type_de_questions_disponibles = [1];			
-		};
+  let type_de_questions_disponibles;
 
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		
-		type_de_questions_disponibles=[1];			
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    if (this.beta) {
+      type_de_questions_disponibles = [1];
+    } else {
+      type_de_questions_disponibles = [1];
+    }
 
-		let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		//let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
-		
-		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
-			
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+
+    type_de_questions_disponibles = [1];
+
+    let liste_type_de_questions = combinaison_listes(
+      type_de_questions_disponibles,
+      this.nb_questions
+    ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    //let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus
+
+    for (
+      let i = 0, texte, texte_corr, cpt = 0;
+      i < this.nb_questions && cpt < 50;
+
+    ) {
       // une fonction pour dire le nom du polygone
       function myPolyName(n) {
         let sortie = {
-          name:``,
-          nameParSommets:``
+          name: ``,
+          nameParSommets: ``,
         };
         switch (n) {
           case 3:
@@ -9496,100 +9550,114 @@ function Mettre_en_equation_sans_resoudre(){
             sortie.nameParSommets = `ABCD`;
             break;
           case 5:
-            sortie.name = `pentagone régulier`
+            sortie.name = `pentagone régulier`;
             sortie.nameParSommets = `ABCDE`;
             break;
           case 6:
-              sortie.name = `hexagone régulier`
-              sortie.nameParSommets = `ABCDEF`;
-              break;
+            sortie.name = `hexagone régulier`;
+            sortie.nameParSommets = `ABCDEF`;
+            break;
           case 7:
-            sortie.name = `heptagone régulier`
+            sortie.name = `heptagone régulier`;
             sortie.nameParSommets = `ABCDEFG`;
             break;
           case 8:
-              sortie.name = `octogone régulier`
-              sortie.nameParSommets = `ABCDEFGH`;
-              break;
-        };
+            sortie.name = `octogone régulier`;
+            sortie.nameParSommets = `ABCDEFGH`;
+            break;
+        }
         return sortie;
-      };
+      }
 
-			// on choisit le nombre de côtés su polygone
-      let n = randint(3,8);
+      // on choisit le nombre de côtés su polygone
+      let n = randint(3, 8);
       //on choisit un nom pour la variable
-      let variables = ['x','y','z','t'];
-      let inc = variables[randint(0,variables.length-1)];
+      let variables = ["x", "y", "z", "t"];
+      let inc = variables[randint(0, variables.length - 1)];
       //on choisit une unité
-      let unites = ['mm','cm','dm','m','dam','hm','km'];
-      let unite = unites[randint(0,unites.length-1)];
+      let unites = ["mm", "cm", "dm", "m", "dam", "hm", "km"];
+      let unite = unites[randint(0, unites.length - 1)];
       //on prépare le polygone
-      let po=polygoneRegulierParCentreEtRayon(point(0,0),4,n);
-      po.opacite=0.5;
-      po.epaisseur=2;
+      let po = polygoneRegulierParCentreEtRayon(point(0, 0), 4, n);
+      po.opacite = 0.5;
+      po.epaisseur = 2;
       //on pépare la côte
-      let s=segment(po.listePoints[0],po.listePoints[1]);
-      s.styleExtremites=`<->`;      
+      let s = segment(po.listePoints[0], po.listePoints[1]);
+      s.styleExtremites = `<->`;
       // on finit les appels
       let mesAppels = [
-        po,       
-        codeSegments('X','blue',po.listePoints),        
-        afficheCoteSegment(s,`${inc}`,1,'red',2,0.5,'black')
+        po,
+        codeSegments("X", "blue", po.listePoints),
+        afficheCoteSegment(s, `${inc}`, 1, "red", 2, 0.5, "black"),
       ];
       // on prépare l'objet polygone
-			let polygone = {
-        nb_cotes:n,
-        unite:unite,
-        nom:myPolyName(n).name,
-        let_cote:inc,
-        perimetre:randint(200,500),
-        fig:mathalea2d(
+      let polygone = {
+        nb_cotes: n,
+        unite: unite,
+        nom: myPolyName(n).name,
+        let_cote: inc,
+        perimetre: randint(200, 500),
+        fig: mathalea2d(
           {
-          xmin : -5,
-          ymin : -5,
-          xmax : 5,
-          ymax : 5,
-          pixelsParCm : 20
+            xmin: -5,
+            ymin: -5,
+            xmax: 5,
+            ymax: 5,
+            pixelsParCm: 20,
           },
 
           mesAppels,
-          nommePolygone(po,myPolyName(n).nameParSommets)  
-        )};      
-      
-			let enonces = [];
-			enonces.push({
-				enonce:`${prenom()} se demande pour quelle valeur de ${polygone.let_cote}, exprimée en $${polygone.unite}$, le périmètre du ${polygone.nom} est égal à $${polygone.perimetre}$ $${polygone.unite}$ .<br> ${polygone.fig}`,
-				question:``,
-        correction:`La figure est un ${polygone.nom}, il a donc ${polygone.nb_cotes} côtés de même longueur.<br>
-        Cette longueur est notée $${polygone.let_cote}$, le périmètre de la figure, exprimé en fonction de $${polygone.let_cote}$, vaut donc $${polygone.nb_cotes}\\times ${polygone.let_cote}$.<br>
+          nommePolygone(po, myPolyName(n).nameParSommets)
+        ),
+      };
+
+      let enonces = [];
+      enonces.push({
+        enonce: `${prenom()} se demande pour quelle valeur de ${
+          polygone.let_cote
+        }, exprimée en $${polygone.unite}$, le périmètre du ${
+          polygone.nom
+        } est égal à $${polygone.perimetre}$ $${polygone.unite}$ .<br> ${
+          polygone.fig
+        }`,
+        question: ``,
+        correction: `La figure est un ${polygone.nom}, il a donc ${
+          polygone.nb_cotes
+        } côtés de même longueur.<br>
+        Cette longueur est notée $${
+          polygone.let_cote
+        }$, le périmètre de la figure, exprimé en fonction de $${
+          polygone.let_cote
+        }$, vaut donc $${polygone.nb_cotes}\\times ${polygone.let_cote}$.<br>
         D'après l'énoncé, ce périmètre vaut ${polygone.perimetre}.<br>
         L'équation suivante permet donc de résoudre le problème : <br>
-        ${texte_en_couleur(`$${polygone.nb_cotes}\\times ${polygone.let_cote} = ${polygone.perimetre}$.`)}`
-			})
-			switch (liste_type_de_questions[i]){
-				case 1 : 
-					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
-						texte += `<br>`;
-						texte += `<br> ${enonces[0].correction}`;
-						texte_corr = ``;	
-					} else {
-						texte_corr = `${enonces[0].correction}`;
-					};
-					break;				
-			}
-			
-			
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
-				i++;
-			}
-			cpt++;	
-		}
-		liste_de_question_to_contenu(this);
+        ${texte_en_couleur(
+          `$${polygone.nb_cotes}\\times ${polygone.let_cote} = ${polygone.perimetre}$.`
+        )}`,
+      });
+      switch (liste_type_de_questions[i]) {
+        case 1:
+          texte = `${enonces[0].enonce}`;
+          if (this.beta) {
+            texte += `<br>`;
+            texte += `<br> ${enonces[0].correction}`;
+            texte_corr = ``;
+          } else {
+            texte_corr = `${enonces[0].correction}`;
+          }
+          break;
+      }
 
-	}
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+      if (this.liste_questions.indexOf(texte) == -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
+        this.liste_questions.push(texte);
+        this.liste_corrections.push(texte_corr);
+        i++;
+      }
+      cpt++;
+    }
+    liste_de_question_to_contenu(this);
+  };
+  //this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+  //this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];
 }

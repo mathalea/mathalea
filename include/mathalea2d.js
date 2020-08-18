@@ -3380,7 +3380,8 @@ const cosineInterpolate = (y1, y2, mu) => {
   return y1 * (1 - mu2) + y2 * mu2;
 };
 
-function CourbeInterpolee(tableau, color = "black", epaisseur = 2, r = [1, 1]) {
+function CourbeInterpolee(tableau, color = "black", epaisseur = 2, r = [1, 1],xmin,xmax) {
+  ObjetMathalea2D.call(this)
   mesCourbes = [];
   for (let i = 0; i < tableau.length - 1; i++) {
     let x0 = tableau[i][0];
@@ -3388,7 +3389,10 @@ function CourbeInterpolee(tableau, color = "black", epaisseur = 2, r = [1, 1]) {
     let x1 = tableau[i + 1][0];
     let y1 = tableau[i + 1][1];
     let f = (x) => cosineInterpolate(y0, y1, calcul((x - x0) / (x1 - x0)));
-    let c = courbe(f, x0, x1, color, epaisseur, r);
+    let depart, fin
+    xmin>x0 ? depart = xmin : depart = x0
+    xmax<x1 ? fin = xmax : fin = x1
+    let c = courbe(f, depart, fin, color, epaisseur, r);
     mesCourbes.push(c);
     this.svg = function (coeff) {
       code = "";
@@ -3412,6 +3416,8 @@ function CourbeInterpolee(tableau, color = "black", epaisseur = 2, r = [1, 1]) {
  * @param {string} couleur
  * @param {number} epaisseur
  * @param {objet} repere (ou tableau [xscale,yscale])
+ * @param {number} xmin
+ * @param {number} xmax
  *
  * @auteur Rémi Angot
  */
