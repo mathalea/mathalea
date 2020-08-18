@@ -4087,7 +4087,7 @@ function Reduire_dinstinction_somme_produit() {
 				case 0:	// produit puis somme 				
 					texte =`${enonces[0].enonce}.`;
 					if (this.beta) {
-						texte += `<br><br>`;
+						texte += `<br><br>=====CORRECTION======<br>`;
 						texte += enonces[0].correction_produit;
 						texte += `<br>`;
 						texte += enonces[0].correction_somme;
@@ -4101,7 +4101,7 @@ function Reduire_dinstinction_somme_produit() {
 				case 1:	// x puis +				
 					texte =`${enonces[1].enonce}.`;
 					if (this.beta) {
-						texte += `<br><br>`;
+						texte += `<br><br>=====CORRECTION======<br>`;
 						texte += enonces[1].correction_produit;
 						texte += `<br>`;
 						texte += enonces[1].correction_somme;
@@ -4115,7 +4115,7 @@ function Reduire_dinstinction_somme_produit() {
 				case 2:	// somme puis produit				
 					texte =`${enonces[2].enonce}.`;
 					if (this.beta) {
-						texte += `<br><br>`;
+						texte += `<br><br>=====CORRECTION======<br>`;
 						texte += enonces[2].correction_somme;
 						texte += `<br>`;
 						texte += enonces[2].correction_produit;
@@ -4129,7 +4129,7 @@ function Reduire_dinstinction_somme_produit() {
 				case 3:	// + puis x				
 					texte =`${enonces[3].enonce}.`;
 					if (this.beta) {
-						texte += `<br><br>`;
+						texte += `<br><br>=====CORRECTION======<br>`;
 						texte += enonces[3].correction_somme;
 						texte += `<br>`;
 						texte += enonces[3].correction_produit;
@@ -4199,7 +4199,7 @@ function Calculer_une_expression_litteraleBis() {
 					this.consigne=`Déterminer la dernière opération à effectuer s'il fallait faire le calcul pour des valeurs données de $x$ et de $y$.`
 					texte =`${expn}.`
 					if (this.beta) {
-						texte += `<br><br>`;
+						texte += `<br><br>=====CORRECTION======<br>`;
 						texte += `Pour fixer les idées, choissions des valeurs pour $x$ et $y$, par exemple $x=${val1}$ et $y=${val2}$<br>`
 						texte += `Le calcul serait le suivant :<br> ${expc}.<br>`;
 						texte += `Pour n'importe quelles valeurs de $x$ et de $y$ choisies, les étapes sont les mêmes, elles respectent les priorités opératoires.<br>`

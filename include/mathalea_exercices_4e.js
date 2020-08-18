@@ -9413,7 +9413,7 @@ function Forme_litterale_introduire_une_lettre(){
 					texte = `${enonces[0].enonce}`;
 					if (this.beta) {
 						texte += `<br>`;
-						texte += `<br> ${texte_en_couleur(enonces[0].correction)}`;
+						texte += `<br> =====CORRECTION======<br>${texte_en_couleur(enonces[0].correction)}`;
 						texte_corr = ``;	
 					} else {
 						texte_corr = `${ texte_en_couleur(enonces[0].correction)}`;
@@ -9449,7 +9449,7 @@ function Mettre_en_equation_sans_resoudre(){
 	if (this.beta) {
 		this.nb_questions = 9;
 	} else {
-		this.nb_questions = 9;
+		this.nb_questions = 2;
 	};	
 
 	this.titre = "Mettre en équation un problème sans objectif de résolution";
@@ -9570,7 +9570,7 @@ function Mettre_en_equation_sans_resoudre(){
 					texte = `${enonces[0].enonce}`;
 					if (this.beta) {
 						texte += `<br>`;
-						texte += `<br> ${enonces[0].correction}`;
+						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte_corr = ``;	
 					} else {
 						texte_corr = `${enonces[0].correction}`;
