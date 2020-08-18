@@ -9621,8 +9621,6 @@ function Graphiques_et_proportionnalite() {
 		//let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
-			
-
       let a = randint(-3,3);
       let b = randint(-5,5);
       let f = (x) => a*x+b;
@@ -9633,7 +9631,7 @@ function Graphiques_et_proportionnalite() {
         courbe(f)   
       ];
       // on prépare l'objet polygone
-let  fig = mathalea2d(
+      let  fig = mathalea2d(
           {
           xmin : -7,
           ymin : -5,
@@ -9642,11 +9640,11 @@ let  fig = mathalea2d(
           pixelsParCm : 20
           },
           mesAppels          
-        );      
+      );      
       
 			let enonces = [];
 			enonces.push({
-				enonce:`bla bla bla <br> ${fig}`,
+				enonce:`bla bla bla <br> <br> ${fig}`,
 				question:``,
         correction:`Correction
         <br>${texte_en_couleur(`Conclusion`)}
