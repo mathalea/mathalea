@@ -2674,7 +2674,7 @@ function Placer_points_sur_axe_relatifs(){
  * Lire les coordonnées d'un point du plan avec une précision allant de l'unité à 0,25.
  * @Auteur Jean-Claude Lhote
  */
-function reperage_point_du_plan(){
+function Reperage_point_du_plan(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Déterminer les coordonnées (relatives) d'un point";
@@ -5750,3 +5750,200 @@ function DroiteRemarquableDuTriangle(){
 	}
 	this.besoin_formulaire_numerique = ['Type de droites',3,"1 : Hauteurs et Médiatrices\n2 : Médianes et Bissectrices\n3 : Toutes les droites"]
 }
+function Construire_par_Symetrie() {
+	"use strict";
+	Exercice.call(this);
+	this.titre = "Construire par Symétrie...";
+	this.nb_questions = 1;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.sup = 1;
+	this.sup2 = 1;
+	this.nouvelle_version = function (numero_de_l_exercice) {
+	  let type_de_questions_disponibles;
+	  if (this.sup == 3) type_de_questions_disponibles = [1, 2];
+	  //Symétrie axiale ou centrale
+	  else type_de_questions_disponibles = [parseInt(this.sup)]; // Le choix 1 ou 2
+	  let liste_type_de_questions = combinaison_listes(
+		type_de_questions_disponibles,
+		this.nb_questions
+	  );
+	  this.liste_questions = []; // Liste de questions
+	  this.liste_corrections = []; // Liste de questions corrigées
+	  let Xmin, Xmax, Ymin, Ymax, ppc, sc;
+	  function initialise_variables() {
+		if (sortie_html) {
+		  // repère -10 || 10
+		  Xmin = -1;
+		  Ymin = -9;
+		  Xmax = 15;
+		  Ymax = 9;
+		  ppc = 20;
+		} else {
+		  // repère -5 || 5
+		  Xmin = -1;
+		  Ymin = -9;
+		  Xmax = 15;
+		  Ymax = 9;
+		  ppc = 20;
+		}
+	  }
+  
+	  initialise_variables();
+	  if (this.sup2 == 1) sc = 0.5;
+	  else sc = 0.8;
+  
+	  let A,
+		B,
+		C,CC,cC,sC,sCE,
+		D,DD,cD,sD,sDE,
+		xE,
+		E,EE,cE,sE,sED,
+		sEC,
+		d,
+		dB,
+		enonce,
+		correction,
+		g,
+		carreaux,
+		k,
+		objets_enonce=[],
+		objets_correction=[],
+		params={
+		  xmin: Xmin,
+		  ymin: Ymin,
+		  xmax: Xmax,
+		  ymax: Ymax,
+		  pixelsParCm: ppc,
+		  scale: sc,
+		},
+		p1,p2,p1nom,p2nom;
+	  for (
+		let i = 0, texte, texte_corr, cpt = 0;
+		i < this.nb_questions && cpt < 50;
+  
+	  ) {
+		if (this.sup2<3) g = grille(-1, -15, 15, 15, "gray", 0.7);
+		else g=''
+		if (this.sup2 == 2) {
+		  k = 0.8;
+		  carreaux = seyes(Xmin, Ymin, Xmax, Ymax);
+		} else {
+		  k = 0.5;
+		  carreaux = "";
+		}
+		switch (liste_type_de_questions[i]) {
+		  case 1:
+			A = point(0, randint(-1,1), "A",'above left');
+			B = point(6, randint(-1,1,A.y), "B",'above left');
+			d = droite(A, B);
+			d.isVisible = true;
+			C = point(randint(2, 3), randint(3, 4), "C",'above left');
+			D = point(randint(10, 13), randint(-4, -3), "D",'above right');
+			dB = droiteParPointEtPerpendiculaire(B, d);
+			E=point(randint(6,8),randint(-8,-5), "E", "above left");
+			//F = point(E.x+1,5-B.y,'F','above left');
+			CC=symetrieAxiale(C,d,'C\'','below left')
+			DD=symetrieAxiale(D,d,'D\'','below left')
+			EE=symetrieAxiale(E,d,'E\'','below left')
+			//FF=symetrieAxiale(F,d,'F\'','below left')
+			cC=codageMediatrice(C,CC,'red','|')
+			cD=codageMediatrice(D,DD,'blue','X')
+			cE=codageMediatrice(E,EE,'green','O')
+			//cF=codageMediatrice(F,FF,'purple','V')
+			sC=segment(C,CC)
+			sD=segment(D,DD)
+			sE=segment(E,EE)
+			//sF=segment(F,FF)
+			sCE=segment(CC,EE,'gray')
+			sCE.pointilles=true
+			sED=segment(EE,D,'gray')
+			sED.pointilles=true
+			sDE=segment(DD,E,'gray')
+			sDE.pointilles=true
+			sEC=segment(C,E,'gray')
+			sEC.pointilles=true
+
+
+
+			objets_correction.push(d,g,carreaux,tracePoint(A, B, C, D, E,CC,DD,EE),labelPoint(A, B, C, D, E,CC,DD,EE),cC,cD,cE,sC,sD,sE,sED,sDE,sCE,sEC)
+			objets_enonce.push(tracePoint(A, B, C, D,E),g,labelPoint(A, B, C, D,E),d,carreaux);
+			enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
+			enonce += num_alpha(1)+`Construire le point $C\'$ symétrique de $C$ par rapport à la droite $(AB)$.<br>`
+			enonce += num_alpha(2)+`Construire le point $D\'$ symétrique de $D$ par rapport à la droite $(AB)$.<br>`
+			enonce += num_alpha(3)+`Construire le point $E\'$ symétrique de $E$ par rapport à la droite $(AB)$.<br>`
+			enonce += num_alpha(4)+`Construire le point $F\'$ symétrique de $E$ par rapport à la droite $(AB)$.<br>`
+			enonce += num_alpha(5)+`Coder la figure.<br>`;
+			enonce += mathalea2d( params
+			  ,
+			  objets_enonce
+			);
+			correction = mathalea2d(
+			  params,
+			 objets_correction
+			);
+			correction+=`<br>Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(AB)$`
+			break;
+		  case 2:
+			A = point(2, 0, "A",'above left');
+			B = point(12, randint(-4, 4, 0), "B");
+			d = droite(A, B);
+			d.isVisible = true;
+			C = point(randint(1, 2), randint(3, 4), "C",'above left');
+			D = point(randint(7, 8), randint(-7, -6), "D",'below right');
+			E = point(randint(4, 5), randint(4, 5), "E",'below right');
+			//F = point(2, -3, "F", "above left");
+			dE = droiteParPointEtParallele(E, d);
+			dC = droiteParPointEtParallele(C, d);
+			dD = droiteParPointEtParallele(D, d);
+			p = droite(A, F);
+			p.isVisible = true;
+			enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
+			enonce +=num_alpha(1)+`Tracer la droite parallèle à $(AB)$ passant par $C$ et nomme $M$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
+			enonce +=num_alpha(2)+`Tracer la droite parallèle à $(AB)$ passant par $D$ et nomme $N$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
+			enonce +=num_alpha(3)+`Tracer la droite parallèle à $(AB)$ passant par $E$ et nomme $O$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
+			enonce += num_alpha(4)+`Mesurer les distances $AM$, $AN$ et $AO$. Pour l'auto-correction, comparer ces mesures avec celles données par  l'ordinateur dans la correction.<br>`;
+			enonce += mathalea2d(
+			  {
+				xmin: Xmin,
+				ymin: Ymin,
+				xmax: Xmax,
+				ymax: Ymax,
+				pixelsParCm: ppc,
+				scale: sc,
+			  },
+			  objets_enonce
+			  );
+			correction = mathalea2d(
+			  {
+				xmin: Xmin,
+				ymin: Ymin,
+				xmax: Xmax,
+				ymax: Ymax,
+				pixelsParCm: ppc,
+				scale: sc,
+			  },
+			  objets_correction
+			);
+			break;
+		}
+  
+		if (this.liste_questions.indexOf(texte) == -1) {
+		  // Si la question n'a jamais été posée, on en créé une autre
+		  this.liste_questions.push(enonce + "<br>");
+		  this.liste_corrections.push(correction + "<br>");
+		  i++;
+		}
+		cpt++;
+	  }
+  
+	  liste_de_question_to_contenu(this);
+	};
+	//	this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
+	this.besoin_formulaire2_numerique = [
+	  "Type de cahier",
+	  3,
+	  `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`,
+	];
+  }
+  
