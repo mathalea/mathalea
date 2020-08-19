@@ -1,26 +1,26 @@
 var liste_des_exercices_disponibles = {
-  CM000: Tables_additions_soustractions,
-  CM001: Tables_de_multiplications,
-  CM002: Tables_de_divisions,
-  CM003: Tables_de_multiplications_et_divisions,
-  CM004: Quatre_operations,
-  CM005: Ajouter9,
-  CM006: Soustraire9,
-  CM007: Ajouter11,
-  CM008: Soustraire11,
-  CM009: Moitie,
-  CM010: Tiers,
-  CM011: Quart,
-  CM012: Complement_a_100,
-  CM013: Complement_a_une_dizaine,
-  CM014: Double_moitie_tiers_triple,
-  CM015: Somme_de_deux_nombres_maries,
-  CM016: Diviser_par_10_100_1000,
-  CM017: Diviser_decimal_par_10_100_1000,
-  CM018: Somme_de_deux_nombres_maries_et_un_entier,
-  CM019: Le_compte_est_bonV3,
-  CM020: Le_compte_est_bonV4,
-  BetaCM021: Compte_Est_Bon,
+  "CM000": Tables_additions_soustractions,
+  "CM001": Tables_de_multiplications,
+  "CM002": Tables_de_divisions,
+  "CM003": Tables_de_multiplications_et_divisions,
+  "CM004": Quatre_operations,
+  "CM005": Ajouter9,
+  "CM006": Soustraire9,
+  "CM007": Ajouter11,
+  "CM008": Soustraire11,
+  "CM009": Moitie,
+  "CM010": Tiers,
+  "CM011": Quart,
+  "CM012": Complement_a_100,
+  "CM013": Complement_a_une_dizaine,
+  "CM014": Double_moitie_tiers_triple,
+  "CM015": Somme_de_deux_nombres_maries,
+  "CM016": Diviser_par_10_100_1000,
+  "CM017": Diviser_decimal_par_10_100_1000,
+  "CM018": Somme_de_deux_nombres_maries_et_un_entier,
+  "CM019": Le_compte_est_bonV3,
+  "CM020": Le_compte_est_bonV4,
+  "BetaCM021": Compte_Est_Bon,
   "6C10": Additions_soustractions_multiplications_posees,
   "6C11": Divisions_euclidiennes,
   "6C10-1": Tables_de_multiplications,
@@ -58,7 +58,6 @@ var liste_des_exercices_disponibles = {
   "6M22": Reglages_6M22,
   "6M22-1": Perimetre_aire_disques,
   "6M22-2": Perimetre_aire_et_portions_de_disques,
-  // '6M13' : Reglages_6M23,
   "6M23": Exercice_conversions_aires,
   "6M25": Connaitre_formules_de_perimetre_et_aires,
   "6M30": Calcul_de_volumes_6e,
@@ -130,8 +129,8 @@ var liste_des_exercices_disponibles = {
   "5M20": Calcul_de_volumes_5e,
   "5R11": Lire_abscisse_relative,
   "5R11-2": Placer_points_sur_axe_relatifs,
-  "5R12": reperage_point_du_quart_de_plan,
-  "5R12-2": reperage_point_du_plan,
+  "5R12": Reperage_point_du_quart_de_plan,
+  "5R12-2": Reperage_point_du_plan,
   "5R20": Exercice_additions_relatifs,
   "5R20-2": Exercice_additions_relatifs_a_trou,
   "5R20-3": Exercice_additions_de_5_relatifs, //on pourrait le corriger avec regroupement des termes de même signe
@@ -164,7 +163,7 @@ var liste_des_exercices_disponibles = {
   "4N21": Puissances_d_un_relatif_1,
   "4N21-1": Puissances_d_un_relatif_2,
   "4N21-2": Puissances_de_dix,
-  beta4F12: Exploiter_representation_graphique,
+  "4F12": Exploiter_representation_graphique,
   "4P10": Problemes_grandeurs_composees,
   "beta4P20-0": Forme_litterale_introduire_une_lettre,
   "4G11": Pavages_et_translation,
@@ -237,7 +236,7 @@ var liste_des_exercices_disponibles = {
   "2G12": Modelisation_coordonnees,
   "2L10": Developper_Identites_remarquables2,
   "2L11": Factoriser_Identites_remarquables2,
-  PEA11: Passer_d_une_base_a_l_autre,
+  "PEA11": Passer_d_une_base_a_l_autre,
   "PEA11-1": Passer_de_la_base_12_ou_16_a_la_10,
   P001: Code_LaTeX_personnalise,
   // 'P002': LaTeX_static,
@@ -246,7 +245,7 @@ var liste_des_exercices_disponibles = {
   LaTeX: Code_LaTeX_personnalise,
   // 'Perso' : HTML_personnalise,
   // 'TsvgjsKatex' : tests_SVGJS_KATEX,
-  beta3G23: TrianglesSemblables,
+  "beta3G23": TrianglesSemblables,
 };
 
 //Pour modifier les exercices lorsqu'ils sont en mode diaporama
@@ -10694,7 +10693,7 @@ function Tracer_des_paralleles() {
 }
 function Tracer_des_perpendiculaires_et_des_paralleles() {
   Parallele_et_Perpendiculaires.call(this);
-  this.titre = "Tracer des perpendiculaires et des perpendiculaires";
+  this.titre = "Tracer des perpendiculaires et des parallèles";
   this.sup = 3;
   this.nb_questions = 2;
   this.besoin_formulaire_numerique = false;
@@ -10744,8 +10743,8 @@ function Pavages_et_rotation() {
  * Lire les coordonnées d'un point du quart de plan positif avec une précision allant de l'unité à 0,25.
  * @Auteur Jean-Claude Lhote
  */
-function reperage_point_du_quart_de_plan() {
-  reperage_point_du_plan.call(this);
+function Reperage_point_du_quart_de_plan() {
+  Reperage_point_du_plan.call(this);
   this.titre = "Déterminer les coordonnées (positives) d'un point";
   this.quart_de_plan = true;
 }

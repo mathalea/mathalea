@@ -2674,7 +2674,7 @@ function Placer_points_sur_axe_relatifs(){
  * Lire les coordonnées d'un point du plan avec une précision allant de l'unité à 0,25.
  * @Auteur Jean-Claude Lhote
  */
-function reperage_point_du_plan(){
+function Reperage_point_du_plan(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Déterminer les coordonnées (relatives) d'un point";

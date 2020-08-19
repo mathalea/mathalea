@@ -2933,11 +2933,7 @@ function axes(...args) {
   return new Axes(...args);
 }
 
-/**
- * labelX(xmin,xmax,step,color,pos,coeff) // Place des graduations
- *
- * @Auteur Rémi Angot
- */
+
 function LabelX(
   xmin = 1,
   xmax = 20,
@@ -2980,6 +2976,11 @@ function LabelX(
   };
   this.commentaire = `labelX(xmin=${xmin},xmax=${xmax},step=${step},color=${color},pos=${pos},coeff=${coeff})`;
 }
+/**
+ * labelX(xmin,xmax,step,color,pos,coeff) // Place des graduations
+ *
+ * @Auteur Rémi Angot
+ */
 function labelX(...args) {
   return new LabelX(...args);
 }
