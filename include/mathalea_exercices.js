@@ -11964,12 +11964,12 @@ function Proportionnalite_par_linearite_bis(){
         <br>
         <br>${num_alpha(k_corr++)} Pour $${situation.n1}$ ${pluriel(situation.n1,situation)}, on paie $${tex_prix(situation.pu*situation.n1)}$ €.
         <br> Pour $${situation.n2}$ ${pluriel(situation.n2,situation)}, on paie $${tex_prix(situation.pu*situation.n2)}$ €.
-        <br> Donc pour $${situation.n1}+${situation.n2}$ ${pluriel(situation.n3,situation)}, on paie $${tex_prix(situation.pu*situation.n1)}$ € $+ ${tex_prix(situation.pu*situation.n2)}$ €.
+        <br> Donc pour $${situation.n1}+${situation.n2}$ ${pluriel(situation.n3,situation)}, on paie $${tex_prix(situation.pu*situation.n1)}$ € + $${tex_prix(situation.pu*situation.n2)}$ €.
         <br> ${texte_en_couleur(`${situation.prenom3} paiera donc $${tex_prix(situation.pu*situation.n3)}$ € pour $${situation.n3}$ ${pluriel(situation.n3,situation)}.`)}
         <br>
         <br>${num_alpha(k_corr++)} Pour $${situation.n1}$ ${pluriel(situation.n1,situation)}, on paie $${tex_prix(situation.pu*situation.n1)}$ €.
         <br> Pour $${situation.n2}$ ${pluriel(situation.n2,situation)}, on paie $${tex_prix(situation.pu*situation.n2)}$ €.
-        <br> Donc pour $${situation.n1}-${situation.n2}$ ${pluriel(situation.n4,situation)}, on paie $${tex_prix(situation.pu*situation.n1)}$ € $-${tex_prix(situation.pu*situation.n2)}$ €.
+        <br> Donc pour $${situation.n1}-${situation.n2}$ ${pluriel(situation.n4,situation)}, on paie $${tex_prix(situation.pu*situation.n1)}$ € - $${tex_prix(situation.pu*situation.n2)}$ €.
         <br> ${texte_en_couleur(`${situation.prenom4} paiera donc $${tex_prix(situation.pu*situation.n4)}$ € pour $${situation.n4}$ ${pluriel(situation.n4,situation)}.`)}
         <br>
         <br>${num_alpha(k_corr++)} On peut utiliser l'une ou l'autre des informations de l'énoncé pour répondre en revenant à l'unité.
