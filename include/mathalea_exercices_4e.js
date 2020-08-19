@@ -9623,8 +9623,8 @@ function Graphiques_et_proportionnalite() {
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
       // on prévoit un tableau avec des situations
       let situations = [
-        {lieu:`l'épicerie`,prenom:prenom(),fruits:'oranges',prix_unitaire:1.6,qte_max:10,qte2:3,legendeX:"poids en kg",legendeY:"prix en €",fig:{}},
-        {lieu:`la boulangerie`,prenom:prenom(),fruits:'baguettes',prix_unitaire:0.7,qte_max:10,qte2:3,legendeX:"quantité",legendeY:"prix en €",fig:{}}
+        {lieu:`l'épicerie`,prenom:prenom(),articles:`oranges`,art_articles:`d'oranges`,prix_unitaire:1.6,qte:`poids`,qte_max:10,qte2:3,unite:`kg d'`,legendeX:`poids en kg`,legendeY:`prix en €`,fig:{}},
+        {lieu:`la boulangerie`,prenom:prenom(),articles:`baguettes`,art_articles:`de baguettes`,prix_unitaire:0.8,qte:`nombre`,qte_max:10,qte2:3,unite:``,legendeX:`quantité`,legendeY:`prix en €`,fig:{}}
       ]
       // on en choisit une
       let situation = situations[randint(0,situations.length-1)];    
@@ -9662,9 +9662,19 @@ function Graphiques_et_proportionnalite() {
       );
       situation.fig = fig;      
       
+      // un compteur pour les sous-questions
+      let k=0;
+      let k_corr=0;
+
 			let enonces = [];
 			enonces.push({
-				enonce:` À ${situation.lieu}, ${situation.prenom} ...<br> <br> ${situation.fig}`,
+        enonce:`
+          À ${situation.lieu}, ${situation.prenom} utilise le graphique ci-dessous pour indiquer le prix de ses ${situation.articles} en fonction du ${situation.qte} ${situation.art_articles}.
+          <br> <br> ${situation.fig}
+          <br> ${num_alpha(k++)} Justifier que c'est une situation de proportionnalité à l'aide du graphique.
+          <br> ${num_alpha(k++)} Quel est le prix de ${situation.qte_max} ${situation.unite}  ${situation.articles}?
+          <br> ${num_alpha(k++)} Quel est le prix de ${situation.qte2} ${situation.unite}  ${situation.articles}?
+          `,
 				question:``,
         correction:`Correction
         <br>${texte_en_couleur(`Conclusion`)}
