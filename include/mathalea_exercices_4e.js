@@ -9732,12 +9732,12 @@ function Graphiques_et_proportionnalite() {
         <br><br> ${num_alpha(k_corr++)} Par lecture graphique avec les pointillés rouges ci-dessous, ${texte_en_couleur(`$${situation.qte_max}$ ${situation.unite}  ${situation.articles} coûtent $${tex_prix(calcul(situation.qte_max*situation.prix_unitaire))}$ €.`)}
         <br> <br> ${situation.fig_corr}
         <br> <br> ${num_alpha(k_corr++)} Pour $${situation.qte2}$ ${situation.unite}  ${situation.articles}, la lecture graphique est moins facile, nous allons détailler deux méthodes.
-        <br><br> <b>Première méthode par lecture graphique :</b> 
+        <br><br> ${texte_gras(`Première méthode par lecture graphique :`)} 
         <br> Il faut prendre en compte que chaque petit carreau représente $${tex_prix(0.4)}$ € et utiliser les pointillés bleus.
-        <br><br> <b>Seconde méthode en calculant une quatrième proportionnelle :</b>
+        <br><br> ${texte_gras(`Seconde méthode en calculant une quatrième proportionnelle :`)}
         <br> $${situation.qte_max}$ ${situation.unite}  ${situation.articles} coûtent $${tex_prix(calcul(situation.qte_max*situation.prix_unitaire))}$ €
-        donc $${situation.qte2}$ ${situation.unite}  ${situation.articles} coûtent $(${tex_prix(calcul(situation.qte_max*situation.prix_unitaire))}$ € $\\div ${situation.qte_max}$ ${situation.articles} $)\\times (${situation.qte2}$ ${situation.articles})  $= ${tex_prix(calcul(situation.qte2*situation.prix_unitaire))}$ €
-        <br><br>Quelle que soit la méthode utilisée, ${texte_en_couleur(`${situation.qte2} ${situation.unite}  ${situation.articles} coûtent $${tex_prix(calcul(situation.qte2*situation.prix_unitaire))}$ €.`)}
+        donc $${situation.qte2}$ ${situation.unite}  ${situation.articles} coûtent : <br> $(${tex_prix(calcul(situation.qte_max*situation.prix_unitaire))}$ € $\\div ${situation.qte_max}$ ${situation.articles} $)\\times (${situation.qte2}$ ${situation.articles})  $= ${tex_prix(calcul(situation.qte2*situation.prix_unitaire))}$ €
+        <br><br>${texte_en_couleur(`Quelle que soit la méthode utilisée, ${situation.qte2} ${situation.unite}  ${situation.articles} coûtent $${tex_prix(calcul(situation.qte2*situation.prix_unitaire))}$ €.`)}
         `
 			})
 			switch (liste_type_de_questions[i]){
