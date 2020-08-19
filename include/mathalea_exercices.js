@@ -87,7 +87,7 @@ var liste_des_exercices_disponibles = {
   "6N43-2": Tableau_criteres_de_divisibilite,
   "6P10": Proportionnalite_pas_proportionnalite,
   "6P11": Proportionnalite_par_linearite,
-  "beta6P11-1": Proportionnalite_par_linearite_bis,
+  "6P11-1": Proportionnalite_par_linearite_bis,
   "5A10": Liste_des_diviseurs_5e,
   "5A11": Premier_ou_pas_5e,
   "5A13": Exercice_decomposer_en_facteurs_premiers,
@@ -11842,12 +11842,12 @@ function Parallele_et_Perpendiculaires() {
 function Proportionnalite_par_linearite_bis(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 3;
 	} else {
-		this.nb_questions = 3;
+		this.nb_questions = 1;
 	};	
 
 	this.titre = "Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité.";
@@ -11934,6 +11934,7 @@ function Proportionnalite_par_linearite_bis(){
         enonce:`
           Dans ${situation.lieu}, ${situation.prenom1} achète $${situation.n1}$ ${pluriel(situation.n1,situation)} et paie $${tex_prix(situation.pu*situation.n1)}$ €.
           <br>${situation.prenom2} achète $${situation.n2}$ ${pluriel(situation.n2,situation)} et paie $${tex_prix(situation.pu*situation.n2)}$ €.
+          <br>
           <br>${num_alpha(k++)} Combien paiera ${situation.prenom3} pour $${situation.n3}$ ${pluriel(situation.n3,situation)} ?
           <br>${num_alpha(k++)} Combien paiera ${situation.prenom4} pour $${situation.n4}$ ${pluriel(situation.n4,situation)} ?
           <br>${num_alpha(k++)} Quel est le nombre maximum de ${situation.achat_plur} que ${situation.prenom_max} pourra acheter avec $${tex_prix(situation.pu*situation.n_max)}$ € ?
