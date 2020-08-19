@@ -9623,8 +9623,8 @@ function Graphiques_et_proportionnalite() {
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
       // on prévoit un tableau avec des situations
       let situations = [
-        {lieu:`l'épicerie`,prenom:prenom(),articles:`oranges`,art_articles:`d'oranges`,prix_unitaire:1.6,qte:`poids`,qte_max:10,qte2:3,unite:`kg d'`,legendeX:`poids en kg`,legendeY:`prix en €`,fig:{}},
-        {lieu:`la boulangerie`,prenom:prenom(),articles:`baguettes`,art_articles:`de baguettes`,prix_unitaire:0.8,qte:`nombre`,qte_max:10,qte2:3,unite:``,legendeX:`quantité`,legendeY:`prix en €`,fig:{}}
+        {lieu:`l'épicerie`,prenom:prenom(),articles:`oranges`,art_articles:`d'oranges`,prix_unitaire:1.6,qte:`poids`,qte_max:10,qte2:3,unite:`kg d'`,legendeX:`poids en kg`,legendeY:`prix en €`,fig:{},fig_corr:{}},
+        {lieu:`la boulangerie`,prenom:prenom(),articles:`baguettes`,art_articles:`de baguettes`,prix_unitaire:0.8,qte:`nombre`,qte_max:10,qte2:3,unite:``,legendeX:`quantité`,legendeY:`prix en €`,fig:{},fig_corr:{}}
       ]
       // on en choisit une
       let situation = situations[randint(0,situations.length-1)];    
@@ -9648,8 +9648,8 @@ function Graphiques_et_proportionnalite() {
         }),
       ];
       let f = x => calcul(situation.prix_unitaire*x);
-      mesAppels.push(f,courbe(f,0,situation.qte_max,'blue',1.5,r));
-      // on prépare l'objet polygone
+      mesAppels.push(f,courbe(f,0,situation.qte_max,'black',1.5,r));
+      // on prépare l'objet figure
       let  fig = mathalea2d(
           {
           xmin : -xscale,
@@ -9661,7 +9661,56 @@ function Graphiques_et_proportionnalite() {
           mesAppels          
       );
       situation.fig = fig;      
-      
+
+      // on prépare les appels supplémentaires pour la correction
+      let mesAppels_corr=mesAppels;
+      let A = point(situation.qte_max,0);
+      let B = point(situation.qte_max,calcul(situation.qte_max*situation.prix_unitaire/yscale));
+      let s1 = segment(A,B,"red");
+      s1.epaisseur = 2;
+      s1.pointilles = true;
+      s1.styleExtremites = `->`;
+      let C = point(0,calcul(situation.qte_max*situation.prix_unitaire/yscale));
+      let s2 = segment(B,C,"red");
+      s2.epaisseur = 2;
+      s2.pointilles = true;
+      s2.styleExtremites = `->`;
+
+      let D = point(situation.qte2,0);
+      let E = point(situation.qte2,calcul(situation.qte2*situation.prix_unitaire/yscale));
+      let s3 = segment(D,E,"blue");
+      s3.epaisseur = 2;
+      s3.pointilles = true;
+      s3.styleExtremites = `->`;
+      let F = point(0,calcul(situation.qte2*situation.prix_unitaire/yscale));
+      let s4 = segment(E,F,"blue");
+      s4.epaisseur = 2;
+      s4.pointilles = true;
+      s4.styleExtremites = `->`;
+
+      // on ajoute les appels pour la correction
+      mesAppels_corr.push(
+        s1,
+        s2,
+        s3,
+        s4        
+      )
+
+      // on prépare l'objet figure correction
+      let  fig_corr = mathalea2d(
+        {
+        xmin : -xscale,
+        ymin : -yscale,
+        xmax : situation.qte_max/xscale+3,
+        ymax : (situation.qte_max*situation.prix_unitaire+4)/2+1,
+        pixelsParCm : 40
+        },
+        mesAppels_corr          
+      );
+      situation.fig_corr = fig_corr;
+
+   
+
       // un compteur pour les sous-questions
       let k=0;
       let k_corr=0;
@@ -9672,12 +9721,19 @@ function Graphiques_et_proportionnalite() {
           À ${situation.lieu}, ${situation.prenom} utilise le graphique ci-dessous pour indiquer le prix de ses ${situation.articles} en fonction du ${situation.qte} ${situation.art_articles}.
           <br> <br> ${situation.fig}
           <br> ${num_alpha(k++)} Justifier que c'est une situation de proportionnalité à l'aide du graphique.
-          <br> ${num_alpha(k++)} Quel est le prix de ${situation.qte_max} ${situation.unite}  ${situation.articles}?
-          <br> ${num_alpha(k++)} Quel est le prix de ${situation.qte2} ${situation.unite}  ${situation.articles}?
+          <br> ${num_alpha(k++)} Quel est le prix de $${situation.qte_max}$ ${situation.unite}  ${situation.articles}?
+          <br> ${num_alpha(k++)} Quel est le prix de $${situation.qte2}$ ${situation.unite}  ${situation.articles}?
           `,
-				question:``,
-        correction:`Correction
-        <br>${texte_en_couleur(`Conclusion`)}
+				//question:``,
+        correction:`
+        <br> ${num_alpha(k_corr++)} Ce graphique est une droite qui passe par l'origine.
+        <br> ${texte_en_couleur(`C'est donc bien le graphique d'une situation de proportionnalité.`)}
+
+        <br> ${num_alpha(k_corr++)} Par lecture graphique, ${texte_en_couleur(`${situation.qte_max} ${situation.unite}  ${situation.articles} coûtent $${tex_prix(calcul(situation.qte_max*situation.prix_unitaire))}$ €.`)}
+        <br> <br> ${situation.fig_corr}
+        <br> <br> ${num_alpha(k_corr++)} Pour ${situation.qte2} ${situation.unite}  ${situation.articles}, la lecture graphique est moins facile, nous allons détailler deux méthodes.
+        <br> <b>Première méthode par lecture graphique :</b> Il faut prendre en compte que chaque petit carreau représente ${tex_prix(0.4)} €.
+        <br>Quelle que soit la méthode utilisée, ${texte_en_couleur(`${situation.qte2} ${situation.unite}  ${situation.articles} coûtent $${tex_prix(calcul(situation.qte2*situation.prix_unitaire))}$ €.`)}
         `
 			})
 			switch (liste_type_de_questions[i]){
