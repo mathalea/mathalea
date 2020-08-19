@@ -3104,28 +3104,18 @@ function grille(...args) {
   return new Grille(...args);
 }
 
-/**
- * Fais un quadrillage avec des grands carreaux.
- *
- * Pour une sortie LaTeX, il faut penser à ajouter scale = .8
- *
- * @param {integer} xmin
- * @param {integer} ymin
- * @param {integer} xmax
- * @param {integer} ymax
- * @auteur Rémi Angot
- */
-function seyes(xmin, ymin, xmax, ymax) {
+
+function Seyes(xmin = 0, ymin = 0, xmax = 15, ymax = 15,opacite1 = .5, opacite2 = .2) {
   objets = [];
   for (let y = ymin; y <= ymax; y = calcul(y + 0.25)) {
     if (y % 1 != 0) {
       let d = segment(xmin, y, xmax, y);
       d.color = "red";
-      d.opacite = 0.2;
+      d.opacite = opacite2;
       objets.push(d);
     }
   }
-  objets.push(grille(xmin, ymin, xmax, ymax, "blue", 0.5, 1));
+  objets.push(grille(xmin, ymin, xmax, ymax, "blue", opacite1, 1));
   this.svg = function (coeff) {
     code = "";
     for (objet of objets) {
@@ -3140,7 +3130,21 @@ function seyes(xmin, ymin, xmax, ymax) {
     }
     return code;
   };
-  return objets;
+}
+
+/**
+ * Fais un quadrillage avec des grands carreaux.
+ *
+ * Pour une sortie LaTeX, il faut penser à ajouter scale = .8
+ *
+ * @param {integer} xmin
+ * @param {integer} ymin
+ * @param {integer} xmax
+ * @param {integer} ymax
+ * @auteur Rémi Angot
+ */
+function seyes(...args){
+  return new Seyes(...args)
 }
 
 function Repere({
