@@ -6355,9 +6355,9 @@ function TrianglesSemblables() {
 			case 1 :
 				let trouve=false,aireABC,A,B,C,M,p,q,r,s,X,G,Gq,nom1,grid
 				while (!trouve) {
-				A=point(choice([0,3]),choice([0,3]),'A')
-				B=point(choice([6,9]),choice([6,9]),'B')
-				C=rotation(B,A,90,'C')
+				A=point(choice([0,3]),choice([0,3]),'A') // le point A !
+				B=point(choice([6,9]),choice([6,9]),'B') // le point B !
+				C=rotation(B,A,90,'C') 
 				C.x+=choice([0,3,6])
 				C.y+=choice([-3,0,3])
 				p=polygone(A,B,C)
