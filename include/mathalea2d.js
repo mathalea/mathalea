@@ -2695,8 +2695,8 @@ function afficheMesureAngle(A, B, C, color = "black", distance = 1.5) {
   let d = bissectrice(A, B, C);
   d.isVisible = false;
   let M = pointSurSegment(d.extremite1, d.extremite2, distance);
-  let dessinArc = arc(pointSurSegment(A, B, 0.8), A, angleOriente(B, A, C));
-  let mesureAngle = arrondi_virgule(angle(A, C, B), 0) + "°";
+  let dessinArc = arc(pointSurSegment(B, A, 0.8), B, angleOriente(A,B,C));
+  let mesureAngle = arrondi_virgule(angle(A, B, C), 0) + "°";
   return texteParPoint(mesureAngle, M, "milieu", color);
 }
 /**
@@ -2713,20 +2713,33 @@ function AfficheCoteSegment(
   couleurValeur = "black"
 ) {
   // let longueur=s.longueur
-  ObjetMathalea2D.call(this)
-  let objets=[]
-  let valeur
-  let A=s.extremite1
-  let B=s.extremite2
-  let v=similitude(vecteur(A,B),A,90,positionCote/s.longueur)
-  let cote=segment(translation(A,v),translation(B,v),couleurCote)
-  if (longueur(A,B)>1)  cote.styleExtremites='<->'
-  else cote.styleExtremites='>-<'
-  cote.epaisseur=epaisseurCote
-  if(Cote=='') valeur=afficheLongueurSegment(cote.extremite1,cote.extremite2,couleurValeur,positionValeur)
-  else valeur=texteSurSegment(Cote,cote.extremite1,cote.extremite2,couleurValeur,positionValeur)
-  objets.push(cote)
-  objets.push(valeur)
+  ObjetMathalea2D.call(this);
+  let objets = [];
+  let valeur;
+  let A = s.extremite1;
+  let B = s.extremite2;
+  let v = similitude(vecteur(A, B), A, 90, positionCote / s.longueur);
+  let cote = segment(translation(A, v), translation(B, v), couleurCote);
+  if (longueur(A, B) > 1) cote.styleExtremites = "<->";
+  else cote.styleExtremites = ">-<";
+  cote.epaisseur = epaisseurCote;
+  if (Cote == "")
+    valeur = afficheLongueurSegment(
+      cote.extremite1,
+      cote.extremite2,
+      couleurValeur,
+      positionValeur
+    );
+  else
+    valeur = texteSurSegment(
+      Cote,
+      cote.extremite1,
+      cote.extremite2,
+      couleurValeur,
+      positionValeur
+    );
+  objets.push(cote);
+  objets.push(valeur);
   this.svg = function (coeff) {
     code = "";
     for (objet of objets) {
@@ -3380,8 +3393,15 @@ const cosineInterpolate = (y1, y2, mu) => {
   return y1 * (1 - mu2) + y2 * mu2;
 };
 
-function CourbeInterpolee(tableau, color = "black", epaisseur = 2, r = [1, 1],xmin,xmax) {
-  ObjetMathalea2D.call(this)
+function CourbeInterpolee(
+  tableau,
+  color = "black",
+  epaisseur = 2,
+  r = [1, 1],
+  xmin,
+  xmax
+) {
+  ObjetMathalea2D.call(this);
   mesCourbes = [];
   for (let i = 0; i < tableau.length - 1; i++) {
     let x0 = tableau[i][0];
@@ -3389,9 +3409,9 @@ function CourbeInterpolee(tableau, color = "black", epaisseur = 2, r = [1, 1],xm
     let x1 = tableau[i + 1][0];
     let y1 = tableau[i + 1][1];
     let f = (x) => cosineInterpolate(y0, y1, calcul((x - x0) / (x1 - x0)));
-    let depart, fin
-    xmin>x0 ? depart = xmin : depart = x0
-    xmax<x1 ? fin = xmax : fin = x1
+    let depart, fin;
+    xmin > x0 ? (depart = xmin) : (depart = x0);
+    xmax < x1 ? (fin = xmax) : (fin = x1);
     let c = courbe(f, depart, fin, color, epaisseur, r);
     mesCourbes.push(c);
     this.svg = function (coeff) {
