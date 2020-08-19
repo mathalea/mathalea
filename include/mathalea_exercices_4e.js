@@ -9410,12 +9410,12 @@ function Tester_si_un_nombre_est_solution_d_une_equation_deg2() {
 function Forme_litterale_introduire_une_lettre(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 3;
 	} else {
-		this.nb_questions = 3;
+		this.nb_questions = 2;
 	};	
 
 	this.titre = "Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue";
