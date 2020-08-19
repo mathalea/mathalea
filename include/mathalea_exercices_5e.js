@@ -5793,11 +5793,11 @@ function Construire_par_Symetrie() {
   
 	  let A,
 		B,
-		C,CC,cC,sC,sCF,
+		C,CC,cC,sC,sCE,
 		D,DD,cD,sD,sDE,
 		xE,
 		E,EE,cE,sE,sED,
-		F,FF,cF,sF,sFC,
+		sEC,
 		d,
 		dB,
 		enonce,
@@ -5839,38 +5839,33 @@ function Construire_par_Symetrie() {
 			C = point(randint(2, 3), randint(3, 4), "C",'above left');
 			D = point(randint(10, 13), randint(-4, -3), "D",'above right');
 			dB = droiteParPointEtPerpendiculaire(B, d);
-			xE = 7;
-			E = pointSurDroite(dB, xE, "E", "above left");
-			while (!Number.isInteger(E.y)) {
-			  xE++;
-			  E = pointSurDroite(dB, xE, "E", "above left");
-			}
-			F = point(E.x+1,5-B.y,'F','above left');
+			E=point(randint(6,8),randint(-8,-5), "E", "above left");
+			//F = point(E.x+1,5-B.y,'F','above left');
 			CC=symetrieAxiale(C,d,'C\'','below left')
 			DD=symetrieAxiale(D,d,'D\'','below left')
 			EE=symetrieAxiale(E,d,'E\'','below left')
-			FF=symetrieAxiale(F,d,'F\'','below left')
+			//FF=symetrieAxiale(F,d,'F\'','below left')
 			cC=codageMediatrice(C,CC,'red','|')
-			cD=codageMediatrice(D,DD,'blue','||')
+			cD=codageMediatrice(D,DD,'blue','X')
 			cE=codageMediatrice(E,EE,'green','O')
-			cF=codageMediatrice(F,FF,'purple','V')
+			//cF=codageMediatrice(F,FF,'purple','V')
 			sC=segment(C,CC)
 			sD=segment(D,DD)
 			sE=segment(E,EE)
-			sF=segment(F,FF)
-			sCF=segment(C,FF,'gray')
-			sCF.pointilles=true
+			//sF=segment(F,FF)
+			sCE=segment(CC,EE,'gray')
+			sCE.pointilles=true
 			sED=segment(EE,D,'gray')
 			sED.pointilles=true
 			sDE=segment(DD,E,'gray')
 			sDE.pointilles=true
-			sFC=segment(CC,F,'gray')
-			sFC.pointilles=true
+			sEC=segment(C,E,'gray')
+			sEC.pointilles=true
 
 
 
-			objets_correction.push(d,g,carreaux,tracePoint(A, B, C, D, E,F,CC,DD,EE,FF),labelPoint(A, B, C, D, E,F,CC,DD,EE,FF),cC,cD,cE,cF,sC,sD,sE,sF,sCF,sFC,sED,sDE)
-			objets_enonce.push(tracePoint(A, B, C, D,E,F),g,labelPoint(A, B, C, D,E,F),d,carreaux);
+			objets_correction.push(d,g,carreaux,tracePoint(A, B, C, D, E,CC,DD,EE),labelPoint(A, B, C, D, E,CC,DD,EE),cC,cD,cE,sC,sD,sE,sED,sDE,sCE,sEC)
+			objets_enonce.push(tracePoint(A, B, C, D,E),g,labelPoint(A, B, C, D,E),d,carreaux);
 			enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
 			enonce += num_alpha(1)+`Construire le point $C\'$ symétrique de $C$ par rapport à la droite $(AB)$.<br>`
 			enonce += num_alpha(2)+`Construire le point $D\'$ symétrique de $D$ par rapport à la droite $(AB)$.<br>`
@@ -5885,7 +5880,7 @@ function Construire_par_Symetrie() {
 			  params,
 			 objets_correction
 			);
-			correction+=`<br>Contrôler la figure en vérifiant que les segments en poinbtillés se coupent bien sur la droite $(AB)$`
+			correction+=`<br>Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(AB)$`
 			break;
 		  case 2:
 			A = point(2, 0, "A",'above left');
@@ -5895,10 +5890,7 @@ function Construire_par_Symetrie() {
 			C = point(randint(1, 2), randint(3, 4), "C",'above left');
 			D = point(randint(7, 8), randint(-7, -6), "D",'below right');
 			E = point(randint(4, 5), randint(4, 5), "E",'below right');
-			F = point(2, -3, "F", "above left");
-			traces_enonce = tracePoint(A, B, C, D, E, F);
-			labels_enonce = labelPoint(A, B, C, D, E, F);
-  
+			//F = point(2, -3, "F", "above left");
 			dE = droiteParPointEtParallele(E, d);
 			dC = droiteParPointEtParallele(C, d);
 			dD = droiteParPointEtParallele(D, d);
