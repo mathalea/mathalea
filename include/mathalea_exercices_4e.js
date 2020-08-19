@@ -9520,7 +9520,7 @@ function Forme_litterale_introduire_une_lettre(){
 function Mettre_en_equation_sans_resoudre(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 9;
@@ -9543,7 +9543,7 @@ function Mettre_en_equation_sans_resoudre(){
 		if (this.beta) {
 			type_de_questions_disponibles = [1];			
 		} else {
-			type_de_questions_disponibles = [1];			
+			type_de_questions_disponibles = [1,2];			
 		};
 
 		this.liste_questions = []; // Liste de questions
@@ -9606,12 +9606,20 @@ function Mettre_en_equation_sans_resoudre(){
       //on pépare la côte
       let s = segment(po.listePoints[0], po.listePoints[1]);
       s.styleExtremites = `<->`;
+      // on fait un test pour coder les angles droits du carré
+      let anglesDroitsIfIsCarre;
+      if (n==4) {
+        anglesDroitsIfIsCarre = codageCarre(po)
+      } else {
+         anglesDroitsIfIsCarre= {}
+      };
       // on finit les appels
       let mesAppels = [
         po,       
         codeSegments('X','blue',po.listePoints),        
         afficheCoteSegment(s,`${inc}`,1,'red',2,0.5,'black'),
-        nommePolygone(po,myPolyName(n).nameParSommets)  
+        nommePolygone(po,myPolyName(n).nameParSommets),
+        anglesDroitsIfIsCarre  
       ];
       // on prépare l'objet polygone
       let polygone = {
@@ -9640,7 +9648,20 @@ function Mettre_en_equation_sans_resoudre(){
         D'après l'énoncé, ce périmètre vaut $${polygone.perimetre}$ $${polygone.unite}$.<br>
         L'équation suivante permet donc de résoudre le problème : <br>
         ${texte_en_couleur(`$${polygone.nb_cotes}\\times$ ${polygone.let_cote} $= ${polygone.perimetre}$.`)}`
-			})
+      });
+      // pour être sûr d'avoir deux figures différentes
+      let p = randint(3, 8,[n]);
+      polygone.nb_cotes = p;
+			enonces.push({
+				enonce:`On considère la figure suivante où l'unité est le $${polygone.unite}$.<br>${prenom()} se demande pour quelle valeur de ${polygone.let_cote}, exprimée en $${polygone.unite}$, le périmètre du ${polygone.nom} est égal à $${polygone.perimetre}$ $${polygone.unite}$ .<br> ${polygone.fig}`,
+				question:``,
+        correction:`La figure est un ${polygone.nom}, il a donc ${polygone.nb_cotes} côtés de même longueur.<br>
+        Cette longueur est notée ${polygone.let_cote}, le périmètre de la figure, exprimé en fonction de ${polygone.let_cote}, vaut donc $${polygone.nb_cotes}\\times$ ${polygone.let_cote}.<br>
+        D'après l'énoncé, ce périmètre vaut $${polygone.perimetre}$ $${polygone.unite}$.<br>
+        L'équation suivante permet donc de résoudre le problème : <br>
+        ${texte_en_couleur(`$${polygone.nb_cotes}\\times$ ${polygone.let_cote} $= ${polygone.perimetre}$.`)}`
+      })
+
 			switch (liste_type_de_questions[i]){
 				case 1 : 
 					texte = `${enonces[0].enonce}`;
@@ -9650,6 +9671,16 @@ function Mettre_en_equation_sans_resoudre(){
 						texte_corr = ``;	
 					} else {
 						texte_corr = `${enonces[0].correction}`;
+					};
+          break;	
+        case 2 : 
+					texte = `${enonces[1].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[1].correction}`;
 					};
 					break;				
 			}
