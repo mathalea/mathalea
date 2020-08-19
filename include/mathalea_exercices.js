@@ -11634,9 +11634,9 @@ function Parallele_et_Perpendiculaires() {
       BB,
       carreaux,
       k,
-      objets_enonce=[],
-      objets_correction=[],
-      params={
+      objets_enonce = [],
+      objets_correction = [],
+      params = {
         xmin: Xmin,
         ymin: Ymin,
         xmax: Xmax,
@@ -11650,8 +11650,8 @@ function Parallele_et_Perpendiculaires() {
       i < this.nb_questions && cpt < 50;
 
     ) {
-      if (this.sup2<3) g = grille(-1, -15, 15, 15, "gray", 0.7);
-      else g=''
+      if (this.sup2 < 3) g = grille(-1, -15, 15, 15, "gray", 0.7);
+      else g = "";
       if (this.sup2 == 2) {
         k = 0.8;
         carreaux = seyes(Xmin, Ymin, Xmax, Ymax);
@@ -11661,11 +11661,11 @@ function Parallele_et_Perpendiculaires() {
       }
       switch (liste_type_de_questions[i]) {
         case 1:
-          A = point(0, 0, "A",'above left');
-          B = point(10, randint(-4, 4, [-1, 0, 1]), "B",'above right');
+          A = point(0, 0, "A", "above left");
+          B = point(10, randint(-4, 4, [-1, 0, 1]), "B", "above right");
           d = droite(A, B);
           d.isVisible = true;
-          C = point(randint(2, 3), randint(3, 4), "C",'above left');
+          C = point(randint(2, 3), randint(3, 4), "C", "above left");
           D = point(randint(7, 8), randint(-7, -6), "D");
           dB = droiteParPointEtPerpendiculaire(B, d);
           xE = 11;
@@ -11684,41 +11684,81 @@ function Parallele_et_Perpendiculaires() {
           dC = droiteParPointEtPerpendiculaire(C, d);
           dD = droiteParPointEtPerpendiculaire(D, d);
           BB = rotation(A, B, 90);
-          CC = pointIntersectionDD(dC, d,'M','below right');
-          DD = pointIntersectionDD(dD, d,'N','above left');
+          CC = pointIntersectionDD(dC, d, "M", "below right");
+          DD = pointIntersectionDD(dD, d, "N", "above left");
           lC = arrondi(longueur(CC, A) * k, 1);
           lD = arrondi(longueur(DD, A) * k, 1);
           cB = codageAngleDroit(A, B, BB);
           cC = codageAngleDroit(C, CC, B);
           cD = codageAngleDroit(D, DD, B);
-          objets_correction.push(s1,s2,dC,dD,dB,cB,cC,cD,d,g,carreaux,tracePoint(A, B, C, D, E,CC,DD),labelPoint(A, B, C, D, E,CC,DD),afficheCoteSegment(segment(A,CC),`${tex_nombre(lC)} cm`,0.5,'red',1,0.5,'red'),afficheCoteSegment(segment(A,DD),`${tex_nombre(lD)} cm`,-0.5,'red',1,-0.5,'red'))
-          objets_enonce.push(tracePoint(A, B, C, D),labelPoint(A, B, C, D),d,g,carreaux);
-          enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
-          enonce += num_alpha(1)+`Tracer la droite perpendiculaires à $(AB)$ passant par $B$.<br>`
-          enonce += num_alpha(2)+`Tracer la droite perpendiculaires à $(AB)$ passant par $C$ et nommer $M$ le point d'intersection de cette droite avec la droite $(AB)$.<br>`;
-          enonce += num_alpha(3)+`Tracer la droite perpendiculaires à $(AB)$ passant par $D$ et nommer $N$ le point d'intersection de cette droite avec la droite $(AB)$.<br>`;
-          enonce += num_alpha(4)+`Mesurer ensuite la distance $AM$ et $AN$.<br> Pour l'auto-correction comparer ces mesures avec celles données dans la correction<br>`;
-          enonce += mathalea2d( params
-            ,
-            objets_enonce
+          objets_correction.push(
+            s1,
+            s2,
+            dC,
+            dD,
+            dB,
+            cB,
+            cC,
+            cD,
+            d,
+            g,
+            carreaux,
+            tracePoint(A, B, C, D, E, CC, DD),
+            labelPoint(A, B, C, D, E, CC, DD),
+            afficheCoteSegment(
+              segment(A, CC),
+              `${tex_nombre(lC)} cm`,
+              0.5,
+              "red",
+              1,
+              0.5,
+              "red"
+            ),
+            afficheCoteSegment(
+              segment(A, DD),
+              `${tex_nombre(lD)} cm`,
+              -0.5,
+              "red",
+              1,
+              -0.5,
+              "red"
+            )
           );
-          correction = mathalea2d(
-            params,
-           objets_correction
+          objets_enonce.push(
+            tracePoint(A, B, C, D),
+            labelPoint(A, B, C, D),
+            d,
+            g,
+            carreaux
           );
+          enonce = num_alpha(0) + `Reproduire la figure ci-dessous.<br>`;
+          enonce +=
+            num_alpha(1) +
+            `Tracer la droite perpendiculaires à $(AB)$ passant par $B$.<br>`;
+          enonce +=
+            num_alpha(2) +
+            `Tracer la droite perpendiculaires à $(AB)$ passant par $C$ et nommer $M$ le point d'intersection de cette droite avec la droite $(AB)$.<br>`;
+          enonce +=
+            num_alpha(3) +
+            `Tracer la droite perpendiculaires à $(AB)$ passant par $D$ et nommer $N$ le point d'intersection de cette droite avec la droite $(AB)$.<br>`;
+          enonce +=
+            num_alpha(4) +
+            `Mesurer ensuite la distance $AM$ et $AN$.<br> Pour l'auto-correction comparer ces mesures avec celles données dans la correction<br>`;
+          enonce += mathalea2d(params, objets_enonce);
+          correction = mathalea2d(params, objets_correction);
           correction += `<br>$AM \\approx ${tex_nombre(
             lC
           )}$ cm et $AN \\approx ${tex_nombre(lD)}$ cm.<br>`;
           correction += `Pour la perpendiculaire en $B$, contrôle la position du point $E$.<br>`;
           break;
         case 2:
-          A = point(2, 0, "A",'above left');
+          A = point(2, 0, "A", "above left");
           B = point(12, randint(-4, 4, 0), "B");
           d = droite(A, B);
           d.isVisible = true;
-          C = point(randint(1, 2), randint(3, 4), "C",'above left');
-          D = point(randint(7, 8), randint(-7, -6), "D",'below right');
-          E = point(randint(4, 5), randint(4, 5), "E",'below right');
+          C = point(randint(1, 2), randint(3, 4), "C", "above left");
+          D = point(randint(7, 8), randint(-7, -6), "D", "below right");
+          E = point(randint(4, 5), randint(4, 5), "E", "below right");
           F = point(2, -3, "F", "above left");
           traces_enonce = tracePoint(A, B, C, D, E, F);
           labels_enonce = labelPoint(A, B, C, D, E, F);
@@ -11728,19 +11768,27 @@ function Parallele_et_Perpendiculaires() {
           dD = droiteParPointEtParallele(D, d);
           p = droite(A, F);
           p.isVisible = true;
-          CC = pointIntersectionDD(dC, p,'M','below right');
-          DD = pointIntersectionDD(dD, p,'N','above left');
-          EE = pointIntersectionDD(dE, p,'O','above left');
+          CC = pointIntersectionDD(dC, p, "M", "below right");
+          DD = pointIntersectionDD(dD, p, "N", "above left");
+          EE = pointIntersectionDD(dE, p, "O", "above left");
           traces_correction = tracePoint(A, B, C, D, E, F);
-          labels_correction = labelPoint(A, B, C, D, E, F,CC,DD,EE);
+          labels_correction = labelPoint(A, B, C, D, E, F, CC, DD, EE);
           lC = arrondi(longueur(CC, A) * k, 1);
           lD = arrondi(longueur(DD, A) * k, 1);
           lE = arrondi(longueur(EE, A) * k, 1);
-          enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
-          enonce +=num_alpha(1)+`Tracer la droite parallèle à $(AB)$ passant par $C$ et nomme $M$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
-          enonce +=num_alpha(2)+`Tracer la droite parallèle à $(AB)$ passant par $D$ et nomme $N$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
-          enonce +=num_alpha(3)+`Tracer la droite parallèle à $(AB)$ passant par $E$ et nomme $O$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
-          enonce += num_alpha(4)+`Mesurer les distances $AM$, $AN$ et $AO$. Pour l'auto-correction, comparer ces mesures avec celles données par  l'ordinateur dans la correction.<br>`;
+          enonce = num_alpha(0) + `Reproduire la figure ci-dessous.<br>`;
+          enonce +=
+            num_alpha(1) +
+            `Tracer la droite parallèle à $(AB)$ passant par $C$ et nomme $M$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
+          enonce +=
+            num_alpha(2) +
+            `Tracer la droite parallèle à $(AB)$ passant par $D$ et nomme $N$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
+          enonce +=
+            num_alpha(3) +
+            `Tracer la droite parallèle à $(AB)$ passant par $E$ et nomme $O$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
+          enonce +=
+            num_alpha(4) +
+            `Mesurer les distances $AM$, $AN$ et $AO$. Pour l'auto-correction, comparer ces mesures avec celles données par  l'ordinateur dans la correction.<br>`;
           enonce += mathalea2d(
             {
               xmin: Xmin,
@@ -11780,9 +11828,7 @@ function Parallele_et_Perpendiculaires() {
             lC
           )}$ cm, $AN \\approx ${tex_nombre(
             lD
-          )}$ cm et $AO \\approx${tex_nombre(
-            lE
-          )}$.<br>`;
+          )}$ cm et $AO \\approx${tex_nombre(lE)}$.<br>`;
 
           break;
       }
@@ -11958,6 +12004,105 @@ function Proportionnalite_par_linearite_bis(){
 	}
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
 	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+}
+
+/**
+ * Un nombre à 2 chiffres (non multiple de 10) + 9
+ * @Auteur Rémi Angot
+ */
+function Tracer_triangle_2_angles() {
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.titre = "Tracer un triangle dont on connait une longueur et 2 angles";
+  this.consigne = "";
+  this.nb_questions = 3;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+
+    for (
+      let i = 0, texte, texte_corr, cpt = 0;
+      i < this.nb_questions && cpt < 50;
+
+    ) {
+      let c = calcul(randint(30, 70) / 10);
+      let angle1 = randint(20, 70);
+      let angle2 = randint(20, 70);
+      let p = creerNomDePolygone(3);
+      texte = `Tracer un triangle $${p}$ tel que $${p[0] + p[1]}=${tex_nombre(
+        c
+      )}$ cm, $\\widehat{${
+        p[1] + p[0] + p[2]
+      }}=${angle1}\\degree$ et $\\widehat{${
+        p[0] + p[1] + p[2]
+      }}=${angle2}\\degree$.`;
+      texte += `<br> Mesurer $${p[0] + p[2]}$ et $${p[1] + p[2]}$.`;
+      let A0 = point(0, 0, p[0], "left");
+      let B0 = point(c, 0, p[1], "right");
+      let s0 = segmentAvecExtremites(A0, B0);
+      let t1 = afficheLongueurSegment(B0, A0);
+
+      let A1 = point(B0.x + 4, 0, p[0], "left");
+      let B1 = point(A1.x + c, 0, p[1], "right");
+      let s1 = segment(A1, B1);
+      s1.styleExtremites = "-|";
+      let c1 = rotation(B1, A1, angle1);
+      let C1 = pointSurSegment(c1, A1, -3);
+      let s2 = segment(A1, C1);
+      let t2 = afficheMesureAngle(B1, A1, C1);
+
+      let A2 = point(B1.x + 4, 0, p[0], "left");
+      let B2 = point(A2.x + c, 0, p[1], "right");
+      let s3 = segment(A2, B2);
+      let c2 = rotation(B2, A2, angle1);
+      let C2 = pointSurSegment(c2, A2, -3);
+      let s4 = segment(A2, C2);
+      let c3 = rotation(A2, B2, -angle2);
+      let C3 = pointSurSegment(c3, B2, -3);
+      let t3 = afficheMesureAngle(A2, B2, C3);
+      let s5 = segment(B2, C3);
+      let d1 = droite(A2, C2);
+      d1.isVisible = false;
+      let d2 = droite(B2, C3);
+      d2.isVisible = false;
+      let C = pointIntersectionDD(d1, d2, p[2]);
+      let l = labelPoint(A0, B0, A1, B1, A2, B2, C);
+
+      if (sortie_html) {
+        texte_corr = mathalea2d(
+          { xmin: -1, xmax: 3 * c + 10, ymin: -1, ymax: 10 },
+          s0,
+          s1,
+          s2,
+          s3,
+          s4,
+          s5,
+          t1,
+          t2,
+          t3,
+          l
+        );
+        texte_corr += '<br><br>'
+      } else {
+        texte_corr = "";
+      }
+      texte_corr += `$${p[0] + p[2]}\\approx${tex_nombre(
+        longueur(A2, C, 1)
+      )}$ cm et $${p[1] + p[2]}\\approx${tex_nombre(longueur(B2, C, 1))}$ cm.`;
+
+      if (this.liste_questions.indexOf(texte) == -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
+        this.liste_questions.push(texte);
+        this.liste_corrections.push(texte_corr);
+        i++;
+      }
+      cpt++;
+    }
+    liste_de_question_to_contenu(this);
+  };
+  //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
 
 /**
