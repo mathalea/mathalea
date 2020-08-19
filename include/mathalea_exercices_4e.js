@@ -9729,7 +9729,7 @@ function Graphiques_et_proportionnalite() {
         <br> ${num_alpha(k_corr++)} Ce graphique est une droite qui passe par l'origine.
         <br> ${texte_en_couleur(`C'est donc bien le graphique d'une situation de proportionnalité.`)}
 
-        <br><br> ${num_alpha(k_corr++)} Par lecture graphique avec les pointillés rouges ci-dessous, ${texte_en_couleur(`$${situation.qte_max}$ ${situation.unite}  ${situation.articles} coûtent $${tex_prix(calcul(situation.qte_max*situation.prix_unitaire))}$ €.`)}
+        <br><br> ${num_alpha(k_corr++)} Par lecture graphique, en utilisant les pointillés rouges du graphe ci-dessous, ${texte_en_couleur(`$${situation.qte_max}$ ${situation.unite}  ${situation.articles} coûtent $${tex_prix(calcul(situation.qte_max*situation.prix_unitaire))}$ €.`)}
         <br> <br> ${situation.fig_corr}
         <br> <br> ${num_alpha(k_corr++)} Pour $${situation.qte2}$ ${situation.unite}  ${situation.articles}, la lecture graphique est moins facile, nous allons détailler deux méthodes.
         <br><br> ${texte_gras(`Première méthode par lecture graphique :`)} 
