@@ -3107,6 +3107,7 @@ function grille(...args) {
 
 
 function Seyes(xmin = 0, ymin = 0, xmax = 15, ymax = 15,opacite1 = .5, opacite2 = .2) {
+  ObjetMathalea2D.call(this)
   objets = [];
   for (let y = ymin; y <= ymax; y = calcul(y + 0.25)) {
     if (y % 1 != 0) {

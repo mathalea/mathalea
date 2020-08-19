@@ -5834,18 +5834,19 @@ function Construire_par_Symetrie() {
 		}
 		switch (liste_type_de_questions[i]) {
 		  case 1:
-			A = point(0, randint(-1,1), "A",'above left');
-			B = point(6, randint(-1,1,A.y), "B",'above left');
+			A = point(0, randint(-1,1), "A",'above');
+			B = point(6, randint(-1,1,A.y), "B",'above');
 			d = droite(A, B);
 			d.isVisible = true;
+			d.epaisseur=2
 			C = point(randint(2, 3), randint(3, 4), "C",'above left');
-			D = point(randint(10, 13), randint(-4, -3), "D",'above right');
+			D = point(randint(10, 13), randint(-4, -3), "D",'below right');
 			dB = droiteParPointEtPerpendiculaire(B, d);
-			E=point(randint(6,8),randint(-8,-5), "E", "above left");
+			E=point(randint(6,8),randint(-8,-5), "E", "left");
 			//F = point(E.x+1,5-B.y,'F','above left');
 			CC=symetrieAxiale(C,d,'C\'','below left')
-			DD=symetrieAxiale(D,d,'D\'','below left')
-			EE=symetrieAxiale(E,d,'E\'','below left')
+			DD=symetrieAxiale(D,d,'D\'','above right')
+			EE=symetrieAxiale(E,d,'E\'','left')
 			//FF=symetrieAxiale(F,d,'F\'','below left')
 			cC=codageMediatrice(C,CC,'red','|')
 			cD=codageMediatrice(D,DD,'blue','X')
