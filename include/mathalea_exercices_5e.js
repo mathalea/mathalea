@@ -4165,7 +4165,7 @@ function Reduire_dinstinction_somme_produit() {
 function Calculer_une_expression_litteraleBis() {
 	'use strict'
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.consigne = "";
 	this.nb_questions = 4;
 	this.nb_cols = 1;
@@ -4200,16 +4200,16 @@ function Calculer_une_expression_litteraleBis() {
 					texte =`${expn}.`
 					if (this.beta) {
 						texte += `<br><br>=====CORRECTION======<br>`;
-						texte += `Pour fixer les idées, choissions des valeurs pour $x$ et $y$, par exemple $x=${val1}$ et $y=${val2}$<br>`
-						texte += `Le calcul serait le suivant :<br> ${expc}.<br>`;
-						texte += `Pour n'importe quelles valeurs de $x$ et de $y$ choisies, les étapes sont les mêmes, elles respectent les priorités opératoires.<br>`
-						texte += texte_en_couleur(`La dernière opération dans ${expn} est donc une ${last_op}`);
+						texte += `Pour fixer les idées, choissions des valeurs pour $x$ et $y$, par exemple $x=${val1}$ et $y=${val2}$.`
+						texte += `<br>Le calcul serait le suivant :<br> ${expc}.`;
+						texte += `<br>Pour n'importe quelles valeurs de $x$ et de $y$ choisies, les étapes sont les mêmes, elles respectent les priorités opératoires.`
+						texte += texte_en_couleur(`<br>La dernière opération dans ${expn} est donc une ${last_op}.`);
 						texte_corr = ``;	
 					} else {
-						texte_corr = `Pour fixer les idées, choissions des valeurs pour $x$ et $y$, par exemple $x=${val1}$ et $y=${val2}$<br>`
-						texte_corr += `Le calcul serait le suivant : ${expc}.<br>`;
-						texte_corr += `Pour n'importe quelles valeurs de $x$ et de $y$ choisies, les étapes sont les mêmes, elles respectent les priorités opératoires.<br>`
-						texte_corr += texte_en_couleur(`La dernière opération dans ${expn} est donc une ${last_op}`);
+						texte_corr = `Pour fixer les idées, choissions des valeurs pour $x$ et $y$, par exemple $x=${val1}$ et $y=${val2}$.`
+						texte_corr += `<br>Le calcul serait le suivant : ${expc}.`;
+						texte_corr += `<br>Pour n'importe quelles valeurs de $x$ et de $y$ choisies, les étapes sont les mêmes, elles respectent les priorités opératoires.`
+						texte_corr += texte_en_couleur(`<br>La dernière opération dans ${expn} est donc une ${last_op}.`);
 					};
 
 					break;
