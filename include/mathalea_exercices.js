@@ -1,5 +1,4 @@
 var liste_des_exercices_disponibles = {
-    'beta5G10-1' : Construire_par_Symetrie,
   CM000: Tables_additions_soustractions,
   CM001: Tables_de_multiplications,
   CM002: Tables_de_divisions,
@@ -98,8 +97,9 @@ var liste_des_exercices_disponibles = {
   "5C12": Calculer_une_expression_numerique,
   "5C12-1": Traduire_une_phrase_par_une_expression_et_calculer,
   "5G10": Symetrie_axiale_5e,
-  "5G11": Transformations_5e,
   "5G12": Pavages_et_demi_tour,
+  "5G11": Transformations_5e,
+  'beta5G10-1' : Construire_par_Symetrie,
   //'beta5G2' : Constructibilite_des_triangles,// pour développer l'exercice global
   //'beta5G21-1' : Constructibilite_des_triangles_longueurs,// pour développer l'exercice global
   "5G21-1": Constructibilite_des_triangles_longueurs,
@@ -11731,19 +11731,19 @@ function Parallele_et_Perpendiculaires() {
             g,
             carreaux
           );
-          enonce = num_alpha(0) + `Reproduire la figure ci-dessous.<br>`;
+          enonce = num_alpha(0) + ` Reproduire la figure ci-dessous.<br>`;
           enonce +=
             num_alpha(1) +
-            `Tracer la droite perpendiculaires à $(AB)$ passant par $B$.<br>`;
+            ` Tracer la droite perpendiculaire à $(AB)$ passant par $B$.<br>`;
           enonce +=
             num_alpha(2) +
-            `Tracer la droite perpendiculaires à $(AB)$ passant par $C$ et nommer $M$ le point d'intersection de cette droite avec la droite $(AB)$.<br>`;
+            ` Tracer la droite perpendiculaire à $(AB)$ passant par $C$ et nommer $M$ le point d'intersection de cette droite avec la droite $(AB)$.<br>`;
           enonce +=
             num_alpha(3) +
-            `Tracer la droite perpendiculaires à $(AB)$ passant par $D$ et nommer $N$ le point d'intersection de cette droite avec la droite $(AB)$.<br>`;
+            ` Tracer la droite perpendiculaire à $(AB)$ passant par $D$ et nommer $N$ le point d'intersection de cette droite avec la droite $(AB)$.<br>`;
           enonce +=
             num_alpha(4) +
-            `Mesurer ensuite la distance $AM$ et $AN$.<br> Pour l'auto-correction comparer ces mesures avec celles données dans la correction<br>`;
+            ` Mesurer ensuite les distances $AM$ et $AN$.<br> Pour l'auto-correction comparer ces mesures avec celles données dans la correction<br>`;
           enonce += mathalea2d(params, objets_enonce);
           correction = mathalea2d(params, objets_correction);
           correction += `<br>$AM \\approx ${tex_nombre(
@@ -11775,11 +11775,11 @@ function Parallele_et_Perpendiculaires() {
           objets_correction.push(dC,dD,dE,d,p,g,carreaux,tracePoint(A, B, C, D, E,F),labelPoint(A, B, C, D, E,F,CC,DD,EE),afficheCoteSegment(segment(A,CC),`${tex_nombre(lC)} cm`,.2,'red',1,0.5,'red'),afficheCoteSegment(segment(DD,A),`${tex_nombre(lD)} cm`,-0.2,'green',1,-0.5,'green'),afficheCoteSegment(segment(A,EE),`${tex_nombre(lE)} cm`,-0.2,'blue',1,-0.5,'blue'))
           objets_enonce.push(tracePoint(A, B, C, D,E,F),labelPoint(A, B, C, D,E,F),d,g,p,carreaux);
         
-          enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
-          enonce +=num_alpha(1)+`Tracer la droite parallèle à $(AB)$ passant par $C$ et nomme $M$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
-          enonce +=num_alpha(2)+`Tracer la droite parallèle à $(AB)$ passant par $D$ et nomme $N$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
-          enonce +=num_alpha(3)+`Tracer la droite parallèle à $(AB)$ passant par $E$ et nomme $O$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
-          enonce += num_alpha(4)+`Mesurer les distances $AM$, $AN$ et $AO$. Pour l'auto-correction, comparer ces mesures avec celles données par  l'ordinateur dans la correction.<br>`;
+          enonce = num_alpha(0)+ `Reproduire la figure ci-dessous.<br>`
+          enonce +=num_alpha(1)+` Tracer la droite parallèle à $(AB)$ passant par $C$ et nomme $M$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
+          enonce +=num_alpha(2)+` Tracer la droite parallèle à $(AB)$ passant par $D$ et nomme $N$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
+          enonce +=num_alpha(3)+` Tracer la droite parallèle à $(AB)$ passant par $E$ et nomme $O$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
+          enonce += num_alpha(4)+` Mesurer les distances $AM$, $AN$ et $AO$. Pour l'auto-correction, comparer ces mesures avec celles données par  l'ordinateur dans la correction.<br>`;
           enonce += mathalea2d(
             {
               xmin: Xmin,
