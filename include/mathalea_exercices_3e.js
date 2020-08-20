@@ -6382,12 +6382,24 @@ function TrianglesSemblables() {
 				r.opaciteDeRemplissage=0.5; // 
 				s.couleurDeRemplissage='blue'; //solution 2 en bleu
 				s.opaciteDeRemplissage=0.5; //
-				// mes ajouts par rapport à la figure de JC
+				// mes ajouts par rapport à la figure de JC				
+				// on fixe une place pour D et E
 				let D = r.listePoints[0];
 				D.nom='D';
 				let E = r.listePoints[1];
 				E.nom='E';
-
+				// on crée un tableau avec les noms proposé pour les points				
+				let tabPointsNames= ['G','H','I','J'];
+				//on place les deux solutions
+				let I=r.listePoints[2];
+				I.nom='I';
+				let I1=rotation(I,X,180)
+				I1.nom='I1';
+				// on place les mauvaises solutions
+				let F = point(I1.x+1,I1.y+1);
+				F.nom='F';
+				let L = point(I.x-1,I.y-3);
+				L.nom='L';
 
 				let fenetreMathalea2D = {xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5}
 
@@ -6396,7 +6408,16 @@ function TrianglesSemblables() {
 					enonce:`
 						Où placer le point M pour que les triangles ABC et DEM soient égaux ? 
 						<br>En F ? En G? En H ? En I ?
-						<br> ${mathalea2d(fenetreMathalea2D,p,nom1,grid,tracePoint(D),labelPoint(D),tracePoint(E),labelPoint(E))}
+						<br> ${mathalea2d(
+								fenetreMathalea2D,
+								p,
+								nom1,
+								grid,
+								tracePoint(D,E,I,I1,F,L),
+								labelPoint(D,E,I,I1,F,L),
+								r,
+								s
+							)}
 						`,
 					corr_solution1:``,
 					corr_solution2:``
