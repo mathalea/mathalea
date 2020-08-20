@@ -99,14 +99,14 @@ var liste_des_exercices_disponibles = {
   "5G10": Symetrie_axiale_5e,
   "5G12": Pavages_et_demi_tour,
   "5G11": Transformations_5e,
-  'beta5G10-1' : Construire_par_Symetrie,
-  //'beta5G2' : Constructibilite_des_triangles,// pour développer l'exercice global
-  //'beta5G21-1' : Constructibilite_des_triangles_longueurs,// pour développer l'exercice global
+  "5G10-1" : Symetrie_axiale_point_5e,
+  "5G10-2" : Symetrie_axiale_figure_5e,
+  "5G11-1" : Symetrie_centrale_point,
+  "5G11-2" : Symetrie_centrale_figure,
   "5G21-1": Constructibilite_des_triangles_longueurs,
   "5G20-1": Vocabulaire_des_triangles_5e,
   "5G22": DroiteRemarquableDuTriangle,
   "5G31": Exercice_angles_triangles,
-  //'beta5G31-1' : Constructibilite_des_triangles_angles,// pour développer l'exercice global
   "5G31-1": Constructibilite_des_triangles_angles,
   "5N13": Exercice_fractions_simplifier,
   "5N13-2": Egalites_entre_fractions,

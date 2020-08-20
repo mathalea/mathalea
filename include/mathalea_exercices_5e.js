@@ -5750,6 +5750,30 @@ function DroiteRemarquableDuTriangle(){
 	}
 	this.besoin_formulaire_numerique = ['Type de droites',3,"1 : Hauteurs et Médiatrices\n2 : Médianes et Bissectrices\n3 : Toutes les droites"]
 }
+function Symetrie_axiale_point_5e() {
+	Construire_par_Symetrie.call(this)
+	this.titre='Construire le symétrique d\'un point par rapport à une droite'
+	this.figure=false
+	this.sup=1
+}
+function Symetrie_axiale_figure_5e() {
+	Construire_par_Symetrie.call(this)
+	this.titre='Construire le symétrique d\'une figure par rapport à une droite'
+	this.figure=true
+	this.sup=1
+}
+function Symetrie_centrale_point() {
+	Construire_par_Symetrie.call(this)
+	this.titre='Construire le symétrique d\'un point par rapport à un point'
+	this.figure=false
+	this.sup=2
+}
+function Symetrie_centrale_figure() {
+	Construire_par_Symetrie.call(this)
+	this.titre='Construire le symétrique d\'une figure par rapport à un point'
+	this.figure=true
+	this.sup=2
+}
 function Construire_par_Symetrie() {
 	"use strict";
 	Exercice.call(this);
@@ -5759,11 +5783,17 @@ function Construire_par_Symetrie() {
 	this.nb_cols_corr = 1;
 	this.sup = 1;
 	this.sup2 = 1;
+	this.figure = false
 	this.nouvelle_version = function (numero_de_l_exercice) {
 	  let type_de_questions_disponibles;
-	  if (this.sup == 3) type_de_questions_disponibles = [1, 2];
-	  //Symétrie axiale ou centrale
-	  else type_de_questions_disponibles = [parseInt(this.sup)]; // Le choix 1 ou 2
+	  if (this.sup == 3) 	  //Symétrie axiale ou centrale
+		  if (this.figure==false) type_de_questions_disponibles = [1, 2]; // points
+		  else type_de_questions_disponibles = [3,4] // triangle
+
+	  else 
+		  if (this.figure==false) type_de_questions_disponibles = [parseInt(this.sup)]; // Le choix 1 ou 2 : points
+		  else type_de_questions_disponibles = [parseInt(this.sup)+2] //figures
+
 	  let liste_type_de_questions = combinaison_listes(
 		type_de_questions_disponibles,
 		this.nb_questions
@@ -5776,14 +5806,14 @@ function Construire_par_Symetrie() {
 		  // repère -10 || 10
 		  Xmin = -1;
 		  Ymin = -9;
-		  Xmax = 15;
+		  Xmax = 20;
 		  Ymax = 9;
 		  ppc = 20;
 		} else {
 		  // repère -5 || 5
 		  Xmin = -1;
 		  Ymin = -9;
-		  Xmax = 15;
+		  Xmax = 20;
 		  Ymax = 9;
 		  ppc = 20;
 		}
@@ -5823,7 +5853,7 @@ function Construire_par_Symetrie() {
 		i < this.nb_questions && cpt < 50;
   
 	  ) {
-		if (this.sup2<3) g = grille(-1, -15, 15, 15, "gray", 0.7);
+		if (this.sup2<3) g = grille(Xmin, Ymin, Xmax, Ymax, "gray", 0.7);
 		else g=''
 		if (this.sup2 == 2) {
 		  k = 0.8;
@@ -5833,20 +5863,21 @@ function Construire_par_Symetrie() {
 		  carreaux = "";
 		}
 		switch (liste_type_de_questions[i]) {
-		  case 1:
-			A = point(0, randint(-1,1), "A",'above');
-			B = point(6, randint(-1,1,A.y), "B",'above');
+		  case 1: // 3 symétries axiales de points
+			p1nom=creerNomDePolygone(5)
+			A = point(0, randint(-1,1), `${p1nom[0]}`,'above');
+			B = point(6, randint(-1,1,A.y), `${p1nom[1]}`,'above');
 			d = droite(A, B);
 			d.isVisible = true;
 			d.epaisseur=2
-			C = point(randint(2, 3), randint(3, 4), "C",'above left');
-			D = point(randint(10, 13), randint(-4, -3), "D",'below right');
+			C = point(randint(2, 3), randint(3, 4), `${p1nom[2]}`,'above left');
+			D = point(randint(10, 13), randint(-4, -3), `${p1nom[3]}`,'below right');
 			dB = droiteParPointEtPerpendiculaire(B, d);
-			E=point(randint(6,8),randint(-8,-5), "E", "left");
+			E=point(randint(6,8),randint(-8,-5), `${p1nom[4]}`, "left");
 			//F = point(E.x+1,5-B.y,'F','above left');
-			CC=symetrieAxiale(C,d,'C\'','below left')
-			DD=symetrieAxiale(D,d,'D\'','above right')
-			EE=symetrieAxiale(E,d,'E\'','left')
+			CC=symetrieAxiale(C,d,`${p1nom[2]}\'`,'below left')
+			DD=symetrieAxiale(D,d,`${p1nom[3]}\'`,'above right')
+			EE=symetrieAxiale(E,d,`${p1nom[4]}\'`,'left')
 			//FF=symetrieAxiale(F,d,'F\'','below left')
 			cC=codageMediatrice(C,CC,'red','|')
 			cD=codageMediatrice(D,DD,'blue','X')
@@ -5869,12 +5900,11 @@ function Construire_par_Symetrie() {
 
 			objets_correction.push(d,g,carreaux,tracePoint(A, B, C, D, E,CC,DD,EE),labelPoint(A, B, C, D, E,CC,DD,EE),cC,cD,cE,sC,sD,sE,sED,sDE,sCE,sEC)
 			objets_enonce.push(tracePoint(A, B, C, D,E),g,labelPoint(A, B, C, D,E),d,carreaux);
-			enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
-			enonce += num_alpha(1)+`Construire le point $C\'$ symétrique de $C$ par rapport à la droite $(AB)$.<br>`
-			enonce += num_alpha(2)+`Construire le point $D\'$ symétrique de $D$ par rapport à la droite $(AB)$.<br>`
-			enonce += num_alpha(3)+`Construire le point $E\'$ symétrique de $E$ par rapport à la droite $(AB)$.<br>`
-			enonce += num_alpha(4)+`Construire le point $F\'$ symétrique de $E$ par rapport à la droite $(AB)$.<br>`
-			enonce += num_alpha(5)+`Coder la figure.<br>`;
+			enonce = num_alpha(0)+` Reproduire la figure ci-dessous.<br>`
+			enonce += num_alpha(1)+` Construire le point $${p1nom[2]}\'$ symétrique de $${p1nom[2]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+			enonce += num_alpha(2)+` Construire le point $${p1nom[3]}\'$ symétrique de $${p1nom[3]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+			enonce += num_alpha(3)+` Construire le point $${p1nom[4]}\'$ symétrique de $${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+			enonce += num_alpha(5)+` Coder la figure.<br>`;
 			enonce += mathalea2d( params
 			  ,
 			  objets_enonce
@@ -5883,30 +5913,31 @@ function Construire_par_Symetrie() {
 			  params,
 			 objets_correction
 			);
-			correction+=`<br>Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(AB)$`
+			correction+=`<br>Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(${p1nom[0]}${p1nom[1]})$`
 			break;
-		  case 2:
-			A = point(0, randint(-1,1), "A",'left');
-			B = point(7, randint(-1,1,A.y), "O",'above');
-			C = point(randint(2, 3), randint(-4, -2), "C",'left');
-			D = point(randint(10, 13), randint(-6, -5), "D",'below right');
-			CC=rotation(C,B,180,'C\'','right')
-			DD=rotation(D,B,180,'D\'','above left')
-			AA=rotation(A,B,180,'A\'','right')
+		  case 2: // 3 symétries centrales de points
+			p1nom=creerNomDePolygone(4)
+			A = point(0, randint(-1,4), `${p1nom[0]}`,'left');
+			B = point(7, randint(-1,1,A.y), `${p1nom[1]}`,'above');
+			C = point(randint(2, 3), randint(-4, -2), `${p1nom[2]}`,'left');
+			D = point(randint(10, 13), randint(-6, -5), `${p1nom[3]}`,'below right');
+			CC=rotation(C,B,180,`${p1nom[2]}\'`,'right')
+			DD=rotation(D,B,180,`${p1nom[3]}\'`,'above left')
+			AA=rotation(A,B,180,`${p1nom[0]}\'`,'right')
 			cC=codageMilieu(C,CC,'red','|',false)
-			cD=codageMilieu(D,DD,'blue','X' ,false)
-			cA=codageMilieu(A,AA,'green','O',false)
+			cD=codageMilieu(D,DD,'blue','||' ,false)
+			cA=codageMilieu(A,AA,'green','|||',false)
 			sC=segment(C,CC)
 			sD=segment(D,DD)
 			sA=segment(A,AA)
+			
 		objets_correction.push(g,carreaux,tracePoint(A, C, D,CC,DD,AA),labelPoint(A, B, C, D,CC,DD,AA),cC,cD,cA,sC,sD,sA)
 			objets_enonce.push(tracePoint(A, B, C, D),g,labelPoint(A, B, C, D),carreaux);
-			enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
-			enonce += num_alpha(1)+`Construire le point $C\'$ symétrique de $C$ par rapport à la droite $(AB)$.<br>`
-			enonce += num_alpha(2)+`Construire le point $D\'$ symétrique de $D$ par rapport à la droite $(AB)$.<br>`
-			enonce += num_alpha(3)+`Construire le point $E\'$ symétrique de $E$ par rapport à la droite $(AB)$.<br>`
-			enonce += num_alpha(4)+`Construire le point $F\'$ symétrique de $E$ par rapport à la droite $(AB)$.<br>`
-			enonce += num_alpha(5)+`Coder la figure.<br>`;
+			enonce = num_alpha(0)+` Reproduire la figure ci-dessous.<br>`
+			enonce += num_alpha(1)+` Construire le point $${p1nom[2]}\'$ symétrique de $${p1nom[2]}$ par rapport au point $${p1nom[1]}$.<br>`
+			enonce += num_alpha(2)+` Construire le point $${p1nom[3]}\'$ symétrique de $${p1nom[3]}$ par rapport au point $${p1nom[1]}$.<br>`
+			enonce += num_alpha(3)+` Construire le point $${p1nom[0]}\'$ symétrique de $${p1nom[0]}$ par rapport au point $${p1nom[1]}$.<br>`
+			enonce += num_alpha(4)+` Coder la figure.<br>`;
 			enonce += mathalea2d( params
 			  ,
 			  objets_enonce
@@ -5915,9 +5946,90 @@ function Construire_par_Symetrie() {
 			  params,
 			 objets_correction
 			);
-			correction+=`<br>Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(AB)$`
+			//correction+=`<br>Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(AB)$`
 			break;
+			case 3: // symetrie axiale d'un triangle
+				p1nom=creerNomDePolygone(5)
 
+
+				A = point(0, randint(-1,1), `${p1nom[0]}`,'above');
+				B = point(6, randint(-1,1,A.y), `${p1nom[1]}`,'above');
+				d = droite(A, B);
+				d.isVisible = true;
+				d.epaisseur=2
+				C = point(randint(2, 3), randint(3, 4), `${p1nom[2]}`,'above left');
+				D = point(randint(10, 13), randint(-4, -2), `${p1nom[3]}`,'below right');
+				dB = droiteParPointEtPerpendiculaire(B, d);
+				E=point(randint(6,8),randint(-8,-6), `${p1nom[4]}`, "left");
+				p1=polygone(C,D,E)
+				p2=symetrieAxiale(p1,d)
+				p2.listePoints[0].nom=`${p1nom[2]}\'`
+				p2.listePoints[1].nom=`${p1nom[3]}\'`
+				p2.listePoints[2].nom=`${p1nom[4]}\'`
+				CC=nommePolygone(p1)
+				DD=nommePolygone(p2)
+				cC=codageMediatrice(p1.listePoints[0],p2.listePoints[0],'red','|')
+				cD=codageMediatrice(p1.listePoints[1],p2.listePoints[1],'blue','X')
+				cE=codageMediatrice(p1.listePoints[2],p2.listePoints[2],'green','O')			
+				sC=segment(p1.listePoints[0],p2.listePoints[0],'red')
+				sD=segment(p1.listePoints[1],p2.listePoints[1],'blue')
+				sE=segment(p1.listePoints[2],p2.listePoints[2],'green')	
+				sCE=droite(p1.listePoints[2],p1.listePoints[1],'','gray')
+				sCE.pointilles=true
+				sED=droite(p2.listePoints[2],p2.listePoints[1],'','gray')
+				sED.pointilles=true
+				objets_correction.push(d,g,tracePoint(A,B),labelPoint(A,B),carreaux,cC,cD,cE,sC,sD,sE,CC,DD,p1,p2,sCE,sED)
+				objets_enonce.push(g,d,tracePoint(A,B),labelPoint(A,B),carreaux,CC,p1);
+				enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
+				enonce += num_alpha(1)+` Construire le triangle  $${p1nom[2]}\'${p1nom[3]}\'${p1nom[4]}\'$ symétrique de $${p1nom[2]}${p1nom[3]}${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
+				enonce += num_alpha(2)+` Coder la figure.<br>`;
+				enonce += mathalea2d( params
+				  ,
+				  objets_enonce
+				);
+				correction = mathalea2d(
+				  params,
+				 objets_correction
+				);
+				correction+=`<br>Contrôler la figure en vérifiant que les côtés des deux triangles se coupent bien sur la droite $(${p1nom[0]}${p1nom[1]})$`
+				break;
+			  case 4:
+				p1nom=creerNomDePolygone(4)
+
+				A = point(0, randint(-1,4), `${p1nom[0]}`,'left');
+				B = point(7, randint(-1,1,A.y), `${p1nom[1]}`,'above');
+				C = point(randint(2, 3), randint(-6, -4), `${p1nom[2]}`,'left');
+				D = point(randint(10, 13), randint(-6, -5), `${p1nom[3]}`,'below right');
+				p1=polygone(A,C,D)
+				p2=rotation(p1,B,180)
+				p2.listePoints[0].nom=`${p1nom[0]}\'`
+				p2.listePoints[1].nom=`${p1nom[2]}\'`
+				p2.listePoints[2].nom=`${p1nom[3]}\'`
+				CC=nommePolygone(p1)
+				DD=nommePolygone(p2)
+				cC=codageMilieu(p1.listePoints[0],p2.listePoints[0],'red','|',false)
+				cD=codageMilieu(p1.listePoints[1],p2.listePoints[1],'blue','X' ,false)
+				cA=codageMilieu(p1.listePoints[2],p2.listePoints[2],'green','O',false)
+				sA=segment(p1.listePoints[0],p2.listePoints[0],'red')
+				sC=segment(p1.listePoints[1],p2.listePoints[1],'blue')
+				sD=segment(p1.listePoints[2],p2.listePoints[2],'green')	
+				
+			objets_correction.push(g,carreaux,tracePoint(B),labelPoint(B),cC,cD,cA,sC,sD,sA,CC,DD,p1,p2)
+				objets_enonce.push(tracePoint(B),g,labelPoint(B),CC,p1,carreaux);
+				enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
+				enonce += num_alpha(1)+` Construire le triangle  $${p1nom[0]}\'${p1nom[2]}\'${p1nom[3]}\'$ symétrique de $${p1nom[0]}${p1nom[2]}${p1nom[3]}$ par rapport au point $${p1nom[1]}$.<br>`
+				enonce += num_alpha(2)+` Coder la figure.<br>`;
+				enonce += mathalea2d( params
+				  ,
+				  objets_enonce
+				);
+				correction = mathalea2d(
+				  params,
+				 objets_correction
+				);
+				//correction+=`<br>Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(AB)$`
+				break;
+	
 		}
   
 		if (this.liste_questions.indexOf(texte) == -1) {
@@ -5931,7 +6043,7 @@ function Construire_par_Symetrie() {
   
 	  liste_de_question_to_contenu(this);
 	};
-		this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Symétrie axiale\n 2 : Symétrie centrale\n 3 : Mélange`]
+	//	this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Symétrie axiale\n 2 : Symétrie centrale\n 3 : Mélange`]
 	this.besoin_formulaire2_numerique = [
 	  "Type de cahier",
 	  3,
