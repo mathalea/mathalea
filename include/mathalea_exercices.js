@@ -41,10 +41,9 @@ var liste_des_exercices_disponibles = {
   "6D12": Calculs_de_durees_ou_d_horaires,
   "6G10": Notation_segment_droite_demi_droite,
   "6G10-1": Description_segment_droite_demi_droite,
-  beta6G12: Parallele_et_Perpendiculaires,
   "6G11": Tracer_des_perpendiculaires,
-  "6G12-1": Tracer_des_paralleles,
-  "6G12-2": Tracer_des_perpendiculaires_et_des_paralleles,
+  "6G12": Tracer_des_paralleles,
+  "6G12-1": Tracer_des_perpendiculaires_et_des_paralleles,
   "6G20": Vocabulaire_des_triangles_6e,
   "6G23-2": Tracer_triangle_2_angles,
   "6G24": Transformations_6e,
@@ -10698,7 +10697,6 @@ function Tracer_des_perpendiculaires_et_des_paralleles() {
   Parallele_et_Perpendiculaires.call(this);
   this.titre = "Tracer des perpendiculaires et des parallèles";
   this.sup = 3;
-  this.nb_questions = 2;
   this.besoin_formulaire_numerique = false;
 }
 /**
@@ -11572,11 +11570,9 @@ function Parallele_et_Perpendiculaires() {
   this.sup = 1;
   this.sup2 = 1;
   this.nouvelle_version = function (numero_de_l_exercice) {
-    let type_de_questions_disponibles;
-    if (this.sup == 3) type_de_questions_disponibles = [1, 2];
-    //Perpendiculaires ou parallèles
-    else type_de_questions_disponibles = [parseInt(this.sup)]; // Le choix 1 ou 2
-    let liste_type_de_questions = combinaison_listes(
+  let type_de_questions_disponibles;
+  type_de_questions_disponibles = [parseInt(this.sup)]; // Le choix 1 ou 2 ou 3 : 1=perpendiculaires, 2=parallèles, 3=des perpendiculaires et des paralèlles
+  let liste_type_de_questions = combinaison_listes(
       type_de_questions_disponibles,
       this.nb_questions
     );
@@ -11631,6 +11627,10 @@ function Parallele_et_Perpendiculaires() {
       cB,
       cC,
       cD,
+      cE,
+      cF,
+      cG,
+      FF,
       BB,
       carreaux,
       k,
@@ -11810,6 +11810,106 @@ function Parallele_et_Perpendiculaires() {
           )}$ cm.<br>`;
 
           break;
+          case 3:
+            A = point(0, 0, "A", "above left");
+            B = point(10, randint(-4, 4, [-1, 0, 1]), "B", "above right");
+            d = droite(A, B);
+            d.isVisible = true;
+            C = point(randint(2, 3), randint(3, 4), "C", "above left");
+            D = point(randint(7, 8), randint(-7, -6), "D");
+            dB = droiteParPointEtPerpendiculaire(B, d);
+            xE = 11;
+            E = pointSurDroite(dB, 11, "E", "left");
+            while (!Number.isInteger(E.y)) {
+              xE++;
+              E = pointSurDroite(dB, xE, "E", "left");
+            }
+            F = point(E.x, B.y);
+            dE = droiteParPointEtParallele(E, d);
+            dD = droiteParPointEtParallele(D, d);
+            dC = droiteParPointEtPerpendiculaire(C,d)
+            BB = rotation(A, B, 90);
+            CC = pointIntersectionDD(dC, d, "M", "below right");
+            DD = pointIntersectionDD(dD, dB, "N", "above left");
+            EE = pointIntersectionDD(dC,dE ,'O','above left');
+            FF = pointIntersectionDD(dD,dC)
+
+            lC = arrondi(longueur(CC, A) * k, 1);
+            lD = arrondi(longueur(DD, A) * k, 1);
+            lE = arrondi(longueur(EE, A) * k, 1);
+            cB = codageAngleDroit(A, B, BB);
+            cC = codageAngleDroit(C, CC, B);
+            cD = codageAngleDroit(D, DD, B,'red');
+            cE = codageAngleDroit(B,E,EE,'red')
+            cF = codageAngleDroit(C,EE,E,'red')
+            cG = codageAngleDroit(C,FF,D,'red')
+
+            objets_correction.push(dC,dD,dB,dE,cB,cC,cD,cE,cF,cG,d,g,carreaux,tracePoint(A, B, C, D, E, CC, DD,EE),labelPoint(A, B, C, D, E, CC, DD,EE),afficheCoteSegment(
+              segment(A, CC),
+              `${tex_nombre(lC)} cm`,
+              0.5,
+              "red",
+              1,
+              0.5,
+              "red"
+            ),
+            afficheCoteSegment(
+              segment(A, DD),
+              `${tex_nombre(lD)} cm`,
+              0,
+              "blue",
+              1,
+              -0.5,
+              "blue"
+            ),
+            afficheCoteSegment(
+              segment(A, EE),
+              `${tex_nombre(lE)} cm`,
+              0,
+              "green",
+              1,
+              -0.5,
+              "green"
+            ));
+            objets_enonce.push(tracePoint(A, B, C, D,E),labelPoint(A, B, C, D,E),d,g,carreaux);
+            enonce = num_alpha(0)+ `Reproduire la figure ci-dessous.<br>`
+          enonce +=num_alpha(1)+` Tracer la droite perpendiculaire à $(AB)$ passant par $B$.<br>`;
+          enonce +=num_alpha(2)+` Tracer la droite perpendiculaire à $(AB)$ passant par $C$ et nomme $M$, le point d'intersection de cette droite avec la droite $(AB)$.<br>`
+          enonce +=num_alpha(3)+` Tracer la droite parallèle à $(AB)$ passant par $D$ et nomme $N$, le point d'intersection de cette droite avec la droite $(BE)$.<br>`;
+          enonce += num_alpha(4)+ ` Tracer la droite parallèle à $(AB)$ passant par $E$ et nomme $O$, le point d'intersection de cette droite avec la droite $(CM)$.<br>`
+          enonce += num_alpha(5)+` Mesurer les distances $AM$, $AN$ et $AO$. Pour l'auto-correction, comparer ces mesures avec celles données par  l'ordinateur dans la correction.<br>`;
+          enonce += mathalea2d(
+            {
+              xmin: Xmin,
+              ymin: Ymin,
+              xmax: Xmax,
+              ymax: Ymax,
+              pixelsParCm: ppc,
+              scale: sc,
+            },
+           objets_enonce
+          );
+          correction = mathalea2d(
+            {
+              xmin: Xmin,
+              ymin: Ymin,
+              xmax: Xmax,
+              ymax: Ymax,
+              pixelsParCm: ppc,
+              scale: sc,
+            },
+            objets_correction
+          );
+          correction += `<br>$AM \\approx ${tex_nombre(
+            lC
+          )}$ cm, $AN \\approx ${tex_nombre(
+            lD
+          )}$ cm et $AO \\approx${tex_nombre(
+            lE
+          )}$ cm.<br>`;
+          correction+=`Les angle droits en rouge se justifient par la propriété :<br> ${texte_en_couleur(`Si deux droites sont parallèles, toutes droite perpendiculaire à l'une est aussi perpendiculaire à l'autre`,'red')}.<br>`
+          correction +=`Vérifier les angles droits à l'équerre.`
+          break
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
