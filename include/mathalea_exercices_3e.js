@@ -6375,25 +6375,34 @@ function TrianglesSemblables() {
 				M=point(9,12); // un point M fixe pour tourner autour				
 				q=rotation(p,M,90); // on fait tourner ABC autour de M de 90°
 				Gq=barycentre(q); // on construit son barycentre
-				r=rotation(q,Gq,choice([0,90,180,270])); // on fait tourner encore autour du barycentre
-				X=milieu(r.listePoints[0],r.listePoints[1]); // on place le milieu des deux premiers points de la figure obtenue qui sont les images des points A et B initiaux
-				// I et J
-				// let I=rotation(C,G,angleChoisi);
-				// let J=rotation(I,X,180);
-				// let traceI = tracePoint(I)
-				// let traceJ = tracePoint(J)
-				// on fixe et on nomme D et E				
-				r.listePoints[0].nom='D';
+				r=rotation(q,Gq,choice([0,90,180,270])); // on fait tourner q encore autour de son barycentre
+				X=milieu(r.listePoints[0],r.listePoints[1]); // on place le milieu des deux premiers points de la figure obtenue qui sont les images des points A et B initiaux	
+				s=rotation(r,X,180); // on fait topurner r autour du milieu des deux extremites du plus grand côté
+				r.couleurDeRemplissage='red'; // solution 1 en rouge
+				r.opaciteDeRemplissage=0.5; // 
+				s.couleurDeRemplissage='blue'; //solution 2 en bleu
+				s.opaciteDeRemplissage=0.5; //
+				// mes ajouts par rapport à la figure de JC
 				let D = r.listePoints[0];
-				let traceD = tracePoint(D);
-				let labelD = labelPoint(D)
-				//
-				s=rotation(r,X,180)
-				r.couleurDeRemplissage='red'
-				r.opaciteDeRemplissage=0.5
-				s.couleurDeRemplissage='blue'
-				s.opaciteDeRemplissage=0.5
-				texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r,s,labelD)
+				D.nom='D';
+				let E = r.listePoints[1];
+				E.nom='E';
+
+
+				let fenetreMathalea2D = {xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5}
+
+				// on crée un objet pour stocker les figures et les corrections
+				let figures = {
+					enonce:`
+						Où placer le point M pour que les triangles ABC et DEM soient égaux ? 
+						<br>En F ? En G? En H ? En I ?
+						<br> ${mathalea2d(fenetreMathalea2D,p,nom1,grid,tracePoint(D),labelPoint(D),tracePoint(E),labelPoint(E))}
+						`,
+					corr_solution1:``,
+					corr_solution2:``
+				}
+				//texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r,s)
+				texte = figures.enonce;
 				this.liste_questions[0]=texte;
 				this.liste_corrections[0]=texte_corr;
 				liste_de_question_to_contenu(this);
