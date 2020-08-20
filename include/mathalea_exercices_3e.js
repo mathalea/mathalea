@@ -6377,7 +6377,7 @@ function TrianglesSemblables() {
 				// on a besoin de récupérer le polygone non tracé
 				let q_non_trace = polygone(q.listePoints);
 				Gq=barycentre(q); // on construit son barycentre
-				//let angleChoisi2 = 180; 
+				//let angleChoisi2 = 270; 
 				let angleChoisi2 = choice([0,90,180,270]); 
 				r=rotation(q,Gq,angleChoisi2); // on fait tourner q encore autour de son barycentre
 				X=milieu(r.listePoints[0],r.listePoints[1]); // on place le milieu des deux premiers points de la figure obtenue qui sont les images des points A et B initiaux	
@@ -6421,7 +6421,7 @@ function TrianglesSemblables() {
 				// on prépare les corrections
 				let centre_rot = {
 					sol1:pointIntersectionDD(droite(p.listePoints[1],E),droite(D,p.listePoints[0])),
-					sol2:pointIntersectionDD(droite(p.listePoints[1],D),droite(p.listePoints[0],E))
+					sol2:pointIntersectionDD(droite(E,p.listePoints[0]),droite(p.listePoints[1],D))
 				};
 				let vect_trans = {
 					sol1:vecteur(p.listePoints[1],E),
@@ -6448,7 +6448,7 @@ function TrianglesSemblables() {
 						J2=pointIntersectionDD(d4,d5);// centre après la seconde composition angle 270 à 2pi près						
 						transformationAnimee.sol2=rotationAnimee(p,J2,-90);//pb composée d'une R, rot(M,90) et R' rot(Gq,0) puis rot(X,180)
 						break;
-					case 90:
+					case 90:						
 						transformationAnimee.sol1=rotationAnimee(p,centre_rot.sol1,180);
 						transformationAnimee.sol2=translationAnimee(p,vect_trans.sol2);
 						break;
@@ -6467,7 +6467,7 @@ function TrianglesSemblables() {
 						transformationAnimee.sol2=rotationAnimee(p,J2,90);//pb composée rot(M,90) et rot(Gq,180) et rot(X,180)
 						break;
 					case 270:
-						transformationAnimee.sol1=translationAnimee(p,vect_trans.sol1);
+						transformationAnimee.sol1=translationAnimee(p,vect_trans.sol1);						
 						transformationAnimee.sol2=rotationAnimee(p,centre_rot.sol2,180);
 						break; 
 				} 
@@ -6500,9 +6500,6 @@ function TrianglesSemblables() {
 						sgmt_DE,
 						r,
 						//s,
-						//rotationAnimee(p,M,90,'begin="0s" dur="2s" repeatCount="1"' ),
-						//rotationAnimee(q,Gq,angleChoisi2,'begin="2s" dur="2s" repeatCount="1"'),
-						//rotationAnimee(r,X,180,'begin="4s" dur="2s" repeatCount="1"' )	
 					)}`,
 					corr_solution2:`Un solution est donc le point ${I1.nom} <br>
 					${mathalea2d(
@@ -6515,9 +6512,6 @@ function TrianglesSemblables() {
 						sgmt_DE,
 						//r,
 						s,
-						//rotationAnimee(p,M,90,'begin="0s" dur="2s" repeatCount="1"' ),
-						//rotationAnimee(q,Gq,angleChoisi2,'begin="2s" dur="2s" repeatCount="1"'),
-						//rotationAnimee(r,X,180,'begin="4s" dur="2s" repeatCount="1"' )	
 					)}`,
 					corr_animmee_sol1:`Un solution est donc le point ${I.nom} <br>
 					${mathalea2d(
@@ -6529,14 +6523,7 @@ function TrianglesSemblables() {
 						labelPoint(D,E,I,I1,F,L),
 						sgmt_DE,
 						r,
-						//tracePoint(centre_sym.sol1),
-						//droite(p.listePoints[1],E),
-						//droite(p.listePoints[0],D),
-						//s,
-						//rotationAnimee(p,M,90,'begin="0s" dur="2s" repeatCount="1"' ),
-						//rotationAnimee(q,Gq,angleChoisi2,'begin="2s" dur="2s" repeatCount="1"'),
 						transformationAnimee.sol1
-						//rotationAnimee(r,X,180,'begin="4s" dur="2s" repeatCount="1"' )	
 					)}`,
 					corr_animmee_sol2:`Un solution est donc le point ${I1.nom} <br>
 					${mathalea2d(
@@ -6549,14 +6536,7 @@ function TrianglesSemblables() {
 						sgmt_DE,
 						//r,
 						s,
-						//tracePoint(M),
-						//droite(A,B),
-						//droite(D,E),
-						//q,
-						//rotationAnimee(p,M,90,'begin="0s" dur="2s" repeatCount="1"' ),
-						//rotationAnimee(q,Gq,angleChoisi2,'begin="2s" dur="2s" repeatCount="1"'),
 						transformationAnimee.sol2
-						//rotationAnimee(r,X,180,'begin="4s" dur="2s" repeatCount="1"' )	
 					)}`
 				}
 				//texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r,s)
