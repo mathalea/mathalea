@@ -6377,8 +6377,8 @@ function TrianglesSemblables() {
 				// on a besoin de récupérer le polygone non tracé
 				let q_non_trace = polygone(q.listePoints);
 				Gq=barycentre(q); // on construit son barycentre
-				//let angleChoisi2 = 270; 
-				let angleChoisi2 = choice([0,90,180,270]); 
+				let angleChoisi2 = 0; 
+				//let angleChoisi2 = choice([0,90,180,270]); 
 				r=rotation(q,Gq,angleChoisi2); // on fait tourner q encore autour de son barycentre
 				X=milieu(r.listePoints[0],r.listePoints[1]); // on place le milieu des deux premiers points de la figure obtenue qui sont les images des points A et B initiaux	
 				s=rotation(r,X,180); // on fait topurner r autour du milieu des deux extremites du plus grand côté
@@ -6419,7 +6419,7 @@ function TrianglesSemblables() {
 				let fenetreMathalea2D = {xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5}
 
 				// on prépare les corrections
-				let centre_sym = {
+				let centre_rot = {
 					sol1:pointIntersectionDD(droite(p.listePoints[1],E),droite(D,p.listePoints[0])),
 					sol2:pointIntersectionDD(droite(p.listePoints[1],D),droite(p.listePoints[0],E))
 				};
@@ -6431,13 +6431,25 @@ function TrianglesSemblables() {
 					sol1:``,
 					sol2:``
 				};
+				// pour construire les droites et les centres passant par les centres de rotations
+				let d,d1,d2,d3,d4,d5,J1,J2;
 				switch (angleChoisi2) {
 					case 0:
 						transformationAnimee.sol1=rotationAnimee(p,M,90);
-						transformationAnimee.sol2=rotationAnimee(p,M,90);//pb composée d'une rot(M,90) et rot(Gq,180)
+						// la 1ere compo
+						d= droite(M,Gq);
+						d1=rotation(d,M,-45);
+						d2=rotation(d,Gq,0);
+						J1=pointIntersectionDD(d1,d2); // centre de la composée, ici l'angle vaut 90
+						d3=droite(J1,X);
+						d4=rotation(d3,J1,-45);
+						d5=rotation(d3,X,90);
+						J2=pointIntersectionDD(d4,d5);// centre après la seconde composition angle 270
+						
+						transformationAnimee.sol2=rotationAnimee(p,J2,270);//pb composée d'une R, rot(M,90) et R' rot(Gq,0) puis rot(X,180)
 						break;
 					case 90:
-						transformationAnimee.sol1=rotationAnimee(p,centre_sym.sol1,180);
+						transformationAnimee.sol1=rotationAnimee(p,centre_rot.sol1,180);
 						transformationAnimee.sol2=translationAnimee(p,vect_trans.sol2);
 						break;
 					case 180:
@@ -6446,7 +6458,7 @@ function TrianglesSemblables() {
 						break;
 					case 270:
 						transformationAnimee.sol1=translationAnimee(p,vect_trans.sol1);
-						transformationAnimee.sol2=rotationAnimee(p,centre_sym.sol2,180);
+						transformationAnimee.sol2=rotationAnimee(p,centre_rot.sol2,180);
 						break; 
 				} 
 
