@@ -3800,7 +3800,7 @@ function ObjetLutin() {
   this.ySVG = function (coeff) {
     return -this.y * coeff;
   };
-  this.orientation = 0;
+  this.orientation = 90;
   this.historiquePositions = [];
   this.crayonBaisse = false;
   this.isVisible = true;
@@ -3829,7 +3829,8 @@ function creerLutin(...args) {
 function avance(d, lutin) { // A faire avec pointSurCercle pour tenir compte de l'orientation
   let xdepart = lutin.x;
   let ydepart = lutin.y;
-  lutin.x = lutin.x + d;
+  lutin.x = calcul(lutin.x + d * Math.cos(Math.radians(lutin.orientation)));
+  lutin.y = calcul(lutin.y + d * Math.sin(Math.radians(lutin.orientation)));
   lutin.historiquePositions.push([lutin.x, lutin.y]);
   if (lutin.crayonBaisse) {
     lutin.listeTraces.push([xdepart, ydepart, lutin.x, lutin.y]);
@@ -3844,6 +3845,17 @@ function leveCrayon(lutin) {
   lutin.crayonBaisse = false;
 }
 
+function orienter(a,lutin){
+  lutin.orientation = a
+}
+
+function tournerG(a,lutin){
+  lutin.orientation +=a
+}
+
+function tournerD(a,lutin){
+  lutin.orientation -=a
+}
 
 
 
