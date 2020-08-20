@@ -6377,8 +6377,8 @@ function TrianglesSemblables() {
 				// on a besoin de récupérer le polygone non tracé
 				let q_non_trace = polygone(q.listePoints);
 				Gq=barycentre(q); // on construit son barycentre
-				let angleChoisi2 = 180; 
-				//let angleChoisi2 = choice([0,90,180,270]); 
+				//let angleChoisi2 = 180; 
+				let angleChoisi2 = choice([0,90,180,270]); 
 				r=rotation(q,Gq,angleChoisi2); // on fait tourner q encore autour de son barycentre
 				X=milieu(r.listePoints[0],r.listePoints[1]); // on place le milieu des deux premiers points de la figure obtenue qui sont les images des points A et B initiaux	
 				s=rotation(r,X,180); // on fait topurner r autour du milieu des deux extremites du plus grand côté
