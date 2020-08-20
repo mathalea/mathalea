@@ -6389,17 +6389,23 @@ function TrianglesSemblables() {
 				let E = r.listePoints[1];
 				E.nom='E';
 				// on crée un tableau avec les noms proposé pour les points				
-				let tabPointsNames= ['G','H','I','J'];
+				let tabPointsNames= ['G','H','I','J'];				
+				// on mélange le tableau 
+				tabPointsNames=shuffle(tabPointsNames);
 				//on place les deux solutions
 				let I=r.listePoints[2];
-				I.nom='I';
+				//I.nom='I';
+				I.nom=tabPointsNames[0];
 				let I1=rotation(I,X,180)
-				I1.nom='I1';
+				//I1.nom='I1';
+				I1.nom=tabPointsNames[1];
 				// on place les mauvaises solutions
 				let F = point(I1.x+1,I1.y+1);
-				F.nom='F';
+				//F.nom='F';
+				F.nom=tabPointsNames[2];
 				let L = point(I.x-1,I.y-3);
-				L.nom='L';
+				//L.nom='L';
+				L.nom=tabPointsNames[3];
 
 				let fenetreMathalea2D = {xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5}
 
