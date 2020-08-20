@@ -6366,7 +6366,8 @@ function TrianglesSemblables() {
 				if (aireABC<11&&aireABC>5) trouve=true;
 				};
 				G=barycentre(p); // le barycentre de ABC
-				p=rotation(p,G,choice([0,90,270])); // on tourne ABC de façon aléatoire autour de son barycentre
+				let angleChoisi = choice([0,90,270]); 
+				p=rotation(p,G,angleChoisi); // on tourne ABC de façon aléatoire autour de son barycentre
 				p.couleurDeRemplissage='gray';//remplissage de ABC
 				p.opaciteDeRemplissage=0.5;//remplissage de ABC
 				nom1=nommePolygone(p,'ABC',0.4); // on  nomme ABC en plaçant A,B et C à 0,4
@@ -6375,13 +6376,23 @@ function TrianglesSemblables() {
 				q=rotation(p,M,90); // on fait tourner ABC autour de M de 90°
 				Gq=barycentre(q); // on construit son barycentre
 				r=rotation(q,Gq,choice([0,90,180,270])); // on fait tourner encore autour du barycentre
-				X=milieu(r.listePoints[0],r.listePoints[1]); // on place le milieu des deux premiers points de la figure obtenue
+				X=milieu(r.listePoints[0],r.listePoints[1]); // on place le milieu des deux premiers points de la figure obtenue qui sont les images des points A et B initiaux
+				// I et J
+				// let I=rotation(C,G,angleChoisi);
+				// let J=rotation(I,X,180);
+				// let traceI = tracePoint(I)
+				// let traceJ = tracePoint(J)
+				// on fixe D et E
+				//let monM = choice(['F','G','H','I']);
+				let monM = ' ';
+				let nom2 = nommePolygone(r,'DE'+monM,0.7); 
+				//
 				s=rotation(r,X,180)
 				r.couleurDeRemplissage='red'
 				r.opaciteDeRemplissage=0.5
 				s.couleurDeRemplissage='blue'
 				s.opaciteDeRemplissage=0.5
-				texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r,s)
+				texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r,s,nom2)
 				this.liste_questions[0]=texte;
 				this.liste_corrections[0]=texte_corr;
 				liste_de_question_to_contenu(this);
