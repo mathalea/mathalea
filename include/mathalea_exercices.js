@@ -87,6 +87,7 @@ var liste_des_exercices_disponibles = {
   "6N43-2": Tableau_criteres_de_divisibilite,
   "6P10": Proportionnalite_pas_proportionnalite,
   "6P11": Proportionnalite_par_linearite,
+  "6P11-1": Proportionnalite_par_linearite_bis,
   "5A10": Liste_des_diviseurs_5e,
   "5A11": Premier_ou_pas_5e,
   "5A13": Exercice_decomposer_en_facteurs_premiers,
@@ -119,12 +120,12 @@ var liste_des_exercices_disponibles = {
   "5L10-2": Traduire_un_programme_de_calcul,
   "5L10-3": Traduire_une_expression_litterale_par_une_phrase,
   "5L12": Reduire_une_expression_litterale,
-  "beta5L12-1": Reduire_dinstinction_somme_produit,
+  "5L12-1": Reduire_dinstinction_somme_produit,
   "5L13": Calculer_la_valeur_d_une_expression_litterale,
   "5L13-1": Calculer_une_expression_litterale,
   "5L13-2": Exercice_substituer,
   "5L13-3": Traduire_une_phrase_par_une_expression_litterale_et_calculer,
-  "beta5L13-4": Calculer_une_expression_litteraleBis,
+  "5L13-4": Calculer_une_expression_litteraleBis,
   "5L14": Tester_une_egalite,
   "5M10": Aire_du_parallelogramme,
   "5M20": Calcul_de_volumes_5e,
@@ -149,7 +150,7 @@ var liste_des_exercices_disponibles = {
   "4C30-1": Puissances_encadrement,
   "4G40": Transformations_4e,
   "4L10": Exercice_developper,
-  "beta4L13-0": Mettre_en_equation_sans_resoudre,
+  "4L13-0": Mettre_en_equation_sans_resoudre,
   "4L14-0": Tester_si_un_nombre_est_solution_d_une_equation,
   "4L14-1": Tester_si_un_nombre_est_solution_d_une_equation_deg1,
   "4L14-2": Tester_si_un_nombre_est_solution_d_une_equation_deg2,
@@ -166,7 +167,8 @@ var liste_des_exercices_disponibles = {
   "4N21-2": Puissances_de_dix,
   "4F12": Exploiter_representation_graphique,
   "4P10": Problemes_grandeurs_composees,
-  "beta4P20-0": Forme_litterale_introduire_une_lettre,
+  "4P10-1" : Graphiques_et_proportionnalite,
+  "4P20-0": Forme_litterale_introduire_une_lettre,
   "4G11": Pavages_et_translation,
   "4G20": Exercice_Pythagore,
   "4G20-1": Egalite_Pythagore,
@@ -11840,12 +11842,12 @@ function Parallele_et_Perpendiculaires() {
 function Proportionnalite_par_linearite_bis(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 3;
 	} else {
-		this.nb_questions = 3;
+		this.nb_questions = 1;
 	};	
 
 	this.titre = "Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité.";
@@ -11932,6 +11934,7 @@ function Proportionnalite_par_linearite_bis(){
         enonce:`
           Dans ${situation.lieu}, ${situation.prenom1} achète $${situation.n1}$ ${pluriel(situation.n1,situation)} et paie $${tex_prix(situation.pu*situation.n1)}$ €.
           <br>${situation.prenom2} achète $${situation.n2}$ ${pluriel(situation.n2,situation)} et paie $${tex_prix(situation.pu*situation.n2)}$ €.
+          <br>
           <br>${num_alpha(k++)} Combien paiera ${situation.prenom3} pour $${situation.n3}$ ${pluriel(situation.n3,situation)} ?
           <br>${num_alpha(k++)} Combien paiera ${situation.prenom4} pour $${situation.n4}$ ${pluriel(situation.n4,situation)} ?
           <br>${num_alpha(k++)} Quel est le nombre maximum de ${situation.achat_plur} que ${situation.prenom_max} pourra acheter avec $${tex_prix(situation.pu*situation.n_max)}$ € ?
@@ -11943,12 +11946,12 @@ function Proportionnalite_par_linearite_bis(){
         <br>
         <br>${num_alpha(k_corr++)} Pour $${situation.n1}$ ${pluriel(situation.n1,situation)}, on paie $${tex_prix(situation.pu*situation.n1)}$ €.
         <br> Pour $${situation.n2}$ ${pluriel(situation.n2,situation)}, on paie $${tex_prix(situation.pu*situation.n2)}$ €.
-        <br> Donc pour $${situation.n1}+${situation.n2}$ ${pluriel(situation.n3,situation)}, on paie $${tex_prix(situation.pu*situation.n1)}$ € $+ ${tex_prix(situation.pu*situation.n2)}$ €.
+        <br> Donc pour $${situation.n1}+${situation.n2}$ ${pluriel(situation.n3,situation)}, on paie $${tex_prix(situation.pu*situation.n1)}$ € + $${tex_prix(situation.pu*situation.n2)}$ €.
         <br> ${texte_en_couleur(`${situation.prenom3} paiera donc $${tex_prix(situation.pu*situation.n3)}$ € pour $${situation.n3}$ ${pluriel(situation.n3,situation)}.`)}
         <br>
         <br>${num_alpha(k_corr++)} Pour $${situation.n1}$ ${pluriel(situation.n1,situation)}, on paie $${tex_prix(situation.pu*situation.n1)}$ €.
         <br> Pour $${situation.n2}$ ${pluriel(situation.n2,situation)}, on paie $${tex_prix(situation.pu*situation.n2)}$ €.
-        <br> Donc pour $${situation.n1}-${situation.n2}$ ${pluriel(situation.n4,situation)}, on paie $${tex_prix(situation.pu*situation.n1)}$ € $-${tex_prix(situation.pu*situation.n2)}$ €.
+        <br> Donc pour $${situation.n1}-${situation.n2}$ ${pluriel(situation.n4,situation)}, on paie $${tex_prix(situation.pu*situation.n1)}$ € - $${tex_prix(situation.pu*situation.n2)}$ €.
         <br> ${texte_en_couleur(`${situation.prenom4} paiera donc $${tex_prix(situation.pu*situation.n4)}$ € pour $${situation.n4}$ ${pluriel(situation.n4,situation)}.`)}
         <br>
         <br>${num_alpha(k_corr++)} On peut utiliser l'une ou l'autre des informations de l'énoncé pour répondre en revenant à l'unité.

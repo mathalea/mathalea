@@ -9410,12 +9410,12 @@ function Tester_si_un_nombre_est_solution_d_une_equation_deg2() {
 function Forme_litterale_introduire_une_lettre(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 3;
 	} else {
-		this.nb_questions = 3;
+		this.nb_questions = 2;
 	};	
 
 	this.titre = "Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue";
@@ -9462,34 +9462,37 @@ function Forme_litterale_introduire_une_lettre(){
 				};
 			};
 
-			// on definit un tableau de couples possibles
-			// par deux
-			let par_deux = [
-				{elt1:{lettre:'c',article:'un',sing:'crayon',plur:'crayons'},elt2:{lettre:'g',article:'une',sing:'gomme',plur:'gommes'}},
-				{elt1:{lettre:'r',article:'une',sing:'règle',plur:'règles'},elt2:{lettre:'e',article:'une',sing:'équerre',plur:'équerres'}},
-				{elt1:{lettre:'p',article:'une',sing:'poire',plur:'poires'},elt2:{lettre:'b',article:'une',sing:'banane',plur:'bananes'}},
-				{elt1:{lettre:'c',article:'un',sing:'couteau',plur:'couteaux'},elt2:{lettre:'f',article:'une',sing:'fourchette',plur:'fourchettes'}},
-				{elt1:{lettre:'m',article:'un',sing:'marteau',plur:'marteaux'},elt2:{lettre:'e',article:'une',sing:'enclume',plur:'enclumes'}},
+			// on definit un tableau de couples possibles			
+			let situations = [
+				{prenom:prenom(),elt1:{lettre:'c',article:'un',sing:'crayon',plur:'crayons'},elt2:{lettre:'g',article:'une',sing:'gomme',plur:'gommes'}},
+				{prenom:prenom(),elt1:{lettre:'r',article:'une',sing:'règle',plur:'règles'},elt2:{lettre:'e',article:'une',sing:'équerre',plur:'équerres'}},
+				{prenom:prenom(),elt1:{lettre:'p',article:'une',sing:'poire',plur:'poires'},elt2:{lettre:'b',article:'une',sing:'banane',plur:'bananes'}},
+				{prenom:prenom(),elt1:{lettre:'c',article:'un',sing:'couteau',plur:'couteaux'},elt2:{lettre:'f',article:'une',sing:'fourchette',plur:'fourchettes'}},
+				{prenom:prenom(),elt1:{lettre:'m',article:'un',sing:'marteau',plur:'marteaux'},elt2:{lettre:'e',article:'une',sing:'enclume',plur:'enclumes'}},
 			]
 			let enonces = [];
 			let n = randint(1,6);
 			let p = randint(1,6);
-			let objets = par_deux[randint(0,par_deux.length-1)];
+			let situation = situations[randint(0,situations.length-1)];
 			enonces.push({
-				enonce:`${prenom()} veut acheter ${n} ${pluriel(n,objets.elt1)} et ${p} ${pluriel(n,objets.elt2)}.
-				<br>On note $${objets.elt1.lettre}$	le prix d'${objets.elt1.article} ${objets.elt1.sing} et $${objets.elt2.lettre}$	le prix d'${objets.elt2.article} ${objets.elt2.sing}.`,
+				enonce:`${situation.prenom} veut acheter ${n} ${pluriel(n,situation.elt1)} et ${p} ${pluriel(n,situation.elt2)}.
+				<br>On note $${situation.elt1.lettre}$	le prix d'${situation.elt1.article} ${situation.elt1.sing} et $${situation.elt2.lettre}$	le prix d'${situation.elt2.article} ${situation.elt2.sing}.`,
 				question:``,
-				correction:`$${n}\\times ${objets.elt1.lettre} + ${p}\\times ${objets.elt2.lettre} = ${sliceUn(n)}${objets.elt1.lettre} + ${sliceUn(p)}${objets.elt2.lettre}$.`
+        correction:`
+        ${situation.prenom} va payer $${n}$ fois le prix d'${situation.elt1.article} ${situation.elt1.sing} et $${p}$ fois le prix d'${situation.elt2.article} ${situation.elt2.sing}.
+        <br> C'est à dire $${n}\\times ${situation.elt1.lettre} + ${p}\\times ${situation.elt2.lettre} = ${sliceUn(n)}${situation.elt1.lettre} + ${sliceUn(p)}${situation.elt2.lettre}$.
+        <br>${texte_en_couleur(`Donc le prix total de l'achat est  $${sliceUn(n)}${situation.elt1.lettre} + ${sliceUn(p)}${situation.elt2.lettre}$.`)}
+        `
 			})
 			switch (liste_type_de_questions[i]){
 				case 1 : 
 					texte = `${enonces[0].enonce}`;
 					if (this.beta) {
 						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${texte_en_couleur(enonces[0].correction)}`;
+						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte_corr = ``;	
 					} else {
-						texte_corr = `${ texte_en_couleur(enonces[0].correction)}`;
+						texte_corr = `${enonces[0].correction}`;
 					};
 					break;				
 			}
@@ -9517,7 +9520,7 @@ function Forme_litterale_introduire_une_lettre(){
 function Mettre_en_equation_sans_resoudre(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 9;
@@ -9540,7 +9543,7 @@ function Mettre_en_equation_sans_resoudre(){
 		if (this.beta) {
 			type_de_questions_disponibles = [1];			
 		} else {
-			type_de_questions_disponibles = [1];			
+			type_de_questions_disponibles = [1,2];			
 		};
 
 		this.liste_questions = []; // Liste de questions
@@ -9603,12 +9606,20 @@ function Mettre_en_equation_sans_resoudre(){
       //on pépare la côte
       let s = segment(po.listePoints[0], po.listePoints[1]);
       s.styleExtremites = `<->`;
+      // on fait un test pour coder les angles droits du carré
+      let anglesDroitsIfIsCarre;
+      if (n==4) {
+        anglesDroitsIfIsCarre = codageCarre(po)
+      } else {
+         anglesDroitsIfIsCarre= {}
+      };
       // on finit les appels
       let mesAppels = [
         po,       
         codeSegments('X','blue',po.listePoints),        
         afficheCoteSegment(s,`${inc}`,1,'red',2,0.5,'black'),
-        nommePolygone(po,myPolyName(n).nameParSommets)  
+        nommePolygone(po,myPolyName(n).nameParSommets),
+        anglesDroitsIfIsCarre  
       ];
       // on prépare l'objet polygone
       let polygone = {
@@ -9637,7 +9648,20 @@ function Mettre_en_equation_sans_resoudre(){
         D'après l'énoncé, ce périmètre vaut $${polygone.perimetre}$ $${polygone.unite}$.<br>
         L'équation suivante permet donc de résoudre le problème : <br>
         ${texte_en_couleur(`$${polygone.nb_cotes}\\times$ ${polygone.let_cote} $= ${polygone.perimetre}$.`)}`
-			})
+      });
+      // pour être sûr d'avoir deux figures différentes
+      let p = randint(3, 8,[n]);
+      polygone.nb_cotes = p;
+			enonces.push({
+				enonce:`On considère la figure suivante où l'unité est le $${polygone.unite}$.<br>${prenom()} se demande pour quelle valeur de ${polygone.let_cote}, exprimée en $${polygone.unite}$, le périmètre du ${polygone.nom} est égal à $${polygone.perimetre}$ $${polygone.unite}$ .<br> ${polygone.fig}`,
+				question:``,
+        correction:`La figure est un ${polygone.nom}, il a donc ${polygone.nb_cotes} côtés de même longueur.<br>
+        Cette longueur est notée ${polygone.let_cote}, le périmètre de la figure, exprimé en fonction de ${polygone.let_cote}, vaut donc $${polygone.nb_cotes}\\times$ ${polygone.let_cote}.<br>
+        D'après l'énoncé, ce périmètre vaut $${polygone.perimetre}$ $${polygone.unite}$.<br>
+        L'équation suivante permet donc de résoudre le problème : <br>
+        ${texte_en_couleur(`$${polygone.nb_cotes}\\times$ ${polygone.let_cote} $= ${polygone.perimetre}$.`)}`
+      })
+
 			switch (liste_type_de_questions[i]){
 				case 1 : 
 					texte = `${enonces[0].enonce}`;
@@ -9647,6 +9671,16 @@ function Mettre_en_equation_sans_resoudre(){
 						texte_corr = ``;	
 					} else {
 						texte_corr = `${enonces[0].correction}`;
+					};
+          break;	
+        case 2 : 
+					texte = `${enonces[1].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[1].correction}`;
 					};
 					break;				
 			}
@@ -9676,7 +9710,7 @@ function Mettre_en_equation_sans_resoudre(){
 function Graphiques_et_proportionnalite() {
   'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 2;

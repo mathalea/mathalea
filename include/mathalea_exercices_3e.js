@@ -6353,34 +6353,196 @@ function TrianglesSemblables() {
 		let type_de_questions = randint(1,1);
 		switch (type_de_questions){
 			case 1 :
-				let trouve=false,aireABC,A,B,C,M,p,q,r,s,X,G,Gq,nom1,grid
+				let trouve=false,aireABC,A,B,C,M,p,q,r,s,X,G,Gq,nom1,grid;
+				// on génère le triangle ABC avec une contrainte sur son aire
 				while (!trouve) {
-				A=point(choice([0,3]),choice([0,3]),'A')
-				B=point(choice([6,9]),choice([6,9]),'B')
-				C=rotation(B,A,90,'C')
-				C.x+=choice([0,3,6])
-				C.y+=choice([-3,0,3])
-				p=polygone(A,B,C)
-				aireABC=aireTriangle(p) // Je savais bien que cette formule servirait un jour !
-				if (aireABC<11&&aireABC>5) trouve=true
+				A=point(choice([0,3]),choice([0,3]),'A'); // le point A !
+				B=point(choice([6,9]),choice([6,9]),'B'); // le point B !
+				C=rotation(B,A,90,'C'); // le point C à partir de B par rotation autour de A!
+				C.x+=choice([0,3,6]); // on décale l'abscise de C de 0, 3 ou 6 !
+				C.y+=choice([-3,0,3]); // on décale l'abscise de C de -3, 0 ou 3 !
+				p=polygone(A,B,C); // on trace le polygone ABC
+				aireABC=aireTriangle(p); // Je savais bien que cette formule servirait un jour !
+				if (aireABC<11&&aireABC>5) trouve=true;
+				};
+				G=barycentre(p); // le barycentre de ABC
+				let angleChoisi1 = choice([0,90,270]); 
+				p=rotation(p,G,angleChoisi1); // on tourne ABC de façon aléatoire autour de son barycentre
+				p.couleurDeRemplissage='gray';//remplissage de ABC
+				p.opaciteDeRemplissage=0.5;//remplissage de ABC
+				nom1=nommePolygone(p,'ABC',0.4); // on  nomme ABC en plaçant A,B et C à 0,4
+				grid=grille(-3,-3,27,18, 'gray',0.4,1); // on trace une grille
+				M=point(9,12); // un point M fixe pour tourner autour				
+				q=rotation(p,M,90); // on fait tourner ABC autour de M de 90°
+				// on a besoin de récupérer le polygone non tracé
+				let q_non_trace = polygone(q.listePoints);
+				Gq=barycentre(q); // on construit son barycentre
+				//let angleChoisi2 = 270; 
+				let angleChoisi2 = choice([0,90,180,270]); 
+				r=rotation(q,Gq,angleChoisi2); // on fait tourner q encore autour de son barycentre
+				X=milieu(r.listePoints[0],r.listePoints[1]); // on place le milieu des deux premiers points de la figure obtenue qui sont les images des points A et B initiaux	
+				s=rotation(r,X,180); // on fait topurner r autour du milieu des deux extremites du plus grand côté
+				r.couleurDeRemplissage='red'; // solution 1 en rouge
+				r.opaciteDeRemplissage=0.5; // 
+				s.couleurDeRemplissage='blue'; //solution 2 en bleu
+				s.opaciteDeRemplissage=0.5; //
+				// mes ajouts par rapport à la figure de JC				
+				// on fixe une place pour D et E
+				let D = r.listePoints[0];
+				D.nom='D';
+				let E = r.listePoints[1];
+				E.nom='E';
+				// on crée un tableau avec les noms proposé pour les points				
+				let tabPointsNames= ['G','H','I','J'];				
+				// on mélange le tableau 
+				tabPointsNames=shuffle(tabPointsNames);
+				//on place les deux solutions
+				let I=r.listePoints[2];
+				//I.nom='I';
+				I.nom=tabPointsNames[0];
+				let I1=rotation(I,X,180)
+				//I1.nom='I1';
+				I1.nom=tabPointsNames[1];
+				// on place les mauvaises solutions
+				let F = point(I1.x+1,I1.y+1);
+				//F.nom='F';
+				F.nom=tabPointsNames[2];
+				let L = point(I.x-1,I.y-3);
+				//L.nom='L';
+				L.nom=tabPointsNames[3];
+				//on trace le segment [DE] en pointillés pour que la figure soit plus lisible
+				let sgmt_DE =  segment(D,E,'blue');
+				sgmt_DE.pointilles = true;
+				sgmt_DE.epaisseur=1.5;
+
+				// on prépare la fenetre mathalea2d
+				let fenetreMathalea2D = {xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5}
+
+				// on prépare les corrections
+				let centre_rot = {
+					sol1:pointIntersectionDD(droite(p.listePoints[1],E),droite(D,p.listePoints[0])),
+					sol2:pointIntersectionDD(droite(E,p.listePoints[0]),droite(p.listePoints[1],D))
+				};
+				let vect_trans = {
+					sol1:vecteur(p.listePoints[1],E),
+					sol2:vecteur(p.listePoints[1],D)
+				};
+				let transformationAnimee = {
+					sol1:``,
+					sol2:``
+				};
+				// pour construire les droites et les centres passant par les centres de rotations
+				let d,d1,d2,d3,d4,d5,J1,J2;
+				switch (angleChoisi2) {
+					case 0:
+						transformationAnimee.sol1=rotationAnimee(p,M,90);
+						// la 1ere compo
+						d= droite(M,Gq);
+						d1=rotation(d,M,-45);
+						d2=rotation(d,Gq,0);
+						J1=pointIntersectionDD(d1,d2); // centre de la composée, ici l'angle vaut 90
+						//2eme compo
+						d3=droite(J1,X);
+						d4=rotation(d3,J1,-45);
+						d5=rotation(d3,X,90);
+						J2=pointIntersectionDD(d4,d5);// centre après la seconde composition angle 270 à 2pi près						
+						transformationAnimee.sol2=rotationAnimee(p,J2,-90);//pb composée d'une R, rot(M,90) et R' rot(Gq,0) puis rot(X,180)
+						break;
+					case 90:						
+						transformationAnimee.sol1=rotationAnimee(p,centre_rot.sol1,180);
+						transformationAnimee.sol2=translationAnimee(p,vect_trans.sol2);
+						break;
+					case 180:
+						// la 1ere compo
+						d= droite(M,Gq);
+						d1=rotation(d,M,-45);
+						d2=rotation(d,Gq,90);
+						J1=pointIntersectionDD(d1,d2); // centre de la composée, ici l'angle vaut 270 à 2pi près
+						//2eme compo
+						d3=droite(J1,X);
+						d4=rotation(d3,J1,-135);
+						d5=rotation(d3,X,90);
+						J2=pointIntersectionDD(d4,d5);// centre après la seconde composition angle 450 à 2pi près						
+						transformationAnimee.sol1=rotationAnimee(p,J1,-90);//pb composée rot(M,90) et rot(Gq,180)
+						transformationAnimee.sol2=rotationAnimee(p,J2,90);//pb composée rot(M,90) et rot(Gq,180) et rot(X,180)
+						break;
+					case 270:
+						transformationAnimee.sol1=translationAnimee(p,vect_trans.sol1);						
+						transformationAnimee.sol2=rotationAnimee(p,centre_rot.sol2,180);
+						break; 
+				} 
+
+				// on crée un objet pour stocker les figures et les corrections
+				let figures = {
+					enonce:`
+						Où placer le point M pour que les triangles ABC et DEM soient égaux ? 
+						<br>En F ? En G? En H ? En I ?
+						<br> ${mathalea2d(
+								fenetreMathalea2D,
+								p,
+								nom1,
+								grid,
+								tracePoint(D,E,I,I1,F,L),
+								labelPoint(D,E,I,I1,F,L),
+								sgmt_DE,
+								//r,
+								//s
+							)}
+						`,
+					corr_solution1:`Un solution est donc le point ${I.nom} <br>
+					${mathalea2d(
+						fenetreMathalea2D,
+						p,
+						nom1,
+						grid,
+						tracePoint(D,E,I,I1,F,L),
+						labelPoint(D,E,I,I1,F,L),
+						sgmt_DE,
+						r,
+						//s,
+					)}`,
+					corr_solution2:`Un solution est donc le point ${I1.nom} <br>
+					${mathalea2d(
+						fenetreMathalea2D,
+						p,
+						nom1,
+						grid,
+						tracePoint(D,E,I,I1,F,L),
+						labelPoint(D,E,I,I1,F,L),
+						sgmt_DE,
+						//r,
+						s,
+					)}`,
+					corr_animmee_sol1:`Un solution est donc le point ${I.nom} <br>
+					${mathalea2d(
+						fenetreMathalea2D,
+						p,
+						nom1,
+						grid,
+						tracePoint(D,E,I,I1,F,L),
+						labelPoint(D,E,I,I1,F,L),
+						sgmt_DE,
+						r,
+						transformationAnimee.sol1
+					)}`,
+					corr_animmee_sol2:`Un solution est donc le point ${I1.nom} <br>
+					${mathalea2d(
+						fenetreMathalea2D,
+						p,
+						nom1,
+						grid,
+						tracePoint(D,E,I,I1,F,L),
+						labelPoint(D,E,I,I1,F,L),
+						sgmt_DE,
+						//r,
+						s,
+						transformationAnimee.sol2
+					)}`
 				}
-				G=barycentre(p)
-				p=rotation(p,G,choice([0,90,270]))
-				p.couleurDeRemplissage='gray'
-				p.opaciteDeRemplissage=0.5
-				nom1=nommePolygone(p,'ABC',0.4)
-				grid=grille(-3,-3,27,18, 'gray', .4,1)
-				M=point(9,12)
-				q=rotation(p,M,90)
-				Gq=barycentre(q)
-				r=rotation(q,Gq,choice([0,90,180,270]))
-				X=milieu(r.listePoints[0],r.listePoints[1])
-				s=rotation(r,X,180)
-				r.couleurDeRemplissage='red'
-				r.opaciteDeRemplissage=0.5
-				s.couleurDeRemplissage='blue'
-				s.opaciteDeRemplissage=0.5
-				texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r,s)
+				//texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r,s)
+				texte = `${figures.enonce}`;
+				texte += `<br> =====CORRECTION SOLUTION 1  Statique et animée ======<br>${figures.corr_solution1}<br>${figures.corr_animmee_sol1}`;
+				texte += `<br> =====CORRECTION SOLUTION 2  ======<br>${figures.corr_solution2}<br>${figures.corr_animmee_sol2}`;
 				this.liste_questions[0]=texte;
 				this.liste_corrections[0]=texte_corr;
 				liste_de_question_to_contenu(this);
