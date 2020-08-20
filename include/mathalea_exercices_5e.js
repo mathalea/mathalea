@@ -3953,7 +3953,7 @@ function Calculer_une_expression_litterale() {
 function Reduire_dinstinction_somme_produit() {
 	'use strict'
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;
+	this.beta = false;
 	if (this.beta) {
 		this.nb_questions = 4;
 	} else {
@@ -4005,8 +4005,8 @@ function Reduire_dinstinction_somme_produit() {
 			enonces.push({
 				enonce:`Simplifier le plus possible le produit puis la somme de $${sliceUn(n)}${inc}$ et de $${sliceUn(p)}${inc}$`,
 				questtion:``,
-				correction_produit:`Le produit de $${sliceUn(n)}${inc}$ et de $${sliceUn(p)}${inc}$ vaut : $${sliceUn(n)}${inc}\\times ${sliceUn(p)}${inc} = ${n}\\times ${p}\\times ${inc}\\times ${inc}=$ `,
-				correction_somme:`La somme de $${sliceUn(n)}${inc}$ et de $${sliceUn(p)}${inc}$ vaut : $${sliceUn(n)}${inc}+${sliceUn(p)}${inc} = (${n}+${p})\\times ${inc}=$ `
+				correction_produit:`Le produit de $${sliceUn(n)}${inc}$ et de $${sliceUn(p)}${inc}$ vaut : $${sliceUn(n)}${inc}\\times ${sliceUn(p)}${inc} = ${n}\\times ${inc}\\times ${p}\\times ${inc} = ${n}\\times ${p}\\times ${inc}\\times ${inc}=$ `,
+				correction_somme:`La somme de $${sliceUn(n)}${inc}$ et de $${sliceUn(p)}${inc}$ vaut : $${sliceUn(n)}${inc}+${sliceUn(p)}${inc} = ${n}\\times ${inc}+${p}\\times ${inc} = (${n}+${p})\\times ${inc}=$ `
 			});
 			if (isUn(n*p)) {
 				enonces[0].correction_produit += `${texte_en_couleur(`$${n*p}${inc}^2=${inc}^2$`)}`;
@@ -4023,10 +4023,10 @@ function Reduire_dinstinction_somme_produit() {
 			}
 			//===== 1
 			enonces.push({
-				enonce:`Simplifier le plus possible l'expression $${n}${inc}\\times ${p}${inc}$ puis l'expression $${n}${inc}+${p}${inc}$`,
+				enonce:`Simplifier le plus possible l'expression $${sliceUn(n)}${inc}\\times ${sliceUn(p)}${inc}$ puis l'expression $${sliceUn(n)}${inc}+${sliceUn(p)}${inc}$`,
 				questtion:``,
-				correction_produit:`$${sliceUn(n)}${inc}\\times ${sliceUn(p)}${inc} = ${n}\\times ${p}\\times ${inc}\\times ${inc}=$ `,
-				correction_somme:`$${sliceUn(n)}${inc}+${sliceUn(p)}${inc} = (${n}+${p})\\times ${inc}=$ `
+				correction_produit:`$${sliceUn(n)}${inc}\\times ${sliceUn(p)}${inc} = ${n}\\times ${inc}\\times ${p}\\times ${inc} = ${n}\\times ${p}\\times ${inc}\\times ${inc}=$ `,
+				correction_somme:`$${sliceUn(n)}${inc}+${sliceUn(p)}${inc} = ${n}\\times ${inc}+${p}\\times ${inc} = (${n}+${p})\\times ${inc}=$ `
 			});
 
 			if (isUn(n*p)) {
@@ -4044,10 +4044,10 @@ function Reduire_dinstinction_somme_produit() {
 			}
 			//===== 2
 			enonces.push({
-				enonce:`Simplifier le plus possible le produit puis la somme de $${n}${inc}$ et de $${p}${inc}$`,
+				enonce:`Simplifier le plus possible le produit puis la somme de $${sliceUn(n)}${inc}$ et de $${sliceUn(p)}${inc}$`,
 				questtion:``,
-				correction_produit:`Le produit de $${sliceUn(n)}${inc}$ et de $${sliceUn(p)}${inc}$ vaut : $${sliceUn(n)}${inc}\\times ${sliceUn(p)}${inc} = ${n}\\times ${p}\\times ${inc}\\times ${inc}=$ `,
-				correction_somme:`La somme de $${sliceUn(n)}${inc}$ et de $${sliceUn(p)}${inc}$ vaut : $${sliceUn(n)}${inc}+${sliceUn(p)}${inc} = (${n}+${p})\\times ${inc}=$ `
+				correction_produit:`Le produit de $${sliceUn(n)}${inc}$ et de $${sliceUn(p)}${inc}$ vaut : $${sliceUn(n)}${inc}\\times ${sliceUn(p)}${inc} = ${n}\\times ${inc}\\times ${p}\\times ${inc} = ${n}\\times ${p}\\times ${inc}\\times ${inc}=$ `,
+				correction_somme:`La somme de $${sliceUn(n)}${inc}$ et de $${sliceUn(p)}${inc}$ vaut : $${sliceUn(n)}${inc}+${sliceUn(p)}${inc} = ${n}\\times ${inc}+${p}\\times ${inc} = (${n}+${p})\\times ${inc}=$ `
 			});
 			if (isUn(n*p)) {
 				enonces[2].correction_produit += `${texte_en_couleur(`$${n*p}${inc}^2=${inc}^2$`)}`;
@@ -4064,10 +4064,10 @@ function Reduire_dinstinction_somme_produit() {
 			}
 			//===== 3
 			enonces.push({
-				enonce:`Simplifier le plus possible l'expression $${n}${inc}+${p}${inc}$ puis l'expression $${n}${inc}\\times ${p}${inc}$`,
+				enonce:`Simplifier le plus possible l'expression $${sliceUn(n)}${inc}+${sliceUn(p)}${inc}$ puis l'expression $${sliceUn(n)}${inc}\\times ${sliceUn(p)}${inc}$`,
 				questtion:``,
-				correction_produit:`$${sliceUn(n)}${inc}\\times ${sliceUn(p)}${inc} = ${n}\\times ${p}\\times ${inc}\\times ${inc}=$ `,
-				correction_somme:`$${sliceUn(n)}${inc}+${sliceUn(p)}${inc} = (${n}+${p})\\times ${inc}=$ `
+				correction_produit:`$${sliceUn(n)}${inc}\\times ${sliceUn(p)}${inc} = ${n}\\times ${inc}\\times ${p}\\times ${inc} = ${n}\\times ${p}\\times ${inc}\\times ${inc}=$ `,
+				correction_somme:`$${sliceUn(n)}${inc}+${sliceUn(p)}${inc} = ${n}\\times ${inc}+${p}\\times ${inc} = (${n}+${p})\\times ${inc}=$ `
 			});
 			if (isUn(n*p)) {
 				enonces[3].correction_produit += `${texte_en_couleur(`$${inc}^2$`)}`;
@@ -4165,7 +4165,7 @@ function Reduire_dinstinction_somme_produit() {
 function Calculer_une_expression_litteraleBis() {
 	'use strict'
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.consigne = "";
 	this.nb_questions = 4;
 	this.nb_cols = 1;
@@ -4200,16 +4200,16 @@ function Calculer_une_expression_litteraleBis() {
 					texte =`${expn}.`
 					if (this.beta) {
 						texte += `<br><br>=====CORRECTION======<br>`;
-						texte += `Pour fixer les idées, choissions des valeurs pour $x$ et $y$, par exemple $x=${val1}$ et $y=${val2}$<br>`
-						texte += `Le calcul serait le suivant :<br> ${expc}.<br>`;
-						texte += `Pour n'importe quelles valeurs de $x$ et de $y$ choisies, les étapes sont les mêmes, elles respectent les priorités opératoires.<br>`
-						texte += texte_en_couleur(`La dernière opération dans ${expn} est donc une ${last_op}`);
+						texte += `Pour fixer les idées, choissions des valeurs pour $x$ et $y$, par exemple $x=${val1}$ et $y=${val2}$.`
+						texte += `<br>Le calcul serait le suivant :<br> ${expc}.`;
+						texte += `<br>Pour n'importe quelles valeurs de $x$ et de $y$ choisies, les étapes sont les mêmes, elles respectent les priorités opératoires.`
+						texte += texte_en_couleur(`<br>La dernière opération dans ${expn} est donc une ${last_op}.`);
 						texte_corr = ``;	
 					} else {
-						texte_corr = `Pour fixer les idées, choissions des valeurs pour $x$ et $y$, par exemple $x=${val1}$ et $y=${val2}$<br>`
-						texte_corr += `Le calcul serait le suivant : ${expc}.<br>`;
-						texte_corr += `Pour n'importe quelles valeurs de $x$ et de $y$ choisies, les étapes sont les mêmes, elles respectent les priorités opératoires.<br>`
-						texte_corr += texte_en_couleur(`La dernière opération dans ${expn} est donc une ${last_op}`);
+						texte_corr = `Pour fixer les idées, choissions des valeurs pour $x$ et $y$, par exemple $x=${val1}$ et $y=${val2}$.`
+						texte_corr += `<br>Le calcul serait le suivant : ${expc}.`;
+						texte_corr += `<br>Pour n'importe quelles valeurs de $x$ et de $y$ choisies, les étapes sont les mêmes, elles respectent les priorités opératoires.`
+						texte_corr += texte_en_couleur(`<br>La dernière opération dans ${expn} est donc une ${last_op}.`);
 					};
 
 					break;
