@@ -6366,16 +6366,19 @@ function TrianglesSemblables() {
 				if (aireABC<11&&aireABC>5) trouve=true;
 				};
 				G=barycentre(p); // le barycentre de ABC
-				let angleChoisi = choice([0,90,270]); 
-				p=rotation(p,G,angleChoisi); // on tourne ABC de façon aléatoire autour de son barycentre
+				let angleChoisi1 = choice([0,90,270]); 
+				p=rotation(p,G,angleChoisi1); // on tourne ABC de façon aléatoire autour de son barycentre
 				p.couleurDeRemplissage='gray';//remplissage de ABC
 				p.opaciteDeRemplissage=0.5;//remplissage de ABC
 				nom1=nommePolygone(p,'ABC',0.4); // on  nomme ABC en plaçant A,B et C à 0,4
 				grid=grille(-3,-3,27,18, 'gray',0.4,1); // on trace une grille
 				M=point(9,12); // un point M fixe pour tourner autour				
 				q=rotation(p,M,90); // on fait tourner ABC autour de M de 90°
+				// on a besoin de récupérer le polygone non tracé
+				let q_non_trace = polygone(q.listePoints);
 				Gq=barycentre(q); // on construit son barycentre
-				r=rotation(q,Gq,choice([0,90,180,270])); // on fait tourner q encore autour de son barycentre
+				let angleChoisi2 = choice([0,90,180,270]); 
+				r=rotation(q,Gq,angleChoisi2); // on fait tourner q encore autour de son barycentre
 				X=milieu(r.listePoints[0],r.listePoints[1]); // on place le milieu des deux premiers points de la figure obtenue qui sont les images des points A et B initiaux	
 				s=rotation(r,X,180); // on fait topurner r autour du milieu des deux extremites du plus grand côté
 				r.couleurDeRemplissage='red'; // solution 1 en rouge
@@ -6406,6 +6409,11 @@ function TrianglesSemblables() {
 				let L = point(I.x-1,I.y-3);
 				//L.nom='L';
 				L.nom=tabPointsNames[3];
+				//on trace le segment [DE] en pointillés pour que la figure soit plus lisible
+				let sgmt_DE =  segment(D,E,'blue');
+				sgmt_DE.pointilles = true;
+				sgmt_DE.epaisseur=1.5;
+
 
 				let fenetreMathalea2D = {xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5}
 
@@ -6421,15 +6429,62 @@ function TrianglesSemblables() {
 								grid,
 								tracePoint(D,E,I,I1,F,L),
 								labelPoint(D,E,I,I1,F,L),
-								r,
-								s
+								sgmt_DE,
+								//r,
+								//s
 							)}
 						`,
-					corr_solution1:``,
-					corr_solution2:``
+					corr_solution1:`Un solution est donc le point ${I.nom} <br>
+					${mathalea2d(
+						fenetreMathalea2D,
+						p,
+						nom1,
+						grid,
+						tracePoint(D,E,I,I1,F,L),
+						labelPoint(D,E,I,I1,F,L),
+						sgmt_DE,
+						r,
+						//s,
+						//rotationAnimee(p,M,90,'begin="0s" dur="2s" repeatCount="1"' ),
+						//rotationAnimee(q,Gq,angleChoisi2,'begin="2s" dur="2s" repeatCount="1"'),
+						//rotationAnimee(r,X,180,'begin="4s" dur="2s" repeatCount="1"' )	
+					)}`,
+					corr_solution2:`Un solution est donc le point ${I1.nom} <br>
+					${mathalea2d(
+						fenetreMathalea2D,
+						p,
+						nom1,
+						grid,
+						tracePoint(D,E,I,I1,F,L),
+						labelPoint(D,E,I,I1,F,L),
+						sgmt_DE,
+						//r,
+						s,
+						//rotationAnimee(p,M,90,'begin="0s" dur="2s" repeatCount="1"' ),
+						//rotationAnimee(q,Gq,angleChoisi2,'begin="2s" dur="2s" repeatCount="1"'),
+						//rotationAnimee(r,X,180,'begin="4s" dur="2s" repeatCount="1"' )	
+					)}`,
+					corr_animmee:`Un solution est donc le point ${I.nom} <br>
+					${mathalea2d(
+						fenetreMathalea2D,
+						p,
+						nom1,
+						grid,
+						tracePoint(D,E,I,I1,F,L),
+						labelPoint(D,E,I,I1,F,L),
+						sgmt_DE,
+						r,
+						//s,
+						rotationAnimee(p,M,90,'begin="0s" dur="2s" repeatCount="1"' ),
+						rotationAnimee(q,Gq,angleChoisi2,'begin="2s" dur="2s" repeatCount="1"'),
+						//rotationAnimee(r,X,180,'begin="4s" dur="2s" repeatCount="1"' )	
+					)}`
 				}
 				//texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r,s)
-				texte = figures.enonce;
+				texte = `${figures.enonce}`;
+				texte += `<br> =====CORRECTION SOLUTION 1 ======<br>${figures.corr_solution1}`;
+				texte += `<br> =====CORRECTION SOLUTION 2 ======<br>${figures.corr_solution2}`;
+				texte += `<br> =====CORRECTION ANIMÉE ======<br>${figures.corr_animmee}`;
 				this.liste_questions[0]=texte;
 				this.liste_corrections[0]=texte_corr;
 				liste_de_question_to_contenu(this);
