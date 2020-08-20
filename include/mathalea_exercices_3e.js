@@ -6377,6 +6377,7 @@ function TrianglesSemblables() {
 				// on a besoin de récupérer le polygone non tracé
 				let q_non_trace = polygone(q.listePoints);
 				Gq=barycentre(q); // on construit son barycentre
+				//let angleChoisi2 = 270; 
 				let angleChoisi2 = choice([0,90,180,270]); 
 				r=rotation(q,Gq,angleChoisi2); // on fait tourner q encore autour de son barycentre
 				X=milieu(r.listePoints[0],r.listePoints[1]); // on place le milieu des deux premiers points de la figure obtenue qui sont les images des points A et B initiaux	
@@ -6414,8 +6415,40 @@ function TrianglesSemblables() {
 				sgmt_DE.pointilles = true;
 				sgmt_DE.epaisseur=1.5;
 
-
+				// on prépare la fenetre mathalea2d
 				let fenetreMathalea2D = {xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5}
+
+				// on prépare les corrections
+				let centre_sym = {
+					sol1:pointIntersectionDD(droite(p.listePoints[1],E),droite(D,p.listePoints[0])),
+					sol2:pointIntersectionDD(droite(p.listePoints[1],D),droite(p.listePoints[0],E))
+				};
+				let vect_trans = {
+					sol1:vecteur(p.listePoints[1],E),
+					sol2:vecteur(p.listePoints[1],D)
+				};
+				let transformationAnimee = {
+					sol1:``,
+					sol2:``
+				};
+				switch (angleChoisi2) {
+					case 0:
+						transformationAnimee.sol1=rotationAnimee(p,M,90);
+						transformationAnimee.sol2=rotationAnimee(p,M,90);//pb composée d'une rot(M,90) et rot(Gq,180)
+						break;
+					case 90:
+						transformationAnimee.sol1=rotationAnimee(p,centre_sym.sol1,180);
+						transformationAnimee.sol2=translationAnimee(p,vect_trans.sol2);
+						break;
+					case 180:
+						transformationAnimee.sol1=rotationAnimee(p,M,90);//pb composée rot(M,90) et rot(Gq,180)
+						transformationAnimee.sol2=rotationAnimee(p,M,90);//pb composée rot(M,90) et rot(Gq,180) et rot(X,180)
+						break;
+					case 270:
+						transformationAnimee.sol1=translationAnimee(p,vect_trans.sol1);
+						transformationAnimee.sol2=rotationAnimee(p,centre_sym.sol2,180);
+						break; 
+				} 
 
 				// on crée un objet pour stocker les figures et les corrections
 				let figures = {
@@ -6464,7 +6497,7 @@ function TrianglesSemblables() {
 						//rotationAnimee(q,Gq,angleChoisi2,'begin="2s" dur="2s" repeatCount="1"'),
 						//rotationAnimee(r,X,180,'begin="4s" dur="2s" repeatCount="1"' )	
 					)}`,
-					corr_animmee:`Un solution est donc le point ${I.nom} <br>
+					corr_animmee_sol1:`Un solution est donc le point ${I.nom} <br>
 					${mathalea2d(
 						fenetreMathalea2D,
 						p,
@@ -6474,17 +6507,40 @@ function TrianglesSemblables() {
 						labelPoint(D,E,I,I1,F,L),
 						sgmt_DE,
 						r,
+						//tracePoint(centre_sym.sol1),
+						//droite(p.listePoints[1],E),
+						//droite(p.listePoints[0],D),
 						//s,
-						rotationAnimee(p,M,90,'begin="0s" dur="2s" repeatCount="1"' ),
-						rotationAnimee(q,Gq,angleChoisi2,'begin="2s" dur="2s" repeatCount="1"'),
+						//rotationAnimee(p,M,90,'begin="0s" dur="2s" repeatCount="1"' ),
+						//rotationAnimee(q,Gq,angleChoisi2,'begin="2s" dur="2s" repeatCount="1"'),
+						transformationAnimee.sol1
+						//rotationAnimee(r,X,180,'begin="4s" dur="2s" repeatCount="1"' )	
+					)}`,
+					corr_animmee_sol2:`Un solution est donc le point ${I1.nom} <br>
+					${mathalea2d(
+						fenetreMathalea2D,
+						p,
+						nom1,
+						grid,
+						tracePoint(D,E,I,I1,F,L),
+						labelPoint(D,E,I,I1,F,L),
+						sgmt_DE,
+						//r,
+						s,
+						//tracePoint(M),
+						//droite(A,B),
+						//droite(D,E),
+						//q,
+						//rotationAnimee(p,M,90,'begin="0s" dur="2s" repeatCount="1"' ),
+						//rotationAnimee(q,Gq,angleChoisi2,'begin="2s" dur="2s" repeatCount="1"'),
+						transformationAnimee.sol2
 						//rotationAnimee(r,X,180,'begin="4s" dur="2s" repeatCount="1"' )	
 					)}`
 				}
 				//texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r,s)
 				texte = `${figures.enonce}`;
-				texte += `<br> =====CORRECTION SOLUTION 1 ======<br>${figures.corr_solution1}`;
-				texte += `<br> =====CORRECTION SOLUTION 2 ======<br>${figures.corr_solution2}`;
-				texte += `<br> =====CORRECTION ANIMÉE ======<br>${figures.corr_animmee}`;
+				texte += `<br> =====CORRECTION SOLUTION 1  Statique et animée ======<br>${figures.corr_solution1}<br>${figures.corr_animmee_sol1}`;
+				texte += `<br> =====CORRECTION SOLUTION 2  ======<br>${figures.corr_solution2}<br>${figures.corr_animmee_sol2}`;
 				this.liste_questions[0]=texte;
 				this.liste_corrections[0]=texte_corr;
 				liste_de_question_to_contenu(this);
