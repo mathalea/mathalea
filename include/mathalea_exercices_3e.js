@@ -6445,8 +6445,8 @@ function TrianglesSemblables() {
 						d3=droite(J1,X);
 						d4=rotation(d3,J1,-45);
 						d5=rotation(d3,X,90);
-						J2=pointIntersectionDD(d4,d5);// centre après la seconde composition angle 270						
-						transformationAnimee.sol2=rotationAnimee(p,J2,270,'begin="0s" dur="4s" repeatCount="indefinite"' );//pb composée d'une R, rot(M,90) et R' rot(Gq,0) puis rot(X,180)
+						J2=pointIntersectionDD(d4,d5);// centre après la seconde composition angle 270 à 2pi près						
+						transformationAnimee.sol2=rotationAnimee(p,J2,-90);//pb composée d'une R, rot(M,90) et R' rot(Gq,0) puis rot(X,180)
 						break;
 					case 90:
 						transformationAnimee.sol1=rotationAnimee(p,centre_rot.sol1,180);
@@ -6457,14 +6457,14 @@ function TrianglesSemblables() {
 						d= droite(M,Gq);
 						d1=rotation(d,M,-45);
 						d2=rotation(d,Gq,90);
-						J1=pointIntersectionDD(d1,d2); // centre de la composée, ici l'angle vaut 270
+						J1=pointIntersectionDD(d1,d2); // centre de la composée, ici l'angle vaut 270 à 2pi près
 						//2eme compo
 						d3=droite(J1,X);
 						d4=rotation(d3,J1,-135);
 						d5=rotation(d3,X,90);
-						J2=pointIntersectionDD(d4,d5);// centre après la seconde composition angle 450						
-						transformationAnimee.sol1=rotationAnimee(p,J1,270,'begin="0s" dur="4s" repeatCount="indefinite"');//pb composée rot(M,90) et rot(Gq,180)
-						transformationAnimee.sol2=rotationAnimee(p,J2,450,'begin="0s" dur="4s" repeatCount="indefinite"');//pb composée rot(M,90) et rot(Gq,180) et rot(X,180)
+						J2=pointIntersectionDD(d4,d5);// centre après la seconde composition angle 450 à 2pi près						
+						transformationAnimee.sol1=rotationAnimee(p,J1,-90);//pb composée rot(M,90) et rot(Gq,180)
+						transformationAnimee.sol2=rotationAnimee(p,J2,90);//pb composée rot(M,90) et rot(Gq,180) et rot(X,180)
 						break;
 					case 270:
 						transformationAnimee.sol1=translationAnimee(p,vect_trans.sol1);
