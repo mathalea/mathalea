@@ -577,7 +577,29 @@ function CodageMediatrice(A, B, color = "black", mark = "×") {
 function codageMediatrice(...args) {
   return new CodageMediatrice(...args);
 }
-
+/**
+ * c=codageMilieu(A,B,'red','||',false) marque les deux moitiés du segment [AB] avec || en rouge, le milieu n'est pas tracé car dernier argument à false.
+ * m=codageMilieu(C,D) marque l'emplacement du milieu de [CD] et marque avec X les deux moitiés.
+ * @Auteur Jean-Claude Lhote
+ */
+function CodageMilieu(A,B, color = "black", mark = "×",mil=true) {
+  ObjetMathalea2D.call(this);
+  this.color=color
+  let O = milieu(A, B);
+  let M = tracePointSurDroite(O,droite(A,B))
+  let v = codeSegments(mark,color,A,O,O,B);
+  this.svg =function(coeff) {
+    if (mil) return M.svg(coeff) + "\n" +v.svg(coeff);
+    else return v.svg(coeff);
+  }
+  this.tikz = function() {
+    if (mil) return M.tikz()+ "\n" + v.tikz();
+    else return  v.tikz();
+  }
+}
+ function codageMilieu(...args) {
+   return new CodageMilieu(...args)
+ }
 /**
  * m = constructionMediatrice(A,B,false,'blue','×') // Trace et code la médiatrice en laissant apparent les traits de construction au compas
  *
@@ -3107,6 +3129,7 @@ function grille(...args) {
 
 
 function Seyes(xmin = 0, ymin = 0, xmax = 15, ymax = 15,opacite1 = .5, opacite2 = .2) {
+  ObjetMathalea2D.call(this)
   objets = [];
   for (let y = ymin; y <= ymax; y = calcul(y + 0.25)) {
     if (y % 1 != 0) {

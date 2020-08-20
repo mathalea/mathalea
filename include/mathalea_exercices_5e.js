@@ -5793,7 +5793,7 @@ function Construire_par_Symetrie() {
 	  if (this.sup2 == 1) sc = 0.5;
 	  else sc = 0.8;
   
-	  let A,
+	  let A,AA,cA,sA,
 		B,
 		C,CC,cC,sC,sCE,
 		D,DD,cD,sD,sDE,
@@ -5834,18 +5834,19 @@ function Construire_par_Symetrie() {
 		}
 		switch (liste_type_de_questions[i]) {
 		  case 1:
-			A = point(0, randint(-1,1), "A",'above left');
-			B = point(6, randint(-1,1,A.y), "B",'above left');
+			A = point(0, randint(-1,1), "A",'above');
+			B = point(6, randint(-1,1,A.y), "B",'above');
 			d = droite(A, B);
 			d.isVisible = true;
+			d.epaisseur=2
 			C = point(randint(2, 3), randint(3, 4), "C",'above left');
-			D = point(randint(10, 13), randint(-4, -3), "D",'above right');
+			D = point(randint(10, 13), randint(-4, -3), "D",'below right');
 			dB = droiteParPointEtPerpendiculaire(B, d);
-			E=point(randint(6,8),randint(-8,-5), "E", "above left");
+			E=point(randint(6,8),randint(-8,-5), "E", "left");
 			//F = point(E.x+1,5-B.y,'F','above left');
 			CC=symetrieAxiale(C,d,'C\'','below left')
-			DD=symetrieAxiale(D,d,'D\'','below left')
-			EE=symetrieAxiale(E,d,'E\'','below left')
+			DD=symetrieAxiale(D,d,'D\'','above right')
+			EE=symetrieAxiale(E,d,'E\'','left')
 			//FF=symetrieAxiale(F,d,'F\'','below left')
 			cC=codageMediatrice(C,CC,'red','|')
 			cD=codageMediatrice(D,DD,'blue','X')
@@ -5885,47 +5886,38 @@ function Construire_par_Symetrie() {
 			correction+=`<br>Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(AB)$`
 			break;
 		  case 2:
-			A = point(2, 0, "A",'above left');
-			B = point(12, randint(-4, 4, 0), "B");
-			d = droite(A, B);
-			d.isVisible = true;
-			C = point(randint(1, 2), randint(3, 4), "C",'above left');
-			D = point(randint(7, 8), randint(-7, -6), "D",'below right');
-			E = point(randint(4, 5), randint(4, 5), "E",'below right');
-			//F = point(2, -3, "F", "above left");
-			dE = droiteParPointEtParallele(E, d);
-			dC = droiteParPointEtParallele(C, d);
-			dD = droiteParPointEtParallele(D, d);
-			p = droite(A, F);
-			p.isVisible = true;
+			A = point(0, randint(-1,1), "A",'left');
+			B = point(7, randint(-1,1,A.y), "O",'above');
+			C = point(randint(2, 3), randint(-4, -2), "C",'left');
+			D = point(randint(10, 13), randint(-6, -5), "D",'below right');
+			CC=rotation(C,B,180,'C\'','right')
+			DD=rotation(D,B,180,'D\'','above left')
+			AA=rotation(A,B,180,'A\'','right')
+			cC=codageMilieu(C,CC,'red','|',false)
+			cD=codageMilieu(D,DD,'blue','X' ,false)
+			cA=codageMilieu(A,AA,'green','O',false)
+			sC=segment(C,CC)
+			sD=segment(D,DD)
+			sA=segment(A,AA)
+		objets_correction.push(g,carreaux,tracePoint(A, C, D,CC,DD,AA),labelPoint(A, B, C, D,CC,DD,AA),cC,cD,cA,sC,sD,sA)
+			objets_enonce.push(tracePoint(A, B, C, D),g,labelPoint(A, B, C, D),carreaux);
 			enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
-			enonce +=num_alpha(1)+`Tracer la droite parallèle à $(AB)$ passant par $C$ et nomme $M$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
-			enonce +=num_alpha(2)+`Tracer la droite parallèle à $(AB)$ passant par $D$ et nomme $N$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
-			enonce +=num_alpha(3)+`Tracer la droite parallèle à $(AB)$ passant par $E$ et nomme $O$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
-			enonce += num_alpha(4)+`Mesurer les distances $AM$, $AN$ et $AO$. Pour l'auto-correction, comparer ces mesures avec celles données par  l'ordinateur dans la correction.<br>`;
-			enonce += mathalea2d(
-			  {
-				xmin: Xmin,
-				ymin: Ymin,
-				xmax: Xmax,
-				ymax: Ymax,
-				pixelsParCm: ppc,
-				scale: sc,
-			  },
+			enonce += num_alpha(1)+`Construire le point $C\'$ symétrique de $C$ par rapport à la droite $(AB)$.<br>`
+			enonce += num_alpha(2)+`Construire le point $D\'$ symétrique de $D$ par rapport à la droite $(AB)$.<br>`
+			enonce += num_alpha(3)+`Construire le point $E\'$ symétrique de $E$ par rapport à la droite $(AB)$.<br>`
+			enonce += num_alpha(4)+`Construire le point $F\'$ symétrique de $E$ par rapport à la droite $(AB)$.<br>`
+			enonce += num_alpha(5)+`Coder la figure.<br>`;
+			enonce += mathalea2d( params
+			  ,
 			  objets_enonce
-			  );
-			correction = mathalea2d(
-			  {
-				xmin: Xmin,
-				ymin: Ymin,
-				xmax: Xmax,
-				ymax: Ymax,
-				pixelsParCm: ppc,
-				scale: sc,
-			  },
-			  objets_correction
 			);
+			correction = mathalea2d(
+			  params,
+			 objets_correction
+			);
+			correction+=`<br>Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(AB)$`
 			break;
+
 		}
   
 		if (this.liste_questions.indexOf(texte) == -1) {
@@ -5939,7 +5931,7 @@ function Construire_par_Symetrie() {
   
 	  liste_de_question_to_contenu(this);
 	};
-	//	this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
+		this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Symétrie axiale\n 2 : Symétrie centrale\n 3 : Mélange`]
 	this.besoin_formulaire2_numerique = [
 	  "Type de cahier",
 	  3,

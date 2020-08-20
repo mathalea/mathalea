@@ -11483,7 +11483,6 @@ function Description_segment_droite_demi_droite() {
       type_de_questions_disponibles,
       this.nb_questions
     );
-    console.log(liste_type_de_questions);
     for (
       let i = 0, texte, texte_corr, cpt = 0;
       i < this.nb_questions && cpt < 50;
@@ -11692,8 +11691,7 @@ function Parallele_et_Perpendiculaires() {
           cB = codageAngleDroit(A, B, BB);
           cC = codageAngleDroit(C, CC, B);
           cD = codageAngleDroit(D, DD, B);
-          objets_correction.push(
-            s1,
+          objets_correction.push(s1,
             s2,
             dC,
             dD,
