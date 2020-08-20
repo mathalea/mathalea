@@ -3760,6 +3760,70 @@ function couleurAleatoire() {
   return color;
 }
 
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% LES LUTINS %%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+*/
+
+function ObjetLutin() {
+  mesObjets.push(this);
+  this.x = 0;
+  this.y = 0;
+  this.xSVG = function (coeff) {
+    return this.x * coeff;
+  };
+  this.ySVG = function (coeff) {
+    return -this.y * coeff;
+  };
+  this.orientation = 0;
+  this.historiquePositions = [];
+  this.crayonBaisse = false;
+  this.isVisible = true;
+  this.costume = "";
+  this.listeTraces = []; // [[x0,y0,x1,y1,style]...]
+  this.color = "black";
+  this.epaisseur = 2;
+  this.pointilles = false;
+  this.svg = function (coeff) {
+    code = "";
+    for (trace of this.listeTraces) {
+      let A = point(trace[0], trace[1]);
+      let B = point(trace[2], trace[3]);
+      code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
+        coeff
+      )}" x2="${B.xSVG(coeff)}" y2="${B.ySVG(coeff)}" stroke="black"  />`;
+    }
+    return code;
+  };
+}
+
+function creerLutin(...args) {
+  return new ObjetLutin(...args);
+}
+
+function avance(d, lutin) { // A faire avec pointSurCercle pour tenir compte de l'orientation
+  let xdepart = lutin.x;
+  let ydepart = lutin.y;
+  lutin.x = lutin.x + d;
+  lutin.historiquePositions.push([lutin.x, lutin.y]);
+  if (lutin.crayonBaisse) {
+    lutin.listeTraces.push([xdepart, ydepart, lutin.x, lutin.y]);
+  }
+}
+
+function baisseCrayon(lutin) {
+  lutin.crayonBaisse = true;
+}
+
+function leveCrayon(lutin) {
+  lutin.crayonBaisse = false;
+}
+
+
+
+
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%% LES FONCTIONS - FORMATAGE %%%%%%%
