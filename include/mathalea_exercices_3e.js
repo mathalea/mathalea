@@ -6382,17 +6382,18 @@ function TrianglesSemblables() {
 				// let J=rotation(I,X,180);
 				// let traceI = tracePoint(I)
 				// let traceJ = tracePoint(J)
-				// on fixe D et E
-				//let monM = choice(['F','G','H','I']);
-				let monM = ' ';
-				let nom2 = nommePolygone(r,'DE'+monM,0.7); 
+				// on fixe et on nomme D et E				
+				r.listePoints[0].nom='D';
+				let D = r.listePoints[0];
+				let traceD = tracePoint(D);
+				let labelD = labelPoint(D)
 				//
 				s=rotation(r,X,180)
 				r.couleurDeRemplissage='red'
 				r.opaciteDeRemplissage=0.5
 				s.couleurDeRemplissage='blue'
 				s.opaciteDeRemplissage=0.5
-				texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r,s,nom2)
+				texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r,s,labelD)
 				this.liste_questions[0]=texte;
 				this.liste_corrections[0]=texte_corr;
 				liste_de_question_to_contenu(this);
