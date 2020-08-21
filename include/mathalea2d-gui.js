@@ -76,7 +76,7 @@ window.onload = function()  {
 		if (buttonTelecharger) {
 			buttonTelecharger.style.visibility = 'visible'
 		}
-		executeCode(`mesObjets=[];${myCodeMirror.getValue()}`);
+		executeCode(`mesObjets=[];monLutin = creerLutin();${myCodeMirror.getValue()}`);
 		let mesObjetsCopie = mesObjets.slice() // codeSVG va ajouter des objets supplémentaires donc on en garde une copie
 		let codeSvgcomplet = codeSvg(mesObjets)
 		divSvg.innerHTML = codeSvgcomplet;		
