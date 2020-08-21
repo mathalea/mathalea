@@ -44,7 +44,7 @@ var liste_des_exercices_disponibles = {
   "6G11": Tracer_des_perpendiculaires,
   "6G12": Tracer_des_paralleles,
   "6G12-1": Tracer_des_perpendiculaires_et_des_paralleles,
-  "6G20": Vocabulaire_des_triangles_6e,
+  "6G20-2": Vocabulaire_des_triangles_6e,
   "6G23-2": Tracer_triangle_2_angles,
   "6G24": Transformations_6e,
   "6G25-1": Pavages_et_reflexion,
@@ -153,6 +153,7 @@ var liste_des_exercices_disponibles = {
   "4L14-0": Tester_si_un_nombre_est_solution_d_une_equation,
   "4L14-1": Tester_si_un_nombre_est_solution_d_une_equation_deg1,
   "4L14-2": Tester_si_un_nombre_est_solution_d_une_equation_deg2,
+  "beta4L15-0": Trouver_erreur_resol_eq_deg1,
   "4L20": Exercice_equation1,
   "4M30": Calcul_de_volumes_4e,
   "4N10": Exercice_additionner_des_fractions,
@@ -10899,7 +10900,7 @@ function Reciproque_Thales_4eme() {
 
 /**
  * Vocabulaire des triangles
- * 6G20 ; 5G20-1
+ * 6G20-2 ; 5G20-1
  * @author Sébastien Lozano
  */
 
@@ -11088,7 +11089,7 @@ function Vocabulaire_des_triangles() {
             triangle_isocele.l2 = l1;
             triangle_isocele.l3 = l2;
           }
-          texte = `${triangle_isgocele.getNom()} est un triangle tel que ${
+          texte = `${triangle_isocele.getNom()} est un triangle tel que ${
             triangle_isocele.getLongueurs()[0]
           } $= ${triangle_isocele.l1}$ cm ; `;
           texte += `${triangle_isocele.getLongueurs()[1]} $= ${
@@ -11542,7 +11543,7 @@ function Description_segment_droite_demi_droite() {
 
 /**
  * Vocabulaire des triangles
- * 6G20
+ * 6G20-2
  * @author Sébastien Lozano
  */
 function Vocabulaire_des_triangles_6e() {

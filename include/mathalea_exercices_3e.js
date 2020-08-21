@@ -6334,11 +6334,13 @@ function Problemes_Thales(){
 	}
 }
 /**
- * @Auteur Jean-Claude Lhote
+ * 3G23 reconnaitre des triangles égaux
+ * @author Jean-Claude Lhote et Sébastien Lozano
  */
 function TrianglesSemblables() {
 	'use strict'
 	Exercice.call(this)
+	this.beta = true;
 	this.titre = "Reconnaître des triangles semblables dans différentes configurations";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
@@ -6369,7 +6371,7 @@ function TrianglesSemblables() {
 				let angleChoisi1 = choice([0,90,270]); 
 				p=rotation(p,G,angleChoisi1); // on tourne ABC de façon aléatoire autour de son barycentre
 				p.couleurDeRemplissage='gray';//remplissage de ABC
-				p.opaciteDeRemplissage=0.5;//remplissage de ABC
+				p.opaciteDeRemplissage=0.2;//0.5;//remplissage de ABC
 				nom1=nommePolygone(p,'ABC',0.4); // on  nomme ABC en plaçant A,B et C à 0,4
 				grid=grille(-3,-3,27,18, 'gray',0.4,1); // on trace une grille
 				M=point(9,12); // un point M fixe pour tourner autour				
@@ -6383,9 +6385,9 @@ function TrianglesSemblables() {
 				X=milieu(r.listePoints[0],r.listePoints[1]); // on place le milieu des deux premiers points de la figure obtenue qui sont les images des points A et B initiaux	
 				s=rotation(r,X,180); // on fait topurner r autour du milieu des deux extremites du plus grand côté
 				r.couleurDeRemplissage='red'; // solution 1 en rouge
-				r.opaciteDeRemplissage=0.5; // 
+				r.opaciteDeRemplissage=0.2;//0.5; // 
 				s.couleurDeRemplissage='blue'; //solution 2 en bleu
-				s.opaciteDeRemplissage=0.5; //
+				s.opaciteDeRemplissage=0.2;//0.5; //
 				// mes ajouts par rapport à la figure de JC				
 				// on fixe une place pour D et E
 				let D = r.listePoints[0];
@@ -6393,7 +6395,7 @@ function TrianglesSemblables() {
 				let E = r.listePoints[1];
 				E.nom='E';
 				// on crée un tableau avec les noms proposé pour les points				
-				let tabPointsNames= ['G','H','I','J'];				
+				let tabPointsNames= ['F','G','H','I'];				
 				// on mélange le tableau 
 				tabPointsNames=shuffle(tabPointsNames);
 				//on place les deux solutions
@@ -6429,13 +6431,16 @@ function TrianglesSemblables() {
 				};
 				let transformationAnimee = {
 					sol1:``,
-					sol2:``
+					//nature_sol1:``,
+					sol2:``,
+					//nature_sol2:``
 				};
 				// pour construire les droites et les centres passant par les centres de rotations
 				let d,d1,d2,d3,d4,d5,J1,J2;
 				switch (angleChoisi2) {
 					case 0:
-						transformationAnimee.sol1=rotationAnimee(p,M,90);
+						transformationAnimee.sol1=rotationAnimee(p,M,90,'begin="0s" dur="4s" repeatCount="indefinite"');
+						//transformationAnimee.nature_sol1=`rotation`;
 						// la 1ere compo
 						d= droite(M,Gq);
 						d1=rotation(d,M,-45);
@@ -6446,11 +6451,14 @@ function TrianglesSemblables() {
 						d4=rotation(d3,J1,-45);
 						d5=rotation(d3,X,90);
 						J2=pointIntersectionDD(d4,d5);// centre après la seconde composition angle 270 à 2pi près						
-						transformationAnimee.sol2=rotationAnimee(p,J2,-90);//pb composée d'une R, rot(M,90) et R' rot(Gq,0) puis rot(X,180)
+						transformationAnimee.sol2=rotationAnimee(p,J2,-90,'begin="0s" dur="4s" repeatCount="indefinite"');
+						//transformationAnimee.nature_sol2=`rotation`;
 						break;
 					case 90:						
-						transformationAnimee.sol1=rotationAnimee(p,centre_rot.sol1,180);
-						transformationAnimee.sol2=translationAnimee(p,vect_trans.sol2);
+						transformationAnimee.sol1=rotationAnimee(p,centre_rot.sol1,180,'begin="0s" dur="4s" repeatCount="indefinite"');
+						//transformationAnimee.nature_sol1=`rotation`;
+						transformationAnimee.sol2=translationAnimee(p,vect_trans.sol2,'begin="0s" dur="4s" repeatCount="indefinite"');
+						//transformationAnimee.nature_sol2=`translation`;
 						break;
 					case 180:
 						// la 1ere compo
@@ -6463,86 +6471,141 @@ function TrianglesSemblables() {
 						d4=rotation(d3,J1,-135);
 						d5=rotation(d3,X,90);
 						J2=pointIntersectionDD(d4,d5);// centre après la seconde composition angle 450 à 2pi près						
-						transformationAnimee.sol1=rotationAnimee(p,J1,-90);//pb composée rot(M,90) et rot(Gq,180)
-						transformationAnimee.sol2=rotationAnimee(p,J2,90);//pb composée rot(M,90) et rot(Gq,180) et rot(X,180)
+						transformationAnimee.sol1=rotationAnimee(p,J1,-90,'begin="0s" dur="4s" repeatCount="indefinite"');
+						//transformationAnimee.nature_sol1=`rotation`;
+						transformationAnimee.sol2=rotationAnimee(p,J2,90,'begin="0s" dur="4s" repeatCount="indefinite"');
+						//transformationAnimee.nature_sol2=`rotation`;
 						break;
 					case 270:
-						transformationAnimee.sol1=translationAnimee(p,vect_trans.sol1);						
-						transformationAnimee.sol2=rotationAnimee(p,centre_rot.sol2,180);
+						transformationAnimee.sol1=translationAnimee(p,vect_trans.sol1,'begin="0s" dur="4s" repeatCount="indefinite"');
+						//transformationAnimee.nature_sol1=`translation`;						
+						transformationAnimee.sol2=rotationAnimee(p,centre_rot.sol2,180,'begin="0s" dur="4s" repeatCount="indefinite"');
+						//transformationAnimee.nature_sol2=`rotation`;
 						break; 
-				} 
+				}
+				// DE = AB
+				let seg_DE_corr = segment(D,E,'blue');
+				seg_DE_corr.epaisseur = 2;
+				let seg_AB_corr = segment(p.listePoints[0],p.listePoints[1],'blue');
+				seg_AB_corr.epaisseur = 2;
+				//DI = AC
+				let seg_DI_corr = segment(D,I,'red');
+				seg_DI_corr.epaisseur = 2;
+				let seg_AC_corr = segment(p.listePoints[0],p.listePoints[2],'red');
+				seg_AC_corr.epaisseur = 2;
+				//EI = BC
+				let seg_EI_corr = segment(E,I,'green');
+				seg_EI_corr.epaisseur = 2;
+				let seg_BC_corr = segment(p.listePoints[1],p.listePoints[2],'green');
+				seg_BC_corr.epaisseur = 2;
+
+				
+
+				let codages_correction = {
+					sol1:[						
+						seg_DE_corr,
+						seg_AB_corr,
+						codeSegments('×', 'blue', p.listePoints[0], p.listePoints[1], D,E ),
+						seg_AC_corr,
+						seg_DI_corr,
+						seg_BC_corr,
+						seg_EI_corr,						
+					]
+				}
 
 				// on crée un objet pour stocker les figures et les corrections
 				let figures = {
 					enonce:`
 						Où placer le point M pour que les triangles ABC et DEM soient égaux ? 
 						<br>En F ? En G? En H ? En I ?
-						<br> ${mathalea2d(
-								fenetreMathalea2D,
-								p,
-								nom1,
-								grid,
-								tracePoint(D,E,I,I1,F,L),
-								labelPoint(D,E,I,I1,F,L),
-								sgmt_DE,
-								//r,
-								//s
-							)}
-						`,
-					corr_solution1:`Un solution est donc le point ${I.nom} <br>
-					${mathalea2d(
-						fenetreMathalea2D,
-						p,
-						nom1,
-						grid,
-						tracePoint(D,E,I,I1,F,L),
-						labelPoint(D,E,I,I1,F,L),
-						sgmt_DE,
-						r,
-						//s,
-					)}`,
-					corr_solution2:`Un solution est donc le point ${I1.nom} <br>
-					${mathalea2d(
-						fenetreMathalea2D,
-						p,
-						nom1,
-						grid,
-						tracePoint(D,E,I,I1,F,L),
-						labelPoint(D,E,I,I1,F,L),
-						sgmt_DE,
-						//r,
-						s,
-					)}`,
-					corr_animmee_sol1:`Un solution est donc le point ${I.nom} <br>
-					${mathalea2d(
-						fenetreMathalea2D,
-						p,
-						nom1,
-						grid,
-						tracePoint(D,E,I,I1,F,L),
-						labelPoint(D,E,I,I1,F,L),
-						sgmt_DE,
-						r,
-						transformationAnimee.sol1
-					)}`,
-					corr_animmee_sol2:`Un solution est donc le point ${I1.nom} <br>
-					${mathalea2d(
-						fenetreMathalea2D,
-						p,
-						nom1,
-						grid,
-						tracePoint(D,E,I,I1,F,L),
-						labelPoint(D,E,I,I1,F,L),
-						sgmt_DE,
-						//r,
-						s,
-						transformationAnimee.sol2
-					)}`
+						<br>
+						${mathalea2d(
+							fenetreMathalea2D,
+							p,
+							nom1,
+							grid,
+							tracePoint(D,E,I,I1,F,L),
+							labelPoint(D,E,I,I1,F,L),
+							sgmt_DE,
+							//r,
+							//s
+						)}`,
+					corr_solution1:`
+						Une ${transformationAnimee.nature_sol1} permet de superposer les triangles $ABC$ et $DE${I.nom}$
+						<br> ${texte_en_couleur(`Donc le point ${I.nom} est un point qui convient`)}
+						<br>
+						${mathalea2d(
+							fenetreMathalea2D,
+							p,
+							nom1,
+							grid,
+							tracePoint(D,E,I,I1,F,L),
+							labelPoint(D,E,I,I1,F,L),
+							sgmt_DE,
+							r,
+							//s,
+						)}`,
+					corr_solution2:`
+						Une solution est donc le point ${I1.nom}
+						<br>
+						Une ${transformationAnimee.nature_sol2} permet de superposer les triangles $ABC$ et $DE${I1.nom}$
+						<br> ${texte_en_couleur(`Donc le point ${I1.nom} est un point qui convient`)}
+						<br>
+						${mathalea2d(
+							fenetreMathalea2D,
+							p,
+							nom1,
+							grid,
+							tracePoint(D,E,I,I1,F,L),
+							labelPoint(D,E,I,I1,F,L),
+							sgmt_DE,
+							//r,
+							s,
+						)}`,
+					corr_animmee_sol1:`
+						
+						<br> ${texte_en_couleur(`Donc le point ${I.nom} est un point qui convient`)}
+						<br>						
+						${mathalea2d(
+							fenetreMathalea2D,
+							p,
+							nom1,
+							grid,
+							tracePoint(D,E,I,I1,F,L),
+							labelPoint(D,E,I,I1,F,L),
+							//sgmt_DE,
+							r,
+							transformationAnimee.sol1,
+							codages_correction.sol1
+						)}`,
+					corr_animmee_sol2:`
+						
+						<br> ${texte_en_couleur(`Donc le point ${I1.nom} est un point qui convient`)}
+						<br>
+						Une solution est donc le point ${I1.nom}
+						<br>
+						${mathalea2d(
+							fenetreMathalea2D,
+							p,
+							nom1,
+							grid,
+							tracePoint(D,E,I,I1,F,L),
+							labelPoint(D,E,I,I1,F,L),
+							sgmt_DE,
+							//r,
+							s,
+							transformationAnimee.sol2
+						)}`
 				}
 				//texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r,s)
 				texte = `${figures.enonce}`;
-				texte += `<br> =====CORRECTION SOLUTION 1  Statique et animée ======<br>${figures.corr_solution1}<br>${figures.corr_animmee_sol1}`;
-				texte += `<br> =====CORRECTION SOLUTION 2  ======<br>${figures.corr_solution2}<br>${figures.corr_animmee_sol2}`;
+				if (this.beta) {
+					texte += `<br>${texte_gras(`===== Première solution ======`)}<br>${figures.corr_animmee_sol1}`;
+					texte += `<br><br>${texte_gras(`===== Seconde solution ======`)}<br>${figures.corr_animmee_sol2}`;
+				} else {
+					texte_corr += `<br>${texte_gras(`===== Première solution ======`)}<br>${figures.corr_animmee_sol1}`;
+					texte_corr += `<br><br>${texte_gras(`===== Seconde solution ======`)}<br>${figures.corr_animmee_sol2}`;
+				}
 				this.liste_questions[0]=texte;
 				this.liste_corrections[0]=texte_corr;
 				liste_de_question_to_contenu(this);

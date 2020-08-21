@@ -15,7 +15,8 @@
 let mesObjets = []; // Liste de tous les objets construits
 //Liste utilisée quand il n'y a qu'une seule construction sur la page web
 
-pixelsParCm = 20;
+let pixelsParCm = 20;
+let unitesLutinParCm = 50;
 
 /*
  * Classe parente de tous les objets de MathALEA2D
@@ -3759,28 +3760,29 @@ function angleradian(A, O, B) {
  * @Auteur Rémi Angot
  */
 function couleurAleatoire() {
-  let color = "#";
-  for (let i = 0; i < 6; i++) {
-    color += choice([
-      0,
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      "A",
-      "B",
-      "C",
-      "D",
-      "E",
-      "F",
-    ]);
-  }
-  return color;
+  // let color = "#";
+  // for (let i = 0; i < 6; i++) {
+  //   color += choice([
+  //     0,
+  //     1,
+  //     2,
+  //     3,
+  //     4,
+  //     5,
+  //     6,
+  //     7,
+  //     8,
+  //     9,
+  //     "A",
+  //     "B",
+  //     "C",
+  //     "D",
+  //     "E",
+  //     "F",
+  //   ]);
+  // }
+  // return color;
+  return choice(['white', 'black', 'red', 'green', 'blue', 'cyan', 'magenta', 'yellow'])
 }
 
 
@@ -3800,7 +3802,7 @@ function ObjetLutin() {
   this.ySVG = function (coeff) {
     return -this.y * coeff;
   };
-  this.orientation = 90;
+  this.orientation = 0;
   this.historiquePositions = [];
   this.crayonBaisse = false;
   this.isVisible = true;
@@ -3809,52 +3811,146 @@ function ObjetLutin() {
   this.color = "black";
   this.epaisseur = 2;
   this.pointilles = false;
+  this.opacite = 1;
+  this.style ='';
   this.svg = function (coeff) {
-    code = "";
+    code = '';
     for (trace of this.listeTraces) {
       let A = point(trace[0], trace[1]);
       let B = point(trace[2], trace[3]);
+      let color = trace[4];
+      let epaisseur = trace[5];
+      let pointilles = trace[6];
+      let opacite = trace[7];
+      let style = '';
+      if (epaisseur != 1) {
+        style += ` stroke-width="${epaisseur}" `;
+      }
+      if (pointilles) {
+        style += ` stroke-dasharray="4 3" `;
+      }
+      if (opacite != 1) {
+        style += ` stroke-opacity="${opacite}" `;
+      }
       code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
         coeff
-      )}" x2="${B.xSVG(coeff)}" y2="${B.ySVG(coeff)}" stroke="black"  />`;
+      )}" x2="${B.xSVG(coeff)}" y2="${B.ySVG(coeff)}" stroke="${color}" ${style}  />`;
     }
     return code;
   };
+  this.tikz = function () {
+    code = '';
+    for (trace of this.listeTraces) {
+      let A = point(trace[0], trace[1]);
+      let B = point(trace[2], trace[3]);
+      let color = trace[4];
+      let epaisseur = trace[5];
+      let pointilles = trace[6];
+      let opacite = trace[7];
+      let style = '';
+      let optionsDraw = [];
+      let tableauOptions = [];
+      if (color.length > 1 && color !== "black") {
+        tableauOptions.push(color);
+      }
+      if (epaisseur != 1) {
+        tableauOptions.push(`line width = ${epaisseur}`);
+      }
+      if (opacite != 1) {
+        tableauOptions.push(`opacity = ${opacite}`);
+      }
+      if (pointilles) {
+        tableauOptions.push(`dashed`);
+      }
+      if (tableauOptions.length > 0) {
+        optionsDraw = "[" + tableauOptions.join(",") + "]";
+      }
+      code +=`\n\t\\draw${optionsDraw} (${A.x},${A.y})--(${B.x},${B.y});`;
+    };
+    return code
+  }
 }
 
 function creerLutin(...args) {
   return new ObjetLutin(...args);
 }
 
-function avance(d, lutin) { // A faire avec pointSurCercle pour tenir compte de l'orientation
+function avance(d, lutin=monLutin) { // A faire avec pointSurCercle pour tenir compte de l'orientation
   let xdepart = lutin.x;
   let ydepart = lutin.y;
-  lutin.x = calcul(lutin.x + d * Math.cos(Math.radians(lutin.orientation)));
-  lutin.y = calcul(lutin.y + d * Math.sin(Math.radians(lutin.orientation)));
+  lutin.x = calcul(lutin.x + d/unitesLutinParCm * Math.cos(Math.radians(lutin.orientation)));
+  lutin.y = calcul(lutin.y + d/unitesLutinParCm * Math.sin(Math.radians(lutin.orientation)));
   lutin.historiquePositions.push([lutin.x, lutin.y]);
   if (lutin.crayonBaisse) {
-    lutin.listeTraces.push([xdepart, ydepart, lutin.x, lutin.y]);
+    lutin.listeTraces.push([xdepart, ydepart, lutin.x, lutin.y,lutin.color,lutin.epaisseur,lutin.pointilles,lutin.opacite]);
   }
 }
 
-function baisseCrayon(lutin) {
+function baisseCrayon(lutin=monLutin) {
   lutin.crayonBaisse = true;
 }
 
-function leveCrayon(lutin) {
+function leveCrayon(lutin=monLutin) {
   lutin.crayonBaisse = false;
 }
 
-function orienter(a,lutin){
+function orienter(a,lutin=monLutin){
   lutin.orientation = a
 }
 
-function tournerG(a,lutin){
+function tournerG(a,lutin=monLutin){
   lutin.orientation +=a
 }
 
-function tournerD(a,lutin){
+function tournerD(a,lutin=monLutin){
   lutin.orientation -=a
+}
+
+function allerA(x,y,lutin=monLutin){
+  let xdepart = lutin.x;
+  let ydepart = lutin.y;
+  lutin.x = calcul(x/unitesLutinParCm);
+  lutin.y = calcul(y/unitesLutinParCm);
+  lutin.historiquePositions.push([lutin.x, lutin.y]);
+  if (lutin.crayonBaisse) {
+    lutin.listeTraces.push([xdepart, ydepart, lutin.x, lutin.y,lutin.color,lutin.epaisseur,lutin.pointilles]);
+  } 
+}
+
+function mettrexA(x,lutin=monLutin){
+  let xdepart = lutin.x;
+  lutin.x = calcul(x/unitesLutinParCm);
+  lutin.historiquePositions.push([lutin.x, lutin.y]);
+  if (lutin.crayonBaisse) {
+    lutin.listeTraces.push([xdepart, lutin.y, lutin.x, lutin.y,lutin.color,lutin.epaisseur,lutin.pointilles]);
+  } 
+}
+
+function mettreyA(y,lutin=monLutin){
+  let ydepart = lutin.y;
+  lutin.y = calcul(y/unitesLutinParCm);
+  lutin.historiquePositions.push([lutin.x, lutin.y]);
+  if (lutin.crayonBaisse) {
+    lutin.listeTraces.push([lutin.x, ydepart, lutin.x, lutin.y,lutin.color,lutin.epaisseur,lutin.pointilles]);
+  } 
+}
+
+function ajouterAx(x,lutin=monLutin){
+  let xdepart = lutin.x;
+  lutin.x += calcul(x/unitesLutinParCm);
+  lutin.historiquePositions.push([lutin.x, lutin.y]);
+  if (lutin.crayonBaisse) {
+    lutin.listeTraces.push([xdepart, lutin.y, lutin.x, lutin.y,lutin.color,lutin.epaisseur,lutin.pointilles]);
+  } 
+}
+
+function ajouterAy(y,lutin=monLutin){
+  let ydepart = lutin.y;
+  lutin.y += calcul(y/unitesLutinParCm);
+  lutin.historiquePositions.push([lutin.x, lutin.y]);
+  if (lutin.crayonBaisse) {
+    lutin.listeTraces.push([lutin.x, ydepart, lutin.x, lutin.y,lutin.color,lutin.epaisseur,lutin.pointilles]);
+  } 
 }
 
 

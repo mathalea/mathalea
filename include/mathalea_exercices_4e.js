@@ -9391,7 +9391,7 @@ function Tester_si_un_nombre_est_solution_d_une_equation_deg1() {
 
 /**
  * Tester si un nombre est solution d'une équation degré 2
- * * 4L14-1
+ * * 4L14-2
  * * adaptation de l'exo 5L14 de Rémi Angot
  * @author Sébastien Lozano
  */
@@ -9475,7 +9475,7 @@ function Forme_litterale_introduire_une_lettre(){
 			let p = randint(1,6);
 			let situation = situations[randint(0,situations.length-1)];
 			enonces.push({
-				enonce:`${situation.prenom} veut acheter ${n} ${pluriel(n,situation.elt1)} et ${p} ${pluriel(n,situation.elt2)}.
+				enonce:`${situation.prenom} veut acheter ${n} ${pluriel(n,situation.elt1)} et ${p} ${pluriel(p,situation.elt2)}.
 				<br>On note $${situation.elt1.lettre}$	le prix d'${situation.elt1.article} ${situation.elt1.sing} et $${situation.elt2.lettre}$	le prix d'${situation.elt2.article} ${situation.elt2.sing}.`,
 				question:``,
         correction:`
@@ -9700,8 +9700,6 @@ function Mettre_en_equation_sans_resoudre(){
 	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 }
 
-
-
 /**
  * Graphiques_et_proportionnalite
  * 4P10-1
@@ -9739,16 +9737,19 @@ function Graphiques_et_proportionnalite() {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		
-		type_de_questions_disponibles=[1];			
+		//type_de_questions_disponibles=[1];			
 
 		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+      // on prévoit un peu d'aléatoire pour les prix unitaires
+      let pu_oranges = choice([1.2,1.4,1.6,1.8]);
+      let pu_baguettes = choice([0.6,0.8,1.2]);
       // on prévoit un tableau avec des situations
       let situations = [
-        {lieu:`l'épicerie`,prenom:prenom(),articles:`oranges`,art_articles:`d'oranges`,prix_unitaire:1.6,qte:`poids`,qte_max:10,qte2:3,unite:`kg d'`,legendeX:`poids en kg`,legendeY:`prix en €`,fig:{},fig_corr:{}},
-        {lieu:`la boulangerie`,prenom:prenom(),articles:`baguettes`,art_articles:`de baguettes`,prix_unitaire:0.8,qte:`nombre`,qte_max:10,qte2:3,unite:``,legendeX:`quantité`,legendeY:`prix en €`,fig:{},fig_corr:{}}
+        {lieu:`l'épicerie`,prenom:prenom(),articles:`oranges`,art_articles:`d'oranges`,prix_unitaire:pu_oranges,qte:`poids`,qte_max:10,qte2:3,unite:`kg d'`,legendeX:`poids en kg`,legendeY:`prix en €`,fig:{},fig_corr:{}},
+        {lieu:`la boulangerie`,prenom:prenom(),articles:`baguettes`,art_articles:`de baguettes`,prix_unitaire:pu_baguettes,qte:`nombre`,qte_max:10,qte2:3,unite:``,legendeX:`quantité`,legendeY:`prix en €`,fig:{},fig_corr:{}}
       ]
       // on en choisit une
       let situation = situations[randint(0,situations.length-1)];    
@@ -9891,4 +9892,100 @@ function Graphiques_et_proportionnalite() {
 	}
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
 	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	  
+}
+
+/** 
+ * * 4L15-0
+ * @author Sébastien Lozano
+ */
+function Trouver_erreur_resol_eq_deg1(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.beta = true;	
+	this.sup=1;
+	if (this.beta) {
+		this.nb_questions = 2;
+	} else {
+		this.nb_questions = 2;
+	};	
+
+	this.titre = "Trouver l'erreur dans une résolution d'équation du premier degré";
+	this.consigne = "Trouver l'erreur dans les résoltution suivantes.<br>On ne demande pas de résoudre l'équation.";
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	//this.nb_questions_modifiable = false;
+	//sortie_html? this.spacing = 3 : this.spacing = 2; 
+	//sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
+
+	let type_de_questions_disponibles;	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		if (this.beta) {
+			type_de_questions_disponibles = [1,2];			
+		} else {
+			type_de_questions_disponibles = [1,2];			
+		};
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		//type_de_questions_disponibles=[1];			
+
+		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+      
+      // pour les situations
+      let situations = {};
+
+			let enonces = [];
+			enonces.push({
+				enonce:`énoncé type 1`,
+				question:``,
+        correction:`${texte_en_couleur(`correction type1`)}`
+      });
+      enonces.push({
+				enonce:`énoncé type 2`,
+				question:``,
+        correction:`${texte_en_couleur(`correction type2`)}`
+      });
+
+			switch (liste_type_de_questions[i]){
+				case 1 : 
+					texte = `${enonces[0].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[0].correction}`;
+					};
+          break;	
+        case 2 : 
+					texte = `${enonces[1].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[1].correction}`;
+					};
+					break;				
+			}
+			
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 }
