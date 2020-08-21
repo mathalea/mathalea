@@ -6577,7 +6577,7 @@ function TrianglesSemblables() {
 							//s
 						)}`,
 					corr_solution1:`
-						Une ${transformationAnimee.nature_sol1} permet de superposer les triangles $ABC$ et $DE${I.nom}$
+						Les triangles $ABC$ et $DE${I.nom}$ ont les mêmes longueurs et les mêmes angles.
 						<br> ${texte_en_couleur(`Donc le point ${I.nom} est un point qui convient`)}
 						<br>
 						${mathalea2d(
@@ -6590,11 +6590,10 @@ function TrianglesSemblables() {
 							sgmt_DE,
 							r,
 							//s,
+							codages_correction.sol1
 						)}`,
 					corr_solution2:`
-						Une solution est donc le point ${I1.nom}
-						<br>
-						Une ${transformationAnimee.nature_sol2} permet de superposer les triangles $ABC$ et $DE${I1.nom}$
+						Les triangles $ABC$ et $DE${I1.nom}$ ont les mêmes longueurs et les mêmes angles.		
 						<br> ${texte_en_couleur(`Donc le point ${I1.nom} est un point qui convient`)}
 						<br>
 						${mathalea2d(
@@ -6607,9 +6606,10 @@ function TrianglesSemblables() {
 							sgmt_DE,
 							//r,
 							s,
+							codages_correction.sol2
 						)}`,
 					corr_animmee_sol1:`
-						
+						Les triangles $ABC$ et $DE${I.nom}$ ont les mêmes longueurs et les mêmes angles.						
 						<br> ${texte_en_couleur(`Donc le point ${I.nom} est un point qui convient`)}
 						<br>						
 						${mathalea2d(
@@ -6625,7 +6625,7 @@ function TrianglesSemblables() {
 							codages_correction.sol1
 						)}`,
 					corr_animmee_sol2:`
-						
+						Les triangles $ABC$ et $DE${I1.nom}$ ont les mêmes longueurs et les mêmes angles.
 						<br> ${texte_en_couleur(`Donc le point ${I1.nom} est un point qui convient`)}
 						<br>
 						Une solution est donc le point ${I1.nom}
