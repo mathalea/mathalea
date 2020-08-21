@@ -1751,10 +1751,11 @@ function cercleCentrePoint(...args) {
  * @param {boolean} fill
  * @param {string} color
  */
-function Arc(M,Omega,angle,rayon=false,fill='none',color='black') {
+function Arc(M,Omega,angle,rayon=false,fill='none',color='black',fillOpacite=0.2) {
 	ObjetMathalea2D.call(this);
 	this.color=color;
-	this.fill=fill;
+  this.couleurDeRemplissage=fill;
+  this.opaciteDeRemplissage=fillOpacite
 	let l=longueur(Omega,M),large=0,sweep=0
 	let d=droite(Omega,M)
    d.isVisible=false
@@ -1786,10 +1787,10 @@ function Arc(M,Omega,angle,rayon=false,fill='none',color='black') {
 		if (this.opacite !=1) {
 			this.style += ` stroke-opacity="${this.opacite}" `
     }
-    if (this.fill!='none') {
-      this.style += ` fill-opacity="0.2" `;
+    if (this.couleurDeRemplissage!='none') {
+      this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `;
     }
-		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${fill}" ${this.style}/>`
+		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${this.couleurDeRemplissage}" ${this.style}/>`
 	}
 	else 	this.svg = function(coeff){
 		if (this.epaisseur!=1) {
@@ -1817,7 +1818,13 @@ function Arc(M,Omega,angle,rayon=false,fill='none',color='black') {
 	   }
 	   if (this.opacite !=1) {
 		   tableauOptions.push(`opacity = ${this.opacite}`)
-	   }
+     }
+     if (this.opaciteDeRemplissage !=1) {
+      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
+    }
+    if (this.couleurDeRemplissage !='') {
+      tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
+    }
 	   if (tableauOptions.length>0) {
 		   optionsDraw = "["+tableauOptions.join(',')+"]"
 	   }
@@ -2907,10 +2914,21 @@ function CodeSegments(mark = "||", color = "black", ...args) {
 function codeSegments(...args) {
   return new CodeSegments(...args);
 }
-
-function CodeAngle(debut,centre,angle,mark='||',color='black',fill='none',epaisseur=1,opacite=1) {
+/**
+ * m=codeAngle(A,O,45,'X','black','red',2,1,0.4) 
+ * code un angle du point A dont le sommet est O et la mesure 45° (sens direct) avec une marque en X.
+ *  la ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
+ * @Auteur Jean-Claude Lhote
+ */
+function CodeAngle(debut,centre,angle,mark='||',color='black',fill='none',epaisseur=1,opacite=1,fillOpacite=0.2) {
   ObjetMathalea2D.call(this)
   this.color=color
+  if (fill!='none') {
+    this.couleurDeRemplissage=fill
+    this.opaciteDeRemplissage=fillOpacite
+  }
+  else 
+    this.couleurDeRemplissage='none'
   let remplir
   if (fill=='none') 
     remplir = false
@@ -2923,6 +2941,8 @@ function CodeAngle(debut,centre,angle,mark='||',color='black',fill='none',epaiss
   let arcangle=arc(debut,centre,angle,remplir,fill,color)
   arcangle.opacite=opacite
   arcangle.epaisseur=epaisseur
+  arcangle.couleurDeRemplissage=this.couleurDeRemplissage
+  arcangle.opaciteDeRemplissage=this.opaciteDeRemplissage
   let codage=texteParPoint(mark,P,90-d.angleAvecHorizontale,color)
   this.svg=function(coeff){
     return codage.svg(coeff)+'\n'+arcangle.svg(coeff);
