@@ -1206,7 +1206,12 @@ function Polygone(...points) {
     if (this.opacite != 1) {
       tableauOptions.push(`opacity=${this.opacite}`);
     }
-
+    if (this.opaciteDeRemplissage !=1) {
+      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
+    }
+    if (this.couleurDeRemplissage !='') {
+      tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
+    }
     let optionsDraw = [];
     if (tableauOptions.length > 0) {
       optionsDraw = "[" + tableauOptions.join(",") + "]";
@@ -1216,7 +1221,12 @@ function Polygone(...points) {
     for (let point of this.listePoints) {
       binomeXY += `(${point.x},${point.y})--`;
     }
-    return `\\draw${optionsDraw} ${binomeXY}cycle;`;
+    if (this.couleurDeRemplissage == "") {
+      return `\\draw ${optionsDraw} ${binomeXY}cycle;`;
+    } else {
+      return `\\fill ${optionsDraw} ${binomeXY}cycle;`;
+    }
+    
   };
 }
 function polygone(...args) {
