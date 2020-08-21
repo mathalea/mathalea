@@ -210,6 +210,7 @@ var liste_des_exercices_disponibles = {
   "3G20-1": Problemes_Thales,
   "3G21": Reciproque_Thales,
   "3G22": Agrandissement_reduction,
+  "3G23": TrianglesSemblables,
   "3G30": Exercice_Trigo_longueurs,
   "3G31": Exercice_Trigo_angles,
   "3F1-act": fonction_notion_vocabulaire,
@@ -247,8 +248,7 @@ var liste_des_exercices_disponibles = {
   cours: Questions_de_cours,
   LaTeX: Code_LaTeX_personnalise,
   // 'Perso' : HTML_personnalise,
-  // 'TsvgjsKatex' : tests_SVGJS_KATEX,
-  "beta3G23": TrianglesSemblables,
+  // 'TsvgjsKatex' : tests_SVGJS_KATEX,  
 };
 
 //Pour modifier les exercices lorsqu'ils sont en mode diaporama

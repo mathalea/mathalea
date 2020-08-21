@@ -6340,7 +6340,7 @@ function Problemes_Thales(){
 function TrianglesSemblables() {
 	'use strict'
 	Exercice.call(this)
-	this.beta = true;
+	this.beta = false;
 	this.titre = "Reconnaître des triangles semblables dans différentes configurations";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
