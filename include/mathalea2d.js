@@ -438,7 +438,7 @@ function Droite(arg1, arg2, arg3, arg4, color) {
   this.normal = vecteur(this.a, this.b);
   this.directeur = vecteur(-this.b, this.a);
   this.angleAvecHorizontale = angleOriente(
-    point(0, 1),
+    point(1, 0),
     point(0, 0),
     point(this.directeur.x, this.directeur.y)
   );
@@ -2886,6 +2886,32 @@ function codeSegments(...args) {
   return new CodeSegments(...args);
 }
 
+function CodeAngle(debut,centre,angle,mark='||',color='black',fill='none') {
+  ObjetMathalea2D.call(this)
+  this.color=color
+  let remplir
+  if (fill=='none') 
+    remplir = false
+  else {
+    remplir = true
+  }
+  let P=rotation(debut,centre,angle/2)
+  let d=droite(P,centre)
+  d.isVisible=false
+  let arcangle=arc(debut,centre,angle,remplir,fill,color)
+  let codage=texteParPoint(mark,P,d.angleAvecHorizontale,color)
+  console.log(JSON.stringify(arcangle))
+  this.svg=function(coeff){
+    return codage.svg(coeff)+'\n'+arcangle.svg(coeff);
+  }
+  this.tikz=function(){
+    return codage.tikz()+'\n'+arcangle.tikz(coeff)
+  }
+}
+
+function codeAngle(...args){
+  return new CodeAngle(...args)
+}
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%% LES REPERES ET GRILLE %%%%%%%%%%
@@ -3582,7 +3608,7 @@ function TexteParPoint(texte, A, orientation = "milieu", color) {
   this.color = color;
   this.svg = function (coeff) {
     let code = "";
-    if (Number.isInteger(orientation)) {
+    if (typeof(orientation)=='number') {
       code = `<text x="${A.xSVG(coeff)}" y="${A.ySVG(
         coeff
       )}" text-anchor="middle" dominant-baseline="central" fill="${
