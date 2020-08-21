@@ -9936,13 +9936,67 @@ function Trouver_erreur_resol_eq_deg1(){
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+      //on choisit un nom pour l'inconnue
+      let variables = ['x','t','u','v','w','y','z'];
+      let inc = variables[randint(0,variables.length-1)];
       
+      // on choisit les paramètres
+      let a = randint(-9,9,[-1,0,1]);
+      let b = randint(-9,9,[-1,0,1]);
+      let c = randint(-9,9,[-1,0,1]);
+      let d = randint(-9,9,[-1,0,1]);
+
+      // une fonction pour gérer le signe
+      function signeDansEq(nb) {
+        if (nb > 0) {
+          return `+`;
+        } else {
+          return ``;
+        };
+      };
+
+      // une fonction pour gérer le genre du prénom et le pronom associé
+      function genreEtPrenom() {
+        let n = randint(0,1);
+        if (n==0) {
+          return {prenom:prenomM(),pronom:`il`};
+        } else {
+          return {prenom:prenomF(),pronom:`elle`};
+        };
+      }
+
+      let currentGenreEtPrenom = genreEtPrenom();
+
       // pour les situations
-      let situations = {};
+      let situations = [
+        {
+          pronom:currentGenreEtPrenom.pronom,
+          prenom:currentGenreEtPrenom.prenom,
+          a:a,
+          b:b,
+          c:c,
+          d:d,
+          inc:inc,
+          eq:`$${a}${inc} ${signeDansEq(b)} ${b} = ${d} ${signeDansEq(c)} ${c}${inc}$`,
+          et1:`$${a}${inc} ${signeDansEq(c)} ${c}${inc} ${signeDansEq(b)} ${b} = ${d} $`,// l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
+          et2:`$${a}${inc} ${signeDansEq(c)} ${c}${inc} = ${d} ${signeDansEq(-b)} ${-b} $`,
+          et3:`$${a+c}${inc} = ${d} ${signeDansEq(-b)} ${-b} $`,
+          et4:`$${inc} = \\dfrac{${d} ${signeDansEq(-b)} ${-b}}{${a+c}} $`,
+        }
+      ];
+
+
 
 			let enonces = [];
 			enonces.push({
-				enonce:`énoncé type 1`,
+        enonce:`
+          ${situations[0].prenom} doit résoudre l'équation suivante : ${situations[0].eq}.
+          <br> Voilà ce qu'${situations[0].pronom} écrit :
+          <br>${texte_gras(`Étape 1 :`)} ${situations[0].et1}
+          <br>${texte_gras(`Étape 2 :`)} ${situations[0].et2}
+          <br>${texte_gras(`Étape 3 :`)} ${situations[0].et3}
+          <br>${texte_gras(`Étape 4 :`)} ${situations[0].et4}
+        `,
 				question:``,
         correction:`${texte_en_couleur(`correction type1`)}`
       });
