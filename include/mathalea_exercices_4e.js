@@ -9475,7 +9475,7 @@ function Forme_litterale_introduire_une_lettre(){
 			let p = randint(1,6);
 			let situation = situations[randint(0,situations.length-1)];
 			enonces.push({
-				enonce:`${situation.prenom} veut acheter ${n} ${pluriel(n,situation.elt1)} et ${p} ${pluriel(n,situation.elt2)}.
+				enonce:`${situation.prenom} veut acheter ${n} ${pluriel(n,situation.elt1)} et ${p} ${pluriel(p,situation.elt2)}.
 				<br>On note $${situation.elt1.lettre}$	le prix d'${situation.elt1.article} ${situation.elt1.sing} et $${situation.elt2.lettre}$	le prix d'${situation.elt2.article} ${situation.elt2.sing}.`,
 				question:``,
         correction:`
