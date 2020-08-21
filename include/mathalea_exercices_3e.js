@@ -6513,10 +6513,7 @@ function TrianglesSemblables() {
 				// angle CAB = IDE ou CAB = I1ED
 				let ang_CAB = angleOriente(p.listePoints[2],p.listePoints[0],p.listePoints[1]);
 				let ang_IDE = angleOriente(I,D,E);
-				let ang_I1ED = angleOriente(I1,E,D);
-
-
-				
+				let ang_I1ED = angleOriente(I1,E,D);				
 
 				let codages_correction = {
 					sol1:[
@@ -6617,8 +6614,11 @@ function TrianglesSemblables() {
 							p,
 							nom1,
 							grid,
-							tracePoint(D,E,I,I1,F,L),
-							labelPoint(D,E,I,I1,F,L),
+							//tracePoint(D,E,I,I1,F,L),
+							tracePoint(I1,F,L),
+							//labelPoint(D,E,I,I1,F,L),
+							labelPoint(I1,F,L),
+							nommePolygone(r,'DE'+I.nom,0.4),
 							//sgmt_DE,
 							r,
 							transformationAnimee.sol1,
