@@ -44,7 +44,7 @@ var liste_des_exercices_disponibles = {
   "6G11": Tracer_des_perpendiculaires,
   "6G12": Tracer_des_paralleles,
   "6G12-1": Tracer_des_perpendiculaires_et_des_paralleles,
-  "6G20": Vocabulaire_des_triangles_6e,
+  "6G20-2": Vocabulaire_des_triangles_6e,
   "6G23-2": Tracer_triangle_2_angles,
   "6G24": Transformations_6e,
   "6G25-1": Pavages_et_reflexion,
@@ -10900,7 +10900,7 @@ function Reciproque_Thales_4eme() {
 
 /**
  * Vocabulaire des triangles
- * 6G20 ; 5G20-1
+ * 6G20-2 ; 5G20-1
  * @author Sébastien Lozano
  */
 
@@ -11543,7 +11543,7 @@ function Description_segment_droite_demi_droite() {
 
 /**
  * Vocabulaire des triangles
- * 6G20
+ * 6G20-2
  * @author Sébastien Lozano
  */
 function Vocabulaire_des_triangles_6e() {
