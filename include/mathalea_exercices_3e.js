@@ -6488,28 +6488,74 @@ function TrianglesSemblables() {
 				seg_DE_corr.epaisseur = 2;
 				let seg_AB_corr = segment(p.listePoints[0],p.listePoints[1],'blue');
 				seg_AB_corr.epaisseur = 2;
-				//DI = AC
+				//DI = AC ou EI1 = AC
 				let seg_DI_corr = segment(D,I,'red');
+				let seg_EI1_corr = segment(E,I1,'red');
 				seg_DI_corr.epaisseur = 2;
+				seg_EI1_corr.epaisseur = 2;
 				let seg_AC_corr = segment(p.listePoints[0],p.listePoints[2],'red');
 				seg_AC_corr.epaisseur = 2;
-				//EI = BC
+				//EI = BC ou DI1 = BC
 				let seg_EI_corr = segment(E,I,'green');
+				let seg_DI1_corr = segment(D,I1,'green');
 				seg_EI_corr.epaisseur = 2;
-				let seg_BC_corr = segment(p.listePoints[1],p.listePoints[2],'green');
+				seg_DI1_corr.epaisseur = 2;
+				let seg_BC_corr = segment(p.listePoints[1],p.listePoints[2],'green');				
 				seg_BC_corr.epaisseur = 2;
+				// angle ABC = DEI ou ABC = EDI1
+				let ang_ABC = angleOriente(p.listePoints[0],p.listePoints[1],p.listePoints[2]);
+				let ang_DEI = angleOriente(D,E,I);
+				let ang_EDI1 = angleOriente(E,D,I1);
+				// angle BCA = EID ou  BCA = DI1E
+				let ang_BCA = angleOriente(p.listePoints[1],p.listePoints[2],p.listePoints[0]);
+				let ang_EID = angleOriente(E,I,D);
+				let ang_EI1D = angleOriente(E,I1,D);
+				// angle CAB = IDE ou CAB = I1ED
+				let ang_CAB = angleOriente(p.listePoints[2],p.listePoints[0],p.listePoints[1]);
+				let ang_IDE = angleOriente(I,D,E);
+				let ang_I1ED = angleOriente(I1,E,D);
+
 
 				
 
 				let codages_correction = {
-					sol1:[						
-						seg_DE_corr,
+					sol1:[
+						// les segments						
 						seg_AB_corr,
+						seg_DE_corr,						
 						codeSegments('×', 'blue', p.listePoints[0], p.listePoints[1], D,E ),
 						seg_AC_corr,
 						seg_DI_corr,
+						codeSegments('||', 'red', p.listePoints[0], p.listePoints[2], D,I ),
 						seg_BC_corr,
 						seg_EI_corr,						
+						codeSegments('O', 'green', p.listePoints[1], p.listePoints[2], I,E ),
+						//les angles
+						arc(pointSurSegment(p.listePoints[1], p.listePoints[0], 0.8), p.listePoints[1], ang_ABC,true,'red'),
+						arc(pointSurSegment(E, D, 0.8), E, ang_DEI,true,'red'),
+						arc(pointSurSegment(p.listePoints[2], p.listePoints[1], 0.8), p.listePoints[2], ang_BCA,true,'blue'),
+						arc(pointSurSegment(I, E, 0.8), I, ang_EID,true,'blue'),
+						arc(pointSurSegment(p.listePoints[0], p.listePoints[2], 0.8), p.listePoints[0], ang_CAB,true,'green'),
+						arc(pointSurSegment(D, I, 0.8), D, ang_IDE,true,'green')
+					],
+					sol2:[
+						//les segments
+						seg_AB_corr,
+						seg_DE_corr,						
+						codeSegments('×', 'blue', p.listePoints[0], p.listePoints[1], D,E ),
+						seg_BC_corr,
+						seg_DI1_corr,
+						codeSegments('O', 'green', p.listePoints[1], p.listePoints[2], D,I1 ),
+						seg_AC_corr,
+						seg_EI1_corr,
+						codeSegments('||', 'red', p.listePoints[0], p.listePoints[2], E,I1 ),
+						// les angles
+						arc(pointSurSegment(p.listePoints[1], p.listePoints[0], 0.8), p.listePoints[1], ang_ABC,true,'red'),
+						arc(pointSurSegment(D, E, 0.8), D, ang_EDI1,true,'red'),
+						arc(pointSurSegment(p.listePoints[2], p.listePoints[1], 0.8), p.listePoints[2], ang_BCA,true,'blue'),
+						arc(pointSurSegment(I1, E, 0.8), I1, ang_EI1D,true,'blue'),
+						arc(pointSurSegment(p.listePoints[0], p.listePoints[2], 0.8), p.listePoints[0], ang_CAB,true,'green'),
+						arc(pointSurSegment(E, I1, 0.8), E, ang_I1ED,true,'green')
 					]
 				}
 
@@ -6591,10 +6637,11 @@ function TrianglesSemblables() {
 							grid,
 							tracePoint(D,E,I,I1,F,L),
 							labelPoint(D,E,I,I1,F,L),
-							sgmt_DE,
+							//sgmt_DE,
 							//r,
 							s,
-							transformationAnimee.sol2
+							transformationAnimee.sol2,
+							codages_correction.sol2
 						)}`
 				}
 				//texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r,s)
