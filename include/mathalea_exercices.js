@@ -153,7 +153,7 @@ var liste_des_exercices_disponibles = {
   "4L14-0": Tester_si_un_nombre_est_solution_d_une_equation,
   "4L14-1": Tester_si_un_nombre_est_solution_d_une_equation_deg1,
   "4L14-2": Tester_si_un_nombre_est_solution_d_une_equation_deg2,
-  //"4L15-0": Trouver_erreur_resol-eq_deg1,
+  "beta4L15-0": Trouver_erreur_resol_eq_deg1,
   "4L20": Exercice_equation1,
   "4M30": Calcul_de_volumes_4e,
   "4N10": Exercice_additionner_des_fractions,
