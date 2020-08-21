@@ -9745,10 +9745,13 @@ function Graphiques_et_proportionnalite() {
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+      // on prévoit un peu d'aléatoire pour les prix unitaires
+      let pu_oranges = choice([1.2,1.4,1.6,1.8]);
+      let pu_baguettes = choice([0.6,0.8,1.2]);
       // on prévoit un tableau avec des situations
       let situations = [
-        {lieu:`l'épicerie`,prenom:prenom(),articles:`oranges`,art_articles:`d'oranges`,prix_unitaire:1.6,qte:`poids`,qte_max:10,qte2:3,unite:`kg d'`,legendeX:`poids en kg`,legendeY:`prix en €`,fig:{},fig_corr:{}},
-        {lieu:`la boulangerie`,prenom:prenom(),articles:`baguettes`,art_articles:`de baguettes`,prix_unitaire:0.8,qte:`nombre`,qte_max:10,qte2:3,unite:``,legendeX:`quantité`,legendeY:`prix en €`,fig:{},fig_corr:{}}
+        {lieu:`l'épicerie`,prenom:prenom(),articles:`oranges`,art_articles:`d'oranges`,prix_unitaire:pu_oranges,qte:`poids`,qte_max:10,qte2:3,unite:`kg d'`,legendeX:`poids en kg`,legendeY:`prix en €`,fig:{},fig_corr:{}},
+        {lieu:`la boulangerie`,prenom:prenom(),articles:`baguettes`,art_articles:`de baguettes`,prix_unitaire:pu_baguettes,qte:`nombre`,qte_max:10,qte2:3,unite:``,legendeX:`quantité`,legendeY:`prix en €`,fig:{},fig_corr:{}}
       ]
       // on en choisit une
       let situation = situations[randint(0,situations.length-1)];    
