@@ -11089,7 +11089,7 @@ function Vocabulaire_des_triangles() {
             triangle_isocele.l2 = l1;
             triangle_isocele.l3 = l2;
           }
-          texte = `${triangle_isgocele.getNom()} est un triangle tel que ${
+          texte = `${triangle_isocele.getNom()} est un triangle tel que ${
             triangle_isocele.getLongueurs()[0]
           } $= ${triangle_isocele.l1}$ cm ; `;
           texte += `${triangle_isocele.getLongueurs()[1]} $= ${
