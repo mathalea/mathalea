@@ -1164,6 +1164,13 @@ function Polygone(...points) {
     this.listePoints = points;
     this.nom = this.listePoints.join();
   }
+// for (let point of this.listePoints) { // fausse bonne idée que d'appeler nommePolygone ici.
+//   if (point.nom!="") {
+//     this.sommets=nommePolygone(this)
+//     break
+//   }
+//}
+ 
   this.binomesXY = function (coeff) {
     let liste = "";
     for (let point of this.listePoints) {
@@ -1943,6 +1950,7 @@ function translation(O, v, nom = "", positionLabel = "above") {
     let p2 = [];
     for (let i = 0; i < O.listePoints.length; i++) {
       p2[i] = translation(O.listePoints[i], v);
+      p2[i].nom = A.listePoints[i].nom+`\'`
     }
     return polygone(p2);
   }
@@ -1989,6 +1997,7 @@ function translation2Points(O, A, B, nom = "", positionLabel = "above") {
     let p2 = [];
     for (let i = 0; i < O.listePoints.length; i++) {
       p2[i] = translation2Points(O.listePoints[i], O, A, B);
+      p2[i].nom = A.listePoints[i].nom+`\'`
     }
     return polygone(p2);
   }
@@ -2042,6 +2051,7 @@ function rotation(A, O, angle, nom, positionLabel) {
     let p2 = [];
     for (let i = 0; i < A.listePoints.length; i++) {
       p2[i] = rotation(A.listePoints[i], O, angle);
+      p2[i].nom = A.listePoints[i].nom+`\'`
     }
     return polygone(p2);
   }
@@ -2096,6 +2106,7 @@ function homothetie(A, O, k, nom, positionLabel) {
     let p2 = [];
     for (let i = 0; i < A.listePoints.length; i++) {
       p2[i] = homothetie(A.listePoints[i], O, k);
+      p2[i].nom = A.listePoints[i].nom+`\'`
     }
     return polygone(p2);
   }
@@ -2160,6 +2171,7 @@ function symetrieAxiale(A, d, nom = "", positionLabel = "above") {
     let p2 = [];
     for (let i = 0; i < A.listePoints.length; i++) {
       p2[i] = symetrieAxiale(A.listePoints[i], d);
+      p2[i].nom = A.listePoints[i].nom+`\'`
     }
     return polygone(p2);
   }
@@ -2259,6 +2271,7 @@ function affiniteOrtho(A, d, k, nom = " ", positionLabel = "above") {
     let p2 = [];
     for (let i = 0; i < A.listePoints.length; i++) {
       p2[i] = affiniteOrtho(A.listePoints[i], d, k);
+      p2[i].nom = A.listePoints[i].nom+`\'`
     }
     return polygone(p2);
   }
@@ -2318,6 +2331,7 @@ function similitude(A, O, a, k, nom = " ", positionLabel = "above") {
     let p2 = [];
     for (let i = 0; i < A.listePoints.length; i++) {
       p2[i] = similitude(A.listePoints[i], O, a, k);
+      p2[i].nom = A.listePoints[i].nom+`\'`
     }
     return polygone(p2);
   }

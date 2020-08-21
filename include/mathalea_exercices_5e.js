@@ -5966,8 +5966,8 @@ function Construire_par_Symetrie() {
 				p2.listePoints[0].nom=`${p1nom[2]}\'`
 				p2.listePoints[1].nom=`${p1nom[3]}\'`
 				p2.listePoints[2].nom=`${p1nom[4]}\'`
-				CC=nommePolygone(p1)
-				DD=nommePolygone(p2)
+				//CC=nommePolygone(p1)
+				//DD=nommePolygone(p2)
 				cC=codageMediatrice(p1.listePoints[0],p2.listePoints[0],'red','|')
 				cD=codageMediatrice(p1.listePoints[1],p2.listePoints[1],'blue','X')
 				cE=codageMediatrice(p1.listePoints[2],p2.listePoints[2],'green','O')			
@@ -5978,7 +5978,7 @@ function Construire_par_Symetrie() {
 				sCE.pointilles=true
 				sED=droite(p2.listePoints[2],p2.listePoints[1],'','gray')
 				sED.pointilles=true
-				objets_correction.push(d,g,tracePoint(A,B),labelPoint(A,B),carreaux,cC,cD,cE,sC,sD,sE,CC,DD,p1,p2,sCE,sED)
+				objets_correction.push(d,g,tracePoint(A,B),labelPoint(A,B),carreaux,cC,cD,cE,sC,sD,sE,CC,DD,p1,p1.sommets,p2,p2.sommets,sCE,sED)
 				objets_enonce.push(g,d,tracePoint(A,B),labelPoint(A,B),carreaux,CC,p1);
 				enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
 				enonce += num_alpha(1)+` Construire le triangle  $${p1nom[2]}\'${p1nom[3]}\'${p1nom[4]}\'$ symétrique de $${p1nom[2]}${p1nom[3]}${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
@@ -6005,8 +6005,8 @@ function Construire_par_Symetrie() {
 				p2.listePoints[0].nom=`${p1nom[0]}\'`
 				p2.listePoints[1].nom=`${p1nom[2]}\'`
 				p2.listePoints[2].nom=`${p1nom[3]}\'`
-				CC=nommePolygone(p1)
-				DD=nommePolygone(p2)
+				//CC=nommePolygone(p1)
+				//DD=nommePolygone(p2)
 				cC=codageMilieu(p1.listePoints[0],p2.listePoints[0],'red','|',false)
 				cD=codageMilieu(p1.listePoints[1],p2.listePoints[1],'blue','X' ,false)
 				cA=codageMilieu(p1.listePoints[2],p2.listePoints[2],'green','O',false)
@@ -6014,7 +6014,7 @@ function Construire_par_Symetrie() {
 				sC=segment(p1.listePoints[1],p2.listePoints[1],'blue')
 				sD=segment(p1.listePoints[2],p2.listePoints[2],'green')	
 				
-			objets_correction.push(g,carreaux,tracePoint(B),labelPoint(B),cC,cD,cA,sC,sD,sA,CC,DD,p1,p2)
+			objets_correction.push(g,carreaux,tracePoint(B),labelPoint(B),cC,cD,cA,sC,sD,sA,p1.sommets,p2.sommets,p1,p2)
 				objets_enonce.push(tracePoint(B),g,labelPoint(B),CC,p1,carreaux);
 				enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
 				enonce += num_alpha(1)+` Construire le triangle  $${p1nom[0]}\'${p1nom[2]}\'${p1nom[3]}\'$ symétrique de $${p1nom[0]}${p1nom[2]}${p1nom[3]}$ par rapport au point $${p1nom[1]}$.<br>`
