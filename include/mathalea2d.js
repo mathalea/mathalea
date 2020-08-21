@@ -436,7 +436,7 @@ function Droite(arg1, arg2, arg3, arg4, color) {
 	}
 	*/
   this.normal = vecteur(this.a, this.b);
-  this.directeur = vecteur(-this.b, this.a);
+  this.directeur = vecteur(this.b,- this.a);
   this.angleAvecHorizontale = angleOriente(
     point(1, 0),
     point(0, 0),
@@ -1741,67 +1741,79 @@ function cercleCentrePoint(...args) {
  * @param {boolean} fill
  * @param {string} color
  */
-function Arc(M, Omega, angle, rayon = false, fill = "none", color = "black") {
-  ObjetMathalea2D.call(this);
-  this.color = color;
-  this.fill = fill;
-  let l = longueur(Omega, M),
-    large = 0,
-    sweep = 0;
-  let d = droite(Omega, M);
-  d.isVisible = false;
-  let A = point(Omega.x + 1, Omega.y);
-  let azimut = angleOriente(A, Omega, M);
-  let anglefin = azimut + angle;
-  if (angle > 180) {
-    angle = angle - 360;
-    large = 1;
-    sweep = 0;
-  } else if (angle < -180) {
-    angle = 360 + angle;
-    large = 1;
-    sweep = 1;
-  } else {
-    large = 0;
-    sweep = 1 - (angle > 0);
-  }
-  let N = rotation(M, Omega, angle);
-  if (rayon)
-    this.svg = function (coeff) {
-      if (this.epaisseur != 1) {
-        this.style += ` stroke-width="${this.epaisseur}" `;
-      }
-      if (this.pointilles) {
-        this.style += ` stroke-dasharray="4 3" `;
-      }
-      if (this.opacite != 1) {
-        this.style += ` stroke-opacity="${this.opacite}" `;
-      }
-      return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${
-        l * coeff
-      } 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(
-        coeff
-      )} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${fill}" ${
-        this.style
-      }/>`;
-    };
-  else
-    this.svg = function (coeff) {
-      if (this.epaisseur != 1) {
-        this.style += ` stroke-width="${this.epaisseur}" `;
-      }
-      if (rayon)
-        `\\fill  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${
-          Omega.y
-        }) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(
-          Omega,
-          M
-        )}) -- cycle ;`;
-      else
-        return `\\draw${optionsDraw} (${M.x},${
-          M.y
-        }) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;`;
-    };
+function Arc(M,Omega,angle,rayon=false,fill='none',color='black') {
+	ObjetMathalea2D.call(this);
+	this.color=color;
+	this.fill=fill;
+	let l=longueur(Omega,M),large=0,sweep=0
+	let d=droite(Omega,M)
+   d.isVisible=false
+   let A=point(Omega.x+1,Omega.y)
+   let azimut=angleOriente(A,Omega,M)
+   let anglefin=azimut+angle
+	if (angle>180) {
+		angle=angle-360
+		large=1
+		sweep=0
+	}
+	else if (angle<-180) {
+		angle=360+angle
+		large=1
+		sweep=1
+	}
+	else {
+		large=0
+		sweep=1-(angle>0)
+	}
+	let N=rotation(M,Omega,angle)
+	if (rayon) 	this.svg = function(coeff){
+		if (this.epaisseur!=1) {
+			this.style += ` stroke-width="${this.epaisseur}" `
+		}
+		if (this.pointilles) {
+			this.style += ` stroke-dasharray="4 3" `
+		}
+		if (this.opacite !=1) {
+			this.style += ` stroke-opacity="${this.opacite}" `
+    }
+    if (this.fill!='none') {
+      this.style += ` fill-opacity="0.2" `;
+    }
+		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${fill}" ${this.style}/>`
+	}
+	else 	this.svg = function(coeff){
+		if (this.epaisseur!=1) {
+			this.style += ` stroke-width="${this.epaisseur}" `
+		}
+		if (this.pointilles) {
+			this.style += ` stroke-dasharray="4 3" `
+		}
+		if (this.opacite !=1) {
+			this.style += ` stroke-opacity="${this.opacite}" `
+		}
+		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}" ${this.style}/>`
+	}
+	this.tikz = function(){
+		let optionsDraw = []
+	   let tableauOptions = [];
+	   if (this.color.length>1 && this.color!=='black'){
+		   tableauOptions.push(this.color)
+	   }
+	   if (this.epaisseur!=1) {
+		   tableauOptions.push(`line width = ${this.epaisseur}`) 
+	   }
+	   if (this.pointilles) {
+		   tableauOptions.push(`dashed`) 
+	   }
+	   if (this.opacite !=1) {
+		   tableauOptions.push(`opacity = ${this.opacite}`)
+	   }
+	   if (tableauOptions.length>0) {
+		   optionsDraw = "["+tableauOptions.join(',')+"]"
+	   }
+	   if (rayon) return `\\fill  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega,M)}) -- cycle ;`
+	   else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega,M)}) ;`
+	}
 }
 function arc(...args) {
   return new Arc(...args);
@@ -2886,7 +2898,7 @@ function codeSegments(...args) {
   return new CodeSegments(...args);
 }
 
-function CodeAngle(debut,centre,angle,mark='||',color='black',fill='none') {
+function CodeAngle(debut,centre,angle,mark='||',color='black',fill='none',epaisseur=1,opacite=1) {
   ObjetMathalea2D.call(this)
   this.color=color
   let remplir
@@ -2896,11 +2908,12 @@ function CodeAngle(debut,centre,angle,mark='||',color='black',fill='none') {
     remplir = true
   }
   let P=rotation(debut,centre,angle/2)
-  let d=droite(P,centre)
+  let d=droite(centre,P)
   d.isVisible=false
   let arcangle=arc(debut,centre,angle,remplir,fill,color)
-  let codage=texteParPoint(mark,P,d.angleAvecHorizontale,color)
-  console.log(JSON.stringify(arcangle))
+  arcangle.opacite=opacite
+  arcangle.epaisseur=epaisseur
+  let codage=texteParPoint(mark,P,90-d.angleAvecHorizontale,color)
   this.svg=function(coeff){
     return codage.svg(coeff)+'\n'+arcangle.svg(coeff);
   }
