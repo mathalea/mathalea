@@ -44,6 +44,7 @@ var liste_des_exercices_disponibles = {
   "6G11": Tracer_des_perpendiculaires,
   "6G12": Tracer_des_paralleles,
   "6G12-1": Tracer_des_perpendiculaires_et_des_paralleles,
+  "beta6G20" : Nommer_et_coder_des_polygones,
   "6G20-2": Vocabulaire_des_triangles_6e,
   "6G23-2": Tracer_triangle_2_angles,
   "6G24": Transformations_6e,
@@ -11382,7 +11383,61 @@ function Vocabulaire_des_triangles() {
     ];
   }
 }
+function Nommer_et_coder_des_polygones(){
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.titre = "Nommer et coder des polygones";
+  this.consigne =
+    "Nommer les figures en fonction de l'énoncé puis ajouter le codage.";
+    this.nb_questions = 4;
+    this.nb_cols =2;
+    this.nb_cols_corr = 2;
+    this.nouvelle_version = function (numero_de_l_exercice) {
+      this.liste_questions = []; // Liste de questions
+      this.liste_corrections = []; // Liste de questions corrigées
+      for (
+        let i = 0, texte, texte_corr, cpt = 0;
+        i < this.nb_questions && cpt < 50;
+  
+      ) {
+        pixelsParCm = 40;
+        let A,B,C,D,G
+        let pol, polcod,polsom,polnom;  
+        function creerUnPolygone(p,n) {
+          let nom=creerUnPolygone(n,"PQ");
+          switch (n) {
+            case 3:
+              switch(randint(1,4)) {
+                case 1 : // triangle isocèle
+                A=point (3,3)
+                B=point (7,3)
+                C=rotation(B,A,randint(20,50))
+                pol=polygone(A,B,C)
+                pol=rotation(pol,barycentre(pol),randint(0,360))
+                polnom=nommePolygone(pol)
+                
+                break
+                case 2 : // triangle équilatéral
 
+                break
+                case 3 : // triangle rectangle
+              
+
+                break
+                case 4 : // triangle rectangle isocèle
+
+                break
+              }
+
+            break
+
+            case 4 :
+            
+            break
+          }
+        }
+      }
+    }
+}
 /**
  * Utiliser les notations des segments, droites et demi-droites
  * @Auteur Rémi Angot
