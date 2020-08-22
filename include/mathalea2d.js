@@ -1201,23 +1201,23 @@ function Polygone(...points) {
   };
   this.tikz = function () {
     let tableauOptions = [];
-    if (this.color.length > 1 && this.color !== "black") {
+    if (this.color.length > 1 && this.color !== 'black') {
       tableauOptions.push(this.color);
     }
     if (this.epaisseur != 1) {
-      tableauOptions.push(`line width = "${this.epaisseur}"`);
+      tableauOptions.push(`line width = ${this.epaisseur}`);
     }
     if (this.pointilles) {
       tableauOptions.push(`dashed`);
     }
     if (this.opacite != 1) {
-      tableauOptions.push(`opacity="${this.opacite}"`);
+      tableauOptions.push(`opacity=${this.opacite}`);
     }
     if (this.opaciteDeRemplissage !=1) {
-      tableauOptions.push(`fill opacity = "${this.opaciteDeRemplissage}"`)
+      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
     }
     if (this.couleurDeRemplissage !='') {
-      tableauOptions.push(`fill = "${this.couleurDeRemplissage}"`)
+      tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
     }
     let optionsDraw = [];
     if (tableauOptions.length > 0) {
@@ -1231,7 +1231,7 @@ function Polygone(...points) {
     if (this.couleurDeRemplissage == "") {
       return `\\draw ${optionsDraw} ${binomeXY}cycle;`;
     } else {
-      return `\\fill ${optionsDraw} ${binomeXY}cycle;`;
+      return `\\filldraw ${optionsDraw} ${binomeXY}cycle;`;
     }
     
   };
@@ -1826,24 +1826,24 @@ function Arc(M,Omega,angle,rayon=false,fill='none',color='black',fillOpacite=0.2
 		   tableauOptions.push(this.color)
 	   }
 	   if (this.epaisseur!=1) {
-		   tableauOptions.push(`line width = "${this.epaisseur}"`) 
+		   tableauOptions.push(`line width = ${this.epaisseur}`) 
 	   }
 	   if (this.pointilles) {
 		   tableauOptions.push(`dashed`) 
 	   }
 	   if (this.opacite !=1) {
-		   tableauOptions.push(`opacity = "${this.opacite}"`)
+		   tableauOptions.push(`opacity = ${this.opacite}`)
      }
      if (this.opaciteDeRemplissage !=1) {
-      tableauOptions.push(`fill opacity = "${this.opaciteDeRemplissage}"`)
+      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
     }
     if (this.couleurDeRemplissage !='none') {
-      tableauOptions.push(`fill = "${this.couleurDeRemplissage}"`)
+      tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
     }
 	   if (tableauOptions.length>0) {
 		   optionsDraw = "["+tableauOptions.join(',')+"]"
 	   }
-	   if (rayon) return `\\fill  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega,M)}) -- cycle ;`
+	   if (rayon) return `\\filldraw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega,M)}) -- cycle ;`
 	   else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega,M)}) ;`
 	}
 }

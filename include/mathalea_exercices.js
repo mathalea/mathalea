@@ -44,7 +44,7 @@ var liste_des_exercices_disponibles = {
   "6G11": Tracer_des_perpendiculaires,
   "6G12": Tracer_des_paralleles,
   "6G12-1": Tracer_des_perpendiculaires_et_des_paralleles,
-  "beta6G20" : Nommer_et_coder_des_polygones,
+  "6G20" : Nommer_et_coder_des_polygones,
   "6G20-2": Vocabulaire_des_triangles_6e,
   "6G23-2": Tracer_triangle_2_angles,
   "6G24": Transformations_6e,
@@ -11525,7 +11525,7 @@ function Nommer_et_coder_des_polygones() {
             C = p.listePoints[2]
             D = p.listePoints[3]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2] + nom[3])
-            pcode = [codeSegments('||', 'blue', A, B, C, D), codeSegments('O', 'red', C, B, A, D), codageAngleDroit(B, A, C), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(A, D, C)]
+            pcode = [codeSegments('||', 'blue', A, B, C, D), codeSegments('|', 'red', C, B, A, D), codageAngleDroit(B, A, C), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(A, D, C)]
             enonce = `le quadrilatère $${nom[0] + nom[1] + nom[2] + nom[3]}$ est un rectangle et $${nom[0] + nom[1]}$ est sa longueur.`
             break
           case 7: // losange
@@ -11540,7 +11540,7 @@ function Nommer_et_coder_des_polygones() {
             C = p.listePoints[2]
             D = p.listePoints[3]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2] + nom[3])
-            pcode = [codeSegments('||', 'blue', A, B, B, C, C, D, D, A),codeAngle(C,D,A,0.8,'X','red',2,0.8,'red',0.2),codeAngle(C,B,A,0.8,'X','red',2,0.8,'red',0.2),codeAngle(B,C,D,0.8,'|','blue',2,0.8,'blue',0.2),codeAngle(D,A,B,0.8,'|','blue',2,0.8,'blue',0.2)]
+            pcode = [codeSegments('O', 'blue', A, B, B, C, C, D, D, A),codeAngle(C,D,A,0.8,'||','red',2,0.8,'red',0.2),codeAngle(C,B,A,0.8,'||','red',2,0.8,'red',0.2),codeAngle(B,C,D,0.8,'|','blue',2,0.8,'blue',0.2),codeAngle(D,A,B,0.8,'|','blue',2,0.8,'blue',0.2)]
             enonce = `le quadrilatère $${nom[0] + nom[1] + nom[2] + nom[3]}$ est un losange et [$${nom[0] + nom[2]}$] est sa plus grande diagonale.`
             break
           case 8: // trapèze rectangle
