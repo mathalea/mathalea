@@ -1240,6 +1240,14 @@ function polygone(...args) {
   return new Polygone(...args);
 }
 
+function polygoneAvecNom(...args) {
+  let groupe
+  let p=polygone(...args)
+  p.sommets=nommePolygone(p)
+  groupe=[p,p.sommets]
+  return groupe
+}
+
 /**
  * polygoneRegulier(A,B,n) //Trace le polygone régulier direct à n côtés qui a pour côté [AB]
  *
