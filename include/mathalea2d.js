@@ -3674,7 +3674,7 @@ function intervalle(A, B, color = "blue", h = 0) {
  *
  * @Auteur Rémi Angot
  */
-function TexteParPoint(texte, A, orientation = "milieu", color) {
+function TexteParPoint(texte, A, orientation = "milieu", color='black') {
   ObjetMathalea2D.call(this);
   this.color = color;
   this.svg = function (coeff) {
@@ -3718,7 +3718,7 @@ function TexteParPoint(texte, A, orientation = "milieu", color) {
   this.tikz = function () {
     let code = "";
     if (typeof orientation == "number") {
-      code = `\\draw (${A.x},${
+      code = `\\draw [${color}] (${A.x},${
         A.y
       }) node[anchor = center, rotate = ${-orientation}] {${texte}};`;
     } else {
@@ -3732,7 +3732,7 @@ function TexteParPoint(texte, A, orientation = "milieu", color) {
       if (orientation == "milieu") {
         anchor = "node[anchor = center]";
       }
-      code = `\\draw (${A.x},${A.y}) ${anchor} {${texte}};`;
+      code = `\\draw [${color}] (${A.x},${A.y}) ${anchor} {${texte}};`;
     }
     return code;
   };
