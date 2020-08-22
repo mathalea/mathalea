@@ -11457,7 +11457,7 @@ function Nommer_et_coder_des_polygones() {
             B = p.listePoints[1]
             C = p.listePoints[2]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2])
-            pcode = codeSegments('||', 'blue', A, B, A, C)
+            pcode = [codeSegments('||', 'blue', A, B, A, C),codeAngle(B,C,A,0.8,'|','blue',2,0.8,'blue',0.2),codeAngle(C,B,A,0.8,'|','blue',2,0.8,'blue',0.2)]
             enonce = `le triangle $${nom[0] + nom[1] + nom[2]}$ est isocèle en $${nom[0]}$.`
             break
           case 2: // triangle équilatéral
@@ -11470,7 +11470,7 @@ function Nommer_et_coder_des_polygones() {
             B = p.listePoints[1]
             C = p.listePoints[2]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2])
-            pcode = codeSegments('||', 'blue', A, B, A, C, B, C)
+            pcode = [codeSegments('||', 'blue', A, B, A, C, B, C),codeAngle(B,C,A,0.8,'|','blue',2,0.8,'blue',0.2),codeAngle(C,B,A,0.8,'|','blue',2,0.8,'blue',0.2),codeAngle(C,A,B,0.8,'|','blue',2,0.8,'blue',0.2)]
             enonce = `le triangle $${nom[0] + nom[1] + nom[2]}$ est équilatéral.`
             break
           case 3: // triangle rectangle
@@ -11496,7 +11496,7 @@ function Nommer_et_coder_des_polygones() {
             B = p.listePoints[1]
             C = p.listePoints[2]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2])
-            pcode = [codeSegments('||', 'blue', A, B, A, C), codageAngleDroit(B, A, C)]
+            pcode = [codeSegments('||', 'blue', A, B, A, C), codageAngleDroit(B, A, C),codeAngle(B,C,A,0.8,'|','blue',2,0.8,'blue',0.2),codeAngle(C,B,A,0.8,'|','blue',2,0.8,'blue',0.2)]
             enonce = `le triangle $${nom[0] + nom[1] + nom[2]}$ est rectangle et isocèle en $${nom[0]}$.`
             break
           //on choisit un quadrilatère 
@@ -11540,7 +11540,7 @@ function Nommer_et_coder_des_polygones() {
             C = p.listePoints[2]
             D = p.listePoints[3]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2] + nom[3])
-            pcode = codeSegments('||', 'blue', A, B, B, C, C, D, D, A)
+            pcode = [codeSegments('||', 'blue', A, B, B, C, C, D, D, A),codeAngle(C,D,A,0.8,'X','red',2,0.8,'red',0.2),codeAngle(C,B,A,0.8,'X','red',2,0.8,'red',0.2),codeAngle(B,C,D,0.8,'|','blue',2,0.8,'blue',0.2),codeAngle(D,A,B,0.8,'|','blue',2,0.8,'blue',0.2)]
             enonce = `le quadrilatère $${nom[0] + nom[1] + nom[2] + nom[3]}$ est un losange et [$${nom[0] + nom[2]}$] est sa plus grande diagonale.`
             break
           case 8: // trapèze rectangle

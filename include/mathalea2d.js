@@ -2937,12 +2937,12 @@ function codeSegments(...args) {
   return new CodeSegments(...args);
 }
 /**
- * m=codeAngle(A,O,45,'X','black','red',2,1,0.4) 
+ * m=codeAngle(A,O,45,'X','black',2,1,'red',0.4) 
  * code un angle du point A dont le sommet est O et la mesure 45° (sens direct) avec une marque en X.
  *  la ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
  * @Auteur Jean-Claude Lhote
  */
-function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',fill='none',epaisseur=1,opacite=1,fillOpacite=0.2) {
+function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur=1,opacite=1,fill='none',fillOpacite=0.2) {
   ObjetMathalea2D.call(this)
   this.color=color
   let codage,depart,P,d,arcangle
