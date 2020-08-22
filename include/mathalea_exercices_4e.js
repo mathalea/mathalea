@@ -10021,18 +10021,18 @@ function Trouver_erreur_resol_eq_deg1(){
 					if (this.beta) {
 						texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
-            texte += `<br>
+            texte += `
             <pre class='blocks'>
             quand le drapeau vert pressé
             répéter indéfiniment 
               tourner droite de (15) degrés
               dire [Hello!] pendant (2) secondes
-              si <souris pressée ?> alors 
+              si <souris pressée?> alors 
                 ajouter (1) à [mouse clicks v]
               end
             end
             </pre>
-            ;`
+            `
 						texte_corr = ``;	
 					} else {
 						texte_corr = `${enonces[0].correction}`;
