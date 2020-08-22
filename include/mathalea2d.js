@@ -1205,19 +1205,19 @@ function Polygone(...points) {
       tableauOptions.push(this.color);
     }
     if (this.epaisseur != 1) {
-      tableauOptions.push(`line width = ${this.epaisseur}`);
+      tableauOptions.push(`line width = "${this.epaisseur}"`);
     }
     if (this.pointilles) {
       tableauOptions.push(`dashed`);
     }
     if (this.opacite != 1) {
-      tableauOptions.push(`opacity=${this.opacite}`);
+      tableauOptions.push(`opacity="${this.opacite}"`);
     }
     if (this.opaciteDeRemplissage !=1) {
-      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
+      tableauOptions.push(`fill opacity = "${this.opaciteDeRemplissage}"`)
     }
     if (this.couleurDeRemplissage !='') {
-      tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
+      tableauOptions.push(`fill = "${this.couleurDeRemplissage}"`)
     }
     let optionsDraw = [];
     if (tableauOptions.length > 0) {
@@ -1826,19 +1826,19 @@ function Arc(M,Omega,angle,rayon=false,fill='none',color='black',fillOpacite=0.2
 		   tableauOptions.push(this.color)
 	   }
 	   if (this.epaisseur!=1) {
-		   tableauOptions.push(`line width = ${this.epaisseur}`) 
+		   tableauOptions.push(`line width = "${this.epaisseur}"`) 
 	   }
 	   if (this.pointilles) {
 		   tableauOptions.push(`dashed`) 
 	   }
 	   if (this.opacite !=1) {
-		   tableauOptions.push(`opacity = ${this.opacite}`)
+		   tableauOptions.push(`opacity = "${this.opacite}"`)
      }
      if (this.opaciteDeRemplissage !=1) {
-      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
+      tableauOptions.push(`fill opacity = "${this.opaciteDeRemplissage}"`)
     }
-    if (this.couleurDeRemplissage !='') {
-      tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
+    if (this.couleurDeRemplissage !='none') {
+      tableauOptions.push(`fill = "${this.couleurDeRemplissage}"`)
     }
 	   if (tableauOptions.length>0) {
 		   optionsDraw = "["+tableauOptions.join(',')+"]"
@@ -2955,9 +2955,9 @@ function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur
   let remplir
   if (fill=='none') 
     remplir = false
-  else {
+  else 
     remplir = true
-  }
+  
   if (typeof(angle)!='number'){
     angle=angleOriente(debut,centre,angle)
   }
@@ -2976,7 +2976,7 @@ function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur
     return codage.svg(coeff)+'\n'+arcangle.svg(coeff);
   }
   this.tikz=function(){
-    return codage.tikz()+'\n'+arcangle.tikz(coeff)
+    return codage.tikz()+'\n'+arcangle.tikz()
   }
 }
 
