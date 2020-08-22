@@ -9948,9 +9948,9 @@ function Trouver_erreur_resol_eq_deg1(){
       // une fonction pour gérer le signe
       function signeDansEq(nb) {
         if (nb > 0) {
-          return {signe:`+`,operation:`soustraire`};
+          return {signe:`+`,operation:`soustraire`,chgt_signe:nb};
         } else {
-          return {signe:``,operation:`ajouter`};
+          return {signe:``,operation:`ajouter`,chgt_signe:nb*(-1)};
         };
       };
 
@@ -9985,7 +9985,7 @@ function Trouver_erreur_resol_eq_deg1(){
             L'erreur se situe à l'étape 1.
             <br>${currentGenreEtPrenom.prenom} "a fait passer" le terme $${signeDansEq(c).signe} ${c}${inc}$ "de l'autre côté"
             or pour obtenir une équation équivalente, il s'agit d'opérer de la même manière sur les deux membres de l'équation.
-            <br>Ici il faut ${signeDansEq(c).operation} $${-c}${inc}$ aux deux membres.
+            <br>Ici il faut ${signeDansEq(c).operation} $${signeDansEq(c).chgt_signe}${inc}$ aux deux membres.
             `
         }
       ];
