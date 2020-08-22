@@ -11388,10 +11388,10 @@ function Nommer_et_coder_des_polygones() {
   this.titre = "Nommer et coder des polygones";
   this.consigne =
     "Nommer les figures en fonction de l'énoncé puis ajouter le codage.";
-  this.nb_questions = 8;
+  this.nb_questions = 4;
   this.nb_cols = 2;
   this.nb_cols_corr = 2;
-  this.sup2 = 1;
+  this.sup2 = 3;
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
@@ -11562,8 +11562,9 @@ function Nommer_et_coder_des_polygones() {
         return [p, nom, pcode, pnom, enonce]
       }
       [pol, polnom, polcode, polsom, texte] = choisir_polygone(liste[i]);
-      texte += `<br>` + mathalea2d(params, pol, polnom)
-      texte_corr = mathalea2d(params, pol, polnom, polcode, polsom)
+      pol.epaisseur=2
+      texte += `<br>` + mathalea2d(params, pol, polnom,g,carreaux)
+      texte_corr = mathalea2d(params, pol, polnom, polcode, polsom,g,carreaux)
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(texte);
@@ -11574,7 +11575,11 @@ function Nommer_et_coder_des_polygones() {
     }
     liste_de_question_to_contenu(this);
   };
-  //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+  this.besoin_formulaire2_numerique = [
+    "Type de cahier",
+    3,
+    `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`,
+  ];
 }
 /**
  * Utiliser les notations des segments, droites et demi-droites
