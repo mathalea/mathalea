@@ -10024,13 +10024,13 @@ function Trouver_erreur_resol_eq_deg1(){
             texte += `
             <pre class='blocks'>
             quand le drapeau vert pressé
-            répéter indéfiniment 
+            répéter indéfiniment
               tourner droite de (15) degrés
-              dire [Hello!] pendant (2) secondes
-              si <souris pressée?> alors 
+              dire [hello!] pendant (2) secondes
+              si < souris pressée ? > alors
                 ajouter (1) à [mouse clicks v]
-              end
-            end
+              fin
+            fin                  
             </pre>
             `
 						texte_corr = ``;	
