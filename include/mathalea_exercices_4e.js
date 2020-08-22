@@ -10028,7 +10028,7 @@ function Trouver_erreur_resol_eq_deg1(){
               tourner droite de (15) degrés
               dire [hello!] pendant (2) secondes
               si < souris pressée ? > alors
-                ajouter (1) à [mouse clicks v]
+                ajouter (${situations[0].a}) à [mouse clicks v]
               fin
             fin                  
             </pre>
