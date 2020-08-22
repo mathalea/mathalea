@@ -9948,9 +9948,9 @@ function Trouver_erreur_resol_eq_deg1(){
       // une fonction pour gérer le signe
       function signeDansEq(nb) {
         if (nb > 0) {
-          return `+`;
+          return {signe:`+`,operation:`soustraire`};
         } else {
-          return ``;
+          return {signe:``,operation:`ajouter`};
         };
       };
 
@@ -9976,11 +9976,17 @@ function Trouver_erreur_resol_eq_deg1(){
           c:c,
           d:d,
           inc:inc,
-          eq:`$${a}${inc} ${signeDansEq(b)} ${b} = ${d} ${signeDansEq(c)} ${c}${inc}$`,
-          et1:`$${a}${inc} ${signeDansEq(c)} ${c}${inc} ${signeDansEq(b)} ${b} = ${d} $`,// l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
-          et2:`$${a}${inc} ${signeDansEq(c)} ${c}${inc} = ${d} ${signeDansEq(-b)} ${-b} $`,
-          et3:`$${a+c}${inc} = ${d} ${signeDansEq(-b)} ${-b} $`,
-          et4:`$${inc} = \\dfrac{${d} ${signeDansEq(-b)} ${-b}}{${a+c}} $`,
+          eq:`$${a}${inc} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}$`,
+          et1:`$${a}${inc} ${signeDansEq(c).signe} ${c}${inc} ${signeDansEq(b).signe} ${b} = ${d} $`,// l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
+          et2:`$${a}${inc} ${signeDansEq(c).signe} ${c}${inc} = ${d} ${signeDansEq(-b).signe} ${-b} $`,
+          et3:`$${a+c}${inc} = ${d} ${signeDansEq(-b).signe} ${-b} $`,
+          et4:`$${inc} = \\dfrac{${d} ${signeDansEq(-b).signe} ${-b}}{${a+c}} $`,
+          err:`
+            L'erreur se situe à l'étape 1.
+            <br>${currentGenreEtPrenom.prenom} "a fait passer" le terme $${signeDansEq(c).signe} ${c}${inc}$ "de l'autre côté"
+            or pour obtenir une équation équivalente, il s'agit d'opérer de la même manière sur les deux membres de l'équation.
+            <br>Ici il faut ${signeDansEq(c).operation} $${-c}${inc}$ aux deux membres.
+            `
         }
       ];
 
@@ -9997,7 +10003,11 @@ function Trouver_erreur_resol_eq_deg1(){
           <br>${texte_gras(`Étape 4 :`)} ${situations[0].et4}
         `,
 				question:``,
-        correction:`${texte_en_couleur(`correction type1`)}`
+        correction:`
+        ${situations[0].err}
+        <br>
+        ${texte_en_couleur(`correction type1`)}
+        `
       });
       enonces.push({
 				enonce:`énoncé type 2`,
