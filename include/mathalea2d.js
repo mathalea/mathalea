@@ -2934,9 +2934,10 @@ function codeSegments(...args) {
  *  la ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
  * @Auteur Jean-Claude Lhote
  */
-function CodeAngle(debut,centre,angle,mark='||',color='black',fill='none',epaisseur=1,opacite=1,fillOpacite=0.2) {
+function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',fill='none',epaisseur=1,opacite=1,fillOpacite=0.2) {
   ObjetMathalea2D.call(this)
   this.color=color
+  let codage,depart,P,d,arcangle
   if (fill!='none') {
     this.couleurDeRemplissage=fill
     this.opaciteDeRemplissage=fillOpacite
@@ -2949,15 +2950,20 @@ function CodeAngle(debut,centre,angle,mark='||',color='black',fill='none',epaiss
   else {
     remplir = true
   }
-  let P=rotation(debut,centre,angle/2)
-  let d=droite(centre,P)
+  if (typeof(angle)!='number'){
+    angle=angleOriente(debut,centre,angle)
+  }
+  depart=pointSurSegment(centre,debut,taille)
+  P=rotation(depart,centre,angle/2)
+  d=droite(centre,P)
   d.isVisible=false
-  let arcangle=arc(debut,centre,angle,remplir,fill,color)
+  arcangle=arc(depart,centre,angle,remplir,fill,color)
   arcangle.opacite=opacite
   arcangle.epaisseur=epaisseur
   arcangle.couleurDeRemplissage=this.couleurDeRemplissage
   arcangle.opaciteDeRemplissage=this.opaciteDeRemplissage
-  let codage=texteParPoint(mark,P,90-d.angleAvecHorizontale,color)
+  if (mark!='') codage=texteParPoint(mark,P,90-d.angleAvecHorizontale,color)
+  else codage=''
   this.svg=function(coeff){
     return codage.svg(coeff)+'\n'+arcangle.svg(coeff);
   }
