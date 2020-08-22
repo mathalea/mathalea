@@ -44,7 +44,7 @@ var liste_des_exercices_disponibles = {
   "6G11": Tracer_des_perpendiculaires,
   "6G12": Tracer_des_paralleles,
   "6G12-1": Tracer_des_perpendiculaires_et_des_paralleles,
-  "6G20": Vocabulaire_des_triangles_6e,
+  "6G20-2": Vocabulaire_des_triangles_6e,
   "6G23-2": Tracer_triangle_2_angles,
   "6G24": Transformations_6e,
   "6G25-1": Pavages_et_reflexion,
@@ -210,6 +210,7 @@ var liste_des_exercices_disponibles = {
   "3G20-1": Problemes_Thales,
   "3G21": Reciproque_Thales,
   "3G22": Agrandissement_reduction,
+  "3G23": TrianglesSemblables,
   "3G30": Exercice_Trigo_longueurs,
   "3G31": Exercice_Trigo_angles,
   "3F1-act": fonction_notion_vocabulaire,
@@ -247,8 +248,7 @@ var liste_des_exercices_disponibles = {
   cours: Questions_de_cours,
   LaTeX: Code_LaTeX_personnalise,
   // 'Perso' : HTML_personnalise,
-  // 'TsvgjsKatex' : tests_SVGJS_KATEX,
-  "beta3G23": TrianglesSemblables,
+  // 'TsvgjsKatex' : tests_SVGJS_KATEX,  
 };
 
 //Pour modifier les exercices lorsqu'ils sont en mode diaporama
@@ -10900,7 +10900,7 @@ function Reciproque_Thales_4eme() {
 
 /**
  * Vocabulaire des triangles
- * 6G20 ; 5G20-1
+ * 6G20-2 ; 5G20-1
  * @author Sébastien Lozano
  */
 
@@ -11089,7 +11089,7 @@ function Vocabulaire_des_triangles() {
             triangle_isocele.l2 = l1;
             triangle_isocele.l3 = l2;
           }
-          texte = `${triangle_isgocele.getNom()} est un triangle tel que ${
+          texte = `${triangle_isocele.getNom()} est un triangle tel que ${
             triangle_isocele.getLongueurs()[0]
           } $= ${triangle_isocele.l1}$ cm ; `;
           texte += `${triangle_isocele.getLongueurs()[1]} $= ${
@@ -11543,7 +11543,7 @@ function Description_segment_droite_demi_droite() {
 
 /**
  * Vocabulaire des triangles
- * 6G20
+ * 6G20-2
  * @author Sébastien Lozano
  */
 function Vocabulaire_des_triangles_6e() {
