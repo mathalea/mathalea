@@ -7003,7 +7003,6 @@ function Signe_produit_quotient_relatifs() {
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.sup = Number(this.sup); // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
-    //console.log(typeof this.sup)
 
     if (this.exo == this.beta + "4C10-1") {
       // signe d'un produit
@@ -8551,8 +8550,8 @@ function Exploiter_representation_graphique() {
 				g2 = grille(-1,-1,6,8,'gray',.2,.2)
 				g3 = axes(0,0,6,7)
 				texte1 = texteParPosition('distance (en km)',0.2,7.3,'droite')
-				l1 = labelX(0,5,1,'black',-.6,10)
-				l2 = labelY(1,6,1,'black',-.6)
+				l1 = labelX(0,50,1,'black',-.6,10)
+        l2 = labelY(1,6,1,'black',-.6,1)
 				texte2 = texteParPosition('temps (en min)',6.5,0.4,'droite')
 				let situation = randint(1,3)
 				let tempsPause
