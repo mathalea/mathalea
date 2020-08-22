@@ -10020,7 +10020,17 @@ function Trouver_erreur_resol_eq_deg1(){
 					texte = `${enonces[0].enonce}`;
 					if (this.beta) {
 						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
+            texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
+            texte += `<br><pre class='blocks'>
+            quand le drapeau vert pressé
+répéter indéfiniment 
+  tourner droite de (15) degrés
+  dire [Hello!] pendant (2) secondes
+  si <souris pressée ?> alors 
+    ajouter (1) à [mouse clicks v]
+  end
+end
+            </pre>`
 						texte_corr = ``;	
 					} else {
 						texte_corr = `${enonces[0].correction}`;
