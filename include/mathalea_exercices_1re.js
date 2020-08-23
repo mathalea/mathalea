@@ -8,14 +8,14 @@ function Terme_d_une_suite_definie_explicitement(){
 		this.liste_questions = []; // Vide la liste de questions
     this.liste_corrections = []; // Vide la liste de questions corrigées
     
-    let type_de_questions_disponibles = [1, 2];
+    let type_de_questions_disponibles = [1, 2, 3];
     let liste_type_de_questions = combinaison_listes(
       type_de_questions_disponibles,
       this.nb_questions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
     for (
-      let i = 0, texte, texte_corr, cpt = 0, a, b, c, k;
+      let i = 0, texte, texte_corr, cpt = 0, a, b, c, d, k;
       i < this.nb_questions && cpt < 50;
 
       ) {
@@ -25,9 +25,14 @@ function Terme_d_une_suite_definie_explicitement(){
           b = randint(1, 10)*choice([-1,1]);
           k = randint(0, 20);
 			
-          texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_n = ${a}n$`;
-          if (b>0) {texte += `$+${b}$.`} 
-          else {texte += `$${b}$.`};
+          texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_n = `;
+          if (a == 1) {texte += `n`}
+          else 
+            if (a == -1) {texte += `-n`}
+            else {texte += `${a}n`};
+
+          if (b > 0) {texte += `+${b}$.`} 
+          else {texte += `${b}$.`};
           texte += `<br>Calculer $u_{${k}}$.`;
 			
           texte_corr = `Dans l'expression de $u_n$ on remplasse $n$ par ${k}, on obtient : $u_{${k}} = ${a*k+b}$`;
@@ -40,16 +45,41 @@ function Terme_d_une_suite_definie_explicitement(){
           k = randint(0,9);
 
           texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_n = ${a}n^2$`;
-          if (b==1) {texte += `$+n$`};
-          if (b>1) {texte += `$+${b}n$`};
-          if (b==-1) {texte += `$-n$`};
-          if (b<-1) {texte += `$${b}n$`};
-          if (c>0) {texte += `$+${c}$.`};
-          if (c<0) {texte += `$${c}$.`}
+          if (b == 1) {texte += `$+n$`};
+          if (b > 1) {texte += `$+${b}n$`};
+          if (b == -1) {texte += `$-n$`};
+          if (b < -1) {texte += `$${b}n$`};
+          if (c > 0) {texte += `$+${c}$.`};
+          if (c < 0) {texte += `$${c}$.`}
           texte += `<br>Calculer $u_{${k}}$.`;
 			
           texte_corr = `Dans l'expression de $u_n$ on remplasse $n$ par $${k}$, on obtient : $u_{${k}} = ${a*k*k+b*k+c}$`;
           break;
+        
+        case 3: //fonction homographique
+          a = randint(1,5)*choice([-1,1]);
+          b = randint(1,5)*choice([-1,1]);
+          c = randint(1,5)*choice([-1,1]);
+          d = randint(1,5)*choice([-1,1]);
+          k = randint(1,9);
+
+          texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_n = \\dfrac{`;
+          if (a == 1) {texte += `n`}
+          else 
+            if (a == -1) {texte += `-n`}
+            else {texte += `${a}n`};
+          if (b > 0) {texte += `+${b}}{`}
+          else {texte += `${b}}{`};
+          if (c == 1) {texte += `n`}
+          else   
+            if (c == -1) {texte += `-n`}
+            else {texte += `${c}n`};
+          if (d > 0) {texte += `+${d}}$.`}
+          else {texte += `${d}}$.`};
+          
+          texte += `<br>Calculer $u_{${k}}$.`;
+			
+          texte_corr = `Dans l'expression de $u_n$ on remplasse $n$ par $${k}$, on obtient : $u_{${k}} = ${(a*k+b)/(c*k+d)}$.`;
       }
       
 			
