@@ -10116,31 +10116,38 @@ function Tracer_avec_scratch(){
       let sortie = {
         name: ``,
         nameParSommets: ``,
+        nb_pas:``
       };
       switch (n) {
         case 3:
           sortie.name = `triangle équilatéral`;
           sortie.nameParSommets = `ABC`;
+          sortie.nb_pas = 400;
           break;
         case 4:
           sortie.name = `carré`;
           sortie.nameParSommets = `ABCD`;
+          sortie.nb_pas = 400;
           break;
         case 5:
           sortie.name = `pentagone régulier`;
           sortie.nameParSommets = `ABCDE`;
+          sortie.nb_pas = 300;
           break;
         case 6:
           sortie.name = `hexagone régulier`;
           sortie.nameParSommets = `ABCDEF`;
+          sortie.nb_pas = 250;
           break;
         case 7:
           sortie.name = `heptagone régulier`;
           sortie.nameParSommets = `ABCDEFG`;
+          sortie.nb_pas = 200;
           break;
         case 8:
           sortie.name = `octogone régulier`;
           sortie.nameParSommets = `ABCDEFGH`;
+          sortie.nb_pas = 200;
           break;
       }
       return sortie;
@@ -10159,7 +10166,7 @@ function Tracer_avec_scratch(){
           quand le drapeau vert pressé
           stylo en position d'écriture
           répéter (${n}) fois
-            avancer de (100) pas
+            avancer de (${myPolyName(n).nb_pas}) pas
             tourner droite de (${360/n}) degrés
           fin                  
           </pre>          
@@ -10170,7 +10177,7 @@ function Tracer_avec_scratch(){
             \\blockpen{stylo en position d’écriture}
             \\blockrepeat{répéter \\ovalnum{${n}} fois}
               {
-                \\blockmove{avancer de \\ovalnum{100}}
+                \\blockmove{avancer de \\ovalnum{${myPolyName(n).nb_pas}}}
                 \\blockmove{tourner \\turnright{} de \\ovalnum{${360/n}} degrés}
               }
           \\end{scratch}
@@ -10179,8 +10186,9 @@ function Tracer_avec_scratch(){
         },
       ];
       // on prépare la fenetre mathalea2d
-      let fenetreMathalea2D = {xmin:-10,ymin:-10,xmax:10,ymax:10,pixelsParCm:20}
+      let fenetreMathalea2D = {xmin:-4,ymin:-10,xmax:18,ymax:2,pixelsParCm:20}
       pixelsParCm = 50;
+      unitesLutinParCm = 50;
       let lutin2=creerLutin();
       lutin2.color="blue";
       lutin2.pointilles=true;
@@ -10195,7 +10203,7 @@ function Tracer_avec_scratch(){
       allerA(0,0,lutin2);
       baisseCrayon(lutin2);      
       for (let k=1;k<n+1; k++) {
-        avance(200,lutin2);
+        avance(myPolyName(n).nb_pas,lutin2);
         tournerD(calcul(360/n),lutin2);
       };
       let mesAppels_corr = [
