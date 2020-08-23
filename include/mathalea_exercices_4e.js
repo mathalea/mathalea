@@ -10148,7 +10148,7 @@ function Tracer_avec_scratch(){
 
 
       // on définit le nombre de côtés du polygone régulier
-      let n = randint(3,8,[7]);
+      let n = randint(3,8);
 
       let situations = [
         {//polygones réguliers
