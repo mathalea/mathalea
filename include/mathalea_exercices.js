@@ -44,7 +44,7 @@ var liste_des_exercices_disponibles = {
   "6G11": Tracer_des_perpendiculaires,
   "6G12": Tracer_des_paralleles,
   "6G12-1": Tracer_des_perpendiculaires_et_des_paralleles,
-  "beta6G20" : Nommer_et_coder_des_polygones,
+  "6G20" : Nommer_et_coder_des_polygones,
   "6G20-2": Vocabulaire_des_triangles_6e,
   "6G23-2": Tracer_triangle_2_angles,
   "6G24": Transformations_6e,
@@ -11388,10 +11388,10 @@ function Nommer_et_coder_des_polygones() {
   this.titre = "Nommer et coder des polygones";
   this.consigne =
     "Nommer les figures en fonction de l'énoncé puis ajouter le codage.";
-  this.nb_questions = 8;
+  this.nb_questions = 4;
   this.nb_cols = 2;
   this.nb_cols_corr = 2;
-  this.sup2 = 1;
+  this.sup2 = 3;
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
@@ -11405,6 +11405,7 @@ function Nommer_et_coder_des_polygones() {
         Xmax = 13;
         Ymax = 8;
         ppc = 20;
+        sc=0.5
       } else {
         // repère -5 || 5
         Xmin = 0;
@@ -11412,11 +11413,10 @@ function Nommer_et_coder_des_polygones() {
         Xmax = 13;
         Ymax = 8;
         ppc = 20;
+        sc=0.4
       }
     }
     initialise_variables();
-    if (this.sup2 == 1) sc = 0.5;
-    else sc = 0.8;
     let params = {
       xmin: Xmin,
       ymin: Ymin,
@@ -11457,8 +11457,8 @@ function Nommer_et_coder_des_polygones() {
             B = p.listePoints[1]
             C = p.listePoints[2]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2])
-            pcode = codeSegments('||', 'blue', A, B, A, C)
-            enonce = `le triangle $${nom[0] + nom[1] + nom[2]}$ est isocèle en $${nom[0]}$.`
+            pcode = [codeSegments('||', 'blue', A, B, A, C),codeAngle(B,C,A,0.8,'|','blue',2,0.8,'blue',0.2),codeAngle(C,B,A,0.8,'|','blue',2,0.8,'blue',0.2)]
+            enonce = `le triangle $${nom[0] + nom[1] + nom[2]}$ est isocèle en $${nom[0]}$.<br>`
             break
           case 2: // triangle équilatéral
             A = point(3, randint(0, 20) / 10, nom[0])
@@ -11470,8 +11470,8 @@ function Nommer_et_coder_des_polygones() {
             B = p.listePoints[1]
             C = p.listePoints[2]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2])
-            pcode = codeSegments('||', 'blue', A, B, A, C, B, C)
-            enonce = `le triangle $${nom[0] + nom[1] + nom[2]}$ est équilatéral.`
+            pcode = [codeSegments('||', 'blue', A, B, A, C, B, C),codeAngle(B,C,A,0.8,'|','blue',2,0.8,'blue',0.2),codeAngle(C,B,A,0.8,'|','blue',2,0.8,'blue',0.2),codeAngle(C,A,B,0.8,'|','blue',2,0.8,'blue',0.2)]
+            enonce = `le triangle $${nom[0] + nom[1] + nom[2]}$ est équilatéral.<br>\\phantom{et sa longueur est AB}`
             break
           case 3: // triangle rectangle
             A = point(3, randint(0, 20) / 10, nom[0])
@@ -11484,7 +11484,7 @@ function Nommer_et_coder_des_polygones() {
             C = p.listePoints[2]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2])
             pcode = codageAngleDroit(B, A, C)
-            enonce = `le triangle $${nom[0] + nom[1] + nom[2]}$ est rectangle en $${nom[0]}$.`
+            enonce = `le triangle $${nom[0] + nom[1] + nom[2]}$ est rectangle en $${nom[0]}$.<br>\\phantom{et sa longueur est AB}`
             break
           case 4: // triangle rectangle isocèle
             A = point(3, randint(0, 20) / 10, nom[0])
@@ -11496,7 +11496,7 @@ function Nommer_et_coder_des_polygones() {
             B = p.listePoints[1]
             C = p.listePoints[2]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2])
-            pcode = [codeSegments('||', 'blue', A, B, A, C), codageAngleDroit(B, A, C)]
+            pcode = [codeSegments('||', 'blue', A, B, A, C), codageAngleDroit(B, A, C),codeAngle(B,C,A,0.8,'|','blue',2,0.8,'blue',0.2),codeAngle(C,B,A,0.8,'|','blue',2,0.8,'blue',0.2)]
             enonce = `le triangle $${nom[0] + nom[1] + nom[2]}$ est rectangle et isocèle en $${nom[0]}$.`
             break
           //on choisit un quadrilatère 
@@ -11511,7 +11511,7 @@ function Nommer_et_coder_des_polygones() {
             D = p.listePoints[3]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2] + nom[3])
             pcode = [codeSegments('||', 'blue', A, B, B, C, C, D, D, A), codageAngleDroit(B, A, D), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(A, D, C)]
-            enonce = `le quadrilatère $${nom[0] + nom[1] + nom[2] + nom[3]}$ est un carré.`
+            enonce = `le quadrilatère $${nom[0] + nom[1] + nom[2] + nom[3]}$ est un carré.<br>\\phantom{et sa longueur est AB}`
             break
           case 6: // rectangle
             A = point(3, randint(0, 20) / 10, nom[0])
@@ -11525,7 +11525,7 @@ function Nommer_et_coder_des_polygones() {
             C = p.listePoints[2]
             D = p.listePoints[3]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2] + nom[3])
-            pcode = [codeSegments('||', 'blue', A, B, C, D), codeSegments('O', 'red', C, B, A, D), codageAngleDroit(B, A, C), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(A, D, C)]
+            pcode = [codeSegments('||', 'blue', A, B, C, D), codeSegments('|', 'red', C, B, A, D), codageAngleDroit(B, A, C), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(A, D, C)]
             enonce = `le quadrilatère $${nom[0] + nom[1] + nom[2] + nom[3]}$ est un rectangle et $${nom[0] + nom[1]}$ est sa longueur.`
             break
           case 7: // losange
@@ -11540,7 +11540,7 @@ function Nommer_et_coder_des_polygones() {
             C = p.listePoints[2]
             D = p.listePoints[3]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2] + nom[3])
-            pcode = codeSegments('||', 'blue', A, B, B, C, C, D, D, A)
+            pcode = [codeSegments('O', 'blue', A, B, B, C, C, D, D, A),codeAngle(C,D,A,0.8,'||','red',2,0.8,'red',0.2),codeAngle(C,B,A,0.8,'||','red',2,0.8,'red',0.2),codeAngle(B,C,D,0.8,'|','blue',2,0.8,'blue',0.2),codeAngle(D,A,B,0.8,'|','blue',2,0.8,'blue',0.2)]
             enonce = `le quadrilatère $${nom[0] + nom[1] + nom[2] + nom[3]}$ est un losange et [$${nom[0] + nom[2]}$] est sa plus grande diagonale.`
             break
           case 8: // trapèze rectangle
@@ -11562,8 +11562,9 @@ function Nommer_et_coder_des_polygones() {
         return [p, nom, pcode, pnom, enonce]
       }
       [pol, polnom, polcode, polsom, texte] = choisir_polygone(liste[i]);
-      texte += `<br>` + mathalea2d(params, pol, polnom)
-      texte_corr = mathalea2d(params, pol, polnom, polcode, polsom)
+      pol.epaisseur=2
+      texte += `<br>` + mathalea2d(params, pol, polnom,g,carreaux)
+      texte_corr = mathalea2d(params, pol, polnom, polcode, polsom,g,carreaux)
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(texte);
@@ -11574,7 +11575,11 @@ function Nommer_et_coder_des_polygones() {
     }
     liste_de_question_to_contenu(this);
   };
-  //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+  this.besoin_formulaire2_numerique = [
+    "Type de cahier",
+    3,
+    `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`,
+  ];
 }
 /**
  * Utiliser les notations des segments, droites et demi-droites

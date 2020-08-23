@@ -1201,7 +1201,7 @@ function Polygone(...points) {
   };
   this.tikz = function () {
     let tableauOptions = [];
-    if (this.color.length > 1 && this.color !== "black") {
+    if (this.color.length > 1 && this.color !== 'black') {
       tableauOptions.push(this.color);
     }
     if (this.epaisseur != 1) {
@@ -1231,13 +1231,21 @@ function Polygone(...points) {
     if (this.couleurDeRemplissage == "") {
       return `\\draw ${optionsDraw} ${binomeXY}cycle;`;
     } else {
-      return `\\fill ${optionsDraw} ${binomeXY}cycle;`;
+      return `\\filldraw ${optionsDraw} ${binomeXY}cycle;`;
     }
     
   };
 }
 function polygone(...args) {
   return new Polygone(...args);
+}
+
+function polygoneAvecNom(...args) {
+  let groupe
+  let p=polygone(...args)
+  p.sommets=nommePolygone(p)
+  groupe=[p,p.sommets]
+  return groupe
 }
 
 /**
@@ -1829,13 +1837,13 @@ function Arc(M,Omega,angle,rayon=false,fill='none',color='black',fillOpacite=0.2
      if (this.opaciteDeRemplissage !=1) {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
     }
-    if (this.couleurDeRemplissage !='') {
+    if (this.couleurDeRemplissage !='none') {
       tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
     }
 	   if (tableauOptions.length>0) {
 		   optionsDraw = "["+tableauOptions.join(',')+"]"
 	   }
-	   if (rayon) return `\\fill  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega,M)}) -- cycle ;`
+	   if (rayon) return `\\filldraw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega,M)}) -- cycle ;`
 	   else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega,M)}) ;`
 	}
 }
@@ -2929,14 +2937,15 @@ function codeSegments(...args) {
   return new CodeSegments(...args);
 }
 /**
- * m=codeAngle(A,O,45,'X','black','red',2,1,0.4) 
+ * m=codeAngle(A,O,45,'X','black',2,1,'red',0.4) 
  * code un angle du point A dont le sommet est O et la mesure 45° (sens direct) avec une marque en X.
  *  la ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
  * @Auteur Jean-Claude Lhote
  */
-function CodeAngle(debut,centre,angle,mark='||',color='black',fill='none',epaisseur=1,opacite=1,fillOpacite=0.2) {
+function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur=1,opacite=1,fill='none',fillOpacite=0.2) {
   ObjetMathalea2D.call(this)
   this.color=color
+  let codage,depart,P,d,arcangle
   if (fill!='none') {
     this.couleurDeRemplissage=fill
     this.opaciteDeRemplissage=fillOpacite
@@ -2946,23 +2955,28 @@ function CodeAngle(debut,centre,angle,mark='||',color='black',fill='none',epaiss
   let remplir
   if (fill=='none') 
     remplir = false
-  else {
+  else 
     remplir = true
+  
+  if (typeof(angle)!='number'){
+    angle=angleOriente(debut,centre,angle)
   }
-  let P=rotation(debut,centre,angle/2)
-  let d=droite(centre,P)
+  depart=pointSurSegment(centre,debut,taille)
+  P=rotation(depart,centre,angle/2)
+  d=droite(centre,P)
   d.isVisible=false
-  let arcangle=arc(debut,centre,angle,remplir,fill,color)
+  arcangle=arc(depart,centre,angle,remplir,fill,color)
   arcangle.opacite=opacite
   arcangle.epaisseur=epaisseur
   arcangle.couleurDeRemplissage=this.couleurDeRemplissage
   arcangle.opaciteDeRemplissage=this.opaciteDeRemplissage
-  let codage=texteParPoint(mark,P,90-d.angleAvecHorizontale,color)
+  if (mark!='') codage=texteParPoint(mark,P,90-d.angleAvecHorizontale,color)
+  else codage=''
   this.svg=function(coeff){
     return codage.svg(coeff)+'\n'+arcangle.svg(coeff);
   }
   this.tikz=function(){
-    return codage.tikz()+'\n'+arcangle.tikz(coeff)
+    return codage.tikz()+'\n'+arcangle.tikz()
   }
 }
 
@@ -3660,7 +3674,7 @@ function intervalle(A, B, color = "blue", h = 0) {
  *
  * @Auteur Rémi Angot
  */
-function TexteParPoint(texte, A, orientation = "milieu", color) {
+function TexteParPoint(texte, A, orientation = "milieu", color='black') {
   ObjetMathalea2D.call(this);
   this.color = color;
   this.svg = function (coeff) {
@@ -3704,7 +3718,7 @@ function TexteParPoint(texte, A, orientation = "milieu", color) {
   this.tikz = function () {
     let code = "";
     if (typeof orientation == "number") {
-      code = `\\draw (${A.x},${
+      code = `\\draw [${color}] (${A.x},${
         A.y
       }) node[anchor = center, rotate = ${-orientation}] {${texte}};`;
     } else {
@@ -3718,7 +3732,7 @@ function TexteParPoint(texte, A, orientation = "milieu", color) {
       if (orientation == "milieu") {
         anchor = "node[anchor = center]";
       }
-      code = `\\draw (${A.x},${A.y}) ${anchor} {${texte}};`;
+      code = `\\draw [${color}] (${A.x},${A.y}) ${anchor} {${texte}};`;
     }
     return code;
   };
