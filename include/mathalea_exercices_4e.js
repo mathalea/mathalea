@@ -10179,7 +10179,7 @@ function Tracer_avec_scratch(){
         },
       ];
       // on prépare la fenetre mathalea2d
-      let fenetreMathalea2D = {xmin:-7,ymin:-7,xmax:7,ymax:7,pixelsParCm:20}
+      let fenetreMathalea2D = {xmin:-10,ymin:-10,xmax:10,ymax:10,pixelsParCm:20}
       pixelsParCm = 50;
       let lutin2=creerLutin();
       lutin2.color="blue";
