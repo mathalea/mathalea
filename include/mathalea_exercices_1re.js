@@ -6,83 +6,40 @@ function Terme_d_une_suite_definie_explicitement(){
 
 	this.nouvelle_version = function(){
 		this.liste_questions = []; // Vide la liste de questions
-		this.liste_corrections = []; // Vide la liste de questions corrigées
-
-        this.sup == 1
-        ? (type_de_questions_disponibles = [1, 2, 2, 3])
-        : (type_de_questions_disponibles = [4, 4, 5, 6]);
-        let liste_type_de_questions = combinaison_listes(
-            type_de_questions_disponibles,
-            this.nb_questions
-        ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    this.liste_corrections = []; // Vide la liste de questions corrigées
   
-        for (
-            let i = 0, texte, texte_corr, cpt = 0, a, b, c, d, k;
-            i < this.nb_questions && cpt < 50;
-  
-        ) {
-            type_de_questions = liste_type_de_questions[i];
-            switch (type_de_questions) {
-            case 1: // fonction affine
-                a = randint(1, 7);
-                b = randint(1, 10);
-                k = randint(0, 20)
+    for (
+      let i = 0, texte, texte_corr, cpt = 0, a, b, k;
+      i < this.nb_questions && cpt < 50;
 
-                texte = "Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_n = ${a}n+${b}$."
-                texte += "Calculer $u_${k}$."
-
-                texte_corr = "Dans l'expression de $u_n$, on remplasse $n$ par ${k}, on obtient : $u_${k} = ${a*k+b}$"
-
-                break;
-            case 2: // polynôme de degré 2
-                q = randint(5, 9) * 100 + randint(2, 5) * 10 + randint(5, 9);
-                b = randint(6, 9);
-                break;
-            case 3: // polynôme de degré 3
-                if (randint(1, 2) == 1) {
-                    q = randint(2, 9) * 1000 + randint(2, 9) * 100 + randint(2, 9);
-                } else {
-                    q = randint(2, 9) * 1000 + randint(2, 9) * 10 + randint(2, 9);
-                }
-                b = randint(7, 9);
-                break;
-            case 4: // fonction homographique
-                q = randint(1, 5) * 100 + randint(1, 5) * 10 + randint(1, 5);
-                b = choice([11, 12, 15, 25]);
-                break;
-            }
-            r = randint(0, b - 1); //reste inférieur au diviseur
-            a = b * q + r;
-            texte = `$${tex_nombre(a)}\\div${b}$`;
-            if (r == 0) {
-              sortie_html
-                ? (texte_corr = `$${tex_nombre(a)}\\div${b}=${q}$`)
-                : (texte_corr = `$\\opidiv[voperation=top]{${a}}{${b}}$\\\\\\\\$${tex_nombre(
-                    a
-                  )}\\div${b}=${q}$`);
-            } else {
-              sortie_html
-                ? (texte_corr = `$${tex_nombre(a)}=${b}\\times${q}+${r}$`)
-                : (texte_corr = `$\\opidiv[voperation=top]{${a}}{${b}}$\\\\\\\\$${tex_nombre(
-                    a
-                  )}=${b}\\times${q}+${r}$`);
-            }
+      ) {
+      // on déclare les variables utilisées dans la boucle
+			// i correspond au numéro de la question -1
+			// cpt est un compteur de fois où on génère une question déjà posées
+			// pour éviter une boucle infinie, on limite à 50 le nombre d'essais pour générer une question jamais posée
       
-            if (this.liste_questions.indexOf(texte) == -1) {
-              // Si la question n'a jamais été posée, on en créé une autre
-              this.liste_questions.push(texte);
-              this.liste_corrections.push(texte_corr);
-              i++;
-            }
-            cpt++;
-          }
-          liste_de_question_to_contenu(this);
-        };
-        this.besoin_formulaire_numerique = [
-          "Niveau de difficulté",
-          2,
-          "1 : Quotient inférieur à 10\n2: Quotient à 2 chiffres",
-        ];
-      }
-        
+      a = randint(1, 7);
+      b = randint(1, 10);
+      k = randint(0, 20)
+			
+			texte = "Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_n = ${a}n+${b}$."
+      texte += "Calculer $u_${k}$."
+			// énoncé 
+			// Rappel ${a} permet de récupérer la valeur de a dans un littéral de gabarit définit entre accents graves
+      
+      "Dans l'expression de $u_n$, on remplasse $n$ par ${k}, on obtient : $u_${k} = ${a*k+b}$"
+			// la correction de la question
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte); // Sinon on enregistre la question dans liste_questions
+				this.liste_corrections.push(texte_corr); // On fait pareil pour la correction
+				i++; // On passe à la question suivante
+			}
+			cpt++;	// Sinon on incrémente le compteur d'essai pour avoir une question nouvelle
+		}
+		liste_de_question_to_contenu(this); // La liste de question et la liste de la correction
+		// sont transformés en chaine de caractère (avec une liste HTML ou LaTeX suivant le contexte)
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+	// On aurait pu ajouter un formulaire pour régler le niveau de difficulté à l'aide de l'attribut this.sup
 }
