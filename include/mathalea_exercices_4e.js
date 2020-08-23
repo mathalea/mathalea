@@ -10023,17 +10023,7 @@ function Trouver_erreur_resol_eq_deg1(){
 						texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
             texte += `
-            <pre class='blocks'>
-            quand le drapeau vert pressé
-            répéter indéfiniment
-              tourner droite de (15) degrés
-              dire [hello!] pendant (2) secondes
-              si < souris pressée ? > alors
-                ajouter (${situations[0].a}) à [mouse clicks v]
-              fin
-            fin                  
-            </pre>
-            `
+             `
 						texte_corr = ``;	
 					} else {
 						texte_corr = `${enonces[0].correction}`;
@@ -10121,12 +10111,49 @@ function Tracer_avec_scratch(){
         };
       };
 
+    // une fonction pour dire le nom du polygone
+    function myPolyName(n) {
+      let sortie = {
+        name: ``,
+        nameParSommets: ``,
+      };
+      switch (n) {
+        case 3:
+          sortie.name = `triangle équilatéral`;
+          sortie.nameParSommets = `ABC`;
+          break;
+        case 4:
+          sortie.name = `carré`;
+          sortie.nameParSommets = `ABCD`;
+          break;
+        case 5:
+          sortie.name = `pentagone régulier`;
+          sortie.nameParSommets = `ABCDE`;
+          break;
+        case 6:
+          sortie.name = `hexagone régulier`;
+          sortie.nameParSommets = `ABCDEF`;
+          break;
+        case 7:
+          sortie.name = `heptagone régulier`;
+          sortie.nameParSommets = `ABCDEFG`;
+          break;
+        case 8:
+          sortie.name = `octogone régulier`;
+          sortie.nameParSommets = `ABCDEFGH`;
+          break;
+      }
+      return sortie;
+    }
+
+
       // on définit le nombre de côtés du polygone régulier
-      let n = randint(3,8);
+      let n = randint(3,8,[7]);
 
       let situations = [
         {//polygones réguliers
           nb_cotes:n,
+          nom:myPolyName(n).name,
           code_svg:`
           <pre class='blocks'>
           quand le drapeau vert pressé
@@ -10147,16 +10174,48 @@ function Tracer_avec_scratch(){
                 \\blockmove{tourner \\turnright{} de \\ovalnum{${360/n}} degrés}
               }
           \\end{scratch}
-          `
+          `,
+          fig_corr:``
         },
+      ];
+      // on prépare la fenetre mathalea2d
+      let fenetreMathalea2D = {xmin:-7,ymin:-7,xmax:7,ymax:7,pixelsParCm:20}
+      pixelsParCm = 50;
+      let lutin2=creerLutin();
+      lutin2.color="blue";
+      lutin2.pointilles=true;
+      allerA(fenetreMathalea2D.xmin*pixelsParCm,fenetreMathalea2D.ymax*pixelsParCm,lutin2);
+      baisseCrayon(lutin2);
+      allerA(fenetreMathalea2D.xmax*pixelsParCm,fenetreMathalea2D.ymax*pixelsParCm,lutin2);
+      allerA(fenetreMathalea2D.xmax*pixelsParCm,fenetreMathalea2D.ymin*pixelsParCm,lutin2);
+      allerA(fenetreMathalea2D.xmin*pixelsParCm,fenetreMathalea2D.ymin*pixelsParCm,lutin2);
+      allerA(fenetreMathalea2D.xmin*pixelsParCm,fenetreMathalea2D.ymax*pixelsParCm,lutin2);
+      leveCrayon(lutin2);
+      lutin2.pointilles = false;
+      allerA(0,0,lutin2);
+      baisseCrayon(lutin2);      
+      for (let k=1;k<n+1; k++) {
+        avance(200,lutin2);
+        tournerD(calcul(360/n),lutin2);
+      };
+      let mesAppels_corr = [
+        lutin2,
       ]
+      situations[0].fig_corr = mathalea2d(
+        fenetreMathalea2D,
+        mesAppels_corr
+        );
 			let enonces = [];
 			enonces.push({
         enonce:`
         ${scratchblocks_Tikz(situations[0].code_svg,situations[0].code_tikz)}        
         `,
 				question:``,
-        correction:`${texte_en_couleur(`correction type1`)}`
+        correction:`
+        ${texte_en_couleur(`La figure tracée est donc un ${situations[0].nom}.`)}
+        <br>
+        ${situations[0].fig_corr}        
+        `
       });
       enonces.push({
 				enonce:`énoncé type 2`,
