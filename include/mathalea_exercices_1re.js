@@ -7,28 +7,51 @@ function Terme_d_une_suite_definie_explicitement(){
 	this.nouvelle_version = function(){
 		this.liste_questions = []; // Vide la liste de questions
     this.liste_corrections = []; // Vide la liste de questions corrigées
-  
+    
+    let type_de_questions_disponibles = [1, 2];
+    let liste_type_de_questions = combinaison_listes(
+      type_de_questions_disponibles,
+      this.nb_questions
+    ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+
     for (
-      let i = 0, texte, texte_corr, cpt = 0, a, b, k;
+      let i = 0, texte, texte_corr, cpt = 0, a, b, c, k;
       i < this.nb_questions && cpt < 50;
 
       ) {
-      // on déclare les variables utilisées dans la boucle
-			// i correspond au numéro de la question -1
-			// cpt est un compteur de fois où on génère une question déjà posées
-			// pour éviter une boucle infinie, on limite à 50 le nombre d'essais pour générer une question jamais posée
-      
-      a = randint(1, 7);
-      b = randint(1, 10);
-      k = randint(0, 20);
+      switch (liste_type_de_questions[i]) {
+        case 1: //fonction affine
+          a = randint(1, 7)*choice([-1,1]);
+          b = randint(1, 10)*choice([-1,1]);
+          k = randint(0, 20);
 			
-			texte = 'Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_n = ${a}n+${b}$.'
-      texte += 'Calculer $u_${k}$.'
-			// énoncé 
-			// Rappel ${a} permet de récupérer la valeur de a dans un littéral de gabarit définit entre accents graves
+          texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_n = ${a}n$`;
+          if (b>0) {texte += `$+${b}$.`} 
+          else {texte += `$${b}$.`};
+          texte += `<br>Calculer $u_{${k}}$.`;
+			
+          texte_corr = `Dans l'expression de $u_n$ on remplasse $n$ par ${k}, on obtient : $u_{${k}} = ${a*k+b}$`;
+          break;
+        
+        case 2: //fonction polynome de degré 2
+          a = randint(1,5)*choice([-1,1]);
+          b = randint(0,5)*choice([-1,1]);
+          c = randint(0,9)*choice([-1,1]);
+          k = randint(0,9);
+
+          texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_n = ${a}n^2$`;
+          if (b==1) {texte += `$+n$`};
+          if (b>1) {texte += `$+${b}n$`};
+          if (b==-1) {texte += `$-n$`};
+          if (b<-1) {texte += `$${b}n$`};
+          if (c>0) {texte += `$+${c}$.`};
+          if (c<0) {texte += `$${c}$.`}
+          texte += `<br>Calculer $u_{${k}}$.`;
+			
+          texte_corr = `Dans l'expression de $u_n$ on remplasse $n$ par $${k}$, on obtient : $u_{${k}} = ${a*k*k+b*k+c}$`;
+          break;
+      }
       
-      texte_corr = "Dans l'expression de $u_n$, on remplasse $n$ par ${k}, on obtient : $u_${k} = ${a*k+b}$"
-			// la correction de la question
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte); // Sinon on enregistre la question dans liste_questions
