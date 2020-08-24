@@ -12283,6 +12283,8 @@ function Solide_6e() {
       anglepersp=choice([30,45,-30,-45,150,135,-150,-135])
       if (anglepersp%10==0) coeffpersp=0.6
       else coeffpersp=0.4
+      objets_correction=[]
+      objets_enonce=[]
          switch (liste_type_de_questions[i]) {
         case 1: //cube
           A = point(6, 0, nom[0], "left");
@@ -12351,6 +12353,18 @@ function Solide_6e() {
       BF.epaisseur=2
       CG.epaisseur=2
       DH.epaisseur=2
+      AB.color='black'
+      BC.color='black'
+      CD.color='black'
+      DA.color='black'
+      EF.color='black'
+      FG.color='black'
+      GH.color='black'
+      HE.color='black'
+      AE.color='black'
+      BF.color='black'
+      CG.color='black'
+      DH.color='black'
       if (G.y<C.y&&G.x<C.x) {
         CG.pointilles=true
         CG.color='gray'
@@ -12395,17 +12409,46 @@ function Solide_6e() {
         GH.opacite=0.5
         HE.opacite=0.5
       }
-
-    objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,
-        g,
-        carreaux
-      );
       objets_enonce.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,labelPoint(A,B,C,D,E,F,G,H),p,
         g,
         carreaux
       );
       enonce += mathalea2d(params, objets_enonce);
-      correction = mathalea2d(params, objets_correction);
+      if (liste_type_de_questions[i]==1) {
+        codesseg=[codeSegments('||','green',[A,B,C,D,A,E,F,G,H,E]),codeSegments('||','green',B,F,C,G,D,H)]
+        AB.color='green'
+        BC.color='green'
+        CD.color='green'
+        DA.color='green'
+        EF.color='green'
+        FG.color='green'
+        GH.color='green'
+        HE.color='green'
+        AE.color='green'
+        BF.color='green'
+        CG.color='green'
+        DH.color='green'
+      }
+      else {
+        codesseg=[codeSegments('||','green',A,B,C,D,E,F,G,H),codeSegments('O','red',A,E,B,F,C,G,D,H),codeSegments('×','blue',D,A,B,C,F,G,H,E)]
+        AB.color='green'
+        BC.color='blue'
+        CD.color='green'
+        DA.color='blue'
+        EF.color='green'
+        FG.color='blue'
+        GH.color='green'
+        HE.color='blue'
+        AE.color='red'
+        BF.color='red'
+        CG.color='red'
+        DH.color='red'
+      }
+    objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,labelPoint(A,B,C,D,E,F,G,H),
+        g,
+        carreaux
+      );
+      correction = mathalea2d(params, objets_correction,codesseg);
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(enonce + "<br>");
