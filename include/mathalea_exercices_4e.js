@@ -9943,7 +9943,7 @@ function Trouver_erreur_resol_eq_deg1(){
       // on choisit les paramètres
       let a = randint(-9,9,[-1,0,1]);
       let b = randint(-9,9,[-1,0,1]);
-      let c = randint(-9,9,[-1,0,1]);
+      let c = randint(-9,9,[-1,0,1,a,-a]);
       let d = randint(-9,9,[-1,0,1]);
 
       // une fonction pour gérer le signe
@@ -9963,13 +9963,47 @@ function Trouver_erreur_resol_eq_deg1(){
         } else {
           return {prenom:prenomF(),pronom:`elle`};
         };
-      }
+      };
+
+      // deux fonctionx pour conditionner la simplification d'une fraction
+      function isSimp(n,d){
+        if (fraction_simplifiee(n,d)[0]!=n) {
+          return true;
+        } else {
+          return false;
+        };
+      };
+
+      function simpFrac(n,d) {  
+        console.log(isSimp(n,d));
+        console.log(n,d)      
+        if (isSimp(n,d)) {
+          if (fraction_simplifiee(n,d)[1]==1) {
+            return `$= ${fraction_simplifiee(n,d)[0]}$`;
+          } else if (fraction_simplifiee(n,d)[0]==0) {  
+            return `$ = 0`;
+          } else {         
+            return `$= \\dfrac{${fraction_simplifiee(n,d)[0]}}{${fraction_simplifiee(n,d)[1]}}$`;
+          };
+        } else {
+          if (fraction_simplifiee(n,d)[1]==1) {
+            return `$= ${fraction_simplifiee(n,d)[0]}$`;
+          } else if (fraction_simplifiee(n,d)[0]==0) {  
+            return `$ = 0$`;
+          } else {         
+            return ` `; 
+          };          
+        }  
+      };
+
 
       let currentGenreEtPrenom = genreEtPrenom();
 
+
+
       // pour les situations
       let situations = [
-        {
+        {//ax+b=d+cx
           pronom:currentGenreEtPrenom.pronom,
           prenom:currentGenreEtPrenom.prenom,
           a:a,
@@ -9978,16 +10012,41 @@ function Trouver_erreur_resol_eq_deg1(){
           d:d,
           inc:inc,
           eq:`$${a}${inc} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}$`,
-          et1:`$${a}${inc} ${signeDansEq(c).signe} ${c}${inc} ${signeDansEq(b).signe} ${b} = ${d} $`,// l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
-          et2:`$${a}${inc} ${signeDansEq(c).signe} ${c}${inc} = ${d} ${signeDansEq(-b).signe} ${-b} $`,
-          et3:`$${a+c}${inc} = ${d} ${signeDansEq(-b).signe} ${-b} $`,
-          et4:`$${inc} = \\dfrac{${d} ${signeDansEq(-b).signe} ${-b}}{${a+c}} $`,
+          et1:`${texte_gras(`Étape 1 :`)} $${a}${inc} ${signeDansEq(c).signe} ${c}${inc} ${signeDansEq(b).signe} ${b} = ${d} $`,// l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
+          et2:`${texte_gras(`Étape 2 :`)} $${a}${inc} ${signeDansEq(c).signe} ${c}${inc} = ${d} ${signeDansEq(-b).signe} ${-b} $`,
+          et3:`${texte_gras(`Étape 3 :`)} $${a+c}${inc} = ${d} ${signeDansEq(-b).signe} ${-b} $`,
+          et4:`${texte_gras(`Étape 4 :`)} $${inc} = \\dfrac{${d} ${signeDansEq(-b).signe} ${-b}}{${a+c}} $`,
+          et_fin:`${texte_gras(`Étape 5 :`)} $${inc} = \\dfrac{${d-b}}{${a+c}}$ ${simpFrac(d-b,a+c)}`,
           err:`
             L'erreur se situe à l'étape 1.
             <br>${currentGenreEtPrenom.prenom} "a fait passer" le terme $${signeDansEq(c).signe} ${c}${inc}$ "de l'autre côté"
             or pour obtenir une équation équivalente, il s'agit d'opérer de la même manière sur les deux membres de l'équation.
-            <br>Ici il faut ${signeDansEq(c).operation} $${signeDansEq(c).chgt_signe}${inc}$ aux deux membres.
-            `
+            <br>Ici il faut ${signeDansEq(c).operation} $${signeDansEq(c).chgt_signe}${inc}$ aux deux membres.            
+            `,
+          eq_corr:`$${a}${inc} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}$`,          
+          eq_corr_et1:`
+          ${texte_gras(`Étape 1 :`)} 
+          <br> il faut $${mise_en_evidence(signeDansEq(c).operation)}$ $${mise_en_evidence(signeDansEq(c).chgt_signe)}${mise_en_evidence(inc)}$ aux deux membres 
+          <br> $${a}${inc} ${mise_en_evidence(signeDansEq(-c).signe)} ${mise_en_evidence(-c)}${mise_en_evidence(inc)} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc} ${mise_en_evidence(signeDansEq(-c).signe)} ${mise_en_evidence(-c)}${mise_en_evidence(inc)}$
+          <br> puis on réduit
+          <br> $${a-c}${inc} ${signeDansEq(b).signe} ${b} = ${d}$
+          `,// l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
+          eq_corr_et2:`
+          ${texte_gras(`Étape 2 :`)}
+          <br> il faut maintenant $${mise_en_evidence(signeDansEq(b).operation)}$ $${mise_en_evidence(signeDansEq(b).chgt_signe)}$ aux deux membres 
+          <br> $${a-c}${inc} ${signeDansEq(b).signe} ${b} ${mise_en_evidence(signeDansEq(-b).signe)} ${mise_en_evidence(-b)} = ${d} ${mise_en_evidence(signeDansEq(-b).signe)} ${mise_en_evidence(-b)}$
+          <br> réduction à nouveau
+          <br> $${a-c}${inc} = ${d-b}$
+          `,
+          eq_corr_et3:`
+          ${texte_gras(`Étape 3 :`)}
+          <br> Il faut alors $${mise_en_evidence(`\\textbf{diviser par}`)}$ $${mise_en_evidence(a-c)}$ les deux membres
+          <br> $\\dfrac{${a-c}${inc}}{${mise_en_evidence(a-c)}} = \\dfrac{${d-b}}{${mise_en_evidence(a-c)}}$
+          <br>$${inc} = \\dfrac{${d-b}}{${a-c}}$ ${simpFrac(d-b,a-c)}
+          `,
+          eq_corr_et4:` `,
+          eq_corr_et_fin:` `,
+
         }
       ];
 
@@ -9998,16 +10057,24 @@ function Trouver_erreur_resol_eq_deg1(){
         enonce:`
           ${situations[0].prenom} doit résoudre l'équation suivante : ${situations[0].eq}.
           <br> Voilà ce qu'${situations[0].pronom} écrit :
-          <br>${texte_gras(`Étape 1 :`)} ${situations[0].et1}
-          <br>${texte_gras(`Étape 2 :`)} ${situations[0].et2}
-          <br>${texte_gras(`Étape 3 :`)} ${situations[0].et3}
-          <br>${texte_gras(`Étape 4 :`)} ${situations[0].et4}
+          <br>${situations[0].et1}
+          <br>${situations[0].et2}
+          <br>${situations[0].et3}
+          <br>${situations[0].et4}
+          <br>${situations[0].et_fin}
         `,
 				question:``,
         correction:`
         ${situations[0].err}
+        <br><br>
+        Résolution détaillée :
         <br>
-        ${texte_en_couleur(`correction type1`)}
+        <br>${situations[0].eq_corr}
+        <br>${situations[0].eq_corr_et1}
+        <br>${situations[0].eq_corr_et2}
+        <br>${situations[0].eq_corr_et3}
+        <br>${situations[0].eq_corr_et4}
+        <br>${situations[0].eq_corr_et_fin}       
         `
       });
       enonces.push({
