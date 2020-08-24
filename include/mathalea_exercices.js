@@ -12216,7 +12216,8 @@ function Solide_6e() {
   this.sup2 = 1;
   this.nouvelle_version = function (numero_de_l_exercice) {
   let type_de_questions_disponibles;
-  type_de_questions_disponibles = [parseInt(this.sup)]; 
+  if (this.sup==3) type_de_questions_disponibles=[1,2]
+ else type_de_questions_disponibles = [parseInt(this.sup)]; 
   let liste_type_de_questions = combinaison_listes(
       type_de_questions_disponibles,
       this.nb_questions
@@ -12229,14 +12230,14 @@ function Solide_6e() {
         // repère -10 || 10
         Xmin = -1;
         Ymin = -4;
-        Xmax = 15;
+        Xmax = 18;
         Ymax = 11;
         ppc = 20;
       } else {
         // repère -5 || 5
         Xmin = -1;
         Ymin = -4;
-        Xmax = 15;
+        Xmax = 18;
         Ymax =11;
         ppc = 20;
       }
@@ -12269,7 +12270,7 @@ function Solide_6e() {
       i < this.nb_questions && cpt < 50;
 
     ) {
-      if (this.sup2 < 3) g = grille(-1, -15, 15, 15, "gray", 0.7);
+      if (this.sup2 < 3) g = grille(-1, -4, 18, 11, "gray", 0.7);
       else g = "";
       if (this.sup2 == 2) {
         k = 0.8;
@@ -12279,51 +12280,132 @@ function Solide_6e() {
         carreaux = "";
       }
       let nom = creerNomDePolygone(8, "PQ"),
-      anglepersp=choice([30,45,-30,-45])
-      if (anglepersp%10==0) coeffpersp=0.7
-      else coeffpersp=0.5
+      anglepersp=choice([30,45,-30,-45,150,135,-150,-135])
+      if (anglepersp%10==0) coeffpersp=0.6
+      else coeffpersp=0.4
          switch (liste_type_de_questions[i]) {
         case 1: //cube
-          A = point(0, 0, nom[0], "below left");
-          B = point(7, 0, nom[1], "below right");
-          C = point(7,7, nom[2], "above right");
-          D = point(0,7, nom[3],"above left");
-          E = similitude(B,A,anglepersp,coeffpersp,nom[4])
-          F = translation2Points(E,A,B,nom[5])
-          G = translation2Points(F,B,C,nom[6])
-          H = translation2Points(G,C,D,nom[7])
-          AB=segment(A,B)
-          BC=segment(B,C)
-          CD=segment(C,D)
-          DA=segment(D,A)
-          EF=segment(E,F)
-          FG=segment(F,G)
-          GH=segment(G,H)
-          HE=segment(H,E)
-          AE=segment(A,E)
-          BF=segment(B,F)
-          CG=segment(C,G)
-          DH=segment(D,H)
-
-        objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,
-            g,
-            carreaux
-          );
-          objets_enonce.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,
-            g,
-            carreaux
-          );
-          enonce = num_alpha(0) + ` Reproduire la figure ci-dessous.<br>`;
+          A = point(6, 0, nom[0], "left");
+          B = point(13, 0, nom[1], "right");
+          C = point(13,7, nom[2], "right");
+          D = point(6,7, nom[3],"left");
+          p=polygone(A,B,C,D)
+          p.couleurDeRemplissage='blue'
+          p.opaciteDeRemplissage=0.2
+          E = similitude(B,A,anglepersp,coeffpersp,nom[4],'left')
+          E.x=Math.round(E.x)
+          E.y=Math.round(E.y)
+          enonce=`${nom} est un cube.<br>`
+          enonce += num_alpha(0) + ` Reproduire la figure ci-dessous sur le cahier.<br>`;
           enonce +=
             num_alpha(1) +
             ` Repasse tous les segments de même longueur dans une même couleur.<br>`;
-          enonce += mathalea2d(params, objets_enonce);
-          correction = mathalea2d(params, objets_correction);
+
           break;
         case 2:
+          A = point(5, 0, nom[0], "left");
+          B = point(10+randint(1,3), 0, nom[1], "right");
+          C = point(B.x,randint(3,7), nom[2], "right");
+          D = point(A.x,C.y, nom[3],"left");
+          p=polygone(A,B,C,D)
+          p.couleurDeRemplissage='blue'
+          p.opaciteDeRemplissage=0.2
+          E = similitude(B,A,anglepersp,coeffpersp*randint(5,12)/10,nom[4],'left')
+          E.x=Math.round(E.x)
+          E.y=Math.round(E.y)
+          enonce=`${nom} est un pavé droit.<br>`
+          enonce += num_alpha(0) + ` Reproduire la figure ci-dessous sur le cahier.<br>`;
+          enonce +=
+            num_alpha(1) +
+            ` Repasse tous les segments de même longueur dans une même couleur.<br>`;
+
            break
       }
+      p=polygone(A,B,C,D)
+      p.couleurDeRemplissage='blue'
+      p.opaciteDeRemplissage=0.2
+      F = translation2Points(E,A,B,nom[5],'right')
+      G = translation2Points(F,B,C,nom[6],'right')
+      H = translation2Points(G,C,D,nom[7],'left')
+      AB=segment(A,B)
+      BC=segment(B,C)
+      CD=segment(C,D)
+      DA=segment(D,A)
+      EF=segment(E,F)
+      FG=segment(F,G)
+      GH=segment(G,H)
+      HE=segment(H,E)
+      AE=segment(A,E)
+      BF=segment(B,F)
+      CG=segment(C,G)
+      DH=segment(D,H)
+      AB.epaisseur=2
+      BC.epaisseur=2
+      CD.epaisseur=2
+      DA.epaisseur=2
+      EF.epaisseur=2
+      FG.epaisseur=2
+      GH.epaisseur=2
+      HE.epaisseur=2
+      AE.epaisseur=2
+      BF.epaisseur=2
+      CG.epaisseur=2
+      DH.epaisseur=2
+      if (G.y<C.y&&G.x<C.x) {
+        CG.pointilles=true
+        CG.color='gray'
+        CG.opacite=0.5
+        GH.pointilles=true
+        GH.color='gray'
+        GH.opacite=0.5
+        FG.pointilles=true
+        FG.color='gray'
+        FG.opacite=0.5
+      }
+      else if (E.y>A.y&&E.x>A.x) {
+        AE.pointilles=true
+        EF.pointilles=true
+        HE.pointilles=true
+        AE.color='gray'
+        EF.color='gray'
+        HE.color='gray'
+        AE.opacite=0.5
+        EF.opacite=0.5
+        HE.opacite=0.5
+      }
+      else if (F.x<B.x&&F.y>B.y) {
+        BF.pointilles=true
+        FG.pointilles=true
+        EF.pointilles=true
+        BF.color='gray'
+        FG.color='gray'
+        EF.color='gray'
+        BF.opacite=0.5
+        FG.opacite=0.5
+        EF.opacite=0.5
+      }
+      else if (H.x>D.x&&H.y<D.y) {
+        DH.pointilles=true
+        GH.pointilles=true
+        HE.pointilles=true
+        DH.color='gray'
+        GH.color='gray'
+        HE.color='gray'
+        DH.opacite=0.5
+        GH.opacite=0.5
+        HE.opacite=0.5
+      }
 
+    objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,
+        g,
+        carreaux
+      );
+      objets_enonce.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,labelPoint(A,B,C,D,E,F,G,H),p,
+        g,
+        carreaux
+      );
+      enonce += mathalea2d(params, objets_enonce);
+      correction = mathalea2d(params, objets_correction);
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(enonce + "<br>");
@@ -12335,7 +12417,7 @@ function Solide_6e() {
 
     liste_de_question_to_contenu(this);
   };
-  //	this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
+  this.besoin_formulaire_numerique = ['Type de solides', 3, `1 : Cubes\n 2 : Pavés droits\n 3 : Mélange`]
   this.besoin_formulaire2_numerique = [
     "Type de cahier",
     3,
