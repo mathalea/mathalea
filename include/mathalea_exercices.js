@@ -20,7 +20,8 @@ var liste_des_exercices_disponibles = {
   "CM018": Somme_de_deux_nombres_maries_et_un_entier,
   "CM019": Le_compte_est_bonV3,
   "CM020": Le_compte_est_bonV4,
-  "BetaCM021": Compte_Est_Bon,
+  "CM021": Compte_Est_Bon,
+  "beta6pave" : Solide_6e,
   "6C10": Additions_soustractions_multiplications_posees,
   "6C11": Divisions_euclidiennes,
   "6C10-1": Tables_de_multiplications,
@@ -320,7 +321,10 @@ function Exercice() {
   this.nouvelle_version = function (numero_de_l_exercice) {};
   this.liste_packages = []; // string ou liste de string avec le nom des packages spécifiques à ajouter dans le préambule
 }
-
+/**
+ * Pour imprimer des repères vierges pour les élèves.
+ * @Auteur Jean-Claude Lhote
+ */
 function feuille_d_axes_gradues() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -2967,199 +2971,11 @@ function Compte_Est_Bon() {
     liste_de_question_to_contenu(this);
   };
   this.besoin_formulaire_texte = [
-    "Niveaux de difficultés)",
+    "Niveaux de difficultés (1 à 3)",
     "Nombres séparés par des tirets",
   ]; // Texte, tooltip
 }
-/*
-function LeVraiCompteEstBon(){ //en construction
-	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Générateur de \"Le compte est bon\"";
-	this.consigne = "Écrire un calcul égal au nombre cible en utilisant les nombres du tirage.";
-	this.nb_questions = 1;
-	this.nb_cols = 2;
-	this.nb_cols_corr = 2;
-	this.sup="1-2-3-4-5-6";
-	var max_solution=70;
-	
-	this.nouvelle_version = function(numero_de_l_exercice){
-		let tirage,tirage2,tirage3,tirage4,tirage5,N1,N2,N3,N4,N5,N6,R1,R2,R3,R4,R5,op1,op2,op3,op4,op5
-		if (!this.sup) tirage = [1,2,3,4,5,6]
-		else tirage = this.sup.split("-");
-		let cible=124;
-		for (let i=0;i<6;i++) tirage[i]=parseInt(tirage[i])
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		let calculs=[[],[],[],[],[]],operations=['+','*','-','/','opp+','inv*'],solutions=[[]],liste_index_solution
-		let nb_operande=tirage.length
-		let index=0
-		for (let i=0;i<tirage.length;i++) {  // première opération : N1 op N2 = R1 
-			N1=tirage[i]
-			for (let op=0;op<operations.length;op++) {
-				for (let j=0;j<tirage.length;j++) {
-					if (j!=i) {
-						N2=tirage[j]
-						// On push les index et non les nombres et les opérations seul le résultat est un nombre
-						if (op==0&&j>i) calculs[index].push([i,op,j,calcul(N1+N2)]) // On évite les doublons une fois calculé a+b, on ne fait pas b+a (j>i)
-						if (op==1&&j>i) calculs[index].push([i,op,j,calcul(N1*N2)]) // idem
-						if (op==2&& N1>N2) calculs[index].push([i,op,j,calcul(N1-N2)]) // si on peut calculer a-b, on ne pourra pas calculer b-a (négatif)
-						if (op==3&& estentier(calcul(N1/N2))) calculs[index].push([i,op,j,calcul(N1/N2)]) // si on peut calculer a/b, on ne pourra pas calculer b/a (non entier)
-						// pas de soustraction opposée ni de division inversée, les couples (a,b) et (b,a) sont tous là donc ce serait redondant
-						if (calculs[index][calculs[index].length-1][3]==cible) { // si le résultat est la cible, alors on transfert le calcul dans solutions et on le retire des calculs
-							solutions.push(calculs[index].pop())
-						}
-					}
-				}
-			}
-		}
-		alert('premier niveau passé')
-	
-		index++	// on passe au deuxième niveau.
-		for (let i=0;i<calculs[index-1].length;i++) { // chaque calcul de niveau 1 opération peut générer des calculs de niveau 2 opérations
-			N1=calculs[index-1][i][0]; // index de N1 dans le tirage
-			N2=calculs[index-1][i][2]; // index de N2 dans le tirage
-			R1=calculs[index-1][i][3]; // résultat de N1 op1 N2
-			op1=calculs[index-1][i][1]; // index de op1 dans operations
-			tirage2=range(5,[N1,N2])
-			for (let k=0;k<tirage2.length;k++) tirage2[k]=parseInt(tirage2[k])
-			for (let op=0;op<operations.length;op++) {
-				for (let j in tirage2) {
-					// on va prendre N3 autre que N1 et N2 qui ont déjà été utilisés
-						N3=tirage[j];
-						if (op==0) calculs[index].push([N1,op1,N2,R1,op,parseInt(j),calcul(N3+R1)])
-						if (op==1) calculs[index].push([N1,op1,N2,R1,op,parseInt(j),calcul(N3*R1)])
-						if (op==2&&R1>N3) calculs[index].push([N1,op1,N2,R1,op,parseInt(j),calcul(R1-N3)])
-						if (op==3&& estentier(R1/N3)) calculs[index].push([N1,op1,N2,R1,op,parseInt(j),calcul(R1/N3)])
-						if (op==4&& N3>R1) calculs[index].push([N1,op1,N2,R1,op,parseInt(j),calcul(N3-R1)])
-						if (op==4&& estentier(N3/R1)) calculs[index].push([N1,op1,N2,R1,op,parseInt(j),calcul(N3/R1)])
-						if (calculs[index][calculs[index].length-1][6]==cible) { // si le résultat est la cible, alors on transfert le calcul dans solutions et on le retire des calculs
-							solutions.push(calculs[index].pop())
-						}
-				}
-			}
-		}
-		alert('deuxième niveau passé')
-	
-		index++ // vers l'infini et au delà ! 3ème niveau !
-		for (let i=0;i<calculs[index-1].length;i++) { // chaque calcul de niveau 2 opérations peut générer des calculs de niveau 3 opérations
-			N1=calculs[index-1][i][0]; // index de N1 dans le tirage
-			N2=calculs[index-1][i][2]; // index de N2 dans le tirage
-			R1=calculs[index-1][i][3]; // résultat de N1 op1 N2
-			op1=calculs[index-1][i][1]; // index de op1 dans operations
-			N3=calculs[index-1][i][5];
-			op2=calculs[index-1][i][4];
-			R2=calculs[index-1][i][6];
-			tirage3=range(5,[N1,N2,N3])
-			for (let k=0;k<tirage3.length;k++) tirage3[k]=parseInt(tirage2[k])
-				for (let op=0;op<operations.length;op++) {
-					for (let j in tirage3) {
-						N4=tirage[j];
-						if (op==0) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op,parseInt(j),calcul(N4+R2)])
-						if (op==1) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op,parseInt(j),calcul(N4*R2)])
-						if (op==2&&R2>N4) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op,parseInt(j),calcul(R2-N4)])
-						if (op==3&& estentier(R2/N4)) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op,parseInt(j),calcul(R2/N4)])
-						if (op==4&& N4>R2) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op,parseInt(j),calcul(N4-R2)])
-						if (op==4&& estentier(N4/R2)) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op,parseInt(j),calcul(N4/R2)])
-						if (calculs[index][calculs[index].length-1][9]==cible) { // si le résultat est la cible, alors on transfert le calcul dans solutions et on le retire des calculs
-							solutions.push(calculs[index].pop())
-						}
-					}
-				}
-			}
-		
-		alert('troisième niveau passé')
 
-		index++ //là ça devient lourd ! 
-		for (let i=0;i<calculs[index-1].length;i++) { // chaque calcul de niveau 3 opérations peut générer des calculs de niveau 4 opérations
-			N1=calculs[index-1][i][0]; // index de N1 dans le tirage
-			N2=calculs[index-1][i][2]; // index de N2 dans le tirage
-			R1=calculs[index-1][i][3]; // résultat de N1 op1 N2
-			op1=calculs[index-1][i][1]; // index de op1 dans operations
-			N3=calculs[index-1][i][5];
-			op2=calculs[index-1][i][4];
-			R2=calculs[index-1][i][6];
-			N4=calculs[index-1][i][8];
-			op3=calculs[index-1][i][7];
-			R3=calculs[index-1][i][9];
-			tirage4=range(5,[N1,N2,N3,N4])
-			tirage4[0]=parseInt(tirage2[0])
-			tirage4[1]=parseInt(tirage2[1])
-			
-			for (let op=0;op<operations.length;op++) {
-				for (let j in tirage4) {
-						N5=tirage[j];
-						if (op==0) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op3,N4,R3,op,parseInt(j),calcul(N5+R3)])
-						if (op==1) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op3,N4,R3,op,parseInt(j),calcul(N5*R3)])
-						if (op==2&&R3>N5) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op3,N4,R3,op,parseInt(j),calcul(R3-N5)])
-						if (op==3&& estentier(R3/N5)) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op3,N4,R3,op,parseInt(j),calcul(R3/N5)])
-						if (op==4&& N5>R3) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op3,N4,R3,op,parseInt(j),calcul(N5-R3)])
-						if (op==4&& estentier(N5/R3)) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op3,N4,R3,op,parseInt(j),calcul(N5/R3)])
-						if (calculs[index][calculs[index].length-1][12]==cible) { // si le résultat est la cible, alors on transfert le calcul dans solutions et on le retire des calculs
-							solutions.push(calculs[index].pop())
-						}
-					}
-			}
-		}
-		alert('quatrième niveau passé')
-	
-		index++
-		for (let i=0;i<calculs[index-1].length;i++) { // chaque calcul de niveau 3 opérations peut générer des calculs de niveau 4 opérations
-			N1=calculs[index-1][i][0]; // index de N1 dans le tirage
-			N2=calculs[index-1][i][2]; // index de N2 dans le tirage
-			R1=calculs[index-1][i][3]; // résultat de N1 op1 N2
-			op1=calculs[index-1][i][1]; // index de op1 dans operations
-			N3=calculs[index-1][i][5];
-			op2=calculs[index-1][i][4];
-			R2=calculs[index-1][i][6];
-			N4=calculs[index-1][i][8];
-			op3=calculs[index-1][i][7];
-			R3=calculs[index-1][i][9];
-			N5=calculs[index-1][i][11];
-			op4=calculs[index-1][i][10];
-			R4=calculs[index-1][i][12];
-			tirage5=range(5,[N1,N2,N3,N4,N5])
-			tirage5[0]=parseInt(tirage5[0])
-			for (let op=0;op<operations.length;op++) {
-				for (let j in tirage5) {
-						N6=tirage[j];
-						if (op==0) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op3,N4,R3,op4,N5,R4,op,parseInt(j),calcul(N6+R4)])
-						if (op==1) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op3,N4,R3,op4,N5,R4,op,parseInt(j),calcul(N6*R4)])
-						if (op==2&&R4>N6) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op3,N4,R3,op4,N5,R4,op,parseInt(j),calcul(R4-N6)])
-						if (op==3&& estentier(R4/N6)) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op3,N4,R3,op4,N5,R4,op,parseInt(j),calcul(R4/N6)])
-						if (op==4&& N6>R4) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op3,N4,R3,op4,N5,R4,op,parseInt(j),calcul(N6-R4)])
-						if (op==4&& estentier(N6/R4)) calculs[index].push([N1,op1,N2,R1,op2,N3,R2,op3,N4,R3,op4,N5,R4,op,parseInt(j),calcul(N6/R4)])
-						if (calculs[index][calculs[index].length-1][15]==cible) { // si le résultat est la cible, alors on transfert le calcul dans solutions et on le retire des calculs
-							solutions.push(calculs[index].pop())
-						}
-					}
-			}
-		}
-		for (let i = 0, texte, texte_corr,cpt=0; i < this.nb_questions && cpt<50; ) {
-			solution_mathador=Trouver_solution_mathador(min_solution,max_solution)
-			tirage=solution_mathador[0]
-			solution=solution_mathador[1]
-			expression=solution_mathador[3]
-
-			texte=`Le tirage est le suivant : $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ <br>La cible est : $${solution}$`
-			texte_corr=`Pour le tirage $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ et pour la cible $${solution}$, la solution est : $${expression}=${solution}$ `
-			texte_corr+=`ou $${solution_mathador[4]}$.<br>`
-			texte_corr+=`En effet : <br>`
-			for (let i=0;i<4;i++) {
-				texte_corr+=`$${solution_mathador[2][i]}$<br>`
-			}
-						if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-							this.liste_questions.push(texte);
-							this.liste_corrections.push(texte_corr);
-							i++;
-						}		
-			cpt++;	
-		}
-	// liste_de_question_to_contenu(this);
-	}
-	this.besoin_formulaire_texte = ['Choix des nombres du tirage (de aucun à cinq)','Nombres séparés par des tirets'] // Texte, tooltip
-}
-*/
 
 /**
  * Générateur de tirages pour un compte est bon avec en correction la solution mathador (4 opérations différentes).
@@ -11576,6 +11392,7 @@ function Nommer_et_coder_des_polygones() {
       cpt++;
     }
     liste_de_question_to_contenu(this);
+    pixelsParCm=20
   };
   this.besoin_formulaire2_numerique = [
     "Type de cahier",
@@ -12385,6 +12202,145 @@ function Tracer_triangle_2_angles() {
   };
   //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
+
+function Solide_6e() {
+  "use strict";
+  Exercice.call(this);
+  this.titre = "Connaître les propriétés du cube et du pavé droit";
+  this.nb_questions = 1;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  this.sup = 1;
+  this.sup2 = 1;
+  this.nouvelle_version = function (numero_de_l_exercice) {
+  let type_de_questions_disponibles;
+  type_de_questions_disponibles = [parseInt(this.sup)]; 
+  let liste_type_de_questions = combinaison_listes(
+      type_de_questions_disponibles,
+      this.nb_questions
+    );
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    let Xmin, Xmax, Ymin, Ymax, ppc, sc;
+    function initialise_variables() {
+      if (sortie_html) {
+        // repère -10 || 10
+        Xmin = -1;
+        Ymin = -4;
+        Xmax = 15;
+        Ymax = 11;
+        ppc = 20;
+      } else {
+        // repère -5 || 5
+        Xmin = -1;
+        Ymin = -4;
+        Xmax = 15;
+        Ymax =11;
+        ppc = 20;
+      }
+    }
+
+    initialise_variables();
+    if (this.sup2 == 1) sc = 0.5;
+    else sc = 0.8;
+
+    let A,B,C,D,E,F,G,H,
+      AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,
+      lAB,lBC,lAE,anglepersp,coeffpersp,
+      codesseg=[],
+      enonce,
+      correction,
+      carreaux,g,
+      objets_enonce = [],
+      objets_correction = [],
+      params = {
+        xmin: Xmin,
+        ymin: Ymin,
+        xmax: Xmax,
+        ymax: Ymax,
+        pixelsParCm: ppc,
+        scale: sc,
+      },k,
+      p;
+    for (
+      let i = 0, texte, texte_corr, cpt = 0;
+      i < this.nb_questions && cpt < 50;
+
+    ) {
+      if (this.sup2 < 3) g = grille(-1, -15, 15, 15, "gray", 0.7);
+      else g = "";
+      if (this.sup2 == 2) {
+        k = 0.8;
+        carreaux = seyes(Xmin, Ymin, Xmax, Ymax);
+      } else {
+        k = 0.5;
+        carreaux = "";
+      }
+      let nom = creerNomDePolygone(8, "PQ"),
+      anglepersp=choice([30,45,-30,-45])
+      if (anglepersp%10==0) coeffpersp=0.7
+      else coeffpersp=0.5
+         switch (liste_type_de_questions[i]) {
+        case 1: //cube
+          A = point(0, 0, nom[0], "below left");
+          B = point(7, 0, nom[1], "below right");
+          C = point(7,7, nom[2], "above right");
+          D = point(0,7, nom[3],"above left");
+          E = similitude(B,A,anglepersp,coeffpersp,nom[4])
+          F = translation2Points(E,A,B,nom[5])
+          G = translation2Points(F,B,C,nom[6])
+          H = translation2Points(G,C,D,nom[7])
+          AB=segment(A,B)
+          BC=segment(B,C)
+          CD=segment(C,D)
+          DA=segment(D,A)
+          EF=segment(E,F)
+          FG=segment(F,G)
+          GH=segment(G,H)
+          HE=segment(H,E)
+          AE=segment(A,E)
+          BF=segment(B,F)
+          CG=segment(C,G)
+          DH=segment(D,H)
+
+        objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,
+            g,
+            carreaux
+          );
+          objets_enonce.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,
+            g,
+            carreaux
+          );
+          enonce = num_alpha(0) + ` Reproduire la figure ci-dessous.<br>`;
+          enonce +=
+            num_alpha(1) +
+            ` Repasse tous les segments de même longueur dans une même couleur.<br>`;
+          enonce += mathalea2d(params, objets_enonce);
+          correction = mathalea2d(params, objets_correction);
+          break;
+        case 2:
+           break
+      }
+
+      if (this.liste_questions.indexOf(texte) == -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
+        this.liste_questions.push(enonce + "<br>");
+        this.liste_corrections.push(correction + "<br>");
+        i++;
+      }
+      cpt++;
+    }
+
+    liste_de_question_to_contenu(this);
+  };
+  //	this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
+  this.besoin_formulaire2_numerique = [
+    "Type de cahier",
+    3,
+    `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`,
+  ];
+}
+
 
 /**
  * @Auteur Rémi Angot
