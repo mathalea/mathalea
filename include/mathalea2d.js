@@ -687,8 +687,8 @@ function CodageBissectrice(A, O, B, color = "black", mark = "×") {
   let demiangle = calcul(angleOriente(A, O, B) / 2);
   let M = rotation(a, O, demiangle);
   let b = pointSurSegment(O, B, 1.5);
-  let a1 = codeAngle(a, O, demiangle,0.9,'+', this.color);
-  let a2 = codeAngle(M, O, demiangle,0.9,'+', this.color);
+  let a1 = codeAngle(a, O, demiangle,1,'|', this.color,2,1);
+  let a2 = codeAngle(M, O, demiangle,1,'|', this.color,2,1);
   this.svg = function (coeff) {
     return (
       a1.svg(coeff) +
@@ -2946,13 +2946,15 @@ function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur
   arcangle.epaisseur=epaisseur
   arcangle.couleurDeRemplissage=this.couleurDeRemplissage
   arcangle.opaciteDeRemplissage=this.opaciteDeRemplissage
-  if (mark!='') codage=texteParPoint(mark,P,90-d.angleAvecHorizontale,color)
+  if (mark!='')  codage=texteParPoint(mark,P,90-d.angleAvecHorizontale,color)
   else codage=''
   this.svg=function(coeff){
-    return codage.svg(coeff)+'\n'+arcangle.svg(coeff);
+    if (codage!='') return codage.svg(coeff)+'\n'+arcangle.svg(coeff);
+    else return arcangle.svg(coeff);
   }
   this.tikz=function(){
-    return codage.tikz()+'\n'+arcangle.tikz()
+    if (codage!='') return codage.tikz()+'\n'+arcangle.tikz()
+    else return arcangle.tikz()
   }
 }
 
