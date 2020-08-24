@@ -686,36 +686,19 @@ function CodageBissectrice(A, O, B, color = "black", mark = "×") {
   let a = pointSurSegment(O, A, 1.5);
   let demiangle = calcul(angleOriente(A, O, B) / 2);
   let M = rotation(a, O, demiangle);
-  let mark1 = rotation(a, O, demiangle / 2);
-  let mark2 = rotation(M, O, demiangle / 2);
-  let t1 = texteParPoint(
-    mark,
-    mark1,
-    Math.round(droite(O, A).angleAvecHorizontale + demiangle / 2),
-    color
-  );
-  let t2 = texteParPoint(
-    mark,
-    mark2,
-    Math.round(droite(O, A).angleAvecHorizontale + (3 * demiangle) / 2),
-    color
-  );
   let b = pointSurSegment(O, B, 1.5);
-  let a1 = arcPointPointAngle(a, M, demiangle, this.color);
-  let a2 = arcPointPointAngle(M, b, demiangle, this.color);
+  let a1 = codeAngle(a, O, demiangle,0.9,'+', this.color);
+  let a2 = codeAngle(M, O, demiangle,0.9,'+', this.color);
   this.svg = function (coeff) {
     return (
       a1.svg(coeff) +
       "\n" +
       a2.svg(coeff) +
-      "\n" +
-      t1.svg(coeff) +
-      "\n" +
-      t2.svg(coeff)
-    );
+      "\n"
+     );
   };
   this.tikz = function () {
-    return a1.tikz() + "\n" + a2.tikz() + "\n" + t1.tikz() + "\n" + t2.tikz();
+    return a1.tikz() + "\n" + a2.tikz() + "\n";
   };
 }
 
@@ -1834,10 +1817,10 @@ function Arc(M,Omega,angle,rayon=false,fill='none',color='black',fillOpacite=0.2
 	   if (this.opacite !=1) {
 		   tableauOptions.push(`opacity = ${this.opacite}`)
      }
-     if (this.opaciteDeRemplissage !=1) {
+     if (rayon && fill!='none') {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
     }
-    if (this.couleurDeRemplissage !='none') {
+    if (rayon && fill != 'none') {
       tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
     }
 	   if (tableauOptions.length>0) {
@@ -1860,14 +1843,7 @@ function arc(...args) {
  * @param {string} color //couleur de l'arc
  * @Auteur Jean-Claude Lhote
  */
-function ArcPointPointAngle(
-  M,
-  N,
-  angle,
-  rayon = false,
-  fill = "none",
-  color = "black"
-) {
+function ArcPointPointAngle(M,N,angle,rayon=false,fill='none',color='black',fillOpacite=0.2) {
   let anglerot, Omegax, Omegay;
   if (angle < 0) anglerot = calcul((angle + 180) / 2);
   else anglerot = calcul((angle - 180) / 2);
@@ -1882,7 +1858,7 @@ function ArcPointPointAngle(
   Omegax = calcul(-d.c / d.a - (d.b * Omegay) / d.a);
   let Omega = point(Omegax, Omegay);
   let l = longueur(Omega, M);
-  let a = arc(M, Omega, angle, rayon, fill, color);
+  let a = arc(M, Omega, angle, rayon, fill, color,0.2);
   a.isVisible = false;
   ObjetMathalea2D.call(this);
   this.svg = a.svg;
