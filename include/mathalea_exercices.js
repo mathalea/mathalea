@@ -130,6 +130,7 @@ var liste_des_exercices_disponibles = {
   "5L14": Tester_une_egalite,
   "5M10": Aire_du_parallelogramme,
   "5M20": Calcul_de_volumes_5e,
+  "5R10-0": Trouver_oppose,
   "5R11": Lire_abscisse_relative,
   "5R11-2": Placer_points_sur_axe_relatifs,
   "5R12": Reperage_point_du_quart_de_plan,
@@ -143,6 +144,7 @@ var liste_des_exercices_disponibles = {
   "5S13": Calculer_des_frequences,
   "5S14": Calculer_des_moyennes,
   "5S21": fonctions_probabilite1,
+  "4Algo1-0": Tracer_avec_scratch,
   "4C10-0": Signe_produit_quotient_relatifs,
   "4C10-1": Signe_produit_relatifs,
   "4C10-2": Signe_quotient_relatifs,
@@ -242,6 +244,8 @@ var liste_des_exercices_disponibles = {
   "2G12": Modelisation_coordonnees,
   "2L10": Developper_Identites_remarquables2,
   "2L11": Factoriser_Identites_remarquables2,
+  "beta1N10": Terme_d_une_suite_definie_explicitement,
+  "beta1N11": Terme_d_une_suite_definie_par_recurrence, 
   "PEA11": Passer_d_une_base_a_l_autre,
   "PEA11-1": Passer_de_la_base_12_ou_16_a_la_10,
   P001: Code_LaTeX_personnalise,
@@ -12401,6 +12405,8 @@ jQuery(document).ready(function () {
   let nombre_d_exercices_disponibles_4 = 0;
   let nombre_d_exercices_disponibles_3 = 0;
   let nombre_d_exercices_disponibles_2 = 0;
+  let nombre_d_exercices_disponibles_1 = 0;
+  let nombre_d_exercices_disponibles_T = 0;
   let nombre_d_exercices_disponibles_CM = 0;
   let nombre_d_exercices_disponibles_prof = 0;
   let nombre_d_exercices_disponibles_PE = 0;
@@ -12424,6 +12430,12 @@ jQuery(document).ready(function () {
     if (id[0] == 2) {
       nombre_d_exercices_disponibles_2 += 1;
     }
+    if (id[0] == 1) {
+      nombre_d_exercices_disponibles_1 += 1;
+    }
+    if (id[0] == "T") {
+      nombre_d_exercices_disponibles_T += 1;
+    }
     if (id[0] == "C") {
       nombre_d_exercices_disponibles_CM += 1;
     }
@@ -12444,6 +12456,8 @@ jQuery(document).ready(function () {
   let liste_html_des_exercices_4 = [];
   let liste_html_des_exercices_3 = [];
   let liste_html_des_exercices_2 = [];
+  let liste_html_des_exercices_1 = [];
+  let liste_html_des_exercices_T = [];
   let liste_html_des_exercices_CM = [];
   let liste_html_des_exercices_prof = [];
   let liste_html_des_exercices_PE = [];
@@ -12496,6 +12510,26 @@ jQuery(document).ready(function () {
     }
     if (id[0] == 2) {
       liste_html_des_exercices_2 +=
+        '<span class="id_exercice">' +
+        id +
+        '</span> - <a class="lien_id_exercice" numero="' +
+        id +
+        '">' +
+        exercice_tmp.titre +
+        "</a></br>\n";
+    }
+    if (id[0] == 1) {
+      liste_html_des_exercices_1 +=
+        '<span class="id_exercice">' +
+        id +
+        '</span> - <a class="lien_id_exercice" numero="' +
+        id +
+        '">' +
+        exercice_tmp.titre +
+        "</a></br>\n";
+    }
+    if (id[0] == 'T') {
+      liste_html_des_exercices_T +=
         '<span class="id_exercice">' +
         id +
         '</span> - <a class="lien_id_exercice" numero="' +
@@ -12571,6 +12605,12 @@ jQuery(document).ready(function () {
     liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Seconde (${nombre_d_exercices_disponibles_2})</div><div class="content">`;
     liste_html_des_exercices += liste_html_des_exercices_2;
     liste_html_des_exercices += `</div>`;
+    liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Première (${nombre_d_exercices_disponibles_1})</div><div class="content">`;
+    liste_html_des_exercices += liste_html_des_exercices_1;
+    liste_html_des_exercices += `</div>`;
+    liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Terminale (${nombre_d_exercices_disponibles_T})</div><div class="content">`;
+    liste_html_des_exercices += liste_html_des_exercices_T;
+    liste_html_des_exercices += `</div>`;
     liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>CRPE (${nombre_d_exercices_disponibles_PE})</div><div class="content">`;
     liste_html_des_exercices += liste_html_des_exercices_PE;
     liste_html_des_exercices += `</div>`;
@@ -12590,6 +12630,12 @@ jQuery(document).ready(function () {
     liste_html_des_exercices += `</div>`;
     liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Seconde (${nombre_d_exercices_disponibles_2})</div><div class="content">`;
     liste_html_des_exercices += liste_html_des_exercices_2;
+    liste_html_des_exercices += `</div>`;
+    liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Première (${nombre_d_exercices_disponibles_1})</div><div class="content">`;
+    liste_html_des_exercices += liste_html_des_exercices_1;
+    liste_html_des_exercices += `</div>`;
+    liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Terminale (${nombre_d_exercices_disponibles_T})</div><div class="content">`;
+    liste_html_des_exercices += liste_html_des_exercices_T;
     liste_html_des_exercices += `</div>`;
     liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>CRPE (${nombre_d_exercices_disponibles_PE})</div><div class="content">`;
     liste_html_des_exercices += liste_html_des_exercices_PE;
