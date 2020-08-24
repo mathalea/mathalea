@@ -6095,12 +6095,44 @@ function Trouver_oppose(){
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
-
+			// une fonction pour générer un relatif et son opposé
+			function nbRel_et_son_oppose() {
+				let nb_num = calcul(randint(-9,9) + calcul(randint(-9,9)/10));
+				
+				return {
+					nb:tex_nombre(nb_num),
+					opp:tex_nombre(-nb_num)
+				};
+			}
+			let nb_ligne_nombres = ['\\text{Nombre}'];
+			let nb_ligne_nombres_corr = ['\\text{Nombre}'];
+			let nb_ligne_nombres_opp = [];
+			let nb_ligne_nombres_opp_corr = [];
+			let nb;
+			for (let k=0;k<6;k++) {
+				nb=nbRel_et_son_oppose();
+				if (randint(0,1)==1) {
+					nb_ligne_nombres[k+1] = '';	
+					nb_ligne_nombres_corr[k+1]=mise_en_evidence(nb.nb);
+					nb_ligne_nombres_opp.push(nb.opp)
+					nb_ligne_nombres_opp_corr.push(nb.opp)
+				} else {
+					nb_ligne_nombres.push(nb.nb);	
+					nb_ligne_nombres_corr.push(nb.nb);	
+					nb_ligne_nombres_opp[k] = '';
+					nb_ligne_nombres_opp_corr[k]=mise_en_evidence(nb.opp);
+				}				
+			};
+			
 			let enonces = [];
 			enonces.push({
-				enonce:`énoncé type 1`,
+				enonce:`								
+				${tab_C_L(nb_ligne_nombres,['\\text{Opposé du nombre}'],nb_ligne_nombres_opp)}
+				`,
 				question:``,
-				correction:`${texte_en_couleur(`correction type1`)}`
+				correction:`
+				${tab_C_L(nb_ligne_nombres_corr,['\\text{Opposé du nombre}'],nb_ligne_nombres_opp_corr)}				
+				`
 			  });
 			enonces.push({
 				enonce:`énoncé type 2`,
