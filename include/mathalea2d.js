@@ -1748,7 +1748,9 @@ function cercleCentrePoint(...args) {
  * @param {boolean} rayon booléen si true, les rayons délimitant l'arc sont ajoutés
  * @param {boolean} fill
  * @param {string} color
+ * @param {number} fillOpacite // transparence de remplissage de 0 à 1.
  */
+
 function Arc(M,Omega,angle,rayon=false,fill='none',color='black',fillOpacite=0.2) {
 	ObjetMathalea2D.call(this);
 	this.color=color;
@@ -1774,7 +1776,7 @@ function Arc(M,Omega,angle,rayon=false,fill='none',color='black',fillOpacite=0.2
 		large=0
 		sweep=1-(angle>0)
 	}
-	let N=rotation(M,Omega,angle)
+  let N=rotation(M,Omega,angle)
 	if (rayon) 	this.svg = function(coeff){
 		if (this.epaisseur!=1) {
 			this.style += ` stroke-width="${this.epaisseur}" `
@@ -1841,6 +1843,7 @@ function arc(...args) {
  * @param {boolean} rayon //si true, l'arc est fermé par deux rayons aux extrémités
  * @param {string} fill //couleur de remplissage (par défaut 'none'= sans remplissage)
  * @param {string} color //couleur de l'arc
+ * @param {number} fillOpacite // transparence de remplissage de 0 à 1.
  * @Auteur Jean-Claude Lhote
  */
 function ArcPointPointAngle(M,N,angle,rayon=false,fill='none',color='black',fillOpacite=0.2) {
@@ -1857,12 +1860,7 @@ function ArcPointPointAngle(M,N,angle,rayon=false,fill='none',color='black',fill
   Omegay = calcul((-f.c + (d.c * f.a) / d.a) / (f.b - (f.a * d.b) / d.a));
   Omegax = calcul(-d.c / d.a - (d.b * Omegay) / d.a);
   let Omega = point(Omegax, Omegay);
-  let l = longueur(Omega, M);
-  let a = arc(M, Omega, angle, rayon, fill, color,0.2);
-  a.isVisible = false;
-  ObjetMathalea2D.call(this);
-  this.svg = a.svg;
-  this.tikz = a.tikz;
+ Arc.call(this,M,Omega,angle,rayon,fill,color,fillOpacite);
 }
 function arcPointPointAngle(...args) {
   return new ArcPointPointAngle(...args);
