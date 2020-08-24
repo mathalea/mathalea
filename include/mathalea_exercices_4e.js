@@ -10204,8 +10204,10 @@ function Tracer_avec_scratch(){
       // on prépare un tableau avec l'abscisse de démarrage du lutin pour tracer le figures
       // ce tableau permettra de placer aléatoirement la bonne figure et de la refaire en rouge ?
       let tab_abs_dem_lutin2; 
-      if (n==6 || n==8) {
-        tab_abs_dem_lutin2 = [0,4*myPolyName(n).nb_pas,7*myPolyName(n).nb_pas,10*myPolyName(n).nb_pas]       
+      if (n==6) {
+        tab_abs_dem_lutin2 = [0,3*myPolyName(n).nb_pas,6*myPolyName(n).nb_pas,9*myPolyName(n).nb_pas]       
+      } else if (n==8) {
+        tab_abs_dem_lutin2 = [0,4*myPolyName(n).nb_pas,8*myPolyName(n).nb_pas,12*myPolyName(n).nb_pas]       
       } else {
         tab_abs_dem_lutin2 = [0,2*myPolyName(n).nb_pas,4*myPolyName(n).nb_pas,6*myPolyName(n).nb_pas]       
       };
