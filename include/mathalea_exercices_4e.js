@@ -10198,9 +10198,14 @@ function Tracer_avec_scratch(){
         },
       ];
       // on prépare la fenetre mathalea2d
-      let fenetreMathalea2D = {xmin:-4,ymin:-10,xmax:30,ymax:2,pixelsParCm:20}
-      pixelsParCm = 100;
-      unitesLutinParCm = 100;
+      let fenetreMathalea2D = {xmin:-4,ymin:-10,xmax:30,ymax:2,pixelsParCm:20,scale:0.5}
+  //    if (sortie_html) {
+        pixelsParCm = 100;
+        unitesLutinParCm = 100;
+      // } else {
+      //   pixelsParCm = 200;
+      //   unitesLutinParCm = 200;  
+      // }
       // on prépare un tableau avec l'abscisse de démarrage du lutin pour tracer le figures
       // ce tableau permettra de placer aléatoirement la bonne figure et de la refaire en rouge ?
       let tab_abs_dem_lutin2; 
