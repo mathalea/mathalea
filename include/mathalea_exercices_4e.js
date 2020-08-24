@@ -10073,7 +10073,8 @@ function Tracer_avec_scratch(){
 	};	
 
 	this.titre = "Dessiner avec scratch";
-	this.consigne = "Dessiner la figure qui va être tracée avec le script fourni.";
+  //this.consigne = "Dessiner la figure qui va être tracée avec le script fourni.";
+  this.consigne = "Laquelle des 4 figures ci-dessous va être tracée avec le script fourni ?";
 	
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -10119,6 +10120,10 @@ function Tracer_avec_scratch(){
         nb_pas:``
       };
       switch (n) {
+        case 2:
+          sortie.name=`segment`;
+          sortie.nameParSommets = `AB`;
+          sortie.nb_pas = 400;
         case 3:
           sortie.name = `triangle équilatéral`;
           sortie.nameParSommets = `ABC`;
@@ -10152,7 +10157,7 @@ function Tracer_avec_scratch(){
         case 9:
           sortie.name = `ennéagone régulier`;
           sortie.nameParSommets = `ABCDEFGHI`;
-          sortie.nb_pas = 175;
+          sortie.nb_pas = 200;
           break;
 
       }
@@ -10173,7 +10178,7 @@ function Tracer_avec_scratch(){
           stylo en position d'écriture
           répéter (${n}) fois
             avancer de (${myPolyName(n).nb_pas}) pas
-            tourner droite de (${360/n}) degrés
+            tourner droite de ((360)/(${n})) degrés
           fin                  
           </pre>          
           `,
@@ -10184,22 +10189,32 @@ function Tracer_avec_scratch(){
             \\blockrepeat{répéter \\ovalnum{${n}} fois}
               {
                 \\blockmove{avancer de \\ovalnum{${myPolyName(n).nb_pas}}}
-                \\blockmove{tourner \\turnright{} de \\ovalnum{${360/n}} degrés}
+                \\blockmove{tourner \\turnright{} de \\ovaloperator{\\ovalnum{360}/\\ovalnum{${n}}} degrés}
               }
           \\end{scratch}
           `,
+          fig:``,
           fig_corr:``,
-          fig_corr_fake1:``,
-          fir_gorr_fake2:``
         },
       ];
       // on prépare la fenetre mathalea2d
-      let fenetreMathalea2D = {xmin:-4,ymin:-10,xmax:18,ymax:2,pixelsParCm:20}
-      pixelsParCm = 50;
-      unitesLutinParCm = 50;
-      // le lutin2 est celui qui fait la bonne figure
+      let fenetreMathalea2D = {xmin:-4,ymin:-10,xmax:30,ymax:2,pixelsParCm:20}
+      pixelsParCm = 100;
+      unitesLutinParCm = 100;
+      // on prépare un tableau avec l'abscisse de démarrage du lutin pour tracer le figures
+      // ce tableau permettra de placer aléatoirement la bonne figure et de la refaire en rouge ?
+      let tab_abs_dem_lutin2; 
+      if (n==6 || n==8) {
+        tab_abs_dem_lutin2 = [0,4*myPolyName(n).nb_pas,7*myPolyName(n).nb_pas,10*myPolyName(n).nb_pas]       
+      } else {
+        tab_abs_dem_lutin2 = [0,2*myPolyName(n).nb_pas,4*myPolyName(n).nb_pas,6*myPolyName(n).nb_pas]       
+      };
+      // on mélange tout ça !
+      tab_abs_dem_lutin2 = shuffle(tab_abs_dem_lutin2);
+      // Les figures de l'énoncé         
+      // le lutin2  trace le cadre en pointillés
       let lutin2=creerLutin();
-      lutin2.color="blue";
+      lutin2.color="black";
       lutin2.pointilles=true;
       allerA(fenetreMathalea2D.xmin*pixelsParCm,fenetreMathalea2D.ymax*pixelsParCm,lutin2);
       baisseCrayon(lutin2);
@@ -10208,59 +10223,123 @@ function Tracer_avec_scratch(){
       allerA(fenetreMathalea2D.xmin*pixelsParCm,fenetreMathalea2D.ymin*pixelsParCm,lutin2);
       allerA(fenetreMathalea2D.xmin*pixelsParCm,fenetreMathalea2D.ymax*pixelsParCm,lutin2);
       leveCrayon(lutin2);
+      //le lutin2 fait la bonne figure
       lutin2.pointilles = false;
-      allerA(0,0,lutin2);
+      lutin2.color="blue";
+      allerA(tab_abs_dem_lutin2[0],0,lutin2);
       baisseCrayon(lutin2);      
       for (let k=1;k<n+1; k++) {
         avance(myPolyName(n).nb_pas,lutin2);
         tournerD(calcul(360/n),lutin2);
       };
-      let mesAppels_corr = [
+      // le lutin2 fait un polygone régulier avec un côté de plus 
+      leveCrayon(lutin2);
+      allerA(tab_abs_dem_lutin2[1],0,lutin2);
+      baisseCrayon(lutin2);
+      for (let k=1;k<n+1+1; k++) {
+        avance(myPolyName(n+1).nb_pas,lutin2);
+        tournerD(calcul(360/(n+1)),lutin2);
+      };
+
+      // le lutin2 fait un polygone régulier avec un côté de moins 
+      leveCrayon(lutin2);
+      allerA(tab_abs_dem_lutin2[2],0,lutin2);
+      baisseCrayon(lutin2);
+      for (let k=1;k<n; k++) {
+        avance(myPolyName(n-1).nb_pas,lutin2);
+        tournerD(calcul(360/(n-1)),lutin2);
+      };
+
+      // le lutin2 fait une figure ouverte à n côtés
+      leveCrayon(lutin2);
+      allerA(tab_abs_dem_lutin2[3],0,lutin2);
+      baisseCrayon(lutin2);
+      for (let k=1;k<n+1; k++) {
+        avance(myPolyName(n).nb_pas,lutin2);
+        tournerD(calcul((360/n)-10),lutin2);
+      };
+      allerA(tab_abs_dem_lutin2[3],0,lutin2);
+
+      let mesAppels_enonce = [
         lutin2,
+      ]
+      situations[0].fig = mathalea2d(
+        fenetreMathalea2D,
+        mesAppels_enonce
+        );
+
+      // les figures de la correction
+      // le lutin3  trace le cadre
+      let lutin3=creerLutin();
+      lutin3.color="black";
+      lutin3.pointilles=true;
+      allerA(fenetreMathalea2D.xmin*pixelsParCm,fenetreMathalea2D.ymax*pixelsParCm,lutin3);
+      baisseCrayon(lutin3);
+      allerA(fenetreMathalea2D.xmax*pixelsParCm,fenetreMathalea2D.ymax*pixelsParCm,lutin3);
+      allerA(fenetreMathalea2D.xmax*pixelsParCm,fenetreMathalea2D.ymin*pixelsParCm,lutin3);
+      allerA(fenetreMathalea2D.xmin*pixelsParCm,fenetreMathalea2D.ymin*pixelsParCm,lutin3);
+      allerA(fenetreMathalea2D.xmin*pixelsParCm,fenetreMathalea2D.ymax*pixelsParCm,lutin3);
+      leveCrayon(lutin3);
+      // le lutin3 fait la bonne figure      
+      lutin3.pointilles = false;
+      lutin3.color="green"
+      allerA(tab_abs_dem_lutin2[0],0,lutin3);
+      baisseCrayon(lutin3);      
+      for (let k=1;k<n+1; k++) {
+        avance(myPolyName(n).nb_pas,lutin3);
+        tournerD(calcul(360/n),lutin3);
+      };
+      // le lutin3 fait un polygone régulier avec un côté de plus 
+      lutin3.color="red";
+      leveCrayon(lutin3);
+      allerA(tab_abs_dem_lutin2[1],0,lutin3);
+      baisseCrayon(lutin3);
+      for (let k=1;k<n+1+1; k++) {
+        avance(myPolyName(n+1).nb_pas,lutin3);
+        tournerD(calcul(360/(n+1)),lutin3);
+      };
+
+      // le lutin3 fait un polygone régulier avec un côté de moins 
+      leveCrayon(lutin3);
+      allerA(tab_abs_dem_lutin2[2],0,lutin3);
+      baisseCrayon(lutin3);
+      for (let k=1;k<n; k++) {
+        avance(myPolyName(n-1).nb_pas,lutin3);
+        tournerD(calcul(360/(n-1)),lutin3);
+      };
+
+      // le lutin3 fait une figure ouverte à n côtés
+      leveCrayon(lutin3);
+      allerA(tab_abs_dem_lutin2[3],0,lutin3);
+      baisseCrayon(lutin3);
+      for (let k=1;k<n+1; k++) {
+        avance(myPolyName(n).nb_pas,lutin3);
+        tournerD(calcul((360/n)-10),lutin3);
+      };
+      allerA(tab_abs_dem_lutin2[3],0,lutin3);
+      
+      let mesAppels_corr = [
+        lutin3,
       ]
       situations[0].fig_corr = mathalea2d(
         fenetreMathalea2D,
         mesAppels_corr
         );
 
-            // fake1 avec n+1 côtés on utilise le lutin2 pour les dessins
-            let lutin2_f1=creerLutin();
-            lutin2_f1.color="blue";
-            lutin2_f1.pointilles=true;
-            allerA(fenetreMathalea2D.xmin*pixelsParCm,fenetreMathalea2D.ymax*pixelsParCm,lutin2_f1);
-            baisseCrayon(lutin2_f1);
-            allerA(fenetreMathalea2D.xmax*pixelsParCm,fenetreMathalea2D.ymax*pixelsParCm,lutin2_f1);
-            allerA(fenetreMathalea2D.xmax*pixelsParCm,fenetreMathalea2D.ymin*pixelsParCm,lutin2_f1);
-            allerA(fenetreMathalea2D.xmin*pixelsParCm,fenetreMathalea2D.ymin*pixelsParCm,lutin2_f1);
-            allerA(fenetreMathalea2D.xmin*pixelsParCm,fenetreMathalea2D.ymax*pixelsParCm,lutin2_f1);
-            leveCrayon(lutin2_f1);
-            lutin2_f1.pointilles = false;
-            allerA(0,0,lutin2_f1);
-            baisseCrayon(lutin2_f1);      
-            for (let k=1;k<n+2; k++) {
-              avance(myPolyName(n+1).nb_pas,lutin2_f1);
-              tournerD(calcul(360/(n+1)),lutin2_f1);
-            };
-            situations[0].fig_corr_fake1 = mathalea2d(
-              fenetreMathalea2D,
-              lutin2_f1
-            )
 
 			let enonces = [];
 			enonces.push({
         enonce:`
         ${scratchblocks_Tikz(situations[0].code_svg,situations[0].code_tikz)}
-        <br>
-        Quelle est la bonne fiure ?
-        <br>Fig1
-        ${situations[0].fig_corr}
-        <br>Fig2        
-        ${situations[0].fig_corr_fake1}        
+        <br> 
+        ${situations[0].fig}
         `,
 				question:``,
         correction:`
-        ${texte_en_couleur(`La figure tracée est donc un ${situations[0].nom}.`)}
-        <br>
+        <br> Les figures rouges sont erronées.
+        <br> La figure tracée par le programme a ${situations[0].nb_cotes} côtés de même longueur et ${situations[0].nb_cotes} angles de même mesure, c'est un ${situations[0].nom}.
+        <br>${texte_en_couleur(`La bonne figure est donc la figure verte.`)}
+        <br><br>
         ${situations[0].fig_corr}
         `
       });
