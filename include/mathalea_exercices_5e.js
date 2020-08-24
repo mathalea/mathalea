@@ -2544,7 +2544,7 @@ function Lire_abscisse_relative(){
 			l3=lettre_depuis_chiffre(i*3+3)
 			switch (type_de_questions[i]) {
 				case 1: // Placer des décimaux relatifs sur un axe (1 décimale)
-					abs0 = randint(-7, -3);
+					abs0 = randint(-6, -3);
 					pas1 = 1;
 					pas2 = 10;
 					break;
@@ -2556,7 +2556,7 @@ function Lire_abscisse_relative(){
 					break;
 
 				case 3: // Placer des décimaux relatifs sur un axe (3 décimales)
-					abs0 = randint(-10, -2) / 100;
+					abs0 = randint(-6, -2) / 100;
 					pas1 = 100;
 					pas2 = 10;
 					break;
