@@ -6050,4 +6050,99 @@ function Construire_par_Symetrie() {
 	  `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`,
 	];
   }
+
+  
+  /** 
+ * * Dessiner selon un programme scratch
+ * * 5R10-0
+ * @author Sébastien Lozano
+ */
+function Trouver_oppose(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.beta = true;	
+	this.sup=1;
+	if (this.beta) {
+		this.nb_questions = 1;
+	} else {
+		this.nb_questions = 1;
+	};	
+
+	this.titre = "Trouver l'opposé d'un nombre relatif";
+	this.consigne = "Compléter le tableau suivant.";
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	//this.nb_questions_modifiable = false;
+	//sortie_html? this.spacing = 3 : this.spacing = 2; 
+  //sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
+  
+	let type_de_questions_disponibles;	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		if (this.beta) {
+			type_de_questions_disponibles = [1];			
+		} else {
+			type_de_questions_disponibles = [1];			
+		};
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		//type_de_questions_disponibles=[1];			
+
+		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+
+			let enonces = [];
+			enonces.push({
+				enonce:`énoncé type 1`,
+				question:``,
+				correction:`${texte_en_couleur(`correction type1`)}`
+			  });
+			enonces.push({
+				enonce:`énoncé type 2`,
+				question:``,
+				correction:`${texte_en_couleur(`correction type2`)}`
+			});
+
+			switch (liste_type_de_questions[i]){
+				case 1 : 
+          texte = `${enonces[0].enonce}`;
+          if (this.beta) {
+            texte += `<br>`;
+            texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
+            texte_corr = ``;	
+          } else {
+            texte_corr = `${enonces[0].correction}`;
+          };
+          break;	
+        case 2 : 
+					texte = `${enonces[1].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[1].correction}`;
+					};
+					break;				
+			}
+			
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+}
   
