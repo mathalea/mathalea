@@ -12405,6 +12405,8 @@ jQuery(document).ready(function () {
   let nombre_d_exercices_disponibles_4 = 0;
   let nombre_d_exercices_disponibles_3 = 0;
   let nombre_d_exercices_disponibles_2 = 0;
+  let nombre_d_exercices_disponibles_1 = 0;
+  let nombre_d_exercices_disponibles_T = 0;
   let nombre_d_exercices_disponibles_CM = 0;
   let nombre_d_exercices_disponibles_prof = 0;
   let nombre_d_exercices_disponibles_PE = 0;
@@ -12428,6 +12430,12 @@ jQuery(document).ready(function () {
     if (id[0] == 2) {
       nombre_d_exercices_disponibles_2 += 1;
     }
+    if (id[0] == 1) {
+      nombre_d_exercices_disponibles_1 += 1;
+    }
+    if (id[0] == "T") {
+      nombre_d_exercices_disponibles_T += 1;
+    }
     if (id[0] == "C") {
       nombre_d_exercices_disponibles_CM += 1;
     }
@@ -12448,6 +12456,8 @@ jQuery(document).ready(function () {
   let liste_html_des_exercices_4 = [];
   let liste_html_des_exercices_3 = [];
   let liste_html_des_exercices_2 = [];
+  let liste_html_des_exercices_1 = [];
+  let liste_html_des_exercices_T = [];
   let liste_html_des_exercices_CM = [];
   let liste_html_des_exercices_prof = [];
   let liste_html_des_exercices_PE = [];
@@ -12500,6 +12510,26 @@ jQuery(document).ready(function () {
     }
     if (id[0] == 2) {
       liste_html_des_exercices_2 +=
+        '<span class="id_exercice">' +
+        id +
+        '</span> - <a class="lien_id_exercice" numero="' +
+        id +
+        '">' +
+        exercice_tmp.titre +
+        "</a></br>\n";
+    }
+    if (id[0] == 1) {
+      liste_html_des_exercices_1 +=
+        '<span class="id_exercice">' +
+        id +
+        '</span> - <a class="lien_id_exercice" numero="' +
+        id +
+        '">' +
+        exercice_tmp.titre +
+        "</a></br>\n";
+    }
+    if (id[0] == 'T') {
+      liste_html_des_exercices_T +=
         '<span class="id_exercice">' +
         id +
         '</span> - <a class="lien_id_exercice" numero="' +
@@ -12575,6 +12605,12 @@ jQuery(document).ready(function () {
     liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Seconde (${nombre_d_exercices_disponibles_2})</div><div class="content">`;
     liste_html_des_exercices += liste_html_des_exercices_2;
     liste_html_des_exercices += `</div>`;
+    liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Première (${nombre_d_exercices_disponibles_1})</div><div class="content">`;
+    liste_html_des_exercices += liste_html_des_exercices_1;
+    liste_html_des_exercices += `</div>`;
+    liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Terminale (${nombre_d_exercices_disponibles_T})</div><div class="content">`;
+    liste_html_des_exercices += liste_html_des_exercices_T;
+    liste_html_des_exercices += `</div>`;
     liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>CRPE (${nombre_d_exercices_disponibles_PE})</div><div class="content">`;
     liste_html_des_exercices += liste_html_des_exercices_PE;
     liste_html_des_exercices += `</div>`;
@@ -12594,6 +12630,12 @@ jQuery(document).ready(function () {
     liste_html_des_exercices += `</div>`;
     liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Seconde (${nombre_d_exercices_disponibles_2})</div><div class="content">`;
     liste_html_des_exercices += liste_html_des_exercices_2;
+    liste_html_des_exercices += `</div>`;
+    liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Première (${nombre_d_exercices_disponibles_1})</div><div class="content">`;
+    liste_html_des_exercices += liste_html_des_exercices_1;
+    liste_html_des_exercices += `</div>`;
+    liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Terminale (${nombre_d_exercices_disponibles_T})</div><div class="content">`;
+    liste_html_des_exercices += liste_html_des_exercices_T;
     liste_html_des_exercices += `</div>`;
     liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>CRPE (${nombre_d_exercices_disponibles_PE})</div><div class="content">`;
     liste_html_des_exercices += liste_html_des_exercices_PE;
