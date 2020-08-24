@@ -11390,6 +11390,7 @@ function Nommer_et_coder_des_polygones() {
       cpt++;
     }
     liste_de_question_to_contenu(this);
+    pixelsParCm=20
   };
   this.besoin_formulaire2_numerique = [
     "Type de cahier",
@@ -12201,8 +12202,144 @@ function Tracer_triangle_2_angles() {
 }
 
 function Solide_6e() {
+  "use strict";
+  Exercice.call(this);
+  this.titre = "Connaître les propriétés du cube et du pavé droit";
+  this.nb_questions = 1;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  this.sup = 1;
+  this.sup2 = 1;
+  this.nouvelle_version = function (numero_de_l_exercice) {
+  let type_de_questions_disponibles;
+  type_de_questions_disponibles = [parseInt(this.sup)]; 
+  let liste_type_de_questions = combinaison_listes(
+      type_de_questions_disponibles,
+      this.nb_questions
+    );
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    let Xmin, Xmax, Ymin, Ymax, ppc, sc;
+    function initialise_variables() {
+      if (sortie_html) {
+        // repère -10 || 10
+        Xmin = -1;
+        Ymin = -4;
+        Xmax = 15;
+        Ymax = 11;
+        ppc = 20;
+      } else {
+        // repère -5 || 5
+        Xmin = -1;
+        Ymin = -4;
+        Xmax = 15;
+        Ymax =11;
+        ppc = 20;
+      }
+    }
 
+    initialise_variables();
+    if (this.sup2 == 1) sc = 0.5;
+    else sc = 0.8;
+
+    let A,B,C,D,E,F,G,H,
+      AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,
+      lAB,lBC,lAE,anglepersp,coeffpersp,
+      codesseg=[],
+      enonce,
+      correction,
+      carreaux,g,
+      objets_enonce = [],
+      objets_correction = [],
+      params = {
+        xmin: Xmin,
+        ymin: Ymin,
+        xmax: Xmax,
+        ymax: Ymax,
+        pixelsParCm: ppc,
+        scale: sc,
+      },k,
+      p;
+    for (
+      let i = 0, texte, texte_corr, cpt = 0;
+      i < this.nb_questions && cpt < 50;
+
+    ) {
+      if (this.sup2 < 3) g = grille(-1, -15, 15, 15, "gray", 0.7);
+      else g = "";
+      if (this.sup2 == 2) {
+        k = 0.8;
+        carreaux = seyes(Xmin, Ymin, Xmax, Ymax);
+      } else {
+        k = 0.5;
+        carreaux = "";
+      }
+      let nom = creerNomDePolygone(8, "PQ"),
+      anglepersp=choice([30,45,-30,-45])
+      if (anglepersp%10==0) coeffpersp=0.7
+      else coeffpersp=0.5
+         switch (liste_type_de_questions[i]) {
+        case 1: //cube
+          A = point(0, 0, nom[0], "below left");
+          B = point(7, 0, nom[1], "below right");
+          C = point(7,7, nom[2], "above right");
+          D = point(0,7, nom[3],"above left");
+          E = similitude(B,A,anglepersp,coeffpersp,nom[4])
+          F = translation2Points(E,A,B,nom[5])
+          G = translation2Points(F,B,C,nom[6])
+          H = translation2Points(G,C,D,nom[7])
+          AB=segment(A,B)
+          BC=segment(B,C)
+          CD=segment(C,D)
+          DA=segment(D,A)
+          EF=segment(E,F)
+          FG=segment(F,G)
+          GH=segment(G,H)
+          HE=segment(H,E)
+          AE=segment(A,E)
+          BF=segment(B,F)
+          CG=segment(C,G)
+          DH=segment(D,H)
+
+        objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,
+            g,
+            carreaux
+          );
+          objets_enonce.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,
+            g,
+            carreaux
+          );
+          enonce = num_alpha(0) + ` Reproduire la figure ci-dessous.<br>`;
+          enonce +=
+            num_alpha(1) +
+            ` Repasse tous les segments de même longueur dans une même couleur.<br>`;
+          enonce += mathalea2d(params, objets_enonce);
+          correction = mathalea2d(params, objets_correction);
+          break;
+        case 2:
+           break
+      }
+
+      if (this.liste_questions.indexOf(texte) == -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
+        this.liste_questions.push(enonce + "<br>");
+        this.liste_corrections.push(correction + "<br>");
+        i++;
+      }
+      cpt++;
+    }
+
+    liste_de_question_to_contenu(this);
+  };
+  //	this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
+  this.besoin_formulaire2_numerique = [
+    "Type de cahier",
+    3,
+    `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`,
+  ];
 }
+
+
 /**
  * @Auteur Rémi Angot
  */
