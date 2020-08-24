@@ -10057,7 +10057,7 @@ function Trouver_erreur_resol_eq_deg1(){
 }
 
 /** 
- * * Trouver l'erreur dans une equation
+ * * Dessiner selon un programme scratch
  * * 4Algo1-0
  * @author Sébastien Lozano
  */
@@ -10149,13 +10149,19 @@ function Tracer_avec_scratch(){
           sortie.nameParSommets = `ABCDEFGH`;
           sortie.nb_pas = 200;
           break;
+        case 9:
+          sortie.name = `ennéagone régulier`;
+          sortie.nameParSommets = `ABCDEFGHI`;
+          sortie.nb_pas = 175;
+          break;
+
       }
       return sortie;
     }
 
 
       // on définit le nombre de côtés du polygone régulier
-      let n = randint(3,8);
+      let n = randint(3,8,[7]);
 
       let situations = [
         {//polygones réguliers
@@ -10182,13 +10188,16 @@ function Tracer_avec_scratch(){
               }
           \\end{scratch}
           `,
-          fig_corr:``
+          fig_corr:``,
+          fig_corr_fake1:``,
+          fir_gorr_fake2:``
         },
       ];
       // on prépare la fenetre mathalea2d
       let fenetreMathalea2D = {xmin:-4,ymin:-10,xmax:18,ymax:2,pixelsParCm:20}
       pixelsParCm = 50;
       unitesLutinParCm = 50;
+      // le lutin2 est celui qui fait la bonne figure
       let lutin2=creerLutin();
       lutin2.color="blue";
       lutin2.pointilles=true;
@@ -10213,16 +10222,46 @@ function Tracer_avec_scratch(){
         fenetreMathalea2D,
         mesAppels_corr
         );
+
+            // fake1 avec n+1 côtés on utilise le lutin2 pour les dessins
+            let lutin2_f1=creerLutin();
+            lutin2_f1.color="blue";
+            lutin2_f1.pointilles=true;
+            allerA(fenetreMathalea2D.xmin*pixelsParCm,fenetreMathalea2D.ymax*pixelsParCm,lutin2_f1);
+            baisseCrayon(lutin2_f1);
+            allerA(fenetreMathalea2D.xmax*pixelsParCm,fenetreMathalea2D.ymax*pixelsParCm,lutin2_f1);
+            allerA(fenetreMathalea2D.xmax*pixelsParCm,fenetreMathalea2D.ymin*pixelsParCm,lutin2_f1);
+            allerA(fenetreMathalea2D.xmin*pixelsParCm,fenetreMathalea2D.ymin*pixelsParCm,lutin2_f1);
+            allerA(fenetreMathalea2D.xmin*pixelsParCm,fenetreMathalea2D.ymax*pixelsParCm,lutin2_f1);
+            leveCrayon(lutin2_f1);
+            lutin2_f1.pointilles = false;
+            allerA(0,0,lutin2_f1);
+            baisseCrayon(lutin2_f1);      
+            for (let k=1;k<n+2; k++) {
+              avance(myPolyName(n+1).nb_pas,lutin2_f1);
+              tournerD(calcul(360/(n+1)),lutin2_f1);
+            };
+            situations[0].fig_corr_fake1 = mathalea2d(
+              fenetreMathalea2D,
+              lutin2_f1
+            )
+
 			let enonces = [];
 			enonces.push({
         enonce:`
-        ${scratchblocks_Tikz(situations[0].code_svg,situations[0].code_tikz)}        
+        ${scratchblocks_Tikz(situations[0].code_svg,situations[0].code_tikz)}
+        <br>
+        Quelle est la bonne fiure ?
+        <br>Fig1
+        ${situations[0].fig_corr}
+        <br>Fig2        
+        ${situations[0].fig_corr_fake1}        
         `,
 				question:``,
         correction:`
         ${texte_en_couleur(`La figure tracée est donc un ${situations[0].nom}.`)}
         <br>
-        ${situations[0].fig_corr}        
+        ${situations[0].fig_corr}
         `
       });
       enonces.push({
