@@ -129,7 +129,7 @@ var liste_des_exercices_disponibles = {
   "5L14": Tester_une_egalite,
   "5M10": Aire_du_parallelogramme,
   "5M20": Calcul_de_volumes_5e,
-  "beta5R10-0": Trouver_oppose,
+  "5R10-0": Trouver_oppose,
   "5R11": Lire_abscisse_relative,
   "5R11-2": Placer_points_sur_axe_relatifs,
   "5R12": Reperage_point_du_quart_de_plan,
