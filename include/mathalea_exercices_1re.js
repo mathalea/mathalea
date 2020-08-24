@@ -80,6 +80,107 @@ function Terme_d_une_suite_definie_explicitement(){
           texte += `<br>Calculer $u_{${k}}$.`;
 			
           texte_corr = `Dans l'expression de $u_n$ on remplasse $n$ par $${k}$, on obtient : $u_{${k}} = ${(a*k+b)/(c*k+d)}$.`;
+          break;
+      }
+      
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte); // Sinon on enregistre la question dans liste_questions
+				this.liste_corrections.push(texte_corr); // On fait pareil pour la correction
+				i++; // On passe à la question suivante
+			}
+			cpt++;	// Sinon on incrémente le compteur d'essai pour avoir une question nouvelle
+		}
+		liste_de_question_to_contenu(this); // La liste de question et la liste de la correction
+		// sont transformés en chaine de caractère (avec une liste HTML ou LaTeX suivant le contexte)
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+	// On aurait pu ajouter un formulaire pour régler le niveau de difficulté à l'aide de l'attribut this.sup
+}
+
+
+
+function Terme_d_une_suite_definie_par_recurrence(){
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Déterminer les termes d'une suite définie par récurrence";
+	this.consigne = "Une suite étant donnée, calculer le terme demandé.";
+	this.nb_questions = 4;
+
+	this.nouvelle_version = function(){
+		this.liste_questions = []; // Vide la liste de questions
+    this.liste_corrections = []; // Vide la liste de questions corrigées
+    
+    let type_de_questions_disponibles = [1, 2, 3, 3];
+    let liste_type_de_questions = combinaison_listes(
+      type_de_questions_disponibles,
+      this.nb_questions
+    ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+
+    for (
+      let i = 0, texte, texte_corr, cpt = 0, u, a, b, k;
+      i < this.nb_questions && cpt < 50;
+
+      ) {
+      switch (liste_type_de_questions[i]) {
+        case 1: //suite arithmétique
+          a = randint(1, 10)*choice([-1,1]);
+          u = randint(0, 10)*choice([-1,1]);
+          k = randint(1, 10);
+			
+          texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_{n+1} = u_n`;
+          if (a > 0) {texte += `+${a}$.`}
+          else {texte += `${a}$.`};
+
+          texte += `<br>Calculer $u_{${k}}$.`;
+			
+          texte_corr = `On calcule successivent les termes jusqu'à obtenir $u_${k}$ :`;
+          for (
+            let indice =0; indice < k; indice++ 
+          ){
+            texte_corr += `<br> $u_{${indice+1}} = u_{${indice}}`;
+            if (a > 0) {texte_corr += `+ ${a} = ${u} + ${a} = ${u}$`}
+            else {texte_corr += ` ${a} = ${u}  ${a} = ${u}$`}; // a étant négatif l'opérateur est intégré dans la variable
+            u = u + a;
+          }
+          break;
+        
+        case 2: //suite géométrique
+          a = randint(2,5)*choice([-1,1]);
+          u = randint(1,9)*choice([-1,1]);
+          k = randint(1,9);
+
+          texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_{n+1} = u_n \\times ${ecriture_parenthese_si_negatif(a)}$.`;
+
+          texte += `<br>Calculer $u_{${k}}$.`;
+			
+          texte_corr = `On calcule successivent les termes jusqu'à obtenir $u_${k}$ :`;
+          for (
+            let indice =0; indice < k; indice++ 
+          ){
+            texte_corr += `<br> $u_{${indice+1}} = u_{${indice}} \\times ${ecriture_parenthese_si_negatif(a)} = ${u} \\times ${ecriture_parenthese_si_negatif(a)} = ${u*a}$`;
+            u = u * a;
+          }
+          break;
+        
+        case 3: //suite arithmético-géométrique
+          a = randint(1,5)*choice([-1,1]);
+          b = randint(1,5)*choice([-1,1]);
+          u = randint(1,5)*choice([-1,1]);
+          k = randint(1,9);
+
+          texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_{n+1} = ${a} u_n ${ecriture_algebrique(b)}$.`;
+          
+          texte += `<br>Calculer $u_{${k}}$.`;
+			
+          texte_corr = `On calcule successivent les termes jusqu'à obtenir $u_${k}$ :`;
+          for (
+            let indice =0; indice < k; indice++ 
+          ){
+            texte_corr += `<br> $u_{${indice+1}} = ${a}\\times u_{${indice}} ${ecriture_algebrique(b)}=`;
+            texte_corr += `${a} \\times ${ecriture_parenthese_si_negatif(u)} ${ecriture_algebrique(b)} = ${a*u+b}$`;
+            u = u * a + b;
+          }
+          break;
       }
       
 			
