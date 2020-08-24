@@ -10064,7 +10064,7 @@ function Trouver_erreur_resol_eq_deg1(){
 function Tracer_avec_scratch(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 1;
