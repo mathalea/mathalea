@@ -12254,9 +12254,9 @@ function Solide_6e() {
          switch (liste_type_de_questions[i]) {
         case 1: //cube
           A = point(6, 0, nom[0], "left");
-          B = point(13, 0, nom[1], "right");
-          C = point(13,7, nom[2], "right");
-          D = point(6,7, nom[3],"left");
+          B = point(11, 0, nom[1], "right");
+          C = point(11,5, nom[2], "right");
+          D = point(6,5, nom[3],"left");
           p=polygone(A,B,C,D)
           p.couleurDeRemplissage='blue'
           p.opaciteDeRemplissage=0.2
@@ -12266,11 +12266,12 @@ function Solide_6e() {
           enonce=`${nom} est un cube.<br>`
           if (sortie_html) enonce +=` Reproduire la figure ci-dessous sur le cahier.<br>`;
           enonce += ` Repasse tous les segments de même longueur dans une même couleur.<br>`;
+          correction=`Le cube ${nom}.<br>`
 
           break;
         case 2:
           A = point(5, 0, nom[0], "left");
-          B = point(10+randint(1,3), 0, nom[1], "right");
+          B = point(9+randint(1,3), 0, nom[1], "right");
           C = point(B.x,randint(3,7), nom[2], "right");
           D = point(A.x,C.y, nom[3],"left");
           p=polygone(A,B,C,D)
@@ -12282,6 +12283,7 @@ function Solide_6e() {
           enonce=`${nom} est un pavé droit.<br>`
           if (sortie_html) enonce += ` Reproduire la figure ci-dessous sur le cahier.<br>`;
           enonce += ` Repasse tous les segments de même longueur dans une même couleur.<br>`;
+          correction=`Le pavé droit ${nom}.<br>`
 
            break
       }
@@ -12371,27 +12373,21 @@ function Solide_6e() {
         GH.opacite=0.7
         HE.opacite=0.7
       }
-      if (sortie_html) {
-        Xmin = Math.min(A.x,E.x)-2;
-        Ymin = Math.min(A.y,E.y)-2;
-        Xmax = Math.max(B.x,F.x)+2;
-        Ymax = Math.max(D.y,H.y)+2;
-        ppc = 20;
-      } else {
-        Xmin = Math.min(A.x,E.x)-2;
-        Ymin = Math.min(A.y,E.y)-2;
-        Xmax = Math.max(B.x,F.x)+2;
-        Ymax = Math.max(D.y,H.y)+2;
-        ppc = 20;
-      }
+      Xmin = Math.min(A.x,E.x)-1;
+      Ymin = Math.min(A.y,E.y)-1;
+      Xmax = Math.max(B.x,F.x)+1;
+      Ymax = Math.max(D.y,H.y)+1;
+      ppc = 20;
+
       if (this.sup2 < 3) g = grille(Xmin, Ymin, Xmax, Ymax, "gray", 0.7);
       else g = "";
       if (this.sup2 == 2) {
-        k = 0.8;
         carreaux = seyes(Xmin, Ymin, Xmax, Ymax);
-      } else {
-        k = 0.5;
+        sc=0.8
+      }
+      else {
         carreaux = "";
+        sc=0.5
       }
       objets_enonce.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,labelPoint(A,B,C,D,E,F,G,H),p,
         g,
@@ -12442,7 +12438,7 @@ function Solide_6e() {
         g,
         carreaux
       );
-      correction = mathalea2d(params, objets_correction,codesseg);
+      correction += mathalea2d(params, objets_correction,codesseg);
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(enonce + "<br>");
