@@ -9633,7 +9633,8 @@ function Mettre_en_equation_sans_resoudre(){
           ymin : -5,
           xmax : 7,
           ymax : 5,
-          pixelsParCm : 20
+          pixelsParCm : 20,
+          scale:0.7
           },
           mesAppels          
         )};      
