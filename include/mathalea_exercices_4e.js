@@ -8693,7 +8693,7 @@ function Tester_si_un_nombre_est_solution_d_une_equation() {
   this.sup = 1;
   //this.sup2=false;
   if (this.exo == "4L14-1") {
-    this.nb_questions = 6;
+    this.nb_questions = 4;
   } else if (this.exo == "4L14-2") {
     this.nb_questions = 3;
   } else {
@@ -8706,7 +8706,8 @@ function Tester_si_un_nombre_est_solution_d_une_equation() {
 
     let type_de_questions_disponibles;
     if (this.exo == "4L14-1") {
-      type_de_questions_disponibles = [1, 2, 3, 4, 5, 8];
+      //type_de_questions_disponibles = [1, 2, 3, 4, 5, 8];
+      type_de_questions_disponibles = [choice([1, 2]), 3,choice([4,5]), 8];
     } else if (this.exo == "4L14-2") {
       type_de_questions_disponibles = [9, 6, 7];
     } else {
