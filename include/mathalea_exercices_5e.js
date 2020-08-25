@@ -4001,7 +4001,7 @@ function Reduire_dinstinction_somme_produit() {
 			let n = randint(1,6);
 			let p = randint(1,6);
 			let inc = variables[randint(0,variables.length-1)];
-			//===== 0
+			//===== 0 le produit puis la somme
 			enonces.push({
 				enonce:`Simplifier le plus possible le produit puis la somme de $${sliceUn(n)}${inc}$ et de $${sliceUn(p)}${inc}$`,
 				questtion:``,
@@ -4021,7 +4021,7 @@ function Reduire_dinstinction_somme_produit() {
 			if(isUn(n) && isUn(p)) {
 				enonces[0].correction_produit = `$${inc}\\times ${inc} =$ ${texte_en_couleur(` $${inc}^2$`)} `;
 			}
-			//===== 1
+			//===== 1 le produit puis la somme
 			enonces.push({
 				enonce:`Simplifier le plus possible l'expression $${sliceUn(n)}${inc}\\times ${sliceUn(p)}${inc}$ puis l'expression $${sliceUn(n)}${inc}+${sliceUn(p)}${inc}$`,
 				questtion:``,
@@ -4042,9 +4042,9 @@ function Reduire_dinstinction_somme_produit() {
 			if(isUn(n) && isUn(p)) {
 				enonces[1].correction_produit = `$${inc}\\times ${inc} =$ ${texte_en_couleur(` $${inc}^2$`)} `;
 			}
-			//===== 2
+			//===== 2 la somme puis le produit 
 			enonces.push({
-				enonce:`Simplifier le plus possible le produit puis la somme de $${sliceUn(n)}${inc}$ et de $${sliceUn(p)}${inc}$`,
+				enonce:`Simplifier le plus possible la somme puis le produit de $${sliceUn(n)}${inc}$ et de $${sliceUn(p)}${inc}$`,
 				questtion:``,
 				correction_produit:`Le produit de $${sliceUn(n)}${inc}$ et de $${sliceUn(p)}${inc}$ vaut : $${sliceUn(n)}${inc}\\times ${sliceUn(p)}${inc} = ${n}\\times ${inc}\\times ${p}\\times ${inc} = ${n}\\times ${p}\\times ${inc}\\times ${inc}=$ `,
 				correction_somme:`La somme de $${sliceUn(n)}${inc}$ et de $${sliceUn(p)}${inc}$ vaut : $${sliceUn(n)}${inc}+${sliceUn(p)}${inc} = ${n}\\times ${inc}+${p}\\times ${inc} = (${n}+${p})\\times ${inc}=$ `
@@ -4062,7 +4062,7 @@ function Reduire_dinstinction_somme_produit() {
 			if(isUn(n) && isUn(p)) {
 				enonces[2].correction_produit = `$${inc}\\times ${inc} =$ ${texte_en_couleur(` $${inc}^2$`)} `;
 			}
-			//===== 3
+			//===== 3 la somme puis le produit 
 			enonces.push({
 				enonce:`Simplifier le plus possible l'expression $${sliceUn(n)}${inc}+${sliceUn(p)}${inc}$ puis l'expression $${sliceUn(n)}${inc}\\times ${sliceUn(p)}${inc}$`,
 				questtion:``,
