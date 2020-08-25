@@ -9906,7 +9906,7 @@ function Trouver_erreur_resol_eq_deg1(){
 	this.beta = true;	
 	this.sup=1;
 	if (this.beta) {
-		this.nb_questions = 3;
+		this.nb_questions = 4;
 	} else {
 		this.nb_questions = 2;
 	};	
@@ -9917,16 +9917,16 @@ function Trouver_erreur_resol_eq_deg1(){
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	//this.nb_questions_modifiable = false;
-	sortie_html? this.spacing = 2 : this.spacing = 2; 
-	sortie_html? this.spacing_corr = 2 : this.spacing_corr = 2;
+	sortie_html? this.spacing = 2.5 : this.spacing = 2; 
+	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 2;
 
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		if (this.beta) {
-			type_de_questions_disponibles = [1,2,3];			
+			type_de_questions_disponibles = [1,2,3,4];			
 		} else {
-			type_de_questions_disponibles = [choice([1,3]),2];			
+			type_de_questions_disponibles = [choice([1,3]),choice([2,4])];			
 		};
 
 		this.liste_questions = []; // Liste de questions
@@ -10103,10 +10103,10 @@ function Trouver_erreur_resol_eq_deg1(){
           inc:inc,
           eq:`$${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
           et1:`${texte_gras(`Étape 1 :`)} $${a}${inc} = ${c}${inc} ${signeDansEq(d).signe} ${d} ${signeDansEq(-b).signe} ${-b}$`,
-          et2:`${texte_gras(`Étape 2 :`)} $${a}${inc} ${signeDansEq(c).signe} ${c}${inc} = ${d} ${signeDansEq(b).signe} ${b}$`,// l'erreur est là on passe de l'autre côté
-          et3:`${texte_gras(`Étape 3 :`)} $${a+c}${inc} = ${d} ${signeDansEq(b).signe} ${b}$`,
-          et4:`${texte_gras(`Étape 4 :`)} $${inc} = \\dfrac{${d} ${signeDansEq(b).signe} ${b}}{${a+c}} $`,
-          et_fin:`${texte_gras(`Étape 5 :`)} $${inc} = \\dfrac{${d+b}}{${a+c}}$ ${simpFrac(d+b,a+c)}`,
+          et2:`${texte_gras(`Étape 2 :`)} $${a}${inc} ${signeDansEq(c).signe} ${c}${inc} = ${d} ${signeDansEq(-b).signe} ${-b}$`,// l'erreur est là on passe de l'autre côté
+          et3:`${texte_gras(`Étape 3 :`)} $${a+c}${inc} = ${d} ${signeDansEq(-b).signe} ${-b}$`,
+          et4:`${texte_gras(`Étape 4 :`)} $${inc} = \\dfrac{${d} ${signeDansEq(-b).signe} ${-b}}{${a+c}} $`,
+          et_fin:`${texte_gras(`Étape 5 :`)} $${inc} = \\dfrac{${d-b}}{${a+c}}$ ${simpFrac(d-b,a+c)}`,
           err:`
             L'erreur se situe à l'étape 2.
             <br>${currentGenreEtPrenom.prenom} "a fait passer" le terme $${signeDansEq(c).signe} ${c}${inc}$ "de l'autre côté"
@@ -10137,7 +10137,7 @@ function Trouver_erreur_resol_eq_deg1(){
           eq_corr_et4:` `,
           eq_corr_et_fin:` `,
         },
-        {//case 3 --> ax+b=cx+d  erreur à l'étape 2 on passe cx de l'autre côté
+        {//case 3 --> ax+b=cx+d  erreur à l'étape 1 on passe b de l'autre côté
           pronom:currentGenreEtPrenom.pronom,
           prenom:currentGenreEtPrenom.prenom,
           a:a,
@@ -10146,16 +10146,16 @@ function Trouver_erreur_resol_eq_deg1(){
           d:d,
           inc:inc,
           eq:`$${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
-          et1:`${texte_gras(`Étape 1 :`)} $${a}${inc} = ${c}${inc} ${signeDansEq(d).signe} ${d} ${signeDansEq(-b).signe} ${-b}$`,
-          et2:`${texte_gras(`Étape 2 :`)} $${a}${inc} ${signeDansEq(c).signe} ${c}${inc} = ${d} ${signeDansEq(b).signe} ${b}$`,// l'erreur est là on passe de l'autre côté
-          et3:`${texte_gras(`Étape 3 :`)} $${a+c}${inc} = ${d} ${signeDansEq(b).signe} ${b}$`,
-          et4:`${texte_gras(`Étape 4 :`)} $${inc} = \\dfrac{${d} ${signeDansEq(b).signe} ${b}}{${a+c}} $`,
-          et_fin:`${texte_gras(`Étape 5 :`)} $${inc} = \\dfrac{${d+b}}{${a+c}}$ ${simpFrac(d+b,a+c)}`,
+          et1:`${texte_gras(`Étape 1 :`)} $${a}${inc} = ${c}${inc} ${signeDansEq(d).signe} ${d} ${signeDansEq(b).signe} ${b}$`,
+          et2:`${texte_gras(`Étape 2 :`)} $${a}${inc} ${signeDansEq(-c).signe} ${-c}${inc} = ${d} ${signeDansEq(b).signe} ${b}$`,// l'erreur est là on passe de l'autre côté
+          et3:`${texte_gras(`Étape 3 :`)} $${a-c}${inc} = ${d} ${signeDansEq(b).signe} ${b}$`,
+          et4:`${texte_gras(`Étape 4 :`)} $${inc} = \\dfrac{${d} ${signeDansEq(b).signe} ${b}}{${a-c}} $`,
+          et_fin:`${texte_gras(`Étape 5 :`)} $${inc} = \\dfrac{${d+b}}{${a-c}}$ ${simpFrac(d+b,a-c)}`,
           err:`
-            L'erreur se situe à l'étape 2.
-            <br>${currentGenreEtPrenom.prenom} "a fait passer" le terme $${signeDansEq(c).signe} ${c}${inc}$ "de l'autre côté"
+            L'erreur se situe à l'étape 1.
+            <br>${currentGenreEtPrenom.prenom} "a fait passer" le terme $${signeDansEq(b).signe} ${b}$ "de l'autre côté"
             or pour obtenir une équation équivalente, il s'agit d'opérer de la même manière sur les deux membres de l'équation.
-            <br>Ici il faut ${signeDansEq(c).operation} $${signeDansEq(c).chgt_signe}${inc}$ aux deux membres.            
+            <br>Ici il faut ${signeDansEq(b).operation} $${signeDansEq(b).chgt_signe}$ aux deux membres.            
             `,
           eq_corr:`$${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
           eq_corr_et1:`
