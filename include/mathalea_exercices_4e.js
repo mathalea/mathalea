@@ -10005,7 +10005,7 @@ function Trouver_erreur_resol_eq_deg1(){
 
       // pour les situations
       let situations = [
-        {//ax+b=d+cx
+        {//ax+b=d+cx  erreur à l'étape 1 on passe cx de l'autre côté
           pronom:currentGenreEtPrenom.pronom,
           prenom:currentGenreEtPrenom.prenom,
           a:a,
@@ -10048,14 +10048,58 @@ function Trouver_erreur_resol_eq_deg1(){
           `,
           eq_corr_et4:` `,
           eq_corr_et_fin:` `,
-
-        }
+        },
+        {//ax+b=d+cx  erreur à l'étape 2 on passe b de l'autre côté
+          pronom:currentGenreEtPrenom.pronom,
+          prenom:currentGenreEtPrenom.prenom,
+          a:a,
+          b:b,
+          c:c,
+          d:d,
+          inc:inc,
+          eq:`$${a}${inc} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}$`,
+          et1:`${texte_gras(`Étape 1 :`)} $${a}${inc} ${signeDansEq(-c).signe} ${-c}${inc} ${signeDansEq(b).signe} ${b} = ${d}$`,
+          et2:`${texte_gras(`Étape 2 :`)} $${a}${inc} ${signeDansEq(-c).signe} ${-c}${inc} = ${d} ${signeDansEq(b).signe} ${b}$`,// l'erreur est là on passe de l'autre côté
+          et3:`${texte_gras(`Étape 3 :`)} $${a-c}${inc} = ${d+b}$`,
+          et4:`${texte_gras(`Étape 4 :`)} $${inc} = \\dfrac{${d} ${signeDansEq(b).signe} ${b}}{${a-c}} $`,
+          et_fin:`${texte_gras(`Étape 5 :`)} $${inc} = \\dfrac{${d+b}}{${a-c}}$ ${simpFrac(d+b,a-c)}`,
+          err:`
+            L'erreur se situe à l'étape 2.
+            <br>${currentGenreEtPrenom.prenom} "a fait passer" le terme $${signeDansEq(b).signe} ${b}${inc}$ "de l'autre côté"
+            or pour obtenir une équation équivalente, il s'agit d'opérer de la même manière sur les deux membres de l'équation.
+            <br>Ici il faut ${signeDansEq(b).operation} $${signeDansEq(b).chgt_signe}$ aux deux membres.            
+            `,
+          eq_corr:`$${a}${inc} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}$`,          
+          eq_corr_et1:`
+          ${texte_gras(`Étape 1 :`)} 
+          <br> il faut $${mise_en_evidence(signeDansEq(c).operation)}$ $${mise_en_evidence(signeDansEq(c).chgt_signe)}${mise_en_evidence(inc)}$ aux deux membres 
+          <br> $${a}${inc} ${mise_en_evidence(signeDansEq(-c).signe)} ${mise_en_evidence(-c)}${mise_en_evidence(inc)} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc} ${mise_en_evidence(signeDansEq(-c).signe)} ${mise_en_evidence(-c)}${mise_en_evidence(inc)}$
+          <br> puis on réduit
+          <br> $${a-c}${inc} ${signeDansEq(b).signe} ${b} = ${d}$
+          `,// l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
+          eq_corr_et2:`
+          ${texte_gras(`Étape 2 :`)}
+          <br> il faut maintenant $${mise_en_evidence(signeDansEq(b).operation)}$ $${mise_en_evidence(signeDansEq(b).chgt_signe)}$ aux deux membres 
+          <br> $${a-c}${inc} ${signeDansEq(b).signe} ${b} ${mise_en_evidence(signeDansEq(-b).signe)} ${mise_en_evidence(-b)} = ${d} ${mise_en_evidence(signeDansEq(-b).signe)} ${mise_en_evidence(-b)}$
+          <br> réduction à nouveau
+          <br> $${a-c}${inc} = ${d-b}$
+          `,
+          eq_corr_et3:`
+          ${texte_gras(`Étape 3 :`)}
+          <br> Il faut alors $${mise_en_evidence(`\\textbf{diviser par}`)}$ $${mise_en_evidence(a-c)}$ les deux membres
+          <br> $\\dfrac{${a-c}${inc}}{${mise_en_evidence(a-c)}} = \\dfrac{${d-b}}{${mise_en_evidence(a-c)}}$
+          <br>$${inc} = \\dfrac{${d-b}}{${a-c}}$ ${simpFrac(d-b,a-c)}
+          `,
+          eq_corr_et4:` `,
+          eq_corr_et_fin:` `,
+      },
+      
       ];
 
 
 
 			let enonces = [];
-			enonces.push({
+			enonces.push({// ax+b=d+cx  erreur à l'étape 1 on passe cx de l'autre côté
         enonce:`
           ${situations[0].prenom} doit résoudre l'équation suivante : ${situations[0].eq}.
           <br> Voilà ce qu'${situations[0].pronom} écrit :
@@ -10079,10 +10123,29 @@ function Trouver_erreur_resol_eq_deg1(){
         <br>${situations[0].eq_corr_et_fin}       
         `
       });
-      enonces.push({
-				enonce:`énoncé type 2`,
+			enonces.push({// ax+b=d+cx  erreur à l'étape 1 on passe cx de l'autre côté
+        enonce:`
+          ${situations[1].prenom} doit résoudre l'équation suivante : ${situations[1].eq}.
+          <br> Voilà ce qu'${situations[1].pronom} écrit :
+          <br>${situations[1].et1}
+          <br>${situations[1].et2}
+          <br>${situations[1].et3}
+          <br>${situations[1].et4}
+          <br>${situations[1].et_fin}
+        `,
 				question:``,
-        correction:`${texte_en_couleur(`correction type2`)}`
+        correction:`
+        ${situations[1].err}
+        <br><br>
+        Résolution détaillée :
+        <br>
+        <br>${situations[1].eq_corr}
+        <br>${situations[1].eq_corr_et1}
+        <br>${situations[1].eq_corr_et2}
+        <br>${situations[1].eq_corr_et3}
+        <br>${situations[1].eq_corr_et4}
+        <br>${situations[1].eq_corr_et_fin}       
+        `
       });
 
 			switch (liste_type_de_questions[i]){
