@@ -48,6 +48,8 @@ var liste_des_exercices_disponibles = {
   "6G20-2": Vocabulaire_des_triangles_6e,
   "6G23-2": Tracer_triangle_2_angles,
   "6G24": Transformations_6e,
+  "beta6G24-1" : Symetrie_axiale_point_6e,
+  "beta6G24-2" : Symetrie_axiale_figure_6e,
   "6G25-1": Pavages_et_reflexion,
   "6G25-2": Pavages_et_symetries,
   "6G42" : Solide_6e,
