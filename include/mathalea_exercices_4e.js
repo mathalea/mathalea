@@ -9903,7 +9903,7 @@ function Graphiques_et_proportionnalite() {
 function Trouver_erreur_resol_eq_deg1(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+	this.beta = true;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 5;
