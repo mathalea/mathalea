@@ -9906,9 +9906,9 @@ function Trouver_erreur_resol_eq_deg1(){
 	this.beta = true;	
 	this.sup=1;
 	if (this.beta) {
-		this.nb_questions = 4;
+		this.nb_questions = 5;
 	} else {
-		this.nb_questions = 2;
+		this.nb_questions = 3;
 	};	
 
 	this.titre = "Trouver l'erreur dans une résolution d'équation du premier degré";
@@ -9924,9 +9924,9 @@ function Trouver_erreur_resol_eq_deg1(){
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		if (this.beta) {
-			type_de_questions_disponibles = [1,2,3,4];			
+			type_de_questions_disponibles = [1,2,3,4,5];			
 		} else {
-			type_de_questions_disponibles = [choice([1,3]),choice([2,4])];			
+			type_de_questions_disponibles = [choice([1,3]),choice([2,4]),5];			
 		};
 
 		this.liste_questions = []; // Liste de questions
@@ -10025,29 +10025,24 @@ function Trouver_erreur_resol_eq_deg1(){
             or pour obtenir une équation équivalente, il s'agit d'opérer de la même manière sur les deux membres de l'équation.
             <br>Ici il faut ${signeDansEq(c).operation} $${signeDansEq(c).chgt_signe}${inc}$ aux deux membres.            
             `,
-          eq_corr:`$${a}${inc} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}$`,          
+          eq_corr:`${texte_gras(`Équation d'origine : `)} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}$`,          
           eq_corr_et1:`
-          ${texte_gras(`Étape 1 :`)} 
-          <br> il faut $${mise_en_evidence(signeDansEq(c).operation)}$ $${mise_en_evidence(signeDansEq(c).chgt_signe)}${mise_en_evidence(inc)}$ aux deux membres 
+          ${texte_gras(`Étape 1 : `)} $${mise_en_evidence(signeDansEq(c).operation)}$ $${mise_en_evidence(signeDansEq(c).chgt_signe)}${mise_en_evidence(inc)}$ aux deux membres. 
           <br> $${a}${inc} ${mise_en_evidence(signeDansEq(-c).signe)} ${mise_en_evidence(-c)}${mise_en_evidence(inc)} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc} ${mise_en_evidence(signeDansEq(-c).signe)} ${mise_en_evidence(-c)}${mise_en_evidence(inc)}$
-          <br> puis on réduit
+          <br>${texte_gras(`Étape 2 : `)} On réduit.
           <br> $${a-c}${inc} ${signeDansEq(b).signe} ${b} = ${d}$
           `,// l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
           eq_corr_et2:`
-          ${texte_gras(`Étape 2 :`)}
-          <br> il faut maintenant $${mise_en_evidence(signeDansEq(b).operation)}$ $${mise_en_evidence(signeDansEq(b).chgt_signe)}$ aux deux membres 
+          ${texte_gras(`Étape 3 :`)} $${mise_en_evidence(signeDansEq(b).operation)}$ $${mise_en_evidence(signeDansEq(b).chgt_signe)}$ aux deux membres. 
           <br> $${a-c}${inc} ${signeDansEq(b).signe} ${b} ${mise_en_evidence(signeDansEq(-b).signe)} ${mise_en_evidence(-b)} = ${d} ${mise_en_evidence(signeDansEq(-b).signe)} ${mise_en_evidence(-b)}$
-          <br> réduction à nouveau
+          <br>${texte_gras(`Étape 4 : `)} Réduction à nouveau.
           <br> $${a-c}${inc} = ${d-b}$
           `,
           eq_corr_et3:`
-          ${texte_gras(`Étape 3 :`)}
-          <br> Il faut alors $${mise_en_evidence(`\\textbf{diviser par}`)}$ $${mise_en_evidence(a-c)}$ les deux membres
+          ${texte_gras(`Étape 5 :`)} $${mise_en_evidence(`\\textbf{diviser par}`)}$ $${mise_en_evidence(a-c)}$ les deux membres.
           <br> $\\dfrac{${a-c}${inc}}{${mise_en_evidence(a-c)}} = \\dfrac{${d-b}}{${mise_en_evidence(a-c)}}$
           <br>$${inc} = \\dfrac{${d-b}}{${a-c}}$ ${simpFrac(d-b,a-c)}
           `,
-          eq_corr_et4:` `,
-          eq_corr_et_fin:` `,
         },
         {//case 1 --> ax+b=d+cx  erreur à l'étape 2 on passe b de l'autre côté
           pronom:currentGenreEtPrenom.pronom,
@@ -10069,29 +10064,24 @@ function Trouver_erreur_resol_eq_deg1(){
             or pour obtenir une équation équivalente, il s'agit d'opérer de la même manière sur les deux membres de l'équation.
             <br>Ici il faut ${signeDansEq(b).operation} $${signeDansEq(b).chgt_signe}$ aux deux membres.            
             `,
-          eq_corr:`$${a}${inc} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}$`,          
+          eq_corr:`${texte_gras(`Équation d'origine : `)} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc}$`,          
           eq_corr_et1:`
-          ${texte_gras(`Étape 1 :`)} 
-          <br> il faut $${mise_en_evidence(signeDansEq(c).operation)}$ $${mise_en_evidence(signeDansEq(c).chgt_signe)}${mise_en_evidence(inc)}$ aux deux membres 
+          ${texte_gras(`Étape 1 :`)} $${mise_en_evidence(signeDansEq(c).operation)}$ $${mise_en_evidence(signeDansEq(c).chgt_signe)}${mise_en_evidence(inc)}$ aux deux membres 
           <br> $${a}${inc} ${mise_en_evidence(signeDansEq(-c).signe)} ${mise_en_evidence(-c)}${mise_en_evidence(inc)} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc} ${mise_en_evidence(signeDansEq(-c).signe)} ${mise_en_evidence(-c)}${mise_en_evidence(inc)}$
-          <br> puis on réduit
+          <br>${texte_gras(`Étape 2 : `)} On réduit.
           <br> $${a-c}${inc} ${signeDansEq(b).signe} ${b} = ${d}$
           `,// l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
           eq_corr_et2:`
-          ${texte_gras(`Étape 2 :`)}
-          <br> il faut maintenant $${mise_en_evidence(signeDansEq(b).operation)}$ $${mise_en_evidence(signeDansEq(b).chgt_signe)}$ aux deux membres 
+          ${texte_gras(`Étape 3 :`)} $${mise_en_evidence(signeDansEq(b).operation)}$ $${mise_en_evidence(signeDansEq(b).chgt_signe)}$ aux deux membres 
           <br> $${a-c}${inc} ${signeDansEq(b).signe} ${b} ${mise_en_evidence(signeDansEq(-b).signe)} ${mise_en_evidence(-b)} = ${d} ${mise_en_evidence(signeDansEq(-b).signe)} ${mise_en_evidence(-b)}$
-          <br> réduction à nouveau
+          <br>${texte_gras(`Étape 4 : `)} Réduction à nouveau.
           <br> $${a-c}${inc} = ${d-b}$
           `,
           eq_corr_et3:`
-          ${texte_gras(`Étape 3 :`)}
-          <br> Il faut alors $${mise_en_evidence(`\\textbf{diviser par}`)}$ $${mise_en_evidence(a-c)}$ les deux membres
+          ${texte_gras(`Étape 5 :`)} $${mise_en_evidence(`\\textbf{diviser par}`)}$ $${mise_en_evidence(a-c)}$ les deux membres
           <br> $\\dfrac{${a-c}${inc}}{${mise_en_evidence(a-c)}} = \\dfrac{${d-b}}{${mise_en_evidence(a-c)}}$
           <br>$${inc} = \\dfrac{${d-b}}{${a-c}}$ ${simpFrac(d-b,a-c)}
           `,
-          eq_corr_et4:` `,
-          eq_corr_et_fin:` `,
         },
         {//case 2 --> ax+b=cx+d  erreur à l'étape 2 on passe cx de l'autre côté
           pronom:currentGenreEtPrenom.pronom,
@@ -10113,29 +10103,24 @@ function Trouver_erreur_resol_eq_deg1(){
             or pour obtenir une équation équivalente, il s'agit d'opérer de la même manière sur les deux membres de l'équation.
             <br>Ici il faut ${signeDansEq(c).operation} $${signeDansEq(c).chgt_signe}${inc}$ aux deux membres.            
             `,
-          eq_corr:`$${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
+          eq_corr:`${texte_gras(`Équation d'origine : `)} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
           eq_corr_et1:`
-          ${texte_gras(`Étape 1 :`)} 
-          <br> il faut $${mise_en_evidence(signeDansEq(c).operation)}$ $${mise_en_evidence(signeDansEq(c).chgt_signe)}${mise_en_evidence(inc)}$ aux deux membres 
+          ${texte_gras(`Étape 1 :`)} $${mise_en_evidence(signeDansEq(c).operation)}$ $${mise_en_evidence(signeDansEq(c).chgt_signe)}${mise_en_evidence(inc)}$ aux deux membres 
           <br> $${a}${inc} ${mise_en_evidence(signeDansEq(-c).signe)} ${mise_en_evidence(-c)}${mise_en_evidence(inc)} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc} ${mise_en_evidence(signeDansEq(-c).signe)} ${mise_en_evidence(-c)}${mise_en_evidence(inc)}$
-          <br> puis on réduit
+          <br>${texte_gras(`Étape 2 : `)} On réduit.
           <br> $${a-c}${inc} ${signeDansEq(b).signe} ${b} = ${d}$
           `,// l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
           eq_corr_et2:`
-          ${texte_gras(`Étape 2 :`)}
-          <br> il faut maintenant $${mise_en_evidence(signeDansEq(b).operation)}$ $${mise_en_evidence(signeDansEq(b).chgt_signe)}$ aux deux membres 
+          ${texte_gras(`Étape 3 :`)} $${mise_en_evidence(signeDansEq(b).operation)}$ $${mise_en_evidence(signeDansEq(b).chgt_signe)}$ aux deux membres 
           <br> $${a-c}${inc} ${signeDansEq(b).signe} ${b} ${mise_en_evidence(signeDansEq(-b).signe)} ${mise_en_evidence(-b)} = ${d} ${mise_en_evidence(signeDansEq(-b).signe)} ${mise_en_evidence(-b)}$
-          <br> réduction à nouveau
+          <br>${texte_gras(`Étape 4 : `)} Réduction à nouveau.
           <br> $${a-c}${inc} = ${d-b}$
           `,
           eq_corr_et3:`
-          ${texte_gras(`Étape 3 :`)}
-          <br> Il faut alors $${mise_en_evidence(`\\textbf{diviser par}`)}$ $${mise_en_evidence(a-c)}$ les deux membres
+          ${texte_gras(`Étape 5 :`)} $${mise_en_evidence(`\\textbf{diviser par}`)}$ $${mise_en_evidence(a-c)}$ les deux membres
           <br> $\\dfrac{${a-c}${inc}}{${mise_en_evidence(a-c)}} = \\dfrac{${d-b}}{${mise_en_evidence(a-c)}}$
           <br>$${inc} = \\dfrac{${d-b}}{${a-c}}$ ${simpFrac(d-b,a-c)}
           `,
-          eq_corr_et4:` `,
-          eq_corr_et_fin:` `,
         },
         {//case 3 --> ax+b=cx+d  erreur à l'étape 1 on passe b de l'autre côté
           pronom:currentGenreEtPrenom.pronom,
@@ -10146,8 +10131,8 @@ function Trouver_erreur_resol_eq_deg1(){
           d:d,
           inc:inc,
           eq:`$${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
-          et1:`${texte_gras(`Étape 1 :`)} $${a}${inc} = ${c}${inc} ${signeDansEq(d).signe} ${d} ${signeDansEq(b).signe} ${b}$`,
-          et2:`${texte_gras(`Étape 2 :`)} $${a}${inc} ${signeDansEq(-c).signe} ${-c}${inc} = ${d} ${signeDansEq(b).signe} ${b}$`,// l'erreur est là on passe de l'autre côté
+          et1:`${texte_gras(`Étape 1 :`)} $${a}${inc} = ${c}${inc} ${signeDansEq(d).signe} ${d} ${signeDansEq(b).signe} ${b}$`,// l'erreur est là on passe de l'autre côté
+          et2:`${texte_gras(`Étape 2 :`)} $${a}${inc} ${signeDansEq(-c).signe} ${-c}${inc} = ${d} ${signeDansEq(b).signe} ${b}$`,
           et3:`${texte_gras(`Étape 3 :`)} $${a-c}${inc} = ${d} ${signeDansEq(b).signe} ${b}$`,
           et4:`${texte_gras(`Étape 4 :`)} $${inc} = \\dfrac{${d} ${signeDansEq(b).signe} ${b}}{${a-c}} $`,
           et_fin:`${texte_gras(`Étape 5 :`)} $${inc} = \\dfrac{${d+b}}{${a-c}}$ ${simpFrac(d+b,a-c)}`,
@@ -10157,37 +10142,71 @@ function Trouver_erreur_resol_eq_deg1(){
             or pour obtenir une équation équivalente, il s'agit d'opérer de la même manière sur les deux membres de l'équation.
             <br>Ici il faut ${signeDansEq(b).operation} $${signeDansEq(b).chgt_signe}$ aux deux membres.            
             `,
-          eq_corr:`$${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
+          eq_corr:`${texte_gras(`Équation d'origine : `)} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
           eq_corr_et1:`
-          ${texte_gras(`Étape 1 :`)} 
-          <br> il faut $${mise_en_evidence(signeDansEq(c).operation)}$ $${mise_en_evidence(signeDansEq(c).chgt_signe)}${mise_en_evidence(inc)}$ aux deux membres 
+          ${texte_gras(`Étape 1 :`)}$${mise_en_evidence(signeDansEq(c).operation)}$ $${mise_en_evidence(signeDansEq(c).chgt_signe)}${mise_en_evidence(inc)}$ aux deux membres 
           <br> $${a}${inc} ${mise_en_evidence(signeDansEq(-c).signe)} ${mise_en_evidence(-c)}${mise_en_evidence(inc)} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc} ${mise_en_evidence(signeDansEq(-c).signe)} ${mise_en_evidence(-c)}${mise_en_evidence(inc)}$
-          <br> puis on réduit
+          <br>${texte_gras(`Étape 2 : `)} On réduit.
           <br> $${a-c}${inc} ${signeDansEq(b).signe} ${b} = ${d}$
           `,// l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
           eq_corr_et2:`
-          ${texte_gras(`Étape 2 :`)}
-          <br> il faut maintenant $${mise_en_evidence(signeDansEq(b).operation)}$ $${mise_en_evidence(signeDansEq(b).chgt_signe)}$ aux deux membres 
+          ${texte_gras(`Étape 3 :`)} $${mise_en_evidence(signeDansEq(b).operation)}$ $${mise_en_evidence(signeDansEq(b).chgt_signe)}$ aux deux membres 
           <br> $${a-c}${inc} ${signeDansEq(b).signe} ${b} ${mise_en_evidence(signeDansEq(-b).signe)} ${mise_en_evidence(-b)} = ${d} ${mise_en_evidence(signeDansEq(-b).signe)} ${mise_en_evidence(-b)}$
-          <br> réduction à nouveau
+          <br>${texte_gras(`Étape 4 : `)} Réduction à nouveau.
           <br> $${a-c}${inc} = ${d-b}$
           `,
           eq_corr_et3:`
-          ${texte_gras(`Étape 3 :`)}
-          <br> Il faut alors $${mise_en_evidence(`\\textbf{diviser par}`)}$ $${mise_en_evidence(a-c)}$ les deux membres
+          ${texte_gras(`Étape 5 :`)} $${mise_en_evidence(`\\textbf{diviser par}`)}$ $${mise_en_evidence(a-c)}$ les deux membres
           <br> $\\dfrac{${a-c}${inc}}{${mise_en_evidence(a-c)}} = \\dfrac{${d-b}}{${mise_en_evidence(a-c)}}$
           <br>$${inc} = \\dfrac{${d-b}}{${a-c}}$ ${simpFrac(d-b,a-c)}
           `,
-          eq_corr_et4:` `,
-          eq_corr_et_fin:` `,
         },
-    
+        {//case 4 --> ax+b=cx+d  erreur à l'étape 4 on soustrait au lieu de diviser
+          pronom:currentGenreEtPrenom.pronom,
+          prenom:currentGenreEtPrenom.prenom,
+          a:a,
+          b:b,
+          c:c,
+          d:d,
+          inc:inc,
+          eq:`$${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
+          et1:`${texte_gras(`Étape 1 :`)} $${a}${inc} = ${c}${inc} ${signeDansEq(d).signe} ${d} ${signeDansEq(-b).signe} ${-b}$`,
+          et2:`${texte_gras(`Étape 2 :`)} $${a}${inc} ${signeDansEq(-c).signe} ${-c}${inc} = ${d} ${signeDansEq(-b).signe} ${-b}$`,
+          et3:`${texte_gras(`Étape 3 :`)} $${a-c}${inc} = ${d} ${signeDansEq(-b).signe} ${-b}$`,
+          et4:`${texte_gras(`Étape 4 :`)} $${inc} = ${d} ${signeDansEq(-b).signe} ${-b} - ${ecriture_parenthese_si_negatif(a-c)} $`,
+          et_fin:`${texte_gras(`Étape 5 :`)} $${inc} = ${d-b-a+c}$`,
+          err:`
+            L'erreur se situe à l'étape 4.
+            <br>${currentGenreEtPrenom.prenom} soustrait le coefficient de ${inc} au lieu de diviser par ce coefficient.
+            <br>Or $${a-c}${inc}$ représente la multiplication $${a-c}\\times ${inc}$, et l'opération inverse de la multiplication c'est la division et non la soustraction.
+            <br>Ici il faut diviser les deux membres par $${a-c}$.            
+            `,
+          eq_corr:`${texte_gras(`Équation d'origine : `)} $${a}${inc} ${signeDansEq(b).signe} ${b} = ${c}${inc} ${signeDansEq(d).signe} ${d} $`,
+          eq_corr_et1:`
+          ${texte_gras(`Étape 1 :`)} $${mise_en_evidence(signeDansEq(c).operation)}$ $${mise_en_evidence(signeDansEq(c).chgt_signe)}${mise_en_evidence(inc)}$ aux deux membres 
+          <br> $${a}${inc} ${mise_en_evidence(signeDansEq(-c).signe)} ${mise_en_evidence(-c)}${mise_en_evidence(inc)} ${signeDansEq(b).signe} ${b} = ${d} ${signeDansEq(c).signe} ${c}${inc} ${mise_en_evidence(signeDansEq(-c).signe)} ${mise_en_evidence(-c)}${mise_en_evidence(inc)}$
+          <br>${texte_gras(`Étape 2 : `)} On réduit.
+          <br> $${a-c}${inc} ${signeDansEq(b).signe} ${b} = ${d}$
+          `,// l'erreur est là, on passe de l'autre côté d'où l'oubli du chgt de signe
+          eq_corr_et2:`
+          ${texte_gras(`Étape 3 :`)} $${mise_en_evidence(signeDansEq(b).operation)}$ $${mise_en_evidence(signeDansEq(b).chgt_signe)}$ aux deux membres 
+          <br> $${a-c}${inc} ${signeDansEq(b).signe} ${b} ${mise_en_evidence(signeDansEq(-b).signe)} ${mise_en_evidence(-b)} = ${d} ${mise_en_evidence(signeDansEq(-b).signe)} ${mise_en_evidence(-b)}$
+          <br>${texte_gras(`Étape 4 : `)} Réduction à nouveau.
+          <br> $${a-c}${inc} = ${d-b}$
+          `,
+          eq_corr_et3:`
+          ${texte_gras(`Étape 5 :`)} $${mise_en_evidence(`\\textbf{diviser par}`)}$ $${mise_en_evidence(a-c)}$ les deux membres
+          <br> $\\dfrac{${a-c}${inc}}{${mise_en_evidence(a-c)}} = \\dfrac{${d-b}}{${mise_en_evidence(a-c)}}$
+          <br>$${inc} = \\dfrac{${d-b}}{${a-c}}$ ${simpFrac(d-b,a-c)}
+          `,
+        },
+  
       ];
 
 
 
       let enonces = [];
-      for (let k=0;k<4;k++) {
+      for (let k=0;k<5;k++) {
         enonces.push({// case 0 --> ax+b=d+cx  erreur à l'étape 1 on passe cx de l'autre côté
         enonce:`
           ${situations[k].prenom} doit résoudre l'équation suivante : ${situations[k].eq}.
@@ -10201,14 +10220,12 @@ function Trouver_erreur_resol_eq_deg1(){
 				question:``,
         correction:`
         ${situations[k].err}
-        <br><br>
-        ${texte_gras(`Voici une proposition de résolution détaillée :`)}         
+        <br>
+        ${texte_gras(`=== Voici une proposition de résolution détaillée : ===`)}         
         <br>${situations[k].eq_corr}
         <br>${situations[k].eq_corr_et1}
         <br>${situations[k].eq_corr_et2}
         <br>${situations[k].eq_corr_et3}
-        <br>${situations[k].eq_corr_et4}
-        <br>${situations[k].eq_corr_et_fin}       
         `
       });
     };
@@ -10254,6 +10271,16 @@ function Trouver_erreur_resol_eq_deg1(){
 						texte_corr = ``;	
 					} else {
 						texte_corr = `${enonces[3].correction}`;
+					};
+					break;				
+         case 5 : 
+					texte = `${enonces[4].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[4].correction}`;
 					};
 					break;				
 
