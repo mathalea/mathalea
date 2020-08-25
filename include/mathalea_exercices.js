@@ -12225,25 +12225,7 @@ function Solide_6e() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let Xmin, Xmax, Ymin, Ymax, ppc, sc;
-    function initialise_variables() {
-      if (sortie_html) {
-        // repère -10 || 10
-        Xmin = -1;
-        Ymin = -4;
-        Xmax = 18;
-        Ymax = 11;
-        ppc = 20;
-      } else {
-        // repère -5 || 5
-        Xmin = -1;
-        Ymin = -4;
-        Xmax = 18;
-        Ymax =11;
-        ppc = 20;
-      }
-    }
-
-    initialise_variables();
+ 
     if (this.sup2 == 1) sc = 0.5;
     else sc = 0.8;
 
@@ -12298,10 +12280,8 @@ function Solide_6e() {
           E.x=Math.round(E.x)
           E.y=Math.round(E.y)
           enonce=`${nom} est un cube.<br>`
-          enonce += num_alpha(0) + ` Reproduire la figure ci-dessous sur le cahier.<br>`;
-          enonce +=
-            num_alpha(1) +
-            ` Repasse tous les segments de même longueur dans une même couleur.<br>`;
+          if (sortie_html) enonce +=` Reproduire la figure ci-dessous sur le cahier.<br>`;
+          enonce += ` Repasse tous les segments de même longueur dans une même couleur.<br>`;
 
           break;
         case 2:
@@ -12316,10 +12296,8 @@ function Solide_6e() {
           E.x=Math.round(E.x)
           E.y=Math.round(E.y)
           enonce=`${nom} est un pavé droit.<br>`
-          enonce += num_alpha(0) + ` Reproduire la figure ci-dessous sur le cahier.<br>`;
-          enonce +=
-            num_alpha(1) +
-            ` Repasse tous les segments de même longueur dans une même couleur.<br>`;
+          if (sortie_html) enonce += ` Reproduire la figure ci-dessous sur le cahier.<br>`;
+          enonce += ` Repasse tous les segments de même longueur dans une même couleur.<br>`;
 
            break
       }
@@ -12413,6 +12391,23 @@ function Solide_6e() {
         g,
         carreaux
       );
+      
+      if (sortie_html) {
+        // repère -10 || 10
+        Xmin = Math.min(A.x,E.x)-2;
+        Ymin = Math.min(A.y,E.y)-2;
+        Xmax = Math.max(B.x,F.x)+2;
+        Ymax = Math.max(D.y,H.y)+2;
+        ppc = 20;
+      } else {
+        // repère -5 || 5
+        Xmin = Math.min(A.x,E.x)-2;
+        Ymin = Math.min(A.y,E.y)-1;
+        Xmax = Math.max(B.x,F.x)+1;
+        Ymax = Math.max(D.y,H.y)+1;
+        ppc = 20;
+      }
+    
       enonce += mathalea2d(params, objets_enonce);
       if (liste_type_de_questions[i]==1) {
         codesseg=[codeSegments('||','green',[A,B,C,D,A,E,F,G,H,E]),codeSegments('||','green',B,F,C,G,D,H)]

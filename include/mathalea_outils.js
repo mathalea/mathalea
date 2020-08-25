@@ -341,7 +341,16 @@ function compare_fractions(a,b){
 function compare_nombres(a,b){ 
 	return a - b ;
 }
-
+/**
+ * 
+ * Copié sur https://delicious-insights.com/fr/articles/le-piege-de-array-sort/
+ */
+function numTrie(arr) {
+	return arr.sort(function(a, b) {
+	  return +a - +b
+	})
+  }
+  
 /*
 * Mélange les items d'un tableau, sans modifier le tableau passé en argument
 *
@@ -644,7 +653,7 @@ function produit_matrice_matrice_3x3(matrice1,matrice2) { // les deux matrices s
  * @Auteur Jean-Claude Lhote
  */
 function changement_de_base_ortho_tri(point) {
-	point.push(1);
+	if (point.length==2) point.push(1);
 	return produit_matrice_vecteur_3x3([[1,-Math.cos(Math.PI/3)/Math.sin(Math.PI/3),0],[0,1/Math.sin(Math.PI/3),0],[0,0,1]],point)
 }
 /**
@@ -654,7 +663,7 @@ function changement_de_base_ortho_tri(point) {
  * @Auteur Jean-CLaude Lhote
  */
 function changement_de_base_tri_ortho(point) {
-	point.push(1);
+	if (point.length==2) point.push(1);
 	return produit_matrice_vecteur_3x3([[1,Math.cos(Math.PI/3),0],[0,Math.sin(Math.PI/3),0],[0,0,1]],point)
 }
 
@@ -700,7 +709,7 @@ function image_point_par_transformation (transformation,pointA,pointO,vecteur=[]
 
 	let x,y,x1,y1,u,v,k,pointA1=[0,0,0],pointA2=[0,0,0]
 
-	pointA.push(1)
+	if (pointA.length==2) pointA.push(1)
 	x2=pointO[0]  // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
 	y2=pointO[1]
 	u=vecteur[0] // (u,v) vecteur de translation.
