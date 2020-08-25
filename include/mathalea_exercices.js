@@ -21,7 +21,6 @@ var liste_des_exercices_disponibles = {
   "CM019": Le_compte_est_bonV3,
   "CM020": Le_compte_est_bonV4,
   "CM021": Compte_Est_Bon,
-  "beta6pave" : Solide_6e,
   "6C10": Additions_soustractions_multiplications_posees,
   "6C11": Divisions_euclidiennes,
   "6C10-1": Tables_de_multiplications,
@@ -51,6 +50,7 @@ var liste_des_exercices_disponibles = {
   "6G24": Transformations_6e,
   "6G25-1": Pavages_et_reflexion,
   "6G25-2": Pavages_et_symetries,
+  "6G42" : Solide_6e,
   "6M11-1": Perimetre_ou_aire_de_carres_rectangles_triangles,
   "6M11-2": Perimetre_ou_aire_de_figures_composees,
   "6M10": Reglages_6M10,
@@ -12238,31 +12238,15 @@ function Solide_6e() {
       carreaux,g,
       objets_enonce = [],
       objets_correction = [],
-      params = {
-        xmin: Xmin,
-        ymin: Ymin,
-        xmax: Xmax,
-        ymax: Ymax,
-        pixelsParCm: ppc,
-        scale: sc,
-      },k,
+     k,
       p;
     for (
       let i = 0, texte, texte_corr, cpt = 0;
       i < this.nb_questions && cpt < 50;
 
     ) {
-      if (this.sup2 < 3) g = grille(-1, -4, 18, 11, "gray", 0.7);
-      else g = "";
-      if (this.sup2 == 2) {
-        k = 0.8;
-        carreaux = seyes(Xmin, Ymin, Xmax, Ymax);
-      } else {
-        k = 0.5;
-        carreaux = "";
-      }
-      let nom = creerNomDePolygone(8, "PQ"),
-      anglepersp=choice([30,45,-30,-45,150,135,-150,-135])
+     let nom = creerNomDePolygone(8, "PQ"),
+     anglepersp=choice([30,45,-30,-45,150,135,-150,-135])
       if (anglepersp%10==0) coeffpersp=0.6
       else coeffpersp=0.4
       objets_correction=[]
@@ -12346,13 +12330,13 @@ function Solide_6e() {
       if (G.y<C.y&&G.x<C.x) {
         CG.pointilles=true
         CG.color='gray'
-        CG.opacite=0.5
+        CG.opacite=0.7
         GH.pointilles=true
         GH.color='gray'
-        GH.opacite=0.5
+        GH.opacite=0.7
         FG.pointilles=true
         FG.color='gray'
-        FG.opacite=0.5
+        FG.opacite=0.7
       }
       else if (E.y>A.y&&E.x>A.x) {
         AE.pointilles=true
@@ -12361,9 +12345,9 @@ function Solide_6e() {
         AE.color='gray'
         EF.color='gray'
         HE.color='gray'
-        AE.opacite=0.5
-        EF.opacite=0.5
-        HE.opacite=0.5
+        AE.opacite=0.7
+        EF.opacite=0.7
+        HE.opacite=0.7
       }
       else if (F.x<B.x&&F.y>B.y) {
         BF.pointilles=true
@@ -12372,9 +12356,9 @@ function Solide_6e() {
         BF.color='gray'
         FG.color='gray'
         EF.color='gray'
-        BF.opacite=0.5
-        FG.opacite=0.5
-        EF.opacite=0.5
+        BF.opacite=0.7
+        FG.opacite=0.7
+        EF.opacite=0.7
       }
       else if (H.x>D.x&&H.y<D.y) {
         DH.pointilles=true
@@ -12383,31 +12367,46 @@ function Solide_6e() {
         DH.color='gray'
         GH.color='gray'
         HE.color='gray'
-        DH.opacite=0.5
-        GH.opacite=0.5
-        HE.opacite=0.5
+        DH.opacite=0.7
+        GH.opacite=0.7
+        HE.opacite=0.7
       }
-      objets_enonce.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,labelPoint(A,B,C,D,E,F,G,H),p,
-        g,
-        carreaux
-      );
-      
       if (sortie_html) {
-        // repère -10 || 10
         Xmin = Math.min(A.x,E.x)-2;
         Ymin = Math.min(A.y,E.y)-2;
         Xmax = Math.max(B.x,F.x)+2;
         Ymax = Math.max(D.y,H.y)+2;
         ppc = 20;
       } else {
-        // repère -5 || 5
         Xmin = Math.min(A.x,E.x)-2;
-        Ymin = Math.min(A.y,E.y)-1;
-        Xmax = Math.max(B.x,F.x)+1;
-        Ymax = Math.max(D.y,H.y)+1;
+        Ymin = Math.min(A.y,E.y)-2;
+        Xmax = Math.max(B.x,F.x)+2;
+        Ymax = Math.max(D.y,H.y)+2;
         ppc = 20;
       }
-    
+      if (this.sup2 < 3) g = grille(Xmin, Ymin, Xmax, Ymax, "gray", 0.7);
+      else g = "";
+      if (this.sup2 == 2) {
+        k = 0.8;
+        carreaux = seyes(Xmin, Ymin, Xmax, Ymax);
+      } else {
+        k = 0.5;
+        carreaux = "";
+      }
+      objets_enonce.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,labelPoint(A,B,C,D,E,F,G,H),p,
+        g,
+        carreaux
+      );
+     
+    let  params = {
+      xmin: Xmin,
+      ymin: Ymin,
+      xmax: Xmax,
+      ymax: Ymax,
+      pixelsParCm: ppc,
+      scale: sc,
+    }
+   
       enonce += mathalea2d(params, objets_enonce);
       if (liste_type_de_questions[i]==1) {
         codesseg=[codeSegments('||','green',[A,B,C,D,A,E,F,G,H,E]),codeSegments('||','green',B,F,C,G,D,H)]
