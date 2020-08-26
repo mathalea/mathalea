@@ -5601,7 +5601,11 @@ function Construire_par_Symetrie() {
 			else d=droiteVerticaleParPoint(A)
 			B = pointSurDroite(d,6,`${p1nom[1]}`,'above');
 			d.isVisible = true;
-			d.epaisseur=2
+			d.epaisseur=1
+			if (k==2) {
+				A.positionLabel='left'
+				B.positionLabel='left'
+			}
 			C = point(randint(2, 3), randint(3, 4), `${p1nom[2]}`,'above left');
 			D = point(randint(3, 5), randint(-4, -3), `${p1nom[3]}`,'below right');
 //			dB = droiteParPointEtPerpendiculaire(B, d);
@@ -5652,7 +5656,7 @@ function Construire_par_Symetrie() {
 			B = point(6, randint(-1,1,A.y), `${p1nom[1]}`,'above');
 			d = droite(A, B);
 			d.isVisible = true;
-			d.epaisseur=2
+			d.epaisseur=1
 			C = point(randint(2, 3), randint(3, 4), `${p1nom[2]}`,'above left');
 			D = point(randint(10, 13), randint(-4, -3), `${p1nom[3]}`,'below right');
 //			dB = droiteParPointEtPerpendiculaire(B, d);
@@ -5735,7 +5739,7 @@ function Construire_par_Symetrie() {
 			else d=droiteVerticaleParPoint(A)
 			B = pointSurDroite(d,6,`${p1nom[1]}`,'above');
 			d.isVisible = true;
-			d.epaisseur=2
+			d.epaisseur=1
 			C = point(randint(2, 3), randint(3, 4), `${p1nom[2]}`,'above left');
 			D = point(randint(3, 5), randint(-4, -3), `${p1nom[3]}`,'below right');
 //			dB = droiteParPointEtPerpendiculaire(B, d);
@@ -5777,7 +5781,7 @@ function Construire_par_Symetrie() {
 				B = point(6, randint(-1,1,A.y), `${p1nom[1]}`,'above');
 				d = droite(A, B);
 				d.isVisible = true;
-				d.epaisseur=2
+				d.epaisseur=1
 				C = point(randint(2, 3), randint(3, 4), `${p1nom[2]}`,'above left');
 				D = point(randint(10, 13), randint(-4, -2), `${p1nom[3]}`,'below right');
 				dB = droiteParPointEtPerpendiculaire(B, d);
