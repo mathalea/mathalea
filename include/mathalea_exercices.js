@@ -54,7 +54,7 @@ var liste_des_exercices_disponibles = {
   "6G25-1": Pavages_et_reflexion,
   "6G25-2": Pavages_et_symetries,
   "6G42" : Solide_6e,
-  "beta6G43" : Utiliser_vocabulaire_pave,
+  "6G43" : Utiliser_vocabulaire_pave,
   "6M11-1": Perimetre_ou_aire_de_carres_rectangles_triangles,
   "6M11-2": Perimetre_ou_aire_de_figures_composees,
   "6M10": Reglages_6M10,
@@ -11251,49 +11251,21 @@ function Nommer_et_coder_des_polygones() {
   this.nb_questions = 4;
   this.nb_cols = 2;
   this.nb_cols_corr = 2;
-  this.sup2 = 3;
+  this.sup = 3;
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let Xmin, Xmax, Ymin, Ymax, ppc, sc, g, k, carreaux
-    function initialise_variables() {
+    ppc=20
       if (sortie_html) {
-        // repère -10 || 10
-        Xmin = 0;
-        Ymin = -6;
-        Xmax = 13;
-        Ymax = 8;
-        ppc = 20;
         sc=0.5
       } else {
-        // repère -5 || 5
-        Xmin = 0;
-        Ymin = -6;
-        Xmax = 13;
-        Ymax = 8;
-        ppc = 20;
         sc=0.4
       }
-    }
-    initialise_variables();
-    let params = {
-      xmin: Xmin,
-      ymin: Ymin,
-      xmax: Xmax,
-      ymax: Ymax,
-      pixelsParCm: ppc,
-      scale: sc,
-    }
-    if (this.sup2 < 3) g = grille(Xmin, Ymin, Xmax, Ymax, "gray", 0.7);
-    else g = ''
-    if (this.sup2 == 2) {
-      k = 0.8;
-      carreaux = seyes(Xmin, Ymin, Xmax, Ymax);
-    } else {
-      k = 0.5;
-      carreaux = "";
-    }
+
+    let params 
+    
     let liste = combinaison_listes([1, 2, 3, 4, 5, 6, 7, 8], this.nb_questions);
 
     for (
@@ -11331,7 +11303,7 @@ function Nommer_et_coder_des_polygones() {
             C = p.listePoints[2]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2])
             pcode = [codeSegments('||', 'blue', A, B, A, C, B, C),codeAngle(B,C,A,0.8,'|','blue',2,0.8,'blue',0.2),codeAngle(C,B,A,0.8,'|','blue',2,0.8,'blue',0.2),codeAngle(C,A,B,0.8,'|','blue',2,0.8,'blue',0.2)]
-            enonce = `le triangle $${nom[0] + nom[1] + nom[2]}$ est équilatéral.<br>\\phantom{et sa longueur est AB}`
+            enonce = `le triangle $${nom[0] + nom[1] + nom[2]}$ est équilatéral.<br>$\\phantom{et sa longueur est AB}$`
             break
           case 3: // triangle rectangle
             A = point(3, randint(0, 20) / 10, nom[0])
@@ -11344,7 +11316,7 @@ function Nommer_et_coder_des_polygones() {
             C = p.listePoints[2]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2])
             pcode = codageAngleDroit(B, A, C)
-            enonce = `le triangle $${nom[0] + nom[1] + nom[2]}$ est rectangle en $${nom[0]}$.<br>\\phantom{et sa longueur est AB}`
+            enonce = `le triangle $${nom[0] + nom[1] + nom[2]}$ est rectangle en $${nom[0]}$.<br>$\\phantom{et sa longueur est AB}$`
             break
           case 4: // triangle rectangle isocèle
             A = point(3, randint(0, 20) / 10, nom[0])
@@ -11371,7 +11343,7 @@ function Nommer_et_coder_des_polygones() {
             D = p.listePoints[3]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2] + nom[3])
             pcode = [codeSegments('||', 'blue', A, B, B, C, C, D, D, A), codageAngleDroit(B, A, D), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(A, D, C)]
-            enonce = `le quadrilatère $${nom[0] + nom[1] + nom[2] + nom[3]}$ est un carré.<br>\\phantom{et sa longueur est AB}`
+            enonce = `le quadrilatère $${nom[0] + nom[1] + nom[2] + nom[3]}$ est un carré.<br>$\\phantom{et sa longueur est AB}$`
             break
           case 6: // rectangle
             A = point(3, randint(0, 20) / 10, nom[0])
@@ -11422,6 +11394,37 @@ function Nommer_et_coder_des_polygones() {
         return [p, nom, pcode, pnom, enonce]
       }
       [pol, polnom, polcode, polsom, texte] = choisir_polygone(liste[i]);
+      if (pol.listePoints.length==4){
+      Xmin=Math.min(pol.listePoints[0].x,pol.listePoints[1].x,pol.listePoints[2].x,pol.listePoints[3].x)-1
+      Ymin=Math.min(pol.listePoints[0].y,pol.listePoints[1].y,pol.listePoints[2].y,pol.listePoints[3].y)-1
+      Xmax=Math.max(pol.listePoints[0].x,pol.listePoints[1].x,pol.listePoints[2].x,pol.listePoints[3].x)+1
+      Ymax=Math.max(pol.listePoints[0].y,pol.listePoints[1].y,pol.listePoints[2].y,pol.listePoints[3].y)+1
+      }
+      else{
+        Xmin=Math.min(pol.listePoints[0].x,pol.listePoints[1].x,pol.listePoints[2].x)-1
+        Ymin=Math.min(pol.listePoints[0].y,pol.listePoints[1].y,pol.listePoints[2].y)-1
+        Xmax=Math.max(pol.listePoints[0].x,pol.listePoints[1].x,pol.listePoints[2].x)+1
+        Ymax=Math.max(pol.listePoints[0].y,pol.listePoints[1].y,pol.listePoints[2].y)+1
+   
+      }
+      params = {
+        xmin: Xmin,
+        ymin: Ymin,
+        xmax: Xmax,
+        ymax: Ymax,
+        pixelsParCm: ppc,
+        scale: sc,
+      }
+      if (this.sup < 3) g = grille(Xmin, Ymin, Xmax, Ymax, "gray", 0.7);
+    else g = ''
+    if (this.sup == 2) {
+      k = 0.8;
+      carreaux = seyes(Xmin, Ymin, Xmax, Ymax);
+    } else {
+      k = 0.5;
+      carreaux = "";
+    }
+
       pol.epaisseur=2
       texte += `<br>` + mathalea2d(params, pol, polnom,g,carreaux)
       texte_corr = mathalea2d(params, pol, polnom, polcode, polsom,g,carreaux)
@@ -11436,7 +11439,7 @@ function Nommer_et_coder_des_polygones() {
     liste_de_question_to_contenu(this);
     pixelsParCm=20
   };
-  this.besoin_formulaire2_numerique = [
+  this.besoin_formulaire_numerique = [
     "Type de cahier",
     3,
     `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`,
@@ -12432,7 +12435,7 @@ function Solide_6e() {
       }
       Xmin = Math.min(A.x,E.x)-1;
       Ymin = Math.min(A.y,E.y)-1;
-      Xmax = Math.max(B.x,F.x)+1;
+      Xmax = Math.max(B.x,F.x)+2;
       Ymax = Math.max(D.y,H.y)+1;
       ppc = 20;
 
