@@ -384,6 +384,7 @@ function feuille_d_axes_gradues() {
 /**
  * Lire l'abscisse entière d'un point
  * @Auteur Jean-Claude Lhote et Rémi Angot
+ * référence 6N11
  */
 function Lire_abscisse_entiere() {
   "use strict";
@@ -550,6 +551,7 @@ function Lire_abscisse_entiere() {
 /**
  * Placer un point d'abscisse entière
  * @Auteur Jean-Claude Lhote et Rémi Angot
+ * référence 6N11-2
  */
 function Placer_un_point_abscisse_entiere() {
   "use strict";
@@ -876,6 +878,7 @@ function Questions_de_cours() {
 /**
  * Lire l'abscisse décimale d'un point
  * @Auteur Jean-Claude Lhote et Rémi Angot
+ * référence 6N30
  */
 function Lire_abscisse_decimale() {
   "use strict";
@@ -1042,6 +1045,7 @@ function Lire_abscisse_decimale() {
 /**
  * Lire l'abscisse fractionnaire d'un point
  * @Auteur Jean-Claude Lhote et Rémi Angot
+ * référence 6N21
  */
 function Lire_abscisse_fractionnaire() {
   "use strict";
@@ -1217,6 +1221,7 @@ function Lire_abscisse_fractionnaire() {
 /**
  * Placer un point d'abscisse décimale
  * @Auteur Jean-Claude Lhote et Rémi Angot
+ * référence 6N30-2
  */
 function Placer_points_sur_axe() {
   "use strict";
@@ -2984,6 +2989,7 @@ function Compte_Est_Bon() {
 /**
  * Générateur de tirages pour un compte est bon avec en correction la solution mathador (4 opérations différentes).
  * @Auteur Jean-Claude Lhote
+ * référence CM019
  */
 
 function Le_compte_est_bonV3() {
@@ -3042,7 +3048,7 @@ function Le_compte_est_bonV3() {
 }
 /**
  * @Auteur Jean-Claude Lhote
- *
+  * référence CM020
  * Dans cette version, il est possible de choisir 1,2,3,4 ou 5 nombres du tirage et de contraindre la cible entre deux valeurs
  */
 function Le_compte_est_bonV4() {
@@ -4778,6 +4784,7 @@ function Tableau_criteres_de_divisibilite() {
 /**
  * Exercice sur la notion de proportionnalité (ou pas)
  * @Auteur Jean-Claude Lhote
+ * référence 6P10
  */
 function Proportionnalite_pas_proportionnalite() {
   "use strict";
@@ -5111,7 +5118,8 @@ function Proportionnalite_pas_proportionnalite() {
  * On donne une relation de proportionnalité du type n objets coûtent x€ et on demande le prix de y objets
  * et le nombre d'objets qu'on peut acheter avec z€.
  * @Auteur Jean-Claude Lhote
- */
+ * référence 6P11
+*/
 function Proportionnalite_par_linearite() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -7208,6 +7216,7 @@ function Pourcentage_d_un_nombre() {
  *
  * Par défaut la division du nombre par le dénominateur est inférieure à 11
  * @Auteur Rémi Angot + Jean-Claude Lhote
+ * référence 6N33
  */
 function Fraction_d_un_nombre(max = 11) {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -9542,8 +9551,8 @@ function HTML_personnalise() {
 
 /**
  * Pavages et symétrie axiale.
- * @Auteur Jean-Claude Lhote
  * Pas de version LaTeX
+ * référence 6G25-1
  */
 function Pavages_et_reflexion() {
   "use strict";
@@ -9842,6 +9851,7 @@ function Pavages_et_reflexion() {
 /**
  * Calcul de volumes (cube et pavé droit).
  * @Auteur Jean-Claude Lhote
+ * référence 6M30
  */
 
 function Calcul_de_volumes() {
@@ -10121,7 +10131,7 @@ function Calcul_de_volumes() {
 }
 
 /**
- * Transformations : trouvers un point numéroté par une des transformations du plan.
+ * Transformations : trouvers un point numéroté par une des transformations du plan. Fonction générale utilisée sur tous les niveaux
  * @Auteur Jean-Claude Lhote
  * Pas de version LaTeX
  */
@@ -10538,6 +10548,7 @@ function Tracer_des_perpendiculaires_et_des_paralleles() {
 /**
  * Exercice en html seulement. Symétrie centrale dans un pavage.
  * @Auteur Jean-Claude Lhote
+ * référence 5G12
  */
 function Pavages_et_demi_tour() {
   Pavages_et_transformations.call(this);
@@ -10548,6 +10559,7 @@ function Pavages_et_demi_tour() {
 /**
  * Exercice en html seulement. Symétrie axiale dans un pavage.
  * @Auteur Jean-Claude Lhote
+ * référence 6G25-2
  */
 function Pavages_et_symetries() {
   Pavages_et_transformations.call(this);
@@ -10558,6 +10570,7 @@ function Pavages_et_symetries() {
 /**
  * Exercice en html seulement. Translations dans un pavage.
  * @Auteur Jean-Claude Lhote
+ * référence 4G11
  */
 function Pavages_et_translation() {
   Pavages_et_transformations.call(this);
@@ -10568,6 +10581,7 @@ function Pavages_et_translation() {
 /**
  * Exercice en html seulement. Rotationss dans un pavage.
  * @Auteur Jean-Claude Lhote
+ * référence 3G12
  */
 function Pavages_et_rotation() {
   Pavages_et_transformations.call(this);
@@ -10579,6 +10593,7 @@ function Pavages_et_rotation() {
 /**
  * Lire les coordonnées d'un point du quart de plan positif avec une précision allant de l'unité à 0,25.
  * @Auteur Jean-Claude Lhote
+ * référence 6N33
  */
 function Reperage_point_du_quart_de_plan() {
   Reperage_point_du_plan.call(this);
