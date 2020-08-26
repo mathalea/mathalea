@@ -6002,8 +6002,7 @@ function Construire_par_Symetrie() {
 			Xmax=Math.max(A.x,B.x,C.x,D.x,AA.x,CC.x,DD.x)+1
 			Ymin=Math.min(A.y,B.y,C.y,D.y,AA.y,CC.y,DD.y)-1
 			Ymax=Math.max(A.y,B.y,C.y,D.y,AA.y,CC.y,DD.y)+1
-
-			//correction+=`<br>Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(AB)$`
+			correction=''
 			break;
 
 			case 3 : // symétrie axiale simple d'un triangle
@@ -6046,7 +6045,7 @@ function Construire_par_Symetrie() {
 			Xmax=Math.max(A.x,B.x,C.x,D.x,p1.listePoints[0].x,p1.listePoints[1].x,p1.listePoints[2].x,p2.listePoints[0].x,p2.listePoints[1].x,p2.listePoints[2].x)+1
 			Ymin=Math.min(A.y,B.y,C.y,D.y,p1.listePoints[0].y,p1.listePoints[1].y,p1.listePoints[2].y,p2.listePoints[0].y,p2.listePoints[1].y,p2.listePoints[2].y)-1
 			Ymax=Math.max(A.y,B.y,C.y,D.y,p1.listePoints[0].y,p1.listePoints[1].y,p1.listePoints[2].y,p2.listePoints[0].y,p2.listePoints[1].y,p2.listePoints[2].y)+1
-
+			correction=''
 	
 			break
 			case 4: // symetrie axiale d'un triangle
@@ -6121,8 +6120,7 @@ function Construire_par_Symetrie() {
 				Xmax=Math.max(A.x,B.x,C.x,D.x,p1.listePoints[0].x,p1.listePoints[1].x,p1.listePoints[2].x,p2.listePoints[0].x,p2.listePoints[1].x,p2.listePoints[2].x)+1
 				Ymin=Math.min(A.y,B.y,C.y,D.y,p1.listePoints[0].y,p1.listePoints[1].y,p1.listePoints[2].y,p2.listePoints[0].y,p2.listePoints[1].y,p2.listePoints[2].y)-1
 				Ymax=Math.max(A.y,B.y,C.y,D.y,p1.listePoints[0].y,p1.listePoints[1].y,p1.listePoints[2].y,p2.listePoints[0].y,p2.listePoints[1].y,p2.listePoints[2].y)+1
-							
-				//correction+=`<br>Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(AB)$`
+				correction=''	
 				break;
 
 		}
