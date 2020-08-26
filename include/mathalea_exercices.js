@@ -10505,18 +10505,30 @@ function Transformations() {
 }
 
 // Exercices paramétrés pour correspondre au référentiel
+/**
+ * @Auteur Jean-Claude Lhote
+ * référence 6G11
+ */
 function Tracer_des_perpendiculaires() {
   Parallele_et_Perpendiculaires.call(this);
   this.titre = "Tracer des perpendiculaires";
   this.sup = 1;
   this.besoin_formulaire_numerique = false;
 }
+/**
+ * @Auteur Jean-Claude Lhote
+ * référence 6G12
+ */
 function Tracer_des_paralleles() {
   Parallele_et_Perpendiculaires.call(this);
   this.titre = "Tracer des parallèles";
   this.sup = 2;
   this.besoin_formulaire_numerique = false;
 }
+/**
+ * @Auteur Jean-Claude Lhote
+ * référence 6G12-1
+ */
 function Tracer_des_perpendiculaires_et_des_paralleles() {
   Parallele_et_Perpendiculaires.call(this);
   this.titre = "Tracer des perpendiculaires et des parallèles";
@@ -11581,7 +11593,10 @@ function Vocabulaire_des_triangles_5e() {
   this.classe = 5;
   Vocabulaire_des_triangles.call(this);
 }
-
+/**
+ * Fonction générale pour exercices de constructions de parallèles et perpendiculaires
+ * références 6G11, 6G12 et 6G12-1
+ */
 function Parallele_et_Perpendiculaires() {
   "use strict";
   Exercice.call(this);
@@ -11600,29 +11615,8 @@ function Parallele_et_Perpendiculaires() {
     );
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let Xmin, Xmax, Ymin, Ymax, ppc, sc;
-    function initialise_variables() {
-      if (sortie_html) {
-        // repère -10 || 10
-        Xmin = -1;
-        Ymin = -9;
-        Xmax = 15;
-        Ymax = 9;
-        ppc = 20;
-      } else {
-        // repère -5 || 5
-        Xmin = -1;
-        Ymin = -9;
-        Xmax = 15;
-        Ymax = 9;
-        ppc = 20;
-      }
-    }
-
-    initialise_variables();
-    if (this.sup2 == 1) sc = 0.5;
-    else sc = 0.8;
-
+    let Xmin, Xmax, Ymin, Ymax, ppc=20, sc;
+   
     let A,
       B,
       C,
@@ -11658,29 +11652,17 @@ function Parallele_et_Perpendiculaires() {
       k,
       objets_enonce = [],
       objets_correction = [],
-      params = {
-        xmin: Xmin,
-        ymin: Ymin,
-        xmax: Xmax,
-        ymax: Ymax,
-        pixelsParCm: ppc,
-        scale: sc,
-      },
+      
       p;
     for (
       let i = 0, texte, texte_corr, cpt = 0;
       i < this.nb_questions && cpt < 50;
 
     ) {
-      if (this.sup2 < 3) g = grille(-1, -15, 15, 15, "gray", 0.7);
-      else g = "";
-      if (this.sup2 == 2) {
+      if (this.sup2 == 2) 
         k = 0.8;
-        carreaux = seyes(Xmin, Ymin, Xmax, Ymax);
-      } else {
+      else 
         k = 0.5;
-        carreaux = "";
-      }
       switch (liste_type_de_questions[i]) {
         case 1:
           A = point(0, 0, "A", "above left");
@@ -11722,8 +11704,6 @@ function Parallele_et_Perpendiculaires() {
             cC,
             cD,
             d,
-            g,
-            carreaux,
             tracePoint(A, B, C, D, E, CC, DD),
             labelPoint(A, B, C, D, E, CC, DD),
             afficheCoteSegment(
@@ -11749,10 +11729,9 @@ function Parallele_et_Perpendiculaires() {
             tracePoint(A, B, C, D),
             labelPoint(A, B, C, D),
             d,
-            g,
-            carreaux
           );
-          enonce = num_alpha(0) + ` Reproduire la figure ci-dessous.<br>`;
+          if (sortie_html) enonce = num_alpha(0) + ` Reproduire la figure ci-dessous.<br>`;
+          else enonce = num_alpha(0) + ` Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>`;
           enonce +=
             num_alpha(1) +
             ` Tracer la droite perpendiculaire à $(AB)$ passant par $B$.<br>`;
@@ -11765,12 +11744,14 @@ function Parallele_et_Perpendiculaires() {
           enonce +=
             num_alpha(4) +
             ` Mesurer ensuite les distances $AM$ et $AN$.<br> Pour l'auto-correction comparer ces mesures avec celles données dans la correction<br>`;
-          enonce += mathalea2d(params, objets_enonce);
-          correction = mathalea2d(params, objets_correction);
-          correction += `<br>$AM \\approx ${tex_nombre(
+               correction = `<br>$AM \\approx ${tex_nombre(
             lC
           )}$ cm et $AN \\approx ${tex_nombre(lD)}$ cm.<br>`;
           correction += `Pour la perpendiculaire en $B$, contrôle la position du point $E$.<br>`;
+          Xmin=Math.min(A.x,B.x,C.x,D.x,E.x,CC.x,DD.x)-1
+          Xmax=Math.max(A.x,B.x,C.x,D.x,E.x,CC.x,DD.x)+1
+          Ymin=Math.min(A.y,B.y,C.y,D.y,E.y,CC.y,DD.y)-1
+          Ymax=Math.max(A.y,B.y,C.y,D.y,E.y,CC.y,DD.y)+1
           break;
         case 2:
           A = point(2, 0, "A",'below left');
@@ -11793,44 +11774,27 @@ function Parallele_et_Perpendiculaires() {
           lC = arrondi(longueur(CC, A) * k, 1);
           lD = arrondi(longueur(DD, A) * k, 1);
           lE = arrondi(longueur(EE, A) * k, 1);
-          objets_correction.push(dC,dD,dE,d,p,g,carreaux,tracePoint(A, B, C, D, E,F),labelPoint(A, B, C, D, E,F,CC,DD,EE),afficheCoteSegment(segment(A,CC),`${tex_nombre(lC)} cm`,.2,'red',1,0.5,'red'),afficheCoteSegment(segment(DD,A),`${tex_nombre(lD)} cm`,-0.2,'green',1,-0.5,'green'),afficheCoteSegment(segment(A,EE),`${tex_nombre(lE)} cm`,-0.2,'blue',1,-0.5,'blue'))
-          objets_enonce.push(tracePoint(A, B, C, D,E,F),labelPoint(A, B, C, D,E,F),d,g,p,carreaux);
+          objets_correction.push(dC,dD,dE,d,p,tracePoint(A, B, C, D, E,F),labelPoint(A, B, C, D, E,F,CC,DD,EE),afficheCoteSegment(segment(A,CC),`${tex_nombre(lC)} cm`,.2,'red',1,0.5,'red'),afficheCoteSegment(segment(DD,A),`${tex_nombre(lD)} cm`,-0.2,'green',1,-0.5,'green'),afficheCoteSegment(segment(A,EE),`${tex_nombre(lE)} cm`,-0.2,'blue',1,-0.5,'blue'))
+          objets_enonce.push(tracePoint(A, B, C, D,E,F),labelPoint(A, B, C, D,E,F),d,p);
         
-          enonce = num_alpha(0)+ `Reproduire la figure ci-dessous.<br>`
+          if (sortie_html) enonce = num_alpha(0) + ` Reproduire la figure ci-dessous.<br>`;
+          else enonce = num_alpha(0) + ` Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>`;
           enonce +=num_alpha(1)+` Tracer la droite parallèle à $(AB)$ passant par $C$ et nomme $M$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
           enonce +=num_alpha(2)+` Tracer la droite parallèle à $(AB)$ passant par $D$ et nomme $N$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
           enonce +=num_alpha(3)+` Tracer la droite parallèle à $(AB)$ passant par $E$ et nomme $O$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
           enonce += num_alpha(4)+` Mesurer les distances $AM$, $AN$ et $AO$. Pour l'auto-correction, comparer ces mesures avec celles données par  l'ordinateur dans la correction.<br>`;
-          enonce += mathalea2d(
-            {
-              xmin: Xmin,
-              ymin: Ymin,
-              xmax: Xmax,
-              ymax: Ymax,
-              pixelsParCm: ppc,
-              scale: sc,
-            },
-           objets_enonce
-          );
-          correction = mathalea2d(
-            {
-              xmin: Xmin,
-              ymin: Ymin,
-              xmax: Xmax,
-              ymax: Ymax,
-              pixelsParCm: ppc,
-              scale: sc,
-            },
-            objets_correction
-          );
-          correction += `<br>$AM \\approx ${tex_nombre(
+         
+          correction = `<br>$AM \\approx ${tex_nombre(
             lC
           )}$ cm, $AN \\approx ${tex_nombre(
             lD
           )}$ cm et $AO \\approx${tex_nombre(
             lE
           )}$ cm.<br>`;
-
+          Xmin=Math.min(A.x,B.x,C.x,D.x,E.x,F.x,EE.x,CC.x,DD.x)-1
+          Xmax=Math.max(A.x,B.x,C.x,D.x,E.x,F.x,EE.x,CC.x,DD.x)+1
+          Ymin=Math.min(A.y,B.y,C.y,D.y,E.y,F.y,EE.y,CC.y,DD.y)-1
+          Ymax=Math.max(A.y,B.y,C.y,D.y,E.y,F.y,EE.y,CC.y,DD.y)+1
           break;
           case 3:
             A = point(0, 0, "A", "above left");
@@ -11866,7 +11830,7 @@ function Parallele_et_Perpendiculaires() {
             cF = codageAngleDroit(C,EE,E,'red')
             cG = codageAngleDroit(C,FF,D,'red')
 
-            objets_correction.push(dC,dD,dB,dE,cB,cC,cD,cE,cF,cG,d,g,carreaux,tracePoint(A, B, C, D, E, CC, DD,EE),labelPoint(A, B, C, D, E, CC, DD,EE),afficheCoteSegment(
+            objets_correction.push(dC,dD,dB,dE,cB,cC,cD,cE,cF,cG,d,tracePoint(A, B, C, D, E, CC, DD,EE),labelPoint(A, B, C, D, E, CC, DD,EE),afficheCoteSegment(
               segment(A, CC),
               `${tex_nombre(lC)} cm`,
               0.5,
@@ -11893,36 +11857,16 @@ function Parallele_et_Perpendiculaires() {
               -0.5,
               "green"
             ));
-            objets_enonce.push(tracePoint(A, B, C, D,E),labelPoint(A, B, C, D,E),d,g,carreaux);
-            enonce = num_alpha(0)+ `Reproduire la figure ci-dessous.<br>`
-          enonce +=num_alpha(1)+` Tracer la droite perpendiculaire à $(AB)$ passant par $B$.<br>`;
+            objets_enonce.push(tracePoint(A, B, C, D,E),labelPoint(A, B, C, D,E),d);
+            if (sortie_html) enonce = num_alpha(0) + ` Reproduire la figure ci-dessous.<br>`;
+            else enonce = num_alpha(0) + ` Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>`;
+             enonce +=num_alpha(1)+` Tracer la droite perpendiculaire à $(AB)$ passant par $B$.<br>`;
           enonce +=num_alpha(2)+` Tracer la droite perpendiculaire à $(AB)$ passant par $C$ et nomme $M$, le point d'intersection de cette droite avec la droite $(AB)$.<br>`
           enonce +=num_alpha(3)+` Tracer la droite parallèle à $(AB)$ passant par $D$ et nomme $N$, le point d'intersection de cette droite avec la droite $(BE)$.<br>`;
           enonce += num_alpha(4)+ ` Tracer la droite parallèle à $(AB)$ passant par $E$ et nomme $O$, le point d'intersection de cette droite avec la droite $(CM)$.<br>`
           enonce += num_alpha(5)+` Mesurer les distances $AM$, $AN$ et $AO$. Pour l'auto-correction, comparer ces mesures avec celles données par  l'ordinateur dans la correction.<br>`;
-          enonce += mathalea2d(
-            {
-              xmin: Xmin,
-              ymin: Ymin,
-              xmax: Xmax,
-              ymax: Ymax,
-              pixelsParCm: ppc,
-              scale: sc,
-            },
-           objets_enonce
-          );
-          correction = mathalea2d(
-            {
-              xmin: Xmin,
-              ymin: Ymin,
-              xmax: Xmax,
-              ymax: Ymax,
-              pixelsParCm: ppc,
-              scale: sc,
-            },
-            objets_correction
-          );
-          correction += `<br>$AM \\approx ${tex_nombre(
+         
+          correction = `<br>$AM \\approx ${tex_nombre(
             lC
           )}$ cm, $AN \\approx ${tex_nombre(
             lD
@@ -11931,9 +11875,47 @@ function Parallele_et_Perpendiculaires() {
           )}$ cm.<br>`;
           correction+=`Les angle droits en rouge se justifient par la propriété :<br> ${texte_en_couleur(`Si deux droites sont parallèles, toutes droite perpendiculaire à l'une est aussi perpendiculaire à l'autre`,'red')}.<br>`
           correction +=`Vérifier les angles droits à l'équerre.`
+          Xmin=Math.min(A.x,B.x,C.x,D.x,E.x,F.x,EE.x,CC.x,DD.x)-1
+          Xmax=Math.max(A.x,B.x,C.x,D.x,E.x,F.x,EE.x,CC.x,DD.x)+1
+          Ymin=Math.min(A.y,B.y,C.y,D.y,E.y,F.y,EE.y,CC.y,DD.y)-1
+          Ymax=Math.max(A.y,B.y,C.y,D.y,E.y,F.y,EE.y,CC.y,DD.y)+1
+
           break
       }
-
+      if (this.sup2 < 3) g = grille(Xmin, Ymin, Xmax, Ymax, "gray", 0.7);
+      else g = "";
+      if (this.sup2 == 2) {
+        sc = 0.8;
+        carreaux = seyes(Xmin, Ymin, Xmax, Ymax);
+      } else {
+        sc = 0.5;
+        carreaux = "";
+      }
+      objets_enonce.push(g,carreaux)
+      objets_correction.push(g,carreaux)
+      
+      enonce += mathalea2d(
+        {
+          xmin: Xmin,
+          ymin: Ymin,
+          xmax: Xmax,
+          ymax: Ymax,
+          pixelsParCm: ppc,
+          scale: sc,
+        },
+       objets_enonce
+      );
+      correction += mathalea2d(
+        {
+          xmin: Xmin,
+          ymin: Ymin,
+          xmax: Xmax,
+          ymax: Ymax,
+          pixelsParCm: ppc,
+          scale: sc,
+        },
+        objets_correction
+      );
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(enonce + "<br>");

@@ -5750,42 +5750,73 @@ function DroiteRemarquableDuTriangle(){
 	}
 	this.besoin_formulaire_numerique = ['Type de droites',3,"1 : Hauteurs et Médiatrices\n2 : Médianes et Bissectrices\n3 : Toutes les droites"]
 }
+/**
+ * 6G24-1
+ * @Auteur Jean-Claude Lhote
+ */
 function Symetrie_axiale_point_6e() {
 	Construire_par_Symetrie.call(this)
 	this.titre='Construire le symétrique d\'un point par rapport à une droite (cas simples)'
 	this.figure=false
 	this.sup=0
 }
+/**
+ * 6G24-2
+ * @Auteur Jean-Claude Lhote
+ */
 function Symetrie_axiale_figure_6e() {
 	Construire_par_Symetrie.call(this)
 	this.titre='Construire le symétrique d\'une figure par rapport à une droite (cas simples)'
 	this.figure=true
 	this.sup=0
 }
+/**
+ * 6G10-1
+ * @Auteur Jean-Claude Lhote
+ */
 function Symetrie_axiale_point_5e() {
 	Construire_par_Symetrie.call(this)
 	this.titre='Construire le symétrique d\'un point par rapport à une droite'
 	this.figure=false
 	this.sup=1
 }
+/**
+ * 6G10-2
+ * @Auteur Jean-Claude Lhote
+ */
 function Symetrie_axiale_figure_5e() {
 	Construire_par_Symetrie.call(this)
 	this.titre='Construire le symétrique d\'une figure par rapport à une droite'
 	this.figure=true
 	this.sup=1
 }
+/**
+ * 6G11-1
+ * @Auteur Jean-Claude Lhote
+ */
 function Symetrie_centrale_point() {
 	Construire_par_Symetrie.call(this)
 	this.titre='Construire le symétrique d\'un point par rapport à un point'
 	this.figure=false
 	this.sup=2
 }
+/**
+ * 6G11-2
+ * @Auteur Jean-Claude Lhote
+ */
 function Symetrie_centrale_figure() {
 	Construire_par_Symetrie.call(this)
 	this.titre='Construire le symétrique d\'une figure par rapport à un point'
 	this.figure=true
 	this.sup=2
 }
+/**
+ * @Auteur Jean-Claude Lhote
+ * Fonction générale pour les exercices de construction de symétriques (centrale/axiale et points/triangles)
+ * références  6G24-1, 6G24-2, 5G10-1, 5G10-2, 5G11-1 et 5G11-2
+ * Permet une sortie html/pdf sur petits carreaux/gros carreaux/papier blanc
+ */
+
 function Construire_par_Symetrie() {
 	"use strict";
 	Exercice.call(this);
