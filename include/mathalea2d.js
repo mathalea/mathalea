@@ -686,36 +686,19 @@ function CodageBissectrice(A, O, B, color = "black", mark = "×") {
   let a = pointSurSegment(O, A, 1.5);
   let demiangle = calcul(angleOriente(A, O, B) / 2);
   let M = rotation(a, O, demiangle);
-  let mark1 = rotation(a, O, demiangle / 2);
-  let mark2 = rotation(M, O, demiangle / 2);
-  let t1 = texteParPoint(
-    mark,
-    mark1,
-    Math.round(droite(O, A).angleAvecHorizontale + demiangle / 2),
-    color
-  );
-  let t2 = texteParPoint(
-    mark,
-    mark2,
-    Math.round(droite(O, A).angleAvecHorizontale + (3 * demiangle) / 2),
-    color
-  );
   let b = pointSurSegment(O, B, 1.5);
-  let a1 = arcPointPointAngle(a, M, demiangle, this.color);
-  let a2 = arcPointPointAngle(M, b, demiangle, this.color);
+  let a1 = codeAngle(a, O, demiangle,1,'|', this.color,2,1);
+  let a2 = codeAngle(M, O, demiangle,1,'|', this.color,2,1);
   this.svg = function (coeff) {
     return (
       a1.svg(coeff) +
       "\n" +
       a2.svg(coeff) +
-      "\n" +
-      t1.svg(coeff) +
-      "\n" +
-      t2.svg(coeff)
-    );
+      "\n"
+     );
   };
   this.tikz = function () {
-    return a1.tikz() + "\n" + a2.tikz() + "\n" + t1.tikz() + "\n" + t2.tikz();
+    return a1.tikz() + "\n" + a2.tikz() + "\n";
   };
 }
 
@@ -1765,7 +1748,9 @@ function cercleCentrePoint(...args) {
  * @param {boolean} rayon booléen si true, les rayons délimitant l'arc sont ajoutés
  * @param {boolean} fill
  * @param {string} color
+ * @param {number} fillOpacite // transparence de remplissage de 0 à 1.
  */
+
 function Arc(M,Omega,angle,rayon=false,fill='none',color='black',fillOpacite=0.2) {
 	ObjetMathalea2D.call(this);
 	this.color=color;
@@ -1791,7 +1776,7 @@ function Arc(M,Omega,angle,rayon=false,fill='none',color='black',fillOpacite=0.2
 		large=0
 		sweep=1-(angle>0)
 	}
-	let N=rotation(M,Omega,angle)
+  let N=rotation(M,Omega,angle)
 	if (rayon) 	this.svg = function(coeff){
 		if (this.epaisseur!=1) {
 			this.style += ` stroke-width="${this.epaisseur}" `
@@ -1834,10 +1819,10 @@ function Arc(M,Omega,angle,rayon=false,fill='none',color='black',fillOpacite=0.2
 	   if (this.opacite !=1) {
 		   tableauOptions.push(`opacity = ${this.opacite}`)
      }
-     if (this.opaciteDeRemplissage !=1) {
+     if (rayon && fill!='none') {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
     }
-    if (this.couleurDeRemplissage !='none') {
+    if (rayon && fill != 'none') {
       tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
     }
 	   if (tableauOptions.length>0) {
@@ -1858,16 +1843,10 @@ function arc(...args) {
  * @param {boolean} rayon //si true, l'arc est fermé par deux rayons aux extrémités
  * @param {string} fill //couleur de remplissage (par défaut 'none'= sans remplissage)
  * @param {string} color //couleur de l'arc
+ * @param {number} fillOpacite // transparence de remplissage de 0 à 1.
  * @Auteur Jean-Claude Lhote
  */
-function ArcPointPointAngle(
-  M,
-  N,
-  angle,
-  rayon = false,
-  fill = "none",
-  color = "black"
-) {
+function ArcPointPointAngle(M,N,angle,rayon=false,fill='none',color='black',fillOpacite=0.2) {
   let anglerot, Omegax, Omegay;
   if (angle < 0) anglerot = calcul((angle + 180) / 2);
   else anglerot = calcul((angle - 180) / 2);
@@ -1881,12 +1860,7 @@ function ArcPointPointAngle(
   Omegay = calcul((-f.c + (d.c * f.a) / d.a) / (f.b - (f.a * d.b) / d.a));
   Omegax = calcul(-d.c / d.a - (d.b * Omegay) / d.a);
   let Omega = point(Omegax, Omegay);
-  let l = longueur(Omega, M);
-  let a = arc(M, Omega, angle, rayon, fill, color);
-  a.isVisible = false;
-  ObjetMathalea2D.call(this);
-  this.svg = a.svg;
-  this.tikz = a.tikz;
+ Arc.call(this,M,Omega,angle,rayon,fill,color,fillOpacite);
 }
 function arcPointPointAngle(...args) {
   return new ArcPointPointAngle(...args);
@@ -2970,13 +2944,15 @@ function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur
   arcangle.epaisseur=epaisseur
   arcangle.couleurDeRemplissage=this.couleurDeRemplissage
   arcangle.opaciteDeRemplissage=this.opaciteDeRemplissage
-  if (mark!='') codage=texteParPoint(mark,P,90-d.angleAvecHorizontale,color)
+  if (mark!='')  codage=texteParPoint(mark,P,90-d.angleAvecHorizontale,color)
   else codage=''
   this.svg=function(coeff){
-    return codage.svg(coeff)+'\n'+arcangle.svg(coeff);
+    if (codage!='') return codage.svg(coeff)+'\n'+arcangle.svg(coeff);
+    else return arcangle.svg(coeff);
   }
   this.tikz=function(){
-    return codage.tikz()+'\n'+arcangle.tikz()
+    if (codage!='') return codage.tikz()+'\n'+arcangle.tikz()
+    else return arcangle.tikz()
   }
 }
 

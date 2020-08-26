@@ -21,7 +21,6 @@ var liste_des_exercices_disponibles = {
   "CM019": Le_compte_est_bonV3,
   "CM020": Le_compte_est_bonV4,
   "CM021": Compte_Est_Bon,
-  "beta6pave" : Solide_6e,
   "6C10": Additions_soustractions_multiplications_posees,
   "6C11": Divisions_euclidiennes,
   "6C10-1": Tables_de_multiplications,
@@ -31,6 +30,7 @@ var liste_des_exercices_disponibles = {
   "6C13": Vocabulaire_et_operations,
   "6C20": Additionner_soustraires_decimaux,
   "6C21": Divisions_euclidiennes_niv2,
+  "6C23" : Exercice_additionner_des_fractions_6e,
   "6C30": Multiplier_decimaux,
   "6C30-1": Multiplier_decimaux_par_10_100_1000,
   "6C31": Division_decimale,
@@ -49,8 +49,12 @@ var liste_des_exercices_disponibles = {
   "6G20-2": Vocabulaire_des_triangles_6e,
   "6G23-2": Tracer_triangle_2_angles,
   "6G24": Transformations_6e,
+  "6G24-1" : Symetrie_axiale_point_6e,
+  "6G24-2" : Symetrie_axiale_figure_6e,
   "6G25-1": Pavages_et_reflexion,
   "6G25-2": Pavages_et_symetries,
+  "6G42" : Solide_6e,
+  "6G43" : Utiliser_vocabulaire_pave,
   "6M11-1": Perimetre_ou_aire_de_carres_rectangles_triangles,
   "6M11-2": Perimetre_ou_aire_de_figures_composees,
   "6M10": Reglages_6M10,
@@ -384,6 +388,7 @@ function feuille_d_axes_gradues() {
 /**
  * Lire l'abscisse entière d'un point
  * @Auteur Jean-Claude Lhote et Rémi Angot
+ * référence 6N11
  */
 function Lire_abscisse_entiere() {
   "use strict";
@@ -550,6 +555,7 @@ function Lire_abscisse_entiere() {
 /**
  * Placer un point d'abscisse entière
  * @Auteur Jean-Claude Lhote et Rémi Angot
+ * référence 6N11-2
  */
 function Placer_un_point_abscisse_entiere() {
   "use strict";
@@ -876,6 +882,7 @@ function Questions_de_cours() {
 /**
  * Lire l'abscisse décimale d'un point
  * @Auteur Jean-Claude Lhote et Rémi Angot
+ * référence 6N30
  */
 function Lire_abscisse_decimale() {
   "use strict";
@@ -1042,6 +1049,7 @@ function Lire_abscisse_decimale() {
 /**
  * Lire l'abscisse fractionnaire d'un point
  * @Auteur Jean-Claude Lhote et Rémi Angot
+ * référence 6N21
  */
 function Lire_abscisse_fractionnaire() {
   "use strict";
@@ -1217,6 +1225,7 @@ function Lire_abscisse_fractionnaire() {
 /**
  * Placer un point d'abscisse décimale
  * @Auteur Jean-Claude Lhote et Rémi Angot
+ * référence 6N30-2
  */
 function Placer_points_sur_axe() {
   "use strict";
@@ -2984,6 +2993,7 @@ function Compte_Est_Bon() {
 /**
  * Générateur de tirages pour un compte est bon avec en correction la solution mathador (4 opérations différentes).
  * @Auteur Jean-Claude Lhote
+ * référence CM019
  */
 
 function Le_compte_est_bonV3() {
@@ -3042,7 +3052,7 @@ function Le_compte_est_bonV3() {
 }
 /**
  * @Auteur Jean-Claude Lhote
- *
+  * référence CM020
  * Dans cette version, il est possible de choisir 1,2,3,4 ou 5 nombres du tirage et de contraindre la cible entre deux valeurs
  */
 function Le_compte_est_bonV4() {
@@ -4778,6 +4788,7 @@ function Tableau_criteres_de_divisibilite() {
 /**
  * Exercice sur la notion de proportionnalité (ou pas)
  * @Auteur Jean-Claude Lhote
+ * référence 6P10
  */
 function Proportionnalite_pas_proportionnalite() {
   "use strict";
@@ -5111,7 +5122,8 @@ function Proportionnalite_pas_proportionnalite() {
  * On donne une relation de proportionnalité du type n objets coûtent x€ et on demande le prix de y objets
  * et le nombre d'objets qu'on peut acheter avec z€.
  * @Auteur Jean-Claude Lhote
- */
+ * référence 6P11
+*/
 function Proportionnalite_par_linearite() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -7208,6 +7220,7 @@ function Pourcentage_d_un_nombre() {
  *
  * Par défaut la division du nombre par le dénominateur est inférieure à 11
  * @Auteur Rémi Angot + Jean-Claude Lhote
+ * référence 6N33
  */
 function Fraction_d_un_nombre(max = 11) {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -9542,8 +9555,8 @@ function HTML_personnalise() {
 
 /**
  * Pavages et symétrie axiale.
- * @Auteur Jean-Claude Lhote
  * Pas de version LaTeX
+ * référence 6G25-1
  */
 function Pavages_et_reflexion() {
   "use strict";
@@ -9842,6 +9855,7 @@ function Pavages_et_reflexion() {
 /**
  * Calcul de volumes (cube et pavé droit).
  * @Auteur Jean-Claude Lhote
+ * référence 6M30
  */
 
 function Calcul_de_volumes() {
@@ -10121,7 +10135,7 @@ function Calcul_de_volumes() {
 }
 
 /**
- * Transformations : trouvers un point numéroté par une des transformations du plan.
+ * Transformations : trouvers un point numéroté par une des transformations du plan. Fonction générale utilisée sur tous les niveaux
  * @Auteur Jean-Claude Lhote
  * Pas de version LaTeX
  */
@@ -10505,18 +10519,39 @@ function Transformations() {
 }
 
 // Exercices paramétrés pour correspondre au référentiel
+function Exercice_additionner_des_fractions_6e() {
+  Exercice_additionner_des_fractions_5e.call(this);
+  this.level=6
+  this.titre= "Additionner des fractions de même dénominateur"
+}
+function Utiliser_vocabulaire_pave() {
+  Solide_6e.call(this);
+  this.titre = "Utiliser le vocabulaire associé au pavé droit"
+}
+/**
+ * @Auteur Jean-Claude Lhote
+ * référence 6G11
+ */
 function Tracer_des_perpendiculaires() {
   Parallele_et_Perpendiculaires.call(this);
   this.titre = "Tracer des perpendiculaires";
   this.sup = 1;
   this.besoin_formulaire_numerique = false;
 }
+/**
+ * @Auteur Jean-Claude Lhote
+ * référence 6G12
+ */
 function Tracer_des_paralleles() {
   Parallele_et_Perpendiculaires.call(this);
   this.titre = "Tracer des parallèles";
   this.sup = 2;
   this.besoin_formulaire_numerique = false;
 }
+/**
+ * @Auteur Jean-Claude Lhote
+ * référence 6G12-1
+ */
 function Tracer_des_perpendiculaires_et_des_paralleles() {
   Parallele_et_Perpendiculaires.call(this);
   this.titre = "Tracer des perpendiculaires et des parallèles";
@@ -10526,6 +10561,7 @@ function Tracer_des_perpendiculaires_et_des_paralleles() {
 /**
  * Exercice en html seulement. Symétrie centrale dans un pavage.
  * @Auteur Jean-Claude Lhote
+ * référence 5G12
  */
 function Pavages_et_demi_tour() {
   Pavages_et_transformations.call(this);
@@ -10536,6 +10572,7 @@ function Pavages_et_demi_tour() {
 /**
  * Exercice en html seulement. Symétrie axiale dans un pavage.
  * @Auteur Jean-Claude Lhote
+ * référence 6G25-2
  */
 function Pavages_et_symetries() {
   Pavages_et_transformations.call(this);
@@ -10546,6 +10583,7 @@ function Pavages_et_symetries() {
 /**
  * Exercice en html seulement. Translations dans un pavage.
  * @Auteur Jean-Claude Lhote
+ * référence 4G11
  */
 function Pavages_et_translation() {
   Pavages_et_transformations.call(this);
@@ -10556,6 +10594,7 @@ function Pavages_et_translation() {
 /**
  * Exercice en html seulement. Rotationss dans un pavage.
  * @Auteur Jean-Claude Lhote
+ * référence 3G12
  */
 function Pavages_et_rotation() {
   Pavages_et_transformations.call(this);
@@ -10567,6 +10606,7 @@ function Pavages_et_rotation() {
 /**
  * Lire les coordonnées d'un point du quart de plan positif avec une précision allant de l'unité à 0,25.
  * @Auteur Jean-Claude Lhote
+ * référence 6N33
  */
 function Reperage_point_du_quart_de_plan() {
   Reperage_point_du_plan.call(this);
@@ -11213,49 +11253,21 @@ function Nommer_et_coder_des_polygones() {
   this.nb_questions = 4;
   this.nb_cols = 2;
   this.nb_cols_corr = 2;
-  this.sup2 = 3;
+  this.sup = 3;
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let Xmin, Xmax, Ymin, Ymax, ppc, sc, g, k, carreaux
-    function initialise_variables() {
+    ppc=20
       if (sortie_html) {
-        // repère -10 || 10
-        Xmin = 0;
-        Ymin = -6;
-        Xmax = 13;
-        Ymax = 8;
-        ppc = 20;
         sc=0.5
       } else {
-        // repère -5 || 5
-        Xmin = 0;
-        Ymin = -6;
-        Xmax = 13;
-        Ymax = 8;
-        ppc = 20;
         sc=0.4
       }
-    }
-    initialise_variables();
-    let params = {
-      xmin: Xmin,
-      ymin: Ymin,
-      xmax: Xmax,
-      ymax: Ymax,
-      pixelsParCm: ppc,
-      scale: sc,
-    }
-    if (this.sup2 < 3) g = grille(Xmin, Ymin, Xmax, Ymax, "gray", 0.7);
-    else g = ''
-    if (this.sup2 == 2) {
-      k = 0.8;
-      carreaux = seyes(Xmin, Ymin, Xmax, Ymax);
-    } else {
-      k = 0.5;
-      carreaux = "";
-    }
+
+    let params 
+    
     let liste = combinaison_listes([1, 2, 3, 4, 5, 6, 7, 8], this.nb_questions);
 
     for (
@@ -11293,7 +11305,7 @@ function Nommer_et_coder_des_polygones() {
             C = p.listePoints[2]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2])
             pcode = [codeSegments('||', 'blue', A, B, A, C, B, C),codeAngle(B,C,A,0.8,'|','blue',2,0.8,'blue',0.2),codeAngle(C,B,A,0.8,'|','blue',2,0.8,'blue',0.2),codeAngle(C,A,B,0.8,'|','blue',2,0.8,'blue',0.2)]
-            enonce = `le triangle $${nom[0] + nom[1] + nom[2]}$ est équilatéral.<br>\\phantom{et sa longueur est AB}`
+            enonce = `le triangle $${nom[0] + nom[1] + nom[2]}$ est équilatéral.<br>$\\phantom{et sa longueur est AB}$`
             break
           case 3: // triangle rectangle
             A = point(3, randint(0, 20) / 10, nom[0])
@@ -11306,7 +11318,7 @@ function Nommer_et_coder_des_polygones() {
             C = p.listePoints[2]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2])
             pcode = codageAngleDroit(B, A, C)
-            enonce = `le triangle $${nom[0] + nom[1] + nom[2]}$ est rectangle en $${nom[0]}$.<br>\\phantom{et sa longueur est AB}`
+            enonce = `le triangle $${nom[0] + nom[1] + nom[2]}$ est rectangle en $${nom[0]}$.<br>$\\phantom{et sa longueur est AB}$`
             break
           case 4: // triangle rectangle isocèle
             A = point(3, randint(0, 20) / 10, nom[0])
@@ -11333,7 +11345,7 @@ function Nommer_et_coder_des_polygones() {
             D = p.listePoints[3]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2] + nom[3])
             pcode = [codeSegments('||', 'blue', A, B, B, C, C, D, D, A), codageAngleDroit(B, A, D), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(A, D, C)]
-            enonce = `le quadrilatère $${nom[0] + nom[1] + nom[2] + nom[3]}$ est un carré.<br>\\phantom{et sa longueur est AB}`
+            enonce = `le quadrilatère $${nom[0] + nom[1] + nom[2] + nom[3]}$ est un carré.<br>$\\phantom{et sa longueur est AB}$`
             break
           case 6: // rectangle
             A = point(3, randint(0, 20) / 10, nom[0])
@@ -11384,6 +11396,37 @@ function Nommer_et_coder_des_polygones() {
         return [p, nom, pcode, pnom, enonce]
       }
       [pol, polnom, polcode, polsom, texte] = choisir_polygone(liste[i]);
+      if (pol.listePoints.length==4){
+      Xmin=Math.min(pol.listePoints[0].x,pol.listePoints[1].x,pol.listePoints[2].x,pol.listePoints[3].x)-1
+      Ymin=Math.min(pol.listePoints[0].y,pol.listePoints[1].y,pol.listePoints[2].y,pol.listePoints[3].y)-1
+      Xmax=Math.max(pol.listePoints[0].x,pol.listePoints[1].x,pol.listePoints[2].x,pol.listePoints[3].x)+1
+      Ymax=Math.max(pol.listePoints[0].y,pol.listePoints[1].y,pol.listePoints[2].y,pol.listePoints[3].y)+1
+      }
+      else{
+        Xmin=Math.min(pol.listePoints[0].x,pol.listePoints[1].x,pol.listePoints[2].x)-1
+        Ymin=Math.min(pol.listePoints[0].y,pol.listePoints[1].y,pol.listePoints[2].y)-1
+        Xmax=Math.max(pol.listePoints[0].x,pol.listePoints[1].x,pol.listePoints[2].x)+1
+        Ymax=Math.max(pol.listePoints[0].y,pol.listePoints[1].y,pol.listePoints[2].y)+1
+   
+      }
+      params = {
+        xmin: Xmin,
+        ymin: Ymin,
+        xmax: Xmax,
+        ymax: Ymax,
+        pixelsParCm: ppc,
+        scale: sc,
+      }
+      if (this.sup < 3) g = grille(Xmin, Ymin, Xmax, Ymax, "gray", 0.7);
+    else g = ''
+    if (this.sup == 2) {
+      k = 0.8;
+      carreaux = seyes(Xmin, Ymin, Xmax, Ymax);
+    } else {
+      k = 0.5;
+      carreaux = "";
+    }
+
       pol.epaisseur=2
       texte += `<br>` + mathalea2d(params, pol, polnom,g,carreaux)
       texte_corr = mathalea2d(params, pol, polnom, polcode, polsom,g,carreaux)
@@ -11398,7 +11441,7 @@ function Nommer_et_coder_des_polygones() {
     liste_de_question_to_contenu(this);
     pixelsParCm=20
   };
-  this.besoin_formulaire2_numerique = [
+  this.besoin_formulaire_numerique = [
     "Type de cahier",
     3,
     `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`,
@@ -11581,7 +11624,10 @@ function Vocabulaire_des_triangles_5e() {
   this.classe = 5;
   Vocabulaire_des_triangles.call(this);
 }
-
+/**
+ * Fonction générale pour exercices de constructions de parallèles et perpendiculaires
+ * références 6G11, 6G12 et 6G12-1
+ */
 function Parallele_et_Perpendiculaires() {
   "use strict";
   Exercice.call(this);
@@ -11600,29 +11646,8 @@ function Parallele_et_Perpendiculaires() {
     );
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let Xmin, Xmax, Ymin, Ymax, ppc, sc;
-    function initialise_variables() {
-      if (sortie_html) {
-        // repère -10 || 10
-        Xmin = -1;
-        Ymin = -9;
-        Xmax = 15;
-        Ymax = 9;
-        ppc = 20;
-      } else {
-        // repère -5 || 5
-        Xmin = -1;
-        Ymin = -9;
-        Xmax = 15;
-        Ymax = 9;
-        ppc = 20;
-      }
-    }
-
-    initialise_variables();
-    if (this.sup2 == 1) sc = 0.5;
-    else sc = 0.8;
-
+    let Xmin, Xmax, Ymin, Ymax, ppc=20, sc;
+   
     let A,
       B,
       C,
@@ -11658,29 +11683,17 @@ function Parallele_et_Perpendiculaires() {
       k,
       objets_enonce = [],
       objets_correction = [],
-      params = {
-        xmin: Xmin,
-        ymin: Ymin,
-        xmax: Xmax,
-        ymax: Ymax,
-        pixelsParCm: ppc,
-        scale: sc,
-      },
+      
       p;
     for (
       let i = 0, texte, texte_corr, cpt = 0;
       i < this.nb_questions && cpt < 50;
 
     ) {
-      if (this.sup2 < 3) g = grille(-1, -15, 15, 15, "gray", 0.7);
-      else g = "";
-      if (this.sup2 == 2) {
+      if (this.sup2 == 2) 
         k = 0.8;
-        carreaux = seyes(Xmin, Ymin, Xmax, Ymax);
-      } else {
+      else 
         k = 0.5;
-        carreaux = "";
-      }
       switch (liste_type_de_questions[i]) {
         case 1:
           A = point(0, 0, "A", "above left");
@@ -11722,8 +11735,6 @@ function Parallele_et_Perpendiculaires() {
             cC,
             cD,
             d,
-            g,
-            carreaux,
             tracePoint(A, B, C, D, E, CC, DD),
             labelPoint(A, B, C, D, E, CC, DD),
             afficheCoteSegment(
@@ -11749,10 +11760,9 @@ function Parallele_et_Perpendiculaires() {
             tracePoint(A, B, C, D),
             labelPoint(A, B, C, D),
             d,
-            g,
-            carreaux
           );
-          enonce = num_alpha(0) + ` Reproduire la figure ci-dessous.<br>`;
+          if (sortie_html) enonce = num_alpha(0) + ` Reproduire la figure ci-dessous.<br>`;
+          else enonce = num_alpha(0) + ` Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>`;
           enonce +=
             num_alpha(1) +
             ` Tracer la droite perpendiculaire à $(AB)$ passant par $B$.<br>`;
@@ -11765,12 +11775,14 @@ function Parallele_et_Perpendiculaires() {
           enonce +=
             num_alpha(4) +
             ` Mesurer ensuite les distances $AM$ et $AN$.<br> Pour l'auto-correction comparer ces mesures avec celles données dans la correction<br>`;
-          enonce += mathalea2d(params, objets_enonce);
-          correction = mathalea2d(params, objets_correction);
-          correction += `<br>$AM \\approx ${tex_nombre(
+               correction = `<br>$AM \\approx ${tex_nombre(
             lC
           )}$ cm et $AN \\approx ${tex_nombre(lD)}$ cm.<br>`;
           correction += `Pour la perpendiculaire en $B$, contrôle la position du point $E$.<br>`;
+          Xmin=Math.min(A.x,B.x,C.x,D.x,E.x,CC.x,DD.x)-1
+          Xmax=Math.max(A.x,B.x,C.x,D.x,E.x,CC.x,DD.x)+1
+          Ymin=Math.min(A.y,B.y,C.y,D.y,E.y,CC.y,DD.y)-1
+          Ymax=Math.max(A.y,B.y,C.y,D.y,E.y,CC.y,DD.y)+1
           break;
         case 2:
           A = point(2, 0, "A",'below left');
@@ -11793,44 +11805,27 @@ function Parallele_et_Perpendiculaires() {
           lC = arrondi(longueur(CC, A) * k, 1);
           lD = arrondi(longueur(DD, A) * k, 1);
           lE = arrondi(longueur(EE, A) * k, 1);
-          objets_correction.push(dC,dD,dE,d,p,g,carreaux,tracePoint(A, B, C, D, E,F),labelPoint(A, B, C, D, E,F,CC,DD,EE),afficheCoteSegment(segment(A,CC),`${tex_nombre(lC)} cm`,.2,'red',1,0.5,'red'),afficheCoteSegment(segment(DD,A),`${tex_nombre(lD)} cm`,-0.2,'green',1,-0.5,'green'),afficheCoteSegment(segment(A,EE),`${tex_nombre(lE)} cm`,-0.2,'blue',1,-0.5,'blue'))
-          objets_enonce.push(tracePoint(A, B, C, D,E,F),labelPoint(A, B, C, D,E,F),d,g,p,carreaux);
+          objets_correction.push(dC,dD,dE,d,p,tracePoint(A, B, C, D, E,F),labelPoint(A, B, C, D, E,F,CC,DD,EE),afficheCoteSegment(segment(A,CC),`${tex_nombre(lC)} cm`,.2,'red',1,0.5,'red'),afficheCoteSegment(segment(DD,A),`${tex_nombre(lD)} cm`,-0.2,'green',1,-0.5,'green'),afficheCoteSegment(segment(A,EE),`${tex_nombre(lE)} cm`,-0.2,'blue',1,-0.5,'blue'))
+          objets_enonce.push(tracePoint(A, B, C, D,E,F),labelPoint(A, B, C, D,E,F),d,p);
         
-          enonce = num_alpha(0)+ `Reproduire la figure ci-dessous.<br>`
+          if (sortie_html) enonce = num_alpha(0) + ` Reproduire la figure ci-dessous.<br>`;
+          else enonce = num_alpha(0) + ` Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>`;
           enonce +=num_alpha(1)+` Tracer la droite parallèle à $(AB)$ passant par $C$ et nomme $M$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
           enonce +=num_alpha(2)+` Tracer la droite parallèle à $(AB)$ passant par $D$ et nomme $N$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
           enonce +=num_alpha(3)+` Tracer la droite parallèle à $(AB)$ passant par $E$ et nomme $O$, le point d'intersection de cette droite avec la droite $(AF)$.<br>`;
           enonce += num_alpha(4)+` Mesurer les distances $AM$, $AN$ et $AO$. Pour l'auto-correction, comparer ces mesures avec celles données par  l'ordinateur dans la correction.<br>`;
-          enonce += mathalea2d(
-            {
-              xmin: Xmin,
-              ymin: Ymin,
-              xmax: Xmax,
-              ymax: Ymax,
-              pixelsParCm: ppc,
-              scale: sc,
-            },
-           objets_enonce
-          );
-          correction = mathalea2d(
-            {
-              xmin: Xmin,
-              ymin: Ymin,
-              xmax: Xmax,
-              ymax: Ymax,
-              pixelsParCm: ppc,
-              scale: sc,
-            },
-            objets_correction
-          );
-          correction += `<br>$AM \\approx ${tex_nombre(
+         
+          correction = `<br>$AM \\approx ${tex_nombre(
             lC
           )}$ cm, $AN \\approx ${tex_nombre(
             lD
           )}$ cm et $AO \\approx${tex_nombre(
             lE
           )}$ cm.<br>`;
-
+          Xmin=Math.min(A.x,B.x,C.x,D.x,E.x,F.x,EE.x,CC.x,DD.x)-1
+          Xmax=Math.max(A.x,B.x,C.x,D.x,E.x,F.x,EE.x,CC.x,DD.x)+1
+          Ymin=Math.min(A.y,B.y,C.y,D.y,E.y,F.y,EE.y,CC.y,DD.y)-1
+          Ymax=Math.max(A.y,B.y,C.y,D.y,E.y,F.y,EE.y,CC.y,DD.y)+1
           break;
           case 3:
             A = point(0, 0, "A", "above left");
@@ -11866,7 +11861,7 @@ function Parallele_et_Perpendiculaires() {
             cF = codageAngleDroit(C,EE,E,'red')
             cG = codageAngleDroit(C,FF,D,'red')
 
-            objets_correction.push(dC,dD,dB,dE,cB,cC,cD,cE,cF,cG,d,g,carreaux,tracePoint(A, B, C, D, E, CC, DD,EE),labelPoint(A, B, C, D, E, CC, DD,EE),afficheCoteSegment(
+            objets_correction.push(dC,dD,dB,dE,cB,cC,cD,cE,cF,cG,d,tracePoint(A, B, C, D, E, CC, DD,EE),labelPoint(A, B, C, D, E, CC, DD,EE),afficheCoteSegment(
               segment(A, CC),
               `${tex_nombre(lC)} cm`,
               0.5,
@@ -11893,36 +11888,16 @@ function Parallele_et_Perpendiculaires() {
               -0.5,
               "green"
             ));
-            objets_enonce.push(tracePoint(A, B, C, D,E),labelPoint(A, B, C, D,E),d,g,carreaux);
-            enonce = num_alpha(0)+ `Reproduire la figure ci-dessous.<br>`
-          enonce +=num_alpha(1)+` Tracer la droite perpendiculaire à $(AB)$ passant par $B$.<br>`;
+            objets_enonce.push(tracePoint(A, B, C, D,E),labelPoint(A, B, C, D,E),d);
+            if (sortie_html) enonce = num_alpha(0) + ` Reproduire la figure ci-dessous.<br>`;
+            else enonce = num_alpha(0) + ` Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>`;
+             enonce +=num_alpha(1)+` Tracer la droite perpendiculaire à $(AB)$ passant par $B$.<br>`;
           enonce +=num_alpha(2)+` Tracer la droite perpendiculaire à $(AB)$ passant par $C$ et nomme $M$, le point d'intersection de cette droite avec la droite $(AB)$.<br>`
           enonce +=num_alpha(3)+` Tracer la droite parallèle à $(AB)$ passant par $D$ et nomme $N$, le point d'intersection de cette droite avec la droite $(BE)$.<br>`;
           enonce += num_alpha(4)+ ` Tracer la droite parallèle à $(AB)$ passant par $E$ et nomme $O$, le point d'intersection de cette droite avec la droite $(CM)$.<br>`
           enonce += num_alpha(5)+` Mesurer les distances $AM$, $AN$ et $AO$. Pour l'auto-correction, comparer ces mesures avec celles données par  l'ordinateur dans la correction.<br>`;
-          enonce += mathalea2d(
-            {
-              xmin: Xmin,
-              ymin: Ymin,
-              xmax: Xmax,
-              ymax: Ymax,
-              pixelsParCm: ppc,
-              scale: sc,
-            },
-           objets_enonce
-          );
-          correction = mathalea2d(
-            {
-              xmin: Xmin,
-              ymin: Ymin,
-              xmax: Xmax,
-              ymax: Ymax,
-              pixelsParCm: ppc,
-              scale: sc,
-            },
-            objets_correction
-          );
-          correction += `<br>$AM \\approx ${tex_nombre(
+         
+          correction = `<br>$AM \\approx ${tex_nombre(
             lC
           )}$ cm, $AN \\approx ${tex_nombre(
             lD
@@ -11931,9 +11906,47 @@ function Parallele_et_Perpendiculaires() {
           )}$ cm.<br>`;
           correction+=`Les angle droits en rouge se justifient par la propriété :<br> ${texte_en_couleur(`Si deux droites sont parallèles, toutes droite perpendiculaire à l'une est aussi perpendiculaire à l'autre`,'red')}.<br>`
           correction +=`Vérifier les angles droits à l'équerre.`
+          Xmin=Math.min(A.x,B.x,C.x,D.x,E.x,F.x,EE.x,CC.x,DD.x)-1
+          Xmax=Math.max(A.x,B.x,C.x,D.x,E.x,F.x,EE.x,CC.x,DD.x)+1
+          Ymin=Math.min(A.y,B.y,C.y,D.y,E.y,F.y,EE.y,CC.y,DD.y)-1
+          Ymax=Math.max(A.y,B.y,C.y,D.y,E.y,F.y,EE.y,CC.y,DD.y)+1
+
           break
       }
-
+      if (this.sup2 < 3) g = grille(Xmin, Ymin, Xmax, Ymax, "gray", 0.7);
+      else g = "";
+      if (this.sup2 == 2) {
+        sc = 0.8;
+        carreaux = seyes(Xmin, Ymin, Xmax, Ymax);
+      } else {
+        sc = 0.5;
+        carreaux = "";
+      }
+      objets_enonce.push(g,carreaux)
+      objets_correction.push(g,carreaux)
+      
+      enonce += mathalea2d(
+        {
+          xmin: Xmin,
+          ymin: Ymin,
+          xmax: Xmax,
+          ymax: Ymax,
+          pixelsParCm: ppc,
+          scale: sc,
+        },
+       objets_enonce
+      );
+      correction += mathalea2d(
+        {
+          xmin: Xmin,
+          ymin: Ymin,
+          xmax: Xmax,
+          ymax: Ymax,
+          pixelsParCm: ppc,
+          scale: sc,
+        },
+        objets_correction
+      );
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(enonce + "<br>");
@@ -12218,7 +12231,11 @@ function Solide_6e() {
   this.sup2 = 1;
   this.nouvelle_version = function (numero_de_l_exercice) {
   let type_de_questions_disponibles;
-  type_de_questions_disponibles = [parseInt(this.sup)]; 
+  if (this.sup==3) type_de_questions_disponibles=[1,2]
+ else type_de_questions_disponibles = [parseInt(this.sup)]; 
+ if (this.titre=="Utiliser le vocabulaire associé au pavé droit") 
+    for (let n=0;n<type_de_questions_disponibles.length;n++)
+      type_de_questions_disponibles[n]+=2
   let liste_type_de_questions = combinaison_listes(
       type_de_questions_disponibles,
       this.nb_questions
@@ -12226,25 +12243,7 @@ function Solide_6e() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let Xmin, Xmax, Ymin, Ymax, ppc, sc;
-    function initialise_variables() {
-      if (sortie_html) {
-        // repère -10 || 10
-        Xmin = -1;
-        Ymin = -4;
-        Xmax = 15;
-        Ymax = 11;
-        ppc = 20;
-      } else {
-        // repère -5 || 5
-        Xmin = -1;
-        Ymin = -4;
-        Xmax = 15;
-        Ymax =11;
-        ppc = 20;
-      }
-    }
-
-    initialise_variables();
+ 
     if (this.sup2 == 1) sc = 0.5;
     else sc = 0.8;
 
@@ -12257,75 +12256,253 @@ function Solide_6e() {
       carreaux,g,
       objets_enonce = [],
       objets_correction = [],
-      params = {
-        xmin: Xmin,
-        ymin: Ymin,
-        xmax: Xmax,
-        ymax: Ymax,
-        pixelsParCm: ppc,
-        scale: sc,
-      },k,
+     k,
       p;
     for (
       let i = 0, texte, texte_corr, cpt = 0;
       i < this.nb_questions && cpt < 50;
 
     ) {
-      if (this.sup2 < 3) g = grille(-1, -15, 15, 15, "gray", 0.7);
-      else g = "";
-      if (this.sup2 == 2) {
-        k = 0.8;
-        carreaux = seyes(Xmin, Ymin, Xmax, Ymax);
-      } else {
-        k = 0.5;
-        carreaux = "";
-      }
-      let nom = creerNomDePolygone(8, "PQ"),
-      anglepersp=choice([30,45,-30,-45])
-      if (anglepersp%10==0) coeffpersp=0.7
-      else coeffpersp=0.5
-         switch (liste_type_de_questions[i]) {
+     let nom = creerNomDePolygone(8, "PQ"),
+     anglepersp=choice([30,45,-30,-45,150,135,-150,-135])
+      if (anglepersp%10==0) coeffpersp=0.6
+      else coeffpersp=0.4
+      objets_correction=[]
+      objets_enonce=[]
+      switch (liste_type_de_questions[i]) {
         case 1: //cube
-          A = point(0, 0, nom[0], "below left");
-          B = point(7, 0, nom[1], "below right");
-          C = point(7,7, nom[2], "above right");
-          D = point(0,7, nom[3],"above left");
-          E = similitude(B,A,anglepersp,coeffpersp,nom[4])
-          F = translation2Points(E,A,B,nom[5])
-          G = translation2Points(F,B,C,nom[6])
-          H = translation2Points(G,C,D,nom[7])
-          AB=segment(A,B)
-          BC=segment(B,C)
-          CD=segment(C,D)
-          DA=segment(D,A)
-          EF=segment(E,F)
-          FG=segment(F,G)
-          GH=segment(G,H)
-          HE=segment(H,E)
-          AE=segment(A,E)
-          BF=segment(B,F)
-          CG=segment(C,G)
-          DH=segment(D,H)
+          enonce=`${nom} est un cube.<br>`
+          if (sortie_html) enonce +=` Reproduire la figure ci-dessous sur le cahier.<br>`;
+          enonce += ` Repasse tous les segments de même longueur dans une même couleur.<br>`;
+          correction=`Le cube ${nom}.<br>`
 
-        objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,
-            g,
-            carreaux
-          );
-          objets_enonce.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,
-            g,
-            carreaux
-          );
-          enonce = num_alpha(0) + ` Reproduire la figure ci-dessous.<br>`;
-          enonce +=
-            num_alpha(1) +
-            ` Repasse tous les segments de même longueur dans une même couleur.<br>`;
-          enonce += mathalea2d(params, objets_enonce);
-          correction = mathalea2d(params, objets_correction);
           break;
         case 2:
-           break
+
+          enonce=`${nom} est un pavé droit.<br>`
+          if (sortie_html) enonce += ` Reproduire la figure ci-dessous sur le cahier.<br>`;
+          enonce += ` Repasse tous les segments de même longueur dans une même couleur.<br>`;
+          correction=`Le pavé droit ${nom}.<br>`
+
+           break;
+        case 3 :
+          enonce=`${nom} est un cube.<br>`
+          break;
+ 
+        case 4 :
+          enonce=`${nom} est un pavé droit.<br>`
+          break;
+      }
+      let aretes_paralleles=[[[0,1],[3,2],[4,5],[7,6]],[[0,3],[1,2],[4,7],[5,6]],[[0,4],[1,5],[2,6],[3,7]]]
+      let faces_paralleles=[[[0,1,2,3],[4,5,6,7]],[[0,4,7,3],[1,5,6,2]],[[0,1,5,4],[3,2,6,7]]]
+      let aretes_perp=[[[0,1],[0,4],[0,3],[1,5],[1,2]],[[0,4],[0,1],[0,3],[4,5],[4,7]],[[0,3],[0,1],[0,4],[3,2],[3,7]],[[1,2],[1,0],[1,5],[2,3],[2,6]],[[1,5],[1,0],[1,2],
+      [5,4],[5,6]],[[5,4],[5,1],[5,6],[4,0],[4,7]],[[5,6],[5,1],[5,4],[6,2],[6,7]]
+      ,[[6,2],[6,5],[6,7],[2,1],[2,3]],[[2,3],[2,1],[2,6],[3,0],[3,7]],[[3,7],[3,2],[3,0],[7,4],[7,6]],[[7,4],[4,0],[4,5],[7,3],[7,6]],[[7,6],[6,2],[6,5],[7,3],[7,4]]]
+      let faces_perp=[[[0,1,2,3],[1,5,6,2],[2,6,7,3],[3,7,4,0],[0,1,5,4]],[[1,5,6,2],[0,1,2,3],[2,6,7,3],[5,6,7,4],[1,5,4,0]],[[0,1,5,4],[1,5,6,2],[4,5,6,7],[0,4,7,3],[0,1,2,3]],
+      [[4,5,6,7],[0,1,5,4],[1,5,6,2],[2,6,7,3],[0,4,7,3]],[[0,4,7,3],[0,1,2,3],[0,1,5,4],[4,5,6,7],[3,2,6,7]],[[3,2,6,7],[0,1,2,3],[1,5,6,2],[4,5,6,7],[0,4,7,3]]]
+      let k,l,s
+      switch (randint(1,4)) {
+        case 1 : // citer les arêtes parallèles à une arrête donnée
+        [k,l,s]=[randint(0,2),randint(0,3),randint(0,1)]
+          enonce+=`Citer toutes les arêtes parallèles à [$${nom[aretes_paralleles[k][l][s]]+nom[aretes_paralleles[k][l][(s+1)%2]]}$].<br>`
+        correction = `Les arêtes parallèles à [$${nom[aretes_paralleles[k][l][s]]+nom[aretes_paralleles[k][l][(s+1)%2]]}$] sont [$${nom[aretes_paralleles[k][(l+1)%4][s]]+nom[aretes_paralleles[k][(l+1)%4][(s+1)%2]]}$], [$${nom[aretes_paralleles[k][(l+2)%4][s]]+nom[aretes_paralleles[k][(l+2)%4][(s+1)%2]]}$] et [$${nom[aretes_paralleles[k][(l+3)%4][s]]+nom[aretes_paralleles[k][(l+3)%4][(s+1)%2]]}$].<br>`
+      break;
+      case 2: // coter la face parallèle à une face donnée
+       [k,l,s]=[randint(0,2),randint(0,1),randint(0,3)]
+       enonce+=`Quelle est la face parallèle à $${nom[faces_paralleles[k][l][s]]+nom[faces_paralleles[k][l][(s+1)%4]]+nom[faces_paralleles[k][l][(s+2)%4]]+nom[faces_paralleles[k][l][(s+3)%4]]}$ ?<br>`
+       correction = `La face parallèle à $${nom[faces_paralleles[k][l][s]]+nom[faces_paralleles[k][l][(s+1)%4]]+nom[faces_paralleles[k][l][(s+2)%4]]+nom[faces_paralleles[k][l][(s+3)%4]]}$ est la face $${nom[faces_paralleles[k][(l+1)%2][s]]+nom[faces_paralleles[k][(l+1)%2][(s+1)%4]]+nom[faces_paralleles[k][(l+1)%2][(s+2)%4]]+nom[faces_paralleles[k][(l+1)%2][(s+3)%4]]}$.<br>`
+      break;
+      case 3: // citer les arêtes perpendiculaires à une arête donnée
+        [k,l,s]=[randint(0,11),0,randint(0,1)]
+        enonce+=`Quelles sont les arêtes peprendiculaires à l'arête [$${nom[aretes_perp[k][l][s]]+nom[aretes_perp[k][l][(s+1)%2]]}$] ?<br>`
+        correction = `Les arêtes perpendiculaires à l'arête [$${nom[aretes_perp[k][l][s]]+nom[aretes_perp[k][l][(s+1)%2]]}$] sont [$${nom[aretes_perp[k][1][s]]+nom[aretes_perp[k][1][(s+1)%2]]}$], [$${nom[aretes_perp[k][2][s]]+nom[aretes_perp[k][2][(s+1)%2]]}$], [$${nom[aretes_perp[k][3][s]]+nom[aretes_perp[k][3][(s+1)%2]]}$] et [$${nom[aretes_perp[k][4][s]]+nom[aretes_perp[k][4][(s+1)%2]]}$].`
+      break;
+      case 4 : // citer les faces perpendiculaires à une face donnée
+        [k,l,s]=[randint(0,5),0,randint(0,3)]
+        enonce+=`Quelles sont les faces perpendiculaires à la face $${nom[faces_perp[k][l][s]]+nom[faces_perp[k][l][(s+1)%4]]+nom[faces_perp[k][l][(s+2)%4]]+nom[faces_perp[k][l][(s+3)%4]]}$ ?<br>` 
+        correction =`Les faces perpendiculaires à la face $${nom[faces_perp[k][l][s]]+nom[faces_perp[k][l][(s+1)%4]]+nom[faces_perp[k][l][(s+2)%4]]+nom[faces_perp[k][l][(s+3)%4]]}$ `
+        correction +=`sont les faces $${nom[faces_perp[k][l+1][s]]+nom[faces_perp[k][l+1][(s+1)%4]]+nom[faces_perp[k][l+1][(s+2)%4]]+nom[faces_perp[k][l+1][(s+3)%4]]}$, `
+        correction+=`$${nom[faces_perp[k][l+2][s]]+nom[faces_perp[k][l+2][(s+1)%4]]+nom[faces_perp[k][l+2][(s+2)%4]]+nom[faces_perp[k][l+2][(s+3)%4]]}$, `
+        correction+=`$${nom[faces_perp[k][l+3][s]]+nom[faces_perp[k][l+3][(s+1)%4]]+nom[faces_perp[k][l+3][(s+2)%4]]+nom[faces_perp[k][l+3][(s+3)%4]]}$ et `
+        correction+=`$${nom[faces_perp[k][l+4][s]]+nom[faces_perp[k][l+4][(s+1)%4]]+nom[faces_perp[k][l+4][(s+2)%4]]+nom[faces_perp[k][l+4][(s+3)%4]]}$.`
+    
+        break;
       }
 
+        switch (liste_type_de_questions[i]%2) {
+          case 1 :
+      A = point(6, 0, nom[0], "left");
+      B = point(11, 0, nom[1], "right");
+      C = point(11,5, nom[2], "right");
+      D = point(6,5, nom[3],"left");
+      p=polygone(A,B,C,D)
+      E = similitude(B,A,anglepersp,coeffpersp,nom[4],'left')
+      E.x=Math.round(E.x)
+      E.y=Math.round(E.y)
+          break;
+          case 0:
+            A = point(5, 0, nom[0], "left");
+            B = point(9+randint(1,3), 0, nom[1], "right");
+            C = point(B.x,randint(3,7), nom[2], "right");
+            D = point(A.x,C.y, nom[3],"left");
+            p=polygone(A,B,C,D)
+            E = similitude(B,A,anglepersp,coeffpersp*randint(5,12)/10,nom[4],'left')
+            E.x=Math.round(E.x)
+            E.y=Math.round(E.y)
+            break ;
+        }  
+      p=polygone(A,B,C,D)
+      F = translation2Points(E,A,B,nom[5],'right')
+      G = translation2Points(F,B,C,nom[6],'right')
+      H = translation2Points(G,C,D,nom[7],'left')
+      AB=segment(A,B)
+      BC=segment(B,C)
+      CD=segment(C,D)
+      DA=segment(D,A)
+      EF=segment(E,F)
+      FG=segment(F,G)
+      GH=segment(G,H)
+      HE=segment(H,E)
+      AE=segment(A,E)
+      BF=segment(B,F)
+      CG=segment(C,G)
+      DH=segment(D,H)
+      AB.epaisseur=2
+      BC.epaisseur=2
+      CD.epaisseur=2
+      DA.epaisseur=2
+      EF.epaisseur=2
+      FG.epaisseur=2
+      GH.epaisseur=2
+      HE.epaisseur=2
+      AE.epaisseur=2
+      BF.epaisseur=2
+      CG.epaisseur=2
+      DH.epaisseur=2
+      AB.color='black'
+      BC.color='black'
+      CD.color='black'
+      DA.color='black'
+      EF.color='black'
+      FG.color='black'
+      GH.color='black'
+      HE.color='black'
+      AE.color='black'
+      BF.color='black'
+      CG.color='black'
+      DH.color='black'
+      if (G.y<C.y&&G.x<C.x) {
+        CG.pointilles=true
+        CG.color='gray'
+        CG.opacite=0.7
+        GH.pointilles=true
+        GH.color='gray'
+        GH.opacite=0.7
+        FG.pointilles=true
+        FG.color='gray'
+        FG.opacite=0.7
+      }
+      else if (E.y>A.y&&E.x>A.x) {
+        AE.pointilles=true
+        EF.pointilles=true
+        HE.pointilles=true
+        AE.color='gray'
+        EF.color='gray'
+        HE.color='gray'
+        AE.opacite=0.7
+        EF.opacite=0.7
+        HE.opacite=0.7
+      }
+      else if (F.x<B.x&&F.y>B.y) {
+        BF.pointilles=true
+        FG.pointilles=true
+        EF.pointilles=true
+        BF.color='gray'
+        FG.color='gray'
+        EF.color='gray'
+        BF.opacite=0.7
+        FG.opacite=0.7
+        EF.opacite=0.7
+      }
+      else if (H.x>D.x&&H.y<D.y) {
+        DH.pointilles=true
+        GH.pointilles=true
+        HE.pointilles=true
+        DH.color='gray'
+        GH.color='gray'
+        HE.color='gray'
+        DH.opacite=0.7
+        GH.opacite=0.7
+        HE.opacite=0.7
+      }
+      Xmin = Math.min(A.x,E.x)-1;
+      Ymin = Math.min(A.y,E.y)-1;
+      Xmax = Math.max(B.x,F.x)+2;
+      Ymax = Math.max(D.y,H.y)+1;
+      ppc = 20;
+
+      if (this.sup2 < 3) g = grille(Xmin, Ymin, Xmax, Ymax, "gray", 0.7);
+      else g = "";
+      if (this.sup2 == 2) {
+        carreaux = seyes(Xmin, Ymin, Xmax, Ymax);
+        sc=0.8
+      }
+      else {
+        carreaux = "";
+        sc=0.5
+      }
+      objets_enonce.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,labelPoint(A,B,C,D,E,F,G,H),p,
+        g,
+        carreaux
+      );
+     
+    let  params = {
+      xmin: Xmin,
+      ymin: Ymin,
+      xmax: Xmax,
+      ymax: Ymax,
+      pixelsParCm: ppc,
+      scale: sc,
+    }
+  
+   
+        enonce += mathalea2d(params, objets_enonce);
+      if (liste_type_de_questions[i]==1) {
+        codesseg=[codeSegments('||','green',[A,B,C,D,A,E,F,G,H,E]),codeSegments('||','green',B,F,C,G,D,H)]
+        AB.color='green'
+        BC.color='green'
+        CD.color='green'
+        DA.color='green'
+        EF.color='green'
+        FG.color='green'
+        GH.color='green'
+        HE.color='green'
+        AE.color='green'
+        BF.color='green'
+        CG.color='green'
+        DH.color='green'
+      }
+      else {
+        codesseg=[codeSegments('||','green',A,B,C,D,E,F,G,H),codeSegments('O','red',A,E,B,F,C,G,D,H),codeSegments('×','blue',D,A,B,C,F,G,H,E)]
+        AB.color='green'
+        BC.color='blue'
+        CD.color='green'
+        DA.color='blue'
+        EF.color='green'
+        FG.color='blue'
+        GH.color='green'
+        HE.color='blue'
+        AE.color='red'
+        BF.color='red'
+        CG.color='red'
+        DH.color='red'
+      }
+    objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,labelPoint(A,B,C,D,E,F,G,H),
+        g,
+        carreaux
+      );
+      if (liste_type_de_questions[i]<3) correction += mathalea2d(params, objets_correction,codesseg);
+    
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(enonce + "<br>");
@@ -12337,7 +12514,7 @@ function Solide_6e() {
 
     liste_de_question_to_contenu(this);
   };
-  //	this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
+  this.besoin_formulaire_numerique = ['Type de solides', 3, `1 : Cubes\n 2 : Pavés droits\n 3 : Mélange`]
   this.besoin_formulaire2_numerique = [
     "Type de cahier",
     3,
