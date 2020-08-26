@@ -54,6 +54,7 @@ var liste_des_exercices_disponibles = {
   "6G25-1": Pavages_et_reflexion,
   "6G25-2": Pavages_et_symetries,
   "6G42" : Solide_6e,
+  "beta6G43" : Utiliser_vocabulaire_pave,
   "6M11-1": Perimetre_ou_aire_de_carres_rectangles_triangles,
   "6M11-2": Perimetre_ou_aire_de_figures_composees,
   "6M10": Reglages_6M10,
@@ -10521,7 +10522,10 @@ function Exercice_additionner_des_fractions_6e() {
   this.level=6
   this.titre= "Additionner des fractions de même dénominateur"
 }
-
+function Utiliser_vocabulaire_pave() {
+  Solide_6e.call(this);
+  this.titre = "Utiliser le vocabulaire associé au pavé droit"
+}
 /**
  * @Auteur Jean-Claude Lhote
  * référence 6G11
@@ -12224,6 +12228,9 @@ function Solide_6e() {
   let type_de_questions_disponibles;
   if (this.sup==3) type_de_questions_disponibles=[1,2]
  else type_de_questions_disponibles = [parseInt(this.sup)]; 
+ if (this.titre=="Utiliser le vocabulaire associé au pavé droit") 
+    for (let n=0;n<type_de_questions_disponibles.length;n++)
+      type_de_questions_disponibles[n]+=2
   let liste_type_de_questions = combinaison_listes(
       type_de_questions_disponibles,
       this.nb_questions
@@ -12257,18 +12264,8 @@ function Solide_6e() {
       else coeffpersp=0.4
       objets_correction=[]
       objets_enonce=[]
-         switch (liste_type_de_questions[i]) {
+      switch (liste_type_de_questions[i]) {
         case 1: //cube
-          A = point(6, 0, nom[0], "left");
-          B = point(11, 0, nom[1], "right");
-          C = point(11,5, nom[2], "right");
-          D = point(6,5, nom[3],"left");
-          p=polygone(A,B,C,D)
-          p.couleurDeRemplissage='blue'
-          p.opaciteDeRemplissage=0.2
-          E = similitude(B,A,anglepersp,coeffpersp,nom[4],'left')
-          E.x=Math.round(E.x)
-          E.y=Math.round(E.y)
           enonce=`${nom} est un cube.<br>`
           if (sortie_html) enonce +=` Reproduire la figure ci-dessous sur le cahier.<br>`;
           enonce += ` Repasse tous les segments de même longueur dans une même couleur.<br>`;
@@ -12276,26 +12273,60 @@ function Solide_6e() {
 
           break;
         case 2:
-          A = point(5, 0, nom[0], "left");
-          B = point(9+randint(1,3), 0, nom[1], "right");
-          C = point(B.x,randint(3,7), nom[2], "right");
-          D = point(A.x,C.y, nom[3],"left");
-          p=polygone(A,B,C,D)
-          p.couleurDeRemplissage='blue'
-          p.opaciteDeRemplissage=0.2
-          E = similitude(B,A,anglepersp,coeffpersp*randint(5,12)/10,nom[4],'left')
-          E.x=Math.round(E.x)
-          E.y=Math.round(E.y)
+
           enonce=`${nom} est un pavé droit.<br>`
           if (sortie_html) enonce += ` Reproduire la figure ci-dessous sur le cahier.<br>`;
           enonce += ` Repasse tous les segments de même longueur dans une même couleur.<br>`;
           correction=`Le pavé droit ${nom}.<br>`
 
-           break
+           break;
+        case 3 :
+          enonce=`${nom} est un cube.<br>`
+          let aretes_egales=[[[0,1],[3,2],[4,5],[7,6]],[[0,3],[1,2],[4,7],[5,6]],[[0,4],[1,5],[2,6],[3,7]]]
+          let faces_egales=[[[0,1,2,3],[4,5,6,7]],[[0,4,7,3],[1,5,6,2]],[[0,1,5,4],[3,2,6,7]]]
+          let k,l,s
+          switch (randint(1,2)) {
+            case 1 : // citer les arêtes parallèles à une arrête donnée
+            [k,l,s]=[randint(0,2),randint(0,3),randint(0,1)]
+              enonce+=`Citer toutes les arêtes parallèles à [$${nom[aretes_egales[k][l][s]]+nom[aretes_egales[k][l][(s+1)%2]]}$].<br>`
+            correction = `Les arêtes parallèles à [$${nom[aretes_egales[k][l][s]]+nom[aretes_egales[k][l][(s+1)%2]]}$] sont [$${nom[aretes_egales[k][(l+1)%4][s]]+nom[aretes_egales[k][(l+1)%4][(s+1)%2]]}$], [$${nom[aretes_egales[k][(l+2)%4][s]]+nom[aretes_egales[k][(l+2)%4][(s+1)%2]]}$] et [$${nom[aretes_egales[k][(l+3)%4][s]]+nom[aretes_egales[k][(l+3)%4][(s+1)%2]]}$]`
+          break;
+          case 2: // coter la face parallèle à une face donnée
+           [k,l,s]=[randint(0,2),randint(0,1),randint(0,3)]
+           enonce+=`Quelle est la face parallèle à $${nom[faces_egales[k][l][s]]+nom[faces_egales[k][l][(s+1)%4]]+nom[faces_egales[k][l][(s+2)%4]]+nom[faces_egales[k][l][(s+3)%4]]}$ ?<br>`
+           correction = `La face parallèle à $${nom[faces_egales[k][l][s]]+nom[faces_egales[k][l][(s+1)%4]]+nom[faces_egales[k][l][(s+2)%4]]+nom[faces_egales[k][l][(s+3)%4]]}$ est la face $${nom[faces_egales[k][(l+1)%2][s]]+nom[faces_egales[k][(l+1)%2][(s+1)%4]]+nom[faces_egales[k][(l+1)%2][(s+2)%4]]+nom[faces_egales[k][(l+1)%2][(s+3)%4]]}$<br>`
+          break;
+          }
+          break;
+ 
+        case 4 :
+          enonce=`${nom} est un pavé droit.<br>`
+          break;
       }
+
+        switch (liste_type_de_questions[i]%2) {
+          case 1 :
+      A = point(6, 0, nom[0], "left");
+      B = point(11, 0, nom[1], "right");
+      C = point(11,5, nom[2], "right");
+      D = point(6,5, nom[3],"left");
       p=polygone(A,B,C,D)
-      p.couleurDeRemplissage='blue'
-      p.opaciteDeRemplissage=0.2
+      E = similitude(B,A,anglepersp,coeffpersp,nom[4],'left')
+      E.x=Math.round(E.x)
+      E.y=Math.round(E.y)
+          break;
+          case 0:
+            A = point(5, 0, nom[0], "left");
+            B = point(9+randint(1,3), 0, nom[1], "right");
+            C = point(B.x,randint(3,7), nom[2], "right");
+            D = point(A.x,C.y, nom[3],"left");
+            p=polygone(A,B,C,D)
+            E = similitude(B,A,anglepersp,coeffpersp*randint(5,12)/10,nom[4],'left')
+            E.x=Math.round(E.x)
+            E.y=Math.round(E.y)
+            break ;
+        }  
+      p=polygone(A,B,C,D)
       F = translation2Points(E,A,B,nom[5],'right')
       G = translation2Points(F,B,C,nom[6],'right')
       H = translation2Points(G,C,D,nom[7],'left')
@@ -12408,8 +12439,9 @@ function Solide_6e() {
       pixelsParCm: ppc,
       scale: sc,
     }
+  
    
-      enonce += mathalea2d(params, objets_enonce);
+        enonce += mathalea2d(params, objets_enonce);
       if (liste_type_de_questions[i]==1) {
         codesseg=[codeSegments('||','green',[A,B,C,D,A,E,F,G,H,E]),codeSegments('||','green',B,F,C,G,D,H)]
         AB.color='green'
@@ -12444,7 +12476,8 @@ function Solide_6e() {
         g,
         carreaux
       );
-      correction += mathalea2d(params, objets_correction,codesseg);
+      if (liste_type_de_questions[i]<3) correction += mathalea2d(params, objets_correction,codesseg);
+    
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(enonce + "<br>");
