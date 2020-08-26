@@ -6330,6 +6330,19 @@ function Problemes_additifs_fractions_5e(){
 				};
 			};
 
+			// une fonction pour gérer le texte en fonction de l'angle
+			function myTexte_vols_corr(angle) {
+				switch (angle) {
+					case 90:
+						return `est un angle de $${angle}\\degree$`;
+					case 30:
+						return ` rouge apparait 3 fois, l'angle vert vaut $180\\degree$ et il y a un angle droit.<br> L'angle pour un tour complet vaut $360\\degree$, donc l'angle rouge vaut $(360-180-90)\\div 3 = ${angle}\\degree$`;
+					case 180:
+						return `angle de ${angle}`;
+		
+				}
+			};
+
 			// on prépare la fenetre mathalea2d
 			let fenetreMathalea2D = {xmin:-10,ymin:-8,xmax:10,ymax:8,pixelsParCm:20,scale:0.5}
 			let O_vols = point(0,0);
@@ -6429,6 +6442,7 @@ function Problemes_additifs_fractions_5e(){
 
 			let enonces = [];			
 			let i_sous_question=0;
+			let i_sous_question_corr=0;
 
 			for (let k=0;k<1;k++) {
 				enonces.push({
@@ -6445,7 +6459,13 @@ function Problemes_additifs_fractions_5e(){
 												
 					`,
 					correction:`
-					Correction type ${k}
+					${num_alpha(i_sous_question_corr++)} Pour ${situations[k].cat1.destination} l'angle du secteur ${myTexte_vols_corr(situations[k].cat1.angle)}.
+					<br> L'angle pour un tour complet vaut $360\\degree$ d'où la fraction $\\dfrac{${situations[k].cat1.angle}}{360}=\\dfrac{${situations[k].cat1.frac[0]}}{${situations[k].cat1.frac[1]}}$.
+					<br>${texte_en_couleur(`La fraction qui représente les ${situations[k].nom_enonce} vers ${situations[k].cat1.destination} vaut donc $\\dfrac{${situations[k].cat1.frac[0]}}{${situations[k].cat1.frac[1]}}$`)}.
+					<br>${num_alpha(i_sous_question_corr++)} Pour ${situations[k].cat2.destination} l'angle ${myTexte_vols_corr(situations[k].cat2.angle)}.
+					<br> D'où la fraction $\\dfrac{${situations[k].cat2.angle}}{360}=\\dfrac{${situations[k].cat2.frac[0]}}{${situations[k].cat2.frac[1]}}$.
+					<br>${texte_en_couleur(`La fraction qui représente les ${situations[k].nom_enonce} vers ${situations[k].cat2.destination} vaut donc $\\dfrac{${situations[k].cat2.frac[0]}}{${situations[k].cat2.frac[1]}}$`)}
+
 					`
 				});
 			};
