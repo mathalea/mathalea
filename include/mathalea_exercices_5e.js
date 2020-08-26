@@ -6228,25 +6228,31 @@ function Problemes_additifs_fractions_5e(){
 				[1,4,[1.8,' ','black',2,1,'blue',0.4]],
 				[1,2,[1.8,' ','black',2,1,'green',0.4]]
 			];
-			// on mélange pour l'aléatoire
-			frac_vols = shuffle(frac_vols);
+			// on mélange pour l'aléatoire tant que les deux premieres fractions sont égales
+			do {
+				frac_vols = shuffle(frac_vols);
+			} while (frac_vols[0][1] == frac_vols[1][1]);
+			
 
-			let q1a = randint(1,5); // indice pour faire varier la 1ere question sur la destination
-			let q1b = randint(1,5,[q1a]); // indice pour faire varier la 2eme question sur la destination
+			// let q1a = randint(1,5); // indice pour faire varier la 1ere question sur la destination
+			// let q1b = randint(1,5,[q1a]); // indice pour faire varier la 2eme question sur la destination
 			let nb_vols_total;
 			let destinations_vols = [[`l'`,`Afrique`],[`l'`,`Asie`],[`l'`,`Amérique`],[`l'`,`Europe`],[`la`,` France`]];
 			destinations_vols = shuffle(destinations_vols);
-
-			do {
+			do {		
 				nb_vols_total = randint(200,600);
-			} while (nb_vols_total%2 != 0 && nb_vols_total%3 != 0 && nb_vols_total%4 != 0)
+				console.log(nb_vols_total%2);
+				console.log(nb_vols_total%3);
+				console.log(nb_vols_total%4);
+				console.log(nb_vols_total%2 != 0 && nb_vols_total%3 != 0 && nb_vols_total%4 != 0)
+			} while (nb_vols_total%2 != 0 || nb_vols_total%3 != 0 || nb_vols_total%4 != 0)
 
 			// pour les situations
 			let situations = [
 				{//case 0 --> vols
 					fin_enonce_situation:`vols d'une compagnie aérienne selon la destination`,
 					nom_enonce:`vols`,
-					last_question:[`cette compagnie a affrété`,`vols`,`le nombre de vols`],
+					last_question:[`cette compagnie a affrété`,`vols`,`le nombre de vols`,`Le nombre de vols`],
 					cat1:{
 						destination:destinations_vols[0][0]+destinations_vols[0][1],
 						article:destinations_vols[0][0],
@@ -6287,8 +6293,8 @@ function Problemes_additifs_fractions_5e(){
 						angle: calcul(360/frac_vols[4][1]),
 						arg_graph: frac_vols[4][2],
 					},
-					q1a:q1a,
-					q1b:q1b,
+					// q1a:q1a,
+					// q1b:q1b,
 					nb_total:nb_vols_total,
 					fig:``,
 				},
@@ -6334,11 +6340,11 @@ function Problemes_additifs_fractions_5e(){
 			function myTexte_vols_corr(angle) {
 				switch (angle) {
 					case 90:
-						return `est un angle de $${angle}\\degree$`;
+						return `du secteur est un angle droit, il vaut $${angle}\\degree$.<br> L'angle pour un tour complet vaut $360\\degree$.`;
 					case 30:
-						return ` rouge apparait 3 fois, l'angle vert vaut $180\\degree$ et il y a un angle droit.<br> L'angle pour un tour complet vaut $360\\degree$, donc l'angle rouge vaut $(360-180-90)\\div 3 = ${angle}\\degree$`;
+						return ` rouge apparait 3 fois, l'angle vert vaut $180\\degree$ et il y a un angle droit.<br> L'angle pour un tour complet vaut $360\\degree$, donc l'angle rouge vaut $(360-180-90)\\div 3 = ${angle}\\degree$.`;
 					case 180:
-						return `angle de ${angle}`;
+						return `du secteur est un angle plat, il vaut $${angle}\\degree$.<br> L'angle pour un tour complet vaut $360\\degree$.`;
 		
 				}
 			};
@@ -6459,12 +6465,19 @@ function Problemes_additifs_fractions_5e(){
 												
 					`,
 					correction:`
-					${num_alpha(i_sous_question_corr++)} Pour ${situations[k].cat1.destination} l'angle du secteur ${myTexte_vols_corr(situations[k].cat1.angle)}.
-					<br> L'angle pour un tour complet vaut $360\\degree$ d'où la fraction $\\dfrac{${situations[k].cat1.angle}}{360}=\\dfrac{${situations[k].cat1.frac[0]}}{${situations[k].cat1.frac[1]}}$.
+					${num_alpha(i_sous_question_corr++)} Pour ${situations[k].cat1.destination} l'angle ${myTexte_vols_corr(situations[k].cat1.angle)}					
+					<br>D'où la fraction $\\dfrac{${situations[k].cat1.angle}}{360}=\\dfrac{${situations[k].cat1.frac[0]}}{${situations[k].cat1.frac[1]}}$.
 					<br>${texte_en_couleur(`La fraction qui représente les ${situations[k].nom_enonce} vers ${situations[k].cat1.destination} vaut donc $\\dfrac{${situations[k].cat1.frac[0]}}{${situations[k].cat1.frac[1]}}$`)}.
-					<br>${num_alpha(i_sous_question_corr++)} Pour ${situations[k].cat2.destination} l'angle ${myTexte_vols_corr(situations[k].cat2.angle)}.
+					
+					<br>${num_alpha(i_sous_question_corr++)} Pour ${situations[k].cat2.destination} l'angle ${myTexte_vols_corr(situations[k].cat2.angle)}
 					<br> D'où la fraction $\\dfrac{${situations[k].cat2.angle}}{360}=\\dfrac{${situations[k].cat2.frac[0]}}{${situations[k].cat2.frac[1]}}$.
 					<br>${texte_en_couleur(`La fraction qui représente les ${situations[k].nom_enonce} vers ${situations[k].cat2.destination} vaut donc $\\dfrac{${situations[k].cat2.frac[0]}}{${situations[k].cat2.frac[1]}}$`)}
+
+					<br>${num_alpha(i_sous_question_corr++)} Calculons $\\dfrac{${situations[k].cat3.frac[0]}}{${situations[k].cat3.frac[1]}}$ de ${situations[k].nb_total} : 
+					<br>$\\dfrac{${situations[k].cat3.frac[0]}}{${situations[k].cat3.frac[1]}}\\times ${situations[k].nb_total} = \\dfrac{${situations[k].cat3.frac[0]}\\times ${situations[k].nb_total}}{${situations[k].cat3.frac[1]}} = \\dfrac{${situations[k].cat3.frac[0]}\\times ${calcul(situations[k].nb_total/situations[k].cat3.frac[1])}\\times ${situations[k].cat3.frac[1]}}{${situations[k].cat3.frac[1]}} = \\dfrac{${situations[k].cat3.frac[0]}\\times ${calcul(situations[k].nb_total/situations[k].cat3.frac[1])}\\times \\cancel{${situations[k].cat3.frac[1]}}}{\\cancel{${situations[k].cat3.frac[1]}}} = ${situations[k].cat3.frac[0]}\\times ${calcul(situations[k].nb_total/situations[k].cat3.frac[1])} = ${calcul(situations[k].nb_total/situations[k].cat3.frac[1])}$
+					<br>${texte_en_couleur(`${situations[k].last_question[3]} vers ${situations[k].cat3.destination} vaut donc ${calcul(situations[k].nb_total/situations[k].cat3.frac[1])} `)}
+					
+
 
 					`
 				});
