@@ -416,9 +416,11 @@ function Exercice_additionner_des_fractions_5e(max=11){
 			a = randint (1,9);
 			c = randint (1,9);
 			// les dénominateurs
-			b = randint(2,9);
+			if (this.level!=6) b = randint(2,9);
+			else b = randint(2,5)
 			while (b==a){
-				b = randint(2,9); // pas de fraction avec numérateur et dénominateur égaux
+				if (this.level!=6) b = randint(2,9); // pas de fraction avec numérateur et dénominateur égaux
+				else b = randint(2,5)
 			}
 			if (this.level!=6) k = randint(2,this.sup);
 			else k=1
