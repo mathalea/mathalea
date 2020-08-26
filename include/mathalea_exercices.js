@@ -120,6 +120,7 @@ var liste_des_exercices_disponibles = {
   "5L10-1": Traduire_une_phrase_par_une_expression_litterale,
   "5L10-2": Traduire_un_programme_de_calcul,
   "5L10-3": Traduire_une_expression_litterale_par_une_phrase,
+  "beta5N20-0": Problemes_additifs_fractions_5e,
   "5L12": Reduire_une_expression_litterale,
   "5L12-1": Reduire_dinstinction_somme_produit,
   "5L13": Calculer_la_valeur_d_une_expression_litterale,
@@ -137,7 +138,7 @@ var liste_des_exercices_disponibles = {
   "5R12-2": Reperage_point_du_plan,
   "5R20": Exercice_additions_relatifs,
   "5R20-2": Exercice_additions_relatifs_a_trou,
-  "5R20-3": Exercice_additions_de_5_relatifs, //on pourrait le corriger avec regroupement des termes de même signe
+  "5R20-3": Exercice_additions_de_5_relatifs, //on pourrait le corriger avec regroupement des termes de même signe  
   "5R21": Exercice_soustractions_relatifs,
   "5R22": Exercice_additions_et_soustraction_de_relatifsV2,
   "5R22-2": Exercice_simplification_somme_algebrique,
