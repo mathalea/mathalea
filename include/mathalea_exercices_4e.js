@@ -9903,7 +9903,7 @@ function Graphiques_et_proportionnalite() {
 function Trouver_erreur_resol_eq_deg1(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 5;
@@ -10006,7 +10006,7 @@ function Trouver_erreur_resol_eq_deg1(){
 
       // pour les situations
       let situations = [
-        {//case 0 --> ax+b=d+cx  erreur à l'étape 1 on passe cx de l'autre côté
+        {//case 1 --> ax+b=d+cx  erreur à l'étape 1 on passe cx de l'autre côté
           pronom:currentGenreEtPrenom.pronom,
           prenom:currentGenreEtPrenom.prenom,
           a:a,
@@ -10045,7 +10045,7 @@ function Trouver_erreur_resol_eq_deg1(){
           <br>$${inc} = \\dfrac{${d-b}}{${a-c}}$ ${simpFrac(d-b,a-c)}
           `,
         },
-        {//case 1 --> ax+b=d+cx  erreur à l'étape 2 on passe b de l'autre côté
+        {//case 2 --> ax+b=d+cx  erreur à l'étape 2 on passe b de l'autre côté
           pronom:currentGenreEtPrenom.pronom,
           prenom:currentGenreEtPrenom.prenom,
           a:a,
@@ -10084,7 +10084,7 @@ function Trouver_erreur_resol_eq_deg1(){
           <br>$${inc} = \\dfrac{${d-b}}{${a-c}}$ ${simpFrac(d-b,a-c)}
           `,
         },
-        {//case 2 --> ax+b=cx+d  erreur à l'étape 2 on passe cx de l'autre côté
+        {//case 3 --> ax+b=cx+d  erreur à l'étape 2 on passe cx de l'autre côté
           pronom:currentGenreEtPrenom.pronom,
           prenom:currentGenreEtPrenom.prenom,
           a:a,
@@ -10123,7 +10123,7 @@ function Trouver_erreur_resol_eq_deg1(){
           <br>$${inc} = \\dfrac{${d-b}}{${a-c}}$ ${simpFrac(d-b,a-c)}
           `,
         },
-        {//case 3 --> ax+b=cx+d  erreur à l'étape 1 on passe b de l'autre côté
+        {//case 4 --> ax+b=cx+d  erreur à l'étape 1 on passe b de l'autre côté
           pronom:currentGenreEtPrenom.pronom,
           prenom:currentGenreEtPrenom.prenom,
           a:a,
@@ -10162,7 +10162,7 @@ function Trouver_erreur_resol_eq_deg1(){
           <br>$${inc} = \\dfrac{${d-b}}{${a-c}}$ ${simpFrac(d-b,a-c)}
           `,
         },
-        {//case 4 --> ax+b=cx+d  erreur à l'étape 4 on soustrait au lieu de diviser
+        {//case 5 --> ax+b=cx+d  erreur à l'étape 4 on soustrait au lieu de diviser
           pronom:currentGenreEtPrenom.pronom,
           prenom:currentGenreEtPrenom.prenom,
           a:a,
@@ -10208,7 +10208,7 @@ function Trouver_erreur_resol_eq_deg1(){
 
       let enonces = [];
       for (let k=0;k<5;k++) {
-        enonces.push({// case 0 --> ax+b=d+cx  erreur à l'étape 1 on passe cx de l'autre côté
+        enonces.push({
         enonce:`
           ${situations[k].prenom} doit résoudre l'équation suivante : ${situations[k].eq}.
           <br> Voilà ce qu'${situations[k].pronom} écrit :
