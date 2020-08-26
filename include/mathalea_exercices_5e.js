@@ -6196,8 +6196,7 @@ function Problemes_additifs_fractions_5e(){
 
 	this.titre = "Résoudre un problème en utilisant des fractions";
 	//this.consigne = `${mise_en_evidence(`Calculatrice autorisée.`)}`;
-	this.consigne = `Calculatrice autorisée.`;
-	
+	this.consigne = `Calculatrice autorisée.`;	
 	
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -6225,8 +6224,6 @@ function Problemes_additifs_fractions_5e(){
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
 
-
-
 			// pour les situations
 			let situations = [
 				{//case 0 -->
@@ -6241,8 +6238,6 @@ function Problemes_additifs_fractions_5e(){
 				},
 		
 			];
-
-
 
 			let enonces = [];
 			for (let k=0;k<5;k++) {
@@ -6329,10 +6324,11 @@ function Problemes_additifs_fractions_5e(){
 
 /** 
  * * résoudre un problème additif avec des relatifs
- * * 5R20-0
+ * * 5R20-4
  * @author Sébastien Lozano
  */
-function Problemes_additifs_fractions_5e(){
+
+function Problemes_additifs_relatifs_5e(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.beta = true;	
@@ -6343,10 +6339,8 @@ function Problemes_additifs_fractions_5e(){
 		this.nb_questions = 3;
 	};	
 
-	this.titre = "Résoudre un problème en utilisant des fractions";
-	//this.consigne = `${mise_en_evidence(`Calculatrice autorisée.`)}`;
-	this.consigne = `Calculatrice autorisée.`;
-	
+	this.titre = "Résoudre un problème en utilisant une somme algébrique de relatifs";	
+	this.consigne = `Consigne somme relatifs`;	
 	
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -6374,8 +6368,6 @@ function Problemes_additifs_fractions_5e(){
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
 
-
-
 			// pour les situations
 			let situations = [
 				{//case 0 -->
@@ -6390,8 +6382,6 @@ function Problemes_additifs_fractions_5e(){
 				},
 		
 			];
-
-
 
 			let enonces = [];
 			for (let k=0;k<5;k++) {
@@ -6458,8 +6448,7 @@ function Problemes_additifs_fractions_5e(){
 						texte_corr = `${enonces[4].correction}`;
 					};
 					break;				
-			}
-			
+			};			
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
