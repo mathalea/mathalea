@@ -6189,13 +6189,12 @@ function Problemes_additifs_fractions_5e(){
 	this.beta = true;	
 	this.sup=1;
 	if (this.beta) {
-		this.nb_questions = 5;
+		this.nb_questions = 1;
 	} else {
 		this.nb_questions = 3;
 	};	
 
-	this.titre = "Résoudre un problème en utilisant des fractions";
-	//this.consigne = `${mise_en_evidence(`Calculatrice autorisée.`)}`;
+	this.titre = "Résoudre un problème en utilisant des fractions";	
 	this.consigne = `Calculatrice autorisée.`;	
 	
 	this.nb_cols = 1;
@@ -6208,44 +6207,110 @@ function Problemes_additifs_fractions_5e(){
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		if (this.beta) {
-			type_de_questions_disponibles = [0,1,2,3,4];			
+			type_de_questions_disponibles = [0];			
 		} else {
       type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
       			
 		};
 
 		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		
-		//type_de_questions_disponibles=[1];			
+		this.liste_corrections = []; // Liste de questions corrigées		
 
 		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+			// on définit les fractions pour les vols
+			let frac_vols = [
+				[1,12],
+				[1,12],
+				[1,12],
+				[1,4],
+				[1,2]
+			];
+			// on mélange pour l'aléatoire
+			frac_vols = shuffle(frac_vols);
+
+			let q1a = randint(1,5); // indice pour faire varier la 1ere question sur la destination
+			let q1b = randint(1,5,[q1a]); // indice pour faire varier la 2eme question sur la destination
+			let nb_vols_total;
+			let destinations_vols = [[`l'`,`Afrique`],[`l'`,`Asie`],[`l'`,`Amérique`],[`l'`,`Europe`],[`la`,` France`]];
+			destinations_vols = shuffle(destinations_vols);
+
+			do {
+				nb_vols_total = randint(200,600);
+			} while (nb_vols_total%2 != 0 && nb_vols_total%3 != 0 && nb_vols_total%4 != 0)
 
 			// pour les situations
 			let situations = [
-				{//case 0 -->
+				{//case 0 --> vols
+					fin_enonce_situation:`vols d'une compagnie aérienne selon la destination`,
+					nom_enonce:`vols`,
+					last_question:[`cette compagnie a affrété`,`vols`,`le nombre de vols`],
+					cat1:{
+						destination:destinations_vols[0][0]+destinations_vols[0][1],
+						article:destinations_vols[0][0],
+						nom: destinations_vols[0][1],
+						frac: frac_vols[0],
+						angle: calcul(360/frac_vols[0][1])
+					},
+					cat2:{
+						destination:destinations_vols[1][0]+destinations_vols[1][1],
+						article:destinations_vols[1][0],
+						nom: destinations_vols[1][1],
+						frac: frac_vols[1],
+						angle: calcul(360/frac_vols[1][1])
+					},
+					cat3:{
+						destination:destinations_vols[2][0]+destinations_vols[2][1],
+						article:destinations_vols[2][0],
+						nom: destinations_vols[2][1],
+						frac: frac_vols[2],
+						angle: calcul(360/frac_vols[2][1])
+					},
+					cat4:{
+						destination:destinations_vols[3][0]+destinations_vols[3][1],
+						article:destinations_vols[3][0],
+						nom: destinations_vols[3][1],
+						frac: frac_vols[3],
+						angle: calcul(360/frac_vols[3][1])
+					},
+					cat5:{
+						destination:destinations_vols[4][0]+destinations_vols[4][1],
+						article:destinations_vols[4][0],
+						nom: destinations_vols[4][1],
+						frac: frac_vols[4],
+						angle: calcul(360/frac_vols[4][1])
+					},
+					q1a:q1a,
+					q1b:q1b,
+					nb_total:nb_vols_total,
+					fig:``,
 				},
-				{//case 1 -->
+				{//case 1 --> courses
 				},
-				{//case 2 -->
+				{//case 2 --> activités sportives
 				},
 				{//case 3 -->
 				},
 				{//case 4 -->
-				},
-		
+				},		
 			];
 
-			let enonces = [];
-			for (let k=0;k<5;k++) {
+			let enonces = [];			
+			let i_sous_question=0;
+
+			for (let k=0;k<1;k++) {
 				enonces.push({
 					enonce:`
-					Type ${k}				
+					On a représenté sur le diagramme circulaire ci-contre la répartition des ${situations[k].fin_enonce_situation}.
+					<br>${num_alpha(i_sous_question++)} Quelle fraction représente les ${situations[k].nom_enonce} vers ${situations[k].cat1.destination} ?
+					<br>${num_alpha(i_sous_question++)} Quelle fraction représente les ${situations[k].nom_enonce} vers ${situations[k].cat2.destination} ?
+					<br>${num_alpha(i_sous_question++)} Sachant que ${situations[k].last_question[0]} ${situations[k].nb_total} ${situations[k].last_question[1]}
+					et que les ${situations[k].nom_enonce} vers ${situations[k].cat3.destination} représentent $\\dfrac{${situations[k].cat3.frac[0]}}{${situations[k].cat3.frac[1]}}$ de ce total,
+					caluler ${situations[k].last_question[2]} vers ${situations[k].cat3.destination}?
+												
 					`,
-					question:``,
 					correction:`
 					Correction type ${k}
 					`
@@ -6264,46 +6329,46 @@ function Problemes_additifs_fractions_5e(){
 						texte_corr = `${enonces[0].correction}`;
 					};
           			break;	
-        		case 1 : 
-					texte = `${enonces[1].enonce}`;
-					if (this.beta) {
-						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
-						texte_corr = ``;	
-					} else {
-						texte_corr = `${enonces[1].correction}`;
-					};
-          			break;
-        		case 2 : 
-					texte = `${enonces[2].enonce}`;
-					if (this.beta) {
-						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
-						texte_corr = ``;	
-					} else {
-						texte_corr = `${enonces[2].correction}`;
-					};
-          			break;				
-        		case 3 : 
-					texte = `${enonces[3].enonce}`;
-					if (this.beta) {
-						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
-						texte_corr = ``;	
-					} else {
-						texte_corr = `${enonces[3].correction}`;
-					};
-					break;				
-         		case 4 : 
-					texte = `${enonces[4].enonce}`;
-					if (this.beta) {
-						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
-						texte_corr = ``;	
-					} else {
-						texte_corr = `${enonces[4].correction}`;
-					};
-					break;				
+        		// case 1 : 
+				// 	texte = `${enonces[1].enonce}`;
+				// 	if (this.beta) {
+				// 		texte += `<br>`;
+				// 		texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
+				// 		texte_corr = ``;	
+				// 	} else {
+				// 		texte_corr = `${enonces[1].correction}`;
+				// 	};
+          		// 	break;
+        		// case 2 : 
+				// 	texte = `${enonces[2].enonce}`;
+				// 	if (this.beta) {
+				// 		texte += `<br>`;
+				// 		texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
+				// 		texte_corr = ``;	
+				// 	} else {
+				// 		texte_corr = `${enonces[2].correction}`;
+				// 	};
+          		// 	break;				
+        		// case 3 : 
+				// 	texte = `${enonces[3].enonce}`;
+				// 	if (this.beta) {
+				// 		texte += `<br>`;
+				// 		texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
+				// 		texte_corr = ``;	
+				// 	} else {
+				// 		texte_corr = `${enonces[3].correction}`;
+				// 	};
+				// 	break;				
+         		// case 4 : 
+				// 	texte = `${enonces[4].enonce}`;
+				// 	if (this.beta) {
+				// 		texte += `<br>`;
+				// 		texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
+				// 		texte_corr = ``;	
+				// 	} else {
+				// 		texte_corr = `${enonces[4].correction}`;
+				// 	};
+				// 	break;				
 			}
 			
 			
