@@ -6187,7 +6187,7 @@ function Problemes_additifs_fractions_5e(){
 					case 90:
 						return `du secteur est un angle droit, il vaut $${angle}\\degree$.<br> L'angle pour un tour complet vaut $360\\degree$.`;
 					case 30:
-						return ` rouge apparait 3 fois, l'angle vert vaut $180\\degree$ et il y a un angle droit.<br> L'angle pour un tour complet vaut $360\\degree$, donc l'angle rouge vaut $(360-180-90)\\div 3 = ${angle}\\degree$.`;
+						return ` rouge apparaît 3 fois, l'angle vert vaut $180\\degree$ et il y a un angle droit.<br> L'angle pour un tour complet vaut $360\\degree$, donc l'angle rouge vaut $(360-180-90)\\div 3 = ${angle}\\degree$.`;
 					case 180:
 						return `du secteur est un angle plat, il vaut $${angle}\\degree$.<br> L'angle pour un tour complet vaut $360\\degree$.`;
 		
@@ -6320,10 +6320,7 @@ function Problemes_additifs_fractions_5e(){
 
 					<br>${num_alpha(i_sous_question_corr++)} Calculons $\\dfrac{${situations[k].cat3.frac[0]}}{${situations[k].cat3.frac[1]}}$ de ${situations[k].nb_total} : 
 					<br>$\\dfrac{${situations[k].cat3.frac[0]}}{${situations[k].cat3.frac[1]}}\\times ${situations[k].nb_total} = \\dfrac{${situations[k].cat3.frac[0]}\\times ${situations[k].nb_total}}{${situations[k].cat3.frac[1]}} = \\dfrac{${situations[k].cat3.frac[0]}\\times ${calcul(situations[k].nb_total/situations[k].cat3.frac[1])}\\times ${situations[k].cat3.frac[1]}}{${situations[k].cat3.frac[1]}} = \\dfrac{${situations[k].cat3.frac[0]}\\times ${calcul(situations[k].nb_total/situations[k].cat3.frac[1])}\\times \\cancel{${situations[k].cat3.frac[1]}}}{\\cancel{${situations[k].cat3.frac[1]}}} = ${situations[k].cat3.frac[0]}\\times ${calcul(situations[k].nb_total/situations[k].cat3.frac[1])} = ${calcul(situations[k].nb_total/situations[k].cat3.frac[1])}$
-					<br>${texte_en_couleur(`${situations[k].last_question[3]} vers ${situations[k].cat3.destination} vaut donc ${calcul(situations[k].nb_total/situations[k].cat3.frac[1])} `)}
-					
-
-
+					<br>${texte_en_couleur(`${situations[k].last_question[3]} vers ${situations[k].cat3.destination} vaut donc ${calcul(situations[k].nb_total/situations[k].cat3.frac[1])}.`)}
 					`
 				});
 			};
