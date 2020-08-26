@@ -74,6 +74,7 @@ var liste_des_exercices_disponibles = {
   "6N11-2": Placer_un_point_abscisse_entiere,
   "6N12": Exercice_6N12,
   "6N13": Exercice_6N13,
+  "beta6N14" : Representer_une_fraction,
   "6N20": Exercice_fractions_decomposer,
   "6N20-2": Exercice_fractions_differentes_ecritures,
   "6N21": Lire_abscisse_fractionnaire,
@@ -330,6 +331,7 @@ function Exercice() {
 /**
  * Pour imprimer des repères vierges pour les élèves.
  * @Auteur Jean-Claude Lhote
+ * référence : P003
  */
 function feuille_d_axes_gradues() {
   "use strict";
@@ -3134,6 +3136,7 @@ function Le_compte_est_bonV4() {
  * Cette fonction produit aléatoirement un tirage de 5 nombres, une solution, un tableau contenant les calculs successifs, une chaine contenant l'expression mathador correspondante
  * @returns {array} [tirage=[a,b,c,d,e],solution (compris entre min et max),operations_successives=[string1,string2,string3,string4,string5],expression]
  * les string1 à 5 ainsi que l'expresion sont ) mettre en mode maths.
+ * sert dans les exercices CM019,
  */
 function Trouver_solution_mathador(
   min,
@@ -5483,6 +5486,10 @@ function Exercice_fractions_decomposer() {
     }
     liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
   };
+}
+
+function Representer_une_fraction() {
+
 }
 
 /**
@@ -10522,6 +10529,11 @@ function Exercice_additionner_des_fractions_6e() {
   this.level=6
   this.titre= "Additionner des fractions de même dénominateur"
 }
+/**
+ * @Auteur Jean-Claude Lhote
+ * vocabulaire arête, face, perpendicularité dans l'espace, parallélisme dans l'espace
+ * référence : 6G43
+ */
 function Utiliser_vocabulaire_pave() {
   Solide_6e.call(this);
   this.titre = "Utiliser le vocabulaire associé au pavé droit"
@@ -12218,6 +12230,11 @@ function Tracer_triangle_2_angles() {
   //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
 
+/**
+ * fonction servant à plusieurs exercice autour du cube et du pavé droit
+ * références : 6G42 et 6G43
+ * @Auteur Jean-Claude Lhote
+ */
 function Solide_6e() {
   "use strict";
   Exercice.call(this);
