@@ -12282,26 +12282,46 @@ function Solide_6e() {
            break;
         case 3 :
           enonce=`${nom} est un cube.<br>`
-          let aretes_egales=[[[0,1],[3,2],[4,5],[7,6]],[[0,3],[1,2],[4,7],[5,6]],[[0,4],[1,5],[2,6],[3,7]]]
-          let faces_egales=[[[0,1,2,3],[4,5,6,7]],[[0,4,7,3],[1,5,6,2]],[[0,1,5,4],[3,2,6,7]]]
-          let k,l,s
-          switch (randint(1,2)) {
-            case 1 : // citer les arêtes parallèles à une arrête donnée
-            [k,l,s]=[randint(0,2),randint(0,3),randint(0,1)]
-              enonce+=`Citer toutes les arêtes parallèles à [$${nom[aretes_egales[k][l][s]]+nom[aretes_egales[k][l][(s+1)%2]]}$].<br>`
-            correction = `Les arêtes parallèles à [$${nom[aretes_egales[k][l][s]]+nom[aretes_egales[k][l][(s+1)%2]]}$] sont [$${nom[aretes_egales[k][(l+1)%4][s]]+nom[aretes_egales[k][(l+1)%4][(s+1)%2]]}$], [$${nom[aretes_egales[k][(l+2)%4][s]]+nom[aretes_egales[k][(l+2)%4][(s+1)%2]]}$] et [$${nom[aretes_egales[k][(l+3)%4][s]]+nom[aretes_egales[k][(l+3)%4][(s+1)%2]]}$]`
-          break;
-          case 2: // coter la face parallèle à une face donnée
-           [k,l,s]=[randint(0,2),randint(0,1),randint(0,3)]
-           enonce+=`Quelle est la face parallèle à $${nom[faces_egales[k][l][s]]+nom[faces_egales[k][l][(s+1)%4]]+nom[faces_egales[k][l][(s+2)%4]]+nom[faces_egales[k][l][(s+3)%4]]}$ ?<br>`
-           correction = `La face parallèle à $${nom[faces_egales[k][l][s]]+nom[faces_egales[k][l][(s+1)%4]]+nom[faces_egales[k][l][(s+2)%4]]+nom[faces_egales[k][l][(s+3)%4]]}$ est la face $${nom[faces_egales[k][(l+1)%2][s]]+nom[faces_egales[k][(l+1)%2][(s+1)%4]]+nom[faces_egales[k][(l+1)%2][(s+2)%4]]+nom[faces_egales[k][(l+1)%2][(s+3)%4]]}$<br>`
-          break;
-          }
           break;
  
         case 4 :
           enonce=`${nom} est un pavé droit.<br>`
           break;
+      }
+      let aretes_paralleles=[[[0,1],[3,2],[4,5],[7,6]],[[0,3],[1,2],[4,7],[5,6]],[[0,4],[1,5],[2,6],[3,7]]]
+      let faces_paralleles=[[[0,1,2,3],[4,5,6,7]],[[0,4,7,3],[1,5,6,2]],[[0,1,5,4],[3,2,6,7]]]
+      let aretes_perp=[[[0,1],[0,4],[0,3],[1,5],[1,2]],[[0,4],[0,1],[0,3],[4,5],[4,7]],[[0,3],[0,1],[0,4],[3,2],[3,7]],[[1,2],[1,0],[1,5],[2,3],[2,6]],[[1,5],[1,0],[1,2],
+      [5,4],[5,6]],[[5,4],[5,1],[5,6],[4,0],[4,7]],[[5,6],[5,1],[5,4],[6,2],[6,7]]
+      ,[[6,2],[6,5],[6,7],[2,1],[2,3]],[[2,3],[2,1],[2,6],[3,0],[3,7]],[[3,7],[3,2],[3,0],[7,4],[7,6]],[[7,4],[4,0],[4,5],[7,3],[7,6]],[[7,6],[6,2],[6,5],[7,3],[7,4]]]
+      let faces_perp=[[[0,1,2,3],[1,5,6,2],[2,6,7,3],[3,7,4,0],[0,1,5,4]],[[1,5,6,2],[0,1,2,3],[2,6,7,3],[5,6,7,4],[1,5,4,0]],[[0,1,5,4],[1,5,6,2],[4,5,6,7],[0,4,7,3],[0,1,2,3]],
+      [[4,5,6,7],[0,1,5,4],[1,5,6,2],[2,6,7,3],[0,4,7,3]],[[0,4,7,3],[0,1,2,3],[0,1,5,4],[4,5,6,7],[3,2,6,7]],[[3,2,6,7],[0,1,2,3],[1,5,6,2],[4,5,6,7],[0,4,7,3]]]
+      let k,l,s
+      switch (randint(1,4)) {
+        case 1 : // citer les arêtes parallèles à une arrête donnée
+        [k,l,s]=[randint(0,2),randint(0,3),randint(0,1)]
+          enonce+=`Citer toutes les arêtes parallèles à [$${nom[aretes_paralleles[k][l][s]]+nom[aretes_paralleles[k][l][(s+1)%2]]}$].<br>`
+        correction = `Les arêtes parallèles à [$${nom[aretes_paralleles[k][l][s]]+nom[aretes_paralleles[k][l][(s+1)%2]]}$] sont [$${nom[aretes_paralleles[k][(l+1)%4][s]]+nom[aretes_paralleles[k][(l+1)%4][(s+1)%2]]}$], [$${nom[aretes_paralleles[k][(l+2)%4][s]]+nom[aretes_paralleles[k][(l+2)%4][(s+1)%2]]}$] et [$${nom[aretes_paralleles[k][(l+3)%4][s]]+nom[aretes_paralleles[k][(l+3)%4][(s+1)%2]]}$].<br>`
+      break;
+      case 2: // coter la face parallèle à une face donnée
+       [k,l,s]=[randint(0,2),randint(0,1),randint(0,3)]
+       enonce+=`Quelle est la face parallèle à $${nom[faces_paralleles[k][l][s]]+nom[faces_paralleles[k][l][(s+1)%4]]+nom[faces_paralleles[k][l][(s+2)%4]]+nom[faces_paralleles[k][l][(s+3)%4]]}$ ?<br>`
+       correction = `La face parallèle à $${nom[faces_paralleles[k][l][s]]+nom[faces_paralleles[k][l][(s+1)%4]]+nom[faces_paralleles[k][l][(s+2)%4]]+nom[faces_paralleles[k][l][(s+3)%4]]}$ est la face $${nom[faces_paralleles[k][(l+1)%2][s]]+nom[faces_paralleles[k][(l+1)%2][(s+1)%4]]+nom[faces_paralleles[k][(l+1)%2][(s+2)%4]]+nom[faces_paralleles[k][(l+1)%2][(s+3)%4]]}$.<br>`
+      break;
+      case 3: // citer les arêtes perpendiculaires à une arête donnée
+        [k,l,s]=[randint(0,11),0,randint(0,1)]
+        enonce+=`Quelles sont les arêtes peprendiculaires à l'arête [$${nom[aretes_perp[k][l][s]]+nom[aretes_perp[k][l][(s+1)%2]]}$] ?<br>`
+        correction = `Les arêtes perpendiculaires à l'arête [$${nom[aretes_perp[k][l][s]]+nom[aretes_perp[k][l][(s+1)%2]]}$] sont [$${nom[aretes_perp[k][1][s]]+nom[aretes_perp[k][1][(s+1)%2]]}$], [$${nom[aretes_perp[k][2][s]]+nom[aretes_perp[k][2][(s+1)%2]]}$], [$${nom[aretes_perp[k][3][s]]+nom[aretes_perp[k][3][(s+1)%2]]}$] et [$${nom[aretes_perp[k][4][s]]+nom[aretes_perp[k][4][(s+1)%2]]}$].`
+      break;
+      case 4 : // citer les faces perpendiculaires à une face donnée
+        [k,l,s]=[randint(0,5),0,randint(0,3)]
+        enonce+=`Quelles sont les faces perpendiculaires à la face $${nom[faces_perp[k][l][s]]+nom[faces_perp[k][l][(s+1)%4]]+nom[faces_perp[k][l][(s+2)%4]]+nom[faces_perp[k][l][(s+3)%4]]}$ ?<br>` 
+        correction =`Les faces perpendiculaires à la face $${nom[faces_perp[k][l][s]]+nom[faces_perp[k][l][(s+1)%4]]+nom[faces_perp[k][l][(s+2)%4]]+nom[faces_perp[k][l][(s+3)%4]]}$ `
+        correction +=`sont les faces $${nom[faces_perp[k][l+1][s]]+nom[faces_perp[k][l+1][(s+1)%4]]+nom[faces_perp[k][l+1][(s+2)%4]]+nom[faces_perp[k][l+1][(s+3)%4]]}$, `
+        correction+=`$${nom[faces_perp[k][l+2][s]]+nom[faces_perp[k][l+2][(s+1)%4]]+nom[faces_perp[k][l+2][(s+2)%4]]+nom[faces_perp[k][l+2][(s+3)%4]]}$, `
+        correction+=`$${nom[faces_perp[k][l+3][s]]+nom[faces_perp[k][l+3][(s+1)%4]]+nom[faces_perp[k][l+3][(s+2)%4]]+nom[faces_perp[k][l+3][(s+3)%4]]}$ et `
+        correction+=`$${nom[faces_perp[k][l+4][s]]+nom[faces_perp[k][l+4][(s+1)%4]]+nom[faces_perp[k][l+4][(s+2)%4]]+nom[faces_perp[k][l+4][(s+3)%4]]}$.`
+    
+        break;
       }
 
         switch (liste_type_de_questions[i]%2) {
