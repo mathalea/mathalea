@@ -35,6 +35,7 @@ var liste_des_exercices_disponibles = {
   "6C31": Division_decimale,
   "6C32": Probleme_course,
   "6C33": Priorites,
+  "beta6addfrac" : Exercice_additionner_des_fractions_6e,
   "6D10": Conversions_de_durees,
   "6D101": Heures_decimales,
   "6D11": Somme_de_durees,
@@ -10515,6 +10516,12 @@ function Transformations() {
 }
 
 // Exercices paramétrés pour correspondre au référentiel
+function Exercice_additionner_des_fractions_6e() {
+  Exercice_additionner_des_fractions_5e.call(this);
+  this.level=6
+  this.titre= "Additionner des fractions de même dénominateur"
+}
+
 /**
  * @Auteur Jean-Claude Lhote
  * référence 6G11

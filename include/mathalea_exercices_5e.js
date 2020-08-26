@@ -420,7 +420,8 @@ function Exercice_additionner_des_fractions_5e(max=11){
 			while (b==a){
 				b = randint(2,9); // pas de fraction avec numérateur et dénominateur égaux
 			}
-			k = randint(2,this.sup);
+			if (this.level!=6) k = randint(2,this.sup);
+			else k=1
 			d = b*k
 			ordre_des_fractions = randint(1,2)
 			if (ordre_des_fractions==1) {
@@ -429,10 +430,12 @@ function Exercice_additionner_des_fractions_5e(max=11){
 				texte = texte = `$${tex_fraction(c,d)}+${tex_fraction(a,b)}=$`;
 			}
 			if (ordre_des_fractions==1) {
-				texte_corr = `$${tex_fraction(a,b)}+${tex_fraction(c,d)}=${tex_fraction(a+mise_en_evidence('\\times '+k),b+mise_en_evidence('\\times '+k))}+${tex_fraction(c,d)}`
+				if (this.level!=6) texte_corr = `$${tex_fraction(a,b)}+${tex_fraction(c,d)}=${tex_fraction(a+mise_en_evidence('\\times '+k),b+mise_en_evidence('\\times '+k))}+${tex_fraction(c,d)}`
+				else texte_corr =`$`
 				texte_corr += `=${tex_fraction(a*k,b*k)}+${tex_fraction(c,d)}=${tex_fraction(a*k+`+`+c,d)}=${tex_fraction(a*k+c,d)}$`;
 			} else {
-				texte_corr = `$${tex_fraction(c,d)}+${tex_fraction(a,b)}=${tex_fraction(c,d)}+${tex_fraction(a+mise_en_evidence('\\times '+k),b+mise_en_evidence('\\times '+k))}`
+				if (this.level!=6) texte_corr = `$${tex_fraction(c,d)}+${tex_fraction(a,b)}=${tex_fraction(c,d)}+${tex_fraction(a+mise_en_evidence('\\times '+k),b+mise_en_evidence('\\times '+k))}`
+				else texte_corr =`$`
 				texte_corr += `=${tex_fraction(c,d)}+${tex_fraction(a*k,b*k)}=${tex_fraction(c+'+'+a*k,d)}=${tex_fraction(a*k+c,d)}$`;
 			}
 			// Est-ce que le résultat est simplifiable ?
