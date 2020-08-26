@@ -1956,8 +1956,8 @@ function translation(O, v, nom = "", positionLabel = "above") {
 		return s
 	}
 */
-  if (A.constructor == Vecteur) {
-    return A;
+  if (O.constructor == Vecteur) {
+    return O;
   }
 }
 
