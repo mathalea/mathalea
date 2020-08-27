@@ -6526,14 +6526,14 @@ function Problemes_additifs_relatifs_5e(){
 					<br>${situations[0].enonce_3} $${tex_nombre(situations[0].gain_unitaire)}$€.
 					<br>${situations[0].enonce_4} $${tex_nombre(situations[0].perte)}$€.
 					<br>${situations[k].prenom} ${situations[k].enonce_5} $${situations[k].nb_tot_lancers}$ fois ${situations[k].enonce_6}.
-					${situations[k].pronomMaj} a perdu de l'argent $${situations[k].nb_pertes}$ fois et a gagné $${situations[k].nb_gains_unitaires}$ fois ${tex_nombre(situations[k].gain_unitaire)}€.
+					${situations[k].pronomMaj} a perdu de l'argent $${situations[k].nb_pertes}$ fois et a gagné $${situations[k].nb_gains_unitaires}$ fois $${tex_nombre(situations[k].gain_unitaire)}$€.
 					<br> ${num_alpha(i_sous_question++)} A-t-${situations[k].pronomMin} globalement gagné ou perdu de l'argent ?
 					<br> ${num_alpha(i_sous_question++)} Combien a-t-${situations[k].pronomMin} globalement gagné ou perdu ?
 					`,
 					question:``,
 					correction:`
 					${situations[k].prenom} ${situations[k].enonce_5} $${situations[k].nb_tot_lancers}$ fois ${situations[k].enonce_6}, 
-					sur ces $${situations[k].nb_tot_lancers}$ fois,  ${situations[k].pronomMin} a perdu de l'argent $${situations[k].nb_pertes}$ fois et a gagné $${situations[k].nb_gains_unitaires}$ fois ${tex_nombre(situations[k].gain_unitaire)}€.
+					sur ces $${situations[k].nb_tot_lancers}$ fois,  ${situations[k].pronomMin} a perdu de l'argent $${situations[k].nb_pertes}$ fois et a gagné $${situations[k].nb_gains_unitaires}$ fois $${tex_nombre(situations[k].gain_unitaire)}$€.
 					<br> $${situations[k].nb_tot_lancers}-${situations[k].nb_pertes}-${situations[k].nb_gains_unitaires} = ${situations[k].nb_tot_lancers-situations[k].nb_pertes-situations[k].nb_gains_unitaires}$,
 					${situations[k].pronomMin} a donc ${situations[k].correction_1} ${situations[k].nb_gains} fois.
 					<br>${texte_gras(`Gains lorsqu'${situations[k].pronomMin} a ${situations[k].correction_1} :`)}
