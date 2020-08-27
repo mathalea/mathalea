@@ -6185,11 +6185,14 @@ function Problemes_additifs_fractions_5e(){
 			function myTexte_vols_corr(angle) {
 				switch (angle) {
 					case 90:
-						return `du secteur est un angle droit, il vaut $${angle}\\degree$.<br> L'angle pour un tour complet vaut $360\\degree$.`;
+						return `du secteur est un angle droit, il mesure $${angle}\\degree$ sur les $360\\degree$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{4}$.`;
 					case 30:
-						return ` rouge apparaît 3 fois, l'angle vert vaut $180\\degree$ et il y a un angle droit.<br> L'angle pour un tour complet vaut $360\\degree$, donc l'angle rouge vaut $(360-180-90)\\div 3 = ${angle}\\degree$.`;
+						return `rouge apparaît 3 fois, l'angle vert vaut $180\\degree$ et il y a un angle droit.
+							<br> L'angle pour un tour complet vaut $360\\degree$, donc l'angle rouge vaut $(360-180-90)\\div 3 = ${angle}\\degree$.
+							<br> L'angle rouge mesure $${angle}\\degree$ sur les $360\\degree$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{12}$.
+							`;
 					case 180:
-						return `du secteur est un angle plat, il vaut $${angle}\\degree$.<br> L'angle pour un tour complet vaut $360\\degree$.`;
+						return `du secteur est un angle plat, il mesure $${angle}\\degree$ sur les $360\\degree$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{2}$.`;
 		
 				}
 			};
@@ -6310,12 +6313,10 @@ function Problemes_additifs_fractions_5e(){
 												
 					`,
 					correction:`
-					${num_alpha(i_sous_question_corr++)} Pour ${situations[k].cat1.destination} l'angle ${myTexte_vols_corr(situations[k].cat1.angle)}					
-					<br>D'où la fraction $\\dfrac{${situations[k].cat1.angle}}{360}=\\dfrac{${situations[k].cat1.frac[0]}}{${situations[k].cat1.frac[1]}}$.
+					${num_alpha(i_sous_question_corr++)} Pour ${situations[k].cat1.destination} l'angle ${myTexte_vols_corr(situations[k].cat1.angle)}						
 					<br>${texte_en_couleur(`La fraction qui représente les ${situations[k].nom_enonce} vers ${situations[k].cat1.destination} vaut donc $\\dfrac{${situations[k].cat1.frac[0]}}{${situations[k].cat1.frac[1]}}$`)}.
 					
-					<br>${num_alpha(i_sous_question_corr++)} Pour ${situations[k].cat2.destination} l'angle ${myTexte_vols_corr(situations[k].cat2.angle)}
-					<br> D'où la fraction $\\dfrac{${situations[k].cat2.angle}}{360}=\\dfrac{${situations[k].cat2.frac[0]}}{${situations[k].cat2.frac[1]}}$.
+					<br>${num_alpha(i_sous_question_corr++)} Pour ${situations[k].cat2.destination} l'angle ${myTexte_vols_corr(situations[k].cat2.angle)}				
 					<br>${texte_en_couleur(`La fraction qui représente les ${situations[k].nom_enonce} vers ${situations[k].cat2.destination} vaut donc $\\dfrac{${situations[k].cat2.frac[0]}}{${situations[k].cat2.frac[1]}}$`)}
 
 					<br>${num_alpha(i_sous_question_corr++)} Calculons $\\dfrac{${situations[k].cat3.frac[0]}}{${situations[k].cat3.frac[1]}}$ de ${situations[k].nb_total} : 
