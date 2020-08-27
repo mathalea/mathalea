@@ -6413,7 +6413,7 @@ function Problemes_additifs_fractions_5e(){
 function Problemes_additifs_relatifs_5e(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 1;
@@ -6557,9 +6557,9 @@ function Problemes_additifs_relatifs_5e(){
 					question:``,
 					correction:`
 					${situations[k].prenom} ${situations[k].enonce_5} $${situations[k].nb_tot_lancers}$ fois ${situations[k].enonce_6},
-					sur les 15 lancers, on sait combien de fois il a perdu de l'argent et combien de fois il a gagné $${tex_prix(situations[k].gain_unitaire)}$€, les autres lancers correspondent donc au nombre de fois où ${situations[k].pronomMin} a ${situations[k].correction_1} et qu'${situations[k].pronomMin} a gagné $${tex_prix(situations[k].gain_multiple)}$€ 
+					sur les $${situations[k].nb_tot_lancers}$ lancers, on sait combien de fois ${situations[k].pronomMin} a perdu de l'argent et combien de fois ${situations[k].pronomMin} a gagné $${tex_prix(situations[k].gain_unitaire)}$€, les autres lancers correspondent donc au nombre de fois où ${situations[k].pronomMin} a ${situations[k].correction_1} et qu'${situations[k].pronomMin} a gagné $${tex_prix(situations[k].gain_multiple)}$€ 
 					<br> $${situations[k].nb_tot_lancers}-${situations[k].nb_pertes}-${situations[k].nb_gains_unitaires} = ${situations[k].nb_tot_lancers-situations[k].nb_pertes-situations[k].nb_gains_unitaires}$,
-					${situations[k].pronomMin} a donc ${situations[k].correction_1} ${situations[k].nb_gains} fois.
+					${situations[k].pronomMin} a donc ${situations[k].correction_1} $${situations[k].nb_gains}$ fois.
 
 					<br>${texte_gras(`Gains lorsqu'${situations[k].pronomMin} a ${situations[k].correction_1} :`)}
 					<br>$${myGainPerteString(situations[k].nb_gains,'gain',situations[k].gain_multiple)} = ${situations[k].nb_gains}\\times (+${tex_prix(situations[k].gain_multiple)}€) = +${tex_prix(situations[k].nb_gains*situations[k].gain_multiple)}$€
