@@ -6421,7 +6421,7 @@ function Problemes_additifs_relatifs_5e(){
 		this.nb_questions = 1;
 	};	
 
-	this.titre = "Résoudre un problème en utilisant une somme algébrique de relatifs";	
+	this.titre = "Résoudre un problème en utilisant une somme algébrique de relatifs.";	
 	this.consigne = ``;	
 	
 	this.nb_cols = 1;
