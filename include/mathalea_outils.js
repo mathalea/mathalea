@@ -4877,7 +4877,31 @@ function Fraction(num,den) {
     }
     this.differenceFraction = function(f2) {
         return this.sommeFraction(f2.oppose())
-    }
+	}
+	this.fractionDecimale = function(){
+		let den=this.denIrred
+		let num=this.numIrred
+		let liste=obtenir_liste_facteurs_premiers(den)
+		let n2=0,n5=0
+		for (let n of liste) {
+			if (n==2) n2++
+			else if (n==5) n5++
+			else return 'NaN'
+		}
+		if (n5==n2) return fraction(this.numIrred,this.fractionDecimale.denIrred)
+		else if (n5>n2) return fraction(this.numIrred*2**(n5-n2),this.denIrred*2**(n5-n2))
+		else return fraction(this.numIrred*5**(n2-n5),this.denIrred*5**(n2-n5))
+	}
+	this.valeurDecimale = function(){
+		if (this.fractionDecimale()!='NaN') return calcul(this.fractionDecimale().num/this.fractionDecimale().den)
+		else return `Ce n\'est pas un nombre décimal`
+	}
+	this.texFraction = function(){
+		return tex_fraction(this.num,this.den)
+	}
+	this.texFractionSimplifiee = function(){
+		return tex_fraction(this.numIrred,this.denIrred)
+	}
     /**
      * 
      * @param {number} depart N° de la première part coloriée (0 correspond à la droite du centre) 
