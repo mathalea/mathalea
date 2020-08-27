@@ -133,6 +133,7 @@ var liste_des_exercices_disponibles = {
   "5L13-2": Exercice_substituer,
   "5L13-3": Traduire_une_phrase_par_une_expression_litterale_et_calculer,
   "5L13-4": Calculer_une_expression_litteraleBis,
+  "5L13-5":Calculer_la_valeur_d_une_expression_litterale_deg1_inc1,
   "5L14": Tester_une_egalite,
   "5M10": Aire_du_parallelogramme,
   "5M20": Calcul_de_volumes_5e,

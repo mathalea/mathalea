@@ -2090,7 +2090,15 @@ function Calculer_la_valeur_d_une_expression_litterale(){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = range1(10)
+		//let type_de_questions_disponibles = range1(10)
+		let type_de_questions_disponibles;
+		
+		if (this.version=="5L13-5") {
+			type_de_questions_disponibles = range1(2)
+		} else {
+			type_de_questions_disponibles = range1(10)			
+		};
+
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
@@ -6639,3 +6647,17 @@ function Problemes_additifs_relatifs_5e(){
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
 	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 };
+
+
+/**
+ * Caculer la valeur d'une expression littérale de degré 1 à une inconnue
+ * 5L13-5
+ * @author Sébastien Lozano forking 5L13 of Rémi Angot
+ */  
+function Calculer_la_valeur_d_une_expression_litterale_deg1_inc1() {
+	Calculer_la_valeur_d_une_expression_litterale.call(this)
+	this.version="5L13-5";	
+	this.titre="Calculer la valeur d'une expression littérale de degré 1 à 1 inconnue";
+	this.nb_questions=2;
+
+}
