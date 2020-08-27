@@ -6447,7 +6447,7 @@ function Problemes_additifs_relatifs_5e(){
 			do {
 				g_p_u = randint(10,30);
 				g_m = randint(10,30);
-			} while (g_p_u%5 != 0 || g_m%5 != 0) 
+			} while (g_p_u%5 != 0 || g_m%5 != 0 || g_m <= g_p_u) 
 
 			let n_tot=randint(5,15); // nombre totale de lancers
 			let n_g_u; // nb de gains untitaires
