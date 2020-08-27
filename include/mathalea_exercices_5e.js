@@ -6482,15 +6482,15 @@ function Problemes_additifs_relatifs_5e(){
 				let sortie=``;
 				switch (type) {
 					case 'gain':						
-						sortie = `(+${tex_prix(valeur)}€)`;
+						sortie = `(+${tex_prix(valeur)}$€$)`;
 						for (let m=1;m<nb;m++) {
-							sortie +=`+(+${tex_prix(valeur)}€)`;
+							sortie +=`+(+${tex_prix(valeur)}$€$)`;
 						};
 						break;
 					case 'perte':
-						sortie = `(-${tex_prix(valeur)}€)`;
+						sortie = `(-${tex_prix(valeur)}$€$)`;
 						for (let m=1;m<nb;m++) {
-							sortie +=`+(-${tex_prix(valeur)}€)`;
+							sortie +=`+(-${tex_prix(valeur)}$€$)`;
 						};
 						break;					
 				};
@@ -6562,20 +6562,20 @@ function Problemes_additifs_relatifs_5e(){
 					${situations[k].pronomMin} a donc ${situations[k].correction_1} $${situations[k].nb_gains}$ fois.
 
 					<br>${texte_gras(`Gains lorsqu'${situations[k].pronomMin} a ${situations[k].correction_1} :`)}
-					<br>$${myGainPerteString(situations[k].nb_gains,'gain',situations[k].gain_multiple)} = ${situations[k].nb_gains}\\times (+${tex_prix(situations[k].gain_multiple)}€) = +${tex_prix(situations[k].nb_gains*situations[k].gain_multiple)}$€
+					<br>$${myGainPerteString(situations[k].nb_gains,'gain',situations[k].gain_multiple)} = ${situations[k].nb_gains}\\times (+${tex_prix(situations[k].gain_multiple)}$€$) = +${tex_prix(situations[k].nb_gains*situations[k].gain_multiple)}$€
 
 					<br>${texte_gras(`Gains lorsqu'${situations[k].pronomMin} n'a ${situations[k].correction_2} :`)}
-					<br>$${myGainPerteString(situations[k].nb_gains_unitaires,'gain',situations[k].gain_unitaire)} = ${situations[k].nb_gains_unitaires}\\times (+${tex_prix(situations[k].gain_unitaire)}€) = +${tex_prix(situations[k].nb_gains_unitaires*situations[k].gain_unitaire)}$€
+					<br>$${myGainPerteString(situations[k].nb_gains_unitaires,'gain',situations[k].gain_unitaire)} = ${situations[k].nb_gains_unitaires}\\times (+${tex_prix(situations[k].gain_unitaire)}$€$) = +${tex_prix(situations[k].nb_gains_unitaires*situations[k].gain_unitaire)}$€
 
 					<br>${texte_gras(`Pertes :`)}
-					<br>$${myGainPerteString(situations[k].nb_pertes,'perte',situations[k].perte)} = ${situations[k].nb_pertes}\\times (-${tex_prix(situations[k].perte)}€) = -${tex_prix(situations[k].nb_pertes*situations[k].perte)}$€
+					<br>$${myGainPerteString(situations[k].nb_pertes,'perte',situations[k].perte)} = ${situations[k].nb_pertes}\\times (-${tex_prix(situations[k].perte)}$€$) = -${tex_prix(situations[k].nb_pertes*situations[k].perte)}$€
 
-					<br>${num_alpha(i_sous_question_corr++)} ${situations[k].bilan[0]}, $(+${tex_prix(situations[k].nb_gains*situations[k].gain_multiple)}€)$ et $(+${tex_prix(situations[k].nb_gains_unitaires*situations[k].gain_unitaire)}€)$, ${situations[k].bilan[1]}, $(-${tex_prix(situations[k].nb_pertes*situations[k].perte)}€)$.
+					<br>${num_alpha(i_sous_question_corr++)} ${situations[k].bilan[0]}, $(+${tex_prix(situations[k].nb_gains*situations[k].gain_multiple)}$€$)$ et $(+${tex_prix(situations[k].nb_gains_unitaires*situations[k].gain_unitaire)}$€$)$, ${situations[k].bilan[1]}, $(-${tex_prix(situations[k].nb_pertes*situations[k].perte)}$€$)$.
 					<br> ${situations[k].bilan[2]}   
 
 					<br>${num_alpha(i_sous_question_corr++)} 
-					$(+${tex_prix(situations[k].nb_gains*situations[k].gain_multiple)}€)+(+${tex_prix(situations[k].nb_gains_unitaires*situations[k].gain_unitaire)}€)+(-${tex_prix(situations[k].nb_pertes*situations[k].perte)}€) = (${tex_prix(situations[k].nb_gains*situations[k].gain_multiple+situations[k].nb_gains_unitaires*situations[k].gain_unitaire-situations[k].nb_pertes*situations[k].perte)}€)$
-					<br>${texte_en_couleur(`Globalement ${situations[k].prenom} ${situations[k].bilan[3]} $${situations[k].bilan[4]}€$`)} 
+					$(+${tex_prix(situations[k].nb_gains*situations[k].gain_multiple)}$€$)+(+${tex_prix(situations[k].nb_gains_unitaires*situations[k].gain_unitaire)}$€$)+(-${tex_prix(situations[k].nb_pertes*situations[k].perte)}$€$) = (${tex_prix(situations[k].nb_gains*situations[k].gain_multiple+situations[k].nb_gains_unitaires*situations[k].gain_unitaire-situations[k].nb_pertes*situations[k].perte)}$€$)$
+					<br>${texte_en_couleur(`Globalement ${situations[k].prenom} ${situations[k].bilan[3]} $${situations[k].bilan[4]}$€`)} 
 
 					`
 				});
