@@ -4922,7 +4922,7 @@ function Fraction(num,den) {
 		}
 		else if (type == 'segment') {
 			for (k = 0; k < n; k++) {
-				O = point(x + k * (rayon + 0.5), y)
+				O = point(x + k *rayon, y)
 				C = translation(O, vecteur(rayon, 0))
 				s = segment(O, C)
 				s.styleExtremites = '-|'
@@ -4939,7 +4939,7 @@ function Fraction(num,den) {
 				objets.push(a)
 				num -= this.denIrred
 			}
-			O = point(x + k * (rayon + 0.5), y)
+			O = point(x + k * rayon, y)
 			C = translation(O, vecteur(rayon, 0))
 			s = segment(O, C)
 			s.styleExtremites = '-|'
@@ -4954,6 +4954,8 @@ function Fraction(num,den) {
 			a.opacite = 0.4
 			a.epaisseur = 4
 			objets.push(a)
+			objets.push(unegraduation(x,y),texteParPosition(unite0,x,y-0.5,'milieu','blue'),texteParPosition(unite1,x+rayon,y-0.5,'milieu','blue'))
+
 		}
 		else {
 			let diviseur
@@ -4998,11 +5000,18 @@ function Fraction(num,den) {
 		}
 		return objets
 	}
-	this.representation = function (x, y, rayon, depart = 0, type = 'gateau', couleur = 'gray') {
+	this.representation = function (x, y, rayon, depart = 0, type = 'gateau', couleur = 'gray',unite0=0,unite1=1) {
 		let objets = [], n, num, k, dep, s, a, O, C
 		n = quotientier(this.num, this.den)
 		num = this.num
-
+		unegraduation=function(x,y,couleur='black',epaisseur=1){
+			let A=point(x,y+0.2)
+			let B=point(x,y-0.2)
+			let g=segment(A,B)
+			g.color=couleur
+			g.epaisseur=epaisseur
+			return g
+		}
 		if (type == 'gateau') {
 			k, dep
 			for (k = 0; k < n; k++) {
@@ -5041,7 +5050,7 @@ function Fraction(num,den) {
 		}
 		else if (type == 'segment') {
 			for (k = 0; k < n; k++) {
-				O = point(x + k * (rayon + 1), y)
+				O = point(x + k * rayon, y)
 				C = translation(O, vecteur(rayon, 0))
 				s = segment(O, C)
 				s.styleExtremites = '-|'
@@ -5058,7 +5067,7 @@ function Fraction(num,den) {
 				objets.push(a)
 				num -= this.den
 			}
-			O = point(x + k * (rayon + 1), y)
+			O = point(x + k * rayon , y)
 			C = translation(O, vecteur(rayon, 0))
 			s = segment(O, C)
 			s.styleExtremites = '-|'
@@ -5073,6 +5082,7 @@ function Fraction(num,den) {
 			a.opacite = 0.4
 			a.epaisseur = 4
 			objets.push(a)
+			objets.push(unegraduation(x,y),texteParPosition(unite0,x,y-0.5,'milieu','blue'),texteParPosition(unite1,x+rayon,y-0.5,'milieu','blue'))
 
 		}
 		else { //Type bâtons
