@@ -6500,7 +6500,7 @@ function Problemes_additifs_relatifs_5e(){
 					`,
 					question:``,
 					correction:`
-					Correction type ${k}
+					Correction type ${k} ${k}
 					`
 				});
 			};
