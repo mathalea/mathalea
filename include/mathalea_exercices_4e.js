@@ -7544,7 +7544,7 @@ function Puissances_encadrement() {
   this.besoin_formulaire_numerique = [
     "Niveau de difficulté",
     4,
-    "1 : nombre enier positif\n2 : nombre décimal positif\n3 : nombre enier positif inférieur à un\n4 : Mélange",
+    "1 : nombre entier positif\n2 : nombre décimal positif\n3 : nombre entier positif inférieur à un\n4 : Mélange",
   ];
 }
 
