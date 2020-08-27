@@ -33,6 +33,7 @@ var liste_des_exercices_disponibles = {
   "6C23" : Exercice_additionner_des_fractions_6e,
   "6C30": Multiplier_decimaux,
   "6C30-1": Multiplier_decimaux_par_10_100_1000,
+  "beta6C30-2": Produit_de_decimaux_a_partir_d_un_produit_connu,
   "6C31": Division_decimale,
   "6C32": Probleme_course,
   "6C33": Priorites,
@@ -12881,3 +12882,163 @@ jQuery(document).ready(function () {
     });
   });
 });
+
+/** 
+ * * Calculer le produit de deux décimaux à partir d'un produit de deux entiers
+ * * 6C30-2
+ * @author Sébastien Lozano
+ */
+
+function Produit_de_decimaux_a_partir_d_un_produit_connu(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.beta = true;	
+	this.sup=1;
+	if (this.beta) {
+		this.nb_questions = 3;
+	} else {
+		this.nb_questions = 3;
+	};	
+
+	this.titre = "Calculer le produit de deux décimaux connaissant le produit de deux entiers";	
+	this.consigne = ``;	
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	//this.nb_questions_modifiable = false;
+	sortie_html? this.spacing = 2.5 : this.spacing = 1.5; 
+	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+
+	let type_de_questions_disponibles;	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		if (this.beta) {
+			type_de_questions_disponibles = [0,1,2];			
+		} else {
+      //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
+      type_de_questions_disponibles = [0,1,2];			
+      			
+		};
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+
+      // pour les situations, autant de situations que de cas dans le switch !
+			let situations = [
+        {//case 0 --> (d1u1xp1)xd2u2
+          d1:randint(1,9),
+          u1:randint(1,9),
+          d2:randint(1,9),
+          u2:randint(1,9),
+          p1:randint(-3,3,[0]),
+          p2:randint(-3,3,[0]),
+				},	
+			];      
+			let enonces = [];
+			//for (let k=0;k<3;k++) {
+				enonces.push({
+          enonce:`
+            Sachant que $${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)} = ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}$,
+            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(10**situations[0].p1)))}\\times ${calcul(situations[0].d2*10+situations[0].u2)}$
+					`,
+					question:``,
+					correction:`
+					$${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(10**situations[0].p1)))}\\times ${calcul(situations[0].d2*10+situations[0].u2)} = ${calcul(situations[0].d1*10+situations[0].u1)}\\times ${tex_nombrec(10**situations[0].p1)} \\times ${calcul(situations[0].d2*10+situations[0].u2)} = ${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)}\\times ${tex_nombrec(10**situations[0].p1)} =  ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}\\times ${tex_nombrec(10**situations[0].p1)} = ${tex_nombrec(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2))*calcul(10**situations[0].p1))}$
+					`
+        });
+        enonces.push({
+          enonce:`
+            Sachant que $${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)} = ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}$,
+            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)))}\\times ${tex_nombre(calcul((situations[0].d2*10+situations[0].u2)*(10**situations[0].p2)))}$
+					`,
+					question:``,
+					correction:`
+					$${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)))}\\times ${tex_nombre(calcul((situations[0].d2*10+situations[0].u2)*(10**situations[0].p2)))} = ${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)}\\times ${tex_nombrec(10**situations[0].p2)} = ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}\\times ${tex_nombrec(10**situations[0].p2)} = ${tex_nombrec(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2))*calcul(10**situations[0].p2))}$
+					`
+				});
+				enonces.push({
+          enonce:`
+            Sachant que $${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)} = ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}$,
+            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(10**situations[0].p1)))}\\times ${tex_nombre(calcul((situations[0].d2*10+situations[0].u2)*(10**situations[0].p2)))}$
+					`,
+					question:``,
+					correction:`
+					$${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(10**situations[0].p1)))}\\times ${tex_nombre(calcul((situations[0].d2*10+situations[0].u2)*(10**situations[0].p2)))} = ${calcul(situations[0].d1*10+situations[0].u1)}\\times ${tex_nombrec(10**situations[0].p1)} \\times ${calcul(situations[0].d2*10+situations[0].u2)}\\times ${tex_nombrec(10**situations[0].p2)} = ${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)}\\times ${tex_nombrec(10**situations[0].p1)}\\times ${tex_nombrec(10**situations[0].p2)} = ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}\\times ${tex_nombrec(10**situations[0].p1)}\\times ${tex_nombrec(10**situations[0].p2)} = ${tex_nombrec(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2))*calcul(10**situations[0].p1)*calcul(10**situations[0].p2))}$
+					`
+				});
+
+			//};
+            
+            // autant de case que d'elements dans le tableau des situations
+			switch (liste_type_de_questions[i]){
+				case 0 : 
+					texte = `${enonces[0].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
+						texte += `             `
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[0].correction}`;
+					};
+          			break;	
+        		case 1 : 
+					texte = `${enonces[1].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[1].correction}`;
+					};
+          			break;
+        		case 2 : 
+					texte = `${enonces[2].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[2].correction}`;
+					};
+          			break;				
+        	// 	case 3 : 
+					// texte = `${enonces[3].enonce}`;
+					// if (this.beta) {
+					// 	texte += `<br>`;
+					// 	texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
+					// 	texte_corr = ``;	
+					// } else {
+					// 	texte_corr = `${enonces[3].correction}`;
+					// };
+					// break;				
+         	// 	case 4 : 
+					// texte = `${enonces[4].enonce}`;
+					// if (this.beta) {
+					// 	texte += `<br>`;
+					// 	texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
+					// 	texte_corr = ``;	
+					// } else {
+					// 	texte_corr = `${enonces[4].correction}`;
+					// };
+					// break;				
+			};			
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+};
