@@ -6489,6 +6489,21 @@ function Problemes_additifs_relatifs_5e(){
 				return sortie;
 			}
 
+			// une fonction pour dire si le bilan est positif ou négatif
+			function isBilanPositif(tot) {
+				if (tot >= 0) {
+					return true;
+				} else {
+					return false;
+				};
+			};
+
+			let bilan;			
+			if ( isBilanPositif( calcul((n_tot-n_g_u-n_p)*calcul(g_m/10)) + calcul(n_g_u*calcul(g_p_u/10)) - calcul(n_p*calcul(g_p_u/10))) ) {
+				bilan = [`Globalement, le montant des gains`,`est supérieur au montant des pertes`,`${texte_en_couleur(`Le bilan est donc positif.`)}`,`a gagné`,calcul((n_tot-n_g_u-n_p)*calcul(g_m/10)) + calcul(n_g_u*calcul(g_p_u/10)) - calcul(n_p*calcul(g_p_u/10))];
+			} else {
+				bilan = [`Globalement, le montant des gains`,`est inférieur au montant des pertes`,`${texte_en_couleur(`Le bilan est donc négatif.`)}`,`a perdu`,(-1)*(calcul((n_tot-n_g_u-n_p)*calcul(g_m/10)) + calcul(n_g_u*calcul(g_p_u/10)) - calcul(n_p*calcul(g_p_u/10)))];
+			}
 			// pour les situations
 			let situations = [
 				{//case 0 --> les quilles
@@ -6510,6 +6525,7 @@ function Problemes_additifs_relatifs_5e(){
 					prenom:currentPrenom[0],//prenoms[choice([0,1])][0],
 					pronomMaj:currentPrenom[1],//prenoms[choice([0,1])][1],
 					pronomMin:currentPrenom[2],//prenoms[choice([0,1])][2],
+					bilan:bilan,
 				},		
 			];
 
@@ -6545,8 +6561,13 @@ function Problemes_additifs_relatifs_5e(){
 					<br>${texte_gras(`Pertes :`)}
 					<br>$${myGainPerteString(situations[k].nb_pertes,'perte',situations[k].perte)} = ${situations[k].nb_pertes}\\times (-${situations[k].perte}€) = -${situations[k].nb_pertes*situations[k].perte}$€
 
-					<br>${num_alpha(i_sous_question_corr++)}
-					<br>${num_alpha(i_sous_question_corr++)}
+					<br>${num_alpha(i_sous_question_corr++)} ${situations[k].bilan[0]}, $(+${situations[k].nb_gains*situations[k].gain_multiple}€)$ et $(+${situations[k].nb_gains_unitaires*situations[k].gain_unitaire}€)$, ${situations[k].bilan[1]}, $(-${situations[k].nb_pertes*situations[k].perte}€)$.
+					<br> ${situations[k].bilan[2]}   
+
+					<br>${num_alpha(i_sous_question_corr++)} 
+					$(+${situations[k].nb_gains*situations[k].gain_multiple}€)+(+${situations[k].nb_gains_unitaires*situations[k].gain_unitaire}€)+(-${situations[k].nb_pertes*situations[k].perte}€) = (${situations[k].nb_gains*situations[k].gain_multiple+situations[k].nb_gains_unitaires*situations[k].gain_unitaire-situations[k].nb_pertes*situations[k].perte}€)$
+					<br>${texte_en_couleur(`Globalement ${situations[k].prenom} ${situations[k].bilan[3]} $${situations[k].bilan[4]}€$`)} 
+
 					`
 				});
 			};
