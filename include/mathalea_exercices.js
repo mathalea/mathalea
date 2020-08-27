@@ -1247,7 +1247,7 @@ function Lire_abscisse_decimale_bis() {
     this.liste_corrections = [];
     this.contenu = ""; // Liste de questions
     this.contenu_correction = ""; // Liste de questions corrigées
-    if (this.sup == 4)
+    if (this.sup == 5)
       type_de_questions = combinaison_listes([1, 2, 3], this.nb_questions);
     else
       type_de_questions = combinaison_listes(
@@ -1280,23 +1280,28 @@ function Lire_abscisse_decimale_bis() {
       l2 = lettre_depuis_chiffre(i * 3 + 2);
       l3 = lettre_depuis_chiffre(i * 3 + 3);
       switch (type_de_questions[i]) {
-        case 1: // Placer des demis aux quarts sur un axe
+        case 3: // Placer des demis ou des quarts sur un axe
           abs0 = 0;
           pas1 = 1;
           pas2 = choice([2,4]);
           break;
 
-        case 2: // Placer des cinquièmes 
+        case 4: // Placer des cinquièmes 
           abs0 = 0;
           pas1 = 1;
           pas2 = 5
           break;
 
-        case 3: // Placer des dixièmes
+        case 1: // Placer des dixièmes
           abs0 = randint(1, 5);
           pas1 = 1;
           pas2 = 10
           break;
+        case 2: // Placer des centièmes
+          abs0 = calcul(randint(10, 50)/10);
+          pas1 = 10;
+          pas2 = 10
+          break;       
       }
       x1 = randint(0, 1);
       x2 = randint(2, 3);
@@ -1319,12 +1324,12 @@ function Lire_abscisse_decimale_bis() {
             [l3, x3, x33],
           ],
           [
-            [abs0 + 1 / pas1, 1, 0],
-            [abs0 + 2 / pas1, 2, 0],
-            [abs0 + 3 / pas1, 3, 0],
-            [abs0 + 4 / pas1, 4, 0],
-            [abs0 + 5 / pas1, 5, 0],
-            [abs0 + 6 / pas1, 6, 0],
+            [calcul(abs0 + 1 / pas1), 1, 0],
+            [calcul(abs0 + 2 / pas1), 2, 0],
+            [calcul(abs0 + 3 / pas1), 3, 0],
+            [calcul(abs0 + 4 / pas1), 4, 0],
+            [calcul(abs0 + 5 / pas1), 5, 0],
+            [calcul(abs0 + 6 / pas1), 6, 0],
           ],
           false
         );
@@ -1341,12 +1346,12 @@ function Lire_abscisse_decimale_bis() {
             [l3, x3, x33, true],
           ],
           [
-            [abs0 + 1 / pas1, 1, 0],
-            [abs0 + 2 / pas1, 2, 0],
-            [abs0 + 3 / pas1, 3, 0],
-            [abs0 + 4 / pas1, 4, 0],
-            [abs0 + 5 / pas1, 5, 0],
-            [abs0 + 6 / pas1, 6, 0],
+            [calcul(abs0 + 1 / pas1), 1, 0],
+            [calcul(abs0 + 2 / pas1), 2, 0],
+            [calcul(abs0 + 3 / pas1), 3, 0],
+            [calcul(abs0 + 4 / pas1), 4, 0],
+            [calcul(abs0 + 5 / pas1), 5, 0],
+            [calcul(abs0 + 6 / pas1), 6, 0],
           ],
           false
         );
@@ -1392,8 +1397,8 @@ function Lire_abscisse_decimale_bis() {
   };
   this.besoin_formulaire_numerique = [
     "Niveau de difficulté",
-    4,
-    "1 : Demis, tiers ou quarts avec zéro placé\n2 : Des cinquièmes aux neuvièmes avec zéro placé \n3 : Toutes les fractions précédentes mais zéro non visible\n4 : Mélange",
+    5,
+    "1 : Dixièmes\n2 : Centièmes\n3 : Demis et quarts\n4 : Cinquièmes\n5 : Mélange",
   ];
 }
 
