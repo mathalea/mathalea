@@ -6408,13 +6408,13 @@ function Problemes_additifs_relatifs_5e(){
 	this.beta = true;	
 	this.sup=1;
 	if (this.beta) {
-		this.nb_questions = 5;
+		this.nb_questions = 1;
 	} else {
-		this.nb_questions = 3;
+		this.nb_questions = 1;
 	};	
 
 	this.titre = "Résoudre un problème en utilisant une somme algébrique de relatifs";	
-	this.consigne = `Consigne somme relatifs`;	
+	this.consigne = ``;	
 	
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -6426,10 +6426,10 @@ function Problemes_additifs_relatifs_5e(){
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		if (this.beta) {
-			type_de_questions_disponibles = [0,1,2,3,4];			
+			type_de_questions_disponibles = [0];			
 		} else {
-      type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
-      			
+			//   type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
+			  type_de_questions_disponibles = [0];			      			
 		};
 
 		this.liste_questions = []; // Liste de questions
@@ -6441,27 +6441,62 @@ function Problemes_additifs_relatifs_5e(){
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+			let g_p_u; //pour le gain/parte unitaire
+			let g_m; //pour le gain multiple
+			// on veut des multiples de 5 pour n'avoir que des demis entiers ou des entiers
+			do {
+				g_p_u = randint(10,30);
+				g_m = randint(10,30);
+			} while (g_p_u%5 != 0 || g_m%5 != 0) 
+
+			let n_tot=randint(5,15); // nombre totale de lancers
+			let n_g_u; // nb de gains untitaires
+			let n_p; // nb de pertes
+			do {
+				n_g_u = randint(1,10);
+				n_p = randint(1,10);
+			} while (n_g_u+n_p >= n_tot)
+
+
+			let prenoms = [[prenomF(),'Elle','elle'],[prenomM(),'Il','il']];
+			let currentPrenom = choice(prenoms);
 
 			// pour les situations
 			let situations = [
-				{//case 0 -->
-				},
-				{//case 1 -->
-				},
-				{//case 2 -->
-				},
-				{//case 3 -->
-				},
-				{//case 4 -->
-				},
-		
+				{//case 0 --> les quilles
+					nb_tot_lancers:n_tot,
+					nb_gains_unitaires:n_g_u,
+					nb_pertes:n_p,
+					nb_gains:n_tot-n_g_u-n_p,
+					perte:calcul(g_p_u/10),
+					gain_unitaire:calcul(g_p_u/10),
+					gain_multiple:calcul(g_m/10),
+					enonce_1:`lancer une balle sur des quilles.`,
+					enonce_2:`- Si la balle touche plusieurs quilles, le joueur gagne `,
+					enonce_3:`- Si la balle ne touche qu'une quille, le joueur gagne `,
+					enonce_4:`- Si la balle ne touche aucune quille, le joueur perd `,
+					enonce_5:`a lancé`,
+					enonce_6:`la balle`,
+					prenom:currentPrenom[0],//prenoms[choice([0,1])][0],
+					pronomMaj:currentPrenom[1],//prenoms[choice([0,1])][1],
+					pronomMin:currentPrenom[2],//prenoms[choice([0,1])][2],
+				},		
 			];
 
 			let enonces = [];
-			for (let k=0;k<5;k++) {
+			let i_sous_question;
+			for (let k=0;k<situations.length;k++) {
+				i_sous_question = 0;
 				enonces.push({
 					enonce:`
-					Type ${k}				
+					Un jeu consiste à ${situations[k].enonce_1}
+					<br>${situations[0].enonce_2} $${tex_nombre(situations[0].gain_multiple)}$€.				
+					<br>${situations[0].enonce_3} $${tex_nombre(situations[0].gain_unitaire)}$€.
+					<br>${situations[0].enonce_4} $${tex_nombre(situations[0].perte)}$€.
+					<br><br>${situations[k].prenom} ${situations[k].enonce_5} $${situations[k].nb_tot_lancers}$ fois ${situations[k].enonce_5}.
+					${situations[k].pronomMaj} a perdu de l'argent $${situations[k].nb_pertes}$ fois et a gagné $${situations[k].nb_gains_unitaires}$ fois ${tex_nombre(situations[k].gain_unitaire)}€.
+					<br> ${num_alpha(i_sous_question++)} A-t-${situations[k].pronomMin} gagné ou perdu de l'argent ?
+					<br> ${num_alpha(i_sous_question++)} Combien a-t-${situations[k].pronomMin} gagné ou perdu ?
 					`,
 					question:``,
 					correction:`
@@ -6482,46 +6517,46 @@ function Problemes_additifs_relatifs_5e(){
 						texte_corr = `${enonces[0].correction}`;
 					};
           			break;	
-        		case 1 : 
-					texte = `${enonces[1].enonce}`;
-					if (this.beta) {
-						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
-						texte_corr = ``;	
-					} else {
-						texte_corr = `${enonces[1].correction}`;
-					};
-          			break;
-        		case 2 : 
-					texte = `${enonces[2].enonce}`;
-					if (this.beta) {
-						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
-						texte_corr = ``;	
-					} else {
-						texte_corr = `${enonces[2].correction}`;
-					};
-          			break;				
-        		case 3 : 
-					texte = `${enonces[3].enonce}`;
-					if (this.beta) {
-						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
-						texte_corr = ``;	
-					} else {
-						texte_corr = `${enonces[3].correction}`;
-					};
-					break;				
-         		case 4 : 
-					texte = `${enonces[4].enonce}`;
-					if (this.beta) {
-						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
-						texte_corr = ``;	
-					} else {
-						texte_corr = `${enonces[4].correction}`;
-					};
-					break;				
+        		// case 1 : 
+				// 	texte = `${enonces[1].enonce}`;
+				// 	if (this.beta) {
+				// 		texte += `<br>`;
+				// 		texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
+				// 		texte_corr = ``;	
+				// 	} else {
+				// 		texte_corr = `${enonces[1].correction}`;
+				// 	};
+          		// 	break;
+        		// case 2 : 
+				// 	texte = `${enonces[2].enonce}`;
+				// 	if (this.beta) {
+				// 		texte += `<br>`;
+				// 		texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
+				// 		texte_corr = ``;	
+				// 	} else {
+				// 		texte_corr = `${enonces[2].correction}`;
+				// 	};
+          		// 	break;				
+        		// case 3 : 
+				// 	texte = `${enonces[3].enonce}`;
+				// 	if (this.beta) {
+				// 		texte += `<br>`;
+				// 		texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
+				// 		texte_corr = ``;	
+				// 	} else {
+				// 		texte_corr = `${enonces[3].correction}`;
+				// 	};
+				// 	break;				
+         		// case 4 : 
+				// 	texte = `${enonces[4].enonce}`;
+				// 	if (this.beta) {
+				// 		texte += `<br>`;
+				// 		texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
+				// 		texte_corr = ``;	
+				// 	} else {
+				// 		texte_corr = `${enonces[4].correction}`;
+				// 	};
+				// 	break;				
 			};			
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
