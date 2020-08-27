@@ -1932,7 +1932,7 @@ function translation(O, v, nom = "", positionLabel = "above") {
     let p2 = [];
     for (let i = 0; i < O.listePoints.length; i++) {
       p2[i] = translation(O.listePoints[i], v);
-      p2[i].nom = A.listePoints[i].nom+`\'`
+      p2[i].nom = O.listePoints[i].nom+`\'`
     }
     return polygone(p2);
   }
