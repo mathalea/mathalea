@@ -33,7 +33,7 @@ var liste_des_exercices_disponibles = {
   "6C23" : Exercice_additionner_des_fractions_6e,
   "6C30": Multiplier_decimaux,
   "6C30-1": Multiplier_decimaux_par_10_100_1000,
-  "beta6C30-2": Produit_de_decimaux_a_partir_d_un_produit_connu,
+  "6C30-2": Produit_de_decimaux_a_partir_d_un_produit_connu,
   "6C31": Division_decimale,
   "6C32": Probleme_course,
   "6C33": Priorites,
@@ -12892,7 +12892,7 @@ jQuery(document).ready(function () {
 function Produit_de_decimaux_a_partir_d_un_produit_connu(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 3;
