@@ -145,7 +145,7 @@ var liste_des_exercices_disponibles = {
   "5R20": Exercice_additions_relatifs,
   "5R20-2": Exercice_additions_relatifs_a_trou,
   "5R20-3": Exercice_additions_de_5_relatifs, //on pourrait le corriger avec regroupement des termes de même signe 
-  "beta5R20-4": Problemes_additifs_relatifs_5e, 
+  "5R20-4": Problemes_additifs_relatifs_5e, 
   "5R21": Exercice_soustractions_relatifs,
   "5R22": Exercice_additions_et_soustraction_de_relatifsV2,
   "5R22-2": Exercice_simplification_somme_algebrique,
