@@ -13109,7 +13109,7 @@ function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
 			for (let k=0;k<3;k++) {
 				enonces.push({
 					enonce:`
-          $\\ldots<${calcul(situations[0].p_entiere+situations[0].p_decimale)} <\\ldots$
+          $\\ldots<${m*1000+c*100+d*10+u*1+situations[0].p_decimale} <\\ldots$
           
 					`,
 					question:``,
