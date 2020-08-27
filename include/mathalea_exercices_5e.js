@@ -6031,12 +6031,12 @@ function Trouver_oppose(){
 function Problemes_additifs_fractions_5e(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 1;
 	} else {
-		this.nb_questions = 3;
+		this.nb_questions = 1;
 	};	
 
 	this.titre = "Résoudre un problème en utilisant des fractions";	
@@ -6054,8 +6054,8 @@ function Problemes_additifs_fractions_5e(){
 		if (this.beta) {
 			type_de_questions_disponibles = [0];			
 		} else {
-      type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
-      			
+			  // type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
+			  type_de_questions_disponibles = [0];      			
 		};
 
 		this.liste_questions = []; // Liste de questions

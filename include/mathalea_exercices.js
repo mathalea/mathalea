@@ -125,7 +125,7 @@ var liste_des_exercices_disponibles = {
   "5L10-1": Traduire_une_phrase_par_une_expression_litterale,
   "5L10-2": Traduire_un_programme_de_calcul,
   "5L10-3": Traduire_une_expression_litterale_par_une_phrase,
-  "beta5N20-0": Problemes_additifs_fractions_5e,
+  "5N20-0": Problemes_additifs_fractions_5e,
   "5L12": Reduire_une_expression_litterale,
   "5L12-1": Reduire_dinstinction_somme_produit,
   "5L13": Calculer_la_valeur_d_une_expression_litterale,
