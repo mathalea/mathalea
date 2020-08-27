@@ -6441,7 +6441,7 @@ function Problemes_additifs_relatifs_5e(){
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
-			let g_p_u; //pour le gain/parte unitaire
+			let g_p_u; //pour le gain/perte unitaire
 			let g_m; //pour le gain multiple
 			// on veut des multiples de 5 pour n'avoir que des demis entiers ou des entiers
 			do {
@@ -6449,17 +6449,45 @@ function Problemes_additifs_relatifs_5e(){
 				g_m = randint(10,30);
 			} while (g_p_u%5 != 0 || g_m%5 != 0 || g_m <= g_p_u) 
 
-			let n_tot=randint(5,15); // nombre totale de lancers
+			let n_tot=randint(10,15); // nombre totale de lancers
 			let n_g_u; // nb de gains untitaires
 			let n_p; // nb de pertes
 			do {
-				n_g_u = randint(1,10);
-				n_p = randint(1,10);
+				n_g_u = randint(2,10);
+				n_p = randint(2,10);
 			} while (n_g_u+n_p >= n_tot)
 
+			// on échange parfois le nombre de gain unitaire et le nombre de perte pour avoir un bilan négatif plus souvent
+			if (n_p<n_g_u) {
+				if (randint(0,1)==0) {
+					let temp = n_p;
+					n_p=n_g_u;
+					n_g_u=temp;
+				};
+			};
 
 			let prenoms = [[prenomF(),'Elle','elle'],[prenomM(),'Il','il']];
 			let currentPrenom = choice(prenoms);
+
+			// une fonction pour écrire les chaine correctives
+			function myGainPerteString(nb,type,valeur) {
+				let sortie=``;
+				switch (type) {
+					case 'gain':						
+						sortie = `(+${valeur}€)`;
+						for (let m=1;m<nb;m++) {
+							sortie +=`+(+${valeur}€)`;
+						};
+						break;
+					case 'perte':
+						sortie = `(-${valeur}€)`;
+						for (let m=1;m<nb;m++) {
+							sortie +=`+(-${valeur}€)`;
+						};
+						break;					
+				};
+				return sortie;
+			}
 
 			// pour les situations
 			let situations = [
@@ -6477,6 +6505,8 @@ function Problemes_additifs_relatifs_5e(){
 					enonce_4:`- Si la balle ne touche aucune quille, le joueur perd `,
 					enonce_5:`a lancé`,
 					enonce_6:`la balle`,
+					correction_1:`touché plusieurs quilles`,
+					correction_2:`touché qu'une seule quille`,
 					prenom:currentPrenom[0],//prenoms[choice([0,1])][0],
 					pronomMaj:currentPrenom[1],//prenoms[choice([0,1])][1],
 					pronomMin:currentPrenom[2],//prenoms[choice([0,1])][2],
@@ -6485,22 +6515,38 @@ function Problemes_additifs_relatifs_5e(){
 
 			let enonces = [];
 			let i_sous_question;
+			let i_sous_question_corr;
 			for (let k=0;k<situations.length;k++) {
 				i_sous_question = 0;
+				i_sous_question_corr = 0;
 				enonces.push({
 					enonce:`
 					Un jeu consiste à ${situations[k].enonce_1}
 					<br>${situations[0].enonce_2} $${tex_nombre(situations[0].gain_multiple)}$€.				
 					<br>${situations[0].enonce_3} $${tex_nombre(situations[0].gain_unitaire)}$€.
 					<br>${situations[0].enonce_4} $${tex_nombre(situations[0].perte)}$€.
-					<br><br>${situations[k].prenom} ${situations[k].enonce_5} $${situations[k].nb_tot_lancers}$ fois ${situations[k].enonce_5}.
+					<br>${situations[k].prenom} ${situations[k].enonce_5} $${situations[k].nb_tot_lancers}$ fois ${situations[k].enonce_6}.
 					${situations[k].pronomMaj} a perdu de l'argent $${situations[k].nb_pertes}$ fois et a gagné $${situations[k].nb_gains_unitaires}$ fois ${tex_nombre(situations[k].gain_unitaire)}€.
-					<br> ${num_alpha(i_sous_question++)} A-t-${situations[k].pronomMin} gagné ou perdu de l'argent ?
-					<br> ${num_alpha(i_sous_question++)} Combien a-t-${situations[k].pronomMin} gagné ou perdu ?
+					<br> ${num_alpha(i_sous_question++)} A-t-${situations[k].pronomMin} globalement gagné ou perdu de l'argent ?
+					<br> ${num_alpha(i_sous_question++)} Combien a-t-${situations[k].pronomMin} globalement gagné ou perdu ?
 					`,
 					question:``,
 					correction:`
-					Correction type ${k} ${k}
+					${situations[k].prenom} ${situations[k].enonce_5} $${situations[k].nb_tot_lancers}$ fois ${situations[k].enonce_6}, 
+					sur ces $${situations[k].nb_tot_lancers}$ fois,  ${situations[k].pronomMin} a perdu de l'argent $${situations[k].nb_pertes}$ fois et a gagné $${situations[k].nb_gains_unitaires}$ fois ${tex_nombre(situations[k].gain_unitaire)}€.
+					<br> $${situations[k].nb_tot_lancers}-${situations[k].nb_pertes}-${situations[k].nb_gains_unitaires} = ${situations[k].nb_tot_lancers-situations[k].nb_pertes-situations[k].nb_gains_unitaires}$,
+					${situations[k].pronomMin} a donc ${situations[k].correction_1} ${situations[k].nb_gains} fois.
+					<br>${texte_gras(`Gains lorsqu'${situations[k].pronomMin} a ${situations[k].correction_1} :`)}
+					<br>$${myGainPerteString(situations[k].nb_gains,'gain',situations[k].gain_multiple)} = ${situations[k].nb_gains}\\times (+${situations[k].gain_multiple}€) = +${situations[k].nb_gains*situations[k].gain_multiple}$€
+
+					<br>${texte_gras(`Gains lorsqu'${situations[k].pronomMin} n'a ${situations[k].correction_2} :`)}
+					<br>$${myGainPerteString(situations[k].nb_gains_unitaires,'gain',situations[k].gain_unitaire)} = ${situations[k].nb_gains_unitaires}\\times (+${situations[k].gain_unitaire}€) = +${situations[k].nb_gains_unitaires*situations[k].gain_unitaire}$€
+
+					<br>${texte_gras(`Pertes :`)}
+					<br>$${myGainPerteString(situations[k].nb_pertes,'perte',situations[k].perte)} = ${situations[k].nb_pertes}\\times (-${situations[k].perte}€) = -${situations[k].nb_pertes*situations[k].perte}$€
+
+					<br>${num_alpha(i_sous_question_corr++)}
+					<br>${num_alpha(i_sous_question_corr++)}
 					`
 				});
 			};
