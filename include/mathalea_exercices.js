@@ -12916,7 +12916,7 @@ function Produit_de_decimaux_a_partir_d_un_produit_connu(){
 			type_de_questions_disponibles = [0,1,2];			
 		} else {
       //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
-      type_de_questions_disponibles = [0,1,2];			
+      type_de_questions_disponibles = shuffle([0,1,2]);			
       			
 		};
 
