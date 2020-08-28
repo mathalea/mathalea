@@ -86,7 +86,8 @@ var liste_des_exercices_disponibles = {
   "6N30": Lire_abscisse_decimale,
   "6N30-2": Placer_points_sur_axe,
   "6N31": Comparer_decimaux,
-  "beta6N31-1": Encadrer_un_decimal_par_deux_entiers_consecutifs,
+  "6N31-1": Encadrer_un_decimal_par_deux_entiers_consecutifs,
+  "beta6N31-2":Ordre_de_grandeur_operations_decimaux,
   "6N33": Fraction_d_un_nombre,
   "6N33-1": Pourcentage_d_un_nombre,
   "6N34": Reglages_6N34,
@@ -13047,14 +13048,14 @@ function Produit_de_decimaux_a_partir_d_un_produit_connu(){
 
 /** 
  * * Encadrer_un_decimal_par_deux_entiers_consecutifs
- * * beta6N31-1
+ * * 6N31-1
  * @author Sébastien Lozano
  */
 
 function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 3;
@@ -13201,3 +13202,140 @@ function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
 	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 };
 
+/** 
+ * * Ordre de grandeur d'une opération entre décimaux
+ * * 6N31-2
+ * @author Sébastien Lozano
+ */
+
+function Ordre_de_grandeur_operations_decimaux(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.beta = true;	
+	this.sup=1;
+	if (this.beta) {
+		this.nb_questions = 5;
+	} else {
+		this.nb_questions = 3;
+	};	
+
+	this.titre = "Ordre de grandeur et opérations sur les décimaux";	
+	this.consigne = `Pour chaque opération proposée dans la première colonne, cocher la case correspondant à l'ordre de grandeur du résultat.`;	
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	//this.nb_questions_modifiable = false;
+	sortie_html? this.spacing = 2.5 : this.spacing = 1.5; 
+	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+
+	let type_de_questions_disponibles;	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		if (this.beta) {
+			type_de_questions_disponibles = [0];			
+		} else {
+      //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
+      type_de_questions_disponibles = shuffle([0]);
+      			
+		};
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+
+      let ligne_entete = ['\\text{Opération}',tex_nombre('1'),tex_nombre('10'),tex_nombre('100'),tex_nombre('1000'),tex_nombre('10000')];
+      let ligne_entete_corr = ['\\text{Opération}','1','10','100','1 000','10 000'];
+
+			let enonces = [];
+			for (let k=0;k<1;k++) {
+				enonces.push({
+          enonce:`
+          ${tab_C_L(ligne_entete,['\\text{Opé1}','\\text{Opé2}','\\text{Opé3}','\\text{Opé4}','\\text{Opé5}'],
+          [            
+            '','','','','',
+            '','','','','',
+            '','','','','',
+            '','','','','',
+            '','','','',''
+          ]
+          )}
+          `,
+          question:``,
+          correction:`
+          ${tab_C_L(ligne_entete_corr,['\\text{Opé1}','\\text{Opé2}','\\text{Opé3}','\\text{Opé4}','\\text{Opé5}'],[])}				
+          `
+          });
+			};
+            
+            // autant de case que d'elements dans le tableau des situations
+			switch (liste_type_de_questions[i]){
+				case 0 : 
+					texte = `${enonces[0].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
+						texte += `             `
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[0].correction}`;
+					};
+          			break;	
+        	// 	case 1 : 
+					// texte = `${enonces[1].enonce}`;
+					// if (this.beta) {
+					// 	texte += `<br>`;
+					// 	texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
+					// 	texte_corr = ``;	
+					// } else {
+					// 	texte_corr = `${enonces[1].correction}`;
+					// };
+          // 			break;
+        	// 	case 2 : 
+					// texte = `${enonces[2].enonce}`;
+					// if (this.beta) {
+					// 	texte += `<br>`;
+					// 	texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
+					// 	texte_corr = ``;	
+					// } else {
+					// 	texte_corr = `${enonces[2].correction}`;
+					// };
+          // 			break;				
+        	// 	case 3 : 
+					// texte = `${enonces[3].enonce}`;
+					// if (this.beta) {
+					// 	texte += `<br>`;
+					// 	texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
+					// 	texte_corr = ``;	
+					// } else {
+					// 	texte_corr = `${enonces[3].correction}`;
+					// };
+					// break;				
+         	// 	case 4 : 
+					// texte = `${enonces[4].enonce}`;
+					// if (this.beta) {
+					// 	texte += `<br>`;
+					// 	texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
+					// 	texte_corr = ``;	
+					// } else {
+					// 	texte_corr = `${enonces[4].correction}`;
+					// };
+					// break;				
+			};			
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+};
