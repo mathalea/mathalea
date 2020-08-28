@@ -6681,7 +6681,7 @@ function Tableaux_et_proportionnalite(){
 		this.nb_questions = 4;
 	};	
 
-	this.titre = "Tableaux et proportionnalité";	
+	this.titre = "Tableaux et proportionnalité.";	
 	this.consigne = `Dire si les tableaux suivants sont de tableaux de proportionnalité. Justifier.`;	
 	
 	this.nb_cols = 1;
