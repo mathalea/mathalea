@@ -89,7 +89,7 @@ var liste_des_exercices_disponibles = {
   "6N30-2": Placer_points_sur_axe,
   "6N31": Comparer_decimaux,
   "6N31-1": Encadrer_un_decimal_par_deux_entiers_consecutifs,
-  "beta6N31-2":Ordre_de_grandeur_operations_decimaux,
+  "6N31-2":Ordre_de_grandeur_operations_decimaux,
   "6N33": Fraction_d_un_nombre,
   "6N33-1": Pourcentage_d_un_nombre,
   "6N34": Reglages_6N34,
@@ -13542,7 +13542,7 @@ function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
 function Ordre_de_grandeur_operations_decimaux(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 1;
@@ -13578,8 +13578,8 @@ function Ordre_de_grandeur_operations_decimaux(){
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
 
-      let ligne_entete = ['\\text{Opération}',`\\phantom{000}`+tex_nombre('1')+`\\phantom{000}`,`\\phantom{00}`+tex_nombre('10')+`\\phantom{00}`,`\\phantom{00}`+tex_nombre('100')+`\\phantom{00}`,`\\phantom{0}`+tex_nombre('1000')+`\\phantom{0}`,tex_nombre('10000')];
-      let ligne_entete_corr = ['\\text{Opération}',`\\phantom{000}`+tex_nombre('1')+`\\phantom{000}`,`\\phantom{00}`+tex_nombre('10')+`\\phantom{00}`,`\\phantom{00}`+tex_nombre('100')+`\\phantom{00}`,`\\phantom{0}`+tex_nombre('1000')+`\\phantom{0}`,tex_nombre('10000')];
+      let ligne_entete = ['\\text{Opération}',`\\phantom{000}`+tex_nombre('1')+`\\phantom{000}`,`\\phantom{00}`+tex_nombre('10')+`\\phantom{00}`,`\\phantom{00}`+tex_nombre('100')+`\\phantom{00}`,`\\phantom{0}`+tex_nombre('1000')+`\\phantom{0}`,tex_nombre('10000'),tex_nombre('100000')];
+      let ligne_entete_corr = ['\\text{Opération}',`\\phantom{000}`+tex_nombre('1')+`\\phantom{000}`,`\\phantom{00}`+tex_nombre('10')+`\\phantom{00}`,`\\phantom{00}`+tex_nombre('100')+`\\phantom{00}`,`\\phantom{0}`+tex_nombre('1000')+`\\phantom{0}`,tex_nombre('10000'),tex_nombre('100000')];
 
       let m=randint(1,9,[4,5,6]),
       c=randint(1,9),
@@ -13596,16 +13596,40 @@ function Ordre_de_grandeur_operations_decimaux(){
       u2=randint(1,9),
       u3=randint(1,9);
 
+      let cbis,d1bis;
+      do {
+        cbis = randint(2,9);
+        d1bis = randint(2,9);
+      } while (cbis*d1bis>3 && cbis*d1bis<7);
+
       let div_aleatoire_ope_3 = choice([10,100]);
       let div_aleatoire_ope_5 = choice([1,10,100,1000]);
       let mult_aleatoire_ope_4 = choice([0.1,0.01,0.001]);
 
+      // une fonction pour ordre de grandeur en fonction de ... opération 1
+      function myOrdreOpe1(c,d) {
+        if (c*d>=60) {
+          return ['','','','','',mise_en_evidence(`\\times`)]; 
+        } else {
+          return ['','','','',mise_en_evidence(`\\times`),'']; 
+        };
+      };
+      
+      // une fonction pour ordre de grandeur en fonction de ... opération 2
+      function myOrdreOpe2(c1,c2) {
+        if (c1+c2/10>=600) {
+          return ['','','',mise_en_evidence(`\\times`),'','']; 
+        } else {
+          return ['','',mise_en_evidence(`\\times`),'','','']; 
+        };
+      };
+
       // une fonction pour ordre de grandeur en fonction de ... opération 3
       function myOrdreOpe3(n) {
         if (n>=7) {
-          return ['','','',mise_en_evidence(`\\times`),'']; 
+          return ['','','',mise_en_evidence(`\\times`),'','']; 
         } else {
-          return ['','',mise_en_evidence(`\\times`),'','']; 
+          return ['','',mise_en_evidence(`\\times`),'','','']; 
         };
       };
 
@@ -13615,23 +13639,23 @@ function Ordre_de_grandeur_operations_decimaux(){
         switch (d) {
           case 0.1:
             if (n>=7) {
-              sortie = ['','','',mise_en_evidence(`\\times`),''];
+              sortie = ['','','',mise_en_evidence(`\\times`),'',''];
             } else {
-              sortie = ['','',mise_en_evidence(`\\times`),'',''];
+              sortie = ['','',mise_en_evidence(`\\times`),'','',''];
             };            
             break;
           case 0.01: 
             if (n>=7) {
-              sortie = ['','',mise_en_evidence(`\\times`),'',''];              
+              sortie = ['','',mise_en_evidence(`\\times`),'','',''];              
             } else {
-              sortie = ['',mise_en_evidence(`\\times`),'','',''];
+              sortie = ['',mise_en_evidence(`\\times`),'','','',''];
             };            
             break;
           case 0.001: 
             if (n>=7) {
-              sortie = ['',mise_en_evidence(`\\times`),'','',''];
+              sortie = ['',mise_en_evidence(`\\times`),'','','',''];
             } else {
-              sortie = [mise_en_evidence(`\\times`),'','','',''];
+              sortie = [mise_en_evidence(`\\times`),'','','','',''];
             };       
             break;            
         }
@@ -13643,16 +13667,16 @@ function Ordre_de_grandeur_operations_decimaux(){
         let sortie;
         switch (mult) {
           case 1:
-            return sortie = ['','','',mise_en_evidence(`\\times`),'']; 
+            return sortie = ['','','',mise_en_evidence(`\\times`),'','']; 
             break;
           case 10:
-            return sortie = ['','',mise_en_evidence(`\\times`),'','']; 
+            return sortie = ['','',mise_en_evidence(`\\times`),'','','']; 
             break;
           case 100:
-            return sortie = ['',mise_en_evidence(`\\times`),'','','']; 
+            return sortie = ['',mise_en_evidence(`\\times`),'','','','']; 
             break;
           case 1000:
-            return sortie = [mise_en_evidence(`\\times`),'','','','']; 
+            return sortie = [mise_en_evidence(`\\times`),'','','','','']; 
             break;        
         };
         return sortie;
@@ -13660,14 +13684,14 @@ function Ordre_de_grandeur_operations_decimaux(){
 
       let situations = [
         {
-          operation:`${c*100+d*10+u*1}\\times ${d1*10+u1*1}`,
-          operation_corr:`${c*100+d*10+u*1}\\times ${d1*10+u1*1} \\simeq  ${(c*100)}\\times ${(d1*10)} \\text{ soit } ${tex_nombre((c*100)*(d1*10))}`,
-          operation_coche:['','','','',mise_en_evidence(`\\times`)],
+          operation:`${cbis*100+d*10+u*1}\\times ${d1bis*10+u1*1}`,
+          operation_corr:`${cbis*100+d*10+u*1}\\times ${d1bis*10+u1*1} \\simeq  ${(cbis*100)}\\times ${(d1bis*10)} \\text{ soit } ${tex_nombre((cbis*100)*(d1bis*10))}`,
+          operation_coche:myOrdreOpe1(cbis,d1bis),//['','','','',mise_en_evidence(`\\times`),''],
         },
         {
           operation:`${tex_nombre((c2*100+d2*10+u1*1)/10)}+${c1*100+d1*10+u1*1}`,
           operation_corr:`${tex_nombre((c2*100+d2*10+u1*1)/10)}+${c1*100+d1*10+u1*1} \\simeq ${c2*100/10}+${c1*100} \\text{ soit } ${c2*100/10 + c1*100}`,
-          operation_coche:['','',mise_en_evidence(`\\times`),'',''],
+          operation_coche:myOrdreOpe2(c1*100,c2*100),//['','',mise_en_evidence(`\\times`),'','',''],
         },
         {
           operation:`${c3*100+d3*10+u3*1}-${tex_nombre((c2*100+d2*10+u2*1)/div_aleatoire_ope_3)}`,
@@ -13690,7 +13714,7 @@ function Ordre_de_grandeur_operations_decimaux(){
 
       ];
 
-      //situations = shuffle(situations);
+      situations = shuffle(situations);
             
 			let enonces = [];
 			for (let k=0;k<1;k++) {
@@ -13698,11 +13722,11 @@ function Ordre_de_grandeur_operations_decimaux(){
           enonce:`
           ${tab_C_L(ligne_entete,[situations[0].operation,situations[1].operation,situations[2].operation,situations[3].operation,situations[4].operation],
           [            
-            '','','','','',
-            '','','','','',
-            '','','','','',
-            '','','','','',
-            '','','','',''
+            '','','','','','',
+            '','','','','','',
+            '','','','','','',
+            '','','','','','',
+            '','','','','','',
           ]
           )}
           `,
@@ -13712,11 +13736,11 @@ function Ordre_de_grandeur_operations_decimaux(){
           <br>
           ${tab_C_L(ligne_entete_corr,[situations[0].operation_corr,situations[1].operation_corr,situations[2].operation_corr,situations[3].operation_corr,situations[4].operation_corr,],
           [            
-            situations[0].operation_coche[0],situations[0].operation_coche[1],situations[0].operation_coche[2],situations[0].operation_coche[3],situations[0].operation_coche[4],
-            situations[1].operation_coche[0],situations[1].operation_coche[1],situations[1].operation_coche[2],situations[1].operation_coche[3],situations[1].operation_coche[4],
-            situations[2].operation_coche[0],situations[2].operation_coche[1],situations[2].operation_coche[2],situations[2].operation_coche[3],situations[2].operation_coche[4],
-            situations[3].operation_coche[0],situations[3].operation_coche[1],situations[3].operation_coche[2],situations[3].operation_coche[3],situations[3].operation_coche[4],
-            situations[4].operation_coche[0],situations[4].operation_coche[1],situations[4].operation_coche[2],situations[4].operation_coche[3],situations[4].operation_coche[4],
+            situations[0].operation_coche[0],situations[0].operation_coche[1],situations[0].operation_coche[2],situations[0].operation_coche[3],situations[0].operation_coche[4],situations[0].operation_coche[5],
+            situations[1].operation_coche[0],situations[1].operation_coche[1],situations[1].operation_coche[2],situations[1].operation_coche[3],situations[1].operation_coche[4],situations[1].operation_coche[5],
+            situations[2].operation_coche[0],situations[2].operation_coche[1],situations[2].operation_coche[2],situations[2].operation_coche[3],situations[2].operation_coche[4],situations[2].operation_coche[5],
+            situations[3].operation_coche[0],situations[3].operation_coche[1],situations[3].operation_coche[2],situations[3].operation_coche[3],situations[3].operation_coche[4],situations[3].operation_coche[5],
+            situations[4].operation_coche[0],situations[4].operation_coche[1],situations[4].operation_coche[2],situations[4].operation_coche[3],situations[4].operation_coche[4],situations[4].operation_coche[5],
           ]
           )}				
           `
