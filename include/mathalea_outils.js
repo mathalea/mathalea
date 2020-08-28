@@ -4911,6 +4911,14 @@ function Fraction(num,den) {
 		let objets = [], n, num, k, dep, s, a, O, C
 		n = quotientier(this.numIrred, this.denIrred)
 		num = this.numIrred
+		unegraduation=function(x,y,couleur='black',epaisseur=1){
+			let A=point(x,y+0.2)
+			let B=point(x,y-0.2)
+			let g=segment(A,B)
+			g.color=couleur
+			g.epaisseur=epaisseur
+			return g
+		}
 		if (type == 'gateau') {
 			for (k = 0; k < n; k++) {
 				O = point(x + k * 2 * (rayon + 0.5), y)
@@ -4980,7 +4988,7 @@ function Fraction(num,den) {
 			a.opacite = 0.4
 			a.epaisseur = 4
 			objets.push(a)
-			objets.push(unegraduation(x,y),texteParPosition(unite0,x,y-0.5,'milieu','blue'),texteParPosition(unite1,x+rayon,y-0.5,'milieu','blue'))
+			objets.push(unegraduation(x,y),texteParPosition(unite0,x,y-0.6,'milieu','blue',scale),texteParPosition(unite1,x+rayon,y-0.6,'milieu','blue',scale))
 
 		}
 		else {
@@ -5026,7 +5034,7 @@ function Fraction(num,den) {
 		}
 		return objets
 	}
-	this.representation = function (x, y, rayon, depart = 0, type = 'gateau', couleur = 'gray',unite0=0,unite1=1) {
+	this.representation = function (x, y, rayon, depart = 0, type = 'gateau', couleur = 'gray',unite0=0,unite1=1,scale=1) {
 		let objets = [], n, num, k, dep, s, a, O, C
 		n = quotientier(this.num, this.den)
 		num = this.num
@@ -5110,7 +5118,7 @@ function Fraction(num,den) {
 			a.opacite = 0.4
 			a.epaisseur = 4
 			objets.push(a)
-			objets.push(unegraduation(x,y),texteParPosition(unite0,x,y-0.5,'milieu','blue'),texteParPosition(unite1,x+rayon,y-0.5,'milieu','blue'))
+			objets.push(unegraduation(x,y),texteParPosition(unite0,x,y-0.6,'milieu','blue',scale),texteParPosition(unite1,x+rayon,y-0.6,'milieu','blue',scale))
 
 		}
 		else { //Type bâtons

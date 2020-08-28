@@ -3650,7 +3650,7 @@ function intervalle(A, B, color = "blue", h = 0) {
  *
  * @Auteur Rémi Angot
  */
-function TexteParPoint(texte, A, orientation = "milieu", color='black') {
+function TexteParPoint(texte, A, orientation = "milieu", color='black',scale=1) {
   ObjetMathalea2D.call(this);
   this.color = color;
   this.svg = function (coeff) {
@@ -3700,13 +3700,13 @@ function TexteParPoint(texte, A, orientation = "milieu", color='black') {
     } else {
       let anchor = "";
       if (orientation == "gauche") {
-        anchor = "node[anchor = east]";
+        anchor = `node[anchor = east,scale=${scale}]`;
       }
       if (orientation == "droite") {
-        anchor = "node[anchor = west]";
+        anchor = `node[anchor = west,scale=${scale}]`;
       }
       if (orientation == "milieu") {
-        anchor = "node[anchor = center]";
+        anchor = `node[anchor = center,scale=${scale}]`;
       }
       code = `\\draw [${color}] (${A.x},${A.y}) ${anchor} {${texte}};`;
     }
@@ -3725,8 +3725,8 @@ function texteParPoint(...args) {
  *
  * @Auteur Rémi Angot
  */
-function texteParPosition(texte, x, y, orientation = "milieu", color) {
-  return new TexteParPoint(texte, point(x, y), orientation, color);
+function texteParPosition(texte, x, y, orientation = "milieu", color,scale=1) {
+  return new TexteParPoint(texte, point(x, y), orientation, color,scale);
 }
 
 /**
