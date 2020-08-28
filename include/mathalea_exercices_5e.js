@@ -6673,7 +6673,7 @@ function Calculer_la_valeur_d_une_expression_litterale_deg1_inc1() {
 function Tableaux_et_proportionnalite(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+	this.beta = true;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 6;
