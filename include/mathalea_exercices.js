@@ -13377,7 +13377,7 @@ function Ordre_de_grandeur_operations_decimaux(){
           `,
           question:``,
           correction:`
-          Commençons par calculer un ordre de grandeur de chaque résultat.
+          Commençons par calculer un ordre de grandeur du résultat de chaque opération dans la première colonne du tableau.
           <br>
           ${tab_C_L(ligne_entete_corr,[situations[0].operation_corr,situations[1].operation_corr,situations[2].operation_corr,situations[3].operation_corr,situations[4].operation_corr,],
           [            
@@ -13405,46 +13405,6 @@ function Ordre_de_grandeur_operations_decimaux(){
 						texte_corr = `${enonces[0].correction}`;
 					};
           			break;	
-        	// 	case 1 : 
-					// texte = `${enonces[1].enonce}`;
-					// if (this.beta) {
-					// 	texte += `<br>`;
-					// 	texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
-					// 	texte_corr = ``;	
-					// } else {
-					// 	texte_corr = `${enonces[1].correction}`;
-					// };
-          // 			break;
-        	// 	case 2 : 
-					// texte = `${enonces[2].enonce}`;
-					// if (this.beta) {
-					// 	texte += `<br>`;
-					// 	texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
-					// 	texte_corr = ``;	
-					// } else {
-					// 	texte_corr = `${enonces[2].correction}`;
-					// };
-          // 			break;				
-        	// 	case 3 : 
-					// texte = `${enonces[3].enonce}`;
-					// if (this.beta) {
-					// 	texte += `<br>`;
-					// 	texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
-					// 	texte_corr = ``;	
-					// } else {
-					// 	texte_corr = `${enonces[3].correction}`;
-					// };
-					// break;				
-         	// 	case 4 : 
-					// texte = `${enonces[4].enonce}`;
-					// if (this.beta) {
-					// 	texte += `<br>`;
-					// 	texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
-					// 	texte_corr = ``;	
-					// } else {
-					// 	texte_corr = `${enonces[4].correction}`;
-					// };
-					// break;				
 			};			
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
