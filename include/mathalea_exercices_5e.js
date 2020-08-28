@@ -6707,10 +6707,17 @@ function Tableaux_et_proportionnalite(){
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+			let tab_entete = [randint(1,9),randint(1,2),randint(1,3)];
+
 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
 				{//case 0 -->
+					tableau:tab_C_L(tab_entete,['a','b'],
+					[
+					'','',
+					'',''
+					])
 				},
 				{//case 1 -->
 				},
@@ -6724,7 +6731,8 @@ function Tableaux_et_proportionnalite(){
 			for (let k=0;k<situations.length;k++) {
 				enonces.push({
 					enonce:`
-					Type ${k}				
+					Type ${k}
+					<br> ${situations[k].tableau}				
 					`,
 					question:``,
 					correction:`
