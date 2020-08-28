@@ -75,8 +75,8 @@ var liste_des_exercices_disponibles = {
   "6N11-2": Placer_un_point_abscisse_entiere,
   "6N12": Exercice_6N12,
   "6N13": Exercice_6N13,
-  "beta6N14" : Representer_une_fraction,
-  "beta6N14-2" : Ajouter_des_fractions_d_unite,
+  "6N14" : Representer_une_fraction,
+  "6N14-2" : Ajouter_des_fractions_d_unite,
   "6N20": Exercice_fractions_decomposer,
   "6N20-2": Exercice_fractions_differentes_ecritures,
   "6N21": Lire_abscisse_fractionnaire,
@@ -5710,8 +5710,8 @@ function Representer_une_fraction() {
         }
   
       let  params = {
-        xmin: -2.5,
-        ymin: -2,
+        xmin: -2.2,
+        ymin: -2.2,
         xmax: 18,
         ymax: 3,
         pixelsParCm: ppc,
