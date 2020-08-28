@@ -7407,11 +7407,15 @@ function Comparer_decimaux() {
   };
 }
 
-
+/**
+ * Déduire un pourcentage par complément à 100%
+ * @Auteur Jean-Claude Lhote
+ * Référence 6N33-2
+ */
 function Calculer_un_pourcentage() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Problèmes de ratios en pourcentages";
-  this.nb_questions = 5;
+  this.titre = "Problèmes de calcul de pourcentage par complément à 100%";
+  this.nb_questions = 3;
   this.consigne = "Calculer";
   this.spacing = 2;
   this.spacing_corr = 2;
@@ -7419,25 +7423,25 @@ function Calculer_un_pourcentage() {
   this.nb_cols_corr = 1;
 
   this.nouvelle_version = function (numero_de_l_exercice) {
+    let type_de_questions_disponibles=[1,2,3]
+    let liste_choix=combinaison_listes(type_de_questions_disponibles,this.nb_questions)
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let liste_pourcentages = [10, 20, 30, 40, 50];
     let liste_moyens=[`en bus`,`en deux-roues`,`à  pieds`,`en voiture`]
     let liste_sports=[`le foot`,`la natation`,`le basket`,`le ping-pong`,`le volley`,`la gym`]
+    let liste_hobbies=[`la couture`,`le cinéma`,`la musique`,`le sport`,`la programmation`,`le jardinage`,`la cuisine`]
     let p1,p2,p3,moy1,moy2,moy3
     let objets,centre=point(5,5),depart=point(10,5)
 
     for (
-      let i = 0, n, texte, texte_corr, cpt = 0;
+      let i = 0, texte, texte_corr, cpt = 0;
       i < this.nb_questions && cpt < 50;
-
     ) {
-      n=randint(1,2)
       objets=[]
       p1=randint(6,9)*5
       p2=randint(6,9)*5
       p3=100-p1-p2
-      switch(n) {
+      switch(liste_choix[i]) {
         case 1: // Les moyens de déplacement maison collège
           [moy1,moy2,moy3]=combinaison_listes(liste_moyens,3)
           texte = `Dans un collège, ${p1}% des élèves ${moy1}, ${p2}% ${moy2} et les autres ${moy3}.<br>`
@@ -7450,9 +7454,17 @@ function Calculer_un_pourcentage() {
           [moy1,moy2,moy3]=combinaison_listes(liste_sports,3)
           texte = `Dans une association sportive, ${p1}% des ados pratiquent ${moy1}, ${p2}% ${moy2} et les autres ${moy3}.<br>`
           texte += `Quel est le pourcentage des ados qui pratiquent ${moy3} ?`
-          texte_corr=`Les ados qui pratiquent${moy1} ou ${moy2} représentent ${p1}% + ${p2}% = ${p1+p2}%.<br>`
+          texte_corr=`Les ados qui pratiquent ${moy1} ou ${moy2} représentent ${p1}% + ${p2}% = ${p1+p2}%.<br>`
           texte_corr+=`Donc on calcule : 100 - ${p1+p2}% = ${p3}%<br>`
           texte_corr+=`${p3}% des ados de cette association sportive pratiquent ${moy3}.<br>`
+          break;
+          case 3: // Les sports pratiqués par les ados
+          [moy1,moy2,moy3]=combinaison_listes(liste_hobbies,3)
+          texte = `Dans une association culturelle, ${p1}% des membres ont comme passe-temps favorit ${moy1}, pour ${p2}% c'est ${moy2} et pour les autres ${moy3}.<br>`
+          texte += `Quel est le pourcentage des membres qui préfèrent ${moy3} ?`
+          texte_corr=`Les membres qui préfère ${moy1} ou ${moy2} représentent ${p1}% + ${p2}% = ${p1+p2}%.<br>`
+          texte_corr+=`Donc on calcule : 100 - ${p1+p2}% = ${p3}%<br>`
+          texte_corr+=`${p3}% des membres de cette association culturelle préfèrent ${moy3}.<br>`
           break;
 
       }
@@ -7471,9 +7483,12 @@ function Calculer_un_pourcentage() {
     }
     liste_de_question_to_contenu(this);
   };
-  //	this.besoin_formulaire_numerique = ['Valeur maximale',99999];
-  this.besoin_formulaire2_case_a_cocher = ["Plusieurs méthodes"];
 }
+/**
+ * Calculer le montant d'une réduction donnée en pourcentage d'un prix initial
+ * @Auteur Jean-Claude Lhote
+ * Référence 6N33-3
+ */
 function Appliquer_un_pourcentage() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Problèmes avec des calculs de pourcentages";
@@ -7488,47 +7503,24 @@ function Appliquer_un_pourcentage() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     liste_pourcentages = [10, 20, 30, 40, 50];
-
+    let article=[[`Un pull`,20,40],[`Une chemise`,15,35],[`Un pantalon`,30,60],[`Un T-shirt`,15,25],[`Une jupe`,20,40]]
+    let liste_index=[0,1,2,3,4]
+    let prix=[],pourcent=[]
+    let index=combinaison_listes(liste_index,this.nb_questions)
     for (
       let i = 0, p, n, texte, texte_corr, cpt = 0;
       i < this.nb_questions && cpt < 50;
 
     ) {
-      p = choice(liste_pourcentages);
-      n = choice([
-        randint(2, 9),
-        randint(2, 9) * 10,
-        randint(1, 9) * 10 + randint(1, 2),
-      ]);
-      texte = `$${p}~\\%~\\text{de }${n}$`;
-      if (p == 50) {
-        texte_corr = `$${p}~\\%~\\text{de }${n}=${n}\\div${2}=${tex_nombre(
-          Algebrite.eval(n / 2)
-        )}$`; // calcul de n/2 si p = 50%
-      } else {
-        texte_corr = `$${p}~\\%~\\text{de }${n}=${tex_fraction(
-          p,
-          100
-        )}\\times${n}=(${p}\\times${n})\\div100=${tex_nombre(
-          p * n
-        )}\\div100=${tex_nombre(Algebrite.eval((p * n) / 100))}$`;
-        //		texte_corr += `$\\phantom {Blanc}${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=\\dfrac{${p}\\times${n}}{100}=${tex_fraction(p*n,100)}=${tex_nombre(Algebrite.eval(p*n/100))}$`
-        if (this.sup2)
-          texte_corr += `$${p}~\\%~\\text{de }${n}=${tex_fraction(
-            p,
-            100
-          )}\\times${n}=(${n}\\div100)\\times${p}=${tex_nombrec(
-            calcul(n / 100)
-          )}\\times${p}=${tex_nombre(Algebrite.eval((p * n) / 100))}$`;
-        //		texte_corr += `$\\phantom {Blanc}${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=${tex_fraction(n,100)}\\times${p}=${tex_nombrec(calcul(n/100))}\\times${p}=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`
-        if (this.sup2)
-          texte_corr += `$${p}~\\%~\\text{de }${n}=${tex_fraction(
-            p,
-            100
-          )}\\times${n}=${tex_nombrec(calcul(p / 100))}\\times${n}=${tex_nombre(
-            Algebrite.eval((p * n) / 100)
-          )}$`;
-      }
+      prix[i]=randint(article[index[i]][1],article[index[i]][2])
+      pourcent[i]=choice(liste_pourcentages)
+      texte=`${article[index[i]][0]} coûtant ${prix[i]} € bénéficie d'une réduction de ${pourcent[i]}%.<br>`
+      texte+=`Quel est le montant en euro de cette réduction ?`
+      texte_corr=`On doit calculer ${pourcent[i]}% de ${prix[i]} :<br>`
+      texte_corr+= `$${pourcent[i]}~\\%~\\text{de }${prix[i]}=${tex_fraction(pourcent[i],100)}\\times${prix[i]}=(${pourcent[i]}\\times${prix[i]})\\div100=${tex_nombre(pourcent[i] * prix[i])}\\div100=${tex_nombre(Algebrite.eval((pourcent[i] * prix[i]) / 100))}$<br>`;
+      texte_corr+=`Le montant de la réduction est de ${tex_prix(calcul(prix[i]*pourcent[i]/100))} €`
+     
+      
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(texte);
@@ -7539,8 +7531,6 @@ function Appliquer_un_pourcentage() {
     }
     liste_de_question_to_contenu(this);
   };
-  //	this.besoin_formulaire_numerique = ['Valeur maximale',99999];
-  this.besoin_formulaire2_case_a_cocher = ["Plusieurs méthodes"];
 }
 
 /**
@@ -7553,7 +7543,7 @@ function Pourcentage_d_un_nombre() {
   this.nb_questions = 5;
   this.consigne = "Calculer";
   this.spacing = 2;
-  this.spacing_corr = 2;
+  this.spacing_corr = 2.5;
   this.nb_cols = 2;
   this.nb_cols_corr = 1;
 
@@ -7587,7 +7577,7 @@ function Pourcentage_d_un_nombre() {
         )}\\div100=${tex_nombre(Algebrite.eval((p * n) / 100))}$`;
         //		texte_corr += `$\\phantom {Blanc}${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=\\dfrac{${p}\\times${n}}{100}=${tex_fraction(p*n,100)}=${tex_nombre(Algebrite.eval(p*n/100))}$`
         if (this.sup2)
-          texte_corr += `$${p}~\\%~\\text{de }${n}=${tex_fraction(
+          texte_corr += `<br>$${p}~\\%~\\text{de }${n}=${tex_fraction(
             p,
             100
           )}\\times${n}=(${n}\\div100)\\times${p}=${tex_nombrec(
@@ -7595,7 +7585,7 @@ function Pourcentage_d_un_nombre() {
           )}\\times${p}=${tex_nombre(Algebrite.eval((p * n) / 100))}$`;
         //		texte_corr += `$\\phantom {Blanc}${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=${tex_fraction(n,100)}\\times${p}=${tex_nombrec(calcul(n/100))}\\times${p}=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`
         if (this.sup2)
-          texte_corr += `$${p}~\\%~\\text{de }${n}=${tex_fraction(
+          texte_corr += `<br>$${p}~\\%~\\text{de }${n}=${tex_fraction(
             p,
             100
           )}\\times${n}=${tex_nombrec(calcul(p / 100))}\\times${n}=${tex_nombre(
