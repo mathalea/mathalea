@@ -6708,10 +6708,15 @@ function Tableaux_et_proportionnalite(){
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
 
-			let n1 = randint(1,9);
-			let n2 = randint(1,9,[n1]);
-			let n3 = randint(1,9,[n1,n2]);
+			let n1 = randint(5,9);
+			let n2 = randint(5,9,[n1]);
+			let n3 = randint(5,9,[n1,n2]);
 			let coeff = randint(2,9);
+			let coeff_soust = randint(2,4);
+
+			// do {
+			// 	coeff_soust = randint(2,4);
+			// } while (coeff_soust>n1 || coeff_soust > n2 || coeff_soust > n3);
 
 
 			// pour les situations, autant de situations que de cas dans le switch !
@@ -6738,7 +6743,7 @@ function Tableaux_et_proportionnalite(){
 				{//case 0 --> soustraction ligne1 vers ligne 2
 					tableau:tab_C_L(
 						[`\\phantom{000}`+n1+`\\phantom{000}`,`\\phantom{000}`+n2+`\\phantom{000}`,`\\phantom{000}`+n3+`\\phantom{000}`],
-						[n1-coeff],[n2-coeff,n3-coeff]
+						[n1-coeff_soust],[n2-coeff_soust,n3-coeff_soust]
 						)
 				},
 			];
