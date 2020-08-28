@@ -6673,12 +6673,12 @@ function Calculer_la_valeur_d_une_expression_litterale_deg1_inc1() {
 function Tableaux_et_proportionnalite(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
-		this.nb_questions = 5;
+		this.nb_questions = 6;
 	} else {
-		this.nb_questions = 3;
+		this.nb_questions = 4;
 	};	
 
 	this.titre = "Tableaux et proportionnalité";	
@@ -6694,10 +6694,11 @@ function Tableaux_et_proportionnalite(){
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		if (this.beta) {
-			type_de_questions_disponibles = [0,1,2,3,4];			
+			type_de_questions_disponibles = [0,1,2,3,4,5];			
 		} else {
 			  //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
-			  type_de_questions_disponibles = [choice([0,2]),choice([1,3]),4];			      			
+			  type_de_questions_disponibles = [choice([0,1]),2,choice([3,4]),5];			      			
+			  type_de_questions_disponibles = shuffle(type_de_questions_disponibles);
 		};
 
 		this.liste_questions = []; // Liste de questions
@@ -6742,11 +6743,6 @@ function Tableaux_et_proportionnalite(){
 				return sortie;				
 			};
 
-			// une fonction pour la justification ligne2 à ligne 2
-			function justificationsSens2_OK(n1,n2,n3,coeff) {
-				return `$\\dfrac{\\textcolor{red}{${n1*coeff}}}{\\textcolor{blue}{${n1}}} = \\dfrac{\\textcolor{red}{${n2*coeff}}}{\\textcolor{blue}{${n2}}} = \\dfrac{\\textcolor{red}{${n3*coeff}}}{\\textcolor{blue}{${n3}}}$`
-			};
-
 			// une fonction pour la justification sens1
 			function justifications_KO(n1,n2,n3,coeff,operation,sens) {
 				let sortie;
@@ -6770,18 +6766,18 @@ function Tableaux_et_proportionnalite(){
 				};
 				switch (operation) {
 					case '+':						
-						sortie = `$\\dfrac{\\textcolor{${color2}}{${n1}}}{\\textcolor{${color1}}{${n1+coeff}}}`;
+						sortie = `$\\dfrac{\\textcolor{${color2}}{${tex_nombre(n1)}}}{\\textcolor{${color1}}{${tex_nombre(n1+coeff)}}}`;
 						sortie += isEq(n1,n2,coeff);
-						sortie += `\\dfrac{\\textcolor{${color2}}{${n2}}}{\\textcolor{${color1}}{${n2+coeff}}}`;	
+						sortie += `\\dfrac{\\textcolor{${color2}}{${tex_nombre(n2)}}}{\\textcolor{${color1}}{${tex_nombre(n2+coeff)}}}`;	
 						sortie += isEq(n2,n3,coeff);
-						sortie += `\\dfrac{\\textcolor{${color2}}{${n3}}}{\\textcolor{${color1}}{${n3+coeff}}}$`;	
+						sortie += `\\dfrac{\\textcolor{${color2}}{${tex_nombre(n3)}}}{\\textcolor{${color1}}{${tex_nombre(n3+coeff)}}}$`;	
 						break;
 					case '-':
-						sortie = `$\\dfrac{\\textcolor{${color2}}{${n1}}}{\\textcolor{${color1}}{${n1-coeff}}}`;
+						sortie = `$\\dfrac{\\textcolor{${color2}}{${tex_nombre(n1)}}}{\\textcolor{${color1}}{${tex_nombre(n1-coeff)}}}`;
 						sortie += isEq(n1,n2,coeff);
-						sortie += `\\dfrac{\\textcolor{${color2}}{${n2}}}{\\textcolor{${color1}}{${n2-coeff}}}`;	
+						sortie += `\\dfrac{\\textcolor{${color2}}{${tex_nombre(n2)}}}{\\textcolor{${color1}}{${tex_nombre(n2-coeff)}}}`;	
 						sortie += isEq(n2,n3,coeff);
-						sortie += `\\dfrac{\\textcolor{${color2}}{${n3}}}{\\textcolor{${color1}}{${n3-coeff}}}$`;	
+						sortie += `\\dfrac{\\textcolor{${color2}}{${tex_nombre(n3)}}}{\\textcolor{${color1}}{${tex_nombre(n3-coeff)}}}$`;	
 						break;
 				};
 				return sortie;				
@@ -6790,53 +6786,69 @@ function Tableaux_et_proportionnalite(){
 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
-				{//case 0 --> multiplication ligne1 vers ligne 2
+				{//case 0 --> multiplication ligne1 vers ligne2
 					tableau:tab_C_L(
 						[`\\phantom{000}`+n1+`\\phantom{000}`,`\\phantom{000}`+n2+`\\phantom{000}`,`\\phantom{000}`+n3+`\\phantom{000}`],
 						[n1*coeff],[n2*coeff,n3*coeff]
 						),
 					justification_L1_L2:justifications_OK(n1,n2,n3,coeff,'L1L2'),
 					justification_L2_L1:justifications_OK(n1,n2,n3,coeff,'L2L1'),
-					isProportionnel:`C'est un tableau de proportionnalité.`,
+					isProportionnel:texte_en_couleur_et_gras(`C'est donc un tableau de proportionnalité.`),
+					areEgaux:`égaux`,
 
 				},
-				{//case 1 --> multiplication ligne1 vers ligne 2 Décimaux
+				{//case 1 --> multiplication ligne1 vers ligne2 Décimaux
 					tableau:tab_C_L(
 						[`\\phantom{000}`+tex_nombre(u1+ci1/10)+`\\phantom{000}`,`\\phantom{000}`+tex_nombre(u2+ci2/10)+`\\phantom{000}`,`\\phantom{000}`+tex_nombre(u3+ci3/10)+`\\phantom{000}`],
 						[tex_nombre((u1+ci1/10)*coeff)],[tex_nombre((u2+ci2/10)*coeff),tex_nombre((u3+ci3/10)*coeff)]
 						),
 					justification_L1_L2:justifications_OK(u1+ci1/10,u2+ci2/10,u3+ci3/10,coeff,'L1L2'),
 					justification_L2_L1:justifications_OK(u1+ci1/10,u2+ci2/10,u3+ci3/10,coeff,'L2L1'),
-					isProportionnel:`C'est un tableau de proportionnalité.`,
+					isProportionnel:texte_en_couleur_et_gras(`C'est donc un tableau de proportionnalité.`),
+					areEgaux:`égaux`,
 
 				},
-				{//case 2 --> multiplication ligne2 vers ligne 1
+				{//case 2 --> division ligne1 vers ligne2
 						tableau:tab_C_L(
 							[`\\phantom{000}`+n1*coeff+`\\phantom{000}`,`\\phantom{000}`+n2*coeff+`\\phantom{000}`,`\\phantom{000}`+n3*coeff+`\\phantom{000}`],
 							[n1],[n2,n3]
 							),
-						justification_L1_L2:justifications_OK(n1,n2,n3,coeff,'L1L2'),
-						justification_L2_L1:justifications_OK(n1,n2,n3,coeff,'L2L1'),
-						isProportionnel:`C'est un tableau de proportionnalité.`,
+						justification_L1_L2:justifications_OK(n1*coeff,n2*coeff,n3*coeff,1/coeff,'L1L2'),
+						justification_L2_L1:justifications_OK(n1*coeff,n2*coeff,n3*coeff,1/coeff,'L2L1'),
+						isProportionnel:texte_en_couleur_et_gras(`C'est donc un tableau de proportionnalité.`),
+						areEgaux:`égaux`,
 							
 				},
-				{//case 3 --> addition ligne1 vers ligne 2
+				{//case 3 --> addition ligne1 vers ligne2
 					tableau:tab_C_L(
 						[`\\phantom{000}`+n1+`\\phantom{000}`,`\\phantom{000}`+n2+`\\phantom{000}`,`\\phantom{000}`+n3+`\\phantom{000}`],
 						[n1+coeff],[n2+coeff,n3+coeff]
 						),
 					justification_L1_L2:justifications_KO(n1,n2,n3,coeff,'+','L1L2'),
 					justification_L2_L1:justifications_KO(n1+coeff,n2+coeff,n3+coeff,-coeff,'+','L2L1'),
-					isProportionnel:`Ce n'est pas un tableau de proportionnalité.`,
+					isProportionnel:texte_en_couleur_et_gras(`Ce n'est donc pas un tableau de proportionnalité.`),
+					areEgaux:`différents`,
 				},
-				{//case 4 --> soustraction ligne1 vers ligne 2
+				{//case 4 --> addition ligne1 vers ligne2 Décimaux
+					tableau:tab_C_L(
+						[`\\phantom{000}`+tex_nombre(u1+ci1/10)+`\\phantom{000}`,`\\phantom{000}`+tex_nombre(u2+ci2/10)+`\\phantom{000}`,`\\phantom{000}`+tex_nombre(u3+ci3/10)+`\\phantom{000}`],
+						[tex_nombre((u1+ci1/10)+coeff)],[tex_nombre((u2+ci2/10)+coeff),tex_nombre((u3+ci3/10)+coeff)]
+						),
+					justification_L1_L2:justifications_KO(u1+ci1/10,u2+ci2/10,u3+ci3/10,coeff,'+','L1L2'),
+					justification_L2_L1:justifications_KO(u1+ci1/10,u2+ci2/10,u3+ci3/10,coeff,'+','L2L1'),
+					isProportionnel:texte_en_couleur_et_gras(`Ce n'est donc pas un tableau de proportionnalité.`),
+					areEgaux:`différents`,
+
+				},
+				{//case 5 --> soustraction ligne1 vers ligne2
 					tableau:tab_C_L(
 						[`\\phantom{000}`+n1+`\\phantom{000}`,`\\phantom{000}`+n2+`\\phantom{000}`,`\\phantom{000}`+n3+`\\phantom{000}`],
 						[n1-coeff_soust],[n2-coeff_soust,n3-coeff_soust]
 						),
 					justification_L1_L2:justifications_KO(n1,n2,n3,coeff_soust,'-','L1L2'),
 					justification_L2_L1:justifications_KO(n1-coeff_soust,n2-coeff_soust,n3-coeff_soust,-coeff_soust,'-','L2L1'),
-					isProportionnel:`Ce n'est pas un tableau de proportionnalité.`,
+					isProportionnel:texte_en_couleur_et_gras(`Ce n'est donc pas un tableau de proportionnalité.`),
+					areEgaux:`différents`,
 				},
 			];
 
@@ -6848,8 +6860,9 @@ function Tableaux_et_proportionnalite(){
 					`,
 					question:``,
 					correction:`
-					${situations[k].justification_L1_L2}
-					<br>${situations[k].justification_L2_L1}
+					Pour déterminer si c'est un tableau de proportionnalité, il suffit de comparer les quotients entre les nombres la première ligne par ceux de la seconde ou inversement.
+					<br> Soit ${situations[k].justification_L1_L2}, on constate qu'ils sont ${situations[k].areEgaux}.
+					<br>Ou bien ${situations[k].justification_L2_L1}, on constate aussi qu'ils sont ${situations[k].areEgaux}.
 					<br>${situations[k].isProportionnel}
 					`
 				});
@@ -6907,7 +6920,17 @@ function Tableaux_et_proportionnalite(){
 					} else {
 						texte_corr = `${enonces[4].correction}`;
 					};
-					break;				
+					break;
+				case 5 : 
+					texte = `${enonces[5].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[5].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[5].correction}`;
+					};
+					break;					
  			};			
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
