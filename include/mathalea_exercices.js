@@ -13214,7 +13214,7 @@ function Ordre_de_grandeur_operations_decimaux(){
 	this.beta = true;	
 	this.sup=1;
 	if (this.beta) {
-		this.nb_questions = 5;
+		this.nb_questions = 3;
 	} else {
 		this.nb_questions = 3;
 	};	
@@ -13247,14 +13247,39 @@ function Ordre_de_grandeur_operations_decimaux(){
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
 
-      let ligne_entete = ['\\text{Opération}',tex_nombre('1'),tex_nombre('10'),tex_nombre('100'),tex_nombre('1000'),tex_nombre('10000')];
-      let ligne_entete_corr = ['\\text{Opération}','1','10','100','1 000','10 000'];
+      let ligne_entete = ['\\text{Opération}',`\\phantom{000}`+tex_nombre('1')+`\\phantom{000}`,`\\phantom{00}`+tex_nombre('10')+`\\phantom{00}`,`\\phantom{00}`+tex_nombre('100')+`\\phantom{00}`,`\\phantom{0}`+tex_nombre('1000')+`\\phantom{0}`,tex_nombre('10000')];
+      let ligne_entete_corr = ['\\text{Opération}',`\\phantom{000}`+tex_nombre('1')+`\\phantom{000}`,`\\phantom{00}`+tex_nombre('10')+`\\phantom{00}`,`\\phantom{00}`+tex_nombre('100')+`\\phantom{00}`,`\\phantom{0}`+tex_nombre('1000')+`\\phantom{0}`,tex_nombre('10000')];
+
+      let m=randint(1,9),
+      c=randint(1,9),
+      c1=randint(1,9),
+      c2=randint(1,9),
+      c3=randint(1,9),
+      d=randint(1,9),
+      d1=randint(1,9),
+      d2=randint(1,9),
+      d3=randint(1,9),
+      u=randint(1,9),
+      u1=randint(1,9),
+      u2=randint(1,9),
+      u3=randint(1,9);
+
+      let div_aleatoire_ope_3 = choice([10,100]);
+      let mult_aleatoire_ope_4 = choice([0.1,0.01,0.001]);
+
+      let operations = [];
+      operations.push(`${c*100+d*10+u*1}\\times ${d1*10+u1*1}`);
+      operations.push(`${tex_nombre((c2*100+d2*10+u1*1)/10)}+${c1*100+d1*10+u1*1}`);
+      operations.push(`${c3*100+d3*10+u3*1}-${tex_nombre((c2*100+d2*10+u2*1)/div_aleatoire_ope_3)}`);
+      operations.push(`${tex_nombre(m*1000+c3*100+d2*10+u1*1)}\\times ${tex_nombre(mult_aleatoire_ope_4)}`);
+      operations.push(`${tex_nombre((m*1000+c1*100+d3*10+u*1)/100)}\\div ${m}`);
+      //operations = shuffle(operations);
 
 			let enonces = [];
 			for (let k=0;k<1;k++) {
 				enonces.push({
           enonce:`
-          ${tab_C_L(ligne_entete,['\\text{Opé1}','\\text{Opé2}','\\text{Opé3}','\\text{Opé4}','\\text{Opé5}'],
+          ${tab_C_L(ligne_entete,[operations[0],operations[1],operations[2],operations[3],operations[4]],
           [            
             '','','','','',
             '','','','','',
@@ -13266,7 +13291,15 @@ function Ordre_de_grandeur_operations_decimaux(){
           `,
           question:``,
           correction:`
-          ${tab_C_L(ligne_entete_corr,['\\text{Opé1}','\\text{Opé2}','\\text{Opé3}','\\text{Opé4}','\\text{Opé5}'],[])}				
+          ${tab_C_L(ligne_entete_corr,['\\text{Opé1}','\\text{Opé2}','\\text{Opé3}','\\text{Opé4}','\\text{Opé5}'],
+          [            
+            '','','','','',
+            '','','','','',
+            '','','','','',
+            '','','','','',
+            '','','','',''
+          ]
+          )}				
           `
           });
 			};
