@@ -75,8 +75,8 @@ var liste_des_exercices_disponibles = {
   "6N11-2": Placer_un_point_abscisse_entiere,
   "6N12": Exercice_6N12,
   "6N13": Exercice_6N13,
-  "beta6N14" : Representer_une_fraction,
-  "beta6N14-2" : Ajouter_des_fractions_d_unite,
+  "6N14" : Representer_une_fraction,
+  "6N14-2" : Ajouter_des_fractions_d_unite,
   "6N20": Exercice_fractions_decomposer,
   "6N20-2": Exercice_fractions_differentes_ecritures,
   "6N21": Lire_abscisse_fractionnaire,
@@ -5711,8 +5711,8 @@ function Representer_une_fraction() {
         }
   
       let  params = {
-        xmin: -2.5,
-        ymin: -2,
+        xmin: -2.2,
+        ymin: -2.2,
         xmax: 18,
         ymax: 3,
         pixelsParCm: ppc,
@@ -11733,7 +11733,7 @@ function Ajouter_des_fractions_d_unite() {
       if (sortie_html) {
         sc=0.5
       } else {
-        sc=0.4
+        sc=0.3
       }
 
     let params,den,num=[0,0,0,0],f=[]
@@ -11757,27 +11757,26 @@ function Ajouter_des_fractions_d_unite() {
       texte+=`Quelle est la longueur du segment obtenu ?`
       texte_corr =`Voici sur ces dessins, coloriés en rouge, les différents segments :<br>`
       for (let j=0;j<4;j++) 
-        objets.push(f[j].representation(0,5-j*1.25,5,0,'segment','red',0,1))
+        objets.push(f[j].representation(0,5-j*1.25,5,0,'segment','red',0,1,1))
       params = {
-        xmin: -1,
-        ymin: -1,
+        xmin: -0.4,
+        ymin: -1.5,
         xmax: 6,
         ymax: 6,
         pixelsParCm: ppc,
-        scale: sc,
+        scale: 0.5,
       }
-      console.log(objets)
       texte_corr += mathalea2d(params,...objets)
       texte_corr+=`<br>Ce qui donne en les mettant bout à bout :<br>`
       params = {
-        xmin: -1,
-        ymin: -1,
+        xmin: -0.4,
+        ymin: -1.5,
         xmax: 20,
         ymax: 1,
         pixelsParCm: ppc,
         scale: sc,
       }
-      texte_corr+=mathalea2d(params,fraction(num[0]+num[1]+num[2]+num[3],den).representation(0,0,5,0,'segment','red',0,1))
+      texte_corr+=mathalea2d(params,fraction(num[0]+num[1]+num[2]+num[3],den).representation(0,0,5,0,'segment','red',0,1,0.6))
       texte_corr+=`<br>La longueur du segment ainsi obtenu est : $${fraction(num[0]+num[1]+num[2]+num[3],den).texFraction()}$`
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
