@@ -13255,6 +13255,7 @@ function Ordre_de_grandeur_operations_decimaux(){
       c1=randint(1,9),
       c2=randint(1,9),
       c3=randint(1,9,[4,5,6]),
+      c4=randint(1,4),
       d=randint(1,9),
       d1=randint(1,9),
       d2=randint(1,9),
@@ -13265,6 +13266,7 @@ function Ordre_de_grandeur_operations_decimaux(){
       u3=randint(1,9);
 
       let div_aleatoire_ope_3 = choice([10,100]);
+      let div_aleatoire_ope_5 = choice([1,10,100,1000]);
       let mult_aleatoire_ope_4 = choice([0.1,0.01,0.001]);
 
       // une fonction pour ordre de grandeur en fonction de ... opération 3
@@ -13305,6 +13307,26 @@ function Ordre_de_grandeur_operations_decimaux(){
         return sortie;
       };
 
+      // une fonction pour ordre de grandeur en fonction de ... opération 5
+      function myOrdreOpe5(mult) {
+        let sortie;
+        switch (mult) {
+          case 1:
+            return sortie = ['','','',mise_en_evidence(`\\times`),'']; 
+            break;
+          case 10:
+            return sortie = ['','',mise_en_evidence(`\\times`),'','']; 
+            break;
+          case 100:
+            return sortie = ['',mise_en_evidence(`\\times`),'','','']; 
+            break;
+          case 1000:
+            return sortie = [mise_en_evidence(`\\times`),'','','','']; 
+            break;        
+        };
+        return sortie;
+      };
+
       let situations = [
         {
           operation:`${c*100+d*10+u*1}\\times ${d1*10+u1*1}`,
@@ -13323,13 +13345,16 @@ function Ordre_de_grandeur_operations_decimaux(){
         },
         {
           operation:`${tex_nombre(m*1000+c3*100+d2*10+u1*1)}\\times ${tex_nombre(mult_aleatoire_ope_4)}`,
-          operation_corr:`${tex_nombre(m*1000+c3*100+d2*10+u1*1)}\\times ${tex_nombre(mult_aleatoire_ope_4)} \\simeq \\text{ soit }`,
+          operation_corr:`${tex_nombre(m*1000+c3*100+d2*10+u1*1)}\\times ${tex_nombre(mult_aleatoire_ope_4)} \\simeq ${tex_nombre(m*1000)}\\times ${tex_nombre(mult_aleatoire_ope_4)} \\text{ soit } ${tex_nombre(m*1000*mult_aleatoire_ope_4)}`,
           operation_coche:myOrdreOpe4(mult_aleatoire_ope_4,m),//['','','','',mise_en_evidence(`\\times`)],
         },
         {
-          operation:`${tex_nombre((m*1000+c1*100+d3*10+u*1)/100)}\\div ${m}`,
-          operation_corr:`${tex_nombre((m*1000+c1*100+d3*10+u*1)/100)}\\div ${m} \\simeq \\text{ soit }`,
-          operation_coche:['','','','',mise_en_evidence(`\\times`)],
+          // operation:`${tex_nombre((m*1000+c1*100+d3*10+u*1)/100)}\\div ${m}`,
+          // operation_corr:`${tex_nombre((m*1000+c1*100+d3*10+u*1)/100)}\\div ${m} \\simeq ${tex_nombre((m*1000)/100)}\\div ${m} \\text{ soit } ${tex_nombre((m*1000)/100/m)}`,
+          // operation_coche:['',mise_en_evidence(`\\times`),'','',''],
+          operation:`${tex_nombre((m*1000+c4*100+d3*10+u*1)/div_aleatoire_ope_5)}\\div ${m}`,
+          operation_corr:`${tex_nombre((m*1000+c4*100+d3*10+u*1)/div_aleatoire_ope_5)}\\div ${m} \\simeq ${tex_nombre((m*1000)/div_aleatoire_ope_5)}\\div ${m} \\text{ soit } ${tex_nombre((m*1000)/div_aleatoire_ope_5/m)}`,
+          operation_coche:myOrdreOpe5(div_aleatoire_ope_5),//['',mise_en_evidence(`\\times`),'','',''],
         },
 
       ];
