@@ -6707,23 +6707,39 @@ function Tableaux_et_proportionnalite(){
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
-			let tab_entete = [randint(1,9),randint(1,2),randint(1,3)];
+
+			let n1 = randint(1,9);
+			let n2 = randint(1,9,[n1]);
+			let n3 = randint(1,9,[n1,n2]);
+			let coeff = randint(2,9);
 
 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
-				{//case 0 -->
-					tableau:tab_C_L(tab_entete,['a','b'],
-					[
-					'','',
-					'',''
-					])
+				{//case 0 --> multiplication ligne1 vers ligne 2
+					tableau:tab_C_L(
+						[`\\phantom{000}`+n1+`\\phantom{000}`,`\\phantom{000}`+n2+`\\phantom{000}`,`\\phantom{000}`+n3+`\\phantom{000}`],
+						[n1*coeff],[n2*coeff,n3*coeff]
+						)
 				},
-				{//case 1 -->
+				{//case 1 --> multiplication ligne2 vers ligne 1
+						tableau:tab_C_L(
+							[`\\phantom{000}`+n1*coeff+`\\phantom{000}`,`\\phantom{000}`+n2*coeff+`\\phantom{000}`,`\\phantom{000}`+n3*coeff+`\\phantom{000}`],
+							[n1],[n2,n3]
+							)
+							
 				},
-				{//case 2 -->
+				{//case 0 --> addition ligne1 vers ligne 2
+					tableau:tab_C_L(
+						[`\\phantom{000}`+n1+`\\phantom{000}`,`\\phantom{000}`+n2+`\\phantom{000}`,`\\phantom{000}`+n3+`\\phantom{000}`],
+						[n1+coeff],[n2+coeff,n3+coeff]
+						)
 				},
-				{//case 3 -->
+				{//case 0 --> soustraction ligne1 vers ligne 2
+					tableau:tab_C_L(
+						[`\\phantom{000}`+n1+`\\phantom{000}`,`\\phantom{000}`+n2+`\\phantom{000}`,`\\phantom{000}`+n3+`\\phantom{000}`],
+						[n1-coeff],[n2-coeff,n3-coeff]
+						)
 				},
 			];
 
