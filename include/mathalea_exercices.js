@@ -5712,7 +5712,7 @@ function Representer_une_fraction() {
       let  params = {
         xmin: -2.5,
         ymin: -2,
-        xmax: 13,
+        xmax: 18,
         ymax: 3,
         pixelsParCm: ppc,
         scale: sc,
@@ -5728,7 +5728,7 @@ function Representer_une_fraction() {
         num=randint(1,den*3)
         f=fraction(num,den)
         texte=`Sachant qu'un disque représente une unité, représenter la fraction $${f.texFraction()}$ en coloriant la part correspondante.<br>`
-        texte+=mathalea2d(params,f.representation(0,0,2,0,'gateau','white'))
+        texte+=mathalea2d(params,fraction(den*3,den).representation(0,0,2,0,'gateau','white'))
         texte_corr =`Voici sur ces dessins, colorié en bleu, la part correspondante à la fraction $${f.texFraction()}$ :<br>`
         texte_corr += mathalea2d(params,f.representation(0,0,2,randint(0,den-1),'gateau','blue'))
         if (this.liste_questions.indexOf(texte) == -1) {
