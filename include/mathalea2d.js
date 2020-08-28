@@ -1911,6 +1911,29 @@ function courbeDeBezier(...args) {
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% LE DESSIN A MAIN LEVEE %%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+*/
+function SegmentMainLevee(A,B) {
+  ObjetMathalea2D.call(this);
+  this.svg = function (coeff) {
+    let l=longueur(A,B),dx=(B.xSVG(coeff)-A.xSVG(coeff))/l,dy=(B.ySVG(coeff)-A.ySVG(coeff))/l
+    let code =`<path d="M${A.xSVG(coeff)} ${A.ySVG(coeff)} C `
+    for (let k=1;k<l;k++) {
+      code +=`${A.xSVG(coeff)+k*dx} ${A.ySVG(coeff)+k*dy+randint(-3,3,0)}, `
+    }
+    code +=`${B.xSVG(coeff)} ${B.ySVG(coeff)}" stroke="black" fill="transparent"/>`
+    return code;
+  };
+}
+function segmentMainLevee(...args) {
+  return new SegmentMainLevee(...args)
+}
+
+
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% LES TRANSFORMATIONS %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
