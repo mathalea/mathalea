@@ -6725,39 +6725,42 @@ function Tableaux_et_proportionnalite(){
 					tableau:tab_C_L(
 						[`\\phantom{000}`+n1+`\\phantom{000}`,`\\phantom{000}`+n2+`\\phantom{000}`,`\\phantom{000}`+n3+`\\phantom{000}`],
 						[n1*coeff],[n2*coeff,n3*coeff]
-						)
+						),
+					isProportionnel:`C'est un tableau de proportionnalité.`,
 				},
 				{//case 1 --> multiplication ligne2 vers ligne 1
 						tableau:tab_C_L(
 							[`\\phantom{000}`+n1*coeff+`\\phantom{000}`,`\\phantom{000}`+n2*coeff+`\\phantom{000}`,`\\phantom{000}`+n3*coeff+`\\phantom{000}`],
 							[n1],[n2,n3]
-							)
+							),
+						isProportionnel:`C'est un tableau de proportionnalité.`,
 							
 				},
 				{//case 0 --> addition ligne1 vers ligne 2
 					tableau:tab_C_L(
 						[`\\phantom{000}`+n1+`\\phantom{000}`,`\\phantom{000}`+n2+`\\phantom{000}`,`\\phantom{000}`+n3+`\\phantom{000}`],
 						[n1+coeff],[n2+coeff,n3+coeff]
-						)
+						),
+					isProportionnel:`Ce n'est pas un tableau de proportionnalité.`,
 				},
 				{//case 0 --> soustraction ligne1 vers ligne 2
 					tableau:tab_C_L(
 						[`\\phantom{000}`+n1+`\\phantom{000}`,`\\phantom{000}`+n2+`\\phantom{000}`,`\\phantom{000}`+n3+`\\phantom{000}`],
 						[n1-coeff_soust],[n2-coeff_soust,n3-coeff_soust]
-						)
+						),
+					isProportionnel:`Ce n'est pas un tableau de proportionnalité.`,
 				},
 			];
 
 			let enonces = [];
 			for (let k=0;k<situations.length;k++) {
 				enonces.push({
-					enonce:`
-					Type ${k}
-					<br> ${situations[k].tableau}				
+					enonce:`					
+					${situations[k].tableau}				
 					`,
 					question:``,
 					correction:`
-					Correction type ${k}
+					${situations[k].isProportionnel}
 					`
 				});
 			};
