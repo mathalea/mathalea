@@ -7502,25 +7502,39 @@ function Appliquer_un_pourcentage() {
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
+    let type_de_questions_disponibles=[1,2]
+    let choix=combinaison_listes(type_de_questions_disponibles,this.nb_questions)
     liste_pourcentages = [10, 20, 30, 40, 50];
     let article=[[`Un pull`,20,40],[`Une chemise`,15,35],[`Un pantalon`,30,60],[`Un T-shirt`,15,25],[`Une jupe`,20,40]]
+    let legume=[[`Une aubergine`,100,200],[`Un melon`,200,300],[`Une tomate`,50,100],[`Une betterave`,75,100],[`Une carotte`,30,50]]
     let liste_index=[0,1,2,3,4]
-    let prix=[],pourcent=[]
+    let prix=[],pourcent=[],masse=[]
     let index=combinaison_listes(liste_index,this.nb_questions)
     for (
       let i = 0, p, n, texte, texte_corr, cpt = 0;
       i < this.nb_questions && cpt < 50;
 
     ) {
-      prix[i]=randint(article[index[i]][1],article[index[i]][2])
       pourcent[i]=choice(liste_pourcentages)
+      switch(choix[i]){
+      case 1 :
+      prix[i]=randint(article[index[i]][1],article[index[i]][2])
       texte=`${article[index[i]][0]} coûtant ${prix[i]} € bénéficie d'une réduction de ${pourcent[i]}%.<br>`
       texte+=`Quel est le montant en euro de cette réduction ?`
       texte_corr=`On doit calculer ${pourcent[i]}% de ${prix[i]} :<br>`
       texte_corr+= `$${pourcent[i]}~\\%~\\text{de }${prix[i]}=${tex_fraction(pourcent[i],100)}\\times${prix[i]}=(${pourcent[i]}\\times${prix[i]})\\div100=${tex_nombre(pourcent[i] * prix[i])}\\div100=${tex_nombre(Algebrite.eval((pourcent[i] * prix[i]) / 100))}$<br>`;
       texte_corr+=`Le montant de la réduction est de ${tex_prix(calcul(prix[i]*pourcent[i]/100))} €`
-     
-      
+      break;
+      case 2 :
+        masse[i]=randint(legume[index[i]][1],article[index[i]][2])
+        texte=`${legume[index[i]][0]} pesant ${masse[i]} grammes a subit une croissance de ${pourcent[i]}%.<br>`
+        texte+=`Quel est la masse supplémentaire en grammes correspondant à cette croissance ?`
+        texte_corr=`On doit calculer ${pourcent[i]}% de ${masse[i]} :<br>`
+        texte_corr+= `$${pourcent[i]}~\\%~\\text{de }${masse[i]}=${tex_fraction(pourcent[i],100)}\\times${masse[i]}=(${pourcent[i]}\\times${masse[i]})\\div100=${tex_nombre(pourcent[i] * masse[i])}\\div100=${tex_nombre(Algebrite.eval((pourcent[i] * masse[i]) / 100))}$<br>`;
+        texte_corr+=`La masse a augmenté de ${tex_nombre(calcul(masse[i]*pourcent[i]/100))} g.`
+         
+      break;
+      }
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(texte);
