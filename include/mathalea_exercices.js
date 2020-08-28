@@ -13363,24 +13363,37 @@ function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
         {//case 0 -->
-          p_entiere:calcul(m*1000 + c*100 + d*10 + u*1),
-          p_decimale:calcul(di*0.1 + ci*0.01 + mi*0.001),
 				},		
 			];
 
 			let enonces = [];
-			for (let k=0;k<3;k++) {
+			//for (let k=0;k<3;k++) {
 				enonces.push({
 					enonce:`
-          $\\ldots<${m*1000+c*100+d*10+u*1+situations[0].p_decimale} <\\ldots$
-          
+          $\\ldots < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1 + ci*0.01 + mi*0.001))} < \\ldots$          
 					`,
 					question:``,
 					correction:`
-					Correction type ${k}
-					`
+					$${mise_en_evidence(tex_nombre(m*1000 + c*100 + d*10 + u*1))} < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1 + ci*0.01 + mi*0.001))} < ${mise_en_evidence(tex_nombre(m*1000 + c*100 + d*10 + u*1 + 1))}$					`
 				});
-			};
+				enonces.push({
+					enonce:`
+          $\\ldots < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1 + ci*0.01))} < \\ldots$          
+					`,
+					question:``,
+					correction:`
+					$${mise_en_evidence(tex_nombre(m*1000 + c*100 + d*10 + u*1))} < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1 + ci*0.01))} < ${mise_en_evidence(tex_nombre(m*1000 + c*100 + d*10 + u*1 + 1))}$					`
+				});
+				enonces.push({
+					enonce:`
+          $\\ldots < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1))} < \\ldots$          
+					`,
+					question:``,
+					correction:`
+					$${mise_en_evidence(tex_nombre(m*1000 + c*100 + d*10 + u*1))} < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1))} < ${mise_en_evidence(tex_nombre(m*1000 + c*100 + d*10 + u*1 + 1))}$					`
+				});
+
+        //};
             
             // autant de case que d'elements dans le tableau des situations
 			switch (liste_type_de_questions[i]){
@@ -13450,3 +13463,4 @@ function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
 	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 };
+
