@@ -87,7 +87,7 @@ var liste_des_exercices_disponibles = {
   "6N30-2": Placer_points_sur_axe,
   "6N31": Comparer_decimaux,
   "6N31-1": Encadrer_un_decimal_par_deux_entiers_consecutifs,
-  "beta6N31-2":Ordre_de_grandeur_operations_decimaux,
+  "6N31-2":Ordre_de_grandeur_operations_decimaux,
   "6N33": Fraction_d_un_nombre,
   "6N33-1": Pourcentage_d_un_nombre,
   "6N34": Reglages_6N34,
@@ -13211,7 +13211,7 @@ function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
 function Ordre_de_grandeur_operations_decimaux(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 1;
@@ -13383,7 +13383,7 @@ function Ordre_de_grandeur_operations_decimaux(){
 
       ];
 
-      //situations = shuffle(situations);
+      situations = shuffle(situations);
             
 			let enonces = [];
 			for (let k=0;k<1;k++) {
