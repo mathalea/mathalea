@@ -6309,7 +6309,7 @@ function Problemes_Thales(){
 					labels = labelPoint(M,N,A,B,C,D)
 
 					texte = `Sur la figure ci-dessous $${nomA+nomB+nomC+nomD}$ est un rectangle et $(MN)$ est parallèle à la diagonale $(${nomB+nomD})$.`
-					texte += '<br>Calculer la longueur $DN$ au millimètre près.<br><br>'
+					texte += `<br>Calculer la longueur $${nomD+'N'}$ au millimètre près.<br><br>`
 					texte += mathalea2d({
 						xmin : -2,
 						xmax : 9,
@@ -6322,7 +6322,7 @@ function Problemes_Thales(){
 					texte_corr += `<br><br> $${tex_fraction(nomA+'M',nomA+nomB)}=${tex_fraction(nomA+'N',nomA+nomD)}=${tex_fraction('MN',nomB+nomD)}$`
 					texte_corr += `<br><br> $${tex_fraction(nomA+'M',nomA+nomB)}=${tex_fraction(nomA+'N',BC)}=${tex_fraction(tex_nombre(MN),tex_nombre(BD))}$`
 					texte_corr += `<br><br> $${nomA}N = ${tex_fraction(BC+'\\times'+tex_nombre(MN),BD)}=${tex_nombre(arrondi(calcul(BC*MN/BD),1))}$ cm`
-				
+					texte_corr += `<br><br> Les points $${nomA}$, $N$ et $${nomD}$ sont alignés dans cet ordre donc $N${nomD}=${nomA+nomD}-${nomA}N= ${BC}-${tex_nombre(arrondi(calcul(BC*MN/BD),1))}=${tex_nombre(arrondi(calcul(BC-BC*MN/BD),1))}$ cm.`
 				break;
 				}
 			
