@@ -76,6 +76,7 @@ var liste_des_exercices_disponibles = {
   "6N12": Exercice_6N12,
   "6N13": Exercice_6N13,
   "beta6N14" : Representer_une_fraction,
+  "beta6N14-2" : Ajouter_des_fractions_d_unite,
   "6N20": Exercice_fractions_decomposer,
   "6N20-2": Exercice_fractions_differentes_ecritures,
   "6N21": Lire_abscisse_fractionnaire,
@@ -84,6 +85,7 @@ var liste_des_exercices_disponibles = {
   "6N24": Exercice_6N24,
   "6N24-1": Exercice_multiplier_ou_diviser_un_nombre_entier_par_10_100_1000,
   "6N30": Lire_abscisse_decimale,
+  "6N30-1" : Lire_abscisse_decimale_bis,
   "6N30-2": Placer_points_sur_axe,
   "6N31": Comparer_decimaux,
   "beta6N31-1": Encadrer_un_decimal_par_deux_entiers_consecutifs,
@@ -1224,6 +1226,187 @@ function Lire_abscisse_fractionnaire() {
     "Niveau de difficulté",
     4,
     "1 : Demis, tiers ou quarts avec zéro placé\n2 : Des cinquièmes aux neuvièmes avec zéro placé \n3 : Toutes les fractions précédentes mais zéro non visible\n4 : Mélange",
+  ];
+}
+/**
+ * Exercice calqué sur lire abscisse fractionnaire sauf que le résultat attendu est en écriture décimale.
+ * demis, quart, cinquièmes dixièmes et centièmes
+ * @Auteur Jean-Claude Lhote
+ * Référence 6N30-1
+ */
+function Lire_abscisse_decimale_bis() {
+  "use strict";
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.titre = "Lire l'abscisse décimale d'un point repéré par une fraction";
+  this.consigne = "Lire l'abscisse de chacun des points suivants.";
+  this.nb_questions = 3;
+  this.nb_questions_modifiable = true;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  this.spacing = 1;
+  this.spacing_corr = 1;
+  this.sup = 1;
+  this.liste_packages = "tkz-euclide";
+
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    // numero_de_l_exercice est 0 pour l'exercice 1
+    let type_de_questions;
+    this.liste_questions = [];
+    this.liste_corrections = [];
+    this.contenu = ""; // Liste de questions
+    this.contenu_correction = ""; // Liste de questions corrigées
+    if (this.sup == 5)
+      type_de_questions = combinaison_listes([1, 2, 3], this.nb_questions);
+    else
+      type_de_questions = combinaison_listes(
+        [parseInt(this.sup)],
+        this.nb_questions
+      );
+
+    this.contenu = html_consigne(this.consigne);
+    for (
+      let i = 0,
+        abs0,
+        l1,
+        l2,
+        l3,
+        x1,
+        x2,
+        x3,
+        x11,
+        x22,
+        x33,
+        pas1,
+        pas2,
+        id_unique,
+        texte,
+        texte_corr;
+      i < this.nb_questions;
+      i++
+    ) {
+      l1 = lettre_depuis_chiffre(i * 3 + 1);
+      l2 = lettre_depuis_chiffre(i * 3 + 2);
+      l3 = lettre_depuis_chiffre(i * 3 + 3);
+      switch (type_de_questions[i]) {
+        case 3: // Placer des demis ou des quarts sur un axe
+          abs0 = 0;
+          pas1 = 1;
+          pas2 = choice([2,4]);
+          break;
+
+        case 4: // Placer des cinquièmes 
+          abs0 = 0;
+          pas1 = 1;
+          pas2 = 5
+          break;
+
+        case 1: // Placer des dixièmes
+          abs0 = randint(1, 5);
+          pas1 = 1;
+          pas2 = 10
+          break;
+        case 2: // Placer des centièmes
+          abs0 = calcul(randint(10, 50)/10);
+          pas1 = 10;
+          pas2 = 10
+          break;       
+      }
+      x1 = randint(0, 1);
+      x2 = randint(2, 3);
+      x3 = randint(4, 5);
+      x11 = randint(1, pas2 - 1);
+      x22 = randint(1, pas2 - 1);
+      x33 = randint(1, pas2 - 1);
+      if (sortie_html) {
+        id_unique = `${i}_${Date.now()}`;
+        this.contenu += `<div id="div_svg${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`;
+        SVG_reperage_sur_un_axe(
+          `div_svg${numero_de_l_exercice}${id_unique}`,
+          abs0,
+          6,
+          pas1,
+          pas2,
+          [
+            [l1, x1, x11],
+            [l2, x2, x22],
+            [l3, x3, x33],
+          ],
+          [
+            [calcul(abs0 + 1 / pas1), 1, 0],
+            [calcul(abs0 + 2 / pas1), 2, 0],
+            [calcul(abs0 + 3 / pas1), 3, 0],
+            [calcul(abs0 + 4 / pas1), 4, 0],
+            [calcul(abs0 + 5 / pas1), 5, 0],
+            [calcul(abs0 + 6 / pas1), 6, 0],
+          ],
+          false
+        );
+        this.contenu_correction += `<div id="div_svg_corr${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`;
+        SVG_reperage_sur_un_axe(
+          `div_svg_corr${numero_de_l_exercice}${id_unique}`,
+          abs0,
+          6,
+          pas1,
+          pas2,
+          [
+            [l1, x1, x11, true],
+            [l2, x2, x22, true],
+            [l3, x3, x33, true],
+          ],
+          [
+            [calcul(abs0 + 1 / pas1), 1, 0],
+            [calcul(abs0 + 2 / pas1), 2, 0],
+            [calcul(abs0 + 3 / pas1), 3, 0],
+            [calcul(abs0 + 4 / pas1), 4, 0],
+            [calcul(abs0 + 5 / pas1), 5, 0],
+            [calcul(abs0 + 6 / pas1), 6, 0],
+          ],
+          false
+        );
+      } else {
+        //sortie Latex
+        texte = Latex_reperage_sur_un_axe(
+          2,
+          abs0,
+          pas1,
+          pas2,
+          [
+            [l1, x1, x11],
+            [l2, x2, x22],
+            [l3, x3, x33],
+          ],
+          [
+            [calcul(abs0, 0), 0, 0],
+            [calcul(abs0 + 1 / pas1, 0), 1, 0],
+          ],
+          false
+        );
+        texte_corr = Latex_reperage_sur_un_axe(
+          2,
+          abs0,
+          pas1,
+          pas2,
+          [
+            [l1, x1, x11, true],
+            [l2, x2, x22, true],
+            [l3, x3, x33, true],
+          ],
+          [
+            [calcul(abs0, 0), 0, 0],
+            [calcul(abs0 + 1 / pas1, 0), 1, 0],
+          ],
+          false
+        );
+        this.liste_questions.push(texte);
+        this.liste_corrections.push(texte_corr);
+      }
+    }
+    if (!sortie_html) liste_de_question_to_contenu(this);
+  };
+  this.besoin_formulaire_numerique = [
+    "Niveau de difficulté",
+    5,
+    "1 : Dixièmes\n2 : Centièmes\n3 : Demis et quarts\n4 : Cinquièmes\n5 : Mélange",
   ];
 }
 
@@ -11462,6 +11645,86 @@ function Nommer_et_coder_des_polygones() {
     `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`,
   ];
 }
+function Ajouter_des_fractions_d_unite() {
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.titre = "mettre bout à bout des segments";
+  this.consigne = "";
+  this.nb_questions = 4;
+  this.nb_cols = 2;
+  this.nb_cols_corr = 2;
+  this.sup = 3;
+
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    let Xmin, Xmax, Ymin, Ymax, ppc, sc, g, k, carreaux,objets
+    ppc=20
+      if (sortie_html) {
+        sc=0.5
+      } else {
+        sc=0.4
+      }
+
+    let params,den,num=[0,0,0,0],f=[]
+    
+    let liste = combinaison_listes([5,6,7,8], this.nb_questions);
+
+    for (
+      let i = 0, texte, texte_corr, cpt = 0;
+      i < this.nb_questions && cpt < 50;) {
+      objets=[]
+      den=liste[i]
+      num[0]=randint(1,den-1)
+      num[1]=randint(1,den-1,num[0])
+      num[2]=randint(1,den-1,num[1])
+      num[3]=randint(1,den-1,[num[2],num[0]])
+      for (let j=0;j<4;j++)
+        f[j]=fraction(num[j],den)
+
+           
+      texte=`On place bout à bout 4 segments de longueurs respectives$ ${f[0].texFraction()}$, $${f[1].texFraction()}$, $${f[2].texFraction()}$ et $${f[3].texFraction()}$.<br>`
+      texte+=`Quelle est la longueur du segment obtenu ?`
+      texte_corr =`Voici sur ces dessins, coloriés en rouge, les différents segments :<br>`
+      for (let j=0;j<4;j++) 
+        objets.push(f[j].representation(0,5-j*1.25,5,0,'segment','red',0,1))
+      params = {
+        xmin: -1,
+        ymin: -1,
+        xmax: 6,
+        ymax: 6,
+        pixelsParCm: ppc,
+        scale: sc,
+      }
+      console.log(objets)
+      texte_corr += mathalea2d(params,...objets)
+      texte_corr+=`<br>Ce qui donne en les mettant bout à bout :<br>`
+      params = {
+        xmin: -1,
+        ymin: -1,
+        xmax: 20,
+        ymax: 1,
+        pixelsParCm: ppc,
+        scale: sc,
+      }
+      texte_corr+=mathalea2d(params,fraction(num[0]+num[1]+num[2]+num[3],den).representation(0,0,5,0,'segment','red',0,1))
+      texte_corr+=`<br>La longueur du segment ainsi obtenu est : $${fraction(num[0]+num[1]+num[2]+num[3],den).texFraction()}$`
+      if (this.liste_questions.indexOf(texte) == -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
+        this.liste_questions.push(texte);
+        this.liste_corrections.push(texte_corr);
+        i++;
+      }
+      cpt++;
+    }
+    liste_de_question_to_contenu(this);
+  };
+  this.besoin_formulaire_numerique = [
+    "Type de cahier",
+    3,
+    `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`,
+  ];
+}
+
 /**
  * Utiliser les notations des segments, droites et demi-droites
  * @Auteur Rémi Angot
