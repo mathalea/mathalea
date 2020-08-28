@@ -6860,7 +6860,7 @@ function Tableaux_et_proportionnalite(){
 					`,
 					question:``,
 					correction:`
-					Pour déterminer si c'est un tableau de proportionnalité, il suffit de comparer les quotients entre les nombres la première ligne par ceux de la seconde ou inversement.
+					Pour déterminer si c'est un tableau de proportionnalité, il suffit de comparer les quotients d'un nombre de la première ligne par le nombre correspondant de la seconde ligne ou inversement.
 					<br> Soit ${situations[k].justification_L1_L2}, on constate qu'ils sont ${situations[k].areEgaux}.
 					<br>Ou bien ${situations[k].justification_L2_L1}, on constate aussi qu'ils sont ${situations[k].areEgaux}.
 					<br>${situations[k].isProportionnel}
