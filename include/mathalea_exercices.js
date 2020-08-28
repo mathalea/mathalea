@@ -92,6 +92,8 @@ var liste_des_exercices_disponibles = {
   "6N31-2":Ordre_de_grandeur_operations_decimaux,
   "6N33": Fraction_d_un_nombre,
   "6N33-1": Pourcentage_d_un_nombre,
+  "beta6N33-2" : Calculer_un_pourcentage,
+  "beta6N33-3" : Appliquer_un_pourcentage,
   "6N34": Reglages_6N34,
   "6N41": Egalites_entre_fractions,
   "6N43": Criteres_de_divisibilite,
@@ -7403,6 +7405,142 @@ function Comparer_decimaux() {
     }
     liste_de_question_to_contenu(this);
   };
+}
+
+
+function Calculer_un_pourcentage() {
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.titre = "Problèmes de ratios en pourcentages";
+  this.nb_questions = 5;
+  this.consigne = "Calculer";
+  this.spacing = 2;
+  this.spacing_corr = 2;
+  this.nb_cols = 2;
+  this.nb_cols_corr = 1;
+
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    let liste_pourcentages = [10, 20, 30, 40, 50];
+    let liste_moyens=[`en bus`,`en deux-roues`,`à  pieds`,`en voiture`]
+    let liste_sports=[`le foot`,`la natation`,`le basket`,`le ping-pong`,`le volley`,`la gym`]
+    let p1,p2,p3,moy1,moy2,moy3
+    let objets,centre=point(5,5),depart=point(10,5)
+
+    for (
+      let i = 0, n, texte, texte_corr, cpt = 0;
+      i < this.nb_questions && cpt < 50;
+
+    ) {
+      n=randint(1,2)
+      objets=[]
+      p1=randint(6,9)*5
+      p2=randint(6,9)*5
+      p3=100-p1-p2
+      switch(n) {
+        case 1: // Les moyens de déplacement maison collège
+          [moy1,moy2,moy3]=combinaison_listes(liste_moyens,3)
+          texte = `Dans un collège, ${p1}% des élèves ${moy1}, ${p2}% ${moy2} et les autres ${moy3}.<br>`
+          texte += `Quel est le pourcentage des élèves qui ${moy3} ?`
+          texte_corr=`Les élèves qui ${moy1} ou qui ${moy2} représentent ${p1}% + ${p2}% = ${p1+p2}%.<br>`
+          texte_corr+=`Donc on calcule : 100 - ${p1+p2}% = ${p3}%<br>`
+          texte_corr+=`${p3}% des élèves ${moy3}.<br>`
+          break;
+          case 2: // Les sports pratiqués par les ados
+          [moy1,moy2,moy3]=combinaison_listes(liste_sports,3)
+          texte = `Dans une association sportive, ${p1}% des ados pratiquent ${moy1}, ${p2}% ${moy2} et les autres ${moy3}.<br>`
+          texte += `Quel est le pourcentage des ados qui pratiquent ${moy3} ?`
+          texte_corr=`Les ados qui pratiquent${moy1} ou ${moy2} représentent ${p1}% + ${p2}% = ${p1+p2}%.<br>`
+          texte_corr+=`Donc on calcule : 100 - ${p1+p2}% = ${p3}%<br>`
+          texte_corr+=`${p3}% des ados de cette association sportive pratiquent ${moy3}.<br>`
+          break;
+
+      }
+      objets.push(codeAngle(depart,centre,p1*3.6,4.9,'','black',2,1,'red',0.4),texteParPoint(`${moy1.substring(3)}`,pointSurSegment(centre,rotation(depart,centre,p1*1.8),3),0) )
+      objets.push(codeAngle(rotation(depart,centre,p1*3.6),centre,p2*3.6,4.9,'','black',2,1,'blue',0.4),texteParPoint(`${moy2.substring(3)}`,pointSurSegment(centre,rotation(depart,centre,p1*3.6+p2*1.8),3),0) )
+      objets.push(codeAngle(depart,centre,-p3*3.6,4.9,'','black',2,1,'yellow',0.4),texteParPoint(`${moy3.substring(3)}`,pointSurSegment(centre,rotation(depart,centre,-p3*1.8),3),0) )
+      texte_corr+=mathalea2d({xmin : 0,ymin : 0,xmax : 10, ymax : 10,pixelsParCm : 20,scale : 1}, ...objets)
+
+      if (this.liste_questions.indexOf(texte) == -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
+        this.liste_questions.push(texte);
+        this.liste_corrections.push(texte_corr);
+        i++;
+      }
+      cpt++;
+    }
+    liste_de_question_to_contenu(this);
+  };
+  //	this.besoin_formulaire_numerique = ['Valeur maximale',99999];
+  this.besoin_formulaire2_case_a_cocher = ["Plusieurs méthodes"];
+}
+function Appliquer_un_pourcentage() {
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.titre = "Problèmes avec des calculs de pourcentages";
+  this.nb_questions = 5;
+  this.consigne = "Calculer";
+  this.spacing = 2;
+  this.spacing_corr = 2;
+  this.nb_cols = 2;
+  this.nb_cols_corr = 1;
+
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    liste_pourcentages = [10, 20, 30, 40, 50];
+
+    for (
+      let i = 0, p, n, texte, texte_corr, cpt = 0;
+      i < this.nb_questions && cpt < 50;
+
+    ) {
+      p = choice(liste_pourcentages);
+      n = choice([
+        randint(2, 9),
+        randint(2, 9) * 10,
+        randint(1, 9) * 10 + randint(1, 2),
+      ]);
+      texte = `$${p}~\\%~\\text{de }${n}$`;
+      if (p == 50) {
+        texte_corr = `$${p}~\\%~\\text{de }${n}=${n}\\div${2}=${tex_nombre(
+          Algebrite.eval(n / 2)
+        )}$`; // calcul de n/2 si p = 50%
+      } else {
+        texte_corr = `$${p}~\\%~\\text{de }${n}=${tex_fraction(
+          p,
+          100
+        )}\\times${n}=(${p}\\times${n})\\div100=${tex_nombre(
+          p * n
+        )}\\div100=${tex_nombre(Algebrite.eval((p * n) / 100))}$`;
+        //		texte_corr += `$\\phantom {Blanc}${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=\\dfrac{${p}\\times${n}}{100}=${tex_fraction(p*n,100)}=${tex_nombre(Algebrite.eval(p*n/100))}$`
+        if (this.sup2)
+          texte_corr += `$${p}~\\%~\\text{de }${n}=${tex_fraction(
+            p,
+            100
+          )}\\times${n}=(${n}\\div100)\\times${p}=${tex_nombrec(
+            calcul(n / 100)
+          )}\\times${p}=${tex_nombre(Algebrite.eval((p * n) / 100))}$`;
+        //		texte_corr += `$\\phantom {Blanc}${p}~\\%~\\text{de }${n}=${tex_fraction(p,100)}\\times${n}=${tex_fraction(n,100)}\\times${p}=${tex_nombrec(calcul(n/100))}\\times${p}=${tex_nombre(Algebrite.eval(p*n/100))}$<br>`
+        if (this.sup2)
+          texte_corr += `$${p}~\\%~\\text{de }${n}=${tex_fraction(
+            p,
+            100
+          )}\\times${n}=${tex_nombrec(calcul(p / 100))}\\times${n}=${tex_nombre(
+            Algebrite.eval((p * n) / 100)
+          )}$`;
+      }
+      if (this.liste_questions.indexOf(texte) == -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
+        this.liste_questions.push(texte);
+        this.liste_corrections.push(texte_corr);
+        i++;
+      }
+      cpt++;
+    }
+    liste_de_question_to_contenu(this);
+  };
+  //	this.besoin_formulaire_numerique = ['Valeur maximale',99999];
+  this.besoin_formulaire2_case_a_cocher = ["Plusieurs méthodes"];
 }
 
 /**

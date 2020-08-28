@@ -4838,7 +4838,11 @@ function Fraction(num,den) {
 	this.den=den || 1;
 	
     this.numIrred=fraction_simplifiee(this.num,this.den)[0]
-    this.denIrred=fraction_simplifiee(this.num,this.den)[1]   
+	this.denIrred=fraction_simplifiee(this.num,this.den)[1]
+	this.pourcentage=calcul(this.numIrred*100/this.denIrred)
+	this.fractionEgale = function(k){
+		return fraction(calcul(this.numIrred*k),calcul(this.denIrred*k))
+	}   
     this.oppose = function(){
         return fraction(-this.num,this.den)
     }
@@ -4902,6 +4906,7 @@ function Fraction(num,den) {
 	this.texFractionSimplifiee = function(){
 		return tex_fraction(this.numIrred,this.denIrred)
 	}
+
     /**
      * 
      * @param {number} depart N° de la première part coloriée (0 correspond à la droite du centre) 
