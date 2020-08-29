@@ -485,6 +485,24 @@ function Droite(arg1, arg2, arg3, arg4, color) {
     let B1 = pointSurSegment(B, A, -10);
     return `\\draw${optionsDraw} (${A1.x},${A1.y})--(${B1.x},${B1.y});`;
   };
+  this.svgml = function(coeff,amp){
+    let A = point(this.x1, this.y1);
+    let B = point(this.x2, this.y2);
+    let A1 = pointSurSegment(A, B, -50);
+    let B1 = pointSurSegment(B, A, -50);
+    let s=segment(A1,B1,this.color)
+    s.isVisible=false
+  return s.svgml(coeff,amp)
+  }
+  this.tikzml = function(amp){
+    let A = point(this.x1, this.y1);
+    let B = point(this.x2, this.y2);
+    let A1 = pointSurSegment(A, B, -50);
+    let B1 = pointSurSegment(B, A, -50);
+    let s=segment(A1,B1,this.color)
+    s.isVisible=false
+  return s.tikzml(amp)
+  }
 }
 function droite(...args) {
   return new Droite(...args);
@@ -641,7 +659,7 @@ function ConstructionMediatrice(
     let sBN = segment(B, N);
     sBN.pointilles = true;
     let codes = codeSegments(markrayons, color, A, M, B, M, A, N, B, N);
-    objets.push(sAM, sBM, sAN, sBN, codes);
+    objets.push(sAM, sBM, sAN, sBN, codes,codage);
   }
   this.svg = function (coeff) {
     code = "";
@@ -657,6 +675,23 @@ function ConstructionMediatrice(
     }
     return code;
   };
+  this.svgml =function(coeff,amp) {
+    code = "";
+    for (objet of objets) {
+     if (typeof(objet.svgml)=='undefined') code += "\n\t" + objet.svg(coeff);
+     else code += "\n\t" + objet.svgml(coeff,amp);
+    }
+    return code;
+  }
+  this.tikzml = function (amp) {
+    code = "";
+    for (objet of objets) {
+      if (typeof(objet.tikzml)=='undefined') code += "\n\t" + objet.tikz();
+      else code += "\n\t" + objet.tikzml(amp);
+    }
+    return code;
+  };
+
 }
 
 function constructionMediatrice(...args) {
@@ -1073,20 +1108,44 @@ function Segment(arg1, arg2, arg3, arg4, color) {
     return `\\draw${optionsDraw} (${this.x1},${this.y1})--(${this.x2},${this.y2});`;
   };
   this.svgml = function(coeff,amp){
+    if (this.epaisseur != 1) {
+      this.style += ` stroke-width="${this.epaisseur}" `;
+    }
+    if (this.opacite != 1) {
+      this.style += ` stroke-opacity="${this.opacite}" `;
+    }
+ 
     let A = point(this.x1, this.y1);
     let B = point(this.x2, this.y2);
-    let dx=(B.xSVG(coeff)-A.xSVG(coeff))/20,dy=(B.ySVG(coeff)-A.ySVG(coeff))/20
+    let l=Math.round(longueur(A,B))
+    let dx=(B.xSVG(coeff)-A.xSVG(coeff))/(4*l),dy=(B.ySVG(coeff)-A.ySVG(coeff))/(4*l)
     let code =`<path d="M${A.xSVG(coeff)} ${A.ySVG(coeff)} C `
-    for (let k=0;k<=20;k++) {
+    for (let k=0;k<=4*l;k++) {
       code +=`${arrondi(A.xSVG(coeff)+k*dx+randint(-1,1)*amp,0)} ${arrondi(A.ySVG(coeff)+k*dy+randint(-1,1)*amp,0)}, `
     }
-   code +=`${B.xSVG(coeff)} ${B.ySVG(coeff)}" stroke="black" fill="transparent"/>`
+    code +=`${B.xSVG(coeff)} ${B.ySVG(coeff)}" stroke="${this.color}" ${this.style}"/>`
     return code;
-  }
+ }
   this.tikzml = function(amp){
     let A = point(this.x1, this.y1);
     let B = point(this.x2, this.y2);
-    let code=`\\draw[decorate,decoration={random steps , amplitude = ${amp}] (${A.x},${A.y})--(${B.x},${B.y});`
+    let optionsDraw = [];
+    let tableauOptions = [];
+    if (this.color.length > 1 && this.color !== "black") {
+      tableauOptions.push(this.color);
+    }
+    if (this.epaisseur != 1) {
+      tableauOptions.push(`line width = ${this.epaisseur}`);
+    }
+ 
+    if (this.opacite != 1) {
+      tableauOptions.push(`opacity = ${this.opacite}`);
+    }
+    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`);
+    optionsDraw = "[" + tableauOptions.join(",") + "]";
+
+
+    let code=`\\draw${optionsDraw} (${A.x},${A.y})--(${B.x},${B.y});`
     return code
  
   }
@@ -1566,7 +1625,7 @@ function Cercle(O, r, color) {
 
     return `<circle cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" r="${
       r * coeff
-    }" stroke="${this.color}" ${this.style} fill="none"/>`;
+    }" stroke="${this.color}" ${this.style}/>`;
   };
   this.tikz = function () {
     let optionsDraw = [];
@@ -1589,15 +1648,45 @@ function Cercle(O, r, color) {
     return `\\draw${optionsDraw} (${O.x},${O.y}) circle (${r});`;
   };
   this.svgml = function (coeff,amp) {
+    if (this.epaisseur != 1) {
+      this.style += ` stroke-width="${this.epaisseur}" `;
+    }
+
+    if (this.opacite != 1) {
+      this.style += ` stroke-opacity="${this.opacite}" `;
+    }
+    if (this.couleurDeRemplissage == "") {
+      this.style += ` fill="none" `;
+    } else {
+      this.style += ` fill="${this.couleurDeRemplissage}" `;
+      this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `;
+    }
+
     let code =`<path d="M ${O.xSVG(coeff)+r*coeff} ${O.ySVG(coeff)} C ${O.xSVG(coeff)+r*coeff} ${O.ySVG(coeff)}, `
     for (let k=1;k<101;k++) {
       code +=`${arrondi(O.xSVG(coeff)+r*Math.cos(2*k*Math.PI/101)*coeff+randint(-1,1)*amp,2)} ${arrondi(O.ySVG(coeff)+r*Math.sin(2*k*Math.PI/100)*coeff+randint(-1,1)*amp,2)}, `
     }
-    code +=` ${O.xSVG(coeff)+r*coeff} ${O.ySVG(coeff)} Z" stroke="black" fill="transparent"/>`
+    code +=` ${O.xSVG(coeff)+r*coeff} ${O.ySVG(coeff)} Z" stroke="${this.color}" ${this.style}"/>`
     return code;
   }
   this.tikzml = function(amp) {
-    let code=`\\draw[decorate,decoration={random steps , amplitude = ${amp}pt }] (${O.x},${O.y}) circle (${r});`
+    let optionsDraw = [];
+    let tableauOptions = [];
+    if (this.color.length > 1 && this.color !== "black") {
+      tableauOptions.push(this.color);
+    }
+    if (this.epaisseur != 1) {
+      tableauOptions.push(`line width = ${this.epaisseur}`);
+    }
+
+    if (this.opacite != 1) {
+      tableauOptions.push(`opacity = ${this.opacite}`);
+    }
+    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`);
+    optionsDraw = "[" + tableauOptions.join(",") + "]";
+
+
+    let code=`\\draw${optionsDraw} (${O.x},${O.y}) circle (${r});`
     return code
   
   }
@@ -1950,43 +2039,121 @@ function courbeDeBezier(...args) {
  * Trace un segment entre A et B qui donne l'impression d'être fait à main levée.
  * @Auteur Jean-Claude Lhote
  */
-function SegmentMainLevee(A,B,amp) {
+function SegmentMainLevee(A,B,amp,color='black',epaisseur=1) {
   ObjetMathalea2D.call(this);
   this.svg = function (coeff) {
-    let dx=(B.xSVG(coeff)-A.xSVG(coeff))/20,dy=(B.ySVG(coeff)-A.ySVG(coeff))/20
+    if (this.epaisseur != 1) {
+      this.style += ` stroke-width="${this.epaisseur}" `;
+    }
+
+    if (this.opacite != 1) {
+      this.style += ` stroke-opacity="${this.opacite}" `;
+    }
+    if (this.couleurDeRemplissage == "") {
+      this.style += ` fill="none" `;
+    } else {
+      this.style += ` fill="${this.couleurDeRemplissage}" `;
+      this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `;
+    }
+    let l=Math.round(longueur(A,B))
+    let dx=(B.xSVG(coeff)-A.xSVG(coeff))/(4*l),dy=(B.ySVG(coeff)-A.ySVG(coeff))/(4*l)
     let code =`<path d="M${A.xSVG(coeff)} ${A.ySVG(coeff)} C `
-    for (let k=0;k<=20;k++) {
+    for (let k=0;k<=4*l;k++) {
       code +=`${arrondi(A.xSVG(coeff)+k*dx+randint(-1,1)*amp,0)} ${arrondi(A.ySVG(coeff)+k*dy+randint(-1,1)*amp,0)}, `
     }
-    code +=`${B.xSVG(coeff)} ${B.ySVG(coeff)}" stroke="black" fill="transparent"/>`
+    code +=`${B.xSVG(coeff)} ${B.ySVG(coeff)}" stroke="${color}" ${this.style}"/>`
     return code;
   };
   this.tikz = function() {
-    let code=`\\draw[decorate,decoration={random steps , amplitude = ${amp}] (${A.x},${A.y})--(${B.x},${B.y});`
+    let optionsDraw = [];
+    let tableauOptions = [];
+    if (this.color.length > 1 && this.color !== "black") {
+      tableauOptions.push(this.color);
+    }
+    if (this.epaisseur != 1) {
+      tableauOptions.push(`line width = ${this.epaisseur}`);
+    }
+
+    if (this.opacite != 1) {
+      tableauOptions.push(`opacity = ${this.opacite}`);
+    }
+    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`);
+    optionsDraw = "[" + tableauOptions.join(",") + "]";
+
+
+    let code=`\\draw ${optionsDraw} (${A.x},${A.y})--(${B.x},${B.y});`
     return code
   }
 }
-function segmentMainLevee(...args) {
-  return new SegmentMainLevee(...args)
+function segmentMainLevee(A,B,amp,color='black',epaisseur=1) {
+  return new SegmentMainLevee(A,B,amp,color,epaisseur)
 }
 
-function CercleMainLevee(A,r,amp) {
+function CercleMainLevee(A,r,amp,color='black') {
   ObjetMathalea2D.call(this);
+  this.color=color;
   this.svg = function (coeff) {
+    if (this.epaisseur != 1) {
+      this.style += ` stroke-width="${this.epaisseur}" `;
+    }
+
+    if (this.opacite != 1) {
+      this.style += ` stroke-opacity="${this.opacite}" `;
+    }
+    if (this.couleurDeRemplissage == "") {
+      this.style += ` fill="none" `;
+    } else {
+      this.style += ` fill="${this.couleurDeRemplissage}" `;
+      this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `;
+    }
+
     let code =`<path d="M ${A.xSVG(coeff)+r*coeff} ${A.ySVG(coeff)} C ${A.xSVG(coeff)+r*coeff} ${A.ySVG(coeff)}, `
     for (let k=1;k<101;k++) {
       code +=`${arrondi(A.xSVG(coeff)+r*Math.cos(2*k*Math.PI/101)*coeff+randint(-1,1)*amp,2)} ${arrondi(A.ySVG(coeff)+r*Math.sin(2*k*Math.PI/100)*coeff+randint(-1,1)*amp,2)}, `
     }
-    code +=` ${A.xSVG(coeff)+r*coeff} ${A.ySVG(coeff)} Z" stroke="black" fill="transparent"/>`
+    code +=` ${A.xSVG(coeff)+r*coeff} ${A.ySVG(coeff)} Z" stroke="${color}" ${this.style}"/>`
     return code;
   };
   this.tikz = function() {
-    let code=`\\draw[decorate,decoration={random steps , amplitude = ${amp}pt }] (${A.x},${A.y}) circle (${r});`
+    let optionsDraw = [];
+    let tableauOptions = [];
+    if (this.color.length > 1 && this.color !== "black") {
+      tableauOptions.push(this.color);
+    }
+    if (this.epaisseur != 1) {
+      tableauOptions.push(`line width = ${this.epaisseur}`);
+    }
+
+    if (this.opacite != 1) {
+      tableauOptions.push(`opacity = ${this.opacite}`);
+    }
+    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`);
+    optionsDraw = "[" + tableauOptions.join(",") + "]";
+
+
+    let code=`\\draw${optionsDraw} (${A.x},${A.y}) circle (${r});`
     return code
   }
 }
-function cercleMainLevee(A,r,amp) {
-  return new CercleMainLevee(A,r,amp)
+function cercleMainLevee(A,r,amp,color='black',epaisseur=1) {
+  return new CercleMainLevee(A,r,amp,color,epaisseur)
+}
+
+function DroiteMainLevee(A,B,amp,color='black'){
+  ObjetMathalea2D.call(this)
+  this.svg = function(coeff) {
+    let d=droite(A,B,color)
+    d.isVisible=false
+    return d.svgml(coeff,amp)
+  }
+  this.tikz = function() {
+    let d=droite(A,B,color)
+    d.isVisible=false
+    return d.tikzml(amp)
+  }
+}
+function droiteMainLevee(A,B,amp,color='black',epaisseur=1) {
+  return new DroiteMainLevee(A,B,amp,color,epaisseur)
 }
 
 

@@ -12118,7 +12118,7 @@ function Vocabulaire_des_triangles_5e() {
 function Test_main_levee() {
   "use strict";
   Exercice.call(this);
-  this.titre = "Tracer des parallèles et des perpendiculaires";
+  this.titre = "Test de main levée";
   this.nb_questions = 1;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
@@ -12130,13 +12130,21 @@ function Test_main_levee() {
     let B=point(10,5)
     let D=point(5,10)
 //    let a=codeAngle(B,A,D,4)
-    let C=cercleCentrePoint(A,B)
-    let E=cercleCentrePoint(B,A)
-    let s=segment(A,B)
-    let texte=mathalea2d({xmin:-1,ymin:0,xmax:16,ymax:11,pixelsParCm:20,scale:1,mainlevee:this.sup,amplitude:1},[C,s,E,tracePoint(A,B,D)])
+    let C=cercleCentrePoint(A,B,'green')
+    C.epaisseur=2
+    C.opacite=0.5
+    let E=cercleCentrePoint(B,A,'red')
+    E.epaisseur=2
+    E.opacite=0.5
+    let s=segment(A,B,'black')
+    s.epaisseur=5
+    s.opacite=0.4
+ //   let m=mediatrice(A,B,'d','purple')
+    let cons=constructionMediatrice(A,B,true,'orange','//','O','black',5)
+    let texte=mathalea2d({xmin:-1,ymin:0,xmax:16,ymax:11,pixelsParCm:20,scale:1,mainlevee:this.sup,amplitude:1},[C,s,E,tracePoint(A,B,D),cons])
     let texte_corr=""
-    this.liste_questions.push(texte + "<br>");
-    this.liste_corrections.push(texte_corr + "<br>");
+    this.liste_questions.push(texte );
+    this.liste_corrections.push(texte_corr );
    liste_de_question_to_contenu(this)  
   }
   this.besoin_formulaire_case_a_cocher = ["main levee"];	
