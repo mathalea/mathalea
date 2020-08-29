@@ -49,6 +49,7 @@ var liste_des_exercices_disponibles = {
   "beta6G14" : Test_main_levee,
   "6G20" : Nommer_et_coder_des_polygones,
   "6G20-2": Vocabulaire_des_triangles_6e,
+  "beta6G21" : Construire_un_triangle_6e,
   "6G23-2": Tracer_triangle_2_angles,
   "6G24": Transformations_6e,
   "6G24-1" : Symetrie_axiale_point_6e,
@@ -12114,6 +12115,78 @@ function Vocabulaire_des_triangles_6e() {
 function Vocabulaire_des_triangles_5e() {
   this.classe = 5;
   Vocabulaire_des_triangles.call(this);
+}
+function Construire_un_triangle_6e() {
+  Construire_un_triangle.call(this)
+  this.classe=6
+}
+
+function Construire_un_triangle() {
+  "use strict"
+  Exercice.call(this)
+  this.titre = "Construire un triangle aux instruments";
+  this.nb_questions = 1;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  this.sup = false;
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    this.liste_questions = []
+    this.liste_corrections = []
+    let type_de_questions_disponibles,A,B,C,lAB,lBC,lAC,cA,cB,T,objets_enonce,objets_correction,params_enonce,params_correction
+    if (this.classe == 6) type_de_questions_disponibles = [1]
+    else type_de_questions_disponibles = [1, 2, 3, 4, 5, 6]
+    let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
+    for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+      objets_enonce=[]
+      objets_correction=[]
+      texte =`Le triangle ci-dessous a été réalisé à main levée.<br>Construire ce triangle avec les instruments de géométrie en respectant les mesures indiquées.<br>`
+      texte_corr=`Voici la construction que tu devais réaliser.<br>`
+      switch (liste_type_de_questions[i]) {
+        case 1:
+          A=point(0,0,'A')
+          lAC=randint(35,45)
+          lBC=calcul(randint(35,45,lAC)/10)
+          lAB=calcul(randint(46,60)/10)
+          lAC=calcul(lAC/10)
+          B=pointAdistance(A,lAB,'B')
+          cA=cercle(A,lAC)
+          cB=cercle(B,lBC)
+          C=pointIntersectionCC(cA,cB,'C')
+          T=polygoneAvecNom(A,B,C)
+          objets_enonce.push(T[0],T[1])
+          objets_enonce.push(afficheLongueurSegment(B,A),afficheLongueurSegment(C,B),afficheLongueurSegment(A,C))
+          texte_corr+=`Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>`
+          params_enonce={xmin : Math.min(A.x-1,B.x-1,C.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1),xmax : Math.max(A.x+1,B.x+1,C.x+1),ymax : Math.max(A.y+1,B.y+1,C.y+1),pixelsParCm : 20, scale : 1,mainlevee : true,amplitude : 1}
+          params_correction={xmin : Math.min(A.x-1,B.x-1,C.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1),xmax : Math.max(A.x+1,B.x+1,C.x+1),ymax : Math.max(A.y+1,B.y+1,C.y+1),pixelsParCm : 20, scale : 1}
+
+          break
+
+        case 2:
+
+          break
+
+        case 3:
+
+          break
+      }
+      texte+=mathalea2d(params_enonce,objets_enonce)
+      texte_corr+=mathalea2d(params_correction,...objets_correction)
+      if (this.liste_questions.indexOf(texte) == -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
+        this.liste_questions.push(texte);
+        this.liste_corrections.push(texte_corr);
+        i++;
+      }
+      cpt++;
+    }
+    liste_de_question_to_contenu(this);
+  };
+  //	this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
+  this.besoin_formulaire2_numerique = [
+    "Type de cahier",
+    3,
+    `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`,
+  ];
 }
 
 function Test_main_levee() {

@@ -210,6 +210,14 @@ function pointIntersectionDD(d, f, nom = "", positionLabel = "above") {
   let x = calcul(-d.c / d.a - (d.b * y) / d.a);
   return point(x, y, nom, positionLabel);
 }
+/**
+ * p=pointAdistance(A,5,'M') Place un point aléatoirement à 5 unités de A et lui donne le nom de 'M'.
+ * @Auteur Jean-Claude Lhote
+ */
+function pointAdistance(A,d,nom="",positionLabel="above") {
+  let B=point(A.x+1,A.y)
+  return similitude(B,A,randint(1,360),d,nom,positionLabel)
+}
 
 /**
  * labelPoint(A,B) pour nommer les points A et B
@@ -1295,6 +1303,20 @@ function Polygone(...points) {
     }
     
   };
+  this.svgml = function (coeff,amp) {
+    let code ="",segment_courant
+    let A=this.listePoints[0]
+    for (let k=1;k<=this.listePoints.length;k++ ) {
+      B=this.listePoints[k%this.listePoints.length]
+      A=this.listePoints[k-1]
+      segment_courant=segment(A,B)
+      segment_courant.epaisseur=this.epaisseur
+      segment_courant.color=this.color
+      segment_courant.opacite=this.opacite
+      code+=segment_courant.svgml(coeff,amp)
+    }
+    return code
+  }
 }
 function polygone(...args) {
   return new Polygone(...args);
@@ -2156,8 +2178,31 @@ function droiteMainLevee(A,B,amp,color='black',epaisseur=1) {
   return new DroiteMainLevee(A,B,amp,color,epaisseur)
 }
 
-
-
+function PolygoneMainLevee(points,amp,color='black') {
+    ObjetMathalea2D.call(this);
+    this.couleurDeRemplissage = "";
+    this.opaciteDeRemplissage = 0.7;
+// Le premier argument (points) doit être un tableau de points !!!
+      this.listePoints = points;
+ //     this.nom = this.listePoints.join();
+    this.svg = function(coeff) {
+      let code ="",segment_courant
+      let A,B
+      for (let k=1;k<=this.listePoints.length;k++ ) {
+        B=this.listePoints[k%this.listePoints.length]
+        A=this.listePoints[k-1]
+        segment_courant=segment(A,B)
+        segment_courant.epaisseur=this.epaisseur
+        segment_courant.color=this.color
+        segment_courant.opacite=this.opacite
+        code+=segment_courant.svgml(coeff,amp)
+      }
+      return code
+    }
+}
+function polygoneMainLevee(points,amp,color='black') {
+  return new PolygoneMainLevee(points,amp,color)
+}
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
