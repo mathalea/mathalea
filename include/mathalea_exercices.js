@@ -145,6 +145,7 @@ var liste_des_exercices_disponibles = {
   "5L14": Tester_une_egalite,
   "5M10": Aire_du_parallelogramme,
   "5M20": Calcul_de_volumes_5e,
+  "5P10-1": Tableaux_et_proportionnalite,
   "5R10-0": Trouver_oppose,
   "5R11": Lire_abscisse_relative,
   "5R11-2": Placer_points_sur_axe_relatifs,
@@ -5000,8 +5001,8 @@ function Proportionnalite_pas_proportionnalite() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Reconnaître une situation de proportionnalité";
   this.consigne = "Répondre aux questions posées en justifiant";
-  this.spacing = 1.5;
-  this.spacing_corr = 1.5;
+  sortie_html ? this.spacing = 1.5 : this.spacing = 1.4;
+  sortie_html ? this.spacing_corr = 1.5 : this.spacing_corr = 1;
   this.nb_questions = 5;
   this.nb_cols_corr = 1;
   this.nb_cols = 1;
@@ -13787,27 +13788,27 @@ function Ordre_de_grandeur_operations_decimaux(){
       // une fonction pour ordre de grandeur en fonction de ... opération 1
       function myOrdreOpe1(c,d) {
         if (c*d>=60) {
-          return ['','','','','',mise_en_evidence(`\\times`)]; 
+          return ['','','','','',mise_en_evidence(`X`)]; 
         } else {
-          return ['','','','',mise_en_evidence(`\\times`),'']; 
+          return ['','','','',mise_en_evidence(`X`),'']; 
         };
       };
       
       // une fonction pour ordre de grandeur en fonction de ... opération 2
       function myOrdreOpe2(c1,c2) {
         if (c1+c2/10>=600) {
-          return ['','','',mise_en_evidence(`\\times`),'','']; 
+          return ['','','',mise_en_evidence(`X`),'','']; 
         } else {
-          return ['','',mise_en_evidence(`\\times`),'','','']; 
+          return ['','',mise_en_evidence(`X`),'','','']; 
         };
       };
 
       // une fonction pour ordre de grandeur en fonction de ... opération 3
       function myOrdreOpe3(n) {
         if (n>=7) {
-          return ['','','',mise_en_evidence(`\\times`),'','']; 
+          return ['','','',mise_en_evidence(`X`),'','']; 
         } else {
-          return ['','',mise_en_evidence(`\\times`),'','','']; 
+          return ['','',mise_en_evidence(`X`),'','','']; 
         };
       };
 
@@ -13817,23 +13818,23 @@ function Ordre_de_grandeur_operations_decimaux(){
         switch (d) {
           case 0.1:
             if (n>=7) {
-              sortie = ['','','',mise_en_evidence(`\\times`),'',''];
+              sortie = ['','','',mise_en_evidence(`X`),'',''];
             } else {
-              sortie = ['','',mise_en_evidence(`\\times`),'','',''];
+              sortie = ['','',mise_en_evidence(`X`),'','',''];
             };            
             break;
           case 0.01: 
             if (n>=7) {
-              sortie = ['','',mise_en_evidence(`\\times`),'','',''];              
+              sortie = ['','',mise_en_evidence(`X`),'','',''];              
             } else {
-              sortie = ['',mise_en_evidence(`\\times`),'','','',''];
+              sortie = ['',mise_en_evidence(`X`),'','','',''];
             };            
             break;
           case 0.001: 
             if (n>=7) {
-              sortie = ['',mise_en_evidence(`\\times`),'','','',''];
+              sortie = ['',mise_en_evidence(`X`),'','','',''];
             } else {
-              sortie = [mise_en_evidence(`\\times`),'','','','',''];
+              sortie = [mise_en_evidence(`X`),'','','','',''];
             };       
             break;            
         }
@@ -13845,16 +13846,16 @@ function Ordre_de_grandeur_operations_decimaux(){
         let sortie;
         switch (mult) {
           case 1:
-            return sortie = ['','','',mise_en_evidence(`\\times`),'','']; 
+            return sortie = ['','','',mise_en_evidence(`X`),'','']; 
             break;
           case 10:
-            return sortie = ['','',mise_en_evidence(`\\times`),'','','']; 
+            return sortie = ['','',mise_en_evidence(`X`),'','','']; 
             break;
           case 100:
-            return sortie = ['',mise_en_evidence(`\\times`),'','','','']; 
+            return sortie = ['',mise_en_evidence(`X`),'','','','']; 
             break;
           case 1000:
-            return sortie = [mise_en_evidence(`\\times`),'','','','','']; 
+            return sortie = [mise_en_evidence(`X`),'','','','','']; 
             break;        
         };
         return sortie;
@@ -13864,30 +13865,30 @@ function Ordre_de_grandeur_operations_decimaux(){
         {
           operation:`${cbis*100+d*10+u*1}\\times ${d1bis*10+u1*1}`,
           operation_corr:`${cbis*100+d*10+u*1}\\times ${d1bis*10+u1*1} \\simeq  ${(cbis*100)}\\times ${(d1bis*10)} \\text{ soit } ${tex_nombre((cbis*100)*(d1bis*10))}`,
-          operation_coche:myOrdreOpe1(cbis,d1bis),//['','','','',mise_en_evidence(`\\times`),''],
+          operation_coche:myOrdreOpe1(cbis,d1bis),//['','','','',mise_en_evidence(`X`),''],
         },
         {
           operation:`${tex_nombre((c2*100+d2*10+u1*1)/10)}+${c1*100+d1*10+u1*1}`,
           operation_corr:`${tex_nombre((c2*100+d2*10+u1*1)/10)}+${c1*100+d1*10+u1*1} \\simeq ${c2*100/10}+${c1*100} \\text{ soit } ${c2*100/10 + c1*100}`,
-          operation_coche:myOrdreOpe2(c1*100,c2*100),//['','',mise_en_evidence(`\\times`),'','',''],
+          operation_coche:myOrdreOpe2(c1*100,c2*100),//['','',mise_en_evidence(`X`),'','',''],
         },
         {
           operation:`${c3*100+d3*10+u3*1}-${tex_nombre((c2*100+d2*10+u2*1)/div_aleatoire_ope_3)}`,
           operation_corr:`${c3*100+d3*10+u3*1}-${tex_nombre((c2*100+d2*10+u2*1)/div_aleatoire_ope_3)} \\simeq ${c3*100+d3*10}-${tex_nombre((c2*100)/div_aleatoire_ope_3)} \\text{ soit } ${c3*100+d3*10-(c2*100)/div_aleatoire_ope_3}`,
-          operation_coche:myOrdreOpe3(c3),//['','',mise_en_evidence(`\\times`),'',''],
+          operation_coche:myOrdreOpe3(c3),//['','',mise_en_evidence(`X`),'',''],
         },
         {
           operation:`${tex_nombre(m*1000+c3*100+d2*10+u1*1)}\\times ${tex_nombre(mult_aleatoire_ope_4)}`,
           operation_corr:`${tex_nombre(m*1000+c3*100+d2*10+u1*1)}\\times ${tex_nombre(mult_aleatoire_ope_4)} \\simeq ${tex_nombre(m*1000)}\\times ${tex_nombre(mult_aleatoire_ope_4)} \\text{ soit } ${tex_nombre(m*1000*mult_aleatoire_ope_4)}`,
-          operation_coche:myOrdreOpe4(mult_aleatoire_ope_4,m),//['','','','',mise_en_evidence(`\\times`)],
+          operation_coche:myOrdreOpe4(mult_aleatoire_ope_4,m),//['','','','',mise_en_evidence(`X`)],
         },
         {
           // operation:`${tex_nombre((m*1000+c1*100+d3*10+u*1)/100)}\\div ${m}`,
           // operation_corr:`${tex_nombre((m*1000+c1*100+d3*10+u*1)/100)}\\div ${m} \\simeq ${tex_nombre((m*1000)/100)}\\div ${m} \\text{ soit } ${tex_nombre((m*1000)/100/m)}`,
-          // operation_coche:['',mise_en_evidence(`\\times`),'','',''],
+          // operation_coche:['',mise_en_evidence(`X`),'','',''],
           operation:`${tex_nombre((m*1000+c4*100+d3*10+u*1)/div_aleatoire_ope_5)}\\div ${m}`,
           operation_corr:`${tex_nombre((m*1000+c4*100+d3*10+u*1)/div_aleatoire_ope_5)}\\div ${m} \\simeq ${tex_nombre((m*1000)/div_aleatoire_ope_5)}\\div ${m} \\text{ soit } ${tex_nombre((m*1000)/div_aleatoire_ope_5/m)}`,
-          operation_coche:myOrdreOpe5(div_aleatoire_ope_5),//['',mise_en_evidence(`\\times`),'','',''],
+          operation_coche:myOrdreOpe5(div_aleatoire_ope_5),//['',mise_en_evidence(`X`),'','',''],
         },
 
       ];
