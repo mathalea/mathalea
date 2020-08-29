@@ -46,6 +46,7 @@ var liste_des_exercices_disponibles = {
   "6G11": Tracer_des_perpendiculaires,
   "6G12": Tracer_des_paralleles,
   "6G12-1": Tracer_des_perpendiculaires_et_des_paralleles,
+  "beta6G14" : Test_main_levee,
   "6G20" : Nommer_et_coder_des_polygones,
   "6G20-2": Vocabulaire_des_triangles_6e,
   "6G23-2": Tracer_triangle_2_angles,
@@ -12112,6 +12113,33 @@ function Vocabulaire_des_triangles_6e() {
 function Vocabulaire_des_triangles_5e() {
   this.classe = 5;
   Vocabulaire_des_triangles.call(this);
+}
+
+function Test_main_levee() {
+  "use strict";
+  Exercice.call(this);
+  this.titre = "Tracer des parallèles et des perpendiculaires";
+  this.nb_questions = 1;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  this.sup = false;
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    this.liste_questions=[]
+    this.liste_corrections=[]
+    let A=point(5,5)
+    let B=point(10,5)
+    let D=point(5,10)
+//    let a=codeAngle(B,A,D,4)
+    let C=cercleCentrePoint(A,B)
+    let E=cercleCentrePoint(B,A)
+    let s=segment(A,B)
+    let texte=mathalea2d({xmin:-1,ymin:0,xmax:16,ymax:11,pixelsParCm:20,scale:1,mainlevee:this.sup,amplitude:1},[C,s,E,tracePoint(A,B,D)])
+    let texte_corr=""
+    this.liste_questions.push(texte + "<br>");
+    this.liste_corrections.push(texte_corr + "<br>");
+   liste_de_question_to_contenu(this)  
+  }
+  this.besoin_formulaire_case_a_cocher = ["main levee"];	
 }
 /**
  * Fonction générale pour exercices de constructions de parallèles et perpendiculaires

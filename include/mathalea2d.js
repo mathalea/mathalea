@@ -1072,6 +1072,24 @@ function Segment(arg1, arg2, arg3, arg4, color) {
     }
     return `\\draw${optionsDraw} (${this.x1},${this.y1})--(${this.x2},${this.y2});`;
   };
+  this.svgml = function(coeff,amp){
+    let A = point(this.x1, this.y1);
+    let B = point(this.x2, this.y2);
+    let dx=(B.xSVG(coeff)-A.xSVG(coeff))/20,dy=(B.ySVG(coeff)-A.ySVG(coeff))/20
+    let code =`<path d="M${A.xSVG(coeff)} ${A.ySVG(coeff)} C `
+    for (let k=0;k<=20;k++) {
+      code +=`${arrondi(A.xSVG(coeff)+k*dx+randint(-1,1)*amp,0)} ${arrondi(A.ySVG(coeff)+k*dy+randint(-1,1)*amp,0)}, `
+    }
+   code +=`${B.xSVG(coeff)} ${B.ySVG(coeff)}" stroke="black" fill="transparent"/>`
+    return code;
+  }
+  this.tikzml = function(amp){
+    let A = point(this.x1, this.y1);
+    let B = point(this.x2, this.y2);
+    let code=`\\draw[decorate,decoration={random steps , amplitude = ${amp}] (${A.x},${A.y})--(${B.x},${B.y});`
+    return code
+ 
+  }
 }
 function segment(...args) {
   return new Segment(...args);
@@ -1570,6 +1588,19 @@ function Cercle(O, r, color) {
     }
     return `\\draw${optionsDraw} (${O.x},${O.y}) circle (${r});`;
   };
+  this.svgml = function (coeff,amp) {
+    let code =`<path d="M ${O.xSVG(coeff)+r*coeff} ${O.ySVG(coeff)} C ${O.xSVG(coeff)+r*coeff} ${O.ySVG(coeff)}, `
+    for (let k=1;k<101;k++) {
+      code +=`${arrondi(O.xSVG(coeff)+r*Math.cos(2*k*Math.PI/101)*coeff+randint(-1,1)*amp,2)} ${arrondi(O.ySVG(coeff)+r*Math.sin(2*k*Math.PI/100)*coeff+randint(-1,1)*amp,2)}, `
+    }
+    code +=` ${O.xSVG(coeff)+r*coeff} ${O.ySVG(coeff)} Z" stroke="black" fill="transparent"/>`
+    return code;
+  }
+  this.tikzml = function(amp) {
+    let code=`\\draw[decorate,decoration={random steps , amplitude = ${amp}pt }] (${O.x},${O.y}) circle (${r});`
+    return code
+  
+  }
 }
 function cercle(...args) {
   return new Cercle(...args);
@@ -1919,19 +1950,19 @@ function courbeDeBezier(...args) {
  * Trace un segment entre A et B qui donne l'impression d'être fait à main levée.
  * @Auteur Jean-Claude Lhote
  */
-function SegmentMainLevee(A,B) {
+function SegmentMainLevee(A,B,amp) {
   ObjetMathalea2D.call(this);
   this.svg = function (coeff) {
-    let l=longueur(A,B),dx=(B.xSVG(coeff)-A.xSVG(coeff))/l,dy=(B.ySVG(coeff)-A.ySVG(coeff))/l
+    let dx=(B.xSVG(coeff)-A.xSVG(coeff))/20,dy=(B.ySVG(coeff)-A.ySVG(coeff))/20
     let code =`<path d="M${A.xSVG(coeff)} ${A.ySVG(coeff)} C `
-    for (let k=1;k<l;k++) {
-      code +=`${A.xSVG(coeff)+k*dx} ${A.ySVG(coeff)+k*dy+randint(-3,3,0)}, `
+    for (let k=0;k<=20;k++) {
+      code +=`${arrondi(A.xSVG(coeff)+k*dx+randint(-1,1)*amp,0)} ${arrondi(A.ySVG(coeff)+k*dy+randint(-1,1)*amp,0)}, `
     }
     code +=`${B.xSVG(coeff)} ${B.ySVG(coeff)}" stroke="black" fill="transparent"/>`
     return code;
   };
   this.tikz = function() {
-    let code=`\\draw[decorate,decoration={random steps , amplitude = .5pt }] (${A.x},${A.y})--(${B.x},${B.y});`
+    let code=`\\draw[decorate,decoration={random steps , amplitude = ${amp}] (${A.x},${A.y})--(${B.x},${B.y});`
     return code
   }
 }
@@ -1939,23 +1970,23 @@ function segmentMainLevee(...args) {
   return new SegmentMainLevee(...args)
 }
 
-function CercleMainLevee(A,r) {
+function CercleMainLevee(A,r,amp) {
   ObjetMathalea2D.call(this);
   this.svg = function (coeff) {
-    let code =`<path d="M ${A.xSVG(coeff)+r*coeff} ${A.ySVG(coeff)} C `
-    for (let k=1;k<100;k++) {
-      code +=`${arrondi(A.xSVG(coeff)+r*Math.cos(2*k*Math.PI/100)*coeff+randint(-1,1),1)} ${arrondi(A.ySVG(coeff)+r*Math.sin(2*k*Math.PI/100)*coeff+randint(-1,1),1)}, `
+    let code =`<path d="M ${A.xSVG(coeff)+r*coeff} ${A.ySVG(coeff)} C ${A.xSVG(coeff)+r*coeff} ${A.ySVG(coeff)}, `
+    for (let k=1;k<101;k++) {
+      code +=`${arrondi(A.xSVG(coeff)+r*Math.cos(2*k*Math.PI/101)*coeff+randint(-1,1)*amp,2)} ${arrondi(A.ySVG(coeff)+r*Math.sin(2*k*Math.PI/100)*coeff+randint(-1,1)*amp,2)}, `
     }
     code +=` ${A.xSVG(coeff)+r*coeff} ${A.ySVG(coeff)} Z" stroke="black" fill="transparent"/>`
     return code;
   };
   this.tikz = function() {
-    let code=`\\draw[decorate,decoration={random steps , amplitude = .5pt }] (${A.x},${A.y}) circle (r);`
+    let code=`\\draw[decorate,decoration={random steps , amplitude = ${amp}pt }] (${A.x},${A.y}) circle (${r});`
     return code
   }
 }
-function cercleMainLevee(A,r) {
-  return new CercleMainLevee(A,r)
+function cercleMainLevee(A,r,amp) {
+  return new CercleMainLevee(A,r,amp)
 }
 
 
@@ -4162,7 +4193,7 @@ function codeTikz(...objets) {
  */
 
 function mathalea2d(
-  { xmin = 0, ymin = 0, xmax = 15, ymax = 6, pixelsParCm = 20, scale = 1 } = {},
+  { xmin = 0, ymin = 0, xmax = 15, ymax = 6, pixelsParCm = 20, scale = 1,mainlevee = false ,amplitude=1} = {},
   ...objets
 ) {
   ObjetMathalea2D.call(this);
@@ -4179,16 +4210,20 @@ function mathalea2d(
         for (let i = 0; i < objet.length; i++) {
           try {
             if (objet[i].isVisible) {
-              code += "\t" + objet[i].svg(pixelsParCm) + "\n";
+             if ((!mainlevee)||typeof(objet[i].svgml)=='undefined') code += "\t" + objet[i].svg(pixelsParCm) + "\n";
+             else
+                  code += "\t" + objet[i].svgml(pixelsParCm,amplitude) + "\n";
             }
           } catch (error) {}
         }
       }
       try {
-        if (objet.isVisible) {
-          code += "\t" + objet.svg(pixelsParCm) + "\n";
-        }
-      } catch (error) {}
+        if (objet[i].isVisible) {
+          if ((!mainlevee)||typeof(objet[i].svgml)=='undefined') code += "\t" + objet[i].svg(pixelsParCm) + "\n";
+          else
+               code += "\t" + objet[i].svgml(pixelsParCm,amplitude) + "\n";
+         }
+    } catch (error) {}
     }
     code += `\n</svg>`;
     //		pixelsParCm = 20;
@@ -4220,16 +4255,18 @@ function mathalea2d(
         for (let i = 0; i < objet.length; i++) {
           try {
             if (objet[i].isVisible) {
-              code += "\t" + objet[i].tikz() + "\n";
+              if (!mainlevee||typeof(objet[i].tikzml)=='undefined') code += "\t" + objet[i].tikz() + "\n";
+              else code += "\t" + objet[i].tikzml(amplitude) + "\n";
             }
           } catch (error) {}
         }
       }
       try {
-        if (objet.isVisible) {
-          code += "\t" + objet.tikz() + "\n";
+        if (objet[i].isVisible) {
+          if (!mainlevee||typeof(objet[i].tikzml)=='undefined') code += "\t" + objet[i].tikz() + "\n";
+          else code += "\t" + objet[i].tikzml(amplitude) + "\n";
         }
-      } catch (error) {}
+     } catch (error) {}
     }
     code += `\n\\end{tikzpicture}`;
   }
