@@ -93,8 +93,8 @@ var liste_des_exercices_disponibles = {
   "6N31-2":Ordre_de_grandeur_operations_decimaux,
   "6N33": Fraction_d_un_nombre,
   "6N33-1": Pourcentage_d_un_nombre,
-  "beta6N33-2" : Calculer_un_pourcentage,
-  "beta6N33-3" : Appliquer_un_pourcentage,
+  "6N33-2" : Calculer_un_pourcentage,
+  "6N33-3" : Appliquer_un_pourcentage,
   "6N34": Reglages_6N34,
   "6N41": Egalites_entre_fractions,
   "6N43": Criteres_de_divisibilite,
@@ -7417,11 +7417,11 @@ function Comparer_decimaux() {
 function Calculer_un_pourcentage() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Problèmes de calcul de pourcentage par complément à 100%";
-  this.nb_questions = 3;
+  this.nb_questions = 1;
   this.consigne = "Calculer";
   this.spacing = 2;
   this.spacing_corr = 2;
-  this.nb_cols = 2;
+  this.nb_cols = 1;
   this.nb_cols_corr = 1;
 
   this.nouvelle_version = function (numero_de_l_exercice) {
@@ -7446,27 +7446,27 @@ function Calculer_un_pourcentage() {
       switch(liste_choix[i]) {
         case 1: // Les moyens de déplacement maison collège
           [moy1,moy2,moy3]=combinaison_listes(liste_moyens,3)
-          texte = `Dans un collège, ${p1}% des élèves ${moy1}, ${p2}% ${moy2} et les autres ${moy3}.<br>`
-          texte += `Quel est le pourcentage des élèves qui ${moy3} ?`
-          texte_corr=`Les élèves qui ${moy1} ou qui ${moy2} représentent ${p1}% + ${p2}% = ${p1+p2}%.<br>`
-          texte_corr+=`Donc on calcule : 100 - ${p1+p2}% = ${p3}%<br>`
-          texte_corr+=`${p3}% des élèves ${moy3}.<br>`
+          texte = `Dans un collège, ${p1} \\% des élèves ${moy1}, ${p2} \\% ${moy2} et les autres ${moy3}.<br>`
+          texte += `Quel est le pourcentage des élèves qui ${moy3} ?` 
+          texte_corr=`Les élèves qui ${moy1} ou qui ${moy2} représentent ${p1} \\% + ${p2} \\% = ${p1+p2} \\%.<br>`
+          texte_corr+=`Donc on calcule : 100 - ${p1+p2} \\% = ${p3} \\%<br>`
+          texte_corr+=`${p3} \\% des élèves ${moy3}.<br>`
           break;
           case 2: // Les sports pratiqués par les ados
           [moy1,moy2,moy3]=combinaison_listes(liste_sports,3)
-          texte = `Dans une association sportive, ${p1}% des ados pratiquent ${moy1}, ${p2}% ${moy2} et les autres ${moy3}.<br>`
+          texte = `Dans une association sportive, ${p1} \\% des ados pratiquent ${moy1}, ${p2} \\% ${moy2} et les autres ${moy3}.<br>`
           texte += `Quel est le pourcentage des ados qui pratiquent ${moy3} ?`
-          texte_corr=`Les ados qui pratiquent ${moy1} ou ${moy2} représentent ${p1}% + ${p2}% = ${p1+p2}%.<br>`
-          texte_corr+=`Donc on calcule : 100 - ${p1+p2}% = ${p3}%<br>`
-          texte_corr+=`${p3}% des ados de cette association sportive pratiquent ${moy3}.<br>`
+          texte_corr=`Les ados qui pratiquent ${moy1} ou ${moy2} représentent ${p1} \\% + ${p2} \\% = ${p1+p2} \\%.<br>`
+          texte_corr+=`Donc on calcule : 100 - ${p1+p2} \\% = ${p3} \\%<br>`
+          texte_corr+=`${p3} \\% des ados de cette association sportive pratiquent ${moy3}.<br>`
           break;
           case 3: // Les sports pratiqués par les ados
           [moy1,moy2,moy3]=combinaison_listes(liste_hobbies,3)
-          texte = `Dans une association culturelle, ${p1}% des membres ont comme passe-temps favorit ${moy1}, pour ${p2}% c'est ${moy2} et pour les autres ${moy3}.<br>`
+          texte = `Dans une association culturelle, ${p1} \\% des membres ont comme passe-temps favorit ${moy1}, pour ${p2} \\% c'est ${moy2} et pour les autres ${moy3}.<br>`
           texte += `Quel est le pourcentage des membres qui préfèrent ${moy3} ?`
-          texte_corr=`Les membres qui préfère ${moy1} ou ${moy2} représentent ${p1}% + ${p2}% = ${p1+p2}%.<br>`
-          texte_corr+=`Donc on calcule : 100 - ${p1+p2}% = ${p3}%<br>`
-          texte_corr+=`${p3}% des membres de cette association culturelle préfèrent ${moy3}.<br>`
+          texte_corr=`Les membres qui préfère ${moy1} ou ${moy2} représentent ${p1} \\% + ${p2} \\% = ${p1+p2} \\%.<br>`
+          texte_corr+=`Donc on calcule : 100 - ${p1+p2} \\% = ${p3} \\%<br>`
+          texte_corr+=`${p3} \\% des membres de cette association culturelle préfèrent ${moy3}.<br>`
           break;
 
       }
@@ -7494,11 +7494,11 @@ function Calculer_un_pourcentage() {
 function Appliquer_un_pourcentage() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Problèmes avec des calculs de pourcentages";
-  this.nb_questions = 5;
+  this.nb_questions = 1;
   this.consigne = "Calculer";
   this.spacing = 2;
   this.spacing_corr = 2;
-  this.nb_cols = 2;
+  this.nb_cols = 1;
   this.nb_cols_corr = 1;
 
   this.nouvelle_version = function (numero_de_l_exercice) {
@@ -7521,17 +7521,17 @@ function Appliquer_un_pourcentage() {
       switch(choix[i]){
       case 1 :
       prix[i]=randint(article[index[i]][1],article[index[i]][2])
-      texte=`${article[index[i]][0]} coûtant ${prix[i]} € bénéficie d'une réduction de ${pourcent[i]}%.<br>`
+      texte=`${article[index[i]][0]} coûtant ${prix[i]} € bénéficie d'une réduction de ${pourcent[i]} \\%.<br>`
       texte+=`Quel est le montant en euro de cette réduction ?`
-      texte_corr=`On doit calculer ${pourcent[i]}% de ${prix[i]} :<br>`
+      texte_corr=`On doit calculer ${pourcent[i]} \\% de ${prix[i]} :<br>`
       texte_corr+= `$${pourcent[i]}~\\%~\\text{de }${prix[i]}=${tex_fraction(pourcent[i],100)}\\times${prix[i]}=(${pourcent[i]}\\times${prix[i]})\\div100=${tex_nombre(pourcent[i] * prix[i])}\\div100=${tex_nombre(Algebrite.eval((pourcent[i] * prix[i]) / 100))}$<br>`;
       texte_corr+=`Le montant de la réduction est de ${tex_prix(calcul(prix[i]*pourcent[i]/100))} €`
       break;
       case 2 :
         masse[i]=randint(legume[index[i]][1],article[index[i]][2])
-        texte=`${legume[index[i]][0]} pesant ${masse[i]} grammes a subit une croissance de ${pourcent[i]}%.<br>`
+        texte=`${legume[index[i]][0]} pesant ${masse[i]} grammes a subit une croissance de ${pourcent[i]} \\%.<br>`
         texte+=`Quel est la masse supplémentaire en grammes correspondant à cette croissance ?`
-        texte_corr=`On doit calculer ${pourcent[i]}% de ${masse[i]} :<br>`
+        texte_corr=`On doit calculer ${pourcent[i]} \\% de ${masse[i]} :<br>`
         texte_corr+= `$${pourcent[i]}~\\%~\\text{de }${masse[i]}=${tex_fraction(pourcent[i],100)}\\times${masse[i]}=(${pourcent[i]}\\times${masse[i]})\\div100=${tex_nombre(pourcent[i] * masse[i])}\\div100=${tex_nombre(Algebrite.eval((pourcent[i] * masse[i]) / 100))}$<br>`;
         texte_corr+=`La masse a augmenté de ${tex_nombre(calcul(masse[i]*pourcent[i]/100))} g.`
          
