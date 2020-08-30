@@ -12207,7 +12207,7 @@ function Test_main_levee() {
     this.liste_corrections=[]
     let A=point(5,5)
     let B=point(10,5)
-    let D=point(5,10)
+    let D=point(10,10)
 //    let a=codeAngle(B,A,D,4)
     let C=cercleCentrePoint(A,B,'green')
     C.epaisseur=2
@@ -12215,12 +12215,12 @@ function Test_main_levee() {
     let E=cercleCentrePoint(B,A,'red')
     E.epaisseur=2
     E.opacite=0.5
-    let s=segment(A,B,'black')
+    let s=segment(A,B,'red')
     s.epaisseur=5
     s.opacite=0.4
  //   let m=mediatrice(A,B,'d','purple')
     let cons=constructionMediatrice(A,B,true,'orange','//','O','black',2)
-    let texte=mathalea2d({xmin:-1,ymin:0,xmax:16,ymax:11,pixelsParCm:20,scale:1,mainlevee:this.sup,amplitude:1},[C,s,E,tracePoint(A,B,D),cons])
+    let texte=mathalea2d({xmin:-1,ymin:0,xmax:16,ymax:11,pixelsParCm:20,scale:1,mainlevee:this.sup,amplitude:1},[codeAngle(A,B,45,3,'||','black',2,1,'yellow',0.5),C,s,E,tracePoint(A,B,D)])
     let texte_corr=""
     this.liste_questions.push(texte );
     this.liste_corrections.push(texte_corr );

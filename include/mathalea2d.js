@@ -1936,11 +1936,16 @@ function cercleCentrePoint(...args) {
  * @param {number} fillOpacite // transparence de remplissage de 0 à 1.
  */
 
-function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fillOpacite = 0.2) {
+function Arc(M, Omega, alpha, rayon = false, fill = 'none', color = 'black', fillOpacite = 0.2) {
   ObjetMathalea2D.call(this);
   this.color = color;
   this.couleurDeRemplissage = fill;
   this.opaciteDeRemplissage = fillOpacite
+  let angle
+  if (typeof(alpha)!='number'){
+    angle=angleOriente(M,Omega,alpha)
+  }
+  else angle = alpha
   let l = longueur(Omega, M), large = 0, sweep = 0
   let d = droite(Omega, M)
   d.isVisible = false
@@ -3413,7 +3418,7 @@ function codeSegments(...args) {
  *  la ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
  * @Auteur Jean-Claude Lhote
  */
-function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur=1,opacite=1,fill='none',fillOpacite=0.2) {
+function CodeAngle(debut,centre,alpha,taille=0.8,mark='',color='black',epaisseur=1,opacite=1,fill='none',fillOpacite=0.2) {
   ObjetMathalea2D.call(this)
   this.color=color
   let codage,depart,P,d,arcangle
@@ -3423,15 +3428,16 @@ function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur
   }
   else 
     this.couleurDeRemplissage='none'
-  let remplir
+  let remplir,angle
   if (fill=='none') 
     remplir = false
   else 
     remplir = true
   
-  if (typeof(angle)!='number'){
-    angle=angleOriente(debut,centre,angle)
+  if (typeof(alpha)!='number'){
+    angle=angleOriente(debut,centre,alpha)
   }
+  else angle=alpha
   depart=pointSurSegment(centre,debut,taille)
   P=rotation(depart,centre,angle/2)
   d=droite(centre,P)
@@ -3451,10 +3457,18 @@ function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur
     if (codage!='') return codage.tikz()+'\n'+arcangle.tikz()
     else return arcangle.tikz()
   }
+  this.svgml = function(coeff,amp){
+    if (codage!='') return codage.svg(coeff)+'\n'+arcangle.svgml(coeff,amp);
+    else return arcangle.svgml(coeff,amp);
+  }
+  this.tikzml=function(amp){
+    if (codage!='') return codage.tikz()+'\n'+arcangle.tikzml(amp)
+    else return arcangle.tikzml(amp)
+  }
 }
 
-function codeAngle(...args){
-  return new CodeAngle(...args)
+function codeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur=1,opacite=1,fill='none',fillOpacite=0.2){
+  return new CodeAngle(debut,centre,angle,taille,mark,color,epaisseur,opacite,fill,fillOpacite)
 }
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -4629,6 +4643,7 @@ function mathalea2d(
                   code += "\t" + objet[i].svgml(pixelsParCm,amplitude) + "\n";
             }
           } catch (error) {}
+
         }
       }
       try {
