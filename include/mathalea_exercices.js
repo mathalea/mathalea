@@ -49,7 +49,7 @@ var liste_des_exercices_disponibles = {
   "beta6G14" : Test_main_levee,
   "6G20" : Nommer_et_coder_des_polygones,
   "6G20-2": Vocabulaire_des_triangles_6e,
-  "beta6G21" : Construire_un_triangle_6e,
+  "6G21" : Construire_un_triangle_6e,
   "6G23-2": Tracer_triangle_2_angles,
   "6G24": Transformations_6e,
   "6G24-1" : Symetrie_axiale_point_6e,
