@@ -9912,7 +9912,7 @@ function Trouver_erreur_resol_eq_deg1(){
 	};	
 
 	this.titre = "Trouver l'erreur dans une résolution d'équation du premier degré";
-	this.consigne = "Trouver l'erreur dans les résoltutions suivantes.<br>On ne demande pas de résoudre l'équation.";
+	this.consigne = "Trouver l'erreur dans les résolutions suivantes.<br>On ne demande pas de résoudre l'équation.";
 	
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
