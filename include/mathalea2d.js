@@ -1337,10 +1337,26 @@ function Polygone(...points) {
       B=this.listePoints[k%this.listePoints.length]
       A=this.listePoints[k-1]
       segment_courant=segment(A,B)
+      segment_courant.isVisible=false
       segment_courant.epaisseur=this.epaisseur
       segment_courant.color=this.color
       segment_courant.opacite=this.opacite
       code+=segment_courant.svgml(coeff,amp)
+    }
+    return code
+  }
+  this.tikzml = function(amp) {
+    let code ="",segment_courant
+    let A,B
+    for (let k=1;k<=this.listePoints.length;k++ ) {
+      B=this.listePoints[k%this.listePoints.length]
+      A=this.listePoints[k-1]
+      segment_courant=segment(A,B)
+      segment_courant.isVisible=false
+      segment_courant.epaisseur=this.epaisseur
+      segment_courant.color=this.color
+      segment_courant.opacite=this.opacite
+      code+=segment_courant.tikzml(amp)
     }
     return code
   }
@@ -1920,86 +1936,151 @@ function cercleCentrePoint(...args) {
  * @param {number} fillOpacite // transparence de remplissage de 0 à 1.
  */
 
-function Arc(M,Omega,angle,rayon=false,fill='none',color='black',fillOpacite=0.2) {
-	ObjetMathalea2D.call(this);
-	this.color=color;
-  this.couleurDeRemplissage=fill;
-  this.opaciteDeRemplissage=fillOpacite
-	let l=longueur(Omega,M),large=0,sweep=0
-	let d=droite(Omega,M)
-   d.isVisible=false
-   let A=point(Omega.x+1,Omega.y)
-   let azimut=angleOriente(A,Omega,M)
-   let anglefin=azimut+angle
-	if (angle>180) {
-		angle=angle-360
-		large=1
-		sweep=0
-	}
-	else if (angle<-180) {
-		angle=360+angle
-		large=1
-		sweep=1
-	}
-	else {
-		large=0
-		sweep=1-(angle>0)
-	}
-  let N=rotation(M,Omega,angle)
-	if (rayon) 	this.svg = function(coeff){
-		if (this.epaisseur!=1) {
-			this.style += ` stroke-width="${this.epaisseur}" `
-		}
-		if (this.pointilles) {
-			this.style += ` stroke-dasharray="4 3" `
-		}
-		if (this.opacite !=1) {
-			this.style += ` stroke-opacity="${this.opacite}" `
+function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fillOpacite = 0.2) {
+  ObjetMathalea2D.call(this);
+  this.color = color;
+  this.couleurDeRemplissage = fill;
+  this.opaciteDeRemplissage = fillOpacite
+  let l = longueur(Omega, M), large = 0, sweep = 0
+  let d = droite(Omega, M)
+  d.isVisible = false
+  let A = point(Omega.x + 1, Omega.y)
+  let azimut = angleOriente(A, Omega, M)
+  let anglefin = azimut + angle
+  if (angle > 180) {
+    angle = angle - 360
+    large = 1
+    sweep = 0
+  }
+  else if (angle < -180) {
+    angle = 360 + angle
+    large = 1
+    sweep = 1
+  }
+  else {
+    large = 0
+    sweep = 1 - (angle > 0)
+  }
+  let N = rotation(M, Omega, angle)
+  if (rayon) this.svg = function (coeff) {
+    if (this.epaisseur != 1) {
+      this.style += ` stroke-width="${this.epaisseur}" `
     }
-    if (this.couleurDeRemplissage!='none') {
+    if (this.pointilles) {
+      this.style += ` stroke-dasharray="4 3" `
+    }
+    if (this.opacite != 1) {
+      this.style += ` stroke-opacity="${this.opacite}" `
+    }
+    if (this.couleurDeRemplissage != 'none') {
       this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `;
     }
-		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${this.couleurDeRemplissage}" ${this.style}/>`
-	}
-	else 	this.svg = function(coeff){
-		if (this.epaisseur!=1) {
-			this.style += ` stroke-width="${this.epaisseur}" `
-		}
-		if (this.pointilles) {
-			this.style += ` stroke-dasharray="4 3" `
-		}
-		if (this.opacite !=1) {
-			this.style += ` stroke-opacity="${this.opacite}" `
-		}
-		return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l*coeff} ${l*coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}" ${this.style}/>`
-	}
-	this.tikz = function(){
-		let optionsDraw = []
-	   let tableauOptions = [];
-	   if (this.color.length>1 && this.color!=='black'){
-		   tableauOptions.push(this.color)
-	   }
-	   if (this.epaisseur!=1) {
-		   tableauOptions.push(`line width = ${this.epaisseur}`) 
-	   }
-	   if (this.pointilles) {
-		   tableauOptions.push(`dashed`) 
-	   }
-	   if (this.opacite !=1) {
-		   tableauOptions.push(`opacity = ${this.opacite}`)
-     }
-     if (rayon && fill!='none') {
+    return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${this.couleurDeRemplissage}" ${this.style}/>`
+  }
+  else this.svg = function (coeff) {
+    if (this.epaisseur != 1) {
+      this.style += ` stroke-width="${this.epaisseur}" `
+    }
+    if (this.pointilles) {
+      this.style += ` stroke-dasharray="4 3" `
+    }
+    if (this.opacite != 1) {
+      this.style += ` stroke-opacity="${this.opacite}" `
+    }
+    return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}" ${this.style}/>`
+  }
+  this.tikz = function () {
+    let optionsDraw = []
+    let tableauOptions = [];
+    if (this.color.length > 1 && this.color !== 'black') {
+      tableauOptions.push(this.color)
+    }
+    if (this.epaisseur != 1) {
+      tableauOptions.push(`line width = ${this.epaisseur}`)
+    }
+    if (this.pointilles) {
+      tableauOptions.push(`dashed`)
+    }
+    if (this.opacite != 1) {
+      tableauOptions.push(`opacity = ${this.opacite}`)
+    }
+    if (rayon && fill != 'none') {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
     }
     if (rayon && fill != 'none') {
       tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
     }
-	   if (tableauOptions.length>0) {
-		   optionsDraw = "["+tableauOptions.join(',')+"]"
-	   }
-	   if (rayon) return `\\filldraw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega,M)}) -- cycle ;`
-	   else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega,M)}) ;`
-	}
+    if (tableauOptions.length > 0) {
+      optionsDraw = "[" + tableauOptions.join(',') + "]"
+    }
+    if (rayon) return `\\filldraw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) -- cycle ;`
+    else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;`
+  }
+  this.svgml = function (coeff, amp) {
+    if (this.epaisseur != 1) {
+      this.style += ` stroke-width="${this.epaisseur}" `;
+    }
+    if (this.opacite != 1) {
+      this.style += ` stroke-opacity="${this.opacite}" `;
+    }
+    if (this.couleurDeRemplissage == "" || this.couleurDeRemplissage == 'none') {
+      this.style += ` fill="none" `;
+    } else {
+      this.style += ` fill="${this.couleurDeRemplissage}" `;
+      this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `;
+    }
+    let la = Math.round(longueur(M, Omega) * 2 * Math.PI * angle / 360) //longueur de l'arc pour obtenir le nombre de points intermédiaires proportionnel au rayon
+    let da = angle / la, P
+    let code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
+    for (let k = 0; k <= la; k++) {
+      P = rotation(M, Omega, k * da)
+      code += `${arrondi(P.xSVG(coeff) + randint(-1, 1) * amp, 0)} ${arrondi(P.ySVG(coeff) + randint(-1, 1) * amp, 0)}, `
+    }
+    code += `${arrondi(P.xSVG(coeff) + randint(-1, 1) * amp, 0)} ${arrondi(P.ySVG(coeff) + randint(-1, 1) * amp, 0)} `
+    let l = Math.round(longueur(Omega, M))
+    let dMx = (M.xSVG(coeff) - Omega.xSVG(coeff)) / (4 * l), dMy = (M.ySVG(coeff) - Omega.ySVG(coeff)) / (4 * l)
+    let dPx = (Omega.xSVG(coeff) - P.xSVG(coeff)) / (4 * l), dPy = (Omega.ySVG(coeff) - P.ySVG(coeff)) / (4 * l)
+    if (rayon) {
+      for (let k = 0; k <= 4 * l; k++) {
+        code += `${arrondi(P.xSVG(coeff) + k * dPx + randint(-1, 1) * amp, 0)} ${arrondi(P.ySVG(coeff) + k * dPy + randint(-1, 1) * amp, 0)}, `
+      }
+      for (let j = 0; j <= 4 * l; j++) {
+        code += `${arrondi(Omega.xSVG(coeff) + j * dMx + randint(-1, 1) * amp, 0)} ${arrondi(Omega.ySVG(coeff) + j * dMy + randint(-1, 1) * amp, 0)}, `
+      }
+      code += `${arrondi(Omega.xSVG(coeff) + 4 * l * dMx + randint(-1, 1) * amp, 0)} ${arrondi(Omega.ySVG(coeff) + 4 * l * dMy + randint(-1, 1) * amp, 0)} Z `
+    }
+    code += `" stroke="${color}" ${this.style}"/>`
+    return code
+  }
+  this.tikzml = function (amp) {
+    let optionsDraw = []
+    let tableauOptions = [];
+    let A = point(Omega.x + 1, Omega.y)
+    let azimut = angleOriente(A, Omega, M)
+    let anglefin = azimut + angle
+    let N = rotation(M, Omega, angle)
+    if (this.color.length > 1 && this.color !== 'black') {
+      tableauOptions.push(this.color)
+    }
+    if (this.epaisseur != 1) {
+      tableauOptions.push(`line width = ${this.epaisseur}`)
+    }
+    if (this.opacite != 1) {
+      tableauOptions.push(`opacity = ${this.opacite}`)
+    }
+    if (rayon && fill != 'none') {
+      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
+    }
+    if (rayon && fill != 'none') {
+      tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
+    }
+    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`);
+
+    optionsDraw = "[" + tableauOptions.join(',') + "]"
+
+    if (rayon) return `\\filldraw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) -- cycle ;`
+    else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;`
+  }
 }
 function arc(...args) {
   return new Arc(...args);
@@ -2219,6 +2300,7 @@ function PolygoneMainLevee(points,amp,color='black') {
         B=this.listePoints[k%this.listePoints.length]
         A=this.listePoints[k-1]
         segment_courant=segment(A,B)
+        segment_courant.isVisible=false
         segment_courant.epaisseur=this.epaisseur
         segment_courant.color=this.color
         segment_courant.opacite=this.opacite
@@ -2226,10 +2308,103 @@ function PolygoneMainLevee(points,amp,color='black') {
       }
       return code
     }
+    this.tikz = function() {
+      let code ="",segment_courant
+      let A,B
+      for (let k=1;k<=this.listePoints.length;k++ ) {
+        B=this.listePoints[k%this.listePoints.length]
+        A=this.listePoints[k-1]
+        segment_courant=segment(A,B)
+        segment_courant.isVisible=false
+        segment_courant.epaisseur=this.epaisseur
+        segment_courant.color=this.color
+        segment_courant.opacite=this.opacite
+        code+=segment_courant.tikzml(amp)
+      }
+      return code
+      
+    }
 }
 function polygoneMainLevee(points,amp,color='black') {
   return new PolygoneMainLevee(points,amp,color)
 }
+
+function ArcMainLevee(M,Omega,angle,amp,rayon=false,fill='none',color='black',fillOpacite=0.2){
+  ObjetMathalea2D.call(this)
+  this.couleurDeRemplissage=fill
+  this.opaciteDeRemplissage=fillOpacite
+  this.color=color
+  this.svg = function (coeff) {
+    if (this.epaisseur != 1) {
+      this.style += ` stroke-width="${this.epaisseur}" `;
+    }
+    if (this.opacite != 1) {
+      this.style += ` stroke-opacity="${this.opacite}" `;
+    }
+    if (this.couleurDeRemplissage == "" || this.couleurDeRemplissage == 'none') {
+      this.style += ` fill="none" `;
+    } else {
+      this.style += ` fill="${this.couleurDeRemplissage}" `;
+      this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `;
+    }
+    let la = Math.round(longueur(M, Omega) * 2 * Math.PI * angle / 360) //longueur de l'arc pour obtenir le nombre de points intermédiaires proportionnel au rayon
+    let da = angle / la, P
+    let code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
+    for (let k = 0; k <= la; k++) {
+      P = rotation(M, Omega, k * da)
+      code += `${arrondi(P.xSVG(coeff) + randint(-1, 1) * amp, 0)} ${arrondi(P.ySVG(coeff) + randint(-1, 1) * amp, 0)}, `
+    }
+    code += `${arrondi(P.xSVG(coeff) + randint(-1, 1) * amp, 0)} ${arrondi(P.ySVG(coeff) + randint(-1, 1) * amp, 0)} `
+    let l = Math.round(longueur(Omega, M))
+    let dMx = (M.xSVG(coeff) - Omega.xSVG(coeff)) / (4 * l), dMy = (M.ySVG(coeff) - Omega.ySVG(coeff)) / (4 * l)
+    let dPx = (Omega.xSVG(coeff) - P.xSVG(coeff)) / (4 * l), dPy = (Omega.ySVG(coeff) - P.ySVG(coeff)) / (4 * l)
+    if (rayon) {
+      for (let k = 0; k <= 4 * l; k++) {
+        code += `${arrondi(P.xSVG(coeff) + k * dPx + randint(-1, 1) * amp, 0)} ${arrondi(P.ySVG(coeff) + k * dPy + randint(-1, 1) * amp, 0)}, `
+      }
+      for (let j = 0; j <= 4 * l; j++) {
+        code += `${arrondi(Omega.xSVG(coeff) + j * dMx + randint(-1, 1) * amp, 0)} ${arrondi(Omega.ySVG(coeff) + j * dMy + randint(-1, 1) * amp, 0)}, `
+      }
+      code += `${arrondi(Omega.xSVG(coeff) + 4*l * dMx + randint(-1, 1) * amp, 0)} ${arrondi(Omega.ySVG(coeff) + 4*l * dMy + randint(-1, 1) * amp, 0)} Z `
+    }
+      code += `" stroke="${color}" ${this.style}"/>`
+      return code
+  };
+
+  this.tikz = function(){
+		let optionsDraw = []
+     let tableauOptions = [];
+     let A=point(Omega.x+1,Omega.y)
+     let azimut=angleOriente(A,Omega,M)
+     let anglefin=azimut+angle
+     let N=rotation(M,Omega,angle)
+	   if (this.color.length>1 && this.color!=='black'){
+		   tableauOptions.push(this.color)
+	   }
+	   if (this.epaisseur!=1) {
+		   tableauOptions.push(`line width = ${this.epaisseur}`) 
+	   }
+	   if (this.opacite !=1) {
+		   tableauOptions.push(`opacity = ${this.opacite}`)
+     }
+     if (rayon && fill!='none') {
+      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
+    }
+    if (rayon && fill != 'none') {
+      tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
+    }
+    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`);
+
+		   optionsDraw = "["+tableauOptions.join(',')+"]"
+
+	   if (rayon) return `\\filldraw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega,M)}) -- cycle ;`
+	   else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega,M)}) ;`
+	}
+}
+function arcMainLevee(M,Omega,angle,amp,rayon=false,fill='none',color='black',fillOpacite=0.2){
+  return new ArcMainLevee(M,Omega,angle,amp,rayon,fill,color,fillOpacite)
+}
+
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

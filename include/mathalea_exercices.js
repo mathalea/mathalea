@@ -12219,7 +12219,7 @@ function Test_main_levee() {
     s.epaisseur=5
     s.opacite=0.4
  //   let m=mediatrice(A,B,'d','purple')
-    let cons=constructionMediatrice(A,B,true,'orange','//','O','black',5)
+    let cons=constructionMediatrice(A,B,true,'orange','//','O','black',2)
     let texte=mathalea2d({xmin:-1,ymin:0,xmax:16,ymax:11,pixelsParCm:20,scale:1,mainlevee:this.sup,amplitude:1},[C,s,E,tracePoint(A,B,D),cons])
     let texte_corr=""
     this.liste_questions.push(texte );
