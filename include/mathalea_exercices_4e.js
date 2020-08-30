@@ -9635,7 +9635,7 @@ function Mettre_en_equation_sans_resoudre(){
           xmax : 7,
           ymax : 5,
           pixelsParCm : 20,
-          scale:0.7
+          scale:0.5//0.7
           },
           mesAppels          
         )};      
