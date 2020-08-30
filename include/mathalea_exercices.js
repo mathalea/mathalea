@@ -11166,6 +11166,7 @@ function Thales_4eme() {
   //Dans cette version, pas de configuration papillon reservée aux 3èmes.
   Exercice_Thales.call(this);
   this.quatrieme = true;
+  sortie_html? this.spacing = 1.5 : this.spacing = 1; 
 }
 
 function Reciproque_Thales_4eme() {
