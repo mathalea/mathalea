@@ -17,6 +17,8 @@ let mesObjets = []; // Liste de tous les objets construits
 
 let pixelsParCm = 20;
 let unitesLutinParCm = 50;
+let mainlevee=false
+let amplitude=1
 
 /*
  * Classe parente de tous les objets de MathALEA2D
@@ -2021,30 +2023,54 @@ function Arc(M, Omega, alpha, rayon = false, fill = 'none', color = 'black', fil
     if (rayon) return `\\filldraw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) -- cycle ;`
     else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;`
   }
-  this.svgml = function (coeff, amp) {
+  let la,da,code,P,dMx,dMy,dPx,dPy
+  if (!rayon)  this.svgml = function (coeff, amp) {
     if (this.epaisseur != 1) {
       this.style += ` stroke-width="${this.epaisseur}" `;
     }
     if (this.opacite != 1) {
       this.style += ` stroke-opacity="${this.opacite}" `;
     }
-    if (this.couleurDeRemplissage == "" || this.couleurDeRemplissage == 'none') {
-      this.style += ` fill="none" `;
-    } else {
-      this.style += ` fill="${this.couleurDeRemplissage}" `;
-      this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `;
-    }
-    let la = Math.round(longueur(M, Omega) * 2 * Math.PI * angle / 360) //longueur de l'arc pour obtenir le nombre de points intermédiaires proportionnel au rayon
-    let da = angle / la, P
-    let code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
+    this.style += ` fill="none" `;
+    la = Math.abs(Math.round(longueur(M, Omega) * 2 * Math.PI * angle / 360)) //longueur de l'arc pour obtenir le nombre de points intermédiaires proportionnel au rayon
+    da = angle / la
+    code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
     for (let k = 0; k <= la; k++) {
       P = rotation(M, Omega, k * da)
       code += `${arrondi(P.xSVG(coeff) + randint(-1, 1) * amp, 0)} ${arrondi(P.ySVG(coeff) + randint(-1, 1) * amp, 0)}, `
     }
     code += `${arrondi(P.xSVG(coeff) + randint(-1, 1) * amp, 0)} ${arrondi(P.ySVG(coeff) + randint(-1, 1) * amp, 0)} `
-    let l = Math.round(longueur(Omega, M))
-    let dMx = (M.xSVG(coeff) - Omega.xSVG(coeff)) / (4 * l), dMy = (M.ySVG(coeff) - Omega.ySVG(coeff)) / (4 * l)
-    let dPx = (Omega.xSVG(coeff) - P.xSVG(coeff)) / (4 * l), dPy = (Omega.ySVG(coeff) - P.ySVG(coeff)) / (4 * l)
+    code += `" stroke="${color}" ${this.style}"/>`
+    return code
+  }
+  else 
+    this.svgml=function (coeff,amp) {
+      if (this.epaisseur != 1) {
+        this.style += ` stroke-width="${this.epaisseur}" `;
+      }
+      if (this.opacite != 1) {
+        this.style += ` stroke-opacity="${this.opacite}" `;
+      }
+      if (this.couleurDeRemplissage == "" || this.couleurDeRemplissage == 'none') {
+        this.style += ` fill="none" `;
+      } else {
+        this.style += ` fill="${this.couleurDeRemplissage}" `;
+        this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `;
+      }
+      la = Math.abs(Math.round(longueur(M, Omega) * 2 * Math.PI * angle / 360)) //longueur de l'arc pour obtenir le nombre de points intermédiaires proportionnel au rayon
+      da = angle / la
+      code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
+      for (let k = 0; k <= la; k++) {
+        P = rotation(M, Omega, k * da)
+        code += `${arrondi(P.xSVG(coeff) + randint(-1, 1) * amp, 0)} ${arrondi(P.ySVG(coeff) + randint(-1, 1) * amp, 0)}, `
+      }
+      code += `${arrondi(P.xSVG(coeff) + randint(-1, 1) * amp, 0)} ${arrondi(P.ySVG(coeff) + randint(-1, 1) * amp, 0)} `
+    
+    l = longueur(Omega, M)
+    dMx = (M.xSVG(coeff) - Omega.xSVG(coeff)) / (4 * l)
+    dMy = (M.ySVG(coeff) - Omega.ySVG(coeff)) / (4 * l)
+    dPx = (Omega.xSVG(coeff) - P.xSVG(coeff)) / (4 * l)
+    dPy = (Omega.ySVG(coeff) - P.ySVG(coeff)) / (4 * l)
     if (rayon) {
       for (let k = 0; k <= 4 * l; k++) {
         code += `${arrondi(P.xSVG(coeff) + k * dPx + randint(-1, 1) * amp, 0)} ${arrondi(P.ySVG(coeff) + k * dPy + randint(-1, 1) * amp, 0)}, `
@@ -2360,7 +2386,7 @@ function ArcMainLevee(M,Omega,angle,amp,rayon=false,fill='none',color='black',fi
       code += `${arrondi(P.xSVG(coeff) + randint(-1, 1) * amp, 0)} ${arrondi(P.ySVG(coeff) + randint(-1, 1) * amp, 0)}, `
     }
     code += `${arrondi(P.xSVG(coeff) + randint(-1, 1) * amp, 0)} ${arrondi(P.ySVG(coeff) + randint(-1, 1) * amp, 0)} `
-    let l = Math.round(longueur(Omega, M))
+    let l = Math.abs(Math.round(longueur(Omega, M)))
     let dMx = (M.xSVG(coeff) - Omega.xSVG(coeff)) / (4 * l), dMy = (M.ySVG(coeff) - Omega.ySVG(coeff)) / (4 * l)
     let dPx = (Omega.xSVG(coeff) - P.xSVG(coeff)) / (4 * l), dPy = (Omega.ySVG(coeff) - P.ySVG(coeff)) / (4 * l)
     if (rayon) {
@@ -4558,14 +4584,16 @@ function codeSvg(...objets) {
       for (let i = 0; i < objet.length; i++) {
         try {
           if (objet[i].isVisible) {
-            code += "\t" + objet[i].svg(pixelsParCm) + "\n";
+            if (!mainlevee||typeof(objet[i].svgml)=='undefined') code += "\t" + objet[i].svg(pixelsParCm) + "\n";
+            else code += "\t" + objet[i].svgml(pixelsParCm,amplitude) + "\n";
           }
         } catch (error) {}
       }
     }
     try {
       if (objet.isVisible) {
-        code += "\t" + objet.svg(pixelsParCm) + "\n";
+        if (!mainlevee||typeof(objet[i].svgml)=='undefined') code += "\t" + objet.svg(pixelsParCm) + "\n";
+        else code += "\t" + objet.svgml(pixelsParCm,amplitude) + "\n";
       }
     } catch (error) {}
   }
@@ -4599,14 +4627,16 @@ function codeTikz(...objets) {
       for (let i = 0; i < objet.length; i++) {
         try {
           if (objet[i].isVisible) {
-            code += "\t" + objet[i].tikz() + "\n";
+           if (!mainlevee||typeof(objet[i].tikzml)=='undefined') code += "\t" + objet[i].tikz() + "\n";
+           else code += "\t" + objet[i].tikzml(amplitude) + "\n";
           }
         } catch (error) {}
       }
     }
     try {
       if (objet[i].isVisible) {
-        code += "\t" + objet.tikz() + "\n";
+        if (!mainlevee||typeof(objet[i].tikzml)=='undefined') code += "\t" + objet.tikz() + "\n";
+        else code += "\t" + objet.tikzml(amplitude) + "\n";
       }
     } catch (error) {}
   }
