@@ -907,6 +907,42 @@ function Polyline(...points) {
     binomeXY = binomeXY.substr(0, binomeXY.length - 2);
     return `\\draw${optionsDraw} ${binomeXY};`;
   };
+  this.svgml=function(coeff,amp) {
+    let code="",s
+    for (let k=1;k<this.listePoints.length;k++) {
+      s=segment(this.listePoints[k-1],this.listePoints[k])
+      s.epaisseur=this.epaisseur
+      s.color=this.color
+      s.opacite=this.opacite
+      code+=s.svgml(coeff,amp)
+    }
+    return code;
+  
+  }
+  this.tikzml=function(amp) {
+    let tableauOptions = [];
+    if (this.color.length > 1 && this.color !== "black") {
+      tableauOptions.push(this.color);
+    }
+    if (this.epaisseur != 1) {
+      tableauOptions.push(`line width = ${this.epaisseur}`);
+    }
+    if (this.opacite != 1) {
+      tableauOptions.push(`opacity = ${this.opacite}`);
+    }
+    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`);
+
+    let optionsDraw = [];
+    if (tableauOptions.length > 0) {
+      optionsDraw = "[" + tableauOptions.join(",") + "]";
+    }
+    let binomeXY = "";
+    for (let point of this.listePoints) {
+      binomeXY += `(${point.x},${point.y})--`;
+    }
+    binomeXY = binomeXY.substr(0, binomeXY.length - 2);
+    return `\\draw${optionsDraw} ${binomeXY};`;
+  }
 }
 function polyline(...args) {
   return new Polyline(...args);
@@ -1154,10 +1190,10 @@ function Segment(arg1, arg2, arg3, arg4, color) {
  
     let A = point(this.x1, this.y1);
     let B = point(this.x2, this.y2);
-    let l=Math.round(longueur(A,B))
-    let dx=(B.xSVG(coeff)-A.xSVG(coeff))/(4*l),dy=(B.ySVG(coeff)-A.ySVG(coeff))/(4*l)
+    let l=longueur(A,B)
+    let dx=(B.xSVG(coeff)-A.xSVG(coeff))/(10*l),dy=(B.ySVG(coeff)-A.ySVG(coeff))/(10*l)
     let code =`<path d="M${A.xSVG(coeff)} ${A.ySVG(coeff)} C `
-    for (let k=0;k<=4*l;k++) {
+    for (let k=0;k<=10*l+1;k++) {
       code +=`${arrondi(A.xSVG(coeff)+k*dx+randint(-1,1)*amp,0)} ${arrondi(A.ySVG(coeff)+k*dy+randint(-1,1)*amp,0)}, `
     }
     code +=`${B.xSVG(coeff)} ${B.ySVG(coeff)}" stroke="${this.color}" ${this.style}"/>`
@@ -1358,7 +1394,7 @@ function Polygone(...points) {
       segment_courant.epaisseur=this.epaisseur
       segment_courant.color=this.color
       segment_courant.opacite=this.opacite
-      code+=segment_courant.tikzml(amp)
+      code+='\t'+segment_courant.tikzml(amp)+'\n'
     }
     return code
   }
