@@ -211,13 +211,40 @@ function pointIntersectionDD(d, f, nom = "", positionLabel = "above") {
   return point(x, y, nom, positionLabel);
 }
 /**
+ * pointAdistance(A,d,angle,nom="",positionLabel="above") 
+ * Seuls le point A et la distance d sont obligatoires, angle peut être choisi : il s'agit de l'angle signé avec l'axe [OI) sinon, il est choisi aléatoirement.
  * p=pointAdistance(A,5,'M') Place un point aléatoirement à 5 unités de A et lui donne le nom de 'M'.
  * @Auteur Jean-Claude Lhote
  */
-function pointAdistance(A,d,nom="",positionLabel="above") {
-  let B=point(A.x+1,A.y)
-  return similitude(B,A,randint(1,360),d,nom,positionLabel)
+function pointAdistance(...args) {
+  let l = args.length
+  let angle = randint(1, 360)
+  let A = args[0]
+  let B = point(A.x + 1, A.y)
+  let d = args[1]
+  if (l < 2) 
+    return false
+  if (l == 2) 
+    return similitude(B, A, angle, d)
+  else
+    if (l == 3) {
+      if (typeof (args[2]) == 'number')
+        return similitude(B, A, arags[2], d)
+      else
+        return similitude(B, A, angle, d, args[2])
+    }
+    else
+      if (l == 4) {
+        if (typeof (args[2]) == 'number')
+          return similitude(B, A, args[2], d, args[3])
+        else
+          return similitude(B, A, angle, d, args[2], args[3])
+      }
+      else
+        return similitude(B, A, arags[2], d, args[3], args[4])
 }
+
+
 
 /**
  * labelPoint(A,B) pour nommer les points A et B
