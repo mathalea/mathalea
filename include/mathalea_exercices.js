@@ -7474,7 +7474,7 @@ function Calculer_un_pourcentage() {
       objets.push(codeAngle(depart,centre,p1*3.6,4.9,'','black',2,1,'red',0.4),texteParPoint(`${moy1.substring(3)}`,pointSurSegment(centre,rotation(depart,centre,p1*1.8),3),0) )
       objets.push(codeAngle(rotation(depart,centre,p1*3.6),centre,p2*3.6,4.9,'','black',2,1,'blue',0.4),texteParPoint(`${moy2.substring(3)}`,pointSurSegment(centre,rotation(depart,centre,p1*3.6+p2*1.8),3),0) )
       objets.push(codeAngle(depart,centre,-p3*3.6,4.9,'','black',2,1,'yellow',0.4),texteParPoint(`${moy3.substring(3)}`,pointSurSegment(centre,rotation(depart,centre,-p3*1.8),3),0) )
-      texte_corr+=mathalea2d({xmin : 0,ymin : 0,xmax : 10, ymax : 10,pixelsParCm : 20,scale : 1}, ...objets)
+      texte_corr+=mathalea2d({xmin : 0,ymin : 0,xmax : 10, ymax : 10,pixelsParCm : 20,scale : 1,mainlevee:false,amplitude:1}, ...objets)
 
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre

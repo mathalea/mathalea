@@ -8439,6 +8439,7 @@ function Problemes_additifs_fractions() {
 /**
  * Problème avec lecture de représentation graphique d'une fonction
  * @Auteur Rémi Angot
+ * Référence 4F12
  */
 function Exploiter_representation_graphique() {
   Exercice.call(this); // Héritage de la classe Exercice()

@@ -3480,7 +3480,7 @@ function codeSegments(...args) {
  *  la ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
  * @Auteur Jean-Claude Lhote
  */
-function CodeAngle(debut,centre,alpha,taille=0.8,mark='',color='black',epaisseur=1,opacite=1,fill='none',fillOpacite=0.2) {
+function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur=1,opacite=1,fill='none',fillOpacite=0.2) {
   ObjetMathalea2D.call(this)
   this.color=color
   let codage,depart,P,d,arcangle
@@ -3490,16 +3490,15 @@ function CodeAngle(debut,centre,alpha,taille=0.8,mark='',color='black',epaisseur
   }
   else 
     this.couleurDeRemplissage='none'
-  let remplir,angle
+  let remplir
   if (fill=='none') 
     remplir = false
   else 
     remplir = true
   
-  if (typeof(alpha)!='number'){
-    angle=angleOriente(debut,centre,alpha)
+  if (typeof(angle)!='number'){
+    angle=angleOriente(debut,centre,angle)
   }
-  else angle=alpha
   depart=pointSurSegment(centre,debut,taille)
   P=rotation(depart,centre,angle/2)
   d=droite(centre,P)
@@ -4699,6 +4698,7 @@ function mathalea2d(
       (xmax - xmin) * pixelsParCm
     } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg">\n`;
     //code += codeSvg(...objets);
+    console.log(objets)
     for (let objet of objets) {
       if (Array.isArray(objet)) {
         for (let i = 0; i < objet.length; i++) {
@@ -4708,17 +4708,17 @@ function mathalea2d(
              else
                   code += "\t" + objet[i].svgml(pixelsParCm,amplitude) + "\n";
             }
-          } catch (error) {}
+          } catch (error) {console.log('premiere boucle',error.message,i)}
 
         }
       }
       try {
-        if (objet[i].isVisible) {
-          if ((!mainlevee)||typeof(objet[i].svgml)=='undefined') code += "\t" + objet[i].svg(pixelsParCm) + "\n";
+        if (objet.isVisible) {
+          if ((!mainlevee)||typeof(objet.svgml)=='undefined') code += "\t" + objet.svg(pixelsParCm) + "\n";
           else
-               code += "\t" + objet[i].svgml(pixelsParCm,amplitude) + "\n";
+               code += "\t" + objet.svgml(pixelsParCm,amplitude) + "\n";
          }
-    } catch (error) {}
+    } catch (error) {console.log('le try tout seul',error.message,i)}
     }
     code += `\n</svg>`;
     //		pixelsParCm = 20;
@@ -4757,9 +4757,9 @@ function mathalea2d(
         }
       }
       try {
-        if (objet[i].isVisible) {
-          if (!mainlevee||typeof(objet[i].tikzml)=='undefined') code += "\t" + objet[i].tikz() + "\n";
-          else code += "\t" + objet[i].tikzml(amplitude) + "\n";
+        if (objet.isVisible) {
+          if (!mainlevee||typeof(objet.tikzml)=='undefined') code += "\t" + objet.tikz() + "\n";
+          else code += "\t" + objet.tikzml(amplitude) + "\n";
         }
      } catch (error) {}
     }
