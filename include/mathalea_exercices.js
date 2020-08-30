@@ -11167,6 +11167,7 @@ function Thales_4eme() {
   //Dans cette version, pas de configuration papillon reservée aux 3èmes.
   Exercice_Thales.call(this);
   this.quatrieme = true;
+  sortie_html? this.spacing = 1.5 : this.spacing = 1; 
 }
 
 function Reciproque_Thales_4eme() {
@@ -12588,7 +12589,8 @@ function Proportionnalite_par_linearite_bis(){
 	};	
 
 	this.titre = "Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité.";
-	this.consigne = "";
+  this.consigne = "";
+  sortie_html ? this.spacing = 1.5 : this.spacing = 1;
 	
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -12679,7 +12681,7 @@ function Proportionnalite_par_linearite_bis(){
 				question:``,
         correction:`
         C'est une situation de proportionnalité. Nous pouvons donc utiliser les propriétés de linéarité de la proportionnalité.
-        <br>C'est ce que nous allons faire pour les deux premères questions.
+        <br>C'est ce que nous allons faire pour les deux premières questions.
         <br>
         <br>${num_alpha(k_corr++)} Pour $${situation.n1}$ ${pluriel(situation.n1,situation)}, on paie $${tex_prix(situation.pu*situation.n1)}$ €.
         <br> Pour $${situation.n2}$ ${pluriel(situation.n2,situation)}, on paie $${tex_prix(situation.pu*situation.n2)}$ €.
