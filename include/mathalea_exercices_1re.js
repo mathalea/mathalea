@@ -44,7 +44,7 @@ function Terme_d_une_suite_definie_explicitement(){
           c = randint(0,9)*choice([-1,1]);
           k = randint(0,9);
 
-          texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_n = ${a}n^2$`;
+          texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_n = ` + printlatex(a) + `n^2$`;
           if (b == 1) {texte += `$+n$`};
           if (b > 1) {texte += `$+${b}n$`};
           if (b == -1) {texte += `$-n$`};
@@ -61,6 +61,7 @@ function Terme_d_une_suite_definie_explicitement(){
           b = randint(1,5)*choice([-1,1]);
           c = randint(1,5)*choice([-1,1]);
           d = randint(1,5)*choice([-1,1]);
+          if (d % c == 0){d = d+1};
           k = randint(1,9);
 
           texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_n = \\dfrac{`;
@@ -79,7 +80,12 @@ function Terme_d_une_suite_definie_explicitement(){
           
           texte += `<br>Calculer $u_{${k}}$.`;
 			
-          texte_corr = `Dans l'expression de $u_n$ on remplasse $n$ par $${k}$, on obtient : $u_{${k}} = ${(a*k+b)/(c*k+d)}$.`;
+          texte_corr = `Dans l'expression de $u_n$ on remplasse $n$ par $${k}$, on obtient : $u_{${k}} = \\dfrac{${a}\\times ${k} ${ecriture_algebrique(b)}}{${c}\\times ${k}
+          ${ecriture_algebrique(d)}} = ` + tex_fraction(a*k+b, c*k+d) + `= ` + 
+          tex_fraction_signe(
+            fraction_simplifiee(a*k+b, c*k+d)[0],
+            fraction_simplifiee(a*k+b, c*k+d)[1])
+            + `$.`;
           break;
       }
       
