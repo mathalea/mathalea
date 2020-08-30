@@ -35,7 +35,17 @@ function Terme_d_une_suite_definie_explicitement(){
           else {texte += `${b}$.`};
           texte += `<br>Calculer $u_{${k}}$.`;
 			
-          texte_corr = `Dans l'expression de $u_n$ on remplasse $n$ par ${k}, on obtient : $u_{${k}} = ${a*k+b}$`;
+          texte_corr = `Dans l'expression de $u_n$ on remplasse $n$ par ${k}, on obtient : $u_{${k}} =`;
+          if (a == 1) {
+            texte_corr += `${k} ${ecriture_algebrique(b)}`
+          } else {
+            if (a == -1) {
+              texte_corr += `-${k} ${ecriture_algebrique(b)}`
+            } else {
+              texte_corr += `${a} \\times ${k} ${ecriture_algebrique(b)}`
+            }
+          }
+          texte_corr += `=${a*k+b}$.`;
           break;
         
         case 2: //fonction polynome de degré 2
@@ -44,7 +54,16 @@ function Terme_d_une_suite_definie_explicitement(){
           c = randint(0,9)*choice([-1,1]);
           k = randint(0,9);
 
-          texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_n = ${a}n^2$`;
+          texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_n = `;
+          if (a == 1) {
+            texte += `n^2$`
+          } else {
+            if (a == -1) {
+              texte += `-n^2$`
+            } else {
+              texte += `${a}n^2$`
+            }
+          };
           if (b == 1) {texte += `$+n$`};
           if (b > 1) {texte += `$+${b}n$`};
           if (b == -1) {texte += `$-n$`};
@@ -53,14 +72,31 @@ function Terme_d_une_suite_definie_explicitement(){
           if (c < 0) {texte += `$${c}$.`}
           texte += `<br>Calculer $u_{${k}}$.`;
 			
-          texte_corr = `Dans l'expression de $u_n$ on remplasse $n$ par $${k}$, on obtient : $u_{${k}} = ${a*k*k+b*k+c}$`;
+          texte_corr = `Dans l'expression de $u_n$ on remplasse $n$ par $${k}$, on obtient : $u_{${k}} = `;
+          if (a == 1) {texte_corr += `${k}^2`}
+          else {
+            if (a == -1) {texte_corr += `-${k}^2`} 
+            else {
+              texte_corr += `${a}\\times ${k}^2`
+            }
+          };
+          if (b == 1) {
+            texte_corr += `+${k}`
+          } else {
+            if (b == -1) {
+              texte_corr += `-${k}`
+            } else {
+              texte_corr += `${ecriture_algebrique(b)}\\times ${k}`
+            }            
+          }
+          texte_corr += `${ecriture_algebrique(c)}=${a*k*k+b*k+c}$.`;
           break;
         
         case 3: //fonction homographique
           a = randint(1,5)*choice([-1,1]);
           b = randint(1,5)*choice([-1,1]);
-          c = randint(1,5)*choice([-1,1]);
-          d = randint(1,5)*choice([-1,1]);
+          c = randint(2,4);
+          d = randint(1,7,[2,3,4,6])*choice([-1,1]);
           k = randint(1,9);
 
           texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_n = \\dfrac{`;
@@ -79,7 +115,12 @@ function Terme_d_une_suite_definie_explicitement(){
           
           texte += `<br>Calculer $u_{${k}}$.`;
 			
-          texte_corr = `Dans l'expression de $u_n$ on remplasse $n$ par $${k}$, on obtient : $u_{${k}} = ${(a*k+b)/(c*k+d)}$.`;
+          texte_corr = `Dans l'expression de $u_n$ on remplasse $n$ par $${k}$, on obtient : $u_{${k}} = \\dfrac{${a}\\times ${k} ${ecriture_algebrique(b)}}{${c}\\times ${k}
+          ${ecriture_algebrique(d)}} = ` + tex_fraction(a*k+b, c*k+d) + `= ` + 
+          tex_fraction_signe(
+            fraction_simplifiee(a*k+b, c*k+d)[0],
+            fraction_simplifiee(a*k+b, c*k+d)[1])
+            + `$.`;
           break;
       }
       
