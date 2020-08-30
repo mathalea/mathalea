@@ -243,7 +243,7 @@ function pointAdistance(...args) {
           return similitude(B, A, angle, d, args[2], args[3])
       }
       else
-        return similitude(B, A, arags[2], d, args[3], args[4])
+        return similitude(B, A, args[2], d, args[3], args[4])
 }
 
 
@@ -4627,7 +4627,7 @@ function codeSvg(...objets) {
     }
     try {
       if (objet.isVisible) {
-        if (!mainlevee||typeof(objet[i].svgml)=='undefined') code += "\t" + objet.svg(pixelsParCm) + "\n";
+        if (!mainlevee||typeof(objet.svgml)=='undefined') code += "\t" + objet.svg(pixelsParCm) + "\n";
         else code += "\t" + objet.svgml(pixelsParCm,amplitude) + "\n";
       }
     } catch (error) {}
@@ -4669,8 +4669,8 @@ function codeTikz(...objets) {
       }
     }
     try {
-      if (objet[i].isVisible) {
-        if (!mainlevee||typeof(objet[i].tikzml)=='undefined') code += "\t" + objet.tikz() + "\n";
+      if (objet.isVisible) {
+        if (!mainlevee||typeof(objet.tikzml)=='undefined') code += "\t" + objet.tikz() + "\n";
         else code += "\t" + objet.tikzml(amplitude) + "\n";
       }
     } catch (error) {}
@@ -4698,7 +4698,6 @@ function mathalea2d(
       (xmax - xmin) * pixelsParCm
     } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg">\n`;
     //code += codeSvg(...objets);
-    console.log(objets)
     for (let objet of objets) {
       if (Array.isArray(objet)) {
         for (let i = 0; i < objet.length; i++) {

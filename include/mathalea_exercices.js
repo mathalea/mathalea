@@ -43,6 +43,7 @@ var liste_des_exercices_disponibles = {
   "6D12": Calculs_de_durees_ou_d_horaires,
   "6G10": Notation_segment_droite_demi_droite,
   "6G10-1": Description_segment_droite_demi_droite,
+  "beta6G10-2" : Utiliser_le_codage_pour_decrire,
   "6G11": Tracer_des_perpendiculaires,
   "6G12": Tracer_des_paralleles,
   "6G12-1": Tracer_des_perpendiculaires_et_des_paralleles,
@@ -12238,6 +12239,90 @@ function Test_main_levee() {
   }
   this.besoin_formulaire_case_a_cocher = ["main levee"];	
 }
+
+/**
+ * @Auteur Jean-Claude Lhote
+ * Référence 6G10-2
+ */
+function Utiliser_le_codage_pour_decrire(){
+  "use strict"
+  Exercice.call(this);
+  this.titre = "Utiliser le codage pour décrire une figure";
+  this.nb_questions = 1;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  this.sup = 1;
+  this.sup2 = 1;
+  this.nouvelle_version = function (numero_de_l_exercice) {
+  let type_de_questions_disponibles;
+  type_de_questions_disponibles = [parseInt(this.sup)]; // Le choix 1 ou 2 ou 3 : 1=perpendiculaires, 2=parallèles, 3=des perpendiculaires et des paralèlles
+  let liste_type_de_questions = combinaison_listes(
+      type_de_questions_disponibles,
+      this.nb_questions
+    );
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    let Xmin, Xmax, Ymin, Ymax, ppc=20, sc,nom,sommets=[]
+    let A,B,C,D,E,F,sAB,sAC,sAF,sBC,sBD,sCD,sCE,sCF,sEF,medAC,medBC,dBD,dBC,dAC,dAF
+
+    for (
+      let i = 0, texte, texte_corr, cpt = 0;
+      i < this.nb_questions && cpt < 50;
+
+    ) {
+      texte_corr=""
+/*      nom=creerNomDePolygone(6,"PQ")
+      for (let i=0;i<6;i++) 
+        sommets.push(nom[i])
+      sommets=shuffle(sommets)
+ */
+      sommets.push('A','B','C','D','E','F')
+      A=point(0,0,sommets[0],'left')
+      C=pointAdistance(A,randint(5,7),randint(0,45),sommets[2],'right')
+      sAC=segment(A,C)
+      B=similitude(C,A,-90,randint(5,7)/10,sommets[1],'below')
+      sAB=segment(A,B)
+      E=milieu(A,C,sommets[4],'below')
+      medBC=mediatrice(C,B)
+  //    medBC.isVisible=false
+      medAC=mediatrice(A,C)
+ //     medAC.isVisible=false
+      dBC=droite(C,B)
+  //    dBC.isVisible=false
+      dBD=rotation(dBC,B,randint(-40,-20))
+ //     dBD.isVisible=false
+      dAC=droite(A,C)
+ //     dAC.isVisible=false
+      dAF=rotation(dAC,A,randint(30,40))
+ //     dAF.isVisible=false
+      D=pointIntersectionDD(dBD,medBC,sommets[3],'below')
+      F=pointIntersectionDD(dAF,medAC,sommets[5],'above')
+      sBD=segment(B,D)
+      sCD=segment(C,D)
+      sAF=segment(A,F)
+      sCF=segment(C,F)
+      sEF=segment(E,F)
+      sBC=segment(B,C)
+
+      texte=mathalea2d({xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),
+        xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:40,scale:1,mainlevee:true,amplitude:1.5},
+        sAB,sAC,sBC,sEF,sCF,sAF,sCD,sBD,codageAngleDroit(B,A,C),codeSegments('\\','black',A,F,F,C),codeSegments('X','black',A,E,E,C),
+        codeSegments('O','black',B,D,D,C),labelPoint(A,B,C,D,E,F),codageAngleDroit(A,E,F)
+        )
+
+        if (this.liste_questions.indexOf(texte) == -1) {
+          // Si la question n'a jamais été posée, on en créé une autre
+          this.liste_questions.push(texte);
+          this.liste_corrections.push(texte_corr);
+          i++;
+        }
+        cpt++;
+      }
+      liste_de_question_to_contenu(this);
+   };
+}
+
+
 /**
  * Fonction générale pour exercices de constructions de parallèles et perpendiculaires
  * références 6G11, 6G12 et 6G12-1
