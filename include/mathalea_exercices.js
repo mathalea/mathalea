@@ -12264,8 +12264,8 @@ function Utiliser_le_codage_pour_decrire(){
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let Xmin, Xmax, Ymin, Ymax, ppc=20, sc,nom,sommets=[],params_enonce,params_correction,objets_enonce,objets_correction
-    let A,B,C,D,E,F,sAB,sAC,sAF,sBC,sBD,sCD,sCE,sCF,sEF,medAC,medBC,dBD,dBC,dAC,dAF
-    if (this.classe==6) type_de_questions_disponibles=[1]
+    let A,B,C,D,E,F,s1,s2,s3,s4,s5,s6,s7,s8,medAC,medBC,dBD,dBC,dAC,dAF
+    if (this.classe==6) type_de_questions_disponibles=[1,2]
     else type_de_questions_disponibles=[1,2,3,4]
     let liste_type_de_questions=combinaison_listes(type_de_questions_disponibles,this.nb_questions)
     for (
@@ -12275,6 +12275,8 @@ function Utiliser_le_codage_pour_decrire(){
     ) {
       objets_enonce=[]
       objets_correction=[]
+      params_enonce={}
+      params_correction={}
       nom=creerNomDePolygone(6,"PQ")
       for (let i=0;i<6;i++) 
         sommets.push(nom[i])
@@ -12283,9 +12285,9 @@ function Utiliser_le_codage_pour_decrire(){
       switch (liste_type_de_questions[i]){
       case 1 :
       C=pointAdistance(A,randint(5,7),randint(-45,45),sommets[2],'right')
-      sAC=segment(A,C)
+      s2=segment(A,C)
       B=similitude(C,A,-85,randint(5,7)/10,sommets[1],'below')
-      sAB=segment(A,B)
+      s1=segment(A,B)
       E=pointSurSegment(A,C,longueur(A,C)/2.2,sommets[4],'below')
       medBC=mediatrice(C,B)
       medAC=mediatrice(A,C)
@@ -12297,14 +12299,14 @@ function Utiliser_le_codage_pour_decrire(){
       D.x+=randint(-2,2,0)/5
       F=pointIntersectionDD(dAF,medAC,sommets[5],'above')
       F.x+=randint(-2,2,0)/5
-      sBD=segment(B,D)
-      sCD=segment(C,D)
-      sAF=segment(A,F)
-      sCF=segment(C,F)
-      sEF=segment(E,F)
-      sBC=segment(B,C)
+      s5=segment(B,D)
+      s6=segment(C,D)
+      s3=segment(A,F)
+      s7=segment(C,F)
+      s8=segment(E,F)
+      s4=segment(B,C)
         params_enonce={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:40,scale:1,mainlevee:true,amplitude:1.5}
-        objets_enonce.push(sAB,sAC,sBC,sEF,sCF,sAF,sCD,sBD,codageAngleDroit(B,A,C),codeSegments('//','black',A,F,F,C),codeSegments('|||','black',A,E,E,C),codeSegments('O','black',B,D,D,C),labelPoint(A,B,C,D,E,F),codageAngleDroit(A,E,F))
+        objets_enonce.push(s1,s2,s4,s8,s7,s3,s6,s5,codageAngleDroit(B,A,C),codeSegments('//','black',A,F,F,C),codeSegments('|||','black',A,E,E,C),codeSegments('O','black',B,D,D,C),labelPoint(A,B,C,D,E,F),codageAngleDroit(A,E,F))
         texte=`<br>À l'aide du schéma ci-dessous, déterminer :<br>`
         texte+=`- deux segments de même longueur ;<br>`
         texte+=`- le milieu d'un segment ;<br>`
@@ -12317,8 +12319,24 @@ function Utiliser_le_codage_pour_decrire(){
         texte_corr+=`- $${sommets[0]+sommets[5]+sommets[2]}$ est un triangle isocèle en $${sommets[5]}$ et $${sommets[1]+sommets[3]+sommets[2]}$ est un triangle isocèle en $${sommets[3]}$.<br>`
         break
         case 2 : 
-
-
+        B=pointAdistance(A,randint(5,7),randint(-45,45),sommets[1],'above')
+        C=similitude(A,B,randint(85,90),0.95,sommets[2],'below')
+        D=similitude(B,A,randint(-93,-87),1,sommets[3],'below')
+        F=similitude(B,C,-55,0.8,sommets[5],'right')
+        E=similitude(C,D,57,randint(85,115)/100,sommets[4],'above')
+        s1=segment(D,E)
+        s2=segment(C,E)
+        s4=segment(C,F)
+        s5=segment(B,F)
+        s6=polygone(A,B,C,D)
+        params_correction={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:40,scale:1,mainlevee:true,amplitude:1.5}
+        objets_correction.push(labelPoint(A,B,C,D,E,F),s1,s2,s3,s4,s5,s6)
+        objets_correction.push(codageAngleDroit(D,A,B),codageAngleDroit(A,B,C),codageAngleDroit(B,C,D),codageAngleDroit(C,D,A))
+        objets_correction.push(codeSegments('||','black',D,E,C,E),codeSegments('O','black',A,B,B,C,C,D,D,A),codeSegments('|||','black',F,C,B,F))
+        texte=`$${sommets[0]+sommets[1]+sommets[2]+sommets[3]}$ est un carré et $${sommets[3]+sommets[2]+sommets[4]}$ est un triangle équilatéral ($${sommets[4]}$ est à l'intérieur du carré $${sommets[0]+sommets[1]+sommets[2]+sommets[3]}$).<br>`
+        texte+=` $${sommets[1]+sommets[2]+sommets[5]}$ est un triangle isocèle en $${sommets[5]}$ ($${sommets[5]}$ est à l'extérieur du carré $${sommets[0]+sommets[1]+sommets[2]+sommets[3]}$).<br>`
+        texte+=`Représenter cette configuration par un schéma à main levée et ajouter les codages nécéssaires.`
+        texte_corr=`Voilà ci-dessous un schéma qui pourrait convenir à la situation.<br>`
         break
         case 3:
         break
@@ -12326,8 +12344,8 @@ function Utiliser_le_codage_pour_decrire(){
            
         break
       }
-        texte+=mathalea2d(params_enonce,objets_enonce)
-
+        if (objets_enonce.length>0) texte+=mathalea2d(params_enonce,objets_enonce)
+        if (objets_correction.length>0) texte_corr+=mathalea2d(params_correction,objets_correction)
         if (this.liste_questions.indexOf(texte) == -1) {
           // Si la question n'a jamais été posée, on en créé une autre
           this.liste_questions.push(texte);
