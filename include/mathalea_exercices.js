@@ -12250,6 +12250,10 @@ function Utiliser_le_codage_pour_decrire_6e(){
   Utiliser_le_codage_pour_decrire.call(this)
   this.classe=6
 }
+function Utiliser_le_codage_pour_decrire_5e(){
+  Utiliser_le_codage_pour_decrire.call(this)
+  this.classe=5
+}
 function Utiliser_le_codage_pour_decrire(){
   "use strict"
   Exercice.call(this);
@@ -12265,8 +12269,8 @@ function Utiliser_le_codage_pour_decrire(){
     this.liste_corrections = []; // Liste de questions corrigées
     let Xmin, Xmax, Ymin, Ymax, ppc=20, sc,nom,sommets=[],params_enonce,params_correction,objets_enonce,objets_correction
     let A,B,C,D,E,F,s1,s2,s3,s4,s5,s6,s7,s8,medAC,medBC,dBD,dBC,dAC,dAF
-    if (this.classe==6) type_de_questions_disponibles=[1,2]
-    else type_de_questions_disponibles=[1,2,3,4]
+    if (this.classe==6) type_de_questions_disponibles=[1,2,3]
+    else type_de_questions_disponibles=[1,2,3]
     let liste_type_de_questions=combinaison_listes(type_de_questions_disponibles,this.nb_questions)
     for (
       let i = 0, texte, texte_corr, cpt = 0;
@@ -12277,10 +12281,12 @@ function Utiliser_le_codage_pour_decrire(){
       objets_correction=[]
       params_enonce={}
       params_correction={}
-      nom=creerNomDePolygone(6,"PQ")
+/*      nom=creerNomDePolygone(6,"PQ")
       for (let i=0;i<6;i++) 
         sommets.push(nom[i])
       sommets=shuffle(sommets)
+*/
+      sommets.push('A','B','C','D','E','F')
       A=point(0,0,sommets[0],'left')
       switch (liste_type_de_questions[i]){
       case 1 :
@@ -12288,7 +12294,7 @@ function Utiliser_le_codage_pour_decrire(){
       s2=segment(A,C)
       B=similitude(C,A,-85,randint(5,7)/10,sommets[1],'below')
       s1=segment(A,B)
-      E=pointSurSegment(A,C,longueur(A,C)/2.2,sommets[4],'below')
+      E=pointSurSegment(A,hC,longueur(A,C)/2.2,sommets[4],'below')
       medBC=mediatrice(C,B)
       medAC=mediatrice(A,C)
       dBC=droite(C,B)
@@ -12339,6 +12345,24 @@ function Utiliser_le_codage_pour_decrire(){
         texte_corr=`Voilà ci-dessous un schéma qui pourrait convenir à la situation.<br>`
         break
         case 3:
+          B=pointAdistance(A,randint(5,7),randint(-45,45),sommets[1],'above')
+          C=similitude(A,B,randint(85,90),0.5,sommets[2],'below')
+          D=similitude(B,A,randint(-93,-87),0.53,sommets[3],'below')
+          s1=segment(D,B)
+          s2=segment(A,C)
+          E=pointIntersectionDD(droite(A,C),droite(D,B),sommets[4],'above')
+          F=affiniteOrtho(E,droite(B,C),-1.1,sommets[5],'right')
+          s3=polygone(A,B,C,D)
+          s4=segment(B,F)
+          s5=segment(C,F)
+          params_correction={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:20,scale:1,mainlevee:true,amplitude:1}
+          objets_correction.push(labelPoint(A,B,C,D,E,F),s1,s2,s3,s4,s5)
+          objets_correction.push(codageAngleDroit(D,A,B),codageAngleDroit(A,B,C),codageAngleDroit(B,C,D),codageAngleDroit(C,D,A),tracePoint(A,B,C,D,E,F))
+          objets_correction.push(codeSegments('||','black',D,E,E,B,A,E,E,C,F,C,B,F),codeSegments('O','black',A,B,D,C),codeSegments('/','black',A,D,B,C))
+          texte=`$${sommets[0]+sommets[1]+sommets[2]+sommets[3]}$ est un rectangle. Ses diagonales se coupent en $${sommets[4]}$.<br>`
+          texte+=`$${sommets[4]+sommets[1]+sommets[5]+sommets[2]}$ est un losange.<br>`
+          texte+=`Représenter cette configuration par un schéma à main levée et ajouter les codages nécéssaires.`
+          texte_corr=`Voilà ci-dessous un schéma qui pourrait convenir à la situation.<br>`
         break
         case 4 :
            

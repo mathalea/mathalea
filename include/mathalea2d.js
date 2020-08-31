@@ -208,8 +208,17 @@ function pointSurDroite(d, x, nom, positionLabel = "above") {
  * @Auteur Jean-Claude Lhote
  */
 function pointIntersectionDD(d, f, nom = "", positionLabel = "above") {
-  let y = calcul((-f.c + (d.c * f.a) / d.a) / (f.b - (f.a * d.b) / d.a));
-  let x = calcul(-d.c / d.a - (d.b * y) / d.a);
+  let x,y
+  if (f.a*d.b-f.b*d.a==0) {
+    console.log('Les droites sont parallèles, pas de point d\'intersection')
+    return false
+  }
+  else
+  y = calcul((f.c*d.a-d.c*f.a) / (f.a*d.b-f.b*d.a));
+  if (d.a==0) // si d est horizontale alors f ne l'est pas donc f.a<>0
+    x=calcul((-f.c-f.b*y)/f.a)
+  else // d n'est pas horizontale donc ...
+    x=calcul((-d.c-d.b*y)/d.a)
   return point(x, y, nom, positionLabel);
 }
 /**
