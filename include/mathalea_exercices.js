@@ -43,7 +43,7 @@ var liste_des_exercices_disponibles = {
   "6D12": Calculs_de_durees_ou_d_horaires,
   "6G10": Notation_segment_droite_demi_droite,
   "6G10-1": Description_segment_droite_demi_droite,
-  "beta6G10-2" : Utiliser_le_codage_pour_decrire,
+  "6G10-2" : Utiliser_le_codage_pour_decrire,
   "6G11": Tracer_des_perpendiculaires,
   "6G12": Tracer_des_paralleles,
   "6G12-1": Tracer_des_perpendiculaires_et_des_paralleles,
@@ -12241,6 +12241,8 @@ function Test_main_levee() {
 }
 
 /**
+ * Exercice du test de positionnement 5e
+ * Variantes à venir...
  * @Auteur Jean-Claude Lhote
  * Référence 6G10-2
  */
@@ -12278,11 +12280,11 @@ function Utiliser_le_codage_pour_decrire(){
  */
       sommets.push('A','B','C','D','E','F')
       A=point(0,0,sommets[0],'left')
-      C=pointAdistance(A,randint(5,7),randint(0,45),sommets[2],'right')
+      C=pointAdistance(A,randint(5,7),randint(-45,45),sommets[2],'right')
       sAC=segment(A,C)
-      B=similitude(C,A,-90,randint(5,7)/10,sommets[1],'below')
+      B=similitude(C,A,-85,randint(5,7)/10,sommets[1],'below')
       sAB=segment(A,B)
-      E=milieu(A,C,sommets[4],'below')
+      E=pointSurSegment(A,C,longueur(A,C)/2.2,sommets[4],'below')
       medBC=mediatrice(C,B)
   //    medBC.isVisible=false
       medAC=mediatrice(A,C)
@@ -12296,7 +12298,9 @@ function Utiliser_le_codage_pour_decrire(){
       dAF=rotation(dAC,A,randint(30,40))
  //     dAF.isVisible=false
       D=pointIntersectionDD(dBD,medBC,sommets[3],'below')
+      D.x+=randint(-2,2,0)/5
       F=pointIntersectionDD(dAF,medAC,sommets[5],'above')
+      F.x+=randint(-2,2,0)/5
       sBD=segment(B,D)
       sCD=segment(C,D)
       sAF=segment(A,F)
@@ -12306,10 +12310,19 @@ function Utiliser_le_codage_pour_decrire(){
 
       texte=mathalea2d({xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),
         xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:40,scale:1,mainlevee:true,amplitude:1.5},
-        sAB,sAC,sBC,sEF,sCF,sAF,sCD,sBD,codageAngleDroit(B,A,C),codeSegments('\\','black',A,F,F,C),codeSegments('X','black',A,E,E,C),
+        sAB,sAC,sBC,sEF,sCF,sAF,sCD,sBD,codageAngleDroit(B,A,C),codeSegments('//','black',A,F,F,C),codeSegments('|||','black',A,E,E,C),
         codeSegments('O','black',B,D,D,C),labelPoint(A,B,C,D,E,F),codageAngleDroit(A,E,F)
         )
-
+        texte+=`<br>A l'aide de ce schéma, déterminer :<br>`
+        texte+=`- Deux segments de même longueur ;<br>`
+        texte+=`- Le milieu d'un segment ;<br>`
+        texte+=`- Un triangle rectangle ;<br>`
+        texte+=`- Un triangle isocèle ;<br>`
+        texte_corr+=`- Deux segments de même mesure : [${sommets[0]+sommets[4]}] et [${sommets[4]+sommets[2]}] ou [${sommets[0]+sommets[5]}] et [${sommets[5]+sommets[2]}]`
+        texte_corr+=` ou [${sommets[1]+sommets[3]}] et [${sommets[3]+sommets[2]}].<br>`
+        texte_corr+=`- E est le milieu du segment [${sommets[0]+sommets[2]}].<br>`
+        texte_corr+=`- ${sommets[0]+sommets[1]+sommets[2]} est un triangle rectangle en ${sommets[0]}, ${sommets[0]+sommets[4]+sommets[5]} est un triangle rectangle en ${sommets[4]} et ${sommets[2]+sommets[4]+sommets[5]} est un triangle rectangle en ${sommets[4]}.<br>`
+        texte_corr+=`- ${sommets[0]+sommets[5]+sommets[2]} est un triangle isocèle en ${sommets[5]} et ${sommets[1]+sommets[3]+sommets[2]} est un triangle isocèle en ${sommets[3]}.<br>`
         if (this.liste_questions.indexOf(texte) == -1) {
           // Si la question n'a jamais été posée, on en créé une autre
           this.liste_questions.push(texte);
