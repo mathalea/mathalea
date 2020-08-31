@@ -12305,7 +12305,7 @@ function Utiliser_le_codage_pour_decrire(){
       s7=segment(C,F)
       s8=segment(E,F)
       s4=segment(B,C)
-        params_enonce={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:40,scale:1,mainlevee:true,amplitude:1.5}
+        params_enonce={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:20,scale:1,mainlevee:true,amplitude:1}
         objets_enonce.push(s1,s2,s4,s8,s7,s3,s6,s5,codageAngleDroit(B,A,C),codeSegments('//','black',A,F,F,C),codeSegments('|||','black',A,E,E,C),codeSegments('O','black',B,D,D,C),labelPoint(A,B,C,D,E,F),codageAngleDroit(A,E,F))
         texte=`<br>À l'aide du schéma ci-dessous, déterminer :<br>`
         texte+=`- deux segments de même longueur ;<br>`
@@ -12323,13 +12323,13 @@ function Utiliser_le_codage_pour_decrire(){
         C=similitude(A,B,randint(85,90),0.95,sommets[2],'below')
         D=similitude(B,A,randint(-93,-87),1,sommets[3],'below')
         F=similitude(B,C,-55,0.8,sommets[5],'right')
-        E=similitude(C,D,57,randint(85,115)/100,sommets[4],'above')
+        E=similitude(C,D,57,randint(85,115)/100,sommets[4],'right')
         s1=segment(D,E)
         s2=segment(C,E)
         s4=segment(C,F)
         s5=segment(B,F)
         s6=polygone(A,B,C,D)
-        params_correction={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:40,scale:1,mainlevee:true,amplitude:1.5}
+        params_correction={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:20,scale:1,mainlevee:true,amplitude:1}
         objets_correction.push(labelPoint(A,B,C,D,E,F),s1,s2,s3,s4,s5,s6)
         objets_correction.push(codageAngleDroit(D,A,B),codageAngleDroit(A,B,C),codageAngleDroit(B,C,D),codageAngleDroit(C,D,A))
         objets_correction.push(codeSegments('||','black',D,E,C,E),codeSegments('O','black',A,B,B,C,C,D,D,A),codeSegments('|||','black',F,C,B,F))
