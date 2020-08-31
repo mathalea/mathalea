@@ -3233,7 +3233,7 @@ function centreCercleCirconscrit(A, B, C, nom = "", positionLabel = "above") {
  *
  * @Auteur Rémi Angot
  */
-function codageAngleDroit(A, O, B, color = "black", d = 0.4) {
+function CodageAngleDroit(A, O, B, color = "black", d = 0.4) {
   ObjetMathalea2D.call(this);
   this.color = color;
   let a = pointSurSegment(O, A, d);
@@ -3246,7 +3246,9 @@ function codageAngleDroit(A, O, B, color = "black", d = 0.4) {
   }
   return polyline([a, o, b], color);
 }
-
+function codageAngleDroit(A, O, B, color = "black", d = 0.4){
+  return new CodageAngleDroit(A, O, B, color , d )
+}
 /**
  * afficheLongueurSegment(A,B) // Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
  *
@@ -3471,8 +3473,8 @@ function CodeSegments(mark = "||", color = "black", ...args) {
     return code;
   };
 }
-function codeSegments(...args) {
-  return new CodeSegments(...args);
+function codeSegments(mark = "||", color = "black", ...args) {
+  return new CodeSegments(mark, color , ...args);
 }
 /**
  * m=codeAngle(A,O,45,'X','black',2,1,'red',0.4) 

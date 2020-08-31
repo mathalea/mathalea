@@ -43,7 +43,7 @@ var liste_des_exercices_disponibles = {
   "6D12": Calculs_de_durees_ou_d_horaires,
   "6G10": Notation_segment_droite_demi_droite,
   "6G10-1": Description_segment_droite_demi_droite,
-  "6G10-2" : Utiliser_le_codage_pour_decrire,
+  "6G10-2" : Utiliser_le_codage_pour_decrire_6e,
   "6G11": Tracer_des_perpendiculaires,
   "6G12": Tracer_des_paralleles,
   "6G12-1": Tracer_des_perpendiculaires_et_des_paralleles,
@@ -12246,6 +12246,10 @@ function Test_main_levee() {
  * @Auteur Jean-Claude Lhote
  * Référence 6G10-2
  */
+function Utiliser_le_codage_pour_decrire_6e(){
+  Utiliser_le_codage_pour_decrire.call(this)
+  this.classe=6
+}
 function Utiliser_le_codage_pour_decrire(){
   "use strict"
   Exercice.call(this);
@@ -12256,47 +12260,39 @@ function Utiliser_le_codage_pour_decrire(){
   this.sup = 1;
   this.sup2 = 1;
   this.nouvelle_version = function (numero_de_l_exercice) {
-  let type_de_questions_disponibles;
-  type_de_questions_disponibles = [parseInt(this.sup)]; // Le choix 1 ou 2 ou 3 : 1=perpendiculaires, 2=parallèles, 3=des perpendiculaires et des paralèlles
-  let liste_type_de_questions = combinaison_listes(
-      type_de_questions_disponibles,
-      this.nb_questions
-    );
+    let type_de_questions_disponibles;
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let Xmin, Xmax, Ymin, Ymax, ppc=20, sc,nom,sommets=[]
+    let Xmin, Xmax, Ymin, Ymax, ppc=20, sc,nom,sommets=[],params_enonce,params_correction,objets_enonce,objets_correction
     let A,B,C,D,E,F,sAB,sAC,sAF,sBC,sBD,sCD,sCE,sCF,sEF,medAC,medBC,dBD,dBC,dAC,dAF
-
+    if (this.classe==6) type_de_questions_disponibles=[1]
+    else type_de_questions_disponibles=[1,2,3,4]
+    let liste_type_de_questions=combinaison_listes(type_de_questions_disponibles,this.nb_questions)
     for (
       let i = 0, texte, texte_corr, cpt = 0;
       i < this.nb_questions && cpt < 50;
 
     ) {
-      texte_corr=""
-/*      nom=creerNomDePolygone(6,"PQ")
+      objets_enonce=[]
+      objets_correction=[]
+      nom=creerNomDePolygone(6,"PQ")
       for (let i=0;i<6;i++) 
         sommets.push(nom[i])
       sommets=shuffle(sommets)
- */
-      sommets.push('A','B','C','D','E','F')
       A=point(0,0,sommets[0],'left')
+      switch (liste_type_de_questions[i]){
+      case 1 :
       C=pointAdistance(A,randint(5,7),randint(-45,45),sommets[2],'right')
       sAC=segment(A,C)
       B=similitude(C,A,-85,randint(5,7)/10,sommets[1],'below')
       sAB=segment(A,B)
       E=pointSurSegment(A,C,longueur(A,C)/2.2,sommets[4],'below')
       medBC=mediatrice(C,B)
-  //    medBC.isVisible=false
       medAC=mediatrice(A,C)
- //     medAC.isVisible=false
       dBC=droite(C,B)
-  //    dBC.isVisible=false
       dBD=rotation(dBC,B,randint(-40,-20))
- //     dBD.isVisible=false
       dAC=droite(A,C)
- //     dAC.isVisible=false
       dAF=rotation(dAC,A,randint(30,40))
- //     dAF.isVisible=false
       D=pointIntersectionDD(dBD,medBC,sommets[3],'below')
       D.x+=randint(-2,2,0)/5
       F=pointIntersectionDD(dAF,medAC,sommets[5],'above')
@@ -12307,22 +12303,31 @@ function Utiliser_le_codage_pour_decrire(){
       sCF=segment(C,F)
       sEF=segment(E,F)
       sBC=segment(B,C)
+        params_enonce={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:40,scale:1,mainlevee:true,amplitude:1.5}
+        objets_enonce.push(sAB,sAC,sBC,sEF,sCF,sAF,sCD,sBD,codageAngleDroit(B,A,C),codeSegments('//','black',A,F,F,C),codeSegments('|||','black',A,E,E,C),codeSegments('O','black',B,D,D,C),labelPoint(A,B,C,D,E,F),codageAngleDroit(A,E,F))
+        texte=`<br>À l'aide du schéma ci-dessous, déterminer :<br>`
+        texte+=`- deux segments de même longueur ;<br>`
+        texte+=`- le milieu d'un segment ;<br>`
+        texte+=`- un triangle rectangle ;<br>`
+        texte+=`- un triangle isocèle ;<br>`
+        texte_corr=`- Deux segments de même mesure : [$${sommets[0]+sommets[4]}$] et $[${sommets[4]+sommets[2]}]$ ou $[${sommets[0]+sommets[5]}]$ et $[${sommets[5]+sommets[2]}]$`
+        texte_corr+=` ou $[${sommets[1]+sommets[3]}]$ et $[${sommets[3]+sommets[2]}]$.<br>`
+        texte_corr+=`- $E$ est le milieu du segment $[${sommets[0]+sommets[2]}]$.<br>`
+        texte_corr+=`- $${sommets[0]+sommets[1]+sommets[2]}$ est un triangle rectangle en $${sommets[0]}$, $${sommets[0]+sommets[4]+sommets[5]}$ est un triangle rectangle en $${sommets[4]}$ et $${sommets[2]+sommets[4]+sommets[5]}$ est un triangle rectangle en $${sommets[4]}$.<br>`
+        texte_corr+=`- $${sommets[0]+sommets[5]+sommets[2]}$ est un triangle isocèle en $${sommets[5]}$ et $${sommets[1]+sommets[3]+sommets[2]}$ est un triangle isocèle en $${sommets[3]}$.<br>`
+        break
+        case 2 : 
 
-      texte=mathalea2d({xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),
-        xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:40,scale:1,mainlevee:true,amplitude:1.5},
-        sAB,sAC,sBC,sEF,sCF,sAF,sCD,sBD,codageAngleDroit(B,A,C),codeSegments('//','black',A,F,F,C),codeSegments('|||','black',A,E,E,C),
-        codeSegments('O','black',B,D,D,C),labelPoint(A,B,C,D,E,F),codageAngleDroit(A,E,F)
-        )
-        texte+=`<br>A l'aide de ce schéma, déterminer :<br>`
-        texte+=`- Deux segments de même longueur ;<br>`
-        texte+=`- Le milieu d'un segment ;<br>`
-        texte+=`- Un triangle rectangle ;<br>`
-        texte+=`- Un triangle isocèle ;<br>`
-        texte_corr+=`- Deux segments de même mesure : [${sommets[0]+sommets[4]}] et [${sommets[4]+sommets[2]}] ou [${sommets[0]+sommets[5]}] et [${sommets[5]+sommets[2]}]`
-        texte_corr+=` ou [${sommets[1]+sommets[3]}] et [${sommets[3]+sommets[2]}].<br>`
-        texte_corr+=`- E est le milieu du segment [${sommets[0]+sommets[2]}].<br>`
-        texte_corr+=`- ${sommets[0]+sommets[1]+sommets[2]} est un triangle rectangle en ${sommets[0]}, ${sommets[0]+sommets[4]+sommets[5]} est un triangle rectangle en ${sommets[4]} et ${sommets[2]+sommets[4]+sommets[5]} est un triangle rectangle en ${sommets[4]}.<br>`
-        texte_corr+=`- ${sommets[0]+sommets[5]+sommets[2]} est un triangle isocèle en ${sommets[5]} et ${sommets[1]+sommets[3]+sommets[2]} est un triangle isocèle en ${sommets[3]}.<br>`
+
+        break
+        case 3:
+        break
+        case 4 :
+           
+        break
+      }
+        texte+=mathalea2d(params_enonce,objets_enonce)
+
         if (this.liste_questions.indexOf(texte) == -1) {
           // Si la question n'a jamais été posée, on en créé une autre
           this.liste_questions.push(texte);
