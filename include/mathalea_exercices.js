@@ -122,6 +122,7 @@ var liste_des_exercices_disponibles = {
   "5G21-1": Constructibilite_des_triangles_longueurs,
   "5G20-1": Vocabulaire_des_triangles_5e,
   "5G22": DroiteRemarquableDuTriangle,
+  "5G30" : Utiliser_le_codage_pour_decrire_5e,
   "5G31": Exercice_angles_triangles,
   "5G31-1": Constructibilite_des_triangles_angles,
   "5N13": Exercice_fractions_simplifier,
@@ -12270,7 +12271,7 @@ function Utiliser_le_codage_pour_decrire(){
     let Xmin, Xmax, Ymin, Ymax, ppc=20, sc,nom,sommets=[],params_enonce,params_correction,objets_enonce,objets_correction
     let A,B,C,D,E,F,s1,s2,s3,s4,s5,s6,s7,s8,medAC,medBC,dBD,dBC,dAC,dAF
     if (this.classe==6) type_de_questions_disponibles=[1,2,3]
-    else type_de_questions_disponibles=[1,2,3]
+    else type_de_questions_disponibles=[1,2,3,4]
     let liste_type_de_questions=combinaison_listes(type_de_questions_disponibles,this.nb_questions)
     for (
       let i = 0, texte, texte_corr, cpt = 0;
@@ -12336,7 +12337,7 @@ function Utiliser_le_codage_pour_decrire(){
         s5=segment(B,F)
         s6=polygone(A,B,C,D)
         params_correction={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:20,scale:1,mainlevee:true,amplitude:1}
-        objets_correction.push(labelPoint(A,B,C,D,E,F),s1,s2,s3,s4,s5,s6)
+        objets_correction.push(labelPoint(A,B,C,D,E,F),s1,s2,s4,s5,s6)
         objets_correction.push(codageAngleDroit(D,A,B),codageAngleDroit(A,B,C),codageAngleDroit(B,C,D),codageAngleDroit(C,D,A))
         objets_correction.push(codeSegments('||','black',D,E,C,E),codeSegments('O','black',A,B,B,C,C,D,D,A),codeSegments('|||','black',F,C,B,F))
         texte=`$${sommets[0]+sommets[1]+sommets[2]+sommets[3]}$ est un carré et $${sommets[3]+sommets[2]+sommets[4]}$ est un triangle équilatéral ($${sommets[4]}$ est à l'intérieur du carré $${sommets[0]+sommets[1]+sommets[2]+sommets[3]}$).<br>`
@@ -12357,7 +12358,7 @@ function Utiliser_le_codage_pour_decrire(){
           s5=segment(C,F)
           params_correction={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:20,scale:1,mainlevee:true,amplitude:1}
           objets_correction.push(labelPoint(A,B,C,D,E,F),s1,s2,s3,s4,s5)
-          objets_correction.push(codageAngleDroit(D,A,B),codageAngleDroit(A,B,C),codageAngleDroit(B,C,D),codageAngleDroit(C,D,A),tracePoint(A,B,C,D,E,F))
+          objets_correction.push(codageAngleDroit(D,A,B),codageAngleDroit(A,B,C),codageAngleDroit(B,C,D),codageAngleDroit(C,D,A))
           objets_correction.push(codeSegments('||','black',D,E,E,B,A,E,E,C,F,C,B,F),codeSegments('O','black',A,B,D,C),codeSegments('/','black',A,D,B,C))
           texte=`$${sommets[0]+sommets[1]+sommets[2]+sommets[3]}$ est un rectangle. Ses diagonales se coupent en $${sommets[4]}$.<br>`
           texte+=`$${sommets[4]+sommets[1]+sommets[5]+sommets[2]}$ est un losange.<br>`
@@ -12365,7 +12366,35 @@ function Utiliser_le_codage_pour_decrire(){
           texte_corr=`Voilà ci-dessous un schéma qui pourrait convenir à la situation.<br>`
         break
         case 4 :
-           
+          B=pointAdistance(A,randint(6,7),randint(-30,30),sommets[1],'above right')
+          F=similitude(A,B,randint(-70,-50),randint(80,90)/100,sommets[5],'left')
+          D=similitude(B,A,angleOriente(A,B,F)+randint (3,5),randint(15,20)/10,sommets[3],'below')
+          C=translation2Points(point(B.x+1,B.y+1),A,D,sommets[2],'below right')
+          E=pointIntersectionDD(droite(A,C),droite(D,B),sommets[4],'above right')
+          s3=polygone(A,B,C,D)
+          s4=segment(B,F)
+          s5=segment(A,F)
+          s1=segment(B,D)
+          s2=segment(A,C)
+          params_enonce={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:20,scale:1,mainlevee:true,amplitude:1}
+          objets_enonce.push(labelPoint(A,B,C,D,E,F),s1,s2,s3,s4,s5)
+          objets_enonce.push(codeAngle(D,A,B,2,'|','red',2),codeAngle(B,C,D,2,'|','red',2),codeAngle(A,B,F,2,'|','red',2))
+          objets_enonce.push(codeAngle(A,B,C,2,'||','blue',2),codeAngle(A,D,C,2,'||','blue',2))
+          objets_enonce.push(codeAngle(B,A,F,2,'','green',3),codeAngle(B,F,A,2,'','green',3))
+          
+          objets_enonce.push(codeSegments('||','black',B,E,E,D),codeSegments('O','black',A,E,E,C))
+          texte=`$${sommets[0]+sommets[1]+sommets[2]+sommets[3]}$ est un rectangle. Ses diagonales se coupent en $${sommets[4]}$.<br>`
+          texte+=`$${sommets[4]+sommets[1]+sommets[5]+sommets[2]}$ est un losange.<br>`
+          texte=`<br>À l'aide du schéma ci-dessous, déterminer :<br>`
+        texte+=`- la nature du triangle $${sommets[0]+sommets[1]+sommets[5]}$ ;<br>`
+        texte+=`- la nature du quadrilatère $${sommets[0]+sommets[1]+sommets[2]+sommets[3]}$ ;<br>`
+        texte+=`- la nature de l'angle $\\widehat{FBC}$ ;<br>`
+          texte_corr=`Le triangle $${sommets[0]+sommets[1]+sommets[5]}$ a deux angles de même mesure, c'est donc un triangle isocèle en $${sommets[1]}$.<br>`
+          texte_corr+=`Le quadrilatère  $${sommets[0]+sommets[1]+sommets[2]+sommets[3]}$ a des diagonales qui se coupent en leur milieu, c'est donc un parallélogramme.<br>`
+          texte_corr+=`Dans un parallélogramme, les angles consécutifs sont supplémentaires (leur somme vaut 180°).<br`
+          texte_corr+=` D'après le codage, l'angle \\widehat{${sommets[2]+sommets[1]+sommets[5]}$} est la somme de deux angles supplémentaires. C'est donc un angle plat.<br>`
+          
+         
         break
       }
         if (objets_enonce.length>0) texte+=mathalea2d(params_enonce,objets_enonce)

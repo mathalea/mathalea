@@ -1983,16 +1983,14 @@ function cercleCentrePoint(...args) {
  * @param {number} fillOpacite // transparence de remplissage de 0 à 1.
  */
 
-function Arc(M, Omega, alpha, rayon = false, fill = 'none', color = 'black', fillOpacite = 0.2) {
+function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fillOpacite = 0.2) {
   ObjetMathalea2D.call(this);
   this.color = color;
   this.couleurDeRemplissage = fill;
   this.opaciteDeRemplissage = fillOpacite
-  let angle
-  if (typeof(alpha)!='number'){
-    angle=angleOriente(M,Omega,alpha)
+  if (typeof(angle)!='number'){
+    angle=angleOriente(M,Omega,angle)
   }
-  else angle = alpha
   let l = longueur(Omega, M), large = 0, sweep = 0
   let d = droite(Omega, M)
   d.isVisible = false
@@ -2082,9 +2080,9 @@ function Arc(M, Omega, alpha, rayon = false, fill = 'none', color = 'black', fil
     code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
     for (let k = 0; k <= la; k++) {
       P = rotation(M, Omega, k * da)
-      code += `${arrondi(P.xSVG(coeff) + randint(-1, 1) * amp, 0)} ${arrondi(P.ySVG(coeff) + randint(-1, 1) * amp, 0)}, `
+      code += `${arrondi(P.xSVG(coeff) + randint(-1, 1) * amp, 2)} ${arrondi(P.ySVG(coeff) + randint(-1, 1) * amp, 2)}, `
     }
-    code += `${arrondi(P.xSVG(coeff) + randint(-1, 1) * amp, 0)} ${arrondi(P.ySVG(coeff) + randint(-1, 1) * amp, 0)} `
+    code += `${arrondi(P.xSVG(coeff) + randint(-1, 1) * amp, 2)} ${arrondi(P.ySVG(coeff) + randint(-1, 1) * amp, 2)} `
     code += `" stroke="${color}" ${this.style}"/>`
     return code
   }
@@ -2102,7 +2100,7 @@ function Arc(M, Omega, alpha, rayon = false, fill = 'none', color = 'black', fil
         this.style += ` fill="${this.couleurDeRemplissage}" `;
         this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `;
       }
-      la = Math.abs(Math.round(longueur(M, Omega) * 2 * Math.PI * angle / 360)) //longueur de l'arc pour obtenir le nombre de points intermédiaires proportionnel au rayon
+      la = Math.abs(longueur(M, Omega) * 2 * Math.PI * angle / 360) //longueur de l'arc pour obtenir le nombre de points intermédiaires proportionnel au rayon
       da = angle / la
       code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
       for (let k = 0; k <= la; k++) {
