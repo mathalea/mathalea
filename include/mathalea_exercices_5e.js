@@ -6993,16 +6993,16 @@ function Tableaux_et_pourcentages(){
 			let prix,remises;
 			do {
 				prix = randint(150,300);
-				remises = choice([{str:'10\\%',nb:10},{str:'20\\%',nb:20},{str:'\\30%',nb:30}],[{str:'10\\%',nb:10},{str:'5\\%',nb:5},{str:'\\15%',nb:15}],[{str:'5\\%',nb:5},{str:'10\\%',nb:10},{str:'\\35%',nb:35}])
+				remises = choice([[{str:'10\\%',nb:10},{str:'20\\%',nb:20},{str:'\\30%',nb:30}],[{str:'10\\%',nb:10},{str:'5\\%',nb:5},{str:'\\15%',nb:15}],[{str:'5\\%',nb:5},{str:'10\\%',nb:10},{str:'\\35%',nb:35}]])
 			} while (prix%5 != 0)
 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
 				{//case 0 -->
 					tableau:tab_C_L([`\\text{Prix en euro}`,tex_prix(prix),tex_prix(prix),tex_prix(prix)],[`\\text{Remise en pourcentage}`,`\\text{Montant de la remise en euro}`,`\\text{Nouveau prix}`],[
-						remises.str,remises.str,remises.str,
-						tex_prix(prix*remises.nb/100),'','',
-						tex_prix(prix-prix*remises.nb/100),'','',
+						remises[0].str,remises[1].str,remises[2].str,
+						tex_prix(prix*remises[0].nb/100),'','',
+						tex_prix(prix-prix*remises[0].nb/100),'','',
 					])
 				},	
 			];
@@ -7012,7 +7012,7 @@ function Tableaux_et_pourcentages(){
 				enonces.push({
 					enonce:`					
 					<br>${situations[k].tableau}	
-					<br> ${JSON.stringify(remises)}			
+					<br> ${JSON.stringify(remises[0])}			
 					`,
 					question:``,
 					correction:`
