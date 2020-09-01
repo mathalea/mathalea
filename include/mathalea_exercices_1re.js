@@ -96,7 +96,7 @@ function Terme_d_une_suite_definie_explicitement(){
           a = randint(1,5)*choice([-1,1]);
           b = randint(1,5)*choice([-1,1]);
           c = randint(2,4);
-          d = randint(1,7,[2,3,4,6])*choice([-1,1]);
+          d = randint(1,7);
           k = randint(1,9);
 
           texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_n = \\dfrac{`;
@@ -116,10 +116,8 @@ function Terme_d_une_suite_definie_explicitement(){
           texte += `<br>Calculer $u_{${k}}$.`;
 			
           texte_corr = `Dans l'expression de $u_n$ on remplasse $n$ par $${k}$, on obtient : $u_{${k}} = \\dfrac{${a}\\times ${k} ${ecriture_algebrique(b)}}{${c}\\times ${k}
-          ${ecriture_algebrique(d)}} = ` + tex_fraction(a*k+b, c*k+d) + `= ` + 
-          tex_fraction_signe(
-            fraction_simplifiee(a*k+b, c*k+d)[0],
-            fraction_simplifiee(a*k+b, c*k+d)[1])
+          ${ecriture_algebrique(d)}} = ` + tex_fraction(a*k+b, c*k+d) +
+          simplification_de_fraction_avec_etapes(a*k+b, c*k+d)
             + `$.`;
           break;
       }
