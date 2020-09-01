@@ -6993,8 +6993,13 @@ function Tableaux_et_pourcentages(){
 			let prix,remises;
 			do {
 				prix = randint(150,300);
-				remises = choice([[{str:'10\\%',nb:10},{str:'20\\%',nb:20},{str:'\\30%',nb:30}],[{str:'10\\%',nb:10},{str:'5\\%',nb:5},{str:'\\15%',nb:15}],[{str:'5\\%',nb:5},{str:'10\\%',nb:10},{str:'\\35%',nb:35}]])
 			} while (prix%5 != 0)
+			
+			remises = choice([
+				[{str:'10\\%',nb:10},{str:'20\\%',nb:20},{str:'30\\%',nb:30}],
+				[{str:'10\\%',nb:10},{str:'5\\%',nb:5},{str:'15\\%',nb:15}],
+				[{str:'5\\%',nb:5},{str:'10\\%',nb:10},{str:'35\\%',nb:35}]
+			]);
 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
@@ -7003,7 +7008,12 @@ function Tableaux_et_pourcentages(){
 						remises[0].str,remises[1].str,remises[2].str,
 						tex_prix(prix*remises[0].nb/100),'','',
 						tex_prix(prix-prix*remises[0].nb/100),'','',
-					])
+					]),
+					tableau_corr:tab_C_L([`\\text{Prix en euro}`,tex_prix(prix),tex_prix(prix),tex_prix(prix)],[`\\text{Remise en pourcentage}`,`\\text{Montant de la remise en euro}`,`\\text{Nouveau prix}`],[
+						remises[0].str,remises[1].str,remises[2].str,
+						tex_prix(prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix*remises[0].nb/100)} \\times ${remises[1].nb/remises[0].nb} = ${tex_prix(prix*remises[1].nb/100)}`),'',
+						tex_prix(prix-prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remises[1].nb/100)} = ${tex_prix(prix-prix*remises[1].nb/100)}`),'',
+					]),
 				},	
 			];
 
@@ -7011,12 +7021,11 @@ function Tableaux_et_pourcentages(){
 			for (let k=0;k<situations.length;k++) {
 				enonces.push({
 					enonce:`					
-					<br>${situations[k].tableau}	
-					<br> ${JSON.stringify(remises[0])}			
+					${situations[k].tableau}	
 					`,
 					question:``,
 					correction:`
-					Correction type ${k}
+					${situations[k].tableau_corr}
 					`
 				});
 			};
