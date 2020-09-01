@@ -7525,19 +7525,19 @@ function Appliquer_un_pourcentage() {
       switch(choix[i]){
       case 1 :
       prix[i]=randint(article[index[i]][1],article[index[i]][2])
-      texte=`${article[index[i]][0]} coûtant ${prix[i]}€ bénéficie d'une réduction de $${pourcent[i]}\\%$.<br>`
+      texte=`${article[index[i]][0]} coûtant $${prix[i]}$€ bénéficie d'une réduction de $${pourcent[i]} \\%$.<br>`
       texte+=`Quel est le montant en euro de cette réduction ?`
-      texte_corr=`On doit calculer $${pourcent[i]}\\%$ de ${prix[i]} :<br>`
+      texte_corr=`On doit calculer $${pourcent[i]}\\%$ de $${prix[i]}$€ :<br>`
       texte_corr+= `$${pourcent[i]}\\%\\text{ de }${prix[i]}=${tex_fraction(pourcent[i],100)}\\times${prix[i]}=(${pourcent[i]}\\times${prix[i]})\\div100=${tex_nombre(pourcent[i] * prix[i])}\\div100=${tex_nombre(Algebrite.eval((pourcent[i] * prix[i]) / 100))}$<br>`;
-      texte_corr+=`Le montant de la réduction est de ${tex_prix(calcul(prix[i]*pourcent[i]/100))} €`
+      texte_corr+=`Le montant de la réduction est de ${tex_prix(calcul(prix[i]*pourcent[i]/100))}€`
       break;
       case 2 :
         masse[i]=randint(legume[index[i]][1],article[index[i]][2])
-        texte=`${legume[index[i]][0]} pesant ${masse[i]}grammes a subit une croissance de $${pourcent[i]} \\%$.<br>`
+        texte=`${legume[index[i]][0]} pesant $${masse[i]}$ grammes a subit une croissance de $${pourcent[i]} \\%$.<br>`
         texte+=`Quel est la masse supplémentaire en grammes correspondant à cette croissance ?`
-        texte_corr=`On doit calculer $${pourcent[i]}\\%$ de ${masse[i]} :<br>`
+        texte_corr=`On doit calculer $${pourcent[i]}\\%$ de $${masse[i]}$ grammes :<br>`
         texte_corr+= `$${pourcent[i]}\\%\\text{ de }${masse[i]}=${tex_fraction(pourcent[i],100)}\\times${masse[i]}=(${pourcent[i]}\\times${masse[i]})\\div100=${tex_nombre(pourcent[i] * masse[i])}\\div100=${tex_nombre(Algebrite.eval((pourcent[i] * masse[i]) / 100))}$<br>`;
-        texte_corr+=`La masse a augmenté de ${tex_nombre(calcul(masse[i]*pourcent[i]/100))} g.`
+        texte_corr+=`La masse a augmenté de $${tex_nombre(calcul(masse[i]*pourcent[i]/100))}$ g.`
          
       break;
       }
