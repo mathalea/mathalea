@@ -783,6 +783,21 @@ window.onload = function()  {
 			}, 1000);
 		});
 		
+		if (document.getElementById('btnQRcode')){
+			document.getElementById('btnQRcode').addEventListener('click',function () {
+				$('#ModalQRcode').html('');
+				let qrcode = new QRCode(document.getElementById("ModalQRcode"), {
+					text: window.location.href,
+					width: 800,
+					height: 600,
+					colorDark : "#000000",
+					colorLight : "#ffffff",
+					correctLevel : QRCode.CorrectLevel.H
+				});
+				qrcode.makeCode(window.location.href)
+				$('#ModalQRcode').modal('show')
+			})
+		}
 	}
 		
 
