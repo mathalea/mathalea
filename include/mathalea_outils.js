@@ -884,7 +884,7 @@ function tex_fraction_reduite(n,d){
 	if (n%d==0) {
 		return n/d
 	} else {
-		return tex_fraction(fraction_simplifiee(n,d)[0],fraction_simplifiee(n,d)[1]);
+		return tex_fraction_signe(fraction_simplifiee(n,d)[0],fraction_simplifiee(n,d)[1]);
 	}
 }
 
@@ -2421,7 +2421,7 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
 				result+=`\n\t \\tkzDrawSegment[color=orange,arr=stealth](B,A)`
 			}
 			else { //affichage fractionnaire
-				result +=`\n\t \\tkzLabelPoint[color = orange,below=${15+position}pt,inner sep = 5pt,font=\\scriptsize](A){$${tex_fraction((origine+points_inconnus[i][1])*pas2+points_inconnus[i][2],pas2)}$}`	
+				result +=`\n\t \\tkzLabelPoint[color = orange,below=${15+position}pt,inner sep = 5pt,font=\\scriptsize](A){$${tex_fraction_signe((origine+points_inconnus[i][1])*pas2+points_inconnus[i][2],pas2)}$}`	
 				result+=`\n\t \\tkzDrawSegment[color=orange,arr=stealth](B,A)`
 			}
 	}
@@ -4901,10 +4901,10 @@ function Fraction(num,den) {
 		else return `Ce n\'est pas un nombre décimal`
 	}
 	this.texFraction = function(){
-		return tex_fraction(this.num,this.den)
+		return tex_fraction_signe(this.num,this.den)
 	}
 	this.texFractionSimplifiee = function(){
-		return tex_fraction(this.numIrred,this.denIrred)
+		return tex_fraction_signe(this.numIrred,this.denIrred)
 	}
 
     /**
