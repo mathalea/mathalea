@@ -788,8 +788,8 @@ window.onload = function()  {
 				$('#ModalQRcode').html('');
 				let qrcode = new QRCode(document.getElementById("ModalQRcode"), {
 					text: window.location.href,
-					width: 800,
-					height: 600,
+					width: Math.min(window.innerHeight,window.innerWidth)*.8,
+					height: Math.min(window.innerHeight,window.innerWidth)*.8*3/4,
 					colorDark : "#000000",
 					colorLight : "#ffffff",
 					correctLevel : QRCode.CorrectLevel.H
