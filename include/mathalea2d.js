@@ -208,8 +208,17 @@ function pointSurDroite(d, x, nom, positionLabel = "above") {
  * @Auteur Jean-Claude Lhote
  */
 function pointIntersectionDD(d, f, nom = "", positionLabel = "above") {
-  let y = calcul((-f.c + (d.c * f.a) / d.a) / (f.b - (f.a * d.b) / d.a));
-  let x = calcul(-d.c / d.a - (d.b * y) / d.a);
+  let x,y
+  if (f.a*d.b-f.b*d.a==0) {
+    console.log('Les droites sont parallèles, pas de point d\'intersection')
+    return false
+  }
+  else
+  y = calcul((f.c*d.a-d.c*f.a) / (f.a*d.b-f.b*d.a));
+  if (d.a==0) // si d est horizontale alors f ne l'est pas donc f.a<>0
+    x=calcul((-f.c-f.b*y)/f.a)
+  else // d n'est pas horizontale donc ...
+    x=calcul((-d.c-d.b*y)/d.a)
   return point(x, y, nom, positionLabel);
 }
 /**
@@ -243,7 +252,7 @@ function pointAdistance(...args) {
           return similitude(B, A, angle, d, args[2], args[3])
       }
       else
-        return similitude(B, A, arags[2], d, args[3], args[4])
+        return similitude(B, A, args[2], d, args[3], args[4])
 }
 
 
@@ -1974,16 +1983,14 @@ function cercleCentrePoint(...args) {
  * @param {number} fillOpacite // transparence de remplissage de 0 à 1.
  */
 
-function Arc(M, Omega, alpha, rayon = false, fill = 'none', color = 'black', fillOpacite = 0.2) {
+function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fillOpacite = 0.2) {
   ObjetMathalea2D.call(this);
   this.color = color;
   this.couleurDeRemplissage = fill;
   this.opaciteDeRemplissage = fillOpacite
-  let angle
-  if (typeof(alpha)!='number'){
-    angle=angleOriente(M,Omega,alpha)
+  if (typeof(angle)!='number'){
+    angle=angleOriente(M,Omega,angle)
   }
-  else angle = alpha
   let l = longueur(Omega, M), large = 0, sweep = 0
   let d = droite(Omega, M)
   d.isVisible = false
@@ -2073,9 +2080,9 @@ function Arc(M, Omega, alpha, rayon = false, fill = 'none', color = 'black', fil
     code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
     for (let k = 0; k <= la; k++) {
       P = rotation(M, Omega, k * da)
-      code += `${arrondi(P.xSVG(coeff) + randint(-1, 1) * amp, 0)} ${arrondi(P.ySVG(coeff) + randint(-1, 1) * amp, 0)}, `
+      code += `${arrondi(P.xSVG(coeff) + randint(-1, 1) * amp, 2)} ${arrondi(P.ySVG(coeff) + randint(-1, 1) * amp, 2)}, `
     }
-    code += `${arrondi(P.xSVG(coeff) + randint(-1, 1) * amp, 0)} ${arrondi(P.ySVG(coeff) + randint(-1, 1) * amp, 0)} `
+    code += `${arrondi(P.xSVG(coeff) + randint(-1, 1) * amp, 2)} ${arrondi(P.ySVG(coeff) + randint(-1, 1) * amp, 2)} `
     code += `" stroke="${color}" ${this.style}"/>`
     return code
   }
@@ -2093,7 +2100,7 @@ function Arc(M, Omega, alpha, rayon = false, fill = 'none', color = 'black', fil
         this.style += ` fill="${this.couleurDeRemplissage}" `;
         this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `;
       }
-      la = Math.abs(Math.round(longueur(M, Omega) * 2 * Math.PI * angle / 360)) //longueur de l'arc pour obtenir le nombre de points intermédiaires proportionnel au rayon
+      la = Math.abs(longueur(M, Omega) * 2 * Math.PI * angle / 360) //longueur de l'arc pour obtenir le nombre de points intermédiaires proportionnel au rayon
       da = angle / la
       code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
       for (let k = 0; k <= la; k++) {
@@ -3233,7 +3240,7 @@ function centreCercleCirconscrit(A, B, C, nom = "", positionLabel = "above") {
  *
  * @Auteur Rémi Angot
  */
-function codageAngleDroit(A, O, B, color = "black", d = 0.4) {
+function CodageAngleDroit(A, O, B, color = "black", d = 0.4) {
   ObjetMathalea2D.call(this);
   this.color = color;
   let a = pointSurSegment(O, A, d);
@@ -3246,7 +3253,9 @@ function codageAngleDroit(A, O, B, color = "black", d = 0.4) {
   }
   return polyline([a, o, b], color);
 }
-
+function codageAngleDroit(A, O, B, color = "black", d = 0.4){
+  return new CodageAngleDroit(A, O, B, color , d )
+}
 /**
  * afficheLongueurSegment(A,B) // Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
  *
@@ -3471,8 +3480,8 @@ function CodeSegments(mark = "||", color = "black", ...args) {
     return code;
   };
 }
-function codeSegments(...args) {
-  return new CodeSegments(...args);
+function codeSegments(mark = "||", color = "black", ...args) {
+  return new CodeSegments(mark, color , ...args);
 }
 /**
  * m=codeAngle(A,O,45,'X','black',2,1,'red',0.4) 
@@ -4627,7 +4636,7 @@ function codeSvg(...objets) {
     }
     try {
       if (objet.isVisible) {
-        if (!mainlevee||typeof(objet[i].svgml)=='undefined') code += "\t" + objet.svg(pixelsParCm) + "\n";
+        if (!mainlevee||typeof(objet.svgml)=='undefined') code += "\t" + objet.svg(pixelsParCm) + "\n";
         else code += "\t" + objet.svgml(pixelsParCm,amplitude) + "\n";
       }
     } catch (error) {}
@@ -4669,8 +4678,8 @@ function codeTikz(...objets) {
       }
     }
     try {
-      if (objet[i].isVisible) {
-        if (!mainlevee||typeof(objet[i].tikzml)=='undefined') code += "\t" + objet.tikz() + "\n";
+      if (objet.isVisible) {
+        if (!mainlevee||typeof(objet.tikzml)=='undefined') code += "\t" + objet.tikz() + "\n";
         else code += "\t" + objet.tikzml(amplitude) + "\n";
       }
     } catch (error) {}
@@ -4698,7 +4707,6 @@ function mathalea2d(
       (xmax - xmin) * pixelsParCm
     } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg">\n`;
     //code += codeSvg(...objets);
-    console.log(objets)
     for (let objet of objets) {
       if (Array.isArray(objet)) {
         for (let i = 0; i < objet.length; i++) {
