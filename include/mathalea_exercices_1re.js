@@ -35,7 +35,7 @@ function Terme_d_une_suite_definie_explicitement(){
           else {texte += `${b}$.`};
           texte += `<br>Calculer $u_{${k}}$.`;
 			
-          texte_corr = `Dans l'expression de $u_n$ on remplasse $n$ par ${k}, on obtient : $u_{${k}} =`;
+          texte_corr = `Dans l'expression de $u_n$ on remplace $n$ par ${k}, on obtient : $u_{${k}} =`;
           if (a == 1) {
             texte_corr += `${k} ${ecriture_algebrique(b)}`
           } else {
@@ -72,7 +72,7 @@ function Terme_d_une_suite_definie_explicitement(){
           if (c < 0) {texte += `$${c}$.`}
           texte += `<br>Calculer $u_{${k}}$.`;
 			
-          texte_corr = `Dans l'expression de $u_n$ on remplasse $n$ par $${k}$, on obtient : $u_{${k}} = `;
+          texte_corr = `Dans l'expression de $u_n$ on remplace $n$ par $${k}$, on obtient : $u_{${k}} = `;
           if (a == 1) {texte_corr += `${k}^2`}
           else {
             if (a == -1) {texte_corr += `-${k}^2`} 
@@ -115,7 +115,7 @@ function Terme_d_une_suite_definie_explicitement(){
           
           texte += `<br>Calculer $u_{${k}}$.`;
 			
-          texte_corr = `Dans l'expression de $u_n$ on remplasse $n$ par $${k}$, on obtient : $u_{${k}} = \\dfrac{${a}\\times ${k} ${ecriture_algebrique(b)}}{${c}\\times ${k}
+          texte_corr = `Dans l'expression de $u_n$ on remplace $n$ par $${k}$, on obtient : $u_{${k}} = \\dfrac{${a}\\times ${k} ${ecriture_algebrique(b)}}{${c}\\times ${k}
           ${ecriture_algebrique(d)}} = ` + tex_fraction(a*k+b, c*k+d) +
           simplification_de_fraction_avec_etapes(a*k+b, c*k+d)
             + `$.`;
