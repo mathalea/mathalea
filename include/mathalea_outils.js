@@ -789,13 +789,13 @@ function signe(a) { // + ou -
 	}
 	return result;
 };
+
 /**
  * 
  * @param {number} a 
  * -1 si a est négatif, 1 sinon.
  * @Auteur Jean-Claude Lhote
  */
-
 function unSiPositifMoinsUnSinon(a) {
 	if (a<0) return -1;
 	else return 1;
@@ -902,7 +902,7 @@ function simplification_de_fraction_avec_etapes(num,den){
 		if ((num)%(den)==0) { //si le résultat est entier
 			result = `=${(num)/(den)}`
 		} else {
-			result =`=${tex_fraction(Algebrite.eval((num)/s)+mise_en_evidence('\\times'+s),Algebrite.eval(den/s)+mise_en_evidence('\\times'+s))}=${tex_fraction(Algebrite.eval((num)/s),Algebrite.eval(den/s))}`
+			result =`=${tex_fraction(Algebrite.eval((num)/s)+mise_en_evidence('\\times'+s),Algebrite.eval(den/s)+mise_en_evidence('\\times'+s))}=${tex_fraction_signe(Algebrite.eval((num)/s),Algebrite.eval(den/s))}`
 		}
 	}
 	return result
