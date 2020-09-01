@@ -114,11 +114,11 @@ function Terme_d_une_suite_definie_explicitement(){
           else {texte += `${d}}$.`};
           
           texte += `<br>Calculer $u_{${k}}$.`;
-			
+          frac=fraction(a*k+b,c*k+d)
           texte_corr = `Dans l'expression de $u_n$ on remplace $n$ par $${k}$, on obtient : $u_{${k}} = \\dfrac{${a}\\times ${k} ${ecriture_algebrique(b)}}{${c}\\times ${k}
-          ${ecriture_algebrique(d)}} = ` + tex_fraction(a*k+b, c*k+d) +
-          simplification_de_fraction_avec_etapes(a*k+b, c*k+d)
-            + `$.`;
+          ${ecriture_algebrique(d)}} = ` +frac.texFraction()
+          if (pgcd(a*k+b,c*k+d)!=1) texte_corr+=`=`+frac.texFractionSimplifiee()
+          texte_corr+=`$.`
           break;
       }
       
