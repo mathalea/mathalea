@@ -24,15 +24,19 @@
 
   <!-- Clipboard-->
   <script src="include/clipboard.min.js" type="text/javascript"></script>
+
+   <!-- QRcode-->
+   <script src="include/qrcode.min.js" type="text/javascript"></script>
+
   
   <!-- SVG.JS -->
   <script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.0/dist/svg.min.js"></script>
   
   <!-- Seedrandom -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
-  
-    <!-- d3js ajout seb mars 2020-->
-    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+  <!-- Scratch Blocks -->
+  <script src="include/scratchblocks-v3.5-min.js"></script>
   
   <!-- MathALEA-->
   <script type="text/javascript">var sortie_html=true;</script>
@@ -40,6 +44,8 @@
   <script src="include/mathalea_exercices_4e.js" type="text/javascript"></script>
   <script src="include/mathalea_exercices_3e.js" type="text/javascript"></script>
   <script src="include/mathalea_exercices_2e.js" type="text/javascript"></script>
+  <script src="include/mathalea_exercices_1re.js" type="text/javascript"></script>
+  <script src="include/mathalea_exercices_tle.js" type="text/javascript"></script>
   
   <script src="include/mathalea_exercices.js" type="text/javascript"></script> 
   
@@ -105,7 +111,10 @@
       </div>
       <button id="btnCopieURL" style="margin:10px" class="btn ui toggle button labeled icon url" data-clipboard-action="copy" data-clipboard-text=url_courant()><i class="copy icon"></i>Copier le lien vers les exercices sélectionnés</button> 
       <button id="btnLaTeX"  style="margin:10px" class="btn ui button labeled icon" ><i class="edit icon"></i>Version LaTeX</button> 
+      <button id="btnQRcode"  style="margin:10px" class="btn ui button icon" ><i class="qrcode icon"></i></button> 
     </div>
+
+    <div id="ModalQRcode" class="ui basic modal></div>
 
 
 

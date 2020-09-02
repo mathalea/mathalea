@@ -87,7 +87,18 @@ function estentier(a,tolerance=epsilon) {
 	if (Math.abs(calcul(a-Math.round(a)))<tolerance) return true
 	else return false
 }
-
+function quotientier(a, b) {
+	if (Number.isInteger(a) && Number.isInteger(b)) {
+		let reste = a
+		let quotient = 0
+		while (reste >= b) {
+			reste -= b
+			quotient++
+		}
+		return quotient
+	}
+	else return false
+}
 
 /**
 * Créé tous les couples possibles avec un élément de E1 et un élément de E2.
@@ -213,7 +224,7 @@ function enleve_element(array,item){
  * @Auteur Rémi Angot & Jean-Claude Lhote
  */
 
-function enleve_element_bis(array,item) {
+function enleve_element_bis(array,item=undefined) {
 	let tableaucopie=[]
 	for(i = 0;i<array.length;i++) {
 		tableaucopie.push(array[i])
@@ -330,7 +341,16 @@ function compare_fractions(a,b){
 function compare_nombres(a,b){ 
 	return a - b ;
 }
-
+/**
+ * 
+ * Copié sur https://delicious-insights.com/fr/articles/le-piege-de-array-sort/
+ */
+function numTrie(arr) {
+	return arr.sort(function(a, b) {
+	  return +a - +b
+	})
+  }
+  
 /*
 * Mélange les items d'un tableau, sans modifier le tableau passé en argument
 *
@@ -633,7 +653,7 @@ function produit_matrice_matrice_3x3(matrice1,matrice2) { // les deux matrices s
  * @Auteur Jean-Claude Lhote
  */
 function changement_de_base_ortho_tri(point) {
-	point.push(1);
+	if (point.length==2) point.push(1);
 	return produit_matrice_vecteur_3x3([[1,-Math.cos(Math.PI/3)/Math.sin(Math.PI/3),0],[0,1/Math.sin(Math.PI/3),0],[0,0,1]],point)
 }
 /**
@@ -643,7 +663,7 @@ function changement_de_base_ortho_tri(point) {
  * @Auteur Jean-CLaude Lhote
  */
 function changement_de_base_tri_ortho(point) {
-	point.push(1);
+	if (point.length==2) point.push(1);
 	return produit_matrice_vecteur_3x3([[1,Math.cos(Math.PI/3),0],[0,Math.sin(Math.PI/3),0],[0,0,1]],point)
 }
 
@@ -675,21 +695,21 @@ function image_point_par_transformation (transformation,pointA,pointO,vecteur=[]
 	// nécessite d'être en repère orthonormal...
 	// Point O sert pour les rotations et homothéties en tant que centre (il y a un changement d'origine du repère en O pour simplifier l'expression des matrices de transformations.)
 	
-	let matrice_sym_obl1=[[0,1,0],[1,0,0],[0,0,1]] // x'=y et y'=x
-	let matrice_sym_xxprime=[[1,0,0],[0,-1,0],[0,0,1]] // x'=x et y'=-y
-	let matrice_sym_yyprime=[[-1,0,0],[0,1,0],[0,0,1]] // x'=-x et y'=y
-	let matrice_sym_obl2=[[0,-1,0],[-1,0,0],[0,0,1]] // x'=-y et y'=-x
-	let matrice_quart_de_tour_direct=[[0,-1,0],[1,0,0],[0,0,1]] // x'=-y et y'=x
-	let matrice_quart_de_tour_indirect=[[0,1,0],[-1,0,0],[0,0,1]] // x'=y et y'=-x
-	let matrice_sym_centrale=[[-1,0,0],[0,-1,0],[0,0,1]] // x'=-x et y'=-y
-	let matrice_rot_60_direct=[[0.5,-Math.sin(Math.PI/3),0],[Math.sin(Math.PI/3),0.5,0],[0,0,1]]
-	let matrice_rot_60_indirect=[[0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),0.5,0],[0,0,1]]
-	let matrice_rot_120_direct=[[-0.5,-Math.sin(Math.PI/3),0],[Math.sin(Math.PI/3),-0.5,0],[0,0,1]]
-	let matrice_rot_120_indirect=[[-0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),-0.5,0],[0,0,1]]
+	let matrice_sym_obl1=matriceCarree([[0,1,0],[1,0,0],[0,0,1]]) // x'=y et y'=x
+	let matrice_sym_xxprime=matriceCarree([[1,0,0],[0,-1,0],[0,0,1]]) // x'=x et y'=-y
+	let matrice_sym_yyprime=matriceCarree([[-1,0,0],[0,1,0],[0,0,1]]) // x'=-x et y'=y
+	let matrice_sym_obl2=matriceCarree([[0,-1,0],[-1,0,0],[0,0,1]]) // x'=-y et y'=-x
+	let matrice_quart_de_tour_direct=matriceCarree([[0,-1,0],[1,0,0],[0,0,1]]) // x'=-y et y'=x
+	let matrice_quart_de_tour_indirect=matriceCarree([[0,1,0],[-1,0,0],[0,0,1]]) // x'=y et y'=-x
+	let matrice_sym_centrale=matriceCarree([[-1,0,0],[0,-1,0],[0,0,1]]) // x'=-x et y'=-y
+	let matrice_rot_60_direct=matriceCarree([[0.5,-Math.sin(Math.PI/3),0],[Math.sin(Math.PI/3),0.5,0],[0,0,1]])
+	let matrice_rot_60_indirect=matriceCarree([[0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),0.5,0],[0,0,1]])
+	let matrice_rot_120_direct=matriceCarree([[-0.5,-Math.sin(Math.PI/3),0],[Math.sin(Math.PI/3),-0.5,0],[0,0,1]])
+	let matrice_rot_120_indirect=matriceCarree([[-0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),-0.5,0],[0,0,1]])
 
 	let x,y,x1,y1,u,v,k,pointA1=[0,0,0],pointA2=[0,0,0]
 
-	pointA.push(1)
+	if (pointA.length==2) pointA.push(1)
 	x2=pointO[0]  // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
 	y2=pointO[1]
 	u=vecteur[0] // (u,v) vecteur de translation.
@@ -697,164 +717,62 @@ function image_point_par_transformation (transformation,pointA,pointO,vecteur=[]
 	k=rapport // rapport d'homothétie
 
 
-	let matrice_chgt_repere=[[1,0,x2],[0,1,y2],[0,0,1]]
-	let matrice_chgt_repereinv=[[1,0,-x2],[0,1,-y2],[0,0,1]]
-	let matrice_translation=[[1,0,u],[0,1,v],[0,0,1]]
-	let matrice_homothetie=[[k,0,0],[0,k,0],[0,0,1]]
-	let matrice_homothetie2=[[1/k,0,0],[0,1/k,0],[0,0,1]]
+	let matrice_chgt_repere=matriceCarree([[1,0,x2],[0,1,y2],[0,0,1]])
+	let matrice_chgt_repereinv=matriceCarree([[1,0,-x2],[0,1,-y2],[0,0,1]])
+	let matrice_translation=matriceCarree([[1,0,u],[0,1,v],[0,0,1]])
+	let matrice_homothetie=matriceCarree([[k,0,0],[0,k,0],[0,0,1]])
+	let matrice_homothetie2=matriceCarree([[1/k,0,0],[0,1/k,0],[0,0,1]])
 
-	let matrice=[[]]
-
-	switch (transformation) {
-		case 1 : 
-			matrice=produit_matrice_matrice_3x3(matrice_sym_obl1,matrice_chgt_repereinv)
-			break
-		case 2 :
-			matrice=produit_matrice_matrice_3x3(matrice_sym_obl2,matrice_chgt_repereinv)
-			break
-		case 3 : 
-			matrice=produit_matrice_matrice_3x3(matrice_sym_xxprime,matrice_chgt_repereinv)
-			break
-		case 4 :
-			matrice=produit_matrice_matrice_3x3(matrice_sym_yyprime,matrice_chgt_repereinv)
-			break
-		case 5 :
-			matrice=produit_matrice_matrice_3x3(matrice_quart_de_tour_direct,matrice_chgt_repereinv)
-			break
-		case 6 : 
-		matrice=produit_matrice_matrice_3x3(matrice_quart_de_tour_indirect,matrice_chgt_repereinv)
-			break
-		case 7 :
-			matrice=produit_matrice_matrice_3x3(matrice_sym_centrale,matrice_chgt_repereinv)
-			break
-		case 11 :
-			matrice=produit_matrice_matrice_3x3(matrice_rot_60_direct,matrice_chgt_repereinv)
-			break
-		case 12 :
-			matrice=produit_matrice_matrice_3x3(matrice_rot_60_indirect,matrice_chgt_repereinv)
-			break
-		case 13 :
-			matrice=produit_matrice_matrice_3x3(matrice_rot_120_direct,matrice_chgt_repereinv)
-			break
-		case 14 :
-			matrice=produit_matrice_matrice_3x3(matrice_rot_120_indirect,matrice_chgt_repereinv)
-			break
-		case 8 :
-			matrice=produit_matrice_matrice_3x3(matrice_translation,matrice_chgt_repereinv)
-			break
-		case 9 :
-			matrice=produit_matrice_matrice_3x3(matrice_homothetie,matrice_chgt_repereinv)
-			break
-		case 10 :
-			matrice=produit_matrice_matrice_3x3(matrice_homothetie2,matrice_chgt_repereinv)
-			break	
-		}
-	pointA1=produit_matrice_vecteur_3x3(matrice,pointA)
-	pointA2=produit_matrice_vecteur_3x3(matrice_chgt_repere,pointA1)
-	return pointA2
-}
-/*
-function image_point_par_transformation_repere_tri (transformation,pointA,pointO,vecteur=[],rapport=1){ //pointA,centre et pointO sont des tableaux de deux coordonnées
-	// on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
-	// ici le rpeère a des axes formant un angle de 60°
-	// Point O sert pour les rotations et homothéties en tant que centre (il y a un changement d'origine du repère en O pour simplifier l'expression des matrices de transformations.)
-	/* transformations :
-1=symétrie / passant par O
-2=symétrie \ passant par O
-3=symétrie _ passant par O
-4=symétrie | passant par O
-5= rotation 90° anti-horaire centre O
-6= rotation 90° horaire centre O
-7= symétrie centrale centre O
-11= rotation 60° anti-horaire centre O
-12= rotation 60° horaire centre O
-13= rotation 120° anti-horaire centre O
-14= rotation 120° horaire centre O
-8= translation coordonnées de O = vecteur de translation
-9= homothétie. centre O rapport k
-10= homothétie. centre O rapport 1/k
-
-
-
-	let matrice_sym_obl1=[[0,1,0],[1,0,0],[0,0,1]] // x'=y et y'=x
-	let matrice_sym_xxprime=[[1,0,0],[0,-1,0],[0,0,1]] // x'=x et y'=-y
-	let matrice_sym_yyprime=[[-1,0,0],[0,1,0],[0,0,1]] // x'=-x et y'=y
-	let matrice_sym_obl2=[[0,-1,0],[-1,0,0],[0,0,1]] // x'=-y et y'=-x
-	let matrice_quart_de_tour_direct=[[0,-1,0],[1,0,0],[0,0,1]] // x'=-y et y'=x
-	let matrice_quart_de_tour_indirect=[[0,1,0],[-1,0,0],[0,0,1]] // x'=y et y'=-x
-	let matrice_sym_centrale=[[-1,0,0],[0,-1,0],[0,0,1]] // x'=-x et y'=-y
-	let matrice_rot_60_direct=[[0.5,-Math.sin(Math.PI/3),0],[Math.sin(Math.PI/3),0.5,0],[0,0,1]]
-	let matrice_rot_60_indirect=[[0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),0.5,0],[0,0,1]]
-	let matrice_rot_120_direct=[[-0.5,-Math.sin(Math.PI/3),0],[Math.sin(Math.PI/3),-0.5,0],[0,0,1]]
-	let matrice_rot_120_indirect=[[-0.5,Math.sin(Math.PI/3),0],[-Math.sin(Math.PI/3),-0.5,0],[0,0,1]]
-
-	let x,y,x1,y1,u,v,k,pointA1=[0,0,0],pointA2=[0,0,0]
-
-	pointA.push(1)
-	x2=pointO[0]  // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
-	y2=pointO[1]
-	u=vecteur[0] // (u,v) vecteur de translation.
-	v=vecteur[1]
-	k=rapport // rapport d'homothétie
-
-
-	let matrice_chgt_repere=[[1,0,x2],[0,1,y2],[0,0,1]]
-	let matrice_chgt_repereinv=[[1,0,-x2],[0,1,-y2],[0,0,1]]
-	let matrice_translation=[[1,0,u],[0,1,v],[0,0,1]]
-	let matrice_homothetie=[[k,0,0],[0,k,0],[0,0,1]]
-	let matrice_homothetie2=[[1/k,0,0],[0,1/k,0],[0,0,1]]
-
-	let matrice=[[]]
+	let matrice
 
 	switch (transformation) {
 		case 1 : 
-			matrice=produit_matrice_matrice_3x3(matrice_sym_obl1,matrice_chgt_repereinv)
+			matrice=matrice_sym_obl1.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 2 :
-			matrice=produit_matrice_matrice_3x3(matrice_sym_obl2,matrice_chgt_repereinv)
+			matrice=matrice_sym_obl2.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 3 : 
-			matrice=produit_matrice_matrice_3x3(matrice_sym_xxprime,matrice_chgt_repereinv)
+			matrice=matrice_sym_xxprime.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 4 :
-			matrice=produit_matrice_matrice_3x3(matrice_sym_yyprime,matrice_chgt_repereinv)
+			matrice=matrice_sym_yyprime.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 5 :
-			matrice=produit_matrice_matrice_3x3(matrice_quart_de_tour_direct,matrice_chgt_repereinv)
+			matrice=matrice_quart_de_tour_direct.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 6 : 
-		matrice=produit_matrice_matrice_3x3(matrice_quart_de_tour_indirect,matrice_chgt_repereinv)
+		matrice=matrice_quart_de_tour_indirect.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 7 :
-			matrice=produit_matrice_matrice_3x3(matrice_sym_centrale,matrice_chgt_repereinv)
+			matrice=matrice_sym_centrale.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 11 :
-			matrice=produit_matrice_matrice_3x3(matrice_rot_60_direct,matrice_chgt_repereinv)
+			matrice=matrice_rot_60_direct.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 12 :
-			matrice=produit_matrice_matrice_3x3(matrice_rot_60_indirect,matrice_chgt_repereinv)
+			matrice=matrice_rot_60_indirect.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 13 :
-			matrice=produit_matrice_matrice_3x3(matrice_rot_120_direct,matrice_chgt_repereinv)
+			matrice=matrice_rot_120_direct.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 14 :
-			matrice=produit_matrice_matrice_3x3(matrice_rot_120_indirect,matrice_chgt_repereinv)
+			matrice=matrice_rot_120_indirect.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 8 :
-			matrice=produit_matrice_matrice_3x3(matrice_translation,matrice_chgt_repereinv)
+			matrice=matrice_translation.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 9 :
-			matrice=produit_matrice_matrice_3x3(matrice_homothetie,matrice_chgt_repereinv)
+			matrice=matrice_homothetie.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break
 		case 10 :
-			matrice=produit_matrice_matrice_3x3(matrice_homothetie2,matrice_chgt_repereinv)
+			matrice=matrice_homothetie2.multiplieMatriceCarree(matrice_chgt_repereinv)
 			break	
 		}
-	pointA1=produit_matrice_vecteur_3x3(matrice,pointA)
-	pointA2=produit_matrice_vecteur_3x3(matrice_chgt_repere,pointA1)
+	pointA1=matrice.multiplieVecteur(pointA)
+	pointA2=matrice_chgt_repere.multiplieVecteur(pointA1)
 	return pointA2
 }
-*/
 
 /**
 * Retourne le signe d'un nombre
@@ -871,13 +789,13 @@ function signe(a) { // + ou -
 	}
 	return result;
 };
+
 /**
  * 
  * @param {number} a 
  * -1 si a est négatif, 1 sinon.
  * @Auteur Jean-Claude Lhote
  */
-
 function unSiPositifMoinsUnSinon(a) {
 	if (a<0) return -1;
 	else return 1;
@@ -942,6 +860,7 @@ const ppcm = (a,b) => { return parseInt(Algebrite.run(`lcm(${a},${b})`))}
 
 /**
 * Retourne le numérateur et le dénominateur de la fraction passée en argument sous la forme (numérateur,dénominateur)réduite au maximum dans un tableau [numérateur,dénominateur]
+* * **ATTENTION Fonction clonée dans la classe Fraction()**
 * @Auteur Rémi Angot
 */
 function fraction_simplifiee(n,d){ 
@@ -965,7 +884,7 @@ function tex_fraction_reduite(n,d){
 	if (n%d==0) {
 		return n/d
 	} else {
-		return tex_fraction(fraction_simplifiee(n,d)[0],fraction_simplifiee(n,d)[1]);
+		return tex_fraction_signe(fraction_simplifiee(n,d)[0],fraction_simplifiee(n,d)[1]);
 	}
 }
 
@@ -983,7 +902,7 @@ function simplification_de_fraction_avec_etapes(num,den){
 		if ((num)%(den)==0) { //si le résultat est entier
 			result = `=${(num)/(den)}`
 		} else {
-			result =`=${tex_fraction(Algebrite.eval((num)/s)+mise_en_evidence('\\times'+s),Algebrite.eval(den/s)+mise_en_evidence('\\times'+s))}=${tex_fraction(Algebrite.eval((num)/s),Algebrite.eval(den/s))}`
+			result =`=${tex_fraction(Algebrite.eval((num)/s)+mise_en_evidence('\\times'+s),Algebrite.eval(den/s)+mise_en_evidence('\\times'+s))}=${tex_fraction_signe(Algebrite.eval((num)/s),Algebrite.eval(den/s))}`
 		}
 	}
 	return result
@@ -1077,6 +996,21 @@ function calcul(expression,arrondir=false){
 }
 
 /**
+* Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux
+* Le 2e argument facultatif permet de préciser l'arrondi souhaité
+* @Auteur Rémi Angot
+*/
+function nombreDecimal(expression,arrondir=false){
+	if (!arrondir) {
+		return string_nombre(calcul(expression))
+	} else {
+		return string_nombre(calcul(expression,1))
+	}
+}
+
+
+
+/**
 * Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux et retourne un string avec la virgule comme séparateur décimal
 * @Auteur Rémi Angot
 */
@@ -1126,28 +1060,34 @@ function trie_positifs_negatifs(liste){
 * Créé un string de nbsommets caractères dans l'ordre alphabétique et en majuscule qui ne soit pas dans la liste donnée en 2e argument
 * @Auteur Rémi Angot
 */
-function polygone(nbsommets,liste_a_eviter=[]){ 
+function creerNomDePolygone(nbsommets,liste_a_eviter=[]){ 
 	let premiersommet = randint(65,90-nbsommets);
 	let polygone="";
-	while(est_deja_donne(String.fromCharCode(premiersommet),liste_a_eviter)){
-		premiersommet = randint(65,90-nbsommets);
-	}
-
 	for (let i=0;i<nbsommets;i++){
 		polygone += String.fromCharCode(premiersommet+i)
+	}
+
+	while(possedeUnCaractereInterdit(polygone,liste_a_eviter)){
+		polygone="";
+		premiersommet = randint(65,90-nbsommets);
+		for (let i=0;i<nbsommets;i++){
+			polygone += String.fromCharCode(premiersommet+i)
+		}
 	}
 	return polygone
 }
 
 /**
-* Vérifie dans une liste si un élément commence par premiersommet et renvoit true si c'est le cas
+* Vérifie dans un texte si un de ses caractères appartient à une liste à éviter
 * @Auteur Rémi Angot
 */
-function est_deja_donne(premiersommet,liste_a_eviter) {
+function possedeUnCaractereInterdit(texte,liste_a_eviter) {
 	let result = false
-	for (let i = 0; i < liste_a_eviter.length; i++) {
-		if (premiersommet==liste_a_eviter[i][0]) {
-			result = true;
+	for (mot_a_eviter of liste_a_eviter) {
+		for (let i = 0 ; i < mot_a_eviter.length; i++) {
+			if (texte.indexOf(mot_a_eviter[i])>-1) {
+				result = true
+			}
 		}
 	}
 	return result;
@@ -1520,6 +1460,7 @@ function tex_consigne(consigne){
 function tex_nombre(nb){
 	//Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
 	if (sortie_html) {
+		//return Intl.NumberFormat("fr-FR",{maximumFractionDigits:20}).format(nb).toString().replace(/\s+/g,'\\thickspace ').replace(',','{,}'); // .replace(',','{,}') servait à enlever l'espace disgracieux des décimaux mais ne passait qu'en mode LaTeX
 		return Intl.NumberFormat("fr-FR",{maximumFractionDigits:20}).format(nb).toString().replace(/\s+/g,'\\thickspace '); // \nombre n'est pas pris en charge par katex
 	} else {
 		let result;
@@ -2480,7 +2421,7 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
 				result+=`\n\t \\tkzDrawSegment[color=orange,arr=stealth](B,A)`
 			}
 			else { //affichage fractionnaire
-				result +=`\n\t \\tkzLabelPoint[color = orange,below=${15+position}pt,inner sep = 5pt,font=\\scriptsize](A){$${tex_fraction((origine+points_inconnus[i][1])*pas2+points_inconnus[i][2],pas2)}$}`	
+				result +=`\n\t \\tkzLabelPoint[color = orange,below=${15+position}pt,inner sep = 5pt,font=\\scriptsize](A){$${tex_fraction_signe((origine+points_inconnus[i][1])*pas2+points_inconnus[i][2],pas2)}$}`	
 				result+=`\n\t \\tkzDrawSegment[color=orange,arr=stealth](B,A)`
 			}
 	}
@@ -2530,10 +2471,144 @@ function tex_graphique(f,xmin=-5,xmax=5,ymin=-5,ymax=5,xstep=1,ystep=1) {
 	\\end{tikzpicture}`
 }
 
+/**
+ *  Classe MatriceCarree
+ *  @Auteur Jean-Claude Lhote
+ */
+function MatriceCarree(table){
+	let ligne
+	this.table=[]
+	if (typeof(table)=='number') {
+		this.dim=table // si c'est un nombre qui est passé en argument, c'est le rang, et on rempli la table de 0
+		for (let i=0;i<this.dim;i++){
+			ligne=[]
+			for (let j=0;j<this.dim;j++)
+				ligne.push(0)
+			this.table.push(ligne)
+		}
+	}
+	else { // si l'argument est une table, on la copie dans this.table et sa longueur donne la dimension de la matrice
+		this.dim=table.length
+		this.table=table.slice()
+	}
+/**
+ * Méthode : Calcule le déterminant de la matrice carrée
+ * @Auteur Jean-Claude Lhote
+ */
+	this.determinant=function() {
+		let n=this.dim // taille de la matrice = nxn
+		let determinant=0,M
+		for (let i=0;i<n;i++) { // on travaille sur la ligne du haut de la matrice :ligne 0 i est la colonne de 0 à n-1
+		//	if (n==1) determinant=this.table[0][0]
+			if (n==2)
+				determinant=calcul(this.table[0][0]*this.table[1][1]-this.table[1][0]*this.table[0][1])
+			else {
+				M=this.matrice_reduite(0,i)
+				determinant+=calcul(((-1)**i)*this.table[0][i]*M.determinant())
+			}
+		}
+		return determinant
+	}
+/**
+ * Méthode : m=M.matrice_reduite(l,c) retourne une nouvelle matrice obtenue à partir de la matrice M (carrée) en enlevant la ligne l et la colonne c
+ * (Utilisée dans le calcul du déterminant d'une matrice carrée.)
+ * @Auteur Jean-Claude Lhote
+ */
+	this.matrice_reduite=function(l,c){
+		let  resultat=[],ligne
+		for (let i=0;i<this.table.length;i++) {
+			if (i!=l) {
+				ligne=[]
+				for (let j=0;j<this.table.length;j++){
+					if (j!=c) ligne.push(this.table[i][j])
+				}
+				if (ligne.length>0) resultat.push(ligne)
+			}
+		}
+		return matriceCarree(resultat)
+	}
+	this.cofacteurs = function () { // renvoie la matrice des cofacteurs. 
+		let n = this.dim, resultat = [], ligne, M
+		if (n > 2) {
+			for (let i = 0; i < n; i++) {
+				ligne = []
+				for (let j = 0; j < n; j++) {
+					M = this.matrice_reduite(i, j)
+					ligne.push(calcul((-1) ** (i + j) * M.determinant()))
+				}
+				resultat.push(ligne)
+			}
+		}
+		else if (n==2) {
+			resultat=[[this.table[1][1],-this.table[1][0]],[-this.table[0][1],this.table[0][0]]]
+		}
+		else return false
+		return matriceCarree(resultat)
+	}
+	this.transposee=function() { // retourne la matrice transposée
+		let n=this.dim,resultat=[],ligne
+		for (let i=0;i<n;i++) {
+			ligne=[]
+			for (let j=0;j<n;j++) {
+				ligne.push(this.table[j][i])
+			}
+			resultat.push(ligne)
+		}
+		return matriceCarree(resultat)
+	}
+	this.multiplieParReel=function(k){ // retourne k * la matrice
+		let n=this.dim,resultat=[],ligne
+		for (let i=0;i<n;i++) {
+			ligne=[]
+			for (let j=0;j<n;j++) {
+				ligne.push(calcul(k*this.table[i][j]))
+			}
+			resultat.push(ligne)
+		}
+		return matriceCarree(resultat)
+	}
+	this.multiplieVecteur = function (V) { // Vecteur est un simple array pour l'instant
+		let n = this.dim, resultat=[], somme
+		if (n == V.length) {
+			for (let i = 0; i < n; i++) {
+				somme = 0
+				for (let j = 0; j < n; j++) {
+					somme += calcul(this.table[i][j] * V[j])
+				}
+				resultat.push(somme)
+			}
+			return resultat
+		}
+		else return false
+	}
+	this.inverse=function() { // retourne la matrice inverse (si elle existe)
+		let n=this.dim,resultat=[],ligne
+		let d=this.determinant()
+		if (!egal(d,0)) {
+			return this.cofacteurs().transposee().multiplieParReel(calcul(1/d))
+		}
+		else return false
+	}
+	this.multiplieMatriceCarree=function(M){
+		let n=this.dim,resultat=[],ligne,somme
+		for (let i=0;i<n;i++) {
+			ligne=[]
+			for (let j=0;j<n;j++) {
+				somme=0
+				for (let k=0;k<n;k++) somme+=calcul(this.table[i][k]*M.table[k][j])
+				ligne.push(somme)
+			}
+			resultat.push(ligne)
+		}
+		return matriceCarree(resultat)
+	}
+}
 
+function matriceCarree(table){
+	return new MatriceCarree(table)
+}
 
-
-
+// Fin de la classe MAtriceCarree
 
 /**
  * Fonction qui retourne les coefficients a et b de f(x)=ax²+bx+c à partir des données de x1,x2,f(x1),f(x2) et c.
@@ -2541,24 +2616,33 @@ function tex_graphique(f,xmin=-5,xmax=5,ymin=-5,ymax=5,xstep=1,ystep=1) {
  * @Auteur Jean-Claude Lhote
  */
 function resol_sys_lineaire_2x2(x1,x2,fx1,fx2,c) {
-	let determinant=x1*x1*x2-x2*x2*x1;
-	return [fraction_simplifiee(x2*(fx1-c)-x1*(fx2-c),determinant),fraction_simplifiee(x1*x1*(fx2-c)-x2*x2*(fx1-c),determinant)];
+	let matrice=matriceCarree([[x1**2,x1],[x2**2,x2]])
+	let determinant=matrice.determinant();
+	let [a,b]=matrice.cofacteurs().transposee().multiplieVecteur([fx1-c,fx2-c])
+	if (Number.isInteger(a)&&Number.isInteger(b)&&Number.isInteger(determinant)){
+	let fa=fraction(a,determinant), fb=fraction(b,determinant)
+	return [[fa.numIrred,fa.denIrred],[fb.numIrred,fb.denIrred]];
+	}
+	else return [[calcul(a/determinant),1],[calcul(b/determinant),1]]
 }
 /**
- * Fonction qui retourne les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d à partir des données de x1,x2,x3,f(x1),f(x2),f(x3) et d.
+ * Fonction qui retourne les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d à partir des données de x1,x2,x3,f(x1),f(x2),f(x3) et d (entiers !)
  * sous forme de fraction irréductible. Si pas de solution (déterminant nul) alors retourne [[0,0],[0,0],[0,0]]
  * @Auteur Jean-Claude Lhote
  */
 
-function resol_sys_lineaire_3x3(x1,x2,x3,fx1,fx2,fx3,d) { 
+function resol_sys_lineaire_3x3(x1,x2,x3,fx1,fx2,fx3,d) {
+	let matrice=matriceCarree([[x1**3,x1**2,x1],[x2**3,x2**2,x2],[x3**3,x3**2,x3]]) 
 	let y1=fx1-d, y2=fx2-d, y3=fx3-d;
-	let determinant=(x1**3)*x2*x2*x3+x2*x1*x1*(x3**3)+x1*x3*x3*(x2**3)-x1*x2*x2*(x3**3)-x2*x3*x3*(x1**3)-x3*x1*x1*(x2**3);
+	let determinant=matrice.determinant()
 	if (determinant==0) return [[0,0],[0,0],[0,0]];
 	else {
-		let a=((x2*x2*x3-x2*x3*x3)*y1+(x3*x3*x1-x1*x1*x3)*y2+(x1*x1*x2-x2*x2*x1)*y3);
-		let b=(((x3**3)*x2-(x2**3)*x3)*y1+((x1**3)*x3-(x3**3)*x1)*y2+((x2**3)*x1-(x1**3)*x2)*y3);
-		let c=(((x2**3)*x3*x3-x2*x2*(x3**3))*y1+(x1*x1*(x3**3)-(x1**3)*x3*x3)*y2+((x1**3)*x2*x2-(x2**3)*x1*x1)*y3);
-		return [fraction_simplifiee(a,determinant),fraction_simplifiee(b,determinant),fraction_simplifiee(c,determinant)];
+		let [a,b,c]=matrice.cofacteurs().transposee().multiplieVecteur([y1,y2,y3])
+		if (Number.isInteger(a)&&Number.isInteger(b)&&Number.isInteger(c)&&Number.isInteger(determinant)){ // ici on retourne un tableau de couples [num,den] entiers !
+			let fa=fraction(a,determinant), fb=fraction(b,determinant), fc=fraction(c,determinant)
+			return [[fa.numIrred,fa.denIrred],[fb.numIrred,fb.denIrred],[fc.numIrred,fc.denIrred]];
+		} // pour l'instant on ne manipule que des entiers, mais on peut imaginer que ce ne soit pas le cas... dans ce cas, la forme est numérateur = nombre & dénominateur=1
+		else return [[calcul(a/determinant),1],[calcul(b/determinant),1],[calcul(b/determinant),1]]
 	}
 }
 /**
@@ -2581,7 +2665,6 @@ for (let i=0,x1,x2,x3,fx1,fx2,fx3,d;;i++) {
 	coefs=resol_sys_lineaire_3x3(x1,x2,x3,fx1,fx2,fx3,d);
 	if (coefs[0][1]!=0&&coefs[0][1]<10&&coefs[1][1]<10&&coefs[2][1]<10) trouve=true;
 	if(trouve) {
-		console.log(i);
 		coefs.push([x1,fx1])
 		coefs.push([x2,fx2])
 		coefs.push([x3,fx3])
@@ -2602,6 +2685,37 @@ function cherche_min_max_f ([a,b,c,d]) {
 	let x2=(-2*b+Math.sqrt(delta))/(6*a)
 	return  [[x1,a*x1**3+b*x1**2+c*x1+d],[x2,a*x2**3+b*x2**2+c*x2+d]]
 }
+/**
+ * retourne les coefficients d'un polynome de degré 3 dont la dérivée s'annule en  x1 et x2 et tel que f(x1)=y1 et f(x2)=y2.
+ * @Auteur Jean-Claude Lhote
+ */
+function cherche_polynome_deg3_a_extrema_fixes(x1,x2,y1,y2) {
+	let M=matriceCarree([[x1**3,x1**2,x1,1],[x2**3,x2**2,x2,1],[3*x1**2,2*x1,1,0],[3*x2**2,2*x2,1,0]])
+	let R=[y1,y2,0,0]
+	if (!egal(M.determinant(),0)) return M.inverse().multiplieVecteur(R)
+	else return false
+}
+// fonction devenue inutile : à remplacer par cherche_polynome_deg3_a_extrema_fixes(x1,x2,y1,y2) qui produit un résultat exact, sans mouliner !
+/*
+function cherche_polynome_deg3_a_extrema_entiers(x1,x2,y1,y2) { // je voulais ajouter "ou presque" dans le nom de fonction, mais ça faisait trop long !
+	let resultat=[],trouve=false
+	for (let a=-1;a<1;a+=0.00005) {
+		resultat=cherche_polynome_deg3_a_extrema_fixes(x1,x2,y1,a)
+		if (egal(resultat[4],y1)) 
+			if (egal(resultat[5],y2,0.001)) {
+				trouve=true
+				resultat.push('trouvé')
+				return resultat
+			}
+		else if (egal(resultat[4],y2,0.001)) {
+			trouve=true
+			resultat.push('trouvé')
+			return resultat
+		}
+	}
+	if (!trouve) return 'Pas trouvé'
+}
+*/
 
 /**
  * Fonction pour simplifier l'ecriture lorsque l'exposant vaut 0 ou 1
@@ -3658,6 +3772,20 @@ function detect_safari_chrome_browser(){
 
 /**
 * Retourne la liste des nombres premiers inférieurs à N N<300 N exclu
+* @param {integer} k On cherchera un multiple de k
+* @param {integer} n Ce multiple sera supérieur ou égal à n
+* @author Rémi Angot
+*/
+function premierMultipleSuperieur(k,n){
+	let result = n
+	while (result%k!=0){
+		result+=1
+	}
+	return result
+}
+
+/**
+* Retourne la liste des nombres premiers inférieurs à N N<300 N exclu
 * @param {number} borneSup
 * @author Sébastien Lozano
 */
@@ -3792,67 +3920,6 @@ function tab_C_L(tab_entetes_colonnes,tab_entetes_lignes,tab_lignes) {
 	tableau_C_L += `\\end{array}\n$`
 
 	return tableau_C_L;
-};
-
-/**
- * Pour les tests de la bibliothèque d3.js
- * @param {string} id_du_div 
- * @author Sébastien Lozano 
- */
-
-function d3jsTests(id_du_div) {
-	'use strict';
-	if (!window.SVGExist) {window.SVGExist = {}} // Si SVGExist n'existe pas on le créé
-	// SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
-	window.SVGExist[id_du_div] = setInterval(function() {
-		
-		if ($(`#${id_du_div}`).length ) {
-			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
-
-			document.getElementById(id_du_div).innerHTML = `8`;
-			var width = 1300;
-			var height = 300;
-			var svg = d3.select('#'+id_du_div)
-				.append("svg")
-				.attr("width", width)
-				.attr("height", height);
-				var circleMove = svg.append("circle")
-				.attr("cx",150)
-				.attr("cy",50)
-				.attr("r",30);
-				
-				 circleMove
-				.transition()
-				 .duration(500)
-				.attr("cx", 850)
-				.transition()
-				.duration(500)
-				.attr("cx",150)
-				.transition()
-				.duration(500)
-				.attr("cx",650)
-				.transition()
-				.duration(500)
-				.attr("cx",350)
-				.transition()
-				.duration(500)
-				.attr("cx",500);
-
-				var positions = [850, 200, 800, 250, 750, 300, 700, 350, 650, 400, 600, 450, 550, 500];
-				function animateMulti(node, positions, i) {
-					node.transition()
-						.duration(300)
-						.attr("cx", positions[i])
-						.on('end',  function() {
-							if (i < (positions.length - 1)) {
-								animateMulti(d3.select(this), positions, ++i);
-							}
-						});
-				}
-				animateMulti(circleMultiTransition, positions, 0);
-		clearInterval(SVGExist[id_du_div]);//Arrête le timer
-		};
-	}, 100); // Vérifie toutes les 100ms
 };
 
 /**
@@ -4004,38 +4071,43 @@ function decomp_fact_prem_array(n) {
 /**
  * @class
  * @classdesc Classe Triangles - Méthodes utiles pour les triangles *  
- * Choisi un nom au hasard dans un tableau statique
- * La méthode getNom() permet de récupérer ce nom et fournit un string en mode maths. Si le triangle se nomme AGE, alors getNom() renvoit un tableau de 5 éléments $ ; A ; G ; E et $, les $ traduisent le mode maths
- * Pour l'exemple le triangle se nomme AGE
- * La méthode getCotes() renvoie un tableau contenant les noms des segments des côtés du triangle en mode maths. [AG], [GE] et [EA] dans cet ordre.
- * La méthode getLongueurs() renvoie un tableau contenant les noms des longueurs des côtés du triangle en mode maths. AG, GE et EA dans cet ordre.
- * La méthode getLongueursValeurs() renvoie un tableau contenant les valeurs des longueurs des côtés du triangle.
- * La méthode getAngles() renvoie un tableau contenant les noms des angles du triangle en mode maths. AGE, GEA et EAG dans cet ordre.
- * La méthode getAnglesValeurs() renvoie un tableau contenant les valeurs des angles du triangle.
- * La méthode getSommets() renvoie un tableau contenant les noms des sommets du triangle en mode maths. A, G et E dans cet ordre.
- * La méthode getPerimetre() renvoie le périmètre du triangle
- * La méthode isTrueTriangleLongueurs() renvoie un booléen si le triangle définit à partir des longueurs est un vrai triangle non plat.
- * La méthode isPlatTriangleLongueurs() renvoie un booléen si le triangle définit à partir des longueurs est un triangle plat.
- * La méthode isTrueTriangleAngles() renvoie un booléen si le triangle définit à partir des angles existe et n'est pas un triangle plat.
- * La méthode isPlatTriangleAngles() renvoie un booléen si le triangle définit à partir des angles existe et est un triangle plat.
- * La méthode isQuelconque() renvoie  un booléen si le triangle définit à partir des angles ou des longueurs existe et est quelconque. Non Finalisée
+ * * @param {number} l1 une des longueurs du triangle 
+ * * @param {number} l2 une des longueurs du triangle 
+ * * @param {number} l3 une des longueurs du triangle 
+ * * @param {number} a1 un des angles du triangle
+ * * @param {number} a2 un des angles du triangle
+ * * @param {number} a3  un des angles du triangle
  * @author Sébastien Lozano
  */
 function Triangles(l1,l2,l3,a1,a2,a3) {
 	'use strict';
 	var self = this;
 
-	// liste de noms possibles pour un triangle
+	/**
+	 * @constant {array} nomsPossibles liste de noms possibles pour un triangle
+	 */
 	let nomsPossibles = ['AGE','AIL','AIR','ALU','AME','AMI','ANE','ARC','BAC','BAL','BAR','BEC','BEL','BIO','BIP','BIS','BLE','BOA','BOF','BOG','BOL','BUT','BYE','COQ','CRI','CRU','DUC','DUO','DUR','EAU','ECU','EGO','EPI','FER','FIL','FUN','GPS','ICE','JET','KIF','KIR','MAC','NEM','PAS','PIC','PIF','PIN','POT','RAI','RAP','RAT','RIF','SEL','TAF','TIC','TAC','TOC','TOP','UNI','WOK','YAK','YEN','ZEN','ZIG','ZAG'];
 
+	/**
+	 * @property {string} nom nom du triangle, tiré au hasard dans un tableau
+	 */
 	this.nom = choice(nomsPossibles);
 
-	// renvoie le nom choisi
+
+	/**
+	 * @return {string} Renvoie le nom du triangle tiré au hasard 
+	 * * les strings sont EN MODE MATHS le premier caractère du string est un $
+	 * @example si triangle est une instance de la classe Triangle() triangle.getNom() renvoie le string '$AMI$' si AMI est le nom tiré au hasard 
+	 */
 	function getNom() {
 		return '$'+self.nom+'$';
 	}
 
-	// renvoie les noms des côtés du triangle, segments!
+	/**
+	 * @return {array} Renvoie un tableau contenant le nom des côtés, segments, du triangle tiré au hasard
+	 * * les strings sont EN MODE MATHS le premier caractère du string est un $
+	 * @example si triangle est une instance de la classe Triangle() triangle.getCotes() renvoie le tableau de strings ['$[AM]$','$[MI]$','$[IA]$'] dans cet ordre si AMI est le nom tiré au hasard  
+	 */
 	function getCotes() {
 		let cotes = [];
 		let triangle = self.nom;
@@ -4047,7 +4119,11 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		return cotes;
 	};
 
-	// renvoie les noms des longueurs des côtés du triangle.
+	/**
+	 * @return {array} Renvoie un tableau contenant le nom des longueurs des côtés du triangle tiré au hasard
+	 * * les strings sont EN MODE MATHS le premier caractère du string est un $
+	 * @example si triangle est une instance de la classe Triangle() triangle.getCotes() renvoie le tableau de strings ['$AM$','$MI$','$IA$'] dans cet ordre si AMI est le nom tiré au hasard  
+	 */
 	function getLongueurs() {
 		let longueurs = [];
 		let triangle = self.nom;
@@ -4058,8 +4134,10 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 
 		return longueurs;
 	};
-
-	// renvoie les valeurs des longueurs des côtés du triangle.
+	
+	/**
+	 * @return {array} Renvoie un tableau avec les valeurs des longueurs des côtés du triangle passées en paramètre à l'instance de la classe
+	 */
 	function getLongueursValeurs() {		
 		if ((typeof self.l1 == "undefined") || (typeof self.l2 == "undefined") || (typeof self.l3 == "undefined")) {
 			//return false;
@@ -4073,7 +4151,11 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		return longueurs;
 	};
 
-	// renvoie les noms des angles du triangle.
+
+	/**
+	 * @return {array} Renvoie un tableau de strings avec les noms des angles du triangle.
+	 * * les strings sont EN MODE MATHS le premier caractère du string est un $
+	 */
 	function getAngles() {
 		let angles = [];
 		let triangle = self.nom;
@@ -4085,7 +4167,9 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		return angles;
 	};
 
-	// renvoie les valeurs des angles du triangle.
+	/**
+	 * @return {array} Renvoie un tableau avec les valeurs des angles du triangle passées en paramètre à l'instance de la classe
+	 */
 	function getAnglesValeurs() {		
 		if ((typeof self.a1 == "undefined") || (typeof self.a2 == "undefined") || (typeof self.a3 == "undefined")) {
 			//return false;
@@ -4099,7 +4183,10 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		return angles;
 	};
 
-	// renvoie les noms des angles du triangle.
+	/**
+	 * @return {array} Renvoie un tableau de strings avec les noms des sommets du triangle.
+	 * * les strings sont EN MODE MATHS le premier caractère du string est un $
+	 */
 	function getSommets(math=true) {
 		let triangle = self.nom;
 		let sommets = triangle.split('');
@@ -4111,7 +4198,14 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		return sommets;
 	};
 
-	// renvoie le périmètre du triangle
+	/**
+	 * @return {array} Renvoie le périmètre de l'instance de la classe Triangle() avec les valeurs des longueurs des côtés du triangle passées en paramètre à l'instance 
+	 * @example let triangle = new Triangle();
+	 * * triangle.l1 = 2;
+	 * * triangle.l2 = 3;
+	 * * triangle.l3 = 4
+	 * * triangle.getPerimetre() renvoie 9
+	 */
 	function getPerimetre() {
 		if ((typeof self.l1 == "undefined") || (typeof self.l2 == "undefined") || (typeof self.l3 == "undefined")) {
 			//return false;
@@ -4121,18 +4215,28 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		};			
 	};
 
-	// renvoie un booleen selon que les trois longueurs forment un vrai triangle ou non
+	/**
+	 * @return {array} Renvoie un booleen selon que les trois longueurs passées à l'instance de la classe forment un vrai triangle ou non
+	 * @example let triangle = new Triangle();
+	 * * triangle.l1 = 2;
+	 * * triangle.l2 = 3;
+	 * * triangle.l3 = 7
+	 * * triangle.isTrueTriangleLongueurs() renvoie false
+	 * @example let triangle = new Triangle();
+	 * * triangle.l1 = 2;
+	 * * triangle.l2 = 3;
+	 * * triangle.l3 = 4
+	 * * triangle.isTrueTriangleLongueurs() renvoie true
+	 */
 	function isTrueTriangleLongueurs() {
 		if ((typeof self.l1 == "undefined") || (typeof self.l2 == "undefined") || (typeof self.l3 == "undefined")) {
 			return false;
 			//return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
 		}
 		let longueurs = [self.l1,self.l2,self.l3];
-		//console.log('longueurs : '+longueurs);
 		longueurs.sort(function(a,b){
 			return calcul(a-b);
 		});
-		//console.log('longueurs sort() : '+longueurs);
 		if (longueurs[2] < calcul(longueurs[0]+longueurs[1])) {
 			return true;
 		} else {
@@ -4140,18 +4244,28 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		};
 	};
 
-	// renvoie un booleen selon que les trois longueurs forment un triangle plat ou non
+	/**
+	 * @return {array} Renvoie un booleen selon que les trois longueurs passées à l'instance de la classe forment un triangle plat ou non
+	 * @example let triangle = new Triangle();
+	 * * triangle.l1 = 2;
+	 * * triangle.l2 = 3;
+	 * * triangle.l3 = 5
+	 * * triangle.isTrueTriangleLongueurs() renvoie true
+	 * @example let triangle = new Triangle();
+	 * * triangle.l1 = 2;
+	 * * triangle.l2 = 3;
+	 * * triangle.l3 = 4
+	 * * triangle.isTrueTriangleLongueurs() renvoie false
+	 */
 	function isPlatTriangleLongueurs() {
 		if ((typeof self.l1 == "undefined") || (typeof self.l2 == "undefined") || (typeof self.l3 == "undefined")) {
 			//return 'L\'une des longueurs de l\'objet triangle n\'est pas définie';
 			return false;
 		}
 		let longueurs = [self.l1,self.l2,self.l3];
-		//console.log('longueurs : '+longueurs);
 		longueurs.sort(function(a,b){
 			return calcul(a-b);
 		});
-		//console.log('longueurs sort() : '+longueurs);
 		if (longueurs[2] == calcul(longueurs[0]+longueurs[1])) {
 			return true;
 		} else {
@@ -4159,7 +4273,20 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		};
 	};
 
-	// renvoie un booleen selon que les trois angles forment un vrai triangle non plat ou non
+	/**
+	 * @return {array} Renvoie un booleen selon que les trois angles passés à l'instance de la classe forment un vrai triangle ou non
+	 * @example let triangle = new Triangle();
+	 * * triangle.a1 = 100;
+	 * * triangle.a2 = 40;
+	 * * triangle.a3 = 50
+	 * * triangle.isTrueTriangleAngles() renvoie false
+	 * @example let triangle = new Triangle();
+	 * * triangle.a1 = 80;
+	 * * triangle.a2 = 40;
+	 * * triangle.a3 = 60
+	 * * triangle.isTrueTriangleAngles() renvoie true
+	 */
+
 	function isTrueTriangleAngles() {
 		// si l'un des angles n'est pas defini ça ne va pas
 		if ((typeof self.a1 == "undefined") || (typeof self.a2 == "undefined") || (typeof self.a3 == "undefined")) {
@@ -4183,6 +4310,19 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 	};
 
 	// renvoie un booleen selon que les trois angles forment un triangle plat ou non
+	/**
+	 * @return {array} Renvoie un booleen selon que les trois angles passés à l'instance de la classe forment un triangle plat ou non
+	 * @example let triangle = new Triangle();
+	 * * triangle.a1 = 0;
+	 * * triangle.a2 = 0;
+	 * * triangle.a3 = 180
+	 * * triangle.isTrueTriangleAngles() renvoie true
+	 * @example let triangle = new Triangle();
+	 * * triangle.a1 = 80;
+	 * * triangle.a2 = 40;
+	 * * triangle.a3 = 60
+	 * * triangle.isTrueTriangleAngles() renvoie false
+	 */
 	function isPlatTriangleAngles() {
 		if ((typeof self.a1 == "undefined") || (typeof self.a2 == "undefined") || (typeof self.a3 == "undefined")) {
 			return false;
@@ -4199,7 +4339,9 @@ function Triangles(l1,l2,l3,a1,a2,a3) {
 		};
 	};
 
-	// renvoie un booléen selon que le triangle donné à partir de ses trois longueurs ou trois angles est quelconque ou non
+	/**
+	 * Méthode non finalisée
+	 */
 	function isQuelconque() {
 		// Vérifier que le triangle existe !!!
 		if ( ( ((self.l1!=self.l2) && (self.l1!=self.l3) && (self.l2!=self.l3) ) || ( (self.a1!=self.a2) && (self.a1!=self.a3) && (self.a2!=self.a3) ) ) && ( (self.a1 != 90) || (self.a2 != 90) || (self.a3 != 90) ) ) {
@@ -4243,9 +4385,10 @@ function Relatif(...relatifs) {
 	this.relatifs = relatifs;
 
 	/**
-	 * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs, 
-	 * Si 0 fait partie des relatifs on renvoie une erreur
-	 * @return {array} renvoie un tableau de -1 ou 1
+	 * * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs, 
+	 * * Si 0 fait partie des relatifs on renvoie une erreur
+	 * @return {array} Renvoie un tableau de -1 ou 1
+	 * @example getSigneNumber(-1,-2,8,-9,4) renvoie [-1,-1,1,-1,1]
 	 */
 	function getSigneNumber() {		
 		let signes = [];
@@ -4282,8 +4425,9 @@ function Relatif(...relatifs) {
 	};
 
 	/** 
-	 * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs
-	 * @return {array} renvoie un tableau de strings valant 'négatif' ou 'positif'
+	 * * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs
+	 * @return {array} Renvoie un tableau de strings valant 'négatif' ou 'positif'
+	 * @example getSigneNumber(-1,-2,8,-9,4) renvoie le tableau de strings [négatif,négatif,positif,négatif,positif]
 	*/
 	function getSigneString() {
 		let signesString = [];
@@ -4301,8 +4445,8 @@ function Relatif(...relatifs) {
 
 	/**
 	 * 	 
-	 * @param  {...any} n deux ou plus de nombres relatifs
-	 * @return {number} le signe du produit 1 ou -1
+	 * @param  {...any} n une liste de deux ou plus de nombres relatifs
+	 * @return {number} Renvoie le signe du produit des nombres de cette liste. 1 ou -1
 	 * @example getSigneProduitNumber(1,-4,-7) renvoie 1
 	 */
 
@@ -4338,11 +4482,11 @@ function Relatif(...relatifs) {
 		};
 	};
 
-		/**
+	/**
 	 * 	 
-	 * @param  {...any} n deux ou plus de nombres relatifs
-	 * @return {number} le signe du produit 1 ou -1
-	 * @example getSigneProduitNumber(1,-4,-7) renvoie 1
+	 * @param  {...any} n une liste de deux ou plus de nombres relatifs
+	 * @return {string} Renvoie un string désignant le signe du produit des nombres de cette liste. postif1 ou négatif
+	 * @example getSigneProduitNumber(1,-4,-7) renvoie le string positif
 	 */
 
 	function getSigneProduitString(...n) {
@@ -4355,28 +4499,175 @@ function Relatif(...relatifs) {
 			};			
 	};
 
+	/**
+	 * 	 
+	 * @param  {...any} n une liste de deux ou plus de nombres relatifs
+	 * @return {string} Renvoie le nombre d'éléments négatifs des nombres de cette liste.
+	 * * la liste d'entiers doit être passé dans un tableau
+	 * @example getCardNegatifs([1,-4,-7]) renvoie 2
+	 * @example getCardNegatifs([4,-5,7,7,-8,-9]) renvoie 3
+	 */
+
+	function getCardNegatifs([...n]) {
+		let card = 0;
+		try {
+			// port du string interdit !			
+			n.forEach(function(element) {
+				if (typeof element == 'string') {
+					throw new TypeError(`${element} est un string !`);
+				};
+				if (element == 0) {
+					throw new RangeError(`${element} a été exclu des valeurs possibles.`);
+				};
+			});	
+			// Quoi faire sans nombres ?
+			if (n.length == 0) {
+				throw new Error(`C'est mieux avec quelques nombres !`)
+			};
+			n.forEach(function(element){
+				if (element < 0) {
+					card = card +1;
+				};
+			});
+			return card;						
+		}
+		catch(err) {
+			console.log(err.message);	
+		};
+	};
+	
+	/**
+	 * Fonction locale
+	 * @param {integer} n un entier désignant le cardinal de facteurs négatifs dans un produit
+	 * @return un string au singulier ou au pluriel
+	 * @example orth_facteurs_negatifs(0) ou orth_facteurs_negatifs(1) renvoie 'facteur negatif'
+	 * @example orth_facteurs_negatifs(7) renvoie 'facteurs negatifs'
+	 */
+	function orth_facteurs_négatifs(n) {
+		if (n>=2) {
+			return `facteurs négatifs`;
+		} else {
+			return `facteur négatif`;
+		};
+	};
+
+	/** 	 
+	 * @param  {...any} n une liste de deux ou plus de nombres relatifs qui constituent les facteurs du produit
+	 * @return {string} Renvoie la règle qui permet de justifier le signe d'un produit de relatifs adaptée à la liste passée en paramètre.	 
+	 * @example setRegleProduitFacteurs([1,-2,-8,5]) renvoie le string 'Il y a 2 facteurs négatifs, le nombre de facteurs négatifs est pair donc le produit est positif.'
+	 */
+
+	function setRegleSigneProduit(...n) {
+		try {
+			// port du string interdit !			
+			n.forEach(function(element) {
+				if (typeof element == 'string') {
+					throw new TypeError(`${element} est un string !`);
+				};
+			});	
+			// Quoi faire sans nombres ?
+			if (n.length == 0) {
+				throw new Error(`C'est mieux avec quelques nombres !`)
+			};
+			if (n.length == 2) {
+				if ( getCardNegatifs(n)%2 == 0 ) {
+					return `Les deux facteurs ont le même signe donc le produit est positif.`;
+				} else {
+					return `Les deux facteurs ont un signe différent donc le produit est négatif.`;
+				};
+			} else if (n.length > 2 ) {
+				if ( getCardNegatifs(n)%2 == 0 ) {
+					if ( getCardNegatifs(n) == 0 ) {
+						return `Tous les facteurs sont positifs donc le produit est positif.`;
+					} else {
+						return `Il y a ${getCardNegatifs(n)} ${orth_facteurs_négatifs(getCardNegatifs(n))}, le nombre de facteurs négatifs est pair donc le produit est positif.`;
+					};						
+				} else {
+					return `Il y a ${getCardNegatifs(n)} ${orth_facteurs_négatifs(getCardNegatifs(n))}, le nombre de facteurs négatifs est impair donc le produit est négatif.`;
+				};
+			};
+		}
+		catch(err) {
+			console.log(err.message);	
+		};
+	};
+
+		/**
+	 * 	 
+	 * @param  {...any} num une liste de deux ou plus de nombres relatifs qui constituent les facteurs du numérateur
+	 * @param  {...any} den une liste de deux ou plus de nombres relatifs qui constituent les facteurs du dénominateur
+	 * @return {string} Renvoie la règle qui permet de justifier le signe d'un produit de relatifs adaptée à la liste passée en paramètre.	 
+	 * @example setRegleProduitQuotient([1,-2],[-8,5]) renvoie le string 'La somme des facteurs négatifs du numérateur et des facteurs négatifs du dénominateur vaut 2, ce nombre est pair donc le quotient est positif.'
+	 */
+
+	function setRegleSigneQuotient(...n) {
+		try {
+			// port du string interdit !			
+			n.forEach(function(element) {
+				if (typeof element == 'string') {
+					throw new TypeError(`${element} est un string !`);
+				};
+			});	
+			// Quoi faire sans nombres ?
+			if (n.length == 0) {
+				throw new Error(`C'est mieux avec quelques nombres !`)
+			};
+			if (n.length == 2)  {
+				if ( getCardNegatifs(n)%2 == 0 ) {
+					return `Le numérateur et le dénominateur ont le même signe donc le quotient est positif.`;
+				} else {
+					return `Les numérateur et le dénominateur ont un signe différent donc le quotient est négatif.`;
+				};
+			} else if (n.length > 2) {
+				if ( getCardNegatifs(n)%2 == 0 ) {
+					if ( getCardNegatifs(n) == 0 ) {
+						return `Tous les facteurs du numérateur et tous les facteurs du dénominateur sont positifs donc le quotient est positif.`;
+					} else {						
+						//return `La somme du nombre de facteurs négatifs du numérateur et du nombre de facteurs négatifs du dénominateur vaut ${getCardNegatifs(n)}, ce nombre est pair donc le quotient est positif.`;
+						return `Quand on compte les facteurs négatifs du numérateur et du dénominateur, on trouve ${getCardNegatifs(n)}, ce nombre est pair donc le quotient est positif.`;
+					};						
+				} else {
+					//return `La somme du nombre de facteurs négatifs du numérateur et du nombre de facteurs négatifs du dénominateur vaut ${getCardNegatifs(n)}, ce nombre est impair donc le quotient est négatif.`;
+					return `Quand on compte les facteurs négatifs du numérateur et du dénominateur, on trouve ${getCardNegatifs(n)}, ce nombre est impair donc le quotient est négatif.`;
+				};
+			};
+		}
+		catch(err) {
+			console.log(err.message);	
+		};
+	};
+
 	this.getSigneNumber = getSigneNumber;
 	this.getSigneString = getSigneString;
 	this.getSigneProduitNumber = getSigneProduitNumber;
 	this.getSigneProduitString = getSigneProduitString;
+	this.getCardNegatifs = getCardNegatifs;
+	this.setRegleSigneProduit = setRegleSigneProduit;
+	this.setRegleSigneQuotient = setRegleSigneQuotient;
 
 };
 
 /**
- * @class Fraction
- * @classdesc Classe Fraction - Méthodes utiles sur les fractions
+ * @class ListeFraction
+ * @classdesc Classe Fraction - Méthodes utiles sur les collections de fractions
  * @author Sébastien Lozano
  */
 
- function Fraction() {
+ function ListeFraction() {
 	 //'use strict'; pas de use strict avec un paramètre du reste
 	 var self = this;
+	 /**
+	  * @constant {array} denominateurs_amis tableau de tableaux de dénominateurs qui vont bien ensemble pour les calculs
+	  * le tableau [12,2,3,4,6] faisait planter 4C25-0
+	  */
+	 //let denominateurs_amis = [[12,2,3,4,6],[16,2,4,8],[18,2,3,6,9],[20,2,4,5,10],[24,2,3,4,8,12],[30,2,3,5,6],[32,2,16,4,8],[36,2,18,4,9],[40,2,20,4,10,5,8]]
+	 let denominateurs_amis = [[16,2,4,8],[18,2,3,6,9],[20,2,4,5,10],[24,2,3,4,8,12],[30,2,3,5,6],[32,2,16,4,8],[36,2,18,4,9],[40,2,20,4,10,5,8]]
 
 	/**
 	 * 
-	 * @param  {...any} fractions contient la liste des num et den dans l'ordre n1,d1,n2,d2, ... de deux ou plus de fractions
-	 * @return {array} renvoie un tableau de num et den triés selon la croissance des quotients [[n_frac_min,d_frac_min],...,[n_frac_max,d_frac_max]]
-	 * 
+	 * @param  {...any} fractions contient la liste des numérateurs et denominateurs dans l'ordre n1,d1,n2,d2, ... de deux ou plus de fractions
+	 * @return {array} renvoie un tableau avec les numérateurs et les dénominateurs triés selon la croissance des quotients [n_frac_min,d_frac_min,...,n_frac_max,d_frac_max]
+	 * @example sortFraction(1,2,1,5,1,4,1,3) renvoie [1,5,1,4,1,3,1,2] 
 	 */
 	function sortFractions(...fractions) {
 		try {		
@@ -4388,7 +4679,6 @@ function Relatif(...relatifs) {
 					throw new RangeError(`${element} est exclu des valeurs possibles pour les dénominateurs !`)
 				};
 			});	
-			console.log(fractions.length);
 			if (Math.floor(fractions.length/2) <= 1 ) {
 				throw new Error(`Il faut au moins deux fractions !`);
 			};
@@ -4399,11 +4689,6 @@ function Relatif(...relatifs) {
 			do{
 			 	changed = false;
 			 	for (let i=0; i<(fractions.length-1); i+=2) {
-					//  console.log('i'+i);
-					//  console.log(fractions[i]);
-					//  console.log(fractions[i+1]);
-					//  console.log(fractions[i+2]);
-					//  console.log(fractions[i+3]);
 					if ((fractions[i]/fractions[i+1]) > (fractions[i+2]/fractions[i+3])) {
 						let tmp = [fractions[i],fractions[i+1]];
 						fractions[i]=fractions[i+2];
@@ -4423,8 +4708,10 @@ function Relatif(...relatifs) {
 
 	/**
 	 * fonction locale pour trouver le ppcm d'un nombre indeterminé d'entiers
-	 * @param  {[...integer]} n parametre du reste contenant une liste d'entiers
+	 * @param  {integer} n parametre du reste contenant une liste d'entiers
+	 * * la liste d'entiers doit être passé dans un tableau
 	 * @return {number} renvoie le ppcm des nombres entiers passés dans le paramètre du reste n
+	 * @example ppcm(2,6,4,15) renvoie 60
 	 */
 	function ppcm([...n]) {
 		try {
@@ -4443,15 +4730,15 @@ function Relatif(...relatifs) {
 		catch (e) {
 			console.log(e.message);
 		};
-		
-
 	};
 
 	/**
 	 * 
-	 * @param  {...any} fractions contient la liste des num et den dans l'ordre n1,d1,n2,d2, ... de deux ou plus de fractions
-	 * @return {array} renvoie un tableau de num et den avec le même denom dans l'ordre initial
-	 * 
+	 * @param  {...any} fractions contient la liste des numérateurs et des dénominateurs dans l'ordre n1,d1,n2,d2, ... de deux ou plus de fractions
+	 * @return {array} renvoie un tableau de numérateurs et de dénominateurs avec le même dénominateur dans l'ordre initial.
+	 * * Le dénominateur choisi est toujours le ppcm
+	 * * Les fractions ne sont pas réduites
+	 * @example reduceSameDenominateur(1,2,1,5,2,3) renvoie [15,30,6,30,20,30]
 	 */
 	function reduceSameDenominateur(...fractions) {
 		try {		
@@ -4463,7 +4750,6 @@ function Relatif(...relatifs) {
 					throw new RangeError(`${element} est exclu des valeurs possibles pour les dénominateurs !`)
 				};
 			});	
-			console.log(fractions.length);
 			if (Math.floor(fractions.length/2) <= 1 ) {
 				throw new Error(`Il faut au moins deux fractions !`);
 			};
@@ -4492,11 +4778,502 @@ function Relatif(...relatifs) {
 		};
 	};
 
+	/**
+	 * **ATTENTION Fonction clonée dans la boîte à outils**
+	* @return Retourne le numérateur et le dénominateur de la fraction passée en argument sous la forme (numérateur,dénominateur)réduite au maximum dans un tableau [numérateur,dénominateur]
+	* @author Rémi Angot
+	*/
+	function fraction_simplifiee(n,d){ 
+		let p=pgcd(n,d);
+		let ns = n/p;
+		let ds = d/p;
+		if (ns<0 && ds<0) {
+			[ns,ds] = [-ns,-ds]
+		}
+		if (ns>0 && ds<0) {
+			[ns,ds] = [-ns,-ds]
+		}
+		return [ns,ds];
+	}
+
 	this.sortFractions = sortFractions;
 	this.reduceSameDenominateur = reduceSameDenominateur;
+	this.denominateurs_amis = denominateurs_amis;
+	this.fraction_simplifiee = fraction_simplifiee;
 	
 
  };
+
+ /**
+  * @constructor Construit un objet Fraction(a,b)
+  * @param {integer} a 
+  * @param {integer} b 
+  */
+ function fraction (a,b) {
+    return new Fraction(a,b)
+}
+
+/**
+ * @constant {object} Frac objet générique pour accéder à tout moment aux méthodes et proprétés de la classe Fraction()
+ */
+
+let Frac = new Fraction();
+
+/**
+ * @class
+ * @classdesc Méthodes utiles sur les fractions
+ * @param {number} num numérateur
+ * @param {number} den dénominateur
+ * @author Jean-Claude Lhote et Sébastien Lozano
+ */
+
+function Fraction(num,den) {
+	/**
+	 * @property {integer} numérateur optionnel, par défaut la valeur vaut 0
+	 */
+	this.num = num || 0;
+	/**
+	 * @property {integer} dénominateur optionnel, par défaut la valeur vaut 1
+	 */
+	this.den=den || 1;
+	/**
+	 * numIrred est le numérateur réduit
+	 * denIrredest le dénominateur réduit
+	 */
+    this.numIrred=fraction_simplifiee(this.num,this.den)[0]
+	this.denIrred=fraction_simplifiee(this.num,this.den)[1]
+	this.pourcentage=calcul(this.numIrred*100/this.denIrred)
+	/**
+	 * @return {object} La fraction "complexifiée" d'un rapport k
+	 * @param {number} k Le nombre par lequel, le numérateur et le dénominateur sont multipliés.
+	 */
+	this.fractionEgale = function(k){
+		return fraction(calcul(this.numIrred*k),calcul(this.denIrred*k))
+	}   
+	this.simplifie=function() {
+		return fraction(this.numIrred,this.denIrred)
+	}
+	/**
+	 * @return {object} L'opposé de la fraction
+	 */
+    this.oppose = function(){
+        return fraction(-this.num,this.den)
+	}
+	/**
+	 * @return {object]} L'opposé de la fracion réduite
+	 */
+    this.opposeIrred = function(){
+        return fraction(-this.numIrred,this.denIrred)
+    }
+	/**
+	 * @return {object]} L'inverse de la fraction
+	 */
+    this.inverse = function(){
+        return fraction(this.den,this.num)
+	}
+	/**
+	 * @return {object} L'inverse de la fraction simplifiée
+	 */
+    this.inverseIrred = function(){
+        return fraction(this.denIrred,this.numIrred)
+	}
+	/**
+	 * @return {object} La somme des fractions
+	 * @param {object} f2 La fraction qui s'ajoute
+	 */
+    this.sommeFraction =function(f2) {
+        return fraction(this.num*f2.den+f2.num*this.den,this.den*f2.den)
+	}
+	/**
+	 * @return {object} La somme de toutes les fractions
+	 * @param  {...any} fractions Liste des fractions à ajouter à la fraction
+	 */
+    this.sommeFractions = function(...fractions){
+        let s=fraction(this.num,this.den)
+        for (let f of fractions) {
+            s=s.sommeFraction(f)
+        }
+        return s
+	}
+	/**
+	 * @return {object} Le produit des deux fractions
+	 * @param {object} f2  LA fraction par laquelle est multipliée la fraction
+	 */
+    this.produitFraction = function(f2) {
+        return fraction(this.num*f2.num,this.den*f2.den)
+	}
+	/**
+	 * @return {object} La puissance n de la fraction
+	 * @param {integer} n l'exposant de la fraction 
+	 */
+    this.puissanceFraction = function(n) {
+        return fraction(this.num**n,this.den**n)
+	}
+	/**
+	 * @param  {...any} fractions Les fractions qui multiplient la fraction
+	 * @return Le produit des fractions
+	 */
+    this.produitFractions = function(...fractions){
+        let p=fraction(this.num,this.den)
+        for (let f of fractions) {
+            p=p.produitFraction(f)
+    }
+        return p
+	}
+	/**
+	 * @param {object} f2 est la fracion qui est soustraite de la fraction
+	 * @return {objet} La différence des deux fractions
+	 */
+    this.differenceFraction = function(f2) {
+        return this.sommeFraction(f2.oppose())
+	}
+
+/**
+ * @return {object}  Renvoie une fraction avec comme dénominateur une puissance de 10 ou 'NaN' si la fraction n'a pas de valeur décimale
+ */
+	this.fractionDecimale = function(){
+		let den=this.denIrred
+		let num=this.numIrred
+		let liste=obtenir_liste_facteurs_premiers(den)
+		let n2=0,n5=0
+		for (let n of liste) {
+			if (n==2) n2++
+			else if (n==5) n5++
+			else return 'NaN'
+		}
+		if (n5==n2) return fraction(this.numIrred,this.fractionDecimale.denIrred)
+		else if (n5>n2) return fraction(this.numIrred*2**(n5-n2),this.denIrred*2**(n5-n2))
+		else return fraction(this.numIrred*5**(n2-n5),this.denIrred*5**(n2-n5))
+	}
+	/**
+	 * @return {number} La valeur décimale de la fraction
+	 */
+	this.valeurDecimale = function(){
+		if (this.fractionDecimale()!='NaN') return calcul(this.fractionDecimale().num/this.fractionDecimale().den)
+		else return `Ce n\'est pas un nombre décimal`
+	}
+	/**
+	 * @return {string} Code Latex de la fraction
+	 */
+	this.texFraction = function(){
+		return tex_fraction_signe(this.num,this.den)
+	}
+	/**
+	 * @return {string} code Latex de lafraction simplifiée
+	 */
+	this.texFractionSimplifiee = function(){
+		return tex_fraction_signe(this.numIrred,this.denIrred)
+	}
+    /**
+     * 
+     * @param {integer} n entier par lequel multiplier la fraction 
+     * @return {object} fraction multipliée par n
+     */
+    this.multiplieEntier = function(n) {
+        return fraction(n*this.num,this.den);
+    };
+
+        /**
+     * 
+     * @param {integer} n entier par lequel multiplier la fraction 
+     * @return {object} fraction multipliée par n simplifiée
+     */
+    this.multiplieEntierIrred = function(n) {
+        return fraction(fraction_simplifiee(n*this.num,this.den)[0],fraction_simplifiee(n*this.num,this.den)[1]);
+	};
+	/**
+	 * @return fraction divisée par n
+	 * @param {integer} n entier qui divise la fraction 
+	 */
+	this.entierDivise=function(n){
+		return fraction(this.num,n*this.den)
+	}
+	/**
+	 * @return fraction divisée par n et réduite si possible
+	 * @param {integer} n entier qui divise la fraction 
+	 */
+	this.entierDiviseIrred=function(n){
+		return fraction(fraction(this.num,n*this.den).numIrred,fraction(this.num,n*this.den).denIrred)
+	}
+	/**
+	 * @return {object} la fraction augmentée de n
+	 * @param {integer} n entier à ajouter à la fraction 
+	 */
+	this.ajouteEntier=function(n){
+		return fraction(this.num+this.den*n,this.den)
+	}
+/**
+ * @return {object} n moins la fraction
+ * @param {integer} n l'entier duqel on soustrait la fraction 
+ */
+	this.entierMoinsFraction=function(n){
+		return (fraction(n*this.den-this.num,this.den))
+	}
+    /**
+     * 
+     * @param {number} depart N° de la première part coloriée (0 correspond à la droite du centre) 
+     * @param {*} type 'gateau' ou 'segment' ou 'barre'
+     */
+	this.representationIrred = function (x, y, rayon, depart = 0, type = 'gateau', couleur = 'gray') {
+		let objets = [], n, num, k, dep, s, a, O, C
+		n = quotientier(this.numIrred, this.denIrred)
+		num = this.numIrred
+		unegraduation=function(x,y,couleur='black',epaisseur=1){
+			let A=point(x,y+0.2)
+			let B=point(x,y-0.2)
+			let g=segment(A,B)
+			g.color=couleur
+			g.epaisseur=epaisseur
+			return g
+		}
+		if (type == 'gateau') {
+			for (k = 0; k < n; k++) {
+				O = point(x + k * 2 * (rayon + 0.5), y)
+				C = cercle(O, rayon)
+				objets.push(C)
+				for (let i = 0; i < this.denIrred; i++) {
+					s = segment(O, rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, i * 360 / this.denIrred))
+					objets.push(s)
+				}
+				dep = rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, depart * 360 / this.denIrred)
+				for (let j = 0; j < Math.min(this.denIrred, num); j++) {
+					a = arc(dep, O, 360 / this.denIrred, true, fill = couleur)
+					a.opacite = 0.3
+					dep = rotation(dep, O, 360 / this.denIrred)
+					objets.push(a)
+				}
+				num -= this.denIrred
+			}
+			if (this.num%this.den!=0) { 
+				O = point(x + k * 2 * (rayon + 0.5), y)
+				C = cercle(O, rayon)
+				objets.push(C)
+				for (let i = 0; i < this.denIrred; i++) {
+					s = segment(O, rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, i * 360 / this.denIrred))
+					objets.push(s)
+				}
+				dep = rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, depart * 360 / this.denIrred)
+				for (let j = 0; j < Math.min(this.denIrred, num); j++) {
+					a = arc(dep, O, 360 / this.denIrred, true, fill = couleur)
+					a.opacite = 0.3
+					dep = rotation(dep, O, 360 / this.denIrred)
+					objets.push(a)
+				}
+			}
+		}
+		else if (type == 'segment') {
+			for (k = 0; k < n; k++) {
+				O = point(x + k *rayon, y)
+				C = translation(O, vecteur(rayon, 0))
+				s = segment(O, C)
+				s.styleExtremites = '-|'
+				objets.push(s)
+				for (let i = 0; i < this.denIrred; i++) {
+					s = segment(translation(O, vecteur(i * rayon / this.denIrred, 0)), translation(O, vecteur((i + 1) * rayon / this.denIrred, 0)))
+					s.styleExtremites = '|-'
+					objets.push(s)
+				}
+				a = segment(O, point(O.x + Math.min(num, this.denIrred) * rayon / this.denIrred, O.y))
+				a.color = couleur
+				a.opacite = 0.4
+				a.epaisseur = 4
+				objets.push(a)
+				num -= this.denIrred
+			}
+			O = point(x + k * rayon, y)
+			C = translation(O, vecteur(rayon, 0))
+			s = segment(O, C)
+			s.styleExtremites = '-|'
+			objets.push(s)
+			for (let i = 0; i < this.denIrred; i++) {
+				s = segment(translation(O, vecteur(i * rayon / this.denIrred, 0)), translation(O, vecteur((i + 1) * rayon / this.denIrred, 0)))
+				s.styleExtremites = '|-'
+				objets.push(s)
+			}
+			a = segment(O, point(O.x + Math.min(num, this.denIrred) * rayon / this.denIrred, O.y))
+			a.color = couleur
+			a.opacite = 0.4
+			a.epaisseur = 4
+			objets.push(a)
+			objets.push(unegraduation(x,y),texteParPosition(unite0,x,y-0.6,'milieu','blue',scale),texteParPosition(unite1,x+rayon,y-0.6,'milieu','blue',scale))
+
+		}
+		else {
+			let diviseur
+			if (this.denIrred % 3 == 0) diviseur = 3
+			else if (this.denIrred % 2 == 0) diviseur = 2
+			else diviseur = 1
+
+			for (k = 0; k < n; k++) {
+				for (let j = 0; j < diviseur; j++) {
+					for (let h = 0; h < calcul(this.denIrred / diviseur); h++) {
+						O = point(x + k * (rayon + 1)+j*rayon/diviseur, y + h * rayon / diviseur)
+						C = translation(O, vecteur(rayon / diviseur, 0))
+						dep = carre(O, C)
+						dep.color = 'black'
+						dep.couleurDeRemplissage = couleur
+						dep.opaciteDeRemplissage=0.4
+						objets.push(dep)
+					}
+				}
+				num -= this.denIrred
+			}
+			if (num>0) {
+				for (let j = 0; j < diviseur; j++) {
+					for (let h = 0; h < calcul(this.denIrred / diviseur); h++) {
+						O = point(x + k * (rayon + 1)+j*rayon/diviseur, y + h * rayon / diviseur)
+						C = translation(O, vecteur(rayon / diviseur, 0))
+						dep = carre(O, C)
+						dep.color = 'black'
+						objets.push(dep)
+					}
+				}
+				for (let i = 0; i < num; i++) {
+				O = point(x + k * (rayon + 1) + (i % diviseur) * rayon / diviseur, y + quotientier(i, diviseur) * rayon / diviseur)
+				C = translation(O, vecteur(rayon / diviseur, 0))
+				dep = carre(O, C)
+				dep.color = 'black'
+				dep.couleurDeRemplissage = couleur
+				dep.opaciteDeRemplissage=0.4
+				objets.push(dep)
+			}
+		}
+		}
+		return objets
+	}
+	this.representation = function (x, y, rayon, depart = 0, type = 'gateau', couleur = 'gray',unite0=0,unite1=1,scale=1) {
+		let objets = [], n, num, k, dep, s, a, O, C
+		n = quotientier(this.num, this.den)
+		num = this.num
+		unegraduation=function(x,y,couleur='black',epaisseur=1){
+			let A=point(x,y+0.2)
+			let B=point(x,y-0.2)
+			let g=segment(A,B)
+			g.color=couleur
+			g.epaisseur=epaisseur
+			return g
+		}
+		if (type == 'gateau') {
+			k, dep
+			for (k = 0; k < n; k++) {
+				let O = point(x + k * 2 * (rayon + 0.5), y)
+				let C = cercle(O, rayon)
+				objets.push(C)
+				let s, a
+				for (let i = 0; i < this.den; i++) {
+					s = segment(O, rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, i * 360 / this.den))
+					objets.push(s)
+				}
+				dep = rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, depart * 360 / this.den)
+				for (let j = 0; j < Math.min(this.den, num); j++) {
+					a = arc(dep, O, 360 / this.den, true, fill = couleur)
+					a.opacite = 0.3
+					dep = rotation(dep, O, 360 / this.den)
+					objets.push(a)
+				}
+				num -= this.den
+			}
+			if (this.num%this.den!=0) { 
+				let O = point(x + k * 2 * (rayon + 0.5), y)
+				let C = cercle(O, rayon)
+				objets.push(C)
+				for (let i = 0; i < this.den; i++) {
+					s = segment(O, rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, i * 360 / this.den))
+					objets.push(s)
+				}
+			
+				dep = rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, depart * 360 / this.den)
+				if (this.num%this.den!=0) for (let j = 0; j < Math.min(this.den, num); j++) {
+					a = arc(dep, O, 360 / this.den, true, fill = couleur)
+					a.opacite = 0.3
+					dep = rotation(dep, O, 360 / this.den)
+					objets.push(a)
+				}
+			}
+		}
+		else if (type == 'segment') {
+			for (k = 0; k < n; k++) {
+				O = point(x + k * rayon, y)
+				C = translation(O, vecteur(rayon, 0))
+				s = segment(O, C)
+				s.styleExtremites = '-|'
+				objets.push(s)
+				for (let i = 0; i < this.den; i++) {
+					s = segment(translation(O, vecteur(i * rayon / this.den, 0)), translation(O, vecteur((i + 1) * rayon / this.den, 0)))
+					s.styleExtremites = '|-'
+					objets.push(s)
+				}
+				a = segment(O, point(O.x + Math.min(num, this.den) * rayon / this.den, O.y))
+				a.color = couleur
+				a.opacite = 0.4
+				a.epaisseur = 4
+				objets.push(a)
+				num -= this.den
+			}
+			O = point(x + k * rayon , y)
+			C = translation(O, vecteur(rayon, 0))
+			s = segment(O, C)
+			s.styleExtremites = '-|'
+			objets.push(s)
+			for (let i = 0; i < this.den; i++) {
+				s = segment(translation(O, vecteur(i * rayon / this.den, 0)), translation(O, vecteur((i + 1) * rayon / this.den, 0)))
+				s.styleExtremites = '|-'
+				objets.push(s)
+			}
+			a = segment(O, point(O.x + Math.min(num, this.den) * rayon / this.den, O.y))
+			a.color = couleur
+			a.opacite = 0.4
+			a.epaisseur = 4
+			objets.push(a)
+			objets.push(unegraduation(x,y),texteParPosition(unite0,x,y-0.6,'milieu','blue',scale),texteParPosition(unite1,x+rayon,y-0.6,'milieu','blue',scale))
+
+		}
+		else { //Type bâtons
+			let diviseur
+			if (this.den % 3 == 0) diviseur = 3
+			else if (this.den % 2 == 0) diviseur = 2
+			else diviseur = 1
+
+			for (k = 0; k < n; k++) {
+				for (let j = 0; j < diviseur; j++) {
+					for (let h = 0; h < calcul(this.den / diviseur); h++) {
+						O = point(x + k * (rayon + 1)+j*rayon/diviseur, y + h * rayon / diviseur)
+						C = translation(O, vecteur(rayon / diviseur, 0))
+						dep = carre(O, C)
+						dep.color = 'black'
+						dep.couleurDeRemplissage = couleur
+						dep.opaciteDeRemplissage=0.4
+						objets.push(dep)
+					}
+				}
+				num -= this.den
+			}
+			if (num>0) {
+				for (let j = 0; j < diviseur; j++) {
+					for (let h = 0; h < calcul(this.den / diviseur); h++) {
+						O = point(x + k * (rayon + 1)+j*rayon/diviseur, y + h * rayon / diviseur)
+						C = translation(O, vecteur(rayon / diviseur, 0))
+						dep = carre(O, C)
+						dep.color = 'black'
+						objets.push(dep)
+					}
+				}
+				for (let i = 0; i < num; i++) {
+				O = point(x + k * (rayon + 1) + (i % diviseur) * rayon / diviseur, y + quotientier(i, diviseur) * rayon / diviseur)
+				C = translation(O, vecteur(rayon / diviseur, 0))
+				dep = carre(O, C)
+				dep.color = 'black'
+				dep.couleurDeRemplissage = couleur
+				dep.opaciteDeRemplissage=0.4
+				objets.push(dep)
+			}
+		}
+		}
+		return objets
+	}
+
+
+}
 
 // Gestion des styles LaTeX
 

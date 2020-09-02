@@ -902,19 +902,25 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     yI0= fraction_simplifiee(yA+yB,2)[0]
                     yI1= fraction_simplifiee(yA+yB,2)[1]
                     
-                    g =grille(-9,-9,9,9)               
-                    A = point(xA,yA,'A','red')
-                    B = point(xB,yB,'B','red')
-                    a=axes(xmin=-9,ymin=-9,xmax=9,ymax=9,thick=.2,step=1)
+                    g = grille(-9,-9,9,9)               
+                    A = point(xA,yA,'A')
+                    B = point(xB,yB,'B')
+                    a = axes(-9,-9,9,9)
                     s = segment(A,B,'blue')
-                    T=tracePoint(A,B) // Repère les points avec une croix
-                    L=labelPoint(A,B)
+                    T = tracePoint(A,B) // Repère les points avec une croix
+                    L = labelPoint(A,B)
                     texte =`Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :`
                     texte +=` $A\\left(${xA};${yA}\\right)$ et $B\\left(${xB};${yB}\\right)$`
                     texte += `<br>Déterminer les coordonnées du point $I$ milieu du segment $[AB]$ `;
-                                   
-                    
-                    texte_corr = mathalea2d(-9,-9,9,9,T,L,g,a,s)
+                     
+                    texte_corr = mathalea2d({
+                      xmin : -9,
+                      ymin : -9,
+                      xmax : 9,
+                      ymax : 9
+                    },a,g,T,s,L);
+
+
                     texte_corr += `<br>On sait d'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d'un repère orthonormé,`
                     texte_corr +=`<br> alors les coordonnées du point $I$ milieu de $[AB]$ sont `
                     texte_corr +=`$I\\left(\\dfrac{x_A+x_B}{2};\\dfrac{y_A+y_B}{2}\\right)$ <br>`
@@ -945,10 +951,10 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     xI1= fraction_simplifiee(xA+xB,2)[1]
                     yI0= fraction_simplifiee(yA+yB,2)[0]
                     yI1= fraction_simplifiee(yA+yB,2)[1]
-                      g =grille(-9,-9,9,9)               
+                    g = grille(-9,-9,9,9)               
                     A = point(xA,yA,'A','red')
                     B = point(xB,yB,'B','red')
-                    a=axes(xmin=-9,ymin=-9,xmax=9,ymax=9,thick=.2,step=1)
+                    a = axes(-9,-9,9,9)
                     s = segment(A,B,'blue')
                     T=tracePoint(A,B) // Repère les points avec une croix
                     L=labelPoint(A,B)
@@ -957,7 +963,14 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     texte += `<br>Déterminer les coordonnées du point $B$ tel que I soit le milieu du segment $[AB]$ `;
                                    
                     
-                      texte_corr = mathalea2d(-9,-9,9,9,T,L,s,g,a)
+                    texte_corr = mathalea2d({
+                      xmin : -9,
+                      ymin : -9,
+                      xmax : 9,
+                      ymax : 9
+                    },T,L,g,a,s);
+
+                    
                     texte_corr += `<br>On sait d'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d'un repère orthonormé,`
                     texte_corr +=` <br>alors les coordonnées du point $I$ milieu de $[AB]$ sont `
                     texte_corr +=`$I\\left(\\dfrac{x_A+x_B}{2};\\dfrac{y_A+y_B}{2}\\right)$ <br>`
@@ -1005,7 +1018,14 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     texte +=` $C\\left(${xC};${yC}\\right)$ ; $D\\left(${xD};${yD}\\right).$`
                     texte += `<br>Déterminer si le quadrilatère $ABDC$ est un parallélogramme.`;
                                    
-                      texte_corr = mathalea2d(-9,-9,9,9,T,L,s,g,a)
+                      texte_corr = mathalea2d({
+                      xmin : -9,
+                      ymin : -9,
+                      xmax : 9,
+                      ymax : 9
+                    },T,L,g,a,s);
+
+                    
                     texte_corr += `<br>On sait que ABDC est un parallélogramme si et seulement si ses diagonales se coupent en leur milieu.$`
                     texte_corr += `<br>On cherche donc les coordonnées du milieu de chacune des deux diagonales du quadrilatère :`
                     texte_corr += `On sait d'après le cours, que si $A(x_A;y_A)$ et $D(x_D;y_D)$ sont deux points d'un repère ,`
@@ -1055,10 +1075,10 @@ Exercice.call(this); // Héritage de la classe Exercice()
                    xJ1= fraction_simplifiee(xB+xC,2)[1]
                    yJ0= fraction_simplifiee(yB+yC,2)[0]
                    yJ1= fraction_simplifiee(yB+yC,2)[1]
-                       g =grille(-9,-9,9,9)               
+                    g = grille(-9,-9,9,9)               
                     A = point(xA,yA,'A','red')
                     B = point(xB,yB,'B','red')
-                    a=axes(xmin=-9,ymin=-9,xmax=9,ymax=9,thick=.2,step=1)
+                    a=axes(-9,-9,9,9)
                     s = segment(A,B,'blue')
                     T=tracePoint(A,B) // Repère les points avec une croix
                     L=labelPoint(A,B)
@@ -1068,7 +1088,14 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     texte +=` $C\\left(${xC};${yC}\\right)$ ; $D\\left(${xD};${yD}\\right).$`
                     texte += `<br>Déterminer si le quadrilatère $ABDC$ est un parallélogramme.`;
                                    
-                    texte_corr = mathalea2d(-9,-9,9,9,T,L,s,g,a)
+                    texte_corr = mathalea2d({
+                      xmin : -9,
+                      ymin : -9,
+                      xmax : 9,
+                      ymax : 9
+                    },T,L,g,a,s);
+
+                    
                     texte_corr += `<br>On sait que ABDC est un parallélogramme si et seulement si ses diagonales se coupent en leur milieu.$`
                     texte_corr += `<br>On cherche donc les coordonnées du milieu de chacune des deux diagonales du quadrilatère :`
                     texte_corr += `On sait d'après le cours, que si $A(x_A;y_A)$ et $D(x_D;y_D)$ sont deux points d'un repère ,`
@@ -1505,7 +1532,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cap [${c};${d}].$`
                       ;
                         
-                    texte_corr = mathalea2d(-2,-2,15,2,int,int1,int2,A,B,C,D,c1,c2,c3,c4)
+                    texte_corr = mathalea2d({
+                      xmin : -2,
+                      ymin : -2,
+                      xmax : 15,
+                      ymax : 2
+                    },int,int1,int2,A,B,C,D,c1,c2,c3,c4)
                     texte_corr += `<br>On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}]$.`
                     texte_corr += `<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge :<br>`
                     texte_corr += `<br>Les deux ensembles sont disjoints, ils n'ont aucun élément en commun.<br>
@@ -1535,7 +1567,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     int1 = intervalle(A,B,'red',0);
                     int2 = intervalle(C,D,'blue',0);
                     texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cup [${c};${d}].$`;
-                    texte_corr = mathalea2d(-2,-2,15,2,int,int1,int2,A,B,C,D,c1,c2,c3,c4)
+                    texte_corr = mathalea2d({
+                      xmin : -2,
+                      ymin : -2,
+                      xmax : 15,
+                      ymax : 2
+                    },int,int1,int2,A,B,C,D,c1,c2,c3,c4)
                     texte_corr += `<br>On cherche les réels qui sont ou bien dans $[${a};${b}]$, ou bien dans $[${c};${d}]$.`
                     texte_corr += `<br>On donc regarde la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>`
                     texte_corr += `<br>Les deux ensembles sont disjoints, ils n'ont aucun élément en commun.<br>
@@ -1565,7 +1602,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     int1 = intervalle(A,B,'red',-0.1);
                     int2 = intervalle(C,D,'blue',0.1);
                     texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cap [${c};${d}].$`;
-                    texte_corr = mathalea2d(-2,-2,15,2,int,int1,int2,A,B,C,D,c1,c2,c3,c4)
+                    texte_corr = mathalea2d({
+                      xmin : -2,
+                      ymin : -2,
+                      xmax : 15,
+                      ymax : 2
+                    },int,int1,int2,A,B,C,D,c1,c2,c3,c4)
 
                     texte_corr += `<br>On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}]$.`
                     texte_corr += `<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge :<br>`
@@ -1595,7 +1637,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     int1 = intervalle(A,B,'red',-0.1);
                     int2 = intervalle(C,D,'blue',0.1);
                     texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cup [${c};${d}].$`;
-                     texte_corr = mathalea2d(-2,-2,15,2,int,int1,int2,A,B,C,D,c1,c2,c3,c4)
+                     texte_corr = mathalea2d({
+                      xmin : -2,
+                      ymin : -2,
+                      xmax : 15,
+                      ymax : 2
+                    },int,int1,int2,A,B,C,D,c1,c2,c3,c4)
                      texte_corr += `<br>On cherche les réels qui sont ou bien dans $[${a};${b}]$, ou bien dans $[${c};${d}]$.`
                     texte_corr += `<br>On donc regarde la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>`
                     texte_corr += `$I=[${a};${d}]$`;                     
@@ -1625,7 +1672,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     int1 = intervalle(A,B,'red',-0.1);
                     int2 = intervalle(C,D,'blue',0.1);
                     texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cap [${c};${d}].$`;
-                    texte_corr = mathalea2d(-2,-2,15,2,int,int1,int2,A,B,C,D,c1,c2,c3,c4)
+                    texte_corr = mathalea2d({
+                      xmin : -2,
+                      ymin : -2,
+                      xmax : 15,
+                      ymax : 2
+                    },int,int1,int2,A,B,C,D,c1,c2,c3,c4)
                     texte_corr += `<br>On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}]$.`
                     texte_corr += `<br>On donc regarde la partie de l'intervalle qui est coloriée en bleu et rouge :<br>`
                     texte_corr += `On observe que $[${c};${d}]\\subset [${a};${b}]$ donc $I=[${c};${d}].$`;                     
@@ -1655,7 +1707,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     int1 = intervalle(A,B,'red',-0.1);
                     int2 = intervalle(C,D,'blue',0.1);
                     texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cup [${c};${d}].$`;
-                     texte_corr = mathalea2d(-2,-2,15,2,int,int1,int2,A,B,C,D,c1,c2,c3,c4)
+                     texte_corr = mathalea2d({
+                      xmin : -2,
+                      ymin : -2,
+                      xmax : 15,
+                      ymax : 2
+                    },int,int1,int2,A,B,C,D,c1,c2,c3,c4)
                      texte_corr += `<br>On cherche les réels qui sont ou bien dans $[${a};${b}]$, ou bien dans $[${c};${d}]$.`
                     texte_corr += `<br>On donc regarde la partie de l'intervalle qui est coloriée soit en bleu, soit en rouge, soit en bleu et rouge :<br>`
                     texte_corr += `On $[${c};${d}]\\subset [${a};${b}]$ donc $I=[${a};${b}].$`;                     
@@ -1688,7 +1745,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     texte = `Donner si possible, une écriture simplifiée de $I=]${a};${b}] \\cap [${c};${d}].$`
                       ;
                         
-                    texte_corr = mathalea2d(-2,-2,15,2,int,int1,int2,A,B,C,D,c1,c2,c3,c4)
+                    texte_corr = mathalea2d({
+                      xmin : -2,
+                      ymin : -2,
+                      xmax : 15,
+                      ymax : 2
+                    },int,int1,int2,A,B,C,D,c1,c2,c3,c4)
                     texte_corr += `<br>On cherche les réels qui sont à la fois dans $]${a};${b}]$ et dans $[${c};${d}]$.`
                     texte_corr += `<br>On donc regarde la partie de l'intervalle qui est coloriée en bleu et rouge :<br>`
                     texte_corr +=`<br>Aucun réel n'appartient aux deux ensembles.<br>
@@ -1718,7 +1780,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     int1 = intervalle(A,B,'red',0);
                     int2 = intervalle(C,D,'blue',0);
                     texte = `Donner si possible, une écriture simplifiée de $I=[${a};${b}] \\cup [${c};${d}[.$`;
-                    texte_corr = mathalea2d(-2,-2,15,2,int,int1,int2,A,B,C,D,c1,c2,c3,c4)
+                    texte_corr = mathalea2d({
+                      xmin : -2,
+                      ymin : -2,
+                      xmax : 15,
+                      ymax : 2
+                    },int,int1,int2,A,B,C,D,c1,c2,c3,c4)
                     texte_corr += `<br>On cherche les réels qui sont ou bien dans $[${a};${b}]$, ou bien dans $[${c};${d}[$.`
                     texte_corr += `<br>On donc regarde la partie de l'intervalle qui est coloriée soit en bleu, soit en rouge, soit en bleu et rouge :`
                     texte_corr += `<br>Les deux ensembles sont disjoints, ils n'ont aucun élément en commun.<br>
@@ -1748,7 +1815,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     int1 = intervalle(A,B,'red',-0.1);
                     int2 = intervalle(C,D,'blue',0.1);
                     texte = `Donner si possible, une écriture simplifiée de $I=]${a};${b}[ \\cap [${c};${d}].$`;
-                    texte_corr = mathalea2d(-2,-2,15,2,int,int1,int2,A,B,C,D,c1,c2,c3,c4)
+                    texte_corr = mathalea2d({
+                      xmin : -2,
+                      ymin : -2,
+                      xmax : 15,
+                      ymax : 2
+                    },int,int1,int2,A,B,C,D,c1,c2,c3,c4)
 
                     texte_corr += `<br>On cherche les réels qui sont à la fois dans $]${a};${b}[$ et dans $[${c};${d}]$.`
                     texte_corr += `<br>On regarde la partie de l'intervalle qui est coloriée à la fois en bleu et en rouge :<br>`
@@ -1778,7 +1850,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     int1 = intervalle(A,B,'red',-0.1);
                     int2 = intervalle(C,D,'blue',0.1);
                     texte = `Donner si possible, une écriture simplifiée de $I=]${a};${b}[ \\cup ]${c};${d}[.$`;
-                     texte_corr = mathalea2d(-2,-2,15,2,int,int1,int2,A,B,C,D,c1,c2,c3,c4)
+                     texte_corr = mathalea2d({
+                      xmin : -2,
+                      ymin : -2,
+                      xmax : 15,
+                      ymax : 2
+                    },int,int1,int2,A,B,C,D,c1,c2,c3,c4)
                      texte_corr += `<br>On cherche les réels qui sont ou bien dans $]${a};${b}[$, ou bien dans $]${c};${d}[$.`
                     texte_corr += `<br>On donc regarde la partie de l'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>`
                     texte_corr += `$I=]${a};${d}[$`;                     
@@ -1836,7 +1913,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c1 = crochetG(A,'red');
                     int1 = intervalle(A,X2,'red',-0.1);
                     texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x>${a}$ et représenter l'intervalle sur une droite graduée.`;
-                    texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,B,c1)
+                    texte_corr = mathalea2d({
+                      xmin : -2,
+                      ymin : -2,
+                      xmax : 15,
+                      ymax : 2
+                    },s,int,int1,A,B,c1)
                     texte_corr += `<br>$I=]${a};+\\infty[$`;                     
                     break ;
                 
@@ -1849,7 +1931,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c1 = crochetD(A,'red');
                     int1 = intervalle(A,X2,'red',-0.1);
                     texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x\\geqslant ${a}$ et représenter l'intervalle sur une droite graduée.`;
-                    texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,c1)
+                    texte_corr = mathalea2d({
+                      xmin : -2,
+                      ymin : -2,
+                      xmax : 15,
+                      ymax : 2
+                    },s,int,int1,c1)
                     texte_corr += `$I=[${a};+\\infty[$`;
                     break ;
 
@@ -1873,7 +1960,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c1 = crochetG(A,'red');
                     int1 = intervalle(X1,A,'red',-0.1);
                     texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $x\\leqslant ${a}$ et représenter l'intervalle sur une droite graduée.`;
-                    texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,c1)
+                    texte_corr = mathalea2d({
+                      xmin : -2,
+                      ymin : -2,
+                      xmax : 15,
+                      ymax : 2
+                    },s,int,int1,A,c1)
                     texte_corr += `$I=]-\\infty;${a}]$`;
                     break ;
                 
@@ -1887,7 +1979,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c2 = crochetD(B,'red');
                     int1 = intervalle(A,B,'red',-0.1);                  
                     texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a} < x < ${b}$ et représenter l'intervalle sur une droite graduée.`;
-                     texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,B,c1,c2)
+                     texte_corr = mathalea2d({
+                      xmin : -2,
+                      ymin : -2,
+                      xmax : 15,
+                      ymax : 2
+                    },s,int,int1,A,B,c1,c2)
                      texte_corr += `$I=]${a};${b}[$`;
                     break ;
 
@@ -1901,7 +1998,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c2 = crochetD(B,'red');
                     int1 = intervalle(A,B,'red',-0.1);                  
                     texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}\\leqslant x<${b}$ et représenter l'intervalle sur une droite graduée.`;
-                                 texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,B,c1,c2)
+                                 texte_corr = mathalea2d({
+                      xmin : -2,
+                      ymin : -2,
+                      xmax : 15,
+                      ymax : 2
+                    },s,int,int1,A,B,c1,c2)
                                  texte_corr += `$I=[${a};${b}[$`;
                     break ;
                 
@@ -1915,7 +2017,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c2 = crochetG(B,'red');
                     int1 = intervalle(A,B,'red',-0.1);  
                     texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}\\leqslant x\\leqslant ${b}$ et représenter l'intervalle sur une droite graduée.`;
-                      texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,B,c1,c2)
+                      texte_corr = mathalea2d({
+                      xmin : -2,
+                      ymin : -2,
+                      xmax : 15,
+                      ymax : 2
+                    },s,int,int1,A,B,c1,c2)
                       texte_corr += `$I=[${a};${b}]$`;
                     break ;
                 
@@ -1929,7 +2036,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c2 = crochetG(B,'red');
                     int1 = intervalle(A,B,'red',-0.1);  
                     texte = `Déterminer l'intervalle $I$ de $\\mathbb{R}$ correspondant à l'inéquation $${a}< x\\leqslant ${b}$ et représenter l'intervalle sur une droite graduée.`;
-                      texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,B,c1,c2)
+                      texte_corr = mathalea2d({
+                      xmin : -2,
+                      ymin : -2,
+                      xmax : 15,
+                      ymax : 2
+                    },s,int,int1,A,B,c1,c2)
                       texte_corr += `$I=]${a};${b}]$`;
                     break ;
                 
@@ -1943,7 +2055,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c2 = crochetG(B,'red');
                     int1 = intervalle(A,B,'red',-0.1);  
                     texte = `Déterminer l'inéquation correspondant à $x \\in ]${a};${b}]$ et représenter l'intervalle sur une droite graduée.`;
-                    texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,B,c1,c2)
+                    texte_corr = mathalea2d({
+                      xmin : -2,
+                      ymin : -2,
+                      xmax : 15,
+                      ymax : 2
+                    },s,int,int1,A,B,c1,c2)
                     texte_corr += `$${a}< x\\leqslant ${b}$`;  
                      break ;
                 case 10 : 
@@ -1956,7 +2073,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c2 = crochetG(B,'red');
                     int1 = intervalle(A,B,'red',-0.1);  
                     texte = `Déterminer l'inéquation correspondant à $x \\in [${a};${b}]$ et représenter l'intervalle sur une droite graduée.`; 
-                     texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,B,c1,c2)
+                     texte_corr = mathalea2d({
+                      xmin : -2,
+                      ymin : -2,
+                      xmax : 15,
+                      ymax : 2
+                    },s,int,int1,A,B,c1,c2)
                      texte_corr += `$${a}\\leqslant x\\leqslant ${b}$`;  
                      break ;
                 case 11 : 
@@ -1969,7 +2091,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c2 = crochetD(B,'red');
                     int1 = intervalle(A,B,'red',-0.1);  
                     texte = `Déterminer l'inéquation correspondant à $x \\in [${a};${b}[$ et représenter l'intervalle sur une droite graduée.`;
-                       texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,B,c1,c2)  
+                       texte_corr = mathalea2d({
+                      xmin : -2,
+                      ymin : -2,
+                      xmax : 15,
+                      ymax : 2
+                    },s,int,int1,A,B,c1,c2)  
                      texte_corr += `$${a}\\leqslant x< ${b}$`; 
                      break ;
                 case 12 : 
@@ -1981,7 +2108,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     c1 = crochetG(A,'red');
                     
                     int1 = intervalle(A,B,'red',-0.1);  texte = `Déterminer l'inéquation correspondant à $x \\in ]${a};+\\infty[ et représenter l'intervalle sur une droite graduée.$`;
-                       texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,B,c1)  
+                       texte_corr = mathalea2d({
+                      xmin : -2,
+                      ymin : -2,
+                      xmax : 15,
+                      ymax : 2
+                    },s,int,int1,A,B,c1)  
                        texte_corr += `$x > ${a}$`;    
                          break ;
                 case 13 : 
@@ -1994,7 +2126,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     
                     int1 = intervalle(X1,A,'red',-0.1);
                     texte = `Déterminer l'inéquation correspondant à $x \\in ]-\\infty;${a}[$ et représenter l'intervalle sur une droite graduée.`;
-                      texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,B,c1)  
+                      texte_corr = mathalea2d({
+                      xmin : -2,
+                      ymin : -2,
+                      xmax : 15,
+                      ymax : 2
+                    },s,int,int1,A,B,c1)  
                       texte_corr += `$x < ${a}$`; 
                          break ;   
                 case 14 : 
@@ -2007,7 +2144,12 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     
                     int1 = intervalle(X1,A,'red',-0.1);
                     texte = `Déterminer l'inéquation correspondant à $x \\in ]-\\infty;${a}]$ et représenter l'intervalle sur une droite graduée.`;
-                      texte_corr = mathalea2d(-2,-2,15,2,s,int,int1,A,B,c1)  
+                      texte_corr = mathalea2d({
+                      xmin : -2,
+                      ymin : -2,
+                      xmax : 15,
+                      ymax : 2
+                    },s,int,int1,A,B,c1)  
                       texte_corr += `$x \\leqslant ${a}$`;   
                          break ;
 

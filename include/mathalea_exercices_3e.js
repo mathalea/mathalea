@@ -2470,203 +2470,6 @@ function fonctions_calculs_d_images() {
 };
 
 /**
- * 3F-test test de la bibliotheque d3.js
- */
-
-function svglibs() {
-	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.sup = 1;
-	this.titre = "Tests biblilothèques animations";
-	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne = ``;
-	// Message Bug SVG qui ne s'affiche pas dans la correction sans rafraichir
-	if (sortie_html) {
-		this.consigne = `
-		<div class="ui compact warning message">		
-			<p>
-			<i class="exclamation triangle icon"></i>
-			ATTENTION BUG CONNU<br>
-			Sous Safari et Edge les animations dysfonctionnent
-			</p>
-			</div>
-			<br>
-		`;
-	}
-	this.consigne += "tests biblios";
-	this.consigne += `<br>`;
-	sortie_html ? this.spacing = 3 : this.spacing = 2;
-	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
-	this.nb_questions = 1;
-	//this.correction_detaillee_disponible = true;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	this.sup = 1;
-
-	var num_ex = 'svglibs'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
-
-	if (sortie_html) {
-		// let id_unique = `_consigne_${num_ex}_${Date.now()}`; // on formatte avec le numéro de l'exercice pour éviter les doublons		
-		// let id_du_div = `div_svg${id_unique}`;
-		var pourcentage = '100%'; // pour l'affichage des svg. On a besoin d'une variable globale
-		var hauteur_svg = 100;
-		this.consigne += `
-		<a href="https://www.datavis.fr/index.php?page=transition" target="_blank">https://www.datavis.fr/index.php?page=transition</a>
-		<br><a href="https://www.pixijs.com/" target="_blank">https://www.pixijs.com/</a>
-		<br><a href="https://d3js.org/" target="_blank">https://d3js.org/</a>
-		`;
-		this.consigne += `<br>Ne pas mettre d'appel aux fonction de mathalea_outils.js avant l'appel de this.nouvelle_version() c'est à dire ici!!!`
-
-	} else { // sortie LaTeX
-
-
-	};
-	this.nouvelle_version = function (numero_de_l_exercice) {
-		let type_de_questions;
-		if (sortie_html) { // les boutons d'aide uniquement pour la version html
-			//this.bouton_aide = modal_pdf(numero_de_l_exercice,"pdf/FicheFonctions-3F1-act.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")		
-			//this.bouton_aide += modal_video('videoTest','videos/Fonctions.mp4','Petit conte mathématique','Intro Vidéo');
-			if (detect_safari_chrome_browser()) {// si c'est safari ou chrome
-				this.consigne += machine_maths_video(`videos/machineMaths-h-1.mp4`);
-			} else {
-				let id_unique = `_consigne_${num_ex}_${Date.now()}`; // on formatte avec le numéro de l'exercice pour éviter les doublons		
-				let id_du_div = `div_svg${id_unique}`;
-				this.consigne += `<div id="${id_du_div}" style="width: ${pourcentage}; height: ${hauteur_svg}px; display : table "></div>`;
-				//SVG_machine_maths(id_du_div,400,hauteur_svg,'machine\\,maths','---','Procédé','de\\,calcul','antécédent','x','image','y');
-				//SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, f','---','périmètre','d\'un \\, carré','côté \\, du','carré','périmètre','??? \\, cm');
-				//SVG_machine_maths(id_du_div,400,hauteur_svg,'machine\\,g','---','aire','d\'un \\, carré','côté \\, du','carré','aire','??? \\, cm^2');
-				//SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, h','---','multiplier \\, par \\, 3','ajouter \\, 1','nombre \\, de','départ \\, ','nombre \\, de','sortie \\, ?');														
-				SVG_machine_maths(id_du_div, 400, hauteur_svg, 'machine \\, d', '---', 'nombre \\enspace total', 'de  \\, diviseurs', 'nombre \\, de', 'départ', 'nombre \\, de', ' diviseurs');
-
-			};
-
-		} else { // sortie LaTeX
-			// this.consigne += `machine Tikz HEX #F15929 équivaut à rgb(241,89,41)<br>`;
-			this.consigne += tikz_machine_maths('maths', '---', `Proc\\acute{e}d\\acute{e}`, 'de\\,calcul', `ant\\acute{e}c\\acute{e}dent`, `\\textit{x}`, `image`, `\\textit{y}`);
-
-
-		};
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		this.contenu = ''; // Liste de questions
-		this.contenu_correction = ''; // Liste de questions corrigées
-
-		//let type_de_questions_disponibles = [1,2,3,4];
-		let type_de_questions_disponibles = [1];
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions);
-
-		for (let i = 0, x, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
-			type_de_questions = liste_type_de_questions[i];
-
-			if (sortie_html) {
-				var id_unique = `${num_ex}_${i}_${Date.now()}`
-				var id_du_div = `div_svg${numero_de_l_exercice}${id_unique}`;
-				//var id_du_div_diag = `div_svg_diag${numero_de_l_exercice}${id_unique}`;
-				var id_du_div_corr = `div_svg_corr${numero_de_l_exercice}${id_unique}`;
-				//texte = machine_maths_video(`videos/machineMaths-h-1.mp4`);
-			}
-
-			switch (type_de_questions) {
-				case 1: // périmètre d'un carré de côté x			
-					var j = 0; // pour la sous-numérotation
-					// question
-					if (sortie_html) {
-						texte += `La $\\mathbf{machine\\,f}$ renvoie le ` + katex_Popup(`périmètre`, `Rappel`, `Le périmètre d'un polygone est égal à la somme des longueurs de ses côtés`) + ` d'un carré de côté $x$`;
-					} else {
-						texte = `La $\\mathbf{machine\\,f}$ renvoie le \\textbf{périmètre} \\footnote{\\textbf{Rappel :} Le périmètre d'un polygone est égal à la somme des longueurs de ses côtés} d'un carré de côté $x$`;
-					}
-					texte += `<br>`;
-					// machine						
-					x = randint(2, 99);//augmenter les possibles pour éviter les questions déjà posées?	
-					if (sortie_html) {
-						//texte += `<br>`;
-						texte += `<div id="${id_du_div}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
-						texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: ${hauteur_svg}px; display : table "></div>`;
-						//SVG_machine_maths(id_du_div,400,hauteur_svg,'machine \\, f','---','périmètre','d\'un \\, carré','carré \\, de','côté \\,'+x+' \\, cm','périmètre','??? \\, cm');							
-					} else { // sortie Latex avec Tikz
-						//texte += tikz_machine_maths('f','---',`P\\acute{e}rim\\grave{e}tre`,`d'un\\,carr\\acute{e}`,`carr\\acute{e}\\,de`,`c\\hat{o}t\\acute{e}\\,${x}\\,cm`,`P\\acute{e}rim\\grave{e}tre`,`???\\,cm`);
-					};
-
-					break;
-			};
-
-			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
-				i++;
-			}
-			cpt++
-		}
-
-		liste_de_question_to_contenu(this);
-	}
-	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
-};
-
-/**
- * 3Tests tests de fonctions
- */
-
-function tester_des_fonctions() {
-	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.sup = 1;
-	this.titre = "Tests de fonctions";
-	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne = ``;
-	this.consigne += "tests fonctions";
-	this.consigne += `<br>`;
-	sortie_html ? this.spacing = 3 : this.spacing = 2;
-	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
-	this.nb_questions = 1;
-	//this.correction_detaillee_disponible = true;
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	this.sup = 1;
-
-
-	this.nouvelle_version = function (numero_de_l_exercice) {
-		let type_de_questions;
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		this.contenu = ''; // Liste de questions
-		this.contenu_correction = ''; // Liste de questions corrigées
-
-		//let type_de_questions_disponibles = [1,2,3,4];
-		let type_de_questions_disponibles = [1];
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions);
-
-		for (let i = 0, x, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
-			type_de_questions = liste_type_de_questions[i];
-
-
-			switch (type_de_questions) {
-				case 1: // 
-					texte = ``;
-					//texte +=`katexPopup2`+ katex_Popup2(numero_de_l_exercice+i*3,2,`trébuchet`,`https://sitetab3.ac-reims.fr/ec-fayl-billot-elem/-wp-/wp-content/uploads/2018/01/`,`https://sitetab3.ac-reims.fr/ec-fayl-billot-elem/-wp-/wp-content/uploads/2018/01/balancoire-a-bascule-trebuchet-baskul-768x768.jpg`);
-					texte += `<br> katextPopup3 modal long : `;
-					texte += katex_Popup3(numero_de_l_exercice + 1, 1, "énergie", `Définition : énergie (grandeur physique)`, `C’est le produit de la puissance électrique (Watt) par le temps (s) et se mesure en Joule (J).<br>1 J=1 W × 1 s.<br>Cependant pour mesurer des énergies plus importantes on utilise plutôt le kiloWattheure (kWh).<br>1 kWh=1000 W × 1 h.`);
-					texte += `<br> katexPopup3 image : `;
-					texte += katex_Popup3(numero_de_l_exercice + 2, 2, `trebuchet`, `https://sitetab3.ac-reims.fr/ec-fayl-billot-elem/-wp-/wp-content/uploads/2018/01/`, `https://sitetab3.ac-reims.fr/ec-fayl-billot-elem/-wp-/wp-content/uploads/2018/01/balancoire-a-bascule-trebuchet-baskul-768x768.jpg`);
-					texte_corr = `texte corr`;
-
-					break;
-			};
-
-			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
-				i++;
-			}
-			cpt++
-		}
-
-		liste_de_question_to_contenu(this);
-	}
-	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
-};
-
-/**
  * 3A10 - Division Euclidienne; diviseurs, multiples, critères de divisibilité
  * Exercice bilan
  * @author Sébastien Lozano
@@ -3474,7 +3277,6 @@ function Decomposition_facteurs_premiers() {
 					for (let k = 1; k < tab_premiers.length; k++) {
 						if (tab_multiplicites[k] == 1) {
 							texte_corr += `\\times ${tab_premiers[k]}`;
-							//console.log('typeof : '+typeof tab_multiplicites[k]);
 						} else {
 							texte_corr += `\\times ${tab_premiers[k]}^{${tab_multiplicites[k]}}`;
 						};
@@ -6400,15 +6202,16 @@ function Problemes_Thales(){
 		this.liste_corrections = []; // Liste de questions corrigées
 		let texte='';
 		let texte_corr='';
-		let type_de_questions = randint(1,1);
+		let type_de_questions = randint(1,2);
+		let A,B,C,D,M,N,x,k,y,p,p2,codage1,codage2,codage3,codage4,sMN,sBD,sCote,texte1,texte2,texte3,texte4,labels,BC,BD,MN
 		
 
 			switch (type_de_questions){
 				case 1 :
-				let x = randint(6,10);
-				let k = calcul(randint(12,19)/10);
-				let y = calcul(randint(30,50)/10);
-				let [A,B,C,D,E]=polygone(5)
+				x = randint(6,10);
+				k = calcul(randint(12,19)/10);
+				y = calcul(randint(30,50)/10);
+				[A,B,C,D,E]=creerNomDePolygone(5)
 				texte = `On sait que $${A}${E}=${tex_nombre(x)}$ cm ; $${A}${D}=${tex_nombrec(k*x)}$ cm et $${E}${B}=${tex_nombre(y)}$ cm.<br>`;
 				texte += `Calculer la valeur exacte de $${D}${C}$.`
 				if (sortie_html) {
@@ -6476,6 +6279,51 @@ function Problemes_Thales(){
 				texte_corr += `<br><br>$\\dfrac{${tex_nombre(x)}}{${tex_nombrec(k*x)}}=\\dfrac{${tex_nombre(y)}}{${D}${C}}$`
 				texte_corr += `<br><br>$${D}${C}=\\dfrac{${tex_nombrec(k*x)}\\times${tex_nombre(y)}}{${tex_nombre(x)}}=${tex_nombrec(k*y)}$`
 				break;
+
+
+				case 2 : 
+					let [nomA,nomB,nomC,nomD] = creerNomDePolygone(4,['M','N'])
+					BC = randint(2,6)
+					BD = 2*BC
+					MN = calcul(BD*choice([0.2,0.3,0.4]))
+					A = point(0,4,nomA,'above')
+					B = point(7,4,nomB,'above')
+					C = point(7,0,nomC,'below')
+					D = point(0,0,nomD,'below')
+					p = polygone(A,B,C,D)
+					codage1 = codageAngleDroit(D,A,B)
+					codage2 = codageAngleDroit(A,B,C)
+					codage3 = codageAngleDroit(B,C,D)
+					codage4 = codageAngleDroit(C,D,A)
+					M = pointSurSegment(A,B,longueur(A,B)/3,'M','above')
+					N = pointSurSegment(A,D,longueur(A,D)/3,'N','left')
+					sMN = segment(M,N)
+					sBD = segment(B,D)
+					sCote = segment(point(N.x-1.3,N.y),point(D.x-1.3,D.y))
+					sCote.styleExtremites='<->'
+					texte1 = texteParPoint('?',milieu(point(N.x-1.5,N.y),point(D.x-1.5,D.y)),'gauche')
+					texte2 = texteSurSegment(nombre_avec_espace(BD)+' cm',B,D)
+					texte3 = texteSurSegment(nombre_avec_espace(MN)+' cm',M,N)
+					texte4 = texteSurSegment(nombre_avec_espace(BC)+' cm',B,C)
+
+					labels = labelPoint(M,N,A,B,C,D)
+
+					texte = `Sur la figure ci-dessous $${nomA+nomB+nomC+nomD}$ est un rectangle et $(MN)$ est parallèle à la diagonale $(${nomB+nomD})$.`
+					texte += `<br>Calculer la longueur $${nomD+'N'}$ au millimètre près.<br><br>`
+					texte += mathalea2d({
+						xmin : -2,
+						xmax : 9,
+						ymin : -1.5,
+						ymax : 5,
+						scale : .8
+					}, p,codage1,codage2,codage3,codage4,sMN,sBD,sCote,texte1,texte2,texte3,texte4,labels)
+
+					texte_corr = `Dans le triangle $${nomA+nomB+nomD}$, $M$ est un point de $[${nomA+nomB}]$, $N$ est un point de $[${nomA+nomD}]$ et $(MN)$ est parallèle à $(${nomB+nomD})$ donc d'après le théorème de Thalès on a : `
+					texte_corr += `<br><br> $${tex_fraction(nomA+'M',nomA+nomB)}=${tex_fraction(nomA+'N',nomA+nomD)}=${tex_fraction('MN',nomB+nomD)}$`
+					texte_corr += `<br><br> $${tex_fraction(nomA+'M',nomA+nomB)}=${tex_fraction(nomA+'N',BC)}=${tex_fraction(tex_nombre(MN),tex_nombre(BD))}$`
+					texte_corr += `<br><br> $${nomA}N = ${tex_fraction(BC+'\\times'+tex_nombre(MN),BD)}=${tex_nombre(arrondi(calcul(BC*MN/BD),1))}$ cm`
+					texte_corr += `<br><br> Les points $${nomA}$, $N$ et $${nomD}$ sont alignés dans cet ordre donc $N${nomD}=${nomA+nomD}-${nomA}N= ${BC}-${tex_nombre(arrondi(calcul(BC*MN/BD),1))}=${tex_nombre(arrondi(calcul(BC-BC*MN/BD),1))}$ cm.`
+				break;
 				}
 			
 	this.liste_questions[0]=texte;
@@ -6483,5 +6331,336 @@ function Problemes_Thales(){
 	liste_de_question_to_contenu(this);
 	// this.besoin_formulaire_numerique = ['Type de questions',2,"1 : Donner l'égalité\n2 : Compléter une égalité avec une addition ou une soustraction"];
 	// this.besoin_formulaire2_case_a_cocher = ['Sans figures']
+	}
+}
+/**
+ * 3G23 reconnaitre des triangles égaux
+ * @author Jean-Claude Lhote et Sébastien Lozano
+ */
+function TrianglesSemblables() {
+	'use strict'
+	Exercice.call(this)
+	this.beta = false;
+	this.titre = "Reconnaître des triangles semblables dans différentes configurations";
+	this.nb_questions = 1;
+	this.nb_questions_modifiable = false;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.nouvelle_version = function(numero_de_l_exercice){
+		let coeff=50
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		let texte='';
+		let texte_corr='';
+		let type_de_questions = randint(1,1);
+		switch (type_de_questions){
+			case 1 :
+				let trouve=false,aireABC,A,B,C,M,p,q,r,s,X,G,Gq,nom1,grid;
+				// on génère le triangle ABC avec une contrainte sur son aire
+				while (!trouve) {
+				A=point(choice([0,3]),choice([0,3]),'A'); // le point A !
+				B=point(choice([6,9]),choice([6,9]),'B'); // le point B !
+				C=rotation(B,A,90,'C'); // le point C à partir de B par rotation autour de A!
+				C.x+=choice([0,3,6]); // on décale l'abscise de C de 0, 3 ou 6 !
+				C.y+=choice([-3,0,3]); // on décale l'abscise de C de -3, 0 ou 3 !
+				p=polygone(A,B,C); // on trace le polygone ABC
+				aireABC=aireTriangle(p); // Je savais bien que cette formule servirait un jour !
+				if (aireABC<11&&aireABC>5) trouve=true;
+				};
+				G=barycentre(p); // le barycentre de ABC
+				let angleChoisi1 = choice([0,90,270]); 
+				p=rotation(p,G,angleChoisi1); // on tourne ABC de façon aléatoire autour de son barycentre
+				p.couleurDeRemplissage='gray';//remplissage de ABC
+				p.opaciteDeRemplissage=0.2;//0.5;//remplissage de ABC
+				nom1=nommePolygone(p,'ABC',0.4); // on  nomme ABC en plaçant A,B et C à 0,4
+				grid=grille(-3,-3,27,18, 'gray',0.4,1); // on trace une grille
+				M=point(9,12); // un point M fixe pour tourner autour				
+				q=rotation(p,M,90); // on fait tourner ABC autour de M de 90°
+				// on a besoin de récupérer le polygone non tracé
+				let q_non_trace = polygone(q.listePoints);
+				Gq=barycentre(q); // on construit son barycentre
+				//let angleChoisi2 = 270; 
+				let angleChoisi2 = choice([0,90,180,270]); 
+				r=rotation(q,Gq,angleChoisi2); // on fait tourner q encore autour de son barycentre
+				X=milieu(r.listePoints[0],r.listePoints[1]); // on place le milieu des deux premiers points de la figure obtenue qui sont les images des points A et B initiaux	
+				s=rotation(r,X,180); // on fait topurner r autour du milieu des deux extremites du plus grand côté
+				r.couleurDeRemplissage='red'; // solution 1 en rouge
+				r.opaciteDeRemplissage=0.2;//0.5; // 
+				s.couleurDeRemplissage='blue'; //solution 2 en bleu
+				s.opaciteDeRemplissage=0.2;//0.5; //
+				// mes ajouts par rapport à la figure de JC				
+				// on fixe une place pour D et E
+				let D = r.listePoints[0];
+				D.nom='D';
+				let E = r.listePoints[1];
+				E.nom='E';
+				// on crée un tableau avec les noms proposé pour les points				
+				let tabPointsNames= ['F','G','H','I'];				
+				// on mélange le tableau 
+				tabPointsNames=shuffle(tabPointsNames);
+				//on place les deux solutions
+				let I=r.listePoints[2];
+				//I.nom='I';
+				I.nom=tabPointsNames[0];
+				let I1=rotation(I,X,180)
+				//I1.nom='I1';
+				I1.nom=tabPointsNames[1];
+				// on place les mauvaises solutions
+				let F = point(I1.x+1,I1.y+1);
+				//F.nom='F';
+				F.nom=tabPointsNames[2];
+				let L = point(I.x-1,I.y-3);
+				//L.nom='L';
+				L.nom=tabPointsNames[3];
+				//on trace le segment [DE] en pointillés pour que la figure soit plus lisible
+				let sgmt_DE =  segment(D,E,'blue');
+				sgmt_DE.pointilles = true;
+				sgmt_DE.epaisseur=1.5;
+
+				// on prépare la fenetre mathalea2d
+				let fenetreMathalea2D = {xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5}
+
+				// on prépare les corrections
+				let centre_rot = {
+					sol1:pointIntersectionDD(droite(p.listePoints[1],E),droite(D,p.listePoints[0])),
+					sol2:pointIntersectionDD(droite(E,p.listePoints[0]),droite(p.listePoints[1],D))
+				};
+				let vect_trans = {
+					sol1:vecteur(p.listePoints[1],E),
+					sol2:vecteur(p.listePoints[1],D)
+				};
+				let transformationAnimee = {
+					sol1:``,
+					//nature_sol1:``,
+					sol2:``,
+					//nature_sol2:``
+				};
+				// pour construire les droites et les centres passant par les centres de rotations
+				let d,d1,d2,d3,d4,d5,J1,J2;
+				switch (angleChoisi2) {
+					case 0:
+						transformationAnimee.sol1=rotationAnimee(p,M,90,'begin="0s" dur="4s" repeatCount="indefinite"');
+						//transformationAnimee.nature_sol1=`rotation`;
+						// la 1ere compo
+						d= droite(M,Gq);
+						d1=rotation(d,M,-45);
+						d2=rotation(d,Gq,0);
+						J1=pointIntersectionDD(d1,d2); // centre de la composée, ici l'angle vaut 90
+						//2eme compo
+						d3=droite(J1,X);
+						d4=rotation(d3,J1,-45);
+						d5=rotation(d3,X,90);
+						J2=pointIntersectionDD(d4,d5);// centre après la seconde composition angle 270 à 2pi près						
+						transformationAnimee.sol2=rotationAnimee(p,J2,-90,'begin="0s" dur="4s" repeatCount="indefinite"');
+						//transformationAnimee.nature_sol2=`rotation`;
+						break;
+					case 90:						
+						transformationAnimee.sol1=rotationAnimee(p,centre_rot.sol1,180,'begin="0s" dur="4s" repeatCount="indefinite"');
+						//transformationAnimee.nature_sol1=`rotation`;
+						transformationAnimee.sol2=translationAnimee(p,vect_trans.sol2,'begin="0s" dur="4s" repeatCount="indefinite"');
+						//transformationAnimee.nature_sol2=`translation`;
+						break;
+					case 180:
+						// la 1ere compo
+						d= droite(M,Gq);
+						d1=rotation(d,M,-45);
+						d2=rotation(d,Gq,90);
+						J1=pointIntersectionDD(d1,d2); // centre de la composée, ici l'angle vaut 270 à 2pi près
+						//2eme compo
+						d3=droite(J1,X);
+						d4=rotation(d3,J1,-135);
+						d5=rotation(d3,X,90);
+						J2=pointIntersectionDD(d4,d5);// centre après la seconde composition angle 450 à 2pi près						
+						transformationAnimee.sol1=rotationAnimee(p,J1,-90,'begin="0s" dur="4s" repeatCount="indefinite"');
+						//transformationAnimee.nature_sol1=`rotation`;
+						transformationAnimee.sol2=rotationAnimee(p,J2,90,'begin="0s" dur="4s" repeatCount="indefinite"');
+						//transformationAnimee.nature_sol2=`rotation`;
+						break;
+					case 270:
+						transformationAnimee.sol1=translationAnimee(p,vect_trans.sol1,'begin="0s" dur="4s" repeatCount="indefinite"');
+						//transformationAnimee.nature_sol1=`translation`;						
+						transformationAnimee.sol2=rotationAnimee(p,centre_rot.sol2,180,'begin="0s" dur="4s" repeatCount="indefinite"');
+						//transformationAnimee.nature_sol2=`rotation`;
+						break; 
+				}
+				// DE = AB
+				let seg_DE_corr = segment(D,E,'blue');
+				seg_DE_corr.epaisseur = 2;
+				let seg_AB_corr = segment(p.listePoints[0],p.listePoints[1],'blue');
+				seg_AB_corr.epaisseur = 2;
+				//DI = AC ou EI1 = AC
+				let seg_DI_corr = segment(D,I,'red');
+				let seg_EI1_corr = segment(E,I1,'red');
+				seg_DI_corr.epaisseur = 2;
+				seg_EI1_corr.epaisseur = 2;
+				let seg_AC_corr = segment(p.listePoints[0],p.listePoints[2],'red');
+				seg_AC_corr.epaisseur = 2;
+				//EI = BC ou DI1 = BC
+				let seg_EI_corr = segment(E,I,'green');
+				let seg_DI1_corr = segment(D,I1,'green');
+				seg_EI_corr.epaisseur = 2;
+				seg_DI1_corr.epaisseur = 2;
+				let seg_BC_corr = segment(p.listePoints[1],p.listePoints[2],'green');				
+				seg_BC_corr.epaisseur = 2;
+				// angle ABC = DEI ou ABC = EDI1
+				let ang_ABC = angleOriente(p.listePoints[0],p.listePoints[1],p.listePoints[2]);
+				let ang_DEI = angleOriente(D,E,I);
+				let ang_EDI1 = angleOriente(E,D,I1);
+				// angle BCA = EID ou  BCA = DI1E
+				let ang_BCA = angleOriente(p.listePoints[1],p.listePoints[2],p.listePoints[0]);
+				let ang_EID = angleOriente(E,I,D);
+				let ang_EI1D = angleOriente(E,I1,D);
+				// angle CAB = IDE ou CAB = I1ED
+				let ang_CAB = angleOriente(p.listePoints[2],p.listePoints[0],p.listePoints[1]);
+				let ang_IDE = angleOriente(I,D,E);
+				let ang_I1ED = angleOriente(I1,E,D);				
+
+				let codages_correction = {
+					sol1:[
+						// les segments						
+						seg_AB_corr,
+						seg_DE_corr,						
+						codeSegments('×', 'blue', p.listePoints[0], p.listePoints[1], D,E ),
+						seg_AC_corr,
+						seg_DI_corr,
+						codeSegments('||', 'red', p.listePoints[0], p.listePoints[2], D,I ),
+						seg_BC_corr,
+						seg_EI_corr,						
+						codeSegments('O', 'green', p.listePoints[1], p.listePoints[2], I,E ),
+						//les angles
+						arc(pointSurSegment(p.listePoints[1], p.listePoints[0], 0.8), p.listePoints[1], ang_ABC,true,'red'),
+						arc(pointSurSegment(E, D, 0.8), E, ang_DEI,true,'red'),
+						arc(pointSurSegment(p.listePoints[2], p.listePoints[1], 0.8), p.listePoints[2], ang_BCA,true,'blue'),
+						arc(pointSurSegment(I, E, 0.8), I, ang_EID,true,'blue'),
+						arc(pointSurSegment(p.listePoints[0], p.listePoints[2], 0.8), p.listePoints[0], ang_CAB,true,'green'),
+						arc(pointSurSegment(D, I, 0.8), D, ang_IDE,true,'green')
+					],
+					sol2:[
+						//les segments
+						seg_AB_corr,
+						seg_DE_corr,						
+						codeSegments('×', 'blue', p.listePoints[0], p.listePoints[1], D,E ),
+						seg_BC_corr,
+						seg_DI1_corr,
+						codeSegments('O', 'green', p.listePoints[1], p.listePoints[2], D,I1 ),
+						seg_AC_corr,
+						seg_EI1_corr,
+						codeSegments('||', 'red', p.listePoints[0], p.listePoints[2], E,I1 ),
+						// les angles
+						arc(pointSurSegment(p.listePoints[1], p.listePoints[0], 0.8), p.listePoints[1], ang_ABC,true,'red'),
+						arc(pointSurSegment(D, E, 0.8), D, ang_EDI1,true,'red'),
+						arc(pointSurSegment(p.listePoints[2], p.listePoints[1], 0.8), p.listePoints[2], ang_BCA,true,'blue'),
+						arc(pointSurSegment(I1, E, 0.8), I1, ang_EI1D,true,'blue'),
+						arc(pointSurSegment(p.listePoints[0], p.listePoints[2], 0.8), p.listePoints[0], ang_CAB,true,'green'),
+						arc(pointSurSegment(E, I1, 0.8), E, ang_I1ED,true,'green')
+					]
+				}
+
+				// on crée un objet pour stocker les figures et les corrections
+				let figures = {
+					enonce:`
+						Où placer le point M pour que les triangles ABC et DEM soient égaux ? 
+						<br>En F ? En G? En H ? En I ?
+						<br>
+						${mathalea2d(
+							fenetreMathalea2D,
+							p,
+							nom1,
+							grid,
+							tracePoint(D,E,I,I1,F,L),
+							labelPoint(D,E,I,I1,F,L),
+							sgmt_DE,
+							//r,
+							//s
+						)}`,
+					corr_solution1:`
+						Les triangles $ABC$ et $DE${I.nom}$ ont les mêmes longueurs et les mêmes angles.
+						<br> ${texte_en_couleur(`Donc le point ${I.nom} est un point qui convient`)}
+						<br>
+						${mathalea2d(
+							fenetreMathalea2D,
+							p,
+							nom1,
+							grid,
+							tracePoint(D,E,I,I1,F,L),
+							labelPoint(D,E,I,I1,F,L),
+							sgmt_DE,
+							r,
+							//s,
+							codages_correction.sol1
+						)}`,
+					corr_solution2:`
+						Les triangles $ABC$ et $DE${I1.nom}$ ont les mêmes longueurs et les mêmes angles.		
+						<br> ${texte_en_couleur(`Donc le point ${I1.nom} est un point qui convient`)}
+						<br>
+						${mathalea2d(
+							fenetreMathalea2D,
+							p,
+							nom1,
+							grid,
+							tracePoint(D,E,I,I1,F,L),
+							labelPoint(D,E,I,I1,F,L),
+							sgmt_DE,
+							//r,
+							s,
+							codages_correction.sol2
+						)}`,
+					corr_animmee_sol1:`
+						Les triangles $ABC$ et $DE${I.nom}$ ont les mêmes longueurs et les mêmes angles.						
+						<br> ${texte_en_couleur(`Donc le point ${I.nom} est un point qui convient`)}
+						<br>						
+						${mathalea2d(
+							fenetreMathalea2D,
+							p,
+							nom1,
+							grid,
+							//tracePoint(D,E,I,I1,F,L),
+							tracePoint(I1,F,L),
+							//labelPoint(D,E,I,I1,F,L),
+							labelPoint(I1,F,L),
+							nommePolygone(r,'DE'+I.nom,0.4),
+							//sgmt_DE,
+							r,
+							transformationAnimee.sol1,
+							codages_correction.sol1
+						)}`,
+					corr_animmee_sol2:`
+						Les triangles $ABC$ et $DE${I1.nom}$ ont les mêmes longueurs et les mêmes angles.
+						<br> ${texte_en_couleur(`Donc le point ${I1.nom} est un point qui convient`)}
+						<br>
+						Une solution est donc le point ${I1.nom}
+						<br>
+						${mathalea2d(
+							fenetreMathalea2D,
+							p,
+							nom1,
+							grid,
+							//tracePoint(D,E,I,I1,F,L),
+							tracePoint(I,F,L),
+							//labelPoint(D,E,I,I1,F,L),
+							labelPoint(I,F,L),
+							nommePolygone(s,'DE'+I1.nom,0.4),
+							//sgmt_DE,
+							//r,
+							s,
+							transformationAnimee.sol2,
+							codages_correction.sol2
+						)}`
+				}
+				//texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r,s)
+				texte = `${figures.enonce}`;
+				if (this.beta) {
+					texte += `<br>${texte_gras(`===== Première solution ======`)}<br>${figures.corr_animmee_sol1}`;
+					texte += `<br><br>${texte_gras(`===== Seconde solution ======`)}<br>${figures.corr_animmee_sol2}`;
+				} else {
+					texte_corr += `<br>${texte_gras(`===== Première solution ======`)}<br>${figures.corr_animmee_sol1}`;
+					texte_corr += `<br><br>${texte_gras(`===== Seconde solution ======`)}<br>${figures.corr_animmee_sol2}`;
+				}
+				this.liste_questions[0]=texte;
+				this.liste_corrections[0]=texte_corr;
+				liste_de_question_to_contenu(this);
+				break;
+			
+		}
 	}
 }
