@@ -6995,12 +6995,26 @@ function Tableaux_et_pourcentages(){
 				prix = randint(150,300);
 			} while (prix%5 != 0)
 			
-			remises = choice([
-				[{str:'10\\%',nb:10},{str:'20\\%',nb:20},{str:'30\\%',nb:30}],
-				[{str:'10\\%',nb:10},{str:'5\\%',nb:5},{str:'15\\%',nb:15}],
-				[{str:'5\\%',nb:5},{str:'10\\%',nb:10},{str:'35\\%',nb:35}],
-				[{str:'50\\%',nb:50},{str:'30\\%',nb:30},{str:'10\\%',nb:10}],
-			]);
+			if (this.sup == 1) {//coeff entier
+				remises = choice([
+					[{str:'10\\%',nb:10},{str:'20\\%',nb:20},{str:'30\\%',nb:30}],
+					[{str:'5\\%',nb:5},{str:'15\\%',nb:10},{str:'35\\%',nb:35}],
+					[{str:'10\\%',nb:20},{str:'40\\%',nb:40},{str:'80\\%',nb:80}],
+					[{str:'5\\%',nb:5},{str:'25\\%',nb:25},{str:'55\\%',nb:55}],
+					//[{str:'10\\%',nb:10},{str:'5\\%',nb:5},{str:'15\\%',nb:15}],
+					//[{str:'50\\%',nb:50},{str:'30\\%',nb:30},{str:'10\\%',nb:10}],
+				]);	
+			};
+			if (this.sup == 2) {//coeff décimal
+				remises = choice([
+					//[{str:'10\\%',nb:10},{str:'20\\%',nb:20},{str:'30\\%',nb:30}],					
+					//[{str:'5\\%',nb:5},{str:'10\\%',nb:10},{str:'35\\%',nb:35}],
+					[{str:'10\\%',nb:10},{str:'5\\%',nb:5},{str:'15\\%',nb:15}],
+					[{str:'50\\%',nb:50},{str:'30\\%',nb:30},{str:'10\\%',nb:10}],
+					[{str:'20\\%',nb:20},{str:'10\\%',nb:10},{str:'50\\%',nb:50}],
+					[{str:'40\\%',nb:40},{str:'10\\%',nb:10},{str:'5\\%',nb:5}],
+				]);	
+			}
 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
@@ -7027,8 +7041,12 @@ function Tableaux_et_pourcentages(){
 					question:``,
 					correction:`
 					L'énoncé indique le montant pour une remise de $${remises[0].str}$.
-					<br>Pour $${remises[1].str}$ le montant de la remise sera donc ${tex_nombre(remises[1].nb/remises[0].nb)} fois celui de la remise de $${remises[0].str}$, d'où le calul indiqué dans le tableau.
-					<br>Pour $${remises[2].str}$ le montant de la remise sera donc ${tex_nombre(remises[2].nb/remises[0].nb)} fois celui de la remise de $${remises[0].str}$, d'où le calul indiqué dans le tableau.
+					<br>Or $${tex_nombre(remises[1].nb/remises[0].nb)} \\times ${remises[0].str} = ${remises[1].str}$.
+					<br>Donc pour $${remises[1].str}$ le montant de la remise sera $${tex_nombre(remises[1].nb/remises[0].nb)}$ fois celui de la remise de $${remises[0].str}$, d'où le calul indiqué dans le tableau.
+					<br><br>
+					L'énoncé indique le montant pour une remise de $${remises[0].str}$.
+					<br>Or $${tex_nombre(remises[2].nb/remises[0].nb)} \\times ${remises[0].str} = ${remises[2].str}$.
+					<br>Donc pour $${remises[2].str}$ le montant de la remise sera $${tex_nombre(remises[2].nb/remises[0].nb)}$ fois celui de la remise de $${remises[0].str}$, d'où le calul indiqué dans le tableau.
 					<br><br>${situations[k].tableau_corr}
 					`
 				});
@@ -7060,6 +7078,6 @@ function Tableaux_et_pourcentages(){
 		liste_de_question_to_contenu(this);
 
 	}
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : coefficient enttier\n2 : coefficient décimal"];
 	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 };
