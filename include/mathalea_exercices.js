@@ -263,7 +263,7 @@ var liste_des_exercices_disponibles = {
   "2N25": union_et_intersection_intervalles_de_R,
   "2G10": Distance,
   "2G11": Milieu,
- // "2G12": Modelisation_coordonnees,
+  "2G12": Nature_polygone,
   "2L10": Developper_Identites_remarquables2,
   "2L11": Factoriser_Identites_remarquables2,
   "1N10": Terme_d_une_suite_definie_explicitement,
