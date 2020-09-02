@@ -4381,7 +4381,10 @@ function angle(A, O, B) {
   let AB = longueur(A, B);
   let v=vecteur(O,A)
   let w=vecteur(O,B)
-  if (v.x*w.y-v.y*w.x==0) return 0;
+  if (v.x*w.y-v.y*w.x==0) {
+    if(v.x*w.x>0) return 0;
+    else return 180;
+  }
   else 
    return calcul(
     (Math.acos((AB ** 2 - OA ** 2 - OB ** 2) / (-2 * OA * OB)) * 180) / Math.PI,
