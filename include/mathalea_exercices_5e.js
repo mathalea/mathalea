@@ -6998,7 +6998,8 @@ function Tableaux_et_pourcentages(){
 			remises = choice([
 				[{str:'10\\%',nb:10},{str:'20\\%',nb:20},{str:'30\\%',nb:30}],
 				[{str:'10\\%',nb:10},{str:'5\\%',nb:5},{str:'15\\%',nb:15}],
-				[{str:'5\\%',nb:5},{str:'10\\%',nb:10},{str:'35\\%',nb:35}]
+				[{str:'5\\%',nb:5},{str:'10\\%',nb:10},{str:'35\\%',nb:35}],
+				[{str:'50\\%',nb:50},{str:'30\\%',nb:30},{str:'10\\%',nb:10}],
 			]);
 
 			// pour les situations, autant de situations que de cas dans le switch !
@@ -7011,8 +7012,8 @@ function Tableaux_et_pourcentages(){
 					]),
 					tableau_corr:tab_C_L([`\\text{Prix en euro}`,tex_prix(prix),tex_prix(prix),tex_prix(prix)],[`\\text{Remise en pourcentage}`,`\\text{Montant de la remise en euro}`,`\\text{Nouveau prix}`],[
 						remises[0].str,remises[1].str,remises[2].str,
-						tex_prix(prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix*remises[0].nb/100)} \\times ${remises[1].nb/remises[0].nb} = ${tex_prix(prix*remises[1].nb/100)}`),'',
-						tex_prix(prix-prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remises[1].nb/100)} = ${tex_prix(prix-prix*remises[1].nb/100)}`),'',
+						tex_prix(prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix*remises[0].nb/100)} \\times ${tex_nombre(remises[1].nb/remises[0].nb)} = ${tex_prix(prix*remises[1].nb/100)}`),mise_en_evidence(`${tex_prix(prix*remises[0].nb/100)} \\times ${tex_nombre(remises[2].nb/remises[0].nb)} = ${tex_prix(prix*remises[2].nb/100)}`),
+						tex_prix(prix-prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remises[1].nb/100)} = ${tex_prix(prix-prix*remises[1].nb/100)}`),mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remises[2].nb/100)} = ${tex_prix(prix-prix*remises[2].nb/100)}`),
 					]),
 				},	
 			];
@@ -7025,7 +7026,10 @@ function Tableaux_et_pourcentages(){
 					`,
 					question:``,
 					correction:`
-					${situations[k].tableau_corr}
+					L'énoncé indique le montant pour une remise de $${remises[0].str}$.
+					<br>Pour $${remises[1].str}$ le montant de la remise sera donc ${tex_nombre(remises[1].nb/remises[0].nb)} fois celui de la remise de $${remises[0].str}$, d'où le calul indiqué dans le tableau.
+					<br>Pour $${remises[2].str}$ le montant de la remise sera donc ${tex_nombre(remises[2].nb/remises[0].nb)} fois celui de la remise de $${remises[0].str}$, d'où le calul indiqué dans le tableau.
+					<br><br>${situations[k].tableau_corr}
 					`
 				});
 			};
