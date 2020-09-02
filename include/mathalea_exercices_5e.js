@@ -7100,7 +7100,7 @@ function Tableaux_et_fonction(){
 		this.nb_questions = 1;
 	};	
 
-	this.titre = "Prodire une formule à partir d'un tableau";	
+	this.titre = "Produire une formule à partir d'un tableau";	
 	this.consigne = ``;	
 	
 	this.nb_cols = 1;
@@ -7130,13 +7130,12 @@ function Tableaux_et_fonction(){
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
 				{//case 0 -->
-				},
+				},	
 			];
 
 			let enonces = [];
 			for (let k=0;k<situations.length;k++) {
-				enonces.push({
-					consigne:`consigne type ${k}`,
+				enonces.push({					
 					enonce:`
 					Type ${k}				
 					`,
@@ -7149,8 +7148,7 @@ function Tableaux_et_fonction(){
             
             // autant de case que d'elements dans le tableau des situations
 			switch (liste_type_de_questions[i]){
-				case 0 : 
-					this.consigne+=`${enonces[0].consigne}`
+				case 0 : 					
 					texte = `${enonces[0].enonce}`;
 					if (this.beta) {
 						texte += `<br>`;
@@ -7161,7 +7159,7 @@ function Tableaux_et_fonction(){
 						texte_corr = `${enonces[0].correction}`;
 					};
           			break;	
-			
+
 			};			
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
