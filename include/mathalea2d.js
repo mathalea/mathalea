@@ -637,6 +637,12 @@ function CodageMediatrice(A, B, color = "black", mark = "×") {
   this.tikz = function () {
     return c.tikz() + "\n" + v.tikz();
   };
+  this.svgml = function (coeff,amp) {
+    return c.svgml(coeff,amp) + "\n" + v.svg(coeff);
+  };
+  this.tikzml = function (amp) {
+    return c.tikzml(amp) + "\n" + v.tikz();
+  };
 }
 
 function codageMediatrice(...args) {
@@ -4022,7 +4028,97 @@ function repere(...args) {
 %%%%%% LES COURBES DE FONCTIONS %%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
-
+function lectureImage(x,y,color='red',text_abs="",text_ord=""){
+  ObjetMathalea2D.call(this)
+  if (text_abs=="") text_abs=x.toString()
+  if (text_ord=="") text_ord=y.toString()
+  let objets=[]
+  let M=point(x,y)
+  let X=point(x,0)
+  let Y=point(0,y)
+  let Sx=segment(X,M,color)
+  let Sy=segment(M,Y,color)
+  Sx.styleExtremites='->'
+  Sy.styleExtremites='->'
+  Sx.pointilles=true
+  Sy.pointilles=true
+  objets.push(Sx,Sy,texteParPosition(text_abs,x,-1,'milieu',color),texteParPosition(text_ord,-1,y,'milieu',color))
+  this.svg=function(coeff){
+    code=""
+    for (let objet of objets) {
+      code +='\t'+objet.svg(coeff)+'\n'
+    }
+    return code
+  }
+  this.tikz=function(){
+    code=""
+    for (let objet of objets) {
+      code +='\t'+objet.tikz()+'\n'
+    }
+    return code
+  }
+  this.svgml=function(coeff,amp){
+    code=""
+    for (let objet of objets) {
+      if (typeof objet.svgml(coeff,amp)!='undefined') code +='\t'+objet.svgml(coeff,amp)+'\n'
+      else  code +='\t'+objet.tikz()+'\n'
+    }
+    return code
+  }
+  this.tikzml=function(amp){
+    code=""
+    for (let objet of objets) {
+      if (typeof objet.tikzml(amp)!='undefined') code +='\t'+objet.tikzml(amp)+'\n'
+      else code +='\t'+objet.tikz()+'\n'
+    }
+    return code
+  }
+}
+function lectureAntecedent(x,y,color='red',text_ord,text_abs){
+  ObjetMathalea2D.call(this)
+  if (!text_abs) text_abs=x.toString()
+  if (!text_ord) text_ord=y.toString()
+  let objets=[]
+  let M=point(x,y)
+  let X=point(x,0)
+  let Y=point(0,y)
+  let Sx=segment(M,X,color)
+  let Sy=segment(Y,M,color)
+  Sx.styleExtremites='->'
+  Sy.styleExtremites='->'
+  Sx.pointilles=true
+  Sy.pointilles=true
+  this.svg=function(coeff){
+    code=""
+    for (let objet of objets) {
+      code +='\t'+objet.svg(coeff)+'\n'
+    }
+    return code
+  }
+  this.tikz=function(){
+    code=""
+    for (let objet of objets) {
+      code +='\t'+objet.tikz()+'\n'
+    }
+    return code
+  }
+  this.svgml=function(coeff,amp){
+    code=""
+    for (let objet of objets) {
+      if (typeof objet.svgml(coeff,amp)!='undefined') code +='\t'+objet.svgml(coeff,amp)+'\n'
+      else  code +='\t'+objet.tikz()+'\n'
+    }
+    return code
+  }
+  this.tikzml=function(amp){
+    code=""
+    for (let objet of objets) {
+      if (typeof objet.tikzml(amp)!='undefined') code +='\t'+objet.tikzml(amp)+'\n'
+      else code +='\t'+objet.tikz()+'\n'
+    }
+    return code
+  }
+}
 /**
  * courbe(f,xmin,xmax,color,epaisseur,repere,step) // Trace la courbe de f
  *
@@ -4381,7 +4477,10 @@ function angle(A, O, B) {
   let AB = longueur(A, B);
   let v=vecteur(O,A)
   let w=vecteur(O,B)
-  if (v.x*w.y-v.y*w.x==0) return 0;
+  if (v.x*w.y-v.y*w.x==0) {
+    if(v.x*w.x>0) return 0;
+    else return 180;
+  }
   else 
    return calcul(
     (Math.acos((AB ** 2 - OA ** 2 - OB ** 2) / (-2 * OA * OB)) * 180) / Math.PI,
