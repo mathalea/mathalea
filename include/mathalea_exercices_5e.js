@@ -6956,7 +6956,7 @@ function Tableaux_et_proportionnalite(){
 function Tableaux_et_pourcentages(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 1;
@@ -6995,11 +6995,26 @@ function Tableaux_et_pourcentages(){
 				prix = randint(150,300);
 			} while (prix%5 != 0)
 			
-			remises = choice([
-				[{str:'10\\%',nb:10},{str:'20\\%',nb:20},{str:'30\\%',nb:30}],
-				[{str:'10\\%',nb:10},{str:'5\\%',nb:5},{str:'15\\%',nb:15}],
-				[{str:'5\\%',nb:5},{str:'10\\%',nb:10},{str:'35\\%',nb:35}]
-			]);
+			if (this.sup == 1) {//coeff entier
+				remises = choice([
+					[{str:'10\\%',nb:10},{str:'20\\%',nb:20},{str:'30\\%',nb:30}],
+					[{str:'5\\%',nb:5},{str:'15\\%',nb:10},{str:'35\\%',nb:35}],
+					[{str:'10\\%',nb:20},{str:'40\\%',nb:40},{str:'80\\%',nb:80}],
+					[{str:'5\\%',nb:5},{str:'25\\%',nb:25},{str:'55\\%',nb:55}],
+					//[{str:'10\\%',nb:10},{str:'5\\%',nb:5},{str:'15\\%',nb:15}],
+					//[{str:'50\\%',nb:50},{str:'30\\%',nb:30},{str:'10\\%',nb:10}],
+				]);	
+			};
+			if (this.sup == 2) {//coeff décimal
+				remises = choice([
+					//[{str:'10\\%',nb:10},{str:'20\\%',nb:20},{str:'30\\%',nb:30}],					
+					//[{str:'5\\%',nb:5},{str:'10\\%',nb:10},{str:'35\\%',nb:35}],
+					[{str:'10\\%',nb:10},{str:'5\\%',nb:5},{str:'15\\%',nb:15}],
+					[{str:'50\\%',nb:50},{str:'30\\%',nb:30},{str:'10\\%',nb:10}],
+					[{str:'20\\%',nb:20},{str:'10\\%',nb:10},{str:'50\\%',nb:50}],
+					[{str:'40\\%',nb:40},{str:'10\\%',nb:10},{str:'5\\%',nb:5}],
+				]);	
+			}
 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
@@ -7011,8 +7026,8 @@ function Tableaux_et_pourcentages(){
 					]),
 					tableau_corr:tab_C_L([`\\text{Prix en euro}`,tex_prix(prix),tex_prix(prix),tex_prix(prix)],[`\\text{Remise en pourcentage}`,`\\text{Montant de la remise en euro}`,`\\text{Nouveau prix}`],[
 						remises[0].str,remises[1].str,remises[2].str,
-						tex_prix(prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix*remises[0].nb/100)} \\times ${remises[1].nb/remises[0].nb} = ${tex_prix(prix*remises[1].nb/100)}`),'',
-						tex_prix(prix-prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remises[1].nb/100)} = ${tex_prix(prix-prix*remises[1].nb/100)}`),'',
+						tex_prix(prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix*remises[0].nb/100)} \\times ${tex_nombre(remises[1].nb/remises[0].nb)} = ${tex_prix(prix*remises[1].nb/100)}`),mise_en_evidence(`${tex_prix(prix*remises[0].nb/100)} \\times ${tex_nombre(remises[2].nb/remises[0].nb)} = ${tex_prix(prix*remises[2].nb/100)}`),
+						tex_prix(prix-prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remises[1].nb/100)} = ${tex_prix(prix-prix*remises[1].nb/100)}`),mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remises[2].nb/100)} = ${tex_prix(prix-prix*remises[2].nb/100)}`),
 					]),
 				},	
 			];
@@ -7025,7 +7040,14 @@ function Tableaux_et_pourcentages(){
 					`,
 					question:``,
 					correction:`
-					${situations[k].tableau_corr}
+					L'énoncé indique le montant pour une remise de $${remises[0].str}$.
+					<br>Or $${tex_nombre(remises[1].nb/remises[0].nb)} \\times ${remises[0].str} = ${remises[1].str}$.
+					<br>Donc pour $${remises[1].str}$ le montant de la remise sera $${tex_nombre(remises[1].nb/remises[0].nb)}$ fois celui de la remise de $${remises[0].str}$, d'où le calul indiqué dans le tableau.
+					<br><br>
+					L'énoncé indique le montant pour une remise de $${remises[0].str}$.
+					<br>Or $${tex_nombre(remises[2].nb/remises[0].nb)} \\times ${remises[0].str} = ${remises[2].str}$.
+					<br>Donc pour $${remises[2].str}$ le montant de la remise sera $${tex_nombre(remises[2].nb/remises[0].nb)}$ fois celui de la remise de $${remises[0].str}$, d'où le calul indiqué dans le tableau.
+					<br><br>${situations[k].tableau_corr}
 					`
 				});
 			};
@@ -7044,6 +7066,100 @@ function Tableaux_et_pourcentages(){
 					};
           			break;	
 			
+			};			
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+
+	}
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : coefficient enttier\n2 : coefficient décimal"];
+	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+};
+
+
+/** 
+ * * Traduire la dépendance entre deux grandeurs par un tableau de valeurs et produire une formule.
+ * * 5L10-4
+ * @author Sébastien Lozano
+ */
+
+function Tableaux_et_fonction(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.beta = true;	
+	this.sup=1;
+	if (this.beta) {
+		this.nb_questions = 1;
+	} else {
+		this.nb_questions = 1;
+	};	
+
+	this.titre = "Produire une formule à partir d'un tableau";	
+	this.consigne = ``;	
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	//this.nb_questions_modifiable = false;
+	sortie_html? this.spacing = 2.5 : this.spacing = 1.5; 
+	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+
+	let type_de_questions_disponibles;	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		if (this.beta) {
+			type_de_questions_disponibles = [0];			
+		} else {
+			  //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
+			  type_de_questions_disponibles = [0];			
+		};
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+
+			// pour les situations, autant de situations que de cas dans le switch !
+			let situations = [
+				{//case 0 -->
+				},	
+			];
+
+			let enonces = [];
+			for (let k=0;k<situations.length;k++) {
+				enonces.push({					
+					enonce:`
+					Type ${k}				
+					`,
+					question:``,
+					correction:`
+					Correction type ${k}
+					`
+				});
+			};
+            
+            // autant de case que d'elements dans le tableau des situations
+			switch (liste_type_de_questions[i]){
+				case 0 : 					
+					texte = `${enonces[0].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
+						texte += `             `
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[0].correction}`;
+					};
+          			break;	
+
 			};			
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
