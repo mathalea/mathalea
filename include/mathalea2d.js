@@ -1992,8 +1992,8 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
     angle=angleOriente(M,Omega,angle)
   }
   let l = longueur(Omega, M), large = 0, sweep = 0
-  let d = droite(Omega, M)
-  d.isVisible = false
+ // let d = droite(Omega, M)
+  //d.isVisible = false
   let A = point(Omega.x + 1, Omega.y)
   let azimut = angleOriente(A, Omega, M)
   let anglefin = azimut + angle
@@ -4379,7 +4379,11 @@ function angle(A, O, B) {
   let OA = longueur(O, A);
   let OB = longueur(O, B);
   let AB = longueur(A, B);
-  return calcul(
+  let v=vecteur(O,A)
+  let w=vecteur(O,B)
+  if (v.x*w.y-v.y*w.x==0) return 0;
+  else 
+   return calcul(
     (Math.acos((AB ** 2 - OA ** 2 - OB ** 2) / (-2 * OA * OB)) * 180) / Math.PI,
     2
   );
