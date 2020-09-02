@@ -125,7 +125,7 @@ var liste_des_exercices_disponibles = {
   "5G30" : Utiliser_le_codage_pour_decrire_5e,
   "5G31": Exercice_angles_triangles,
   "5G31-1": Constructibilite_des_triangles_angles,
-  "beta5N11-1": Tableaux_et_pourcentages,
+  "5N11-1": Tableaux_et_pourcentages,
   "5N13": Exercice_fractions_simplifier,
   "5N13-2": Egalites_entre_fractions,
   "5N110": Variation_en_pourcentages,
