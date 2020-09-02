@@ -24,6 +24,9 @@
 
   <!-- Clipboard-->
   <script src="include/clipboard.min.js" type="text/javascript"></script>
+  
+  <!-- QRcode-->
+  <script src="include/qrcode.min.js" type="text/javascript"></script>
 
   <!-- SVG.JS -->
   <script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.0/dist/svg.min.js"></script>
@@ -110,8 +113,10 @@
       </div>
       <button id="btnCopieURL" style="margin:10px" class="btn ui toggle button labeled icon url" data-clipboard-action="copy" data-clipboard-text=url_courant()><i class="copy icon"></i>Copier le lien vers les exercices sélectionnés</button> 
       <button id="btnLaTeX"  style="margin:10px" class="btn ui button labeled icon" ><i class="edit icon"></i>Version LaTeX</button> 
+      <button id="btnQRcode"  style="margin:10px" class="btn ui button icon" ><i class="qrcode icon"></i></button> 
 </div>
 
+<div id="ModalQRcode" class="ui basic modal></div>
 
 <div class="ui hidden divider"></div>
 
