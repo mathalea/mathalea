@@ -68,7 +68,6 @@ Exercice.call(this); // Héritage de la classe Exercice()
     }
 }
 
-
 function Nature_polygone(){
 Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Déterminer la nature d'un polygone.";
