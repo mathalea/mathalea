@@ -4850,6 +4850,9 @@ function Fraction(num,den) {
 	this.fractionEgale = function(k){
 		return fraction(calcul(this.numIrred*k),calcul(this.denIrred*k))
 	}   
+	this.simplifie=function() {
+		return fraction(this.numIrred,this.denIrred)
+	}
 	/**
 	 * @return {object} L'opposé de la fraction
 	 */
