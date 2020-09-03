@@ -7126,10 +7126,26 @@ function Tableaux_et_fonction(){
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+		
+			let unites;
+			if (this.sup == 1) {//même unités
+				unites = choice([['cm','cm'],['m','m']]);
+			};
+			if (this.sup == 2) {// unités différentes
+				unites = choice([['cm','m'],['m','cm']]);
+			};			
+			
+			let cote_inconnu = choice(['L']);
 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
 				{//case 0 -->
+					unites:unites,
+					cote_connu:randint(3,7),
+					cote_inconnu:cote_inconnu,
+					tableau:tab_C_L([`\\text{Longueur $${cote_inconnu}$ du côté (en $${unites[0]}$)}`,'\\phantom{000}4\\phantom{000}','\\phantom{000}5\\phantom{000}','\\phantom{000}10\\phantom{000}','\\phantom{000}15\\phantom{000}'],[`\\text{Périmètre du rectangle (en $${unites[1]}$)}`],
+					['','','','']
+					),
 				},	
 			];
 
@@ -7137,7 +7153,8 @@ function Tableaux_et_fonction(){
 			for (let k=0;k<situations.length;k++) {
 				enonces.push({					
 					enonce:`
-					Type ${k}				
+					${situations[k].tableau}
+								
 					`,
 					question:``,
 					correction:`
@@ -7172,6 +7189,6 @@ function Tableaux_et_fonction(){
 		liste_de_question_to_contenu(this);
 
 	}
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : les mêmes unités\n2 : unités différentes"];
 	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 };
