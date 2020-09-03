@@ -4511,36 +4511,7 @@ function angleradian(A, O, B) {
   return calcul(Math.acos((AB ** 2 - OA ** 2 - OB ** 2) / (-2 * OA * OB)), 2);
 }
 
-/**
- * couleurAleatoire() renvoie le code d'une couleur au hasard
- *
- * @Auteur Rémi Angot
- */
-function couleurAleatoire() {
-  // let color = "#";
-  // for (let i = 0; i < 6; i++) {
-  //   color += choice([
-  //     0,
-  //     1,
-  //     2,
-  //     3,
-  //     4,
-  //     5,
-  //     6,
-  //     7,
-  //     8,
-  //     9,
-  //     "A",
-  //     "B",
-  //     "C",
-  //     "D",
-  //     "E",
-  //     "F",
-  //   ]);
-  // }
-  // return color;
-  return choice(['white', 'black', 'red', 'green', 'blue', 'cyan', 'magenta', 'yellow'])
-}
+
 
 
 /*
