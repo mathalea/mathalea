@@ -4698,9 +4698,9 @@ function ajouterAy(y,lutin=monLutin){
 function codeSvg(...objets) {
   let code = "";
   let fenetrexmin = fenetreMathalea2d[0]
-  let fenetreymin = fenetreMathalea2d[1]
+  let fenetreymin = fenetreMathalea2d[3]*-(1) 
   let fenetrexmax = fenetreMathalea2d[2]
-  let fenetreymax = fenetreMathalea2d[3]
+  let fenetreymax = fenetreMathalea2d[1]*(-1)
 
   code = `<svg width="${(fenetrexmax-fenetrexmin)*pixelsParCm}" height="${(fenetreymax-fenetreymin)*pixelsParCm}" viewBox="${fenetrexmin*pixelsParCm} ${fenetreymin*pixelsParCm} ${(fenetrexmax-fenetrexmin)*pixelsParCm} ${(fenetreymax-fenetreymin)*pixelsParCm}" xmlns="http://www.w3.org/2000/svg">\n`;
   for (let objet of objets) {

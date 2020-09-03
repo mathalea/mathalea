@@ -111,9 +111,9 @@ function afficheSVG(text) {
 
   // We save the original values from the viewBox
     let fenetrexmin = fenetreMathalea2d[0]
-    let fenetreymin = fenetreMathalea2d[1]
+    let fenetreymin = fenetreMathalea2d[3]*-(1) 
     let fenetrexmax = fenetreMathalea2d[2]
-    let fenetreymax = fenetreMathalea2d[3]
+    let fenetreymax = fenetreMathalea2d[1]*(-1)
     let viewBox = {
       x: fenetrexmin*pixelsParCm,
       y: fenetreymin*pixelsParCm,
