@@ -7051,7 +7051,8 @@ function Tableaux_et_fonction(){
 			let L3 = L2*2;
 			let L4 = L2*3;
 
-			let cote_inconnu = choice(['L']);			
+			let cote_inconnu = choice(['L']);	
+			let cote_inconnu_corr;		
 			let cote_connu = randint(3,7);
 
 			let unites;
@@ -7065,23 +7066,25 @@ function Tableaux_et_fonction(){
 				petit_l =[`${cote_connu}`,``,``,``] 
 				unite_granf_L = unites[0];
 				unite_petit_l = unites[1];
-				cote_inconnu  = cote_inconnu;
+				cote_inconnu_corr  = cote_inconnu;
 			};
 			if (this.sup == 2) {// unités différentes
 				unites = choice([['cm','m'],['m','cm']]);
 				if (unites[0]=='cm') {
 					grand_L =[`${L1}\\times 100`,`${L2}\\times 100`,`${L3}\\times 100`,`${L4}\\times 100`]
+					
 					petit_l =[`${cote_connu}`,``,``,``] 
 					unite_granf_L = unites[0];
-					unite_petit_l = unites[1];
-					cote_inconnu = cote_inconnu+`\\times 100`;
+					unite_petit_l = unites[0];
+					cote_inconnu_corr = cote_inconnu+`\\times 100`;
 				};
 				if (unites[0]=='m') {
 					grand_L =[`${L1}`,`${L2}`,`${L3}`,`${L4}`]
+					
 					petit_l =[`${cote_connu}\\times 100`,``,``,``] 
-					unite_granf_L = unites[0];
+					unite_granf_L = unites[1];
 					unite_petit_l = unites[1];
-					cote_inconnu =  cote_inconnu;
+					cote_inconnu_corr =  cote_inconnu;
 				};
 
 			};			
@@ -7112,7 +7115,7 @@ function Tableaux_et_fonction(){
 					tableau:tab_C_L([`\\text{Longueur $${cote_inconnu}$ du côté (en $${unites[0]}$)}`,`\\phantom{000}${L1}\\phantom{000}`,`\\phantom{000}${L2}\\phantom{000}`,`\\phantom{000}${L3}\\phantom{000}`,`\\phantom{000}${L4}\\phantom{000}`],[`\\text{Périmètre du rectangle (en $${unites[1]}$)}`],
 					['','','','']
 					),
-					tabelau_corr:tab_C_L([`\\text{Longueur $${cote_inconnu}$ du côté (en $${unites[0]}$)}`,`\\phantom{000}${L1}\\phantom{000}`,`\\phantom{000}${L2}\\phantom{000}`,`\\phantom{000}${L3}\\phantom{000}`,`\\phantom{000}${L4}\\phantom{000}`],[`\\text{Périmètre du rectangle (en $${unites[1]}$)}`],
+					tableau_corr:tab_C_L([`\\text{Longueur $${cote_inconnu_corr}$ du côté (en $${unite_granf_L}$)}`,`\\phantom{000}${grand_L[0]}\\phantom{000}`,`\\phantom{000}${grand_L[1]}\\phantom{000}`,`\\phantom{000}${grand_L[2]}\\phantom{000}`,`\\phantom{000}${grand_L[3]}\\phantom{000}`],[`\\text{Périmètre du rectangle (en $${unites[1]}$)}`],
 					['','','','']
 					),
 					fig:figure,
@@ -7126,7 +7129,7 @@ function Tableaux_et_fonction(){
 			for (let k=0;k<situations.length;k++) {
 				enonces.push({					
 					enonce:`
-					On considère le rectangle ci-dessous dont l'un des côtés mesure $${situations[k].cote_connu}$ $${situations[k].unites[0]}$ et l'autre mesure $${situations[k].cote_inconnu}$ $${situations[k].unites[1]}$.
+					On considère le rectangle ci-dessous dont l'un des côtés mesure $${situations[k].cote_connu}$ $${unite_petit_l}$ et l'autre mesure $${situations[k].cote_inconnu}$ $${unite_granf_L}$.
 					<br>${situations[k].fig}
 					<br>${num_alpha(i_sous_question++)} Compléter le tableau suivant :
 					<br><br> ${situations[k].tableau}
@@ -7134,7 +7137,7 @@ function Tableaux_et_fonction(){
 					`,
 					question:``,
 					correction:`
-					Correction type ${k}
+					${situations[k].tableau_corr}
 					`
 				});
 			};
