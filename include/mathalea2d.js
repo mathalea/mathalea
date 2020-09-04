@@ -19,6 +19,7 @@ let pixelsParCm = 20;
 let unitesLutinParCm = 50;
 let mainlevee=false
 let amplitude=1
+let fenetreMathalea2d = [-1,-10,29,10]
 
 /*
  * Classe parente de tous les objets de MathALEA2D
@@ -4696,7 +4697,12 @@ function ajouterAy(y,lutin=monLutin){
  */
 function codeSvg(...objets) {
   let code = "";
-  code = `<svg width="600" height="400" viewBox="-20 -200 600 400" xmlns="http://www.w3.org/2000/svg">\n`;
+  let fenetrexmin = fenetreMathalea2d[0]
+  let fenetreymin = fenetreMathalea2d[3]*-(1) 
+  let fenetrexmax = fenetreMathalea2d[2]
+  let fenetreymax = fenetreMathalea2d[1]*(-1)
+
+  code = `<svg width="${(fenetrexmax-fenetrexmin)*pixelsParCm}" height="${(fenetreymax-fenetreymin)*pixelsParCm}" viewBox="${fenetrexmin*pixelsParCm} ${fenetreymin*pixelsParCm} ${(fenetrexmax-fenetrexmin)*pixelsParCm} ${(fenetreymax-fenetreymin)*pixelsParCm}" xmlns="http://www.w3.org/2000/svg">\n`;
   for (let objet of objets) {
     if (Array.isArray(objet)) {
       for (let i = 0; i < objet.length; i++) {
