@@ -5490,33 +5490,33 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 	%\\theme{nombres|gestion|grandeurs|geo|algo}{Texte (entrainement, évaluation, mise en route...}{numéro de version ou vide}{titre du thême et niveau}
 	\\fancyhead[C]{
 		%Tracé du dé
-		\\begin{tikzpicture}[y=0.80pt, x=0.80pt, yscale=-\\globalscale, xscale=\\globalscale,remember picture, overlay, shift={(current page.north west)},xshift=17cm,yshift=9.5cm,fill=couleur_theme]
+		\begin{tikzpicture}[y=0.80pt, x=0.80pt, yscale=-\globalscale, xscale=\globalscale,remember picture, overlay, shift={(current page.north west)},xshift=17cm,yshift=9.5cm,fill=couleur_theme]
 			%%%%Arc supérieur gauche%%%%
-			\\path[fill](523.5,1424.25)..controls(474.75,1413)and(404.25,1372.5)..(362.25,1333.5)..controls(322.5,1295.25)and(313.5,1272)..(331.5,1254)..controls(348.75,1236.75)and(369.75,1245)..(410.25,1283.25)..controls(458.25,1328.25)and(517.5,1356.75)..(575.25,1362.75)..controls(635.25,1368.75)and(646.5,1375.5)..(643.5,1404.75)..controls(641.25,1428.75)and(641.25,1428.75)..(596.25,1430.25)..controls(571.5,1431)and(538.5,1428)..(523.5,1424.25)--cycle;
+			\path[fill](523,1424)..controls(474,1413)and(404,1372)..(362,1333)..controls(322,1295)and(313,1272)..(331,1254)..controls(348,1236)and(369,1245)..(410,1283)..controls(458,1328)and(517,1356)..(575,1362)..controls(635,1368)and(646,1375)..(643,1404)..controls(641,1428)and(641,1428)..(596,1430)..controls(571,1431)and(538,1428)..(523,1424)--cycle;
 			%%%%Dé face supérieur%%%%
-			\\path[fill](512.25,1272.75)..controls(490.5,1260)and(195,878.25)..(195,861.75)..controls(195,854.25)and(198,846)..(202.5,843.75)..controls(210.75,838.5)and(677.25,772.5)..(707.25,772.5)..controls(720,772.5)and(737.25,781.5)..(753.75,796.5)..controls(792,833.25)and(1057.5,1179)..(1057.5,1193.25)..controls(1057.5,1200)and(1053,1209)..(1048.5,1212.75)..controls(1038,1220.25)and(590.25,1283.25)..(551.25,1282.5)..controls(539.25,1282.5)and(521.25,1278)..(512.25,1272.75)--cycle;
+			\path[fill](512,1272)..controls(490,1260)and(195,878)..(195,861)..controls(195,854)and(198,846)..(202,843)..controls(210,838)and(677,772)..(707,772)..controls(720,772)and(737,781)..(753,796)..controls(792,833)and(1057,1179)..(1057,1193)..controls(1057,1200)and(1053,1209)..(1048,1212)..controls(1038,1220)and(590,1283)..(551,1282)..controls(539,1282)and(521,1278)..(512,1272)--cycle;
 			%%%%Dé faces gauche et droite%%%%
-			\\path[fill](1061.25,1167.75)..controls(1050.75,1158.75)and(978.75,1068.75)..(900,967.5)..controls(792.75,829.5)and(756,777)..(753,756.75)--(748.5,729)--(724.5,745.5)..controls(704.25,759)and(660,767.25)..(456.75,794.25)..controls(322.5,813)and(207,825.75)..(200.25,822.75)..controls(193.5,820.5)and(187.5,812.25)..(187.5,804.75)..controls(188.25,797.25)and(229.5,688.5)..(279.75,563.25)..controls(349.5,390.75)and(376.5,331.5)..(391.5,320.25)..controls(406.5,309)and(462,299.25)..(649.5,273)..controls(780.75,254.25)and(897,240.75)..(907.5,241.5)..controls(918,243)and(927,249)..(928.5,256.5)..controls(930,264)and(912,315.75)..(889.5,372.75)..controls(866.25,429)and(848.25,476.25)..(849.75,477.75)..controls(851.25,479.25)and(872.25,432)..(897,373.5)..controls(936.75,276.75)and(942.75,266.25)..(960,266.25)..controls(975,266.25)and(999,292.5)..(1089,408.75)..controls(1281,654)and(1290,666.75)..(1290,691.5)..controls(1290,720)and(1104.75,1175.25)..(1090.5,1180.5)..controls(1085.25,1182.75)and (1071.75,1176.75)..(1061.25,1167.75)--cycle;
+			\path[fill](1061,1167)..controls(1050,1158)and(978,1068)..(900,967)..controls(792,829)and(756,777)..(753,756)--(748,729)--(724,745)..controls(704,759)and(660,767)..(456,794)..controls(322,813)and(207,825)..(200,822)..controls(193,820)and(187,812)..(187,804)..controls(188,797)and(229,688)..(279,563)..controls(349,390)and(376,331)..(391,320)..controls(406,309)and(462,299)..(649,273)..controls(780,254)and(897,240)..(907,241)..controls(918,243)and(927,249)..(928,256)..controls(930,264)and(912,315)..(889,372)..controls(866,429)and(848,476)..(849,477)..controls(851,479)and(872,432)..(897,373)..controls(936,276)and(942,266)..(960,266)..controls(975,266)and(999,292)..(1089,408)..controls(1281,654)and(1290,666)..(1290,691)..controls(1290,720)and(1104,1175)..(1090,1180)..controls(1085,1182)and (1071,1176)..(1061,1167)--cycle;
 			%%%%Arc inférieur bas%%%%
-			\\path[fill](1329,861)..controls(1316.25,848.25)and(1317,844.5)..(1339.5,788.25)..controls(1364.25,726.75)and(1367.25,654)..(1347,591)..controls(1330.5,539.25)and(1338,522.75)..(1375.5,526.5)..controls(1395.75,528.75)and(1400.25,533.25)..(1412.25,566.25)..controls(1432.5,624)and(1426.5,760.5)..(1401.75,821.25)..controls(1386,861)and(1380.75,866.25)..(1361.25,868.5)..controls(1348.5,870)and(1334.25,866.25)..(1329,861)--cycle;
+			\path[fill](1329,861)..controls(1316,848)and(1317,844)..(1339,788)..controls(1364,726)and(1367,654)..(1347,591)..controls(1330,539)and(1338,522)..(1375,526)..controls(1395,528)and(1400,533)..(1412,566)..controls(1432,624)and(1426,760)..(1401,821)..controls(1386,861)and(1380,866)..(1361,868)..controls(1348,870)and(1334,866)..(1329,861)--cycle;
 			%%%%Arc inférieur gauche%%%%
-			\\path[fill](196.5,373.5)..controls(181.5,358.5)and(186,335.25)..(213.75,294.75)..controls(252.75,237)and(304.5,190.5)..(363,161.25)..controls(435,124.5)and(472.5,127.5)..(472.5,170.25)..controls(472.5,183.75)and(462,192)..(414.75,213.75)..controls(350.25,243.75)and(303.75,283.5)..(264.75,343.5)..controls(239.25,383.25)and(216.75,393.75)..(196.5,373.5)--cycle;
-		\\end{tikzpicture}
-		\\begin{tikzpicture}[remember picture,overlay]
-			\\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {};
-			\\node[anchor=east, fill=white] at ($(current page.north east)+(-18.8,-2.3cm)$) {\\footnotesize \\bfseries{MathALEA}};
-	  	\\end{tikzpicture}
-		\\begin{tikzpicture}[line cap=round,line join=round,remember picture, overlay, shift={(current page.north west)},yshift=-8.5cm]
-			\\fill[fill=couleur_theme] (0,5) rectangle (21,6);
-			\\fill[fill=couleur_theme] (\\xini,6)--(\\xini+1.5,6)--(\\xini+2.5,7)--(\\xini+1.5,8)--(\\xini,8)--(\\xini+1,7)-- cycle;
-			\\fill[fill=couleur_theme] (\\xini+2,6)--(\\xini+2.5,6)--(\\xini+3.5,7)--(\\xini+2.5,8)--(\\xini+2,8)--(\\xini+3,7)-- cycle;  
-			\\fill[fill=couleur_theme] (\\xini+3,6)--(\\xini+3.5,6)--(\\xini+4.5,7)--(\\xini+3.5,8)--(\\xini+3,8)--(\\xini+4,7)-- cycle;   
-			\\node[color=white] at (10.5,5.5) {\\LARGE \\bfseries{ \\MakeUppercase{ #4}}};
-		\\end{tikzpicture}
-		\\begin{tikzpicture}[remember picture,overlay]
-			\\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {};
-			\\node[anchor=east, fill=white] at ($(current page.north east)+(-2,-1.5cm)$) {\\Huge \\textcolor{couleur_theme}{\\bfseries{\\#}} \\bfseries{#2} \\textcolor{couleur_theme}{\\bfseries \\MakeUppercase{#3}}};
-		\\end{tikzpicture}
+			\path[fill](196,373)..controls(181,358)and(186,335)..(213,294)..controls(252,237)and(304,190)..(363,161)..controls(435,124)and(472,127)..(472,170)..controls(472,183)and(462,192)..(414,213)..controls(350,243)and(303,283)..(264,343)..controls(239,383)and(216,393)..(196,373)--cycle;
+		\end{tikzpicture}
+		\begin{tikzpicture}[remember picture,overlay]
+			\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {};
+			\node[anchor=east, fill=white] at ($(current page.north east)+(-18.8,-2.3cm)$) {\footnotesize \bfseries{MathALEA}};
+	  	\end{tikzpicture}
+		\begin{tikzpicture}[line cap=round,line join=round,remember picture, overlay, shift={(current page.north west)},yshift=-8.5cm]
+			\fill[fill=couleur_theme] (0,5) rectangle (21,6);
+			\fill[fill=couleur_theme] (\\xini,6)--(\\xini+1.5,6)--(\\xini+2.5,7)--(\\xini+1.5,8)--(\\xini,8)--(\\xini+1,7)-- cycle;
+			\fill[fill=couleur_theme] (\\xini+2,6)--(\\xini+2.5,6)--(\\xini+3.5,7)--(\\xini+2.5,8)--(\\xini+2,8)--(\\xini+3,7)-- cycle;  
+			\fill[fill=couleur_theme] (\\xini+3,6)--(\\xini+3.5,6)--(\\xini+4.5,7)--(\\xini+3.5,8)--(\\xini+3,8)--(\\xini+4,7)-- cycle;   
+			\node[color=white] at (10.5,5.5) {\\LARGE \\bfseries{ \\MakeUppercase{ #4}}};
+		\end{tikzpicture}
+		\begin{tikzpicture}[remember picture,overlay]
+			\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {};
+			\node[anchor=east, fill=white] at ($(current page.north east)+(-2,-1.5cm)$) {\Huge \textcolor{couleur_theme}{\bfseries{\#}} \bfseries{#2} \textcolor{couleur_theme}{\bfseries \MakeUppercase{#3}}};
+		\end{tikzpicture}
 	}
 	\\fancyfoot[R]{
 		%\\scriptsize Coopmaths.fr -- CC-BY-SA
