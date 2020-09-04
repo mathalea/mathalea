@@ -88,7 +88,7 @@ function point(...args) {
  */
 function TracePoint(...points) {
   ObjetMathalea2D.call(this);
-  this.taille = 4/pixelsParCm; //initiallement 0.2, maintenant 0.2*pixelsParCm/20 pour que la taille soit indépendante du zoom
+  this.taille = 4/pixelsParCm; //initiallement 0.2, maintenant 0.2/pixelsParCm*20 pour que la taille soit indépendante du zoom
   if (typeof points[points.length - 1] === "string") {
     this.color = points[points.length - 1];
   }
@@ -137,7 +137,7 @@ function tracePoint(...args) {
  * @Auteur Rémi Angot & Jean-Claude Lhote
  */
 function tracePointSurDroite(A, O) {
-  let taille =  4/pixelsParCm; //initiallement 0.2, maintenant 0.2*pixelsParCm/20 pour que la taille soit indépendante du zoom
+  let taille =  4/pixelsParCm; //initiallement 0.2, maintenant 0.2/pixelsParCm*20 pour que la taille soit indépendante du zoom
   if (O.constructor == Point) {
     let M = pointSurSegment(A, O, taille);
     let A1 = rotation(M, A, 90);
