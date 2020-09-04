@@ -6090,7 +6090,7 @@ function Problemes_additifs_fractions_5e(){
 			// let q1a = randint(1,5); // indice pour faire varier la 1ere question sur la destination
 			// let q1b = randint(1,5,[q1a]); // indice pour faire varier la 2eme question sur la destination
 			let nb_vols_total;
-			let destinations_vols = [[`l'`,`Afrique`],[`l'`,`Asie`],[`l'`,`Amérique`],[`l'`,`Europe`],[`la`,` France`]];
+			let destinations_vols = [[`l'`,`Afrique`],[`l'`,`Asie`],[`l'`,`Amerique`],[`l'`,`Europe`],[`la`,` France`]];
 			destinations_vols = shuffle(destinations_vols);
 			do {		
 				nb_vols_total = randint(200,600);
@@ -7057,34 +7057,44 @@ function Tableaux_et_fonction(){
 
 			let unites;
 			let grand_L;
+			let grand_L_num;
 			let petit_l;
-			let unite_granf_L;
-			let unite_petit_l; 			
+			let petit_l_num;
+			let unite_grand_L;
+			let unite_petit_l; 
+			let txt_corr;			
 			if (this.sup == 1) {//même unités
 				unites = choice([['cm','cm'],['m','m']]);
-				grand_L =[`${L1}`,`${L2}`,`${L3}`,`${L4}`]
-				petit_l =[`${cote_connu}`,``,``,``] 
-				unite_granf_L = unites[0];
+				grand_L = [`${L1}`,`${L2}`,`${L3}`,`${L4}`];
+				grand_L_num = [`${L1}`,`${L2}`,`${L3}`,`${L4}`]; 
+				petit_l = [`${cote_connu}`,``,``,``]; 
+				petit_l_num = [`${cote_connu}`,``,``,``];
+				unite_grand_L = unites[0];
 				unite_petit_l = unites[1];
 				cote_inconnu_corr  = cote_inconnu;
+				txt_corr = `Les unités sont les mêmes il n'est donc pas necessaire de convertir.`;
 			};
 			if (this.sup == 2) {// unités différentes
 				unites = choice([['cm','m'],['m','cm']]);
 				if (unites[0]=='cm') {
-					grand_L =[`${L1}\\times 100`,`${L2}\\times 100`,`${L3}\\times 100`,`${L4}\\times 100`]
-					
-					petit_l =[`${cote_connu}`,``,``,``] 
-					unite_granf_L = unites[0];
+					grand_L =[`${L1}`,`${L2}`,`${L3}`,`${L4}`];
+					grand_L_num =[`${L1}`,`${L2}`,`${L3}`,`${L4}`];
+					petit_l = [`${cote_connu}\\times 100`,``,``,``];					
+					petit_l_num =[`100${cote_connu}`,``,``,``]; 
+					unite_grand_L = unites[0];
 					unite_petit_l = unites[0];
-					cote_inconnu_corr = cote_inconnu+`\\times 100`;
-				};
-				if (unites[0]=='m') {
-					grand_L =[`${L1}`,`${L2}`,`${L3}`,`${L4}`]
-					
-					petit_l =[`${cote_connu}\\times 100`,``,``,``] 
-					unite_granf_L = unites[1];
-					unite_petit_l = unites[1];
 					cote_inconnu_corr =  cote_inconnu;
+				};
+				if (unites[0]=='m') {					
+					grand_L = [`${L1}\\times 100`,`${L2}\\times 100`,`${L3}\\times 100`,`${L4}\\times 100`];
+					grand_L_num = [`${100*L1}`,`${100*L2}`,`${100*L3}`,`${100*L4}`];
+					petit_l = [`${cote_connu}`,``,``,``];
+					petit_l_num =[`${cote_connu}`,``,``,``]; 					
+					unite_grand_L = unites[1];
+					unite_petit_l = unites[1];
+					cote_inconnu_corr = cote_inconnu+`\\times 100`;
+					
+					txt_corr = `Les unités sont différentes, pour plus de confort, nous pouvons les convertir dans la même unité, ici en cm.`;
 				};
 
 			};			
@@ -7115,9 +7125,16 @@ function Tableaux_et_fonction(){
 					tableau:tab_C_L([`\\text{Longueur $${cote_inconnu}$ du côté (en $${unites[0]}$)}`,`\\phantom{000}${L1}\\phantom{000}`,`\\phantom{000}${L2}\\phantom{000}`,`\\phantom{000}${L3}\\phantom{000}`,`\\phantom{000}${L4}\\phantom{000}`],[`\\text{Périmètre du rectangle (en $${unites[1]}$)}`],
 					['','','','']
 					),
-					tableau_corr:tab_C_L([`\\text{Longueur $${cote_inconnu_corr}$ du côté (en $${unite_granf_L}$)}`,`\\phantom{000}${grand_L[0]}\\phantom{000}`,`\\phantom{000}${grand_L[1]}\\phantom{000}`,`\\phantom{000}${grand_L[2]}\\phantom{000}`,`\\phantom{000}${grand_L[3]}\\phantom{000}`],[`\\text{Périmètre du rectangle (en $${unites[1]}$)}`],
-					['','','','']
+
+					tableau_corr:tab_C_L([`\\text{Longueur $${cote_inconnu_corr}$ du côté (en $${unite_grand_L}$)}`,`\\phantom{000}${grand_L[0]}\\phantom{000}`,`\\phantom{000}${grand_L[1]}\\phantom{000}`,`\\phantom{000}${grand_L[2]}\\phantom{000}`,`\\phantom{000}${grand_L[3]}\\phantom{000}`],[`\\text{Périmètre du rectangle (en $${unite_petit_l}$)}`],
+					[
+						`2\\times \\color{blue}{${petit_l[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[0]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[0])}}`,
+						`2\\times \\color{blue}{${petit_l[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[1]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[1])}}`,
+						`2\\times \\color{blue}{${petit_l[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[2]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[2])}}`,
+						`2\\times \\color{blue}{${petit_l[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[3]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[3])}}`,
+					]
 					),
+					intro:txt_corr,
 					fig:figure,
 				},	
 			];
@@ -7129,7 +7146,7 @@ function Tableaux_et_fonction(){
 			for (let k=0;k<situations.length;k++) {
 				enonces.push({					
 					enonce:`
-					On considère le rectangle ci-dessous dont l'un des côtés mesure $${situations[k].cote_connu}$ $${unite_petit_l}$ et l'autre mesure $${situations[k].cote_inconnu}$ $${unite_granf_L}$.
+					On considère le rectangle ci-dessous dont l'un des côtés mesure $${situations[k].cote_connu}$ $${unites[1]}$ et l'autre mesure $${situations[k].cote_inconnu}$ $${unites[0]}$.
 					<br>${situations[k].fig}
 					<br>${num_alpha(i_sous_question++)} Compléter le tableau suivant :
 					<br><br> ${situations[k].tableau}
@@ -7137,7 +7154,10 @@ function Tableaux_et_fonction(){
 					`,
 					question:``,
 					correction:`
-					${situations[k].tableau_corr}
+					${situations[k].intro}
+					<br> il y a plusieurs façon de calculer le périmètre d'un rectangle, par exemple la somme de la double-largeur et de la double-longueur.
+					<br> Ici l'un des côtés mesure toujours $\\textcolor{blue}{${petit_l[0]}}$ $${unite_petit_l}$
+					<br>${situations[k].tableau_corr}
 					`
 				});
 			};
