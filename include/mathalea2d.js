@@ -88,7 +88,7 @@ function point(...args) {
  */
 function TracePoint(...points) {
   ObjetMathalea2D.call(this);
-  this.taille = 0.01*pixelsParCm; //initiallement 0.2, maintenant 0.2*pixelsParCm/20 pour que la taille soit indépendante du zoom
+  this.taille = 4/pixelsParCm; //initiallement 0.2, maintenant 0.2*pixelsParCm/20 pour que la taille soit indépendante du zoom
   if (typeof points[points.length - 1] === "string") {
     this.color = points[points.length - 1];
   }
@@ -137,7 +137,7 @@ function tracePoint(...args) {
  * @Auteur Rémi Angot & Jean-Claude Lhote
  */
 function tracePointSurDroite(A, O) {
-  let taille =  0.01*pixelsParCm; //initiallement 0.2, maintenant 0.2*pixelsParCm/20 pour que la taille soit indépendante du zoom
+  let taille =  4/pixelsParCm; //initiallement 0.2, maintenant 0.2*pixelsParCm/20 pour que la taille soit indépendante du zoom
   if (O.constructor == Point) {
     let M = pointSurSegment(A, O, taille);
     let A1 = rotation(M, A, 90);
@@ -782,8 +782,8 @@ function CodageBissectrice(A, O, B, color = "black", mark = "×") {
   let demiangle = calcul(angleOriente(A, O, B) / 2);
   let M = rotation(a, O, demiangle);
   let b = pointSurSegment(O, B, 1.5);
-  let a1 = codeAngle(a, O, demiangle,pixelsParCm/20,'|', this.color,2,1);
-  let a2 = codeAngle(M, O, demiangle,pixelsParCm/20,'|', this.color,2,1);
+  let a1 = codeAngle(a, O, demiangle,20/pixelsParCm,'|', this.color,2,1);
+  let a2 = codeAngle(M, O, demiangle,20/pixelsParCm,'|', this.color,2,1);
   this.svg = function (coeff) {
     return (
       a1.svg(coeff) +
