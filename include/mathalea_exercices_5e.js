@@ -7155,7 +7155,7 @@ function Tableaux_et_fonction(){
 					question:``,
 					correction:`
 					${situations[k].intro}
-					<br> il y a plusieurs façon de calculer le périmètre d'un rectangle, par exemple la somme de la double-largeur et de la double-longueur.
+					<br> il y a plusieurs façons de calculer le périmètre d'un rectangle, par exemple la somme de la double-largeur et de la double-longueur.
 					<br> Ici l'un des côtés mesure toujours $\\textcolor{blue}{${petit_l[0]}}$ $${unite_petit_l}$
 					<br>${situations[k].tableau_corr}
 					`
