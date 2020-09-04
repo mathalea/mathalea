@@ -1,24 +1,32 @@
-let divSvg = '';
+let divSvg = "";
 let script = "";
+let url = new URL(window.location.href);
 window.onload = function () {
-	divSvg = document.getElementById("svg");
-  let parametresURL = window.location.href.split("?")[1];
-  if (parametresURL) {
-    // Si dans l'URL il y a quelque-chose après le ?
-    fetch(`/m2d/${parametresURL}.m2d`)
+  divSvg = document.getElementById("svg");
+
+  if (url.searchParams.get("url")) { // Si on spécifie une url
+	  fetch(`/m2d/${url.searchParams.get("url")}.m2d`)
       .then(function (response) {
-        if (response.ok) {
-          return response.text();
-        } else {
-          return `//Fichier /m2d/${parametresURL}.m2d non trouvé`;
-        }
-      })
-      .then((text) => afficheSVG(text));
-  }
+		  if (response.ok) {
+			  return response.text();
+			} else {
+				return `//Fichier /m2d/${url.searchParams.get("url")}.m2d non trouvé`;
+			}
+		})
+		.then((text) => afficheSVG(text));
+	} else if (url.searchParams.get("script")){ // Si un script est présent dans l'URL
+    script = decodeURIComponent(url.searchParams.get("script"));
+    afficheSVG(script)
+	}
+
 };
 
 function executeCode(txt) {
   return Function(txt)();
+}
+
+function editScript(txt) {
+    window.open(window.location.href.replace('mathalea2dsvg.html','mathalea2d.html'))
 }
 
 function afficheSVG(text) {
@@ -102,12 +110,16 @@ function afficheSVG(text) {
   }
 
   // We save the original values from the viewBox
-  let viewBox = {
-    x: -20,
-    y: -200,
-    width: 600,
-    height: 400,
-  };
+    let fenetrexmin = fenetreMathalea2d[0]
+    let fenetreymin = fenetreMathalea2d[3]*-(1) 
+    let fenetrexmax = fenetreMathalea2d[2]
+    let fenetreymax = fenetreMathalea2d[1]*(-1)
+    let viewBox = {
+      x: fenetrexmin*pixelsParCm,
+      y: fenetreymin*pixelsParCm,
+      width: (fenetrexmax-fenetrexmin)*pixelsParCm,
+      height: (fenetreymax-fenetreymin)*pixelsParCm,
+    };
 
   // The distances calculated from the pointer will be stored here
   let newViewBox = {
