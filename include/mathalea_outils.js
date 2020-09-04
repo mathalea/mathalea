@@ -5515,7 +5515,7 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 		\\end{tikzpicture}
 		\\begin{tikzpicture}[remember picture,overlay]
 			\\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {};
-			\\node[anchor=east, fill=white] at ($(current page.north east)+(-2,-1.5cm)$) {\Huge \textcolor{couleur_theme}{\bfseries{\#}} \bfseries{#2} \textcolor{couleur_theme}{\bfseries \MakeUppercase{#3}}};
+			\\node[anchor=east, fill=white] at ($(current page.north east)+(-2,-1.5cm)$) {\\Huge \\textcolor{couleur_theme}{\\bfseries{\\#}} \\bfseries{#2} \\textcolor{couleur_theme}{\\bfseries \\MakeUppercase{#3}}};
 		\\end{tikzpicture}
 	}
 	\\fancyfoot[R]{
