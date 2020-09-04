@@ -957,44 +957,54 @@ if (div_signaletique && div_horloge) {
 		if (nomTouche === 's') {
 			if (div_signaletique.innerHTML=='<img src="images/silence.png" width="100px">') {
 				div_signaletique.innerHTML = ''
+				div_signaletique.style.display = 'none'
 				clearTimeout(timer_horloge);
 			} else {
 				div_signaletique.innerHTML = '<img src="images/silence.png" width="100px">'
+				div_signaletique.style.display = 'inline'
 			}
 		}
 		if (nomTouche === 'r') {
 			if (div_signaletique.innerHTML=='<img src="images/feu_rouge.png" width="100px">') {
 				div_signaletique.innerHTML = ''
+				div_signaletique.style.display = 'none'
 			} else {
 				div_signaletique.innerHTML = '<img src="images/feu_rouge.png" width="100px">'
+				div_signaletique.style.display = 'inline'
 			}
 		}
 		if (nomTouche === 'o') {
 			if (div_signaletique.innerHTML=='<img src="images/feu_orange.png" width="100px">') {
 				div_signaletique.innerHTML = ''
+				div_signaletique.style.display = 'none'
 			} else {
 				div_signaletique.innerHTML = '<img src="images/feu_orange.png" width="100px">'
+				div_signaletique.style.display = 'inline'
 			}
 		}
 		if (nomTouche === 'v') {
 			if (div_signaletique.innerHTML=='<img src="images/feu_vert.png" width="100px">') {
 				div_signaletique.innerHTML = ''
+				div_signaletique.style.display = 'none'
 			} else {
 				div_signaletique.innerHTML = '<img src="images/feu_vert.png" width="100px">'
+				div_signaletique.style.display = 'inline'
 			}
 		}
 		if (nomTouche === 'c') {
 			if (div_signaletique.innerHTML=='<img src="images/chuchoter.png" width="100px">') {
 				div_signaletique.innerHTML = ''
+				div_signaletique.style.display = 'none'
 			} else {
 				div_signaletique.innerHTML = '<img src="images/chuchoter.png" width="100px">'
+				div_signaletique.style.display = 'inline'
 			}
 		}
 		if (nomTouche === 't') {
-			if (div_horloge.style.visibility=='visible') {
-				div_horloge.style.visibility = 'hidden'
+			if (div_horloge.style.display=='none') {
+				div_horloge.style.display = 'inline'
 			} else {
-				div_horloge.style.visibility = 'visible'
+				div_horloge.style.display = 'none'
 			}
 		}
 	}, false);
