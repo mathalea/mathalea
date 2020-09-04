@@ -20,6 +20,7 @@ let unitesLutinParCm = 50;
 let mainlevee=false
 let amplitude=1
 let fenetreMathalea2d = [-1,-10,29,10]
+let scale=1
 
 /*
  * Classe parente de tous les objets de MathALEA2D
@@ -116,10 +117,10 @@ function TracePoint(...points) {
     let code = "";
     for (let A of points) {
       if (A.constructor == Point) {
-        if (color == "black") {
+        if (this.color == "black") {
           code += `\n\\node[point] at (${A.x},${A.y}) {};`;
         } else {
-          return `\n\\node[point,${color}] at (${A.x},${A.y}) {};`;
+          code += `\n\\node[point,${color}] at (${A.x},${A.y}) {};`;
         }
       }
     }
@@ -4745,8 +4746,12 @@ function codeSvg(...objets) {
  */
 function codeTikz(...objets) {
   let code = "";
-  code = `\\begin{tikzpicture}\n
-	\\tikzset{
+  if (scale == 1) {
+    code += `\\begin{tikzpicture}[baseline]\n`;
+  } else {
+    code += `\\begin{tikzpicture}[baseline,scale = ${scale}]\n`;
+  }
+  code += `\\tikzset{
 		point/.style={
 			thick,
 			draw,
@@ -4757,8 +4762,7 @@ function codeTikz(...objets) {
 		},
 	}
 	\\clip (-1,-5) rectangle (15,10);
-
-	\n\n`;
+`;
   for (let objet of objets) {
     if (Array.isArray(objet)) {
       for (let i = 0; i < objet.length; i++) {
