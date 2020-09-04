@@ -5490,7 +5490,7 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 	%\\theme{nombres|gestion|grandeurs|geo|algo}{Texte (entrainement, évaluation, mise en route...}{numéro de version ou vide}{titre du thême et niveau}
 	\\fancyhead[C]{
 		%Tracé du dé
-		\\begin{tikzpicture}[y=0.80pt, x=0.80pt, yscale=-\globalscale, xscale=\globalscale,remember picture, overlay, shift={(current page.north west)},xshift=17cm,yshift=9.5cm,fill=couleur_theme]
+		\\begin{tikzpicture}[y=0.80pt, x=0.80pt, yscale=-\\globalscale, xscale=\\globalscale,remember picture, overlay, shift={(current page.north west)},xshift=17cm,yshift=9.5cm,fill=couleur_theme]
 			%%%%Arc supérieur gauche%%%%
 			\\path[fill](523,1424)..controls(474,1413)and(404,1372)..(362,1333)..controls(322,1295)and(313,1272)..(331,1254)..controls(348,1236)and(369,1245)..(410,1283)..controls(458,1328)and(517,1356)..(575,1362)..controls(635,1368)and(646,1375)..(643,1404)..controls(641,1428)and(641,1428)..(596,1430)..controls(571,1431)and(538,1428)..(523,1424)--cycle;
 			%%%%Dé face supérieur%%%%
@@ -5504,7 +5504,7 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 		\\end{tikzpicture}
 		\\begin{tikzpicture}[remember picture,overlay]
 			\\node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {};
-			\\node[anchor=east, fill=white] at ($(current page.north east)+(-18.8,-2.3cm)$) {\footnotesize \bfseries{MathALEA}};
+			\\node[anchor=east, fill=white] at ($(current page.north east)+(-18.8,-2.3cm)$) {\\footnotesize \\bfseries{MathALEA}};
 	  	\\end{tikzpicture}
 		\\begin{tikzpicture}[line cap=round,line join=round,remember picture, overlay, shift={(current page.north west)},yshift=-8.5cm]
 			\\fill[fill=couleur_theme] (0,5) rectangle (21,6);
