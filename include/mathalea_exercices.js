@@ -37,6 +37,7 @@ var liste_des_exercices_disponibles = {
   "6C31": Division_decimale,
   "6C32": Probleme_course,
   "6C33": Priorites,
+  //"6C99" : separation6C,
   "6D10": Conversions_de_durees,
   "6D101": Heures_decimales,
   "6D11": Somme_de_durees,
@@ -14286,6 +14287,99 @@ function Ordre_de_grandeur_operations_decimaux(){
 						texte_corr = `${enonces[0].correction}`;
 					};
           			break;	
+			};			
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+};
+
+/** 
+ * * séparation6C
+ * * 6C99
+ * @author Sébastien Lozano
+ */
+
+function separation6C(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.beta = false;	
+	this.sup=1;
+	if (this.beta) {
+		this.nb_questions = 5;
+	} else {
+		this.nb_questions = 3;
+	};	
+
+	this.titre = "===================================================================================================================";	
+	this.consigne = ` `;	
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	//this.nb_questions_modifiable = false;
+	sortie_html? this.spacing = 2.5 : this.spacing = 1.5; 
+	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+
+	let type_de_questions_disponibles;	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		if (this.beta) {
+			type_de_questions_disponibles = [0];			
+		} else {
+          //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
+          type_de_questions_disponibles = [0];			
+		};
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+
+			// pour les situations, autant de situations que de cas dans le switch !
+			let situations = [
+				{//case 0 -->
+				},
+			];
+
+			let enonces = [];
+			for (let k=0;k<situations.length;k++) {
+				enonces.push({
+					enonce:`
+					Exercice factice pour faire une séparation temporairement
+					`,
+					question:``,
+					correction:`
+					
+					`
+				});
+			};
+            
+            // autant de case que d'elements dans le tableau des situations
+			switch (liste_type_de_questions[i]){
+				case 0 : 
+					texte = `${enonces[0].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
+						texte += `             `
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[0].correction}`;
+					};
+          			break;	
+
 			};			
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
