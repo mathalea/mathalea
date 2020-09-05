@@ -425,6 +425,20 @@ function tridictionnaire(dict) {
 	return tempDict;
 }
 
+/*
+* Filtre un dictionnaire suivant les premiers caractères de ses clés
+*
+* @Example
+* filtreDictionnaire(dict,'6N') renvoit un dictionnaire où toutes les clés commencent par 6N
+* @Auteur Rémi Angot
+*/
+function filtreDictionnaire(dict,sub) {
+	return Object.assign({}, ...
+		Object.entries(dict).filter(([k,v]) => k.substring(0,sub.length)==sub).map(([k,v]) => ({[k]:v}))
+	);
+}
+
+
 
 /*
 * Concatène liste à elle même en changeant l'ordre à chaque cycle
