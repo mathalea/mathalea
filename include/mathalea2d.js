@@ -4241,111 +4241,156 @@ function repere(...args) {
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
-function lectureImage(x,y,xscale=1,yscale=1,color='red',text_abs="",text_ord=""){
+function LectureImage(x,y,xscale=1,yscale=1,color='red',text_abs="",text_ord=""){
   ObjetMathalea2D.call(this)
+  this.x=x
+  this.y=y
+  this.xscale=xscale
+  this.yscale=yscale
   if (text_abs=="") text_abs=x.toString()
   if (text_ord=="") text_ord=y.toString()
-  let objets=[]
-  x=calcul(x/xscale)
-  y=calcul(y/yscale)
-  let M=point(x,y)
-  let X=point(x,0)
-  let Y=point(0,y)
-  let Sx=segment(X,M,color)
-  let Sy=segment(M,Y,color)
-  Sx.styleExtremites='->'
-  Sy.styleExtremites='->'
-  Sx.pointilles=true
-  Sy.pointilles=true
-  if (sortie_html) 
-     objets.push(Sx,Sy,texteParPosition(text_abs,x,-1*20/pixelsParCm,'milieu',color),texteParPosition(text_ord,-1*20/pixelsParCm,y,'milieu',color))
-  else
-  objets.push(Sx,Sy,texteParPosition(text_abs,y,-1/scale,'milieu',color),texteParPosition(text_ord,-1/scale,y,'milieu',color))
+  this.text_abs=text_abs
+  this.text_ord=text_ord
+  this.color=color
 
   this.svg=function(coeff){
-    code=""
-    for (let objet of objets) {
-      code +='\t'+objet.svg(coeff)+'\n'
-    }
-    return code
+    let x0=calcul(this.x/this.xscale)
+    let y0=calcul(this.y/this.yscale)
+    let M=point(x0,y0)
+    let X=point(x0,0)
+    let Y=point(0,y0)
+    let Sx=segment(X,M,this.color)
+    let Sy=segment(M,Y,this.color)
+    Sx.styleExtremites='->'
+    Sy.styleExtremites='->'
+    Sx.pointilles=true
+    Sy.pointilles=true
+    return "\t\n"+Sx.svg(coeff)+"\t\n"+Sy.svg(coeff)+"\t\n"+texteParPosition(this.text_abs,x0,-1*20/coeff,'milieu',this.color).svg(coeff)+"\t\n"+texteParPosition(this.text_ord,-1*20/coeff,y0,'milieu',this.color).svg(coeff)
   }
   this.tikz=function(){
-    code=""
-    for (let objet of objets) {
-      code +='\t'+objet.tikz()+'\n'
-    }
-    return code
+    let x0=calcul(this.x/this.xscale)
+    let y0=calcul(this.y/this.yscale)
+    let M=point(x0,y0)
+    let X=point(x0,0)
+    let Y=point(0,y0)
+    let Sx=segment(X,M,this.color)
+    let Sy=segment(M,Y,this.color)
+    Sx.styleExtremites='->'
+    Sy.styleExtremites='->'
+    Sx.pointilles=true
+    Sy.pointilles=true
+    return "\t\n"+Sx.tikz()+"\t\n"+Sy.tikz()+"\t\n"+texteParPosition(this.text_abs,x0,-1/scale,'milieu',this.color).tikz()+"\t\n"+texteParPosition(this.text_ord,-1/scale,y0,'milieu',this.color).tikz()
   }
   this.svgml=function(coeff,amp){
-    code=""
-    for (let objet of objets) {
-      if (typeof objet.svgml(coeff,amp)!='undefined') code +='\t'+objet.svgml(coeff,amp)+'\n'
-      else  code +='\t'+objet.tikz()+'\n'
-    }
-    return code
+    let x0=calcul(this.x/this.xscale)
+    let y0=calcul(this.y/this.yscale)
+    let M=point(x,y)
+    let X=point(x0,0)
+    let Y=point(0,y0)
+    let Sx=segment(X,M,this.color)
+    let Sy=segment(M,Y,this.color)
+    Sx.styleExtremites='->'
+    Sy.styleExtremites='->'
+    Sx.pointilles=true
+    Sy.pointilles=true
+    return "\t\n"+Sx.svgml(coeff,amp)+"\t\n"+Sy.svgml(coeff,amp)+"\t\n"+texteParPosition(this.text_abs,x0,-1*20/coeff,'milieu',this.color).svg(coeff)+"\t\n"+texteParPosition(this.text_ord,-1*20/coeff,y0,'milieu',this.color).svg(coeff)
+ 
   }
   this.tikzml=function(amp){
-    code=""
-    for (let objet of objets) {
-      if (typeof objet.tikzml(amp)!='undefined') code +='\t'+objet.tikzml(amp)+'\n'
-      else code +='\t'+objet.tikz()+'\n'
-    }
-    return code
+    let x0=calcul(this.x/this.xscale)
+    let y0=calcul(this.y/this.yscale)
+    let M=point(x,y)
+    let X=point(x0,0)
+    let Y=point(0,y0)
+    let Sx=segment(X,M,color)
+    let Sy=segment(M,Y,color)
+    Sx.styleExtremites='->'
+    Sy.styleExtremites='->'
+    Sx.pointilles=true
+    Sy.pointilles=true
+    return "\t\n"+Sx.tikzml(amp)+"\t\n"+Sy.tikzml(amp)+"\t\n"+texteParPosition(this.text_abs,x0,-1/scale,'milieu',this.color).tikz()+"\t\n"+texteParPosition(this.text_ord,-1/scale,y0,'milieu',this.color).tikz()
+ 
   }
 }
-function lectureAntecedent(x,y,xscale,yscale,color='red',text_ord,text_abs){
+function lectureImage(...args){
+  return new LectureImage(...args)
+}
+
+function LectureAntecedent(x,y,xscale,yscale,color,text_ord,text_abs){
+  "use strict"
   ObjetMathalea2D.call(this)
-  x=calcul(x/xscale)
-  y=calcul(y/yscale)
-  if (!text_abs) text_abs=x.toString()
-  if (!text_ord) text_ord=y.toString()
-  let objets=[]
-  let M=point(x,y)
-  let X=point(x,0)
-  let Y=point(0,y)
-  let Sx=segment(M,X,color)
-  let Sy=segment(Y,M,color)
-  Sx.styleExtremites='->'
-  Sy.styleExtremites='->'
-  Sx.pointilles=true
-  Sy.pointilles=true
-  if (sortie_html) 
-  objets.push(Sx,Sy,texteParPosition(text_abs,x,-1*20/pixelsParCm,'milieu',color),texteParPosition(text_ord,-1*20/pixelsParCm,y,'milieu',color))
-else
-objets.push(Sx,Sy,texteParPosition(text_abs,y,-1/scale,'milieu',color),texteParPosition(text_ord,-1/scale,y,'milieu',color))
-
+  this.x=x
+  this.y=y
+  this.xscale=xscale
+  this.yscale=yscale
+  if (text_abs=="") text_abs=this.x.toString()
+  if (text_ord=="") text_ord=this.y.toString()
+  this.text_abs=text_abs
+  this.text_ord=text_ord
+  this.color=color
 
   this.svg=function(coeff){
-    code=""
-    for (let objet of objets) {
-      code +='\t'+objet.svg(coeff)+'\n'
-    }
-    return code
+    let x0=calcul(this.x/this.xscale)
+    let y0=calcul(this.y/this.yscale)
+    let M=point(x0,y0)
+    let X=point(x0,0)
+    let Y=point(0,y0)
+    let Sx=segment(M,X,color)
+    let Sy=segment(Y,M,color)
+    Sx.styleExtremites='->'
+    Sy.styleExtremites='->'
+    Sx.pointilles=true
+    Sy.pointilles=true
+    return "\t\n"+Sx.svg(coeff)+"\t\n"+Sy.svg(coeff)+"\t\n"+texteParPosition(this.text_abs,x0,-1*20/coeff,'milieu',this.color).svg(coeff)+"\t\n"+texteParPosition(this.text_ord,-1*20/coeff,y0,'milieu',this.color).svg(coeff)
+
   }
   this.tikz=function(){
-    code=""
-    for (let objet of objets) {
-      code +='\t'+objet.tikz()+'\n'
-    }
-    return code
+    let x0=calcul(this.x/this.xscale)
+    let y0=calcul(this.y/this.yscale)
+    let M=point(x0,y0)
+    let X=point(x0,0)
+    let Y=point(0,y0)
+    let Sx=segment(M,X,color)
+    let Sy=segment(Y,M,color)
+    Sx.styleExtremites='->'
+    Sy.styleExtremites='->'
+    Sx.pointilles=true
+    Sy.pointilles=true
+    return "\t\n"+Sx.tikz()+"\t\n"+Sy.tikz()+"\t\n"+texteParPosition(this.text_abs,x0,-1/scale,'milieu',this.color).tikz()+"\t\n"+texteParPosition(this.text_ord,-1/scale,y0,'milieu',this.color).tikz()
+
   }
   this.svgml=function(coeff,amp){
-    code=""
-    for (let objet of objets) {
-      if (typeof objet.svgml(coeff,amp)!='undefined') code +='\t'+objet.svgml(coeff,amp)+'\n'
-      else  code +='\t'+objet.tikz()+'\n'
-    }
-    return code
-  }
+    let x0=calcul(this.x/this.xscale)
+    let y0=calcul(this.y/this.yscale)
+    let M=point(x0,y0)
+    let X=point(x0,0)
+    let Y=point(0,y0)
+    let Sx=segment(M,X,color)
+    let Sy=segment(Y,M,color)
+    Sx.styleExtremites='->'
+    Sy.styleExtremites='->'
+    Sx.pointilles=true
+    Sy.pointilles=true
+    return "\t\n"+Sx.svgml(coeff,amp)+"\t\n"+Sy.svgml(coeff,amp)+"\t\n"+texteParPosition(this.text_abs,x0,-1*20/coeff,'milieu',this.color).svg(coeff)+"\t\n"+texteParPosition(this.text_ord,-1*20/coeff,y0,'milieu',this.color).svg(coeff)
+ }
   this.tikzml=function(amp){
-    code=""
-    for (let objet of objets) {
-      if (typeof objet.tikzml(amp)!='undefined') code +='\t'+objet.tikzml(amp)+'\n'
-      else code +='\t'+objet.tikz()+'\n'
-    }
-    return code
-  }
+    let x0=calcul(this.x/this.xscale)
+    let y0=calcul(this.y/this.yscale)
+    let M=point(x0,y0)
+    let X=point(x0,0)
+    let Y=point(0,y0)
+    let Sx=segment(M,X,color)
+    let Sy=segment(Y,M,color)
+    Sx.styleExtremites='->'
+    Sy.styleExtremites='->'
+    Sx.pointilles=true
+    Sy.pointilles=true
+    return "\t\n"+Sx.tikzml(amp)+"\t\n"+Sy.tikzml(amp)+"\t\n"+texteParPosition(this.text_abs,x0,-1/scale,'milieu',this.color).tikz()+"\t\n"+texteParPosition(this.text_ord,-1/scale,y0,'milieu',this.color).tikz()
+ }
 }
+function lectureAntecedent(...args){
+  return new LectureAntecedent(...args)
+} 
 /**
  * courbe(f,xmin,xmax,color,epaisseur,repere,step) // Trace la courbe de f
  *
