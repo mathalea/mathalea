@@ -4961,6 +4961,10 @@ function codeSvg(...objets) {
  */
 function codeTikz(...objets) {
   let code = "";
+  let fenetrexmin = fenetreMathalea2d[0]
+  let fenetreymin = fenetreMathalea2d[3]*-(1) 
+  let fenetrexmax = fenetreMathalea2d[2]
+  let fenetreymax = fenetreMathalea2d[1]*(-1)
   if (scale == 1) {
     code += `\\begin{tikzpicture}[baseline]\n`;
   } else {
@@ -4976,8 +4980,9 @@ function codeTikz(...objets) {
 			minimum height=5pt,
 		},
 	}
-	\\clip (-1,-5) rectangle (15,10);
-`;
+	\\clip (${fenetrexmin},${fenetreymin}) rectangle (${fenetrexmax},${fenetreymax});
+
+	\n\n`;
   for (let objet of objets) {
     if (Array.isArray(objet)) {
       for (let i = 0; i < objet.length; i++) {
