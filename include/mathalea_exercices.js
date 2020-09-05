@@ -2742,11 +2742,12 @@ function Ajouter9() {
  */
 function Multiplier_entier_par_10_100_1000() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Multiplier un entier par 10, 100 ou 1 000";
+  this.titre = "Multiplier un entier par 10, 100, 1 000...";
   this.consigne = "Calculer";
   this.nb_questions = 8;
   this.nb_cols = 2;
   this.nb_cols_corr = 2;
+  this.sup = 2;
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.bouton_aide = modal_url(numero_de_l_exercice,'https://mathix.org/glisse-nombre/index.html',
@@ -2759,7 +2760,12 @@ function Multiplier_entier_par_10_100_1000() {
       type_de_questions_disponibles,
       this.nb_questions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-
+    let liste_de_b = []
+      if (this.sup==2){
+        liste_de_b = combinaison_listes([10,100,1000,10000,100000],this.nb_questions)
+      } else {
+        liste_de_b = combinaison_listes([10,100,1000],this.nb_questions)
+      }
     for (
       let i = 0, texte, texte_corr, a, b, cpt = 0;
       i < this.nb_questions && cpt < 50;
@@ -2770,13 +2776,13 @@ function Multiplier_entier_par_10_100_1000() {
           a = randint(1,9)
           break;
         case 2:
-          a = randint(1,9)*10
+          a = randint(2,9)*10
           break;
         case 3:
-          a = randint(1,9)*100
+          a = randint(2,9)*100
           break;
         case 4:
-          a = randint(1,9)*1000
+          a = randint(2,9)*1000
           break;
         case 5:
           a = randint(1,9)*100+randint(1,9)
@@ -2795,7 +2801,8 @@ function Multiplier_entier_par_10_100_1000() {
           break;
             
       }
-      b = choice([10,100,1000])
+      
+      b = liste_de_b[i]
       if (choice([true,false])) {
         texte = `$${tex_nombre(a)}\\times${tex_nombre(b)}$`
         texte_corr = `$${tex_nombre(a)}\\times${tex_nombre(b)}=${tex_nombre(a*b)}$`
@@ -2813,7 +2820,7 @@ function Multiplier_entier_par_10_100_1000() {
     }
     liste_de_question_to_contenu(this);
   };
-  //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+  this.besoin_formulaire_numerique = ['Niveau de difficulté',2,'1 : Multiplication par 10, 100 ou 1 000\n2 : Multiplication par 10, 100, 1 000, 10 000 ou 100 000'];
 }
 
 /**
@@ -12286,6 +12293,7 @@ function Construire_un_triangle() {
 function Test_main_levee() {
   "use strict";
   Exercice.call(this);
+
   this.titre = "Test de main levée";
   this.nb_questions = 1;
   this.nb_cols = 1;
@@ -12307,14 +12315,23 @@ function Test_main_levee() {
     let s=segment(A,B,'red')
     s.epaisseur=5
     s.opacite=0.4
+    pixelsParCm=20
+    scale=3
+    let cote=afficheCoteSegment(s)
+    let crochD=crochetD(B)
+    let crochG=crochetG(A)
+
  //   let m=mediatrice(A,B,'d','purple')
     let cons=constructionMediatrice(A,B,true,'orange','//','O','black',2)
-    let texte=mathalea2d({xmin:-1,ymin:0,xmax:16,ymax:11,pixelsParCm:20,scale:1,mainlevee:this.sup,amplitude:1},[codeAngle(A,B,-90,3,'||','black',2,1,'yellow',0.5),C,s,E,tracePoint(A,B,D)])
+
+    let texte=mathalea2d({xmin:-1,ymin:0,xmax:16,ymax:11,pixelsParCm:20,scale:3,mainlevee:this.sup,amplitude:1},[cote,crochD,crochG,codeAngle(A,B,-90,3,'||','black',2,1,'yellow',0.5),C,s,E,tracePoint(A,B,D)])
+    pixelsParCm=20
     let texte_corr=""
     this.liste_questions.push(texte );
     this.liste_corrections.push(texte_corr );
    liste_de_question_to_contenu(this)  
   }
+
   this.besoin_formulaire_case_a_cocher = ["main levee"];	
 }
 
