@@ -88,7 +88,7 @@ function point(...args) {
  */
 function TracePoint(...points) {
   ObjetMathalea2D.call(this);
-  this.taille = 0.2;
+  this.taille = 4/pixelsParCm; //initiallement 0.2, maintenant 0.2/pixelsParCm*20 pour que la taille soit indépendante du zoom
   if (typeof points[points.length - 1] === "string") {
     this.color = points[points.length - 1];
   }
@@ -130,9 +130,16 @@ function tracePoint(...args) {
   return new TracePoint(...args);
 }
 
+/**
+ * P=tracePointSurDroite(A,d) //Ajoute un trait perpendiculaire à d supposée tracée marquant la posiion du point A
+ * P=tracePointSurDroite(A,B) //Ajoute un trait perpendiculaire à la droite (AB) supposée tracée marquant la posiion du point A
+ * 
+ * @Auteur Rémi Angot & Jean-Claude Lhote
+ */
 function tracePointSurDroite(A, O) {
+  let taille =  4/pixelsParCm; //initiallement 0.2, maintenant 0.2/pixelsParCm*20 pour que la taille soit indépendante du zoom
   if (O.constructor == Point) {
-    let M = pointSurSegment(A, O, 0.2);
+    let M = pointSurSegment(A, O, taille);
     let A1 = rotation(M, A, 90);
     let A2 = rotation(M, A, -90);
     return segment(A1, A2);
@@ -140,8 +147,8 @@ function tracePointSurDroite(A, O) {
   if (O.constructor == Droite) {
     let d = droiteParPointEtPerpendiculaire(A, O);
     d.isVisible = false;
-    let A1 = pointSurSegment(point(d.x1, d.y1), point(d.x2, d.y2), 0.2);
-    let A2 = pointSurSegment(point(d.x1, d.y1), point(d.x2, d.y2), -0.2);
+    let A1 = pointSurSegment(point(d.x1, d.y1), point(d.x2, d.y2), taille);
+    let A2 = pointSurSegment(point(d.x1, d.y1), point(d.x2, d.y2), -taille);
     return segment(A1, A2);
   }
 }
@@ -775,8 +782,8 @@ function CodageBissectrice(A, O, B, color = "black", mark = "×") {
   let demiangle = calcul(angleOriente(A, O, B) / 2);
   let M = rotation(a, O, demiangle);
   let b = pointSurSegment(O, B, 1.5);
-  let a1 = codeAngle(a, O, demiangle,1,'|', this.color,2,1);
-  let a2 = codeAngle(M, O, demiangle,1,'|', this.color,2,1);
+  let a1 = codeAngle(a, O, demiangle,20/pixelsParCm,'|', this.color,2,1);
+  let a2 = codeAngle(M, O, demiangle,20/pixelsParCm,'|', this.color,2,1);
   this.svg = function (coeff) {
     return (
       a1.svg(coeff) +
@@ -1647,15 +1654,12 @@ function triangle2points1angle1longueurOppose(A, B, a, l, n = 1) {
 function NommePolygone(p, nom = "", k = 0.5) {
   ObjetMathalea2D.call(this);
   let G = barycentre(p);
-  let V,
-    v,
-    labels = [];
+  let P, labels = [];
   for (let i = 0, point; i < p.listePoints.length; i++) {
     if (nom != "") p.listePoints[i].nom = nom[i];
-    V = vecteur(G, p.listePoints[i]);
-    v = homothetie(V, G, k / V.norme());
-    point = translation(p.listePoints[i], v);
-    labels.push(texteParPoint(p.listePoints[i].nom, point, "milieu"));
+   P=pointSurSegment(G,p.listePoints[i],longueur(G,p.listePoints[i])+k*20/pixelsParCm)
+   console.log(longueur(G,p.listePoints[i]))
+    labels.push(texteParPoint(p.listePoints[i].nom, P, "milieu"));
   }
   this.svg = function (coeff) {
     code = "";
@@ -2247,7 +2251,7 @@ function courbeDeBezier(...args) {
 */
 
 /**
- * Trace un segment entre A et B qui donne l'impression d'être fait à main levée.
+ * Trace un segment entre A et B qui donne l'impression d'être fait à main levée. amp est l'amplitude de la déformation
  * @Auteur Jean-Claude Lhote
  */
 function SegmentMainLevee(A,B,amp,color='black',epaisseur=1) {
@@ -2299,7 +2303,10 @@ function SegmentMainLevee(A,B,amp,color='black',epaisseur=1) {
 function segmentMainLevee(A,B,amp,color='black',epaisseur=1) {
   return new SegmentMainLevee(A,B,amp,color,epaisseur)
 }
-
+/**
+ * Trace un cercle de centre A et de rayon r qui donne l'impression d'être fait à main levée. amp est l'amplitude de la déformation
+ * @Auteur Jean-Claude Lhote
+ */
 function CercleMainLevee(A,r,amp,color='black') {
   ObjetMathalea2D.call(this);
   this.color=color;
@@ -2349,7 +2356,10 @@ function CercleMainLevee(A,r,amp,color='black') {
 function cercleMainLevee(A,r,amp,color='black',epaisseur=1) {
   return new CercleMainLevee(A,r,amp,color,epaisseur)
 }
-
+/**
+ * Trace une droite passant par A et B qui donne l'impression d'être fait à main levée. amp est l'amplitude de la déformation
+ * @Auteur Jean-Claude Lhote
+ */
 function DroiteMainLevee(A,B,amp,color='black'){
   ObjetMathalea2D.call(this)
   this.svg = function(coeff) {
@@ -2366,7 +2376,10 @@ function DroiteMainLevee(A,B,amp,color='black'){
 function droiteMainLevee(A,B,amp,color='black',epaisseur=1) {
   return new DroiteMainLevee(A,B,amp,color,epaisseur)
 }
-
+/**
+ * Trace un polygone qui donne l'impression d'être fait à main levée. amp est l'amplitude de la déformation
+ * @Auteur Jean-Claude Lhote
+ */
 function PolygoneMainLevee(points,amp,color='black') {
     ObjetMathalea2D.call(this);
     this.couleurDeRemplissage = "";
