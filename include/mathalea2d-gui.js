@@ -221,6 +221,18 @@ window.onload = function () {
       let viewBoxString = `${newViewBox.x} ${newViewBox.y} ${viewBox.width} ${viewBox.height}`;
       // We apply the new viewBox values onto the SVG
       svg.setAttribute("viewBox", viewBoxString);
+      myCodeMirrorSvg.setValue(divSvg.innerHTML);
+      let xmin = calcul(newViewBox.x/pixelsParCm,1);
+      let xmax = calcul(xmin + viewBox.width/pixelsParCm,1);
+      let ymax = calcul(newViewBox.y/pixelsParCm*(-1),1);
+      let ymin = calcul(ymax - viewBox.height/pixelsParCm,1)
+      if (myCodeMirror.getValue().indexOf('fenetreMathalea2d')>-1){
+        myCodeMirror.setValue(myCodeMirror.getValue().replace(/fenetreMathalea2d.*/,`fenetreMathalea2d = [${xmin},${ymin},${xmax},${ymax}]`))
+      } else {
+        myCodeMirror.setValue(`fenetreMathalea2d = [${xmin},${ymin},${xmax},${ymax}]\n`+myCodeMirror.getValue())
+      }
+      myCodeMirrorTikz.setValue(myCodeMirrorTikz.getValue().replace(/\\clip.*/,`\\clip (${xmin},${ymin}) rectangle (${xmax},${ymax});`))
+
 
       //document.querySelector('.viewbox').innerHTML = viewBoxString;
     }
@@ -232,7 +244,6 @@ window.onload = function () {
       // We save the viewBox coordinates based on the last pointer offsets
       viewBox.x = newViewBox.x;
       viewBox.y = newViewBox.y;
-      myCodeMirrorSvg.setValue(divSvg.innerHTML);
     }
   };
 };
