@@ -6195,9 +6195,9 @@ function Problemes_additifs_fractions_5e(){
 					case 90:
 						return `du secteur est un angle droit, il mesure $${angle}\\degree$ sur les $360\\degree$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{4}$.`;
 					case 30:
-						return `rouge apparaît 3 fois, l'angle vert vaut $180\\degree$ et il y a un angle droit.
-							<br> L'angle pour un tour complet vaut $360\\degree$, donc l'angle rouge vaut $(360-180-90)\\div 3 = ${angle}\\degree$.
-							<br> L'angle rouge mesure $${angle}\\degree$ sur les $360\\degree$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{12}$.
+						return `rouge apparaît 3 fois, l'angle vert vaut $180\\degree$ et il y a un angle droit.<br>
+							L'angle pour un tour complet vaut $360\\degree$, donc l'angle rouge vaut $(360-180-90)\\div 3 = ${angle}\\degree$.<br>
+							L'angle rouge mesure $${angle}\\degree$ sur les $360\\degree$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{12}$.
 							`;
 					case 180:
 						return `du secteur est un angle plat, il mesure $${angle}\\degree$ sur les $360\\degree$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{2}$.`;
@@ -6309,27 +6309,27 @@ function Problemes_additifs_fractions_5e(){
 			for (let k=0;k<1;k++) {
 				enonces.push({
 					enonce:`
-					On a représenté sur le diagramme circulaire ci-contre la répartition des ${situations[k].fin_enonce_situation}.
-					<br>${texte_gras(`Les angles de même couleur ont la même mesure.`)}
-					<br>${texte_gras(`L'angle vert est un angle plat.`)}
-					<br> ${situations[k].fig}
-					<br>${num_alpha(i_sous_question++)} Quelle fraction représente les ${situations[k].nom_enonce} vers ${situations[k].cat1.destination} ?
-					<br>${num_alpha(i_sous_question++)} Quelle fraction représente les ${situations[k].nom_enonce} vers ${situations[k].cat2.destination} ?
-					<br>${num_alpha(i_sous_question++)} Sachant que ${situations[k].last_question[0]} ${situations[k].nb_total} ${situations[k].last_question[1]}
+					On a représenté sur le diagramme circulaire ci-contre la répartition des ${situations[k].fin_enonce_situation}.<br>
+					${texte_gras(`Les angles de même couleur ont la même mesure.`)}<br>
+					${texte_gras(`L'angle vert est un angle plat.`)}<br>
+					${situations[k].fig}<br>
+					${num_alpha(i_sous_question++)} Quelle fraction représente les ${situations[k].nom_enonce} vers ${situations[k].cat1.destination} ?<br>
+					${num_alpha(i_sous_question++)} Quelle fraction représente les ${situations[k].nom_enonce} vers ${situations[k].cat2.destination} ?<br>
+					${num_alpha(i_sous_question++)} Sachant que ${situations[k].last_question[0]} ${situations[k].nb_total} ${situations[k].last_question[1]}
 					et que les ${situations[k].nom_enonce} vers ${situations[k].cat3.destination} représentent $\\dfrac{${situations[k].cat3.frac[0]}}{${situations[k].cat3.frac[1]}}$ de ce total,
 					caluler ${situations[k].last_question[2]} vers ${situations[k].cat3.destination}?
 												
 					`,
 					correction:`
-					${num_alpha(i_sous_question_corr++)} Pour ${situations[k].cat1.destination} l'angle ${myTexte_vols_corr(situations[k].cat1.angle)}						
-					<br>${texte_en_couleur(`La fraction qui représente les ${situations[k].nom_enonce} vers ${situations[k].cat1.destination} vaut donc $\\dfrac{${situations[k].cat1.frac[0]}}{${situations[k].cat1.frac[1]}}$`)}.
+					${num_alpha(i_sous_question_corr++)} Pour ${situations[k].cat1.destination} l'angle ${myTexte_vols_corr(situations[k].cat1.angle)}<br>					
+					${texte_en_couleur(`La fraction qui représente les ${situations[k].nom_enonce} vers ${situations[k].cat1.destination} vaut donc $\\dfrac{${situations[k].cat1.frac[0]}}{${situations[k].cat1.frac[1]}}$`)}.<br>
 					
-					<br>${num_alpha(i_sous_question_corr++)} Pour ${situations[k].cat2.destination} l'angle ${myTexte_vols_corr(situations[k].cat2.angle)}				
-					<br>${texte_en_couleur(`La fraction qui représente les ${situations[k].nom_enonce} vers ${situations[k].cat2.destination} vaut donc $\\dfrac{${situations[k].cat2.frac[0]}}{${situations[k].cat2.frac[1]}}$`)}
+					${num_alpha(i_sous_question_corr++)} Pour ${situations[k].cat2.destination} l'angle ${myTexte_vols_corr(situations[k].cat2.angle)}<br>				
+					${texte_en_couleur(`La fraction qui représente les ${situations[k].nom_enonce} vers ${situations[k].cat2.destination} vaut donc $\\dfrac{${situations[k].cat2.frac[0]}}{${situations[k].cat2.frac[1]}}$`)}<br>
 
-					<br>${num_alpha(i_sous_question_corr++)} Calculons $\\dfrac{${situations[k].cat3.frac[0]}}{${situations[k].cat3.frac[1]}}$ de ${situations[k].nb_total} : 
-					<br>$\\dfrac{${situations[k].cat3.frac[0]}}{${situations[k].cat3.frac[1]}}\\times ${situations[k].nb_total} = \\dfrac{${situations[k].cat3.frac[0]}\\times ${situations[k].nb_total}}{${situations[k].cat3.frac[1]}} = \\dfrac{${situations[k].cat3.frac[0]}\\times ${calcul(situations[k].nb_total/situations[k].cat3.frac[1])}\\times ${situations[k].cat3.frac[1]}}{${situations[k].cat3.frac[1]}} = \\dfrac{${situations[k].cat3.frac[0]}\\times ${calcul(situations[k].nb_total/situations[k].cat3.frac[1])}\\times \\cancel{${situations[k].cat3.frac[1]}}}{\\cancel{${situations[k].cat3.frac[1]}}} = ${situations[k].cat3.frac[0]}\\times ${calcul(situations[k].nb_total/situations[k].cat3.frac[1])} = ${calcul(situations[k].nb_total/situations[k].cat3.frac[1])}$
-					<br>${texte_en_couleur(`${situations[k].last_question[3]} vers ${situations[k].cat3.destination} vaut donc ${calcul(situations[k].nb_total/situations[k].cat3.frac[1])}.`)}
+					${num_alpha(i_sous_question_corr++)} Calculons $\\dfrac{${situations[k].cat3.frac[0]}}{${situations[k].cat3.frac[1]}}$ de ${situations[k].nb_total} :<br> 
+					$\\dfrac{${situations[k].cat3.frac[0]}}{${situations[k].cat3.frac[1]}}\\times ${situations[k].nb_total} = \\dfrac{${situations[k].cat3.frac[0]}\\times ${situations[k].nb_total}}{${situations[k].cat3.frac[1]}} = \\dfrac{${situations[k].cat3.frac[0]}\\times ${calcul(situations[k].nb_total/situations[k].cat3.frac[1])}\\times ${situations[k].cat3.frac[1]}}{${situations[k].cat3.frac[1]}} = \\dfrac{${situations[k].cat3.frac[0]}\\times ${calcul(situations[k].nb_total/situations[k].cat3.frac[1])}\\times \\cancel{${situations[k].cat3.frac[1]}}}{\\cancel{${situations[k].cat3.frac[1]}}} = ${situations[k].cat3.frac[0]}\\times ${calcul(situations[k].nb_total/situations[k].cat3.frac[1])} = ${calcul(situations[k].nb_total/situations[k].cat3.frac[1])}$<br>
+					${texte_en_couleur(`${situations[k].last_question[3]} vers ${situations[k].cat3.destination} vaut donc ${calcul(situations[k].nb_total/situations[k].cat3.frac[1])}.`)}
 					`
 				});
 			};
@@ -7080,10 +7080,11 @@ function Tableaux_et_fonction(){
 					grand_L =[`${L1}`,`${L2}`,`${L3}`,`${L4}`];
 					grand_L_num =[`${L1}`,`${L2}`,`${L3}`,`${L4}`];
 					petit_l = [`${cote_connu}\\times 100`,``,``,``];					
-					petit_l_num =[`100${cote_connu}`,``,``,``]; 
+					petit_l_num =[`${100*cote_connu}`,``,``,``]; 
 					unite_grand_L = unites[0];
 					unite_petit_l = unites[0];
 					cote_inconnu_corr =  cote_inconnu;
+					txt_corr = `Les unités sont différentes, pour plus de confort, nous pouvons les convertir dans la même unité, ici en cm.`;
 				};
 				if (unites[0]=='m') {					
 					grand_L = [`${L1}\\times 100`,`${L2}\\times 100`,`${L3}\\times 100`,`${L4}\\times 100`];
@@ -7126,13 +7127,18 @@ function Tableaux_et_fonction(){
 					['','','','']
 					),
 
-					tableau_corr:tab_C_L([`\\text{Longueur $${cote_inconnu_corr}$ du côté (en $${unite_grand_L}$)}`,`\\phantom{000}${grand_L[0]}\\phantom{000}`,`\\phantom{000}${grand_L[1]}\\phantom{000}`,`\\phantom{000}${grand_L[2]}\\phantom{000}`,`\\phantom{000}${grand_L[3]}\\phantom{000}`],[`\\text{Périmètre du rectangle (en $${unite_petit_l}$)}`],
+					tableau_corr:tab_C_L([`\\text{Longueur $${cote_inconnu_corr}$ du côté (en $${unite_grand_L}$)}`,`\\phantom{000}${grand_L[0]}\\phantom{000}`,`\\phantom{000}${grand_L[1]}\\phantom{000}`,`\\phantom{000}${grand_L[2]}\\phantom{000}`,`\\phantom{000}${grand_L[3]}\\phantom{000}`],
+					[`\\text{Périmètre du rectangle (en $${unite_petit_l}$)}`,``],
 					[
-						`2\\times \\color{blue}{${petit_l[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[0]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[0])}}`,
-						`2\\times \\color{blue}{${petit_l[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[1]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[1])}}`,
-						`2\\times \\color{blue}{${petit_l[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[2]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[2])}}`,
-						`2\\times \\color{blue}{${petit_l[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[3]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[3])}}`,
-					]
+						`2\\times \\color{blue}{${petit_l_num[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[0]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[0])}}`,
+						`2\\times \\color{blue}{${petit_l_num[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[1]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[1])}}`,
+						`2\\times \\color{blue}{${petit_l_num[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[2]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[2])}}`,
+						`2\\times \\color{blue}{${petit_l_num[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[3]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[3])}}`,					
+						`2\\times \\color{blue}{${cote_connu} \\; ${unites[1]}} \\color{black}{+2\\times} \\color{red}{${grand_L[0]} \\; ${unite_grand_L}} \\color{black}{= 2\\times} \\color{blue}{${petit_l_num[0]} \\; ${unite_petit_l}} \\color{black}{+2\\times} \\color{red}{${grand_L[0]} \\; ${unite_grand_L}} = \\color{black}{${tex_nombre(2*petit_l_num[0]+2*grand_L_num[0])} \\; ${unite_grand_L}}`,
+						`2\\times \\color{blue}{${petit_l_num[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[1]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[1])}}`,
+						`2\\times \\color{blue}{${petit_l_num[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[2]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[2])}}`,
+						`2\\times \\color{blue}{${petit_l_num[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[3]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[3])}}`,
+					],
 					),
 					intro:txt_corr,
 					fig:figure,
@@ -7155,7 +7161,7 @@ function Tableaux_et_fonction(){
 					question:``,
 					correction:`
 					${situations[k].intro}
-					<br> il y a plusieurs façon de calculer le périmètre d'un rectangle, par exemple la somme de la double-largeur et de la double-longueur.
+					<br> il y a plusieurs façons de calculer le périmètre d'un rectangle, par exemple $2\\times largeur + 2\\times Longueur$.
 					<br> Ici l'un des côtés mesure toujours $\\textcolor{blue}{${petit_l[0]}}$ $${unite_petit_l}$
 					<br>${situations[k].tableau_corr}
 					`
