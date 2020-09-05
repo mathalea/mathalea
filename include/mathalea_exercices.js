@@ -12293,6 +12293,7 @@ function Construire_un_triangle() {
 function Test_main_levee() {
   "use strict";
   Exercice.call(this);
+
   this.titre = "Test de main levée";
   this.nb_questions = 1;
   this.nb_cols = 1;
@@ -12314,14 +12315,23 @@ function Test_main_levee() {
     let s=segment(A,B,'red')
     s.epaisseur=5
     s.opacite=0.4
+    pixelsParCm=20
+    scale=3
+    let cote=afficheCoteSegment(s)
+    let crochD=crochetD(B)
+    let crochG=crochetG(A)
+
  //   let m=mediatrice(A,B,'d','purple')
     let cons=constructionMediatrice(A,B,true,'orange','//','O','black',2)
-    let texte=mathalea2d({xmin:-1,ymin:0,xmax:16,ymax:11,pixelsParCm:20,scale:1,mainlevee:this.sup,amplitude:1},[codeAngle(A,B,-90,3,'||','black',2,1,'yellow',0.5),C,s,E,tracePoint(A,B,D)])
+
+    let texte=mathalea2d({xmin:-1,ymin:0,xmax:16,ymax:11,pixelsParCm:20,scale:3,mainlevee:this.sup,amplitude:1},[cote,crochD,crochG,codeAngle(A,B,-90,3,'||','black',2,1,'yellow',0.5),C,s,E,tracePoint(A,B,D)])
+    pixelsParCm=20
     let texte_corr=""
     this.liste_questions.push(texte );
     this.liste_corrections.push(texte_corr );
    liste_de_question_to_contenu(this)  
   }
+
   this.besoin_formulaire_case_a_cocher = ["main levee"];	
 }
 
