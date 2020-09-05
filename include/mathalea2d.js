@@ -4080,6 +4080,12 @@ function Repere({
 } = {}) {
   ObjetMathalea2D.call(this);
   let objets = [];
+  let yabscisse;
+  ymin > 0 ? (yabscisse = ymin) : (yabscisse = 0);
+  let xordonnee;
+  xmin > 0 ? (xordonnee = xmin) : (xordonnee = 0);
+ 
+ /*
   if (grillePrincipaleVisible) {
     objets.push(
       grille(
@@ -4121,10 +4127,7 @@ function Repere({
       axesColor
     )
   );
-  let yabscisse;
-  ymin > 0 ? (yabscisse = ymin) : (yabscisse = 0);
-  let xordonnee;
-  xmin > 0 ? (xordonnee = xmin) : (xordonnee = 0);
+  
   if (afficheZero) {
     objets.push(
       labelX(
@@ -4189,12 +4192,7 @@ function Repere({
     );
   }
 
-  if (positionLegendeX === undefined) {
-    positionLegendeX = [xmax + 0.2, yabscisse + 0.3];
-  }
-  if (positionLegendeY === undefined) {
-    positionLegendeY = [xordonnee + 0.3, ymax + 0.2];
-  }
+  
   objets.push(
     texteParPosition(
       legendeX,
@@ -4210,20 +4208,231 @@ function Repere({
       calcul(positionLegendeY[1] / yscale),
       "droite"
     )
-  );
+    */
 
+  
   this.svg = function (coeff) {
     code = "";
-    for (objet of objets) {
-      code += "\n\t" + objet.svg(coeff);
+    if (grillePrincipaleVisible) {
+      code+=grille(
+          calcul(xmin / xscale),
+          calcul(ymin / yscale),
+          calcul(xmax / xscale),
+          calcul(ymax / yscale),
+          grillePrincipaleColor,
+          grillePrincipaleOpacite,
+          grillePrincipaleDistance,
+          grillePrincipalePointilles
+        ).svg(coeff)
     }
+    if (grilleSecondaireVisible) {
+      code+=
+        grille(
+          calcul(xmin / xscale),
+          calcul(ymin / yscale),
+          calcul(xmax / xscale),
+          calcul(ymax / yscale),
+          grilleSecondaireColor,
+          grilleSecondaireOpacite,
+          grilleSecondaireDistance,
+          grilleSecondairePointilles
+        ).svg(coeff)
+  
+    }
+    code+=
+      axes(
+        calcul(xmin / xscale),
+        calcul(ymin / yscale),
+        calcul(xmax / xscale),
+        calcul(ymax / yscale),
+        4/coeff,
+        xstep,
+        ystep,
+        axesEpaisseur,
+        axesColor
+      ).svg(coeff)
+    
+    if (afficheZero) {
+      code+= labelX(
+          premierMultipleSuperieur(xstep, graduationsxMin),
+          graduationsxMax,
+          xstep,
+          graduationColor,
+          calcul(yabscisse / yscale) + positionLabelX*20/coeff,
+          xscale
+        ).svg(coeff)
+      code+= labelY(
+          premierMultipleSuperieur(ystep, graduationsyMin),
+          graduationsyMax,
+          ystep,
+          graduationColor,
+          calcul(xordonnee / xscale) + positionLabelY*20/coeff,
+          yscale
+        ).svg(coeff)
+    } else {
+      code+=labelX(
+          premierMultipleSuperieur(xstep, graduationsxMin),
+          -1,
+          xstep,
+          graduationColor,
+          calcul(yabscisse / yscale) + positionLabelX*20/coeff,
+          xscale
+        ).svg(coeff)
+      code+=labelY(
+          premierMultipleSuperieur(ystep, graduationsyMin),
+          -1,
+          ystep,
+          graduationColor,
+          calcul(xordonnee / xscale) + positionLabelY*20/coeff,
+          yscale
+        ).svg(coeff)
+      code+=labelX(
+          Math.max(xstep, premierMultipleSuperieur(xstep, graduationsxMin)),
+          graduationsxMax,
+          xstep,
+          graduationColor,
+          calcul(yabscisse / yscale) + positionLabelX*20/coeff,
+          xscale
+        ).svg(coeff)
+      code+=labelY(
+          Math.max(ystep, premierMultipleSuperieur(ystep, graduationsyMin)),
+          graduationsyMax,
+          ystep,
+          graduationColor,
+          calcul(xordonnee / xscale) + positionLabelY*20/coeff,
+          yscale
+        ).svg(coeff)
+    }
+    if (positionLegendeX === undefined) {
+      positionLegendeX = [xmax + 4/coeff, yabscisse + 6/coeff];
+    }
+    if (positionLegendeY === undefined) {
+      positionLegendeY = [xordonnee + 6/coeff, ymax + 4/coeff];
+    }
+    code+=texteParPosition(
+        legendeX,
+        calcul(positionLegendeX[0] / xscale),
+        calcul(positionLegendeX[1] / yscale),
+        "droite"
+      ).svg(coeff)
+    code+=texteParPosition(
+        legendeY,
+        calcul(positionLegendeY[0] / xscale),
+        calcul(positionLegendeY[1] / yscale),
+        "droite"
+      ).svg(coeff)
     return code;
   };
   this.tikz = function () {
     code = "";
-    for (objet of objets) {
-      code += "\n\t" + objet.tikz();
+    if (grillePrincipaleVisible) {
+      code+=grille(
+          calcul(xmin / xscale),
+          calcul(ymin / yscale),
+          calcul(xmax / xscale),
+          calcul(ymax / yscale),
+          grillePrincipaleColor,
+          grillePrincipaleOpacite,
+          grillePrincipaleDistance,
+          grillePrincipalePointilles
+        ).tikz()
     }
+    if (grilleSecondaireVisible) {
+      code+=
+        grille(
+          calcul(xmin / xscale),
+          calcul(ymin / yscale),
+          calcul(xmax / xscale),
+          calcul(ymax / yscale),
+          grilleSecondaireColor,
+          grilleSecondaireOpacite,
+          grilleSecondaireDistance,
+          grilleSecondairePointilles
+        ).tikz()
+  
+    }
+    code+=
+      axes(
+        calcul(xmin / xscale),
+        calcul(ymin / yscale),
+        calcul(xmax / xscale),
+        calcul(ymax / yscale),
+        0.2/scale,
+        xstep,
+        ystep,
+        axesEpaisseur,
+        axesColor
+      ).tikz()
+    
+    if (afficheZero) {
+      code+= labelX(
+          premierMultipleSuperieur(xstep, graduationsxMin),
+          graduationsxMax,
+          xstep,
+          graduationColor,
+          calcul(yabscisse / yscale) + positionLabelX/scale,
+          xscale
+        ).tikz()
+      code+= labelY(
+          premierMultipleSuperieur(ystep, graduationsyMin),
+          graduationsyMax,
+          ystep,
+          graduationColor,
+          calcul(xordonnee / xscale) + positionLabelY/scale,
+          yscale
+        ).tikz()
+    } else {
+      code+=labelX(
+          premierMultipleSuperieur(xstep, graduationsxMin),
+          -1,
+          xstep,
+          graduationColor,
+          calcul(yabscisse / yscale) + positionLabelX/scale,
+          xscale
+        ).tikz()
+      code+=labelY(
+          premierMultipleSuperieur(ystep, graduationsyMin),
+          -1,
+          ystep,
+          graduationColor,
+          calcul(xordonnee / xscale) + positionLabelY/scale,
+          yscale
+        ).tikz()
+      code+=labelX(
+          Math.max(xstep, premierMultipleSuperieur(xstep, graduationsxMin)),
+          graduationsxMax,
+          xstep,
+          graduationColor,
+          calcul(yabscisse / yscale) + positionLabelX/scale,
+          xscale
+        ).tikz()
+      code+=labelY(
+          Math.max(ystep, premierMultipleSuperieur(ystep, graduationsyMin)),
+          graduationsyMax,
+          ystep,
+          graduationColor,
+          calcul(xordonnee / xscale) + positionLabelY/scale,
+          yscale
+        ).tikz()
+    }
+    if (positionLegendeX === undefined) {
+      positionLegendeX = [xmax + 0.2/scale, yabscisse + 0.3/scale];
+    }
+    if (positionLegendeY === undefined) {
+      positionLegendeY = [xordonnee + 0.3/scale, ymax + 0.2/scale];
+    }
+    code+=texteParPosition(
+        legendeX,
+        calcul(positionLegendeX[0] / xscale),
+        calcul(positionLegendeX[1] / yscale),
+        "droite"
+      ).tikz()
+    code+=texteParPosition(
+        legendeY,
+        calcul(positionLegendeY[0] / xscale),
+        calcul(positionLegendeY[1] / yscale),
+        "droite"
+      ).tikz()
     return code;
   };
 
