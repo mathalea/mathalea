@@ -7080,10 +7080,11 @@ function Tableaux_et_fonction(){
 					grand_L =[`${L1}`,`${L2}`,`${L3}`,`${L4}`];
 					grand_L_num =[`${L1}`,`${L2}`,`${L3}`,`${L4}`];
 					petit_l = [`${cote_connu}\\times 100`,``,``,``];					
-					petit_l_num =[`100${cote_connu}`,``,``,``]; 
+					petit_l_num =[`${100*cote_connu}`,``,``,``]; 
 					unite_grand_L = unites[0];
 					unite_petit_l = unites[0];
 					cote_inconnu_corr =  cote_inconnu;
+					txt_corr = `Les unités sont différentes, pour plus de confort, nous pouvons les convertir dans la même unité, ici en cm.`;
 				};
 				if (unites[0]=='m') {					
 					grand_L = [`${L1}\\times 100`,`${L2}\\times 100`,`${L3}\\times 100`,`${L4}\\times 100`];
@@ -7126,13 +7127,18 @@ function Tableaux_et_fonction(){
 					['','','','']
 					),
 
-					tableau_corr:tab_C_L([`\\text{Longueur $${cote_inconnu_corr}$ du côté (en $${unite_grand_L}$)}`,`\\phantom{000}${grand_L[0]}\\phantom{000}`,`\\phantom{000}${grand_L[1]}\\phantom{000}`,`\\phantom{000}${grand_L[2]}\\phantom{000}`,`\\phantom{000}${grand_L[3]}\\phantom{000}`],[`\\text{Périmètre du rectangle (en $${unite_petit_l}$)}`],
+					tableau_corr:tab_C_L([`\\text{Longueur $${cote_inconnu_corr}$ du côté (en $${unite_grand_L}$)}`,`\\phantom{000}${grand_L[0]}\\phantom{000}`,`\\phantom{000}${grand_L[1]}\\phantom{000}`,`\\phantom{000}${grand_L[2]}\\phantom{000}`,`\\phantom{000}${grand_L[3]}\\phantom{000}`],
+					[`\\text{Périmètre du rectangle (en $${unite_petit_l}$)}`,``],
 					[
-						`2\\times \\color{blue}{${petit_l[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[0]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[0])}}`,
-						`2\\times \\color{blue}{${petit_l[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[1]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[1])}}`,
-						`2\\times \\color{blue}{${petit_l[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[2]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[2])}}`,
-						`2\\times \\color{blue}{${petit_l[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[3]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[3])}}`,
-					]
+						`2\\times \\color{blue}{${petit_l_num[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[0]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[0])}}`,
+						`2\\times \\color{blue}{${petit_l_num[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[1]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[1])}}`,
+						`2\\times \\color{blue}{${petit_l_num[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[2]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[2])}}`,
+						`2\\times \\color{blue}{${petit_l_num[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[3]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[3])}}`,					
+						`2\\times \\color{blue}{${cote_connu} \\; ${unites[1]}} \\color{black}{+2\\times} \\color{red}{${grand_L[0]} \\; ${unites[0]}} \\color{black}{=} \\color{blue}{${petit_l_num[0]} \\; ${unite_petit_l}} \\color{black}{+2\\times} \\color{red}{${grand_L[0]} \\; ${unites[0]}} = \\color{black}{${tex_nombre(2*petit_l_num[0]+2*grand_L_num[0])}}`,
+						`2\\times \\color{blue}{${petit_l_num[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[1]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[1])}}`,
+						`2\\times \\color{blue}{${petit_l_num[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[2]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[2])}}`,
+						`2\\times \\color{blue}{${petit_l_num[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[3]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[3])}}`,
+					],
 					),
 					intro:txt_corr,
 					fig:figure,
@@ -7155,7 +7161,7 @@ function Tableaux_et_fonction(){
 					question:``,
 					correction:`
 					${situations[k].intro}
-					<br> il y a plusieurs façons de calculer le périmètre d'un rectangle, par exemple la somme de la double-largeur et de la double-longueur.
+					<br> il y a plusieurs façons de calculer le périmètre d'un rectangle, par exemple $2\\times largeur + 2\\times Longueur$.
 					<br> Ici l'un des côtés mesure toujours $\\textcolor{blue}{${petit_l[0]}}$ $${unite_petit_l}$
 					<br>${situations[k].tableau_corr}
 					`
