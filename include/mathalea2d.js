@@ -3453,15 +3453,6 @@ function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5) {
   this.sommet=B
   this.distance=distance
 
- /* if (sortie_html)
-    distance=distance*20/pixelsParCm
-  else 
-    distance=distance/scale
-  let M = pointSurSegment(d.extremite1, d.extremite2, distance);
-  let dessinArc = arc(pointSurSegment(B, A, 0.8), B, angleOriente(A,B,C));
-  let mesureAngle = arrondi_virgule(angle(A, B, C), 0) + "°";
-  return texteParPoint(mesureAngle, M, "milieu", color);
-  */
   this.svg=function(coeff){
     let d = bissectrice(A, B, C);
     d.isVisible = false;
@@ -3493,55 +3484,67 @@ function AfficheCoteSegment(
   positionValeur = 0.5,
   couleurValeur = "black"
 ) {
-  if (sortie_html) {
-    positionCote=positionCote*20/pixelsParCm
-    positionValeur=positionValeur*20/pixelsParCm
-  }
-  else {
-    positionCote=positionCote/scale
-    positionValeur=positionValeur/scale
-  }
+
   // let longueur=s.longueur
   ObjetMathalea2D.call(this);
-  let objets = [];
+    this.positionCoteSVG=positionCote*20/pixelsParCm
+    this.positionCoteTIKZ=positionCote/scale
+    this.positionValeurpositionValeur
+    this.seg=s
+    this.cote=Cote
+
+  this.svg = function (coeff) {
   let valeur;
-  let A = s.extremite1;
-  let B = s.extremite2;
-  let v = similitude(vecteur(A, B), A, 90, positionCote / s.longueur);
+  let A = this.seg.extremite1;
+  let B = this.seg.extremite2;
+  let v = similitude(vecteur(A, B), A, 90, this.positionCoteSVG / this.seg.longueur);
   let cote = segment(translation(A, v), translation(B, v), couleurCote);
   if (longueur(A, B) > 1) cote.styleExtremites = "<->";
   else cote.styleExtremites = ">-<";
   cote.epaisseur = epaisseurCote;
-  if (Cote == "")
+  if (this.cote == "")
     valeur = afficheLongueurSegment(
       cote.extremite1,
       cote.extremite2,
       couleurValeur,
-      positionValeur
+      this.positionValeur
     );
   else
     valeur = texteSurSegment(
-      Cote,
+      this.cote,
       cote.extremite1,
       cote.extremite2,
       couleurValeur,
-      positionValeur
+      this.positionValeur
     );
-  objets.push(cote);
-  objets.push(valeur);
-  this.svg = function (coeff) {
-    code = "";
-    for (objet of objets) {
-      code += "\n\t" + objet.svg(coeff);
+    return "\n\t" + cote.svg(coeff) +"\n\t"+valeur.svg(coeff);
     }
-    return code;
-  };
+
   this.tikz = function () {
-    code = "";
-    for (objet of objets) {
-      code += "\n\t" + objet.tikz();
-    }
-    return code;
+    let valeur;
+    let A = this.seg.extremite1;
+    let B = this.seg.extremite2;
+    let v = similitude(vecteur(A, B), A, 90, this.positionCoteTIKZ / this.seg.longueur);
+    let cote = segment(translation(A, v), translation(B, v), couleurCote);
+    if (longueur(A, B) > 1) cote.styleExtremites = "<->";
+    else cote.styleExtremites = ">-<";
+    cote.epaisseur = epaisseurCote;
+    if (this.cote == "")
+      valeur = afficheLongueurSegment(
+        cote.extremite1,
+        cote.extremite2,
+        couleurValeur,
+        this.positionValeur
+      );
+    else
+      valeur = texteSurSegment(
+        this.cote,
+        cote.extremite1,
+        cote.extremite2,
+        couleurValeur,
+        this.positionValeur
+      );
+      return "\n\t" + cote.tikz() +"\n\t"+valeur.tikz();
   };
 }
 function afficheCoteSegment(...args) {
@@ -3660,8 +3663,14 @@ function codeSegments(mark = "||", color = "black", ...args) {
 function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur=1,opacite=1,fill='none',fillOpacite=0.2) {
   ObjetMathalea2D.call(this)
   this.color=color
-  let codage,depart,P,d,arcangle
-  if (fill!='none') {
+  this.debut=debut
+  this.centre=centre
+  this.taille=taille
+  this.mark=mark
+  this.epaisseur=epaisseur
+  this.opacite=opacite
+
+  if (this.fill!='none') {
     this.couleurDeRemplissage=fill
     this.opaciteDeRemplissage=fillOpacite
   }
@@ -3672,36 +3681,77 @@ function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur
     remplir = false
   else 
     remplir = true
-  
+  this.plein=remplir
   if (typeof(angle)!='number'){
     angle=angleOriente(debut,centre,angle)
   }
-  depart=pointSurSegment(centre,debut,taille)
-  P=rotation(depart,centre,angle/2)
-  d=droite(centre,P)
-  d.isVisible=false
-  arcangle=arc(depart,centre,angle,remplir,fill,color)
-  arcangle.opacite=opacite
-  arcangle.epaisseur=epaisseur
-  arcangle.couleurDeRemplissage=this.couleurDeRemplissage
-  arcangle.opaciteDeRemplissage=this.opaciteDeRemplissage
-  if (mark!='')  codage=texteParPoint(mark,P,90-d.angleAvecHorizontale,color)
-  else codage=''
+  this.angle=angle
+
   this.svg=function(coeff){
+    let P,depart,d,arcangle,codage
+    depart=pointSurSegment(this.centre,this.debut,this.taille*20/pixelsParCm)
+    P=rotation(depart,this.centre,this.angle/2)
+    d=droite(this.centre,P)
+    d.isVisible=false
+    arcangle=arc(depart,this.centre,this.angle,this.plein,this.couleurDeRemplissage,this.color)
+    arcangle.opacite=this.opacite
+    arcangle.epaisseur=this.epaisseur
+    arcangle.couleurDeRemplissage=this.couleurDeRemplissage
+    arcangle.opaciteDeRemplissage=this.opaciteDeRemplissage
+    if (this.mark!='')  codage=texteParPoint(mark,P,90-d.angleAvecHorizontale,color)
+    else codage=''
     if (codage!='') return codage.svg(coeff)+'\n'+arcangle.svg(coeff);
     else return arcangle.svg(coeff);
   }
+
   this.tikz=function(){
-    if (codage!='') return codage.tikz()+'\n'+arcangle.tikz()
-    else return arcangle.tikz()
+    let P,depart,d,arcangle,codage
+    depart=pointSurSegment(this.centre,this.debut,this.taille/scale)
+    P=rotation(depart,this.centre,this.angle/2)
+    d=droite(this.centre,P)
+    d.isVisible=false
+    arcangle=arc(depart,this.centre,this.angle,this.plein,this.couleurDeRemplissage,this.color)
+    arcangle.opacite=this.opacite
+    arcangle.epaisseur=this.epaisseur
+    arcangle.couleurDeRemplissage=this.couleurDeRemplissage
+    arcangle.opaciteDeRemplissage=this.opaciteDeRemplissage
+    if (this.mark!='')  codage=texteParPoint(mark,P,90-d.angleAvecHorizontale,color)
+    else codage=''
+    if (codage!='') return codage.tikz()+'\n'+arcangle.tikz();
+    else return arcangle.tikz();
   }
+
   this.svgml = function(coeff,amp){
+    let P,depart,d,arcangle,codage
+    depart=pointSurSegment(this.centre,this.debut,this.taille*20/pixelsParCm)
+    P=rotation(this.depart,this.centre,this.angle/2)
+    d=droite(this.centre,P)
+    d.isVisible=false
+    arcangle=arc(this.depart,this.centre,this.angle,this.plein,this.couleurDeRemplissage,this.color)
+    arcangle.opacite=this.opacite
+    arcangle.epaisseur=this.epaisseur
+    arcangle.couleurDeRemplissage=this.couleurDeRemplissage
+    arcangle.opaciteDeRemplissage=this.opaciteDeRemplissage
+    if (this.mark!='')  codage=texteParPoint(mark,P,90-d.angleAvecHorizontale,color)
+    else codage=''
     if (codage!='') return codage.svg(coeff)+'\n'+arcangle.svgml(coeff,amp);
-    else return arcangle.svgml(coeff,amp);
+    else return arcangle.svg(coeff);
   }
   this.tikzml=function(amp){
-    if (codage!='') return codage.tikz()+'\n'+arcangle.tikzml(amp)
-    else return arcangle.tikzml(amp)
+    let P,depart,d,arcangle,codage
+    depart=pointSurSegment(this.centre,this.debut,this.taille/scale)
+    P=rotation(this.depart,this.centre,this.angle/2)
+    d=droite(this.centre,P)
+    d.isVisible=false
+    arcangle=arc(this.depart,this.centre,this.angle,this.plein,this.couleurDeRemplissage,this.color)
+    arcangle.opacite=this.opacite
+    arcangle.epaisseur=this.epaisseur
+    arcangle.couleurDeRemplissage=this.couleurDeRemplissage
+    arcangle.opaciteDeRemplissage=this.opaciteDeRemplissage
+    if (this.mark!='')  codage=texteParPoint(mark,P,90-d.angleAvecHorizontale,color)
+    else codage=''
+    if (codage!='') return codage.tikz()+'\n'+arcangle.tikzml(amp);
+    else return arcangle.tikz();
   }
 }
 
@@ -4411,11 +4461,7 @@ function CrochetD(A, color = "blue") {
   ObjetMathalea2D.call(this);
   this.epaisseur = 2;
   this.color = color;
-  if (sortie_html) 
-    this.taille=4/pixelsParCm
-  else
-    this.taille=0.2/scale
-
+  this.taille=0.2
   this.svg = function (coeff) {
     if (this.epaisseur != 1) {
       this.style += ` stroke-width="${this.epaisseur}" `;
@@ -4423,25 +4469,25 @@ function CrochetD(A, color = "blue") {
     if (this.pointilles) {
       this.style += ` stroke-dasharray="4 3" `;
     }
-    code = `<polyline points="${calcul(A.xSVG(coeff) + this.taille * coeff)},${calcul(A.ySVG(coeff)+
-      2*this.taille * coeff
-    )} ${A.xSVG(coeff)},${calcul(A.ySVG(coeff)+2*this.taille * coeff)} ${A.xSVG(coeff)},${calcul(A.ySVG(coeff)+
-      -2*this.taille * coeff
-    )} ${calcul(A.xSVG(coeff) + this.taille * coeff)},${calcul(A.ySVG(coeff)+
-      -2*this.taille * coeff
+    code = `<polyline points="${calcul(A.xSVG(coeff) + this.taille*20)},${calcul(A.ySVG(coeff)+
+      2*this.taille*20/coeff * coeff
+    )} ${A.xSVG(coeff)},${calcul(A.ySVG(coeff)+2*this.taille*20)} ${A.xSVG(coeff)},${calcul(A.ySVG(coeff)+
+      -2*this.taille*20
+    )} ${calcul(A.xSVG(coeff) + this.taille*20)},${calcul(A.ySVG(coeff)+
+      -2*this.taille*20
     )}" fill="none" stroke="${this.color}" ${this.style} />`;
     code += `\n\t<text x="${A.xSVG(coeff)}" y="${calcul(A.ySVG(coeff)+
-      this.taille*5 * coeff)
+      this.taille*20*5 )
     }" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${
       A.nom
     }</text>\n `;
     return code;
   };
   this.tikz = function () {
-    code = `\\draw[very thick,${this.color}] (${calcul(A.x + this.taille)},${A.y+this.taille})--(${
+    code = `\\draw[very thick,${this.color}] (${calcul(A.x + this.taille/scale)},${A.y+this.taille/scale})--(${
       A.x
-    },${A.y+this.taille})--(${A.x},${A.y-this.taille})--(${calcul(A.x + this.taille)},${A.y-this.taille});`;
-    code += `\n\t\\draw[${this.color}] (${A.x},${A.y-this.taille}) node[below] {$${A.nom}$};`;
+    },${A.y+this.taille/scale})--(${A.x},${A.y-this.taille/scale})--(${calcul(A.x + this.taille/scale)},${A.y-this.taille/scale});`;
+    code += `\n\t\\draw[${this.color}] (${A.x},${A.y-this.taille/scale}) node[below] {$${A.nom}$};`;
     return code;
   };
 }
@@ -4453,10 +4499,8 @@ function CrochetG(A, color = "blue") {
   ObjetMathalea2D.call(this);
   this.epaisseur = 2;
   this.color = color;
-  if (sortie_html) 
-  this.taille=4/pixelsParCm
-else
-  this.taille=0.2/scale
+  this.taille=0.2
+
   this.svg = function (coeff) {
     if (this.epaisseur != 1) {
       this.style += ` stroke-width="${this.epaisseur}" `;
@@ -4464,25 +4508,25 @@ else
     if (this.pointilles) {
       this.style += ` stroke-dasharray="4 3" `;
     }
-    code = `<polyline points="${calcul(A.xSVG(coeff) - this.taille * coeff)},${calcul(A.ySVG(coeff)+
-      2*this.taille * coeff
-    )} ${A.xSVG(coeff)},${calcul(A.ySVG(coeff)+2*this.taille * coeff)} ${A.xSVG(coeff)},${calcul(A.ySVG(coeff)
-      -2*this.taille * coeff
-    )} ${calcul(A.xSVG(coeff) - this.taille * coeff)},${calcul(A.ySVG(coeff)
-      -2*this.taille * coeff
+    code = `<polyline points="${calcul(A.xSVG(coeff) - this.taille*20 )},${calcul(A.ySVG(coeff)+
+      2*this.taille *20
+    )} ${A.xSVG(coeff)},${calcul(A.ySVG(coeff)+2*this.taille *20)} ${A.xSVG(coeff)},${calcul(A.ySVG(coeff)
+      -2*this.taille *20
+    )} ${calcul(A.xSVG(coeff) - this.taille*20 )},${calcul(A.ySVG(coeff)
+      -2*this.taille *20
     )}" fill="none" stroke="${this.color}" ${this.style} />`;
     code += `\n\t<text x="${A.xSVG(coeff)}" y="${A.ySVG(coeff)+
-      5*this.taille * coeff
+      5*this.taille *20
     }" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${
       A.nom
     }</text>\n `;
     return code;
   };
   this.tikz = function () {
-    code = `\\draw[very thick,${this.color}] (${calcul(A.x - this.taille)},${A.y+this.taille})--(${
+    code = `\\draw[very thick,${this.color}] (${calcul(A.x - this.taille/scale)},${A.y+this.taille/scale})--(${
       A.x
-    },${A.y+this.taille})--(${A.x},${A.y-this.taille})--(${calcul(A.x - this.taille)},${A.y-this.taille});`;
-    code += `\n\t\\draw[${this.color}] (${A.x},${A.y-this.taille}) node[below] {$${A.nom}$};`;
+    },${A.y+this.taille/scale})--(${A.x},${A.y-this.taille/scale})--(${calcul(A.x - this.taille/scale)},${A.y-this.taille/scale});`;
+    code += `\n\t\\draw[${this.color}] (${A.x},${A.y-this.taille/scale}) node[below] {$${A.nom}$};`;
     return code;
   };
 }
