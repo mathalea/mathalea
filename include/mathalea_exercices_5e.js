@@ -7128,7 +7128,7 @@ function Tableaux_et_fonction(){
 					),
 
 					tableau_corr:tab_C_L([`\\text{Longueur $${cote_inconnu_corr}$ du côté (en $${unite_grand_L}$)}`,`\\phantom{000}${grand_L[0]}\\phantom{000}`,`\\phantom{000}${grand_L[1]}\\phantom{000}`,`\\phantom{000}${grand_L[2]}\\phantom{000}`,`\\phantom{000}${grand_L[3]}\\phantom{000}`],
-					[`\\text{Périmètre du rectangle (en $${unite_petit_l}$)}`,``],
+					[`\\text{Périmètre du rectangle (en $${unite_petit_l}$)}`,``,``],
 					[
 						`2\\times \\color{blue}{${petit_l_num[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[0]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[0])}}`,
 						`2\\times \\color{blue}{${petit_l_num[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[1]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[1])}}`,
@@ -7138,6 +7138,7 @@ function Tableaux_et_fonction(){
 						`2\\times \\color{blue}{${petit_l_num[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[1]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[1])}}`,
 						`2\\times \\color{blue}{${petit_l_num[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[2]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[2])}}`,
 						`2\\times \\color{blue}{${petit_l_num[0]}} \\color{black}{+2\\times} \\color{red}{${grand_L[3]}} \\color{black}{= ${tex_nombre(2*petit_l_num[0]+2*grand_L_num[3])}}`,
+						`2\\times \\color{blue}{${cote_connu} \\; ${unites[1]}} \\color{black}{+2\\times} \\color{red}{${grand_L_num[0]} \\; ${unite_grand_L}} \\color{black}{= ${2*petit_l_num[0]} \\; ${unite_petit_l} + ${2*grand_L_num[0]} \\; ${unite_grand_L}} = \\color{black}{${tex_nombre(2*petit_l_num[0]+2*grand_L_num[0])} \\; ${unite_grand_L}}`,
 					],
 					),
 					intro:txt_corr,
