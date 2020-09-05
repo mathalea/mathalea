@@ -7012,7 +7012,7 @@ function Tableaux_et_pourcentages(){
 function Tableaux_et_fonction(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 1;
