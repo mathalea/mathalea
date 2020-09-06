@@ -9016,7 +9016,7 @@ function Tester_si_un_nombre_est_solution_d_une_equation() {
         case 6: // ax-ab=x²-bx (a-x)(x-b)=0 solutions a et b.
           if (this.sup == 1) {
             b = randint(2, 9);
-            a = randint(2, 9);
+            a = randint(2, 9, [b]);
             x3 = b;
             x1 = a;
             x2 = randint(1, 9, [x1, x3]);
