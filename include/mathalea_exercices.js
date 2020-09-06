@@ -95,7 +95,7 @@ var liste_des_exercices_disponibles = {
   "6N31-1": Encadrer_un_decimal_par_deux_entiers_consecutifs,
   "6N31-2":Ordre_de_grandeur_operations_decimaux,
   "6N33": Fraction_d_un_nombre,
-  "beta6N33-0" : Fraction_d_un_nombre_bis,
+  "6N33-0" : Fraction_d_un_nombre_bis,
   "6N33-1": Pourcentage_d_un_nombre,
   "6N33-2" : Calculer_un_pourcentage,
   "6N33-3" : Appliquer_un_pourcentage,
@@ -7738,10 +7738,10 @@ function Fraction_d_un_nombre_bis() {
     this.liste_corrections = []; // Liste de questions corrigées
     let type_de_questions_disponibles
     let liste_type_de_questions=[]
-    if (this.sup<4)
+    if (this.sup<5)
       type_de_questions_disponibles=[parseInt(this.sup)]
     else
-      type_de_questions_disponibles=[1,2,3]
+      type_de_questions_disponibles=[1,2,3,4]
     liste_type_de_questions=combinaison_listes(type_de_questions_disponibles,this.nb_questions)
     for (
       let i = 0, den,num ,choix,longueur,numIrred,denIrred,k, masse,frac, texte, texte_corr, cpt = 0;
@@ -7754,15 +7754,28 @@ function Fraction_d_un_nombre_bis() {
           num=randint(1,den-1)
           frac=fraction(num,den)
           texte=`À combien de minutes correspondent $${frac.texFraction()}$ d\'heure ?<br>`
-          if (this.sup){
+          if (this.sup2){
             texte+=`cette fraction est représentée ci dessous :<br>`
-            texte+=mathalea2d({xmin:0,ymin:0,xmax:5,ymax:5},frac.representation(2.5,2.5,2,0,'gateau','blue'))
+            texte+=mathalea2d({xmin:0,ymin:0,xmax:15,ymax:5},frac.representation(2.5,2.5,2,0,'gateau','blue'))
           }
           texte_corr=`Comme l\'heure est partagée en ${den} parts égales, chaque part représente $${tex_fraction(1,den)}$ d\'heure, soit $${calcul(60/den)}$ minutes.<br>`
           texte_corr+=`Ici, il y a $${tex_fraction(num,den)}$ d\'heure, ce qui représente $${num}$ fois plus, soit $${num}\\times${calcul(60/den)}=${calcul(num*60/den)}$.<br>`
           texte_corr+=`$${frac.texFraction()}$ d\'heure correspond donc à $${calcul(num*60/den)}$ minutes.`
         break
         case 2 :
+          den=choice([2,3,4,5,10])
+          num=randint(1,3*den,den)
+          frac=fraction(num,den)
+          texte=`À combien de minutes correspondent $${frac.texFraction()}$ d\'heure ?<br>`
+          if (this.sup2){
+            texte+=`cette fraction est représentée ci dessous :<br>`
+            texte+=mathalea2d({xmin:0,ymin:0,xmax:15,ymax:5},frac.representation(2.5,2.5,2,0,'gateau','blue'))
+          }
+          texte_corr=`Comme l\'heure est partagée en ${den} parts égales, chaque part représente $${tex_fraction(1,den)}$ d\'heure, soit $${calcul(60/den)}$ minutes.<br>`
+          texte_corr+=`Ici, il y a $${tex_fraction(num,den)}$ d\'heure, ce qui représente $${num}$ fois plus, soit $${num}\\times${calcul(60/den)}=${calcul(num*60/den)}$.<br>`
+          texte_corr+=`$${frac.texFraction()}$ d\'heure correspond donc à $${calcul(num*60/den)}$ minutes.`
+        break
+        case 3 :
           masse=choice([120,180,240,300])
           denIrred=choice([2,3,4,5,10])
           numIrred=randint(1,denIrred-1)
@@ -7794,12 +7807,12 @@ function Fraction_d_un_nombre_bis() {
             texte_corr+=`Il reste donc : $${denIrred-numIrred}\\times${calcul(masse/denIrred)}=${(denIrred-numIrred)*masse/denIrred}$ grammes de chocolat.`
 
            }
-          if (this.sup){
+          if (this.sup2){
           texte+=`la tablette de chocolat est représentée ci dessous :<br>`
           texte+=mathalea2d({xmin:-0.5,ymin:-0.5,xmax:5,ymax:7},frac2.representation(0,0,4,0,'baton','brown'))
          }
         break
-        case 3:
+        case 4:
           den=choice([2,3,4,5,10])
           num=randint(1,den-1)
           longueur=choice([120,180,240,300])
@@ -7815,7 +7828,7 @@ function Fraction_d_un_nombre_bis() {
           frac=fraction(num,den)
           texte=`Un bâton de $${tex_nombrec(longueur/100)}$ mètres de longueur est coupé à $${frac.texFractionSimplifiee()}$ de sa longueur.<br>`
           texte+=`Calculer la longueur de chacun des morceaux.<br>`
-          if (this.sup){
+          if (this.sup2){
             texte+=`ce bâton est représenté ci dessous est représentée ci dessous :<br>`
           texte+=mathalea2d({xmin:-0.5,ymin:0,xmax:10,ymax:2},frac.representationIrred(0,1,8,0,'segment','blue',"0",`${tex_nombre(calcul(longueur/100))}`))
           }
@@ -7838,8 +7851,7 @@ function Fraction_d_un_nombre_bis() {
   }
   liste_de_question_to_contenu(this);
 };
-this.besoin_formulaire_numerique = ["Type d\'exercices","1 : Heures & minutes\n\
-2 : tablettes de chocolat\n3 : Bâton cassé\n4 : Mélange", ];
+this.besoin_formulaire_numerique = ["Type d\'exercices",5,"1 : Heures & minutes (inférieur à 1h)\n2 : Heures & minutes (jusqu\'à 3h)\n3 : tablettes de chocolat\n4 : Bâton cassé\n5 : Mélange"];
 this.besoin_formulaire2_case_a_cocher = ["Avec Dessin", true];
 }
 /**
