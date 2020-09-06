@@ -7742,7 +7742,7 @@ function Fraction_d_un_nombre_bis() {
       type_de_questions_disponibles=[1,2,3]
     liste_type_de_questions=combinaison_listes(type_de_questions_disponibles,this.nb_questions)
     for (
-      let i = 0, den,num ,choix,quidam,numIrred,denIrred,k, masse,frac, texte, texte_corr, cpt = 0;
+      let i = 0, den,num ,choix,longueur,numIrred,denIrred,k, masse,frac, texte, texte_corr, cpt = 0;
       i < this.nb_questions && cpt < 50;
 
     ) {
@@ -7750,21 +7750,21 @@ function Fraction_d_un_nombre_bis() {
         case 1 :
           den=choice([2,3,4,5,10])
           num=randint(1,den-1)
-          frac=fraction(num,den).representation(2.5,2.5,2,0,'gateau','blue')
-          texte=`À combien de minutes correspondent $${tex_fraction(num,den)}$ d\'heure ?<br>`
+          frac=fraction(num,den)
+          texte=`À combien de minutes correspondent $${frac.texFraction()}$ d\'heure ?<br>`
           if (this.sup){
             texte+=`cette fraction est représentée ci dessous :<br>`
-            texte+=mathalea2d({xmin:0,ymin:0,xmax:5,ymax:5},frac)
+            texte+=mathalea2d({xmin:0,ymin:0,xmax:5,ymax:5},frac.representation(2.5,2.5,2,0,'gateau','blue'))
           }
           texte_corr=`Comme l\'heure est partagée en ${den} parts égales, chaque part représente $${tex_fraction(1,den)}$ d\'heure, soit $${calcul(60/den)}$ minutes.<br>`
           texte_corr+=`Ici, il y a $${tex_fraction(num,den)}$ d\'heure, ce qui représente $${num}$ fois plus, soit $${num}\\times${calcul(60/den)}=${calcul(num*60/den)}$.<br>`
-          texte_corr+=`$${tex_fraction(num,den)}$ d\'heure correspond donc à $${calcul(num*60/den)}$ minutes.`
+          texte_corr+=`$${frac.texFraction()}$ d\'heure correspond donc à $${calcul(num*60/den)}$ minutes.`
         break
         case 2 :
           masse=choice([120,180,240,300])
           denIrred=choice([2,3,4,5,10])
           numIrred=randint(1,denIrred-1)
-          while (pgcd(denIrred,numIrred)!=1){
+          while (pgcd(denIrred,numIrred)!=1||calcul(denIrred/numIrred)==2){
             denIrred=choice([2,3,4,5,10])
             numIrred=randint(1,denIrred-1)      
           }
@@ -7773,21 +7773,21 @@ function Fraction_d_un_nombre_bis() {
           num=calcul(numIrred*k)
           frac=fraction(num,den)
           frac2=frac.entierMoinsFraction(1)
-          texte=`Voici une tablette de chocolat dont la masse totale est de $${masse}$ grammes. Quelqu'un en a déjà consommé les $${tex_fraction(numIrred,denIrred)}$.<br>`
+          texte=`Voici une tablette de chocolat dont la masse totale est de $${masse}$ grammes. Quelqu'un en a déjà consommé les $${frac.texFractionSimplifiee()}$.<br>`
           choix=randint(1,2)
           if (choix==1) {
             texte+=`Quelle masse de chocoloat a-t-elle été consommée ?<br>`
             texte_corr=`Comme la tablette a une masse de $${masse}$ grammes, $${tex_fraction(1,denIrred)}$ de la tablette représente une masse de $${calcul(masse/denIrred)}$ grammes.<br>`
-            texte_corr+=`Ici, il y a $${tex_fraction(numIrred,denIrred)}$ de la tablette qui a été consommé, ce qui représente $${numIrred}$ fois plus, soit $${numIrred}\\times${calcul(masse/denIrred)}=${calcul(num*masse/den)}$.<br>`
+            texte_corr+=`Ici, il y a $${frac.texFractionSimplifiee()}$ de la tablette qui a été consommé, ce qui représente $${numIrred}$ fois plus, soit $${numIrred}\\times${calcul(masse/denIrred)}=${calcul(num*masse/den)}$.<br>`
             texte_corr+=`La masse de chocolat consommée est $${calcul(numIrred*masse/denIrred)}$ grammes.`
           }
           else {
             texte+=`Quelle masse de chocolat reste-t-il ?<br>`
             texte_corr=`Comme la tablette a une masse de $${masse}$ grammes, $${tex_fraction(1,denIrred)}$ de la tablette représente une masse de $${calcul(masse/denIrred)}$ grammes.<br>`
-            texte_corr+=`Ici, il y a $${tex_fraction(numIrred,denIrred)}$ de la tablette qui a été consommé, ce qui représente $${numIrred}$ fois plus, soit $${numIrred}\\times${calcul(masse/denIrred)}=${calcul(num*masse/den)}$.<br>`
+            texte_corr+=`Ici, il y a $${frac.texFractionSimplifiee()}$ de la tablette qui a été consommé, ce qui représente $${numIrred}$ fois plus, soit $${numIrred}\\times${calcul(masse/denIrred)}=${calcul(num*masse/den)}$.<br>`
             texte_corr+=`La masse de chocolat consommée est $${calcul(numIrred*masse/denIrred)}$ grammes.<br>`
             texte_corr+=`Il reste donc : $${masse}-${calcul(numIrred*masse/denIrred)}=${calcul(masse-numIrred*masse/denIrred)}$ grammes de chocolat.<br>`
-            texte_corr+=`une autre façon de faire est d'utiliser la fraction restante : $${tex_fraction(denIrred,denIrred)}-${tex_fraction(numIrred,denIrred)}=${tex_fraction(denIrred-numIrred,denIrred)}$.<br>`
+            texte_corr+=`une autre façon de faire est d'utiliser la fraction restante : $${tex_fraction(denIrred,denIrred)}-${frac.texFractionSimplifiee()}=${tex_fraction(denIrred-numIrred,denIrred)}$.<br>`
             texte_corr+=`$${tex_fraction(denIrred-numIrred,denIrred)}$ de $${masse}$ grammes c\'est $${denIrred-numIrred}$ fois $${calcul(masse/denIrred)}$ grammes.<br>`
             texte_corr+=`Il reste donc : $${denIrred-numIrred}\\times${calcul(masse/denIrred)}=${(denIrred-numIrred)*masse/denIrred}$ grammes de chocolat.`
 
@@ -7800,15 +7800,26 @@ function Fraction_d_un_nombre_bis() {
         case 3:
           den=choice([2,3,4,5,10])
           num=randint(1,den-1)
-          frac=fraction(num,den).representation(2.5,2.5,2,0,'gateau','blue')
-          texte=`À combien de minutes correspondent $${tex_fraction(num,den)}$ d\'heure ?<br>`
-          if (this.sup){
-            texte+=`cette fraction est représentée ci dessous :<br>`
-            texte+=mathalea2d({xmin:0,ymin:0,xmax:5,ymax:5},frac)
+          longueur=choice([120,180,240,300])
+          denIrred=choice([2,3,4,5,10])
+          numIrred=randint(1,denIrred-1)
+          while (pgcd(denIrred,numIrred)!=1||calcul(denIrred/numIrred)==2){
+            denIrred=choice([2,3,4,5,10])
+            numIrred=randint(1,denIrred-1)      
           }
-          texte_corr=`Comme l\'heure est partagée en ${den} parts égales, chaque part représente $${tex_fraction(1,den)}$ d\'heure, soit $${calcul(60/den)}$ minutes.<br>`
-          texte_corr+=`Ici, il y a $${tex_fraction(num,den)}$ d\'heure, ce qui représente $${num}$ fois plus, soit $${num}\\times${calcul(60/den)}=${calcul(num*60/den)}$.<br>`
-          texte_corr+=`$${tex_fraction(num,den)}$ d\'heure correspond donc à $${calcul(num*60/den)}$ minutes.`
+          k=calcul(300/denIrred)
+          den=calcul(denIrred*k)
+          num=calcul(numIrred*k)
+          frac=fraction(num,den)
+          texte=`Un bâton de $${tex_nombrec(longueur/100)}$ mètres de longueur est coupé à $${frac.texFractionSimplifiee()}$ de sa longueur.<br>`
+          texte+=`Calculer la longueur de chacun des morceaux.<br>`
+          if (this.sup){
+            texte+=`ce bâton est représenté ci dessous est représentée ci dessous :<br>`
+          texte+=mathalea2d({xmin:0,ymin:0,xmax:10,ymax:2},frac.representationIrred(0,1,8,0,'segment','blue',"",""))
+          }
+          texte_corr=`$${tex_fraction(1,denIrred)}$ de $${tex_nombrec(longueur/100)}$ mètres représente $${tex_nombrec(longueur/100)} \\div ${denIrred} = ${tex_nombrec(longueur/100/denIrred)}$ mètres.<br>`
+          texte_corr+=`Le premier morceau du bâton correspondant à $${frac.texFractionSimplifiee()}$ du bâton mesure : $${numIrred} \\times ${tex_nombrec(longueur/100/denIrred)}=${tex_nombrec(numIrred*longueur/100/denIrred)}$ mètres.<br>`
+          texte_corr+=`Le deuxième morceau mesure donc : $${tex_nombrec(longueur/100)}-${tex_nombrec(numIrred*longueur/100/denIrred)}=${tex_nombrec(longueur/100-numIrred*longueur/100/denIrred)}$ mètres.`
 
         break
       }
