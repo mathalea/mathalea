@@ -5154,8 +5154,11 @@ function Fraction(num,den) {
 		}
 		else {
 			let diviseur
-			if (this.denIrred % 3 == 0) diviseur = 3
-			else if (this.denIrred % 2 == 0) diviseur = 2
+			if (this.denIrred % 6 == 0) diviseur=6
+			else if (this.denIrred % 5 == 0) diviseur=5
+			else if (this.denIrred % 4 == 0) diviseur=4
+			else if (this.denIrred % 3 == 0) diviseur=3
+			else if (this.denIrred % 2 == 0) diviseur=2
 			else diviseur = 1
 
 			for (k = 0; k < n; k++) {
@@ -5170,7 +5173,7 @@ function Fraction(num,den) {
 						objets.push(dep)
 					}
 				}
-				num -= this.denIrred
+				num -= this.den
 			}
 			if (num>0) {
 				for (let j = 0; j < diviseur; j++) {
@@ -5284,8 +5287,11 @@ function Fraction(num,den) {
 		}
 		else { //Type bâtons
 			let diviseur
-			if (this.den % 3 == 0) diviseur = 3
-			else if (this.den % 2 == 0) diviseur = 2
+			if (this.den % 6 == 0) diviseur=6
+			else if (this.den % 5 == 0) diviseur=5
+			else if (this.den % 4 == 0) diviseur=4
+			else if (this.den % 3 == 0) diviseur=3
+			else if (this.den % 2 == 0) diviseur=2
 			else diviseur = 1
 
 			for (k = 0; k < n; k++) {

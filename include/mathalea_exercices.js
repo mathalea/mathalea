@@ -7742,7 +7742,7 @@ function Fraction_d_un_nombre_bis() {
       type_de_questions_disponibles=[1,2,3]
     liste_type_de_questions=combinaison_listes(type_de_questions_disponibles,this.nb_questions)
     for (
-      let i = 0, den,num ,choix,quidam, masse,frac, texte, texte_corr, cpt = 0;
+      let i = 0, den,num ,choix,quidam,numIrred,denIrred,k, masse,frac, texte, texte_corr, cpt = 0;
       i < this.nb_questions && cpt < 50;
 
     ) {
@@ -7761,27 +7761,41 @@ function Fraction_d_un_nombre_bis() {
           texte_corr+=`$${tex_fraction(num,den)}$ d\'heure correspond donc à $${calcul(num*60/den)}$ minutes.`
         break
         case 2 :
-          quidam=prenomM()
           masse=choice([120,180,240,300])
-          den=choice([2,3,4,5,10])
-          num=randint(1,den-1)
-          frac=fraction(num,den).representation(2.5,2.5,2,0,'gateau','blue')
-          texte=`Voici une tablette de chocolat dont la masse totale est de $${masse}$ grammes. ${quidam} en a déjà consommé les $${tex_fraction(num,den)}$.<br>`
+          denIrred=choice([2,3,4,5,10])
+          numIrred=randint(1,denIrred-1)
+          while (pgcd(denIrred,numIrred)!=1){
+            denIrred=choice([2,3,4,5,10])
+            numIrred=randint(1,denIrred-1)      
+          }
+          k=calcul(60/denIrred)
+          den=calcul(denIrred*k)
+          num=calcul(numIrred*k)
+          frac=fraction(num,den)
+          frac2=frac.entierMoinsFraction(1)
+          texte=`Voici une tablette de chocolat dont la masse totale est de $${masse}$ grammes. Quelqu'un en a déjà consommé les $${tex_fraction(numIrred,denIrred)}$.<br>`
           choix=randint(1,2)
           if (choix==1) {
-            texte+=`Quelle masse de chocoloat ${quidam} a-t-il consommée ?<br>`
+            texte+=`Quelle masse de chocoloat a-t-elle été consommée ?<br>`
+            texte_corr=`Comme la tablette a une masse de $${masse}$ grammes, $${tex_fraction(1,denIrred)}$ de la tablette représente une masse de $${calcul(masse/denIrred)}$ grammes.<br>`
+            texte_corr+=`Ici, il y a $${tex_fraction(numIrred,denIrred)}$ de la tablette qui a été consommé, ce qui représente $${numIrred}$ fois plus, soit $${numIrred}\\times${calcul(masse/denIrred)}=${calcul(num*masse/den)}$.<br>`
+            texte_corr+=`La masse de chocolat consommée est $${calcul(numIrred*masse/denIrred)}$ grammes.`
           }
           else {
             texte+=`Quelle masse de chocolat reste-t-il ?<br>`
-          }
-          // if (this.sup){
-          //  texte+=`la tablette de chocolat est représentée ci dessous :<br>`
-          //  texte+=mathalea2d({xmin:0,ymin:0,xmax:5,ymax:5},frac)
-         // }
-          texte_corr=`Comme l\'heure est partagée en ${den} parts égales, chaque part représente $${tex_fraction(1,den)}$ d\'heure, soit $${calcul(60/den)}$ minutes.<br>`
-          texte_corr+=`Ici, il y a $${tex_fraction(num,den)}$ d\'heure, ce qui représente $${num}$ fois plus, soit $${num}\\times${calcul(60/den)}=${calcul(num*60/den)}$.<br>`
-          texte_corr+=`$${tex_fraction(num,den)}$ d\'heure correspond donc à $${calcul(num*60/den)}$ minutes.`
+            texte_corr=`Comme la tablette a une masse de $${masse}$ grammes, $${tex_fraction(1,denIrred)}$ de la tablette représente une masse de $${calcul(masse/denIrred)}$ grammes.<br>`
+            texte_corr+=`Ici, il y a $${tex_fraction(numIrred,denIrred)}$ de la tablette qui a été consommé, ce qui représente $${numIrred}$ fois plus, soit $${numIrred}\\times${calcul(masse/denIrred)}=${calcul(num*masse/den)}$.<br>`
+            texte_corr+=`La masse de chocolat consommée est $${calcul(numIrred*masse/denIrred)}$ grammes.<br>`
+            texte_corr+=`Il reste donc : $${masse}-${calcul(numIrred*masse/denIrred)}=${calcul(masse-numIrred*masse/denIrred)}$ grammes de chocolat.<br>`
+            texte_corr+=`une autre façon de faire est d'utiliser la fraction restante : $${tex_fraction(denIrred,denIrred)}-${tex_fraction(numIrred,denIrred)}=${tex_fraction(denIrred-numIrred,denIrred)}$.<br>`
+            texte_corr+=`$${tex_fraction(denIrred-numIrred,denIrred)}$ de $${masse}$ grammes c\'est $${denIrred-numIrred}$ fois $${calcul(masse/denIrred)}$ grammes.<br>`
+            texte_corr+=`Il reste donc : $${denIrred-numIrred}\\times${calcul(masse/denIrred)}=${(denIrred-numIrred)*masse/denIrred}$ grammes de chocolat.`
 
+           }
+          if (this.sup){
+          texte+=`la tablette de chocolat est représentée ci dessous :<br>`
+          texte+=mathalea2d({xmin:-2,ymin:-2,xmax:10,ymax:10},frac2.representation(0,0,4,0,'baton','brown'),tracePoint(point(0,0)))
+         }
         break
         case 3:
           den=choice([2,3,4,5,10])
