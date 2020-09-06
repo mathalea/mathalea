@@ -7796,7 +7796,7 @@ function Fraction_d_un_nombre_bis() {
            }
           if (this.sup){
           texte+=`la tablette de chocolat est représentée ci dessous :<br>`
-          texte+=mathalea2d({xmin:-2,ymin:-2,xmax:10,ymax:10},frac2.representation(0,0,4,0,'baton','brown'),tracePoint(point(0,0)))
+          texte+=mathalea2d({xmin:-2,ymin:-2,xmax:10,ymax:10},frac2.representation(0,0,4,0,'baton','brown'))
          }
         break
         case 3:
