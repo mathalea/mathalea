@@ -7730,7 +7730,7 @@ function Fraction_d_un_nombre_bis() {
   sortie_html ? (this.spacing = 2) : (this.spacing = 2);
   this.sup = 1;
   this.sup2=true
-  this.nb_cols = 2;
+  this.nb_cols = 1;
   this.nb_cols_corr = 1;
 
   this.nouvelle_version = function (numero_de_l_exercice) {
@@ -7738,7 +7738,7 @@ function Fraction_d_un_nombre_bis() {
     this.liste_corrections = []; // Liste de questions corrigées
     let type_de_questions_disponibles
     let liste_type_de_questions=[]
-    if (this.sup2<4)
+    if (this.sup<4)
       type_de_questions_disponibles=[parseInt(this.sup)]
     else
       type_de_questions_disponibles=[1,2,3]
@@ -7796,7 +7796,7 @@ function Fraction_d_un_nombre_bis() {
            }
           if (this.sup){
           texte+=`la tablette de chocolat est représentée ci dessous :<br>`
-          texte+=mathalea2d({xmin:-2,ymin:-2,xmax:10,ymax:10},frac2.representation(0,0,4,0,'baton','brown'))
+          texte+=mathalea2d({xmin:-0.5,ymin:-0.5,xmax:5,ymax:7},frac2.representation(0,0,4,0,'baton','brown'))
          }
         break
         case 3:
@@ -7817,7 +7817,7 @@ function Fraction_d_un_nombre_bis() {
           texte+=`Calculer la longueur de chacun des morceaux.<br>`
           if (this.sup){
             texte+=`ce bâton est représenté ci dessous est représentée ci dessous :<br>`
-          texte+=mathalea2d({xmin:0,ymin:0,xmax:10,ymax:2},frac.representationIrred(0,1,8,0,'segment','blue',"",""))
+          texte+=mathalea2d({xmin:-0.5,ymin:0,xmax:10,ymax:2},frac.representationIrred(0,1,8,0,'segment','blue',"0",`${tex_nombre(calcul(longueur/100))}`))
           }
           texte_corr=`$${tex_fraction(1,denIrred)}$ de $${tex_nombrec(longueur/100)}$ mètres représente $${tex_nombrec(longueur/100)} \\div ${denIrred} = ${tex_nombrec(longueur/100/denIrred)}$ mètres.<br>`
           texte_corr+=`Le premier morceau du bâton correspondant à $${frac.texFractionSimplifiee()}$ du bâton mesure : $${numIrred} \\times ${tex_nombrec(longueur/100/denIrred)}=${tex_nombrec(numIrred*longueur/100/denIrred)}$ mètres.<br>`
