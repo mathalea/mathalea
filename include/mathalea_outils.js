@@ -5068,7 +5068,7 @@ function Fraction(num,den) {
      * @param {number} depart N° de la première part coloriée (0 correspond à la droite du centre) 
      * @param {*} type 'gateau' ou 'segment' ou 'barre'
      */
-	this.representationIrred = function (x, y, rayon, depart = 0, type = 'gateau', couleur = 'gray') {
+	this.representationIrred = function (x, y, rayon, depart = 0, type = 'gateau', couleur = 'gray',unite0=0,unite1=1,scale=1) {
 		let objets = [], n, num, k, dep, s, a, O, C
 		n = quotientier(this.numIrred, this.denIrred)
 		num = this.numIrred
@@ -5144,18 +5144,23 @@ function Fraction(num,den) {
 				s.styleExtremites = '|-'
 				objets.push(s)
 			}
-			a = segment(O, point(O.x + Math.min(num, this.denIrred) * rayon / this.denIrred, O.y))
+			a = segment(O, point(O.x + Math.min(this.numIrred, this.denIrred) * rayon / this.denIrred, O.y))
 			a.color = couleur
 			a.opacite = 0.4
 			a.epaisseur = 4
 			objets.push(a)
-			objets.push(unegraduation(x,y),texteParPosition(unite0,x,y-0.6,'milieu','blue',scale),texteParPosition(unite1,x+rayon,y-0.6,'milieu','blue',scale))
+			objets.push(unegraduation(x,y))
+			if (unite0!="") objets.push(texteParPosition(unite0,x,y-0.6,'milieu','blue',scale))
+			if (unite1!="") objets.push(texteParPosition(unite1,x+rayon,y-0.6,'milieu','blue',scale))
 
 		}
 		else {
 			let diviseur
-			if (this.denIrred % 3 == 0) diviseur = 3
-			else if (this.denIrred % 2 == 0) diviseur = 2
+			if (this.denIrred % 6 == 0) diviseur=6
+			else if (this.denIrred % 5 == 0) diviseur=5
+			else if (this.denIrred % 4 == 0) diviseur=4
+			else if (this.denIrred % 3 == 0) diviseur=3
+			else if (this.denIrred % 2 == 0) diviseur=2
 			else diviseur = 1
 
 			for (k = 0; k < n; k++) {
@@ -5170,7 +5175,7 @@ function Fraction(num,den) {
 						objets.push(dep)
 					}
 				}
-				num -= this.denIrred
+				num -= this.den
 			}
 			if (num>0) {
 				for (let j = 0; j < diviseur; j++) {
@@ -5227,7 +5232,7 @@ function Fraction(num,den) {
 				}
 				num -= this.den
 			}
-			if (this.num%this.den!=0) { 
+			if (this.num%this.den!=0) { $
 				let O = point(x + k * 2 * (rayon + 0.5), y)
 				let C = cercle(O, rayon)
 				objets.push(C)
@@ -5279,13 +5284,18 @@ function Fraction(num,den) {
 			a.opacite = 0.4
 			a.epaisseur = 4
 			objets.push(a)
-			objets.push(unegraduation(x,y),texteParPosition(unite0,x,y-0.6,'milieu','blue',scale),texteParPosition(unite1,x+rayon,y-0.6,'milieu','blue',scale))
+			objets.push(unegraduation(x,y))
+			if (unite0!="") objets.push(texteParPosition(unite0,x,y-0.6,'milieu','blue',scale))
+			if (unite1!="") objets.push(texteParPosition(unite1,x+rayon,y-0.6,'milieu','blue',scale))
 
 		}
 		else { //Type bâtons
 			let diviseur
-			if (this.den % 3 == 0) diviseur = 3
-			else if (this.den % 2 == 0) diviseur = 2
+			if (this.den % 6 == 0) diviseur=6
+			else if (this.den % 5 == 0) diviseur=5
+			else if (this.den % 4 == 0) diviseur=4
+			else if (this.den % 3 == 0) diviseur=3
+			else if (this.den % 2 == 0) diviseur=2
 			else diviseur = 1
 
 			for (k = 0; k < n; k++) {

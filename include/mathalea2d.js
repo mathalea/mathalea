@@ -1506,7 +1506,7 @@ function polygoneRegulierIndirect(A, B, n, color = "black") {
  * @Auteur Rémi Angot
  */
 function carre(A, B, color) {
-  return polygoneRegulier(A, B, 4, color);
+  return polygoneRegulier(B, A, 4, color);
 }
 
 /**
