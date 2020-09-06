@@ -95,6 +95,7 @@ var liste_des_exercices_disponibles = {
   "6N31-1": Encadrer_un_decimal_par_deux_entiers_consecutifs,
   "6N31-2":Ordre_de_grandeur_operations_decimaux,
   "6N33": Fraction_d_un_nombre,
+  "beta6N33-0" : Fraction_d_un_nombre_bis,
   "6N33-1": Pourcentage_d_un_nombre,
   "6N33-2" : Calculer_un_pourcentage,
   "6N33-3" : Appliquer_un_pourcentage,
@@ -7713,7 +7714,107 @@ function Pourcentage_d_un_nombre() {
   //	this.besoin_formulaire_numerique = ['Valeur maximale',99999];
   this.besoin_formulaire2_case_a_cocher = ["Plusieurs méthodes"];
 }
+/**
+ * Calculer la fracton d'une quantité avec ou sans dessin.
+ * @Auteur Jean-Claude Lhote
+ * référence 6N33-0
+ */
+function Fraction_d_un_nombre_bis() {
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.titre = "Calculer la fraction d'un nombre";
+  this.nb_questions = 5;
+  this.consigne = "Calculer";
+  sortie_html ? (this.spacing_corr = 3.5) : (this.spacing_corr = 2);
+  sortie_html ? (this.spacing = 2) : (this.spacing = 2);
+  this.sup = 1;
+  this.sup2=true
+  this.nb_cols = 2;
+  this.nb_cols_corr = 1;
 
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    let type_de_questions_disponibles
+    let liste_type_de_questions=[]
+    if (this.sup2<4)
+      type_de_questions_disponibles=[parseInt(this.sup)]
+    else
+      type_de_questions_disponibles=[1,2,3]
+    liste_type_de_questions=combinaison_listes(type_de_questions_disponibles,this.nb_questions)
+    for (
+      let i = 0, den,num ,choix,quidam, masse,frac, texte, texte_corr, cpt = 0;
+      i < this.nb_questions && cpt < 50;
+
+    ) {
+      switch (liste_type_de_questions[i]){
+        case 1 :
+          den=choice([2,3,4,5,10])
+          num=randint(1,den-1)
+          frac=fraction(num,den).representation(2.5,2.5,2,0,'gateau','blue')
+          texte=`À combien de minutes correspondent $${tex_fraction(num,den)}$ d\'heure ?<br>`
+          if (this.sup){
+            texte+=`cette fraction est représentée ci dessous :<br>`
+            texte+=mathalea2d({xmin:0,ymin:0,xmax:5,ymax:5},frac)
+          }
+          texte_corr=`Comme l\'heure est partagée en ${den} parts égales, chaque part représente $${tex_fraction(1,den)}$ d\'heure, soit $${calcul(60/den)}$ minutes.<br>`
+          texte_corr+=`Ici, il y a $${tex_fraction(num,den)}$ d\'heure, ce qui représente $${num}$ fois plus, soit $${num}\\times${calcul(60/den)}=${calcul(num*60/den)}$.<br>`
+          texte_corr+=`$${tex_fraction(num,den)}$ d\'heure correspond donc à $${calcul(num*60/den)}$ minutes.`
+        break
+        case 2 :
+          quidam=prenomM()
+          masse=choice([120,180,240,300])
+          den=choice([2,3,4,5,10])
+          num=randint(1,den-1)
+          frac=fraction(num,den).representation(2.5,2.5,2,0,'gateau','blue')
+          texte=`Voici une tablette de chocolat dont la masse totale est de $${masse}$ grammes. ${quidam} en a déjà consommé les $${tex_fraction(num,den)}$.<br>`
+          choix=randint(1,2)
+          if (choix==1) {
+            texte+=`Quelle masse de chocoloat ${quidam} a-t-il consommée ?<br>`
+          }
+          else {
+            texte+=`Quelle masse de chocolat reste-t-il ?<br>`
+          }
+          // if (this.sup){
+          //  texte+=`la tablette de chocolat est représentée ci dessous :<br>`
+          //  texte+=mathalea2d({xmin:0,ymin:0,xmax:5,ymax:5},frac)
+         // }
+          texte_corr=`Comme l\'heure est partagée en ${den} parts égales, chaque part représente $${tex_fraction(1,den)}$ d\'heure, soit $${calcul(60/den)}$ minutes.<br>`
+          texte_corr+=`Ici, il y a $${tex_fraction(num,den)}$ d\'heure, ce qui représente $${num}$ fois plus, soit $${num}\\times${calcul(60/den)}=${calcul(num*60/den)}$.<br>`
+          texte_corr+=`$${tex_fraction(num,den)}$ d\'heure correspond donc à $${calcul(num*60/den)}$ minutes.`
+
+        break
+        case 3:
+          den=choice([2,3,4,5,10])
+          num=randint(1,den-1)
+          frac=fraction(num,den).representation(2.5,2.5,2,0,'gateau','blue')
+          texte=`À combien de minutes correspondent $${tex_fraction(num,den)}$ d\'heure ?<br>`
+          if (this.sup){
+            texte+=`cette fraction est représentée ci dessous :<br>`
+            texte+=mathalea2d({xmin:0,ymin:0,xmax:5,ymax:5},frac)
+          }
+          texte_corr=`Comme l\'heure est partagée en ${den} parts égales, chaque part représente $${tex_fraction(1,den)}$ d\'heure, soit $${calcul(60/den)}$ minutes.<br>`
+          texte_corr+=`Ici, il y a $${tex_fraction(num,den)}$ d\'heure, ce qui représente $${num}$ fois plus, soit $${num}\\times${calcul(60/den)}=${calcul(num*60/den)}$.<br>`
+          texte_corr+=`$${tex_fraction(num,den)}$ d\'heure correspond donc à $${calcul(num*60/den)}$ minutes.`
+
+        break
+      }
+
+
+
+      if (this.liste_questions.indexOf(texte) == -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
+        this.liste_questions.push(texte);
+        this.liste_corrections.push(texte_corr);
+        i++;
+      }
+    cpt++;
+  }
+  liste_de_question_to_contenu(this);
+};
+this.besoin_formulaire_numerique = ["Type d\'exercices","1 : Heures & minutes\n\
+2 : tablettes de chocolat\n3 : Bâton cassé\n4 : Mélange", ];
+this.besoin_formulaire2_case_a_cocher = ["Avec Dessin", true];
+}
 /**
  * Calculer la fracton d'un nombre divisible par le dénominateur ... ou pas.
  *
