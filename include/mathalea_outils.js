@@ -5086,14 +5086,14 @@ function Fraction(num,den) {
 				C = cercle(O, rayon)
 				objets.push(C)
 				for (let i = 0; i < this.denIrred; i++) {
-					s = segment(O, rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, i * 360 / this.denIrred))
+					s = segment(O, rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O,90- i * 360 / this.denIrred))
 					objets.push(s)
 				}
-				dep = rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, depart * 360 / this.denIrred)
+				dep = rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O,90- depart * 360 / this.denIrred)
 				for (let j = 0; j < Math.min(this.denIrred, num); j++) {
-					a = arc(dep, O, 360 / this.denIrred, true, fill = couleur)
+					a = arc(dep, O, -360 / this.denIrred, true, fill = couleur)
 					a.opacite = 0.3
-					dep = rotation(dep, O, 360 / this.denIrred)
+					dep = rotation(dep, O, -360 / this.denIrred)
 					objets.push(a)
 				}
 				num -= this.denIrred
@@ -5103,14 +5103,14 @@ function Fraction(num,den) {
 				C = cercle(O, rayon)
 				objets.push(C)
 				for (let i = 0; i < this.denIrred; i++) {
-					s = segment(O, rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, i * 360 / this.denIrred))
+					s = segment(O, rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90-i * 360 / this.denIrred))
 					objets.push(s)
 				}
-				dep = rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, depart * 360 / this.denIrred)
+				dep = rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O,90- depart * 360 / this.denIrred)
 				for (let j = 0; j < Math.min(this.denIrred, num); j++) {
-					a = arc(dep, O, 360 / this.denIrred, true, fill = couleur)
+					a = arc(dep, O, -360 / this.denIrred, true, fill = couleur)
 					a.opacite = 0.3
-					dep = rotation(dep, O, 360 / this.denIrred)
+					dep = rotation(dep, O, -360 / this.denIrred)
 					objets.push(a)
 				}
 			}
@@ -5220,14 +5220,14 @@ function Fraction(num,den) {
 				objets.push(C)
 				let s, a
 				for (let i = 0; i < this.den; i++) {
-					s = segment(O, rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, i * 360 / this.den))
+					s = segment(O, rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90-i * 360 / this.den))
 					objets.push(s)
 				}
-				dep = rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, depart * 360 / this.den)
+				dep = rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90-depart * 360 / this.den)
 				for (let j = 0; j < Math.min(this.den, num); j++) {
-					a = arc(dep, O, 360 / this.den, true, fill = couleur)
+					a = arc(dep, O,- 360 / this.den, true, fill = couleur)
 					a.opacite = 0.3
-					dep = rotation(dep, O, 360 / this.den)
+					dep = rotation(dep, O, -360 / this.den)
 					objets.push(a)
 				}
 				num -= this.den
@@ -5237,15 +5237,15 @@ function Fraction(num,den) {
 				let C = cercle(O, rayon)
 				objets.push(C)
 				for (let i = 0; i < this.den; i++) {
-					s = segment(O, rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, i * 360 / this.den))
+					s = segment(O, rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90-i * 360 / this.den))
 					objets.push(s)
 				}
 			
-				dep = rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, depart * 360 / this.den)
+				dep = rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O,90- depart * 360 / this.den)
 				if (this.num%this.den!=0) for (let j = 0; j < Math.min(this.den, num); j++) {
-					a = arc(dep, O, 360 / this.den, true, fill = couleur)
+					a = arc(dep, O, -360 / this.den, true, fill = couleur)
 					a.opacite = 0.3
-					dep = rotation(dep, O, 360 / this.den)
+					dep = rotation(dep, O, -360 / this.den)
 					objets.push(a)
 				}
 			}
