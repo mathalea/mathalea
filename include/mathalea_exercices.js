@@ -172,6 +172,7 @@ var liste_des_exercices_disponibles = {
   "4C10-1": Signe_produit_relatifs,
   "4C10-2": Signe_quotient_relatifs,
   "4C10-3": Exercice_multiplications_relatifs,
+  "4C10-4": Exercice_quotients_relatifs,
   "4C25-0": Problemes_additifs_fractions,
   "4C30-1": Puissances_encadrement,
   "4G40": Transformations_4e,
@@ -1239,9 +1240,7 @@ function Lire_abscisse_fractionnaire() {
   
         this.liste_questions.push(texte);
        this.liste_corrections.push(texte_corr);
-      }
-      console.log(x11,x22,x33,pas2)
-     
+      }     
     }
     if (!sortie_html) liste_de_question_to_contenu(this);
   };
@@ -13549,8 +13548,6 @@ jQuery(document).ready(function () {
   function liste_html_des_exercices_d_un_niveau(liste_de_themes){ // liste_de_themes = [['6N1','6N1 - Numérations et fractions niveau 1'] , [' ',' '] ]
     let liste = '';
     for (let theme of liste_de_themes){
-      console.log(theme,theme[0],theme[1])
-      // liste += `<div class="ui hidden divider"></div>\n`;
       liste += `<h3>${theme[1]}</h3>`;
       liste += liste_html_des_exercices_d_un_theme(theme[0]);
     }
