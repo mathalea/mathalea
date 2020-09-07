@@ -176,7 +176,7 @@ var liste_des_exercices_disponibles = {
   "4C10-3": Exercice_multiplications_relatifs,
   "4C10-4": Exercice_quotients_relatifs,
   "4C10-5": Exercice_tableau_multiplications_relatifs,
-  "beta4C11": Priorites_et_relatifs,
+  "4C11": Priorites_et_relatifs,
   "4C25-0": Problemes_additifs_fractions,
   "4C30-1": Puissances_encadrement,
   "4G40": Transformations_4e,

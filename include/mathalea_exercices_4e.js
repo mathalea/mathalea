@@ -10776,14 +10776,13 @@ function Exercice_tableau_multiplications_relatifs (){
  * Sans parenthèses :
  * * a+b*c
  * * a+b÷c
- * * a÷b*c
- * * a-b*c
+ * * a/b*c
  * * a*b÷c
  * * a*b+c
  * * a-b+c
  * * a+b+c*d
  * * a*b+c*d
- * * a*b*c-d
+ * * a*b*c+d
  * * a*b-c÷d
  * * a*b+c÷d
  *
@@ -10800,6 +10799,8 @@ function Exercice_tableau_multiplications_relatifs (){
  * * a*(b-c*d)
  * * a*b÷(c+d)
  * * a*(b÷c+d)
+ * * a-(b+c)
+ * * (a+b+c)*d
  * @Auteur Rémi Angot
  */
 function Priorites_et_relatifs() {
@@ -10814,14 +10815,13 @@ function Priorites_et_relatifs() {
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let liste_questions_disponibles = [9]; //
-    // if (this.sup == 1) {
-    //   liste_questions_disponibles = range1(12);
-    // } else if (this.sup == 2) {
-    //   liste_questions_disponibles = range1(22, range1(12));
-    // } else {
-    //   liste_questions_disponibles = range1(22);
-    // }
+    if (this.sup == 1) {
+      liste_questions_disponibles = range1(11);
+    } else if (this.sup == 2) {
+      liste_questions_disponibles = range1(20, range1(11));
+    } else {
+      liste_questions_disponibles = range1(20);
+    }
     let liste_type_de_questions = combinaison_listes(
       liste_questions_disponibles,
       this.nb_questions
@@ -10980,129 +10980,163 @@ function Priorites_et_relatifs() {
           =${a * b * c}${ecriture_algebrique(d)}
           =${a * b * c + d}$`;
           break;
-        case 10: ///////////////// A FINIR A PARTIR D'ICI
-          a = randint(2, 11);
-          b = randint(2, 11);
-          d = randint(2, 11);
-          c = d * randint(2, 8);
-          texte = `$${a}\\times${b}+${c}\\div${d}$`;
-          texte_corr = `$${mise_en_evidence(
-            a + "\\times" + b
-          )}+${mise_en_evidence(c + "\\div" + d)}=${a * b}+${c / d}=${
+        case 10: 
+          a = randint(2, 11)*choice([-1,1]);
+          b = randint(2, 11)*choice([-1,1]);
+          d = randint(2, 11)*choice([-1,1]);
+          c = d * randint(2, 8)*choice([-1,1]);
+          texte = `$${a}\\times${ecriture_parenthese_si_negatif(b)}${ecriture_algebrique(c)}\\div${ecriture_parenthese_si_negatif(d)}$`;
+          texte_corr = `$${
+            a + mise_en_evidence("\\times") + ecriture_parenthese_si_negatif(b)
+          + ecriture_algebrique(c) + mise_en_evidence("\\div") + ecriture_parenthese_si_negatif(d)}=${a * b}${ecriture_algebrique(c/d)}=${
             a * b + c / d
           }$`;
           break;
-        case 13:
-          a = randint(2, 11);
-          c = randint(2, 11);
-          b = c + randint(2, 11);
-          texte = `$${a}\\times(${b}-${c})$`;
+        case 11: // a*(b+c)
+          a = randint(2, 11)*choice([-1,1]);
+          b = randint(1, 11)*choice([-1,1]);
+          c = randint(1, 11)*choice([-1,1]);
+          while (a>0 && b>0 && c>0){
+            a = randint(2, 11)*choice([-1,1]);
+            b = randint(1, 11)*choice([-1,1]);
+            c = randint(1, 11)*choice([-1,1]);
+          }
+          texte = `$${a}\\times(${b}${ecriture_algebrique(c)})$`;
+          texte_corr = `$${a}\\times(${mise_en_evidence(b + ecriture_algebrique(c))})=${a}\\times${ecriture_parenthese_si_negatif(b+c)}=${a * (b + c)}$`;
+          break;
+        case 12: // (a+b)*c
+        a = randint(1, 11)*choice([-1,1]);
+        b = randint(1, 11)*choice([-1,1]);
+        c = randint(2, 11)*choice([-1,1]);
+        while (a>0 && b>0 && c>0){
+          a = randint(1, 11)*choice([-1,1]);
+          b = randint(1, 11)*choice([-1,1]);
+          c = randint(2, 11)*choice([-1,1]);
+        }
+          texte = `$(${a}${ecriture_algebrique(b)})\\times${ecriture_parenthese_si_negatif(c)}$`;
+          texte_corr = `$(${mise_en_evidence(a + ecriture_algebrique(b))})\\times${ecriture_parenthese_si_negatif(c)}=${
+            a + b }\\times${ecriture_parenthese_si_negatif(c)}=${(a + b) * c}$`;
+          break;
+        case 13: // (a+b)/c
+          c = randint(2, 11)*choice([-1,1]);
+          b = randint(11, 39)*choice([-1,1]);
+          a = c * randint(2, 9)*[choice([-1,1])] - b;
+          while (a>0 && b>0 && c>0) {
+            c = randint(2, 11)*choice([-1,1]);
+            b = randint(11, 39)*choice([-1,1]);
+            a = c * randint(2, 9)*[choice([-1,1])] - b;
+          }
+          texte = `$(${a}${ecriture_algebrique(b)})\\div${ecriture_parenthese_si_negatif(c)}$`;
+          texte_corr = `$(${mise_en_evidence(a  + ecriture_algebrique(b))})\\div${ecriture_parenthese_si_negatif(c)}=${
+            a + b
+          }\\div${ecriture_parenthese_si_negatif(c)}=${(a + b) / c}$`;
+          break;
+        case 14: // a/(b+c)
+          b = randint(2, 5)*choice([-1,1]);
+          c = randint(2, 6)*choice([-1,1]);
+          a = (b + c) * randint(2, 9)*choice([-1,1]);
+          while (a>0 && b>0 && c>0){
+            b = randint(2, 5)*choice([-1,1]);
+            c = randint(2, 6)*choice([-1,1]);
+            a = (b + c) * randint(2, 9)*choice([-1,1]);
+          }
+          texte = `$${a}\\div(${b}${ecriture_algebrique(c)})$`;
+          texte_corr = `$${a}\\div(${mise_en_evidence(b + ecriture_algebrique(c))})=${a}\\div${
+            ecriture_parenthese_si_negatif(b + c)}=${a / (b + c)}$`;
+          break;
+        case 15: // a(b+c)*d
+          c = randint(11, 39)*choice([-1,1]);
+          b = randint(2, 5)*choice([-1,1]) - c;
+          a = randint(2, 5)*choice([-1,1]);
+          d = randint(2, 5)*choice([-1,1]);
+          while (a>0 && b>0 && c>0 && d>0){
+            c = randint(11, 39)*choice([-1,1]);
+            b = (randint(2, 5) - c)*choice([-1,1]);
+            a = randint(2, 5)*choice([-1,1]);
+            d = randint(2, 5)*choice([-1,1]);
+          }
+          texte = `$${a}\\times(${b}${ecriture_algebrique(c)})\\times${ecriture_parenthese_si_negatif(d)}$`;
+          texte_corr = `$${a}\\times(${mise_en_evidence(b + ecriture_algebrique(c))})\\times${ecriture_parenthese_si_negatif(d)}=${a}\\times${ecriture_parenthese_si_negatif(b + c)}\\times${ecriture_parenthese_si_negatif(d)}=${a * (b + c) * d}$`;
+          break;
+        case 16: //a*b*(c+d)
+          d = randint(11, 39)*choice([-1,1]);
+          c = randint(2, 5)*choice([-1,1])-d;
+          a = randint(2, 5)*choice([-1,1]);
+          b = randint(2, 5)*choice([-1,1]);
+          while (a>0 && b>0 && c>0 && d>0) {
+            d = randint(11, 39)*choice([-1,1]);
+            c = randint(2, 5)*choice([-1,1])-d;
+            a = randint(2, 5)*choice([-1,1]);
+            b = randint(2, 5)*choice([-1,1]);
+          }
+          texte = `$${a}\\times${ecriture_parenthese_si_negatif(b)}\\times(${c}${ecriture_algebrique(d)})$`;
+          texte_corr = `$${a}\\times${ecriture_parenthese_si_negatif(b)}\\times(${mise_en_evidence(
+            c + ecriture_algebrique(d))})=${a}\\times${ecriture_parenthese_si_negatif(b)}\\times${ecriture_parenthese_si_negatif(c+d)}=${a * b * (c + d)}$`;
+          break;
+        case 17: // a*(b/c+d)
+          a = randint(2, 11)*choice([-1,1]);
+          c = randint(2, 11)*choice([-1,1]);
+          b = c * randint(2, 5)*choice([-1,1]);
+          d = randint(2, 6)*choice([-1,1]);
+          texte = `$${a}\\times(${b}\\div${ecriture_parenthese_si_negatif(c)}${ecriture_algebrique(d)})$`;
           texte_corr = `$${a}\\times(${mise_en_evidence(
-            b + `-` + c
-          )})=${a}\\times${b - c}=${a * (b - c)}$`;
+            b + `\\div` + ecriture_parenthese_si_negatif(c)
+          )}${ecriture_algebrique(d)})=${a}\\times(${mise_en_evidence(
+            b / c + ecriture_algebrique(d)
+          )})=${a}\\times${ecriture_parenthese_si_negatif(b / c + d)}=${a * (b / c + d)}$`;
           break;
-        case 14:
-          b = randint(11, 39);
-          a = b + randint(2, 11);
-          c = randint(2, 11);
-          texte = `$(${a}-${b})\\times${c}$`;
-          texte_corr = `$(${mise_en_evidence(a + `-` + b)})\\times${c}=${
-            a - b
-          }\\times${c}=${(a - b) * c}$`;
-          break;
-        case 15:
-          c = randint(2, 11);
-          b = randint(11, 39);
-          a = b + c * randint(2, 9);
-          texte = `$(${a}-${b})\\div${c}$`;
-          texte_corr = `$(${mise_en_evidence(a + `-` + b)})\\div${c}=${
-            a - b
-          }\\div${c}=${(a - b) / c}$`;
-          break;
-        case 16:
-          b = randint(2, 5);
-          c = randint(2, 6);
-          a = (b + c) * randint(2, 9);
-          texte = `$${a}\\div(${b}+${c})$`;
-          texte_corr = `$${a}\\div(${mise_en_evidence(b + `+` + c)})=${a}\\div${
-            b + c
-          }=${a / (b + c)}$`;
-          break;
-        case 17:
-          c = randint(2, 11);
-          b = randint(11, 39);
-          a = b + c * randint(2, 9);
-          texte = `$(${a}-${b})\\div${c}$`;
-          texte_corr = `$(${mise_en_evidence(a + `-` + b)})\\div${c}=${
-            a - b
-          }\\div${c}=${(a - b) / c}$`;
-          break;
-        case 18:
-          c = randint(11, 39);
-          b = c + randint(2, 5);
-          a = randint(2, 5);
-          d = randint(2, 5);
-          texte = `$${a}\\times(${b}-${c})\\times${d}$`;
-          texte_corr = `$${a}\\times(${mise_en_evidence(
-            b + `-` + c
-          )})\\times${d}=${a}\\times${b - c}\\times${d}=${a * (b - c) * d}$`;
-          break;
-        case 19:
-          d = randint(11, 39);
-          c = d + randint(2, 5);
-          a = randint(2, 5);
-          b = randint(2, 5);
-          texte = `$${a}\\times${b}\\times(${c}-${d})$`;
-          texte_corr = `$${a}\\times${b}\\times(${mise_en_evidence(
-            c + `-` + d
-          )})=${a}\\times${b}\\times${c - d}=${a * b * (c - d)}$`;
-          break;
-        case 20:
-          a = randint(2, 11);
-          c = randint(2, 11);
-          d = randint(2, 11);
-          b = c * d + randint(2, 11);
-          texte = `$${a}\\times(${b}-${c}\\times${d})$`;
-          texte_corr = `$${a}\\times(${b}-${mise_en_evidence(
-            c + `\\times` + d
-          )})=${a}\\times(${mise_en_evidence(b + `-` + c * d)})=${a}\\times${
-            b - c * d
-          }=${a * (b - c * d)}$`;
-          break;
-        case 21:
+          case 18: //a*b/(c+d)
           a = randint(2, 11);
           b = randint(2, 11);
-          if (liste_des_diviseurs(a * b).length <= 2) {
+          while (liste_des_diviseurs(a * b).length < 5) {
+            a = randint(2, 11);
+            b = randint(2, 11);
           }
           let liste = liste_des_diviseurs(a * b);
           if (liste.length > 2) {
             liste.pop(); //on supprime le plus grand diviseur qui est le produit
-          }
-          if (liste.length > 2) {
-            enleve_element(liste, liste[1]); //on supprime le plus petit diviseur (autre que 1)
-          }
+            enleve_element(liste, a); //on supprime a
+            enleve_element(liste, b); //on supprime b
 
-          let somme = choice(liste, [1]); // la somme doit être un diviseur différent de 1
-          c = randint(1, somme - 1);
+          }
+          let somme = choice(liste, [1])*choice([-1,1]); // la somme doit être un diviseur différent de 1
+          c = randint(-30, 30,[0]);
           d = somme - c;
-          texte = `$${a}\\times${b}\\div(${c}+${d})$`;
-          texte_corr = `$${a}\\times${b}\\div(${mise_en_evidence(
-            c + `+` + d
-          )})=${mise_en_evidence(a + "\\times" + b)}\\div${c + d}=${
+          
+          while (a>0 && b>0 && c>0 && d>0) {
+            a *= choice([-1,1]);
+            b *= choice([-1,1]);
+          }
+          texte = `$${a}\\times${ecriture_parenthese_si_negatif(b)}\\div(${c}${ecriture_algebrique(d)})$`;
+          texte_corr = `$${a}\\times${ecriture_parenthese_si_negatif(b)}\\div(${mise_en_evidence(
+            c + ecriture_algebrique(d))})=${mise_en_evidence(a + "\\times" + ecriture_parenthese_si_negatif(b))}\\div${ecriture_parenthese_si_negatif(c+d)}=${
             a * b
-          }\\div${c + d}=${(a * b) / (c + d)}$`;
+          }\\div${ecriture_parenthese_si_negatif(c + d)}=${(a * b) / (c + d)}$`;
           break;
-        case 22:
-          a = randint(2, 11);
-          c = randint(2, 11);
-          b = c * randint(2, 5);
-          d = randint(2, 6);
-          texte = `$${a}\\times(${b}\\div${c}+${d})$`;
-          texte_corr = `$${a}\\times(${mise_en_evidence(
-            b + `\\div` + c
-          )}+${d})=${a}\\times(${mise_en_evidence(
-            b / c + `+` + d
-          )})=${a}\\times${b / c + d}=${a * (b / c + d)}$`;
+        case 19: // a-(b+c)
+          a = randint(1, 9)*choice([-1,1]);
+          b = randint(1, 9)*choice([-1,1]);
+          c = randint(1, 9)*choice([-1,1]);
+          while (a>0 && b>0 && c>0){
+            a = randint(1, 9)*choice([-1,1]);
+            b = randint(1, 9)*choice([-1,1]);
+            c = randint(1, 9)*choice([-1,1]);
+          }
+          texte = `$${a}-(${b}${ecriture_algebrique(c)})$`;
+          texte_corr = `$${a}-(${mise_en_evidence(b + ecriture_algebrique(c))})=${a}-(${ecriture_algebrique(b+c)})=${a+ecriture_algebrique(-b-c)}=${a-b-c}$`;
+          break;
+        case 20: // (a+b+c)*d
+          a = randint(1, 9)*choice([-1,1]);
+          b = randint(1, 9)*choice([-1,1]);
+          c = randint(1, 9)*choice([-1,1]);
+          d = randint(2,5)*choice([-1,1])
+          while (a>0 && b>0 && c>0){
+            a = randint(1, 9)*choice([-1,1]);
+            b = randint(1, 9)*choice([-1,1]);
+            c = randint(1, 9)*choice([-1,1]);
+          }
+          texte = `$(${a+ecriture_algebrique(b)+ecriture_algebrique(c)})\\times${ecriture_parenthese_si_negatif(d)}$`;
+          texte_corr = `$(${mise_en_evidence(a+ecriture_algebrique(b)+ecriture_algebrique(c))})\\times${ecriture_parenthese_si_negatif(d)}=${a+b+c}\\times${ecriture_parenthese_si_negatif(d)}=${(a+b+c)*d} $`;
           break;
       }
 
@@ -11119,6 +11153,6 @@ function Priorites_et_relatifs() {
   this.besoin_formulaire_numerique = [
     "Type de calculs",
     3,
-    "1 : Sans parenthèses\n2: Avec parenthèses\n3: Avec ou sans parenthèses",
+    "1 : Sans opérations entre parenthèses\n2: Avec des opérations entre parenthèses\n3: Avec ou sans opérations entre parenthèses",
   ];
 }
