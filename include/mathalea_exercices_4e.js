@@ -10805,7 +10805,7 @@ function Exercice_tableau_multiplications_relatifs (){
  */
 function Priorites_et_relatifs() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Calculer en utilisant les priorités opératoires";
+  this.titre = "Calculs utilisant les priorités opératoires";
   this.consigne = "Calculer";
   this.nb_questions = 5;
   this.nb_cols = 2;
