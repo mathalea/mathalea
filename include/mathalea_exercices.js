@@ -7723,7 +7723,7 @@ function Pourcentage_d_un_nombre() {
  */
 function Fraction_d_un_nombre_bis() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Calculer la fraction d'un nombre";
+  this.titre = "Calculer la fraction d'une quantité";
   this.nb_questions = 5;
   this.consigne = "Calculer";
   sortie_html ? (this.spacing_corr = 3.5) : (this.spacing_corr = 2);
@@ -7783,23 +7783,20 @@ function Fraction_d_un_nombre_bis() {
             denIrred=choice([2,3,4,5,10])
             numIrred=randint(1,denIrred-1)      
           }
-          k=calcul(60/denIrred)
-          den=calcul(denIrred*k)
-          num=calcul(numIrred*k)
-          frac=fraction(num,den)
+          frac=fraction(numIrred,denIrred)
           frac2=frac.entierMoinsFraction(1)
           texte=`Voici une tablette de chocolat dont la masse totale est de $${masse}$ grammes. Quelqu'un en a déjà consommé les $${frac.texFractionSimplifiee()}$.<br>`
           choix=randint(1,2)
           if (choix==1) {
             texte+=`Quelle masse de chocoloat a-t-elle été consommée ?<br>`
             texte_corr=`Comme la tablette a une masse de $${masse}$ grammes, $${tex_fraction(1,denIrred)}$ de la tablette représente une masse de $${calcul(masse/denIrred)}$ grammes.<br>`
-            texte_corr+=`Ici, il y a $${frac.texFractionSimplifiee()}$ de la tablette qui a été consommé, ce qui représente $${numIrred}$ fois plus, soit $${numIrred}\\times${calcul(masse/denIrred)}=${calcul(num*masse/den)}$.<br>`
+            texte_corr+=`Ici, il y a $${frac.texFractionSimplifiee()}$ de la tablette qui a été consommé, ce qui représente $${numIrred}$ fois plus, soit $${numIrred}\\times${calcul(masse/denIrred)}=${calcul(numIrred*masse/denIrred)}$.<br>`
             texte_corr+=`La masse de chocolat consommée est $${calcul(numIrred*masse/denIrred)}$ grammes.`
           }
           else {
             texte+=`Quelle masse de chocolat reste-t-il ?<br>`
             texte_corr=`Comme la tablette a une masse de $${masse}$ grammes, $${tex_fraction(1,denIrred)}$ de la tablette représente une masse de $${calcul(masse/denIrred)}$ grammes.<br>`
-            texte_corr+=`Ici, il y a $${frac.texFractionSimplifiee()}$ de la tablette qui a été consommé, ce qui représente $${numIrred}$ fois plus, soit $${numIrred}\\times${calcul(masse/denIrred)}=${calcul(num*masse/den)}$.<br>`
+            texte_corr+=`Ici, il y a $${frac.texFractionSimplifiee()}$ de la tablette qui a été consommé, ce qui représente $${numIrred}$ fois plus, soit $${numIrred}\\times${calcul(masse/denIrred)}=${calcul(numIrred*masse/denIrred)}$.<br>`
             texte_corr+=`La masse de chocolat consommée est $${calcul(numIrred*masse/denIrred)}$ grammes.<br>`
             texte_corr+=`Il reste donc : $${masse}-${calcul(numIrred*masse/denIrred)}=${calcul(masse-numIrred*masse/denIrred)}$ grammes de chocolat.<br>`
             texte_corr+=`une autre façon de faire est d'utiliser la fraction restante : $${tex_fraction(denIrred,denIrred)}-${frac.texFractionSimplifiee()}=${tex_fraction(denIrred-numIrred,denIrred)}$.<br>`
@@ -7809,7 +7806,7 @@ function Fraction_d_un_nombre_bis() {
            }
           if (this.sup2){
           texte+=`la tablette de chocolat est représentée ci dessous :<br>`
-          texte+=mathalea2d({xmin:-0.5,ymin:-0.5,xmax:5,ymax:7},frac2.representation(0,0,4,0,'baton','brown'))
+          texte+=mathalea2d({xmin:-0.5,ymin:-0.5,xmax:5,ymax:7},frac2.representationIrred(0,0,4,0,'baton','brown'))
          }
         break
         case 4:
