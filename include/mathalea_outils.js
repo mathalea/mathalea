@@ -1028,7 +1028,7 @@ function nombreDecimal(expression,arrondir=false){
 * Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux et retourne un string avec la virgule comme séparateur décimal
 * @Auteur Rémi Angot
 */
-function tex_nombrec(expression){ 
+function tex_nombrec(expression,precision){ 
 	return tex_nombre(parseFloat(Algebrite.eval(expression)))
 }
 /**

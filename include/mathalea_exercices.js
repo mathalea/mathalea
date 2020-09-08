@@ -176,6 +176,7 @@ var liste_des_exercices_disponibles = {
   "4C10-3": Exercice_multiplications_relatifs,
   "4C10-4": Exercice_quotients_relatifs,
   "4C10-5": Exercice_tableau_multiplications_relatifs,
+  "4C11": Priorites_et_relatifs,
   "4C25-0": Problemes_additifs_fractions,
   "4C30-1": Puissances_encadrement,
   "4G40": Transformations_4e,
@@ -201,9 +202,10 @@ var liste_des_exercices_disponibles = {
   "4P10-1" : Graphiques_et_proportionnalite,
   "4P20-0": Forme_litterale_introduire_une_lettre,
   "4G11": Pavages_et_translation,
-  "4G20": Exercice_Pythagore,
+  "4G20" : Pythagore2D,
   "4G20-1": Egalite_Pythagore,
   "4G20-2": Racine_caree_de_carres_parfaits,
+  "4G20-3": Exercice_Pythagore,
   "4G21": Reciproque_Pythagore,
   "4G22": Problemes_Pythagore,
   "4G30": Thales_4eme,
@@ -13700,7 +13702,7 @@ jQuery(document).ready(function () {
       ['6M1','6M1 - Grandeurs et mesures niveau 1'],['6M2','6M2 - Grandeurs et mesures niveau 2'],
       ['6G1','6G1 - Géométrie niveau 1'],['6G2','6G2 - Géométrie niveau 2'],['6G3','6G3 - Géométrie niveau 3'],['6G4','6G4 - Géométrie niveau 4'],
       ['6D1','6D1 - Les durées'],
-      ['6N1','6N1 - Numération et fractions niveau 1'],['6N2','6N2 - Numération et fractions niveau 2'],['6N3','6N3 - Numération et fractions niveau 3']])
+      ['6N1','6N1 - Numération et fractions niveau 1'],['6N2','6N2 - Numération et fractions niveau 2'],['6N3','6N3 - Numération et fractions niveau 3'],['6N4','6N4 - Numération et fractions niveau 4']])
       liste_html_des_exercices_5 = liste_html_des_exercices_d_un_niveau([
         ['5A1','5A1 - Arithmetique'],['5C1','5C1 - Calculs'],
         ['5G1','5G1 - Symétries'],['5G2','5G2 - Triangles'],['5G3','5G3 - Angles'],['5G4','5G4 - Parallélogrammes'],['5G5','5G5 - Espace'],
