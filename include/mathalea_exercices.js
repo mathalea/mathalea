@@ -7770,7 +7770,7 @@ function Fraction_d_un_nombre_bis() {
           frac=fraction(num,den)
           texte=`À combien de minutes correspondent $${frac.texFraction()}$ d\'heure ?<br>`
           if (this.sup2){
-            texte+=`cette fraction est représentée ci dessous :<br>`
+            texte+=`Cette fraction est représentée ci dessous :<br>`
             texte+=mathalea2d({xmin:0,ymin:0,xmax:15,ymax:5},frac.representation(2.5,2.5,2,0,'gateau','blue'))
           }
           texte_corr=`Comme l\'heure est partagée en ${den} parts égales, chaque part représente $${tex_fraction(1,den)}$ d\'heure, soit $${calcul(60/den)}$ minutes.<br>`
@@ -7807,7 +7807,7 @@ function Fraction_d_un_nombre_bis() {
 
            }
           if (this.sup2){
-          texte+=`la tablette de chocolat est représentée ci dessous :<br>`
+          texte+=`La tablette de chocolat est représentée ci dessous :<br>`
           texte+=mathalea2d({xmin:-0.5,ymin:-0.5,xmax:5,ymax:7},frac2.representationIrred(0,0,4,0,'baton','brown'))
          }
         break
@@ -7825,15 +7825,17 @@ function Fraction_d_un_nombre_bis() {
           den=calcul(denIrred*k)
           num=calcul(numIrred*k)
           frac=fraction(num,den)
-          texte=`Un bâton de $${tex_nombrec(longueur/100)}$ mètres de longueur est coupé à $${frac.texFractionSimplifiee()}$ de sa longueur.<br>`
-          texte+=`Calculer la longueur de chacun des morceaux.<br>`
+          texte=`Un bâton de $${tex_nombrec(longueur/100)}$ mètre`
+          if (longueur>=200) texte+=`s`
+          texte+=` de longueur est coupé à $${frac.texFractionSimplifiee()}$ de sa longueur.<br>`
+          texte+=`Calculer la longueur de chacun des morceaux en mètres.<br>`
           if (this.sup2){
-            texte+=`ce bâton est représenté ci dessous est représentée ci dessous :<br>`
+            texte+=`Ce bâton est représenté ci dessous est représentée ci dessous :<br>`
           texte+=mathalea2d({xmin:-0.5,ymin:0,xmax:10,ymax:2},frac.representationIrred(0,1,8,0,'segment','blue',"0",`${tex_nombre(calcul(longueur/100))}`))
           }
-          texte_corr=`$${tex_fraction(1,denIrred)}$ de $${tex_nombrec(longueur/100)}$ mètres représente $${tex_nombrec(longueur/100)} \\div ${denIrred} = ${tex_nombrec(longueur/100/denIrred)}$ mètres.<br>`
-          texte_corr+=`Le premier morceau du bâton correspondant à $${frac.texFractionSimplifiee()}$ du bâton mesure : $${numIrred} \\times ${tex_nombrec(longueur/100/denIrred)}=${tex_nombrec(numIrred*longueur/100/denIrred)}$ mètres.<br>`
-          texte_corr+=`Le deuxième morceau mesure donc : $${tex_nombrec(longueur/100)}-${tex_nombrec(numIrred*longueur/100/denIrred)}=${tex_nombrec(longueur/100-numIrred*longueur/100/denIrred)}$ mètres.`
+          texte_corr=`$${tex_fraction(1,denIrred)}$ de $${tex_nombrec(longueur/100)}$ représente $${tex_nombrec(longueur/100)} \\div ${denIrred} = ${tex_nombrec(longueur/100/denIrred)}$.<br>`
+          texte_corr+=`Le premier morceau du bâton correspondant à $${frac.texFractionSimplifiee()}$ du bâton mesure : $${numIrred} \\times ${tex_nombrec(longueur/100/denIrred)}=${tex_nombrec(numIrred*longueur/100/denIrred)}$ m.<br>`
+          texte_corr+=`Le deuxième morceau mesure donc : $${tex_nombrec(longueur/100)}-${tex_nombrec(numIrred*longueur/100/denIrred)}=${tex_nombrec(longueur/100-numIrred*longueur/100/denIrred)}$ m.`
 
         break
       }
@@ -7851,7 +7853,7 @@ function Fraction_d_un_nombre_bis() {
   liste_de_question_to_contenu(this);
 };
 this.besoin_formulaire_numerique = ["Type d\'exercices",5,"1 : Heures & minutes (inférieur à 1h)\n2 : Heures & minutes (jusqu\'à 3h)\n3 : tablettes de chocolat\n4 : Bâton cassé\n5 : Mélange"];
-this.besoin_formulaire2_case_a_cocher = ["Avec Dessin", true];
+this.besoin_formulaire2_case_a_cocher = ["Avec dessin", true];
 }
 /**
  * Calculer la fracton d'un nombre divisible par le dénominateur ... ou pas.
