@@ -99,7 +99,10 @@ function quotientier(a, b) {
 	}
 	else return false
 }
-
+function carreParfait(x) {
+	if (estentier(Math.sqrt(x))) return true
+	else return false
+}
 /**
 * Créé tous les couples possibles avec un élément de E1 et un élément de E2.
 * L'ordre est pris en compte, donc on pourra avoir (3,4) et (4,3).
