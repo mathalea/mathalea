@@ -73,6 +73,7 @@ var liste_des_exercices_disponibles = {
   "6M30": Calcul_de_volumes_6e,
   "6M31": Exercice_conversions_volumes,
   "6M31-2": Unites_de_volumes_et_de_capacite,
+  "beta6N10" : Ecrire_nombres_entiers,
   "6N10-1": Exercice_numeration_entier,
   "6N10-2": Decomposition_nombre_decimal,
   "6N11": Lire_abscisse_entiere,
@@ -3643,6 +3644,72 @@ function Trouver_solution_mathador(
       } else operations_successives = [];
     } else operations_successives = [];
   }
+}
+
+function Ecrire_nombres_entiers() {
+  "use strict"
+  Exercice.call(this)
+  this.titre = "Écrire un nombre en chiffres ou en lettres"
+  this.nb_questions = 5;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  this.sup = 1
+  this.sup2 = 1
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    if (this.sup == 2)
+      this.consigne = "Écrire le nombre en chiffres"
+    else
+      this.consigne = "Écrire le nombre en lettres"
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées 
+    let type_de_questions_disponibles = range1(parseInt(this.sup2)); // <1 000, <1 000 000, < 1 000 000 000, >1 000 000 000) 
+    let liste_type_de_questions = combinaison_listes(
+      type_de_questions_disponibles,
+      this.nb_questions
+    ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    for (
+      let i = 0, texte, texte_corr, a, b, rang_a, rang_b, cpt = 0;
+      i < this.nb_questions && cpt < 50;
+
+    ) {
+  
+      b = 0
+      while (b == 0) {
+        a = []
+        for (let j = 0; j < 3 * liste_type_de_questions[i]; j++) {
+          a.push(choice([0, 0, 0, 0, 0, 1, 2, 2, 3, 3, 4, 4, 5, 6, 7, 8, 9]))
+        }
+        for (let j = 0; j < 3 * liste_type_de_questions[i]; j++) {
+          b += a[j] * 10 ** j
+        }
+      }
+      while (a[3 * liste_type_de_questions[i] - 1] == 0) {
+        a = shuffle(a)
+      }
+      b = 0
+      for (let j = 0; j < 3 * liste_type_de_questions[i]; j++) {
+        b += a[j] * 10 ** j
+      }
+      if (this.sup == 1) {
+        texte = `$${tex_nombre(b)}$ s'écrit \\dotfill`
+        texte_corr = `$${tex_nombre(b)}$ s'écrit ${nombreEnLettres(b)}`
+      }
+      else {
+        texte = `${nombreEnLettres(b)} s'écrit \\dotfill`
+        texte_corr = `${nombreEnLettres(b)} s'écrit $${tex_nombre(b)}$.`
+      }
+      if (this.liste_questions.indexOf(texte) == -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
+        this.liste_questions.push(texte);
+        this.liste_corrections.push(texte_corr);
+        i++;
+      }
+      cpt++;
+    }
+    liste_de_question_to_contenu(this);
+  };
+  this.besoin_formulaire_numerique = ['type d\'exercice', 2, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres'];
+  this.besoin_formulaire2_numerique = ['Classe maximum', 4, '1 : Unités\n2 : Milliers\n3 : Millions\n4 : Milliards']
 }
 
 /**
