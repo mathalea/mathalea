@@ -13619,9 +13619,6 @@ jQuery(document).ready(function () {
   let nombre_d_exercices_disponibles_prof = 0;
   let nombre_d_exercices_disponibles_PE = 0;
   let nombre_d_exercices_disponibles_beta = 0;
-  //debut ajout seb section tests
-  let nombre_d_exercices_disponibles_tests = 0;
-  //fin seb section tests
   for (var id in liste_des_exercices_disponibles) {
     if (id[0] == 6) {
       nombre_d_exercices_disponibles_6 += 1;
@@ -13718,9 +13715,11 @@ jQuery(document).ready(function () {
         ['4C1','4C1 - Relatifs'],['4C2','4C2 - Fractions'],['4C3','4C3 - Puissances'],
         ['4F1','4F1 - Notion de fonction'],
         ['4G1','4G1 - Translation et rotation'],['4G2','4G2 - Théorème de Pythagore'],['4G3','4G3 - Théorème de Thalès'],['4G4',"4G4 - Cosinus d'un angle"],['4G5',"4G5 - Espace"],
-        ['4L1','4L1 - Calcul littéral'],['4P1','4P1 - Proportionnalité'],['4S1','4S1 - Statistiques'],['4S2','4S2 - Probabilités']
+        ['4L1','4L1 - Calcul littéral'],['4P1','4P1 - Proportionnalité'],['4S1','4S1 - Statistiques'],['4S2','4S2 - Probabilités'],
+        ['4Algo1','4Algo1 - Algorithmique']
       ])
       liste_html_des_exercices_3 = liste_html_des_exercices_d_un_niveau([
+        ['3A1','3A1 - Arithmetique'],
         ['3F1','3F1 - Généralités sur les fonctions'],['3F2','3F2 - Fonctions affines et linéaires'],
         ['3G1','3G1 - Homothétie et rotation'],['3G2','3G2 - Théorème de Thalès'],['3G3','3G3 - Trigonométrie'],['3G4',"3G4 - Espace"],
         ['3L1','3L1 - Calcul littéral'],['3P1','3P1 - Proportionnalité'],['3S1','3S1 - Statistiques'],['3S2','3S2 - Probabilités']
