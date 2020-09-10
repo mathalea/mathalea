@@ -3668,28 +3668,26 @@ function Ecrire_nombres_entiers() {
       this.nb_questions
     ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (
-      let i = 0, texte, texte_corr, a, b, rang_a, rang_b, cpt = 0;
+      let i = 0, texte, texte_corr, a, b,c,nombre,tranche, cpt = 0;
       i < this.nb_questions && cpt < 50;
 
     ) {
   
-      b = 0
-      while (b == 0) {
-        a = []
+      nombre = 0
+      while (nombre == 0) {
+        tranche=[]
         for (let j = 0; j < 3 * liste_type_de_questions[i]; j++) {
-          a.push(choice([0, 0, 0, 0, 0, 1, 2, 2, 3, 3, 4, 4, 5, 6, 7, 8, 9]))
+          a = randint(1,9)
+          b=randint(1,9)
+          c=randint(1,9)
+          tranche[j]=choice([0,100,20,80,a,a*100,a*100+b*10+c,a*100+80+b,a*10,a*100+b*10+1])
         }
-        for (let j = 0; j < 3 * liste_type_de_questions[i]; j++) {
-          b += a[j] * 10 ** j
+        for (let j = 0; j < liste_type_de_questions[i]; j++) {
+          nombre += tranche[j] * 10 ** (j*3)
         }
+        if (tranche[liste_type_de_questions[i]-1]==0) nombre=0
       }
-      while (a[3 * liste_type_de_questions[i] - 1] == 0) {
-        a = shuffle(a)
-      }
-      b = 0
-      for (let j = 0; j < 3 * liste_type_de_questions[i]; j++) {
-        b += a[j] * 10 ** j
-      }
+
       if (this.sup == 1) {
         texte = `$${tex_nombre(b)}$ s'écrit \\dotfill`
         texte_corr = `$${tex_nombre(b)}$ s'écrit ${nombreEnLettres(b)}`
