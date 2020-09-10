@@ -3662,7 +3662,7 @@ function Ecrire_nombres_entiers() {
       this.consigne = "Écrire le nombre en lettres"
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées 
-    let type_de_questions_disponibles = range1(parseInt(this.sup2)); // <1 000, <1 000 000, < 1 000 000 000, >1 000 000 000) 
+    let type_de_questions_disponibles = [parseInt(this.sup2)]; // <1 000, <1 000 000, < 1 000 000 000, >1 000 000 000) 
     let liste_type_de_questions = combinaison_listes(
       type_de_questions_disponibles,
       this.nb_questions
@@ -3674,27 +3674,28 @@ function Ecrire_nombres_entiers() {
     ) {
   
       nombre = 0
+      tranche=[]
       while (nombre == 0) {
-        tranche=[]
-        for (let j = 0; j < 3 * liste_type_de_questions[i]; j++) {
+        tranche.splice(0)
+        for (let j = 0; j < liste_type_de_questions[i]; j++) {
           a = randint(1,9)
           b=randint(1,9)
           c=randint(1,9)
-          tranche[j]=choice([0,100,20,80,a,a*100,a*100+b*10+c,a*100+80+b,a*10,a*100+b*10+1])
+          tranche.push(choice([0,100,20,80,a,a*100,a*100+b*10+c,a*100+80+b,a*10,a*100+b*10+1]))
         }
         for (let j = 0; j < liste_type_de_questions[i]; j++) {
           nombre += tranche[j] * 10 ** (j*3)
         }
         if (tranche[liste_type_de_questions[i]-1]==0) nombre=0
       }
-
+      console.log(tranche,nombre)
       if (this.sup == 1) {
-        texte = `$${tex_nombre(b)}$ s'écrit \\dotfill`
-        texte_corr = `$${tex_nombre(b)}$ s'écrit ${nombreEnLettres(b)}`
+        texte = `$${tex_nombre(nombre)}$ s'écrit \\dotfill`
+        texte_corr = `$${tex_nombre(nombre)}$ s'écrit ${nombreEnLettres(nombre)}`
       }
       else {
-        texte = `${nombreEnLettres(b)} s'écrit \\dotfill`
-        texte_corr = `${nombreEnLettres(b)} s'écrit $${tex_nombre(b)}$.`
+        texte = `${nombreEnLettres(nombre)} s'écrit \\dotfill`
+        texte_corr = `${nombreEnLettres(nombre)} s'écrit $${tex_nombre(nombre)}$.`
       }
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
