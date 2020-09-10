@@ -76,8 +76,11 @@ var liste_des_exercices_disponibles = {
   "beta6N10" : Ecrire_nombres_entiers,
   "6N10-1": Exercice_numeration_entier,
   "6N10-2": Decomposition_nombre_decimal,
+  "beta6N10-3": chiffre_nombre_de,
   "6N11": Lire_abscisse_entiere,
   "6N11-2": Placer_un_point_abscisse_entiere,
+  "beta6N11-3": Encadrer_un_entier_par_deux_entiers_consecutifs,
+  "beta6N11-4": Ranger_ordre_croissant_decroissant,
   "6N12": Multiplier_entier_par_10_100_1000,
   "6N13": Exercice_6N13,
   "6N14" : Representer_une_fraction,
@@ -13205,10 +13208,7 @@ function Proportionnalite_par_linearite_bis(){
 			cpt++;	
 		}
 		liste_de_question_to_contenu(this);
-
 	}
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 }
 
 /**
@@ -13617,6 +13617,978 @@ function Solide_6e() {
   ];
 }
 
+/** 
+ * * Calculer le produit de deux décimaux à partir d'un produit de deux entiers
+ * * 6C30-2
+ * @author Sébastien Lozano
+ */
+
+function Produit_de_decimaux_a_partir_d_un_produit_connu(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.beta = false;	
+	this.sup=1;
+	if (this.beta) {
+		this.nb_questions = 3;
+	} else {
+		this.nb_questions = 3;
+	};	
+
+	this.titre = "Calculer le produit de deux décimaux connaissant le produit de deux entiers";	
+	this.consigne = ``;	
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	//this.nb_questions_modifiable = false;
+	sortie_html? this.spacing = 2.5 : this.spacing = 1.5; 
+	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+
+	let type_de_questions_disponibles;	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		if (this.beta) {
+			type_de_questions_disponibles = [0,1,2];			
+		} else {
+      //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
+      type_de_questions_disponibles = shuffle([0,1,2]);			
+      			
+		};
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+
+      // pour les situations, autant de situations que de cas dans le switch !
+			let situations = [
+        {//case 0 --> (d1u1xp1)xd2u2
+          d1:randint(1,9),
+          u1:randint(1,9),
+          d2:randint(1,9),
+          u2:randint(1,9),
+          p1:randint(-3,3,[0]),
+          p2:randint(-3,3,[0]),
+				},	
+			];      
+			let enonces = [];
+			//for (let k=0;k<3;k++) {
+				enonces.push({
+          enonce:`
+            Sachant que $${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)} = ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}$,
+            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(10**situations[0].p1)))}\\times ${calcul(situations[0].d2*10+situations[0].u2)}$
+					`,
+					question:``,
+					correction:`
+					$${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(10**situations[0].p1)))}\\times ${calcul(situations[0].d2*10+situations[0].u2)} = ${calcul(situations[0].d1*10+situations[0].u1)}\\times ${tex_nombrec(10**situations[0].p1)} \\times ${calcul(situations[0].d2*10+situations[0].u2)} = ${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)}\\times ${tex_nombrec(10**situations[0].p1)} =  ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}\\times ${tex_nombrec(10**situations[0].p1)} = ${tex_nombrec(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2))*calcul(10**situations[0].p1))}$
+					`
+        });
+        enonces.push({
+          enonce:`
+            Sachant que $${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)} = ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}$,
+            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)))}\\times ${tex_nombre(calcul((situations[0].d2*10+situations[0].u2)*(10**situations[0].p2)))}$
+					`,
+					question:``,
+					correction:`
+					$${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)))}\\times ${tex_nombre(calcul((situations[0].d2*10+situations[0].u2)*(10**situations[0].p2)))} = ${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)}\\times ${tex_nombrec(10**situations[0].p2)} = ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}\\times ${tex_nombrec(10**situations[0].p2)} = ${tex_nombrec(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2))*calcul(10**situations[0].p2))}$
+					`
+				});
+				enonces.push({
+          enonce:`
+            Sachant que $${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)} = ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}$,
+            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(10**situations[0].p1)))}\\times ${tex_nombre(calcul((situations[0].d2*10+situations[0].u2)*(10**situations[0].p2)))}$
+					`,
+					question:``,
+					correction:`
+					$${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(10**situations[0].p1)))}\\times ${tex_nombre(calcul((situations[0].d2*10+situations[0].u2)*(10**situations[0].p2)))} = ${calcul(situations[0].d1*10+situations[0].u1)}\\times ${tex_nombrec(10**situations[0].p1)} \\times ${calcul(situations[0].d2*10+situations[0].u2)}\\times ${tex_nombrec(10**situations[0].p2)} = ${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)}\\times ${tex_nombrec(10**situations[0].p1)}\\times ${tex_nombrec(10**situations[0].p2)} = ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}\\times ${tex_nombrec(10**situations[0].p1)}\\times ${tex_nombrec(10**situations[0].p2)} = ${tex_nombrec(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2))*calcul(10**situations[0].p1)*calcul(10**situations[0].p2))}$
+					`
+				});
+
+			//};
+            
+            // autant de case que d'elements dans le tableau des situations
+			switch (liste_type_de_questions[i]){
+				case 0 : 
+					texte = `${enonces[0].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
+						texte += `             `
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[0].correction}`;
+					};
+     			break;	
+     		case 1 : 
+          texte = `${enonces[1].enonce}`;
+          if (this.beta) {
+            texte += `<br>`;
+            texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
+            texte_corr = ``;	
+          } else {
+            texte_corr = `${enonces[1].correction}`;
+          };
+          break;
+     		case 2 : 
+          texte = `${enonces[2].enonce}`;
+          if (this.beta) {
+            texte += `<br>`;
+            texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
+            texte_corr = ``;	
+          } else {
+            texte_corr = `${enonces[2].correction}`;
+          };
+          break;							
+			};						
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+	}
+};
+
+
+/** 
+ * * Encadrer_un_decimal_par_deux_entiers_consecutifs
+ * * 6N31-1
+ * @author Sébastien Lozano
+ */
+
+function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.beta = false;	
+	this.sup=1;
+	if (this.beta) {
+		this.nb_questions = 3;
+	} else {
+		this.nb_questions = 3;
+	};	
+
+	this.titre = "Encadrer un décimal par deux entiers consécutifs";	
+	this.consigne = `Encadrer chaque nombre proposé par deux nombres entiers consécutifs.`;	
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	//this.nb_questions_modifiable = false;
+	sortie_html? this.spacing = 2.5 : this.spacing = 1.5; 
+	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+
+	let type_de_questions_disponibles;	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		if (this.beta) {
+			type_de_questions_disponibles = [0,1,2];			
+		} else {
+      //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
+      type_de_questions_disponibles = shuffle([0,1,2]);			
+      			
+		};
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+      let m=randint(1,9),
+      c=randint(1,9),
+      d=randint(1,9),
+      u=randint(1,9),
+      di=randint(1,9),
+      ci=randint(1,9),
+      mi=randint(1,9);
+
+			// pour les situations, autant de situations que de cas dans le switch !
+			let situations = [
+        {//case 0 -->
+				},		
+			];
+
+			let enonces = [];
+			//for (let k=0;k<3;k++) {
+				enonces.push({
+					enonce:`
+          $\\ldots < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1 + ci*0.01 + mi*0.001))} < \\ldots$          
+					`,
+					question:``,
+					correction:`
+					$${mise_en_evidence(tex_nombre(m*1000 + c*100 + d*10 + u*1))} < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1 + ci*0.01 + mi*0.001))} < ${mise_en_evidence(tex_nombre(m*1000 + c*100 + d*10 + u*1 + 1))}$					`
+				});
+				enonces.push({
+					enonce:`
+          $\\ldots < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1 + ci*0.01))} < \\ldots$          
+					`,
+					question:``,
+					correction:`
+					$${mise_en_evidence(tex_nombre(m*1000 + c*100 + d*10 + u*1))} < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1 + ci*0.01))} < ${mise_en_evidence(tex_nombre(m*1000 + c*100 + d*10 + u*1 + 1))}$					`
+				});
+				enonces.push({
+					enonce:`
+          $\\ldots < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1))} < \\ldots$          
+					`,
+					question:``,
+					correction:`
+					$${mise_en_evidence(tex_nombre(m*1000 + c*100 + d*10 + u*1))} < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1))} < ${mise_en_evidence(tex_nombre(m*1000 + c*100 + d*10 + u*1 + 1))}$					`
+				});
+
+        //};
+            
+            // autant de case que d'elements dans le tableau des situations
+			switch (liste_type_de_questions[i]){
+				case 0 : 
+					texte = `${enonces[0].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
+						texte += `             `
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[0].correction}`;
+					};
+          break;	
+        case 1 : 
+					texte = `${enonces[1].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[1].correction}`;
+					};
+          break;
+        case 2 : 
+					texte = `${enonces[2].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[2].correction}`;
+					};
+        	break;				
+			};						
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+	}
+};
+
+/** 
+ * * Ordre de grandeur d'une opération entre décimaux
+ * * 6N31-2
+ * @author Sébastien Lozano
+ */
+
+function Ordre_de_grandeur_operations_decimaux(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.beta = false;	
+	this.sup=1;
+	if (this.beta) {
+		this.nb_questions = 1;
+	} else {
+		this.nb_questions = 1;
+	};	
+
+	this.titre = "Ordre de grandeur et opérations sur les décimaux";	
+	this.consigne = `Pour chaque opération proposée dans la première colonne, cocher la case correspondant à l'ordre de grandeur du résultat.`;	
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	//this.nb_questions_modifiable = false;
+	sortie_html? this.spacing = 2.5 : this.spacing = 1.5; 
+	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+
+	let type_de_questions_disponibles;	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		if (this.beta) {
+			type_de_questions_disponibles = [0];			
+		} else {
+      //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
+      type_de_questions_disponibles = shuffle([0]);
+      			
+		};
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+
+      let ligne_entete = ['\\text{Opération}',`\\phantom{000}`+tex_nombre('1')+`\\phantom{000}`,`\\phantom{00}`+tex_nombre('10')+`\\phantom{00}`,`\\phantom{00}`+tex_nombre('100')+`\\phantom{00}`,`\\phantom{0}`+tex_nombre('1000')+`\\phantom{0}`,tex_nombre('10000'),tex_nombre('100000')];
+      let ligne_entete_corr = ['\\text{Opération}',`\\phantom{000}`+tex_nombre('1')+`\\phantom{000}`,`\\phantom{00}`+tex_nombre('10')+`\\phantom{00}`,`\\phantom{00}`+tex_nombre('100')+`\\phantom{00}`,`\\phantom{0}`+tex_nombre('1000')+`\\phantom{0}`,tex_nombre('10000'),tex_nombre('100000')];
+
+      let m=randint(1,9,[4,5,6]),
+      c=randint(1,9),
+      c1=randint(1,9),
+      c2=randint(1,9),
+      c3=randint(1,9,[4,5,6]),
+      c4=randint(1,4),
+      d=randint(1,9),
+      d1=randint(1,9),
+      d2=randint(1,9),
+      d3=randint(1,9),
+      u=randint(1,9),
+      u1=randint(1,9),
+      u2=randint(1,9),
+      u3=randint(1,9);
+
+      let cbis,d1bis;
+      do {
+        cbis = randint(2,9);
+        d1bis = randint(2,9);
+      } while (cbis*d1bis>3 && cbis*d1bis<7);
+
+      let div_aleatoire_ope_3 = choice([10,100]);
+      let div_aleatoire_ope_5 = choice([1,10,100,1000]);
+      let mult_aleatoire_ope_4 = choice([0.1,0.01,0.001]);
+
+      // une fonction pour ordre de grandeur en fonction de ... opération 1
+      function myOrdreOpe1(c,d) {
+        if (c*d>=60) {
+          return ['','','','','',mise_en_evidence(`X`)]; 
+        } else {
+          return ['','','','',mise_en_evidence(`X`),'']; 
+        };
+      };
+      
+      // une fonction pour ordre de grandeur en fonction de ... opération 2
+      function myOrdreOpe2(c1,c2) {
+        if (c1+c2/10>=600) {
+          return ['','','',mise_en_evidence(`X`),'','']; 
+        } else {
+          return ['','',mise_en_evidence(`X`),'','','']; 
+        };
+      };
+
+      // une fonction pour ordre de grandeur en fonction de ... opération 3
+      function myOrdreOpe3(n) {
+        if (n>=7) {
+          return ['','','',mise_en_evidence(`X`),'','']; 
+        } else {
+          return ['','',mise_en_evidence(`X`),'','','']; 
+        };
+      };
+
+      // une fonction pour ordre de grandeur en fonction de ... opération 4
+      function myOrdreOpe4(d,n) {
+        let sortie;
+        switch (d) {
+          case 0.1:
+            if (n>=7) {
+              sortie = ['','','',mise_en_evidence(`X`),'',''];
+            } else {
+              sortie = ['','',mise_en_evidence(`X`),'','',''];
+            };            
+            break;
+          case 0.01: 
+            if (n>=7) {
+              sortie = ['','',mise_en_evidence(`X`),'','',''];              
+            } else {
+              sortie = ['',mise_en_evidence(`X`),'','','',''];
+            };            
+            break;
+          case 0.001: 
+            if (n>=7) {
+              sortie = ['',mise_en_evidence(`X`),'','','',''];
+            } else {
+              sortie = [mise_en_evidence(`X`),'','','','',''];
+            };       
+            break;            
+        }
+        return sortie;
+      };
+
+      // une fonction pour ordre de grandeur en fonction de ... opération 5
+      function myOrdreOpe5(mult) {
+        let sortie;
+        switch (mult) {
+          case 1:
+            return sortie = ['','','',mise_en_evidence(`X`),'','']; 
+            break;
+          case 10:
+            return sortie = ['','',mise_en_evidence(`X`),'','','']; 
+            break;
+          case 100:
+            return sortie = ['',mise_en_evidence(`X`),'','','','']; 
+            break;
+          case 1000:
+            return sortie = [mise_en_evidence(`X`),'','','','','']; 
+            break;        
+        };
+        return sortie;
+      };
+
+      let situations = [
+        {
+          operation:`${cbis*100+d*10+u*1}\\times ${d1bis*10+u1*1}`,
+          operation_corr:`${cbis*100+d*10+u*1}\\times ${d1bis*10+u1*1} \\simeq  ${(cbis*100)}\\times ${(d1bis*10)} \\text{ soit } ${tex_nombre((cbis*100)*(d1bis*10))}`,
+          operation_coche:myOrdreOpe1(cbis,d1bis),
+        },
+        {
+          operation:`${tex_nombre((c2*100+d2*10+u1*1)/10)}+${c1*100+d1*10+u1*1}`,
+          operation_corr:`${tex_nombre((c2*100+d2*10+u1*1)/10)}+${c1*100+d1*10+u1*1} \\simeq ${c2*100/10}+${c1*100} \\text{ soit } ${c2*100/10 + c1*100}`,
+          operation_coche:myOrdreOpe2(c1*100,c2*100),
+        },
+        {
+          operation:`${c3*100+d3*10+u3*1}-${tex_nombre((c2*100+d2*10+u2*1)/div_aleatoire_ope_3)}`,
+          operation_corr:`${c3*100+d3*10+u3*1}-${tex_nombre((c2*100+d2*10+u2*1)/div_aleatoire_ope_3)} \\simeq ${c3*100+d3*10}-${tex_nombre((c2*100)/div_aleatoire_ope_3)} \\text{ soit } ${c3*100+d3*10-(c2*100)/div_aleatoire_ope_3}`,
+          operation_coche:myOrdreOpe3(c3),
+        },
+        {
+          operation:`${tex_nombre(m*1000+c3*100+d2*10+u1*1)}\\times ${tex_nombre(mult_aleatoire_ope_4)}`,
+          operation_corr:`${tex_nombre(m*1000+c3*100+d2*10+u1*1)}\\times ${tex_nombre(mult_aleatoire_ope_4)} \\simeq ${tex_nombre(m*1000)}\\times ${tex_nombre(mult_aleatoire_ope_4)} \\text{ soit } ${tex_nombre(m*1000*mult_aleatoire_ope_4)}`,
+          operation_coche:myOrdreOpe4(mult_aleatoire_ope_4,m),
+        },
+        {
+          operation:`${tex_nombre((m*1000+c4*100+d3*10+u*1)/div_aleatoire_ope_5)}\\div ${m}`,
+          operation_corr:`${tex_nombre((m*1000+c4*100+d3*10+u*1)/div_aleatoire_ope_5)}\\div ${m} \\simeq ${tex_nombre((m*1000)/div_aleatoire_ope_5)}\\div ${m} \\text{ soit } ${tex_nombre((m*1000)/div_aleatoire_ope_5/m)}`,
+          operation_coche:myOrdreOpe5(div_aleatoire_ope_5),
+        },
+
+      ];
+
+      situations = shuffle(situations);
+            
+			let enonces = [];
+			for (let k=0;k<1;k++) {
+				enonces.push({
+          enonce:`
+          ${tab_C_L(ligne_entete,[situations[0].operation,situations[1].operation,situations[2].operation,situations[3].operation,situations[4].operation],
+          [            
+            '','','','','','',
+            '','','','','','',
+            '','','','','','',
+            '','','','','','',
+            '','','','','','',
+          ]
+          )}
+          `,
+          question:``,
+          correction:`
+          Commençons par calculer un ordre de grandeur du résultat de chaque opération dans la première colonne du tableau.
+          <br>
+          ${tab_C_L(ligne_entete_corr,[situations[0].operation_corr,situations[1].operation_corr,situations[2].operation_corr,situations[3].operation_corr,situations[4].operation_corr,],
+          [            
+            situations[0].operation_coche[0],situations[0].operation_coche[1],situations[0].operation_coche[2],situations[0].operation_coche[3],situations[0].operation_coche[4],situations[0].operation_coche[5],
+            situations[1].operation_coche[0],situations[1].operation_coche[1],situations[1].operation_coche[2],situations[1].operation_coche[3],situations[1].operation_coche[4],situations[1].operation_coche[5],
+            situations[2].operation_coche[0],situations[2].operation_coche[1],situations[2].operation_coche[2],situations[2].operation_coche[3],situations[2].operation_coche[4],situations[2].operation_coche[5],
+            situations[3].operation_coche[0],situations[3].operation_coche[1],situations[3].operation_coche[2],situations[3].operation_coche[3],situations[3].operation_coche[4],situations[3].operation_coche[5],
+            situations[4].operation_coche[0],situations[4].operation_coche[1],situations[4].operation_coche[2],situations[4].operation_coche[3],situations[4].operation_coche[4],situations[4].operation_coche[5],
+          ]
+          )}				
+          `
+          });
+			};
+            
+            // autant de case que d'elements dans le tableau des situations
+			switch (liste_type_de_questions[i]){
+				case 0 : 
+					texte = `${enonces[0].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
+						texte += `             `
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[0].correction}`;
+					};
+          			break;	
+			};			
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+
+	}
+};
+
+/** 
+ * * Donner le chiffre des ... le nombre de ...
+ * * 6N10-3
+ * @author Sébastien Lozano
+ */
+
+function chiffre_nombre_de(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.beta = true;	
+	this.sup=1;
+	if (this.beta) {
+		this.nb_questions = 5;
+	} else {
+		this.nb_questions = 3;
+	};	
+
+	this.titre = "Chiffre des ... Nombre de ...";	
+	this.consigne = ``;	
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	//this.nb_questions_modifiable = false;
+	sortie_html? this.spacing = 2.5 : this.spacing = 1.5; 
+	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+
+	let type_de_questions_disponibles;	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		if (this.beta) {
+			type_de_questions_disponibles = [0,1,2,3,4];			
+		} else {
+     		 type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
+		};
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+
+			// pour les situations, autant de situations que de cas dans le switch !
+			let situations = [
+				{//case 0 -->
+				},
+				{//case 1 -->
+				},
+				{//case 2 -->
+				},
+				{//case 3 -->
+				},
+				{//case 4 -->
+				},
+		
+			];
+
+			let enonces = [];
+			for (let k=0;k<situations.length;k++) {
+				enonces.push({
+					enonce:`
+					Type ${k}				
+					`,
+					question:``,
+					correction:`
+					Correction type ${k}
+					`
+				});
+			};
+            
+            // autant de case que d'elements dans le tableau des situations
+			switch (liste_type_de_questions[i]){
+				case 0 : 
+					texte = `${enonces[0].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
+						texte += `             `
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[0].correction}`;
+					};
+          			break;	
+        		case 1 : 
+					texte = `${enonces[1].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[1].correction}`;
+					};
+          			break;
+        		case 2 : 
+					texte = `${enonces[2].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[2].correction}`;
+					};
+          			break;				
+        		case 3 : 
+					texte = `${enonces[3].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[3].correction}`;
+					};
+					break;				
+         		case 4 : 
+					texte = `${enonces[4].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[4].correction}`;
+					};
+					break;				
+			};			
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+};
+
+/** 
+* * Encadrer un nombre entier par deux entier consécutifs
+* * 6N11-3
+* @author Sébastien Lozano
+*/
+
+function Encadrer_un_entier_par_deux_entiers_consecutifs(){
+  'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.beta = true;	
+	this.sup=1;
+	if (this.beta) {
+		this.nb_questions = 6;
+	} else {
+		this.nb_questions = 6;
+	};	
+
+  this.titre = "Encadrer un entier entre deux entiers consécutifs";	
+  this.consigne = `Compléter avec le nombre entier qui précède et le nombre entier qui suit.`;	
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	//this.nb_questions_modifiable = false;
+	sortie_html? this.spacing = 2.5 : this.spacing = 1.5; 
+	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+
+	let type_de_questions_disponibles;	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		if (this.beta) {
+			type_de_questions_disponibles = [0,1,2,3,4,5];			
+		} else {
+      //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
+      type_de_questions_disponibles = shuffle([0,1,2,3,4,5]);			
+      			
+		};
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+        let m = randint(1000,9999);
+        let dm = randint(10000,99999);
+        let cm = randint(100000,999999);
+        let mi = randint(1000000,9999999); 
+        let dmi = randint(10000000,99999999); 
+        let cmi = randint(100000000,999999999); 
+			// pour les situations, autant de situations que de cas dans le switch !
+			let situations = [
+        {//case 0 -->
+				},		
+			];
+
+			let enonces = [];
+			//for (let k=0;k<3;k++) {
+				enonces.push({
+					enonce:`
+          $\\ldots < ${tex_nombre(m)} < \\ldots$          
+					`,
+					question:``,
+					correction:`
+					$${mise_en_evidence(tex_nombre(m-1))} < ${tex_nombre(m)} < ${mise_en_evidence(tex_nombre(m + 1 ))}$					`
+				});
+				enonces.push({
+					enonce:`
+          $\\ldots < ${tex_nombre(dm)} < \\ldots$          
+					`,
+					question:``,
+					correction:`
+					$${mise_en_evidence(tex_nombre(dm-1))} < ${tex_nombre(dm)} < ${mise_en_evidence(tex_nombre(dm + 1 ))}$					`
+				});
+				enonces.push({
+					enonce:`
+          $\\ldots < ${tex_nombre(cm)} < \\ldots$          
+					`,
+					question:``,
+					correction:`
+					$${mise_en_evidence(tex_nombre(cm-1))} < ${tex_nombre(cm)} < ${mise_en_evidence(tex_nombre(cm + 1 ))}$					`
+				});
+				enonces.push({
+					enonce:`
+          $\\ldots < ${tex_nombre(mi)} < \\ldots$          
+					`,
+					question:``,
+					correction:`
+					$${mise_en_evidence(tex_nombre(mi-1))} < ${tex_nombre(mi)} < ${mise_en_evidence(tex_nombre(mi + 1 ))}$					`
+				});
+				enonces.push({
+					enonce:`
+          $\\ldots < ${tex_nombre(dmi)} < \\ldots$          
+					`,
+					question:``,
+					correction:`
+					$${mise_en_evidence(tex_nombre(dmi-1))} < ${tex_nombre(dmi)} < ${mise_en_evidence(tex_nombre(dmi + 1 ))}$					`
+				});
+				enonces.push({
+					enonce:`
+          $\\ldots < ${tex_nombre(cmi)} < \\ldots$          
+					`,
+					question:``,
+					correction:`
+					$${mise_en_evidence(tex_nombre(cmi-1))} < ${tex_nombre(cmi)} < ${mise_en_evidence(tex_nombre(cmi + 1 ))}$					`
+				});
+
+        //};
+            
+            // autant de case que d'elements dans le tableau des situations
+			switch (liste_type_de_questions[i]){
+				case 0 : 
+					texte = `${enonces[0].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
+						texte += `             `
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[0].correction}`;
+					};
+          break;	
+        case 1 : 
+					texte = `${enonces[1].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[1].correction}`;
+					};
+          break;
+        case 2 : 
+					texte = `${enonces[2].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[2].correction}`;
+					};
+          break;	
+        case 3 : 
+					texte = `${enonces[3].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
+						texte += `             `
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[3].correction}`;
+					};
+          break;	
+        case 4 : 
+					texte = `${enonces[4].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[4].correction}`;
+					};
+          break;
+        case 5 : 
+					texte = `${enonces[5].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[5].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[5].correction}`;
+					};
+        	break;			
+			};						
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+	}
+
+};
+
+/** 
+* * Ranger une liste de nombres dans l'odre croissant ou décroissant
+* * 6N11-4
+* @author Sébastien Lozano
+*/
+
+function Ranger_ordre_croissant_decroissant(){
+ 'use strict';
+ Exercice.call(this); // Héritage de la classe Exercice()
+ this.beta = true;	
+ this.sup=1;
+ if (this.beta) {
+   this.nb_questions = 5;
+ } else {
+   this.nb_questions = 3;
+ };	
+
+ this.titre = "Ranger une liste de nombres entiers dans l'ordre croissant ou décroissant";	
+ this.consigne = `Classer les nombres suivants dans l'ordre indiqué. `;	
+ 
+ this.nb_cols = 1;
+ this.nb_cols_corr = 1;
+ //this.nb_questions_modifiable = false;
+ sortie_html? this.spacing = 2.5 : this.spacing = 1.5; 
+ sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+
+ let type_de_questions_disponibles;	
+
+ this.nouvelle_version = function(numero_de_l_exercice){
+   if (this.beta) {
+     type_de_questions_disponibles = [0,1,2,3,4];			
+   } else {
+         type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
+   };
+
+   this.liste_questions = []; // Liste de questions
+   this.liste_corrections = []; // Liste de questions corrigées
+   
+   //let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+   let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+   
+   for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+
+     // pour les situations, autant de situations que de cas dans le switch !
+     let situations = [
+       {//case 0 -->
+       },
+       {//case 1 -->
+       },
+       {//case 2 -->
+       },
+       {//case 3 -->
+       },
+       {//case 4 -->
+       },
+   
+     ];
+
+     let enonces = [];
+     for (let k=0;k<situations.length;k++) {
+       enonces.push({
+         enonce:`
+         Type ${k}				
+         `,
+         question:``,
+         correction:`
+         Correction type ${k}
+         `
+       });
+     };
+           
+           // autant de case que d'elements dans le tableau des situations
+     switch (liste_type_de_questions[i]){
+       case 0 : 
+         texte = `${enonces[0].enonce}`;
+         if (this.beta) {
+           texte += `<br>`;
+           texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
+           texte += `             `
+           texte_corr = ``;	
+         } else {
+           texte_corr = `${enonces[0].correction}`;
+         };
+               break;	
+           case 1 : 
+         texte = `${enonces[1].enonce}`;
+         if (this.beta) {
+           texte += `<br>`;
+           texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
+           texte_corr = ``;	
+         } else {
+           texte_corr = `${enonces[1].correction}`;
+         };
+               break;
+           case 2 : 
+         texte = `${enonces[2].enonce}`;
+         if (this.beta) {
+           texte += `<br>`;
+           texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
+           texte_corr = ``;	
+         } else {
+           texte_corr = `${enonces[2].correction}`;
+         };
+               break;				
+           case 3 : 
+         texte = `${enonces[3].enonce}`;
+         if (this.beta) {
+           texte += `<br>`;
+           texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
+           texte_corr = ``;	
+         } else {
+           texte_corr = `${enonces[3].correction}`;
+         };
+         break;				
+            case 4 : 
+         texte = `${enonces[4].enonce}`;
+         if (this.beta) {
+           texte += `<br>`;
+           texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
+           texte_corr = ``;	
+         } else {
+           texte_corr = `${enonces[4].correction}`;
+         };
+         break;				
+     };			
+     
+     if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+       this.liste_questions.push(texte);
+       this.liste_corrections.push(texte_corr);
+       i++;
+     }
+     cpt++;	
+   }
+   liste_de_question_to_contenu(this);
+
+ }
+ //this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+ //this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+};
 
 /**
  * @Auteur Rémi Angot
@@ -13685,9 +14657,6 @@ jQuery(document).ready(function () {
   let nombre_d_exercices_disponibles_prof = 0;
   let nombre_d_exercices_disponibles_PE = 0;
   let nombre_d_exercices_disponibles_beta = 0;
-  //debut ajout seb section tests
-  let nombre_d_exercices_disponibles_tests = 0;
-  //fin seb section tests
   for (var id in liste_des_exercices_disponibles) {
     if (id[0] == 6) {
       nombre_d_exercices_disponibles_6 += 1;
@@ -13784,9 +14753,11 @@ jQuery(document).ready(function () {
         ['4C1','4C1 - Relatifs'],['4C2','4C2 - Fractions'],['4C3','4C3 - Puissances'],
         ['4F1','4F1 - Notion de fonction'],
         ['4G1','4G1 - Translation et rotation'],['4G2','4G2 - Théorème de Pythagore'],['4G3','4G3 - Théorème de Thalès'],['4G4',"4G4 - Cosinus d'un angle"],['4G5',"4G5 - Espace"],
-        ['4L1','4L1 - Calcul littéral'],['4P1','4P1 - Proportionnalité'],['4S1','4S1 - Statistiques'],['4S2','4S2 - Probabilités']
+        ['4L1','4L1 - Calcul littéral'],['4P1','4P1 - Proportionnalité'],['4S1','4S1 - Statistiques'],['4S2','4S2 - Probabilités'],
+        ['4Algo1','4Algo1 - Algorithmique']
       ])
       liste_html_des_exercices_3 = liste_html_des_exercices_d_un_niveau([
+        ['3A1','3A1 - Arithmetique'],
         ['3F1','3F1 - Généralités sur les fonctions'],['3F2','3F2 - Fonctions affines et linéaires'],
         ['3G1','3G1 - Homothétie et rotation'],['3G2','3G2 - Théorème de Thalès'],['3G3','3G3 - Trigonométrie'],['3G4',"3G4 - Espace"],
         ['3L1','3L1 - Calcul littéral'],['3P1','3P1 - Proportionnalité'],['3S1','3S1 - Statistiques'],['3S2','3S2 - Probabilités']
@@ -13968,655 +14939,3 @@ jQuery(document).ready(function () {
   });
 });
 
-/** 
- * * Calculer le produit de deux décimaux à partir d'un produit de deux entiers
- * * 6C30-2
- * @author Sébastien Lozano
- */
-
-function Produit_de_decimaux_a_partir_d_un_produit_connu(){
-	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
-	this.sup=1;
-	if (this.beta) {
-		this.nb_questions = 3;
-	} else {
-		this.nb_questions = 3;
-	};	
-
-	this.titre = "Calculer le produit de deux décimaux connaissant le produit de deux entiers";	
-	this.consigne = ``;	
-	
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	//this.nb_questions_modifiable = false;
-	sortie_html? this.spacing = 2.5 : this.spacing = 1.5; 
-	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
-
-	let type_de_questions_disponibles;	
-
-	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
-			type_de_questions_disponibles = [0,1,2];			
-		} else {
-      //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
-      type_de_questions_disponibles = shuffle([0,1,2]);			
-      			
-		};
-
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		
-		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
-		
-		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
-
-      // pour les situations, autant de situations que de cas dans le switch !
-			let situations = [
-        {//case 0 --> (d1u1xp1)xd2u2
-          d1:randint(1,9),
-          u1:randint(1,9),
-          d2:randint(1,9),
-          u2:randint(1,9),
-          p1:randint(-3,3,[0]),
-          p2:randint(-3,3,[0]),
-				},	
-			];      
-			let enonces = [];
-			//for (let k=0;k<3;k++) {
-				enonces.push({
-          enonce:`
-            Sachant que $${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)} = ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}$,
-            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(10**situations[0].p1)))}\\times ${calcul(situations[0].d2*10+situations[0].u2)}$
-					`,
-					question:``,
-					correction:`
-					$${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(10**situations[0].p1)))}\\times ${calcul(situations[0].d2*10+situations[0].u2)} = ${calcul(situations[0].d1*10+situations[0].u1)}\\times ${tex_nombrec(10**situations[0].p1)} \\times ${calcul(situations[0].d2*10+situations[0].u2)} = ${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)}\\times ${tex_nombrec(10**situations[0].p1)} =  ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}\\times ${tex_nombrec(10**situations[0].p1)} = ${tex_nombrec(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2))*calcul(10**situations[0].p1))}$
-					`
-        });
-        enonces.push({
-          enonce:`
-            Sachant que $${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)} = ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}$,
-            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)))}\\times ${tex_nombre(calcul((situations[0].d2*10+situations[0].u2)*(10**situations[0].p2)))}$
-					`,
-					question:``,
-					correction:`
-					$${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)))}\\times ${tex_nombre(calcul((situations[0].d2*10+situations[0].u2)*(10**situations[0].p2)))} = ${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)}\\times ${tex_nombrec(10**situations[0].p2)} = ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}\\times ${tex_nombrec(10**situations[0].p2)} = ${tex_nombrec(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2))*calcul(10**situations[0].p2))}$
-					`
-				});
-				enonces.push({
-          enonce:`
-            Sachant que $${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)} = ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}$,
-            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(10**situations[0].p1)))}\\times ${tex_nombre(calcul((situations[0].d2*10+situations[0].u2)*(10**situations[0].p2)))}$
-					`,
-					question:``,
-					correction:`
-					$${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(10**situations[0].p1)))}\\times ${tex_nombre(calcul((situations[0].d2*10+situations[0].u2)*(10**situations[0].p2)))} = ${calcul(situations[0].d1*10+situations[0].u1)}\\times ${tex_nombrec(10**situations[0].p1)} \\times ${calcul(situations[0].d2*10+situations[0].u2)}\\times ${tex_nombrec(10**situations[0].p2)} = ${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)}\\times ${tex_nombrec(10**situations[0].p1)}\\times ${tex_nombrec(10**situations[0].p2)} = ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}\\times ${tex_nombrec(10**situations[0].p1)}\\times ${tex_nombrec(10**situations[0].p2)} = ${tex_nombrec(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2))*calcul(10**situations[0].p1)*calcul(10**situations[0].p2))}$
-					`
-				});
-
-			//};
-            
-            // autant de case que d'elements dans le tableau des situations
-			switch (liste_type_de_questions[i]){
-				case 0 : 
-					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
-						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
-						texte += `             `
-						texte_corr = ``;	
-					} else {
-						texte_corr = `${enonces[0].correction}`;
-					};
-          			break;	
-        		case 1 : 
-					texte = `${enonces[1].enonce}`;
-					if (this.beta) {
-						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
-						texte_corr = ``;	
-					} else {
-						texte_corr = `${enonces[1].correction}`;
-					};
-          			break;
-        		case 2 : 
-					texte = `${enonces[2].enonce}`;
-					if (this.beta) {
-						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
-						texte_corr = ``;	
-					} else {
-						texte_corr = `${enonces[2].correction}`;
-					};
-          			break;				
-        	// 	case 3 : 
-					// texte = `${enonces[3].enonce}`;
-					// if (this.beta) {
-					// 	texte += `<br>`;
-					// 	texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
-					// 	texte_corr = ``;	
-					// } else {
-					// 	texte_corr = `${enonces[3].correction}`;
-					// };
-					// break;				
-         	// 	case 4 : 
-					// texte = `${enonces[4].enonce}`;
-					// if (this.beta) {
-					// 	texte += `<br>`;
-					// 	texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
-					// 	texte_corr = ``;	
-					// } else {
-					// 	texte_corr = `${enonces[4].correction}`;
-					// };
-					// break;				
-			};			
-			
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
-				i++;
-			}
-			cpt++;	
-		}
-		liste_de_question_to_contenu(this);
-
-	}
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
-};
-
-
-/** 
- * * Encadrer_un_decimal_par_deux_entiers_consecutifs
- * * 6N31-1
- * @author Sébastien Lozano
- */
-
-function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
-	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
-	this.sup=1;
-	if (this.beta) {
-		this.nb_questions = 3;
-	} else {
-		this.nb_questions = 3;
-	};	
-
-	this.titre = "Encadrer un décimal par deux entiers consécutifs";	
-	this.consigne = `Encadrer chaque nombre proposé par deux nombres entiers consécutifs.`;	
-	
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	//this.nb_questions_modifiable = false;
-	sortie_html? this.spacing = 2.5 : this.spacing = 1.5; 
-	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
-
-	let type_de_questions_disponibles;	
-
-	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
-			type_de_questions_disponibles = [0,1,2];			
-		} else {
-      //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
-      type_de_questions_disponibles = shuffle([0,1,2]);			
-      			
-		};
-
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		
-		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
-		
-		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
-      let m=randint(1,9),
-      c=randint(1,9),
-      d=randint(1,9),
-      u=randint(1,9),
-      di=randint(1,9),
-      ci=randint(1,9),
-      mi=randint(1,9);
-
-			// pour les situations, autant de situations que de cas dans le switch !
-			let situations = [
-        {//case 0 -->
-				},		
-			];
-
-			let enonces = [];
-			//for (let k=0;k<3;k++) {
-				enonces.push({
-					enonce:`
-          $\\ldots < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1 + ci*0.01 + mi*0.001))} < \\ldots$          
-					`,
-					question:``,
-					correction:`
-					$${mise_en_evidence(tex_nombre(m*1000 + c*100 + d*10 + u*1))} < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1 + ci*0.01 + mi*0.001))} < ${mise_en_evidence(tex_nombre(m*1000 + c*100 + d*10 + u*1 + 1))}$					`
-				});
-				enonces.push({
-					enonce:`
-          $\\ldots < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1 + ci*0.01))} < \\ldots$          
-					`,
-					question:``,
-					correction:`
-					$${mise_en_evidence(tex_nombre(m*1000 + c*100 + d*10 + u*1))} < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1 + ci*0.01))} < ${mise_en_evidence(tex_nombre(m*1000 + c*100 + d*10 + u*1 + 1))}$					`
-				});
-				enonces.push({
-					enonce:`
-          $\\ldots < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1))} < \\ldots$          
-					`,
-					question:``,
-					correction:`
-					$${mise_en_evidence(tex_nombre(m*1000 + c*100 + d*10 + u*1))} < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1))} < ${mise_en_evidence(tex_nombre(m*1000 + c*100 + d*10 + u*1 + 1))}$					`
-				});
-
-        //};
-            
-            // autant de case que d'elements dans le tableau des situations
-			switch (liste_type_de_questions[i]){
-				case 0 : 
-					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
-						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
-						texte += `             `
-						texte_corr = ``;	
-					} else {
-						texte_corr = `${enonces[0].correction}`;
-					};
-          break;	
-        case 1 : 
-					texte = `${enonces[1].enonce}`;
-					if (this.beta) {
-						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
-						texte_corr = ``;	
-					} else {
-						texte_corr = `${enonces[1].correction}`;
-					};
-          break;
-        case 2 : 
-					texte = `${enonces[2].enonce}`;
-					if (this.beta) {
-						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
-						texte_corr = ``;	
-					} else {
-						texte_corr = `${enonces[2].correction}`;
-					};
-        	break;				
-        // case 3 : 
-				// 	texte = `${enonces[3].enonce}`;
-				// 	if (this.beta) {
-				// 		texte += `<br>`;
-				// 		texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
-				// 		texte_corr = ``;	
-				// 	} else {
-				// 		texte_corr = `${enonces[3].correction}`;
-				// 	};
-				// 	break;				
-     		// case 4 : 
-				// 	texte = `${enonces[4].enonce}`;
-				// 	if (this.beta) {
-				// 		texte += `<br>`;
-				// 		texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
-				// 		texte_corr = ``;	
-				// 	} else {
-				// 		texte_corr = `${enonces[4].correction}`;
-				// 	};
-				// 	break;				
-			};			
-			
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
-				i++;
-			}
-			cpt++;	
-		}
-		liste_de_question_to_contenu(this);
-
-	}
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
-};
-
-/** 
- * * Ordre de grandeur d'une opération entre décimaux
- * * 6N31-2
- * @author Sébastien Lozano
- */
-
-function Ordre_de_grandeur_operations_decimaux(){
-	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
-	this.sup=1;
-	if (this.beta) {
-		this.nb_questions = 1;
-	} else {
-		this.nb_questions = 1;
-	};	
-
-	this.titre = "Ordre de grandeur et opérations sur les décimaux";	
-	this.consigne = `Pour chaque opération proposée dans la première colonne, cocher la case correspondant à l'ordre de grandeur du résultat.`;	
-	
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	//this.nb_questions_modifiable = false;
-	sortie_html? this.spacing = 2.5 : this.spacing = 1.5; 
-	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
-
-	let type_de_questions_disponibles;	
-
-	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
-			type_de_questions_disponibles = [0];			
-		} else {
-      //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
-      type_de_questions_disponibles = shuffle([0]);
-      			
-		};
-
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		
-		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
-		
-		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
-
-      let ligne_entete = ['\\text{Opération}',`\\phantom{000}`+tex_nombre('1')+`\\phantom{000}`,`\\phantom{00}`+tex_nombre('10')+`\\phantom{00}`,`\\phantom{00}`+tex_nombre('100')+`\\phantom{00}`,`\\phantom{0}`+tex_nombre('1000')+`\\phantom{0}`,tex_nombre('10000'),tex_nombre('100000')];
-      let ligne_entete_corr = ['\\text{Opération}',`\\phantom{000}`+tex_nombre('1')+`\\phantom{000}`,`\\phantom{00}`+tex_nombre('10')+`\\phantom{00}`,`\\phantom{00}`+tex_nombre('100')+`\\phantom{00}`,`\\phantom{0}`+tex_nombre('1000')+`\\phantom{0}`,tex_nombre('10000'),tex_nombre('100000')];
-
-      let m=randint(1,9,[4,5,6]),
-      c=randint(1,9),
-      c1=randint(1,9),
-      c2=randint(1,9),
-      c3=randint(1,9,[4,5,6]),
-      c4=randint(1,4),
-      d=randint(1,9),
-      d1=randint(1,9),
-      d2=randint(1,9),
-      d3=randint(1,9),
-      u=randint(1,9),
-      u1=randint(1,9),
-      u2=randint(1,9),
-      u3=randint(1,9);
-
-      let cbis,d1bis;
-      do {
-        cbis = randint(2,9);
-        d1bis = randint(2,9);
-      } while (cbis*d1bis>3 && cbis*d1bis<7);
-
-      let div_aleatoire_ope_3 = choice([10,100]);
-      let div_aleatoire_ope_5 = choice([1,10,100,1000]);
-      let mult_aleatoire_ope_4 = choice([0.1,0.01,0.001]);
-
-      // une fonction pour ordre de grandeur en fonction de ... opération 1
-      function myOrdreOpe1(c,d) {
-        if (c*d>=60) {
-          return ['','','','','',mise_en_evidence(`X`)]; 
-        } else {
-          return ['','','','',mise_en_evidence(`X`),'']; 
-        };
-      };
-      
-      // une fonction pour ordre de grandeur en fonction de ... opération 2
-      function myOrdreOpe2(c1,c2) {
-        if (c1+c2/10>=600) {
-          return ['','','',mise_en_evidence(`X`),'','']; 
-        } else {
-          return ['','',mise_en_evidence(`X`),'','','']; 
-        };
-      };
-
-      // une fonction pour ordre de grandeur en fonction de ... opération 3
-      function myOrdreOpe3(n) {
-        if (n>=7) {
-          return ['','','',mise_en_evidence(`X`),'','']; 
-        } else {
-          return ['','',mise_en_evidence(`X`),'','','']; 
-        };
-      };
-
-      // une fonction pour ordre de grandeur en fonction de ... opération 4
-      function myOrdreOpe4(d,n) {
-        let sortie;
-        switch (d) {
-          case 0.1:
-            if (n>=7) {
-              sortie = ['','','',mise_en_evidence(`X`),'',''];
-            } else {
-              sortie = ['','',mise_en_evidence(`X`),'','',''];
-            };            
-            break;
-          case 0.01: 
-            if (n>=7) {
-              sortie = ['','',mise_en_evidence(`X`),'','',''];              
-            } else {
-              sortie = ['',mise_en_evidence(`X`),'','','',''];
-            };            
-            break;
-          case 0.001: 
-            if (n>=7) {
-              sortie = ['',mise_en_evidence(`X`),'','','',''];
-            } else {
-              sortie = [mise_en_evidence(`X`),'','','','',''];
-            };       
-            break;            
-        }
-        return sortie;
-      };
-
-      // une fonction pour ordre de grandeur en fonction de ... opération 5
-      function myOrdreOpe5(mult) {
-        let sortie;
-        switch (mult) {
-          case 1:
-            return sortie = ['','','',mise_en_evidence(`X`),'','']; 
-            break;
-          case 10:
-            return sortie = ['','',mise_en_evidence(`X`),'','','']; 
-            break;
-          case 100:
-            return sortie = ['',mise_en_evidence(`X`),'','','','']; 
-            break;
-          case 1000:
-            return sortie = [mise_en_evidence(`X`),'','','','','']; 
-            break;        
-        };
-        return sortie;
-      };
-
-      let situations = [
-        {
-          operation:`${cbis*100+d*10+u*1}\\times ${d1bis*10+u1*1}`,
-          operation_corr:`${cbis*100+d*10+u*1}\\times ${d1bis*10+u1*1} \\simeq  ${(cbis*100)}\\times ${(d1bis*10)} \\text{ soit } ${tex_nombre((cbis*100)*(d1bis*10))}`,
-          operation_coche:myOrdreOpe1(cbis,d1bis),//['','','','',mise_en_evidence(`X`),''],
-        },
-        {
-          operation:`${tex_nombre((c2*100+d2*10+u1*1)/10)}+${c1*100+d1*10+u1*1}`,
-          operation_corr:`${tex_nombre((c2*100+d2*10+u1*1)/10)}+${c1*100+d1*10+u1*1} \\simeq ${c2*100/10}+${c1*100} \\text{ soit } ${c2*100/10 + c1*100}`,
-          operation_coche:myOrdreOpe2(c1*100,c2*100),//['','',mise_en_evidence(`X`),'','',''],
-        },
-        {
-          operation:`${c3*100+d3*10+u3*1}-${tex_nombre((c2*100+d2*10+u2*1)/div_aleatoire_ope_3)}`,
-          operation_corr:`${c3*100+d3*10+u3*1}-${tex_nombre((c2*100+d2*10+u2*1)/div_aleatoire_ope_3)} \\simeq ${c3*100+d3*10}-${tex_nombre((c2*100)/div_aleatoire_ope_3)} \\text{ soit } ${c3*100+d3*10-(c2*100)/div_aleatoire_ope_3}`,
-          operation_coche:myOrdreOpe3(c3),//['','',mise_en_evidence(`X`),'',''],
-        },
-        {
-          operation:`${tex_nombre(m*1000+c3*100+d2*10+u1*1)}\\times ${tex_nombre(mult_aleatoire_ope_4)}`,
-          operation_corr:`${tex_nombre(m*1000+c3*100+d2*10+u1*1)}\\times ${tex_nombre(mult_aleatoire_ope_4)} \\simeq ${tex_nombre(m*1000)}\\times ${tex_nombre(mult_aleatoire_ope_4)} \\text{ soit } ${tex_nombre(m*1000*mult_aleatoire_ope_4)}`,
-          operation_coche:myOrdreOpe4(mult_aleatoire_ope_4,m),//['','','','',mise_en_evidence(`X`)],
-        },
-        {
-          // operation:`${tex_nombre((m*1000+c1*100+d3*10+u*1)/100)}\\div ${m}`,
-          // operation_corr:`${tex_nombre((m*1000+c1*100+d3*10+u*1)/100)}\\div ${m} \\simeq ${tex_nombre((m*1000)/100)}\\div ${m} \\text{ soit } ${tex_nombre((m*1000)/100/m)}`,
-          // operation_coche:['',mise_en_evidence(`X`),'','',''],
-          operation:`${tex_nombre((m*1000+c4*100+d3*10+u*1)/div_aleatoire_ope_5)}\\div ${m}`,
-          operation_corr:`${tex_nombre((m*1000+c4*100+d3*10+u*1)/div_aleatoire_ope_5)}\\div ${m} \\simeq ${tex_nombre((m*1000)/div_aleatoire_ope_5)}\\div ${m} \\text{ soit } ${tex_nombre((m*1000)/div_aleatoire_ope_5/m)}`,
-          operation_coche:myOrdreOpe5(div_aleatoire_ope_5),//['',mise_en_evidence(`X`),'','',''],
-        },
-
-      ];
-
-      situations = shuffle(situations);
-            
-			let enonces = [];
-			for (let k=0;k<1;k++) {
-				enonces.push({
-          enonce:`
-          ${tab_C_L(ligne_entete,[situations[0].operation,situations[1].operation,situations[2].operation,situations[3].operation,situations[4].operation],
-          [            
-            '','','','','','',
-            '','','','','','',
-            '','','','','','',
-            '','','','','','',
-            '','','','','','',
-          ]
-          )}
-          `,
-          question:``,
-          correction:`
-          Commençons par calculer un ordre de grandeur du résultat de chaque opération dans la première colonne du tableau.
-          <br>
-          ${tab_C_L(ligne_entete_corr,[situations[0].operation_corr,situations[1].operation_corr,situations[2].operation_corr,situations[3].operation_corr,situations[4].operation_corr,],
-          [            
-            situations[0].operation_coche[0],situations[0].operation_coche[1],situations[0].operation_coche[2],situations[0].operation_coche[3],situations[0].operation_coche[4],situations[0].operation_coche[5],
-            situations[1].operation_coche[0],situations[1].operation_coche[1],situations[1].operation_coche[2],situations[1].operation_coche[3],situations[1].operation_coche[4],situations[1].operation_coche[5],
-            situations[2].operation_coche[0],situations[2].operation_coche[1],situations[2].operation_coche[2],situations[2].operation_coche[3],situations[2].operation_coche[4],situations[2].operation_coche[5],
-            situations[3].operation_coche[0],situations[3].operation_coche[1],situations[3].operation_coche[2],situations[3].operation_coche[3],situations[3].operation_coche[4],situations[3].operation_coche[5],
-            situations[4].operation_coche[0],situations[4].operation_coche[1],situations[4].operation_coche[2],situations[4].operation_coche[3],situations[4].operation_coche[4],situations[4].operation_coche[5],
-          ]
-          )}				
-          `
-          });
-			};
-            
-            // autant de case que d'elements dans le tableau des situations
-			switch (liste_type_de_questions[i]){
-				case 0 : 
-					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
-						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
-						texte += `             `
-						texte_corr = ``;	
-					} else {
-						texte_corr = `${enonces[0].correction}`;
-					};
-          			break;	
-			};			
-			
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
-				i++;
-			}
-			cpt++;	
-		}
-		liste_de_question_to_contenu(this);
-
-	}
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
-};
-
-/** 
- * * séparation6C
- * * 6C99
- * @author Sébastien Lozano
- */
-
-function separation6C(){
-	'use strict';
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
-	this.sup=1;
-	if (this.beta) {
-		this.nb_questions = 5;
-	} else {
-		this.nb_questions = 3;
-	};	
-
-	this.titre = "===================================================================================================================";	
-	this.consigne = ` `;	
-	
-	this.nb_cols = 1;
-	this.nb_cols_corr = 1;
-	//this.nb_questions_modifiable = false;
-	sortie_html? this.spacing = 2.5 : this.spacing = 1.5; 
-	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
-
-	let type_de_questions_disponibles;	
-
-	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
-			type_de_questions_disponibles = [0];			
-		} else {
-          //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
-          type_de_questions_disponibles = [0];			
-		};
-
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		
-		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
-		
-		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
-
-			// pour les situations, autant de situations que de cas dans le switch !
-			let situations = [
-				{//case 0 -->
-				},
-			];
-
-			let enonces = [];
-			for (let k=0;k<situations.length;k++) {
-				enonces.push({
-					enonce:`
-					Exercice factice pour faire une séparation temporairement
-					`,
-					question:``,
-					correction:`
-					
-					`
-				});
-			};
-            
-            // autant de case que d'elements dans le tableau des situations
-			switch (liste_type_de_questions[i]){
-				case 0 : 
-					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
-						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
-						texte += `             `
-						texte_corr = ``;	
-					} else {
-						texte_corr = `${enonces[0].correction}`;
-					};
-          			break;	
-
-			};			
-			
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
-				this.liste_questions.push(texte);
-				this.liste_corrections.push(texte_corr);
-				i++;
-			}
-			cpt++;	
-		}
-		liste_de_question_to_contenu(this);
-
-	}
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
-};
