@@ -14262,7 +14262,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 					`,
 					question:``,
 					correction:`
-					$${mise_en_evidence(tex_nombre(m+1))} < ${tex_nombre(m)} < ${mise_en_evidence(tex_nombre(m + 2 ))}$					`
+					$${mise_en_evidence(tex_nombre(m-1))} < ${tex_nombre(m)} < ${mise_en_evidence(tex_nombre(m + 1 ))}$					`
 				});
 				enonces.push({
 					enonce:`
@@ -14270,7 +14270,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 					`,
 					question:``,
 					correction:`
-					$${mise_en_evidence(tex_nombre(dm+1))} < ${tex_nombre(dm)} < ${mise_en_evidence(tex_nombre(dm + 2 ))}$					`
+					$${mise_en_evidence(tex_nombre(dm-1))} < ${tex_nombre(dm)} < ${mise_en_evidence(tex_nombre(dm + 1 ))}$					`
 				});
 				enonces.push({
 					enonce:`
@@ -14278,7 +14278,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 					`,
 					question:``,
 					correction:`
-					$${mise_en_evidence(tex_nombre(cm+1))} < ${tex_nombre(cm)} < ${mise_en_evidence(tex_nombre(cm + 2 ))}$					`
+					$${mise_en_evidence(tex_nombre(cm-1))} < ${tex_nombre(cm)} < ${mise_en_evidence(tex_nombre(cm + 1 ))}$					`
 				});
 				enonces.push({
 					enonce:`
@@ -14286,7 +14286,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 					`,
 					question:``,
 					correction:`
-					$${mise_en_evidence(tex_nombre(mi+1))} < ${tex_nombre(mi)} < ${mise_en_evidence(tex_nombre(mi + 2 ))}$					`
+					$${mise_en_evidence(tex_nombre(mi-1))} < ${tex_nombre(mi)} < ${mise_en_evidence(tex_nombre(mi + 1 ))}$					`
 				});
 				enonces.push({
 					enonce:`
@@ -14294,7 +14294,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 					`,
 					question:``,
 					correction:`
-					$${mise_en_evidence(tex_nombre(dmi+1))} < ${tex_nombre(dmi)} < ${mise_en_evidence(tex_nombre(dmi + 2 ))}$					`
+					$${mise_en_evidence(tex_nombre(dmi-1))} < ${tex_nombre(dmi)} < ${mise_en_evidence(tex_nombre(dmi + 1 ))}$					`
 				});
 				enonces.push({
 					enonce:`
@@ -14302,7 +14302,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 					`,
 					question:``,
 					correction:`
-					$${mise_en_evidence(tex_nombre(cmi+1))} < ${tex_nombre(cmi)} < ${mise_en_evidence(tex_nombre(cmi + 2 ))}$					`
+					$${mise_en_evidence(tex_nombre(cmi-1))} < ${tex_nombre(cmi)} < ${mise_en_evidence(tex_nombre(cmi + 1 ))}$					`
 				});
 
         //};
