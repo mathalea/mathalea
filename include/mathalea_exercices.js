@@ -73,7 +73,7 @@ var liste_des_exercices_disponibles = {
   "6M30": Calcul_de_volumes_6e,
   "6M31": Exercice_conversions_volumes,
   "6M31-2": Unites_de_volumes_et_de_capacite,
-  "beta6N10" : Ecrire_nombres_entiers,
+  "6N10" : Ecrire_nombres_entiers,
   "6N10-1": Exercice_numeration_entier,
   "6N10-2": Decomposition_nombre_decimal,
   "beta6N10-3": chiffre_nombre_de,
