@@ -14121,36 +14121,36 @@ function chiffre_nombre_de(){
       let chiffre_nombre = {
         chiffre:{
           unites:{
-            unites:{determinant:`des`,cdu:'unités',rang:8},
-            dizaines:{determinant:`des`,cdu:'dizaines',rang:7},
-            centaines:{determinant:`des`,cdu:'centaines',rang:6},
+            unites:{determinant:`des`,cdu:['unités',''],rangs:[8]},
+            dizaines:{determinant:`des`,cdu:['dizaines',''],rangs:[7]},
+            centaines:{determinant:`des`,cdu:['centaines',''],rangs:[6]},
           },
           milliers:{
-            unites:{determinant:`des`,cdu:'unités de milliers',rang:5},
-            dizaines:{determinant:`des`,cdu:'dizaines de milliers',rang:4},
-            centaines:{determinant:`des`,cdu:'centaines de milliers',rang:3},
+            unites:{determinant:`des`,cdu:['unités de milliers',''],rangs:[5]},
+            dizaines:{determinant:`des`,cdu:['dizaines de milliers',''],rangs:[4]},
+            centaines:{determinant:`des`,cdu:['centaines de milliers',''],rangs:[3]},
           },
           millions:{
-            unites:{determinant:`des`,cdu:'unités de millions',rang:2},
-            dizaines:{determinant:`des`,cdu:'dizaines de millions',rang:1},
-            centaines:{determinant:`des`,cdu:'centaines de millions',rang:0},
+            unites:{determinant:`des`,cdu:['unités de millions',''],rangs:[2]},
+            dizaines:{determinant:`des`,cdu:['dizaines de millions',''],rangs:[1]},
+            centaines:{determinant:`des`,cdu:['centaines de millions',''],rangs:[0]},
           },  
         },
         nombre:{
           unites:{
-            unites:{determinant:`d'`,cdu:'unités',rangs:[0,1,2,3,4,5,6,7,8]},
-            dizaines:{determinant:`de`,cdu:'dizaines',rangs:[0,1,2,3,4,5,6,7]},
-            centaines:{determinant:`de`,cdu:'centaines',rangs:[0,1,2,3,4,5,6]},
+            unites:{determinant:`d'`,cdu:['unités',1],rangs:[0,1,2,3,4,5,6,7,8]},
+            dizaines:{determinant:`de`,cdu:['dizaines',10],rangs:[0,1,2,3,4,5,6,7]},
+            centaines:{determinant:`de`,cdu:['centaines',100],rangs:[0,1,2,3,4,5,6]},
           },
           milliers:{
-            unites:{determinant:`d'`,cdu:'unités de milliers',rangs:[0,1,2,3,4,5]},
-            dizaines:{determinant:`de`,cdu:'dizaines de milliers',rangs:[0,1,2,3,4]},
-            centaines:{determinant:`de`,cdu:'centaines de milliers',rangs:[0,1,2,3]},
+            unites:{determinant:`d'`,cdu:['unités de milliers',1000],rangs:[0,1,2,3,4,5]},
+            dizaines:{determinant:`de`,cdu:['dizaines de milliers',10000],rangs:[0,1,2,3,4]},
+            centaines:{determinant:`de`,cdu:['centaines de milliers',100000],rangs:[0,1,2,3]},
           },
           millions:{
-            unites:{determinant:`d'`,cdu:'unités de millions',rangs:[0,1,2]},
-            dizaines:{determinant:`de`,cdu:'dizaines de millions',rangs:[0,1]},
-            centaines:{determinant:`de`,cdu:'centaines de millions',rangs:[0]},
+            unites:{determinant:`d'`,cdu:['unités de millions',1000000],rangs:[0,1,2]},
+            dizaines:{determinant:`de`,cdu:['dizaines de millions',10000000],rangs:[0,1]},
+            centaines:{determinant:`de`,cdu:['centaines de millions',100000000],rangs:[0]},
           },
         },
       };
@@ -14187,17 +14187,58 @@ function chiffre_nombre_de(){
           tranche:'millions',
           cdu:choice(cdu),         
         },		
-			];
+      ];
+      
+      //une fonction pour la correction selon le type de question
+      function chiffre_nombre_corr(type,str,rang) {
+        let sortie;
+        if (type == 'chiffre') {
+          sortie = str.split('')[rang[0]];
+        };
+        if (type == 'nombre') {
+          sortie=str.split('')[rang[0]];
+          for (let k=1; k<rang.length;k++) {
+            sortie+=str.split('')[rang[k]]
+          };
+        };
+        return sortie;
+      };
+
+      // une fonction pour la justification supplémentaire dans le cas nombre de ...
+      function nombre_de_justif(type,str,rang,cdu_num) {
+        let sortie;
+        if (type == 'chiffre') {
+          sortie = '';
+        };
+        if (type == 'nombre') {
+          let nb_de = str.split('')[rang[0]];
+          for (let k=1; k<rang.length;k++) {
+            nb_de+=str.split('')[rang[k]]
+          };
+          let j = rang[rang.length-1];
+          //console.log(j);
+          let nb_de_reste = '';
+          while (j != 9) {
+            nb_de_reste += str.split('')[j]
+            j++
+          };
+          sortie = `comme $${tex_nombre(str)} = ${tex_nombre(nb_de)}\\times ${tex_nombre(cdu_num)}+${tex_nombre(nb_de_reste)}$`;
+        };
+        return sortie;
+      };
 
 			let enonces = [];
 			for (let k=0;k<situations.length;k++) {
 				enonces.push({
           enonce:`
-          Dans $${tex_nombre(nb)}$, quel est le ${situations[k].type} ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].determinant}  ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu} ?					
+          Dans $${tex_nombre(nb)}$, quel est le ${situations[k].type} ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].determinant}  ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[0]} ?					
 					`,
 					question:``,
-					correction:`
-					Correction type ${k}
+          correction:`
+          Dans $${tex_nombre(nb)}$,           
+          ${nombre_de_justif(situations[k].type,nb_str,chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].rangs,chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[1])}          
+          le ${situations[k].type} ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].determinant}  ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[0]} est 
+          $${mise_en_evidence(tex_nombre(chiffre_nombre_corr(situations[k].type,nb_str,chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].rangs)))}$					
 					`
 				});
 			};
