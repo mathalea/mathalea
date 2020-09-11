@@ -14088,9 +14088,11 @@ function chiffre_nombre_de(){
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		if (this.beta) {
-			type_de_questions_disponibles = [0,1,2,3,4];			
+			type_de_questions_disponibles = [0,1,2,3,4,5];			
 		} else {
-     		 type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
+          //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
+          type_de_questions_disponibles = shuffle([0,1,2,3,4,5]);			
+      			
 		};
 
 		this.liste_questions = []; // Liste de questions
@@ -14100,27 +14102,86 @@ function chiffre_nombre_de(){
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+      let nb = randint(100000000,999999999);
+      let nb_str = nb.toString();
+      let tranches = ['unites','milliers','millions'];
+      let cdu = ['unites','dizaines','centaines'];
+      let chiffre_nombre = {
+        chiffre:{
+          unites:{
+            unites:{determinant:`des`,cdu:'unités',rang:8},
+            dizaines:{determinant:`des`,cdu:'dizaines',rang:7},
+            centaines:{determinant:`des`,cdu:'centaines',rang:6},
+          },
+          milliers:{
+            unites:{determinant:`des`,cdu:'unités de milliers',rang:5},
+            dizaines:{determinant:`des`,cdu:'dizaines de milliers',rang:4},
+            centaines:{determinant:`des`,cdu:'centaines de milliers',rang:3},
+          },
+          millions:{
+            unites:{determinant:`des`,cdu:'unités de millions',rang:2},
+            dizaines:{determinant:`des`,cdu:'dizaines de millions',rang:1},
+            centaines:{determinant:`des`,cdu:'centaines de millions',rang:0},
+          },  
+        },
+        nombre:{
+          unites:{
+            unites:{determinant:`d'`,cdu:'unités',rangs:[0,1,2,3,4,5,6,7,8]},
+            dizaines:{determinant:`de`,cdu:'dizaines',rangs:[0,1,2,3,4,5,6,7]},
+            centaines:{determinant:`de`,cdu:'centaines',rangs:[0,1,2,3,4,5,6]},
+          },
+          milliers:{
+            unites:{determinant:`d'`,cdu:'unités de milliers',rangs:[0,1,2,3,4,5]},
+            dizaines:{determinant:`de`,cdu:'dizaines de milliers',rangs:[0,1,2,3,4]},
+            centaines:{determinant:`de`,cdu:'centaines de milliers',rangs:[0,1,2,3]},
+          },
+          millions:{
+            unites:{determinant:`d'`,cdu:'unités de millions',rangs:[0,1,2]},
+            dizaines:{determinant:`de`,cdu:'dizaines de millions',rangs:[0,1]},
+            centaines:{determinant:`de`,cdu:'centaines de millions',rangs:[0]},
+          },
+        },
+      };
 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
-				{//case 0 -->
+        {//case 0 --> chiffre des
+          type:'chiffre',
+          tranche:'unites',
+          cdu:choice(cdu),         
 				},
-				{//case 1 -->
+        {//case 1 --> chiffre des
+          type:'chiffre',
+          tranche:'milliers',
+          cdu:choice(cdu),              
 				},
-				{//case 2 -->
+        {//case 2 --> chiffre des
+          type:'chiffre',
+          tranche:'unites',
+          cdu:choice(cdu),                  
 				},
-				{//case 3 -->
+        {//case 3 --> nombre de
+          type:'nombre',
+          tranche:'unites',
+          cdu:choice(cdu),         
 				},
-				{//case 4 -->
-				},
-		
+        {//case 4 --> nombre de
+          type:'nombre',
+          tranche:'milliers',
+          cdu:choice(cdu),         
+        },
+        {//case 5 --> nombre de
+          type:'nombre',
+          tranche:'millions',
+          cdu:choice(cdu),         
+        },		
 			];
 
 			let enonces = [];
 			for (let k=0;k<situations.length;k++) {
 				enonces.push({
-					enonce:`
-					Type ${k}				
+          enonce:`   
+					${chiffre_nombre[type][tranche][cdu]}
 					`,
 					question:``,
 					correction:`
