@@ -100,6 +100,7 @@ var liste_des_exercices_disponibles = {
   "6N31-2":Ordre_de_grandeur_operations_decimaux,
   "6N33": Fraction_d_un_nombre,
   "6N33-0" : Fraction_d_un_nombre_bis,
+  "beta6N33-01" :Fractions_d_unite,
   "6N33-1": Pourcentage_d_un_nombre,
   "6N33-2" : Calculer_un_pourcentage,
   "6N33-3" : Appliquer_un_pourcentage,
@@ -7790,6 +7791,73 @@ function Pourcentage_d_un_nombre() {
   };
   //	this.besoin_formulaire_numerique = ['Valeur maximale',99999];
   this.besoin_formulaire2_case_a_cocher = ["Plusieurs méthodes"];
+}
+
+function Fractions_d_unite() {
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.titre = "Représenter une fraction de l\'unité";
+  this.nb_questions = 5;
+  this.consigne = "Tracer un segment de longueur ...";
+  sortie_html ? (this.spacing_corr = 3.5) : (this.spacing_corr = 2);
+  sortie_html ? (this.spacing = 2) : (this.spacing = 2);
+  this.sup = 1;
+  this.sup2=true
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    let type_de_questions_disponibles
+    let liste_type_de_questions=[]
+    if (this.sup<5)
+      type_de_questions_disponibles=[parseInt(this.sup)]
+    else
+      type_de_questions_disponibles=[1,2,3,4]
+    liste_type_de_questions=combinaison_listes(type_de_questions_disponibles,this.nb_questions)
+    for (
+      let i = 0, den,num ,choix,longueur,numIrred,denIrred,k, masse,frac,frac_unite, texte, texte_corr, cpt = 0;
+      i < this.nb_questions && cpt < 50;
+
+    ) {
+      switch (liste_type_de_questions[i]){
+        case 1 :
+          den=choice([4,5,6,10])
+          num=randint(1,den-1)
+     break
+        case 2 :
+          den=choice([2,3,4])
+          num=randint(3,3*den-1,den)
+         break
+        case 3 :
+          den=choice([4,5,6,10])
+          num=randint(3,3*den-1,den)
+        break
+        case 4:
+          den=choice([2,3,4,5,6,10])
+          num=randint(den+1,3*den-1,den)
+        break
+      }
+      frac=fraction(num,den)
+      frac_unite=fraction(3*den-1,den)
+      texte=`$${frac.texFraction()}$ d\'unité.<br>`
+      texte+=mathalea2d({xmin:0,ymin:0,xmax:16,ymax:2},frac_unite.representation(0.5,1.5,5,0,'segment','',"0","1"))
+      texte_corr=mathalea2d({xmin:0,ymin:0,xmax:16,ymax:2},frac.representation(0.5,1.5,5,0,'segment','blue',"0","1"))
+
+
+
+      if (this.liste_questions.indexOf(texte) == -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
+        this.liste_questions.push(texte);
+        this.liste_corrections.push(texte_corr);
+        i++;
+      }
+    cpt++;
+  }
+  liste_de_question_to_contenu(this);
+};
+this.besoin_formulaire_numerique = ["Type d\'exercices",4,"1 : fracion inférieure à 1\n2 : demis, tiers et quarts\n3 : quarts, cinquièmes, sixièmes et dixièmes\n4 : toutes les fractions entre 1 et 3"];
+this.besoin_formulaire2_case_a_cocher = ["Avec dessin", true];
 }
 /**
  * Calculer la fracton d'une quantité avec ou sans dessin.
