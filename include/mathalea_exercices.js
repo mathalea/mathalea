@@ -3693,12 +3693,16 @@ function Ecrire_nombres_entiers() {
       }
       console.log(tranche,nombre)
       if (this.sup == 1) {
-        texte = `$${tex_nombre(nombre)}$ s'écrit \\dotfill`
-        texte_corr = `$${tex_nombre(nombre)}$ s'écrit ${nombreEnLettres(nombre)}`
+        if (!est_diaporama) texte = `$${tex_nombre(nombre)}$ s'écrit \\dotfill`
+        else texte =`$${tex_nombre(nombre)}$`
+       if (!est_diaporama) texte_corr = `$${tex_nombre(nombre)}$ s'écrit ${nombreEnLettres(nombre)}`
+       else texte_corr = `${nombreEnLettres(nombre)}`
       }
       else {
-        texte = `${nombreEnLettres(nombre)} s'écrit \\dotfill`
-        texte_corr = `${nombreEnLettres(nombre)} s'écrit $${tex_nombre(nombre)}$.`
+        if (!est_diaporama) texte = `${nombreEnLettres(nombre)} s'écrit \\dotfill`
+        else texte = `${nombreEnLettres(nombre)}`
+        if (!est_diaporama) texte_corr = `${nombreEnLettres(nombre)} s'écrit $${tex_nombre(nombre)}$.`
+        else texte_corr = `$${tex_nombre(nombre)}$.`
       }
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
