@@ -3696,8 +3696,8 @@ function Ecrire_nombres_entiers() {
       if (this.sup == 1) {
         if (!est_diaporama) texte = `$${tex_nombre(nombre)}$ s'écrit \\dotfill`
         else texte =`$${tex_nombre(nombre)}$`
-       if (!est_diaporama) texte_corr = `$${tex_nombre(nombre)}$ s'écrit ${nombreEnLettres(nombre)}`
-       else texte_corr = `${nombreEnLettres(nombre)}`
+       if (!est_diaporama) texte_corr = `$${tex_nombre(nombre)}$ s'écrit ${nombreEnLettres(nombre)}.`
+       else texte_corr = `${nombreEnLettres(nombre)}.`
       }
       else {
         if (!est_diaporama) texte = `${nombreEnLettres(nombre)} s'écrit \\dotfill`
@@ -3715,7 +3715,7 @@ function Ecrire_nombres_entiers() {
     }
     liste_de_question_to_contenu(this);
   };
-  this.besoin_formulaire_numerique = ['type d\'exercice', 2, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres'];
+  this.besoin_formulaire_numerique = ['Type d\'exercice', 2, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres'];
   this.besoin_formulaire2_numerique = ['Classe maximum', 4, '1 : Unités\n2 : Milliers\n3 : Millions\n4 : Milliards']
 }
 
