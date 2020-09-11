@@ -14070,9 +14070,9 @@ function chiffre_nombre_de(){
 	this.beta = true;	
 	this.sup=1;
 	if (this.beta) {
-		this.nb_questions = 5;
+		this.nb_questions = 6;
 	} else {
-		this.nb_questions = 3;
+		this.nb_questions = 6;
 	};	
 
 	this.titre = "Chiffre des ... Nombre de ...";	
@@ -14102,8 +14102,20 @@ function chiffre_nombre_de(){
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
-      let nb = randint(100000000,999999999);
-      let nb_str = nb.toString();
+      let u,d,c,mu,md,mc,mmu,mmd,mmc;
+      mmc = randint(0,9,[0]);
+      mmd = randint(0,9,[mmc]);
+      mmu = randint(0,9,[mmc,mmd]);
+      mc = randint(0,9,[mmu,mmd,mmc]);
+      md = randint(0,9,[mmu,mmd,mmc,mc]);
+      mu = randint(0,9,[mmu,mmd,mmc,mc,md]);
+      c = randint(0,9,[mmu,mmd,mmc,mu,md,mc]);
+      d = randint(0,9,[mmu,mmd,mmc,mu,md,mc,c]);
+      u = randint(0,9,[mmu,mmd,mmc,mu,md,mc,c,d]);
+      //let nb = randint(100000000,999999999);
+      //let nb_str = nb.toString();
+      let nb_str = mmc.toString()+mmd.toString()+mmu.toString()+mc.toString()+md.toString()+mu.toString()+c.toString()+d.toString()+u.toString();
+      let nb = Number(nb_str);
       let tranches = ['unites','milliers','millions'];
       let cdu = ['unites','dizaines','centaines'];
       let chiffre_nombre = {
@@ -14157,7 +14169,7 @@ function chiffre_nombre_de(){
 				},
         {//case 2 --> chiffre des
           type:'chiffre',
-          tranche:'unites',
+          tranche:'millions',
           cdu:choice(cdu),                  
 				},
         {//case 3 --> nombre de
@@ -14180,8 +14192,8 @@ function chiffre_nombre_de(){
 			let enonces = [];
 			for (let k=0;k<situations.length;k++) {
 				enonces.push({
-          enonce:`   
-					${chiffre_nombre[type][tranche][cdu]}
+          enonce:`
+          Dans $${tex_nombre(nb)}$, quel est le ${situations[k].type} ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].determinant}  ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu} ?					
 					`,
 					question:``,
 					correction:`
@@ -14203,7 +14215,7 @@ function chiffre_nombre_de(){
 						texte_corr = `${enonces[0].correction}`;
 					};
           			break;	
-        		case 1 : 
+     		case 1 : 
 					texte = `${enonces[1].enonce}`;
 					if (this.beta) {
 						texte += `<br>`;
@@ -14213,7 +14225,7 @@ function chiffre_nombre_de(){
 						texte_corr = `${enonces[1].correction}`;
 					};
           			break;
-        		case 2 : 
+     		case 2 : 
 					texte = `${enonces[2].enonce}`;
 					if (this.beta) {
 						texte += `<br>`;
@@ -14223,7 +14235,7 @@ function chiffre_nombre_de(){
 						texte_corr = `${enonces[2].correction}`;
 					};
           			break;				
-        		case 3 : 
+     		case 3 : 
 					texte = `${enonces[3].enonce}`;
 					if (this.beta) {
 						texte += `<br>`;
@@ -14233,7 +14245,7 @@ function chiffre_nombre_de(){
 						texte_corr = `${enonces[3].correction}`;
 					};
 					break;				
-         		case 4 : 
+     		case 4 : 
 					texte = `${enonces[4].enonce}`;
 					if (this.beta) {
 						texte += `<br>`;
@@ -14242,7 +14254,17 @@ function chiffre_nombre_de(){
 					} else {
 						texte_corr = `${enonces[4].correction}`;
 					};
-					break;				
+          break;	
+        case 5 : 
+					texte = `${enonces[5].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[5].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[5].correction}`;
+					};
+					break;			
 			};			
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
