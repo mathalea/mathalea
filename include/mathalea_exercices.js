@@ -14216,11 +14216,12 @@ function chiffre_nombre_de(){
             nb_de+=str.split('')[rang[k]]
           };
           let j = rang[rang.length-1];
+          j++;
           //console.log(j);
           let nb_de_reste = '';
-          while (j != 9) {
-            nb_de_reste += str.split('')[j]
-            j++
+          while (j != 9) {            
+            nb_de_reste += str.split('')[j];
+            j++;
           };
           sortie = `comme $${tex_nombre(str)} = ${tex_nombre(nb_de)}\\times ${tex_nombre(cdu_num)}+${tex_nombre(nb_de_reste)}$`;
         };
