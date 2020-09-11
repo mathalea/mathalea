@@ -6364,7 +6364,9 @@ function nombreEnLettres(nb) {
 		classeDesMillions =  dictionnaire[nbString.substring(nbString.length-9,nbString.length-6).replace(/^0{1,2}/,'')].replaceAll(' ','-')
 	}
 	let classeDesMilliers = '';
-	if (nbString.substring(nbString.length-6,nbString.length-3).length>0) {
+	if (nbString.substring(nbString.length-6,nbString.length-3)=="080" || nbString.substring(nbString.length-6,nbString.length-3)=="80" ){
+		classeDesMilliers = "quatre-vingt"
+	} else if (nbString.substring(nbString.length-6,nbString.length-3).length>0) {
 		classeDesMilliers =  dictionnaire[nbString.substring(nbString.length-6,nbString.length-3).replace(/^0{1,2}/,'')].replaceAll(' ','-')
 	}
 	let classeDesUnites = '';
@@ -6374,19 +6376,19 @@ function nombreEnLettres(nb) {
 	let result = ''
 	if (classeDesMilliards.length>1){
 		classeDesMilliards == 'un' ? result += classeDesMilliards+'-milliard' : result += classeDesMilliards+'-milliards'
-		if (classeDesMillions.length>1 || classeDesMilliers.length>1 || classeDesUnites.length>1){
+		if (classeDesMillions!="zéro" || classeDesMilliers!="zéro" || classeDesUnites!="zéro"){
 			result +='-'
 		}
 	}
 	if (classeDesMillions.length>1 && classeDesMillions !="zéro"){
 		classeDesMillions == 'un' ? result += classeDesMillions+'-million' : result += classeDesMillions+'-millions'
-		if (classeDesMilliers.length>1 || classeDesUnites.length>1){
+		if (classeDesMilliers!="zéro" || classeDesUnites!="zéro"){
 			result +='-'
 		}
 	}
 	if (classeDesMilliers.length>1 && classeDesMilliers !="zéro"){
-		result += classeDesMilliers+'-mille'
-		if (classeDesUnites.length>1){
+		classeDesMilliers== 'un' ? result += 'mille' : result += classeDesMillions+'-mille'
+		if (classeDesUnites!="zéro"){
 			result +='-'
 		}
 	}
