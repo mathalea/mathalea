@@ -3746,7 +3746,7 @@ function Ecrire_nombres_decimal() {
       this.consigne = "Écrire le nombre en lettres"
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées 
-    let type_de_questions_disponibles = [parseInt(this.sup2)+1]; // <1 000, <1 000 000, < 1 000 000 000, >1 000 000 000) 
+    let type_de_questions_disponibles = [parseInt(this.sup2)+1]; // <1 000, <1 000 000) 
     let liste_type_de_questions = combinaison_listes(
       type_de_questions_disponibles,
       this.nb_questions
@@ -3806,7 +3806,7 @@ function Ecrire_nombres_decimal() {
     liste_de_question_to_contenu(this);
   };
   this.besoin_formulaire_numerique = ['Type d\'exercice', 2, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres'];
-  this.besoin_formulaire2_numerique = ['Classe maximum', 4, '1 : Unités\n2 : Milliers\n3 : Millions\n4 : Milliards']
+  this.besoin_formulaire2_numerique = ['Classe maximum', 2, '1 : Unités\n2 : Milliers']
 }
 
 /**
