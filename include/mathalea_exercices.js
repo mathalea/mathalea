@@ -89,6 +89,7 @@ var liste_des_exercices_disponibles = {
   "6N20-2": Exercice_fractions_differentes_ecritures,
   "6N21": Lire_abscisse_fractionnaire,
   "6N23": Exercice_ecriture_decimale_a_partir_de_fraction_decimale,
+  "beta6N23-0" : Ecrire_nombres_decimal,
   "6N23-1": Exercice_differentes_ecritures_nombres_decimaux,
   "6N24": Exercice_6N24,
   "6N24-1": Exercice_multiplier_ou_diviser_un_nombre_entier_par_10_100_1000,
@@ -3649,6 +3650,11 @@ function Trouver_solution_mathador(
     } else operations_successives = [];
   }
 }
+/**
+ * Lire un nombre / écrire un nombre : passer d'une écriture à une autre et inversement
+ * On peut fixer la classe maximale : unités, miliers, millions, milliards
+ * @Auteur Jean-Claude Lhote
+ */
 
 function Ecrire_nombres_entiers() {
   "use strict"
@@ -3703,6 +3709,90 @@ function Ecrire_nombres_entiers() {
         if (!est_diaporama) texte = `${nombreEnLettres(nombre)} s'écrit \\dotfill`
         else texte = `${nombreEnLettres(nombre)}`
         if (!est_diaporama) texte_corr = `${nombreEnLettres(nombre)} s'écrit $${tex_nombre(nombre)}$.`
+        else texte_corr = `$${tex_nombre(nombre)}$.`
+      }
+      if (this.liste_questions.indexOf(texte) == -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
+        this.liste_questions.push(texte);
+        this.liste_corrections.push(texte_corr);
+        i++;
+      }
+      cpt++;
+    }
+    liste_de_question_to_contenu(this);
+  };
+  this.besoin_formulaire_numerique = ['Type d\'exercice', 2, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres'];
+  this.besoin_formulaire2_numerique = ['Classe maximum', 4, '1 : Unités\n2 : Milliers\n3 : Millions\n4 : Milliards']
+}
+/**
+ * Lire un nombre / écrire un nombre : passer d'une écriture à une autre et inversement
+ * On peut fixer la classe maximale : unités, miliers, millions, milliards
+ * @Auteur Jean-Claude Lhote
+ */
+
+function Ecrire_nombres_decimal() {
+  "use strict"
+  Exercice.call(this)
+  this.titre = "Écrire un nombre en chiffres ou en lettres"
+  this.nb_questions = 5;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  this.sup = 1
+  this.sup2 = 1
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    if (this.sup == 2)
+      this.consigne = "Écrire le nombre en chiffres"
+    else
+      this.consigne = "Écrire le nombre en lettres"
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées 
+    let type_de_questions_disponibles = [parseInt(this.sup2)+1]; // <1 000, <1 000 000, < 1 000 000 000, >1 000 000 000) 
+    let liste_type_de_questions = combinaison_listes(
+      type_de_questions_disponibles,
+      this.nb_questions
+    ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    for (
+      let i = 0, texte, texte_corr, a, b,c,nombre,tranche,part_ent,part_dec,nb_dec, cpt = 0;
+      i < this.nb_questions && cpt < 50;
+
+    ) {
+  
+      nombre = 0
+      tranche=[]
+      while (nombre == 0) {
+        tranche.splice(0)
+        part_ent=0
+        part_dec=0
+        for (let j = 0; j < liste_type_de_questions[i]; j++) {
+          a = randint(1,9)
+          b=randint(1,9)
+          c=randint(1,9)
+          tranche.push(choice([0,100,20,80,a,a*100,a*100+b*10+c,a*100+80+b,a*10,a*100+b*10+1]))
+        }
+        for (let j = 1; j < liste_type_de_questions[i]; j++) {
+          part_ent+= tranche[j] * 10 ** ((j-1)*3)
+         // nombre += tranche[j] * 10 ** ((j-1)*3)
+        }
+        part_dec=tranche[0]
+        nombre=calcul(part_ent+part_dec/1000)
+        // if (tranche[liste_type_de_questions[i]-1]==0) nombre=0
+        if (tranche[1]<2) nombre=0
+        if (tranche[0]==0) nombre=0
+        
+      }
+      console.log(nombre,tranche)
+      if (part_dec%10!=0) nb_dec=3
+      else if (part_dec%100!=0) nb_dec=2
+      if (this.sup == 1) {
+        if (!est_diaporama) texte = `$${tex_nombre(nombre)}$ s'écrit \\dotfill`
+        else texte =`$${tex_nombre(nombre)}$`
+       if (!est_diaporama) texte_corr = `$${tex_nombre(nombre)}$ s'écrit ${nombreEnLettres(nombre)}.`
+       else texte_corr = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)}.`
+      }
+      else {
+        if (!est_diaporama) texte = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)} s'écrit \\dotfill`
+        else texte = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)}`
+        if (!est_diaporama) texte_corr = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)} s'écrit $${tex_nombre(nombre)}$.`
         else texte_corr = `$${tex_nombre(nombre)}$.`
       }
       if (this.liste_questions.indexOf(texte) == -1) {

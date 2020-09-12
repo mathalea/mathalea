@@ -5362,7 +5362,36 @@ function Fraction(num,den) {
 
 
 }
+function nombreEnLettres(nb,type=1) {
+	let partie_entiere,partie_decimale,nbstring,nb_dec,decstring
+	if (estentier(nb)) return partieEntiereEnLettres(nb)
+	else {
+		partie_entiere=Math.floor(nb)
+		partie_decimale=calcul(nb-partie_entiere)
+		nb_dec=partie_decimale.toString().replace(/\d*\./,'').length;
+		partie_decimale=calcul(partie_decimale*10**nb_dec)
 
+		switch (nb_dec) {
+			case 1:
+				if (partie_decimale>1) decstring=` dixièmes`
+				else decstring=` dixième`
+				break
+			case 2:
+				if (partie_decimale>1) decstring=` centièmes`
+				else decstring=` centième`
+				break
+			case 3:
+				if (partie_decimale>1) decstring=` millièmes`
+				else decstring=` millième`
+				break
+												
+		}
+
+		if (type==1) nbstring=partieEntiereEnLettres(partie_entiere)+` unités et `+partieEntiereEnLettres(partie_decimale)+ decstring
+		else nbstring=partieEntiereEnLettres(partie_entiere)+` virgule `+partieEntiereEnLettres(partie_decimale)
+	}
+	return nbstring
+}
 /**
  * 
  * 
@@ -5370,7 +5399,7 @@ function Fraction(num,den) {
 
  * 
  */
-function nombreEnLettres(nb) {
+function partieEntiereEnLettres(nb) {
 	let dictionnaire = {
 0 : "zéro",
 "000" : "",
