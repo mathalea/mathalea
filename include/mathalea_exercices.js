@@ -14211,7 +14211,7 @@ function Ordre_de_grandeur_operations_decimaux(){
 function chiffre_nombre_de(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 6;
@@ -14367,7 +14367,7 @@ function chiffre_nombre_de(){
             nb_de_reste += str.split('')[j];
             j++;
           };
-          sortie = `comme $${tex_nombre(str)} = ${tex_nombre(nb_de)}\\times ${tex_nombre(cdu_num)}+${tex_nombre(nb_de_reste)}$`;
+          sortie = `comme $${tex_nombre(str)} = ${tex_nombre(nb_de)}\\times ${tex_nombre(cdu_num)}+${tex_nombre(nb_de_reste)}$ alors `;
         };
         return sortie;
       };
