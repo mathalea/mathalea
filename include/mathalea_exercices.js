@@ -3696,8 +3696,8 @@ function Ecrire_nombres_entiers() {
       if (this.sup == 1) {
         if (!est_diaporama) texte = `$${tex_nombre(nombre)}$ s'écrit \\dotfill`
         else texte =`$${tex_nombre(nombre)}$`
-       if (!est_diaporama) texte_corr = `$${tex_nombre(nombre)}$ s'écrit ${nombreEnLettres(nombre)}`
-       else texte_corr = `${nombreEnLettres(nombre)}`
+       if (!est_diaporama) texte_corr = `$${tex_nombre(nombre)}$ s'écrit ${nombreEnLettres(nombre)}.`
+       else texte_corr = `${nombreEnLettres(nombre)}.`
       }
       else {
         if (!est_diaporama) texte = `${nombreEnLettres(nombre)} s'écrit \\dotfill`
@@ -3715,7 +3715,7 @@ function Ecrire_nombres_entiers() {
     }
     liste_de_question_to_contenu(this);
   };
-  this.besoin_formulaire_numerique = ['type d\'exercice', 2, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres'];
+  this.besoin_formulaire_numerique = ['Type d\'exercice', 2, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres'];
   this.besoin_formulaire2_numerique = ['Classe maximum', 4, '1 : Unités\n2 : Milliers\n3 : Millions\n4 : Milliards']
 }
 
@@ -7792,12 +7792,16 @@ function Pourcentage_d_un_nombre() {
   //	this.besoin_formulaire_numerique = ['Valeur maximale',99999];
   this.besoin_formulaire2_case_a_cocher = ["Plusieurs méthodes"];
 }
+/**
+ * Tracer un segment de longueur une fraction de l'unité.
+ * @Auteur Jean-Claude Lhote
+ */
 
 function Fractions_d_unite() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Représenter une fraction de l\'unité";
   this.nb_questions = 5;
-  this.consigne = "Tracer un segment de longueur ...";
+  this.consigne = "Colorier en bleu un segment de longueur ...";
   sortie_html ? (this.spacing_corr = 3.5) : (this.spacing_corr = 2);
   sortie_html ? (this.spacing = 2) : (this.spacing = 2);
   this.sup = 1;
@@ -7840,9 +7844,11 @@ function Fractions_d_unite() {
       }
       frac=fraction(num,den)
       frac_unite=fraction(3*den-1,den)
-      texte=`$${frac.texFraction()}$ d\'unité.<br>`
-      texte+=mathalea2d({xmin:0,ymin:0,xmax:16,ymax:2},frac_unite.representation(0.5,1.5,5,0,'segment','',"0","1"))
-      texte_corr=mathalea2d({xmin:0,ymin:0,xmax:16,ymax:2},frac.representation(0.5,1.5,5,0,'segment','blue',"0","1"))
+      texte=`$${frac.texFraction()}$ unité`
+      //if (num/den>=2) texte+=`s`
+      texte+=`.<br>`
+      //texte+=mathalea2d({xmin:0,ymin:0,xmax:16,ymax:2},frac_unite.representation(0.5,1.5,5,0,'segment','',"0","1"))
+      texte_corr=mathalea2d({xmin:0,ymin:0,xmax:16,ymax:2},frac.representation(0.5,1.5,5,0,'segment','blue',0,1))
 
 
 
@@ -7971,7 +7977,7 @@ function Fraction_d_un_nombre_bis() {
           texte+=` de longueur est coupé à $${frac.texFractionSimplifiee()}$ de sa longueur.<br>`
           texte+=`Calculer la longueur de chacun des morceaux en mètres.<br>`
           if (this.sup2){
-            texte+=`Ce bâton est représenté ci dessous est représentée ci dessous :<br>`
+            texte+=`Ce bâton est représenté ci dessous :<br>`
           texte+=mathalea2d({xmin:-0.5,ymin:0,xmax:10,ymax:2},frac.representationIrred(0,1,8,0,'segment','blue',"0",`${tex_nombre(calcul(longueur/100))}`))
           }
           texte_corr=`$${tex_fraction(1,denIrred)}$ de $${tex_nombrec(longueur/100)}$ représente $${tex_nombrec(longueur/100)} \\div ${denIrred} = ${tex_nombrec(longueur/100/denIrred)}$.<br>`

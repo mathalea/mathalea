@@ -5070,6 +5070,7 @@ function Fraction(num,den) {
      * 
      * @param {number} depart N° de la première part coloriée (0 correspond à la droite du centre) 
      * @param {*} type 'gateau' ou 'segment' ou 'barre'
+	 * @Auteur Jean-Claude Lhote
      */
 	this.representationIrred = function (x, y, rayon, depart = 0, type = 'gateau', couleur = 'gray',unite0=0,unite1=1,scale=1) {
 		let objets = [], n, num, k, dep, s, a, O, C
@@ -5133,7 +5134,7 @@ function Fraction(num,den) {
 				a = segment(O, point(O.x + Math.min(num, this.denIrred) * rayon / this.denIrred, O.y))
 				a.color = couleur
 				a.opacite = 0.4
-				a.epaisseur = 4
+				a.epaisseur = 6
 				objets.push(a)
 				num -= this.denIrred
 			}
@@ -5150,11 +5151,18 @@ function Fraction(num,den) {
 			a = segment(O, point(O.x + Math.min(this.numIrred, this.denIrred) * rayon / this.denIrred, O.y))
 			a.color = couleur
 			a.opacite = 0.4
-			a.epaisseur = 4
+			a.epaisseur = 6
 			objets.push(a)
 			objets.push(unegraduation(x,y))
-			if (unite0!="") objets.push(texteParPosition(unite0,x,y-0.6,'milieu','blue',scale))
-			if (unite1!="") objets.push(texteParPosition(unite1,x+rayon,y-0.6,'milieu','blue',scale))
+			if (typeof(unite0)=='number'&&typeof(unite1)=='number') {
+				for (k=0;k<=n+1;k++) {
+					objets.push(texteParPosition(unite0+k*(unite1-unite0),x+rayon*k,y-0.6,'milieu','black',scale))
+				}
+			}
+			else {
+			if (unite0!="") objets.push(texteParPosition(unite0,x,y-0.6,'milieu','black',scale))
+			if (unite1!="") objets.push(texteParPosition(unite1,x+rayon,y-0.6,'milieu','black',scale))
+			}
 
 		}
 		else {
@@ -5203,6 +5211,14 @@ function Fraction(num,den) {
 		}
 		return objets
 	}
+	/**
+	 * 
+	 * Représente une fraction sous forme de disque (gateau), de segment ou de rectangle
+	 * le type peut être : 'gateau', 'segment' ou 'barre'
+	 * l'argument départ sert pour la représentation disque à fixer l'azimut du premier secteur : 0 correspond à 12h.
+	 * les arguments unite0 et unite1 servent pour la représentation 'segment'. On peut ainsi choisir les délimiteurs de l'unité, ce sont habituellement 0 et 1, à ce moment la, chaque entier est affiché sous sa graduation.
+	 * Si ce sont des variable de type string, il n'y a que ces deux étiquettes qui sont écrites.
+	 */
 	this.representation = function (x, y, rayon, depart = 0, type = 'gateau', couleur = 'gray',unite0=0,unite1=1,scale=1) {
 		let objets = [], n, num, k, dep, s, a, O, C
 		n = quotientier(this.num, this.den)
@@ -5216,7 +5232,6 @@ function Fraction(num,den) {
 			return g
 		}
 		if (type == 'gateau') {
-			k, dep
 			for (k = 0; k < n; k++) {
 				let O = point(x + k * 2 * (rayon + 0.5), y)
 				let C = cercle(O, rayon)
@@ -5268,7 +5283,7 @@ function Fraction(num,den) {
 				a = segment(O, point(O.x + Math.min(num, this.den) * rayon / this.den, O.y))
 				a.color = couleur
 				a.opacite = 0.4
-				a.epaisseur = 4
+				a.epaisseur = 6
 				objets.push(a)
 				num -= this.den
 			}
@@ -5285,14 +5300,20 @@ function Fraction(num,den) {
 			a = segment(O, point(O.x + Math.min(num, this.den) * rayon / this.den, O.y))
 			a.color = couleur
 			a.opacite = 0.4
-			a.epaisseur = 4
+			a.epaisseur = 6
 			objets.push(a)
 			objets.push(unegraduation(x,y))
-			if (unite0!="") objets.push(texteParPosition(unite0,x,y-0.6,'milieu','blue',scale))
-			if (unite1!="") objets.push(texteParPosition(unite1,x+rayon,y-0.6,'milieu','blue',scale))
-
+			if (typeof(unite0)=='number'&&typeof(unite1)=='number') {
+				for (k=0;k<=n+1;k++) {
+					objets.push(texteParPosition(unite0+k*(unite1-unite0),x+rayon*k,y-0.6,'milieu','black',scale))
+				}
+			}
+			else {
+			if (unite0!="") objets.push(texteParPosition(unite0,x,y-0.6,'milieu','black',scale))
+			if (unite1!="") objets.push(texteParPosition(unite1,x+rayon,y-0.6,'milieu','black',scale))
+			}
 		}
-		else { //Type bâtons
+		else { //Type barre
 			let diviseur
 			if (this.den % 6 == 0) diviseur=6
 			else if (this.den % 5 == 0) diviseur=5
