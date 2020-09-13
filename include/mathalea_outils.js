@@ -6416,7 +6416,10 @@ function partieEntiereEnLettres(nb) {
 	let classeDesMilliers = '';
 	if (nbString.substring(nbString.length-6,nbString.length-3)=="080" || nbString.substring(nbString.length-6,nbString.length-3)=="80" ){
 		classeDesMilliers = "quatre-vingt"
-	} else if (nbString.substring(nbString.length-6,nbString.length-3).length>0) {
+	} else if (nbString.substring(nbString.length-5,nbString.length-3)=="00" && nbString.substring(nbString.length-6,nbString.length-5)!="1" ){
+		classeDesMilliers =  dictionnaire[nbString.substring(nbString.length-6,nbString.length-3).replace(/^0{1,2}/,'')].replaceAll(' ','-').replace('cents','cent')
+	} 
+	else if (nbString.substring(nbString.length-6,nbString.length-3).length>0) {
 		classeDesMilliers =  dictionnaire[nbString.substring(nbString.length-6,nbString.length-3).replace(/^0{1,2}/,'')].replaceAll(' ','-')
 	}
 	let classeDesUnites = '';
