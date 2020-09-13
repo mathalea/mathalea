@@ -102,7 +102,6 @@ var liste_des_exercices_disponibles = {
   "6N32" :Fractions_d_unite,
   "6N33": Fraction_d_un_nombre,
   "6N33-0" : Fraction_d_une_quantite,
-  "6N33-01" :Fractions_d_unite,
   "6N33-1": Pourcentage_d_un_nombre,
   "6N33-2" : Calculer_un_pourcentage,
   "6N33-3" : Appliquer_un_pourcentage,
