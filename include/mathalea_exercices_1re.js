@@ -149,7 +149,7 @@ function Terme_d_une_suite_definie_par_recurrence(){
 		this.liste_questions = []; // Vide la liste de questions
     this.liste_corrections = []; // Vide la liste de questions corrigées
     
-    let type_de_questions_disponibles = [1, 2, 3, 3];
+    let type_de_questions_disponibles = [1, 2, 3, 4];
     let liste_type_de_questions = combinaison_listes(
       type_de_questions_disponibles,
       this.nb_questions
@@ -164,21 +164,18 @@ function Terme_d_une_suite_definie_par_recurrence(){
         case 1: //suite arithmétique
           a = randint(1, 10)*choice([-1,1]);
           u = randint(0, 10)*choice([-1,1]);
-          k = randint(1, 10);
+          k = randint(2, 10);
 			
-          texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_{n+1} = u_n`;
-          if (a > 0) {texte += `+${a}$.`}
-          else {texte += `${a}$.`};
+          texte = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout entier $n\\in\\mathbb{N}$ par $u_{n+1} = u_n ${ecriture_algebrique(a)}$.`;
 
           texte += `<br>Calculer $u_{${k}}$.`;
 			
-          texte_corr = `On calcule successivent les termes jusqu'à obtenir $u_${k}$ :`;
+          texte_corr = `On calcule successivent les termes jusqu'à obtenir $u_{${k}}$ :`;
           for (
             let indice =0; indice < k; indice++ 
           ){
-            texte_corr += `<br> $u_{${indice+1}} = u_{${indice}}`;
-            if (a > 0) {texte_corr += `+ ${a} = ${u} + ${a} = ${u}$`}
-            else {texte_corr += ` ${a} = ${u}  ${a} = ${u}$`}; // a étant négatif l'opérateur est intégré dans la variable
+            texte_corr += `<br> $u_{${indice+1}} = ${mise_en_evidence('u_{' + indice + '}', arcenciel(indice,true))} ${ecriture_algebrique(a)} = 
+              ${mise_en_evidence(u, arcenciel(indice,true))} + ${a} = ${mise_en_evidence(u + a, arcenciel(indice+1,true))}$`;
             u = u + a;
           }
           break;
@@ -186,9 +183,9 @@ function Terme_d_une_suite_definie_par_recurrence(){
         case 2: //suite géométrique
           a = randint(2,5)*choice([-1,1]);
           u = randint(1,9)*choice([-1,1]);
-          k = randint(1,9);
+          k = randint(2,6);
 
-          texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_{n+1} = u_n \\times ${ecriture_parenthese_si_negatif(a)}$.`;
+          texte = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout entier $n\\in\\mathbb{N}$ par $u_{n+1} = u_n \\times ${ecriture_parenthese_si_negatif(a)}$.`;
 
           texte += `<br>Calculer $u_{${k}}$.`;
 			
@@ -196,18 +193,19 @@ function Terme_d_une_suite_definie_par_recurrence(){
           for (
             let indice =0; indice < k; indice++ 
           ){
-            texte_corr += `<br> $u_{${indice+1}} = u_{${indice}} \\times ${ecriture_parenthese_si_negatif(a)} = ${u} \\times ${ecriture_parenthese_si_negatif(a)} = ${u*a}$`;
+            texte_corr += `<br> $u_{${indice+1}} = ${mise_en_evidence('u_{' + indice + '}', arcenciel(indice,true))} \\times ${ecriture_parenthese_si_negatif(a)} = 
+              ${mise_en_evidence(u, arcenciel(indice,true))} \\times ${ecriture_parenthese_si_negatif(a)} = ${mise_en_evidence(u * a, arcenciel(indice+1,true))}$`;
             u = u * a;
           }
           break;
         
         case 3: //suite arithmético-géométrique
-          a = randint(1,5)*choice([-1,1]);
+          a = randint(2,5)*choice([-1,1]);
           b = randint(1,5)*choice([-1,1]);
           u = randint(1,5)*choice([-1,1]);
-          k = randint(1,9);
+          k = randint(2,6);
 
-          texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_{n+1} = ${a} u_n ${ecriture_algebrique(b)}$.`;
+          texte = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout entier $n\\in\\mathbb{N}$ par $u_{n+1} = ${a} u_n ${ecriture_algebrique(b)}$.`;
           
           texte += `<br>Calculer $u_{${k}}$.`;
 			
@@ -215,9 +213,31 @@ function Terme_d_une_suite_definie_par_recurrence(){
           for (
             let indice =0; indice < k; indice++ 
           ){
-            texte_corr += `<br> $u_{${indice+1}} = ${a}\\times u_{${indice}} ${ecriture_algebrique(b)}=`;
-            texte_corr += `${a} \\times ${ecriture_parenthese_si_negatif(u)} ${ecriture_algebrique(b)} = ${a*u+b}$`;
+            texte_corr += `<br> $u_{${indice+1}} = ${a}\\times ${mise_en_evidence('u_{' + indice + '}', arcenciel(indice,true))} ${ecriture_algebrique(b)}=`;
+            texte_corr += `${a} \\times ${ecriture_parenthese_si_negatif(mise_en_evidence(u, arcenciel(indice,true)))} ${ecriture_algebrique(b)} = 
+            ${mise_en_evidence(a*u+b, arcenciel(indice+1,true))}$`;
             u = u * a + b;
+          }
+          break;
+
+        case 4: // suite de la forme u(n+1) = a +- u(n)^2
+          a = randint(1,5)*choice([-1,1]);
+          b = choice([-1,1]);
+          u = randint(1,5)*choice([-1,1]);
+          k = randint(2,3);
+
+          texte = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout entier $n\\in\\mathbb{N}$ par $u_{n+1} = ${a} ${signe(b)} u_n^2$.`;
+                    
+          texte += `<br>Calculer $u_{${k}}$.`;
+			
+          texte_corr = `On calcule successivent les termes jusqu'à obtenir $u_${k}$ :`;
+          for (
+            let indice =0; indice < k; indice++ 
+          ){
+            texte_corr += `<br> $u_{${indice+1}} = ${a} ${signe(b)} (${mise_en_evidence('u_{' + indice + '}', arcenciel(indice,true))})^2=`;
+            texte_corr += `${a} ${signe(b)} ${ecriture_parenthese_si_negatif(mise_en_evidence(u, arcenciel(indice,true)))}^2 = 
+              ${mise_en_evidence(tex_nombre(a+b*u*u), arcenciel(indice+1,true))}$`;
+            u = a + b * u * u;
           }
           break;
       }
