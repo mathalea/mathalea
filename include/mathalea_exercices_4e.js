@@ -5477,6 +5477,7 @@ function Puissances_de_dix() {
 /**
  * problèmes de grandeurs composées
  * @Auteur Jean-Claude Lhote
+ * Référence : 4P10
  */
 function Problemes_grandeurs_composees() {
   "use strict";
