@@ -272,7 +272,7 @@ function pointAdistance(...args) {
   else
     if (l == 3) {
       if (typeof (args[2]) == 'number')
-        return similitude(B, A, arags[2], d)
+        return similitude(B, A, args[2], d)
       else
         return similitude(B, A, angle, d, args[2])
     }
@@ -1243,12 +1243,13 @@ function Segment(arg1, arg2, arg3, arg4, color) {
     let A = point(this.x1, this.y1);
     let B = point(this.x2, this.y2);
     let l=longueur(A,B)
-    let dx=(B.xSVG(coeff)-A.xSVG(coeff))/(10*l),dy=(B.ySVG(coeff)-A.ySVG(coeff))/(10*l)
-    let code =`<path d="M${A.xSVG(coeff)} ${A.ySVG(coeff)} C `
-    for (let k=0;k<=10*l+1;k++) {
-      code +=`${arrondi(A.xSVG(coeff)+k*dx+randint(-1,1)*amp,0)} ${arrondi(A.ySVG(coeff)+k*dy+randint(-1,1)*amp,0)}, `
+    let dx=(B.xSVG(coeff)-A.xSVG(coeff))/(10),dy=(B.ySVG(coeff)-A.ySVG(coeff))/(10)
+    let code =`<path d="M ${arrondi(A.xSVG(coeff),0)},${arrondi(A.ySVG(coeff),0)} C `
+    for (let k=0;k<=10;k++) {
+      code +=`${arrondi(A.xSVG(coeff)+k*dx+randint(-1,1)*amp,0)},${arrondi(A.ySVG(coeff)+k*dy+randint(-1,1)*amp,0)} `
     }
-    code +=`${B.xSVG(coeff)} ${B.ySVG(coeff)}" stroke="${this.color}" ${this.style}"/>`
+    code +=` ${arrondi(B.xSVG(coeff),0)},${arrondi(B.ySVG(coeff),0)} " stroke="${this.color}" ${this.style}"/>`
+    console.log(code)
     return code;
  }
   this.tikzml = function(amp){
