@@ -280,7 +280,7 @@ var liste_des_exercices_disponibles = {
   "2L10": Developper_Identites_remarquables2,
   "2L11": Factoriser_Identites_remarquables2,
   "1N10": Terme_d_une_suite_definie_explicitement,
-  "beta1N11": Terme_d_une_suite_definie_par_recurrence, 
+  "1N11": Terme_d_une_suite_definie_par_recurrence, 
   "PEA11": Passer_d_une_base_a_l_autre,
   "PEA11-1": Passer_de_la_base_12_ou_16_a_la_10,
   P001: Code_LaTeX_personnalise,
