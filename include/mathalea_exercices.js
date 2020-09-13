@@ -7953,7 +7953,7 @@ function Fractions_d_unite() {
       if (this.sup2 < 3) g = grille(0, 0,26, 2, "gray", 0.7);
       else g = "";
       if (this.sup2 == 2) {
-        sc = 0.8;
+        sc = 0.6;
         carreaux = seyes(0, 0, 26, 2);
       } else {
         sc = 0.5;
