@@ -209,7 +209,7 @@ var liste_des_exercices_disponibles = {
   "4P20-0": Forme_litterale_introduire_une_lettre,
   "4G11": Pavages_et_translation,
   "4G20" : Pythagore2D,
-  "4G20-1": Egalite_Pythagore,
+  "4G20-1": Egalite_Pythagore2D, // Anciennement Egalite_Pythagore,
   "4G20-2": Racine_caree_de_carres_parfaits,
   "4G20-3": Exercice_Pythagore,
   "4G21": Reciproque_Pythagore,
@@ -14301,7 +14301,7 @@ function Ordre_de_grandeur_operations_decimaux(){
 function chiffre_nombre_de(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 6;
@@ -14457,7 +14457,7 @@ function chiffre_nombre_de(){
             nb_de_reste += str.split('')[j];
             j++;
           };
-          sortie = `comme $${tex_nombre(str)} = ${tex_nombre(nb_de)}\\times ${tex_nombre(cdu_num)}+${tex_nombre(nb_de_reste)}$`;
+          sortie = `comme $${tex_nombre(str)} = ${tex_nombre(nb_de)}\\times ${tex_nombre(cdu_num)}+${tex_nombre(nb_de_reste)}$ alors `;
         };
         return sortie;
       };
@@ -14478,7 +14478,7 @@ function chiffre_nombre_de(){
 				});
 			};
             
-            // autant de case que d'elements dans le tableau des situations
+      // autant de case que d'elements dans le tableau des situations
 			switch (liste_type_de_questions[i]){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
@@ -14575,7 +14575,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 	};	
 
   this.titre = "Encadrer un entier entre deux entiers consécutifs";	
-  this.consigne = `Compléter avec le nombre entier qui précède et le nombre entier qui suit.`;	
+  this.consigne = ``;	
 	
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -14601,17 +14601,84 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
-        let m = randint(1000,9999);
-        let dm = randint(10000,99999);
-        let cm = randint(100000,999999);
-        let mi = randint(1000000,9999999); 
-        let dmi = randint(10000000,99999999); 
-        let cmi = randint(100000000,999999999); 
+        // on fabrique le nombre à partir de ses chiffres
+        let u,d,c,mu,md,mc,mmu,mmd,mmc;
+        // mmc = randint(0,9,[0]);
+        // mmd = randint(0,9,[mmc]);
+        // mmu = randint(0,9,[mmc,mmd]);
+        // mc = randint(0,9,[mmu,mmd,mmc]);
+        // md = randint(0,9,[mmu,mmd,mmc,mc]);
+        // mu = randint(0,9,[mmu,mmd,mmc,mc,md]);
+        // c = randint(0,9,[mmu,mmd,mmc,mu,md,mc]);
+        // d = randint(0,9,[mmu,mmd,mmc,mu,md,mc,c]);
+        // u = randint(0,9,[mmu,mmd,mmc,mu,md,mc,c,d]);
+        let m,dm,cm,mi,dmi,cmi;
+
+        //pour la précision d'encadrement
+        let precision;
+
+        this.sup = Number(this.sup); // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
+        switch (this.sup) {
+          case 1:
+            this.consigne = `Compléter avec le nombre entier qui précède et le nombre entier qui suit.`;
+            precision=1;
+            mmc = randint(0,9,[0]);
+            mmd = randint(0,9);
+            mmu = randint(0,9);
+            mc = randint(0,9);
+            md = randint(0,9);
+            mu = randint(0,9);
+            c = randint(0,9);
+            d = randint(0,9);
+            u = choice([0,randint(1,9)]);
+            m = Number(mu.toString()+c.toString()+d.toString()+u.toString());
+            console.log(m)
+            break;
+          case 2:
+            this.consigne = `Compléter avec le multiple de 10 qui précède et le multiple de 10 qui suit.`;
+            precision=10;
+            mmc = randint(0,9,[0]);
+            mmd = randint(0,9);
+            mmu = randint(0,9);
+            mc = randint(0,9);
+            md = randint(0,9);
+            mu = randint(0,9);
+            c = randint(0,9);
+            d = randint(0,9);
+            u = choice([0,randint(1,9)]);
+            m = Number(mu.toString()+c.toString()+d.toString()+u.toString());
+            dm = Number(mmc.toString()+mmd.toString()+mmu.toString()+mc.toString()+md.toString()+mu.toString()+c.toString()+d.toString()+u.toString());
+            break;
+          case 3:
+            this.consigne = `Compléter avec le multiple de 100 qui précède et le multiple de 100 qui suit.`;
+            precision=100;
+            break;
+        };
+
+
+        //m = randint(1000,9999);
+        dm = randint(10000,99999);
+        cm = randint(100000,999999);
+        mi = randint(1000000,9999999); 
+        dmi = randint(10000000,99999999); 
+        cmi = randint(100000000,999999999); 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
         {//case 0 -->
 				},		
-			];
+      ];
+      
+      // une fonction pour les correction à la precision près
+      function encadrement_corr(nb,precision) {
+        switch (precision) {
+          case 1:
+            return `$${mise_en_evidence(tex_nombre(Math.trunc(nb/precision)*precision-precision))} < ${tex_nombre(nb)} < ${mise_en_evidence(tex_nombre(Math.trunc(nb/precision)*precision+precision))}$`;
+          case 10:
+            return `$${mise_en_evidence(tex_nombre(Math.trunc(nb/precision)*precision))} < ${tex_nombre(nb)} < ${mise_en_evidence(tex_nombre(Math.trunc(nb/precision)*precision+precision))}$`;
+          case 100:
+            return `$${mise_en_evidence(tex_nombre(Math.trunc(nb/precision)*precision))} < ${tex_nombre(nb)} < ${mise_en_evidence(tex_nombre(Math.trunc(nb/precision)*precision+precision))}$`;
+        }        
+      }
 
 			let enonces = [];
 			//for (let k=0;k<3;k++) {
@@ -14620,8 +14687,9 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
           $\\ldots < ${tex_nombre(m)} < \\ldots$          
 					`,
 					question:``,
-					correction:`
-					$${mise_en_evidence(tex_nombre(m-1))} < ${tex_nombre(m)} < ${mise_en_evidence(tex_nombre(m + 1 ))}$					`
+          correction:`
+          ${encadrement_corr(m,precision)}
+					`
 				});
 				enonces.push({
 					enonce:`
@@ -14629,7 +14697,8 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 					`,
 					question:``,
 					correction:`
-					$${mise_en_evidence(tex_nombre(dm-1))} < ${tex_nombre(dm)} < ${mise_en_evidence(tex_nombre(dm + 1 ))}$					`
+          ${encadrement_corr(dm,precision)}
+          `
 				});
 				enonces.push({
 					enonce:`
@@ -14637,7 +14706,8 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 					`,
 					question:``,
 					correction:`
-					$${mise_en_evidence(tex_nombre(cm-1))} < ${tex_nombre(cm)} < ${mise_en_evidence(tex_nombre(cm + 1 ))}$					`
+          ${encadrement_corr(cm,precision)}
+          `
 				});
 				enonces.push({
 					enonce:`
@@ -14645,7 +14715,8 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 					`,
 					question:``,
 					correction:`
-					$${mise_en_evidence(tex_nombre(mi-1))} < ${tex_nombre(mi)} < ${mise_en_evidence(tex_nombre(mi + 1 ))}$					`
+          ${encadrement_corr(mi,precision)}
+          `
 				});
 				enonces.push({
 					enonce:`
@@ -14653,7 +14724,8 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 					`,
 					question:``,
 					correction:`
-					$${mise_en_evidence(tex_nombre(dmi-1))} < ${tex_nombre(dmi)} < ${mise_en_evidence(tex_nombre(dmi + 1 ))}$					`
+          ${encadrement_corr(dmi,precision)}
+          `
 				});
 				enonces.push({
 					enonce:`
@@ -14661,12 +14733,13 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 					`,
 					question:``,
 					correction:`
-					$${mise_en_evidence(tex_nombre(cmi-1))} < ${tex_nombre(cmi)} < ${mise_en_evidence(tex_nombre(cmi + 1 ))}$					`
+          ${encadrement_corr(cmi,precision)}
+          `
 				});
 
         //};
             
-            // autant de case que d'elements dans le tableau des situations
+      // autant de case que d'elements dans le tableau des situations
 			switch (liste_type_de_questions[i]){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
@@ -14739,7 +14812,9 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 			cpt++;	
 		}
 		liste_de_question_to_contenu(this);
-	}
+  };
+  this.besoin_formulaire_numerique = ['Niveau de difficulté',3,"1 : Encadrer entre deux entiers consécutifs\n2 : Encadrer entre deux multiples consécutifs de dix\n3 : Encadrer entre deux multiples consécutifs de cent"];
+	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 
 };
 

@@ -6424,6 +6424,7 @@ function partieEntiereEnLettres(nb) {
 		classeDesUnites =  dictionnaire[nbString.substring(nbString.length-3,nbString.length).replace(/^0{1,2}/,'')].replaceAll(' ','-')
 	}
 	let result = ''
+	console.log(classeDesMilliards,classeDesMillions,classeDesMilliers,classeDesUnites)
 	if (classeDesMilliards.length>1){
 		classeDesMilliards == 'un' ? result += classeDesMilliards+'-milliard' : result += classeDesMilliards+'-milliards'
 		if (classeDesMillions!="zéro" || classeDesMilliers!="zéro" || classeDesUnites!="zéro"){
@@ -6437,7 +6438,7 @@ function partieEntiereEnLettres(nb) {
 		}
 	}
 	if (classeDesMilliers.length>1 && classeDesMilliers !="zéro"){
-		classeDesMilliers== 'un' ? result += 'mille' : result += classeDesMillions+'-mille'
+		classeDesMilliers== 'un' ? result += 'mille' : result += classeDesMilliers+'-mille'
 		if (classeDesUnites!="zéro"){
 			result +='-'
 		}

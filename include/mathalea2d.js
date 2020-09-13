@@ -272,7 +272,7 @@ function pointAdistance(...args) {
   else
     if (l == 3) {
       if (typeof (args[2]) == 'number')
-        return similitude(B, A, arags[2], d)
+        return similitude(B, A, args[2], d)
       else
         return similitude(B, A, angle, d, args[2])
     }

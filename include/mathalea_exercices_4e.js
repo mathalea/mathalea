@@ -2900,7 +2900,7 @@ function Reciproque_Thales() {
  */
 function Exercice_Pythagore() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Déterminer une longueur avec l'égalité de Pythagore";
+  this.titre = "Calculer une longueur avec l'égalité de Pythagore (MG32)";
   this.consigne = "";
   this.nb_questions = 1;
   this.nb_questions_modifiable = false;
@@ -6734,243 +6734,243 @@ function Problemes_grandeurs_composees() {
  * @Auteur Rémi Angot
  * SVG Benjamin Angot
  */
-function Egalite_Pythagore() {
-  Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Égalité de Pythagore";
-  this.nb_questions = 4;
-  this.nb_cols = 2;
-  this.nb_cols_corr = 2;
-  this.pas_de_version_LaTeX = true;
-  this.sup = 1;
-  this.sup2 = false;
+// function Egalite_Pythagore() { // Remplacée par Pythagore2D
+//   Exercice.call(this); // Héritage de la classe Exercice()
+//   this.titre = "Égalité de Pythagore";
+//   this.nb_questions = 4;
+//   this.nb_cols = 2;
+//   this.nb_cols_corr = 2;
+//   this.pas_de_version_LaTeX = true;
+//   this.sup = 1;
+//   this.sup2 = false;
 
-  this.nouvelle_version = function (numero_de_l_exercice) {
-    // this.bouton_aide = modal_texte_court(numero_de_l_exercice,"Ajouter 9 revient à ajouter 10 et à soustraire 1.")
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
-    let liste_type_de_questions = combinaison_listes(
-      range1(6),
-      this.nb_questions
-    );
-    if (this.sup == 1) {
-      this.consigne = "Pour chaque triangle, donner l'égalité de Pythagore.";
-    } else {
-      this.consigne = "Compléter.";
-    }
+//   this.nouvelle_version = function (numero_de_l_exercice) {
+//     // this.bouton_aide = modal_texte_court(numero_de_l_exercice,"Ajouter 9 revient à ajouter 10 et à soustraire 1.")
+//     this.liste_questions = []; // Liste de questions
+//     this.liste_corrections = []; // Liste de questions corrigées
+//     let liste_type_de_questions = combinaison_listes(
+//       range1(6),
+//       this.nb_questions
+//     );
+//     if (this.sup == 1) {
+//       this.consigne = "Pour chaque triangle, donner l'égalité de Pythagore.";
+//     } else {
+//       this.consigne = "Compléter.";
+//     }
 
-    for (
-      let i = 0, texte, texte_corr, a, b, cpt = 0;
-      i < this.nb_questions && cpt < 50;
+//     for (
+//       let i = 0, texte, texte_corr, a, b, cpt = 0;
+//       i < this.nb_questions && cpt < 50;
 
-    ) {
-      const triangle = new Triangles();
+//     ) {
+//       const triangle = new Triangles();
 
-      let nom = triangle.getNom();
-      let A = nom[1];
-      let B = nom[2];
-      let C = nom[3];
-      let texte_corr1 = `${nom} est rectangle en ${A}, donc d'après le théorème de Pythagore, on a : $${B}${C}^2=${A}${C}^2+${A}${B}^2$.`;
-      let texte_corr1AB = `${nom} est rectangle en ${A}, donc d'après le théorème de Pythagore, on a : $${B}${C}^2=${A}${C}^2+${A}${B}^2$ d'où $${A}${B}^2=${B}${C}^2-${A}${C}^2$.`;
-      let texte_corr1AC = `${nom} est rectangle en ${A}, donc d'après le théorème de Pythagore, on a : $${B}${C}^2=${A}${C}^2+${A}${B}^2$ d'où $${A}${C}^2=${B}${C}^2-${A}${B}^2$.`;
-      let texte_corr2 = `${nom} est rectangle en ${B}, donc d'après le théorème de Pythagore, on a : $${A}${C}^2=${B}${C}^2+${B}${A}^2$.`;
-      let texte_corr2AB = `${nom} est rectangle en ${B}, donc d'après le théorème de Pythagore, on a : $${A}${C}^2=${B}${C}^2+${A}${B}^2$ d'où $${A}${B}^2=${A}${C}^2-${B}${C}^2$.`;
-      let texte_corr2BC = `${nom} est rectangle en ${B}, donc d'après le théorème de Pythagore, on a : $${A}${C}^2=${B}${C}^2+${A}${B}^2$ d'où $${B}${C}^2=${A}${C}^2-${A}${B}^2$.`;
-      let texte_corr3 = `${nom} est rectangle en ${C}, donc d'après le théorème de Pythagore, on a : $${A}${B}^2=${C}${A}^2+${C}${B}^2$.`;
-      let texte_corr3BC = `${nom} est rectangle en ${C}, donc d'après le théorème de Pythagore, on a : $${A}${B}^2=${A}${C}^2+${B}${C}^2$ d'où $${B}${C}^2=${A}${B}^2-${A}${C}^2$.`;
-      let texte_corr3AC = `${nom} est rectangle en ${C}, donc d'après le théorème de Pythagore, on a : $${A}${B}^2=${A}${C}^2+${B}${C}^2$ d'où $${A}${C}^2=${A}${B}^2-${B}${C}^2$.`;
+//       let nom = triangle.getNom();
+//       let A = nom[1];
+//       let B = nom[2];
+//       let C = nom[3];
+//       let texte_corr1 = `${nom} est rectangle en ${A}, donc d'après le théorème de Pythagore, on a : $${B}${C}^2=${A}${C}^2+${A}${B}^2$.`;
+//       let texte_corr1AB = `${nom} est rectangle en ${A}, donc d'après le théorème de Pythagore, on a : $${B}${C}^2=${A}${C}^2+${A}${B}^2$ d'où $${A}${B}^2=${B}${C}^2-${A}${C}^2$.`;
+//       let texte_corr1AC = `${nom} est rectangle en ${A}, donc d'après le théorème de Pythagore, on a : $${B}${C}^2=${A}${C}^2+${A}${B}^2$ d'où $${A}${C}^2=${B}${C}^2-${A}${B}^2$.`;
+//       let texte_corr2 = `${nom} est rectangle en ${B}, donc d'après le théorème de Pythagore, on a : $${A}${C}^2=${B}${C}^2+${B}${A}^2$.`;
+//       let texte_corr2AB = `${nom} est rectangle en ${B}, donc d'après le théorème de Pythagore, on a : $${A}${C}^2=${B}${C}^2+${A}${B}^2$ d'où $${A}${B}^2=${A}${C}^2-${B}${C}^2$.`;
+//       let texte_corr2BC = `${nom} est rectangle en ${B}, donc d'après le théorème de Pythagore, on a : $${A}${C}^2=${B}${C}^2+${A}${B}^2$ d'où $${B}${C}^2=${A}${C}^2-${A}${B}^2$.`;
+//       let texte_corr3 = `${nom} est rectangle en ${C}, donc d'après le théorème de Pythagore, on a : $${A}${B}^2=${C}${A}^2+${C}${B}^2$.`;
+//       let texte_corr3BC = `${nom} est rectangle en ${C}, donc d'après le théorème de Pythagore, on a : $${A}${B}^2=${A}${C}^2+${B}${C}^2$ d'où $${B}${C}^2=${A}${B}^2-${A}${C}^2$.`;
+//       let texte_corr3AC = `${nom} est rectangle en ${C}, donc d'après le théorème de Pythagore, on a : $${A}${B}^2=${A}${C}^2+${B}${C}^2$ d'où $${A}${C}^2=${A}${B}^2-${B}${C}^2$.`;
 
-      switch (liste_type_de_questions[i]) {
-        case 1:
-          texte = `<div><svg width="400" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
-			  <polygon points="40,40 240,40 40,140 " fill="none" stroke="black" />
-			  <polygon points="40,40 50,40 50,50 40,50" fill="none" stroke="black" />
-			  <text x="30" y="40" text-anchor="middle" alignment-baseline="central">${A}</text> 
-			  <text x="250" y="40" text-anchor="middle" alignment-baseline="central">${B}</text>
-			  <text x="30" y="140" text-anchor="middle" alignment-baseline="central">${C}</text>
-			</svg></div>`;
-          if (this.sup2) {
-            texte = `${nom} est rectangle en $${A}$.<br>`;
-          }
-          if (this.sup == 1) {
-            texte_corr = texte_corr1;
-          } else {
-            let cas = randint(1, 3);
-            if (cas == 1) {
-              texte += `$${A}${B}^2=\\ldots$`;
-              texte_corr = texte_corr1AB;
-            }
-            if (cas == 2) {
-              texte += `$${A}${C}^2=\\ldots$`;
-              texte_corr = texte_corr1AC;
-            }
-            if (cas == 3) {
-              texte += `$${B}${C}^2=\\ldots$`;
-              texte_corr = texte_corr1;
-            }
-          }
-          break;
-        case 2:
-          texte = `<div><svg width="400" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
-			  <polygon points="40,40 240,40 240,140 " fill="none" stroke="black" />
-			  <polygon points="240,40 230,40 230,50 240,50" fill="none" stroke="black" />
-			  <text x="30" y="40" text-anchor="middle" alignment-baseline="central">${A}</text> 
-			  <text x="250" y="40" text-anchor="middle" alignment-baseline="central">${B}</text>
-			  <text x="250" y="140" text-anchor="middle" alignment-baseline="central">${C}</text>
-			</svg></div>`;
-          if (this.sup2) {
-            texte = `${nom} est rectangle en $${B}$.<br>`;
-          }
-          if (this.sup == 1) {
-            texte_corr = texte_corr2;
-          } else {
-            let cas = randint(1, 3);
-            if (cas == 1) {
-              texte += `$${A}${B}^2=\\ldots$`;
-              texte_corr = texte_corr2AB;
-            }
-            if (cas == 2) {
-              texte += `$${A}${C}^2=\\ldots$`;
-              texte_corr = texte_corr2;
-            }
-            if (cas == 3) {
-              texte += `$${B}${C}^2=\\ldots$`;
-              texte_corr = texte_corr2BC;
-            }
-          }
-          break;
-        case 3:
-          texte = `<div><svg width="200" height"300" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
-			  <polygon points="40,40 140,40 40,240" fill="none" stroke="black" />
-			  <polygon points="40,40 50,40 50,50 40,50" fill="none" stroke="black" />
-			  <text x="30" y="240" text-anchor="middle" alignment-baseline="central">${A}</text> 
-			  <text x="150" y="40" text-anchor="middle" alignment-baseline="central">${B}</text>
-			  <text x="30" y="40" text-anchor="middle" alignment-baseline="central">${C}</text>
-			</svg></div>`;
-          if (this.sup2) {
-            texte = `${nom} est rectangle en $${C}$.<br>`;
-          }
-          if (this.sup == 1) {
-            texte_corr = texte_corr3;
-          } else {
-            let cas = randint(1, 3);
-            if (cas == 1) {
-              texte += `$${A}${B}^2=\\ldots$`;
-              texte_corr = texte_corr3;
-            }
-            if (cas == 2) {
-              texte += `$${A}${C}^2=\\ldots$`;
-              texte_corr = texte_corr3AC;
-            }
-            if (cas == 3) {
-              texte += `$${B}${C}^2=\\ldots$`;
-              texte_corr = texte_corr3BC;
-            }
-          }
-          break;
-        case 4:
-          texte = `<div><svg width="200" height"300" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
-			  <polygon points="40,40 140,40 140,240" fill="none" stroke="black" />
-			  <polygon points="140,40 140,50 130,50 130,40" fill="none" stroke="black" />
-			  <text x="30" y="40" text-anchor="middle" alignment-baseline="central">${A}</text> 
-			  <text x="150" y="40" text-anchor="middle" alignment-baseline="central">${B}</text>
-			  <text x="150" y="240" text-anchor="middle" alignment-baseline="central">${C}</text>
-			</svg></div>`;
-          if (this.sup2) {
-            texte = `${nom} est rectangle en $${B}$.<br>`;
-          }
-          if (this.sup == 1) {
-            texte_corr = texte_corr2;
-          } else {
-            let cas = randint(1, 3);
-            if (cas == 1) {
-              texte += `$${A}${B}^2=\\ldots$`;
-              texte_corr = texte_corr2AB;
-            }
-            if (cas == 2) {
-              texte += `$${A}${C}^2=\\ldots$`;
-              texte_corr = texte_corr2;
-            }
-            if (cas == 3) {
-              texte += `$${B}${C}^2=\\ldots$`;
-              texte_corr = texte_corr2BC;
-            }
-          }
-          break;
-        case 5:
-          texte = `<div><svg width="400" height"200" viewBox="-40 -40 400 200" xmlns="http://www.w3.org/2000/svg">
-			  <polygon points="0,0 200,0 40,80.6" fill="none" stroke="black" />
-			  <polygon points="40,80.6 50,76.2 46,67.2 36,71.8" fill="none" stroke="black" />
-			  <text x="40" y="90.6" text-anchor="middle" alignment-baseline="central">${A}</text> 
-			  <text x="210" y="0" text-anchor="middle" alignment-baseline="central">${B}</text>
-			  <text x="-10" y="0" text-anchor="middle" alignment-baseline="central">${C}</text>
-			</svg></div>`;
-          if (this.sup2) {
-            texte = `${nom} est rectangle en $${A}$.<br>`;
-          }
-          if (this.sup == 1) {
-            texte_corr = texte_corr1;
-          } else {
-            let cas = randint(1, 3);
-            if (cas == 1) {
-              texte += `$${A}${B}^2=\\ldots$`;
-              texte_corr = texte_corr1AB;
-            }
-            if (cas == 2) {
-              texte += `$${A}${C}^2=\\ldots$`;
-              texte_corr = texte_corr1AC;
-            }
-            if (cas == 3) {
-              texte += `$${B}${C}^2=\\ldots$`;
-              texte_corr = texte_corr1;
-            }
-          }
-          break;
-        case 6:
-          texte = `<div><svg width="400" height"200" viewBox="-40 -140 400 200"  xmlns="http://www.w3.org/2000/svg">
-			  <polygon points="0,0 200,0 40,-80.6" fill="none" stroke="black" />
-			  <polygon points="40,-80.6 50,-76.2 46,-67.2 36,-71.8" fill="none" stroke="black" />
-			  <text x="40" y="-90.6" text-anchor="middle" alignment-baseline="central">${C}</text> 
-			  <text x="210" y="0" text-anchor="middle" alignment-baseline="central">${B}</text>
-			  <text x="-10" y="0" text-anchor="middle" alignment-baseline="central">${A}</text>
-			</svg></div>`;
-          if (this.sup2) {
-            texte = `${nom} est rectangle en $${C}$.<br>`;
-          }
-          if (this.sup == 1) {
-            texte_corr = texte_corr1;
-          } else {
-            let cas = randint(1, 3);
-            if (cas == 1) {
-              texte += `$${A}${B}^2=\\ldots$`;
-              texte_corr = texte_corr1AB;
-            }
-            if (cas == 2) {
-              texte += `$${A}${C}^2=\\ldots$`;
-              texte_corr = texte_corr1AC;
-            }
-            if (cas == 3) {
-              texte += `$${B}${C}^2=\\ldots$`;
-              texte_corr = texte_corr1;
-            }
-          }
-      }
-      if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
-        i++;
-      }
-      cpt++;
-    }
-    liste_de_question_to_contenu(this);
-  };
-  this.besoin_formulaire_numerique = [
-    "Type de questions",
-    2,
-    "1 : Donner l'égalité\n2 : Compléter une égalité avec une addition ou une soustraction",
-  ];
-  this.besoin_formulaire2_case_a_cocher = ["Sans figures"];
-}
+//       switch (liste_type_de_questions[i]) {
+//         case 1:
+//           texte = `<div><svg width="400" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+// 			  <polygon points="40,40 240,40 40,140 " fill="none" stroke="black" />
+// 			  <polygon points="40,40 50,40 50,50 40,50" fill="none" stroke="black" />
+// 			  <text x="30" y="40" text-anchor="middle" alignment-baseline="central">${A}</text> 
+// 			  <text x="250" y="40" text-anchor="middle" alignment-baseline="central">${B}</text>
+// 			  <text x="30" y="140" text-anchor="middle" alignment-baseline="central">${C}</text>
+// 			</svg></div>`;
+//           if (this.sup2) {
+//             texte = `${nom} est rectangle en $${A}$.<br>`;
+//           }
+//           if (this.sup == 1) {
+//             texte_corr = texte_corr1;
+//           } else {
+//             let cas = randint(1, 3);
+//             if (cas == 1) {
+//               texte += `$${A}${B}^2=\\ldots$`;
+//               texte_corr = texte_corr1AB;
+//             }
+//             if (cas == 2) {
+//               texte += `$${A}${C}^2=\\ldots$`;
+//               texte_corr = texte_corr1AC;
+//             }
+//             if (cas == 3) {
+//               texte += `$${B}${C}^2=\\ldots$`;
+//               texte_corr = texte_corr1;
+//             }
+//           }
+//           break;
+//         case 2:
+//           texte = `<div><svg width="400" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+// 			  <polygon points="40,40 240,40 240,140 " fill="none" stroke="black" />
+// 			  <polygon points="240,40 230,40 230,50 240,50" fill="none" stroke="black" />
+// 			  <text x="30" y="40" text-anchor="middle" alignment-baseline="central">${A}</text> 
+// 			  <text x="250" y="40" text-anchor="middle" alignment-baseline="central">${B}</text>
+// 			  <text x="250" y="140" text-anchor="middle" alignment-baseline="central">${C}</text>
+// 			</svg></div>`;
+//           if (this.sup2) {
+//             texte = `${nom} est rectangle en $${B}$.<br>`;
+//           }
+//           if (this.sup == 1) {
+//             texte_corr = texte_corr2;
+//           } else {
+//             let cas = randint(1, 3);
+//             if (cas == 1) {
+//               texte += `$${A}${B}^2=\\ldots$`;
+//               texte_corr = texte_corr2AB;
+//             }
+//             if (cas == 2) {
+//               texte += `$${A}${C}^2=\\ldots$`;
+//               texte_corr = texte_corr2;
+//             }
+//             if (cas == 3) {
+//               texte += `$${B}${C}^2=\\ldots$`;
+//               texte_corr = texte_corr2BC;
+//             }
+//           }
+//           break;
+//         case 3:
+//           texte = `<div><svg width="200" height"300" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+// 			  <polygon points="40,40 140,40 40,240" fill="none" stroke="black" />
+// 			  <polygon points="40,40 50,40 50,50 40,50" fill="none" stroke="black" />
+// 			  <text x="30" y="240" text-anchor="middle" alignment-baseline="central">${A}</text> 
+// 			  <text x="150" y="40" text-anchor="middle" alignment-baseline="central">${B}</text>
+// 			  <text x="30" y="40" text-anchor="middle" alignment-baseline="central">${C}</text>
+// 			</svg></div>`;
+//           if (this.sup2) {
+//             texte = `${nom} est rectangle en $${C}$.<br>`;
+//           }
+//           if (this.sup == 1) {
+//             texte_corr = texte_corr3;
+//           } else {
+//             let cas = randint(1, 3);
+//             if (cas == 1) {
+//               texte += `$${A}${B}^2=\\ldots$`;
+//               texte_corr = texte_corr3;
+//             }
+//             if (cas == 2) {
+//               texte += `$${A}${C}^2=\\ldots$`;
+//               texte_corr = texte_corr3AC;
+//             }
+//             if (cas == 3) {
+//               texte += `$${B}${C}^2=\\ldots$`;
+//               texte_corr = texte_corr3BC;
+//             }
+//           }
+//           break;
+//         case 4:
+//           texte = `<div><svg width="200" height"300" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+// 			  <polygon points="40,40 140,40 140,240" fill="none" stroke="black" />
+// 			  <polygon points="140,40 140,50 130,50 130,40" fill="none" stroke="black" />
+// 			  <text x="30" y="40" text-anchor="middle" alignment-baseline="central">${A}</text> 
+// 			  <text x="150" y="40" text-anchor="middle" alignment-baseline="central">${B}</text>
+// 			  <text x="150" y="240" text-anchor="middle" alignment-baseline="central">${C}</text>
+// 			</svg></div>`;
+//           if (this.sup2) {
+//             texte = `${nom} est rectangle en $${B}$.<br>`;
+//           }
+//           if (this.sup == 1) {
+//             texte_corr = texte_corr2;
+//           } else {
+//             let cas = randint(1, 3);
+//             if (cas == 1) {
+//               texte += `$${A}${B}^2=\\ldots$`;
+//               texte_corr = texte_corr2AB;
+//             }
+//             if (cas == 2) {
+//               texte += `$${A}${C}^2=\\ldots$`;
+//               texte_corr = texte_corr2;
+//             }
+//             if (cas == 3) {
+//               texte += `$${B}${C}^2=\\ldots$`;
+//               texte_corr = texte_corr2BC;
+//             }
+//           }
+//           break;
+//         case 5:
+//           texte = `<div><svg width="400" height"200" viewBox="-40 -40 400 200" xmlns="http://www.w3.org/2000/svg">
+// 			  <polygon points="0,0 200,0 40,80.6" fill="none" stroke="black" />
+// 			  <polygon points="40,80.6 50,76.2 46,67.2 36,71.8" fill="none" stroke="black" />
+// 			  <text x="40" y="90.6" text-anchor="middle" alignment-baseline="central">${A}</text> 
+// 			  <text x="210" y="0" text-anchor="middle" alignment-baseline="central">${B}</text>
+// 			  <text x="-10" y="0" text-anchor="middle" alignment-baseline="central">${C}</text>
+// 			</svg></div>`;
+//           if (this.sup2) {
+//             texte = `${nom} est rectangle en $${A}$.<br>`;
+//           }
+//           if (this.sup == 1) {
+//             texte_corr = texte_corr1;
+//           } else {
+//             let cas = randint(1, 3);
+//             if (cas == 1) {
+//               texte += `$${A}${B}^2=\\ldots$`;
+//               texte_corr = texte_corr1AB;
+//             }
+//             if (cas == 2) {
+//               texte += `$${A}${C}^2=\\ldots$`;
+//               texte_corr = texte_corr1AC;
+//             }
+//             if (cas == 3) {
+//               texte += `$${B}${C}^2=\\ldots$`;
+//               texte_corr = texte_corr1;
+//             }
+//           }
+//           break;
+//         case 6:
+//           texte = `<div><svg width="400" height"200" viewBox="-40 -140 400 200"  xmlns="http://www.w3.org/2000/svg">
+// 			  <polygon points="0,0 200,0 40,-80.6" fill="none" stroke="black" />
+// 			  <polygon points="40,-80.6 50,-76.2 46,-67.2 36,-71.8" fill="none" stroke="black" />
+// 			  <text x="40" y="-90.6" text-anchor="middle" alignment-baseline="central">${C}</text> 
+// 			  <text x="210" y="0" text-anchor="middle" alignment-baseline="central">${B}</text>
+// 			  <text x="-10" y="0" text-anchor="middle" alignment-baseline="central">${A}</text>
+// 			</svg></div>`;
+//           if (this.sup2) {
+//             texte = `${nom} est rectangle en $${C}$.<br>`;
+//           }
+//           if (this.sup == 1) {
+//             texte_corr = texte_corr1;
+//           } else {
+//             let cas = randint(1, 3);
+//             if (cas == 1) {
+//               texte += `$${A}${B}^2=\\ldots$`;
+//               texte_corr = texte_corr1AB;
+//             }
+//             if (cas == 2) {
+//               texte += `$${A}${C}^2=\\ldots$`;
+//               texte_corr = texte_corr1AC;
+//             }
+//             if (cas == 3) {
+//               texte += `$${B}${C}^2=\\ldots$`;
+//               texte_corr = texte_corr1;
+//             }
+//           }
+//       }
+//       if (this.liste_questions.indexOf(texte) == -1) {
+//         // Si la question n'a jamais été posée, on en créé une autre
+//         this.liste_questions.push(texte);
+//         this.liste_corrections.push(texte_corr);
+//         i++;
+//       }
+//       cpt++;
+//     }
+//     liste_de_question_to_contenu(this);
+//   };
+//   this.besoin_formulaire_numerique = [
+//     "Type de questions",
+//     2,
+//     "1 : Donner l'égalité\n2 : Compléter une égalité avec une addition ou une soustraction",
+//   ];
+//   this.besoin_formulaire2_case_a_cocher = ["Sans figures"];
+// }
 
 /**
  * Signe d'un produit ou d'on quotient de relatifs
@@ -11163,11 +11163,11 @@ function Priorites_et_relatifs() {
  */
 function Pythagore2D() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Utiliser le théorème de Pythagore";
+  this.titre = "Calculer une longueur avec le théorème de Pythagore";
   this.nb_questions = 3;
   this.nb_cols = 3;
   this.nb_cols_corr = 1;
-  this.sup = 3;
+  let type_exercice = 'Calculer'
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
@@ -11175,14 +11175,12 @@ function Pythagore2D() {
     let liste_type_de_questions = [];
     if (this.sup==1) {
       this.consigne = "Dans chaque cas, donner l'égalité de Pythagore."
-    }
-    if (this.sup==2){
+    } else if (this.sup==2){
       this.consigne = "Dans chaque cas, compléter l'égalité en utilisant le théorème de Pythagore."
+    } else {
+         this.consigne = "Dans chaque cas, calculer la longueur manquante."
     }
-    if (this.sup==3 || this.sup==4){
-      this.consigne = "Dans chaque cas, calculer la longueur manquante."
-    }
-    if (this.sup == 2 || this.sup == 3 ){
+    if (this.sup == 2 || type_exercice == 'Calculer' ){
       liste_type_de_questions = combinaison_listes(['AB','BC','AC'],this.nb_questions) 
     }
     for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;)
@@ -11214,13 +11212,13 @@ function Pythagore2D() {
       let mesObjetsATracer = [codage,p2,nomme]
   
 
-      if (this.sup==3 && liste_type_de_questions[i]=='AB'){
+      if (type_exercice == 'Calculer' && liste_type_de_questions[i]=='AB'){
         mesObjetsATracer.push(affAC,affBC)
       }
-      if (this.sup==3 && liste_type_de_questions[i]=='BC'){
+      if (type_exercice == 'Calculer' && liste_type_de_questions[i]=='BC'){
         mesObjetsATracer.push(affAC,affAB)
       }
-      if (this.sup==3 && liste_type_de_questions[i]=='AC'){
+      if (type_exercice == 'Calculer' && liste_type_de_questions[i]=='AC'){
         mesObjetsATracer.push(affAB,affBC)
       }
 
@@ -11252,7 +11250,7 @@ function Pythagore2D() {
           texte_corr += ` d'où $${A.nom+C.nom}^2=${B.nom+C.nom}^2-${A.nom+B.nom}^2$.`
         }
       }
-      if (this.sup==3){
+      if (type_exercice == "Calculer"){
         if (liste_type_de_questions[i]=='AB'){
           texte_corr += ` donc $${A.nom+B.nom}^2=${B.nom+C.nom}^2-${A.nom+C.nom}^2$`
           texte_corr += `<br> $${A.nom+B.nom}^2=${tex_nombre(longueurBC)}^2-${tex_nombre(longueurAC)}^2=${tex_nombrec(longueurBC**2-longueurAC**2)}$`
@@ -11291,5 +11289,14 @@ function Pythagore2D() {
     }
     liste_de_question_to_contenu(this);
   };
-  this.besoin_formulaire_numerique = ['Niveau de difficulté',3,"1 : Donner l'égalité de Pythagore\n2 : Compléter l'égalité de Pythagore\n3 : Calculer une longueur manquante"];
+  //this.besoin_formulaire_numerique = ['Niveau de difficulté',3,"1 : Donner l'égalité de Pythagore\n2 : Compléter l'égalité de Pythagore\n3 : Calculer une longueur manquante"];
+}
+
+function Egalite_Pythagore2D(){
+  Pythagore2D.call(this);
+  this.titre = "Donner ou compléter une égalité de Pythagore"
+  this.sup = 1;
+  type_exercice = ''
+  this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Donner l'égalité de Pythagore\n2 : Compléter l'égalité de Pythagore"];
+
 }
