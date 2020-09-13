@@ -174,9 +174,8 @@ function Terme_d_une_suite_definie_par_recurrence(){
           for (
             let indice =0; indice < k; indice++ 
           ){
-            texte_corr += `<br> $u_{${indice+1}} = u_{${indice}}`;
-            if (a > 0) {texte_corr += `+ ${a} = ${u} + ${a} = ${u}$`}
-            else {texte_corr += ` ${a} = ${u}  ${a} = ${u}$`}; // a étant négatif l'opérateur est intégré dans la variable
+            texte_corr += `<br> $u_{${indice+1}} = ${mise_en_evidence('u_{' + indice + '}', arcenciel(indice))} ${ecriture_algebrique(a)} = 
+              ${mise_en_evidence(u, arcenciel(indice))} + ${a} = ${mise_en_evidence(u + a, arcenciel(indice+1))}$`;
             u = u + a;
           }
           break;
@@ -194,7 +193,8 @@ function Terme_d_une_suite_definie_par_recurrence(){
           for (
             let indice =0; indice < k; indice++ 
           ){
-            texte_corr += `<br> $u_{${indice+1}} = u_{${indice}} \\times ${ecriture_parenthese_si_negatif(a)} = ${u} \\times ${ecriture_parenthese_si_negatif(a)} = ${u*a}$`;
+            texte_corr += `<br> $u_{${indice+1}} = ${mise_en_evidence('u_{' + indice + '}', arcenciel(indice))} \\times ${ecriture_parenthese_si_negatif(a)} = 
+            ${mise_en_evidence(u, arcenciel(indice))} \\times ${ecriture_parenthese_si_negatif(a)} = ${mise_en_evidence(u * a, arcenciel(indice+1))}$`;
             u = u * a;
           }
           break;
@@ -213,8 +213,9 @@ function Terme_d_une_suite_definie_par_recurrence(){
           for (
             let indice =0; indice < k; indice++ 
           ){
-            texte_corr += `<br> $u_{${indice+1}} = ${a}\\times u_{${indice}} ${ecriture_algebrique(b)}=`;
-            texte_corr += `${a} \\times ${ecriture_parenthese_si_negatif(u)} ${ecriture_algebrique(b)} = ${a*u+b}$`;
+            texte_corr += `<br> $u_{${indice+1}} = ${a}\\times ${mise_en_evidence('u_{' + indice + '}', arcenciel(indice))} ${ecriture_algebrique(b)}=`;
+            texte_corr += `${a} \\times ${ecriture_parenthese_si_negatif(mise_en_evidence(u, arcenciel(indice)))} ${ecriture_algebrique(b)} = 
+            ${mise_en_evidence(a*u+b, arcenciel(indice+1))}$`;
             u = u * a + b;
           }
           break;
@@ -233,8 +234,9 @@ function Terme_d_une_suite_definie_par_recurrence(){
           for (
             let indice =0; indice < k; indice++ 
           ){
-            texte_corr += `<br> $u_{${indice+1}} = ${a} ${signe(b)} (u_{${indice}})^2=`;
-            texte_corr += `${a} ${signe(b)} ${ecriture_parenthese_si_negatif(u)}^2 = ${tex_nombre(a+b*u*u)}$`;
+            texte_corr += `<br> $u_{${indice+1}} = ${a} ${signe(b)} (${mise_en_evidence('u_{' + indice + '}', arcenciel(indice))})^2=`;
+            texte_corr += `${a} ${signe(b)} ${ecriture_parenthese_si_negatif(mise_en_evidence(u, arcenciel(indice)))}^2 = 
+              ${mise_en_evidence(tex_nombre(a+b*u*u), arcenciel(indice+1))}$`;
             u = a + b * u * u;
           }
           break;
