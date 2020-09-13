@@ -7893,6 +7893,7 @@ function Pourcentage_d_un_nombre() {
  */
 
 function Fractions_d_unite() {
+  "use strict"
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Représenter une fraction de l\'unité";
   this.nb_questions = 5;
@@ -7900,14 +7901,14 @@ function Fractions_d_unite() {
   sortie_html ? (this.spacing_corr = 3.5) : (this.spacing_corr = 2);
   sortie_html ? (this.spacing = 2) : (this.spacing = 2);
   this.sup = 1;
-  this.sup2=true
+  this.sup2=1;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles
+    let type_de_questions_disponibles,g,carreaux,sc,unit
     let liste_type_de_questions=[]
     if (this.sup<5)
       type_de_questions_disponibles=[parseInt(this.sup)]
@@ -7926,24 +7927,41 @@ function Fractions_d_unite() {
      break
         case 2 :
           den=choice([2,3,4])
-          num=randint(3,3*den-1,den)
+          if (den==3)  num=randint(3,2*den-1,den)
+          else num=randint(3,3*den-1,den)
          break
         case 3 :
           den=choice([4,5,6,10])
-          num=randint(3,3*den-1,den)
+          if (den==4) num=randint(5,3*den-1,den)
+          else num=randint(5,2*den-1,den)
         break
         case 4:
           den=choice([2,3,4,5,6,10])
-          num=randint(den+1,3*den-1,den)
+          if (den==2||den==4) num=randint(den+1,3*den-1,den)
+          else num=randint(den+1,2*den-1,den)
         break
       }
+      if (den%3==0) unit=12
+      else if (den%5==0) unit=10
+      else unit=8
       frac=fraction(num,den)
       frac_unite=fraction(3*den-1,den)
-      texte=`$${frac.texFraction()}$ unité`
+      texte=`$${frac.texFraction()}$ unité en prenant ${unit} carreaux pour une unité.`
       //if (num/den>=2) texte+=`s`
       texte+=`.<br>`
       //texte+=mathalea2d({xmin:0,ymin:0,xmax:16,ymax:2},frac_unite.representation(0.5,1.5,5,0,'segment','',"0","1"))
-      texte_corr=mathalea2d({xmin:0,ymin:0,xmax:16,ymax:2},frac.representation(0.5,1.5,5,0,'segment','blue',0,1))
+      if (this.sup2 < 3) g = grille(0, 0,26, 2, "gray", 0.7);
+      else g = "";
+      if (this.sup2 == 2) {
+        sc = 0.6;
+        carreaux = seyes(0, 0, 26, 2);
+      } else {
+        sc = 0.5;
+        carreaux = "";
+      }
+ 
+      
+      texte_corr=mathalea2d({xmin:0,ymin:0,xmax:26,ymax:2,pixelsParCm:20,scale:sc},frac.representation(1,1,unit,0,'segment','blue',0,1),g,carreaux)
 
 
 
@@ -7958,7 +7976,7 @@ function Fractions_d_unite() {
   liste_de_question_to_contenu(this);
 };
 this.besoin_formulaire_numerique = ["Type d\'exercices",4,"1 : fracion inférieure à 1\n2 : demis, tiers et quarts\n3 : quarts, cinquièmes, sixièmes et dixièmes\n4 : toutes les fractions entre 1 et 3"];
-this.besoin_formulaire2_case_a_cocher = ["Avec dessin", true];
+this.besoin_formulaire2_numerique = ["Type de cahier",3,"1 :  petits carreaux\n2 Cahier gros carreaux type Seyes:\n3 : Sans carreau,papier blanc"];
 }
 /**
  * Calculer la fracton d'une quantité avec ou sans dessin.
@@ -11030,6 +11048,7 @@ function Transformations() {
   this.nb_questions_modifiable = false;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
+  this.pas_de_version_LaTeX = true;
   // this.sup = 1; // 1 pour les 6ème, 2 pour les 5èmes, 3 pour les 4èmes, et 4 pour les 3èmes.
   sortie_html ? (this.spacing_corr = 2.5) : (this.spacing_corr = 1.5);
   this.liste_packages = "tkz-euclide";
@@ -11391,7 +11410,7 @@ function Transformations() {
       liste_de_question_to_contenu_sans_numero(this);
     } else {
       texte = ``;
-      texte_cor = ``;
+      texte_corr = ``;
       this.liste_questions.push(texte); // on envoie la question
       this.liste_corrections.push(texte_corr);
       liste_de_question_to_contenu_sans_numero(this);
@@ -11537,30 +11556,35 @@ function Transformations_6e() {
   Transformations.call(this);
   this.sup = 1;
   this.titre = `Trouver l'image d'un point par une symétrie axiale`;
+  this.pas_de_version_LaTeX = true;
 }
 
 function Symetrie_axiale_5e() {
   Transformations.call(this);
   this.sup = 1;
   this.titre = `Trouver l'image d'un point par une symétrie axiale`;
+  this.pas_de_version_LaTeX = true;
 }
 
 function Transformations_5e() {
   Transformations.call(this);
   this.sup = 2;
   this.titre = `Trouver l'image d'un point par une symétrie axiale ou centrale`;
+  this.pas_de_version_LaTeX = true;
 }
 
 function Transformations_4e() {
   Transformations.call(this);
   this.sup = 3;
   this.titre = `Trouver l'image d'un point par une symétrie axiale ou centrale ou par une translation`;
+  this.pas_de_version_LaTeX = true;
 }
 
 function Transformations_3e() {
   Transformations.call(this);
   this.sup = 4;
   this.titre = `Trouver l'image d'un point par une transformation choisie aléatoirement`;
+  this.pas_de_version_LaTeX = true;
 }
 
 function Calcul_de_volumes_6e() {
@@ -14805,16 +14829,16 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 function Ranger_ordre_croissant_decroissant(){
  'use strict';
  Exercice.call(this); // Héritage de la classe Exercice()
- this.beta = true;	
+ this.beta = false;	
  this.sup=1;
  if (this.beta) {
-   this.nb_questions = 5;
+   this.nb_questions = 2;
  } else {
-   this.nb_questions = 3;
+   this.nb_questions = 2;
  };	
 
  this.titre = "Ranger une liste de nombres entiers dans l'ordre croissant ou décroissant";	
- this.consigne = `Classer les nombres suivants dans l'ordre indiqué. `;	
+ this.consigne = `Classer les nombres suivants dans l'ordre indiqué.`;	
  
  this.nb_cols = 1;
  this.nb_cols_corr = 1;
@@ -14826,9 +14850,10 @@ function Ranger_ordre_croissant_decroissant(){
 
  this.nouvelle_version = function(numero_de_l_exercice){
    if (this.beta) {
-     type_de_questions_disponibles = [0,1,2,3,4];			
+     type_de_questions_disponibles = [0,1];			
    } else {
-         type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
+         //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
+         type_de_questions_disponibles = [0,1];			
    };
 
    this.liste_questions = []; // Liste de questions
@@ -14838,88 +14863,89 @@ function Ranger_ordre_croissant_decroissant(){
    let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
    
    for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+     // les chiffres
+     let c1 = randint(1,9);
+     let c2 = randint(1,9,[c1]);
+     let c3 = randint(1,9,[c1,c2]);
+     let c4 = randint(1,9,[c1,c2,c3]);
+     let c5 = randint(1,9,[c1,c2,c3,c4]);
 
      // pour les situations, autant de situations que de cas dans le switch !
      let situations = [
        {//case 0 -->
+        ordre:'croissant',
+        n1: Number(c1.toString()+c2.toString()+c3.toString()+c4.toString()+c5.toString()),
+        n2: Number(c1.toString()+c3.toString()+c2.toString()+c4.toString()+c5.toString()),
+        n3: Number(c1.toString()+c2.toString()+c5.toString()+c4.toString()+c3.toString()),
+        n4: Number(c1.toString()+randint(0,9).toString()+randint(0,9).toString()+randint(0,9).toString()),
+        n5: Number('1'.toString()+randint(0,9).toString()+randint(0,9).toString()+randint(0,9).toString()+randint(0,9).toString()+randint(0,9).toString()),
+        n6: Number(c1.toString()+c2.toString()+randint(0,9).toString()+randint(0,9).toString()+randint(0,9).toString()),
        },
        {//case 1 -->
-       },
-       {//case 2 -->
-       },
-       {//case 3 -->
-       },
-       {//case 4 -->
-       },
-   
+        ordre:'decroissant',
+        n1: Number(c1.toString()+c2.toString()+c3.toString()+c4.toString()+c5.toString()),
+        n2: Number(c1.toString()+c3.toString()+c2.toString()+c4.toString()+c5.toString()),
+        n3: Number(c1.toString()+c2.toString()+c5.toString()+c4.toString()+c3.toString()),
+        n4: Number(c1.toString()+randint(0,9).toString()+randint(0,9).toString()+randint(0,9).toString()),
+        n5: Number('1'.toString()+randint(0,9).toString()+randint(0,9).toString()+randint(0,9).toString()+randint(0,9).toString()+randint(0,9).toString()),
+        n6: Number(c1.toString()+c2.toString()+randint(0,9).toString()+randint(0,9).toString()+randint(0,9).toString()),
+       },   
      ];
 
+     // une fonction pour gérer l'ordre
+     function myOrdre(ordre,tab) {
+      tab.sort((a,b) => a - b);          
+      switch (ordre) {
+        case 'croissant':
+          return tab;
+        case 'decroissant':
+          return tab.reverse();          
+      };
+     };
+
      let enonces = [];
+     let nombres = [];
+     let nombres_ranges = [];
      for (let k=0;k<situations.length;k++) {
-       enonces.push({
-         enonce:`
-         Type ${k}				
-         `,
-         question:``,
-         correction:`
-         Correction type ${k}
-         `
-       });
+      nombres = shuffle([situations[k].n1,situations[k].n2,situations[k].n3,situations[k].n4,situations[k].n5,situations[k].n6]);
+      nombres.forEach(element => {
+        nombres_ranges.push(element);        
+      });      
+      myOrdre(situations[k].ordre,nombres_ranges);   
+      enonces.push({
+        enonce:`Dans l'ordre ${situations[k].ordre}<br>
+        $${tex_nombre(nombres[0])}$   ;   $${tex_nombre(nombres[1])}$   ;   $${tex_nombre(nombres[2])}$   ;   $${tex_nombre(nombres[3])}$   ;   $${tex_nombre(nombres[4])}$   ;   $${tex_nombre(nombres[5])}$          
+        `,
+        question:``,
+        correction:`Les nombres rangés dans l'ordre ${situations[k].ordre} :<br>
+        $${tex_nombre(nombres_ranges[0])}$   ;   $${tex_nombre(nombres_ranges[1])}$   ;   $${tex_nombre(nombres_ranges[2])}$   ;   $${tex_nombre(nombres_ranges[3])}$   ;   $${tex_nombre(nombres_ranges[4])}$   ;   $${tex_nombre(nombres_ranges[5])}$
+        `
+      });
      };
            
            // autant de case que d'elements dans le tableau des situations
      switch (liste_type_de_questions[i]){
-       case 0 : 
-         texte = `${enonces[0].enonce}`;
-         if (this.beta) {
-           texte += `<br>`;
-           texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
-           texte += `             `
-           texte_corr = ``;	
-         } else {
-           texte_corr = `${enonces[0].correction}`;
-         };
-               break;	
-           case 1 : 
-         texte = `${enonces[1].enonce}`;
-         if (this.beta) {
-           texte += `<br>`;
-           texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
-           texte_corr = ``;	
-         } else {
-           texte_corr = `${enonces[1].correction}`;
-         };
-               break;
-           case 2 : 
-         texte = `${enonces[2].enonce}`;
-         if (this.beta) {
-           texte += `<br>`;
-           texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
-           texte_corr = ``;	
-         } else {
-           texte_corr = `${enonces[2].correction}`;
-         };
-               break;				
-           case 3 : 
-         texte = `${enonces[3].enonce}`;
-         if (this.beta) {
-           texte += `<br>`;
-           texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
-           texte_corr = ``;	
-         } else {
-           texte_corr = `${enonces[3].correction}`;
-         };
-         break;				
-            case 4 : 
-         texte = `${enonces[4].enonce}`;
-         if (this.beta) {
-           texte += `<br>`;
-           texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
-           texte_corr = ``;	
-         } else {
-           texte_corr = `${enonces[4].correction}`;
-         };
-         break;				
+      case 0 : 
+        texte = `${enonces[0].enonce}`;
+        if (this.beta) {
+          texte += `<br>`;
+          texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
+          texte += `             `
+          texte_corr = ``;	
+        } else {
+          texte_corr = `${enonces[0].correction}`;
+        };
+        break;	
+      case 1 : 
+        texte = `${enonces[1].enonce}`;
+        if (this.beta) {
+          texte += `<br>`;
+          texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
+          texte_corr = ``;	
+        } else {
+          texte_corr = `${enonces[1].correction}`;
+        };
+        break;			
      };			
      
      if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
@@ -14930,7 +14956,6 @@ function Ranger_ordre_croissant_decroissant(){
      cpt++;	
    }
    liste_de_question_to_contenu(this);
-
  }
  //this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
  //this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	

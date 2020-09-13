@@ -1629,11 +1629,13 @@ function couleurAleatoire() {
 	return choice(['white', 'black', 'red', 'green', 'blue', 'cyan', 'magenta', 'yellow'])
   }
 
-  function arcenciel(i) {
-	  let couleurs=['violet','indigo',  'blue', 'green', 'yellow', 'orange', 'red']
+  function arcenciel(i,fondblanc=true) {
+	  let couleurs
+	  if (fondblanc) couleurs=['violet','indigo',  'blue', 'green', 'lime', 'orange', 'red']
+	  else couleurs=['violet','indigo',  'blue', 'green', 'yellow', 'orange', 'red']
 	  return couleurs[i%7]
   }
-  function texcolors(i,fondblanc="true") {
+  function texcolors(i,fondblanc=true) {
 	  let couleurs=['black', 'blue', 'brown', 'cyan', 'darkgray', 'gray', 'green', 'lightgray', 'lime', 'magenta', 'olive', 'orange', 'pink', 'purple', 'red', 'teal', 'violet', 'white', 'yellow']
 	  if (fondblanc&&i%19>=17) i+=2
 	  return couleurs[i%19]
