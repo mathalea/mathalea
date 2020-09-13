@@ -14814,7 +14814,7 @@ function Ranger_ordre_croissant_decroissant(){
  };	
 
  this.titre = "Ranger une liste de nombres entiers dans l'ordre croissant ou décroissant";	
- this.consigne = `Classer les nombres suivants dans l'ordre indiqué. `;	
+ this.consigne = `Classer les nombres suivants dans l'ordre indiqué.`;	
  
  this.nb_cols = 1;
  this.nb_cols_corr = 1;
@@ -14850,22 +14850,53 @@ function Ranger_ordre_croissant_decroissant(){
      let situations = [
        {//case 0 -->
         ordre:'croissant',
+        n1: Number(c1.toString()+c2.toString()+c3.toString()+c4.toString()+c5.toString()),
+        n2: Number(c1.toString()+c3.toString()+c2.toString()+c4.toString()+c5.toString()),
+        n3: Number(c1.toString()+c2.toString()+c5.toString()+c4.toString()+c3.toString()),
+        n4: Number(c1.toString()+randint(0,9).toString()+randint(0,9).toString()+randint(0,9).toString()),
+        n5: Number('1'.toString()+randint(0,9).toString()+randint(0,9).toString()+randint(0,9).toString()+randint(0,9).toString()+randint(0,9).toString()),
+        n6: Number(c1.toString()+c2.toString()+randint(0,9).toString()+randint(0,9).toString()+randint(0,9).toString()),
        },
        {//case 1 -->
-        ordre:'décroissant',
+        ordre:'decroissant',
+        n1: Number(c1.toString()+c2.toString()+c3.toString()+c4.toString()+c5.toString()),
+        n2: Number(c1.toString()+c3.toString()+c2.toString()+c4.toString()+c5.toString()),
+        n3: Number(c1.toString()+c2.toString()+c5.toString()+c4.toString()+c3.toString()),
+        n4: Number(c1.toString()+randint(0,9).toString()+randint(0,9).toString()+randint(0,9).toString()),
+        n5: Number('1'.toString()+randint(0,9).toString()+randint(0,9).toString()+randint(0,9).toString()+randint(0,9).toString()+randint(0,9).toString()),
+        n6: Number(c1.toString()+c2.toString()+randint(0,9).toString()+randint(0,9).toString()+randint(0,9).toString()),
        },   
      ];
 
+     // une fonction pour gérer l'ordre
+     function myOrdre(ordre,tab) {
+      tab.sort((a,b) => a - b);          
+      switch (ordre) {
+        case 'croissant':
+          return tab;
+        case 'decroissant':
+          return tab.reverse();          
+      };
+     };
+
      let enonces = [];
+     let nombres = [];
+     let nombres_ranges = [];
      for (let k=0;k<situations.length;k++) {
-       enonces.push({
-         enonce:`Dans l'ordre ${situations[k].ordre}<br>         
-         `,
-         question:``,
-         correction:`
-         Correction type ${k}
-         `
-       });
+      nombres = shuffle([situations[k].n1,situations[k].n2,situations[k].n3,situations[k].n4,situations[k].n5,situations[k].n6]);
+      nombres.forEach(element => {
+        nombres_ranges.push(element);        
+      });      
+      myOrdre(situations[k].ordre,nombres_ranges);   
+      enonces.push({
+        enonce:`Dans l'ordre ${situations[k].ordre}<br>
+        $${tex_nombre(nombres[0])}$   ;   $${tex_nombre(nombres[1])}$   ;   $${tex_nombre(nombres[2])}$   ;   $${tex_nombre(nombres[3])}$   ;   $${tex_nombre(nombres[4])}$   ;   $${tex_nombre(nombres[5])}$          
+        `,
+        question:``,
+        correction:`Les nombres rangés dans l'ordre ${situations[k].ordre} :<br>
+        $${tex_nombre(nombres_ranges[0])}$   ;   $${tex_nombre(nombres_ranges[1])}$   ;   $${tex_nombre(nombres_ranges[2])}$   ;   $${tex_nombre(nombres_ranges[3])}$   ;   $${tex_nombre(nombres_ranges[4])}$   ;   $${tex_nombre(nombres_ranges[5])}$
+        `
+      });
      };
            
            // autant de case que d'elements dans le tableau des situations
