@@ -7893,6 +7893,7 @@ function Pourcentage_d_un_nombre() {
  */
 
 function Fractions_d_unite() {
+  "use strict"
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Représenter une fraction de l\'unité";
   this.nb_questions = 5;
@@ -7900,14 +7901,14 @@ function Fractions_d_unite() {
   sortie_html ? (this.spacing_corr = 3.5) : (this.spacing_corr = 2);
   sortie_html ? (this.spacing = 2) : (this.spacing = 2);
   this.sup = 1;
-  this.sup2=true
+  this.sup2=1;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles
+    let type_de_questions_disponibles,g,carreaux,sc,unit
     let liste_type_de_questions=[]
     if (this.sup<5)
       type_de_questions_disponibles=[parseInt(this.sup)]
@@ -7926,24 +7927,41 @@ function Fractions_d_unite() {
      break
         case 2 :
           den=choice([2,3,4])
-          num=randint(3,3*den-1,den)
+          if (den==3)  num=randint(3,2*den-1,den)
+          else num=randint(3,3*den-1,den)
          break
         case 3 :
           den=choice([4,5,6,10])
-          num=randint(3,3*den-1,den)
+          if (den==4) num=randint(5,3*den-1,den)
+          else num=randint(5,2*den-1,den)
         break
         case 4:
           den=choice([2,3,4,5,6,10])
-          num=randint(den+1,3*den-1,den)
+          if (den==2||den==4) num=randint(den+1,3*den-1,den)
+          else num=randint(den+1,2*den-1,den)
         break
       }
+      if (den%3==0) unit=12
+      else if (den%5==0) unit=10
+      else unit=8
       frac=fraction(num,den)
       frac_unite=fraction(3*den-1,den)
-      texte=`$${frac.texFraction()}$ unité`
+      texte=`$${frac.texFraction()}$ unité en prenant ${unit} carreaux pour une unité.`
       //if (num/den>=2) texte+=`s`
       texte+=`.<br>`
       //texte+=mathalea2d({xmin:0,ymin:0,xmax:16,ymax:2},frac_unite.representation(0.5,1.5,5,0,'segment','',"0","1"))
-      texte_corr=mathalea2d({xmin:0,ymin:0,xmax:16,ymax:2},frac.representation(0.5,1.5,5,0,'segment','blue',0,1))
+      if (this.sup2 < 3) g = grille(0, 0,26, 2, "gray", 0.7);
+      else g = "";
+      if (this.sup2 == 2) {
+        sc = 0.8;
+        carreaux = seyes(0, 0, 26, 2);
+      } else {
+        sc = 0.5;
+        carreaux = "";
+      }
+ 
+      
+      texte_corr=mathalea2d({xmin:0,ymin:0,xmax:26,ymax:2,pixelsParCm:20,scale:sc},frac.representation(1,1,unit,0,'segment','blue',0,1),g,carreaux)
 
 
 
@@ -7958,7 +7976,7 @@ function Fractions_d_unite() {
   liste_de_question_to_contenu(this);
 };
 this.besoin_formulaire_numerique = ["Type d\'exercices",4,"1 : fracion inférieure à 1\n2 : demis, tiers et quarts\n3 : quarts, cinquièmes, sixièmes et dixièmes\n4 : toutes les fractions entre 1 et 3"];
-this.besoin_formulaire2_case_a_cocher = ["Avec dessin", true];
+this.besoin_formulaire2_numerique = ["Type de cahier",3,"1 :  petits carreaux\n2 Cahier gros carreaux type Seyes:\n3 : Sans carreau,papier blanc"];
 }
 /**
  * Calculer la fracton d'une quantité avec ou sans dessin.
