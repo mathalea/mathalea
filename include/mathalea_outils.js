@@ -998,6 +998,64 @@ function obtenir_liste_facteurs_premiers(n){
 	if (liste.length==0) {liste.push(n)}
 		return liste
 }
+/**
+ * 
+ * @param {Entier} n 
+ * Retourne la factorisation d'un entier sous la forme [[a0,n0],[a1,n1],...] où a0,a1 sont les facteurs premiers et n0, n1 sont les exposants de ces facteurs.
+ * @Auteur Jean-Claude Lhote
+ */
+
+function factorisation(n) {
+	let liste=obtenir_liste_facteurs_premiers(n)
+	let facto=[],index=0
+	for (let i=0;i<liste.length;) {
+		if (liste[i]==0) i++
+		else {
+			facto.push([liste[i],1])
+			index++
+			for (let j=i+1;j<liste.length;j++) {
+				if (liste[j]==liste[i]) {
+					facto[index-1][1]++
+					liste[j]=0
+				}
+			}
+			i++
+		}
+	}
+	return facto
+}
+/**
+ * 
+ * @param {Entier} n 
+ * Extrait le plus grand nombre possible de la racine carrée de n
+ * retourne le résulat [a,b] pour a²b=n
+ * @Auteur Jean-Claude Lhote
+ */
+function extraire_racine_carree(n) {
+	let facto=factorisation(n)
+	let radical=1,facteur=1
+	for (let i=0;i<facto.length;i++) {
+		if (facto[i][1]%2==0) {
+			facteur*=facto[i][0]**(calcul(facto[i][1]/2))
+		}
+		else if (facto[i]>1) {
+			facteur*=facto[i][0]**(calcul((facto[i][1]-1)/2))
+			radical*=facto[i][0]
+		}
+		else radical*=facto[i][0]
+	}
+	return [facteur,radical]
+}
+/**
+ * 
+ * @param {Entier} n 
+ * retourne le code Latex de la racine carrée de n "réduite" 
+ * @Auteur Jean-CLaude Lhote
+ */
+function tex_racine_carree(n) {
+	let result=extraire_racine_carree(n)
+	return `${result[0]}\\sqrt{${result[1]}}`
+}
 
 /**
 * Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux
