@@ -76,10 +76,10 @@ var liste_des_exercices_disponibles = {
   "6N10" : Ecrire_nombres_entiers,
   "6N10-1": Exercice_numeration_entier,
   "6N10-2": Decomposition_nombre_decimal,
-  "beta6N10-3": chiffre_nombre_de,
+  "6N10-3": chiffre_nombre_de,
   "6N11": Lire_abscisse_entiere,
   "6N11-2": Placer_un_point_abscisse_entiere,
-  "beta6N11-3": Encadrer_un_entier_par_deux_entiers_consecutifs,
+  "6N11-3": Encadrer_un_entier_par_deux_entiers_consecutifs,
   "beta6N11-4": Ranger_ordre_croissant_decroissant,
   "6N12": Multiplier_entier_par_10_100_1000,
   "6N13": Exercice_6N13,
@@ -14570,12 +14570,12 @@ function chiffre_nombre_de(){
 function Encadrer_un_entier_par_deux_entiers_consecutifs(){
   'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 6;
 	} else {
-		this.nb_questions = 6;
+		this.nb_questions = 3;
 	};	
 
   this.titre = "Encadrer un entier entre deux entiers consécutifs";	
@@ -14593,9 +14593,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 		if (this.beta) {
 			type_de_questions_disponibles = [0,1,2,3,4,5];			
 		} else {
-      //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
-      type_de_questions_disponibles = shuffle([0,1,2,3,4,5]);			
-      			
+      type_de_questions_disponibles = shuffle([choice([0,1]),choice([2,3]),choice([4,5])]);      			
 		};
 
 		this.liste_questions = []; // Liste de questions
@@ -14605,53 +14603,65 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
-        // on fabrique le nombre à partir de ses chiffres
-        let u,d,c,mu,md,mc,mmu,mmd,mmc;
-        // mmc = randint(0,9,[0]);
-        // mmd = randint(0,9,[mmc]);
-        // mmu = randint(0,9,[mmc,mmd]);
-        // mc = randint(0,9,[mmu,mmd,mmc]);
-        // md = randint(0,9,[mmu,mmd,mmc,mc]);
-        // mu = randint(0,9,[mmu,mmd,mmc,mc,md]);
-        // c = randint(0,9,[mmu,mmd,mmc,mu,md,mc]);
-        // d = randint(0,9,[mmu,mmd,mmc,mu,md,mc,c]);
-        // u = randint(0,9,[mmu,mmd,mmc,mu,md,mc,c,d]);
+        // on déclare des variables pour avoir des nombres entre 1000 et 9999 puis 10000 et 99999 etc ...
         let m,dm,cm,mi,dmi,cmi;
-
         //pour la précision d'encadrement
         let precision;
+
+        //selon la precision on veut certains chiffres plus souvant que d'autres ...
+        function myNombres(nb_chiffres) {
+          let sortie = '';
+          // on fabrique le nombre à partir de ses chiffres et on veut des cas limites
+          let u,d,c,mu,md,mc,mmu,mmd,mmc;
+          let N = choice([[randint(0,9,[0]),0,0,0,0,0,0,0,0],[randint(0,9,[0]),9,9,9,9,9,9,9,9],[randint(0,9,[0]),randint(0,9),randint(0,9),randint(0,9),randint(0,9),randint(0,9),randint(0,9),randint(0,9),randint(0,9)]]);
+          mmc = N[0];
+          mmd = N[1];
+          mmu = N[2];
+          mc = N[3];
+          md = N[4];
+          mu = N[5];
+          c = N[6];
+          d = N[7];
+          u = N[8];
+          switch (nb_chiffres) {
+            case 4:
+              mu = randint(0,9,[0]);
+              sortie = mu.toString()+c.toString()+d.toString()+u.toString();
+              break;
+            case 5:
+              md = randint(0,9,[0]);
+              sortie = md.toString()+mu.toString()+c.toString()+d.toString()+u.toString();
+              break;
+            case 6:
+              mc = randint(0,9,[0]);
+              sortie = mc.toString()+md.toString()+mu.toString()+c.toString()+d.toString()+u.toString();
+              break;
+            case 7:
+              mmu = randint(0,9,[0]);
+              sortie = mmu.toString()+mc.toString()+md.toString()+mu.toString()+c.toString()+d.toString()+u.toString();
+              break;
+            case 8:
+              mmd = randint(0,9,[0]);
+              sortie = mmd.toString()+mmu.toString()+mc.toString()+md.toString()+mu.toString()+c.toString()+d.toString()+u.toString();
+              break;
+            case 9:
+              mmc = randint(0,9,[0]);
+              sortie = mmc.toString()+mmd.toString()+mmu.toString()+mc.toString()+md.toString()+mu.toString()+c.toString()+d.toString()+u.toString();
+              break;
+                
+          };
+          return sortie;
+        };
 
         this.sup = Number(this.sup); // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
         switch (this.sup) {
           case 1:
             this.consigne = `Compléter avec le nombre entier qui précède et le nombre entier qui suit.`;
             precision=1;
-            mmc = randint(0,9,[0]);
-            mmd = randint(0,9);
-            mmu = randint(0,9);
-            mc = randint(0,9);
-            md = randint(0,9);
-            mu = randint(0,9);
-            c = randint(0,9);
-            d = randint(0,9);
-            u = choice([0,randint(1,9)]);
-            m = Number(mu.toString()+c.toString()+d.toString()+u.toString());
-            console.log(m)
             break;
           case 2:
             this.consigne = `Compléter avec le multiple de 10 qui précède et le multiple de 10 qui suit.`;
             precision=10;
-            mmc = randint(0,9,[0]);
-            mmd = randint(0,9);
-            mmu = randint(0,9);
-            mc = randint(0,9);
-            md = randint(0,9);
-            mu = randint(0,9);
-            c = randint(0,9);
-            d = randint(0,9);
-            u = choice([0,randint(1,9)]);
-            m = Number(mu.toString()+c.toString()+d.toString()+u.toString());
-            dm = Number(mmc.toString()+mmd.toString()+mmu.toString()+mc.toString()+md.toString()+mu.toString()+c.toString()+d.toString()+u.toString());
             break;
           case 3:
             this.consigne = `Compléter avec le multiple de 100 qui précède et le multiple de 100 qui suit.`;
@@ -14659,90 +14669,54 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
             break;
         };
 
-
-        //m = randint(1000,9999);
-        dm = randint(10000,99999);
-        cm = randint(100000,999999);
-        mi = randint(1000000,9999999); 
-        dmi = randint(10000000,99999999); 
-        cmi = randint(100000000,999999999); 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
         {//case 0 -->
-				},		
+          nombre: Number(myNombres(4)),
+        },
+        {//case 1 -->
+          nombre: Number(myNombres(5)),
+        },
+        {//case 2 -->
+          nombre: Number(myNombres(6)),
+        },
+        {//case 3 -->
+          nombre: Number(myNombres(7)),
+        },
+        {//case 4 -->
+          nombre: Number(myNombres(8)),
+        },
+        {//case 5 -->
+          nombre: Number(myNombres(9)),
+        },
       ];
       
       // une fonction pour les correction à la precision près
       function encadrement_corr(nb,precision) {
-        switch (precision) {
-          case 1:
+          if (precision == 1) {
             return `$${mise_en_evidence(tex_nombre(Math.trunc(nb/precision)*precision-precision))} < ${tex_nombre(nb)} < ${mise_en_evidence(tex_nombre(Math.trunc(nb/precision)*precision+precision))}$`;
-          case 10:
-            return `$${mise_en_evidence(tex_nombre(Math.trunc(nb/precision)*precision))} < ${tex_nombre(nb)} < ${mise_en_evidence(tex_nombre(Math.trunc(nb/precision)*precision+precision))}$`;
-          case 100:
-            return `$${mise_en_evidence(tex_nombre(Math.trunc(nb/precision)*precision))} < ${tex_nombre(nb)} < ${mise_en_evidence(tex_nombre(Math.trunc(nb/precision)*precision+precision))}$`;
-        }        
-      }
+          } else if(precision == 10 || precision == 100) {
+            if (nb%precision == 0) {
+              return `$${mise_en_evidence(tex_nombre(Math.trunc(nb/precision)*precision-precision))} < ${tex_nombre(nb)} < ${mise_en_evidence(tex_nombre(Math.trunc(nb/precision)*precision+precision))}$`;
+            } else {
+              return `$${mise_en_evidence(tex_nombre(Math.trunc(nb/precision)*precision))} < ${tex_nombre(nb)} < ${mise_en_evidence(tex_nombre(Math.trunc(nb/precision)*precision+precision))}$`;
+            };
+          };       
+      };
 
-			let enonces = [];
-			//for (let k=0;k<3;k++) {
-				enonces.push({
-					enonce:`
-          $\\ldots < ${tex_nombre(m)} < \\ldots$          
-					`,
-					question:``,
+      let enonces = [];
+      for (let k=0;k<situations.length;k++) {
+        enonces.push({
+          enonce:`
+          $\\ldots < ${tex_nombre(situations[k].nombre)} < \\ldots$		
+          `,
+          question:``,
           correction:`
-          ${encadrement_corr(m,precision)}
-					`
-				});
-				enonces.push({
-					enonce:`
-          $\\ldots < ${tex_nombre(dm)} < \\ldots$          
-					`,
-					question:``,
-					correction:`
-          ${encadrement_corr(dm,precision)}
+          ${encadrement_corr(situations[k].nombre,precision)}
           `
-				});
-				enonces.push({
-					enonce:`
-          $\\ldots < ${tex_nombre(cm)} < \\ldots$          
-					`,
-					question:``,
-					correction:`
-          ${encadrement_corr(cm,precision)}
-          `
-				});
-				enonces.push({
-					enonce:`
-          $\\ldots < ${tex_nombre(mi)} < \\ldots$          
-					`,
-					question:``,
-					correction:`
-          ${encadrement_corr(mi,precision)}
-          `
-				});
-				enonces.push({
-					enonce:`
-          $\\ldots < ${tex_nombre(dmi)} < \\ldots$          
-					`,
-					question:``,
-					correction:`
-          ${encadrement_corr(dmi,precision)}
-          `
-				});
-				enonces.push({
-					enonce:`
-          $\\ldots < ${tex_nombre(cmi)} < \\ldots$          
-					`,
-					question:``,
-					correction:`
-          ${encadrement_corr(cmi,precision)}
-          `
-				});
-
-        //};
-            
+        });
+      };
+          
       // autant de case que d'elements dans le tableau des situations
 			switch (liste_type_de_questions[i]){
 				case 0 : 
