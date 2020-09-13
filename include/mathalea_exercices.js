@@ -14805,7 +14805,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 function Ranger_ordre_croissant_decroissant(){
  'use strict';
  Exercice.call(this); // Héritage de la classe Exercice()
- this.beta = true;	
+ this.beta = false;	
  this.sup=1;
  if (this.beta) {
    this.nb_questions = 2;
