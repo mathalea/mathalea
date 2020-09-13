@@ -1038,7 +1038,7 @@ function extraire_racine_carree(n) {
 		if (facto[i][1]%2==0) {
 			facteur*=facto[i][0]**(calcul(facto[i][1]/2))
 		}
-		else if (facto[i]>1) {
+		else if (facto[i][1]>1) {
 			facteur*=facto[i][0]**(calcul((facto[i][1]-1)/2))
 			radical*=facto[i][0]
 		}
@@ -1054,7 +1054,9 @@ function extraire_racine_carree(n) {
  */
 function tex_racine_carree(n) {
 	let result=extraire_racine_carree(n)
-	return `${result[0]}\\sqrt{${result[1]}}`
+	if (result[1]==1) return `${result[0]}`
+	else if (result[0]==1) return `\\sqrt{${result[1]}}`
+	else return `${result[0]}\\sqrt{${result[1]}}`
 }
 
 /**

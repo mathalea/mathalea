@@ -1191,46 +1191,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     texte_corr +=`On applique la relation à l'énoncé : $AB=\\sqrt{\\left(${xB}-${ecriture_parenthese_si_negatif(xA)}\\right)^{2}+\\left(${yB}-${ecriture_parenthese_si_negatif(yA)}\\right)^{2}}$<br>`
                     texte_corr += `$\\phantom{On applique la relation à l'énoncé :        } AB=\\sqrt{${XAB}+${YAB}}$<br>`
                     texte_corr +=`$\\phantom{On applique la relation à l'énoncé :        } AB=\\sqrt{${tex_nombre(XAB+YAB)}}$<br>`
-                    if (AB%100==0 && AB!=100)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=10\\sqrt{${tex_nombre((AB))/100}}$<br>`}
-                    if (AB%81==0 && AB!=81)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=9\\sqrt{${tex_nombre((AB))/81}}$<br>`}
-                    if (AB%64==0 && AB!=64)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=8\\sqrt{${tex_nombre((AB))/64}}$<br>`}
-                    if (AB%49==0 && AB!=49)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=7\\sqrt{${tex_nombre((AB))/49}}$<br>`}
-                     if (AB%36==0&& AB!=36)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=6\\sqrt{${tex_nombre((AB))/36}}$<br>`}
-                     if (AB%25==0 && AB!=25)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=5\\sqrt{${tex_nombre((AB))/25}}$<br>`}
-                     if (AB%64!=0 && AB%16==0&& AB!=16)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=4\\sqrt{${tex_nombre((AB))/16}}$<br>`}
-                    if (AB%81!=0 && AB%9==0 && AB!=9)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=3\\sqrt{${tex_nombre((AB))/9}}$<br>`}
-                    if (AB%16!=0 && AB%64!==0 &&AB%4==0 && AB!=4)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=2\\sqrt{${tex_nombre((AB))/4}}$<br>`}
-                      if (AB==100)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=10$<br>`}
-                    if (AB==81)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=9$<br>`}
-                      if (AB==64)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=8$<br>`}
-                      if (AB==49)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=7$<br>`}
-                      if (AB==36)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=6$<br>`}
-                      if (AB==25)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=5$<br>`}
-                      if (AB==16)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=4$<br>`}
-                      if (AB==9)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=3$<br>`}
-                      if (AB==4)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=2$<br>`}
-                     if (AB==1)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=1$<br>`}
-
-                     ;   
+                    if (extraire_racine_carree(AB)[0]!=1) texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=${tex_racine_carree(AB)}$<br>`
                    break ;
              case 2 : 
         
@@ -1262,87 +1223,11 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     texte_corr +=`On applique la relation à l'énoncé : $AB=\\sqrt{\\left(${xB}-${ecriture_parenthese_si_negatif(xA)}\\right)^{2}+\\left(${yB}-${ecriture_parenthese_si_negatif(yA)}\\right)^{2}}$<br>`
                     texte_corr += `$\\phantom{On applique la relation à l'énoncé :        } AB=\\sqrt{${XAB}+${YAB}}$<br>`
                     texte_corr +=`$\\phantom{On applique la relation à l'énoncé :        } AB=\\sqrt{${tex_nombre(XAB+YAB)}}$<br>`
-                    if (AB%100==0 && AB!=100)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=10\\sqrt{${tex_nombre((AB))/100}}$<br>`}
-                    if (AB%81==0 && AB!=81)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=9\\sqrt{${tex_nombre((AB))/81}}$<br>`}
-                    if (AB%64==0 && AB!=64)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=8\\sqrt{${tex_nombre((AB))/64}}$<br>`}
-                    if (AB%49==0 && AB!=49)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=7\\sqrt{${tex_nombre((AB))/49}}$<br>`}
-                     if (AB%36==0&& AB!=36)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=6\\sqrt{${tex_nombre((AB))/36}}$<br>`}
-                     if (AB%25==0 && AB!=25)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=5\\sqrt{${tex_nombre((AB))/25}}$<br>`}
-                     if (AB%64!=0 && AB%16==0&& AB!=16)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=4\\sqrt{${tex_nombre((AB))/16}}$<br>`}
-                    if (AB%81!=0 && AB%9==0 && AB!=9)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=3\\sqrt{${tex_nombre((AB))/9}}$<br>`}
-                    if (AB%16!=0 && AB%64!==0 &&AB%4==0 && AB!=4)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=2\\sqrt{${tex_nombre((AB))/4}}$<br>`}
-                      if (AB==100)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=10$<br>`}
-                    if (AB==81)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=9$<br>`}
-                      if (AB==64)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=8$<br>`}
-                      if (AB==49)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=7$<br>`}
-                      if (AB==36)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=6$<br>`}
-                      if (AB==25)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=5$<br>`}
-                      if (AB==16)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=4$<br>`}
-                      if (AB==9)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=3$<br>`}
-                      if (AB==4)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=2$<br>`}
-                      if (AB==1)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=1$<br>`}
-
+                    texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=${tex_racine_carree(AB)}$<br>`
                     texte_corr +=`De même : $AC=\\sqrt{\\left(${xC}-${ecriture_parenthese_si_negatif(xA)}\\right)^{2}+\\left(${yC}-${ecriture_parenthese_si_negatif(yA)}\\right)^{2}}$<br>`
                     texte_corr += `$\\phantom{De même :       } AC=\\sqrt{${XAC}+${YAC}}$<br>`
                     texte_corr +=`$\\phantom{De même :       } AC=\\sqrt{${tex_nombre(XAC+YAC)}}$<br>`
-                    if (AC%100==0 && AC!=100)
-                        { texte_corr +=`$\\phantom{De même :  } AC=10\\sqrt{${tex_nombre((AC))/100}}$<br>`}
-                    if (AC%81==0 && AC!=81)
-                        { texte_corr +=`$\\phantom{De même :  } AC=9\\sqrt{${tex_nombre((AC))/81}}$<br>`}
-                    if (AC%64==0 && AC!=64)
-                        { texte_corr +=`$\\phantom{De même :  } AC=8\\sqrt{${tex_nombre((AC))/64}}$<br>`}
-                    if (AC%49==0 && AC!=49)
-                        { texte_corr +=`$\\phantom{De même :  } AC=7\\sqrt{${tex_nombre((AC))/49}}$<br>`}
-                     if (AC%36==0&& AC!=36)
-                        { texte_corr +=`$\\phantom{De même :  } AC=6\\sqrt{${tex_nombre((AC))/36}}$<br>`}
-                     if (AC%25==0 && AC!=25)
-                        { texte_corr +=`$\\phantom{De même :  } AC=5\\sqrt{${tex_nombre((AC))/25}}$<br>`}
-                     if (AC%64!=0 && AC%16==0&& AC!=16)
-                        { texte_corr +=`$\\phantom{De même :  } AC=4\\sqrt{${tex_nombre((AC))/16}}$<br>`}
-                    if (AC%81!=0 && AC%9==0 && AC!=9)
-                        { texte_corr +=`$\\phantom{De même :  } AC=3\\sqrt{${tex_nombre((AC))/9}}$<br>`}
-                    if (AC%16!=0 && AC%64!==0 &&AC%4==0 && AC!=4)
-                        { texte_corr +=`$\\phantom{De même :  } AC=2\\sqrt{${tex_nombre((AC))/4}}$<br>`}
-                      if (AC==100)
-                        { texte_corr +=`$\\phantom{De même :  } AC=10$<br>`}
-                    if (AC==81)
-                        { texte_corr +=`$\\phantom{De même :  } AC=9$<br>`}
-                      if (AC==64)
-                        { texte_corr +=`$\\phantom{De même :  } AC=8$<br>`}
-                      if (AC==49)
-                        { texte_corr +=`$\\phantom{De même :  } AC=7$<br>`}
-                      if (AC==36)
-                        { texte_corr +=`$\\phantom{De même :  } AC=6$<br>`}
-                      if (AC==25)
-                        { texte_corr +=`$\\phantom{De même :  } AC=5$<br>`}
-                      if (AC==16)
-                        { texte_corr +=`$\\phantom{De même :  } AC=4$<br>`}
-                      if (AC==9)
-                        { texte_corr +=`$\\phantom{De même :  } AC=3$<br>`}
-                      if (AC==4)
-                        { texte_corr +=`$\\phantom{De même :  } AC=2$<br>`}
-                      if (AC==1)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AC=1$<br>`}
-
+                    if (extraire_racine_carree(AC)[0]!=1) texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AC=${tex_racine_carree(AC)}$<br>`
                     texte_corr +=`On observe que $AC=AB$ donc le point $A$ est équidistant de $B$ et $C$.`
                      texte_corr +=`<br>Le point $C$ appartient bien au cercle de centre $A$ et passant par $B$.`
                     ;   
@@ -1377,87 +1262,11 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     texte_corr +=`On applique la relation à l'énoncé : $AB=\\sqrt{\\left(${xB}-${ecriture_parenthese_si_negatif(xA)}\\right)^{2}+\\left(${yB}-${ecriture_parenthese_si_negatif(yA)}\\right)^{2}}$<br>`
                     texte_corr += `$\\phantom{On applique la relation à l'énoncé :        } AB=\\sqrt{${XAB}+${YAB}}$<br>`
                     texte_corr +=`$\\phantom{On applique la relation à l'énoncé :        } AB=\\sqrt{${tex_nombre(XAB+YAB)}}$<br>`
-                    if (AB%100==0 && AB!=100)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=10\\sqrt{${tex_nombre((AB))/100}}$<br>`}
-                    if (AB%81==0 && AB!=81)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=9\\sqrt{${tex_nombre((AB))/81}}$<br>`}
-                    if (AB%64==0 && AB!=64)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=8\\sqrt{${tex_nombre((AB))/64}}$<br>`}
-                    if (AB%49==0 && AB!=49)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=7\\sqrt{${tex_nombre((AB))/49}}$<br>`}
-                     if (AB%36==0&& AB!=36)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=6\\sqrt{${tex_nombre((AB))/36}}$<br>`}
-                     if (AB%25==0 && AB!=25)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=5\\sqrt{${tex_nombre((AB))/25}}$<br>`}
-                     if (AB%64!=0 && AB%16==0&& AB!=16)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=4\\sqrt{${tex_nombre((AB))/16}}$<br>`}
-                    if (AB%81!=0 && AB%9==0 && AB!=9)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=3\\sqrt{${tex_nombre((AB))/9}}$<br>`}
-                    if (AB%16!=0 && AB%64!==0 &&AB%4==0 && AB!=4)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=2\\sqrt{${tex_nombre((AB))/4}}$<br>`}
-                      if (AB==100)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=10$<br>`}
-                    if (AB==81)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=9$<br>`}
-                      if (AB==64)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=8$<br>`}
-                      if (AB==49)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=7$<br>`}
-                      if (AB==36)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=6$<br>`}
-                      if (AB==25)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=5$<br>`}
-                      if (AB==16)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=4$<br>`}
-                      if (AB==9)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=3$<br>`}
-                      if (AB==4)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=2$<br>`}
-                     if (AB==1)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=1$<br>`}
-
+                    if (extraire_racine_carree(AB)[0]!=1) texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AB=${tex_racine_carree(AB)}$<br>`
                     texte_corr +=`De même : $AC=\\sqrt{\\left(${xC}-${ecriture_parenthese_si_negatif(xA)}\\right)^{2}+\\left(${yC}-${ecriture_parenthese_si_negatif(yA)}\\right)^{2}}$<br>`
                     texte_corr += `$\\phantom{De même :       } AC=\\sqrt{${XAC}+${YAC}}$<br>`
                     texte_corr +=`$\\phantom{De même :       } AC=\\sqrt{${tex_nombre(XAC+YAC)}}$<br>`
-                    if (AC%100==0 && AC!=100)
-                        { texte_corr +=`$\\phantom{De même :  } AC=10\\sqrt{${tex_nombre((AC))/100}}$<br>`}
-                    if (AC%81==0 && AC!=81)
-                        { texte_corr +=`$\\phantom{De même :  } AC=9\\sqrt{${tex_nombre((AC))/81}}$<br>`}
-                    if (AC%64==0 && AC!=64)
-                        { texte_corr +=`$\\phantom{De même :  } AC=8\\sqrt{${tex_nombre((AC))/64}}$<br>`}
-                    if (AC%49==0 && AC!=49)
-                        { texte_corr +=`$\\phantom{De même :  } AC=7\\sqrt{${tex_nombre((AC))/49}}$<br>`}
-                     if (AC%36==0&& AC!=36)
-                        { texte_corr +=`$\\phantom{De même :  } AC=6\\sqrt{${tex_nombre((AC))/36}}$<br>`}
-                     if (AC%25==0 && AC!=25)
-                        { texte_corr +=`$\\phantom{De même :  } AC=5\\sqrt{${tex_nombre((AC))/25}}$<br>`}
-                     if (AC%64!=0 && AC%16==0&& AC!=16)
-                        { texte_corr +=`$\\phantom{De même :  } AC=4\\sqrt{${tex_nombre((AC))/16}}$<br>`}
-                    if (AC%81!=0 && AC%9==0 && AC!=9)
-                        { texte_corr +=`$\\phantom{De même :  } AC=3\\sqrt{${tex_nombre((AC))/9}}$<br>`}
-                    if (AC%16!=0 && AC%64!==0 &&AC%4==0 && AC!=4)
-                        { texte_corr +=`$\\phantom{De même :  } AC=2\\sqrt{${tex_nombre((AC))/4}}$<br>`}
-                      if (AC==100)
-                        { texte_corr +=`$\\phantom{De même :  } AC=10$<br>`}
-                    if (AC==81)
-                        { texte_corr +=`$\\phantom{De même :  } AC=9$<br>`}
-                      if (AC==64)
-                        { texte_corr +=`$\\phantom{De même :  } AC=8$<br>`}
-                      if (AC==49)
-                        { texte_corr +=`$\\phantom{De même :  } AC=7$<br>`}
-                      if (AC==36)
-                        { texte_corr +=`$\\phantom{De même :  } AC=6$<br>`}
-                      if (AC==25)
-                        { texte_corr +=`$\\phantom{De même :  } AC=5$<br>`}
-                      if (AC==16)
-                        { texte_corr +=`$\\phantom{De même :  } AC=4$<br>`}
-                      if (AC==9)
-                        { texte_corr +=`$\\phantom{De même :  } AC=3$<br>`}
-                      if (AC==4)
-                        { texte_corr +=`$\\phantom{De même :  } AC=2$<br>`}
-                     if (AC==1)
-                        { texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AC=1$<br>`}
-
+                    if (extraire_racine_carree(AC)[0]!=1) texte_corr +=`$\\phantom{On applique la relation à l'énoncé :   } AC=${tex_racine_carree(AC)}$<br>`    
                     texte_corr +=`On observe que $AC\\neq AB$ donc le point $C$ n'appartient pas au cercle de centre $A$ et passant par $B$`
 
                     ;   
