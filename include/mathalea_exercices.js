@@ -14850,7 +14850,7 @@ function Ranger_ordre_croissant_decroissant(){
      let situations = [
        {//case 0 -->
         ordre:'croissant',
-        symbole:'$<$',
+        symbole: `$${mise_en_evidence('<')}$`,
         n1: Number(c1.toString()+c2.toString()+c3.toString()+c4.toString()+c5.toString()),
         n2: Number(c1.toString()+c3.toString()+c2.toString()+c4.toString()+c5.toString()),
         n3: Number(c1.toString()+c2.toString()+c5.toString()+c4.toString()+c3.toString()),
@@ -14859,8 +14859,8 @@ function Ranger_ordre_croissant_decroissant(){
         n6: Number(c1.toString()+c2.toString()+randint(0,9).toString()+randint(0,9).toString()+randint(0,9).toString()),
        },
        {//case 1 -->
-        ordre:'decroissant',
-        symbole:'$>$',
+        ordre:'décroissant',
+        symbole: `$${mise_en_evidence('>')}$`,
         n1: Number(c1.toString()+c2.toString()+c3.toString()+c4.toString()+c5.toString()),
         n2: Number(c1.toString()+c3.toString()+c2.toString()+c4.toString()+c5.toString()),
         n3: Number(c1.toString()+c2.toString()+c5.toString()+c4.toString()+c3.toString()),
@@ -14876,7 +14876,7 @@ function Ranger_ordre_croissant_decroissant(){
       switch (ordre) {
         case 'croissant':
           return tab;
-        case 'decroissant':
+        case 'décroissant':
           return tab.reverse();          
       };
      };
@@ -14895,7 +14895,7 @@ function Ranger_ordre_croissant_decroissant(){
         $${tex_nombre(nombres[0])}$   ;   $${tex_nombre(nombres[1])}$   ;   $${tex_nombre(nombres[2])}$   ;   $${tex_nombre(nombres[3])}$   ;   $${tex_nombre(nombres[4])}$   ;   $${tex_nombre(nombres[5])}$          
         `,
         question:``,
-        correction:`Les nombres rangés dans l'ordre ${situations[k].ordre} :<br>
+        correction:`Les nombres rangés dans l'ordre $${mise_en_evidence(situations[k].ordre)}$ :<br>
         $${tex_nombre(nombres_ranges[0])}$   ${situations[k].symbole}   $${tex_nombre(nombres_ranges[1])}$   ${situations[k].symbole}   $${tex_nombre(nombres_ranges[2])}$   ${situations[k].symbole}   $${tex_nombre(nombres_ranges[3])}$   ${situations[k].symbole}   $${tex_nombre(nombres_ranges[4])}$   ${situations[k].symbole}   $${tex_nombre(nombres_ranges[5])}$
         `
       });
