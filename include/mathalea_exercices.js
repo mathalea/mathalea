@@ -80,7 +80,7 @@ var liste_des_exercices_disponibles = {
   "6N11": Lire_abscisse_entiere,
   "6N11-2": Placer_un_point_abscisse_entiere,
   "6N11-3": Encadrer_un_entier_par_deux_entiers_consecutifs,
-  "beta6N11-4": Ranger_ordre_croissant_decroissant,
+  "6N11-4": Ranger_ordre_croissant_decroissant,
   "6N12": Multiplier_entier_par_10_100_1000,
   "6N13": Exercice_6N13,
   "6N14" : Representer_une_fraction,
@@ -14494,7 +14494,7 @@ function chiffre_nombre_de(){
 			for (let k=0;k<situations.length;k++) {
 				enonces.push({
           enonce:`
-          Dans $${tex_nombre(nb)}$, quel est le ${situations[k].type} ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].determinant}  ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[0]} ?					
+          Dans $${tex_nombre(nb)}$, quel est le ${situations[k].type} ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].determinant} ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[0]} ?					
 					`,
 					question:``,
           correction:`
@@ -14874,6 +14874,7 @@ function Ranger_ordre_croissant_decroissant(){
      let situations = [
        {//case 0 -->
         ordre:'croissant',
+        symbole: `$${mise_en_evidence('<')}$`,
         n1: Number(c1.toString()+c2.toString()+c3.toString()+c4.toString()+c5.toString()),
         n2: Number(c1.toString()+c3.toString()+c2.toString()+c4.toString()+c5.toString()),
         n3: Number(c1.toString()+c2.toString()+c5.toString()+c4.toString()+c3.toString()),
@@ -14882,7 +14883,8 @@ function Ranger_ordre_croissant_decroissant(){
         n6: Number(c1.toString()+c2.toString()+randint(0,9).toString()+randint(0,9).toString()+randint(0,9).toString()),
        },
        {//case 1 -->
-        ordre:'decroissant',
+        ordre:'décroissant',
+        symbole: `$${mise_en_evidence('>')}$`,
         n1: Number(c1.toString()+c2.toString()+c3.toString()+c4.toString()+c5.toString()),
         n2: Number(c1.toString()+c3.toString()+c2.toString()+c4.toString()+c5.toString()),
         n3: Number(c1.toString()+c2.toString()+c5.toString()+c4.toString()+c3.toString()),
@@ -14898,7 +14900,7 @@ function Ranger_ordre_croissant_decroissant(){
       switch (ordre) {
         case 'croissant':
           return tab;
-        case 'decroissant':
+        case 'décroissant':
           return tab.reverse();          
       };
      };
@@ -14917,8 +14919,8 @@ function Ranger_ordre_croissant_decroissant(){
         $${tex_nombre(nombres[0])}$   ;   $${tex_nombre(nombres[1])}$   ;   $${tex_nombre(nombres[2])}$   ;   $${tex_nombre(nombres[3])}$   ;   $${tex_nombre(nombres[4])}$   ;   $${tex_nombre(nombres[5])}$          
         `,
         question:``,
-        correction:`Les nombres rangés dans l'ordre ${situations[k].ordre} :<br>
-        $${tex_nombre(nombres_ranges[0])}$   ;   $${tex_nombre(nombres_ranges[1])}$   ;   $${tex_nombre(nombres_ranges[2])}$   ;   $${tex_nombre(nombres_ranges[3])}$   ;   $${tex_nombre(nombres_ranges[4])}$   ;   $${tex_nombre(nombres_ranges[5])}$
+        correction:`Les nombres rangés dans l'ordre ${texte_en_couleur_et_gras(situations[k].ordre)} :<br>
+        $${tex_nombre(nombres_ranges[0])}$   ${situations[k].symbole}   $${tex_nombre(nombres_ranges[1])}$   ${situations[k].symbole}   $${tex_nombre(nombres_ranges[2])}$   ${situations[k].symbole}   $${tex_nombre(nombres_ranges[3])}$   ${situations[k].symbole}   $${tex_nombre(nombres_ranges[4])}$   ${situations[k].symbole}   $${tex_nombre(nombres_ranges[5])}$
         `
       });
      };
