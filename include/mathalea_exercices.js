@@ -76,10 +76,10 @@ var liste_des_exercices_disponibles = {
   "6N10" : Ecrire_nombres_entiers,
   "6N10-1": Exercice_numeration_entier,
   "6N10-2": Decomposition_nombre_decimal,
-  "beta6N10-3": chiffre_nombre_de,
+  "6N10-3": chiffre_nombre_de,
   "6N11": Lire_abscisse_entiere,
   "6N11-2": Placer_un_point_abscisse_entiere,
-  "beta6N11-3": Encadrer_un_entier_par_deux_entiers_consecutifs,
+  "6N11-3": Encadrer_un_entier_par_deux_entiers_consecutifs,
   "beta6N11-4": Ranger_ordre_croissant_decroissant,
   "6N12": Multiplier_entier_par_10_100_1000,
   "6N13": Exercice_6N13,
@@ -14570,12 +14570,12 @@ function chiffre_nombre_de(){
 function Encadrer_un_entier_par_deux_entiers_consecutifs(){
   'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 6;
 	} else {
-		this.nb_questions = 6;
+		this.nb_questions = 3;
 	};	
 
   this.titre = "Encadrer un entier entre deux entiers consécutifs";	
@@ -14593,9 +14593,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 		if (this.beta) {
 			type_de_questions_disponibles = [0,1,2,3,4,5];			
 		} else {
-      //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
-      type_de_questions_disponibles = shuffle([0,1,2,3,4,5]);			
-      			
+      type_de_questions_disponibles = shuffle([choice([0,1]),choice([2,3]),choice([4,5])]);      			
 		};
 
 		this.liste_questions = []; // Liste de questions
@@ -14671,12 +14669,6 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
             break;
         };
 
-        // m = Number(myNombres(4));
-        // dm = Number(myNombres(5));
-        // cm = Number(myNombres(6));
-        // mi = Number(myNombres(7));
-        // dmi = Number(myNombres(8));
-        // cmi = Number(myNombres(9));
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
         {//case 0 -->
