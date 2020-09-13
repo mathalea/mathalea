@@ -100,8 +100,8 @@ var liste_des_exercices_disponibles = {
   "6N31-1": Encadrer_un_decimal_par_deux_entiers_consecutifs,
   "6N31-2":Ordre_de_grandeur_operations_decimaux,
   "6N33": Fraction_d_un_nombre,
-  "6N33-0" : Fraction_d_un_nombre_bis,
-  "beta6N33-01" :Fractions_d_unite,
+  "6N33-0" : Fraction_d_une_quantite,
+  "6N33-01" :Fractions_d_unite,
   "6N33-1": Pourcentage_d_un_nombre,
   "6N33-2" : Calculer_un_pourcentage,
   "6N33-3" : Appliquer_un_pourcentage,
@@ -7947,9 +7947,6 @@ function Fractions_d_unite() {
       frac=fraction(num,den)
       frac_unite=fraction(3*den-1,den)
       texte=`$${frac.texFraction()}$ unité en prenant ${unit} carreaux pour une unité.`
-      //if (num/den>=2) texte+=`s`
-      texte+=`.<br>`
-      //texte+=mathalea2d({xmin:0,ymin:0,xmax:16,ymax:2},frac_unite.representation(0.5,1.5,5,0,'segment','',"0","1"))
       if (this.sup2 < 3) g = grille(0, 0,26, 2, "gray", 0.7);
       else g = "";
       if (this.sup2 == 2) {
@@ -7976,14 +7973,14 @@ function Fractions_d_unite() {
   liste_de_question_to_contenu(this);
 };
 this.besoin_formulaire_numerique = ["Type d\'exercices",4,"1 : fracion inférieure à 1\n2 : demis, tiers et quarts\n3 : quarts, cinquièmes, sixièmes et dixièmes\n4 : toutes les fractions entre 1 et 3"];
-this.besoin_formulaire2_numerique = ["Type de cahier",3,"1 :  petits carreaux\n2 Cahier gros carreaux type Seyes:\n3 : Sans carreau,papier blanc"];
+this.besoin_formulaire2_numerique = ["Type de cahier",2,"1 :  petits carreaux\n2 : Cahier gros carreaux type Seyes"];
 }
 /**
  * Calculer la fracton d'une quantité avec ou sans dessin.
  * @Auteur Jean-Claude Lhote
  * référence 6N33-0
  */
-function Fraction_d_un_nombre_bis() {
+function Fraction_d_une_quantite() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Calculer la fraction d'une quantité";
   this.nb_questions = 5;
