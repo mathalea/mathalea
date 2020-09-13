@@ -3664,7 +3664,7 @@ function Ecrire_nombres_entiers() {
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
   this.sup = 1
-  this.sup2 = 1
+  this.sup2 = 2
   this.nouvelle_version = function (numero_de_l_exercice) {
     if (this.sup == 2)
       this.consigne = "Écrire le nombre en chiffres"
@@ -3672,7 +3672,12 @@ function Ecrire_nombres_entiers() {
       this.consigne = "Écrire le nombre en lettres"
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées 
-    let type_de_questions_disponibles = [parseInt(this.sup2)]; // <1 000, <1 000 000, < 1 000 000 000, >1 000 000 000) 
+    let type_de_questions_disponibles;
+   
+    if (this.sup2==1) type_de_questions_disponibles=[1,1,1,2,2]
+    else if (this.sup2==2)  type_de_questions_disponibles=[2,2,3,3,4]
+    else type_de_questions_disponibles=[2,3,3,4,4]
+
     let liste_type_de_questions = combinaison_listes(
       type_de_questions_disponibles,
       this.nb_questions
@@ -3698,17 +3703,16 @@ function Ecrire_nombres_entiers() {
         }
         if (tranche[liste_type_de_questions[i]-1]==0) nombre=0
       }
-      console.log(tranche,nombre)
       if (this.sup == 1) {
-        if (!est_diaporama) texte = `$${tex_nombre(nombre)}$ s'écrit \\dotfill`
+        if (!est_diaporama) texte = `$${tex_nombre(nombre)}$ : \\dotfill`
         else texte =`$${tex_nombre(nombre)}$`
-       if (!est_diaporama) texte_corr = `$${tex_nombre(nombre)}$ s'écrit ${nombreEnLettres(nombre)}.`
+       if (!est_diaporama) texte_corr = `$${tex_nombre(nombre)}$ : ${nombreEnLettres(nombre)}.`
        else texte_corr = `${nombreEnLettres(nombre)}.`
       }
       else {
-        if (!est_diaporama) texte = `${nombreEnLettres(nombre)} s'écrit \\dotfill`
+        if (!est_diaporama) texte = `${nombreEnLettres(nombre)} : \\dotfill`
         else texte = `${nombreEnLettres(nombre)}`
-        if (!est_diaporama) texte_corr = `${nombreEnLettres(nombre)} s'écrit $${tex_nombre(nombre)}$.`
+        if (!est_diaporama) texte_corr = `${nombreEnLettres(nombre)} : $${tex_nombre(nombre)}$.`
         else texte_corr = `$${tex_nombre(nombre)}$.`
       }
       if (this.liste_questions.indexOf(texte) == -1) {
@@ -3722,7 +3726,7 @@ function Ecrire_nombres_entiers() {
     liste_de_question_to_contenu(this);
   };
   this.besoin_formulaire_numerique = ['Type d\'exercice', 2, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres'];
-  this.besoin_formulaire2_numerique = ['Classe maximum', 4, '1 : Unités\n2 : Milliers\n3 : Millions\n4 : Milliards']
+  this.besoin_formulaire2_numerique = ['Niveau', 3, '1 : Facile\n2 : Moyen\n3 : Difficile']
 }
 /**
  * Lire un nombre / écrire un nombre : passer d'une écriture à une autre et inversement
@@ -3733,7 +3737,7 @@ function Ecrire_nombres_entiers() {
 function Ecrire_nombres_decimal() {
   "use strict"
   Exercice.call(this)
-  this.titre = "Écrire un nombre en chiffres ou en lettres"
+  this.titre = "Écrire un nombre décimal en chiffres ou en lettres"
   this.nb_questions = 5;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
@@ -3780,21 +3784,22 @@ function Ecrire_nombres_decimal() {
         if (tranche[0]==0) nombre=0
         
       }
-      console.log(nombre,tranche)
       if (part_dec%10!=0) nb_dec=3
       else if (part_dec%100!=0) nb_dec=2
       if (this.sup == 1) {
-        if (!est_diaporama) texte = `$${tex_nombre(nombre)}$ s'écrit \\dotfill`
+        if (!est_diaporama) texte = `$${tex_nombre(nombre)}$ : \\dotfill`
         else texte =`$${tex_nombre(nombre)}$`
-       if (!est_diaporama) texte_corr = `$${tex_nombre(nombre)}$ s'écrit ${nombreEnLettres(nombre)}.`
+       if (!est_diaporama) texte_corr = `$${tex_nombre(nombre)}$ : ${nombreEnLettres(nombre)}.`
        else texte_corr = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)}.`
       }
       else {
-        if (!est_diaporama) texte = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)} s'écrit \\dotfill`
+        if (!est_diaporama) texte = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)} : \\dotfill`
         else texte = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)}`
-        if (!est_diaporama) texte_corr = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)} s'écrit $${tex_nombre(nombre)}$.`
+        if (!est_diaporama) texte_corr = `${nombreEnLettres(part_ent)} unités et ${nombreEnLettres(part_dec)} : $${tex_nombre(nombre)}$.`
         else texte_corr = `$${tex_nombre(nombre)}$.`
       }
+      texte=texte.replace('et-un unités','et-une unités')
+      texte_corr=texte_corr.replace('et-un unités','et-une unités')
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(texte);
@@ -14451,7 +14456,6 @@ function chiffre_nombre_de(){
           };
           let j = rang[rang.length-1];
           j++;
-          //console.log(j);
           let nb_de_reste = '';
           while (j != 9) {            
             nb_de_reste += str.split('')[j];
