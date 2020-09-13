@@ -14470,7 +14470,7 @@ function chiffre_nombre_de(){
 			for (let k=0;k<situations.length;k++) {
 				enonces.push({
           enonce:`
-          Dans $${tex_nombre(nb)}$, quel est le ${situations[k].type} ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].determinant}  ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[0]} ?					
+          Dans $${tex_nombre(nb)}$, quel est le ${situations[k].type} ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].determinant} ${chiffre_nombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[0]} ?					
 					`,
 					question:``,
           correction:`
@@ -14895,7 +14895,7 @@ function Ranger_ordre_croissant_decroissant(){
         $${tex_nombre(nombres[0])}$   ;   $${tex_nombre(nombres[1])}$   ;   $${tex_nombre(nombres[2])}$   ;   $${tex_nombre(nombres[3])}$   ;   $${tex_nombre(nombres[4])}$   ;   $${tex_nombre(nombres[5])}$          
         `,
         question:``,
-        correction:`Les nombres rangés dans l'ordre $${mise_en_evidence(situations[k].ordre)}$ :<br>
+        correction:`Les nombres rangés dans l'ordre ${texte_en_couleur_et_gras(situations[k].ordre)} :<br>
         $${tex_nombre(nombres_ranges[0])}$   ${situations[k].symbole}   $${tex_nombre(nombres_ranges[1])}$   ${situations[k].symbole}   $${tex_nombre(nombres_ranges[2])}$   ${situations[k].symbole}   $${tex_nombre(nombres_ranges[3])}$   ${situations[k].symbole}   $${tex_nombre(nombres_ranges[4])}$   ${situations[k].symbole}   $${tex_nombre(nombres_ranges[5])}$
         `
       });
