@@ -11048,6 +11048,7 @@ function Transformations() {
   this.nb_questions_modifiable = false;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
+  this.pas_de_version_LaTeX = true;
   // this.sup = 1; // 1 pour les 6ème, 2 pour les 5èmes, 3 pour les 4èmes, et 4 pour les 3èmes.
   sortie_html ? (this.spacing_corr = 2.5) : (this.spacing_corr = 1.5);
   this.liste_packages = "tkz-euclide";
@@ -11409,7 +11410,7 @@ function Transformations() {
       liste_de_question_to_contenu_sans_numero(this);
     } else {
       texte = ``;
-      texte_cor = ``;
+      texte_corr = ``;
       this.liste_questions.push(texte); // on envoie la question
       this.liste_corrections.push(texte_corr);
       liste_de_question_to_contenu_sans_numero(this);
@@ -11555,30 +11556,35 @@ function Transformations_6e() {
   Transformations.call(this);
   this.sup = 1;
   this.titre = `Trouver l'image d'un point par une symétrie axiale`;
+  this.pas_de_version_LaTeX = true;
 }
 
 function Symetrie_axiale_5e() {
   Transformations.call(this);
   this.sup = 1;
   this.titre = `Trouver l'image d'un point par une symétrie axiale`;
+  this.pas_de_version_LaTeX = true;
 }
 
 function Transformations_5e() {
   Transformations.call(this);
   this.sup = 2;
   this.titre = `Trouver l'image d'un point par une symétrie axiale ou centrale`;
+  this.pas_de_version_LaTeX = true;
 }
 
 function Transformations_4e() {
   Transformations.call(this);
   this.sup = 3;
   this.titre = `Trouver l'image d'un point par une symétrie axiale ou centrale ou par une translation`;
+  this.pas_de_version_LaTeX = true;
 }
 
 function Transformations_3e() {
   Transformations.call(this);
   this.sup = 4;
   this.titre = `Trouver l'image d'un point par une transformation choisie aléatoirement`;
+  this.pas_de_version_LaTeX = true;
 }
 
 function Calcul_de_volumes_6e() {
