@@ -164,15 +164,13 @@ function Terme_d_une_suite_definie_par_recurrence(){
         case 1: //suite arithmétique
           a = randint(1, 10)*choice([-1,1]);
           u = randint(0, 10)*choice([-1,1]);
-          k = randint(1, 10);
+          k = randint(2, 10);
 			
-          texte = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout entier $n\\in\\mathbb{N}$ par $u_{n+1} = u_n`;
-          if (a > 0) {texte += `+${a}$.`}
-          else {texte += `${a}$.`};
+          texte = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout entier $n\\in\\mathbb{N}$ par $u_{n+1} = u_n ${ecriture_algebrique(a)}$.`;
 
           texte += `<br>Calculer $u_{${k}}$.`;
 			
-          texte_corr = `On calcule successivent les termes jusqu'à obtenir $u_${k}$ :`;
+          texte_corr = `On calcule successivent les termes jusqu'à obtenir $u_{${k}}$ :`;
           for (
             let indice =0; indice < k; indice++ 
           ){
@@ -186,7 +184,7 @@ function Terme_d_une_suite_definie_par_recurrence(){
         case 2: //suite géométrique
           a = randint(2,5)*choice([-1,1]);
           u = randint(1,9)*choice([-1,1]);
-          k = randint(1,6);
+          k = randint(2,6);
 
           texte = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout entier $n\\in\\mathbb{N}$ par $u_{n+1} = u_n \\times ${ecriture_parenthese_si_negatif(a)}$.`;
 
@@ -205,7 +203,7 @@ function Terme_d_une_suite_definie_par_recurrence(){
           a = randint(2,5)*choice([-1,1]);
           b = randint(1,5)*choice([-1,1]);
           u = randint(1,5)*choice([-1,1]);
-          k = randint(1,6);
+          k = randint(2,6);
 
           texte = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout entier $n\\in\\mathbb{N}$ par $u_{n+1} = ${a} u_n ${ecriture_algebrique(b)}$.`;
           
@@ -225,7 +223,7 @@ function Terme_d_une_suite_definie_par_recurrence(){
           a = randint(1,5)*choice([-1,1]);
           b = choice([-1,1]);
           u = randint(1,5)*choice([-1,1]);
-          k = randint(1,5);
+          k = randint(2,3);
 
           texte = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout entier $n\\in\\mathbb{N}$ par $u_{n+1} = ${a} ${signe(b)} u_n^2$.`;
                     
@@ -236,7 +234,7 @@ function Terme_d_une_suite_definie_par_recurrence(){
             let indice =0; indice < k; indice++ 
           ){
             texte_corr += `<br> $u_{${indice+1}} = ${a} ${signe(b)} (u_{${indice}})^2=`;
-            texte_corr += `${a} ${signe(b)} ${ecriture_parenthese_si_negatif(u)}^2 = ${a+b*u*u}$`;
+            texte_corr += `${a} ${signe(b)} ${ecriture_parenthese_si_negatif(u)}^2 = ${tex_nombre(a+b*u*u)}$`;
             u = a + b * u * u;
           }
           break;
