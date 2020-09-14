@@ -14835,7 +14835,7 @@ function Ranger_ordre_croissant_decroissant(){
  };	
 
  this.titre = "Ranger une liste de nombres entiers dans l'ordre croissant ou décroissant";	
- this.consigne = `Classer les nombres suivants dans l'ordre indiqué.`;	
+ //this.consigne = `Classer les nombres suivants dans l'ordre indiqué.`;	
  
  this.nb_cols = 1;
  this.nb_cols_corr = 1;
@@ -14912,7 +14912,7 @@ function Ranger_ordre_croissant_decroissant(){
       });      
       myOrdre(situations[k].ordre,nombres_ranges);   
       enonces.push({
-        enonce:`Dans l'ordre ${situations[k].ordre}<br>
+        enonce:`Classer les nombres suivants dans l'ordre ${situations[k].ordre} :<br>
         $${tex_nombre(nombres[0])}$   ;   $${tex_nombre(nombres[1])}$   ;   $${tex_nombre(nombres[2])}$   ;   $${tex_nombre(nombres[3])}$   ;   $${tex_nombre(nombres[4])}$   ;   $${tex_nombre(nombres[5])}$          
         `,
         question:``,
