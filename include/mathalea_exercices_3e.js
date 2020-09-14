@@ -5758,6 +5758,7 @@ function Passer_de_la_base_12_ou_16_a_la_10() {
 						chiffre3 = choice(['A','B','C','D','E','F','0','1','2','3','4','5','6','7','8','9']);
 					}
 					n = valeur_base(chiffre1)*b**2+valeur_base(chiffre2)*b+valeur_base(chiffre3);
+					console.log(n,chiffre1,chiffre2,chiffre3)
 					texte = `Écrire en base ${b} le nombre ${nombre_avec_espace(n)}.`;
 					texte_corr = `$${tex_nombre(n)}=${b}\\times${Math.floor(n/b)}+${mise_en_evidence(n%b)}$`;
 					texte_corr += `<br>$${Math.floor(n/b)}=${b}\\times${mise_en_evidence(valeur_base(chiffre1))}+${mise_en_evidence(valeur_base(chiffre2))}$`;
