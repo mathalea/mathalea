@@ -7486,11 +7486,11 @@ function Puissances_encadrement() {
       let ent_pos = [];
       for (let i = 0; i < 6; i++) {
         ent_pos.push({
-          val: `$${tex_nombre(randint(10 ** i + 1, 10 ** (i + 1)))}$`,
+          val: `$${tex_nombre(calcul(randint(10 ** i + 1, 10 ** (i + 1))))}$`,
           puissance_inf: `$10^{${i}}$`,
           puissance_sup: `$10^{${i + 1}}$`,
-          puissance_inf_num: `$${tex_nombre(10 ** i)}$`,
-          puissance_sup_num: `$${tex_nombre(10 ** (i + 1))}$`,
+          puissance_inf_num: `$${tex_nombre(calcul(10 ** i))}$`,
+          puissance_sup_num: `$${tex_nombre(calcul(10 ** (i + 1)))}$`,
         });
       }
 
@@ -7498,24 +7498,22 @@ function Puissances_encadrement() {
       let dec_pos = [];
       for (let i = 0; i < 4; i++) {
         dec_pos.push({
-          val: `$${tex_nombre(randint(10000, 100000) / 10 ** (4 - i))}$`,
+          val: `$${tex_nombre(calcul(randint(10000, 100000) / 10 ** (4 - i)))}$`,
           puissance_inf: `$10^{${i}}$`,
           puissance_sup: `$10^{${i + 1}}$`,
-          puissance_inf_num: `$${tex_nombre(10 ** i)}$`,
-          puissance_sup_num: `$${tex_nombre(10 ** (i + 1))}$`,
+          puissance_inf_num: `$${tex_nombre(calcul(10 ** i))}$`,
+          puissance_sup_num: `$${tex_nombre(calcul(10 ** (i + 1)))}$`,
         });
       }
       // nombre décimal positif inférieur à 1, entre 0,1 et 1 puis entre 0,01 et 0,1 puis 0,001 et 0,0001
       let dec_pos_inf_un = [];
       for (let i = 0; i < 4; i++) {
         dec_pos_inf_un.push({
-          val: `$${tex_nombre(
-            randint(10 ** (4 - i - 1) + 1, 10 ** (4 - i)) / 10000
-          )}$`,
+          val: `$${tex_nombre(calcul(randint(10 ** (4 - i - 1) + 1, 10 ** (4 - i)) / 10000))}$`,
           puissance_inf: `$10^{${-(i + 1)}}$`,
           puissance_sup: `$10^{${-i}}$`,
-          puissance_inf_num: `$${tex_nombre(10 ** -(i + 1))}$`,
-          puissance_sup_num: `$${tex_nombre(10 ** -i)}$`,
+          puissance_inf_num: `$${tex_nombre(calcul(10 ** -(i + 1)))}$`,
+          puissance_sup_num: `$${tex_nombre(calcul(10 ** -i))}$`,
         });
       }
 
