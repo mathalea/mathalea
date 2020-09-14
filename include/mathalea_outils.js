@@ -612,7 +612,7 @@ function valeur_base(n) {
 		break
 		case 'F' : return 15
 		break
-		default : return n
+		default : return parseInt(n)
 	}
 };
 
