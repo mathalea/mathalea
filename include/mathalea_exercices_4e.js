@@ -6740,30 +6740,36 @@ function Notation_scientifique() {
   this.nb_questions=5
 
   this.nouvelle_version = function (numero_de_l_exercice) {
-    if (this.sup == 1) this.consigne = `Donner l\'écriture scientifique des nombres.`;
-    else this.consigne = `Donner l\'écriture décimale des nombres.`;
+    if (this.sup == 1) this.consigne = `Donner l\'écriture scientifique des nombres suivants.`;
+    else this.consigne = `Donner l\'écriture décimale des nombres suivants.`;
     let type_de_questions_disponibles;
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    if (this.sup2==1) type_de_questions_disponibles=[1,1,1,1,2];
-    else if (this.sup2==2) type_de_questions_disponibles=[1,2,2,2,3];
+    if (this.sup2==1) type_de_questions_disponibles=[0,0,0,1,1];
+    else if (this.sup2==2) type_de_questions_disponibles=[0,1,1,2,2];
     else type_de_questions_disponibles=[2,2,3,3,3];
 
     let liste_type_de_questions=combinaison_listes(type_de_questions_disponibles,this.nb_questions);
     for (let i = 0, texte, texte_corr,mantisse,exp,decimalstring,scientifiquestring, cpt = 0;
       i < this.nb_questions && cpt < 50;) {
       switch (liste_type_de_questions[i]) {
+        case 0 :
+        mantisse = randint(1,9)
+        exp=randint(1,5)
+        break
         case 1: 
           mantisse=calcul(randint(11,99)/10)
-          exp=randint(3,6)
+          exp=randint(1,5)
         break;
         case 2:
-          mantisse=calcul(randint(111,999)/100)
-          exp=randint(1,8)*choice([-1,1])
+          if (randint(0,1)==1) mantisse=calcul(randint(111,999)/100)
+          else mantisse=calcul((randint(1,9)*100+randint(1,9))/100)
+          exp=randint(1,7)*choice([-1,1])
         break;
         case 3:
-          mantisse=calcul(randint(1111,9999)/1000)
-          exp=randint(3,10)*choice([-1,1])
+          if (randint(0,1)==1) mantisse=calcul((randint(1,9)*1000+randint(1,19)*5)/1000)
+          else mantisse=calcul(randint(1111,9999)/1000)
+          exp=randint(3,7)*choice([-1,1])
         break;
       }
       decimalstring=tex_nombrec(mantisse*10**exp)

@@ -185,7 +185,7 @@ var liste_des_exercices_disponibles = {
   "4C11": Priorites_et_relatifs,
   "4C25-0": Problemes_additifs_fractions,
   "4C30-1": Puissances_encadrement,
-  "beta4C32" : Notation_scientifique,
+  "4C32" : Notation_scientifique,
   "4G40": Transformations_4e,
   "4L10": Exercice_developper,
   "4L13-0": Mettre_en_equation_sans_resoudre,
