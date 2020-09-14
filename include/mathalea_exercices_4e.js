@@ -6773,7 +6773,7 @@ function Notation_scientifique() {
         texte_corr=`$${decimalstring} = ${scientifiquestring}$`
       }
       else {
-        texte_corr= `$${decimalstring} = ${scientifiquestring}$`
+        texte_corr= `$${scientifiquestring} = ${decimalstring}$`
         texte=`$${scientifiquestring}$`
 
       }
