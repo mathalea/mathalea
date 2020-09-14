@@ -283,6 +283,7 @@ var liste_des_exercices_disponibles = {
   "1N11": Terme_d_une_suite_definie_par_recurrence, 
   "PEA11": Passer_d_une_base_a_l_autre,
   "PEA11-1": Passer_de_la_base_12_ou_16_a_la_10,
+  "betaTESTseb": Tests_du_Seb,
   P001: Code_LaTeX_personnalise,
   // 'P002': LaTeX_static,
   P003: feuille_d_axes_gradues,
@@ -14958,6 +14959,117 @@ function Ranger_ordre_croissant_decroissant(){
  }
  //this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
  //this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+};
+
+
+/** 
+ * * Exo test pour quand j'en ai besoin
+ * * pas de numéro
+ * * Tests
+ * @author Sébastien Lozano
+ */
+
+function Tests_du_Seb(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.beta = true;	
+	this.sup=1;
+	if (this.beta) {
+		this.nb_questions = 2;
+	} else {
+		this.nb_questions = 2;
+	};	
+
+	this.titre = "Exo test pour quand j'en ai besoin";	
+	this.consigne = `Consigne `;	
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	//this.nb_questions_modifiable = false;
+	sortie_html? this.spacing = 2.5 : this.spacing = 1.5; 
+	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+
+	let type_de_questions_disponibles;	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		if (this.beta) {
+			type_de_questions_disponibles = [0,1];			
+		} else {
+          //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
+          type_de_questions_disponibles = [0,1];	
+		};
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+
+			// pour les situations, autant de situations que de cas dans le switch !
+			let situations = [
+				{//case 0 -->
+				},
+				{//case 1 -->
+				},
+			];
+
+			let enonces = [];
+			for (let k=0;k<situations.length;k++) {
+				enonces.push({
+					enonce:`
+          Type ${k}<br>	
+          ${JSON.stringify(decomp_fact_prem_array(238))}<br>			
+          ${typeof decomp_fact_prem_array(238)}<br>
+          ${JSON.stringify(obtenir_liste_facteurs_premiers(238))}<br>
+          ${typeof obtenir_liste_facteurs_premiers(238)}<br>
+					`,
+					question:``,
+					correction:`
+					Correction type ${k}
+					`
+				});
+			};
+            
+            // autant de case que d'elements dans le tableau des situations
+			switch (liste_type_de_questions[i]){
+				case 0 : 
+					texte = `${enonces[0].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
+						texte += `             `
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[0].correction}`;
+					};
+          break;	
+        case 1 : 
+					texte = `${enonces[1].enonce}`;
+					if (this.beta) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[1].correction}`;
+					};
+          break;
+			
+			};			
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+
+	}
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 };
 
 /**
