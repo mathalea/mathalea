@@ -6789,10 +6789,10 @@ function Calculs_avec_puissances_de_dix() {
       scientifiquestring=`${tex_nombre(mantisse)} \\times 10^{${exp}}`
       if (this.sup==1) {
         texte= `$${decimalstring}$`
-        texte_corr=`$${decimalstring} = ${tex_nombre(mantisse)} \\times 10^{${decalage}} \\times 10^{${exp1}} = ${scientifiquestring}$`
+        texte_corr=`$${mise_en_evidence(`${tex_nombrec(mantisse1)}`,'blue')}\\times ${mise_en_evidence(`10^{${exp1}}`)} = ${mise_en_evidence(`${tex_nombre(mantisse)}\\times 10^{${decalage}}`,'blue')}\\times  ${mise_en_evidence(`10^{${exp1}}`)} = ${scientifiquestring}$`
       }
       else {
-        texte_corr= `$${mise_en_evidence(tex_nombre(mantisse1),'blue')}\\times 10^{${mise_en_evidence(exp1)}}=${mise_en_evidence(tex_nombre(mantisse)+`\\times 10^{${decalage}}`,'blue')} \\times 10^{${mise_en_evidence(exp1)}} =${scientifiquestring}$`
+        texte_corr= `$${mise_en_evidence(tex_nombre(mantisse1),'blue')}\\times  ${mise_en_evidence(`10^{${exp1}}`)}=${mise_en_evidence(tex_nombre(mantisse)+`\\times 10^{${decalage}}`,'blue')}\\times  ${mise_en_evidence(`10^{${exp1}}`)} =${scientifiquestring}$`
         texte=`$${tex_nombre(mantisse1)}\\times 10^{${mise_en_evidence(`....`)}}=${scientifiquestring}$`
 
       }
