@@ -7573,11 +7573,11 @@ function Puissances_encadrement() {
       let ent_pos = [];
       for (let i = 0; i < 6; i++) {
         ent_pos.push({
-          val: `$${tex_nombre(randint(10 ** i + 1, 10 ** (i + 1)))}$`,
+          val: `$${tex_nombre(calcul(randint(10 ** i + 1, 10 ** (i + 1))))}$`,
           puissance_inf: `$10^{${i}}$`,
           puissance_sup: `$10^{${i + 1}}$`,
-          puissance_inf_num: `$${tex_nombre(10 ** i)}$`,
-          puissance_sup_num: `$${tex_nombre(10 ** (i + 1))}$`,
+          puissance_inf_num: `$${tex_nombre(calcul(10 ** i))}$`,
+          puissance_sup_num: `$${tex_nombre(calcul(10 ** (i + 1)))}$`,
         });
       }
 
@@ -7585,24 +7585,22 @@ function Puissances_encadrement() {
       let dec_pos = [];
       for (let i = 0; i < 4; i++) {
         dec_pos.push({
-          val: `$${tex_nombre(randint(10000, 100000) / 10 ** (4 - i))}$`,
+          val: `$${tex_nombre(calcul(randint(10000, 100000) / 10 ** (4 - i)))}$`,
           puissance_inf: `$10^{${i}}$`,
           puissance_sup: `$10^{${i + 1}}$`,
-          puissance_inf_num: `$${tex_nombre(10 ** i)}$`,
-          puissance_sup_num: `$${tex_nombre(10 ** (i + 1))}$`,
+          puissance_inf_num: `$${tex_nombre(calcul(10 ** i))}$`,
+          puissance_sup_num: `$${tex_nombre(calcul(10 ** (i + 1)))}$`,
         });
       }
       // nombre décimal positif inférieur à 1, entre 0,1 et 1 puis entre 0,01 et 0,1 puis 0,001 et 0,0001
       let dec_pos_inf_un = [];
       for (let i = 0; i < 4; i++) {
         dec_pos_inf_un.push({
-          val: `$${tex_nombre(
-            randint(10 ** (4 - i - 1) + 1, 10 ** (4 - i)) / 10000
-          )}$`,
+          val: `$${tex_nombre(calcul(randint(10 ** (4 - i - 1) + 1, 10 ** (4 - i)) / 10000))}$`,
           puissance_inf: `$10^{${-(i + 1)}}$`,
           puissance_sup: `$10^{${-i}}$`,
-          puissance_inf_num: `$${tex_nombre(10 ** -(i + 1))}$`,
-          puissance_sup_num: `$${tex_nombre(10 ** -i)}$`,
+          puissance_inf_num: `$${tex_nombre(calcul(10 ** -(i + 1)))}$`,
+          puissance_sup_num: `$${tex_nombre(calcul(10 ** -i))}$`,
         });
       }
 
@@ -9707,31 +9705,38 @@ function Mettre_en_equation_sans_resoudre(){
       // une fonction pour dire le nom du polygone
       function myPolyName(n) {
         let sortie = {
+          article:``,
           name: ``,
           nameParSommets: ``,
         };
         switch (n) {
           case 3:
+            sortie.article = `du `;
             sortie.name = `triangle équilatéral`;
             sortie.nameParSommets = `ABC`;
             break;
           case 4:
+            sortie.article = `du `;
             sortie.name = `carré`;
             sortie.nameParSommets = `ABCD`;
             break;
           case 5:
+            sortie.article = `du `;
             sortie.name = `pentagone régulier`;
             sortie.nameParSommets = `ABCDE`;
             break;
           case 6:
+            sortie.article = `de l'`;
             sortie.name = `hexagone régulier`;
             sortie.nameParSommets = `ABCDEF`;
             break;
           case 7:
+            sortie.article = `de l'`;
             sortie.name = `heptagone régulier`;
             sortie.nameParSommets = `ABCDEFG`;
             break;
           case 8:
+            sortie.article = `de l'`;
             sortie.name = `octogone régulier`;
             sortie.nameParSommets = `ABCDEFGH`;
             break;
@@ -9773,6 +9778,7 @@ function Mettre_en_equation_sans_resoudre(){
       let polygone = {
         nb_cotes: n,
         unite: unite,
+        article:myPolyName(n).article,
         nom: myPolyName(n).name,
         let_cote: inc,
         perimetre: randint(200, 500),
@@ -9790,7 +9796,7 @@ function Mettre_en_equation_sans_resoudre(){
       
 			let enonces = [];
 			enonces.push({
-				enonce:`On considère la figure suivante où l'unité est le $${polygone.unite}$.<br>${prenom()} se demande pour quelle valeur de ${polygone.let_cote}, exprimée en $${polygone.unite}$, le périmètre du ${polygone.nom} est égal à $${polygone.perimetre}$ $${polygone.unite}$ .<br> ${polygone.fig}`,
+				enonce:`On considère la figure suivante où l'unité est le $${polygone.unite}$.<br>${prenom()} se demande pour quelle valeur de ${polygone.let_cote}, exprimée en $${polygone.unite}$, le périmètre ${polygone.article}${polygone.nom} est égal à $${polygone.perimetre}$ $${polygone.unite}$ .<br> ${polygone.fig}`,
 				question:``,
         correction:`La figure est un ${polygone.nom}, il a donc ${polygone.nb_cotes} côtés de même longueur.<br>
         Cette longueur est notée ${polygone.let_cote}, le périmètre de la figure, exprimé en fonction de ${polygone.let_cote}, vaut donc $${polygone.nb_cotes}\\times$ ${polygone.let_cote}.<br>
@@ -9802,7 +9808,7 @@ function Mettre_en_equation_sans_resoudre(){
       let p = randint(3, 8,[n]);
       polygone.nb_cotes = p;
 			enonces.push({
-				enonce:`On considère la figure suivante où l'unité est le $${polygone.unite}$.<br>${prenom()} se demande pour quelle valeur de ${polygone.let_cote}, exprimée en $${polygone.unite}$, le périmètre du ${polygone.nom} est égal à $${polygone.perimetre}$ $${polygone.unite}$ .<br> ${polygone.fig}`,
+				enonce:`On considère la figure suivante où l'unité est le $${polygone.unite}$.<br>${prenom()} se demande pour quelle valeur de ${polygone.let_cote}, exprimée en $${polygone.unite}$, le périmètre ${polygone.article}${polygone.nom} est égal à $${polygone.perimetre}$ $${polygone.unite}$ .<br> ${polygone.fig}`,
 				question:``,
         correction:`La figure est un ${polygone.nom}, il a donc ${polygone.nb_cotes} côtés de même longueur.<br>
         Cette longueur est notée ${polygone.let_cote}, le périmètre de la figure, exprimé en fonction de ${polygone.let_cote}, vaut donc $${polygone.nb_cotes}\\times$ ${polygone.let_cote}.<br>
@@ -10126,8 +10132,6 @@ function Trouver_erreur_resol_eq_deg1(){
       };
 
       function simpFrac(n,d) {  
-        console.log(isSimp(n,d));
-        console.log(n,d)      
         if (isSimp(n,d)) {
           if (fraction_simplifiee(n,d)[1]==1) {
             return `$= ${fraction_simplifiee(n,d)[0]}$`;
@@ -11370,7 +11374,7 @@ function Pythagore2D() {
       }
 
       if (!sortie_html) {texte = '~\\\\'}
-      texte += mathalea2d({xmin:xmin, xmax:xmax, ymin:ymin, ymax:ymax, scale:.6,mainlevee:true,amplitude:1},mesObjetsATracer) ;
+      texte += mathalea2d({xmin:xmin, xmax:xmax, ymin:ymin, ymax:ymax, scale:.6},mesObjetsATracer) ;
       if (this.sup==2){
         if (liste_type_de_questions[i]=='AB'){
           texte += `<br>$${A.nom+B.nom}^2=\\ldots$`
