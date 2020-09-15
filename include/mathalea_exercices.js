@@ -187,7 +187,7 @@ var liste_des_exercices_disponibles = {
   "4C30": Puissances_de_dix,
   "4C30-1": Puissances_encadrement,
   "4C32" : Notation_scientifique,
-  "beta4C32-1" : Calculs_avec_puissances_de_dix,
+  "4C32-1" : Calculs_avec_puissances_de_dix,
   "4C33-1": Puissances_d_un_relatif_1,
   "4C33-3": Puissances_d_un_relatif_2,
   "4G40": Transformations_4e,

@@ -6735,14 +6735,14 @@ function Calculs_avec_puissances_de_dix() {
   Exercice.call(this)
   this.sup = 1;
   this.sup2 =1;
-  this.titre = `Notation scientifique`;
+  this.titre = `Calcul avec les puissances de dix`;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
   this.nb_questions=5
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     if (this.sup == 1) this.consigne = `Donner l\'écriture scientifique des nombres suivants.`;
-    else this.consigne = `Donner l\'écriture décimale des nombres suivants.`;
+    else this.consigne = `Compléter l'égalité des nombres suivants.`;
     let type_de_questions_disponibles;
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
@@ -6789,11 +6789,11 @@ function Calculs_avec_puissances_de_dix() {
       scientifiquestring=`${tex_nombre(mantisse)} \\times 10^{${exp}}`
       if (this.sup==1) {
         texte= `$${decimalstring}$`
-        texte_corr=`$${decimalstring} = ${scientifiquestring}$`
+        texte_corr=`$${decimalstring} = ${tex_nombre(mantisse)} \\times 10^{${decalage}} \\times 10^{${exp1}} = ${scientifiquestring}$`
       }
       else {
-        texte_corr= `$${scientifiquestring} = ${decimalstring}$`
-        texte=`$${scientifiquestring}$`
+        texte_corr= `$${mise_en_evidence(tex_nombre(mantisse1),'blue')}\\times 10^{${mise_en_evidence(exp1)}}=${mise_en_evidence(tex_nombre(mantisse)+`\\times 10^{${decalage}}`,'blue')} \\times 10^{${mise_en_evidence(exp1)}} =${scientifiquestring}$`
+        texte=`$${tex_nombre(mantisse1)}\\times 10^{${mise_en_evidence(`....`)}}=${scientifiquestring}$`
 
       }
       if (this.liste_questions.indexOf(texte) == -1) {
@@ -6805,7 +6805,7 @@ function Calculs_avec_puissances_de_dix() {
     }
     liste_de_question_to_contenu(this);
   };
-  this.besoin_formulaire_numerique = ["Type d\'exercices", 2, "1 : Traduire en notation scientifique\n2 : Traduire en notation décimale"];
+  this.besoin_formulaire_numerique = ["Type d\'exercices", 2, "1 : Traduire en notation scientifique\n2 : Exercice à trou"];
   this.besoin_formulaire2_numerique = ["Niveaux de difficulté",3, "1 : Facile\n2 : Moyen\n3 : Difficile"];
 }
 
