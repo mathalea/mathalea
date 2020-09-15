@@ -10043,8 +10043,6 @@ function Trouver_erreur_resol_eq_deg1(){
       };
 
       function simpFrac(n,d) {  
-        console.log(isSimp(n,d));
-        console.log(n,d)      
         if (isSimp(n,d)) {
           if (fraction_simplifiee(n,d)[1]==1) {
             return `$= ${fraction_simplifiee(n,d)[0]}$`;
@@ -11287,7 +11285,7 @@ function Pythagore2D() {
       }
 
       if (!sortie_html) {texte = '~\\\\'}
-      texte += mathalea2d({xmin:xmin, xmax:xmax, ymin:ymin, ymax:ymax, scale:.6,mainlevee:true,amplitude:1},mesObjetsATracer) ;
+      texte += mathalea2d({xmin:xmin, xmax:xmax, ymin:ymin, ymax:ymax, scale:.6},mesObjetsATracer) ;
       if (this.sup==2){
         if (liste_type_de_questions[i]=='AB'){
           texte += `<br>$${A.nom+B.nom}^2=\\ldots$`

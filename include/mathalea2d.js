@@ -1249,7 +1249,6 @@ function Segment(arg1, arg2, arg3, arg4, color) {
       code +=`${arrondi(A.xSVG(coeff)+k*dx+randint(-1,1)*amp,0)},${arrondi(A.ySVG(coeff)+k*dy+randint(-1,1)*amp,0)} `
     }
     code +=` ${arrondi(B.xSVG(coeff),0)},${arrondi(B.ySVG(coeff),0)} " stroke="${this.color}" ${this.style}"/>`
-    console.log(code)
     return code;
  }
   this.tikzml = function(amp){
