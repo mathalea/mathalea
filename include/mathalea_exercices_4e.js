@@ -6735,14 +6735,14 @@ function Calculs_avec_puissances_de_dix() {
   Exercice.call(this)
   this.sup = 1;
   this.sup2 =1;
-  this.titre = `Notation scientifique`;
+  this.titre = `Calcul avec les puissances de dix`;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
   this.nb_questions=5
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     if (this.sup == 1) this.consigne = `Donner l\'écriture scientifique des nombres suivants.`;
-    else this.consigne = `Donner l\'écriture décimale des nombres suivants.`;
+    else this.consigne = `Compléter l'égalité des nombres suivants.`;
     let type_de_questions_disponibles;
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
@@ -6789,11 +6789,11 @@ function Calculs_avec_puissances_de_dix() {
       scientifiquestring=`${tex_nombre(mantisse)} \\times 10^{${exp}}`
       if (this.sup==1) {
         texte= `$${decimalstring}$`
-        texte_corr=`$${decimalstring} = ${scientifiquestring}$`
+        texte_corr=`$${decimalstring} = ${tex_nombre(mantisse)} \\times 10^{${decalage}} \\times 10^{${exp1}} = ${scientifiquestring}$`
       }
       else {
-        texte_corr= `$${scientifiquestring} = ${decimalstring}$`
-        texte=`$${scientifiquestring}$`
+        texte_corr= `$${mise_en_evidence(tex_nombre(mantisse1),'blue')}\\times 10^{${mise_en_evidence(exp1)}}=${mise_en_evidence(tex_nombre(mantisse)+`\\times 10^{${decalage}}`,'blue')} \\times 10^{${mise_en_evidence(exp1)}} =${scientifiquestring}$`
+        texte=`$${tex_nombre(mantisse1)}\\times 10^{${mise_en_evidence(`....`)}}=${scientifiquestring}$`
 
       }
       if (this.liste_questions.indexOf(texte) == -1) {
@@ -6805,7 +6805,7 @@ function Calculs_avec_puissances_de_dix() {
     }
     liste_de_question_to_contenu(this);
   };
-  this.besoin_formulaire_numerique = ["Type d\'exercices", 2, "1 : Traduire en notation scientifique\n2 : Traduire en notation décimale"];
+  this.besoin_formulaire_numerique = ["Type d\'exercices", 2, "1 : Traduire en notation scientifique\n2 : Exercice à trou"];
   this.besoin_formulaire2_numerique = ["Niveaux de difficulté",3, "1 : Facile\n2 : Moyen\n3 : Difficile"];
 }
 
@@ -9705,31 +9705,38 @@ function Mettre_en_equation_sans_resoudre(){
       // une fonction pour dire le nom du polygone
       function myPolyName(n) {
         let sortie = {
+          article:``,
           name: ``,
           nameParSommets: ``,
         };
         switch (n) {
           case 3:
+            sortie.article = `du `;
             sortie.name = `triangle équilatéral`;
             sortie.nameParSommets = `ABC`;
             break;
           case 4:
+            sortie.article = `du `;
             sortie.name = `carré`;
             sortie.nameParSommets = `ABCD`;
             break;
           case 5:
+            sortie.article = `du `;
             sortie.name = `pentagone régulier`;
             sortie.nameParSommets = `ABCDE`;
             break;
           case 6:
+            sortie.article = `de l'`;
             sortie.name = `hexagone régulier`;
             sortie.nameParSommets = `ABCDEF`;
             break;
           case 7:
+            sortie.article = `de l'`;
             sortie.name = `heptagone régulier`;
             sortie.nameParSommets = `ABCDEFG`;
             break;
           case 8:
+            sortie.article = `de l'`;
             sortie.name = `octogone régulier`;
             sortie.nameParSommets = `ABCDEFGH`;
             break;
@@ -9771,6 +9778,7 @@ function Mettre_en_equation_sans_resoudre(){
       let polygone = {
         nb_cotes: n,
         unite: unite,
+        article:myPolyName(n).article,
         nom: myPolyName(n).name,
         let_cote: inc,
         perimetre: randint(200, 500),
@@ -9788,7 +9796,7 @@ function Mettre_en_equation_sans_resoudre(){
       
 			let enonces = [];
 			enonces.push({
-				enonce:`On considère la figure suivante où l'unité est le $${polygone.unite}$.<br>${prenom()} se demande pour quelle valeur de ${polygone.let_cote}, exprimée en $${polygone.unite}$, le périmètre du ${polygone.nom} est égal à $${polygone.perimetre}$ $${polygone.unite}$ .<br> ${polygone.fig}`,
+				enonce:`On considère la figure suivante où l'unité est le $${polygone.unite}$.<br>${prenom()} se demande pour quelle valeur de ${polygone.let_cote}, exprimée en $${polygone.unite}$, le périmètre ${polygone.article}${polygone.nom} est égal à $${polygone.perimetre}$ $${polygone.unite}$ .<br> ${polygone.fig}`,
 				question:``,
         correction:`La figure est un ${polygone.nom}, il a donc ${polygone.nb_cotes} côtés de même longueur.<br>
         Cette longueur est notée ${polygone.let_cote}, le périmètre de la figure, exprimé en fonction de ${polygone.let_cote}, vaut donc $${polygone.nb_cotes}\\times$ ${polygone.let_cote}.<br>
@@ -9800,7 +9808,7 @@ function Mettre_en_equation_sans_resoudre(){
       let p = randint(3, 8,[n]);
       polygone.nb_cotes = p;
 			enonces.push({
-				enonce:`On considère la figure suivante où l'unité est le $${polygone.unite}$.<br>${prenom()} se demande pour quelle valeur de ${polygone.let_cote}, exprimée en $${polygone.unite}$, le périmètre du ${polygone.nom} est égal à $${polygone.perimetre}$ $${polygone.unite}$ .<br> ${polygone.fig}`,
+				enonce:`On considère la figure suivante où l'unité est le $${polygone.unite}$.<br>${prenom()} se demande pour quelle valeur de ${polygone.let_cote}, exprimée en $${polygone.unite}$, le périmètre ${polygone.article}${polygone.nom} est égal à $${polygone.perimetre}$ $${polygone.unite}$ .<br> ${polygone.fig}`,
 				question:``,
         correction:`La figure est un ${polygone.nom}, il a donc ${polygone.nb_cotes} côtés de même longueur.<br>
         Cette longueur est notée ${polygone.let_cote}, le périmètre de la figure, exprimé en fonction de ${polygone.let_cote}, vaut donc $${polygone.nb_cotes}\\times$ ${polygone.let_cote}.<br>
@@ -10124,8 +10132,6 @@ function Trouver_erreur_resol_eq_deg1(){
       };
 
       function simpFrac(n,d) {  
-        console.log(isSimp(n,d));
-        console.log(n,d)      
         if (isSimp(n,d)) {
           if (fraction_simplifiee(n,d)[1]==1) {
             return `$= ${fraction_simplifiee(n,d)[0]}$`;
@@ -11368,7 +11374,7 @@ function Pythagore2D() {
       }
 
       if (!sortie_html) {texte = '~\\\\'}
-      texte += mathalea2d({xmin:xmin, xmax:xmax, ymin:ymin, ymax:ymax, scale:.6,mainlevee:true,amplitude:1},mesObjetsATracer) ;
+      texte += mathalea2d({xmin:xmin, xmax:xmax, ymin:ymin, ymax:ymax, scale:.6},mesObjetsATracer) ;
       if (this.sup==2){
         if (liste_type_de_questions[i]=='AB'){
           texte += `<br>$${A.nom+B.nom}^2=\\ldots$`
