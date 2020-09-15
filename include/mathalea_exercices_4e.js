@@ -6729,7 +6729,11 @@ function Problemes_grandeurs_composees() {
     "Nombres séparés par des tirets\n 1 : Energie consommée\n 2 :  Volumes\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesses\n 8 : Prix massique\n 9 : Prix horaire\n 10 : Densité de population\n 11 : Masse volumique\n 12 : Concentration massique\n 13 : Débits\n 14 : Transfert de fichiers",
   ]; // Texte, tooltip
 }
-
+/**
+ * type 1 : Un nombre est donné par le produit d'un décimal par une puissance de dix, il faut l'écrire en notation scientifique
+ * type 2 : On donne la notation scientifique d'un nombre et on doit trouver l'exposant manquant de 10 dans le membre de gauche.
+ * @Auteur Jean-Claude Lhote 
+ */
 function Calculs_avec_puissances_de_dix() {
   "use strict"
   Exercice.call(this)
@@ -6789,10 +6793,10 @@ function Calculs_avec_puissances_de_dix() {
       scientifiquestring=`${tex_nombre(mantisse)} \\times 10^{${exp}}`
       if (this.sup==1) {
         texte= `$${decimalstring}$`
-        texte_corr=`$${decimalstring} = ${tex_nombre(mantisse)} \\times 10^{${decalage}} \\times 10^{${exp1}} = ${scientifiquestring}$`
+        texte_corr=`$${mise_en_evidence(`${tex_nombrec(mantisse1)}`,'blue')}\\times ${mise_en_evidence(`10^{${exp1}}`)} = ${mise_en_evidence(`${tex_nombre(mantisse)}\\times 10^{${decalage}}`,'blue')}\\times  ${mise_en_evidence(`10^{${exp1}}`)} = ${scientifiquestring}$`
       }
       else {
-        texte_corr= `$${mise_en_evidence(tex_nombre(mantisse1),'blue')}\\times 10^{${mise_en_evidence(exp1)}}=${mise_en_evidence(tex_nombre(mantisse)+`\\times 10^{${decalage}}`,'blue')} \\times 10^{${mise_en_evidence(exp1)}} =${scientifiquestring}$`
+        texte_corr= `$${mise_en_evidence(tex_nombre(mantisse1),'blue')}\\times  ${mise_en_evidence(`10^{${exp1}}`)}=${mise_en_evidence(tex_nombre(mantisse)+`\\times 10^{${decalage}}`,'blue')}\\times  ${mise_en_evidence(`10^{${exp1}}`)} =${scientifiquestring}$`
         texte=`$${tex_nombre(mantisse1)}\\times 10^{${mise_en_evidence(`....`)}}=${scientifiquestring}$`
 
       }
@@ -6809,6 +6813,10 @@ function Calculs_avec_puissances_de_dix() {
   this.besoin_formulaire2_numerique = ["Niveaux de difficulté",3, "1 : Facile\n2 : Moyen\n3 : Difficile"];
 }
 
+/**
+ * Ecrire un nombre décimal en notation scientifique et inversement
+ * @Auteur Jean-Claude Lhote
+ */
 
 function Notation_scientifique() {
   "use strict"
