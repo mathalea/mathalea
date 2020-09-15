@@ -9666,7 +9666,7 @@ function Forme_litterale_introduire_une_lettre(){
 function Mettre_en_equation_sans_resoudre(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 9;
