@@ -9585,7 +9585,7 @@ function Forme_litterale_introduire_une_lettre(){
 function Mettre_en_equation_sans_resoudre(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+	this.beta = true;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 9;
@@ -9624,31 +9624,38 @@ function Mettre_en_equation_sans_resoudre(){
       // une fonction pour dire le nom du polygone
       function myPolyName(n) {
         let sortie = {
+          article:``,
           name: ``,
           nameParSommets: ``,
         };
         switch (n) {
           case 3:
+            sortie.article = `du `;
             sortie.name = `triangle équilatéral`;
             sortie.nameParSommets = `ABC`;
             break;
           case 4:
+            sortie.article = `du `;
             sortie.name = `carré`;
             sortie.nameParSommets = `ABCD`;
             break;
           case 5:
+            sortie.article = `du `;
             sortie.name = `pentagone régulier`;
             sortie.nameParSommets = `ABCDE`;
             break;
           case 6:
+            sortie.article = `de l'`;
             sortie.name = `hexagone régulier`;
             sortie.nameParSommets = `ABCDEF`;
             break;
           case 7:
+            sortie.article = `de l'`;
             sortie.name = `heptagone régulier`;
             sortie.nameParSommets = `ABCDEFG`;
             break;
           case 8:
+            sortie.article = `de l'`;
             sortie.name = `octogone régulier`;
             sortie.nameParSommets = `ABCDEFGH`;
             break;
@@ -9690,6 +9697,7 @@ function Mettre_en_equation_sans_resoudre(){
       let polygone = {
         nb_cotes: n,
         unite: unite,
+        article:myPolyName(n).article,
         nom: myPolyName(n).name,
         let_cote: inc,
         perimetre: randint(200, 500),
@@ -9707,7 +9715,7 @@ function Mettre_en_equation_sans_resoudre(){
       
 			let enonces = [];
 			enonces.push({
-				enonce:`On considère la figure suivante où l'unité est le $${polygone.unite}$.<br>${prenom()} se demande pour quelle valeur de ${polygone.let_cote}, exprimée en $${polygone.unite}$, le périmètre du ${polygone.nom} est égal à $${polygone.perimetre}$ $${polygone.unite}$ .<br> ${polygone.fig}`,
+				enonce:`On considère la figure suivante où l'unité est le $${polygone.unite}$.<br>${prenom()} se demande pour quelle valeur de ${polygone.let_cote}, exprimée en $${polygone.unite}$, le périmètre ${polygone.article}${polygone.nom} est égal à $${polygone.perimetre}$ $${polygone.unite}$ .<br> ${polygone.fig}`,
 				question:``,
         correction:`La figure est un ${polygone.nom}, il a donc ${polygone.nb_cotes} côtés de même longueur.<br>
         Cette longueur est notée ${polygone.let_cote}, le périmètre de la figure, exprimé en fonction de ${polygone.let_cote}, vaut donc $${polygone.nb_cotes}\\times$ ${polygone.let_cote}.<br>
@@ -9719,7 +9727,7 @@ function Mettre_en_equation_sans_resoudre(){
       let p = randint(3, 8,[n]);
       polygone.nb_cotes = p;
 			enonces.push({
-				enonce:`On considère la figure suivante où l'unité est le $${polygone.unite}$.<br>${prenom()} se demande pour quelle valeur de ${polygone.let_cote}, exprimée en $${polygone.unite}$, le périmètre du ${polygone.nom} est égal à $${polygone.perimetre}$ $${polygone.unite}$ .<br> ${polygone.fig}`,
+				enonce:`On considère la figure suivante où l'unité est le $${polygone.unite}$.<br>${prenom()} se demande pour quelle valeur de ${polygone.let_cote}, exprimée en $${polygone.unite}$, le périmètre ${polygone.article}${polygone.nom} est égal à $${polygone.perimetre}$ $${polygone.unite}$ .<br> ${polygone.fig}`,
 				question:``,
         correction:`La figure est un ${polygone.nom}, il a donc ${polygone.nb_cotes} côtés de même longueur.<br>
         Cette longueur est notée ${polygone.let_cote}, le périmètre de la figure, exprimé en fonction de ${polygone.let_cote}, vaut donc $${polygone.nb_cotes}\\times$ ${polygone.let_cote}.<br>
