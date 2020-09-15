@@ -6753,35 +6753,40 @@ function Calculs_avec_puissances_de_dix() {
     let liste_type_de_questions=combinaison_listes(type_de_questions_disponibles,this.nb_questions);
     for (let i = 0, texte, texte_corr,nombre,mantisse1,exp1,decalage,mantisse,exp,decimalstring,scientifiquestring, cpt = 0;
       i < this.nb_questions && cpt < 50;) {
-        nombre=calcul(randint(1001,9999)/10**randint(1,6))
-        decalage=randint(-2,2,0)
-        mantisse=calcul(nombre/10**(Math.floor(Math.log10(nombre))))
-        exp=Math.floor(Math.log10(nombre))
-        mantisse1=calcul(mantisse*10**decalage)
-        exp1=exp-decalage
-        console.log(nombre,`=`,mantisse1,`x10^`,exp1)
+//        nombre=calcul(randint(1001,9999)/10**randint(1,6))
+//      mantisse=calcul(nombre/10**(Math.floor(Math.log10(nombre))))
+//        exp=Math.floor(Math.log10(nombre))
       switch (liste_type_de_questions[i]) {
         case 0 :
+          decalage=randint(-1,1,0)
         mantisse = randint(1,9)
         exp=randint(1,5)
         break
         case 1: 
-          mantisse=calcul(randint(11,99)/10)
+        decalage=randint(-2,2,0)
+        mantisse=calcul(randint(11,99)/10)
           exp=randint(1,5)
         break;
         case 2:
+          decalage=randint(-3,3,0)
           if (randint(0,1)==1) mantisse=calcul(randint(111,999)/100)
           else mantisse=calcul((randint(1,9)*100+randint(1,9))/100)
           exp=randint(1,7)*choice([-1,1])
         break;
         case 3:
+          decalage=randint(-4,4,0)
           if (randint(0,1)==1) mantisse=calcul((randint(1,9)*1000+randint(1,19)*5)/1000)
           else mantisse=calcul(randint(1111,9999)/1000)
           exp=randint(3,7)*choice([-1,1])
         break;
       }
-      decimalstring=tex_nombrec(mantisse*10**exp)
-      scientifiquestring=`${tex_nombre(mantisse)}\\times 10^{${exp}}`
+      nombre=calcul(mantisse*10**exp)
+      mantisse1=calcul(mantisse*10**decalage)
+      exp1=exp-decalage
+      console.log(nombre,`=`,mantisse1,`x10^`,exp1)
+
+      decimalstring=`${tex_nombrec(mantisse1)} \\times 10^{${exp1}}`
+      scientifiquestring=`${tex_nombre(mantisse)} \\times 10^{${exp}}`
       if (this.sup==1) {
         texte= `$${decimalstring}$`
         texte_corr=`$${decimalstring} = ${scientifiquestring}$`
