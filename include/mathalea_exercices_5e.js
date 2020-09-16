@@ -5675,10 +5675,10 @@ function Construire_par_Symetrie() {
 			enonce += num_alpha(2)+` Construire le point $${p1nom[3]}\'$ symétrique de $${p1nom[3]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
 			enonce += num_alpha(3)+` Construire le point $${p1nom[4]}\'$ symétrique de $${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
 			enonce += num_alpha(5)+` Coder la figure.<br>`;
-			Xmin=Math.min(A.x,B.x,C.x,D.x,E.x,EE.x,CC.x,DD.x)-1
-			Xmax=Math.max(A.x,B.x,C.x,D.x,E.x,EE.x,CC.x,DD.x)+1
-			Ymin=Math.min(A.y,B.y,C.y,D.y,E.y,EE.y,CC.y,DD.y)-1
-			Ymax=Math.max(A.y,B.y,C.y,D.y,E.y,EE.y,CC.y,DD.y)+1
+			Xmin=Math.floor(Math.min(A.x,B.x,C.x,D.x,E.x,EE.x,CC.x,DD.x)-1)
+			Xmax=Math.ceil(Math.max(A.x,B.x,C.x,D.x,E.x,EE.x,CC.x,DD.x)+1)
+			Ymin=Math.floor(Math.min(A.y,B.y,C.y,D.y,E.y,EE.y,CC.y,DD.y)-1)
+			Ymax=Math.ceil(Math.max(A.y,B.y,C.y,D.y,E.y,EE.y,CC.y,DD.y)+1)
 		
 			
 			correction=`Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(${p1nom[0]}${p1nom[1]})$<br>`
@@ -5726,10 +5726,10 @@ function Construire_par_Symetrie() {
 			enonce += num_alpha(2)+` Construire le point $${p1nom[3]}\'$ symétrique de $${p1nom[3]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
 			enonce += num_alpha(3)+` Construire le point $${p1nom[4]}\'$ symétrique de $${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
 			enonce += num_alpha(5)+` Coder la figure.<br>`;
-			Xmin=Math.min(A.x,B.x,C.x,D.x,E.x,EE.x,CC.x,DD.x)-1
-			Xmax=Math.max(A.x,B.x,C.x,D.x,E.x,EE.x,CC.x,DD.x)+1
-			Ymin=Math.min(A.y,B.y,C.y,D.y,E.y,EE.y,CC.y,DD.y)-1
-			Ymax=Math.max(A.y,B.y,C.y,D.y,E.y,EE.y,CC.y,DD.y)+1
+			Xmin=Math.floor(Math.min(A.x,B.x,C.x,D.x,E.x,EE.x,CC.x,DD.x)-1)
+			Xmax=Math.ceil(Math.max(A.x,B.x,C.x,D.x,E.x,EE.x,CC.x,DD.x)+1)
+			Ymin=Math.floor(Math.min(A.y,B.y,C.y,D.y,E.y,EE.y,CC.y,DD.y)-1)
+			Ymax=Math.ceil(Math.max(A.y,B.y,C.y,D.y,E.y,EE.y,CC.y,DD.y)+1)
 		
 			
 			correction=`Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(${p1nom[0]}${p1nom[1]})$<br>`
@@ -5757,10 +5757,10 @@ function Construire_par_Symetrie() {
 			enonce += num_alpha(2)+` Construire le point $${p1nom[3]}\'$ symétrique de $${p1nom[3]}$ par rapport au point $${p1nom[1]}$.<br>`
 			enonce += num_alpha(3)+` Construire le point $${p1nom[0]}\'$ symétrique de $${p1nom[0]}$ par rapport au point $${p1nom[1]}$.<br>`
 			enonce += num_alpha(4)+` Coder la figure.<br>`;
-			Xmin=Math.min(A.x,B.x,C.x,D.x,AA.x,CC.x,DD.x)-1
-			Xmax=Math.max(A.x,B.x,C.x,D.x,AA.x,CC.x,DD.x)+1
-			Ymin=Math.min(A.y,B.y,C.y,D.y,AA.y,CC.y,DD.y)-1
-			Ymax=Math.max(A.y,B.y,C.y,D.y,AA.y,CC.y,DD.y)+1
+			Xmin=MAth.floor(Math.min(A.x,B.x,C.x,D.x,AA.x,CC.x,DD.x)-1)
+			Xmax=Math.ceil(Math.max(A.x,B.x,C.x,D.x,AA.x,CC.x,DD.x)+1)
+			Ymin=Math.floor(Math.min(A.y,B.y,C.y,D.y,AA.y,CC.y,DD.y)-1)
+			Ymax=Math.ceil(Math.max(A.y,B.y,C.y,D.y,AA.y,CC.y,DD.y)+1)
 			correction=''
 			break;
 
@@ -5800,10 +5800,10 @@ function Construire_par_Symetrie() {
 			enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
 			enonce += num_alpha(1)+` Construire le triangle  $${p1nom[2]}\'${p1nom[3]}\'${p1nom[4]}\'$ symétrique de $${p1nom[2]}${p1nom[3]}${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
 			enonce += num_alpha(2)+` Coder la figure.<br>`;
-			Xmin=Math.min(A.x,B.x,C.x,D.x,p1.listePoints[0].x,p1.listePoints[1].x,p1.listePoints[2].x,p2.listePoints[0].x,p2.listePoints[1].x,p2.listePoints[2].x)-1
-			Xmax=Math.max(A.x,B.x,C.x,D.x,p1.listePoints[0].x,p1.listePoints[1].x,p1.listePoints[2].x,p2.listePoints[0].x,p2.listePoints[1].x,p2.listePoints[2].x)+1
-			Ymin=Math.min(A.y,B.y,C.y,D.y,p1.listePoints[0].y,p1.listePoints[1].y,p1.listePoints[2].y,p2.listePoints[0].y,p2.listePoints[1].y,p2.listePoints[2].y)-1
-			Ymax=Math.max(A.y,B.y,C.y,D.y,p1.listePoints[0].y,p1.listePoints[1].y,p1.listePoints[2].y,p2.listePoints[0].y,p2.listePoints[1].y,p2.listePoints[2].y)+1
+			Xmin=Math.floor(Math.min(A.x,B.x,C.x,D.x,p1.listePoints[0].x,p1.listePoints[1].x,p1.listePoints[2].x,p2.listePoints[0].x,p2.listePoints[1].x,p2.listePoints[2].x)-1)
+			Xmax=Math.ceil(Math.max(A.x,B.x,C.x,D.x,p1.listePoints[0].x,p1.listePoints[1].x,p1.listePoints[2].x,p2.listePoints[0].x,p2.listePoints[1].x,p2.listePoints[2].x)+1)
+			Ymin=Math.floor(Math.min(A.y,B.y,C.y,D.y,p1.listePoints[0].y,p1.listePoints[1].y,p1.listePoints[2].y,p2.listePoints[0].y,p2.listePoints[1].y,p2.listePoints[2].y)-1)
+			Ymax=Math.ceil(Math.max(A.y,B.y,C.y,D.y,p1.listePoints[0].y,p1.listePoints[1].y,p1.listePoints[2].y,p2.listePoints[0].y,p2.listePoints[1].y,p2.listePoints[2].y)+1)
 			correction=''
 	
 			break
@@ -5842,10 +5842,10 @@ function Construire_par_Symetrie() {
 				enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
 				enonce += num_alpha(1)+` Construire le triangle  $${p1nom[2]}\'${p1nom[3]}\'${p1nom[4]}\'$ symétrique de $${p1nom[2]}${p1nom[3]}${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
 				enonce += num_alpha(2)+` Coder la figure.<br>`;
-				Xmin=Math.min(A.x,B.x,C.x,D.x,p1.listePoints[0].x,p1.listePoints[1].x,p1.listePoints[2].x,p2.listePoints[0].x,p2.listePoints[1].x,p2.listePoints[2].x)-1
-				Xmax=Math.max(A.x,B.x,C.x,D.x,p1.listePoints[0].x,p1.listePoints[1].x,p1.listePoints[2].x,p2.listePoints[0].x,p2.listePoints[1].x,p2.listePoints[2].x)+1
-				Ymin=Math.min(A.y,B.y,C.y,D.y,p1.listePoints[0].y,p1.listePoints[1].y,p1.listePoints[2].y,p2.listePoints[0].y,p2.listePoints[1].y,p2.listePoints[2].y)-1
-				Ymax=Math.max(A.y,B.y,C.y,D.y,p1.listePoints[0].y,p1.listePoints[1].y,p1.listePoints[2].y,p2.listePoints[0].y,p2.listePoints[1].y,p2.listePoints[2].y)+1
+				Xmin=Math.floor(Math.min(A.x,B.x,C.x,D.x,p1.listePoints[0].x,p1.listePoints[1].x,p1.listePoints[2].x,p2.listePoints[0].x,p2.listePoints[1].x,p2.listePoints[2].x)-1)
+				Xmax=Math.ceil(Math.max(A.x,B.x,C.x,D.x,p1.listePoints[0].x,p1.listePoints[1].x,p1.listePoints[2].x,p2.listePoints[0].x,p2.listePoints[1].x,p2.listePoints[2].x)+1)
+				Ymin=Math.floor(Math.min(A.y,B.y,C.y,D.y,p1.listePoints[0].y,p1.listePoints[1].y,p1.listePoints[2].y,p2.listePoints[0].y,p2.listePoints[1].y,p2.listePoints[2].y)-1)
+				Ymax=Math.ceil(Math.max(A.y,B.y,C.y,D.y,p1.listePoints[0].y,p1.listePoints[1].y,p1.listePoints[2].y,p2.listePoints[0].y,p2.listePoints[1].y,p2.listePoints[2].y)+1)
 
 				correction=`Contrôler la figure en vérifiant que les côtés des deux triangles se coupent bien sur la droite $(${p1nom[0]}${p1nom[1]})$<br>`
 				break;
@@ -5875,10 +5875,10 @@ function Construire_par_Symetrie() {
 				enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
 				enonce += num_alpha(1)+` Construire le triangle  $${p1nom[0]}\'${p1nom[2]}\'${p1nom[3]}\'$ symétrique de $${p1nom[0]}${p1nom[2]}${p1nom[3]}$ par rapport au point $${p1nom[1]}$.<br>`
 				enonce += num_alpha(2)+` Coder la figure.<br>`;
-				Xmin=Math.min(A.x,B.x,C.x,D.x,p1.listePoints[0].x,p1.listePoints[1].x,p1.listePoints[2].x,p2.listePoints[0].x,p2.listePoints[1].x,p2.listePoints[2].x)-1
-				Xmax=Math.max(A.x,B.x,C.x,D.x,p1.listePoints[0].x,p1.listePoints[1].x,p1.listePoints[2].x,p2.listePoints[0].x,p2.listePoints[1].x,p2.listePoints[2].x)+1
-				Ymin=Math.min(A.y,B.y,C.y,D.y,p1.listePoints[0].y,p1.listePoints[1].y,p1.listePoints[2].y,p2.listePoints[0].y,p2.listePoints[1].y,p2.listePoints[2].y)-1
-				Ymax=Math.max(A.y,B.y,C.y,D.y,p1.listePoints[0].y,p1.listePoints[1].y,p1.listePoints[2].y,p2.listePoints[0].y,p2.listePoints[1].y,p2.listePoints[2].y)+1
+				MAth.floor(Math.min(A.x,B.x,C.x,D.x,p1.listePoints[0].x,p1.listePoints[1].x,p1.listePoints[2].x,p2.listePoints[0].x,p2.listePoints[1].x,p2.listePoints[2].x)-1)
+				Xmax=Math.ceil(Math.max(A.x,B.x,C.x,D.x,p1.listePoints[0].x,p1.listePoints[1].x,p1.listePoints[2].x,p2.listePoints[0].x,p2.listePoints[1].x,p2.listePoints[2].x)+1)
+				Ymin=Math.floor(Math.min(A.y,B.y,C.y,D.y,p1.listePoints[0].y,p1.listePoints[1].y,p1.listePoints[2].y,p2.listePoints[0].y,p2.listePoints[1].y,p2.listePoints[2].y)-1)
+				Ymax=Math.ceil(Math.max(A.y,B.y,C.y,D.y,p1.listePoints[0].y,p1.listePoints[1].y,p1.listePoints[2].y,p2.listePoints[0].y,p2.listePoints[1].y,p2.listePoints[2].y)+1)
 				correction=''	
 				break;
 
