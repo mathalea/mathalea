@@ -7,6 +7,7 @@
  * * 3 : inverse d'un nombre décimal
  * * 4 : mélange des trois autres niveaux
  * @auteur Jean-Claude Lhote
+ * 4C22-1
  */
 function Exercice_trouver_l_inverse() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -369,6 +370,7 @@ function Exercice_trouver_l_inverse() {
  * * 3 : Produits de nombres relatifs
  * * Si décomposition cochée : les nombres utilisés sont plus importants.
  * @auteur Jean-Claude Lhote
+ * 4C22
  */
 function Exercice_multiplier_fractions() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -801,6 +803,7 @@ function Exercice_multiplier_fractions() {
  * * 1 : Nombres positifs exclusivement
  * * 2 : nombres relatifs
  * @auteur Jean-Claude Lhote
+ * 4C22-2
  */
 function Exercice_diviser_fractions() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -956,6 +959,7 @@ function Exercice_diviser_fractions() {
  * * 2 : Calcul avec nombres positifs avec piège
  * * 3 : Calcul avec nombres relatifs
  * @auteur Jean-Claude Lhote
+ * 4C23
  */
 function Exercice_additionner_fraction_produit() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -1365,6 +1369,7 @@ function Exercice_additionner_fraction_produit() {
  *
  *
  * @Auteur Rémi Angot
+ * 3L10
  */
 function Oppose_expression() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -1429,6 +1434,7 @@ function Oppose_expression() {
  *
  *
  * @Auteur Rémi Angot
+ * 3L10-1
  */
 function Parentheses_precedes_de_moins_ou_plus() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -1511,6 +1517,7 @@ function Parentheses_precedes_de_moins_ou_plus() {
  * * 1 : Multiplication par un facteur positif
  * * 2: Multiplication par un facteur relatif
  * @Auteur Rémi Angot
+ * 4L10 et 3L11
  */
 function Exercice_developper(difficulte = 1) {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -1739,6 +1746,7 @@ function Exercice_developper(difficulte = 1) {
  * * Type 3 : ax+b=cx+d
  * * Tous les types
  * @Auteur Rémi Angot
+ * 4L20 et 3L13
  */
 function Exercice_equation1() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -1966,6 +1974,7 @@ function Exercice_equation1() {
 
 /**
  * @auteur Jean-Claude Lhote
+ * 3G20
  */
 function Exercice_Thales() {
   "use strict";
@@ -2486,6 +2495,7 @@ function Exercice_Thales() {
 /**
  * Reciproque_Thales
  * @Auteur Jean-Claude Lhote
+ * 3G21
  */
 function Reciproque_Thales() {
   "use strict";
@@ -2897,6 +2907,7 @@ function Reciproque_Thales() {
 
 /**
  * @auteur Jean-Claude Lhote
+ * 4G20-3
  */
 function Exercice_Pythagore() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -3244,6 +3255,7 @@ function Exercice_Pythagore() {
 
 /**
  * @auteur Jean-Claude Lhote
+ * 3G30
  */
 function Exercice_Trigo_longueurs() {
   "use strict";
@@ -3632,6 +3644,7 @@ function Exercice_Trigo_longueurs() {
 }
 /**
  * @auteur Jean-Claude Lhote
+ * 3G31
  * Calcul d'angle dans le triangle rectangle
  * Le niveau 1 se limite à l'utilisation de Arccos
  * Le niveau 2 utilise la fonction trigo la plus pertinente pour un calcul direct
@@ -4005,6 +4018,7 @@ function Exercice_Trigo_angles() {
 /**
  * Déterminer la racine carrée d'un carré parfait compris entre 4 et 256
  * @auteur Stéphane Guyon
+ * 4G20-2
  */
 function Racine_caree_de_carres_parfaits() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -4043,6 +4057,7 @@ function Racine_caree_de_carres_parfaits() {
 /**
  * À partir de la donnée des 3 longueurs d'un triangle, déterminer si il est rectangle ou pas.
  * @Auteur Rémi Angot
+ * 4G21
  */
 function Reciproque_Pythagore() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -4222,6 +4237,7 @@ function Reciproque_Pythagore() {
  * * Est-ce qu'un parallélogramme est un losange ? On peut démontrer que les diagonales sont perpendiculaires ou pas.
  * * Est-ce qu'un parallélogramme est un rectangle ? On peut démontrer qu'il possède un angle droit ou pas .
  * @Auteur Rémi Angot
+ * 4G22
  */
 function Problemes_Pythagore() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -9562,7 +9578,7 @@ function Tester_si_un_nombre_est_solution_d_une_equation_deg2() {
 
 /**
  * Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue
- * * 4P20-0
+ * * 4L13-1
  * @author Sébastien Lozano
  */
 function Forme_litterale_introduire_une_lettre(){
@@ -11326,6 +11342,7 @@ function Priorites_et_relatifs() {
 /**
  * Exercices sur le théorème de Pythagore avec MathALEA2D
  * @Auteur Rémi Angot
+ * 4G20
  */
 function Pythagore2D() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -11457,7 +11474,7 @@ function Pythagore2D() {
   };
   //this.besoin_formulaire_numerique = ['Niveau de difficulté',3,"1 : Donner l'égalité de Pythagore\n2 : Compléter l'égalité de Pythagore\n3 : Calculer une longueur manquante"];
 }
-
+// 4G20-1
 function Egalite_Pythagore2D(){
   Pythagore2D.call(this);
   this.titre = "Donner ou compléter une égalité de Pythagore"

@@ -13140,6 +13140,8 @@ function Parallele_et_Perpendiculaires() {
       i < this.nb_questions && cpt < 50;
 
     ) {
+      objets_enonce.splice(0)
+      objets_correction.splice(0)
       if (this.sup2 == 2) 
         k = 0.8;
       else 
@@ -13356,10 +13358,10 @@ function Parallele_et_Perpendiculaires() {
           )}$ cm.<br>`;
           correction+=`Les angle droits en rouge se justifient par la propriété :<br> ${texte_en_couleur(`Si deux droites sont parallèles, toutes droite perpendiculaire à l'une est aussi perpendiculaire à l'autre`,'red')}.<br>`
           correction +=`Vérifier les angles droits à l'équerre.<br>`
-          Xmin=Math.min(A.x,B.x,C.x,D.x,E.x,F.x,EE.x,CC.x,DD.x)-1
-          Xmax=Math.max(A.x,B.x,C.x,D.x,E.x,F.x,EE.x,CC.x,DD.x)+1
-          Ymin=Math.min(A.y,B.y,C.y,D.y,E.y,F.y,EE.y,CC.y,DD.y)-1
-          Ymax=Math.max(A.y,B.y,C.y,D.y,E.y,F.y,EE.y,CC.y,DD.y)+1
+          Xmin=Math.floor(Math.min(A.x,B.x,C.x,D.x,E.x,F.x,EE.x,CC.x,DD.x)-1)
+          Xmax=Math.ceil(Math.max(A.x,B.x,C.x,D.x,E.x,F.x,EE.x,CC.x,DD.x)+1)
+          Ymin=Math.floor(Math.min(A.y,B.y,C.y,D.y,E.y,F.y,EE.y,CC.y,DD.y)-1)
+          Ymax=Math.ceil(Math.max(A.y,B.y,C.y,D.y,E.y,F.y,EE.y,CC.y,DD.y)+1)
 
           break
       }
@@ -13397,6 +13399,7 @@ function Parallele_et_Perpendiculaires() {
         },
         objets_correction
       );
+      console.log(Xmin,Ymin,Xmax,Ymax)
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(enonce + "<br>");
