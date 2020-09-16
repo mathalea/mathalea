@@ -114,6 +114,7 @@ function Exercice_additions_relatifs(max=20){
 * * On peut paramétrer la distance à zéro maximale des deux termes (par défaut égale à 20)
 * * On peut choisir d'avoir une écriture simplifiée  (par défaut ce n'est pas le cas)
 * @Auteur Rémi Angot
+* 5R20-2
 */
 function Exercice_additions_relatifs_a_trou(max=20){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -1079,6 +1080,7 @@ function Exercice_additions_et_soustraction_de_relatifsV2(max=20){
 * * On peut paramétrer les distances à zéro qui sont par défaut inférieures à 20
 * * On peut utiliser des écritures simplifiées (ce qui n'est pas le cas par défaut)
 * @Auteur Rémi Angot
+* 5R20-3
 */
 function Exercice_additions_de_5_relatifs(max=20){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -7264,6 +7266,7 @@ function Tableaux_et_fonction(){
 * Effectuer des additions de relatifs dans un tableau à double entrée
 *
 * @Auteur Rémi Angot
+* 5R20-5
 */
 function Exercice_tableau_additions_relatifs (){
 	Exercice.call(this); // Héritage de la classe Exercice()

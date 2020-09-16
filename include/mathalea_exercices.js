@@ -3829,6 +3829,7 @@ function Ecrire_nombres_entiers_formates() {
  * Lire un nombre / écrire un nombre : passer d'une écriture à une autre et inversement
  * On peut fixer la classe maximale : unités, miliers, millions, milliards
  * @Auteur Jean-Claude Lhote
+ * 6N23-0
  */
 
 function Ecrire_nombres_decimal() {
@@ -4782,6 +4783,7 @@ function Exercice_tables_d_additions(max = 20) {
 /**
  * Simplifier une fraction, le facteur commun est inférieur à une valeur donnée en paramètre qui est 11 par défaut
  * @Auteur Rémi Angot
+ *  5N13
  */
 function Exercice_fractions_simplifier(max = 11) {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -4867,6 +4869,7 @@ function Exercice_fractions_simplifier(max = 11) {
 /**
  * Écrire une fraction avec un nouveau dénominateur qui est un multiple de son dénominateur (ce multiple est inférieur à une valeur maximale de 11 par défaut)
  * @Auteur Rémi Angot
+ * 5N13-2 et 6N41
  */
 function Egalites_entre_fractions() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -4969,6 +4972,7 @@ function Egalites_entre_fractions() {
  * * 2, 3, 5, 9, 10 ?
  * * 2, 3, 5, 9, 10  et un autre nombre qui peut être 7, 13, 17, ou 19 ?
  * @Auteur Rémi Angot
+ * 6N43
  */
 function Criteres_de_divisibilite() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -5168,6 +5172,7 @@ function Criteres_de_divisibilite() {
  *
  *
  * @Auteur Rémi Angot
+ * 6N43-2
  */
 function Tableau_criteres_de_divisibilite() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -7497,6 +7502,7 @@ function Exercice_perimetres_et_aires(difficulte = 1) {
  *
  * Le numérateur est de la forme X, XX, X0X, X00X ou XXX
  * @Auteur Rémi Angot
+ * 6N23
  */
 function Exercice_ecriture_decimale_a_partir_de_fraction_decimale() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -7553,6 +7559,7 @@ function Exercice_ecriture_decimale_a_partir_de_fraction_decimale() {
  *
  * Le nombre entier est de la forme X, XX, X0X, X00X ou XXX
  * @Auteur Rémi Angot
+ * 6N24-1
  */
 function Exercice_multiplier_ou_diviser_un_nombre_entier_par_10_100_1000() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -7631,6 +7638,7 @@ function Exercice_multiplier_ou_diviser_un_nombre_entier_par_10_100_1000() {
  *
  * aa, bb, cc correspondent à des nombres à 2 chiffres (ces 2 chiffres pouvant être distincts)
  * @Auteur Rémi Angot
+ * 6N31
  */
 function Comparer_decimaux() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -7929,6 +7937,7 @@ function Appliquer_un_pourcentage() {
 /**
  * Calculer 10, 20, 30, 40 ou 50% d'un nombre
  * @Auteur Rémi Angot + Jean-claude Lhote
+ * 6N33-1
  */
 function Pourcentage_d_un_nombre() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -8001,6 +8010,7 @@ function Pourcentage_d_un_nombre() {
 /**
  * Tracer un segment de longueur une fraction de l'unité.
  * @Auteur Jean-Claude Lhote
+ * 6N32
  */
 
 function Fractions_d_unite() {
@@ -9252,6 +9262,7 @@ function Connaitre_formules_de_perimetre_et_aires() {
  * * u = .../100
  * * n/10 = ... + .../10 + .../100
  * @Auteur Rémi Angot
+ * 6N23-1
  */
 function Exercice_differentes_ecritures_nombres_decimaux() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -11661,6 +11672,7 @@ function Divisions_euclidiennes_niv2() {
   this.sup = 2;
   this.titre = "Divisions euclidiennes - Niveau 2";
 }
+//4G40
 function Exercice_Trigo_longueurs_4e() {
   Exercice_Trigo_longueurs.call(this);
   this.sup = 1;
@@ -11668,7 +11680,7 @@ function Exercice_Trigo_longueurs_4e() {
   this.titre =
     "Utiliser le cosinus pour calculer une longueur dans un triangle rectangle";
 }
-
+// 4G41
 function Exercice_Trigo_angles_4e() {
   this.sup = 1;
   this.quatrieme = true;
@@ -11684,20 +11696,21 @@ function Transformations_6e() {
   this.pas_de_version_LaTeX = true;
 }
 
+// 5G10
 function Symetrie_axiale_5e() {
   Transformations.call(this);
   this.sup = 1;
   this.titre = `Trouver l'image d'un point par une symétrie axiale`;
   this.pas_de_version_LaTeX = true;
 }
-
+// 5G11
 function Transformations_5e() {
   Transformations.call(this);
   this.sup = 2;
   this.titre = `Trouver l'image d'un point par une symétrie axiale ou centrale`;
   this.pas_de_version_LaTeX = true;
 }
-
+// 4G40
 function Transformations_4e() {
   Transformations.call(this);
   this.sup = 3;
@@ -11718,12 +11731,13 @@ function Calcul_de_volumes_6e() {
   Calcul_de_volumes.call(this);
 }
 
+// 5M20
 function Calcul_de_volumes_5e() {
   this.sup = 1;
   this.classe = 5;
   Calcul_de_volumes.call(this);
 }
-
+// 4G53
 function Calcul_de_volumes_4e() {
   this.sup = 1;
   this.classe = 4;
@@ -11742,7 +11756,7 @@ function Exercice_6N13() {
   this.titre = "Utiliser les préfixes multiplicateurs (déca à kilo)";
   Exercice_conversions.call(this);
 }
-
+// 6N24
 function Exercice_6N24() {
   Exercice_conversions.call(this);
   this.sup = 3;
@@ -11781,13 +11795,14 @@ function Reglages_6N34() {
   this.titre = "Conversions avec tous les préfixes de milli à tera.";
 }
 
+// 4G30
 function Thales_4eme() {
   //Dans cette version, pas de configuration papillon reservée aux 3èmes.
   Exercice_Thales.call(this);
   this.quatrieme = true;
   sortie_html? this.spacing = 1.5 : this.spacing = 1; 
 }
-
+// 4G31
 function Reciproque_Thales_4eme() {
   Reciproque_Thales.call(this);
   this.quatrieme = true;
@@ -12896,6 +12911,7 @@ function Utiliser_le_codage_pour_decrire_6e(){
   Utiliser_le_codage_pour_decrire.call(this)
   this.classe=6
 }
+// 5G30
 function Utiliser_le_codage_pour_decrire_5e(){
   Utiliser_le_codage_pour_decrire.call(this)
   this.classe=5

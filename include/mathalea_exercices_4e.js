@@ -4568,6 +4568,7 @@ function Problemes_Pythagore() {
  * * 4 : produit de puissances de même exposant
  * * 5 : mélange des trois autres niveaux
  * @Auteur Sébastien Lozano
+ * 4C33-1
  */
 function Puissances_d_un_relatif_1() {
   "use strict";
@@ -4867,6 +4868,7 @@ function Puissances_d_un_relatif_1() {
  * * Travailler des résultats automatisés
  * * mais aussi d'utiliser les propriétés du produit de puissance, du quotient de puissances et des puissances de puissances
  * @Auteur Sébastien Lozano
+ * 4C33-3
  */
 function Puissances_d_un_relatif_2() {
   "use strict";
@@ -5099,7 +5101,7 @@ function Puissances_d_un_relatif_2() {
 }
 
 /**
- * 4N21-2 -- Puissances de 10
+ * 4C30 -- Puissances de 10
  * * Travailler des résultats automatisés
  * @author Sébastien Lozano
  */
@@ -6733,6 +6735,7 @@ function Problemes_grandeurs_composees() {
  * type 1 : Un nombre est donné par le produit d'un décimal par une puissance de dix, il faut l'écrire en notation scientifique
  * type 2 : On donne la notation scientifique d'un nombre et on doit trouver l'exposant manquant de 10 dans le membre de gauche.
  * @Auteur Jean-Claude Lhote 
+ * 4C32-1
  */
 function Calculs_avec_puissances_de_dix() {
   "use strict"
@@ -6816,6 +6819,7 @@ function Calculs_avec_puissances_de_dix() {
 /**
  * Ecrire un nombre décimal en notation scientifique et inversement
  * @Auteur Jean-Claude Lhote
+ * 4C32
  */
 
 function Notation_scientifique() {
@@ -10805,6 +10809,7 @@ function Tracer_avec_scratch(){
 *
 * * On peut choisir de n'avoir que des tables de multiplications, par défaut il y a aussi des divisions simples par 2, 3 ou 4
 * @Auteur Rémi Angot
+* 4C10-4
 */
 function Exercice_quotients_relatifs(){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -10862,6 +10867,7 @@ function Exercice_quotients_relatifs(){
 * Effectuer des multiplications de relatifs dans un tableau à double entrée
 *
 * @Auteur Rémi Angot
+* 4C10-5
 */
 function Exercice_tableau_multiplications_relatifs (){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -10961,6 +10967,7 @@ function Exercice_tableau_multiplications_relatifs (){
  * * a-(b+c)
  * * (a+b+c)*d
  * @Auteur Rémi Angot
+ * 4C11
  */
 function Priorites_et_relatifs() {
   Exercice.call(this); // Héritage de la classe Exercice()
