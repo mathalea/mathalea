@@ -11654,12 +11654,13 @@ function Reperage_point_du_quart_de_plan() {
   this.titre = "Déterminer les coordonnées (positives) d'un point";
   this.quart_de_plan = true;
 }
+// 3F21
 function Lecture_expression_fonctions_lineaires() {
   Lecture_expression_fonctions_affines.call(this);
   this.titre = "Déterminer une fonction linéaire";
   this.lineaire = true;
 }
-
+// 3L14-1
 function Resoudre_une_equation_produit_nul_niv2() {
   Resoudre_une_equation_produit_nul.call(this);
   this.titre = "Résoudre une équation produit nul (niveau 2)";
@@ -11717,7 +11718,7 @@ function Transformations_4e() {
   this.titre = `Trouver l'image d'un point par une symétrie axiale ou centrale ou par une translation`;
   this.pas_de_version_LaTeX = true;
 }
-
+// 3G10-2
 function Transformations_3e() {
   Transformations.call(this);
   this.sup = 4;
@@ -11743,7 +11744,7 @@ function Calcul_de_volumes_4e() {
   this.classe = 4;
   Calcul_de_volumes.call(this);
 }
-
+// 3G43
 function Calcul_de_volumes_3e() {
   this.sup = 1;
   this.classe = 3;

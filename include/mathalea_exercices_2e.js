@@ -67,7 +67,10 @@ Exercice.call(this); // Héritage de la classe Exercice()
         liste_de_question_to_contenu(this);
     }
 }
-
+/**
+ * 2G12
+ * @Auteur Stéphane Guyon
+ */
 function Nature_polygone(){
 Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Déterminer la nature d'un polygone.";
@@ -853,7 +856,10 @@ Exercice.call(this); // Héritage de la classe Exercice()
     }
 }
 
-
+/**
+ * 2G11
+ * @Auteur Stéphane Guyon
+ */
 function Milieu(){
 Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Déterminer les coordonnées milieu d’un segment dans un repère";
@@ -1135,7 +1141,10 @@ Exercice.call(this); // Héritage de la classe Exercice()
      this.besoin_formulaire_numerique = ['Niveau de difficulté', 3, '1 : Application directe de la formule 2 : Application indirecte de la formule 3: Caractériser un parallélogramme.'];
 }  
 
-
+/**
+ * 2G10
+ * @Auteur Stéphane Guyon
+ */
 function Distance(){
 Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Utiliser la distance entre deux points dans un repère orthonormé";
@@ -1287,7 +1296,10 @@ Exercice.call(this); // Héritage de la classe Exercice()
 
 /* auteur Stéphane Guyon*/
 
-
+/**
+ * 2N25
+ * @Auteur Stéphane Guyon
+ */
 function union_et_intersection_intervalles_de_R()
 {
 Exercice.call(this); // Héritage de la classe Exercice()
@@ -1681,7 +1693,10 @@ Exercice.call(this); // Héritage de la classe Exercice()
     }
 }   
  
-/* auteur Stéphane Guyon*/
+/*
+ * 2N24
+ * @Stéphane Guyon
+ */
 function intervalles_de_R(){
 Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Associer un intervalle de  $\\mathbb{R}$ à une inéquation et son schéma sur une droite graduée";
@@ -1976,7 +1991,10 @@ Exercice.call(this); // Héritage de la classe Exercice()
 }
 /* auteur Stéphane Guyon*/
 
-
+/**
+ * 2N23
+ * @Auteur Stéphane Guyon
+ */
 function valeur_absolue_et_equation(){
 Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Résoudre une équation avec des valeurs absolues";
@@ -2038,9 +2056,11 @@ Exercice.call(this); // Héritage de la classe Exercice()
     }
     
 }
-/* auteur Stéphane Guyon*/
 
-
+/**
+ * 2N22
+ * @Auteur Stéphane Guyon
+ */
 function valeur_absolue(){
 Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Utiliser la notion de valeur absolue d'une quantité";
@@ -2114,9 +2134,11 @@ Exercice.call(this); // Héritage de la classe Exercice()
     }
     
 }
-/* auteur Stéphane Guyon*/
 
-
+/**
+ * 2N12-1
+ * @Auteur Stéphane Guyon
+ */
 function identites_remarquables_et_racine_carree(){
 Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Développer les identités remarquables avec des racines carrées";
@@ -2238,6 +2260,10 @@ Exercice.call(this); // Héritage de la classe Exercice()
     
 
 }
+/**
+ * 2N12
+ * @Auteur Stéphane Guyon
+ */
 function Double_distributivité_avec_racine_carree(){
 Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Appliquer la double distributivité avec les racines carrées";
@@ -2319,7 +2345,10 @@ Exercice.call(this); // Héritage de la classe Exercice()
 }
 
 
-
+/**
+ * 2N21
+ * @Auteur Stéphane Guyon
+ */
 function parite()
 {
 Exercice.call(this); // Héritage de la classe Exercice()
@@ -2479,7 +2508,10 @@ Exercice.call(this); // Héritage de la classe Exercice()
 }
 
 
-
+/**
+ * 2N20
+ * @Auteur Stéphane Guyon
+ */
 function ensemble_de_nombres(){
 Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient";
@@ -2633,7 +2665,10 @@ Exercice.call(this); // Héritage de la classe Exercice()
     
 }
 
-
+/**
+ * 2N10-1
+ * @Auteur Stéphane Guyon
+ */
 function proprietes_racine_carree(){
 
     Exercice.call(this); // Héritage de la classe Exercice()
@@ -2766,7 +2801,10 @@ function proprietes_racine_carree(){
         
     }
  
-
+/**
+ * 2N11-1
+ * @Auteur Stéphane Guyon
+ */
 function Simplifier_une_somme_de_racines_carrees() {
     Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Simplifier une somme de racines carrées";
@@ -2820,7 +2858,10 @@ function Simplifier_une_somme_de_racines_carrees() {
     }
     this.besoin_formulaire_numerique = ['Niveau de difficulté', 2, "1 : En donnat la racine carrée unité\n2 : Sans indication"];
 }
-
+/**
+ * 2N10
+ * @Auteur Stéphane Guyon
+ */
 function Existence_d_une_racine_carree(){
 Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Existence d'une racine carrée";
@@ -2897,7 +2938,10 @@ Exercice.call(this); // Héritage de la classe Exercice()
 
 }
 
-
+/**
+ * 2N11
+ * @Auteur Stéphane Guyon
+ */
 function Extraire_un_carre_parfait_d_une_racine_carree() {
     Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Ecrire le nombre proposé sous la forme $a\\sqrt{b}$";
@@ -2940,6 +2984,7 @@ function Extraire_un_carre_parfait_d_une_racine_carree() {
 /**
  * Développer avec les 3 identités remarquables
 * @auteur Jean-Claude Lhote
+* 2L10
 */
 function Developper_Identites_remarquables2() {
     'use strict';
@@ -3030,6 +3075,7 @@ function Developper_Identites_remarquables2() {
 /**
  * Factoriser en utilisant les 3 identités remarquables 
 * @auteur Jean-Claude Lhote
+* 2L11
 */
 function Factoriser_Identites_remarquables2() {
     'use strict';

@@ -607,6 +607,7 @@ function Image_fonction_algebrique() {
 * Réduire des expressions lorsque c'est possible
 *
 * @Auteur Rémi Angot
+* 3L11-2
 */
 function Reduction_si_possible() {
 	'use strict';
@@ -707,6 +708,7 @@ function Reduction_si_possible() {
 * Utiliser la simple ou la double distributivité et réduire l'expression
 *
 * @Auteur Rémi Angot
+* 3L11-3
 */
 function Distributivite_simple_double_reduction() {
 	'use strict';
@@ -789,6 +791,7 @@ function Distributivite_simple_double_reduction() {
 * Utiliser la simple ou la double distributivité et réduire l'expression
 *
 * @Auteur Rémi Angot
+* 3L11-4
 */
 function Factoriser_par_nombre_ou_x() {
 	'use strict';
@@ -1114,6 +1117,7 @@ function Tableau_de_valeurs() {
 /**
  * Développer des expressions de la forme(ax+ou-b)(cx+ou-d)
 * @auteur Jean-Claude Lhote
+* 3L11-1
 */
 function Double_distributivite() {
 	'use strict';
@@ -1184,6 +1188,7 @@ function Double_distributivite() {
 /**
  * Développer (ax-b)(ax+b)
 * @auteur Jean-Claude Lhote
+* 3L12-1
 */
 function Developper_Identites_remarquables3() {
 	'use strict';

@@ -1,3 +1,7 @@
+/**
+ * 1N10
+ * @Auteur Gaelle Morvan
+ */
 function Terme_d_une_suite_definie_explicitement(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Déterminer les termes d'une suite définie de façon explicite";
@@ -138,7 +142,10 @@ function Terme_d_une_suite_definie_explicitement(){
 }
 
 
-
+/**
+ * 1N11
+ * @Auteur Gaelle Morvan
+ */
 function Terme_d_une_suite_definie_par_recurrence(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Déterminer les termes d'une suite définie par récurrence";
