@@ -160,6 +160,7 @@ function Exercice_additions_relatifs_a_trou(max=20){
 * * On peut paramétrer la distance à zéro maximale des deux termes (par défaut égale à 20)
 * * On peut choisir d'avoir une écriture simplifiée  (par défaut ce n'est pas le cas)
 * @Auteur Rémi Angot
+* 5R21
 */
 function Exercice_soustractions_relatifs(max=20){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -208,6 +209,7 @@ function Exercice_soustractions_relatifs(max=20){
 * * On peut paramétrer la distance à zéro maximale des deux termes (par défaut égale à 20)
 * * On peut choisir d'avoir une écriture simplifiée  (par défaut ce n'est pas le cas)
 * @Auteur Rémi Angot
+* 4C10-3
 */
 function Exercice_multiplications_relatifs(max=10){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -555,6 +557,7 @@ function Exercice_additionner_ou_soustraire_des_fractions_5e(max=11){
 * * Niveau 2 : 2 fois sur 5, il faut trouver le ppcm, 1 fois sur 5 le ppcm correspond à leur produit, 1 fois sur 5 un dénominateur est multiple de l'autre, 1 fois sur 5 il faut additionner une fraction et un entier
 * * Paramètre supplémentaire : utiliser des nommbres relatifs (par défaut tous les nombres sont positifs)
 * @Auteur Rémi Angot
+* 4C21-1
 */
 function Exercice_additionner_des_fractions(){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -700,6 +703,7 @@ function Exercice_additionner_des_fractions(){
 * * Paramètre supplémentaire : utiliser des nommbres relatifs (par défaut tous les nombres sont positifs)
 * * 2 fois sur 4 il faut faire une soustraction
 * @Auteur Rémi Angot
+* 4C21
 */
 function Exercice_additionner_ou_soustraire_des_fractions(){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -862,6 +866,7 @@ function Exercice_additionner_ou_soustraire_des_fractions(){
 *
 * On peut paramétrer les distances à zéro qui sont par défaut inférieures à 20
 * @Auteur Rémi Angot
+* 5R22-2
 */
 function Exercice_simplification_somme_algebrique(max=20){
 	Exercice.call(this); // Héritage de la classe Exercice()

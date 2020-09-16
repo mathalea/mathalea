@@ -1,4 +1,8 @@
- function calcul_coordonnees_vecteurs(){
+
+/**
+ * @Auteur Stéphane Guyon
+ */
+function calcul_coordonnees_vecteurs(){
 Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Déterminer les coordonnées d'un vecteur.";
    
@@ -1294,8 +1298,6 @@ Exercice.call(this); // Héritage de la classe Exercice()
      this.besoin_formulaire_numerique = ['Niveau de difficulté', 2, '1 : Application directe de la formule 2 : Application en situation'];
 }   
 
-/* auteur Stéphane Guyon*/
-
 /**
  * 2N25
  * @Auteur Stéphane Guyon
@@ -1693,7 +1695,7 @@ Exercice.call(this); // Héritage de la classe Exercice()
     }
 }   
  
-/*
+/**
  * 2N24
  * @Stéphane Guyon
  */

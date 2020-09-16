@@ -3,6 +3,7 @@
 /**
  * Calculs de probabilités sur une expérience aléatoire à deux épreuves
  * @Auteur Jean-Claude Lhote
+ * 3S20
  */
 function fonctions_probabilite2() {
 	'use strict';
@@ -459,6 +460,7 @@ function Lecture_expression_fonctions_affines() {
 * * Niveau 4 : (ax+b)(cx+d)
 * * Niveau 5 : Mélange 
 * @Auteur Rémi Angot
+* 3F12-2
 */
 function Image_fonction_algebrique() {
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -895,6 +897,7 @@ function Factoriser_par_nombre_ou_x() {
 * * Niveau 4 : (ax+b)(cx+d)
 * * Niveau 5 : Mélange 
 * @Auteur Rémi Angot
+* 3F12-3
 */
 function Tableau_de_valeurs() {
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -1246,6 +1249,7 @@ function Developper_Identites_remarquables3() {
 /**
  * Factoriser a²-b²
 * @auteur Jean-Claude Lhote
+* 3L12
 */
 function Factoriser_Identites_remarquables3() {
 	'use strict';
@@ -1309,6 +1313,7 @@ function Factoriser_Identites_remarquables3() {
 * * Type 3 : k-(ax+b)=cx+d
 * * Tous les types
 * @Auteur Rémi Angot
+* 3L13-1
 */
 function Exercice_equation1_2(){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -1463,6 +1468,7 @@ function Exercice_equation1_2(){
  * Résolution d'équations de type (ax+b)(cx+d)=0
 * @auteur Jean-Claude Lhote
 * Tout est dans le nom de la fonction.
+* 3L14
 */
 function Resoudre_une_equation_produit_nul() {
 	'use strict';
@@ -1592,6 +1598,7 @@ function Resoudre_une_equation_produit_nul() {
 /**
  * Résoudre une équation de type x²=a
 * @auteur Jean-Claude Lhote
+* 3L15
 */
 
 function Resoudre_une_equation_x2_egal_A() {
@@ -4153,6 +4160,7 @@ function PPCM_Engrenages() {
 * La fonction est un polynome de degré 1, 2 ou 3 et les nombres des questions ne sont que des entiers.
 *
 * @Auteur Rémi Angot
+* 3F12-4
 */
 function Image_graphique() {
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -4291,6 +4299,7 @@ function Image_graphique() {
 * La fonction est un polynome de degré 1, 2 ou 3 et les nombres des questions ne sont que des entiers.
 *
 * @Auteur Rémi Angot
+* 3F13
 */
 function Antecedent_graphique() {
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -4416,6 +4425,7 @@ function Antecedent_graphique() {
 /**
 * Problèmes calculs d'aire et de volumes utilisant l'effet d'une réduction sur les aires et les volumes 
 * @auteur Jean-Claude Lhote
+* 3G22
 */
 function Agrandissement_reduction() {
 	'use strict';
@@ -5085,6 +5095,7 @@ function Agrandissement_reduction() {
 /**
  * Trouver les coordonnées d'un point transformé d'un autre par une des transformations du plan
  * @Auteur Jean-Claude Lhote
+ * 3G10-1
  */
 function Transformations_du_plan_et_coordonnees() {
 	'use strict';
@@ -5865,6 +5876,7 @@ function Passer_de_la_base_12_ou_16_a_la_10() {
 * * Retrouver la situation initiale
 * * Mélange des 3 types de problèmes
 * @Auteur Rémi Angot
+* 3P10
 */
 function Evolutions_en_pourcentage() {
 	'use strict';
@@ -6123,6 +6135,7 @@ function Evolutions_en_pourcentage() {
 *
 * 
 * @Auteur Rémi Angot
+* 3P10-1
 */
 function Coefficient_evolution() {
 	'use strict';
@@ -6197,6 +6210,7 @@ function Coefficient_evolution() {
 /**
 * Banque de problèmes utilisant le théorème de Thalès et différentes propriétés de géométrie
 * @Auteur Rémi Angot
+* 3G20-1
 */
 function Problemes_Thales(){
 	Exercice.call(this); // Héritage de la classe Exercice()
