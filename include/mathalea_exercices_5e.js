@@ -1,6 +1,7 @@
 /**
 * Décomposer en produit de facteurs premiers un nombre (la décomposition aura 3, 4 ou 5 facteurs premiers)
 * @Auteur Rémi Angot
+5A13
 */
 function Exercice_decomposer_en_facteurs_premiers(){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -67,6 +68,7 @@ function Exercice_decomposer_en_facteurs_premiers(){
 *
 * Paramètre supplémentaire ; utilisation des écritures simplifiées
 * @Auteur Rémi Angot
+* 5R20
 */
 function Exercice_additions_relatifs(max=20){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -252,6 +254,7 @@ function Exercice_multiplications_relatifs(max=10){
 /**
 * Comparer deux fractions dont les dénominateurs sont multiples (avec un coefficient paramétrable qui est par défaut inférieur à 11)
 * @Auteur Rémi Angot
+* 5N14
 */
 function Exercice_comparer_deux_fractions (max=11){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -314,6 +317,7 @@ function Exercice_comparer_deux_fractions (max=11){
 * 
 * Pour la correction, les fractions sont toute écrites avec un dénominateur commun avant d'être classées
 * @Auteur Rémi Angot
+* 5N14-2
 */
 function Exercice_comparer_quatre_fractions (){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -397,6 +401,7 @@ function Exercice_comparer_quatre_fractions (){
 *
 * Le coefficient est paramétrable, par défaut il est inférieur à 11.
 * @Auteur Rémi Angot
+* 5N20
 */
 function Exercice_additionner_des_fractions_5e(max=11){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -464,6 +469,7 @@ function Exercice_additionner_des_fractions_5e(max=11){
 *
 * On peut paramétrer de n'avoir que des soustractions.
 * @Auteur Rémi Angot
+* 5N20-2
 */
 function Exercice_additionner_ou_soustraire_des_fractions_5e(max=11){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -1156,6 +1162,7 @@ function Exercice_additions_de_5_relatifs(max=20){
 * * ax^2+y^2
 * * ax^2+bx+c
 * @Auteur Rémi Angot
+* 5L13-2
 */
 function Exercice_substituer(difficulte=1){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -1798,6 +1805,7 @@ function Calculer_des_etendues(){
 /**
 * Calculer +/- 20, 30, 40 ou 60 %
 * @Auteur Rémi Angot
+* 5N110
 */
 function Variation_en_pourcentages(){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -1856,6 +1864,7 @@ function Variation_en_pourcentages(){
 * * Somme, produit, quotient
 * * Nombre pair, nombre impair, multiple d'un nombre donné
 * @Auteur Rémi Angot
+* 5L10
 */
 function Ecrire_une_expression_litterale(){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -1971,6 +1980,7 @@ function Ecrire_une_expression_litterale(){
 /**
 * Traduire un programme de calcul par une expression littérale de la forme ax+b après simplification
 * @Auteur Rémi Angot
+* 5L10-2
 */
 function Traduire_un_programme_de_calcul(){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -2077,6 +2087,7 @@ function Traduire_un_programme_de_calcul(){
 * * axy+x+y
 * * (ax+b)(cy-d)
 * @Auteur Rémi Angot
+* 5L13
 */
 function Calculer_la_valeur_d_une_expression_litterale(){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -2216,6 +2227,7 @@ function Calculer_la_valeur_d_une_expression_litterale(){
 * * ax+b=(a+1)x-c
 * * a-2x=b+2x
 * @Auteur Rémi Angot
+* 5L14
 */
 function Tester_une_egalite(){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -2437,6 +2449,7 @@ function Tester_une_egalite(){
 * * ax+y+bx+c+dy
 * * ax+b-cx
 * @Auteur Rémi Angot
+* 5L12
 */
 function Reduire_une_expression_litterale(){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -2894,6 +2907,7 @@ function fonctions_probabilite1(){
 *
 * Pas de version LaTeX
 * @Auteur Rémi Angot
+* 5M10
 */
 function Aire_du_parallelogramme(){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -5395,6 +5409,11 @@ function Constructibilite_des_triangles_angles(){
 	Constructibilite_des_triangles.call(this);
 };
 
+/**
+ * 5G22
+ * @Auteur Jean-Claude Lhote
+ * Les droites remarquables du triangle : hauteurs médiatrices....médianes et bissectrices
+ */
 function DroiteRemarquableDuTriangle(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 

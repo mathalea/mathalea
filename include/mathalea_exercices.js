@@ -784,6 +784,7 @@ function Placer_un_point_abscisse_entiere() {
  *
  * suivies d'une liste qui alterne question et réponse
  * @Auteur Rémi Angot
+ * Référence : cours
  */
 function Questions_de_cours() {
   "use strict";
@@ -1646,6 +1647,7 @@ function Placer_points_sur_axe() {
  * * 4 : h vers semaines j h
  * * 5 : toutes les conversions
  * @Auteur Rémi Angot
+ * Référence 6D10
  */
 function Conversions_de_durees() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -1789,6 +1791,7 @@ function Conversions_de_durees() {
  *
  * La partie décimale est 25, 75 ou un seul chiffre
  * @Auteur Rémi Angot
+ * Référence 6D101
  */
 function Heures_decimales() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -1849,6 +1852,7 @@ function Heures_decimales() {
  * * HMS+HMS avec retenue sur les min
  * * HMS+HMS avec retenues min et s
  * @Auteur Rémi Angot
+ * Référence 6D11
  */
 function Somme_de_durees() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -1972,6 +1976,7 @@ function Somme_de_durees() {
  * * 3 : calculer l'heure de fin
  * * 4 : mélange des 3 types précédents
  * @Auteur Rémi Angot
+ * Référence 6D12
  */
 function Calculs_de_durees_ou_d_horaires() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -2218,6 +2223,7 @@ function Calculs_de_durees_ou_d_horaires() {
  *
  * Par défaut c'est un mélange d'additions, soustractions avec et sans trou avec des nombres jusqu'à 20.
  * @Auteur Rémi Angot
+ * Référence 6D12
  */
 function Tables_additions_soustractions() {
   "use strict";
@@ -2324,6 +2330,7 @@ function Tables_additions_soustractions() {
  *
  * Par défaut ce sont les tables de 2 à 9 mais on peut choisir les tables que l'on veut
  * @Auteur Rémi Angot
+ * Référence 6C10-1
  */
 function Tables_de_multiplications(tables_par_defaut = "2-3-4-5-6-7-8-9") {
   //Multiplier deux nombres
@@ -2416,7 +2423,8 @@ function Tables_de_multiplications(tables_par_defaut = "2-3-4-5-6-7-8-9") {
  *
  * Par défaut ce sont les tables de 2 à 9 mais on peut choisir les tables que l'on veut
  * @Auteur Rémi Angot
- */
+* Référence CM002
+  */
 function Tables_de_divisions(tables_par_defaut = "2-3-4-5-6-7-8-9") {
   //Diviser deux nombres
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -2496,6 +2504,7 @@ function Tables_de_divisions(tables_par_defaut = "2-3-4-5-6-7-8-9") {
  *
  * Par défaut ce sont les tables de 2 à 9 mais on peut choisir les tables que l'on veut
  * @Auteur Rémi Angot
+ * Référence CM003
  */
 function Tables_de_multiplications_et_divisions(
   tables_par_defaut = "2-3-4-5-6-7-8-9"
@@ -2604,7 +2613,8 @@ function Tables_de_multiplications_et_divisions(
  * * Niveau 2 Addition 2 chiffres + 2 chiffres ne dépassant pas 100, soustraction dont le résultat est entre 11 et 19, tables de 6 à 9
  * * Niveau 3 Addition 2 chiffre + 2 chiffres dépassant 100, soustraction dont le résultat est entre 21 et 39, table de 7, 8, 11 ou 12,
  * @Auteur Rémi Angot
- */
+* Référence CM004
+  */
 function Quatre_operations() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Les quatre opérations";
@@ -2712,7 +2722,8 @@ function Quatre_operations() {
 /**
  * Un nombre à 2 chiffres (non multiple de 10) + 9
  * @Auteur Rémi Angot
- */
+ * Référence CM005
+*/
 function Ajouter9() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Ajouter 9";
@@ -2754,6 +2765,7 @@ function Ajouter9() {
 /**
  * Un nombre à 2 chiffres (non multiple de 10) + 9
  * @Auteur Rémi Angot
+ * Référence 6N12
  */
 function Multiplier_entier_par_10_100_1000() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -2841,7 +2853,8 @@ function Multiplier_entier_par_10_100_1000() {
 /**
  * Un nombre à 2 chiffres ne terminant pas par 9 - 9
  * @Auteur Rémi Angot
- */
+ * Référence CM006
+*/
 function Soustraire9() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Soustraire 9";
@@ -2879,7 +2892,8 @@ function Soustraire9() {
 /**
  * Un nombre à 2 chiffres non multiple de 10 + 11
  * @Auteur Rémi Angot
- */
+ * Référence CM007
+*/
 function Ajouter11() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Ajouter 11";
@@ -2917,7 +2931,8 @@ function Ajouter11() {
 /**
  * Un nombre à 2 chiffres -11
  * @Auteur Rémi Angot
- */
+ * Référence CM008
+*/
 function Soustraire11() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Soustraire 11";
@@ -2965,7 +2980,8 @@ function Soustraire11() {
 /**
  * Somme de deux nombres dont les chiffres des unités sont des compléments à 10
  * @Auteur Rémi Angot
- */
+ * Référence CM015
+*/
 function Somme_de_deux_nombres_maries() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Somme de deux nombres mariés";
@@ -3007,7 +3023,8 @@ function Somme_de_deux_nombres_maries() {
 /**
  * Somme de 3 nombres dont 2 ont des chiffres des unités compléments à 10
  * @Auteur Rémi Angot
- */
+ * Référence CM018
+*/
 function Somme_de_deux_nombres_maries_et_un_entier() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Somme de deux nombres mariés et un entier";
@@ -3059,6 +3076,13 @@ function Somme_de_deux_nombres_maries_et_un_entier() {
   };
   //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
+
+/**
+ * Mettre en relation un calcul, une traduction en français, une expression, un résultat, pour les décliner dans différents exercices.
+ * Exercice sur le vocabulaire : somme,différence, produit, quotient...
+ * @Auteur Jean-Claude Lhote
+ * Référence 6C13
+ */
 function Vocabulaire_et_operations() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -3143,6 +3167,11 @@ function Vocabulaire_et_operations() {
   this.besoin_formulaire2_case_a_cocher = ["Décimaux", false];
 }
 
+/**
+ * Un "Le compte est bon" avec des solutions "formatées" pour travailler certains incontournables du calcul mental
+ *  @Auteur Jean-Claude Lhote
+ * Référence CM020
+ */
 function Compte_Est_Bon() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -3658,6 +3687,7 @@ function Trouver_solution_mathador(
  * Lire un nombre / écrire un nombre : passer d'une écriture à une autre et inversement
  * On peut fixer la classe maximale : unités, miliers, millions, milliards
  * @Auteur Jean-Claude Lhote
+ * Référence 6N10
  */
 
 function Ecrire_nombres_entiers() {
@@ -3733,17 +3763,22 @@ function Ecrire_nombres_entiers() {
   this.besoin_formulaire2_numerique = ['Niveau', 3, '1 : Facile\n2 : Moyen\n3 : Difficile']
 }
 
+/**
+ * 6N10-4
+ * Supprimer les zéros inutiles, séparer les classes d'un nombre entier.
+ * @Auteur Jean-Claude Lhote
+ */
 function Ecrire_nombres_entiers_formates() {
   "use strict"
   Exercice.call(this)
-  this.titre = "Ecrire correctement les grands nombres entiers."
+  this.titre = "Écrire correctement les grands nombres entiers."
   this.nb_questions = 5;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
   this.sup = 1
   this.sup2 = 2
   this.nouvelle_version = function (numero_de_l_exercice) {
-  this.consigne=`Ecrire les nombres en chiffres en supprimant les zéros inutiles et en séparant les classes.`
+  this.consigne=`Écrire les nombres en chiffres en supprimant les zéros inutiles et en séparant les classes.`
   this.liste_questions = []; // Liste de questions
   this.liste_corrections = []; // Liste de questions corrigées 
   function zeroSuperflus(n) {
@@ -3881,6 +3916,7 @@ function Ecrire_nombres_decimal() {
  *
  * 2 fois sur 5 il y a chevauchement entre les classes
  * @Auteur Rémi Angot
+ * 6N10-1
  */
 function Exercice_numeration_entier() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -3946,6 +3982,7 @@ function Exercice_numeration_entier() {
 /**
  * Des questions sur le nombre ou le chiffre de centaines, de dizaines, de dixièmes, de centièmes...
  * @Auteur Rémi Angot
+ * Référence 6N10-2
  */
 function Decomposition_nombre_decimal() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -4072,6 +4109,7 @@ function Decomposition_nombre_decimal() {
 /**
  * 100-...=
  * @Auteur Rémi Angot
+* Référence CM012
  */
 function Complement_a_100() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -4110,7 +4148,8 @@ function Complement_a_100() {
 /**
  * Une soustraction dont le premier terme est un multiple de 10
  * @Auteur Rémi Angot
- */
+ * Référence CM013
+*/
 function Complement_a_une_dizaine() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Complément à une dizaine";
@@ -4149,7 +4188,8 @@ function Complement_a_une_dizaine() {
 /**
  * Division d'un entier par 10, 100, 1000
  * @Auteur Rémi Angot
- */
+ * Référence CM016
+*/
 function Diviser_par_10_100_1000() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Diviser un entier par 10, 100 ou 1000";
@@ -4189,7 +4229,8 @@ function Diviser_par_10_100_1000() {
 /**
  * Un entier à un 1 ou 2 chiffres, un nombre décimal avec une partie décimale à un ou 2 chiffres à diviser par 10, 100 ou 1000
  * @Auteur Rémi Angot
- */
+ * Référence CM017
+*/
 function Diviser_decimal_par_10_100_1000() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Diviser un nombre décimal par 10, 100 ou 1000";
@@ -4237,7 +4278,8 @@ function Diviser_decimal_par_10_100_1000() {
  * Calculer la moitié d'un nombre pair, d'un impair inférieur à 20, d'un multiple de 200, d'un nombre de la forme a00 avec a impair, d'un nombre de la forme
  *  a,b avec a et b pairs ou 1xx avec xx un nombre pair
  * @Auteur Rémi Angot
- */
+ * Référence CM009
+*/
 function Moitie() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Moitié";
@@ -4323,6 +4365,7 @@ function Moitie() {
 /**
  * Calculer le tiers d'un multiple de 3, d'un multiple de 300, d'un multiple de 30 ou d'un nombre a,b avec a et b multiples de 3
  * @Auteur Rémi Angot
+* Référence CM010
  */
 function Tiers() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -4393,7 +4436,8 @@ function Tiers() {
 /**
  * Calculer le quart d'un multiple de 4, d'un impair, d'un multiple de 400, d'un multiple de 40, d'un nombre a,b avec a et b multiples de 4
  * @Auteur Rémi Angot
- */
+ * Référence CM011
+*/
 function Quart() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Quart";
@@ -4471,6 +4515,7 @@ function Quart() {
 /**
  * Calculer le double ou le triple d'un nombre, calculer la moitié d'un nombre pair ou le tiers d'un multiple de 3
  * @Auteur Rémi Angot
+* Référence CM014
  */
 function Double_moitie_tiers_triple() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -4534,6 +4579,7 @@ function Double_moitie_tiers_triple() {
 /**
  * Les 2 facteurs peuvent terminer par aucun, 1, 2 ou 3 zéros
  * @Auteur Rémi Angot
+* Référence 6C10-2
  */
 function Exercice_tables_de_multiplications_et_multiples_de_10(
   tables_par_defaut = "2-3-4-5-6-7-8-9"
@@ -4611,6 +4657,7 @@ function Exercice_tables_de_multiplications_et_multiples_de_10(
 /**
  * Multiplier deux nombres décimaux
  * @Auteur Rémi Angot
+ * Référence 6C10-3
  */
 function Exercice_tables_de_multiplications_et_decimaux(
   tables_par_defaut = "2-3-4-5-6-7-8-9"
@@ -4691,6 +4738,7 @@ function Exercice_tables_de_multiplications_et_decimaux(
 /**
  * Additionner deux entiers
  * @Auteur Rémi Angot
+ * Référence 6C10-4
  */
 function Exercice_tables_d_additions(max = 20) {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -5828,6 +5876,7 @@ function Proportionnalite_par_linearite() {
 /**
  * Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale.
  * @Auteur Rémi Angot
+ * 6N20-2
  */
 function Exercice_fractions_differentes_ecritures() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -5928,6 +5977,7 @@ function Exercice_fractions_differentes_ecritures() {
 
 /**
  * @Auteur Rémi Angot
+ * 6N20
  */
 function Exercice_fractions_decomposer() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -6012,7 +6062,11 @@ function Exercice_fractions_decomposer() {
     liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
   };
 }
-
+/**
+ * 6N14
+ * Représenter des fractions simples avec des disques partagés de façon adéquate.
+ * @Auteur Jean-Claude Lhote
+ */
 function Representer_une_fraction() {
     Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Représenter des fractions";
@@ -6554,6 +6608,7 @@ function Exercice_conversions(niveau = 1) {
  * * 6 : Un mélange de toutes les conversions
  * * Paramètre supplémentaire : utiliser des nombres décimaux (par défaut tous les nombres sont entiers)
  * @Auteur Rémi Angot
+ * Référence 6M23
  */
 function Exercice_conversions_aires(niveau = 1) {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -6833,6 +6888,7 @@ function Exercice_conversions_aires(niveau = 1) {
  * * 4 : Conversions avec des multiplications ou divisions
  * * Paramètre supplémentaire : utiliser des nombres décimaux (par défaut tous les nombres sont entiers)
  * @Auteur Rémi Angot
+ * Référence 6M31
  */
 function Exercice_conversions_volumes(niveau = 1) {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -7103,6 +7159,7 @@ function Exercice_conversions_volumes(niveau = 1) {
  * * 6 : Un mélange de toutes les conversions
  * * Paramètre supplémentaire : utiliser des nombres décimaux (par défaut tous les nombres sont entiers)
  * @Auteur Rémi Angot
+ * Référence 6M31-2
  */
 function Unites_de_volumes_et_de_capacite(niveau = 1) {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -8341,6 +8398,7 @@ function Fraction_d_un_nombre(max = 11) {
 /**
  * On achète 2 aliments dont on connait la masse (un en grammes et l'autre en kilogrammes) et le prix au kilogramme. Il faut calculer le prix total.
  * @Auteur Rémi Angot
+ * Référence 6C32
  */
 function Probleme_course() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -8456,6 +8514,7 @@ function Probleme_course() {
  *
  * Il n'existe pas de version LaTeX de cet exercice.
  * @Auteur Rémi Angot
+ * Référence 6M20
  */
 function Aire_de_triangles() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -8526,6 +8585,7 @@ function Aire_de_triangles() {
  *
  * Pas de version LaTeX
  * @Auteur Rémi Angot
+ * Référence 6M22-1
  */
 function Perimetre_aire_disques(pa = 3) {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -8690,6 +8750,7 @@ function Perimetre_aire_disques(pa = 3) {
  * * 3 : Calculer les périmètres et aires
  * Pas de version LaTeX
  * @Auteur Rémi Angot
+ * Rééférence 6M22-2
  */
 function Perimetre_aire_et_portions_de_disques(pa = 3) {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -8935,6 +8996,7 @@ function Perimetre_aire_et_portions_de_disques(pa = 3) {
  *
  * Pas de version LaTeX
  * @Auteur Rémi Angot
+ * Référence 6M11-1
  */
 function Perimetre_ou_aire_de_carres_rectangles_triangles() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -9011,6 +9073,7 @@ function Perimetre_ou_aire_de_carres_rectangles_triangles() {
  *
  * Un seul type de figure pour l'instant.
  * @Auteur Rémi Angot
+ * Référence 6M11-2
  */
 function Perimetre_ou_aire_de_figures_composees() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -9079,6 +9142,7 @@ function Perimetre_ou_aire_de_figures_composees() {
 /**
  * Citer des formules de périmètre, des formules d'aire ou la définition de π
  * @Auteur Rémi Angot
+ * Référence 6M25
  */
 function Connaitre_formules_de_perimetre_et_aires() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -9295,6 +9359,7 @@ function Exercice_differentes_ecritures_nombres_decimaux() {
  * * abc*d0e tables de 2 à 5
  * * abc*de tables de 5 à 9
  * @Auteur Rémi Angot
+ * Référence 6C10 
  */
 function Additions_soustractions_multiplications_posees() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -9430,6 +9495,7 @@ function Additions_soustractions_multiplications_posees() {
  * * xxx,x+xxx
  * * x0x+xx9,x
  * @Auteur Rémi Angot
+ * Référence 6C20
  */
 function Additionner_soustraires_decimaux() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -9599,6 +9665,7 @@ function Additionner_soustraires_decimaux() {
  * * division par 13,14,21,22,23 ou 24 et un 0 dans le quotient
  * * division par un multiple de 10 et un 0 dans le quotient
  * @Auteur Rémi Angot
+ * Référence 6C11
  */
 function Divisions_euclidiennes() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -9706,6 +9773,7 @@ function Divisions_euclidiennes() {
  *
  * Niveau de difficulté 2 : division par 3, 7 ou 9
  * @Auteur Rémi Angot
+ * Référence 6C31
  */
 function Division_decimale() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -9848,6 +9916,7 @@ function Division_decimale() {
  * * x,xx * x0x
  * * 0,xx * x,x
  * @Auteur Rémi Angot
+ * Référence 6C30
  */
 function Multiplier_decimaux() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -9922,7 +9991,8 @@ function Multiplier_decimaux() {
  *
  *  * Sup2 : avec ou sans calculs à trous
  * @Auteur Rémi Angot
- *
+* Référence 6C30-1
+  *
  */
 function Multiplier_decimaux_par_10_100_1000() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -10126,6 +10196,7 @@ function Multiplier_decimaux_par_10_100_1000() {
  * * a*b÷(c+d)
  * * a*(b÷c+d)
  * @Auteur Rémi Angot
+ * Référence 6C33
  */
 function Priorites() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -11471,6 +11542,8 @@ function Transformations() {
 }
 
 // Exercices paramétrés pour correspondre au référentiel
+
+// Référence 6C23
 function Exercice_additionner_des_fractions_6e() {
   Exercice_additionner_des_fractions_5e.call(this);
   this.level=6
@@ -11581,6 +11654,7 @@ function Resoudre_une_equation_produit_nul_niv2() {
   this.titre = "Résoudre une équation produit nul (niveau 2)";
   this.sup = 2;
 }
+// Référence 6C21
 
 function Divisions_euclidiennes_niv2() {
   Divisions_euclidiennes.call(this);
@@ -11602,7 +11676,7 @@ function Exercice_Trigo_angles_4e() {
     "Utiliser le cosinus pour calculer la mesure d'un angle dans un triangle rectangle";
   Exercice_Trigo_angles.call(this);
 }
-
+// référence 6G24
 function Transformations_6e() {
   Transformations.call(this);
   this.sup = 1;
@@ -11637,7 +11711,7 @@ function Transformations_3e() {
   this.titre = `Trouver l'image d'un point par une transformation choisie aléatoirement`;
   this.pas_de_version_LaTeX = true;
 }
-
+// Référence 6M30
 function Calcul_de_volumes_6e() {
   this.sup = 1;
   this.classe = 6;
@@ -11677,7 +11751,7 @@ function Exercice_6N24() {
   this.correction_avec_des_fractions = true;
   this.spacing_corr = 2;
 }
-
+// Référence 6M12
 function Reglages_6M12() {
   Exercice_conversions_de_longueurs.call(this);
   this.sup = 3;
@@ -11689,12 +11763,12 @@ function Reglages_6M23() {
   this.sup = 3;
   this.nb_cols_corr = 1;
 }
-
+// Référence 6M10
 function Reglages_6M10() {
   Exercice_perimetres_et_aires.call(this);
   this.sup = 1;
 }
-
+// Référence 6M22
 function Reglages_6M22() {
   Exercice_perimetres_et_aires.call(this);
   this.sup = 2;
@@ -12203,6 +12277,12 @@ function Vocabulaire_des_triangles() {
     ];
   }
 }
+
+/**
+ * @Auteur Jean-Claude Lhote
+ * Placer les sommets et les égalités de longueur...
+ * Référence 6G20
+ */
 function Nommer_et_coder_des_polygones() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Nommer et coder des polygones";
@@ -12405,6 +12485,12 @@ function Nommer_et_coder_des_polygones() {
     `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`,
   ];
 }
+
+/**
+ * Représenter une somme de fracions de même dénominateur sur un segment gradué de façon adaptée.
+ * @Auteur Jean-Claude Lhote
+ * 6N14-2
+ */
 function Ajouter_des_fractions_d_unite() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "mettre bout à bout des segments";
@@ -12487,6 +12573,7 @@ function Ajouter_des_fractions_d_unite() {
 /**
  * Utiliser les notations des segments, droites et demi-droites
  * @Auteur Rémi Angot
+ * Référence 6G10
  */
 function Notation_segment_droite_demi_droite() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -12565,6 +12652,7 @@ function Notation_segment_droite_demi_droite() {
 /**
  * Utiliser les notations des segments, droites et demi-droites
  * @Auteur Rémi Angot
+ * Référence 6G10-1
  */
 function Description_segment_droite_demi_droite() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -12661,11 +12749,16 @@ function Vocabulaire_des_triangles_5e() {
   this.classe = 5;
   Vocabulaire_des_triangles.call(this);
 }
+// Référence 6G21
 function Construire_un_triangle_6e() {
   Construire_un_triangle.call(this)
   this.classe=6
 }
-
+/**
+ * 
+ * 
+ * Réfrence 6G21 et ... (exercice en 5e ? pas encore fait)
+ */
 function Construire_un_triangle() {
   "use strict"
   Exercice.call(this)
@@ -13462,6 +13555,7 @@ function Proportionnalite_par_linearite_bis(){
 /**
  * Un nombre à 2 chiffres (non multiple de 10) + 9
  * @Auteur Rémi Angot
+ * Référence 6G23-2
  */
 function Tracer_triangle_2_angles() {
   Exercice.call(this); // Héritage de la classe Exercice()
