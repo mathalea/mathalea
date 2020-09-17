@@ -5757,7 +5757,7 @@ function Construire_par_Symetrie() {
 			enonce += num_alpha(2)+` Construire le point $${p1nom[3]}\'$ symétrique de $${p1nom[3]}$ par rapport au point $${p1nom[1]}$.<br>`
 			enonce += num_alpha(3)+` Construire le point $${p1nom[0]}\'$ symétrique de $${p1nom[0]}$ par rapport au point $${p1nom[1]}$.<br>`
 			enonce += num_alpha(4)+` Coder la figure.<br>`;
-			Xmin=MAth.floor(Math.min(A.x,B.x,C.x,D.x,AA.x,CC.x,DD.x)-1)
+			Xmin=Math.floor(Math.min(A.x,B.x,C.x,D.x,AA.x,CC.x,DD.x)-1)
 			Xmax=Math.ceil(Math.max(A.x,B.x,C.x,D.x,AA.x,CC.x,DD.x)+1)
 			Ymin=Math.floor(Math.min(A.y,B.y,C.y,D.y,AA.y,CC.y,DD.y)-1)
 			Ymax=Math.ceil(Math.max(A.y,B.y,C.y,D.y,AA.y,CC.y,DD.y)+1)
