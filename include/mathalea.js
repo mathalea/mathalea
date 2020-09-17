@@ -370,15 +370,12 @@ $("#nombre_de_versions").change(function() {
 
 function mise_a_jour_de_la_liste_d_exercice() {
 	for (let i=0; i<liste_des_exercices.length; i++){
-		if (!exercice[i]){
 			try {
 				exercice[i] = new liste_des_exercices_disponibles[liste_des_exercices[i]];					
 			} catch(e) {
 				exercice[i] = new Exercice
 				console.log("Un exercice demandé n'existe pas.") //+e)
 			}
-
-		}
 	}
 	parametres_exercice(liste_des_exercices.length);
 	mise_a_jour_du_code();  
@@ -454,6 +451,8 @@ function mise_a_jour_du_code(){
           }
       	});
 		
+	} else {
+		window.history.pushState("","","/mathalea.html");
 	}
 
 	
