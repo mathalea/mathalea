@@ -6806,7 +6806,6 @@ function Calculs_avec_puissances_de_dix() {
       nombre=calcul(mantisse*10**exp)
       mantisse1=calcul(mantisse*10**decalage)
       exp1=exp-decalage
-      console.log(nombre,`=`,mantisse1,`x10^`,exp1)
 
       decimalstring=`${tex_nombrec(mantisse1)} \\times 10^{${exp1}}`
       scientifiquestring=`${tex_nombre(mantisse)} \\times 10^{${exp}}`

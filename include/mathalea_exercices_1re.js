@@ -304,7 +304,6 @@ function Calcul_discriminant() {
           if (b == 0) {
             texte = `$${rien_si_1(a)}x^2${ecriture_algebrique(c)}=0$`
           }
-          console.log(i,a,b,c)
           texte_corr = `$\\Delta = ${ecriture_parenthese_si_negatif(b)}^2-4\\times${ecriture_parenthese_si_negatif(a)}\\times${ecriture_parenthese_si_negatif(c)}=${b*b-4*a*c}$`
           texte_corr += `<br>$\\Delta<0$ donc l'équation n'admet pas de solution.`
           texte_corr += `<br>$\\mathcal{S}=\\emptyset$`

@@ -13401,7 +13401,6 @@ function Parallele_et_Perpendiculaires() {
         },
         objets_correction
       );
-      console.log(Xmin,Ymin,Xmax,Ymax)
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(enonce + "<br>");
