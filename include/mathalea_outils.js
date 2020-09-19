@@ -547,6 +547,30 @@ function ecriture_algebrique(a) {
 	}
 	return result;
 };
+
+/**
+* Ajoute le + devant les nombres positifs, n'écrit rien si 1
+* @Example
+* //+3 ou -3
+* @Auteur Rémi Angot
+*/
+function ecriture_algebrique_sauf1(a) { 
+	let result = '';
+	if (a>=0) {
+		result = '+'+tex_nombrec(a);
+	}
+	if (a<0) {
+		result = tex_nombrec(a);
+	}
+	if (a==1) {
+		result = '';
+	}
+	if (a==-1){
+		result = '-';
+	}
+	return result;
+};
+
 /**
  * Idem ecriture_algebrique mais retourne le nombre en couleur (vert si positif, rouge si négatif et noir si nul)
  * @param {number} a 

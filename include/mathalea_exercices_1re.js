@@ -263,3 +263,107 @@ function Terme_d_une_suite_definie_par_recurrence(){
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 	// On aurait pu ajouter un formulaire pour régler le niveau de difficulté à l'aide de l'attribut this.sup
 }
+
+
+/**
+ * Calcul de discriminant pour identifier la forme graphique associée (0 solution dans IR, 1 ou 2)
+ * @Auteur Rémi Angot
+ * Référence 1E10
+*/
+function Calcul_discriminant() {
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.titre = "Calcul du discriminant d'une équation du second degré";
+  this.consigne = "Pour chaque équation, calculer le discriminant et déterminer le nombre de solutions de cette équation dans $\\mathbb{R}$.";
+  this.nb_questions = 6;
+  this.nb_cols = 2;
+  this.nb_cols_corr = 2;
+  if (sortie_html) {
+    this.spacing_corr = 2
+  }
+
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    let liste_types_equations = combinaison_listes(["0solution","1solution","2solutions"],this.nb_questions)
+    for (let i = 0, texte, texte_corr, a, b, c, delta, x1, x2, y1, y2, cpt = 0;i < this.nb_questions && cpt < 50;) {
+      switch (liste_types_equations[i]) {
+        case "0solution": 
+          k = randint(1,5);
+          x1 = randint(-3,3);
+          y1 = randint(1,5);
+          if (choice(['+','-'])=='+') { // k(x-x1)^2 + y1 avec k>0 et y1>0
+            a = k;
+            b = -2 * k * x1;
+            c = k * x1 * x1 + y1;
+          } else { // -k(x-x1)^2 -y1 avec k>0 et y1>0
+            a = -k;
+            b = 2 * k * x1;
+            c = - k * x1 * x1 + y1
+          }
+          texte = `$${rien_si_1(a)}x^2${ecriture_algebrique_sauf1(b)}x${ecriture_algebrique(c)}=0$`
+          if (b == 0) {
+            texte = `$${rien_si_1(a)}x^2${ecriture_algebrique(c)}=0$`
+          }
+          console.log(i,a,b,c)
+          texte_corr = `$\\Delta = ${ecriture_parenthese_si_negatif(b)}^2-4\\times${ecriture_parenthese_si_negatif(a)}\\times${ecriture_parenthese_si_negatif(c)}=${b*b-4*a*c}$`
+          texte_corr += `<br>$\\Delta<0$ donc l'équation n'admet pas de solution.`
+          texte_corr += `<br>$\\mathcal{S}=\\emptyset$`
+          break;
+        case "1solution": // k(x-x1)^2
+          k = randint(-5,5,[0]);
+          x1 = randint(-5,5,[0]);
+          a = k;
+          b = -2 * k * x1;
+          c = k * x1 * x1;
+          texte = `$${rien_si_1(a)}x^2${ecriture_algebrique_sauf1(b)}x${ecriture_algebrique(c)}=0$`
+          if (b == 0) {
+            texte = `$${rien_si_1(a)}x^2${ecriture_algebrique(c)}=0$`
+          }
+          if (c == 0) {
+            texte = `$${rien_si_1(a)}x^2${ecriture_algebrique_sauf1(b)}x=0$`
+          }
+          texte_corr = `$\\Delta = ${ecriture_parenthese_si_negatif(b)}^2-4\\times${ecriture_parenthese_si_negatif(a)}\\times${ecriture_parenthese_si_negatif(c)}=${b*b-4*a*c}$`
+          texte_corr += `<br>$\\Delta=0$ donc l'équation admet une unique solution.`
+          //texte_corr += `<br>$\\mathcal{S}={${x1}}$`
+          break;
+          case "2solutions": // k(x-x1)^2
+          k = randint(1,5);
+          x1 = randint(-3,3);
+          y1 = randint(1,5);
+          if (choice(['+','-'])=='+') { // k(x-x1)^2 + y1 avec k>0 et y1<0
+            y1 *=-1;
+            a = k;
+            b = -2 * k * x1;
+            c = k * x1 * x1 + y1;
+          } else { // -k(x-x1)^2 -y1 avec k>0 et y1>0
+            a = -k;
+            b = 2 * k * x1;
+            c = - k * x1 * x1 + y1
+          }
+          texte = `$${rien_si_1(a)}x^2${ecriture_algebrique_sauf1(b)}x${ecriture_algebrique(c)}=0$`
+          if (b == 0) {
+            texte = `$${rien_si_1(a)}x^2${ecriture_algebrique(c)}=0$`
+          }
+          if (c == 0) {
+            texte = `$${rien_si_1(a)}x^2${ecriture_algebrique_sauf1(b)}x=0$`
+          }
+          texte_corr = `$\\Delta = ${ecriture_parenthese_si_negatif(b)}^2-4\\times${ecriture_parenthese_si_negatif(a)}\\times${ecriture_parenthese_si_negatif(c)}=${b*b-4*a*c}$`
+          texte_corr += `<br>$\\Delta>0$ donc l'équation admet deux solutions.`
+          //texte_corr += `<br>$\\mathcal{S}=\\emptyset$`
+          break;
+        default:
+          break;
+      }
+
+      if (this.liste_questions.indexOf(texte) == -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
+        this.liste_questions.push(texte);
+        this.liste_corrections.push(texte_corr);
+        i++;
+      }
+      cpt++;
+    }
+    liste_de_question_to_contenu(this);
+  };
+  //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+}
