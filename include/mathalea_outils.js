@@ -563,7 +563,7 @@ function ecriture_algebrique_sauf1(a) {
 		result = tex_nombrec(a);
 	}
 	if (a==1) {
-		result = '';
+		result = '+';
 	}
 	if (a==-1){
 		result = '-';

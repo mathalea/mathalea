@@ -367,3 +367,50 @@ function Calcul_discriminant() {
   };
   //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
+
+
+/**
+ * Calcul de discriminant pour identifier la forme graphique associée (0 solution dans IR, 1 ou 2)
+ * @Auteur Rémi Angot
+ * Référence 1E11
+*/
+function Resoudre_equation_degre_2() {
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.titre = "Résoudre une équation du second degré";
+  this.consigne = "Résoudre dans $\\mathbb{R}$ les équations suivantes.";
+  this.nb_questions = 4;
+  this.nb_cols = 2;
+  this.nb_cols_corr = 2;
+  this.spacing_corr = 3
+
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    for (let i = 0, texte, texte_corr, a, b, c, delta, x1, x2, y1, y2, cpt = 0;i < this.nb_questions && cpt < 50;) {
+      // k(x-x1)(x-x2)
+      x1 = randint(-5,2,[0]);
+      x2 = randint(x1+1,5,[0,-x1]);
+      k = randint(-4,4,[0]);
+      a = k;
+      b = -k * x1 -k * x2;
+      c = k * x1 * x2
+      texte = `$${rien_si_1(a)}x^2${ecriture_algebrique_sauf1(b)}x${ecriture_algebrique(c)}=0$`
+      
+      texte_corr = `$\\Delta = ${ecriture_parenthese_si_negatif(b)}^2-4\\times${ecriture_parenthese_si_negatif(a)}\\times${ecriture_parenthese_si_negatif(c)}=${b*b-4*a*c}$`
+      texte_corr += `<br>$\\Delta>0$ donc l'équation admet deux solutions : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$`
+      texte_corr += `<br>$x_1 =\\dfrac{${-b}-\\sqrt{${b*b-4*a*c}}}{${2*a}}=${x1}$`
+      texte_corr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b*b-4*a*c}}}{${2*a}}=${x2}$`
+      texte_corr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\{${x1} ; ${x2}\\}$.`  
+
+      if (this.liste_questions.indexOf(texte) == -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
+        this.liste_questions.push(texte);
+        this.liste_corrections.push(texte_corr);
+        i++;
+      }
+      cpt++;
+    }
+    liste_de_question_to_contenu(this);
+  };
+  //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+}

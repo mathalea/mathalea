@@ -287,6 +287,7 @@ var liste_des_exercices_disponibles = {
   "1N10": Terme_d_une_suite_definie_explicitement,
   "1N11": Terme_d_une_suite_definie_par_recurrence, 
   "beta1E10" : Calcul_discriminant,
+  "beta1E11" : Resoudre_equation_degre_2,
   "PEA11": Passer_d_une_base_a_l_autre,
   "PEA11-1": Passer_de_la_base_12_ou_16_a_la_10,
   "betaTESTseb": Tests_du_Seb,
