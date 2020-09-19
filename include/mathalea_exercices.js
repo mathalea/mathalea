@@ -21,6 +21,8 @@ var liste_des_exercices_disponibles = {
   "CM019": Le_compte_est_bonV3,
   "CM020": Le_compte_est_bonV4,
   "CM021": Compte_Est_Bon,
+  "c3C10-1" : Tables_de_multiplications,
+  "c3C10-4" : Exercice_tables_d_additions_cycle3,
   "c3C11" : Division_cycle3,
   "c3N10" : Ecrire_entiers_cycle3,
   "6C10": Additions_soustractions_multiplications_posees,
@@ -9694,10 +9696,9 @@ function Divisions_euclidiennes() {
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-
-    this.sup == 1
-      ? (type_de_questions_disponibles = [1, 2, 2, 3])
-      : (type_de_questions_disponibles = [4, 4, 5, 6]);
+    if (this.sup==0) type_de_questions_disponibles=[1,1,1,1]
+    else if (this.sup ==1)  type_de_questions_disponibles = [1, 2, 2, 3]
+    else if  (this.sup==2) type_de_questions_disponibles = [4, 4, 5, 6];
     let liste_type_de_questions = combinaison_listes(
       type_de_questions_disponibles,
       this.nb_questions
