@@ -15480,6 +15480,16 @@ jQuery(document).ready(function () {
         exercice_tmp.titre +
         "</a></br>\n";
     }
+    if (id[0] == "b" && id[1] == "e") {
+      liste_html_des_exercices_beta +=
+        '<span class="id_exercice">' +
+        id +
+        '</span> - <a class="lien_id_exercice" numero="' +
+        id +
+        '">' +
+        exercice_tmp.titre +
+        "</a></br>\n";
+    }
   }
 
   // Change l'ordre des exercices suivant l'URL
