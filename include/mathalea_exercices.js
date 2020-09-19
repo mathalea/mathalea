@@ -15308,7 +15308,7 @@ jQuery(document).ready(function () {
   let nombre_d_exercices_disponibles_PE = 0;
   let nombre_d_exercices_disponibles_beta = 0;
   for (var id in liste_des_exercices_disponibles) {
-    if (id[0] == "c") {
+    if (id[0] == "c" && id[1] == "3") {
       nombre_d_exercices_disponibles_c3 += 1;
     }
     if (id[0] == 6) {
@@ -15384,41 +15384,41 @@ jQuery(document).ready(function () {
     return liste;
   }
 
+  liste_html_des_exercices_c3 = liste_html_des_exercices_d_un_niveau([
+    ['c3C1','c3C1 - Calculs niveau 1'],['c3N1','c3N1 - Numération Niveau 1']])
+  
+  liste_html_des_exercices_6 = liste_html_des_exercices_d_un_niveau([
+    ['6C1','6C1 - Calculs niveau 1'],['6C2','6C2 - Calculs niveau 2'],['6C3','6C3 - Calculs niveau 3'],
+    ['6M1','6M1 - Grandeurs et mesures niveau 1'],['6M2','6M2 - Grandeurs et mesures niveau 2'],['6M3', '6M3 - Volumes'],['6P1','6P1 - Proportionnalité'],
+    ['6G1','6G1 - Géométrie niveau 1'],['6G2','6G2 - Géométrie niveau 2'],['6G3','6G3 - Géométrie niveau 3'],['6G4','6G4 - Géométrie niveau 4'],
+    ['6D1','6D1 - Les durées'],
+    ['6N1','6N1 - Numération et fractions niveau 1'],['6N2','6N2 - Numération et fractions niveau 2'],['6N3','6N3 - Numération et fractions niveau 3'],['6N4','6N4 - Numération et fractions niveau 4']])
+    liste_html_des_exercices_5 = liste_html_des_exercices_d_un_niveau([
+      ['5A1','5A1 - Arithmetique'],['5C1','5C1 - Calculs'],
+      ['5G1','5G1 - Symétries'],['5G2','5G2 - Triangles'],['5G3','5G3 - Angles'],['5G4','5G4 - Parallélogrammes'],['5G5','5G5 - Espace'],
+      ['5L1','5L1 - Calcul littéral'],
+      ['5M1','5M1 - Périmètres et aires'],['5M2','5M2 - Volumes'],['5M3','5M3 - Durées'],
+      ['5N1','5N1 - Numération et fractions niveau 1'],['5N2','5N2 - Calculs avec les fractions'],
+      ['5P1','5P1 - Proportionnalité'],['5R1','5R1 - Relatifs niveau 1'],['5R2','5R2 - Relatifs niveau 2'],
+      ['5S1','5S1 - Statistiques'],['5S2','5S2 - Probabilités']
+    ])
+    liste_html_des_exercices_4 = liste_html_des_exercices_d_un_niveau([
+      ['4C1','4C1 - Relatifs'],['4C2','4C2 - Fractions'],['4C3','4C3 - Puissances'],
+      ['4F1','4F1 - Notion de fonction'],
+      ['4G1','4G1 - Translation et rotation'],['4G2','4G2 - Théorème de Pythagore'],['4G3','4G3 - Théorème de Thalès'],['4G4',"4G4 - Cosinus d'un angle"],['4G5',"4G5 - Espace"],
+      ['4L1','4L1 - Calcul littéral'],['4L2','4L2 - Équation'],['4P1','4P1 - Proportionnalité'],['4S1','4S1 - Statistiques'],['4S2','4S2 - Probabilités'],
+      ['4Algo1','4Algo1 - Algorithmique']
+    ])
+    liste_html_des_exercices_3 = liste_html_des_exercices_d_un_niveau([
+      ['3A1','3A1 - Arithmetique'],
+      ['3F1','3F1 - Généralités sur les fonctions'],['3F2','3F2 - Fonctions affines et linéaires'],
+      ['3G1','3G1 - Homothétie et rotation'],['3G2','3G2 - Théorème de Thalès'],['3G3','3G3 - Trigonométrie'],['3G4',"3G4 - Espace"],
+      ['3L1','3L1 - Calcul littéral'],['3P1','3P1 - Proportionnalité'],['3S1','3S1 - Statistiques'],['3S2','3S2 - Probabilités']
+    ])
 
-    
   for (var id in liste_des_exercices_disponibles) {
     let exercice_tmp = new liste_des_exercices_disponibles[id]();
-    liste_html_des_exercices_c3 = liste_html_des_exercices_d_un_niveau([
-      ['c3C1','c3C1 - Calculs niveau 1'],['c3N1','c3N1 - Numération Niveau 1']])
     
-    liste_html_des_exercices_6 = liste_html_des_exercices_d_un_niveau([
-      ['6C1','6C1 - Calculs niveau 1'],['6C2','6C2 - Calculs niveau 2'],['6C3','6C3 - Calculs niveau 3'],
-      ['6M1','6M1 - Grandeurs et mesures niveau 1'],['6M2','6M2 - Grandeurs et mesures niveau 2'],['6M3', '6M3 - Volumes'],['6P1','6P1 - Proportionnalité'],
-      ['6G1','6G1 - Géométrie niveau 1'],['6G2','6G2 - Géométrie niveau 2'],['6G3','6G3 - Géométrie niveau 3'],['6G4','6G4 - Géométrie niveau 4'],
-      ['6D1','6D1 - Les durées'],
-      ['6N1','6N1 - Numération et fractions niveau 1'],['6N2','6N2 - Numération et fractions niveau 2'],['6N3','6N3 - Numération et fractions niveau 3'],['6N4','6N4 - Numération et fractions niveau 4']])
-      liste_html_des_exercices_5 = liste_html_des_exercices_d_un_niveau([
-        ['5A1','5A1 - Arithmetique'],['5C1','5C1 - Calculs'],
-        ['5G1','5G1 - Symétries'],['5G2','5G2 - Triangles'],['5G3','5G3 - Angles'],['5G4','5G4 - Parallélogrammes'],['5G5','5G5 - Espace'],
-        ['5L1','5L1 - Calcul littéral'],
-        ['5M1','5M1 - Périmètres et aires'],['5M2','5M2 - Volumes'],['5M3','5M3 - Durées'],
-        ['5N1','5N1 - Numération et fractions niveau 1'],['5N2','5N2 - Calculs avec les fractions'],
-        ['5P1','5P1 - Proportionnalité'],['5R1','5R1 - Relatifs niveau 1'],['5R2','5R2 - Relatifs niveau 2'],
-        ['5S1','5S1 - Statistiques'],['5S2','5S2 - Probabilités']
-      ])
-      liste_html_des_exercices_4 = liste_html_des_exercices_d_un_niveau([
-        ['4C1','4C1 - Relatifs'],['4C2','4C2 - Fractions'],['4C3','4C3 - Puissances'],
-        ['4F1','4F1 - Notion de fonction'],
-        ['4G1','4G1 - Translation et rotation'],['4G2','4G2 - Théorème de Pythagore'],['4G3','4G3 - Théorème de Thalès'],['4G4',"4G4 - Cosinus d'un angle"],['4G5',"4G5 - Espace"],
-        ['4L1','4L1 - Calcul littéral'],['4L2','4L2 - Équation'],['4P1','4P1 - Proportionnalité'],['4S1','4S1 - Statistiques'],['4S2','4S2 - Probabilités'],
-        ['4Algo1','4Algo1 - Algorithmique']
-      ])
-      liste_html_des_exercices_3 = liste_html_des_exercices_d_un_niveau([
-        ['3A1','3A1 - Arithmetique'],
-        ['3F1','3F1 - Généralités sur les fonctions'],['3F2','3F2 - Fonctions affines et linéaires'],
-        ['3G1','3G1 - Homothétie et rotation'],['3G2','3G2 - Théorème de Thalès'],['3G3','3G3 - Trigonométrie'],['3G4',"3G4 - Espace"],
-        ['3L1','3L1 - Calcul littéral'],['3P1','3P1 - Proportionnalité'],['3S1','3S1 - Statistiques'],['3S2','3S2 - Probabilités']
-      ])
     if (id[0] == 2) {
       liste_html_des_exercices_2 +=
         '<span class="id_exercice">' +
@@ -15479,16 +15479,6 @@ jQuery(document).ready(function () {
         exercice_tmp.titre +
         "</a></br>\n";
     }
-    if (id[0] == "c"&&id[1]==3) {
-      liste_html_des_exercices_c3 +=
-        '<span class="id_exercice">' +
-        id +
-        '</span> - <a class="lien_id_exercice" numero="' +
-        id +
-        '">' +
-        exercice_tmp.titre +
-        "</a></br>\n";
-    }
   }
 
   // Change l'ordre des exercices suivant l'URL
@@ -15533,7 +15523,7 @@ jQuery(document).ready(function () {
     liste_html_des_exercices += `<div class="ui accordion"><div class="title"><i class="dropdown icon"></i>Cours Moyen (${nombre_d_exercices_disponibles_c3})</div><div class="content">`;
     liste_html_des_exercices += liste_html_des_exercices_c3;
     liste_html_des_exercices += `</div>`;
-    liste_html_des_exercices += `<div class="ui accordion"><div class="title"><i class="dropdown icon"></i>Sixième (${nombre_d_exercices_disponibles_6})</div><div class="content">`;
+    liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Sixième (${nombre_d_exercices_disponibles_6})</div><div class="content">`;
     liste_html_des_exercices += liste_html_des_exercices_6;
     liste_html_des_exercices += `</div>`;
     liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Cinquième (${nombre_d_exercices_disponibles_5})</div><div class="content">`;
