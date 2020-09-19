@@ -352,8 +352,10 @@ form_choix_des_exercices = document.getElementById('choix_des_exercices');
 form_choix_des_exercices.addEventListener('change', function(e) { // Changement du texte
 	if (e.target.value=='') {
 		liste_des_exercices = [];
+		exercice = []
 	} else {
 		liste_des_exercices = [];
+		exercice = []
 		liste_des_exercices = e.target.value.replace(/\s/g, "").replace(";", ",").split(",");// Récupère  la saisie de l'utilisateur
 		//en supprimant les espaces et en remplaçant les points-virgules par des virgules.	
 	}
@@ -454,6 +456,8 @@ function mise_a_jour_du_code(){
           }
       	});
 		
+	} else {
+		// liste d'exercice vide à l'arrivée ou liste d'exercice vide par modification
 	}
 
 	

@@ -21,6 +21,8 @@ var liste_des_exercices_disponibles = {
   "CM019": Le_compte_est_bonV3,
   "CM020": Le_compte_est_bonV4,
   "CM021": Compte_Est_Bon,
+  "c3C11" : Division_cycle3,
+  "c3N10" : Ecrire_entiers_cycle3,
   "6C10": Additions_soustractions_multiplications_posees,
   "6C11": Divisions_euclidiennes,
   "6C10-1": Tables_de_multiplications,
@@ -1965,7 +1967,7 @@ function Somme_de_durees() {
     }
     liste_de_question_to_contenu(this);
   };
-  this.besoin_formulaire_numerique = ["Niveau de difficulté", 2]; //"1 : Additions simples\n2 : Additions avec d'éventuelles conversions"]
+  this.besoin_formulaire_numerique = ["Niveau de difficulté", 2]; //"1 : Additions simples\n2 : Additions avec d'��ventuelles conversions"]
 }
 
 /**
@@ -9358,7 +9360,6 @@ function Exercice_differentes_ecritures_nombres_decimaux() {
     }
     liste_de_question_to_contenu(this);
   };
-  //this.besoin_formulaire_numerique = ['Niveau de difficulté',2,'1 : Multiplication par un facteur positif\n2: Multiplication par un facteur relatif']
 }
 
 /**
@@ -9492,7 +9493,6 @@ function Additions_soustractions_multiplications_posees() {
     }
     liste_de_question_to_contenu(this);
   };
-  //this.besoin_formulaire_numerique = ['Niveau de difficulté',2,'1 : Multiplication par un facteur positif\n2: Multiplication par un facteur relatif']
 }
 
 /**
@@ -12451,16 +12451,16 @@ function Nommer_et_coder_des_polygones() {
       }
       [pol, polnom, polcode, polsom, texte] = choisir_polygone(liste[i]);
       if (pol.listePoints.length==4){
-      Xmin=Math.min(pol.listePoints[0].x,pol.listePoints[1].x,pol.listePoints[2].x,pol.listePoints[3].x)-1
-      Ymin=Math.min(pol.listePoints[0].y,pol.listePoints[1].y,pol.listePoints[2].y,pol.listePoints[3].y)-1
-      Xmax=Math.max(pol.listePoints[0].x,pol.listePoints[1].x,pol.listePoints[2].x,pol.listePoints[3].x)+1
-      Ymax=Math.max(pol.listePoints[0].y,pol.listePoints[1].y,pol.listePoints[2].y,pol.listePoints[3].y)+1
+      Xmin=Math.floor(Math.min(pol.listePoints[0].x,pol.listePoints[1].x,pol.listePoints[2].x,pol.listePoints[3].x)-1)
+      Ymin=Math.floor(Math.min(pol.listePoints[0].y,pol.listePoints[1].y,pol.listePoints[2].y,pol.listePoints[3].y)-1)
+      Xmax=Math.ceil(Math.max(pol.listePoints[0].x,pol.listePoints[1].x,pol.listePoints[2].x,pol.listePoints[3].x)+1)
+      Ymax=Math.ceil(Math.max(pol.listePoints[0].y,pol.listePoints[1].y,pol.listePoints[2].y,pol.listePoints[3].y)+1)
       }
       else{
-        Xmin=Math.min(pol.listePoints[0].x,pol.listePoints[1].x,pol.listePoints[2].x)-1
-        Ymin=Math.min(pol.listePoints[0].y,pol.listePoints[1].y,pol.listePoints[2].y)-1
-        Xmax=Math.max(pol.listePoints[0].x,pol.listePoints[1].x,pol.listePoints[2].x)+1
-        Ymax=Math.max(pol.listePoints[0].y,pol.listePoints[1].y,pol.listePoints[2].y)+1
+        Xmin=Math.floor(Math.min(pol.listePoints[0].x,pol.listePoints[1].x,pol.listePoints[2].x)-1)
+        Ymin=Math.floor(Math.min(pol.listePoints[0].y,pol.listePoints[1].y,pol.listePoints[2].y)-1)
+        Xmax=Math.ceil(Math.max(pol.listePoints[0].x,pol.listePoints[1].x,pol.listePoints[2].x)+1)
+        Ymax=Math.ceil(Math.max(pol.listePoints[0].y,pol.listePoints[1].y,pol.listePoints[2].y)+1)
    
       }
       params = {
@@ -13231,10 +13231,10 @@ function Parallele_et_Perpendiculaires() {
             lC
           )}$ cm et $AN \\approx ${tex_nombre(lD)}$ cm.<br>`;
           correction += `Pour la perpendiculaire en $B$, contrôle la position du point $E$.<br>`;
-          Xmin=Math.min(A.x,B.x,C.x,D.x,E.x,CC.x,DD.x)-1
-          Xmax=Math.max(A.x,B.x,C.x,D.x,E.x,CC.x,DD.x)+1
-          Ymin=Math.min(A.y,B.y,C.y,D.y,E.y,CC.y,DD.y)-1
-          Ymax=Math.max(A.y,B.y,C.y,D.y,E.y,CC.y,DD.y)+1
+          Xmin=Math.floor(Math.min(A.x,B.x,C.x,D.x,E.x,CC.x,DD.x)-1)
+          Xmax=Math.ceil(Math.max(A.x,B.x,C.x,D.x,E.x,CC.x,DD.x)+1)
+          Ymin=Math.floor(Math.min(A.y,B.y,C.y,D.y,E.y,CC.y,DD.y)-1)
+          Ymax=Math.ceil(Math.max(A.y,B.y,C.y,D.y,E.y,CC.y,DD.y)+1)
           break;
         case 2:
           A = point(2, 0, "A",'below left');
@@ -13274,10 +13274,10 @@ function Parallele_et_Perpendiculaires() {
           )}$ cm et $AO \\approx${tex_nombre(
             lE
           )}$ cm.<br>`;
-          Xmin=Math.min(A.x,B.x,C.x,D.x,E.x,F.x,EE.x,CC.x,DD.x)-1
-          Xmax=Math.max(A.x,B.x,C.x,D.x,E.x,F.x,EE.x,CC.x,DD.x)+1
-          Ymin=Math.min(A.y,B.y,C.y,D.y,E.y,F.y,EE.y,CC.y,DD.y)-1
-          Ymax=Math.max(A.y,B.y,C.y,D.y,E.y,F.y,EE.y,CC.y,DD.y)+1
+          Xmin=Math.floor(Math.min(A.x,B.x,C.x,D.x,E.x,F.x,EE.x,CC.x,DD.x)-1)
+          Xmax=Math.ceil(Math.max(A.x,B.x,C.x,D.x,E.x,F.x,EE.x,CC.x,DD.x)+1)
+          Ymin=Math.floor(Math.min(A.y,B.y,C.y,D.y,E.y,F.y,EE.y,CC.y,DD.y)-1)
+          Ymax=Math.ceil(Math.max(A.y,B.y,C.y,D.y,E.y,F.y,EE.y,CC.y,DD.y)+1)
           break;
           case 3:
             A = point(0, 0, "A", "above left");
@@ -15295,6 +15295,7 @@ jQuery(document).ready(function () {
   );
 
   // Détermine le nombre d'exercices par niveaux
+  let nombre_d_exercices_disponibles_c3 = 0;
   let nombre_d_exercices_disponibles_6 = 0;
   let nombre_d_exercices_disponibles_5 = 0;
   let nombre_d_exercices_disponibles_4 = 0;
@@ -15307,6 +15308,9 @@ jQuery(document).ready(function () {
   let nombre_d_exercices_disponibles_PE = 0;
   let nombre_d_exercices_disponibles_beta = 0;
   for (var id in liste_des_exercices_disponibles) {
+    if (id[0] == "c") {
+      nombre_d_exercices_disponibles_c3 += 1;
+    }
     if (id[0] == 6) {
       nombre_d_exercices_disponibles_6 += 1;
     }
@@ -15343,6 +15347,7 @@ jQuery(document).ready(function () {
   }
 
   //
+  let liste_html_des_exercices_c3 =[];
   let liste_html_des_exercices_6 = [];
   let liste_html_des_exercices_5 = [];
   let liste_html_des_exercices_4 = [];
@@ -15383,6 +15388,9 @@ jQuery(document).ready(function () {
     
   for (var id in liste_des_exercices_disponibles) {
     let exercice_tmp = new liste_des_exercices_disponibles[id]();
+    liste_html_des_exercices_c3 = liste_html_des_exercices_d_un_niveau([
+      ['c3C1','c3C1 - Calculs niveau 1'],['c3N1','c3N1 - Numération Niveau 1']])
+    
     liste_html_des_exercices_6 = liste_html_des_exercices_d_un_niveau([
       ['6C1','6C1 - Calculs niveau 1'],['6C2','6C2 - Calculs niveau 2'],['6C3','6C3 - Calculs niveau 3'],
       ['6M1','6M1 - Grandeurs et mesures niveau 1'],['6M2','6M2 - Grandeurs et mesures niveau 2'],['6M3', '6M3 - Volumes'],['6P1','6P1 - Proportionnalité'],
@@ -15471,8 +15479,8 @@ jQuery(document).ready(function () {
         exercice_tmp.titre +
         "</a></br>\n";
     }
-    if (id[0] == "b" && id[1] == "e") {
-      liste_html_des_exercices_beta +=
+    if (id[0] == "c"&&id[1]==3) {
+      liste_html_des_exercices_c3 +=
         '<span class="id_exercice">' +
         id +
         '</span> - <a class="lien_id_exercice" numero="' +
@@ -15492,6 +15500,9 @@ jQuery(document).ready(function () {
   } else if (window.location.href.indexOf("cm.html") > 0) {
     liste_html_des_exercices += `<div class="ui accordion"><div class="active title"><i class="dropdown icon"></i>Calcul mental (${nombre_d_exercices_disponibles_CM})</div><div class="active content">`;
     liste_html_des_exercices += liste_html_des_exercices_CM;
+    liste_html_des_exercices += `</div>`;
+    liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Cours Moyen(${nombre_d_exercices_disponibles_c3})</div><div class="content">`;
+    liste_html_des_exercices += liste_html_des_exercices_c3;
     liste_html_des_exercices += `</div>`;
     liste_html_des_exercices += `<div class="title"><i class="dropdown icon"></i>Sixième (${nombre_d_exercices_disponibles_6})</div><div class="content">`;
     liste_html_des_exercices += liste_html_des_exercices_6;
@@ -15519,6 +15530,9 @@ jQuery(document).ready(function () {
     liste_html_des_exercices += `</div>`;
     liste_html_des_exercices += `</div>`;
   } else {
+    liste_html_des_exercices += `<div class="ui accordion"><div class="title"><i class="dropdown icon"></i>Cours Moyen (${nombre_d_exercices_disponibles_c3})</div><div class="content">`;
+    liste_html_des_exercices += liste_html_des_exercices_c3;
+    liste_html_des_exercices += `</div>`;
     liste_html_des_exercices += `<div class="ui accordion"><div class="title"><i class="dropdown icon"></i>Sixième (${nombre_d_exercices_disponibles_6})</div><div class="content">`;
     liste_html_des_exercices += liste_html_des_exercices_6;
     liste_html_des_exercices += `</div>`;
