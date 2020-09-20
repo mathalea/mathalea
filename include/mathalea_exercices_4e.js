@@ -2907,7 +2907,7 @@ function Reciproque_Thales() {
 
 /**
  * @auteur Jean-Claude Lhote
- * 4G20-3
+ * 4G20MG32
  */
 function Exercice_Pythagore() {
   Exercice.call(this); // Héritage de la classe Exercice()

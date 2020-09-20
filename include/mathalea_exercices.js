@@ -89,10 +89,10 @@ var liste_des_exercices_disponibles = {
   "6N12": Multiplier_entier_par_10_100_1000,
   "6N13": Exercice_6N13,
   "6N14" : Representer_une_fraction,
-  "6N14-2" : Ajouter_des_fractions_d_unite,
   "6N20": Exercice_fractions_decomposer,
   "6N20-2": Exercice_fractions_differentes_ecritures,
   "6N21": Lire_abscisse_fractionnaire,
+  "6N22" : Ajouter_des_fractions_d_unite,
   "6N23": Exercice_ecriture_decimale_a_partir_de_fraction_decimale,
   "beta6N23-0" : Ecrire_nombres_decimal,
   "6N23-1": Exercice_differentes_ecritures_nombres_decimaux,
@@ -118,7 +118,8 @@ var liste_des_exercices_disponibles = {
   "6P11": Proportionnalite_par_linearite,
   "6P11-1": Proportionnalite_par_linearite_bis,
   "5A10": Liste_des_diviseurs_5e,
-  "5A11": Premier_ou_pas_5e,
+  "5A11": Tableau_criteres_de_divisibilite,
+  "5A12-1": Premier_ou_pas_5e,
   "5A13": Exercice_decomposer_en_facteurs_premiers,
   "5C11": Traduire_une_phrase_par_une_expression,
   "5C11-1": Traduire_une_expression_par_une_phrase,
@@ -163,7 +164,7 @@ var liste_des_exercices_disponibles = {
   "5L14": Tester_une_egalite,
   "5M10": Aire_du_parallelogramme,
   "5M20": Calcul_de_volumes_5e,
-  "5P10-1": Tableaux_et_proportionnalite,
+  "5P10": Tableaux_et_proportionnalite,
   "5R10-0": Trouver_oppose,
   "5R11": Lire_abscisse_relative,
   "5R11-2": Placer_points_sur_axe_relatifs,
@@ -218,7 +219,7 @@ var liste_des_exercices_disponibles = {
   "4G20" : Pythagore2D,
   "4G20-1": Egalite_Pythagore2D, // Anciennement Egalite_Pythagore,
   "4G20-2": Racine_caree_de_carres_parfaits,
-  "4G20-3": Exercice_Pythagore,
+  "4G20MG32": Exercice_Pythagore,
   "4G21": Reciproque_Pythagore,
   "4G22": Problemes_Pythagore,
   "4G30": Thales_4eme,
@@ -11556,6 +11557,11 @@ function Transformations() {
 }
 
 // Exercices paramétrés pour correspondre au référentiel
+// Référence 5P10
+//function Proportionnalite_pas_proportionnalite_5e(){
+//  Proportionnalite_pas_proportionnalite.call(this)
+  // Pas de paramètres Sup
+//}
 
 // Référence 6C23
 function Exercice_additionner_des_fractions_6e() {
