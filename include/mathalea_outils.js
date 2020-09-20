@@ -2617,7 +2617,8 @@ function tex_graphique(f,xmin=-5,xmax=5,ymin=-5,ymax=5,xstep=1,ystep=1) {
 /**
  *  Classe MatriceCarree
  * Générateur de Matrice :
- * Si l'argument est un nombre, alors 
+ * Si l'argument est un nombre, alors on s'en sert pour définir le rang de la matrice carrée qu'on rempli de zéros.
+ * Sinon, c'est le tableau qui sert à remplir la Matrice
  *  @Auteur Jean-Claude Lhote
  */
 function MatriceCarree(table){
@@ -2866,27 +2867,6 @@ function cherche_polynome_deg3_a_extrema_fixes(x1,x2,y1,y2) {
 	if (!egal(M.determinant(),0)) return M.inverse().multiplieVecteur(R)
 	else return false
 }
-// fonction devenue inutile : à remplacer par cherche_polynome_deg3_a_extrema_fixes(x1,x2,y1,y2) qui produit un résultat exact, sans mouliner !
-/*
-function cherche_polynome_deg3_a_extrema_entiers(x1,x2,y1,y2) { // je voulais ajouter "ou presque" dans le nom de fonction, mais ça faisait trop long !
-	let resultat=[],trouve=false
-	for (let a=-1;a<1;a+=0.00005) {
-		resultat=cherche_polynome_deg3_a_extrema_fixes(x1,x2,y1,a)
-		if (egal(resultat[4],y1)) 
-			if (egal(resultat[5],y2,0.001)) {
-				trouve=true
-				resultat.push('trouvé')
-				return resultat
-			}
-		else if (egal(resultat[4],y2,0.001)) {
-			trouve=true
-			resultat.push('trouvé')
-			return resultat
-		}
-	}
-	if (!trouve) return 'Pas trouvé'
-}
-*/
 
 /**
  * Fonction pour simplifier l'ecriture lorsque l'exposant vaut 0 ou 1
