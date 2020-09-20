@@ -219,7 +219,7 @@ var liste_des_exercices_disponibles = {
   "4G20" : Pythagore2D,
   "4G20-1": Egalite_Pythagore2D, // Anciennement Egalite_Pythagore,
   "4G20-2": Racine_caree_de_carres_parfaits,
-  "4G20-3": Exercice_Pythagore,
+  "4G20MG32": Exercice_Pythagore,
   "4G21": Reciproque_Pythagore,
   "4G22": Problemes_Pythagore,
   "4G30": Thales_4eme,
