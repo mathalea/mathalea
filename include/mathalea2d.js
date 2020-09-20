@@ -4055,6 +4055,7 @@ function Repere({
   ystep = 1,
   graduationColor = "black",
   afficheZero = false,
+  afficheNumeros = true,
   axesEpaisseur = 2,
   axesColor = "black",
   grillePrincipaleDistance = 1,
@@ -4125,57 +4126,58 @@ function Repere({
         axesEpaisseur,
         axesColor
       ).svg(coeff)
-    
-    if (afficheZero) {
-      code+= labelX(
-          premierMultipleSuperieur(xstep, graduationsxMin),
-          graduationsxMax,
-          xstep,
-          graduationColor,
-          calcul(yabscisse / yscale) + positionLabelX*20/coeff,
-          xscale
-        ).svg(coeff)
-      code+= labelY(
-          premierMultipleSuperieur(ystep, graduationsyMin),
-          graduationsyMax,
-          ystep,
-          graduationColor,
-          calcul(xordonnee / xscale) + positionLabelY*20/coeff,
-          yscale
-        ).svg(coeff)
-    } else {
-      code+=labelX(
-          premierMultipleSuperieur(xstep, graduationsxMin),
-          -1,
-          xstep,
-          graduationColor,
-          calcul(yabscisse / yscale) + positionLabelX*20/coeff,
-          xscale
-        ).svg(coeff)
-      code+=labelY(
-          premierMultipleSuperieur(ystep, graduationsyMin),
-          -1,
-          ystep,
-          graduationColor,
-          calcul(xordonnee / xscale) + positionLabelY*20/coeff,
-          yscale
-        ).svg(coeff)
-      code+=labelX(
-          Math.max(xstep, premierMultipleSuperieur(xstep, graduationsxMin)),
-          graduationsxMax,
-          xstep,
-          graduationColor,
-          calcul(yabscisse / yscale) + positionLabelX*20/coeff,
-          xscale
-        ).svg(coeff)
-      code+=labelY(
-          Math.max(ystep, premierMultipleSuperieur(ystep, graduationsyMin)),
-          graduationsyMax,
-          ystep,
-          graduationColor,
-          calcul(xordonnee / xscale) + positionLabelY*20/coeff,
-          yscale
-        ).svg(coeff)
+    if (afficheNumeros){
+      if (afficheZero) {
+        code+= labelX(
+            premierMultipleSuperieur(xstep, graduationsxMin),
+            graduationsxMax,
+            xstep,
+            graduationColor,
+            calcul(yabscisse / yscale) + positionLabelX*20/coeff,
+            xscale
+          ).svg(coeff)
+        code+= labelY(
+            premierMultipleSuperieur(ystep, graduationsyMin),
+            graduationsyMax,
+            ystep,
+            graduationColor,
+            calcul(xordonnee / xscale) + positionLabelY*20/coeff,
+            yscale
+          ).svg(coeff)
+      } else {
+        code+=labelX(
+            premierMultipleSuperieur(xstep, graduationsxMin),
+            -1,
+            xstep,
+            graduationColor,
+            calcul(yabscisse / yscale) + positionLabelX*20/coeff,
+            xscale
+          ).svg(coeff)
+        code+=labelY(
+            premierMultipleSuperieur(ystep, graduationsyMin),
+            -1,
+            ystep,
+            graduationColor,
+            calcul(xordonnee / xscale) + positionLabelY*20/coeff,
+            yscale
+          ).svg(coeff)
+        code+=labelX(
+            Math.max(xstep, premierMultipleSuperieur(xstep, graduationsxMin)),
+            graduationsxMax,
+            xstep,
+            graduationColor,
+            calcul(yabscisse / yscale) + positionLabelX*20/coeff,
+            xscale
+          ).svg(coeff)
+        code+=labelY(
+            Math.max(ystep, premierMultipleSuperieur(ystep, graduationsyMin)),
+            graduationsyMax,
+            ystep,
+            graduationColor,
+            calcul(xordonnee / xscale) + positionLabelY*20/coeff,
+            yscale
+          ).svg(coeff)
+      }
     }
     if (positionLegendeX === undefined) {
       positionLegendeX = [xmax + 4/coeff, yabscisse + 6/coeff];
