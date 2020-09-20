@@ -118,7 +118,8 @@ var liste_des_exercices_disponibles = {
   "6P11": Proportionnalite_par_linearite,
   "6P11-1": Proportionnalite_par_linearite_bis,
   "5A10": Liste_des_diviseurs_5e,
-  "5A11": Premier_ou_pas_5e,
+  "5A11": Tableau_criteres_de_divisibilite,
+  "5A12-1": Premier_ou_pas_5e,
   "5A13": Exercice_decomposer_en_facteurs_premiers,
   "5C11": Traduire_une_phrase_par_une_expression,
   "5C11-1": Traduire_une_expression_par_une_phrase,
@@ -163,7 +164,7 @@ var liste_des_exercices_disponibles = {
   "5L14": Tester_une_egalite,
   "5M10": Aire_du_parallelogramme,
   "5M20": Calcul_de_volumes_5e,
-  "5P10-1": Tableaux_et_proportionnalite,
+  "5P10": Tableaux_et_proportionnalite,
   "5R10-0": Trouver_oppose,
   "5R11": Lire_abscisse_relative,
   "5R11-2": Placer_points_sur_axe_relatifs,
@@ -11556,6 +11557,11 @@ function Transformations() {
 }
 
 // Exercices paramétrés pour correspondre au référentiel
+// Référence 5P10
+//function Proportionnalite_pas_proportionnalite_5e(){
+//  Proportionnalite_pas_proportionnalite.call(this)
+  // Pas de paramètres Sup
+//}
 
 // Référence 6C23
 function Exercice_additionner_des_fractions_6e() {
