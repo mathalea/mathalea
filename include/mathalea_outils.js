@@ -103,6 +103,33 @@ function carreParfait(x) {
 	if (estentier(Math.sqrt(x))) return true
 	else return false
 }
+
+// Petite fonction pour écrire des nombres avec Mathalea2d en vue de poser des opérations...
+function ecrireNombre2D(x,y,n){
+	let nString=nombre_avec_espace(n);
+	let nombre2D=[]
+	for (let k=0;k<nString.length;k++) {
+		nombre2D.push(texteParPosition(nString[k],x+k*0.8,y))
+	}
+	return nombre2D
+}
+/*
+Pour l'instant, je commente... Faut que je réfléchisse et que je prenne mon temps (que je n'ai pas actuellement)
+On verra ça plus tard. La nuit porte conseil.
+function ecrireAdditionPosee(x,y,...args){
+	let nString=[],n=[]
+	for (k=0;k<args.length;k++) {
+		nString.push(tex_nombre(args[k]))
+		n.push(args[k])
+	}
+	let nb_chiffres_pe=Math.log10(Math.floor(Math.max(n)))
+
+	for (let k=0;k<args.length;k++){
+
+	}
+}
+*/
+
 /**
 * Créé tous les couples possibles avec un élément de E1 et un élément de E2.
 * L'ordre est pris en compte, donc on pourra avoir (3,4) et (4,3).
