@@ -280,6 +280,8 @@ function Calcul_discriminant() {
   if (sortie_html) {
     this.spacing_corr = 2
   }
+  this.correction_detaillee_disponible = true;
+  sortie_html ? correction_detaillee = true : correction_detaillee = false ;
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
@@ -298,7 +300,7 @@ function Calcul_discriminant() {
           } else { // -k(x-x1)^2 -y1 avec k>0 et y1>0
             a = -k;
             b = 2 * k * x1;
-            c = - k * x1 * x1 + y1
+            c = - k * x1 * x1 - y1
           }
           texte = `$${rien_si_1(a)}x^2${ecriture_algebrique_sauf1(b)}x${ecriture_algebrique(c)}=0$`
           if (b == 0) {
@@ -353,7 +355,17 @@ function Calcul_discriminant() {
         default:
           break;
       }
-
+      if (this.correction_detaillee){
+        let f = x => a * x**2 + b * x + c
+        let graphique = courbe(f)
+        graphique.color = 'blue';
+        let r = repere({afficheNumeros:false,legendeX : '', legendeY : ''})
+        texte_corr += '<br><br>'
+        texte_corr += `Représentation graphique de $f : x \\mapsto ${rien_si_1(a)}x^2${ecriture_algebrique_sauf1(b)}x${ecriture_algebrique_sauf1(c)}$ : `
+        texte_corr +='<br><br>'
+        texte_corr += mathalea2d({xmin : -10, ymin : -10, xmax : 10, ymax : 10 , pixelsParCm : 15},
+          graphique,r) 
+      }
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(texte);
