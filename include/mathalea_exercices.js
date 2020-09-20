@@ -12652,7 +12652,7 @@ function Notation_segment_droite_demi_droite() {
         dAC,
         labels
       );
-      texte_corr = `...tracer $${dABCorr}, ${dBCCorr}, ${dACCorr}.$`;
+      texte_corr = `...tracer ${dABCorr}, ${dBCCorr}, ${dACCorr}.`;
 
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
