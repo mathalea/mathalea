@@ -291,7 +291,7 @@ function Calcul_discriminant() {
       switch (liste_types_equations[i]) {
         case "0solution": 
           k = randint(1,5);
-          x1 = randint(-3,3);
+          x1 = randint(-3,3,[0]);
           y1 = randint(1,5);
           if (choice(['+','-'])=='+') { // k(x-x1)^2 + y1 avec k>0 et y1>0
             a = k;
@@ -359,12 +359,15 @@ function Calcul_discriminant() {
         let f = x => a * x**2 + b * x + c
         let graphique = courbe(f)
         graphique.color = 'blue';
+        let s = segment(point(-10,0),point(10,0));
+        s.epaisseur = 3;
+        s.color = 'red';
         let r = repere({afficheNumeros:false,legendeX : '', legendeY : ''})
         texte_corr += '<br><br>'
         texte_corr += `Représentation graphique de $f : x \\mapsto ${rien_si_1(a)}x^2${ecriture_algebrique_sauf1(b)}x${ecriture_algebrique_sauf1(c)}$ : `
         texte_corr +='<br><br>'
         texte_corr += mathalea2d({xmin : -10, ymin : -10, xmax : 10, ymax : 10 , pixelsParCm : 15},
-          graphique,r) 
+          graphique,r,s) 
       }
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
