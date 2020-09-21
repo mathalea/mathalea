@@ -11349,7 +11349,7 @@ function Pythagore2D() {
   this.nb_questions = 3;
   this.nb_cols = 3;
   this.nb_cols_corr = 1;
-  let type_exercice = 'Calculer'
+  type_exercice = 'Calculer'
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
@@ -11392,7 +11392,6 @@ function Pythagore2D() {
       let longueurAC = longueur(A,C,1)
       let longueurBC = longueur(B,C,1)
       let mesObjetsATracer = [codage,p2,nomme]
-  
 
       if (type_exercice == 'Calculer' && liste_type_de_questions[i]=='AB'){
         mesObjetsATracer.push(affAC,affBC)

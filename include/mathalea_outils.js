@@ -129,7 +129,48 @@ function ecrireAdditionPosee(x,y,...args){
 	}
 }
 */
+class NombreDecimal {
+	constructor(nombre){
+		this.partieEntiere=[]
+		this.partieDecimale=[]
+		if (nombre<0) {
+			this.signe=`-`
+			nombre=calcul(-nombre)
+		}
+		else this.signe=`+`
+		let ent=Math.floor(nombre)
+		let partiedecimale=calcul(nombre-ent)
+		let nbcPE=Math.ceil(Math.log10(ent))
+		for (let i=0;i<nbcPE;i++){
+			this.partieEntiere.push(ent%10)
+			ent=(ent-(ent%10))/10
+		}
 
+		let k=0
+		while (!egal(partiedecimale,0)){
+			partiedecimale=arrondi(partiedecimale*10,10)
+			this.partieDecimale.push(Math.floor(partiedecimale))
+			partiedecimale=(partiedecimale-Math.floor(partiedecimale))
+			k++
+		}
+	}
+	get valeur() {
+		return this.recompose()
+	}
+	recompose() {
+		let val=0
+		for (let i=0;i<this.partieEntiere.length;i++)
+			val+=this.partieEntiere[i]*10**i
+		for (let j=0;j<this.partieDecimale.length;j++) 
+			val+=this.partieDecimale[j]*10**(-1-j)
+		if (this.signe==`+`) return val
+		else return calcul(-val)
+	}
+
+}
+function decimal(n) {
+	return new NombreDecimal(n)
+}
 /**
 * Créé tous les couples possibles avec un élément de E1 et un élément de E2.
 * L'ordre est pris en compte, donc on pourra avoir (3,4) et (4,3).
