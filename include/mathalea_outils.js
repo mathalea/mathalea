@@ -2583,16 +2583,16 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
 		valeur=calcul(origine+points_inconnus[i][1]/pas1+calcul(points_inconnus[i][2]/pas1/pas2))
 		result+=`\n\t \\tkzDefPoint(${valeur},0){A}`
 		result+=`\n\t \\tkzDefPoint(${valeur},-0.3-${position*0.02}){B}`
-		result +=`\n\t \\tkzDrawPoint[shape=cross out,color=orange,size=6](A)`
+		result +=`\n\t \\tkzDrawPoint[shape=cross out,color=blue,size=8](A)`
 		result +=`\n\t \\tkzLabelPoint[above](A){$${points_inconnus[i][0]}$}`
 		if (points_inconnus[i][3]) {	
 			if (!fraction) { // affichage décimal 
-				result +=`\n\t \\tkzLabelPoint[color = orange,below=${15+position}pt,inner sep = 5pt,font=\\scriptsize](A){$${tex_nombrec(valeur)}$}`	
-				result+=`\n\t \\tkzDrawSegment[color=orange,arr=stealth](B,A)`
+				result +=`\n\t \\tkzLabelPoint[color = blue,below=${15+position}pt,inner sep = 5pt,font=\\scriptsize](A){$${tex_nombrec(valeur)}$}`	
+				result+=`\n\t \\tkzDrawSegment[color=blue,arr=stealth](B,A)`
 			}
 			else { //affichage fractionnaire
-				result +=`\n\t \\tkzLabelPoint[color = orange,below=${15+position}pt,inner sep = 5pt,font=\\scriptsize](A){$${tex_fraction_signe((origine+points_inconnus[i][1])*pas2+points_inconnus[i][2],pas2)}$}`	
-				result+=`\n\t \\tkzDrawSegment[color=orange,arr=stealth](B,A)`
+				result +=`\n\t \\tkzLabelPoint[color = blue,below=${15+position}pt,inner sep = 5pt,font=\\scriptsize](A){$${tex_fraction_signe((origine+points_inconnus[i][1])*pas2+points_inconnus[i][2],pas2)}$}`	
+				result+=`\n\t \\tkzDrawSegment[color=blue,arr=stealth](B,A)`
 			}
 	}
 		position=6-position;
