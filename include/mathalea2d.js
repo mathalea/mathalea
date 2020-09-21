@@ -137,7 +137,7 @@ function tracePoint(...args) {
  * 
  * @Auteur Rémi Angot & Jean-Claude Lhote
  */
-function tracePointSurDroite(A, O) {
+function TracePointSurDroite(A, O) {
   ObjetMathalea2D.call(this)
   this.lieu=A
   this.taille=0.2
@@ -166,7 +166,7 @@ function tracePointSurDroite(A, O) {
     let A1=pointSurSegment(this.lieu,this.direction,this.taille/scale)
     let A2=pointSurSegment(this.lieu,this.direction,-this.taille/scale)
     let s=segment(A1,A2)
-    return s.tikz(coeff)
+    return s.tikz()
   }
  /* this.svgml=function(coeff,amp){
 
@@ -175,6 +175,9 @@ function tracePointSurDroite(A, O) {
 
   }
   */
+}
+function tracePointSurDroite(A,O) {
+  return new TracePointSurDroite(A,O)
 }
 
 /**

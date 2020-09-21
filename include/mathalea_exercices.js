@@ -12680,6 +12680,7 @@ function Notation_segment_droite_demi_droite() {
  * Référence 6G10-1
  */
 function Description_segment_droite_demi_droite() {
+  "use strict"
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Description et notation des droites, segments et demi-droites";
   this.consigne =
@@ -12732,7 +12733,6 @@ function Description_segment_droite_demi_droite() {
       }
       [dAB, dABCorr] = creerDroiteDemiSegment(A, B);
       let labels = labelPoint(A, B);
-
       texte = mathalea2d(
         { xmin: -2, ymin: -1, xmax: 7, ymax: 3, pixelsParCm: 40, scale: 0.6 },
         dAB,
