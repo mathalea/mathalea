@@ -6608,7 +6608,7 @@ function Calculer_la_valeur_d_une_expression_litterale_deg1_inc1() {
 
 /** 
  * * Justifier qu'un tableau est un tableau de proportionnalité ou non
- * * 5P10-1
+ * * 5P10
  * @author Sébastien Lozano
  */
 
