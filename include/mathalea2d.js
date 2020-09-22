@@ -4682,6 +4682,7 @@ function intervalle(A, B, color = "blue", h = 0) {
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
+
 /**
  * texteParPoint('mon texte',A) // Écrit 'mon texte' avec A au centre du texte
  * texteParPoint('mon texte',A,'gauche') // Écrit 'mon texte' à gauche de A (qui sera la fin du texte)
@@ -4800,7 +4801,15 @@ function latexParCoordonnees(texte, x, y) {
   let A = point(x, y);
   return latexParPoint(texte, A);
 }
-
+function Print2d(helloworld){
+  if (typeof(helloworld)=='number') return texteParPosition(helloworld.toString(),0,0,'droite')
+  else texteParPosition(helloworld,0,0,'droite')
+}
+function print2d(...args){
+  for (let j=0;j<args.length;j++) {
+    
+  }
+}
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%% LES FONCTIONS - CALCULS %%%%%%%%
