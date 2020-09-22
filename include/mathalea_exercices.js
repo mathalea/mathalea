@@ -15086,10 +15086,8 @@ function Ranger_ordre_croissant_decroissant(){
       nombres_ranges = [];
       nombres.forEach(element => {
         nombres_ranges.push(element);        
-      });
-      console.log(nombres);      
-      myOrdre(situations[k].ordre,nombres_ranges);   
-      console.log(nombres_ranges);
+      });           
+      myOrdre(situations[k].ordre,nombres_ranges);         
       enonces.push({
         enonce:`Classer les nombres suivants dans l'ordre ${situations[k].ordre} :<br>
         $${tex_nombre(nombres[0])}$   ;   $${tex_nombre(nombres[1])}$   ;   $${tex_nombre(nombres[2])}$   ;   $${tex_nombre(nombres[3])}$   ;   $${tex_nombre(nombres[4])}$   ;   $${tex_nombre(nombres[5])}$          
