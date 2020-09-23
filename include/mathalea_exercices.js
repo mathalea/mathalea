@@ -15291,6 +15291,15 @@ function Rapports_sur_un_segment(){
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+      let params = {
+        xmin: -0.4,
+        ymin: -1.5,
+        xmax: 20,
+        ymax: 1,
+        pixelsParCm: 20,
+        scale: 1,
+      }
+      let fig =mathalea2d(params,fraction(2,3).representation(0,0,5,0,'segment','red','A','B',0.6))
 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
@@ -15311,7 +15320,11 @@ function Rapports_sur_un_segment(){
 			for (let k=0;k<situations.length;k++) {
 				enonces.push({
 					enonce:`
-					Type ${k}				
+          Type ${k}
+          <br>
+          ${fig}
+          <br>
+          ${JSON.stringify(fraction(2,3).representation(0,0,5,0,'segment','red','A','B',0.6))}				
 					`,
 					question:``,
 					correction:`
