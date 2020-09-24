@@ -137,7 +137,7 @@ function tracePoint(...args) {
  * 
  * @Auteur Rémi Angot & Jean-Claude Lhote
  */
-function tracePointSurDroite(A, O) {
+function TracePointSurDroite(A, O) {
   ObjetMathalea2D.call(this)
   this.lieu=A
   this.taille=0.2
@@ -166,7 +166,7 @@ function tracePointSurDroite(A, O) {
     let A1=pointSurSegment(this.lieu,this.direction,this.taille/scale)
     let A2=pointSurSegment(this.lieu,this.direction,-this.taille/scale)
     let s=segment(A1,A2)
-    return s.tikz(coeff)
+    return s.tikz()
   }
  /* this.svgml=function(coeff,amp){
 
@@ -175,6 +175,9 @@ function tracePointSurDroite(A, O) {
 
   }
   */
+}
+function tracePointSurDroite(A,O) {
+  return new TracePointSurDroite(A,O)
 }
 
 /**
@@ -4055,6 +4058,7 @@ function Repere({
   ystep = 1,
   graduationColor = "black",
   afficheZero = false,
+  afficheNumeros = true,
   axesEpaisseur = 2,
   axesColor = "black",
   grillePrincipaleDistance = 1,
@@ -4125,57 +4129,58 @@ function Repere({
         axesEpaisseur,
         axesColor
       ).svg(coeff)
-    
-    if (afficheZero) {
-      code+= labelX(
-          premierMultipleSuperieur(xstep, graduationsxMin),
-          graduationsxMax,
-          xstep,
-          graduationColor,
-          calcul(yabscisse / yscale) + positionLabelX*20/coeff,
-          xscale
-        ).svg(coeff)
-      code+= labelY(
-          premierMultipleSuperieur(ystep, graduationsyMin),
-          graduationsyMax,
-          ystep,
-          graduationColor,
-          calcul(xordonnee / xscale) + positionLabelY*20/coeff,
-          yscale
-        ).svg(coeff)
-    } else {
-      code+=labelX(
-          premierMultipleSuperieur(xstep, graduationsxMin),
-          -1,
-          xstep,
-          graduationColor,
-          calcul(yabscisse / yscale) + positionLabelX*20/coeff,
-          xscale
-        ).svg(coeff)
-      code+=labelY(
-          premierMultipleSuperieur(ystep, graduationsyMin),
-          -1,
-          ystep,
-          graduationColor,
-          calcul(xordonnee / xscale) + positionLabelY*20/coeff,
-          yscale
-        ).svg(coeff)
-      code+=labelX(
-          Math.max(xstep, premierMultipleSuperieur(xstep, graduationsxMin)),
-          graduationsxMax,
-          xstep,
-          graduationColor,
-          calcul(yabscisse / yscale) + positionLabelX*20/coeff,
-          xscale
-        ).svg(coeff)
-      code+=labelY(
-          Math.max(ystep, premierMultipleSuperieur(ystep, graduationsyMin)),
-          graduationsyMax,
-          ystep,
-          graduationColor,
-          calcul(xordonnee / xscale) + positionLabelY*20/coeff,
-          yscale
-        ).svg(coeff)
+    if (afficheNumeros){
+      if (afficheZero) {
+        code+= labelX(
+            premierMultipleSuperieur(xstep, graduationsxMin),
+            graduationsxMax,
+            xstep,
+            graduationColor,
+            calcul(yabscisse / yscale) + positionLabelX*20/coeff,
+            xscale
+          ).svg(coeff)
+        code+= labelY(
+            premierMultipleSuperieur(ystep, graduationsyMin),
+            graduationsyMax,
+            ystep,
+            graduationColor,
+            calcul(xordonnee / xscale) + positionLabelY*20/coeff,
+            yscale
+          ).svg(coeff)
+      } else {
+        code+=labelX(
+            premierMultipleSuperieur(xstep, graduationsxMin),
+            -1,
+            xstep,
+            graduationColor,
+            calcul(yabscisse / yscale) + positionLabelX*20/coeff,
+            xscale
+          ).svg(coeff)
+        code+=labelY(
+            premierMultipleSuperieur(ystep, graduationsyMin),
+            -1,
+            ystep,
+            graduationColor,
+            calcul(xordonnee / xscale) + positionLabelY*20/coeff,
+            yscale
+          ).svg(coeff)
+        code+=labelX(
+            Math.max(xstep, premierMultipleSuperieur(xstep, graduationsxMin)),
+            graduationsxMax,
+            xstep,
+            graduationColor,
+            calcul(yabscisse / yscale) + positionLabelX*20/coeff,
+            xscale
+          ).svg(coeff)
+        code+=labelY(
+            Math.max(ystep, premierMultipleSuperieur(ystep, graduationsyMin)),
+            graduationsyMax,
+            ystep,
+            graduationColor,
+            calcul(xordonnee / xscale) + positionLabelY*20/coeff,
+            yscale
+          ).svg(coeff)
+      }
     }
     if (positionLegendeX === undefined) {
       positionLegendeX = [xmax + 4/coeff, yabscisse + 6/coeff];
@@ -4677,6 +4682,7 @@ function intervalle(A, B, color = "blue", h = 0) {
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
+
 /**
  * texteParPoint('mon texte',A) // Écrit 'mon texte' avec A au centre du texte
  * texteParPoint('mon texte',A,'gauche') // Écrit 'mon texte' à gauche de A (qui sera la fin du texte)
@@ -4795,7 +4801,15 @@ function latexParCoordonnees(texte, x, y) {
   let A = point(x, y);
   return latexParPoint(texte, A);
 }
-
+function Print2d(helloworld){
+  if (typeof(helloworld)=='number') return texteParPosition(helloworld.toString(),0,0,'droite')
+  else texteParPosition(helloworld,0,0,'droite')
+}
+function print2d(...args){
+  for (let j=0;j<args.length;j++) {
+    
+  }
+}
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%% LES FONCTIONS - CALCULS %%%%%%%%

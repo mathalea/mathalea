@@ -2907,7 +2907,7 @@ function Reciproque_Thales() {
 
 /**
  * @auteur Jean-Claude Lhote
- * 4G20-3
+ * 4G20MG32
  */
 function Exercice_Pythagore() {
   Exercice.call(this); // Héritage de la classe Exercice()
@@ -6806,7 +6806,6 @@ function Calculs_avec_puissances_de_dix() {
       nombre=calcul(mantisse*10**exp)
       mantisse1=calcul(mantisse*10**decalage)
       exp1=exp-decalage
-      console.log(nombre,`=`,mantisse1,`x10^`,exp1)
 
       decimalstring=`${tex_nombrec(mantisse1)} \\times 10^{${exp1}}`
       scientifiquestring=`${tex_nombre(mantisse)} \\times 10^{${exp}}`
@@ -11350,7 +11349,7 @@ function Pythagore2D() {
   this.nb_questions = 3;
   this.nb_cols = 3;
   this.nb_cols_corr = 1;
-  let type_exercice = 'Calculer'
+  type_exercice = 'Calculer'
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
@@ -11393,7 +11392,6 @@ function Pythagore2D() {
       let longueurAC = longueur(A,C,1)
       let longueurBC = longueur(B,C,1)
       let mesObjetsATracer = [codage,p2,nomme]
-  
 
       if (type_exercice == 'Calculer' && liste_type_de_questions[i]=='AB'){
         mesObjetsATracer.push(affAC,affBC)

@@ -103,6 +103,74 @@ function carreParfait(x) {
 	if (estentier(Math.sqrt(x))) return true
 	else return false
 }
+
+// Petite fonction pour écrire des nombres avec Mathalea2d en vue de poser des opérations...
+function ecrireNombre2D(x,y,n){
+	let nString=nombre_avec_espace(n);
+	let nombre2D=[]
+	for (let k=0;k<nString.length;k++) {
+		nombre2D.push(texteParPosition(nString[k],x+k*0.8,y))
+	}
+	return nombre2D
+}
+/*
+Pour l'instant, je commente... Faut que je réfléchisse et que je prenne mon temps (que je n'ai pas actuellement)
+On verra ça plus tard. La nuit porte conseil.
+function ecrireAdditionPosee(x,y,...args){
+	let nString=[],n=[]
+	for (k=0;k<args.length;k++) {
+		nString.push(tex_nombre(args[k]))
+		n.push(args[k])
+	}
+	let nb_chiffres_pe=Math.log10(Math.floor(Math.max(n)))
+
+	for (let k=0;k<args.length;k++){
+
+	}
+}
+*/
+class NombreDecimal {
+	constructor(nombre){
+		this.partieEntiere=[]
+		this.partieDecimale=[]
+		if (nombre<0) {
+			this.signe=`-`
+			nombre=calcul(-nombre)
+		}
+		else this.signe=`+`
+		let ent=Math.floor(nombre)
+		let partiedecimale=calcul(nombre-ent)
+		let nbcPE=Math.ceil(Math.log10(ent))
+		for (let i=0;i<nbcPE;i++){
+			this.partieEntiere.push(ent%10)
+			ent=(ent-(ent%10))/10
+		}
+
+		let k=0
+		while (!egal(partiedecimale,0)){
+			partiedecimale=arrondi(partiedecimale*10,10)
+			this.partieDecimale.push(Math.floor(partiedecimale))
+			partiedecimale=(partiedecimale-Math.floor(partiedecimale))
+			k++
+		}
+	}
+	get valeur() {
+		return this.recompose()
+	}
+	recompose() {
+		let val=0
+		for (let i=0;i<this.partieEntiere.length;i++)
+			val+=this.partieEntiere[i]*10**i
+		for (let j=0;j<this.partieDecimale.length;j++) 
+			val+=this.partieDecimale[j]*10**(-1-j)
+		if (this.signe==`+`) return val
+		else return calcul(-val)
+	}
+
+}
+function decimal(n) {
+	return new NombreDecimal(n)
+}
 /**
 * Créé tous les couples possibles avec un élément de E1 et un élément de E2.
 * L'ordre est pris en compte, donc on pourra avoir (3,4) et (4,3).
@@ -547,6 +615,30 @@ function ecriture_algebrique(a) {
 	}
 	return result;
 };
+
+/**
+* Ajoute le + devant les nombres positifs, n'écrit rien si 1
+* @Example
+* //+3 ou -3
+* @Auteur Rémi Angot
+*/
+function ecriture_algebrique_sauf1(a) { 
+	let result = '';
+	if (a>=0) {
+		result = '+'+tex_nombrec(a);
+	}
+	if (a<0) {
+		result = tex_nombrec(a);
+	}
+	if (a==1) {
+		result = '+';
+	}
+	if (a==-1){
+		result = '-';
+	}
+	return result;
+};
+
 /**
  * Idem ecriture_algebrique mais retourne le nombre en couleur (vert si positif, rouge si négatif et noir si nul)
  * @param {number} a 
@@ -2532,16 +2624,16 @@ function Latex_reperage_sur_un_axe(zoom,origine,pas1,pas2,points_inconnus,points
 		valeur=calcul(origine+points_inconnus[i][1]/pas1+calcul(points_inconnus[i][2]/pas1/pas2))
 		result+=`\n\t \\tkzDefPoint(${valeur},0){A}`
 		result+=`\n\t \\tkzDefPoint(${valeur},-0.3-${position*0.02}){B}`
-		result +=`\n\t \\tkzDrawPoint[shape=cross out,color=orange,size=6](A)`
+		result +=`\n\t \\tkzDrawPoint[shape=cross out,color=blue,size=8](A)`
 		result +=`\n\t \\tkzLabelPoint[above](A){$${points_inconnus[i][0]}$}`
 		if (points_inconnus[i][3]) {	
 			if (!fraction) { // affichage décimal 
-				result +=`\n\t \\tkzLabelPoint[color = orange,below=${15+position}pt,inner sep = 5pt,font=\\scriptsize](A){$${tex_nombrec(valeur)}$}`	
-				result+=`\n\t \\tkzDrawSegment[color=orange,arr=stealth](B,A)`
+				result +=`\n\t \\tkzLabelPoint[color = blue,below=${15+position}pt,inner sep = 5pt,font=\\scriptsize](A){$${tex_nombrec(valeur)}$}`	
+				result+=`\n\t \\tkzDrawSegment[color=blue,arr=stealth](B,A)`
 			}
 			else { //affichage fractionnaire
-				result +=`\n\t \\tkzLabelPoint[color = orange,below=${15+position}pt,inner sep = 5pt,font=\\scriptsize](A){$${tex_fraction_signe((origine+points_inconnus[i][1])*pas2+points_inconnus[i][2],pas2)}$}`	
-				result+=`\n\t \\tkzDrawSegment[color=orange,arr=stealth](B,A)`
+				result +=`\n\t \\tkzLabelPoint[color = blue,below=${15+position}pt,inner sep = 5pt,font=\\scriptsize](A){$${tex_fraction_signe((origine+points_inconnus[i][1])*pas2+points_inconnus[i][2],pas2)}$}`	
+				result+=`\n\t \\tkzDrawSegment[color=blue,arr=stealth](B,A)`
 			}
 	}
 		position=6-position;
@@ -2593,7 +2685,8 @@ function tex_graphique(f,xmin=-5,xmax=5,ymin=-5,ymax=5,xstep=1,ystep=1) {
 /**
  *  Classe MatriceCarree
  * Générateur de Matrice :
- * Si l'argument est un nombre, alors 
+ * Si l'argument est un nombre, alors on s'en sert pour définir le rang de la matrice carrée qu'on rempli de zéros.
+ * Sinon, c'est le tableau qui sert à remplir la Matrice
  *  @Auteur Jean-Claude Lhote
  */
 function MatriceCarree(table){
@@ -2842,27 +2935,6 @@ function cherche_polynome_deg3_a_extrema_fixes(x1,x2,y1,y2) {
 	if (!egal(M.determinant(),0)) return M.inverse().multiplieVecteur(R)
 	else return false
 }
-// fonction devenue inutile : à remplacer par cherche_polynome_deg3_a_extrema_fixes(x1,x2,y1,y2) qui produit un résultat exact, sans mouliner !
-/*
-function cherche_polynome_deg3_a_extrema_entiers(x1,x2,y1,y2) { // je voulais ajouter "ou presque" dans le nom de fonction, mais ça faisait trop long !
-	let resultat=[],trouve=false
-	for (let a=-1;a<1;a+=0.00005) {
-		resultat=cherche_polynome_deg3_a_extrema_fixes(x1,x2,y1,a)
-		if (egal(resultat[4],y1)) 
-			if (egal(resultat[5],y2,0.001)) {
-				trouve=true
-				resultat.push('trouvé')
-				return resultat
-			}
-		else if (egal(resultat[4],y2,0.001)) {
-			trouve=true
-			resultat.push('trouvé')
-			return resultat
-		}
-	}
-	if (!trouve) return 'Pas trouvé'
-}
-*/
 
 /**
  * Fonction pour simplifier l'ecriture lorsque l'exposant vaut 0 ou 1
@@ -6517,7 +6589,6 @@ function partieEntiereEnLettres(nb) {
 		classeDesUnites =  dictionnaire[nbString.substring(nbString.length-3,nbString.length).replace(/^0{1,2}/,'')].replaceAll(' ','-')
 	}
 	let result = ''
-	console.log(classeDesMilliards,classeDesMillions,classeDesMilliers,classeDesUnites)
 	if (classeDesMilliards.length>1){
 		classeDesMilliards == 'un' ? result += classeDesMilliards+'-milliard' : result += classeDesMilliards+'-milliards'
 		if (classeDesMillions!="zéro" || classeDesMilliers!="zéro" || classeDesUnites!="zéro"){

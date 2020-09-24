@@ -5875,7 +5875,7 @@ function Construire_par_Symetrie() {
 				enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
 				enonce += num_alpha(1)+` Construire le triangle  $${p1nom[0]}\'${p1nom[2]}\'${p1nom[3]}\'$ symétrique de $${p1nom[0]}${p1nom[2]}${p1nom[3]}$ par rapport au point $${p1nom[1]}$.<br>`
 				enonce += num_alpha(2)+` Coder la figure.<br>`;
-				MAth.floor(Math.min(A.x,B.x,C.x,D.x,p1.listePoints[0].x,p1.listePoints[1].x,p1.listePoints[2].x,p2.listePoints[0].x,p2.listePoints[1].x,p2.listePoints[2].x)-1)
+				Math.floor(Math.min(A.x,B.x,C.x,D.x,p1.listePoints[0].x,p1.listePoints[1].x,p1.listePoints[2].x,p2.listePoints[0].x,p2.listePoints[1].x,p2.listePoints[2].x)-1)
 				Xmax=Math.ceil(Math.max(A.x,B.x,C.x,D.x,p1.listePoints[0].x,p1.listePoints[1].x,p1.listePoints[2].x,p2.listePoints[0].x,p2.listePoints[1].x,p2.listePoints[2].x)+1)
 				Ymin=Math.floor(Math.min(A.y,B.y,C.y,D.y,p1.listePoints[0].y,p1.listePoints[1].y,p1.listePoints[2].y,p2.listePoints[0].y,p2.listePoints[1].y,p2.listePoints[2].y)-1)
 				Ymax=Math.ceil(Math.max(A.y,B.y,C.y,D.y,p1.listePoints[0].y,p1.listePoints[1].y,p1.listePoints[2].y,p2.listePoints[0].y,p2.listePoints[1].y,p2.listePoints[2].y)+1)
@@ -6120,10 +6120,6 @@ function Problemes_additifs_fractions_5e(){
 			destinations_vols = shuffle(destinations_vols);
 			do {		
 				nb_vols_total = randint(200,600);
-				console.log(nb_vols_total%2);
-				console.log(nb_vols_total%3);
-				console.log(nb_vols_total%4);
-				console.log(nb_vols_total%2 != 0 && nb_vols_total%3 != 0 && nb_vols_total%4 != 0)
 			} while (nb_vols_total%2 != 0 || nb_vols_total%3 != 0 || nb_vols_total%4 != 0)
 
 			// pour les situations
@@ -6612,7 +6608,7 @@ function Calculer_la_valeur_d_une_expression_litterale_deg1_inc1() {
 
 /** 
  * * Justifier qu'un tableau est un tableau de proportionnalité ou non
- * * 5P10-1
+ * * 5P10
  * @author Sébastien Lozano
  */
 
