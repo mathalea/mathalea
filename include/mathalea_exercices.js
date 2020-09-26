@@ -15261,7 +15261,7 @@ function Rapports_sur_un_segment(){
 	this.beta = true;	
 	this.sup=1;
 	if (this.beta) {
-		this.nb_questions = 5;
+		this.nb_questions = 3;
 	} else {
 		this.nb_questions = 3;
 	};	
@@ -15279,7 +15279,7 @@ function Rapports_sur_un_segment(){
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		if (this.beta) {
-			type_de_questions_disponibles = [0,1,2,3,4];			
+			type_de_questions_disponibles = [0];			
 		} else {
      		 type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
 		};
@@ -15307,13 +15307,13 @@ function Rapports_sur_un_segment(){
       // )
       let m = randint(1,5);
       let n = randint(1,5,m);
-      let coeff = (m,n) => {
-        if (m>n) {
-          return m
-        } else {
-          return 1/n
-        }
-      };
+      // let coeff = (m,n) => {
+      //   if (m>n) {
+      //     return m/n
+      //   } else {
+      //     return m/n
+      //   }
+      // };
 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
@@ -15330,75 +15330,8 @@ function Rapports_sur_un_segment(){
           ),
           fig_corr2:mathalea2d(
             params,
-            fraction(n,m).representation(0,0,coeff(m,n)*5,0,'segment','blue','A','C',1,'B'),             
+            fraction(n,m).representation(0,0,(m/n)*5,0,'segment','blue','A','C',1,'B'),             
           )
-				},
-        {//case 1 -->
-          fig:mathalea2d(
-            params,
-            fraction(m,n).representation(0,0,5,0,'segment','','A','B',1,'C'),             
-          ),
-          m:m,
-          n:n,
-          fig_corr1:mathalea2d(
-            params,
-            fraction(m,n).representation(0,0,5,0,'segment','red','A','B',1,'C'),             
-          ),
-          fig_corr2:mathalea2d(
-            params,
-            fraction(m,n).representation(0,0,5,0,'segment','blue','A','B',1,'C'),             
-          )
-				},
-        {//case 2 -->
-          fig:mathalea2d(
-            params,
-            fraction(m,n).representation(0,0,5,0,'segment','','A','B',1,'C'),             
-          ),
-          m:m,
-          n:n,
-          fig_corr1:mathalea2d(
-            params,
-            fraction(m,n).representation(0,0,5,0,'segment','red','A','B',1,'C'),             
-          ),
-          fig_corr2:mathalea2d(
-            params,
-            fraction(m,n).representation(0,0,5,0,'segment','blue','A','B',1,'C'),             
-          )
-
-				},
-        {//case 3 -->
-          fig:mathalea2d(
-            params,
-            fraction(m,n).representation(0,0,5,0,'segment','','A','B',1,'C'),             
-          ),
-          m:m,
-          n:n,
-          fig_corr1:mathalea2d(
-            params,
-            fraction(m,n).representation(0,0,5,0,'segment','red','A','B',1,'C'),             
-          ),
-          fig_corr2:mathalea2d(
-            params,
-            fraction(m,n).representation(0,0,5,0,'segment','blue','A','B',1,'C'),             
-          )
-
-				},
-        {//case 4 -->
-          fig:mathalea2d(
-            params,
-            fraction(m,n).representation(0,0,5,0,'segment','','A','B',1,'C'),             
-          ),
-          m:m,
-          n:n,
-          fig_corr1:mathalea2d(
-            params,
-            fraction(m,n).representation(0,0,5,0,'segment','red','A','B',1,'C'),             
-          ),
-          fig_corr2:mathalea2d(
-            params,
-            fraction(m,n).representation(0,0,5,0,'segment','blue','A','B',1,'C'),             
-          )
-
 				},
 		
 			];
