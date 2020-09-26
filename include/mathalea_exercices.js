@@ -15267,7 +15267,7 @@ function Rapports_sur_un_segment(){
 	};	
 
 	this.titre = "Titre dans la liste de choix des exos";	
-	this.consigne = `Consigne `;	
+	this.consigne = `Dans chaque cas, sachant que les graduations sont régulières, exprimer le rapport de longueurs $\\dfrac{AC}{AB}$.`;	
 	
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -15294,24 +15294,93 @@ function Rapports_sur_un_segment(){
       let params = {
         xmin: -0.4,
         ymin: -1.5,
-        xmax: 20,
+        xmax: 50,
         ymax: 1,
         pixelsParCm: 20,
         scale: 1,
       }
-      let fig =mathalea2d(params,fraction(3,2).representation(0,0,5,0,'segment','red','A','B',0.6))
-
+      let fig = [];
+      // mathalea2d(
+      //   params,
+      //   fraction(8,9).representation(0,0,15,0,'segment','red','A','B',1,'C'),
+      //   fraction(1,9).representation(0,-1.5,15,0,'segment','blue','A','B',1,'C')
+      // )
+      let m = randint(1,5);
+      let n = randint(1,5);
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
-				{//case 0 -->
+        {//case 0 -->
+          fig:mathalea2d(
+              params,
+              fraction(m,n).representation(0,0,5,0,'segment','','A','B',1,'C'),             
+            ),
+          fig_corr1:mathalea2d(
+            params,
+            fraction(m,n).representation(0,0,5,0,'segment','red','A','B',1,'C'),             
+          ),
+          fig_corr2:mathalea2d(
+            params,
+            fraction(n,m).representation(0,0,m*5,0,'segment','blue','A','C',1,'B'),             
+          )
 				},
-				{//case 1 -->
+        {//case 1 -->
+          fig:mathalea2d(
+            params,
+            fraction(m,n).representation(0,0,5,0,'segment','','A','B',1,'C'),             
+          ),
+          fig_corr1:mathalea2d(
+            params,
+            fraction(m,n).representation(0,0,5,0,'segment','red','A','B',1,'C'),             
+          ),
+          fig_corr2:mathalea2d(
+            params,
+            fraction(m,n).representation(0,0,5,0,'segment','blue','A','B',1,'C'),             
+          )
 				},
-				{//case 2 -->
+        {//case 2 -->
+          fig:mathalea2d(
+            params,
+            fraction(m,n).representation(0,0,5,0,'segment','','A','B',1,'C'),             
+          ),
+          fig_corr1:mathalea2d(
+            params,
+            fraction(m,n).representation(0,0,5,0,'segment','red','A','B',1,'C'),             
+          ),
+          fig_corr2:mathalea2d(
+            params,
+            fraction(m,n).representation(0,0,5,0,'segment','blue','A','B',1,'C'),             
+          )
+
 				},
-				{//case 3 -->
+        {//case 3 -->
+          fig:mathalea2d(
+            params,
+            fraction(m,n).representation(0,0,5,0,'segment','','A','B',1,'C'),             
+          ),
+          fig_corr1:mathalea2d(
+            params,
+            fraction(m,n).representation(0,0,5,0,'segment','red','A','B',1,'C'),             
+          ),
+          fig_corr2:mathalea2d(
+            params,
+            fraction(m,n).representation(0,0,5,0,'segment','blue','A','B',1,'C'),             
+          )
+
 				},
-				{//case 4 -->
+        {//case 4 -->
+          fig:mathalea2d(
+            params,
+            fraction(m,n).representation(0,0,5,0,'segment','','A','B',1,'C'),             
+          ),
+          fig_corr1:mathalea2d(
+            params,
+            fraction(m,n).representation(0,0,5,0,'segment','red','A','B',1,'C'),             
+          ),
+          fig_corr2:mathalea2d(
+            params,
+            fraction(m,n).representation(0,0,5,0,'segment','blue','A','B',1,'C'),             
+          )
+
 				},
 		
 			];
@@ -15322,13 +15391,18 @@ function Rapports_sur_un_segment(){
 					enonce:`
           Type ${k}
           <br>
-          ${fig}
-          <br>
-          ${JSON.stringify(fraction(3,2).representation(0,0,5,0,'segment','red','A','B',0.6))}				
+          ${situations[k].fig}
+          			
 					`,
 					question:``,
 					correction:`
-					Correction type ${k}
+          Correction type ${k}
+          <br>
+          ${situations[k].fig_corr1}
+          <br>
+          ${situations[k].fig_corr2}
+
+
 					`
 				});
 			};
