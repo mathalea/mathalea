@@ -3706,7 +3706,7 @@ function Ecrire_nombres_entiers() {
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
   this.sup = 1
-  this.sup2 = 2
+  this.sup2 = 3
   this.nouvelle_version = function (numero_de_l_exercice) {
     if (this.sup == 2)
       this.consigne = "Écrire le nombre en chiffres"
@@ -3715,9 +3715,9 @@ function Ecrire_nombres_entiers() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées 
     let type_de_questions_disponibles;
-   
     if (this.sup2==1) type_de_questions_disponibles=[1,1,1,2,2]
-    else if (this.sup2==2)  type_de_questions_disponibles=[2,2,3,3,4]
+    else if (this.sup2==2) type_de_questions_disponibles=[1,2,2,2,3]
+    else if (this.sup2==3)  type_de_questions_disponibles=[2,2,3,3,4]
     else type_de_questions_disponibles=[2,3,3,4,4]
 
     let liste_type_de_questions = combinaison_listes(
@@ -3768,7 +3768,7 @@ function Ecrire_nombres_entiers() {
     liste_de_question_to_contenu(this);
   };
   this.besoin_formulaire_numerique = ['Type d\'exercice', 2, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres'];
-  this.besoin_formulaire2_numerique = ['Niveau', 3, '1 : Facile\n2 : Moyen\n3 : Difficile']
+  this.besoin_formulaire2_numerique = ['Niveau', 4, '1 : Élémentaire\n2 : Facile\n3 : Moyen\n4 : Difficile']
 }
 
 /**
