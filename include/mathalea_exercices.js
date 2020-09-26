@@ -15299,7 +15299,7 @@ function Rapports_sur_un_segment(){
         pixelsParCm: 20,
         scale: 1,
       }
-      let fig =mathalea2d(params,fraction(2,3).representation(0,0,5,0,'segment','red','A','B',0.6))
+      let fig =mathalea2d(params,fraction(3,2).representation(0,0,5,0,'segment','red','A','B',0.6))
 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
@@ -15324,7 +15324,7 @@ function Rapports_sur_un_segment(){
           <br>
           ${fig}
           <br>
-          ${JSON.stringify(fraction(2,3).representation(0,0,5,0,'segment','red','A','B',0.6))}				
+          ${JSON.stringify(fraction(3,2).representation(0,0,5,0,'segment','red','A','B',0.6))}				
 					`,
 					question:``,
 					correction:`
