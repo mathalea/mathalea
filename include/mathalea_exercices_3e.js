@@ -6736,15 +6736,23 @@ function Image_antecedent_depuis_tableau_ou_fleche() {
 	this.liste_questions.push(texte)
 	this.liste_corrections.push(texte_corr)
 
-	texte = `Quels sont les antécédents de $${a}$ par la fonction $f$ ?`
-	texte_corr = `$${a}$ a un seul antécédent par la fonction $f$ qui est $${d}$, on note $f(${d})=${a}$.`
-	this.liste_questions.push(texte)
-	this.liste_corrections.push(texte_corr)
-
-	texte = `Quels sont les antécédents de $${d}$ par la fonction $f$ ?`
-	texte_corr = `$${d}$ a deux antécédents par la fonction $f$ qui sont $${c}$ et $${e}$, on note $f(${c})=f(${e})=${d}$.`
-	this.liste_questions.push(texte)
-	this.liste_corrections.push(texte_corr)
+	let texte3 = `Quels sont les antécédents de $${a}$ par la fonction $f$ ?`
+	let texte_corr3 = `$${a}$ a un seul antécédent par la fonction $f$ qui est $${d}$, on note $f(${d})=${a}$.`
+	
+	let texte4 = `Quels sont les antécédents de $${d}$ par la fonction $f$ ?`
+	let texte_corr4 = `$${d}$ a deux antécédents par la fonction $f$ qui sont $${c}$ et $${e}$, on note $f(${c})=f(${e})=${d}$.`
+	
+	if (choice([true,false])) { // Une fois sur 2 on inverse les questions 3 et 4
+		this.liste_questions.push(texte3)
+		this.liste_corrections.push(texte_corr3)	
+		this.liste_questions.push(texte4)
+		this.liste_corrections.push(texte_corr4)	
+	} else {
+		this.liste_questions.push(texte4)
+		this.liste_corrections.push(texte_corr4)	
+		this.liste_questions.push(texte3)
+		this.liste_corrections.push(texte_corr3)
+	}
 
 	texte = `Recopier et compléter : $f(${c})=\\ldots$`
 	texte_corr = `$f(${c})=${d}$`
@@ -6755,7 +6763,6 @@ function Image_antecedent_depuis_tableau_ou_fleche() {
 	texte_corr = `$f(${f})=${c}$`
 	this.liste_questions.push(texte)
 	this.liste_corrections.push(texte_corr)
-
 	
 	liste_de_question_to_contenu(this);
   };

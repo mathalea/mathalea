@@ -395,26 +395,51 @@ function Resoudre_equation_degre_2() {
   this.nb_questions = 4;
   this.nb_cols = 2;
   this.nb_cols_corr = 2;
-  this.spacing_corr = 3
+  this.spacing_corr = 3;
+  this.sup = 1;
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    for (let i = 0, texte, texte_corr, a, b, c, delta, x1, x2, y1, y2, cpt = 0;i < this.nb_questions && cpt < 50;) {
-      // k(x-x1)(x-x2)
-      x1 = randint(-5,2,[0]);
-      x2 = randint(x1+1,5,[0,-x1]);
-      k = randint(-4,4,[0]);
-      a = k;
-      b = -k * x1 -k * x2;
-      c = k * x1 * x2
-      texte = `$${rien_si_1(a)}x^2${ecriture_algebrique_sauf1(b)}x${ecriture_algebrique(c)}=0$`
-      
-      texte_corr = `$\\Delta = ${ecriture_parenthese_si_negatif(b)}^2-4\\times${ecriture_parenthese_si_negatif(a)}\\times${ecriture_parenthese_si_negatif(c)}=${b*b-4*a*c}$`
-      texte_corr += `<br>$\\Delta>0$ donc l'équation admet deux solutions : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$`
-      texte_corr += `<br>$x_1 =\\dfrac{${-b}-\\sqrt{${b*b-4*a*c}}}{${2*a}}=${x1}$`
-      texte_corr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b*b-4*a*c}}}{${2*a}}=${x2}$`
-      texte_corr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\{${x1} ; ${x2}\\}$.`  
+    let liste_type_de_questions = combinaison_listes(['solutionsEntieres','solutionsEntieres','pasDeSolution'],this.nb_questions)
+    for (let i = 0, texte, texte_corr, a, b, c, delta, x1, x2, y1, y2, k, cpt = 0;i < this.nb_questions && cpt < 50;) {
+      if (liste_type_de_questions[i]=="solutionsEntieres"){
+        // k(x-x1)(x-x2)
+        x1 = randint(-5,2,[0]);
+        x2 = randint(x1+1,5,[0,-x1]);
+        k = randint(-4,4,[0]);
+        a = k;
+        b = -k * x1 -k * x2;
+        c = k * x1 * x2
+        texte = `$${rien_si_1(a)}x^2${ecriture_algebrique_sauf1(b)}x${ecriture_algebrique(c)}=0$`
+        
+        texte_corr = `$\\Delta = ${ecriture_parenthese_si_negatif(b)}^2-4\\times${ecriture_parenthese_si_negatif(a)}\\times${ecriture_parenthese_si_negatif(c)}=${b*b-4*a*c}$`
+        texte_corr += `<br>$\\Delta>0$ donc l'équation admet deux solutions : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$`
+        texte_corr += `<br>$x_1 =\\dfrac{${-b}-\\sqrt{${b*b-4*a*c}}}{${2*a}}=${x1}$`
+        texte_corr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b*b-4*a*c}}}{${2*a}}=${x2}$`
+        texte_corr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\{${x1} ; ${x2}\\}$.`  
+      }
+      if (liste_type_de_questions[i]=="pasDeSolution") {
+          k = randint(1,5);
+          x1 = randint(-3,3,[0]);
+          y1 = randint(1,5);
+          if (choice(['+','-'])=='+') { // k(x-x1)^2 + y1 avec k>0 et y1>0
+            a = k;
+            b = -2 * k * x1;
+            c = k * x1 * x1 + y1;
+          } else { // -k(x-x1)^2 -y1 avec k>0 et y1>0
+            a = -k;
+            b = 2 * k * x1;
+            c = - k * x1 * x1 - y1
+          }
+          texte = `$${rien_si_1(a)}x^2${ecriture_algebrique_sauf1(b)}x${ecriture_algebrique(c)}=0$`
+          if (b == 0) {
+            texte = `$${rien_si_1(a)}x^2${ecriture_algebrique(c)}=0$`
+          }
+          texte_corr = `$\\Delta = ${ecriture_parenthese_si_negatif(b)}^2-4\\times${ecriture_parenthese_si_negatif(a)}\\times${ecriture_parenthese_si_negatif(c)}=${b*b-4*a*c}$`
+          texte_corr += `<br>$\\Delta<0$ donc l'équation n'admet pas de solution.`
+          texte_corr += `<br>$\\mathcal{S}=\\emptyset$`
+      }
 
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre

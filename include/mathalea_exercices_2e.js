@@ -2005,6 +2005,8 @@ Exercice.call(this); // Héritage de la classe Exercice()
     this.nb_cols = 2;
     this.nb_cols_corr = 2;
     this.sup = 1 ; // 
+    this.correction_detaille_disponible = true;
+    sortie_html ? this.correction_detaillee = true : this.correction_detaillee = false;
 
     this.nouvelle_version = function(numero_de_l_exercice){
     this.liste_questions = []; // Liste de questions
@@ -2040,13 +2042,37 @@ Exercice.call(this); // Héritage de la classe Exercice()
                     Il existe donc deux solutions à cette équation :<br>
                     $x_1=${c} ${ecriture_algebrique(b)}$ et $x_2=${c} -${ecriture_parenthese_si_negatif(b)}$<br>
                     $S=\\{${c-b};${c+b}\\}$`;
-                            
-                  
-
-                        
+                    if (this.correction_detaillee) {
+                        let s = segment(point(0,0),point(12,0));
+                        s.styleExtremites='->';
+                        let x0 = point(3,0)
+                        x0.nom = c-b
+                        x0.positionLabel = 'below'
+                        let A = point(6,0,c)
+                        A.nom = c
+                        A.positionLabel = 'below'
+                        let x1 = point(9,0,c+b,'below')
+                        x1.nom = c+b
+                        x1.positionLabel = 'below'
+                        let s1 = segmentAvecExtremites(x0,x1)
+                        s1.color = 'blue'
+                        s1.epaisseur = 2
+                        let s2 = segmentAvecExtremites(x0,A)
+                        let l = labelPoint(A,x0,x1)
+                        let cote = segment(point(3,1),point(5.95,1))
+                        cote.styleExtremites = '<->'
+                        let texteCote = texteParPosition(b,4.5,1.6)
+                        let cote2 = segment(point(6.05,1),point(9,1))
+                        cote2.styleExtremites = '<->'
+                        let texteCote2 = texteParPosition(b,7.5,1.6)
+                        texte_corr += mathalea2d({xmin:-1,xmax:13,ymin:-2,ymax:2.5},
+                            s,s1,s2,l,cote,texteCote,cote2,texteCote2)
+                    }
                     break ;
         
-            }       
+            }
+            
+
             if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
                 this.liste_questions.push(texte);
                 this.liste_corrections.push(texte_corr);
