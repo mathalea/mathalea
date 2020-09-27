@@ -262,6 +262,7 @@ var liste_des_exercices_disponibles = {
   "3G30": Exercice_Trigo_longueurs,
   "3G31": Exercice_Trigo_angles,
   "3F1-act": fonction_notion_vocabulaire,
+  "3F10" : Image_antecedent_depuis_tableau_ou_fleche,
   "3F12": fonctions_calculs_d_images,
   "3F12-2": Image_fonction_algebrique,
   "3F12-3": Tableau_de_valeurs,
@@ -290,8 +291,8 @@ var liste_des_exercices_disponibles = {
   "2L11": Factoriser_Identites_remarquables2,
   "1N10": Terme_d_une_suite_definie_explicitement,
   "1N11": Terme_d_une_suite_definie_par_recurrence, 
-  "beta1E10" : Calcul_discriminant,
-  "beta1E11" : Resoudre_equation_degre_2,
+  "1E10" : Calcul_discriminant,
+  "1E11" : Resoudre_equation_degre_2,
   "PEA11": Passer_d_une_base_a_l_autre,
   "PEA11-1": Passer_de_la_base_12_ou_16_a_la_10,
   "betaTESTseb": Tests_du_Seb,
@@ -3971,7 +3972,7 @@ function Exercice_numeration_entier() {
       texte = `$\\text{${b}  ${rangs[rang_b]} et ${a} ${rangs[rang_a]}}$`;
       texte_corr = `$${b} \\text{ ${rangs[rang_b]} et }${a} \\text{ ${
         rangs[rang_a]
-      } : } ${tex_nombre(
+      } : } ${tex_nombre(b*Math.pow(10, rang_b))} + ${a*tex_nombre(Math.pow(10, rang_a))} =${tex_nombre(
         b * Math.pow(10, rang_b) + a * Math.pow(10, rang_a)
       )}$`;
 
