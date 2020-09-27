@@ -262,6 +262,7 @@ var liste_des_exercices_disponibles = {
   "3G30": Exercice_Trigo_longueurs,
   "3G31": Exercice_Trigo_angles,
   "3F1-act": fonction_notion_vocabulaire,
+  "3F10" : Image_antecedent_depuis_tableau_ou_fleche,
   "3F12": fonctions_calculs_d_images,
   "3F12-2": Image_fonction_algebrique,
   "3F12-3": Tableau_de_valeurs,
