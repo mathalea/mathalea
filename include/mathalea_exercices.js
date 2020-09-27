@@ -93,7 +93,7 @@ var liste_des_exercices_disponibles = {
   "6N20-2": Exercice_fractions_differentes_ecritures,
   "6N21": Lire_abscisse_fractionnaire,
   "6N22" : Ajouter_des_fractions_d_unite,
-  "beta6N22-1" : Rapports_sur_un_segment,
+  "6N22-1" : Rapports_sur_un_segment,
   "6N23": Exercice_ecriture_decimale_a_partir_de_fraction_decimale,
   "beta6N23-0" : Ecrire_nombres_decimal,
   "6N23-1": Exercice_differentes_ecritures_nombres_decimaux,
@@ -15258,7 +15258,7 @@ function Tests_du_Seb(){
 function Rapports_sur_un_segment(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 2;
@@ -15329,14 +15329,16 @@ function Rapports_sur_un_segment(){
               params,
               fraction(Math.min(m,n),Math.max(m,n)).representation(0,0,5,0,'segment','',noms[0],noms[1],1,noms[2]),             
             ),
-          segment_corr1:`\\textcolor{red}{${noms[0]+noms[2]}}`,
+          segment_corr1:`\\textcolor{red}{[${noms[0]+noms[2]}]}`,
+          longueur_corr1:`\\textcolor{red}{${noms[0]+noms[2]}}`,
           m_color_corr:`\\textcolor{red}{${Math.min(m,n)}}`,          
           n_color_corr:`\\textcolor{blue}{${Math.max(m,n)}}`,
           fig_corr1:mathalea2d(
             params,
             fraction(Math.min(m,n),Math.max(m,n)).representation(0,0,5,0,'segment','red',noms[0],noms[1],1,noms[2]),             
           ),
-          segment_corr2:`\\textcolor{blue}{${noms[0]+noms[1]}}`,
+          segment_corr2:`\\textcolor{blue}{[${noms[0]+noms[1]}]}`,
+          longueur_corr2:`\\textcolor{blue}{${noms[0]+noms[1]}}`,
           fig_corr2:mathalea2d(
             params,
             fraction(Math.max(m,n),Math.min(m,n)).representation(0,0,(Math.min(m,n)/Math.max(m,n))*5,0,'segment','blue',noms[0],noms[2],1,noms[1]),             
@@ -15351,14 +15353,16 @@ function Rapports_sur_un_segment(){
               params,
               fraction(Math.max(m,n),Math.min(m,n)).representation(0,0,5,0,'segment','',noms[0],noms[1],1,noms[2]),             
             ),
-          segment_corr1:`\\textcolor{red}{${noms[0]+noms[2]}}`,
+          segment_corr1:`\\textcolor{red}{[${noms[0]+noms[2]}]}`,
+          longueur_corr1:`\\textcolor{red}{${noms[0]+noms[2]}}`,
           m_color_corr:`\\textcolor{red}{${Math.max(m,n)}}`,          
           n_color_corr:`\\textcolor{blue}{${Math.min(m,n)}}`,
           fig_corr1:mathalea2d(
             params,
             fraction(Math.max(m,n),Math.min(m,n)).representation(0,0,5,0,'segment','red',noms[0],noms[1],1,noms[2]),             
           ),
-          segment_corr2:`\\textcolor{blue}{${noms[0]+noms[1]}}`,
+          segment_corr2:`\\textcolor{blue}{[${noms[0]+noms[1]}]}`,
+          longueur_corr2:`\\textcolor{blue}{${noms[0]+noms[1]}}`,
           fig_corr2:mathalea2d(
             params,
             fraction(Math.min(m,n),Math.max(m,n)).representation(0,0,(Math.max(m,n)/Math.min(m,n))*5,0,'segment','blue',noms[0],noms[2],1,noms[1]),             
@@ -15382,8 +15386,8 @@ function Rapports_sur_un_segment(){
           Le segment $${situations[k].segment_corr1}$ compte $${situations[k].m_color_corr}$ ${sing_plur(situations[k].m,'graduation','graduations')}.<br>
           ${situations[k].fig_corr2}<br>
           Le segment $${situations[k].segment_corr2}$ compte $${situations[k].n_color_corr}$ ${sing_plur(situations[k].n,'graduation','graduations')}.<br>
-          Donc $${situations[k].rapport}=\\dfrac{${situations[k].segment_corr2}}{${situations[k].segment_corr1}}=\\dfrac{${situations[k].n_color_corr}}{${situations[k].m_color_corr}}$
-          et $${situations[k].rapport_inverse}=\\dfrac{${situations[k].segment_corr1}}{${situations[k].segment_corr2}}=\\dfrac{${situations[k].m_color_corr}}{${situations[k].n_color_corr}}$<br><br>
+          Donc $\\dfrac{${situations[k].longueur_corr2}}{${situations[k].longueur_corr1}}=\\dfrac{${situations[k].n_color_corr}}{${situations[k].m_color_corr}}$
+          et $\\dfrac{${situations[k].longueur_corr1}}{${situations[k].longueur_corr2}}=\\dfrac{${situations[k].m_color_corr}}{${situations[k].n_color_corr}}$<br><br>
           ${texte_en_couleur(`D'où $${situations[k].rapport}=${fraction(situations[k].n,situations[k].m).texFractionSimplifiee()}$ et $${situations[k].rapport_inverse}=${fraction(situations[k].m,situations[k].n).texFractionSimplifiee()}$`)}<br>
 
 					`
