@@ -15261,12 +15261,12 @@ function Rapports_sur_un_segment(){
 	this.beta = true;	
 	this.sup=1;
 	if (this.beta) {
-		this.nb_questions = 3;
+		this.nb_questions = 2;
 	} else {
-		this.nb_questions = 3;
+		this.nb_questions = 2;
 	};	
 
-	this.titre = "Titre dans la liste de choix des exos";	
+	this.titre = "Rapport de deux longueurs sur un segment";	
 	this.consigne = `Sur tous les axes, les graduations sont régulières.`;	
 	
 	this.nb_cols = 1;
@@ -15279,9 +15279,10 @@ function Rapports_sur_un_segment(){
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		if (this.beta) {
-			type_de_questions_disponibles = [0];			
+			type_de_questions_disponibles = [0,1];			
 		} else {
-     		 type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
+       //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
+       type_de_questions_disponibles = [0,1];			
 		};
 
 		this.liste_questions = []; // Liste de questions
@@ -15291,6 +15292,15 @@ function Rapports_sur_un_segment(){
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+      // une fonction pour le singulier pluriel
+      function sing_plur(nombre,singulier,pluriel) {
+        if (nombre>1) {
+          return pluriel
+        } else {
+          return singulier
+        };
+      };
+
       // on choisit deux entiers pour former les fractions
       let entier_max = 5;
       let m = randint(1,entier_max);
@@ -15305,30 +15315,55 @@ function Rapports_sur_un_segment(){
       }
 
       //on choisit de façon aléatoire un triplet de noms pour les points
-      let noms_choix = [['A','B','C'],['D','E','F']]
+      let noms_choix = [['A','B','C'],['D','E','F'],['I','J','K'],['L','M','N']]
       let noms = noms_choix[randint(0,noms_choix.length-1)];
 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
-        {//case 0 --> deux fractions
-          m:m,
-          n:n,
-          rapport:`$\\dfrac{${noms[0]+noms[1]}}{${noms[0]+noms[2]}}$`,
-          rapport_inverse:`$\\dfrac{${noms[0]+noms[2]}}{${noms[0]+noms[1]}}$`,          
+        {//case 0 --> m < n
+          m:Math.min(m,n),
+          n:Math.max(m,n),
+          rapport:`\\dfrac{${noms[0]+noms[1]}}{${noms[0]+noms[2]}}`,
+          rapport_inverse:`\\dfrac{${noms[0]+noms[2]}}{${noms[0]+noms[1]}}`,          
           fig:mathalea2d(
               params,
-              fraction(m,n).representation(0,0,5,0,'segment','',noms[0],noms[1],1,noms[2]),             
+              fraction(Math.min(m,n),Math.max(m,n)).representation(0,0,5,0,'segment','',noms[0],noms[1],1,noms[2]),             
             ),
-          segment_corr1:`$\\textcolor{red}{${noms[0]+noms[2]}}$`,
+          segment_corr1:`\\textcolor{red}{${noms[0]+noms[2]}}`,
+          m_color_corr:`\\textcolor{red}{${Math.min(m,n)}}`,          
+          n_color_corr:`\\textcolor{blue}{${Math.max(m,n)}}`,
           fig_corr1:mathalea2d(
             params,
-            fraction(m,n).representation(0,0,5,0,'segment','red',noms[0],noms[1],1,noms[2]),             
+            fraction(Math.min(m,n),Math.max(m,n)).representation(0,0,5,0,'segment','red',noms[0],noms[1],1,noms[2]),             
           ),
+          segment_corr2:`\\textcolor{blue}{${noms[0]+noms[1]}}`,
           fig_corr2:mathalea2d(
             params,
-            fraction(n,m).representation(0,0,(m/n)*5,0,'segment','blue',noms[0],noms[2],1,noms[1]),             
+            fraction(Math.max(m,n),Math.min(m,n)).representation(0,0,(Math.min(m,n)/Math.max(m,n))*5,0,'segment','blue',noms[0],noms[2],1,noms[1]),             
           )
-				},
+        },
+        {//case 1 --> m > n
+          m:Math.max(m,n),
+          n:Math.min(m,n),
+          rapport:`\\dfrac{${noms[0]+noms[1]}}{${noms[0]+noms[2]}}`,
+          rapport_inverse:`\\dfrac{${noms[0]+noms[2]}}{${noms[0]+noms[1]}}`,          
+          fig:mathalea2d(
+              params,
+              fraction(Math.max(m,n),Math.min(m,n)).representation(0,0,5,0,'segment','',noms[0],noms[1],1,noms[2]),             
+            ),
+          segment_corr1:`\\textcolor{red}{${noms[0]+noms[2]}}`,
+          m_color_corr:`\\textcolor{red}{${Math.max(m,n)}}`,          
+          n_color_corr:`\\textcolor{blue}{${Math.min(m,n)}}`,
+          fig_corr1:mathalea2d(
+            params,
+            fraction(Math.max(m,n),Math.min(m,n)).representation(0,0,5,0,'segment','red',noms[0],noms[1],1,noms[2]),             
+          ),
+          segment_corr2:`\\textcolor{blue}{${noms[0]+noms[1]}}`,
+          fig_corr2:mathalea2d(
+            params,
+            fraction(Math.min(m,n),Math.max(m,n)).representation(0,0,(Math.max(m,n)/Math.min(m,n))*5,0,'segment','blue',noms[0],noms[2],1,noms[1]),             
+          )
+        },
 		
 			];
 
@@ -15336,22 +15371,20 @@ function Rapports_sur_un_segment(){
 			for (let k=0;k<situations.length;k++) {
 				enonces.push({
 					enonce:`
-          Exprimer les rapports suivants ${situations[k].rapport} et ${situations[k].rapport_inverse}.
+          Exprimer les rapports suivants $${situations[k].rapport}$ et $${situations[k].rapport_inverse}$.
           <br>
           ${situations[k].fig}     			
 					`,
 					question:``,
-					correction:`
-          Les graduations sont régulières, le segment ${situations[k].segment_corr1} compte ${situations[k].m} graduations !!! gérer le singulier/pluriel.
-          <br>
-          m : ${situations[k].m}
-          <br>
-          n : ${situations[k].n}
-          <br>
-          ${situations[k].fig_corr1}
-          <br>
-          ${situations[k].fig_corr2}
-
+          correction:`
+          Les graduations sont régulières :<br>
+          ${situations[k].fig_corr1}<br>
+          Le segment $${situations[k].segment_corr1}$ compte $${situations[k].m_color_corr}$ ${sing_plur(situations[k].m,'graduation','graduations')}.<br>
+          ${situations[k].fig_corr2}<br>
+          Le segment $${situations[k].segment_corr2}$ compte $${situations[k].n_color_corr}$ ${sing_plur(situations[k].n,'graduation','graduations')}.<br>
+          Donc $${situations[k].rapport}=\\dfrac{${situations[k].segment_corr2}}{${situations[k].segment_corr1}}=\\dfrac{${situations[k].n_color_corr}}{${situations[k].m_color_corr}}$
+          et $${situations[k].rapport_inverse}=\\dfrac{${situations[k].segment_corr1}}{${situations[k].segment_corr2}}=\\dfrac{${situations[k].m_color_corr}}{${situations[k].n_color_corr}}$<br><br>
+          ${texte_en_couleur(`D'où $${situations[k].rapport}=${fraction(situations[k].n,situations[k].m).texFractionSimplifiee()}$ et $${situations[k].rapport_inverse}=${fraction(situations[k].m,situations[k].n).texFractionSimplifiee()}$`)}<br>
 
 					`
 				});
