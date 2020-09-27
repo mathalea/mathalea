@@ -15267,7 +15267,7 @@ function Rapports_sur_un_segment(){
 	};	
 
 	this.titre = "Titre dans la liste de choix des exos";	
-	this.consigne = `Dans chaque cas, sachant que les graduations sont régulières, exprimer le rapport de longueurs $\\dfrac{AC}{AB}$.`;	
+	this.consigne = `Sur tous les axes, les graduations sont régulières.`;	
 	
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -15291,46 +15291,42 @@ function Rapports_sur_un_segment(){
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+      // on choisit deux entiers pour former les fractions
+      let entier_max = 5;
+      let m = randint(1,entier_max);
+      let n = randint(1,entier_max,m); // on évite l'autre pour éviter la fraction 1
       let params = {
         xmin: -0.4,
         ymin: -1.5,
-        xmax: 50,
+        xmax: 15*entier_max,// pour éviter un cadrage trop large
         ymax: 1,
         pixelsParCm: 20,
         scale: 1,
       }
-      let fig = [];
-      // mathalea2d(
-      //   params,
-      //   fraction(8,9).representation(0,0,15,0,'segment','red','A','B',1,'C'),
-      //   fraction(1,9).representation(0,-1.5,15,0,'segment','blue','A','B',1,'C')
-      // )
-      let m = randint(1,5);
-      let n = randint(1,5,m);
-      // let coeff = (m,n) => {
-      //   if (m>n) {
-      //     return m/n
-      //   } else {
-      //     return m/n
-      //   }
-      // };
+
+      //on choisit de façon aléatoire un triplet de noms pour les points
+      let noms_choix = [['A','B','C'],['D','E','F']]
+      let noms = noms_choix[randint(0,noms_choix.length-1)];
 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
-        {//case 0 -->
-          fig:mathalea2d(
-              params,
-              fraction(m,n).representation(0,0,5,0,'segment','','A','B',1,'C'),             
-            ),
+        {//case 0 --> deux fractions
           m:m,
           n:n,
+          rapport:`$\\dfrac{${noms[0]+noms[1]}}{${noms[0]+noms[2]}}$`,
+          rapport_inverse:`$\\dfrac{${noms[0]+noms[2]}}{${noms[0]+noms[1]}}$`,          
+          fig:mathalea2d(
+              params,
+              fraction(m,n).representation(0,0,5,0,'segment','',noms[0],noms[1],1,noms[2]),             
+            ),
+          segment_corr1:`$\\textcolor{red}{${noms[0]+noms[2]}}$`,
           fig_corr1:mathalea2d(
             params,
-            fraction(m,n).representation(0,0,5,0,'segment','red','A','B',1,'C'),             
+            fraction(m,n).representation(0,0,5,0,'segment','red',noms[0],noms[1],1,noms[2]),             
           ),
           fig_corr2:mathalea2d(
             params,
-            fraction(n,m).representation(0,0,(m/n)*5,0,'segment','blue','A','C',1,'B'),             
+            fraction(n,m).representation(0,0,(m/n)*5,0,'segment','blue',noms[0],noms[2],1,noms[1]),             
           )
 				},
 		
@@ -15340,14 +15336,13 @@ function Rapports_sur_un_segment(){
 			for (let k=0;k<situations.length;k++) {
 				enonces.push({
 					enonce:`
-          Type ${k}
+          Exprimer les rapports suivants ${situations[k].rapport} et ${situations[k].rapport_inverse}.
           <br>
-          ${situations[k].fig}
-          			
+          ${situations[k].fig}     			
 					`,
 					question:``,
 					correction:`
-          Correction type ${k}
+          Les graduations sont régulières, le segment ${situations[k].segment_corr1} compte ${situations[k].m} graduations !!! gérer le singulier/pluriel.
           <br>
           m : ${situations[k].m}
           <br>
