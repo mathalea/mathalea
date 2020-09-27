@@ -3971,7 +3971,7 @@ function Exercice_numeration_entier() {
       texte = `$\\text{${b}  ${rangs[rang_b]} et ${a} ${rangs[rang_a]}}$`;
       texte_corr = `$${b} \\text{ ${rangs[rang_b]} et }${a} \\text{ ${
         rangs[rang_a]
-      } : } ${tex_nombre(
+      } : } ${tex_nombre(b*Math.pow(10, rang_b))} + ${a*tex_nombre(Math.pow(10, rang_a))} =${tex_nombre(
         b * Math.pow(10, rang_b) + a * Math.pow(10, rang_a)
       )}$`;
 
