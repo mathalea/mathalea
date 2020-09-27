@@ -15302,7 +15302,7 @@ function Rapports_sur_un_segment(){
       };
 
       // on choisit deux entiers pour former les fractions
-      let entier_max = 5;
+      let entier_max = 9;
       let m = randint(1,entier_max);
       let n = randint(1,entier_max,m); // on évite l'autre pour éviter la fraction 1
       let params = {
