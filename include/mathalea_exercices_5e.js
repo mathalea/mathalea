@@ -4327,9 +4327,6 @@ function Determiner_derniere_operation_exp_num() {
 					//texte=`${expn}`
 					if (this.beta) {
 						texte += `<br><br>=====CORRECTION======<br>`;
-						//texte += `Pour fixer les idées, choissions des valeurs pour $x$ et $y$, par exemple $x=${val1}$ et $y=${val2}$.`
-						//texte += `<br>Le calcul serait le suivant :<br> ${expc}.`;
-						//texte += `<br>Pour n'importe quelles valeurs de $x$ et de $y$ choisies, les étapes sont les mêmes, elles respectent les priorités opératoires.`
 						texte+=`$`
 						for (l=1;l<str.length-1;l++) {
 							texte+= `${str[l]}=`
