@@ -6782,9 +6782,9 @@ function Eq_resolvantes_Thales(){
 	this.debug = true;	
 	this.sup=1;
 	if (this.debug) {
-		this.nb_questions = 3;
+		this.nb_questions = 4;
 	} else {
-		this.nb_questions = 3;
+		this.nb_questions = 4;
 	};
 	this.sup2=false;	
 
