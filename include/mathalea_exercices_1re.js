@@ -392,7 +392,7 @@ function Resoudre_equation_degre_2() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Résoudre une équation du second degré";
   this.consigne = "Résoudre dans $\\mathbb{R}$ les équations suivantes.";
-  this.nb_questions = 6;
+  this.nb_questions = 4;
   this.nb_cols = 2;
   this.nb_cols_corr = 2;
   this.spacing_corr = 3;
@@ -401,7 +401,13 @@ function Resoudre_equation_degre_2() {
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let liste_type_de_questions = combinaison_listes(['solutionsEntieres','factorisationParx','pasDeSolution','ax2+c','solutionsReelles','solutionDouble'],this.nb_questions)
+    let liste_type_de_questions
+    if (this.sup == 1) {
+      liste_type_de_questions = combinaison_listes(['solutionsEntieres','solutionsEntieres','solutionDouble','pasDeSolution'],this.nb_questions)
+    }
+    if (this.sup == 2) {
+      liste_type_de_questions = combinaison_listes(['factorisationParx','pasDeSolution','ax2+c','solutionsReelles','solutionDouble'],this.nb_questions)
+    }
     for (let i = 0, texte, texte_corr, a, b, c, delta, x1, x2, y1, y2, k, cpt = 0;i < this.nb_questions && cpt < 50;) {
       if (liste_type_de_questions[i]=="solutionsEntieres"){
         // k(x-x1)(x-x2)
@@ -481,10 +487,20 @@ function Resoudre_equation_degre_2() {
         c = randint(-11,11,0)
         texte = `$${rien_si_1(a)}x^2${ecriture_algebrique(c)}=0$`
         
-        texte_corr = `$x^2=${tex_fraction_signe(-c,a)}$`
+        texte_corr = `Il est possible de résoudre cette équation sans effectuer le calcul du discriminant.`
+        texte_corr += `<br> $x^2=${tex_fraction_signe(-c,a)}$`
         if (-c/a>0){
-          texte_corr += `<br>$x=\\sqrt{${tex_fraction_reduite(-c,a)}}\\quad$ ou $\\quad x=-\\sqrt{${tex_fraction_reduite(-c,a)}}$`
-          texte_corr += `<br><br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{\\sqrt{${tex_fraction_reduite(-c,a)}} ; -\\sqrt{${tex_fraction_reduite(-c,a)}}\\right\\}$.`  
+          if ([1,4,9,16,25,36,49,64,81,100,121,144,169,196,225,256,289,324,361,400,441,484,529,576,625,676,729,784,841,900,961,1024,1089].includes(-c/a)){
+            texte_corr += `<br>$x=\\sqrt{${tex_fraction_reduite(-c,a)}}=${Math.sqrt(-c/a)}\\quad$ ou $\\quad x=-\\sqrt{${tex_fraction_reduite(-c,a)}}=${-Math.sqrt(-c/a)}$`
+            texte_corr += `<br><br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{${Math.sqrt(-c/a)} ; ${-Math.sqrt(-c/a)}\\right\\}$.`  
+          } 
+          else if (-c%a == 0){
+            texte_corr += `<br>$x=\\sqrt{${-c/a}}\\quad$ ou $\\quad x=-\\sqrt{${-c/a}}$`
+            texte_corr += `<br><br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{\\sqrt{${-c/a}} ; -\\sqrt{${-c/a}}\\right\\}$.`  
+          }else {
+            texte_corr += `<br>$x=\\sqrt{${tex_fraction_reduite(-c,a)}}\\quad$ ou $\\quad x=-\\sqrt{${tex_fraction_reduite(-c,a)}}$`
+            texte_corr += `<br><br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{\\sqrt{${tex_fraction_reduite(-c,a)}} ; -\\sqrt{${tex_fraction_reduite(-c,a)}}\\right\\}$.`  
+          }
         } else {
           texte_corr += `<br>Dans $\\mathbb{R}$, un carré est toujours positif donc cette équation n'a pas de solution.`
           texte_corr += `<br>$\\mathcal{S}=\\emptyset$`
@@ -522,5 +538,5 @@ function Resoudre_equation_degre_2() {
     }
     liste_de_question_to_contenu(this);
   };
-  //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+  this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Solutions entières\n2 : Solutions réelles et calcul du discriminant non obligatoire"];
 }
