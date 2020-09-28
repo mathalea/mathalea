@@ -6843,16 +6843,32 @@ function Eq_resolvantes_Thales(){
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
 				{//case 0 --> x/b=a/c --> cx= ab
-					eq:`\\dfrac{${params.inc}}{${params.b}}=\\dfrac{${params.a}}{${params.c}}` 
+					eq:`\\dfrac{${params.inc}}{${params.b}}=\\dfrac{${params.a}}{${params.c}}`,
+					a:params.a,
+					b:params.b,
+					c:params.c,
+					inc:params.inc 
 				},
 				{//case 1 --> a/c=x/b --> cx=ab
-					eq:`\\dfrac{${params.a}}{${params.c}}=\\dfrac{${params.inc}}{${params.c}}` 
+					eq:`\\dfrac{${params.a}}{${params.c}}=\\dfrac{${params.inc}}{${params.c}}`,
+					a:params.a,
+					b:params.b,
+					c:params.c,
+					inc:params.inc 
 				},
 				{//case 2 -->b/x=c/a --> cx = ab
-					eq:`\\dfrac{${params.b}}{${params.inc}}=\\dfrac{${params.c}}{${params.a}}` 
+					eq:`\\dfrac{${params.b}}{${params.inc}}=\\dfrac{${params.c}}{${params.a}}`,
+					a:params.a,
+					b:params.b,
+					c:params.c,
+					inc:params.inc 
 				},
 				{//case 3 -->c/a=b/x --> cx = ab 
-					eq:`\\dfrac{${params.c}}{${params.a}}=\\dfrac{${params.b}}{${params.inc}}` 
+					eq:`\\dfrac{${params.c}}{${params.a}}=\\dfrac{${params.b}}{${params.inc}}`,
+					a:params.a,
+					b:params.b,
+					c:params.c,
+					inc:params.inc  
 				},
 			];
 
@@ -6865,7 +6881,13 @@ function Eq_resolvantes_Thales(){
 					question:``,
 					correction:`
 						$${situations[k].eq}$<br>
-						${texte_en_couleur_et_gras(`les produits en croix sont égaux`)}
+						${texte_en_couleur_et_gras(`les produits en croix sont égaux`)}<br>
+						$${situations[k].c}\\times ${situations[k].inc}= ${situations[k].a}\\times ${situations[k].b}$<br>
+						${texte_en_couleur_et_gras(`on divise les deux membres par ${situations[k].c}`)}<br>
+						$\\dfrac{${situations[k].c}\\times ${situations[k].inc}}{${situations[k].c}}= \\dfrac{${situations[k].a}\\times ${situations[k].b}}{${situations[k].c}}$<br>
+						${texte_en_couleur_et_gras(`on simplifie et on calcule`)}<br>
+						${typeof situations[k].a}<br>
+						$${situations[k].inc}=${Number(situations[k].b)*Number(situations[k].a)/Number(situations[k].c)}$
 
 					`
 				});
