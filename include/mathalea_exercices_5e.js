@@ -4630,7 +4630,14 @@ function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2) {
 			}
 			break
 		}
-		return [expf,expl,expc,nbval,last_op]
+		let pos1=0
+		for (;pos1<expc.length;pos1++)
+			if (expc[pos1]=='=') break
+		let pos2=pos1+1
+		for (;pos2<expc.length;pos2++)
+			if (expc[pos2]=='=') break
+		let expn='$'+expc.substring(pos1+1,pos2-1)+'$'
+		return [expf,expl,expc,nbval,last_op,expn]
 }
 
 

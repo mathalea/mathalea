@@ -452,7 +452,7 @@ return array_bis;
 
 
 /*
-* Mélange les items de deux tableaux de la même manière, sans modifier le tableau passé en argument
+* Mélange les items de deux tableaux de la même manière
 *
 * 
 * @Source https://stackoverflow.com/questions/18194745/shuffle-multiple-javascript-arrays-in-the-same-way

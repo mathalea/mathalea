@@ -262,6 +262,7 @@ var liste_des_exercices_disponibles = {
   "3G30": Exercice_Trigo_longueurs,
   "3G31": Exercice_Trigo_angles,
   "3F1-act": fonction_notion_vocabulaire,
+  "3F10" : Image_antecedent_depuis_tableau_ou_fleche,
   "3F12": fonctions_calculs_d_images,
   "3F12-2": Image_fonction_algebrique,
   "3F12-3": Tableau_de_valeurs,
@@ -290,8 +291,8 @@ var liste_des_exercices_disponibles = {
   "2L11": Factoriser_Identites_remarquables2,
   "1N10": Terme_d_une_suite_definie_explicitement,
   "1N11": Terme_d_une_suite_definie_par_recurrence, 
-  "beta1E10" : Calcul_discriminant,
-  "beta1E11" : Resoudre_equation_degre_2,
+  "1E10" : Calcul_discriminant,
+  "1E11" : Resoudre_equation_degre_2,
   "PEA11": Passer_d_une_base_a_l_autre,
   "PEA11-1": Passer_de_la_base_12_ou_16_a_la_10,
   "betaTESTseb": Tests_du_Seb,
@@ -3971,7 +3972,7 @@ function Exercice_numeration_entier() {
       texte = `$\\text{${b}  ${rangs[rang_b]} et ${a} ${rangs[rang_a]}}$`;
       texte_corr = `$${b} \\text{ ${rangs[rang_b]} et }${a} \\text{ ${
         rangs[rang_a]
-      } : } ${tex_nombre(
+      } : } ${tex_nombre(b*Math.pow(10, rang_b))} + ${a*tex_nombre(Math.pow(10, rang_a))} =${tex_nombre(
         b * Math.pow(10, rang_b) + a * Math.pow(10, rang_a)
       )}$`;
 
@@ -6174,6 +6175,7 @@ function Exercice_conversions_de_longueurs(niveau = 1) {
     ];
     let unite = "m";
     let liste_unite = ["mm", "cm", "dm", "m", "dam", "hm", "km"];
+    let liste_unite1 = combinaison_listes([0,1,2,3,4,5,6],this.nb_questions)
     let liste_de_k = combinaison_listes([0, 1, 2], this.nb_questions);
     for (
       let i = 0,
@@ -6188,6 +6190,7 @@ function Exercice_conversions_de_longueurs(niveau = 1) {
       i < this.nb_questions && cpt < 50;
 
     ) {
+      let type_de_questions
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
       if (this.sup < 5) {
         type_de_questions = this.sup;
@@ -6274,12 +6277,12 @@ function Exercice_conversions_de_longueurs(niveau = 1) {
           "$";
       } else {
         // pour type de question = 4
-        let unite1 = randint(0, 3);
-        let ecart = randint(1, 2); // nombre de multiplication par 10 pour passer de l'un à l'autre
-        if (ecart > 4 - unite1) {
-          ecart = 4 - unite1;
+        let unite1 = liste_unite1[i]
+        let unite2 = randint(Math.max(0,unite1-3),Math.min(unite1+3,6),unite1)
+        if (unite1>unite2){
+          [unite1,unite2]=[unite2,unite1]
         }
-        let unite2 = unite1 + ecart;
+        let ecart = unite2-unite1; // nombre de multiplication par 10 pour passer de l'un à l'autre
         if (randint(0, 1) > 0) {
           resultat = Algebrite.eval(a * Math.pow(10, ecart));
           texte =
