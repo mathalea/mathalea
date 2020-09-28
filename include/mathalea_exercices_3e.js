@@ -6842,22 +6842,18 @@ function Eq_resolvantes_Thales(){
 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
-				{//case 0 --> x/b=a/c
+				{//case 0 --> x/b=a/c --> cx= ab
 					eq:`\\dfrac{${params.inc}}{${params.b}}=\\dfrac{${params.a}}{${params.c}}` 
 				},
-				{//case 1 --> a/c=x/b
+				{//case 1 --> a/c=x/b --> cx=ab
 					eq:`\\dfrac{${params.a}}{${params.c}}=\\dfrac{${params.inc}}{${params.c}}` 
 				},
-				{//case 2 -->b/x=a/c
-					eq:`\\dfrac{${params.b}}{${params.inc}}=\\dfrac{${params.a}}{${params.c}}` 
+				{//case 2 -->b/x=c/a --> cx = ab
+					eq:`\\dfrac{${params.b}}{${params.inc}}=\\dfrac{${params.c}}{${params.a}}` 
 				},
-				{//case 3 -->a/c=b/x
-					eq:`\\dfrac{${params.a}}{${params.c}}=\\dfrac{${params.b}}{${params.inc}}` 
+				{//case 3 -->c/a=b/x --> cx = ab 
+					eq:`\\dfrac{${params.c}}{${params.a}}=\\dfrac{${params.b}}{${params.inc}}` 
 				},
-				{//case 4 -->
-					eq:`\\dfrac{${params.a}}{${params.b}}=\\dfrac{${params.c}}{${params.inc}}` 
-				},
-		
 			];
 
 			let enonces = [];
@@ -6868,7 +6864,9 @@ function Eq_resolvantes_Thales(){
 					`,
 					question:``,
 					correction:`
-					Correction type ${k}
+						$${situations[k].eq}$<br>
+						${texte_en_couleur_et_gras(`les produits en croix sont égaux`)}
+
 					`
 				});
 			};

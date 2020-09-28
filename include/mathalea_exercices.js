@@ -15334,7 +15334,7 @@ function Rapports_sur_un_segment(){
           rapport_inverse:`\\dfrac{${noms[0]+noms[2]}}{${noms[0]+noms[1]}}`,          
           fig:mathalea2d(
               params,
-              fraction(Math.min(m,n),Math.max(m,n)).representation(0,0,5,0,'segment','',noms[0],noms[1],1,noms[2]),             
+              fraction(Math.min(m,n),Math.max(m,n)).representation(0,0,10,0,'segment','',noms[0],noms[1],1,noms[2]),             
             ),
           segment_corr1:`\\textcolor{red}{[${noms[0]+noms[2]}]}`,
           longueur_corr1:`\\textcolor{red}{${noms[0]+noms[2]}}`,
@@ -15342,13 +15342,13 @@ function Rapports_sur_un_segment(){
           n_color_corr:`\\textcolor{blue}{${Math.max(m,n)}}`,
           fig_corr1:mathalea2d(
             params,
-            fraction(Math.min(m,n),Math.max(m,n)).representation(0,y_enonce,5,0,'segment','red',noms[0],noms[1],1,noms[2]),             
+            fraction(Math.min(m,n),Math.max(m,n)).representation(0,y_enonce,10,0,'segment','red',noms[0],noms[1],1,noms[2]),             
           ),
           segment_corr2:`\\textcolor{blue}{[${noms[0]+noms[1]}]}`,
           longueur_corr2:`\\textcolor{blue}{${noms[0]+noms[1]}}`,
           fig_corr2:mathalea2d(
             params,
-            fraction(Math.max(m,n),Math.min(m,n)).representation(0,y_enonce,(Math.min(m,n)/Math.max(m,n))*5,0,'segment','blue',noms[0],noms[2],1,noms[1]),             
+            fraction(Math.max(m,n),Math.min(m,n)).representation(0,y_enonce,(Math.min(m,n)/Math.max(m,n))*10,0,'segment','blue',noms[0],noms[2],1,noms[1]),             
           )
         },
         {//case 1 --> m > n
