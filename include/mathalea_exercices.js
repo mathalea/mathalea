@@ -15386,7 +15386,7 @@ function Rapports_sur_un_segment(){
 					`,
 					question:``,
           correction:`
-          Les graduations sont régulières, comptons le nombre de graduations pour chaque segment :<br>
+          Les graduations étant régulières, comptons le nombre de graduations pour chaque segment :<br>
           ${situations[k].fig_corr1}<br>
           Le segment $${situations[k].segment_corr1}$ compte $${situations[k].m_color_corr}$ ${sing_plur(situations[k].m,'graduation','graduations')}.<br>
           ${situations[k].fig_corr2}<br>
