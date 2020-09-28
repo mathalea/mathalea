@@ -6785,10 +6785,11 @@ function Eq_resolvantes_Thales(){
 		this.nb_questions = 3;
 	} else {
 		this.nb_questions = 3;
-	};	
+	};
+	this.sup2=false;	
 
-	this.titre = "Titre dans la liste de choix des exos";	
-	this.consigne = `Consigne `;	
+	this.titre = "Equations résolvantes pour le théorème de Thalès";	
+	this.consigne = `Résoudre les équations suivantes.`;	
 	
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -6813,17 +6814,48 @@ function Eq_resolvantes_Thales(){
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
 
+			// on a besoin d'un coeff pour le type de nombres
+			let coeff;
+			let nb_alea;
+			this.sup = Number(this.sup); // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
+			switch (this.sup) {
+			case 1://entiers          
+				coeff=[1,1,1];
+				nb_alea=[randint(1,9),randint(1,9),randint(1,9)];
+				break;
+			case 2://relatifs            
+				coeff=[choice([1,-1]),choice([1,-1]),choice([1,-1])];
+				nb_alea=[randint(1,9),randint(1,9),randint(1,9)];
+				break;
+			case 3://décimaux            
+				coeff=[0.1,0.1,0.1];
+				nb_alea=[randint(11,99),randint(11,99),randint(11,99)];
+				break;
+			};
+
+			let params = {
+				a:calcul(nb_alea[0]*coeff[0]),
+				b:calcul(nb_alea[1]*coeff[1]),
+				c:calcul(nb_alea[2]*coeff[2]),
+				inc:'x'
+			}
+
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
 				{//case 0 -->
+					eq:`\\dfrac{${params.a}}{${params.b}}=\\dfrac{${params.c}}{${params.inc}}` 
 				},
-				{//case 1 -->
+				{//case 1 --> 
+					eq:`\\dfrac{${params.a}}{${params.b}}=\\dfrac{${params.c}}{${params.inc}}` 
 				},
 				{//case 2 -->
+					eq:`\\dfrac{${params.a}}{${params.b}}=\\dfrac{${params.c}}{${params.inc}}` 
 				},
 				{//case 3 -->
+					eq:`\\dfrac{${params.a}}{${params.b}}=\\dfrac{${params.c}}{${params.inc}}` 
 				},
 				{//case 4 -->
+					eq:`\\dfrac{${params.a}}{${params.b}}=\\dfrac{${params.c}}{${params.inc}}` 
 				},
 		
 			];
@@ -6832,7 +6864,7 @@ function Eq_resolvantes_Thales(){
 			for (let k=0;k<situations.length;k++) {
 				enonces.push({
 					enonce:`
-					Type ${k}				
+						$${situations[k].eq}$
 					`,
 					question:``,
 					correction:`
@@ -6906,6 +6938,7 @@ function Eq_resolvantes_Thales(){
 		liste_de_question_to_contenu(this);
 
 	}
-	//this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+	this.besoin_formulaire_numerique = ['Type de nombres',3,"1 : Entiers naturels\n2 : Entiers relatifs\n3 : Décimaux"];
+	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];
+	//this.besoin_formulaire2_case_a_cocher = ["Avec décimaux.",false]	
 };
