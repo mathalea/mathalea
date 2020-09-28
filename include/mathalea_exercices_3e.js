@@ -6784,7 +6784,7 @@ function Eq_resolvantes_Thales(){
 	if (this.debug) {
 		this.nb_questions = 4;
 	} else {
-		this.nb_questions = 4;
+		this.nb_questions = 2;
 	};
 	this.sup2=false;	
 
@@ -6803,7 +6803,7 @@ function Eq_resolvantes_Thales(){
 		if (this.debug) {
 			type_de_questions_disponibles = [0,1,2,3,4];			
 		} else {
-     		 type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
+     		 type_de_questions_disponibles = shuffle([choice([0,1]),choice([2,3])]);      			
 		};
 
 		this.liste_questions = []; // Liste de questions
@@ -6834,25 +6834,25 @@ function Eq_resolvantes_Thales(){
 			};
 
 			let params = {
-				a:calcul(nb_alea[0]*coeff[0]),
-				b:calcul(nb_alea[1]*coeff[1]),
-				c:calcul(nb_alea[2]*coeff[2]),
+				a:tex_nombre(calcul(nb_alea[0]*coeff[0])),
+				b:tex_nombre(calcul(nb_alea[1]*coeff[1])),
+				c:tex_nombre(calcul(nb_alea[2]*coeff[2])),
 				inc:'x'
 			}
 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
-				{//case 0 -->
-					eq:`\\dfrac{${params.a}}{${params.b}}=\\dfrac{${params.c}}{${params.inc}}` 
+				{//case 0 --> x/b=a/c
+					eq:`\\dfrac{${params.inc}}{${params.b}}=\\dfrac{${params.a}}{${params.c}}` 
 				},
-				{//case 1 --> 
-					eq:`\\dfrac{${params.a}}{${params.b}}=\\dfrac{${params.c}}{${params.inc}}` 
+				{//case 1 --> a/c=x/b
+					eq:`\\dfrac{${params.a}}{${params.c}}=\\dfrac{${params.inc}}{${params.c}}` 
 				},
-				{//case 2 -->
-					eq:`\\dfrac{${params.a}}{${params.b}}=\\dfrac{${params.c}}{${params.inc}}` 
+				{//case 2 -->b/x=a/c
+					eq:`\\dfrac{${params.b}}{${params.inc}}=\\dfrac{${params.a}}{${params.c}}` 
 				},
-				{//case 3 -->
-					eq:`\\dfrac{${params.a}}{${params.b}}=\\dfrac{${params.c}}{${params.inc}}` 
+				{//case 3 -->a/c=b/x
+					eq:`\\dfrac{${params.a}}{${params.c}}=\\dfrac{${params.b}}{${params.inc}}` 
 				},
 				{//case 4 -->
 					eq:`\\dfrac{${params.a}}{${params.b}}=\\dfrac{${params.c}}{${params.inc}}` 
