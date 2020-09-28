@@ -6175,6 +6175,7 @@ function Exercice_conversions_de_longueurs(niveau = 1) {
     ];
     let unite = "m";
     let liste_unite = ["mm", "cm", "dm", "m", "dam", "hm", "km"];
+    let liste_unite1 = combinaison_listes([0,1,2,3,4,5,6],this.nb_questions)
     let liste_de_k = combinaison_listes([0, 1, 2], this.nb_questions);
     for (
       let i = 0,
@@ -6189,6 +6190,7 @@ function Exercice_conversions_de_longueurs(niveau = 1) {
       i < this.nb_questions && cpt < 50;
 
     ) {
+      let type_de_questions
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
       if (this.sup < 5) {
         type_de_questions = this.sup;
@@ -6275,12 +6277,12 @@ function Exercice_conversions_de_longueurs(niveau = 1) {
           "$";
       } else {
         // pour type de question = 4
-        let unite1 = randint(0, 3);
-        let ecart = randint(1, 2); // nombre de multiplication par 10 pour passer de l'un à l'autre
-        if (ecart > 4 - unite1) {
-          ecart = 4 - unite1;
+        let unite1 = liste_unite1[i]
+        let unite2 = randint(Math.max(0,unite1-3),Math.min(unite1+3,6),unite1)
+        if (unite1>unite2){
+          [unite1,unite2]=[unite2,unite1]
         }
-        let unite2 = unite1 + ecart;
+        let ecart = unite2-unite1; // nombre de multiplication par 10 pour passer de l'un à l'autre
         if (randint(0, 1) > 0) {
           resultat = Algebrite.eval(a * Math.pow(10, ecart));
           texte =
