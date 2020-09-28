@@ -4332,7 +4332,7 @@ function Determiner_derniere_operation_exp_num() {
 							texte+= `${str[l]}=`
 						};
 						texte+=`${str[str.length-1]}`						
-						texte += texte_en_couleur(`<br>La dernière opération dans $${str[1]}$ est donc une ${last_op}.`);
+						texte += `<br>$\\textbf{La dernière opération dans $${str[1]}$ est donc une ${last_op}.}$`;
 						texte_corr = ``;	
 					} else {
 						texte_corr=`$`
@@ -4340,7 +4340,7 @@ function Determiner_derniere_operation_exp_num() {
 							texte_corr+= `${str[l]}=`
 						};
 						texte_corr+=`${str[str.length-1]}`						
-						texte_corr+= texte_en_couleur(`<br>La dernière opération dans $${str[1]}$ est donc une ${last_op}.`);						
+						texte_corr+= `<br>$\\textbf{La dernière opération dans $${str[1]}$ est donc une ${last_op}.}$`;						
 					};
 
 					break;
