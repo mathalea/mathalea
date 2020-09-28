@@ -247,6 +247,7 @@ var liste_des_exercices_disponibles = {
   "3L12": Factoriser_Identites_remarquables3,
   "3L13": Exercice_equation1, //identique à 4L20
   "3L13-1": Exercice_equation1_2,
+  "beta3L13-2": Eq_resolvantes_Thales,
   "3L14": Resoudre_une_equation_produit_nul,
   "3L14-1": Resoudre_une_equation_produit_nul_niv2,
   "3L15": Resoudre_une_equation_x2_egal_A,
