@@ -162,6 +162,7 @@ var liste_des_exercices_disponibles = {
   "5L13-3": Traduire_une_phrase_par_une_expression_litterale_et_calculer,
   "5L13-4": Calculer_une_expression_litteraleBis,
   "5L13-5":Calculer_la_valeur_d_une_expression_litterale_deg1_inc1,
+  "5L13-6":Determiner_derniere_operation_exp_num,
   "5L14": Tester_une_egalite,
   "5M10": Aire_du_parallelogramme,
   "5M20": Calcul_de_volumes_5e,
@@ -246,6 +247,7 @@ var liste_des_exercices_disponibles = {
   "3L12": Factoriser_Identites_remarquables3,
   "3L13": Exercice_equation1, //identique à 4L20
   "3L13-1": Exercice_equation1_2,
+  "beta3L13-2": Eq_resolvantes_Thales,
   "3L14": Resoudre_une_equation_produit_nul,
   "3L14-1": Resoudre_une_equation_produit_nul_niv2,
   "3L15": Resoudre_une_equation_x2_egal_A,
@@ -15261,7 +15263,7 @@ function Tests_du_Seb(){
 function Rapports_sur_un_segment(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+  this.beta = false;	
 	this.sup=1;
 	if (this.beta) {
 		this.nb_questions = 2;
@@ -15310,12 +15312,24 @@ function Rapports_sur_un_segment(){
       let n = randint(1,entier_max,m); // on évite l'autre pour éviter la fraction 1
       let params = {
         xmin: -0.4,
-        ymin: -1.5,
+        ymin: -2,
         xmax: 15*entier_max,// pour éviter un cadrage trop large
         ymax: 1,
         pixelsParCm: 20,
         scale: 1,
       }
+      // on colle la figure à l'énoncé
+      let y_enonce = -1.2;
+
+      // on a parfois des figure trop petites ou trop grandes
+      //
+      let rayon;
+      rayon = 5;
+      // if (m<n) {
+      //   rayon = 15
+      // } else {
+      //   rayon = 15/Math.ceil(m/n)
+      // };
 
       //on choisit de façon aléatoire un triplet de noms pour les points
       let noms_choix = [['A','B','C'],['D','E','F'],['I','J','K'],['L','M','N']]
@@ -15330,7 +15344,7 @@ function Rapports_sur_un_segment(){
           rapport_inverse:`\\dfrac{${noms[0]+noms[2]}}{${noms[0]+noms[1]}}`,          
           fig:mathalea2d(
               params,
-              fraction(Math.min(m,n),Math.max(m,n)).representation(0,0,5,0,'segment','',noms[0],noms[1],1,noms[2]),             
+              fraction(Math.min(m,n),Math.max(m,n)).representation(0,0,rayon,0,'segment','',noms[0],noms[1],1,noms[2]),             
             ),
           segment_corr1:`\\textcolor{red}{[${noms[0]+noms[2]}]}`,
           longueur_corr1:`\\textcolor{red}{${noms[0]+noms[2]}}`,
@@ -15338,13 +15352,13 @@ function Rapports_sur_un_segment(){
           n_color_corr:`\\textcolor{blue}{${Math.max(m,n)}}`,
           fig_corr1:mathalea2d(
             params,
-            fraction(Math.min(m,n),Math.max(m,n)).representation(0,0,5,0,'segment','red',noms[0],noms[1],1,noms[2]),             
+            fraction(Math.min(m,n),Math.max(m,n)).representation(0,y_enonce,rayon,0,'segment','red',noms[0],noms[1],1,noms[2]),             
           ),
           segment_corr2:`\\textcolor{blue}{[${noms[0]+noms[1]}]}`,
           longueur_corr2:`\\textcolor{blue}{${noms[0]+noms[1]}}`,
           fig_corr2:mathalea2d(
             params,
-            fraction(Math.max(m,n),Math.min(m,n)).representation(0,0,(Math.min(m,n)/Math.max(m,n))*5,0,'segment','blue',noms[0],noms[2],1,noms[1]),             
+            fraction(Math.max(m,n),Math.min(m,n)).representation(0,y_enonce,(Math.min(m,n)/Math.max(m,n))*rayon,0,'segment','blue',noms[0],noms[2],1,noms[1]),             
           )
         },
         {//case 1 --> m > n
@@ -15362,13 +15376,13 @@ function Rapports_sur_un_segment(){
           n_color_corr:`\\textcolor{blue}{${Math.min(m,n)}}`,
           fig_corr1:mathalea2d(
             params,
-            fraction(Math.max(m,n),Math.min(m,n)).representation(0,0,5,0,'segment','red',noms[0],noms[1],1,noms[2]),             
+            fraction(Math.max(m,n),Math.min(m,n)).representation(0,y_enonce,5,0,'segment','red',noms[0],noms[1],1,noms[2]),             
           ),
           segment_corr2:`\\textcolor{blue}{[${noms[0]+noms[1]}]}`,
           longueur_corr2:`\\textcolor{blue}{${noms[0]+noms[1]}}`,
           fig_corr2:mathalea2d(
             params,
-            fraction(Math.min(m,n),Math.max(m,n)).representation(0,0,(Math.max(m,n)/Math.min(m,n))*5,0,'segment','blue',noms[0],noms[2],1,noms[1]),             
+            fraction(Math.min(m,n),Math.max(m,n)).representation(0,y_enonce,(Math.max(m,n)/Math.min(m,n))*5,0,'segment','blue',noms[0],noms[2],1,noms[1]),             
           )
         },
 		
@@ -15384,14 +15398,14 @@ function Rapports_sur_un_segment(){
 					`,
 					question:``,
           correction:`
-          Les graduations sont régulières :<br>
+          Les graduations étant régulières, comptons le nombre de graduations pour chaque segment :<br>
           ${situations[k].fig_corr1}<br>
           Le segment $${situations[k].segment_corr1}$ compte $${situations[k].m_color_corr}$ ${sing_plur(situations[k].m,'graduation','graduations')}.<br>
           ${situations[k].fig_corr2}<br>
-          Le segment $${situations[k].segment_corr2}$ compte $${situations[k].n_color_corr}$ ${sing_plur(situations[k].n,'graduation','graduations')}.<br>
+          Le segment $${situations[k].segment_corr2}$ compte $${situations[k].n_color_corr}$ ${sing_plur(situations[k].n,'graduation','graduations')}.<br><br>
           Donc $\\dfrac{${situations[k].longueur_corr2}}{${situations[k].longueur_corr1}}=\\dfrac{${situations[k].n_color_corr}}{${situations[k].m_color_corr}}$
           et $\\dfrac{${situations[k].longueur_corr1}}{${situations[k].longueur_corr2}}=\\dfrac{${situations[k].m_color_corr}}{${situations[k].n_color_corr}}$<br><br>
-          ${texte_en_couleur(`D'où $${situations[k].rapport}=${fraction(situations[k].n,situations[k].m).texFractionSimplifiee()}$ et $${situations[k].rapport_inverse}=${fraction(situations[k].m,situations[k].n).texFractionSimplifiee()}$`)}<br>
+          $\\textbf{D'où $\\mathbf{${situations[k].rapport}=}${fraction(situations[k].n,situations[k].m).texFractionSimplifiee()}$ et $\\mathbf{${situations[k].rapport_inverse}=}${fraction(situations[k].m,situations[k].n).texFractionSimplifiee()}$}$<br>
 
 					`
 				});

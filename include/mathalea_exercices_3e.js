@@ -6768,3 +6768,197 @@ function Image_antecedent_depuis_tableau_ou_fleche() {
   };
   //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
+
+
+/** 
+ * * Equations résolvantes pour le théorème de Thalès
+ * * 3L13-2
+ * @author Sébastien Lozano
+ */
+
+function Eq_resolvantes_Thales(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.debug = true;	
+	this.sup=1;
+	if (this.debug) {
+		this.nb_questions = 4;
+	} else {
+		this.nb_questions = 2;
+	};
+	this.sup2=false;	
+
+	this.titre = "Equations résolvantes pour le théorème de Thalès";	
+	this.consigne = `Résoudre les équations suivantes.`;	
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	//this.nb_questions_modifiable = false;
+	sortie_html? this.spacing = 2.5 : this.spacing = 1.5; 
+	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+
+	let type_de_questions_disponibles;	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		if (this.debug) {
+			type_de_questions_disponibles = [0,1,2,3,4];			
+		} else {
+     		 type_de_questions_disponibles = shuffle([choice([0,1]),choice([2,3])]);      			
+		};
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+
+			// on a besoin d'un coeff pour le type de nombres
+			let coeff;
+			let nb_alea;
+			this.sup = Number(this.sup); // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
+			switch (this.sup) {
+			case 1://entiers          
+				coeff=[1,1,1];
+				nb_alea=[randint(1,9),randint(1,9),randint(1,9)];
+				break;
+			case 2://relatifs            
+				coeff=[choice([1,-1]),choice([1,-1]),choice([1,-1])];
+				nb_alea=[randint(1,9),randint(1,9),randint(1,9)];
+				break;
+			case 3://décimaux            
+				coeff=[0.1,0.1,0.1];
+				nb_alea=[randint(11,99),randint(11,99),randint(11,99)];
+				break;
+			};
+
+			let params = {
+				a:tex_nombre(calcul(nb_alea[0]*coeff[0])),
+				b:tex_nombre(calcul(nb_alea[1]*coeff[1])),
+				c:tex_nombre(calcul(nb_alea[2]*coeff[2])),
+				inc:'x'
+			}
+
+			// pour les situations, autant de situations que de cas dans le switch !
+			let situations = [
+				{//case 0 --> x/b=a/c --> cx= ab
+					eq:`\\dfrac{${params.inc}}{${params.b}}=\\dfrac{${params.a}}{${params.c}}`,
+					a:params.a,
+					b:params.b,
+					c:params.c,
+					inc:params.inc 
+				},
+				{//case 1 --> a/c=x/b --> cx=ab
+					eq:`\\dfrac{${params.a}}{${params.c}}=\\dfrac{${params.inc}}{${params.c}}`,
+					a:params.a,
+					b:params.b,
+					c:params.c,
+					inc:params.inc 
+				},
+				{//case 2 -->b/x=c/a --> cx = ab
+					eq:`\\dfrac{${params.b}}{${params.inc}}=\\dfrac{${params.c}}{${params.a}}`,
+					a:params.a,
+					b:params.b,
+					c:params.c,
+					inc:params.inc 
+				},
+				{//case 3 -->c/a=b/x --> cx = ab 
+					eq:`\\dfrac{${params.c}}{${params.a}}=\\dfrac{${params.b}}{${params.inc}}`,
+					a:params.a,
+					b:params.b,
+					c:params.c,
+					inc:params.inc  
+				},
+			];
+
+			let enonces = [];
+			for (let k=0;k<situations.length;k++) {
+				enonces.push({
+					enonce:`
+						$${situations[k].eq}$
+					`,
+					question:``,
+					correction:`
+						$${situations[k].eq}$<br>
+						${texte_en_couleur_et_gras(`les produits en croix sont égaux`)}<br>
+						$${situations[k].c}\\times ${situations[k].inc}= ${situations[k].a}\\times ${situations[k].b}$<br>
+						${texte_en_couleur_et_gras(`on divise les deux membres par ${situations[k].c}`)}<br>
+						$\\dfrac{${situations[k].c}\\times ${situations[k].inc}}{${situations[k].c}}= \\dfrac{${situations[k].a}\\times ${situations[k].b}}{${situations[k].c}}$<br>
+						${texte_en_couleur_et_gras(`on simplifie et on calcule`)}<br>
+						${typeof situations[k].a}<br>
+						$${situations[k].inc}=${Number(situations[k].b)*Number(situations[k].a)/Number(situations[k].c)}$
+
+					`
+				});
+			};
+            
+            // autant de case que d'elements dans le tableau des situations
+			switch (liste_type_de_questions[i]){
+				case 0 : 
+					texte = `${enonces[0].enonce}`;
+					if (this.debug) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
+						texte += `             `
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[0].correction}`;
+					};
+          			break;	
+        		case 1 : 
+					texte = `${enonces[1].enonce}`;
+					if (this.debug) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[1].correction}`;
+					};
+          			break;
+        		case 2 : 
+					texte = `${enonces[2].enonce}`;
+					if (this.debug) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[2].correction}`;
+					};
+          			break;				
+        		case 3 : 
+					texte = `${enonces[3].enonce}`;
+					if (this.debug) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[3].correction}`;
+					};
+					break;				
+         		case 4 : 
+					texte = `${enonces[4].enonce}`;
+					if (this.debug) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[4].correction}`;
+					};
+					break;				
+			};			
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+
+	}
+	this.besoin_formulaire_numerique = ['Type de nombres',3,"1 : Entiers naturels\n2 : Entiers relatifs\n3 : Décimaux"];
+	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];
+	//this.besoin_formulaire2_case_a_cocher = ["Avec décimaux.",false]	
+};
