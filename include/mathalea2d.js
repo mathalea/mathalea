@@ -3786,7 +3786,7 @@ function codeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur
  */
 function DroiteGraduee(x=0,y=0,position='H',type='dd',longueurUnite=10,division=10,longueurTotale=15,origin=0,unite=1,labelGauche='O',labelUnite='I',gradue=true,...args){
   ObjetMathalea2D.call(this);
-  let absord=[1,0],S,O,I,M,k,g
+  let absord=[1,0],S,O,I,M,k,g,fleche
   if (position!='H') absord=[0,1]
   let objets=[]
   for (let j=0;j<args.length;j++) {
@@ -3794,27 +3794,32 @@ function DroiteGraduee(x=0,y=0,position='H',type='dd',longueurUnite=10,division=
     objets.push(texteParPosition(args[j][0],x+(-origin+args[j][1])*absord[0]*longueurUnite-0.8*absord[1],y+(-origin+args[j][1])*absord[1]*longueurUnite-0.8*absord[0]))
     objets.push(texteParPosition('X',x+(-origin+args[j][1])*absord[0]*longueurUnite,y+(-origin+args[j][1])*absord[1]*longueurUnite,'milieu','blue'))
   }
+  fleche=segment(point(x+longueurTotale*absord[0],y+longueurTotale*absord[1]),point(x+(longueurTotale-0.3)*absord[0]+0.3*absord[1],y+(longueurTotale-0.3)*absord[1]+0.3*absord[0]))
+  fleche.epaisseur=2
+  objets.push(fleche)
+  fleche=segment(point(x+longueurTotale*absord[0],y+longueurTotale*absord[1]),point(x+(longueurTotale-0.3)*absord[0]-0.3*absord[1],y+(longueurTotale-0.3)*absord[1]-0.3*absord[0]))
+  fleche.epaisseur=2
+  objets.push(fleche)
   let pas=arrondi(longueurUnite/division,2)
   if (type=='dd') {
     S=segment(point(x,y),point(x+longueurTotale*absord[0],y+longueurTotale*absord[1]))
-    S.styleExtremites='|->'
-   
   }
   else {
     S=segment(point(x-0.5*absord[0],y-0.5*absord[1]),point(x+longueurTotale*absord[0],y+longueurTotale*absord[1]))
-    S.styleExtremites='->' 
   }
   O=texteParPosition(labelGauche,x-0.8*absord[1],y-0.8*absord[0])
   I=texteParPosition(labelUnite,x-0.8*absord[1]+longueurUnite*absord[0],y-0.8*absord[0]+longueurUnite*absord[1])
 //  M=texteParPosition(labelPoint,x-0.8*absord[1]+abscissePoint*absord[0]*longueurUnite,y-0.8*absord[0]+abscissePoint*absord[1]*longueurUnite)
   k=0
   for (let i=0;i<longueurTotale;i+=pas){
-    if (k==division) {
-      k=0
+    if (k%division==0) {
       g=segment(point(x+i*absord[0]-0.3*absord[1],y-0.3*absord[0]+i*absord[1]),point(x+i*absord[0]+0.3*absord[1],y+0.3*absord[0]+i*absord[1]))
       g.epaisseur=2
       objets.push(g)
-      if (gradue&&!egal(i,longueurUnite,0.1)) objets.push(texteParPosition(arrondi(calcul(origin+i/longueurUnite),1),x+i*absord[0]-0.8*absord[1],y+i*absord[1]-0.8*absord[0]))
+      if (gradue&&k!=0&&k!=division) {
+        objets.push(texteParPosition(arrondi(calcul(origin+i/longueurUnite),1),x+i*absord[0]-0.8*absord[1],y+i*absord[1]-0.8*absord[0]))
+        console.log(i)
+      }
     }
     else {
       g=segment(point(x+i*absord[0]-0.2*absord[1],y-0.2*absord[0]+i*absord[1]),point(x+i*absord[0]+0.2*absord[1],y+0.2*absord[0]+i*absord[1]))
