@@ -3767,6 +3767,104 @@ function codeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
+// (Xorig,Yorig,'H' ou 'V', 'dd' ou 'd', longueur Unité, nombre de part, longueur totale, valeur origine, valeur première grosse graduation, label origine, label première grosse graduation, graduer ?, [Points à placer]...
+/**
+ * 
+ * @param {*} x Place le début en (x,y)=(0,0) par défaut.
+ * @param {*} y 
+ * @param {*} position 'H' pour horizontale 'V' pour verticale
+ * @param {*} type 'dd' pour demi-droite 'd' ou n'importe quoi pour droite
+ * @param {*} longueurUnite longueur en cm de la distance entre deux grosses graduations
+ * @param {*} division nombre de parts à faire entre deux grosses graduations
+ * @param {*} longueurTotale longueur totale en cm utilisable
+ * @param {*} origin valeur de la première graduation (par défaut 0)
+ * @param {*} unite valeur de la deuxième graduation (par défaut 1)
+ * @param {*} labelGauche Ce qu'on écrit sous la première graduation (par défaut 'O')
+ * @param {*} labelUnite Ce qu'on écrit sous la deuxième graduation (par défaut 'I')
+ * @param {*} gradue Si true, alors les grosses graduation à partir de la troisième auront l'abscisse renseignée
+ * @param  {...any} args des points à placer au format ['M',xM]
+ */
+function DroiteGraduee(x=0,y=0,position='H',type='dd',longueurUnite=10,division=10,longueurTotale=15,origin=0,unite=1,labelGauche='O',labelUnite='I',gradue=true,...args){
+  ObjetMathalea2D.call(this);
+  let absord=[1,0],S,O,I,M,k,g,fleche
+  if (position!='H') absord=[0,1]
+  let objets=[]
+  for (let j=0;j<args.length;j++) {
+
+    objets.push(texteParPosition(args[j][0],x+(-origin+args[j][1])*absord[0]*longueurUnite-0.8*absord[1],y+(-origin+args[j][1])*absord[1]*longueurUnite-0.8*absord[0]))
+    objets.push(texteParPosition('X',x+(-origin+args[j][1])*absord[0]*longueurUnite,y+(-origin+args[j][1])*absord[1]*longueurUnite,'milieu','blue'))
+  }
+  fleche=segment(point(x+longueurTotale*absord[0],y+longueurTotale*absord[1]),point(x+(longueurTotale-0.3)*absord[0]+0.3*absord[1],y+(longueurTotale-0.3)*absord[1]+0.3*absord[0]))
+  fleche.epaisseur=2
+  objets.push(fleche)
+  fleche=segment(point(x+longueurTotale*absord[0],y+longueurTotale*absord[1]),point(x+(longueurTotale-0.3)*absord[0]-0.3*absord[1],y+(longueurTotale-0.3)*absord[1]-0.3*absord[0]))
+  fleche.epaisseur=2
+  objets.push(fleche)
+  let pas=arrondi(longueurUnite/division,2)
+  if (type=='dd') {
+    S=segment(point(x,y),point(x+longueurTotale*absord[0],y+longueurTotale*absord[1]))
+  }
+  else {
+    S=segment(point(x-0.5*absord[0],y-0.5*absord[1]),point(x+longueurTotale*absord[0],y+longueurTotale*absord[1]))
+  }
+  O=texteParPosition(labelGauche,x-0.8*absord[1],y-0.8*absord[0])
+  I=texteParPosition(labelUnite,x-0.8*absord[1]+longueurUnite*absord[0],y-0.8*absord[0]+longueurUnite*absord[1])
+//  M=texteParPosition(labelPoint,x-0.8*absord[1]+abscissePoint*absord[0]*longueurUnite,y-0.8*absord[0]+abscissePoint*absord[1]*longueurUnite)
+  k=0
+  for (let i=0;i<longueurTotale;i+=pas){
+    if (k%division==0) {
+      g=segment(point(x+i*absord[0]-0.3*absord[1],y-0.3*absord[0]+i*absord[1]),point(x+i*absord[0]+0.3*absord[1],y+0.3*absord[0]+i*absord[1]))
+      g.epaisseur=2
+      objets.push(g)
+      if (gradue&&k!=0&&k!=division) {
+        objets.push(texteParPosition(arrondi(calcul(origin+i/longueurUnite),1),x+i*absord[0]-0.8*absord[1],y+i*absord[1]-0.8*absord[0]))
+        console.log(i)
+      }
+    }
+    else {
+      g=segment(point(x+i*absord[0]-0.2*absord[1],y-0.2*absord[0]+i*absord[1]),point(x+i*absord[0]+0.2*absord[1],y+0.2*absord[0]+i*absord[1]))
+      objets.push(g)
+    }
+    k++
+  }
+  objets.push(S,O,I,M)
+
+  this.svg = function (coeff) {
+   let code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    let code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+  this.svgml = function (coeff,amp) {
+    let code = "";
+     for (objet of objets) {
+      if (!mainlevee||typeof(objet.svgml)=='undefined') code += "\t" + objet.svg(coeff) + "\n";
+      else code += "\t" + objet.svgml(coeff,amp) + "\n";
+     }
+     return code;
+   };
+   this.tikzml = function (amp) {
+     let code = "";
+     for (objet of objets) {
+      if (!mainlevee||typeof(objet.tikzml)=='undefined') code += "\t" + objet.tikz() + "\n";
+      else code += "\t" + objet.tikzml(amp) + "\n";
+     }
+     return code;
+   };
+}
+
+function droiteGraduee(...args) {
+  return new DroiteGraduee(...args)
+}
+
 /**
  * axes(xmin,ymin,xmax,ymax,thick,xstep,ystep,epaisseur) // Trace les axes des abscisses et des ordonnées
  *
