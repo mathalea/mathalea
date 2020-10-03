@@ -469,7 +469,7 @@ function Image_fonction_algebrique() {
 	this.nb_questions = 5;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
-	this.sup = 4; // niveau de difficulté
+	this.sup = 5; // niveau de difficulté
 
 	this.nouvelle_version = function (numero_de_l_exercice) {
 		this.liste_questions = []; // Liste de questions

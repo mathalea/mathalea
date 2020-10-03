@@ -1,3 +1,4 @@
+fenetreMathalea2d = [-2,-15,28,5]
 pixelsParCm = 40 // L'unité fait 40 pixels
 seyes(0,0,10,4) // Rectangle de carreaux Seyes avec xmin = ymin = 0, xmax = 10, ymax = 4
 A = point(1,1,'A') // Créé un point A qui a pour nom...'A'
