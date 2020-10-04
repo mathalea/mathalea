@@ -11213,12 +11213,12 @@ function Priorites_et_relatifs() {
           }\\div${ecriture_parenthese_si_negatif(c)}=${(a + b) / c}$`;
           break;
         case 14: // a/(b+c)
-          b = randint(2, 5)*choice([-1,1]);
-          c = randint(2, 6)*choice([-1,1]);
+          b = randint(-5, 5,[-1,0,1])
+          c = randint(-6, 6,[-1,0,1,-b])
           a = (b + c) * randint(2, 9)*choice([-1,1]);
           while (a>0 && b>0 && c>0){
-            b = randint(2, 5)*choice([-1,1]);
-            c = randint(2, 6)*choice([-1,1]);
+            b = randint(-5, 5,[-1,0,1])
+            c = randint(-6, 6,[-1,0,1,-b])
             a = (b + c) * randint(2, 9)*choice([-1,1]);
           }
           texte = `$${a}\\div(${b}${ecriture_algebrique(c)})$`;
