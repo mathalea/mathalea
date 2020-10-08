@@ -5708,7 +5708,8 @@ function Construire_par_Symetrie() {
 		i < this.nb_questions && cpt < 50;
   
 	  ) {
-		
+		objets_enonce.length=0
+		objets_correction.length=0
 		switch (liste_type_de_questions[i]) {
 			case 0 : // 3 symétries axiales simples de points (6ème)
 			p1nom=creerNomDePolygone(5,"PQ")
