@@ -2954,7 +2954,7 @@ function Exercice_Pythagore() {
       s2 + s1 + s0,
     ]);
     let k1 = Math.round((Math.random() * 3 + 3) * 10) / 10;
-    let k2 = Math.round((Math.random() * 3 + 1) * 10) / 10;
+    let k2 = Math.round((Math.random() * 3 + 2) * 10) / 10;
     let alpha1 = Math.random() * Math.PI - Math.PI / 2;
     let alpha1deg = Math.round((alpha1 * 180) / Math.PI);
     let x1 = k1; // coordonnées des deux sommets du triangle
@@ -2983,6 +2983,7 @@ function Exercice_Pythagore() {
       }
 
       if (type_de_questions == 1) {
+        
         // calcul direct de l'hypoténuse
         texte = `Dans la figure ci-dessous, le triangle $${nom_du_triangle}$ est rectangle en $${s0}$, $${
           s0 + s1
@@ -3096,7 +3097,8 @@ function Exercice_Pythagore() {
         }
         texte += "\\begin{minipage}{0.3 \\linewidth}";
         // dessin de la figure
-        texte += "\n \\begin{tikzpicture}[scale=0.7]"; // Balise début de figure
+        let scale=0.7*6/Math.max(x1,y2)
+        texte += `\n \\begin{tikzpicture}[scale=${scale}]`; // Balise début de figure
         texte +=
           "\n\t \\tkzDefPoints{0/0/" + s0 + "," + x1 + "/0/B,0/" + y2 + "/C}"; // créer les points du triangle initial
         // Définit les points M et N par homothétie de centre C et de rapport 0,3<k<0,8
