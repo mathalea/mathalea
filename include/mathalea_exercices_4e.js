@@ -4380,7 +4380,7 @@ function Problemes_Pythagore() {
           }^2=${A + B}^2$.<br>`;
           texte_corr += `Donc $${O + B}^2=${A + B}^2-${A + O}^2=${tex_nombre(
             c
-          )}^2-${tex_nombre(a)}^2=${tex_nombre(b ** 2)}$.<br>`;
+          )}^2-${tex_nombre(a)}^2=${tex_nombrec(b ** 2)}$.<br>`;
           texte_corr += `On a alors $${O + B}=\\sqrt{${tex_nombrec(
             b ** 2
           )}}=${tex_nombre(b)}$ cm.<br>`;
@@ -4388,7 +4388,7 @@ function Problemes_Pythagore() {
             D + B
           }]$ : $${D + B}=2\\times ${O + B}=2\\times${tex_nombre(
             b
-          )}=${tex_nombre(2 * b)}$ cm.`;
+          )}=${tex_nombrec(2 * b)}$ cm.`;
           break;
 
         case "rectangle_diagonale_connue":

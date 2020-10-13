@@ -7117,7 +7117,7 @@ function preambule_personnalise(){
 			result += '\\usepackage[tikz]{bclogo}'
 		break
 		case 'tkz-euclide' :
-			result += '\\usepackage{tkz-euclide}\n\\usetkzobj{all}'
+			result += '\\usepackage{tkz-euclide}'
 		break
 		default:
 		    result += `\\usepackage{${packages}}\n`

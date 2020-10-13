@@ -116,7 +116,7 @@ return ObjetParametres;
 *
 * On regarde d'abord si un exercice aléatoire a le même identifiant.
 *
-* Si ce n'est pas le cas, on cherche dans le répertoire /items s'il y a un répertoire qui correspond
+* //// ANNULÉ   //// Si ce n'est pas le cas, on cherche dans le répertoire /items s'il y a un répertoire qui correspond
 *
 * @Auteur Rémi Angot
 */
@@ -149,38 +149,41 @@ function item_to_contenu(txt){
 				} 
 
 	// Sinon un exercice statique si le nom de l'item est inclus dans le nom du répertoire
-	} else { if (id_to_url(idExerciceMathALEA)!="pas_d_url") {
-			// Ajout de packages pour les exercices statiques
-			liste_packages.add('xlop')
-			liste_packages.add('tkz-euclide')
-			$.get("../"+id_to_url(idExerciceMathALEA)[0], function( txt ) {
-					code_LaTeX += `\n\n%%% ${e} : Exercice statique - ${id_to_url(idExerciceMathALEA)[0]}%%%\n\n`
-					code_LaTeX += txt + '\n\n'
-					})
-			.fail(function() {
-					// S'il le fichier ne charge pas
-						code_LaTeX += `\n\n%%% Pas d'exercice disponible pour ${e}.\n\n`
-	    				updateMessageErreur(`Impossible de charger un exercice pour ${e}.\n`);
-	    				console.log(e,id_to_url(e))
-	    			})
-			.done(function() { // Lorsque l'exercice a chargé, on essaie de chargé une correction
-				$.get("../"+id_to_url(idExerciceMathALEA)[1], function( txt ) {
-					code_LaTeX_corr += txt + '\n\n'
-					})
-					.fail(function() {
-					// S'il n'y a pas de fichier de correction disponible.
-						code_LaTeX_corr += `\n\n%%% Pas de correction disponible pour ${e}.\n\n\\exo{} \n\n`
-						// On écrit quand même un exercice vide pour garder la numérotation des exercices.
-						updateMessageErreur(`Pas de correction disponible pour ${e}.\n`);
-					});
+	} 
+	else { 
+		
+		// if (id_to_url(idExerciceMathALEA)!="pas_d_url") {
+		// 	// Ajout de packages pour les exercices statiques
+		// 	liste_packages.add('xlop')
+		// 	liste_packages.add('tkz-euclide')
+		// 	$.get("../"+id_to_url(idExerciceMathALEA)[0], function( txt ) {
+		// 			code_LaTeX += `\n\n%%% ${e} : Exercice statique - ${id_to_url(idExerciceMathALEA)[0]}%%%\n\n`
+		// 			code_LaTeX += txt + '\n\n'
+		// 			})
+		// 	.fail(function() {
+		// 			// S'il le fichier ne charge pas
+		// 				code_LaTeX += `\n\n%%% Pas d'exercice disponible pour ${e}.\n\n`
+	    // 				updateMessageErreur(`Impossible de charger un exercice pour ${e}.\n`);
+	    // 				console.log(e,id_to_url(e))
+	    // 			})
+		// 	.done(function() { // Lorsque l'exercice a chargé, on essaie de chargé une correction
+		// 		$.get("../"+id_to_url(idExerciceMathALEA)[1], function( txt ) {
+		// 			code_LaTeX_corr += txt + '\n\n'
+		// 			})
+		// 			.fail(function() {
+		// 			// S'il n'y a pas de fichier de correction disponible.
+		// 				code_LaTeX_corr += `\n\n%%% Pas de correction disponible pour ${e}.\n\n\\exo{} \n\n`
+		// 				// On écrit quand même un exercice vide pour garder la numérotation des exercices.
+		// 				updateMessageErreur(`Pas de correction disponible pour ${e}.\n`);
+		// 			});
     				
-  			})
+  		// 	})
 				
-			} else { 
+		// 	} else { 
 				// Si l'identifiant de l'exercice n'est disponible ni sur MathALEA ni dans la liste statique des url tableau_url_tex
 				code_LaTeX += `\n\n%%% Pas d'exercice disponible pour ${e}.\n\n`
 	    		updateMessageErreur(`Pas d'exercice disponible pour ${e}.\n`);
-			}
+			// }
 		}
 		
 }
@@ -259,7 +262,9 @@ window.onload = function()  {
 				}
 
 				if (i>=rang_premier_item) {
-					item_to_contenu(e);
+					if (e.replace(/ /g, '').length>2){
+						item_to_contenu(e);
+					}
 				}
 					
 			});
