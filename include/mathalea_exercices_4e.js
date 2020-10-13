@@ -4066,15 +4066,22 @@ function Reciproque_Pythagore() {
   this.nb_questions = 3;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
+  this.sup = 3;
   sortie_html ? (this.spacing_corr = 2) : (this.spacing_corr = 1);
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let liste_type_de_questions = combinaison_listes(
-      ["rectangle", "rectangle", "pas_rectangle", "pas_rectangle"],
-      this.nb_questions
-    );
+    let liste_type_de_questions = []
+    if (this.sup == 1){
+      liste_type_de_questions = combinaison_listes(["rectangle"],this.nb_questions);
+    }
+    if (this.sup == 2){
+      liste_type_de_questions = combinaison_listes(["pas_rectangle"],this.nb_questions);
+    }
+    if (this.sup == 3){
+      liste_type_de_questions = combinaison_listes(["rectangle", "pas_rectangle"],this.nb_questions);
+    }
     let liste_triplets_pythagoriciens = [
       [3, 4, 5],
       [5, 12, 13],
@@ -4225,7 +4232,7 @@ function Reciproque_Pythagore() {
     }
     liste_de_question_to_contenu(this);
   };
-  //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+  this.besoin_formulaire_numerique = ['Type de questions',3,"1 : Démontrer qu'un triangle est rectangle\n2 : Démontrer qu'un triangle n'est pas rectangle\n3 : Déterminer si un triangle est rectangle ou pas "];
 }
 
 /**
