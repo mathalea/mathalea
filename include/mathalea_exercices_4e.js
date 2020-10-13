@@ -3063,7 +3063,7 @@ function Exercice_Pythagore() {
     } else {
       if (type_de_questions < 3) {
         texte =
-          "\\begin{minipage}{.7 \\linewidth} 	\\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}";
+          "\\begin{minipage}{.7 \\linewidth} 	\\vspace{0cm} Sur la figure ci-contre (qui n'est pas en vraie grandeur), on a  : \\begin{itemize}";
         texte +=
           "\n\t\\item Le côté " +
           `$[${s0 + s1}]$` +
