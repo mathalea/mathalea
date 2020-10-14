@@ -2510,6 +2510,7 @@ function Reciproque_Thales() {
   this.nb_cols_corr = 1;
   this.quatrieme = false;
   this.sup = 1;
+  this.sup2 = 1;
   this.liste_packages = "tkz-euclide";
 
   // let s1='A',s2='B',s3='C',s4='M',s5='N'
@@ -2532,7 +2533,11 @@ function Reciproque_Thales() {
     let x3 = randint(5, 6);
     let y3 = randint(-2, 1);
     let k = (randint(2, 8) * randint(-1, 1, [0])) / 10;
-    let k2 = k * (1 + randint(0, 1) * 0.1);
+    let k2 
+    if (this.sup2==1) k2=k
+    else if (this.sup2==3) k2=k * (1 + randint(0, 1) * 0.1);
+    else k2= k * (1 + randint(-1, 1,0) * 0.1);
+
     if (this.quatrieme) {
       k = abs(k);
       k2 = abs(k2);
@@ -2902,6 +2907,11 @@ function Reciproque_Thales() {
     "Niveau de difficulté",
     3,
     "1 : Cas simple \n 2 : Complication \n 3 : Sans figure",
+  ];
+  this.besoin_formulaire2_numerique = [
+    "Réciproque ou contraposée ? ",
+    3,
+    "1 : Réciproque \n 2 : Contraposée \n 3 : Aléatoire",
   ];
 }
 
