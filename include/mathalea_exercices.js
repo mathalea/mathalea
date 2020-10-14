@@ -11885,6 +11885,7 @@ function Vocabulaire_des_triangles() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.consigne = "Donner la nature des triangles en justifiant.";
   this.sup = 1;
+  this.sup2=false;
   this.titre = "Vocabulaire des triangles";
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
@@ -12014,25 +12015,35 @@ function Vocabulaire_des_triangles() {
       let triangle_equilateral = new Triangles();
       let triangle_rectangle = new Triangles();
       let triangle_isocele_rectangle = new Triangles();
-
+      let partieDecimale1,partieDecimale2,partieDecimale3;
+      if (this.sup2) {
+        partieDecimale1=calcul(randint(1,9)/10*randint(0,1));
+        partieDecimale2=calcul(randint(1,9)/10*randint(0,1));
+        partieDecimale3=calcul(randint(1,9)/10*randint(0,1));
+      }
+      else {
+        partieDecimale1=0;
+        partieDecimale2=0;
+        partieDecimale3=0;
+      }
       switch (liste_type_de_questions[i]) {
         case 1: // triangle quelconque par les longueurs sans conversion
           while (!triangle_quelconque.isTrueTriangleLongueurs()) {
             l1 = randint(l_min, l_max);
             l2 = randint(l_min, l_max, l1);
             l3 = randint(l_min, l_max, [l1, l2]);
-            triangle_quelconque.l1 = l1;
-            triangle_quelconque.l2 = l2;
-            triangle_quelconque.l3 = l3;
+            triangle_quelconque.l1 = l1+partieDecimale1;
+            triangle_quelconque.l2 = l2+partieDecimale2;
+            triangle_quelconque.l3 = l3+partieDecimale3;
           }
 
           texte = `${triangle_quelconque.getNom()} est un triangle tel que ${
             triangle_quelconque.getLongueurs()[0]
-          } $= ${triangle_quelconque.l1}$ cm ; `;
+          } $= ${tex_nombre(triangle_quelconque.l1)}$ cm ; `;
           texte += `${triangle_quelconque.getLongueurs()[1]} $= ${
-            triangle_quelconque.l2
-          }$ cm et ${triangle_quelconque.getLongueurs()[2]} $= ${
-            triangle_quelconque.l3
+            tex_nombre(triangle_quelconque.l2)
+          }$ cm et ${triangle_quelconque.getLongueurs()[2]} $= ${tex_nombre(
+            triangle_quelconque.l3)
           }$ cm.`;
           texte_corr = `Les 3 côtés du triangle ${triangle_quelconque.getNom()} sont différents donc ${triangle_quelconque.getNom()} est un triangle quelconque.`;
           break;
@@ -12061,24 +12072,24 @@ function Vocabulaire_des_triangles() {
           while (!triangle_isocele.isTrueTriangleLongueurs()) {
             l1 = randint(l_min, l_max);
             l2 = randint(l_min, l_max, l1);
-            triangle_isocele.l1 = l1;
-            triangle_isocele.l2 = l1;
-            triangle_isocele.l3 = l2;
+            triangle_isocele.l1 = l1+partieDecimale1;
+            triangle_isocele.l2 = l1+partieDecimale1;
+            triangle_isocele.l3 = l2+partieDecimale2;
           }
           texte = `${triangle_isocele.getNom()} est un triangle tel que ${
             triangle_isocele.getLongueurs()[0]
-          } $= ${triangle_isocele.l1}$ cm ; `;
+          } $= ${tex_nombre(triangle_isocele.l1)}$ cm ; `;
           texte += `${triangle_isocele.getLongueurs()[1]} $= ${
-            triangle_isocele.l2
+            tex_nombre(triangle_isocele.l2)
           }$ cm et ${triangle_isocele.getLongueurs()[2]} $= ${
-            triangle_isocele.l3
+            tex_nombre(triangle_isocele.l3)
           }$ cm.`;
           texte_corr = `Les longueurs des côtés ${
             triangle_isocele.getCotes()[0]
           } et ${
             triangle_isocele.getCotes()[1]
           } du triangle ${triangle_isocele.getNom()} valent toutes les deux $${
-            triangle_isocele.l1
+            tex_nombre(triangle_isocele.l1)
           }$ cm donc ${triangle_isocele.getNom()} est un triangle isocèle en ${
             triangle_isocele.getSommets()[1]
           }.`;
@@ -12087,21 +12098,21 @@ function Vocabulaire_des_triangles() {
           while (!triangle_isocele.isTrueTriangleLongueurs()) {
             l1 = randint(l_min, l_max);
             l2 = randint(l_min, l_max, l1);
-            triangle_isocele.l1 = l1;
-            triangle_isocele.l2 = l1;
-            triangle_isocele.l3 = l2;
+            triangle_isocele.l1 = l1+partieDecimale1;
+            triangle_isocele.l2 = l1+partieDecimale1;
+            triangle_isocele.l3 = l2+partieDecimale2;
           }
           texte = `${triangle_isocele.getNom()} est un triangle tel que ${
             triangle_isocele.getLongueurs()[0]
           } $= ${triangle_isocele.l1 * 10}$ mm ; `;
           texte += `${triangle_isocele.getLongueurs()[1]} $= ${
-            triangle_isocele.l2
+            tex_nombre(triangle_isocele.l2)
           }$ cm et ${triangle_isocele.getLongueurs()[2]} $= ${
-            triangle_isocele.l3
+            tex_nombre(triangle_isocele.l3)
           }$ cm.`;
           texte_corr = `${triangle_isocele.getLongueurs()[0]} $= ${
-            triangle_isocele.l1 * 10
-          }$ mm $= ${triangle_isocele.l1}$ cm = ${
+            tex_nombre(triangle_isocele.l1 * 10)
+          }$ mm $= ${tex_nombre(triangle_isocele.l1)}$ cm = ${
             triangle_isocele.getLongueurs()[1]
           }, ${triangle_isocele.getNom()} a donc deux côtés égaux, c'est un triangle isocèle en ${
             triangle_isocele.getSommets()[1]
@@ -12110,58 +12121,59 @@ function Vocabulaire_des_triangles() {
         case 5: // triangle équilatéral sans conversion
           while (!triangle_equilateral.isTrueTriangleLongueurs()) {
             l1 = randint(l_min, l_max);
-            triangle_equilateral.l1 = l1;
-            triangle_equilateral.l2 = l1;
-            triangle_equilateral.l3 = l1;
+            triangle_equilateral.l1 = l1+partieDecimale1;
+            triangle_equilateral.l2 = l1+partieDecimale1;
+            triangle_equilateral.l3 = l1+partieDecimale1;
           }
           texte = `${triangle_equilateral.getNom()} est un triangle tel que ${
             triangle_equilateral.getLongueurs()[0]
-          } $= ${triangle_equilateral.l1}$ cm ; `;
+          } $= ${tex_nombre(triangle_equilateral.l1)}$ cm ; `;
           texte += `${triangle_equilateral.getLongueurs()[1]} $= ${
-            triangle_equilateral.l2
+            tex_nombre(triangle_equilateral.l2)
           }$ cm et ${triangle_equilateral.getLongueurs()[2]} $= ${
-            triangle_equilateral.l3
+            tex_nombre(triangle_equilateral.l3)
           }$ cm.`;
           texte_corr = `Les longeurs des trois côtés du triangle ${triangle_equilateral.getNom()} sont égales donc c'est un triangle équilatéral.`;
           break;
         case 6: // triangle équilatéral avec conversion
           while (!triangle_equilateral.isTrueTriangleLongueurs()) {
             l1 = randint(l_min, l_max);
-            triangle_equilateral.l1 = l1;
-            triangle_equilateral.l2 = l1;
-            triangle_equilateral.l3 = l1;
+            triangle_equilateral.l1 = l1+partieDecimale1;
+            triangle_equilateral.l2 = l1+partieDecimale1;
+            triangle_equilateral.l3 = l1+partieDecimale1;
           }
           texte = `${triangle_equilateral.getNom()} est un triangle tel que ${
             triangle_equilateral.getLongueurs()[0]
-          } $= ${triangle_equilateral.l1}$ cm ; `;
+          } $= ${tex_nombre(triangle_equilateral.l1)}$ cm ; `;
           texte += `${triangle_equilateral.getLongueurs()[1]} $= ${
-            triangle_equilateral.l2 * 10
+            tex_nombre(triangle_equilateral.l2 * 10)
           }$ mm et ${triangle_equilateral.getLongueurs()[2]} $= ${tex_nombre(
             triangle_equilateral.l3 / 10
           )}$ dm.`;
           texte_corr = `${triangle_equilateral.getLongueurs()[1]} $= ${
-            triangle_equilateral.l2 * 10
+            tex_nombre(triangle_equilateral.l2 * 10)
           }$ mm $= ${triangle_equilateral.l2}$ cm.`;
           texte_corr += `<br> ${
             triangle_equilateral.getLongueurs()[2]
           } $= ${tex_nombre(triangle_equilateral.l3 / 10)}$ dm $= ${
-            triangle_equilateral.l3
+            tex_nombre(triangle_equilateral.l3)
           }$ cm.`;
           texte_corr += `<br> ${triangle_equilateral.getLongueurs()[0]} $= ${
-            triangle_equilateral.l1
+            tex_nombre(triangle_equilateral.l1)
           }$ cm.`;
           texte_corr += `<br> Les longeurs des trois côtés du triangle ${triangle_equilateral.getNom()} sont égales donc c'est un triangle équilatéral.`;
           break;
         case 7: // triangle rectangle pas de conversion necessaire
-          triangle_rectangle.l1 = randint(l_min, l_max);
-          triangle_rectangle.l2 = randint(l_min, l_max, l1);
+          l1=randint(l_min, l_max);
+          triangle_rectangle.l1 = l1+partieDecimale1;
+          triangle_rectangle.l2 = randint(l_min, l_max, l1)+partieDecimale2;
           triangle_rectangle.a1 = 90;
 
           texte = `${triangle_rectangle.getNom()} est un triangle tel que ${
             triangle_rectangle.getLongueurs()[0]
-          } $= ${triangle_rectangle.l1}$ cm ; `;
+          } $= ${tex_nombre(triangle_rectangle.l1)}$ cm ; `;
           texte += `${triangle_rectangle.getLongueurs()[1]} $= ${
-            triangle_rectangle.l2
+            tex_nombre(triangle_rectangle.l2)
           }$ cm `;
           texte += `et `;
           if (this.classe == 6) {
@@ -12186,15 +12198,16 @@ function Vocabulaire_des_triangles() {
 
           break;
         case 8: // triangle isocèle rectangle sans conversion
-          triangle_isocele_rectangle.l1 = randint(l_min, l_max);
+        l1=randint(l_min, l_max);
+          triangle_isocele_rectangle.l1 = l1+partieDecimale1;
           triangle_isocele_rectangle.l2 = triangle_isocele_rectangle.l1;
           triangle_isocele_rectangle.a1 = 90;
 
           texte = `${triangle_isocele_rectangle.getNom()} est un triangle tel que ${
             triangle_isocele_rectangle.getLongueurs()[0]
-          }$= ${triangle_isocele_rectangle.l1}$ cm ; `;
+          }$= ${tex_nombre(triangle_isocele_rectangle.l1)}$ cm ; `;
           texte += `${triangle_isocele_rectangle.getLongueurs()[1]} $= ${
-            triangle_isocele_rectangle.l2
+            tex_nombre(triangle_isocele_rectangle.l2)
           }$ cm `;
           texte += `et `;
           if (this.classe == 6) {
@@ -12209,7 +12222,7 @@ function Vocabulaire_des_triangles() {
             texte_corr += `<br> ${
               triangle_isocele_rectangle.getLongueurs()[0]
             } $=$ ${triangle_isocele_rectangle.getLongueurs()[1]} $= ${
-              triangle_isocele_rectangle.l1
+              tex_nombre(triangle_isocele_rectangle.l1)
             }$ cm donc ${triangle_isocele_rectangle.getNom()} est isocèle en ${
               triangle_isocele_rectangle.getSommets()[1]
             }.`;
@@ -12238,15 +12251,15 @@ function Vocabulaire_des_triangles() {
           }
           break;
         case 9: // triangle isocèle rectangle avec conversion
-          triangle_isocele_rectangle.l1 = randint(l_min, l_max);
+          triangle_isocele_rectangle.l1 = randint(l_min, l_max)+partieDecimale1;
           triangle_isocele_rectangle.l2 = triangle_isocele_rectangle.l1;
           triangle_isocele_rectangle.a1 = 90;
 
           texte = `${triangle_isocele_rectangle.getNom()} est un triangle tel que ${
             triangle_isocele_rectangle.getLongueurs()[0]
-          } $= ${triangle_isocele_rectangle.l1 * 10}$ mm ; `;
+          } $= ${tex_nombre(triangle_isocele_rectangle.l1 * 10)}$ mm ; `;
           texte += `${triangle_isocele_rectangle.getLongueurs()[1]} $= ${
-            triangle_isocele_rectangle.l2
+            tex_nombre(triangle_isocele_rectangle.l2)
           }$ cm`;
           texte += ` et `;
           if (this.classe == 6) {
@@ -12261,7 +12274,7 @@ function Vocabulaire_des_triangles() {
             texte_corr += `<br> ${
               triangle_isocele_rectangle.getLongueurs()[0]
             } $= ${triangle_isocele_rectangle.l1 * 10}$ mm $= ${
-              triangle_isocele_rectangle.l1
+              tex_nombre(triangle_isocele_rectangle.l1)
             }$ cm =${
               triangle_isocele_rectangle.getLongueurs()[1]
             } donc ${triangle_isocele_rectangle.getNom()} est isocèle en ${
@@ -12281,8 +12294,8 @@ function Vocabulaire_des_triangles() {
             }.`;
             texte_corr += `<br> ${
               triangle_isocele_rectangle.getLongueurs()[0]
-            } $= ${triangle_isocele_rectangle.l1 * 10}$ mm $= ${
-              triangle_isocele_rectangle.l1
+            } $= ${tex_nombre(triangle_isocele_rectangle.l1 * 10)}$ mm $= ${
+              tex_nombre(triangle_isocele_rectangle.l1)
             }$ cm =${
               triangle_isocele_rectangle.getLongueurs()[1]
             } donc ${triangle_isocele_rectangle.getNom()} est isocèle en ${
@@ -12357,6 +12370,7 @@ function Vocabulaire_des_triangles() {
       "1 : sans conversions de longueurs\n2 : avec conversions de longueurs",
     ];
   }
+  this.besoin_formulaire2_case_a_cocher = ["Avec des décimaux",false];
 }
 
 /**
