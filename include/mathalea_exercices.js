@@ -2124,7 +2124,7 @@ function Calculs_de_durees_ou_d_horaires() {
           texte_corr += `L'émission s'achèvera à ${d2}.`;
         }
         if (type_de_questions[i] == 3) {
-          texte = `${prenom()} termine de regarder une émission de ${d} à ${d2}. À quelle heure l'émission a-t-elle commencé ?`;
+          texte = `À ${d2}, ${prenom()} termine de regarder une émission de ${d}. À quelle heure l'émission a-t-elle commencé ?`;
           texte_corr = `${d2} - ${d} = ${d1}`;
           texte_corr += "<br>";
           texte_corr += `L'émission a commencé à ${d1}.`;
