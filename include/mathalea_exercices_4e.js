@@ -2543,19 +2543,19 @@ function Reciproque_Thales() {
       k2 = abs(k2);
     }
     let dist24;
-    let dist12 = arrondi(Math.sqrt(x2 * x2 + y2 * y2), 1);
-    let dist13 = arrondi(Math.sqrt(x3 * x3 + y3 * y3), 1);
+    let dist12 = Math.round(Math.sqrt(x2 * x2 + y2 * y2));
+    let dist13 = Math.round(Math.sqrt(x3 * x3 + y3 * y3));
     while (dist12 == dist13) {
       //éviter les triangles isocèles imbriqués qui ne nécéssitent aucun calculs.
       x2 = randint(2, 4);
       y2 = randint(3, 5);
       x3 = randint(5, 6);
       y3 = randint(-2, 1);
-      dist12 = arrondi(Math.sqrt(x2 * x2 + y2 * y2), 1);
-      dist13 = arrondi(Math.sqrt(x3 * x3 + y3 * y3), 1);
+      dist12 = Math.round(Math.sqrt(x2 * x2 + y2 * y2));
+      dist13 = Math.round(Math.sqrt(x3 * x3 + y3 * y3));
     }
-    let dist15 = arrondi(dist13 * abs(k), 2);
-    let dist14 = arrondi(dist12 * abs(k2), 2);
+    let dist15 = arrondi(dist13 * abs(k), 1);
+    let dist14 = arrondi(dist12 * abs(k2), 1);
     let dist35;
 
     let num1, num2, den1, den2;
@@ -2571,20 +2571,20 @@ function Reciproque_Thales() {
     // On ne garde qu'une approximation au dixième pour l'exercice
 
     // mise en texte avec 1 chiffres après la virgule pour énoncé
-    let s13 = tex_nombrec(dist13);
-    let s12 = tex_nombrec(dist12);
-    let s15 = tex_nombrec(dist15);
-    let s14 = tex_nombrec(dist14);
-    let s24 = tex_nombrec(dist24);
-    let s35 = tex_nombrec(dist35);
-    num1 = arrondi(dist12 * 100);
-    den1 = arrondi(dist14 * 100);
-    num2 = arrondi(dist13 * 100);
-    den2 = arrondi(dist15 * 100);
-    let fraction1 = [],
-      fraction2 = [];
-    fraction1 = fraction_simplifiee(num1, den1);
-    fraction2 = fraction_simplifiee(num2, den2);
+    let s13 = tex_nombre(dist13);
+    let s12 = tex_nombre(dist12);
+    let s15 = tex_nombre(dist15);
+    let s14 = tex_nombre(dist14);
+    let s24 = tex_nombre(dist24);
+    let s35 = tex_nombre(dist35);
+   // num1 = arrondi(dist12 * 100);
+   // den1 = arrondi(dist14 * 100);
+   // num2 = arrondi(dist13 * 100);
+   // den2 = arrondi(dist15 * 100);
+   // let fraction1 = [],
+   //   fraction2 = [];
+   //  fraction1 = fraction_simplifiee(num1, den1);
+   // fraction2 = fraction_simplifiee(num2, den2);
 
     if (sortie_html) {
       this.type_exercice = "MG32";
@@ -2656,18 +2656,17 @@ function Reciproque_Thales() {
         s1 + s4
       }}=\\dfrac{${s12}}{${s14}}=\\dfrac{${s12}\\times${mise_en_evidence(
         s15
-      )}}{${s14}\\times${mise_en_evidence(s15)}}=${tex_fraction(
-        tex_nombrec(arrondi(dist12 * dist15, 3)),
-        tex_nombrec(arrondi(dist14 * dist15, 4))
-      )}$`;
+      )}}{${s14}\\times${mise_en_evidence(s15)}}=\\dfrac{
+        ${tex_nombrec(arrondi(dist12 * dist15, 3))}}
+        {${s14}\\times${s15}}
+      $`;
       texte_corr += `<br>D'autre part on a $\\dfrac{${s1 + s3}}{${
         s1 + s5
       }}=\\dfrac{${s13}}{${s15}}=\\dfrac{${s13}\\times${mise_en_evidence(
         s14
-      )}}{${s15}\\times${mise_en_evidence(s14)}}=${tex_fraction(
-        tex_nombrec(arrondi(dist13 * dist14, 3)),
-        tex_nombrec(arrondi(dist14 * dist15, 4))
-      )}$`;
+      )}}{${s15}\\times${mise_en_evidence(s14)}}=\\dfrac{${tex_nombrec(arrondi(dist13 * dist14, 3))}}
+        {${s14}\\times${s15}}
+      $`;
 
       if (k != k2) {
         // droites non parallèles
