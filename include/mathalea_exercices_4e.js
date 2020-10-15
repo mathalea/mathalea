@@ -4176,11 +4176,10 @@ function Reciproque_Pythagore() {
       b = triplet[1];
       c = triplet[2];
       if (liste_type_de_questions[i] == "pas_rectangle") {
-        c += randint(-3, 3, [0]); // on change la valeur de c
+        c = randint(Math.max(c-3,b+1),c+3) // on modifie c en faisant attention à ce qu'il reste plus grand que b
         while (a ** 2 + b ** 2 == c ** 2) {
           // si par hasard (est-ce possible ?) on retombe sur un triplet pythagoricien on change les valeurs
-          c += randint(-3, 3, [0]); // on change la valeur de c
-          b += randint(-3, 3, [0]); // on change la valeur de b
+          c = randint(Math.max(c-3,b+1),c+3) // on modifie c en faisant attention à ce qu'il reste plus grand que b
         }
       }
       if (a > 9 && choice([true, true, true, false])) {
@@ -11373,6 +11372,7 @@ function Pythagore2D() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let liste_type_de_questions = [];
+    let liste_de_noms_de_polygones = [];
     if (this.sup==1) {
       this.consigne = "Dans chaque cas, donner l'égalité de Pythagore."
     } else if (this.sup==2){
@@ -11401,7 +11401,8 @@ function Pythagore2D() {
       let ymin = Math.min(A.y,B.y,C.y)-1
       let xmax = Math.max(A.x,B.x,C.x)+1
       let ymax = Math.max(A.y,B.y,C.y)+1
-      let nomDuPolygone = creerNomDePolygone(3)
+      let nomDuPolygone = creerNomDePolygone(3,liste_de_noms_de_polygones);
+      liste_de_noms_de_polygones.push(nomDuPolygone)
       let nomme = nommePolygone(p2,nomDuPolygone)
       let affAB = afficheLongueurSegment(B,A)
       let affAC = afficheLongueurSegment(A,C)
