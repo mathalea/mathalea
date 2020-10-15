@@ -11373,6 +11373,7 @@ function Pythagore2D() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let liste_type_de_questions = [];
+    let liste_de_noms_de_polygones = [];
     if (this.sup==1) {
       this.consigne = "Dans chaque cas, donner l'égalité de Pythagore."
     } else if (this.sup==2){
@@ -11401,7 +11402,8 @@ function Pythagore2D() {
       let ymin = Math.min(A.y,B.y,C.y)-1
       let xmax = Math.max(A.x,B.x,C.x)+1
       let ymax = Math.max(A.y,B.y,C.y)+1
-      let nomDuPolygone = creerNomDePolygone(3)
+      let nomDuPolygone = creerNomDePolygone(3,liste_de_noms_de_polygones);
+      liste_de_noms_de_polygones.push(nomDuPolygone)
       let nomme = nommePolygone(p2,nomDuPolygone)
       let affAB = afficheLongueurSegment(B,A)
       let affAC = afficheLongueurSegment(A,C)
