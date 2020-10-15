@@ -4177,11 +4177,10 @@ function Reciproque_Pythagore() {
       b = triplet[1];
       c = triplet[2];
       if (liste_type_de_questions[i] == "pas_rectangle") {
-        c += randint(-3, 3, [0]); // on change la valeur de c
+        c = randint(Math.max(c-3,b+1),c+3) // on modifie c en faisant attention à ce qu'il reste plus grand que b
         while (a ** 2 + b ** 2 == c ** 2) {
           // si par hasard (est-ce possible ?) on retombe sur un triplet pythagoricien on change les valeurs
-          c += randint(-3, 3, [0]); // on change la valeur de c
-          b += randint(-3, 3, [0]); // on change la valeur de b
+          c = randint(Math.max(c-3,b+1),c+3) // on modifie c en faisant attention à ce qu'il reste plus grand que b
         }
       }
       if (a > 9 && choice([true, true, true, false])) {
