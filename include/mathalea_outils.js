@@ -5119,8 +5119,13 @@ function Fraction(num,den) {
 	 * @param {object} f2  LA fraction par laquelle est multipliée la fraction
 	 */
     this.produitFraction = function(f2) {
+
         return fraction(this.num*f2.num,this.den*f2.den)
 	}
+	this.texProduitFraction = function(f2) {
+			return `${tex_fraction(this.num,this.den)}\\times ${tex_fraction(f2.num,f2.den)}=${tex_fraction(this.num+`\\times`+f2.num,this.den+`\\times`+f2.den)}=${tex_fraction(this.num*f2.num,this.den*f2.den)}`
+	} 
+	
 	/**
 	 * @return {object} La puissance n de la fraction
 	 * @param {integer} n l'exposant de la fraction 
