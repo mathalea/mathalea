@@ -5066,51 +5066,51 @@ function Fraction(num,den) {
 	 * @return {object} La fraction "complexifiée" d'un rapport k
 	 * @param {number} k Le nombre par lequel, le numérateur et le dénominateur sont multipliés.
 	 */
-	this.fractionEgale = function(k){
+	this.egal = function(k){
 		return fraction(calcul(this.numIrred*k),calcul(this.denIrred*k))
 	}   
-	this.simplifie=function() {
+	this.simp=function() {
 		return fraction(this.numIrred,this.denIrred)
 	}
 	/**
 	 * @return {object} L'opposé de la fraction
 	 */
-    this.oppose = function(){
+    this.opp = function(){
         return fraction(-this.num,this.den)
 	}
 	/**
 	 * @return {object]} L'opposé de la fracion réduite
 	 */
-    this.opposeIrred = function(){
+    this.oppIr = function(){
         return fraction(-this.numIrred,this.denIrred)
     }
 	/**
 	 * @return {object]} L'inverse de la fraction
 	 */
-    this.inverse = function(){
+    this.inv = function(){
         return fraction(this.den,this.num)
 	}
 	/**
 	 * @return {object} L'inverse de la fraction simplifiée
 	 */
-    this.inverseIrred = function(){
+    this.invIr = function(){
         return fraction(this.denIrred,this.numIrred)
 	}
 	/**
 	 * @return {object} La somme des fractions
 	 * @param {object} f2 La fraction qui s'ajoute
 	 */
-    this.sommeFraction =function(f2) {
+    this.add =function(f2) {
         return fraction(this.num*f2.den+f2.num*this.den,this.den*f2.den)
 	}
 	/**
 	 * @return {object} La somme de toutes les fractions
 	 * @param  {...any} fractions Liste des fractions à ajouter à la fraction
 	 */
-    this.sommeFractions = function(...fractions){
+    this.adds = function(...fractions){
         let s=fraction(this.num,this.den)
         for (let f of fractions) {
-            s=s.sommeFraction(f)
+            s=s.add(f)
         }
         return s
 	}
@@ -5118,24 +5118,29 @@ function Fraction(num,den) {
 	 * @return {object} Le produit des deux fractions
 	 * @param {object} f2  LA fraction par laquelle est multipliée la fraction
 	 */
-    this.produitFraction = function(f2) {
+    this.mul = function(f2) {
+
         return fraction(this.num*f2.num,this.den*f2.den)
 	}
+	this.texmul = function(f2) {
+			return `${tex_fraction(this.num,this.den)}\\times ${tex_fraction(f2.num,f2.den)}=${tex_fraction(this.num+`\\times`+f2.num,this.den+`\\times`+f2.den)}=${tex_fraction(this.num*f2.num,this.den*f2.den)}`
+	} 
+
 	/**
 	 * @return {object} La puissance n de la fraction
 	 * @param {integer} n l'exposant de la fraction 
 	 */
-    this.puissanceFraction = function(n) {
+    this.pow = function(n) {
         return fraction(this.num**n,this.den**n)
 	}
 	/**
 	 * @param  {...any} fractions Les fractions qui multiplient la fraction
 	 * @return Le produit des fractions
 	 */
-    this.produitFractions = function(...fractions){
+    this.muls = function(...fractions){
         let p=fraction(this.num,this.den)
         for (let f of fractions) {
-            p=p.produitFraction(f)
+            p=p.mul(f)
     }
         return p
 	}
@@ -5143,14 +5148,14 @@ function Fraction(num,den) {
 	 * @param {object} f2 est la fracion qui est soustraite de la fraction
 	 * @return {objet} La différence des deux fractions
 	 */
-    this.differenceFraction = function(f2) {
-        return this.sommeFraction(f2.oppose())
+    this.sub = function(f2) {
+        return this.add(f2.opp())
 	}
 
 /**
  * @return {object}  Renvoie une fraction avec comme dénominateur une puissance de 10 ou 'NaN' si la fraction n'a pas de valeur décimale
  */
-	this.fractionDecimale = function(){
+	this.fr10 = function(){
 		let den=this.denIrred
 		let num=this.numIrred
 		let liste=obtenir_liste_facteurs_premiers(den)
@@ -5167,20 +5172,20 @@ function Fraction(num,den) {
 	/**
 	 * @return {number} La valeur décimale de la fraction
 	 */
-	this.valeurDecimale = function(){
-		if (this.fractionDecimale()!='NaN') return calcul(this.fractionDecimale().num/this.fractionDecimale().den)
+	this.val10 = function(){
+		if (this.fr10()!='NaN') return calcul(this.fr10().num/this.fr10().den)
 		else return `Ce n\'est pas un nombre décimal`
 	}
 	/**
 	 * @return {string} Code Latex de la fraction
 	 */
-	this.texFraction = function(){
+	this.texfr = function(){
 		return tex_fraction_signe(this.num,this.den)
 	}
 	/**
 	 * @return {string} code Latex de lafraction simplifiée
 	 */
-	this.texFractionSimplifiee = function(){
+	this.texfrsimp = function(){
 		return tex_fraction_signe(this.numIrred,this.denIrred)
 	}
     /**
@@ -5188,7 +5193,7 @@ function Fraction(num,den) {
      * @param {integer} n entier par lequel multiplier la fraction 
      * @return {object} fraction multipliée par n
      */
-    this.multiplieEntier = function(n) {
+    this.muln = function(n) {
         return fraction(n*this.num,this.den);
     };
 
@@ -5197,35 +5202,35 @@ function Fraction(num,den) {
      * @param {integer} n entier par lequel multiplier la fraction 
      * @return {object} fraction multipliée par n simplifiée
      */
-    this.multiplieEntierIrred = function(n) {
+    this.mulnIr = function(n) {
         return fraction(fraction_simplifiee(n*this.num,this.den)[0],fraction_simplifiee(n*this.num,this.den)[1]);
 	};
 	/**
 	 * @return fraction divisée par n
 	 * @param {integer} n entier qui divise la fraction 
 	 */
-	this.entierDivise=function(n){
+	this.divn=function(n){
 		return fraction(this.num,n*this.den)
 	}
 	/**
 	 * @return fraction divisée par n et réduite si possible
 	 * @param {integer} n entier qui divise la fraction 
 	 */
-	this.entierDiviseIrred=function(n){
+	this.dinIr=function(n){
 		return fraction(fraction(this.num,n*this.den).numIrred,fraction(this.num,n*this.den).denIrred)
 	}
 	/**
 	 * @return {object} la fraction augmentée de n
 	 * @param {integer} n entier à ajouter à la fraction 
 	 */
-	this.ajouteEntier=function(n){
+	this.addn=function(n){
 		return fraction(this.num+this.den*n,this.den)
 	}
 /**
  * @return {object} n moins la fraction
  * @param {integer} n l'entier duqel on soustrait la fraction 
  */
-	this.entierMoinsFraction=function(n){
+	this.nsub=function(n){
 		return (fraction(n*this.den-this.num,this.den))
 	}
     /**
