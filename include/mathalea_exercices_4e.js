@@ -4269,15 +4269,27 @@ function Problemes_Pythagore() {
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles = [
-      "losange",
-      "rectangle_diagonale_connue",
-      "rectangle_diagonale_a_trouver",
-      "parallelogramme_est_losange",
-      "parallelogramme_n_est_pas_losange",
-      "parallelogramme_est_rectangle",
-      "parallelogramme_n_est_pas_rectangle",
-    ];
+    let type_de_questions_disponibles;
+    if (this.nb_questions >=5){
+      type_de_questions_disponibles = [
+        "losange",
+        "rectangle_diagonale_connue",
+        "rectangle_diagonale_a_trouver",
+        "parallelogramme_est_losange",
+        "parallelogramme_n_est_pas_losange",
+        "parallelogramme_est_rectangle",
+        "parallelogramme_n_est_pas_rectangle",
+      ];
+    } else {
+      type_de_questions_disponibles = [
+        "losange",
+        "rectangle_diagonale_connue",
+        "rectangle_diagonale_a_trouver",
+        choice(["parallelogramme_est_losange","parallelogramme_n_est_pas_losange",]),
+        choice(["parallelogramme_est_rectangle",
+        "parallelogramme_n_est_pas_rectangle",])
+      ];
+    }
     let liste_type_de_questions = combinaison_listes(
       type_de_questions_disponibles,
       this.nb_questions
