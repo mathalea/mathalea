@@ -131,38 +131,38 @@ function ecrireAdditionPosee(x,y,...args){
 */
 class NombreDecimal {
 	constructor(nombre){
-		this.partieEntiere=[]
-		this.partieDecimale=[]
 		if (nombre<0) {
 			this.signe=`-`
 			nombre=calcul(-nombre)
 		}
 		else this.signe=`+`
-		let ent=Math.floor(nombre)
-		let partiedecimale=calcul(nombre-ent)
-		let nbcPE=Math.ceil(Math.log10(ent))
-		for (let i=0;i<nbcPE;i++){
-			this.partieEntiere.push(ent%10)
-			ent=(ent-(ent%10))/10
+		console.log(nombre)
+		this.exposant=Math.floor(Math.log10(nombre))
+		nombre=nombre/10**this.exposant
+		console.log(nombre)
+		this.mantisse=[]
+		for (let k=0;k<16;k++) {
+			if (egal(Math.ceil(nombre)-nombre,0,0.00001)) {
+				this.mantisse.push(Math.ceil(nombre))
+				nombre=(this.mantisse[k]-nombre)*10
+			}
+			else {
+				this.mantisse.push(Math.floor(nombre))
+				nombre=(nombre-this.mantisse[k])*10
+			}
+			console.log(nombre)
+			if (egal(nombre,0,0.001)) break
 		}
-
-		let k=0
-		while (!egal(partiedecimale,0)){
-			partiedecimale=arrondi(partiedecimale*10,10)
-			this.partieDecimale.push(Math.floor(partiedecimale))
-			partiedecimale=(partiedecimale-Math.floor(partiedecimale))
-			k++
-		}
+		
 	}
 	get valeur() {
 		return this.recompose()
 	}
 	recompose() {
 		let val=0
-		for (let i=0;i<this.partieEntiere.length;i++)
-			val+=this.partieEntiere[i]*10**i
-		for (let j=0;j<this.partieDecimale.length;j++) 
-			val+=this.partieDecimale[j]*10**(-1-j)
+		for (let i=0;i<10;i++)
+			val+=this.mantisse[i]*10**(-i)
+		val=val*10**this.exposant
 		if (this.signe==`+`) return val
 		else return calcul(-val)
 	}
