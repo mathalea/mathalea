@@ -562,7 +562,7 @@ function Trouver_equation_parabole() {
 
       if (liste_type_de_questions[i]<3) {
         a=choice([-1,1])
-        b=randint(-3,3)*2
+        b=randint(-3,3,0)*2
         c=randint(-10,10)
         x1=randint(-5,5)
         x2=randint(-5,5,x1)
@@ -570,13 +570,13 @@ function Trouver_equation_parabole() {
       }
       else {
         x1=randint(-4,-1)
-        x2=randint(1,4)
+        x2=randint(1,4,-x1)
         x3=randint(-5,5,[x1,x2])
         a=randint(-2,2,0)
         b=calcul(-a*(x1+x2))
         c=a*x1*x2
       }
-      FdeX = function(x) {
+      f = function(x) {
         return calcul(a*x**2+b*x+c)
       }
       texte = `Quelle est l'équation de la fonction f du second degré telle que :<br>`
@@ -585,22 +585,22 @@ function Trouver_equation_parabole() {
       switch (liste_type_de_questions[i]) {
           case 1 : // passe par 3 points à coordonnées entières dont -x1, 0 et x1.
           if (x1<0) x1=-x1
-          texte+=`$f(${x1})=${FdeX(x1)}$ ; $f(0)=${FdeX(0)}$ et $f(${-x1})=${FdeX(-x1)}$ <br>`
+          texte+=`$f(${x1})=${f(x1)}$ ; $f(0)=${f(0)}$ et $f(${-x1})=${f(-x1)}$ <br>`
           texte_corr=`Soit $f(x)=ax^2+bx+c$ , l'expression de la fonction cherchée, nous avons immédiatement :<br>`
-          texte_corr+=`$f(0)=c=${FdeX(0)}$ donc $f(x)=ax^2+bx${ecriture_algebrique(FdeX(0))}$.<br>`
+          texte_corr+=`$f(0)=c=${f(0)}$ donc $f(x)=ax^2+bx${ecriture_algebrique(f(0))}$.<br>`
           texte_corr+=`En substituant dans cette expression les valeurs de l'énoncé, nous obtenons :<br>`
           texte_corr+=`$\\begin{cases}
-          ${FdeX(x1)}=a\\times${x1}^2+b\\times${x1}${ecriture_algebrique(FdeX(0))}=${ecriture_algebrique_sauf1(x1**2)}a${ecriture_algebrique_sauf1(x1)}b${ecriture_algebrique(FdeX(0))} \\\\
-          ${FdeX(-x1)}=a\\times(${-x1})^2+b\\times(${-x1})${ecriture_algebrique(FdeX(0))}=${ecriture_algebrique_sauf1(x1**2)}a${ecriture_algebrique_sauf1(-x1)}b${ecriture_algebrique(FdeX(0))}
+          ${f(x1)}=a\\times${x1}^2+b\\times${x1}${ecriture_algebrique(f(0))}=${Algebrite.eval(ecriture_algebrique_sauf1(x1**2)+'a'+ecriture_algebrique_sauf1(x1)+'b'+ecriture_algebrique(f(0)))} \\\\
+          ${f(-x1)}=a\\times(${-x1})^2+b\\times(${-x1})${ecriture_algebrique(f(0))}=${Algebrite.eval(ecriture_algebrique_sauf1(x1**2)+'a'+ecriture_algebrique_sauf1(-x1)+'b'+ecriture_algebrique(f(0)))}
        \\end{cases}$<br>`
           texte_corr+=`Ce qui équivaut à $\\begin{cases}
-               ${FdeX(x1)}${ecriture_algebrique(-FdeX(0))}=${FdeX(x1)-FdeX(0)}=${x1**2}a+${x1}b \\\\
-               ${FdeX(-x1)}${ecriture_algebrique(-FdeX(0))}=${FdeX(-x1)-FdeX(0)}=${x1**2}a-${x1}b
+               ${f(x1)}${ecriture_algebrique(-f(0))}=${f(x1)-f(0)}=${Algebrite.eval(ecriture_algebrique_sauf1(x1**2)+'a' + ecriture_algebrique_sauf1(x1)+'b')} \\\\
+               ${f(-x1)}${ecriture_algebrique(-f(0))}=${f(-x1)-f(0)}=${Algebrite.eval(ecriture_algebrique_sauf1(x1**2)+'a'+ecriture_algebrique_sauf1(-x1)+'b')}
              \\end{cases}$<br>`
              texte_corr+=`En ajoutant et en soustrayant les équations membre à membre, on obtient :<br>
               $\\begin{cases}
-             ${FdeX(x1)-FdeX(-x1)}=${2*x1}b \\\\
-             ${FdeX(x1)+FdeX(-x1)-2*FdeX(0)}=${2*x1**2}a
+              ${f(x1)+f(-x1)-2*f(0)}=${2*x1**2}a \\\\
+              ${f(x1)-f(-x1)}=${2*x1}b
            \\end{cases}$<br>`
 
        texte_corr+=`La résolution de ce système donne $a=${a}$ et $b=${b}$.<br>`
@@ -612,22 +612,31 @@ function Trouver_equation_parabole() {
           texte+=`sa courbe atteint son `;
           if (a>0) texte+=`minimum `;
           else texte+=`maximum `;
-          texte +=`en (${x1};${FdeX(x1)}) et passe par le point de coordonnées (${x2};${FdeX(x2)})<br>`
-          texte_corr=`$f(x)=${Algebrite.eval(`${ecriture_algebrique_sauf1(a)}x^2 ${ecriture_algebrique_sauf1(b)}x  ${ecriture_algebrique(c)}`)}$`
+          texte +=`en (${x1};${f(x1)}) et passe par le point de coordonnées (${x2};${f(x2)})<br>`
+          texte_corr=`La forme canonique de $f(x)$ est $a(x${ecriture_algebrique(-x1)})^2${ecriture_algebrique(f(x1))}$`
+          texte_corr+=`$=${Algebrite.eval('ax^2'+ecriture_algebrique(-2*x1)+'ax'+ecriture_algebrique(x1**2)+'a'+ecriture_algebrique(f(x1)))}$<br>`
+          texte_corr+=`De plus $f(${x2})=${f(x2)}$ donc $${ecriture_parenthese_si_negatif(x2)}^2a${ecriture_algebrique(-2*x1)}\\times${ecriture_parenthese_si_negatif(x2)}a${ecriture_algebrique(x1**2)}a${ecriture_algebrique(f(x1))}=${f(x2)}$<br>`
+          texte_corr+=`Soit $${Algebrite.eval(x2**2+'a'+ecriture_algebrique(-2*x1*x2)+'a'+ecriture_algebrique(x1**2)+'a'+ecriture_algebrique(f(x1)))}=${f(x2)}$<br>`
+          if (x2**2-2*x1*x2+x1**2!=1)
+            texte_corr+=`On en déduit que $a=\\dfrac{${f(x2)}${ecriture_algebrique(-f(x1))}}{${(x2**2-2*x1*x2+x1**2)}}=${a}$<br>`
+          else
+            texte_corr+=`On en déduit que $a=${f(x2)}${ecriture_algebrique(-f(x1))}=${a}$<br>`
+          texte_corr+=`En remplaçant $a$ par sa valeur $${a}$ dans l'expression canonique développée $${mise_en_evidence(Algebrite.eval('ax^2'),'blue')}${mise_en_evidence(ecriture_algebrique(-2*x1)+'ax','green')}${mise_en_evidence(ecriture_algebrique(x1**2)+'a'+ecriture_algebrique(f(x1)),'red')}$ on obtient :<br>`
+          texte_corr+=`$f(x)=${mise_en_evidence(rien_si_1(a)+'x^2','blue')}${mise_en_evidence(ecriture_algebrique_sauf1(b)+'x','green')}${mise_en_evidence(ecriture_algebrique(c),'red')}$`
            break;
         case 3:
-          texte+=`$f(${x1})=${FdeX(x1)}$ ; $f(${x2})=${FdeX(x2)}$ et $f(${x3})=${FdeX(x3)}$ <br>`
+          texte+=`$f(${x1})=${f(x1)}$ ; $f(${x2})=${f(x2)}$ et $f(${x3})=${f(x3)}$ <br>`
           texte_corr=`$f(x)=${Algebrite.eval(`${ecriture_algebrique_sauf1(a)}x^2 ${ecriture_algebrique_sauf1(b)}x  ${ecriture_algebrique(c)}`)}$`
           break;
 
       }
       if (a<0) {
-        Ymax=Math.ceil(FdeX(-b/(2*a))+2)
-        Ymin=Math.min(FdeX(x1),FdeX(x2),FdeX(x3),FdeX(-x1),FdeX(0),FdeX(-6),FdeX(6))
+        Ymax=Math.ceil(f(-b/(2*a))+2)
+        Ymin=Math.min(f(x1),f(x2),f(x3),f(-x1),f(0),f(-6),f(6))
       }
       else {
-        Ymin=Math.floor(FdeX(-b/(2*a))-2)
-        Ymax=Math.max(FdeX(x1),FdeX(x2),FdeX(x3),FdeX(-x1),FdeX(0),FdeX(-6),FdeX(6))
+        Ymin=Math.floor(f(-b/(2*a))-2)
+        Ymax=Math.max(f(x1),f(x2),f(x3),f(-x1),f(0),f(-6),f(6))
       }
 
       if (Ymax-Ymin<10) Yscale=1
@@ -646,8 +655,8 @@ function Trouver_equation_parabole() {
       })
       svgYmin=Math.round(((Ymin-2)-(Ymin-2)%Yscale)/Yscale-0.5)
       svgYmax=Math.round((Ymax+2+(Ymax+2)%Yscale)/Yscale+0.5)
-      f = x => a*x**2+b*x+c;
-      texte+=mathalea2d({xmin:-10, xmax:10,ymin:svgYmin,ymax:svgYmax,scale:.6},courbe(f,-10,10,'black',1.5,r),r)
+      F = x => a*x**2+b*x+c;
+     // texte+=mathalea2d({xmin:-10, xmax:10,ymin:svgYmin,ymax:svgYmax,scale:.6},courbe(F,-10,10,'black',1.5,r),r)
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(texte);
@@ -658,5 +667,5 @@ function Trouver_equation_parabole() {
     }
     liste_de_question_to_contenu(this);
   };
-  this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Solutions entières\n2 : Solutions réelles et calcul du discriminant non obligatoire"];
+  this.besoin_formulaire_numerique = ['Niveau de difficulté',3,"1 : Niveau 1\n2 : Niveau 2\3 : Mélange"];
 }
