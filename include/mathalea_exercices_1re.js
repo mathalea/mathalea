@@ -582,8 +582,18 @@ function Trouver_equation_parabole() {
       texte = `Quelle est l'équation de la fonction f du second degré telle que :<br>`
       switch (liste_type_de_questions[i]) {
         case 1 : // passe par 3 points à coordonnées entières dont -x1, 0 et x1.
+          if (x1<0) x1=-x1
           texte+=`$f(${x1})=${FdeX(x1)}$ ; $f(0)=${FdeX(0)}$ et $f(${-x1})=${FdeX(-x1)}$ <br>`
-          texte_corr=`$f(x)=${Algebrite.eval(`${ecriture_algebrique_sauf1(a)}x^2 ${ecriture_algebrique_sauf1(b)}x  ${ecriture_algebrique_sauf1(c)}`)}$`
+          texte_corr=`Soit $f(x)=ax^2+bx+c$ , l'expression de la fonction cherchée, nous avons immédiatement :<br>`
+          texte_corr+=`$f(0)=c=${FdeX(0)}$ donc $f(x)=ax^2+bx${ecriture_algebrique(FdeX(0))}$.<br>`
+          texte_corr+=`En substituant dans cette expression les valeurs de l'énoncé, nous obtenons :<br>`
+          texte_corr+=`$\\begin{cases}
+          ${FdeX(x1)}=a\\times${x1}^2+b\\times${x1}${ecriture_algebrique(FdeX(0))}=${x1**2}a+${x1}b${ecriture_algebrique(FdeX(0))} \\\\
+          ${FdeX(-x1)}=a\\times(${-x1})^2+b\\times(${-x1})${ecriture_algebrique(FdeX(0))}=${x1**2}a-${x1}b${ecriture_algebrique(FdeX(0))}
+       \\end{cases}$<br>`
+       texte_corr+=`La résolution de ce système donne $a=${a}$ et $b=${b}$.<br>`
+       texte_corr+=`D'où $f(x)=${Algebrite.eval(`${ecriture_algebrique_sauf1(a)}x^2 ${ecriture_algebrique_sauf1(b)}x  ${ecriture_algebrique_sauf1(c)}`)}$<br>`
+ 
           break;
         case 2 : // Passant par le sommet (x1,y1) et par le point (x2,y2)
           x1=calcul(-b/(2*a))
