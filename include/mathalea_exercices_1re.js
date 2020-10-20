@@ -580,6 +580,7 @@ function Trouver_equation_parabole() {
         return calcul(a*x**2+b*x+c)
       }
       texte = `Quelle est l'équation de la fonction f du second degré telle que :<br>`
+      texte_corr=``
       console.log(liste_type_de_questions[i])
       
       switch (liste_type_de_questions[i]) {
@@ -624,9 +625,13 @@ function Trouver_equation_parabole() {
           texte_corr+=`En remplaçant $a$ par sa valeur $${a}$ dans l'expression canonique développée $${mise_en_evidence(Algebrite.eval('ax^2'),'blue')}${mise_en_evidence(ecriture_algebrique(-2*x1)+'ax','green')}${mise_en_evidence(ecriture_algebrique(x1**2)+'a'+ecriture_algebrique(f(x1)),'red')}$ on obtient :<br>`
           texte_corr+=`$f(x)=${mise_en_evidence(rien_si_1(a)+'x^2','blue')}${mise_en_evidence(ecriture_algebrique_sauf1(b)+'x','green')}${mise_en_evidence(ecriture_algebrique(c),'red')}$`
            break;
-        case 3:
+        case 3: // on a deux racines x1 et x2 et un troisième point (c3;f(x3))
           texte+=`$f(${x1})=${f(x1)}$ ; $f(${x2})=${f(x2)}$ et $f(${x3})=${f(x3)}$ <br>`
-          texte_corr=`$f(x)=${Algebrite.eval(`${ecriture_algebrique_sauf1(a)}x^2 ${ecriture_algebrique_sauf1(b)}x  ${ecriture_algebrique(c)}`)}$`
+          texte_corr+=`Comme $${x1}$ et $${x2}$ sont les deux racines du polynome $f(x)$, on peut factoriser $f(x)$ :<br>`
+          texte_corr+=`$f(x)=a(x${ecriture_algebrique(-x1)})(x${ecriture_algebrique(-x2)})$<br>`
+          texte_corr+=`Comme $f(${x3})=${f(x3)}$, on en déduit que $${f(x3)}=a(${x3}${ecriture_algebrique(-x1)})(${x3}${ecriture_algebrique(-x2)})$<br>`
+          texte_corr+=`D'où $a=${f(x3)}\\div ${ecriture_parenthese_si_negatif((x3-x1)*(x3-x2))}=${a}$<br>`
+          texte_corr+=`on obtient donc en développant $f(x)=${a}(x${ecriture_algebrique(-x1)})(x${ecriture_algebrique(-x2)})=${Algebrite.eval(`${ecriture_algebrique_sauf1(a)}x^2 ${ecriture_algebrique_sauf1(b)}x  ${ecriture_algebrique(c)}`)}$`
           break;
 
       }
