@@ -2492,6 +2492,90 @@ function Exercice_Thales() {
     "1 : Calcul direct de deux longueurs \n 2 : Avec calcul intermédiaire\n 3 : Sans figure",
   ];
 }
+
+
+/**
+ * Calcul de longueurs avec le théorème de Thalès
+ * @Auteur Rémi Angot
+ * Référence 4G30
+*/
+function Thales2D() {
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.titre = "Calculer des longueurs avec la propriété de Thalès";
+  this.consigne = "";
+  this.nb_questions = 1;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    let liste_de_noms_de_polygones = []
+
+    for (let i = 0, texte, texte_corr, cpt = 0;i < this.nb_questions && cpt < 50;)
+     {
+      let nomDesPoints = creerNomDePolygone(5,liste_de_noms_de_polygones);
+      liste_de_noms_de_polygones.push(nomDesPoints);
+      let nomA = nomDesPoints[0];
+      let nomB = nomDesPoints[1];
+      let nomC = nomDesPoints[2];
+      let nomM = nomDesPoints[3];
+      let nomN = nomDesPoints[4];
+      let ab = randint(5, 10);
+      let ac = randint(5, 10,ab);
+      if(!sortie_html){
+        ab = randint(3, 7);
+        ac = randint(3, 7,ab);
+      }
+      let bc = randint(Math.max(ab - ac, ac - ab) + 1, ab + ac - 1,[ab,ac]); // Pas de triangle isocèle ou équilatéral
+      let A = point(0, 0, nomA);
+      let B = pointAdistance(A, ab, nomB);
+      let ABC = triangle2points2longueurs(A, B, ac, bc);
+      let C = ABC.listePoints[2];
+      C.nom = nomC;
+      let k = calcul(randint(2, 8,5) / 10);
+      let M = homothetie(A, C, k);
+      let N = homothetie(B, C, k);
+      let s = segment(M, N);
+      let marqueNomABC = nommePolygone(ABC, nomA+nomB+nomC);
+      let m = pointSurSegment(M, N, -1);
+      let n = pointSurSegment(N, M, -1);
+      let marqueNomM = texteParPoint(nomM, m);
+      let marqueNomN = texteParPoint(nomN, n);
+
+
+      texte = `Sur la figure suivante, $${nomA+nomC}=${ac}~\\text{cm}$, $${nomA+nomB}=${ab}~\\text{cm}$, $${nomC+nomM}=${tex_nombrec(k*ac)}~\\text{cm}$, $${nomC+nomN}=${tex_nombrec(k*bc)}~\\text{cm}$ et $(${nomA+nomB})//(${nomM+nomN})$.<br>`
+      texte+= `Calculer $${nomM+nomN}$ et $${nomC+nomB}$.<br><br>`
+      texte += mathalea2d({xmin : Math.min(A.x, B.x, C.x) - 1.5,
+        ymin : Math.min(A.y, B.y, C.y) - 1.5,
+        xmax : Math.max(A.x, B.x, C.x) + 1.5,
+        ymax : Math.max(A.y, B.y, C.y) + 1.5},
+
+        ABC, s, marqueNomABC, marqueNomM, marqueNomN
+      );
+      texte_corr = `Dans le triangle $${nomA+nomB+nomC}$, $${nomM}\\in${"["+nomC+nomA+"]"}$, $${nomN}\\in${"["+nomC+nomB+"]"}$ et $(${nomA+nomB})//(${nomM+nomN})$ donc d'après le théorème de Thalès les triangles $${nomA+nomB+nomC}$ et $${nomM+nomN+nomC}$ ont des longueurs proportionnelles.`;
+      texte_corr += `<br><br>`
+      texte_corr += `$\\dfrac{${nomC+nomM}}{${nomC+nomA}}=\\dfrac{${nomC+nomN}}{${nomC+nomB}}=\\dfrac{${nomM+nomN}}{${nomA+nomB}}$`  
+      texte_corr += `<br><br>`
+      texte_corr += `$\\dfrac{${tex_nombrec(k*ac)}}{${tex_nombre(ac)}}=\\dfrac{${tex_nombrec(k*bc)}}{${nomC+nomB}}=\\dfrac{${nomM+nomN}}{${tex_nombre(ab)}}$`  
+      texte_corr += `<br><br>`
+      texte_corr += `$${nomM+nomN}=\\dfrac{${tex_nombrec(k*ac)}\\times${tex_nombre(ab)}}{${tex_nombre(ac)}}=${tex_nombrec(k*ab)}$ cm`
+      texte_corr += `<br><br>`
+      texte_corr += `$${nomC+nomB}=\\dfrac{${tex_nombrec(k*bc)}\\times${tex_nombre(ac)}}{${tex_nombrec(k*ac)}}=${tex_nombrec(bc)}$ cm`
+      if (this.liste_questions.indexOf(texte) == -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
+        this.liste_questions.push(texte);
+        this.liste_corrections.push(texte_corr);
+        i++;
+      }
+      cpt++;
+    }
+    liste_de_question_to_contenu(this);
+  };
+  //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+}
+
+
 /**
  * Reciproque_Thales
  * @Auteur Jean-Claude Lhote
@@ -4269,15 +4353,27 @@ function Problemes_Pythagore() {
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles = [
-      "losange",
-      "rectangle_diagonale_connue",
-      "rectangle_diagonale_a_trouver",
-      "parallelogramme_est_losange",
-      "parallelogramme_n_est_pas_losange",
-      "parallelogramme_est_rectangle",
-      "parallelogramme_n_est_pas_rectangle",
-    ];
+    let type_de_questions_disponibles;
+    if (this.nb_questions >=5){
+      type_de_questions_disponibles = [
+        "losange",
+        "rectangle_diagonale_connue",
+        "rectangle_diagonale_a_trouver",
+        "parallelogramme_est_losange",
+        "parallelogramme_n_est_pas_losange",
+        "parallelogramme_est_rectangle",
+        "parallelogramme_n_est_pas_rectangle",
+      ];
+    } else {
+      type_de_questions_disponibles = [
+        "losange",
+        "rectangle_diagonale_connue",
+        "rectangle_diagonale_a_trouver",
+        choice(["parallelogramme_est_losange","parallelogramme_n_est_pas_losange",]),
+        choice(["parallelogramme_est_rectangle",
+        "parallelogramme_n_est_pas_rectangle",])
+      ];
+    }
     let liste_type_de_questions = combinaison_listes(
       type_de_questions_disponibles,
       this.nb_questions

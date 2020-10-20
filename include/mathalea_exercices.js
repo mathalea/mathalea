@@ -225,7 +225,8 @@ var liste_des_exercices_disponibles = {
   "4G20MG32": Exercice_Pythagore,
   "4G21": Reciproque_Pythagore,
   "4G22": Problemes_Pythagore,
-  "4G30": Thales_4eme,
+  "4G30-1": Thales2D,
+  "4G30" : Thales_4eme,
   "4G31": Reciproque_Thales_4eme,
   "4G40": Exercice_Trigo_longueurs_4e,
   "4G41": Exercice_Trigo_angles_4e,
@@ -11862,10 +11863,11 @@ function Reglages_6N34() {
   this.titre = "Conversions avec tous les préfixes de milli à tera.";
 }
 
-// 4G30
+// 4G30-1
 function Thales_4eme() {
   //Dans cette version, pas de configuration papillon reservée aux 3èmes.
   Exercice_Thales.call(this);
+  this.titre = "Calculer des longueurs avec la propriété de Thalès (MG32)"
   this.quatrieme = true;
   sortie_html? this.spacing = 1.5 : this.spacing = 1; 
 }
