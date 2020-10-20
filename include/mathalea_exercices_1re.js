@@ -590,9 +590,19 @@ function Trouver_equation_parabole() {
           texte_corr+=`$f(0)=c=${FdeX(0)}$ donc $f(x)=ax^2+bx${ecriture_algebrique(FdeX(0))}$.<br>`
           texte_corr+=`En substituant dans cette expression les valeurs de l'énoncé, nous obtenons :<br>`
           texte_corr+=`$\\begin{cases}
-          ${FdeX(x1)}=a\\times${x1}^2+b\\times${x1}${ecriture_algebrique(FdeX(0))}=${x1**2}a+${x1}b${ecriture_algebrique(FdeX(0))} \\\\
-          ${FdeX(-x1)}=a\\times(${-x1})^2+b\\times(${-x1})${ecriture_algebrique(FdeX(0))}=${x1**2}a-${x1}b${ecriture_algebrique(FdeX(0))}
+          ${FdeX(x1)}=a\\times${x1}^2+b\\times${x1}${ecriture_algebrique(FdeX(0))}=${ecriture_algebrique_sauf1(x1**2)}a${ecriture_algebrique_sauf1(x1)}b${ecriture_algebrique(FdeX(0))} \\\\
+          ${FdeX(-x1)}=a\\times(${-x1})^2+b\\times(${-x1})${ecriture_algebrique(FdeX(0))}=${ecriture_algebrique_sauf1(x1**2)}a${ecriture_algebrique_sauf1(-x1)}b${ecriture_algebrique(FdeX(0))}
        \\end{cases}$<br>`
+          texte_corr+=`Ce qui équivaut à $\\begin{cases}
+               ${FdeX(x1)}${ecriture_algebrique(-FdeX(0))}=${FdeX(x1)-FdeX(0)}=${x1**2}a+${x1}b \\\\
+               ${FdeX(-x1)}${ecriture_algebrique(-FdeX(0))}=${FdeX(-x1)-FdeX(0)}=${x1**2}a-${x1}b
+             \\end{cases}$<br>`
+             texte_corr+=`En ajoutant et en soustrayant les équations membre à membre, on obtient :<br>
+              $\\begin{cases}
+             ${FdeX(x1)-FdeX(-x1)}=${2*x1}b \\\\
+             ${FdeX(x1)+FdeX(-x1)-2*FdeX(0)}=${2*x1**2}a
+           \\end{cases}$<br>`
+
        texte_corr+=`La résolution de ce système donne $a=${a}$ et $b=${b}$.<br>`
        texte_corr+=`D'où $f(x)=${Algebrite.eval(`${ecriture_algebrique_sauf1(a)}x^2 ${ecriture_algebrique_sauf1(b)}x  ${ecriture_algebrique(c)}`)}$<br>`
  
