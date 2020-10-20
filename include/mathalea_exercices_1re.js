@@ -564,9 +564,9 @@ function Trouver_equation_parabole() {
         a=choice([-1,1])
         b=randint(-3,3)*2
         c=randint(-10,10)
-        x1=randint(-10,10)
-        x2=randint(-10,10,x1)
-        x3=randint(-10,10,[x1,x2])
+        x1=randint(-5,5)
+        x2=randint(-5,5,x1)
+        x3=randint(-5,5,[x1,x2])
       }
       else {
         x1=randint(-4,-1)
@@ -580,8 +580,10 @@ function Trouver_equation_parabole() {
         return calcul(a*x**2+b*x+c)
       }
       texte = `Quelle est l'équation de la fonction f du second degré telle que :<br>`
+      console.log(liste_type_de_questions[i])
+      
       switch (liste_type_de_questions[i]) {
-        case 1 : // passe par 3 points à coordonnées entières dont -x1, 0 et x1.
+          case 1 : // passe par 3 points à coordonnées entières dont -x1, 0 et x1.
           if (x1<0) x1=-x1
           texte+=`$f(${x1})=${FdeX(x1)}$ ; $f(0)=${FdeX(0)}$ et $f(${-x1})=${FdeX(-x1)}$ <br>`
           texte_corr=`Soit $f(x)=ax^2+bx+c$ , l'expression de la fonction cherchée, nous avons immédiatement :<br>`
@@ -592,7 +594,7 @@ function Trouver_equation_parabole() {
           ${FdeX(-x1)}=a\\times(${-x1})^2+b\\times(${-x1})${ecriture_algebrique(FdeX(0))}=${x1**2}a-${x1}b${ecriture_algebrique(FdeX(0))}
        \\end{cases}$<br>`
        texte_corr+=`La résolution de ce système donne $a=${a}$ et $b=${b}$.<br>`
-       texte_corr+=`D'où $f(x)=${Algebrite.eval(`${ecriture_algebrique_sauf1(a)}x^2 ${ecriture_algebrique_sauf1(b)}x  ${ecriture_algebrique_sauf1(c)}`)}$<br>`
+       texte_corr+=`D'où $f(x)=${Algebrite.eval(`${ecriture_algebrique_sauf1(a)}x^2 ${ecriture_algebrique_sauf1(b)}x  ${ecriture_algebrique(c)}`)}$<br>`
  
           break;
         case 2 : // Passant par le sommet (x1,y1) et par le point (x2,y2)
@@ -601,26 +603,28 @@ function Trouver_equation_parabole() {
           if (a>0) texte+=`minimum `;
           else texte+=`maximum `;
           texte +=`en (${x1};${FdeX(x1)}) et passe par le point de coordonnées (${x2};${FdeX(x2)})<br>`
-          texte_corr=`$f(x)=${Algebrite.eval(`${ecriture_algebrique_sauf1(a)}x^2 ${ecriture_algebrique_sauf1(b)}x  ${ecriture_algebrique_sauf1(c)}`)}$`
+          texte_corr=`$f(x)=${Algebrite.eval(`${ecriture_algebrique_sauf1(a)}x^2 ${ecriture_algebrique_sauf1(b)}x  ${ecriture_algebrique(c)}`)}$`
            break;
         case 3:
           texte+=`$f(${x1})=${FdeX(x1)}$ ; $f(${x2})=${FdeX(x2)}$ et $f(${x3})=${FdeX(x3)}$ <br>`
-          texte_corr=`$f(x)=${Algebrite.eval(`${ecriture_algebrique_sauf1(a)}x^2 ${ecriture_algebrique_sauf1(b)}x  ${ecriture_algebrique_sauf1(c)}`)}$`
+          texte_corr=`$f(x)=${Algebrite.eval(`${ecriture_algebrique_sauf1(a)}x^2 ${ecriture_algebrique_sauf1(b)}x  ${ecriture_algebrique(c)}`)}$`
           break;
 
       }
       if (a<0) {
         Ymax=Math.ceil(FdeX(-b/(2*a))+2)
-        Ymin=Math.min(FdeX(x1),FdeX(x2),FdeX(x3))
+        Ymin=Math.min(FdeX(x1),FdeX(x2),FdeX(x3),FdeX(-x1),FdeX(0),FdeX(-6),FdeX(6))
       }
       else {
         Ymin=Math.floor(FdeX(-b/(2*a))-2)
-        Ymax=Math.max(FdeX(x1),FdeX(x2),FdeX(x3))
+        Ymax=Math.max(FdeX(x1),FdeX(x2),FdeX(x3),FdeX(-x1),FdeX(0),FdeX(-6),FdeX(6))
       }
-      if (Ymin>0) Ymin=0
-      if (Ymax<0) Ymax=0
+
       if (Ymax-Ymin<10) Yscale=1
-      else Yscale =Math.ceil((Ymax-Ymin)/10)
+      else Yscale =Math.max(1,calcul(Math.round(Math.ceil((Ymax-Ymin)/10)/5)*5))
+      if (Ymin>0) Ymin=-Yscale
+      if (Ymax<0) Ymax=Yscale
+      
       console.log(i,Ymin,Ymax,Yscale) // Pour deboguer le décalage des graduations en Y
       r = repere({
         xmin: -10,
