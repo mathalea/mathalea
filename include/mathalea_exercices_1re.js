@@ -651,7 +651,6 @@ function Trouver_equation_parabole() {
       if (Ymax<0) Ymax=Yscale
       else Ymax=premierMultipleSuperieur(Yscale,Ymax)
       
-      console.log(i,Ymin,Ymax,Yscale) // Pour deboguer le décalage des graduations en Y
       r = repere({
         xmin: -10,
         ymin: Ymin,
@@ -663,9 +662,8 @@ function Trouver_equation_parabole() {
       })
       svgYmin=calcul(Ymin/Yscale)
       svgYmax=calcul(Ymax/Yscale)
-      console.log(i,'svgYmin = ',svgYmin,'svgYmax = ',svgYmax,'Ymin = ',Ymin,'Ymax = ',Ymax,'Yscale',Yscale)
       F = x => a*x**2+b*x+c;
-     texte+=mathalea2d({xmin:-10, xmax:10,ymin:svgYmin,ymax:svgYmax,scale:.6},courbe(F,-10,10,'black',1.5,r),r)
+     texte+=mathalea2d({xmin:-10, xmax:11,ymin:svgYmin,ymax:svgYmax+1,scale:.6},courbe(F,-10,10,'blue',1.5,r),r)
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(texte);
