@@ -4102,6 +4102,59 @@ function grille(...args) {
 }
 
 
+/**
+ * grilleHorizontale(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les parallèle à l'axe des ordonnées
+ *
+ * @Auteur Rémi Angot
+ */
+function GrilleHorizontale(
+  xmin = -30,
+  ymin = -30,
+  xmax = 30,
+  ymax = 30,
+  color = "gray",
+  opacite = 0.4,
+  step = 1,
+  pointilles = false
+) {
+  ObjetMathalea2D.call(this);
+  this.color = color;
+  this.opacite = opacite;
+  let objets = [];
+  for (let i = ymin; i <= ymax; i += step) {
+    let s = segment(xmin, i, xmax, i);
+    s.color = this.color;
+    s.opacite = this.opacite;
+    if (pointilles) {
+      s.pointilles = true;
+    }
+    objets.push(s);
+  }
+  this.svg = function (coeff) {
+    code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+}
+
+/**
+ * grilleHorizontale(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les axes des abscisses et des ordinnées
+ *
+ * @Auteur Rémi Angot
+ */
+function grilleHorizontale(...args) {
+  return new GrilleHorizontale(...args);
+}
+
 function Seyes(xmin = 0, ymin = 0, xmax = 15, ymax = 15,opacite1 = .5, opacite2 = .2) {
   ObjetMathalea2D.call(this)
   objets = [];
@@ -4157,8 +4210,11 @@ function Repere({
   graduationColor = "black",
   afficheZero = false,
   afficheNumeros = true,
+  afficheLabelX = true,
+  afficheLabelY = true,
   axesEpaisseur = 2,
   axesColor = "black",
+  grilleHorizontaleVisible = false,
   grillePrincipaleDistance = 1,
   grillePrincipaleColor = "gray",
   grillePrincipaleOpacite = 0.7,
@@ -4190,7 +4246,8 @@ function Repere({
   this.svg = function (coeff) {
     code = "";
     if (grillePrincipaleVisible) {
-      code+=grille(
+      if (grilleHorizontaleVisible){
+        code+=grilleHorizontale(
           calcul(xmin / xscale),
           calcul(ymin / yscale),
           calcul(xmax / xscale),
@@ -4200,6 +4257,18 @@ function Repere({
           grillePrincipaleDistance,
           grillePrincipalePointilles
         ).svg(coeff)
+      } else {
+        code+=grille(
+            calcul(xmin / xscale),
+            calcul(ymin / yscale),
+            calcul(xmax / xscale),
+            calcul(ymax / yscale),
+            grillePrincipaleColor,
+            grillePrincipaleOpacite,
+            grillePrincipaleDistance,
+            grillePrincipalePointilles
+          ).svg(coeff)
+      }
     }
     if (grilleSecondaireVisible) {
       code+=
@@ -4229,55 +4298,67 @@ function Repere({
       ).svg(coeff)
     if (afficheNumeros){
       if (afficheZero) {
-        code+= labelX(
-            premierMultipleSuperieur(xstep, graduationsxMin),
-            graduationsxMax,
-            xstep,
-            graduationColor,
-            calcul(yabscisse / yscale) + positionLabelX*20/coeff,
-            xscale
-          ).svg(coeff)
-        code+= labelY(
-            premierMultipleSuperieur(ystep, graduationsyMin),
-            graduationsyMax,
-            ystep,
-            graduationColor,
-            calcul(xordonnee / xscale) + positionLabelY*20/coeff,
-            yscale
-          ).svg(coeff)
+        if (afficheLabelX){
+          code+= labelX(
+              premierMultipleSuperieur(xstep, graduationsxMin),
+              graduationsxMax,
+              xstep,
+              graduationColor,
+              calcul(yabscisse / yscale) + positionLabelX*20/coeff,
+              xscale
+            ).svg(coeff)
+        }
+        if (afficheLabelY){
+          code+= labelY(
+              premierMultipleSuperieur(ystep, graduationsyMin),
+              graduationsyMax,
+              ystep,
+              graduationColor,
+              calcul(xordonnee / xscale) + positionLabelY*20/coeff,
+              yscale
+            ).svg(coeff)
+        }
       } else {
-        code+=labelX(
-            premierMultipleSuperieur(xstep, graduationsxMin),
-            -1,
-            xstep,
-            graduationColor,
-            calcul(yabscisse / yscale) + positionLabelX*20/coeff,
-            xscale
-          ).svg(coeff)
-        code+=labelY(
-            premierMultipleSuperieur(ystep, graduationsyMin),
-            -1,
-            ystep,
-            graduationColor,
-            calcul(xordonnee / xscale) + positionLabelY*20/coeff,
-            yscale
-          ).svg(coeff)
-        code+=labelX(
-            Math.max(xstep, premierMultipleSuperieur(xstep, graduationsxMin)),
-            graduationsxMax,
-            xstep,
-            graduationColor,
-            calcul(yabscisse / yscale) + positionLabelX*20/coeff,
-            xscale
-          ).svg(coeff)
-        code+=labelY(
-            Math.max(ystep, premierMultipleSuperieur(ystep, graduationsyMin)),
-            graduationsyMax,
-            ystep,
-            graduationColor,
-            calcul(xordonnee / xscale) + positionLabelY*20/coeff,
-            yscale
-          ).svg(coeff)
+        if (afficheLabelX){
+          code+=labelX(
+              premierMultipleSuperieur(xstep, graduationsxMin),
+              -1,
+              xstep,
+              graduationColor,
+              calcul(yabscisse / yscale) + positionLabelX*20/coeff,
+              xscale
+            ).svg(coeff)
+        }
+        if (afficheLabelY){
+          code+=labelY(
+              premierMultipleSuperieur(ystep, graduationsyMin),
+              -1,
+              ystep,
+              graduationColor,
+              calcul(xordonnee / xscale) + positionLabelY*20/coeff,
+              yscale
+            ).svg(coeff)
+        }
+        if (afficheLabelX){
+          code+=labelX(
+              Math.max(xstep, premierMultipleSuperieur(xstep, graduationsxMin)),
+              graduationsxMax,
+              xstep,
+              graduationColor,
+              calcul(yabscisse / yscale) + positionLabelX*20/coeff,
+              xscale
+            ).svg(coeff)
+        }
+        if (afficheLabelY){
+          code+=labelY(
+              Math.max(ystep, premierMultipleSuperieur(ystep, graduationsyMin)),
+              graduationsyMax,
+              ystep,
+              graduationColor,
+              calcul(xordonnee / xscale) + positionLabelY*20/coeff,
+              yscale
+            ).svg(coeff)
+        }
       }
     }
     if (positionLegendeX === undefined) {
@@ -4303,7 +4384,8 @@ function Repere({
   this.tikz = function () {
     code = "";
     if (grillePrincipaleVisible) {
-      code+=grille(
+      if (grilleHorizontaleVisible){
+        code+=grilleHorizontale(
           calcul(xmin / xscale),
           calcul(ymin / yscale),
           calcul(xmax / xscale),
@@ -4313,6 +4395,18 @@ function Repere({
           grillePrincipaleDistance,
           grillePrincipalePointilles
         ).tikz()
+      } else {
+        code+=grille(
+            calcul(xmin / xscale),
+            calcul(ymin / yscale),
+            calcul(xmax / xscale),
+            calcul(ymax / yscale),
+            grillePrincipaleColor,
+            grillePrincipaleOpacite,
+            grillePrincipaleDistance,
+            grillePrincipalePointilles
+          ).tikz()
+      }
     }
     if (grilleSecondaireVisible) {
       code+=
@@ -4342,55 +4436,67 @@ function Repere({
       ).tikz()
     
     if (afficheZero) {
-      code+= labelX(
-          premierMultipleSuperieur(xstep, graduationsxMin),
-          graduationsxMax,
-          xstep,
-          graduationColor,
-          calcul(yabscisse / yscale) + positionLabelX/scale,
-          xscale
-        ).tikz()
-      code+= labelY(
-          premierMultipleSuperieur(ystep, graduationsyMin),
-          graduationsyMax,
-          ystep,
-          graduationColor,
-          calcul(xordonnee / xscale) + positionLabelY/scale,
-          yscale
-        ).tikz()
+      if (afficheLabelX){
+        code+= labelX(
+            premierMultipleSuperieur(xstep, graduationsxMin),
+            graduationsxMax,
+            xstep,
+            graduationColor,
+            calcul(yabscisse / yscale) + positionLabelX/scale,
+            xscale
+          ).tikz()
+      }
+      if (afficheLabelY){
+        code+= labelY(
+            premierMultipleSuperieur(ystep, graduationsyMin),
+            graduationsyMax,
+            ystep,
+            graduationColor,
+            calcul(xordonnee / xscale) + positionLabelY/scale,
+            yscale
+          ).tikz()
+      }
     } else {
-      code+=labelX(
-          premierMultipleSuperieur(xstep, graduationsxMin),
-          -1,
-          xstep,
-          graduationColor,
-          calcul(yabscisse / yscale) + positionLabelX/scale,
-          xscale
-        ).tikz()
-      code+=labelY(
-          premierMultipleSuperieur(ystep, graduationsyMin),
-          -1,
-          ystep,
-          graduationColor,
-          calcul(xordonnee / xscale) + positionLabelY/scale,
-          yscale
-        ).tikz()
-      code+=labelX(
-          Math.max(xstep, premierMultipleSuperieur(xstep, graduationsxMin)),
-          graduationsxMax,
-          xstep,
-          graduationColor,
-          calcul(yabscisse / yscale) + positionLabelX/scale,
-          xscale
-        ).tikz()
-      code+=labelY(
-          Math.max(ystep, premierMultipleSuperieur(ystep, graduationsyMin)),
-          graduationsyMax,
-          ystep,
-          graduationColor,
-          calcul(xordonnee / xscale) + positionLabelY/scale,
-          yscale
-        ).tikz()
+      if (afficheLabelX){
+        code+=labelX(
+            premierMultipleSuperieur(xstep, graduationsxMin),
+            -1,
+            xstep,
+            graduationColor,
+            calcul(yabscisse / yscale) + positionLabelX/scale,
+            xscale
+          ).tikz()
+      }
+      if (afficheLabelY){
+        code+=labelY(
+            premierMultipleSuperieur(ystep, graduationsyMin),
+            -1,
+            ystep,
+            graduationColor,
+            calcul(xordonnee / xscale) + positionLabelY/scale,
+            yscale
+          ).tikz()
+      }
+      if (afficheLabelX){
+        code+=labelX(
+            Math.max(xstep, premierMultipleSuperieur(xstep, graduationsxMin)),
+            graduationsxMax,
+            xstep,
+            graduationColor,
+            calcul(yabscisse / yscale) + positionLabelX/scale,
+            xscale
+          ).tikz()
+      }
+      if (afficheLabelY){
+        code+=labelY(
+            Math.max(ystep, premierMultipleSuperieur(ystep, graduationsyMin)),
+            graduationsyMax,
+            ystep,
+            graduationColor,
+            calcul(xordonnee / xscale) + positionLabelY/scale,
+            yscale
+          ).tikz()
+      }
     }
     if (positionLegendeX === undefined) {
       positionLegendeX = [xmax + 0.2/scale, yabscisse + 0.3/scale];
@@ -4423,9 +4529,55 @@ function repere(...args) {
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% LES STATISTIQUES %%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+*/
+
+
+/**
+ * Trace une barre
+ *
+ * 
+ *
+ * @param {integer} x
+ * @param {integer} y
+ * @param {string} legende
+ * @param {integer} epaisseur
+ * @param {string} couleur
+ * @param {integer} opaciteDeRemplissage
+ * @param {integer} angle
+ * @auteur Rémi Angot
+ */
+function TraceBarre(x,y,legende='',epaisseur=.6,couleur='blue',opaciteDeRemplissage=.3,angle=66){
+  ObjetMathalea2D.call(this)
+  let p = polygone(point(calcul(x-epaisseur/2),0),point(calcul(x-epaisseur/2),y),point(calcul(x+epaisseur/2),y),point(calcul(x+epaisseur/2),0))
+  p.couleurDeRemplissage = couleur
+  p.opaciteDeRemplissage = opaciteDeRemplissage
+  let texte = texteParPosition(legende,x,-.5,angle)
+  
+  this.tikz = function (){
+    return p.tikz() + '\n' + texte.tikz()
+  }
+  this.svg = function (coeff){
+    return p.svg(coeff) + '\n' + texte.svg(coeff)
+  }
+}
+
+function traceBarre(...args){
+  return new TraceBarre(...args)
+}
+
+
+
+
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%% LES COURBES DE FONCTIONS %%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
+
+
 
 function LectureImage(x,y,xscale=1,yscale=1,color='red',text_abs="",text_ord=""){
   ObjetMathalea2D.call(this)
