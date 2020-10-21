@@ -1321,7 +1321,7 @@ function lettre_depuis_chiffre(i){
 }
 
 /**
-* Renvoit une lettre majuscule depuis un nombre compris entre 1 et 702
+* Renvoit une lettre minuscule depuis un nombre compris entre 1 et 702
 * @Auteur Rémi Angot
 *@Example
 * // 0 -> @ 1->a ; 2->b...
