@@ -652,14 +652,15 @@ function Trouver_equation_parabole() {
       console.log(i,Ymin,Ymax,Yscale) // Pour deboguer le décalage des graduations en Y
       r = repere({
         xmin: -10,
-        ymin: (Ymin-2)-(Ymin-2)%Yscale,
-        ymax: Ymax+2+(Ymax+2)%Yscale,
+        ymin: Ymin,
+        ymax: Ymax,
         xmax: 10,
         xscale: 1,
         yscale:Yscale,
       })
-      svgYmin=Math.round(((Ymin-2)-(Ymin-2)%Yscale)/Yscale-0.5)
+      svgYmin=Math.round(Ymin/Yscale-0.5)
       svgYmax=Math.round((Ymax+2+(Ymax+2)%Yscale)/Yscale+0.5)
+      console.log(i,'svgYmin = ',svgYmin,'svgYmax = ',svgYmax,'Ymin = ',Ymin,'Ymax = ',Ymax)
       F = x => a*x**2+b*x+c;
      texte+=mathalea2d({xmin:-10, xmax:10,ymin:svgYmin,ymax:svgYmax,scale:.6},courbe(F,-10,10,'black',1.5,r),r)
       if (this.liste_questions.indexOf(texte) == -1) {
@@ -672,5 +673,5 @@ function Trouver_equation_parabole() {
     }
     liste_de_question_to_contenu(this);
   };
-  this.besoin_formulaire_numerique = ['Niveau de difficulté',3,"1 : Niveau 1\n2 : Niveau 2\3 : Mélange"];
+  this.besoin_formulaire_numerique = ['Niveau de difficulté',3,"1 : Niveau 1\n2 : Niveau 2\n3 : Mélange"];
 }
