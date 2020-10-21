@@ -336,7 +336,7 @@ function enleve_element_No_bis(array,index){
 *
 * @example
 * // Renvoit 1, 2 ou 3
-* choice[(1,2,3)]
+* choice([1,2,3])
 * @example
 * // Renvoit Rémi ou Léa
 * choice(['Rémi','Léa'])
@@ -354,6 +354,17 @@ function choice(liste,liste_a_eviter=[]) {
 	return listebis[index];
 }
 
+/**
+* Retourne une liste des entiers de 0 à max sans appartenir à une liste donnée
+* @param {max} 
+* @param {liste_a_eviter}
+*
+* @example
+* // Renvoit [1,4,5,6,7,8,9,10]
+* range(10,[2,3])
+*
+* @author Rémi Angot
+*/
 function range(max,liste_a_eviter=[]){
 	// Créer un tableau avec toutes les valeurs de 0 à max sauf celle de la liste à éviter
 	let nb_max = parseInt(max,10);
@@ -364,6 +375,29 @@ function range(max,liste_a_eviter=[]){
 	return liste
 }
 
+/**
+* Retourne une liste des entiers entre 2 bornes sans appartenir à une liste donnée
+* @param {min} 
+* @param {max} 
+* @param {liste_a_eviter}
+*
+* @example
+* // Renvoit [6,7,10]
+* range(6,10,[8,9])
+*
+* @author Rémi Angot
+*/
+function rangeMinMax(min,max,liste_a_eviter=[]){
+	// Créer un tableau avec toutes les valeurs de 0 à max sauf celle de la liste à éviter
+	let liste = [];
+	for (let i = min; i <= max; i++) {
+		liste.push(i);
+	}
+	for (let i=0;i<liste_a_eviter.length;i++){
+		enleve_element(liste,liste_a_eviter[i])
+	}
+	return liste
+}
 
 /**
 * Créé un tableau avec toutes les valeurs de 1 à max sauf celle de la liste à éviter
