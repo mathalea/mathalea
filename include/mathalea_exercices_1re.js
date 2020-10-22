@@ -568,7 +568,9 @@ function Trouver_equation_parabole() {
           b=randint(-6,6,0)
           c=randint(-10,10,0)
           x1=randint(1,5)
-          f = function(x) {
+          x2=randint(-5,5,x1)
+          x3=randint(-5,5,[x1,x2])
+           f = function(x) {
             return calcul(a*x**2+b*x+c)
           }
           texte+=`qui passe par les points de coordonnées $(${-x1};${f(-x1)})$, $(0;${f(0)})$ et $(${x1};${f(x1)})$.<br>`
@@ -646,11 +648,12 @@ function Trouver_equation_parabole() {
 
       if (Ymax-Ymin<10) Yscale=1
       else Yscale =Math.max(1,calcul(Math.round(Math.ceil((Ymax-Ymin)/10)/5)*5))
-      if (Ymin>0) Ymin=-Yscale
-      else Ymin=-premierMultipleSuperieur(Yscale,-Ymin)
-      if (Ymax<0) Ymax=Yscale
-      else Ymax=premierMultipleSuperieur(Yscale,Ymax)
-      
+      if (Ymin>=0) Ymin=-Yscale
+        else Ymin=-premierMultipleSuperieur(Yscale,-Ymin)
+      if (Ymax<=0) Ymax=Yscale
+         else Ymax=premierMultipleSuperieur(Yscale,Ymax)
+    
+ console.log(Yscale,Ymin,Ymax,liste_type_de_questions[i])
       r = repere({
         xmin: -10,
         ymin: Ymin,
@@ -663,7 +666,7 @@ function Trouver_equation_parabole() {
       svgYmin=calcul(Ymin/Yscale)
       svgYmax=calcul(Ymax/Yscale)
       F = x => a*x**2+b*x+c;
-     texte+=mathalea2d({xmin:-10, xmax:11,ymin:svgYmin,ymax:svgYmax+1,scale:.6},courbe(F,-10,10,'blue',1.5,r),r)
+      texte+=mathalea2d({xmin:-10, xmax:11,ymin:svgYmin-1,ymax:svgYmax+1,scale:.6},courbe(F,-10,10,'blue',1.5,r),r)
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(texte);
