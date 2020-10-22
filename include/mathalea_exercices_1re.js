@@ -540,6 +540,14 @@ function Resoudre_equation_degre_2() {
   };
   this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Solutions entières\n2 : Solutions réelles et calcul du discriminant non obligatoire"];
 }
+/**
+ * @Auteur Jean-Claude Lhote
+ * Trois type de questions proposées :
+ * 1) passant par trois dont deux d'abscisses opposées et le troisième d'abscisse 0 (pour simplifier la résolution du système)
+ * 2) Passant par un point et dont on connait le sommet
+ * 3) connaissant les deux racines et un autre point de passage à coordonnées entières
+ * référence 1E12
+ */
 function Trouver_equation_parabole() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Trouver l'équation d'une parabole";
@@ -662,8 +670,8 @@ function Trouver_equation_parabole() {
         Ymax=Math.max(f(x1),f(x2),f(x3),f(-x1),f(0),f(-6),f(6))
       }
 
-      if (Ymax-Ymin<10) Yscale=1
-      else Yscale =Math.max(1,calcul(Math.round(Math.ceil((Ymax-Ymin)/10)/5)*5))
+      if (Ymax-Ymin<10) Yscale=2
+      else Yscale =Math.max(1,calcul(Math.round(Math.ceil((Ymax-Ymin)/10)/5)*5))*2
 /*      if (Ymin>=0) Ymin=-Yscale
         else Ymin=-premierMultipleSuperieur(Yscale,-Ymin)
       if (Ymax<=0) Ymax=Yscale
