@@ -4365,7 +4365,7 @@ function Repere({
       positionLegendeX = [xmax + 4/coeff, yabscisse + 6/coeff];
     }
     if (positionLegendeY === undefined) {
-      positionLegendeY = [xordonnee + 6/coeff, ymax + 4/coeff];
+      positionLegendeY = [xordonnee + 6/coeff, ymax + 8/coeff];
     }
     code+=texteParPosition(
         legendeX,
@@ -4548,12 +4548,13 @@ function repere(...args) {
  * @param {integer} angle
  * @auteur Rémi Angot
  */
-function TraceBarre(x,y,legende='',epaisseur=.6,couleur='blue',opaciteDeRemplissage=.3,angle=66){
+function TraceBarre(x,y,legende='',{epaisseur=.6,couleurDeRemplissage='blue',color='black',opaciteDeRemplissage=.3,angle=66,scale=1}={}){
   ObjetMathalea2D.call(this)
-  let p = polygone(point(calcul(x-epaisseur/2),0),point(calcul(x-epaisseur/2),y),point(calcul(x+epaisseur/2),y),point(calcul(x+epaisseur/2),0))
-  p.couleurDeRemplissage = couleur
-  p.opaciteDeRemplissage = opaciteDeRemplissage
-  let texte = texteParPosition(legende,x,-.5,angle)
+  let p = polygone(point(calcul(x-epaisseur/2),0),point(calcul(x-epaisseur/2),calcul(y/scale)),point(calcul(x+epaisseur/2),calcul(y/scale)),point(calcul(x+epaisseur/2),0))
+  p.couleurDeRemplissage = couleurDeRemplissage;
+  p.opaciteDeRemplissage = opaciteDeRemplissage;
+  p.color = color;
+  let texte = texteParPosition(legende,x,-.5,angle,'black',1,'start');
   
   this.tikz = function (){
     return p.tikz() + '\n' + texte.tikz()
@@ -4941,7 +4942,7 @@ function intervalle(A, B, color = "blue", h = 0) {
  *
  * @Auteur Rémi Angot
  */
-function TexteParPoint(texte, A, orientation = "milieu", color='black',scale=1) {
+function TexteParPoint(texte, A, orientation = "milieu", color='black',scale=1,ancrageDeRotation = "middle") {
   ObjetMathalea2D.call(this);
   this.color = color;
   this.svg = function (coeff) {
@@ -4949,7 +4950,7 @@ function TexteParPoint(texte, A, orientation = "milieu", color='black',scale=1) 
     if (typeof(orientation)=='number') {
       code = `<text x="${A.xSVG(coeff)}" y="${A.ySVG(
         coeff
-      )}" text-anchor="middle" dominant-baseline="central" fill="${
+      )}" text-anchor = ${ancrageDeRotation} dominant-baseline = "central" fill="${
         this.color
       }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
         coeff
@@ -4985,16 +4986,23 @@ function TexteParPoint(texte, A, orientation = "milieu", color='black',scale=1) 
   this.tikz = function () {
     let code = "";
     if (typeof orientation == "number") {
+      let anchor = '';
+      if (ancrageDeRotation == 'gauche'){
+        anchor = 'west'
+      }
+      if (ancrageDeRotation == 'droite'){
+        anchor = 'east'
+      }
       code = `\\draw [${color}] (${A.x},${
         A.y
       }) node[anchor = center, rotate = ${-orientation}] {${texte}};`;
     } else {
       let anchor = "";
       if (orientation == "gauche") {
-        anchor = `node[anchor = east,scale=${scale}]`;
+        anchor = `node[anchor = west,scale=${scale}]`;
       }
       if (orientation == "droite") {
-        anchor = `node[anchor = west,scale=${scale}]`;
+        anchor = `node[anchor = east,scale=${scale}]`;
       }
       if (orientation == "milieu") {
         anchor = `node[anchor = center,scale=${scale}]`;
@@ -5016,8 +5024,8 @@ function texteParPoint(...args) {
  *
  * @Auteur Rémi Angot
  */
-function texteParPosition(texte, x, y, orientation = "milieu", color,scale=1) {
-  return new TexteParPoint(texte, point(x, y), orientation, color,scale);
+function texteParPosition(texte, x, y, orientation = "milieu", color,scale=1, ancrageDeRotation = "middle") {
+  return new TexteParPoint(texte, point(x, y), orientation, color,scale,ancrageDeRotation);
 }
 
 /**
