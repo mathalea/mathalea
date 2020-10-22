@@ -574,8 +574,8 @@ function Trouver_equation_parabole() {
             return calcul(a*x**2+b*x+c)
           }
           texte+=`qui passe par les points de coordonnées $(${-x1};${f(-x1)})$, $(0;${f(0)})$ et $(${x1};${f(x1)})$.<br>`
-          texte_corr=`Soit $\\mathscr{${f_name[i]}}(x)=ax^2+bx+c$ , l'expression de la fonction cherchée, nous avons immédiatement :<br>`
-          texte_corr+=`$\\mathscr{${f_name[i]}}(0)=c=${f(0)}$ donc $\\mathscr{${f_name[i]}}(x)=ax^2+bx${ecriture_algebrique(f(0))}$.<br>`
+          texte_corr=`Soit $\\mathscr{${f_name[i]}}(x)=ax^2+bx+c$ , l'expression de la fonction cherchée, comme $\\mathscr{${f_name[i]}}(0)=${f(0)}$ nous en déduisons que $c=${f(0)}$.<br>`
+          texte_corr+=`Donc $\\mathscr{${f_name[i]}}(x)=ax^2+bx${ecriture_algebrique(f(0))}$.<br>`
           texte_corr+=`En substituant dans cette expression les valeurs de l'énoncé, nous obtenons :<br>`
           texte_corr+=`$\\begin{cases}
           ${f(x1)}=a\\times${x1}^2+b\\times${x1}${ecriture_algebrique(f(0))}=${Algebrite.eval(ecriture_algebrique_sauf1(x1**2)+'a'+ecriture_algebrique_sauf1(x1)+'b'+ecriture_algebrique(f(0)))} \\\\
