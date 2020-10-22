@@ -4242,7 +4242,14 @@ function Repere({
   ymin > 0 ? (yabscisse = ymin) : (yabscisse = 0);
   let xordonnee;
   xmin > 0 ? (xordonnee = xmin) : (xordonnee = 0);
- 
+  if (yscale!=1) {
+    ymin=premierMultipleInferieur(yscale,ymin)
+    ymax=premierMultipleSuperieur(yscale,ymax)
+  }
+  if (xscale!=1) {
+    xmin=premierMultipleInferieur(xscale,xmin)
+    xmax=premierMultipleSuperieur(xscale,xmax)
+  }
   this.svg = function (coeff) {
     code = "";
     if (grillePrincipaleVisible) {

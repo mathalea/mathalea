@@ -4031,10 +4031,24 @@ function detect_safari_chrome_browser(){
 */
 function premierMultipleSuperieur(k,n){
 	let result = n
-	while (result%k!=0){
-		result+=1
+	if (Number.isInteger(k)&&Number.isInteger(n)) {
+		while (result%k!=0){
+			result+=1
+		}
+		return result
 	}
-	return result
+	else {
+		if (egal(Math.floor((n/k),n/k))) return n
+		else {
+			reste=n/k-Math.floor(n/k)
+			return n-reste*k+k
+		}
+	}
+}
+function premierMultipleInferieur(k,n){
+	let result=premierMultipleSuperieur(k,n)
+	if (result!=n) return result-k
+	else return n
 }
 
 /**

@@ -544,7 +544,7 @@ function Trouver_equation_parabole() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Trouver l'équation d'une parabole";
   this.consigne = "Trouver l'expression de la fonction f.";
-  this.nb_questions = 3;
+  this.nb_questions = 5;
   this.nb_cols = 2;
   this.nb_cols_corr = 2;
   this.spacing_corr = 3;
@@ -555,12 +555,12 @@ function Trouver_equation_parabole() {
     this.liste_corrections = []; // Liste de questions corrigées
     let liste_type_de_questions,type_de_questions_disponibles;
     if (this.sup<4) type_de_questions_disponibles=[parseInt(this.sup)]
-    else type_de_questions_disponibles=[1,2,3]
+    else type_de_questions_disponibles=[1,2,2,3,3]
     let f_name=[]
     liste_type_de_questions=combinaison_listes(type_de_questions_disponibles,this.nb_questions)
     for (let i = 0, texte, texte_corr, a, b, c, x1, x2,x3,f,r, cpt = 0;i < this.nb_questions && cpt < 50;) {
       f_name.push(lettre_minuscule_depuis_chiffre(i+6))
-      texte = `Quelle est l'expression de la fonction polynomiale $\\mathscr{${f_name[i]}}$ du second degré <br>`
+      texte = `Quelle est l'expression de la fonction polynomiale $\\mathscr{${f_name[i]}}$ du second degré `
       texte_corr=``
       switch (liste_type_de_questions[i]) {
           case 1 : // passe par 3 points à coordonnées entières dont -x1, 0 et x1.
@@ -573,15 +573,15 @@ function Trouver_equation_parabole() {
            f = function(x) {
             return calcul(a*x**2+b*x+c)
           }
-          texte+=`qui passe par les points de coordonnées $(${-x1};${f(-x1)})$, $(0;${f(0)})$ et $(${x1};${f(x1)})$.<br>`
-          texte_corr=`Soit $\\mathscr{${f_name[i]}}(x)=ax^2+bx+c$ , l'expression de la fonction cherchée, comme $\\mathscr{${f_name[i]}}(0)=${f(0)}$ nous en déduisons que $c=${f(0)}$.<br>`
+          texte+=`qui passe par les points de coordonnées $(${-x1};${f(-x1)})$, $(0;${f(0)})$ et $(${x1};${f(x1)})$ ?<br>`
+          texte_corr=`Soit $\\mathscr{${f_name[i]}}(x)=ax^2+bx+c$ , l'expression de la fonction cherchée, comme $\\mathscr{${f_name[i]}}(0)=${f(0)}$ nous en déduisons que $c=${mise_en_evidence(f(0),'red')}$.<br>`
           texte_corr+=`Donc $\\mathscr{${f_name[i]}}(x)=ax^2+bx${ecriture_algebrique(f(0))}$.<br>`
           texte_corr+=`En substituant dans cette expression les valeurs de l'énoncé, nous obtenons :<br>`
           texte_corr+=`$\\begin{cases}
           ${f(x1)}=a\\times${x1}^2+b\\times${x1}${ecriture_algebrique(f(0))}=${Algebrite.eval(ecriture_algebrique_sauf1(x1**2)+'a'+ecriture_algebrique_sauf1(x1)+'b'+ecriture_algebrique(f(0)))} \\\\
           ${f(-x1)}=a\\times(${-x1})^2+b\\times(${-x1})${ecriture_algebrique(f(0))}=${Algebrite.eval(ecriture_algebrique_sauf1(x1**2)+'a'+ecriture_algebrique_sauf1(-x1)+'b'+ecriture_algebrique(f(0)))}
        \\end{cases}$<br>`
-          texte_corr+=`Ce qui équivaut à $\\begin{cases}
+          texte_corr+=`Ce qui équivaut à <br>$\\begin{cases}
                ${f(x1)}${ecriture_algebrique(-f(0))}=${f(x1)-f(0)}=${Algebrite.eval(ecriture_algebrique_sauf1(x1**2)+'a' + ecriture_algebrique_sauf1(x1)+'b')} \\\\
                ${f(-x1)}${ecriture_algebrique(-f(0))}=${f(-x1)-f(0)}=${Algebrite.eval(ecriture_algebrique_sauf1(x1**2)+'a'+ecriture_algebrique_sauf1(-x1)+'b')}
              \\end{cases}$<br>`
@@ -591,32 +591,32 @@ function Trouver_equation_parabole() {
               ${f(x1)-f(-x1)}=${2*x1}b
            \\end{cases}$<br>`
 
-       texte_corr+=`La résolution de ce système donne $a=${a}$ et $b=${b}$.<br>`
-       texte_corr+=`D'où $\\mathscr{${f_name[i]}}(x)=${Algebrite.eval(`${ecriture_algebrique_sauf1(a)}x^2 ${ecriture_algebrique_sauf1(b)}x  ${ecriture_algebrique(c)}`)}$<br>`
+       texte_corr+=`La résolution de ce système donne $a=${mise_en_evidence(tex_nombre(a),'blue')}$ et $b=${mise_en_evidence(tex_nombre(b),'green')}$.<br>`
+       texte_corr+=`D'où $\\mathscr{${f_name[i]}}(x)=${mise_en_evidence(ecriture_algebrique_sauf1(a),'blue')}x^2 ${mise_en_evidence(ecriture_algebrique_sauf1(b),'green')}x  ${mise_en_evidence(ecriture_algebrique(c),'red')}$<br>`
  
           break;
         case 2 : // Passant par le sommet (x1,y1) et par le point (x2,y2)
         a=randint(-3,3,0)
         b=randint(-3,3,0)*2*a
         c=randint(-10,10)
-        x1=randint(1,5)
+        x1=calcul(-b/(2*a))
         x2=randint(-5,5,x1)
         x3=randint(-5,5,[x1,x2])
-       x1=calcul(-b/(2*a))
+
        f = function(x) {
         return calcul(a*x**2+b*x+c)
       }
-          texte+=`dont la parabole a pour sommet le point de coordonnées $(${x1};${f(x1)})$ et passe par le point de coordonnées (${x2};${f(x2)})<br>`;
+          texte+=`dont la parabole a pour sommet le point de coordonnées $(${x1};${f(x1)})$ et passe par le point de coordonnées $(${x2};${f(x2)})$ ?<br>`;
           texte_corr=`D'après les coordonnées $(${x1};${f(x1)})$ du sommet, $\\mathscr{${f_name[i]}}$ a pour forme canonique : $\\mathscr{${f_name[i]}}(x)=a(x${ecriture_algebrique(-x1)})^2${ecriture_algebrique(f(x1))}$.<br>`
   //       texte_corr+=`$=${Algebrite.eval('ax^2'+ecriture_algebrique(-2*x1)+'ax'+ecriture_algebrique(x1**2)+'a'+ecriture_algebrique(f(x1)))}$<br>`
-          texte_corr+=`De plus $\\mathscr{${f_name[i]}}(${x2})=${f(x2)}$ donc $a(${x2}${ecriture_algebrique(-x1)})^2${ecriture_algebrique(f(x1))}=${f(x2)}$<br>`
-          texte_corr+=`Soit $${Algebrite.eval(x2**2+'a'+ecriture_algebrique(-2*x1*x2)+'a'+ecriture_algebrique(x1**2)+'a'+ecriture_algebrique(f(x1)))}=${f(x2)}$<br>`
+          texte_corr+=`De plus $\\mathscr{${f_name[i]}}(${x2})=${f(x2)}$ donc $a(${x2}${ecriture_algebrique(-x1)})^2${ecriture_algebrique(f(x1))}=${f(x2)}$ `
+          texte_corr+=`soit $${Algebrite.eval(x2**2+'a'+ecriture_algebrique(-2*x1*x2)+'a'+ecriture_algebrique(x1**2)+'a'+ecriture_algebrique(f(x1)))}=${f(x2)}$.<br>`
           if (x2**2-2*x1*x2+x1**2!=1)
-            texte_corr+=`On en déduit que $a=\\dfrac{${f(x2)}${ecriture_algebrique(-f(x1))}}{${(x2**2-2*x1*x2+x1**2)}}=${a}$<br>`
+            texte_corr+=`On en déduit que $a=\\dfrac{${f(x2)}${ecriture_algebrique(-f(x1))}}{${(x2**2-2*x1*x2+x1**2)}}=${a}$.<br>`
           else
-            texte_corr+=`On en déduit que $a=${f(x2)}${ecriture_algebrique(-f(x1))}=${a}$<br>`
-          texte_corr+=`En remplaçant $a$ par sa valeur $${a}$ dans l'expression canonique développée $${mise_en_evidence(Algebrite.eval('ax^2'),'blue')}${mise_en_evidence(ecriture_algebrique(-2*x1)+'ax','green')}${mise_en_evidence(ecriture_algebrique(x1**2)+'a'+ecriture_algebrique(f(x1)),'red')}$ on obtient :<br>`
-          texte_corr+=`$\\mathscr{${f_name[i]}}(x)=${mise_en_evidence(rien_si_1(a)+'x^2','blue')}${mise_en_evidence(ecriture_algebrique_sauf1(b)+'x','green')}${mise_en_evidence(ecriture_algebrique(c),'red')}$`
+            texte_corr+=`On en déduit que $a=${f(x2)}${ecriture_algebrique(-f(x1))}=${a}$.<br>`
+          texte_corr+=`En remplaçant $a$ par sa valeur $${a}$ dans l'expression canonique développée $${mise_en_evidence('a','blue')}x^2${mise_en_evidence(ecriture_algebrique(-2*x1)+'a','green')}x${mise_en_evidence(ecriture_algebrique(x1**2)+'a'+ecriture_algebrique(f(x1)),'red')}$ on obtient :<br>`
+          texte_corr+=`$\\mathscr{${f_name[i]}}(x)=${mise_en_evidence(rien_si_1(a),'blue')}x^2${mise_en_evidence(ecriture_algebrique_sauf1(b),'green')}x${mise_en_evidence(ecriture_algebrique(c),'red')}$`
            break;
         case 3: // on a deux racines x1 et x2 et un troisième point (x3;f(x3))
         x1=randint(-6,-1)
@@ -628,12 +628,12 @@ function Trouver_equation_parabole() {
         f = function(x) {
           return calcul(a*x**2+b*x+c)
         }
-             texte+=`qui s'annule en $x=${x1}$ et en $x=${x2}$ et dont la parabole passe par le point de coordonnées $(${x3};${f(x3)})$.<br>`
-          texte_corr+=`Comme $${x1}$ et $${x2}$ sont les deux racines du polynome $\\mathscr{${f_name[i]}}(x)$, on peut factoriser $\\mathscr{${f_name[i]}}(x)$ :<br>`
-          texte_corr+=`$\\mathscr{${f_name[i]}}(x)=a(x${ecriture_algebrique(-x1)})(x${ecriture_algebrique(-x2)})$<br>`
-          texte_corr+=`Comme $\\mathscr{${f_name[i]}}(${x3})=${f(x3)}$, on en déduit que $${f(x3)}=a(${x3}${ecriture_algebrique(-x1)})(${x3}${ecriture_algebrique(-x2)})$<br>`
-          texte_corr+=`D'où $a=${f(x3)}\\div ${ecriture_parenthese_si_negatif((x3-x1)*(x3-x2))}=${a}$<br>`
-          texte_corr+=`on obtient donc en développant $\\mathscr{${f_name[i]}}(x)=${a}(x${ecriture_algebrique(-x1)})(x${ecriture_algebrique(-x2)})=${Algebrite.eval(`${ecriture_algebrique_sauf1(a)}x^2 ${ecriture_algebrique_sauf1(b)}x  ${ecriture_algebrique(c)}`)}$`
+             texte+=`qui s'annule en $x=${x1}$ et en $x=${x2}$ et dont la parabole passe par le point de coordonnées $(${x3};${f(x3)})$ ?<br>`
+          texte_corr+=`Comme $${x1}$ et $${x2}$ sont les deux solutions de l'équation $\\mathscr{${f_name[i]}}(x)=0$, on peut factoriser $\\mathscr{${f_name[i]}}(x)$ :<br>`
+          texte_corr+=`$\\mathscr{${f_name[i]}}(x)=a(x${ecriture_algebrique(-x1)})(x${ecriture_algebrique(-x2)})$.<br>`
+          texte_corr+=`Comme $\\mathscr{${f_name[i]}}(${x3})=${f(x3)}$, on en déduit que $${f(x3)}=a(${x3}${ecriture_algebrique(-x1)})(${x3}${ecriture_algebrique(-x2)})$ `
+          texte_corr+=`d'où $a=${f(x3)}\\div ${ecriture_parenthese_si_negatif((x3-x1)*(x3-x2))}=${a}$.<br>`
+          texte_corr+=`On obtient donc en développant $\\mathscr{${f_name[i]}}(x)=${a}(x${ecriture_algebrique(-x1)})(x${ecriture_algebrique(-x2)})=${Algebrite.eval(`${ecriture_algebrique_sauf1(a)}x^2 ${ecriture_algebrique_sauf1(b)}x  ${ecriture_algebrique(c)}`)}$`
           break;
 
       }
