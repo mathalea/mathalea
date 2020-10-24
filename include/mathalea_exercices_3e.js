@@ -6888,11 +6888,11 @@ function Eq_resolvantes_Thales(){
 					question:``,
 					correction:`
 						$${situations[k].eq}$<br>
-						${texte_en_couleur_et_gras(`les produits en croix sont égaux`)}<br>
+						${texte_en_couleur_et_gras(`Les produits en croix sont égaux.`)}<br>
 						$${tex_nombre(situations[k].c)}\\times ${situations[k].inc} = ${tex_nombre(situations[k].a)}\\times ${tex_nombre(situations[k].b)}$<br>
-						${texte_en_couleur_et_gras(`on divise les deux membres par ${tex_nombre(situations[k].c)}`)}<br>
+						${texte_en_couleur_et_gras(`On divise les deux membres par ${tex_nombre(situations[k].c)}`)}.<br>
 						$\\dfrac{${tex_nombre(situations[k].c)}\\times ${situations[k].inc}}{${tex_nombre(situations[k].c)}}= \\dfrac{${tex_nombre(situations[k].a)}\\times ${tex_nombre(situations[k].b)}}{${tex_nombre(situations[k].c)}}$<br>
-						${texte_en_couleur_et_gras(`on simplifie et on calcule`)}<br>
+						${texte_en_couleur_et_gras(`On simplifie et on calcule.`)}<br>
 
 						$${situations[k].inc}=${tex_nombre(calcul(Number(situations[k].b)*Number(situations[k].a)/Number(situations[k].c)))}$
 
