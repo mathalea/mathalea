@@ -4574,10 +4574,12 @@ function Repere2({
   grilleDistance = false,
   grilleCouleur = "black",
   grilleOpacite = 0.5,
+  grilleEpaisseur = 1,
   grilleSecondaire = false,
+  grilleSecondaireDistance = false,
   grilleSecondaireCouleur = "gray",
   grilleSecondaireOpacite = 0.3,
-  grilleSecondaireStyle = false,
+  grilleSecondaireEpaisseur = 1,
   grilleX = grille,
   grilleXListe = false,
   grilleXDistance = grilleDistance,
@@ -4592,6 +4594,20 @@ function Repere2({
   grilleYMax = false,
   grilleYCouleur = grilleCouleur,
   grilleYOpacite = grilleOpacite,
+  grilleSecondaireX = grilleSecondaire,
+  grilleSecondaireXListe = false,
+  grilleSecondaireXDistance = grilleSecondaireDistance,
+  grilleSecondaireXMin = false,
+  grilleSecondaireXMax = false,
+  grilleSecondaireXCouleur = grilleSecondaireCouleur,
+  grilleSecondaireXOpacite = grilleSecondaireOpacite,
+  grilleSecondaireY = grilleSecondaire,
+  grilleSecondaireYListe = false,
+  grilleSecondaireYDistance = grilleSecondaireDistance,
+  grilleSecondaireYMin = false,
+  grilleSecondaireYMax = false,
+  grilleSecondaireYCouleur = grilleSecondaireCouleur,
+  grilleSecondaireYOpacite = grilleSecondaireOpacite,
 } = {}) {
   ObjetMathalea2D.call(this)
 
@@ -4692,7 +4708,8 @@ function Repere2({
       let traitH = segment(calcul(xMin*xUnite),calcul(y*yUnite),calcul(xMax*xUnite),calcul(y*yUnite));
       traitH.isVisible = false;
       traitH.color = grilleYCouleur;
-      traitH.opacite = grilleYOpacite
+      traitH.opacite = grilleYOpacite;
+      traitH.epaisseur = grilleEpaisseur;
       if (grilleY == 'pointilles'){
         traitH.pointilles = true;
       }
@@ -4719,8 +4736,70 @@ function Repere2({
       let traitV = segment(calcul(x*xUnite),calcul(yMin*yUnite),calcul(x*xUnite),calcul(yMax*yUnite));
       traitV.isVisible = false;
       traitV.color = grilleXCouleur;
-      traitV.opacite = grilleXOpacite
+      traitV.opacite = grilleXOpacite;
+      traitV.epaisseur = grilleEpaisseur;
       if (grilleX == 'pointilles'){
+        traitV.pointilles = true;
+      }
+      objets.push(traitV);
+    }
+  }
+
+
+
+  // GRILLE SECONDAIRE
+ 
+  //Les traits horizontaux
+  if (grilleSecondaireY){
+    if (!grilleSecondaireYListe) {
+      // Ceux qui ne sont pas définis reprennent les valeurs de thick
+      if (!grilleSecondaireYMin){
+        grilleSecondaireYMin = yThickMin
+      }
+      if (!grilleSecondaireYMax){
+        grilleSecondaireYMax = yThickMax
+       }
+      if (!grilleSecondaireYDistance){
+        grilleSecondaireYDistance = calcul(yThickDistance/2)
+      }
+      // On créé la liste avec ces valeurs 
+      grilleSecondaireYListe = rangeMinMax(grilleSecondaireYMin,grilleSecondaireYMax,[0],grilleSecondaireYDistance)
+    }
+    for (y of grilleSecondaireYListe){
+      let traitH = segment(calcul(xMin*xUnite),calcul(y*yUnite),calcul(xMax*xUnite),calcul(y*yUnite));
+      traitH.isVisible = false;
+      traitH.color = grilleSecondaireYCouleur;
+      traitH.opacite = grilleSecondaireYOpacite;
+      traitH.epaisseur = grilleSecondaireEpaisseur;
+      if (grilleSecondaireY == 'pointilles'){
+        traitH.pointilles = true;
+      }
+      objets.push(traitH);
+    }
+  }
+  //Les traits verticaux
+  if (grilleSecondaireX){
+    if (!grilleSecondaireXListe) {
+      // Ceux qui ne sont pas définis reprennent les valeurs de thick
+      if (!grilleSecondaireXMin){
+        grilleSecondaireXMin = xThickMin/2
+      }
+      if (!grilleSecondaireXMax){
+        grilleSecondaireXMax = xThickMax
+       }
+      if (!grilleSecondaireXDistance){
+        grilleSecondaireXDistance = calcul(xThickDistance/2)
+      }
+      // On créé la liste avec ces valeurs 
+      grilleSecondaireXListe = rangeMinMax(grilleSecondaireXMin,grilleSecondaireXMax,[0],grilleSecondaireXDistance)
+    }
+    for (x of grilleSecondaireXListe){
+      let traitV = segment(calcul(x*xUnite),calcul(yMin*yUnite),calcul(x*xUnite),calcul(yMax*yUnite));
+      traitV.isVisible = false;
+      traitV.color = grilleSecondaireXCouleur;
+      traitV.opacite = grilleSecondaireXOpacite;
+      traitV.epaisseur = grilleSecondaireEpaisseur;
+      if (grilleSecondaireX == 'pointilles'){
         traitV.pointilles = true;
       }
       objets.push(traitV);
@@ -5021,21 +5100,36 @@ function Courbe2(f,{
   color = 'black',
   epaisseur = 2,
   step = .1,
+  xMin = -10,
+  xMax = 10,
+  yMin = -10,
+  yMax = 10,
+  xUnite = 1,
+  yUnite = 1
   }={}) {
   ObjetMathalea2D.call(this);
   this.color = color;
-  let xUnite = repere.xUnite ? repere.xUnite : 1;
-  let yUnite = repere.yUnite ? repere.yUnite : 1;
-  let xMin = repere.xMin ? repere.xMin : -10;
-  let xMax = repere.xMax ? repere.xMax : 10;
-  let yMin = repere.yMin ? repere.yMin : -10;
-  let yMax = repere.yMax ? repere.yMax : 10;
+  let xmin,ymin,xmax,ymax,xunite,yunite // Tout en minuscule pour les différencier des paramètres de la fonction
+  xmin = repere.xMin;
+  ymin = repere.yMin;
+  xmax = repere.xMax;
+  ymax = repere.yMax;
+  xunite = repere.xUnite;
+  yunite = repere.yUnite;
+
+  //Si le repère n'est pas donné ou ne permet pas de récupérer des valeurs
+  if (isNaN(xmin)){xmin = xMin};
+  if (isNaN(xmax)){xmax = xMax};
+  if (isNaN(ymin)){ymin = yMin};
+  if (isNaN(ymax)){ymax = yMax};
+  if (isNaN(xunite)){xunite = xUnite};
+  if (isNaN(yunite)){yunite = yUnite};
   let objets = [];
   let points = [];
-  for (let x = xMin ; x <= xMax ; x = calcul(x + step )
+  for (let x = xmin ; x <= xmax ; x = calcul(x + step )
   ) {
-    if (f(x)<yMax && f(x)>yMin) {
-      points.push(point(calcul(x*xUnite), calcul(f(x)*yUnite)));
+    if (f(x)<ymax && f(x)>ymin) {
+      points.push(point(calcul(x*xunite), calcul(f(x)*yunite)));
     } else {
       let p = polyline([...points], this.color);
       p.epaisseur = epaisseur;
