@@ -376,7 +376,7 @@ function range(max,liste_a_eviter=[]){
 }
 
 /**
-* Retourne une liste des entiers entre 2 bornes sans appartenir à une liste donnée
+* Retourne une liste entre 2 bornes sans appartenir à une liste donnée (par défaut des entiers mais on peut changer le pas)
 * @param {min} 
 * @param {max} 
 * @param {liste_a_eviter}
@@ -387,10 +387,10 @@ function range(max,liste_a_eviter=[]){
 *
 * @author Rémi Angot
 */
-function rangeMinMax(min,max,liste_a_eviter=[]){
+function rangeMinMax(min,max,liste_a_eviter=[],step=1){
 	// Créer un tableau avec toutes les valeurs de 0 à max sauf celle de la liste à éviter
 	let liste = [];
-	for (let i = min; i <= max; i++) {
+	for (let i = min; i <= max; i = calcul(i+step)) {
 		liste.push(i);
 	}
 	for (let i=0;i<liste_a_eviter.length;i++){

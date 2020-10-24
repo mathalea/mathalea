@@ -6,6 +6,7 @@
  @homepage  https://copmaths.fr/mathalea2d.html
  */
 
+
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%% OBJET PARENT %%%%%%%%%%%%%
@@ -4527,6 +4528,236 @@ function repere(...args) {
   return new Repere(...args);
 }
 
+
+function Repere2({
+  xUnite = 1,
+  yUnite = 1,
+  xMin = -10,
+  xMax = 10,
+  yMin = -10,
+  yMax = 10,
+  axesEpaisseur = 2,
+  axesCouleur = 'black',
+  axeXStyle = "->",
+  axeYStyle = "->",
+  thickEpaisseur = 2,
+  thickHauteur = .2,
+  thickCouleur = axesCouleur,
+  xThickDistance = 1,
+  xThickListe = false,
+  xThickMin = xMin+xThickDistance,
+  xThickMax = xMax-xThickDistance,
+  yThickDistance = 1,
+  yThickListe = false,
+  yThickMin = yMin+yThickDistance,
+  yThickMax = yMax-yThickDistance,
+  xLabelDistance = xThickDistance,
+  xLabelListe = false,
+  xLabelMin = xThickMin,
+  xLabelMax = xThickMax,
+  yLabelDistance = yThickDistance,
+  yLabelListe = false,
+  yLabelMin = yThickMin,
+  yLabelMax = yThickMax,
+  xLegende = "",
+  xLegendePosition = [calcul(xMax*xUnite) + .5, .5],
+  yLegende = "",
+  yLegendePosition = [.5, calcul(yMax*yUnite) + .5],
+  grille = false,
+  grilleDistance = false,
+  grilleCouleur = "black",
+  grilleOpacite = 0.5,
+  grilleSecondaire = false,
+  grilleSecondaireCouleur = "gray",
+  grilleSecondaireOpacite = 0.3,
+  grilleSecondaireStyle = false,
+  grilleX = grille,
+  grilleXListe = false,
+  grilleXDistance = grilleDistance,
+  grilleXMin = false,
+  grilleXMax = false,
+  grilleXCouleur = grilleCouleur,
+  grilleXOpacite = grilleOpacite,
+  grilleY = grille,
+  grilleYListe = false,
+  grilleYDistance = grilleDistance,
+  grilleYMin = false,
+  grilleYMax = false,
+  grilleYCouleur = grilleCouleur,
+  grilleYOpacite = grilleOpacite,
+} = {}) {
+  ObjetMathalea2D.call(this)
+
+  // Les propriétés exportables
+  this.xUnite = xUnite;
+  this.yUnite = yUnite;
+  this.xMin = xMin;
+  this.xMax = xMax;
+  this.yMin = yMin;
+  this.yMax = yMax;
+
+  let objets = []
+  // LES AXES
+  let OrdonneeAxe =Math.max(0,yMin)
+  let axeX = segment(calcul(xMin*xUnite),OrdonneeAxe,calcul(xMax*xUnite),OrdonneeAxe);
+  axeX.epaisseur = axesEpaisseur;
+  axeX.styleExtremites = axeXStyle;
+  axeX.color = axesCouleur;
+  let abscisseAxe =Math.max(0,xMin)
+  let axeY = segment(abscisseAxe,calcul(yMin*yUnite),abscisseAxe,calcul(yMax*yUnite));
+  axeY.epaisseur = axesEpaisseur;
+  axeY.styleExtremites = axeYStyle;
+  axeY.color = axesCouleur;
+  objets.push(axeX,axeY);
+  // Cache les objets intermédiaires pour ne pas les afficher en double dans mathalea2d.html
+  axeX.isVisible = false;
+  axeY.isVisible = false;
+
+  // LES THICKS
+  if (!xThickListe) {
+    xThickListe = rangeMinMax(xThickMin,xThickMax,[0],xThickDistance)
+  }
+  for (x of xThickListe){
+    let thick = segment(calcul(x*xUnite),OrdonneeAxe-thickHauteur,calcul(x*xUnite),OrdonneeAxe+thickHauteur);
+    thick.isVisible = false;
+    thick.epaisseur = thickEpaisseur;
+    thick.color = thickCouleur;
+    objets.push(thick);
+  }
+  if (!yThickListe) {
+    yThickListe = rangeMinMax(yThickMin,yThickMax,[0],yThickDistance)
+  }
+  for (y of yThickListe){
+    let thick = segment(abscisseAxe-thickHauteur,calcul(y*yUnite),abscisseAxe+thickHauteur,calcul(y*yUnite));
+    thick.isVisible = false;
+    thick.epaisseur = thickEpaisseur;
+    thick.color = thickCouleur;
+    objets.push(thick);
+  }
+
+
+  // LES LABELS
+  if (!xLabelListe) {
+    xLabelListe = rangeMinMax(xLabelMin,xLabelMax,[0],xLabelDistance)
+  }
+  for (x of xLabelListe){
+    let l = texteParPosition(tex_nombre(x),calcul(x*xUnite),OrdonneeAxe-.5)
+    l.isVisible = false;
+    objets.push(l);
+  }
+  
+  if (!yLabelListe) {
+    yLabelListe = rangeMinMax(yLabelMin,yLabelMax,[0],yLabelDistance)
+  }
+  for (y of yLabelListe){
+    let l = texteParPosition(tex_nombre(y),abscisseAxe-.5,calcul(y*yUnite),'gauche')
+    l.isVisible = false;
+    objets.push(l);
+  }
+
+  // LES LÉGENDES
+  if (xLegende.length>0){
+    objets.push(texteParPosition(xLegende,xLegendePosition[0],xLegendePosition[1],'droite'))
+  }
+  if (yLegende.length>0){
+    objets.push(texteParPosition(yLegende,yLegendePosition[0],yLegendePosition[1],'droite'))
+  }
+
+  // GRILLE PRINCIPALE
+ 
+  //Les traits horizontaux
+  if (grilleY){
+    if (!grilleYListe) {
+      // Ceux qui ne sont pas définis reprennent les valeurs de thick
+      if (!grilleYMin){
+        grilleYMin = yThickMin
+      }
+      if (!grilleYMax){
+        grilleYMax = yThickMax
+       }
+      if (!grilleYDistance){
+        grilleYDistance = yThickDistance
+      }
+      // On créé la liste avec ces valeurs 
+      grilleYListe = rangeMinMax(grilleYMin,grilleYMax,[0],grilleYDistance)
+    }
+    for (y of grilleYListe){
+      let traitH = segment(calcul(xMin*xUnite),calcul(y*yUnite),calcul(xMax*xUnite),calcul(y*yUnite));
+      traitH.isVisible = false;
+      traitH.color = grilleYCouleur;
+      traitH.opacite = grilleYOpacite
+      if (grilleY == 'pointilles'){
+        traitH.pointilles = true;
+      }
+      objets.push(traitH);
+    }
+  }
+  //Les traits verticaux
+  if (grilleX){
+    if (!grilleXListe) {
+      // Ceux qui ne sont pas définis reprennent les valeurs de thick
+      if (!grilleXMin){
+        grilleXMin = xThickMin
+      }
+      if (!grilleXMax){
+        grilleXMax = xThickMax
+       }
+      if (!grilleXDistance){
+        grilleXDistance = xThickDistance
+      }
+      // On créé la liste avec ces valeurs 
+      grilleXListe = rangeMinMax(grilleXMin,grilleXMax,[0],grilleXDistance)
+    }
+    for (x of grilleXListe){
+      let traitV = segment(calcul(x*xUnite),calcul(yMin*yUnite),calcul(x*xUnite),calcul(yMax*yUnite));
+      traitV.isVisible = false;
+      traitV.color = grilleXCouleur;
+      traitV.opacite = grilleXOpacite
+      if (grilleX == 'pointilles'){
+        traitV.pointilles = true;
+      }
+      objets.push(traitV);
+    }
+  }
+  
+
+  // LES SORTIES TiKZ et SVG
+  this.svg = function (coeff) {
+    code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+  this.svgml =function(coeff,amp) {
+    code = "";
+    for (objet of objets) {
+     if (typeof(objet.svgml)=='undefined') code += "\n\t" + objet.svg(coeff);
+     else code += "\n\t" + objet.svgml(coeff,amp);
+    }
+    return code;
+  }
+  this.tikzml = function (amp) {
+    code = "";
+    for (objet of objets) {
+      if (typeof(objet.tikzml)=='undefined') code += "\n\t" + objet.tikz();
+      else code += "\n\t" + objet.tikzml(amp);
+    }
+    return code;
+  };
+}
+
+function repere2(...args) {
+  return new Repere2(...args)
+}
+
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% LES STATISTIQUES %%%%%%%%%%%%%
@@ -4548,9 +4779,9 @@ function repere(...args) {
  * @param {integer} angle
  * @auteur Rémi Angot
  */
-function TraceBarre(x,y,legende='',{epaisseur=.6,couleurDeRemplissage='blue',color='black',opaciteDeRemplissage=.3,angle=66,scale=1}={}){
+function TraceBarre(x,y,legende='',{epaisseur=.6,couleurDeRemplissage='blue',color='black',opaciteDeRemplissage=.3,angle=66,unite=1}={}){
   ObjetMathalea2D.call(this)
-  let p = polygone(point(calcul(x-epaisseur/2),0),point(calcul(x-epaisseur/2),calcul(y/scale)),point(calcul(x+epaisseur/2),calcul(y/scale)),point(calcul(x+epaisseur/2),0))
+  let p = polygone(point(calcul(x-epaisseur/2),0),point(calcul(x-epaisseur/2),calcul(y*unite)),point(calcul(x+epaisseur/2),calcul(y*unite)),point(calcul(x+epaisseur/2),0))
   p.couleurDeRemplissage = couleurDeRemplissage;
   p.opaciteDeRemplissage = opaciteDeRemplissage;
   p.color = color;
@@ -4770,6 +5001,85 @@ function courbe(
   p.epaisseur = epaisseur;
   return p;
 }
+
+
+/**
+ * courbe2(f,xmin,xmax,color,epaisseur,repere,step) // Trace la courbe de f
+ *
+ * @Auteur Rémi Angot
+ */
+
+function Courbe2(f,{
+  repere = {},
+  color = 'black',
+  epaisseur = 2,
+  step = .1,
+  }={}) {
+  ObjetMathalea2D.call(this);
+  this.color = color;
+  let xUnite = repere.xUnite ? repere.xUnite : 1;
+  let yUnite = repere.yUnite ? repere.yUnite : 1;
+  let xMin = repere.xMin ? repere.xMin : -10;
+  let xMax = repere.xMax ? repere.xMax : 10;
+  let yMin = repere.yMin ? repere.yMin : -10;
+  let yMax = repere.yMax ? repere.yMax : 10;
+  let objets = [];
+  let points = [];
+  for (let x = xMin ; x <= xMax ; x = calcul(x + step )
+  ) {
+    if (f(x)<yMax && f(x)>yMin) {
+      points.push(point(calcul(x*xUnite), calcul(f(x)*yUnite)));
+    } else {
+      let p = polyline([...points], this.color);
+      p.epaisseur = epaisseur;
+      objets.push(p)
+      points = []
+    }
+    let p = polyline([...points], this.color);
+    p.epaisseur = epaisseur;
+    objets.push(p)
+  }
+
+  // LES SORTIES TiKZ et SVG
+  this.svg = function (coeff) {
+    code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+  this.svgml =function(coeff,amp) {
+    code = "";
+    for (objet of objets) {
+     if (typeof(objet.svgml)=='undefined') code += "\n\t" + objet.svg(coeff);
+     else code += "\n\t" + objet.svgml(coeff,amp);
+    }
+    return code;
+  }
+  this.tikzml = function (amp) {
+    code = "";
+    for (objet of objets) {
+      if (typeof(objet.tikzml)=='undefined') code += "\n\t" + objet.tikz();
+      else code += "\n\t" + objet.tikzml(amp);
+    }
+    return code;
+  };
+  
+}
+
+function courbe2(...args){
+  return new Courbe2(...args)
+}
+
+
+
 
 /**
  * @SOURCE : https://gist.github.com/ericelliott/80905b159e1f3b28634ce0a690682957
