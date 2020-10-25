@@ -6779,7 +6779,7 @@ function Image_antecedent_depuis_tableau_ou_fleche() {
 function Eq_resolvantes_Thales(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.debug = true;	
+	this.debug = false;	
 	this.sup=1;
 	if (this.debug) {
 		this.nb_questions = 4;
@@ -6825,11 +6825,11 @@ function Eq_resolvantes_Thales(){
 			switch (this.sup) {
 				case 1://entiers          
 					coeff=[1,1,1];
-					nb_alea=[randint(1,9),randint(1,9),randint(1,9,[3,6,7,9])];
+					nb_alea=[randint(2,9),randint(2,9),randint(2,9,[3,6,7,9])];
 					break;
 				case 2://relatifs            
 					coeff=[choice([1,-1]),choice([1,-1]),choice([1,-1])];
-					nb_alea=[randint(1,9),randint(1,9),randint(1,9,[3,6,7,9])];
+					nb_alea=[randint(2,9),randint(2,9),randint(1,9,[3,6,7,9])];
 					break;
 				case 3://décimaux            
 					coeff=[0.1,0.1,0.1];
