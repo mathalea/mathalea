@@ -6,6 +6,7 @@
  @homepage  https://copmaths.fr/mathalea2d.html
  */
 
+
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%% OBJET PARENT %%%%%%%%%%%%%
@@ -4372,7 +4373,7 @@ function Repere({
       positionLegendeX = [xmax + 4/coeff, yabscisse + 6/coeff];
     }
     if (positionLegendeY === undefined) {
-      positionLegendeY = [xordonnee + 6/coeff, ymax + 4/coeff];
+      positionLegendeY = [xordonnee + 6/coeff, ymax + 8/coeff];
     }
     code+=texteParPosition(
         legendeX,
@@ -4534,6 +4535,315 @@ function repere(...args) {
   return new Repere(...args);
 }
 
+
+function Repere2({
+  xUnite = 1,
+  yUnite = 1,
+  xMin = -10,
+  xMax = 10,
+  yMin = -10,
+  yMax = 10,
+  axesEpaisseur = 2,
+  axesCouleur = 'black',
+  axeXStyle = "->",
+  axeYStyle = "->",
+  thickEpaisseur = 2,
+  thickHauteur = .2,
+  thickCouleur = axesCouleur,
+  xThickDistance = 1,
+  xThickListe = false,
+  xThickMin = xMin+xThickDistance,
+  xThickMax = xMax-xThickDistance,
+  yThickDistance = 1,
+  yThickListe = false,
+  yThickMin = yMin+yThickDistance,
+  yThickMax = yMax-yThickDistance,
+  xLabelDistance = xThickDistance,
+  xLabelListe = false,
+  xLabelMin = xThickMin,
+  xLabelMax = xThickMax,
+  yLabelDistance = yThickDistance,
+  yLabelListe = false,
+  yLabelMin = yThickMin,
+  yLabelMax = yThickMax,
+  xLegende = "",
+  xLegendePosition = [calcul(xMax*xUnite) + .5, .5],
+  yLegende = "",
+  yLegendePosition = [.5, calcul(yMax*yUnite) + .5],
+  grille = false,
+  grilleDistance = false,
+  grilleCouleur = "black",
+  grilleOpacite = 0.5,
+  grilleEpaisseur = 1,
+  grilleSecondaire = false,
+  grilleSecondaireDistance = false,
+  grilleSecondaireCouleur = "gray",
+  grilleSecondaireOpacite = 0.3,
+  grilleSecondaireEpaisseur = 1,
+  grilleX = grille,
+  grilleXListe = false,
+  grilleXDistance = grilleDistance,
+  grilleXMin = false,
+  grilleXMax = false,
+  grilleXCouleur = grilleCouleur,
+  grilleXOpacite = grilleOpacite,
+  grilleY = grille,
+  grilleYListe = false,
+  grilleYDistance = grilleDistance,
+  grilleYMin = false,
+  grilleYMax = false,
+  grilleYCouleur = grilleCouleur,
+  grilleYOpacite = grilleOpacite,
+  grilleSecondaireX = grilleSecondaire,
+  grilleSecondaireXListe = false,
+  grilleSecondaireXDistance = grilleSecondaireDistance,
+  grilleSecondaireXMin = false,
+  grilleSecondaireXMax = false,
+  grilleSecondaireXCouleur = grilleSecondaireCouleur,
+  grilleSecondaireXOpacite = grilleSecondaireOpacite,
+  grilleSecondaireY = grilleSecondaire,
+  grilleSecondaireYListe = false,
+  grilleSecondaireYDistance = grilleSecondaireDistance,
+  grilleSecondaireYMin = false,
+  grilleSecondaireYMax = false,
+  grilleSecondaireYCouleur = grilleSecondaireCouleur,
+  grilleSecondaireYOpacite = grilleSecondaireOpacite,
+} = {}) {
+  ObjetMathalea2D.call(this)
+
+  // Les propriétés exportables
+  this.xUnite = xUnite;
+  this.yUnite = yUnite;
+  this.xMin = xMin;
+  this.xMax = xMax;
+  this.yMin = yMin;
+  this.yMax = yMax;
+
+  let objets = []
+  // LES AXES
+  let OrdonneeAxe =Math.max(0,yMin)
+  let axeX = segment(calcul(xMin*xUnite),OrdonneeAxe,calcul(xMax*xUnite),OrdonneeAxe);
+  axeX.epaisseur = axesEpaisseur;
+  axeX.styleExtremites = axeXStyle;
+  axeX.color = axesCouleur;
+  let abscisseAxe =Math.max(0,xMin)
+  let axeY = segment(abscisseAxe,calcul(yMin*yUnite),abscisseAxe,calcul(yMax*yUnite));
+  axeY.epaisseur = axesEpaisseur;
+  axeY.styleExtremites = axeYStyle;
+  axeY.color = axesCouleur;
+  objets.push(axeX,axeY);
+  // Cache les objets intermédiaires pour ne pas les afficher en double dans mathalea2d.html
+  axeX.isVisible = false;
+  axeY.isVisible = false;
+
+  // LES THICKS
+  if (!xThickListe) {
+    xThickListe = rangeMinMax(xThickMin,xThickMax,[0],xThickDistance)
+  }
+  for (x of xThickListe){
+    let thick = segment(calcul(x*xUnite),OrdonneeAxe-thickHauteur,calcul(x*xUnite),OrdonneeAxe+thickHauteur);
+    thick.isVisible = false;
+    thick.epaisseur = thickEpaisseur;
+    thick.color = thickCouleur;
+    objets.push(thick);
+  }
+  if (!yThickListe) {
+    yThickListe = rangeMinMax(yThickMin,yThickMax,[0],yThickDistance)
+  }
+  for (y of yThickListe){
+    let thick = segment(abscisseAxe-thickHauteur,calcul(y*yUnite),abscisseAxe+thickHauteur,calcul(y*yUnite));
+    thick.isVisible = false;
+    thick.epaisseur = thickEpaisseur;
+    thick.color = thickCouleur;
+    objets.push(thick);
+  }
+
+
+  // LES LABELS
+  if (!xLabelListe) {
+    xLabelListe = rangeMinMax(xLabelMin,xLabelMax,[0],xLabelDistance)
+  }
+  for (x of xLabelListe){
+    let l = texteParPosition(tex_nombre(x),calcul(x*xUnite),OrdonneeAxe-.5)
+    l.isVisible = false;
+    objets.push(l);
+  }
+  
+  if (!yLabelListe) {
+    yLabelListe = rangeMinMax(yLabelMin,yLabelMax,[0],yLabelDistance)
+  }
+  for (y of yLabelListe){
+    let l = texteParPosition(tex_nombre(y),abscisseAxe-.5,calcul(y*yUnite),'gauche')
+    l.isVisible = false;
+    objets.push(l);
+  }
+
+  // LES LÉGENDES
+  if (xLegende.length>0){
+    objets.push(texteParPosition(xLegende,xLegendePosition[0],xLegendePosition[1],'droite'))
+  }
+  if (yLegende.length>0){
+    objets.push(texteParPosition(yLegende,yLegendePosition[0],yLegendePosition[1],'droite'))
+  }
+
+  // GRILLE PRINCIPALE
+ 
+  //Les traits horizontaux
+  if (grilleY){
+    if (!grilleYListe) {
+      // Ceux qui ne sont pas définis reprennent les valeurs de thick
+      if (!grilleYMin){
+        grilleYMin = yThickMin
+      }
+      if (!grilleYMax){
+        grilleYMax = yThickMax
+       }
+      if (!grilleYDistance){
+        grilleYDistance = yThickDistance
+      }
+      // On créé la liste avec ces valeurs 
+      grilleYListe = rangeMinMax(grilleYMin,grilleYMax,[0],grilleYDistance)
+    }
+    for (y of grilleYListe){
+      let traitH = segment(calcul(xMin*xUnite),calcul(y*yUnite),calcul(xMax*xUnite),calcul(y*yUnite));
+      traitH.isVisible = false;
+      traitH.color = grilleYCouleur;
+      traitH.opacite = grilleYOpacite;
+      traitH.epaisseur = grilleEpaisseur;
+      if (grilleY == 'pointilles'){
+        traitH.pointilles = true;
+      }
+      objets.push(traitH);
+    }
+  }
+  //Les traits verticaux
+  if (grilleX){
+    if (!grilleXListe) {
+      // Ceux qui ne sont pas définis reprennent les valeurs de thick
+      if (!grilleXMin){
+        grilleXMin = xThickMin
+      }
+      if (!grilleXMax){
+        grilleXMax = xThickMax
+       }
+      if (!grilleXDistance){
+        grilleXDistance = xThickDistance
+      }
+      // On créé la liste avec ces valeurs 
+      grilleXListe = rangeMinMax(grilleXMin,grilleXMax,[0],grilleXDistance)
+    }
+    for (x of grilleXListe){
+      let traitV = segment(calcul(x*xUnite),calcul(yMin*yUnite),calcul(x*xUnite),calcul(yMax*yUnite));
+      traitV.isVisible = false;
+      traitV.color = grilleXCouleur;
+      traitV.opacite = grilleXOpacite;
+      traitV.epaisseur = grilleEpaisseur;
+      if (grilleX == 'pointilles'){
+        traitV.pointilles = true;
+      }
+      objets.push(traitV);
+    }
+  }
+
+
+
+  // GRILLE SECONDAIRE
+ 
+  //Les traits horizontaux
+  if (grilleSecondaireY){
+    if (!grilleSecondaireYListe) {
+      // Ceux qui ne sont pas définis reprennent les valeurs de thick
+      if (!grilleSecondaireYMin){
+        grilleSecondaireYMin = yThickMin
+      }
+      if (!grilleSecondaireYMax){
+        grilleSecondaireYMax = yThickMax
+       }
+      if (!grilleSecondaireYDistance){
+        grilleSecondaireYDistance = calcul(yThickDistance/2)
+      }
+      // On créé la liste avec ces valeurs 
+      grilleSecondaireYListe = rangeMinMax(grilleSecondaireYMin,grilleSecondaireYMax,[0],grilleSecondaireYDistance)
+    }
+    for (y of grilleSecondaireYListe){
+      let traitH = segment(calcul(xMin*xUnite),calcul(y*yUnite),calcul(xMax*xUnite),calcul(y*yUnite));
+      traitH.isVisible = false;
+      traitH.color = grilleSecondaireYCouleur;
+      traitH.opacite = grilleSecondaireYOpacite;
+      traitH.epaisseur = grilleSecondaireEpaisseur;
+      if (grilleSecondaireY == 'pointilles'){
+        traitH.pointilles = true;
+      }
+      objets.push(traitH);
+    }
+  }
+  //Les traits verticaux
+  if (grilleSecondaireX){
+    if (!grilleSecondaireXListe) {
+      // Ceux qui ne sont pas définis reprennent les valeurs de thick
+      if (!grilleSecondaireXMin){
+        grilleSecondaireXMin = xThickMin/2
+      }
+      if (!grilleSecondaireXMax){
+        grilleSecondaireXMax = xThickMax
+       }
+      if (!grilleSecondaireXDistance){
+        grilleSecondaireXDistance = calcul(xThickDistance/2)
+      }
+      // On créé la liste avec ces valeurs 
+      grilleSecondaireXListe = rangeMinMax(grilleSecondaireXMin,grilleSecondaireXMax,[0],grilleSecondaireXDistance)
+    }
+    for (x of grilleSecondaireXListe){
+      let traitV = segment(calcul(x*xUnite),calcul(yMin*yUnite),calcul(x*xUnite),calcul(yMax*yUnite));
+      traitV.isVisible = false;
+      traitV.color = grilleSecondaireXCouleur;
+      traitV.opacite = grilleSecondaireXOpacite;
+      traitV.epaisseur = grilleSecondaireEpaisseur;
+      if (grilleSecondaireX == 'pointilles'){
+        traitV.pointilles = true;
+      }
+      objets.push(traitV);
+    }
+  }
+  
+
+  // LES SORTIES TiKZ et SVG
+  this.svg = function (coeff) {
+    code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+  this.svgml =function(coeff,amp) {
+    code = "";
+    for (objet of objets) {
+     if (typeof(objet.svgml)=='undefined') code += "\n\t" + objet.svg(coeff);
+     else code += "\n\t" + objet.svgml(coeff,amp);
+    }
+    return code;
+  }
+  this.tikzml = function (amp) {
+    code = "";
+    for (objet of objets) {
+      if (typeof(objet.tikzml)=='undefined') code += "\n\t" + objet.tikz();
+      else code += "\n\t" + objet.tikzml(amp);
+    }
+    return code;
+  };
+}
+
+function repere2(...args) {
+  return new Repere2(...args)
+}
+
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% LES STATISTIQUES %%%%%%%%%%%%%
@@ -4555,12 +4865,13 @@ function repere(...args) {
  * @param {integer} angle
  * @auteur Rémi Angot
  */
-function TraceBarre(x,y,legende='',epaisseur=.6,couleur='blue',opaciteDeRemplissage=.3,angle=66){
+function TraceBarre(x,y,legende='',{epaisseur=.6,couleurDeRemplissage='blue',color='black',opaciteDeRemplissage=.3,angle=66,unite=1}={}){
   ObjetMathalea2D.call(this)
-  let p = polygone(point(calcul(x-epaisseur/2),0),point(calcul(x-epaisseur/2),y),point(calcul(x+epaisseur/2),y),point(calcul(x+epaisseur/2),0))
-  p.couleurDeRemplissage = couleur
-  p.opaciteDeRemplissage = opaciteDeRemplissage
-  let texte = texteParPosition(legende,x,-.5,angle)
+  let p = polygone(point(calcul(x-epaisseur/2),0),point(calcul(x-epaisseur/2),calcul(y*unite)),point(calcul(x+epaisseur/2),calcul(y*unite)),point(calcul(x+epaisseur/2),0))
+  p.couleurDeRemplissage = couleurDeRemplissage;
+  p.opaciteDeRemplissage = opaciteDeRemplissage;
+  p.color = color;
+  let texte = texteParPosition(legende,x,-.5,angle,'black',1,'start');
   
   this.tikz = function (){
     return p.tikz() + '\n' + texte.tikz()
@@ -4777,6 +5088,100 @@ function courbe(
   return p;
 }
 
+
+/**
+ * courbe2(f,xmin,xmax,color,epaisseur,repere,step) // Trace la courbe de f
+ *
+ * @Auteur Rémi Angot
+ */
+
+function Courbe2(f,{
+  repere = {},
+  color = 'black',
+  epaisseur = 2,
+  step = .1,
+  xMin = -10,
+  xMax = 10,
+  yMin = -10,
+  yMax = 10,
+  xUnite = 1,
+  yUnite = 1
+  }={}) {
+  ObjetMathalea2D.call(this);
+  this.color = color;
+  let xmin,ymin,xmax,ymax,xunite,yunite // Tout en minuscule pour les différencier des paramètres de la fonction
+  xmin = repere.xMin;
+  ymin = repere.yMin;
+  xmax = repere.xMax;
+  ymax = repere.yMax;
+  xunite = repere.xUnite;
+  yunite = repere.yUnite;
+
+  //Si le repère n'est pas donné ou ne permet pas de récupérer des valeurs
+  if (isNaN(xmin)){xmin = xMin};
+  if (isNaN(xmax)){xmax = xMax};
+  if (isNaN(ymin)){ymin = yMin};
+  if (isNaN(ymax)){ymax = yMax};
+  if (isNaN(xunite)){xunite = xUnite};
+  if (isNaN(yunite)){yunite = yUnite};
+  let objets = [];
+  let points = [];
+  for (let x = xmin ; x <= xmax ; x = calcul(x + step )
+  ) {
+    if (f(x)<ymax && f(x)>ymin) {
+      points.push(point(calcul(x*xunite), calcul(f(x)*yunite)));
+    } else {
+      let p = polyline([...points], this.color);
+      p.epaisseur = epaisseur;
+      objets.push(p)
+      points = []
+    }
+    let p = polyline([...points], this.color);
+    p.epaisseur = epaisseur;
+    objets.push(p)
+  }
+
+  // LES SORTIES TiKZ et SVG
+  this.svg = function (coeff) {
+    code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+  this.svgml =function(coeff,amp) {
+    code = "";
+    for (objet of objets) {
+     if (typeof(objet.svgml)=='undefined') code += "\n\t" + objet.svg(coeff);
+     else code += "\n\t" + objet.svgml(coeff,amp);
+    }
+    return code;
+  }
+  this.tikzml = function (amp) {
+    code = "";
+    for (objet of objets) {
+      if (typeof(objet.tikzml)=='undefined') code += "\n\t" + objet.tikz();
+      else code += "\n\t" + objet.tikzml(amp);
+    }
+    return code;
+  };
+  
+}
+
+function courbe2(...args){
+  return new Courbe2(...args)
+}
+
+
+
+
 /**
  * @SOURCE : https://gist.github.com/ericelliott/80905b159e1f3b28634ce0a690682957
  */
@@ -4948,7 +5353,7 @@ function intervalle(A, B, color = "blue", h = 0) {
  *
  * @Auteur Rémi Angot
  */
-function TexteParPoint(texte, A, orientation = "milieu", color='black',scale=1) {
+function TexteParPoint(texte, A, orientation = "milieu", color='black',scale=1,ancrageDeRotation = "middle") {
   ObjetMathalea2D.call(this);
   this.color = color;
   this.svg = function (coeff) {
@@ -4956,7 +5361,7 @@ function TexteParPoint(texte, A, orientation = "milieu", color='black',scale=1) 
     if (typeof(orientation)=='number') {
       code = `<text x="${A.xSVG(coeff)}" y="${A.ySVG(
         coeff
-      )}" text-anchor="middle" dominant-baseline="central" fill="${
+      )}" text-anchor = ${ancrageDeRotation} dominant-baseline = "central" fill="${
         this.color
       }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
         coeff
@@ -4992,16 +5397,23 @@ function TexteParPoint(texte, A, orientation = "milieu", color='black',scale=1) 
   this.tikz = function () {
     let code = "";
     if (typeof orientation == "number") {
+      let anchor = '';
+      if (ancrageDeRotation == 'gauche'){
+        anchor = 'west'
+      }
+      if (ancrageDeRotation == 'droite'){
+        anchor = 'east'
+      }
       code = `\\draw [${color}] (${A.x},${
         A.y
       }) node[anchor = center, rotate = ${-orientation}] {${texte}};`;
     } else {
       let anchor = "";
       if (orientation == "gauche") {
-        anchor = `node[anchor = east,scale=${scale}]`;
+        anchor = `node[anchor = west,scale=${scale}]`;
       }
       if (orientation == "droite") {
-        anchor = `node[anchor = west,scale=${scale}]`;
+        anchor = `node[anchor = east,scale=${scale}]`;
       }
       if (orientation == "milieu") {
         anchor = `node[anchor = center,scale=${scale}]`;
@@ -5023,8 +5435,8 @@ function texteParPoint(...args) {
  *
  * @Auteur Rémi Angot
  */
-function texteParPosition(texte, x, y, orientation = "milieu", color,scale=1) {
-  return new TexteParPoint(texte, point(x, y), orientation, color,scale);
+function texteParPosition(texte, x, y, orientation = "milieu", color,scale=1, ancrageDeRotation = "middle") {
+  return new TexteParPoint(texte, point(x, y), orientation, color,scale,ancrageDeRotation);
 }
 
 /**
