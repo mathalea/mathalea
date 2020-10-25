@@ -442,7 +442,9 @@ function Droite(arg1, arg2, arg3, arg4, color) {
       this.a = arg1;
       this.b = arg2;
       this.c = arg3;
-      this.color = color;
+      a=arg1
+      b=arg2
+      c=arg3
       if (egal(a, 0)) {
         this.x1 = 0;
         this.x2 = 1;
@@ -470,13 +472,16 @@ function Droite(arg1, arg2, arg3, arg4, color) {
         (this.x1 - this.x2) * this.y1 + (this.y2 - this.y1) * this.x1
       );
       this.name = arg3;
-      this.color = color;
     }
   } else if (arguments.length == 4) {
     if (typeof arg1 == "number") {
       this.a = arg1;
       this.b = arg2;
       this.c = arg3;
+      a=arg1
+      b=arg2
+      c=arg3
+      nom=arg4
       if (egal(a, 0)) {
         this.x1 = 0;
         this.x2 = 1;
@@ -494,7 +499,6 @@ function Droite(arg1, arg2, arg3, arg4, color) {
         this.y2 = calcul((-c - a) / b);
       }
       this.nom = nom;
-      this.color = color;
     } else {
       this.x1 = arg1.x;
       this.y1 = arg1.y;
