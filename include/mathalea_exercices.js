@@ -11629,7 +11629,6 @@ function Symetrie_axiale_conservation1() {
     let points=[],traces=[],nom=[],alternance
     for (let i=0;i<25;i++) nom.push(lettre_depuis_chiffre(i+1))
     let noms=shuffle(nom)
-    console.log(noms)
 
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions);
     this.liste_questions = []; // Liste de questions
@@ -11711,7 +11710,6 @@ function Symetrie_axiale_conservation1() {
       else points.push(point(coords[i][0],coords[i][1],noms[i],'above'))
       traces.push(tracePoint(points[i]))
     }
-    console.log(points)
     // On rédige les questions et les réponses
     if (this.sup2==true) alternance=2
     else alternance=1
@@ -11758,11 +11756,14 @@ function Symetrie_axiale_conservation1() {
           choix=randint(0,9)+randint(0,1)*12
           texte=`Quel est le symétrique de l'angle $\\widehat{${noms[index(choix)]}${noms[index(choix+1)]}${noms[index(choix+2)]}}$ ?`
           texte_corr=`Le symétrique de l'angle $\\widehat{${noms[index(choix)]}${noms[index(choix+1)]}${noms[index(choix+2)]}}$ est l'angle $\\widehat{${noms[index(choix+12)]}${noms[index(choix+13)]}${noms[index(choix+14)]}}$.`
-//          objets.push(polygone([points[index(choix)],points[index(choix+1)],points[index(choix+2)]],texcolors(i*3+2)))
-//          objets.push(polygone([points[index(choix+12)],points[index(choix+13)],points[choix+14]],texcolors(i*3+2)))
-          break;
-        
+          objets.push(codeAngle(points[index(choix)],points[index(choix+1)],points[index(choix+2)],2,'',texcolors(i*3+2),2,0.5,texcolors(i*3+2),0.2))
+          objets.push(codeAngle(points[index(choix+12)],points[index(choix+13)],points[index(choix+14)],2,'',texcolors(i*3+2),2,0.5,texcolors(i*3+2),0.2))
+          objets.push(segment(points[index(choix)],points[index(choix+1)],texcolors(i*3+2)))
+          objets.push(segment(points[index(choix+1)],points[index(choix+2)],texcolors(i*3+2)))
+          objets.push(segment(points[index(choix+12)],points[index(choix+13)],texcolors(i*3+2)))
+          objets.push(segment(points[index(choix+13)],points[index(choix+14)],texcolors(i*3+2)))
 
+          break;
       }
       
       if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
