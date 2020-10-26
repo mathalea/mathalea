@@ -633,8 +633,8 @@ function Droite(arg1, arg2, arg3, arg4, color) {
   this.svgml = function(coeff,amp){
     let A = point(this.x1, this.y1);
     let B = point(this.x2, this.y2);
-    let A1 = pointSurSegment(A, B, -50);
-    let B1 = pointSurSegment(B, A, -50);
+    let A1 = pointSurSegment(A, B, -10);
+    let B1 = pointSurSegment(B, A, -10);
     let s=segment(A1,B1,this.color)
     s.isVisible=false
   return s.svgml(coeff,amp)
@@ -642,8 +642,8 @@ function Droite(arg1, arg2, arg3, arg4, color) {
   this.tikzml = function(amp){
     let A = point(this.x1, this.y1);
     let B = point(this.x2, this.y2);
-    let A1 = pointSurSegment(A, B, -50);
-    let B1 = pointSurSegment(B, A, -50);
+    let A1 = pointSurSegment(A, B, -10);
+    let B1 = pointSurSegment(B, A, -10);
     let s=segment(A1,B1,this.color)
     s.isVisible=false
   return s.tikzml(amp)
