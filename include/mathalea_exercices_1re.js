@@ -657,7 +657,7 @@ function Trouver_equation_parabole() {
             texte_corr+=`d'où $a=${f(x3)}\\div ${ecriture_parenthese_si_negatif((x3-x1)*(x3-x2))}=${a}$.<br>`
           }
           else texte_corr+=`$a=${a}$.<br>`
-          texte_corr+=`On obtient ainsi $\\mathscr{${f_name[i]}}(x)=${ecriture_algebrique_sauf1(a)}(x${ecriture_algebrique(-x1)})(x${ecriture_algebrique(-x2)})$ ou en développant $\\mathscr{${f_name[i]}}(x)=${Algebrite.eval(`${ecriture_algebrique_sauf1(a)}x^2 ${ecriture_algebrique_sauf1(b)}x  ${ecriture_algebrique(c)}`)}$`
+          texte_corr+=`On obtient ainsi $\\mathscr{${f_name[i]}}(x)=${rien_si_1(a)}(x${ecriture_algebrique(-x1)})(x${ecriture_algebrique(-x2)})$ ou en développant $\\mathscr{${f_name[i]}}(x)=${Algebrite.eval(`${ecriture_algebrique_sauf1(a)}x^2 ${ecriture_algebrique_sauf1(b)}x  ${ecriture_algebrique(c)}`)}$`
           break;
 
       }
