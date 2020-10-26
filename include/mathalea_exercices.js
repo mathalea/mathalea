@@ -11630,17 +11630,19 @@ function Symetrie_axiale_conservation1() {
     let points=[],traces=[],nom=[],alternance
     for (let i=0;i<25;i++) nom.push(lettre_depuis_chiffre(i+1))
     let noms=shuffle(nom)
-    console.log(noms)
 
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions);
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
+    this.liste_questions.push(`${texte_gras('Dans la symétrie d\'axe (d)...')}`);
+    this.liste_corrections.push(`${texte_gras('Dans la symétrie d\'axe (d)...')}`);
     // On prépare la figure...
     let axe=parseInt(this.sup)
-    let d,nonchoisi,coords=[],x,y,objets=[]
+    let d,nonchoisi,coords=[],x,y,objets=[],nomd
     if (axe==5) axe=randint(1,4) //choix de l'axe et des coordonnées
     switch (axe) {
       case 1 : d=droite(1,0,0,'(d)');
+        nomd=texteParPosition('(d)',0.3,5.6)
         for (let i=0;i<12;i++){
           nonchoisi=false
           while (!nonchoisi){ // Le nouveau point est-il déjà dans la liste ?
@@ -11654,7 +11656,8 @@ function Symetrie_axiale_conservation1() {
         for (let j=0;j<12;j++) coords.push([-coords[j][0],coords[j][1]]) // on stocke les 12 images
       break;
       case 2: d=droite(0,1,0,'(d)');
-        for (let i=0;i<12;i++){
+      nomd=texteParPosition('(d)',5.6,0.3)
+      for (let i=0;i<12;i++){
           nonchoisi=false
           while (!nonchoisi){ // Le nouveau point est-il déjà dans la liste ?
             [x,y]=[randint(-5,5),randint(-5,0)]
@@ -11667,7 +11670,8 @@ function Symetrie_axiale_conservation1() {
         for (let j=0;j<12;j++) coords.push([coords[j][0],-coords[j][1]]) // on stocke les 12 images
       break;
       case 3: d=droite(1,-1,0,'(d)');
-        for (let i=0;i<12;i++){
+      nomd=texteParPosition('(d)',-5.8,-5.4)
+      for (let i=0;i<12;i++){
           nonchoisi=false
           while (!nonchoisi){ // Le nouveau point est-il déjà dans la liste ?
             x=randint(-5,5)
@@ -11681,7 +11685,8 @@ function Symetrie_axiale_conservation1() {
         for (let j=0;j<12;j++) coords.push([coords[j][1],coords[j][0]]) // on stocke les 12 images
       break;
       case 4: d=droite(1,1,0,'(d)');
-        for (let i=0;i<12;i++){
+      nomd=texteParPosition('(d)',-5.8,5.4)
+      for (let i=0;i<12;i++){
           nonchoisi=false
           while (!nonchoisi){ // Le nouveau point est-il déjà dans la liste ? Si oui, on recommence.
             x=randint(-5,5)
@@ -11698,15 +11703,14 @@ function Symetrie_axiale_conservation1() {
       break;
     }
     for (let i=0;i<24;i++) {
-      if (i<12) points.push(point(coords[i][0],coords[i][1],noms[i],'above left'))
+      if (i<12) points.push(point(coords[i][0],coords[i][1],noms[i],'above'))
       else if (coords[i][0]==coords[i-12][0]&&coords[i][1]==coords[i-12][1]) {
-        points.push(point(coords[i][0],coords[i][1],noms[i-12],'above left'))
+        points.push(point(coords[i][0],coords[i][1],noms[i-12],'above'))
         noms[i]=noms[i-12]
       }
-      else points.push(point(coords[i][0],coords[i][1],noms[i],'above left'))
+      else points.push(point(coords[i][0],coords[i][1],noms[i],'above'))
       traces.push(tracePoint(points[i]))
     }
-    console.log(points)
     // On rédige les questions et les réponses
     if (this.sup2==true) alternance=2
     else alternance=1
@@ -11719,8 +11723,8 @@ function Symetrie_axiale_conservation1() {
       switch (liste_type_de_questions[i]) {
         case "Segment" :
           choix=randint(0,10)+randint(0,1)*12
-          texte=`Quel est le symétrique du segment [${noms[index(choix)]}${noms[index(choix+1)]}] ?`
-          texte_corr=`Le symétrique du segment [${noms[index(choix)]}${noms[index(choix+1)]}] est le segment [${noms[index(choix+12)]}${noms[index(choix+13)]}].`
+          texte=`Quel est le symétrique du segment $[${noms[index(choix)]}${noms[index(choix+1)]}]$ ?`
+          texte_corr=`Le symétrique du segment $[${noms[index(choix)]}${noms[index(choix+1)]}]$ est le segment $[${noms[index(choix+12)]}${noms[index(choix+13)]}]$.`
           s1=segment(points[index(choix)],points[index(choix+1)],texcolors(i*3+2))
           s2=segment(points[index(choix+12)],points[index(choix+13)],texcolors(i*3+2))
           s1.epaisseur=2
@@ -11730,22 +11734,22 @@ function Symetrie_axiale_conservation1() {
           break;
         case "Droite" :
           choix=randint(0,10)+randint(0,1)*12
-          texte=`Quel est la symétrique de la droite (${noms[index(choix)]}${noms[index(choix+1)]}) ?`
-          texte_corr=`La symétrique de la droite (${noms[index(choix)]}${noms[index(choix+1)]}) est la droite (${noms[index(choix+12)]}${noms[index(choix+13)]}).`
+          texte=`Quel est la symétrique de la droite $(${noms[index(choix)]}${noms[index(choix+1)]})$ ?`
+          texte_corr=`La symétrique de la droite $(${noms[index(choix)]}${noms[index(choix+1)]})$ est la droite $(${noms[index(choix+12)]}${noms[index(choix+13)]})$.`
           objets.push(droite(points[index(choix)],points[index(choix+1)],"",texcolors(i*3+2)))
           objets.push(droite(points[index(choix+12)],points[index(choix+13)],"",texcolors(i*3+2)))
          break;
         case "1/2droite" :
           choix=randint(0,10)+randint(0,1)*12
-          texte=`Quel est la symétrique de la demi-droite [${noms[index(choix)]}${noms[index(choix+1)]}) ?`
-          texte_corr=`La symétrique de la demi-droite [${noms[index(choix)]}${noms[index(choix+1)]}) est la demi-droite [${noms[index(choix+12)]}${noms[index(choix+13)]})`
+          texte=`Quel est la symétrique de la demi-droite $[${noms[index(choix)]}${noms[index(choix+1)]})$ ?`
+          texte_corr=`La symétrique de la demi-droite $[${noms[index(choix)]}${noms[index(choix+1)]})$ est la demi-droite $[${noms[index(choix+12)]}${noms[index(choix+13)]})$`
           objets.push(demiDroite(points[index(choix)],points[index(choix+1)],texcolors(i*3+2)))
           objets.push(demiDroite(points[index(choix+12)],points[index(choix+13)],texcolors(i*3+2)))
          break;
         case "Triangle" :
           choix=randint(0,9)+randint(0,1)*12
-          texte=`Quel est le symétrique du triangle ${noms[index(choix)]}${noms[index(choix+1)]}${noms[index(choix+2)]} ?`
-          texte_corr=`Le symétrique du triangle ${noms[index(choix)]}${noms[index(choix+1)]}${noms[index(choix+2)]} est le triangle ${noms[index(choix+12)]}${noms[index(choix+13)]}${noms[index(choix+14)]}.`
+          texte=`Quel est le symétrique du triangle $${noms[index(choix)]}${noms[index(choix+1)]}${noms[index(choix+2)]}$ ?`
+          texte_corr=`Le symétrique du triangle $${noms[index(choix)]}${noms[index(choix+1)]}${noms[index(choix+2)]}$ est le triangle $${noms[index(choix+12)]}${noms[index(choix+13)]}${noms[index(choix+14)]}$.`
           objets.push(polygone([points[index(choix)],points[index(choix+1)],points[index(choix+2)]],texcolors(i*3+2)))
           objets.push(polygone([points[index(choix+12)],points[index(choix+13)],points[index(choix+14)]],texcolors(i*3+2)))
           break;
@@ -11753,11 +11757,14 @@ function Symetrie_axiale_conservation1() {
           choix=randint(0,9)+randint(0,1)*12
           texte=`Quel est le symétrique de l'angle $\\widehat{${noms[index(choix)]}${noms[index(choix+1)]}${noms[index(choix+2)]}}$ ?`
           texte_corr=`Le symétrique de l'angle $\\widehat{${noms[index(choix)]}${noms[index(choix+1)]}${noms[index(choix+2)]}}$ est l'angle $\\widehat{${noms[index(choix+12)]}${noms[index(choix+13)]}${noms[index(choix+14)]}}$.`
-//          objets.push(polygone([points[index(choix)],points[index(choix+1)],points[index(choix+2)]],texcolors(i*3+2)))
-//          objets.push(polygone([points[index(choix+12)],points[index(choix+13)],points[choix+14]],texcolors(i*3+2)))
-          break;
-        
+          objets.push(codeAngle(points[index(choix)],points[index(choix+1)],points[index(choix+2)],2,'',texcolors(i*3+2),2,0.5,texcolors(i*3+2),0.2))
+          objets.push(codeAngle(points[index(choix+12)],points[index(choix+13)],points[index(choix+14)],2,'',texcolors(i*3+2),2,0.5,texcolors(i*3+2),0.2))
+          objets.push(segment(points[index(choix)],points[index(choix+1)],texcolors(i*3+2)))
+          objets.push(segment(points[index(choix+1)],points[index(choix+2)],texcolors(i*3+2)))
+          objets.push(segment(points[index(choix+12)],points[index(choix+13)],texcolors(i*3+2)))
+          objets.push(segment(points[index(choix+13)],points[index(choix+14)],texcolors(i*3+2)))
 
+          break;
       }
       
       if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
@@ -11768,8 +11775,8 @@ function Symetrie_axiale_conservation1() {
       cpt++;
     }
     d.isVisible=true;
-    this.liste_questions.push(mathalea2d({xmin:-6,ymin:-6,xmax:6,ymax:6,pixelsParCm:40,scale:1.5},traces,labelPoint(points),d))
-    this.liste_corrections.push(mathalea2d({xmin:-6,ymin:-6,xmax:6,ymax:6,pixelsParCm:40,scale:1.5},traces,labelPoint(points),d,objets))
+    this.liste_questions.push(mathalea2d({xmin:-6,ymin:-6,xmax:6,ymax:6,pixelsParCm:40,scale:1.5},nomd,traces,labelPoint(points),d))
+    this.liste_corrections.push(mathalea2d({xmin:-6,ymin:-6,xmax:6,ymax:6,pixelsParCm:40,scale:1.5},nomd,traces,labelPoint(points),d,objets))
     liste_de_question_to_contenu_sans_numero(this);
 
   }

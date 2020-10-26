@@ -3823,7 +3823,6 @@ function DroiteGraduee(x=0,y=0,position='H',type='dd',longueurUnite=10,division=
       objets.push(g)
       if (gradue&&k!=0&&k!=division) {
         objets.push(texteParPosition(arrondi(calcul(origin+i/longueurUnite),1),x+i*absord[0]-0.8*absord[1],y+i*absord[1]-0.8*absord[0]))
-        console.log(i)
       }
     }
     else {
@@ -5545,8 +5544,7 @@ function angle(A, O, B) {
  */
 function angleOriente(A, O, B) {
   let A2 = rotation(A, O, 90);
-  let v = vecteur(O, B),
-    u = vecteur(O, A2);
+  let v = vecteur(O, B),u = vecteur(O, A2);
   return unSiPositifMoinsUnSinon(v.x * u.x + v.y * u.y) * angle(A, O, B);
 }
 /**
