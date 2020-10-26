@@ -5131,7 +5131,7 @@ function Courbe2(f,{
   let points = [];
   let pas;
   if(!step){
-    pas = calcul(xUnite/5);
+    pas = calcul(0.2/xUnite);
   } else {
     pas = step;
   }
