@@ -120,6 +120,7 @@ var liste_des_exercices_disponibles = {
   "6P10": Proportionnalite_pas_proportionnalite,
   "6P11": Proportionnalite_par_linearite,
   "6P11-1": Proportionnalite_par_linearite_bis,
+  "6S10":Lecture_diagramme_barre,
   "5A10": Liste_des_diviseurs_5e,
   "5A11": Tableau_criteres_de_divisibilite,
   "5A12-1": Premier_ou_pas_5e,
@@ -13813,6 +13814,66 @@ function Proportionnalite_par_linearite_bis(){
 		}
 		liste_de_question_to_contenu(this);
 	}
+}
+
+
+/**
+ * Lire un diagramme en barre
+ * @Auteur Erwan Duplessy
+ * Référence 6S10
+ */
+
+function Lecture_diagramme_barre() {
+
+  Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Lire un diagramme en barre";
+	this.consigne = "Répondre aux questions à l'aide du graphique.";
+  this.nb_questions = 3;
+  this.nb_questions_modifiable = false;
+	this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  
+  this.nouvelle_version = function(){
+		this.liste_questions = []; // Vide la liste de questions
+    this.liste_corrections = []; // Vide la liste de questions corrigées   
+
+    let lstAnimaux = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles'];
+    let lstAnimauxExo = []; //uniquement les animaux dans l'exercice
+    let lstNombresAnimaux = []; //effectif de chaque animal
+    let lstVal = [];
+    let N = 0;
+    for (let i = 0; i < 4; i++) {
+      nom = choice(lstAnimaux, lstAnimauxExo);
+      lstAnimauxExo.push(nom);
+      N = randint(2, 100, lstVal); // choisit un nombre entre 2 et 100 sauf dans les valeurs à éviter
+      lstNombresAnimaux.push(N);
+      lstVal = lstVal.concat([N-1, N, N+1]); //valeurs à supprimer pour éviter des valeurs proches
+    }
+
+    let nMin = Math.min(...lstNombresAnimaux);
+    let nMax = Math.max(...lstNombresAnimaux);
+
+    texte = `Dans le zoo d’Armenelos, il y a beaucoup d’animaux. Voici un diagramme en bâtons qui donne le nombre d’animaux pour chaque espèce.<br>`;
+    texte += num_alpha(0) + ` Quels sont les animaux les plus nombreux ?<br>`;
+    texte += num_alpha(1) + ` Quels sont les animaux les moins nombreux ?<br>`;
+    texte += num_alpha(2) + ` Combien y a t-il de ` + lstAnimauxExo[1] + ' ?<br>';
+
+    // print temporaire
+    // tableau de valeurs à remplacer par le graphique :
+    for (let i = 0; i < 4; i++) {
+      texte += lstAnimauxExo[i].toLocaleString() + '  ';
+      texte += lstNombresAnimaux[i].toLocaleString()+ '<br>';
+    }
+
+    texte_corr = num_alpha(0) + ` Les animaux les plus nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMax)] +'.<br>';
+    texte_corr += num_alpha(1) + ` Les animaux les moins nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMin)] +'.<br>';
+    texte_corr += num_alpha(2) + ` Il y a ` + lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[1])].toString() + ' ' + lstAnimauxExo[1] + '.<br>';
+
+
+    this.liste_questions.push(texte);
+    this.liste_corrections.push(texte_corr);
+    liste_de_question_to_contenu(this);
+  }
 }
 
 /**
