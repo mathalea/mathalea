@@ -13700,8 +13700,6 @@ function Lecture_diagramme_barre() {
     texte += num_alpha(1) + ` Quels sont les animaux les moins nombreux ?<br>`;
     texte += num_alpha(2) + ` Donner un encadrement du nombre de ` + lstAnimauxExo[1] + ' ?<br>';
 
-
-
     let r = repere2({
   		grilleY : 'pointilles',
   		xThickListe : [],
@@ -13709,7 +13707,8 @@ function Lecture_diagramme_barre() {
       yUnite : .1,
       yThickDistance : 10,
 	  	yMax : 110,
-  		xMin : 0,
+      xMin : 0,
+      xMax : 10,
   		yMin : 0,
   		axeXStyle : '',
 	  	yLegende : "Nombre d'individus"
@@ -13717,7 +13716,7 @@ function Lecture_diagramme_barre() {
     
     let lstElementGraph = []
     for (let i = 0; i < nbAnimaux; i++) {
-      lstElementGraph.push(traceBarre(i+1,lstNombresAnimaux[i],lstAnimauxExo[i],{unite:.1}))
+      lstElementGraph.push(traceBarre((((r.xMax-r.xMin)/(nbAnimaux+1))*(i+1)),lstNombresAnimaux[i],lstAnimauxExo[i],{unite:.1}))
     }
 
     texte += mathalea2d({xmin : -5, xmax : 11, ymin : -3, ymax : 11, pixelsParCm : 30, scale : .5}, r, lstElementGraph)
