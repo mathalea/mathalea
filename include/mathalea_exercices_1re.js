@@ -677,7 +677,7 @@ function Trouver_equation_parabole() {
       if (Ymax<=0) Ymax=Yscale
          else Ymax=premierMultipleSuperieur(Yscale,Ymax)
 */    
- console.log(Yscale,Ymin,Ymax,liste_type_de_questions[i])
+
       r = repere({
         xmin: -10,
         ymin: Ymin-Yscale,
@@ -687,10 +687,11 @@ function Trouver_equation_parabole() {
         yscale:Yscale,
         positionLabelY:-0.8
       })
+
       svgYmin=Math.min(calcul(Ymin/Yscale),-1)
       svgYmax=Math.max(calcul(Ymax/Yscale),1)
       F = x => a*x**2+b*x+c;
-      texte+=mathalea2d({xmin:-10, xmax:11,ymin:svgYmin-1,ymax:svgYmax+1,scale:.6},courbe(F,-10,10,'blue',1.5,r),r)
+      texte+=mathalea2d({xmin:-10, xmax:11,ymin:svgYmin,ymax:svgYmax+2,scale:.6},courbe(F,-10,10,'blue',1.5,r),r)
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(texte);

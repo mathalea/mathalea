@@ -88,6 +88,7 @@ function point(...args) {
  * tracePoint(A,B,C,D,'blue') // Place une croix pour les différents points
  * @Auteur Rémi Angot
  */
+/*
 function TracePoint(...points) {
   ObjetMathalea2D.call(this);
   this.taille = 4/pixelsParCm; // maintenant 0.2/pixelsParCm*20 en SVG donc taille de point constante. Pour Latex, la taille du point ne change pas avec scale.
@@ -128,6 +129,67 @@ function TracePoint(...points) {
     return code;
   };
 }
+*/
+/**
+ * tracePoint(A) // Place une croix à l'emplacement du point A
+ * tracePoint(A,B,C,D) // Place une croix pour les différents points
+ * tracePoint(A,B,C,D,'blue') // Place une croix pour les différents points
+ *  
+ * @Auteur Rémi Angot & Jean-Claude Lhote
+ */
+function TracePoint(...points) {
+  ObjetMathalea2D.call(this);
+  this.taille = 4;
+  this.tailletikz=0.1;
+  this.epaisseur=2;
+  if (typeof points[points.length - 1] === "string") {
+    couleur = points[points.length - 1];
+  }
+  else couleur='black';
+  this.svg = function (coeff) {
+    let objetssvg=[];
+    console.log(points)
+    for (let A of points) {
+      if (A.constructor == Point) {
+        s1=segment(point(A.x-this.taille/coeff,A.y+this.taille/coeff),
+        point(A.x+this.taille/coeff,A.y-this.taille/coeff),couleur);
+        s2=segment(point(A.x-this.taille/coeff,A.y-this.taille/coeff),
+        point(A.x+this.taille/coeff,A.y+this.taille/coeff),couleur);
+        s1.epaisseur=this.epaisseur;
+        s2.epaisseur=this.epaisseur;
+        objetssvg.push(s1,s2);
+      }
+    }
+    console.log(objetssvg)
+    code = "";
+    for (objet of objetssvg) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    let objetstikz=[];
+    for (let A of points) {
+      if (A.constructor == Point) {
+        console.log(pixelsParCm)
+        s1=segment(point(A.x-this.tailletikz/scale,A.y+this.tailletikz/scale),
+        point(A.x+this.tailletikz/scale,A.y-this.tailletikz/scale),couleur);
+        s2=segment(point(A.x-this.tailletikz/scale,A.y-this.tailletikz/scale),
+        point(A.x+this.tailletikz/scale,A.y+this.tailletikz/scale),couleur);
+        s1.epaisseur=this.epaisseur;
+        s2.epaisseur=this.epaisseur;
+        objetstikz.push(s1,s2);
+      }
+    }
+    console.log(objetstikz)
+    code = "";
+    for (objet of objetstikz) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+}
+
 function tracePoint(...args) {
   return new TracePoint(...args);
 }
