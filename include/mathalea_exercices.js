@@ -119,7 +119,7 @@ var liste_des_exercices_disponibles = {
   "6P10": Proportionnalite_pas_proportionnalite,
   "6P11": Proportionnalite_par_linearite,
   "6P11-1": Proportionnalite_par_linearite_bis,
-  "6S10":Lecture_diagramme_barre,
+  "beta6S10":Lecture_diagramme_barre,
   "5A10": Liste_des_diviseurs_5e,
   "5A11": Tableau_criteres_de_divisibilite,
   "5A12-1": Premier_ou_pas_5e,
@@ -13672,36 +13672,61 @@ function Lecture_diagramme_barre() {
   this.nb_cols_corr = 1;
   
   this.nouvelle_version = function(){
-		this.liste_questions = []; // Vide la liste de questions
-    this.liste_corrections = []; // Vide la liste de questions corrigées   
+		this.liste_questions = []; // vide la liste de questions
+    this.liste_corrections = []; // vide la liste de questions corrigées   
 
-    let lstAnimaux = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles'];
-    let lstAnimauxExo = []; //uniquement les animaux dans l'exercice
-    let lstNombresAnimaux = []; //effectif de chaque animal
-    let lstVal = [];
+    let lstAnimaux = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes'];
+    let nbAnimaux = 5; // nombre d'animaux différents dans l'énoncé
+    let lstAnimauxExo = []; //liste des animaux uniquement cités dans l'exercice
+    let lstNombresAnimaux = []; // liste des effectifs de chaque animal
+    let lstVal = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]; // liste des valeurs à éviter pour les effectifs
     let N = 0;
-    for (let i = 0; i < 4; i++) {
-      nom = choice(lstAnimaux, lstAnimauxExo);
+    for (let i = 0; i < nbAnimaux; i++) {
+      nom = choice(lstAnimaux, lstAnimauxExo); // choisit un animal au hasard sauf parmi ceux déjà utilisés
       lstAnimauxExo.push(nom);
       N = randint(2, 100, lstVal); // choisit un nombre entre 2 et 100 sauf dans les valeurs à éviter
       lstNombresAnimaux.push(N);
-      lstVal = lstVal.concat([N-1, N, N+1]); //valeurs à supprimer pour éviter des valeurs proches
+      lstVal = lstVal.concat([N-1, N, N+1]); // valeurs à supprimer pour éviter des valeurs proches
     }
 
     let nMin = Math.min(...lstNombresAnimaux);
     let nMax = Math.max(...lstNombresAnimaux);
 
-    texte = `Dans le zoo d’Armenelos, il y a beaucoup d’animaux. Voici un diagramme en bâtons qui donne le nombre d’animaux pour chaque espèce.<br>`;
+    texte = `Dans le zoo d’Armenelos, il y a beaucoup d’animaux. Voici un diagramme en bâtons qui donne le nombre d’individus pour chaque espèce.<br>`;
     texte += num_alpha(0) + ` Quels sont les animaux les plus nombreux ?<br>`;
     texte += num_alpha(1) + ` Quels sont les animaux les moins nombreux ?<br>`;
-    texte += num_alpha(2) + ` Combien y a t-il de ` + lstAnimauxExo[1] + ' ?<br>';
+    texte += num_alpha(2) + ` Donner un encadrement du nombre de ` + lstAnimauxExo[1] + ' ?<br>';
 
     // print temporaire
     // tableau de valeurs à remplacer par le graphique :
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < nbAnimaux; i++) {
       texte += lstAnimauxExo[i].toLocaleString() + '  ';
       texte += lstNombresAnimaux[i].toLocaleString()+ '<br>';
     }
+
+    let r = repere2({
+  		grilleY : 'pointilles',
+  		xThickListe : [],
+  		xLabelListe : [],
+      yUnite : .1,
+      yThickDistance : 10,
+	  	yMax : 110,
+  		xMin : 0,
+  		yMin : 0,
+  		axeXStyle : '',
+	  	yLegende : "Nombre d'individus"
+     })
+    
+    let lstElementGraph = []
+    for (let i = 0; i < nbAnimaux; i++) {
+      lstElementGraph.push(traceBarre(i+1,lstNombresAnimaux[i],lstAnimauxExo[i],{unite:.1}))
+    }
+
+    let b1 = traceBarre(2,55,'Jean-Claude',{unite:.1})
+    let b2 = traceBarre(4,28,'Sébastien',{unite:.1,couleurDeRemplissage:'orange'})
+    let b3 = traceBarre(6,57,'Rémi',{unite:.1,opaciteDeRemplissage:1})
+    let b4 = traceBarre(8,18,'Stéphane',{unite:.1})
+    texte += mathalea2d({xmin : -5, xmax : 11, ymin : -5, ymax : 11, pixelsParCm : 30, scale : .5}, r, lstElementGraph)
 
     texte_corr = num_alpha(0) + ` Les animaux les plus nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMax)] +'.<br>';
     texte_corr += num_alpha(1) + ` Les animaux les moins nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMin)] +'.<br>';
