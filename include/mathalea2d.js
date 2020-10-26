@@ -139,28 +139,26 @@ function TracePoint(...points) {
  */
 function TracePoint(...points) {
   ObjetMathalea2D.call(this);
-  this.taille = 4;
-  this.tailletikz=0.1;
+  this.taille = 3;
   this.epaisseur=2;
   if (typeof points[points.length - 1] === "string") {
-    couleur = points[points.length - 1];
+    this.color = points[points.length - 1];
   }
-  else couleur='black';
+  else this.color='black';
   this.svg = function (coeff) {
     let objetssvg=[];
     console.log(points)
     for (let A of points) {
       if (A.constructor == Point) {
         s1=segment(point(A.x-this.taille/coeff,A.y+this.taille/coeff),
-        point(A.x+this.taille/coeff,A.y-this.taille/coeff),couleur);
+        point(A.x+this.taille/coeff,A.y-this.taille/coeff),this.color);
         s2=segment(point(A.x-this.taille/coeff,A.y-this.taille/coeff),
-        point(A.x+this.taille/coeff,A.y+this.taille/coeff),couleur);
+        point(A.x+this.taille/coeff,A.y+this.taille/coeff),this.color);
         s1.epaisseur=this.epaisseur;
         s2.epaisseur=this.epaisseur;
         objetssvg.push(s1,s2);
       }
     }
-    console.log(objetssvg)
     code = "";
     for (objet of objetssvg) {
       code += "\n\t" + objet.svg(coeff);
@@ -172,16 +170,15 @@ function TracePoint(...points) {
     for (let A of points) {
       if (A.constructor == Point) {
         console.log(pixelsParCm)
-        s1=segment(point(A.x-this.tailletikz/scale,A.y+this.tailletikz/scale),
-        point(A.x+this.tailletikz/scale,A.y-this.tailletikz/scale),couleur);
-        s2=segment(point(A.x-this.tailletikz/scale,A.y-this.tailletikz/scale),
-        point(A.x+this.tailletikz/scale,A.y+this.tailletikz/scale),couleur);
+        s1=segment(point(A.x-this.taille/20/scale,A.y+this.taille/20/scale),
+        point(A.x+this.taille/20/scale,A.y-this.taille/20/scale),this.color);
+        s2=segment(point(A.x-this.taille/20/scale,A.y-this.taille/20/scale),
+        point(A.x+this.taille/20/scale,A.y+this.taille/20/scale),this.color);
         s1.epaisseur=this.epaisseur;
         s2.epaisseur=this.epaisseur;
         objetstikz.push(s1,s2);
       }
     }
-    console.log(objetstikz)
     code = "";
     for (objet of objetstikz) {
       code += "\n\t" + objet.tikz();

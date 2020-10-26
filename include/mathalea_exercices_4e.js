@@ -3107,7 +3107,7 @@ function Exercice_Pythagore() {
         // Calcul d'un côté de l'angle droit
         texte = `Dans la figure ci-dessous, le triangle $${nom_du_triangle}$ est rectangle en $${s0}$, $${
           s0 + s1
-        }=${s01}$ cm, $${s1 + s2}=${s12}$ cm.`;
+        }=${s01}$ cm, $${s1 + s2}=${s12}$ cm.<br>`;
         texte += `Calculer $${s0 + s2}$.`;
         texte_corr = `Dans le triangle $${nom_du_triangle}$ rectangle en $${s0}$, d&rsquo;après le théorème de Pythagore, on a : $${
           s1 + s2
@@ -3309,7 +3309,9 @@ function Exercice_Pythagore() {
           `$${s0 + s2}~=~\\sqrt{${arrondi_virgule(
             carre12 - carre01,
             2
-          )}}~\\approx${s02}~\\text{cm}.$`;
+          )}}~`;
+          if (s02==calcul(Math.sqrt(s12**2-s01**2))) texte_corr+=`=${s02}~\\text{cm}.$`
+          else texte+=`\\approx${s02}~\\text{cm}.$`;
       } else {
         texte_corr =
           "Le triangle " +
@@ -3331,7 +3333,9 @@ function Exercice_Pythagore() {
           `$${s1 + s2}~=~\\sqrt{${arrondi_virgule(
             carre02 + carre01,
             2
-          )}}~\\approx${s12}~\\text{cm}.$`;
+          )}}~`;
+          if (s12==calcul(Math.sqrt(s01**2+s02**2))) texte_corr+=`=${s12}~\\text{cm}.$`
+          else texte+=`\\approx${s12}~\\text{cm}.$`;
       }
 
       this.liste_corrections.push(texte_corr);
