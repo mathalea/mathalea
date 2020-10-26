@@ -5093,7 +5093,7 @@ function courbe(
 
 
 /**
- * courbe2(f,xmin,xmax,color,epaisseur,repere,step) // Trace la courbe de f
+ * courbe2(f,{color,epaisseur,step,xMin,xMax,yMin,yMax,xUnite,yUnite}) // Trace la courbe de f
  *
  * @Auteur Rémi Angot
  */
@@ -5102,7 +5102,7 @@ function Courbe2(f,{
   repere = {},
   color = 'black',
   epaisseur = 2,
-  step = .1,
+  step = false,
   xMin = -10,
   xMax = 10,
   yMin = -10,
@@ -5129,7 +5129,13 @@ function Courbe2(f,{
   if (isNaN(yunite)){yunite = yUnite};
   let objets = [];
   let points = [];
-  for (let x = xmin ; x <= xmax ; x = calcul(x + step )
+  let pas;
+  if(!step){
+    pas = calcul(0.2/xUnite);
+  } else {
+    pas = step;
+  }
+  for (let x = xmin ; x <= xmax ; x = calcul(x + pas )
   ) {
     if (f(x)<ymax && f(x)>ymin) {
       points.push(point(calcul(x*xunite), calcul(f(x)*yunite)));
