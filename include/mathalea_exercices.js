@@ -13897,13 +13897,21 @@ function Lecture_diagramme_barre() {
   this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
   this.nb_cols_corr = 1;
+  this.sup = 1;
+  this.sup2 = 1;
   
   this.nouvelle_version = function(){
 		this.liste_questions = []; // vide la liste de questions
     this.liste_corrections = []; // vide la liste de questions corrigées   
 
     let lstAnimaux = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes'];
-    let nbAnimaux = 5; // nombre d'animaux différents dans l'énoncé
+    let nbAnimaux = 4; // nombre d'animaux différents dans l'énoncé
+    switch (parseInt(this.sup)) {
+      case 1:nbAnimaux = 4;break;
+      case 2:nbAnimaux = 5;break;
+      case 3:nbAnimaux = 6;break;
+      default:nbAnimaux = 4;
+    }
     let lstAnimauxExo = []; //liste des animaux uniquement cités dans l'exercice
     let lstNombresAnimaux = []; // liste des effectifs de chaque animal
     let lstVal = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]; // liste des valeurs à éviter pour les effectifs
@@ -13911,9 +13919,6 @@ function Lecture_diagramme_barre() {
     for (let i = 0; i < nbAnimaux; i++) {
       nom = choice(lstAnimaux, lstAnimauxExo); // choisit un animal au hasard sauf parmi ceux déjà utilisés
       lstAnimauxExo.push(nom);
-      N = randint(2, 100, lstVal); // choisit un nombre entre 2 et 100 sauf dans les valeurs à éviter
-      lstNombresAnimaux.push(N);
-      lstVal = lstVal.concat([N-1, N, N+1]); // valeurs à supprimer pour éviter des valeurs proches
     }
 
     let nMin = Math.min(...lstNombresAnimaux);
@@ -13922,33 +13927,44 @@ function Lecture_diagramme_barre() {
     texte = `Dans le zoo d’Armenelos, il y a beaucoup d’animaux. Voici un diagramme en bâtons qui donne le nombre d’individus pour chaque espèce.<br>`;
     texte += num_alpha(0) + ` Quels sont les animaux les plus nombreux ?<br>`;
     texte += num_alpha(1) + ` Quels sont les animaux les moins nombreux ?<br>`;
-    texte += num_alpha(2) + ` Donner un encadrement du nombre de ` + lstAnimauxExo[1] + ' ?<br>';
+    
+    let numAnimal = randint(0,nbAnimaux-1);
+    switch (parseInt(this.sup2)) {
+      case 1:texte += num_alpha(2) + ` Donner un encadrement à la dizaine du nombre de ` + lstAnimauxExo[numAnimal] + ' ?<br>';
+        break;
+      case 2:texte += num_alpha(2) + ` Donner un encadrement à la centaine du nombre de ` + lstAnimauxExo[numAnimal] + ' ?<br>';
+        break;
+    }
 
-    // print temporaire
-    // tableau de valeurs à remplacer par le graphique :
-    for (let i = 0; i < nbAnimaux; i++) {
-      texte += lstAnimauxExo[i].toLocaleString() + '  ';
-      texte += lstNombresAnimaux[i].toLocaleString()+ '<br>';
+    // coefficient pour gérer les deux types d'exercices (entre 1 et 100) ou (entre 10 et 1000)
+    let coef = 1;
+    switch (parseInt(this.sup2)) {
+      case 1:
+        coef = 1;
+        break;
+      case 2:
+        coef = 10;
+        break;
     }
 
     let r = repere2({
       grilleY : 'pointilles',
-      grilleSecondaireY : 'pointilles',
-      grilleSecondaireYListe : [2,4,6,8,12,14,16,18,22,24,26,28,32,34,36,38,42,44,46,48,52,54,56,58,62,64,66,68,72,74,76,78,82,84,86,88,92,94,96,98],
-  		xThickListe : [],
-  		xLabelListe : [],
-      yUnite : .1,
-      yThickDistance : 10,
-	  	yMax : 110,
-  		xMin : 0,
-  		yMin : 0,
-  		axeXStyle : '',
-	  	yLegende : "Nombre d'individus"
-     })
-    
+      xThickListe : [],
+      xLabelListe : [],
+      yUnite : .1/coef,
+      yThickDistance : 10*coef,
+      yMax : 110*coef,
+      xMin : 0,
+      xMax : 10,
+      yMin : 0,
+      axeXStyle : '',
+      yLegende : "Nombre d'individus"
+     });
+
+     
     let lstElementGraph = []
     for (let i = 0; i < nbAnimaux; i++) {
-      lstElementGraph.push(traceBarre(i+1,lstNombresAnimaux[i],lstAnimauxExo[i],{unite:.1}))
+      lstElementGraph.push(traceBarre((((r.xMax-r.xMin)/(nbAnimaux+1))*(i+1)),lstNombresAnimaux[i],lstAnimauxExo[i],{unite:.1/coef}))
     }
 
     let b1 = traceBarre(2,55,'Jean-Claude',{unite:.1})
@@ -13959,8 +13975,11 @@ function Lecture_diagramme_barre() {
 
     texte_corr = num_alpha(0) + ` Les animaux les plus nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMax)] +'.<br>';
     texte_corr += num_alpha(1) + ` Les animaux les moins nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMin)] +'.<br>';
-    texte_corr += num_alpha(2) + ` Il y a ` + lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[1])].toString() + ' ' + lstAnimauxExo[1] + '.<br>';
-
+    // question 3
+    let reponse = lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[1])];
+    reponseinf = 10*coef*Math.floor(reponse/(10*coef))
+    reponsesup = reponseinf + 10*coef
+    texte_corr += num_alpha(2) + ' Il y a entre ' + reponseinf + ' et ' + reponsesup + ' ' + lstAnimauxExo[1] + '.<br>';
 
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
