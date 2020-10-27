@@ -13722,50 +13722,43 @@ function Lecture_diagramme_barre() {
     texte += num_alpha(0) + ` Quels sont les animaux les plus nombreux ?<br>`;
     texte += num_alpha(1) + ` Quels sont les animaux les moins nombreux ?<br>`;
     
+    let numAnimal = randint(0,nbAnimaux-1);
     switch (parseInt(this.sup2)) {
-      case 1:texte += num_alpha(2) + ` Donner un encadrement à la dizaine du nombre de ` + lstAnimauxExo[1] + ' ?<br>';
+      case 1:texte += num_alpha(2) + ` Donner un encadrement à la dizaine du nombre de ` + lstAnimauxExo[numAnimal] + ' ?<br>';
         break;
-      case 2:texte += num_alpha(2) + ` Donner un encadrement à la centaine du nombre de ` + lstAnimauxExo[1] + ' ?<br>';
+      case 2:texte += num_alpha(2) + ` Donner un encadrement à la centaine du nombre de ` + lstAnimauxExo[numAnimal] + ' ?<br>';
         break;
     }
 
-    let r;
+    // coefficient pour gérer les deux types d'exercices (entre 1 et 100) ou (entre 10 et 1000)
+    let coef = 1;
     switch (parseInt(this.sup2)) {
       case 1:
-        r = repere2({
-          grilleY : 'pointilles',
-          xThickListe : [],
-          xLabelListe : [],
-          yUnite : .1,
-          yThickDistance : 10,
-          yMax : 110,
-          xMin : 0,
-          xMax : 10,
-          yMin : 0,
-          axeXStyle : '',
-          yLegende : "Nombre d'individus"
-         })
+        coef = 1;
         break;
       case 2:
-        r = repere2({
-          grilleY : 'pointilles',
-          xThickListe : [],
-          xLabelListe : [],
-          yUnite : .01,
-          yThickDistance : 100,
-          yMax : 1100,
-          xMin : 0,
-          xMax : 10,
-          yMin : 0,
-          axeXStyle : '',
-          yLegende : "Nombre d'individus"
-         })
+        coef = 10;
         break;
     }
+
+    let r = repere2({
+      grilleY : 'pointilles',
+      xThickListe : [],
+      xLabelListe : [],
+      yUnite : .1/coef,
+      yThickDistance : 10*coef,
+      yMax : 110*coef,
+      xMin : 0,
+      xMax : 10,
+      yMin : 0,
+      axeXStyle : '',
+      yLegende : "Nombre d'individus"
+     });
+
      
     let lstElementGraph = []
     for (let i = 0; i < nbAnimaux; i++) {
-      lstElementGraph.push(traceBarre((((r.xMax-r.xMin)/(nbAnimaux+1))*(i+1)),lstNombresAnimaux[i],lstAnimauxExo[i],{unite:.1}))
+      lstElementGraph.push(traceBarre((((r.xMax-r.xMin)/(nbAnimaux+1))*(i+1)),lstNombresAnimaux[i],lstAnimauxExo[i],{unite:.1/coef}))
     }
 
     texte += mathalea2d({xmin : -5, xmax : 11, ymin : -3, ymax : 11, pixelsParCm : 30, scale : .5}, r, lstElementGraph)
@@ -13776,16 +13769,9 @@ function Lecture_diagramme_barre() {
     texte_corr += num_alpha(1) + ` Les animaux les moins nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMin)] +'.<br>';
     // question 3
     let reponse = lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[1])];
-    reponseinf = 10*Math.floor(reponse/10)
-    reponsesup = reponseinf + 10
+    reponseinf = 10*coef*Math.floor(reponse/(10*coef))
+    reponsesup = reponseinf + 10*coef
     texte_corr += num_alpha(2) + ' Il y a entre ' + reponseinf + ' et ' + reponsesup + ' ' + lstAnimauxExo[1] + '.<br>';
-
-    // print temporaire
-    // tableau de valeurs à remplacer par le graphique :
-    for (let i = 0; i < nbAnimaux; i++) {
-      texte_corr += lstAnimauxExo[i].toLocaleString() + '  ';
-      texte_corr += lstNombresAnimaux[i].toLocaleString()+ '    ';
-    }
 
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
