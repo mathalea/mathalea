@@ -9601,7 +9601,7 @@ function Additionner_soustraires_decimaux() {
       liste_type_de_questions = combinaison_listes([1, 2, 3, 4],this.nb_questions)
     } else {
       for (let i = 0; i < this.nb_questions; i++) {
-        if (i + 1 < this.nb_questions / 2) {
+        if (i + 1 <= this.nb_questions / 2) {
           // première moitié sont des additions mais si c'est impair on prendra plus de soustractions
           liste_type_de_questions.push(liste_de_type_d_additions[i]);
         } else {
