@@ -13670,23 +13670,46 @@ function Lecture_diagramme_barre() {
   this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
   this.nb_cols_corr = 1;
+  this.sup = 1;
+  this.sup2 = 1;
   
   this.nouvelle_version = function(){
 		this.liste_questions = []; // vide la liste de questions
     this.liste_corrections = []; // vide la liste de questions corrigées   
 
     let lstAnimaux = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes'];
-    let nbAnimaux = 5; // nombre d'animaux différents dans l'énoncé
+    let nbAnimaux = 4; // nombre d'animaux différents dans l'énoncé
+    switch (parseInt(this.sup)) {
+      case 1:nbAnimaux = 4;break;
+      case 2:nbAnimaux = 5;break;
+      case 3:nbAnimaux = 6;break;
+      default:nbAnimaux = 4;
+    }
     let lstAnimauxExo = []; //liste des animaux uniquement cités dans l'exercice
     let lstNombresAnimaux = []; // liste des effectifs de chaque animal
     let lstVal = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]; // liste des valeurs à éviter pour les effectifs
     let N = 0;
+
+    switch (parseInt(this.sup2)) {
+      case 1:
+        for (let i = 0; i < nbAnimaux; i++) {
+          N = randint(2, 100, lstVal); // choisit un nombre entre 2 et 100 sauf dans les valeurs à éviter
+          lstNombresAnimaux.push(N);
+          lstVal = lstVal.concat([N-1, N, N+1]); // valeurs à supprimer pour éviter des valeurs proches
+        }
+        break;
+      case 2:
+        for (let i = 0; i < nbAnimaux; i++) {
+          N = randint(2, 100, lstVal); // choisit un nombre entre 2 et 100 sauf dans les valeurs à éviter
+          lstNombresAnimaux.push(10*N);
+          lstVal = lstVal.concat([N-1, N, N+1]); // valeurs à supprimer pour éviter des valeurs proches
+        }
+        break;
+    }
+
     for (let i = 0; i < nbAnimaux; i++) {
       nom = choice(lstAnimaux, lstAnimauxExo); // choisit un animal au hasard sauf parmi ceux déjà utilisés
       lstAnimauxExo.push(nom);
-      N = randint(2, 100, lstVal); // choisit un nombre entre 2 et 100 sauf dans les valeurs à éviter
-      lstNombresAnimaux.push(N);
-      lstVal = lstVal.concat([N-1, N, N+1]); // valeurs à supprimer pour éviter des valeurs proches
     }
 
     let nMin = Math.min(...lstNombresAnimaux);
@@ -13698,22 +13721,48 @@ function Lecture_diagramme_barre() {
     texte = 'Dans le parc naturel de ' + choice(lstNomParc)  + ', il y a beaucoup d’animaux. Voici un diagramme en bâtons qui donne le nombre d’individus pour chaque espèce.<br>';
     texte += num_alpha(0) + ` Quels sont les animaux les plus nombreux ?<br>`;
     texte += num_alpha(1) + ` Quels sont les animaux les moins nombreux ?<br>`;
-    texte += num_alpha(2) + ` Donner un encadrement du nombre de ` + lstAnimauxExo[1] + ' ?<br>';
-
-    let r = repere2({
-  		grilleY : 'pointilles',
-  		xThickListe : [],
-  		xLabelListe : [],
-      yUnite : .1,
-      yThickDistance : 10,
-	  	yMax : 110,
-      xMin : 0,
-      xMax : 10,
-  		yMin : 0,
-  		axeXStyle : '',
-	  	yLegende : "Nombre d'individus"
-     })
     
+    switch (parseInt(this.sup2)) {
+      case 1:texte += num_alpha(2) + ` Donner un encadrement à la dizaine du nombre de ` + lstAnimauxExo[1] + ' ?<br>';
+        break;
+      case 2:texte += num_alpha(2) + ` Donner un encadrement à la centaine du nombre de ` + lstAnimauxExo[1] + ' ?<br>';
+        break;
+    }
+
+    let r;
+    switch (parseInt(this.sup2)) {
+      case 1:
+        r = repere2({
+          grilleY : 'pointilles',
+          xThickListe : [],
+          xLabelListe : [],
+          yUnite : .1,
+          yThickDistance : 10,
+          yMax : 110,
+          xMin : 0,
+          xMax : 10,
+          yMin : 0,
+          axeXStyle : '',
+          yLegende : "Nombre d'individus"
+         })
+        break;
+      case 2:
+        r = repere2({
+          grilleY : 'pointilles',
+          xThickListe : [],
+          xLabelListe : [],
+          yUnite : .01,
+          yThickDistance : 100,
+          yMax : 1100,
+          xMin : 0,
+          xMax : 10,
+          yMin : 0,
+          axeXStyle : '',
+          yLegende : "Nombre d'individus"
+         })
+        break;
+    }
+     
     let lstElementGraph = []
     for (let i = 0; i < nbAnimaux; i++) {
       lstElementGraph.push(traceBarre((((r.xMax-r.xMin)/(nbAnimaux+1))*(i+1)),lstNombresAnimaux[i],lstAnimauxExo[i],{unite:.1}))
@@ -13742,6 +13791,8 @@ function Lecture_diagramme_barre() {
     this.liste_corrections.push(texte_corr);
     liste_de_question_to_contenu(this);
   }
+  this.besoin_formulaire_numerique = [`Nombre d'espèces différentes`, 3, ` choix 1 : 4 espèces\n choix 2 : 5 espèces\n choix 3 : 6 espèces`];
+  this.besoin_formulaire2_numerique = [`Valeurs numériques`, 2, ` choix 1 : entre 1 et 100\n choix 2 : entre 100 et 1 000`];
 }
 
 /**
