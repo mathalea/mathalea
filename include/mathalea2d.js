@@ -3994,7 +3994,7 @@ function DroiteGraduee2({
   r=10/pixelsParCm
   i=0;
   while (i*Unite<(Max-Min)*Unite+1.3) {
-    S=segment(point(x+i*Unite*absord[0]-axeHauteur/10*r*absord[1],y-axeHauteur/10*r*absord[0]+i*Unite*absord[1]),point(x+i*Unite*absord[0]+axeHauteur/10*r*absord[1],y+axeHauteur/10*r*absord[0]+i*Unite*absord[1]),thickCouleur);
+    S=segment(point(x+i*Unite*absord[0]-axeHauteur/10*r*absord[1],y-axeHauteur/10*r*absord[0]+i*Unite*absord[1]),point(x+i*Unite*absord[0]+axeHauteur/10*r*absord[1],y+axeHauteur/10*r*absord[0]+i*Unite*absord[1]),'green');
     S.epaisseur=2;
     objets.push(S);
     i+=ThickDistance;
