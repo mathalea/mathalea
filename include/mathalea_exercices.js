@@ -13768,10 +13768,10 @@ function Lecture_diagramme_barre() {
     // question 2
     texte_corr += num_alpha(1) + ` Les animaux les moins nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMin)] +'.<br>';
     // question 3
-    let reponse = lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[1])];
+    let reponse = lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[numAnimal])];
     reponseinf = 10*coef*Math.floor(reponse/(10*coef))
     reponsesup = reponseinf + 10*coef
-    texte_corr += num_alpha(2) + ' Il y a entre ' + reponseinf + ' et ' + reponsesup + ' ' + lstAnimauxExo[1] + '.<br>';
+    texte_corr += num_alpha(2) + ' Il y a entre ' + reponseinf + ' et ' + reponsesup + ' ' + lstAnimauxExo[numAnimal] + '.<br>';
 
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
