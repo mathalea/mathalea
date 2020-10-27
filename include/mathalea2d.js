@@ -147,7 +147,6 @@ function TracePoint(...points) {
   else this.color='black';
   this.svg = function (coeff) {
     let objetssvg=[];
-    console.log(points)
     for (let A of points) {
       if (A.constructor == Point) {
         s1=segment(point(A.x-this.taille/coeff,A.y+this.taille/coeff),
@@ -169,7 +168,6 @@ function TracePoint(...points) {
     let objetstikz=[];
     for (let A of points) {
       if (A.constructor == Point) {
-        console.log(pixelsParCm)
         s1=segment(point(A.x-this.taille/20/scale,A.y+this.taille/20/scale),
         point(A.x+this.taille/20/scale,A.y-this.taille/20/scale),this.color);
         s2=segment(point(A.x-this.taille/20/scale,A.y-this.taille/20/scale),
@@ -4906,6 +4904,96 @@ function repere2(...args) {
   return new Repere2(...args)
 }
 
+/**
+ * Place un point dans un repère (en récupérant xUnite et yUnite d'un objet repère)
+ *
+ *
+ * @param {integer} x
+ * @param {integer} y
+ * @param {object} repere
+ * @auteur Rémi Angot
+ */
+function pointDansRepere(x, y, repere = {xUnite : 1, yUnite : 1}){
+  return point(calcul(x*repere.xUnite), calcul(y*repere.yUnite))
+}
+
+/**
+ * Trace un graphique cartésien dans un repère 
+ *
+ *
+ * @param {array} data 
+ * @param {object} repere
+ * @auteur Rémi Angot
+ */
+function TraceGraphiqueCartesien(data, repere, {
+  couleurDesPoints='red', 
+  couleurDuTrait = 'blue',
+  styleDuTrait = '', //plein par défaut
+  epaisseurDuTrait = 2,
+  styleDesPoints = '', //croix par défaut
+  
+  
+  }={}){
+  ObjetMathalea2D.call(this);
+  let objets = [];
+  let listePoints = [];
+  for (let [x,y] of data){
+    let M = pointDansRepere(x,y,repere);
+    listePoints.push(M)
+    let t = tracePoint(M);
+    t.color = couleurDesPoints;
+    t.isVisible = false;
+    M.isVisible = false;
+    objets.push(t);
+  }
+  let l = polyline(...listePoints);
+  l.isVisible = false;
+  l.epaisseur = epaisseurDuTrait;
+  l.color = couleurDuTrait;
+  if (styleDuTrait=='pointilles'){
+    l.pointilles = true
+  }
+  objets.push(l)
+
+  // LES SORTIES TiKZ et SVG
+  this.svg = function (coeff) {
+    code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+  this.svgml =function(coeff,amp) {
+    code = "";
+    for (objet of objets) {
+     if (typeof(objet.svgml)=='undefined') code += "\n\t" + objet.svg(coeff);
+     else code += "\n\t" + objet.svgml(coeff,amp);
+    }
+    return code;
+  }
+  this.tikzml = function (amp) {
+    code = "";
+    for (objet of objets) {
+      if (typeof(objet.tikzml)=='undefined') code += "\n\t" + objet.tikz();
+      else code += "\n\t" + objet.tikzml(amp);
+    }
+    return code;
+  };
+
+}
+
+function traceGraphiqueCartesien(...args){
+  return new TraceGraphiqueCartesien(...args)
+}
+
+
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% LES STATISTIQUES %%%%%%%%%%%%%
@@ -4914,9 +5002,7 @@ function repere2(...args) {
 
 
 /**
- * Trace une barre
- *
- * 
+ * Trace une barre pour un histogramme
  *
  * @param {integer} x
  * @param {integer} y
@@ -4945,6 +5031,38 @@ function TraceBarre(x,y,legende='',{epaisseur=.6,couleurDeRemplissage='blue',col
 
 function traceBarre(...args){
   return new TraceBarre(...args)
+}
+
+/**
+ * Trace une barre horizontale pour un histogramme
+ *
+ * @param {integer} x
+ * @param {integer} y
+ * @param {string} legende
+ * @param {integer} epaisseur
+ * @param {string} couleur
+ * @param {integer} opaciteDeRemplissage
+ * @param {integer} angle
+ * @auteur Rémi Angot
+ */
+function TraceBarreHorizontale(x,y,legende='',{epaisseur=.6,couleurDeRemplissage='blue',color='black',opaciteDeRemplissage=.3,angle=0,unite=1}={}){
+  ObjetMathalea2D.call(this)
+  let p = polygone(point(0, calcul(y-epaisseur/2)), point(0, calcul(y+epaisseur/2)), point(calcul(unite*x), calcul(y+epaisseur/2)), point(calcul(unite*x), calcul(y-epaisseur/2))) 
+  p.couleurDeRemplissage = couleurDeRemplissage;
+  p.opaciteDeRemplissage = opaciteDeRemplissage;
+  p.color = color;
+  let texte = texteParPosition(legende,-.2,y,'gauche','black');
+  
+  this.tikz = function (){
+    return p.tikz() + '\n' + texte.tikz()
+  }
+  this.svg = function (coeff){
+    return p.svg(coeff) + '\n' + texte.svg(coeff)
+  }
+}
+
+function traceBarreHorizontale(...args){
+  return new TraceBarreHorizontale(...args)
 }
 
 
