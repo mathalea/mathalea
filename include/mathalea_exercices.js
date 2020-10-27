@@ -9580,6 +9580,7 @@ function Additionner_soustraires_decimaux() {
   this.spacing = 2;
   sortie_html ? (this.spacing_corr = 2) : (this.spacing_corr = 1); //Important sinon les opérations posées ne sont pas jolies
   this.nb_questions = 4;
+  this.sup = 3;
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
@@ -9594,12 +9595,18 @@ function Additionner_soustraires_decimaux() {
       this.nb_questions
     );
     let liste_type_de_questions = [];
-    for (let i = 0; i < this.nb_questions; i++) {
-      if (i + 1 < this.nb_questions / 2) {
-        // première moitié sont des additions mais si c'est impair on prendra plus de soustractions
-        liste_type_de_questions.push(liste_de_type_d_additions[i]);
-      } else {
-        liste_type_de_questions.push(liste_de_type_de_soustractions[i]);
+    if (this.sup == 1) {
+      liste_type_de_questions = combinaison_listes([5, 6, 7, 8],this.nb_questions)
+    } else if (this.sup == 2) {
+      liste_type_de_questions = combinaison_listes([1, 2, 3, 4],this.nb_questions)
+    } else {
+      for (let i = 0; i < this.nb_questions; i++) {
+        if (i + 1 < this.nb_questions / 2) {
+          // première moitié sont des additions mais si c'est impair on prendra plus de soustractions
+          liste_type_de_questions.push(liste_de_type_d_additions[i]);
+        } else {
+          liste_type_de_questions.push(liste_de_type_de_soustractions[i]);
+        }
       }
     }
 
@@ -9726,6 +9733,7 @@ function Additionner_soustraires_decimaux() {
     }
     liste_de_question_to_contenu(this);
   };
+  this.besoin_formulaire_numerique = ["Niveau de difficulté",3,"1 : Additions de décimaux\n2: Soustraction de décimaux\n3 : Additions et soustraction de décimaux"];
 }
 
 /**
