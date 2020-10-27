@@ -3989,14 +3989,13 @@ function DroiteGraduee2({
   }
   objets.push(S);
   // Graduation principale
-  pas1=ThickSecDist/ThickDistance;
-  pas2=ThickTerDist/ThickDistance;
+  pas1=ThickSecDist;
+  pas2=ThickTerDist;
   r=10/pixelsParCm
   i=0;
   while (i*Unite<(Max-Min)*Unite+1.3) {
     S=segment(point(x+i*Unite*absord[0]-axeHauteur/10*r*absord[1],y-axeHauteur/10*r*absord[0]+i*Unite*absord[1]),point(x+i*Unite*absord[0]+axeHauteur/10*r*absord[1],y+axeHauteur/10*r*absord[0]+i*Unite*absord[1]),thickCouleur);
     S.epaisseur=2;
-  //  T=texteParPosition(nombre_avec_espace(arrondi(calcul(Min+i),3)),x+i*Unite*absord[0]-0.8*absord[1],y+i*Unite*absord[1]-0.8*absord[0]);
     objets.push(S);
     i+=ThickDistance;
   }
