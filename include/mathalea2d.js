@@ -4754,10 +4754,10 @@ function Repere2({
   if (grilleY){
     if (!grilleYListe) {
       // Ceux qui ne sont pas définis reprennent les valeurs de thick
-      if (!grilleYMin){
+      if (typeof(grilleYMin) !== 'number'){
         grilleYMin = yThickMin
       }
-      if (!grilleYMax){
+      if (typeof(grilleYMax) !== 'number'){
         grilleYMax = yThickMax
        }
       if (!grilleYDistance){
@@ -4782,13 +4782,13 @@ function Repere2({
   if (grilleX){
     if (!grilleXListe) {
       // Ceux qui ne sont pas définis reprennent les valeurs de thick
-      if (!grilleXMin){
+      if (typeof(grilleXMin) !== 'number'){
         grilleXMin = xThickMin
       }
-      if (!grilleXMax){
+      if (typeof(grilleXMax) !== 'number'){
         grilleXMax = xThickMax
        }
-      if (!grilleXDistance){
+      if (typeof(grilleXDistance) !== 'number'){
         grilleXDistance = xThickDistance
       }
       // On créé la liste avec ces valeurs 
@@ -4815,13 +4815,13 @@ function Repere2({
   if (grilleSecondaireY){
     if (!grilleSecondaireYListe) {
       // Ceux qui ne sont pas définis reprennent les valeurs de thick
-      if (!grilleSecondaireYMin){
+      if ( typeof(grilleSecondaireYMin) !== 'number'){
         grilleSecondaireYMin = yThickMin
       }
-      if (!grilleSecondaireYMax){
+      if (typeof(grilleSecondaireYMax) !== 'number'){
         grilleSecondaireYMax = yThickMax
        }
-      if (!grilleSecondaireYDistance){
+      if (typeof(grilleSecondaireYDistance) !== 'number'){
         grilleSecondaireYDistance = calcul(yThickDistance/2)
       }
       // On créé la liste avec ces valeurs 
@@ -4843,13 +4843,13 @@ function Repere2({
   if (grilleSecondaireX){
     if (!grilleSecondaireXListe) {
       // Ceux qui ne sont pas définis reprennent les valeurs de thick
-      if (!grilleSecondaireXMin){
+      if (typeof(grilleSecondaireXMin) !== 'number'){
         grilleSecondaireXMin = xThickMin/2
       }
-      if (!grilleSecondaireXMax){
+      if (typeof(grilleSecondaireXMax) !== 'number'){
         grilleSecondaireXMax = xThickMax
        }
-      if (!grilleSecondaireXDistance){
+      if (typeof(grilleSecondaireXDistance) !== 'number'){
         grilleSecondaireXDistance = calcul(xThickDistance/2)
       }
       // On créé la liste avec ces valeurs 
@@ -4933,7 +4933,7 @@ function TraceBarre(x,y,legende='',{epaisseur=.6,couleurDeRemplissage='blue',col
   p.couleurDeRemplissage = couleurDeRemplissage;
   p.opaciteDeRemplissage = opaciteDeRemplissage;
   p.color = color;
-  let texte = texteParPosition(legende,x,-.5,angle,'black',1,'start');
+  let texte = texteParPosition(legende,x,-.2,angle,'black',1,'gauche');
   
   this.tikz = function (){
     return p.tikz() + '\n' + texte.tikz()
@@ -5465,7 +5465,7 @@ function TexteParPoint(texte, A, orientation = "milieu", color='black',scale=1,a
   this.tikz = function () {
     let code = "";
     if (typeof orientation == "number") {
-      let anchor = '';
+      let anchor = 'center';
       if (ancrageDeRotation == 'gauche'){
         anchor = 'west'
       }
@@ -5474,14 +5474,14 @@ function TexteParPoint(texte, A, orientation = "milieu", color='black',scale=1,a
       }
       code = `\\draw [${color}] (${A.x},${
         A.y
-      }) node[anchor = center, rotate = ${-orientation}] {${texte}};`;
+      }) node[anchor = ${anchor}, rotate = ${-orientation}] {${texte}};`;
     } else {
       let anchor = "";
       if (orientation == "gauche") {
-        anchor = `node[anchor = west,scale=${scale}]`;
+        anchor = `node[anchor = east,scale=${scale}]`;
       }
       if (orientation == "droite") {
-        anchor = `node[anchor = east,scale=${scale}]`;
+        anchor = `node[anchor = west,scale=${scale}]`;
       }
       if (orientation == "milieu") {
         anchor = `node[anchor = center,scale=${scale}]`;
