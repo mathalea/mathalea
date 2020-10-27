@@ -99,6 +99,7 @@ var liste_des_exercices_disponibles = {
   "6N23": Exercice_ecriture_decimale_a_partir_de_fraction_decimale,
   "beta6N23-0" : Ecrire_nombres_decimal,
   "6N23-1": Exercice_differentes_ecritures_nombres_decimaux,
+  "beta6N23-2" : Lire_abscisse_decimale_trois_formes,
   "6N24": Exercice_6N24,
   "6N24-1": Exercice_multiplier_ou_diviser_un_nombre_entier_par_10_100_1000,
   "6N30": Lire_abscisse_decimale,
@@ -9427,6 +9428,44 @@ function Exercice_differentes_ecritures_nombres_decimaux() {
   };
 }
 
+
+function Lire_abscisse_decimale_trois_formes() {
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.titre = "Différentes écritures des nombres décimaux";
+  this.consigne = "Compléter l'égalité puis donner l'écriture décimale.";
+  this.spacing = 2;
+  this.spacing_corr = 2;
+
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    let type_de_questions_disponibles = [1, 2, 3, 4, 5, 6];
+    let liste_type_de_questions = combinaison_listes(
+      type_de_questions_disponibles,
+      this.nb_questions
+    ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+
+    for (
+      let i = 0, texte, texte_corr, cpt = 0;
+      i < this.nb_questions && cpt < 50;
+
+    ) {
+
+
+      
+      if (this.liste_questions.indexOf(texte) == -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
+        this.liste_questions.push(texte);
+        this.liste_corrections.push(texte_corr);
+        i++;
+      }
+      cpt++;
+    }
+    liste_de_question_to_contenu(this);
+  };
+}
+
+
 /**
  * Additions, soustractions et multiplications posées de nombres entiers
  *
@@ -13885,7 +13924,9 @@ function Lecture_diagramme_barre() {
     }
 
     let r = repere2({
-  		grilleY : 'pointilles',
+      grilleY : 'pointilles',
+      grilleSecondaireY : 'pointilles',
+      grilleSecondaireYListe : [2,4,6,8,12,14,16,18,22,24,26,28,32,34,36,38,42,44,46,48,52,54,56,58,62,64,66,68,72,74,76,78,82,84,86,88,92,94,96,98],
   		xThickListe : [],
   		xLabelListe : [],
       yUnite : .1,
