@@ -6204,6 +6204,7 @@ function mathalea2d(
     } catch (error) {console.log('le try tout seul',error.message,i)}
     }
     code += `\n</svg>`;
+    code = code.replace(/\\thickspace/gm,' ')
     //		pixelsParCm = 20;
   } else {
     if (scale == 1) {

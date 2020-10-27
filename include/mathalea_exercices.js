@@ -121,7 +121,7 @@ var liste_des_exercices_disponibles = {
   "6P10": Proportionnalite_pas_proportionnalite,
   "6P11": Proportionnalite_par_linearite,
   "6P11-1": Proportionnalite_par_linearite_bis,
-  "beta6S10":Lecture_diagramme_barre,
+  "6S10":Lecture_diagramme_barre,
   "5A10": Liste_des_diviseurs_5e,
   "5A11": Tableau_criteres_de_divisibilite,
   "5A12-1": Premier_ou_pas_5e,
@@ -13916,6 +13916,24 @@ function Lecture_diagramme_barre() {
     let lstNombresAnimaux = []; // liste des effectifs de chaque animal
     let lstVal = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]; // liste des valeurs à éviter pour les effectifs
     let N = 0;
+
+    switch (parseInt(this.sup2)) {
+      case 1:
+        for (let i = 0; i < nbAnimaux; i++) {
+          N = randint(2, 100, lstVal); // choisit un nombre entre 2 et 100 sauf dans les valeurs à éviter
+          lstNombresAnimaux.push(N);
+          lstVal = lstVal.concat([N-1, N, N+1]); // valeurs à supprimer pour éviter des valeurs proches
+        }
+        break;
+      case 2:
+        for (let i = 0; i < nbAnimaux; i++) {
+          N = randint(2, 100, lstVal); // choisit un nombre entre 2 et 100 sauf dans les valeurs à éviter
+          lstNombresAnimaux.push(10*N);
+          lstVal = lstVal.concat([N-1, N, N+1]); // valeurs à supprimer pour éviter des valeurs proches
+        }
+        break;
+    }
+
     for (let i = 0; i < nbAnimaux; i++) {
       nom = choice(lstAnimaux, lstAnimauxExo); // choisit un animal au hasard sauf parmi ceux déjà utilisés
       lstAnimauxExo.push(nom);
@@ -13924,7 +13942,10 @@ function Lecture_diagramme_barre() {
     let nMin = Math.min(...lstNombresAnimaux);
     let nMax = Math.max(...lstNombresAnimaux);
 
-    texte = `Dans le zoo d’Armenelos, il y a beaucoup d’animaux. Voici un diagramme en bâtons qui donne le nombre d’individus pour chaque espèce.<br>`;
+    let lstNomParc = ['Dramve', 'Fatenmin', 'Batderfa', 'Vihi', 'Genser', 'Barbetdou', 'Dramrendu', 'Secai', 'Cipeudram', 'Cigel', 'Lisino', 'Fohenlan', 
+    'Farnfoss', 'Kinecardine', 'Zeffari', 'Kincardine', 'Barmwich', 'Swadlincote', 'Swordbreak'];
+
+    texte = 'Dans le parc naturel de ' + choice(lstNomParc)  + ', il y a beaucoup d’animaux. Voici un diagramme en bâtons qui donne le nombre d’individus pour chaque espèce.<br>';
     texte += num_alpha(0) + ` Quels sont les animaux les plus nombreux ?<br>`;
     texte += num_alpha(1) + ` Quels sont les animaux les moins nombreux ?<br>`;
     
@@ -13967,13 +13988,11 @@ function Lecture_diagramme_barre() {
       lstElementGraph.push(traceBarre((((r.xMax-r.xMin)/(nbAnimaux+1))*(i+1)),lstNombresAnimaux[i],lstAnimauxExo[i],{unite:.1/coef}))
     }
 
-    let b1 = traceBarre(2,55,'Jean-Claude',{unite:.1})
-    let b2 = traceBarre(4,28,'Sébastien',{unite:.1,couleurDeRemplissage:'orange'})
-    let b3 = traceBarre(6,57,'Rémi',{unite:.1,opaciteDeRemplissage:1})
-    let b4 = traceBarre(8,18,'Stéphane',{unite:.1})
-    texte += mathalea2d({xmin : -5, xmax : 11, ymin : -5, ymax : 11, pixelsParCm : 30, scale : .5}, r, lstElementGraph)
-
+    texte += mathalea2d({xmin : -5, xmax : 11, ymin : -3, ymax : 11, pixelsParCm : 30, scale : .5}, r, lstElementGraph)
+    // debut de la correction
+    // question 1
     texte_corr = num_alpha(0) + ` Les animaux les plus nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMax)] +'.<br>';
+    // question 2
     texte_corr += num_alpha(1) + ` Les animaux les moins nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMin)] +'.<br>';
     // question 3
     let reponse = lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[1])];
@@ -13985,6 +14004,8 @@ function Lecture_diagramme_barre() {
     this.liste_corrections.push(texte_corr);
     liste_de_question_to_contenu(this);
   }
+  this.besoin_formulaire_numerique = [`Nombre d'espèces différentes`, 3, ` choix 1 : 4 espèces\n choix 2 : 5 espèces\n choix 3 : 6 espèces`];
+  this.besoin_formulaire2_numerique = [`Valeurs numériques`, 2, ` choix 1 : entre 1 et 100\n choix 2 : entre 100 et 1 000`];
 }
 
 /**
