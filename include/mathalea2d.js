@@ -4933,7 +4933,7 @@ function TraceBarre(x,y,legende='',{epaisseur=.6,couleurDeRemplissage='blue',col
   p.couleurDeRemplissage = couleurDeRemplissage;
   p.opaciteDeRemplissage = opaciteDeRemplissage;
   p.color = color;
-  let texte = texteParPosition(legende,x,-.5,angle,'black',1,'start');
+  let texte = texteParPosition(legende,x,-.2,angle,'black',1,'gauche');
   
   this.tikz = function (){
     return p.tikz() + '\n' + texte.tikz()
@@ -5465,7 +5465,7 @@ function TexteParPoint(texte, A, orientation = "milieu", color='black',scale=1,a
   this.tikz = function () {
     let code = "";
     if (typeof orientation == "number") {
-      let anchor = '';
+      let anchor = 'center';
       if (ancrageDeRotation == 'gauche'){
         anchor = 'west'
       }
@@ -5474,14 +5474,14 @@ function TexteParPoint(texte, A, orientation = "milieu", color='black',scale=1,a
       }
       code = `\\draw [${color}] (${A.x},${
         A.y
-      }) node[anchor = center, rotate = ${-orientation}] {${texte}};`;
+      }) node[anchor = ${anchor}, rotate = ${-orientation}] {${texte}};`;
     } else {
       let anchor = "";
       if (orientation == "gauche") {
-        anchor = `node[anchor = west,scale=${scale}]`;
+        anchor = `node[anchor = east,scale=${scale}]`;
       }
       if (orientation == "droite") {
-        anchor = `node[anchor = east,scale=${scale}]`;
+        anchor = `node[anchor = west,scale=${scale}]`;
       }
       if (orientation == "milieu") {
         anchor = `node[anchor = center,scale=${scale}]`;
