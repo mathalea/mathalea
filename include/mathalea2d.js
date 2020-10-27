@@ -4754,10 +4754,10 @@ function Repere2({
   if (grilleY){
     if (!grilleYListe) {
       // Ceux qui ne sont pas définis reprennent les valeurs de thick
-      if (!grilleYMin){
+      if (typeof(grilleYMin) !== 'number'){
         grilleYMin = yThickMin
       }
-      if (!grilleYMax){
+      if (typeof(grilleYMax) !== 'number'){
         grilleYMax = yThickMax
        }
       if (!grilleYDistance){
@@ -4782,13 +4782,13 @@ function Repere2({
   if (grilleX){
     if (!grilleXListe) {
       // Ceux qui ne sont pas définis reprennent les valeurs de thick
-      if (!grilleXMin){
+      if (typeof(grilleXMin) !== 'number'){
         grilleXMin = xThickMin
       }
-      if (!grilleXMax){
+      if (typeof(grilleXMax) !== 'number'){
         grilleXMax = xThickMax
        }
-      if (!grilleXDistance){
+      if (typeof(grilleXDistance) !== 'number'){
         grilleXDistance = xThickDistance
       }
       // On créé la liste avec ces valeurs 
@@ -4815,13 +4815,13 @@ function Repere2({
   if (grilleSecondaireY){
     if (!grilleSecondaireYListe) {
       // Ceux qui ne sont pas définis reprennent les valeurs de thick
-      if (!grilleSecondaireYMin){
+      if ( typeof(grilleSecondaireYMin) !== 'number'){
         grilleSecondaireYMin = yThickMin
       }
-      if (!grilleSecondaireYMax){
+      if (typeof(grilleSecondaireYMax) !== 'number'){
         grilleSecondaireYMax = yThickMax
        }
-      if (!grilleSecondaireYDistance){
+      if (typeof(grilleSecondaireYDistance) !== 'number'){
         grilleSecondaireYDistance = calcul(yThickDistance/2)
       }
       // On créé la liste avec ces valeurs 
@@ -4843,13 +4843,13 @@ function Repere2({
   if (grilleSecondaireX){
     if (!grilleSecondaireXListe) {
       // Ceux qui ne sont pas définis reprennent les valeurs de thick
-      if (!grilleSecondaireXMin){
+      if (typeof(grilleSecondaireXMin) !== 'number'){
         grilleSecondaireXMin = xThickMin/2
       }
-      if (!grilleSecondaireXMax){
+      if (typeof(grilleSecondaireXMax) !== 'number'){
         grilleSecondaireXMax = xThickMax
        }
-      if (!grilleSecondaireXDistance){
+      if (typeof(grilleSecondaireXDistance) !== 'number'){
         grilleSecondaireXDistance = calcul(xThickDistance/2)
       }
       // On créé la liste avec ces valeurs 
