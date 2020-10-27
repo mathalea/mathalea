@@ -140,8 +140,10 @@ function TracePoint(...points) {
 function TracePoint(...points) {
   ObjetMathalea2D.call(this);
   this.taille = 3;
-  this.epaisseur=2;
+  this.epaisseur=1;
   this.opacite=0.8;
+  this.style='x';
+
   if (typeof points[points.length - 1] === "string") {
     this.color = points[points.length - 1];
   }
@@ -150,6 +152,7 @@ function TracePoint(...points) {
     let objetssvg=[];
     for (let A of points) {
       if (A.constructor == Point) {
+        if (this.style=='x'){
         s1=segment(point(A.x-this.taille/coeff,A.y+this.taille/coeff),
         point(A.x+this.taille/coeff,A.y-this.taille/coeff),this.color);
         s2=segment(point(A.x-this.taille/coeff,A.y-this.taille/coeff),
@@ -159,6 +162,38 @@ function TracePoint(...points) {
         s1.opacite=this.opacite;
         s2.opacite=this.opacite;
         objetssvg.push(s1,s2);
+        }
+        else if (this.style=='o'){
+          p1=point(A.x,A.y)
+ //         p2=point(A.x+this.taille/coeff,A.y-this.taille/coeff)
+          c=cercle(p1,this.taille/coeff,this.color)
+          c.epaisseur=this.epaisseur
+          c.opacite=this.opacite
+          c.couleurDeRemplissage=this.color
+          c.opaciteDeRemplissage=this.opacite/2
+          objetssvg.push(c)
+        }
+        else if (this.style=='#'){
+          p1=point(A.x-this.taille/coeff,A.y-this.taille/coeff)
+          p2=point(A.x+this.taille/coeff,A.y-this.taille/coeff)
+          c=carreIndirect(p1,p2,this.color)
+          c.epaisseur=this.epaisseur
+          c.opacite=this.opacite
+          c.couleurDeRemplissage=this.color
+          c.opaciteDeRemplissage=this.opacite/2
+          objetssvg.push(c)
+        }
+        else if (this.style=='+'){
+          s1=segment(point(A.x,A.y+this.taille/coeff),
+          point(A.x,A.y-this.taille/coeff),this.color);
+          s2=segment(point(A.x-this.taille/coeff,A.y),
+          point(A.x+this.taille/coeff,A.y),this.color);
+          s1.epaisseur=this.epaisseur;
+          s2.epaisseur=this.epaisseur;
+          s1.opacite=this.opacite;
+          s2.opacite=this.opacite;
+          objetssvg.push(s1,s2);
+        }
       }
     }
     code = "";
@@ -171,21 +206,51 @@ function TracePoint(...points) {
     let objetstikz=[];
     for (let A of points) {
       if (A.constructor == Point) {
-        s1=segment(point(A.x-this.taille/20/scale,A.y+this.taille/20/scale),
-        point(A.x+this.taille/20/scale,A.y-this.taille/20/scale),this.color);
-        s2=segment(point(A.x-this.taille/20/scale,A.y-this.taille/20/scale),
-        point(A.x+this.taille/20/scale,A.y+this.taille/20/scale),this.color);
+        if (this.style=='x'){
+        s1=segment(point(A.x-this.taille/coeff,A.y+this.taille/coeff),
+        point(A.x+this.taille/coeff,A.y-this.taille/coeff),this.color);
+        s2=segment(point(A.x-this.taille/coeff,A.y-this.taille/coeff),
+        point(A.x+this.taille/coeff,A.y+this.taille/coeff),this.color);
         s1.epaisseur=this.epaisseur;
         s2.epaisseur=this.epaisseur;
-        objetstikz.push(s1,s2);
+        s1.opacite=this.opacite;
+        s2.opacite=this.opacite;
+        objetssvg.push(s1,s2);
+        }
+        else if (this.style=='o'){
+          p1=point(A.x,A.y)
+ //         p2=point(A.x+this.taille/coeff,A.y-this.taille/coeff)
+          c=cercle(p1,this.taille/coeff,this.color)
+          c.epaisseur=this.epaisseur
+          c.opacite=this.opacite
+          c.couleurDeRemplissage=this.color
+          c.opaciteDeRemplissage=this.opacite/2
+          objetssvg.push(c)
+        }
+        else if (this.style=='#'){
+          p1=point(A.x-this.taille/coeff,A.y-this.taille/coeff)
+          p2=point(A.x+this.taille/coeff,A.y-this.taille/coeff)
+          c=carreIndirect(p1,p2,this.color)
+          c.epaisseur=this.epaisseur
+          c.opacite=this.opacite
+          c.couleurDeRemplissage=this.color
+          c.opaciteDeRemplissage=this.opacite/2
+          objetssvg.push(c)
+        }
+        else if (this.style=='+'){
+          s1=segment(point(A.x,A.y+this.taille/coeff),
+          point(A.x,A.y-this.taille/coeff),this.color);
+          s2=segment(point(A.x-this.taille/coeff,A.y),
+          point(A.x+this.taille/coeff,A.y),this.color);
+          s1.epaisseur=this.epaisseur;
+          s2.epaisseur=this.epaisseur;
+          s1.opacite=this.opacite;
+          s2.opacite=this.opacite;
+          objetssvg.push(s1,s2);
+        }
       }
     }
-    code = "";
-    for (objet of objetstikz) {
-      code += "\n\t" + objet.tikz();
-    }
-    return code;
-  };
+  }
 }
 
 function tracePoint(...args) {
