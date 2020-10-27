@@ -13872,17 +13872,15 @@ function Lecture_diagramme_barre() {
     let nMin = Math.min(...lstNombresAnimaux);
     let nMax = Math.max(...lstNombresAnimaux);
 
-    texte = `Dans le zoo d’Armenelos, il y a beaucoup d’animaux. Voici un diagramme en bâtons qui donne le nombre d’individus pour chaque espèce.<br>`;
+    let lstNomParc = ['Dramve', 'Fatenmin', 'Batderfa', 'Vihi', 'Genser', 'Barbetdou', 'Dramrendu', 'Secai', 'Cipeudram', 'Cigel', 'Lisino', 'Fohenlan', 
+    'Farnfoss', 'Kinecardine', 'Zeffari', 'Kincardine', 'Barmwich', 'Swadlincote', 'Swordbreak'];
+
+    texte = 'Dans le parc naturel de ' + choice(lstNomParc)  + ', il y a beaucoup d’animaux. Voici un diagramme en bâtons qui donne le nombre d’individus pour chaque espèce.<br>';
     texte += num_alpha(0) + ` Quels sont les animaux les plus nombreux ?<br>`;
     texte += num_alpha(1) + ` Quels sont les animaux les moins nombreux ?<br>`;
     texte += num_alpha(2) + ` Donner un encadrement du nombre de ` + lstAnimauxExo[1] + ' ?<br>';
 
-    // print temporaire
-    // tableau de valeurs à remplacer par le graphique :
-    for (let i = 0; i < nbAnimaux; i++) {
-      texte += lstAnimauxExo[i].toLocaleString() + '  ';
-      texte += lstNombresAnimaux[i].toLocaleString()+ '<br>';
-    }
+
 
     let r = repere2({
   		grilleY : 'pointilles',
@@ -13902,16 +13900,24 @@ function Lecture_diagramme_barre() {
       lstElementGraph.push(traceBarre(i+1,lstNombresAnimaux[i],lstAnimauxExo[i],{unite:.1}))
     }
 
-    let b1 = traceBarre(2,55,'Jean-Claude',{unite:.1})
-    let b2 = traceBarre(4,28,'Sébastien',{unite:.1,couleurDeRemplissage:'orange'})
-    let b3 = traceBarre(6,57,'Rémi',{unite:.1,opaciteDeRemplissage:1})
-    let b4 = traceBarre(8,18,'Stéphane',{unite:.1})
-    texte += mathalea2d({xmin : -5, xmax : 11, ymin : -5, ymax : 11, pixelsParCm : 30, scale : .5}, r, lstElementGraph)
-
+    texte += mathalea2d({xmin : -5, xmax : 11, ymin : -3, ymax : 11, pixelsParCm : 30, scale : .5}, r, lstElementGraph)
+    // debut de la correction
+    // question 1
     texte_corr = num_alpha(0) + ` Les animaux les plus nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMax)] +'.<br>';
+    // question 2
     texte_corr += num_alpha(1) + ` Les animaux les moins nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMin)] +'.<br>';
-    texte_corr += num_alpha(2) + ` Il y a ` + lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[1])].toString() + ' ' + lstAnimauxExo[1] + '.<br>';
+    // question 3
+    let reponse = lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[1])];
+    reponseinf = 10*Math.floor(reponse/10)
+    reponsesup = reponseinf + 10
+    texte_corr += num_alpha(2) + ' Il y a entre ' + reponseinf + ' et ' + reponsesup + ' ' + lstAnimauxExo[1] + '.<br>';
 
+    // print temporaire
+    // tableau de valeurs à remplacer par le graphique :
+    for (let i = 0; i < nbAnimaux; i++) {
+      texte_corr += lstAnimauxExo[i].toLocaleString() + '  ';
+      texte_corr += lstNombresAnimaux[i].toLocaleString()+ '    ';
+    }
 
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
