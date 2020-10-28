@@ -7439,6 +7439,18 @@ function Exercice_perimetres_et_aires(difficulte = 1) {
       "triangle_rectangle",
       "cercle",
     ];
+    let partieDecimale1,partieDecimale2,partieDecimale3;
+    if (this.sup2) {
+      partieDecimale1=calcul(randint(1,9)/10);
+      partieDecimale2=calcul(randint(1,9)/10);
+      partieDecimale3=calcul(randint(1,9)/10*randint(0,1));
+    }
+    else {
+      partieDecimale1=0;
+      partieDecimale2=0;
+      partieDecimale3=0;
+    }
+
     if (this.sup == 1) {
       enleve_element(type_de_questions_disponibles, "cercle");
       this.nb_cols = 1;
@@ -7457,66 +7469,66 @@ function Exercice_perimetres_et_aires(difficulte = 1) {
       type_de_questions = liste_type_de_questions[i];
       switch (type_de_questions) {
         case "carre":
-          let cote = randint(2, 11);
+          let cote = calcul(randint(2, 11)+partieDecimale1);
           let nom_carre = creerNomDePolygone(4);
           if (choice([true, false])) {
             // 2 énoncés possibles équiprobables
-            texte = `Un carré $${nom_carre}$ de $${cote}$ cm de côté .`;
+            texte = `Un carré $${nom_carre}$ de $${tex_nombre(cote)}$ cm de côté .`;
           } else {
             texte = `Un carré $${nom_carre}$ tel que $${
               nom_carre[0] + nom_carre[1]
-            } = ${cote}$ cm.`;
+            } = ${tex_nombre(cote)}$ cm.`;
           }
 
-          texte_corr = `$\\mathcal{P}_{${nom_carre}}=4\\times${cote}~\\text{cm}=${
-            4 * cote
+          texte_corr = `$\\mathcal{P}_{${nom_carre}}=4\\times${tex_nombre(cote)}~\\text{cm}=${
+            tex_nombrec(4 * cote)
           }~\\text{cm}$<br>`;
-          texte_corr += `$\\mathcal{A}_{${nom_carre}}=${cote}~\\text{cm}\\times${cote}~\\text{cm}=${
-            cote * cote
+          texte_corr += `$\\mathcal{A}_{${nom_carre}}=${tex_nombre(cote)}~\\text{cm}\\times${tex_nombre(cote)}~\\text{cm}=${
+          tex_nombrec(  cote * cote)
           }~\\text{cm}^2$`;
           break;
         case "rectangle":
-          let L = randint(3, 11);
+          let L = calcul(randint(3, 11)+partieDecimale2);
           let l = randint(2, L - 1);
           let nom_rectangle = creerNomDePolygone(4);
           if (choice([true, false])) {
             // 2 énoncés possibles équiprobables
-            texte = `Un rectangle $${nom_rectangle}$ de $${L}$ cm de longueur et de $${l}$ cm de largeur.`;
+            texte = `Un rectangle $${nom_rectangle}$ de $${tex_nombre(L)}$ cm de longueur et de $${l}$ cm de largeur.`;
           } else {
             texte = `Un rectangle $${nom_rectangle}$ tel que $${
-              nom_rectangle[0] + nom_rectangle[1] + " = " + L
+              nom_rectangle[0] + nom_rectangle[1] + " = " + tex_nombre(L)
             }$ cm et $${nom_rectangle[1] + nom_rectangle[2] + " = " + l}$ cm.`;
           }
-
-          texte_corr = `$\\mathcal{P}_{${nom_rectangle}}=(${L}~\\text{cm}+${l}~\\text{cm})\\times2=${
-            (L + l) * 2
+          
+          texte_corr = `$\\mathcal{P}_{${nom_rectangle}}=(${tex_nombre(L)}~\\text{cm}+${l}~\\text{cm})\\times2=${
+            tex_nombrec((L + l) * 2)
           }~\\text{cm}$<br>`;
-          texte_corr += `$\\mathcal{A}_{${nom_rectangle}}=${L}~\\text{cm}\\times${l}~\\text{cm}=${
-            L * l
+          texte_corr += `$\\mathcal{A}_{${nom_rectangle}}=${tex_nombre(L)}~\\text{cm}\\times${l}~\\text{cm}=${
+            tex_nombrec(L * l)
           }~\\text{cm}^2$`;
           break;
         case "triangle_rectangle":
           let triplet = choice(triplets_pythagoriciens);
           enleve_element(triplets_pythagoriciens, triplet);
-          let a = triplet[0];
-          let b = triplet[1];
-          let c = triplet[2];
+          let a = calcul(triplet[0]*(1+partieDecimale1));
+          let b = calcul(triplet[1]*(1+partieDecimale1));
+          let c = calcul(triplet[2]*(1+partieDecimale1));
           let nom_triangle = creerNomDePolygone(3);
           if (choice([true, false])) {
             texte = `Un triangle $${nom_triangle}$ rectangle en $${
               nom_triangle[1]
             }$ tel que $${
-              nom_triangle[0] + nom_triangle[1] + " = " + a
-            }$ cm, $${nom_triangle[1] + nom_triangle[2] + " = " + b}$ cm\
- et $${nom_triangle[0] + nom_triangle[2] + " = " + c}$ cm.`;
+              nom_triangle[0] + nom_triangle[1] + " = " + tex_nombre(a)
+            }$ cm, $${nom_triangle[1] + nom_triangle[2] + " = " + tex_nombre(b)}$ cm\
+ et $${nom_triangle[0] + nom_triangle[2] + " = " + tex_nombre(c)}$ cm.`;
           } else {
-            texte = `Un triangle rectangle $${nom_triangle}$ a pour côtés : $${a}$ cm, $${c}$ cm et $${b}$ cm.`;
+            texte = `Un triangle rectangle $${nom_triangle}$ a pour côtés : $${tex_nombre(a)}$ cm, $${tex_nombre(c)}$ cm et $${tex_nombre(b)}$ cm.`;
           }
 
-          texte_corr = `$\\mathcal{P}_{${nom_triangle}}=${a}~\\text{cm}+${b}~\\text{cm}+${c}~\\text{cm}=${
-            a + b + c
+          texte_corr = `$\\mathcal{P}_{${nom_triangle}}=${tex_nombre(a)}~\\text{cm}+${tex_nombre(b)}~\\text{cm}+${tex_nombre(c)}~\\text{cm}=${
+            tex_nombre(a+b+c)
           }~\\text{cm}$<br>`;
-          texte_corr += `$\\mathcal{A}_{${nom_triangle}}=${a}~\\text{cm}\\times${b}~\\text{cm}\\div2=${Algebrite.eval(
+          texte_corr += `$\\mathcal{A}_{${nom_triangle}}=${tex_nombre(a)}~\\text{cm}\\times${tex_nombre(b)}~\\text{cm}\\div2=${Algebrite.eval(
             (a * b) / 2
           )}~\\text{cm}^2$`;
           break;
@@ -7527,7 +7539,7 @@ function Exercice_perimetres_et_aires(difficulte = 1) {
             texte = `Un cercle de $${2 * R}$ cm de diamètre.`;
             texte_corr = `Le diamètre est de $${
               2 * R
-            }$ cm donc le rayon est de $${R}$~cm.<br>`;
+            }$ cm donc le rayon est de $${R}$ cm.<br>`;
           } else {
             texte = `Un cercle de $${R}$ cm de rayon.`;
             texte_corr = "";
@@ -7563,8 +7575,8 @@ function Exercice_perimetres_et_aires(difficulte = 1) {
     3,
     "1 : Carré, rectangle et triangle rectangle\n2: Cercles\n3: Mélangé",
   ];
+  this.besoin_formulaire2_case_a_cocher = ["Avec des décimaux", false];
 }
-
 /**
  * On donne une fraction qui a pour dénominateur 10, 100 ou 1 000, il faut donner l'écriture décimale.
  *
