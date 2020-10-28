@@ -898,7 +898,7 @@ function Questions_de_cours() {
 
     if (!window.divExist) {
       window.divExist = [];
-    } // Si divExist n'existe pas on le créé
+    } // Si divExist n'existe pas on le crée
     // divExist est un tableau dans lequel on stocke les listenner sur la création des div
     window.divExist[id_unique] = setInterval(function () {
       if ($(`#div_exo${id_unique}`).length && dictionnaire_de_questions_pret) {
@@ -1787,7 +1787,7 @@ function Conversions_de_durees() {
         }
       }
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -1847,7 +1847,7 @@ function Heures_decimales() {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         if (est_diaporama) {
           texte = texte.replace("=\\dotfill", "");
         }
@@ -1970,7 +1970,7 @@ function Somme_de_durees() {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         if (est_diaporama) {
           texte = texte.replace("=\\dotfill", "");
         }
@@ -2219,7 +2219,7 @@ function Calculs_de_durees_ou_d_horaires() {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -2370,7 +2370,7 @@ function Tables_de_multiplications(tables_par_defaut = "2-3-4-5-6-7-8-9") {
       // Si c'est un nombre c'est qu'il y a qu'une seule table
       tables[0] = this.sup;
     } else {
-      tables = this.sup.split("-"); // Sinon on créé un tableau à partir des valeurs séparées par des -
+      tables = this.sup.split("-"); // Sinon on crée un tableau à partir des valeurs séparées par des -
     }
     let couples = creer_couples(
       tables,
@@ -2463,7 +2463,7 @@ function Tables_de_divisions(tables_par_defaut = "2-3-4-5-6-7-8-9") {
       // Si c'est un nombre c'est qu'il y a qu'une seule table
       tables[0] = this.sup;
     } else {
-      tables = this.sup.split("-"); // Sinon on créé un tableau à partir des valeurs séparées par des -
+      tables = this.sup.split("-"); // Sinon on crée un tableau à partir des valeurs séparées par des -
     }
     let couples = creer_couples(
       tables,
@@ -2546,7 +2546,7 @@ function Tables_de_multiplications_et_divisions(
       // Si c'est un nombre c'est qu'il y a qu'une seule table
       tables[0] = this.sup;
     } else {
-      tables = this.sup.split("-"); // Sinon on créé un tableau à partir des valeurs séparées par des ;
+      tables = this.sup.split("-"); // Sinon on crée un tableau à partir des valeurs séparées par des ;
     }
     let couples = creer_couples(
       tables,
@@ -2724,7 +2724,7 @@ function Quatre_operations() {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -2767,7 +2767,7 @@ function Ajouter9() {
       texte_corr = `$${a}+9=${a + 9}$`;
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -2855,7 +2855,7 @@ function Multiplier_entier_par_10_100_1000() {
         texte_corr = `$${tex_nombre(b)}\\times${tex_nombre(a)}=${tex_nombre(a*b)}$`
       }
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -2894,7 +2894,7 @@ function Soustraire9() {
       texte_corr = `$${a}-9=${a - 9}$`;
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -2933,7 +2933,7 @@ function Ajouter11() {
       texte_corr = `$${a}+11=${a + 11}$`;
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -2982,7 +2982,7 @@ function Soustraire11() {
       texte_corr = `$${a}-11=${a - 11}$`;
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -3025,7 +3025,7 @@ function Somme_de_deux_nombres_maries() {
       texte_corr = `$${a}+${b}=${a + b}$`;
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -3082,7 +3082,7 @@ function Somme_de_deux_nombres_maries_et_un_entier() {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -3167,7 +3167,7 @@ function Vocabulaire_et_operations() {
           break;
       }
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -3214,7 +3214,7 @@ function Compte_Est_Bon() {
           this.nb_questions
         );
       } else {
-        type_de_questions = this.sup.split("-"); // Sinon on créé un tableau à partir des valeurs séparées par des -
+        type_de_questions = this.sup.split("-"); // Sinon on crée un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < type_de_questions.length; i++)
           type_de_questions[i] = parseInt(type_de_questions[i]);
         this.nb_questions = type_de_questions.length;
@@ -3332,7 +3332,7 @@ function Compte_Est_Bon() {
       texte += `Et le nombre à trouver est : ${cible}.`;
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -3396,7 +3396,7 @@ function Le_compte_est_bonV3() {
         texte_corr += `$${solution_mathador[2][i]}$<br>`;
       }
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -3441,7 +3441,7 @@ function Le_compte_est_bonV4() {
         min = 0;
         max = this.sup2;
       } else {
-        minmax = this.sup2.split("-"); // Sinon on créé un tableau à partir des valeurs séparées par des -
+        minmax = this.sup2.split("-"); // Sinon on crée un tableau à partir des valeurs séparées par des -
         min = minmax[0];
         max = minmax[1];
       }
@@ -3454,7 +3454,7 @@ function Le_compte_est_bonV4() {
         // Si c'est un nombre c'est qu'il y a qu'une seule grandeur
         solution_mathador = Trouver_solution_mathador(min, max, this.sup);
       } else {
-        tirage = this.sup.split("-"); // Sinon on créé un tableau à partir des valeurs séparées par des -
+        tirage = this.sup.split("-"); // Sinon on crée un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < tirage.length; i++) tirage[i] = parseInt(tirage[i]);
         solution_mathador = Trouver_solution_mathador(min, max, ...tirage);
       }
@@ -3767,7 +3767,7 @@ function Ecrire_nombres_entiers() {
         else texte_corr = `$${tex_nombre(nombre)}$.`
       }
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -3830,7 +3830,7 @@ function Ecrire_nombres_entiers_formates() {
        if (!est_diaporama) texte_corr = `$${nombrestring}=${tex_nombre(nombre)}$.`
        else texte_corr = `${tex_nombre(nombre)}.`
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -3916,7 +3916,7 @@ function Ecrire_nombres_decimal() {
       texte=texte.replace('et-un unités','et-une unités')
       texte_corr=texte_corr.replace('et-un unités','et-une unités')
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -3985,7 +3985,7 @@ function Exercice_numeration_entier() {
       )}$`;
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -4112,7 +4112,7 @@ function Decomposition_nombre_decimal() {
       texte_corr += ".";
       texte += "\\ldots";
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -4151,7 +4151,7 @@ function Complement_a_100() {
       texte_corr = `$100-${a}=${100 - a}$`;
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -4191,7 +4191,7 @@ function Complement_a_une_dizaine() {
       texte_corr = `$${a}-${b}=${a - b}$`;
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -4233,7 +4233,7 @@ function Diviser_par_10_100_1000() {
       )}$`;
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -4280,7 +4280,7 @@ function Diviser_decimal_par_10_100_1000() {
       )}$`;
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -4368,7 +4368,7 @@ function Moitie() {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -4439,7 +4439,7 @@ function Tiers() {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -4518,7 +4518,7 @@ function Quart() {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -4582,7 +4582,7 @@ function Double_moitie_tiers_triple() {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -4621,7 +4621,7 @@ function Exercice_tables_de_multiplications_et_multiples_de_10(
       // Si c'est un nombre c'est qu'il y a qu'une seule table
       tables[0] = this.sup;
     } else {
-      tables = this.sup.split("-"); // Sinon on créé un tableau à partir des valeurs séparées par des ;
+      tables = this.sup.split("-"); // Sinon on crée un tableau à partir des valeurs séparées par des ;
     }
     let couples = creer_couples(
       tables,
@@ -4699,7 +4699,7 @@ function Exercice_tables_de_multiplications_et_decimaux(
       // Si c'est un nombre c'est qu'il y a qu'une seule table
       tables[0] = this.sup;
     } else {
-      tables = this.sup.split("-"); // Sinon on créé un tableau à partir des valeurs séparées par des ;
+      tables = this.sup.split("-"); // Sinon on crée un tableau à partir des valeurs séparées par des ;
     }
     let couples = creer_couples(
       tables,
@@ -4785,7 +4785,7 @@ function Exercice_tables_d_additions(max = 20) {
         tex_nombre(a + b) +
         " $";
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -5167,7 +5167,7 @@ function Criteres_de_divisibilite() {
           break;
       }
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -5703,7 +5703,7 @@ function Proportionnalite_pas_proportionnalite() {
           break;
       }
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -5884,7 +5884,7 @@ function Proportionnalite_par_linearite() {
         tex_nombrec(z / x)
       )} $\\times$ ${texte_en_couleur(n, "blue")} = ${p} ${objet}.<br>`;
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -5986,7 +5986,7 @@ function Exercice_fractions_differentes_ecritures() {
         " $";
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -6121,7 +6121,7 @@ function Encadrer_fraction_entre_2_entiers() {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -6181,7 +6181,7 @@ function Representer_une_fraction() {
         texte_corr =`Voici sur ces dessins, colorié en bleu, la part correspondante à la fraction $${f.texFraction()}$ :<br>`
         texte_corr += mathalea2d(params,f.representation(0,0,2,randint(0,den-1),'gateau','blue'))
         if (this.liste_questions.indexOf(texte) == -1) {
-          // Si la question n'a jamais été posée, on en créé une autre
+          // Si la question n'a jamais été posée, on en crée une autre
           this.liste_questions.push(texte);
           this.liste_corrections.push(texte_corr);
           i++;
@@ -6388,7 +6388,7 @@ function Exercice_conversions_de_longueurs(niveau = 1) {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         if (est_diaporama) {
           texte = texte.replace("= \\dotfill", "\\text{ en }");
         }
@@ -6641,7 +6641,7 @@ function Exercice_conversions(niveau = 1) {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         if (est_diaporama) {
           texte = texte.replace("= \\dotfill", "\\text{ en }");
         }
@@ -6922,7 +6922,7 @@ function Exercice_conversions_aires(niveau = 1) {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         if (est_diaporama) {
           texte = texte.replace("= \\dotfill", "\\text{ en }");
         }
@@ -7192,7 +7192,7 @@ function Exercice_conversions_volumes(niveau = 1) {
       // }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         if (est_diaporama) {
           texte = texte.replace("= \\dotfill", "\\text{ en }");
         }
@@ -7384,7 +7384,7 @@ function Unites_de_volumes_et_de_capacite(niveau = 1) {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -7407,7 +7407,7 @@ function Unites_de_volumes_et_de_capacite(niveau = 1) {
  * * 1 : Carré, rectangle et triangle rectangle
  * * 2: Uniquement des cercles
  * * 3 : Les 4 sont demandés
- * @Auteur Rémi Angot
+ * @Auteur Rémi Angot// modifié par Mireille Gain pour le support des décimaux
  */
 function Exercice_perimetres_et_aires(difficulte = 1) {
   //Calculer le périmètre et l'aire de figures
@@ -7439,6 +7439,18 @@ function Exercice_perimetres_et_aires(difficulte = 1) {
       "triangle_rectangle",
       "cercle",
     ];
+    let partieDecimale1,partieDecimale2,partieDecimale3;
+    if (this.sup2) {
+      partieDecimale1=calcul(randint(1,9)/10);
+      partieDecimale2=calcul(randint(1,9)/10);
+      partieDecimale3=calcul(randint(1,9)/10*randint(0,1));
+    }
+    else {
+      partieDecimale1=0;
+      partieDecimale2=0;
+      partieDecimale3=0;
+    }
+
     if (this.sup == 1) {
       enleve_element(type_de_questions_disponibles, "cercle");
       this.nb_cols = 1;
@@ -7457,68 +7469,66 @@ function Exercice_perimetres_et_aires(difficulte = 1) {
       type_de_questions = liste_type_de_questions[i];
       switch (type_de_questions) {
         case "carre":
-          let cote = randint(2, 11);
+          let cote = calcul(randint(2, 11)+partieDecimale1);
           let nom_carre = creerNomDePolygone(4);
           if (choice([true, false])) {
             // 2 énoncés possibles équiprobables
-            texte = `Un carré $${nom_carre}$ de $${cote}$ cm de côté .`;
+            texte = `Un carré $${nom_carre}$ de $${tex_nombre(cote)}$ cm de côté .`;
           } else {
             texte = `Un carré $${nom_carre}$ tel que $${
               nom_carre[0] + nom_carre[1]
-            } = ${cote}$ cm.`;
+            } = ${tex_nombre(cote)}$ cm.`;
           }
 
-          texte_corr = `$\\mathcal{P}_{${nom_carre}}=4\\times${cote}~\\text{cm}=${
-            4 * cote
+          texte_corr = `$\\mathcal{P}_{${nom_carre}}=4\\times${tex_nombre(cote)}~\\text{cm}=${
+            tex_nombrec(4 * cote)
           }~\\text{cm}$<br>`;
-          texte_corr += `$\\mathcal{A}_{${nom_carre}}=${cote}~\\text{cm}\\times${cote}~\\text{cm}=${
-            cote * cote
+          texte_corr += `$\\mathcal{A}_{${nom_carre}}=${tex_nombre(cote)}~\\text{cm}\\times${tex_nombre(cote)}~\\text{cm}=${
+          tex_nombrec(  cote * cote)
           }~\\text{cm}^2$`;
           break;
         case "rectangle":
-          let L = randint(3, 11);
+          let L = calcul(randint(3, 11)+partieDecimale2);
           let l = randint(2, L - 1);
           let nom_rectangle = creerNomDePolygone(4);
           if (choice([true, false])) {
             // 2 énoncés possibles équiprobables
-            texte = `Un rectangle $${nom_rectangle}$ de $${L}$ cm de longueur et de $${l}$ cm de largeur.`;
+            texte = `Un rectangle $${nom_rectangle}$ de $${tex_nombre(L)}$ cm de longueur et de $${l}$ cm de largeur.`;
           } else {
             texte = `Un rectangle $${nom_rectangle}$ tel que $${
-              nom_rectangle[0] + nom_rectangle[1] + " = " + L
+              nom_rectangle[0] + nom_rectangle[1] + " = " + tex_nombre(L)
             }$ cm et $${nom_rectangle[1] + nom_rectangle[2] + " = " + l}$ cm.`;
           }
-
-          texte_corr = `$\\mathcal{P}_{${nom_rectangle}}=(${L}~\\text{cm}+${l}~\\text{cm})\\times2=${
-            (L + l) * 2
+          
+          texte_corr = `$\\mathcal{P}_{${nom_rectangle}}=(${tex_nombre(L)}~\\text{cm}+${l}~\\text{cm})\\times2=${
+            tex_nombrec((L + l) * 2)
           }~\\text{cm}$<br>`;
-          texte_corr += `$\\mathcal{A}_{${nom_rectangle}}=${L}~\\text{cm}\\times${l}~\\text{cm}=${
-            L * l
+          texte_corr += `$\\mathcal{A}_{${nom_rectangle}}=${tex_nombre(L)}~\\text{cm}\\times${l}~\\text{cm}=${
+            tex_nombrec(L * l)
           }~\\text{cm}^2$`;
           break;
         case "triangle_rectangle":
           let triplet = choice(triplets_pythagoriciens);
           enleve_element(triplets_pythagoriciens, triplet);
-          let a = triplet[0];
-          let b = triplet[1];
-          let c = triplet[2];
+          let a = calcul(triplet[0]*(1+partieDecimale1));
+          let b = calcul(triplet[1]*(1+partieDecimale1));
+          let c = calcul(triplet[2]*(1+partieDecimale1));
           let nom_triangle = creerNomDePolygone(3);
           if (choice([true, false])) {
             texte = `Un triangle $${nom_triangle}$ rectangle en $${
               nom_triangle[1]
             }$ tel que $${
-              nom_triangle[0] + nom_triangle[1] + " = " + a
-            }$ cm, $${nom_triangle[1] + nom_triangle[2] + " = " + b}$ cm\
- et $${nom_triangle[0] + nom_triangle[2] + " = " + c}$ cm.`;
+              nom_triangle[0] + nom_triangle[1] + " = " + tex_nombre(a)
+            }$ cm, $${nom_triangle[1] + nom_triangle[2] + " = " + tex_nombre(b)}$ cm\
+ et $${nom_triangle[0] + nom_triangle[2] + " = " + tex_nombre(c)}$ cm.`;
           } else {
-            texte = `Un triangle rectangle $${nom_triangle}$ a pour côtés : $${a}$ cm, $${c}$ cm et $${b}$ cm.`;
+            texte = `Un triangle rectangle $${nom_triangle}$ a pour côtés : $${tex_nombre(a)}$ cm, $${tex_nombre(c)}$ cm et $${tex_nombre(b)}$ cm.`;
           }
 
-          texte_corr = `$\\mathcal{P}_{${nom_triangle}}=${a}~\\text{cm}+${b}~\\text{cm}+${c}~\\text{cm}=${
-            a + b + c
-          }~\\text{cm}$<br>`;
-          texte_corr += `$\\mathcal{A}_{${nom_triangle}}=${a}~\\text{cm}\\times${b}~\\text{cm}\\div2=${Algebrite.eval(
-            (a * b) / 2
-          )}~\\text{cm}^2$`;
+          texte_corr = `$\\mathcal{P}_{${nom_triangle}}=${tex_nombre(a)}~\\text{cm}+${tex_nombre(b)}
+          ~\\text{cm}+${tex_nombre(c)}~\\text{cm}=${tex_nombre(a+b+c)}~\\text{cm}$<br>`;
+          texte_corr += `$\\mathcal{A}_{${nom_triangle}}=${tex_nombre(a)}~\\text{cm}\\times${tex_nombre(b)}~\\text{cm}\\div2=${
+            tex_nombrec(a * b / 2)}~\\text{cm}^2$`;
           break;
         case "cercle":
           let R = randint(3, 11);
@@ -7527,7 +7537,7 @@ function Exercice_perimetres_et_aires(difficulte = 1) {
             texte = `Un cercle de $${2 * R}$ cm de diamètre.`;
             texte_corr = `Le diamètre est de $${
               2 * R
-            }$ cm donc le rayon est de $${R}$~cm.<br>`;
+            }$ cm donc le rayon est de $${R}$ cm.<br>`;
           } else {
             texte = `Un cercle de $${R}$ cm de rayon.`;
             texte_corr = "";
@@ -7549,7 +7559,7 @@ function Exercice_perimetres_et_aires(difficulte = 1) {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -7563,8 +7573,8 @@ function Exercice_perimetres_et_aires(difficulte = 1) {
     3,
     "1 : Carré, rectangle et triangle rectangle\n2: Cercles\n3: Mélangé",
   ];
+  this.besoin_formulaire2_case_a_cocher = ["Avec des décimaux", false];
 }
-
 /**
  * On donne une fraction qui a pour dénominateur 10, 100 ou 1 000, il faut donner l'écriture décimale.
  *
@@ -7608,7 +7618,7 @@ function Exercice_ecriture_decimale_a_partir_de_fraction_decimale() {
         tex_nombre(Algebrite.eval(a / b)) +
         " $";
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         if (est_diaporama) {
           texte = texte.replace("=\\dotfill", "");
         }
@@ -7678,7 +7688,7 @@ function Exercice_multiplier_ou_diviser_un_nombre_entier_par_10_100_1000() {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -7851,7 +7861,7 @@ function Comparer_decimaux() {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -7929,7 +7939,7 @@ function Calculer_un_pourcentage() {
       texte_corr+=mathalea2d({xmin : 0,ymin : 0,xmax : 10, ymax : 10,pixelsParCm : 20,scale : 0.5,mainlevee:false,amplitude:1}, ...objets)
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -7991,7 +8001,7 @@ function Appliquer_un_pourcentage() {
       break;
       }
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -8063,7 +8073,7 @@ function Pourcentage_d_un_nombre() {
           )}$`;
       }
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -8152,7 +8162,7 @@ function Fractions_d_unite() {
 
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -8289,7 +8299,7 @@ function Fraction_d_une_quantite() {
 
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -8460,7 +8470,7 @@ function Fraction_d_un_nombre(max = 11) {
           )}\\times${n}=${tex_nombrec(Algebrite.eval((n / b) * a))}$`;
       }
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -9309,7 +9319,7 @@ function Connaitre_formules_de_perimetre_et_aires() {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -9417,7 +9427,7 @@ function Exercice_differentes_ecritures_nombres_decimaux() {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -9454,7 +9464,7 @@ function Lire_abscisse_decimale_trois_formes() {
 
       
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -9585,7 +9595,7 @@ function Additions_soustractions_multiplications_posees() {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         if (!sortie_html && i == 0) {
           texte_corr = `\\setlength\\itemsep{2em}` + texte_corr;
@@ -9763,7 +9773,7 @@ function Additionner_soustraires_decimaux() {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -9866,7 +9876,7 @@ function Divisions_euclidiennes() {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -10014,7 +10024,7 @@ function Division_decimale() {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -10092,7 +10102,7 @@ function Multiplier_decimaux() {
         : (texte_corr = `$\\opmul[decimalsepsymbol={,}]{${a}}{${b}}$`);
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -10270,7 +10280,7 @@ function Multiplier_decimaux_par_10_100_1000() {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -10594,7 +10604,7 @@ function Priorites() {
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -11830,7 +11840,7 @@ function Symetrie_axiale_conservation1() {
           break;
       }
       
-      if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -12596,7 +12606,7 @@ function Vocabulaire_des_triangles() {
           break;
       }
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -12807,7 +12817,7 @@ function Nommer_et_coder_des_polygones() {
       texte += `<br>` + mathalea2d(params, pol, polnom,g,carreaux)
       texte_corr = mathalea2d(params, pol, polnom, polcode, polsom,g,carreaux)
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -12892,7 +12902,7 @@ function Ajouter_des_fractions_d_unite() {
       texte_corr+=mathalea2d(params,fraction(num[0]+num[1]+num[2]+num[3],den).representation(0,0,5,0,'segment','red',0,1,0.6))
       texte_corr+=`<br>La longueur du segment ainsi obtenu est : $${fraction(num[0]+num[1]+num[2]+num[3],den).texFraction()}$`
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -12975,7 +12985,7 @@ function Notation_segment_droite_demi_droite() {
       texte_corr = `...tracer ${dABCorr}, ${dBCCorr}, ${dACCorr}.`;
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -13056,7 +13066,7 @@ function Description_segment_droite_demi_droite() {
       texte_corr = dABCorr;
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -13162,7 +13172,7 @@ function Construire_un_triangle() {
       texte+=mathalea2d(params_enonce,objets_enonce)
       texte_corr+=mathalea2d(params_correction,objets_correction)
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -13384,7 +13394,7 @@ function Utiliser_le_codage_pour_decrire(){
         if (objets_enonce.length>0) texte+=mathalea2d(params_enonce,objets_enonce)
         if (objets_correction.length>0) texte_corr+=mathalea2d(params_correction,objets_correction)
         if (this.liste_questions.indexOf(texte) == -1) {
-          // Si la question n'a jamais été posée, on en créé une autre
+          // Si la question n'a jamais été posée, on en crée une autre
           this.liste_questions.push(texte);
           this.liste_corrections.push(texte_corr);
           i++;
@@ -13722,7 +13732,7 @@ function Parallele_et_Perpendiculaires() {
         objets_correction
       );
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(enonce + "<br>");
         this.liste_corrections.push(correction + "<br>");
         i++;
@@ -13882,7 +13892,7 @@ function Proportionnalite_par_linearite_bis(){
 					break;				
 			}
 			
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en crée une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
 				i++;
@@ -13927,49 +13937,9 @@ function Lecture_diagramme_barre() {
     let lstAnimauxExo = []; //liste des animaux uniquement cités dans l'exercice
     let lstNombresAnimaux = []; // liste des effectifs de chaque animal
     let lstVal = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]; // liste des valeurs à éviter pour les effectifs
-    let N = 0;
+    let N = 0; // variable temporaire d'effectif
 
-    switch (parseInt(this.sup2)) {
-      case 1:
-        for (let i = 0; i < nbAnimaux; i++) {
-          N = randint(2, 100, lstVal); // choisit un nombre entre 2 et 100 sauf dans les valeurs à éviter
-          lstNombresAnimaux.push(N);
-          lstVal = lstVal.concat([N-1, N, N+1]); // valeurs à supprimer pour éviter des valeurs proches
-        }
-        break;
-      case 2:
-        for (let i = 0; i < nbAnimaux; i++) {
-          N = randint(2, 100, lstVal); // choisit un nombre entre 2 et 100 sauf dans les valeurs à éviter
-          lstNombresAnimaux.push(10*N);
-          lstVal = lstVal.concat([N-1, N, N+1]); // valeurs à supprimer pour éviter des valeurs proches
-        }
-        break;
-    }
-
-    for (let i = 0; i < nbAnimaux; i++) {
-      nom = choice(lstAnimaux, lstAnimauxExo); // choisit un animal au hasard sauf parmi ceux déjà utilisés
-      lstAnimauxExo.push(nom);
-    }
-
-    let nMin = Math.min(...lstNombresAnimaux);
-    let nMax = Math.max(...lstNombresAnimaux);
-
-    let lstNomParc = ['Dramve', 'Fatenmin', 'Batderfa', 'Vihi', 'Genser', 'Barbetdou', 'Dramrendu', 'Secai', 'Cipeudram', 'Cigel', 'Lisino', 'Fohenlan', 
-    'Farnfoss', 'Kinecardine', 'Zeffari', 'Kincardine', 'Barmwich', 'Swadlincote', 'Swordbreak'];
-
-    texte = 'Dans le parc naturel de ' + choice(lstNomParc)  + ', il y a beaucoup d’animaux. Voici un diagramme en bâtons qui donne le nombre d’individus pour chaque espèce.<br>';
-    texte += num_alpha(0) + ` Quels sont les animaux les plus nombreux ?<br>`;
-    texte += num_alpha(1) + ` Quels sont les animaux les moins nombreux ?<br>`;
-    
-    let numAnimal = randint(0,nbAnimaux-1);
-    switch (parseInt(this.sup2)) {
-      case 1:texte += num_alpha(2) + ` Donner un encadrement à la dizaine du nombre de ` + lstAnimauxExo[numAnimal] + ' ?<br>';
-        break;
-      case 2:texte += num_alpha(2) + ` Donner un encadrement à la centaine du nombre de ` + lstAnimauxExo[numAnimal] + ' ?<br>';
-        break;
-    }
-
-    // coefficient pour gérer les deux types d'exercices (entre 1 et 100) ou (entre 10 et 1000)
+    // coefficient pour gérer les deux types d'exercices (entre 1 et 100) ou (entre 10 et 1000) :
     let coef = 1;
     switch (parseInt(this.sup2)) {
       case 1:
@@ -13978,7 +13948,40 @@ function Lecture_diagramme_barre() {
       case 2:
         coef = 10;
         break;
+      default:
+        coef = 1;
     }
+
+    for (let i = 0; i < nbAnimaux; i++) {
+      N = randint(2, 100, lstVal); // choisit un nombre entre 2 et 100 sauf dans les valeurs à éviter
+      lstNombresAnimaux.push(coef*N);
+      lstVal = lstVal.concat([N-1, N, N+1]); // valeurs à supprimer pour éviter des valeurs proches
+    }
+
+    for (let i = 0; i < nbAnimaux; i++) {
+      nom = choice(lstAnimaux, lstAnimauxExo); // choisit un animal au hasard sauf parmi ceux déjà utilisés
+      lstAnimauxExo.push(nom);
+    }
+
+    let nMin = Math.min(...lstNombresAnimaux); // index de l'animal de plus petit effectif
+    let nMax = Math.max(...lstNombresAnimaux); // index de l'animal de plus grand effectif
+
+    let lstNomParc = ['Dramve', 'Fatenmin', 'Batderfa', 'Vihi', 'Genser', 'Barbetdou', 'Dramrendu', 'Secai', 'Cipeudram', 'Cigel', 'Lisino', 'Fohenlan', 
+    'Farnfoss', 'Kinecardine', 'Zeffari', 'Kincardine', 'Barmwich', 'Swadlincote', 'Swordbreak'];
+
+    texte = 'Dans le parc naturel de ' + choice(lstNomParc)  + ', il y a beaucoup d’animaux. Voici un diagramme en bâtons qui donne le nombre d’individus pour chaque espèce.<br>';
+    // Question 1 :
+    texte += num_alpha(0) + ` Quels sont les animaux les plus nombreux ?<br>`;
+    // Question 2 :
+    texte += num_alpha(1) + ` Quels sont les animaux les moins nombreux ?<br>`;
+    // Question 3 :
+    let numAnimal = randint(0,nbAnimaux-1); // un animal au hasard dans la liste des animaux
+    switch (parseInt(this.sup2)) {
+      case 1:texte += num_alpha(2) + ` Donner un encadrement à la dizaine du nombre de ` + lstAnimauxExo[numAnimal] + ' ?<br>';
+        break;
+      case 2:texte += num_alpha(2) + ` Donner un encadrement à la centaine du nombre de ` + lstAnimauxExo[numAnimal] + ' ?<br>';
+        break;
+    }    
 
     let r = repere2({
       grilleY : 'pointilles',
@@ -13993,7 +13996,6 @@ function Lecture_diagramme_barre() {
       axeXStyle : '',
       yLegende : "Nombre d'individus"
      });
-
      
     let lstElementGraph = []
     for (let i = 0; i < nbAnimaux; i++) {
@@ -14002,12 +14004,12 @@ function Lecture_diagramme_barre() {
 
     texte += mathalea2d({xmin : -5, xmax : 11, ymin : -3, ymax : 11, pixelsParCm : 30, scale : .5}, r, lstElementGraph)
     // debut de la correction
-    // question 1
+    // Correction question 1 :
     texte_corr = num_alpha(0) + ` Les animaux les plus nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMax)] +'.<br>';
-    // question 2
+    // Correction question 2 :
     texte_corr += num_alpha(1) + ` Les animaux les moins nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMin)] +'.<br>';
-    // question 3
-    let reponse = lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[numAnimal])];
+    // Correction question 3 :
+    let reponse = lstNombresAnimaux[numAnimal];
     reponseinf = 10*coef*Math.floor(reponse/(10*coef))
     reponsesup = reponseinf + 10*coef
     texte_corr += num_alpha(2) + ' Il y a entre ' + reponseinf + ' et ' + reponsesup + ' ' + lstAnimauxExo[numAnimal] + '.<br>';
@@ -14108,7 +14110,7 @@ function Tracer_triangle_2_angles() {
       )}$ cm et $${p[1] + p[2]}\\approx${tex_nombre(longueur(B2, C, 1))}$ cm.`;
 
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -14180,16 +14182,15 @@ function Solide_6e() {
           if (sortie_html) enonce +=` Reproduire la figure ci-dessous sur le cahier.<br>`;
           enonce += ` Repasse tous les segments de même longueur dans une même couleur.<br>`;
           correction=`Le cube ${nom}.<br>`
-
           break;
-        case 2:
 
+        case 2:
           enonce=`${nom} est un pavé droit.<br>`
           if (sortie_html) enonce += ` Reproduire la figure ci-dessous sur le cahier.<br>`;
           enonce += ` Repasse tous les segments de même longueur dans une même couleur.<br>`;
           correction=`Le pavé droit ${nom}.<br>`
-
            break;
+
         case 3 :
           enonce=`${nom} est un cube.<br>`
           break;
@@ -14212,16 +14213,19 @@ function Solide_6e() {
           enonce+=`Citer toutes les arêtes parallèles à [$${nom[aretes_paralleles[k][l][s]]+nom[aretes_paralleles[k][l][(s+1)%2]]}$].<br>`
         correction = `Les arêtes parallèles à [$${nom[aretes_paralleles[k][l][s]]+nom[aretes_paralleles[k][l][(s+1)%2]]}$] sont [$${nom[aretes_paralleles[k][(l+1)%4][s]]+nom[aretes_paralleles[k][(l+1)%4][(s+1)%2]]}$], [$${nom[aretes_paralleles[k][(l+2)%4][s]]+nom[aretes_paralleles[k][(l+2)%4][(s+1)%2]]}$] et [$${nom[aretes_paralleles[k][(l+3)%4][s]]+nom[aretes_paralleles[k][(l+3)%4][(s+1)%2]]}$].<br>`
       break;
-      case 2: // coter la face parallèle à une face donnée
+
+      case 2: // citer la face parallèle à une face donnée
        [k,l,s]=[randint(0,2),randint(0,1),randint(0,3)]
        enonce+=`Quelle est la face parallèle à $${nom[faces_paralleles[k][l][s]]+nom[faces_paralleles[k][l][(s+1)%4]]+nom[faces_paralleles[k][l][(s+2)%4]]+nom[faces_paralleles[k][l][(s+3)%4]]}$ ?<br>`
        correction = `La face parallèle à $${nom[faces_paralleles[k][l][s]]+nom[faces_paralleles[k][l][(s+1)%4]]+nom[faces_paralleles[k][l][(s+2)%4]]+nom[faces_paralleles[k][l][(s+3)%4]]}$ est la face $${nom[faces_paralleles[k][(l+1)%2][s]]+nom[faces_paralleles[k][(l+1)%2][(s+1)%4]]+nom[faces_paralleles[k][(l+1)%2][(s+2)%4]]+nom[faces_paralleles[k][(l+1)%2][(s+3)%4]]}$.<br>`
       break;
+
       case 3: // citer les arêtes perpendiculaires à une arête donnée
         [k,l,s]=[randint(0,11),0,randint(0,1)]
         enonce+=`Quelles sont les arêtes peprendiculaires à l'arête [$${nom[aretes_perp[k][l][s]]+nom[aretes_perp[k][l][(s+1)%2]]}$] ?<br>`
         correction = `Les arêtes perpendiculaires à l'arête [$${nom[aretes_perp[k][l][s]]+nom[aretes_perp[k][l][(s+1)%2]]}$] sont [$${nom[aretes_perp[k][1][s]]+nom[aretes_perp[k][1][(s+1)%2]]}$], [$${nom[aretes_perp[k][2][s]]+nom[aretes_perp[k][2][(s+1)%2]]}$], [$${nom[aretes_perp[k][3][s]]+nom[aretes_perp[k][3][(s+1)%2]]}$] et [$${nom[aretes_perp[k][4][s]]+nom[aretes_perp[k][4][(s+1)%2]]}$].`
       break;
+
       case 4 : // citer les faces perpendiculaires à une face donnée
         [k,l,s]=[randint(0,5),0,randint(0,3)]
         enonce+=`Quelles sont les faces perpendiculaires à la face $${nom[faces_perp[k][l][s]]+nom[faces_perp[k][l][(s+1)%4]]+nom[faces_perp[k][l][(s+2)%4]]+nom[faces_perp[k][l][(s+3)%4]]}$ ?<br>` 
@@ -14230,21 +14234,21 @@ function Solide_6e() {
         correction+=`$${nom[faces_perp[k][l+2][s]]+nom[faces_perp[k][l+2][(s+1)%4]]+nom[faces_perp[k][l+2][(s+2)%4]]+nom[faces_perp[k][l+2][(s+3)%4]]}$, `
         correction+=`$${nom[faces_perp[k][l+3][s]]+nom[faces_perp[k][l+3][(s+1)%4]]+nom[faces_perp[k][l+3][(s+2)%4]]+nom[faces_perp[k][l+3][(s+3)%4]]}$ et `
         correction+=`$${nom[faces_perp[k][l+4][s]]+nom[faces_perp[k][l+4][(s+1)%4]]+nom[faces_perp[k][l+4][(s+2)%4]]+nom[faces_perp[k][l+4][(s+3)%4]]}$.`
-    
-        break;
+      break;
       }
 
         switch (liste_type_de_questions[i]%2) {
           case 1 :
       A = point(6, 0, nom[0], "left");
       B = point(11, 0, nom[1], "right");
-      C = point(11,5, nom[2], "right");
-      D = point(6,5, nom[3],"left");
+      C = point(11, 5, nom[2], "right");
+      D = point(6, 5, nom[3],"left");
       p=polygone(A,B,C,D)
       E = similitude(B,A,anglepersp,coeffpersp,nom[4],'left')
       E.x=Math.round(E.x)
       E.y=Math.round(E.y)
           break;
+
           case 0:
             A = point(5, 0, nom[0], "left");
             B = point(9+randint(1,3), 0, nom[1], "right");
@@ -14256,6 +14260,7 @@ function Solide_6e() {
             E.y=Math.round(E.y)
             break ;
         }  
+
       p=polygone(A,B,C,D)
       F = translation2Points(E,A,B,nom[5],'right')
       G = translation2Points(F,B,C,nom[6],'right')
@@ -14409,7 +14414,7 @@ function Solide_6e() {
       if (liste_type_de_questions[i]<3) correction += mathalea2d(params, objets_correction,codesseg);
     
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(enonce + "<br>");
         this.liste_corrections.push(correction + "<br>");
         i++;
@@ -14552,7 +14557,7 @@ function Produit_de_decimaux_a_partir_d_un_produit_connu(){
           };
           break;							
 			};						
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en crée une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
 				i++;
@@ -14685,7 +14690,7 @@ function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
 					};
         	break;				
 			};						
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en crée une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
 				i++;
@@ -14922,7 +14927,7 @@ function Ordre_de_grandeur_operations_decimaux(){
           			break;	
 			};			
 			
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en crée une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
 				i++;
@@ -15184,7 +15189,7 @@ function chiffre_nombre_de(){
 					break;			
 			};			
 			
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en crée une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
 				i++;
@@ -15419,7 +15424,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 					};
         	break;			
 			};						
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en crée une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
 				i++;
@@ -15564,7 +15569,7 @@ function Ranger_ordre_croissant_decroissant(){
         break;			
      };			
      
-     if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+     if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en crée une autre
        this.liste_questions.push(texte);
        this.liste_corrections.push(texte_corr);
        i++;
@@ -15674,7 +15679,7 @@ function Tests_du_Seb(){
 			
 			};			
 			
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en crée une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
 				i++;
@@ -15900,7 +15905,7 @@ function Rapports_sur_un_segment(){
 					break;				
 			};			
 			
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en crée une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
 				i++;

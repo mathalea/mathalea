@@ -5188,7 +5188,8 @@ function TraceGraphiqueCartesien(data, repere, {
   couleurDuTrait = 'blue',
   styleDuTrait = '', //plein par défaut
   epaisseurDuTrait = 2,
-  styleDesPoints = '', //croix par défaut
+  styleDesPoints = 'x', //croix par défaut
+  tailleDesPoints = 3,
   
   
   }={}){
@@ -5200,6 +5201,8 @@ function TraceGraphiqueCartesien(data, repere, {
     listePoints.push(M)
     let t = tracePoint(M);
     t.color = couleurDesPoints;
+    t.style = styleDesPoints;
+    t.taille = tailleDesPoints;
     t.isVisible = false;
     M.isVisible = false;
     objets.push(t);
