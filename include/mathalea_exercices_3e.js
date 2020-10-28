@@ -1797,7 +1797,7 @@ function fonction_notion_vocabulaire() {
 					if (sortie_html) {
 						texte += num_alpha(j) + ` Quelle est l'image de ${z} par la `;
 						texte += katex_Popup('fonction', 'Vocabulaire', '<b>fonction</b> est le nom que l\'on donne à ces machines mathématiques');
-						texte += ` $f$ ? &Eacute;crire la réponse sous la forme `;
+						texte += ` $\\mathbf{f}$ ? &Eacute;crire la réponse sous la forme `;
 						texte += katex_Popup('$\\mathbf{f(' + z + ')=\\ldots}$', 'Notation', '4 a pour image 16 par la fonction f peut s\'écrire <b>f(4)=16</b>') + `<br>`;
 						texte_corr += num_alpha(j) + ` L'image de ${z} par la fonction f vaut $f(${z})=4\\times ${z}=${4 * z}$.<br>`;
 						j++;//incrémente la sous question	
@@ -1809,18 +1809,23 @@ function fonction_notion_vocabulaire() {
 
 					// sous question d/
 					if (sortie_html) {
-						texte += num_alpha(j) + ` Que renvoie la machine si le côté vaut $x$ cm ?<br>`;
-						texte_corr += num_alpha(j) + ` Si le côté vaut $x$ la machine renvoie $x+x+x+x$ ce qui est équivalent à $4\\times x$ .<br>`;
+						texte += num_alpha(j) + ` Que renvoie la machine si le côté vaut $x$ cm ?`;
+						texte += ` &Eacute;crire la réponse sous la forme `;
+						texte += katex_Popup('$\\mathbf{f(\\textbf{\\textit{x}})=\\ldots}$', 'Notation', '4 a pour image 16 par la fonction f peut s\'écrire <b>f(4)=16</b>') + `<br>`;
+						texte_corr += num_alpha(j) + ` Si le côté vaut $x$ la machine renvoie $x+x+x+x$ ce qui est équivalent à $4\\times x$ .<br>`;						
+						texte_corr += ` L'image de $x$ par la fonction f vaut $4\\times x$ donc $f(x)=4\\times x$.<br>`;
 						j++;//incrémente la sous question	
 					} else { // sortie LaTeX
 						texte += `\\item   Que renvoie la machine si le côté vaut $x$ cm ?`;
 						texte_corr += `\\item  Si le côté vaut $x$ la machine renvoie $x+x+x+x$ ce qui est équivalent à $4\\times x$ .`;
+						texte += ` \\'{E}crire la réponse sous la forme $\\mathbf{f(\\textbf{\\textit{x}})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f(4)=16}$}`;
+					 	texte_corr += ` L'image de $x$ par la fonction f vaut $4\\times x$ donc $f(x)=4\\times x$.`;
 					};
 
 					// sous question e/
 					txt_info =  `Voici le diagramme d'une machine qui triple `;
 					if (sortie_html) {
-						texte += num_alpha(j) + ` &Eacute;crire la réponse à la question ` + num_alpha(j - 1) + ` sous forme de diagramme, comme dans l’exemple ci-dessous.<br>`;
+						texte += num_alpha(j) + ` Comme dans l’exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{f}$.<br>`;
 						//texte += `Voici le diagramme d'une machine qui triple `;
 						//texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 						txt_info += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
@@ -1843,27 +1848,27 @@ function fonction_notion_vocabulaire() {
 						couleur:'nombres'
 					});
 
-					// sous question f/
-					if (sortie_html) {
-						texte += num_alpha(j) + ` &Eacute;crire la réponse à la question ` + num_alpha(j - 2) + ` sous la forme `;
-						texte += katex_Popup('$\\mathbf{f(\\textbf{\\textit{x}})=\\ldots}$', 'Notation', '4 a pour image 16 par la fonction f peut s\'écrire <b>f(4)=16</b>') + `<br>`;
-						texte_corr += num_alpha(j) + ` L'image de $x$ par la fonction f vaut $4\\times x$ donc $f(x)=4\\times x$.<br>`;
-						j++;//incrémente la sous question
-					} else { // sortie LaTeX
-						texte += `\\item   \\'{E}crire la réponse à la question d/ sous la forme $\\mathbf{f(\\textbf{\\textit{x}})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f(4)=16}$}`;
-						texte_corr += `\\item  L'image de $x$ par la fonction f vaut $4\\times x$ donc $f(x)=4\\times x$.`;
-					};
+					// // sous question f/
+					// if (sortie_html) {
+					// 	texte += num_alpha(j) + ` &Eacute;crire la réponse à la question ` + num_alpha(j - 2) + ` sous la forme `;
+					// 	texte += katex_Popup('$\\mathbf{f(\\textbf{\\textit{x}})=\\ldots}$', 'Notation', '4 a pour image 16 par la fonction f peut s\'écrire <b>f(4)=16</b>') + `<br>`;
+					// 	texte_corr += num_alpha(j) + ` L'image de $x$ par la fonction f vaut $4\\times x$ donc $f(x)=4\\times x$.<br>`;
+					// 	j++;//incrémente la sous question
+					// } else { // sortie LaTeX
+					// 	texte += `\\item   \\'{E}crire la réponse à la question d/ sous la forme $\\mathbf{f(\\textbf{\\textit{x}})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f(4)=16}$}`;
+					// 	texte_corr += `\\item  L'image de $x$ par la fonction f vaut $4\\times x$ donc $f(x)=4\\times x$.`;
+					// };
 
 					// sous question g/
 					if (sortie_html) {
-						texte += num_alpha(j) + ` En utilisant la forme `;
+						texte += num_alpha(j) + ` Ecrire maintenant la fonction f en utilisant la forme  `;
 						texte += katex_Popup('$\\mathbf{f:\\textbf{\\textit{x}}\\longmapsto \\ldots}$', 'Notation', '4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f:4\\longmapsto 16}$');
-						texte += `écrire la réponse à la question ` + num_alpha(j - 3) + `<br>`;
+						//texte += `écrire la réponse à la question ` + num_alpha(j - 3) + `<br>`;
 						texte_corr += num_alpha(j) + ` L'image de $x$ par la fonction f vaut $4\\times x$ donc $f:x\\longmapsto 4\\times x$.<br>`;
 						j++;//incrémente la sous question
 					} else { // sortie LaTeX
-						texte += `\\item   En utilisant la forme $\\mathbf{f:\\textbf{\\textit{x}}\\longmapsto \\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f:4\\longmapsto 16}$},`;
-						texte += ` écrire la réponse à la question d/`;
+						texte += `\\item   Ecrire maintenant la fonction f en utilisant la forme $\\mathbf{f:\\textbf{\\textit{x}}\\longmapsto \\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f:4\\longmapsto 16}$},`;
+						//texte += ` écrire la réponse à la question d/`;
 						texte_corr += `\\item  L'image de $x$ par la fonction f vaut $4\\times x$ donc $f:x\\longmapsto 4\\times x$.`;
 						texte += `\\end{enumerate}`;
 						texte_corr += `\\end{enumerate}`;
