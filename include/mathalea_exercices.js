@@ -10998,7 +10998,7 @@ function Pavages_et_reflexion() {
 
 /**
  * Calcul de volumes (cube et pavé droit).
- * @Auteur Jean-Claude Lhote
+ * @Auteur Jean-Claude Lhote // modifié par Mireille Gain pour y ajouter les décimaux
  * référence 6M30
  */
 
@@ -11006,7 +11006,7 @@ function Calcul_de_volumes() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Calculs de volumes";
-  this.consigne = "Calculer en détaillant le volume des solides donnés";
+  this.consigne = "Calculer, en détaillant, le volume des solides donnés.";
   this.nb_questions = 4;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
@@ -11036,19 +11036,29 @@ function Calcul_de_volumes() {
       [`~\\text{cm}`, `~\\text{cm}^3`],
       [`~\\text{mm}`, `~\\text{mm}^3`],
     ];
+    let partieDecimale1,partieDecimale2,partieDecimale3;
+    if (this.sup2) {
+      partieDecimale1=calcul(randint(1,9)/10*randint(0,1));
+      partieDecimale2=calcul(randint(1,9)/10*randint(0,1));
+      partieDecimale3=calcul(randint(1,9)/10*randint(0,1));
+    }
+    else {
+      partieDecimale1=0;
+      partieDecimale2=0;
+      partieDecimale3=0;
+    }
     for (
       let i = 0, texte, texte_corr, L, l, h, c, r, A, j, cpt = 0;
       i < this.nb_questions && cpt < 50;
-
     ) {
       switch (liste_type_de_questions[i]) {
         case 1: // cube
-          c = randint(2, 10);
+          c = calcul(randint(2,10)+partieDecimale1);
           j = randint(0, 3); // pour le choix de l'unité
-          texte = `Un cube de $${c} ${liste_unites[j][0]}$ d'arête.`;
-          texte_corr = `$\\mathcal{V}= c^3 =c \\times c \\times c = ${c}${
+          texte = `Un cube de $${tex_nombre(c)} ${liste_unites[j][0]}$ d'arête.`;
+          texte_corr = `$\\mathcal{V}= c^3 =c \\times c \\times c = ${tex_nombre(c)}${
             liste_unites[j][0]
-          }\\times${c}${liste_unites[j][0]}\\times${c}${
+          }\\times${tex_nombre(c)}${liste_unites[j][0]}\\times${tex_nombre(c)}${
             liste_unites[j][0]
           }=${tex_nombrec(c * c * c)}${liste_unites[j][1]}$`;
           break;
@@ -11056,33 +11066,33 @@ function Calcul_de_volumes() {
           if (this.sup == 1) {
             //sans conversion
             j = randint(0, 3); // pour le choix de l'unité
-            l = randint(2, 5);
-            h = randint(3, 6);
-            L = randint(6, 10);
-            texte = `Un pavé droit de $${l}${liste_unites[j][0]}$ de largeur, de $${L}${liste_unites[j][0]}$ de longueur et de $${h}${liste_unites[j][0]}$ de hauteur.`;
-            texte_corr = `$\\mathcal{V}= l \\times L \\times h = ${l}${
+            l = calcul(randint(2, 5)+partieDecimale1);
+            h = calcul(randint(3, 6)+partieDecimale2);
+            L = calcul(randint(6, 10)+partieDecimale3);
+            texte = `Un pavé droit de $${tex_nombre(l)}${liste_unites[j][0]}$ de largeur, de $${tex_nombre(L)}${liste_unites[j][0]}$ de longueur et de $${tex_nombre(h)}${liste_unites[j][0]}$ de hauteur.`;
+            texte_corr = `$\\mathcal{V}= l \\times L \\times h = ${tex_nombre(l)}${
               liste_unites[j][0]
-            }\\times${L}${liste_unites[j][0]}\\times${h}${
+            }\\times${tex_nombre(L)}${liste_unites[j][0]}\\times${tex_nombre(h)}${
               liste_unites[j][0]
             }=${tex_nombrec(l * L * h)}${liste_unites[j][1]}$`;
           } else {
             // avec conversion
-            j = randint(1, 2); // pour le choix de l'unité	centrale
-            l = randint(2, 5);
-            h = randint(3, 6) * 10;
+            j = randint(1, 2); // pour le choix de l'unité  centrale
+            l = calcul(randint(2, 5)+partieDecimale1);
+            h = calcul(randint(3, 6)*10+partieDecimale2);
             L = arrondi(randint(6, 10) / 10, 1);
-            texte = `Un pavé droit de $${l}${
+            texte = `Un pavé droit de $${tex_nombre(l)}${
               liste_unites[j][0]
             }$ de largeur, de $${tex_nombre(L)}${
               liste_unites[j - 1][0]
-            }$ de longueur et de $${h}${liste_unites[j + 1][0]}$ de hauteur.`;
-            texte_corr = `$\\mathcal{V}= l \\times L \\times h = ${l}${
+            }$ de longueur et de $${tex_nombre(h)}${liste_unites[j + 1][0]}$ de hauteur.`;
+            texte_corr = `$\\mathcal{V}= l \\times L \\times h = ${tex_nombre(l)}${
               liste_unites[j][0]
-            }\\times${tex_nombre(L)}${liste_unites[j - 1][0]}\\times${h}${
+            }\\times${tex_nombre(L)}${liste_unites[j - 1][0]}\\times${tex_nombre(h)}${
               liste_unites[j + 1][0]
-            }=${l}${liste_unites[j][0]}\\times${L * 10}${
+            }=${l}${liste_unites[j][0]}\\times${tex_nombrec(L * 10)}${
               liste_unites[j][0]
-            }\\times${h / 10}${liste_unites[j][0]}=${tex_nombrec(
+            }\\times${tex_nombrec(h / 10)}${liste_unites[j][0]}=${tex_nombrec(
               arrondi(l * L * h)
             )}${liste_unites[j][1]}$`;
           }
@@ -11131,25 +11141,25 @@ function Calcul_de_volumes() {
           if (this.sup == 1) {
             //sans conversion
             j = randint(0, 3); // pour le choix de l'unité
-            c = randint(2, 10);
+            c = calcul(randint(2, 10)+partieDecimale3);
             h = randint(2, 5);
             l = randint(6, 10);
-            texte = `Un prisme droit de hauteur $${l}${liste_unites[j][0]}$ et dont les bases sont des triangles de base $${c}${liste_unites[j][0]}$ et de hauteur correspondante $${h}${liste_unites[j][0]}$.`;
-            texte_corr = `$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${c}${
+            texte = `Un prisme droit de hauteur $${l}${liste_unites[j][0]}$ et dont les bases sont des triangles de base $${tex_nombre(c)}${liste_unites[j][0]}$ et de hauteur correspondante $${h}${liste_unites[j][0]}$.`;
+            texte_corr = `$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${tex_nombre(c)}${
               liste_unites[j][0]
-            }\\times${h}${liste_unites[j][0]}}{2}\\times${l}${
+            }\\times${tex_nombre(h)}${liste_unites[j][0]}}{2}\\times${tex_nombre(l)}${
               liste_unites[j][0]
             }=${tex_nombrec(arrondi(calcul((c * h * l) / 2), 1))}${
               liste_unites[j][1]
             }$`;
           } else {
             j = randint(1, 2); // pour le choix de l'unité
-            c = randint(2, 10);
+            c = calcul(randint(2, 10)+partieDecimale3);
             h = randint(30, 50);
             l = arrondi(randint(5, 15) / 10, 1);
             texte = `Un prisme droit de hauteur $${l}${
               liste_unites[j - 1][0]
-            }$ et dont les bases sont des triangles de base $${c}${
+            }$ et dont les bases sont des triangles de base $${tex_nombre(c)}${
               liste_unites[j][0]
             }$ et de hauteur correspondante $${h}${liste_unites[j + 1][0]}$.`;
             texte_corr = `$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${c}${
@@ -11208,11 +11218,11 @@ function Calcul_de_volumes() {
           if (this.sup == 1) {
             //sans conversion
             j = randint(0, 3); // pour le choix de l'unité
-            c = randint(2, 10);
+            c = calcul(randint(2, 10)+partieDecimale2);
             h = randint(2, 5);
             l = randint(6, 10);
-            texte = `Une pyramide de hauteur $${h}${liste_unites[j][0]}$ et dont la base  est un carré de $${c}${liste_unites[j][0]}$ de côté.`;
-            texte_corr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\left(${c}${liste_unites[j][0]}\\right)^2\\times${h}${liste_unites[j][0]}`;
+            texte = `Une pyramide de hauteur $${h}${liste_unites[j][0]}$ et dont la base  est un carré de $${tex_nombre(c)}${liste_unites[j][0]}$ de côté.`;
+            texte_corr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\left(${tex_nombre(c)}${liste_unites[j][0]}\\right)^2\\times${h}${liste_unites[j][0]}`;
             if (calcul((c * c * h) / 3, false) == arrondi((c * c * h) / 3, 1))
               texte_corr += `=${tex_nombrec(
                 arrondi(calcul((c * c * h) / 3), 1)
@@ -11223,15 +11233,15 @@ function Calcul_de_volumes() {
               )}${liste_unites[j][1]}$`;
           } else {
             j = randint(1, 2); // pour le choix de l'unité
-            c = randint(2, 10);
+            c = calcul(randint(2, 10)+partieDecimale2);
             h = randint(30, 50);
             l = arrondi(randint(5, 15) / 10, 1);
             texte = `Une pyramide de hauteur $${tex_nombrec(h / 10)}${
               liste_unites[j - 1][0]
-            }$ et dont la base  est un carré de $${c}${
+            }$ et dont la base  est un carré de $${tex_nombre(c)}${
               liste_unites[j][0]
             }$ et de hauteur correspondante $${h}${liste_unites[j + 1][0]}$.`;
-            texte_corr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\left(${c}${
+            texte_corr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\left(${tex_nombre(c)}${
               liste_unites[j][0]
             }\\right)^2\\times${tex_nombrec(h / 10)}${
               liste_unites[j - 1][0]
@@ -11262,7 +11272,7 @@ function Calcul_de_volumes() {
           break;
       }
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -11274,9 +11284,11 @@ function Calcul_de_volumes() {
   this.besoin_formulaire_numerique = [
     "Niveau de difficulté",
     2,
-    "1 : pas de conversion\n2 : avec conversion",
+    "1 : Sans conversions\n2 : Avec des conversions",
   ];
+  this.besoin_formulaire2_case_a_cocher = ["Avec des décimaux",false];
 }
+
 
 /**
  * Transformations : trouvers un point numéroté par une des transformations du plan. Fonction générale utilisée sur tous les niveaux
