@@ -7526,10 +7526,10 @@ function Exercice_perimetres_et_aires(difficulte = 1) {
           }
 
           texte_corr = `$\\mathcal{P}_{${nom_triangle}}=${tex_nombre(a)}~\\text{cm}+${tex_nombre(b)}~\\text{cm}+${tex_nombre(c)}~\\text{cm}=${
-            tex_nombre(a+b+c)
+            tex_nombrec(a+b+c)
           }~\\text{cm}$<br>`;
           texte_corr += `$\\mathcal{A}_{${nom_triangle}}=${tex_nombre(a)}~\\text{cm}\\times${tex_nombre(b)}~\\text{cm}\\div2=${Algebrite.eval(
-            tex_nombre(a * b / 2)
+            tex_nombrec(a*b/2)
           )}~\\text{cm}^2$`;
           break;
         case "cercle":
