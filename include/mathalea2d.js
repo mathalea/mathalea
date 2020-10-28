@@ -170,7 +170,7 @@ function TracePoint(...points) {
           c.epaisseur=this.epaisseur
           c.opacite=this.opacite
           c.couleurDeRemplissage=this.color
-          c.opaciteDeRemplissage=this.opacite/2
+          c.opaciteDeRemplissage=this.opacite/4
           objetssvg.push(c)
         }
         else if (this.style=='#'){
@@ -180,7 +180,7 @@ function TracePoint(...points) {
           c.epaisseur=this.epaisseur
           c.opacite=this.opacite
           c.couleurDeRemplissage=this.color
-          c.opaciteDeRemplissage=this.opacite/2
+          c.opaciteDeRemplissage=this.opacite/4
           objetssvg.push(c)
         }
         else if (this.style=='+'){
@@ -3996,6 +3996,27 @@ function DroiteGraduee(x=0,y=0,position='H',type='dd',longueurUnite=10,division=
 function droiteGraduee(...args) {
   return new DroiteGraduee(...args)
 }
+/**
+ * @Auteur Jean-Claude Lhote
+ * Paramètres :
+ * Unite : Nombre de cm par Unité
+ * Min,Max : Valeur minimum et maximum labelisées sur l'axe (les graduations commencent un peu avant et finissent un peu après)
+ * x,y : coordonnées du point de départ du tracé
+ * axeEpaisseur,axeCouleur, axeStyle : épaisseur, couleur et syle de l'axe
+ * axeHauteur : définit la "largeur" de l'axe, celle des graduations et de la flèche
+ * axePosition : 'H' pour horizontal, 'V' pour vertical
+ * thickEpaisseur,thickCouleur : grosseur et couleur des graduations
+ * thickDistance : distance entre deux graduations principales
+ * thickSecDist : distance entre deux graduations secondaires
+ * thickTerDist : distance entre deux graduations tertiaires
+ * thickSec : true si besoin de graduations secondaires, false sinon
+ * thickTer : true si besoin de graduations tertiaires, false sinon
+ * pointListe : Liste de points à mettre sur l'axe. Exemple [[3.4,'A'],[3.8,'B],....]. Les noms se placent au dessus de l'axe.
+ * pointTaille, pointOpacite, pointCouleur : taille en pixels, opacité et couleurs des points de la pointListe
+ * labelListe : pour ajouter des labels. Exemple [[2.8,'x'],[3.1,'y']] les labels se placent sous l'axe. 
+ * Legende : texte à écrire en bout de droite graduée
+ * LegendePosition : position de la légende
+ */
 function DroiteGraduee2({
   Unite = 10,
   Min = 0,
@@ -4008,25 +4029,25 @@ function DroiteGraduee2({
   axeHauteur=4,
   axePosition='H',
   thickEpaisseur = 2,
-  thickHauteur = .2,
   thickCouleur = axeCouleur,
-  ThickDistance = 1,
-  ThickSecDist =0.1,
-  ThickSec = false,
-  ThickTerDist=0.01,
-  ThickTer=false,
-  PointListe = false,
+  thickDistance = 1,
+  thickSecDist =0.1,
+  thickSec = false,
+  thickTerDist=0.01,
+  thickTer=false,
+  pointListe = false,
   pointCouleur='blue',
   pointTaille=4,
   pointOpacite=0.8,
-  ThickMin = Min+ThickDistance,
-  ThickMax = Max-ThickDistance,
-  LabelDistance = ThickDistance,
-  LabelListe = false,
-  LabelMin = ThickMin,
-  LabelMax = ThickMax,
+/*  ThickMin = Min+thickDistance,
+  ThickMax = Max-thickDistance,
+*/
+  labelDistance = axeHauteur*2/pixelsParCm,
+  labelListe = false,
+//  LabelMin = ThickMin,
+//  LabelMax = ThickMax,
   Legende = "",
-  LegendePosition = [calcul(Max*Unite) + .5, .5]
+  LegendePosition = calcul(x+Max*Unite + 0.5)
 } = {}) {
   ObjetMathalea2D.call(this)
 
@@ -4054,62 +4075,72 @@ function DroiteGraduee2({
   }
   objets.push(S);
   // Graduation principale
-  pas1=ThickSecDist;
-  pas2=ThickTerDist;
+  pas1=thickSecDist;
+  pas2=thickTerDist;
   r=10/pixelsParCm
   i=0;
   while (i*Unite<(Max-Min)*Unite+1.3) {
-    S=segment(point(x+i*Unite*absord[0]-axeHauteur/10*r*absord[1],y-axeHauteur/10*r*absord[0]+i*Unite*absord[1]),point(x+i*Unite*absord[0]+axeHauteur/10*r*absord[1],y+axeHauteur/10*r*absord[0]+i*Unite*absord[1]),'green');
-    S.epaisseur=2;
+    S=segment(point(x+i*Unite*absord[0]-axeHauteur/10*r*absord[1],y-axeHauteur/10*r*absord[0]+i*Unite*absord[1]),point(x+i*Unite*absord[0]+axeHauteur/10*r*absord[1],y+axeHauteur/10*r*absord[0]+i*Unite*absord[1]),thickCouleur);
+    S.epaisseur=thickEpaisseur;
     objets.push(S);
-    i+=ThickDistance;
+    i+=thickDistance;
   }
   // Les labels principaux
   i=0;
   while (i*Unite<(Max-Min)*Unite+1.3) {
-   T=texteParPosition(nombre_avec_espace(arrondi(calcul(Min+i),3)),x+i*Unite*absord[0]-0.8*absord[1],y+i*Unite*absord[1]-0.8*absord[0]);
+   T=texteParPosition(nombre_avec_espace(arrondi(calcul(Min+i),3)),x+i*Unite*absord[0]-labelDistance*absord[1],y+i*Unite*absord[1]-labelDistance*absord[0]);
     objets.push(T);
-    i+=LabelDistance;
+    i+=1;
   }
-   
+  // Les labels facultatifs
+  if (labelListe){
+    for (p of labelListe){
+      t=texteParPosition(p[1],x-labelDistance*absord[1]+(p[0]-Min)*absord[0]*Unite,y-labelDistance*absord[0]+(p[0]-Min)*absord[1]*Unite)
+      objets.push(t)
+    }
+  }
+  if (Legende!=""){
+    console.log(LegendePosition)
+    objets.push(texteParPosition(Legende,x-labelDistance*absord[1]+LegendePosition*absord[0],y-labelDistance*absord[0]+LegendePosition*absord[1]))
+  }
   // Graduation secondaire
-  if (ThickSec){
+  if (thickSec){
     i=0;
     while (i*Unite<=(Max-Min)*Unite+1.3) {
       j=1;
-      while ((i+j*pas1)*Unite<=(Max-Min)*Unite+1.3&&j<ThickDistance/ThickSecDist){
+      while ((i+j*pas1)*Unite<=(Max-Min)*Unite+1.3&&j<thickDistance/thickSecDist){
         dep=calcul(i+j*pas1);
         S=segment(point(x+(dep)*Unite*absord[0]-axeHauteur/15*r*absord[1],y-axeHauteur/15*r*absord[0]+(dep)*Unite*absord[1]),point(x+(dep)*Unite*absord[0]+axeHauteur/15*r*absord[1],y+axeHauteur/15*r*absord[0]+(dep)*Unite*absord[1]),thickCouleur);
-        S.epaisseur=1;
+        S.epaisseur=thickEpaisseur/2;
         S.opacite=0.6;
         objets.push(S);
         j++;
       }
-      i+=ThickDistance;
+      i+=thickDistance;
     }
   }
   // Graduation tertiaire
-  if (ThickTer){
+  if (thickTer){
     i=0
     while (i*Unite<=(Max-Min)*Unite+1.3) {
       j=0;
-      while ((i+j*pas1)*Unite<=(Max-Min)*Unite+1.3&&j<ThickDistance/ThickSecDist){
+      while ((i+j*pas1)*Unite<=(Max-Min)*Unite+1.3&&j<thickDistance/thickSecDist){
         k=1;
-        while ((i+j*pas1+k*pas2)*Unite<=(Max-Min)*Unite+1.3&&k<ThickSecDist/ThickTerDist){
+        while ((i+j*pas1+k*pas2)*Unite<=(Max-Min)*Unite+1.3&&k<thickSecDist/thickTerDist){
           dep=calcul(i+j*pas1+k*pas2)
           S=segment(point(x+(dep)*Unite*absord[0]-axeHauteur/20*r*absord[1],y-axeHauteur/20*r*absord[0]+(dep)*Unite*absord[1]),point(x+(dep)*Unite*absord[0]+axeHauteur/20*r*absord[1],y+axeHauteur/20*r*absord[0]+(dep)*Unite*absord[1]),thickCouleur)
-          S.epaisseur=1
+          S.epaisseur=thickEpaisseur/2
           S.opacite=0.3
           objets.push(S)
           k++;
         }
         j++
       }
-      i+=ThickDistance;      
+      i+=thickDistance;      
     }
   }
-  if (PointListe){
-    for (p of PointListe){
+  if (pointListe){
+    for (p of pointListe){
       P=point(x+(p[0]-Min)*absord[0]*Unite,y+(p[0]-Min)*absord[1]*Unite,p[1],'above')
       T=tracePoint(P,pointCouleur);
       T.taille=pointTaille;
@@ -4117,7 +4148,7 @@ function DroiteGraduee2({
       objets.push(T,labelPoint(P))
     }
   }
-  
+
   this.svg = function (coeff) {
     let code = "";
      for (objet of objets) {
