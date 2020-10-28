@@ -4047,7 +4047,7 @@ function DroiteGraduee2({
 //  LabelMin = ThickMin,
 //  LabelMax = ThickMax,
   Legende = "",
-  LegendePosition = calcul((Max-Min)*Unite+1)
+  LegendePosition = calcul((Max-Min)*Unite+1.5)
 } = {}) {
   ObjetMathalea2D.call(this)
 
@@ -4057,7 +4057,7 @@ function DroiteGraduee2({
   this.Max = Max;
 
   let objets = [];
-  let longueurTotale=(Max-Min)*Unite+0.5;
+  let longueurTotale=(Max-Min)*Unite+0.7;
   let absord=[1,0];
   if (axePosition!='H') absord=[0,1]
   if (axeStyle=='->'){
