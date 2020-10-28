@@ -4047,7 +4047,7 @@ function DroiteGraduee2({
 //  LabelMin = ThickMin,
 //  LabelMax = ThickMax,
   Legende = "",
-  LegendePosition = calcul(x+Max*Unite + 0.5)
+  LegendePosition = calcul((Max-Min)*Unite+1)
 } = {}) {
   ObjetMathalea2D.call(this)
 
@@ -4056,9 +4056,9 @@ function DroiteGraduee2({
   this.Min = Min;
   this.Max = Max;
 
-  let objets = []
-  let longueurTotale=(Max-Min)*Unite+1.3
-  let absord=[1,0]
+  let objets = [];
+  let longueurTotale=(Max-Min)*Unite+0.5;
+  let absord=[1,0];
   if (axePosition!='H') absord=[0,1]
   if (axeStyle=='->'){
     longueurTotale+=0.2;
@@ -4079,7 +4079,7 @@ function DroiteGraduee2({
   pas2=thickTerDist;
   r=10/pixelsParCm
   i=0;
-  while (i*Unite<(Max-Min)*Unite+1.3) {
+  while (i*Unite<(Max-Min)*Unite+1) {
     S=segment(point(x+i*Unite*absord[0]-axeHauteur/10*r*absord[1],y-axeHauteur/10*r*absord[0]+i*Unite*absord[1]),point(x+i*Unite*absord[0]+axeHauteur/10*r*absord[1],y+axeHauteur/10*r*absord[0]+i*Unite*absord[1]),thickCouleur);
     S.epaisseur=thickEpaisseur;
     objets.push(S);
@@ -4087,7 +4087,7 @@ function DroiteGraduee2({
   }
   // Les labels principaux
   i=0;
-  while (i*Unite<(Max-Min)*Unite+1.3) {
+  while (i*Unite<(Max-Min)*Unite+1) {
    T=texteParPosition(nombre_avec_espace(arrondi(calcul(Min+i),3)),x+i*Unite*absord[0]-labelDistance*absord[1],y+i*Unite*absord[1]-labelDistance*absord[0]);
     objets.push(T);
     i+=1;
@@ -4100,15 +4100,14 @@ function DroiteGraduee2({
     }
   }
   if (Legende!=""){
-    console.log(LegendePosition)
-    objets.push(texteParPosition(Legende,x-labelDistance*absord[1]+LegendePosition*absord[0],y-labelDistance*absord[0]+LegendePosition*absord[1]))
+    objets.push(texteParPosition(Legende,x+LegendePosition*absord[0],y+LegendePosition*absord[1]))
   }
   // Graduation secondaire
   if (thickSec){
     i=0;
-    while (i*Unite<=(Max-Min)*Unite+1.3) {
+    while (i*Unite<=(Max-Min)*Unite+1) {
       j=1;
-      while ((i+j*pas1)*Unite<=(Max-Min)*Unite+1.3&&j<thickDistance/thickSecDist){
+      while ((i+j*pas1)*Unite<=(Max-Min)*Unite+0.3&&j<thickDistance/thickSecDist){
         dep=calcul(i+j*pas1);
         S=segment(point(x+(dep)*Unite*absord[0]-axeHauteur/15*r*absord[1],y-axeHauteur/15*r*absord[0]+(dep)*Unite*absord[1]),point(x+(dep)*Unite*absord[0]+axeHauteur/15*r*absord[1],y+axeHauteur/15*r*absord[0]+(dep)*Unite*absord[1]),thickCouleur);
         S.epaisseur=thickEpaisseur/2;
@@ -4122,11 +4121,11 @@ function DroiteGraduee2({
   // Graduation tertiaire
   if (thickTer){
     i=0
-    while (i*Unite<=(Max-Min)*Unite+1.3) {
+    while (i*Unite<=(Max-Min)*Unite+1) {
       j=0;
-      while ((i+j*pas1)*Unite<=(Max-Min)*Unite+1.3&&j<thickDistance/thickSecDist){
+      while ((i+j*pas1)*Unite<=(Max-Min)*Unite+0.3&&j<thickDistance/thickSecDist){
         k=1;
-        while ((i+j*pas1+k*pas2)*Unite<=(Max-Min)*Unite+1.3&&k<thickSecDist/thickTerDist){
+        while ((i+j*pas1+k*pas2)*Unite<=(Max-Min)*Unite+0.3&&k<thickSecDist/thickTerDist){
           dep=calcul(i+j*pas1+k*pas2)
           S=segment(point(x+(dep)*Unite*absord[0]-axeHauteur/20*r*absord[1],y-axeHauteur/20*r*absord[0]+(dep)*Unite*absord[1]),point(x+(dep)*Unite*absord[0]+axeHauteur/20*r*absord[1],y+axeHauteur/20*r*absord[0]+(dep)*Unite*absord[1]),thickCouleur)
           S.epaisseur=thickEpaisseur/2
