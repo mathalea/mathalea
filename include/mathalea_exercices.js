@@ -1,5 +1,5 @@
 var liste_des_exercices_disponibles = {
-  "CM000": Tables_additions_soustractions,
+  "CM": Tables_additions_soustractions,
   "CM001": Tables_de_multiplications,
   "CM002": Tables_de_divisions,
   "CM003": Tables_de_multiplications_et_divisions,
