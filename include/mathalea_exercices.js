@@ -99,6 +99,7 @@ var liste_des_exercices_disponibles = {
   "6N23": Exercice_ecriture_decimale_a_partir_de_fraction_decimale,
   "beta6N23-0" : Ecrire_nombres_decimal,
   "6N23-1": Exercice_differentes_ecritures_nombres_decimaux,
+  "beta6N23-2" : Lire_abscisse_decimale_trois_formes,
   "6N24": Exercice_6N24,
   "6N24-1": Exercice_multiplier_ou_diviser_un_nombre_entier_par_10_100_1000,
   "6N30": Lire_abscisse_decimale,
@@ -120,7 +121,7 @@ var liste_des_exercices_disponibles = {
   "6P10": Proportionnalite_pas_proportionnalite,
   "6P11": Proportionnalite_par_linearite,
   "6P11-1": Proportionnalite_par_linearite_bis,
-  "beta6S10":Lecture_diagramme_barre,
+  "6S10":Lecture_diagramme_barre,
   "5A10": Liste_des_diviseurs_5e,
   "5A11": Tableau_criteres_de_divisibilite,
   "5A12-1": Premier_ou_pas_5e,
@@ -9427,6 +9428,44 @@ function Exercice_differentes_ecritures_nombres_decimaux() {
   };
 }
 
+
+function Lire_abscisse_decimale_trois_formes() {
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.titre = "Différentes écritures des nombres décimaux";
+  this.consigne = "Compléter l'égalité puis donner l'écriture décimale.";
+  this.spacing = 2;
+  this.spacing_corr = 2;
+
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    let type_de_questions_disponibles = [1, 2, 3, 4, 5, 6];
+    let liste_type_de_questions = combinaison_listes(
+      type_de_questions_disponibles,
+      this.nb_questions
+    ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+
+    for (
+      let i = 0, texte, texte_corr, cpt = 0;
+      i < this.nb_questions && cpt < 50;
+
+    ) {
+
+
+      
+      if (this.liste_questions.indexOf(texte) == -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
+        this.liste_questions.push(texte);
+        this.liste_corrections.push(texte_corr);
+        i++;
+      }
+      cpt++;
+    }
+    liste_de_question_to_contenu(this);
+  };
+}
+
+
 /**
  * Additions, soustractions et multiplications posées de nombres entiers
  *
@@ -9580,6 +9619,7 @@ function Additionner_soustraires_decimaux() {
   this.spacing = 2;
   sortie_html ? (this.spacing_corr = 2) : (this.spacing_corr = 1); //Important sinon les opérations posées ne sont pas jolies
   this.nb_questions = 4;
+  this.sup = 3;
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
@@ -9594,12 +9634,18 @@ function Additionner_soustraires_decimaux() {
       this.nb_questions
     );
     let liste_type_de_questions = [];
-    for (let i = 0; i < this.nb_questions; i++) {
-      if (i + 1 < this.nb_questions / 2) {
-        // première moitié sont des additions mais si c'est impair on prendra plus de soustractions
-        liste_type_de_questions.push(liste_de_type_d_additions[i]);
-      } else {
-        liste_type_de_questions.push(liste_de_type_de_soustractions[i]);
+    if (this.sup == 1) {
+      liste_type_de_questions = combinaison_listes([5, 6, 7, 8],this.nb_questions)
+    } else if (this.sup == 2) {
+      liste_type_de_questions = combinaison_listes([1, 2, 3, 4],this.nb_questions)
+    } else {
+      for (let i = 0; i < this.nb_questions; i++) {
+        if (i + 1 <= this.nb_questions / 2) {
+          // première moitié sont des additions mais si c'est impair on prendra plus de soustractions
+          liste_type_de_questions.push(liste_de_type_d_additions[i]);
+        } else {
+          liste_type_de_questions.push(liste_de_type_de_soustractions[i]);
+        }
       }
     }
 
@@ -9726,6 +9772,7 @@ function Additionner_soustraires_decimaux() {
     }
     liste_de_question_to_contenu(this);
   };
+  this.besoin_formulaire_numerique = ["Niveau de difficulté",3,"1 : Additions de décimaux\n2: Soustraction de décimaux\n3 : Additions et soustraction de décimaux"];
 }
 
 /**
@@ -10951,7 +10998,7 @@ function Pavages_et_reflexion() {
 
 /**
  * Calcul de volumes (cube et pavé droit).
- * @Auteur Jean-Claude Lhote
+ * @Auteur Jean-Claude Lhote // modifié par Mireille Gain pour y ajouter les décimaux
  * référence 6M30
  */
 
@@ -10959,7 +11006,7 @@ function Calcul_de_volumes() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Calculs de volumes";
-  this.consigne = "Calculer en détaillant le volume des solides donnés";
+  this.consigne = "Calculer, en détaillant, le volume des solides donnés.";
   this.nb_questions = 4;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
@@ -10989,19 +11036,29 @@ function Calcul_de_volumes() {
       [`~\\text{cm}`, `~\\text{cm}^3`],
       [`~\\text{mm}`, `~\\text{mm}^3`],
     ];
+    let partieDecimale1,partieDecimale2,partieDecimale3;
+    if (this.sup2) {
+      partieDecimale1=calcul(randint(1,9)/10*randint(0,1));
+      partieDecimale2=calcul(randint(1,9)/10*randint(0,1));
+      partieDecimale3=calcul(randint(1,9)/10*randint(0,1));
+    }
+    else {
+      partieDecimale1=0;
+      partieDecimale2=0;
+      partieDecimale3=0;
+    }
     for (
       let i = 0, texte, texte_corr, L, l, h, c, r, A, j, cpt = 0;
       i < this.nb_questions && cpt < 50;
-
     ) {
       switch (liste_type_de_questions[i]) {
         case 1: // cube
-          c = randint(2, 10);
+          c = calcul(randint(2,10)+partieDecimale1);
           j = randint(0, 3); // pour le choix de l'unité
-          texte = `Un cube de $${c} ${liste_unites[j][0]}$ d'arête.`;
-          texte_corr = `$\\mathcal{V}= c^3 =c \\times c \\times c = ${c}${
+          texte = `Un cube de $${tex_nombre(c)} ${liste_unites[j][0]}$ d'arête.`;
+          texte_corr = `$\\mathcal{V}= c^3 =c \\times c \\times c = ${tex_nombre(c)}${
             liste_unites[j][0]
-          }\\times${c}${liste_unites[j][0]}\\times${c}${
+          }\\times${tex_nombre(c)}${liste_unites[j][0]}\\times${tex_nombre(c)}${
             liste_unites[j][0]
           }=${tex_nombrec(c * c * c)}${liste_unites[j][1]}$`;
           break;
@@ -11009,33 +11066,33 @@ function Calcul_de_volumes() {
           if (this.sup == 1) {
             //sans conversion
             j = randint(0, 3); // pour le choix de l'unité
-            l = randint(2, 5);
-            h = randint(3, 6);
-            L = randint(6, 10);
-            texte = `Un pavé droit de $${l}${liste_unites[j][0]}$ de largeur, de $${L}${liste_unites[j][0]}$ de longueur et de $${h}${liste_unites[j][0]}$ de hauteur.`;
-            texte_corr = `$\\mathcal{V}= l \\times L \\times h = ${l}${
+            l = calcul(randint(2, 5)+partieDecimale1);
+            h = calcul(randint(3, 6)+partieDecimale2);
+            L = calcul(randint(6, 10)+partieDecimale3);
+            texte = `Un pavé droit de $${tex_nombre(l)}${liste_unites[j][0]}$ de largeur, de $${tex_nombre(L)}${liste_unites[j][0]}$ de longueur et de $${tex_nombre(h)}${liste_unites[j][0]}$ de hauteur.`;
+            texte_corr = `$\\mathcal{V}= l \\times L \\times h = ${tex_nombre(l)}${
               liste_unites[j][0]
-            }\\times${L}${liste_unites[j][0]}\\times${h}${
+            }\\times${tex_nombre(L)}${liste_unites[j][0]}\\times${tex_nombre(h)}${
               liste_unites[j][0]
             }=${tex_nombrec(l * L * h)}${liste_unites[j][1]}$`;
           } else {
             // avec conversion
-            j = randint(1, 2); // pour le choix de l'unité	centrale
-            l = randint(2, 5);
-            h = randint(3, 6) * 10;
+            j = randint(1, 2); // pour le choix de l'unité  centrale
+            l = calcul(randint(2, 5)+partieDecimale1);
+            h = calcul(randint(3, 6)*10+partieDecimale2);
             L = arrondi(randint(6, 10) / 10, 1);
-            texte = `Un pavé droit de $${l}${
+            texte = `Un pavé droit de $${tex_nombre(l)}${
               liste_unites[j][0]
             }$ de largeur, de $${tex_nombre(L)}${
               liste_unites[j - 1][0]
-            }$ de longueur et de $${h}${liste_unites[j + 1][0]}$ de hauteur.`;
-            texte_corr = `$\\mathcal{V}= l \\times L \\times h = ${l}${
+            }$ de longueur et de $${tex_nombre(h)}${liste_unites[j + 1][0]}$ de hauteur.`;
+            texte_corr = `$\\mathcal{V}= l \\times L \\times h = ${tex_nombre(l)}${
               liste_unites[j][0]
-            }\\times${tex_nombre(L)}${liste_unites[j - 1][0]}\\times${h}${
+            }\\times${tex_nombre(L)}${liste_unites[j - 1][0]}\\times${tex_nombre(h)}${
               liste_unites[j + 1][0]
-            }=${l}${liste_unites[j][0]}\\times${L * 10}${
+            }=${l}${liste_unites[j][0]}\\times${tex_nombrec(L * 10)}${
               liste_unites[j][0]
-            }\\times${h / 10}${liste_unites[j][0]}=${tex_nombrec(
+            }\\times${tex_nombrec(h / 10)}${liste_unites[j][0]}=${tex_nombrec(
               arrondi(l * L * h)
             )}${liste_unites[j][1]}$`;
           }
@@ -11084,25 +11141,25 @@ function Calcul_de_volumes() {
           if (this.sup == 1) {
             //sans conversion
             j = randint(0, 3); // pour le choix de l'unité
-            c = randint(2, 10);
+            c = calcul(randint(2, 10)+partieDecimale3);
             h = randint(2, 5);
             l = randint(6, 10);
-            texte = `Un prisme droit de hauteur $${l}${liste_unites[j][0]}$ et dont les bases sont des triangles de base $${c}${liste_unites[j][0]}$ et de hauteur correspondante $${h}${liste_unites[j][0]}$.`;
-            texte_corr = `$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${c}${
+            texte = `Un prisme droit de hauteur $${l}${liste_unites[j][0]}$ et dont les bases sont des triangles de base $${tex_nombre(c)}${liste_unites[j][0]}$ et de hauteur correspondante $${h}${liste_unites[j][0]}$.`;
+            texte_corr = `$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${tex_nombre(c)}${
               liste_unites[j][0]
-            }\\times${h}${liste_unites[j][0]}}{2}\\times${l}${
+            }\\times${tex_nombre(h)}${liste_unites[j][0]}}{2}\\times${tex_nombre(l)}${
               liste_unites[j][0]
             }=${tex_nombrec(arrondi(calcul((c * h * l) / 2), 1))}${
               liste_unites[j][1]
             }$`;
           } else {
             j = randint(1, 2); // pour le choix de l'unité
-            c = randint(2, 10);
+            c = calcul(randint(2, 10)+partieDecimale3);
             h = randint(30, 50);
             l = arrondi(randint(5, 15) / 10, 1);
             texte = `Un prisme droit de hauteur $${l}${
               liste_unites[j - 1][0]
-            }$ et dont les bases sont des triangles de base $${c}${
+            }$ et dont les bases sont des triangles de base $${tex_nombre(c)}${
               liste_unites[j][0]
             }$ et de hauteur correspondante $${h}${liste_unites[j + 1][0]}$.`;
             texte_corr = `$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${c}${
@@ -11161,11 +11218,11 @@ function Calcul_de_volumes() {
           if (this.sup == 1) {
             //sans conversion
             j = randint(0, 3); // pour le choix de l'unité
-            c = randint(2, 10);
+            c = calcul(randint(2, 10)+partieDecimale2);
             h = randint(2, 5);
             l = randint(6, 10);
-            texte = `Une pyramide de hauteur $${h}${liste_unites[j][0]}$ et dont la base  est un carré de $${c}${liste_unites[j][0]}$ de côté.`;
-            texte_corr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\left(${c}${liste_unites[j][0]}\\right)^2\\times${h}${liste_unites[j][0]}`;
+            texte = `Une pyramide de hauteur $${h}${liste_unites[j][0]}$ et dont la base  est un carré de $${tex_nombre(c)}${liste_unites[j][0]}$ de côté.`;
+            texte_corr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\left(${tex_nombre(c)}${liste_unites[j][0]}\\right)^2\\times${h}${liste_unites[j][0]}`;
             if (calcul((c * c * h) / 3, false) == arrondi((c * c * h) / 3, 1))
               texte_corr += `=${tex_nombrec(
                 arrondi(calcul((c * c * h) / 3), 1)
@@ -11176,15 +11233,15 @@ function Calcul_de_volumes() {
               )}${liste_unites[j][1]}$`;
           } else {
             j = randint(1, 2); // pour le choix de l'unité
-            c = randint(2, 10);
+            c = calcul(randint(2, 10)+partieDecimale2);
             h = randint(30, 50);
             l = arrondi(randint(5, 15) / 10, 1);
             texte = `Une pyramide de hauteur $${tex_nombrec(h / 10)}${
               liste_unites[j - 1][0]
-            }$ et dont la base  est un carré de $${c}${
+            }$ et dont la base  est un carré de $${tex_nombre(c)}${
               liste_unites[j][0]
             }$ et de hauteur correspondante $${h}${liste_unites[j + 1][0]}$.`;
-            texte_corr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\left(${c}${
+            texte_corr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\left(${tex_nombre(c)}${
               liste_unites[j][0]
             }\\right)^2\\times${tex_nombrec(h / 10)}${
               liste_unites[j - 1][0]
@@ -11215,7 +11272,7 @@ function Calcul_de_volumes() {
           break;
       }
       if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+        // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
@@ -11227,9 +11284,11 @@ function Calcul_de_volumes() {
   this.besoin_formulaire_numerique = [
     "Niveau de difficulté",
     2,
-    "1 : pas de conversion\n2 : avec conversion",
+    "1 : Sans conversions\n2 : Avec des conversions",
   ];
+  this.besoin_formulaire2_case_a_cocher = ["Avec des décimaux",false];
 }
+
 
 /**
  * Transformations : trouvers un point numéroté par une des transformations du plan. Fonction générale utilisée sur tous les niveaux
@@ -13850,73 +13909,115 @@ function Lecture_diagramme_barre() {
   this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
   this.nb_cols_corr = 1;
+  this.sup = 1;
+  this.sup2 = 1;
   
   this.nouvelle_version = function(){
 		this.liste_questions = []; // vide la liste de questions
     this.liste_corrections = []; // vide la liste de questions corrigées   
 
     let lstAnimaux = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes'];
-    let nbAnimaux = 5; // nombre d'animaux différents dans l'énoncé
+    let nbAnimaux = 4; // nombre d'animaux différents dans l'énoncé
+    switch (parseInt(this.sup)) {
+      case 1:nbAnimaux = 4;break;
+      case 2:nbAnimaux = 5;break;
+      case 3:nbAnimaux = 6;break;
+      default:nbAnimaux = 4;
+    }
     let lstAnimauxExo = []; //liste des animaux uniquement cités dans l'exercice
     let lstNombresAnimaux = []; // liste des effectifs de chaque animal
     let lstVal = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]; // liste des valeurs à éviter pour les effectifs
     let N = 0;
+
+    switch (parseInt(this.sup2)) {
+      case 1:
+        for (let i = 0; i < nbAnimaux; i++) {
+          N = randint(2, 100, lstVal); // choisit un nombre entre 2 et 100 sauf dans les valeurs à éviter
+          lstNombresAnimaux.push(N);
+          lstVal = lstVal.concat([N-1, N, N+1]); // valeurs à supprimer pour éviter des valeurs proches
+        }
+        break;
+      case 2:
+        for (let i = 0; i < nbAnimaux; i++) {
+          N = randint(2, 100, lstVal); // choisit un nombre entre 2 et 100 sauf dans les valeurs à éviter
+          lstNombresAnimaux.push(10*N);
+          lstVal = lstVal.concat([N-1, N, N+1]); // valeurs à supprimer pour éviter des valeurs proches
+        }
+        break;
+    }
+
     for (let i = 0; i < nbAnimaux; i++) {
       nom = choice(lstAnimaux, lstAnimauxExo); // choisit un animal au hasard sauf parmi ceux déjà utilisés
       lstAnimauxExo.push(nom);
-      N = randint(2, 100, lstVal); // choisit un nombre entre 2 et 100 sauf dans les valeurs à éviter
-      lstNombresAnimaux.push(N);
-      lstVal = lstVal.concat([N-1, N, N+1]); // valeurs à supprimer pour éviter des valeurs proches
     }
 
     let nMin = Math.min(...lstNombresAnimaux);
     let nMax = Math.max(...lstNombresAnimaux);
 
-    texte = `Dans le zoo d’Armenelos, il y a beaucoup d’animaux. Voici un diagramme en bâtons qui donne le nombre d’individus pour chaque espèce.<br>`;
+    let lstNomParc = ['Dramve', 'Fatenmin', 'Batderfa', 'Vihi', 'Genser', 'Barbetdou', 'Dramrendu', 'Secai', 'Cipeudram', 'Cigel', 'Lisino', 'Fohenlan', 
+    'Farnfoss', 'Kinecardine', 'Zeffari', 'Kincardine', 'Barmwich', 'Swadlincote', 'Swordbreak'];
+
+    texte = 'Dans le parc naturel de ' + choice(lstNomParc)  + ', il y a beaucoup d’animaux. Voici un diagramme en bâtons qui donne le nombre d’individus pour chaque espèce.<br>';
     texte += num_alpha(0) + ` Quels sont les animaux les plus nombreux ?<br>`;
     texte += num_alpha(1) + ` Quels sont les animaux les moins nombreux ?<br>`;
-    texte += num_alpha(2) + ` Donner un encadrement du nombre de ` + lstAnimauxExo[1] + ' ?<br>';
+    
+    let numAnimal = randint(0,nbAnimaux-1);
+    switch (parseInt(this.sup2)) {
+      case 1:texte += num_alpha(2) + ` Donner un encadrement à la dizaine du nombre de ` + lstAnimauxExo[numAnimal] + ' ?<br>';
+        break;
+      case 2:texte += num_alpha(2) + ` Donner un encadrement à la centaine du nombre de ` + lstAnimauxExo[numAnimal] + ' ?<br>';
+        break;
+    }
 
-    // print temporaire
-    // tableau de valeurs à remplacer par le graphique :
-    for (let i = 0; i < nbAnimaux; i++) {
-      texte += lstAnimauxExo[i].toLocaleString() + '  ';
-      texte += lstNombresAnimaux[i].toLocaleString()+ '<br>';
+    // coefficient pour gérer les deux types d'exercices (entre 1 et 100) ou (entre 10 et 1000)
+    let coef = 1;
+    switch (parseInt(this.sup2)) {
+      case 1:
+        coef = 1;
+        break;
+      case 2:
+        coef = 10;
+        break;
     }
 
     let r = repere2({
-  		grilleY : 'pointilles',
-  		xThickListe : [],
-  		xLabelListe : [],
-      yUnite : .1,
-      yThickDistance : 10,
-	  	yMax : 110,
-  		xMin : 0,
-  		yMin : 0,
-  		axeXStyle : '',
-	  	yLegende : "Nombre d'individus"
-     })
-    
+      grilleY : 'pointilles',
+      xThickListe : [],
+      xLabelListe : [],
+      yUnite : .1/coef,
+      yThickDistance : 10*coef,
+      yMax : 110*coef,
+      xMin : 0,
+      xMax : 10,
+      yMin : 0,
+      axeXStyle : '',
+      yLegende : "Nombre d'individus"
+     });
+
+     
     let lstElementGraph = []
     for (let i = 0; i < nbAnimaux; i++) {
-      lstElementGraph.push(traceBarre(i+1,lstNombresAnimaux[i],lstAnimauxExo[i],{unite:.1}))
+      lstElementGraph.push(traceBarre((((r.xMax-r.xMin)/(nbAnimaux+1))*(i+1)),lstNombresAnimaux[i],lstAnimauxExo[i],{unite:.1/coef}))
     }
 
-    let b1 = traceBarre(2,55,'Jean-Claude',{unite:.1})
-    let b2 = traceBarre(4,28,'Sébastien',{unite:.1,couleurDeRemplissage:'orange'})
-    let b3 = traceBarre(6,57,'Rémi',{unite:.1,opaciteDeRemplissage:1})
-    let b4 = traceBarre(8,18,'Stéphane',{unite:.1})
-    texte += mathalea2d({xmin : -5, xmax : 11, ymin : -5, ymax : 11, pixelsParCm : 30, scale : .5}, r, lstElementGraph)
-
+    texte += mathalea2d({xmin : -5, xmax : 11, ymin : -3, ymax : 11, pixelsParCm : 30, scale : .5}, r, lstElementGraph)
+    // debut de la correction
+    // question 1
     texte_corr = num_alpha(0) + ` Les animaux les plus nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMax)] +'.<br>';
+    // question 2
     texte_corr += num_alpha(1) + ` Les animaux les moins nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMin)] +'.<br>';
-    texte_corr += num_alpha(2) + ` Il y a ` + lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[1])].toString() + ' ' + lstAnimauxExo[1] + '.<br>';
-
+    // question 3
+    let reponse = lstNombresAnimaux[lstAnimauxExo.indexOf(lstAnimauxExo[numAnimal])];
+    reponseinf = 10*coef*Math.floor(reponse/(10*coef))
+    reponsesup = reponseinf + 10*coef
+    texte_corr += num_alpha(2) + ' Il y a entre ' + reponseinf + ' et ' + reponsesup + ' ' + lstAnimauxExo[numAnimal] + '.<br>';
 
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
     liste_de_question_to_contenu(this);
   }
+  this.besoin_formulaire_numerique = [`Nombre d'espèces différentes`, 3, ` choix 1 : 4 espèces\n choix 2 : 5 espèces\n choix 3 : 6 espèces`];
+  this.besoin_formulaire2_numerique = [`Valeurs numériques`, 2, ` choix 1 : entre 1 et 100\n choix 2 : entre 100 et 1 000`];
 }
 
 /**
@@ -15963,10 +16064,12 @@ jQuery(document).ready(function () {
   
   liste_html_des_exercices_6 = liste_html_des_exercices_d_un_niveau([
     ['6C1','6C1 - Calculs niveau 1'],['6C2','6C2 - Calculs niveau 2'],['6C3','6C3 - Calculs niveau 3'],
-    ['6M1','6M1 - Grandeurs et mesures niveau 1'],['6M2','6M2 - Grandeurs et mesures niveau 2'],['6M3', '6M3 - Volumes'],['6P1','6P1 - Proportionnalité'],
-    ['6G1','6G1 - Géométrie niveau 1'],['6G2','6G2 - Géométrie niveau 2'],['6G3','6G3 - Géométrie niveau 3'],['6G4','6G4 - Géométrie niveau 4'],
     ['6D1','6D1 - Les durées'],
-    ['6N1','6N1 - Numération et fractions niveau 1'],['6N2','6N2 - Numération et fractions niveau 2'],['6N3','6N3 - Numération et fractions niveau 3'],['6N4','6N4 - Numération et fractions niveau 4']])
+    ['6G1','6G1 - Géométrie niveau 1'],['6G2','6G2 - Géométrie niveau 2'],['6G3','6G3 - Géométrie niveau 3'],['6G4','6G4 - Géométrie niveau 4'],
+    ['6M1','6M1 - Grandeurs et mesures niveau 1'],['6M2','6M2 - Grandeurs et mesures niveau 2'],['6M3', '6M3 - Volumes'],
+    ['6N1','6N1 - Numération et fractions niveau 1'],['6N2','6N2 - Numération et fractions niveau 2'],['6N3','6N3 - Numération et fractions niveau 3'],['6N4','6N4 - Numération et fractions niveau 4'],
+    ['6P1','6P1 - Proportionnalité'],['6S1','6S1 - Statistiques']
+  ])
     liste_html_des_exercices_5 = liste_html_des_exercices_d_un_niveau([
       ['5A1','5A1 - Arithmetique'],['5C1','5C1 - Calculs'],
       ['5G1','5G1 - Symétries'],['5G2','5G2 - Triangles'],['5G3','5G3 - Angles'],['5G4','5G4 - Parallélogrammes'],['5G5','5G5 - Espace'],

@@ -5107,6 +5107,7 @@ function Transformations_du_plan_et_coordonnees() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Trouver les coordonnées de l'image d'un point par une transformation du plan";
 	this.consigne = "";
+	this.pas_de_version_LaTeX = true;
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
@@ -5583,7 +5584,7 @@ function Transformations_du_plan_et_coordonnees() {
 		}
 		else {
 			texte = ``
-			texte_cor=``
+			texte_corr=``
 			this.liste_questions.push(texte) // on envoie la question
 			this.liste_corrections.push(texte_corr)
 			liste_de_question_to_contenu_sans_numero(this);
