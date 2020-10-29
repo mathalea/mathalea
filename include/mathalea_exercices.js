@@ -229,8 +229,8 @@ var liste_des_exercices_disponibles = {
   "4G20MG32": Exercice_Pythagore,
   "4G21": Reciproque_Pythagore,
   "4G22": Problemes_Pythagore,
-  "4G30-1": Thales2D,
-  "4G30" : Thales_4eme,
+  "4G30": Thales2D_4e,
+  "4G30-1" : Thales_4eme,
   "4G31": Reciproque_Thales_4eme,
   "4G40": Exercice_Trigo_longueurs_4e,
   "4G41": Exercice_Trigo_angles_4e,
@@ -262,7 +262,8 @@ var liste_des_exercices_disponibles = {
   "3G10-1": Transformations_du_plan_et_coordonnees,
   "3G10-2": Transformations_3e,
   "3G12": Pavages_et_rotation,
-  "3G20": Exercice_Thales,
+  "3G20": Thales2D_3e,
+  "3G20-2": Exercice_Thales,
   "3G20-1": Problemes_Thales,
   "3G21": Reciproque_Thales,
   "3G22": Agrandissement_reduction,
@@ -12126,6 +12127,18 @@ function Thales_4eme() {
 function Reciproque_Thales_4eme() {
   Reciproque_Thales.call(this);
   this.quatrieme = true;
+}
+
+// 4G30
+function Thales2D_4e (params) {
+  Thales2D.call(this);
+  this.besoin_formulaire_numerique = false
+}
+
+// 3G20
+function Thales2D_3e (params) {
+  Thales2D.call(this);
+  this.sup = 2;
 }
 
 /**
