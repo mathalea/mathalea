@@ -14163,7 +14163,7 @@ let liste_type_de_questions = combinaison_listes(
     else sc = 0.8;
 
   let A,B,C,D,E,F,G,H,I,
-      AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,IA,
+      AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,IA,IB,IE,IF,
       lAB,lBC,lAE,anglepersp,coeffpersp,
       codesseg=[],
       enonce,
@@ -14254,6 +14254,9 @@ let liste_type_de_questions = combinaison_listes(
       CG=segment(C,G)
       DH=segment(D,H)
       IA=segment(A,I)
+      IB=segment(B,I)
+      IE=segment(E,I)
+      IF=segment(F,I)
       AB.epaisseur=2
       BC.epaisseur=2
       CD.epaisseur=2
@@ -14266,7 +14269,10 @@ let liste_type_de_questions = combinaison_listes(
       BF.epaisseur=2
       CG.epaisseur=2
       DH.epaisseur=2
-      IA.epaisseur=2
+      IA.epaisseur=1
+      IB.epaisseur=1
+      IE.epaisseur=1
+      IF.epaisseur=1
       AB.color='black'
       BC.color='black'
       CD.color='black'
@@ -14334,7 +14340,7 @@ let liste_type_de_questions = combinaison_listes(
       if (this.sup2 == 2) {carreaux = seyes(Xmin, Ymin, Xmax, Ymax);sc=0.8}
       else {carreaux = "";sc=0.5}
 
-      objets_enonce.push(AB,BC,CD,DA,AE,labelPoint(A,B,C,D,E,I),
+      objets_enonce.push(AB,BC,CD,DA,AE,labelPoint(A,B,C,D,E),
         g,
         carreaux
       );
@@ -14362,7 +14368,7 @@ let liste_type_de_questions = combinaison_listes(
         CG.color='blue'
         DH.color='blue'     
     
-    objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,labelPoint(A,B,C,D,E,F,G,H,I),
+    objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,IA,IB,IE,IF,labelPoint(A,B,C,D,E,F,G,H,I),
         g,
         carreaux
       );
