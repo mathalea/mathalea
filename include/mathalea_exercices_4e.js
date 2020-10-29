@@ -2556,7 +2556,6 @@ function Thales2D() {
       let marqueNomB = texteParPoint(nomB, b);
       let c;
       if (k<0) {
-        let posNomC
         if (angle(A,C,N)<angle(N,C,A)){
           c = similitude(A,C,-angleOriente(A,C,N)/2,1/longueur(A,C))
         } else {
@@ -2581,9 +2580,9 @@ function Thales2D() {
         ABC, MNC, marqueNomA, marqueNomB, marqueNomC, marqueNomM, marqueNomN
       );
       if (k>0){
-        texte_corr = `Dans le triangle $${nomA+nomB+nomC}$, $${nomM}\\in${"["+nomC+nomA+"]"}$, $${nomN}\\in${"["+nomC+nomB+"]"}$ et $(${nomA+nomB})//(${nomM+nomN})$ donc d'après le théorème de Thalès les triangles $${nomA+nomB+nomC}$ et $${nomM+nomN+nomC}$ ont des longueurs proportionnelles.`;
+        texte_corr = `Dans le triangle $${nomA+nomB+nomC}$, $${nomM}\\in${"["+nomC+nomA+"]"}$, $${nomN}\\in${"["+nomC+nomB+"]"}$ et $(${nomA+nomB})//(${nomM+nomN})$ donc d'après le théorème de Thalès, les triangles $${nomA+nomB+nomC}$ et $${nomM+nomN+nomC}$ ont des longueurs proportionnelles.`;
       } else {
-        texte_corr = `Les droites $(${nomA+nomM})$ et $(${nomB+nomN})$ sont sécantes en $${nomC}$ et $(${nomA+nomB})//(${nomM+nomN})$  donc d'après le théorème de Thalès les triangles $${nomA+nomB+nomC}$ et $${nomM+nomN+nomC}$ ont des longueurs proportionnelles.`;
+        texte_corr = `Les droites $(${nomA+nomM})$ et $(${nomB+nomN})$ sont sécantes en $${nomC}$ et $(${nomA+nomB})//(${nomM+nomN})$  donc d'après le théorème de Thalès, les triangles $${nomA+nomB+nomC}$ et $${nomM+nomN+nomC}$ ont des longueurs proportionnelles.`;
       }
       texte_corr += `<br><br>`
       texte_corr += `$\\dfrac{${nomC+nomM}}{${nomC+nomA}}=\\dfrac{${nomC+nomN}}{${nomC+nomB}}=\\dfrac{${nomM+nomN}}{${nomA+nomB}}$`  
