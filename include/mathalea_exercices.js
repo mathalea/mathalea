@@ -14334,7 +14334,7 @@ let liste_type_de_questions = combinaison_listes(
       if (this.sup2 == 2) {carreaux = seyes(Xmin, Ymin, Xmax, Ymax);sc=0.8}
       else {carreaux = "";sc=0.5}
 
-      objets_enonce.push(AB,BC,CD,DA,AE,IA,labelPoint(A,B,C,D,E,I),
+      objets_enonce.push(AB,BC,CD,DA,AE,labelPoint(A,B,C,D,E,I),
         g,
         carreaux
       );
