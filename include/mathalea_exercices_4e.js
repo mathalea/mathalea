@@ -2517,6 +2517,9 @@ function Thales2D() {
 
     for (let i = 0, texte, texte_corr, cpt = 0;i < this.nb_questions && cpt < 50;)
      {
+      if ((i+1)%3==0){ // Toutes les 3 questions, on repart à zéro sur les noms des polygones
+        liste_de_noms_de_polygones = []
+      }
       let nomDesPoints = creerNomDePolygone(5,liste_de_noms_de_polygones);
       liste_de_noms_de_polygones.push(nomDesPoints);
       let nomA = nomDesPoints[0];
