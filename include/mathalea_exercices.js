@@ -63,7 +63,7 @@ var liste_des_exercices_disponibles = {
   "6G25-1": Pavages_et_reflexion,
   "6G25-2": Pavages_et_symetries,
   "beta6G33" : Symetrie_axiale_conservation1,
-  "6G41" : Representer_un_solide,
+  "6G41" : Representer_un_solide_6e,
   "6G42" : Solide_6e,
   "6G43" : Utiliser_vocabulaire_pave,
   "6M11-1": Perimetre_ou_aire_de_carres_rectangles_triangles,
@@ -145,6 +145,7 @@ var liste_des_exercices_disponibles = {
   "5G30" : Utiliser_le_codage_pour_decrire_5e,
   "5G31": Exercice_angles_triangles,
   "5G31-1": Constructibilite_des_triangles_angles,
+  "5G51" : Representer_un_solide_5e,
   "5N11-1": Tableaux_et_pourcentages,
   "5N13": Exercice_fractions_simplifier,
   "5N13-2": Egalites_entre_fractions,
@@ -203,7 +204,6 @@ var liste_des_exercices_disponibles = {
   "4C32-1" : Calculs_avec_puissances_de_dix,
   "4C33-1": Puissances_d_un_relatif_1,
   "4C33-3": Puissances_d_un_relatif_2,
-  "4G40": Transformations_4e,
   "4L10": Exercice_developper,
   "4L13-0": Mettre_en_equation_sans_resoudre,
   "4L13-1": Forme_litterale_introduire_une_lettre,
@@ -212,7 +212,6 @@ var liste_des_exercices_disponibles = {
   "4L14-2": Tester_si_un_nombre_est_solution_d_une_equation_deg2,
   "4L15-0": Trouver_erreur_resol_eq_deg1,
   "4L20": Exercice_equation1,
-  "4G53": Calcul_de_volumes_4e,
   "4C21-1": Exercice_additionner_des_fractions,
   "4C21": Exercice_additionner_ou_soustraire_des_fractions,
   "4C22-1": Exercice_trouver_l_inverse,
@@ -232,8 +231,11 @@ var liste_des_exercices_disponibles = {
   "4G30": Thales2D_4e,
   "4G30-1" : Thales_4eme,
   "4G31": Reciproque_Thales_4eme,
+  "4G40": Transformations_4e,
   "4G40": Exercice_Trigo_longueurs_4e,
   "4G41": Exercice_Trigo_angles_4e,
+  "4G51" : Representer_un_solide_4e,
+  "4G53": Calcul_de_volumes_4e,
   "3A10": DivisionEuclidienne_multiplesDiviseurs_Criteres,
   "3A11": Premier_ou_pas,
   "3A11-1": Premier_ou_pas_critere_par7_par11,
@@ -11027,7 +11029,7 @@ function Calcul_de_volumes() {
   let type_de_questions_disponibles;
 
   this.nouvelle_version = function (numero_de_l_exercice) {
-    if (this.classe == 6) type_de_questions_disponibles = [1, 2];
+  if (this.classe == 6) type_de_questions_disponibles = [1, 2];
     // sixième : cube et pavé droit
     else if (this.classe == 5) type_de_questions_disponibles = [1, 2, 3, 4];
     // cinquième : on ajoute les prismes et le cylindre
@@ -14145,13 +14147,13 @@ function Tracer_triangle_2_angles() {
 }
 
 /**
- * fonction servant à compléter des solides, inspirée des fonctions de 6G42
- * référence1 : 6G41
+ * fonction servant à compléter des solides, inspirée des fonctions de 6G42 et 6G43
+ * référence : 6G41
  * @Auteur Mireille Gain, s'inspirant fortement de Jean-Claude Lhote
  */
-function Representer_un_solide() {
+function Representer_un_solide_6e() {
   "use strict";
-  Exercice.call(this);
+  Exercice.call(this);// Héritage de la classe Exercice ()
   this.titre = "Compléter le schéma d'un cube ou d'un pavé droit";
   this.nb_questions = 1;
   this.nb_cols = 1;
@@ -14160,6 +14162,7 @@ function Representer_un_solide() {
   this.sup2 = 1;
   this.nouvelle_version = function (numero_de_l_exercice) {
   let type_de_questions_disponibles;
+
   if (this.sup==3) type_de_questions_disponibles=[1,2]
    else if (this.sup==6) type_de_questions_disponibles=[1,2,3,4]
    else type_de_questions_disponibles = [parseInt(this.sup)]; 
@@ -14167,18 +14170,27 @@ function Representer_un_solide() {
 let liste_type_de_questions = combinaison_listes(
     type_de_questions_disponibles,
     this.nb_questions
-  );
+  );// Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+
   this.liste_questions = []; // Liste de questions
   this.liste_corrections = []; // Liste de questions corrigées
   let Xmin, Xmax, Ymin, Ymax, ppc, sc;
+
+  if (this.classe == 6) type_de_questions_disponibles = [1, 2];
+    // sixième : cube et pavé droit
+    else if (this.classe == 5) type_de_questions_disponibles = [1, 2, 3];
+    // cinquième : on ajoute le prisme
+    else if (this.classe == 4)
+      type_de_questions_disponibles = [1, 2, 3, 4];
+    // Quatrième : on ajoute la pyramide
+    
 
   if (this.sup2 == 1) sc = 0.5;
     else sc = 0.8;
 
   let A,B,C,D,E,F,G,H,I,
-      AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,IA,IB,IE,IF,
+      AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,IA,IB,IE,IF,BD,FH,
       lAB,lBC,lAE,anglepersp,coeffpersp,
-      codesseg=[],
       enonce,
       correction,
       carreaux,g,
@@ -14202,26 +14214,26 @@ let liste_type_de_questions = combinaison_listes(
       switch (liste_type_de_questions[i]) {
         case 1: //cube
           enonce=`${nom} est un cube.<br>`
-          if (sortie_html) enonce +=` Reproduire et compléter la figure ci-dessous sur le cahier, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
-          correction=`Le cube ${nom}.<br>`
+          if (sortie_html) enonce +=` Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
+          correction=`Le cube $${nom}$.<br>`
           break;
 
         case 2: //pavé droit
           enonce=`${nom} est un pavé droit.<br>`
-          if (sortie_html) enonce += ` Reproduire et compléter la figure ci-dessous sur le cahier, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
-          correction=`Le pavé droit ${nom}.<br>`
+          if (sortie_html) enonce += ` Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
+          correction=`Le pavé droit $${nom}$.<br>`
           break;
 
           case 3: //prisme
           enonce=`${nom_prisme} est un prisme à base triangulaire.<br>`
-          if (sortie_html) enonce += ` Reproduire et compléter la figure ci-dessous sur le cahier, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
-          correction=`Le prisme à base triangulaire ${nom_prisme}.<br>`
+          if (sortie_html) enonce += ` Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
+          correction=`Le prisme à base triangulaire $${nom_prisme}$.<br>`
           break;
 
         case 4: //pyramide
           enonce=`${nom_pyramide} est une pyramide à base rectangulaire.<br>`
-          if (sortie_html) enonce += ` Reproduire et compléter la figure ci-dessous sur le cahier, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
-          correction=`La pyramide à base rectangulaire ${nom_pyramide}.<br>`
+          if (sortie_html) enonce += ` Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
+          correction=`La pyramide à base rectangulaire $${nom_pyramide}$.<br>`
           break;
       }
      
@@ -14270,6 +14282,8 @@ let liste_type_de_questions = combinaison_listes(
       IB=segment(B,I)
       IE=segment(E,I)
       IF=segment(F,I)
+      BD=segment(B,D)
+      FH=segment(F,H)
       AB.epaisseur=2
       BC.epaisseur=2
       CD.epaisseur=2
@@ -14286,6 +14300,8 @@ let liste_type_de_questions = combinaison_listes(
       IB.epaisseur=1
       IE.epaisseur=1
       IF.epaisseur=1
+      BD.epaisseur=2
+      FH.epaisseur=2
       AB.color='black'
       BC.color='black'
       CD.color='black'
@@ -14298,21 +14314,26 @@ let liste_type_de_questions = combinaison_listes(
       BF.color='black'
       CG.color='black'
       IA.color='black'
+
       if (G.y<C.y&&G.x<C.x) {
         CG.pointilles=true
-        CG.color='gray'
-        CG.opacite=0.7
         GH.pointilles=true
-        GH.color='gray'
-        GH.opacite=0.7
         FG.pointilles=true
+        IF.pointilles=true
+        FH.pointilles=true
+        CG.color='gray'
+        GH.color='gray'
         FG.color='gray'
+        CG.opacite=0.7
+        GH.opacite=0.7
         FG.opacite=0.7
       }
       else if (E.y>A.y&&E.x>A.x) {
         AE.pointilles=true
         EF.pointilles=true
         HE.pointilles=true
+        IE.pointilles=true
+        FH.pointilles=true
         AE.color='gray'
         EF.color='gray'
         HE.color='gray'
@@ -14324,6 +14345,8 @@ let liste_type_de_questions = combinaison_listes(
         BF.pointilles=true
         FG.pointilles=true
         EF.pointilles=true
+        IF.pointilles=true
+        FH.pointilles=true
         BF.color='gray'
         FG.color='gray'
         EF.color='gray'
@@ -14335,6 +14358,8 @@ let liste_type_de_questions = combinaison_listes(
         DH.pointilles=true
         GH.pointilles=true
         HE.pointilles=true
+        IE.pointilles=true
+        FH.pointilles=true
         DH.color='gray'
         GH.color='gray'
         HE.color='gray'
@@ -14381,10 +14406,31 @@ let liste_type_de_questions = combinaison_listes(
         CG.color='blue'
         DH.color='blue'     
     
-    objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,IA,IB,IE,IF,labelPoint(A,B,C,D,E,F,G,H,I),
+    if   (type_de_questions_disponibles==1)
+    objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,labelPoint(A,B,C,D,E,F,G,H),
         g,
         carreaux
       );
+
+    if   (type_de_questions_disponibles==2)
+      objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,labelPoint(A,B,C,D,E,F,G,H),
+          g,
+          carreaux
+        );
+
+    if   (type_de_questions_disponibles==3)
+        objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,BD,FH,labelPoint(A,B,C,D,E,F,G,H),
+            g,
+            carreaux
+          );
+
+    if   (type_de_questions_disponibles==4)
+          objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,IA,IB,IE,IF,labelPoint(A,B,C,D,E,F,G,H,I),
+              g,
+              carreaux
+            );
+
+
     
       if (liste_type_de_questions[i]<3) correction += mathalea2d(params, objets_correction,codesseg);
     
@@ -14408,6 +14454,26 @@ let liste_type_de_questions = combinaison_listes(
 }
 
 
+// Référence 6G41
+function Representer_un_solide_6e() {
+  this.sup = 1;
+  this.classe = 6;
+  Representer_un_solide.call(this);
+}
+
+// 5G51
+function Representer_un_solide_5e() {
+  this.sup = 1;
+  this.classe = 5;
+  Representer_un_solide.call(this);
+}
+
+// 4G51
+function Representer_un_solide_4e() {
+  this.sup = 1;
+  this.classe = 4;
+  Representer_un_solide.call(this);
+}
 
 /**
  * fonction servant à plusieurs exercice autour du cube et du pavé droit
