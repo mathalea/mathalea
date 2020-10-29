@@ -14151,7 +14151,7 @@ function Tracer_triangle_2_angles() {
  * référence : 6G41
  * @Auteur Mireille Gain, s'inspirant fortement de Jean-Claude Lhote
  */
-function Representer_un_solide_6e() {
+function Representer_un_solide() {
   "use strict";
   Exercice.call(this);// Héritage de la classe Exercice ()
   this.titre = "Compléter le schéma d'un cube ou d'un pavé droit";
@@ -14178,10 +14178,10 @@ let liste_type_de_questions = combinaison_listes(
 
   if (this.classe == 6) type_de_questions_disponibles = [1, 2];
     // sixième : cube et pavé droit
-    else if (this.classe == 5) type_de_questions_disponibles = [1, 2, 3];
+    else if (this.classe == 5) type_de_questions_disponibles = [1, 2, 4];
     // cinquième : on ajoute le prisme
     else if (this.classe == 4)
-      type_de_questions_disponibles = [1, 2, 3, 4];
+      type_de_questions_disponibles = [1, 2, 4, 5];
     // Quatrième : on ajoute la pyramide
     
 
@@ -14205,6 +14205,8 @@ let liste_type_de_questions = combinaison_listes(
       
     {
      let nom = creerNomDePolygone(8, "PQ"),
+     nom_prisme = creerNomDePolygone(6, "PQ"),
+     nom_pyramide = creerNomDePolygone(5, "PQ"),
      anglepersp=choice([30,45,-30,-45,150,135,-150,-135])
       if (anglepersp%10==0) coeffpersp=0.6
       else coeffpersp=0.4
@@ -14213,27 +14215,27 @@ let liste_type_de_questions = combinaison_listes(
     
       switch (liste_type_de_questions[i]) {
         case 1: //cube
-          enonce=`${nom} est un cube.<br>`
+          enonce=`$${nom}$ est un cube.<br>`
           if (sortie_html) enonce +=` Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
-          correction=`Le cube $${nom}$.<br>`
+          correction=`Figure complétée :<br>`
           break;
 
         case 2: //pavé droit
-          enonce=`${nom} est un pavé droit.<br>`
+          enonce=`$${nom}$ est un pavé droit.<br>`
           if (sortie_html) enonce += ` Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
-          correction=`Le pavé droit $${nom}$.<br>`
+          correction=`Figure complétée :<br>`
           break;
 
-          case 3: //prisme
-          enonce=`${nom_prisme} est un prisme à base triangulaire.<br>`
+          case 4: //prisme
+          enonce=`$${nom_prisme}$ est un prisme à base triangulaire.<br>`
           if (sortie_html) enonce += ` Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
-          correction=`Le prisme à base triangulaire $${nom_prisme}$.<br>`
+          correction=`Figure complétée :<br>`
           break;
 
-        case 4: //pyramide
-          enonce=`${nom_pyramide} est une pyramide à base rectangulaire.<br>`
+        case 5: //pyramide
+          enonce=`$${nom_pyramide}$ est une pyramide à base rectangulaire.<br>`
           if (sortie_html) enonce += ` Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
-          correction=`La pyramide à base rectangulaire $${nom_pyramide}$.<br>`
+          correction=`Figure complétée :<br>`
           break;
       }
      
@@ -14378,10 +14380,7 @@ let liste_type_de_questions = combinaison_listes(
       if (this.sup2 == 2) {carreaux = seyes(Xmin, Ymin, Xmax, Ymax);sc=0.8}
       else {carreaux = "";sc=0.5}
 
-      objets_enonce.push(AB,BC,CD,DA,AE,labelPoint(A,B,C,D,E),
-        g,
-        carreaux
-      );
+
      
     let  params = {
       xmin: Xmin,
@@ -14392,7 +14391,36 @@ let liste_type_de_questions = combinaison_listes(
       scale: sc,
     }
     
+    if (liste_type_de_questions[i]==1){ 
+      objets_enonce.push(AB,BC,CD,DA,AE,labelPoint(A,B,C,D,E),
+      g,
+      carreaux
+      );
+      }
+
+    if (liste_type_de_questions[i]==2){ 
+      objets_enonce.push(AB,BC,CD,DA,AE,labelPoint(A,B,C,D,E),
+      g,
+      carreaux
+      );
+      }
+
+    if (liste_type_de_questions[i]==4){ 
+      objets_enonce.push(AB,DA,BD,AE,labelPoint(A,B,D,E),
+      g,
+      carreaux
+      );
+      }
+
+    if (liste_type_de_questions[i]==5){ 
+      objets_enonce.push(AB,BF,tracePoint(I),labelPoint(A,B,F,I),
+      g,
+      carreaux
+      );
+      }
+
     enonce += mathalea2d(params, objets_enonce);
+    if (liste_type_de_questions[i]==1){
         AB.color='green'
         BC.color='red'
         CD.color='green'
@@ -14404,35 +14432,71 @@ let liste_type_de_questions = combinaison_listes(
         AE.color='blue'
         BF.color='blue'
         CG.color='blue'
-        DH.color='blue'     
-    
-    if   (type_de_questions_disponibles==1)
-    objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,labelPoint(A,B,C,D,E,F,G,H),
+        DH.color='blue'    
+        objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,labelPoint(A,B,C,D,E,F,G,H),
         g,
         carreaux
-      );
-
-    if   (type_de_questions_disponibles==2)
+      ); 
+    }
+  
+    if (liste_type_de_questions[i]==2){
+      AB.color='green'
+      BC.color='red'
+      CD.color='green'
+      DA.color='red'
+      EF.color='green'
+      FG.color='red'
+      GH.color='green'
+      HE.color='red'
+      AE.color='blue'
+      BF.color='blue'
+      CG.color='blue'
+      DH.color='blue'    
       objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,labelPoint(A,B,C,D,E,F,G,H),
-          g,
-          carreaux
-        );
+      g,
+      carreaux
+    ); 
+  }    
 
-    if   (type_de_questions_disponibles==3)
-        objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,BD,FH,labelPoint(A,B,C,D,E,F,G,H),
-            g,
-            carreaux
-          );
+  if (liste_type_de_questions[i]==4){
+    AB.color='green'
+    BC.color='red'
+    CD.color='green'
+    DA.color='red'
+    EF.color='green'
+    FG.color='red'
+    GH.color='green'
+    HE.color='red'
+    AE.color='blue'
+    BF.color='blue'
+    CG.color='blue'
+    DH.color='blue'    
+    objets_correction.push(AB,DA,BD,EF,HE,AE,BF,DH,FH,labelPoint(A,B,D,E,F,H),
+    g,
+    carreaux
+  ); 
+}
 
-    if   (type_de_questions_disponibles==4)
-          objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,IA,IB,IE,IF,labelPoint(A,B,C,D,E,F,G,H,I),
-              g,
-              carreaux
-            );
+if (liste_type_de_questions[i]==5){
+  AB.color='green'
+  BC.color='red'
+  CD.color='green'
+  DA.color='red'
+  EF.color='green'
+  FG.color='red'
+  GH.color='green'
+  HE.color='red'
+  AE.color='blue'
+  BF.color='blue'
+  CG.color='blue'
+  DH.color='blue'    
+  objets_correction.push(AB,EF,AE,BF,IA,IB,IE,IF,tracePoint(I),labelPoint(A,B,E,F,I),
+  g,
+  carreaux
+); 
+}
 
-
-    
-      if (liste_type_de_questions[i]<3) correction += mathalea2d(params, objets_correction,codesseg);
+      correction += mathalea2d(params, objets_correction);
     
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
