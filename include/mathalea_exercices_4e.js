@@ -1979,7 +1979,7 @@ function Exercice_equation1() {
 function Exercice_Thales() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Déterminer une longueur avec la propriété de Thales";
+  this.titre = "Déterminer une longueur avec la propriété de Thales (MG32)";
   this.consigne = "";
   this.nb_questions = 1;
   this.nb_questions_modifiable = false;
@@ -2506,14 +2506,20 @@ function Thales2D() {
   this.nb_questions = 1;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
+  this.sup = 1; // Triangles imbriqués / configuration papillon / les 2
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let liste_de_noms_de_polygones = []
+    let premiereQuestionPapillon = randint(0,1) // Pour alterner les configurations et savoir par laquelle on commence
+
 
     for (let i = 0, texte, texte_corr, cpt = 0;i < this.nb_questions && cpt < 50;)
      {
+      if ((i+1)%3==0){ // Toutes les 3 questions, on repart à zéro sur les noms des polygones
+        liste_de_noms_de_polygones = []
+      }
       let nomDesPoints = creerNomDePolygone(5,liste_de_noms_de_polygones);
       liste_de_noms_de_polygones.push(nomDesPoints);
       let nomA = nomDesPoints[0];
@@ -2533,35 +2539,62 @@ function Thales2D() {
       let ABC = triangle2points2longueurs(A, B, ac, bc);
       let C = ABC.listePoints[2];
       C.nom = nomC;
-      let k = calcul(randint(2, 8,5) / 10);
+      let k = calcul(randint(3, 8, 5) / 10);
+      if (this.sup == 2) {
+        k *= -1
+      }
+      if (this.sup == 3 && ((i + premiereQuestionPapillon) % 2 == 0)) {
+        k *= -1
+      }
       let M = homothetie(A, C, k);
       let N = homothetie(B, C, k);
-      let s = segment(M, N);
-      let marqueNomABC = nommePolygone(ABC, nomA+nomB+nomC);
-      let m = pointSurSegment(M, N, -1);
-      let n = pointSurSegment(N, M, -1);
+      let MNC = polygone(M, N, C);
+      let m = pointSurSegment(M, N, -.5);
+      let n = pointSurSegment(N, M, -.5);
       let marqueNomM = texteParPoint(nomM, m);
       let marqueNomN = texteParPoint(nomN, n);
+      let a = pointSurSegment(A, B, -.5);
+      let b = pointSurSegment(B, A, -.5);
+      let marqueNomA = texteParPoint(nomA, a);
+      let marqueNomB = texteParPoint(nomB, b);
+      let c;
+      if (k<0) {
+        if (angle(A,C,N)<angle(N,C,A)){
+          c = similitude(A,C,-angleOriente(A,C,N)/2,1/longueur(A,C))
+        } else {
+          c = similitude(A,C,-angleOriente(N,C,A)/2,1/longueur(A,C)*0.5)
+        }
+      } else {
+        c = similitude(A,C,-180+angleOriente(A,C,B)/2,1/longueur(A,C)*.5)
+      }
+      let marqueNomC = texteParPoint(nomC,c)
 
 
-      texte = `Sur la figure suivante, $${nomA+nomC}=${ac}~\\text{cm}$, $${nomA+nomB}=${ab}~\\text{cm}$, $${nomC+nomM}=${tex_nombrec(k*ac)}~\\text{cm}$, $${nomC+nomN}=${tex_nombrec(k*bc)}~\\text{cm}$ et $(${nomA+nomB})//(${nomM+nomN})$.<br>`
+    
+
+
+      texte = `Sur la figure suivante, $${nomA+nomC}=${ac}~\\text{cm}$, $${nomA+nomB}=${ab}~\\text{cm}$, $${nomC+nomM}=${tex_nombrec(Math.abs(k)*ac)}~\\text{cm}$, $${nomC+nomN}=${tex_nombrec(Math.abs(k)*bc)}~\\text{cm}$ et $(${nomA+nomB})//(${nomM+nomN})$.<br>`
       texte+= `Calculer $${nomM+nomN}$ et $${nomC+nomB}$.<br><br>`
-      texte += mathalea2d({xmin : Math.min(A.x, B.x, C.x) - 1.5,
-        ymin : Math.min(A.y, B.y, C.y) - 1.5,
-        xmax : Math.max(A.x, B.x, C.x) + 1.5,
-        ymax : Math.max(A.y, B.y, C.y) + 1.5},
+      texte += mathalea2d({xmin : Math.min(A.x, B.x, C.x, M.x, N.x) - 1.5,
+        ymin : Math.min(A.y, B.y, C.y, M.y, N.y) - 1.5,
+        xmax : Math.max(A.x, B.x, C.x, M.x, N.x) + 1.5,
+        ymax : Math.max(A.y, B.y, C.y, M.y, N.y) + 1.5},
 
-        ABC, s, marqueNomABC, marqueNomM, marqueNomN
+        ABC, MNC, marqueNomA, marqueNomB, marqueNomC, marqueNomM, marqueNomN
       );
-      texte_corr = `Dans le triangle $${nomA+nomB+nomC}$, $${nomM}\\in${"["+nomC+nomA+"]"}$, $${nomN}\\in${"["+nomC+nomB+"]"}$ et $(${nomA+nomB})//(${nomM+nomN})$ donc d'après le théorème de Thalès les triangles $${nomA+nomB+nomC}$ et $${nomM+nomN+nomC}$ ont des longueurs proportionnelles.`;
+      if (k>0){
+        texte_corr = `Dans le triangle $${nomA+nomB+nomC}$, $${nomM}\\in${"["+nomC+nomA+"]"}$, $${nomN}\\in${"["+nomC+nomB+"]"}$ et $(${nomA+nomB})//(${nomM+nomN})$ donc d'après le théorème de Thalès, les triangles $${nomA+nomB+nomC}$ et $${nomM+nomN+nomC}$ ont des longueurs proportionnelles.`;
+      } else {
+        texte_corr = `Les droites $(${nomA+nomM})$ et $(${nomB+nomN})$ sont sécantes en $${nomC}$ et $(${nomA+nomB})//(${nomM+nomN})$  donc d'après le théorème de Thalès, les triangles $${nomA+nomB+nomC}$ et $${nomM+nomN+nomC}$ ont des longueurs proportionnelles.`;
+      }
       texte_corr += `<br><br>`
       texte_corr += `$\\dfrac{${nomC+nomM}}{${nomC+nomA}}=\\dfrac{${nomC+nomN}}{${nomC+nomB}}=\\dfrac{${nomM+nomN}}{${nomA+nomB}}$`  
       texte_corr += `<br><br>`
-      texte_corr += `$\\dfrac{${tex_nombrec(k*ac)}}{${tex_nombre(ac)}}=\\dfrac{${tex_nombrec(k*bc)}}{${nomC+nomB}}=\\dfrac{${nomM+nomN}}{${tex_nombre(ab)}}$`  
+      texte_corr += `$\\dfrac{${tex_nombrec(Math.abs(k)*ac)}}{${tex_nombre(ac)}}=\\dfrac{${tex_nombrec(Math.abs(k)*bc)}}{${nomC+nomB}}=\\dfrac{${nomM+nomN}}{${tex_nombre(ab)}}$`  
       texte_corr += `<br><br>`
-      texte_corr += `$${nomM+nomN}=\\dfrac{${tex_nombrec(k*ac)}\\times${tex_nombre(ab)}}{${tex_nombre(ac)}}=${tex_nombrec(k*ab)}$ cm`
+      texte_corr += `$${nomM+nomN}=\\dfrac{${tex_nombrec(Math.abs(k)*ac)}\\times${tex_nombre(ab)}}{${tex_nombre(ac)}}=${tex_nombrec(Math.abs(k)*ab)}$ cm`
       texte_corr += `<br><br>`
-      texte_corr += `$${nomC+nomB}=\\dfrac{${tex_nombrec(k*bc)}\\times${tex_nombre(ac)}}{${tex_nombrec(k*ac)}}=${tex_nombrec(bc)}$ cm`
+      texte_corr += `$${nomC+nomB}=\\dfrac{${tex_nombrec(Math.abs(k)*bc)}\\times${tex_nombre(ac)}}{${tex_nombrec(Math.abs(k)*ac)}}=${tex_nombrec(bc)}$ cm`
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(texte);
@@ -2572,7 +2605,7 @@ function Thales2D() {
     }
     liste_de_question_to_contenu(this);
   };
-  //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+  this.besoin_formulaire_numerique = ['Configuration',3,'1 : Triangles imbriqués\n2 : Papillon\n3 : Les deux'];
 }
 
 

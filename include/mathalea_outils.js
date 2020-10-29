@@ -1270,12 +1270,18 @@ function creerNomDePolygone(nbsommets,liste_a_eviter=[]){
 		polygone += String.fromCharCode(premiersommet+i)
 	}
 
-	while(possedeUnCaractereInterdit(polygone,liste_a_eviter)){
-		polygone="";
-		premiersommet = randint(65,90-nbsommets);
-		for (let i=0;i<nbsommets;i++){
-			polygone += String.fromCharCode(premiersommet+i)
+	if (liste_a_eviter.length < ((26-nbsommets)/nbsommets)-1){ // On évite la liste à éviter si elle n'est pas trop grosse sinon on n'en tient pas compte
+		let cpt = 0;
+		while(possedeUnCaractereInterdit(polygone,liste_a_eviter) && cpt <20){
+			polygone="";
+			premiersommet = randint(65,90-nbsommets);
+			for (let i=0;i<nbsommets;i++){
+				polygone += String.fromCharCode(premiersommet+i)
+			}
+			cpt ++; // Au bout de 20 essais on laisse tomber la liste à éviter
 		}
+	} else {
+		console.log("Trop de questions donc plusieurs polygones peuvent avoir le même nom")
 	}
 	return polygone
 }
