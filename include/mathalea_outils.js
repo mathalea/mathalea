@@ -1301,6 +1301,46 @@ function possedeUnCaractereInterdit(texte,liste_a_eviter) {
 	}
 	return result;
 }
+/**
+ * retourne une liste de combien de nombres compris entre m et n (inclus) en évitant les valeurs de liste_a_eviter
+ * toutes la liste des nombres est retournée si combien est supérieur à l'effectif disponible
+ * les valeurs sont dans un ordre aléatoire.
+ * @Auteur Jean-Claude Lhote
+ * 
+ */
+function choisit_nombres_entre_m_et_n(m,n,combien,liste_a_eviter=[]){
+	let t
+	if (m>n) {
+		t=m;
+		m=n;
+		n=t;
+	}
+	else if (m==n)
+		return [n];
+	if (combien>n-m) combien=n-m;
+	let index=rangeMinMax(m,n,liste_a_eviter)
+	index=shuffle(index);
+	index=index.slice(0,combien)
+	return index;
+}
+/**
+ * retourne une liste de lettres majuscules (ou minuscule si majuscule=false)
+ * il y aura nombre lettres dans un ordre aléatoire
+ * les lettres à éviter sont données dans une chaine par exemple : 'QXY'
+ * @Auteur Jean-Claude Lhote
+ */
+function choisit_lettres_differentes(nombre,lettres_a_eviter,majuscule=true){
+	let liste_a_eviter=[],lettres=[]
+	for (l of lettres_a_eviter) {
+		liste_a_eviter.push(l.charCodeAt(0)-64)
+	}
+	let index=choisit_nombres_entre_m_et_n(1,26,nombre,liste_a_eviter)
+	for (n of index) {
+		if (majuscule) lettres.push(lettre_depuis_chiffre(n))
+		else lettres.push(lettre_minuscule_depuis_chiffre(n))
+	}
+	return lettres
+}
 
 /**
 * Renvoit une lettre majuscule depuis un nombre compris entre 1 et 702
