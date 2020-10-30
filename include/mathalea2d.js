@@ -5694,7 +5694,7 @@ function courbeInterpolee(...args) {
 
 function GraphiqueInterpole(
   tableau,{color = "black",
-    epaisseur = 2,
+    epaisseur = 1,
     repere = {},
     }={}
   
@@ -5710,7 +5710,7 @@ function GraphiqueInterpole(
     let depart, fin;
     repere.xMin > x0 ? (depart = repere.xMin) : (depart = x0);
     repere.xMax < x1 ? (fin = repere.xMax) : (fin = x1);
-    let c = courbe2(f,{xMin : depart, xMax : fin, color : color, epaisseur : epaisseur, xUnite : repere.xUnite, yUnite : repere.yUnite, yMin : repere.yMin, yMax : repere.yMax})
+    let c = courbe2(f,{step:0.4,xMin : depart, xMax : fin, color : color, epaisseur : epaisseur, xUnite : repere.xUnite, yUnite : repere.yUnite, yMin : repere.yMin, yMax : repere.yMax})
     mesCourbes.push(c);
     this.svg = function (coeff) {
       code = "";
@@ -5735,6 +5735,49 @@ function GraphiqueInterpole(
  */
 function graphiqueInterpole(...args) {
   return new GraphiqueInterpole(...args);
+}
+function imageInterpolee(tableau,antecedent){
+  let x0 = tableau[0][0];
+  let y0 = tableau[0][1];
+  let x1 = tableau[1][0];
+  let y1 = tableau[1][1];
+  let f = (x) => cosineInterpolate(y0, y1, calcul((x - x0) / (x1 - x0)));
+  return f(antecedent)
+}
+
+function antecedentInterpole(tableau,image){
+  let x0 = tableau[0][0];
+  let y0 = tableau[0][1];
+  let x1 = tableau[1][0];
+  let y1 = tableau[1][1];
+  let f = (x) => cosineInterpolate(y0, y1, calcul((x - x0) / (x1 - x0)));
+  return AntecedentParDichotomie(x0,x1,f,image,0.01) 
+}
+
+function AntecedentParDichotomie(xmin,xmax,f,y,precision=0.01) {
+  let xmoy,ymoy
+  if (xmin>xmax) {
+    xmoy=xmin
+    xmin=xmax
+    xmax=xmoy
+  }
+  xmoy=(xmax+xmin)/2
+  ymoy=f(xmoy)
+  while (Math.abs(ymoy-y)>precision) {
+    if (f(xmin)<f(xmax))
+      if (ymoy>y) 
+        xmax=xmoy
+      else
+        xmin=xmoy
+    else 
+      if (ymoy>y)
+        xmin=xmoy
+      else
+        xmax=xmoy
+    xmoy=(xmin+xmax)/2
+    ymoy=f(xmoy)
+  }
+  return xmoy
 }
 
 /*
