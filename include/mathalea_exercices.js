@@ -14054,24 +14054,32 @@ function Organiser_donnees_depuis_texte() {
   this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
   this.nb_cols_corr = 1;
-  //this.sup = 1;
-  //this.sup2 = 1;
+  this.sup = false;
+  this.sup2 = 3;
+  sortie_html? this.spacing = 2 : this.spacing = 1; 
+	sortie_html? this.spacing_corr = 2 : this.spacing_corr = 1;
   
   this.nouvelle_version = function(){
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
 
+    texte = '';
 
-    let lstPrenom = ['Jules', 'Adèle', 'André', 'Celine', 'Inâya', 'Kevin', 'Ayden', 'Marion', 'Rayan', 'Louane', 'Angel', 'Dakota', 'Abdel', 'Agnes'];
-    let lstPrenomExo = [];
+    let nbAmis = 4; // min = 2
+    let nbFruits = parseInt(this.sup2); // min = 2
+    texte += nbFruits;
+    //let lstPrenom = ['Jules', 'Adèle', 'André', 'Celine', 'Inâya', 'Kevin', 'Ayden', 'Marion', 'Rayan', 'Louane', 'Angel', 'Dakota', 'Abdel', 'Agnes'];
+    let lstPrenomExo = []
+    let k = 0;
+    while (lstPrenomExo.length<nbAmis){
+      let p = prenom();
+      if (!lstPrenomExo.includes(p)) {
+        lstPrenomExo.push(p);
+      }
+    }
+
     let lstFruit = ['pomme', 'poire', 'kiwi', 'pêche', 'coing', 'melon', 'citron', 'banane', 'mangue'];
     let lstFruitExo = [];
-    let nbAmis = 5; // min = 2
-    let nbFruits = 6; // min = 2
-    // choisir les prénoms : 
-    for (let i = 0; i < nbAmis; i++) {
-      lstPrenomExo.push(choice(lstPrenom, lstPrenomExo));
-    }
     // Choisir les fruits : 
     for (let i = 0; i < nbFruits; i++) {
       lstFruitExo.push(choice(lstFruit, lstFruitExo));
@@ -14081,13 +14089,18 @@ function Organiser_donnees_depuis_texte() {
     let L=[]; // tab temporaire
     for (let i = 0; i < nbAmis; i++) {
       for (let j = 0; j < nbFruits; j++) {
-        L.push(randint(0, 10));
+        if (this.sup){
+          L.push(randint(0, 100)/10);
+        } else {
+          L.push(randint(0, 10));
+        }
+        
       }
       lstTabVal.push(L);
       L= [];
     }
     // Affiche l'énoncé :
-    texte = `Plusieurs amis reviennent du marché. Il s'agit de `;
+    texte += `Plusieurs amis reviennent du marché. Il s'agit de `;
     for (let i = 0; i < nbAmis-2; i++) {
       texte+= lstPrenomExo[i] + ', '
     }
@@ -14106,7 +14119,7 @@ function Organiser_donnees_depuis_texte() {
       m = L.length
       L = shuffle(L); // mélange l'ordre des fruits
       for (let k = 0; k < m; k++) {
-        texte += L[k][0]+ ' ' + L[k][1];
+        texte += tex_nombre(L[k][0])+ ' kg de ' + L[k][1];
         if (L[k][0]>1){texte += 's'}
         if (k < m-2){texte += ', '}
         if (k == m-2){texte += ' et '}            
@@ -14115,7 +14128,13 @@ function Organiser_donnees_depuis_texte() {
     }
     texte += '<br>'  
     texte += num_alpha(0) + ` Remplir le tableau suivant. <br>`;
+
+  if (this.sup){
+    texte += num_alpha(1) + ` Quel est la masse totale de fruits acheté par les amis ? <br>`;
+  }else{
     texte += num_alpha(1) + ` Quel est le nombre total de fruits achetés par les amis ? <br>`;
+  }
+    
     texte += num_alpha(2) + ` Qui a rapporté le plus de fruits ? <br>`;
     texte += num_alpha(3) + ` Quel fruit a été apporté en la plus grosse quantité ? <br><br>`;
 
@@ -14123,37 +14142,37 @@ function Organiser_donnees_depuis_texte() {
     texte += `\\hline\n`;
     texte += ` `;
     for (let j = 0; j < nbFruits; j++) {
-      texte += ' & ' + lstFruitExo[j] + ' ';
+      texte += ` & \\text{${lstFruitExo[j]}}`;
     }
     texte += '& TOTAL';
     texte += `\\\\\\hline\n`;
     for (let i = 0; i < nbAmis; i++) {
-      texte += lstPrenomExo[i] + '& '.repeat(nbFruits);
+      texte += `\\text{${lstPrenomExo[i]}}` + `& `.repeat(nbFruits) + ` & `;
       texte += `\\\\\\hline\n`;
     }
-    texte += 'TOTAL' + '& '.repeat(nbFruits);
+    texte += 'TOTAL' + '& '.repeat(nbFruits) + ` & `;
     texte += `\\\\\\hline\n`;
     texte += `\\end{array}\n$`;
 
     //CORRECTION
     // Question 1 :
-    texte_corr = num_alpha(0) + ` Voici letableau complet. <br>`;
+    texte_corr = num_alpha(0) + ` Voici le tableau complet. <br>`;
     texte_corr += `$\\begin{array}{|l|` +  `c|`.repeat(nbFruits+1) + `}\n`;
     texte_corr += `\\hline\n`;
     texte_corr += ` `;
     for (let j = 0; j < nbFruits; j++) {
-      texte_corr += ' & ' + lstFruitExo[j] + ' ';
+      texte_corr +=  ` & \\text{${lstFruitExo[j]}}`;
     }
     texte_corr += '& TOTAL';
     texte_corr += `\\\\\\hline\n`;
     for (let i = 0; i < nbAmis; i++) {
-      texte_corr += lstPrenomExo[i];
+      texte_corr += `\\text{${lstPrenomExo[i]}}`;
       let S =0; // pour calculer les sommes
       for (let j =0; j < nbFruits; j++){
-        texte_corr += '& ' + lstTabVal[i][j];
+        texte_corr += '& ' + tex_nombre(lstTabVal[i][j]); //valeur dans le tableau
         S += lstTabVal[i][j]; // somme d'une ligne
       }
-      texte_corr += '& ' + S
+      texte_corr += '& ' + arrondi_virgule(S);
       texte_corr += `\\\\\\hline\n`;
     }
     texte_corr += 'TOTAL';
@@ -14163,17 +14182,107 @@ function Organiser_donnees_depuis_texte() {
       for (let i =0; i < nbAmis; i++){
         S += lstTabVal[i][j]; // somme d'une colonne
       }
-      texte_corr += '& ' + S;
+      //texte_corr += '& ' + Math.round(S*10)/10;
+      texte_corr += '& ' + arrondi_virgule(S,1);
+      //texte_corr += '& ' + tex_nombre(S,1);
       S_total +=S;
     }
-    texte_corr += '& ' + S_total;
+    texte_corr += '& ' + arrondi_virgule(S_total);
     texte_corr += `\\\\\\hline\n`;
     texte_corr += `\\end{array}\n$`;
+    texte_corr += `<br>`
+
+    // Question 2 :
+    S_total = arrondi_virgule(S_total);
+    if (this.sup) {
+      texte_corr += num_alpha(1) + ` La masse totale de fruits est : ${S_total} kg. <br>`;
+    } else {
+      texte_corr += num_alpha(1) + ` Le nombre total de fruits est : ${S_total}. <br>`;
+    }
+
+
+    // Question 3 :
+    texte_corr += num_alpha(2) + ` On regarde la dernière colonne du tableau. `;
+    let lstmax = ['rr']; //liste des prénoms solutions
+    let nmax = 0; // nombre max de fruit pour une personne
+    for (let i=0; i < nbAmis; i++){
+      S = 0;      
+      for (let j=0; j < nbFruits; j++){
+        S += lstTabVal[i][j]; // somme d'une ligne
+      }      
+      if (S==nmax){
+        lstmax.push(lstPrenomExo[i]);
+      }
+      if (S>nmax){
+        nmax = S;
+        lstmax = [lstPrenomExo[i]];
+      }
+    }
+    nmax = arrondi_virgule(nmax,1);
+    if (lstmax.length>1){
+      texte_corr += `Les personnes qui ont ramené le plus de fruits sont : `;
+      texte_corr += lstmax[0];
+      for (let k=1; k<lstmax.length; k++){
+        texte_corr += ` et ${lstmax[k]}`;
+      }
+      if (this.sup) {
+        texte_corr +=`. La masse maximale rapportée est de ${nmax} kg.<br>`;
+      } else {
+        texte_corr +=`. Le nombre maximal de fruits rapporté par une personne est de ${nmax}.<br>`;
+      }      
+    } else {
+      if (this.sup) {
+        texte_corr += `La personne qui a ramené le plus de fruits est ${lstmax}. Cette masse maximale est de ${nmax} kg.<br>`;
+      } else {
+        texte_corr += `La personne qui a ramené le plus de fruits est ${lstmax}. Ce nombre maximal de fruits est de ${nmax}.<br>`;
+      }      
+    }    
+
+    // Question 4 :
+    texte_corr += num_alpha(3) + ` On regarde la dernière ligne du tableau. `;
+    let fmax = []; //liste des fruits apporté en quantité max
+    nmax = 0; // nombre max par type de fruit 
+    for (let j=0; j < nbFruits; j++){
+      S = 0;
+      for (let i=0; i < nbAmis; i++){
+        S += lstTabVal[i][j]; // somme d'une colonne
+      }
+      if (S==nmax){
+        fmax.push(lstFruitExo[j])
+      }
+      if (S>nmax){
+        nmax = S;
+        fmax = [lstFruitExo[j]];
+      }
+    }
+    nmax = arrondi_virgule(nmax,1);
+    if (fmax.length>1){
+      if (this.sup) {        
+        texte_corr += `Les fruits présents en la plus grosse quantité sont : `;
+      } else {
+        texte_corr += `Les fruits les plus nombreux sont : `;
+      } 
+      texte_corr += `Les fruits les plus nombreux sont : `;
+      texte_corr += `les ${fmax[0]}s`;
+      for (let k=1; k<fmax.length; k++){
+        texte_corr += ` et les ${fmax[k]}s`;
+      }
+      texte_corr +=`. Il y en a ${nmax} de chaque sorte.<br>`;
+    } else {
+      if (this.sup) {        
+        texte_corr += `Il y a plus de ${fmax}s que d'autres fruits. Il y en a ${nmax} kg.`;
+      } else {
+        texte_corr += `Il y a plus de ${fmax}s que d'autres fruits. Il y en a ${nmax}.`;
+      }      
+    }   
 
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
     liste_de_question_to_contenu(this);
   }
+  this.besoin_formulaire_numerique = ['Nombre de fruits différents',6]
+  this.besoin_formulaire_case_a_cocher = ['Pour utiliser des nombres décimaux et des masses.', false]
+
 }
 
 /**
