@@ -14038,7 +14038,7 @@ function Lecture_diagramme_barre() {
 
 
 /**
- * Lire un diagramme en barre
+ * Organiser donnees depuis texte
  * @Auteur Erwan Duplessy
  * Référence 6S11
  */
@@ -14046,7 +14046,6 @@ function Lecture_diagramme_barre() {
 // source : http://www.ac-grenoble.fr/savoie/pedagogie/docs_pedas/ogd_c2_c3/ogd_c2_c3.pdf
 
 function Organiser_donnees_depuis_texte() {
-
   Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Organiser des données dans un tableau";
 	this.consigne = "Répondre aux questions à l'aide du texte.";
@@ -14054,8 +14053,8 @@ function Organiser_donnees_depuis_texte() {
   this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
   this.nb_cols_corr = 1;
-  this.sup = false;
-  this.sup2 = 3;
+  this.sup = false; // false -> effectif ; true -> masse
+  this.sup2 = 3; // paramètre nombre de fruit
   sortie_html? this.spacing = 2 : this.spacing = 1; 
 	sortie_html? this.spacing_corr = 2 : this.spacing_corr = 1;
   
@@ -14063,12 +14062,8 @@ function Organiser_donnees_depuis_texte() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
 
-    texte = '';
-
     let nbAmis = 4; // min = 2
     let nbFruits = parseInt(this.sup2); // min = 2
-    texte += nbFruits;
-    //let lstPrenom = ['Jules', 'Adèle', 'André', 'Celine', 'Inâya', 'Kevin', 'Ayden', 'Marion', 'Rayan', 'Louane', 'Angel', 'Dakota', 'Abdel', 'Agnes'];
     let lstPrenomExo = []
     let k = 0;
     while (lstPrenomExo.length<nbAmis){
@@ -14100,7 +14095,7 @@ function Organiser_donnees_depuis_texte() {
       L= [];
     }
     // Affiche l'énoncé :
-    texte += `Plusieurs amis reviennent du marché. Il s'agit de `;
+    texte = `Plusieurs amis reviennent du marché. Il s'agit de `;
     for (let i = 0; i < nbAmis-2; i++) {
       texte+= lstPrenomExo[i] + ', '
     }
@@ -14119,7 +14114,12 @@ function Organiser_donnees_depuis_texte() {
       m = L.length
       L = shuffle(L); // mélange l'ordre des fruits
       for (let k = 0; k < m; k++) {
-        texte += tex_nombre(L[k][0])+ ' kg de ' + L[k][1];
+        if (this.sup) {
+          texte += tex_nombre(L[k][0])+ ' kg de ' + L[k][1];
+        } else {
+          texte += tex_nombre(L[k][0])+ ' ' + L[k][1];
+        }
+        
         if (L[k][0]>1){texte += 's'}
         if (k < m-2){texte += ', '}
         if (k == m-2){texte += ' et '}            
@@ -14280,9 +14280,8 @@ function Organiser_donnees_depuis_texte() {
     this.liste_corrections.push(texte_corr);
     liste_de_question_to_contenu(this);
   }
-  this.besoin_formulaire_numerique = ['Nombre de fruits différents',6]
-  this.besoin_formulaire_case_a_cocher = ['Pour utiliser des nombres décimaux et des masses.', false]
-
+  this.besoin_formulaire_numerique = ['Nombre de fruits différents',6];
+  this.besoin_formulaire_case_a_cocher = ['Pour utiliser des nombres décimaux et des masses.', false];
 }
 
 /**
