@@ -63,7 +63,7 @@ var liste_des_exercices_disponibles = {
   "6G25-1": Pavages_et_reflexion,
   "6G25-2": Pavages_et_symetries,
   "beta6G33" : Symetrie_axiale_conservation1,
-  "6G41" : Representer_un_solide_6e,
+  "beta6G41" : Representer_un_solide_6e,
   "6G42" : Solide_6e,
   "6G43" : Utiliser_vocabulaire_pave,
   "6M11-1": Perimetre_ou_aire_de_carres_rectangles_triangles,
@@ -145,7 +145,7 @@ var liste_des_exercices_disponibles = {
   "5G30" : Utiliser_le_codage_pour_decrire_5e,
   "5G31": Exercice_angles_triangles,
   "5G31-1": Constructibilite_des_triangles_angles,
-  "5G51" : Representer_un_solide_5e,
+  "beta5G51" : Representer_un_solide_5e,
   "5N11-1": Tableaux_et_pourcentages,
   "5N13": Exercice_fractions_simplifier,
   "5N13-2": Egalites_entre_fractions,
@@ -234,7 +234,7 @@ var liste_des_exercices_disponibles = {
   "4G40": Transformations_4e,
   "4G40": Exercice_Trigo_longueurs_4e,
   "4G41": Exercice_Trigo_angles_4e,
-  "4G51" : Representer_un_solide_4e,
+  "beta4G51" : Representer_un_solide_4e,
   "4G53": Calcul_de_volumes_4e,
   "3A10": DivisionEuclidienne_multiplesDiviseurs_Criteres,
   "3A11": Premier_ou_pas,
@@ -14190,13 +14190,12 @@ let liste_type_de_questions = combinaison_listes(
 
   let A,B,C,D,E,F,G,H,I,
       AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,IA,IB,IE,IF,BD,FH,
-      lAB,lBC,lAE,anglepersp,coeffpersp,
+      coeffpersp,
       enonce,
       correction,
       carreaux,g,
       objets_enonce = [],
       objets_correction = [],
-     k,
       p;
   
   for (
@@ -14205,8 +14204,6 @@ let liste_type_de_questions = combinaison_listes(
       
     {
      let nom = creerNomDePolygone(8, "PQ"),
-     nom_prisme = creerNomDePolygone(6, "PQ"),
-     nom_pyramide = creerNomDePolygone(5, "PQ"),
      anglepersp=choice([30,45,-30,-45,150,135,-150,-135])
       if (anglepersp%10==0) coeffpersp=0.6
       else coeffpersp=0.4
@@ -14215,26 +14212,22 @@ let liste_type_de_questions = combinaison_listes(
     
       switch (liste_type_de_questions[i]) {
         case 1: //cube
-          enonce=`$${nom}$ est un cube.<br>`
-          if (sortie_html) enonce +=` Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
+          enonce=`Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
           correction=`Figure complétée :<br>`
           break;
 
         case 2: //pavé droit
-          enonce=`$${nom}$ est un pavé droit.<br>`
-          if (sortie_html) enonce += ` Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
+          enonce=`Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
           correction=`Figure complétée :<br>`
           break;
 
           case 4: //prisme
-          enonce=`$${nom_prisme}$ est un prisme à base triangulaire.<br>`
-          if (sortie_html) enonce += ` Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
+          enonce=`Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
           correction=`Figure complétée :<br>`
           break;
 
         case 5: //pyramide
-          enonce=`$${nom_pyramide}$ est une pyramide à base rectangulaire.<br>`
-          if (sortie_html) enonce += ` Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
+          enonce=`Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
           correction=`Figure complétée :<br>`
           break;
       }
@@ -14379,8 +14372,6 @@ let liste_type_de_questions = combinaison_listes(
       else g = "";
       if (this.sup2 == 2) {carreaux = seyes(Xmin, Ymin, Xmax, Ymax);sc=0.8}
       else {carreaux = "";sc=0.5}
-
-
      
     let  params = {
       xmin: Xmin,
@@ -14392,28 +14383,28 @@ let liste_type_de_questions = combinaison_listes(
     }
     
     if (liste_type_de_questions[i]==1){ 
-      objets_enonce.push(AB,BC,CD,DA,AE,labelPoint(A,B,C,D,E),
+      objets_enonce.push(AB,BC,CD,DA,AE,
       g,
       carreaux
       );
       }
 
     if (liste_type_de_questions[i]==2){ 
-      objets_enonce.push(AB,BC,CD,DA,AE,labelPoint(A,B,C,D,E),
+      objets_enonce.push(AB,BC,CD,DA,AE,
       g,
       carreaux
       );
       }
 
     if (liste_type_de_questions[i]==4){ 
-      objets_enonce.push(AB,DA,BD,AE,labelPoint(A,B,D,E),
+      objets_enonce.push(AB,DA,BD,AE,
       g,
       carreaux
       );
       }
 
     if (liste_type_de_questions[i]==5){ 
-      objets_enonce.push(AB,BF,tracePoint(I),labelPoint(A,B,F,I),
+      objets_enonce.push(AB,BF,tracePoint(I),
       g,
       carreaux
       );
@@ -14433,7 +14424,7 @@ let liste_type_de_questions = combinaison_listes(
         BF.color='blue'
         CG.color='blue'
         DH.color='blue'    
-        objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,labelPoint(A,B,C,D,E,F,G,H),
+        objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,
         g,
         carreaux
       ); 
@@ -14452,7 +14443,7 @@ let liste_type_de_questions = combinaison_listes(
       BF.color='blue'
       CG.color='blue'
       DH.color='blue'    
-      objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,labelPoint(A,B,C,D,E,F,G,H),
+      objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,
       g,
       carreaux
     ); 
@@ -14471,7 +14462,7 @@ let liste_type_de_questions = combinaison_listes(
     BF.color='blue'
     CG.color='blue'
     DH.color='blue'    
-    objets_correction.push(AB,DA,BD,EF,HE,AE,BF,DH,FH,labelPoint(A,B,D,E,F,H),
+    objets_correction.push(AB,DA,BD,EF,HE,AE,BF,DH,FH,
     g,
     carreaux
   ); 
@@ -14490,7 +14481,7 @@ if (liste_type_de_questions[i]==5){
   BF.color='blue'
   CG.color='blue'
   DH.color='blue'    
-  objets_correction.push(AB,EF,AE,BF,IA,IB,IE,IF,tracePoint(I),labelPoint(A,B,E,F,I),
+  objets_correction.push(AB,EF,AE,BF,IA,IB,IE,IF,tracePoint(I),
   g,
   carreaux
 ); 
