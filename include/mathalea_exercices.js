@@ -122,7 +122,7 @@ var liste_des_exercices_disponibles = {
   "6P11": Proportionnalite_par_linearite,
   "6P11-1": Proportionnalite_par_linearite_bis,
   "6S10":Lecture_diagramme_barre,
-  "beta6S11":Organiser_donnees_depuis_texte,
+  "6S11":Organiser_donnees_depuis_texte,
   "5A10": Liste_des_diviseurs_5e,
   "5A11": Tableau_criteres_de_divisibilite,
   "5A12-1": Premier_ou_pas_5e,
@@ -376,6 +376,7 @@ function Exercice() {
   // this.bouton_aide = modal_texte_long(numero_de_l_exercice,titre,texte,label_bouton="Aide",icone="info circle")
   // this.bouton_aide = modal_youtube(numero_de_l_exercice,id_youtube,texte,label_bouton="Aide - Vidéo",icone="youtube")
   // this.bouton_aide = modal_pdf(numero_de_l_exercice,url_pdf,texte="Aide",label_bouton="Aide - PDF",icone="file pdf")
+  // this.vspace = -1 //Ajoute un \vspace{-1cm} avant l'énoncé ce qui peut être pratique pour des exercices avec des figures.
   this.pas_de_version_LaTeX = false;
   this.MG32editable = false; //pas d'interface par défaut pour les figures MG32
   this.nouvelle_version = function (numero_de_l_exercice) {};
