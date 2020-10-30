@@ -14164,7 +14164,8 @@ function Representer_un_solide() {
   let type_de_questions_disponibles;
 
   if (this.sup==3) type_de_questions_disponibles=[1,2]
-   else if (this.sup==6) type_de_questions_disponibles=[1,2,4,5]
+   else if (this.sup==5) type_de_questions_disponibles=[1,2,4]
+   else if (this.sup==7) type_de_questions_disponibles=[1,2,4,6]
    else type_de_questions_disponibles = [parseInt(this.sup)]; 
 
 let liste_type_de_questions = combinaison_listes(
@@ -14180,8 +14181,7 @@ let liste_type_de_questions = combinaison_listes(
     // sixième : cube et pavé droit
     else if (this.classe == 5) type_de_questions_disponibles = [1, 2, 4];
     // cinquième : on ajoute le prisme
-    else if (this.classe == 4)
-      type_de_questions_disponibles = [1, 2, 4, 5];
+    else if (this.classe == 4) type_de_questions_disponibles = [1, 2, 4, 6]
     // Quatrième : on ajoute la pyramide
     
 
@@ -14228,7 +14228,7 @@ let liste_type_de_questions = combinaison_listes(
           correction=`Figure complétée :<br>`
           break;
 
-        case 5: //pyramide
+        case 6: //pyramide
           enonce=`On considère une pyramide à base rectangulaire.<br>Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
           correction=`Figure complétée :<br>`
           break;
@@ -14402,7 +14402,7 @@ let liste_type_de_questions = combinaison_listes(
       );
       }
 
-    if (liste_type_de_questions[i]==5){ 
+    if (liste_type_de_questions[i]==6){ 
       objets_enonce.push(AB,BF,tracePoint(I),
       g,
       carreaux
@@ -14467,7 +14467,7 @@ let liste_type_de_questions = combinaison_listes(
   ); 
 }
 
-if (liste_type_de_questions[i]==5){
+if (liste_type_de_questions[i]==6){
   AB.color='green'
   BC.color='red'
   CD.color='green'
@@ -14486,9 +14486,8 @@ if (liste_type_de_questions[i]==5){
 ); 
 }
 
-      correction += mathalea2d(params, objets_correction);
-    
-      if (this.liste_questions.indexOf(texte) == -1) {
+  correction += mathalea2d(params, objets_correction);
+    if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(enonce + "<br>");
         this.liste_corrections.push(correction + "<br>");
@@ -14497,10 +14496,13 @@ if (liste_type_de_questions[i]==5){
       cpt++;
     }
 
-    liste_de_question_to_contenu(this);
+  liste_de_question_to_contenu(this);
   };
-  this.besoin_formulaire_numerique = ['Type de solides', 6, `1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés\n 4 : Prismes\n 5 : Pyramides\n 6 : Tous`]
-  this.besoin_formulaire2_numerique = [
+  if (this.classe == 6)  this.besoin_formulaire_numerique = ['Type de solides', 3, `1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés`]
+  if (this.classe == 5)  this.besoin_formulaire_numerique = ['Type de solides', 5, `1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés\n 4 : Prismes\n 5 : Mélange cubes, pavés, prismes`]
+  if (this.classe == 4)  this.besoin_formulaire_numerique = ['Type de solides', 7, `1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés\n 4 : Prismes\n 5 : Mélange cubes, pavés, prismes\n 6 : Pyramides\n 7 : Mélange cubes, pavés, prismes, pyramides`]
+
+ this.besoin_formulaire2_numerique = [
     "Type de cahier",
     3,
     `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`,
@@ -14511,20 +14513,20 @@ if (liste_type_de_questions[i]==5){
 // Référence 6G41
 function Representer_un_solide_6e() {
   this.sup = 1;
-  this.classe = 6;
+  this.classe = 6; 
   Representer_un_solide.call(this);
 }
 
 // 5G51
 function Representer_un_solide_5e() {
-  this.sup = 1;
+  this.sup = 4;
   this.classe = 5;
   Representer_un_solide.call(this);
 }
 
 // 4G51
 function Representer_un_solide_4e() {
-  this.sup = 1;
+  this.sup = 5;
   this.classe = 4;
   Representer_un_solide.call(this);
 }
