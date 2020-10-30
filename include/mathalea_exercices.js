@@ -14164,7 +14164,7 @@ function Representer_un_solide() {
   let type_de_questions_disponibles;
 
   if (this.sup==3) type_de_questions_disponibles=[1,2]
-   else if (this.sup==6) type_de_questions_disponibles=[1,2,3,4]
+   else if (this.sup==6) type_de_questions_disponibles=[1,2,4,5]
    else type_de_questions_disponibles = [parseInt(this.sup)]; 
 
 let liste_type_de_questions = combinaison_listes(
@@ -14195,8 +14195,8 @@ let liste_type_de_questions = combinaison_listes(
       correction,
       carreaux,g,
       objets_enonce = [],
-      objets_correction = [],
-      p;
+      objets_correction = [],p
+      ;
   
   for (
       let i = 0, texte, texte_corr, cpt = 0;
@@ -14212,22 +14212,24 @@ let liste_type_de_questions = combinaison_listes(
     
       switch (liste_type_de_questions[i]) {
         case 1: //cube
-          enonce=`Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
+          enonce=`$${nom}$ est un cube.<br>`
+          if (sortie_html) enonce +=`Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
           correction=`Figure complétée :<br>`
           break;
 
         case 2: //pavé droit
-          enonce=`Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
+        enonce=`$${nom}$ est un pavé droit.<br>`
+        if (sortie_html) enonce +=`Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
           correction=`Figure complétée :<br>`
           break;
 
-          case 4: //prisme
-          enonce=`Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
+        case 4: //prisme
+          enonce=`On considère un prisme à base triangulaire.<br>Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
           correction=`Figure complétée :<br>`
           break;
 
         case 5: //pyramide
-          enonce=`Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
+          enonce=`On considère une pyramide à base rectangulaire.<br>Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>`;
           correction=`Figure complétée :<br>`
           break;
       }
@@ -14238,7 +14240,6 @@ let liste_type_de_questions = combinaison_listes(
         B = point(11, 0, nom[1], "right");
         C = point(11, 5, nom[2], "right");
         D = point(6, 5, nom[3],"left");
-        p=polygone(A,B,C,D)
         E = similitude(B,A,anglepersp,coeffpersp,nom[4],'left')
         E.x=Math.round(E.x)
         E.y=Math.round(E.y)
@@ -14249,14 +14250,12 @@ let liste_type_de_questions = combinaison_listes(
         B = point(9+randint(1,3), 0, nom[1], "right");
         C = point(B.x,randint(3,7), nom[2], "right");
         D = point(A.x,C.y, nom[3],"left");
-        p=polygone(A,B,C,D)
         E = similitude(B,A,anglepersp,coeffpersp*randint(5,12)/10,nom[4],'left')
         E.x=Math.round(E.x)
         E.y=Math.round(E.y)
       break ;
       }  
-
-      p=polygone(A,B,C,D)
+      
       F = translation2Points(E,A,B,nom[5],'right')
       G = translation2Points(F,B,C,nom[6],'right')
       H = translation2Points(G,C,D,nom[7],'left')
@@ -14383,14 +14382,14 @@ let liste_type_de_questions = combinaison_listes(
     }
     
     if (liste_type_de_questions[i]==1){ 
-      objets_enonce.push(AB,BC,CD,DA,AE,
+      objets_enonce.push(AB,BC,CD,DA,AE,labelPoint(A,B,C,D,E),
       g,
       carreaux
       );
       }
 
     if (liste_type_de_questions[i]==2){ 
-      objets_enonce.push(AB,BC,CD,DA,AE,
+      objets_enonce.push(AB,BC,CD,DA,AE,labelPoint(A,B,C,D,E),
       g,
       carreaux
       );
@@ -14424,7 +14423,7 @@ let liste_type_de_questions = combinaison_listes(
         BF.color='blue'
         CG.color='blue'
         DH.color='blue'    
-        objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,
+        objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,labelPoint(A,B,C,D,E,F,G,H),
         g,
         carreaux
       ); 
@@ -14443,7 +14442,7 @@ let liste_type_de_questions = combinaison_listes(
       BF.color='blue'
       CG.color='blue'
       DH.color='blue'    
-      objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,
+      objets_correction.push(AB,BC,CD,DA,EF,FG,GH,HE,AE,BF,CG,DH,labelPoint(A,B,C,D,E,F,G,H),
       g,
       carreaux
     ); 
