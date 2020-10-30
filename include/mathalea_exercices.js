@@ -82,7 +82,7 @@ var liste_des_exercices_disponibles = {
   "6N10-1": Exercice_numeration_entier,
   "6N10-2": Decomposition_nombre_decimal,
   "6N10-3": chiffre_nombre_de,
-  "beta6N10-4" : Ecrire_nombres_entiers_formates,
+  "6N10-4" : Ecrire_nombres_entiers_formates,
   "6N11": Lire_abscisse_entiere,
   "6N11-2": Placer_un_point_abscisse_entiere,
   "6N11-3": Encadrer_un_entier_par_deux_entiers_consecutifs,
@@ -97,7 +97,7 @@ var liste_des_exercices_disponibles = {
   "6N22-1" : Rapports_sur_un_segment,
   "6N22-2" : Ajouter_des_fractions_d_unite,
   "6N23": Exercice_ecriture_decimale_a_partir_de_fraction_decimale,
-  "beta6N23-0" : Ecrire_nombres_decimal,
+  "6N23-0" : Ecrire_nombres_decimal,
   "6N23-1": Exercice_differentes_ecritures_nombres_decimaux,
   "beta6N23-2" : Lire_abscisse_decimale_trois_formes,
   "6N24": Exercice_6N24,
@@ -9441,41 +9441,62 @@ function Exercice_differentes_ecritures_nombres_decimaux() {
   };
 }
 
-
+/**
+ * ref beta6N23-2
+ * @Auteur Jean-Claude Lhote
+ */
 function Lire_abscisse_decimale_trois_formes() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Différentes écritures des nombres décimaux";
-  this.consigne = "Compléter l'égalité puis donner l'écriture décimale.";
+  this.consigne = "";
   this.spacing = 2;
-  this.spacing_corr = 2;
+  this.spacing_corr = 3;
+  this.sup=1
+  this.nb_questions=1;
+  this.nb_questions_modifiable=false
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles = [1, 2, 3, 4, 5, 6];
-    let liste_type_de_questions = combinaison_listes(
-      type_de_questions_disponibles,
-      this.nb_questions
-    ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-    for (
-      let i = 0, texte, texte_corr, cpt = 0;
-      i < this.nb_questions && cpt < 50;
-
-    ) {
-
-
-      
-      if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
-        i++;
-      }
-      cpt++;
+    let d1,texte,texte_corr,extremite
+    let x1=0,x2=0,x3=0
+    if (this.sup==1){
+    xmin=randint(0,4)
+    if (xmin==0) extremite=`|->`
+    else extremite=`->`
+    xmax=randint(xmin+5,xmin+9)
+    while (estentier(x1)||estentier(x2)||estentier(x3)){
+    x1=randint(xmin*10,(xmin+Math.floor((xmax-xmin)/4))*10)
+    x2=randint((xmin+Math.ceil((xmax-xmin)/4))*10,(xmin+Math.floor(2*(xmax-xmin)/3))*10,x1)
+    x3=randint((xmin+Math.ceil(2*(xmax-xmin)/3))*10,xmax*10,[x1,x2])
+    x1=calcul(x1/10)
+    x2=calcul(x2/10)
+    x3=calcul(x3/10)
     }
+    d1=droiteGraduee2({x:0,y:0,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:false,Unite:3,
+                      thickCouleur:'gray',axeCouleur:'blue',axeHauteur:6,
+                      pointListe:[[x1,'A'],[x2,'B'],[x3,'C']],
+                      pointTaille:6,pointOpacite:0.8,pointCouleur:'orange',axeStyle:extremite})
+    texte=`${num_alpha(0)} Donner l'abscisse de A en écriture décimale.<br>`
+    texte+=`${num_alpha(1)} Donner l'abscisse de B comme la somme d'un entier et d'une fraction décimale.<br>`
+    texte+=`${num_alpha(2)} Donner l'abscisse de C sous la forme d'une fraction décimale.<br>`
+    texte_corr=`${num_alpha(0)} L'abscisse de A est : $${tex_nombre(x1)}$.<br>`
+    texte_corr+=`${num_alpha(1)} L'abscisse de B est : $${tex_nombre(Math.floor(x2))} + ${tex_fraction(calcul(10*(x2-Math.floor(x2))),10)}$.<br>`
+    texte_corr+=`${num_alpha(2)} L'abscisse de C est : $${tex_fraction(calcul(x3*10),10)}$.<br>`
+    }
+    else if (this.sup==2){
+
+    }
+    else if (this.sup==3) {
+
+    }
+    texte+= mathalea2d({xmin:-1.5,xmax:30,ymin:-1,ymax:1.5},d1)
+    this.liste_questions.push(texte);
+    this.liste_corrections.push(texte_corr);
     liste_de_question_to_contenu(this);
   };
+  this.besoin_formulaire_numerique = ['Niveau de difficulté',3,'1 : Au dixième\n2 : Au centième\n3 : Au millième'];
 }
 
 
