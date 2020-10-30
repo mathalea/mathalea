@@ -122,6 +122,7 @@ var liste_des_exercices_disponibles = {
   "6P11": Proportionnalite_par_linearite,
   "6P11-1": Proportionnalite_par_linearite_bis,
   "6S10":Lecture_diagramme_barre,
+  "6S11":Organiser_donnees_depuis_texte,
   "5A10": Liste_des_diviseurs_5e,
   "5A11": Tableau_criteres_de_divisibilite,
   "5A12-1": Premier_ou_pas_5e,
@@ -375,6 +376,7 @@ function Exercice() {
   // this.bouton_aide = modal_texte_long(numero_de_l_exercice,titre,texte,label_bouton="Aide",icone="info circle")
   // this.bouton_aide = modal_youtube(numero_de_l_exercice,id_youtube,texte,label_bouton="Aide - Vidéo",icone="youtube")
   // this.bouton_aide = modal_pdf(numero_de_l_exercice,url_pdf,texte="Aide",label_bouton="Aide - PDF",icone="file pdf")
+  // this.vspace = -1 //Ajoute un \vspace{-1cm} avant l'énoncé ce qui peut être pratique pour des exercices avec des figures.
   this.pas_de_version_LaTeX = false;
   this.MG32editable = false; //pas d'interface par défaut pour les figures MG32
   this.nouvelle_version = function (numero_de_l_exercice) {};
@@ -13939,7 +13941,7 @@ function Lecture_diagramme_barre() {
 		this.liste_questions = []; // vide la liste de questions
     this.liste_corrections = []; // vide la liste de questions corrigées   
 
-    let lstAnimaux = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes'];
+    let lstAnimaux = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères'];
     let nbAnimaux = 4; // nombre d'animaux différents dans l'énoncé
     switch (parseInt(this.sup)) {
       case 1:nbAnimaux = 4;break;
@@ -13980,7 +13982,7 @@ function Lecture_diagramme_barre() {
     let nMax = Math.max(...lstNombresAnimaux); // index de l'animal de plus grand effectif
 
     let lstNomParc = ['Dramve', 'Fatenmin', 'Batderfa', 'Vihi', 'Genser', 'Barbetdou', 'Dramrendu', 'Secai', 'Cipeudram', 'Cigel', 'Lisino', 'Fohenlan', 
-    'Farnfoss', 'Kinecardine', 'Zeffari', 'Kincardine', 'Barmwich', 'Swadlincote', 'Swordbreak'];
+    'Farnfoss', 'Kinecardine', 'Zeffari', 'Barmwich', 'Swadlincote', 'Swordbreak', 'Loshull', 'Ruyron', 'Fluasall', 'Blueross', 'Vlane'];
 
     texte = 'Dans le parc naturel de ' + choice(lstNomParc)  + ', il y a beaucoup d’animaux. Voici un diagramme en bâtons qui donne le nombre d’individus pour chaque espèce.<br>';
     // Question 1 :
@@ -14033,6 +14035,146 @@ function Lecture_diagramme_barre() {
   }
   this.besoin_formulaire_numerique = [`Nombre d'espèces différentes`, 3, ` choix 1 : 4 espèces\n choix 2 : 5 espèces\n choix 3 : 6 espèces`];
   this.besoin_formulaire2_numerique = [`Valeurs numériques`, 2, ` choix 1 : entre 1 et 100\n choix 2 : entre 100 et 1 000`];
+}
+
+
+/**
+ * Lire un diagramme en barre
+ * @Auteur Erwan Duplessy
+ * Référence 6S11
+ */
+
+// source : http://www.ac-grenoble.fr/savoie/pedagogie/docs_pedas/ogd_c2_c3/ogd_c2_c3.pdf
+
+function Organiser_donnees_depuis_texte() {
+
+  Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Organiser des données dans un tableau";
+	this.consigne = "Répondre aux questions à l'aide du texte.";
+  this.nb_questions = 1;
+  this.nb_questions_modifiable = false;
+	this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  //this.sup = 1;
+  //this.sup2 = 1;
+  
+  this.nouvelle_version = function(){
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+
+
+    let lstPrenom = ['Jules', 'Adèle', 'André', 'Celine', 'Inâya', 'Kevin', 'Ayden', 'Marion', 'Rayan', 'Louane', 'Angel', 'Dakota', 'Abdel', 'Agnes'];
+    let lstPrenomExo = [];
+    let lstFruit = ['pomme', 'poire', 'kiwi', 'pêche', 'coing', 'melon', 'citron', 'banane', 'mangue'];
+    let lstFruitExo = [];
+    let nbAmis = 5; // min = 2
+    let nbFruits = 6; // min = 2
+    // choisir les prénoms : 
+    for (let i = 0; i < nbAmis; i++) {
+      lstPrenomExo.push(choice(lstPrenom, lstPrenomExo));
+    }
+    // Choisir les fruits : 
+    for (let i = 0; i < nbFruits; i++) {
+      lstFruitExo.push(choice(lstFruit, lstFruitExo));
+    }
+    // Choisir les quantités de fruits pour chaque prénoms : 
+    let lstTabVal = []; // tableau i : amis et j : fruits
+    let L=[]; // tab temporaire
+    for (let i = 0; i < nbAmis; i++) {
+      for (let j = 0; j < nbFruits; j++) {
+        L.push(randint(0, 10));
+      }
+      lstTabVal.push(L);
+      L= [];
+    }
+    // Affiche l'énoncé :
+    texte = `Plusieurs amis reviennent du marché. Il s'agit de `;
+    for (let i = 0; i < nbAmis-2; i++) {
+      texte+= lstPrenomExo[i] + ', '
+    }
+    texte += lstPrenomExo[nbAmis-2] + ' et ' + lstPrenomExo[nbAmis-1] + '.<br>';
+    let N;
+    //boucle sur les phrases. 1 phrase par personne.
+    for (let i = 0; i < nbAmis; i++) {
+      texte += lstPrenomExo[i] + ' rapporte ';
+      L=[]; // ne contient que les fruits d'effectifs strictement positifs
+      for (let j = 0; j < nbFruits; j++) {
+        N = lstTabVal[i][j];
+        if (N>0){
+          L.push([N, lstFruitExo[j]])
+        }
+      }
+      m = L.length
+      L = shuffle(L); // mélange l'ordre des fruits
+      for (let k = 0; k < m; k++) {
+        texte += L[k][0]+ ' ' + L[k][1];
+        if (L[k][0]>1){texte += 's'}
+        if (k < m-2){texte += ', '}
+        if (k == m-2){texte += ' et '}            
+      }
+      texte += '. <br>'    
+    }
+    texte += '<br>'  
+    texte += num_alpha(0) + ` Remplir le tableau suivant. <br>`;
+    texte += num_alpha(1) + ` Quel est le nombre total de fruits achetés par les amis ? <br>`;
+    texte += num_alpha(2) + ` Qui a rapporté le plus de fruits ? <br>`;
+    texte += num_alpha(3) + ` Quel fruit a été apporté en la plus grosse quantité ? <br><br>`;
+
+    texte += `$\\begin{array}{|l|` +  `c|`.repeat(nbFruits+1) + `}\n`;
+    texte += `\\hline\n`;
+    texte += ` `;
+    for (let j = 0; j < nbFruits; j++) {
+      texte += ' & ' + lstFruitExo[j] + ' ';
+    }
+    texte += '& TOTAL';
+    texte += `\\\\\\hline\n`;
+    for (let i = 0; i < nbAmis; i++) {
+      texte += lstPrenomExo[i] + '& '.repeat(nbFruits);
+      texte += `\\\\\\hline\n`;
+    }
+    texte += 'TOTAL' + '& '.repeat(nbFruits);
+    texte += `\\\\\\hline\n`;
+    texte += `\\end{array}\n$`;
+
+    //CORRECTION
+    // Question 1 :
+    texte_corr = num_alpha(0) + ` Voici letableau complet. <br>`;
+    texte_corr += `$\\begin{array}{|l|` +  `c|`.repeat(nbFruits+1) + `}\n`;
+    texte_corr += `\\hline\n`;
+    texte_corr += ` `;
+    for (let j = 0; j < nbFruits; j++) {
+      texte_corr += ' & ' + lstFruitExo[j] + ' ';
+    }
+    texte_corr += '& TOTAL';
+    texte_corr += `\\\\\\hline\n`;
+    for (let i = 0; i < nbAmis; i++) {
+      texte_corr += lstPrenomExo[i];
+      let S =0; // pour calculer les sommes
+      for (let j =0; j < nbFruits; j++){
+        texte_corr += '& ' + lstTabVal[i][j];
+        S += lstTabVal[i][j]; // somme d'une ligne
+      }
+      texte_corr += '& ' + S
+      texte_corr += `\\\\\\hline\n`;
+    }
+    texte_corr += 'TOTAL';
+    let S_total=0; // somme totale de tous les fruits
+    for (let j =0; j < nbFruits; j++){
+      S = 0;
+      for (let i =0; i < nbAmis; i++){
+        S += lstTabVal[i][j]; // somme d'une colonne
+      }
+      texte_corr += '& ' + S;
+      S_total +=S;
+    }
+    texte_corr += '& ' + S_total;
+    texte_corr += `\\\\\\hline\n`;
+    texte_corr += `\\end{array}\n$`;
+
+    this.liste_questions.push(texte);
+    this.liste_corrections.push(texte_corr);
+    liste_de_question_to_contenu(this);
+  }
 }
 
 /**
