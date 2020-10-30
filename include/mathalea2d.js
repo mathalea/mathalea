@@ -4887,7 +4887,7 @@ function Repere2({
   xLegendePosition = [calcul(xMax*xUnite) + .5, .5],
   yLegende = "",
   yLegendePosition = [.5, calcul(yMax*yUnite) + .5],
-  grille = false,
+  grille = true,
   grilleDistance = false,
   grilleCouleur = "black",
   grilleOpacite = 0.5,
@@ -5574,7 +5574,7 @@ function Courbe2(f,{
   }
   for (let x = xmin ; x <= xmax ; x = calcul(x + pas )
   ) {
-    if (f(x)<ymax && f(x)>ymin) {
+    if (f(x)<ymax+.2 && f(x)>ymin-.2) {
       points.push(point(calcul(x*xunite), calcul(f(x)*yunite)));
     } else {
       let p = polyline([...points], this.color);
@@ -5711,7 +5711,6 @@ function GraphiqueInterpole(
     repere.xMin > x0 ? (depart = repere.xMin) : (depart = x0);
     repere.xMax < x1 ? (fin = repere.xMax) : (fin = x1);
     let c = courbe2(f,{xMin : depart, xMax : fin, color : color, epaisseur : epaisseur, xUnite : repere.xUnite, yUnite : repere.yUnite, yMin : repere.yMin, yMax : repere.yMax})
-    //let c = courbe(f, depart, fin, color, epaisseur, [1,1]);
     mesCourbes.push(c);
     this.svg = function (coeff) {
       code = "";
