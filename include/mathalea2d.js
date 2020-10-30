@@ -4938,13 +4938,13 @@ function Repere2({
 
   let objets = []
   // LES AXES
-  let OrdonneeAxe =Math.max(0,yMin)
-  let axeX = segment(calcul(xMin*xUnite),OrdonneeAxe,calcul(xMax*xUnite),OrdonneeAxe);
+  let OrdonneeAxe = Math.max(0,yMin)
+  let axeX = segment(calcul(xMin*xUnite),calcul(OrdonneeAxe*yUnite),calcul(xMax*xUnite),calcul(OrdonneeAxe*yUnite));
   axeX.epaisseur = axesEpaisseur;
   axeX.styleExtremites = axeXStyle;
   axeX.color = axesCouleur;
   let abscisseAxe =Math.max(0,xMin)
-  let axeY = segment(abscisseAxe,calcul(yMin*yUnite),abscisseAxe,calcul(yMax*yUnite));
+  let axeY = segment(calcul(abscisseAxe*xUnite),calcul(yMin*yUnite),calcul(abscisseAxe*xUnite),calcul(yMax*yUnite));
   axeY.epaisseur = axesEpaisseur;
   axeY.styleExtremites = axeYStyle;
   axeY.color = axesCouleur;
@@ -4958,7 +4958,7 @@ function Repere2({
     xThickListe = rangeMinMax(xThickMin,xThickMax,[0],xThickDistance)
   }
   for (x of xThickListe){
-    let thick = segment(calcul(x*xUnite),OrdonneeAxe-thickHauteur,calcul(x*xUnite),OrdonneeAxe+thickHauteur);
+    let thick = segment(calcul(x*xUnite),calcul(OrdonneeAxe*yUnite-thickHauteur),calcul(x*xUnite),calcul(OrdonneeAxe*yUnite+thickHauteur));
     thick.isVisible = false;
     thick.epaisseur = thickEpaisseur;
     thick.color = thickCouleur;
@@ -4968,7 +4968,7 @@ function Repere2({
     yThickListe = rangeMinMax(yThickMin,yThickMax,[0],yThickDistance)
   }
   for (y of yThickListe){
-    let thick = segment(abscisseAxe-thickHauteur,calcul(y*yUnite),abscisseAxe+thickHauteur,calcul(y*yUnite));
+    let thick = segment(calcul(abscisseAxe*xUnite-thickHauteur),calcul(y*yUnite),calcul(abscisseAxe*xUnite+thickHauteur),calcul(y*yUnite));
     thick.isVisible = false;
     thick.epaisseur = thickEpaisseur;
     thick.color = thickCouleur;
@@ -4981,7 +4981,7 @@ function Repere2({
     xLabelListe = rangeMinMax(xLabelMin,xLabelMax,[0],xLabelDistance)
   }
   for (x of xLabelListe){
-    let l = texteParPosition(tex_nombre(x),calcul(x*xUnite),OrdonneeAxe-.5)
+    let l = texteParPosition(tex_nombre(x),calcul(x*xUnite),calcul(OrdonneeAxe*yUnite)-.5)
     l.isVisible = false;
     objets.push(l);
   }
@@ -4990,7 +4990,7 @@ function Repere2({
     yLabelListe = rangeMinMax(yLabelMin,yLabelMax,[0],yLabelDistance)
   }
   for (y of yLabelListe){
-    let l = texteParPosition(tex_nombre(y),abscisseAxe-.5,calcul(y*yUnite),'gauche')
+    let l = texteParPosition(tex_nombre(y),calcul(abscisseAxe*xUnite)-.5,calcul(y*yUnite),'gauche')
     l.isVisible = false;
     objets.push(l);
   }
@@ -5690,6 +5690,52 @@ function CourbeInterpolee(
  */
 function courbeInterpolee(...args) {
   return new CourbeInterpolee(...args);
+}
+
+function GraphiqueInterpole(
+  tableau,{color = "black",
+    epaisseur = 2,
+    repere = {},
+    }={}
+  
+) {
+  ObjetMathalea2D.call(this);
+  mesCourbes = [];
+  for (let i = 0; i < tableau.length - 1; i++) {
+    let x0 = tableau[i][0];
+    let y0 = tableau[i][1];
+    let x1 = tableau[i + 1][0];
+    let y1 = tableau[i + 1][1];
+    let f = (x) => cosineInterpolate(y0, y1, calcul((x - x0) / (x1 - x0)));
+    let depart, fin;
+    repere.xMin > x0 ? (depart = repere.xMin) : (depart = x0);
+    repere.xMax < x1 ? (fin = repere.xMax) : (fin = x1);
+    let c = courbe2(f,{xMin : depart, xMax : fin, color : color, epaisseur : epaisseur, xUnite : repere.xUnite, yUnite : repere.yUnite, yMin : repere.yMin, yMax : repere.yMax})
+    //let c = courbe(f, depart, fin, color, epaisseur, [1,1]);
+    mesCourbes.push(c);
+    this.svg = function (coeff) {
+      code = "";
+      for (objet of mesCourbes) {
+        code += "\n\t" + objet.svg(coeff);
+      }
+      return code;
+    };
+    this.tikz = function () {
+      code = "";
+      for (objet of mesCourbes) {
+        code += "\n\t" + objet.tikz();
+      }
+      return code;
+    };
+  }
+}
+/**
+ *
+ *
+ * @auteur Rémi Angot
+ */
+function graphiqueInterpole(...args) {
+  return new GraphiqueInterpole(...args);
 }
 
 /*
