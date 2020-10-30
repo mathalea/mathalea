@@ -14078,7 +14078,7 @@ function Organiser_donnees_depuis_texte() {
     }
     // Choisir les quantités de fruits pour chaque prénoms : 
     let lstTabVal = []; // tableau i : amis et j : fruits
-    let L=[]; // tableau temporaire
+    let L=[]; // tab temporaire
     for (let i = 0; i < nbAmis; i++) {
       for (let j = 0; j < nbFruits; j++) {
         L.push(randint(0, 10));
@@ -14093,18 +14093,25 @@ function Organiser_donnees_depuis_texte() {
     }
     texte += lstPrenomExo[nbAmis-2] + ' et ' + lstPrenomExo[nbAmis-1] + '.<br>';
     let N;
+    //boucle sur les phrases. 1 phrase par personne.
     for (let i = 0; i < nbAmis; i++) {
       texte += lstPrenomExo[i] + ' rapporte ';
+      L=[]; // ne contient que les fruits d'effectifs strictement positifs
       for (let j = 0; j < nbFruits; j++) {
         N = lstTabVal[i][j];
-        if (N > 0) {
-          texte += lstTabVal[i][j]+ ' ' + lstFruitExo[j];
-          if (N > 1){texte += 's'}
-          if (j < nbFruits-2){texte += ', '}
-          if (j == nbFruits-2){texte += ' et '}          
-        }        
+        if (N>0){
+          L.push([N, lstFruitExo[j]])
+        }
       }
-      texte += '. '    
+      m = L.length
+      L = shuffle(L); // mélange l'ordre des fruits
+      for (let k = 0; k < m; k++) {
+        texte += L[k][0]+ ' ' + L[k][1];
+        if (L[k][0]>1){texte += 's'}
+        if (k < m-2){texte += ', '}
+        if (k == m-2){texte += ' et '}            
+      }
+      texte += '. <br>'    
     }
     texte += '<br>'  
     texte += num_alpha(0) + ` Remplir le tableau suivant. <br>`;
@@ -14128,13 +14135,44 @@ function Organiser_donnees_depuis_texte() {
     texte += `\\\\\\hline\n`;
     texte += `\\end{array}\n$`;
 
+    //CORRECTION
+    // Question 1 :
+    texte_corr = num_alpha(0) + ` Voici letableau complet. <br>`;
+    texte_corr += `$\\begin{array}{|l|` +  `c|`.repeat(nbFruits+1) + `}\n`;
+    texte_corr += `\\hline\n`;
+    texte_corr += ` `;
+    for (let j = 0; j < nbFruits; j++) {
+      texte_corr += ' & ' + lstFruitExo[j] + ' ';
+    }
+    texte_corr += '& TOTAL';
+    texte_corr += `\\\\\\hline\n`;
+    for (let i = 0; i < nbAmis; i++) {
+      texte_corr += lstPrenomExo[i];
+      let S =0; // pour calculer les sommes
+      for (let j =0; j < nbFruits; j++){
+        texte_corr += '& ' + lstTabVal[i][j];
+        S += lstTabVal[i][j]; // somme d'une ligne
+      }
+      texte_corr += '& ' + S
+      texte_corr += `\\\\\\hline\n`;
+    }
+    texte_corr += 'TOTAL';
+    let S_total=0; // somme totale de tous les fruits
+    for (let j =0; j < nbFruits; j++){
+      S = 0;
+      for (let i =0; i < nbAmis; i++){
+        S += lstTabVal[i][j]; // somme d'une colonne
+      }
+      texte_corr += '& ' + S;
+      S_total +=S;
+    }
+    texte_corr += '& ' + S_total;
+    texte_corr += `\\\\\\hline\n`;
+    texte_corr += `\\end{array}\n$`;
 
-
-    texte_corr = 'zzzzzzzzzzzz '
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
     liste_de_question_to_contenu(this);
-
   }
 }
 
