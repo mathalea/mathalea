@@ -375,6 +375,7 @@ function Exercice() {
   // this.bouton_aide = modal_texte_long(numero_de_l_exercice,titre,texte,label_bouton="Aide",icone="info circle")
   // this.bouton_aide = modal_youtube(numero_de_l_exercice,id_youtube,texte,label_bouton="Aide - Vidéo",icone="youtube")
   // this.bouton_aide = modal_pdf(numero_de_l_exercice,url_pdf,texte="Aide",label_bouton="Aide - PDF",icone="file pdf")
+  // this.vspace = -1 //Ajoute un \vspace{-1cm} avant l'énoncé ce qui peut être pratique pour des exercices avec des figures.
   this.pas_de_version_LaTeX = false;
   this.MG32editable = false; //pas d'interface par défaut pour les figures MG32
   this.nouvelle_version = function (numero_de_l_exercice) {};

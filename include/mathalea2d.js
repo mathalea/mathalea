@@ -5964,7 +5964,6 @@ function angle(A, O, B) {
   let AB = longueur(A, B);
   let v=vecteur(O,A)
   let w=vecteur(O,B)
-  console.log(v.x,w.x,v.y,w.y)
   if (v.x*w.y-v.y*w.x==0) {
     if(v.x*w.x>0) return 0;
     else if (v.x*w.x<0) return 180;

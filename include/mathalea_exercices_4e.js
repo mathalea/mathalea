@@ -2507,6 +2507,8 @@ function Thales2D() {
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
   this.sup = 1; // Triangles imbriqués / configuration papillon / les 2
+  this.vspace = -0.5; // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
+
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
@@ -2515,7 +2517,7 @@ function Thales2D() {
     let premiereQuestionPapillon = randint(0,1) // Pour alterner les configurations et savoir par laquelle on commence
 
 
-    for (let i = 0, texte, texte_corr, cpt = 0;i < this.nb_questions && cpt < 50;)
+    for (let i = 0, texte = '', texte_corr = '', cpt = 0;i < this.nb_questions && cpt < 50;)
      {
       if ((i+1)%3==0){ // Toutes les 3 questions, on repart à zéro sur les noms des polygones
         liste_de_noms_de_polygones = []
@@ -2529,10 +2531,6 @@ function Thales2D() {
       let nomN = nomDesPoints[4];
       let ab = randint(5, 10);
       let ac = randint(5, 10,ab);
-      if(!sortie_html){
-        ab = randint(3, 7);
-        ac = randint(3, 7,ab);
-      }
       let bc = randint(Math.max(ab - ac, ac - ab) + 1, ab + ac - 1,[ab,ac]); // Pas de triangle isocèle ou équilatéral
       let A = point(0, 0, nomA);
       let B = pointAdistance(A, ab, nomB);
@@ -2542,9 +2540,12 @@ function Thales2D() {
       let k = calcul(randint(3, 8, 5) / 10);
       if (this.sup == 2) {
         k *= -1
+        this.vspace = -1; // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
+
       }
       if (this.sup == 3 && ((i + premiereQuestionPapillon) % 2 == 0)) {
         k *= -1
+        this.vspace = -1; // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
       }
       let M = homothetie(A, C, k);
       let N = homothetie(B, C, k);
@@ -2572,16 +2573,27 @@ function Thales2D() {
 
     
 
-
-      texte = `Sur la figure suivante, $${nomA+nomC}=${ac}~\\text{cm}$, $${nomA+nomB}=${ab}~\\text{cm}$, $${nomC+nomM}=${tex_nombrec(Math.abs(k)*ac)}~\\text{cm}$, $${nomC+nomN}=${tex_nombrec(Math.abs(k)*bc)}~\\text{cm}$ et $(${nomA+nomB})//(${nomM+nomN})$.<br>`
+      if (!sortie_html){
+        texte = '\\begin{minipage}{.5\\linewidth}\n'
+      }
+      texte += `Sur la figure suivante, $${nomA+nomC}=${ac}~\\text{cm}$, $${nomA+nomB}=${ab}~\\text{cm}$, $${nomC+nomM}=${tex_nombrec(Math.abs(k)*ac)}~\\text{cm}$, $${nomC+nomN}=${tex_nombrec(Math.abs(k)*bc)}~\\text{cm}$ et $(${nomA+nomB})//(${nomM+nomN})$.<br>`
       texte+= `Calculer $${nomM+nomN}$ et $${nomC+nomB}$.<br><br>`
+      if (!sortie_html){
+        texte += '\\end{minipage}\n'
+        texte += '\\begin{minipage}{.5\\linewidth}\n'
+        texte += '\\centering'
+      }
       texte += mathalea2d({xmin : Math.min(A.x, B.x, C.x, M.x, N.x) - 1.5,
-        ymin : Math.min(A.y, B.y, C.y, M.y, N.y) - 1.5,
+        ymin : Math.min(A.y, B.y, C.y, M.y, N.y) - .8,
         xmax : Math.max(A.x, B.x, C.x, M.x, N.x) + 1.5,
-        ymax : Math.max(A.y, B.y, C.y, M.y, N.y) + 1.5},
+        ymax : Math.max(A.y, B.y, C.y, M.y, N.y) + .8,
+        scale : .5},
 
         ABC, MNC, marqueNomA, marqueNomB, marqueNomC, marqueNomM, marqueNomN
       );
+      if (!sortie_html){
+        texte += '\\end{minipage}\n'
+      }
       if (k>0){
         texte_corr = `Dans le triangle $${nomA+nomB+nomC}$, $${nomM}\\in${"["+nomC+nomA+"]"}$, $${nomN}\\in${"["+nomC+nomB+"]"}$ et $(${nomA+nomB})//(${nomM+nomN})$ donc d'après le théorème de Thalès, les triangles $${nomA+nomB+nomC}$ et $${nomM+nomN+nomC}$ ont des longueurs proportionnelles.`;
       } else {
