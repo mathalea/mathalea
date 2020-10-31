@@ -14086,7 +14086,12 @@ function Organiser_donnees_depuis_texte() {
     for (let i = 0; i < nbAmis; i++) {
       for (let j = 0; j < nbFruits; j++) {
         if (this.sup){
-          L.push(randint(0, 100)/10);
+          if (randint(0,10)>0) {
+            L.push(randint(0, 100)/10);
+          }else{
+            L.push(0);
+          }
+          
         } else {
           L.push(randint(0, 10));
         }
@@ -14116,12 +14121,11 @@ function Organiser_donnees_depuis_texte() {
       L = shuffle(L); // mélange l'ordre des fruits
       for (let k = 0; k < m; k++) {
         if (this.sup) {
-          texte += tex_nombre(L[k][0])+ ' kg de ' + L[k][1];
+          texte += tex_nombre(L[k][0])+ ' kg de ' + L[k][1] + 's';
         } else {
           texte += tex_nombre(L[k][0])+ ' ' + L[k][1];
-        }
-        
-        if (L[k][0]>1){texte += 's'}
+          if (L[k][0]>1){texte += 's'}
+        }        
         if (k < m-2){texte += ', '}
         if (k == m-2){texte += ' et '}            
       }
