@@ -14195,7 +14195,8 @@ let liste_type_de_questions = combinaison_listes(
       correction,
       carreaux,g,
       objets_enonce = [],
-      objets_correction = [],p
+      objets_correction = [],p,
+      matrace=tracePoint(I)
       ;
   
   for (
@@ -14260,6 +14261,10 @@ let liste_type_de_questions = combinaison_listes(
       G = translation2Points(F,B,C,nom[6],'right')
       H = translation2Points(G,C,D,nom[7],'left')
       I = milieu (D,G)
+      matrace.taille=4
+      matrace.opacite=0.9
+      matrace.epaisseur=5
+      matrace.style='x'
       AB=segment(A,B)
       BC=segment(B,C)
       CD=segment(C,D)
