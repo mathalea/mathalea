@@ -14050,12 +14050,12 @@ function Organiser_donnees_depuis_texte() {
   Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Organiser des données dans un tableau";
 	this.consigne = "Répondre aux questions à l'aide du texte.";
-  this.nb_questions = 1;
+  this.nb_questions = 4;
   this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
   this.nb_cols_corr = 1;
   this.sup = false; // false -> effectif ; true -> masse
-  this.sup2 = 3; // paramètre nombre de fruit
+  this.sup2 = 4; // paramètre nombre de fruit
   sortie_html? this.spacing = 2 : this.spacing = 1; 
 	sortie_html? this.spacing_corr = 2 : this.spacing_corr = 1;
   
@@ -14086,7 +14086,7 @@ function Organiser_donnees_depuis_texte() {
     for (let i = 0; i < nbAmis; i++) {
       for (let j = 0; j < nbFruits; j++) {
         if (this.sup){
-          if (randint(0,10)>0) {
+          if (randint(0,8)>0) {
             L.push(randint(0, 100)/10);
           }else{
             L.push(0);
@@ -14094,8 +14094,7 @@ function Organiser_donnees_depuis_texte() {
           
         } else {
           L.push(randint(0, 10));
-        }
-        
+        }        
       }
       lstTabVal.push(L);
       L= [];
@@ -14138,8 +14137,7 @@ function Organiser_donnees_depuis_texte() {
     texte += num_alpha(1) + ` Quel est la masse totale de fruits acheté par les amis ? <br>`;
   }else{
     texte += num_alpha(1) + ` Quel est le nombre total de fruits achetés par les amis ? <br>`;
-  }
-    
+  }    
     texte += num_alpha(2) + ` Qui a rapporté le plus de fruits ? <br>`;
     texte += num_alpha(3) + ` Quel fruit a été apporté en la plus grosse quantité ? <br><br>`;
 
@@ -14147,15 +14145,15 @@ function Organiser_donnees_depuis_texte() {
     texte += `\\hline\n`;
     texte += ` `;
     for (let j = 0; j < nbFruits; j++) {
-      texte += ` & \\text{${lstFruitExo[j]}}`;
+      texte += ` & \\textbf{\\text{${lstFruitExo[j]}}}`;
     }
-    texte += '& TOTAL';
+    texte += '& \\textbf{TOTAL}';
     texte += `\\\\\\hline\n`;
     for (let i = 0; i < nbAmis; i++) {
-      texte += `\\text{${lstPrenomExo[i]}}` + `& `.repeat(nbFruits) + ` & `;
+      texte += `\\textbf{\\text{${lstPrenomExo[i]}}}` + `& `.repeat(nbFruits) + ` & `;
       texte += `\\\\\\hline\n`;
     }
-    texte += 'TOTAL' + '& '.repeat(nbFruits) + ` & `;
+    texte += '\\textbf{TOTAL}' + '& '.repeat(nbFruits) + ` & `;
     texte += `\\\\\\hline\n`;
     texte += `\\end{array}\n$`;
 
@@ -14205,10 +14203,9 @@ function Organiser_donnees_depuis_texte() {
       texte_corr += num_alpha(1) + ` Le nombre total de fruits est : ${S_total}. <br>`;
     }
 
-
     // Question 3 :
     texte_corr += num_alpha(2) + ` On regarde la dernière colonne du tableau. `;
-    let lstmax = ['rr']; //liste des prénoms solutions
+    let lstmax = []; //liste des prénoms solutions
     let nmax = 0; // nombre max de fruit pour une personne
     for (let i=0; i < nbAmis; i++){
       S = 0;      
@@ -14285,8 +14282,8 @@ function Organiser_donnees_depuis_texte() {
     this.liste_corrections.push(texte_corr);
     liste_de_question_to_contenu(this);
   }
-  this.besoin_formulaire2_numerique = ['Nombre de fruits différents',6];
-  this.besoin_formulaire_case_a_cocher = ['Pour utiliser des nombres décimaux et des masses.', false];
+  this.besoin_formulaire2_numerique = ['Nombre de fruits différents', 8];
+  this.besoin_formulaire_case_a_cocher = ['Pour utiliser des nombres décimaux et des masses', false];
 }
 
 /**
