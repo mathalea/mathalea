@@ -9465,11 +9465,11 @@ function Lire_abscisse_decimale_trois_formes() {
     xmin=randint(0,4)
     if (xmin==0) extremite=`|->`
     else extremite=`->`
-    xmax=randint(xmin+5,xmin+9)
+    xmax=xmin+9
     while (estentier(x1)||estentier(x2)||estentier(x3)){
-    x1=randint(xmin*10,(xmin+Math.floor((xmax-xmin)/4))*10)
-    x2=randint((xmin+Math.ceil((xmax-xmin)/4))*10,(xmin+Math.floor(2*(xmax-xmin)/3))*10,x1)
-    x3=randint((xmin+Math.ceil(2*(xmax-xmin)/3))*10,xmax*10,[x1,x2])
+    x1=randint(xmin*10,xmin*10+29)
+    x2=randint(xmin*10+31,xmin*10+59,x1)
+    x3=randint(xmin*10+61,xmax*10-1,[x1,x2])
     x1=calcul(x1/10)
     x2=calcul(x2/10)
     x3=calcul(x3/10)
@@ -9486,12 +9486,58 @@ function Lire_abscisse_decimale_trois_formes() {
     texte_corr+=`${num_alpha(2)} L'abscisse de C est : $${tex_fraction(calcul(x3*10),10)}$.<br>`
     }
     else if (this.sup==2){
-
+      xmin=randint(0,4)
+      if (xmin==0) extremite=`|->`
+      else extremite=`->`
+      xmax=xmin+2
+      while (estentier(x1)||estentier(x2)||estentier(x3)){
+      x1=randint(xmin*100,xmin*100+60)
+      x2=randint(xmin*100+70,xmin*100+130,x1)
+      x3=randint(xmin*100+140,xmax*100-1,[x1,x2])
+      x1=calcul(x1/100)
+      x2=calcul(x2/100)
+      x3=calcul(x3/100)
+      }
+      d1=droiteGraduee2({x:0,y:0,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:true,Unite:15,
+                        thickCouleur:'black',axeCouleur:'blue',axeHauteur:6,
+                        pointListe:[[x1,'A'],[x2,'B'],[x3,'C']],
+                        pointTaille:6,pointOpacite:0.8,pointCouleur:'orange',axeStyle:extremite})
+      texte=`${num_alpha(0)} Donner l'abscisse de A en écriture décimale.<br>`
+      texte+=`${num_alpha(1)} Donner l'abscisse de B comme la somme d'un entier et d'une fraction décimale.<br>`
+      texte+=`${num_alpha(2)} Donner l'abscisse de C sous la forme d'une fraction décimale.<br>`
+      texte_corr=`${num_alpha(0)} L'abscisse de A est : $${tex_nombre(x1)}$.<br>`
+      texte_corr+=`${num_alpha(1)} L'abscisse de B est : $${tex_nombre(Math.floor(x2))} + ${tex_fraction(calcul(100*(x2-Math.floor(x2))),100)}$.<br>`
+      texte_corr+=`${num_alpha(2)} L'abscisse de C est : $${tex_fraction(calcul(x3*100),100)}$.<br>`
+  
     }
     else if (this.sup==3) {
-
+      xmin=randint(0,4)
+      if (xmin==0) extremite=`|->`
+      else extremite=`->`
+      xmax=xmin+0.2
+      while (estentier(x1)||estentier(x2)||estentier(x3)){
+      x1=randint(xmin*1000+1,xmin*1000+60)
+      x2=randint(xmin*1000+70,xmin*1000+130,x1)
+      x3=randint(xmin*1000+140,xmax*1000-10,[x1,x2])
+      x1=calcul(x1/1000)
+      x2=calcul(x2/1000)
+      x3=calcul(x3/1000)
+      }
+      d1=droiteGraduee2({x:0,y:0,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:true,Unite:150,
+                        thickDistance:0.1,thickSecDist:0.01,thickTerDist:0.001,
+                        thickCouleur:'black',axeCouleur:'blue',axeHauteur:6,
+                        pointListe:[[x1,'A'],[x2,'B'],[x3,'C']],
+                        labelListe:[[xmin+0.1,tex_nombrec(xmin+0.1)],[xmin+0.2,tex_nombrec(xmin+0.2)]],
+                        pointTaille:6,pointOpacite:0.8,pointCouleur:'orange',axeStyle:extremite})
+      texte=`${num_alpha(0)} Donner l'abscisse de A en écriture décimale.<br>`
+      texte+=`${num_alpha(1)} Donner l'abscisse de B comme la somme d'un entier et d'une fraction décimale.<br>`
+      texte+=`${num_alpha(2)} Donner l'abscisse de C sous la forme d'une fraction décimale.<br>`
+      texte_corr=`${num_alpha(0)} L'abscisse de A est : $${tex_nombre(x1)}$.<br>`
+      texte_corr+=`${num_alpha(1)} L'abscisse de B est : $${tex_nombre(Math.floor(x2))} + ${tex_fraction(calcul(1000*(x2-Math.floor(x2))),1000)}$.<br>`
+      texte_corr+=`${num_alpha(2)} L'abscisse de C est : $${tex_fraction(calcul(x3*1000),1000)}$.<br>`
+  
     }
-    texte+= mathalea2d({xmin:-1.5,xmax:30,ymin:-1,ymax:1.5},d1)
+    texte+= mathalea2d({xmin:-1.5,xmax:35,ymin:-1,ymax:1.5},d1)
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
     liste_de_question_to_contenu(this);

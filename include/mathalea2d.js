@@ -4111,7 +4111,7 @@ function DroiteGraduee2({
         dep=calcul(i+j*pas1);
         S=segment(point(x+(dep)*Unite*absord[0]-axeHauteur/15*r*absord[1],y-axeHauteur/15*r*absord[0]+(dep)*Unite*absord[1]),point(x+(dep)*Unite*absord[0]+axeHauteur/15*r*absord[1],y+axeHauteur/15*r*absord[0]+(dep)*Unite*absord[1]),thickCouleur);
         S.epaisseur=thickEpaisseur/2;
-        S.opacite=0.6;
+        S.opacite=0.8;
         objets.push(S);
         j++;
       }
@@ -4129,7 +4129,7 @@ function DroiteGraduee2({
           dep=calcul(i+j*pas1+k*pas2)
           S=segment(point(x+(dep)*Unite*absord[0]-axeHauteur/20*r*absord[1],y-axeHauteur/20*r*absord[0]+(dep)*Unite*absord[1]),point(x+(dep)*Unite*absord[0]+axeHauteur/20*r*absord[1],y+axeHauteur/20*r*absord[0]+(dep)*Unite*absord[1]),thickCouleur)
           S.epaisseur=thickEpaisseur/2
-          S.opacite=0.3
+          S.opacite=0.6
           objets.push(S)
           k++;
         }
