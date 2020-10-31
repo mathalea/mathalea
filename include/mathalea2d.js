@@ -4038,6 +4038,7 @@ function DroiteGraduee2({
   pointListe = false,
   pointCouleur='blue',
   pointTaille=4,
+  pointStyle='+',
   pointOpacite=0.8,
 /*  ThickMin = Min+thickDistance,
   ThickMax = Max-thickDistance,
@@ -4144,7 +4145,8 @@ function DroiteGraduee2({
       T=tracePoint(P,pointCouleur);
       T.taille=pointTaille;
       T.opacite=pointOpacite;
-      objets.push(T,labelPoint(P))
+      T.style=pointStyle;
+      objets.push(T,labelPoint(P));
     }
   }
 
