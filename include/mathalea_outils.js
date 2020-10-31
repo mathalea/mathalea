@@ -214,7 +214,7 @@ function creer_couples(E1, E2, nombre_de_couples_min = 10){
 *
 * @example
 * // Renvoit 1, 2 ou 3
-* randint(1,3)
+* randint (1,3)
 * @example
 * // Renvoit -1 ou 1
 * randint(-1,1,[0])

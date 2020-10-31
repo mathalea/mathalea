@@ -9449,8 +9449,17 @@ function Lire_abscisse_decimale_trois_formes() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Lire une abscisse décimale sous trois formes";
   this.consigne = "";
-  this.spacing = 2;
-  this.spacing_corr = 3;
+  if (sortie_html) {
+    this.spacing = 2;
+    this.spacing_corr = 3;
+  }
+  else {
+    this.spacing = 1;
+    this.spacing_corr = 1;
+  }
+  this.vspace=-1;
+  this.nb_cols=1;
+  this.nb_cols_corr=1;
   this.sup=1
   this.nb_questions=1;
   this.nb_questions_modifiable=false
@@ -9459,10 +9468,10 @@ function Lire_abscisse_decimale_trois_formes() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
 
-    let d1,texte,texte_corr,extremite
+    let d1,texte="",texte_corr="",extremite
     let x1=0,x2=0,x3=0
     if (this.sup==1){
-    xmin=randint(0,4)
+    xmin=randint(0,15)
     if (xmin==0) extremite=`|->`
     else extremite=`->`
     xmax=xmin+9
@@ -9475,7 +9484,7 @@ function Lire_abscisse_decimale_trois_formes() {
     x3=calcul(x3/10)
     }
     d1=droiteGraduee2({x:0,y:0,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:false,Unite:3,
-                      thickCouleur:'gray',axeCouleur:'black',axeHauteur:6,
+                      thickCouleur:'black',axeCouleur:'black',axeHauteur:6,
                       pointListe:[[x1,'A'],[x2,'B'],[x3,'C']],
                       pointTaille:2,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'o',axeStyle:extremite})
     texte=`${num_alpha(0)} Donner l'abscisse de A en écriture décimale.<br>`
@@ -9483,10 +9492,10 @@ function Lire_abscisse_decimale_trois_formes() {
     texte+=`${num_alpha(2)} Donner l'abscisse de C sous la forme d'une fraction décimale.<br>`
     texte_corr=`${num_alpha(0)} L'abscisse de A est : $${tex_nombre(x1)}$.<br>`
     texte_corr+=`${num_alpha(1)} L'abscisse de B est : $${tex_nombre(Math.floor(x2))} + ${tex_fraction(calcul(10*(x2-Math.floor(x2))),10)}$.<br>`
-    texte_corr+=`${num_alpha(2)} L'abscisse de C est : $${tex_fraction(calcul(x3*10),10)}$.<br>`
+    texte_corr+=`${num_alpha(2)} L'abscisse de C est : $${tex_fraction(calcul(x3*10),10)}$.`
     }
     else if (this.sup==2){
-      xmin=randint(0,4)
+      xmin=randint(0,15)
       if (xmin==0) extremite=`|->`
       else extremite=`->`
       xmax=calcul(xmin+1.5)
@@ -9507,11 +9516,11 @@ function Lire_abscisse_decimale_trois_formes() {
       texte+=`${num_alpha(2)} Donner l'abscisse de C sous la forme d'une fraction décimale.<br>`
       texte_corr=`${num_alpha(0)} L'abscisse de A est : $${tex_nombre(x1)}$.<br>`
       texte_corr+=`${num_alpha(1)} L'abscisse de B est : $${tex_nombre(Math.floor(x2))} + ${tex_fraction(calcul(100*(x2-Math.floor(x2))),100)}$.<br>`
-      texte_corr+=`${num_alpha(2)} L'abscisse de C est : $${tex_fraction(calcul(x3*100),100)}$.<br>`
+      texte_corr+=`${num_alpha(2)} L'abscisse de C est : $${tex_fraction(calcul(x3*100),100)}$.`
   
     }
     else if (this.sup==3) {
-      xmin=calcul(randint(0,4)+randint(0,9)*0.1)
+      xmin=calcul(randint(0,15)+randint(0,9)*0.1)
       if (xmin==0) extremite=`|->`
       else extremite=`->`
       xmax=calcul(xmin+0.15)
@@ -9534,13 +9543,13 @@ function Lire_abscisse_decimale_trois_formes() {
       texte+=`${num_alpha(2)} Donner l'abscisse de C sous la forme d'une fraction décimale.<br>`
       texte_corr=`${num_alpha(0)} L'abscisse de A est : $${tex_nombre(x1)}$.<br>`
       texte_corr+=`${num_alpha(1)} L'abscisse de B est : $${tex_nombre(Math.floor(x2))} + ${tex_fraction(calcul(1000*(x2-Math.floor(x2))),1000)}$.<br>`
-      texte_corr+=`${num_alpha(2)} L'abscisse de C est : $${tex_fraction(calcul(x3*1000),1000)}$.<br>`
+      texte_corr+=`${num_alpha(2)} L'abscisse de C est : $${tex_fraction(calcul(x3*1000),1000)}$.`
   
     }
-    texte+= mathalea2d({xmin:-1.5,xmax:35,ymin:-1,ymax:1.5},d1)
+    texte+= mathalea2d({xmin:-1.5,xmax:35,ymin:-1,ymax:1.5,pixelsParcCm:20,scale:0.5},d1)
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
-    liste_de_question_to_contenu(this);
+    liste_de_question_to_contenu_sans_numero(this);
   };
   this.besoin_formulaire_numerique = ['Niveau de difficulté',3,'1 : Au dixième\n2 : Au centième\n3 : Au millième'];
 }
