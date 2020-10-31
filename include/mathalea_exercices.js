@@ -14403,7 +14403,7 @@ let liste_type_de_questions = combinaison_listes(
       }
 
     if (liste_type_de_questions[i]==6){ 
-      objets_enonce.push(AB,BF,tracePoint(I),
+      objets_enonce.push(AB,BF,tracePoint(I,.5,'red'),labelPoint(I),
       g,
       carreaux
       );
