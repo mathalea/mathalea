@@ -99,7 +99,7 @@ var liste_des_exercices_disponibles = {
   "6N23": Exercice_ecriture_decimale_a_partir_de_fraction_decimale,
   "6N23-0" : Ecrire_nombres_decimal,
   "6N23-1": Exercice_differentes_ecritures_nombres_decimaux,
-  "beta6N23-2" : Lire_abscisse_decimale_trois_formes,
+  "6N23-2" : Lire_abscisse_decimale_trois_formes,
   "6N24": Exercice_6N24,
   "6N24-1": Exercice_multiplier_ou_diviser_un_nombre_entier_par_10_100_1000,
   "6N30": Lire_abscisse_decimale,
