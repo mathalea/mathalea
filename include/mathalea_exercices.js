@@ -9511,10 +9511,10 @@ function Lire_abscisse_decimale_trois_formes() {
   
     }
     else if (this.sup==3) {
-      xmin=randint(0,4)
+      xmin=calcul(randint(0,4)+randint(0,9)*0.1)
       if (xmin==0) extremite=`|->`
       else extremite=`->`
-      xmax=xmin+0.2
+      xmax=calcul(xmin+0.2)
       while (estentier(x1)||estentier(x2)||estentier(x3)){
       x1=randint(xmin*1000+1,xmin*1000+60)
       x2=randint(xmin*1000+70,xmin*1000+130,x1)
