@@ -14281,7 +14281,7 @@ function Organiser_donnees_depuis_texte() {
     this.liste_corrections.push(texte_corr);
     liste_de_question_to_contenu(this);
   }
-  this.besoin_formulaire_numerique = ['Nombre de fruits différents',6];
+  this.besoin_formulaire2_numerique = ['Nombre de fruits différents',6];
   this.besoin_formulaire_case_a_cocher = ['Pour utiliser des nombres décimaux et des masses.', false];
 }
 
