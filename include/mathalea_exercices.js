@@ -9468,7 +9468,7 @@ function Lire_abscisse_decimale_trois_formes() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
 
-    let d1,texte="",texte_corr="",extremite
+    let d1,texte="",texte_corr="",extremite,noms=choisit_lettres_differentes(3,'Q')
     let x1=0,x2=0,x3=0
     if (this.sup==1){
     xmin=randint(0,15)
@@ -9483,16 +9483,17 @@ function Lire_abscisse_decimale_trois_formes() {
     x2=calcul(x2/10)
     x3=calcul(x3/10)
     }
+    [x1,x2,x3]=shuffle([x1,x2,x3])
     d1=droiteGraduee2({x:0,y:0,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:false,Unite:3,
                       thickCouleur:'black',axeCouleur:'black',axeHauteur:6,
-                      pointListe:[[x1,'A'],[x2,'B'],[x3,'C']],
+                      pointListe:[[x1,`${noms[0]}`],[x2,`${noms[1]}`],[x3,`${noms[2]}`]],
                       pointTaille:2,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'o',axeStyle:extremite})
-    texte=`${num_alpha(0)} Donner l'abscisse de A en écriture décimale.<br>`
-    texte+=`${num_alpha(1)} Donner l'abscisse de B comme la somme d'un entier et d'une fraction décimale.<br>`
-    texte+=`${num_alpha(2)} Donner l'abscisse de C sous la forme d'une fraction décimale.<br>`
-    texte_corr=`${num_alpha(0)} L'abscisse de A est : $${tex_nombre(x1)}$.<br>`
-    texte_corr+=`${num_alpha(1)} L'abscisse de B est : $${tex_nombre(Math.floor(x2))} + ${tex_fraction(calcul(10*(x2-Math.floor(x2))),10)}$.<br>`
-    texte_corr+=`${num_alpha(2)} L'abscisse de C est : $${tex_fraction(calcul(x3*10),10)}$.`
+    texte=`${num_alpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.<br>`
+    texte+=`${num_alpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un entier et d'une fraction décimale.<br>`
+    texte+=`${num_alpha(2)} Donner l'abscisse de ${noms[2]} sous la forme d'une fraction décimale.<br>`
+    texte_corr=`${num_alpha(0)} L'abscisse de ${noms[0]} est : $${tex_nombre(x1)}$.<br>`
+    texte_corr+=`${num_alpha(1)} L'abscisse de ${noms[1]} est : $${tex_nombre(Math.floor(x2))} + ${tex_fraction(calcul(10*(x2-Math.floor(x2))),10)}$.<br>`
+    texte_corr+=`${num_alpha(2)} L'abscisse de ${noms[2]} est : $${tex_fraction(calcul(x3*10),10)}$.`
     }
     else if (this.sup==2){
       xmin=randint(0,15)
@@ -9507,16 +9508,17 @@ function Lire_abscisse_decimale_trois_formes() {
       x2=calcul(x2/100)
       x3=calcul(x3/100)
       }
+      [x1,x2,x3]=shuffle([x1,x2,x3])
       d1=droiteGraduee2({x:0,y:0,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:true,Unite:20,
                         thickCouleur:'black',axeCouleur:'black',axeHauteur:6,
-                        pointListe:[[x1,'A'],[x2,'B'],[x3,'C']],
+                        pointListe:[[x1,`${noms[0]}`],[x2,`${noms[1]}`],[x3,`${noms[2]}`]],
                         pointTaille:2,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'o',axeStyle:extremite})
-      texte=`${num_alpha(0)} Donner l'abscisse de A en écriture décimale.<br>`
-      texte+=`${num_alpha(1)} Donner l'abscisse de B comme la somme d'un entier et d'une fraction décimale.<br>`
-      texte+=`${num_alpha(2)} Donner l'abscisse de C sous la forme d'une fraction décimale.<br>`
-      texte_corr=`${num_alpha(0)} L'abscisse de A est : $${tex_nombre(x1)}$.<br>`
-      texte_corr+=`${num_alpha(1)} L'abscisse de B est : $${tex_nombre(Math.floor(x2))} + ${tex_fraction(calcul(100*(x2-Math.floor(x2))),100)}$.<br>`
-      texte_corr+=`${num_alpha(2)} L'abscisse de C est : $${tex_fraction(calcul(x3*100),100)}$.`
+      texte=`${num_alpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.<br>`
+      texte+=`${num_alpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un entier et d'une fraction décimale.<br>`
+      texte+=`${num_alpha(2)} Donner l'abscisse de ${noms[2]} sous la forme d'une fraction décimale.<br>`
+      texte_corr=`${num_alpha(0)} L'abscisse de ${noms[0]} est : $${tex_nombre(x1)}$.<br>`
+      texte_corr+=`${num_alpha(1)} L'abscisse de ${noms[1]} est : $${tex_nombre(Math.floor(x2))} + ${tex_fraction(calcul(100*(x2-Math.floor(x2))),100)}$.<br>`
+      texte_corr+=`${num_alpha(2)} L'abscisse de ${noms[2]} est : $${tex_fraction(calcul(x3*100),100)}$.`
   
     }
     else if (this.sup==3) {
@@ -9532,18 +9534,19 @@ function Lire_abscisse_decimale_trois_formes() {
       x2=calcul(x2/1000)
       x3=calcul(x3/1000)
       }
+      [x1,x2,x3]=shuffle([x1,x2,x3])
       d1=droiteGraduee2({x:0,y:0,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:true,Unite:200,
                         thickDistance:0.1,thickSecDist:0.01,thickTerDist:0.001,
                         thickCouleur:'black',axeCouleur:'black',axeHauteur:6,
-                        pointListe:[[x1,'A'],[x2,'B'],[x3,'C']],
+                        pointListe:[[x1,`${noms[0]}`],[x2,`${noms[1]}`],[x3,`${noms[2]}`]],
                         labelListe:[[xmin+0.1,tex_nombrec(xmin+0.1)],[xmin+0.2,tex_nombrec(xmin+0.2)]],
                         pointTaille:2,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'o',axeStyle:extremite})
-      texte=`${num_alpha(0)} Donner l'abscisse de A en écriture décimale.<br>`
-      texte+=`${num_alpha(1)} Donner l'abscisse de B comme la somme d'un entier et d'une fraction décimale.<br>`
-      texte+=`${num_alpha(2)} Donner l'abscisse de C sous la forme d'une fraction décimale.<br>`
-      texte_corr=`${num_alpha(0)} L'abscisse de A est : $${tex_nombre(x1)}$.<br>`
-      texte_corr+=`${num_alpha(1)} L'abscisse de B est : $${tex_nombre(Math.floor(x2))} + ${tex_fraction(calcul(1000*(x2-Math.floor(x2))),1000)}$.<br>`
-      texte_corr+=`${num_alpha(2)} L'abscisse de C est : $${tex_fraction(calcul(x3*1000),1000)}$.`
+      texte=`${num_alpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.<br>`
+      texte+=`${num_alpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un entier et d'une fraction décimale.<br>`
+      texte+=`${num_alpha(2)} Donner l'abscisse de ${noms[2]} sous la forme d'une fraction décimale.<br>`
+      texte_corr=`${num_alpha(0)} L'abscisse de ${noms[0]} est : $${tex_nombre(x1)}$.<br>`
+      texte_corr+=`${num_alpha(1)} L'abscisse de ${noms[1]} est : $${tex_nombre(Math.floor(x2))} + ${tex_fraction(calcul(1000*(x2-Math.floor(x2))),1000)}$.<br>`
+      texte_corr+=`${num_alpha(2)} L'abscisse de ${noms[2]} est : $${tex_fraction(calcul(x3*1000),1000)}$.`
   
     }
     texte+= mathalea2d({xmin:-1.5,xmax:35,ymin:-1,ymax:1.5,pixelsParcCm:20,scale:0.5},d1)
