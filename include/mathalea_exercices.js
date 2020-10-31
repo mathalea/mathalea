@@ -14531,7 +14531,7 @@ function Representer_un_solide_5e() {
 
 // 4G51
 function Representer_un_solide_4e() {
-  this.sup = 5;
+  this.sup = 6;
   this.classe = 4;
   Representer_un_solide.call(this);
 }
