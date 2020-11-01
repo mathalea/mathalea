@@ -14,7 +14,11 @@ function liste_de_question_to_contenu(argument) {
 		argument.contenu = html_consigne(argument.consigne) + html_paragraphe(argument.introduction) + html_enumerate(argument.liste_questions,argument.spacing)
 		argument.contenu_correction = html_consigne(argument.consigne_correction) + html_enumerate(argument.liste_corrections,argument.spacing_corr)	
 	} else {
-		argument.contenu = tex_consigne(argument.consigne) + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions,argument.spacing),argument.nb_cols)
+		let vspace = '';
+		if (argument.vspace) {
+			vspace = `\\vspace{${argument.vspace} cm}\n`
+		}
+		argument.contenu = tex_consigne(argument.consigne) + vspace + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions,argument.spacing),argument.nb_cols)
 		argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_enumerate(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 	}
 	
@@ -1271,12 +1275,14 @@ function creerNomDePolygone(nbsommets,liste_a_eviter=[]){
 	}
 
 	if (liste_a_eviter.length < ((26-nbsommets)/nbsommets)-1){ // On évite la liste à éviter si elle n'est pas trop grosse sinon on n'en tient pas compte
-		while(possedeUnCaractereInterdit(polygone,liste_a_eviter)){
+		let cpt = 0;
+		while(possedeUnCaractereInterdit(polygone,liste_a_eviter) && cpt <20){
 			polygone="";
 			premiersommet = randint(65,90-nbsommets);
 			for (let i=0;i<nbsommets;i++){
 				polygone += String.fromCharCode(premiersommet+i)
 			}
+			cpt ++; // Au bout de 20 essais on laisse tomber la liste à éviter
 		}
 	} else {
 		console.log("Trop de questions donc plusieurs polygones peuvent avoir le même nom")
@@ -1298,6 +1304,46 @@ function possedeUnCaractereInterdit(texte,liste_a_eviter) {
 		}
 	}
 	return result;
+}
+/**
+ * retourne une liste de combien de nombres compris entre m et n (inclus) en évitant les valeurs de liste_a_eviter
+ * toutes la liste des nombres est retournée si combien est supérieur à l'effectif disponible
+ * les valeurs sont dans un ordre aléatoire.
+ * @Auteur Jean-Claude Lhote
+ * 
+ */
+function choisit_nombres_entre_m_et_n(m,n,combien,liste_a_eviter=[]){
+	let t
+	if (m>n) {
+		t=m;
+		m=n;
+		n=t;
+	}
+	else if (m==n)
+		return [n];
+	if (combien>n-m) combien=n-m;
+	let index=rangeMinMax(m,n,liste_a_eviter)
+	index=shuffle(index);
+	index=index.slice(0,combien)
+	return index;
+}
+/**
+ * retourne une liste de lettres majuscules (ou minuscule si majuscule=false)
+ * il y aura nombre lettres dans un ordre aléatoire
+ * les lettres à éviter sont données dans une chaine par exemple : 'QXY'
+ * @Auteur Jean-Claude Lhote
+ */
+function choisit_lettres_differentes(nombre,lettres_a_eviter,majuscule=true){
+	let liste_a_eviter=[],lettres=[]
+	for (l of lettres_a_eviter) {
+		liste_a_eviter.push(l.charCodeAt(0)-64)
+	}
+	let index=choisit_nombres_entre_m_et_n(1,26,nombre,liste_a_eviter)
+	for (n of index) {
+		if (majuscule) lettres.push(lettre_depuis_chiffre(n))
+		else lettres.push(lettre_minuscule_depuis_chiffre(n))
+	}
+	return lettres
 }
 
 /**
