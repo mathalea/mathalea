@@ -63,7 +63,8 @@ var liste_des_exercices_disponibles = {
   "6G25-1": Pavages_et_reflexion,
   "6G25-2": Pavages_et_symetries,
   "6G33" : Symetrie_axiale_conservation1,
-  "beta6G41" : Representer_un_solide_6e,
+  "6G41" : Representer_un_solide_6e,
+  "6G33" : Symetrie_axiale_conservation1,
   "6G42" : Solide_6e,
   "6G43" : Utiliser_vocabulaire_pave,
   "6M11-1": Perimetre_ou_aire_de_carres_rectangles_triangles,
@@ -146,7 +147,7 @@ var liste_des_exercices_disponibles = {
   "5G30" : Utiliser_le_codage_pour_decrire_5e,
   "5G31": Exercice_angles_triangles,
   "5G31-1": Constructibilite_des_triangles_angles,
-  "beta5G51" : Representer_un_solide_5e,
+  "5G51" : Representer_un_solide_5e,
   "5N11-1": Tableaux_et_pourcentages,
   "5N13": Exercice_fractions_simplifier,
   "5N13-2": Egalites_entre_fractions,
@@ -235,7 +236,7 @@ var liste_des_exercices_disponibles = {
   "4G40": Transformations_4e,
   "4G40": Exercice_Trigo_longueurs_4e,
   "4G41": Exercice_Trigo_angles_4e,
-  "beta4G51" : Representer_un_solide_4e,
+  "4G51" : Representer_un_solide_4e,
   "4G53": Calcul_de_volumes_4e,
   "3A10": DivisionEuclidienne_multiplesDiviseurs_Criteres,
   "3A11": Premier_ou_pas,
@@ -14472,7 +14473,7 @@ function Tracer_triangle_2_angles() {
 function Representer_un_solide() {
   "use strict";
   Exercice.call(this);// Héritage de la classe Exercice ()
-  this.titre = "Compléter le schéma d'un cube ou d'un pavé droit";
+  this.titre = "Compléter le schéma d'un schéma";
   this.nb_questions = 1;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
