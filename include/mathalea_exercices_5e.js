@@ -2835,6 +2835,79 @@ function Reperage_point_du_plan(){
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',3,"1 : Coordonnées entières\n2 : Coordonnées 'en demis'\n3 : Coordonnées 'en quarts'"];
 	this.besoin_formulaire2_case_a_cocher = ['Grille de lecture'];
 }
+
+/**
+ * Placer un événement sur une échelle de probabilités.
+ * @Auteur Erwan Duplessy
+ * Référence 5S20
+ */
+
+ // Source : https://pedagogie.ac-guadeloupe.fr/sites/default/files/File/flouvet/ra16_c4_math_probabilite_flash_pdf_69131.pdf
+
+function Placer_probabilites(){
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Placer un événement sur une échelle de probabilités";
+	this.consigne = "";
+	this.nb_questions = 1;
+	this.nb_questions_modifiable = false;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	sortie_html? this.spacing = 2 : this.spacing = 1; 
+	sortie_html? this.spacing_corr = 3 : this.spacing_corr = 1;
+	//this.sup=1;
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées		
+		let lstEvenenement = [];
+		lstEvenenement.push(`Obtenir face quand on lance une pièce d’un euro`);
+		lstEvenenement.push(`Le premier jour de l’année 2042 sera le 1er janvier`);
+		lstEvenenement.push(`Gagner le gros lot au loto`);
+		lstEvenenement.push(`Avoir de la neige à Nice en juillet`);
+		lstEvenenement.push(`L’équipe de France de rugby va remporter le prochain match international de football`);
+		lstEvenenement.push(`Feter deux anniversaires dans la classe demain`);
+		lstEvenenement.push(`Rencontrer un dragon`);
+		lstEvenenement.push(`Choisir une balle rouge dans un sac contenant une balle rouge et trois balles vertes`);
+		lstEvenenement.push(`Obtenir un As en prenant une carte au hasard dans un jeu de 52 cartes`);
+		let n = randint(1,6);
+		let m = randint(n,n+randint(1,10));
+		lstEvenenement.push(`Obtenir ${n} avec un dé à ${m} faces`);
+
+		let lstEvenenementExo = [];
+		for (let i = 0; i<4; i++){
+			lstEvenenementExo.push(choice(lstEvenenement, lstEvenenementExo));
+		}
+		
+		texte =`Placer la lettre correspondant à chaque évènement sur l'axe des probabilités ci-dessous.<br>`
+		for (let i = 0; i<4; i++){
+			texte += num_alpha(i) + ` ` + lstEvenenementExo[i] + `.<br>`;
+		}
+
+		let L = 10 // longueur du segment
+		let lstObjet = [];
+		lstObjet.push(segment(0,0,L,0));
+		lstObjet.push(segment(0,-0.1,0,0.1));
+		lstObjet.push(segment(L,-0.1,L,0.1));
+		lstObjet.push(segment(L/2,-0.1,L/2,0.1));
+		let angle = 60;
+		let y = -0.5;
+		lstObjet.push(texteParPosition(`Impossible`,0,y,angle,'black',1,'gauche'));
+		lstObjet.push(texteParPosition(`Improbable`,L/6,y,angle,'black',1,'gauche'));
+		lstObjet.push(texteParPosition(`Peu probable`,L/3,y,angle,'black',1,'gauche'));		
+		lstObjet.push(texteParPosition(`Une chance sur deux`,L/2,y,angle,'black',1,'gauche'));
+		lstObjet.push(texteParPosition(`Probable`,2*L/3,y,angle,'black',1,'gauche'));
+		lstObjet.push(texteParPosition(`Très probable`,5*L/6,y,angle,'black',1,'gauche'));
+		lstObjet.push(texteParPosition(`Certain`,L,y,angle,'black',1,'gauche'));
+
+		texte += mathalea2d({xmin : -1, xmax : 12, ymin : -4, ymax : 1, pixelsParCm : 30, scale : 1}, lstObjet);
+
+		texte_corr = `fgd`;
+		
+		this.liste_questions.push(texte);
+		this.liste_corrections.push(texte_corr);
+		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
+	}
+};
+
 /**
  * Calculs de probabilités sur une expérience aléatoire à une épreuve.
  * @Auteur Jean-Claude Lhote
