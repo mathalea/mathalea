@@ -140,8 +140,10 @@ function TracePoint(...points) {
 function TracePoint(...points) {
   ObjetMathalea2D.call(this);
   this.taille = 3;
-  this.epaisseur=2;
+  this.epaisseur=1;
   this.opacite=0.8;
+  this.style='x';
+
   if (typeof points[points.length - 1] === "string") {
     this.color = points[points.length - 1];
   }
@@ -150,6 +152,7 @@ function TracePoint(...points) {
     let objetssvg=[];
     for (let A of points) {
       if (A.constructor == Point) {
+        if (this.style=='x'){
         s1=segment(point(A.x-this.taille/coeff,A.y+this.taille/coeff),
         point(A.x+this.taille/coeff,A.y-this.taille/coeff),this.color);
         s2=segment(point(A.x-this.taille/coeff,A.y-this.taille/coeff),
@@ -159,6 +162,38 @@ function TracePoint(...points) {
         s1.opacite=this.opacite;
         s2.opacite=this.opacite;
         objetssvg.push(s1,s2);
+        }
+        else if (this.style=='o'){
+          p1=point(A.x,A.y)
+ //         p2=point(A.x+this.taille/coeff,A.y-this.taille/coeff)
+          c=cercle(p1,this.taille/coeff,this.color)
+          c.epaisseur=this.epaisseur
+          c.opacite=this.opacite
+          c.couleurDeRemplissage=this.color
+          c.opaciteDeRemplissage=this.opacite/4
+          objetssvg.push(c)
+        }
+        else if (this.style=='#'){
+          p1=point(A.x-this.taille/coeff,A.y-this.taille/coeff)
+          p2=point(A.x+this.taille/coeff,A.y-this.taille/coeff)
+          c=carreIndirect(p1,p2,this.color)
+          c.epaisseur=this.epaisseur
+          c.opacite=this.opacite
+          c.couleurDeRemplissage=this.color
+          c.opaciteDeRemplissage=this.opacite/4
+          objetssvg.push(c)
+        }
+        else if (this.style=='+'){
+          s1=segment(point(A.x,A.y+this.taille/coeff),
+          point(A.x,A.y-this.taille/coeff),this.color);
+          s2=segment(point(A.x-this.taille/coeff,A.y),
+          point(A.x+this.taille/coeff,A.y),this.color);
+          s1.epaisseur=this.epaisseur;
+          s2.epaisseur=this.epaisseur;
+          s1.opacite=this.opacite;
+          s2.opacite=this.opacite;
+          objetssvg.push(s1,s2);
+        }
       }
     }
     code = "";
@@ -171,21 +206,51 @@ function TracePoint(...points) {
     let objetstikz=[];
     for (let A of points) {
       if (A.constructor == Point) {
-        s1=segment(point(A.x-this.taille/20/scale,A.y+this.taille/20/scale),
-        point(A.x+this.taille/20/scale,A.y-this.taille/20/scale),this.color);
-        s2=segment(point(A.x-this.taille/20/scale,A.y-this.taille/20/scale),
-        point(A.x+this.taille/20/scale,A.y+this.taille/20/scale),this.color);
+        if (this.style=='x'){
+        s1=segment(point(A.x-this.taille/coeff,A.y+this.taille/coeff),
+        point(A.x+this.taille/coeff,A.y-this.taille/coeff),this.color);
+        s2=segment(point(A.x-this.taille/coeff,A.y-this.taille/coeff),
+        point(A.x+this.taille/coeff,A.y+this.taille/coeff),this.color);
         s1.epaisseur=this.epaisseur;
         s2.epaisseur=this.epaisseur;
-        objetstikz.push(s1,s2);
+        s1.opacite=this.opacite;
+        s2.opacite=this.opacite;
+        objetssvg.push(s1,s2);
+        }
+        else if (this.style=='o'){
+          p1=point(A.x,A.y)
+ //         p2=point(A.x+this.taille/coeff,A.y-this.taille/coeff)
+          c=cercle(p1,this.taille/coeff,this.color)
+          c.epaisseur=this.epaisseur
+          c.opacite=this.opacite
+          c.couleurDeRemplissage=this.color
+          c.opaciteDeRemplissage=this.opacite/2
+          objetssvg.push(c)
+        }
+        else if (this.style=='#'){
+          p1=point(A.x-this.taille/coeff,A.y-this.taille/coeff)
+          p2=point(A.x+this.taille/coeff,A.y-this.taille/coeff)
+          c=carreIndirect(p1,p2,this.color)
+          c.epaisseur=this.epaisseur
+          c.opacite=this.opacite
+          c.couleurDeRemplissage=this.color
+          c.opaciteDeRemplissage=this.opacite/2
+          objetssvg.push(c)
+        }
+        else if (this.style=='+'){
+          s1=segment(point(A.x,A.y+this.taille/coeff),
+          point(A.x,A.y-this.taille/coeff),this.color);
+          s2=segment(point(A.x-this.taille/coeff,A.y),
+          point(A.x+this.taille/coeff,A.y),this.color);
+          s1.epaisseur=this.epaisseur;
+          s2.epaisseur=this.epaisseur;
+          s1.opacite=this.opacite;
+          s2.opacite=this.opacite;
+          objetssvg.push(s1,s2);
+        }
       }
     }
-    code = "";
-    for (objet of objetstikz) {
-      code += "\n\t" + objet.tikz();
-    }
-    return code;
-  };
+  }
 }
 
 function tracePoint(...args) {
@@ -3931,6 +3996,27 @@ function DroiteGraduee(x=0,y=0,position='H',type='dd',longueurUnite=10,division=
 function droiteGraduee(...args) {
   return new DroiteGraduee(...args)
 }
+/**
+ * @Auteur Jean-Claude Lhote
+ * Paramètres :
+ * Unite : Nombre de cm par Unité
+ * Min,Max : Valeur minimum et maximum labelisées sur l'axe (les graduations commencent un peu avant et finissent un peu après)
+ * x,y : coordonnées du point de départ du tracé
+ * axeEpaisseur,axeCouleur, axeStyle : épaisseur, couleur et syle de l'axe
+ * axeHauteur : définit la "largeur" de l'axe, celle des graduations et de la flèche
+ * axePosition : 'H' pour horizontal, 'V' pour vertical
+ * thickEpaisseur,thickCouleur : grosseur et couleur des graduations
+ * thickDistance : distance entre deux graduations principales
+ * thickSecDist : distance entre deux graduations secondaires
+ * thickTerDist : distance entre deux graduations tertiaires
+ * thickSec : true si besoin de graduations secondaires, false sinon
+ * thickTer : true si besoin de graduations tertiaires, false sinon
+ * pointListe : Liste de points à mettre sur l'axe. Exemple [[3.4,'A'],[3.8,'B],....]. Les noms se placent au dessus de l'axe.
+ * pointTaille, pointOpacite, pointCouleur : taille en pixels, opacité et couleurs des points de la pointListe
+ * labelListe : pour ajouter des labels. Exemple [[2.8,'x'],[3.1,'y']] les labels se placent sous l'axe. 
+ * Legende : texte à écrire en bout de droite graduée
+ * LegendePosition : position de la légende
+ */
 function DroiteGraduee2({
   Unite = 10,
   Min = 0,
@@ -3943,25 +4029,25 @@ function DroiteGraduee2({
   axeHauteur=4,
   axePosition='H',
   thickEpaisseur = 2,
-  thickHauteur = .2,
   thickCouleur = axeCouleur,
-  ThickDistance = 1,
-  ThickSecDist =0.1,
-  ThickSec = false,
-  ThickTerDist=0.01,
-  ThickTer=false,
-  PointListe = false,
+  thickDistance = 1,
+  thickSecDist =0.1,
+  thickSec = false,
+  thickTerDist=0.01,
+  thickTer=false,
+  pointListe = false,
   pointCouleur='blue',
   pointTaille=4,
   pointOpacite=0.8,
-  ThickMin = Min+ThickDistance,
-  ThickMax = Max-ThickDistance,
-  LabelDistance = ThickDistance,
-  LabelListe = false,
-  LabelMin = ThickMin,
-  LabelMax = ThickMax,
+/*  ThickMin = Min+thickDistance,
+  ThickMax = Max-thickDistance,
+*/
+  labelDistance = axeHauteur*2/pixelsParCm,
+  labelListe = false,
+//  LabelMin = ThickMin,
+//  LabelMax = ThickMax,
   Legende = "",
-  LegendePosition = [calcul(Max*Unite) + .5, .5]
+  LegendePosition = calcul((Max-Min)*Unite+1.5)
 } = {}) {
   ObjetMathalea2D.call(this)
 
@@ -3970,9 +4056,9 @@ function DroiteGraduee2({
   this.Min = Min;
   this.Max = Max;
 
-  let objets = []
-  let longueurTotale=(Max-Min)*Unite+1.3
-  let absord=[1,0]
+  let objets = [];
+  let longueurTotale=(Max-Min)*Unite+0.7;
+  let absord=[1,0];
   if (axePosition!='H') absord=[0,1]
   if (axeStyle=='->'){
     longueurTotale+=0.2;
@@ -3989,62 +4075,71 @@ function DroiteGraduee2({
   }
   objets.push(S);
   // Graduation principale
-  pas1=ThickSecDist;
-  pas2=ThickTerDist;
+  pas1=thickSecDist;
+  pas2=thickTerDist;
   r=10/pixelsParCm
   i=0;
-  while (i*Unite<(Max-Min)*Unite+1.3) {
-    S=segment(point(x+i*Unite*absord[0]-axeHauteur/10*r*absord[1],y-axeHauteur/10*r*absord[0]+i*Unite*absord[1]),point(x+i*Unite*absord[0]+axeHauteur/10*r*absord[1],y+axeHauteur/10*r*absord[0]+i*Unite*absord[1]),'green');
-    S.epaisseur=2;
+  while (i*Unite<(Max-Min)*Unite+1) {
+    S=segment(point(x+i*Unite*absord[0]-axeHauteur/10*r*absord[1],y-axeHauteur/10*r*absord[0]+i*Unite*absord[1]),point(x+i*Unite*absord[0]+axeHauteur/10*r*absord[1],y+axeHauteur/10*r*absord[0]+i*Unite*absord[1]),thickCouleur);
+    S.epaisseur=thickEpaisseur;
     objets.push(S);
-    i+=ThickDistance;
+    i+=thickDistance;
   }
   // Les labels principaux
   i=0;
-  while (i*Unite<(Max-Min)*Unite+1.3) {
-   T=texteParPosition(nombre_avec_espace(arrondi(calcul(Min+i),3)),x+i*Unite*absord[0]-0.8*absord[1],y+i*Unite*absord[1]-0.8*absord[0]);
+  while (i*Unite<(Max-Min)*Unite+1) {
+   T=texteParPosition(nombre_avec_espace(arrondi(calcul(Min+i),3)),x+i*Unite*absord[0]-labelDistance*absord[1],y+i*Unite*absord[1]-labelDistance*absord[0]);
     objets.push(T);
-    i+=LabelDistance;
+    i+=1;
   }
-   
+  // Les labels facultatifs
+  if (labelListe){
+    for (p of labelListe){
+      t=texteParPosition(p[1],x-labelDistance*absord[1]+(p[0]-Min)*absord[0]*Unite,y-labelDistance*absord[0]+(p[0]-Min)*absord[1]*Unite)
+      objets.push(t)
+    }
+  }
+  if (Legende!=""){
+    objets.push(texteParPosition(Legende,x+LegendePosition*absord[0],y+LegendePosition*absord[1]))
+  }
   // Graduation secondaire
-  if (ThickSec){
+  if (thickSec){
     i=0;
-    while (i*Unite<=(Max-Min)*Unite+1.3) {
+    while (i*Unite<=(Max-Min)*Unite+1) {
       j=1;
-      while ((i+j*pas1)*Unite<=(Max-Min)*Unite+1.3&&j<ThickDistance/ThickSecDist){
+      while ((i+j*pas1)*Unite<=(Max-Min)*Unite+0.3&&j<thickDistance/thickSecDist){
         dep=calcul(i+j*pas1);
         S=segment(point(x+(dep)*Unite*absord[0]-axeHauteur/15*r*absord[1],y-axeHauteur/15*r*absord[0]+(dep)*Unite*absord[1]),point(x+(dep)*Unite*absord[0]+axeHauteur/15*r*absord[1],y+axeHauteur/15*r*absord[0]+(dep)*Unite*absord[1]),thickCouleur);
-        S.epaisseur=1;
-        S.opacite=0.6;
+        S.epaisseur=thickEpaisseur/2;
+        S.opacite=0.8;
         objets.push(S);
         j++;
       }
-      i+=ThickDistance;
+      i+=thickDistance;
     }
   }
   // Graduation tertiaire
-  if (ThickTer){
+  if (thickTer){
     i=0
-    while (i*Unite<=(Max-Min)*Unite+1.3) {
+    while (i*Unite<=(Max-Min)*Unite+1) {
       j=0;
-      while ((i+j*pas1)*Unite<=(Max-Min)*Unite+1.3&&j<ThickDistance/ThickSecDist){
+      while ((i+j*pas1)*Unite<=(Max-Min)*Unite+0.3&&j<thickDistance/thickSecDist){
         k=1;
-        while ((i+j*pas1+k*pas2)*Unite<=(Max-Min)*Unite+1.3&&k<ThickSecDist/ThickTerDist){
+        while ((i+j*pas1+k*pas2)*Unite<=(Max-Min)*Unite+0.3&&k<thickSecDist/thickTerDist){
           dep=calcul(i+j*pas1+k*pas2)
           S=segment(point(x+(dep)*Unite*absord[0]-axeHauteur/20*r*absord[1],y-axeHauteur/20*r*absord[0]+(dep)*Unite*absord[1]),point(x+(dep)*Unite*absord[0]+axeHauteur/20*r*absord[1],y+axeHauteur/20*r*absord[0]+(dep)*Unite*absord[1]),thickCouleur)
-          S.epaisseur=1
-          S.opacite=0.3
+          S.epaisseur=thickEpaisseur/2
+          S.opacite=0.6
           objets.push(S)
           k++;
         }
         j++
       }
-      i+=ThickDistance;      
+      i+=thickDistance;      
     }
   }
-  if (PointListe){
-    for (p of PointListe){
+  if (pointListe){
+    for (p of pointListe){
       P=point(x+(p[0]-Min)*absord[0]*Unite,y+(p[0]-Min)*absord[1]*Unite,p[1],'above')
       T=tracePoint(P,pointCouleur);
       T.taille=pointTaille;
@@ -4052,7 +4147,7 @@ function DroiteGraduee2({
       objets.push(T,labelPoint(P))
     }
   }
-  
+
   this.svg = function (coeff) {
     let code = "";
      for (objet of objets) {
@@ -4792,7 +4887,7 @@ function Repere2({
   xLegendePosition = [calcul(xMax*xUnite) + .5, .5],
   yLegende = "",
   yLegendePosition = [.5, calcul(yMax*yUnite) + .5],
-  grille = false,
+  grille = true,
   grilleDistance = false,
   grilleCouleur = "black",
   grilleOpacite = 0.5,
@@ -4843,13 +4938,13 @@ function Repere2({
 
   let objets = []
   // LES AXES
-  let OrdonneeAxe =Math.max(0,yMin)
-  let axeX = segment(calcul(xMin*xUnite),OrdonneeAxe,calcul(xMax*xUnite),OrdonneeAxe);
+  let OrdonneeAxe = Math.max(0,yMin)
+  let axeX = segment(calcul(xMin*xUnite),calcul(OrdonneeAxe*yUnite),calcul(xMax*xUnite),calcul(OrdonneeAxe*yUnite));
   axeX.epaisseur = axesEpaisseur;
   axeX.styleExtremites = axeXStyle;
   axeX.color = axesCouleur;
   let abscisseAxe =Math.max(0,xMin)
-  let axeY = segment(abscisseAxe,calcul(yMin*yUnite),abscisseAxe,calcul(yMax*yUnite));
+  let axeY = segment(calcul(abscisseAxe*xUnite),calcul(yMin*yUnite),calcul(abscisseAxe*xUnite),calcul(yMax*yUnite));
   axeY.epaisseur = axesEpaisseur;
   axeY.styleExtremites = axeYStyle;
   axeY.color = axesCouleur;
@@ -4863,7 +4958,7 @@ function Repere2({
     xThickListe = rangeMinMax(xThickMin,xThickMax,[0],xThickDistance)
   }
   for (x of xThickListe){
-    let thick = segment(calcul(x*xUnite),OrdonneeAxe-thickHauteur,calcul(x*xUnite),OrdonneeAxe+thickHauteur);
+    let thick = segment(calcul(x*xUnite),calcul(OrdonneeAxe*yUnite-thickHauteur),calcul(x*xUnite),calcul(OrdonneeAxe*yUnite+thickHauteur));
     thick.isVisible = false;
     thick.epaisseur = thickEpaisseur;
     thick.color = thickCouleur;
@@ -4873,7 +4968,7 @@ function Repere2({
     yThickListe = rangeMinMax(yThickMin,yThickMax,[0],yThickDistance)
   }
   for (y of yThickListe){
-    let thick = segment(abscisseAxe-thickHauteur,calcul(y*yUnite),abscisseAxe+thickHauteur,calcul(y*yUnite));
+    let thick = segment(calcul(abscisseAxe*xUnite-thickHauteur),calcul(y*yUnite),calcul(abscisseAxe*xUnite+thickHauteur),calcul(y*yUnite));
     thick.isVisible = false;
     thick.epaisseur = thickEpaisseur;
     thick.color = thickCouleur;
@@ -4886,7 +4981,7 @@ function Repere2({
     xLabelListe = rangeMinMax(xLabelMin,xLabelMax,[0],xLabelDistance)
   }
   for (x of xLabelListe){
-    let l = texteParPosition(tex_nombre(x),calcul(x*xUnite),OrdonneeAxe-.5)
+    let l = texteParPosition(tex_nombre(x),calcul(x*xUnite),calcul(OrdonneeAxe*yUnite)-.5)
     l.isVisible = false;
     objets.push(l);
   }
@@ -4895,7 +4990,7 @@ function Repere2({
     yLabelListe = rangeMinMax(yLabelMin,yLabelMax,[0],yLabelDistance)
   }
   for (y of yLabelListe){
-    let l = texteParPosition(tex_nombre(y),abscisseAxe-.5,calcul(y*yUnite),'gauche')
+    let l = texteParPosition(tex_nombre(y),calcul(abscisseAxe*xUnite)-.5,calcul(y*yUnite),'gauche')
     l.isVisible = false;
     objets.push(l);
   }
@@ -5092,7 +5187,8 @@ function TraceGraphiqueCartesien(data, repere, {
   couleurDuTrait = 'blue',
   styleDuTrait = '', //plein par défaut
   epaisseurDuTrait = 2,
-  styleDesPoints = '', //croix par défaut
+  styleDesPoints = 'x', //croix par défaut
+  tailleDesPoints = 3,
   
   
   }={}){
@@ -5104,6 +5200,8 @@ function TraceGraphiqueCartesien(data, repere, {
     listePoints.push(M)
     let t = tracePoint(M);
     t.color = couleurDesPoints;
+    t.style = styleDesPoints;
+    t.taille = tailleDesPoints;
     t.isVisible = false;
     M.isVisible = false;
     objets.push(t);
@@ -5476,7 +5574,7 @@ function Courbe2(f,{
   }
   for (let x = xmin ; x <= xmax ; x = calcul(x + pas )
   ) {
-    if (f(x)<ymax && f(x)>ymin) {
+    if (f(x)<ymax+.2 && f(x)>ymin-.2) {
       points.push(point(calcul(x*xunite), calcul(f(x)*yunite)));
     } else {
       let p = polyline([...points], this.color);
@@ -5592,6 +5690,94 @@ function CourbeInterpolee(
  */
 function courbeInterpolee(...args) {
   return new CourbeInterpolee(...args);
+}
+
+function GraphiqueInterpole(
+  tableau,{color = "black",
+    epaisseur = 1,
+    repere = {},
+    }={}
+  
+) {
+  ObjetMathalea2D.call(this);
+  mesCourbes = [];
+  for (let i = 0; i < tableau.length - 1; i++) {
+    let x0 = tableau[i][0];
+    let y0 = tableau[i][1];
+    let x1 = tableau[i + 1][0];
+    let y1 = tableau[i + 1][1];
+    let f = (x) => cosineInterpolate(y0, y1, calcul((x - x0) / (x1 - x0)));
+    let depart, fin;
+    repere.xMin > x0 ? (depart = repere.xMin) : (depart = x0);
+    repere.xMax < x1 ? (fin = repere.xMax) : (fin = x1);
+    let c = courbe2(f,{step:0.4,xMin : depart, xMax : fin, color : color, epaisseur : epaisseur, xUnite : repere.xUnite, yUnite : repere.yUnite, yMin : repere.yMin, yMax : repere.yMax})
+    mesCourbes.push(c);
+    this.svg = function (coeff) {
+      code = "";
+      for (objet of mesCourbes) {
+        code += "\n\t" + objet.svg(coeff);
+      }
+      return code;
+    };
+    this.tikz = function () {
+      code = "";
+      for (objet of mesCourbes) {
+        code += "\n\t" + objet.tikz();
+      }
+      return code;
+    };
+  }
+}
+/**
+ *
+ *
+ * @auteur Rémi Angot
+ */
+function graphiqueInterpole(...args) {
+  return new GraphiqueInterpole(...args);
+}
+function imageInterpolee(tableau,antecedent){
+  let x0 = tableau[0][0];
+  let y0 = tableau[0][1];
+  let x1 = tableau[1][0];
+  let y1 = tableau[1][1];
+  let f = (x) => cosineInterpolate(y0, y1, calcul((x - x0) / (x1 - x0)));
+  return f(antecedent)
+}
+
+function antecedentInterpole(tableau,image){
+  let x0 = tableau[0][0];
+  let y0 = tableau[0][1];
+  let x1 = tableau[1][0];
+  let y1 = tableau[1][1];
+  let f = (x) => cosineInterpolate(y0, y1, calcul((x - x0) / (x1 - x0)));
+  return AntecedentParDichotomie(x0,x1,f,image,0.01) 
+}
+
+function AntecedentParDichotomie(xmin,xmax,f,y,precision=0.01) {
+  let xmoy,ymoy
+  if (xmin>xmax) {
+    xmoy=xmin
+    xmin=xmax
+    xmax=xmoy
+  }
+  xmoy=(xmax+xmin)/2
+  ymoy=f(xmoy)
+  while (Math.abs(ymoy-y)>precision) {
+    if (f(xmin)<f(xmax))
+      if (ymoy>y) 
+        xmax=xmoy
+      else
+        xmin=xmoy
+    else 
+      if (ymoy>y)
+        xmin=xmoy
+      else
+        xmax=xmoy
+    xmoy=(xmin+xmax)/2
+    ymoy=f(xmoy)
+  }
+  return xmoy
 }
 
 /*
@@ -5868,6 +6054,8 @@ function angle(A, O, B) {
   let w=vecteur(O,B)
   if (v.x*w.y-v.y*w.x==0) {
     if(v.x*w.x>0) return 0;
+    else if (v.x*w.x<0) return 180;
+    else if (v.y*w.y>0) return 0;
     else return 180;
   }
   else 
