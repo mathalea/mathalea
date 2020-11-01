@@ -9489,7 +9489,7 @@ function Lire_abscisse_decimale_trois_formes() {
                       pointListe:[[x1,`${noms[0]}`],[x2,`${noms[1]}`],[x3,`${noms[2]}`]],
                       pointTaille:2,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'o',axeStyle:extremite})
     texte=`${num_alpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.<br>`
-    texte+=`${num_alpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un entier et d'une fraction décimale.<br>`
+    texte+=`${num_alpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un nombre entier et d'une fraction décimale.<br>`
     texte+=`${num_alpha(2)} Donner l'abscisse de ${noms[2]} sous la forme d'une fraction décimale.<br>`
     texte_corr=`${num_alpha(0)} L'abscisse de ${noms[0]} est : $${tex_nombre(x1)}$.<br>`
     texte_corr+=`${num_alpha(1)} L'abscisse de ${noms[1]} est : $${tex_nombre(Math.floor(x2))} + ${tex_fraction(calcul(10*(x2-Math.floor(x2))),10)}$.<br>`
