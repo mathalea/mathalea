@@ -206,6 +206,7 @@ var liste_des_exercices_disponibles = {
   "4C33-3": Puissances_d_un_relatif_2,
   "4G40": Transformations_4e,
   "4L10": Exercice_developper,
+  "4L10-1": Reductions_pieges_classiques,
   "4L13-0": Mettre_en_equation_sans_resoudre,
   "4L13-1": Forme_litterale_introduire_une_lettre,
   "4L14-0": Tester_si_un_nombre_est_solution_d_une_equation,
@@ -12214,6 +12215,8 @@ function Reciproque_Thales_4eme() {
 function Thales2D_4e (params) {
   Thales2D.call(this);
   this.besoin_formulaire_numerique = false
+  this.titre = "Calculer des longueurs avec la propriété de Thalès";
+
 }
 
 // 3G20
