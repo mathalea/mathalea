@@ -2858,50 +2858,72 @@ function Placer_probabilites(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées		
-		let lstEvenenement = [];
-		lstEvenenement.push(`Obtenir face quand on lance une pièce d’un euro`);
-		lstEvenenement.push(`Le premier jour de l’année 2042 sera le 1er janvier`);
-		lstEvenenement.push(`Gagner le gros lot au loto`);
-		lstEvenenement.push(`Avoir de la neige à Nice en juillet`);
-		lstEvenenement.push(`L’équipe de France de rugby va remporter le prochain match international de football`);
-		lstEvenenement.push(`Feter deux anniversaires dans la classe demain`);
-		lstEvenenement.push(`Rencontrer un dragon`);
-		lstEvenenement.push(`Choisir une balle rouge dans un sac contenant une balle rouge et trois balles vertes`);
-		lstEvenenement.push(`Obtenir un As en prenant une carte au hasard dans un jeu de 52 cartes`);
+		let lstEvenenement = []; // liste des évènements disponibles
+		nbEvenement = 5; // nombre d'évènements dans l'énoncé
+		texte = "";
+		lstEchelle = [['Impossible',0],
+					 ['Improbable', calcul(1/6)],
+					 ['Peu probable',calcul(2/6)],
+					 ['Une chance sur deux',calcul(3/6)],
+					 ['Probable',calcul(4/6)],
+					 ['Très probable',calcul(5/6)],
+					 ['Certain',1]];
+		
+		lstEvenenement.push([`Obtenir face quand on lance une pièce d’un euro`, 0.5]);
+		lstEvenenement.push([`Le premier jour de l’année 2042 sera le 1er janvier`, 1]);
+		lstEvenenement.push([`Gagner le gros lot au loto`,0.05]);
+		lstEvenenement.push([`Avoir de la neige à Nice en juillet`, 0.05]);
+		lstEvenenement.push([`L’équipe de France de rugby va remporter le prochain match international de football`,0]);
+		lstEvenenement.push([`Feter deux anniversaires le même jour dans une classe de 23 élèves`, 0.5]);
+		lstEvenenement.push([`Rencontrer un dragon`, 0]);
+		lstEvenenement.push([`Choisir une balle rouge dans un sac contenant une balle rouge et trois balles vertes`, 0.25]);
+		carte = choice(["un As", "un Roi", "une Dame", "un Valet", "un 10", "un 9", "un 8", "un 7", "un 6", "un 5", "un 4", "un 3", "un 2"]);
+		lstEvenenement.push([`Obtenir ${carte} en prenant une carte au hasard dans un jeu de 52 cartes`, 0.08]);
 		let n = randint(1,6);
 		let m = randint(n,n+randint(1,10));
-		lstEvenenement.push(`Obtenir ${n} avec un dé à ${m} faces`);
+		lstEvenenement.push([`Obtenir ${n} avec un dé à ${m} faces`, 1/m]);
 
+		// choix des évènements :
 		let lstEvenenementExo = [];
-		for (let i = 0; i<4; i++){
+		for (let i = 0; i<nbEvenement; i++){
 			lstEvenenementExo.push(choice(lstEvenenement, lstEvenenementExo));
 		}
 		
-		texte =`Placer la lettre correspondant à chaque évènement sur l'axe des probabilités ci-dessous.<br>`
-		for (let i = 0; i<4; i++){
-			texte += num_alpha(i) + ` ` + lstEvenenementExo[i] + `.<br>`;
+		// Texte de l'énoncé :
+		texte +=`Placer la lettre correspondant à chaque évènement sur l'axe des probabilités ci-dessous.<br>`
+		for (let i = 0; i<nbEvenement; i++){
+			texte += num_alpha(i) + ` ` + lstEvenenementExo[i][0] + `.<br>`;
 		}
 
+		// Création des objets pour dessiner :
 		let L = 10 // longueur du segment
-		let lstObjet = [];
+		let lstObjet = []; // tous les objets qui seront dessinés
 		lstObjet.push(segment(0,0,L,0));
 		lstObjet.push(segment(0,-0.1,0,0.1));
 		lstObjet.push(segment(L,-0.1,L,0.1));
 		lstObjet.push(segment(L/2,-0.1,L/2,0.1));
-		let angle = 60;
+		let angle = 60; //inclinaison du texte légende
 		let y = -0.5;
-		lstObjet.push(texteParPosition(`Impossible`,0,y,angle,'black',1,'gauche'));
-		lstObjet.push(texteParPosition(`Improbable`,L/6,y,angle,'black',1,'gauche'));
-		lstObjet.push(texteParPosition(`Peu probable`,L/3,y,angle,'black',1,'gauche'));		
-		lstObjet.push(texteParPosition(`Une chance sur deux`,L/2,y,angle,'black',1,'gauche'));
-		lstObjet.push(texteParPosition(`Probable`,2*L/3,y,angle,'black',1,'gauche'));
-		lstObjet.push(texteParPosition(`Très probable`,5*L/6,y,angle,'black',1,'gauche'));
-		lstObjet.push(texteParPosition(`Certain`,L,y,angle,'black',1,'gauche'));
+		for (let j = 0; j<lstEchelle.length; j++){
+			lstObjet.push(texteParPosition(lstEchelle[j][0],L*lstEchelle[j][1],y,angle,'black',1,'gauche'));
+		}
+		texte += mathalea2d({xmin : -1, xmax : 12, ymin : -5, ymax : 1, pixelsParCm : 30, scale : 1}, lstObjet);
 
-		texte += mathalea2d({xmin : -1, xmax : 12, ymin : -4, ymax : 1, pixelsParCm : 30, scale : 1}, lstObjet);
+		// CORRECTION :
+		texte_corr = ` `;
+		ylst = [0,0,0,0,0,0,0]; //ordonnées des textes réponses
+		angle = 0; // inclinaison du texte réponse
+		let p = 0; // probabilité de l'événement
+		let parrondi = 0; //arrondi de la proba au sixième près
+		for (let i = 0; i<nbEvenement; i++){ 
+			p = lstEvenenementExo[i][1];
+			parrondi = Math.round(calcul(6*p)); // échelle arrondie entre 0 et 7.
+			ylst[parrondi] += 0.5;
+			let txtSolution = String.fromCharCode(97+i); //code 97 correspond à 'a'
+			lstObjet.push(texteParPosition(txtSolution,calcul(L*p),ylst[parrondi],angle,'black',1,'milieu'))
+		}
+		texte_corr += mathalea2d({xmin : -1, xmax : 12, ymin : -5, ymax : 5, pixelsParCm : 30, scale : 1}, lstObjet);
 
-		texte_corr = `fgd`;
-		
 		this.liste_questions.push(texte);
 		this.liste_corrections.push(texte_corr);
 		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
