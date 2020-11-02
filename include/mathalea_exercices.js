@@ -14064,9 +14064,11 @@ function Lecture_diagramme_barre() {
         break;
       case 2:texte += num_alpha(2) + ` Donner un encadrement à la centaine du nombre de ` + lstAnimauxExo[numAnimal] + ' ?<br>';
         break;
-    }    
+    }
+    texte += '<br>'   
 
     let r = repere2({
+      grilleX : false,
       grilleY : 'pointilles',
       xThickListe : [],
       xLabelListe : [],
@@ -14079,10 +14081,10 @@ function Lecture_diagramme_barre() {
       axeXStyle : '',
       yLegende : "Nombre d'individus"
      });
-     
+    
     let lstElementGraph = []
     for (let i = 0; i < nbAnimaux; i++) {
-      lstElementGraph.push(traceBarre((((r.xMax-r.xMin)/(nbAnimaux+1))*(i+1)),lstNombresAnimaux[i],lstAnimauxExo[i],{unite:.1/coef}))
+      lstElementGraph.push(traceBarre((((r.xMax-r.xMin)/(nbAnimaux+1))*(i+1)),lstNombresAnimaux[i],premiere_lettre_en_majuscule(lstAnimauxExo[i]),{unite:.1/coef}))
     }
 
     texte += mathalea2d({xmin : -5, xmax : 11, ymin : -3, ymax : 11, pixelsParCm : 30, scale : .5}, r, lstElementGraph)
@@ -14213,7 +14215,7 @@ function Organiser_donnees_depuis_texte() {
     texte += `\\hline\n`;
     texte += ` `;
     for (let j = 0; j < nbFruits; j++) {
-      texte += ` & \\textbf{\\text{${lstFruitExo[j]}}}`;
+      texte += ` & \\textbf{\\text{` + premiere_lettre_en_majuscule(lstFruitExo[j]) + `}}`;
     }
     texte += '& \\textbf{TOTAL}';
     texte += `\\\\\\hline\n`;

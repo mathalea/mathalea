@@ -2918,6 +2918,7 @@ function Placer_probabilites(){
 		for (let i = 0; i<nbEvenement; i++){ 
 			p = lstEvenenementExo[i][1];
 			parrondi = Math.round(calcul(6*p)); // échelle arrondie entre 0 et 7.
+			
 			ylst[parrondi] += 0.5;
 			let txtSolution = String.fromCharCode(97+i); //code 97 correspond à 'a'
 			lstObjet.push(texteParPosition(txtSolution,calcul(L*p),ylst[parrondi],angle,'black',1,'milieu'))
