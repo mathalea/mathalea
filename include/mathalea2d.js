@@ -165,7 +165,6 @@ function TracePoint(...points) {
         }
         else if (this.style=='o'){
           p1=point(A.x,A.y)
- //         p2=point(A.x+this.taille/coeff,A.y-this.taille/coeff)
           c=cercle(p1,this.taille/coeff,this.color)
           c.epaisseur=this.epaisseur
           c.opacite=this.opacite
@@ -204,53 +203,59 @@ function TracePoint(...points) {
   };
   this.tikz = function () {
     let objetstikz=[];
+    let tailletikz=this.taille/20/scale;
     for (let A of points) {
       if (A.constructor == Point) {
         if (this.style=='x'){
-        s1=segment(point(A.x-this.taille/coeff,A.y+this.taille/coeff),
-        point(A.x+this.taille/coeff,A.y-this.taille/coeff),this.color);
-        s2=segment(point(A.x-this.taille/coeff,A.y-this.taille/coeff),
-        point(A.x+this.taille/coeff,A.y+this.taille/coeff),this.color);
+        s1=segment(point(A.x-tailletikz,A.y+tailletikz),
+        point(A.x+tailletikz,A.y-tailletikz),this.color);
+        s2=segment(point(A.x-tailletikz,A.y-tailletikz),
+        point(A.x+tailletikz,A.y+tailletikz),this.color);
         s1.epaisseur=this.epaisseur;
         s2.epaisseur=this.epaisseur;
         s1.opacite=this.opacite;
         s2.opacite=this.opacite;
-        objetssvg.push(s1,s2);
+        objetstikz.push(s1,s2);
         }
         else if (this.style=='o'){
           p1=point(A.x,A.y)
- //         p2=point(A.x+this.taille/coeff,A.y-this.taille/coeff)
-          c=cercle(p1,this.taille/coeff,this.color)
+          c=cercle(p1,tailletikz,this.color)
           c.epaisseur=this.epaisseur
           c.opacite=this.opacite
           c.couleurDeRemplissage=this.color
           c.opaciteDeRemplissage=this.opacite/2
-          objetssvg.push(c)
+          objetstikz.push(c)
         }
         else if (this.style=='#'){
-          p1=point(A.x-this.taille/coeff,A.y-this.taille/coeff)
-          p2=point(A.x+this.taille/coeff,A.y-this.taille/coeff)
+          p1=point(A.x-tailletikz,A.y-tailletikz)
+          p2=point(A.x+tailletikz,A.y-tailletikz)
           c=carreIndirect(p1,p2,this.color)
           c.epaisseur=this.epaisseur
           c.opacite=this.opacite
           c.couleurDeRemplissage=this.color
           c.opaciteDeRemplissage=this.opacite/2
-          objetssvg.push(c)
+          objetstikz.push(c)
         }
         else if (this.style=='+'){
-          s1=segment(point(A.x,A.y+this.taille/coeff),
-          point(A.x,A.y-this.taille/coeff),this.color);
-          s2=segment(point(A.x-this.taille/coeff,A.y),
-          point(A.x+this.taille/coeff,A.y),this.color);
+          s1=segment(point(A.x,A.y+tailletikz),
+          point(A.x,A.y-tailletikz),this.color);
+          s2=segment(point(A.x-tailletikz,A.y),
+          point(A.x+tailletikz,A.y),this.color);
           s1.epaisseur=this.epaisseur;
           s2.epaisseur=this.epaisseur;
           s1.opacite=this.opacite;
           s2.opacite=this.opacite;
-          objetssvg.push(s1,s2);
+          objetstikz.push(s1,s2);
         }
       }
     }
+    code = "";
+    for (objet of objetstikz) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
   }
+
 }
 
 function tracePoint(...args) {
@@ -4038,6 +4043,7 @@ function DroiteGraduee2({
   pointListe = false,
   pointCouleur='blue',
   pointTaille=4,
+  pointStyle='+',
   pointOpacite=0.8,
 /*  ThickMin = Min+thickDistance,
   ThickMax = Max-thickDistance,
@@ -4111,7 +4117,7 @@ function DroiteGraduee2({
         dep=calcul(i+j*pas1);
         S=segment(point(x+(dep)*Unite*absord[0]-axeHauteur/15*r*absord[1],y-axeHauteur/15*r*absord[0]+(dep)*Unite*absord[1]),point(x+(dep)*Unite*absord[0]+axeHauteur/15*r*absord[1],y+axeHauteur/15*r*absord[0]+(dep)*Unite*absord[1]),thickCouleur);
         S.epaisseur=thickEpaisseur/2;
-        S.opacite=0.8;
+        S.opacite=0.9;
         objets.push(S);
         j++;
       }
@@ -4129,7 +4135,7 @@ function DroiteGraduee2({
           dep=calcul(i+j*pas1+k*pas2)
           S=segment(point(x+(dep)*Unite*absord[0]-axeHauteur/20*r*absord[1],y-axeHauteur/20*r*absord[0]+(dep)*Unite*absord[1]),point(x+(dep)*Unite*absord[0]+axeHauteur/20*r*absord[1],y+axeHauteur/20*r*absord[0]+(dep)*Unite*absord[1]),thickCouleur)
           S.epaisseur=thickEpaisseur/2
-          S.opacite=0.6
+          S.opacite=0.8
           objets.push(S)
           k++;
         }
@@ -4144,7 +4150,8 @@ function DroiteGraduee2({
       T=tracePoint(P,pointCouleur);
       T.taille=pointTaille;
       T.opacite=pointOpacite;
-      objets.push(T,labelPoint(P))
+      T.style=pointStyle;
+      objets.push(T,labelPoint(P));
     }
   }
 

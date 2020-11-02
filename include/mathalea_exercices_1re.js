@@ -280,16 +280,18 @@ function Calcul_discriminant() {
   if (sortie_html) {
     this.spacing_corr = 2
   }
-  this.correction_detaillee_disponible = true;
-  sortie_html ? correction_detaillee = true : correction_detaillee = false ;
+  //this.correction_detaillee_disponible = true;
+  //sortie_html ? correction_detaillee = true : correction_detaillee = false ;
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let liste_types_equations = combinaison_listes(["0solution","1solution","2solutions"],this.nb_questions)
     for (let i = 0, texte, texte_corr, a, b, c, delta, x1, x2, y1, y2, cpt = 0;i < this.nb_questions && cpt < 50;) {
+      let a_nb_points_intersection
       switch (liste_types_equations[i]) {
         case "0solution": 
+          a_nb_points_intersection = "n'a aucun point d'intersection"
           k = randint(1,5);
           x1 = randint(-3,3,[0]);
           y1 = randint(1,5);
@@ -311,6 +313,7 @@ function Calcul_discriminant() {
           texte_corr += `<br>$\\mathcal{S}=\\emptyset$`
           break;
         case "1solution": // k(x-x1)^2
+          a_nb_points_intersection = "n'a qu'un seul point d'intersection"
           k = randint(-5,5,[0]);
           x1 = randint(-5,5,[0]);
           a = k;
@@ -328,6 +331,7 @@ function Calcul_discriminant() {
           //texte_corr += `<br>$\\mathcal{S}={${x1}}$`
           break;
           case "2solutions": // k(x-x1)^2
+          a_nb_points_intersection = "a deux points d'intersection"
           k = randint(1,5);
           x1 = randint(-3,3);
           y1 = randint(1,5);
@@ -355,19 +359,21 @@ function Calcul_discriminant() {
         default:
           break;
       }
-      if (this.correction_detaillee){
+      if (sortie_html){
         let f = x => a * x**2 + b * x + c
         let graphique = courbe(f)
         graphique.color = 'blue';
         let s = segment(point(-10,0),point(10,0));
         s.epaisseur = 3;
         s.color = 'red';
-        let r = repere({afficheNumeros:false,legendeX : '', legendeY : ''})
-        texte_corr += '<br><br>'
-        texte_corr += `Représentation graphique de $f : x \\mapsto ${rien_si_1(a)}x^2${ecriture_algebrique_sauf1(b)}x${ecriture_algebrique_sauf1(c)}$ : `
-        texte_corr +='<br><br>'
-        texte_corr += mathalea2d({xmin : -10, ymin : -10, xmax : 10, ymax : 10 , pixelsParCm : 15},
+        let r = repere2({afficheLabels:false,xLabelListe:[],yLabelListe:[]})
+        let correction_complementaire = `Notons $f : x \\mapsto ${rien_si_1(a)}x^2${ecriture_algebrique_sauf1(b)}x${ecriture_algebrique_sauf1(c)}$.`
+        correction_complementaire+= `<br>On observe que la courbe représentative de $f$ ${a_nb_points_intersection} avec l'axe des abscisses.`
+        correction_complementaire+='<br>'
+        correction_complementaire+= mathalea2d({xmin : -10.1, ymin : -10.1, xmax : 10.1, ymax : 10.1 , pixelsParCm : 15},
           graphique,r,s) 
+        
+        texte_corr += modal_texte_long(numero_de_l_exercice,'Complément graphique',correction_complementaire,label_bouton="Complément graphique",icone="info circle")
       }
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
