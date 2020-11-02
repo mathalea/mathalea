@@ -2858,8 +2858,12 @@ function Placer_probabilites(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées		
-		let lstEvenenement = []; // liste des évènements disponibles
-		nbEvenement = 5; // nombre d'évènements dans l'énoncé
+		let lstEvenenementA = []; // liste des évènements disponibles
+		let lstEvenenementB= []; // liste des évènements disponibles
+		let lstEvenenementC= []; // liste des évènements disponibles
+		let lstEvenenementD= []; // liste des évènements disponibles
+		let lstEvenenementE= []; // liste des évènements disponibles
+		nbEvenement = 4; // nombre d'évènements dans l'énoncé
 		texte = "";
 		lstEchelle = [['Impossible',0],
 					 ['Improbable', calcul(1/6)],
@@ -2867,27 +2871,48 @@ function Placer_probabilites(){
 					 ['Une chance sur deux',calcul(3/6)],
 					 ['Probable',calcul(4/6)],
 					 ['Très probable',calcul(5/6)],
-					 ['Certain',1]];
+					 ['Certain',1]];		
 		
-		lstEvenenement.push([`Obtenir face quand on lance une pièce d’un euro`, 0.5]);
-		lstEvenenement.push([`Le premier jour de l’année 2042 sera le 1er janvier`, 1]);
-		lstEvenenement.push([`Gagner le gros lot au loto`,0.05]);
-		lstEvenenement.push([`Avoir de la neige à Nice en juillet`, 0.05]);
-		lstEvenenement.push([`L’équipe de France de rugby va remporter le prochain match international de football`,0]);
-		lstEvenenement.push([`Feter deux anniversaires le même jour dans une classe de 23 élèves`, 0.5]);
-		lstEvenenement.push([`Rencontrer un dragon`, 0]);
-		lstEvenenement.push([`Choisir une balle rouge dans un sac contenant une balle rouge et trois balles vertes`, 0.25]);
+		// Evenements impossibles :
+		lstEvenenementA.push([`L’équipe de France de rugby va remporter le prochain match international de football`,0]);
+		animal = choice(["un dragon", "l'abominable homme des neiges", "un chat-garou", "un dahu", "un hippocampéléphantocamélos", "une licorne", "le Minotaure"]);
+		lstEvenenementA.push([`Rencontrer ${animal} en sortant du collège`, 0]);
+		// Evenements improbables :
+		lstEvenenementB.push([`Gagner le gros lot au loto`,0.05]);
+		lstEvenenementB.push([`Avoir de la neige à Nice en juillet`, 0.05]);
 		carte = choice(["un As", "un Roi", "une Dame", "un Valet", "un 10", "un 9", "un 8", "un 7", "un 6", "un 5", "un 4", "un 3", "un 2"]);
-		lstEvenenement.push([`Obtenir ${carte} en prenant une carte au hasard dans un jeu de 52 cartes`, 0.08]);
-		let n = randint(1,6);
-		let m = randint(n,n+randint(1,10));
-		lstEvenenement.push([`Obtenir ${n} avec un dé à ${m} faces`, 1/m]);
+		lstEvenenementB.push([`Obtenir ${carte} en prenant une carte au hasard dans un jeu de 52 cartes`, 0.08]);
+		// Evenements peu probables :
+		lstEvenenementB.push([`Choisir une balle rouge dans un sac contenant une balle rouge et trois balles vertes`, 0.25]);
+		// Evenements Une chance sur deux :
+		lstEvenenementC.push([`Obtenir ` + choice([`pile`, `face`])+ ` quand on lance une pièce d’un euro`, 0.5]);
+		// Evenements probables :
+		lstEvenenementD.push([`La première voiture que je verrai en sortant du collège sera de marque française`, 0.6]);
+		// Evenements très probables :
+		lstEvenenementD.push([`Le prochain président de la République Française aura plus de 40 ans`, 0.9]);
+		// Evenements certains :
+		lstEvenenementA.push([`Le prochain oiseau que je verrai aura des ailes`, 1]);
+		// Evenement divers : 
+		let m = randint(4,20); //nombre de faces du dé
+		let n = randint(1,m); //nombre à obtenir
+		lstEvenenementB.push([`Obtenir ${n} avec un dé à ${m} faces`, 1/m]);
+		if ((m-n+1)/m<0.5){
+			lstEvenenementB.push([`Obtenir un nombre supérieur ou égal à ${n} avec un dé à ${m} faces`, (m-n+1)/m]);
+		} else {
+			lstEvenenementD.push([`Obtenir un nombre supérieur ou égal à ${n} avec un dé à ${m} faces`, (m-n+1)/m]);
+		}
+		if (n/m<0.5) {
+			lstEvenenementB.push([`Obtenir un nombre inférieur ou égal à ${n} avec un dé à ${m} faces`, n/m]);
+		} else {
+			lstEvenenementD.push([`Obtenir un nombre inférieur ou égal à ${n} avec un dé à ${m} faces`, n/m]);
+		}
 
 		// choix des évènements :
 		let lstEvenenementExo = [];
-		for (let i = 0; i<nbEvenement; i++){
-			lstEvenenementExo.push(choice(lstEvenenement, lstEvenenementExo));
-		}
+		lstEvenenementExo.push(choice(lstEvenenementA, lstEvenenementExo));
+		lstEvenenementExo.push(choice(lstEvenenementB, lstEvenenementExo));
+		lstEvenenementExo.push(choice(lstEvenenementC, lstEvenenementExo));
+		lstEvenenementExo.push(choice(lstEvenenementD, lstEvenenementExo));		
 		
 		// Texte de l'énoncé :
 		texte +=`Placer la lettre correspondant à chaque évènement sur l'axe des probabilités ci-dessous.<br>`
@@ -2898,10 +2923,11 @@ function Placer_probabilites(){
 		// Création des objets pour dessiner :
 		let L = 10 // longueur du segment
 		let lstObjet = []; // tous les objets qui seront dessinés
-		lstObjet.push(segment(0,0,L,0));
-		lstObjet.push(segment(0,-0.1,0,0.1));
-		lstObjet.push(segment(L,-0.1,L,0.1));
-		lstObjet.push(segment(L/2,-0.1,L/2,0.1));
+		let h = 0.25; // hauteur trait
+		lstObjet.push(segment(0,0,L,0)); // axe
+		lstObjet.push(segment(0,-h,0,h)); // trait gauche
+		lstObjet.push(segment(L,-h,L,h)); // trait central
+		lstObjet.push(segment(L/2,-h,L/2,h)); // trait droit
 		let angle = 60; //inclinaison du texte légende
 		let y = -0.5;
 		for (let j = 0; j<lstEchelle.length; j++){
@@ -2918,10 +2944,10 @@ function Placer_probabilites(){
 		for (let i = 0; i<nbEvenement; i++){ 
 			p = lstEvenenementExo[i][1];
 			parrondi = Math.round(calcul(6*p)); // échelle arrondie entre 0 et 7.
-			
 			ylst[parrondi] += 0.5;
 			let txtSolution = String.fromCharCode(97+i); //code 97 correspond à 'a'
 			lstObjet.push(texteParPosition(txtSolution,calcul(L*p),ylst[parrondi],angle,'black',1,'milieu'))
+			lstObjet.push(tracePoint(point(calcul(L*p), 0), 'blue'))
 		}
 		texte_corr += mathalea2d({xmin : -1, xmax : 12, ymin : -5, ymax : 5, pixelsParCm : 30, scale : 1}, lstObjet);
 
