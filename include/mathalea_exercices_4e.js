@@ -2540,12 +2540,11 @@ function Thales2D() {
       let k = calcul(randint(3, 8, 5) / 10);
       if (this.sup == 2) {
         k *= -1
-        this.vspace = -1; // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
-
+        this.vspace = -.5; // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
       }
       if (this.sup == 3 && ((i + premiereQuestionPapillon) % 2 == 0)) {
         k *= -1
-        this.vspace = -1; // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
+        this.vspace = -.5; // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
       }
       let M = homothetie(A, C, k);
       let N = homothetie(B, C, k);
@@ -2575,6 +2574,8 @@ function Thales2D() {
 
       if (!sortie_html){
         texte = '\\begin{minipage}{.5\\linewidth}\n'
+      } else {
+        texte = ''
       }
       texte += `Sur la figure suivante, $${nomA+nomC}=${ac}~\\text{cm}$, $${nomA+nomB}=${ab}~\\text{cm}$, $${nomC+nomM}=${tex_nombrec(Math.abs(k)*ac)}~\\text{cm}$, $${nomC+nomN}=${tex_nombrec(Math.abs(k)*bc)}~\\text{cm}$ et $(${nomA+nomB})//(${nomM+nomN})$.<br>`
       texte+= `Calculer $${nomM+nomN}$ et $${nomC+nomB}$.<br><br>`
@@ -2597,8 +2598,9 @@ function Thales2D() {
       if (k>0){
         texte_corr = `Dans le triangle $${nomA+nomB+nomC}$, $${nomM}\\in${"["+nomC+nomA+"]"}$, $${nomN}\\in${"["+nomC+nomB+"]"}$ et $(${nomA+nomB})//(${nomM+nomN})$ donc d'après le théorème de Thalès, les triangles $${nomA+nomB+nomC}$ et $${nomM+nomN+nomC}$ ont des longueurs proportionnelles.`;
       } else {
-        texte_corr = `Les droites $(${nomA+nomM})$ et $(${nomB+nomN})$ sont sécantes en $${nomC}$ et $(${nomA+nomB})//(${nomM+nomN})$  donc d'après le théorème de Thalès, les triangles $${nomA+nomB+nomC}$ et $${nomM+nomN+nomC}$ ont des longueurs proportionnelles.`;
+          texte_corr = `Les droites $(${nomA+nomM})$ et $(${nomB+nomN})$ sont sécantes en $${nomC}$ et $(${nomA+nomB})//(${nomM+nomN})$  donc d'après le théorème de Thalès, les triangles $${nomA+nomB+nomC}$ et $${nomM+nomN+nomC}$ ont des longueurs proportionnelles.`;
       }
+      //texte_corr = `$(${nomA+nomB})//(${nomM+nomN})$, les points $${nomC}$, $${nomM}$, $${nomA}$ et $${nomC}$, $${nomN}$, $${nomB}$ sont alignés dans le même ordre  donc d'après le théorème de Thalès, les triangles $${nomA+nomB+nomC}$ et $${nomM+nomN+nomC}$ ont des longueurs proportionnelles.`;
       texte_corr += `<br><br>`
       texte_corr += `$\\dfrac{${nomC+nomM}}{${nomC+nomA}}=\\dfrac{${nomC+nomN}}{${nomC+nomB}}=\\dfrac{${nomM+nomN}}{${nomA+nomB}}$`  
       texte_corr += `<br><br>`
