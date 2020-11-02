@@ -2858,11 +2858,10 @@ function Placer_probabilites(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées		
-		let lstEvenenementA = []; // liste des évènements disponibles
-		let lstEvenenementB= []; // liste des évènements disponibles
-		let lstEvenenementC= []; // liste des évènements disponibles
-		let lstEvenenementD= []; // liste des évènements disponibles
-		let lstEvenenementE= []; // liste des évènements disponibles
+		let lstEvenenementA = []; // liste des évènements disponibles : p == 0 ou p == 1
+		let lstEvenenementB= []; // liste des évènements disponibles : p < 0.5
+		let lstEvenenementC= []; // liste des évènements disponibles : p = 0.5
+		let lstEvenenementD= []; // liste des évènements disponibles : p > 0.5
 		nbEvenement = 4; // nombre d'évènements dans l'énoncé
 		texte = "";
 		lstEchelle = [['Impossible',0],
@@ -2909,10 +2908,10 @@ function Placer_probabilites(){
 
 		// choix des évènements :
 		let lstEvenenementExo = [];
-		lstEvenenementExo.push(choice(lstEvenenementA, lstEvenenementExo));
-		lstEvenenementExo.push(choice(lstEvenenementB, lstEvenenementExo));
-		lstEvenenementExo.push(choice(lstEvenenementC, lstEvenenementExo));
-		lstEvenenementExo.push(choice(lstEvenenementD, lstEvenenementExo));		
+		lstEvenenementExo.push(choice(lstEvenenementA, lstEvenenementExo)); // p == 0 ou p == 1
+		lstEvenenementExo.push(choice(lstEvenenementB, lstEvenenementExo)); // p < 0.5
+		lstEvenenementExo.push(choice(lstEvenenementC, lstEvenenementExo)); // p = 0.5 
+		lstEvenenementExo.push(choice(lstEvenenementD, lstEvenenementExo));	// p > 0.5
 		
 		// Texte de l'énoncé :
 		texte +=`Placer la lettre correspondant à chaque évènement sur l'axe des probabilités ci-dessous.<br>`
