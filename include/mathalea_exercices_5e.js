@@ -5196,22 +5196,16 @@ function Constructibilite_des_triangles(){
 	this.sup=1;
 	if (this.exo == this.beta+'5G21-1') { // via longueurs
 		this.titre = `Constructibilité des triangles via les longueurs`;
-		//this.consigne = `Justifier si les longueurs données permettent de construire le triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0 !`;
 		this.consigne = `Justifier si les longueurs données permettent de construire le triangle.`;
-		//this.consigne += `<br>Dire chaque fois s'il existe plusieurs triangles constructibles ou s'il n'en existe pas.`;
 		this.consigne += `<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.`
 		
 	} else if (this.exo == this.beta+'5G31-1') {//via angles
 		this.titre = `Constructibilité des triangles via les angles`;
-		//this.consigne = `Justifier si les angles donnés permettent de construire le triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0 !`;
 		this.consigne = `Justifier si les angles donnés permettent de construire le triangle.`;
-		//this.consigne += `<br>Dire chaque fois s'il existe plusieurs triangles constructibles ou s'il n'en existe pas.`;
 		this.consigne += `<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.`
 	} else {			
 		this.titre = "Constructibilité des triangles";	
-		//this.consigne = `Justifier si les longueurs ou les angles donnés permettent de construire le triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0 !`;
 		this.consigne = `Justifier si les longueurs ou les angles donnés permettent de construire le triangle.`;
-		//this.consigne += `<br>Dire chaque fois s'il existe plusieurs triangles constructibles ou s'il n'en existe pas.`;
 		this.consigne += `<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.`
 
 	};
@@ -5225,11 +5219,6 @@ function Constructibilite_des_triangles(){
 	let type_de_questions_disponibles;
 	
 	this.nouvelle_version = function(numero_de_l_exercice){
-		// this.introduction=info_message({
-		// 	titre : "Exercice BETA",
-		// 	texte: "En cours de réalisation <br>Est-il préférable de mettre du conditionnel dans les corrections?"
-
-		// });
 
 		if (this.exo == this.beta+'5G21-1') { // via longueurs
 			if (this.sup ==1) {
@@ -5323,7 +5312,14 @@ function Constructibilite_des_triangles(){
 					texte_corr += `<br>Dans le triangle ${triangle.getNom()}, ${current_triangle[2].cote} qui mesure $${current_triangle[2].valeur}$ cm est le plus grand côté.`;
 					texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = $${current_triangle[0].valeur}$ cm + $${current_triangle[1].valeur}$ cm = $${current_triangle[2].valeur}$ cm aussi.`;
 					texte_corr += `<br> ${texte_en_couleur('On peut donc construire le triangle '+triangle.getNom()+' c\'est un triangle plat')}.`;
-					texte_corr += `<br><br>${texte_en_couleur('Un seul triangle de ce type existe')}, il s'agit du segment ${current_triangle[2].cote} sur lequel on place le point ${current_triangle[0].longueur.split('')[2]}.`;				
+					texte_corr += `<br><br>${texte_en_couleur('Un seul triangle de ce type existe')}, il s'agit du segment ${current_triangle[2].cote} sur lequel on place le point `;
+					if ((current_triangle[0].longueur.split('')[2]==current_triangle[2].cote.split('')[1]) || (current_triangle[0].longueur.split('')[2]==current_triangle[2].cote.split('')[2])) {
+					 	texte_corr += `${current_triangle[0].longueur.split('')[1]}`;
+					} else {
+					 	texte_corr += `${current_triangle[0].longueur.split('')[2]}`;
+					};
+					texte_corr += `.`;
+					//`${current_triangle[0].longueur.split('')[2]}.`;				
 					break;
 				case 3 : // 3 longueurs non constructible
 				  	// on initialise les longueurs sinon la méthode isTrueTriangleLongueurs() renvoie false!
