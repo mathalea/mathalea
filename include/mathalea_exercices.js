@@ -6185,9 +6185,9 @@ function Representer_une_fraction() {
         den=liste[i]
         num=randint(1,den*3)
         f=fraction(num,den)
-        texte=`Sachant qu'un disque représente une unité, représenter la fraction $${f.texFraction()}$ en coloriant la part correspondante.<br>`
+        texte=`Sachant qu'un disque représente une unité, représenter la fraction $${f.texfr()}$ en coloriant la part correspondante.<br>`
         texte+=mathalea2d(params,fraction(den*3,den).representation(0,0,2,0,'gateau','white'))
-        texte_corr =`Voici sur ces dessins, colorié en bleu, la part correspondante à la fraction $${f.texFraction()}$ :<br>`
+        texte_corr =`Voici sur ces dessins, colorié en bleu, la part correspondante à la fraction $${f.texfr()}$ :<br>`
         texte_corr += mathalea2d(params,f.representation(0,0,2,randint(0,den-1),'gateau','blue'))
         if (this.liste_questions.indexOf(texte) == -1) {
           // Si la question n'a jamais été posée, on en crée une autre
@@ -8154,7 +8154,7 @@ function Fractions_d_unite() {
       else unit=8
       frac=fraction(num,den)
       frac_unite=fraction(3*den-1,den)
-      texte=`$${frac.texFraction()}$ unité en prenant ${unit} carreaux pour une unité.`
+      texte=`$${frac.texfr()}$ unité en prenant ${unit} carreaux pour une unité.`
       if (this.sup2 < 3) g = grille(0, 0,26, 2, "gray", 0.7);
       else g = "";
       if (this.sup2 == 2) {
@@ -8220,27 +8220,27 @@ function Fraction_d_une_quantite() {
           den=choice([2,3,4,5,10])
           num=randint(1,den-1)
           frac=fraction(num,den)
-          texte=`À combien de minutes correspondent $${frac.texFraction()}$ d\'heure ?<br>`
+          texte=`À combien de minutes correspondent $${frac.texfr()}$ d\'heure ?<br>`
           if (this.sup2){
             texte+=`cette fraction est représentée ci dessous :<br>`
             texte+=mathalea2d({xmin:0,ymin:0,xmax:15,ymax:5},frac.representation(2.5,2.5,2,0,'gateau','blue'))
           }
           texte_corr=`Comme l\'heure est partagée en ${den} parts égales, chaque part représente $${tex_fraction(1,den)}$ d\'heure, soit $${calcul(60/den)}$ minutes.<br>`
           texte_corr+=`Ici, il y a $${tex_fraction(num,den)}$ d\'heure, ce qui représente $${num}$ fois plus, soit $${num}\\times${calcul(60/den)}=${calcul(num*60/den)}$.<br>`
-          texte_corr+=`$${frac.texFraction()}$ d\'heure correspond donc à $${calcul(num*60/den)}$ minutes.`
+          texte_corr+=`$${frac.texfr()}$ d\'heure correspond donc à $${calcul(num*60/den)}$ minutes.`
         break
         case 2 :
           den=choice([2,3,4,5,10])
           num=randint(1,3*den,den)
           frac=fraction(num,den)
-          texte=`À combien de minutes correspondent $${frac.texFraction()}$ d\'heure ?<br>`
+          texte=`À combien de minutes correspondent $${frac.texfr()}$ d\'heure ?<br>`
           if (this.sup2){
             texte+=`Cette fraction est représentée ci dessous :<br>`
             texte+=mathalea2d({xmin:0,ymin:0,xmax:15,ymax:5},frac.representation(2.5,2.5,2,0,'gateau','blue'))
           }
           texte_corr=`Comme l\'heure est partagée en ${den} parts égales, chaque part représente $${tex_fraction(1,den)}$ d\'heure, soit $${calcul(60/den)}$ minutes.<br>`
           texte_corr+=`Ici, il y a $${tex_fraction(num,den)}$ d\'heure, ce qui représente $${num}$ fois plus, soit $${num}\\times${calcul(60/den)}=${calcul(num*60/den)}$.<br>`
-          texte_corr+=`$${frac.texFraction()}$ d\'heure correspond donc à $${calcul(num*60/den)}$ minutes.`
+          texte_corr+=`$${frac.texfr()}$ d\'heure correspond donc à $${calcul(num*60/den)}$ minutes.`
         break
         case 3 :
           masse=choice([120,180,240,300])
@@ -12978,7 +12978,7 @@ function Ajouter_des_fractions_d_unite() {
         f[j]=fraction(num[j],den)
 
            
-      texte=`On place bout à bout 4 segments de longueurs respectives$ ${f[0].texFraction()}$, $${f[1].texFraction()}$, $${f[2].texFraction()}$ et $${f[3].texFraction()}$.<br>`
+      texte=`On place bout à bout 4 segments de longueurs respectives$ ${f[0].texfr()}$, $${f[1].texfr()}$, $${f[2].texfr()}$ et $${f[3].texfr()}$.<br>`
       texte+=`Quelle est la longueur du segment obtenu ?`
       texte_corr =`Voici sur ces dessins, coloriés en rouge, les différents segments :<br>`
       for (let j=0;j<4;j++) 
@@ -13002,7 +13002,7 @@ function Ajouter_des_fractions_d_unite() {
         scale: sc,
       }
       texte_corr+=mathalea2d(params,fraction(num[0]+num[1]+num[2]+num[3],den).representation(0,0,5,0,'segment','red',0,1,0.6))
-      texte_corr+=`<br>La longueur du segment ainsi obtenu est : $${fraction(num[0]+num[1]+num[2]+num[3],den).texFraction()}$`
+      texte_corr+=`<br>La longueur du segment ainsi obtenu est : $${fraction(num[0]+num[1]+num[2]+num[3],den).texfr()}$`
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
