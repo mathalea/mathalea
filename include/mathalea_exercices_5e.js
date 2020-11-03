@@ -2854,7 +2854,7 @@ function Placer_probabilites(){
 	this.nb_cols_corr = 1;
 	sortie_html? this.spacing = 2 : this.spacing = 1; 
 	sortie_html? this.spacing_corr = 2 : this.spacing_corr = 1;
-	this.sup=false;
+	this.sup=true;
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées		
@@ -2938,19 +2938,22 @@ function Placer_probabilites(){
 		let angle = 60; //inclinaison du texte légende
 		let y = -0.5;
 		let txt = "";		
-		if (!this.sup) {
+		if (this.sup) {
 			for (let j = 0; j<lstEchelle.length; j++){
 				lstObjet.push(texteParPosition(lstEchelle[j][0],L*lstEchelle[j][1],y,angle,'black',1,'droite'));
 			}		
 		} 
 		else {
+			// Méthode très très moche !!!
+			// objectif écrire la fraction 1/2 au milieu du segment.............
 			angle = 0;
-			for (let j = 0; j<lstEchelle.length; j++){
-				txt = `$${tex_fraction(5,7)}$` ;
-				lstObjet.push(texteParPosition(txt, L*lstEchelle[j][1],y,angle,'black',1,'milieu'));
-			}
+			lstObjet.push(texteParPosition("0",0,y-0.25,angle,'black',1,'droite'));
+			lstObjet.push(texteParPosition("1",L,y-0.25,angle,'black',1,'droite'));
+			lstObjet.push(texteParPosition("1",L/2,y,angle,'black',1,'droite'));
+			lstObjet.push(texteParPosition("2",L/2,y-0.5,angle,'black',1,'droite'));
+			lstObjet.push(segment(L/2-0.1,-0.8,L/2+0.4,-0.8)); // trait de fraction		
 		}
-		texte += `$${tex_fraction(5,7)}$`
+
 		texte += mathalea2d({xmin : -1, xmax : 12, ymin : -5, ymax : 1, pixelsParCm : 30, scale : 1}, lstObjet);
 
 		// CORRECTION :
