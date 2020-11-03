@@ -2849,7 +2849,7 @@ function Placer_probabilites(){
 	this.titre = "Placer un événement sur une échelle de probabilités";
 	this.consigne = "";
 	this.nb_questions = 1;
-	this.nb_questions_modifiable = true;
+	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	sortie_html? this.spacing = 2 : this.spacing = 1; 
@@ -2937,10 +2937,20 @@ function Placer_probabilites(){
 		lstObjet.push(segment(L/2,-h,L/2,h)); // trait droit
 		let angle = 60; //inclinaison du texte légende
 		let y = -0.5;
-		
-		for (let j = 0; j<lstEchelle.length; j++){
-			lstObjet.push(texteParPosition(lstEchelle[j][0],L*lstEchelle[j][1],y,angle,'black',1,'gauche'));
+		let txt = "";		
+		if (!this.sup) {
+			for (let j = 0; j<lstEchelle.length; j++){
+				lstObjet.push(texteParPosition(lstEchelle[j][0],L*lstEchelle[j][1],y,angle,'black',1,'droite'));
+			}		
+		} 
+		else {
+			angle = 0;
+			for (let j = 0; j<lstEchelle.length; j++){
+				txt = `$${tex_fraction(5,7)}$` ;
+				lstObjet.push(texteParPosition(txt, L*lstEchelle[j][1],y,angle,'black',1,'milieu'));
+			}
 		}
+		texte += `$${tex_fraction(5,7)}$`
 		texte += mathalea2d({xmin : -1, xmax : 12, ymin : -5, ymax : 1, pixelsParCm : 30, scale : 1}, lstObjet);
 
 		// CORRECTION :
@@ -2961,13 +2971,13 @@ function Placer_probabilites(){
 		for (let i = 0; i<nbEvenement; i++){ 
 			p = lstEvenenementExo[i][1];
 			if (p==0) { parrondi = 0 } 
-			else if (p<1/6) { parrondi = 1 }
-			else if (p<2/6) { parrondi = 2 }
+			else if (p<0.25) { parrondi = 1 }
+			else if (p<0.5) { parrondi = 2 }
 			else if (p==0.5) { parrondi = 3 }
-			else if (p<4/6) { parrondi = 4 }
-			else if (p<5/6) { parrondi = 5 }
+			else if (p<0.75) { parrondi = 4 }
+			else if (p<1) { parrondi = 5 }
 			else if (p==1) { parrondi = 6 };			
-			texte_corr += num_alpha(i) + ` ` + lstEvenenementExo[i][0] + ` : ` + lstEchelle[parrondi][0] + `<br>`;
+			texte_corr += num_alpha(i) + ` ` + lstEvenenementExo[i][0] + ` : ` + lstEchelle[parrondi][0].toLowerCase() + `<br>`;
 		}
 		texte_corr += mathalea2d({xmin : -1, xmax : 12, ymin : -5, ymax : 2, pixelsParCm : 30, scale : 1}, lstObjet);
 
