@@ -2835,6 +2835,149 @@ function Reperage_point_du_plan(){
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',3,"1 : Coordonnées entières\n2 : Coordonnées 'en demis'\n3 : Coordonnées 'en quarts'"];
 	this.besoin_formulaire2_case_a_cocher = ['Grille de lecture'];
 }
+
+/**
+ * Placer un événement sur une échelle de probabilités.
+ * @Auteur Erwan Duplessy
+ * Référence 5S20
+ */
+
+ // Source : https://pedagogie.ac-guadeloupe.fr/sites/default/files/File/flouvet/ra16_c4_math_probabilite_flash_pdf_69131.pdf
+
+function Placer_probabilites(){
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Placer un événement sur une échelle de probabilités";
+	this.consigne = "";
+	this.nb_questions = 1;
+	this.nb_questions_modifiable = true;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	sortie_html? this.spacing = 2 : this.spacing = 1; 
+	sortie_html? this.spacing_corr = 2 : this.spacing_corr = 1;
+	this.sup=false;
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées		
+		let lstEvenenementA = []; // liste des évènements disponibles : p == 0 ou p == 1
+		let lstEvenenementB= []; // liste des évènements disponibles : p < 0.5
+		let lstEvenenementC= []; // liste des évènements disponibles : p = 0.5
+		let lstEvenenementD= []; // liste des évènements disponibles : p > 0.5
+		nbEvenement = 4; // nombre d'évènements dans l'énoncé
+		texte = "";
+		// liste de vocabulaire. Le nombre donne la position sur l'axe.
+		lstEchelle = [['Impossible',0],
+					 ['Improbable', calcul(1/6)],
+					 ['Peu probable',calcul(2/6)],
+					 ['Une chance sur deux',calcul(3/6)],
+					 ['Probable',calcul(4/6)],
+					 ['Très probable',calcul(5/6)],
+					 ['Certain',1]];		
+		
+		// Evenements impossibles :
+		lstEvenenementA.push([`L’équipe de France de rugby va remporter le prochain match international de football`,0]);
+		animal = choice(["un dragon", "l'abominable homme des neiges", "un chat-garou", "un dahu", "un hippocampéléphantocamélos", "une licorne", "le Minotaure"]);
+		lstEvenenementA.push([`Rencontrer ${animal} en sortant du collège`, 0]);
+		lstEvenenementA.push([`On place un point M à 4 cm du point A. On considère l'évènement "le point M est sur le cercle de centre A et de rayon 7 cm"`, 0]);
+		lstEvenenementA.push([`En France, on peut trouver des vaches espagnoles qui parlent anglais`, 0]);
+		lstEvenenementA.push([`Aux USA, on peut trouver des pierres qui roulent et qui amassent de la mousse`, 0]);
+		// Evenements improbables :
+		lstEvenenementB.push([`Gagner le gros lot au loto`,0.05]);
+		lstEvenenementB.push([`Avoir de la neige à Nice en juillet`, 0.05]);
+		carte = choice(["un As", "un Roi", "une Dame", "un Valet", "un 10", "un 9", "un 8", "un 7", "un 6", "un 5", "un 4", "un 3", "un 2"]);
+		lstEvenenementB.push([`Obtenir ${carte} en prenant une carte au hasard dans un jeu de 52 cartes`, 0.08]);
+		// Evenements peu probables :
+		lstEvenenementB.push([`Choisir une balle rouge dans un sac contenant une balle rouge et trois balles vertes`, 0.25]);
+		// Evenements Une chance sur deux :
+		lstEvenenementC.push([`Obtenir ` + choice([`pile`, `face`])+ ` quand on lance une pièce d’un euro`, 0.5]);
+		lstEvenenementC.push([`Obtenir une carte ` + choice([`rouge`, `noire`])+ ` dans un jeu de 52 cartes`, 0.5]);
+		// Evenements probables :
+		lstEvenenementD.push([`La première voiture que je verrai en sortant du collège sera de marque française`, 0.6]);
+		// Evenements très probables :
+		lstEvenenementD.push([`Le prochain président de la République Française aura plus de 40 ans`, 0.9]);
+		// Evenements certains :
+		lstEvenenementA.push([`Le prochain oiseau que je verrai aura des ailes`, 1]);
+		lstEvenenementA.push([`On place un point M à 4 cm du point A. On considère l'évènement "le point M est sur le cercle de centre A et de rayon 4 cm"`, 1]);
+		lstEvenenementA.push([`On place un point M à 4 cm du point A. On considère l'évènement "le point M est dans le disque de centre A et de rayon 5 cm"`, 1]);
+		// Evenement divers : 
+		let m = choice([4, 6, 8, 10, 12, 20, 24, 30, 48, 60, 100]); //nombre de faces du dé
+		let n = randint(1,m); //nombre à obtenir
+		lstEvenenementB.push([`Obtenir ${n} avec un dé à ${m} faces`, 1/m]);
+		if ((m-n+1)/m<0.5){
+			lstEvenenementB.push([`Obtenir un nombre supérieur ou égal à ${n} avec un dé à ${m} faces`, (m-n+1)/m]);
+		} else {
+			lstEvenenementD.push([`Obtenir un nombre supérieur ou égal à ${n} avec un dé à ${m} faces`, (m-n+1)/m]);
+		}
+		if (n/m<0.5) {
+			lstEvenenementB.push([`Obtenir un nombre inférieur ou égal à ${n} avec un dé à ${m} faces`, n/m]);
+		} else {
+			lstEvenenementD.push([`Obtenir un nombre inférieur ou égal à ${n} avec un dé à ${m} faces`, n/m]);
+		}
+
+		// choix des évènements :
+		let lstEvenenementExo = [];
+		lstEvenenementExo.push(choice(lstEvenenementA, lstEvenenementExo)); // p == 0 ou p == 1
+		lstEvenenementExo.push(choice(lstEvenenementB, lstEvenenementExo)); // p < 0.5
+		lstEvenenementExo.push(choice(lstEvenenementC, lstEvenenementExo)); // p = 0.5 
+		lstEvenenementExo.push(choice(lstEvenenementD, lstEvenenementExo));	// p > 0.5
+		lstEvenenementExo = shuffle(lstEvenenementExo);
+		
+		// Texte de l'énoncé :
+		texte +=`Placer la lettre correspondant à chaque évènement sur l'axe des probabilités ci-dessous.<br>`
+		for (let i = 0; i<nbEvenement; i++){
+			texte += num_alpha(i) + ` ` + lstEvenenementExo[i][0] + `.<br>`;
+		}
+
+		// Création des objets pour dessiner :
+		let L = 10 // longueur du segment
+		let lstObjet = []; // tous les objets qui seront dessinés
+		let h = 0.25; // hauteur trait
+		lstObjet.push(segment(0,0,L,0)); // axe
+		lstObjet.push(segment(0,-h,0,h)); // trait gauche
+		lstObjet.push(segment(L,-h,L,h)); // trait central
+		lstObjet.push(segment(L/2,-h,L/2,h)); // trait droit
+		let angle = 60; //inclinaison du texte légende
+		let y = -0.5;
+		
+		for (let j = 0; j<lstEchelle.length; j++){
+			lstObjet.push(texteParPosition(lstEchelle[j][0],L*lstEchelle[j][1],y,angle,'black',1,'gauche'));
+		}
+		texte += mathalea2d({xmin : -1, xmax : 12, ymin : -5, ymax : 1, pixelsParCm : 30, scale : 1}, lstObjet);
+
+		// CORRECTION :
+		texte_corr = ` `;
+		ylst = [0,0,0,0,0,0,0]; //ordonnées des textes réponses
+		angle = 0; // inclinaison du texte réponse
+		let p = 0; // probabilité de l'événement
+		let parrondi = 0; // arrondi de la proba au sixième près
+		for (let i = 0; i<nbEvenement; i++){ 
+			p = lstEvenenementExo[i][1];
+			parrondi = Math.round(calcul(6*p)); // échelle arrondie entre 0 et 7 pour éviter la superposition des textes réponses
+			ylst[parrondi] += 0.5; // on augmente l'ordonnée si elle est déjà utilisée
+			let txtSolution = String.fromCharCode(97+i); //code 97 correspond à 'a'
+			lstObjet.push(texteParPosition(txtSolution,calcul(L*p),ylst[parrondi],angle,'black',1,'milieu'))
+			lstObjet.push(tracePoint(point(calcul(L*p), 0), 'blue'))
+		}
+
+		for (let i = 0; i<nbEvenement; i++){ 
+			p = lstEvenenementExo[i][1];
+			if (p==0) { parrondi = 0 } 
+			else if (p<1/6) { parrondi = 1 }
+			else if (p<2/6) { parrondi = 2 }
+			else if (p==0.5) { parrondi = 3 }
+			else if (p<4/6) { parrondi = 4 }
+			else if (p<5/6) { parrondi = 5 }
+			else if (p==1) { parrondi = 6 };			
+			texte_corr += num_alpha(i) + ` ` + lstEvenenementExo[i][0] + ` : ` + lstEchelle[parrondi][0] + `<br>`;
+		}
+		texte_corr += mathalea2d({xmin : -1, xmax : 12, ymin : -5, ymax : 2, pixelsParCm : 30, scale : 1}, lstObjet);
+
+		this.liste_questions.push(texte);
+		this.liste_corrections.push(texte_corr);
+		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque question.
+	}
+	this.besoin_formulaire_case_a_cocher = [`Changer le type d'axe`];
+};
+
 /**
  * Calculs de probabilités sur une expérience aléatoire à une épreuve.
  * @Auteur Jean-Claude Lhote
@@ -5100,22 +5243,16 @@ function Constructibilite_des_triangles(){
 	this.sup=1;
 	if (this.exo == this.beta+'5G21-1') { // via longueurs
 		this.titre = `Constructibilité des triangles via les longueurs`;
-		//this.consigne = `Justifier si les longueurs données permettent de construire le triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0 !`;
 		this.consigne = `Justifier si les longueurs données permettent de construire le triangle.`;
-		//this.consigne += `<br>Dire chaque fois s'il existe plusieurs triangles constructibles ou s'il n'en existe pas.`;
 		this.consigne += `<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.`
 		
 	} else if (this.exo == this.beta+'5G31-1') {//via angles
 		this.titre = `Constructibilité des triangles via les angles`;
-		//this.consigne = `Justifier si les angles donnés permettent de construire le triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0 !`;
 		this.consigne = `Justifier si les angles donnés permettent de construire le triangle.`;
-		//this.consigne += `<br>Dire chaque fois s'il existe plusieurs triangles constructibles ou s'il n'en existe pas.`;
 		this.consigne += `<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.`
 	} else {			
 		this.titre = "Constructibilité des triangles";	
-		//this.consigne = `Justifier si les longueurs ou les angles donnés permettent de construire le triangle. <br> Dire chaque fois le nombre de triangles constructibles, ça peut être 0 !`;
 		this.consigne = `Justifier si les longueurs ou les angles donnés permettent de construire le triangle.`;
-		//this.consigne += `<br>Dire chaque fois s'il existe plusieurs triangles constructibles ou s'il n'en existe pas.`;
 		this.consigne += `<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.`
 
 	};
@@ -5129,11 +5266,6 @@ function Constructibilite_des_triangles(){
 	let type_de_questions_disponibles;
 	
 	this.nouvelle_version = function(numero_de_l_exercice){
-		// this.introduction=info_message({
-		// 	titre : "Exercice BETA",
-		// 	texte: "En cours de réalisation <br>Est-il préférable de mettre du conditionnel dans les corrections?"
-
-		// });
 
 		if (this.exo == this.beta+'5G21-1') { // via longueurs
 			if (this.sup ==1) {
@@ -5227,7 +5359,14 @@ function Constructibilite_des_triangles(){
 					texte_corr += `<br>Dans le triangle ${triangle.getNom()}, ${current_triangle[2].cote} qui mesure $${current_triangle[2].valeur}$ cm est le plus grand côté.`;
 					texte_corr += `<br> De plus ${current_triangle[0].longueur} + ${current_triangle[1].longueur} = $${current_triangle[0].valeur}$ cm + $${current_triangle[1].valeur}$ cm = $${current_triangle[2].valeur}$ cm aussi.`;
 					texte_corr += `<br> ${texte_en_couleur('On peut donc construire le triangle '+triangle.getNom()+' c\'est un triangle plat')}.`;
-					texte_corr += `<br><br>${texte_en_couleur('Un seul triangle de ce type existe')}, il s'agit du segment ${current_triangle[2].cote} sur lequel on place le point ${current_triangle[0].longueur.split('')[2]}.`;				
+					texte_corr += `<br><br>${texte_en_couleur('Un seul triangle de ce type existe')}, il s'agit du segment ${current_triangle[2].cote} sur lequel on place le point `;
+					if ((current_triangle[0].longueur.split('')[2]==current_triangle[2].cote.split('')[1]) || (current_triangle[0].longueur.split('')[2]==current_triangle[2].cote.split('')[2])) {
+					 	texte_corr += `${current_triangle[0].longueur.split('')[1]}`;
+					} else {
+					 	texte_corr += `${current_triangle[0].longueur.split('')[2]}`;
+					};
+					texte_corr += `.`;
+					//`${current_triangle[0].longueur.split('')[2]}.`;				
 					break;
 				case 3 : // 3 longueurs non constructible
 				  	// on initialise les longueurs sinon la méthode isTrueTriangleLongueurs() renvoie false!
