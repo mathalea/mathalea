@@ -4369,14 +4369,14 @@ function Antecedent_graphique() {
 		}
 
 		if (this.sup == 2) {
-			if (randint(1, 4) < 4) { // une fois sur 4 il n'y a qu'un seul antécédent
+			if (randint(1, 4) < 2) { // une fois sur 4 il n'y a qu'un seul antécédent
 				let x0 = randint(-2, 2)
 				let fx0 = randint(-4, 4)
 				if (!sortie_html) {
 					fx0 = randint(-2, 2)
 				}
 				a = randint(-3, 3, 0);
-				texte += `Déterminer par lecture graphique les antécédents de $${fx0}$ par cette fonction $f$.<br><br>`
+				texte += `Déterminer par lecture graphique le (ou les) antécédent(s) de $${fx0}$ par cette fonction $f$.<br><br>`
 				texte_corr = `$${fx0}$ a un unique antécédent $${x0}$, on note $f(${x0})=${fx0}$.<br>`
 				expression_f = `${a}*(x-(${x0}))^2+(${fx0})`;
 			} else {
@@ -4396,7 +4396,7 @@ function Antecedent_graphique() {
 				x2 = 0;
 				fx2 = c;
 				expression_f = `${a}*x^2+(${b})*x+(${c})`;
-				texte += `Déterminer par lecture graphique les antécédents de $${fx1}$ par cette fonction $f$.<br><br>`
+				texte += `Déterminer par lecture graphique le (ou les) antécédent(s) de $${fx1}$ par cette fonction $f$.<br><br>`
 				texte_corr = `$${fx1}$ a deux antécédents $${x1}$ et $${x3}$, on note $f(${x1})=f(${x3})=${fx1}$.<br>`
 			}
 		}
