@@ -169,7 +169,7 @@ function TracePoint(...points) {
           c.epaisseur=this.epaisseur
           c.opacite=this.opacite
           c.couleurDeRemplissage=this.color
-          c.opaciteDeRemplissage=this.opacite/4
+          c.opaciteDeRemplissage=this.opacite/2
           objetssvg.push(c)
         }
         else if (this.style=='#'){
@@ -179,7 +179,7 @@ function TracePoint(...points) {
           c.epaisseur=this.epaisseur
           c.opacite=this.opacite
           c.couleurDeRemplissage=this.color
-          c.opaciteDeRemplissage=this.opacite/4
+          c.opaciteDeRemplissage=this.opacite/2
           objetssvg.push(c)
         }
         else if (this.style=='+'){

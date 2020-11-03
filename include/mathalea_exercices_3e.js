@@ -4374,14 +4374,14 @@ function Antecedent_graphique() {
 		}
 
 		if (this.sup == 2) {
-			if (randint(1, 4) < 4) { // une fois sur 4 il n'y a qu'un seul antécédent
+			if (randint(1, 4) < 2) { // une fois sur 4 il n'y a qu'un seul antécédent
 				let x0 = randint(-2, 2)
 				let fx0 = randint(-4, 4)
 				if (!sortie_html) {
 					fx0 = randint(-2, 2)
 				}
 				a = randint(-3, 3, 0);
-				texte += `Déterminer par lecture graphique les antécédents de $${fx0}$ par cette fonction $f$.<br><br>`
+				texte += `Déterminer par lecture graphique le (ou les) antécédent(s) de $${fx0}$ par cette fonction $f$.<br><br>`
 				texte_corr = `$${fx0}$ a un unique antécédent $${x0}$, on note $f(${x0})=${fx0}$.<br>`
 				expression_f = `${a}*(x-(${x0}))^2+(${fx0})`;
 			} else {
@@ -4401,7 +4401,7 @@ function Antecedent_graphique() {
 				x2 = 0;
 				fx2 = c;
 				expression_f = `${a}*x^2+(${b})*x+(${c})`;
-				texte += `Déterminer par lecture graphique les antécédents de $${fx1}$ par cette fonction $f$.<br><br>`
+				texte += `Déterminer par lecture graphique le (ou les) antécédent(s) de $${fx1}$ par cette fonction $f$.<br><br>`
 				texte_corr = `$${fx1}$ a deux antécédents $${x1}$ et $${x3}$, on note $f(${x1})=f(${x3})=${fx1}$.<br>`
 			}
 		}
@@ -6155,13 +6155,13 @@ function Coefficient_evolution() {
 	this.nouvelle_version = function (numero_de_l_exercice) {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let texte_aide = '- Augmenter un nombre de $t$ % revient à le multiplier par $1+\\dfrac{t}{100}$.';
+		let texte_aide = '- Augmenter un nombre de $t~\\%$ revient à le multiplier par $1+\\dfrac{t}{100}$.';
 		texte_aide += '<br>'
-		texte_aide += '<br>- Diminuer un nombre de $t$ % revient à le multiplier par $1-\\dfrac{t}{100}$.'
+		texte_aide += '<br>- Diminuer un nombre de $t~\\%$ revient à le multiplier par $1-\\dfrac{t}{100}$.'
 		texte_aide += '<br>'
 		texte_aide += '<br><b>Exemples</b> :'
-		texte_aide += '<br>- Diminuer un nombre de 20 % revient à le multiplier par $1-\\dfrac{20}{100}=1-0,20=0,8$.'
-		texte_aide += '<br><br>- Augmenter un nombre de 5 % revient à le multiplier par $1+\\dfrac{5}{100}=1+0,05=1,05$.'
+		texte_aide += '<br>- Diminuer un nombre de $20~\\%$ revient à le multiplier par $1-\\dfrac{20}{100}=1-0,20=0,8$.'
+		texte_aide += '<br><br>- Augmenter un nombre de $5~\\%$ revient à le multiplier par $1+\\dfrac{5}{100}=1+0,05=1,05$.'
 
 		this.bouton_aide = modal_url(numero_de_l_exercice,'/aide/3P10');
 
@@ -6180,24 +6180,24 @@ function Coefficient_evolution() {
 			taux = choice([randint(1,9)*10,randint(1,9)]);
 			switch (liste_type_de_questions[i]){
 				case 'coef+' :
-				texte = `Augmenter de ${taux} % revient à multiplier par...`;
+				texte = `Augmenter de $${taux}~\\%$ revient à multiplier par...`;
 				coeff = tex_prix(calcul(1+taux/100));
-				texte_corr = `Augmenter de ${taux} % revient à multiplier par ${coeff} car $100~\\% + ${taux}~\\% = ${100+taux}~\\%$.`;
+				texte_corr = `Augmenter de $${taux}~\\%$ revient à multiplier par ${coeff} car $100~\\% + ${taux}~\\% = ${100+taux}~\\%$.`;
 				break;
 				case 'coef-' :
-				texte = `Diminuer de ${taux} % revient à multiplier par...`;
+				texte = `Diminuer de $${taux}~\\%$ revient à multiplier par...`;
 				coeff = tex_prix(calcul(1-taux/100));
-				texte_corr = `Diminuer de ${taux} % revient à multiplier par ${coeff} car $100~\\% - ${taux}~\\% = ${100-taux}~\\%$.`;
+				texte_corr = `Diminuer de $${taux}~\\%$ revient à multiplier par ${coeff} car $100~\\% - ${taux}~\\% = ${100-taux}~\\%$.`;
 				break;
 				case 'taux+' :
 				coeff = tex_nombrec(1+taux/100);
 				texte = `Multiplier par ${coeff} revient à...`;
-				texte_corr = `Multiplier par ${coeff} revient à augmenter de ${taux} % car $${coeff} = ${100+taux}~\\% = 100~\\% + ${taux}~\\%$.`;
+				texte_corr = `Multiplier par ${coeff} revient à augmenter de $${taux}~\\%$ car $${coeff} = ${100+taux}~\\% = 100~\\% + ${taux}~\\%$.`;
 				break;
 				case 'taux-' :
 				coeff = tex_nombrec(1-taux/100);
 				texte = `Multiplier par ${coeff} revient à...`;
-				texte_corr = `Multiplier par ${coeff} revient à diminuer de ${taux} % car $${coeff} = ${100-taux}~\\% = 100~\\% - ${taux}~\\%$.`;
+				texte_corr = `Multiplier par ${coeff} revient à diminuer de $${taux}~\\%$ car $${coeff} = ${100-taux}~\\% = 100~\\% - ${taux}~\\%$.`;
 				break;
 			}
 			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
