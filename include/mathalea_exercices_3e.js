@@ -1820,20 +1820,20 @@ function fonction_notion_vocabulaire() {
 					// sous question e/
 					txt_info =  `Voici le diagramme d'une machine qui triple `;
 					if (sortie_html) {
-						texte += num_alpha(j) + ` &Eacute;crire la réponse à la question ` + num_alpha(j - 1) + ` sous forme de diagramme.<br>`;
+						texte += num_alpha(j) + ` &Eacute;crire la réponse à la question ` + num_alpha(j - 1) + ` sous forme de diagramme, comme dans l’exemple ci-dessous.<br>`;
 						//texte += `Voici le diagramme d'une machine qui triple `;
 						//texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 						txt_info += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
-						SVG_machine_diag_3F1_act_mono(id_du_div_diag, 800, 100, 'f', 'x', [['3', '3x']]);
+						SVG_machine_diag_3F1_act_mono(id_du_div_diag, 800, 100, 't', 'x', [['3', '3x']]);
 						texte_corr += num_alpha(j) + ` C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
 						texte_corr += `<div id="${id_du_div_corr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 						SVG_machine_diag_3F1_act_mono(id_du_div_corr, 800, 100, 'f', 'x', [['4', '4x']]);
 						j++;//incrémente la sous question
 					} else { // sortie LaTeX
-						texte += `\\item   \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
+						texte += `\\item   \\'{E}crire la réponse à la question d/ sous forme de diagramme, comme dans l’exemple ci-dessous.<br>`;
 						//texte += `Voici le diagramme d'une machine qui triple <br> `;
 						//texte += tikz_machine_diag(`f`, `x`, [[`\\times 3`, `3x`]]);
-						txt_info += '<br>'+tikz_machine_diag(`f`, `x`, [[`\\times 3`, `3x`]]);
+						txt_info += '<br>'+tikz_machine_diag(`t`, `x`, [[`\\times 3`, `3x`]]);
 						texte_corr += `\\item  C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
 						texte_corr += tikz_machine_diag(`f`, `x`, [[`\\times 4`, `4x`]]);
 					};
@@ -5102,6 +5102,7 @@ function Transformations_du_plan_et_coordonnees() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Trouver les coordonnées de l'image d'un point par une transformation du plan";
 	this.consigne = "";
+	this.pas_de_version_LaTeX = true;
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
@@ -5578,7 +5579,7 @@ function Transformations_du_plan_et_coordonnees() {
 		}
 		else {
 			texte = ``
-			texte_cor=``
+			texte_corr=``
 			this.liste_questions.push(texte) // on envoie la question
 			this.liste_corrections.push(texte_corr)
 			liste_de_question_to_contenu_sans_numero(this);
@@ -6779,7 +6780,7 @@ function Image_antecedent_depuis_tableau_ou_fleche() {
 function Eq_resolvantes_Thales(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.debug = true;	
+	this.debug = false;	
 	this.sup=1;
 	if (this.debug) {
 		this.nb_questions = 4;
@@ -6801,7 +6802,7 @@ function Eq_resolvantes_Thales(){
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		if (this.debug) {
-			type_de_questions_disponibles = [0,1,2,3,4];			
+			type_de_questions_disponibles = [0,1,2,3];			
 		} else {
      		 type_de_questions_disponibles = shuffle([choice([0,1]),choice([2,3])]);      			
 		};
@@ -6817,54 +6818,61 @@ function Eq_resolvantes_Thales(){
 			// on a besoin d'un coeff pour le type de nombres
 			let coeff;
 			let nb_alea;
+			let c_temp_case_3;
+			while (c_temp_case_3%2 != 0 || c_temp_case_3%5 != 0) {
+				c_temp_case_3 = randint(11,99)
+			};
 			this.sup = Number(this.sup); // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
 			switch (this.sup) {
-			case 1://entiers          
-				coeff=[1,1,1];
-				nb_alea=[randint(1,9),randint(1,9),randint(1,9)];
-				break;
-			case 2://relatifs            
-				coeff=[choice([1,-1]),choice([1,-1]),choice([1,-1])];
-				nb_alea=[randint(1,9),randint(1,9),randint(1,9)];
-				break;
-			case 3://décimaux            
-				coeff=[0.1,0.1,0.1];
-				nb_alea=[randint(11,99),randint(11,99),randint(11,99)];
-				break;
+				case 1://entiers          
+					coeff=[1,1,1];
+					nb_alea=[randint(2,9),randint(2,9),randint(2,9,[3,6,7,9])];
+					break;
+				case 2://relatifs            
+					coeff=[choice([1,-1]),choice([1,-1]),choice([1,-1])];
+					nb_alea=[randint(2,9),randint(2,9),randint(1,9,[3,6,7,9])];
+					break;
+				case 3://décimaux            
+					coeff=[0.1,0.1,0.1];
+					nb_alea=[randint(11,99),randint(11,99),c_temp_case_3];
+					break;
 			};
 
 			let params = {
-				a:tex_nombre(calcul(nb_alea[0]*coeff[0])),
-				b:tex_nombre(calcul(nb_alea[1]*coeff[1])),
-				c:tex_nombre(calcul(nb_alea[2]*coeff[2])),
-				inc:'x'
+				// a:tex_nombre(calcul(nb_alea[0]*coeff[0])),
+				// b:tex_nombre(calcul(nb_alea[1]*coeff[1])),
+				// c:tex_nombre(calcul(nb_alea[2]*coeff[2])),
+				a:calcul(nb_alea[0]*coeff[0]),
+				b:calcul(nb_alea[1]*coeff[1]),
+				c:calcul(nb_alea[2]*coeff[2]),
+				inc:choice(['x','y','GO','AB','z','GA','BU','ZO','ME'])
 			}
 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
 				{//case 0 --> x/b=a/c --> cx= ab
-					eq:`\\dfrac{${params.inc}}{${params.b}}=\\dfrac{${params.a}}{${params.c}}`,
+					eq:`\\dfrac{${params.inc}}{${tex_nombre(params.b)}}=\\dfrac{${tex_nombre(params.a)}}{${tex_nombre(params.c)}}`,
 					a:params.a,
 					b:params.b,
 					c:params.c,
 					inc:params.inc 
 				},
 				{//case 1 --> a/c=x/b --> cx=ab
-					eq:`\\dfrac{${params.a}}{${params.c}}=\\dfrac{${params.inc}}{${params.c}}`,
+					eq:`\\dfrac{${tex_nombre(params.a)}}{${tex_nombre(params.c)}}=\\dfrac{${params.inc}}{${tex_nombre(params.c)}}`,
 					a:params.a,
 					b:params.b,
 					c:params.c,
 					inc:params.inc 
 				},
 				{//case 2 -->b/x=c/a --> cx = ab
-					eq:`\\dfrac{${params.b}}{${params.inc}}=\\dfrac{${params.c}}{${params.a}}`,
+					eq:`\\dfrac{${tex_nombre(params.b)}}{${params.inc}}=\\dfrac{${tex_nombre(params.c)}}{${tex_nombre(params.a)}}`,
 					a:params.a,
 					b:params.b,
 					c:params.c,
 					inc:params.inc 
 				},
 				{//case 3 -->c/a=b/x --> cx = ab 
-					eq:`\\dfrac{${params.c}}{${params.a}}=\\dfrac{${params.b}}{${params.inc}}`,
+					eq:`\\dfrac{${tex_nombre(params.c)}}{${tex_nombre(params.a)}}=\\dfrac{${tex_nombre(params.b)}}{${params.inc}}`,
 					a:params.a,
 					b:params.b,
 					c:params.c,
@@ -6881,13 +6889,13 @@ function Eq_resolvantes_Thales(){
 					question:``,
 					correction:`
 						$${situations[k].eq}$<br>
-						${texte_en_couleur_et_gras(`les produits en croix sont égaux`)}<br>
-						$${situations[k].c}\\times ${situations[k].inc}= ${situations[k].a}\\times ${situations[k].b}$<br>
-						${texte_en_couleur_et_gras(`on divise les deux membres par ${situations[k].c}`)}<br>
-						$\\dfrac{${situations[k].c}\\times ${situations[k].inc}}{${situations[k].c}}= \\dfrac{${situations[k].a}\\times ${situations[k].b}}{${situations[k].c}}$<br>
-						${texte_en_couleur_et_gras(`on simplifie et on calcule`)}<br>
-						${typeof situations[k].a}<br>
-						$${situations[k].inc}=${Number(situations[k].b)*Number(situations[k].a)/Number(situations[k].c)}$
+						${texte_en_couleur_et_gras(`Les produits en croix sont égaux.`)}<br>
+						$${tex_nombre(situations[k].c)}\\times ${situations[k].inc} = ${tex_nombre(situations[k].a)}\\times ${tex_nombre(situations[k].b)}$<br>
+						${texte_en_couleur_et_gras(`On divise les deux membres par ${tex_nombre(situations[k].c)}`)}.<br>
+						$\\dfrac{${tex_nombre(situations[k].c)}\\times ${situations[k].inc}}{${tex_nombre(situations[k].c)}}= \\dfrac{${tex_nombre(situations[k].a)}\\times ${tex_nombre(situations[k].b)}}{${tex_nombre(situations[k].c)}}$<br>
+						${texte_en_couleur_et_gras(`On simplifie et on calcule.`)}<br>
+
+						$${situations[k].inc}=${tex_nombre(calcul(Number(situations[k].b)*Number(situations[k].a)/Number(situations[k].c)))}$
 
 					`
 				});
@@ -6936,16 +6944,7 @@ function Eq_resolvantes_Thales(){
 						texte_corr = `${enonces[3].correction}`;
 					};
 					break;				
-         		case 4 : 
-					texte = `${enonces[4].enonce}`;
-					if (this.debug) {
-						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
-						texte_corr = ``;	
-					} else {
-						texte_corr = `${enonces[4].correction}`;
-					};
-					break;				
+ 			
 			};			
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre

@@ -1979,7 +1979,7 @@ function Exercice_equation1() {
 function Exercice_Thales() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Déterminer une longueur avec la propriété de Thales";
+  this.titre = "Déterminer une longueur avec la propriété de Thales (MG32)";
   this.consigne = "";
   this.nb_questions = 1;
   this.nb_questions_modifiable = false;
@@ -2492,6 +2492,135 @@ function Exercice_Thales() {
     "1 : Calcul direct de deux longueurs \n 2 : Avec calcul intermédiaire\n 3 : Sans figure",
   ];
 }
+
+
+/**
+ * Calcul de longueurs avec le théorème de Thalès
+ * @Auteur Rémi Angot
+ * Référence 4G30
+*/
+function Thales2D() {
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.titre = "Calculer des longueurs avec la propriété de Thalès";
+  this.consigne = "";
+  this.nb_questions = 1;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  this.sup = 1; // Triangles imbriqués / configuration papillon / les 2
+  this.vspace = -0.5; // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
+
+
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    let liste_de_noms_de_polygones = []
+    let premiereQuestionPapillon = randint(0,1) // Pour alterner les configurations et savoir par laquelle on commence
+
+
+    for (let i = 0, texte = '', texte_corr = '', cpt = 0;i < this.nb_questions && cpt < 50;)
+     {
+      if ((i+1)%3==0){ // Toutes les 3 questions, on repart à zéro sur les noms des polygones
+        liste_de_noms_de_polygones = []
+      }
+      let nomDesPoints = creerNomDePolygone(5,liste_de_noms_de_polygones);
+      liste_de_noms_de_polygones.push(nomDesPoints);
+      let nomA = nomDesPoints[0];
+      let nomB = nomDesPoints[1];
+      let nomC = nomDesPoints[2];
+      let nomM = nomDesPoints[3];
+      let nomN = nomDesPoints[4];
+      let ab = randint(5, 10);
+      let ac = randint(5, 10,ab);
+      let bc = randint(Math.max(ab - ac, ac - ab) + 1, ab + ac - 1,[ab,ac]); // Pas de triangle isocèle ou équilatéral
+      let A = point(0, 0, nomA);
+      let B = pointAdistance(A, ab, nomB);
+      let ABC = triangle2points2longueurs(A, B, ac, bc);
+      let C = ABC.listePoints[2];
+      C.nom = nomC;
+      let k = calcul(randint(3, 8, 5) / 10);
+      if (this.sup == 2) {
+        k *= -1
+        this.vspace = -1; // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
+
+      }
+      if (this.sup == 3 && ((i + premiereQuestionPapillon) % 2 == 0)) {
+        k *= -1
+        this.vspace = -1; // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
+      }
+      let M = homothetie(A, C, k);
+      let N = homothetie(B, C, k);
+      let MNC = polygone(M, N, C);
+      let m = pointSurSegment(M, N, -.5);
+      let n = pointSurSegment(N, M, -.5);
+      let marqueNomM = texteParPoint(nomM, m);
+      let marqueNomN = texteParPoint(nomN, n);
+      let a = pointSurSegment(A, B, -.5);
+      let b = pointSurSegment(B, A, -.5);
+      let marqueNomA = texteParPoint(nomA, a);
+      let marqueNomB = texteParPoint(nomB, b);
+      let c;
+      if (k<0) {
+        if (angle(A,C,N)<angle(N,C,A)){
+          c = similitude(A,C,-angleOriente(A,C,N)/2,1/longueur(A,C))
+        } else {
+          c = similitude(A,C,-angleOriente(N,C,A)/2,1/longueur(A,C)*0.5)
+        }
+      } else {
+        c = similitude(A,C,-180+angleOriente(A,C,B)/2,1/longueur(A,C)*.5)
+      }
+      let marqueNomC = texteParPoint(nomC,c)
+
+
+    
+
+      if (!sortie_html){
+        texte = '\\begin{minipage}{.5\\linewidth}\n'
+      }
+      texte += `Sur la figure suivante, $${nomA+nomC}=${ac}~\\text{cm}$, $${nomA+nomB}=${ab}~\\text{cm}$, $${nomC+nomM}=${tex_nombrec(Math.abs(k)*ac)}~\\text{cm}$, $${nomC+nomN}=${tex_nombrec(Math.abs(k)*bc)}~\\text{cm}$ et $(${nomA+nomB})//(${nomM+nomN})$.<br>`
+      texte+= `Calculer $${nomM+nomN}$ et $${nomC+nomB}$.<br><br>`
+      if (!sortie_html){
+        texte += '\\end{minipage}\n'
+        texte += '\\begin{minipage}{.5\\linewidth}\n'
+        texte += '\\centering'
+      }
+      texte += mathalea2d({xmin : Math.min(A.x, B.x, C.x, M.x, N.x) - 1.5,
+        ymin : Math.min(A.y, B.y, C.y, M.y, N.y) - .8,
+        xmax : Math.max(A.x, B.x, C.x, M.x, N.x) + 1.5,
+        ymax : Math.max(A.y, B.y, C.y, M.y, N.y) + .8,
+        scale : .5},
+
+        ABC, MNC, marqueNomA, marqueNomB, marqueNomC, marqueNomM, marqueNomN
+      );
+      if (!sortie_html){
+        texte += '\\end{minipage}\n'
+      }
+      if (k>0){
+        texte_corr = `Dans le triangle $${nomA+nomB+nomC}$, $${nomM}\\in${"["+nomC+nomA+"]"}$, $${nomN}\\in${"["+nomC+nomB+"]"}$ et $(${nomA+nomB})//(${nomM+nomN})$ donc d'après le théorème de Thalès, les triangles $${nomA+nomB+nomC}$ et $${nomM+nomN+nomC}$ ont des longueurs proportionnelles.`;
+      } else {
+        texte_corr = `Les droites $(${nomA+nomM})$ et $(${nomB+nomN})$ sont sécantes en $${nomC}$ et $(${nomA+nomB})//(${nomM+nomN})$  donc d'après le théorème de Thalès, les triangles $${nomA+nomB+nomC}$ et $${nomM+nomN+nomC}$ ont des longueurs proportionnelles.`;
+      }
+      texte_corr += `<br><br>`
+      texte_corr += `$\\dfrac{${nomC+nomM}}{${nomC+nomA}}=\\dfrac{${nomC+nomN}}{${nomC+nomB}}=\\dfrac{${nomM+nomN}}{${nomA+nomB}}$`  
+      texte_corr += `<br><br>`
+      texte_corr += `$\\dfrac{${tex_nombrec(Math.abs(k)*ac)}}{${tex_nombre(ac)}}=\\dfrac{${tex_nombrec(Math.abs(k)*bc)}}{${nomC+nomB}}=\\dfrac{${nomM+nomN}}{${tex_nombre(ab)}}$`  
+      texte_corr += `<br><br>`
+      texte_corr += `$${nomM+nomN}=\\dfrac{${tex_nombrec(Math.abs(k)*ac)}\\times${tex_nombre(ab)}}{${tex_nombre(ac)}}=${tex_nombrec(Math.abs(k)*ab)}$ cm`
+      texte_corr += `<br><br>`
+      texte_corr += `$${nomC+nomB}=\\dfrac{${tex_nombrec(Math.abs(k)*bc)}\\times${tex_nombre(ac)}}{${tex_nombrec(Math.abs(k)*ac)}}=${tex_nombrec(bc)}$ cm`
+      if (this.liste_questions.indexOf(texte) == -1) {
+        // Si la question n'a jamais été posée, on en créé une autre
+        this.liste_questions.push(texte);
+        this.liste_corrections.push(texte_corr);
+        i++;
+      }
+      cpt++;
+    }
+    liste_de_question_to_contenu(this);
+  };
+  this.besoin_formulaire_numerique = ['Configuration',3,'1 : Triangles imbriqués\n2 : Papillon\n3 : Les deux'];
+}
+
+
 /**
  * Reciproque_Thales
  * @Auteur Jean-Claude Lhote
@@ -3023,7 +3152,7 @@ function Exercice_Pythagore() {
         // Calcul d'un côté de l'angle droit
         texte = `Dans la figure ci-dessous, le triangle $${nom_du_triangle}$ est rectangle en $${s0}$, $${
           s0 + s1
-        }=${s01}$ cm, $${s1 + s2}=${s12}$ cm.`;
+        }=${s01}$ cm, $${s1 + s2}=${s12}$ cm.<br>`;
         texte += `Calculer $${s0 + s2}$.`;
         texte_corr = `Dans le triangle $${nom_du_triangle}$ rectangle en $${s0}$, d&rsquo;après le théorème de Pythagore, on a : $${
           s1 + s2
@@ -3225,7 +3354,9 @@ function Exercice_Pythagore() {
           `$${s0 + s2}~=~\\sqrt{${arrondi_virgule(
             carre12 - carre01,
             2
-          )}}~\\approx${s02}~\\text{cm}.$`;
+          )}}~`;
+          if (s02==calcul(Math.sqrt(s12**2-s01**2))) texte_corr+=`=${s02}~\\text{cm}.$`
+          else texte+=`\\approx${s02}~\\text{cm}.$`;
       } else {
         texte_corr =
           "Le triangle " +
@@ -3247,7 +3378,9 @@ function Exercice_Pythagore() {
           `$${s1 + s2}~=~\\sqrt{${arrondi_virgule(
             carre02 + carre01,
             2
-          )}}~\\approx${s12}~\\text{cm}.$`;
+          )}}~`;
+          if (s12==calcul(Math.sqrt(s01**2+s02**2))) texte_corr+=`=${s12}~\\text{cm}.$`
+          else texte+=`\\approx${s12}~\\text{cm}.$`;
       }
 
       this.liste_corrections.push(texte_corr);
@@ -4269,15 +4402,27 @@ function Problemes_Pythagore() {
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles = [
-      "losange",
-      "rectangle_diagonale_connue",
-      "rectangle_diagonale_a_trouver",
-      "parallelogramme_est_losange",
-      "parallelogramme_n_est_pas_losange",
-      "parallelogramme_est_rectangle",
-      "parallelogramme_n_est_pas_rectangle",
-    ];
+    let type_de_questions_disponibles;
+    if (this.nb_questions >=5){
+      type_de_questions_disponibles = [
+        "losange",
+        "rectangle_diagonale_connue",
+        "rectangle_diagonale_a_trouver",
+        "parallelogramme_est_losange",
+        "parallelogramme_n_est_pas_losange",
+        "parallelogramme_est_rectangle",
+        "parallelogramme_n_est_pas_rectangle",
+      ];
+    } else {
+      type_de_questions_disponibles = [
+        "losange",
+        "rectangle_diagonale_connue",
+        "rectangle_diagonale_a_trouver",
+        choice(["parallelogramme_est_losange","parallelogramme_n_est_pas_losange",]),
+        choice(["parallelogramme_est_rectangle",
+        "parallelogramme_n_est_pas_rectangle",])
+      ];
+    }
     let liste_type_de_questions = combinaison_listes(
       type_de_questions_disponibles,
       this.nb_questions
