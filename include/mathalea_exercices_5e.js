@@ -2849,12 +2849,12 @@ function Placer_probabilites(){
 	this.titre = "Placer un événement sur une échelle de probabilités";
 	this.consigne = "";
 	this.nb_questions = 1;
-	this.nb_questions_modifiable = false;
+	this.nb_questions_modifiable = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	sortie_html? this.spacing = 2 : this.spacing = 1; 
 	sortie_html? this.spacing_corr = 3 : this.spacing_corr = 1;
-	//this.sup=1;
+	this.sup=false;
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées		
@@ -2876,6 +2876,9 @@ function Placer_probabilites(){
 		lstEvenenementA.push([`L’équipe de France de rugby va remporter le prochain match international de football`,0]);
 		animal = choice(["un dragon", "l'abominable homme des neiges", "un chat-garou", "un dahu", "un hippocampéléphantocamélos", "une licorne", "le Minotaure"]);
 		lstEvenenementA.push([`Rencontrer ${animal} en sortant du collège`, 0]);
+		lstEvenenementA.push([`On place un point M à 4 cm du point A. On considère l'évènement "le point M est sur le cercle de centre A et de rayon 7 cm"`, 0]);
+		lstEvenenementA.push([`En France, on peut trouver des vaches espagnoles qui parlent anglais`, 0]);
+		lstEvenenementA.push([`Aux USA, on peut trouver des pierres qui roulent et qui amassent de la mousse`, 0]);
 		// Evenements improbables :
 		lstEvenenementB.push([`Gagner le gros lot au loto`,0.05]);
 		lstEvenenementB.push([`Avoir de la neige à Nice en juillet`, 0.05]);
@@ -2885,14 +2888,17 @@ function Placer_probabilites(){
 		lstEvenenementB.push([`Choisir une balle rouge dans un sac contenant une balle rouge et trois balles vertes`, 0.25]);
 		// Evenements Une chance sur deux :
 		lstEvenenementC.push([`Obtenir ` + choice([`pile`, `face`])+ ` quand on lance une pièce d’un euro`, 0.5]);
+		lstEvenenementC.push([`Obtenir une carte ` + choice([`rouge`, `noire`])+ ` dans un jeu de 52 cartes`, 0.5]);
 		// Evenements probables :
 		lstEvenenementD.push([`La première voiture que je verrai en sortant du collège sera de marque française`, 0.6]);
 		// Evenements très probables :
 		lstEvenenementD.push([`Le prochain président de la République Française aura plus de 40 ans`, 0.9]);
 		// Evenements certains :
 		lstEvenenementA.push([`Le prochain oiseau que je verrai aura des ailes`, 1]);
+		lstEvenenementA.push([`On place un point M à 4 cm du point A. On considère l'évènement "le point M est sur le cercle de centre A et de rayon 4 cm"`, 1]);
+		lstEvenenementA.push([`On place un point M à 4 cm du point A. On considère l'évènement "le point M est dans le disque de centre A et de rayon 5 cm"`, 1]);
 		// Evenement divers : 
-		let m = randint(4,20); //nombre de faces du dé
+		let m = choice([4, 6, 8, 10, 12, 20, 24, 30, 48, 60, 100]); //nombre de faces du dé
 		let n = randint(1,m); //nombre à obtenir
 		lstEvenenementB.push([`Obtenir ${n} avec un dé à ${m} faces`, 1/m]);
 		if ((m-n+1)/m<0.5){
@@ -2912,6 +2918,7 @@ function Placer_probabilites(){
 		lstEvenenementExo.push(choice(lstEvenenementB, lstEvenenementExo)); // p < 0.5
 		lstEvenenementExo.push(choice(lstEvenenementC, lstEvenenementExo)); // p = 0.5 
 		lstEvenenementExo.push(choice(lstEvenenementD, lstEvenenementExo));	// p > 0.5
+		lstEvenenementExo = shuffle(lstEvenenementExo);
 		
 		// Texte de l'énoncé :
 		texte +=`Placer la lettre correspondant à chaque évènement sur l'axe des probabilités ci-dessous.<br>`
@@ -2929,6 +2936,7 @@ function Placer_probabilites(){
 		lstObjet.push(segment(L/2,-h,L/2,h)); // trait droit
 		let angle = 60; //inclinaison du texte légende
 		let y = -0.5;
+		
 		for (let j = 0; j<lstEchelle.length; j++){
 			lstObjet.push(texteParPosition(lstEchelle[j][0],L*lstEchelle[j][1],y,angle,'black',1,'gauche'));
 		}
@@ -2939,7 +2947,7 @@ function Placer_probabilites(){
 		ylst = [0,0,0,0,0,0,0]; //ordonnées des textes réponses
 		angle = 0; // inclinaison du texte réponse
 		let p = 0; // probabilité de l'événement
-		let parrondi = 0; //arrondi de la proba au sixième près
+		let parrondi = 0; // arrondi de la proba au sixième près
 		for (let i = 0; i<nbEvenement; i++){ 
 			p = lstEvenenementExo[i][1];
 			parrondi = Math.round(calcul(6*p)); // échelle arrondie entre 0 et 7.
@@ -2954,6 +2962,7 @@ function Placer_probabilites(){
 		this.liste_corrections.push(texte_corr);
 		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
 	}
+	this.besoin_formulaire_case_a_cocher = [`Changer le type d'axe`];
 };
 
 /**
