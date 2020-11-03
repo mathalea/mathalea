@@ -2853,7 +2853,7 @@ function Placer_probabilites(){
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	sortie_html? this.spacing = 2 : this.spacing = 1; 
-	sortie_html? this.spacing_corr = 3 : this.spacing_corr = 1;
+	sortie_html? this.spacing_corr = 2 : this.spacing_corr = 1;
 	this.sup=false;
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
@@ -2864,6 +2864,7 @@ function Placer_probabilites(){
 		let lstEvenenementD= []; // liste des évènements disponibles : p > 0.5
 		nbEvenement = 4; // nombre d'évènements dans l'énoncé
 		texte = "";
+		// liste de vocabulaire. Le nombre donne la position sur l'axe.
 		lstEchelle = [['Impossible',0],
 					 ['Improbable', calcul(1/6)],
 					 ['Peu probable',calcul(2/6)],
@@ -2950,17 +2951,29 @@ function Placer_probabilites(){
 		let parrondi = 0; // arrondi de la proba au sixième près
 		for (let i = 0; i<nbEvenement; i++){ 
 			p = lstEvenenementExo[i][1];
-			parrondi = Math.round(calcul(6*p)); // échelle arrondie entre 0 et 7.
-			ylst[parrondi] += 0.5;
+			parrondi = Math.round(calcul(6*p)); // échelle arrondie entre 0 et 7 pour éviter la superposition des textes réponses
+			ylst[parrondi] += 0.5; // on augmente l'ordonnée si elle est déjà utilisée
 			let txtSolution = String.fromCharCode(97+i); //code 97 correspond à 'a'
 			lstObjet.push(texteParPosition(txtSolution,calcul(L*p),ylst[parrondi],angle,'black',1,'milieu'))
 			lstObjet.push(tracePoint(point(calcul(L*p), 0), 'blue'))
 		}
-		texte_corr += mathalea2d({xmin : -1, xmax : 12, ymin : -5, ymax : 5, pixelsParCm : 30, scale : 1}, lstObjet);
+
+		for (let i = 0; i<nbEvenement; i++){ 
+			p = lstEvenenementExo[i][1];
+			if (p==0) { parrondi = 0 } 
+			else if (p<1/6) { parrondi = 1 }
+			else if (p<2/6) { parrondi = 2 }
+			else if (p==0.5) { parrondi = 3 }
+			else if (p<4/6) { parrondi = 4 }
+			else if (p<5/6) { parrondi = 5 }
+			else if (p==1) { parrondi = 6 };			
+			texte_corr += num_alpha(i) + ` ` + lstEvenenementExo[i][0] + ` : ` + lstEchelle[parrondi][0] + `<br>`;
+		}
+		texte_corr += mathalea2d({xmin : -1, xmax : 12, ymin : -5, ymax : 2, pixelsParCm : 30, scale : 1}, lstObjet);
 
 		this.liste_questions.push(texte);
 		this.liste_corrections.push(texte_corr);
-		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
+		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque question.
 	}
 	this.besoin_formulaire_case_a_cocher = [`Changer le type d'axe`];
 };
