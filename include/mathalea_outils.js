@@ -1274,7 +1274,7 @@ function creerNomDePolygone(nbsommets,liste_a_eviter=[]){
 		polygone += String.fromCharCode(premiersommet+i)
 	}
 
-	if (liste_a_eviter.length < ((26-nbsommets)/nbsommets)-1){ // On évite la liste à éviter si elle n'est pas trop grosse sinon on n'en tient pas compte
+	if (liste_a_eviter.length < 26-nbsommets-1){ // On évite la liste à éviter si elle n'est pas trop grosse sinon on n'en tient pas compte
 		let cpt = 0;
 		while(possedeUnCaractereInterdit(polygone,liste_a_eviter) && cpt <20){
 			polygone="";
