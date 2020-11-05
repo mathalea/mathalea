@@ -14307,12 +14307,12 @@ function Organiser_donnees_depuis_texte() {
     texte += num_alpha(0) + ` Remplir le tableau suivant. <br>`;
 
   if (this.sup){
-    texte += num_alpha(1) + ` Quel est la masse totale de fruits acheté par les amis ? <br>`;
+    texte += num_alpha(1) + ` Quel est la masse totale de fruits achetés par les amis ? <br>`;
   }else{
     texte += num_alpha(1) + ` Quel est le nombre total de fruits achetés par les amis ? <br>`;
   }    
     texte += num_alpha(2) + ` Qui a rapporté le plus de fruits ? <br>`;
-    texte += num_alpha(3) + ` Quel fruit a été apporté en la plus grosse quantité ? <br><br>`;
+    texte += num_alpha(3) + ` Quel fruit a été rapporté en la plus grosse quantité ? <br><br>`;
 
     texte += `$\\begin{array}{|l|` +  `c|`.repeat(nbFruits+1) + `}\n`;
     texte += `\\hline\n`;
@@ -14395,7 +14395,7 @@ function Organiser_donnees_depuis_texte() {
     }
     nmax = arrondi_virgule(nmax,1);
     if (lstmax.length>1){
-      texte_corr += `Les personnes qui ont ramené le plus de fruits sont : `;
+      texte_corr += `Les personnes qui ont rapporté le plus de fruits sont : `;
       texte_corr += lstmax[0];
       for (let k=1; k<lstmax.length; k++){
         texte_corr += ` et ${lstmax[k]}`;
@@ -14407,9 +14407,9 @@ function Organiser_donnees_depuis_texte() {
       }      
     } else {
       if (this.sup) {
-        texte_corr += `La personne qui a ramené le plus de fruits est ${lstmax}. Cette masse maximale est de ${nmax} kg.<br>`;
+        texte_corr += `La personne qui a rapporté le plus de fruits est ${lstmax}. Cette masse maximale est de ${nmax} kg.<br>`;
       } else {
-        texte_corr += `La personne qui a ramené le plus de fruits est ${lstmax}. Ce nombre maximal de fruits est de ${nmax}.<br>`;
+        texte_corr += `La personne qui a rapporté le plus de fruits est ${lstmax}. Ce nombre maximal de fruits est de ${nmax}.<br>`;
       }      
     }    
 
