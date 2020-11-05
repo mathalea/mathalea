@@ -6025,25 +6025,21 @@ function latexParCoordonnees(texte, x, y) {
 function FractionParPosition({x=0,y=0,num=1,den=2,couleur='black'}){
   ObjetMathalea2D.call(this);
   let objects=[]
-  let longueur=Math.max(Math.ceil(Math.log10(num)),Math.ceil(Math.log10(den)))*0.5
-  objects.push(segment(point(x,y),point(x+longueur,y),couleur))
-  objects.push(texteParPosition(nombre_avec_espace(num),x+longueur/2,y+0.5,"milieu",couleur))
-  objects.push(texteParPosition(nombre_avec_espace(den),x+longueur/2,y-0.5,"milieu",couleur))
+  let longueur=Math.max(Math.ceil(Math.log10(num)),Math.ceil(Math.log10(den)))*10
+  let offset=10
 
   this.svg=function(coeff){
-    let code=""
-    for (object of objects) {
-      code+=object.svg(coeff)
-    }
+    let code=segment(x,y,x+longueur/coeff,y,couleur).svg(coeff)
+    code+=texteParPosition(nombre_avec_espace(num),x+longueur/2/coeff,y+offset/coeff,"milieu",couleur).svg(coeff)
+    code+=texteParPosition(nombre_avec_espace(den),x+longueur/2/coeff,y-offset/coeff,"milieu",couleur).svg(coeff)
     return code
   }
 
   this.tikz = function(){
-    let code=""
-    for (object of objects) {
-      code+=object.tikz()
-    }
-    return code
+    let code=segment(x,y,x+longueur/scale,y,couleur).tikz()
+    code+=texteParPosition(nombre_avec_espace(num),x+longueur/2/scale,y+offset/scale,"milieu",couleur).tikz()
+    code+=texteParPosition(nombre_avec_espace(den),x+longueur/2/scale,y-offset/scale,"milieu",couleur).tikz()
+     return code
   }
 }
 
