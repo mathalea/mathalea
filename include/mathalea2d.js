@@ -6022,7 +6022,7 @@ function latexParCoordonnees(texte, x, y) {
  * @Auteur Jean-Claude Lhote
  */
 
-function fractionParPosition({x=0,y=0,num=1,den=2,couleur='black'}){
+function FractionParPosition({x=0,y=0,num=1,den=2,couleur='black'}){
   ObjetMathalea2D.call(this);
   let objects=[]
   let longueur=Math.max(Math.ceil(Math.log10(num)),Math.ceil(Math.log10(den)))*0.5
@@ -6045,6 +6045,10 @@ function fractionParPosition({x=0,y=0,num=1,den=2,couleur='black'}){
     }
     return code
   }
+}
+
+function fractionParPosition(arg) {
+  return new FractionParPosition(arg)
 }
 
 function Print2d(helloworld){
