@@ -6409,7 +6409,7 @@ function mathalea2d(
   ObjetMathalea2D.call(this);
   let code = "";
   if (sortie_html) {
-    code = `<svg width="${(xmax - xmin) * pixelsParCm}" height="${
+    code = `<svg class="mathalea2d" width="${(xmax - xmin) * pixelsParCm}" height="${
       (ymax - ymin) * pixelsParCm
     }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${
       (xmax - xmin) * pixelsParCm

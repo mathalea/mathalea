@@ -554,9 +554,25 @@ window.onload = function()  {
     
 // Gestion du bouton de zoom
 		$( "#btn_zoom_plus").click(function() {
-			$('#corrections').css("font-size", parseFloat($('#corrections').css("font-size"))*1.2 );
+			$('.slick-slide').css("font-size", parseFloat($('.slick-slide').css("font-size"))*1.2 );
 		});
 		$( "#btn_zoom_moins").click(function() {
+			$('.slick-slide').css("font-size", parseFloat($('.slick-slide').css("font-size"))*0.8 );
+		});
+		$( "#btn_zoom_plus_2d").click(function() {
+			$('.mathalea2d').css("width", parseFloat($('.mathalea2d').css("width"))*1.2 );
+			$('.mathalea2d').css("height", parseFloat($('.mathalea2d').css("height"))*1.2 );
+			
+		});
+		$( "#btn_zoom_moins_2d").click(function() {
+			$('.mathalea2d').css("width", parseFloat($('.mathalea2d').css("width"))*0.8 );
+			$('.mathalea2d').css("height", parseFloat($('.mathalea2d').css("height"))*0.8 );
+
+		});
+		$( "#btn_zoom_plus_correction").click(function() {
+			$('#corrections').css("font-size", parseFloat($('#corrections').css("font-size"))*1.2 );
+		});
+		$( "#btn_zoom_moins_correction").click(function() {
 			$('#corrections').css("font-size", parseFloat($('#corrections').css("font-size"))*0.8 );
 		});
 
