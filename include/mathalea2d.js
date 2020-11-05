@@ -6011,14 +6011,52 @@ function latexParCoordonnees(texte, x, y) {
   let A = point(x, y);
   return latexParPoint(texte, A);
 }
+
+/**
+ * x,y sont les coordonnées du début du trait de fraction, 0;0 par défaut
+ * num et den sont les numérateurs et dénominateurs (1 et 2) par défaut
+ * On peut changer la couleur (noir par défaut)
+ * permet d'afficher une fraction à une position donnée en SVG et Latex
+ * Les nombres ne sont pas en mode Maths
+ * 
+ * @Auteur Jean-Claude Lhote
+ */
+
+function fractionParPosition({x=0,y=0,num=1,den=2,couleur='black'}){
+  ObjetMathalea2D.call(this);
+  let objects=[]
+  let longueur=Math.max(Math.ceil(Math.log10(num)),Math.ceil(Math.log10(den)))*0.5
+  objects.push(segment(point(x,y),point(x+longueur,y),couleur))
+  objects.push(texteParPosition(nombre_avec_espace(num),x+longueur/2,y+0.5,"milieu",couleur))
+  objects.push(texteParPosition(nombre_avec_espace(den),x+longueur/2,y-0.5,"milieu",couleur))
+
+  this.svg=function(coeff){
+    let code=""
+    for (object of objects) {
+      code+=object.svg(coeff)
+    }
+    return code
+  }
+
+  this.tikz = function(){
+    let code=""
+    for (object of objects) {
+      code+=object.tikz()
+    }
+    return code
+  }
+}
+
 function Print2d(helloworld){
   if (typeof(helloworld)=='number') return texteParPosition(helloworld.toString(),0,0,'droite')
   else texteParPosition(helloworld,0,0,'droite')
 }
 function print2d(...args){
+  let objects=[]
   for (let j=0;j<args.length;j++) {
-    
+    objects.push(Print2d(args[j]))
   }
+  return objects
 }
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -6371,7 +6409,7 @@ function mathalea2d(
   ObjetMathalea2D.call(this);
   let code = "";
   if (sortie_html) {
-    code = `<svg width="${(xmax - xmin) * pixelsParCm}" height="${
+    code = `<svg class="mathalea2d" width="${(xmax - xmin) * pixelsParCm}" height="${
       (ymax - ymin) * pixelsParCm
     }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${
       (xmax - xmin) * pixelsParCm

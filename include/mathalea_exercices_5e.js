@@ -1261,6 +1261,23 @@ function Exercice_substituer(difficulte=1){
 }
 
 /**
+ * Déterminer des angles en utilisant les cas d'égalités : opposés par le sommet, alternes-internes, correspondants...
+ * ref 
+ * @Auteur Jean-Claude Lhote
+ */
+function Egalite_d_angles() {
+	"use strict"
+	Exercice.call(this);
+	this.sup=1;
+	this.nb_questions=1;
+	this.titre="Déterminer des angles en utilisant les cas d'égalité";
+	this.nouvelle_version = function(numero_de_l_exercice){
+	
+	
+	}
+}
+
+/**
 * Déterminer la valeur d'un angle dans un triangle.
 *
 * Correction avec détails ou pas. 9 cas différents
