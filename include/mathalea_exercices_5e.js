@@ -2943,9 +2943,10 @@ function Placer_probabilites(){
 		for (let i = 0; i<nbEvenement; i++){
 			texte += num_alpha(i) + ` ` + lstEvenenementExo[i][0] + `.<br>`;
 		}
+		texte += `<br>`;
 
 		// Création des objets pour dessiner :
-		let L = 10; // longueur du segment
+		let L = 20; // longueur du segment
 		let lstObjet = []; // tous les objets qui seront dessinés
 		let h = 0.25; // hauteur trait
 		lstObjet.push(segment(0,0,L,0)); // axe
@@ -2960,15 +2961,12 @@ function Placer_probabilites(){
 			}		
 		} 
 		else {
-			// Méthode très très moche !!!
-			// objectif écrire la fraction 1/2 au milieu du segment.............
-			angle = 0;
-			lstObjet.push(fractionParPosition({x:2,num:2,den:3,couleur:'orange'}));
-			lstObjet.push(texteParPosition("0",0,y-0.25,angle,'black',1,'milieu'));
-			lstObjet.push(texteParPosition("1",L,y-0.25,angle,'black',1,'milieu'));
+			lstObjet.push(fractionParPosition({x:L/2,y:-1,num:1,den:2,couleur:'black'})); // fraction 1/2 
+			lstObjet.push(texteParPosition("0",0,y-0.25,angle,'black',1,'milieu')); // abscisse 0
+			lstObjet.push(texteParPosition("1",L,y-0.25,angle,'black',1,'milieu')); // abscisse 1
 		}
 
-		texte += mathalea2d({xmin : -1, xmax : 12, ymin : -5, ymax : 1, pixelsParCm : 30, scale : 1}, lstObjet);
+		texte += mathalea2d({xmin : -1, xmax : 24, ymin : -8, ymax : 1, pixelsParCm : 20, scale : 1}, lstObjet);
 
 		// CORRECTION :
 		texte_corr = ` `;
@@ -2979,7 +2977,7 @@ function Placer_probabilites(){
 		for (let i = 0; i<nbEvenement; i++){ 
 			p = lstEvenenementExo[i][1];
 			parrondi = Math.round(calcul(6*p)); // échelle arrondie entre 0 et 7 pour éviter la superposition des textes réponses
-			ylst[parrondi] += 0.5; // on augmente l'ordonnée si elle est déjà utilisée
+			ylst[parrondi] += 1; // on augmente l'ordonnée si elle est déjà utilisée
 			let txtSolution = String.fromCharCode(97+i); //code 97 correspond à 'a'
 			lstObjet.push(texteParPosition(txtSolution,calcul(L*p),ylst[parrondi],angle,'black',1,'milieu'))
 			lstObjet.push(tracePoint(point(calcul(L*p), 0), 'blue'))
@@ -2994,9 +2992,9 @@ function Placer_probabilites(){
 			else if (p<0.75) { parrondi = 4 }
 			else if (p<1) { parrondi = 5 }
 			else if (p==1) { parrondi = 6 };			
-			texte_corr += num_alpha(i) + ` ` + lstEvenenementExo[i][0] + ` : ` + lstEchelle[parrondi][0].toLowerCase() + `<br>`;
+			texte_corr += num_alpha(i) + ` ` + lstEvenenementExo[i][0] + ` : ` + lstEchelle[parrondi][0].toLowerCase() + `.<br>`;
 		}
-		texte_corr += mathalea2d({xmin : -1, xmax : 12, ymin : -5, ymax : 2, pixelsParCm : 30, scale : 1}, lstObjet);
+		texte_corr += mathalea2d({xmin : -1, xmax : 24, ymin : -8, ymax : 2, pixelsParCm : 20, scale : 1}, lstObjet);
 
 		this.liste_questions.push(texte);
 		this.liste_corrections.push(texte_corr);
