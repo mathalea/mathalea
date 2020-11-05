@@ -9448,7 +9448,10 @@ function Exercice_differentes_ecritures_nombres_decimaux() {
 }
 
 /**
- * ref beta6N23-2
+ * Lire des nombres déciamux sur une portion de droite graduée
+ * Une question demande la forme décimale, une autre, la partie entière plus la fraction décimale, et une troisième demande une seule fraction décimale.
+ * ref 6N23-2
+ * 
  * @Auteur Jean-Claude Lhote
  */
 function Lire_abscisse_decimale_trois_formes() {
@@ -13472,7 +13475,7 @@ function Utiliser_le_codage_pour_decrire(){
           s5=segment(A,F)
           s1=segment(B,D)
           s2=segment(A,C)
-          params_enonce={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:20,scale:1,mainlevee:true,amplitude:1}
+          params_enonce={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:20,scale:1,mainlevee:false,amplitude:1}
           objets_enonce.push(labelPoint(A,B,C,D,E,F),s1,s2,s3,s4,s5)
           objets_enonce.push(codeAngle(D,A,B,2,'|','red',2),codeAngle(B,C,D,2,'|','red',2),codeAngle(A,B,F,2,'|','red',2))
           objets_enonce.push(codeAngle(A,B,C,2,'||','blue',2),codeAngle(A,D,C,2,'||','blue',2))
