@@ -6024,7 +6024,6 @@ function latexParCoordonnees(texte, x, y) {
 
 function FractionParPosition({x=0,y=0,num=1,den=2,couleur='black'}){
   ObjetMathalea2D.call(this);
-  let objects=[]
   let longueur=Math.max(Math.ceil(Math.log10(num)),Math.ceil(Math.log10(den)))*10
   let offset=10
 
