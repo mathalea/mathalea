@@ -2945,7 +2945,7 @@ function Placer_probabilites(){
 		}
 
 		// Création des objets pour dessiner :
-		let L = 10 // longueur du segment
+		let L = 10; // longueur du segment
 		let lstObjet = []; // tous les objets qui seront dessinés
 		let h = 0.25; // hauteur trait
 		lstObjet.push(segment(0,0,L,0)); // axe
@@ -2954,7 +2954,6 @@ function Placer_probabilites(){
 		lstObjet.push(segment(L/2,-h,L/2,h)); // trait droit
 		let angle = 60; //inclinaison du texte légende
 		let y = -0.5;
-		let txt = "";		
 		if (this.sup) {
 			for (let j = 0; j<lstEchelle.length; j++){
 				lstObjet.push(texteParPosition(lstEchelle[j][0],L*lstEchelle[j][1],y,angle,'black',1,'droite'));
@@ -2964,11 +2963,9 @@ function Placer_probabilites(){
 			// Méthode très très moche !!!
 			// objectif écrire la fraction 1/2 au milieu du segment.............
 			angle = 0;
-			lstObjet.push(texteParPosition("0",0,y-0.25,angle,'black',1,'droite'));
-			lstObjet.push(texteParPosition("1",L,y-0.25,angle,'black',1,'droite'));
-			lstObjet.push(texteParPosition("1",L/2,y,angle,'black',1,'droite'));
-			lstObjet.push(texteParPosition("2",L/2,y-0.5,angle,'black',1,'droite'));
-			lstObjet.push(segment(L/2-0.1,-0.8,L/2+0.4,-0.8)); // trait de fraction		
+			lstObjet.push(fractionParPosition({x:2,num:2,den:3,couleur:'orange'}));
+			lstObjet.push(texteParPosition("0",0,y-0.25,angle,'black',1,'milieu'));
+			lstObjet.push(texteParPosition("1",L,y-0.25,angle,'black',1,'milieu'));
 		}
 
 		texte += mathalea2d({xmin : -1, xmax : 12, ymin : -5, ymax : 1, pixelsParCm : 30, scale : 1}, lstObjet);
