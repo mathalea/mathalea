@@ -9632,6 +9632,30 @@ function Colorier_Deplacement(){
     texte += `Le lutin est situé dans la case en haut à gauche. Chaque déplacement se fait dans une case adjacente. <br>`
     texte += scratchblocks_Tikz(code_svg,code_tikz);
     texte += ``;
+
+    let r = repere2({
+      grilleX : true,
+      grilleY : true,
+      xThickListe : [],
+      xLabelListe : [],
+      yUnite : 1,
+      yThickDistance : 10,
+      yMax : 10,
+      xMin : 0,
+      xMax : 10,
+      yMin : 0,
+      axeXStyle : '',
+      axeYStyle : '',
+     });
+
+     texte+= mathalea2d({xmin:-1,x:11,ymin:-1,ymax:11,pixelsParcCm:20,scale:0.5},r);
+     texte += `Voici le quadrillage :`;
+
+
+
+
+
+
     texte_corr += ``;
 
     this.liste_questions.push(texte);
