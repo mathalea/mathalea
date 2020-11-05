@@ -25,6 +25,7 @@ var liste_des_exercices_disponibles = {
   "c3C10-4" : Exercice_tables_d_additions_cycle3,
   "c3C11" : Division_cycle3,
   "c3N10" : Ecrire_entiers_cycle3,
+  "6Algo1-0": Colorier_Deplacement,
   "6C10": Additions_soustractions_multiplications_posees,
   "6C11": Divisions_euclidiennes,
   "6C10-1": Tables_de_multiplications,
@@ -9566,6 +9567,79 @@ function Lire_abscisse_decimale_trois_formes() {
   this.besoin_formulaire_numerique = ['Niveau de difficulté',3,'1 : Au dixième\n2 : Au centième\n3 : Au millième'];
 }
 
+/** 
+ * * Colorier le déplacement d'un lutin
+ * * 6Algo1-0
+ * @author Erwan Duplessy
+ */
+function Colorier_Deplacement(){
+	//'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	//this.beta = false;	
+	//this.sup=1;
+	// if (this.beta) {
+	// 	this.nb_questions = 1;
+	// } else {
+	// 	this.nb_questions = 1;
+	// };	
+  this.nb_questions=1;
+  this.nb_questions_modifiable=false;
+	this.titre = "Dessiner avec Scratch";
+  this.consigne = "Dans le quadrillage, effectuer le programme";
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.nb_questions_modifiable = false;
+	sortie_html? this.spacing = 3 : this.spacing = 2; 
+  sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
+  this.liste_packages = "scratch3";
+
+  this.nouvelle_version = function(){
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    function scratchblocks_Tikz(code_svg,code_tikz) {
+      if (sortie_html) {
+        return code_svg;
+      } else {
+        return code_tikz;
+      };
+    };
+        
+    let texte = ""; // texte de l'énoncé
+    let texte_corr=""; // texte du corrigé
+    let code_tikz = ``; // code pour dessiner les blocs en tikz
+    let code_svg = ``; // code pour dessiner les blocs en svg
+    let nbCommandes = 5; // nombre de commandes dans un script
+    let lstCommandesTikz = [`\\blockmove{Aller à gauche}`, `\\blockmove{Aller à droite}`, `\\blockmove{Aller en haut}`, `\\blockmove{Aller en bas}`, `\\blockmove{Colorier la case}`];
+    let lstCommandesSVG = [`Aller à gauche`, `Aller à droite`, `Aller en haut`, `Aller en bas`, `Colorier`];
+    let nb = lstCommandesTikz.length; // nombre de commandes disponibles
+    code_tikz += `\\begin{scratch} <br>`;
+    code_svg += `<pre class='blocks'>`;
+    let n = 0;
+    for (i = 0; i<nbCommandes; i++) {
+      n = choice([1,3]);
+      code_tikz += lstCommandesTikz[n]+`<br>`;
+      code_svg += lstCommandesSVG[n]+`<br>`;
+      if (randint(1,2)==1 && i<nbCommandes-1) {
+        code_tikz += lstCommandesTikz[4]+`<br>`;
+        code_svg += lstCommandesSVG[4]+`<br>`;
+      }
+    }
+    code_tikz += lstCommandesTikz[4]+`<br>`;
+    code_svg += lstCommandesSVG[4]+`<br>`;
+    code_tikz += `\\end{scratch}`;
+    code_svg += `</pre>`;
+
+    texte += `Le lutin est situé dans la case en haut à gauche. Chaque déplacement se fait dans une case adjacente. <br>`
+    texte += scratchblocks_Tikz(code_svg,code_tikz);
+    texte += ``;
+    texte_corr += ``;
+
+    this.liste_questions.push(texte);
+    this.liste_corrections.push(texte_corr);
+    liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque question.
+    //liste_de_question_to_contenu_sans_numero(this);
+  }
+}
 
 /**
  * Additions, soustractions et multiplications posées de nombres entiers
