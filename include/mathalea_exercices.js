@@ -9585,8 +9585,8 @@ function Colorier_Deplacement(){
   this.nb_questions=1;
   this.nb_questions_modifiable=false;
 	this.titre = "Dessiner avec Scratch";
-  this.consigne = "Dans le quadrillage, effectuer le programme";
-	this.nb_cols = 2;
+  this.consigne = "Dans le quadrillage, effectuer le programme.";
+	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.nb_questions_modifiable = false;
 	sortie_html? this.spacing = 3 : this.spacing = 2; 
@@ -9608,7 +9608,7 @@ function Colorier_Deplacement(){
     let texte_corr=""; // texte du corrigé
     let code_tikz = ``; // code pour dessiner les blocs en tikz
     let code_svg = ``; // code pour dessiner les blocs en svg
-    let nbCommandes = 4; // nombre de commandes de déplacement dans un script
+    let nbCommandes = 3; // nombre de commandes de déplacement dans un script
     let nbRepetition;
     if (this.sup==1) {
       nbRepetition = 1;
@@ -9658,16 +9658,24 @@ function Colorier_Deplacement(){
     let yLutinMax = Math.max(...lstY);
 
     texte += `Au départ, le lutin est situé dans la case grisée. Chaque déplacement se fait dans une case adjacente. <br>`;
-    texte += `<table valign="top"><tr><td>` ;
+    if (sortie_html) {
+      texte += `<table valign="top"><tr><td>` ;
+    }     
 
     texte += scratchblocks_Tikz(code_svg,code_tikz);
-    texte += `</td><td>`;
-    texte += `             `;
-    texte += `</td><td>`;
+    
+    if (sortie_html) {
+      texte += `</td><td>`;
+      texte += `             `;
+      texte += `</td><td>`;
+    } else
+    {
+      texte += `\\hfill `
+    }    
 
     let r = repere2({
       grille : true,
-      axesEpaisseur : 2,
+      axesEpaisseur : 1,
       axesCouleur : 'gray',
       xThickListe : [],
       yThickListe : [],
@@ -9688,7 +9696,8 @@ function Colorier_Deplacement(){
       grilleEpaisseur : 1,
     });
 
-    lstObjet = [];
+    lstObjet = []; // liste de tous les objets Mathalea2d
+
     lstObjet.push(segment(r.xMax,r.yMax,r.xMax,r.yMin)); // bord droit du quadrillage
     lstObjet.push(segment(r.xMin,r.yMax,r.xMax,r.yMax)); // bord haut du quadrillage
     lstObjet.push(segment(r.xMin,r.yMin,r.xMin,r.yMax)); // bord gauche du quadrillage
@@ -9713,8 +9722,12 @@ function Colorier_Deplacement(){
       lstObjet.push(texteParPosition(String(i), r.xMin-1, r.yMax-i-0.5, 0, 'black', 1, 'milieu')); // affiche de 0 à 9 à gauche de la grille
     }   
 
-    texte+= mathalea2d({xmin:r.xMin-1,xmax:r.xMax+1,ymin:r.yMin-1,ymax:r.yMax+1,pixelsParcCm:20,scale:1},r, lstObjet);    
-    texte += `</td></tr></table>`;
+    texte+= mathalea2d({xmin:r.xMin-2,xmax:r.xMax+1,ymin:r.yMin-1,ymax:r.yMax+1,pixelsParcCm:20,scale:1},r, lstObjet);    
+    
+    if (sortie_html) {
+      texte += `</td></tr></table>`;
+    } 
+    
 
     // CORRECTION
     // 0 : gauche, 1 : droite, 2 : haut, 3 : bas, 4 : colorier.
