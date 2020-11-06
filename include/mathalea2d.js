@@ -1384,12 +1384,12 @@ function Segment(arg1, arg2, arg3, arg4, color) {
     let A = point(this.x1, this.y1);
     let B = point(this.x2, this.y2);
     let l=longueur(A,B)
-    let dx=(B.xSVG(coeff)-A.xSVG(coeff))/(10),dy=(B.ySVG(coeff)-A.ySVG(coeff))/(10)
-    let code =`<path d="M ${arrondi(A.xSVG(coeff),0)},${arrondi(A.ySVG(coeff),0)} C `
-    for (let k=0;k<=10;k++) {
+    let dx=(B.xSVG(coeff)-A.xSVG(coeff))/l/3,dy=(B.ySVG(coeff)-A.ySVG(coeff))/l/3
+    let code =`<path d="M ${A.xSVG(coeff)},${A.ySVG(coeff)} C ${arrondi(A.xSVG(coeff),0)},${arrondi(A.ySVG(coeff),0)} `
+    for (let k=0;k<=3*l;k+=0.667) {
       code +=`${arrondi(A.xSVG(coeff)+k*dx+randint(-1,1)*amp,0)},${arrondi(A.ySVG(coeff)+k*dy+randint(-1,1)*amp,0)} `
     }
-    code +=` ${arrondi(B.xSVG(coeff),0)},${arrondi(B.ySVG(coeff),0)} " stroke="${this.color}" ${this.style}/>`
+    code +=` ${arrondi(B.xSVG(coeff),0)},${arrondi(B.ySVG(coeff),0)} ${B.xSVG(coeff)},${B.ySVG(coeff)} " stroke="${this.color}" ${this.style}/>`
 
     return code;
  }
@@ -1572,7 +1572,7 @@ function Polygone(...points) {
       B=this.listePoints[k%this.listePoints.length]
       A=this.listePoints[k-1]
       segment_courant=segment(A,B)
-      segment_courant.isVisible=false
+      segment_courant.isVisible=true
       segment_courant.epaisseur=this.epaisseur
       segment_courant.color=this.color
       segment_courant.opacite=this.opacite
