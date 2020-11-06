@@ -13537,7 +13537,7 @@ function Utiliser_le_codage_pour_decrire(){
       s2=segment(A,C)
       B=similitude(C,A,-85,randint(5,7)/10,sommets[1],'below')
       s1=segment(A,B)
-      E=pointSurSegment(A,hC,longueur(A,C)/2.2,sommets[4],'below')
+      E=pointSurSegment(A,C,longueur(A,C)/2.2,sommets[4],'below')
       medBC=mediatrice(C,B)
       medAC=mediatrice(A,C)
       dBC=droite(C,B)
@@ -13618,11 +13618,11 @@ function Utiliser_le_codage_pour_decrire(){
           s5=segment(A,F)
           s1=segment(B,D)
           s2=segment(A,C)
-          params_enonce={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:20,scale:1,mainlevee:false,amplitude:1}
+          params_enonce={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:30,scale:1,mainlevee:true,amplitude:1}
           objets_enonce.push(labelPoint(A,B,C,D,E,F),s1,s2,s3,s4,s5)
           objets_enonce.push(codeAngle(D,A,B,2,'|','red',2),codeAngle(B,C,D,2,'|','red',2),codeAngle(A,B,F,2,'|','red',2))
           objets_enonce.push(codeAngle(A,B,C,2,'||','blue',2),codeAngle(A,D,C,2,'||','blue',2))
-          objets_enonce.push(codeAngle(B,A,F,2,'','green',3),codeAngle(B,F,A,2,'','green',3))
+          objets_enonce.push(codeAngle(B,A,F,2,'///','green',3),codeAngle(B,F,A,2,'///','green',3))
           
           objets_enonce.push(codeSegments('||','black',B,E,E,D),codeSegments('O','black',A,E,E,C))
           texte=`$${sommets[0]+sommets[1]+sommets[2]+sommets[3]}$ est un rectangle. Ses diagonales se coupent en $${sommets[4]}$.<br>`
