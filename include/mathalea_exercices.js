@@ -13445,40 +13445,26 @@ function Test_main_levee() {
   this.nb_questions = 1;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
-  this.sup = false;
+  this.sup = true;
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions=[]
     this.liste_corrections=[]
-    let A=point(5,5)
-    let B=point(10,5)
-    let D=point(10,10)
-//    let a=codeAngle(B,A,D,4)
-    let C=cercleCentrePoint(A,B,'green')
-    C.epaisseur=2
-    C.opacite=0.5
-    let E=cercleCentrePoint(B,A,'red')
-    E.epaisseur=2
-    E.opacite=0.5
-    let s=segment(A,B,'red')
-    s.epaisseur=5
-    s.opacite=0.4
-    pixelsParCm=20
-    scale=3
-    let cote=afficheCoteSegment(s)
-    let crochD=crochetD(B)
-    let crochG=crochetG(A)
-
- //   let m=mediatrice(A,B,'d','purple')
-    let cons=constructionMediatrice(A,B,true,'orange','//','O','black',2)
-
-    let texte=mathalea2d({xmin:-1,ymin:0,xmax:16,ymax:11,pixelsParCm:20,scale:3,mainlevee:this.sup,amplitude:1},[cote,crochD,crochG,codeAngle(A,B,-90,3,'||','black',2,1,'yellow',0.5),C,s,E,tracePoint(A,B,D)])
+    let A=point(0,0)
+    let B=point(5,0)
+    let D=point(5,-5)
+    let C=point(1,5)
+    let a=codeAngle(B,A,C,1,'','green')
+    let s1=segment(B,A,'red')
+    let s2=segment(A,C,'red')
+    let s3=segment(B,D,'red')
+    let b=codeAngle(A,B,D,0.8,'','blue')
+    let texte=mathalea2d({xmin:-1,ymin:-6,xmax:6,ymax:6,pixelsParCm:20,scale:3,mainlevee:this.sup,amplitude:1},a,s1,s2,s3,b)
     pixelsParCm=20
     let texte_corr=""
-    this.liste_questions.push(texte );
+    this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr );
    liste_de_question_to_contenu(this)  
   }
-
   this.besoin_formulaire_case_a_cocher = ["main levee"];	
 }
 
