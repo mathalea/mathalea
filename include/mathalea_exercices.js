@@ -9609,27 +9609,32 @@ function Colorier_Deplacement(){
     let code_tikz = ``; // code pour dessiner les blocs en tikz
     let code_svg = ``; // code pour dessiner les blocs en svg
     let nbCommandes = 5; // nombre de commandes dans un script
+    // 0 : gauche, 1 : droite, 2 : haut, 3 : bas, 4 : colorier.
     let lstCommandesTikz = [`\\blockmove{Aller à gauche}`, `\\blockmove{Aller à droite}`, `\\blockmove{Aller en haut}`, `\\blockmove{Aller en bas}`, `\\blockmove{Colorier la case}`];
     let lstCommandesSVG = [`Aller à gauche`, `Aller à droite`, `Aller en haut`, `Aller en bas`, `Colorier`];
     let nb = lstCommandesTikz.length; // nombre de commandes disponibles
     code_tikz += `\\begin{scratch} <br>`;
     code_svg += `<pre class='blocks'>`;
     let n = 0;
+    let lstNumCommande = [];
     for (i = 0; i<nbCommandes; i++) {
-      n = choice([1,3]);
+      n = choice([1,3]); // choisit entre bas et droite
       code_tikz += lstCommandesTikz[n]+`<br>`;
       code_svg += lstCommandesSVG[n]+`<br>`;
+      lstNumCommande.push(n);
       if (randint(1,2)==1 && i<nbCommandes-1) {
         code_tikz += lstCommandesTikz[4]+`<br>`;
-        code_svg += lstCommandesSVG[4];
+        code_svg += lstCommandesSVG[4]+`<br>`;
+        lstNumCommande.push(4);
       }
     }
+    lstNumCommande.push(4);
     code_tikz += lstCommandesTikz[4]+`<br>`;
     code_svg += lstCommandesSVG[4]+`<br>`;
     code_tikz += `\\end{scratch}`;
     code_svg += `</pre>`;
 
-    texte += `Le lutin est situé dans la case en haut à gauche, dans la case A9. Chaque déplacement se fait dans une case adjacente. <br>`;
+    texte += `Le lutin est situé dans la case en haut à gauche (dans la case A9). Chaque déplacement se fait dans une case adjacente. <br>`;
     texte += `<table valign="top"><tr><td>` ;
 
 
@@ -9657,26 +9662,46 @@ function Colorier_Deplacement(){
       grilleCouleur : "black",
       grilleOpacite : 1,
       grilleEpaisseur : 1,
-     });
+    });
 
-     lstObjet = [];
+    lstObjet = [];
+    lstObjet.push(segment(10,0,10,10)); // bord droite du quadrillage
+    lstObjet.push(segment(0,10,10,10)); // bord haut du quadrillage
+    lstObjet[0].epaisseur = 2 ; // épaisseur du bord
+    lstObjet[1].epaisseur = 2 ; // épaisseur du bord
+    let txt = ``;
+    for (let i =0; i<10; i++) {
+      txt = String.fromCharCode(65+i); // ascii 65 = A
+      lstObjet.push(texteParPosition(txt,0.5+i,10.5,0,'black',1,'milieu')) // affiche de 0 à 9 à gauche
+      lstObjet.push(texteParPosition(String(i),-0.5,0.5+i,0,'black',1,'milieu')) // affiche de A à J en haut
+    }     
+    texte+= mathalea2d({xmin:-1,x:10.1,ymin:-0.1,ymax:11,pixelsParcCm:20,scale:0.75},r, lstObjet);    
+    texte += `</td></tr></table>`
 
-     lstObjet.push(segment(10,0,10,10));
-     lstObjet.push(segment(0,10,10,10));
-     lstObjet[0].epaisseur = 2 ;
-     lstObjet[1].epaisseur = 2 ;
-     let txt = ``;
-     for (let i =0; i<10; i++) {
-      txt = String.fromCharCode(65+i);
-      lstObjet.push(texteParPosition(txt,0.5+i,10.5,0,'black',1,'milieu'))
-      lstObjet.push(texteParPosition(String(i),-0.5,0.5+i,0,'black',1,'milieu'))
-      }
-     
-     texte+= mathalea2d({xmin:-1,x:10.1,ymin:-0.1,ymax:11,pixelsParcCm:20,scale:0.75},r, lstObjet);    
-
-     texte += `</td></tr></table>`
-
-    texte_corr += ``;
+    // CORRECTION
+     // 0 : gauche, 1 : droite, 2 : haut, 3 : bas, 4 : colorier.
+    let p; // carré 
+    let xLutin = 0; // position initiale du carré
+    let yLutin = 10; // position initiale du carré
+    for (i = 0; i<lstNumCommande.length; i++) {
+      switch (lstNumCommande[i]) {
+        case 0:
+          xLutin += -1;break;
+        case 1:
+          xLutin += 1;break;
+        case 2:
+          yLutin += 1;break;
+        case 3:
+          yLutin += -1;break;
+        case 4:
+          p = polygone(point(xLutin,yLutin), point(xLutin+1,yLutin), point(xLutin+1,yLutin-1), point(xLutin, yLutin-1));
+          p.opacite = 1;
+          p.couleurDeRemplissage = 'red';
+          p.opaciteDeRemplissage = 1;
+          lstObjet.push(p);          
+      }      
+    }
+    texte_corr+= mathalea2d({xmin:-1,x:10.1,ymin:-0.1,ymax:11,pixelsParcCm:20,scale:0.75},r, lstObjet);  
 
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
