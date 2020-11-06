@@ -2271,8 +2271,9 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
     la = longueur(M, Omega) // pour obtenir le nombre de points intermédiaires proportionnel au rayon
 
     da = angle/la/10
+    console.log(angle,la,da)
     code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
-    for (let k = 0; k <= angle; k+=da) {
+    for (let k = 0; Math.abs(k) <= Math.abs(angle); k+=da) {
       P = rotation(M, Omega, k)
       code += `${arrondi(P.xSVG(coeff) + randint(-1, 1) * amp,0)} ${arrondi(P.ySVG(coeff) + randint(-1, 1) * amp, 0)}, `
     }
