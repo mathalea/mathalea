@@ -3864,10 +3864,10 @@ function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur
   this.svgml = function(coeff,amp){
     let P,depart,d,arcangle,codage
     depart=pointSurSegment(this.centre,this.debut,this.taille*20/pixelsParCm)
-    P=rotation(this.depart,this.centre,this.angle/2)
+    P=rotation(depart,this.centre,this.angle/2)
     d=droite(this.centre,P)
     d.isVisible=false
-    arcangle=arc(this.depart,this.centre,this.angle,this.plein,this.couleurDeRemplissage,this.color)
+    arcangle=arc(depart,this.centre,this.angle,this.plein,this.couleurDeRemplissage,this.color)
     arcangle.opacite=this.opacite
     arcangle.epaisseur=this.epaisseur
     arcangle.couleurDeRemplissage=this.couleurDeRemplissage
@@ -3880,10 +3880,10 @@ function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur
   this.tikzml=function(amp){
     let P,depart,d,arcangle,codage
     depart=pointSurSegment(this.centre,this.debut,this.taille/scale)
-    P=rotation(this.depart,this.centre,this.angle/2)
+    P=rotation(depart,this.centre,this.angle/2)
     d=droite(this.centre,P)
     d.isVisible=false
-    arcangle=arc(this.depart,this.centre,this.angle,this.plein,this.couleurDeRemplissage,this.color)
+    arcangle=arc(depart,this.centre,this.angle,this.plein,this.couleurDeRemplissage,this.color)
     arcangle.opacite=this.opacite
     arcangle.epaisseur=this.epaisseur
     arcangle.couleurDeRemplissage=this.couleurDeRemplissage
@@ -5703,6 +5703,7 @@ function GraphiqueInterpole(
   tableau,{color = "black",
     epaisseur = 1,
     repere = {},
+    step = 0.2,
     }={}
   
 ) {
@@ -5717,7 +5718,7 @@ function GraphiqueInterpole(
     let depart, fin;
     repere.xMin > x0 ? (depart = repere.xMin) : (depart = x0);
     repere.xMax < x1 ? (fin = repere.xMax) : (fin = x1);
-    let c = courbe2(f,{step:0.4,xMin : depart, xMax : fin, color : color, epaisseur : epaisseur, xUnite : repere.xUnite, yUnite : repere.yUnite, yMin : repere.yMin, yMax : repere.yMax})
+    let c = courbe2(f,{step:step,xMin : depart, xMax : fin, color : color, epaisseur : epaisseur, xUnite : repere.xUnite, yUnite : repere.yUnite, yMin : repere.yMin, yMax : repere.yMax})
     mesCourbes.push(c);
     this.svg = function (coeff) {
       code = "";
@@ -6024,26 +6025,21 @@ function latexParCoordonnees(texte, x, y) {
 
 function FractionParPosition({x=0,y=0,num=1,den=2,couleur='black'}){
   ObjetMathalea2D.call(this);
-  let objects=[]
-  let longueur=Math.max(Math.ceil(Math.log10(num)),Math.ceil(Math.log10(den)))*0.5
-  objects.push(segment(point(x,y),point(x+longueur,y),couleur))
-  objects.push(texteParPosition(nombre_avec_espace(num),x+longueur/2,y+0.5,"milieu",couleur))
-  objects.push(texteParPosition(nombre_avec_espace(den),x+longueur/2,y-0.5,"milieu",couleur))
+  let longueur=Math.max(Math.ceil(Math.log10(num)),Math.ceil(Math.log10(den)))*10
+  let offset=10
 
   this.svg=function(coeff){
-    let code=""
-    for (object of objects) {
-      code+=object.svg(coeff)
-    }
+    let code=segment(x,y,x+longueur/coeff,y,couleur).svg(coeff)
+    code+=texteParPosition(nombre_avec_espace(num),x+longueur/2/coeff,y+offset/coeff,"milieu",couleur).svg(coeff)
+    code+=texteParPosition(nombre_avec_espace(den),x+longueur/2/coeff,y-offset/coeff,"milieu",couleur).svg(coeff)
     return code
   }
 
   this.tikz = function(){
-    let code=""
-    for (object of objects) {
-      code+=object.tikz()
-    }
-    return code
+    let code=segment(x,y,x+longueur/scale,y,couleur).tikz()
+    code+=texteParPosition(nombre_avec_espace(num),x+longueur/2/scale,y+offset/scale,"milieu",couleur).tikz()
+    code+=texteParPosition(nombre_avec_espace(den),x+longueur/2/scale,y-offset/scale,"milieu",couleur).tikz()
+     return code
   }
 }
 

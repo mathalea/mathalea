@@ -825,8 +825,10 @@ window.onload = function()  {
 	
 	// Gestion de la mise à jour de l'affichage du code
 
-	var btn_mise_a_jour_code = document.getElementById('btn_mise_a_jour_code');
+	let btn_mise_a_jour_code = document.getElementById('btn_mise_a_jour_code');
 	btn_mise_a_jour_code.addEventListener('click', nouvelles_donnees);
+	
+
 
 	// Gestion des effets visuels
 	// $('.ui.accordion').accordion(); // active les acordéons (paramètres du fichier .tex)
