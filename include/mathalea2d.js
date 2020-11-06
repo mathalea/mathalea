@@ -3864,10 +3864,10 @@ function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur
   this.svgml = function(coeff,amp){
     let P,depart,d,arcangle,codage
     depart=pointSurSegment(this.centre,this.debut,this.taille*20/pixelsParCm)
-    P=rotation(this.depart,this.centre,this.angle/2)
+    P=rotation(depart,this.centre,this.angle/2)
     d=droite(this.centre,P)
     d.isVisible=false
-    arcangle=arc(this.depart,this.centre,this.angle,this.plein,this.couleurDeRemplissage,this.color)
+    arcangle=arc(depart,this.centre,this.angle,this.plein,this.couleurDeRemplissage,this.color)
     arcangle.opacite=this.opacite
     arcangle.epaisseur=this.epaisseur
     arcangle.couleurDeRemplissage=this.couleurDeRemplissage
@@ -3880,10 +3880,10 @@ function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur
   this.tikzml=function(amp){
     let P,depart,d,arcangle,codage
     depart=pointSurSegment(this.centre,this.debut,this.taille/scale)
-    P=rotation(this.depart,this.centre,this.angle/2)
+    P=rotation(depart,this.centre,this.angle/2)
     d=droite(this.centre,P)
     d.isVisible=false
-    arcangle=arc(this.depart,this.centre,this.angle,this.plein,this.couleurDeRemplissage,this.color)
+    arcangle=arc(depart,this.centre,this.angle,this.plein,this.couleurDeRemplissage,this.color)
     arcangle.opacite=this.opacite
     arcangle.epaisseur=this.epaisseur
     arcangle.couleurDeRemplissage=this.couleurDeRemplissage
