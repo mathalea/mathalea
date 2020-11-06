@@ -2933,7 +2933,7 @@ function Premier_ou_pas() {
  * 3A11-1 justifier la non primalité réinvestissement des critères de divisibilité
  * Nombres à 3 ou 4 chiffres, un multiple de 2, de 3, de 5, de 7, de 11, sous forme d'un produit de deux nombres premiers inférieurs à 100
  * et un nombre premier inferieur à 529
- * variante de 3A-11 avec les critères par 7 et 11 en plus
+ * variante de 3A11 avec les critères par 7 et 11 en plus
  * @author Sébastien Lozano
  */
 function Premier_ou_pas_critere_par7_par11() {
