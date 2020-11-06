@@ -9576,7 +9576,7 @@ function Colorier_Deplacement(){
 	//'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	//this.beta = false;	
-	//this.sup=1;
+	this.sup=1;
 	// if (this.beta) {
 	// 	this.nb_questions = 1;
 	// } else {
@@ -9608,35 +9608,57 @@ function Colorier_Deplacement(){
     let texte_corr=""; // texte du corrigé
     let code_tikz = ``; // code pour dessiner les blocs en tikz
     let code_svg = ``; // code pour dessiner les blocs en svg
-    let nbCommandes = 5; // nombre de commandes dans un script
+    let nbCommandes = 4; // nombre de commandes de déplacement dans un script
+    let nbRepetition;
+    if (this.sup==1) {
+      nbRepetition = 1;
+    }
+    else {
+      nbRepetition = 3;
+    }
     // 0 : gauche, 1 : droite, 2 : haut, 3 : bas, 4 : colorier.
     let lstCommandesTikz = [`\\blockmove{Aller à gauche}`, `\\blockmove{Aller à droite}`, `\\blockmove{Aller en haut}`, `\\blockmove{Aller en bas}`, `\\blockmove{Colorier la case}`];
     let lstCommandesSVG = [`Aller à gauche`, `Aller à droite`, `Aller en haut`, `Aller en bas`, `Colorier`];
+    let lstAjoutXY = [[-1,0],[1,0],[0,1],[0,-1],[0,0]];
     let nb = lstCommandesTikz.length; // nombre de commandes disponibles
     code_tikz += `\\begin{scratch} <br>`;
     code_svg += `<pre class='blocks'>`;
     let n = 0;
-    let lstNumCommande = [];
+    let lstNumCommande = []; // liste des commandes successives
+    let lstX = [0]; // liste des abscisses successives
+    let lstY = [0]; // liste des ordonnées successives
+    if (this.sup==2) {
+      code_svg += `répéter (${nbRepetition}) fois <br>`;
+    }
+
     for (i = 0; i<nbCommandes; i++) {
-      n = choice([1,3]); // choisit entre bas et droite
+      n = choice([0,1,2,3]); // 
       code_tikz += lstCommandesTikz[n]+`<br>`;
       code_svg += lstCommandesSVG[n]+`<br>`;
+      code_tikz += lstCommandesTikz[4]+`<br>`;
+      code_svg += lstCommandesSVG[4]+`<br>`;
       lstNumCommande.push(n);
-      if (randint(1,2)==1 && i<nbCommandes-1) {
-        code_tikz += lstCommandesTikz[4]+`<br>`;
-        code_svg += lstCommandesSVG[4]+`<br>`;
-        lstNumCommande.push(4);
-      }
+      lstNumCommande.push(4);
+      lstX.push(lstX[lstX.length-1]+lstAjoutXY[n][0]);
+      lstY.push(lstY[lstY.length-1]+lstAjoutXY[n][1]);
     }
-    lstNumCommande.push(4);
-    code_tikz += lstCommandesTikz[4]+`<br>`;
-    code_svg += lstCommandesSVG[4]+`<br>`;
+    for (let j = 0; j<nbRepetition-1; j++) {
+      for (i = 0; i<2*nbCommandes; i++) {
+        lstX.push(lstX[lstX.length-1]+lstAjoutXY[lstNumCommande[i]][0]);
+        lstY.push(lstY[lstY.length-1]+lstAjoutXY[lstNumCommande[i]][1]);
+        }      
+    }
     code_tikz += `\\end{scratch}`;
+    code_svg += `fin <br>`;
     code_svg += `</pre>`;
 
-    texte += `Le lutin est situé dans la case en haut à gauche (dans la case A9). Chaque déplacement se fait dans une case adjacente. <br>`;
-    texte += `<table valign="top"><tr><td>` ;
+    let xLutinMin = Math.min(...lstX);
+    let xLutinMax = Math.max(...lstX);
+    let yLutinMin = Math.min(...lstY);
+    let yLutinMax = Math.max(...lstY);
 
+    texte += `Au départ, le lutin est situé dans la case grisée. Chaque déplacement se fait dans une case adjacente. <br>`;
+    texte += `<table valign="top"><tr><td>` ;
 
     texte += scratchblocks_Tikz(code_svg,code_tikz);
     texte += `</td><td>`;
@@ -9645,6 +9667,8 @@ function Colorier_Deplacement(){
 
     let r = repere2({
       grille : true,
+      axesEpaisseur : 2,
+      axesCouleur : 'gray',
       xThickListe : [],
       yThickListe : [],
       xLabelListe : [],
@@ -9653,10 +9677,10 @@ function Colorier_Deplacement(){
       yUnite : 1,
       yThickDistance : 1,
       xThickDistance : 1,
-      yMax : 10,
-      xMin : 0,
-      xMax : 10,
-      yMin : 0,
+      xMin : xLutinMin - 1,
+      xMax : xLutinMax + 2,
+      yMin : yLutinMin - 2,
+      yMax : yLutinMax + 1,
       axeXStyle : '',
       axeYStyle : '',
       grilleCouleur : "black",
@@ -9665,26 +9689,40 @@ function Colorier_Deplacement(){
     });
 
     lstObjet = [];
-    lstObjet.push(segment(10,0,10,10)); // bord droite du quadrillage
-    lstObjet.push(segment(0,10,10,10)); // bord haut du quadrillage
+    lstObjet.push(segment(r.xMax,r.yMax,r.xMax,r.yMin)); // bord droit du quadrillage
+    lstObjet.push(segment(r.xMin,r.yMax,r.xMax,r.yMax)); // bord haut du quadrillage
+    lstObjet.push(segment(r.xMin,r.yMin,r.xMin,r.yMax)); // bord gauche du quadrillage
+    lstObjet.push(segment(r.xMin,r.yMin,r.xMax,r.yMin)); // bord bas du quadrillage
     lstObjet[0].epaisseur = 2 ; // épaisseur du bord
     lstObjet[1].epaisseur = 2 ; // épaisseur du bord
-    let txt = ``;
-    for (let i =0; i<10; i++) {
-      txt = String.fromCharCode(65+i); // ascii 65 = A
-      lstObjet.push(texteParPosition(txt,0.5+i,10.5,0,'black',1,'milieu')) // affiche de 0 à 9 à gauche
-      lstObjet.push(texteParPosition(String(i),-0.5,0.5+i,0,'black',1,'milieu')) // affiche de A à J en haut
-    }     
-    texte+= mathalea2d({xmin:-1,x:10.1,ymin:-0.1,ymax:11,pixelsParcCm:20,scale:0.75},r, lstObjet);    
-    texte += `</td></tr></table>`
+    lstObjet[2].epaisseur = 2 ; // épaisseur du bord
+    lstObjet[3].epaisseur = 2 ; // épaisseur du bord
+    let p; // carré gris représentant le lutin en position de départ
+    p = polygone(point(lstX[0],lstY[0]), point(lstX[0]+1,lstY[0]), point(lstX[0]+1,lstY[0]-1), point(lstX[0], lstY[0]-1));
+    p.opacite = 0.5;
+    p.couleurDeRemplissage = 'black';
+    p.opaciteDeRemplissage = 0.5;
+    lstObjet.push(p);
+    let txt = ``; // variable temporaire
+    for (let j = 0; j < (r.xMax-r.xMin); j++) {
+      txt = String.fromCharCode(65+j); // ascii 65 = A
+      lstObjet.push(texteParPosition(txt, r.xMin+j+0.25, r.yMax+0.5, 0, 'black', 1, 'milieu')); // affiche de A à J en haut de la grille
+    }   
+    
+    for (let i = 0; i < (r.yMax-r.yMin); i++) {
+      lstObjet.push(texteParPosition(String(i), r.xMin-1, r.yMax-i-0.5, 0, 'black', 1, 'milieu')); // affiche de 0 à 9 à gauche de la grille
+    }   
+
+    texte+= mathalea2d({xmin:r.xMin-1,xmax:r.xMax+1,ymin:r.yMin-1,ymax:r.yMax+1,pixelsParcCm:20,scale:1},r, lstObjet);    
+    texte += `</td></tr></table>`;
 
     // CORRECTION
-     // 0 : gauche, 1 : droite, 2 : haut, 3 : bas, 4 : colorier.
-    let p; // carré 
+    // 0 : gauche, 1 : droite, 2 : haut, 3 : bas, 4 : colorier.
     let xLutin = 0; // position initiale du carré
-    let yLutin = 10; // position initiale du carré
-    for (i = 0; i<lstNumCommande.length; i++) {
-      switch (lstNumCommande[i]) {
+    let yLutin = 0; // position initiale du carré
+    
+    for (i = 0; i<nbRepetition*lstNumCommande.length; i++) {
+      switch (lstNumCommande[i%lstNumCommande.length]) {
         case 0:
           xLutin += -1;break;
         case 1:
@@ -9701,13 +9739,14 @@ function Colorier_Deplacement(){
           lstObjet.push(p);          
       }      
     }
-    texte_corr+= mathalea2d({xmin:-1,x:10.1,ymin:-0.1,ymax:11,pixelsParcCm:20,scale:0.75},r, lstObjet);  
+    texte_corr+= mathalea2d({xmin:r.xMin-1,xmax:r.xMax+1,ymin:r.yMin-1,ymax:r.yMax+1,pixelsParcCm:20,scale:0.75},r, lstObjet);  
 
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
     liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque question.
     //liste_de_question_to_contenu_sans_numero(this);
   }
+  this.besoin_formulaire_numerique = ['Niveau de difficulté',2,'1 : Sans boucle\n2 : Avec une boucle'];
 }
 
 /**
