@@ -5703,6 +5703,7 @@ function GraphiqueInterpole(
   tableau,{color = "black",
     epaisseur = 1,
     repere = {},
+    step = 0.2,
     }={}
   
 ) {
@@ -5717,7 +5718,7 @@ function GraphiqueInterpole(
     let depart, fin;
     repere.xMin > x0 ? (depart = repere.xMin) : (depart = x0);
     repere.xMax < x1 ? (fin = repere.xMax) : (fin = x1);
-    let c = courbe2(f,{step:0.4,xMin : depart, xMax : fin, color : color, epaisseur : epaisseur, xUnite : repere.xUnite, yUnite : repere.yUnite, yMin : repere.yMin, yMax : repere.yMax})
+    let c = courbe2(f,{step:step,xMin : depart, xMax : fin, color : color, epaisseur : epaisseur, xUnite : repere.xUnite, yUnite : repere.yUnite, yMin : repere.yMin, yMax : repere.yMax})
     mesCourbes.push(c);
     this.svg = function (coeff) {
       code = "";

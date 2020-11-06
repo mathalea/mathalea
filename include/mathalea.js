@@ -827,10 +827,7 @@ window.onload = function()  {
 
 	let btn_mise_a_jour_code = document.getElementById('btn_mise_a_jour_code');
 	btn_mise_a_jour_code.addEventListener('click', nouvelles_donnees);
-	let btn_radio_style_classique = document.getElementById('style_classique');
-	btn_radio_style_classique.addEventListener('change', nouvelles_donnees);
-	let btn_radio_style_CoopMaths = document.getElementById('style_CoopMaths');
-	btn_radio_style_CoopMaths.addEventListener('change', nouvelles_donnees);
+	
 
 
 	// Gestion des effets visuels
