@@ -9578,7 +9578,7 @@ function Colorier_Deplacement(){
   this.sup2 = false; //1 : sans boucle ; true : avec boucle
   this.nb_questions=1;
   this.nb_questions_modifiable=false;
-	this.titre = "Dessiner avec Scratch";
+	this.titre = "Programmer des déplacements";
   this.consigne = "Dans le quadrillage, effectuer le programme.";
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
