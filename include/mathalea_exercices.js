@@ -25,7 +25,7 @@ var liste_des_exercices_disponibles = {
   "c3C10-4" : Exercice_tables_d_additions_cycle3,
   "c3C11" : Division_cycle3,
   "c3N10" : Ecrire_entiers_cycle3,
-  "beta6Algo10": Colorier_Deplacement,
+  "6Algo10": Colorier_Deplacement,
   "6C10": Additions_soustractions_multiplications_posees,
   "6C11": Divisions_euclidiennes,
   "6C10-1": Tables_de_multiplications,
@@ -14668,7 +14668,7 @@ function Tracer_triangle_2_angles() {
 function Representer_un_solide() {
   "use strict";
   Exercice.call(this);// Héritage de la classe Exercice ()
-  this.titre = "Compléter le schéma d'un schéma";
+  this.titre = "Compléter une représentation en perspective cavalière;
   this.nb_questions = 1;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
@@ -17005,7 +17005,7 @@ jQuery(document).ready(function () {
     ['6M1','6M1 - Grandeurs et mesures niveau 1'],['6M2','6M2 - Grandeurs et mesures niveau 2'],['6M3', '6M3 - Volumes'],
     ['6N1','6N1 - Numération et fractions niveau 1'],['6N2','6N2 - Numération et fractions niveau 2'],['6N3','6N3 - Numération et fractions niveau 3'],['6N4','6N4 - Numération et fractions niveau 4'],
     ['6P1','6P1 - Proportionnalité'],['6S1','6S1 - Statistiques'],
-    ['6Algo1','6Algo1 - Algorithmique']
+    ['6Algo1','6A - Algorithmique']
   ])
     liste_html_des_exercices_5 = liste_html_des_exercices_d_un_niveau([
       ['5A1','5A1 - Arithmetique'],['5C1','5C1 - Calculs'],
@@ -17021,7 +17021,7 @@ jQuery(document).ready(function () {
       ['4F1','4F1 - Notion de fonction'],
       ['4G1','4G1 - Translation et rotation'],['4G2','4G2 - Théorème de Pythagore'],['4G3','4G3 - Théorème de Thalès'],['4G4',"4G4 - Cosinus d'un angle"],['4G5',"4G5 - Espace"],
       ['4L1','4L1 - Calcul littéral'],['4L2','4L2 - Équation'],['4P1','4P1 - Proportionnalité'],['4S1','4S1 - Statistiques'],['4S2','4S2 - Probabilités'],
-      ['4Algo1','4Algo1 - Algorithmique']
+      ['4Algo1','4A1 - Algorithmique']
     ])
     liste_html_des_exercices_3 = liste_html_des_exercices_d_un_niveau([
       ['3A1','3A1 - Arithmetique'],
