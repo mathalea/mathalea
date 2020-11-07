@@ -13510,12 +13510,11 @@ function Utiliser_le_codage_pour_decrire(){
       objets_correction=[]
       params_enonce={}
       params_correction={}
-/*      nom=creerNomDePolygone(6,"PQ")
+     nom=creerNomDePolygone(6,"PQ")
       for (let i=0;i<6;i++) 
         sommets.push(nom[i])
       sommets=shuffle(sommets)
-*/
-      sommets.push('A','B','C','D','E','F')
+
       A=point(0,0,sommets[0],'left')
       switch (liste_type_de_questions[i]){
       case 1 :
@@ -13549,7 +13548,7 @@ function Utiliser_le_codage_pour_decrire(){
         texte+=`- un triangle isocèle ;<br>`
         texte_corr=`- Deux segments de même mesure : [$${sommets[0]+sommets[4]}$] et $[${sommets[4]+sommets[2]}]$ ou $[${sommets[0]+sommets[5]}]$ et $[${sommets[5]+sommets[2]}]$`
         texte_corr+=` ou $[${sommets[1]+sommets[3]}]$ et $[${sommets[3]+sommets[2]}]$.<br>`
-        texte_corr+=`- $E$ est le milieu du segment $[${sommets[0]+sommets[2]}]$.<br>`
+        texte_corr+=`- $${sommets[4]}$ est le milieu du segment $[${sommets[0]+sommets[2]}]$.<br>`
         texte_corr+=`- $${sommets[0]+sommets[1]+sommets[2]}$ est un triangle rectangle en $${sommets[0]}$, $${sommets[0]+sommets[4]+sommets[5]}$ est un triangle rectangle en $${sommets[4]}$ et $${sommets[2]+sommets[4]+sommets[5]}$ est un triangle rectangle en $${sommets[4]}$.<br>`
         texte_corr+=`- $${sommets[0]+sommets[5]+sommets[2]}$ est un triangle isocèle en $${sommets[5]}$ et $${sommets[1]+sommets[3]+sommets[2]}$ est un triangle isocèle en $${sommets[3]}$.<br>`
         break
@@ -13616,11 +13615,11 @@ function Utiliser_le_codage_pour_decrire(){
           texte=`<br>À l'aide du schéma ci-dessous, déterminer :<br>`
         texte+=`- la nature du triangle $${sommets[0]+sommets[1]+sommets[5]}$ ;<br>`
         texte+=`- la nature du quadrilatère $${sommets[0]+sommets[1]+sommets[2]+sommets[3]}$ ;<br>`
-        texte+=`- la nature de l'angle $\\widehat{FBC}$ ;<br>`
+        texte+=`- la nature de l'angle $\\widehat{${sommets[5]+sommets[1]+sommets[2]}}$ ;<br>`
           texte_corr=`Le triangle $${sommets[0]+sommets[1]+sommets[5]}$ a deux angles de même mesure, c'est donc un triangle isocèle en $${sommets[1]}$.<br>`
           texte_corr+=`Le quadrilatère  $${sommets[0]+sommets[1]+sommets[2]+sommets[3]}$ a des diagonales qui se coupent en leur milieu, c'est donc un parallélogramme.<br>`
-          texte_corr+=`Dans un parallélogramme, les angles consécutifs sont supplémentaires (leur somme vaut 180°).<br`
-          texte_corr+=` D'après le codage, l'angle \\widehat{${sommets[2]+sommets[1]+sommets[5]}$} est la somme de deux angles supplémentaires. C'est donc un angle plat.<br>`
+          texte_corr+=`Dans un parallélogramme, les angles consécutifs sont supplémentaires (leur somme vaut 180°).<br>`
+          texte_corr+=` D'après le codage, l'angle $\\widehat{${sommets[2]+sommets[1]+sommets[5]}}$ est la somme de deux angles supplémentaires. C'est donc un angle plat.<br>`
           
          
         break

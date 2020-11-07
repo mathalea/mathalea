@@ -1384,13 +1384,12 @@ function Segment(arg1, arg2, arg3, arg4, color) {
     let A = point(this.x1, this.y1);
     let B = point(this.x2, this.y2);
     let l=longueur(A,B)
-    let dx=(B.xSVG(coeff)-A.xSVG(coeff))/l/3,dy=(B.ySVG(coeff)-A.ySVG(coeff))/l/3
-    let code =`<path d="M ${A.xSVG(coeff)},${A.ySVG(coeff)} C ${arrondi(A.xSVG(coeff),0)},${arrondi(A.ySVG(coeff),0)} `
-    for (let k=0;k<=3*l;k+=0.667) {
-      code +=`${arrondi(A.xSVG(coeff)+k*dx+randint(-1,1)*amp,0)},${arrondi(A.ySVG(coeff)+k*dy+randint(-1,1)*amp,0)} `
+    let dx=(B.xSVG(coeff)-A.xSVG(coeff))/l/2,dy=(B.ySVG(coeff)-A.ySVG(coeff))/l/2
+    let code =`<path d="M ${A.xSVG(coeff)},${A.ySVG(coeff)} C ${Math.round(A.xSVG(coeff),0)},${arrondi(A.ySVG(coeff))} `
+    for (let k=0;k<2*l+0.25;k+=0.25) {
+      code +=`${Math.round(A.xSVG(coeff)+k*dx+randint(-1,1)*amp)},${Math.round(A.ySVG(coeff)+k*dy+randint(-1,1)*amp)} `
     }
-    code +=` ${arrondi(B.xSVG(coeff),0)},${arrondi(B.ySVG(coeff),0)} ${B.xSVG(coeff)},${B.ySVG(coeff)} " stroke="${this.color}" ${this.style}/>`
-
+    code +=` ${Math.round(B.xSVG(coeff),0)},${arrondi(B.ySVG(coeff))} ${B.xSVG(coeff)},${B.ySVG(coeff)} " stroke="${this.color}" ${this.style}/>`
     return code;
  }
   this.tikzml = function(amp){
@@ -2271,14 +2270,13 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
     la = longueur(M, Omega) // pour obtenir le nombre de points intermédiaires proportionnel au rayon
 
     da = angle/la/10
-    console.log(angle,la,da)
     code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
     for (let k = 0; Math.abs(k) <= Math.abs(angle); k+=da) {
       P = rotation(M, Omega, k)
-      code += `${arrondi(P.xSVG(coeff) + randint(-1, 1) * amp,0)} ${arrondi(P.ySVG(coeff) + randint(-1, 1) * amp, 0)}, `
+      code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)}, `
     }
     P = rotation(M, Omega, angle)
-    code += `${arrondi(P.xSVG(coeff) + randint(-1, 1) * amp,0)} ${arrondi(P.ySVG(coeff) + randint(-1, 1) * amp, 0)} `
+    code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)} `
     code += `" stroke="${color}" ${this.style}/>`
     return code
   }
@@ -2300,10 +2298,10 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
       code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
       for (let k = 0; k <= angle; k+=da) {
         P = rotation(M, Omega, k)
-        code += `${arrondi(P.xSVG(coeff) + randint(-1, 1) * amp, 0)} ${arrondi(P.ySVG(coeff) + randint(-1, 1) * amp, 0)}, `
+        code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)}, `
       }
       P = rotation(M, Omega, la * da)
-      code += `${arrondi(P.xSVG(coeff) + randint(-1, 1) * amp, 0)} ${arrondi(P.ySVG(coeff) + randint(-1, 1) * amp, 0)} `
+      code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)} `
     
     l = longueur(Omega, M)
     dMx = (M.xSVG(coeff) - Omega.xSVG(coeff)) / (4 * l)
@@ -2311,12 +2309,12 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
     dPx = (Omega.xSVG(coeff) - P.xSVG(coeff)) / (4 * l)
     dPy = (Omega.ySVG(coeff) - P.ySVG(coeff)) / (4 * l)
       for (let k = 0; k <= 4 * l; k++) {
-        code += `${arrondi(P.xSVG(coeff) + k * dPx + randint(-1, 1) * amp, 0)} ${arrondi(P.ySVG(coeff) + k * dPy + randint(-1, 1) * amp, 0)}, `
+        code += `${Math.round(P.xSVG(coeff) + k * dPx + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + k * dPy + randint(-1, 1) * amp)}, `
       }
       for (let j = 0; j <= 4 * l; j++) {
-        code += `${arrondi(Omega.xSVG(coeff) + j * dMx + randint(-1, 1) * amp, 0)} ${arrondi(Omega.ySVG(coeff) + j * dMy + randint(-1, 1) * amp, 0)}, `
+        code += `${Math.round(Omega.xSVG(coeff) + j * dMx + randint(-1, 1) * amp)} ${Math.round(Omega.ySVG(coeff) + j * dMy + randint(-1, 1) * amp)}, `
       }
-      code += `${arrondi(Omega.xSVG(coeff) + 4 * l * dMx + randint(-1, 1) * amp, 0)} ${arrondi(Omega.ySVG(coeff) + 4 * l * dMy + randint(-1, 1) * amp, 0)} Z `
+      code += `${Math.round(Omega.xSVG(coeff) + 4 * l * dMx + randint(-1, 1) * amp)} ${Math.round(Omega.ySVG(coeff) + 4 * l * dMy + randint(-1, 1) * amp)} Z `
     code += `" stroke="${color}" ${this.style} />`
     return code
     }
