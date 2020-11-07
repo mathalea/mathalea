@@ -14668,7 +14668,7 @@ function Tracer_triangle_2_angles() {
 function Representer_un_solide() {
   "use strict";
   Exercice.call(this);// Héritage de la classe Exercice ()
-  this.titre = "Compléter une représentation en perspective cavalière;
+  this.titre = "Compléter une représentation en perspective cavalière";
   this.nb_questions = 1;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
