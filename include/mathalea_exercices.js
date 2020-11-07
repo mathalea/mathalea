@@ -25,7 +25,7 @@ var liste_des_exercices_disponibles = {
   "c3C10-4" : Exercice_tables_d_additions_cycle3,
   "c3C11" : Division_cycle3,
   "c3N10" : Ecrire_entiers_cycle3,
-  "6Algo1-0": Colorier_Deplacement,
+  "beta6Algo10": Colorier_Deplacement,
   "6C10": Additions_soustractions_multiplications_posees,
   "6C11": Divisions_euclidiennes,
   "6C10-1": Tables_de_multiplications,
@@ -9569,7 +9569,7 @@ function Lire_abscisse_decimale_trois_formes() {
 
 /** 
  * * Colorier le déplacement d'un lutin
- * * 6Algo1-0
+ * * 6Algo10
  * @author Erwan Duplessy
  */
 function Colorier_Deplacement(){
@@ -17024,7 +17024,8 @@ jQuery(document).ready(function () {
     ['6G1','6G1 - Géométrie niveau 1'],['6G2','6G2 - Géométrie niveau 2'],['6G3','6G3 - Géométrie niveau 3'],['6G4','6G4 - Géométrie niveau 4'],
     ['6M1','6M1 - Grandeurs et mesures niveau 1'],['6M2','6M2 - Grandeurs et mesures niveau 2'],['6M3', '6M3 - Volumes'],
     ['6N1','6N1 - Numération et fractions niveau 1'],['6N2','6N2 - Numération et fractions niveau 2'],['6N3','6N3 - Numération et fractions niveau 3'],['6N4','6N4 - Numération et fractions niveau 4'],
-    ['6P1','6P1 - Proportionnalité'],['6S1','6S1 - Statistiques']
+    ['6P1','6P1 - Proportionnalité'],['6S1','6S1 - Statistiques'],
+    ['6Algo1','6Algo1 - Algorithmique']
   ])
     liste_html_des_exercices_5 = liste_html_des_exercices_d_un_niveau([
       ['5A1','5A1 - Arithmetique'],['5C1','5C1 - Calculs'],
