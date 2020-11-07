@@ -13492,40 +13492,26 @@ function Test_main_levee() {
   this.nb_questions = 1;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
-  this.sup = false;
+  this.sup = true;
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions=[]
     this.liste_corrections=[]
-    let A=point(5,5)
-    let B=point(10,5)
-    let D=point(10,10)
-//    let a=codeAngle(B,A,D,4)
-    let C=cercleCentrePoint(A,B,'green')
-    C.epaisseur=2
-    C.opacite=0.5
-    let E=cercleCentrePoint(B,A,'red')
-    E.epaisseur=2
-    E.opacite=0.5
-    let s=segment(A,B,'red')
-    s.epaisseur=5
-    s.opacite=0.4
-    pixelsParCm=20
-    scale=3
-    let cote=afficheCoteSegment(s)
-    let crochD=crochetD(B)
-    let crochG=crochetG(A)
-
- //   let m=mediatrice(A,B,'d','purple')
-    let cons=constructionMediatrice(A,B,true,'orange','//','O','black',2)
-
-    let texte=mathalea2d({xmin:-1,ymin:0,xmax:16,ymax:11,pixelsParCm:20,scale:3,mainlevee:this.sup,amplitude:1},[cote,crochD,crochG,codeAngle(A,B,-90,3,'||','black',2,1,'yellow',0.5),C,s,E,tracePoint(A,B,D)])
+    let A=point(0,0)
+    let B=point(5,0)
+    let D=point(5,-5)
+    let C=point(1,5)
+    let a=codeAngle(B,A,C,1,'','green')
+    let s1=segment(B,A,'red')
+    let s2=segment(A,C,'red')
+    let s3=segment(B,D,'red')
+    let b=codeAngle(A,B,D,0.8,'','blue')
+    let texte=mathalea2d({xmin:-1,ymin:-6,xmax:6,ymax:6,pixelsParCm:20,scale:3,mainlevee:this.sup,amplitude:1},a,s1,s2,s3,b)
     pixelsParCm=20
     let texte_corr=""
-    this.liste_questions.push(texte );
+    this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr );
    liste_de_question_to_contenu(this)  
   }
-
   this.besoin_formulaire_case_a_cocher = ["main levee"];	
 }
 
@@ -13571,12 +13557,11 @@ function Utiliser_le_codage_pour_decrire(){
       objets_correction=[]
       params_enonce={}
       params_correction={}
-/*      nom=creerNomDePolygone(6,"PQ")
+     nom=creerNomDePolygone(6,"PQ")
       for (let i=0;i<6;i++) 
         sommets.push(nom[i])
       sommets=shuffle(sommets)
-*/
-      sommets.push('A','B','C','D','E','F')
+
       A=point(0,0,sommets[0],'left')
       switch (liste_type_de_questions[i]){
       case 1 :
@@ -13601,7 +13586,7 @@ function Utiliser_le_codage_pour_decrire(){
       s7=segment(C,F)
       s8=segment(E,F)
       s4=segment(B,C)
-        params_enonce={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:20,scale:1,mainlevee:true,amplitude:1}
+        params_enonce={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1.5),pixelsParCm:30,scale:1,mainlevee:true,amplitude:1}
         objets_enonce.push(s1,s2,s4,s8,s7,s3,s6,s5,codageAngleDroit(B,A,C),codeSegments('//','black',A,F,F,C),codeSegments('|||','black',A,E,E,C),codeSegments('O','black',B,D,D,C),labelPoint(A,B,C,D,E,F),codageAngleDroit(A,E,F))
         texte=`<br>À l'aide du schéma ci-dessous, déterminer :<br>`
         texte+=`- deux segments de même longueur ;<br>`
@@ -13610,7 +13595,7 @@ function Utiliser_le_codage_pour_decrire(){
         texte+=`- un triangle isocèle ;<br>`
         texte_corr=`- Deux segments de même mesure : [$${sommets[0]+sommets[4]}$] et $[${sommets[4]+sommets[2]}]$ ou $[${sommets[0]+sommets[5]}]$ et $[${sommets[5]+sommets[2]}]$`
         texte_corr+=` ou $[${sommets[1]+sommets[3]}]$ et $[${sommets[3]+sommets[2]}]$.<br>`
-        texte_corr+=`- $E$ est le milieu du segment $[${sommets[0]+sommets[2]}]$.<br>`
+        texte_corr+=`- $${sommets[4]}$ est le milieu du segment $[${sommets[0]+sommets[2]}]$.<br>`
         texte_corr+=`- $${sommets[0]+sommets[1]+sommets[2]}$ est un triangle rectangle en $${sommets[0]}$, $${sommets[0]+sommets[4]+sommets[5]}$ est un triangle rectangle en $${sommets[4]}$ et $${sommets[2]+sommets[4]+sommets[5]}$ est un triangle rectangle en $${sommets[4]}$.<br>`
         texte_corr+=`- $${sommets[0]+sommets[5]+sommets[2]}$ est un triangle isocèle en $${sommets[5]}$ et $${sommets[1]+sommets[3]+sommets[2]}$ est un triangle isocèle en $${sommets[3]}$.<br>`
         break
@@ -13625,7 +13610,7 @@ function Utiliser_le_codage_pour_decrire(){
         s4=segment(C,F)
         s5=segment(B,F)
         s6=polygone(A,B,C,D)
-        params_correction={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:20,scale:1,mainlevee:true,amplitude:1}
+        params_correction={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:30,scale:1,mainlevee:true,amplitude:1}
         objets_correction.push(labelPoint(A,B,C,D,E,F),s1,s2,s4,s5,s6)
         objets_correction.push(codageAngleDroit(D,A,B),codageAngleDroit(A,B,C),codageAngleDroit(B,C,D),codageAngleDroit(C,D,A))
         objets_correction.push(codeSegments('||','black',D,E,C,E),codeSegments('O','black',A,B,B,C,C,D,D,A),codeSegments('|||','black',F,C,B,F))
@@ -13645,7 +13630,7 @@ function Utiliser_le_codage_pour_decrire(){
           s3=polygone(A,B,C,D)
           s4=segment(B,F)
           s5=segment(C,F)
-          params_correction={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:20,scale:1,mainlevee:true,amplitude:1}
+          params_correction={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:30,scale:1,mainlevee:true,amplitude:1}
           objets_correction.push(labelPoint(A,B,C,D,E,F),s1,s2,s3,s4,s5)
           objets_correction.push(codageAngleDroit(D,A,B),codageAngleDroit(A,B,C),codageAngleDroit(B,C,D),codageAngleDroit(C,D,A))
           objets_correction.push(codeSegments('||','black',D,E,E,B,A,E,E,C,F,C,B,F),codeSegments('O','black',A,B,D,C),codeSegments('/','black',A,D,B,C))
@@ -13665,7 +13650,7 @@ function Utiliser_le_codage_pour_decrire(){
           s5=segment(A,F)
           s1=segment(B,D)
           s2=segment(A,C)
-          params_enonce={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:30,scale:1,mainlevee:true,amplitude:1}
+          params_enonce={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:30,scale:1,mainlevee:true,amplitude:0.8}
           objets_enonce.push(labelPoint(A,B,C,D,E,F),s1,s2,s3,s4,s5)
           objets_enonce.push(codeAngle(D,A,B,2,'|','red',2),codeAngle(B,C,D,2,'|','red',2),codeAngle(A,B,F,2,'|','red',2))
           objets_enonce.push(codeAngle(A,B,C,2,'||','blue',2),codeAngle(A,D,C,2,'||','blue',2))
@@ -13677,11 +13662,11 @@ function Utiliser_le_codage_pour_decrire(){
           texte=`<br>À l'aide du schéma ci-dessous, déterminer :<br>`
         texte+=`- la nature du triangle $${sommets[0]+sommets[1]+sommets[5]}$ ;<br>`
         texte+=`- la nature du quadrilatère $${sommets[0]+sommets[1]+sommets[2]+sommets[3]}$ ;<br>`
-        texte+=`- la nature de l'angle $\\widehat{FBC}$ ;<br>`
+        texte+=`- la nature de l'angle $\\widehat{${sommets[5]+sommets[1]+sommets[2]}}$ ;<br>`
           texte_corr=`Le triangle $${sommets[0]+sommets[1]+sommets[5]}$ a deux angles de même mesure, c'est donc un triangle isocèle en $${sommets[1]}$.<br>`
           texte_corr+=`Le quadrilatère  $${sommets[0]+sommets[1]+sommets[2]+sommets[3]}$ a des diagonales qui se coupent en leur milieu, c'est donc un parallélogramme.<br>`
-          texte_corr+=`Dans un parallélogramme, les angles consécutifs sont supplémentaires (leur somme vaut 180°).<br`
-          texte_corr+=` D'après le codage, l'angle \\widehat{${sommets[2]+sommets[1]+sommets[5]}$} est la somme de deux angles supplémentaires. C'est donc un angle plat.<br>`
+          texte_corr+=`Dans un parallélogramme, les angles consécutifs sont supplémentaires (leur somme vaut 180°).<br>`
+          texte_corr+=` D'après le codage, l'angle $\\widehat{${sommets[2]+sommets[1]+sommets[5]}}$ est la somme de deux angles supplémentaires. C'est donc un angle plat.<br>`
           
          
         break
