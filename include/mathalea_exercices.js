@@ -25,7 +25,7 @@ var liste_des_exercices_disponibles = {
   "c3C10-4" : Exercice_tables_d_additions_cycle3,
   "c3C11" : Division_cycle3,
   "c3N10" : Ecrire_entiers_cycle3,
-  "beta6Algo10": Colorier_Deplacement,
+  "6Algo10": Colorier_Deplacement,
   "6C10": Additions_soustractions_multiplications_posees,
   "6C11": Divisions_euclidiennes,
   "6C10-1": Tables_de_multiplications,
@@ -9573,15 +9573,9 @@ function Lire_abscisse_decimale_trois_formes() {
  * @author Erwan Duplessy
  */
 function Colorier_Deplacement(){
-	//'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	//this.beta = false;	
-	this.sup=1;
-	// if (this.beta) {
-	// 	this.nb_questions = 1;
-	// } else {
-	// 	this.nb_questions = 1;
-	// };	
+  this.sup = 1; // nombre de commandes = this.sup + 2
+  this.sup2 = false; //1 : sans boucle ; true : avec boucle
   this.nb_questions=1;
   this.nb_questions_modifiable=false;
 	this.titre = "Dessiner avec Scratch";
@@ -9589,9 +9583,9 @@ function Colorier_Deplacement(){
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.nb_questions_modifiable = false;
-	sortie_html? this.spacing = 3 : this.spacing = 2; 
-  sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
-  this.liste_packages = "scratch3";
+	sortie_html? this.spacing = 2 : this.spacing = 2; 
+  sortie_html? this.spacing_corr = 2 : this.spacing_corr = 2;
+  this.liste_packages = "scratch3"; // pour dessiner les blocs en LaTeX/Tikz
 
   this.nouvelle_version = function(){
     this.liste_questions = []; // Liste de questions
@@ -9608,12 +9602,9 @@ function Colorier_Deplacement(){
     let texte_corr=""; // texte du corrigé
     let code_tikz = ``; // code pour dessiner les blocs en tikz
     let code_svg = ``; // code pour dessiner les blocs en svg
-    let nbCommandes = 3; // nombre de commandes de déplacement dans un script
-    let nbRepetition;
-    if (this.sup==1) {
-      nbRepetition = 1;
-    }
-    else {
+    let nbCommandes = Number(this.sup) + 2; // nombre de commandes de déplacement dans un script
+    let nbRepetition = 1;
+    if (this.sup2) {
       nbRepetition = 3;
     }
     // 0 : gauche, 1 : droite, 2 : haut, 3 : bas, 4 : colorier.
@@ -9627,20 +9618,20 @@ function Colorier_Deplacement(){
     let lstNumCommande = []; // liste des commandes successives
     let lstX = [0]; // liste des abscisses successives
     let lstY = [0]; // liste des ordonnées successives
-    if (this.sup==2) {
+    if (this.sup2) {
       code_svg += `répéter (${nbRepetition}) fois <br>`;
     }
 
     for (i = 0; i<nbCommandes; i++) {
-      n = choice([0,1,2,3]); // 
-      code_tikz += lstCommandesTikz[n]+`<br>`;
-      code_svg += lstCommandesSVG[n]+`<br>`;
-      code_tikz += lstCommandesTikz[4]+`<br>`;
-      code_svg += lstCommandesSVG[4]+`<br>`;
-      lstNumCommande.push(n);
-      lstNumCommande.push(4);
-      lstX.push(lstX[lstX.length-1]+lstAjoutXY[n][0]);
-      lstY.push(lstY[lstY.length-1]+lstAjoutXY[n][1]);
+      n = choice([0,1,2,3]); // choix d'un déplacement
+      code_tikz += lstCommandesTikz[n]+`<br>`; // ajout d'un déplacement 
+      code_svg += lstCommandesSVG[n]+`<br>`; // ajout d'un déplacement 
+      code_tikz += lstCommandesTikz[4]+`<br>`; // ajout de l'instruction "Colorier"
+      code_svg += lstCommandesSVG[4]+`<br>`; // ajout de l'instruction "Colorier"
+      lstNumCommande.push(n); // ajout d'un déplacement 
+      lstNumCommande.push(4); // ajout de l'instruction "Colorier"
+      lstX.push(lstX[lstX.length-1]+lstAjoutXY[n][0]); // calcul de la nouvelle abscisse
+      lstY.push(lstY[lstY.length-1]+lstAjoutXY[n][1]); // calcul de la nouvelle ordonnée
     }
     for (let j = 0; j<nbRepetition-1; j++) {
       for (i = 0; i<2*nbCommandes; i++) {
@@ -9649,7 +9640,9 @@ function Colorier_Deplacement(){
         }      
     }
     code_tikz += `\\end{scratch}`;
-    code_svg += `fin <br>`;
+    if (this.sup2) {
+      code_svg += `fin <br>`;
+    }
     code_svg += `</pre>`;
 
     let xLutinMin = Math.min(...lstX);
@@ -9685,7 +9678,7 @@ function Colorier_Deplacement(){
       yUnite : 1,
       yThickDistance : 1,
       xThickDistance : 1,
-      xMin : xLutinMin - 1,
+      xMin : xLutinMin - 1, // la grille entoure le dessin final
       xMax : xLutinMax + 2,
       yMin : yLutinMin - 2,
       yMax : yLutinMax + 1,
@@ -9715,26 +9708,27 @@ function Colorier_Deplacement(){
     let txt = ``; // variable temporaire
     for (let j = 0; j < (r.xMax-r.xMin); j++) {
       txt = String.fromCharCode(65+j); // ascii 65 = A
-      lstObjet.push(texteParPosition(txt, r.xMin+j+0.25, r.yMax+0.5, 0, 'black', 1, 'milieu')); // affiche de A à J en haut de la grille
+      lstObjet.push(texteParPosition(txt, r.xMin+j+0.25, r.yMax+0.5, 0, 'black', 1, 'milieu')); // affiche de A à J... en haut de la grille
     }   
     
     for (let i = 0; i < (r.yMax-r.yMin); i++) {
-      lstObjet.push(texteParPosition(String(i), r.xMin-1, r.yMax-i-0.5, 0, 'black', 1, 'milieu')); // affiche de 0 à 9 à gauche de la grille
+      lstObjet.push(texteParPosition(String(i), r.xMin-1, r.yMax-i-0.5, 0, 'black', 1, 'milieu')); // affiche de 0 à 9... à gauche de la grille
     }   
 
     texte+= mathalea2d({xmin:r.xMin-2,xmax:r.xMax+1,ymin:r.yMin-1,ymax:r.yMax+1,pixelsParcCm:20,scale:1},r, lstObjet);    
     
     if (sortie_html) {
       texte += `</td></tr></table>`;
-    } 
-    
+    }    
 
     // CORRECTION
     // 0 : gauche, 1 : droite, 2 : haut, 3 : bas, 4 : colorier.
     let xLutin = 0; // position initiale du carré
     let yLutin = 0; // position initiale du carré
+    let lstCouleurs = ['green',  'blue', 'red', 'purple', 'pink', 'brown', 'cyan',  'lime', 'magenta', 'olive', 'orange',  'teal', 'violet', 'yellow']
     
     for (i = 0; i<nbRepetition*lstNumCommande.length; i++) {
+      if (i%lstNumCommande.length == 0) {couleur = lstCouleurs[Math.trunc(i/nbRepetition)] }
       switch (lstNumCommande[i%lstNumCommande.length]) {
         case 0:
           xLutin += -1;break;
@@ -9746,20 +9740,21 @@ function Colorier_Deplacement(){
           yLutin += -1;break;
         case 4:
           p = polygone(point(xLutin,yLutin), point(xLutin+1,yLutin), point(xLutin+1,yLutin-1), point(xLutin, yLutin-1));
-          p.opacite = 1;
-          p.couleurDeRemplissage = 'red';
-          p.opaciteDeRemplissage = 1;
+          p.couleurDeRemplissage = couleur;
           lstObjet.push(p);          
       }      
     }
+    if (this.sup2){
+      texte_corr += `Chaque couleur représente l'éxécution après un passage dans la boucle. <br>`
+    }    
     texte_corr+= mathalea2d({xmin:r.xMin-1,xmax:r.xMax+1,ymin:r.yMin-1,ymax:r.yMax+1,pixelsParcCm:20,scale:0.75},r, lstObjet);  
 
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
-    liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque question.
-    //liste_de_question_to_contenu_sans_numero(this);
+    liste_de_question_to_contenu(this);
   }
-  this.besoin_formulaire_numerique = ['Niveau de difficulté',2,'1 : Sans boucle\n2 : Avec une boucle'];
+  this.besoin_formulaire_numerique = [`Nombre d'instructions de déplacements`,3,'1 : 3 instructions\n2 : 4 instructions\n3 : 5 instructions'];
+  this.besoin_formulaire2_case_a_cocher = ["Avec une boucle"];
 }
 
 /**
@@ -13497,40 +13492,26 @@ function Test_main_levee() {
   this.nb_questions = 1;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
-  this.sup = false;
+  this.sup = true;
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions=[]
     this.liste_corrections=[]
-    let A=point(5,5)
-    let B=point(10,5)
-    let D=point(10,10)
-//    let a=codeAngle(B,A,D,4)
-    let C=cercleCentrePoint(A,B,'green')
-    C.epaisseur=2
-    C.opacite=0.5
-    let E=cercleCentrePoint(B,A,'red')
-    E.epaisseur=2
-    E.opacite=0.5
-    let s=segment(A,B,'red')
-    s.epaisseur=5
-    s.opacite=0.4
-    pixelsParCm=20
-    scale=3
-    let cote=afficheCoteSegment(s)
-    let crochD=crochetD(B)
-    let crochG=crochetG(A)
-
- //   let m=mediatrice(A,B,'d','purple')
-    let cons=constructionMediatrice(A,B,true,'orange','//','O','black',2)
-
-    let texte=mathalea2d({xmin:-1,ymin:0,xmax:16,ymax:11,pixelsParCm:20,scale:3,mainlevee:this.sup,amplitude:1},[cote,crochD,crochG,codeAngle(A,B,-90,3,'||','black',2,1,'yellow',0.5),C,s,E,tracePoint(A,B,D)])
+    let A=point(0,0)
+    let B=point(5,0)
+    let D=point(5,-5)
+    let C=point(1,5)
+    let a=codeAngle(B,A,C,1,'','green')
+    let s1=segment(B,A,'red')
+    let s2=segment(A,C,'red')
+    let s3=segment(B,D,'red')
+    let b=codeAngle(A,B,D,0.8,'','blue')
+    let texte=mathalea2d({xmin:-1,ymin:-6,xmax:6,ymax:6,pixelsParCm:20,scale:3,mainlevee:this.sup,amplitude:1},a,s1,s2,s3,b)
     pixelsParCm=20
     let texte_corr=""
-    this.liste_questions.push(texte );
+    this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr );
    liste_de_question_to_contenu(this)  
   }
-
   this.besoin_formulaire_case_a_cocher = ["main levee"];	
 }
 
@@ -13576,12 +13557,11 @@ function Utiliser_le_codage_pour_decrire(){
       objets_correction=[]
       params_enonce={}
       params_correction={}
-/*      nom=creerNomDePolygone(6,"PQ")
+     nom=creerNomDePolygone(6,"PQ")
       for (let i=0;i<6;i++) 
         sommets.push(nom[i])
       sommets=shuffle(sommets)
-*/
-      sommets.push('A','B','C','D','E','F')
+
       A=point(0,0,sommets[0],'left')
       switch (liste_type_de_questions[i]){
       case 1 :
@@ -13606,7 +13586,7 @@ function Utiliser_le_codage_pour_decrire(){
       s7=segment(C,F)
       s8=segment(E,F)
       s4=segment(B,C)
-        params_enonce={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:20,scale:1,mainlevee:true,amplitude:1}
+        params_enonce={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1.5),pixelsParCm:30,scale:1,mainlevee:true,amplitude:1}
         objets_enonce.push(s1,s2,s4,s8,s7,s3,s6,s5,codageAngleDroit(B,A,C),codeSegments('//','black',A,F,F,C),codeSegments('|||','black',A,E,E,C),codeSegments('O','black',B,D,D,C),labelPoint(A,B,C,D,E,F),codageAngleDroit(A,E,F))
         texte=`<br>À l'aide du schéma ci-dessous, déterminer :<br>`
         texte+=`- deux segments de même longueur ;<br>`
@@ -13615,7 +13595,7 @@ function Utiliser_le_codage_pour_decrire(){
         texte+=`- un triangle isocèle ;<br>`
         texte_corr=`- Deux segments de même mesure : [$${sommets[0]+sommets[4]}$] et $[${sommets[4]+sommets[2]}]$ ou $[${sommets[0]+sommets[5]}]$ et $[${sommets[5]+sommets[2]}]$`
         texte_corr+=` ou $[${sommets[1]+sommets[3]}]$ et $[${sommets[3]+sommets[2]}]$.<br>`
-        texte_corr+=`- $E$ est le milieu du segment $[${sommets[0]+sommets[2]}]$.<br>`
+        texte_corr+=`- $${sommets[4]}$ est le milieu du segment $[${sommets[0]+sommets[2]}]$.<br>`
         texte_corr+=`- $${sommets[0]+sommets[1]+sommets[2]}$ est un triangle rectangle en $${sommets[0]}$, $${sommets[0]+sommets[4]+sommets[5]}$ est un triangle rectangle en $${sommets[4]}$ et $${sommets[2]+sommets[4]+sommets[5]}$ est un triangle rectangle en $${sommets[4]}$.<br>`
         texte_corr+=`- $${sommets[0]+sommets[5]+sommets[2]}$ est un triangle isocèle en $${sommets[5]}$ et $${sommets[1]+sommets[3]+sommets[2]}$ est un triangle isocèle en $${sommets[3]}$.<br>`
         break
@@ -13630,7 +13610,7 @@ function Utiliser_le_codage_pour_decrire(){
         s4=segment(C,F)
         s5=segment(B,F)
         s6=polygone(A,B,C,D)
-        params_correction={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:20,scale:1,mainlevee:true,amplitude:1}
+        params_correction={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:30,scale:1,mainlevee:true,amplitude:1}
         objets_correction.push(labelPoint(A,B,C,D,E,F),s1,s2,s4,s5,s6)
         objets_correction.push(codageAngleDroit(D,A,B),codageAngleDroit(A,B,C),codageAngleDroit(B,C,D),codageAngleDroit(C,D,A))
         objets_correction.push(codeSegments('||','black',D,E,C,E),codeSegments('O','black',A,B,B,C,C,D,D,A),codeSegments('|||','black',F,C,B,F))
@@ -13650,7 +13630,7 @@ function Utiliser_le_codage_pour_decrire(){
           s3=polygone(A,B,C,D)
           s4=segment(B,F)
           s5=segment(C,F)
-          params_correction={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:20,scale:1,mainlevee:true,amplitude:1}
+          params_correction={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:30,scale:1,mainlevee:true,amplitude:1}
           objets_correction.push(labelPoint(A,B,C,D,E,F),s1,s2,s3,s4,s5)
           objets_correction.push(codageAngleDroit(D,A,B),codageAngleDroit(A,B,C),codageAngleDroit(B,C,D),codageAngleDroit(C,D,A))
           objets_correction.push(codeSegments('||','black',D,E,E,B,A,E,E,C,F,C,B,F),codeSegments('O','black',A,B,D,C),codeSegments('/','black',A,D,B,C))
@@ -13670,7 +13650,7 @@ function Utiliser_le_codage_pour_decrire(){
           s5=segment(A,F)
           s1=segment(B,D)
           s2=segment(A,C)
-          params_enonce={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:30,scale:1,mainlevee:true,amplitude:1}
+          params_enonce={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:30,scale:1,mainlevee:true,amplitude:0.8}
           objets_enonce.push(labelPoint(A,B,C,D,E,F),s1,s2,s3,s4,s5)
           objets_enonce.push(codeAngle(D,A,B,2,'|','red',2),codeAngle(B,C,D,2,'|','red',2),codeAngle(A,B,F,2,'|','red',2))
           objets_enonce.push(codeAngle(A,B,C,2,'||','blue',2),codeAngle(A,D,C,2,'||','blue',2))
@@ -13682,11 +13662,11 @@ function Utiliser_le_codage_pour_decrire(){
           texte=`<br>À l'aide du schéma ci-dessous, déterminer :<br>`
         texte+=`- la nature du triangle $${sommets[0]+sommets[1]+sommets[5]}$ ;<br>`
         texte+=`- la nature du quadrilatère $${sommets[0]+sommets[1]+sommets[2]+sommets[3]}$ ;<br>`
-        texte+=`- la nature de l'angle $\\widehat{FBC}$ ;<br>`
+        texte+=`- la nature de l'angle $\\widehat{${sommets[5]+sommets[1]+sommets[2]}}$ ;<br>`
           texte_corr=`Le triangle $${sommets[0]+sommets[1]+sommets[5]}$ a deux angles de même mesure, c'est donc un triangle isocèle en $${sommets[1]}$.<br>`
           texte_corr+=`Le quadrilatère  $${sommets[0]+sommets[1]+sommets[2]+sommets[3]}$ a des diagonales qui se coupent en leur milieu, c'est donc un parallélogramme.<br>`
-          texte_corr+=`Dans un parallélogramme, les angles consécutifs sont supplémentaires (leur somme vaut 180°).<br`
-          texte_corr+=` D'après le codage, l'angle \\widehat{${sommets[2]+sommets[1]+sommets[5]}$} est la somme de deux angles supplémentaires. C'est donc un angle plat.<br>`
+          texte_corr+=`Dans un parallélogramme, les angles consécutifs sont supplémentaires (leur somme vaut 180°).<br>`
+          texte_corr+=` D'après le codage, l'angle $\\widehat{${sommets[2]+sommets[1]+sommets[5]}}$ est la somme de deux angles supplémentaires. C'est donc un angle plat.<br>`
           
          
         break
@@ -14688,7 +14668,7 @@ function Tracer_triangle_2_angles() {
 function Representer_un_solide() {
   "use strict";
   Exercice.call(this);// Héritage de la classe Exercice ()
-  this.titre = "Compléter le schéma d'un schéma";
+  this.titre = "Compléter une représentation en perspective cavalière";
   this.nb_questions = 1;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
@@ -17025,7 +17005,7 @@ jQuery(document).ready(function () {
     ['6M1','6M1 - Grandeurs et mesures niveau 1'],['6M2','6M2 - Grandeurs et mesures niveau 2'],['6M3', '6M3 - Volumes'],
     ['6N1','6N1 - Numération et fractions niveau 1'],['6N2','6N2 - Numération et fractions niveau 2'],['6N3','6N3 - Numération et fractions niveau 3'],['6N4','6N4 - Numération et fractions niveau 4'],
     ['6P1','6P1 - Proportionnalité'],['6S1','6S1 - Statistiques'],
-    ['6Algo1','6Algo1 - Algorithmique']
+    ['6Algo1','6A - Algorithmique']
   ])
     liste_html_des_exercices_5 = liste_html_des_exercices_d_un_niveau([
       ['5A1','5A1 - Arithmetique'],['5C1','5C1 - Calculs'],
@@ -17041,7 +17021,7 @@ jQuery(document).ready(function () {
       ['4F1','4F1 - Notion de fonction'],
       ['4G1','4G1 - Translation et rotation'],['4G2','4G2 - Théorème de Pythagore'],['4G3','4G3 - Théorème de Thalès'],['4G4',"4G4 - Cosinus d'un angle"],['4G5',"4G5 - Espace"],
       ['4L1','4L1 - Calcul littéral'],['4L2','4L2 - Équation'],['4P1','4P1 - Proportionnalité'],['4S1','4S1 - Statistiques'],['4S2','4S2 - Probabilités'],
-      ['4Algo1','4Algo1 - Algorithmique']
+      ['4Algo1','4A1 - Algorithmique']
     ])
     liste_html_des_exercices_3 = liste_html_des_exercices_d_un_niveau([
       ['3A1','3A1 - Arithmetique'],
