@@ -9573,10 +9573,10 @@ function Lire_abscisse_decimale_trois_formes() {
  * @author Erwan Duplessy
  */
 function Colorier_Deplacement(){
-	//'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	//this.beta = false;	
-	this.sup=1;
+  this.sup = 1; // nombre de commandes = this.sup + 2
+  this.sup2 = false; //1 : sans boucle ; true : avec boucle
 	// if (this.beta) {
 	// 	this.nb_questions = 1;
 	// } else {
@@ -9589,8 +9589,8 @@ function Colorier_Deplacement(){
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.nb_questions_modifiable = false;
-	sortie_html? this.spacing = 3 : this.spacing = 2; 
-  sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
+	sortie_html? this.spacing = 2 : this.spacing = 2; 
+  sortie_html? this.spacing_corr = 2 : this.spacing_corr = 2;
   this.liste_packages = "scratch3";
 
   this.nouvelle_version = function(){
@@ -9608,13 +9608,13 @@ function Colorier_Deplacement(){
     let texte_corr=""; // texte du corrigé
     let code_tikz = ``; // code pour dessiner les blocs en tikz
     let code_svg = ``; // code pour dessiner les blocs en svg
-    let nbCommandes = 3; // nombre de commandes de déplacement dans un script
-    let nbRepetition;
-    if (this.sup==1) {
-      nbRepetition = 1;
+    let nbCommandes = Number(this.sup) + 2; // nombre de commandes de déplacement dans un script
+    let nbRepetition = 1;
+    if (this.sup2) {
+      nbRepetition = 3;
     }
     else {
-      nbRepetition = 3;
+      nbRepetition = 1;
     }
     // 0 : gauche, 1 : droite, 2 : haut, 3 : bas, 4 : colorier.
     let lstCommandesTikz = [`\\blockmove{Aller à gauche}`, `\\blockmove{Aller à droite}`, `\\blockmove{Aller en haut}`, `\\blockmove{Aller en bas}`, `\\blockmove{Colorier la case}`];
@@ -9627,7 +9627,7 @@ function Colorier_Deplacement(){
     let lstNumCommande = []; // liste des commandes successives
     let lstX = [0]; // liste des abscisses successives
     let lstY = [0]; // liste des ordonnées successives
-    if (this.sup==2) {
+    if (this.sup2) {
       code_svg += `répéter (${nbRepetition}) fois <br>`;
     }
 
@@ -9649,7 +9649,9 @@ function Colorier_Deplacement(){
         }      
     }
     code_tikz += `\\end{scratch}`;
-    code_svg += `fin <br>`;
+    if (this.sup2) {
+      code_svg += `fin <br>`;
+    }
     code_svg += `</pre>`;
 
     let xLutinMin = Math.min(...lstX);
@@ -9733,8 +9735,10 @@ function Colorier_Deplacement(){
     // 0 : gauche, 1 : droite, 2 : haut, 3 : bas, 4 : colorier.
     let xLutin = 0; // position initiale du carré
     let yLutin = 0; // position initiale du carré
+    let lstCouleurs = ['blue', 'brown', 'cyan', 'darkgray', 'green', 'lightgray', 'lime', 'magenta', 'olive', 'orange', 'pink', 'purple', 'red', 'teal', 'violet', 'yellow']
     
     for (i = 0; i<nbRepetition*lstNumCommande.length; i++) {
+      if (i%lstNumCommande.length == 0) {couleur = lstCouleurs[Math.trunc(i/nbRepetition)] }
       switch (lstNumCommande[i%lstNumCommande.length]) {
         case 0:
           xLutin += -1;break;
@@ -9747,7 +9751,7 @@ function Colorier_Deplacement(){
         case 4:
           p = polygone(point(xLutin,yLutin), point(xLutin+1,yLutin), point(xLutin+1,yLutin-1), point(xLutin, yLutin-1));
           p.opacite = 1;
-          p.couleurDeRemplissage = 'red';
+          p.couleurDeRemplissage = couleur;
           p.opaciteDeRemplissage = 1;
           lstObjet.push(p);          
       }      
@@ -9759,7 +9763,8 @@ function Colorier_Deplacement(){
     liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque question.
     //liste_de_question_to_contenu_sans_numero(this);
   }
-  this.besoin_formulaire_numerique = ['Niveau de difficulté',2,'1 : Sans boucle\n2 : Avec une boucle'];
+  this.besoin_formulaire_numerique = [`Nombre d'instructions de déplacements`,3,'1 : 3 instructions\n2 : 4 instructions\n3 : 5 instructions'];
+  this.besoin_formulaire2_case_a_cocher = ["Avec une boucle"];
 }
 
 /**
