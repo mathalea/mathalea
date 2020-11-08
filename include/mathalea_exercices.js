@@ -9612,7 +9612,7 @@ function Colorier_Deplacement(){
     let lstCommandesSVG = [`Aller à gauche`, `Aller à droite`, `Aller en haut`, `Aller en bas`, `Colorier`];
     let lstAjoutXY = [[-1,0],[1,0],[0,1],[0,-1],[0,0]];
     let nb = lstCommandesTikz.length; // nombre de commandes disponibles
-    code_tikz += `\\begin{scratch} <br>`;
+    code_tikz += `\\medskip \\\\ \\begin{scratch}[baseline=c] <br>`;
     code_svg += `<pre class='blocks'>`;
     let n = 0;
     let lstNumCommande = []; // liste des commandes successives
@@ -9624,9 +9624,9 @@ function Colorier_Deplacement(){
 
     for (i = 0; i<nbCommandes; i++) {
       n = choice([0,1,2,3]); // choix d'un déplacement
-      code_tikz += lstCommandesTikz[n]+`<br>`; // ajout d'un déplacement 
+      code_tikz += lstCommandesTikz[n]; // ajout d'un déplacement 
       code_svg += lstCommandesSVG[n]+`<br>`; // ajout d'un déplacement 
-      code_tikz += lstCommandesTikz[4]+`<br>`; // ajout de l'instruction "Colorier"
+      code_tikz += lstCommandesTikz[4]; // ajout de l'instruction "Colorier"
       code_svg += lstCommandesSVG[4]+`<br>`; // ajout de l'instruction "Colorier"
       lstNumCommande.push(n); // ajout d'un déplacement 
       lstNumCommande.push(4); // ajout de l'instruction "Colorier"
@@ -9708,18 +9708,20 @@ function Colorier_Deplacement(){
     let txt = ``; // variable temporaire
     for (let j = 0; j < (r.xMax-r.xMin); j++) {
       txt = String.fromCharCode(65+j); // ascii 65 = A
-      lstObjet.push(texteParPosition(txt, r.xMin+j+0.25, r.yMax+0.5, 0, 'black', 1, 'milieu')); // affiche de A à J... en haut de la grille
+      lstObjet.push(texteParPosition(txt, r.xMin+j+0.5, r.yMax+0.5, 'milieu', 'black', 1)); // affiche de A à J... en haut de la grille
     }   
     
     for (let i = 0; i < (r.yMax-r.yMin); i++) {
-      lstObjet.push(texteParPosition(String(i), r.xMin-1, r.yMax-i-0.5, 0, 'black', 1, 'milieu')); // affiche de 0 à 9... à gauche de la grille
+      lstObjet.push(texteParPosition(String(i), r.xMin-0.5, r.yMax-i-0.5, 'gauche', 'black', 1)); // affiche de 0 à 9... à gauche de la grille
     }   
 
-    texte+= mathalea2d({xmin:r.xMin-2,xmax:r.xMax+1,ymin:r.yMin-1,ymax:r.yMax+1,pixelsParcCm:20,scale:1},r, lstObjet);    
+    texte+= mathalea2d({xmin:r.xMin-2,xmax:r.xMax+1,ymin:r.yMin-1,ymax:r.yMax+1,pixelsParcCm:20,scale:.5},r, lstObjet);    
     
     if (sortie_html) {
       texte += `</td></tr></table>`;
-    }    
+    } else {
+      texte += `\\hfill \\null`;
+    }
 
     // CORRECTION
     // 0 : gauche, 1 : droite, 2 : haut, 3 : bas, 4 : colorier.
@@ -9729,6 +9731,11 @@ function Colorier_Deplacement(){
     couleur = `red`;
 
     // on fait un dessin par passage dans la boucle
+    if (sortie_html) {
+      texte_corr += `<table style="width:100%"><tr><td style="text-align:center">` ;
+    } else {
+      texte_corr += `\\begin{minipage}{.47\\textwidth}`;
+    }
     for (let k = 0; k<nbRepetition; k++){
       for (i = k*lstNumCommande.length; i<(k+1)*lstNumCommande.length; i++) {
         //couleur différente à chaque boucle
@@ -9750,13 +9757,25 @@ function Colorier_Deplacement(){
         }      
       }
       if (this.sup2){
-        texte_corr += `Passage n° ${k+1} dans la boucle. <br>`
+        texte_corr += `Passage n° ${k+1} dans la boucle : <br>`
       }    
-      texte_corr += mathalea2d({xmin:r.xMin-1,xmax:r.xMax+1,ymin:r.yMin-1,ymax:r.yMax+1,pixelsParcCm:20,scale:0.75},r, lstObjet);  
-      texte_corr += `<br>` ;
+      texte_corr += mathalea2d({xmin:r.xMin-1,xmax:r.xMax+1,ymin:r.yMin-1,ymax:r.yMax+1,pixelsParcCm:20,scale:0.5},r, lstObjet);  
+      // texte_corr += `<br>` ;
+      if (sortie_html) {
+        texte_corr += `</td><td></td><td style="text-align:center">`;
+      } else {
+        texte_corr += `\\end{minipage}`;
+        if (k%2==0) {
+          texte_corr += `\\\\ `;
+        }
+        texte_corr += `\\begin{minipage}{.47\\textwidth}`;
+      }
     }
-
-    
+    if (sortie_html) {
+      texte_corr += `</td></tr></table>`;
+    } else {
+      texte_corr += `\\end{minipage}`;
+    }    
 
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
