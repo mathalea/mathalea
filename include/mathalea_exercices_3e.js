@@ -2718,15 +2718,23 @@ function Premier_ou_pas() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Primalité ou pas";
 	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne = `Justifier que les nombres suivants sont premiers ou pas.`;
+	this.consigne = `Justifier que les nombres suivants sont premiers ou pas. Penser aux critères de divisibilité.`;
 	//sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing = 1 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
-	this.nb_questions = 5;
+
+	
 	//this.correction_detaillee_disponible = true;
 	this.nb_cols = 2;
 	this.nb_cols_corr = 1;
 	this.sup = 1;
+	this.nb_questions_modifiable = false;
+	// console.log(Number(this.sup)==1);
+	// if (Number(this.sup)==1) {
+	// 	this.nb_questions = 4;
+	// } else {
+	// 	this.nb_questions = 5;
+	// }
 	this.liste_packages = `bclogo`;
 
 	this.nouvelle_version = function (numero_de_l_exercice) {
@@ -2743,7 +2751,14 @@ function Premier_ou_pas() {
 		this.contenu = ''; // Liste de questions
 		this.contenu_correction = ''; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = [1, 2, 3, 6, 7];
+		let type_de_questions_disponibles;// = [1, 2, 3, 6, 7];
+		if (Number(this.sup)==1) {
+			this.nb_questions = 4;
+			type_de_questions_disponibles = [1, 2, 3, 8];			
+		} else {
+			this.nb_questions = 5;
+			type_de_questions_disponibles = [1, 2, 3, 6, 7];			
+		}
 		type_de_questions_disponibles = shuffle(type_de_questions_disponibles); // on mélange l'ordre des questions
 		//let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions);
@@ -2761,6 +2776,8 @@ function Premier_ou_pas() {
 			type_de_questions = liste_type_de_questions[i];
 
 			var N; // le nombre de la question
+			let r;
+			let tab_premiers_a_tester;
 
 			switch (type_de_questions) {
 				case 1: // nombre pair
@@ -2898,10 +2915,28 @@ function Premier_ou_pas() {
 					break;
 				case 7: // nombre premier inférieur à 529
 					// rang du nombre premier choisi
-					let r = randint(0, crible_eratosthene_n(529).length - 1);
+					r = randint(0, crible_eratosthene_n(529).length - 1);
 					N = crible_eratosthene_n(529)[r]; //on choisit un nombre premier inférieur à 529
 					texte = N + ``;
-					let tab_premiers_a_tester = crible_eratosthene_n(Math.trunc(Math.sqrt(N)));
+					tab_premiers_a_tester = crible_eratosthene_n(Math.trunc(Math.sqrt(N)));
+					//texte_corr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
+					texte_corr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
+					texte_corr += tab_premiers_a_tester[0];
+					for (let k = 1; k < tab_premiers_a_tester.length; k++) {
+						texte_corr += `, ` + tab_premiers_a_tester[k];
+					};
+					//texte_corr += `.`;
+					// texte_corr += `<br> Aucun de ces nombres premiers ne divise ${N}, `;
+					texte_corr += `, le reste n'est jamais nul.`;
+					// texte_corr += texte_en_couleur_et_gras(nombre_avec_espace(N) + ` est donc un nombre premier.`);
+					texte_corr += `<br>`+texte_en_couleur_et_gras(nombre_avec_espace(N) + ` est donc un nombre premier.`);
+					break;
+				case 8: // nombre premier inférieur à 100 pour permettre les tests de divisibilité sans calculatrice
+					// rang du nombre premier choisi
+					r = randint(0, crible_eratosthene_n(100).length - 1);
+					N = crible_eratosthene_n(100)[r]; //on choisit un nombre premier inférieur à 529
+					texte = N + ``;
+					tab_premiers_a_tester = crible_eratosthene_n(Math.trunc(Math.sqrt(N)));
 					//texte_corr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
 					texte_corr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
 					texte_corr += tab_premiers_a_tester[0];
@@ -2926,14 +2961,14 @@ function Premier_ou_pas() {
 
 		liste_de_question_to_contenu(this);
 	}
-	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
+	this.besoin_formulaire_numerique = ['Difficulté',2,"1 : Sans Calculatrice\n2 : Avec calculatrice"]; 
 };
 
 /**
  * 3A11-1 justifier la non primalité réinvestissement des critères de divisibilité
  * Nombres à 3 ou 4 chiffres, un multiple de 2, de 3, de 5, de 7, de 11, sous forme d'un produit de deux nombres premiers inférieurs à 100
  * et un nombre premier inferieur à 529
- * variante de 3A-11 avec les critères par 7 et 11 en plus
+ * variante de 3A11 avec les critères par 7 et 11 en plus
  * @author Sébastien Lozano
  */
 function Premier_ou_pas_critere_par7_par11() {
@@ -2941,7 +2976,7 @@ function Premier_ou_pas_critere_par7_par11() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Primalité ou pas - Variante avec les critères de divisibilité par 7 et par 11";
 	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne = `Justifier que les nombres suivants sont premiers ou pas.`;
+	this.consigne = `Justifier que les nombres suivants sont premiers ou pas. Penser aux critères de divisibilité.`;
 	//this.consigne += `<br>`;
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;

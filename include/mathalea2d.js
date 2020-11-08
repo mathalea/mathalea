@@ -659,6 +659,9 @@ function Droite(arg1, arg2, arg3, arg4, color) {
     point(this.directeur.x, this.directeur.y)
   );
   this.svg = function (coeff) {
+    if (this.id){
+      this.style += ` id = "${this.id}"`
+    }
     if (this.epaisseur != 1) {
       this.style += ` stroke-width="${this.epaisseur}" `;
     }
@@ -1253,6 +1256,9 @@ function Segment(arg1, arg2, arg3, arg4, color) {
     if (this.opacite != 1) {
       this.style += ` stroke-opacity="${this.opacite}" `;
     }
+    if (this.id) {
+      this.style += ` id = "${this.id}"`
+    }
     let code = "";
     let A = point(this.x1, this.y1);
     let B = point(this.x2, this.y2);
@@ -1508,6 +1514,9 @@ function Polygone(...points) {
     return liste;
   };
   this.svg = function (coeff) {
+    if (this.id){
+      this.style += ` id = "${this.id}"`
+    }
     if (this.epaisseur != 1) {
       this.style += ` stroke-width="${this.epaisseur}" `;
     }
@@ -3279,6 +3288,29 @@ function AffiniteOrthoAnimee(
 function affiniteOrthoAnimee(...args) {
   return new AffiniteOrthoAnimee(...args);
 }
+
+
+function afficherTempo(id,t0,t){
+  let checkExist = setInterval(function() {
+    if ($(`#${id}`).length) {
+      document.getElementById(id).animate([
+        // keyframes
+        { opacity: 0 }, 
+        { opacity: 0, offset:t0/t }, 
+        { opacity: 1, offset:t0/t+.1 }, 
+        { opacity: 1 }
+      ], { 
+        // timing options
+        duration: t*1000,
+        iterations: Infinity
+      });
+       clearInterval(checkExist);
+    }
+ }, 100); // check every 100ms
+  
+  
+}
+
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%% LE TRIANGLE %%%%%%%%%%%%%%
