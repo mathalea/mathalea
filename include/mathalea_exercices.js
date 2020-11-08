@@ -9726,28 +9726,37 @@ function Colorier_Deplacement(){
     let xLutin = 0; // position initiale du carré
     let yLutin = 0; // position initiale du carré
     let lstCouleurs = ['green',  'blue', 'red', 'purple', 'pink', 'brown', 'cyan',  'lime', 'magenta', 'olive', 'orange',  'teal', 'violet', 'yellow']
-    
-    for (i = 0; i<nbRepetition*lstNumCommande.length; i++) {
-      if (i%lstNumCommande.length == 0) {couleur = lstCouleurs[Math.trunc(i/nbRepetition)] }
-      switch (lstNumCommande[i%lstNumCommande.length]) {
-        case 0:
-          xLutin += -1;break;
-        case 1:
-          xLutin += 1;break;
-        case 2:
-          yLutin += 1;break;
-        case 3:
-          yLutin += -1;break;
-        case 4:
-          p = polygone(point(xLutin,yLutin), point(xLutin+1,yLutin), point(xLutin+1,yLutin-1), point(xLutin, yLutin-1));
-          p.couleurDeRemplissage = couleur;
-          lstObjet.push(p);          
-      }      
+    couleur = `red`;
+
+    // on fait un dessin par passage dans la boucle
+    for (let k = 0; k<nbRepetition; k++){
+      for (i = k*lstNumCommande.length; i<(k+1)*lstNumCommande.length; i++) {
+        //couleur différente à chaque boucle
+        //if (i%lstNumCommande.length == 0) {couleur = lstCouleurs[Math.trunc(i/nbRepetition)] }
+        switch (lstNumCommande[i%lstNumCommande.length]) {
+          case 0:
+            xLutin += -1;break;
+          case 1:
+            xLutin += 1;break;
+          case 2:
+            yLutin += 1;break;
+          case 3:
+            yLutin += -1;break;
+          case 4:
+            p = polygone(point(xLutin,yLutin), point(xLutin+1,yLutin), point(xLutin+1,yLutin-1), point(xLutin, yLutin-1));
+            p.couleurDeRemplissage = couleur;
+            p.opaciteDeRemplissage = 0.25;
+            lstObjet.push(p);          
+        }      
+      }
+      if (this.sup2){
+        texte_corr += `Passage n° ${k+1} dans la boucle. <br>`
+      }    
+      texte_corr += mathalea2d({xmin:r.xMin-1,xmax:r.xMax+1,ymin:r.yMin-1,ymax:r.yMax+1,pixelsParcCm:20,scale:0.75},r, lstObjet);  
+      texte_corr += `<br>` ;
     }
-    if (this.sup2){
-      texte_corr += `Chaque couleur représente l'éxécution après un passage dans la boucle. <br>`
-    }    
-    texte_corr+= mathalea2d({xmin:r.xMin-1,xmax:r.xMax+1,ymin:r.yMin-1,ymax:r.yMax+1,pixelsParcCm:20,scale:0.75},r, lstObjet);  
+
+    
 
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
