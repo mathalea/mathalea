@@ -659,6 +659,9 @@ function Droite(arg1, arg2, arg3, arg4, color) {
     point(this.directeur.x, this.directeur.y)
   );
   this.svg = function (coeff) {
+    if (this.id){
+      this.style += ` id = "${this.id}"`
+    }
     if (this.epaisseur != 1) {
       this.style += ` stroke-width="${this.epaisseur}" `;
     }
