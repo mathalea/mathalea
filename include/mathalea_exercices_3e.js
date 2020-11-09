@@ -631,6 +631,7 @@ function Reduction_si_possible() {
 			b = randint(-11,11,[0,a]);
 			c = randint(-11,11,[0]);
 			d = randint(-11,11,0)
+			console.log(liste_type_de_questions[i],i)
 			switch (liste_type_de_questions[i]) {
 				case 'ax+b':
 					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x+(${b})`)}$`;
@@ -645,13 +646,13 @@ function Reduction_si_possible() {
 					texte_corr = texte
 					break;
 				case 'ax*b':
-					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x`)}\\times${ecriture_parenthese_si_negatif(b)}$`;
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x`)}\\times${ecriture_parenthese_si_negatif(b)}=${printlatex(`${a*b}*x`)}$`;
+					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x`)}\\times ${ecriture_parenthese_si_negatif(b)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x`)}\\times ${ecriture_parenthese_si_negatif(b)}=${printlatex(`${a*b}*x`)}$`;
 					break;
 				case 'b*ax':
 					a = randint(1,11);
-					texte = `$${lettre_depuis_chiffre(i+1)}=${b}\\times${printlatex(`${a}*x`)}$`;
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${b}\\times${printlatex(`${a}*x`)}=${printlatex(`${b*a}*x`)}$`;
+					texte = `$${lettre_depuis_chiffre(i+1)}=${b}\\times ${printlatex(`${a}*x`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${b}\\times ${printlatex(`${a}*x`)}=${printlatex(`${b*a}*x`)}$`;
 					break;
 				case 'ax+b+cx+d':
 					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x+(${b})+(${c})*x+(${d})`)}$`;
@@ -694,6 +695,7 @@ function Reduction_si_possible() {
 					break;
 				
 			}
+
 			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
