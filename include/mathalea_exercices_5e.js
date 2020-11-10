@@ -2943,10 +2943,9 @@ function Placer_probabilites(){
 		for (let i = 0; i<nbEvenement; i++){
 			texte += num_alpha(i) + ` ` + lstEvenenementExo[i][0] + `.<br>`;
 		}
-		texte += `<br>`;
-
 		// Création des objets pour dessiner :
-		let L = 20; // longueur du segment
+		let L = 10; // longueur du segment
+
 		let lstObjet = []; // tous les objets qui seront dessinés
 		let h = 0.25; // hauteur trait
 		lstObjet.push(segment(0,0,L,0)); // axe
@@ -2957,16 +2956,26 @@ function Placer_probabilites(){
 		let y = -0.5;
 		if (this.sup) {
 			for (let j = 0; j<lstEchelle.length; j++){
-				lstObjet.push(texteParPosition(lstEchelle[j][0],L*lstEchelle[j][1],y,angle,'black',1,'droite'));
+				lstObjet.push(texteParPosition(lstEchelle[j][0], L*lstEchelle[j][1], y, angle, 'black', 1, 'gauche'));
 			}		
 		} 
 		else {
 			lstObjet.push(fractionParPosition({x:L/2,y:-1,num:1,den:2,couleur:'black'})); // fraction 1/2 
-			lstObjet.push(texteParPosition("0",0,y-0.25,angle,'black',1,'milieu')); // abscisse 0
-			lstObjet.push(texteParPosition("1",L,y-0.25,angle,'black',1,'milieu')); // abscisse 1
+			lstObjet.push(texteParPosition("0", 0, y-0.25, 'black',1)); // abscisse 0
+			lstObjet.push(texteParPosition("1", L, y-0.25, 0, 'black', 1, 'milieu')); // abscisse 1
 		}
 
-		texte += mathalea2d({xmin : -1, xmax : 24, ymin : -8, ymax : 1, pixelsParCm : 20, scale : 1}, lstObjet);
+		if (sortie_html) {
+			texte += `<p style="display:block">`;
+		} else {
+			texte += `\\begin{center}`;
+		} 
+		texte += mathalea2d({xmin : -1, xmax : L+3, ymin : -4, ymax : 1, pixelsParCm : 40, scale : 1}, lstObjet);
+		if (sortie_html) {
+			texte += `</p>`;
+		} else {
+			texte += `\\end{center}`;
+		}
 
 		// CORRECTION :
 		texte_corr = ` `;
@@ -2977,12 +2986,11 @@ function Placer_probabilites(){
 		for (let i = 0; i<nbEvenement; i++){ 
 			p = lstEvenenementExo[i][1];
 			parrondi = Math.round(calcul(6*p)); // échelle arrondie entre 0 et 7 pour éviter la superposition des textes réponses
-			ylst[parrondi] += 1; // on augmente l'ordonnée si elle est déjà utilisée
+			ylst[parrondi] += 0.5; // on augmente l'ordonnée si elle est déjà utilisée
 			let txtSolution = String.fromCharCode(97+i); //code 97 correspond à 'a'
-			lstObjet.push(texteParPosition(txtSolution,calcul(L*p),ylst[parrondi],angle,'black',1,'milieu'))
+			lstObjet.push(texteParPosition(txtSolution,calcul(L*p),ylst[parrondi],angle,'gauche', 'black', 1))
 			lstObjet.push(tracePoint(point(calcul(L*p), 0), 'blue'))
 		}
-
 		for (let i = 0; i<nbEvenement; i++){ 
 			p = lstEvenenementExo[i][1];
 			if (p==0) { parrondi = 0 } 
@@ -2994,8 +3002,17 @@ function Placer_probabilites(){
 			else if (p==1) { parrondi = 6 };			
 			texte_corr += num_alpha(i) + ` ` + lstEvenenementExo[i][0] + ` : ` + lstEchelle[parrondi][0].toLowerCase() + `.<br>`;
 		}
-		texte_corr += mathalea2d({xmin : -1, xmax : 24, ymin : -8, ymax : 2, pixelsParCm : 20, scale : 1}, lstObjet);
-
+		if (sortie_html) {
+			texte_corr += `<p style="display:block">`;
+		} else {
+			texte_corr += `\\begin{center}`;
+		} 
+		texte_corr += mathalea2d({xmin : -1, xmax : L+3, ymin : -4, ymax : 2, pixelsParCm : 40, scale : 1}, lstObjet);
+		if (sortie_html) {
+			texte_corr += `</p>`;
+		} else {
+			texte_corr += `\\end{center}`;
+		}		
 		this.liste_questions.push(texte);
 		this.liste_corrections.push(texte_corr);
 		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque question.
@@ -7147,9 +7164,9 @@ function Tableaux_et_proportionnalite(){
 function Tableaux_et_pourcentages(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+	this.debug = false;	
 	this.sup=1;
-	if (this.beta) {
+	if (this.debug) {
 		this.nb_questions = 1;
 	} else {
 		this.nb_questions = 1;
@@ -7167,7 +7184,7 @@ function Tableaux_et_pourcentages(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
+		if (this.debug) {
 			type_de_questions_disponibles = [0];			
 		} else {
 			  //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
@@ -7189,8 +7206,8 @@ function Tableaux_et_pourcentages(){
 			if (this.sup == 1) {//coeff entier
 				remises = choice([
 					[{str:'10\\%',nb:10},{str:'20\\%',nb:20},{str:'30\\%',nb:30}],
-					[{str:'5\\%',nb:5},{str:'15\\%',nb:10},{str:'35\\%',nb:35}],
-					[{str:'10\\%',nb:20},{str:'40\\%',nb:40},{str:'80\\%',nb:80}],
+					[{str:'5\\%',nb:5},{str:'15\\%',nb:15},{str:'35\\%',nb:35}],
+					[{str:'10\\%',nb:10},{str:'40\\%',nb:40},{str:'80\\%',nb:80}],
 					[{str:'5\\%',nb:5},{str:'25\\%',nb:25},{str:'55\\%',nb:55}],
 					//[{str:'10\\%',nb:10},{str:'5\\%',nb:5},{str:'15\\%',nb:15}],
 					//[{str:'50\\%',nb:50},{str:'30\\%',nb:30},{str:'10\\%',nb:10}],
@@ -7247,7 +7264,7 @@ function Tableaux_et_pourcentages(){
 			switch (liste_type_de_questions[i]){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
