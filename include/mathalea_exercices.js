@@ -288,6 +288,7 @@ var liste_des_exercices_disponibles = {
   "3F21-1": Lecture_expression_fonctions_affines,
   "3S15": Calculer_des_etendues,
   "3S20": fonctions_probabilite2,
+  "beta3N10-1": identites_calculs,
   "2N10": Existence_d_une_racine_carree,
   "2N10-1": proprietes_racine_carree,
   "2N11": Extraire_un_carre_parfait_d_une_racine_carree,
