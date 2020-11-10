@@ -7011,7 +7011,7 @@ function Eq_resolvantes_Thales(){
 function identites_calculs(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.debug = false;	
+	this.debug = true;	
 	this.sup=1;
 	if (this.debug) {
 		this.nb_questions = 3;	
@@ -7019,8 +7019,8 @@ function identites_calculs(){
 		this.nb_questions = 3;
 	};	
 
-	this.titre = "Identités remarquables et calcul mental";	
-	this.consigne = `Utilise les identités remarquables pour effectuer les calculs suivants de tête.`;	
+	this.titre = "Calcul mental et identités remarquables";	
+	this.consigne = `Faire les calculs suivants à l'aide de la double distributivité ou des identités remarquables.`;	
 	
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -7031,9 +7031,9 @@ function identites_calculs(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.debug) {
-			type_de_questions_disponibles = [0,1,2];			
-		} else {
+		// if (this.debug) {
+		// 	type_de_questions_disponibles = [0,1,2];			
+		// } else {
 				switch (Number(this.sup)) {
 					case 1 :
 						type_de_questions_disponibles = [0,0,0];//shuffle([choice([1,3]),choice([2,3]),0]);      			
@@ -7049,7 +7049,7 @@ function identites_calculs(){
 						break;
 				}
      		 //type_de_questions_disponibles = [0,1,2];//shuffle([choice([1,3]),choice([2,3]),0]);      			
-		};
+//		};
 
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
@@ -7058,27 +7058,75 @@ function identites_calculs(){
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+			// une fonction pour gérer l'affichage sous forme de carré
+			// a et b  sont les facteurs du produit, s'ils sont égaux on affiche sous forme de carré
+			function ifIsCarreAfficheCarre(a,b) {
+				if (a==b) {
+					return `${a}^2`
+				} else {
+					return `${a}\\times ${b}`
+				}
+			}
 
+			let a = randint(1,9);
+			let b_somme = randint(1,4);
+			let b_difference = randint(1,4);
+			let b_som_dif = randint(1,9);
+			let coeff = choice([10,100]);
 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
-				{//case 0 -->
+				{//case 0 --> carré d'une somme
+					a:a,
+					b:b_somme,
+					coeff:coeff,
+					operations:[{str:'+',nb:1},{str:'+',nb:1}],					
+					carre_de_a:a*a,				
+					carre_de_coeff:coeff*coeff,	
+					carre_de_b:b_somme*b_somme,
+					terme_rectangle:a*b_somme,
+					somme_terme_rect:2*a*b_somme,
+					carre:true
 				},
-				{//case 1 -->
-				},
-				{//case 2 -->
+				{//case 1 --> carré d'une différence
+					a:a,
+					b:b_difference,
+					coeff:coeff,
+					operations:[{str:'',nb:-1},{str:'',nb:-1}],					
+					carre_de_a:a*a,
+					carre_de_coeff:coeff*coeff,					
+					carre_de_b:b_difference*b_difference,
+					terme_rectangle:a*b_difference,
+					somme_terme_rect:-2*a*b_difference,
+					carre:true
+				},										
+				{//case 2 --> produit somme différence
+					a:a,
+					b:b_som_dif,
+					coeff:100,
+					operations:choice([[{str:'',nb:-1},{str:'+',nb:1}],[{str:'+',nb:1},{str:'',nb:-1}]]),										
+					carre_de_a:a*a,				
+					carre_de_coeff:coeff*coeff,	
+					carre_de_b:b_som_dif*b_som_dif,
+					terme_rectangle:a*b_som_dif,
+					somme_terme_rect:0,
+					carre:false					
 				},
 			];
 
 			let enonces = [];
 			for (let k=0;k<situations.length;k++) {
 				enonces.push({
-					enonce:`
-					Type ${k} ${randint(1,999)}				
+					enonce:`					 
+					 $${ifIsCarreAfficheCarre(situations[k].coeff*situations[k].a + situations[k].operations[0].nb*situations[k].b,situations[k].coeff*situations[k].a + situations[k].operations[1].nb*situations[k].b)}$
 					`,
 					question:``,
 					correction:`
-					Correction type ${k}
+						Méthode 1 : Avec la double distributivité<br>
+						$${ifIsCarreAfficheCarre(situations[k].coeff*situations[k].a + situations[k].operations[0].nb*situations[k].b,situations[k].coeff*situations[k].a + situations[k].operations[1].nb*situations[k].b)} = (${situations[k].coeff*situations[k].a} ${situations[k].operations[0].str} ${situations[k].operations[0].nb*situations[k].b})\\times (${situations[k].coeff*situations[k].a} ${situations[k].operations[1].str} ${situations[k].operations[1].nb*situations[k].b})$ = ...<br>									
+						Méthode 2 : Avec une identité<br>
+						$${ifIsCarreAfficheCarre(situations[k].coeff*situations[k].a + situations[k].operations[0].nb*situations[k].b,situations[k].coeff*situations[k].a + situations[k].operations[1].nb*situations[k].b)} = ...$
+					
 					`
 				});
 			};
