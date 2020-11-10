@@ -313,6 +313,7 @@ var liste_des_exercices_disponibles = {
   "PEA11": Passer_d_une_base_a_l_autre,
   "PEA11-1": Passer_de_la_base_12_ou_16_a_la_10,
   "betaTESTseb": Tests_du_Seb,
+  "betaSVG": AfficherSVG,
   P001: Code_LaTeX_personnalise,
   // 'P002': LaTeX_static,
   P003: feuille_d_axes_gradues,
@@ -17219,3 +17220,45 @@ jQuery(document).ready(function () {
   });
 });
 
+/** 
+ * * Exo test pour quand j'en ai besoin
+ * * pas de numéro
+ * * Tests
+ * @author Erwan DUPLESSY
+ */
+
+function AfficherSVG(){
+	//'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+
+	this.titre = "Test d'affichage d'icone SVG";	
+  this.consigne = `On utilise awesomefont. `;	
+  this.nb_questions = 1;
+	this.nb_questions_modifiable = false;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	sortie_html? this.spacing = 2 : this.spacing = 1; 
+	sortie_html? this.spacing_corr = 2 : this.spacing_corr = 1;
+
+  this.nouvelle_version = function(){
+		this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées    
+
+    texte = `Un avion <br>`;
+    texte += `<svg xmlns="http://www.w3.org/2000/svg">
+      <!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) -->
+      <defs>
+      <symbol id="plane" viewBox="0 0 576 512"><path d="M480 192H365.71L260.61 8.06A16.014 16.014 0 0 0 246.71 0h-65.5c-10.63 0-18.3 10.17-15.38 20.39L214.86 192H112l-43.2-57.6c-3.02-4.03-7.77-6.4-12.8-6.4H16.01C5.6 128-2.04 137.78.49 147.88L32 256 .49 364.12C-2.04 374.22 5.6 384 16.01 384H56c5.04 0 9.78-2.37 12.8-6.4L112 320h102.86l-49.03 171.6c-2.92 10.22 4.75 20.4 15.38 20.4h65.5c5.74 0 11.04-3.08 13.89-8.06L365.71 320H480c35.35 0 96-28.65 96-64s-60.65-64-96-64z"/>
+      </symbol>
+      </defs>
+      </svg>`;
+      texte += `<svg width="100"><use xlink:href="#plane"/></svg>`;
+
+    texte_corr = ``;
+    
+    this.liste_questions.push(texte);
+		this.liste_corrections.push(texte_corr);
+		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque question.
+
+  }
+}
