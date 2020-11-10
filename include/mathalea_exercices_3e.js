@@ -7011,20 +7011,20 @@ function Eq_resolvantes_Thales(){
 function identites_calculs(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.debug = true;	
+	this.debug = false;	
 	this.sup=1;
 	if (this.debug) {
-		this.nb_questions = 5;
+		this.nb_questions = 3;	
 	} else {
 		this.nb_questions = 3;
 	};	
 
-	this.titre = "Titre dans la liste de choix des exos";	
-	this.consigne = `Consigne `;	
+	this.titre = "Identités remarquables et calcul mental";	
+	this.consigne = `Utilise les identités remarquables pour effectuer les calculs suivants de tête.`;	
 	
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
-	//this.nb_questions_modifiable = false;
+	//this.nb_questions_modifiable = false;	
 	sortie_html? this.spacing = 2.5 : this.spacing = 1.5; 
 	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
 
@@ -7032,9 +7032,23 @@ function identites_calculs(){
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		if (this.debug) {
-			type_de_questions_disponibles = [0,1,2,3,4];			
+			type_de_questions_disponibles = [0,1,2];			
 		} else {
-     		 type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
+				switch (Number(this.sup)) {
+					case 1 :
+						type_de_questions_disponibles = [0,0,0];//shuffle([choice([1,3]),choice([2,3]),0]);      			
+						break;
+					case 2 :
+						type_de_questions_disponibles = [1,1,1];//shuffle([choice([1,3]),choice([2,3]),0]);      			
+						break;
+					case 3 : 
+						type_de_questions_disponibles = [2,2,2];//shuffle([choice([1,3]),choice([2,3]),0]);      			
+						break;
+					case 4 :
+						type_de_questions_disponibles = shuffle([0,1,2]);//shuffle([choice([1,3]),choice([2,3]),0]);      			
+						break;
+				}
+     		 //type_de_questions_disponibles = [0,1,2];//shuffle([choice([1,3]),choice([2,3]),0]);      			
 		};
 
 		this.liste_questions = []; // Liste de questions
@@ -7045,6 +7059,7 @@ function identites_calculs(){
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
 
+
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
 				{//case 0 -->
@@ -7053,18 +7068,13 @@ function identites_calculs(){
 				},
 				{//case 2 -->
 				},
-				{//case 3 -->
-				},
-				{//case 4 -->
-				},
-		
 			];
 
 			let enonces = [];
 			for (let k=0;k<situations.length;k++) {
 				enonces.push({
 					enonce:`
-					Type ${k}				
+					Type ${k} ${randint(1,999)}				
 					`,
 					question:``,
 					correction:`
@@ -7075,7 +7085,7 @@ function identites_calculs(){
             
             // autant de case que d'elements dans le tableau des situations
 			switch (liste_type_de_questions[i]){
-				case 0 : 
+				case 0 : // carré d'une somme 
 					texte = `${enonces[0].enonce}`;
 					if (this.debug) {
 						texte += `<br>`;
@@ -7086,7 +7096,7 @@ function identites_calculs(){
 						texte_corr = `${enonces[0].correction}`;
 					};
           			break;	
-        		case 1 : 
+        		case 1 : // carré d'une différence
 					texte = `${enonces[1].enonce}`;
 					if (this.debug) {
 						texte += `<br>`;
@@ -7096,7 +7106,7 @@ function identites_calculs(){
 						texte_corr = `${enonces[1].correction}`;
 					};
           			break;
-        		case 2 : 
+        		case 2 : // Produit somme différence
 					texte = `${enonces[2].enonce}`;
 					if (this.debug) {
 						texte += `<br>`;
@@ -7105,27 +7115,7 @@ function identites_calculs(){
 					} else {
 						texte_corr = `${enonces[2].correction}`;
 					};
-          			break;				
-        		case 3 : 
-					texte = `${enonces[3].enonce}`;
-					if (this.debug) {
-						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
-						texte_corr = ``;	
-					} else {
-						texte_corr = `${enonces[3].correction}`;
-					};
-					break;				
-         		case 4 : 
-					texte = `${enonces[4].enonce}`;
-					if (this.debug) {
-						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
-						texte_corr = ``;	
-					} else {
-						texte_corr = `${enonces[4].correction}`;
-					};
-					break;				
+          			break;								
 			};			
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
