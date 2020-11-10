@@ -14079,8 +14079,12 @@ function Lecture_diagramme_barre() {
         break;
       case 2:texte += num_alpha(2) + ` Donner un encadrement à la centaine du nombre de ` + lstAnimauxExo[numAnimal] + ' ?<br>';
         break;
+<<<<<<< Updated upstream
     }
     texte += '<br>'   
+=======
+    }    
+>>>>>>> Stashed changes
 
     // coefficient pour gérer les deux types d'exercices (entre 1 et 100) ou (entre 10 et 1000)
     let coef = 1;
@@ -14107,7 +14111,11 @@ function Lecture_diagramme_barre() {
       axeXStyle : '',
       yLegende : "Nombre d'individus"
      });
+<<<<<<< Updated upstream
     
+=======
+     
+>>>>>>> Stashed changes
     let lstElementGraph = []
     for (let i = 0; i < nbAnimaux; i++) {
       lstElementGraph.push(traceBarre((((r.xMax-r.xMin)/(nbAnimaux+1))*(i+1)),lstNombresAnimaux[i],premiere_lettre_en_majuscule(lstAnimauxExo[i]),{unite:.1/coef}))
