@@ -17237,14 +17237,14 @@ function AfficherSVG(){
 	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
-	sortie_html? this.spacing = 2 : this.spacing = 1; 
+	sortie_html? this.spacing = 1 : this.spacing = 1; 
 	sortie_html? this.spacing_corr = 2 : this.spacing_corr = 1;
 
   this.nouvelle_version = function(){
 		this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées    
 
-    texte = `Un avion <br>`;
+    texte = `Des avions <br>`;
     texte += `<svg xmlns="http://www.w3.org/2000/svg">
       <!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) -->
       <defs>
@@ -17252,7 +17252,15 @@ function AfficherSVG(){
       </symbol>
       </defs>
       </svg>`;
-      texte += `<svg width="100"><use xlink:href="#plane"/></svg>`;
+
+    texte += `
+    <svg width="300" height="300" viewBox="0 0 200 200">
+    <use width="60" x="70" y="0" xlink:href="#plane" fill="blue" fill-opacity="50%" />
+    <use width="35" x="70" y="0" transform="rotate(15, 35, 70)" xlink:href="#plane"/>
+    <use width="51" x="20" y="50" fill="gray" xlink:href="#plane"/>
+    <use width="38" x="92" y="80" xlink:href="#plane"/>
+    <use width="90" x="2" y="30" xlink:href="#plane"/ fill-opacity="0%" stroke="green" stroke-width="10">    
+    </svg>`
 
     texte_corr = ``;
     
