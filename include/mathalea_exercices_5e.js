@@ -1272,6 +1272,8 @@ function Egalite_d_angles() {
 	this.nb_questions=1;
 	this.spacing=2;
 	this.spacing_corr=2;
+	this.nb_cols=1;
+	this.nb_cols_corr=1;
 	this.titre="Déterminer des angles en utilisant les cas d'égalité";
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions=[]
@@ -1280,7 +1282,7 @@ function Egalite_d_angles() {
 		let fig1=function(){ //retourne le tableau d'objets, la série de questions et la série de réponses 
 			let A, B, C, D, E, a, ac, ce, c, AE, BD, CA, CE, c1, c2, c3, c4, c5, m1, m2, l1, objets = [], enonce, correction, params;
 			let noms = choisit_lettres_differentes(5, 'Q', true);
-			A = point(0, 0, noms[0], 'ubove left');
+			A = point(0, 0, noms[0], 'above left');
 			a = randint(45, 85);
 			ac = randint(8, 10)
 			ce = randint(7, 10, ac)
@@ -1319,14 +1321,14 @@ function Egalite_d_angles() {
 			correction += `${num_alpha(3)} Les angles $\\widehat{${noms[1]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[1]}${noms[3]}${noms[4]}}$ sont adjacents supplémentaires, donc $\\widehat{${noms[1]}${noms[3]}${noms[4]}}$ mesure $180\\degree-${180 - a - c}\\degree=${mise_en_evidence(a + c, 'black')}\\degree$.<br>`
 			correction += `${num_alpha(4)} Comme les droites (${noms[0]}${noms[4]}) et (${noms[1]}${noms[3]}) sont parallèles, les angles correspondants $\\widehat{${noms[1]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$ sont égaux, donc $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$ mesure $${mise_en_evidence(180 - a - c, 'black')}\\degree$.<br>`
 			correction += `${num_alpha(5)} La somme des angles du quadrilatère vaut donc : $${a}\\degree+${mise_en_evidence(180 - a, 'black')}\\degree+${mise_en_evidence(a + c, 'black')}\\degree+${mise_en_evidence(180 - a - c, 'black')}\\degree=180\\degree+180\\degree=360\\degree$.`
-			params = { xmin: -2, ymin: Math.min(A.y - 1, E.y - 1), xmax: E.x + 2, ymax: C.y + 2}
+			params = { xmin: -2, ymin: Math.min(A.y - 1, E.y - 1), xmax: E.x + 2, ymax: C.y + 2,scale:0.7}
 
 			return [objets, params, enonce, correction]
 		}
 		let fig2=function(){ //retourne le tableau d'objets, la série de questions et la série de réponses 
 		let A, B, C, D, E, a, ac,ab,cd,ad, c,d,AB,BE, CA, CE, cA, cD, cE,c3, c4, c5,c6, l1, objets = [], enonce, correction, params;
 		let noms=choisit_lettres_differentes(5,'Q',true);
-		A=point(0,0,noms[0],'ubove left');
+		A=point(0,0,noms[0],'above left');
 		B=point(randint(8,10),randint(1,3),noms[1],'below right')
 		ab=longueur(A,B)
 		ac=randint(6,8)
