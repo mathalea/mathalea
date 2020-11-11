@@ -7165,6 +7165,9 @@ function identites_calculs(){
 
 						${texte_gras(`Méthode 2 : Avec une identité`)}<br>
 						$${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)} 
+						= ${ifIsCarreAfficheCarre(`(${situations[k].facteurs[0].str})`,`(${situations[k].facteurs[1].str})`)} $<br>
+						
+						$${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)} 
 						= ${situations[k].a_coeff}^2 ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} 2\\times ${situations[k].a_coeff} \\times ${situations[k].b}`)} ${situations[k].signes_dbl_dist[0]}  ${situations[k].b}^2$<br>
 
 						$${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)} 
