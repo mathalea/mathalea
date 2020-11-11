@@ -6092,9 +6092,9 @@ function FractionParPosition({x=0,y=0,num=1,den=2,couleur='black'}){
   let offset=10
 
   this.svg=function(coeff){
-    let code=segment(x,y,x+longueur/coeff,y,couleur).svg(coeff)
-    code+=texteParPosition(nombre_avec_espace(num),x+longueur/2/coeff,y+offset/coeff,"milieu",couleur).svg(coeff)
-    code+=texteParPosition(nombre_avec_espace(den),x+longueur/2/coeff,y-offset/coeff,"milieu",couleur).svg(coeff)
+    let code=segment(x-longueur/coeff/2,y,x+longueur/coeff/2,y,couleur).svg(coeff)
+    code+=texteParPosition(nombre_avec_espace(num),x,y+offset/coeff,"milieu",couleur).svg(coeff)
+    code+=texteParPosition(nombre_avec_espace(den),x,y-offset/coeff,"milieu",couleur).svg(coeff)
     return code
   }
 
