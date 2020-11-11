@@ -146,6 +146,7 @@ var liste_des_exercices_disponibles = {
   "5G20-1": Vocabulaire_des_triangles_5e,
   "5G22": DroiteRemarquableDuTriangle,
   "5G30" : Utiliser_le_codage_pour_decrire_5e,
+  "beta5G30-1" : Egalite_d_angles,
   "5G31": Exercice_angles_triangles,
   "5G31-1": Constructibilite_des_triangles_angles,
   "5G51" : Representer_un_solide_5e,
