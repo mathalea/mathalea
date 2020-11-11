@@ -4119,6 +4119,7 @@ function DroiteGraduee2({
 /*  ThickMin = Min+thickDistance,
   ThickMax = Max-thickDistance,
 */
+  labelsPrincipaux=true,
   labelDistance = axeHauteur*2/pixelsParCm,
   labelListe = false,
 //  LabelMin = ThickMin,
@@ -4164,7 +4165,7 @@ function DroiteGraduee2({
   }
   // Les labels principaux
   i=0;
-  while (i*Unite<(Max-Min)*Unite+1) {
+  if (labelsPrincipaux) while (i*Unite<(Max-Min)*Unite+1) {
    T=texteParPosition(nombre_avec_espace(arrondi(calcul(Min+i),3)),x+i*Unite*absord[0]-labelDistance*absord[1],y+i*Unite*absord[1]-labelDistance*absord[0]);
     objets.push(T);
     i+=1;
