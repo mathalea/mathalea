@@ -7020,7 +7020,7 @@ function identites_calculs(){
 	};	
 
 	this.titre = "Calcul mental et identités remarquables";	
-	this.consigne = `Faire les calculs suivants à l'aide de la double distributivité ou des identités remarquables.`;	
+	this.consigne = `Faire les calculs suivants sans calculatrice. Utiliser la double distributivité ou les identités remarquables.`;	
 	
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
