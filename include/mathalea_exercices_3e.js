@@ -7025,8 +7025,8 @@ function identites_calculs(){
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	//this.nb_questions_modifiable = false;	
-	sortie_html? this.spacing = 2.5 : this.spacing = 1.5; 
-	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+	sortie_html? this.spacing = 1.5 : this.spacing = 1; 
+	sortie_html? this.spacing_corr = 1.5 : this.spacing_corr = 1;
 
 
 	let type_de_questions_disponibles;	
@@ -7150,46 +7150,24 @@ function identites_calculs(){
 					 $${situations[k].lettre}=${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)}$
 					`,
 					question:``,
-					correction:`
-						${texte_gras(`Méthode 1 : Avec la double distributivité`)}<br>
-						$${situations[k].lettre}
-						= ${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)}$<br>
-
-						$${situations[k].lettre}
-						= (${situations[k].facteurs[0].str})\\times (${situations[k].facteurs[1].str})$<br>
-
-						$${situations[k].lettre}
-						= ${situations[k].a_coeff}^2 ${situations[k].signes_dbl_dist[1]} ${situations[k].a_coeff}\\times ${situations[k].b} ${situations[k].signes_dbl_dist[2]} ${situations[k].b}\\times ${situations[k].a_coeff} ${situations[k].signes_dbl_dist[0]} ${situations[k].b}^2$<br>
-
-						$${situations[k].lettre}
-						= ${situations[k].carre_de_a_coeff} ${situations[k].signes_dbl_dist[1]} ${situations[k].termes_rectangles[0]} ${situations[k].signes_dbl_dist[2]} ${situations[k].termes_rectangles[1]}	${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b}$<br>
-						
-						$${situations[k].lettre}
-						= ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} ${situations[k].somme_terme_rect}`)} ${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b}$<br>
-						
-						$${situations[k].lettre}
-						= ${situations[k].resultat}$<br>									
-
-						${texte_gras(`Méthode 2 : Avec une identité`)}<br>
-						$${situations[k].lettre}
-						= ${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)}$<br>
-
-						$${situations[k].lettre}
-						= ${ifIsCarreAfficheCarre(`(${situations[k].facteurs[0].str})`,`(${situations[k].facteurs[1].str})`)} $<br>
-						
-						$${situations[k].lettre}
-						= ${situations[k].a_coeff}^2 ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} 2\\times ${situations[k].a_coeff} \\times ${situations[k].b}`)} ${situations[k].signes_dbl_dist[0]}  ${situations[k].b}^2$<br>
-
-						$${situations[k].lettre}
-						= ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} 2\\times ${situations[k].termes_rectangles[0]}`)} ${situations[k].signes_dbl_dist[0]}  ${situations[k].carre_de_b}$<br>
-						
-						$${situations[k].lettre}
-						= ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} ${situations[k].somme_terme_rect}`)} ${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b}$<br>
-						
-						$${situations[k].lettre}
-						= ${situations[k].resultat}$
-					
-					`
+					correction1:`
+						${texte_gras(`Avec la double distributivité`)}<br>
+						$${situations[k].lettre} = ${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)}$<br>
+						$${situations[k].lettre} = (${situations[k].facteurs[0].str})\\times (${situations[k].facteurs[1].str})$<br>
+						$${situations[k].lettre} = ${situations[k].a_coeff}^2 ${situations[k].signes_dbl_dist[1]} ${situations[k].a_coeff}\\times ${situations[k].b} ${situations[k].signes_dbl_dist[2]} ${situations[k].b}\\times ${situations[k].a_coeff} ${situations[k].signes_dbl_dist[0]} ${situations[k].b}^2$<br>
+						$${situations[k].lettre} = ${situations[k].carre_de_a_coeff} ${situations[k].signes_dbl_dist[1]} ${situations[k].termes_rectangles[0]} ${situations[k].signes_dbl_dist[2]} ${situations[k].termes_rectangles[1]}	${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b}$<br>
+						$${situations[k].lettre} = ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} ${situations[k].somme_terme_rect}`)} ${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b}$<br>
+						$${situations[k].lettre} = ${situations[k].resultat}$
+					`,
+					correction2:`
+					${texte_gras(`Avec une identité`)}<br>
+					$${situations[k].lettre} = ${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)}$<br>
+					$${situations[k].lettre} = ${ifIsCarreAfficheCarre(`(${situations[k].facteurs[0].str})`,`(${situations[k].facteurs[1].str})`)} $<br>
+					$${situations[k].lettre} = ${situations[k].a_coeff}^2 ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} 2\\times ${situations[k].a_coeff} \\times ${situations[k].b}`)} ${situations[k].signes_dbl_dist[0]}  ${situations[k].b}^2$<br>
+					$${situations[k].lettre} = ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} 2\\times ${situations[k].termes_rectangles[0]}`)} ${situations[k].signes_dbl_dist[0]}  ${situations[k].carre_de_b}$<br>
+					$${situations[k].lettre} = ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} ${situations[k].somme_terme_rect}`)} ${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b}$<br>
+					$${situations[k].lettre} = ${situations[k].resultat}$				
+				`
 				});
 			};
             
@@ -7199,30 +7177,66 @@ function identites_calculs(){
 					texte = `${enonces[0].enonce}`;
 					if (this.debug) {
 						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;			
+						texte += `<br> =====CORRECTION======<br>${enonces[0].correction1}<br>${enonces[0].correction2}`;			
 						texte_corr = ``;	
 					} else {
-						texte_corr = `${enonces[0].correction}`;
+						if (sortie_html) {
+							texte_corr = `${enonces[0].correction1}<br><br>${enonces[0].correction2}`;
+						} else {
+							texte_corr = `Détaillons deux méthodes : <br><br>`
+							texte_corr += `\\begin{minipage}{8cm}`;
+							texte_corr += enonces[0].correction1;
+							texte_corr += `\\end{minipage}`;
+							texte_corr += `\\hfill \\vrule \\hfill`;							
+							texte_corr += `\\begin{minipage}{8cm}`;
+							texte_corr += enonces[0].correction2;
+							texte_corr += `\\end{minipage}`;
+							texte_corr += `<br>`;
+						};						
 					};
           			break;	
         		case 1 : // carré d'une différence
 					texte = `${enonces[1].enonce}`;
 					if (this.debug) {
 						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
+						texte += `<br> =====CORRECTION======<br>${enonces[1].correction1}<br>${enonces[1].correction2}`;
 						texte_corr = ``;	
 					} else {
-						texte_corr = `${enonces[1].correction}`;
+						if (sortie_html) {
+							texte_corr = `${enonces[1].correction1}<br><br>${enonces[1].correction2}`;
+						} else {
+							texte_corr = `Détaillons deux méthodes : <br><br>`
+							texte_corr += `\\begin{minipage}{8cm}`;
+							texte_corr += enonces[1].correction1;
+							texte_corr += `\\end{minipage}`;
+							texte_corr += `\\hfill \\vrule \\hfill`;							
+							texte_corr += `\\begin{minipage}{8cm}`;
+							texte_corr += enonces[1].correction2;
+							texte_corr += `\\end{minipage}`;
+							texte_corr += `<br>`;
+						};						
 					};
           			break;
         		case 2 : // Produit somme différence
 					texte = `${enonces[2].enonce}`;
 					if (this.debug) {
 						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
+						texte += `<br> =====CORRECTION======<br>${enonces[2].correction1}<br>${enonces[2].correction2}`;
 						texte_corr = ``;	
 					} else {
-						texte_corr = `${enonces[2].correction}`;
+						if (sortie_html) {
+							texte_corr = `${enonces[2].correction1}<br><br>${enonces[2].correction2}`;
+						} else {
+							texte_corr = `Détaillons deux méthodes : <br><br>`
+							texte_corr += `\\begin{minipage}{8cm}`;
+							texte_corr += enonces[2].correction1;
+							texte_corr += `\\end{minipage}`;
+							texte_corr += `\\hfill \\vrule \\hfill`;							
+							texte_corr += `\\begin{minipage}{8cm}`;
+							texte_corr += enonces[2].correction2;
+							texte_corr += `\\end{minipage}`;
+							texte_corr += `<br>`;
+						};						
 					};
           			break;								
 			};			
