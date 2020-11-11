@@ -9632,7 +9632,7 @@ function LireUneAbscisseAvecZoom() {
     sA.pointilles=true
     sB.pointilles=true
    objets.push(d1,d2,sA,sB)
-   fenetre={xmin:-1.5,xmax:35,ymin:-1,ymax:4,pixelsParcCm:20,scale:0.5}
+   fenetre={xmin:-1.5,xmax:35,ymin:-1,ymax:4.5,pixelsParcCm:20,scale:0.5}
    texte_corr=`L'abscisse de ${noms[1]} est : $${tex_nombre(x1)}=${tex_nombre(Math.floor(x1))} + ${tex_fraction(calcul(10*(x1-Math.floor(x1))),10)}=${tex_fraction(calcul(x1*10),10)}$.`
 
   }
@@ -9667,7 +9667,7 @@ function LireUneAbscisseAvecZoom() {
       sB=segment(pB1,pB2)
       sA.pointilles=true
       sB.pointilles=true
-      fenetre={xmin:-1.5,xmax:35,ymin:-1,ymax:4,pixelsParcCm:20,scale:0.5}      
+      fenetre={xmin:-1.5,xmax:35,ymin:-1,ymax:4.5,pixelsParcCm:20,scale:0.5}      
       objets.push(d1,d2,sA,sB)
       let partent=Math.floor(x1),pardec=calcul(x1-partent)
     texte_corr=`L'abscisse de ${noms[1]} est : $${tex_nombre(x1)}=${tex_nombre(partent)} + ${tex_fraction(calcul(pardec*100),100)}=${tex_fraction(calcul(x1*100),100)}$.`
