@@ -9605,8 +9605,7 @@ function LireUneAbscisseAvecZoom() {
     let x1=0,x2=0,x3=0,objets=[],fenetre
     if (this.sup==1){
     xmin=randint(0,15)
-    if (xmin==0) extremite=`|->`
-    else extremite=`->`
+
     xmax=xmin+9
     while (estentier(x1)){
     x1=randint(xmin*10,xmin*10+90)
@@ -9614,6 +9613,8 @@ function LireUneAbscisseAvecZoom() {
     }
     xmin=Math.floor(x1)-5
     xmax=Math.floor(x1)+6
+    if (xmin==0) extremite=`|->`
+    else extremite=`->`
     d1=droiteGraduee2({x:0,y:3,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:false,Unite:3,
                       thickCouleur:'black',axeCouleur:'black',axeHauteur:6,labelsPrincipaux:false,labelListe:[[xmin,`${xmin}`],[xmax,`${xmax}`]],
                       pointListe:[[x1,`${noms[1]}`],[Math.floor(x1),`${noms[0]}`],[Math.floor(x1+1),`${noms[2]}`]],
@@ -9648,6 +9649,8 @@ function LireUneAbscisseAvecZoom() {
       x3=calcul(x2+0.1)
       xmin=calcul(x2-0.8)
       xmax=xmin+1.7
+      if (xmin==0) extremite=`|->`
+      else extremite=`->`
       d1=droiteGraduee2({x:0,y:3,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:true,Unite:20,
                         thickCouleur:'black',axeCouleur:'black',axeHauteur:8,thickDistance:0.1,labelsPrincipaux:false,labelListe:[[Math.floor(x1),`${Math.floor(x1)}`],[Math.ceil(x1),`${Math.ceil(x1)}`]],
                         pointListe:[[x1,`${noms[1]}`],[x2,`${noms[0]}`],[x3,`${noms[2]}`]],
@@ -9672,8 +9675,6 @@ function LireUneAbscisseAvecZoom() {
     }
     else if (this.sup==3) {
       xmin=randint(0,7)
-      if (xmin==0) extremite=`|->`
-      else extremite=`->`
       xmax=xmin+1
       x1=calcul(xmin+randint(2,8)/10+randint(2,8)/100+randint(2,8)*0.001)
       x2=troncature(x1,1)
@@ -9683,6 +9684,8 @@ function LireUneAbscisseAvecZoom() {
       console.log(x2,x1,x3)
       xmin=x2-0.5
       xmax=x3+0.5
+      if (xmin==0) extremite=`|->`
+      else extremite=`->`
       d1=droiteGraduee2({x:0,y:6,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:false,Unite:30,thickDistance:0.1,thickSecDist:0.01,thickTerDist:0.001,
                         thickCouleur:'black',axeCouleur:'black',axeHauteur:6,labelsPrincipaux:false,labelListe:[[xmin,`${nombre_avec_espace(xmin)}`],[xmax,`${nombre_avec_espace(xmax)}`]],
                         pointListe:[[x1,`${noms[1]}`],[x2,`${noms[0]}`],[x3,`${noms[2]}`]],
