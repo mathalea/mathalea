@@ -3659,14 +3659,14 @@ function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5) {
     d.isVisible = false;
     let M = pointSurSegment(d.extremite1, d.extremite2, this.distance*20/coeff);
     let mesureAngle = arrondi_virgule(angle(this.depart,this.sommet,this.arrivee), 0) + "°";
-    return "\n"+texteParPoint(mesureAngle, M, "milieu", color).svg(coeff)+"\n"+arc(pointSurSegment(this.sommet, this.depart, 0.8*20/coeff), B, angleOriente(this.depart,this.sommet,this.arrivee)).svg(coeff);
+    return "\n"+texteParPoint(mesureAngle, M, "milieu", color).svg(coeff)+"\n"+arc(pointSurSegment(this.sommet, this.depart, this.distance-0.7*20/coeff), B, angleOriente(this.depart,this.sommet,this.arrivee)).svg(coeff);
   }
   this.tikz=function(){
     let d = bissectrice(A, B, C);
     d.isVisible = false;
     let M = pointSurSegment(d.extremite1, d.extremite2, this.distance/scale);
     let mesureAngle = arrondi_virgule(angle(this.depart,this.sommet,this.arrivee), 0) + "°";
-    return "\n"+texteParPoint(mesureAngle, M, "milieu", color).tikz()+"\n"+arc(pointSurSegment(this.sommet, this.depart, 0.8/scale), B, angleOriente(this.depart,this.sommet,this.arrivee)).tikz();
+    return "\n"+texteParPoint(mesureAngle, M, "milieu", color).tikz()+"\n"+arc(pointSurSegment(this.sommet, this.depart, this.distance-0.7/scale), B, angleOriente(this.depart,this.sommet,this.arrivee)).tikz();
   }
 }
 function afficheMesureAngle(...args){
@@ -3861,7 +3861,7 @@ function codeSegments(mark = "||", color = "black", ...args) {
  *  la ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
  * @Auteur Jean-Claude Lhote
  */
-function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur=1,opacite=1,fill='none',fillOpacite=0.2) {
+function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur=1,opacite=1,fill='none',fillOpacite=0.2,mesure_on=false) {
   ObjetMathalea2D.call(this)
   this.color=color
   this.debut=debut
@@ -3885,26 +3885,30 @@ function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur
   this.angle=angle
   
   this.svg=function(coeff){
-    let P,depart,d,arcangle,codage
+    let P,depart,d,arcangle,mesure,code="",M
     depart=pointSurSegment(this.centre,this.debut,this.taille*20/pixelsParCm)
     P=rotation(depart,this.centre,this.angle/2)
+    M=pointSurSegment(this.centre,P,taille+0.6*20/coeff)
     d=droite(this.centre,P)
     d.isVisible=false
+    mesure= arrondi_virgule(Math.abs(angle),0) + "°";
     arcangle=arc(depart,this.centre,this.angle,remplir,this.couleurDeRemplissage,this.color)
     arcangle.opacite=this.opacite
     arcangle.epaisseur=this.epaisseur
     arcangle.couleurDeRemplissage=this.couleurDeRemplissage
     arcangle.opaciteDeRemplissage=this.opaciteDeRemplissage
-    if (this.mark!='')  codage=texteParPoint(mark,P,90-d.angleAvecHorizontale,color)
-    else codage=''
-    if (codage!='') return codage.svg(coeff)+'\n'+arcangle.svg(coeff);
-    else return arcangle.svg(coeff);
+    if (this.mark!='')  code+=texteParPoint(mark,P,90-d.angleAvecHorizontale,color).svg(coeff)+'\n'
+    if (mesure_on) code+=texteParPoint(mesure,M, "milieu", color).svg(coeff)+'\n'
+    code+=arcangle.svg(coeff);
+    return code;
   }
 
   this.tikz=function(){
-    let P,depart,d,arcangle,codage
+    let P,depart,d,arcangle,mesure,code="",M
     depart=pointSurSegment(this.centre,this.debut,this.taille/scale)
     P=rotation(depart,this.centre,this.angle/2)
+    M=pointSurSegment(this.centre,P,taille+0.6/scale)
+    mesure= arrondi_virgule(Math.abs(angle),0) + "°";
     d=droite(this.centre,P)
     d.isVisible=false
     arcangle=arc(depart,this.centre,this.angle,remplir,this.couleurDeRemplissage,this.color)
@@ -3912,16 +3916,18 @@ function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur
     arcangle.epaisseur=this.epaisseur
     arcangle.couleurDeRemplissage=this.couleurDeRemplissage
     arcangle.opaciteDeRemplissage=this.opaciteDeRemplissage
-    if (this.mark!='')  codage=texteParPoint(mark,P,90-d.angleAvecHorizontale,color)
-    else codage=''
-    if (codage!='') return codage.tikz()+'\n'+arcangle.tikz();
-    else return arcangle.tikz();
+    if (this.mark!='')  code+=texteParPoint(mark,P,90-d.angleAvecHorizontale,color).tikz()+'\n'
+    if (mesure_on) code+=texteParPoint(mesure,M, "milieu", color).tikz()+'\n'
+    code+=arcangle.tikz();
+    return code;
   }
 
   this.svgml = function(coeff,amp){
-    let P,depart,d,arcangle,codage
+    let P,depart,d,arcangle,mesure,code="",M
     depart=pointSurSegment(this.centre,this.debut,this.taille*20/pixelsParCm)
     P=rotation(depart,this.centre,this.angle/2)
+    M=pointSurSegment(this.centre,P,taille+0.6*20/coeff)
+    mesure= arrondi_virgule(Math.abs(angle),0) + "°";
     d=droite(this.centre,P)
     d.isVisible=false
     arcangle=arc(depart,this.centre,this.angle,false,this.couleurDeRemplissage,this.color)
@@ -3929,15 +3935,17 @@ function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur
     arcangle.epaisseur=this.epaisseur
     arcangle.couleurDeRemplissage=this.couleurDeRemplissage
     arcangle.opaciteDeRemplissage=this.opaciteDeRemplissage
-    if (this.mark!='')  codage=texteParPoint(mark,P,90-d.angleAvecHorizontale,color)
-    else codage=''
-    if (codage!='') return codage.svg(coeff)+'\n'+arcangle.svgml(coeff,amp);
-    else return arcangle.svgml(coeff,amp);
+    if (this.mark!='')  code+=texteParPoint(mark,P,90-d.angleAvecHorizontale,color).svg(coeff)+'\n'
+    if (mesure_on) code+=texteParPoint(mesure,M, "milieu", color).svg(coeff)+'\n'
+    code+=arcangle.svgml(coeff,amp);
+    return code;
   }
   this.tikzml=function(amp){
-    let P,depart,d,arcangle,codage
+    let P,depart,d,arcangle,mesure,code="",M
     depart=pointSurSegment(this.centre,this.debut,this.taille/scale)
     P=rotation(depart,this.centre,this.angle/2)
+    M=pointSurSegment(this.centre,P,taille+0.6/scale)
+    mesure= arrondi_virgule(Math.abs(angle),0) + "°";
     d=droite(this.centre,P)
     d.isVisible=false
     arcangle=arc(depart,this.centre,this.angle,remplir,this.couleurDeRemplissage,this.color)
@@ -3945,21 +3953,21 @@ function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur
     arcangle.epaisseur=this.epaisseur
     arcangle.couleurDeRemplissage=this.couleurDeRemplissage
     arcangle.opaciteDeRemplissage=this.opaciteDeRemplissage
-    if (this.mark!='')  codage=texteParPoint(mark,P,90-d.angleAvecHorizontale,color)
-    else codage=''
-    if (codage!='') return codage.tikz()+'\n'+arcangle.tikzml(amp);
-    else return arcangle.tikz();
+    if (this.mark!='')  code+=texteParPoint(mark,P,90-d.angleAvecHorizontale,color).tikz()+'\n'
+    if (mesure_on) code+=texteParPoint(mesure,M, "milieu", color).tikz()+'\n'
+    code+=arcangle.tikzml(amp);
+    return code;
   }
 }
 
-function codeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur=1,opacite=1,fill='none',fillOpacite=0.2){
+function codeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur=1,opacite=1,fill='none',fillOpacite=0.2,mesure_on=false){
   if (typeof(angle)!='number'){
     angle=angleOriente(debut,centre,angle)
   }
   if (angle==90||angle==-90) {
     return new CodageAngleDroit(debut,centre,rotation(debut,centre,angle),color,taille)
   }
-  else  return new CodeAngle(debut,centre,angle,taille,mark,color,epaisseur,opacite,fill,fillOpacite)
+  else  return new CodeAngle(debut,centre,angle,taille,mark,color,epaisseur,opacite,fill,fillOpacite,mesure_on)
 }
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -6487,7 +6495,7 @@ function mathalea2d(
              else
                   code += "\t" + objet[i].svgml(pixelsParCm,amplitude) + "\n";
             }
-          } catch (error) {console.log('premiere boucle',error.message,i)}
+          } catch (error) {console.log('premiere boucle',error.message,objet[i])}
 
         }
       }
