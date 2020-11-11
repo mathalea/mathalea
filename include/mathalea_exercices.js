@@ -17244,7 +17244,36 @@ function AfficherSVG(){
 		this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées    
 
-    texte = `Des avions <br>`;
+    texte = `Directement dans le html avec la font : `; 
+    texte += `
+<i class="orange users icon"></i>
+<i class="yellow users icon"></i>
+<i class="olive users icon"></i>
+<i class="green users icon"></i>
+<i class="teal users icon"></i>
+<i class="blue users icon"></i>
+<i class="violet users icon"></i>
+<i class="purple users icon"></i>
+<i class="pink users icon"></i>
+<i class="brown users icon"></i><br>
+<i class="grey users icon"></i>
+<i class="black users icon"></i>
+<i class="horizontally flipped cloud icon"></i>
+<i class="vertically flipped cloud icon"></i>
+<i class="clockwise rotated cloud icon"></i>
+<i class="counterclockwise rotated cloud icon"></i>
+<i class="chess icon"></i>
+<i class="orange chess bishop icon"></i>
+<i class="chess board icon"></i>
+<i class="chess king icon"></i>
+<i class="chess knight icon"></i>
+<i class="chess pawn icon"></i>
+<i class="chess queen icon"></i>
+<i class="chess rook icon"></i>
+<i class="square full icon"></i>
+    `;
+
+    texte += `<br> Ou bien en SVG. Attention à l'utilisation des repères de coordonnées !<br>`;
     texte += `<svg xmlns="http://www.w3.org/2000/svg">
       <!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) -->
       <defs>
