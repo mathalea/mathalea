@@ -7028,6 +7028,7 @@ function identites_calculs(){
 	sortie_html? this.spacing = 2.5 : this.spacing = 1.5; 
 	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
 
+
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
@@ -7137,7 +7138,7 @@ function identites_calculs(){
 			let enonces = [];
 			for (let k=0;k<situations.length;k++) {
 				enonces.push({
-					enonce:`					 					 
+					enonce:`					
 					 $${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)}$
 					`,
 					question:``,
@@ -7145,15 +7146,15 @@ function identites_calculs(){
 						${texte_gras(`Méthode 1 : Avec la double distributivité`)}<br>
 						$${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)} 
 						= (${situations[k].facteurs[0].str})\\times (${situations[k].facteurs[1].str})
-						= ${situations[k].carre_de_a_coeff} ${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b} ${situations[k].signes_dbl_dist[1]} ${situations[k].termes_rectangles[0]} ${situations[k].signes_dbl_dist[2]} ${situations[k].termes_rectangles[1]}						
-						= ${situations[k].carre_de_a_coeff} ${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b} ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} ${situations[k].somme_terme_rect}`)} 
+						= ${situations[k].carre_de_a_coeff} ${situations[k].signes_dbl_dist[1]} ${situations[k].termes_rectangles[0]} ${situations[k].signes_dbl_dist[2]} ${situations[k].termes_rectangles[1]}	${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b}					
+						= ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} ${situations[k].somme_terme_rect}`)} ${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b}
 						= ${situations[k].resultat}
 						$
 						<br>									
 						${texte_gras(`Méthode 2 : Avec une identité`)}<br>
 						$${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)} 
-						= ${situations[k].carre_de_a_coeff} ${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b} ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} 2\\times ${situations[k].termes_rectangles[0]}`)} 
-						= ${situations[k].carre_de_a_coeff} ${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b} ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} ${situations[k].somme_terme_rect}`)} 
+						= ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} 2\\times ${situations[k].termes_rectangles[0]}`)} ${situations[k].signes_dbl_dist[0]}  ${situations[k].carre_de_b}  
+						= ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} ${situations[k].somme_terme_rect}`)} ${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b} 
 						= ${situations[k].resultat}
 						$
 					
@@ -7167,8 +7168,7 @@ function identites_calculs(){
 					texte = `${enonces[0].enonce}`;
 					if (this.debug) {
 						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
-						texte += `             `
+						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;			
 						texte_corr = ``;	
 					} else {
 						texte_corr = `${enonces[0].correction}`;
