@@ -11643,7 +11643,7 @@ function Pythagore2D() {
   this.nb_questions = 3;
   this.nb_cols = 3;
   this.nb_cols_corr = 1;
-  type_exercice = 'Calculer'
+  this.type_exercice = 'Calculer'
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
@@ -11657,7 +11657,7 @@ function Pythagore2D() {
     } else {
          this.consigne = "Dans chaque cas, calculer la longueur manquante."
     }
-    if (this.sup == 2 || type_exercice == 'Calculer' ){
+    if (this.sup == 2 || this.type_exercice == 'Calculer' ){
       liste_type_de_questions = combinaison_listes(['AB','BC','AC'],this.nb_questions) 
     }
     for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;)
@@ -11689,13 +11689,13 @@ function Pythagore2D() {
       let longueurBC = longueur(B,C,1)
       let mesObjetsATracer = [codage,p2,nomme]
 
-      if (type_exercice == 'Calculer' && liste_type_de_questions[i]=='AB'){
+      if (this.type_exercice == 'Calculer' && liste_type_de_questions[i]=='AB'){
         mesObjetsATracer.push(affAC,affBC)
       }
-      if (type_exercice == 'Calculer' && liste_type_de_questions[i]=='BC'){
+      if (this.type_exercice == 'Calculer' && liste_type_de_questions[i]=='BC'){
         mesObjetsATracer.push(affAC,affAB)
       }
-      if (type_exercice == 'Calculer' && liste_type_de_questions[i]=='AC'){
+      if (this.type_exercice == 'Calculer' && liste_type_de_questions[i]=='AC'){
         mesObjetsATracer.push(affAB,affBC)
       }
 
@@ -11727,11 +11727,12 @@ function Pythagore2D() {
           texte_corr += ` d'où $${A.nom+C.nom}^2=${B.nom+C.nom}^2-${A.nom+B.nom}^2$.`
         }
       }
-      if (type_exercice == "Calculer"){
+      if (this.type_exercice == "Calculer"){
         if (liste_type_de_questions[i]=='AB'){
           texte_corr += ` donc $${A.nom+B.nom}^2=${B.nom+C.nom}^2-${A.nom+C.nom}^2$`
           texte_corr += `<br> $${A.nom+B.nom}^2=${tex_nombre(longueurBC)}^2-${tex_nombre(longueurAC)}^2=${tex_nombrec(longueurBC**2-longueurAC**2)}$`
-          if (calcul(Math.sqrt(longueurBC**2-longueurAC**2),1)==calcul(Math.sqrt(longueurBC**2-longueurAC**2),2)){
+          texte_corr += `<br> $${A.nom+B.nom}=\\sqrt{${tex_nombrec(longueurBC**2-longueurAC**2)}}$`
+          if (calcul(Math.sqrt(longueurBC**2-longueurAC**2),1)==calcul(Math.sqrt(longueurBC**2-longueurAC**2),5)){
             texte_corr += `<br> $${A.nom+B.nom}=${tex_nombre(calcul(Math.sqrt(longueurBC**2-longueurAC**2),1))}$ cm.`
           } else {
             texte_corr += `<br> $${A.nom+B.nom}\\approx${tex_nombre(calcul(Math.sqrt(longueurBC**2-longueurAC**2),1))}$ cm.`
@@ -11739,7 +11740,8 @@ function Pythagore2D() {
         }
         if (liste_type_de_questions[i]=='BC'){
           texte_corr += `<br> $${B.nom+C.nom}^2=${tex_nombre(longueurAB)}^2+${tex_nombre(longueurAC)}^2=${tex_nombrec(longueurAB**2+longueurAC**2)}$`
-          if (calcul(Math.sqrt(longueurAB**2+longueurAC**2),1)==calcul(Math.sqrt(longueurAB**2+longueurAC**2),2)){
+          texte_corr += `<br> $${B.nom+C.nom}=\\sqrt{${tex_nombrec(longueurAB**2+longueurAC**2)}}$`
+          if (calcul(Math.sqrt(longueurAB**2+longueurAC**2),1)==calcul(Math.sqrt(longueurAB**2+longueurAC**2),5)){
             texte_corr += `<br> $${B.nom+C.nom}=${tex_nombre(calcul(Math.sqrt(longueurAB**2+longueurAC**2),1))}$ cm.`
           } else {
             texte_corr += `<br> $${B.nom+C.nom}\\approx${tex_nombre(calcul(Math.sqrt(longueurAB**2+longueurAC**2),1))}$ cm.`
@@ -11748,7 +11750,8 @@ function Pythagore2D() {
         if (liste_type_de_questions[i]=='AC'){
           texte_corr += ` donc $${A.nom+C.nom}^2=${B.nom+C.nom}^2-${A.nom+B.nom}^2$`
           texte_corr += `<br> $${A.nom+C.nom}^2=${tex_nombre(longueurBC)}^2-${tex_nombre(longueurAB)}^2=${tex_nombrec(longueurBC**2-longueurAB**2)}$`
-          if (calcul(Math.sqrt(longueurBC**2-longueurAB**2),1)==calcul(Math.sqrt(longueurBC**2-longueurAB**2),2)){
+          texte_corr += `<br> $${A.nom+C.nom}=\\sqrt{${tex_nombrec(longueurBC**2-longueurAB**2)}}$`
+          if (calcul(Math.sqrt(longueurBC**2-longueurAB**2),1)==calcul(Math.sqrt(longueurBC**2-longueurAB**2),5)){
             texte_corr += `<br> $${A.nom+C.nom}=${tex_nombre(calcul(Math.sqrt(longueurBC**2-longueurAB**2),1))}$ cm.`
           } else {
             texte_corr += `<br> $${A.nom+C.nom}\\approx${tex_nombre(calcul(Math.sqrt(longueurBC**2-longueurAB**2),1))}$ cm.`
@@ -11773,7 +11776,7 @@ function Egalite_Pythagore2D(){
   Pythagore2D.call(this);
   this.titre = "Donner ou compléter une égalité de Pythagore"
   this.sup = 1;
-  type_exercice = ''
+  this.type_exercice = ''
   this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Donner l'égalité de Pythagore\n2 : Compléter l'égalité de Pythagore"];
 
 }
