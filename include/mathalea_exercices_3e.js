@@ -7084,11 +7084,13 @@ function identites_calculs(){
 			let b_som_dif = randint(1,9);
 			let coeff = choice([10,100]);
 			let coeff_som_dif = 100;
-			let signes_som_dif = choice([[{str:'-',nb:-1},{str:'+',nb:1}],[{str:'+',nb:1},{str:'-',nb:-1}]])
+			let signes_som_dif = choice([[{str:'-',nb:-1},{str:'+',nb:1}],[{str:'+',nb:1},{str:'-',nb:-1}]]);
+			let lettres = choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
 				{//case 0 --> carré d'une somme
+					lettre:lettres,
 					a:a,
 					b:b_somme,
 					coeff:coeff,
@@ -7105,6 +7107,7 @@ function identites_calculs(){
 					resultat:tex_nombre(a*a*coeff*coeff + b_somme*b_somme + 2*a*coeff*b_somme)
 				},
 				{//case 1 --> carré d'une différence
+					lettre:lettres,
 					a:a,
 					b:b_difference,
 					coeff:coeff,
@@ -7122,6 +7125,7 @@ function identites_calculs(){
 
 				},										
 				{//case 2 --> produit somme différence
+					lettre:lettres,
 					a:a,
 					b:b_som_dif,
 					coeff:coeff_som_dif,
@@ -7143,40 +7147,46 @@ function identites_calculs(){
 			for (let k=0;k<situations.length;k++) {
 				enonces.push({
 					enonce:`					
-					 $${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)}$
+					 $${situations[k].lettre}=${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)}$
 					`,
 					question:``,
 					correction:`
 						${texte_gras(`Méthode 1 : Avec la double distributivité`)}<br>
-						$${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)} 
+						$${situations[k].lettre}
+						= ${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)}$<br>
+
+						$${situations[k].lettre}
 						= (${situations[k].facteurs[0].str})\\times (${situations[k].facteurs[1].str})$<br>
 
-						$${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)} 
+						$${situations[k].lettre}
 						= ${situations[k].a_coeff}^2 ${situations[k].signes_dbl_dist[1]} ${situations[k].a_coeff}\\times ${situations[k].b} ${situations[k].signes_dbl_dist[2]} ${situations[k].b}\\times ${situations[k].a_coeff} ${situations[k].signes_dbl_dist[0]} ${situations[k].b}^2$<br>
 
-						$${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)} 						
+						$${situations[k].lettre}
 						= ${situations[k].carre_de_a_coeff} ${situations[k].signes_dbl_dist[1]} ${situations[k].termes_rectangles[0]} ${situations[k].signes_dbl_dist[2]} ${situations[k].termes_rectangles[1]}	${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b}$<br>
 						
-						$${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)} 					
+						$${situations[k].lettre}
 						= ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} ${situations[k].somme_terme_rect}`)} ${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b}$<br>
 						
-						$${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)} 
+						$${situations[k].lettre}
 						= ${situations[k].resultat}$<br>									
 
 						${texte_gras(`Méthode 2 : Avec une identité`)}<br>
-						$${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)} 
+						$${situations[k].lettre}
+						= ${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)}$<br>
+
+						$${situations[k].lettre}
 						= ${ifIsCarreAfficheCarre(`(${situations[k].facteurs[0].str})`,`(${situations[k].facteurs[1].str})`)} $<br>
 						
-						$${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)} 
+						$${situations[k].lettre}
 						= ${situations[k].a_coeff}^2 ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} 2\\times ${situations[k].a_coeff} \\times ${situations[k].b}`)} ${situations[k].signes_dbl_dist[0]}  ${situations[k].b}^2$<br>
 
-						$${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)} 
+						$${situations[k].lettre}
 						= ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} 2\\times ${situations[k].termes_rectangles[0]}`)} ${situations[k].signes_dbl_dist[0]}  ${situations[k].carre_de_b}$<br>
 						
-						$${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)} 
+						$${situations[k].lettre}
 						= ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} ${situations[k].somme_terme_rect}`)} ${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b}$<br>
 						
-						$${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)} 
+						$${situations[k].lettre}
 						= ${situations[k].resultat}$
 					
 					`
