@@ -256,6 +256,7 @@ var liste_des_exercices_disponibles = {
   "3L11-2": Reduction_si_possible,
   "3L11-3": Distributivite_simple_double_reduction,
   "3L11-4": Factoriser_par_nombre_ou_x,
+  "beta3L11-5": identites_calculs,
   "3L12-1": Developper_Identites_remarquables3,
   "3L12": Factoriser_Identites_remarquables3,
   "3L13": Exercice_equation1, //identique à 4L20
@@ -288,7 +289,7 @@ var liste_des_exercices_disponibles = {
   "3F21-1": Lecture_expression_fonctions_affines,
   "3S15": Calculer_des_etendues,
   "3S20": fonctions_probabilite2,
-  "beta3N10-1": identites_calculs,
+  "beta3L11-5": identites_calculs,
   "2N10": Existence_d_une_racine_carree,
   "2N10-1": proprietes_racine_carree,
   "2N11": Extraire_un_carre_parfait_d_une_racine_carree,

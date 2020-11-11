@@ -7004,7 +7004,7 @@ function Eq_resolvantes_Thales(){
 
 /** 
  * * Calcul mental autour des identités remarquables
- * * numéro de l'exo ex : 3N10-1
+ * * numéro de l'exo ex : 3L11-5
  * @author Sébastien Lozano
  */
 
@@ -7019,7 +7019,7 @@ function identites_calculs(){
 		this.nb_questions = 3;
 	};	
 
-	this.titre = "Calcul mental et identités remarquables";	
+	this.titre = "Calcul mental et calcul littéral";	
 	this.consigne = `Faire les calculs suivants sans calculatrice. Utiliser la double distributivité ou les identités remarquables.`;	
 	
 	this.nb_cols = 1;
