@@ -3072,8 +3072,8 @@ function Placer_probabilites(){
 		} 
 		else {
 			lstObjet.push(fractionParPosition({x:L/2,y:-1,num:1,den:2,couleur:'black'})); // fraction 1/2 
-			lstObjet.push(texteParPosition("0", 0, y-0.25, 'black',1)); // abscisse 0
-			lstObjet.push(texteParPosition("1", L, y-0.25, 0, 'black', 1, 'milieu')); // abscisse 1
+			lstObjet.push(texteParPosition("0", 0, y-0.25, 0, 'black', 1, 'middle')); // abscisse 0
+			lstObjet.push(texteParPosition("1", L, y-0.25, 0, 'black', 1, 'middle')); // abscisse 1
 		}
 
 		if (sortie_html) {
@@ -3081,7 +3081,12 @@ function Placer_probabilites(){
 		} else {
 			texte += `\\begin{center}`;
 		} 
-		texte += mathalea2d({xmin : -1, xmax : L+3, ymin : -4, ymax : 1, pixelsParCm : 40, scale : 1}, lstObjet);
+		let miny = -2;
+		if (this.sup) {
+			miny = -4;
+		}
+
+		texte += mathalea2d({xmin : -1, xmax : L+3, ymin : miny, ymax : 1, pixelsParCm : 40, scale : 1}, lstObjet);
 		if (sortie_html) {
 			texte += `</p>`;
 		} else {
@@ -3099,7 +3104,7 @@ function Placer_probabilites(){
 			parrondi = Math.round(calcul(6*p)); // échelle arrondie entre 0 et 7 pour éviter la superposition des textes réponses
 			ylst[parrondi] += 0.5; // on augmente l'ordonnée si elle est déjà utilisée
 			let txtSolution = String.fromCharCode(97+i); //code 97 correspond à 'a'
-			lstObjet.push(texteParPosition(txtSolution,calcul(L*p),ylst[parrondi],angle,'gauche', 'black', 1))
+			lstObjet.push(texteParPosition(txtSolution,calcul(L*p),ylst[parrondi], 0, 'black', 1, 'middle'))
 			lstObjet.push(tracePoint(point(calcul(L*p), 0), 'blue'))
 		}
 		for (let i = 0; i<nbEvenement; i++){ 
@@ -3118,7 +3123,7 @@ function Placer_probabilites(){
 		} else {
 			texte_corr += `\\begin{center}`;
 		} 
-		texte_corr += mathalea2d({xmin : -1, xmax : L+3, ymin : -4, ymax : 2, pixelsParCm : 40, scale : 1}, lstObjet);
+		texte_corr += mathalea2d({xmin : -1, xmax : L+3, ymin : miny, ymax : 2, pixelsParCm : 40, scale : 1}, lstObjet);
 		if (sortie_html) {
 			texte_corr += `</p>`;
 		} else {
