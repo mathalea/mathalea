@@ -972,7 +972,19 @@ function arrondi(nombre, precision=2){
 	let tmp = Math.pow(10, precision);
 	return Math.round( nombre*tmp )/tmp;
 }
-
+/**
+ * Retourne la troncature signée de nombre.
+ * @Auteur Jean-Claude Lhote
+ */
+function troncature(nombre,precision){
+	let signe,absolu,tronc
+	let tmp=Math.pow(10, precision)
+	if (nombre<0) signe=-1
+	else signe=1
+	absolu=Math.abs(nombre)
+	tronc=calcul(Math.floor(absolu*tmp)/tmp);
+	return signe*tronc;
+}
 /**
 * Renvoit la valeur absolue
 * @Auteur Rémi Angot

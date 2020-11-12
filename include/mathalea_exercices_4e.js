@@ -9746,7 +9746,7 @@ function Tester_si_un_nombre_est_solution_d_une_equation() {
           }
           texte = `$x^2-${ecriture_parenthese_si_negatif(
             b + a
-          )}x-${ecriture_parenthese_si_negatif(
+          )}x+${ecriture_parenthese_si_negatif(
             a * b
           )}=0~$ pour $~x=${x1}~$ , pour $~x=${x2}~$ puis pour $~x=${x3}$`;
           texte_corr = `Pour $x=${x1}$ : <br>`;
