@@ -13423,7 +13423,7 @@ function Notation_segment_droite_demi_droite() {
             break;
           case 3:
             trait = demiDroite(B, A);
-            notation = `$[${A.nom}${B.nom})$`;
+            notation = `$[${B.nom}${A.nom})$`;
             break;
           case 4:
             trait = segment(A, B);
