@@ -2169,7 +2169,7 @@ function Traduire_un_programme_de_calcul(){
 function Reduction_ax_bx() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Réduire une expression";
+	this.titre = "Réduire une expression de la forme $ax+bx$";
 	this.consigne = "Réduire les expressions suivantes, si cela est possible.";
 	this.nb_questions = 5;
 	this.nb_cols = 1;

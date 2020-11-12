@@ -17354,6 +17354,16 @@ jQuery(document).ready(function () {
   }
 
   $("#liste_des_exercices").html(liste_html_des_exercices);
+  renderMathInElement(document.body, {
+    delimiters: [
+      { left: "\\[", right: "\\]", display: true },
+      { left: "$", right: "$", display: false },
+    ],
+    throwOnError: true,
+    errorColor: "#CC0000",
+    strict: "warn",
+    trust: false,
+    });
 
   // Gère le clic sur un exercice de la liste
   $(".lien_id_exercice").click(function () {
