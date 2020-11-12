@@ -399,69 +399,6 @@ function Exercice_comparer_quatre_fractions (){
 	}
 }
 
-/**
-* Effectuer l'addition de deux fractions dont un dénominateur est un multiple de l'autre.
-*
-* Le coefficient est paramétrable, par défaut il est inférieur à 11.
-* @Auteur Rémi Angot
-* 5N20
-*/
-function Exercice_additionner_des_fractions_5e(max=11){
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.sup = max ; // Correspond au facteur commun
-	this.titre = "Additionner deux fractions (dénominateurs multiples)"
-	this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée"
-	this.spacing = 2;
-	this.spacing_corr = 2;
-	this.nb_questions = 5;
-	this.nb_cols_corr = 1;
-
-	this.nouvelle_version = function(numero_de_l_exercice){
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		for (let i = 0, a, b, c, d,texte, texte_corr, cpt=0; i < this.nb_questions;i++) {
-			// les numérateurs
-			a = randint (1,9);
-			c = randint (1,9);
-			// les dénominateurs
-			if (this.level!=6) b = randint(2,9);
-			else b = randint(2,5)
-			while (b==a){
-				if (this.level!=6) b = randint(2,9); // pas de fraction avec numérateur et dénominateur égaux
-				else b = randint(2,5)
-			}
-			if (this.level!=6) k = randint(2,this.sup);
-			else k=1
-			d = b*k
-			ordre_des_fractions = randint(1,2)
-			if (ordre_des_fractions==1) {
-				texte = `$${tex_fraction(a,b)}+${tex_fraction(c,d)}=$`;
-			} else {
-				texte = texte = `$${tex_fraction(c,d)}+${tex_fraction(a,b)}=$`;
-			}
-			if (ordre_des_fractions==1) {
-				if (this.level!=6) texte_corr = `$${tex_fraction(a,b)}+${tex_fraction(c,d)}=${tex_fraction(a+mise_en_evidence('\\times '+k),b+mise_en_evidence('\\times '+k))}+${tex_fraction(c,d)}`
-				else texte_corr =`$`
-				texte_corr += `=${tex_fraction(a*k,b*k)}+${tex_fraction(c,d)}=${tex_fraction(a*k+`+`+c,d)}=${tex_fraction(a*k+c,d)}$`;
-			} else {
-				if (this.level!=6) texte_corr = `$${tex_fraction(c,d)}+${tex_fraction(a,b)}=${tex_fraction(c,d)}+${tex_fraction(a+mise_en_evidence('\\times '+k),b+mise_en_evidence('\\times '+k))}`
-				else texte_corr =`$`
-				texte_corr += `=${tex_fraction(c,d)}+${tex_fraction(a*k,b*k)}=${tex_fraction(c+'+'+a*k,d)}=${tex_fraction(a*k+c,d)}$`;
-			}
-			// Est-ce que le résultat est simplifiable ?
-			let s = pgcd(a*k+c,d);
-			if ((a*k+c)%d==0) { // si le résultat est un entier
-				texte_corr +=`$=${Algebrite.eval((a*k+c)/d)}$`
-			} else if (s!=1) {
-				texte_corr +=`$=${tex_fraction(Algebrite.eval((a*k+c)/s)+mise_en_evidence('\\times '+s),Algebrite.eval(d/s)+mise_en_evidence('\\times '+s))}=${tex_fraction(Algebrite.eval((a*k+c)/s),Algebrite.eval(d/s))}$`
-			}
-			this.liste_questions.push(texte);
-			this.liste_corrections.push(texte_corr);
-			}
-		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
-	}
-	this.besoin_formulaire_numerique = ['Valeur maximale du coefficient multiplicateur',99999];		
-}
 
 /**
 * Effectuer l'addition ou la soustraction de deux fractions dont un dénominateur est un multiple de l'autre.
@@ -472,7 +409,7 @@ function Exercice_additionner_des_fractions_5e(max=11){
 *
 * On peut paramétrer de n'avoir que des soustractions.
 * @Auteur Rémi Angot
-* 5N20-2
+* 5N20
 */
 function Exercice_additionner_ou_soustraire_des_fractions_5e(max=11){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -484,27 +421,42 @@ function Exercice_additionner_ou_soustraire_des_fractions_5e(max=11){
 	this.spacing_corr = 2;
 	this.nb_questions = 5;
 	this.nb_cols_corr = 1;
+	this.sup2=3;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
+		let liste_type_de_questions;
+		if (this.sup2==1){
+			liste_type_de_questions = combinaison_listes(['+'],this.nb_questions);
+		}
+		if (this.sup2==2){
+			liste_type_de_questions = combinaison_listes(['-'],this.nb_questions);
+		}
+		if (this.sup2==3){
+			liste_type_de_questions = combinaison_listes(['+','-'],this.nb_questions);
+		}
 		for (let i = 0, a, b, c, d,texte, texte_corr, cpt=0; i < this.nb_questions;i++) {
 			// les numérateurs
 			a = randint (1,9);
-			c = randint (1,9);
 			// les dénominateurs
-			b = randint(2,9);
+			b = randint(2,9,a);
 			while (b==a){
 				b = randint(2,9); // pas de fraction avec numérateur et dénominateur égaux
 			}
 			k = randint(2,this.sup);
 			d = b*k
-			if (randint(1,2)==1 && !this.sup2) { //une addition
-				ordre_des_fractions = randint(1,2)
+			if (liste_type_de_questions[i]=='-'){
+				c = choice([randint(1,b*k),randint(b*k,9*k)])
+			} else {
+				c = randint(1,19,d)
+			}
+			if (liste_type_de_questions[i]=='+') { //une addition
+				let ordre_des_fractions = randint(1,2)
 				if (ordre_des_fractions==1) {
 					texte = `$${tex_fraction(a,b)}+${tex_fraction(c,d)}=$`;
 				} else {
-					texte = texte = `$${tex_fraction(c,d)}+${tex_fraction(a,b)}=$`;
+					texte = `$${tex_fraction(c,d)}+${tex_fraction(a,b)}=$`;
 				}
 				if (ordre_des_fractions==1) {
 					texte_corr = `$${tex_fraction(a,b)}+${tex_fraction(c,d)}=${tex_fraction(a+mise_en_evidence('\\times '+k),b+mise_en_evidence('\\times '+k))}+${tex_fraction(c,d)}`
@@ -546,7 +498,7 @@ function Exercice_additionner_ou_soustraire_des_fractions_5e(max=11){
 		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
 	}
 	this.besoin_formulaire_numerique = ['Valeur maximale du coefficient multiplicateur',99999];	
-	this.besoin_formulaire2_case_a_cocher = ['Uniquement des soustractions'];	
+	this.besoin_formulaire2_numerique = ['Types de calculs ', 3, '1 : Additions\n2 : Soustractions\n3 : Additions et soustractions'];	
 }
 
 
@@ -2217,6 +2169,52 @@ function Traduire_un_programme_de_calcul(){
 
 
 /**
+* Réduire des expressions de la forme ax+bx
+*
+* @Auteur Rémi Angot
+* 5L13
+*/
+function Reduction_ax_bx() {
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Réduire une expression de la forme $ax+bx$";
+	this.consigne = "Réduire les expressions suivantes, si cela est possible.";
+	this.nb_questions = 5;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+
+	this.nouvelle_version = function (numero_de_l_exercice) {
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+
+		let type_de_questions_disponibles = ['ax+bx'];
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		for (let i = 0, texte, texte_corr, a, b, c, d, cpt = 0; i < this.nb_questions && cpt < 50;) {
+			a = randint(-11,11,0);
+			b = randint(-11,11,[0,a]);
+			c = randint(-11,11,[0]);
+			d = randint(-11,11,0)
+			switch (liste_type_de_questions[i]) {
+				case 'ax+bx':
+					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x+(${b}*x)`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x+(${b}*x)`)}=(${a}${ecriture_algebrique(b)})\\times x=${printlatex(`${a+b}x`)}$`;
+					break;
+			}
+
+			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;
+		}
+		liste_de_question_to_contenu(this);
+	}
+}
+
+
+
+/**
 * Calculer la valeur d'une expression littérale
 * 
 * * ax+b
@@ -3013,7 +3011,8 @@ function Placer_probabilites(){
 		lstEvenenementA.push([`L’équipe de France de rugby va remporter le prochain match international de football`,0]);
 		animal = choice(["un dragon", "l'abominable homme des neiges", "un chat-garou", "un dahu", "un hippocampéléphantocamélos", "une licorne", "le Minotaure"]);
 		lstEvenenementA.push([`Rencontrer ${animal} en sortant du collège`, 0]);
-		lstEvenenementA.push([`On place un point M à 4 cm du point A. On considère l'évènement "le point M est sur le cercle de centre A et de rayon 7 cm"`, 0]);
+		lstEvenenementA.push([`Le point M, placé à 4 cm de A, est sur le cercle de centre A et de rayon 7 cm`, 0]);
+		lstEvenenementA.push([`Le point M, placé à 4 cm de A, est dans le disque de centre A et de rayon 3 cm`, 0]);
 		lstEvenenementA.push([`En France, on peut trouver des vaches espagnoles qui parlent anglais`, 0]);
 		lstEvenenementA.push([`Aux USA, on peut trouver des pierres qui roulent et qui amassent de la mousse`, 0]);
 		// Evenements improbables :
@@ -3032,8 +3031,8 @@ function Placer_probabilites(){
 		lstEvenenementD.push([`Le prochain président de la République Française aura plus de 40 ans`, 0.9]);
 		// Evenements certains :
 		lstEvenenementA.push([`Le prochain oiseau que je verrai aura des ailes`, 1]);
-		lstEvenenementA.push([`On place un point M à 4 cm du point A. On considère l'évènement "le point M est sur le cercle de centre A et de rayon 4 cm"`, 1]);
-		lstEvenenementA.push([`On place un point M à 4 cm du point A. On considère l'évènement "le point M est dans le disque de centre A et de rayon 5 cm"`, 1]);
+		lstEvenenementA.push([`Le point M, placé à 4 cm de A, est sur le cercle de centre A et de rayon 4 cm`, 1]);
+		lstEvenenementA.push([`Le point M, placé à 4 cm de A, est dans le disque de centre A et de rayon 5 cm`, 1]);
 		// Evenement divers : 
 		let m = choice([4, 6, 8, 10, 12, 20, 24, 30, 48, 60, 100]); //nombre de faces du dé
 		let n = randint(1,m); //nombre à obtenir
@@ -3060,7 +3059,7 @@ function Placer_probabilites(){
 		// Texte de l'énoncé :
 		texte +=`Placer la lettre correspondant à chaque évènement sur l'axe des probabilités ci-dessous.<br>`
 		for (let i = 0; i<nbEvenement; i++){
-			texte += num_alpha(i) + ` ` + lstEvenenementExo[i][0] + `.<br>`;
+			texte += String.fromCharCode(65+i) + ` : ` + lstEvenenementExo[i][0] + `.<br>`;
 		}
 		// Création des objets pour dessiner :
 		let L = 10; // longueur du segment
@@ -3111,7 +3110,7 @@ function Placer_probabilites(){
 			p = lstEvenenementExo[i][1];
 			parrondi = Math.round(calcul(6*p)); // échelle arrondie entre 0 et 7 pour éviter la superposition des textes réponses
 			ylst[parrondi] += 0.5; // on augmente l'ordonnée si elle est déjà utilisée
-			let txtSolution = String.fromCharCode(97+i); //code 97 correspond à 'a'
+			let txtSolution = String.fromCharCode(65+i); //code 65 correspond à 'A'
 			lstObjet.push(texteParPosition(txtSolution,calcul(L*p),ylst[parrondi], 0, 'black', 1, 'middle'))
 			lstObjet.push(tracePoint(point(calcul(L*p), 0), 'blue'))
 		}
@@ -3124,7 +3123,7 @@ function Placer_probabilites(){
 			else if (p<0.75) { parrondi = 4 }
 			else if (p<1) { parrondi = 5 }
 			else if (p==1) { parrondi = 6 };			
-			texte_corr += num_alpha(i) + ` ` + lstEvenenementExo[i][0] + ` : ` + lstEchelle[parrondi][0].toLowerCase() + `.<br>`;
+			texte_corr += String.fromCharCode(65+i) + ` : ` + lstEvenenementExo[i][0] + `. ` + texte_en_couleur_et_gras(lstEchelle[parrondi][0]) + `.<br>`;
 		}
 		if (sortie_html) {
 			texte_corr += `<p style="display:block">`;

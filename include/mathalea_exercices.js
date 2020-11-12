@@ -157,24 +157,24 @@ var liste_des_exercices_disponibles = {
   "5N110": Variation_en_pourcentages,
   "5N14": Exercice_comparer_deux_fractions,
   "5N14-2": Exercice_comparer_quatre_fractions,
-  "5N20": Exercice_additionner_des_fractions_5e,
-  "5N20-2": Exercice_additionner_ou_soustraire_des_fractions_5e,
+  "5N20": Exercice_additionner_ou_soustraire_des_fractions_5e,
+  "5N20-0": Problemes_additifs_fractions_5e,
   "5L10": Ecrire_une_expression_litterale,
   "5L10-1": Traduire_une_phrase_par_une_expression_litterale,
   "5L10-2": Traduire_un_programme_de_calcul,
   "5L10-3": Traduire_une_expression_litterale_par_une_phrase,
   "5L10-4": Tableaux_et_fonction,
-  "5N20-0": Problemes_additifs_fractions_5e,
   "5L12": Reduire_une_expression_litterale,
   "5L12-1": Reduire_dinstinction_somme_produit,
-  "5L13": Calculer_la_valeur_d_une_expression_litterale,
-  "5L13-1": Calculer_une_expression_litterale,
-  "5L13-2": Exercice_substituer,
-  "5L13-3": Traduire_une_phrase_par_une_expression_litterale_et_calculer,
-  "5L13-4": Calculer_une_expression_litteraleBis,
-  "5L13-5":Calculer_la_valeur_d_une_expression_litterale_deg1_inc1,
-  "5L13-6":Determiner_derniere_operation_exp_num,
-  "5L14": Tester_une_egalite,
+  "5L13": Reduction_ax_bx,
+  "5L14": Calculer_la_valeur_d_une_expression_litterale,
+  "5L14-1": Calculer_une_expression_litterale,
+  "5L14-2": Exercice_substituer,
+  "5L14-3": Traduire_une_phrase_par_une_expression_litterale_et_calculer,
+  "5L14-4": Calculer_une_expression_litteraleBis,
+  "5L14-5":Calculer_la_valeur_d_une_expression_litterale_deg1_inc1,
+  "5L14-6":Determiner_derniere_operation_exp_num,
+  "5L15": Tester_une_egalite,
   "5M10": Aire_du_parallelogramme,
   "5M20": Calcul_de_volumes_5e,
   "5P10": Tableaux_et_proportionnalite,
@@ -206,6 +206,8 @@ var liste_des_exercices_disponibles = {
   "4C25-0": Problemes_additifs_fractions,
   "4C30": Puissances_de_dix,
   "4C30-1": Puissances_encadrement,
+  "4C30-2": EcritureDecimalePuissanceDe10,
+  "4C30-3": EcritureDecimalePuissance,
   "4C32" : Notation_scientifique,
   "4C32-1" : Calculs_avec_puissances_de_dix,
   "4C33-1": Puissances_d_un_relatif_1,
@@ -12312,9 +12314,11 @@ function Symetrie_axiale_conservation1() {
 
 // Référence 6C23
 function Exercice_additionner_des_fractions_6e() {
-  Exercice_additionner_des_fractions_5e.call(this);
-  this.level=6
-  this.titre= "Additionner des fractions de même dénominateur"
+  Exercice_additionner_ou_soustraire_des_fractions_5e.call(this);
+  this.sup2 = 1;
+  this.level = 6;
+  this.titre= "Additionner des fractions de même dénominateur";
+  this.besoin_formulaire_numerique2 = false;
 }
 /**
  * @Auteur Jean-Claude Lhote
@@ -13413,7 +13417,7 @@ function Notation_segment_droite_demi_droite() {
             break;
           case 3:
             trait = demiDroite(B, A);
-            notation = `$[${A.nom}${B.nom})$`;
+            notation = `$[${B.nom}${A.nom})$`;
             break;
           case 4:
             trait = segment(A, B);
@@ -17342,6 +17346,16 @@ jQuery(document).ready(function () {
   }
 
   $("#liste_des_exercices").html(liste_html_des_exercices);
+  renderMathInElement(document.body, {
+    delimiters: [
+      { left: "\\[", right: "\\]", display: true },
+      { left: "$", right: "$", display: false },
+    ],
+    throwOnError: true,
+    errorColor: "#CC0000",
+    strict: "warn",
+    trust: false,
+    });
 
   // Gère le clic sur un exercice de la liste
   $(".lien_id_exercice").click(function () {
@@ -17437,15 +17451,45 @@ function AfficherSVG(){
       </svg>`;
 
     texte += `
-    <svg width="300" height="300" viewBox="0 0 200 200">
-    <use width="60" x="70" y="0" xlink:href="#plane" fill="blue" fill-opacity="50%" />
-    <use width="35" x="70" y="0" transform="rotate(15, 35, 70)" xlink:href="#plane"/>
-    <use width="51" x="20" y="50" fill="gray" xlink:href="#plane"/>
+    <svg width="300px" height="300px" viewBox="0 0 300 300" style="border: 1px solid #333333;">
+    <use width="35" x="70" y="0" transform="rotate(-15, 70, 70)" xlink:href="#plane"/>
+    <use width="35" x="70" y="0" transform="rotate(15, 70, 0)" xlink:href="#plane"/>
+    <use width="35" x="70" y="0" transform="rotate(-30, 70, 0)" xlink:href="#plane"/>
+    <use width="25" x="20" y="50" fill="red" xlink:href="#plane"/>
     <use width="38" x="92" y="80" xlink:href="#plane"/>
-    <use width="90" x="2" y="30" xlink:href="#plane"/ fill-opacity="0%" stroke="green" stroke-width="10">    
-    </svg>`
+    <use width="23" x="50" y="30" xlink:href="#plane"/ fill-opacity="0%" stroke="green" stroke-width="8">   
+    <use width="50" x="0" y="0" fill="blue" xlink:href="#plane"/>
+    <text x="5" y="5">Bonjour tout le monde</text><i class="chess rook icon"></i>
+    </svg>`;
 
     texte_corr = ``;
+    let txt_commande = "ADAAGAAAGAA";
+    let posx = 10;
+    let posy = 10;
+    let angle = 90;
+    texte_corr += `<svg width="300" height="300" viewBox="0 0 300 300" style="border: 1px solid #333333;">`
+    for (let c of txt_commande) {
+      switch (c) {
+        case "A":
+          texte_corr += `<use width="38" x="${10*i}" y="80" xlink:href="#plane"/>`
+          break;
+        case "G":
+          texte_corr += `<use width="38" x="${10*i}" y="80" xlink:href="#plane"/>`
+          break;
+        case "D":
+          texte_corr += `<use width="38" x="${10*i}" y="80" xlink:href="#plane"/>`
+          break;
+        default:
+          texte_corr += ``;
+      }
+      
+      texte_corr += `<use width="38" x="${10*i}" y="80" xlink:href="#plane"/>`
+    }
+    texte_corr += `</svg>`
+
+
+
+
     
     this.liste_questions.push(texte);
 		this.liste_corrections.push(texte_corr);
