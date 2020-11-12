@@ -631,7 +631,6 @@ function Reduction_si_possible() {
 			b = randint(-11,11,[0,a]);
 			c = randint(-11,11,[0]);
 			d = randint(-11,11,0)
-			console.log(liste_type_de_questions[i],i)
 			switch (liste_type_de_questions[i]) {
 				case 'ax+b':
 					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x+(${b})`)}$`;
