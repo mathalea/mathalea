@@ -407,60 +407,11 @@ function Exercice_comparer_quatre_fractions (){
 * 5N20
 */
 function Exercice_additionner_des_fractions_5e(max=11){
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.sup = max ; // Correspond au facteur commun
-	this.titre = "Additionner deux fractions (dénominateurs multiples)"
-	this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée"
-	this.spacing = 2;
-	this.spacing_corr = 2;
-	this.nb_questions = 5;
-	this.nb_cols_corr = 1;
+	Exercice_additionner_ou_soustraire_des_fractions_5e.call(this);
+	this.sup2 = 1;
+	this.besoin_formulaire2_numerique = false;
 
-	this.nouvelle_version = function(numero_de_l_exercice){
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		for (let i = 0, a, b, c, d,texte, texte_corr, cpt=0; i < this.nb_questions;i++) {
-			// les numérateurs
-			a = randint (1,9);
-			c = randint (1,9);
-			// les dénominateurs
-			if (this.level!=6) b = randint(2,9);
-			else b = randint(2,5)
-			while (b==a){
-				if (this.level!=6) b = randint(2,9); // pas de fraction avec numérateur et dénominateur égaux
-				else b = randint(2,5)
-			}
-			if (this.level!=6) k = randint(2,this.sup);
-			else k=1
-			d = b*k
-			ordre_des_fractions = randint(1,2)
-			if (ordre_des_fractions==1) {
-				texte = `$${tex_fraction(a,b)}+${tex_fraction(c,d)}=$`;
-			} else {
-				texte = texte = `$${tex_fraction(c,d)}+${tex_fraction(a,b)}=$`;
-			}
-			if (ordre_des_fractions==1) {
-				if (this.level!=6) texte_corr = `$${tex_fraction(a,b)}+${tex_fraction(c,d)}=${tex_fraction(a+mise_en_evidence('\\times '+k),b+mise_en_evidence('\\times '+k))}+${tex_fraction(c,d)}`
-				else texte_corr =`$`
-				texte_corr += `=${tex_fraction(a*k,b*k)}+${tex_fraction(c,d)}=${tex_fraction(a*k+`+`+c,d)}=${tex_fraction(a*k+c,d)}$`;
-			} else {
-				if (this.level!=6) texte_corr = `$${tex_fraction(c,d)}+${tex_fraction(a,b)}=${tex_fraction(c,d)}+${tex_fraction(a+mise_en_evidence('\\times '+k),b+mise_en_evidence('\\times '+k))}`
-				else texte_corr =`$`
-				texte_corr += `=${tex_fraction(c,d)}+${tex_fraction(a*k,b*k)}=${tex_fraction(c+'+'+a*k,d)}=${tex_fraction(a*k+c,d)}$`;
-			}
-			// Est-ce que le résultat est simplifiable ?
-			let s = pgcd(a*k+c,d);
-			if ((a*k+c)%d==0) { // si le résultat est un entier
-				texte_corr +=`$=${Algebrite.eval((a*k+c)/d)}$`
-			} else if (s!=1) {
-				texte_corr +=`$=${tex_fraction(Algebrite.eval((a*k+c)/s)+mise_en_evidence('\\times '+s),Algebrite.eval(d/s)+mise_en_evidence('\\times '+s))}=${tex_fraction(Algebrite.eval((a*k+c)/s),Algebrite.eval(d/s))}$`
-			}
-			this.liste_questions.push(texte);
-			this.liste_corrections.push(texte_corr);
-			}
-		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
-	}
-	this.besoin_formulaire_numerique = ['Valeur maximale du coefficient multiplicateur',99999];		
+		
 }
 
 /**
@@ -472,7 +423,7 @@ function Exercice_additionner_des_fractions_5e(max=11){
 *
 * On peut paramétrer de n'avoir que des soustractions.
 * @Auteur Rémi Angot
-* 5N20-2
+* 5N20-1
 */
 function Exercice_additionner_ou_soustraire_des_fractions_5e(max=11){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -484,27 +435,38 @@ function Exercice_additionner_ou_soustraire_des_fractions_5e(max=11){
 	this.spacing_corr = 2;
 	this.nb_questions = 5;
 	this.nb_cols_corr = 1;
+	this.sup2=3;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
+		let liste_type_de_questions;
+		if (this.sup2==1){
+			liste_type_de_questions = combinaison_listes(['+'],this.nb_questions);
+		}
+		if (this.sup2==2){
+			liste_type_de_questions = combinaison_listes(['-'],this.nb_questions);
+		}
+		if (this.sup2==3){
+			liste_type_de_questions = combinaison_listes(['+','-'],this.nb_questions);
+		}
 		for (let i = 0, a, b, c, d,texte, texte_corr, cpt=0; i < this.nb_questions;i++) {
 			// les numérateurs
 			a = randint (1,9);
-			c = randint (1,9);
 			// les dénominateurs
-			b = randint(2,9);
+			b = randint(2,9,a);
 			while (b==a){
 				b = randint(2,9); // pas de fraction avec numérateur et dénominateur égaux
 			}
 			k = randint(2,this.sup);
 			d = b*k
-			if (randint(1,2)==1 && !this.sup2) { //une addition
-				ordre_des_fractions = randint(1,2)
+			c = choice([randint(1,b*k),randint(b*k,9*k)])
+			if (liste_type_de_questions[i]=='+') { //une addition
+				let ordre_des_fractions = randint(1,2)
 				if (ordre_des_fractions==1) {
 					texte = `$${tex_fraction(a,b)}+${tex_fraction(c,d)}=$`;
 				} else {
-					texte = texte = `$${tex_fraction(c,d)}+${tex_fraction(a,b)}=$`;
+					texte = `$${tex_fraction(c,d)}+${tex_fraction(a,b)}=$`;
 				}
 				if (ordre_des_fractions==1) {
 					texte_corr = `$${tex_fraction(a,b)}+${tex_fraction(c,d)}=${tex_fraction(a+mise_en_evidence('\\times '+k),b+mise_en_evidence('\\times '+k))}+${tex_fraction(c,d)}`
@@ -546,7 +508,7 @@ function Exercice_additionner_ou_soustraire_des_fractions_5e(max=11){
 		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
 	}
 	this.besoin_formulaire_numerique = ['Valeur maximale du coefficient multiplicateur',99999];	
-	this.besoin_formulaire2_case_a_cocher = ['Uniquement des soustractions'];	
+	this.besoin_formulaire2_numerique = ['Types de calculs ', 3, '1 : Additions\n2 : Soustractions\n3 : Additions et soustractions'];	
 }
 
 
