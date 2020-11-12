@@ -1739,6 +1739,20 @@ function tex_nombre(nb){
 }
 
 /**
+* Renvoit un nombre dans le format français (séparateur de classes) pour la partie entière comme pour la partie décimale
+* @Auteur Rémi Angot
+*/
+function tex_nombre2(nb){
+	let nombre = tex_nombrec(nb);
+	let rang_virgule = nombre.indexOf(',')
+	for (let i=rang_virgule+4; i<nombre.length; i+=3){
+		nombre = nombre.substring(0,i)+'\\thickspace '+nombre.substring(i)
+		i+=13 // comme on a ajouté un espace, il faut décaler l'indice de 1
+	}
+	return nombre
+}
+
+/**
  * Renvoie un espace insécable pour le mode texte suivant la sorite html ou Latex.
  * @Auteur Jean-Claude Lhote
  */
@@ -3115,6 +3129,30 @@ function eclatePuissance(b,e,couleur) {
 			let str = `\\mathbf{\\color{${couleur}}{${b}}} `;
 			for (let i=1; i<e;i++) {
 				str = str + `\\times \\mathbf{\\color{${couleur}}{${b}}}`;
+			 }
+			return str;
+	}
+};
+
+
+/**
+ * Fonction pour écrire la forme éclatée d'une puissance
+ * @param b base
+ * @param e exposant 
+ * @author Rémi Angot
+ */		
+function puissanceEnProduit(b,e) {
+	switch (e) {
+		case 0 :
+			return `1`;
+			break;
+		case 1 : 
+			return `${b}`;
+			break;
+		default :
+			let str = `${b}`;
+			for (let i=1; i<e;i++) {
+				str = str + `\\times ${b}`;
 			 }
 			return str;
 	}
