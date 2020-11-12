@@ -3005,7 +3005,8 @@ function Placer_probabilites(){
 		lstEvenenementA.push([`L’équipe de France de rugby va remporter le prochain match international de football`,0]);
 		animal = choice(["un dragon", "l'abominable homme des neiges", "un chat-garou", "un dahu", "un hippocampéléphantocamélos", "une licorne", "le Minotaure"]);
 		lstEvenenementA.push([`Rencontrer ${animal} en sortant du collège`, 0]);
-		lstEvenenementA.push([`On place un point M à 4 cm du point A. On considère l'évènement "le point M est sur le cercle de centre A et de rayon 7 cm"`, 0]);
+		lstEvenenementA.push([`Le point M, placé à 4 cm de A, est sur le cercle de centre A et de rayon 7 cm`, 0]);
+		lstEvenenementA.push([`Le point M, placé à 4 cm de A, est dans le disque de centre A et de rayon 3 cm`, 0]);
 		lstEvenenementA.push([`En France, on peut trouver des vaches espagnoles qui parlent anglais`, 0]);
 		lstEvenenementA.push([`Aux USA, on peut trouver des pierres qui roulent et qui amassent de la mousse`, 0]);
 		// Evenements improbables :
@@ -3024,8 +3025,8 @@ function Placer_probabilites(){
 		lstEvenenementD.push([`Le prochain président de la République Française aura plus de 40 ans`, 0.9]);
 		// Evenements certains :
 		lstEvenenementA.push([`Le prochain oiseau que je verrai aura des ailes`, 1]);
-		lstEvenenementA.push([`On place un point M à 4 cm du point A. On considère l'évènement "le point M est sur le cercle de centre A et de rayon 4 cm"`, 1]);
-		lstEvenenementA.push([`On place un point M à 4 cm du point A. On considère l'évènement "le point M est dans le disque de centre A et de rayon 5 cm"`, 1]);
+		lstEvenenementA.push([`Le point M, placé à 4 cm de A, est sur le cercle de centre A et de rayon 4 cm`, 1]);
+		lstEvenenementA.push([`Le point M, placé à 4 cm de A, est dans le disque de centre A et de rayon 5 cm`, 1]);
 		// Evenement divers : 
 		let m = choice([4, 6, 8, 10, 12, 20, 24, 30, 48, 60, 100]); //nombre de faces du dé
 		let n = randint(1,m); //nombre à obtenir
@@ -3052,7 +3053,7 @@ function Placer_probabilites(){
 		// Texte de l'énoncé :
 		texte +=`Placer la lettre correspondant à chaque évènement sur l'axe des probabilités ci-dessous.<br>`
 		for (let i = 0; i<nbEvenement; i++){
-			texte += num_alpha(i) + ` ` + lstEvenenementExo[i][0] + `.<br>`;
+			texte += String.fromCharCode(65+i) + ` : ` + lstEvenenementExo[i][0] + `.<br>`;
 		}
 		// Création des objets pour dessiner :
 		let L = 10; // longueur du segment
@@ -3103,7 +3104,7 @@ function Placer_probabilites(){
 			p = lstEvenenementExo[i][1];
 			parrondi = Math.round(calcul(6*p)); // échelle arrondie entre 0 et 7 pour éviter la superposition des textes réponses
 			ylst[parrondi] += 0.5; // on augmente l'ordonnée si elle est déjà utilisée
-			let txtSolution = String.fromCharCode(97+i); //code 97 correspond à 'a'
+			let txtSolution = String.fromCharCode(65+i); //code 65 correspond à 'A'
 			lstObjet.push(texteParPosition(txtSolution,calcul(L*p),ylst[parrondi], 0, 'black', 1, 'middle'))
 			lstObjet.push(tracePoint(point(calcul(L*p), 0), 'blue'))
 		}
@@ -3116,7 +3117,7 @@ function Placer_probabilites(){
 			else if (p<0.75) { parrondi = 4 }
 			else if (p<1) { parrondi = 5 }
 			else if (p==1) { parrondi = 6 };			
-			texte_corr += num_alpha(i) + ` ` + lstEvenenementExo[i][0] + ` : ` + lstEchelle[parrondi][0].toLowerCase() + `.<br>`;
+			texte_corr += String.fromCharCode(65+i) + ` : ` + lstEvenenementExo[i][0] + `. ` + texte_en_couleur_et_gras(lstEchelle[parrondi][0]) + `.<br>`;
 		}
 		if (sortie_html) {
 			texte_corr += `<p style="display:block">`;

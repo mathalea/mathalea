@@ -17286,15 +17286,45 @@ function AfficherSVG(){
       </svg>`;
 
     texte += `
-    <svg width="300" height="300" viewBox="0 0 200 200">
-    <use width="60" x="70" y="0" xlink:href="#plane" fill="blue" fill-opacity="50%" />
-    <use width="35" x="70" y="0" transform="rotate(15, 35, 70)" xlink:href="#plane"/>
-    <use width="51" x="20" y="50" fill="gray" xlink:href="#plane"/>
+    <svg width="300px" height="300px" viewBox="0 0 300 300" style="border: 1px solid #333333;">
+    <use width="35" x="70" y="0" transform="rotate(-15, 70, 70)" xlink:href="#plane"/>
+    <use width="35" x="70" y="0" transform="rotate(15, 70, 0)" xlink:href="#plane"/>
+    <use width="35" x="70" y="0" transform="rotate(-30, 70, 0)" xlink:href="#plane"/>
+    <use width="25" x="20" y="50" fill="red" xlink:href="#plane"/>
     <use width="38" x="92" y="80" xlink:href="#plane"/>
-    <use width="90" x="2" y="30" xlink:href="#plane"/ fill-opacity="0%" stroke="green" stroke-width="10">    
-    </svg>`
+    <use width="23" x="50" y="30" xlink:href="#plane"/ fill-opacity="0%" stroke="green" stroke-width="8">   
+    <use width="50" x="0" y="0" fill="blue" xlink:href="#plane"/>
+    <text x="5" y="5">Bonjour tout le monde</text><i class="chess rook icon"></i>
+    </svg>`;
 
     texte_corr = ``;
+    let txt_commande = "ADAAGAAAGAA";
+    let posx = 10;
+    let posy = 10;
+    let angle = 90;
+    texte_corr += `<svg width="300" height="300" viewBox="0 0 300 300" style="border: 1px solid #333333;">`
+    for (let c of txt_commande) {
+      switch (c) {
+        case "A":
+          texte_corr += `<use width="38" x="${10*i}" y="80" xlink:href="#plane"/>`
+          break;
+        case "G":
+          texte_corr += `<use width="38" x="${10*i}" y="80" xlink:href="#plane"/>`
+          break;
+        case "D":
+          texte_corr += `<use width="38" x="${10*i}" y="80" xlink:href="#plane"/>`
+          break;
+        default:
+          texte_corr += ``;
+      }
+      
+      texte_corr += `<use width="38" x="${10*i}" y="80" xlink:href="#plane"/>`
+    }
+    texte_corr += `</svg>`
+
+
+
+
     
     this.liste_questions.push(texte);
 		this.liste_corrections.push(texte_corr);
