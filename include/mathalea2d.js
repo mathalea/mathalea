@@ -193,6 +193,13 @@ function TracePoint(...points) {
           s2.opacite=this.opacite;
           objetssvg.push(s1,s2);
         }
+        else if (this.style=='|'){
+          s1=segment(point(A.x,A.y+this.taille/coeff),
+          point(A.x,A.y-this.taille/coeff),this.color);
+          s1.epaisseur=this.epaisseur;
+          s1.opacite=this.opacite;
+          objetssvg.push(s1);
+        }
       }
     }
     code = "";
@@ -246,6 +253,13 @@ function TracePoint(...points) {
           s1.opacite=this.opacite;
           s2.opacite=this.opacite;
           objetstikz.push(s1,s2);
+        }
+        else if (this.style=='|'){
+          s1=segment(point(A.x,A.y+tailletikz),
+          point(A.x,A.y-tailletikz),this.color);
+          s1.epaisseur=this.epaisseur;
+          s1.opacite=this.opacite;
+          objetstikz.push(s1);
         }
       }
     }
@@ -4093,37 +4107,23 @@ function droiteGraduee(...args) {
  * Legende : texte à écrire en bout de droite graduée
  * LegendePosition : position de la légende
  */
-function DroiteGraduee2({
-  Unite = 10,
-  Min = 0,
-  Max = 2,
-  x=0,
-  y=0,
-  axeEpaisseur = 2,
-  axeCouleur = 'black',
-  axeStyle = "->",
-  axeHauteur=4,
-  axePosition='H',
-  thickEpaisseur = 2,
-  thickCouleur = axeCouleur,
-  thickDistance = 1,
-  thickSecDist =0.1,
-  thickSec = false,
-  thickTerDist=0.01,
-  thickTer=false,
-  pointListe = false,
-  pointCouleur='blue',
-  pointTaille=4,
-  pointStyle='+',
-  pointOpacite=0.8,
-/*  ThickMin = Min+thickDistance,
-  ThickMax = Max-thickDistance,
-*/
-  labelsPrincipaux=true,
-  labelDistance = axeHauteur*2/pixelsParCm,
+
+ function DroiteGraduee2({
+  Unite = 10, // nombre de cm pour une unité
+  Min = 0, // Là où commence la droite
+  Max = 2, // Là où finit la droite prévoir 0,5cm pour la flèche
+  x=0,y=0, // les coordonnées du début du tracé dans le SVG
+  axeEpaisseur = 2,axeCouleur = 'black',axeStyle = "->",axeHauteur=4,axePosition='H', // Les caractéristiques de l'axe
+  thickEpaisseur = 2,thickCouleur = axeCouleur, thickDistance = 1,thickOffset=0.1, // Les caractéristiques des graduations principales
+  thickSecDist =0.1,thickSec = false, // Les caractéristiques des graduations secondaires. Pas de couleur, on joue sur l'opacité
+  thickTerDist=0.01,thickTer=false, // Les caractéristiques des graduations tertiaires. Pas de couleur, on joue sur l'opacité
+  pointListe = false,pointCouleur='blue',pointTaille=4,pointStyle='+',pointOpacite=0.8,pointEpaisseur=2, // Liste de points et caractéristiques des points de ces points
+  ThickMin = Min+thickOffset,ThickMax = Max-thickOffset, //
+  labelsPrincipaux=true,labelsSecondaires=false,step1=1,step2=1,
+  labelDistance = (axeHauteur+10)/pixelsParCm,
   labelListe = false,
-//  LabelMin = ThickMin,
-//  LabelMax = ThickMax,
+  LabelMin = ThickMin,
+  LabelMax = ThickMax,
   Legende = "",
   LegendePosition = calcul((Max-Min)*Unite+1.5)
 } = {}) {
@@ -4152,23 +4152,55 @@ function DroiteGraduee2({
     S.tailleExtremites=axeHauteur;
   }
   objets.push(S);
-  // Graduation principale
-  pas1=thickSecDist;
-  pas2=thickTerDist;
+  let factor
   r=10/pixelsParCm
-  i=0;
-  while (i*Unite<(Max-Min)*Unite+1) {
-    S=segment(point(x+i*Unite*absord[0]-axeHauteur/10*r*absord[1],y-axeHauteur/10*r*absord[0]+i*Unite*absord[1]),point(x+i*Unite*absord[0]+axeHauteur/10*r*absord[1],y+axeHauteur/10*r*absord[0]+i*Unite*absord[1]),thickCouleur);
-    S.epaisseur=thickEpaisseur;
-    objets.push(S);
-    i+=thickDistance;
-  }
+  if (thickTer) factor=calcul(1/thickTerDist)
+  else if (thickSec) factor=calcul(1/thickSecDist)
+  else factor=calcul(1/thickDistance)
+
+  let Min2=Math.round((Min+thickOffset)*factor),Max2=Math.round((Max-thickOffset)*factor)
+  let pas1=Math.round(thickDistance*factor),pas2=Math.round(thickSecDist*factor),pas3=Math.round(thickTerDist*factor)
+  
+  console.log(factor,pas1,pas2,Min2,Max2,thickOffset)
+
+  for (j=Min2;j<=Max2;j++) {
+    i=calcul((j-Min*factor)/factor)
+    if (j%pas1==0) {  // Graduation principale
+      S=segment(point(x+i*Unite*absord[0]-axeHauteur/8*r*absord[1],y-axeHauteur/8*r*absord[0]+i*Unite*absord[1]),point(x+i*Unite*absord[0]+axeHauteur/8*r*absord[1],y+axeHauteur/8*r*absord[0]+i*Unite*absord[1]),thickCouleur);
+      S.epaisseur=thickEpaisseur;
+      objets.push(S);
+    }
+    else if (j%pas2==0&&thickSec) {  // Graduation secondaire
+      S=segment(point(x+i*Unite*absord[0]-axeHauteur/12*r*absord[1],y-axeHauteur/12*r*absord[0]+i*Unite*absord[1]),point(x+i*Unite*absord[0]+axeHauteur/12*r*absord[1],y+axeHauteur/12*r*absord[0]+i*Unite*absord[1]),thickCouleur);
+      S.epaisseur=thickEpaisseur/2;
+      S.opacite=0.8;
+      objets.push(S);
+    }
+    else if (thickTer) {  // Graduation tertiaire
+      S=segment(point(x+i*Unite*absord[0]-axeHauteur/16*r*absord[1],y-axeHauteur/16*r*absord[0]+i*Unite*absord[1]),point(x+i*Unite*absord[0]+axeHauteur/16*r*absord[1],y+axeHauteur/16*r*absord[0]+i*Unite*absord[1]),thickCouleur);
+      S.epaisseur=thickEpaisseur/4;
+      S.opacite=0.6;
+      objets.push(S);
+    }
+  } 
   // Les labels principaux
-  i=0;
-  if (labelsPrincipaux) while (i*Unite<(Max-Min)*Unite+1) {
-   T=texteParPosition(nombre_avec_espace(arrondi(calcul(Min+i),3)),x+i*Unite*absord[0]-labelDistance*absord[1],y+i*Unite*absord[1]-labelDistance*absord[0]);
-    objets.push(T);
-    i+=1;
+  if (labelsPrincipaux){
+    for (j=Min2;j<=Max2;j++) {
+      if (j%(step1*pas1)==0) {
+        i=calcul((j-Min*factor)/factor)
+        T=texteParPosition(nombre_avec_espace(arrondi(calcul(Min+i),3)),x+i*Unite*absord[0]-labelDistance*absord[1],y+i*Unite*absord[1]-labelDistance*absord[0]);
+        objets.push(T);
+      }
+    }
+  }
+  if (labelsSecondaires){
+    for (j=Min2;j<=Max2;j++) {
+      if (j%(step2*pas2)==0&&j%pas1!=0) {
+        i=calcul((j-Min*factor)/factor)
+        T=texteParPosition(nombre_avec_espace(arrondi(calcul(Min+i),3)),x+i*Unite*absord[0]-labelDistance*absord[1],y+i*Unite*absord[1]-labelDistance*absord[0]);
+        objets.push(T);
+      }
+    }
   }
   // Les labels facultatifs
   if (labelListe){
@@ -4180,42 +4212,6 @@ function DroiteGraduee2({
   if (Legende!=""){
     objets.push(texteParPosition(Legende,x+LegendePosition*absord[0],y+LegendePosition*absord[1]))
   }
-  // Graduation secondaire
-  if (thickSec){
-    i=0;
-    while (i*Unite<=(Max-Min)*Unite+1) {
-      j=1;
-      while ((i+j*pas1)*Unite<=(Max-Min)*Unite+0.3&&j<thickDistance/thickSecDist){
-        dep=calcul(i+j*pas1);
-        S=segment(point(x+(dep)*Unite*absord[0]-axeHauteur/15*r*absord[1],y-axeHauteur/15*r*absord[0]+(dep)*Unite*absord[1]),point(x+(dep)*Unite*absord[0]+axeHauteur/15*r*absord[1],y+axeHauteur/15*r*absord[0]+(dep)*Unite*absord[1]),thickCouleur);
-        S.epaisseur=thickEpaisseur/2;
-        S.opacite=0.9;
-        objets.push(S);
-        j++;
-      }
-      i+=thickDistance;
-    }
-  }
-  // Graduation tertiaire
-  if (thickTer){
-    i=0
-    while (i*Unite<=(Max-Min)*Unite+1) {
-      j=0;
-      while ((i+j*pas1)*Unite<=(Max-Min)*Unite+0.3&&j<thickDistance/thickSecDist){
-        k=1;
-        while ((i+j*pas1+k*pas2)*Unite<=(Max-Min)*Unite+0.3&&k<thickSecDist/thickTerDist){
-          dep=calcul(i+j*pas1+k*pas2)
-          S=segment(point(x+(dep)*Unite*absord[0]-axeHauteur/20*r*absord[1],y-axeHauteur/20*r*absord[0]+(dep)*Unite*absord[1]),point(x+(dep)*Unite*absord[0]+axeHauteur/20*r*absord[1],y+axeHauteur/20*r*absord[0]+(dep)*Unite*absord[1]),thickCouleur)
-          S.epaisseur=thickEpaisseur/2
-          S.opacite=0.8
-          objets.push(S)
-          k++;
-        }
-        j++
-      }
-      i+=thickDistance;      
-    }
-  }
   if (pointListe){
     for (p of pointListe){
       P=point(x+(p[0]-Min)*absord[0]*Unite,y+(p[0]-Min)*absord[1]*Unite,p[1],'above')
@@ -4223,6 +4219,7 @@ function DroiteGraduee2({
       T.taille=pointTaille;
       T.opacite=pointOpacite;
       T.style=pointStyle;
+      T.epaisseur=pointEpaisseur;
       objets.push(T,labelPoint(P));
     }
   }
@@ -4258,6 +4255,7 @@ function DroiteGraduee2({
       return code;
     };
  }
+
  function droiteGraduee2 (...args){
    return new DroiteGraduee2(...args)
  }
