@@ -9614,11 +9614,11 @@ function LireUneAbscisseAvecZoom() {
     d1=droiteGraduee2({x:0,y:3,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:false,Unite:3,
                       thickCouleur:'black',axeCouleur:'black',axeHauteur:6,labelsPrincipaux:false,labelListe:[[xmin,`${xmin}`],[xmax,`${xmax}`]],
                       pointListe:[[x1,`${noms[1]}`],[Math.floor(x1),`${noms[0]}`],[Math.floor(x1+1),`${noms[2]}`]],
-                      pointTaille:2,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'o',axeStyle:extremite})
+                      pointTaille:2,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'x',axeStyle:extremite})
     d2=droiteGraduee2({x:Math.floor(x1)-xmin+1.5,y:0,Min:Math.floor(x1),axePosition:'H',Max:Math.floor(x1+1),thickSec:true,thickTer:false,Unite:20,
     thickCouleur:'black',axeCouleur:'black',axeHauteur:6,labelsPrincipaux:false,
     pointListe:[[x1,`${noms[1]}`],[Math.floor(x1),`${noms[0]}`],[Math.floor(x1+1),`${noms[2]}`]],
-    pointTaille:2,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'o',axeStyle:extremite})
+    pointTaille:2,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'x',axeStyle:extremite})
     pA1=point((Math.floor(x1)-xmin)*3,3)
     pA2=point(Math.floor(x1)-xmin+1.5,0)
     pB1=point((Math.floor(x1)+1-xmin)*3,3)
@@ -9646,11 +9646,11 @@ function LireUneAbscisseAvecZoom() {
       d1=droiteGraduee2({x:0,y:3,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:true,Unite:20,
                         thickCouleur:'black',axeCouleur:'black',axeHauteur:8,thickDistance:0.1,labelsPrincipaux:false,labelListe:[[Math.floor(x1),`${Math.floor(x1)}`],[Math.ceil(x1),`${Math.ceil(x1)}`]],
                         pointListe:[[x1,`${noms[1]}`],[x2,`${noms[0]}`],[x3,`${noms[2]}`]],
-                        pointTaille:2,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'o',axeStyle:extremite})
+                        pointTaille:2,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'x',axeStyle:extremite})
       d2=droiteGraduee2({x:(x2-xmin)+6,y:0,Min:x2,axePosition:'H',Max:x2+.1,thickSec:true,thickTer:false,Unite:200,
                         thickCouleur:'black',axeCouleur:'black',axeHauteur:6,thickDistance:0.01,labelsPrincipaux:false,
                         pointListe:[[x1,`${noms[1]}`],[x2,`${noms[0]}`],[x2+0.1,`${noms[2]}`]],
-                        pointTaille:2,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'o',axeStyle:extremite})
+                        pointTaille:2,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'x',axeStyle:extremite})
       pA1=point((Math.floor(x1*10)/10-xmin)*20,3)
       pA2=point(x2-xmin+6,0)
       pB1=point((Math.floor(x1*10)/10+0.1-xmin)*20,3)
@@ -9681,15 +9681,15 @@ function LireUneAbscisseAvecZoom() {
       d1=droiteGraduee2({x:0,y:6,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:false,Unite:30,thickDistance:0.1,thickSecDist:0.01,thickTerDist:0.001,
                         thickCouleur:'black',axeCouleur:'black',axeHauteur:6,labelsPrincipaux:false,labelListe:[[xmin,`${nombre_avec_espace(xmin)}`],[xmax,`${nombre_avec_espace(xmax)}`]],
                         pointListe:[[x1,`${noms[1]}`],[x2,`${noms[0]}`],[x3,`${noms[2]}`]],
-                        pointTaille:2,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'o',axeStyle:extremite})
+                        pointTaille:2,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'x',axeStyle:extremite})
       d2=droiteGraduee2({x:6.5,y:3,Min:x2,axePosition:'H',Max:x3,thickSec:true,thickTer:true,Unite:200,thickSecDist:0.01,thickTerDist:0.001,thickDistance:0.1,
       thickCouleur:'black',axeCouleur:'black',axeHauteur:6,labelsPrincipaux:false,
       pointListe:[[x1,`${noms[1]}`],[x2,`${noms[0]}`],[x3,`${noms[2]}`],[x21,`${noms[3]}`],[x31,`${noms[4]}`]],
-      pointTaille:2,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'o',axeStyle:extremite})
+      pointTaille:2,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'x',axeStyle:extremite})
       d3=droiteGraduee2({x:6.5,y:0,Min:x21,axePosition:'H',Max:x31,thickSec:true,thickTer:false,Unite:2000,thickSecDist:0.001,
       thickCouleur:'black',axeCouleur:'black',axeHauteur:6,labelsPrincipaux:false,
       pointListe:[[x1,`${noms[1]}`],[x21,`${noms[3]}`],[x31,`${noms[4]}`]],
-      pointTaille:2,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'o',axeStyle:extremite})
+      pointTaille:2,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'x',axeStyle:extremite})
   
       pA1=point(15,6)
       pA2=point(6.5,3)
