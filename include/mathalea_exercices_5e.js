@@ -410,6 +410,7 @@ function Exercice_additionner_des_fractions_5e(max=11){
 	Exercice_additionner_ou_soustraire_des_fractions_5e.call(this);
 	this.sup2 = 1;
 	this.besoin_formulaire2_numerique = false;
+	this.titre = "Additionner deux fractions (dénominateurs multiples)"
 
 		
 }
