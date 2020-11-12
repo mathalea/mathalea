@@ -1270,8 +1270,15 @@ function Egalite_d_angles() {
 	Exercice.call(this);
 	this.sup=1;
 	this.nb_questions=1;
-	this.spacing=2;
-	this.spacing_corr=2;
+	if (sortie_html) {
+		this.spacing=2;
+		this.spacing_corr=3;
+	}
+	else {
+		this.spacing=2;
+		this.spacing_corr=2;
+
+	}
 	this.nb_cols=1;
 	this.nb_cols_corr=1;
 	this.titre="Déterminer des angles en utilisant les cas d'égalité";
@@ -1286,7 +1293,7 @@ function Egalite_d_angles() {
 			a = randint(45, 85);
 			ac = randint(8, 10)
 			ce = randint(7, 10, ac)
-			C = similitude(point(1, 0), A, a, ac, noms[2], 'left')
+			C = similitude(rotation(point(1,0),A,randint(0,180)), A, a, ac, noms[2], 'left')
 			c = randint(45, 70)
 			E = similitude(A, C, c, ce / ac, noms[4], 'above right');
 			CA = droite(C, A)
@@ -1307,21 +1314,22 @@ function Egalite_d_angles() {
 			c5 = codeAngle(C, D, B,1,'','red',2,1,'red')
 			objets.push( CA, CE, AE, BD, m1, m2, c1, c2, c3, c4, c5, l1)
 			a = Math.round(angle(E, A, C))
-			enonce = `Dans la figure ci-dessous,  les droites (${noms[0]}${noms[4]}) et (${noms[1]}${noms[3]}) sont parallèles.<br>`
-			enonce += `On veut déterminer la mesure des angles du quadrilatère ${noms[0]}${noms[1]}${noms[3]}${noms[4]} (toutes les réponses doivent être justifiées).<br>`
+			enonce = `Dans la figure ci-dessous,  les droites $(${noms[0]}${noms[4]})$ et $(${noms[1]}${noms[3]})$ sont parallèles.<br>`
+			enonce += `On veut déterminer la mesure des angles du quadrilatère $${noms[0]}${noms[1]}${noms[3]}${noms[4]}$ (toutes les réponses doivent être justifiées).<br>`
 			enonce += `${num_alpha(0)} Déterminer la mesure de l'angle $\\widehat{${noms[3]}${noms[1]}${noms[2]}}$.<br>`
 			enonce += `${num_alpha(1)} En déduire la mesure de l'angle $\\widehat{${noms[0]}${noms[1]}${noms[3]}}$.<br>`
-			enonce += `${num_alpha(2)} En utilisant la question ${num_alpha(0)} déterminer la mesure de l'angle $\\widehat{${noms[1]}${noms[3]}${noms[2]}}$.<br>`
+			enonce += `${num_alpha(2)} En utilisant la question ${num_alpha(0)}, déterminer la mesure de l'angle $\\widehat{${noms[1]}${noms[3]}${noms[2]}}$.<br>`
 			enonce += `${num_alpha(3)} En déduire la mesure de l'angle $\\widehat{${noms[1]}${noms[3]}${noms[4]}}$.<br>`
 			enonce += `${num_alpha(4)} En utilisant la question ${num_alpha(2)} déterminer la mesure de l'angle $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$.<br>`
-			enonce += `${num_alpha(5)} Vérifier la conjecture suivante : \"La somme des angles d'un quadrilatère vaut 360°\".<br>`
-			correction = `${num_alpha(0)} Comme les droites (${noms[0]}${noms[4]}) et (${noms[1]}${noms[3]}) sont parallèles, les angles correspondants $\\widehat{${noms[4]}${noms[0]}${noms[1]}}$ et $\\widehat{${noms[3]}${noms[1]}${noms[2]}}$ sont égaux, donc $\\widehat{${noms[3]}${noms[1]}${noms[2]}}$ mesure $${a}\\degree$.<br>`
+			enonce += `${num_alpha(5)} Vérifier la conjecture suivante : « La somme des angles d'un quadrilatère vaut 360°.»<br>`
+			correction = `${num_alpha(0)} Comme les droites $(${noms[0]}${noms[4]})$ et $(${noms[1]}${noms[3]})$ sont parallèles, les angles correspondants $\\widehat{${noms[4]}${noms[0]}${noms[1]}}$ et $\\widehat{${noms[3]}${noms[1]}${noms[2]}}$ sont égaux, donc $\\widehat{${noms[3]}${noms[1]}${noms[2]}}$ mesure $${a}\\degree$.<br>`
 			correction += `${num_alpha(1)} Les angles $\\widehat{${noms[0]}${noms[1]}${noms[3]}}$ et $\\widehat{${noms[3]}${noms[1]}${noms[2]}}$ sont adjacents supplémentaires, donc $\\widehat{${noms[0]}${noms[1]}${noms[3]}}$ mesure $180\\degree-${a}\\degree=${mise_en_evidence(180 - a, 'black')}\\degree$.<br>`
-			correction += `${num_alpha(2)} Dans un triangle, la somme des angles vaut $180\\degree$ donc $\\widehat{${noms[1]}${noms[3]}${noms[2]}}=180-\\widehat{${noms[3]}${noms[1]}${noms[2]}}-\\widehat{${noms[1]}${noms[2]}${noms[3]}}=180\\degree-${a}\\degree-${c}\\degree=${180 - a - c}\\degree$.<br>`
+			correction += `${num_alpha(2)} Dans un triangle, la somme des angles vaut $180\\degree$ donc $\\widehat{${noms[1]}${noms[3]}${noms[2]}}=180\\degree-\\widehat{${noms[3]}${noms[1]}${noms[2]}}-\\widehat{${noms[1]}${noms[2]}${noms[3]}}=180\\degree-${a}\\degree-${c}\\degree=${180 - a - c}\\degree$.<br>`
 			correction += `${num_alpha(3)} Les angles $\\widehat{${noms[1]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[1]}${noms[3]}${noms[4]}}$ sont adjacents supplémentaires, donc $\\widehat{${noms[1]}${noms[3]}${noms[4]}}$ mesure $180\\degree-${180 - a - c}\\degree=${mise_en_evidence(a + c, 'black')}\\degree$.<br>`
-			correction += `${num_alpha(4)} Comme les droites (${noms[0]}${noms[4]}) et (${noms[1]}${noms[3]}) sont parallèles, les angles correspondants $\\widehat{${noms[1]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$ sont égaux, donc $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$ mesure $${mise_en_evidence(180 - a - c, 'black')}\\degree$.<br>`
-			correction += `${num_alpha(5)} La somme des angles du quadrilatère vaut donc : $${a}\\degree+${mise_en_evidence(180 - a, 'black')}\\degree+${mise_en_evidence(a + c, 'black')}\\degree+${mise_en_evidence(180 - a - c, 'black')}\\degree=180\\degree+180\\degree=360\\degree$.`
-			params = { xmin: -2, ymin: Math.min(A.y - 1, E.y - 1), xmax: E.x + 2, ymax: C.y + 2,scale:0.7}
+			correction += `${num_alpha(4)} Comme les droites $(${noms[0]}${noms[4]})$ et $(${noms[1]}${noms[3]})$ sont parallèles, les angles correspondants $\\widehat{${noms[1]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$ sont égaux, donc $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$ mesure $${mise_en_evidence(180 - a - c, 'black')}\\degree$.<br>`
+			correction += `${num_alpha(5)} La somme des angles du quadrilatère vaut donc : $${a}\\degree+${mise_en_evidence(180 - a, 'black')}\\degree+${mise_en_evidence(a + c, 'black')}\\degree+${mise_en_evidence(180 - a - c, 'black')}\\degree=180\\degree+180\\degree=360\\degree$.<br>`
+			correction += `$\\phantom{f/} La conjecture est finalement vraie.`
+			params = { xmin: Math.min(A.x-8,C.x-8,E.x-8), ymin: Math.min(A.y - 1, E.y - 1,C.y-1), xmax: Math.max(E.x + 2,A.x+2,C.x+2), ymax: Math.max(C.y + 2,A.y+2,E.y+2),scale:0.7}
 
 			return [objets, params, enonce, correction]
 		}
@@ -1356,16 +1364,16 @@ function Egalite_d_angles() {
 		enonce=`La figure n'est pas en vraie grandeur. Toutes les réponses devront être justifiées.<br>`
 		enonce += `${num_alpha(0)} Déterminer la mesure de l'angle $\\widehat{${noms[0]}${noms[3]}${noms[2]}}$.<br>`
 		enonce += `${num_alpha(1)} En déduire la mesure de l'angle $\\widehat{${noms[3]}${noms[2]}${noms[0]}}$.<br>`
-		enonce += `${num_alpha(2)} Déterminer si les droites (${noms[0]}${noms[2]}) et (${noms[4]}${noms[1]}) sont parallèles.<br>`
-		enonce += `${num_alpha(3)} Si on considère que les segments [${noms[0]}${noms[2]}] et [${noms[4]}${noms[1]}] sont de même longueur, Déterminer la nature du quadrilatère ${noms[0]}${noms[2]}${noms[1]}${noms[4]}.<br>`
+		enonce += `${num_alpha(2)} Déterminer si les droites $(${noms[0]}${noms[2]})$ et $(${noms[4]}${noms[1]})$ sont parallèles.<br>`
+		enonce += `${num_alpha(3)} Si on considère que les segments $[${noms[0]}${noms[2]}]$ et $[${noms[4]}${noms[1]}]$ sont de même longueur, Déterminer la nature du quadrilatère $${noms[0]}${noms[2]}${noms[1]}${noms[4]}$.<br>`
 		correction = `${num_alpha(0)} Les angles $\\widehat{${noms[0]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[2]}${noms[3]}${noms[1]}}$ sont adjacents supplémentaires, donc $\\widehat{${noms[0]}${noms[3]}${noms[2]}}$ mesure $180\\degree-${d}\\degree=${mise_en_evidence(180 - d, 'black')}\\degree$.<br>`
 		correction += `${num_alpha(1)} Dans un triangle, la somme des angles vaut $180\\degree$ donc $\\widehat{${noms[0]}${noms[2]}${noms[3]}}=180-\\widehat{${noms[3]}${noms[0]}${noms[2]}}-\\widehat{${noms[0]}${noms[3]}${noms[2]}}=180\\degree-${a}\\degree-${180-d}\\degree=${mise_en_evidence(- a + d,'black')}\\degree$.<br>`
-		correction += `${num_alpha(2)} Pour les droites (${noms[0]}${noms[2]}) et (${noms[4]}${noms[1]}) coupées par la sécante (${noms[2]}${noms[4]}) les angles $\\widehat{${noms[0]}${noms[2]}${noms[3]}}$ et $\\widehat{${noms[1]}${noms[4]}${noms[3]}}$ sont des angles alternes-internes.<br>`
+		correction += `${num_alpha(2)} Pour les droites $(${noms[0]}${noms[2]})$ et $(${noms[4]}${noms[1]})$ coupées par la sécante $(${noms[2]}${noms[4]})$ les angles $\\widehat{${noms[0]}${noms[2]}${noms[3]}}$ et $\\widehat{${noms[1]}${noms[4]}${noms[3]}}$ sont des angles alternes-internes.<br>`
 		correction +=`$\\phantom{c/}$ Or si des angles alternes-internes sont égaux, cela signifie que les droites coupées par la sécante sont parallèles.<br>`
-		correction+=`$\\phantom{c/}$ Les droites (${noms[0]}${noms[2]}) et (${noms[4]}${noms[1]}) sont donc parallèles.<br>`
-		correction += `${num_alpha(3)} Les droites (${noms[0]}${noms[2]}) et (${noms[4]}${noms[1]}) sont parallèles et les segments [${noms[0]}${noms[2]}] et [${noms[4]}${noms[1]}] sont de même longueur.<br>`
+		correction+=`$\\phantom{c/}$ Les droites $(${noms[0]}${noms[2]})$ et $(${noms[4]}${noms[1]})$ sont donc parallèles.<br>`
+		correction += `${num_alpha(3)} Les droites $(${noms[0]}${noms[2]})$ et $(${noms[4]}${noms[1]})$ sont parallèles et les segments $[${noms[0]}${noms[2]}]$ et $[${noms[4]}${noms[1]}]$ sont de même longueur.<br>`
 		correction +=`$\\phantom{c/}$ Or, un quadrilatère qui possède des côtés opposés parallèles et de même longueur est un parallèlogramme.<br>`
-		correction +=`$\\phantom{c/}$ Donc ${noms[0]}${noms[2]}${noms[1]}${noms[4]} est un parallèlogramme et ${noms[3]} en est son centre.`
+		correction +=`$\\phantom{c/}$ Donc $${noms[0]}${noms[2]}${noms[1]}${noms[4]}$ est un parallèlogramme et $${noms[3]}$ en est son centre.`
 		params = { xmin: -2, ymin: Math.min(A.y - 1, E.y - 1), xmax: Math.max(E.x + 2,B.x+2), ymax: C.y + 2}
 
 		return [objets, params, enonce, correction]

@@ -9604,15 +9604,11 @@ function LireUneAbscisseAvecZoom() {
     let d1,texte="",texte_corr="",extremite,noms=choisit_lettres_differentes(5,'QFN')
     let x1=0,x2=0,x3=0,objets=[],fenetre
     if (this.sup==1){
-    xmin=randint(0,15)
-
+    xmin=randint(5,10)
     xmax=xmin+9
-    while (estentier(x1)){
-    x1=randint(xmin*10,xmin*10+90)
-    x1=calcul(x1/10)
-    }
-    xmin=Math.floor(x1)-5
-    xmax=Math.floor(x1)+6
+    x1=calcul(xmin+randint(0,5)+randint(2,8)/10)
+    xmin=calcul(Math.floor(x1)-5)
+    xmax=calcul(Math.floor(x1)+6)
     if (xmin==0) extremite=`|->`
     else extremite=`->`
     d1=droiteGraduee2({x:0,y:3,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:false,Unite:3,
@@ -9637,18 +9633,14 @@ function LireUneAbscisseAvecZoom() {
 
   }
     else if (this.sup==2){
-      xmin=randint(0,15)
-      if (xmin==0) extremite=`|->`
-      else extremite=`->`
+      xmin=randint(1,15)
+
       xmax=xmin+1
-      while (estentier(x1*10)){
-      x1=randint(xmin*10,xmax*10-5)
-      x1=calcul(x1/10+randint(2,8)/100)
-      }
+      x1=calcul(xmin+randint(0,5)+randint(2,8)/10+randint(2,8)/100)
       x2=calcul(Math.floor(x1*10)/10)
       x3=calcul(x2+0.1)
       xmin=calcul(x2-0.8)
-      xmax=xmin+1.7
+      xmax=calcul(xmin+1.7)
       if (xmin==0) extremite=`|->`
       else extremite=`->`
       d1=droiteGraduee2({x:0,y:3,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:true,Unite:20,
@@ -9674,7 +9666,7 @@ function LireUneAbscisseAvecZoom() {
 
     }
     else if (this.sup==3) {
-      xmin=randint(0,7)
+      xmin=randint(1,7)
       xmax=xmin+1
       x1=calcul(xmin+randint(2,8)/10+randint(2,8)/100+randint(2,8)*0.001)
       x2=troncature(x1,1)
@@ -9682,8 +9674,8 @@ function LireUneAbscisseAvecZoom() {
       x3=calcul(x2+0.1)
       x31=calcul(x21+0.01)
       console.log(x2,x1,x3)
-      xmin=x2-0.5
-      xmax=x3+0.5
+      xmin=calcul(x2-0.5)
+      xmax=calcul(x3+0.5)
       if (xmin==0) extremite=`|->`
       else extremite=`->`
       d1=droiteGraduee2({x:0,y:6,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:false,Unite:30,thickDistance:0.1,thickSecDist:0.01,thickTerDist:0.001,
