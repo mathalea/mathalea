@@ -157,14 +157,13 @@ var liste_des_exercices_disponibles = {
   "5N110": Variation_en_pourcentages,
   "5N14": Exercice_comparer_deux_fractions,
   "5N14-2": Exercice_comparer_quatre_fractions,
-  "5N20": Exercice_additionner_des_fractions_5e,
-  "5N20-1": Exercice_additionner_ou_soustraire_des_fractions_5e,
+  "5N20": Exercice_additionner_ou_soustraire_des_fractions_5e,
+  "5N20-0": Problemes_additifs_fractions_5e,
   "5L10": Ecrire_une_expression_litterale,
   "5L10-1": Traduire_une_phrase_par_une_expression_litterale,
   "5L10-2": Traduire_un_programme_de_calcul,
   "5L10-3": Traduire_une_expression_litterale_par_une_phrase,
   "5L10-4": Tableaux_et_fonction,
-  "5N20-0": Problemes_additifs_fractions_5e,
   "5L12": Reduire_une_expression_litterale,
   "5L12-1": Reduire_dinstinction_somme_produit,
   "5L13": Calculer_la_valeur_d_une_expression_litterale,
@@ -12322,9 +12321,11 @@ function Symetrie_axiale_conservation1() {
 
 // Référence 6C23
 function Exercice_additionner_des_fractions_6e() {
-  Exercice_additionner_des_fractions_5e.call(this);
-  this.level=6
-  this.titre= "Additionner des fractions de même dénominateur"
+  Exercice_additionner_ou_soustraire_des_fractions_5e.call(this);
+  this.sup2 = 1;
+  this.level = 6;
+  this.titre= "Additionner des fractions de même dénominateur";
+  this.besoin_formulaire_numerique2 = false;
 }
 /**
  * @Auteur Jean-Claude Lhote

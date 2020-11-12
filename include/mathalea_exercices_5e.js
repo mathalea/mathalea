@@ -399,21 +399,6 @@ function Exercice_comparer_quatre_fractions (){
 	}
 }
 
-/**
-* Effectuer l'addition de deux fractions dont un dénominateur est un multiple de l'autre.
-*
-* Le coefficient est paramétrable, par défaut il est inférieur à 11.
-* @Auteur Rémi Angot
-* 5N20
-*/
-function Exercice_additionner_des_fractions_5e(max=11){
-	Exercice_additionner_ou_soustraire_des_fractions_5e.call(this);
-	this.sup2 = 1;
-	this.besoin_formulaire2_numerique = false;
-	this.titre = "Additionner deux fractions (dénominateurs multiples)"
-
-		
-}
 
 /**
 * Effectuer l'addition ou la soustraction de deux fractions dont un dénominateur est un multiple de l'autre.
@@ -424,7 +409,7 @@ function Exercice_additionner_des_fractions_5e(max=11){
 *
 * On peut paramétrer de n'avoir que des soustractions.
 * @Auteur Rémi Angot
-* 5N20-1
+* 5N20
 */
 function Exercice_additionner_ou_soustraire_des_fractions_5e(max=11){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -461,7 +446,11 @@ function Exercice_additionner_ou_soustraire_des_fractions_5e(max=11){
 			}
 			k = randint(2,this.sup);
 			d = b*k
-			c = choice([randint(1,b*k),randint(b*k,9*k)])
+			if (liste_type_de_questions[i]=='-'){
+				c = choice([randint(1,b*k),randint(b*k,9*k)])
+			} else {
+				c = randint(1,19,d)
+			}
 			if (liste_type_de_questions[i]=='+') { //une addition
 				let ordre_des_fractions = randint(1,2)
 				if (ordre_des_fractions==1) {
