@@ -7029,13 +7029,19 @@ function identites_calculs(){
 	sortie_html? this.spacing = 1 : this.spacing = 1; 
 	sortie_html? this.spacing_corr = 1 : this.spacing_corr = 1;
 
+	this.liste_packages = `bclogo`;
 
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		// if (this.debug) {
-		// 	type_de_questions_disponibles = [0,1,2];			
-		// } else {
+		//une fonction pour gérer un \hfill dans la sortie LaTeX
+		function myhfill() {
+			if (sortie_html) {
+				return `<br><br>`;
+			} else {
+				return `\\hfill`;
+			}
+		};
 				switch (Number(this.sup)) {
 					case 1 :
 						type_de_questions_disponibles = [0,0,0];//shuffle([choice([1,3]),choice([2,3]),0]);
@@ -7054,11 +7060,9 @@ function identites_calculs(){
 					case 4 :
 						type_de_questions_disponibles = shuffle([0,1,2]);//shuffle([choice([1,3]),choice([2,3]),0]);      			
 						this.introduction = warn_message(`4`, `nombres`, `Coup de pouce`);      			
-						this.introduction = warn_message(`$(a+b)^2 = a^2 +2ab + b^2$<br>$(a-b)^2 = a^2-2ab+b^2$<br>$(a+b)(a-b)=a^2-b^2$`, `nombres`, `Coup de pouce`); 
+						this.introduction = warn_message(`$(a+b)^2 = a^2 +2ab + b^2$ ${myhfill()} $(a-b)^2 = a^2-2ab+b^2$ ${myhfill()} $(a+b)(a-b)=a^2-b^2$`, `nombres`, `Coup de pouce`); 
 						break;
-				}
-     		 //type_de_questions_disponibles = [0,1,2];//shuffle([choice([1,3]),choice([2,3]),0]);      			
-//		};
+				};
 
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
