@@ -653,10 +653,10 @@ if (!sortie_html){
 			}
 
 			if ($("#nom_du_fichier").val()) {
-				download(contenu_fichier, $("#nom_du_fichier").val()+'.tex', "text/plain");	
+				download(contenu_fichier, $("#nom_du_fichier").val()+'.tex', 'data:text/plain;charset=utf-8,');	
 			}else
 			{
-				download(contenu_fichier, 'mathalea.tex', "text/plain");
+				download(contenu_fichier, 'mathalea.tex', 'data:text/plain;charset=utf-8,');
 			}
 			
 		});
