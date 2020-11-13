@@ -103,7 +103,7 @@ var liste_des_exercices_disponibles = {
   "6N23-0" : Ecrire_nombres_decimal,
   "6N23-1": Exercice_differentes_ecritures_nombres_decimaux,
   "6N23-2" : Lire_abscisse_decimale_trois_formes,
-  "beta6N23-3" : LireUneAbscisseAvecZoom,
+  "6N23-3" : LireUneAbscisseAvecZoom,
   "6N23-4" : Nombre_decimal_oralise_de_differentes_manieres,
   "6N24": Exercice_6N24,
   "6N24-1": Exercice_multiplier_ou_diviser_un_nombre_entier_par_10_100_1000,
@@ -9511,9 +9511,9 @@ function Lire_abscisse_decimale_trois_formes() {
     x3=tableau[2]
 
     d1=droiteGraduee2({x:0,y:0,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:false,Unite:3,thickOffset:thickOff,
-                      thickCouleur:'black',axeCouleur:'black',axeHauteur:6,
+                      thickCouleur:'black',axeCouleur:'black',axeHauteur:4,
                       pointListe:[[x1,`${noms[0]}`],[x2,`${noms[1]}`],[x3,`${noms[2]}`]],
-                      pointTaille:6,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'|',pointEpaisseur:3,axeStyle:extremite})
+                      pointTaille:6,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'|',pointEpaisseur:2,axeStyle:extremite})
     texte=`${num_alpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.<br>`
     texte+=`${num_alpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un nombre entier et d'une fraction décimale.<br>`
     texte+=`${num_alpha(2)} Donner l'abscisse de ${noms[2]} sous la forme d'une fraction décimale.<br>`
@@ -9546,9 +9546,9 @@ function Lire_abscisse_decimale_trois_formes() {
       x3=tableau[2];
 
       d1=droiteGraduee2({x:0,y:0,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:true,Unite:20,thickOffset:thickOff,
-                        thickCouleur:'black',axeCouleur:'black',axeHauteur:6,
+                        thickCouleur:'black',axeCouleur:'black',axeHauteur:4,
                         pointListe:[[x1,`${noms[0]}`],[x2,`${noms[1]}`],[x3,`${noms[2]}`]],
-                        pointTaille:6,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'|',pointEpaisseur:3,axeStyle:extremite})
+                        pointTaille:6,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'|',pointEpaisseur:2,axeStyle:extremite})
       texte=`${num_alpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.<br>`
       texte+=`${num_alpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un entier et d'une fraction décimale.<br>`
       texte+=`${num_alpha(2)} Donner l'abscisse de ${noms[2]} sous la forme d'une fraction décimale.<br>`
@@ -9583,10 +9583,10 @@ function Lire_abscisse_decimale_trois_formes() {
       x3=tableau[2]
       d1=droiteGraduee2({x:0,y:0,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:true,Unite:200,thickOffset:thickOff,
                         thickDistance:0.1,thickSecDist:0.01,thickTerDist:0.001,
-                        thickCouleur:'black',axeCouleur:'black',axeHauteur:6,
+                        thickCouleur:'black',axeCouleur:'black',axeHauteur:4,
                         pointListe:[[x1,`${noms[0]}`],[x2,`${noms[1]}`],[x3,`${noms[2]}`]],
-                        labelListe:[[xmin+0.1,nombre_avec_espace(xmin+0.1)],[xmin+0.2,nombre_avec_espace(xmin+0.2)]],
-                        pointTaille:6,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'|',pointEpaisseur:3,axeStyle:extremite})
+                        labelListe:[[xmin+0.09,nombre_avec_espace(calcul(xmin+0.09))],[xmin+0.1,nombre_avec_espace(calcul(xmin+0.1))]],
+                        pointTaille:6,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'|',pointEpaisseur:2,axeStyle:extremite})
 
       texte=`${num_alpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.<br>`
       texte+=`${num_alpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un entier et d'une fraction décimale.<br>`
@@ -9596,7 +9596,7 @@ function Lire_abscisse_decimale_trois_formes() {
       texte_corr+=`${num_alpha(2)} L'abscisse de ${noms[2]} est : $${tex_fraction(calcul(x3*1000),1000)}$.`
   
     }
-    texte+= mathalea2d({xmin:-1.5,xmax:35,ymin:-1,ymax:1.5,pixelsParcCm:20,scale:0.5},d1)
+    texte+= mathalea2d({xmin:-1.5,xmax:35,ymin:-1.5,ymax:1.5,pixelsParCm:30,scale:0.5},d1)
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
     liste_de_question_to_contenu_sans_numero(this);
@@ -9612,7 +9612,7 @@ function Lire_abscisse_decimale_trois_formes() {
  */
 function LireUneAbscisseAvecZoom() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.niveau='sixième'
+  this.niveau = 'sixième'
   this.titre = "Lire une abscisse décimale sous trois formes";
   this.consigne = "";
   if (sortie_html) {
@@ -9623,160 +9623,227 @@ function LireUneAbscisseAvecZoom() {
     this.spacing = 1;
     this.spacing_corr = 1;
   }
-  this.vspace=-1;
-  this.nb_cols=1;
-  this.nb_cols_corr=1;
-  this.sup=1
-  this.nb_questions=1;
-  this.nb_questions_modifiable=false
+  this.vspace = -1;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  this.sup = 1
+  this.nb_questions = 1;
+  this.nb_questions_modifiable = false
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
 
-    let d1,texte="",texte_corr="",extremite,noms=choisit_lettres_differentes(5,'QFN')
-    let x1=0,x2=0,x3=0,objets=[],fenetre,thickOff=0
-    if (this.sup==1){
-      if (this.niveau=='CM') {
-        xmin=0
-        thickOff=0
+    let d1, d2,d3,d3Corr, d1Corr, d2Corr, texte = "", texte_corr = "", extremite, noms = choisit_lettres_differentes(5, 'QFN')
+    let x1 = 0, x2 = 0, x3 = 0, objets = [], fenetre, thickOff = 0, objetsCorr = []
+    if (this.sup == 1) {
+      if (this.niveau == 'CM') {
+        xmin = 0
+        thickOff = 0
       }
       else {
-        xmin=randint(5,10)-0.2
-        thickOff=0.1
+        xmin = randint(5, 10) - 0.2
+        thickOff = 0.1
       }
 
-    xmax=xmin+9.2
-    x1=calcul(xmin+0.2+randint(1,5)+randint(2,8)/10)
-//   xmin=calcul(Math.floor(x1)-5)
-//    xmax=calcul(Math.floor(x1)+6)
-    if (xmin==0) extremite=`|->`
-    else extremite=`->`
+      xmax = xmin + 9.2
+      x1 = calcul(xmin + 0.2 + randint(1, 5) + randint(2, 8) / 10)
+      //   xmin=calcul(Math.floor(x1)-5)
+      //    xmax=calcul(Math.floor(x1)+6)
+      if (xmin == 0) extremite = `|->`
+      else extremite = `->`
 
-    d1=droiteGraduee2({x:0,y:3,Min:xmin,axePosition:'H',Max:xmax+0.2,thickSec:true,thickTer:false,Unite:3,thickOffset:thickOff,
-                      thickCouleur:'black',axeCouleur:'black',axeHauteur:4,labelsPrincipaux:false,labelListe:[[xmin+0.2,`${nombre_avec_espace(xmin+0.2)}`],[xmax,`${nombre_avec_espace(xmax)}`]],
-                      pointListe:[[x1,`${noms[1]}`],[Math.floor(x1),`${noms[0]}`],[Math.floor(x1+1),`${noms[2]}`]],
-                      pointTaille:6,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'|',pointEpaisseur:3,axeStyle:extremite})
-    d2=droiteGraduee2({x:Math.floor(x1)-xmin+1.5,y:0,Min:Math.floor(x1),axePosition:'H',Max:Math.floor(x1+1),thickSec:true,thickTer:false,Unite:20,thickOffset:thickOff,
-    thickCouleur:'black',axeCouleur:'black',axeHauteur:4,labelsPrincipaux:false,
-    pointListe:[[x1,`${noms[1]}`],[Math.floor(x1),`${noms[0]}`],[Math.floor(x1+1),`${noms[2]}`]],
-    pointTaille:6,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'|',pointEpaisseur:3,axeStyle:extremite})
-    pA1=point((Math.floor(x1)-xmin)*3,3)
-    pA2=point(Math.floor(x1)-xmin+1.5,0)
-    pB1=point((Math.floor(x1)+1-xmin)*3,3)
-    pB2=point(Math.floor(x1)-xmin+21.5,0)
-    sA=segment(pA1,pA2)
-    sB=segment(pB1,pB2)
-    sA.pointilles=true
-    sB.pointilles=true
-   objets.push(d1,d2,sA,sB)
-   fenetre={xmin:-1.5,xmax:35,ymin:-1,ymax:4.5,pixelsParcCm:20,scale:0.5}
-   texte_corr=`L'abscisse de ${noms[1]} est : $${tex_nombre(x1)}=${tex_nombre(Math.floor(x1))} + ${tex_fraction(calcul(10*(x1-Math.floor(x1))),10)}=${tex_fraction(calcul(x1*10),10)}$.`
-
-  }
-    else if (this.sup==2){
-      if (this.niveau=='CM') {
-        xmin=0
-        thickOff=0
+      d1 = droiteGraduee2({
+        x: 0, y: 3, Min: xmin, axePosition: 'H', Max: xmax + 0.2, thickSec: true, thickTer: false, Unite: 3, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 4, labelsPrincipaux: false, labelListe: [[xmin + 0.2, `${nombre_avec_espace(xmin + 0.2)}`], [xmax, `${nombre_avec_espace(xmax)}`]],
+        pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+      })
+      d2 = droiteGraduee2({
+        x: Math.floor(x1) - xmin + 1.5, y: 0, Min: Math.floor(x1), axePosition: 'H', Max: Math.floor(x1 + 1), thickSec: true, thickTer: false, Unite: 20, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 4, labelsPrincipaux: false,
+        pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+      })
+      d1Corr = droiteGraduee2({
+        x: 0, y: 3, Min: xmin, axePosition: 'H', Max: xmax + 0.2, thickSec: true, thickTer: false, Unite: 3, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 4, labelsPrincipaux: true, labelListe: [[xmin + 0.2, `${nombre_avec_espace(xmin + 0.2)}`], [xmax, `${nombre_avec_espace(xmax)}`]],
+        pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+      })
+      d2Corr = droiteGraduee2({
+        x: Math.floor(x1) - xmin + 1.5, y: 0, Min: Math.floor(x1), axePosition: 'H', Max: Math.floor(x1 + 1), thickSec: true, thickTer: false, Unite: 20, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 4, labelsPrincipaux: false,labelsSecondaires:true,
+        labelListe: [[Math.floor(x1),`${nombre_avec_espace(Math.floor(x1))}`],[x1,`${nombre_avec_espace(x1)}`],[Math.ceil(x1),`${nombre_avec_espace(Math.ceil(x1))}`]],
+        pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+      })
+      
+      pA1 = point((Math.floor(x1) - xmin) * 3, 3)
+      pA2 = point(Math.floor(x1) - xmin + 1.5, 0)
+      pB1 = point((Math.floor(x1) + 1 - xmin) * 3, 3)
+      pB2 = point(Math.floor(x1) - xmin + 21.5, 0)
+      sA = segment(pA1, pA2)
+      sB = segment(pB1, pB2)
+      sA.pointilles = true
+      sB.pointilles = true
+      objets.push(d1, d2, sA, sB)
+      objetsCorr.push(d1Corr, d2Corr, sA, sB)
+      fenetre = { xmin: -1.5, xmax: 35, ymin: -1, ymax: 4.5, pixelsParCm: 25, scale: 0.5 }
+      texte_corr = `L'abscisse de ${noms[1]} est : $${tex_nombre(x1)}=${tex_nombre(Math.floor(x1))} + ${tex_fraction(calcul(10 * (x1 - Math.floor(x1))), 10)}=${tex_fraction(calcul(x1 * 10), 10)}$.<br>`
+    }
+    else if (this.sup == 2) {
+      if (this.niveau == 'CM') {
+        xmin = 0
+        thickOff = 0
       }
       else {
-        xmin=randint(1,15)-0.02
-        thickOff=0.01
+        xmin = randint(1, 15) - 0.02
+        thickOff = 0.01
       }
 
-      xmax=xmin+1.05
-      x1=calcul(xmin+0.02+randint(2,8)/10+randint(2,8)/100)
-      x2=calcul(Math.floor(x1*10)/10)
-      x3=calcul(x2+0.1)
-//      xmin=calcul(x2-0.8)
-//      xmax=calcul(xmin+1.7)
-      if (xmin==0) extremite=`|->`
-      else extremite=`->`
-      d1=droiteGraduee2({x:0,y:3,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:true,Unite:30,thickOffset:thickOff,
-                        thickCouleur:'black',axeCouleur:'black',axeHauteur:8,thickDistance:1,thickSecDist:0.1,thickTerDist:0.01,labelsPrincipaux:false,labelListe:[[Math.floor(x1),`${Math.floor(x1)}`],[Math.ceil(x1),`${Math.ceil(x1)}`]],
-                        pointListe:[[x1,`${noms[1]}`],[x2,`${noms[0]}`],[x3,`${noms[2]}`]],
-                        pointTaille:6,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'|',pointEpaisseur:3,axeStyle:extremite})
-      d2=droiteGraduee2({x:(x2-xmin)+6,y:0,Min:x2,axePosition:'H',Max:x2+.1,thickSec:true,thickTer:false,Unite:200,thickOffset:thickOff,
-                        thickCouleur:'black',axeCouleur:'black',axeHauteur:6,thickDistance:0.1,thickSecDist:0.01,thickTerDist:0.001,labelsPrincipaux:false,
-                        pointListe:[[x1,`${noms[1]}`],[x2,`${noms[0]}`],[x2+0.1,`${noms[2]}`]],
-                        pointTaille:6,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'|',pointEpaisseur:3,axeStyle:extremite})
-      pA1=point((Math.floor(x1*10)/10-xmin)*30,3)
-      pA2=point(x2-xmin+6,0)
-      pB1=point((Math.floor(x1*10)/10+0.1-xmin)*30,3)
-      pB2=point(x3-xmin+26,0)
-      sA=segment(pA1,pA2)
-      sB=segment(pB1,pB2)
-      sA.pointilles=true
-      sB.pointilles=true
-      fenetre={xmin:-1.5,xmax:35,ymin:-1,ymax:4.5,pixelsParcCm:20,scale:0.5}      
-      objets.push(d1,d2,sA,sB)
-      let partent=Math.floor(x1),pardec=calcul(x1-partent)
-    texte_corr=`L'abscisse de ${noms[1]} est : $${tex_nombre(x1)}=${tex_nombre(partent)} + ${tex_fraction(calcul(pardec*100),100)}=${tex_fraction(calcul(x1*100),100)}$.`
+      xmax = xmin + 1.05
+      x1 = calcul(xmin + 0.02 + randint(2, 8) / 10 + randint(2, 8) / 100)
+      x2 = calcul(Math.floor(x1 * 10) / 10)
+      x3 = calcul(x2 + 0.1)
+      //      xmin=calcul(x2-0.8)
+      //      xmax=calcul(xmin+1.7)
+      if (xmin == 0) extremite = `|->`
+      else extremite = `->`
+      d1 = droiteGraduee2({
+        x: 0, y: 3, Min: xmin, axePosition: 'H', Max: xmax, thickSec: true, thickTer: true, Unite: 30, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 8, thickDistance: 1, thickSecDist: 0.1, thickTerDist: 0.01, labelsPrincipaux: false, labelListe: [[Math.floor(x1), `${Math.floor(x1)}`], [Math.ceil(x1), `${Math.ceil(x1)}`]],
+        pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+      })
+      d2 = droiteGraduee2({
+        x: (x2 - xmin) + 6, y: 0, Min: x2, axePosition: 'H', Max: x2 + .1, thickSec: true, thickTer: false, Unite: 200, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, thickDistance: 0.1, thickSecDist: 0.01, thickTerDist: 0.001, labelsPrincipaux: false,
+        pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x2 + 0.1, `${noms[2]}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+      })
+      d1Corr = droiteGraduee2({
+        x: 0, y: 3, Min: xmin, axePosition: 'H', Max: xmax, thickSec: true, thickTer: true, Unite: 30, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 8, thickDistance: 1, thickSecDist: 0.1, thickTerDist: 0.01, labelsSecondaires:true,
+        labelListe: [[Math.floor(x1), `${Math.floor(x1)}`], [Math.ceil(x1), `${Math.ceil(x1)}`]],
+        pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+      })
+      d2Corr = droiteGraduee2({
+        x: (x2 - xmin) + 6, y: 0, Min: x2, axePosition: 'H', Max: x2 + .1, thickSec: true, thickTer: false, Unite: 200, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, thickDistance: 0.1, thickSecDist: 0.01, thickTerDist: 0.001, labelsPrincipaux: false,labelsSecondaires:true,
+        labelListe: [[x2,`${nombre_avec_espace(x2)}`],[x1,`${nombre_avec_espace(x1)}`],[x3,`${nombre_avec_espace(x3)}`]], 
+        pointListe: [[x1,`${noms[1]}`], [x2, `${noms[0]}`], [x2 + 0.1, `${noms[2]}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+      })
+
+      pA1 = point((Math.floor(x1 * 10) / 10 - xmin) * 30, 3)
+      pA2 = point(x2 - xmin + 6, 0)
+      pB1 = point((Math.floor(x1 * 10) / 10 + 0.1 - xmin) * 30, 3)
+      pB2 = point(x3 - xmin + 26, 0)
+      sA = segment(pA1, pA2)
+      sB = segment(pB1, pB2)
+      sA.pointilles = true
+      sB.pointilles = true
+      fenetre = { xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 4.5, pixelsParCm:25, scale: 0.5 }
+      objets.push(d1, d2, sA, sB)
+      objetsCorr.push(d1Corr,d2Corr,sA,sB)
+      let partent = Math.floor(x1), pardec = calcul(x1 - partent)
+      texte_corr = `L'abscisse de ${noms[1]} est : $${tex_nombre(x1)}=${tex_nombre(partent)} + ${tex_fraction(calcul(pardec * 100), 100)}=${tex_fraction(calcul(x1 * 100), 100)}$.<br>`
 
     }
-    else if (this.sup==3) {
-      if (this.niveau=='CM') {
-        xmin=0
-        thickOff=0
+    else if (this.sup == 3) {
+      if (this.niveau == 'CM') {
+        xmin = 0
+        thickOff = 0
       }
       else {
-        xmin=randint(1,15)
-        thickOff=0.001
+        xmin = randint(1, 15)
+        thickOff = 0.001
       }
 
-      xmin=randint(1,7)
-      xmax=xmin+1
-      x1=calcul(xmin+randint(2,8)/10+randint(2,8)/100+randint(2,8)*0.001)
-      x2=troncature(x1,1)
-      x21=troncature(x1,2)
-      x3=calcul(x2+0.1)
-      x31=calcul(x21+0.01)
-      xmin=calcul(x2-0.5)
-      xmax=calcul(x3+0.5)
-      if (xmin==0) extremite=`|->`
-      else extremite=`->`
-      d1=droiteGraduee2({x:0,y:6,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:true,Unite:30,thickDistance:1,thickSecDist:0.1,thickTerDist:0.01,thickOffset:thickOff,
-                        thickCouleur:'black',axeCouleur:'black',axeHauteur:6,labelsPrincipaux:true,labelListe:[[xmin,`${nombre_avec_espace(xmin)}`],[xmax,`${nombre_avec_espace(xmax)}`]],
-                        pointListe:[[x1,`${noms[1]}`],[x2,`${noms[0]}`],[x3,`${noms[2]}`]],
-                        pointTaille:6,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'|',pointEpaisseur:3,axeStyle:extremite})
-      d2=droiteGraduee2({x:6.5,y:3,Min:x2,axePosition:'H',Max:x3,thickSec:true,thickTer:true,Unite:200,thickSecDist:0.01,thickTerDist:0.001,thickDistance:0.1,thickOffset:thickOff,
-      thickCouleur:'black',axeCouleur:'black',axeHauteur:6,labelsPrincipaux:false,
-      pointListe:[[x1,`${noms[1]}`],[x2,`${noms[0]}`],[x3,`${noms[2]}`],[x21,`${noms[3]}`],[x31,`${noms[4]}`]],
-      pointTaille:6,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'|',pointEpaisseur:3,axeStyle:extremite})
-      d3=droiteGraduee2({x:6.5,y:0,Min:x21,axePosition:'H',Max:x31,thickSec:true,thickTer:false,Unite:2000,thickSecDist:0.001,thickOffset:thickOff,
-      thickCouleur:'black',axeCouleur:'black',axeHauteur:6,labelsPrincipaux:false,
-      pointListe:[[x1,`${noms[1]}`],[x21,`${noms[3]}`],[x31,`${noms[4]}`]],
-      pointTaille:6,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'|',pointEpaisseur:3,axeStyle:extremite})
-  
-      pA1=point(15,6)
-      pA2=point(6.5,3)
-      pB1=point(18,6)
-      pB2=point(26.5,3)
-      sA=segment(pA1,pA2)
-      sB=segment(pB1,pB2)
-      sA.pointilles=true
-      sB.pointilles=true
-      pC1=point(6.5+(x21-x2)*200,3)
-      pC2=point(6.5,0)
-      pD1=point(6.5+(x31-x2)*200,3)
-      pD2=point(26.5,0)
-      sC=segment(pC1,pC2)
-      sD=segment(pD1,pD2)
-      sC.pointilles=true
-      sD.pointilles=true
-      fenetre={xmin:-1.5,xmax:35,ymin:-1,ymax:7.5,pixelsParcCm:20,scale:0.5}
-     objets.push(d1,d2,d3,sA,sB,sC,sD)
-     let partent=Math.floor(x1),pardec=calcul(x1-partent)
-     texte_corr=`L'abscisse de ${noms[1]} est : $${tex_nombre(x1)}=${tex_nombre(partent)} + ${tex_fraction(calcul(pardec*1000),1000)}=${tex_fraction(calcul(x1*1000),1000)}$.`
- 
+      xmin = randint(1, 7)
+      xmax = xmin + 1
+      x1 = calcul(xmin + randint(2, 8) / 10 + randint(2, 8) / 100 + randint(2, 8) * 0.001)
+      x2 = troncature(x1, 1)
+      x21 = troncature(x1, 2)
+      x3 = calcul(x2 + 0.1)
+      x31 = calcul(x21 + 0.01)
+      xmin = calcul(x2 - 0.5)
+      xmax = calcul(x3 + 0.5)
+      if (xmin == 0) extremite = `|->`
+      else extremite = `->`
+      d1 = droiteGraduee2({
+        x: 0, y: 6, Min: xmin, axePosition: 'H', Max: xmax, thickSec: true, thickTer: true, Unite: 30, thickDistance: 1, thickSecDist: 0.1, thickTerDist: 0.01, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: true, labelListe: [[xmin, `${nombre_avec_espace(xmin)}`], [xmax, `${nombre_avec_espace(xmax)}`]],
+        pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 3, axeStyle: extremite
+      })
+      d2 = droiteGraduee2({
+        x: 6.5, y: 3, Min: x2, axePosition: 'H', Max: x3, thickSec: true, thickTer: true, Unite: 200, thickSecDist: 0.01, thickTerDist: 0.001, thickDistance: 0.1, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: false,
+        pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+      })
+      d3 = droiteGraduee2({
+        x: 6.5, y: 0, Min: x21, axePosition: 'H', Max: x31, thickSec: true, thickTer: false, Unite: 2000, thickSecDist: 0.001, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: false,
+        pointListe: [[x1, `${noms[1]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+      })
+      d1Corr = droiteGraduee2({
+        x: 0, y: 6, Min: xmin, axePosition: 'H', Max: xmax, thickSec: true, thickTer: true, Unite: 30, thickDistance: 1, thickSecDist: 0.1, thickTerDist: 0.01, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: true,labelsSecondaires:true,
+        labelListe: [[xmin, `${nombre_avec_espace(xmin)}`], [xmax, `${nombre_avec_espace(xmax)}`]],
+        pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 3, axeStyle: extremite
+      })
+      d2Corr = droiteGraduee2({
+        x: 6.5, y: 3, Min: x2, axePosition: 'H', Max: x3, thickSec: true, thickTer: true, Unite: 200, thickSecDist: 0.01, thickTerDist: 0.001, thickDistance: 0.1, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: false,labelsSecondaires:true,
+        pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
+        labelListe: [[x2, `${nombre_avec_espace(x2)}`], [x3, `${nombre_avec_espace(x3)}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+      })
+      d3Corr = droiteGraduee2({
+        x: 6.5, y: 0, Min: x21, axePosition: 'H', Max: x31, thickSec: true, thickTer: false, Unite: 2000, thickSecDist: 0.001, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: false,labelsSecondaires:true,
+        pointListe: [[x1, `${noms[1]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
+        labelListe: [[x21, `${nombre_avec_espace(x21)}`], [x31 ,`${nombre_avec_espace(x31)}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+      })
+
+      pA1 = point(15, 6)
+      pA2 = point(6.5, 3)
+      pB1 = point(18, 6)
+      pB2 = point(26.5, 3)
+      sA = segment(pA1, pA2)
+      sB = segment(pB1, pB2)
+      sA.pointilles = true
+      sB.pointilles = true
+      pC1 = point(6.5 + (x21 - x2) * 200, 3)
+      pC2 = point(6.5, 0)
+      pD1 = point(6.5 + (x31 - x2) * 200, 3)
+      pD2 = point(26.5, 0)
+      sC = segment(pC1, pC2)
+      sD = segment(pD1, pD2)
+      sC.pointilles = true
+      sD.pointilles = true
+      fenetre = { xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 7.5, pixelsParCm:25, scale: 0.5 }
+      objets.push(d1, d2, d3, sA, sB, sC, sD)
+      objetsCorr.push(d1Corr,d2Corr,d3Corr,sA, sB, sC, sD)
+      let partent = Math.floor(x1), pardec = calcul(x1 - partent)
+      texte_corr = `L'abscisse de ${noms[1]} est : $${tex_nombre(x1)}=${tex_nombre(partent)} + ${tex_fraction(calcul(pardec * 1000), 1000)}=${tex_fraction(calcul(x1 * 1000), 1000)}$.<br>`
+
     }
-    texte=`Donner l'abscisse de ${noms[1]} en écriture décimale, avec une somme d'un nombre entier et d'une fraction décimale en écriture et avec une fraction décimale.<br>`
-    texte+= mathalea2d(fenetre,objets)
+    texte = `Donner l'abscisse de ${noms[1]} sous trois formes : en écriture décimale, comme somme d’un nombre entier et d’une fraction décimale et avec une fraction décimale.<br>`
+    texte += mathalea2d(fenetre, objets)
+    texte_corr+=mathalea2d(fenetre, objetsCorr)
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
     liste_de_question_to_contenu_sans_numero(this);
   };
-  this.besoin_formulaire_numerique = ['Niveau de difficulté',3,'1 : Au dixième\n2 : Au centième\n3 : Au millième'];
+  this.besoin_formulaire_numerique = ['Niveau de difficulté', 3, '1 : Au dixième\n2 : Au centième\n3 : Au millième'];
 }
 
 
@@ -10005,7 +10072,7 @@ function Colorier_Deplacement(){
 
     texte += `Au départ, le lutin est situé dans la case grisée. Chaque déplacement se fait dans une case adjacente. <br><br>`;
     if (!sortie_html) {texte += `\\begin{center}`}
-    texte+= mathalea2d({xmin:xGrilleMin-3,xmax:xGrilleMax+1,ymin:yGrilleMin-1,ymax:yGrilleMax+1,pixelsParcCm:20,scale:.5}, lstObjet);    
+    texte+= mathalea2d({xmin:xGrilleMin-3,xmax:xGrilleMax+1,ymin:yGrilleMin-1,ymax:yGrilleMax+1,pixelsParCm:20,scale:.5}, lstObjet);    
     if (sortie_html) {
       texte += `</td></tr></table>`;
     } else {
@@ -10047,7 +10114,7 @@ function Colorier_Deplacement(){
       if (this.sup2){
         texte_corr += `Passage n° ${k+1} dans la boucle : <br>`
       }    
-      texte_corr += mathalea2d({xmin:xGrilleMin-3,xmax:xGrilleMax+1,ymin:yGrilleMin-1,ymax:yGrilleMax+1,pixelsParcCm:20,scale:0.4}, lstObjet);  
+      texte_corr += mathalea2d({xmin:xGrilleMin-3,xmax:xGrilleMax+1,ymin:yGrilleMin-1,ymax:yGrilleMax+1,pixelsParCm:20,scale:0.4}, lstObjet);  
       if (sortie_html) {
         if (k%3==2) {
           texte_corr += `</td></tr><tr><td style="text-align:center">`; // retour à la ligne après 3 grilles dessinées en HTML
