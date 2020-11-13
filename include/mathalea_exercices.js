@@ -9769,21 +9769,26 @@ function LireUneAbscisseAvecZoom() {
     else if (this.sup == 3) {
       if (this.niveau == 'CM') {
         xmin = 0
+        xmax =1
         thickOff = 0
+        x1 = calcul(xmin + randint(2, 8) / 10 + randint(2, 8) / 100 + randint(2, 8) * 0.001)
+        x2 = troncature(x1, 1)
+        x21 = troncature(x1, 2)
+        x3 = calcul(x2 + 0.1)
+        x31 = calcul(x21 + 0.01)
       }
       else {
         xmin = randint(1, 15)
+        xmax = xmin + 1
+        x1 = calcul(xmin + randint(2, 8) / 10 + randint(2, 8) / 100 + randint(2, 8) * 0.001)
+        x2 = troncature(x1, 1)
+        x21 = troncature(x1, 2)
+        x3 = calcul(x2 + 0.1)
+        x31 = calcul(x21 + 0.01)
+        xmin = Math.floor(x2)
+        xmax = xmin+1
         thickOff = 0.001
       }
-
-      xmax = xmin + 1
-      x1 = calcul(xmin + randint(2, 8) / 10 + randint(2, 8) / 100 + randint(2, 8) * 0.001)
-      x2 = troncature(x1, 1)
-      x21 = troncature(x1, 2)
-      x3 = calcul(x2 + 0.1)
-      x31 = calcul(x21 + 0.01)
-      xmin = calcul(x2 - 0.5)
-      xmax = calcul(x3 + 0.5)
       if (xmin == 0) extremite = `|->`
       else extremite = `->`
       d1 = droiteGraduee2({
@@ -9827,9 +9832,9 @@ function LireUneAbscisseAvecZoom() {
         pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
       })
 
-      pA1 = point(15, 6)
+      pA1 = point((x2-xmin)*30, 6)
       pA2 = point(6.5, 3)
-      pB1 = point(18, 6)
+      pB1 = point((x3-xmin)*30, 6)
       pB2 = point(26.5, 3)
       sA = segment(pA1, pA2)
       sB = segment(pB1, pB2)
