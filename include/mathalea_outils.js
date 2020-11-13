@@ -58,6 +58,34 @@ function liste_de_question_to_contenu_sans_numero_et_sans_consigne(argument) {
 
 	
 }
+
+
+
+/**
+* Renvoie 2 chaines de caractères sur 2 colonnes différentes
+* 
+* @author Rémi Angot
+*/
+function deuxColonnes(cont1,cont2){
+	if (sortie_html){
+		return `<div style="float:left;width:50%;">
+		${cont1}
+	 </div>
+	 <div style="float:left;width:50%;">
+		${cont2}
+	 </div>`
+	} else {
+		return `\\begin{minipage}{.5\\linewidth}
+		${cont1}
+		\\end{minipage}
+		\\begin{minipage}{.5\\linewidth}
+		${cont2}
+		\\end{minipage}
+		`
+	}
+}
+
+
 /**
  * fonctions de comparaison pour les nombres en virgule flottante afin d'éviter les effets de la conversion en virgule flottante.
  * @param {number} a premier nombre 
