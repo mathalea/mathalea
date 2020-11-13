@@ -16,6 +16,8 @@
 let mesObjets = []; // Liste de tous les objets construits
 //Liste utilisée quand il n'y a qu'une seule construction sur la page web
 
+let numId = 0 // Créer un identifiant numérique unique par objet SVG
+
 let pixelsParCm = 20;
 let unitesLutinParCm = 50;
 let mainlevee=false
@@ -37,6 +39,8 @@ function ObjetMathalea2D() {
   this.epaisseur = 1;
   this.opacite = 1;
   this.pointilles = false;
+  this.id = numId;
+  numId++;
   mesObjets.push(this);
 }
 
@@ -162,6 +166,8 @@ function TracePoint(...points) {
         s1.opacite=this.opacite;
         s2.opacite=this.opacite;
         objetssvg.push(s1,s2);
+        s1.isVisible = false;
+        s2.isVisible = false;
         }
         else if (this.style=='o'){
           p1=point(A.x,A.y)
@@ -199,6 +205,7 @@ function TracePoint(...points) {
     for (objet of objetssvg) {
       code += "\n\t" + objet.svg(coeff);
     }
+    code = `<g id="${this.id}">`+code+`</g>`
     return code;
   };
   this.tikz = function () {
@@ -288,9 +295,11 @@ function TracePointSurDroite(A, O) {
     this.direction=pointSurSegment(point(d.x1, d.y1), point(d.x2, d.y2), 1);
   }
   this.svg=function(coeff){
-    let A1=pointSurSegment(this.lieu,this.direction,this.taille*20/coeff)
-    let A2=pointSurSegment(this.lieu,this.direction,-this.taille*20/coeff)
-    let s=segment(A1,A2)
+    let A1 = pointSurSegment(this.lieu,this.direction,this.taille*20/coeff);
+    let A2 = pointSurSegment(this.lieu,this.direction,-this.taille*20/coeff);
+    let s = segment(A1,A2);
+    this.id = s.id;
+    s.isVisible = false;
     return s.svg(coeff)
   }
   this.tikz=function(){
@@ -503,6 +512,7 @@ function LabelPoint(...points) {
           break;
       }
     }
+    code = `<g id="${this.id}">${code}</g>`
     return code;
   };
   this.tikz = function () {
@@ -659,9 +669,6 @@ function Droite(arg1, arg2, arg3, arg4, color) {
     point(this.directeur.x, this.directeur.y)
   );
   this.svg = function (coeff) {
-    if (this.id){
-      this.style += ` id = "${this.id}"`
-    }
     if (this.epaisseur != 1) {
       this.style += ` stroke-width="${this.epaisseur}" `;
     }
@@ -677,7 +684,7 @@ function Droite(arg1, arg2, arg3, arg4, color) {
     let B1 = pointSurSegment(B, A, -50);
     return `<line x1="${A1.xSVG(coeff)}" y1="${A1.ySVG(coeff)}" x2="${B1.xSVG(
       coeff
-    )}" y2="${B1.ySVG(coeff)}" stroke="${this.color}" ${this.style} />`;
+    )}" y2="${B1.ySVG(coeff)}" stroke="${this.color}" ${this.style} id ="${this.id}" />`;
   };
   this.tikz = function () {
     let tableauOptions = [];
@@ -804,8 +811,11 @@ function CodageMediatrice(A, B, color = "black", mark = "×") {
   let M = rotation(A, O, 90);
   let c = codageAngleDroit(M, O, B, this.color);
   let v = codeSegments(mark, this.color, A, O, O, B);
+  c.isVisible = false;
+  v.isVisible = false;
   this.svg = function (coeff) {
-    return c.svg(coeff) + "\n" + v.svg(coeff);
+    let code = `<g id="${this.id}">${c.svg(coeff) + "\n" + v.svg(coeff)}</g>`
+    return code;
   };
   this.tikz = function () {
     return c.tikz() + "\n" + v.tikz();
@@ -830,11 +840,18 @@ function CodageMilieu(A,B, color = "black", mark = "×",mil=true) {
   ObjetMathalea2D.call(this);
   this.color=color
   let O = milieu(A, B);
-  let M = tracePointSurDroite(O,droite(A,B))
+  let d = droite(A,B);
+  let M = tracePointSurDroite(O,d);
   let v = codeSegments(mark,color,A,O,O,B);
+  let code = "";
   this.svg =function(coeff) {
-    if (mil) return M.svg(coeff) + "\n" +v.svg(coeff);
-    else return v.svg(coeff);
+    if (mil) code = M.svg(coeff) + "\n" +v.svg(coeff);
+    else code =  v.svg(coeff);
+    code = `<g id="${this.id}">${code}</g>`
+    M.isVisible = false;
+    d.isVisible = false;
+    v.isVisible = false
+    return code
   }
   this.tikz = function() {
     if (mil) return M.tikz()+ "\n" + v.tikz();
@@ -870,10 +887,16 @@ function ConstructionMediatrice(
   let arcn1 = traceCompas(A, N);
   let arcn2 = traceCompas(B, N);
   let d = mediatrice(A, B);
+  arcm1.isVisible = false;
+  arcm2.isVisible = false;
+  arcn1.isVisible = false;
+  arcn2.isVisible = false;
+  d.isVisible = false;
   d.color = couleurMediatrice;
   d.epaisseur = epaisseurMediatrice;
   let codage = codageMediatrice(A, B, color, markmilieu);
-  let objets = [arcm1, arcm2, arcn1, arcn2, d];
+  codage.isVisible = false;
+  let objets = [arcm1, arcm2, arcn1, arcn2, d, codage];
   if (detail) {
     let sAM = segment(A, M);
     sAM.pointilles = true;
@@ -891,6 +914,7 @@ function ConstructionMediatrice(
     for (objet of objets) {
       code += "\n\t" + objet.svg(coeff);
     }
+    code = `<g id="${this.id}">${code}</g>`
     return code;
   };
   this.tikz = function () {
@@ -1059,6 +1083,7 @@ function Polyline(...points) {
     }
   }
   this.svg = function (coeff) {
+    
     if (this.epaisseur != 1) {
       this.style += ` stroke-width="${this.epaisseur}" `;
     }
@@ -1072,7 +1097,7 @@ function Polyline(...points) {
     for (let point of this.listePoints) {
       binomeXY += `${calcul(point.x * coeff)},${calcul(-point.y * coeff)} `;
     }
-    return `<polyline points="${binomeXY}" fill="none" stroke="${this.color}" ${this.style} />`;
+    return `<polyline points="${binomeXY}" fill="none" stroke="${this.color}" ${this.style} id="${this.id}" />`;
   };
   this.tikz = function () {
     let tableauOptions = [];
@@ -1256,9 +1281,6 @@ function Segment(arg1, arg2, arg3, arg4, color) {
     if (this.opacite != 1) {
       this.style += ` stroke-opacity="${this.opacite}" `;
     }
-    if (this.id) {
-      this.style += ` id = "${this.id}"`
-    }
     let code = "";
     let A = point(this.x1, this.y1);
     let B = point(this.x2, this.y2);
@@ -1286,9 +1308,7 @@ function Segment(arg1, arg2, arg3, arg4, color) {
         }" />`;
         code += `\n\t<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
           coeff
-        )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${
-          this.color
-        }" />`;
+        )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color}" />`;
       }
       if (this.styleExtremites.substr(-1) == "<") {
         //si ça termine par < on rajoute une flèche inversée en B
@@ -1353,6 +1373,11 @@ function Segment(arg1, arg2, arg3, arg4, color) {
     code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(coeff)}" x2="${B.xSVG(
       coeff
     )}" y2="${B.ySVG(coeff)}" stroke="${this.color}" ${this.style} />`;
+    if (this.styleExtremites.length>0){
+      code = `<g id="${this.id}">${code}</g>`
+    } else {
+      code = code.replace('/>', `id="${this.id}" />`)
+    }
     return code;
   };
   this.tikz = function () {
@@ -1514,9 +1539,6 @@ function Polygone(...points) {
     return liste;
   };
   this.svg = function (coeff) {
-    if (this.id){
-      this.style += ` id = "${this.id}"`
-    }
     if (this.epaisseur != 1) {
       this.style += ` stroke-width="${this.epaisseur}" `;
     }
@@ -1533,9 +1555,7 @@ function Polygone(...points) {
       this.style += ` stroke-opacity="${this.opacite}" `;
     }
 
-    return `<polygon points="${this.binomesXY(coeff)}" stroke="${this.color}" ${
-      this.style
-    } />`;
+    return `<polygon points="${this.binomesXY(coeff)}" stroke="${this.color}" ${this.style} id="${this.id}" />`;
   };
   this.tikz = function () {
     let tableauOptions = [];
@@ -1933,7 +1953,7 @@ function Cercle(O, r, color) {
 
     return `<circle cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" r="${
       r * coeff
-    }" stroke="${this.color}" ${this.style}/>`;
+    }" stroke="${this.color}" ${this.style} id="${this.id}" />`;
   };
   this.tikz = function () {
     let optionsDraw = [];
@@ -2235,7 +2255,7 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
     if (this.opacite != 1) {
       this.style += ` stroke-opacity="${this.opacite}" `
     }
-    return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}" ${this.style}/>`
+    return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}" ${this.style} id="${this.id}" />`
   }
   this.tikz = function () {
     let optionsDraw = []
@@ -3290,25 +3310,32 @@ function affiniteOrthoAnimee(...args) {
 }
 
 
-function afficherTempo(id,t0,t){
+function afficherTempo(objet,t0,t = 10,r = 'Infinity'){
   let checkExist = setInterval(function() {
-    if ($(`#${id}`).length) {
-      document.getElementById(id).animate([
+    if ($(`#${objet.id}`).length) {
+      document.getElementById(objet.id).animate([
         // keyframes
         { opacity: 0 }, 
         { opacity: 0, offset:t0/t }, 
-        { opacity: 1, offset:t0/t+.1 }, 
+        { opacity: 1, offset:t0/t+.01 }, 
         { opacity: 1 }
       ], { 
         // timing options
         duration: t*1000,
-        iterations: Infinity
+        iterations: r
       });
        clearInterval(checkExist);
     }
- }, 100); // check every 100ms
-  
-  
+ }, 100); // check every 100ms 
+}
+
+function afficherUnParUn(objets, t = 1, r = 'Infinity', tApresDernier = 5){
+  let t0 = t
+  let tf = objets.length*t+tApresDernier
+  for (objet of objets){
+    afficherTempo(objet, t0, tf, r);
+    t0 +=t;
+  }
 }
 
 /*
@@ -3492,7 +3519,10 @@ function CodageAngleDroit(A, O, B, color = "black", d = 0.4) {
     } else {
       o = rotation(this.sommet, a, 90);
     }
-    return polyline([a, o, b], color).svg(coeff);
+    let result = polyline([a, o, b], color);
+    result.isVisible = false;
+    this.id = result.id;
+    return result.svg(coeff);
   }
   this.tikz=function(){
   let a=pointSurSegment(this.sommet,this.depart, this.taille/scale);
@@ -3545,21 +3575,21 @@ function AfficheLongueurSegment(A, B, color = "black", d = 0.5) {
   this.extremite2=B
   this.distance=d
 
-  this.svg=function(coeff){
-    let O=milieu(this.extremite1,this.extremite2)
+  this.svg = function (coeff) {
+    let O = milieu(this.extremite1, this.extremite2);
     let M = rotation(this.extremite1, O, -90);
-  let N = pointSurSegment(O, M, this.distance*20/coeff);
-  let angle;
-  let s = segment(this.extremite1, this.extremite2);
-  s.isVisible = false;
-  let l = string_nombre(arrondi(s.longueur, 1));
-  if (this.extremite2.x > this.extremite1.x) {
-    angle = -s.angleAvecHorizontale;
-  } else {
-    angle = 180 - s.angleAvecHorizontale ;
-  }
-  return texteParPoint(l + " cm", N, angle, this.color).svg(coeff);
-  }
+    let N = pointSurSegment(O, M, (this.distance * 20) / coeff);
+    let angle;
+    let s = segment(this.extremite1, this.extremite2);
+    s.isVisible = false;
+    let l = string_nombre(arrondi(s.longueur, 1));
+    if (this.extremite2.x > this.extremite1.x) {
+      angle = -s.angleAvecHorizontale;
+    } else {
+      angle = 180 - s.angleAvecHorizontale;
+    }
+    return texteParPoint(l + " cm", N, angle, this.color).svg(coeff);
+  };
 
   this.tikz=function(){
     let O=milieu(this.extremite1,this.extremite2)
@@ -3790,32 +3820,31 @@ function CodeSegments(mark = "||", color = "black", ...args) {
     if (Array.isArray(args[0])) {
       // Si on donne une liste de points
       for (let i = 0; i < args[0].length - 1; i++) {
-        code += codeSegment(args[0][i], args[0][i + 1], mark, color).svg(coeff);
+        let codage = codeSegment(args[0][i], args[0][i + 1], mark, color);
+        codage.isVisible = false;
+        code += codage.svg(coeff);
         code += "\n";
       }
-      code += codeSegment(
-        args[0][args[0].length - 1],
-        args[0][0],
-        mark,
-        color
-      ).svg(coeff);
+      let codage = codeSegment(args[0][args[0].length - 1],args[0][0],mark,color)
+      codage.isVisible = false;
+      code += codage.svg(coeff);
       code += "\n";
     } else if (args[0].constructor == Segment) {
       for (let i = 0; i < args.length; i++) {
-        code += codeSegment(
-          args[i].extremite1,
-          args[i].extremite2,
-          mark,
-          color
-        ).svg(coeff);
+        let codage = codeSegment(args[i].extremite1,args[i].extremite2,mark,color);
+        codage.isVisible = false;
+        code += codage.svg(coeff);
         code += "\n";
       }
     } else {
       for (let i = 0; i < args.length; i += 2) {
-        code += codeSegment(args[i], args[i + 1], mark, color).svg(coeff);
+        let codage = codeSegment(args[i], args[i + 1], mark, color);
+        codage.isVisible = false;
+        code += codage.svg(coeff);
         code += "\n";
       }
     }
+    code = `<g id="${this.id}">${code}</g>`
     return code;
   };
   this.tikz = function () {
@@ -3885,7 +3914,7 @@ function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur
   this.angle=angle
   
   this.svg=function(coeff){
-    let P,depart,d,arcangle,mesure,code="",M
+    let P,depart,d,arcangle,mesure,code="",M,objets=[];
     depart=pointSurSegment(this.centre,this.debut,this.taille*20/pixelsParCm)
     P=rotation(depart,this.centre,this.angle/2)
     M=pointSurSegment(this.centre,P,taille+0.6*20/coeff)
@@ -3893,13 +3922,30 @@ function CodeAngle(debut,centre,angle,taille=0.8,mark='',color='black',epaisseur
     d.isVisible=false
     mesure= arrondi_virgule(Math.abs(angle),0) + "°";
     arcangle=arc(depart,this.centre,this.angle,remplir,this.couleurDeRemplissage,this.color)
+    arcangle.isVisible = false;
+    objets.push(arcangle);
     arcangle.opacite=this.opacite
     arcangle.epaisseur=this.epaisseur
     arcangle.couleurDeRemplissage=this.couleurDeRemplissage
     arcangle.opaciteDeRemplissage=this.opaciteDeRemplissage
-    if (this.mark!='')  code+=texteParPoint(mark,P,90-d.angleAvecHorizontale,color).svg(coeff)+'\n'
-    if (mesure_on) code+=texteParPoint(mesure,M, "milieu", color).svg(coeff)+'\n'
-    code+=arcangle.svg(coeff);
+    if (this.mark!=''){
+      let t = texteParPoint(mark,P,90-d.angleAvecHorizontale,color);
+      t.isVisible = false;
+      objets.push(t);
+    }
+    if (mesure_on) {
+      let t = texteParPoint(mesure,M, "milieu", color);
+      t.isVisible = false;
+      objets.push(t);
+    }
+    for (objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    if (objets.length>1){
+      code = `<g id="${this.id}">${code}</g>`
+    } else {
+      this.id = arcangle.id; // Dans le cas où il n'y a pas de groupe, on récupère l'id
+    }
     return code;
   }
 
@@ -5979,7 +6025,7 @@ function TexteParPoint(texte, A, orientation = "milieu", color='black',scale=1,a
         this.color
       }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
         coeff
-      )})">${texte}</text>\n `;
+      )})" id="${this.id}" >${texte}</text>\n `;
     } else {
       switch (orientation) {
         case "milieu":
@@ -5987,21 +6033,21 @@ function TexteParPoint(texte, A, orientation = "milieu", color='black',scale=1,a
             coeff
           )}" text-anchor="middle" dominant-baseline="central" fill="${
             this.color
-          }">${texte}</text>\n `;
+          }" id="${this.id}" >${texte}</text>\n `;
           break;
         case "gauche":
           code = `<text x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
           )}" text-anchor="end" dominant-baseline="central" fill="${
             this.color
-          }">${texte}</text>\n `;
+          }" id="${this.id}" >${texte}</text>\n `;
           break;
         case "droite":
           code = `<text x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
           )}" text-anchor="start" dominant-baseline="central" fill="${
             this.color
-          }">${texte}</text>\n `;
+          }" id="${this.id}" >${texte}</text>\n `;
           break;
       }
     }
@@ -6101,9 +6147,16 @@ function FractionParPosition({x=0,y=0,num=1,den=2,couleur='black'}){
   let offset=10
 
   this.svg=function(coeff){
-    let code=segment(x-longueur/coeff/2,y,x+longueur/coeff/2,y,couleur).svg(coeff)
-    code+=texteParPosition(nombre_avec_espace(num),x,y+offset/coeff,"milieu",couleur).svg(coeff)
-    code+=texteParPosition(nombre_avec_espace(den),x,y-offset/coeff,"milieu",couleur).svg(coeff)
+    let s = segment(x-longueur/coeff/2,y,x+longueur/coeff/2,y,couleur);
+    s.isVisible = false;
+    let code= s.svg(coeff)
+    let t1 = texteParPosition(nombre_avec_espace(num),x,y+offset/coeff,"milieu",couleur); 
+    code+= t1.svg(coeff)
+    let t2 = texteParPosition(nombre_avec_espace(den),x,y-offset/coeff,"milieu",couleur)
+    code+= t2.svg(coeff)
+    t1.isVisible = false;
+    t2.isVisible = false
+    code = `<g id="${this.id}">${code}</g>`;
     return code
   }
 
