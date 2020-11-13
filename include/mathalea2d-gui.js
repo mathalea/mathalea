@@ -82,6 +82,7 @@ window.onload = function () {
   });
 
   buttonSubmit.onclick = function () {
+    numId = 0;
     localStorage.setItem("Script Mathalea 2D", myCodeMirror.getValue()); // On sauvegarde dans le navigateur le code du script
     if (buttonTelecharger) {
       buttonTelecharger.style.visibility = "visible";
