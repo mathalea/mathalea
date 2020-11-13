@@ -192,7 +192,7 @@ var liste_des_exercices_disponibles = {
   "5R22-2": Exercice_simplification_somme_algebrique,
   "5S13": Calculer_des_frequences,
   "5S14": Calculer_des_moyennes,
-  "beta5S20":Placer_probabilites,
+  "5S20":Placer_probabilites,
   "5S21": fonctions_probabilite1,
   "4Algo1-0": Tracer_avec_scratch,
   "4C10-0": Signe_produit_quotient_relatifs,
