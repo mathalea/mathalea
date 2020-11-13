@@ -7012,7 +7012,7 @@ function Eq_resolvantes_Thales(){
 function identites_calculs(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.debug = true;	
+	this.debug = false;	
 	this.sup=1;
 	if (this.debug) {
 		this.nb_questions = 3;	
@@ -7026,8 +7026,8 @@ function identites_calculs(){
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	//this.nb_questions_modifiable = false;	
-	sortie_html? this.spacing = 1.5 : this.spacing = 1; 
-	sortie_html? this.spacing_corr = 1.5 : this.spacing_corr = 1;
+	sortie_html? this.spacing = 1 : this.spacing = 1; 
+	sortie_html? this.spacing_corr = 1 : this.spacing_corr = 1;
 
 
 	let type_de_questions_disponibles;	
@@ -7038,16 +7038,23 @@ function identites_calculs(){
 		// } else {
 				switch (Number(this.sup)) {
 					case 1 :
-						type_de_questions_disponibles = [0,0,0];//shuffle([choice([1,3]),choice([2,3]),0]);      			
+						type_de_questions_disponibles = [0,0,0];//shuffle([choice([1,3]),choice([2,3]),0]);
+						this.introduction = warn_message(`$(a+b)^2=a^2+2ab+b^2$`, `nombres`, `Coup de pouce`);      			
 						break;
 					case 2 :
-						type_de_questions_disponibles = [1,1,1];//shuffle([choice([1,3]),choice([2,3]),0]);      			
+						type_de_questions_disponibles = [1,1,1];//shuffle([choice([1,3]),choice([2,3]),0]); 
+						this.introduction = warn_message(`2`, `nombres`, `Coup de pouce`);      			     	
+						this.introduction = warn_message(`$(a-b)^2 = a^2-2ab+b^2$`, `nombres`, `Coup de pouce`); 		
 						break;
 					case 3 : 
 						type_de_questions_disponibles = [2,2,2];//shuffle([choice([1,3]),choice([2,3]),0]);      			
+						this.introduction = warn_message(`3`, `nombres`, `Coup de pouce`);      			
+						this.introduction = warn_message(`$(a+b)(a-b)=a^2-b^2$`, `nombres`, `Coup de pouce`); 
 						break;
 					case 4 :
 						type_de_questions_disponibles = shuffle([0,1,2]);//shuffle([choice([1,3]),choice([2,3]),0]);      			
+						this.introduction = warn_message(`4`, `nombres`, `Coup de pouce`);      			
+						this.introduction = warn_message(`$(a+b)^2 = a^2 +2ab + b^2$<br>$(a-b)^2 = a^2-2ab+b^2$<br>$(a+b)(a-b)=a^2-b^2$`, `nombres`, `Coup de pouce`); 
 						break;
 				}
      		 //type_de_questions_disponibles = [0,1,2];//shuffle([choice([1,3]),choice([2,3]),0]);      			
@@ -7058,6 +7065,7 @@ function identites_calculs(){
 		
 		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
 			// une fonction pour gérer l'affichage sous forme de carré

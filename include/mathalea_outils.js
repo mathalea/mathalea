@@ -4304,7 +4304,8 @@ function warn_message(texte,couleur,titre) {
 	if (sortie_html) {
 		return `
 		<br>
-		<div class="ui compact warning message">		
+		<div class="ui compact warning message">
+		<h4><i class="lightbulb outline icon"></i>${titre}</h4>		
 		<p>`+texte+`
 		</p>
 		</div>
