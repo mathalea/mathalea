@@ -4206,8 +4206,6 @@ function droiteGraduee(...args) {
 
   let Min2=Math.round((Min+thickOffset)*factor),Max2=Math.round((Max-thickOffset)*factor)
   let pas1=Math.round(thickDistance*factor),pas2=Math.round(thickSecDist*factor),pas3=Math.round(thickTerDist*factor)
-  
-  console.log(factor,pas1,pas2,Min2,Max2,thickOffset)
 
   for (j=Min2;j<=Max2;j++) {
     i=calcul((j-Min*factor)/factor)

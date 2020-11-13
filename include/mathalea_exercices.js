@@ -25,6 +25,7 @@ var liste_des_exercices_disponibles = {
   "c3C10-4" : Exercice_tables_d_additions_cycle3,
   "c3C11" : Division_cycle3,
   "c3N10" : Ecrire_entiers_cycle3,
+  "c3N23" : lireUneAbscisseAvecZoomCM,
   "6Algo10": Colorier_Deplacement,
   "6C10": Additions_soustractions_multiplications_posees,
   "6C11": Divisions_euclidiennes,
@@ -9463,7 +9464,7 @@ function Exercice_differentes_ecritures_nombres_decimaux() {
 function Lire_abscisse_decimale_trois_formes() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.niveau='CM'
-  this.titre = "Lire une abscisse décimale sous trois formes";
+  this.titre = "Lire des abscisses décimales sous trois formes";
   this.consigne = "";
   if (sortie_html) {
     this.spacing = 2;
@@ -9596,7 +9597,7 @@ function Lire_abscisse_decimale_trois_formes() {
       texte_corr+=`${num_alpha(2)} L'abscisse de ${noms[2]} est : $${tex_fraction(calcul(x3*1000),1000)}$.`
   
     }
-    texte+= mathalea2d({xmin:-1.5,xmax:35,ymin:-1.5,ymax:1.5,pixelsParCm:30,scale:0.5},d1)
+    texte+= mathalea2d({xmin:-1.5,xmax:35,ymin:-1.5,ymax:1.5,pixelsParCm:25,scale:0.5},d1)
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
     liste_de_question_to_contenu_sans_numero(this);
@@ -9604,16 +9605,23 @@ function Lire_abscisse_decimale_trois_formes() {
   this.besoin_formulaire_numerique = ['Niveau de difficulté',3,'1 : Au dixième\n2 : Au centième\n3 : Au millième'];
 }
 /**
- * Lire des nombres déciamux sur une portion de droite graduée
- * Une question demande la forme décimale, une autre, la partie entière plus la fraction décimale, et une troisième demande une seule fraction décimale.
+ * Lire un nombre décimal jusqu'au millième graĉe à un système de zoom successifs
+ * L'abscisse est à donner sous trois formes.
  * ref 6N23-3
  * 
  * @Auteur Jean-Claude Lhote
  */
+function lireUneAbscisseAvecZoomCM() {
+  LireUneAbscisseAvecZoom.call(this);
+  this.niveau='CM';
+  this.sup=1;
+}
+
 function LireUneAbscisseAvecZoom() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.niveau = 'sixième'
-  this.titre = "Lire une abscisse décimale sous trois formes";
+  this.sup=3;
+  this.titre = "Lire une abscisse décimale grâce à des zooms successifs";
   this.consigne = "";
   if (sortie_html) {
     this.spacing = 2;
@@ -9634,19 +9642,23 @@ function LireUneAbscisseAvecZoom() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
 
-    let d1, d2,d3,d3Corr, d1Corr, d2Corr, texte = "", texte_corr = "", extremite, noms = choisit_lettres_differentes(5, 'QFN')
+    let d1, d2,d3,d3Corr, d1Corr, d2Corr, texte = "", texte_corr = "", extremite,extreme, noms = choisit_lettres_differentes(5, 'QFN')
     let x1 = 0, x2 = 0, x3 = 0, objets = [], fenetre, thickOff = 0, objetsCorr = []
     if (this.sup == 1) {
       if (this.niveau == 'CM') {
         xmin = 0
         thickOff = 0
+        origine=0
+        extreme=9
+        xmax=9.2
       }
       else {
         xmin = randint(5, 10) - 0.2
+        origine=Math.round(xmin+0.2)
+        extreme=calcul(origine+9)
         thickOff = 0.1
+        xmax=origine+9.2
       }
-
-      xmax = xmin + 9.2
       x1 = calcul(xmin + 0.2 + randint(1, 5) + randint(2, 8) / 10)
       //   xmin=calcul(Math.floor(x1)-5)
       //    xmax=calcul(Math.floor(x1)+6)
@@ -9655,7 +9667,8 @@ function LireUneAbscisseAvecZoom() {
 
       d1 = droiteGraduee2({
         x: 0, y: 3, Min: xmin, axePosition: 'H', Max: xmax + 0.2, thickSec: true, thickTer: false, Unite: 3, thickOffset: thickOff,
-        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 4, labelsPrincipaux: false, labelListe: [[xmin + 0.2, `${nombre_avec_espace(xmin + 0.2)}`], [xmax, `${nombre_avec_espace(xmax)}`]],
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 4, labelsPrincipaux: false, 
+        labelListe: [[origine, `${nombre_avec_espace(origine)}`], [extreme, `${nombre_avec_espace(extreme)}`]],
         pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
         pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
       })
@@ -9712,7 +9725,8 @@ function LireUneAbscisseAvecZoom() {
       else extremite = `->`
       d1 = droiteGraduee2({
         x: 0, y: 3, Min: xmin, axePosition: 'H', Max: xmax, thickSec: true, thickTer: true, Unite: 30, thickOffset: thickOff,
-        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 8, thickDistance: 1, thickSecDist: 0.1, thickTerDist: 0.01, labelsPrincipaux: false, labelListe: [[Math.floor(x1), `${Math.floor(x1)}`], [Math.ceil(x1), `${Math.ceil(x1)}`]],
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 8, thickDistance: 1, thickSecDist: 0.1, thickTerDist: 0.01, labelsPrincipaux: false,
+        labelListe: [[Math.floor(x1), `${Math.floor(x1)}`], [Math.ceil(x1), `${Math.ceil(x1)}`]],
         pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
         pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
       })
@@ -9762,7 +9776,6 @@ function LireUneAbscisseAvecZoom() {
         thickOff = 0.001
       }
 
-      xmin = randint(1, 7)
       xmax = xmin + 1
       x1 = calcul(xmin + randint(2, 8) / 10 + randint(2, 8) / 100 + randint(2, 8) * 0.001)
       x2 = troncature(x1, 1)
@@ -9775,7 +9788,8 @@ function LireUneAbscisseAvecZoom() {
       else extremite = `->`
       d1 = droiteGraduee2({
         x: 0, y: 6, Min: xmin, axePosition: 'H', Max: xmax, thickSec: true, thickTer: true, Unite: 30, thickDistance: 1, thickSecDist: 0.1, thickTerDist: 0.01, thickOffset: thickOff,
-        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: true, labelListe: [[xmin, `${nombre_avec_espace(xmin)}`], [xmax, `${nombre_avec_espace(xmax)}`]],
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: true,
+        labelListe: [[xmin, `${nombre_avec_espace(xmin)}`], [xmax, `${nombre_avec_espace(xmax)}`]],
         pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
         pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 3, axeStyle: extremite
       })
@@ -17378,7 +17392,7 @@ jQuery(document).ready(function () {
   }
 
   liste_html_des_exercices_c3 = liste_html_des_exercices_d_un_niveau([
-    ['c3C1','c3C1 - Calculs niveau 1'],['c3N1','c3N1 - Numération Niveau 1']])
+    ['c3C1','c3C1 - Calculs niveau 1'],['c3N1','c3N1 - Numération Niveau 1'],['c3N2','c3N2 - Numération Niveau 2']])
   
   liste_html_des_exercices_6 = liste_html_des_exercices_d_un_niveau([
     ['6C1','6C1 - Calculs niveau 1'],['6C2','6C2 - Calculs niveau 2'],['6C3','6C3 - Calculs niveau 3'],
