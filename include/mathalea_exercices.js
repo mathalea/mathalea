@@ -292,6 +292,7 @@ var liste_des_exercices_disponibles = {
   "3F12-3": Tableau_de_valeurs,
   "3F12-4": Image_graphique,
   "3F13": Antecedent_graphique,
+  "3F13-1": Antecedent_et_image_graphique,
   "3F21": Lecture_expression_fonctions_lineaires,
   "3F21-1": Lecture_expression_fonctions_affines,
   "3S15": Calculer_des_etendues,
