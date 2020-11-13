@@ -25,6 +25,7 @@ var liste_des_exercices_disponibles = {
   "c3C10-4" : Exercice_tables_d_additions_cycle3,
   "c3C11" : Division_cycle3,
   "c3N10" : Ecrire_entiers_cycle3,
+  "c3N22" : Lire_abscisse_decimale_trois_formesCM,
   "c3N23" : lireUneAbscisseAvecZoomCM,
   "6Algo10": Colorier_Deplacement,
   "6C10": Additions_soustractions_multiplications_posees,
@@ -9461,9 +9462,15 @@ function Exercice_differentes_ecritures_nombres_decimaux() {
  * 
  * @Auteur Jean-Claude Lhote
  */
+function Lire_abscisse_decimale_trois_formesCM(){
+  Lire_abscisse_decimale_trois_formes.call(this)
+  this.niveau='CM'
+  this.sup=1
+}
+
 function Lire_abscisse_decimale_trois_formes() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.niveau='CM'
+  this.niveau='sixième'
   this.titre = "Lire des abscisses décimales sous trois formes";
   this.consigne = "";
   if (sortie_html) {
@@ -9650,7 +9657,7 @@ function LireUneAbscisseAvecZoom() {
         thickOff = 0
         origine=0
         extreme=9
-        xmax=9.2
+        xmax=9
       }
       else {
         xmin = randint(5, 10) - 0.2
@@ -9680,7 +9687,8 @@ function LireUneAbscisseAvecZoom() {
       })
       d1Corr = droiteGraduee2({
         x: 0, y: 3, Min: xmin, axePosition: 'H', Max: xmax + 0.2, thickSec: true, thickTer: false, Unite: 3, thickOffset: thickOff,
-        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 4, labelsPrincipaux: true, labelListe: [[xmin + 0.2, `${nombre_avec_espace(xmin + 0.2)}`], [xmax, `${nombre_avec_espace(xmax)}`]],
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 4, labelsPrincipaux: true,
+        labelListe: [[origine , `${nombre_avec_espace(origine )}`], [extreme, `${nombre_avec_espace(extreme)}`]],
         pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
         pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
       })
