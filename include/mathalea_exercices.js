@@ -196,7 +196,7 @@ var liste_des_exercices_disponibles = {
   "5R22-2": Exercice_simplification_somme_algebrique,
   "5S13": Calculer_des_frequences,
   "5S14": Calculer_des_moyennes,
-  "beta5S20":Placer_probabilites,
+  "5S20":Placer_probabilites,
   "5S21": fonctions_probabilite1,
   "4Algo1-0": Tracer_avec_scratch,
   "4C10-0": Signe_produit_quotient_relatifs,
@@ -14701,7 +14701,7 @@ function Lecture_diagramme_barre() {
       lstElementGraph.push(traceBarre((((r.xMax-r.xMin)/(nbAnimaux+1))*(i+1)),lstNombresAnimaux[i],premiere_lettre_en_majuscule(lstAnimauxExo[i]),{unite:.1/coef}))
     }
 
-    texte += mathalea2d({xmin : -5, xmax : 11, ymin : -3, ymax : 11, pixelsParCm : 30, scale : .5}, r, lstElementGraph)
+    texte += mathalea2d({xmin : -5, xmax : 11, ymin : -4, ymax : 11, pixelsParCm : 30, scale : .5}, r, lstElementGraph)
     // debut de la correction
     // question 1
     texte_corr = num_alpha(0) + ` Les animaux les plus nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMax)] +'.<br>';
