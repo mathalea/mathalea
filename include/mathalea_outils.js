@@ -1397,6 +1397,24 @@ function choisit_lettres_differentes(nombre,lettres_a_eviter,majuscule=true){
 	}
 	return lettres
 }
+cesar=function (word,decal){
+	let mot='',code=65;
+	for (let x=0;x<word.length;x++) {
+		code=word.charCodeAt(x)%65
+		code=(code+decal)%26+65
+		mot+=String.fromCharCode(code)
+	}
+	return mot
+}
+
+codeCesar=function(mots,decal){
+	let motsCodes=[]
+	for (let x=0;x<mots.length;x++) {
+		console.log(mots[x])
+		motsCodes.push(cesar(mots[x],decal))
+	}
+	return motsCodes
+}
 
 /**
 * Renvoie une lettre majuscule depuis un nombre compris entre 1 et 702

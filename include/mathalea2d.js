@@ -5822,7 +5822,7 @@ function GraphiqueInterpole(
   
 ) {
   ObjetMathalea2D.call(this);
-  mesCourbes = [];
+  let mesCourbes = [];
   for (let i = 0; i < tableau.length - 1; i++) {
     let x0 = tableau[i][0];
     let y0 = tableau[i][1];
@@ -5835,14 +5835,14 @@ function GraphiqueInterpole(
     let c = courbe2(f,{step:step,xMin : depart, xMax : fin, color : color, epaisseur : epaisseur, xUnite : repere.xUnite, yUnite : repere.yUnite, yMin : repere.yMin, yMax : repere.yMax})
     mesCourbes.push(c);
     this.svg = function (coeff) {
-      code = "";
+      let code = "";
       for (objet of mesCourbes) {
         code += "\n\t" + objet.svg(coeff);
       }
       return code;
     };
     this.tikz = function () {
-      code = "";
+      let code = "";
       for (objet of mesCourbes) {
         code += "\n\t" + objet.tikz();
       }
