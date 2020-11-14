@@ -208,7 +208,11 @@
                 <div class="field">
                   <div class="ui checkbox">
                     <input type="checkbox" tabindex="0" id="supprimer_correction" class="hidden">
-                    <label>Supprimer la correction</label>
+                    <label>Supprimer la correction &nbsp;&nbsp;&nbsp;</label>
+                  </div>
+                  <div class="ui checkbox">
+                    <input type="checkbox" tabindex="0" id="supprimer_reference" class="hidden">
+                    <label>Cacher les identifiants des exercices</label>
                   </div>
                 </div>
                 </form>
@@ -230,12 +234,5 @@
 
 <script src="include/mathalea.js" type="text/javascript"></script>   
 
-<script type="text/javascript">
-
-let btn_radio_style_classique = document.getElementById('style_classique');
-btn_radio_style_classique.addEventListener('change', nouvelles_donnees);
-let btn_radio_style_CoopMaths = document.getElementById('style_CoopMaths');
-btn_radio_style_CoopMaths.addEventListener('change', nouvelles_donnees);
-</script>
 
 </html>

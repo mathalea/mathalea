@@ -229,6 +229,20 @@ Les réponses modifient les caractéristiques de l'exercice puis le code LaTeX e
 			form_correction_affichee.addEventListener('change', function(e) { // Dès que le statut change, on met à jour
 				mise_a_jour_du_code();
 			});
+			
+			
+			// Gestion de la suppression des identifiants
+			let form_supprimer_reference = document.getElementById('supprimer_reference');
+			form_supprimer_reference.addEventListener('change', function(e) { // Dès que le statut change, on met à jour
+				// nouvelles_donnees();
+				mise_a_jour_du_code();
+			});
+
+			// Gestion du changement de style
+			let btn_radio_style_classique = document.getElementById('style_classique');
+			btn_radio_style_classique.addEventListener('change', nouvelles_donnees);
+			let btn_radio_style_CoopMaths = document.getElementById('style_CoopMaths');
+			btn_radio_style_CoopMaths.addEventListener('change', nouvelles_donnees);
 		}
 		
 
@@ -602,6 +616,7 @@ function mise_a_jour_du_code(){
 		code_LaTeX = '';
 		if (liste_des_exercices.length > 0) {
 			for (let i = 0; i < liste_des_exercices.length; i++) {
+				exercice[i].id = liste_des_exercices[i] // Pour récupérer l'id qui a appelé l'exercice
 				exercice[i].nouvelle_version();
 				if (exercice[i].titre=='Fichier statique') {
 					liste_des_exercices_statiques.push(exercice[i].sup)
