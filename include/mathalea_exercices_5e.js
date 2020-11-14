@@ -1229,7 +1229,6 @@ function Egalite_d_angles() {
 	else {
 		this.spacing=2;
 		this.spacing_corr=2;
-
 	}
 	this.nb_cols=1;
 	this.nb_cols_corr=1;
@@ -1237,15 +1236,16 @@ function Egalite_d_angles() {
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions=[]
 		this.liste_corrections=[]
-		let figure=[];
+		let figure=[],choix;
 		let fig1=function(){ //retourne le tableau d'objets, la série de questions et la série de réponses 
 			let A, B, C, D, E, a, ac, ce, c, AE, BD, CA, CE, c1, c2, c3, c4, c5, m1, m2, l1, objets = [], enonce, correction, params;
-			let noms = choisit_lettres_differentes(5, 'Q', true);
+			let noms = choisit_lettres_differentes(5, 'Q', true),gras;
+			sortie_html ? gras="#f15929" : gras=`black`;
 			A = point(0, 0, noms[0], 'above left');
 			a = randint(45, 85);
 			ac = randint(8, 10)
 			ce = randint(7, 10, ac)
-			C = similitude(rotation(point(1,0),A,randint(0,180)), A, a, ac, noms[2], 'left')
+			C = similitude(rotation(point(1,0),A,randint(-45,45)), A, a, ac, noms[2], 'left')
 			c = randint(45, 70)
 			E = similitude(A, C, c, ce / ac, noms[4], 'above right');
 			CA = droite(C, A)
@@ -1275,12 +1275,12 @@ function Egalite_d_angles() {
 			enonce += `${num_alpha(4)} En utilisant la question ${num_alpha(2)} déterminer la mesure de l'angle $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$.<br>`
 			enonce += `${num_alpha(5)} Vérifier la conjecture suivante : « La somme des angles d'un quadrilatère vaut 360°.»<br>`
 			correction = `${num_alpha(0)} Comme les droites $(${noms[0]}${noms[4]})$ et $(${noms[1]}${noms[3]})$ sont parallèles, les angles correspondants $\\widehat{${noms[4]}${noms[0]}${noms[1]}}$ et $\\widehat{${noms[3]}${noms[1]}${noms[2]}}$ sont égaux, donc $\\widehat{${noms[3]}${noms[1]}${noms[2]}}$ mesure $${a}\\degree$.<br>`
-			correction += `${num_alpha(1)} Les angles $\\widehat{${noms[0]}${noms[1]}${noms[3]}}$ et $\\widehat{${noms[3]}${noms[1]}${noms[2]}}$ sont adjacents supplémentaires, donc $\\widehat{${noms[0]}${noms[1]}${noms[3]}}$ mesure $180\\degree-${a}\\degree=${mise_en_evidence(180 - a, 'black')}\\degree$.<br>`
+			correction += `${num_alpha(1)} Les angles $\\widehat{${noms[0]}${noms[1]}${noms[3]}}$ et $\\widehat{${noms[3]}${noms[1]}${noms[2]}}$ sont adjacents supplémentaires, donc $\\widehat{${noms[0]}${noms[1]}${noms[3]}}$ mesure $180\\degree-${a}\\degree=${mise_en_evidence(180 - a,gras)}\\degree$.<br>`
 			correction += `${num_alpha(2)} Dans un triangle, la somme des angles vaut $180\\degree$ donc $\\widehat{${noms[1]}${noms[3]}${noms[2]}}=180\\degree-\\widehat{${noms[3]}${noms[1]}${noms[2]}}-\\widehat{${noms[1]}${noms[2]}${noms[3]}}=180\\degree-${a}\\degree-${c}\\degree=${180 - a - c}\\degree$.<br>`
-			correction += `${num_alpha(3)} Les angles $\\widehat{${noms[1]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[1]}${noms[3]}${noms[4]}}$ sont adjacents supplémentaires, donc $\\widehat{${noms[1]}${noms[3]}${noms[4]}}$ mesure $180\\degree-${180 - a - c}\\degree=${mise_en_evidence(a + c, 'black')}\\degree$.<br>`
-			correction += `${num_alpha(4)} Comme les droites $(${noms[0]}${noms[4]})$ et $(${noms[1]}${noms[3]})$ sont parallèles, les angles correspondants $\\widehat{${noms[1]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$ sont égaux, donc $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$ mesure $${mise_en_evidence(180 - a - c, 'black')}\\degree$.<br>`
-			correction += `${num_alpha(5)} La somme des angles du quadrilatère vaut donc : $${a}\\degree+${mise_en_evidence(180 - a, 'black')}\\degree+${mise_en_evidence(a + c, 'black')}\\degree+${mise_en_evidence(180 - a - c, 'black')}\\degree=180\\degree+180\\degree=360\\degree$.<br>`
-			correction += `$\\phantom{f/} La conjecture est finalement vraie.`
+			correction += `${num_alpha(3)} Les angles $\\widehat{${noms[1]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[1]}${noms[3]}${noms[4]}}$ sont adjacents supplémentaires, donc $\\widehat{${noms[1]}${noms[3]}${noms[4]}}$ mesure $180\\degree-${180 - a - c}\\degree=${mise_en_evidence(a + c,gras)}\\degree$.<br>`
+			correction += `${num_alpha(4)} Comme les droites $(${noms[0]}${noms[4]})$ et $(${noms[1]}${noms[3]})$ sont parallèles, les angles correspondants $\\widehat{${noms[1]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$ sont égaux, donc $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$ mesure $${mise_en_evidence(180 - a - c,gras)}\\degree$.<br>`
+			correction += `${num_alpha(5)} La somme des angles du quadrilatère vaut donc : $${a}\\degree+${mise_en_evidence(180 - a,gras)}\\degree+${mise_en_evidence(a + c,gras)}\\degree+${mise_en_evidence(180 - a - c,gras)}\\degree=180\\degree+180\\degree=360\\degree$.<br>`
+			correction += `$\\phantom{f}$ La conjecture est finalement vraie.`
 			params = { xmin: Math.min(A.x-8,C.x-8,E.x-8), ymin: Math.min(A.y - 1, E.y - 1,C.y-1), xmax: Math.max(E.x + 2,A.x+2,C.x+2), ymax: Math.max(C.y + 2,A.y+2,E.y+2),scale:0.7}
 
 			return [objets, params, enonce, correction]
@@ -1289,18 +1289,18 @@ function Egalite_d_angles() {
 		let A, B, C, D, E, a, ac,ab,cd,ad, c,d,AB,BE, CA, CE, cA, cD, cE,c3, c4, c5,c6, l1, objets = [], enonce, correction, params;
 		let noms=choisit_lettres_differentes(5,'Q',true);
 		A=point(0,0,noms[0],'above left');
-		B=point(randint(8,10),randint(1,3),noms[1],'below right')
+		B=rotation(point(randint(8,10),randint(1,3)),A,randint(-40,40),noms[1],'right')
 		ab=longueur(A,B)
 		ac=randint(6,8)
 		a=randint(40,60);
-		C=similitude(B,A,a,ac/ab,noms[2],'left')
+		C=similitude(B,A,a,ac/ab,noms[2],'above left')
 		CA=droite(C,A)
 		AB=droite(A,B)
-		D=pointSurSegment(A,B,ab/2+randint(-1,1,0)/10,noms[3],'below left')
+		D=pointSurSegment(A,B,ab/2+randint(-1,1,0)/10,noms[3],'below')
 		CE=droite(C,D)
 		cd=longueur(C,D)
 		ad=longueur(A,D)
-		E=pointSurSegment(C,D,cd*ab/ad,noms[4],'right')
+		E=pointSurSegment(C,D,cd*ab/ad,noms[4],'below right')
 		BE=droite(B,E)
 		c=arrondi(angle(A,C,D),0)
 		d=arrondi(angle(C,D,B),0)
@@ -1318,19 +1318,21 @@ function Egalite_d_angles() {
 		enonce += `${num_alpha(1)} En déduire la mesure de l'angle $\\widehat{${noms[3]}${noms[2]}${noms[0]}}$.<br>`
 		enonce += `${num_alpha(2)} Déterminer si les droites $(${noms[0]}${noms[2]})$ et $(${noms[4]}${noms[1]})$ sont parallèles.<br>`
 		enonce += `${num_alpha(3)} Si on considère que les segments $[${noms[0]}${noms[2]}]$ et $[${noms[4]}${noms[1]}]$ sont de même longueur, Déterminer la nature du quadrilatère $${noms[0]}${noms[2]}${noms[1]}${noms[4]}$.<br>`
-		correction = `${num_alpha(0)} Les angles $\\widehat{${noms[0]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[2]}${noms[3]}${noms[1]}}$ sont adjacents supplémentaires, donc $\\widehat{${noms[0]}${noms[3]}${noms[2]}}$ mesure $180\\degree-${d}\\degree=${mise_en_evidence(180 - d, 'black')}\\degree$.<br>`
-		correction += `${num_alpha(1)} Dans un triangle, la somme des angles vaut $180\\degree$ donc $\\widehat{${noms[0]}${noms[2]}${noms[3]}}=180-\\widehat{${noms[3]}${noms[0]}${noms[2]}}-\\widehat{${noms[0]}${noms[3]}${noms[2]}}=180\\degree-${a}\\degree-${180-d}\\degree=${mise_en_evidence(- a + d,'black')}\\degree$.<br>`
+		correction = `${num_alpha(0)} Les angles $\\widehat{${noms[0]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[2]}${noms[3]}${noms[1]}}$ sont adjacents supplémentaires, donc $\\widehat{${noms[0]}${noms[3]}${noms[2]}}$ mesure $180\\degree-${d}\\degree=${180 - d}\\degree$.<br>`
+		correction += `${num_alpha(1)} Dans un triangle, la somme des angles vaut $180\\degree$ donc $\\widehat{${noms[0]}${noms[2]}${noms[3]}}=180-\\widehat{${noms[3]}${noms[0]}${noms[2]}}-\\widehat{${noms[0]}${noms[3]}${noms[2]}}=180\\degree-${a}\\degree-${180-d}\\degree=${- a + d}\\degree$.<br>`
 		correction += `${num_alpha(2)} Pour les droites $(${noms[0]}${noms[2]})$ et $(${noms[4]}${noms[1]})$ coupées par la sécante $(${noms[2]}${noms[4]})$ les angles $\\widehat{${noms[0]}${noms[2]}${noms[3]}}$ et $\\widehat{${noms[1]}${noms[4]}${noms[3]}}$ sont des angles alternes-internes.<br>`
 		correction +=`$\\phantom{c/}$ Or si des angles alternes-internes sont égaux, cela signifie que les droites coupées par la sécante sont parallèles.<br>`
 		correction+=`$\\phantom{c/}$ Les droites $(${noms[0]}${noms[2]})$ et $(${noms[4]}${noms[1]})$ sont donc parallèles.<br>`
 		correction += `${num_alpha(3)} Les droites $(${noms[0]}${noms[2]})$ et $(${noms[4]}${noms[1]})$ sont parallèles et les segments $[${noms[0]}${noms[2]}]$ et $[${noms[4]}${noms[1]}]$ sont de même longueur.<br>`
 		correction +=`$\\phantom{c/}$ Or, un quadrilatère qui possède des côtés opposés parallèles et de même longueur est un parallèlogramme.<br>`
-		correction +=`$\\phantom{c/}$ Donc $${noms[0]}${noms[2]}${noms[1]}${noms[4]}$ est un parallèlogramme et $${noms[3]}$ en est son centre.`
-		params = { xmin: -2, ymin: Math.min(A.y - 1, E.y - 1), xmax: Math.max(E.x + 2,B.x+2), ymax: C.y + 2}
+		correction +=`$\\phantom{c/}$ Donc $${noms[0]}${noms[2]}${noms[1]}${noms[4]}$ est un parallèlogramme et $${noms[3]}$ est son centre.`
+		params = { xmin: Math.min(A.x,B.x,C.x,D.x,E.x)-1, ymin: Math.min(A.y,B.y,C.y,D.y,E.y)-1, xmax: Math.max(A.x,B.x,C.x,D.x,E.x)+2, ymax: Math.max(A.y,B.y,C.y,D.y,E.y)+2}
 
 		return [objets, params, enonce, correction]
 	}	
-	switch (parseInt(this.sup)) {
+	if (this.sup==3) choix=randint(1,2)
+	else choix=parseInt(this.sup)
+	switch (choix) {
 		case 1:
 			figure=fig1()
 			figure[2]+=mathalea2d(figure[1],figure[0])
@@ -1345,7 +1347,7 @@ function Egalite_d_angles() {
 	this.liste_corrections.push(figure[3]);
 	liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_numerique = ['Numéro de figure',2,'1 : Le trapèze\n2: Le papillon'] 
+	this.besoin_formulaire_numerique = ['Numéro de figure',3,'1 : Le trapèze\n2: Le papillon\n3: Au hasard'] 
 }
 
 /**
@@ -4549,7 +4551,7 @@ function Calculer_une_expression_litteraleBis() {
 			val1=randint(2,5)
 			val2=randint(6,9)
 			//resultats=Choisir_expression_litteraleBis(nb_operations,decimal,val1,val2)
-			resultats=Choisir_expression_litterale(nb_operations,decimal,val1,val2)
+			resultats=Choisir_expression_litterale(nb_operations,decimal,val1,val2,this.sup)
 			expf=resultats[0]
 			expn=resultats[1]
 			expc=resultats[2]
@@ -4587,6 +4589,7 @@ function Calculer_une_expression_litteraleBis() {
 		}
 		liste_de_question_to_contenu(this);
 	}	
+	this.besoin_formulaire_case_a_cocher =["Avec signes × devant les parenthèses",true]
 	this.besoin_formulaire2_case_a_cocher = ["Avec décimaux.",false]
 
 }
@@ -4604,6 +4607,7 @@ function Determiner_derniere_operation_exp_num() {
 	this.nb_questions = 4;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
+	this.sup=true;
 	this.sup2=false; // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
 	this.titre = `Déterminer la dernière opération à effectuer dans une expression numérique`;
 
@@ -4620,7 +4624,7 @@ function Determiner_derniere_operation_exp_num() {
 			val1=randint(2,5)
 			val2=randint(6,9)
 			//resultats=Choisir_expression_litteraleBis(nb_operations,decimal,val1,val2)
-			resultats=Choisir_expression_litterale(nb_operations,decimal,val1,val2)
+			resultats=Choisir_expression_litterale(nb_operations,decimal,val1,val2,this.sup)
 			expf=resultats[0]
 			expn=resultats[1]
 			expc=resultats[2]
@@ -4665,6 +4669,7 @@ function Determiner_derniere_operation_exp_num() {
 		liste_de_question_to_contenu(this);
 	}	
 	this.besoin_formulaire2_case_a_cocher = ["Avec décimaux.",false]
+	this.besoin_formulaire_case_a_cocher=["Avec le signe × devant les parenthèses",true]
 
 }
 
@@ -4679,7 +4684,7 @@ function Determiner_derniere_operation_exp_num() {
  * Référence 5C11,5C11-1, 5C11-2, 5L13, 5L13-1, 5L13-2, 5L13-3
  */
 //function Choisir_expression_litteraleBis(nb_operations,decimal,val1=1,val2=2) {
-function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2) {
+function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2,times_on=true) {
 	let expf,expl,expc,arrondir=Math.log10(decimal)
 	let a=arrondi(randint(2*decimal,10*decimal)/decimal,arrondir)
 	let b=arrondi(randint(2*decimal,10*decimal,[a*decimal])/decimal,arrondir)
@@ -4691,6 +4696,8 @@ function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2) {
     let l1 = 'x'
 	let l2 = 'y'
 	let nbval
+	let signex=``
+	if (times_on) signex=`\\times`
 	switch (nb_operations){
 		case 1 : // expressions de base (1 opération)
 			nbval=1
@@ -4737,15 +4744,15 @@ function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2) {
 			switch (souscas) {
 				case 0 : //a(b+c)
 					expf=`Le produit de ${nombre_avec_espace(a)} par la somme de ${nombre_avec_espace(b)} et $${l1}$`
-					expl=`$${tex_nombre(a)}(${tex_nombre(b)}+${l1})$`
-					expc=`$${tex_nombre(a)}(${tex_nombre(b)}+${l1})=${tex_nombre(a)}(${tex_nombre(b)}+${val1})=${tex_nombre(a)}\\times ${tex_nombre(b+val1)} = ${tex_nombre(a*(b+val1))}$`
+					expl=`$${tex_nombre(a)}${signex}(${tex_nombre(b)}+${l1})$`
+					expc=`$${tex_nombre(a)}${signex}(${tex_nombre(b)}+${l1})=${tex_nombre(a)}${signex}(${tex_nombre(b)}+${val1})=${tex_nombre(a)}\\times ${tex_nombre(b+val1)} = ${tex_nombre(a*(b+val1))}$`
 					last_op = 'multiplication';
 					break
 				case 1 : // a(b-c)
 					if (b<=c) b=calcul(b+c) // b-c positif
 					expf=`Le produit de $${l1}$ par la différence de ${b} et ${nombre_avec_espace(c)}`
-					expl=`$${l1}(${tex_nombre(b)}-${tex_nombre(c)})=${l1}\\times ${tex_nombrec(b-c)}=${tex_nombrec(b-c)}${l1}$`
-					expc=`$${l1}(${tex_nombre(b)}-${tex_nombre(c)}) = ${tex_nombre(val1)}(${tex_nombre(b)}-${tex_nombre(c)})=${tex_nombre(val1)}\\times ${tex_nombrec(b-c)}=${tex_nombrec(val1*(b-c))}$`
+					expl=`$${l1}${signex}(${tex_nombre(b)}-${tex_nombre(c)})=${l1}\\times ${tex_nombrec(b-c)}=${tex_nombrec(b-c)}${l1}$`
+					expc=`$${l1}${signex}(${tex_nombre(b)}-${tex_nombre(c)}) = ${tex_nombre(val1)}${signex}(${tex_nombre(b)}-${tex_nombre(c)})=${tex_nombre(val1)}\\times ${tex_nombrec(b-c)}=${tex_nombrec(val1*(b-c))}$`
 					last_op = 'multiplication';
 					break
 				case 2 : // a/(b+c)
@@ -4789,8 +4796,8 @@ function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2) {
 					a=val1
 					d=val2
 					expf=`Le produit de la somme de $${l1}$ et ${nombre_avec_espace(b)} par la somme de ${nombre_avec_espace(c)} et $${l2}$`
-					expl=`$(${l1}+${tex_nombre(b)})(${tex_nombre(c)}+${l2})$`
-					expc=`$(${l1}+${tex_nombre(b)})(${tex_nombre(c)}+${l2})=(${a}+${tex_nombre(b)})(${tex_nombre(c)}+${d})= ${tex_nombrec(a+b)}\\times ${tex_nombrec(c+d)} = ${tex_nombrec((a+b)*(c+d))}$`
+					expl=`$(${l1}+${tex_nombre(b)})${signex}(${tex_nombre(c)}+${l2})$`
+					expc=`$(${l1}+${tex_nombre(b)})${signex}(${tex_nombre(c)}+${l2})=(${a}+${tex_nombre(b)})${signex}(${tex_nombre(c)}+${d})= ${tex_nombrec(a+b)}\\times ${tex_nombrec(c+d)} = ${tex_nombrec((a+b)*(c+d))}$`
 					last_op = 'multiplication';
 					break
 				case 1 : // (a+b)(c-d)
@@ -4798,8 +4805,8 @@ function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2) {
 					b=val1
 					if (c<=d) c=calcul(c+d)
 					expf=`Le produit de la somme de ${nombre_avec_espace(a)} et $${l1}$ par la différence de ${nombre_avec_espace(c)} et $${l2}$`
-					expl=`$(${tex_nombre(a)}+${l1})(${tex_nombre(c)}-${l2})$`
-					expc=`$(${tex_nombre(a)}+${l1})(${tex_nombre(c)}-${l2})=(${tex_nombre(a)}+${b})(${tex_nombre(c)}-${d})= ${tex_nombrec(a+b)}\\times ${tex_nombrec(c-d)} = ${tex_nombrec((a+b)*(c-d))}$`
+					expl=`$(${tex_nombre(a)}+${l1})${signex}(${tex_nombre(c)}-${l2})$`
+					expc=`$(${tex_nombre(a)}+${l1})${signex}(${tex_nombre(c)}-${l2})=(${tex_nombre(a)}+${b})${signex}(${tex_nombre(c)}-${d})= ${tex_nombrec(a+b)}\\times ${tex_nombrec(c-d)} = ${tex_nombrec((a+b)*(c-d))}$`
 					last_op = 'multiplication';
 					break
 				case 2 : // (a-b)(c+d)
@@ -4807,8 +4814,8 @@ function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2) {
 				c=val1
 					if (a<=b) a=calcul(a+b)
 					expf=`Le produit de la différence de ${nombre_avec_espace(a)} et $${l2}$ par la somme de $${l1}$ et ${nombre_avec_espace(d)}`
-					expl=`$(${tex_nombre(a)}-${l2})(${l1}+${tex_nombre(d)})$`
-					expc=`$(${tex_nombre(a)}-${l2})(${l1}+${tex_nombre(d)})=(${tex_nombre(a)}-${b})(${c}+${tex_nombre(d)})=${tex_nombrec(a-b)}\\times ${tex_nombrec(c+d)} = ${tex_nombrec((a-b)*(c+d))}$`
+					expl=`$(${tex_nombre(a)}-${l2})${signex}(${l1}+${tex_nombre(d)})$`
+					expc=`$(${tex_nombre(a)}-${l2})${signex}(${l1}+${tex_nombre(d)})=(${tex_nombre(a)}-${b})${signex}(${c}+${tex_nombre(d)})=${tex_nombrec(a-b)}\\times ${tex_nombrec(c+d)} = ${tex_nombrec((a-b)*(c+d))}$`
 					last_op = 'multiplication';
 					break
 				case 3 : // (a-b)(c-d)
@@ -4817,8 +4824,8 @@ function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2) {
 					if (a<=b) a=calcul(a+b)
 					if (c<=d) c=calcul(c+d)
 					expf=`Le produit de la différence de ${nombre_avec_espace(a)} et $${l1}$ par la différence de ${nombre_avec_espace(c)} et $${l2}$`
-					expl=`$(${tex_nombre(a)}-${l1})(${tex_nombre(c)}-${l2})$`
-					expc=`$(${tex_nombre(a)}-${l1})(${tex_nombre(c)}-${l2})=(${tex_nombre(a)}-${b})(${tex_nombre(c)}-${d})= ${tex_nombrec(a-b)}\\times ${tex_nombrec(c-d)} = ${tex_nombrec((a-b)*(c-d))}$`
+					expl=`$(${tex_nombre(a)}-${l1})${signex}(${tex_nombre(c)}-${l2})$`
+					expc=`$(${tex_nombre(a)}-${l1})${signex}(${tex_nombre(c)}-${l2})=(${tex_nombre(a)}-${b})${signex}(${tex_nombre(c)}-${d})= ${tex_nombrec(a-b)}\\times ${tex_nombrec(c-d)} = ${tex_nombrec((a-b)*(c-d))}$`
 					last_op = 'multiplication';
 					break			
 				case 4 : // (a+b)/(c+d)
@@ -4929,8 +4936,8 @@ function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2) {
 					a=val1
 					c=val2
 					expf=`Le double de la somme de $${l1}$ et du produit de ${nombre_avec_espace(b)} par $${l2}$`
-					expl=`$2(${l1}+${tex_nombre(b)}${l2})$`
-					expc=`$2(${l1}+${tex_nombre(b)}${l2})=2(${tex_nombre(a)}+${tex_nombre(b)}\\times ${tex_nombre(c)}) = 2(${tex_nombre(a)}+${tex_nombrec(b*c)}) = 2\\times ${tex_nombrec(a+b*c)}=${tex_nombrec(2*(a+b*c))}$`
+					expl=`$2${signex}(${l1}+${tex_nombre(b)}${l2})$`
+					expc=`$2${signex}(${l1}+${tex_nombre(b)}${l2})=2${signex}(${tex_nombre(a)}+${tex_nombre(b)}\\times ${tex_nombre(c)}) = 2${signex}(${tex_nombre(a)}+${tex_nombrec(b*c)}) = 2\\times ${tex_nombrec(a+b*c)}=${tex_nombrec(2*(a+b*c))}$`
 					last_op = 'multiplication';
 					break
 				case 1 : // 3(a+b)/c
@@ -4939,8 +4946,8 @@ function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2) {
 					if (!estentier(3*(a+b)/c)) a=calcul(a*c-b)
 					while (a<b) a=calcul(a*c-b)
 					expf=`Le triple du quotient de la somme de ${nombre_avec_espace(a)} et $${l1}$ par $${l2}$`
-					expl=`$3(${tex_nombre(a)}+${l1})\\div ${l2}$ ou $3\\times \\dfrac{${tex_nombre(a)}+${l1}}{${l2}}$`
-					expc=`$3(${tex_nombre(a)}+${l1})\\div ${l2}=3(${tex_nombre(a)}+${tex_nombre(b)})\\div ${tex_nombre(c)} = 3\\times  ${tex_nombre(a+b)}\\div ${tex_nombre(c)} = ${tex_nombrec(3*(a+b))}\\div ${tex_nombre(c)} = ${tex_nombrec(3*(a+b)/c)}$`
+					expl=`$3${signex}(${tex_nombre(a)}+${l1})\\div ${l2}$ ou $3\\times \\dfrac{${tex_nombre(a)}+${l1}}{${l2}}$`
+					expc=`$3${signex}(${tex_nombre(a)}+${l1})\\div ${l2}=3${signex}(${tex_nombre(a)}+${tex_nombre(b)})\\div ${tex_nombre(c)} = 3\\times  ${tex_nombre(a+b)}\\div ${tex_nombre(c)} = ${tex_nombrec(3*(a+b))}\\div ${tex_nombre(c)} = ${tex_nombrec(3*(a+b)/c)}$`
 					last_op = 'division';
 					break
 				case 2 : // (a-b)/3
@@ -4958,8 +4965,8 @@ function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2) {
 					if (a<=b) a=calcul(a+b)
 					if (!estentier((a-b)/3)) a=calcul(3*a+b)
 					expf=`Le produit du tiers de la différence de ${nombre_avec_espace(a)} et $${l2}$ par le double de la somme de $${l1}$ et ${nombre_avec_espace(d)}`
-					expl=`$\\left((${tex_nombre(a)}-${l2})\\div  3\\right)\\times  2(${l1}+${tex_nombre(d)})$`
-					expc=`$\\left((${tex_nombre(a)}-${l2})\\div  3\\right)\\times  2(${l1}+${tex_nombre(d)})=\\left((${tex_nombre(a)}-${tex_nombre(b)})\\div  3\\right)\\times  2(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\div  3 \\times  2 \\times ${tex_nombrec(c+d)} = ${tex_nombrec((a-b)/3)} \\times  2 \\times  ${tex_nombrec(c+d)} =  ${tex_nombrec(2*(a-b)/3)} \\times  ${tex_nombrec(c+d)} = ${tex_nombrec(2*(c+d)*(a-b)/3)}$`
+					expl=`$\\left((${tex_nombre(a)}-${l2})\\div  3\\right)\\times  2${signex}(${l1}+${tex_nombre(d)})$`
+					expc=`$\\left((${tex_nombre(a)}-${l2})\\div  3\\right)\\times  2${signex}(${l1}+${tex_nombre(d)})=\\left((${tex_nombre(a)}-${tex_nombre(b)})\\div  3\\right)\\times  2${signex}(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\div  3 \\times  2 \\times ${tex_nombrec(c+d)} = ${tex_nombrec((a-b)/3)} \\times  2 \\times  ${tex_nombrec(c+d)} =  ${tex_nombrec(2*(a-b)/3)} \\times  ${tex_nombrec(c+d)} = ${tex_nombrec(2*(c+d)*(a-b)/3)}$`
 					last_op = 'multiplication';
 					break			
 				case 4 : // 3(a+b)-2(c+d)
@@ -4967,8 +4974,8 @@ function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2) {
 					c=val2
 					if (3*(a+b)<2*(c+d)) a=calcul(a+c+d)
 					expf=`La différence du triple de la somme de ${nombre_avec_espace(a)} et $${l1}$ et du double de la somme de $${l2}$ et ${nombre_avec_espace(d)}`
-					expl=`$3(${tex_nombre(a)}+${l1})-2(${l2}+${tex_nombre(d)})$`
-					expc=`$3(${tex_nombre(a)}+${l1})-2(${l2}+${tex_nombre(d)})=3(${tex_nombre(a)}+${tex_nombre(b)})-2(${tex_nombre(c)}+${tex_nombre(d)}) = 3 \\times  ${tex_nombrec(a+b)} - 2 \\times  ${tex_nombrec(c+d)} = ${tex_nombrec(3*(a+b))} - ${tex_nombrec(2*(c+d))} = ${tex_nombrec(3*(a+b)-2*(c+d))}$`
+					expl=`$3${signex}(${tex_nombre(a)}+${l1})-2${signex}(${l2}+${tex_nombre(d)})$`
+					expc=`$3${signex}(${tex_nombre(a)}+${l1})-2${signex}(${l2}+${tex_nombre(d)})=3${signex}(${tex_nombre(a)}+${tex_nombre(b)})-2${signex}(${tex_nombre(c)}+${tex_nombre(d)}) = 3 \\times  ${tex_nombrec(a+b)} - 2 \\times  ${tex_nombrec(c+d)} = ${tex_nombrec(3*(a+b))} - ${tex_nombrec(2*(c+d))} = ${tex_nombrec(3*(a+b)-2*(c+d))}$`
 					last_op = 'soustraction';
 					break
 				case 5 : // 2(a-b)+3(c+d)
@@ -4976,8 +4983,8 @@ function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2) {
 					b=val1
 					if (a<=b) a=calcul(a+b)
 					expf=`La somme du double de la différence de ${nombre_avec_espace(a)} et $${l1}$ et du triple de la somme de ${nombre_avec_espace(c)} et $${l2}$`
-					expl=`$2(${tex_nombre(a)}-${l1})+3(${tex_nombre(c)}+${l2})$`
-					expc=`$2(${tex_nombre(a)}-${l1})+3(${tex_nombre(c)}+${l2})=2(${tex_nombre(a)}-${tex_nombre(b)})+3(${tex_nombre(c)}+${tex_nombre(d)}) = 2 \\times  ${tex_nombrec(a-b)} + 3 \\times  ${tex_nombrec(c+d)} = ${tex_nombrec(2*(a-b))} + ${tex_nombrec(3*(c+d))} = ${tex_nombrec(2*(a-b)+3*(c+d))}$`
+					expl=`$2${signex}(${tex_nombre(a)}-${l1})+3${signex}(${tex_nombre(c)}+${l2})$`
+					expc=`$2${signex}(${tex_nombre(a)}-${l1})+3${signex}(${tex_nombre(c)}+${l2})=2${signex}(${tex_nombre(a)}-${tex_nombre(b)})+3${signex}(${tex_nombre(c)}+${tex_nombre(d)}) = 2 \\times  ${tex_nombrec(a-b)} + 3 \\times  ${tex_nombrec(c+d)} = ${tex_nombrec(2*(a-b))} + ${tex_nombrec(3*(c+d))} = ${tex_nombrec(2*(a-b)+3*(c+d))}$`
 					last_op = 'addition';
 					break	
 			}		
@@ -4991,8 +4998,8 @@ function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2) {
 					e=val2
 					if (!estentier((a+b)/(c*(d+e)))) a=calcul(a*c*(d+e)-b)
 					expf=`Le quotient de la somme de ${nombre_avec_espace(a)} et $${l1}$ par le produit de ${nombre_avec_espace(c)} par la somme de ${nombre_avec_espace(d)} et $${l2}$`
-					expl=`$(${tex_nombre(a)}+${l1})\\div (${tex_nombre(c)}(${tex_nombre(d)}+${l2}))$ ou $\\dfrac{${tex_nombre(a)}+${l1}}{${tex_nombre(c)}(${tex_nombre(d)}+${l2})}$`
-					expc=`$(${tex_nombre(a)}+${l1})\\div (${tex_nombre(c)}(${tex_nombre(d)}+${l2}))=(${tex_nombre(a)}+${tex_nombre(b)})\\div (${tex_nombre(c)}(${tex_nombre(d)}+${tex_nombre(e)})) = ${tex_nombrec(a+b)} \\div  (${tex_nombre(c)} \\times  ${tex_nombrec(d+e)}) = ${tex_nombrec(a+b)} \\div  ${tex_nombre(c*(d+e))} = ${tex_nombrec((a+b)/(c*(d+e)))}$`
+					expl=`$(${tex_nombre(a)}+${l1})\\div (${tex_nombre(c)}${signex}(${tex_nombre(d)}+${l2}))$ ou $\\dfrac{${tex_nombre(a)}+${l1}}{${tex_nombre(c)}${signex}(${tex_nombre(d)}+${l2})}$`
+					expc=`$(${tex_nombre(a)}+${l1})\\div (${tex_nombre(c)}${signex}(${tex_nombre(d)}+${l2}))=(${tex_nombre(a)}+${tex_nombre(b)})\\div (${tex_nombre(c)}${signex}(${tex_nombre(d)}+${tex_nombre(e)})) = ${tex_nombrec(a+b)} \\div  (${tex_nombre(c)} \\times  ${tex_nombrec(d+e)}) = ${tex_nombrec(a+b)} \\div  ${tex_nombre(c*(d+e))} = ${tex_nombrec((a+b)/(c*(d+e)))}$`
 					last_op = 'division';
 					break
 				case 2 : //(a-b)*(c+de)
@@ -5000,8 +5007,8 @@ function Choisir_expression_litterale(nb_operations,decimal,val1=1,val2=2) {
 					b=val2
 					if (a<=b) a=calcul(a+b)
 					expf=`Le produit de la différence de ${nombre_avec_espace(a)} et $${l2}$ par la somme de ${nombre_avec_espace(c)} et du produit de ${nombre_avec_espace(d)} par $${l1}$`
-					expl=`$(${tex_nombre(a)}-${l2})(${tex_nombre(c)}+${tex_nombre(d)}${l1})$`
-					expc=`$(${tex_nombre(a)}-${l2})(${tex_nombre(c)}+${tex_nombre(d)}${l1})=(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}\\times ${tex_nombre(e)}) = ${tex_nombrec(a-b)}(${tex_nombre(c)}+${tex_nombrec(d*e)}) = ${tex_nombrec(a-b)} \\times  ${tex_nombre(c+d*e)} = ${tex_nombrec((a-b)*(c+d*e))}$`
+					expl=`$(${tex_nombre(a)}-${l2})${signex}(${tex_nombre(c)}+${tex_nombre(d)}${l1})$`
+					expc=`$(${tex_nombre(a)}-${l2})${signex}(${tex_nombre(c)}+${tex_nombre(d)}${l1})=(${tex_nombre(a)}-${tex_nombre(b)})${signex}(${tex_nombre(c)}+${tex_nombre(d)}\\times ${tex_nombre(e)}) = ${tex_nombrec(a-b)}(${tex_nombre(c)}+${tex_nombrec(d*e)}) = ${tex_nombrec(a-b)} \\times  ${tex_nombre(c+d*e)} = ${tex_nombrec((a-b)*(c+d*e))}$`
 					last_op = 'multiplication';
 					break
 				case 3 : // ab+cd/e
@@ -5040,8 +5047,9 @@ function Ecrire_une_expression_numerique(){
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup2=false; // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
-	this.sup=false
-	this.version=1 // 1 pour ecrire une expression, 2 pour écrire la phrase, 3 pour écrire l'expression et la calculer, 4 pour calculer une expression numérique
+	this.sup=false;
+	this.sup3=true;
+	this.version=1; // 1 pour ecrire une expression, 2 pour écrire la phrase, 3 pour écrire l'expression et la calculer, 4 pour calculer une expression numérique
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		let type_de_questions_disponibles
@@ -5068,9 +5076,9 @@ function Ecrire_une_expression_numerique(){
 			val2=randint(6,9)
 			if (this.version>2&&nb_operations==1&&!this.litteral) nb_operations++
 			if (!this.litteral)
-				resultats=Choisir_expression_numerique(nb_operations,decimal)
+				resultats=Choisir_expression_numerique(nb_operations,decimal,this.sup3)
 			else 
-				resultats=Choisir_expression_litterale(nb_operations,decimal,val1,val2)
+				resultats=Choisir_expression_litterale(nb_operations,decimal,val1,val2,this.sup3)
 			expf=resultats[0]
 			expn=resultats[1]
 			expc=resultats[2]
@@ -5121,6 +5129,7 @@ function Ecrire_une_expression_numerique(){
 	}
 	this.besoin_formulaire_texte = ['Choix des expressions','Nombres séparés par des tirets\n 1 : Expressions de base à une opération\n2 : Expressions à deux opérations\n3 : Expressions à 3 opérations\n4 : Expressions à 4 opérations\n5 : Expressions complexes'] // Texte, tooltip
 	this.besoin_formulaire2_case_a_cocher = ["Avec décimaux.",false]
+	this.besoin_formulaire3_case_a_cocher = ["Avec le signe × devant les parenthèses",true]
 
 }
 
@@ -5135,7 +5144,7 @@ function Ecrire_une_expression_numerique(){
  * @Auteur Jean-Claude Lhote
  * Fonction utilisée dans plusieurs exercices.
  */
-function Choisir_expression_numerique(nb_operations,decimal) {
+function Choisir_expression_numerique(nb_operations,decimal,times_on=true) {
 	let expf,expn,expc,arrondir=Math.log10(decimal)
 	let a=arrondi(randint(2*decimal,10*decimal)/decimal,arrondir)
 	let b=arrondi(randint(2*decimal,10*decimal,[a*decimal])/decimal,arrondir)
@@ -5144,6 +5153,8 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 	let e=arrondi(randint(2*decimal,10*decimal)/decimal,arrondir)  
 	let f=arrondi(randint(2*decimal,10*decimal,[e*decimal])/decimal,arrondir)
 	let souscas
+	let signex=``
+	if (times_on) signex=`\\times`
 	switch (nb_operations){
 		case 1 : // expressions de base (1 opération)
 			souscas=randint(0,3)
@@ -5177,14 +5188,14 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 			switch (souscas) {
 				case 0 : //a(b+c)
 					expf=`Le produit de ${nombre_avec_espace(a)} par la somme de ${nombre_avec_espace(b)} et ${nombre_avec_espace(c)}`
-					expn=`$${tex_nombre(a)}(${tex_nombre(b)}+${tex_nombre(c)})$`
-					expc=`$${tex_nombre(a)}(${tex_nombre(b)}+${tex_nombre(c)}) = ${tex_nombre(a)}\\times ${tex_nombrec(b+c)}=${tex_nombrec(a*(b+c))}$`
+					expn=`$${tex_nombre(a)}${signex}(${tex_nombre(b)}+${tex_nombre(c)})$`
+					expc=`$${tex_nombre(a)}${signex}(${tex_nombre(b)}+${tex_nombre(c)}) = ${tex_nombre(a)}\\times ${tex_nombrec(b+c)}=${tex_nombrec(a*(b+c))}$`
 					break
 				case 1 : // a(b-c)
 					if (b<=c) b=calcul(b+c) // b-c positif
 					expf=`Le produit de ${nombre_avec_espace(a)} par la différence de ${nombre_avec_espace(b)} et ${nombre_avec_espace(c)}`
-					expn=`$${tex_nombre(a)}(${tex_nombre(b)}-${tex_nombre(c)})$`
-					expc=`$${tex_nombre(a)}(${tex_nombre(b)}-${tex_nombre(c)}) = ${tex_nombre(a)}\\times ${tex_nombrec(b-c)}=${tex_nombrec(a*(b-c))}$`
+					expn=`$${tex_nombre(a)}${signex}(${tex_nombre(b)}-${tex_nombre(c)})$`
+					expc=`$${tex_nombre(a)}${signex}(${tex_nombre(b)}-${tex_nombre(c)}) = ${tex_nombre(a)}\\times ${tex_nombrec(b-c)}=${tex_nombrec(a*(b-c))}$`
 					break
 				case 2 : // a/(b+c)
 					a=calcul(a*(b+c)) // on s'assure que le quotient tombe juste...
@@ -5222,27 +5233,27 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 			switch (souscas) {
 				case 0 : // (a+b)(c+d)
 					expf=`Le produit de la somme de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par la somme de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)}`
-					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)})$`
-					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a+b)}\\times ${tex_nombrec(c+d)} = ${tex_nombrec((a+b)*(c+d))}$`
+					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})${signex}(${tex_nombre(c)}+${tex_nombre(d)})$`
+					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})${signex}(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a+b)}\\times ${tex_nombrec(c+d)} = ${tex_nombrec((a+b)*(c+d))}$`
 					break
 				case 1 : // (a+b)(c-d)
 					if (c<=d) c=calcul(c+d)
 					expf=`Le produit de la somme de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par la différence de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)}`
-					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})(${tex_nombre(c)}-${tex_nombre(d)})$`
-					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})(${tex_nombre(c)}-${tex_nombre(d)}) = ${tex_nombrec(a+b)}\\times ${tex_nombrec(c-d)} = ${tex_nombrec((a+b)*(c-d))}$`
+					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})${signex}(${tex_nombre(c)}-${tex_nombre(d)})$`
+					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})${signex}(${tex_nombre(c)}-${tex_nombre(d)}) = ${tex_nombrec(a+b)}\\times ${tex_nombrec(c-d)} = ${tex_nombrec((a+b)*(c-d))}$`
 					break
 				case 2 : // (a-b)(c+d)
 					if (a<=b) a=calcul(a+b)
 					expf=`Le produit de la différence de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par la somme de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)}`
-					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)})$`
-					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\times ${tex_nombrec(c+d)} = ${tex_nombrec((a-b)*(c+d))}$`
+					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})${signex}(${tex_nombre(c)}+${tex_nombre(d)})$`
+					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})${signex}(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\times ${tex_nombrec(c+d)} = ${tex_nombrec((a-b)*(c+d))}$`
 					break
 				case 3 : // (a-b)(c-d)
 					if (a<=b) a=calcul(a+b)
 					if (c<=d) c=calcul(c+d)
 					expf=`Le produit de la différence de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par la différence de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)}`
-					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}-${tex_nombre(d)})$`
-					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}-${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\times ${tex_nombrec(c-d)} = ${tex_nombrec((a-b)*(c-d))}$`
+					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})${signex}(${tex_nombre(c)}-${tex_nombre(d)})$`
+					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})${signex}(${tex_nombre(c)}-${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\times ${tex_nombrec(c-d)} = ${tex_nombrec((a-b)*(c-d))}$`
 					break			
 				case 4 : // (a+b)/(c+d)
 					a=calcul(a*(c+d))
@@ -5325,15 +5336,15 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 			switch (souscas) {
 				case 0 : // 2(a+bc)
 					expf=`Le double de la somme de ${nombre_avec_espace(a)} et du produit de ${nombre_avec_espace(b)} par ${nombre_avec_espace(c)}`
-					expn=`$2(${tex_nombre(a)}+${tex_nombre(b)}\\times ${tex_nombre(c)})$`
-					expc=`$2(${tex_nombre(a)}+${tex_nombre(b)}\\times ${tex_nombre(c)}) = 2(${tex_nombre(a)}+${tex_nombrec(b*c)}) = 2\\times  ${tex_nombrec(a+b*c)}$`
+					expn=`$2${signex}(${tex_nombre(a)}+${tex_nombre(b)}\\times ${tex_nombre(c)})$`
+					expc=`$2${signex}(${tex_nombre(a)}+${tex_nombre(b)}\\times ${tex_nombre(c)}) = 2${signex}(${tex_nombre(a)}+${tex_nombrec(b*c)}) = 2\\times  ${tex_nombrec(a+b*c)}$`
 					break
 				case 1 : // 3(a+b)/c
 					a=calcul(a*c)
 					b=calcul(b*c)
 					expf=`Le triple du quotient de la somme de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par ${nombre_avec_espace(c)}`
-					expn=`$3(${tex_nombre(a)}+${tex_nombre(b)})\\div ${tex_nombre(c)}$ ou $3\\times \\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}}$`
-					expc=`$3(${tex_nombre(a)}+${tex_nombre(b)})\\div ${tex_nombre(c)} = 3\\times  ${tex_nombre(a+b)}\\div ${tex_nombre(c)} = ${tex_nombrec(3*(a+b))}\\div ${tex_nombre(c)} = ${tex_nombrec(3*(a+b)/c)}$`
+					expn=`$3${signex}(${tex_nombre(a)}+${tex_nombre(b)})\\div ${tex_nombre(c)}$ ou $3\\times \\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}}$`
+					expc=`$3${signex}(${tex_nombre(a)}+${tex_nombre(b)})\\div ${tex_nombre(c)} = 3\\times  ${tex_nombre(a+b)}\\div ${tex_nombre(c)} = ${tex_nombrec(3*(a+b))}\\div ${tex_nombre(c)} = ${tex_nombrec(3*(a+b)/c)}$`
 					break
 				case 2 : // (a-b)/3
 					if (a<=b) a=calcul(a+b)
@@ -5348,20 +5359,20 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 					a=calcul(3*a)
 					b=calcul(3*b)
 					expf=`Le produit du tiers de la différence de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par le double de la somme de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)}`
-					expn=`$\\left((${tex_nombre(a)}-${tex_nombre(b)})\\div  3\\right)\\times  2(${tex_nombre(c)}+${tex_nombre(d)})$`
-					expc=`$\\left((${tex_nombre(a)}-${tex_nombre(b)})\\div  3\\right)\\times  2(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\div  3 \\times  2 \\times ${tex_nombrec(c+d)} = ${tex_nombrec((a-b)/3)} \\times  2 \\times  ${tex_nombrec(c+d)} =  ${tex_nombrec(2*(a-b)/3)} \\times  ${tex_nombrec(c+d)} = ${tex_nombrec(2*(c+d)*(a-b)/3)}$`
+					expn=`$\\left((${tex_nombre(a)}-${tex_nombre(b)})\\div  3\\right)\\times  2${signex}(${tex_nombre(c)}+${tex_nombre(d)})$`
+					expc=`$\\left((${tex_nombre(a)}-${tex_nombre(b)})\\div  3\\right)\\times  2${signex}(${tex_nombre(c)}+${tex_nombre(d)}) = ${tex_nombrec(a-b)}\\div  3 \\times  2 \\times ${tex_nombrec(c+d)} = ${tex_nombrec((a-b)/3)} \\times  2 \\times  ${tex_nombrec(c+d)} =  ${tex_nombrec(2*(a-b)/3)} \\times  ${tex_nombrec(c+d)} = ${tex_nombrec(2*(c+d)*(a-b)/3)}$`
 					break			
 				case 4 : // 3(a+b)-2(c+d)
 					if (3*(a+b)<2*(c+d)) a=calcul(a+c+d)
 					expf=`La différence du triple de la somme de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} et du double de la somme de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)}`
-					expn=`$3(${tex_nombre(a)}+${tex_nombre(b)})-2(${tex_nombre(c)}+${tex_nombre(d)})$`
-					expc=`$3(${tex_nombre(a)}+${tex_nombre(b)})-2(${tex_nombre(c)}+${tex_nombre(d)}) = 3 \\times  ${tex_nombrec(a+b)} - 2 \\times  ${tex_nombrec(c+d)} = ${tex_nombrec(3*(a+b))} - ${tex_nombrec(2*(c+d))} = ${tex_nombrec(3*(a+b)-2*(c+d))}$`
+					expn=`$3${signex}(${tex_nombre(a)}+${tex_nombre(b)})-2${signex}(${tex_nombre(c)}+${tex_nombre(d)})$`
+					expc=`$3${signex}(${tex_nombre(a)}+${tex_nombre(b)})-2${signex}(${tex_nombre(c)}+${tex_nombre(d)}) = 3 \\times  ${tex_nombrec(a+b)} - 2 \\times  ${tex_nombrec(c+d)} = ${tex_nombrec(3*(a+b))} - ${tex_nombrec(2*(c+d))} = ${tex_nombrec(3*(a+b)-2*(c+d))}$`
 					break
 				case 5 : // 2(a-b)+3(c+d)
 					if (a<=b) a=calcul(a+b)
 					expf=`La somme du double de la différence de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} et du triple de la somme de ${nombre_avec_espace(c)} et ${nombre_avec_espace(d)}`
-					expn=`$2(${tex_nombre(a)}-${tex_nombre(b)})+3(${tex_nombre(c)}+${tex_nombre(d)})$`
-					expc=`$2(${tex_nombre(a)}-${tex_nombre(b)})+3(${tex_nombre(c)}+${tex_nombre(d)}) = 2 \\times  ${tex_nombrec(a-b)} + 3 \\times  ${tex_nombrec(c+d)} = ${tex_nombrec(2*(a-b))} + ${tex_nombrec(3*(c+d))} = ${tex_nombrec(2*(a-b)+3*(c+d))}$`
+					expn=`$2${signex}(${tex_nombre(a)}-${tex_nombre(b)})+3${signex}(${tex_nombre(c)}+${tex_nombre(d)})$`
+					expc=`$2${signex}(${tex_nombre(a)}-${tex_nombre(b)})+3${signex}(${tex_nombre(c)}+${tex_nombre(d)}) = 2 \\times  ${tex_nombrec(a-b)} + 3 \\times  ${tex_nombrec(c+d)} = ${tex_nombrec(2*(a-b))} + ${tex_nombrec(3*(c+d))} = ${tex_nombrec(2*(a-b)+3*(c+d))}$`
 					break	
 			}		
 			break ;
@@ -5372,14 +5383,14 @@ function Choisir_expression_numerique(nb_operations,decimal) {
 					a=calcul(a*c*(d+e))
 					b=calcul(b*c*(d+e))
 					expf=`Le quotient de la somme de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par le produit de ${nombre_avec_espace(c)} par la somme de ${nombre_avec_espace(d)} et ${nombre_avec_espace(e)}`
-					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div (${tex_nombre(c)}(${tex_nombre(d)}+${tex_nombre(e)}))$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}(${tex_nombre(d)}+${tex_nombre(e)})}$`
-					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div (${tex_nombre(c)}(${tex_nombre(d)}+${tex_nombre(e)})) = ${tex_nombrec(a+b)} \\div  (${tex_nombre(c)} \\times  ${tex_nombrec(d+e)}) = ${tex_nombrec(a+b)} \\div  ${tex_nombre(c*(d+e))} = ${tex_nombrec((a+b)/(c*(d+e)))}$`
+					expn=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div (${tex_nombre(c)}${signex}(${tex_nombre(d)}+${tex_nombre(e)}))$ ou $\\dfrac{${tex_nombre(a)}+${tex_nombre(b)}}{${tex_nombre(c)}${signex}(${tex_nombre(d)}+${tex_nombre(e)})}$`
+					expc=`$(${tex_nombre(a)}+${tex_nombre(b)})\\div (${tex_nombre(c)}${signex}(${tex_nombre(d)}+${tex_nombre(e)})) = ${tex_nombrec(a+b)} \\div  (${tex_nombre(c)} \\times  ${tex_nombrec(d+e)}) = ${tex_nombrec(a+b)} \\div  ${tex_nombre(c*(d+e))} = ${tex_nombrec((a+b)/(c*(d+e)))}$`
 					break
 				case 2 : //(a-b)*(c+de)
 					if (a<=b) a=calcul(a+b)
 					expf=`Le produit de la différence de ${nombre_avec_espace(a)} et ${nombre_avec_espace(b)} par la somme de ${nombre_avec_espace(c)} et du produit de ${nombre_avec_espace(d)} par ${nombre_avec_espace(e)}`
-					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}\\times ${tex_nombre(e)})$`
-					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})(${tex_nombre(c)}+${tex_nombre(d)}\\times ${tex_nombre(e)}) = ${tex_nombrec(a-b)}(${tex_nombre(c)}+${tex_nombrec(d*e)}) = ${tex_nombrec(a-b)} \\times  ${tex_nombre(c+d*e)} = ${tex_nombrec((a-b)*(c+d*e))}$`
+					expn=`$(${tex_nombre(a)}-${tex_nombre(b)})${signex}(${tex_nombre(c)}+${tex_nombre(d)}\\times ${tex_nombre(e)})$`
+					expc=`$(${tex_nombre(a)}-${tex_nombre(b)})${signex}(${tex_nombre(c)}+${tex_nombre(d)}\\times ${tex_nombre(e)}) = ${tex_nombrec(a-b)}${signex}(${tex_nombre(c)}+${tex_nombrec(d*e)}) = ${tex_nombrec(a-b)} \\times  ${tex_nombre(c+d*e)} = ${tex_nombrec((a-b)*(c+d*e))}$`
 					break
 				case 3 : // ab+cd/e
 					c=calcul(c*e)

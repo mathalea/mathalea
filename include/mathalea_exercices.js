@@ -150,7 +150,7 @@ var liste_des_exercices_disponibles = {
   "5G20-1": Vocabulaire_des_triangles_5e,
   "5G22": DroiteRemarquableDuTriangle,
   "5G30" : Utiliser_le_codage_pour_decrire_5e,
-  "beta5G30-1" : Egalite_d_angles,
+  "5G30-1" : Egalite_d_angles,
   "5G31": Exercice_angles_triangles,
   "5G31-1": Constructibilite_des_triangles_angles,
   "5G51" : Representer_un_solide_5e,
@@ -196,7 +196,7 @@ var liste_des_exercices_disponibles = {
   "5R22-2": Exercice_simplification_somme_algebrique,
   "5S13": Calculer_des_frequences,
   "5S14": Calculer_des_moyennes,
-  "beta5S20":Placer_probabilites,
+  "5S20":Placer_probabilites,
   "5S21": fonctions_probabilite1,
   "4Algo1-0": Tracer_avec_scratch,
   "4C10-0": Signe_produit_quotient_relatifs,
@@ -9594,7 +9594,7 @@ function Lire_abscisse_decimale_trois_formes() {
                         thickDistance:0.1,thickSecDist:0.01,thickTerDist:0.001,
                         thickCouleur:'black',axeCouleur:'black',axeHauteur:4,
                         pointListe:[[x1,`${noms[0]}`],[x2,`${noms[1]}`],[x3,`${noms[2]}`]],
-                        labelListe:[[xmin+0.09,nombre_avec_espace(calcul(xmin+0.09))],[xmin+0.1,nombre_avec_espace(calcul(xmin+0.1))]],
+                        labelListe:[[xmin+0.09,tex_nombre(calcul(xmin+0.09))],[xmin+0.1,tex_nombre(calcul(xmin+0.1))]],
                         pointTaille:6,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'|',pointEpaisseur:2,axeStyle:extremite})
 
       texte=`${num_alpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.<br>`
@@ -9612,6 +9612,7 @@ function Lire_abscisse_decimale_trois_formes() {
   };
   this.besoin_formulaire_numerique = ['Niveau de difficulté',3,'1 : Au dixième\n2 : Au centième\n3 : Au millième'];
 }
+
 /**
  * Lire un nombre décimal jusqu'au millième graĉe à un système de zoom successifs
  * L'abscisse est à donner sous trois formes.
@@ -9624,7 +9625,6 @@ function lireUneAbscisseAvecZoomCM() {
   this.niveau='CM';
   this.sup=1;
 }
-
 function LireUneAbscisseAvecZoom() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.niveau = 'sixième'
@@ -9676,7 +9676,7 @@ function LireUneAbscisseAvecZoom() {
       d1 = droiteGraduee2({
         x: 0, y: 3, Min: xmin, axePosition: 'H', Max: xmax + 0.2, thickSec: true, thickTer: false, Unite: 3, thickOffset: thickOff,
         thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 4, labelsPrincipaux: false, 
-        labelListe: [[origine, `${nombre_avec_espace(origine)}`], [extreme, `${nombre_avec_espace(extreme)}`]],
+        labelListe: [[origine, `${tex_nombre(origine)}`], [extreme, `${tex_nombre(extreme)}`]],
         pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
         pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
       })
@@ -9689,14 +9689,14 @@ function LireUneAbscisseAvecZoom() {
       d1Corr = droiteGraduee2({
         x: 0, y: 3, Min: xmin, axePosition: 'H', Max: xmax + 0.2, thickSec: true, thickTer: false, Unite: 3, thickOffset: thickOff,
         thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 4, labelsPrincipaux: true,
-        labelListe: [[origine , `${nombre_avec_espace(origine )}`], [extreme, `${nombre_avec_espace(extreme)}`]],
+        labelListe: [[origine , `${tex_nombre(origine )}`], [extreme, `${tex_nombre(extreme)}`]],
         pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
         pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
       })
       d2Corr = droiteGraduee2({
         x: Math.floor(x1) - xmin + 1.5, y: 0, Min: Math.floor(x1), axePosition: 'H', Max: Math.floor(x1 + 1), thickSec: true, thickTer: false, Unite: 20, thickOffset: thickOff,
         thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 4, labelsPrincipaux: false,labelsSecondaires:true,
-        labelListe: [[Math.floor(x1),`${nombre_avec_espace(Math.floor(x1))}`],[x1,`${nombre_avec_espace(x1)}`],[Math.ceil(x1),`${nombre_avec_espace(Math.ceil(x1))}`]],
+        labelListe: [[Math.floor(x1),`${tex_nombre(Math.floor(x1))}`],[x1,`${tex_nombre(x1)}`],[Math.ceil(x1),`${tex_nombre(Math.ceil(x1))}`]],
         pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
         pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
       })
@@ -9755,7 +9755,7 @@ function LireUneAbscisseAvecZoom() {
       d2Corr = droiteGraduee2({
         x: (x2 - xmin) + 6, y: 0, Min: x2, axePosition: 'H', Max: x2 + .1, thickSec: true, thickTer: false, Unite: 200, thickOffset: thickOff,
         thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, thickDistance: 0.1, thickSecDist: 0.01, thickTerDist: 0.001, labelsPrincipaux: false,labelsSecondaires:true,
-        labelListe: [[x2,`${nombre_avec_espace(x2)}`],[x1,`${nombre_avec_espace(x1)}`],[x3,`${nombre_avec_espace(x3)}`]], 
+        labelListe: [[x2,`${tex_nombre(x2)+'0'}`],[x1,`${tex_nombre(x1)}`],[x3,`${tex_nombre(x3)+'0'}`]], 
         pointListe: [[x1,`${noms[1]}`], [x2, `${noms[0]}`], [x2 + 0.1, `${noms[2]}`]],
         pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
       })
@@ -9803,7 +9803,7 @@ function LireUneAbscisseAvecZoom() {
       d1 = droiteGraduee2({
         x: 0, y: 6, Min: xmin, axePosition: 'H', Max: xmax, thickSec: true, thickTer: true, Unite: 30, thickDistance: 1, thickSecDist: 0.1, thickTerDist: 0.01, thickOffset: thickOff,
         thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: true,
-        labelListe: [[xmin, `${nombre_avec_espace(xmin)}`], [xmax, `${nombre_avec_espace(xmax)}`]],
+        labelListe: [[xmin, `${tex_nombre(xmin)}`], [xmax, `${tex_nombre(xmax)}`]],
         pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
         pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 3, axeStyle: extremite
       })
@@ -9822,7 +9822,7 @@ function LireUneAbscisseAvecZoom() {
       d1Corr = droiteGraduee2({
         x: 0, y: 6, Min: xmin, axePosition: 'H', Max: xmax, thickSec: true, thickTer: true, Unite: 30, thickDistance: 1, thickSecDist: 0.1, thickTerDist: 0.01, thickOffset: thickOff,
         thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: true,labelsSecondaires:true,
-        labelListe: [[xmin, `${nombre_avec_espace(xmin)}`], [xmax, `${nombre_avec_espace(xmax)}`]],
+        labelListe: [[xmin, `${tex_nombre(xmin)}`], [xmax, `${tex_nombre(xmax)}`]],
         pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
         pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 3, axeStyle: extremite
       })
@@ -9830,14 +9830,14 @@ function LireUneAbscisseAvecZoom() {
         x: 6.5, y: 3, Min: x2, axePosition: 'H', Max: x3, thickSec: true, thickTer: true, Unite: 200, thickSecDist: 0.01, thickTerDist: 0.001, thickDistance: 0.1, thickOffset: thickOff,
         thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: false,labelsSecondaires:true,
         pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
-        labelListe: [[x2, `${nombre_avec_espace(x2)}`], [x3, `${nombre_avec_espace(x3)}`]],
+        labelListe: [[x2, `${tex_nombre(x2)+'0'}`], [x3, `${tex_nombre(x3)+'0'}`]],
         pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
       })
       d3Corr = droiteGraduee2({
         x: 6.5, y: 0, Min: x21, axePosition: 'H', Max: x31, thickSec: true, thickTer: false, Unite: 2000, thickSecDist: 0.001, thickOffset: thickOff,
         thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: false,labelsSecondaires:true,
         pointListe: [[x1, `${noms[1]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
-        labelListe: [[x21, `${nombre_avec_espace(x21)}`], [x31 ,`${nombre_avec_espace(x31)}`]],
+        labelListe: [[x21, `${tex_nombre(x21)+'0'}`], [x31 ,`${tex_nombre(x31)+'0'}`]],
         pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
       })
 
@@ -14709,7 +14709,7 @@ function Lecture_diagramme_barre() {
       lstElementGraph.push(traceBarre((((r.xMax-r.xMin)/(nbAnimaux+1))*(i+1)),lstNombresAnimaux[i],premiere_lettre_en_majuscule(lstAnimauxExo[i]),{unite:.1/coef}))
     }
 
-    texte += mathalea2d({xmin : -5, xmax : 11, ymin : -3, ymax : 11, pixelsParCm : 30, scale : .5}, r, lstElementGraph)
+    texte += mathalea2d({xmin : -5, xmax : 11, ymin : -4, ymax : 11, pixelsParCm : 30, scale : .5}, r, lstElementGraph)
     // debut de la correction
     // question 1
     texte_corr = num_alpha(0) + ` Les animaux les plus nombreux sont les ` + lstAnimauxExo[lstNombresAnimaux.indexOf(nMax)] +'.<br>';
