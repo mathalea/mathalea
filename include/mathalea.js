@@ -616,8 +616,8 @@ function mise_a_jour_du_code(){
 		code_LaTeX = '';
 		if (liste_des_exercices.length > 0) {
 			for (let i = 0; i < liste_des_exercices.length; i++) {
-				exercice[i].nouvelle_version();
 				exercice[i].id = liste_des_exercices[i] // Pour récupérer l'id qui a appelé l'exercice
+				exercice[i].nouvelle_version();
 				if (exercice[i].titre=='Fichier statique') {
 					liste_des_exercices_statiques.push(exercice[i].sup)
 				}
