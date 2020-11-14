@@ -44,7 +44,7 @@ Les réponses modifient les caractéristiques de l'exercice puis le code LaTeX e
 
 	for (let i = 0; i < nb_exercices; i++) {
 		if(sortie_html) {
-			div_parametres_generaux.innerHTML += '<h4 class="ui dividing header">Exercice n°'+ (i+1) +' : '+ exercice[i].titre +'</h4>'
+			div_parametres_generaux.innerHTML += '<h4 class="ui dividing header">Exercice n°'+ (i+1) +' : '+ exercice[i].titre + ' − ' +liste_des_exercices[i] + '</h4>'
 			if (exercice[i].pas_de_version_LaTeX) {
 				div_parametres_generaux.innerHTML += "<p><em>Cet exercice n'a pas de version LaTeX et ne peut donc pas être exporté en PDF.</em></p>"
 			}
@@ -546,11 +546,10 @@ function mise_a_jour_du_code(){
                       code_LaTeX = "";
                     if (liste_des_exercices.length > 0) {
                       for (let i = 0; i < liste_des_exercices.length; i++) {
+						exercice[i].id = liste_des_exercices[i]
                         exercice[i].nouvelle_version(i);
                         code1 +=
-                          '<h3 class="ui dividing header">Exercice ' +
-                          (i + 1) +
-                          "</h3>";
+                          `<h3 class="ui dividing header">Exercice ${(i + 1)} − ${exercice[i].id}</h3>`;
                         if (exercice[i].bouton_aide) {
                           code1 += `<div id=aide${i}> ${exercice[i].bouton_aide}</div>`;
                         }
