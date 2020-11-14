@@ -18,7 +18,11 @@ function liste_de_question_to_contenu(argument) {
 		if (argument.vspace) {
 			vspace = `\\vspace{${argument.vspace} cm}\n`
 		}
-		argument.contenu = tex_consigne(argument.consigne) + vspace + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions,argument.spacing),argument.nb_cols)
+		if (document.getElementById('supprimer_reference').checked == true) {
+			argument.contenu = tex_consigne(argument.consigne) + vspace + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions,argument.spacing),argument.nb_cols)
+		} else {
+			argument.contenu = `\\marginpar{\\footnotesize ${argument.id}}` + tex_consigne(argument.consigne) + vspace + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions,argument.spacing),argument.nb_cols)
+		}
 		argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_enumerate(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 	}
 	
@@ -36,7 +40,11 @@ function liste_de_question_to_contenu_sans_numero(argument) {
 		argument.contenu = html_consigne(argument.consigne) + html_paragraphe(argument.introduction) + html_ligne(argument.liste_questions,argument.spacing)
 		argument.contenu_correction = html_consigne(argument.consigne_correction) + html_ligne(argument.liste_corrections,argument.spacing_corr)	
 	} else {
-		argument.contenu = tex_consigne(argument.consigne) + tex_introduction(argument.introduction) + tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
+		if (document.getElementById('supprimer_reference').checked == true) {
+			argument.contenu = tex_consigne(argument.consigne) + tex_introduction(argument.introduction) + tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
+		} else {
+			argument.contenu = `\\marginpar{\\footnotesize ${argument.id}}` + tex_consigne(argument.consigne) + tex_introduction(argument.introduction) + tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
+		}
 		// argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_enumerate_sans_numero(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 		argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_paragraphe(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 	}
@@ -52,8 +60,12 @@ function liste_de_question_to_contenu_sans_numero(argument) {
 * @author Rémi Angot
 */
 function liste_de_question_to_contenu_sans_numero_et_sans_consigne(argument) {
-	argument.contenu = tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
-	// argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_enumerate_sans_numero(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
+	if (document.getElementById('supprimer_reference').checked == true) {
+		argument.contenu = tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
+	} else {
+		argument.contenu = `\\marginpar{\\footnotesize ${argument.id}` + tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
+	}
+		// argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_enumerate_sans_numero(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 	argument.contenu_correction =  tex_multicols(tex_paragraphe(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 
 	
@@ -241,10 +253,10 @@ function creer_couples(E1, E2, nombre_de_couples_min = 10){
 * @param {liste} liste - Tous les éléments que l'on souhaite supprimer 
 *
 * @example
-* // Renvoit 1, 2 ou 3
+* // Renvoie 1, 2 ou 3
 * randint (1,3)
 * @example
-* // Renvoit -1 ou 1
+* // Renvoie -1 ou 1
 * randint(-1,1,[0])
 *
 * @author Rémi Angot
@@ -367,10 +379,10 @@ function enleve_element_No_bis(array,index){
 * @param {liste_a_eviter}
 *
 * @example
-* // Renvoit 1, 2 ou 3
+* // Renvoie 1, 2 ou 3
 * choice([1,2,3])
 * @example
-* // Renvoit Rémi ou Léa
+* // Renvoie Rémi ou Léa
 * choice(['Rémi','Léa'])
 *
 * @author Rémi Angot
@@ -392,7 +404,7 @@ function choice(liste,liste_a_eviter=[]) {
 * @param {liste_a_eviter}
 *
 * @example
-* // Renvoit [1,4,5,6,7,8,9,10]
+* // Renvoie [1,4,5,6,7,8,9,10]
 * range(10,[2,3])
 *
 * @author Rémi Angot
@@ -414,7 +426,7 @@ function range(max,liste_a_eviter=[]){
 * @param {liste_a_eviter}
 *
 * @example
-* // Renvoit [6,7,10]
+* // Renvoie [6,7,10]
 * range(6,10,[8,9])
 *
 * @author Rémi Angot
@@ -566,7 +578,7 @@ function tridictionnaire(dict) {
 * Filtre un dictionnaire suivant les premiers caractères de ses clés
 *
 * @Example
-* filtreDictionnaire(dict,'6N') renvoit un dictionnaire où toutes les clés commencent par 6N
+* filtreDictionnaire(dict,'6N') renvoie un dictionnaire où toutes les clés commencent par 6N
 * @Auteur Rémi Angot
 */
 function filtreDictionnaire(dict,sub) {
@@ -1014,7 +1026,7 @@ function troncature(nombre,precision){
 	return signe*tronc;
 }
 /**
-* Renvoit la valeur absolue
+* Renvoie la valeur absolue
 * @Auteur Rémi Angot
 */
 function abs(a){
@@ -1031,7 +1043,7 @@ function arrondi_virgule(nombre, precision=2){ //
 }
 
 /**
-* Renvoit le PGCD de deux nombres
+* Renvoie le PGCD de deux nombres
 * @Auteur Rémi Angot
 */
 function pgcd(a,b){
@@ -1039,7 +1051,7 @@ function pgcd(a,b){
 }
 
 /**
-* Renvoit le PPCM de deux nombres
+* Renvoie le PPCM de deux nombres
 * @Auteur Rémi Angot
 */
 const ppcm = (a,b) => { return parseInt(Algebrite.run(`lcm(${a},${b})`))}
@@ -1276,7 +1288,7 @@ function tex_nombrecoul(nombre){
 
 
 /**
-* Renvoit un tableau (somme des termes positifs, somme des termes négatifs)
+* Renvoie un tableau (somme des termes positifs, somme des termes négatifs)
 * @Auteur Rémi Angot
 */function somme_des_termes_par_signe(liste){
 	let somme_des_positifs = 0, somme_des_negatifs = 0;
@@ -1387,7 +1399,7 @@ function choisit_lettres_differentes(nombre,lettres_a_eviter,majuscule=true){
 }
 
 /**
-* Renvoit une lettre majuscule depuis un nombre compris entre 1 et 702
+* Renvoie une lettre majuscule depuis un nombre compris entre 1 et 702
 * @Auteur Rémi Angot
 *@Example
 * // 0 -> @ 1->A ; 2->B...
@@ -1411,7 +1423,7 @@ function lettre_depuis_chiffre(i){
 }
 
 /**
-* Renvoit une lettre minuscule depuis un nombre compris entre 1 et 702
+* Renvoie une lettre minuscule depuis un nombre compris entre 1 et 702
 * @Auteur Rémi Angot
 *@Example
 * // 0 -> @ 1->a ; 2->b...
@@ -1462,7 +1474,7 @@ function minToHour(minutes){
 }
 
 /**
-* Renvoit un prénom féminin au hasard 
+* Renvoie un prénom féminin au hasard 
 * @Auteur Rémi Angot
 */
 function prenomF(){
@@ -1470,7 +1482,7 @@ function prenomF(){
 }
 
 /**
-* Renvoit un prénom masculin au hasard
+* Renvoie un prénom masculin au hasard
 * @Auteur Rémi Angot
 */
 function prenomM(){
@@ -1478,7 +1490,7 @@ function prenomM(){
 }
 
 /**
-* Renvoit un prénom au hasard
+* Renvoie un prénom au hasard
 * @Auteur Rémi Angot
 */
 function prenom(){
@@ -1486,7 +1498,7 @@ function prenom(){
 }
 
  /**
-* Renvoit un tableau avec les résultats des tirages successifs
+* Renvoie un tableau avec les résultats des tirages successifs
 * @param nombre_tirages Combien de tirages ?
 * @param nombre_faces Pour spécifier le type de dés
 * @param nombre_des Combien de dés à chaque tirage ?
@@ -1503,7 +1515,7 @@ function tirer_les_des(nombre_tirages,nombre_faces,nombre_des) {
 		return tirages
 	}
  /**
-* Renvoit un tableau de nombres
+* Renvoie un tableau de nombres
 * @param nombre_notes
 * @param note_min
 * @param note_max
@@ -1516,7 +1528,7 @@ function liste_de_notes(nombre_notes,note_min,note_max) {
 }
 
  /**
-* Renvoit le nombre de jour d'un mois donné
+* Renvoie le nombre de jour d'un mois donné
 * @param n quantième du mois (janvier=1...)
 * @auteur Jean-Claude Lhote
 */
@@ -1525,7 +1537,7 @@ function jours_par_mois(n){
 	return jours_mois[n-1]
 }
  /**
-* Renvoit un tableau de températures
+* Renvoie un tableau de températures
 * @param base température médiane
 * @mois quantième du mois (janvier=1...)
 * @annee pour déterminer si elle est bissextile ou non 
@@ -1544,7 +1556,7 @@ function un_mois_de_temperature(base,mois,annee) {
 }
 
  /**
-* Renvoit le nom du mois
+* Renvoie le nom du mois
 * @param n quantième du mois
 * @auteur Jean-Claude Lhote
 */
@@ -1634,7 +1646,7 @@ function tex_introduction(texte){
 
 
 /**
-*  Renvoit une liste HTML à partir d'une liste
+*  Renvoie une liste HTML à partir d'une liste
 * 
 * @param liste une liste de questions
 * @param spacing interligne (line-height en css)
@@ -1660,7 +1672,7 @@ function html_enumerate(liste,spacing){
 
 
 /**
-* Renvoit une liste HTML ou LaTeX suivant le contexte
+* Renvoie une liste HTML ou LaTeX suivant le contexte
 * 
 * @param liste une liste de questions
 * @param spacing interligne (line-height en css)
@@ -1676,7 +1688,7 @@ function enumerate(liste,spacing){
 
 
 /**
-*  Renvoit un paragraphe HTML à partir d'un string
+*  Renvoie un paragraphe HTML à partir d'un string
 * 
 * @param string
 * @Auteur Rémi Angot
@@ -1690,7 +1702,7 @@ function html_paragraphe(texte){
 }
 
 /**
-*  Renvoit un div HTML à partir d'une liste découpée par des sauts de ligne
+*  Renvoie un div HTML à partir d'une liste découpée par des sauts de ligne
 * 
 * @param liste une liste de questions
 * @param spacing interligne (line-height en css)
@@ -1716,7 +1728,7 @@ function html_ligne(liste,spacing){
 
 
 /**
-* Renvoit un environnent LaTeX multicolonnes
+* Renvoie un environnent LaTeX multicolonnes
 * @Auteur Rémi Angot
 */
 function tex_multicols(texte,nb_cols=2){
@@ -1731,7 +1743,7 @@ function tex_multicols(texte,nb_cols=2){
 }
 
 /**
-* Renvoit la consigne en titre 4
+* Renvoie la consigne en titre 4
 * @Auteur Rémi Angot
 */
 function html_consigne(consigne){
@@ -1739,7 +1751,7 @@ function html_consigne(consigne){
 }
 
 /**
-* Renvoit \exo{consigne}
+* Renvoie \exo{consigne}
 * @Auteur Rémi Angot
 */
 function tex_consigne(consigne){
@@ -1747,7 +1759,7 @@ function tex_consigne(consigne){
 }
 
 /**
-* Renvoit un nombre dans le format français (séparateur de classes)
+* Renvoie un nombre dans le format français (séparateur de classes)
 * @Auteur Rémi Angot
 */
 function tex_nombre(nb){
@@ -1767,7 +1779,7 @@ function tex_nombre(nb){
 }
 
 /**
-* Renvoit un nombre dans le format français (séparateur de classes) pour la partie entière comme pour la partie décimale
+* Renvoie un nombre dans le format français (séparateur de classes) pour la partie entière comme pour la partie décimale
 * @Auteur Rémi Angot
 */
 function tex_nombre2(nb){
@@ -1790,7 +1802,7 @@ function sp() {
 }
 
 /**
-* Renvoit un nombre dans le format français (séparateur de classes)
+* Renvoie un nombre dans le format français (séparateur de classes)
 * Fonctionne sans le mode maths contrairement à tex_nombre()
 * @Auteur Rémi Angot
 */
@@ -1811,7 +1823,7 @@ function nombre_avec_espace(nb){
 
 
 /**
-* Renvoit un nombre dans le format français (séparateur de classes) version sans Katex (pour les SVG)
+* Renvoie un nombre dans le format français (séparateur de classes) version sans Katex (pour les SVG)
 * @Auteur Jean-Claude Lhote
 */
 function string_nombre(nb){
@@ -1986,7 +1998,7 @@ function premiere_lettre_en_majuscule(text){return (text+'').charAt(0).toUpperCa
 
 
 /**
-* Renvoit le nombre de chiffres de la partie décimale 
+* Renvoie le nombre de chiffres de la partie décimale 
 * @Auteur Rémi Angot
 */
 function nombre_de_chiffres_dans_la_partie_decimale(nb){
@@ -4249,7 +4261,7 @@ function crible_eratosthene_n(n) {
 	let premiers_jusque_max = crible_eratosthene_n(max);
 	// on supprime le début de la liste jusque min
 	premiers_jusque_max.splice(0,premiers_a_suppr.length);
-	// on renvoit le tableau restant
+	// on renvoie le tableau restant
 	return premiers_jusque_max;
  };
 
