@@ -17,6 +17,9 @@ $(document).ready(function(){
     $('#play').click(function() {
         if (premier_clic_sur_play) {
             chrono = duree
+            $('.mathalea2d').css("font-size", 12 );
+            $('.mathalea2d').css("width", parseFloat($('.mathalea2d').css("width"))*2 );
+			$('.mathalea2d').css("height", parseFloat($('.mathalea2d').css("height"))*2 );
             $('#timer').html('&ndash; ' + chrono/1000 + ' s');
             $('#exercices').show();
             $('#parametres_generaux').hide();
@@ -39,13 +42,13 @@ $(document).ready(function(){
 
             let largeur = 0.5*$(document).width();
 
-            $('.slick-slide').textfill({
-                widthOnly : true,
-                minFontPixels : 20,
-                maxFontPixels : -1,
-                explicitWidth : largeur,
-                changeLineHeight : true,
-            })
+            // $('.slick-slide').textfill({
+            //     widthOnly : true,
+            //     minFontPixels : 20,
+            //     maxFontPixels : -1,
+            //     explicitWidth : largeur,
+            //     changeLineHeight : true,
+            // })
 
             
             $('.single-item').on('afterChange', function(event, slick, currentSlide) {
@@ -111,7 +114,7 @@ function liste_de_question_to_contenu(argument) {
 function html_div(liste){
     let result =`<section class="slider single-item" id="diaporama">`
     for(let i in liste){
-        result += '<div id="question_diap"><span>' + liste[i].replace(/\\dotfill/g,'...').replace(/\\\\/g,'<br>').replace(/\\not=/g,'≠').replace(/\\ldots/g,'....') + '</span></div>'   // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+        result += '<div id="question_diap" style="font-size:100px"><span>' + liste[i].replace(/\\dotfill/g,'...').replace(/\\\\/g,'<br>').replace(/\\not=/g,'≠').replace(/\\ldots/g,'....') + '</span></div>'   // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
     }
     result += '<div id="question_diap"><span>$\\text{Terminé !}$</span></div></section>'
     return result

@@ -25,6 +25,9 @@ var liste_des_exercices_disponibles = {
   "c3C10-4" : Exercice_tables_d_additions_cycle3,
   "c3C11" : Division_cycle3,
   "c3N10" : Ecrire_entiers_cycle3,
+  "c3N22" : Lire_abscisse_decimale_trois_formesCM,
+  "c3N23" : lireUneAbscisseAvecZoomCM,
+  "6Algo10": Colorier_Deplacement,
   "6C10": Additions_soustractions_multiplications_posees,
   "6C11": Divisions_euclidiennes,
   "6C10-1": Tables_de_multiplications,
@@ -102,6 +105,8 @@ var liste_des_exercices_disponibles = {
   "6N23-0" : Ecrire_nombres_decimal,
   "6N23-1": Exercice_differentes_ecritures_nombres_decimaux,
   "6N23-2" : Lire_abscisse_decimale_trois_formes,
+  "6N23-3" : LireUneAbscisseAvecZoom,
+  "6N23-4" : Nombre_decimal_oralise_de_differentes_manieres,
   "6N24": Exercice_6N24,
   "6N24-1": Exercice_multiplier_ou_diviser_un_nombre_entier_par_10_100_1000,
   "6N30": Lire_abscisse_decimale,
@@ -145,6 +150,7 @@ var liste_des_exercices_disponibles = {
   "5G20-1": Vocabulaire_des_triangles_5e,
   "5G22": DroiteRemarquableDuTriangle,
   "5G30" : Utiliser_le_codage_pour_decrire_5e,
+  "beta5G30-1" : Egalite_d_angles,
   "5G31": Exercice_angles_triangles,
   "5G31-1": Constructibilite_des_triangles_angles,
   "5G51" : Representer_un_solide_5e,
@@ -154,24 +160,24 @@ var liste_des_exercices_disponibles = {
   "5N110": Variation_en_pourcentages,
   "5N14": Exercice_comparer_deux_fractions,
   "5N14-2": Exercice_comparer_quatre_fractions,
-  "5N20": Exercice_additionner_des_fractions_5e,
-  "5N20-2": Exercice_additionner_ou_soustraire_des_fractions_5e,
+  "5N20": Exercice_additionner_ou_soustraire_des_fractions_5e,
+  "5N20-0": Problemes_additifs_fractions_5e,
   "5L10": Ecrire_une_expression_litterale,
   "5L10-1": Traduire_une_phrase_par_une_expression_litterale,
   "5L10-2": Traduire_un_programme_de_calcul,
   "5L10-3": Traduire_une_expression_litterale_par_une_phrase,
   "5L10-4": Tableaux_et_fonction,
-  "5N20-0": Problemes_additifs_fractions_5e,
   "5L12": Reduire_une_expression_litterale,
   "5L12-1": Reduire_dinstinction_somme_produit,
-  "5L13": Calculer_la_valeur_d_une_expression_litterale,
-  "5L13-1": Calculer_une_expression_litterale,
-  "5L13-2": Exercice_substituer,
-  "5L13-3": Traduire_une_phrase_par_une_expression_litterale_et_calculer,
-  "5L13-4": Calculer_une_expression_litteraleBis,
-  "5L13-5":Calculer_la_valeur_d_une_expression_litterale_deg1_inc1,
-  "5L13-6":Determiner_derniere_operation_exp_num,
-  "5L14": Tester_une_egalite,
+  "5L13": Reduction_ax_bx,
+  "5L14": Calculer_la_valeur_d_une_expression_litterale,
+  "5L14-1": Calculer_une_expression_litterale,
+  "5L14-2": Exercice_substituer,
+  "5L14-3": Traduire_une_phrase_par_une_expression_litterale_et_calculer,
+  "5L14-4": Calculer_une_expression_litteraleBis,
+  "5L14-5":Calculer_la_valeur_d_une_expression_litterale_deg1_inc1,
+  "5L14-6":Determiner_derniere_operation_exp_num,
+  "5L15": Tester_une_egalite,
   "5M10": Aire_du_parallelogramme,
   "5M20": Calcul_de_volumes_5e,
   "5P10": Tableaux_et_proportionnalite,
@@ -203,6 +209,8 @@ var liste_des_exercices_disponibles = {
   "4C25-0": Problemes_additifs_fractions,
   "4C30": Puissances_de_dix,
   "4C30-1": Puissances_encadrement,
+  "4C30-2": EcritureDecimalePuissanceDe10,
+  "4C30-3": EcritureDecimalePuissance,
   "4C32" : Notation_scientifique,
   "4C32-1" : Calculs_avec_puissances_de_dix,
   "4C33-1": Puissances_d_un_relatif_1,
@@ -255,6 +263,7 @@ var liste_des_exercices_disponibles = {
   "3L11-2": Reduction_si_possible,
   "3L11-3": Distributivite_simple_double_reduction,
   "3L11-4": Factoriser_par_nombre_ou_x,
+  "3L11-5": identites_calculs,
   "3L12-1": Developper_Identites_remarquables3,
   "3L12": Factoriser_Identites_remarquables3,
   "3L13": Exercice_equation1, //identique à 4L20
@@ -283,10 +292,12 @@ var liste_des_exercices_disponibles = {
   "3F12-3": Tableau_de_valeurs,
   "3F12-4": Image_graphique,
   "3F13": Antecedent_graphique,
+  "3F13-1": Antecedent_et_image_graphique,
   "3F21": Lecture_expression_fonctions_lineaires,
   "3F21-1": Lecture_expression_fonctions_affines,
   "3S15": Calculer_des_etendues,
   "3S20": fonctions_probabilite2,
+  "beta3L11-5": identites_calculs,
   "2N10": Existence_d_une_racine_carree,
   "2N10-1": proprietes_racine_carree,
   "2N11": Extraire_un_carre_parfait_d_une_racine_carree,
@@ -312,6 +323,7 @@ var liste_des_exercices_disponibles = {
   "PEA11": Passer_d_une_base_a_l_autre,
   "PEA11-1": Passer_de_la_base_12_ou_16_a_la_10,
   "betaTESTseb": Tests_du_Seb,
+  "betaSVG": AfficherSVG,
   P001: Code_LaTeX_personnalise,
   // 'P002': LaTeX_static,
   P003: feuille_d_axes_gradues,
@@ -361,7 +373,7 @@ function Exercice() {
   this.nb_questions = 10;
   this.nb_cols = 2;
   this.nb_cols_corr = 2;
-  this.spacing = 1.5;
+  this.spacing = 1;
   this.spacing_corr = 1;
   this.beamer = false;
 
@@ -7918,8 +7930,8 @@ function Calculer_un_pourcentage() {
       switch(liste_choix[i]) {
         case 1: // Les moyens de déplacement maison collège
           [moy1,moy2,moy3]=combinaison_listes(liste_moyens,3)
-          texte = `Dans un collège, $${p1}\\%$ des élèves ${moy1}, $${p2}\\%$ ${moy2} et les autres ${moy3}.<br>`
-          texte += `Quel est le pourcentage des élèves qui ${moy3} ?` 
+          texte = `Dans un collège, $${p1}\\%$ des élèves se déplacent ${moy1}, $${p2}\\%$ ${moy2} et les autres ${moy3}.<br>`
+          texte += `Quel est le pourcentage des élèves qui se déplacent ${moy3} ?` 
           texte_corr=`Les élèves qui ${moy1} ou qui ${moy2} représentent $${p1}\\%$ + $${p2}\\% = ${p1+p2}\\%$.<br>`
           texte_corr+=`Donc on calcule : $100 - ${p1+p2}\\% = ${p3}\\%$<br>`
           texte_corr+=`$${p3}\\%$ des élèves ${moy3}.<br>`
@@ -9363,11 +9375,8 @@ function Exercice_differentes_ecritures_nombres_decimaux() {
     this.liste_corrections = []; // Liste de questions corrigées
 
     let type_de_questions_disponibles = [1, 2, 3, 4, 5, 6];
-    let liste_type_de_questions = combinaison_listes(
-      type_de_questions_disponibles,
-      this.nb_questions
-    ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-
+    let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions);
+    if (this.nb_questions == 3) liste_type_de_questions = combinaison_listes([choice([1,2,6]),3,choice([4,5])],this.nb_questions);
     for (
       let i = 0, texte, texte_corr, cpt = 0;
       i < this.nb_questions && cpt < 50;
@@ -9448,12 +9457,22 @@ function Exercice_differentes_ecritures_nombres_decimaux() {
 }
 
 /**
- * ref beta6N23-2
+ * Lire des nombres déciamux sur une portion de droite graduée
+ * Une question demande la forme décimale, une autre, la partie entière plus la fraction décimale, et une troisième demande une seule fraction décimale.
+ * ref 6N23-2
+ * 
  * @Auteur Jean-Claude Lhote
  */
+function Lire_abscisse_decimale_trois_formesCM(){
+  Lire_abscisse_decimale_trois_formes.call(this)
+  this.niveau='CM'
+  this.sup=1
+}
+
 function Lire_abscisse_decimale_trois_formes() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Lire une abscisse décimale sous trois formes";
+  this.niveau='sixième'
+  this.titre = "Lire des abscisses décimales sous trois formes";
   this.consigne = "";
   if (sortie_html) {
     this.spacing = 2;
@@ -9475,25 +9494,35 @@ function Lire_abscisse_decimale_trois_formes() {
     this.liste_corrections = []; // Liste de questions corrigées
 
     let d1,texte="",texte_corr="",extremite,noms=choisit_lettres_differentes(3,'Q')
-    let x1=0,x2=0,x3=0
+    let x1=0,x2=0,x3=0,thickOff,tableau=[]
     if (this.sup==1){
-    xmin=randint(0,15)
+      if (this.niveau=='CM') { 
+        xmin=0
+        thickOff=0
+      }
+      else {
+        xmin=randint(1,15)
+        thickOff=calcul(2/(10**(parseInt(this.sup))))
+      }
     if (xmin==0) extremite=`|->`
     else extremite=`->`
     xmax=xmin+9
-    while (estentier(x1)||estentier(x2)||estentier(x3)){
-    x1=randint(xmin*10,xmin*10+29)
-    x2=randint(xmin*10+31,xmin*10+59,x1)
-    x3=randint(xmin*10+61,xmax*10-1,[x1,x2])
+    x1=xmin*10+randint(0,2)*10+randint(2,8)
+    x2=xmin*10+randint(3,5)*10+randint(2,8)
+    x3=xmin*10+randint(6,8)*10+randint(2,8)
     x1=calcul(x1/10)
     x2=calcul(x2/10)
     x3=calcul(x3/10)
-    }
-    [x1,x2,x3]=shuffle([x1,x2,x3])
-    d1=droiteGraduee2({x:0,y:0,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:false,Unite:3,
-                      thickCouleur:'black',axeCouleur:'black',axeHauteur:6,
+
+    tableau=shuffle([x1,x2,x3])
+    x1=tableau[0]
+    x2=tableau[1]
+    x3=tableau[2]
+
+    d1=droiteGraduee2({x:0,y:0,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:false,Unite:3,thickOffset:thickOff,
+                      thickCouleur:'black',axeCouleur:'black',axeHauteur:4,
                       pointListe:[[x1,`${noms[0]}`],[x2,`${noms[1]}`],[x3,`${noms[2]}`]],
-                      pointTaille:2,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'o',axeStyle:extremite})
+                      pointTaille:6,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'|',pointEpaisseur:2,axeStyle:extremite})
     texte=`${num_alpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.<br>`
     texte+=`${num_alpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un nombre entier et d'une fraction décimale.<br>`
     texte+=`${num_alpha(2)} Donner l'abscisse de ${noms[2]} sous la forme d'une fraction décimale.<br>`
@@ -9502,23 +9531,33 @@ function Lire_abscisse_decimale_trois_formes() {
     texte_corr+=`${num_alpha(2)} L'abscisse de ${noms[2]} est : $${tex_fraction(calcul(x3*10),10)}$.`
     }
     else if (this.sup==2){
-      xmin=randint(0,15)
+      if (this.niveau=='CM') { 
+        xmin=0
+        thickOff=0
+      }
+      else {
+        xmin=randint(1,15)-0.1
+        thickOff=calcul(2/(10**(parseInt(this.sup))))
+      }
       if (xmin==0) extremite=`|->`
       else extremite=`->`
-      xmax=calcul(xmin+1.5)
-      while (estentier(x1)||estentier(x2)||estentier(x3)){
-      x1=randint(xmin*100,xmin*100+45)
-      x2=randint(xmin*100+55,xmin*100+95,x1)
-      x3=randint(xmin*100+105,xmax*100-5,[x1,x2])
-      x1=calcul(x1/100)
-      x2=calcul(x2/100)
-      x3=calcul(x3/100)
-      }
-      [x1,x2,x3]=shuffle([x1,x2,x3])
-      d1=droiteGraduee2({x:0,y:0,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:true,Unite:20,
-                        thickCouleur:'black',axeCouleur:'black',axeHauteur:6,
+      xmax=calcul(xmin+1.5);
+      x1=10+xmin*100+randint(1,3)*10+randint(2,8);
+      x2=10+xmin*100+randint(4,6)*10+randint(2,8);
+      x3=10+xmin*100+randint(7,9)*10+randint(2,8);
+
+      x1=calcul(x1/100);
+      x2=calcul(x2/100);
+      x3=calcul(x3/100);
+      tableau=shuffle([x1,x2,x3])
+      x1=tableau[0]
+      x2=tableau[1]
+      x3=tableau[2];
+
+      d1=droiteGraduee2({x:0,y:0,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:true,Unite:20,thickOffset:thickOff,
+                        thickCouleur:'black',axeCouleur:'black',axeHauteur:4,
                         pointListe:[[x1,`${noms[0]}`],[x2,`${noms[1]}`],[x3,`${noms[2]}`]],
-                        pointTaille:2,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'o',axeStyle:extremite})
+                        pointTaille:6,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'|',pointEpaisseur:2,axeStyle:extremite})
       texte=`${num_alpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.<br>`
       texte+=`${num_alpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un entier et d'une fraction décimale.<br>`
       texte+=`${num_alpha(2)} Donner l'abscisse de ${noms[2]} sous la forme d'une fraction décimale.<br>`
@@ -9528,25 +9567,36 @@ function Lire_abscisse_decimale_trois_formes() {
   
     }
     else if (this.sup==3) {
-      xmin=calcul(randint(0,15)+randint(0,9)*0.1)
+      if (this.niveau=='CM') { 
+        xmin=0
+        thickOff=0
+      }
+      else {
+        xmin=calcul(randint(0,15)+randint(0,9)*0.1)
+        thickOff=calcul(2/(10**(parseInt(this.sup))))
+      }
       if (xmin==0) extremite=`|->`
       else extremite=`->`
       xmax=calcul(xmin+0.15)
-      while (estentier(x1)||estentier(x2)||estentier(x3)){
-      x1=randint(xmin*1000+5,xmin*1000+45)
-      x2=randint(xmin*1000+55,xmin*1000+95,x1)
-      x3=randint(xmin*1000+105,xmax*1000-5,[x1,x2])
+
+      x1=xmin*1000+randint(1,5)*10+randint(2,8)
+      x2=xmin*1000+randint(6,9)*10+randint(2,8)
+      x3=xmin*1000+randint(11,14)*10+randint(2,8)
       x1=calcul(x1/1000)
       x2=calcul(x2/1000)
       x3=calcul(x3/1000)
-      }
-      [x1,x2,x3]=shuffle([x1,x2,x3])
-      d1=droiteGraduee2({x:0,y:0,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:true,Unite:200,
+
+      tableau=shuffle([x1,x2,x3])
+      x1=tableau[0]
+      x2=tableau[1]
+      x3=tableau[2]
+      d1=droiteGraduee2({x:0,y:0,Min:xmin,axePosition:'H',Max:xmax,thickSec:true,thickTer:true,Unite:200,thickOffset:thickOff,
                         thickDistance:0.1,thickSecDist:0.01,thickTerDist:0.001,
-                        thickCouleur:'black',axeCouleur:'black',axeHauteur:6,
+                        thickCouleur:'black',axeCouleur:'black',axeHauteur:4,
                         pointListe:[[x1,`${noms[0]}`],[x2,`${noms[1]}`],[x3,`${noms[2]}`]],
-                        labelListe:[[xmin+0.1,tex_nombrec(xmin+0.1)],[xmin+0.2,tex_nombrec(xmin+0.2)]],
-                        pointTaille:2,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'o',axeStyle:extremite})
+                        labelListe:[[xmin+0.09,nombre_avec_espace(calcul(xmin+0.09))],[xmin+0.1,nombre_avec_espace(calcul(xmin+0.1))]],
+                        pointTaille:6,pointOpacite:0.8,pointCouleur:'blue',pointStyle:'|',pointEpaisseur:2,axeStyle:extremite})
+
       texte=`${num_alpha(0)} Donner l'abscisse de ${noms[0]} en écriture décimale.<br>`
       texte+=`${num_alpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un entier et d'une fraction décimale.<br>`
       texte+=`${num_alpha(2)} Donner l'abscisse de ${noms[2]} sous la forme d'une fraction décimale.<br>`
@@ -9555,14 +9605,565 @@ function Lire_abscisse_decimale_trois_formes() {
       texte_corr+=`${num_alpha(2)} L'abscisse de ${noms[2]} est : $${tex_fraction(calcul(x3*1000),1000)}$.`
   
     }
-    texte+= mathalea2d({xmin:-1.5,xmax:35,ymin:-1,ymax:1.5,pixelsParcCm:20,scale:0.5},d1)
+    texte+= mathalea2d({xmin:-1.5,xmax:35,ymin:-1.5,ymax:1.5,pixelsParCm:25,scale:0.5},d1)
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
     liste_de_question_to_contenu_sans_numero(this);
   };
   this.besoin_formulaire_numerique = ['Niveau de difficulté',3,'1 : Au dixième\n2 : Au centième\n3 : Au millième'];
 }
+/**
+ * Lire un nombre décimal jusqu'au millième graĉe à un système de zoom successifs
+ * L'abscisse est à donner sous trois formes.
+ * ref 6N23-3
+ * 
+ * @Auteur Jean-Claude Lhote
+ */
+function lireUneAbscisseAvecZoomCM() {
+  LireUneAbscisseAvecZoom.call(this);
+  this.niveau='CM';
+  this.sup=1;
+}
 
+function LireUneAbscisseAvecZoom() {
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.niveau = 'sixième'
+  this.sup=3;
+  this.titre = "Lire une abscisse décimale grâce à des zooms successifs";
+  this.consigne = "";
+  if (sortie_html) {
+    this.spacing = 2;
+    this.spacing_corr = 3;
+  }
+  else {
+    this.spacing = 1;
+    this.spacing_corr = 1;
+  }
+  this.vspace = -1;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  this.sup = 1
+  this.nb_questions = 1;
+  this.nb_questions_modifiable = false
+
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+
+    let d1, d2,d3,d3Corr, d1Corr, d2Corr, texte = "", texte_corr = "", extremite,extreme, noms = choisit_lettres_differentes(5, 'QFN')
+    let x1 = 0, x2 = 0, x3 = 0, objets = [], fenetre, thickOff = 0, objetsCorr = []
+    if (this.sup == 1) {
+      if (this.niveau == 'CM') {
+        xmin = 0
+        thickOff = 0
+        origine=0
+        extreme=9
+        xmax=9
+      }
+      else {
+        xmin = randint(5, 10) - 0.2
+        origine=Math.round(xmin+0.2)
+        extreme=calcul(origine+9)
+        thickOff = 0.1
+        xmax=origine+9.2
+      }
+      x1 = calcul(xmin + 0.2 + randint(1, 5) + randint(2, 8) / 10)
+      //   xmin=calcul(Math.floor(x1)-5)
+      //    xmax=calcul(Math.floor(x1)+6)
+      if (xmin == 0) extremite = `|->`
+      else extremite = `->`
+
+      d1 = droiteGraduee2({
+        x: 0, y: 3, Min: xmin, axePosition: 'H', Max: xmax + 0.2, thickSec: true, thickTer: false, Unite: 3, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 4, labelsPrincipaux: false, 
+        labelListe: [[origine, `${nombre_avec_espace(origine)}`], [extreme, `${nombre_avec_espace(extreme)}`]],
+        pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+      })
+      d2 = droiteGraduee2({
+        x: Math.floor(x1) - xmin + 1.5, y: 0, Min: Math.floor(x1), axePosition: 'H', Max: Math.floor(x1 + 1), thickSec: true, thickTer: false, Unite: 20, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 4, labelsPrincipaux: false,
+        pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+      })
+      d1Corr = droiteGraduee2({
+        x: 0, y: 3, Min: xmin, axePosition: 'H', Max: xmax + 0.2, thickSec: true, thickTer: false, Unite: 3, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 4, labelsPrincipaux: true,
+        labelListe: [[origine , `${nombre_avec_espace(origine )}`], [extreme, `${nombre_avec_espace(extreme)}`]],
+        pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+      })
+      d2Corr = droiteGraduee2({
+        x: Math.floor(x1) - xmin + 1.5, y: 0, Min: Math.floor(x1), axePosition: 'H', Max: Math.floor(x1 + 1), thickSec: true, thickTer: false, Unite: 20, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 4, labelsPrincipaux: false,labelsSecondaires:true,
+        labelListe: [[Math.floor(x1),`${nombre_avec_espace(Math.floor(x1))}`],[x1,`${nombre_avec_espace(x1)}`],[Math.ceil(x1),`${nombre_avec_espace(Math.ceil(x1))}`]],
+        pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+      })
+      
+      pA1 = point((Math.floor(x1) - xmin) * 3, 3)
+      pA2 = point(Math.floor(x1) - xmin + 1.5, 0)
+      pB1 = point((Math.floor(x1) + 1 - xmin) * 3, 3)
+      pB2 = point(Math.floor(x1) - xmin + 21.5, 0)
+      sA = segment(pA1, pA2)
+      sB = segment(pB1, pB2)
+      sA.pointilles = true
+      sB.pointilles = true
+      objets.push(d1, d2, sA, sB)
+      objetsCorr.push(d1Corr, d2Corr, sA, sB)
+      fenetre = { xmin: -1.5, xmax: 35, ymin: -1, ymax: 4.5, pixelsParCm: 25, scale: 0.5 }
+      texte_corr = `L'abscisse de ${noms[1]} est : $${tex_nombre(x1)}=${tex_nombre(Math.floor(x1))} + ${tex_fraction(calcul(10 * (x1 - Math.floor(x1))), 10)}=${tex_fraction(calcul(x1 * 10), 10)}$.<br>`
+    }
+    else if (this.sup == 2) {
+      if (this.niveau == 'CM') {
+        xmin = 0
+        thickOff = 0
+      }
+      else {
+        xmin = randint(1, 15) - 0.02
+        thickOff = 0.01
+      }
+
+      xmax = xmin + 1.05
+      x1 = calcul(xmin + 0.02 + randint(2, 8) / 10 + randint(2, 8) / 100)
+      x2 = calcul(Math.floor(x1 * 10) / 10)
+      x3 = calcul(x2 + 0.1)
+      //      xmin=calcul(x2-0.8)
+      //      xmax=calcul(xmin+1.7)
+      if (xmin == 0) extremite = `|->`
+      else extremite = `->`
+      d1 = droiteGraduee2({
+        x: 0, y: 3, Min: xmin, axePosition: 'H', Max: xmax, thickSec: true, thickTer: true, Unite: 30, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 8, thickDistance: 1, thickSecDist: 0.1, thickTerDist: 0.01, labelsPrincipaux: false,
+        labelListe: [[Math.floor(x1), `${Math.floor(x1)}`], [Math.ceil(x1), `${Math.ceil(x1)}`]],
+        pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+      })
+      d2 = droiteGraduee2({
+        x: (x2 - xmin) + 6, y: 0, Min: x2, axePosition: 'H', Max: x2 + .1, thickSec: true, thickTer: false, Unite: 200, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, thickDistance: 0.1, thickSecDist: 0.01, thickTerDist: 0.001, labelsPrincipaux: false,
+        pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x2 + 0.1, `${noms[2]}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+      })
+      d1Corr = droiteGraduee2({
+        x: 0, y: 3, Min: xmin, axePosition: 'H', Max: xmax, thickSec: true, thickTer: true, Unite: 30, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 8, thickDistance: 1, thickSecDist: 0.1, thickTerDist: 0.01, labelsSecondaires:true,
+        labelListe: [[Math.floor(x1), `${Math.floor(x1)}`], [Math.ceil(x1), `${Math.ceil(x1)}`]],
+        pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+      })
+      d2Corr = droiteGraduee2({
+        x: (x2 - xmin) + 6, y: 0, Min: x2, axePosition: 'H', Max: x2 + .1, thickSec: true, thickTer: false, Unite: 200, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, thickDistance: 0.1, thickSecDist: 0.01, thickTerDist: 0.001, labelsPrincipaux: false,labelsSecondaires:true,
+        labelListe: [[x2,`${nombre_avec_espace(x2)}`],[x1,`${nombre_avec_espace(x1)}`],[x3,`${nombre_avec_espace(x3)}`]], 
+        pointListe: [[x1,`${noms[1]}`], [x2, `${noms[0]}`], [x2 + 0.1, `${noms[2]}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+      })
+
+      pA1 = point((Math.floor(x1 * 10) / 10 - xmin) * 30, 3)
+      pA2 = point(x2 - xmin + 6, 0)
+      pB1 = point((Math.floor(x1 * 10) / 10 + 0.1 - xmin) * 30, 3)
+      pB2 = point(x3 - xmin + 26, 0)
+      sA = segment(pA1, pA2)
+      sB = segment(pB1, pB2)
+      sA.pointilles = true
+      sB.pointilles = true
+      fenetre = { xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 4.5, pixelsParCm:25, scale: 0.5 }
+      objets.push(d1, d2, sA, sB)
+      objetsCorr.push(d1Corr,d2Corr,sA,sB)
+      let partent = Math.floor(x1), pardec = calcul(x1 - partent)
+      texte_corr = `L'abscisse de ${noms[1]} est : $${tex_nombre(x1)}=${tex_nombre(partent)} + ${tex_fraction(calcul(pardec * 100), 100)}=${tex_fraction(calcul(x1 * 100), 100)}$.<br>`
+
+    }
+    else if (this.sup == 3) {
+      if (this.niveau == 'CM') {
+        xmin = 0
+        xmax =1
+        thickOff = 0
+        x1 = calcul(xmin + randint(2, 8) / 10 + randint(2, 8) / 100 + randint(2, 8) * 0.001)
+        x2 = troncature(x1, 1)
+        x21 = troncature(x1, 2)
+        x3 = calcul(x2 + 0.1)
+        x31 = calcul(x21 + 0.01)
+      }
+      else {
+        xmin = randint(1, 15)
+        xmax = xmin + 1
+        x1 = calcul(xmin + randint(2, 8) / 10 + randint(2, 8) / 100 + randint(2, 8) * 0.001)
+        x2 = troncature(x1, 1)
+        x21 = troncature(x1, 2)
+        x3 = calcul(x2 + 0.1)
+        x31 = calcul(x21 + 0.01)
+        xmin = Math.floor(x2)
+        xmax = xmin+1
+        thickOff = 0.001
+      }
+      if (xmin == 0) extremite = `|->`
+      else extremite = `->`
+      d1 = droiteGraduee2({
+        x: 0, y: 6, Min: xmin, axePosition: 'H', Max: xmax, thickSec: true, thickTer: true, Unite: 30, thickDistance: 1, thickSecDist: 0.1, thickTerDist: 0.01, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: true,
+        labelListe: [[xmin, `${nombre_avec_espace(xmin)}`], [xmax, `${nombre_avec_espace(xmax)}`]],
+        pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 3, axeStyle: extremite
+      })
+      d2 = droiteGraduee2({
+        x: 6.5, y: 3, Min: x2, axePosition: 'H', Max: x3, thickSec: true, thickTer: true, Unite: 200, thickSecDist: 0.01, thickTerDist: 0.001, thickDistance: 0.1, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: false,
+        pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+      })
+      d3 = droiteGraduee2({
+        x: 6.5, y: 0, Min: x21, axePosition: 'H', Max: x31, thickSec: true, thickTer: false, Unite: 2000, thickSecDist: 0.001, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: false,
+        pointListe: [[x1, `${noms[1]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+      })
+      d1Corr = droiteGraduee2({
+        x: 0, y: 6, Min: xmin, axePosition: 'H', Max: xmax, thickSec: true, thickTer: true, Unite: 30, thickDistance: 1, thickSecDist: 0.1, thickTerDist: 0.01, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: true,labelsSecondaires:true,
+        labelListe: [[xmin, `${nombre_avec_espace(xmin)}`], [xmax, `${nombre_avec_espace(xmax)}`]],
+        pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 3, axeStyle: extremite
+      })
+      d2Corr = droiteGraduee2({
+        x: 6.5, y: 3, Min: x2, axePosition: 'H', Max: x3, thickSec: true, thickTer: true, Unite: 200, thickSecDist: 0.01, thickTerDist: 0.001, thickDistance: 0.1, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: false,labelsSecondaires:true,
+        pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
+        labelListe: [[x2, `${nombre_avec_espace(x2)}`], [x3, `${nombre_avec_espace(x3)}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+      })
+      d3Corr = droiteGraduee2({
+        x: 6.5, y: 0, Min: x21, axePosition: 'H', Max: x31, thickSec: true, thickTer: false, Unite: 2000, thickSecDist: 0.001, thickOffset: thickOff,
+        thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: false,labelsSecondaires:true,
+        pointListe: [[x1, `${noms[1]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
+        labelListe: [[x21, `${nombre_avec_espace(x21)}`], [x31 ,`${nombre_avec_espace(x31)}`]],
+        pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+      })
+
+      pA1 = point((x2-xmin)*30, 6)
+      pA2 = point(6.5, 3)
+      pB1 = point((x3-xmin)*30, 6)
+      pB2 = point(26.5, 3)
+      sA = segment(pA1, pA2)
+      sB = segment(pB1, pB2)
+      sA.pointilles = true
+      sB.pointilles = true
+      pC1 = point(6.5 + (x21 - x2) * 200, 3)
+      pC2 = point(6.5, 0)
+      pD1 = point(6.5 + (x31 - x2) * 200, 3)
+      pD2 = point(26.5, 0)
+      sC = segment(pC1, pC2)
+      sD = segment(pD1, pD2)
+      sC.pointilles = true
+      sD.pointilles = true
+      fenetre = { xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 7.5, pixelsParCm:25, scale: 0.5 }
+      objets.push(d1, d2, d3, sA, sB, sC, sD)
+      objetsCorr.push(d1Corr,d2Corr,d3Corr,sA, sB, sC, sD)
+      let partent = Math.floor(x1), pardec = calcul(x1 - partent)
+      texte_corr = `L'abscisse de ${noms[1]} est : $${tex_nombre(x1)}=${tex_nombre(partent)} + ${tex_fraction(calcul(pardec * 1000), 1000)}=${tex_fraction(calcul(x1 * 1000), 1000)}$.<br>`
+
+    }
+    texte = `Donner l'abscisse de ${noms[1]} sous trois formes : en écriture décimale, comme somme d’un nombre entier et d’une fraction décimale et avec une fraction décimale.<br>`
+    texte += mathalea2d(fenetre, objets)
+    texte_corr+=mathalea2d(fenetre, objetsCorr)
+    this.liste_questions.push(texte);
+    this.liste_corrections.push(texte_corr);
+    liste_de_question_to_contenu_sans_numero(this);
+  };
+  this.besoin_formulaire_numerique = ['Niveau de difficulté', 3, '1 : Au dixième\n2 : Au centième\n3 : Au millième'];
+}
+
+
+/**
+ * Écriture décimale à partir de différentes manière de l'énoncer
+ *
+ * * 3 unités, 5 dixièmes et 8 centièmes
+ * * 3 unités et 5 centièmes
+ * * 5 dixièmes
+ * * 128/10
+ * * 8+5/100+7/100
+ * @Auteur Rémi Angot
+ * Référence 6N23-4
+ */
+function Nombre_decimal_oralise_de_differentes_manieres() {
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.titre = "Donner l'écriture décimale d'un nombre à partir de différents textes";
+  this.consigne = "Donner l'écriture décimale de chaque nombre.";
+  this.nb_questions = 5;
+
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+
+    let type_de_questions_disponibles = range1(5);
+    let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions); 
+    for (
+      let i = 0, texte, texte_corr, cpt = 0, a, b, c, choix ;i < this.nb_questions && cpt < 50;) {
+      a = randint(2,9);
+      b = randint(2,9,a)
+      c = randint(2,9,[a,b])
+      switch (liste_type_de_questions[i]) {
+        case 1: //3 unités, 5 dixièmes et 8 centièmes   
+          texte = `${a} unités, ${b} dixièmes et ${c} centièmes`;
+          texte_corr = `$${a}+${tex_fraction(b,10)}+${tex_fraction(c,100)}=${tex_nombrec(a+b/10+c/100)}$`
+          break;
+        case 2: //3 unités et 5 centièmes   
+          texte = `${a} unités et ${c} centièmes`;
+          texte_corr = `$${a}+${tex_fraction(c,100)}=${tex_nombrec(a+c/100)}$`
+          break;
+        case 3: //5 dixièmes / centièmes ou millièmes
+          choix = randint(1,3)
+          if (choix==1){
+            texte = `${a} dixièmes`;
+            texte_corr = `$${tex_fraction(a,10)}=${tex_nombrec(a/10)}$`
+          }   
+          if (choix==2){
+            texte = `${a} centièmes`;
+            texte_corr = `$${tex_fraction(a,100)}=${tex_nombrec(a/100)}$`
+          }   
+          if (choix==3){
+            texte = `${a} millièmes`;
+            texte_corr = `$${tex_fraction(a,1000)}=${tex_nombrec(a/1000)}$`
+          }   
+          break;
+        case 4: //128/10
+          let n = a*100+b*10+c   
+          choix = randint(1,3)
+          if (choix==1){
+            texte = `$${tex_fraction(n,10)}$`;
+            texte_corr = `$${tex_fraction(n,10)}=${tex_nombrec(n/10)}$`
+          }
+          if (choix==2){
+            texte = `$${tex_fraction(n,100)}$`;
+            texte_corr = `$${tex_fraction(n,100)}=${tex_nombrec(n/100)}$`
+          }
+          if (choix==1){
+            texte = `$${tex_fraction(n,1000)}$`;
+            texte_corr = `$${tex_fraction(n,1000)}=${tex_nombrec(n/1000)}$`
+          }
+          break;
+        case 5: //8+5/100+7/100  
+          choix = randint(1,2)
+          if (choix==1){
+            texte = `$${a}+${tex_fraction(b,100)}+${tex_fraction(c,100)}$`;
+            texte_corr = `$${a}+${tex_fraction(b,100)}+${tex_fraction(c,100)}=${a}+${tex_fraction(b+c,100)}=${tex_nombrec(a+(b+c)/100)}$`
+          }
+          if (choix==2){
+            texte = `$${a}+${tex_fraction(b,10)}+${tex_fraction(c,10)}$`;
+            texte_corr = `$${a}+${tex_fraction(b,10)}+${tex_fraction(c,10)}=${a}+${tex_fraction(b+c,10)}=${a}+${tex_nombrec((b+c)/10)}=${tex_nombrec(a+(b+c)/10)}$`
+          }
+          break;
+        
+      }
+
+      if (this.liste_questions.indexOf(texte) == -1) {
+        // Si la question n'a jamais été posée, on en crée une autre
+        this.liste_questions.push(texte);
+        if (!sortie_html && i == 0) {
+          texte_corr = `\\setlength\\itemsep{2em}` + texte_corr;
+        } // espacement entre les questions
+        this.liste_corrections.push(texte_corr);
+        i++;
+      }
+      cpt++;
+    }
+    liste_de_question_to_contenu(this);
+  };
+}
+
+/** 
+ * * Colorier le déplacement d'un lutin
+ * * 6Algo10
+ * @author Erwan Duplessy
+ */
+function Colorier_Deplacement(){
+	Exercice.call(this); // Héritage de la classe Exercice()
+  this.sup = 1; // nombre de commandes = this.sup + 2
+  this.sup2 = false; //1 : sans boucle ; true : avec boucle
+  this.nb_questions=1;
+  this.nb_questions_modifiable=false;
+	this.titre = "Programmer des déplacements";
+  this.consigne = "Dans le quadrillage, effectuer le programme.";
+	this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  this.nb_questions_modifiable = false;
+	sortie_html ? this.spacing = 2 : this.spacing = 1; 
+  sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
+  this.liste_packages = "scratch3"; // pour dessiner les blocs en LaTeX/Tikz
+
+  this.nouvelle_version = function(){
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    function scratchblocks_Tikz(code_svg,code_tikz) {
+      if (sortie_html) {
+        return code_svg;
+      } else {
+        return code_tikz;
+      };
+    };
+        
+    let texte = ""; // texte de l'énoncé
+    let texte_corr=""; // texte du corrigé
+    let code_tikz = ``; // code pour dessiner les blocs en tikz
+    let code_svg = ``; // code pour dessiner les blocs en svg
+    let nbCommandes = Number(this.sup) + 2; // nombre de commandes de déplacement dans un script
+    let nbRepetition = 1; // Nombre de fois où la boucle est répétée. 
+    if (this.sup2) {
+      nbRepetition = 3;
+    }
+    // 0 : gauche, 1 : droite, 2 : haut, 3 : bas, 4 : colorier.
+    let lstCommandesTikz = [`\\blockmove{Aller à gauche}`, `\\blockmove{Aller à droite}`, `\\blockmove{Aller en haut}`, `\\blockmove{Aller en bas}`, `\\blockmove{Colorier la case}`];
+    let lstCommandesSVG = [`Aller à gauche`, `Aller à droite`, `Aller en haut`, `Aller en bas`, `Colorier`];
+    let lstAjoutXY = [[-1,0],[1,0],[0,1],[0,-1],[0,0]];
+    code_tikz += `\\medskip \\\\ \\begin{scratch} <br>`;
+    code_svg += `<pre class='blocks'>`;
+    let n = 0; // variable temporaire pour stocker le numéro de la commande
+    let lstNumCommande = []; // liste des commandes successives
+    let lstX = [0]; // liste des abscisses successives
+    let lstY = [0]; // liste des ordonnées successives
+    if (this.sup2) {
+      code_svg += `répéter (${nbRepetition}) fois <br>`;
+      code_tikz += `\\blockrepeat{répéter \\ovalnum{${nbRepetition}} fois} {` 
+    }
+
+    for (i = 0; i<nbCommandes; i++) {
+      n = choice([0,1,2,3]); // choix d'un déplacement
+      code_tikz += lstCommandesTikz[n]; // ajout d'un déplacement 
+      code_svg += lstCommandesSVG[n]+`<br>`; // ajout d'un déplacement 
+      code_tikz += lstCommandesTikz[4]; // ajout de l'instruction "Colorier"
+      code_svg += lstCommandesSVG[4]+`<br>`; // ajout de l'instruction "Colorier"
+      lstNumCommande.push(n); // ajout d'un déplacement 
+      lstNumCommande.push(4); // ajout de l'instruction "Colorier"
+      lstX.push(lstX[lstX.length-1]+lstAjoutXY[n][0]); // calcul de la nouvelle abscisse
+      lstY.push(lstY[lstY.length-1]+lstAjoutXY[n][1]); // calcul de la nouvelle ordonnée
+    }
+    for (let j = 0; j<nbRepetition-1; j++) {
+      for (i = 0; i<2*nbCommandes; i++) {
+        lstX.push(lstX[lstX.length-1]+lstAjoutXY[lstNumCommande[i]][0]);
+        lstY.push(lstY[lstY.length-1]+lstAjoutXY[lstNumCommande[i]][1]);
+        }      
+    }
+    if (this.sup2) {
+      code_svg += `fin <br>`;
+      code_tikz += `}` 
+    }
+    code_svg += `</pre>`;
+    code_tikz += `\\end{scratch}`;
+
+    let xLutinMin = Math.min(...lstX);
+    let xLutinMax = Math.max(...lstX);
+    let yLutinMin = Math.min(...lstY);
+    let yLutinMax = Math.max(...lstY);
+
+    if (sortie_html) {
+      texte += `<table style="width: 100%"><tr><td>` ;
+    }  else {
+      texte += `\\begin{minipage}[t]{.25\\textwidth}`;
+    }   
+
+    texte += scratchblocks_Tikz(code_svg,code_tikz);
+    
+    if (sortie_html) {
+      texte += `</td><td>`;
+      texte += `             `;
+      texte += `</td><td style="vertical-align: top; text-align: center">`;
+    } else
+    {
+      texte += `\\end{minipage} `
+      texte += `\\hfill \\begin{minipage}[t]{.74\\textwidth}`
+    }    
+
+    let xGrilleMin = xLutinMin - 1;
+    let xGrilleMax = xLutinMax + 2;
+    let yGrilleMin = yLutinMin - 2;
+    let yGrilleMax = yLutinMax + 1;
+
+    let r2 = grille(xGrilleMin, yGrilleMin, xGrilleMax, yGrilleMax, 'black', .8, 1);
+    let lstObjet = [r2]; // liste de tous les objets Mathalea2d
+
+    let p; // carré gris représentant le lutin en position de départ
+    p = polygone(point(lstX[0],lstY[0]), point(lstX[0]+1,lstY[0]), point(lstX[0]+1,lstY[0]-1), point(lstX[0], lstY[0]-1));
+    p.opacite = 0.5;
+    p.couleurDeRemplissage = 'black';
+    p.opaciteDeRemplissage = 0.5;
+    p.epaisseur = 0;
+    lstObjet.push(p);
+    let txt = ``; // variable temporaire
+    for (let j = 0; j < (xGrilleMax-xGrilleMin); j++) {
+      txt = String.fromCharCode(65+j); // ascii 65 = A
+      lstObjet.push(texteParPosition(txt, xGrilleMin+j+0.5, yGrilleMax+0.5, 'milieu', 'black', 1)); // affiche de A à J... en haut de la grille
+    }    
+    for (let i = 0; i < (yGrilleMax-yGrilleMin); i++) {
+      lstObjet.push(texteParPosition(String(i), xGrilleMin-0.25, yGrilleMax-i-0.5, 'gauche', 'black', 1)); // affiche de 0 à 9... à gauche de la grille
+    }   
+
+    texte += `Au départ, le lutin est situé dans la case grisée. Chaque déplacement se fait dans une case adjacente. <br><br>`;
+    if (!sortie_html) {texte += `\\begin{center}`}
+    texte+= mathalea2d({xmin:xGrilleMin-3,xmax:xGrilleMax+1,ymin:yGrilleMin-1,ymax:yGrilleMax+1,pixelsParCm:20,scale:.5}, lstObjet);    
+    if (sortie_html) {
+      texte += `</td></tr></table>`;
+    } else {
+      texte += `\\end{center}\\end{minipage} `
+      texte += `\\hfill \\null`;
+    }
+
+    // CORRECTION
+    // 0 : gauche, 1 : droite, 2 : haut, 3 : bas, 4 : colorier.
+    let xLutin = 0; // position initiale du carré
+    let yLutin = 0; // position initiale du carré
+    couleur = `red`;
+
+    // on fait un dessin par passage dans la boucle
+    if (sortie_html) {
+      texte_corr += `<table style="width:100%"><tr><td style="text-align:center">` ;
+    } else {
+      texte_corr += `\\begin{minipage}{.49\\textwidth}`;
+    }
+    for (let k = 0; k<nbRepetition; k++){
+      for (i = k*lstNumCommande.length; i<(k+1)*lstNumCommande.length; i++) {
+        switch (lstNumCommande[i%lstNumCommande.length]) {
+          case 0:
+            xLutin += -1;break;
+          case 1:
+            xLutin += 1;break;
+          case 2:
+            yLutin += 1;break;
+          case 3:
+            yLutin += -1;break;
+          case 4:
+            p = polygone(point(xLutin,yLutin), point(xLutin+1,yLutin), point(xLutin+1,yLutin-1), point(xLutin, yLutin-1));
+            p.couleurDeRemplissage = couleur;
+            p.opaciteDeRemplissage = 0.25;
+            p.epaisseur = 0;
+            lstObjet.push(p);          
+        }      
+      }
+      if (this.sup2){
+        texte_corr += `Passage n° ${k+1} dans la boucle : <br>`
+      }    
+      texte_corr += mathalea2d({xmin:xGrilleMin-3,xmax:xGrilleMax+1,ymin:yGrilleMin-1,ymax:yGrilleMax+1,pixelsParCm:20,scale:0.4}, lstObjet);  
+      if (sortie_html) {
+        if (k%3==2) {
+          texte_corr += `</td></tr><tr><td style="text-align:center">`; // retour à la ligne après 3 grilles dessinées en HTML
+        } else {
+          texte_corr += `</td><td></td><td style="text-align:center">`;
+        }        
+      } else {
+        texte_corr += `\\end{minipage}`;
+        if (k%2==1) {texte_corr += `\\\\ `;} // retour à la ligne après 2 grilles dessinées en LaTeX
+        texte_corr += `\\begin{minipage}{.49\\textwidth}`;
+      }
+    }
+    sortie_html ? texte_corr += `</td></tr></table>` : texte_corr += `\\end{minipage}`;
+
+    this.liste_questions.push(texte);
+    this.liste_corrections.push(texte_corr);
+    liste_de_question_to_contenu(this);
+  }
+  this.besoin_formulaire_numerique = [`Nombre d'instructions de déplacements`,3,'1 : 3 instructions\n2 : 4 instructions\n3 : 5 instructions'];
+  this.besoin_formulaire2_case_a_cocher = ["Avec une boucle"];
+}
 
 /**
  * Additions, soustractions et multiplications posées de nombres entiers
@@ -11961,9 +12562,11 @@ function Symetrie_axiale_conservation1() {
 
 // Référence 6C23
 function Exercice_additionner_des_fractions_6e() {
-  Exercice_additionner_des_fractions_5e.call(this);
-  this.level=6
-  this.titre= "Additionner des fractions de même dénominateur"
+  Exercice_additionner_ou_soustraire_des_fractions_5e.call(this);
+  this.sup2 = 1;
+  this.level = 6;
+  this.titre= "Additionner des fractions de même dénominateur";
+  this.besoin_formulaire_numerique2 = false;
 }
 /**
  * @Auteur Jean-Claude Lhote
@@ -13062,7 +13665,7 @@ function Notation_segment_droite_demi_droite() {
             break;
           case 3:
             trait = demiDroite(B, A);
-            notation = `$[${A.nom}${B.nom})$`;
+            notation = `$[${B.nom}${A.nom})$`;
             break;
           case 4:
             trait = segment(A, B);
@@ -13299,40 +13902,26 @@ function Test_main_levee() {
   this.nb_questions = 1;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
-  this.sup = false;
+  this.sup = true;
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions=[]
     this.liste_corrections=[]
-    let A=point(5,5)
-    let B=point(10,5)
-    let D=point(10,10)
-//    let a=codeAngle(B,A,D,4)
-    let C=cercleCentrePoint(A,B,'green')
-    C.epaisseur=2
-    C.opacite=0.5
-    let E=cercleCentrePoint(B,A,'red')
-    E.epaisseur=2
-    E.opacite=0.5
-    let s=segment(A,B,'red')
-    s.epaisseur=5
-    s.opacite=0.4
-    pixelsParCm=20
-    scale=3
-    let cote=afficheCoteSegment(s)
-    let crochD=crochetD(B)
-    let crochG=crochetG(A)
-
- //   let m=mediatrice(A,B,'d','purple')
-    let cons=constructionMediatrice(A,B,true,'orange','//','O','black',2)
-
-    let texte=mathalea2d({xmin:-1,ymin:0,xmax:16,ymax:11,pixelsParCm:20,scale:3,mainlevee:this.sup,amplitude:1},[cote,crochD,crochG,codeAngle(A,B,-90,3,'||','black',2,1,'yellow',0.5),C,s,E,tracePoint(A,B,D)])
+    let A=point(0,0)
+    let B=point(5,0)
+    let D=point(5,-5)
+    let C=point(1,5)
+    let a=codeAngle(B,A,C,1,'','green')
+    let s1=segment(B,A,'red')
+    let s2=segment(A,C,'red')
+    let s3=segment(B,D,'red')
+    let b=codeAngle(A,B,D,0.8,'','blue')
+    let texte=mathalea2d({xmin:-1,ymin:-6,xmax:6,ymax:6,pixelsParCm:20,scale:3,mainlevee:this.sup,amplitude:1},a,s1,s2,s3,b)
     pixelsParCm=20
     let texte_corr=""
-    this.liste_questions.push(texte );
+    this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr );
    liste_de_question_to_contenu(this)  
   }
-
   this.besoin_formulaire_case_a_cocher = ["main levee"];	
 }
 
@@ -13378,12 +13967,11 @@ function Utiliser_le_codage_pour_decrire(){
       objets_correction=[]
       params_enonce={}
       params_correction={}
-/*      nom=creerNomDePolygone(6,"PQ")
+     nom=creerNomDePolygone(6,"PQ")
       for (let i=0;i<6;i++) 
         sommets.push(nom[i])
       sommets=shuffle(sommets)
-*/
-      sommets.push('A','B','C','D','E','F')
+
       A=point(0,0,sommets[0],'left')
       switch (liste_type_de_questions[i]){
       case 1 :
@@ -13391,7 +13979,7 @@ function Utiliser_le_codage_pour_decrire(){
       s2=segment(A,C)
       B=similitude(C,A,-85,randint(5,7)/10,sommets[1],'below')
       s1=segment(A,B)
-      E=pointSurSegment(A,hC,longueur(A,C)/2.2,sommets[4],'below')
+      E=pointSurSegment(A,C,longueur(A,C)/2.2,sommets[4],'below')
       medBC=mediatrice(C,B)
       medAC=mediatrice(A,C)
       dBC=droite(C,B)
@@ -13408,7 +13996,7 @@ function Utiliser_le_codage_pour_decrire(){
       s7=segment(C,F)
       s8=segment(E,F)
       s4=segment(B,C)
-        params_enonce={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:20,scale:1,mainlevee:true,amplitude:1}
+        params_enonce={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1.5),pixelsParCm:30,scale:1,mainlevee:true,amplitude:1}
         objets_enonce.push(s1,s2,s4,s8,s7,s3,s6,s5,codageAngleDroit(B,A,C),codeSegments('//','black',A,F,F,C),codeSegments('|||','black',A,E,E,C),codeSegments('O','black',B,D,D,C),labelPoint(A,B,C,D,E,F),codageAngleDroit(A,E,F))
         texte=`<br>À l'aide du schéma ci-dessous, déterminer :<br>`
         texte+=`- deux segments de même longueur ;<br>`
@@ -13417,7 +14005,7 @@ function Utiliser_le_codage_pour_decrire(){
         texte+=`- un triangle isocèle ;<br>`
         texte_corr=`- Deux segments de même mesure : [$${sommets[0]+sommets[4]}$] et $[${sommets[4]+sommets[2]}]$ ou $[${sommets[0]+sommets[5]}]$ et $[${sommets[5]+sommets[2]}]$`
         texte_corr+=` ou $[${sommets[1]+sommets[3]}]$ et $[${sommets[3]+sommets[2]}]$.<br>`
-        texte_corr+=`- $E$ est le milieu du segment $[${sommets[0]+sommets[2]}]$.<br>`
+        texte_corr+=`- $${sommets[4]}$ est le milieu du segment $[${sommets[0]+sommets[2]}]$.<br>`
         texte_corr+=`- $${sommets[0]+sommets[1]+sommets[2]}$ est un triangle rectangle en $${sommets[0]}$, $${sommets[0]+sommets[4]+sommets[5]}$ est un triangle rectangle en $${sommets[4]}$ et $${sommets[2]+sommets[4]+sommets[5]}$ est un triangle rectangle en $${sommets[4]}$.<br>`
         texte_corr+=`- $${sommets[0]+sommets[5]+sommets[2]}$ est un triangle isocèle en $${sommets[5]}$ et $${sommets[1]+sommets[3]+sommets[2]}$ est un triangle isocèle en $${sommets[3]}$.<br>`
         break
@@ -13432,7 +14020,7 @@ function Utiliser_le_codage_pour_decrire(){
         s4=segment(C,F)
         s5=segment(B,F)
         s6=polygone(A,B,C,D)
-        params_correction={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:20,scale:1,mainlevee:true,amplitude:1}
+        params_correction={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:30,scale:1,mainlevee:true,amplitude:1}
         objets_correction.push(labelPoint(A,B,C,D,E,F),s1,s2,s4,s5,s6)
         objets_correction.push(codageAngleDroit(D,A,B),codageAngleDroit(A,B,C),codageAngleDroit(B,C,D),codageAngleDroit(C,D,A))
         objets_correction.push(codeSegments('||','black',D,E,C,E),codeSegments('O','black',A,B,B,C,C,D,D,A),codeSegments('|||','black',F,C,B,F))
@@ -13452,7 +14040,7 @@ function Utiliser_le_codage_pour_decrire(){
           s3=polygone(A,B,C,D)
           s4=segment(B,F)
           s5=segment(C,F)
-          params_correction={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:20,scale:1,mainlevee:true,amplitude:1}
+          params_correction={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:30,scale:1,mainlevee:true,amplitude:1}
           objets_correction.push(labelPoint(A,B,C,D,E,F),s1,s2,s3,s4,s5)
           objets_correction.push(codageAngleDroit(D,A,B),codageAngleDroit(A,B,C),codageAngleDroit(B,C,D),codageAngleDroit(C,D,A))
           objets_correction.push(codeSegments('||','black',D,E,E,B,A,E,E,C,F,C,B,F),codeSegments('O','black',A,B,D,C),codeSegments('/','black',A,D,B,C))
@@ -13472,11 +14060,11 @@ function Utiliser_le_codage_pour_decrire(){
           s5=segment(A,F)
           s1=segment(B,D)
           s2=segment(A,C)
-          params_enonce={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:20,scale:1,mainlevee:true,amplitude:1}
+          params_enonce={xmin:Math.min(A.x-1,B.x-1,C.x-1,D.x-1,E.x-1,F.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1,D.y-1,E.y-1,F.y-1),xmax:Math.max(A.x+1,B.x+1,C.x+1,D.x+1,E.x+1,F.x+1),ymax:Math.max(A.y+1,B.y+1,C.y+1,D.y+1,E.y+1,F.y+1),pixelsParCm:30,scale:1,mainlevee:true,amplitude:0.8}
           objets_enonce.push(labelPoint(A,B,C,D,E,F),s1,s2,s3,s4,s5)
           objets_enonce.push(codeAngle(D,A,B,2,'|','red',2),codeAngle(B,C,D,2,'|','red',2),codeAngle(A,B,F,2,'|','red',2))
           objets_enonce.push(codeAngle(A,B,C,2,'||','blue',2),codeAngle(A,D,C,2,'||','blue',2))
-          objets_enonce.push(codeAngle(B,A,F,2,'','green',3),codeAngle(B,F,A,2,'','green',3))
+          objets_enonce.push(codeAngle(B,A,F,2,'///','green',3),codeAngle(B,F,A,2,'///','green',3))
           
           objets_enonce.push(codeSegments('||','black',B,E,E,D),codeSegments('O','black',A,E,E,C))
           texte=`$${sommets[0]+sommets[1]+sommets[2]+sommets[3]}$ est un rectangle. Ses diagonales se coupent en $${sommets[4]}$.<br>`
@@ -13484,11 +14072,11 @@ function Utiliser_le_codage_pour_decrire(){
           texte=`<br>À l'aide du schéma ci-dessous, déterminer :<br>`
         texte+=`- la nature du triangle $${sommets[0]+sommets[1]+sommets[5]}$ ;<br>`
         texte+=`- la nature du quadrilatère $${sommets[0]+sommets[1]+sommets[2]+sommets[3]}$ ;<br>`
-        texte+=`- la nature de l'angle $\\widehat{FBC}$ ;<br>`
+        texte+=`- la nature de l'angle $\\widehat{${sommets[5]+sommets[1]+sommets[2]}}$ ;<br>`
           texte_corr=`Le triangle $${sommets[0]+sommets[1]+sommets[5]}$ a deux angles de même mesure, c'est donc un triangle isocèle en $${sommets[1]}$.<br>`
           texte_corr+=`Le quadrilatère  $${sommets[0]+sommets[1]+sommets[2]+sommets[3]}$ a des diagonales qui se coupent en leur milieu, c'est donc un parallélogramme.<br>`
-          texte_corr+=`Dans un parallélogramme, les angles consécutifs sont supplémentaires (leur somme vaut 180°).<br`
-          texte_corr+=` D'après le codage, l'angle \\widehat{${sommets[2]+sommets[1]+sommets[5]}$} est la somme de deux angles supplémentaires. C'est donc un angle plat.<br>`
+          texte_corr+=`Dans un parallélogramme, les angles consécutifs sont supplémentaires (leur somme vaut 180°).<br>`
+          texte_corr+=` D'après le codage, l'angle $\\widehat{${sommets[2]+sommets[1]+sommets[5]}}$ est la somme de deux angles supplémentaires. C'est donc un angle plat.<br>`
           
          
         break
@@ -14238,12 +14826,12 @@ function Organiser_donnees_depuis_texte() {
     texte += num_alpha(0) + ` Remplir le tableau suivant. <br>`;
 
   if (this.sup){
-    texte += num_alpha(1) + ` Quel est la masse totale de fruits acheté par les amis ? <br>`;
+    texte += num_alpha(1) + ` Quel est la masse totale de fruits achetés par les amis ? <br>`;
   }else{
     texte += num_alpha(1) + ` Quel est le nombre total de fruits achetés par les amis ? <br>`;
   }    
     texte += num_alpha(2) + ` Qui a rapporté le plus de fruits ? <br>`;
-    texte += num_alpha(3) + ` Quel fruit a été apporté en la plus grosse quantité ? <br><br>`;
+    texte += num_alpha(3) + ` Quel fruit a été rapporté en la plus grosse quantité ? <br><br>`;
 
     texte += `$\\begin{array}{|l|` +  `c|`.repeat(nbFruits+1) + `}\n`;
     texte += `\\hline\n`;
@@ -14326,7 +14914,7 @@ function Organiser_donnees_depuis_texte() {
     }
     nmax = arrondi_virgule(nmax,1);
     if (lstmax.length>1){
-      texte_corr += `Les personnes qui ont ramené le plus de fruits sont : `;
+      texte_corr += `Les personnes qui ont rapporté le plus de fruits sont : `;
       texte_corr += lstmax[0];
       for (let k=1; k<lstmax.length; k++){
         texte_corr += ` et ${lstmax[k]}`;
@@ -14338,9 +14926,9 @@ function Organiser_donnees_depuis_texte() {
       }      
     } else {
       if (this.sup) {
-        texte_corr += `La personne qui a ramené le plus de fruits est ${lstmax}. Cette masse maximale est de ${nmax} kg.<br>`;
+        texte_corr += `La personne qui a rapporté le plus de fruits est ${lstmax}. Cette masse maximale est de ${nmax} kg.<br>`;
       } else {
-        texte_corr += `La personne qui a ramené le plus de fruits est ${lstmax}. Ce nombre maximal de fruits est de ${nmax}.<br>`;
+        texte_corr += `La personne qui a rapporté le plus de fruits est ${lstmax}. Ce nombre maximal de fruits est de ${nmax}.<br>`;
       }      
     }    
 
@@ -14498,7 +15086,7 @@ function Tracer_triangle_2_angles() {
 function Representer_un_solide() {
   "use strict";
   Exercice.call(this);// Héritage de la classe Exercice ()
-  this.titre = "Compléter le schéma d'un schéma";
+  this.titre = "Compléter une représentation en perspective cavalière";
   this.nb_questions = 1;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
@@ -16826,7 +17414,7 @@ jQuery(document).ready(function () {
   }
 
   liste_html_des_exercices_c3 = liste_html_des_exercices_d_un_niveau([
-    ['c3C1','c3C1 - Calculs niveau 1'],['c3N1','c3N1 - Numération Niveau 1']])
+    ['c3C1','c3C1 - Calculs niveau 1'],['c3N1','c3N1 - Numération Niveau 1'],['c3N2','c3N2 - Numération Niveau 2']])
   
   liste_html_des_exercices_6 = liste_html_des_exercices_d_un_niveau([
     ['6C1','6C1 - Calculs niveau 1'],['6C2','6C2 - Calculs niveau 2'],['6C3','6C3 - Calculs niveau 3'],
@@ -16834,7 +17422,8 @@ jQuery(document).ready(function () {
     ['6G1','6G1 - Géométrie niveau 1'],['6G2','6G2 - Géométrie niveau 2'],['6G3','6G3 - Géométrie niveau 3'],['6G4','6G4 - Géométrie niveau 4'],
     ['6M1','6M1 - Grandeurs et mesures niveau 1'],['6M2','6M2 - Grandeurs et mesures niveau 2'],['6M3', '6M3 - Volumes'],
     ['6N1','6N1 - Numération et fractions niveau 1'],['6N2','6N2 - Numération et fractions niveau 2'],['6N3','6N3 - Numération et fractions niveau 3'],['6N4','6N4 - Numération et fractions niveau 4'],
-    ['6P1','6P1 - Proportionnalité'],['6S1','6S1 - Statistiques']
+    ['6P1','6P1 - Proportionnalité'],['6S1','6S1 - Statistiques'],
+    ['6Algo1','6A - Algorithmique']
   ])
     liste_html_des_exercices_5 = liste_html_des_exercices_d_un_niveau([
       ['5A1','5A1 - Arithmetique'],['5C1','5C1 - Calculs'],
@@ -16850,7 +17439,7 @@ jQuery(document).ready(function () {
       ['4F1','4F1 - Notion de fonction'],
       ['4G1','4G1 - Translation et rotation'],['4G2','4G2 - Théorème de Pythagore'],['4G3','4G3 - Théorème de Thalès'],['4G4',"4G4 - Cosinus d'un angle"],['4G5',"4G5 - Espace"],
       ['4L1','4L1 - Calcul littéral'],['4L2','4L2 - Équation'],['4P1','4P1 - Proportionnalité'],['4S1','4S1 - Statistiques'],['4S2','4S2 - Probabilités'],
-      ['4Algo1','4Algo1 - Algorithmique']
+      ['4Algo1','4A1 - Algorithmique']
     ])
     liste_html_des_exercices_3 = liste_html_des_exercices_d_un_niveau([
       ['3A1','3A1 - Arithmetique'],
@@ -17013,6 +17602,16 @@ jQuery(document).ready(function () {
   }
 
   $("#liste_des_exercices").html(liste_html_des_exercices);
+  renderMathInElement(document.body, {
+    delimiters: [
+      { left: "\\[", right: "\\]", display: true },
+      { left: "$", right: "$", display: false },
+    ],
+    throwOnError: true,
+    errorColor: "#CC0000",
+    strict: "warn",
+    trust: false,
+    });
 
   // Gère le clic sur un exercice de la liste
   $(".lien_id_exercice").click(function () {
@@ -17045,3 +17644,112 @@ jQuery(document).ready(function () {
   });
 });
 
+/** 
+ * * Exo test pour quand j'en ai besoin
+ * * pas de numéro
+ * * Tests
+ * @author Erwan DUPLESSY
+ */
+
+function AfficherSVG(){
+	//'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+
+	this.titre = "Test d'affichage d'icone SVG";	
+  this.consigne = `On utilise awesomefont. `;	
+  this.nb_questions = 1;
+	this.nb_questions_modifiable = false;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	sortie_html? this.spacing = 1 : this.spacing = 1; 
+	sortie_html? this.spacing_corr = 2 : this.spacing_corr = 1;
+
+  this.nouvelle_version = function(){
+		this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées    
+
+    texte = `Directement dans le html avec la font : `; 
+    texte += `
+<i class="orange users icon"></i>
+<i class="yellow users icon"></i>
+<i class="olive users icon"></i>
+<i class="green users icon"></i>
+<i class="teal users icon"></i>
+<i class="blue users icon"></i>
+<i class="violet users icon"></i>
+<i class="purple users icon"></i>
+<i class="pink users icon"></i>
+<i class="brown users icon"></i><br>
+<i class="grey users icon"></i>
+<i class="black users icon"></i>
+<i class="horizontally flipped cloud icon"></i>
+<i class="vertically flipped cloud icon"></i>
+<i class="clockwise rotated cloud icon"></i>
+<i class="counterclockwise rotated cloud icon"></i>
+<i class="chess icon"></i>
+<i class="orange chess bishop icon"></i>
+<i class="chess board icon"></i>
+<i class="chess king icon"></i>
+<i class="chess knight icon"></i>
+<i class="chess pawn icon"></i>
+<i class="chess queen icon"></i>
+<i class="chess rook icon"></i>
+<i class="square full icon"></i>
+    `;
+
+    texte += `<br> Ou bien en SVG. Attention à l'utilisation des repères de coordonnées !<br>`;
+    texte += `<svg xmlns="http://www.w3.org/2000/svg">
+      <!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) -->
+      <defs>
+      <symbol id="plane" viewBox="0 0 576 512"><path d="M480 192H365.71L260.61 8.06A16.014 16.014 0 0 0 246.71 0h-65.5c-10.63 0-18.3 10.17-15.38 20.39L214.86 192H112l-43.2-57.6c-3.02-4.03-7.77-6.4-12.8-6.4H16.01C5.6 128-2.04 137.78.49 147.88L32 256 .49 364.12C-2.04 374.22 5.6 384 16.01 384H56c5.04 0 9.78-2.37 12.8-6.4L112 320h102.86l-49.03 171.6c-2.92 10.22 4.75 20.4 15.38 20.4h65.5c5.74 0 11.04-3.08 13.89-8.06L365.71 320H480c35.35 0 96-28.65 96-64s-60.65-64-96-64z"/>
+      </symbol>
+      </defs>
+      </svg>`;
+
+    texte += `
+    <svg width="300px" height="300px" viewBox="0 0 300 300" style="border: 1px solid #333333;">
+    <use width="35" x="70" y="0" transform="rotate(-15, 70, 70)" xlink:href="#plane"/>
+    <use width="35" x="70" y="0" transform="rotate(15, 70, 0)" xlink:href="#plane"/>
+    <use width="35" x="70" y="0" transform="rotate(-30, 70, 0)" xlink:href="#plane"/>
+    <use width="25" x="20" y="50" fill="red" xlink:href="#plane"/>
+    <use width="38" x="92" y="80" xlink:href="#plane"/>
+    <use width="23" x="50" y="30" xlink:href="#plane"/ fill-opacity="0%" stroke="green" stroke-width="8">   
+    <use width="50" x="0" y="0" fill="blue" xlink:href="#plane"/>
+    <text x="5" y="5">Bonjour tout le monde</text><i class="chess rook icon"></i>
+    </svg>`;
+
+    texte_corr = ``;
+    let txt_commande = "ADAAGAAAGAA";
+    let posx = 10;
+    let posy = 10;
+    let angle = 90;
+    texte_corr += `<svg width="300" height="300" viewBox="0 0 300 300" style="border: 1px solid #333333;">`
+    for (let c of txt_commande) {
+      switch (c) {
+        case "A":
+          texte_corr += `<use width="38" x="${10*i}" y="80" xlink:href="#plane"/>`
+          break;
+        case "G":
+          texte_corr += `<use width="38" x="${10*i}" y="80" xlink:href="#plane"/>`
+          break;
+        case "D":
+          texte_corr += `<use width="38" x="${10*i}" y="80" xlink:href="#plane"/>`
+          break;
+        default:
+          texte_corr += ``;
+      }
+      
+      texte_corr += `<use width="38" x="${10*i}" y="80" xlink:href="#plane"/>`
+    }
+    texte_corr += `</svg>`
+
+
+
+
+    
+    this.liste_questions.push(texte);
+		this.liste_corrections.push(texte_corr);
+		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque question.
+
+  }
+}

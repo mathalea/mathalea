@@ -5786,6 +5786,134 @@ function Puissances_de_dix() {
   ];
 }
 
+
+/**
+ * Donner l'écriture décimale d'une puissance de 10
+ * @Auteur Rémi Angot
+* Référence 4C30-2
+ */
+function EcritureDecimalePuissanceDe10() {
+  Exercice.call(this); 
+  this.titre = "Écriture décimale d'une puissance de 10";
+  this.consigne = "Donner l'écriture décimale";
+  this.nb_questions = 8;
+  this.nb_cols = 2;
+  this.nb_cols_corr = 2;
+  this.sup = 3; // exposants positifs et négatifs par défaut
+
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+
+    let liste_type_de_questions 
+    if (this.sup==1) {
+      liste_type_de_questions = combinaison_listes(['+'],this.nb_questions); 
+    }
+    if (this.sup==2) {
+      liste_type_de_questions = combinaison_listes(['-'],this.nb_questions); 
+    }
+    if (this.sup==3) {
+      liste_type_de_questions = combinaison_listes(['+','-'],this.nb_questions); 
+    }
+    for (let i = 0, texte, texte_corr, n, cpt = 0;i < this.nb_questions && cpt < 50;) {
+      switch (liste_type_de_questions[i]) {
+        case '+': 
+          n = randint(0,10)
+          texte = `$10^{${n}}$`;
+          if (n<2) {
+            texte_corr = `$10^${n}=${10**n}$`
+          } else {
+            texte_corr = `$10^{${n}}=${puissanceEnProduit(10,n)}=${tex_nombre(10**n)}$`;
+          }
+          break;
+        case '-': 
+          n = randint(1,10)
+          texte = `$10^{${-n}}$`;
+          texte_corr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${puissanceEnProduit(10,n)}}=\\dfrac{1}{${tex_nombre(10**n)}}=${tex_nombre2(1/10**n)}$`;
+          break;
+        
+      }
+
+      if (this.liste_questions.indexOf(texte) == -1) {
+        // Si la question n'a jamais été posée, on en crée une autre
+        this.liste_questions.push(texte);
+        this.liste_corrections.push(texte_corr);
+        i++;
+      }
+      cpt++;
+    }
+    liste_de_question_to_contenu(this);
+  };
+  this.besoin_formulaire_numerique = ['Niveau de difficulté',3,'1 : Exposants positifs\n2 : Exposants négatifs\n3 : Exposants relatifs'];
+}
+
+
+/**
+ * Donner l'écriture décimale d'une puissance de 10
+ * @Auteur Rémi Angot
+* Référence 4C30-3
+ */
+function EcritureDecimalePuissance() {
+  Exercice.call(this); 
+  this.titre = "Écriture décimale d'une puissance";
+  this.consigne = "Donner l'écriture sous la forme d'un nombre entier ou d'une fraction.";
+  this.nb_questions = 8;
+  this.nb_cols = 2;
+  this.nb_cols_corr = 2;
+  this.sup = 3; // exposants positifs et négatifs par défaut
+
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+
+    let liste_de_calculs = combinaison_listes([[2,2],[2,3],[2,4],[2,5],[2,6],[3,2],[3,3],[3,4],[4,2],[4,3],[5,2],[5,3],[6,2],[6,3],[7,2],[7,3],[8,2],[8,3],[9,2],[9,3]],this.nb_questions);
+
+    let liste_type_de_questions 
+    if (this.sup==1) {
+      liste_type_de_questions = combinaison_listes(['+'],this.nb_questions); 
+      this.consigne = "Donner l'écriture sous la forme d'un nombre entier.";
+    }
+    if (this.sup==2) {
+      liste_type_de_questions = combinaison_listes(['-'],this.nb_questions); 
+    }
+    if (this.sup==3) {
+      liste_type_de_questions = combinaison_listes(['+','-'],this.nb_questions); 
+    }
+    for (let i = 0, texte, texte_corr, a, n, cpt = 0;i < this.nb_questions && cpt < 50;) {
+      switch (liste_type_de_questions[i]) {
+        case '+': 
+          a = liste_de_calculs[i][0];
+          n = liste_de_calculs[i][1];
+          texte = `$${a}^{${n}}$`;
+          if (n<2) {
+            texte_corr = `${a}^${n}=$${a}**n}$`
+          } else {
+            texte_corr = `$${a}^{${n}}=${puissanceEnProduit(a,n)}=${tex_nombre(a**n)}$`;
+          }
+          break;
+        case '-': 
+          a = liste_de_calculs[i][0];
+          n = liste_de_calculs[i][1];
+          texte = `$${a}^{${-n}}$`;
+          texte_corr = `$${a}^{${-n}}=\\dfrac{1}{${a}^{${n}}}=\\dfrac{1}{${puissanceEnProduit(a,n)}}=\\dfrac{1}{${tex_nombre(a**n)}}$`;
+          break;
+        
+      }
+
+      if (this.liste_questions.indexOf(texte) == -1) {
+        // Si la question n'a jamais été posée, on en crée une autre
+        this.liste_questions.push(texte);
+        this.liste_corrections.push(texte_corr);
+        i++;
+      }
+      cpt++;
+    }
+    liste_de_question_to_contenu(this);
+  };
+  this.besoin_formulaire_numerique = ['Niveau de difficulté',3,'1 : Exposants positifs\n2 : Exposants négatifs\n3 : Exposants relatifs'];
+}
+
+
 /**
  * problèmes de grandeurs composées
  * @Auteur Jean-Claude Lhote
@@ -9746,7 +9874,7 @@ function Tester_si_un_nombre_est_solution_d_une_equation() {
           }
           texte = `$x^2-${ecriture_parenthese_si_negatif(
             b + a
-          )}x-${ecriture_parenthese_si_negatif(
+          )}x+${ecriture_parenthese_si_negatif(
             a * b
           )}=0~$ pour $~x=${x1}~$ , pour $~x=${x2}~$ puis pour $~x=${x3}$`;
           texte_corr = `Pour $x=${x1}$ : <br>`;
@@ -11643,7 +11771,7 @@ function Pythagore2D() {
   this.nb_questions = 3;
   this.nb_cols = 3;
   this.nb_cols_corr = 1;
-  type_exercice = 'Calculer'
+  this.type_exercice = 'Calculer'
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
@@ -11657,7 +11785,7 @@ function Pythagore2D() {
     } else {
          this.consigne = "Dans chaque cas, calculer la longueur manquante."
     }
-    if (this.sup == 2 || type_exercice == 'Calculer' ){
+    if (this.sup == 2 || this.type_exercice == 'Calculer' ){
       liste_type_de_questions = combinaison_listes(['AB','BC','AC'],this.nb_questions) 
     }
     for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;)
@@ -11689,13 +11817,13 @@ function Pythagore2D() {
       let longueurBC = longueur(B,C,1)
       let mesObjetsATracer = [codage,p2,nomme]
 
-      if (type_exercice == 'Calculer' && liste_type_de_questions[i]=='AB'){
+      if (this.type_exercice == 'Calculer' && liste_type_de_questions[i]=='AB'){
         mesObjetsATracer.push(affAC,affBC)
       }
-      if (type_exercice == 'Calculer' && liste_type_de_questions[i]=='BC'){
+      if (this.type_exercice == 'Calculer' && liste_type_de_questions[i]=='BC'){
         mesObjetsATracer.push(affAC,affAB)
       }
-      if (type_exercice == 'Calculer' && liste_type_de_questions[i]=='AC'){
+      if (this.type_exercice == 'Calculer' && liste_type_de_questions[i]=='AC'){
         mesObjetsATracer.push(affAB,affBC)
       }
 
@@ -11727,11 +11855,12 @@ function Pythagore2D() {
           texte_corr += ` d'où $${A.nom+C.nom}^2=${B.nom+C.nom}^2-${A.nom+B.nom}^2$.`
         }
       }
-      if (type_exercice == "Calculer"){
+      if (this.type_exercice == "Calculer"){
         if (liste_type_de_questions[i]=='AB'){
           texte_corr += ` donc $${A.nom+B.nom}^2=${B.nom+C.nom}^2-${A.nom+C.nom}^2$`
           texte_corr += `<br> $${A.nom+B.nom}^2=${tex_nombre(longueurBC)}^2-${tex_nombre(longueurAC)}^2=${tex_nombrec(longueurBC**2-longueurAC**2)}$`
-          if (calcul(Math.sqrt(longueurBC**2-longueurAC**2),1)==calcul(Math.sqrt(longueurBC**2-longueurAC**2),2)){
+          texte_corr += `<br> $${A.nom+B.nom}=\\sqrt{${tex_nombrec(longueurBC**2-longueurAC**2)}}$`
+          if (calcul(Math.sqrt(longueurBC**2-longueurAC**2),1)==calcul(Math.sqrt(longueurBC**2-longueurAC**2),5)){
             texte_corr += `<br> $${A.nom+B.nom}=${tex_nombre(calcul(Math.sqrt(longueurBC**2-longueurAC**2),1))}$ cm.`
           } else {
             texte_corr += `<br> $${A.nom+B.nom}\\approx${tex_nombre(calcul(Math.sqrt(longueurBC**2-longueurAC**2),1))}$ cm.`
@@ -11739,7 +11868,8 @@ function Pythagore2D() {
         }
         if (liste_type_de_questions[i]=='BC'){
           texte_corr += `<br> $${B.nom+C.nom}^2=${tex_nombre(longueurAB)}^2+${tex_nombre(longueurAC)}^2=${tex_nombrec(longueurAB**2+longueurAC**2)}$`
-          if (calcul(Math.sqrt(longueurAB**2+longueurAC**2),1)==calcul(Math.sqrt(longueurAB**2+longueurAC**2),2)){
+          texte_corr += `<br> $${B.nom+C.nom}=\\sqrt{${tex_nombrec(longueurAB**2+longueurAC**2)}}$`
+          if (calcul(Math.sqrt(longueurAB**2+longueurAC**2),1)==calcul(Math.sqrt(longueurAB**2+longueurAC**2),5)){
             texte_corr += `<br> $${B.nom+C.nom}=${tex_nombre(calcul(Math.sqrt(longueurAB**2+longueurAC**2),1))}$ cm.`
           } else {
             texte_corr += `<br> $${B.nom+C.nom}\\approx${tex_nombre(calcul(Math.sqrt(longueurAB**2+longueurAC**2),1))}$ cm.`
@@ -11748,7 +11878,8 @@ function Pythagore2D() {
         if (liste_type_de_questions[i]=='AC'){
           texte_corr += ` donc $${A.nom+C.nom}^2=${B.nom+C.nom}^2-${A.nom+B.nom}^2$`
           texte_corr += `<br> $${A.nom+C.nom}^2=${tex_nombre(longueurBC)}^2-${tex_nombre(longueurAB)}^2=${tex_nombrec(longueurBC**2-longueurAB**2)}$`
-          if (calcul(Math.sqrt(longueurBC**2-longueurAB**2),1)==calcul(Math.sqrt(longueurBC**2-longueurAB**2),2)){
+          texte_corr += `<br> $${A.nom+C.nom}=\\sqrt{${tex_nombrec(longueurBC**2-longueurAB**2)}}$`
+          if (calcul(Math.sqrt(longueurBC**2-longueurAB**2),1)==calcul(Math.sqrt(longueurBC**2-longueurAB**2),5)){
             texte_corr += `<br> $${A.nom+C.nom}=${tex_nombre(calcul(Math.sqrt(longueurBC**2-longueurAB**2),1))}$ cm.`
           } else {
             texte_corr += `<br> $${A.nom+C.nom}\\approx${tex_nombre(calcul(Math.sqrt(longueurBC**2-longueurAB**2),1))}$ cm.`
@@ -11773,7 +11904,7 @@ function Egalite_Pythagore2D(){
   Pythagore2D.call(this);
   this.titre = "Donner ou compléter une égalité de Pythagore"
   this.sup = 1;
-  type_exercice = ''
+  this.type_exercice = ''
   this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Donner l'égalité de Pythagore\n2 : Compléter l'égalité de Pythagore"];
 
 }

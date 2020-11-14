@@ -293,10 +293,10 @@ window.onload = function()  {
 		creer_fichier()
 
 		if ($("#nom_du_fichier").val()) {
-			download(contenu_fichier, $("#nom_du_fichier").val()+'.tex', "text/plain");	
+			telechargeFichier(contenu_fichier, $("#nom_du_fichier").val()+'.tex');	
 		}else
 		{
-			download(contenu_fichier, 'mathalea.tex', "text/plain");
+			telechargeFichier(contenu_fichier, 'mathalea.tex');
 		}
 		
 	});

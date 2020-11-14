@@ -645,13 +645,13 @@ function Reduction_si_possible() {
 					texte_corr = texte
 					break;
 				case 'ax*b':
-					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x`)}\\times${ecriture_parenthese_si_negatif(b)}$`;
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x`)}\\times${ecriture_parenthese_si_negatif(b)}=${printlatex(`${a*b}*x`)}$`;
+					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x`)}\\times ${ecriture_parenthese_si_negatif(b)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x`)}\\times ${ecriture_parenthese_si_negatif(b)}=${printlatex(`${a*b}*x`)}$`;
 					break;
 				case 'b*ax':
 					a = randint(1,11);
-					texte = `$${lettre_depuis_chiffre(i+1)}=${b}\\times${printlatex(`${a}*x`)}$`;
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${b}\\times${printlatex(`${a}*x`)}=${printlatex(`${b*a}*x`)}$`;
+					texte = `$${lettre_depuis_chiffre(i+1)}=${b}\\times ${printlatex(`${a}*x`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${b}\\times ${printlatex(`${a}*x`)}=${printlatex(`${b*a}*x`)}$`;
 					break;
 				case 'ax+b+cx+d':
 					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x+(${b})+(${c})*x+(${d})`)}$`;
@@ -694,6 +694,7 @@ function Reduction_si_possible() {
 					break;
 				
 			}
+
 			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
@@ -2718,15 +2719,23 @@ function Premier_ou_pas() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Primalité ou pas";
 	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne = `Justifier que les nombres suivants sont premiers ou pas.`;
+	this.consigne = `Justifier que les nombres suivants sont premiers ou pas. Penser aux critères de divisibilité.`;
 	//sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing = 1 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
-	this.nb_questions = 5;
+
+	
 	//this.correction_detaillee_disponible = true;
 	this.nb_cols = 2;
 	this.nb_cols_corr = 1;
 	this.sup = 1;
+	this.nb_questions_modifiable = false;
+	// console.log(Number(this.sup)==1);
+	// if (Number(this.sup)==1) {
+	// 	this.nb_questions = 4;
+	// } else {
+	// 	this.nb_questions = 5;
+	// }
 	this.liste_packages = `bclogo`;
 
 	this.nouvelle_version = function (numero_de_l_exercice) {
@@ -2743,7 +2752,14 @@ function Premier_ou_pas() {
 		this.contenu = ''; // Liste de questions
 		this.contenu_correction = ''; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = [1, 2, 3, 6, 7];
+		let type_de_questions_disponibles;// = [1, 2, 3, 6, 7];
+		if (Number(this.sup)==1) {
+			this.nb_questions = 4;
+			type_de_questions_disponibles = [1, 2, 3, 8];			
+		} else {
+			this.nb_questions = 5;
+			type_de_questions_disponibles = [1, 2, 3, 6, 7];			
+		}
 		type_de_questions_disponibles = shuffle(type_de_questions_disponibles); // on mélange l'ordre des questions
 		//let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions);
@@ -2761,6 +2777,8 @@ function Premier_ou_pas() {
 			type_de_questions = liste_type_de_questions[i];
 
 			var N; // le nombre de la question
+			let r;
+			let tab_premiers_a_tester;
 
 			switch (type_de_questions) {
 				case 1: // nombre pair
@@ -2898,10 +2916,28 @@ function Premier_ou_pas() {
 					break;
 				case 7: // nombre premier inférieur à 529
 					// rang du nombre premier choisi
-					let r = randint(0, crible_eratosthene_n(529).length - 1);
+					r = randint(0, crible_eratosthene_n(529).length - 1);
 					N = crible_eratosthene_n(529)[r]; //on choisit un nombre premier inférieur à 529
 					texte = N + ``;
-					let tab_premiers_a_tester = crible_eratosthene_n(Math.trunc(Math.sqrt(N)));
+					tab_premiers_a_tester = crible_eratosthene_n(Math.trunc(Math.sqrt(N)));
+					//texte_corr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
+					texte_corr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
+					texte_corr += tab_premiers_a_tester[0];
+					for (let k = 1; k < tab_premiers_a_tester.length; k++) {
+						texte_corr += `, ` + tab_premiers_a_tester[k];
+					};
+					//texte_corr += `.`;
+					// texte_corr += `<br> Aucun de ces nombres premiers ne divise ${N}, `;
+					texte_corr += `, le reste n'est jamais nul.`;
+					// texte_corr += texte_en_couleur_et_gras(nombre_avec_espace(N) + ` est donc un nombre premier.`);
+					texte_corr += `<br>`+texte_en_couleur_et_gras(nombre_avec_espace(N) + ` est donc un nombre premier.`);
+					break;
+				case 8: // nombre premier inférieur à 100 pour permettre les tests de divisibilité sans calculatrice
+					// rang du nombre premier choisi
+					r = randint(0, crible_eratosthene_n(100).length - 1);
+					N = crible_eratosthene_n(100)[r]; //on choisit un nombre premier inférieur à 529
+					texte = N + ``;
+					tab_premiers_a_tester = crible_eratosthene_n(Math.trunc(Math.sqrt(N)));
 					//texte_corr = `Testons la divisibilité de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
 					texte_corr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est à dire par les nombres `;
 					texte_corr += tab_premiers_a_tester[0];
@@ -2926,14 +2962,14 @@ function Premier_ou_pas() {
 
 		liste_de_question_to_contenu(this);
 	}
-	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
+	this.besoin_formulaire_numerique = ['Difficulté',2,"1 : Sans Calculatrice\n2 : Avec calculatrice"]; 
 };
 
 /**
  * 3A11-1 justifier la non primalité réinvestissement des critères de divisibilité
  * Nombres à 3 ou 4 chiffres, un multiple de 2, de 3, de 5, de 7, de 11, sous forme d'un produit de deux nombres premiers inférieurs à 100
  * et un nombre premier inferieur à 529
- * variante de 3A-11 avec les critères par 7 et 11 en plus
+ * variante de 3A11 avec les critères par 7 et 11 en plus
  * @author Sébastien Lozano
  */
 function Premier_ou_pas_critere_par7_par11() {
@@ -2941,7 +2977,7 @@ function Premier_ou_pas_critere_par7_par11() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Primalité ou pas - Variante avec les critères de divisibilité par 7 et par 11";
 	// pas de différence entre la version html et la version latex pour la consigne
-	this.consigne = `Justifier que les nombres suivants sont premiers ou pas.`;
+	this.consigne = `Justifier que les nombres suivants sont premiers ou pas. Penser aux critères de divisibilité.`;
 	//this.consigne += `<br>`;
 	sortie_html ? this.spacing = 3 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
@@ -4374,14 +4410,14 @@ function Antecedent_graphique() {
 		}
 
 		if (this.sup == 2) {
-			if (randint(1, 4) < 4) { // une fois sur 4 il n'y a qu'un seul antécédent
+			if (randint(1, 4) < 2) { // une fois sur 4 il n'y a qu'un seul antécédent
 				let x0 = randint(-2, 2)
 				let fx0 = randint(-4, 4)
 				if (!sortie_html) {
 					fx0 = randint(-2, 2)
 				}
 				a = randint(-3, 3, 0);
-				texte += `Déterminer par lecture graphique les antécédents de $${fx0}$ par cette fonction $f$.<br><br>`
+				texte += `Déterminer par lecture graphique le (ou les) antécédent(s) de $${fx0}$ par cette fonction $f$.<br><br>`
 				texte_corr = `$${fx0}$ a un unique antécédent $${x0}$, on note $f(${x0})=${fx0}$.<br>`
 				expression_f = `${a}*(x-(${x0}))^2+(${fx0})`;
 			} else {
@@ -4401,7 +4437,7 @@ function Antecedent_graphique() {
 				x2 = 0;
 				fx2 = c;
 				expression_f = `${a}*x^2+(${b})*x+(${c})`;
-				texte += `Déterminer par lecture graphique les antécédents de $${fx1}$ par cette fonction $f$.<br><br>`
+				texte += `Déterminer par lecture graphique le (ou les) antécédent(s) de $${fx1}$ par cette fonction $f$.<br><br>`
 				texte_corr = `$${fx1}$ a deux antécédents $${x1}$ et $${x3}$, on note $f(${x1})=f(${x3})=${fx1}$.<br>`
 			}
 		}
@@ -4427,6 +4463,78 @@ function Antecedent_graphique() {
 	this.besoin_formulaire_numerique = ['Type de fonctions', 2, "1 : Affine\n2 : Polynome du 2nd degré"];
 
 }
+
+
+/**
+ * Lecture d'images et antécédents sur un graphe sinusoidale
+ * @Auteur Rémi Angot
+ * Référence 3F13-1
+*/
+function Antecedent_et_image_graphique() {
+	Exercice.call(this); 
+	this.titre = "Lecture graphique d'images et d'antécédents.";
+	this.nb_questions = 1;
+	this.nb_questions_modifiable = false;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	if (sortie_html) this.spacing_corr = 2;
+  
+	this.nouvelle_version = function (numero_de_l_exercice) {
+		let r = repere2({
+			xMin : -5, 
+			xMax : 5,
+			yMin : -4,
+			yMax : 4
+		  })
+		let a = randint(1,3)
+		let b = a-4
+		let c = a-2
+		let x0 = randint(-4,-2)
+		let gr = graphiqueInterpole([[randint(-8,-5),a-1],[x0,a],[x0+4,b],[x0+6,c], [randint(6,10),c-1]] // Coordonnées des "sommets"
+							 ,{repere:r, color : 'blue', step:.15, epaisseur:2})
+		
+		if (randint(1,2)==1){
+			a*=-1;
+			b*=-1;
+			c*=-1;
+			gr = graphiqueInterpole([[randint(-8,-5),a+1],[x0,a],[x0+4,b],[x0+6,c], [randint(6,10),c+1]] // Coordonnées des "sommets"
+							 ,{repere:r, color : 'blue', step:.15, epaisseur:2})
+		}
+		this.contenu = `Ci-dessous, on a tracé la courbe représentative de la fonction $f$.`
+		this.contenu += `<br><br>`
+		let cont1 = `${num_alpha(0)} Quelle est l'image de $${x0}$ ?`
+		cont1 += `<br>${num_alpha(1)} Quelle est l'image de $${x0+5}$ ?`
+		let ordre = randint(1,2);
+		let cont2;
+		if (ordre == 1){
+			cont2 = `${num_alpha(2)} Déterminer le (ou les) antécédent(s) de $${b}$.`
+			cont2 += `<br>${num_alpha(3)} Déterminer le (ou les) antécédent(s) de $${c}$.`
+		} else {
+			cont2 = `${num_alpha(2)} Déterminer le (ou les) antécédent(s) de $${c}$.`
+			cont2 += `<br>${num_alpha(3)} Déterminer le (ou les) antécédent(s) de $${b}$.`
+		}
+		this.contenu += deuxColonnes(cont1,cont2)
+		this.contenu += mathalea2d({xmin:-7,ymin:-4.5,xmax:7,ymax:4.5,pixelsParCm:30},r,gr) 
+		this.contenu_correction = `${num_alpha(0)} L'image de $${x0}$ est $${a}$, on note $f(${x0})=${a}$.`
+		this.contenu_correction += `<br>${num_alpha(1)} L'image de $${x0+5}$ est $${(b+c)/2}$, on note $f(${x0+5})=${(b+c)/2}$.`
+		if (ordre == 1){
+			this.contenu_correction += `<br>${num_alpha(2)} $${b}$ a pour unique antécédent $${x0+4}$, on note $f(${x0+4})=${b}$.`
+			this.contenu_correction += `<br>${num_alpha(3)} $${c}$ a deux antécédents $${x0+2}$ et $${x0+6}$, on note $f(${x0+2})=f(${x0+6})=${c}$.`
+		} else {
+			this.contenu_correction += `<br>${num_alpha(2)} $${c}$ a deux antécédents $${x0+2}$ et $${x0+6}$, on note $f(${x0+2})=f(${x0+6})=${c}$.`
+			this.contenu_correction += `<br>${num_alpha(3)} $${b}$ a pour unique antécédent $${x0+4}$, on note $f(${x0+4})=${b}$.`
+		}
+		if (!sortie_html){
+			this.contenu = this.contenu.replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
+			this.contenu_correction = this.contenu_correction.replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
+		} else {
+			this.contenu_correction = `<div style="line-height: ${this.spacing_corr};">\n${this.contenu_correction}\n</div>`
+		}
+		
+	};
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+  }
+
 /**
 * Problèmes calculs d'aire et de volumes utilisant l'effet d'une réduction sur les aires et les volumes 
 * @auteur Jean-Claude Lhote
@@ -6155,13 +6263,13 @@ function Coefficient_evolution() {
 	this.nouvelle_version = function (numero_de_l_exercice) {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let texte_aide = '- Augmenter un nombre de $t$ % revient à le multiplier par $1+\\dfrac{t}{100}$.';
+		let texte_aide = '- Augmenter un nombre de $t~\\%$ revient à le multiplier par $1+\\dfrac{t}{100}$.';
 		texte_aide += '<br>'
-		texte_aide += '<br>- Diminuer un nombre de $t$ % revient à le multiplier par $1-\\dfrac{t}{100}$.'
+		texte_aide += '<br>- Diminuer un nombre de $t~\\%$ revient à le multiplier par $1-\\dfrac{t}{100}$.'
 		texte_aide += '<br>'
 		texte_aide += '<br><b>Exemples</b> :'
-		texte_aide += '<br>- Diminuer un nombre de 20 % revient à le multiplier par $1-\\dfrac{20}{100}=1-0,20=0,8$.'
-		texte_aide += '<br><br>- Augmenter un nombre de 5 % revient à le multiplier par $1+\\dfrac{5}{100}=1+0,05=1,05$.'
+		texte_aide += '<br>- Diminuer un nombre de $20~\\%$ revient à le multiplier par $1-\\dfrac{20}{100}=1-0,20=0,8$.'
+		texte_aide += '<br><br>- Augmenter un nombre de $5~\\%$ revient à le multiplier par $1+\\dfrac{5}{100}=1+0,05=1,05$.'
 
 		this.bouton_aide = modal_url(numero_de_l_exercice,'/aide/3P10');
 
@@ -6180,24 +6288,24 @@ function Coefficient_evolution() {
 			taux = choice([randint(1,9)*10,randint(1,9)]);
 			switch (liste_type_de_questions[i]){
 				case 'coef+' :
-				texte = `Augmenter de ${taux} % revient à multiplier par...`;
+				texte = `Augmenter de $${taux}~\\%$ revient à multiplier par...`;
 				coeff = tex_prix(calcul(1+taux/100));
-				texte_corr = `Augmenter de ${taux} % revient à multiplier par ${coeff} car $100~\\% + ${taux}~\\% = ${100+taux}~\\%$.`;
+				texte_corr = `Augmenter de $${taux}~\\%$ revient à multiplier par ${coeff} car $100~\\% + ${taux}~\\% = ${100+taux}~\\%$.`;
 				break;
 				case 'coef-' :
-				texte = `Diminuer de ${taux} % revient à multiplier par...`;
+				texte = `Diminuer de $${taux}~\\%$ revient à multiplier par...`;
 				coeff = tex_prix(calcul(1-taux/100));
-				texte_corr = `Diminuer de ${taux} % revient à multiplier par ${coeff} car $100~\\% - ${taux}~\\% = ${100-taux}~\\%$.`;
+				texte_corr = `Diminuer de $${taux}~\\%$ revient à multiplier par ${coeff} car $100~\\% - ${taux}~\\% = ${100-taux}~\\%$.`;
 				break;
 				case 'taux+' :
 				coeff = tex_nombrec(1+taux/100);
 				texte = `Multiplier par ${coeff} revient à...`;
-				texte_corr = `Multiplier par ${coeff} revient à augmenter de ${taux} % car $${coeff} = ${100+taux}~\\% = 100~\\% + ${taux}~\\%$.`;
+				texte_corr = `Multiplier par ${coeff} revient à augmenter de $${taux}~\\%$ car $${coeff} = ${100+taux}~\\% = 100~\\% + ${taux}~\\%$.`;
 				break;
 				case 'taux-' :
 				coeff = tex_nombrec(1-taux/100);
 				texte = `Multiplier par ${coeff} revient à...`;
-				texte_corr = `Multiplier par ${coeff} revient à diminuer de ${taux} % car $${coeff} = ${100-taux}~\\% = 100~\\% - ${taux}~\\%$.`;
+				texte_corr = `Multiplier par ${coeff} revient à diminuer de $${taux}~\\%$ car $${coeff} = ${100-taux}~\\% = 100~\\% - ${taux}~\\%$.`;
 				break;
 			}
 			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
@@ -6965,4 +7073,269 @@ function Eq_resolvantes_Thales(){
 	this.besoin_formulaire_numerique = ['Type de nombres',3,"1 : Entiers naturels\n2 : Entiers relatifs\n3 : Décimaux"];
 	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];
 	//this.besoin_formulaire2_case_a_cocher = ["Avec décimaux.",false]	
+};
+
+/** 
+ * * Calcul mental autour des identités remarquables
+ * * numéro de l'exo ex : 3L11-5
+ * @author Sébastien Lozano
+ */
+
+function identites_calculs(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.debug = false;	
+	this.sup=1;
+	if (this.debug) {
+		this.nb_questions = 3;	
+	} else {
+		this.nb_questions = 3;
+	};	
+
+	this.titre = "Calcul mental et calcul littéral";	
+	this.consigne = `Faire les calculs suivants sans calculatrice. Utiliser la double distributivité ou les identités remarquables.`;	
+	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	//this.nb_questions_modifiable = false;	
+	sortie_html? this.spacing = 1 : this.spacing = 1; 
+	sortie_html? this.spacing_corr = 1 : this.spacing_corr = 1;
+
+	this.liste_packages = `bclogo`;
+
+	let type_de_questions_disponibles;	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		//une fonction pour gérer un \hfill dans la sortie LaTeX
+		function myhfill() {
+			if (sortie_html) {
+				return `<br><br>`;
+			} else {
+				return `\\hfill`;
+			}
+		};
+				switch (Number(this.sup)) {
+					case 1 :
+						type_de_questions_disponibles = [0,0,0];//shuffle([choice([1,3]),choice([2,3]),0]);
+						this.introduction = warn_message(`$(a+b)^2=a^2+2ab+b^2$`, `nombres`, `Coup de pouce`);      			
+						break;
+					case 2 :
+						type_de_questions_disponibles = [1,1,1];//shuffle([choice([1,3]),choice([2,3]),0]); 
+						this.introduction = warn_message(`2`, `nombres`, `Coup de pouce`);      			     	
+						this.introduction = warn_message(`$(a-b)^2 = a^2-2ab+b^2$`, `nombres`, `Coup de pouce`); 		
+						break;
+					case 3 : 
+						type_de_questions_disponibles = [2,2,2];//shuffle([choice([1,3]),choice([2,3]),0]);      			
+						this.introduction = warn_message(`3`, `nombres`, `Coup de pouce`);      			
+						this.introduction = warn_message(`$(a+b)(a-b)=a^2-b^2$`, `nombres`, `Coup de pouce`); 
+						break;
+					case 4 :
+						type_de_questions_disponibles = shuffle([0,1,2]);//shuffle([choice([1,3]),choice([2,3]),0]);      			
+						this.introduction = warn_message(`4`, `nombres`, `Coup de pouce`);      			
+						this.introduction = warn_message(`$(a+b)^2 = a^2 +2ab + b^2$ ${myhfill()} $(a-b)^2 = a^2-2ab+b^2$ ${myhfill()} $(a+b)(a-b)=a^2-b^2$`, `nombres`, `Coup de pouce`); 
+						break;
+				};
+
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		
+		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		
+		
+		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+			// une fonction pour gérer l'affichage sous forme de carré
+			// a et b  sont les facteurs du produit, s'ils sont égaux on affiche sous forme de carré
+			function ifIsCarreAfficheCarre(a,b) {
+				if (a==b) {
+					return `${a}^2`
+				} else {
+					return `${a}\\times ${b}`
+				}
+			}
+
+			// une fonction pour afficher le double terme rectangle ou pas
+			function ifIsCarreAfficheDblProd(bool,dblTermeRect) {
+				if (bool) {
+					return dblTermeRect;
+				} else {
+					return ``;
+				}
+			};
+
+			let a = randint(2,9);
+			let b_somme = randint(1,4);
+			let b_difference = randint(1,4);
+			let b_som_dif = randint(1,9);
+			let coeff = choice([10,100]);
+			let coeff_som_dif = 100;
+			let signes_som_dif = choice([[{str:'-',nb:-1},{str:'+',nb:1}],[{str:'+',nb:1},{str:'-',nb:-1}]]);
+			let lettres = choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
+
+			// pour les situations, autant de situations que de cas dans le switch !
+			let situations = [
+				{//case 0 --> carré d'une somme
+					lettre:lettres,
+					a:a,
+					b:b_somme,
+					coeff:coeff,
+					a_coeff:a*coeff,
+					operations:[{str:'+',nb:1},{str:'+',nb:1}],
+					facteurs:[{str:`${tex_nombre(a*coeff)}+${b_somme}`,nb:tex_nombre(a*coeff+b_somme)},{str:`${tex_nombre(a*coeff)}+${b_somme}`,nb:tex_nombre(a*coeff+b_somme)}],					
+					carre_de_a_coeff:tex_nombre(coeff*coeff*a*a),				
+					//carre_de_coeff:coeff*coeff,	
+					carre_de_b:tex_nombre(b_somme*b_somme),
+					termes_rectangles:[tex_nombre(coeff*a*b_somme),tex_nombre(coeff*a*b_somme)],
+					somme_terme_rect:tex_nombre(2*coeff*a*b_somme),
+					signes_dbl_dist:['+','+','+'],
+					carre:true,
+					resultat:tex_nombre(a*a*coeff*coeff + b_somme*b_somme + 2*a*coeff*b_somme)
+				},
+				{//case 1 --> carré d'une différence
+					lettre:lettres,
+					a:a,
+					b:b_difference,
+					coeff:coeff,
+					a_coeff:a*coeff,					
+					operations:[{str:'-',nb:-1},{str:'-',nb:-1}],					
+					facteurs:[{str:`${tex_nombre(a*coeff)}-${b_difference}`,nb:tex_nombre(a*coeff-b_difference)},{str:`${tex_nombre(a*coeff)}-${b_difference}`,nb:tex_nombre(a*coeff-b_difference)}],					
+					carre_de_a_coeff:tex_nombre(coeff*coeff*a*a),
+					//carre_de_coeff:coeff*coeff,					
+					carre_de_b:tex_nombre(b_difference*b_difference),
+					termes_rectangles:[tex_nombre(coeff*a*b_difference),tex_nombre(coeff*a*b_difference)],
+					somme_terme_rect:tex_nombre(2*coeff*a*b_difference),
+					signes_dbl_dist:['+','-','-'],
+					carre:true,
+					resultat:tex_nombre(a*a*coeff*coeff + b_difference*b_difference - 2*a*coeff*b_difference)
+
+				},										
+				{//case 2 --> produit somme différence
+					lettre:lettres,
+					a:a,
+					b:b_som_dif,
+					coeff:coeff_som_dif,
+					a_coeff:a*coeff_som_dif,
+					operations:signes_som_dif,					
+					facteurs:[{str:`${tex_nombre(a*coeff_som_dif)} ${signes_som_dif[0].str} ${b_som_dif}`,nb:tex_nombre(a*coeff_som_dif+signes_som_dif[0].nb*b_som_dif)},{str:`${tex_nombre(a*coeff_som_dif)} ${signes_som_dif[1].str} ${b_som_dif}`,nb:tex_nombre(a*coeff_som_dif+signes_som_dif[1].nb*b_som_dif)}],										
+					carre_de_a_coeff:tex_nombre(coeff_som_dif*coeff_som_dif*a*a),				
+					//carre_de_coeff:coeff*coeff,	
+					carre_de_b:tex_nombre(b_som_dif*b_som_dif),
+					termes_rectangles:[tex_nombre(coeff_som_dif*a*b_som_dif),tex_nombre(coeff_som_dif*a*b_som_dif)],
+					somme_terme_rect:0,
+					signes_dbl_dist:['-','+','-'],
+					carre:false,
+					resultat:tex_nombre(a*a*coeff_som_dif*coeff_som_dif - b_som_dif*b_som_dif)					
+				},
+			];
+
+			let enonces = [];
+			for (let k=0;k<situations.length;k++) {
+				enonces.push({
+					enonce:`					
+					 $${situations[k].lettre}=${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)}$
+					`,
+					question:``,
+					correction1:`
+						${texte_gras(`Avec la double distributivité`)}<br>
+						$${situations[k].lettre} = ${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)}$<br>
+						$${situations[k].lettre} = (${situations[k].facteurs[0].str})\\times (${situations[k].facteurs[1].str})$<br>
+						$${situations[k].lettre} = ${situations[k].a_coeff}^2 ${situations[k].signes_dbl_dist[1]} ${situations[k].a_coeff}\\times ${situations[k].b} ${situations[k].signes_dbl_dist[2]} ${situations[k].b}\\times ${situations[k].a_coeff} ${situations[k].signes_dbl_dist[0]} ${situations[k].b}^2$<br>
+						$${situations[k].lettre} = ${situations[k].carre_de_a_coeff} ${situations[k].signes_dbl_dist[1]} ${situations[k].termes_rectangles[0]} ${situations[k].signes_dbl_dist[2]} ${situations[k].termes_rectangles[1]}	${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b}$<br>
+						$${situations[k].lettre} = ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} ${situations[k].somme_terme_rect}`)} ${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b}$<br>
+						$${situations[k].lettre} = ${situations[k].resultat}$
+					`,
+					correction2:`
+					${texte_gras(`Avec une identité`)}<br>
+					$${situations[k].lettre} = ${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)}$<br>
+					$${situations[k].lettre} = ${ifIsCarreAfficheCarre(`(${situations[k].facteurs[0].str})`,`(${situations[k].facteurs[1].str})`)} $<br>
+					$${situations[k].lettre} = ${situations[k].a_coeff}^2 ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} 2\\times ${situations[k].a_coeff} \\times ${situations[k].b}`)} ${situations[k].signes_dbl_dist[0]}  ${situations[k].b}^2$<br>
+					$${situations[k].lettre} = ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} 2\\times ${situations[k].termes_rectangles[0]}`)} ${situations[k].signes_dbl_dist[0]}  ${situations[k].carre_de_b}$<br>
+					$${situations[k].lettre} = ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} ${situations[k].somme_terme_rect}`)} ${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b}$<br>
+					$${situations[k].lettre} = ${situations[k].resultat}$				
+				`
+				});
+			};
+            
+            // autant de case que d'elements dans le tableau des situations
+			switch (liste_type_de_questions[i]){
+				case 0 : // carré d'une somme 
+					texte = `${enonces[0].enonce}`;
+					if (this.debug) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[0].correction1}<br>${enonces[0].correction2}`;			
+						texte_corr = ``;	
+					} else {
+						if (sortie_html) {
+							texte_corr = `${enonces[0].correction1}<br><br>${enonces[0].correction2}`;
+						} else {
+							texte_corr = `Détaillons deux méthodes : <br><br>`
+							texte_corr += `\\begin{minipage}{8cm}`;
+							texte_corr += enonces[0].correction1;
+							texte_corr += `\\end{minipage}`;
+							texte_corr += `\\hfill \\vrule \\hfill`;							
+							texte_corr += `\\begin{minipage}{8cm}`;
+							texte_corr += enonces[0].correction2;
+							texte_corr += `\\end{minipage}`;
+							texte_corr += `<br>`;
+						};						
+					};
+          			break;	
+        		case 1 : // carré d'une différence
+					texte = `${enonces[1].enonce}`;
+					if (this.debug) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[1].correction1}<br>${enonces[1].correction2}`;
+						texte_corr = ``;	
+					} else {
+						if (sortie_html) {
+							texte_corr = `${enonces[1].correction1}<br><br>${enonces[1].correction2}`;
+						} else {
+							texte_corr = `Détaillons deux méthodes : <br><br>`
+							texte_corr += `\\begin{minipage}{8cm}`;
+							texte_corr += enonces[1].correction1;
+							texte_corr += `\\end{minipage}`;
+							texte_corr += `\\hfill \\vrule \\hfill`;							
+							texte_corr += `\\begin{minipage}{8cm}`;
+							texte_corr += enonces[1].correction2;
+							texte_corr += `\\end{minipage}`;
+							texte_corr += `<br>`;
+						};						
+					};
+          			break;
+        		case 2 : // Produit somme différence
+					texte = `${enonces[2].enonce}`;
+					if (this.debug) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[2].correction1}<br>${enonces[2].correction2}`;
+						texte_corr = ``;	
+					} else {
+						if (sortie_html) {
+							texte_corr = `${enonces[2].correction1}<br><br>${enonces[2].correction2}`;
+						} else {
+							texte_corr = `Détaillons deux méthodes : <br><br>`
+							texte_corr += `\\begin{minipage}{8cm}`;
+							texte_corr += enonces[2].correction1;
+							texte_corr += `\\end{minipage}`;
+							texte_corr += `\\hfill \\vrule \\hfill`;							
+							texte_corr += `\\begin{minipage}{8cm}`;
+							texte_corr += enonces[2].correction2;
+							texte_corr += `\\end{minipage}`;
+							texte_corr += `<br>`;
+						};						
+					};
+          			break;								
+			};			
+			
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+
+	}
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : Carré d'une somme\n2 : Carré d'une différence\n3 : Produit de la somme et de la différence\n4 : Mélange"];
+	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 };

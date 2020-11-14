@@ -58,6 +58,34 @@ function liste_de_question_to_contenu_sans_numero_et_sans_consigne(argument) {
 
 	
 }
+
+
+
+/**
+* Renvoie 2 chaines de caractères sur 2 colonnes différentes
+* 
+* @author Rémi Angot
+*/
+function deuxColonnes(cont1,cont2){
+	if (sortie_html){
+		return `<div style="float:left;width:50%;">
+		${cont1}
+	 </div>
+	 <div style="float:left;width:50%;">
+		${cont2}
+	 </div>`
+	} else {
+		return `\\begin{minipage}{.5\\linewidth}
+		${cont1}
+		\\end{minipage}
+		\\begin{minipage}{.5\\linewidth}
+		${cont2}
+		\\end{minipage}
+		`
+	}
+}
+
+
 /**
  * fonctions de comparaison pour les nombres en virgule flottante afin d'éviter les effets de la conversion en virgule flottante.
  * @param {number} a premier nombre 
@@ -972,7 +1000,19 @@ function arrondi(nombre, precision=2){
 	let tmp = Math.pow(10, precision);
 	return Math.round( nombre*tmp )/tmp;
 }
-
+/**
+ * Retourne la troncature signée de nombre.
+ * @Auteur Jean-Claude Lhote
+ */
+function troncature(nombre,precision){
+	let signe,absolu,tronc
+	let tmp=Math.pow(10, precision)
+	if (nombre<0) signe=-1
+	else signe=1
+	absolu=Math.abs(nombre)
+	tronc=calcul(Math.floor(absolu*tmp)/tmp);
+	return signe*tronc;
+}
 /**
 * Renvoit la valeur absolue
 * @Auteur Rémi Angot
@@ -1274,7 +1314,7 @@ function creerNomDePolygone(nbsommets,liste_a_eviter=[]){
 		polygone += String.fromCharCode(premiersommet+i)
 	}
 
-	if (liste_a_eviter.length < ((26-nbsommets)/nbsommets)-1){ // On évite la liste à éviter si elle n'est pas trop grosse sinon on n'en tient pas compte
+	if (liste_a_eviter.length < 26-nbsommets-1){ // On évite la liste à éviter si elle n'est pas trop grosse sinon on n'en tient pas compte
 		let cpt = 0;
 		while(possedeUnCaractereInterdit(polygone,liste_a_eviter) && cpt <20){
 			polygone="";
@@ -1724,6 +1764,20 @@ function tex_nombre(nb){
 		}
 		return result;
 	}
+}
+
+/**
+* Renvoit un nombre dans le format français (séparateur de classes) pour la partie entière comme pour la partie décimale
+* @Auteur Rémi Angot
+*/
+function tex_nombre2(nb){
+	let nombre = tex_nombrec(nb);
+	let rang_virgule = nombre.indexOf(',')
+	for (let i=rang_virgule+4; i<nombre.length; i+=3){
+		nombre = nombre.substring(0,i)+'\\thickspace '+nombre.substring(i)
+		i+=13 // comme on a ajouté un espace, il faut décaler l'indice de 1
+	}
+	return nombre
 }
 
 /**
@@ -3108,6 +3162,30 @@ function eclatePuissance(b,e,couleur) {
 	}
 };
 
+
+/**
+ * Fonction pour écrire la forme éclatée d'une puissance
+ * @param b base
+ * @param e exposant 
+ * @author Rémi Angot
+ */		
+function puissanceEnProduit(b,e) {
+	switch (e) {
+		case 0 :
+			return `1`;
+			break;
+		case 1 : 
+			return `${b}`;
+			break;
+		default :
+			let str = `${b}`;
+			for (let i=1; i<e;i++) {
+				str = str + `\\times ${b}`;
+			 }
+			return str;
+	}
+};
+
 /**
  * Fonction pour écrire avec deux couleurs la forme éclatée d'un produit de puissances de même exposant
  * @param b1 base1
@@ -4254,7 +4332,8 @@ function warn_message(texte,couleur,titre) {
 	if (sortie_html) {
 		return `
 		<br>
-		<div class="ui compact warning message">		
+		<div class="ui compact warning message">
+		<h4><i class="lightbulb outline icon"></i>${titre}</h4>		
 		<p>`+texte+`
 		</p>
 		</div>
@@ -5164,51 +5243,51 @@ function Fraction(num,den) {
 	 * @return {object} La fraction "complexifiée" d'un rapport k
 	 * @param {number} k Le nombre par lequel, le numérateur et le dénominateur sont multipliés.
 	 */
-	this.egal = function(k){
+	this.fractionEgale = function(k){
 		return fraction(calcul(this.numIrred*k),calcul(this.denIrred*k))
 	}   
-	this.simp=function() {
+	this.simpsimplifie=function() {
 		return fraction(this.numIrred,this.denIrred)
 	}
 	/**
 	 * @return {object} L'opposé de la fraction
 	 */
-    this.opp = function(){
+    this.oppose = function(){
         return fraction(-this.num,this.den)
 	}
 	/**
 	 * @return {object]} L'opposé de la fracion réduite
 	 */
-    this.oppIr = function(){
+    this.opposeIrred = function(){
         return fraction(-this.numIrred,this.denIrred)
     }
 	/**
 	 * @return {object]} L'inverse de la fraction
 	 */
-    this.inv = function(){
+    this.inverse = function(){
         return fraction(this.den,this.num)
 	}
 	/**
 	 * @return {object} L'inverse de la fraction simplifiée
 	 */
-    this.invIr = function(){
+    this.inverseIrrred = function(){
         return fraction(this.denIrred,this.numIrred)
 	}
 	/**
 	 * @return {object} La somme des fractions
 	 * @param {object} f2 La fraction qui s'ajoute
 	 */
-    this.add =function(f2) {
+    this.sommeFraction =function(f2) {
         return fraction(this.num*f2.den+f2.num*this.den,this.den*f2.den)
 	}
 	/**
 	 * @return {object} La somme de toutes les fractions
 	 * @param  {...any} fractions Liste des fractions à ajouter à la fraction
 	 */
-    this.adds = function(...fractions){
+    this.sommeFractions = function(...fractions){
         let s=fraction(this.num,this.den)
         for (let f of fractions) {
-            s=s.add(f)
+            s=s.sommeFraction(f)
         }
         return s
 	}
@@ -5216,11 +5295,11 @@ function Fraction(num,den) {
 	 * @return {object} Le produit des deux fractions
 	 * @param {object} f2  LA fraction par laquelle est multipliée la fraction
 	 */
-    this.mul = function(f2) {
+    this.produitFraction = function(f2) {
 
         return fraction(this.num*f2.num,this.den*f2.den)
 	}
-	this.texmul = function(f2) {
+	this.texProduitFraction = function(f2) {
 			return `${tex_fraction(this.num,this.den)}\\times ${tex_fraction(f2.num,f2.den)}=${tex_fraction(this.num+`\\times`+f2.num,this.den+`\\times`+f2.den)}=${tex_fraction(this.num*f2.num,this.den*f2.den)}`
 	} 
 
@@ -5228,17 +5307,17 @@ function Fraction(num,den) {
 	 * @return {object} La puissance n de la fraction
 	 * @param {integer} n l'exposant de la fraction 
 	 */
-    this.pow = function(n) {
+    this.puissanceFraction = function(n) {
         return fraction(this.num**n,this.den**n)
 	}
 	/**
 	 * @param  {...any} fractions Les fractions qui multiplient la fraction
 	 * @return Le produit des fractions
 	 */
-    this.muls = function(...fractions){
+    this.produitFractions = function(...fractions){
         let p=fraction(this.num,this.den)
         for (let f of fractions) {
-            p=p.mul(f)
+            p=p.produitFraction(f)
     }
         return p
 	}
@@ -5246,14 +5325,14 @@ function Fraction(num,den) {
 	 * @param {object} f2 est la fracion qui est soustraite de la fraction
 	 * @return {objet} La différence des deux fractions
 	 */
-    this.sub = function(f2) {
-        return this.add(f2.opp())
+    this.differenceFraction = function(f2) {
+        return this.sommeFraction(f2.oppose())
 	}
 
 /**
  * @return {object}  Renvoie une fraction avec comme dénominateur une puissance de 10 ou 'NaN' si la fraction n'a pas de valeur décimale
  */
-	this.fr10 = function(){
+	this.fractionDecimale = function(){
 		let den=this.denIrred
 		let num=this.numIrred
 		let liste=obtenir_liste_facteurs_premiers(den)
@@ -5270,20 +5349,20 @@ function Fraction(num,den) {
 	/**
 	 * @return {number} La valeur décimale de la fraction
 	 */
-	this.val10 = function(){
-		if (this.fr10()!='NaN') return calcul(this.fr10().num/this.fr10().den)
+	this.valeurDecimale = function(){
+		if (this.fractionDecimale()!='NaN') return calcul(this.fractionDecimale().num/this.fractionDecimale().den)
 		else return `Ce n\'est pas un nombre décimal`
 	}
 	/**
 	 * @return {string} Code Latex de la fraction
 	 */
-	this.texfr = function(){
+	this.texFraction = function(){
 		return tex_fraction_signe(this.num,this.den)
 	}
 	/**
 	 * @return {string} code Latex de lafraction simplifiée
 	 */
-	this.texfrsimp = function(){
+	this.texFractionSimplifiee = function(){
 		return tex_fraction_signe(this.numIrred,this.denIrred)
 	}
     /**
@@ -5291,7 +5370,7 @@ function Fraction(num,den) {
      * @param {integer} n entier par lequel multiplier la fraction 
      * @return {object} fraction multipliée par n
      */
-    this.muln = function(n) {
+    this.multiplieEntier = function(n) {
         return fraction(n*this.num,this.den);
     };
 
@@ -5300,35 +5379,35 @@ function Fraction(num,den) {
      * @param {integer} n entier par lequel multiplier la fraction 
      * @return {object} fraction multipliée par n simplifiée
      */
-    this.mulnIr = function(n) {
+    this.multiplieEntierIrred = function(n) {
         return fraction(fraction_simplifiee(n*this.num,this.den)[0],fraction_simplifiee(n*this.num,this.den)[1]);
 	};
 	/**
 	 * @return fraction divisée par n
 	 * @param {integer} n entier qui divise la fraction 
 	 */
-	this.divn=function(n){
+	this.entierDivise=function(n){
 		return fraction(this.num,n*this.den)
 	}
 	/**
 	 * @return fraction divisée par n et réduite si possible
 	 * @param {integer} n entier qui divise la fraction 
 	 */
-	this.dinIr=function(n){
+	this.entierDiviseIrred=function(n){
 		return fraction(fraction(this.num,n*this.den).numIrred,fraction(this.num,n*this.den).denIrred)
 	}
 	/**
 	 * @return {object} la fraction augmentée de n
 	 * @param {integer} n entier à ajouter à la fraction 
 	 */
-	this.addn=function(n){
+	this.ajouteEntier=function(n){
 		return fraction(this.num+this.den*n,this.den)
 	}
 /**
  * @return {object} n moins la fraction
  * @param {integer} n l'entier duqel on soustrait la fraction 
  */
-	this.nsub=function(n){
+	this.entierMoinsFraction=function(n){
 		return (fraction(n*this.den-this.num,this.den))
 	}
     /**
@@ -6717,6 +6796,22 @@ function partieEntiereEnLettres(nb) {
 	}
 	return result
 }
+
+
+
+// Gestion du fichier à télécharger
+function telechargeFichier(text,filename) {
+	var element = document.createElement('a');
+	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+	element.setAttribute('download', filename);
+  
+	element.style.display = 'none';
+	document.body.appendChild(element);
+  
+	element.click();
+  
+	document.body.removeChild(element);
+  }
 
 // Gestion des styles LaTeX
 

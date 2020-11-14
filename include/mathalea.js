@@ -15,7 +15,7 @@ Modules nécessaires :
 var div = document.getElementById('div_code_LaTeX'); // Récupère le div dans lequel le code va être affiché
 var div_overleaf = document.getElementById('overleaf'); // Récupère le div dans lequel le code va être affiché
 var div_parametres_generaux = document.getElementById('parametres_generaux'); // Récupère le div dans lequel seront inscrit les paramètres
-var form_consigne = [], form_nb_questions = [], form_correction_detaillee =[], form_nb_cols = [], form_nb_cols_corr = [], form_spacing = [] , form_spacing_corr = [], form_sup = [], form_sup2 = []; // Création de tableaux qui recevront les éléments HTML de chaque formulaires
+var form_consigne = [], form_nb_questions = [], form_correction_detaillee =[], form_nb_cols = [], form_nb_cols_corr = [], form_spacing = [] , form_spacing_corr = [], form_sup = [], form_sup2 = [], form_sup3 = []; // Création de tableaux qui recevront les éléments HTML de chaque formulaires
 
 var URL_de_depart_complexe = false; // Si l'utilisateur a entré une URL avec des paramètres, on ne la modifie pas
 
@@ -137,6 +137,25 @@ Les réponses modifient les caractéristiques de l'exercice puis le code LaTeX e
 			if (exercice[i].besoin_formulaire2_texte){ // Création d'un formulaire texte
 				div_parametres_generaux.innerHTML += "<p></p><div style='display: inline'><label for='form_sup2"+i+"'>"+exercice[i].besoin_formulaire2_texte[0]+" : </label>\
 			<div style='display: inline' data-tooltip='"+exercice[i].besoin_formulaire2_texte[1]+"' data-inverted=''><input id='form_sup2"+i+"' type='text' size='20' ></div></div>";
+		}
+
+			if (exercice[i].besoin_formulaire3_case_a_cocher){ // Création d'un formulaire texte
+				div_parametres_generaux.innerHTML += "<div style='display: inline'><label for='form_sup3"+i+"'>"+exercice[i].besoin_formulaire3_case_a_cocher[0]+" : </label>\
+			<input id='form_sup3"+i+"' type='checkbox'  ></div>";
+		}
+
+			if (exercice[i].besoin_formulaire3_numerique){ // Création d'un formulaire numérique
+				if (exercice[i].besoin_formulaire3_numerique[2]){ // Si un tooltip est défini
+					div_parametres_generaux.innerHTML += '<div data-tooltip="'+exercice[i].besoin_formulaire3_numerique[2]+'"" data-inverted="" data-position="top left"><label for="form_sup3'+i+'">'+exercice[i].besoin_formulaire3_numerique[0]+' : </label><input id="form_sup3'+i+'" type="number"  min="1" max="'+exercice[i].besoin_formulaire3_numerique[1]+'"></div>';
+				}
+				else{
+					div_parametres_generaux.innerHTML += '<div><label for="form_sup3'+i+'">'+exercice[i].besoin_formulaire3_numerique[0]+' : </label><input id="form_sup3'+i+'" type="number"  min="1" max="'+exercice[i].besoin_formulaire3_numerique[1]+'"></div>';
+				}
+			}
+
+			if (exercice[i].besoin_formulaire3_texte){ // Création d'un formulaire texte
+				div_parametres_generaux.innerHTML += "<p></p><div style='display: inline'><label for='form_sup3"+i+"'>"+exercice[i].besoin_formulaire3_texte[0]+" : </label>\
+			<div style='display: inline' data-tooltip='"+exercice[i].besoin_formulaire3_texte[1]+"' data-inverted=''><input id='form_sup3"+i+"' type='text' size='20' ></div></div>";
 		}
 
 	}
@@ -331,6 +350,41 @@ Les réponses modifient les caractéristiques de l'exercice puis le code LaTeX e
 				mise_a_jour_du_code();
 			});
 		}
+		
+		
+		if (exercice[i].besoin_formulaire3_case_a_cocher){
+			form_sup3[i] = document.getElementById('form_sup3'+i);
+			form_sup3[i].checked = exercice[i].sup3; // Rempli le formulaire avec le paramètre supplémentaire
+			form_sup3[i].addEventListener('change', function(e) { // 
+				exercice[i].sup3 = e.target.checked;
+				mise_a_jour_du_code();
+			});
+
+		}
+
+		if (exercice[i].besoin_formulaire3_numerique){
+			form_sup3[i] = document.getElementById('form_sup3'+i);
+			form_sup3[i].value = exercice[i].sup3; // Rempli le formulaire avec le paramètre supplémentaire
+			form_sup3[i].addEventListener('change', function(e) { // Dès que le nombre change, on met à jour
+				exercice[i].sup3 = e.target.value;
+				mise_a_jour_du_code();
+			});
+		}
+
+		if (exercice[i].besoin_formulaire3_texte){
+			form_sup3[i] = document.getElementById('form_sup3'+i);
+			form_sup3[i].addEventListener('keydown', function(e) { // Appui sur la touche entrée
+				if (e.keyCode == 13){
+        		exercice[i].sup3 = e.target.value;// Récupère  la saisie de l'utilisateur
+        		mise_a_jour_du_code();
+        	};
+        });
+
+			form_sup3[i].addEventListener('blur', function(e) { // Perte du focus
+				exercice[i].sup3 = e.target.value;
+				mise_a_jour_du_code();
+			});
+		}
 
 		
 	}
@@ -437,6 +491,9 @@ function mise_a_jour_du_code(){
 				fin_de_l_URL +=`?ex=${liste_des_exercices[0]},nb_questions=${exercice[0].nb_questions}`
 			}
 		}
+		if (exercice[0].sup3){
+			fin_de_l_URL += `,sup3=${exercice[0].sup3}`
+		}
 		for (var i = 1; i < liste_des_exercices.length; i++) {
 			if (exercice[i].sup2){
 				fin_de_l_URL +=`&ex=${liste_des_exercices[i]},nb_questions=${exercice[i].nb_questions},sup=${exercice[i].sup},sup2=${exercice[i].sup2}`	
@@ -446,6 +503,9 @@ function mise_a_jour_du_code(){
 				} else{
 					fin_de_l_URL +=`&ex=${liste_des_exercices[i]},nb_questions=${exercice[i].nb_questions}`
 				}
+			}
+			if (exercice[i].sup3){
+				fin_de_l_URL += `,sup3=${exercice[i].sup3}`
 			}
 		}
 		fin_de_l_URL +=`&serie=${graine}`
@@ -653,10 +713,10 @@ if (!sortie_html){
 			}
 
 			if ($("#nom_du_fichier").val()) {
-				download(contenu_fichier, $("#nom_du_fichier").val()+'.tex', "text/plain");	
+				telechargeFichier(contenu_fichier, $("#nom_du_fichier").val()+'.tex');	
 			}else
 			{
-				download(contenu_fichier, 'mathalea.tex', "text/plain");
+				telechargeFichier(contenu_fichier, 'mathalea.tex');
 			}
 			
 		});
@@ -825,8 +885,10 @@ window.onload = function()  {
 	
 	// Gestion de la mise à jour de l'affichage du code
 
-	var btn_mise_a_jour_code = document.getElementById('btn_mise_a_jour_code');
+	let btn_mise_a_jour_code = document.getElementById('btn_mise_a_jour_code');
 	btn_mise_a_jour_code.addEventListener('click', nouvelles_donnees);
+	
+
 
 	// Gestion des effets visuels
 	// $('.ui.accordion').accordion(); // active les acordéons (paramètres du fichier .tex)
@@ -858,6 +920,9 @@ window.onload = function()  {
     		}
     		if (tableau_objets_exercices[i]["sup2"]){
     			exercice[i].sup2 = tableau_objets_exercices[i]["sup2"]
+    		}
+    		if (tableau_objets_exercices[i]["sup3"]){
+    			exercice[i].sup3 = tableau_objets_exercices[i]["sup3"]
     		}
     	}
     	mise_a_jour_du_code();

@@ -399,69 +399,6 @@ function Exercice_comparer_quatre_fractions (){
 	}
 }
 
-/**
-* Effectuer l'addition de deux fractions dont un dénominateur est un multiple de l'autre.
-*
-* Le coefficient est paramétrable, par défaut il est inférieur à 11.
-* @Auteur Rémi Angot
-* 5N20
-*/
-function Exercice_additionner_des_fractions_5e(max=11){
-	Exercice.call(this); // Héritage de la classe Exercice()
-	this.sup = max ; // Correspond au facteur commun
-	this.titre = "Additionner deux fractions (dénominateurs multiples)"
-	this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée"
-	this.spacing = 2;
-	this.spacing_corr = 2;
-	this.nb_questions = 5;
-	this.nb_cols_corr = 1;
-
-	this.nouvelle_version = function(numero_de_l_exercice){
-		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
-		for (let i = 0, a, b, c, d,texte, texte_corr, cpt=0; i < this.nb_questions;i++) {
-			// les numérateurs
-			a = randint (1,9);
-			c = randint (1,9);
-			// les dénominateurs
-			if (this.level!=6) b = randint(2,9);
-			else b = randint(2,5)
-			while (b==a){
-				if (this.level!=6) b = randint(2,9); // pas de fraction avec numérateur et dénominateur égaux
-				else b = randint(2,5)
-			}
-			if (this.level!=6) k = randint(2,this.sup);
-			else k=1
-			d = b*k
-			ordre_des_fractions = randint(1,2)
-			if (ordre_des_fractions==1) {
-				texte = `$${tex_fraction(a,b)}+${tex_fraction(c,d)}=$`;
-			} else {
-				texte = texte = `$${tex_fraction(c,d)}+${tex_fraction(a,b)}=$`;
-			}
-			if (ordre_des_fractions==1) {
-				if (this.level!=6) texte_corr = `$${tex_fraction(a,b)}+${tex_fraction(c,d)}=${tex_fraction(a+mise_en_evidence('\\times '+k),b+mise_en_evidence('\\times '+k))}+${tex_fraction(c,d)}`
-				else texte_corr =`$`
-				texte_corr += `=${tex_fraction(a*k,b*k)}+${tex_fraction(c,d)}=${tex_fraction(a*k+`+`+c,d)}=${tex_fraction(a*k+c,d)}$`;
-			} else {
-				if (this.level!=6) texte_corr = `$${tex_fraction(c,d)}+${tex_fraction(a,b)}=${tex_fraction(c,d)}+${tex_fraction(a+mise_en_evidence('\\times '+k),b+mise_en_evidence('\\times '+k))}`
-				else texte_corr =`$`
-				texte_corr += `=${tex_fraction(c,d)}+${tex_fraction(a*k,b*k)}=${tex_fraction(c+'+'+a*k,d)}=${tex_fraction(a*k+c,d)}$`;
-			}
-			// Est-ce que le résultat est simplifiable ?
-			let s = pgcd(a*k+c,d);
-			if ((a*k+c)%d==0) { // si le résultat est un entier
-				texte_corr +=`$=${Algebrite.eval((a*k+c)/d)}$`
-			} else if (s!=1) {
-				texte_corr +=`$=${tex_fraction(Algebrite.eval((a*k+c)/s)+mise_en_evidence('\\times '+s),Algebrite.eval(d/s)+mise_en_evidence('\\times '+s))}=${tex_fraction(Algebrite.eval((a*k+c)/s),Algebrite.eval(d/s))}$`
-			}
-			this.liste_questions.push(texte);
-			this.liste_corrections.push(texte_corr);
-			}
-		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
-	}
-	this.besoin_formulaire_numerique = ['Valeur maximale du coefficient multiplicateur',99999];		
-}
 
 /**
 * Effectuer l'addition ou la soustraction de deux fractions dont un dénominateur est un multiple de l'autre.
@@ -472,7 +409,7 @@ function Exercice_additionner_des_fractions_5e(max=11){
 *
 * On peut paramétrer de n'avoir que des soustractions.
 * @Auteur Rémi Angot
-* 5N20-2
+* 5N20
 */
 function Exercice_additionner_ou_soustraire_des_fractions_5e(max=11){
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -484,27 +421,42 @@ function Exercice_additionner_ou_soustraire_des_fractions_5e(max=11){
 	this.spacing_corr = 2;
 	this.nb_questions = 5;
 	this.nb_cols_corr = 1;
+	this.sup2=3;
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
+		let liste_type_de_questions;
+		if (this.sup2==1){
+			liste_type_de_questions = combinaison_listes(['+'],this.nb_questions);
+		}
+		if (this.sup2==2){
+			liste_type_de_questions = combinaison_listes(['-'],this.nb_questions);
+		}
+		if (this.sup2==3){
+			liste_type_de_questions = combinaison_listes(['+','-'],this.nb_questions);
+		}
 		for (let i = 0, a, b, c, d,texte, texte_corr, cpt=0; i < this.nb_questions;i++) {
 			// les numérateurs
 			a = randint (1,9);
-			c = randint (1,9);
 			// les dénominateurs
-			b = randint(2,9);
+			b = randint(2,9,a);
 			while (b==a){
 				b = randint(2,9); // pas de fraction avec numérateur et dénominateur égaux
 			}
 			k = randint(2,this.sup);
 			d = b*k
-			if (randint(1,2)==1 && !this.sup2) { //une addition
-				ordre_des_fractions = randint(1,2)
+			if (liste_type_de_questions[i]=='-'){
+				c = choice([randint(1,b*k),randint(b*k,9*k)])
+			} else {
+				c = randint(1,19,d)
+			}
+			if (liste_type_de_questions[i]=='+') { //une addition
+				let ordre_des_fractions = randint(1,2)
 				if (ordre_des_fractions==1) {
 					texte = `$${tex_fraction(a,b)}+${tex_fraction(c,d)}=$`;
 				} else {
-					texte = texte = `$${tex_fraction(c,d)}+${tex_fraction(a,b)}=$`;
+					texte = `$${tex_fraction(c,d)}+${tex_fraction(a,b)}=$`;
 				}
 				if (ordre_des_fractions==1) {
 					texte_corr = `$${tex_fraction(a,b)}+${tex_fraction(c,d)}=${tex_fraction(a+mise_en_evidence('\\times '+k),b+mise_en_evidence('\\times '+k))}+${tex_fraction(c,d)}`
@@ -546,7 +498,7 @@ function Exercice_additionner_ou_soustraire_des_fractions_5e(max=11){
 		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
 	}
 	this.besoin_formulaire_numerique = ['Valeur maximale du coefficient multiplicateur',99999];	
-	this.besoin_formulaire2_case_a_cocher = ['Uniquement des soustractions'];	
+	this.besoin_formulaire2_numerique = ['Types de calculs ', 3, '1 : Additions\n2 : Soustractions\n3 : Additions et soustractions'];	
 }
 
 
@@ -1258,6 +1210,142 @@ function Exercice_substituer(difficulte=1){
 		liste_de_question_to_contenu(this);
 	}
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,'1 : Multiplication par un facteur positif\n2: Multiplication par un facteur relatif'] 
+}
+
+/**
+ * Déterminer des angles en utilisant les cas d'égalités : opposés par le sommet, alternes-internes, correspondants...
+ * ref 5G30-1 
+ * @Auteur Jean-Claude Lhote Inspiré d'exercices du manuel sésamath.
+ */
+function Egalite_d_angles() {
+	"use strict"
+	Exercice.call(this);
+	this.sup=1;
+	this.nb_questions=1;
+	if (sortie_html) {
+		this.spacing=2;
+		this.spacing_corr=3;
+	}
+	else {
+		this.spacing=2;
+		this.spacing_corr=2;
+
+	}
+	this.nb_cols=1;
+	this.nb_cols_corr=1;
+	this.titre="Déterminer des angles en utilisant les cas d'égalité";
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions=[]
+		this.liste_corrections=[]
+		let figure=[];
+		let fig1=function(){ //retourne le tableau d'objets, la série de questions et la série de réponses 
+			let A, B, C, D, E, a, ac, ce, c, AE, BD, CA, CE, c1, c2, c3, c4, c5, m1, m2, l1, objets = [], enonce, correction, params;
+			let noms = choisit_lettres_differentes(5, 'Q', true);
+			A = point(0, 0, noms[0], 'above left');
+			a = randint(45, 85);
+			ac = randint(8, 10)
+			ce = randint(7, 10, ac)
+			C = similitude(rotation(point(1,0),A,randint(0,180)), A, a, ac, noms[2], 'left')
+			c = randint(45, 70)
+			E = similitude(A, C, c, ce / ac, noms[4], 'above right');
+			CA = droite(C, A)
+			CE = droite(C, E)
+			AE = droite(A, E, '', 'grey')
+			AE.epaisseur = 2
+			B = pointSurSegment(A, C, randint(3, ac - 4), noms[1], 'above left')
+			BD = droiteParPointEtParallele(B, AE, '', 'grey')
+			BD.epaisseur = 2
+			D = pointIntersectionDD(BD, CE, noms[3], 'above right')
+			m1 = codeAngle(E, A, C,1,'','black',2,1,'black',0.1,true)
+			m2 = codeAngle(A, C, E,1,'','black',2,1,'black',0.1,true)
+			l1 = labelPoint(A, B, C, D, E)
+			c1 = codeAngle(D, B, A,1,'','blue',2,1,'blue')
+			c2 = codeAngle(B, D, E,1,'','orange',2,1,'orange')
+			c3 = codeAngle(D, E, A,1,'','green',2,1,'green')
+			c4 = codeAngle(D, B, C,1,'','pink',2,1,'pink')
+			c5 = codeAngle(C, D, B,1,'','red',2,1,'red')
+			objets.push( CA, CE, AE, BD, m1, m2, c1, c2, c3, c4, c5, l1)
+			a = Math.round(angle(E, A, C))
+			enonce = `Dans la figure ci-dessous,  les droites $(${noms[0]}${noms[4]})$ et $(${noms[1]}${noms[3]})$ sont parallèles.<br>`
+			enonce += `On veut déterminer la mesure des angles du quadrilatère $${noms[0]}${noms[1]}${noms[3]}${noms[4]}$ (toutes les réponses doivent être justifiées).<br>`
+			enonce += `${num_alpha(0)} Déterminer la mesure de l'angle $\\widehat{${noms[3]}${noms[1]}${noms[2]}}$.<br>`
+			enonce += `${num_alpha(1)} En déduire la mesure de l'angle $\\widehat{${noms[0]}${noms[1]}${noms[3]}}$.<br>`
+			enonce += `${num_alpha(2)} En utilisant la question ${num_alpha(0)}, déterminer la mesure de l'angle $\\widehat{${noms[1]}${noms[3]}${noms[2]}}$.<br>`
+			enonce += `${num_alpha(3)} En déduire la mesure de l'angle $\\widehat{${noms[1]}${noms[3]}${noms[4]}}$.<br>`
+			enonce += `${num_alpha(4)} En utilisant la question ${num_alpha(2)} déterminer la mesure de l'angle $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$.<br>`
+			enonce += `${num_alpha(5)} Vérifier la conjecture suivante : « La somme des angles d'un quadrilatère vaut 360°.»<br>`
+			correction = `${num_alpha(0)} Comme les droites $(${noms[0]}${noms[4]})$ et $(${noms[1]}${noms[3]})$ sont parallèles, les angles correspondants $\\widehat{${noms[4]}${noms[0]}${noms[1]}}$ et $\\widehat{${noms[3]}${noms[1]}${noms[2]}}$ sont égaux, donc $\\widehat{${noms[3]}${noms[1]}${noms[2]}}$ mesure $${a}\\degree$.<br>`
+			correction += `${num_alpha(1)} Les angles $\\widehat{${noms[0]}${noms[1]}${noms[3]}}$ et $\\widehat{${noms[3]}${noms[1]}${noms[2]}}$ sont adjacents supplémentaires, donc $\\widehat{${noms[0]}${noms[1]}${noms[3]}}$ mesure $180\\degree-${a}\\degree=${mise_en_evidence(180 - a, 'black')}\\degree$.<br>`
+			correction += `${num_alpha(2)} Dans un triangle, la somme des angles vaut $180\\degree$ donc $\\widehat{${noms[1]}${noms[3]}${noms[2]}}=180\\degree-\\widehat{${noms[3]}${noms[1]}${noms[2]}}-\\widehat{${noms[1]}${noms[2]}${noms[3]}}=180\\degree-${a}\\degree-${c}\\degree=${180 - a - c}\\degree$.<br>`
+			correction += `${num_alpha(3)} Les angles $\\widehat{${noms[1]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[1]}${noms[3]}${noms[4]}}$ sont adjacents supplémentaires, donc $\\widehat{${noms[1]}${noms[3]}${noms[4]}}$ mesure $180\\degree-${180 - a - c}\\degree=${mise_en_evidence(a + c, 'black')}\\degree$.<br>`
+			correction += `${num_alpha(4)} Comme les droites $(${noms[0]}${noms[4]})$ et $(${noms[1]}${noms[3]})$ sont parallèles, les angles correspondants $\\widehat{${noms[1]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$ sont égaux, donc $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$ mesure $${mise_en_evidence(180 - a - c, 'black')}\\degree$.<br>`
+			correction += `${num_alpha(5)} La somme des angles du quadrilatère vaut donc : $${a}\\degree+${mise_en_evidence(180 - a, 'black')}\\degree+${mise_en_evidence(a + c, 'black')}\\degree+${mise_en_evidence(180 - a - c, 'black')}\\degree=180\\degree+180\\degree=360\\degree$.<br>`
+			correction += `$\\phantom{f/} La conjecture est finalement vraie.`
+			params = { xmin: Math.min(A.x-8,C.x-8,E.x-8), ymin: Math.min(A.y - 1, E.y - 1,C.y-1), xmax: Math.max(E.x + 2,A.x+2,C.x+2), ymax: Math.max(C.y + 2,A.y+2,E.y+2),scale:0.7}
+
+			return [objets, params, enonce, correction]
+		}
+		let fig2=function(){ //retourne le tableau d'objets, la série de questions et la série de réponses 
+		let A, B, C, D, E, a, ac,ab,cd,ad, c,d,AB,BE, CA, CE, cA, cD, cE,c3, c4, c5,c6, l1, objets = [], enonce, correction, params;
+		let noms=choisit_lettres_differentes(5,'Q',true);
+		A=point(0,0,noms[0],'above left');
+		B=point(randint(8,10),randint(1,3),noms[1],'below right')
+		ab=longueur(A,B)
+		ac=randint(6,8)
+		a=randint(40,60);
+		C=similitude(B,A,a,ac/ab,noms[2],'left')
+		CA=droite(C,A)
+		AB=droite(A,B)
+		D=pointSurSegment(A,B,ab/2+randint(-1,1,0)/10,noms[3],'below left')
+		CE=droite(C,D)
+		cd=longueur(C,D)
+		ad=longueur(A,D)
+		E=pointSurSegment(C,D,cd*ab/ad,noms[4],'right')
+		BE=droite(B,E)
+		c=arrondi(angle(A,C,D),0)
+		d=arrondi(angle(C,D,B),0)
+		cA=codeAngle(D,A,C,1,'','black',2,1,'black',0.2,true)
+		cD=codeAngle(C,D,B,1,'','red',2,1,'red',0.2,true)
+		cE=codeAngle(D,E,B,1,'','blue',2,1,'blue',0.2,true)
+		c4=codeAngle(A,C,D,1,'','green',2,1,'green',0.2)
+		c5=codeAngle(B,D,E,1,'','orange',2,1,'orange',0.2)
+		c6=codeAngle(E,B,D,1,'','pink',2,1,'pink',0.2)
+		c3=codeAngle(A,D,C,1,'','grey',2,1,'grey',0.2)
+		l1=labelPoint(A,B,C,D,E)
+		objets.push(CA,AB, CE, BE,cA, cD, cE,c3, c4, c5, c6,l1)
+		enonce=`La figure n'est pas en vraie grandeur. Toutes les réponses devront être justifiées.<br>`
+		enonce += `${num_alpha(0)} Déterminer la mesure de l'angle $\\widehat{${noms[0]}${noms[3]}${noms[2]}}$.<br>`
+		enonce += `${num_alpha(1)} En déduire la mesure de l'angle $\\widehat{${noms[3]}${noms[2]}${noms[0]}}$.<br>`
+		enonce += `${num_alpha(2)} Déterminer si les droites $(${noms[0]}${noms[2]})$ et $(${noms[4]}${noms[1]})$ sont parallèles.<br>`
+		enonce += `${num_alpha(3)} Si on considère que les segments $[${noms[0]}${noms[2]}]$ et $[${noms[4]}${noms[1]}]$ sont de même longueur, Déterminer la nature du quadrilatère $${noms[0]}${noms[2]}${noms[1]}${noms[4]}$.<br>`
+		correction = `${num_alpha(0)} Les angles $\\widehat{${noms[0]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[2]}${noms[3]}${noms[1]}}$ sont adjacents supplémentaires, donc $\\widehat{${noms[0]}${noms[3]}${noms[2]}}$ mesure $180\\degree-${d}\\degree=${mise_en_evidence(180 - d, 'black')}\\degree$.<br>`
+		correction += `${num_alpha(1)} Dans un triangle, la somme des angles vaut $180\\degree$ donc $\\widehat{${noms[0]}${noms[2]}${noms[3]}}=180-\\widehat{${noms[3]}${noms[0]}${noms[2]}}-\\widehat{${noms[0]}${noms[3]}${noms[2]}}=180\\degree-${a}\\degree-${180-d}\\degree=${mise_en_evidence(- a + d,'black')}\\degree$.<br>`
+		correction += `${num_alpha(2)} Pour les droites $(${noms[0]}${noms[2]})$ et $(${noms[4]}${noms[1]})$ coupées par la sécante $(${noms[2]}${noms[4]})$ les angles $\\widehat{${noms[0]}${noms[2]}${noms[3]}}$ et $\\widehat{${noms[1]}${noms[4]}${noms[3]}}$ sont des angles alternes-internes.<br>`
+		correction +=`$\\phantom{c/}$ Or si des angles alternes-internes sont égaux, cela signifie que les droites coupées par la sécante sont parallèles.<br>`
+		correction+=`$\\phantom{c/}$ Les droites $(${noms[0]}${noms[2]})$ et $(${noms[4]}${noms[1]})$ sont donc parallèles.<br>`
+		correction += `${num_alpha(3)} Les droites $(${noms[0]}${noms[2]})$ et $(${noms[4]}${noms[1]})$ sont parallèles et les segments $[${noms[0]}${noms[2]}]$ et $[${noms[4]}${noms[1]}]$ sont de même longueur.<br>`
+		correction +=`$\\phantom{c/}$ Or, un quadrilatère qui possède des côtés opposés parallèles et de même longueur est un parallèlogramme.<br>`
+		correction +=`$\\phantom{c/}$ Donc $${noms[0]}${noms[2]}${noms[1]}${noms[4]}$ est un parallèlogramme et $${noms[3]}$ en est son centre.`
+		params = { xmin: -2, ymin: Math.min(A.y - 1, E.y - 1), xmax: Math.max(E.x + 2,B.x+2), ymax: C.y + 2}
+
+		return [objets, params, enonce, correction]
+	}	
+	switch (parseInt(this.sup)) {
+		case 1:
+			figure=fig1()
+			figure[2]+=mathalea2d(figure[1],figure[0])
+			break;
+		case 2:
+			figure=fig2()
+			console.log(figure[0])
+			figure[2]+=mathalea2d(figure[1],figure[0])
+			break;
+	}
+	this.liste_questions.push(figure[2]);
+	this.liste_corrections.push(figure[3]);
+	liste_de_question_to_contenu(this);
+	}
+	this.besoin_formulaire_numerique = ['Numéro de figure',2,'1 : Le trapèze\n2: Le papillon'] 
 }
 
 /**
@@ -2081,6 +2169,52 @@ function Traduire_un_programme_de_calcul(){
 
 
 /**
+* Réduire des expressions de la forme ax+bx
+*
+* @Auteur Rémi Angot
+* 5L13
+*/
+function Reduction_ax_bx() {
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Réduire une expression de la forme $ax+bx$";
+	this.consigne = "Réduire les expressions suivantes, si cela est possible.";
+	this.nb_questions = 5;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+
+	this.nouvelle_version = function (numero_de_l_exercice) {
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+
+		let type_de_questions_disponibles = ['ax+bx'];
+		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+		for (let i = 0, texte, texte_corr, a, b, c, d, cpt = 0; i < this.nb_questions && cpt < 50;) {
+			a = randint(-11,11,0);
+			b = randint(-11,11,[0,a]);
+			c = randint(-11,11,[0]);
+			d = randint(-11,11,0)
+			switch (liste_type_de_questions[i]) {
+				case 'ax+bx':
+					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x+(${b}*x)`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x+(${b}*x)`)}=(${a}${ecriture_algebrique(b)})\\times x=${printlatex(`${a+b}x`)}$`;
+					break;
+			}
+
+			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+				this.liste_questions.push(texte);
+				this.liste_corrections.push(texte_corr);
+				i++;
+			}
+			cpt++;
+		}
+		liste_de_question_to_contenu(this);
+	}
+}
+
+
+
+/**
 * Calculer la valeur d'une expression littérale
 * 
 * * ax+b
@@ -2853,82 +2987,160 @@ function Placer_probabilites(){
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	sortie_html? this.spacing = 2 : this.spacing = 1; 
-	sortie_html? this.spacing_corr = 3 : this.spacing_corr = 1;
-	//this.sup=1;
+	sortie_html? this.spacing_corr = 2 : this.spacing_corr = 1;
+	this.sup=true;
 	this.nouvelle_version = function(numero_de_l_exercice){
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées		
-		let lstEvenenement = []; // liste des évènements disponibles
-		nbEvenement = 5; // nombre d'évènements dans l'énoncé
+		let lstEvenenementA = []; // liste des évènements disponibles : p == 0 ou p == 1
+		let lstEvenenementB= []; // liste des évènements disponibles : p < 0.5
+		let lstEvenenementC= []; // liste des évènements disponibles : p = 0.5
+		let lstEvenenementD= []; // liste des évènements disponibles : p > 0.5
+		nbEvenement = 4; // nombre d'évènements dans l'énoncé
 		texte = "";
+		// liste de vocabulaire. Le nombre donne la position sur l'axe.
 		lstEchelle = [['Impossible',0],
 					 ['Improbable', calcul(1/6)],
 					 ['Peu probable',calcul(2/6)],
 					 ['Une chance sur deux',calcul(3/6)],
 					 ['Probable',calcul(4/6)],
 					 ['Très probable',calcul(5/6)],
-					 ['Certain',1]];
+					 ['Certain',1]];		
 		
-		lstEvenenement.push([`Obtenir face quand on lance une pièce d’un euro`, 0.5]);
-		lstEvenenement.push([`Le premier jour de l’année 2042 sera le 1er janvier`, 1]);
-		lstEvenenement.push([`Gagner le gros lot au loto`,0.05]);
-		lstEvenenement.push([`Avoir de la neige à Nice en juillet`, 0.05]);
-		lstEvenenement.push([`L’équipe de France de rugby va remporter le prochain match international de football`,0]);
-		lstEvenenement.push([`Feter deux anniversaires le même jour dans une classe de 23 élèves`, 0.5]);
-		lstEvenenement.push([`Rencontrer un dragon`, 0]);
-		lstEvenenement.push([`Choisir une balle rouge dans un sac contenant une balle rouge et trois balles vertes`, 0.25]);
+		// Evenements impossibles :
+		lstEvenenementA.push([`L’équipe de France de rugby va remporter le prochain match international de football`,0]);
+		animal = choice(["un dragon", "l'abominable homme des neiges", "un chat-garou", "un dahu", "un hippocampéléphantocamélos", "une licorne", "le Minotaure"]);
+		lstEvenenementA.push([`Rencontrer ${animal} en sortant du collège`, 0]);
+		lstEvenenementA.push([`Le point M, placé à 4 cm de A, est sur le cercle de centre A et de rayon 7 cm`, 0]);
+		lstEvenenementA.push([`Le point M, placé à 4 cm de A, est dans le disque de centre A et de rayon 3 cm`, 0]);
+		lstEvenenementA.push([`En France, on peut trouver des vaches espagnoles qui parlent anglais`, 0]);
+		lstEvenenementA.push([`Aux USA, on peut trouver des pierres qui roulent et qui amassent de la mousse`, 0]);
+		// Evenements improbables :
+		lstEvenenementB.push([`Gagner le gros lot au loto`,0.05]);
+		lstEvenenementB.push([`Avoir de la neige à Nice en juillet`, 0.05]);
 		carte = choice(["un As", "un Roi", "une Dame", "un Valet", "un 10", "un 9", "un 8", "un 7", "un 6", "un 5", "un 4", "un 3", "un 2"]);
-		lstEvenenement.push([`Obtenir ${carte} en prenant une carte au hasard dans un jeu de 52 cartes`, 0.08]);
-		let n = randint(1,6);
-		let m = randint(n,n+randint(1,10));
-		lstEvenenement.push([`Obtenir ${n} avec un dé à ${m} faces`, 1/m]);
+		lstEvenenementB.push([`Obtenir ${carte} en prenant une carte au hasard dans un jeu de 52 cartes`, 0.08]);
+		// Evenements peu probables :
+		lstEvenenementB.push([`Choisir une balle rouge dans un sac contenant une balle rouge et trois balles vertes`, 0.25]);
+		// Evenements Une chance sur deux :
+		lstEvenenementC.push([`Obtenir ` + choice([`pile`, `face`])+ ` quand on lance une pièce d’un euro`, 0.5]);
+		lstEvenenementC.push([`Obtenir une carte ` + choice([`rouge`, `noire`])+ ` dans un jeu de 52 cartes`, 0.5]);
+		// Evenements probables :
+		lstEvenenementD.push([`La première voiture que je verrai en sortant du collège sera de marque française`, 0.6]);
+		// Evenements très probables :
+		lstEvenenementD.push([`Le prochain président de la République Française aura plus de 40 ans`, 0.9]);
+		// Evenements certains :
+		lstEvenenementA.push([`Le prochain oiseau que je verrai aura des ailes`, 1]);
+		lstEvenenementA.push([`Le point M, placé à 4 cm de A, est sur le cercle de centre A et de rayon 4 cm`, 1]);
+		lstEvenenementA.push([`Le point M, placé à 4 cm de A, est dans le disque de centre A et de rayon 5 cm`, 1]);
+		// Evenement divers : 
+		let m = choice([4, 6, 8, 10, 12, 20, 24, 30, 48, 60, 100]); //nombre de faces du dé
+		let n = randint(1,m); //nombre à obtenir
+		lstEvenenementB.push([`Obtenir ${n} avec un dé à ${m} faces`, 1/m]);
+		if ((m-n+1)/m<0.5){
+			lstEvenenementB.push([`Obtenir un nombre supérieur ou égal à ${n} avec un dé à ${m} faces`, (m-n+1)/m]);
+		} else {
+			lstEvenenementD.push([`Obtenir un nombre supérieur ou égal à ${n} avec un dé à ${m} faces`, (m-n+1)/m]);
+		}
+		if (n/m<0.5) {
+			lstEvenenementB.push([`Obtenir un nombre inférieur ou égal à ${n} avec un dé à ${m} faces`, n/m]);
+		} else {
+			lstEvenenementD.push([`Obtenir un nombre inférieur ou égal à ${n} avec un dé à ${m} faces`, n/m]);
+		}
 
 		// choix des évènements :
 		let lstEvenenementExo = [];
-		for (let i = 0; i<nbEvenement; i++){
-			lstEvenenementExo.push(choice(lstEvenenement, lstEvenenementExo));
-		}
+		lstEvenenementExo.push(choice(lstEvenenementA, lstEvenenementExo)); // p == 0 ou p == 1
+		lstEvenenementExo.push(choice(lstEvenenementB, lstEvenenementExo)); // p < 0.5
+		lstEvenenementExo.push(choice(lstEvenenementC, lstEvenenementExo)); // p = 0.5 
+		lstEvenenementExo.push(choice(lstEvenenementD, lstEvenenementExo));	// p > 0.5
+		lstEvenenementExo = shuffle(lstEvenenementExo);
 		
 		// Texte de l'énoncé :
 		texte +=`Placer la lettre correspondant à chaque évènement sur l'axe des probabilités ci-dessous.<br>`
 		for (let i = 0; i<nbEvenement; i++){
-			texte += num_alpha(i) + ` ` + lstEvenenementExo[i][0] + `.<br>`;
+			texte += String.fromCharCode(65+i) + ` : ` + lstEvenenementExo[i][0] + `.<br>`;
 		}
-
 		// Création des objets pour dessiner :
-		let L = 10 // longueur du segment
+		let L = 10; // longueur du segment
+
 		let lstObjet = []; // tous les objets qui seront dessinés
-		lstObjet.push(segment(0,0,L,0));
-		lstObjet.push(segment(0,-0.1,0,0.1));
-		lstObjet.push(segment(L,-0.1,L,0.1));
-		lstObjet.push(segment(L/2,-0.1,L/2,0.1));
+		let h = 0.25; // hauteur trait
+		lstObjet.push(segment(0,0,L,0)); // axe
+		lstObjet.push(segment(0,-h,0,h)); // trait gauche
+		lstObjet.push(segment(L,-h,L,h)); // trait central
+		lstObjet.push(segment(L/2,-h,L/2,h)); // trait droit
 		let angle = 60; //inclinaison du texte légende
 		let y = -0.5;
-		for (let j = 0; j<lstEchelle.length; j++){
-			lstObjet.push(texteParPosition(lstEchelle[j][0],L*lstEchelle[j][1],y,angle,'black',1,'gauche'));
+		if (this.sup) {
+			for (let j = 0; j<lstEchelle.length; j++){
+				lstObjet.push(texteParPosition(lstEchelle[j][0], L*lstEchelle[j][1], y, angle, 'black', 1, 'gauche'));
+			}		
+		} 
+		else {
+			lstObjet.push(fractionParPosition({x:L/2,y:-1,num:1,den:2,couleur:'black'})); // fraction 1/2 
+			lstObjet.push(texteParPosition("0", 0, y-0.25, 0, 'black', 1, 'middle')); // abscisse 0
+			lstObjet.push(texteParPosition("1", L, y-0.25, 0, 'black', 1, 'middle')); // abscisse 1
 		}
-		texte += mathalea2d({xmin : -1, xmax : 12, ymin : -5, ymax : 1, pixelsParCm : 30, scale : 1}, lstObjet);
+
+		if (sortie_html) {
+			texte += `<p style="display:block">`;
+		} else {
+			texte += `\\begin{center}`;
+		} 
+		let miny = -2;
+		if (this.sup) {
+			miny = -4;
+		}
+
+		texte += mathalea2d({xmin : -1, xmax : L+3, ymin : miny, ymax : 1, pixelsParCm : 40, scale : 1}, lstObjet);
+		if (sortie_html) {
+			texte += `</p>`;
+		} else {
+			texte += `\\end{center}`;
+		}
 
 		// CORRECTION :
 		texte_corr = ` `;
 		ylst = [0,0,0,0,0,0,0]; //ordonnées des textes réponses
 		angle = 0; // inclinaison du texte réponse
 		let p = 0; // probabilité de l'événement
-		let parrondi = 0; //arrondi de la proba au sixième près
+		let parrondi = 0; // arrondi de la proba au sixième près
 		for (let i = 0; i<nbEvenement; i++){ 
 			p = lstEvenenementExo[i][1];
-			parrondi = Math.round(calcul(6*p)); // échelle arrondie entre 0 et 7.
-			
-			ylst[parrondi] += 0.5;
-			let txtSolution = String.fromCharCode(97+i); //code 97 correspond à 'a'
-			lstObjet.push(texteParPosition(txtSolution,calcul(L*p),ylst[parrondi],angle,'black',1,'milieu'))
+			parrondi = Math.round(calcul(6*p)); // échelle arrondie entre 0 et 7 pour éviter la superposition des textes réponses
+			ylst[parrondi] += 0.5; // on augmente l'ordonnée si elle est déjà utilisée
+			let txtSolution = String.fromCharCode(65+i); //code 65 correspond à 'A'
+			lstObjet.push(texteParPosition(txtSolution,calcul(L*p),ylst[parrondi], 0, 'black', 1, 'middle'))
+			lstObjet.push(tracePoint(point(calcul(L*p), 0), 'blue'))
 		}
-		texte_corr += mathalea2d({xmin : -1, xmax : 12, ymin : -5, ymax : 5, pixelsParCm : 30, scale : 1}, lstObjet);
-
+		for (let i = 0; i<nbEvenement; i++){ 
+			p = lstEvenenementExo[i][1];
+			if (p==0) { parrondi = 0 } 
+			else if (p<0.25) { parrondi = 1 }
+			else if (p<0.5) { parrondi = 2 }
+			else if (p==0.5) { parrondi = 3 }
+			else if (p<0.75) { parrondi = 4 }
+			else if (p<1) { parrondi = 5 }
+			else if (p==1) { parrondi = 6 };			
+			texte_corr += String.fromCharCode(65+i) + ` : ` + lstEvenenementExo[i][0] + `. ` + texte_en_couleur_et_gras(lstEchelle[parrondi][0]) + `.<br>`;
+		}
+		if (sortie_html) {
+			texte_corr += `<p style="display:block">`;
+		} else {
+			texte_corr += `\\begin{center}`;
+		} 
+		texte_corr += mathalea2d({xmin : -1, xmax : L+3, ymin : miny, ymax : 2, pixelsParCm : 40, scale : 1}, lstObjet);
+		if (sortie_html) {
+			texte_corr += `</p>`;
+		} else {
+			texte_corr += `\\end{center}`;
+		}		
 		this.liste_questions.push(texte);
 		this.liste_corrections.push(texte_corr);
-		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
+		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque question.
 	}
+	this.besoin_formulaire_case_a_cocher = [`Changer le type d'axe`];
 };
 
 /**
@@ -3245,9 +3457,10 @@ function Liste_des_diviseurs_5e(){
 
 
 /**
- * 5A11 justifier la non primalité réinvestissement des critères de divisibilité
+ * Justifier la non primalité réinvestissement des critères de divisibilité
  * Nombres à 3 ou 4 chiffres, un multiple de 2, de 3, de 5, de 7, de 9, de 10, sous forme d'un produit de deux nombres premiers inférieurs à 30
  * et un nombre premier inferieur à 529 
+ * 5A12-1
  * @author Sébastien Lozano
  */
 function Premier_ou_pas_5e(){
@@ -5782,11 +5995,9 @@ function Construire_par_Symetrie() {
 		B,
 		C,CC,cC,sC,sCE,
 		D,DD,cD,sD,sDE,
-		xE,
 		E,EE,cE,sE,sED,
-		sEC,
-		d,
-		dB,
+		sEC,inter,
+		d,dB,
 		enonce,
 		correction,
 		g,
@@ -5794,9 +6005,9 @@ function Construire_par_Symetrie() {
 		k,
 		objets_enonce=[],
 		objets_correction=[],
-		p1,p2,p1nom,p2nom;
+		p1,p2,p1nom;
 	  for (
-		let i = 0, texte, texte_corr, cpt = 0;
+		let i = 0, cpt = 0;
 		i < this.nb_questions && cpt < 50;
   
 	  ) {
@@ -6002,8 +6213,8 @@ function Construire_par_Symetrie() {
 				p2.listePoints[0].nom=`${p1nom[2]}\'`
 				p2.listePoints[1].nom=`${p1nom[3]}\'`
 				p2.listePoints[2].nom=`${p1nom[4]}\'`
-				//CC=nommePolygone(p1)
-				//DD=nommePolygone(p2)
+				CC=nommePolygone(p1)
+				DD=nommePolygone(p2)
 				cC=codageMediatrice(p1.listePoints[0],p2.listePoints[0],'red','|')
 				cD=codageMediatrice(p1.listePoints[1],p2.listePoints[1],'blue','X')
 				cE=codageMediatrice(p1.listePoints[2],p2.listePoints[2],'green','O')			
@@ -6014,21 +6225,22 @@ function Construire_par_Symetrie() {
 				sCE.pointilles=true
 				sED=droite(p2.listePoints[2],p2.listePoints[1],'','gray')
 				sED.pointilles=true
-				objets_correction.push(d,tracePoint(A,B),labelPoint(A,B),cC,cD,cE,sC,sD,sE,CC,DD,p1,p1.sommets,p2,p2.sommets,sCE,sED)
+				inter=pointIntersectionDD(sCE,sED)
+				objets_correction.push(d,tracePoint(A,B),labelPoint(A,B),cC,cD,cE,sC,sD,sE,CC,DD,p1,p2,sCE,sED)
 				objets_enonce.push(d,tracePoint(A,B),labelPoint(A,B),CC,p1);
 				enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
 				enonce += num_alpha(1)+` Construire le triangle  $${p1nom[2]}\'${p1nom[3]}\'${p1nom[4]}\'$ symétrique de $${p1nom[2]}${p1nom[3]}${p1nom[4]}$ par rapport à la droite $(${p1nom[0]}${p1nom[1]})$.<br>`
 				enonce += num_alpha(2)+` Coder la figure.<br>`;
-				Xmin=Math.floor(Math.min(A.x,B.x,C.x,D.x,p1.listePoints[0].x,p1.listePoints[1].x,p1.listePoints[2].x,p2.listePoints[0].x,p2.listePoints[1].x,p2.listePoints[2].x)-1)
-				Xmax=Math.ceil(Math.max(A.x,B.x,C.x,D.x,p1.listePoints[0].x,p1.listePoints[1].x,p1.listePoints[2].x,p2.listePoints[0].x,p2.listePoints[1].x,p2.listePoints[2].x)+1)
-				Ymin=Math.floor(Math.min(A.y,B.y,C.y,D.y,p1.listePoints[0].y,p1.listePoints[1].y,p1.listePoints[2].y,p2.listePoints[0].y,p2.listePoints[1].y,p2.listePoints[2].y)-1)
-				Ymax=Math.ceil(Math.max(A.y,B.y,C.y,D.y,p1.listePoints[0].y,p1.listePoints[1].y,p1.listePoints[2].y,p2.listePoints[0].y,p2.listePoints[1].y,p2.listePoints[2].y)+1)
+				Xmin=Math.floor(Math.min(inter.x,A.x,B.x,C.x,D.x,p1.listePoints[0].x,p1.listePoints[1].x,p1.listePoints[2].x,p2.listePoints[0].x,p2.listePoints[1].x,p2.listePoints[2].x)-1)
+				Xmax=Math.ceil(Math.max(inter.x,A.x,B.x,C.x,D.x,p1.listePoints[0].x,p1.listePoints[1].x,p1.listePoints[2].x,p2.listePoints[0].x,p2.listePoints[1].x,p2.listePoints[2].x)+1)
+				Ymin=Math.floor(Math.min(inter.y,A.y,B.y,C.y,D.y,p1.listePoints[0].y,p1.listePoints[1].y,p1.listePoints[2].y,p2.listePoints[0].y,p2.listePoints[1].y,p2.listePoints[2].y)-1)
+				Ymax=Math.ceil(Math.max(inter.y,A.y,B.y,C.y,D.y,p1.listePoints[0].y,p1.listePoints[1].y,p1.listePoints[2].y,p2.listePoints[0].y,p2.listePoints[1].y,p2.listePoints[2].y)+1)
 
 				correction=`Contrôler la figure en vérifiant que les côtés des deux triangles se coupent bien sur la droite $(${p1nom[0]}${p1nom[1]})$<br>`
 				break;
 			  case 5:
 				p1nom=creerNomDePolygone(4)
-
+				console.log(p1nom)
 				A = point(0, randint(-1,4), `${p1nom[0]}`,'left');
 				B = point(7, randint(-1,1,A.y), `${p1nom[1]}`,'above');
 				C = point(randint(2, 3), randint(-6, -4), `${p1nom[2]}`,'left');
@@ -6038,8 +6250,8 @@ function Construire_par_Symetrie() {
 				p2.listePoints[0].nom=`${p1nom[0]}\'`
 				p2.listePoints[1].nom=`${p1nom[2]}\'`
 				p2.listePoints[2].nom=`${p1nom[3]}\'`
-				//CC=nommePolygone(p1)
-				//DD=nommePolygone(p2)
+				CC=nommePolygone(p1)
+				DD=nommePolygone(p2)
 				cC=codageMilieu(p1.listePoints[0],p2.listePoints[0],'red','|',false)
 				cD=codageMilieu(p1.listePoints[1],p2.listePoints[1],'blue','X' ,false)
 				cA=codageMilieu(p1.listePoints[2],p2.listePoints[2],'green','O',false)
@@ -6047,12 +6259,12 @@ function Construire_par_Symetrie() {
 				sC=segment(p1.listePoints[1],p2.listePoints[1],'blue')
 				sD=segment(p1.listePoints[2],p2.listePoints[2],'green')	
 				
-				objets_correction.push(tracePoint(B),labelPoint(B),cC,cD,cA,sC,sD,sA,p1.sommets,p2.sommets,p1,p2)
+				objets_correction.push(tracePoint(B),labelPoint(B),cC,cD,cA,sC,sD,sA,DD,CC,p1,p2)
 				objets_enonce.push(tracePoint(B),labelPoint(B),CC,p1);
 				enonce = num_alpha(0)+`Reproduire la figure ci-dessous.<br>`
 				enonce += num_alpha(1)+` Construire le triangle  $${p1nom[0]}\'${p1nom[2]}\'${p1nom[3]}\'$ symétrique de $${p1nom[0]}${p1nom[2]}${p1nom[3]}$ par rapport au point $${p1nom[1]}$.<br>`
 				enonce += num_alpha(2)+` Coder la figure.<br>`;
-				Math.floor(Math.min(A.x,B.x,C.x,D.x,p1.listePoints[0].x,p1.listePoints[1].x,p1.listePoints[2].x,p2.listePoints[0].x,p2.listePoints[1].x,p2.listePoints[2].x)-1)
+				Xmin=Math.floor(Math.min(A.x,B.x,C.x,D.x,p1.listePoints[0].x,p1.listePoints[1].x,p1.listePoints[2].x,p2.listePoints[0].x,p2.listePoints[1].x,p2.listePoints[2].x)-1)
 				Xmax=Math.ceil(Math.max(A.x,B.x,C.x,D.x,p1.listePoints[0].x,p1.listePoints[1].x,p1.listePoints[2].x,p2.listePoints[0].x,p2.listePoints[1].x,p2.listePoints[2].x)+1)
 				Ymin=Math.floor(Math.min(A.y,B.y,C.y,D.y,p1.listePoints[0].y,p1.listePoints[1].y,p1.listePoints[2].y,p2.listePoints[0].y,p2.listePoints[1].y,p2.listePoints[2].y)-1)
 				Ymax=Math.ceil(Math.max(A.y,B.y,C.y,D.y,p1.listePoints[0].y,p1.listePoints[1].y,p1.listePoints[2].y,p2.listePoints[0].y,p2.listePoints[1].y,p2.listePoints[2].y)+1)
@@ -6088,7 +6300,7 @@ function Construire_par_Symetrie() {
 			params,
 		   objets_correction
 		  );
-		if (this.liste_questions.indexOf(texte) == -1) {
+		if (this.liste_questions.indexOf(enonce) == -1) {
 		  // Si la question n'a jamais été posée, on en créé une autre
 		  this.liste_questions.push(enonce + "<br>");
 		  this.liste_corrections.push(correction + "<br>");
@@ -7075,9 +7287,9 @@ function Tableaux_et_proportionnalite(){
 function Tableaux_et_pourcentages(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+	this.debug = false;	
 	this.sup=1;
-	if (this.beta) {
+	if (this.debug) {
 		this.nb_questions = 1;
 	} else {
 		this.nb_questions = 1;
@@ -7095,7 +7307,7 @@ function Tableaux_et_pourcentages(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
+		if (this.debug) {
 			type_de_questions_disponibles = [0];			
 		} else {
 			  //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
@@ -7117,8 +7329,8 @@ function Tableaux_et_pourcentages(){
 			if (this.sup == 1) {//coeff entier
 				remises = choice([
 					[{str:'10\\%',nb:10},{str:'20\\%',nb:20},{str:'30\\%',nb:30}],
-					[{str:'5\\%',nb:5},{str:'15\\%',nb:10},{str:'35\\%',nb:35}],
-					[{str:'10\\%',nb:20},{str:'40\\%',nb:40},{str:'80\\%',nb:80}],
+					[{str:'5\\%',nb:5},{str:'15\\%',nb:15},{str:'35\\%',nb:35}],
+					[{str:'10\\%',nb:10},{str:'40\\%',nb:40},{str:'80\\%',nb:80}],
 					[{str:'5\\%',nb:5},{str:'25\\%',nb:25},{str:'55\\%',nb:55}],
 					//[{str:'10\\%',nb:10},{str:'5\\%',nb:5},{str:'15\\%',nb:15}],
 					//[{str:'50\\%',nb:50},{str:'30\\%',nb:30},{str:'10\\%',nb:10}],
@@ -7175,7 +7387,7 @@ function Tableaux_et_pourcentages(){
 			switch (liste_type_de_questions[i]){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
