@@ -1,4 +1,97 @@
 /**
+ * * Comparer des puissances de 10.
+ *
+ * Paramétrages possibles :
+ * * 1 : inverse d'un nombre entier
+ * * 2 : inverse d'une fraction
+ * * 3 : inverse d'un nombre décimal
+ * @auteur Erwan Duplessy
+ * date : 15/11/2020
+ * 4C30
+ */
+
+function Comparer_puissance10() {
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.sup = 1; // Avec ou sans relatifs
+  this.titre = "Puissances de 10";
+  this.consigne =
+    "Dans chaque cas, comparer les deux nombres.";
+  this.spacing = 2;
+  this.spacing_corr = 2;
+  this.nb_questions = 5;
+  this.nb_cols = 4;
+  this.nb_cols_corr = 4;
+  this.sup = 1;
+
+  this.nouvelle_version = function (numero_de_l_exercice) { 
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    texte = ` `;
+    texte_corr = ` `;
+    let a1 = 0;
+    let a2 = 0;
+    let n1 = 0;
+    let n2 = 0;
+    let txtA1 = ` `; // nombre 1
+    let txtA2 = ` `; // nombre 2
+    let nbA1 = 0;
+    let nbA2 = 0;
+
+    for (let i=0; i<this.nb_questions; i++) {
+      texte += num_alpha(i);
+      switch (this.sup.toString()) {
+        case '1':
+          a1 = 1;
+          n1 = randint(-9,9);
+          a2 = 1;
+          n2 = randint(-9,9)
+          break;
+        case '2':
+          a1 = randint(1,9);
+          n1 = randint(-9,9);
+          a2 = choice([1, 2, 3, 4, 5 ,6 ,7, 8, 9], [a1]);
+          n2 = randint(-9,9);
+          break;
+        case '3':
+          a1 = randint(0,9)+0.1*randint(0,9)+0.01*randint(0,9);
+          n1 = randint(-9,9);
+          a2 = randint(0,9)+0.1*randint(0,9)+0.01*randint(0,9);
+          n2 = randint(-9,9);
+          break;
+        case '4':
+          k = randint(1,3);
+          break;
+        default:
+          break;
+      }
+      nbA1 = a1*10**n1;
+      nbA2 = a2*10**n2;
+      if (a1 == 1) {
+        txtA1 = `$ ${simpNotPuissance(10,n1)} $`;
+      } else {
+        txtA1 = `$ ${arrondi_virgule(a1, precision=2)}\\times ${simpNotPuissance(10,n1)} $`;
+      }
+      if (a2 == 1) {
+        txtA2 = `$ ${simpNotPuissance(10,n2)} $`;
+      } else {
+        txtA2 = `$ ${arrondi_virgule(a2, precision=2)}\\times ${simpNotPuissance(10,n2)} $`;
+      }
+      texte += ` ${txtA1} et ${txtA2} <br>`;
+      if (nbA1 > nbA2) {
+        texte_corr += num_alpha(i) + ` ${txtA1} $>$ ${txtA2} <br>`;
+      } else {
+        texte_corr += num_alpha(i) + ` ${txtA1} $<$ ${txtA2} <br>`;
+      }
+    }
+      this.liste_questions.push(texte);
+      this.liste_corrections.push(texte_corr);
+      liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
+    };
+    this.besoin_formulaire_numerique = ["Niveau de difficulté", 4, "1 : Sans Mantisse\n 3 : Mantisse entière entre -9 et 9\n 3 : Ecriture scientifique\n 4 : Tous types"];
+}
+
+
+/**
  * * Calcul de l'inverse d'un nombre.
  *
  * Paramétrages possibles :
