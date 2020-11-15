@@ -3323,26 +3323,97 @@ function affiniteOrthoAnimee(...args) {
   return new AffiniteOrthoAnimee(...args);
 }
 
+// Ancienne version avecelement.Animate qui ne fonctionnait pas sous Firefox
+// function afficherTempo(objet,t0,t = 10,r = 'Infinity'){
+//   let checkExist = setInterval(function() {
+//     if ($(`#${objet.id}`).length) {
+//       document.getElementById(objet.id).animate([
+//         // keyframes
+//         { opacity: 0 }, 
+//         { opacity: 0, offset:t0/t }, 
+//         { opacity: 1, offset:t0/t+.01 }, 
+//         { opacity: 1 }
+//       ], { 
+//         // timing options
+//         duration: t*1000,
+//         iterations: r
+//       });
+//        clearInterval(checkExist);
+//     }
+//  }, 100); // check every 100ms 
+// }
 
-function afficherTempo(objet,t0,t = 10,r = 'Infinity'){
-  let checkExist = setInterval(function() {
-    if ($(`#${objet.id}`).length) {
-      document.getElementById(objet.id).animate([
-        // keyframes
-        { opacity: 0 }, 
-        { opacity: 0, offset:t0/t }, 
-        { opacity: 1, offset:t0/t+.01 }, 
-        { opacity: 1 }
-      ], { 
-        // timing options
-        duration: t*1000,
-        iterations: r
-      });
-       clearInterval(checkExist);
-    }
- }, 100); // check every 100ms 
+/**
+ * Rend visible un element d'après son id
+ * 
+ * @Auteur Rémi Angot
+ * @param {string} id 
+ * 
+ */
+function montrerParDiv(id) {
+  document.getElementById(id).style.visibility = "visible";
 }
 
+/**
+ * Rend invisible un element d'après son id
+ * 
+ * @Auteur Rémi Angot
+ * @param {string} id 
+ * 
+ */
+function cacherParDiv(id) {
+  document.getElementById(id).style.visibility = "hidden";
+}
+
+/**
+ * Masque un objet puis l'affiche au bout de t0 s avant de recommencer r fois toutes les t secondes
+ * 
+ * 
+ * @param {any} objet dont l'identifiant est accessible par objet.id
+ * @param {number} [t0=1] temps en secondes avant l'apparition
+ * @param {number} [t=5] temps à partir duquel l'animation recommence
+ * @param {string} [r='Infinity'] nombre de répétition (infini si ce n'est pas un nombre)
+
+ * 
+ * 
+ */
+function afficherTempo(objet, t0 = 1, t = 5, r = 'Infinity') {
+  let compteur = 1 // Nombre d'animations
+  let checkExist = setInterval(function () {
+    if (document.getElementById(objet.id)) {
+      clearInterval(checkExist);
+      cacherParDiv(objet.id)
+      if (r==1){ // On le montre au bout de t0 et on ne le cache plus
+        setTimeout(function(){montrerParDiv(objet.id)},t0*1000) 
+      } else {
+        let cacheRepete = setInterval(function(){cacherParDiv(objet.id)},t*1000) // On cache tous les t s
+        setTimeout(function(){
+          montrerParDiv(objet.id) // On attend t0 pour montrer
+          let montreRepete = setInterval(function(){
+            montrerParDiv(objet.id)
+            compteur++
+            if (typeof r === 'number'){
+              if (compteur >=r){
+                clearInterval(cacheRepete)
+                clearInterval(montreRepete)
+              }
+            }
+            },t*1000) // On montre tous les t s (vu qu'on a décalé de t0)
+          
+        },t0*1000) // Fin de l'animation en boucle
+      }
+    }
+  }, 100); // vérifie toutes les  100ms que le div existe
+}
+
+
+/**
+ * Rend visible un element d'après son id
+ * 
+ * @Auteur Rémi Angot
+ * @param {any} id 
+ * 
+ */
 function afficherUnParUn(objets, t = 1, r = 'Infinity', tApresDernier = 5){
   let t0 = t
   let tf = objets.length*t+tApresDernier
