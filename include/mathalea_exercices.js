@@ -14109,16 +14109,16 @@ function Proprietes_paralleles_perpendiculaires() {
   this.nb_cols_corr = 1;
   this.sup = 1;
   this.sup2 = 1;
+  this.correction_detaillee_disponible = true;
+  this.correction_detaillee=false;
   this.nouvelle_version = function (numero_de_l_exercice) {
     let type_de_questions_disponibles,questions_par_niveau=[];
     questions_par_niveau.push(range(3))
     questions_par_niveau.push(rangeMinMax(8,15))
     questions_par_niveau.push(rangeMinMax(16,31))
-    console.log(questions_par_niveau)
 
     if (this.sup<4) type_de_questions_disponibles = questions_par_niveau[parseInt(this.sup)-1]
     else  type_de_questions_disponibles=questions_par_niveau[0].concat(questions_par_niveau[1].concat(questions_par_niveau[2]))
-    console.log (type_de_questions_disponibles)
 
     let liste_type_de_questions = combinaison_listes(
       type_de_questions_disponibles,
@@ -14126,16 +14126,18 @@ function Proprietes_paralleles_perpendiculaires() {
     );
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let droites=[],code,raisonnement,numDroites=[]
+    let droites=[],code,raisonnement,numDroites=[],phrases=[],textetemp
     for (
-      let i = 0, texte="", texte_corr="", cpt = 0;
+      let i = 0, texte, texte_corr, cpt = 0;
       i < this.nb_questions && cpt < 50;
 
     ) { 
+      texte=""
+      texte_corr=""
+      phrases.length=0
       droites.length=0;
       numDroites=shuffle([1,2,3,4,5]);
       raisonnement=liste_type_de_questions[i]
-      console.log(numDroites)
 
     switch (raisonnement) {
       case 0: // si 1//2 et 2//3 alors 1//3
@@ -14224,22 +14226,62 @@ function Proprietes_paralleles_perpendiculaires() {
         break;
 
     }
-console.log(code)
+
+    // enoncé mélangé
     texte +=`On sait que `
-    for (let j=0;j<code.length-1;j++) {
-      texte +=`$(d_${numDroites[code[j][0]-1]})`;
-      if (code[j][2]==1) texte+= `//`
-      else texte+=`\\perp`
-      texte +=`(d_${numDroites[code[j][1]-1]})$`
+    for (let j=0;j<code.length;j++) {
+      textetemp =`$(d_${numDroites[code[j][0]-1]})`;
+      if (code[j][2]==1) textetemp+= `//`
+      else textetemp+=`\\perp`
+      textetemp +=`(d_${numDroites[code[j][1]-1]})$`
+      phrases.push(textetemp)
+    }
+    //phrases=shuffle(phrases)
+    for (let j=0;j<code.length;j++) {
+      texte+=phrases[j]
       if (j!=code.length-2) texte+=`, `
       else texte +=` et `
     }
-    texte +=`$(d_${numDroites[code[code.length-1][0]-1]})`;
-    if (code[code.length-1][2]==1) texte+= `//`
-    else texte+=`\\perp`
-    texte +=`(d_${numDroites[code[code.length-1][1]-1]})$. `
-   
     texte +=`Que peut-on dire de $(d_${numDroites[code[0][0]-1]})$ et $(d_${numDroites[code[code.length-1][1]-1]})$ ?`
+
+    // correction raisonnement ordonné
+console.log(code)
+    texte_corr=""
+    for (let j=0;j<code.length-1;j++) {
+      if (this.correction_detaillee) texte_corr+=`On sait que : `
+      else texte_corr+=`Comme `
+      texte_corr+=`$(d_${numDroites[code[j][0]-1]})`;
+      if (code[j][2]==1) texte_corr+= `//`
+      else texte_corr+=`\\perp`
+      texte_corr +=`(d_${numDroites[code[j][1]-1]})$ et `
+      texte_corr+=`$(d_${numDroites[code[j+1][0]-1]})`;
+      if (code[j+1][2]==1) texte_corr+= `//`
+      else texte_corr+=`\\perp`
+      texte_corr +=`(d_${numDroites[code[j+1][1]-1]})$`
+      // quelle propriété ?
+      if (code[j][2]*code[j+1][2]==-1) { // Une parallèle et une perpendiculaire
+        if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont parallèles, toute droite perpendiculaire à l'une est aussi perpendiculaire à l'autre».<br>Donc`
+        texte_corr+=` $(d_${numDroites[code[0][0]-1]})\\perp(d_${numDroites[code[j+1][1]-1]})$.<br>`
+        code[j+1][0]=code[j][0]
+        code[j+1][2]=-1
+      }
+      else if (code[j][2]>0) { // deux parallèles
+        if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont parallèles à une même droite alors elles sont parallèles entre elles».<br>Donc`
+        texte_corr+=` $(d_${numDroites[code[0][0]-1]})//(d_${numDroites[code[j+1][1]-1]})$.<br>`
+        code[j+1][0]=code[j][0]
+        code[j+1][2]=1
+
+      }
+      else { //deux perpendiculaires
+        if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont perpendiculaires à une même droite, alors elles sont parallèles entre elles».<br>Donc`
+        texte_corr+=` $(d_${numDroites[code[0][0]-1]})//(d_${numDroites[code[j+1][1]-1]})$.<br>`
+        code[j+1][0]=code[j][0]
+        code[j+1][2]=1
+
+      }
+      
+
+    }
 
     if (this.liste_questions.indexOf(texte) == -1) {
       // Si la question n'a jamais été posée, on en crée une autre
