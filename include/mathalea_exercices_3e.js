@@ -4545,6 +4545,7 @@ function Premier_escape_game_mathalea() {
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup = 1;  
+	this.sup2="";
 	this.pas_de_version_LaTeX = false;
 	this.nouvelle_version = function () {
 		let lettres=[],mots=["BMDF","OGNQ","BUQP","BAUP","BXGE","BDUJ","MZSXQE","BDUEYQ","BMDFUQ","HMXQGD","OAGBXQ","PDAUFQ","DQXMFUAZ","BMDMNAXQ","MPPUFUAZ","QJBAEMZF","RAZOFUAZ","OAYBXQJQ"]
@@ -4569,7 +4570,8 @@ function Premier_escape_game_mathalea() {
 		let type=parseInt(this.sup)
 		let mdp=cesar(mots[randint(0,5)+(type-1)*6],14)
 		let absc=[],ord=[],car
-		console.log(lettres)
+		if (this.sup2==mdp) texte_corr="Bravo ! Vous avez trouvé le mot de passe !"
+		else texte_corr="Taper le mot de passe dans la boite de dialogue correspondante des paramètres de l'exercice."
 		for(let x=0;x<type*2+2;x++){
 			car=mdp[x]
 			alphabet=alphabet.filter(item => item !== car)
@@ -4679,6 +4681,7 @@ console.log([0,ord0[0]],[absc[0],ord[0]],[absc[1],ord[1]],[7,ord6[0]])
 //	this.besoin_formulaire2_numerique = ['Coefficient de réduction(problèmes de type1)', 3, '1 : Décimal\n 2 : Non décimal\n 3 : Décimal ou non'];
 	}
 	this.besoin_formulaire_numerique = ['Catégorie', 3, '1 : Noir & Blanc\n 2 : RGB\n 3 : CJMN'];
+	this.besoin_formulaire2_texte= ['Quel est ton mot de passe ?',1,'Mot de passe (en majuscule):']
 
 }
 
