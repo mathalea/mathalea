@@ -80,12 +80,14 @@ function liste_de_question_to_contenu_sans_numero_et_sans_consigne(argument) {
 */
 function deuxColonnes(cont1,cont2){
 	if (sortie_html){
-		return `<div style="float:left;width:50%;">
+		return `
+		<div style="float:left;min-width: fit-content;max-width : 35%;margin-right: 30px">
 		${cont1}
 	 </div>
-	 <div style="float:left;width:50%;">
+	 <div style="float:left;min-width: fit-content; max-width : 45%">
 		${cont2}
-	 </div>`
+	 </div>
+	 <div style="clear:both"></div>`
 	} else {
 		return `\\begin{minipage}{.5\\linewidth}
 		${cont1}
