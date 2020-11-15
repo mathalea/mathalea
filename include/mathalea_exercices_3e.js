@@ -7269,17 +7269,14 @@ function identites_calculs(){
 						break;
 					case 2 :
 						type_de_questions_disponibles = [1,1,1];//shuffle([choice([1,3]),choice([2,3]),0]); 
-						this.introduction = warn_message(`2`, `nombres`, `Coup de pouce`);      			     	
 						this.introduction = warn_message(`$(a-b)^2 = a^2-2ab+b^2$`, `nombres`, `Coup de pouce`); 		
 						break;
 					case 3 : 
 						type_de_questions_disponibles = [2,2,2];//shuffle([choice([1,3]),choice([2,3]),0]);      			
-						this.introduction = warn_message(`3`, `nombres`, `Coup de pouce`);      			
 						this.introduction = warn_message(`$(a+b)(a-b)=a^2-b^2$`, `nombres`, `Coup de pouce`); 
 						break;
 					case 4 :
 						type_de_questions_disponibles = shuffle([0,1,2]);//shuffle([choice([1,3]),choice([2,3]),0]);      			
-						this.introduction = warn_message(`4`, `nombres`, `Coup de pouce`);      			
 						this.introduction = warn_message(`$(a+b)^2 = a^2 +2ab + b^2$ ${myhfill()} $(a-b)^2 = a^2-2ab+b^2$ ${myhfill()} $(a+b)(a-b)=a^2-b^2$`, `nombres`, `Coup de pouce`); 
 						break;
 				};
