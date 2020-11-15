@@ -14237,12 +14237,13 @@ function Proprietes_paralleles_perpendiculaires() {
       phrases.push(textetemp)
     }
     //phrases=shuffle(phrases)
-    for (let j=0;j<code.length;j++) {
+    for (let j=0;j<code.length-1;j++) {
       texte+=phrases[j]
       if (j!=code.length-2) texte+=`, `
       else texte +=` et `
     }
-    texte +=`Que peut-on dire de $(d_${numDroites[code[0][0]-1]})$ et $(d_${numDroites[code[code.length-1][1]-1]})$ ?`
+    texte+=phrases[code.length-1]
+    texte +=`.<br>Que peut-on dire de $(d_${numDroites[code[0][0]-1]})$ et $(d_${numDroites[code[code.length-1][1]-1]})$ ?`
 
     // correction raisonnement ordonné
 console.log(code)
