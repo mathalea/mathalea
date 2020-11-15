@@ -4570,8 +4570,8 @@ function Premier_escape_game_mathalea() {
 		let type=parseInt(this.sup)
 		let mdp=cesar(mots[randint(0,5)+(type-1)*6],14)
 		let absc=[],ord=[],car
-		if (this.sup2==mdp) texte_corr="Bravo ! Vous avez trouvé le mot de passe !"
-		else texte_corr="Taper le mot de passe dans la boite de dialogue correspondante des paramètres de l'exercice."
+		if (this.sup2==mdp) texte+=`${texte_en_couleur_et_gras('Bravo ! Vous avez trouvé le mot de passe !','blue')}<br>`
+		else texte+="Taper le mot de passe dans la boite de dialogue correspondante des paramètres de l'exercice.<br>"
 		for(let x=0;x<type*2+2;x++){
 			car=mdp[x]
 			alphabet=alphabet.filter(item => item !== car)

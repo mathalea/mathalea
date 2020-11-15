@@ -55,7 +55,8 @@ var liste_des_exercices_disponibles = {
   "6G11": Tracer_des_perpendiculaires,
   "6G12": Tracer_des_paralleles,
   "6G12-1": Tracer_des_perpendiculaires_et_des_paralleles,
-  "beta6G14" : Test_main_levee,
+  "beta6G14" : Proprietes_paralleles_perpendiculaires,
+  "beta6G24" : Test_main_levee,
   "6G20" : Nommer_et_coder_des_polygones,
   "6G20-2": Vocabulaire_des_triangles_6e,
   "6G21" : Construire_un_triangle_6e,
@@ -14096,6 +14097,165 @@ function Utiliser_le_codage_pour_decrire(){
    };
 }
 
+/**
+ * Ref beta6G14
+ */
+function Proprietes_paralleles_perpendiculaires() {
+  "use strict";
+  Exercice.call(this);
+  this.titre = "Utiliser les propriétés des droites perpendiculaires";
+  this.nb_questions = 1;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  this.sup = 1;
+  this.sup2 = 1;
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    let type_de_questions_disponibles,questions_par_niveau=[];
+    questions_par_niveau.push(range(3))
+    questions_par_niveau.push(rangeMinMax(8,15))
+    questions_par_niveau.push(rangeMinMax(16,31))
+    console.log(questions_par_niveau)
+
+    if (this.sup<4) type_de_questions_disponibles = questions_par_niveau[parseInt(this.sup)-1]
+    else  type_de_questions_disponibles=questions_par_niveau[0].concat(questions_par_niveau[1].concat(questions_par_niveau[2]))
+    console.log (type_de_questions_disponibles)
+
+    let liste_type_de_questions = combinaison_listes(
+      type_de_questions_disponibles,
+      this.nb_questions
+    );
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    let droites=[],code,raisonnement,numDroites=[]
+    for (
+      let i = 0, texte="", texte_corr="", cpt = 0;
+      i < this.nb_questions && cpt < 50;
+
+    ) { 
+      droites.length=0;
+      numDroites=shuffle([1,2,3,4,5]);
+      raisonnement=liste_type_de_questions[i]
+      console.log(numDroites)
+
+    switch (raisonnement) {
+      case 0: // si 1//2 et 2//3 alors 1//3
+        code = [[1, 2, 1], [2, 3, 1]];
+        break;
+      case 1: // si 1//2 et 2T3 alors 1T3
+        code = [[1, 2, 1], [2, 3, -1]]
+        break;
+      case 2: // si 1T2 et 2T3 alors 1//3
+        code = [[1, 2, -1], [2, 3, -1]]
+        break;
+      case 3: // si 1T2 et 2//3 alors 1T3
+        code = [[1, 2, -1], [2, 3, 1]]
+        break;
+      case 8: // Si 1//2 et 2//3 et 3//4 alors 1//4
+        code = [[1, 2, 1], [2, 3, 1], [3, 4, 1]];
+        break;
+      case 9: // Si 1//2 et 2//3 et 3T4 alors 1T4
+        code = [[1, 2, 1], [2, 3, 1], [3, 4, -1]];
+        break;
+      case 10: // Si 1//2 et 2T3 et 3//4 alors 1T4
+        code = [[1, 2, 1], [2, 3, 1], [3, 4, 1]];
+        break;
+      case 11: // Si 1//2 et 2T3 et 3T4 alors 1//4
+        code = [[1, 2, 1], [2, 3, -1], [3, 4, -1]];
+        break;
+      case 12: // Si 1T2 et 2//3 et 3//4 alors 1T4
+        code = [[1, 2, -1], [2, 3, 1], [3, 4, 1]];
+        break;
+      case 13: // Si 1T2 et 2//3 et 3T4 alors 1//4
+        code = [[1, 2, -1], [2, 3, 1], [3, 4, -1]];
+        break;
+      case 14: // Si 1T2 et 2T3 et 3//4 alors 1//4
+        code = [[1, 2, -1], [2, 3, -1], [3, 4, 1]];
+        break;
+      case 15: // Si 1T2 et 2T3 et 3T4 alors 1T4
+        code = [[1, 2, -1], [2, 3, -1], [3, 4, -1]];
+        break;
+      case 16: // Si 1//2 et 2//3 et 3//4 et 4//5 alors 1//5
+        code = [[1, 2, 1], [2, 3, 1], [3, 4, 1], [4, 5, 1]];
+        break;
+      case 17: // Si 1//2 et 2//3 et 3T4 et 4//5 alors 1T5
+        code = [[1, 2, 1], [2, 3, 1], [3, 4, -1], [4, 5, 1]];
+        break;
+      case 18: // Si 1//2 et 2T3 et 3//4 et 4//5 alors 1T5
+        code = [[1, 2, 1], [2, 3, -1], [3, 4, 1], [4, 5, 1]];
+        break;
+      case 19: // Si 1//2 et 2T3 et 3T4 et 4//5 alors 1//5
+        code = [[1, 2, 1], [2, 3, -1], [3, 4, -1], [4, 5, 1]];
+        break;
+      case 20: // Si 1T2 et 2//3 et 3//4 et 4//5 alors 1T5
+        code = [[1, 2, -1], [2, 3, 1], [3, 4, 1], [4, 5, 1]];
+        break;
+      case 21: // Si 1T2 et 2//3 et 3T4 et 4//5 alors 1//5
+        code = [[1, 2, -1], [2, 3, 1], [3, 4, -1], [4, 5, 1]];
+        break;
+      case 22: // Si 1T2 et 2T3 et 3//4 et 4//5 alors 1//5
+        code = [[1, 2, -1], [2, 3, -1], [3, 4, 1], [4, 5, 1]];
+        break;
+      case 23: // Si 1T2 et 2T3 et 3T4 et 4//5 alors 1T5
+        code = [[1, 2, -1], [2, 3, -1], [3, 4, -1], [4, 5, 1]];
+        break;
+      case 24: // Si 1//2 et 2//3 et 3//4 et 4T5 alors 1T5
+        code = [[1, 2, 1], [2, 3, 1], [3, 4, 1], [4, 5, -1]];
+        break;
+      case 25: // Si 1//2 et 2//3 et 3T4 et 4T5 alors 1//5
+        code = [[1, 2, 1], [2, 3, 1], [3, 4, -1], [4, 5, -1]];
+        break;
+      case 26: // Si 1//2 et 2T3 et 3//4 et 4T5 alors 1//5
+        code = [[1, 2, 1], [2, 3, -1], [3, 4, 1], [4, 5, -1]];
+        break;
+      case 27: // Si 1//2 et 2T3 et 3T4 et 4T5 alors 1T5
+        code = [[1, 2, 1], [2, 3, -1], [3, 4, -1], [4, 5, -1]];
+        break;
+      case 28: // Si 1T2 et 2//3 et 3//4 et 4T5 alors 1//5
+        code = [[1, 2, -1], [2, 3, 1], [3, 4, 1], [4, 5, -1]];
+        break;
+      case 29: // Si 1T2 et 2//3 et 3T4 et 4T5 alors 1T5
+        code = [[1, 2, -1], [2, 3, 1], [3, 4, -1], [4, 5, -1]];
+        break;
+      case 30: // Si 1T2 et 2T3 et 3//4 et 4T5 alors 1T5
+        code = [[1, 2, -1], [2, 3, -1], [3, 4, 1], [4, 5, -1]];
+        break;
+      case 31: // Si 1T2 et 2T3 et 3T4 et 4T5 alors 1//5
+        code = [[1, 2, -1], [2, 3, -1], [3, 4, -1], [4, 5, -1]];
+        break;
+
+    }
+console.log(code)
+    texte +=`On sait que `
+    for (let j=0;j<code.length-1;j++) {
+      texte +=`$(d_${numDroites[code[j][0]-1]})`;
+      if (code[j][2]==1) texte+= `//`
+      else texte+=`\\perp`
+      texte +=`(d_${numDroites[code[j][1]-1]})$`
+      if (j!=code.length-2) texte+=`, `
+      else texte +=` et `
+    }
+    texte +=`$(d_${numDroites[code[code.length-1][0]-1]})`;
+    if (code[code.length-1][2]==1) texte+= `//`
+    else texte+=`\\perp`
+    texte +=`(d_${numDroites[code[code.length-1][1]-1]})$. `
+   
+    texte +=`Que peut-on dire de $(d_${numDroites[code[0][0]-1]})$ et $(d_${numDroites[code[code.length-1][1]-1]})$ ?`
+
+    if (this.liste_questions.indexOf(texte) == -1) {
+      // Si la question n'a jamais été posée, on en crée une autre
+      this.liste_questions.push(texte + "<br>");
+      this.liste_corrections.push(texte_corr + "<br>");
+      i++;
+    }
+      cpt++;
+    }
+
+    liste_de_question_to_contenu(this);
+  };
+  this.besoin_formulaire_numerique = ['Nombre d\'étapes de raisonnement :', 4, `1 : 1 étape\n 2 : 2 étapes\n 3 : 3 étapes\n4 : Mélange aléatoire`]
+  this.besoin_formulaire2_case_a_cocher = [
+    "Avec figure ? ",false];
+}
 
 /**
  * Fonction générale pour exercices de constructions de parallèles et perpendiculaires
