@@ -14104,10 +14104,10 @@ function Proprietes_paralleles_perpendiculaires() {
   "use strict";
   Exercice.call(this);
   this.titre = "Utiliser les propriétés des droites perpendiculaires";
-  this.nb_questions = 1;
+  this.nb_questions = 5;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
-  this.sup = 1;
+  this.sup = 4;
   this.sup2 = 1;
   this.correction_detaillee_disponible = true;
   this.correction_detaillee=false;
@@ -14295,8 +14295,8 @@ console.log(code)
     liste_de_question_to_contenu(this);
   };
   this.besoin_formulaire_numerique = ['Nombre d\'étapes de raisonnement :', 4, `1 : 1 étape\n 2 : 2 étapes\n 3 : 3 étapes\n4 : Mélange aléatoire`]
-  this.besoin_formulaire2_case_a_cocher = [
-    "Avec figure ? ",false];
+  // this.besoin_formulaire2_case_a_cocher = [
+  //  "Avec figure ? ",false];
 }
 
 /**
