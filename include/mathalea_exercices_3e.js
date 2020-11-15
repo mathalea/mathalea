@@ -7225,6 +7225,7 @@ function Eq_resolvantes_Thales(){
 /** 
  * * Calcul mental autour des identités remarquables
  * * numéro de l'exo ex : 3L11-5
+ * * publié le  14/11/2020
  * @author Sébastien Lozano
  */
 
@@ -7317,7 +7318,7 @@ function identites_calculs(){
 			let coeff = choice([10,100]);
 			let coeff_som_dif = 100;
 			let signes_som_dif = choice([[{str:'-',nb:-1},{str:'+',nb:1}],[{str:'+',nb:1},{str:'-',nb:-1}]]);
-			let lettres = choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
+			let lettres = choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z'])
 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
