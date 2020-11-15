@@ -1215,6 +1215,7 @@ function Exercice_substituer(difficulte=1){
 /**
  * Déterminer des angles en utilisant les cas d'égalités : opposés par le sommet, alternes-internes, correspondants...
  * ref 5G30-1 
+ * publié le 14/11/2020
  * @Auteur Jean-Claude Lhote Inspiré d'exercices du manuel sésamath.
  */
 function Egalite_d_angles() {

@@ -293,6 +293,7 @@ var liste_des_exercices_disponibles = {
   "3F12-4": Image_graphique,
   "3F13": Antecedent_graphique,
   "3F13-1": Antecedent_et_image_graphique,
+  "betaF13-2" : Premier_escape_game_mathalea,
   "3F21": Lecture_expression_fonctions_lineaires,
   "3F21-1": Lecture_expression_fonctions_affines,
   "3S15": Calculer_des_etendues,
@@ -9617,7 +9618,7 @@ function Lire_abscisse_decimale_trois_formes() {
  * Lire un nombre décimal jusqu'au millième graĉe à un système de zoom successifs
  * L'abscisse est à donner sous trois formes.
  * ref 6N23-3
- * 
+ * Publié le 13/11/2020
  * @Auteur Jean-Claude Lhote
  */
 function lireUneAbscisseAvecZoomCM() {
