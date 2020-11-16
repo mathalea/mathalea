@@ -15835,7 +15835,7 @@ function Produit_de_decimaux_a_partir_d_un_produit_connu(){
 				enonces.push({
           enonce:`
             Sachant que $${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)} = ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}$,
-            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(10**situations[0].p1)))}\\times ${calcul(situations[0].d2*10+situations[0].u2)}$
+            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(10**situations[0].p1)))}\\times ${calcul(situations[0].d2*10+situations[0].u2)}$.
 					`,
 					question:``,
 					correction:`
@@ -15845,7 +15845,7 @@ function Produit_de_decimaux_a_partir_d_un_produit_connu(){
         enonces.push({
           enonce:`
             Sachant que $${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)} = ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}$,
-            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)))}\\times ${tex_nombre(calcul((situations[0].d2*10+situations[0].u2)*(10**situations[0].p2)))}$
+            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)))}\\times ${tex_nombre(calcul((situations[0].d2*10+situations[0].u2)*(10**situations[0].p2)))}$.
 					`,
 					question:``,
 					correction:`
@@ -15855,7 +15855,7 @@ function Produit_de_decimaux_a_partir_d_un_produit_connu(){
 				enonces.push({
           enonce:`
             Sachant que $${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)} = ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}$,
-            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(10**situations[0].p1)))}\\times ${tex_nombre(calcul((situations[0].d2*10+situations[0].u2)*(10**situations[0].p2)))}$
+            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(10**situations[0].p1)))}\\times ${tex_nombre(calcul((situations[0].d2*10+situations[0].u2)*(10**situations[0].p2)))}$.
 					`,
 					question:``,
 					correction:`

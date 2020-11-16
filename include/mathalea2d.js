@@ -6494,6 +6494,73 @@ function ajouterAy(y,lutin=monLutin){
   } 
 }
 
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% LES INSTRUMENTS %%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+*/
+
+
+/**
+ * Afficher le SVG d'un crayon avec la mine sur le point A
+ * 
+ * @param {point} A 
+ *
+ * 
+ * 
+ */
+function AfficherCrayon(A){
+  ObjetMathalea2D.call(this);
+  this.x = A.x;
+  this.y = A.y;
+  this.svg=function(coeff){
+    let code = `<g id="${this.id}" stroke="#000000" fill="none" transform="translate(${(this.x-.2)*pixelsParCm},${-60-(this.y-.2)*pixelsParCm}) scale(.1) ">
+   <path id="rect2990" d="m70.064 422.35 374.27-374.26 107.58 107.58-374.26 374.27-129.56 21.97z" stroke-width="30"/>
+   <path id="path3771" d="m70.569 417.81 110.61 110.61" stroke-width="25"/>
+   <path id="path3777" d="m491.47 108.37-366.69 366.68" stroke-width="25"/>
+   <path id="path3763" d="m54.222 507.26 40.975 39.546" stroke-width="25"/>
+  </g>`
+  return code
+  }
+}
+
+function afficherCrayon(...args){
+  return new AfficherCrayon(...args)
+}
+
+function TranslationInstrument(instrument,C,begin="0s",id){
+  ObjetMathalea2D.call(this)
+  let D = point(instrument.x,instrument.y) // point de départ
+  let v = vecteur(D,C) // vecteur du départ à la cible
+  instrument.x = C.x;
+  instrument.y = C.y; // on change les coordonnées de l'instrument
+  let texteId = '' // Ajout d'un id facultatif à l'animation
+  if (id === undefined){
+    texteId = ''
+  } else {
+    texteId = `id="${id}"`
+  }
+  console.log(texteId)
+  this.svg=function(coeff){
+    let code = `
+    <animateMotion
+    xlink:href="#${instrument.id}"
+    ${texteId}
+    path="M 0 0 l ${v.xSVG(coeff)} ${v.ySVG(coeff)}"
+    dur="1s"
+    additive="sum"
+    begin="${begin}"
+    fill="freeze" 
+    id="${this.id}"/>`
+    return code
+  }
+}
+
+function translationInstrument(...args){
+  return new TranslationInstrument(...args)
+}
+
+
 
 
 /*
