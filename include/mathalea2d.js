@@ -6528,19 +6528,26 @@ function afficherCrayon(...args){
   return new AfficherCrayon(...args)
 }
 
-function TranslationInstrument(instrument,C,begin="0s",id){
+/**
+ * Déplace un instrument suivant le vecteur AB
+ * 
+ * @param {any} instrument 
+ * @param {any} A point de départ
+ * @param {any} B point d'arrivée
+ * @param {number} [begin=0] peut être un nombre de seconde ou la fin d'un évènement précédent avec id.end
+ * @param {any} id pour lier les animations
+
+ * 
+ */
+function TranslationInstrument(instrument,A,B,begin=0,id){
   ObjetMathalea2D.call(this)
-  let D = point(instrument.x,instrument.y) // point de départ
-  let v = vecteur(D,C) // vecteur du départ à la cible
-  instrument.x = C.x;
-  instrument.y = C.y; // on change les coordonnées de l'instrument
+  let v = vecteur(A,B) // vecteur du départ à la cible
   let texteId = '' // Ajout d'un id facultatif à l'animation
   if (id === undefined){
     texteId = ''
   } else {
     texteId = `id="${id}"`
   }
-  console.log(texteId)
   this.svg=function(coeff){
     let code = `
     <animateMotion
@@ -6559,6 +6566,13 @@ function TranslationInstrument(instrument,C,begin="0s",id){
 function translationInstrument(...args){
   return new TranslationInstrument(...args)
 }
+
+// function deplaceInstrument(instrument, B, begin=0, id){
+//   let A = point(instrument.x,instrument.y);
+//   translationInstrument(instrument, A, B, begin=0, id);
+//   instrument.x = B.x;
+//   instrument.y = B.y;
+// }
 
 
 
