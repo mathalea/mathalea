@@ -6550,6 +6550,10 @@ function TranslationInstrument(instrument,A,B,begin=0,id){
   }
   this.svg=function(coeff){
     let code = `
+    <line x1="${A.xSVG(coeff)}" y1="${A.ySVG(coeff)}" x2="${A.xSVG(coeff)}" y2="${A.ySVG(coeff)}" stroke="black" > 
+    <animate attributeName="x2" from="${A.xSVG(coeff)}" to="${B.xSVG(coeff)}" begin="${begin}" dur="1s" fill="freeze" /> 
+    <animate attributeName="y2" from="${A.ySVG(coeff)}" to="${B.ySVG(coeff)}" begin="${begin}" dur="1s" fill="freeze" /> 
+    </line> 
     <animateMotion
     xlink:href="#${instrument.id}"
     ${texteId}
