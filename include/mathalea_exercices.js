@@ -14105,7 +14105,7 @@ function Proprietes_paralleles_perpendiculaires() {
   "use strict";
   Exercice.call(this);
   this.titre = "Utiliser les propriétés des droites perpendiculaires";
-  this.nb_questions = 5;
+  this.nb_questions = 1;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
   this.sup = 4;
@@ -14128,6 +14128,7 @@ function Proprietes_paralleles_perpendiculaires() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let droites=[],code,raisonnement,numDroites=[],phrases=[],textetemp
+    let d=[],P=[],objets=[]
     for (
       let i = 0, texte, texte_corr, cpt = 0;
       i < this.nb_questions && cpt < 50;
@@ -14135,8 +14136,11 @@ function Proprietes_paralleles_perpendiculaires() {
     ) { 
       texte=""
       texte_corr=""
-      phrases.length=0
+      phrases.length=0;
       droites.length=0;
+      objets.length=0;
+      d.length=0;
+      P.length=0;
       numDroites=shuffle([1,2,3,4,5]);
       raisonnement=liste_type_de_questions[i]
 
@@ -14246,9 +14250,25 @@ function Proprietes_paralleles_perpendiculaires() {
     texte+=phrases[code.length-1]
     texte +=`.<br>Que peut-on dire de $(d_${numDroites[code[0][0]-1]})$ et $(d_${numDroites[code[code.length-1][1]-1]})$ ?`
 
+    //construction de la figure
+    P.push(point(0,0))
+    d.push(droiteParPointEtPente(P[0],randint(-1,1,0)/10,`(d${numDroites[code[0][0]-1]})`))
+    objets.push(d[0])
+    for (let x=0;x<code.length;x++) {
+      if (code[x][2]==1) {
+        P.push(point((x+1)*2,(x+1)*2))
+        d.push(droiteParPointEtParallele(P[x+1],d[x],`(d${numDroites[code[x][1]-1]})`))
+      }
+      else {
+        P.push(point((x+1)*2,(x+1)*2))
+        d.push(droiteParPointEtPerpendiculaire(P[x+1],d[x],`(d${numDroites[code[x][1]-1]})`))
+      }
+      objets.push(d[x+1])
+    }
     // correction raisonnement ordonné
-console.log(code)
-    texte_corr=""
+console.log(objets)
+    fenetreMathalea2d=[-2,-2,15,10]
+    texte_corr=mathalea2d({xmin:-2,xmax:15,ymin:-2,ymax:10,pixelsParCm:20},objets)+`<br>`
     for (let j=0;j<code.length-1;j++) {
       if (this.correction_detaillee) texte_corr+=`On sait que : `
       else texte_corr+=`Comme `
