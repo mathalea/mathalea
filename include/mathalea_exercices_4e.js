@@ -14,13 +14,12 @@ function Comparer_puissance10() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = 1; // Avec ou sans relatifs
   this.titre = "Puissances de 10";
-  this.consigne =
-    "Dans chaque cas, comparer les deux nombres.";
+  this.consigne = "Dans chaque cas, comparer les deux nombres.";
   this.spacing = 2;
   this.spacing_corr = 2;
   this.nb_questions = 5;
-  this.nb_cols = 4;
-  this.nb_cols_corr = 4;
+  this.nb_cols = 2;
+  this.nb_cols_corr = 2;
   this.sup = 1;
 
   this.nouvelle_version = function (numero_de_l_exercice) { 
@@ -32,38 +31,42 @@ function Comparer_puissance10() {
     let a2 = 0; // mantisse 2
     let n1 = 0; // puissance 1
     let n2 = 0; // puissance 2
-    let txtA1 = ` `; // string nombre 1
-    let txtA2 = ` `; // string nombre 2
     let nbA1 = 0;
     let nbA2 = 0;
-    let c = this.sup;
+    let c = parseInt(this.sup);
     for (let i=0; i<this.nb_questions; i++) {
-      if (this.sup == 5) {
-        c = randint(1,4).toString();
+      if (this.sup == 6) {
+        c = randint(1,5);
       }
       switch (c) {
-        case '1':
+        case 1:
           a1 = 1;
           n1 = randint(-9,9);
           a2 = 1;
-          n2 = randint(-9,9)
+          n2 = choice(rangeMinMax(-9, 9), [n1]);
           break;
-        case '2':
+        case 2:
           a1 = randint(1,9)+0.1*randint(1,9)*randint(0,1);
           n1 = randint(-9,9);
           a2 = choice([0, 1, 2, 3, 4, 5 ,6 ,7, 8, 9], [a1])+0.1*randint(1,9)*randint(0,1);
           n2 = n1;
           break;
-        case '3':
+        case 3:
           a1 = randint(1,9)+0.1*randint(0,9)+0.01*randint(0,9);
           n1 = randint(-9,9);
           a2 = a1;
+          n2 = randint(-9,9);          
+          break;
+        case 4:
+          a1 = randint(1,9)+0.1*randint(0,9);
+          n1 = randint(-9,9);
+          a2 = choice(rangeMinMax(1, 99))/10;
           n2 = randint(-9,9);
           break;
-        case '4':
-          a1 = randint(1,9)+0.1*randint(0,9)+0.01*randint(0,9);
+        case 5:
+          a1 = choice(rangeMinMax(-99, 99, [0]))/10;
           n1 = randint(-9,9);
-          a2 = randint(1,9)+0.1*randint(0,9)+0.01*randint(0,9);;
+          a2 = choice(rangeMinMax(-99, 99, [0]))/10;
           n2 = randint(-9,9);
           break;
         default:
@@ -71,7 +74,8 @@ function Comparer_puissance10() {
       }
       nbA1 = a1*10**n1;
       nbA2 = a2*10**n2;
-      texte += num_alpha(i) + " " + ecriturePuissance(a1, 10, n1) + " et " + ecriturePuissance(a2, 10, n2) + "<br>";
+      
+      texte += num_alpha(i) + "  " + ecriturePuissance(a1, 10, n1) + " et " + ecriturePuissance(a2, 10, n2) + "<br>";
       if (nbA1 > nbA2) {
         texte_corr += num_alpha(i) + ` ${ecriturePuissance(a1, 10, n1)} $>$ ${ecriturePuissance(a2, 10, n2)} <br>`;
       } else {
@@ -86,8 +90,8 @@ function Comparer_puissance10() {
       this.liste_corrections.push(texte_corr);
       liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
     };
-    this.besoin_formulaire_numerique = ["Niveau de difficulté", 5,
-          "1 : forme $10^n$ et $10^m$\n 2 : forme $a*10^n$ et $b*10^n$\n 3 : forme $a*10^n$ et $a*10^m$\n 4 : forme $a*10^n$ et $b*10^m$\n 5 : Tous types"];
+    this.besoin_formulaire_numerique = ["Niveau de difficulté", 6,
+          "1 : Puissances de 10 seules\n 2 : mantisses différentes et même exposant\n 3 : mêmes mantisses et exposants différents\n 4 : mantisses et exposants différents\n 5 : mantisses (négatives) et exposants différents\n 6 : Tous types"];
 }
 
 
