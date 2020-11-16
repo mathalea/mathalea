@@ -7228,6 +7228,7 @@ function Eq_resolvantes_Thales(){
 /** 
  * * Calcul mental autour des identités remarquables
  * * numéro de l'exo ex : 3L11-5
+ * * publié le  14/11/2020
  * @author Sébastien Lozano
  */
 
@@ -7271,17 +7272,14 @@ function identites_calculs(){
 						break;
 					case 2 :
 						type_de_questions_disponibles = [1,1,1];//shuffle([choice([1,3]),choice([2,3]),0]); 
-						this.introduction = warn_message(`2`, `nombres`, `Coup de pouce`);      			     	
 						this.introduction = warn_message(`$(a-b)^2 = a^2-2ab+b^2$`, `nombres`, `Coup de pouce`); 		
 						break;
 					case 3 : 
 						type_de_questions_disponibles = [2,2,2];//shuffle([choice([1,3]),choice([2,3]),0]);      			
-						this.introduction = warn_message(`3`, `nombres`, `Coup de pouce`);      			
 						this.introduction = warn_message(`$(a+b)(a-b)=a^2-b^2$`, `nombres`, `Coup de pouce`); 
 						break;
 					case 4 :
 						type_de_questions_disponibles = shuffle([0,1,2]);//shuffle([choice([1,3]),choice([2,3]),0]);      			
-						this.introduction = warn_message(`4`, `nombres`, `Coup de pouce`);      			
 						this.introduction = warn_message(`$(a+b)^2 = a^2 +2ab + b^2$ ${myhfill()} $(a-b)^2 = a^2-2ab+b^2$ ${myhfill()} $(a+b)(a-b)=a^2-b^2$`, `nombres`, `Coup de pouce`); 
 						break;
 				};
@@ -7320,7 +7318,7 @@ function identites_calculs(){
 			let coeff = choice([10,100]);
 			let coeff_som_dif = 100;
 			let signes_som_dif = choice([[{str:'-',nb:-1},{str:'+',nb:1}],[{str:'+',nb:1},{str:'-',nb:-1}]]);
-			let lettres = choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
+			let lettres = choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z'])
 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [

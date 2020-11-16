@@ -231,6 +231,7 @@ var liste_des_exercices_disponibles = {
   "4C22": Exercice_multiplier_fractions,
   "4C22-2": Exercice_diviser_fractions,
   "4C23": Exercice_additionner_fraction_produit,
+  "beta4C30": Comparer_puissance10,
   "4F12": Exploiter_representation_graphique,
   "4P10": Problemes_grandeurs_composees,
   "4P10-1" : Graphiques_et_proportionnalite,  
@@ -16038,7 +16039,7 @@ function Produit_de_decimaux_a_partir_d_un_produit_connu(){
 				enonces.push({
           enonce:`
             Sachant que $${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)} = ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}$,
-            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(10**situations[0].p1)))}\\times ${calcul(situations[0].d2*10+situations[0].u2)}$
+            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(10**situations[0].p1)))}\\times ${calcul(situations[0].d2*10+situations[0].u2)}$.
 					`,
 					question:``,
 					correction:`
@@ -16048,7 +16049,7 @@ function Produit_de_decimaux_a_partir_d_un_produit_connu(){
         enonces.push({
           enonce:`
             Sachant que $${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)} = ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}$,
-            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)))}\\times ${tex_nombre(calcul((situations[0].d2*10+situations[0].u2)*(10**situations[0].p2)))}$
+            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)))}\\times ${tex_nombre(calcul((situations[0].d2*10+situations[0].u2)*(10**situations[0].p2)))}$.
 					`,
 					question:``,
 					correction:`
@@ -16058,7 +16059,7 @@ function Produit_de_decimaux_a_partir_d_un_produit_connu(){
 				enonces.push({
           enonce:`
             Sachant que $${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)} = ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}$,
-            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(10**situations[0].p1)))}\\times ${tex_nombre(calcul((situations[0].d2*10+situations[0].u2)*(10**situations[0].p2)))}$
+            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(10**situations[0].p1)))}\\times ${tex_nombre(calcul((situations[0].d2*10+situations[0].u2)*(10**situations[0].p2)))}$.
 					`,
 					question:``,
 					correction:`
@@ -17866,52 +17867,57 @@ function AfficherSVG(){
 
     texte = `Directement dans le html avec la font : `; 
     texte += `
-<i class="orange users icon"></i>
-<i class="yellow users icon"></i>
-<i class="olive users icon"></i>
-<i class="green users icon"></i>
-<i class="teal users icon"></i>
-<i class="blue users icon"></i>
-<i class="violet users icon"></i>
-<i class="purple users icon"></i>
-<i class="pink users icon"></i>
-<i class="brown users icon"></i><br>
-<i class="grey users icon"></i>
-<i class="black users icon"></i>
-<i class="horizontally flipped cloud icon"></i>
-<i class="vertically flipped cloud icon"></i>
-<i class="clockwise rotated cloud icon"></i>
-<i class="counterclockwise rotated cloud icon"></i>
-<i class="chess icon"></i>
-<i class="orange chess bishop icon"></i>
-<i class="chess board icon"></i>
-<i class="chess king icon"></i>
-<i class="chess knight icon"></i>
-<i class="chess pawn icon"></i>
-<i class="chess queen icon"></i>
-<i class="chess rook icon"></i>
-<i class="square full icon"></i>
-    `;
+        <i class="orange users icon"></i>
+        <i class="yellow users icon"></i>
+        <i class="olive users icon"></i>
+        <i class="green users icon"></i>
+        <i class="teal users icon"></i>
+        <i class="blue users icon"></i>
+        <i class="violet users icon"></i>
+        <i class="purple users icon"></i>
+        <i class="pink users icon"></i>
+        <i class="brown users icon"></i><br>
+        <i class="grey users icon"></i>
+        <i class="black users icon"></i>
+        <i class="horizontally flipped cloud icon"></i>
+        <i class="vertically flipped cloud icon"></i>
+        <i class="clockwise rotated cloud icon"></i>
+        <i class="counterclockwise rotated cloud icon"></i>
+        <i class="chess icon"></i>
+        <i class="orange chess bishop icon"></i>
+        <i class="chess board icon"></i>
+        <i class="chess king icon"></i>
+        <i class="chess knight icon"></i>
+        <i class="chess pawn icon"></i>
+        <i class="chess queen icon"></i>
+        <i class="chess rook icon"></i>
+        <i class="square full icon"></i>`;
 
     texte += `<br> Ou bien en SVG. Attention à l'utilisation des repères de coordonnées !<br>`;
     texte += `<svg xmlns="http://www.w3.org/2000/svg">
       <!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) -->
       <defs>
-      <symbol id="plane" viewBox="0 0 576 512"><path d="M480 192H365.71L260.61 8.06A16.014 16.014 0 0 0 246.71 0h-65.5c-10.63 0-18.3 10.17-15.38 20.39L214.86 192H112l-43.2-57.6c-3.02-4.03-7.77-6.4-12.8-6.4H16.01C5.6 128-2.04 137.78.49 147.88L32 256 .49 364.12C-2.04 374.22 5.6 384 16.01 384H56c5.04 0 9.78-2.37 12.8-6.4L112 320h102.86l-49.03 171.6c-2.92 10.22 4.75 20.4 15.38 20.4h65.5c5.74 0 11.04-3.08 13.89-8.06L365.71 320H480c35.35 0 96-28.65 96-64s-60.65-64-96-64z"/>
-      </symbol>
+        <symbol id="plane" viewBox="0 0 576 512">
+         <path d="M480 192H365.71L260.61 8.06A16.014 16.014 0 0 0 246.71 0h-65.5c-10.63 0-18.3 10.17-15.38 20.39L214.86 192H112l-43.2-57.6c-3.02-4.03-7.77-6.4-12.8-6.4H16.01C5.6 128-2.04 137.78.49 147.88L32 256 .49 364.12C-2.04 374.22 5.6 384 16.01 384H56c5.04 0 9.78-2.37 12.8-6.4L112 320h102.86l-49.03 171.6c-2.92 10.22 4.75 20.4 15.38 20.4h65.5c5.74 0 11.04-3.08 13.89-8.06L365.71 320H480c35.35 0 96-28.65 96-64s-60.65-64-96-64z"/>
+        </symbol>
+      </defs>
+      <defs>
+        <g id="Port">
+          <circle style="fill: inherit;"/>
+        </g>
       </defs>
       </svg>`;
 
     texte += `
-    <svg width="300px" height="300px" viewBox="0 0 300 300" style="border: 1px solid #333333;">
-    <use width="35" x="70" y="0" transform="rotate(-15, 70, 70)" xlink:href="#plane"/>
-    <use width="35" x="70" y="0" transform="rotate(15, 70, 0)" xlink:href="#plane"/>
-    <use width="35" x="70" y="0" transform="rotate(-30, 70, 0)" xlink:href="#plane"/>
-    <use width="25" x="20" y="50" fill="red" xlink:href="#plane"/>
-    <use width="38" x="92" y="80" xlink:href="#plane"/>
-    <use width="23" x="50" y="30" xlink:href="#plane"/ fill-opacity="0%" stroke="green" stroke-width="8">   
-    <use width="50" x="0" y="0" fill="blue" xlink:href="#plane"/>
-    <text x="5" y="5">Bonjour tout le monde</text><i class="chess rook icon"></i>
+    <svg width="300" height="300" viewBox="0 0 300 300" style="border: 1px solid #333333;">
+      <use width="35" x="70" y="0" transform="rotate(-15, 70, 70)" xlink:href="#plane"/>
+      <use width="35" x="70" y="0" transform="rotate(15, 70, 70)" xlink:href="#plane"/>
+      <use xlink:href="#plane" transform="rotate(-30, 70, 70)" width="35" x="70" y="0" />
+      <use xlink:href="#plane" width="25" x="60" y="50" fill="red" />
+      <use width="38" x="92" y="80" xlink:href="#plane"/>
+      <use width="23" x="50" y="30" xlink:href="#plane"/ fill-opacity="0%" stroke="green" stroke-width="8">   
+      <use width="50" x="0" y="0" fill="blue" xlink:href="#plane"/>
+      <use width="50" x="0" y="0" fill="blue" xlink:href="#Port"/>
     </svg>`;
 
     texte_corr = ``;

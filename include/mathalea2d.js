@@ -3323,26 +3323,97 @@ function affiniteOrthoAnimee(...args) {
   return new AffiniteOrthoAnimee(...args);
 }
 
+// Ancienne version avecelement.Animate qui ne fonctionnait pas sous Firefox
+// function afficherTempo(objet,t0,t = 10,r = 'Infinity'){
+//   let checkExist = setInterval(function() {
+//     if ($(`#${objet.id}`).length) {
+//       document.getElementById(objet.id).animate([
+//         // keyframes
+//         { opacity: 0 }, 
+//         { opacity: 0, offset:t0/t }, 
+//         { opacity: 1, offset:t0/t+.01 }, 
+//         { opacity: 1 }
+//       ], { 
+//         // timing options
+//         duration: t*1000,
+//         iterations: r
+//       });
+//        clearInterval(checkExist);
+//     }
+//  }, 100); // check every 100ms 
+// }
 
-function afficherTempo(objet,t0,t = 10,r = 'Infinity'){
-  let checkExist = setInterval(function() {
-    if ($(`#${objet.id}`).length) {
-      document.getElementById(objet.id).animate([
-        // keyframes
-        { opacity: 0 }, 
-        { opacity: 0, offset:t0/t }, 
-        { opacity: 1, offset:t0/t+.01 }, 
-        { opacity: 1 }
-      ], { 
-        // timing options
-        duration: t*1000,
-        iterations: r
-      });
-       clearInterval(checkExist);
-    }
- }, 100); // check every 100ms 
+/**
+ * Rend visible un element d'après son id
+ * 
+ * @Auteur Rémi Angot
+ * @param {string} id 
+ * 
+ */
+function montrerParDiv(id) {
+  document.getElementById(id).style.visibility = "visible";
 }
 
+/**
+ * Rend invisible un element d'après son id
+ * 
+ * @Auteur Rémi Angot
+ * @param {string} id 
+ * 
+ */
+function cacherParDiv(id) {
+  document.getElementById(id).style.visibility = "hidden";
+}
+
+/**
+ * Masque un objet puis l'affiche au bout de t0 s avant de recommencer r fois toutes les t secondes
+ * 
+ * 
+ * @param {any} objet dont l'identifiant est accessible par objet.id
+ * @param {number} [t0=1] temps en secondes avant l'apparition
+ * @param {number} [t=5] temps à partir duquel l'animation recommence
+ * @param {string} [r='Infinity'] nombre de répétition (infini si ce n'est pas un nombre)
+
+ * 
+ * 
+ */
+function afficherTempo(objet, t0 = 1, t = 5, r = 'Infinity') {
+  let compteur = 1 // Nombre d'animations
+  let checkExist = setInterval(function () {
+    if (document.getElementById(objet.id)) {
+      clearInterval(checkExist);
+      cacherParDiv(objet.id)
+      if (r==1){ // On le montre au bout de t0 et on ne le cache plus
+        setTimeout(function(){montrerParDiv(objet.id)},t0*1000) 
+      } else {
+        let cacheRepete = setInterval(function(){cacherParDiv(objet.id)},t*1000) // On cache tous les t s
+        setTimeout(function(){
+          montrerParDiv(objet.id) // On attend t0 pour montrer
+          let montreRepete = setInterval(function(){
+            montrerParDiv(objet.id)
+            compteur++
+            if (typeof r === 'number'){
+              if (compteur >=r){
+                clearInterval(cacheRepete)
+                clearInterval(montreRepete)
+              }
+            }
+            },t*1000) // On montre tous les t s (vu qu'on a décalé de t0)
+          
+        },t0*1000) // Fin de l'animation en boucle
+      }
+    }
+  }, 100); // vérifie toutes les  100ms que le div existe
+}
+
+
+/**
+ * Rend visible un element d'après son id
+ * 
+ * @Auteur Rémi Angot
+ * @param {any} id 
+ * 
+ */
 function afficherUnParUn(objets, t = 1, r = 'Infinity', tApresDernier = 5){
   let t0 = t
   let tf = objets.length*t+tApresDernier
@@ -6422,6 +6493,87 @@ function ajouterAy(y,lutin=monLutin){
     lutin.listeTraces.push([lutin.x, ydepart, lutin.x, lutin.y,lutin.color,lutin.epaisseur,lutin.pointilles]);
   } 
 }
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% LES INSTRUMENTS %%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+*/
+
+
+/**
+ * Afficher le SVG d'un crayon avec la mine sur le point A
+ * 
+ * @param {point} A 
+ *
+ * 
+ * 
+ */
+function AfficherCrayon(A){
+  ObjetMathalea2D.call(this);
+  this.x = A.x;
+  this.y = A.y;
+  this.svg=function(coeff){
+    let code = `<g id="${this.id}" stroke="#000000" fill="none" transform="translate(${(this.x-.2)*pixelsParCm},${-60-(this.y-.2)*pixelsParCm}) scale(.1) ">
+   <path id="rect2990" d="m70.064 422.35 374.27-374.26 107.58 107.58-374.26 374.27-129.56 21.97z" stroke-width="30"/>
+   <path id="path3771" d="m70.569 417.81 110.61 110.61" stroke-width="25"/>
+   <path id="path3777" d="m491.47 108.37-366.69 366.68" stroke-width="25"/>
+   <path id="path3763" d="m54.222 507.26 40.975 39.546" stroke-width="25"/>
+  </g>`
+  return code
+  }
+}
+
+function afficherCrayon(...args){
+  return new AfficherCrayon(...args)
+}
+
+/**
+ * Déplace un instrument suivant le vecteur AB
+ * 
+ * @param {any} instrument 
+ * @param {any} A point de départ
+ * @param {any} B point d'arrivée
+ * @param {number} [begin=0] peut être un nombre de seconde ou la fin d'un évènement précédent avec id.end
+ * @param {any} id pour lier les animations
+
+ * 
+ */
+function TranslationInstrument(instrument,A,B,begin=0,id){
+  ObjetMathalea2D.call(this)
+  let v = vecteur(A,B) // vecteur du départ à la cible
+  let texteId = '' // Ajout d'un id facultatif à l'animation
+  if (id === undefined){
+    texteId = ''
+  } else {
+    texteId = `id="${id}"`
+  }
+  this.svg=function(coeff){
+    let code = `
+    <animateMotion
+    xlink:href="#${instrument.id}"
+    ${texteId}
+    path="M 0 0 l ${v.xSVG(coeff)} ${v.ySVG(coeff)}"
+    dur="1s"
+    additive="sum"
+    begin="${begin}"
+    fill="freeze" 
+    id="${this.id}"/>`
+    return code
+  }
+}
+
+function translationInstrument(...args){
+  return new TranslationInstrument(...args)
+}
+
+// function deplaceInstrument(instrument, B, begin=0, id){
+//   let A = point(instrument.x,instrument.y);
+//   translationInstrument(instrument, A, B, begin=0, id);
+//   instrument.x = B.x;
+//   instrument.y = B.y;
+// }
+
 
 
 
