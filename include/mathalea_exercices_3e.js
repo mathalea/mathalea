@@ -4534,7 +4534,9 @@ function Antecedent_et_image_graphique() {
 	};
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
   }
-
+/**
+ * ref beta3F13-2
+ */
 function Premier_escape_game_mathalea() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Spécial escape game";
@@ -4572,6 +4574,8 @@ function Premier_escape_game_mathalea() {
 		let absc=[],ord=[],car
 		if (this.sup2==mdp) texte+=`${texte_en_couleur_et_gras('Bravo ! Vous avez trouvé le mot de passe !','blue')}<br>`
 		else texte+="Taper le mot de passe dans la boite de dialogue correspondante des paramètres de l'exercice.<br>"
+		texte_corr+=`Min et Max sont dans un bateau. La tempête fait rage et les vagues et les creux sont immenses. SOudain, Min tombe à l'eau... à moins que ce ne soit Max ?<br>`
+		texte_corr+=`Le mot de passe comporte ${2+2*type} lettres.`
 		for(let x=0;x<type*2+2;x++){
 			car=mdp[x]
 			alphabet=alphabet.filter(item => item !== car)
@@ -4579,7 +4583,6 @@ function Premier_escape_game_mathalea() {
 			else absc.push(randint(3,5))
 			if (x%2==0) ord.push(randint(0,4))
 			else ord.push(randint(0,4,ord[x-1]))
-			console.log(x,absc[x],ord[x])
 			if (lettres[ord[x]][absc[x]]=='*') lettres[ord[x]][absc[x]]=car
 			else if (lettres[absc[x]][ord[x]]!=car) {
 					for (let i=0;i<x;i++) {
