@@ -684,7 +684,6 @@ function Droite(arg1, arg2, arg3, arg4, color) {
   );
   let absNom,ordNom,leNom
   let pointXmin=pointSurDroite(this,fenetreMathalea2d[0])
-console.log(fenetreMathalea2d[0],fenetreMathalea2d[1],fenetreMathalea2d[2],fenetreMathalea2d[3])
   if (this.nom!='') {
     pointXmin=pointSurDroite(this,fenetreMathalea2d[0])
     if (pointXmin.y>fenetreMathalea2d[1]&&pointXmin.y<fenetreMathalea2d[3]) {
@@ -717,7 +716,7 @@ console.log(fenetreMathalea2d[0],fenetreMathalea2d[1],fenetreMathalea2d[2],fenet
       }
     }
     leNom=texteParPosition(this.nom,absNom,ordNom,"milieu",this.color)
-    console.log(leNom)
+
   }
   this.svg = function (coeff) {
    

@@ -14115,8 +14115,8 @@ function Proprietes_paralleles_perpendiculaires() {
   this.nouvelle_version = function (numero_de_l_exercice) {
     let type_de_questions_disponibles,questions_par_niveau=[];
     questions_par_niveau.push(range(3))
-    questions_par_niveau.push(rangeMinMax(8,15))
-    questions_par_niveau.push(rangeMinMax(16,31))
+    questions_par_niveau.push(rangeMinMax(9,15))
+    questions_par_niveau.push(rangeMinMax(19,31,20))
 
     if (this.sup<4) type_de_questions_disponibles = questions_par_niveau[parseInt(this.sup)-1]
     else  type_de_questions_disponibles=questions_par_niveau[0].concat(questions_par_niveau[1].concat(questions_par_niveau[2]))
