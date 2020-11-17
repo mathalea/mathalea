@@ -14306,7 +14306,7 @@ function Proprietes_paralleles_perpendiculaires() {
     // correction raisonnement ordonné
     fenetreMathalea2d=[-2,-2,15,10]
     texte_corr=`Le shémas suivant est donné à titre indicatif car il y a une infinité de possibilités.<br> Les droites de même couleur/style sont parallèles.<br>`
-    texte_corr+=mathalea2d({xmin:-2,xmax:15,ymin:-2,ymax:10,pixelsParCm:20,mainlevee:true,amplitude:0.3},objets)+`<br>`
+    texte_corr+=mathalea2d({xmin:-2,xmax:15,ymin:-2,ymax:10,pixelsParCm:20,mainlevee:false,amplitude:0.3},objets)+`<br>`
     for (let j=0;j<code.length-1;j++) {
       if (this.correction_detaillee) texte_corr+=`On sait que : `
       else texte_corr+=`Comme `
