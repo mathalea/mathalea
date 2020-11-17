@@ -12400,6 +12400,7 @@ function Symetrie_axiale_conservation1() {
     // On prépare la figure...
     let axe=parseInt(this.sup)
     let d,nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
+
     if (axe==5) axe=randint(1,4) //choix de l'axe et des coordonnées
     switch (axe) {
       case 1 : d=droite(1,0,0,'(d)');
@@ -14128,8 +14129,12 @@ function Proprietes_paralleles_perpendiculaires() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let droites=[],code,raisonnement,numDroites=[],phrases=[],textetemp
-    let d=[],P=[],objets=[],num1,num2
-		if (sortie_html) {
+    let d=[],P=[],objets=[],num1,num2,couleurd=[],couleurinitiale=7
+    let droitecolor=function(num) {
+      let couleurs=['red','blue','green','black','magenta','orange']
+      return couleurs[num]
+    }
+    if (sortie_html) {
       num1=`<tspan dy="5" style="font-size:70%">`
       num2=`</tspan><tspan dy="-5">)</tspan>`
      }
@@ -14149,6 +14154,7 @@ function Proprietes_paralleles_perpendiculaires() {
       objets.length=0;
       d.length=0;
       P.length=0;
+      couleurd.length=0
       numDroites=shuffle([1,2,3,4,5]);
       raisonnement=liste_type_de_questions[i]
 
@@ -14242,10 +14248,17 @@ function Proprietes_paralleles_perpendiculaires() {
 
     // enoncé mélangé
     texte +=`On sait que `
+    couleurd.push(randint(0,5))
     for (let j=0;j<code.length;j++) {
       textetemp =`$(d_${numDroites[code[j][0]-1]})`;
-      if (code[j][2]==1) textetemp+= `//`
-      else textetemp+=`\\perp`
+      if (code[j][2]==1) {
+        textetemp+= `//`
+        couleurd.push(couleurd[j])
+      }
+      else {
+        textetemp+=`\\perp`
+        couleurd.push((couleurd[j]+1)%6)
+      }
       textetemp +=`(d_${numDroites[code[j][1]-1]})$`
       phrases.push(textetemp)
     }
@@ -14259,24 +14272,28 @@ function Proprietes_paralleles_perpendiculaires() {
     texte +=`.<br>Que peut-on dire de $(d_${numDroites[code[0][0]-1]})$ et $(d_${numDroites[code[code.length-1][1]-1]})$ ?`
 
     //construction de la figure
+    
     P.push(point(0,0))
-    d.push(droiteParPointEtPente(P[0],randint(-1,1,0)/10,`(d${num1}${numDroites[code[0][0]-1]}${num2}`))
+    d.push(droiteParPointEtPente(P[0],randint(-1,1,0)/10,`(d${num1}${numDroites[code[0][0]-1]}${num2}`,droitecolor(couleurd[0])))
     objets.push(d[0])
     for (let x=0;x<code.length;x++) {
       if (code[x][2]==1) {
         P.push(point((x+1)*2,(x+1)*2))
-        d.push(droiteParPointEtParallele(P[x+1],d[x],`(d${num1}${numDroites[code[x][1]-1]}${num2}`))
+        d.push(droiteParPointEtParallele(P[x+1],d[x],`(d${num1}${numDroites[code[x][1]-1]}${num2}`,droitecolor(couleurd[x+1])))
       }
       else {
         P.push(point((x+1)*2,(x+1)*2))
-        d.push(droiteParPointEtPerpendiculaire(P[x+1],d[x],`(d${num1}${numDroites[code[x][1]-1]}${num2}`))
+        d.push(droiteParPointEtPerpendiculaire(P[x+1],d[x],`(d${num1}${numDroites[code[x][1]-1]}${num2}`,droitecolor(couleurd[x+1])))
       }
       objets.push(d[x+1])
     }
+    for (let i=0;i<code.length;i++){ // on ajoute les angles droits
+
+    }
     // correction raisonnement ordonné
-console.log(objets)
     fenetreMathalea2d=[-2,-2,15,10]
-    texte_corr=mathalea2d({xmin:-2,xmax:15,ymin:-2,ymax:10,pixelsParCm:20,mainlevee:true,amplitude:0.3},objets)+`<br>`
+    texte_corr=`Sur le shémas suivant les droites dont on sait qu'elles sont parallèles sont de même couleur.<br>`
+    texte_corr+=mathalea2d({xmin:-2,xmax:15,ymin:-2,ymax:10,pixelsParCm:20,mainlevee:true,amplitude:0.3},objets)+`<br>`
     for (let j=0;j<code.length-1;j++) {
       if (this.correction_detaillee) texte_corr+=`On sait que : `
       else texte_corr+=`Comme `
