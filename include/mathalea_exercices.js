@@ -14128,7 +14128,15 @@ function Proprietes_paralleles_perpendiculaires() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let droites=[],code,raisonnement,numDroites=[],phrases=[],textetemp
-    let d=[],P=[],objets=[]
+    let d=[],P=[],objets=[],num1,num2
+		if (sortie_html) {
+      num1=`<tspan dy="5" style="font-size:70%">`
+      num2=`</tspan><tspan dy="-5">)</tspan>`
+     }
+     else {
+       num1=`_`
+       num2=`)`
+     }
     for (
       let i = 0, texte, texte_corr, cpt = 0;
       i < this.nb_questions && cpt < 50;
@@ -14252,23 +14260,23 @@ function Proprietes_paralleles_perpendiculaires() {
 
     //construction de la figure
     P.push(point(0,0))
-    d.push(droiteParPointEtPente(P[0],randint(-1,1,0)/10,`(d${numDroites[code[0][0]-1]})`))
+    d.push(droiteParPointEtPente(P[0],randint(-1,1,0)/10,`(d${num1}${numDroites[code[0][0]-1]}${num2}`))
     objets.push(d[0])
     for (let x=0;x<code.length;x++) {
       if (code[x][2]==1) {
         P.push(point((x+1)*2,(x+1)*2))
-        d.push(droiteParPointEtParallele(P[x+1],d[x],`(d${numDroites[code[x][1]-1]})`))
+        d.push(droiteParPointEtParallele(P[x+1],d[x],`(d${num1}${numDroites[code[x][1]-1]}${num2}`))
       }
       else {
         P.push(point((x+1)*2,(x+1)*2))
-        d.push(droiteParPointEtPerpendiculaire(P[x+1],d[x],`(d${numDroites[code[x][1]-1]})`))
+        d.push(droiteParPointEtPerpendiculaire(P[x+1],d[x],`(d${num1}${numDroites[code[x][1]-1]}${num2}`))
       }
       objets.push(d[x+1])
     }
     // correction raisonnement ordonné
 console.log(objets)
     fenetreMathalea2d=[-2,-2,15,10]
-    texte_corr=mathalea2d({xmin:-2,xmax:15,ymin:-2,ymax:10,pixelsParCm:20},objets)+`<br>`
+    texte_corr=mathalea2d({xmin:-2,xmax:15,ymin:-2,ymax:10,pixelsParCm:20,mainlevee:true,amplitude:0.3},objets)+`<br>`
     for (let j=0;j<code.length-1;j++) {
       if (this.correction_detaillee) texte_corr+=`On sait que : `
       else texte_corr+=`Comme `
@@ -14283,12 +14291,14 @@ console.log(objets)
       // quelle propriété ?
       if (code[j][2]*code[j+1][2]==-1) { // Une parallèle et une perpendiculaire
         if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont parallèles, toute droite perpendiculaire à l'une est aussi perpendiculaire à l'autre».<br>Donc`
+        else texte_corr+=`, on en déduit que `
         texte_corr+=` $(d_${numDroites[code[0][0]-1]})\\perp(d_${numDroites[code[j+1][1]-1]})$.<br>`
         code[j+1][0]=code[j][0]
         code[j+1][2]=-1
       }
       else if (code[j][2]>0) { // deux parallèles
         if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont parallèles à une même droite alors elles sont parallèles entre elles».<br>Donc`
+        else texte_corr+=`, on en déduit que `
         texte_corr+=` $(d_${numDroites[code[0][0]-1]})//(d_${numDroites[code[j+1][1]-1]})$.<br>`
         code[j+1][0]=code[j][0]
         code[j+1][2]=1
@@ -14296,6 +14306,7 @@ console.log(objets)
       }
       else { //deux perpendiculaires
         if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont perpendiculaires à une même droite, alors elles sont parallèles entre elles».<br>Donc`
+        else texte_corr+=`, on en déduit que `
         texte_corr+=` $(d_${numDroites[code[0][0]-1]})//(d_${numDroites[code[j+1][1]-1]})$.<br>`
         code[j+1][0]=code[j][0]
         code[j+1][2]=1
