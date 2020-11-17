@@ -14129,9 +14129,10 @@ function Proprietes_paralleles_perpendiculaires() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let droites=[],code,raisonnement,numDroites=[],phrases=[],textetemp
-    let d=[],P=[],objets=[],num1,num2,couleurd=[],couleurinitiale=7
+    let d=[],P=[],objets=[],num1,num2,couleurd=[],droiteP,PP,Inter
     let droitecolor=function(num) {
-      let couleurs=['red','blue','green','black','magenta','orange']
+      let couleurs
+      sortie_html ? couleurs=['red','blue','green','black','magenta','orange'] : couleurs=['black','black','black','black','black','black'];
       return couleurs[num]
     }
     if (sortie_html) {
@@ -14274,16 +14275,28 @@ function Proprietes_paralleles_perpendiculaires() {
     //construction de la figure
     
     P.push(point(0,0))
-    d.push(droiteParPointEtPente(P[0],randint(-1,1,0)/10,`(d${num1}${numDroites[code[0][0]-1]}${num2}`,droitecolor(couleurd[0])))
+    droiteP=droiteParPointEtPente(P[0],randint(-1,1,0)/10,`(d${num1}${numDroites[code[0][0]-1]}${num2}`,droitecolor(couleurd[0]))
+    droiteP.epaisseur=2
+    droite.pointilles=false
+    d.push(droiteP)
     objets.push(d[0])
     for (let x=0;x<code.length;x++) {
       if (code[x][2]==1) {
         P.push(point((x+1)*2,(x+1)*2))
-        d.push(droiteParPointEtParallele(P[x+1],d[x],`(d${num1}${numDroites[code[x][1]-1]}${num2}`,droitecolor(couleurd[x+1])))
+        droiteP=droiteParPointEtParallele(P[x+1],d[x],`(d${num1}${numDroites[code[x][1]-1]}${num2}`,droitecolor(couleurd[x+1]))
+        droiteP.epaisseur=2
+        droiteP.pointilles=d[x].pointilles
+        d.push(droiteP)
       }
       else {
         P.push(point((x+1)*2,(x+1)*2))
-        d.push(droiteParPointEtPerpendiculaire(P[x+1],d[x],`(d${num1}${numDroites[code[x][1]-1]}${num2}`,droitecolor(couleurd[x+1])))
+        droiteP=droiteParPointEtPerpendiculaire(P[x+1],d[x],`(d${num1}${numDroites[code[x][1]-1]}${num2}`,droitecolor(couleurd[x+1]))
+        droiteP.epaisseur=2
+        droiteP.pointilles=x%3+1
+        Inter=pointIntersectionDD(d[x],droiteP)
+        PP=rotation(P[x+1],Inter,90)
+        d.push(droiteP)
+        objets.push(codageAngleDroit(PP,Inter,P[x+1],'black',0.6))
       }
       objets.push(d[x+1])
     }
@@ -14292,7 +14305,7 @@ function Proprietes_paralleles_perpendiculaires() {
     }
     // correction raisonnement ordonné
     fenetreMathalea2d=[-2,-2,15,10]
-    texte_corr=`Sur le shémas suivant les droites dont on sait qu'elles sont parallèles sont de même couleur.<br>`
+    texte_corr=`Le shémas suivant est donné à titre indicatif car il y a une infinité de possibilités.<br> Les droites de même couleur/style sont parallèles.<br>`
     texte_corr+=mathalea2d({xmin:-2,xmax:15,ymin:-2,ymax:10,pixelsParCm:20,mainlevee:true,amplitude:0.3},objets)+`<br>`
     for (let j=0;j<code.length-1;j++) {
       if (this.correction_detaillee) texte_corr+=`On sait que : `
