@@ -9432,7 +9432,7 @@ function Exercice_differentes_ecritures_nombres_decimaux() {
           break;
         case 5: // u = .../100
           texte = `$${u}=${tex_fraction("", "100")}$`;
-          texte_corr = `$${u}=${tex_fraction(100 * u, "10")}$`;
+          texte_corr = `$${u}=${tex_fraction(100 * u, "100")}$`;
           break;
         case 6: // n/10 = ... + .../10 + .../100
           ecriture_decimale = tex_nombre(calcul(n / 10));
