@@ -4524,7 +4524,7 @@ function Reduire_dinstinction_somme_produit() {
 
 
 /**
- * Référence 5L13-4
+ * Référence 5L14-4
  * Déterminer la dernière opération à effectuer dans une expression littérale
  * @author Sébastien Lozano fork Jean-Claude Lhote
  */
