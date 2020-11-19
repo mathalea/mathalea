@@ -10364,7 +10364,7 @@ function Additionner_soustraires_decimaux() {
           b = calcul(randint(5, 9) * 10 + randint(6, 9) + randint(1, 9) / 10);
           texte = `$${tex_nombre(a)}-${tex_nombre(b)}$`;
           sortie_html
-            ? (texte_corr = `$${tex_nombre(a)}-${tex_nomb6C20re(b)}=${tex_nombrec(
+            ? (texte_corr = `$${tex_nombre(a)}-${tex_nombre(b)}=${tex_nombrec(
                 a - b
               )}$`)
             : (texte_corr = `$\\opsub[decimalsepsymbol={,}]{${a}}{${b}}$`);
