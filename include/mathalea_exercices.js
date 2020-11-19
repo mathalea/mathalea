@@ -16184,9 +16184,9 @@ function Produit_de_decimaux_a_partir_d_un_produit_connu(){
 function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+	this.debug = false;	
 	this.sup=1;
-	if (this.beta) {
+	if (this.debug) {
 		this.nb_questions = 3;
 	} else {
 		this.nb_questions = 3;
@@ -16204,7 +16204,7 @@ function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
+		if (this.debug) {
 			type_de_questions_disponibles = [0,1,2];			
 		} else {
       //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
@@ -16266,7 +16266,7 @@ function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
 			switch (liste_type_de_questions[i]){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
@@ -16277,7 +16277,7 @@ function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
           break;	
         case 1 : 
 					texte = `${enonces[1].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
 						texte_corr = ``;	
@@ -16287,7 +16287,7 @@ function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
           break;
         case 2 : 
 					texte = `${enonces[2].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
 						texte_corr = ``;	

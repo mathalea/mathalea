@@ -7299,7 +7299,7 @@ function Tableaux_et_proportionnalite(){
 function Tableaux_et_pourcentages(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.debug = false;	
+	this.debug = true;	
 	this.sup=1;
 	if (this.debug) {
 		this.nb_questions = 1;
