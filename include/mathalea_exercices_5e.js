@@ -5410,8 +5410,7 @@ function Choisir_expression_numerique(nb_operations,decimal,times_on=true) {
  * Préciser ici les numéros des exos 
  * 5G2 exercice parent il faudra supprimmer la version beta5G2 de la liste des choix du fichier mathalea_exercices.js
  * 5G21-1
- * 5G31-1
- * beta5G2,beta5G21-1,beta5G31-1
+ * 5G31-1 
  * Dans ces exercices je me servais de this.beta pour faire passer l'exo de beta.html à mathalea.html
  * this.beta pouvait prendre la valeur 'beta' ou '', tous les autres this.beta sont devenus des this.debug
  * @author Sébastien Lozano
@@ -5797,7 +5796,7 @@ function Constructibilite_des_triangles(){
 
 /**
  * Vocabulaire des triangles 
- * beta5G21-1
+ * G21-1
  * @author Sébastien Lozano
  */
 function Constructibilite_des_triangles_longueurs(){
@@ -5809,7 +5808,7 @@ function Constructibilite_des_triangles_longueurs(){
 
 /**
  * Vocabulaire des triangles 
- * beta5G31-1
+ * 5G31-1
  * @author Sébastien Lozano
  */
 function Constructibilite_des_triangles_angles(){
