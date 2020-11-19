@@ -4319,8 +4319,8 @@ function Calculer_une_expression_litterale() {
 function Reduire_dinstinction_somme_produit() {
 	'use strict'
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;
-	if (this.beta) {
+	this.debug = false;
+	if (this.debug) {
 		this.nb_questions = 4;
 	} else {
 		this.nb_questions = 2;
@@ -4336,7 +4336,7 @@ function Reduire_dinstinction_somme_produit() {
 		//let type_de_questions_disponibles
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		if (this.beta) {
+		if (this.debug) {
 			type_de_questions_disponibles = [0,1,2,3]; 
 		} else {
 			type_de_questions_disponibles = [choice([0,2]),choice([1,3])];
@@ -4452,7 +4452,7 @@ function Reduire_dinstinction_somme_produit() {
 			switch (liste_type_de_questions[i]) {
 				case 0:	// produit puis somme 				
 					texte =`${enonces[0].enonce}.`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br><br>=====CORRECTION======<br>`;
 						texte += enonces[0].correction_produit;
 						texte += `<br>`;
@@ -4466,7 +4466,7 @@ function Reduire_dinstinction_somme_produit() {
 					break;
 				case 1:	// x puis +				
 					texte =`${enonces[1].enonce}.`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br><br>=====CORRECTION======<br>`;
 						texte += enonces[1].correction_produit;
 						texte += `<br>`;
@@ -4480,7 +4480,7 @@ function Reduire_dinstinction_somme_produit() {
 					break;
 				case 2:	// somme puis produit				
 					texte =`${enonces[2].enonce}.`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br><br>=====CORRECTION======<br>`;
 						texte += enonces[2].correction_somme;
 						texte += `<br>`;
@@ -4494,7 +4494,7 @@ function Reduire_dinstinction_somme_produit() {
 					break;
 				case 3:	// + puis x				
 					texte =`${enonces[3].enonce}.`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br><br>=====CORRECTION======<br>`;
 						texte += enonces[3].correction_somme;
 						texte += `<br>`;
@@ -4531,7 +4531,7 @@ function Reduire_dinstinction_somme_produit() {
 function Calculer_une_expression_litteraleBis() {
 	'use strict'
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+	this.debug = false;	
 	this.consigne = "";
 	this.nb_questions = 4;
 	this.nb_cols = 1;
@@ -4564,7 +4564,7 @@ function Calculer_une_expression_litteraleBis() {
 					if (expn.indexOf('ou')>0) expn=expn.substring(0,expn.indexOf('ou')) // on supprime la deuxième expression fractionnaire
 					this.consigne=`Déterminer la dernière opération à effectuer s'il fallait faire le calcul pour des valeurs données de $x$ et de $y$.`
 					texte =`${expn}.`
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br><br>=====CORRECTION======<br>`;
 						texte += `Pour fixer les idées, choissions des valeurs pour $x$ et $y$, par exemple $x=${val1}$ et $y=${val2}$.`
 						texte += `<br>Le calcul serait le suivant :<br> ${expc}.`;
@@ -4603,7 +4603,7 @@ function Calculer_une_expression_litteraleBis() {
 function Determiner_derniere_operation_exp_num() {
 	'use strict'
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+	this.debug = false;	
 	this.consigne = "";
 	this.nb_questions = 4;
 	this.nb_cols = 1;
@@ -4639,7 +4639,7 @@ function Determiner_derniere_operation_exp_num() {
 					this.consigne=`Déterminer la dernière opération à effectuer .`
 					texte =`$${str[1]}$`
 					//texte=`${expn}`
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br><br>=====CORRECTION======<br>`;
 						texte+=`$`
 						for (l=1;l<str.length-1;l++) {
@@ -5412,6 +5412,8 @@ function Choisir_expression_numerique(nb_operations,decimal,times_on=true) {
  * 5G21-1
  * 5G31-1
  * beta5G2,beta5G21-1,beta5G31-1
+ * Dans ces exercices je me servais de this.beta pour faire passer l'exo de beta.html à mathalea.html
+ * this.beta pouvait prendre la valeur 'beta' ou '', tous les autres this.beta sont devenus des this.debug
  * @author Sébastien Lozano
  */
 
@@ -5799,7 +5801,7 @@ function Constructibilite_des_triangles(){
  * @author Sébastien Lozano
  */
 function Constructibilite_des_triangles_longueurs(){
-	this.beta = ``;
+	this.beta = ``;// ici this.beta peut prendre la valeur 'beta' ou '', tous les autres this.beta sont devenus des this.debug
 	this.exo = this.beta+`5G21-1`;
 	//this.titre = `Constructibilité des triangles via les longueurs`;
 	Constructibilite_des_triangles.call(this);
@@ -5811,7 +5813,7 @@ function Constructibilite_des_triangles_longueurs(){
  * @author Sébastien Lozano
  */
 function Constructibilite_des_triangles_angles(){
-	this.beta = ``;
+	this.beta = ``;// ici this.beta peut prendre la valeur 'beta' ou '', tous les autres this.beta sont devenus des this.debug
 	this.exo = this.beta+`5G31-1`;
 	//this.titre = `Constructibilité des triangles via les angles`;
 	Constructibilite_des_triangles.call(this);
@@ -6340,9 +6342,9 @@ function Construire_par_Symetrie() {
 function Trouver_oppose(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+	this.debug = false;	
 	this.sup=1;
-	if (this.beta) {
+	if (this.debug) {
 		this.nb_questions = 1;
 	} else {
 		this.nb_questions = 1;
@@ -6360,7 +6362,7 @@ function Trouver_oppose(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
+		if (this.debug) {
 			type_de_questions_disponibles = [1];			
 		} else {
 			type_de_questions_disponibles = [1];			
@@ -6423,7 +6425,7 @@ function Trouver_oppose(){
 			switch (liste_type_de_questions[i]){
 				case 1 : 
           texte = `${enonces[0].enonce}`;
-          if (this.beta) {
+          if (this.debug) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
             texte_corr = ``;	
@@ -6433,7 +6435,7 @@ function Trouver_oppose(){
           break;	
         case 2 : 
 					texte = `${enonces[1].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
 						texte_corr = ``;	
@@ -6466,9 +6468,9 @@ function Trouver_oppose(){
 function Problemes_additifs_fractions_5e(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+	this.debug = false;	
 	this.sup=1;
-	if (this.beta) {
+	if (this.debug) {
 		this.nb_questions = 1;
 	} else {
 		this.nb_questions = 1;
@@ -6486,7 +6488,7 @@ function Problemes_additifs_fractions_5e(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
+		if (this.debug) {
 			type_de_questions_disponibles = [0];			
 		} else {
 			  // type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
@@ -6760,7 +6762,7 @@ function Problemes_additifs_fractions_5e(){
 			switch (liste_type_de_questions[i]){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
@@ -6796,9 +6798,9 @@ function Problemes_additifs_fractions_5e(){
 function Problemes_additifs_relatifs_5e(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+	this.debug = false;	
 	this.sup=1;
-	if (this.beta) {
+	if (this.debug) {
 		this.nb_questions = 1;
 	} else {
 		this.nb_questions = 1;
@@ -6816,7 +6818,7 @@ function Problemes_additifs_relatifs_5e(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
+		if (this.debug) {
 			type_de_questions_disponibles = [0];			
 		} else {
 			//   type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
@@ -6967,7 +6969,7 @@ function Problemes_additifs_relatifs_5e(){
 			switch (liste_type_de_questions[i]){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
@@ -7016,9 +7018,9 @@ function Calculer_la_valeur_d_une_expression_litterale_deg1_inc1() {
 function Tableaux_et_proportionnalite(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+	this.debug = false;	
 	this.sup=1;
-	if (this.beta) {
+	if (this.debug) {
 		this.nb_questions = 6;
 	} else {
 		this.nb_questions = 4;
@@ -7036,7 +7038,7 @@ function Tableaux_et_proportionnalite(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
+		if (this.debug) {
 			type_de_questions_disponibles = [0,1,2,3,4,5];			
 		} else {
 			  //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
@@ -7215,7 +7217,7 @@ function Tableaux_et_proportionnalite(){
 			switch (liste_type_de_questions[i]){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
@@ -7226,7 +7228,7 @@ function Tableaux_et_proportionnalite(){
           			break;	
         		case 1 : 
 					texte = `${enonces[1].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
 						texte_corr = ``;	
@@ -7236,7 +7238,7 @@ function Tableaux_et_proportionnalite(){
           			break;
         		case 2 : 
 					texte = `${enonces[2].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
 						texte_corr = ``;	
@@ -7246,7 +7248,7 @@ function Tableaux_et_proportionnalite(){
           			break;				
         		case 3 : 
 					texte = `${enonces[3].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
 						texte_corr = ``;	
@@ -7256,7 +7258,7 @@ function Tableaux_et_proportionnalite(){
 					break;	
 				case 4 : 
 					texte = `${enonces[4].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
 						texte_corr = ``;	
@@ -7266,7 +7268,7 @@ function Tableaux_et_proportionnalite(){
 					break;
 				case 5 : 
 					texte = `${enonces[5].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[5].correction}`;
 						texte_corr = ``;	
@@ -7435,9 +7437,9 @@ function Tableaux_et_pourcentages(){
 function Tableaux_et_fonction(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+	this.debug = false;	
 	this.sup=1;
-	if (this.beta) {
+	if (this.debug) {
 		this.nb_questions = 1;
 	} else {
 		this.nb_questions = 1;
@@ -7455,7 +7457,7 @@ function Tableaux_et_fonction(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
+		if (this.debug) {
 			type_de_questions_disponibles = [0];			
 		} else {
 			  //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
@@ -7638,7 +7640,7 @@ function Tableaux_et_fonction(){
 			switch (liste_type_de_questions[i]){
 				case 0 : 					
 					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
