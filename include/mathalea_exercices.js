@@ -6137,7 +6137,7 @@ function Encadrer_fraction_entre_2_entiers() {
       a = randint(0, 9) * 10 + randint(1, 9);
       texte = `$\\ldots < \\dfrac{${n}}{${d}} < \\ldots$`;
       texte_corr = `$${k} < \\dfrac{${n}}{${d}} < ${k+1}$`;
-      if (correction_detaillee){
+      if (this.correction_detaillee){
         texte_corr += ` $\\qquad$ car $\\quad ${k}=\\dfrac{${k*d}}{${d}}\\quad$ et $\\quad${k+1}=\\dfrac{${(k+1)*d}}{${d}}$ `;
         texte_corr += `<br><br>`
         texte_corr += mathalea2d({xmin:-.5, xmax:24,ymax:1.5,scale:.6},fraction(n,d).representation(0,0,3,0,'barre','blue')
