@@ -116,6 +116,7 @@ var liste_des_exercices_disponibles = {
   "6N31": Comparer_decimaux,
   "6N31-1": Encadrer_un_decimal_par_deux_entiers_consecutifs,
   "6N31-2":Ordre_de_grandeur_operations_decimaux,
+  "6N31-3": Arrondir_un_decimal,
   "6N32" :Fractions_d_unite,
   "6N33": Fraction_d_un_nombre,
   "6N33-0" : Fraction_d_une_quantite,
@@ -10363,7 +10364,7 @@ function Additionner_soustraires_decimaux() {
           b = calcul(randint(5, 9) * 10 + randint(6, 9) + randint(1, 9) / 10);
           texte = `$${tex_nombre(a)}-${tex_nombre(b)}$`;
           sortie_html
-            ? (texte_corr = `$${tex_nombre(a)}-${tex_nombre(b)}=${tex_nombrec(
+            ? (texte_corr = `$${tex_nombre(a)}-${tex_nomb6C20re(b)}=${tex_nombrec(
                 a - b
               )}$`)
             : (texte_corr = `$\\opsub[decimalsepsymbol={,}]{${a}}{${b}}$`);
@@ -16547,6 +16548,57 @@ function Ordre_de_grandeur_operations_decimaux(){
 };
 
 /** 
+ * * Encadrer_puis_arrondir_un_decimal
+ * * 6N31-3
+ * @author Mireille Gain, s'inspirant de 6N31-1 de Sébastien Lozano
+ */
+
+function Arrondir_un_decimal(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.sup=1;
+	this.titre = "Arrondir un nombre décimal";	
+	this.consigne = `Encadrer chaque nombre à l'unité, puis au dixième, puis au centième; dans chaque cas, mettre ensuite en évidence son arrondi.`;	
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	//this.nb_questions_modifiable = false;
+	sortie_html? this.spacing = 2.5 : this.spacing = 1.5; 
+	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+	let type_de_questions_disponibles;	
+	this.nouvelle_version = function(numero_de_l_exercice){
+	this.liste_questions = []; // Liste de questions
+  this.liste_corrections = []; // Liste de questions corrigées
+  this.enonce = "";
+  this.correction = "";
+		
+	//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+	let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+		
+	for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+      let m=randint(1,9),
+          c=randint(1,9),
+          d=randint(1,9),
+          u=randint(1,9),
+          di=randint(1,9),
+          ci=randint(1,9),
+          mi=randint(1,9);
+
+			enonce=`${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1 + ci*0.01 + mi*0.001))}`
+      correction=`$${mise_en_evidence(tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1)))} < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1 + ci*0.01 + mi*0.001))} < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul((di+1)*0.1))}$					`
+        	break;				
+			};						
+			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en crée une autre
+				this.liste_questions.push(enonce + "<br>");
+				this.liste_corrections.push(correction + "<br>");
+				i++;
+			}
+			cpt++;	
+		}
+		liste_de_question_to_contenu(this);
+	}
+
+
+/** 
  * * Donner le chiffre des ... le nombre de ...
  * * 6N10-3
  * @author Sébastien Lozano
@@ -16811,7 +16863,7 @@ function chiffre_nombre_de(){
 };
 
 /** 
-* * Encadrer un nombre entier par deux entier consécutifs
+* * Encadrer un nombre entier par deux entiers consécutifs
 * * 6N11-3
 * @author Sébastien Lozano
 */
@@ -17046,7 +17098,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 };
 
 /** 
-* * Ranger une liste de nombres dans l'odre croissant ou décroissant
+* * Ranger une liste de nombres dans l'ordre croissant ou décroissant
 * * 6N11-4
 * @author Sébastien Lozano
 */
