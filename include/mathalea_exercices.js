@@ -55,7 +55,8 @@ var liste_des_exercices_disponibles = {
   "6G11": Tracer_des_perpendiculaires,
   "6G12": Tracer_des_paralleles,
   "6G12-1": Tracer_des_perpendiculaires_et_des_paralleles,
-  "beta6G14" : Test_main_levee,
+  "beta6G14" : Proprietes_paralleles_perpendiculaires,
+  "beta6G24" : Test_main_levee,
   "6G20" : Nommer_et_coder_des_polygones,
   "6G20-2": Vocabulaire_des_triangles_6e,
   "6G21" : Construire_un_triangle_6e,
@@ -230,6 +231,7 @@ var liste_des_exercices_disponibles = {
   "4C22": Exercice_multiplier_fractions,
   "4C22-2": Exercice_diviser_fractions,
   "4C23": Exercice_additionner_fraction_produit,
+  "beta4C30": Comparer_puissance10,
   "4F12": Exploiter_representation_graphique,
   "4P10": Problemes_grandeurs_composees,
   "4P10-1" : Graphiques_et_proportionnalite,  
@@ -293,6 +295,7 @@ var liste_des_exercices_disponibles = {
   "3F12-4": Image_graphique,
   "3F13": Antecedent_graphique,
   "3F13-1": Antecedent_et_image_graphique,
+  "betaF13-2" : Premier_escape_game_mathalea,
   "3F21": Lecture_expression_fonctions_lineaires,
   "3F21-1": Lecture_expression_fonctions_affines,
   "3S15": Calculer_des_etendues,
@@ -9429,7 +9432,7 @@ function Exercice_differentes_ecritures_nombres_decimaux() {
           break;
         case 5: // u = .../100
           texte = `$${u}=${tex_fraction("", "100")}$`;
-          texte_corr = `$${u}=${tex_fraction(100 * u, "10")}$`;
+          texte_corr = `$${u}=${tex_fraction(100 * u, "100")}$`;
           break;
         case 6: // n/10 = ... + .../10 + .../100
           ecriture_decimale = tex_nombre(calcul(n / 10));
@@ -9617,7 +9620,7 @@ function Lire_abscisse_decimale_trois_formes() {
  * Lire un nombre décimal jusqu'au millième graĉe à un système de zoom successifs
  * L'abscisse est à donner sous trois formes.
  * ref 6N23-3
- * 
+ * Publié le 13/11/2020
  * @Auteur Jean-Claude Lhote
  */
 function lireUneAbscisseAvecZoomCM() {
@@ -12397,6 +12400,7 @@ function Symetrie_axiale_conservation1() {
     // On prépare la figure...
     let axe=parseInt(this.sup)
     let d,nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
+
     if (axe==5) axe=randint(1,4) //choix de l'axe et des coordonnées
     switch (axe) {
       case 1 : d=droite(1,0,0,'(d)');
@@ -14095,6 +14099,268 @@ function Utiliser_le_codage_pour_decrire(){
    };
 }
 
+/**
+ * Ref beta6G14
+ */
+function Proprietes_paralleles_perpendiculaires() {
+  "use strict";
+  Exercice.call(this);
+  this.titre = "Utiliser les propriétés des droites perpendiculaires";
+  this.nb_questions = 1;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  this.sup = 4;
+  this.sup2 = 1;
+  this.correction_detaillee_disponible = true;
+  this.correction_detaillee=false;
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    let type_de_questions_disponibles,questions_par_niveau=[];
+    questions_par_niveau.push(range(3))
+    questions_par_niveau.push(rangeMinMax(9,15))
+    questions_par_niveau.push(rangeMinMax(19,31,20))
+
+    if (this.sup<4) type_de_questions_disponibles = questions_par_niveau[parseInt(this.sup)-1]
+    else  type_de_questions_disponibles=questions_par_niveau[0].concat(questions_par_niveau[1].concat(questions_par_niveau[2]))
+
+    let liste_type_de_questions = combinaison_listes(
+      type_de_questions_disponibles,
+      this.nb_questions
+    );
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    let droites=[],code,raisonnement,numDroites=[],phrases=[],textetemp
+    let d=[],P=[],objets=[],num1,num2,couleurd=[],droiteP,PP,Inter
+    let droitecolor=function(num) {
+      let couleurs
+      sortie_html ? couleurs=['red','blue','green','black','magenta','orange'] : couleurs=['black','black','black','black','black','black'];
+      return couleurs[num]
+    }
+    if (sortie_html) {
+      num1=`<tspan dy="5" style="font-size:70%">`
+      num2=`</tspan><tspan dy="-5">)</tspan>`
+     }
+     else {
+       num1=`_`
+       num2=`)`
+     }
+    for (
+      let i = 0, texte, texte_corr, cpt = 0;
+      i < this.nb_questions && cpt < 50;
+
+    ) { 
+      texte=""
+      texte_corr=""
+      phrases.length=0;
+      droites.length=0;
+      objets.length=0;
+      d.length=0;
+      P.length=0;
+      couleurd.length=0
+      numDroites=shuffle([1,2,3,4,5]);
+      raisonnement=liste_type_de_questions[i]
+
+    switch (raisonnement) {
+      case 0: // si 1//2 et 2//3 alors 1//3
+        code = [[1, 2, 1], [2, 3, 1]];
+        break;
+      case 1: // si 1//2 et 2T3 alors 1T3
+        code = [[1, 2, 1], [2, 3, -1]]
+        break;
+      case 2: // si 1T2 et 2T3 alors 1//3
+        code = [[1, 2, -1], [2, 3, -1]]
+        break;
+      case 3: // si 1T2 et 2//3 alors 1T3
+        code = [[1, 2, -1], [2, 3, 1]]
+        break;
+      case 8: // Si 1//2 et 2//3 et 3//4 alors 1//4
+        code = [[1, 2, 1], [2, 3, 1], [3, 4, 1]];
+        break;
+      case 9: // Si 1//2 et 2//3 et 3T4 alors 1T4
+        code = [[1, 2, 1], [2, 3, 1], [3, 4, -1]];
+        break;
+      case 10: // Si 1//2 et 2T3 et 3//4 alors 1T4
+        code = [[1, 2, 1], [2, 3, 1], [3, 4, 1]];
+        break;
+      case 11: // Si 1//2 et 2T3 et 3T4 alors 1//4
+        code = [[1, 2, 1], [2, 3, -1], [3, 4, -1]];
+        break;
+      case 12: // Si 1T2 et 2//3 et 3//4 alors 1T4
+        code = [[1, 2, -1], [2, 3, 1], [3, 4, 1]];
+        break;
+      case 13: // Si 1T2 et 2//3 et 3T4 alors 1//4
+        code = [[1, 2, -1], [2, 3, 1], [3, 4, -1]];
+        break;
+      case 14: // Si 1T2 et 2T3 et 3//4 alors 1//4
+        code = [[1, 2, -1], [2, 3, -1], [3, 4, 1]];
+        break;
+      case 15: // Si 1T2 et 2T3 et 3T4 alors 1T4
+        code = [[1, 2, -1], [2, 3, -1], [3, 4, -1]];
+        break;
+      case 16: // Si 1//2 et 2//3 et 3//4 et 4//5 alors 1//5
+        code = [[1, 2, 1], [2, 3, 1], [3, 4, 1], [4, 5, 1]];
+        break;
+      case 17: // Si 1//2 et 2//3 et 3T4 et 4//5 alors 1T5
+        code = [[1, 2, 1], [2, 3, 1], [3, 4, -1], [4, 5, 1]];
+        break;
+      case 18: // Si 1//2 et 2T3 et 3//4 et 4//5 alors 1T5
+        code = [[1, 2, 1], [2, 3, -1], [3, 4, 1], [4, 5, 1]];
+        break;
+      case 19: // Si 1//2 et 2T3 et 3T4 et 4//5 alors 1//5
+        code = [[1, 2, 1], [2, 3, -1], [3, 4, -1], [4, 5, 1]];
+        break;
+      case 20: // Si 1T2 et 2//3 et 3//4 et 4//5 alors 1T5
+        code = [[1, 2, -1], [2, 3, 1], [3, 4, 1], [4, 5, 1]];
+        break;
+      case 21: // Si 1T2 et 2//3 et 3T4 et 4//5 alors 1//5
+        code = [[1, 2, -1], [2, 3, 1], [3, 4, -1], [4, 5, 1]];
+        break;
+      case 22: // Si 1T2 et 2T3 et 3//4 et 4//5 alors 1//5
+        code = [[1, 2, -1], [2, 3, -1], [3, 4, 1], [4, 5, 1]];
+        break;
+      case 23: // Si 1T2 et 2T3 et 3T4 et 4//5 alors 1T5
+        code = [[1, 2, -1], [2, 3, -1], [3, 4, -1], [4, 5, 1]];
+        break;
+      case 24: // Si 1//2 et 2//3 et 3//4 et 4T5 alors 1T5
+        code = [[1, 2, 1], [2, 3, 1], [3, 4, 1], [4, 5, -1]];
+        break;
+      case 25: // Si 1//2 et 2//3 et 3T4 et 4T5 alors 1//5
+        code = [[1, 2, 1], [2, 3, 1], [3, 4, -1], [4, 5, -1]];
+        break;
+      case 26: // Si 1//2 et 2T3 et 3//4 et 4T5 alors 1//5
+        code = [[1, 2, 1], [2, 3, -1], [3, 4, 1], [4, 5, -1]];
+        break;
+      case 27: // Si 1//2 et 2T3 et 3T4 et 4T5 alors 1T5
+        code = [[1, 2, 1], [2, 3, -1], [3, 4, -1], [4, 5, -1]];
+        break;
+      case 28: // Si 1T2 et 2//3 et 3//4 et 4T5 alors 1//5
+        code = [[1, 2, -1], [2, 3, 1], [3, 4, 1], [4, 5, -1]];
+        break;
+      case 29: // Si 1T2 et 2//3 et 3T4 et 4T5 alors 1T5
+        code = [[1, 2, -1], [2, 3, 1], [3, 4, -1], [4, 5, -1]];
+        break;
+      case 30: // Si 1T2 et 2T3 et 3//4 et 4T5 alors 1T5
+        code = [[1, 2, -1], [2, 3, -1], [3, 4, 1], [4, 5, -1]];
+        break;
+      case 31: // Si 1T2 et 2T3 et 3T4 et 4T5 alors 1//5
+        code = [[1, 2, -1], [2, 3, -1], [3, 4, -1], [4, 5, -1]];
+        break;
+
+    }
+
+    // enoncé mélangé
+    texte +=`On sait que `
+    couleurd.push(randint(0,5))
+    for (let j=0;j<code.length;j++) {
+      textetemp =`$(d_${numDroites[code[j][0]-1]})`;
+      if (code[j][2]==1) {
+        textetemp+= `//`
+        couleurd.push(couleurd[j])
+      }
+      else {
+        textetemp+=`\\perp`
+        couleurd.push((couleurd[j]+1)%6)
+      }
+      textetemp +=`(d_${numDroites[code[j][1]-1]})$`
+      phrases.push(textetemp)
+    }
+    //phrases=shuffle(phrases)
+    for (let j=0;j<code.length-1;j++) {
+      texte+=phrases[j]
+      if (j!=code.length-2) texte+=`, `
+      else texte +=` et `
+    }
+    texte+=phrases[code.length-1]
+    texte +=`.<br>Que peut-on dire de $(d_${numDroites[code[0][0]-1]})$ et $(d_${numDroites[code[code.length-1][1]-1]})$ ?`
+
+    //construction de la figure
+    
+    P.push(point(0,0))
+    droiteP=droiteParPointEtPente(P[0],randint(-1,1,0)/10,`(d${num1}${numDroites[code[0][0]-1]}${num2}`,droitecolor(couleurd[0]))
+    droiteP.epaisseur=2
+    droite.pointilles=false
+    d.push(droiteP)
+    objets.push(d[0])
+    for (let x=0;x<code.length;x++) {
+      if (code[x][2]==1) {
+        P.push(point((x+1)*2,(x+1)*2))
+        droiteP=droiteParPointEtParallele(P[x+1],d[x],`(d${num1}${numDroites[code[x][1]-1]}${num2}`,droitecolor(couleurd[x+1]))
+        droiteP.epaisseur=2
+        droiteP.pointilles=d[x].pointilles
+        d.push(droiteP)
+      }
+      else {
+        P.push(point((x+1)*2,(x+1)*2))
+        droiteP=droiteParPointEtPerpendiculaire(P[x+1],d[x],`(d${num1}${numDroites[code[x][1]-1]}${num2}`,droitecolor(couleurd[x+1]))
+        droiteP.epaisseur=2
+        droiteP.pointilles=x%3+1
+        Inter=pointIntersectionDD(d[x],droiteP)
+        PP=rotation(P[x+1],Inter,90)
+        d.push(droiteP)
+        objets.push(codageAngleDroit(PP,Inter,P[x+1],'black',0.6))
+      }
+      objets.push(d[x+1])
+    }
+    for (let i=0;i<code.length;i++){ // on ajoute les angles droits
+
+    }
+    // correction raisonnement ordonné
+    fenetreMathalea2d=[-2,-2,15,10]
+    texte_corr=`Le shémas suivant est donné à titre indicatif car il y a une infinité de possibilités.<br> Les droites de même couleur/style sont parallèles.<br>`
+    texte_corr+=mathalea2d({xmin:-2,xmax:15,ymin:-2,ymax:10,pixelsParCm:20,mainlevee:false,amplitude:0.3},objets)+`<br>`
+    for (let j=0;j<code.length-1;j++) {
+      if (this.correction_detaillee) texte_corr+=`On sait que : `
+      else texte_corr+=`Comme `
+      texte_corr+=`$(d_${numDroites[code[j][0]-1]})`;
+      if (code[j][2]==1) texte_corr+= `//`
+      else texte_corr+=`\\perp`
+      texte_corr +=`(d_${numDroites[code[j][1]-1]})$ et `
+      texte_corr+=`$(d_${numDroites[code[j+1][0]-1]})`;
+      if (code[j+1][2]==1) texte_corr+= `//`
+      else texte_corr+=`\\perp`
+      texte_corr +=`(d_${numDroites[code[j+1][1]-1]})$`
+      // quelle propriété ?
+      if (code[j][2]*code[j+1][2]==-1) { // Une parallèle et une perpendiculaire
+        if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont parallèles, toute droite perpendiculaire à l'une est aussi perpendiculaire à l'autre».<br>Donc`
+        else texte_corr+=`, on en déduit que `
+        texte_corr+=` $(d_${numDroites[code[0][0]-1]})\\perp(d_${numDroites[code[j+1][1]-1]})$.<br>`
+        code[j+1][0]=code[j][0]
+        code[j+1][2]=-1
+      }
+      else if (code[j][2]>0) { // deux parallèles
+        if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont parallèles à une même droite alors elles sont parallèles entre elles».<br>Donc`
+        else texte_corr+=`, on en déduit que `
+        texte_corr+=` $(d_${numDroites[code[0][0]-1]})//(d_${numDroites[code[j+1][1]-1]})$.<br>`
+        code[j+1][0]=code[j][0]
+        code[j+1][2]=1
+
+      }
+      else { //deux perpendiculaires
+        if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont perpendiculaires à une même droite, alors elles sont parallèles entre elles».<br>Donc`
+        else texte_corr+=`, on en déduit que `
+        texte_corr+=` $(d_${numDroites[code[0][0]-1]})//(d_${numDroites[code[j+1][1]-1]})$.<br>`
+        code[j+1][0]=code[j][0]
+        code[j+1][2]=1
+
+      }
+      
+
+    }
+
+    if (this.liste_questions.indexOf(texte) == -1) {
+      // Si la question n'a jamais été posée, on en crée une autre
+      this.liste_questions.push(texte + "<br>");
+      this.liste_corrections.push(texte_corr + "<br>");
+      i++;
+    }
+      cpt++;
+    }
+
+    liste_de_question_to_contenu(this);
+  };
+  this.besoin_formulaire_numerique = ['Nombre d\'étapes de raisonnement :', 4, `1 : 1 étape\n 2 : 2 étapes\n 3 : 3 étapes\n4 : Mélange aléatoire`]
+  // this.besoin_formulaire2_case_a_cocher = [
+  //  "Avec figure ? ",false];
+}
 
 /**
  * Fonction générale pour exercices de constructions de parallèles et perpendiculaires
@@ -15842,7 +16108,7 @@ function Produit_de_decimaux_a_partir_d_un_produit_connu(){
 				enonces.push({
           enonce:`
             Sachant que $${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)} = ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}$,
-            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(10**situations[0].p1)))}\\times ${calcul(situations[0].d2*10+situations[0].u2)}$
+            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(10**situations[0].p1)))}\\times ${calcul(situations[0].d2*10+situations[0].u2)}$.
 					`,
 					question:``,
 					correction:`
@@ -15852,7 +16118,7 @@ function Produit_de_decimaux_a_partir_d_un_produit_connu(){
         enonces.push({
           enonce:`
             Sachant que $${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)} = ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}$,
-            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)))}\\times ${tex_nombre(calcul((situations[0].d2*10+situations[0].u2)*(10**situations[0].p2)))}$
+            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)))}\\times ${tex_nombre(calcul((situations[0].d2*10+situations[0].u2)*(10**situations[0].p2)))}$.
 					`,
 					question:``,
 					correction:`
@@ -15862,7 +16128,7 @@ function Produit_de_decimaux_a_partir_d_un_produit_connu(){
 				enonces.push({
           enonce:`
             Sachant que $${calcul(situations[0].d1*10+situations[0].u1)}\\times ${calcul(situations[0].d2*10+situations[0].u2)} = ${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(situations[0].d2*10+situations[0].u2)))}$,
-            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(10**situations[0].p1)))}\\times ${tex_nombre(calcul((situations[0].d2*10+situations[0].u2)*(10**situations[0].p2)))}$
+            calculer $${tex_nombre(calcul((situations[0].d1*10+situations[0].u1)*(10**situations[0].p1)))}\\times ${tex_nombre(calcul((situations[0].d2*10+situations[0].u2)*(10**situations[0].p2)))}$.
 					`,
 					question:``,
 					correction:`
@@ -17670,52 +17936,57 @@ function AfficherSVG(){
 
     texte = `Directement dans le html avec la font : `; 
     texte += `
-<i class="orange users icon"></i>
-<i class="yellow users icon"></i>
-<i class="olive users icon"></i>
-<i class="green users icon"></i>
-<i class="teal users icon"></i>
-<i class="blue users icon"></i>
-<i class="violet users icon"></i>
-<i class="purple users icon"></i>
-<i class="pink users icon"></i>
-<i class="brown users icon"></i><br>
-<i class="grey users icon"></i>
-<i class="black users icon"></i>
-<i class="horizontally flipped cloud icon"></i>
-<i class="vertically flipped cloud icon"></i>
-<i class="clockwise rotated cloud icon"></i>
-<i class="counterclockwise rotated cloud icon"></i>
-<i class="chess icon"></i>
-<i class="orange chess bishop icon"></i>
-<i class="chess board icon"></i>
-<i class="chess king icon"></i>
-<i class="chess knight icon"></i>
-<i class="chess pawn icon"></i>
-<i class="chess queen icon"></i>
-<i class="chess rook icon"></i>
-<i class="square full icon"></i>
-    `;
+        <i class="orange users icon"></i>
+        <i class="yellow users icon"></i>
+        <i class="olive users icon"></i>
+        <i class="green users icon"></i>
+        <i class="teal users icon"></i>
+        <i class="blue users icon"></i>
+        <i class="violet users icon"></i>
+        <i class="purple users icon"></i>
+        <i class="pink users icon"></i>
+        <i class="brown users icon"></i><br>
+        <i class="grey users icon"></i>
+        <i class="black users icon"></i>
+        <i class="horizontally flipped cloud icon"></i>
+        <i class="vertically flipped cloud icon"></i>
+        <i class="clockwise rotated cloud icon"></i>
+        <i class="counterclockwise rotated cloud icon"></i>
+        <i class="chess icon"></i>
+        <i class="orange chess bishop icon"></i>
+        <i class="chess board icon"></i>
+        <i class="chess king icon"></i>
+        <i class="chess knight icon"></i>
+        <i class="chess pawn icon"></i>
+        <i class="chess queen icon"></i>
+        <i class="chess rook icon"></i>
+        <i class="square full icon"></i>`;
 
     texte += `<br> Ou bien en SVG. Attention à l'utilisation des repères de coordonnées !<br>`;
     texte += `<svg xmlns="http://www.w3.org/2000/svg">
       <!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) -->
       <defs>
-      <symbol id="plane" viewBox="0 0 576 512"><path d="M480 192H365.71L260.61 8.06A16.014 16.014 0 0 0 246.71 0h-65.5c-10.63 0-18.3 10.17-15.38 20.39L214.86 192H112l-43.2-57.6c-3.02-4.03-7.77-6.4-12.8-6.4H16.01C5.6 128-2.04 137.78.49 147.88L32 256 .49 364.12C-2.04 374.22 5.6 384 16.01 384H56c5.04 0 9.78-2.37 12.8-6.4L112 320h102.86l-49.03 171.6c-2.92 10.22 4.75 20.4 15.38 20.4h65.5c5.74 0 11.04-3.08 13.89-8.06L365.71 320H480c35.35 0 96-28.65 96-64s-60.65-64-96-64z"/>
-      </symbol>
+        <symbol id="plane" viewBox="0 0 576 512">
+         <path d="M480 192H365.71L260.61 8.06A16.014 16.014 0 0 0 246.71 0h-65.5c-10.63 0-18.3 10.17-15.38 20.39L214.86 192H112l-43.2-57.6c-3.02-4.03-7.77-6.4-12.8-6.4H16.01C5.6 128-2.04 137.78.49 147.88L32 256 .49 364.12C-2.04 374.22 5.6 384 16.01 384H56c5.04 0 9.78-2.37 12.8-6.4L112 320h102.86l-49.03 171.6c-2.92 10.22 4.75 20.4 15.38 20.4h65.5c5.74 0 11.04-3.08 13.89-8.06L365.71 320H480c35.35 0 96-28.65 96-64s-60.65-64-96-64z"/>
+        </symbol>
+      </defs>
+      <defs>
+        <g id="Port">
+          <circle style="fill: inherit;"/>
+        </g>
       </defs>
       </svg>`;
 
     texte += `
-    <svg width="300px" height="300px" viewBox="0 0 300 300" style="border: 1px solid #333333;">
-    <use width="35" x="70" y="0" transform="rotate(-15, 70, 70)" xlink:href="#plane"/>
-    <use width="35" x="70" y="0" transform="rotate(15, 70, 0)" xlink:href="#plane"/>
-    <use width="35" x="70" y="0" transform="rotate(-30, 70, 0)" xlink:href="#plane"/>
-    <use width="25" x="20" y="50" fill="red" xlink:href="#plane"/>
-    <use width="38" x="92" y="80" xlink:href="#plane"/>
-    <use width="23" x="50" y="30" xlink:href="#plane"/ fill-opacity="0%" stroke="green" stroke-width="8">   
-    <use width="50" x="0" y="0" fill="blue" xlink:href="#plane"/>
-    <text x="5" y="5">Bonjour tout le monde</text><i class="chess rook icon"></i>
+    <svg width="300" height="300" viewBox="0 0 300 300" style="border: 1px solid #333333;">
+      <use width="35" x="70" y="0" transform="rotate(-15, 70, 70)" xlink:href="#plane"/>
+      <use width="35" x="70" y="0" transform="rotate(15, 70, 70)" xlink:href="#plane"/>
+      <use xlink:href="#plane" transform="rotate(-30, 70, 70)" width="35" x="70" y="0" />
+      <use xlink:href="#plane" width="25" x="60" y="50" fill="red" />
+      <use width="38" x="92" y="80" xlink:href="#plane"/>
+      <use width="23" x="50" y="30" xlink:href="#plane"/ fill-opacity="0%" stroke="green" stroke-width="8">   
+      <use width="50" x="0" y="0" fill="blue" xlink:href="#plane"/>
+      <use width="50" x="0" y="0" fill="blue" xlink:href="#Port"/>
     </svg>`;
 
     texte_corr = ``;

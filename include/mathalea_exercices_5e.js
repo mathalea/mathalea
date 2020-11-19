@@ -1215,6 +1215,7 @@ function Exercice_substituer(difficulte=1){
 /**
  * Déterminer des angles en utilisant les cas d'égalités : opposés par le sommet, alternes-internes, correspondants...
  * ref 5G30-1 
+ * publié le 14/11/2020
  * @Auteur Jean-Claude Lhote Inspiré d'exercices du manuel sésamath.
  */
 function Egalite_d_angles() {
@@ -1910,7 +1911,7 @@ function Variation_en_pourcentages(){
 	this.consigne = "Calculer le nouveau prix";
 	this.nb_questions = 5;
 	this.spacing = 1;
-	this.spacing_corr = 1.5;
+	this.spacing_corr = 2;
 	this.nb_cols_corr = 1;
 	this.nb_cols = 1;
 
@@ -4181,7 +4182,7 @@ function Pavages_et_transformations() {
 
 
 	}
-	this.besoin_formulaire_numerique = ['Transformations',4, '1 : Symétries axiales\n 2 : Symétries centrales\n 3 : Translations\n 4 : Translations\n 5 : Homothéties\n'];
+	this.besoin_formulaire_numerique = ['Transformations',4, '1 : Symétries axiales\n 2 : Symétries centrales\n 3 : Translations\n 4 : Rotations\n 5 : Homothéties\n'];
 }
 /**
  * Transformer un programme de calcul avec les 4 opérations dans un ordre aléatoire en un seul calcul.

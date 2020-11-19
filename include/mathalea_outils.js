@@ -80,12 +80,14 @@ function liste_de_question_to_contenu_sans_numero_et_sans_consigne(argument) {
 */
 function deuxColonnes(cont1,cont2){
 	if (sortie_html){
-		return `<div style="float:left;width:50%;">
+		return `
+		<div style="float:left;min-width: fit-content;max-width : 35%;margin-right: 30px">
 		${cont1}
 	 </div>
-	 <div style="float:left;width:50%;">
+	 <div style="float:left;min-width: fit-content; max-width : 45%">
 		${cont2}
-	 </div>`
+	 </div>
+	 <div style="clear:both"></div>`
 	} else {
 		return `\\begin{minipage}{.5\\linewidth}
 		${cont1}
@@ -1396,6 +1398,24 @@ function choisit_lettres_differentes(nombre,lettres_a_eviter,majuscule=true){
 		else lettres.push(lettre_minuscule_depuis_chiffre(n))
 	}
 	return lettres
+}
+cesar=function (word,decal){
+	let mot='',code=65;
+	for (let x=0;x<word.length;x++) {
+		code=word.charCodeAt(x)%65
+		code=(code+decal)%26+65
+		mot+=String.fromCharCode(code)
+	}
+	return mot
+}
+
+codeCesar=function(mots,decal){
+	let motsCodes=[]
+	for (let x=0;x<mots.length;x++) {
+		console.log(mots[x])
+		motsCodes.push(cesar(mots[x],decal))
+	}
+	return motsCodes
 }
 
 /**
@@ -3105,6 +3125,52 @@ function simpExp(b,e) {
 			return ` `;
 	};
 };
+
+/**
+ * Fonction pour écrire des notations scientifique de la forme a * b ^ n
+ * @param a {number} mantisse
+ * @param b {number} base
+ * @param n {number} exposant 
+ * @author Erwan Duplessy
+ */	
+function puissance(b,n) {
+	switch (b) {
+		case 0:
+			return `0`;
+			break;
+		case 1:
+			return `1`;
+			break;
+		case -1:
+			if (b%2==0) {
+				return `1`;
+				break;
+			} else {
+				return `-1`;
+				break;
+			};
+		default:
+			if (b<0) {
+				return `(${b})^{${n}}`;
+			} else {
+				return `${b}^{${n}}`;				
+			}
+			break;
+	}
+}
+
+function ecriturePuissance(a, b, n) {
+	switch (a) {
+		case 0:
+			return `$0$`;
+			break;
+		case 1:
+			return `$${puissance(b,n)}$`;
+			break;
+		default:
+			return `$${String(Math.round(a*1000)/1000).replace('.','{,}')} \\times ${puissance(b,n)}$`.replace('.','{,}');
+	}
+}
 
 /**
  * Fonction pour simplifier les notations puissance dans certains cas
