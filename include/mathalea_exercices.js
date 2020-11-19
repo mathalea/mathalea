@@ -9432,7 +9432,7 @@ function Exercice_differentes_ecritures_nombres_decimaux() {
           break;
         case 5: // u = .../100
           texte = `$${u}=${tex_fraction("", "100")}$`;
-          texte_corr = `$${u}=${tex_fraction(100 * u, "10")}$`;
+          texte_corr = `$${u}=${tex_fraction(100 * u, "100")}$`;
           break;
         case 6: // n/10 = ... + .../10 + .../100
           ecriture_decimale = tex_nombre(calcul(n / 10));
@@ -14306,7 +14306,7 @@ function Proprietes_paralleles_perpendiculaires() {
     // correction raisonnement ordonné
     fenetreMathalea2d=[-2,-2,15,10]
     texte_corr=`Le shémas suivant est donné à titre indicatif car il y a une infinité de possibilités.<br> Les droites de même couleur/style sont parallèles.<br>`
-    texte_corr+=mathalea2d({xmin:-2,xmax:15,ymin:-2,ymax:10,pixelsParCm:20,mainlevee:true,amplitude:0.3},objets)+`<br>`
+    texte_corr+=mathalea2d({xmin:-2,xmax:15,ymin:-2,ymax:10,pixelsParCm:20,mainlevee:false,amplitude:0.3},objets)+`<br>`
     for (let j=0;j<code.length-1;j++) {
       if (this.correction_detaillee) texte_corr+=`On sait que : `
       else texte_corr+=`Comme `

@@ -1911,7 +1911,7 @@ function Variation_en_pourcentages(){
 	this.consigne = "Calculer le nouveau prix";
 	this.nb_questions = 5;
 	this.spacing = 1;
-	this.spacing_corr = 1.5;
+	this.spacing_corr = 2;
 	this.nb_cols_corr = 1;
 	this.nb_cols = 1;
 
