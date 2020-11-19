@@ -3127,6 +3127,52 @@ function simpExp(b,e) {
 };
 
 /**
+ * Fonction pour écrire des notations scientifique de la forme a * b ^ n
+ * @param a {number} mantisse
+ * @param b {number} base
+ * @param n {number} exposant 
+ * @author Erwan Duplessy
+ */	
+function puissance(b,n) {
+	switch (b) {
+		case 0:
+			return `0`;
+			break;
+		case 1:
+			return `1`;
+			break;
+		case -1:
+			if (b%2==0) {
+				return `1`;
+				break;
+			} else {
+				return `-1`;
+				break;
+			};
+		default:
+			if (b<0) {
+				return `(${b})^{${n}}`;
+			} else {
+				return `${b}^{${n}}`;				
+			}
+			break;
+	}
+}
+
+function ecriturePuissance(a, b, n) {
+	switch (a) {
+		case 0:
+			return `$0$`;
+			break;
+		case 1:
+			return `$${puissance(b,n)}$`;
+			break;
+		default:
+			return `$${String(Math.round(a*1000)/1000).replace('.','{,}')} \\times ${puissance(b,n)}$`.replace('.','{,}');
+	}
+}
+
+/**
  * Fonction pour simplifier les notations puissance dans certains cas
  * si la base vaut 1 ou -1 quelque soit l'exposant, retourne 1 ou -1,
  * si la base est négative on teste la parité de l'exposant pour alléger la notation sans le signe

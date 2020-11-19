@@ -14,80 +14,84 @@ function Comparer_puissance10() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.sup = 1; // Avec ou sans relatifs
   this.titre = "Puissances de 10";
-  this.consigne =
-    "Dans chaque cas, comparer les deux nombres.";
+  this.consigne = "Dans chaque cas, comparer les deux nombres.";
   this.spacing = 2;
   this.spacing_corr = 2;
   this.nb_questions = 5;
-  this.nb_cols = 4;
-  this.nb_cols_corr = 4;
+  this.nb_cols = 2;
+  this.nb_cols_corr = 2;
   this.sup = 1;
 
   this.nouvelle_version = function (numero_de_l_exercice) { 
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    texte = ` `;
-    texte_corr = ` `;
-    let a1 = 0;
-    let a2 = 0;
-    let n1 = 0;
-    let n2 = 0;
-    let txtA1 = ` `; // nombre 1
-    let txtA2 = ` `; // nombre 2
+    texte = ` `; // texte énoncé
+    texte_corr = ` `; // texte correction
+    let a1 = 0; // mantisse 1
+    let a2 = 0; // mantisse 2
+    let n1 = 0; // puissance 1
+    let n2 = 0; // puissance 2
     let nbA1 = 0;
     let nbA2 = 0;
-
+    let c = parseInt(this.sup);
     for (let i=0; i<this.nb_questions; i++) {
-      texte += num_alpha(i);
-      switch (this.sup.toString()) {
-        case '1':
+      if (this.sup == 6) {
+        c = randint(1,5);
+      }
+      switch (c) {
+        case 1:
           a1 = 1;
           n1 = randint(-9,9);
           a2 = 1;
-          n2 = randint(-9,9)
+          n2 = choice(rangeMinMax(-9, 9), [n1]);
           break;
-        case '2':
-          a1 = randint(1,9);
+        case 2:
+          a1 = randint(1,9)+0.1*randint(1,9)*randint(0,1);
           n1 = randint(-9,9);
-          a2 = choice([1, 2, 3, 4, 5 ,6 ,7, 8, 9], [a1]);
+          a2 = choice([0, 1, 2, 3, 4, 5 ,6 ,7, 8, 9], [a1])+0.1*randint(1,9)*randint(0,1);
+          n2 = n1;
+          break;
+        case 3:
+          a1 = randint(1,9)+0.1*randint(0,9)+0.01*randint(0,9);
+          n1 = randint(-9,9);
+          a2 = a1;
+          n2 = randint(-9,9);          
+          break;
+        case 4:
+          a1 = randint(1,9)+0.1*randint(0,9);
+          n1 = randint(-9,9);
+          a2 = choice(rangeMinMax(1, 99))/10;
           n2 = randint(-9,9);
           break;
-        case '3':
-          a1 = randint(0,9)+0.1*randint(0,9)+0.01*randint(0,9);
+        case 5:
+          a1 = choice(rangeMinMax(-99, 99, [0]))/10;
           n1 = randint(-9,9);
-          a2 = randint(0,9)+0.1*randint(0,9)+0.01*randint(0,9);
+          a2 = choice(rangeMinMax(-99, 99, [0]))/10;
           n2 = randint(-9,9);
-          break;
-        case '4':
-          k = randint(1,3);
           break;
         default:
           break;
       }
       nbA1 = a1*10**n1;
       nbA2 = a2*10**n2;
-      if (a1 == 1) {
-        txtA1 = `$ ${simpNotPuissance(10,n1)} $`;
-      } else {
-        txtA1 = `$ ${arrondi_virgule(a1, precision=2)}\\times ${simpNotPuissance(10,n1)} $`;
-      }
-      if (a2 == 1) {
-        txtA2 = `$ ${simpNotPuissance(10,n2)} $`;
-      } else {
-        txtA2 = `$ ${arrondi_virgule(a2, precision=2)}\\times ${simpNotPuissance(10,n2)} $`;
-      }
-      texte += ` ${txtA1} et ${txtA2} <br>`;
+      
+      texte += num_alpha(i) + "  " + ecriturePuissance(a1, 10, n1) + " et " + ecriturePuissance(a2, 10, n2) + "<br>";
       if (nbA1 > nbA2) {
-        texte_corr += num_alpha(i) + ` ${txtA1} $>$ ${txtA2} <br>`;
+        texte_corr += num_alpha(i) + ` ${ecriturePuissance(a1, 10, n1)} $>$ ${ecriturePuissance(a2, 10, n2)} <br>`;
       } else {
-        texte_corr += num_alpha(i) + ` ${txtA1} $<$ ${txtA2} <br>`;
+        if (nbA1 == nbA2) {
+          texte_corr += num_alpha(i) + ` ${ecriturePuissance(a1, 10, n1)} $=$ ${ecriturePuissance(a2, 10, n2)} <br>`;
+        } else {
+          texte_corr += num_alpha(i) + ` ${ecriturePuissance(a1, 10, n1)} $<$ ${ecriturePuissance(a2, 10, n2)} <br>`;
+        }        
       }
     }
       this.liste_questions.push(texte);
       this.liste_corrections.push(texte_corr);
       liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
     };
-    this.besoin_formulaire_numerique = ["Niveau de difficulté", 4, "1 : Sans Mantisse\n 3 : Mantisse entière entre -9 et 9\n 3 : Ecriture scientifique\n 4 : Tous types"];
+    this.besoin_formulaire_numerique = ["Niveau de difficulté", 6,
+          "1 : Puissances de 10 seules\n 2 : mantisses différentes et même exposant\n 3 : mêmes mantisses et exposants différents\n 4 : mantisses et exposants différents\n 5 : mantisses (négatives) et exposants différents\n 6 : Tous types"];
 }
 
 
