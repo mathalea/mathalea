@@ -300,8 +300,7 @@ var liste_des_exercices_disponibles = {
   "3F21": Lecture_expression_fonctions_lineaires,
   "3F21-1": Lecture_expression_fonctions_affines,
   "3S15": Calculer_des_etendues,
-  "3S20": fonctions_probabilite2,
-  "beta3L11-5": identites_calculs,
+  "3S20": fonctions_probabilite2,  
   "2N10": Existence_d_une_racine_carree,
   "2N10-1": proprietes_racine_carree,
   "2N11": Extraire_un_carre_parfait_d_une_racine_carree,
@@ -6138,7 +6137,7 @@ function Encadrer_fraction_entre_2_entiers() {
       a = randint(0, 9) * 10 + randint(1, 9);
       texte = `$\\ldots < \\dfrac{${n}}{${d}} < \\ldots$`;
       texte_corr = `$${k} < \\dfrac{${n}}{${d}} < ${k+1}$`;
-      if (correction_detaillee){
+      if (this.correction_detaillee){
         texte_corr += ` $\\qquad$ car $\\quad ${k}=\\dfrac{${k*d}}{${d}}\\quad$ et $\\quad${k+1}=\\dfrac{${(k+1)*d}}{${d}}$ `;
         texte_corr += `<br><br>`
         texte_corr += mathalea2d({xmin:-.5, xmax:24,ymax:1.5,scale:.6},fraction(n,d).representation(0,0,3,0,'barre','blue')
@@ -13755,7 +13754,7 @@ function Description_segment_droite_demi_droite() {
             break;
           case 3:
             trait = demiDroite(B, A);
-            correction = `La demi-droite d'origine $${B.nom}$ passant par $${A.nom}$ notée $[${A.nom}${B.nom})$.`;
+            correction = `La demi-droite d'origine $${B.nom}$ passant par $${A.nom}$ notée $[${B.nom}${A.nom})$.`;
             break;
           case 4:
             trait = segment(A, B);
@@ -14716,9 +14715,9 @@ function Parallele_et_Perpendiculaires() {
 function Proportionnalite_par_linearite_bis(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+	this.debug = false;	
 	this.sup=1;
-	if (this.beta) {
+	if (this.debug) {
 		this.nb_questions = 3;
 	} else {
 		this.nb_questions = 1;
@@ -14737,7 +14736,7 @@ function Proportionnalite_par_linearite_bis(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
+		if (this.debug) {
 			type_de_questions_disponibles = [1];			
 		} else {
 			type_de_questions_disponibles = [1];			
@@ -14839,7 +14838,7 @@ function Proportionnalite_par_linearite_bis(){
 			switch (liste_type_de_questions[i]){
 				case 1 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte_corr = ``;	
@@ -16049,9 +16048,9 @@ function Solide_6e() {
 function Produit_de_decimaux_a_partir_d_un_produit_connu(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+	this.debug = false;	
 	this.sup=1;
-	if (this.beta) {
+	if (this.debug) {
 		this.nb_questions = 3;
 	} else {
 		this.nb_questions = 3;
@@ -16069,7 +16068,7 @@ function Produit_de_decimaux_a_partir_d_un_produit_connu(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
+		if (this.debug) {
 			type_de_questions_disponibles = [0,1,2];			
 		} else {
       //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
@@ -16135,7 +16134,7 @@ function Produit_de_decimaux_a_partir_d_un_produit_connu(){
 			switch (liste_type_de_questions[i]){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
@@ -16146,7 +16145,7 @@ function Produit_de_decimaux_a_partir_d_un_produit_connu(){
      			break;	
      		case 1 : 
           texte = `${enonces[1].enonce}`;
-          if (this.beta) {
+          if (this.debug) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
             texte_corr = ``;	
@@ -16156,7 +16155,7 @@ function Produit_de_decimaux_a_partir_d_un_produit_connu(){
           break;
      		case 2 : 
           texte = `${enonces[2].enonce}`;
-          if (this.beta) {
+          if (this.debug) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
             texte_corr = ``;	
@@ -16186,9 +16185,9 @@ function Produit_de_decimaux_a_partir_d_un_produit_connu(){
 function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+	this.debug = false;	
 	this.sup=1;
-	if (this.beta) {
+	if (this.debug) {
 		this.nb_questions = 3;
 	} else {
 		this.nb_questions = 3;
@@ -16206,7 +16205,7 @@ function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
+		if (this.debug) {
 			type_de_questions_disponibles = [0,1,2];			
 		} else {
       //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
@@ -16268,7 +16267,7 @@ function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
 			switch (liste_type_de_questions[i]){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
@@ -16279,7 +16278,7 @@ function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
           break;	
         case 1 : 
 					texte = `${enonces[1].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
 						texte_corr = ``;	
@@ -16289,7 +16288,7 @@ function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
           break;
         case 2 : 
 					texte = `${enonces[2].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
 						texte_corr = ``;	
@@ -16318,9 +16317,9 @@ function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
 function Ordre_de_grandeur_operations_decimaux(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+	this.debug = false;	
 	this.sup=1;
-	if (this.beta) {
+	if (this.debug) {
 		this.nb_questions = 1;
 	} else {
 		this.nb_questions = 1;
@@ -16338,7 +16337,7 @@ function Ordre_de_grandeur_operations_decimaux(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
+		if (this.debug) {
 			type_de_questions_disponibles = [0];			
 		} else {
       //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
@@ -16524,7 +16523,7 @@ function Ordre_de_grandeur_operations_decimaux(){
 			switch (liste_type_de_questions[i]){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
@@ -16607,9 +16606,9 @@ function Arrondir_un_decimal(){
 function chiffre_nombre_de(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+	this.debug = false;	
 	this.sup=1;
-	if (this.beta) {
+	if (this.debug) {
 		this.nb_questions = 6;
 	} else {
 		this.nb_questions = 6;
@@ -16627,7 +16626,7 @@ function chiffre_nombre_de(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
+		if (this.debug) {
 			type_de_questions_disponibles = [0,1,2,3,4,5];			
 		} else {
           //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
@@ -16787,7 +16786,7 @@ function chiffre_nombre_de(){
 			switch (liste_type_de_questions[i]){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
@@ -16798,7 +16797,7 @@ function chiffre_nombre_de(){
           			break;	
      		case 1 : 
 					texte = `${enonces[1].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
 						texte_corr = ``;	
@@ -16808,7 +16807,7 @@ function chiffre_nombre_de(){
           			break;
      		case 2 : 
 					texte = `${enonces[2].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
 						texte_corr = ``;	
@@ -16818,7 +16817,7 @@ function chiffre_nombre_de(){
           			break;				
      		case 3 : 
 					texte = `${enonces[3].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
 						texte_corr = ``;	
@@ -16828,7 +16827,7 @@ function chiffre_nombre_de(){
 					break;				
      		case 4 : 
 					texte = `${enonces[4].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
 						texte_corr = ``;	
@@ -16838,7 +16837,7 @@ function chiffre_nombre_de(){
           break;	
         case 5 : 
 					texte = `${enonces[5].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[5].correction}`;
 						texte_corr = ``;	
@@ -16871,9 +16870,9 @@ function chiffre_nombre_de(){
 function Encadrer_un_entier_par_deux_entiers_consecutifs(){
   'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+	this.debug = false;	
 	this.sup=1;
-	if (this.beta) {
+	if (this.debug) {
 		this.nb_questions = 6;
 	} else {
 		this.nb_questions = 3;
@@ -16891,7 +16890,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
+		if (this.debug) {
 			type_de_questions_disponibles = [0,1,2,3,4,5];			
 		} else {
       type_de_questions_disponibles = shuffle([choice([0,1]),choice([2,3]),choice([4,5])]);      			
@@ -17022,7 +17021,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 			switch (liste_type_de_questions[i]){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
@@ -17033,7 +17032,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
           break;	
         case 1 : 
 					texte = `${enonces[1].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
 						texte_corr = ``;	
@@ -17043,7 +17042,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
           break;
         case 2 : 
 					texte = `${enonces[2].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
 						texte_corr = ``;	
@@ -17053,7 +17052,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
           break;	
         case 3 : 
 					texte = `${enonces[3].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
 						texte += `             `
@@ -17064,7 +17063,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
           break;	
         case 4 : 
 					texte = `${enonces[4].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
 						texte_corr = ``;	
@@ -17074,7 +17073,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
           break;
         case 5 : 
 					texte = `${enonces[5].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[5].correction}`;
 						texte_corr = ``;	
@@ -17106,9 +17105,9 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 function Ranger_ordre_croissant_decroissant(){
  'use strict';
  Exercice.call(this); // Héritage de la classe Exercice()
- this.beta = false;	
+ this.debug = false;	
  this.sup=1;
- if (this.beta) {
+ if (this.debug) {
    this.nb_questions = 2;
  } else {
    this.nb_questions = 2;
@@ -17126,7 +17125,7 @@ function Ranger_ordre_croissant_decroissant(){
  let type_de_questions_disponibles;	
 
  this.nouvelle_version = function(numero_de_l_exercice){
-   if (this.beta) {
+   if (this.debug) {
      type_de_questions_disponibles = [0,1];			
    } else {
          //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
@@ -17207,7 +17206,7 @@ function Ranger_ordre_croissant_decroissant(){
      switch (liste_type_de_questions[i]){
       case 0 : 
         texte = `${enonces[0].enonce}`;
-        if (this.beta) {
+        if (this.debug) {
           texte += `<br>`;
           texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
           texte += `             `
@@ -17218,7 +17217,7 @@ function Ranger_ordre_croissant_decroissant(){
         break;	
       case 1 : 
         texte = `${enonces[1].enonce}`;
-        if (this.beta) {
+        if (this.debug) {
           texte += `<br>`;
           texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
           texte_corr = ``;	
@@ -17252,9 +17251,9 @@ function Ranger_ordre_croissant_decroissant(){
 function Tests_du_Seb(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = true;	
+	this.debug = true;	
 	this.sup=1;
-	if (this.beta) {
+	if (this.debug) {
 		this.nb_questions = 2;
 	} else {
 		this.nb_questions = 2;
@@ -17272,7 +17271,7 @@ function Tests_du_Seb(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
+		if (this.debug) {
 			type_de_questions_disponibles = [0,1];			
 		} else {
           //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
@@ -17316,7 +17315,7 @@ function Tests_du_Seb(){
 			switch (liste_type_de_questions[i]){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
@@ -17327,7 +17326,7 @@ function Tests_du_Seb(){
           break;	
         case 1 : 
 					texte = `${enonces[1].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
 						texte_corr = ``;	
@@ -17361,9 +17360,9 @@ function Tests_du_Seb(){
 function Rapports_sur_un_segment(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-  this.beta = false;	
+  this.debug = false;	
 	this.sup=1;
-	if (this.beta) {
+	if (this.debug) {
 		this.nb_questions = 2;
 	} else {
 		this.nb_questions = 2;
@@ -17381,7 +17380,7 @@ function Rapports_sur_un_segment(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
+		if (this.debug) {
 			type_de_questions_disponibles = [0,1];			
 		} else {
        //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
@@ -17513,7 +17512,7 @@ function Rapports_sur_un_segment(){
 			switch (liste_type_de_questions[i]){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
@@ -17524,7 +17523,7 @@ function Rapports_sur_un_segment(){
           			break;	
         		case 1 : 
 					texte = `${enonces[1].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
 						texte_corr = ``;	
@@ -17534,7 +17533,7 @@ function Rapports_sur_un_segment(){
           			break;
         		case 2 : 
 					texte = `${enonces[2].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
 						texte_corr = ``;	
@@ -17544,7 +17543,7 @@ function Rapports_sur_un_segment(){
           			break;				
         		case 3 : 
 					texte = `${enonces[3].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
 						texte_corr = ``;	
@@ -17554,7 +17553,7 @@ function Rapports_sur_un_segment(){
 					break;				
          		case 4 : 
 					texte = `${enonces[4].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
 						texte_corr = ``;	
