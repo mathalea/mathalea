@@ -16575,8 +16575,12 @@ function Arrondir_un_decimal(){
           ci=randint(1,9),
           mi=randint(1,9);
       texte=`$${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1 + ci*0.01 + mi*0.001))}$`
-      texte_corr=`$${tex_nombre(m*1000 + c*100 + d*10 + u*1 )} < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1 + ci*0.01 + mi*0.001))} < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + 1)}$					`
-
+      if (di<5) {
+      texte_corr=`$${mise_en_evidence(tex_nombre(m*1000 + c*100 + d*10 + u*1 ))} < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1 + ci*0.01 + mi*0.001))} < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + 1)}$					`
+      }
+      else {
+        texte_corr=`$${tex_nombre(m*1000 + c*100 + d*10 + u*1 )} < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1 + ci*0.01 + mi*0.001))} < ${mise_en_evidence(tex_nombre(m*1000 + c*100 + d*10 + u*1 + 1))}$					`
+        }
       if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte); // Sinon on enregistre la question dans liste_questions
 				this.liste_corrections.push(texte_corr); // On fait pareil pour la correction
