@@ -16558,8 +16558,10 @@ function Arrondir_un_decimal(){
 	this.titre = "Arrondir un nombre décimal";	
   this.consigne = "Encadrer chaque nombre à l'unité, puis au dixième, puis au centième; dans chaque cas, mettre ensuite en évidence son arrondi.";
   this.nb_questions = 3;
-  this.nb_cols = 1;
+  this.nb_cols = 3;
   this.nb_cols_corr = 1;
+
+	sortie_html? this.spacing_corr = 0.5 : this.spacing_corr = 1.5;
 
 	this.nouvelle_version = function(){
     this.liste_questions = [];
@@ -16567,20 +16569,41 @@ function Arrondir_un_decimal(){
   let texte = "", texte_corr = "";	
 		
 	for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
-      let m=randint(1,9),
-          c=randint(1,9),
-          d=randint(1,9),
-          u=randint(1,9),
+      let m=randint(0,9),
+          c=randint(0,9),
+          d=randint(0,9),
+          u=randint(0,9),
           di=randint(1,9),
           ci=randint(1,9),
-          mi=randint(1,9);
-      texte=`$${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1 + ci*0.01 + mi*0.001))}$`
+          mi=randint(1,9),
+          me=randint(0,1),
+          ce=randint(0,1),
+          n=me*m*1000 + ce*c*100 + d*10 + u*1 + calcul(di*0.1 + ci*0.01 + mi*0.001);
+      texte=`$${tex_nombre(n)}$`
+      texte_corr="Encadrement et arrondi à l'unité : &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;"
       if (di<5) {
-      texte_corr=`$${mise_en_evidence(tex_nombre(m*1000 + c*100 + d*10 + u*1 ))} < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1 + ci*0.01 + mi*0.001))} < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + 1)}$					`
+      texte_corr+=`$${mise_en_evidence(tex_nombre(troncature(n,0)))} &ensp;< ${tex_nombre(n)} < ${tex_nombre(troncature(n+1,0))}$					`
       }
-      else {
-        texte_corr=`$${tex_nombre(m*1000 + c*100 + d*10 + u*1 )} < ${tex_nombre(m*1000 + c*100 + d*10 + u*1 + calcul(di*0.1 + ci*0.01 + mi*0.001))} < ${mise_en_evidence(tex_nombre(m*1000 + c*100 + d*10 + u*1 + 1))}$					`
+        else {
+        texte_corr+=`$${tex_nombre(troncature(n,0))} &ensp;< ${tex_nombre(n)} < ${mise_en_evidence(tex_nombre(troncature(n+1,0)))}$					`
         }
+
+      texte_corr+="<br>Encadrement et arrondi au dixième : &ensp;&ensp;&ensp; "
+      if (ci<5) {
+        texte_corr+=`$${mise_en_evidence(tex_nombre(troncature(n,1)))} < ${tex_nombre(n)} < ${tex_nombre(troncature(n+0.1,1))}$					`
+        }
+       else {
+          texte_corr+=`$${tex_nombre(troncature(n,1))} &ensp;< ${tex_nombre(n)} < ${mise_en_evidence(tex_nombre(troncature(n+0.1,1)))}$					`
+          }
+
+      texte_corr+="<br>Encadrement et arrondi au centième : &ensp;"
+      if (mi<5) {
+        texte_corr+=`$${mise_en_evidence(tex_nombre(troncature(n,2)))} < ${tex_nombre(n)} < ${tex_nombre(troncature(n+0.01,2))}$					`
+        }
+        else {
+          texte_corr+=`$${tex_nombre(troncature(n,2))} &ensp;< ${tex_nombre(n)} < ${mise_en_evidence(tex_nombre(troncature(n+0.01,2)))}$					`
+          }
+
       if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte); // Sinon on enregistre la question dans liste_questions
 				this.liste_corrections.push(texte_corr); // On fait pareil pour la correction
