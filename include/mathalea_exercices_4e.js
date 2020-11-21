@@ -7668,7 +7668,11 @@ function Notation_scientifique() {
 /**
  * Signe d'un produit ou d'on quotient de relatifs
  * Plusieurs niveaux 2, 3 ou 4 factieurs, un quotient de 2 nombres, 1  nombre sur un produit de deux nombres, un prooduit de 2 nombres sur un nombre, un quotient de produit de 2 nombres
- * 4C10-0 exercice parent  ?
+ * 4C10-0 exercice parent de 4C10-1 et 4C10-2
+ * 4C10-0 contient tous les cas
+ * Dans ces exercices je me servais de this.beta pour faire passer l'exo de beta.html à mathalea.html
+ * this.beta pouvait prendre la valeur 'beta' ou '', tous les autres this.beta sont devenus des this.debug
+
  * @author Sébastien Lozano
  */
 
@@ -8029,22 +8033,22 @@ function Signe_produit_quotient_relatifs() {
 
 /**
  * Signe du produit de relatifs
- * 4C10-1
+ * 4C10-1 fils de 4C10-0
  * @author Sébastien Lozano
  */
 function Signe_produit_relatifs() {
-  this.beta = ``;
+  this.beta = ``;// ici this.beta peut prendre la valeur 'beta' ou '', tous les autres this.beta sont devenus des this.debug
   this.exo = this.beta + `4C10-1`;
   Signe_produit_quotient_relatifs.call(this);
 }
 
 /**
  * Signe du produit de relatifs
- * 4C10-2
+ * 4C10-2 fils de 4C10-0
  * @author Sébastien Lozano
  */
 function Signe_quotient_relatifs() {
-  this.beta = ``;
+  this.beta = ``;// ici this.beta peut prendre la valeur 'beta' ou '', tous les autres this.beta sont devenus des this.debug
   this.exo = this.beta + `4C10-2`;
   Signe_produit_quotient_relatifs.call(this);
 }
@@ -8247,9 +8251,9 @@ function Puissances_encadrement() {
 function Problemes_additifs_fractions() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.beta = false;
+  this.debug = false;
   this.sup = 1;
-  if (this.beta) {
+  if (this.debug) {
     this.nb_questions = 5;
   } else {
     this.nb_questions = 2;
@@ -8266,7 +8270,7 @@ function Problemes_additifs_fractions() {
   let type_de_questions_disponibles;
 
   this.nouvelle_version = function (numero_de_l_exercice) {
-    if (this.beta) {
+    if (this.debug) {
       type_de_questions_disponibles = [1, 2, 3, 4, 5];
     } else {
       type_de_questions_disponibles = [choice([1, 2]), choice([3, 4, 5])];
@@ -9065,7 +9069,7 @@ function Problemes_additifs_fractions() {
       switch (liste_type_de_questions[i]) {
         case 1: // Triathlon des neiges --> VTT, ski de fond, course
           texte = `${pb_3_f[0].enonce} <br> ${pb_3_f[0].question}`;
-          if (this.beta) {
+          if (this.debug) {
             texte += `<br>`;
             texte += `<br> ${pb_3_f[0].correction}`;
             texte_corr = ``;
@@ -9075,7 +9079,7 @@ function Problemes_additifs_fractions() {
           break;
         case 2: //Miss Math --> Noémie, Samia, Alexia
           texte = `${pb_3_f[1].enonce} <br> ${pb_3_f[1].question}`;
-          if (this.beta) {
+          if (this.debug) {
             texte += `<br>`;
             texte += `<br> ${pb_3_f[1].correction}`;
             texte_corr = ``;
@@ -9085,7 +9089,7 @@ function Problemes_additifs_fractions() {
           break;
         case 3: // Mandala --> carmin, ocre jaune, turquoise, pourpre
           texte = `${pb_4_f[0].enonce} <br> ${pb_4_f[0].question}`;
-          if (this.beta) {
+          if (this.debug) {
             texte += `<br>`;
             texte += `<br> ${pb_4_f[0].correction}`;
             texte_corr = ``;
@@ -9095,7 +9099,7 @@ function Problemes_additifs_fractions() {
           break;
         case 4: // Jardin --> légumes, plantes aromatiques, semis, fraisiers
           texte = `${pb_4_f[1].enonce} <br> ${pb_4_f[1].question}`;
-          if (this.beta) {
+          if (this.debug) {
             texte += `<br>`;
             texte += `<br> ${pb_4_f[1].correction}`;
             texte_corr = ``;
@@ -9105,7 +9109,7 @@ function Problemes_additifs_fractions() {
           break;
         case 5: // Stade --> pays organisatuers, supporters, sponsors, vente libre
           texte = `${pb_4_f[2].enonce} <br> ${pb_4_f[2].question}`;
-          if (this.beta) {
+          if (this.debug) {
             texte += `<br>`;
             texte += `<br> ${pb_4_f[2].correction}`;
             texte_corr = ``;
@@ -10102,9 +10106,9 @@ function Tester_si_un_nombre_est_solution_d_une_equation_deg2() {
 function Forme_litterale_introduire_une_lettre(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+	this.debug = false;	
 	this.sup=1;
-	if (this.beta) {
+	if (this.debug) {
 		this.nb_questions = 3;
 	} else {
 		this.nb_questions = 2;
@@ -10122,7 +10126,7 @@ function Forme_litterale_introduire_une_lettre(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
+		if (this.debug) {
 			type_de_questions_disponibles = [1];			
 		} else {
 			type_de_questions_disponibles = [1];			
@@ -10179,7 +10183,7 @@ function Forme_litterale_introduire_une_lettre(){
 			switch (liste_type_de_questions[i]){
 				case 1 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte_corr = ``;	
@@ -10212,9 +10216,9 @@ function Forme_litterale_introduire_une_lettre(){
 function Mettre_en_equation_sans_resoudre(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+	this.debug = false;	
 	this.sup=1;
-	if (this.beta) {
+	if (this.debug) {
 		this.nb_questions = 9;
 	} else {
 		this.nb_questions = 2;
@@ -10232,7 +10236,7 @@ function Mettre_en_equation_sans_resoudre(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
+		if (this.debug) {
 			type_de_questions_disponibles = [1];			
 		} else {
 			type_de_questions_disponibles = [1,2];			
@@ -10366,7 +10370,7 @@ function Mettre_en_equation_sans_resoudre(){
 			switch (liste_type_de_questions[i]){
 				case 1 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte_corr = ``;	
@@ -10376,7 +10380,7 @@ function Mettre_en_equation_sans_resoudre(){
           break;	
         case 2 : 
 					texte = `${enonces[1].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
 						texte_corr = ``;	
@@ -10409,9 +10413,9 @@ function Mettre_en_equation_sans_resoudre(){
 function Graphiques_et_proportionnalite() {
   'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+	this.debug = false;	
 	this.sup=1;
-	if (this.beta) {
+	if (this.debug) {
 		this.nb_questions = 2;
 	} else {
 		this.nb_questions = 1;
@@ -10429,7 +10433,7 @@ function Graphiques_et_proportionnalite() {
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
+		if (this.debug) {
 			type_de_questions_disponibles = [1];			
 		} else {
 			type_de_questions_disponibles = [1];			
@@ -10570,7 +10574,7 @@ function Graphiques_et_proportionnalite() {
 				case 1 : 
           texte = `${enonces[0].enonce}`;
           //texte = `${fig}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte_corr = ``;	
@@ -10603,9 +10607,9 @@ function Graphiques_et_proportionnalite() {
 function Trouver_erreur_resol_eq_deg1(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+	this.debug = false;	
 	this.sup=1;
-	if (this.beta) {
+	if (this.debug) {
 		this.nb_questions = 5;
 	} else {
 		this.nb_questions = 3;
@@ -10623,7 +10627,7 @@ function Trouver_erreur_resol_eq_deg1(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
+		if (this.debug) {
 			type_de_questions_disponibles = [1,2,3,4,5];			
 		} else {
       type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),5]);
@@ -10932,7 +10936,7 @@ function Trouver_erreur_resol_eq_deg1(){
 			switch (liste_type_de_questions[i]){
 				case 1 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
             texte += `
@@ -10944,7 +10948,7 @@ function Trouver_erreur_resol_eq_deg1(){
           break;	
         case 2 : 
 					texte = `${enonces[1].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
 						texte_corr = ``;	
@@ -10954,7 +10958,7 @@ function Trouver_erreur_resol_eq_deg1(){
           break;
         case 3 : 
 					texte = `${enonces[2].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
 						texte_corr = ``;	
@@ -10964,7 +10968,7 @@ function Trouver_erreur_resol_eq_deg1(){
           break;				
         case 4 : 
 					texte = `${enonces[3].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
 						texte_corr = ``;	
@@ -10974,7 +10978,7 @@ function Trouver_erreur_resol_eq_deg1(){
 					break;				
          case 5 : 
 					texte = `${enonces[4].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
 						texte_corr = ``;	
@@ -11008,9 +11012,9 @@ function Trouver_erreur_resol_eq_deg1(){
 function Tracer_avec_scratch(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.beta = false;	
+	this.debug = false;	
 	this.sup=1;
-	if (this.beta) {
+	if (this.debug) {
 		this.nb_questions = 1;
 	} else {
 		this.nb_questions = 1;
@@ -11031,7 +11035,7 @@ function Tracer_avec_scratch(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.beta) {
+		if (this.debug) {
 			type_de_questions_disponibles = [1];			
 		} else {
 			type_de_questions_disponibles = [1];			
@@ -11303,7 +11307,7 @@ function Tracer_avec_scratch(){
 			switch (liste_type_de_questions[i]){
 				case 1 : 
           texte = `${enonces[0].enonce}`;
-          if (this.beta) {
+          if (this.debug) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
             texte_corr = ``;	
@@ -11313,7 +11317,7 @@ function Tracer_avec_scratch(){
           break;	
         case 2 : 
 					texte = `${enonces[1].enonce}`;
-					if (this.beta) {
+					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
 						texte_corr = ``;	

@@ -6632,7 +6632,7 @@ function Problemes_Thales(){
 function TrianglesSemblables() {
 	'use strict'
 	Exercice.call(this)
-	this.beta = false;
+	this.debug = false;
 	this.titre = "Reconnaître des triangles semblables dans différentes configurations";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
@@ -6941,7 +6941,7 @@ function TrianglesSemblables() {
 				}
 				//texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r,s)
 				texte = `${figures.enonce}`;
-				if (this.beta) {
+				if (this.debug) {
 					texte += `<br>${texte_gras(`===== Première solution ======`)}<br>${figures.corr_animmee_sol1}`;
 					texte += `<br><br>${texte_gras(`===== Seconde solution ======`)}<br>${figures.corr_animmee_sol2}`;
 				} else {
