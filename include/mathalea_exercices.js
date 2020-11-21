@@ -6137,7 +6137,7 @@ function Encadrer_fraction_entre_2_entiers() {
       a = randint(0, 9) * 10 + randint(1, 9);
       texte = `$\\ldots < \\dfrac{${n}}{${d}} < \\ldots$`;
       texte_corr = `$${k} < \\dfrac{${n}}{${d}} < ${k+1}$`;
-      if (correction_detaillee){
+      if (this.correction_detaillee){
         texte_corr += ` $\\qquad$ car $\\quad ${k}=\\dfrac{${k*d}}{${d}}\\quad$ et $\\quad${k+1}=\\dfrac{${(k+1)*d}}{${d}}$ `;
         texte_corr += `<br><br>`
         texte_corr += mathalea2d({xmin:-.5, xmax:24,ymax:1.5,scale:.6},fraction(n,d).representation(0,0,3,0,'barre','blue')
@@ -9432,7 +9432,7 @@ function Exercice_differentes_ecritures_nombres_decimaux() {
           break;
         case 5: // u = .../100
           texte = `$${u}=${tex_fraction("", "100")}$`;
-          texte_corr = `$${u}=${tex_fraction(100 * u, "10")}$`;
+          texte_corr = `$${u}=${tex_fraction(100 * u, "100")}$`;
           break;
         case 6: // n/10 = ... + .../10 + .../100
           ecriture_decimale = tex_nombre(calcul(n / 10));
@@ -12400,6 +12400,7 @@ function Symetrie_axiale_conservation1() {
     // On prépare la figure...
     let axe=parseInt(this.sup)
     let d,nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
+
     if (axe==5) axe=randint(1,4) //choix de l'axe et des coordonnées
     switch (axe) {
       case 1 : d=droite(1,0,0,'(d)');
@@ -13753,7 +13754,7 @@ function Description_segment_droite_demi_droite() {
             break;
           case 3:
             trait = demiDroite(B, A);
-            correction = `La demi-droite d'origine $${B.nom}$ passant par $${A.nom}$ notée $[${A.nom}${B.nom})$.`;
+            correction = `La demi-droite d'origine $${B.nom}$ passant par $${A.nom}$ notée $[${B.nom}${A.nom})$.`;
             break;
           case 4:
             trait = segment(A, B);
@@ -14105,7 +14106,7 @@ function Proprietes_paralleles_perpendiculaires() {
   "use strict";
   Exercice.call(this);
   this.titre = "Utiliser les propriétés des droites perpendiculaires";
-  this.nb_questions = 5;
+  this.nb_questions = 1;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
   this.sup = 4;
@@ -14115,8 +14116,8 @@ function Proprietes_paralleles_perpendiculaires() {
   this.nouvelle_version = function (numero_de_l_exercice) {
     let type_de_questions_disponibles,questions_par_niveau=[];
     questions_par_niveau.push(range(3))
-    questions_par_niveau.push(rangeMinMax(8,15))
-    questions_par_niveau.push(rangeMinMax(16,31))
+    questions_par_niveau.push(rangeMinMax(9,15))
+    questions_par_niveau.push(rangeMinMax(19,31,20))
 
     if (this.sup<4) type_de_questions_disponibles = questions_par_niveau[parseInt(this.sup)-1]
     else  type_de_questions_disponibles=questions_par_niveau[0].concat(questions_par_niveau[1].concat(questions_par_niveau[2]))
@@ -14128,6 +14129,20 @@ function Proprietes_paralleles_perpendiculaires() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let droites=[],code,raisonnement,numDroites=[],phrases=[],textetemp
+    let d=[],P=[],objets=[],num1,num2,couleurd=[],droiteP,PP,Inter
+    let droitecolor=function(num) {
+      let couleurs
+      sortie_html ? couleurs=['red','blue','green','black','magenta','orange'] : couleurs=['black','black','black','black','black','black'];
+      return couleurs[num]
+    }
+    if (sortie_html) {
+      num1=`<tspan dy="5" style="font-size:70%">`
+      num2=`</tspan><tspan dy="-5">)</tspan>`
+     }
+     else {
+       num1=`_`
+       num2=`)`
+     }
     for (
       let i = 0, texte, texte_corr, cpt = 0;
       i < this.nb_questions && cpt < 50;
@@ -14135,8 +14150,12 @@ function Proprietes_paralleles_perpendiculaires() {
     ) { 
       texte=""
       texte_corr=""
-      phrases.length=0
+      phrases.length=0;
       droites.length=0;
+      objets.length=0;
+      d.length=0;
+      P.length=0;
+      couleurd.length=0
       numDroites=shuffle([1,2,3,4,5]);
       raisonnement=liste_type_de_questions[i]
 
@@ -14230,10 +14249,17 @@ function Proprietes_paralleles_perpendiculaires() {
 
     // enoncé mélangé
     texte +=`On sait que `
+    couleurd.push(randint(0,5))
     for (let j=0;j<code.length;j++) {
       textetemp =`$(d_${numDroites[code[j][0]-1]})`;
-      if (code[j][2]==1) textetemp+= `//`
-      else textetemp+=`\\perp`
+      if (code[j][2]==1) {
+        textetemp+= `//`
+        couleurd.push(couleurd[j])
+      }
+      else {
+        textetemp+=`\\perp`
+        couleurd.push((couleurd[j]+1)%6)
+      }
       textetemp +=`(d_${numDroites[code[j][1]-1]})$`
       phrases.push(textetemp)
     }
@@ -14246,9 +14272,41 @@ function Proprietes_paralleles_perpendiculaires() {
     texte+=phrases[code.length-1]
     texte +=`.<br>Que peut-on dire de $(d_${numDroites[code[0][0]-1]})$ et $(d_${numDroites[code[code.length-1][1]-1]})$ ?`
 
+    //construction de la figure
+    
+    P.push(point(0,0))
+    droiteP=droiteParPointEtPente(P[0],randint(-1,1,0)/10,`(d${num1}${numDroites[code[0][0]-1]}${num2}`,droitecolor(couleurd[0]))
+    droiteP.epaisseur=2
+    droite.pointilles=false
+    d.push(droiteP)
+    objets.push(d[0])
+    for (let x=0;x<code.length;x++) {
+      if (code[x][2]==1) {
+        P.push(point((x+1)*2,(x+1)*2))
+        droiteP=droiteParPointEtParallele(P[x+1],d[x],`(d${num1}${numDroites[code[x][1]-1]}${num2}`,droitecolor(couleurd[x+1]))
+        droiteP.epaisseur=2
+        droiteP.pointilles=d[x].pointilles
+        d.push(droiteP)
+      }
+      else {
+        P.push(point((x+1)*2,(x+1)*2))
+        droiteP=droiteParPointEtPerpendiculaire(P[x+1],d[x],`(d${num1}${numDroites[code[x][1]-1]}${num2}`,droitecolor(couleurd[x+1]))
+        droiteP.epaisseur=2
+        droiteP.pointilles=x%3+1
+        Inter=pointIntersectionDD(d[x],droiteP)
+        PP=rotation(P[x+1],Inter,90)
+        d.push(droiteP)
+        objets.push(codageAngleDroit(PP,Inter,P[x+1],'black',0.6))
+      }
+      objets.push(d[x+1])
+    }
+    for (let i=0;i<code.length;i++){ // on ajoute les angles droits
+
+    }
     // correction raisonnement ordonné
-console.log(code)
-    texte_corr=""
+    fenetreMathalea2d=[-2,-2,15,10]
+    texte_corr=`Le shémas suivant est donné à titre indicatif car il y a une infinité de possibilités.<br> Les droites de même couleur/style sont parallèles.<br>`
+    texte_corr+=mathalea2d({xmin:-2,xmax:15,ymin:-2,ymax:10,pixelsParCm:20,mainlevee:false,amplitude:0.3},objets)+`<br>`
     for (let j=0;j<code.length-1;j++) {
       if (this.correction_detaillee) texte_corr+=`On sait que : `
       else texte_corr+=`Comme `
@@ -14263,12 +14321,14 @@ console.log(code)
       // quelle propriété ?
       if (code[j][2]*code[j+1][2]==-1) { // Une parallèle et une perpendiculaire
         if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont parallèles, toute droite perpendiculaire à l'une est aussi perpendiculaire à l'autre».<br>Donc`
+        else texte_corr+=`, on en déduit que `
         texte_corr+=` $(d_${numDroites[code[0][0]-1]})\\perp(d_${numDroites[code[j+1][1]-1]})$.<br>`
         code[j+1][0]=code[j][0]
         code[j+1][2]=-1
       }
       else if (code[j][2]>0) { // deux parallèles
         if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont parallèles à une même droite alors elles sont parallèles entre elles».<br>Donc`
+        else texte_corr+=`, on en déduit que `
         texte_corr+=` $(d_${numDroites[code[0][0]-1]})//(d_${numDroites[code[j+1][1]-1]})$.<br>`
         code[j+1][0]=code[j][0]
         code[j+1][2]=1
@@ -14276,6 +14336,7 @@ console.log(code)
       }
       else { //deux perpendiculaires
         if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont perpendiculaires à une même droite, alors elles sont parallèles entre elles».<br>Donc`
+        else texte_corr+=`, on en déduit que `
         texte_corr+=` $(d_${numDroites[code[0][0]-1]})//(d_${numDroites[code[j+1][1]-1]})$.<br>`
         code[j+1][0]=code[j][0]
         code[j+1][2]=1

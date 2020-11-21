@@ -4540,10 +4540,10 @@ function Antecedent_et_image_graphique() {
 function Premier_escape_game_mathalea() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Spécial escape game";
-	this.consigne = "Trouver le mot de passe et ouvrir le cadenas";
+	this.consigne = "Trouver le mot de passe.";
 	this.nb_questions = 1;
-	sortie_html ? this.spacing_corr = 3.5 : this.spacing_corr = 1.5
-	sortie_html ? this.spacing = 2.5 : this.spacing = 1.5
+	sortie_html ? this.spacing_corr = 1 : this.spacing_corr = 1.5
+	sortie_html ? this.spacing = 1 : this.spacing = 1.5
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup = 1;  
@@ -4573,16 +4573,18 @@ function Premier_escape_game_mathalea() {
 		let mdp=cesar(mots[randint(0,5)+(type-1)*6],14)
 		let absc=[],ord=[],car
 		if (this.sup2==mdp) texte+=`${texte_en_couleur_et_gras('Bravo ! Vous avez trouvé le mot de passe !','blue')}<br>`
-		else texte+="Taper le mot de passe dans la boite de dialogue correspondante des paramètres de l'exercice.<br>"
-		texte_corr+=`Min et Max sont dans un bateau. La tempête fait rage et les vagues et les creux sont immenses. SOudain, Min tombe à l'eau... à moins que ce ne soit Max ?<br>`
+		else texte+=`Min et Max sont dans un bateau.<br>La tempête fait rage.<br>Ils en voient de toutes les couleurs.<br>Les vagues et les creux sont immenses.<br>Soudain, Min et Max tombent à l'eau... à moins que ce ne soit le contraire ?<br>`
+		texte+="Taper le mot de passe dans la boite de dialogue correspondante des paramètres de l'exercice.<br>"
 		texte_corr+=`Le mot de passe comporte ${2+2*type} lettres.`
 		for(let x=0;x<type*2+2;x++){
 			car=mdp[x]
 			alphabet=alphabet.filter(item => item !== car)
 			if (x%2==0) absc.push(randint(0,2))
 			else absc.push(randint(3,5))
-			if (x%2==0) ord.push(randint(0,4))
-			else ord.push(randint(0,4,ord[x-1]))
+			// Pour l'abscisse, pas de problème de doublons
+			if (x%2==0) ord.push(randint(0,4)) // premier point, l'ordonnée n'est pas contrainte.
+			else ord.push(randint(0,4,ord[x-1])) // pour le deuxième, on évite l'ordonnée précédente
+			console.log(x,absc[x],ord[x])
 			if (lettres[ord[x]][absc[x]]=='*') lettres[ord[x]][absc[x]]=car
 			else if (lettres[absc[x]][ord[x]]!=car) {
 					for (let i=0;i<x;i++) {

@@ -1911,7 +1911,7 @@ function Variation_en_pourcentages(){
 	this.consigne = "Calculer le nouveau prix";
 	this.nb_questions = 5;
 	this.spacing = 1;
-	this.spacing_corr = 1.5;
+	this.spacing_corr = 2;
 	this.nb_cols_corr = 1;
 	this.nb_cols = 1;
 
@@ -4524,7 +4524,7 @@ function Reduire_dinstinction_somme_produit() {
 
 
 /**
- * Référence 5L13-4
+ * Référence 5L14-4
  * Déterminer la dernière opération à effectuer dans une expression littérale
  * @author Sébastien Lozano fork Jean-Claude Lhote
  */
@@ -7421,7 +7421,7 @@ function Tableaux_et_pourcentages(){
 		liste_de_question_to_contenu(this);
 
 	}
-	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : coefficient enttier\n2 : coefficient décimal"];
+	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : coefficient entier\n2 : coefficient décimal"];
 	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 };
 
