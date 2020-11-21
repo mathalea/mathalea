@@ -16547,7 +16547,7 @@ function Ordre_de_grandeur_operations_decimaux(){
 };
 
 /** 
- * * Encadrer_puis_arrondir_un_decimal
+ * * Encadrer_puis_arrondir_une_valeur
  * * 6N31-3
  * @author Mireille Gain, s'inspirant de 6N31-1 de Sébastien Lozano
  */
@@ -16560,7 +16560,7 @@ function Arrondir_une_valeur(){
   this.nb_questions = 3;
   this.nb_cols = 3;
   this.nb_cols_corr = 1;
-  this.sup = 2;	
+  this.sup = 1;	
 
 	sortie_html? this.spacing_corr = 0.5 : this.spacing_corr = 1.5;
 
@@ -16583,67 +16583,53 @@ function Arrondir_une_valeur(){
       ce=randint(0,1);
       de=randint(0,1);
       n=calcul(me*m*1000 + ce*c*100 + de*d*10 + u*1 + di*0.1 + ci*0.01 + mi*0.001);
-      nb=n;
+      nb=tex_nombre(n);
       }
   
-    else if (this.supp==2){
+    else if (this.sup==2){
       den=choice([7,9,11,13]);
       num=randint(1,50,[7,9,11,13,14,18,21,22,26,27,28,33,35,36,39,42,44,45,49]);
       n=calcul(num/den);
-      nb=fraction(num,den);
-}
-    else if (this.supp==3){
-      rac=randint(3,99,[4,9,16,25,36,49,64,81]);
-      n=Math.sqrt(rac);
-      nb=tex_racine_carree(Math.sqrt(rac));
-      texte=`$${tex_racine_carree(Math.sqrt(rac))}$`;
-      texte_corr = '';
+      nb=tex_fraction(num,den);
+      di=troncature(n-troncature(n,0),1);
+      ci=troncature(n-troncature(n,1),2);
+      mi=troncature(n-troncature(n,2),3);
     }
 
-    if (this.sup==1){
-      texte=`$${tex_nombre(nb)}$`;
-      texte_corr+="Encadrement et arrondi à l'unité : &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;"
+    else if (this.sup==3){
+      rac=randint(3,99,[4,9,16,25,36,49,64,81]);
+      n=Math.sqrt(rac);
+      nb=tex_racine_carree(rac);
+      di=troncature(n-troncature(n,0),1);
+      ci=troncature(n-troncature(n,1),2);
+      mi=troncature(n-troncature(n,2),3);
+    }
+
+      texte=`$${nb}$`;
+      texte_corr+="Encadrement et arrondi à l'unité : &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;";
       if (di<5) {
-      texte_corr+=`$${mise_en_evidence(tex_nombre(troncature(n,0)))} &ensp;< ${nb} < ${tex_nombre(troncature(n+1,0))}$`
+      texte_corr+=`$${mise_en_evidence(tex_nombre(troncature(n,0)))} &ensp;< ${nb} < ${tex_nombre(troncature(n+1,0))}$`;
       }
         else {  
-        texte_corr+=`$${tex_nombre(troncature(n,0))} &ensp;< ${nb} < ${mise_en_evidence(tex_nombre(troncature(n+1,0)))}$`
+        texte_corr+=`$${tex_nombre(troncature(n,0))} &ensp;< ${nb} < ${mise_en_evidence(tex_nombre(troncature(n+1,0)))}$`;
         }
 
-      texte_corr+="<br>Encadrement et arrondi au dixième : &ensp;&ensp;&ensp; "
+      texte_corr+="<br>Encadrement et arrondi au dixième : &ensp;&ensp;&ensp; ";
       if (ci<5) {
-        texte_corr+=`$${mise_en_evidence(tex_nombre(troncature(n,1)))} < ${nb} < ${tex_nombre(troncature(n+0.1,1))}$`
+        texte_corr+=`$${mise_en_evidence(tex_nombre(troncature(n,1)))} < ${nb} < ${tex_nombre(troncature(n+0.1,1))}$`;
         }
        else {
-          texte_corr+=`$${tex_nombre(troncature(n,1))} &ensp;< ${nb} < ${mise_en_evidence(tex_nombre(troncature(n+0.1,1)))}$`
+          texte_corr+=`$${tex_nombre(troncature(n,1))} &ensp;< ${nb} < ${mise_en_evidence(tex_nombre(troncature(n+0.1,1)))}$`;
           }
 
-      texte_corr+="<br>Encadrement et arrondi au centième : &ensp;"
+      texte_corr+="<br>Encadrement et arrondi au centième : &ensp;";
       if (mi<5) {
-        texte_corr+=`$${mise_en_evidence(tex_nombre(troncature(n,2)))} < ${nb} < ${tex_nombre(troncature(n+0.01,2))}$`
+        texte_corr+=`$${mise_en_evidence(tex_nombre(troncature(n,2)))} < ${nb} < ${tex_nombre(troncature(n+0.01,2))}$`;
         }
         else {
-          texte_corr+=`$${tex_nombre(troncature(n,2))} &ensp;< ${nb} < ${mise_en_evidence(tex_nombre(troncature(n+0.01,2)))}$`
+          texte_corr+=`$${tex_nombre(troncature(n,2))} &ensp;< ${nb} < ${mise_en_evidence(tex_nombre(troncature(n+0.01,2)))}$`;
           }
-
-  }
-
-
-  if (this.sup==2){    
-    texte=`$${tex_fraction(num,den)}$`;
-    texte_corr+="Encadrement et arrondi à l'unité : &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;"
-    texte_corr+=`$${mise_en_evidence(tex_nombre(troncature(n,0)))} &ensp;< ${nb} < ${tex_nombre(troncature(n+1,0))}$`
-    texte_corr+=`$${tex_nombre(troncature(n,0))} &ensp;< ${nb} < ${mise_en_evidence(tex_nombre(troncature(n+1,0)))}$`
-    
-   
-    texte_corr+="<br>Encadrement et arrondi au dixième : &ensp;&ensp;&ensp; "
-    texte_corr+=`$${mise_en_evidence(tex_nombre(troncature(n,1)))} < ${nb} < ${tex_nombre(troncature(n+0.1,1))}$`
-    texte_corr+=`$${tex_nombre(troncature(n,1))} &ensp;< ${nb} < ${mise_en_evidence(tex_nombre(troncature(n+0.1,1)))}$`
-    
-    texte_corr+="<br>Encadrement et arrondi au centième : &ensp;"
-    texte_corr+=`$${mise_en_evidence(tex_nombre(troncature(n,2)))} < ${nb} < ${tex_nombre(troncature(n+0.01,2))}$`
-    texte_corr+=`$${tex_nombre(troncature(n,2))} &ensp;< ${nb} < ${mise_en_evidence(tex_nombre(troncature(n+0.01,2)))}$`
-        }
+  
 
     if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
       this.liste_questions.push(texte); // Sinon on enregistre la question dans liste_questions
@@ -16654,8 +16640,7 @@ function Arrondir_une_valeur(){
     }				
   liste_de_question_to_contenu(this);
 }
-
-    this.besoin_formulaire_numerique = ['Type de nombre', 3, `1 : Nombre décimal\n 2 : Fraction\n 3 : Racine carrée`]
+this.besoin_formulaire_numerique = ['Type de nombre', 3, `1 : Nombre décimal\n 2 : Fraction\n 3 : Racine carrée`];
 }
 
 /** 
