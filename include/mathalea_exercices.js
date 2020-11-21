@@ -116,7 +116,7 @@ var liste_des_exercices_disponibles = {
   "6N31": Comparer_decimaux,
   "6N31-1": Encadrer_un_decimal_par_deux_entiers_consecutifs,
   "6N31-2":Ordre_de_grandeur_operations_decimaux,
-  "beta6N31-3": Arrondir_un_decimal,
+  "beta6N31-3": Arrondir_une_valeur,
   "6N32" :Fractions_d_unite,
   "6N33": Fraction_d_un_nombre,
   "6N33-0" : Fraction_d_une_quantite,
@@ -16555,11 +16555,12 @@ function Ordre_de_grandeur_operations_decimaux(){
 function Arrondir_un_decimal(){
 	'use strict';
   Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Arrondir un nombre décimal";	
+	this.titre = "Arrondir une valeur";	
   this.consigne = "Encadrer chaque nombre à l'unité, puis au dixième, puis au centième; dans chaque cas, mettre ensuite en évidence son arrondi.";
-  this.nb_questions = 3;
+  this.nb_questions = 4;
   this.nb_cols = 3;
   this.nb_cols_corr = 1;
+  this.sup = 1;
 
 	sortie_html? this.spacing_corr = 0.5 : this.spacing_corr = 1.5;
 
@@ -16567,18 +16568,23 @@ function Arrondir_un_decimal(){
     this.liste_questions = [];
     this.liste_corrections = [];
   let texte = "", texte_corr = "";	
-		
+  
+  
 	for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
+if (this.sup==1){
       let m=randint(0,9),
           c=randint(0,9),
           d=randint(0,9),
           u=randint(0,9),
-          di=randint(1,9),
-          ci=randint(1,9),
+          di=randint(0,9),
+          ci=randint(0,9),
           mi=randint(1,9),
           me=randint(0,1),
           ce=randint(0,1),
-          n=me*m*1000 + ce*c*100 + d*10 + u*1 + calcul(di*0.1 + ci*0.01 + mi*0.001);
+          de=randint(0,1),
+          n=me*m*1000 + ce*c*100 + de*d*10 + u*1 + calcul(di*0.1 + ci*0.01 + mi*0.001);}
+else if (this.supp==2){n=4/7}
+else {n=Math.sqrt(7)}
       texte=`$${tex_nombre(n)}$`
       texte_corr="Encadrement et arrondi à l'unité : &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;"
       if (di<5) {
@@ -16587,7 +16593,6 @@ function Arrondir_un_decimal(){
         else {
         texte_corr+=`$${tex_nombre(troncature(n,0))} &ensp;< ${tex_nombre(n)} < ${mise_en_evidence(tex_nombre(troncature(n+1,0)))}$					`
         }
-
       texte_corr+="<br>Encadrement et arrondi au dixième : &ensp;&ensp;&ensp; "
       if (ci<5) {
         texte_corr+=`$${mise_en_evidence(tex_nombre(troncature(n,1)))} < ${tex_nombre(n)} < ${tex_nombre(troncature(n+0.1,1))}$					`
@@ -16612,7 +16617,8 @@ function Arrondir_un_decimal(){
       cpt++;
 			}				
 		liste_de_question_to_contenu(this);
-	}
+  };
+    this.besoin_formulaire_numerique = ['Type de nombre', 3, `1 : Nombre décimal\n 2 : Fraction\n 3 : Racine carrée`]
 }
 
 /** 
