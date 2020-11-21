@@ -16562,7 +16562,7 @@ function Arrondir_une_valeur(){
   this.nb_cols_corr = 1;
   this.sup = 1;	
 
-	sortie_html? this.spacing_corr = 0.5 : this.spacing_corr = 1.5;
+	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 3.5;
 
 	this.nouvelle_version = function(){
     this.liste_questions = [];
@@ -16599,7 +16599,7 @@ function Arrondir_une_valeur(){
     else if (this.sup==3){
       rac=randint(3,99,[4,9,16,25,36,49,64,81]);
       n=Math.sqrt(rac);
-      nb=tex_racine_carree(rac);
+      nb=`\\sqrt{${rac}}`;
       di=troncature(n-troncature(n,0),1);
       ci=troncature(n-troncature(n,1),2);
       mi=troncature(n-troncature(n,2),3);
