@@ -16606,28 +16606,28 @@ function Arrondir_une_valeur(){
     }
 
       texte=`$${nb}$`;
-      texte_corr="Encadrement et arrondi à l'unité : &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;";
+      texte_corr="Encadrement et arrondi à l'unité : ";
       if (di<5) {
-      texte_corr+=`$${mise_en_evidence(tex_nombre(troncature(n,0)))} &ensp;< ${nb} < ${tex_nombre(troncature(n+1,0))}$`;
+      texte_corr+=`$\\phantom{1234567}${mise_en_evidence(tex_nombre(troncature(n,0)))} < ${nb} < ${tex_nombre(troncature(n+1,0))}$`;
       }
         else {  
-        texte_corr+=`$${tex_nombre(troncature(n,0))} &ensp;< ${nb} < ${mise_en_evidence(tex_nombre(troncature(n+1,0)))}$`;
+        texte_corr+=`$\\phantom{1234567}${tex_nombre(troncature(n,0))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n+1,0)))}$`;
         }
 
-      texte_corr+="<br>Encadrement et arrondi au dixième : &ensp;&ensp;&ensp; ";
+      texte_corr+="<br>Encadrement et arrondi au dixième : ";
       if (ci<5) {
-        texte_corr+=`$${mise_en_evidence(tex_nombre(troncature(n,1)))} < ${nb} < ${tex_nombre(troncature(n+0.1,1))}$`;
+        texte_corr+=`$\\phantom{123}${mise_en_evidence(tex_nombre(troncature(n,1)))} < ${nb} < ${tex_nombre(troncature(n+0.1,1))}$`;
         }
        else {
-          texte_corr+=`$${tex_nombre(troncature(n,1))} &ensp;< ${nb} < ${mise_en_evidence(tex_nombre(troncature(n+0.1,1)))}$`;
+          texte_corr+=`$\\phantom{123}${tex_nombre(troncature(n,1))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n+0.1,1)))}$`;
           }
 
-      texte_corr+="<br>Encadrement et arrondi au centième : &ensp;";
+      texte_corr+="<br>Encadrement et arrondi au centième : $~$";
       if (mi<5) {
         texte_corr+=`$${mise_en_evidence(tex_nombre(troncature(n,2)))} < ${nb} < ${tex_nombre(troncature(n+0.01,2))}$`;
         }
         else {
-          texte_corr+=`$${tex_nombre(troncature(n,2))} &ensp;< ${nb} < ${mise_en_evidence(tex_nombre(troncature(n+0.01,2)))}$`;
+          texte_corr+=`$${tex_nombre(troncature(n,2))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n+0.01,2)))}$`;
           }
   
 
