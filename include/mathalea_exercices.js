@@ -14304,7 +14304,7 @@ function Proprietes_paralleles_perpendiculaires() {
     }
     // correction raisonnement ordonné
     fenetreMathalea2d=[-2,-2,15,10]
-    texte_corr=`Le shémas suivant est donné à titre indicatif car il y a une infinité de possibilités.<br> Les droites de même couleur/style sont parallèles.<br>`
+    texte_corr=`À partir de l\'énoncé, on peut réaliser le shémas suivant (il en existe une infinité)<br> Les droites données parallèles dans l'énoncé sont de même couleur/style.<br>`
     texte_corr+=mathalea2d({xmin:-2,xmax:15,ymin:-2,ymax:10,pixelsParCm:20,mainlevee:false,amplitude:0.3},objets)+`<br>`
     for (let j=0;j<code.length-1;j++) {
       if (this.correction_detaillee) texte_corr+=`On sait que : `
@@ -14319,7 +14319,7 @@ function Proprietes_paralleles_perpendiculaires() {
       texte_corr +=`(d_${numDroites[code[j+1][1]-1]})$`
       // quelle propriété ?
       if (code[j][2]*code[j+1][2]==-1) { // Une parallèle et une perpendiculaire
-        if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont parallèles, toute droite perpendiculaire à l'une est aussi perpendiculaire à l'autre».<br>Donc`
+        if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont parallèles alors toute droite perpendiculaire à l'une est aussi perpendiculaire à l'autre».<br>Donc`
         else texte_corr+=`, on en déduit que `
         texte_corr+=` $(d_${numDroites[code[0][0]-1]})\\perp(d_${numDroites[code[j+1][1]-1]})$.<br>`
         code[j+1][0]=code[j][0]
@@ -14334,7 +14334,7 @@ function Proprietes_paralleles_perpendiculaires() {
 
       }
       else { //deux perpendiculaires
-        if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont perpendiculaires à une même droite, alors elles sont parallèles entre elles».<br>Donc`
+        if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont perpendiculaires à une même droite alors elles sont parallèles entre elles».<br>Donc`
         else texte_corr+=`, on en déduit que `
         texte_corr+=` $(d_${numDroites[code[0][0]-1]})//(d_${numDroites[code[j+1][1]-1]})$.<br>`
         code[j+1][0]=code[j][0]
