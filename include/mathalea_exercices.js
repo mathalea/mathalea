@@ -16569,7 +16569,7 @@ function Arrondir_une_valeur(){
     this.liste_corrections = [];
   let m,c,d,u,di,ci,mi,me,ce,de,n,den,num,nb,rac;
   
-	for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) {
+	for (let i = 0, texte='', texte_corr='', cpt=0; i < this.nb_questions && cpt<50;) {
     
     if (this.sup==1){
       m=randint(0,9);
@@ -16582,7 +16582,7 @@ function Arrondir_une_valeur(){
       me=randint(0,1);
       ce=randint(0,1);
       de=randint(0,1);
-      n=calcul(me*m*1000 + ce*c*100 + de*d*10 + u*1 + di*0.1 + ci*0.01 + mi*0.001);
+      n=me*m*1000 + ce*c*100 + de*d*10 + u*1 + calcul(di*0.1 + ci*0.01 + mi*0.001);
       nb=tex_nombre(n);
       }
   
@@ -16606,7 +16606,7 @@ function Arrondir_une_valeur(){
     }
 
       texte=`$${nb}$`;
-      texte_corr+="Encadrement et arrondi à l'unité : &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;";
+      texte_corr="Encadrement et arrondi à l'unité : &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;";
       if (di<5) {
       texte_corr+=`$${mise_en_evidence(tex_nombre(troncature(n,0)))} &ensp;< ${nb} < ${tex_nombre(troncature(n+1,0))}$`;
       }
