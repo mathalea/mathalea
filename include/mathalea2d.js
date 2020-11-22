@@ -6460,7 +6460,7 @@ function latexParCoordonnees(texte, x, y) {
 function FractionParPosition({x=0,y=0,fraction=fraction(1,2),couleur='black'}){
   ObjetMathalea2D.call(this);
   let num=fraction.num,den=fraction.den;
-  let longueur=Math.max(Math.ceil(Math.log10(num)),Math.ceil(Math.log10(den)))*10
+  let longueur=Math.max(Math.ceil(Math.log10(Math.abs(num))+(1-unSiPositifMoinsUnSinon(num))/2),Math.ceil(Math.log10(Math.abs(den))+(1-unSiPositifMoinsUnSinon(den))/2))*10
   let offset=10
 
   this.svg=function(coeff){
