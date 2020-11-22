@@ -116,7 +116,7 @@ var liste_des_exercices_disponibles = {
   "6N31": Comparer_decimaux,
   "6N31-1": Encadrer_un_decimal_par_deux_entiers_consecutifs,
   "6N31-2":Ordre_de_grandeur_operations_decimaux,
-  "beta6N31-3": Arrondir_une_valeur,
+  "beta6N31-3": Arrondir_une_valeur_6e,
   "6N32" :Fractions_d_unite,
   "6N33": Fraction_d_un_nombre,
   "6N33-0" : Fraction_d_une_quantite,
@@ -156,6 +156,7 @@ var liste_des_exercices_disponibles = {
   "5G31": Exercice_angles_triangles,
   "5G31-1": Constructibilite_des_triangles_angles,
   "5G51" : Representer_un_solide_5e,
+  "beta5N10": Arrondir_une_valeur_5e,
   "5N11-1": Tableaux_et_pourcentages,
   "5N13": Exercice_fractions_simplifier,
   "5N13-2": Egalites_entre_fractions,
@@ -238,6 +239,7 @@ var liste_des_exercices_disponibles = {
   "4P10-1" : Graphiques_et_proportionnalite,  
   "4G11": Pavages_et_translation,
   "4G20" : Pythagore2D,
+  "beta4G20-0": Arrondir_une_valeur_4e,
   "4G20-1": Egalite_Pythagore2D, // Anciennement Egalite_Pythagore,
   "4G20-2": Racine_caree_de_carres_parfaits,
   "4G20MG32": Exercice_Pythagore,
@@ -16561,6 +16563,7 @@ function Arrondir_une_valeur(){
   this.nb_cols = 3;
   this.nb_cols_corr = 1;
   this.sup = 1;	
+  this.sup2 = false;
 
 	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 3.5;
 
@@ -16589,7 +16592,7 @@ function Arrondir_une_valeur(){
     else if (this.sup==2){
       den=choice([7,9,11,13]);
       num=randint(1,50,[7,9,11,13,14,18,21,22,26,27,28,33,35,36,39,42,44,45,49]);
-      n=calcul(num/den);
+      n=num/den;
       nb=tex_fraction(num,den);
       di=troncature(n-troncature(n,0),1);
       ci=troncature(n-troncature(n,1),2);
@@ -16606,6 +16609,10 @@ function Arrondir_une_valeur(){
     }
 
       texte=`$${nb}$`;
+      if (this.sup2) 
+          {if (this.sup==1) texte+=``;
+          else if (this.sup==2) texte+=`$\\phantom{1234567}$[Quand on écrit sur la calculatrice $${num}\\div ${den}$, elle affiche : $${tex_nombre(n)}$.]`;
+             else if (this.sup==3) texte+=`$\\phantom{1234567}$[Quand on écrit sur la calculatrice $${nb}$, elle affiche : $${tex_nombre(n)}$.]`;}
       texte_corr="Encadrement et arrondi à l'unité : ";
       if (di<5) {
       texte_corr+=`$\\phantom{1234567}${mise_en_evidence(tex_nombre(troncature(n,0)))} < ${nb} < ${tex_nombre(troncature(n+1,0))}$`;
@@ -16641,8 +16648,26 @@ function Arrondir_une_valeur(){
   liste_de_question_to_contenu(this);
 }
 this.besoin_formulaire_numerique = ['Type de nombre', 3, `1 : Nombre décimal\n 2 : Fraction\n 3 : Racine carrée`];
+this.besoin_formulaire2_case_a_cocher = ["Affichage de la valeur donnée à la calculatrice", false];
 }
 
+function Arrondir_une_valeur_6e() {
+  this.sup = 1;
+  this.classe = 6; 
+  Arrondir_une_valeur.call(this);
+}
+
+function Arrondir_une_valeur_5e() {
+  this.sup = 2;
+  this.classe = 6; 
+  Arrondir_une_valeur.call(this);
+}
+
+function Arrondir_une_valeur_4e() {
+  this.sup = 3;
+  this.classe = 6; 
+  Arrondir_une_valeur.call(this);
+}
 /** 
  * * Donner le chiffre des ... le nombre de ...
  * * 6N10-3
