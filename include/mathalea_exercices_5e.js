@@ -3081,7 +3081,7 @@ function Placer_probabilites(){
 			}		
 		} 
 		else {
-			lstObjet.push(fractionParPosition({x:L/2,y:-1,num:1,den:2,couleur:'black'})); // fraction 1/2 
+			lstObjet.push(fractionParPosition({x:L/2,y:-1,fraction:fraction(1,2),couleur:'black'})); // fraction 1/2 
 			lstObjet.push(texteParPosition("0", 0, y-0.25, 0, 'black', 1, 'middle')); // abscisse 0
 			lstObjet.push(texteParPosition("1", L, y-0.25, 0, 'black', 1, 'middle')); // abscisse 1
 		}

@@ -6457,8 +6457,9 @@ function latexParCoordonnees(texte, x, y) {
  * @Auteur Jean-Claude Lhote
  */
 
-function FractionParPosition({x=0,y=0,num=1,den=2,couleur='black'}){
+function FractionParPosition({x=0,y=0,fraction=fraction(1,2),couleur='black'}){
   ObjetMathalea2D.call(this);
+  let num=fraction.num,den=fraction.den;
   let longueur=Math.max(Math.ceil(Math.log10(num)),Math.ceil(Math.log10(den)))*10
   let offset=10
 
