@@ -9632,6 +9632,7 @@ function lireUneAbscisseAvecZoomCM() {
 function Feuille_de_zooms() {
   Exercice.call(this)
   this.nb_cols=1
+  this.sup=1
 
   this.nouvelle_version=function() {
   this.liste_questions=[]
