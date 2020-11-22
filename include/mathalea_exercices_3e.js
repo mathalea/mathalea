@@ -7055,9 +7055,13 @@ function Eq_resolvantes_Thales(){
 	} else {
 		this.nb_questions = 2;
 	};
-	this.sup2=false;	
-
-	this.titre = "Equations résolvantes pour le théorème de Thalès";	
+	this.sup2=false;
+	//this.exo = '';	
+	if (this.exo=='4L15-1') {
+		this.titre = "Equations du type $\\dfrac{x}{a}=\\dfrac{b}{c}$";	
+	} else {
+		this.titre = "Equations résolvantes pour le théorème de Thalès";	
+	}	
 	this.consigne = `Résoudre les équations suivantes.`;	
 	
 	this.nb_cols = 1;
@@ -7106,6 +7110,14 @@ function Eq_resolvantes_Thales(){
 					break;
 			};
 
+			let inc;
+			if (this.exo=='4L15-1') {
+				inc = choice(['r','s','t','u','v','w','x','y','z']);
+
+			} else {
+				inc=choice(['x','y','GO','AB','z','GA','BU','ZO','ME']);
+			};
+
 			let params = {
 				// a:tex_nombre(calcul(nb_alea[0]*coeff[0])),
 				// b:tex_nombre(calcul(nb_alea[1]*coeff[1])),
@@ -7113,7 +7125,8 @@ function Eq_resolvantes_Thales(){
 				a:calcul(nb_alea[0]*coeff[0]),
 				b:calcul(nb_alea[1]*coeff[1]),
 				c:calcul(nb_alea[2]*coeff[2]),
-				inc:choice(['x','y','GO','AB','z','GA','BU','ZO','ME'])
+				//inc:choice(['x','y','GO','AB','z','GA','BU','ZO','ME'])
+				inc:inc
 			}
 
 			// pour les situations, autant de situations que de cas dans le switch !

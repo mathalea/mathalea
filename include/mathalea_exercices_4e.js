@@ -12009,3 +12009,17 @@ function Egalite_Pythagore2D(){
   this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Donner l'égalité de Pythagore\n2 : Compléter l'égalité de Pythagore"];
 
 }
+
+/** 
+ * * Equation type x/a=b/c
+ * * numéro de l'exo ex : 4L15-1 fils de 3L13-2
+ * * publication initiale le 22/11/2020
+ * * modification le jj/mm/aaaa pour ....
+ * @author Sébastien Lozano
+ */
+
+function Equations_fractions(){    
+  this.debug=true;
+  this.exo = `4L15-1`;
+  Eq_resolvantes_Thales.call(this);
+};
