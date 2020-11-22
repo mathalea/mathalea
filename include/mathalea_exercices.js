@@ -16653,19 +16653,16 @@ this.besoin_formulaire2_case_a_cocher = ["Affichage de la valeur donnée à la c
 
 function Arrondir_une_valeur_6e() {
   this.sup = 1;
-  this.classe = 6; 
   Arrondir_une_valeur.call(this);
 }
 
 function Arrondir_une_valeur_5e() {
   this.sup = 2;
-  this.classe = 6; 
   Arrondir_une_valeur.call(this);
 }
 
 function Arrondir_une_valeur_4e() {
   this.sup = 3;
-  this.classe = 6; 
   Arrondir_une_valeur.call(this);
 }
 /** 
