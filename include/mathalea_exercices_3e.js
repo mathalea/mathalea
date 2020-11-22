@@ -7056,7 +7056,7 @@ function Eq_resolvantes_Thales(){
 		this.nb_questions = 2;
 	};
 	this.sup2=false;
-	this.exo = '';	
+	//this.exo = '';	
 	if (this.exo=='4L15-1') {
 		this.titre = "Equations du type $\\dfrac{x}{a}=\\dfrac{b}{c}$";	
 	} else {
