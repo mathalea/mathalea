@@ -91,7 +91,7 @@ function Comparer_puissance10() {
       liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
     };
     this.besoin_formulaire_numerique = ["Niveau de difficulté", 6,
-          "1 : Puissances de 10 seules\n 2 : mantisses différentes et même exposant\n 3 : mêmes mantisses et exposants différents\n 4 : mantisses et exposants différents\n 5 : mantisses (négatives) et exposants différents\n 6 : Tous types"];
+          "1 : Puissances de 10 seules\n 2 : Mantisses différentes et même exposant\n 3 : Mêmes mantisses et exposants différents\n 4 : Mantisses et exposants différents\n 5 : Mantisses (négatives) et exposants différents\n 6 : Tous types"];
 }
 
 
