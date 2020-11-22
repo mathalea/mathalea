@@ -9622,7 +9622,11 @@ function lireUneAbscisseAvecZoomCM() {
   this.niveau='CM';
   this.sup=1;
 }
-
+/**
+ * Fonction permettant aux enseignants de proposer des feuilles à compléter pour la lecture d'abscisse décimale avec zoom
+ * L'enseignant peut ajouter "à la main" les données qu'il souhaite
+ * @Auteur Jean-Claude Lhote
+ */
 function Feuille_de_zooms() {
   Exercice.call(this)
   this.nb_cols=1
