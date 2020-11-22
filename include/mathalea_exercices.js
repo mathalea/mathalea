@@ -115,6 +115,7 @@ var liste_des_exercices_disponibles = {
   "6N31": Comparer_decimaux,
   "6N31-1": Encadrer_un_decimal_par_deux_entiers_consecutifs,
   "6N31-2":Ordre_de_grandeur_operations_decimaux,
+  "beta6N31-3": Arrondir_une_valeur_6e,
   "6N32" :Fractions_d_unite,
   "6N33": Fraction_d_un_nombre,
   "6N33-0" : Fraction_d_une_quantite,
@@ -154,6 +155,7 @@ var liste_des_exercices_disponibles = {
   "5G31": Exercice_angles_triangles,
   "5G31-1": Constructibilite_des_triangles_angles,
   "5G51" : Representer_un_solide_5e,
+  "beta5N10": Arrondir_une_valeur_5e,
   "5N11-1": Tableaux_et_pourcentages,
   "5N13": Exercice_fractions_simplifier,
   "5N13-2": Egalites_entre_fractions,
@@ -236,6 +238,7 @@ var liste_des_exercices_disponibles = {
   "4P10-1" : Graphiques_et_proportionnalite,  
   "4G11": Pavages_et_translation,
   "4G20" : Pythagore2D,
+  "beta4G20-0": Arrondir_une_valeur_4e,
   "4G20-1": Egalite_Pythagore2D, // Anciennement Egalite_Pythagore,
   "4G20-2": Racine_caree_de_carres_parfaits,
   "4G20MG32": Exercice_Pythagore,
@@ -16661,6 +16664,123 @@ function Ordre_de_grandeur_operations_decimaux(){
 };
 
 /** 
+ * * Encadrer_puis_arrondir_une_valeur
+ * * 6N31-3
+ * @author Mireille Gain, s'inspirant de 6N31-1 de Sébastien Lozano
+ */
+
+function Arrondir_une_valeur(){
+	'use strict';
+  Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Arrondir une valeur";	
+  this.consigne = "Encadrer chaque nombre à l'unité, puis au dixième, puis au centième; dans chaque cas, mettre ensuite en évidence son arrondi.";
+  this.nb_questions = 3;
+  this.nb_cols = 3;
+  this.nb_cols_corr = 1;
+  this.sup = 1;	
+  this.sup2 = false;
+
+	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 3.5;
+
+	this.nouvelle_version = function(){
+    this.liste_questions = [];
+    this.liste_corrections = [];
+  let m,c,d,u,di,ci,mi,me,ce,de,n,den,num,nb,rac;
+  
+	for (let i = 0, texte='', texte_corr='', cpt=0; i < this.nb_questions && cpt<50;) {
+    
+    if (this.sup==1){
+      m=randint(0,9);
+      c=randint(0,9);
+      d=randint(0,9);
+      u=randint(0,9);
+      di=randint(1,9);
+      ci=randint(1,9);
+      mi=randint(1,9,5);
+      me=randint(0,1);
+      ce=randint(0,1);
+      de=randint(0,1);
+      n=me*m*1000 + ce*c*100 + de*d*10 + u*1 + calcul(di*0.1 + ci*0.01 + mi*0.001);
+      nb=tex_nombre(n);
+      }
+  
+    else if (this.sup==2){
+      den=choice([7,9,11,13]);
+      num=randint(1,50,[7,9,11,13,14,18,21,22,26,27,28,33,35,36,39,42,44,45,49]);
+      n=num/den;
+      nb=tex_fraction(num,den);
+      di=troncature(n-troncature(n,0),1);
+      ci=troncature(n-troncature(n,1),2);
+      mi=troncature(n-troncature(n,2),3);
+    }
+
+    else if (this.sup==3){
+      rac=randint(3,99,[4,9,16,25,36,49,64,81]);
+      n=Math.sqrt(rac);
+      nb=`\\sqrt{${rac}}`;
+      di=troncature(n-troncature(n,0),1);
+      ci=troncature(n-troncature(n,1),2);
+      mi=troncature(n-troncature(n,2),3);
+    }
+
+      texte=`$${nb}$`;
+      if (this.sup2) 
+          {if (this.sup==1) texte+=``;
+          else if (this.sup==2) texte+=`$\\phantom{1234567}$[Quand on écrit sur la calculatrice $${num}\\div ${den}$, elle affiche : $${tex_nombre(n)}$.]`;
+             else if (this.sup==3) texte+=`$\\phantom{1234567}$[Quand on écrit sur la calculatrice $${nb}$, elle affiche : $${tex_nombre(n)}$.]`;}
+      texte_corr="Encadrement et arrondi à l'unité : ";
+      if (di<5) {
+      texte_corr+=`$\\phantom{1234567}${mise_en_evidence(tex_nombre(troncature(n,0)))} < ${nb} < ${tex_nombre(troncature(n+1,0))}$`;
+      }
+        else {  
+        texte_corr+=`$\\phantom{1234567}${tex_nombre(troncature(n,0))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n+1,0)))}$`;
+        }
+
+      texte_corr+="<br>Encadrement et arrondi au dixième : ";
+      if (ci<5) {
+        texte_corr+=`$\\phantom{123}${mise_en_evidence(tex_nombre(troncature(n,1)))} < ${nb} < ${tex_nombre(troncature(n+0.1,1))}$`;
+        }
+       else {
+          texte_corr+=`$\\phantom{123}${tex_nombre(troncature(n,1))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n+0.1,1)))}$`;
+          }
+
+      texte_corr+="<br>Encadrement et arrondi au centième : $~$";
+      if (mi<5) {
+        texte_corr+=`$${mise_en_evidence(tex_nombre(troncature(n,2)))} < ${nb} < ${tex_nombre(troncature(n+0.01,2))}$`;
+        }
+        else {
+          texte_corr+=`$${tex_nombre(troncature(n,2))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n+0.01,2)))}$`;
+          }
+  
+
+    if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+      this.liste_questions.push(texte); // Sinon on enregistre la question dans liste_questions
+      this.liste_corrections.push(texte_corr); // On fait pareil pour la correction
+      i++; // On passe à la question suivante
+    }
+    cpt++;
+    }				
+  liste_de_question_to_contenu(this);
+}
+this.besoin_formulaire_numerique = ['Type de nombre', 3, `1 : Nombre décimal\n 2 : Fraction\n 3 : Racine carrée`];
+this.besoin_formulaire2_case_a_cocher = ["Affichage de la valeur donnée à la calculatrice", false];
+}
+
+function Arrondir_une_valeur_6e() {
+  this.sup = 1;
+  Arrondir_une_valeur.call(this);
+}
+
+function Arrondir_une_valeur_5e() {
+  this.sup = 2;
+  Arrondir_une_valeur.call(this);
+}
+
+function Arrondir_une_valeur_4e() {
+  this.sup = 3;
+  Arrondir_une_valeur.call(this);
+}
+/** 
  * * Donner le chiffre des ... le nombre de ...
  * * 6N10-3
  * @author Sébastien Lozano
@@ -16925,7 +17045,7 @@ function chiffre_nombre_de(){
 };
 
 /** 
-* * Encadrer un nombre entier par deux entier consécutifs
+* * Encadrer un nombre entier par deux entiers consécutifs
 * * 6N11-3
 * @author Sébastien Lozano
 */
@@ -17160,7 +17280,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 };
 
 /** 
-* * Ranger une liste de nombres dans l'odre croissant ou décroissant
+* * Ranger une liste de nombres dans l'ordre croissant ou décroissant
 * * 6N11-4
 * @author Sébastien Lozano
 */
