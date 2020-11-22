@@ -137,6 +137,7 @@ function item_to_contenu(txt){
 			if (dictionnaire['nb_questions']) {
 				exercice_aleatoire.nb_questions = dictionnaire['nb_questions']
 			}
+			exercice_aleatoire.id = idExerciceMathALEA
 			exercice_aleatoire.nouvelle_version()
 			code_LaTeX += `\n\n%%% ${e} : Exercice aléatoire - ${exercice_aleatoire.titre}%%%\n\n`
 			code_LaTeX += exercice_aleatoire.contenu + '\n\n'
@@ -207,6 +208,7 @@ window.onload = function()  {
 	jQuery.ajaxSetup({async:false}); // Tout le traitement se fait de manière synchrone. 
 									// On attend le résultat des requetes url vers les fichiers statiques pour bien avoir les exercices dans l'ordre
 	$('.ui.radio.checkbox').checkbox(); // active les boutons radio (pour le style)
+	$('.ui.checkbox').checkbox();
 	// Gestion du menu déroulant par une fonction auto-exécutante
 	let attendre=0;
 	(function menu_deroulant () {
@@ -225,6 +227,13 @@ window.onload = function()  {
 
 
 	$('.ui.radio.checkbox').checkbox(); // active les boutons radio (pour le style)
+
+	// Gestion de la suppression des identifiants
+let form_supprimer_reference = document.getElementById('supprimer_reference');
+form_supprimer_reference.addEventListener('change', function(e) { // Dès que le statut change, on met à jour
+	console.log('click')
+	document.getElementById('valider').click();
+});
 	
 
 	$('#reglages_sortie_LaTeX').hide();
