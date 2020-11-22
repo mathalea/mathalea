@@ -9623,6 +9623,7 @@ function lireUneAbscisseAvecZoomCM() {
   LireUneAbscisseAvecZoom.call(this);
   this.niveau='CM';
   this.sup=1;
+  this.nb_cols_corr=1
 }
 /**
  * Fonction permettant aux enseignants de proposer des feuilles à compléter pour la lecture d'abscisse décimale avec zoom
