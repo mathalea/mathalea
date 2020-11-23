@@ -4534,14 +4534,16 @@ function Antecedent_et_image_graphique() {
 	};
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
   }
-
+/**
+ * ref beta3F13-2
+ */
 function Premier_escape_game_mathalea() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Spécial escape game";
-	this.consigne = "Trouver le mot de passe et ouvrir le cadenas";
+	this.consigne = "Trouver le mot de passe.";
 	this.nb_questions = 1;
-	sortie_html ? this.spacing_corr = 3.5 : this.spacing_corr = 1.5
-	sortie_html ? this.spacing = 2.5 : this.spacing = 1.5
+	sortie_html ? this.spacing_corr = 1 : this.spacing_corr = 1.5
+	sortie_html ? this.spacing = 1 : this.spacing = 1.5
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup = 1;  
@@ -4571,14 +4573,17 @@ function Premier_escape_game_mathalea() {
 		let mdp=cesar(mots[randint(0,5)+(type-1)*6],14)
 		let absc=[],ord=[],car
 		if (this.sup2==mdp) texte+=`${texte_en_couleur_et_gras('Bravo ! Vous avez trouvé le mot de passe !','blue')}<br>`
-		else texte+="Taper le mot de passe dans la boite de dialogue correspondante des paramètres de l'exercice.<br>"
+		else texte+=`Min et Max sont dans un bateau.<br>La tempête fait rage.<br>Ils en voient de toutes les couleurs.<br>Les vagues et les creux sont immenses.<br>Soudain, Min et Max tombent à l'eau... à moins que ce ne soit le contraire ?<br>`
+		texte+="Taper le mot de passe dans la boite de dialogue correspondante des paramètres de l'exercice.<br>"
+		texte_corr+=`Le mot de passe comporte ${2+2*type} lettres.`
 		for(let x=0;x<type*2+2;x++){
 			car=mdp[x]
 			alphabet=alphabet.filter(item => item !== car)
 			if (x%2==0) absc.push(randint(0,2))
 			else absc.push(randint(3,5))
-			if (x%2==0) ord.push(randint(0,4))
-			else ord.push(randint(0,4,ord[x-1]))
+			// Pour l'abscisse, pas de problème de doublons
+			if (x%2==0) ord.push(randint(0,4)) // premier point, l'ordonnée n'est pas contrainte.
+			else ord.push(randint(0,4,ord[x-1])) // pour le deuxième, on évite l'ordonnée précédente
 			console.log(x,absc[x],ord[x])
 			if (lettres[ord[x]][absc[x]]=='*') lettres[ord[x]][absc[x]]=car
 			else if (lettres[absc[x]][ord[x]]!=car) {
@@ -6627,7 +6632,7 @@ function Problemes_Thales(){
 function TrianglesSemblables() {
 	'use strict'
 	Exercice.call(this)
-	this.beta = false;
+	this.debug = false;
 	this.titre = "Reconnaître des triangles semblables dans différentes configurations";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
@@ -6936,7 +6941,7 @@ function TrianglesSemblables() {
 				}
 				//texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r,s)
 				texte = `${figures.enonce}`;
-				if (this.beta) {
+				if (this.debug) {
 					texte += `<br>${texte_gras(`===== Première solution ======`)}<br>${figures.corr_animmee_sol1}`;
 					texte += `<br><br>${texte_gras(`===== Seconde solution ======`)}<br>${figures.corr_animmee_sol2}`;
 				} else {
@@ -7050,9 +7055,13 @@ function Eq_resolvantes_Thales(){
 	} else {
 		this.nb_questions = 2;
 	};
-	this.sup2=false;	
-
-	this.titre = "Equations résolvantes pour le théorème de Thalès";	
+	this.sup2=false;
+	//this.exo = '';	
+	if (this.exo=='4L15-1') {
+		this.titre = "Equations du type $\\dfrac{x}{a}=\\dfrac{b}{c}$";	
+	} else {
+		this.titre = "Equations résolvantes pour le théorème de Thalès";	
+	}	
 	this.consigne = `Résoudre les équations suivantes.`;	
 	
 	this.nb_cols = 1;
@@ -7101,6 +7110,14 @@ function Eq_resolvantes_Thales(){
 					break;
 			};
 
+			let inc;
+			if (this.exo=='4L15-1') {
+				inc = choice(['r','s','t','u','v','w','x','y','z']);
+
+			} else {
+				inc=choice(['x','y','GO','AB','z','GA','BU','ZO','ME']);
+			};
+
 			let params = {
 				// a:tex_nombre(calcul(nb_alea[0]*coeff[0])),
 				// b:tex_nombre(calcul(nb_alea[1]*coeff[1])),
@@ -7108,7 +7125,8 @@ function Eq_resolvantes_Thales(){
 				a:calcul(nb_alea[0]*coeff[0]),
 				b:calcul(nb_alea[1]*coeff[1]),
 				c:calcul(nb_alea[2]*coeff[2]),
-				inc:choice(['x','y','GO','AB','z','GA','BU','ZO','ME'])
+				//inc:choice(['x','y','GO','AB','z','GA','BU','ZO','ME'])
+				inc:inc
 			}
 
 			// pour les situations, autant de situations que de cas dans le switch !

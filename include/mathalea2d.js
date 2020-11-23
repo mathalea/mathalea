@@ -581,6 +581,7 @@ function barycentre(p, nom, positionLabel = "above") {
 function Droite(arg1, arg2, arg3, arg4, color) {
   ObjetMathalea2D.call(this);
   if (arguments.length == 2) {
+    this.nom=""
     this.x1 = arg1.x;
     this.y1 = arg1.y;
     this.x2 = arg2.x;
@@ -593,6 +594,7 @@ function Droite(arg1, arg2, arg3, arg4, color) {
   } else if (arguments.length == 3) {
     if (typeof arg1 == "number") {
       // droite d'équation ax +by +c =0
+      this.nom=""
       this.a = arg1;
       this.b = arg2;
       this.c = arg3;
@@ -625,7 +627,7 @@ function Droite(arg1, arg2, arg3, arg4, color) {
       this.c = calcul(
         (this.x1 - this.x2) * this.y1 + (this.y2 - this.y1) * this.x1
       );
-      this.name = arg3;
+      this.nom = arg3;
     }
   } else if (arguments.length == 4) {
     if (typeof arg1 == "number") {
@@ -635,7 +637,7 @@ function Droite(arg1, arg2, arg3, arg4, color) {
       a=arg1
       b=arg2
       c=arg3
-      nom=arg4
+      this.nom=arg4
       if (egal(a, 0)) {
         this.x1 = 0;
         this.x2 = 1;
@@ -652,7 +654,6 @@ function Droite(arg1, arg2, arg3, arg4, color) {
         this.x2 = 1;
         this.y2 = calcul((-c - a) / b);
       }
-      this.nom = nom;
     } else {
       this.x1 = arg1.x;
       this.y1 = arg1.y;
@@ -682,12 +683,63 @@ function Droite(arg1, arg2, arg3, arg4, color) {
     point(0, 0),
     point(this.directeur.x, this.directeur.y)
   );
+  let absNom,ordNom,leNom
+  let pointXmin=pointSurDroite(this,fenetreMathalea2d[0])
+  if (this.nom!='') {
+    pointXmin=pointSurDroite(this,fenetreMathalea2d[0])
+    if (pointXmin.y>fenetreMathalea2d[1]&&pointXmin.y<fenetreMathalea2d[3]) {
+      absNom=fenetreMathalea2d[0]+1
+      ordNom=pointXmin.y+0.5
+    }
+    else {
+      pointXmin=pointSurDroite(this,fenetreMathalea2d[2])
+      if (pointXmin.y>fenetreMathalea2d[1]&&pointXmin.y<fenetreMathalea2d[3]) {
+        absNom=fenetreMathalea2d[2]-1
+        ordNom=pointXmin.y+0.5
+      }
+      else {
+        pointXmin=pointIntersectionDD(this,droiteHorizontaleParPoint(point(0,fenetreMathalea2d[1])))
+        if (pointXmin.x>fenetreMathalea2d[0]&&pointXmin.x<fenetreMathalea2d[2]) {
+          absNom=pointXmin.x+0.5
+          ordNom=fenetreMathalea2d[1]+1
+        }
+        else {
+          pointXmin=pointIntersectionDD(this,droiteHorizontaleParPoint(point(0,fenetreMathalea2d[3])))
+          if (pointXmin.x>fenetreMathalea2d[0]&&pointXmin.x<fenetreMathalea2d[2]) {
+            absNom=pointXmin.x+0.5
+            ordNom=fenetreMathalea2d[3]-1
+          }
+          else {
+            absNom=(fenetreMathalea2d[0]+fenetreMathalea2d[2]/2)
+            ordNom=pointSurDroite(this,absNom).y+0.5
+          }
+        }
+      }
+    }
+    leNom=texteParPosition(this.nom,absNom,ordNom,"milieu",this.color,1,"milieu",true)
+
+  }
   this.svg = function (coeff) {
+   
     if (this.epaisseur != 1) {
       this.style += ` stroke-width="${this.epaisseur}" `;
     }
-    if (this.pointilles) {
-      this.style += ` stroke-dasharray="4 3" `;
+    if (Boolean(this.pointilles)) {
+      switch (this.pointilles) {
+        case 1 :
+          this.style += ` stroke-dasharray="6 10" `;
+          break;
+        case 2 : 
+        this.style += ` stroke-dasharray="6 3" `;
+        break;       
+        case 3 :
+          this.style += ` stroke-dasharray="3 2 6 2 " `;
+          break;      
+        default : 
+        this.style += ` stroke-dasharray="5 5" `;
+        break; 
+      }
+
     }
     if (this.opacite != 1) {
       this.style += ` stroke-opacity="${this.opacite}" `;
@@ -696,10 +748,15 @@ function Droite(arg1, arg2, arg3, arg4, color) {
     let B = point(this.x2, this.y2);
     let A1 = pointSurSegment(A, B, -50);
     let B1 = pointSurSegment(B, A, -50);
-    return `<line x1="${A1.xSVG(coeff)}" y1="${A1.ySVG(coeff)}" x2="${B1.xSVG(
+    if (typeof(leNom)=='undefined')
+       return `<line x1="${A1.xSVG(coeff)}" y1="${A1.ySVG(coeff)}" x2="${B1.xSVG(
       coeff
     )}" y2="${B1.ySVG(coeff)}" stroke="${this.color}" ${this.style} id ="${this.id}" />`;
+    else return `<line x1="${A1.xSVG(coeff)}" y1="${A1.ySVG(coeff)}" x2="${B1.xSVG(
+      coeff
+    )}" y2="${B1.ySVG(coeff)}" stroke="${this.color}" ${this.style} id ="${this.id}" />`+leNom.svg(coeff);
   };
+
   this.tikz = function () {
     let tableauOptions = [];
     if (this.color.length > 1 && this.color !== "black") {
@@ -708,9 +765,23 @@ function Droite(arg1, arg2, arg3, arg4, color) {
     if (this.epaisseur != 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`);
     }
-    if (this.pointilles) {
-      tableauOptions.push(`dashed`);
+    if (Boolean(this.pointilles)) {
+     switch (this.pointilles) {
+        case 1 :
+          tableauOptions.push(` dash dot `);
+          break;
+        case 2 : 
+        tableauOptions.push(` dash dash dot `);
+        break;       
+        case 3 :
+          tableauOptions.push(` dash dot dot `);
+          break;      
+        default : 
+          tableauOptions.push(` dashed `);
+        break; 
+      }
     }
+
     if (this.opacite != 1) {
       tableauOptions.push(`opacity = ${this.opacite}`);
     }
@@ -723,7 +794,7 @@ function Droite(arg1, arg2, arg3, arg4, color) {
     let B = point(this.x2, this.y2);
     let A1 = pointSurSegment(A, B, -10);
     let B1 = pointSurSegment(B, A, -10);
-    return `\\draw${optionsDraw} (${A1.x},${A1.y})--(${B1.x},${B1.y});`;
+    return `\\draw${optionsDraw} (${A1.x},${A1.y})--(${B1.x},${B1.y});`+leNom.tikz();
   };
   this.svgml = function(coeff,amp){
     let A = point(this.x1, this.y1);
@@ -732,7 +803,7 @@ function Droite(arg1, arg2, arg3, arg4, color) {
     let B1 = pointSurSegment(B, A, -10);
     let s=segment(A1,B1,this.color)
     s.isVisible=false
-  return s.svgml(coeff,amp)
+  return s.svgml(coeff,amp)+leNom.svg(coeff)
   }
   this.tikzml = function(amp){
     let A = point(this.x1, this.y1);
@@ -741,7 +812,7 @@ function Droite(arg1, arg2, arg3, arg4, color) {
     let B1 = pointSurSegment(B, A, -10);
     let s=segment(A1,B1,this.color)
     s.isVisible=false
-  return s.tikzml(amp)
+  return s.tikzml(amp)+leNom.tikz()
   }
 }
 function droite(...args) {
@@ -1101,8 +1172,22 @@ function Polyline(...points) {
     if (this.epaisseur != 1) {
       this.style += ` stroke-width="${this.epaisseur}" `;
     }
-    if (this.pointilles) {
-      this.style += ` stroke-dasharray="4 3" `;
+    if (Boolean(this.pointilles)) {
+      switch (this.pointilles) {
+        case 1 :
+          this.style += ` stroke-dasharray="6 10" `;
+          break;
+        case 2 : 
+        this.style += ` stroke-dasharray="6 3" `;
+        break;       
+        case 3 :
+          this.style += ` stroke-dasharray="3 2 6 2 " `;
+          break;      
+        default : 
+        this.style += ` stroke-dasharray="5 5" `;
+        break; 
+      }
+
     }
     if (this.opacite != 1) {
       this.style += ` stroke-opacity="${this.opacite}" `;
@@ -1121,10 +1206,23 @@ function Polyline(...points) {
     if (this.epaisseur != 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`);
     }
-    if (this.pointilles) {
-      tableauOptions.push(`dashed`);
-    }
-    if (this.opacite != 1) {
+    if (Boolean(this.pointilles)) {
+      switch (this.pointilles) {
+         case 1 :
+           tableauOptions.push(` dash dot `);
+           break;
+         case 2 : 
+         tableauOptions.push(` dash dash dot `);
+         break;       
+         case 3 :
+           tableauOptions.push(` dash dot dot `);
+           break;      
+         default : 
+           tableauOptions.push(` dashed `);
+         break; 
+       }
+     }
+     if (this.opacite != 1) {
       tableauOptions.push(`opacity = ${this.opacite}`);
     }
 
@@ -1289,8 +1387,22 @@ function Segment(arg1, arg2, arg3, arg4, color) {
     if (this.epaisseur != 1) {
       this.style += ` stroke-width="${this.epaisseur}" `;
     }
-    if (this.pointilles) {
-      this.style += ` stroke-dasharray="4 3" `;
+    if (Boolean(this.pointilles)) {
+      switch (this.pointilles) {
+        case 1 :
+          this.style += ` stroke-dasharray="6 10" `;
+          break;
+        case 2 : 
+        this.style += ` stroke-dasharray="6 3" `;
+        break;       
+        case 3 :
+          this.style += ` stroke-dasharray="3 2 6 2 " `;
+          break;      
+        default : 
+        this.style += ` stroke-dasharray="5 5" `;
+        break; 
+      }
+
     }
     if (this.opacite != 1) {
       this.style += ` stroke-opacity="${this.opacite}" `;
@@ -1406,10 +1518,23 @@ function Segment(arg1, arg2, arg3, arg4, color) {
     if (this.opacite != 1) {
       tableauOptions.push(`opacity = ${this.opacite}`);
     }
-    if (this.pointilles) {
-      tableauOptions.push(`dashed`);
-    }
-    if (this.styleExtremites.length > 1) {
+    if (Boolean(this.pointilles)) {
+      switch (this.pointilles) {
+         case 1 :
+           tableauOptions.push(` dash dot `);
+           break;
+         case 2 : 
+         tableauOptions.push(` dash dash dot `);
+         break;       
+         case 3 :
+           tableauOptions.push(` dash dot dot `);
+           break;      
+         default : 
+           tableauOptions.push(` dashed `);
+         break; 
+       }
+     }
+     if (this.styleExtremites.length > 1) {
       tableauOptions.push(this.styleExtremites);
     }
     if (tableauOptions.length > 0) {
@@ -1556,8 +1681,22 @@ function Polygone(...points) {
     if (this.epaisseur != 1) {
       this.style += ` stroke-width="${this.epaisseur}" `;
     }
-    if (this.pointilles) {
-      this.style += ` stroke-dasharray="4 3" `;
+    if (Boolean(this.pointilles)) {
+      switch (this.pointilles) {
+        case 1 :
+          this.style += ` stroke-dasharray="6 10" `;
+          break;
+        case 2 : 
+        this.style += ` stroke-dasharray="6 3" `;
+        break;       
+        case 3 :
+          this.style += ` stroke-dasharray="3 2 6 2 " `;
+          break;      
+        default : 
+        this.style += ` stroke-dasharray="5 5" `;
+        break; 
+      }
+
     }
     if (this.couleurDeRemplissage == "") {
       this.style += ` fill="none" `;
@@ -1579,10 +1718,23 @@ function Polygone(...points) {
     if (this.epaisseur != 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`);
     }
-    if (this.pointilles) {
-      tableauOptions.push(`dashed`);
-    }
-    if (this.opacite != 1) {
+    if (Boolean(this.pointilles)) {
+      switch (this.pointilles) {
+         case 1 :
+           tableauOptions.push(` dash dot `);
+           break;
+         case 2 : 
+         tableauOptions.push(` dash dash dot `);
+         break;       
+         case 3 :
+           tableauOptions.push(` dash dot dot `);
+           break;      
+         default : 
+           tableauOptions.push(` dashed `);
+         break; 
+       }
+     }
+     if (this.opacite != 1) {
       tableauOptions.push(`opacity=${this.opacite}`);
     }
     if (this.opaciteDeRemplissage !=1) {
@@ -1952,8 +2104,22 @@ function Cercle(O, r, color) {
     if (this.epaisseur != 1) {
       this.style += ` stroke-width="${this.epaisseur}" `;
     }
-    if (this.pointilles) {
-      this.style += ` stroke-dasharray="4 3" `;
+    if (Boolean(this.pointilles)) {
+      switch (this.pointilles) {
+        case 1 :
+          this.style += ` stroke-dasharray="6 10" `;
+          break;
+        case 2 : 
+        this.style += ` stroke-dasharray="6 3" `;
+        break;       
+        case 3 :
+          this.style += ` stroke-dasharray="3 2 6 2 " `;
+          break;      
+        default : 
+        this.style += ` stroke-dasharray="5 5" `;
+        break; 
+      }
+
     }
     if (this.opacite != 1) {
       this.style += ` stroke-opacity="${this.opacite}" `;
@@ -1978,10 +2144,23 @@ function Cercle(O, r, color) {
     if (this.epaisseur != 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`);
     }
-    if (this.pointilles) {
-      tableauOptions.push(`dashed`);
-    }
-    if (this.opacite != 1) {
+    if (Boolean(this.pointilles)) {
+      switch (this.pointilles) {
+         case 1 :
+           tableauOptions.push(` dash dot `);
+           break;
+         case 2 : 
+         tableauOptions.push(` dash dash dot `);
+         break;       
+         case 3 :
+           tableauOptions.push(` dash dot dot `);
+           break;      
+         default : 
+           tableauOptions.push(` dashed `);
+         break; 
+       }
+     }
+     if (this.opacite != 1) {
       tableauOptions.push(`opacity = ${this.opacite}`);
     }
     if (tableauOptions.length > 0) {
@@ -2247,10 +2426,24 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
     if (this.epaisseur != 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
-    if (this.pointilles) {
-      this.style += ` stroke-dasharray="4 3" `
+    if (Boolean(this.pointilles)) {
+      switch (this.pointilles) {
+        case 1 :
+          this.style += ` stroke-dasharray="6 10" `;
+          break;
+        case 2 : 
+        this.style += ` stroke-dasharray="6 3" `;
+        break;       
+        case 3 :
+          this.style += ` stroke-dasharray="3 2 6 2 " `;
+          break;      
+        default : 
+        this.style += ` stroke-dasharray="5 5" `;
+        break; 
+      }
+
     }
-    if (this.opacite != 1) {
+   if (this.opacite != 1) {
       this.style += ` stroke-opacity="${this.opacite}" `
     }
     if (this.couleurDeRemplissage != 'none') {
@@ -2263,8 +2456,22 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
     if (this.epaisseur != 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
-    if (this.pointilles) {
-      this.style += ` stroke-dasharray="4 3" `
+    if (Boolean(this.pointilles)) {
+      switch (this.pointilles) {
+        case 1 :
+          this.style += ` stroke-dasharray="6 10" `;
+          break;
+        case 2 : 
+        this.style += ` stroke-dasharray="6 3" `;
+        break;       
+        case 3 :
+          this.style += ` stroke-dasharray="3 2 6 2 " `;
+          break;      
+        default : 
+        this.style += ` stroke-dasharray="5 5" `;
+        break; 
+      }
+
     }
     if (this.opacite != 1) {
       this.style += ` stroke-opacity="${this.opacite}" `
@@ -2280,10 +2487,23 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
     if (this.epaisseur != 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
     }
-    if (this.pointilles) {
-      tableauOptions.push(`dashed`)
-    }
-    if (this.opacite != 1) {
+    if (Boolean(this.pointilles)) {
+      switch (this.pointilles) {
+         case 1 :
+           tableauOptions.push(` dash dot `);
+           break;
+         case 2 : 
+         tableauOptions.push(` dash dash dot `);
+         break;       
+         case 3 :
+           tableauOptions.push(` dash dot dot `);
+           break;      
+         default : 
+           tableauOptions.push(` dashed `);
+         break; 
+       }
+     }
+     if (this.opacite != 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
     if (rayon && fill != 'none') {
@@ -5988,8 +6208,22 @@ function CrochetD(A, color = "blue") {
     if (this.epaisseur != 1) {
       this.style += ` stroke-width="${this.epaisseur}" `;
     }
-    if (this.pointilles) {
-      this.style += ` stroke-dasharray="4 3" `;
+    if (Boolean(this.pointilles)) {
+      switch (this.pointilles) {
+        case 1 :
+          this.style += ` stroke-dasharray="6 10" `;
+          break;
+        case 2 : 
+        this.style += ` stroke-dasharray="6 3" `;
+        break;       
+        case 3 :
+          this.style += ` stroke-dasharray="3 2 6 2 " `;
+          break;      
+        default : 
+        this.style += ` stroke-dasharray="5 5" `;
+        break; 
+      }
+
     }
     code = `<polyline points="${calcul(A.xSVG(coeff) + this.taille*20)},${calcul(A.ySVG(coeff)+
       2*this.taille*20/coeff * coeff
@@ -6027,8 +6261,22 @@ function CrochetG(A, color = "blue") {
     if (this.epaisseur != 1) {
       this.style += ` stroke-width="${this.epaisseur}" `;
     }
-    if (this.pointilles) {
-      this.style += ` stroke-dasharray="4 3" `;
+    if (Boolean(this.pointilles)) {
+      switch (this.pointilles) {
+        case 1 :
+          this.style += ` stroke-dasharray="6 10" `;
+          break;
+        case 2 : 
+        this.style += ` stroke-dasharray="6 3" `;
+        break;       
+        case 3 :
+          this.style += ` stroke-dasharray="3 2 6 2 " `;
+          break;      
+        default : 
+        this.style += ` stroke-dasharray="5 5" `;
+        break; 
+      }
+
     }
     code = `<polyline points="${calcul(A.xSVG(coeff) - this.taille*20 )},${calcul(A.ySVG(coeff)+
       2*this.taille *20
@@ -6080,7 +6328,7 @@ function intervalle(A, B, color = "blue", h = 0) {
  *
  * @Auteur Rémi Angot
  */
-function TexteParPoint(texte, A, orientation = "milieu", color='black',scale=1,ancrageDeRotation = "middle") {
+function TexteParPoint(texte, A, orientation = "milieu", color='black',scale=1,ancrageDeRotation = "middle",math_on=false) {
   ObjetMathalea2D.call(this);
   this.color = color;
   this.svg = function (coeff) {
@@ -6123,6 +6371,7 @@ function TexteParPoint(texte, A, orientation = "milieu", color='black',scale=1,a
   };
   this.tikz = function () {
     let code = "";
+    if(math_on) texte=`$`+texte+`$`;
     if (typeof orientation == "number") {
       let anchor = 'center';
       if (ancrageDeRotation == 'gauche'){
@@ -6162,8 +6411,8 @@ function texteParPoint(...args) {
  *
  * @Auteur Rémi Angot
  */
-function texteParPosition(texte, x, y, orientation = "milieu", color,scale=1, ancrageDeRotation = "middle") {
-  return new TexteParPoint(texte, point(x, y), orientation, color,scale,ancrageDeRotation);
+function texteParPosition(texte, x, y, orientation = "milieu", color,scale=1, ancrageDeRotation = "middle",math_on=false) {
+  return new TexteParPoint(texte, point(x, y), orientation, color,scale,ancrageDeRotation,math_on);
 }
 
 /**
