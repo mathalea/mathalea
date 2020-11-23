@@ -7081,7 +7081,7 @@ function Eq_resolvantes_Thales(){
 			let texte=``;
 			if (bool) {				
 				texte=`Dans ce cas le recours au produit en croix est superflu, on a directement $${inc}=${a}$ !`;
-				sortie=warn_message(texte,`nombres`,`Keep Cool Guy!`);
+				sortie=warn_message(texte,`nombres`,`Keep Cool Guy !`);
 			} else {
 				sortie=``
 			};
