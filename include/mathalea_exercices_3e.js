@@ -7080,7 +7080,7 @@ function Eq_resolvantes_Thales(){
 			let sortie;
 			let texte=``;
 			if (bool) {				
-				texte=`Dans ce cas le recours au produit en croix est superflu, on a directement $${inc}=${a}$ !`;
+				texte=`Dans ce cas le recours au produit en croix est superflu.<br> Par identification, on a directement $${inc}=${a}$ !`;
 				sortie=warn_message(texte,`nombres`,`Keep Cool Guy !`);
 			} else {
 				sortie=``
@@ -7196,7 +7196,6 @@ function Eq_resolvantes_Thales(){
 						${texte_en_couleur_et_gras(`On divise les deux membres par ${tex_nombre(situations[k].c)}`)}.<br>
 						$\\dfrac{${tex_nombre(situations[k].c)}\\times ${situations[k].inc}}{${tex_nombre(situations[k].c)}}= \\dfrac{${tex_nombre(situations[k].a)}\\times ${tex_nombre(situations[k].b)}}{${tex_nombre(situations[k].c)}}$<br>
 						${texte_en_couleur_et_gras(`On simplifie et on calcule.`)}<br>
-
 						$${situations[k].inc}=${tex_nombre(calcul(Number(situations[k].b)*Number(situations[k].a)/Number(situations[k].c)))}$
 						${trivial(situations[k].trivial,tex_nombre(situations[k].a),tex_nombre(situations[k].b),tex_nombre(situations[k].c),situations[k].inc)}
 					`
