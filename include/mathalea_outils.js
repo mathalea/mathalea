@@ -5285,7 +5285,7 @@ function Relatif(...relatifs) {
   */
  function fraction (a,b) {
     return new Fraction(a,b)
-}
+ }
 
 /**
  * @constant {object} Frac objet générique pour accéder à tout moment aux méthodes et proprétés de la classe Fraction()
@@ -5324,7 +5324,7 @@ function Fraction(num,den) {
 	this.fractionEgale = function(k){
 		return fraction(calcul(this.numIrred*k),calcul(this.denIrred*k))
 	}   
-	this.simpsimplifie=function() {
+	this.simplifie=function() {
 		return fraction(this.numIrred,this.denIrred)
 	}
 	/**
