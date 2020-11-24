@@ -7301,7 +7301,8 @@ function Tableaux_et_pourcentages(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.debug = true;	
-	this.sup=1;
+	this.sup=1; // nature du coefficient entre les pourcentages, entier/decimal
+	this.sup2=2; //nombre de colonnes
 	if (this.debug) {
 		this.nb_questions = 1;
 	} else {
@@ -7423,7 +7424,8 @@ function Tableaux_et_pourcentages(){
 
 	}
 	this.besoin_formulaire_numerique = ['Le coefficient entre les pourcentages :',2,"1 : est entier\n2 : est décimal"];
-	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+	this.besoin_formulaire2_numerique = ['Augmentation du nombre de colonnes à remplir :',4,"2 : deux colonnes\n3 : trois colonnes\n4 : quatre colonnes\n5 : cinq colonnes"];
+	this.besoin_formulaire3_case_a_cocher = ["Modulation de ce qui est demandé"];
 };
 
 
