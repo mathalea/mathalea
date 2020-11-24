@@ -7302,7 +7302,7 @@ function Tableaux_et_pourcentages(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.debug = true;	
 	this.sup=1; // nature du coefficient entre les pourcentages, entier/decimal
-	this.sup2=2; //nombre de colonnes
+	this.sup2=1; //nombre de colonnes
 	if (this.debug) {
 		this.nb_questions = 1;
 	} else {
@@ -7323,16 +7323,34 @@ function Tableaux_et_pourcentages(){
 	this.nouvelle_version = function(numero_de_l_exercice){
 		if (this.debug) {
 			if (this.sup==1) {
-				if (this.sup2==2) {
+				if (this.sup2==1) {
 					type_de_questions_disponibles = [0];			
 				};
-				if (this.sup2==3) {
+				if (this.sup2==2) {
 					type_de_questions_disponibles = [1];			
-				}
+				};
+				if (this.sup2==3) {
+					type_de_questions_disponibles = [2];			
+				};
+				if (this.sup2==4) {
+					type_de_questions_disponibles = [3];			
+				};
 			};			
 		} else {
 			  //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
-			  type_de_questions_disponibles = [0];			
+			if (this.sup2==1) {
+				type_de_questions_disponibles = [0];			
+			};
+			if (this.sup2==2) {
+				type_de_questions_disponibles = [1];			
+			};
+			if (this.sup2==3) {
+				type_de_questions_disponibles = [2];			
+			};
+			if (this.sup2==4) {
+				type_de_questions_disponibles = [3];			
+			};
+
 		};
 
 		this.liste_questions = []; // Liste de questions
@@ -7349,28 +7367,51 @@ function Tableaux_et_pourcentages(){
 			
 			if (this.sup == 1) {//coeff entier				
 				remises = choice([
-					[{str:'10\\%',nb:10},{str:'20\\%',nb:20},{str:'30\\%',nb:30}],
-					[{str:'5\\%',nb:5},{str:'15\\%',nb:15},{str:'35\\%',nb:35}],
-					[{str:'10\\%',nb:10},{str:'40\\%',nb:40},{str:'80\\%',nb:80}],
-					[{str:'5\\%',nb:5},{str:'25\\%',nb:25},{str:'55\\%',nb:55}],
-					//[{str:'10\\%',nb:10},{str:'5\\%',nb:5},{str:'15\\%',nb:15}],
-					//[{str:'50\\%',nb:50},{str:'30\\%',nb:30},{str:'10\\%',nb:10}],
+					[{str:'5\\%',nb:5},{str:'10\\%',nb:10},{str:'15\\%',nb:15},{str:'20\\%',nb:20},{str:'25\\%',nb:25}]
+					//[{str:'10\\%',nb:10},{str:'20\\%',nb:20},{str:'30\\%',nb:30}]
+					// [{str:'10\\%',nb:10},{str:'20\\%',nb:20},{str:'30\\%',nb:30}],
+					// [{str:'5\\%',nb:5},{str:'15\\%',nb:15},{str:'35\\%',nb:35}],
+					// [{str:'10\\%',nb:10},{str:'40\\%',nb:40},{str:'80\\%',nb:80}],
+					// [{str:'5\\%',nb:5},{str:'25\\%',nb:25},{str:'55\\%',nb:55}],
 				]);	
 			};
 			if (this.sup == 2) {//coeff décimal
 				remises = choice([
-					//[{str:'10\\%',nb:10},{str:'20\\%',nb:20},{str:'30\\%',nb:30}],					
-					//[{str:'5\\%',nb:5},{str:'10\\%',nb:10},{str:'35\\%',nb:35}],
-					[{str:'10\\%',nb:10},{str:'5\\%',nb:5},{str:'15\\%',nb:15}],
-					[{str:'50\\%',nb:50},{str:'30\\%',nb:30},{str:'10\\%',nb:10}],
-					[{str:'20\\%',nb:20},{str:'10\\%',nb:10},{str:'50\\%',nb:50}],
-					[{str:'40\\%',nb:40},{str:'10\\%',nb:10},{str:'5\\%',nb:5}],
+					[{str:'10\\%',nb:10},{str:'5\\%',nb:5},{str:'15\\%',nb:15},{str:'25\\%',nb:25},{str:'35\\%',nb:35}]
+					// [{str:'10\\%',nb:10},{str:'5\\%',nb:5},{str:'15\\%',nb:15}],
+					// [{str:'50\\%',nb:50},{str:'30\\%',nb:30},{str:'10\\%',nb:10}],
+					// [{str:'20\\%',nb:20},{str:'10\\%',nb:10},{str:'50\\%',nb:50}],
+					// [{str:'40\\%',nb:40},{str:'10\\%',nb:10},{str:'5\\%',nb:5}],
 				]);	
-			}
+			};
 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
-				{//case 0 -->
+				{//case 0 --> 2 colonnes à remplir
+					tableau:tab_C_L([`\\text{Prix en euro}`,tex_prix(prix),tex_prix(prix),tex_prix(prix)],[`\\text{Remise en pourcentage}`,`\\text{Montant de la remise en euro}`,`\\text{Nouveau prix}`],[
+						remises[0].str,remises[1].str,remises[2].str,
+						tex_prix(prix*remises[0].nb/100),'','',
+						tex_prix(prix-prix*remises[0].nb/100),'','',
+					]),
+					tableau_corr:tab_C_L([`\\text{Prix en euro}`,tex_prix(prix),tex_prix(prix),tex_prix(prix)],[`\\text{Remise en pourcentage}`,`\\text{Montant de la remise en euro}`,`\\text{Nouveau prix}`],[
+						remises[0].str,remises[1].str,remises[2].str,
+						tex_prix(prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix*remises[0].nb/100)} \\times ${tex_nombre(remises[1].nb/remises[0].nb)} = ${tex_prix(prix*remises[1].nb/100)}`),mise_en_evidence(`${tex_prix(prix*remises[0].nb/100)} \\times ${tex_nombre(remises[2].nb/remises[0].nb)} = ${tex_prix(prix*remises[2].nb/100)}`),
+						tex_prix(prix-prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remises[1].nb/100)} = ${tex_prix(prix-prix*remises[1].nb/100)}`),mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remises[2].nb/100)} = ${tex_prix(prix-prix*remises[2].nb/100)}`),
+					]),
+				},
+				{//case 1 --> 3 colonnes à remplir
+					tableau:tab_C_L([`\\text{Prix en euro}`,tex_prix(prix),tex_prix(prix),tex_prix(prix),tex_prix(prix)],[`\\text{Remise en pourcentage}`,`\\text{Montant de la remise en euro}`,`\\text{Nouveau prix}`],[
+						remises[0].str,remises[1].str,remises[2].str,remises[3].str,
+						tex_prix(prix*remises[0].nb/100),'','','',
+						tex_prix(prix-prix*remises[0].nb/100),'','','',
+					]),
+					tableau_corr:tab_C_L([`\\text{Prix en euro}`,tex_prix(prix),tex_prix(prix),tex_prix(prix),tex_prix(prix)],[`\\text{Remise en pourcentage}`,`\\text{Montant de la remise en euro}`,`\\text{Nouveau prix}`],[
+						remises[0].str,remises[1].str,remises[2].str,remises[3].str,
+						tex_prix(prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix*remises[0].nb/100)} \\times ${tex_nombre(remises[1].nb/remises[0].nb)} = ${tex_prix(prix*remises[1].nb/100)}`),mise_en_evidence(`${tex_prix(prix*remises[0].nb/100)} \\times ${tex_nombre(remises[2].nb/remises[0].nb)} = ${tex_prix(prix*remises[2].nb/100)}`),mise_en_evidence(`${tex_prix(prix*remises[0].nb/100)} \\times ${tex_nombre(remises[3].nb/remises[0].nb)} = ${tex_prix(prix*remises[3].nb/100)}`),
+						tex_prix(prix-prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remises[1].nb/100)} = ${tex_prix(prix-prix*remises[1].nb/100)}`),mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remises[2].nb/100)} = ${tex_prix(prix-prix*remises[2].nb/100)}`),mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remises[3].nb/100)} = ${tex_prix(prix-prix*remises[3].nb/100)}`),
+					]),
+				},	
+				{//case 2 --> 4 colonnes à remplir
 					tableau:tab_C_L([`\\text{Prix en euro}`,tex_prix(prix),tex_prix(prix),tex_prix(prix)],[`\\text{Remise en pourcentage}`,`\\text{Montant de la remise en euro}`,`\\text{Nouveau prix}`],[
 						remises[0].str,remises[1].str,remises[2].str,
 						tex_prix(prix*remises[0].nb/100),'','',
@@ -7382,6 +7423,19 @@ function Tableaux_et_pourcentages(){
 						tex_prix(prix-prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remises[1].nb/100)} = ${tex_prix(prix-prix*remises[1].nb/100)}`),mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remises[2].nb/100)} = ${tex_prix(prix-prix*remises[2].nb/100)}`),
 					]),
 				},	
+				{//case 1 --> 5 colonnes à remplir
+					tableau:tab_C_L([`\\text{Prix en euro}`,tex_prix(prix),tex_prix(prix),tex_prix(prix)],[`\\text{Remise en pourcentage}`,`\\text{Montant de la remise en euro}`,`\\text{Nouveau prix}`],[
+						remises[0].str,remises[1].str,remises[2].str,
+						tex_prix(prix*remises[0].nb/100),'','',
+						tex_prix(prix-prix*remises[0].nb/100),'','',
+					]),
+					tableau_corr:tab_C_L([`\\text{Prix en euro}`,tex_prix(prix),tex_prix(prix),tex_prix(prix)],[`\\text{Remise en pourcentage}`,`\\text{Montant de la remise en euro}`,`\\text{Nouveau prix}`],[
+						remises[0].str,remises[1].str,remises[2].str,
+						tex_prix(prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix*remises[0].nb/100)} \\times ${tex_nombre(remises[1].nb/remises[0].nb)} = ${tex_prix(prix*remises[1].nb/100)}`),mise_en_evidence(`${tex_prix(prix*remises[0].nb/100)} \\times ${tex_nombre(remises[2].nb/remises[0].nb)} = ${tex_prix(prix*remises[2].nb/100)}`),
+						tex_prix(prix-prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remises[1].nb/100)} = ${tex_prix(prix-prix*remises[1].nb/100)}`),mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remises[2].nb/100)} = ${tex_prix(prix-prix*remises[2].nb/100)}`),
+					]),
+				},	
+				
 			];
 
 			let enonces = [];
@@ -7417,17 +7471,40 @@ function Tableaux_et_pourcentages(){
 						texte_corr = `${enonces[0].correction}`;
 					};
           			break;	
-				case 1 :
-					texte = `test this.suyp2`;
+				case 1 : 
+					texte = `${enonces[1].enonce}`;
 					if (this.debug) {
 						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>test this.sup2`;
+						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
 						texte += `             `
 						texte_corr = ``;	
 					} else {
-						texte_corr = `test this.sup2`;
+						texte_corr = `${enonces[1].correction}`;
 					};
-					break;	
+					break;			
+				case 2 : 
+					texte = `${enonces[2].enonce}`;
+					if (this.debug) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
+						texte += `             `
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[2].correction}`;
+					};
+					break;
+				case 3 : 
+					texte = `${enonces[3].enonce}`;
+					if (this.debug) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
+						texte += `             `
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[3].correction}`;
+					};
+					break;			
+
 			};			
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
@@ -7441,7 +7518,7 @@ function Tableaux_et_pourcentages(){
 
 	}
 	this.besoin_formulaire_numerique = ['Le coefficient entre les pourcentages :',2,"1 : est entier\n2 : est décimal"];
-	this.besoin_formulaire2_numerique = ['Augmentation du nombre de colonnes à remplir :',4,"2 : deux colonnes\n3 : trois colonnes\n4 : quatre colonnes\n5 : cinq colonnes"];
+	this.besoin_formulaire2_numerique = ['Augmentation du nombre de colonnes à remplir :',4,"1 : deux colonnes\n2 : trois colonnes\n3 : quatre colonnes\n4 : cinq colonnes"];
 	this.besoin_formulaire3_case_a_cocher = ["Modulation de ce qui est demandé"];
 };
 
