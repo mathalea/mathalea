@@ -7519,7 +7519,7 @@ function Tableaux_et_pourcentages(){
 	}
 	this.besoin_formulaire_numerique = ['Le coefficient entre les pourcentages :',2,"1 : est entier\n2 : est décimal"];
 	this.besoin_formulaire2_numerique = ['Augmentation du nombre de colonnes à remplir :',4,"1 : deux colonnes\n2 : trois colonnes\n3 : quatre colonnes\n4 : cinq colonnes"];
-	this.besoin_formulaire3_case_a_cocher = ["Modulation de ce qui est demandé"];
+	//this.besoin_formulaire3_case_a_cocher = ["Modulation de ce qui est demandé"];
 };
 
 
