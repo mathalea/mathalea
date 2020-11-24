@@ -7322,7 +7322,14 @@ function Tableaux_et_pourcentages(){
 
 	this.nouvelle_version = function(numero_de_l_exercice){
 		if (this.debug) {
-			type_de_questions_disponibles = [0];			
+			if (this.sup==1) {
+				if (this.sup2==2) {
+					type_de_questions_disponibles = [0];			
+				};
+				if (this.sup2==3) {
+					type_de_questions_disponibles = [1];			
+				}
+			};			
 		} else {
 			  //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
 			  type_de_questions_disponibles = [0];			
@@ -7340,7 +7347,7 @@ function Tableaux_et_pourcentages(){
 				prix = randint(150,300);
 			} while (prix%5 != 0)
 			
-			if (this.sup == 1) {//coeff entier
+			if (this.sup == 1) {//coeff entier				
 				remises = choice([
 					[{str:'10\\%',nb:10},{str:'20\\%',nb:20},{str:'30\\%',nb:30}],
 					[{str:'5\\%',nb:5},{str:'15\\%',nb:15},{str:'35\\%',nb:35}],
@@ -7410,7 +7417,17 @@ function Tableaux_et_pourcentages(){
 						texte_corr = `${enonces[0].correction}`;
 					};
           			break;	
-			
+				case 1 :
+					texte = `test this.suyp2`;
+					if (this.debug) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>test this.sup2`;
+						texte += `             `
+						texte_corr = ``;	
+					} else {
+						texte_corr = `test this.sup2`;
+					};
+					break;	
 			};			
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
