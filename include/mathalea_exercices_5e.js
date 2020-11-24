@@ -7300,7 +7300,7 @@ function Tableaux_et_proportionnalite(){
 function Tableaux_et_pourcentages(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.debug = false;	
+	this.debug = true;	
 	this.sup=1;
 	if (this.debug) {
 		this.nb_questions = 1;
@@ -7422,7 +7422,7 @@ function Tableaux_et_pourcentages(){
 		liste_de_question_to_contenu(this);
 
 	}
-	this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : coefficient entier\n2 : coefficient décimal"];
+	this.besoin_formulaire_numerique = ['Le coefficient entre les pourcentages :',2,"1 : est entier\n2 : est décimal"];
 	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 };
 
