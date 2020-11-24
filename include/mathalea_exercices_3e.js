@@ -7048,7 +7048,7 @@ function Image_antecedent_depuis_tableau_ou_fleche() {
 function Eq_resolvantes_Thales(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.debug = false;	
+	this.debug = true;	
 	this.sup=1;
 	if (this.debug) {
 		this.nb_questions = 4;
@@ -7094,6 +7094,7 @@ function Eq_resolvantes_Thales(){
 			while (c_temp_case_3%2 != 0 || c_temp_case_3%5 != 0) {
 				c_temp_case_3 = randint(11,99)
 			};
+			console.log(c_temp_case_3);
 			this.sup = Number(this.sup); // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
 			switch (this.sup) {
 				case 1://entiers          
@@ -7139,7 +7140,7 @@ function Eq_resolvantes_Thales(){
 					inc:params.inc 
 				},
 				{//case 1 --> a/c=x/b --> cx=ab
-					eq:`\\dfrac{${tex_nombre(params.a)}}{${tex_nombre(params.c)}}=\\dfrac{${params.inc}}{${tex_nombre(params.c)}}`,
+					eq:`\\dfrac{${tex_nombre(params.a)}}{${tex_nombre(params.c)}}=\\dfrac{${params.inc}}{${tex_nombre(params.b)}}`,
 					a:params.a,
 					b:params.b,
 					c:params.c,
@@ -7165,7 +7166,7 @@ function Eq_resolvantes_Thales(){
 			for (let k=0;k<situations.length;k++) {
 				enonces.push({
 					enonce:`
-						$${situations[k].eq}$
+						$${situations[k].eq}$						
 					`,
 					question:``,
 					correction:`

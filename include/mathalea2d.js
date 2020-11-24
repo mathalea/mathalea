@@ -689,34 +689,34 @@ function Droite(arg1, arg2, arg3, arg4, color) {
     pointXmin=pointSurDroite(this,fenetreMathalea2d[0])
     if (pointXmin.y>fenetreMathalea2d[1]&&pointXmin.y<fenetreMathalea2d[3]) {
       absNom=fenetreMathalea2d[0]+1
-      ordNom=pointXmin.y+0.5
+      ordNom=pointXmin.y+0.8
     }
     else {
       pointXmin=pointSurDroite(this,fenetreMathalea2d[2])
       if (pointXmin.y>fenetreMathalea2d[1]&&pointXmin.y<fenetreMathalea2d[3]) {
         absNom=fenetreMathalea2d[2]-1
-        ordNom=pointXmin.y+0.5
+        ordNom=pointXmin.y+0.8
       }
       else {
         pointXmin=pointIntersectionDD(this,droiteHorizontaleParPoint(point(0,fenetreMathalea2d[1])))
         if (pointXmin.x>fenetreMathalea2d[0]&&pointXmin.x<fenetreMathalea2d[2]) {
-          absNom=pointXmin.x+0.5
+          absNom=pointXmin.x+0.7
           ordNom=fenetreMathalea2d[1]+1
         }
         else {
           pointXmin=pointIntersectionDD(this,droiteHorizontaleParPoint(point(0,fenetreMathalea2d[3])))
           if (pointXmin.x>fenetreMathalea2d[0]&&pointXmin.x<fenetreMathalea2d[2]) {
-            absNom=pointXmin.x+0.5
+            absNom=pointXmin.x+0.7
             ordNom=fenetreMathalea2d[3]-1
           }
           else {
             absNom=(fenetreMathalea2d[0]+fenetreMathalea2d[2]/2)
-            ordNom=pointSurDroite(this,absNom).y+0.5
+            ordNom=pointSurDroite(this,absNom).y+0.8
           }
         }
       }
     }
-    leNom=texteParPosition(this.nom,absNom,ordNom,"milieu",this.color,1,"milieu",true)
+    leNom=texteParPosition(this.nom,absNom,ordNom,"milieu",this.color,0.7,"milieu",true)
 
   }
   this.svg = function (coeff) {
@@ -6457,9 +6457,10 @@ function latexParCoordonnees(texte, x, y) {
  * @Auteur Jean-Claude Lhote
  */
 
-function FractionParPosition({x=0,y=0,num=1,den=2,couleur='black'}){
+function FractionParPosition({x=0,y=0,fraction=fraction(1,2),couleur='black'}){
   ObjetMathalea2D.call(this);
-  let longueur=Math.max(Math.ceil(Math.log10(num)),Math.ceil(Math.log10(den)))*10
+  let num=fraction.num,den=fraction.den;
+  let longueur=Math.max(Math.ceil(Math.log10(Math.abs(num))+(1-unSiPositifMoinsUnSinon(num))/2),Math.ceil(Math.log10(Math.abs(den))+(1-unSiPositifMoinsUnSinon(den))/2))*10
   let offset=10
 
   this.svg=function(coeff){
