@@ -301,6 +301,7 @@ var liste_des_exercices_disponibles = {
   "3S15": Calculer_des_etendues,
   "3S20": fonctions_probabilite2,
   "beta3L11-5": identites_calculs,
+  "beta3Algo1": Instruction_conditionelle,
   "2N10": Existence_d_une_racine_carree,
   "2N10-1": proprietes_racine_carree,
   "2N11": Extraire_un_carre_parfait_d_une_racine_carree,
