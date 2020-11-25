@@ -7497,8 +7497,9 @@ function Tableaux_et_pourcentages(){
 					`,
 					question:``,
 					correction:`
-					${corrections}
-					<br><br>${situations[k].tableau_corr}
+					${corrections}<br><br>
+					D'où le tableau complété : <br><br>
+					${situations[k].tableau_corr}
 					`
 				});
 			};
