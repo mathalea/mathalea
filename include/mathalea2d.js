@@ -6411,17 +6411,21 @@ function latexParCoordonnees(texte, x, y) {
 
 function FractionParPosition({x=0,y=0,fraction=fraction(1,2),couleur='black'}){
   ObjetMathalea2D.call(this);
-  let num=fraction.num,den=fraction.den;
-  let longueur=Math.max(Math.ceil(Math.log10(Math.abs(num))+(1-unSiPositifMoinsUnSinon(num))/2),Math.ceil(Math.log10(Math.abs(den))+(1-unSiPositifMoinsUnSinon(den))/2))*10
+  let num=Math.abs(fraction.num),den=Math.abs(fraction.den);
+  let signe=unSiPositifMoinsUnSinon(fraction.num)*unSiPositifMoinsUnSinon(fraction.den)
+  let longueur=Math.max(Math.floor(Math.log10(num))+1,Math.floor(Math.log10(den))+1)*10
   let offset=10
 
   this.svg=function(coeff){
     let s = segment(x-longueur/coeff/2,y,x+longueur/coeff/2,y,couleur);
     s.isVisible = false;
     let code= s.svg(coeff)
-    let t1 = texteParPosition(nombre_avec_espace(num),x,y+offset/coeff,"milieu",couleur); 
+    if (signe==-1) {
+      code+= segment(calcul(x-((longueur+15)/coeff/2),0),y,calcul(x-((longueur+5)/coeff/2),0),y,couleur).svg(coeff)
+    }
+    let t1 = texteParPosition(nombre_avec_espace(num),x,calcul(y+offset/coeff),"milieu",couleur); 
     code+= t1.svg(coeff)
-    let t2 = texteParPosition(nombre_avec_espace(den),x,y-offset/coeff,"milieu",couleur)
+    let t2 = texteParPosition(nombre_avec_espace(den),x,calcul(y-offset/coeff),"milieu",couleur)
     code+= t2.svg(coeff)
     t1.isVisible = false;
     t2.isVisible = false
@@ -6430,9 +6434,13 @@ function FractionParPosition({x=0,y=0,fraction=fraction(1,2),couleur='black'}){
   }
 
   this.tikz = function(){
-    let code=segment(x,y,x+longueur/scale,y,couleur).tikz()
-    code+=texteParPosition(nombre_avec_espace(num),x+longueur/2/scale,y+offset/scale,"milieu",couleur).tikz()
-    code+=texteParPosition(nombre_avec_espace(den),x+longueur/2/scale,y-offset/scale,"milieu",couleur).tikz()
+
+    let code=segment(x,y,calcul(x+longueur/30/scale,2),y,couleur).tikz()
+    if (signe==-1) {
+      code+= segment(calcul(x-((longueur/30+0.75)/scale/2),2),y,calcul(x-((longueur/30+0.25)/scale/2),2),y,couleur).tikz()
+    }
+    code+=texteParPosition(nombre_avec_espace(num),calcul(x+longueur/60/scale,2),calcul(y+offset/30/scale,2),"milieu",couleur).tikz()
+    code+=texteParPosition(nombre_avec_espace(den),calcul(x+longueur/60/scale,2),calcul(y-offset/30/scale,2),"milieu",couleur).tikz()
      return code
   }
 }
