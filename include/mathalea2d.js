@@ -2428,7 +2428,7 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
     if (this.opacite != 1) {
       this.style += ` stroke-opacity="${this.opacite}" `
     }
-    return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}" ${this.style} id="${this.id}" />`
+    return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${arrondi(l * coeff,1)} ${arrondi(l * coeff,1)} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}" ${this.style} id="${this.id}" />`
   }
   this.tikz = function () {
     let optionsDraw = []
