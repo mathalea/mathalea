@@ -7300,7 +7300,7 @@ function Tableaux_et_proportionnalite(){
 function Tableaux_et_pourcentages(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.debug = true;	
+	this.debug = false;	
 	this.sup=1; // nature du coefficient entre les pourcentages, entier/decimal
 	this.sup2=1; //nombre de colonnes
 	if (this.debug) {
