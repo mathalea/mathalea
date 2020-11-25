@@ -63,19 +63,19 @@ function Point(arg1, arg2, arg3, positionLabel = "above") {
   if (arguments.length == 1) {
     this.nom = arg1;
   } else if (arguments.length == 2) {
-    this.x = arrondi(arg1,2);
-    this.y = arrondi(arg2,2);
+    this.x = arg1;
+    this.y = arg2;
   } else {
-    this.x = arrondi(arg1,2);
-    this.y = arrondi(arg2,2);
+    this.x = arg1;
+    this.y = arg2;
     this.nom = arg3;
   }
   this.positionLabel = positionLabel;
   this.xSVG = function (coeff) {
-    return arrondi(this.x * coeff,1);
+    return this.x * coeff;
   };
   this.ySVG = function (coeff) {
-    return arrondi(-this.y * coeff,1);
+    return -this.y * coeff;
   };
   if (!this.nom) {
     this.nom = " "; // Le nom d'un point est par défaut un espace
