@@ -7539,12 +7539,12 @@ function Instruction_conditionelle(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.debug = false;	
 	this.sup = 1;
-	this.nb_questions = 3;	
+	this.nb_questions = 2;	
 
 	this.titre = "Instruction conditionelle";	
 	this.consigne = `Donner les coordonnées de la position finale du lutin.`;	
 	
-	this.nb_cols = 1;
+	this.nb_cols = 2;
 	this.nb_cols_corr = 1;
 	this.nb_questions_modifiable = false;	
 	sortie_html? this.spacing = 1 : this.spacing = 1; 
@@ -7561,8 +7561,16 @@ function Instruction_conditionelle(){
       			} else {
         		return code_tikz;
       		};
-    	};
-		let texte = "La position initiale d'un lutin dans un repère est (0,0). Dans le programme, x désigne l'abscisse, et y désigne l'ordonnée d'un lutin."; // texte de l'énoncé
+		};
+		
+		scratchblocks.renderMatching("code.b", {
+			inline: true,
+			// Repeat `style` and `languages` options here.
+		  });
+
+
+		let texte = "La position initiale d'un lutin dans un repère est (0,0). Dans le programme, x désigne l'abscisse, et y désigne l'ordonnée d'un lutin. <br>"; // texte de l'énoncé
+		texte += `Une variable a été créée, elle s'appelle <code class="b">(var) :: ring</code>. <br>`
 		let texte_corr=" "; // texte du corrigé
 		let code_tikz = ``; // code pour dessiner les blocs en tikz
 		let code_svg = ``; // code pour dessiner les blocs en svg
