@@ -90,54 +90,6 @@ function point(...args) {
  * tracePoint(A) // Place une croix à l'emplacement du point A
  * tracePoint(A,B,C,D) // Place une croix pour les différents points
  * tracePoint(A,B,C,D,'blue') // Place une croix pour les différents points
- * @Auteur Rémi Angot
- */
-/*
-function TracePoint(...points) {
-  ObjetMathalea2D.call(this);
-  this.taille = 4/pixelsParCm; // maintenant 0.2/pixelsParCm*20 en SVG donc taille de point constante. Pour Latex, la taille du point ne change pas avec scale.
-  if (typeof points[points.length - 1] === "string") {
-    this.color = points[points.length - 1];
-  }
-  this.svg = function (coeff) {
-    let code = "";
-    for (let A of points) {
-      if (A.constructor == Point) {
-        code += `<line x1="${calcul((A.x - this.taille) * coeff)}" y1="${calcul(
-          (-A.y - this.taille) * coeff
-        )}" x2="${calcul((A.x + this.taille) * coeff)}" y2="${calcul(
-          (-A.y + this.taille) * coeff
-        )}" stroke="${this.color}" />`;
-        code += `\n\t<line x1="${calcul(
-          (A.x - this.taille) * coeff
-        )}" y1="${calcul((-A.y + this.taille) * coeff)}" x2="${calcul(
-          (A.x + this.taille) * coeff
-        )}" y2="${calcul((-A.y - this.taille) * coeff)}" stroke="${
-          this.color
-        }" />`;
-      }
-    }
-    return code;
-  };
-  this.tikz = function () {
-    let code = "";
-    for (let A of points) {
-      if (A.constructor == Point) {
-        if (this.color == "black") {
-          code += `\n\\node[point] at (${A.x},${A.y}) {};`;
-        } else {
-          code += `\n\\node[point,${color}] at (${A.x},${A.y}) {};`;
-        }
-      }
-    }
-    return code;
-  };
-}
-*/
-/**
- * tracePoint(A) // Place une croix à l'emplacement du point A
- * tracePoint(A,B,C,D) // Place une croix pour les différents points
- * tracePoint(A,B,C,D,'blue') // Place une croix pour les différents points
  *  
  * @Auteur Rémi Angot & Jean-Claude Lhote
  */
