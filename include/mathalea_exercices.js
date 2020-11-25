@@ -209,6 +209,7 @@ var liste_des_exercices_disponibles = {
   "4C11": Priorites_et_relatifs,
   "4C21-1": Exercice_additionner_des_fractions,
   "4C21": Exercice_additionner_ou_soustraire_des_fractions,
+  "4C22":Exercice_multiplier_fractions,
   "4C22-1": Exercice_trouver_l_inverse,
   "4C22-2": Exercice_diviser_fractions,
   "4C23": Exercice_additionner_fraction_produit,
