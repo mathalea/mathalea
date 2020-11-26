@@ -7337,6 +7337,9 @@ function Tableaux_et_pourcentages(){
 				if (this.sup2==4) {
 					type_de_questions_disponibles = [3];			
 				};
+				if (this.sup3) {
+					type_de_questions_disponibles = [4];			
+				};
 			//};			
 		} else {
 			  //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
@@ -7351,6 +7354,9 @@ function Tableaux_et_pourcentages(){
 			};
 			if (this.sup2==4) {
 				type_de_questions_disponibles = [3];			
+			};
+			if (this.sup3) {
+				type_de_questions_disponibles = [4];			
 			};
 
 		};
@@ -7411,6 +7417,8 @@ function Tableaux_et_pourcentages(){
 				]);	
 			};
 
+
+
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
 				{//case 0 --> 1 colonne à remplir
@@ -7460,22 +7468,38 @@ function Tableaux_et_pourcentages(){
 						tex_prix(prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix*remises[1].nb/100)}`),mise_en_evidence(`${tex_prix(prix*remises[2].nb/100)}`),mise_en_evidence(`${tex_prix(prix*remises[3].nb/100)}`),mise_en_evidence(`${tex_prix(prix*remises[4].nb/100)}`),
 						tex_prix(prix-prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix-prix*remises[1].nb/100)}`),mise_en_evidence(`${tex_prix(prix-prix*remises[2].nb/100)}`),mise_en_evidence(`${tex_prix(prix-prix*remises[3].nb/100)}`),mise_en_evidence(`${tex_prix(prix-prix*remises[4].nb/100)}`),
 					]),
-				},				
+				},
+				{//case 4 --> 3 colonnes à remplir
+					tableau:tab_C_L([`\\text{Prix en €}`,tex_prix(prix),tex_prix(prix),tex_prix(prix),tex_prix(prix)],[`\\text{Remise en pourcentage}`,`\\text{Montant de la remise en €}`,`\\text{Nouveau prix en €}`],[
+						remises[0].str,remises[1].str,remises[2].str,remises[3].str,
+						tex_prix(prix*remises[0].nb/100),'test','test','test',
+						tex_prix(prix-prix*remises[0].nb/100),'test','test','test',
+					]),
+					tableau_corr:tab_C_L([`\\text{Prix en €}`,tex_prix(prix),tex_prix(prix),tex_prix(prix),tex_prix(prix)],[`\\text{Remise en pourcentage}`,`\\text{Montant de la remise en €}`,`\\text{Nouveau prix en €}`],[
+						remises[0].str,remises[1].str,remises[2].str,remises[3].str,
+						tex_prix(prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix*remises[1].nb/100)}`),mise_en_evidence(`${tex_prix(prix*remises[2].nb/100)}`),mise_en_evidence(`${tex_prix(prix*remises[3].nb/100)}`),
+						tex_prix(prix-prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix-prix*remises[1].nb/100)}`),mise_en_evidence(`${tex_prix(prix-prix*remises[2].nb/100)}`),mise_en_evidence(`${tex_prix(prix-prix*remises[3].nb/100)}`),
+					]),
+				},	
 			];
 
 			let corrections;
-			if (this.sup2==1) {
-				corrections = `${justifCorr(remises[0],remises[1],prix)}`
-			}
-			if (this.sup2==2) {
-				corrections = `${justifCorr(remises[0],remises[1],prix)}<br><br>${justifCorr(remises[0],remises[2],prix)}`
-			}
-			if (this.sup2==3) {
-				corrections = `${justifCorr(remises[0],remises[1],prix)}<br><br>${justifCorr(remises[0],remises[2],prix)}<br><br>${justifCorr(remises[0],remises[3],prix)}`
-			}
-			if (this.sup2==4) {
-				corrections = `${justifCorr(remises[0],remises[1],prix)}<br><br>${justifCorr(remises[0],remises[2],prix)}<br><br>${justifCorr(remises[0],remises[3],prix)}<br><br>${justifCorr(remises[0],remises[4],prix)}`
-			}
+			if (this.sup3) {
+				corrections = `test corrections sup3`;
+			} else {
+				if (this.sup2==1) {
+					corrections = `${justifCorr(remises[0],remises[1],prix)}`
+				};
+				if (this.sup2==2) {
+					corrections = `${justifCorr(remises[0],remises[1],prix)}<br><br>${justifCorr(remises[0],remises[2],prix)}`
+				};
+				if (this.sup2==3) {
+					corrections = `${justifCorr(remises[0],remises[1],prix)}<br><br>${justifCorr(remises[0],remises[2],prix)}<br><br>${justifCorr(remises[0],remises[3],prix)}`
+				};
+				if (this.sup2==4) {
+					corrections = `${justifCorr(remises[0],remises[1],prix)}<br><br>${justifCorr(remises[0],remises[2],prix)}<br><br>${justifCorr(remises[0],remises[3],prix)}<br><br>${justifCorr(remises[0],remises[4],prix)}`
+				};
+			};
 
 
 			let enonces = [];
@@ -7538,6 +7562,17 @@ function Tableaux_et_pourcentages(){
 					} else {
 						texte_corr = `${enonces[3].correction}`;
 					};
+					break;	
+				case 4 : 
+					texte = `${enonces[4].enonce}`;
+					if (this.debug) {
+						texte += `<br>`;
+						texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
+						texte += `             `
+						texte_corr = ``;	
+					} else {
+						texte_corr = `${enonces[4].correction}`;
+					};
 					break;			
 
 			};			
@@ -7554,7 +7589,7 @@ function Tableaux_et_pourcentages(){
 	}
 	this.besoin_formulaire_numerique = ['Le coefficient entre les pourcentages',2,"1 : est entier\n2 : est décimal"];
 	this.besoin_formulaire2_numerique = ['Nombre de colonnes à remplir',4,"1 : une colonne\n2 : deux colonnes\n3 : trois colonnes\n4 : quatre colonnes"];
-	//this.besoin_formulaire3_case_a_cocher = ["Modulation de ce qui est demandé"];
+	this.besoin_formulaire3_case_a_cocher = ["Modulation de ce qui est demandé"];
 };
 
 
