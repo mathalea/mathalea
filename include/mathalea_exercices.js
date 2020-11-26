@@ -9635,6 +9635,7 @@ function Feuille_de_grilles() {
   Exercice.call(this)
   this.nb_cols=1
   this.sup=1
+  this.titre = "Grilles décimales"
 
   this.nouvelle_version=function() {
   this.liste_questions=[]
@@ -9709,6 +9710,7 @@ function Feuille_de_zooms() {
   Exercice.call(this)
   this.nb_cols=1
   this.sup=1
+  this.titre = "Droites graduées avec zoom"
 
   this.nouvelle_version=function() {
   this.liste_questions=[]
@@ -17923,6 +17925,11 @@ jQuery(document).ready(function () {
   if (window.location.href.indexOf("beta") > 0) {
     liste_html_des_exercices += `<div class="ui accordion"><div class="active title"><i class="dropdown icon"></i>Beta (${nombre_d_exercices_disponibles_beta})</div><div class="active content">`;
     liste_html_des_exercices += liste_html_des_exercices_beta;
+    liste_html_des_exercices += `</div>`;
+    liste_html_des_exercices += `</div>`;
+  } else if (window.location.href.indexOf("outils") > 0) {
+    liste_html_des_exercices += `<div class="ui accordion"><div class="active title"><i class="dropdown icon"></i>Outils pour le professeur (${nombre_d_exercices_disponibles_prof})</div><div class="active content">`;
+    liste_html_des_exercices += liste_html_des_exercices_prof;
     liste_html_des_exercices += `</div>`;
     liste_html_des_exercices += `</div>`;
   } else if (window.location.href.indexOf("cm.html") > 0) {
