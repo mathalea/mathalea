@@ -1311,16 +1311,16 @@ function Segment(arg1, arg2, arg3, arg4, color) {
     this.y2 = arg2.y;
     this.color = arg3;
   } else if (arguments.length == 4) {
-    this.x1 = arg1;
-    this.y1 = arg2;
-    this.x2 = arg3;
-    this.y2 = arg4;
+    this.x1 = arrondi(arg1,2);
+    this.y1 = arrondi(arg2,2);
+    this.x2 = arrondi(arg3,2);
+    this.y2 = arrondi(arg4,2);
   } else {
     // 5 arguments
-    this.x1 = arg1;
-    this.y1 = arg2;
-    this.x2 = arg3;
-    this.y2 = arg4;
+    this.x1 = arrondi(arg1,2);
+    this.y1 = arrondi(arg2,2);
+    this.x2 = arrondi(arg3,2);
+    this.y2 = arrondi(arg4,2);
     this.color = color;
   }
   this.extremite1 = point(this.x1, this.y1);
@@ -4835,6 +4835,53 @@ function GrilleHorizontale(
  */
 function grilleHorizontale(...args) {
   return new GrilleHorizontale(...args);
+}
+function GrilleVerticale(
+  xmin = -30,
+  ymin = -30,
+  xmax = 30,
+  ymax = 30,
+  color = "gray",
+  opacite = 0.4,
+  step = 1,
+  pointilles = false
+) {
+  ObjetMathalea2D.call(this);
+  this.color = color;
+  this.opacite = opacite;
+  let objets = [];
+  for (let i = xmin; i <= xmax; i += step) {
+    let s = segment(i,ymin,i,ymax);
+    s.color = this.color;
+    s.opacite = this.opacite;
+    if (pointilles) {
+      s.pointilles = true;
+    }
+    objets.push(s);
+  }
+  this.svg = function (coeff) {
+    code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+}
+
+/**
+ * grilleHorizontale(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les axes des abscisses et des ordinnées
+ *
+ * @Auteur Rémi Angot
+ */
+function grilleVerticale(...args) {
+  return new GrilleVerticale(...args);
 }
 
 function Seyes(xmin = 0, ymin = 0, xmax = 15, ymax = 15,opacite1 = .5, opacite2 = .2) {

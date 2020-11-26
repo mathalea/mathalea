@@ -9639,23 +9639,34 @@ function Feuille_de_grilles() {
 
   this.nouvelle_version=function() {
   this.liste_questions=[]
-  let objets=[]
+  let objets=[],fleche
   if (this.sup==1) {// On travaille au dixième
-    for (let i=0;i<4;i++) {
+    for (let i=0;i<5;i++) {
       objets.length=0
       //pixelsParCm=50
-      objets.push(grille(6,0,11,0.5,'black',1,0.5))
-      for (let j=0;j<5;j++) {
-        A=point(0,j*0.8)
-        B=point(5,j*0.8)
-        C=point(5,j*0.8+0.5)
-        D=point(0,j*0.8+0.5)
+      objets.push(carre(point(1,1),point(2,1)))
+      objets.push(texteParPosition("= 1 unité",3.5,1.5))
+      objets.push(grille(15,-2,19,2,'black',1,4))
+      for (let j=0;j<11;j++) {
+        A=point(0+j*1.1,-0.5)
+        B=point(1+j*1.1,-0.5)
+        C=point(1+j*1.1,0.5)
+        D=point(0+j*1.1,0.5)
         objets.push(polygone(A,B,C,D))
       }
-     // g2=grilleHorizontale(3,0,13,10,'gray',0.5,0.1)
-      // objets.push(texteParPosition("------",0,0.1))
-      // objets.push(texteParPosition("+",2,0.5))
-      texte=mathalea2d({xmin:0,ymin:0,xmax:15,ymax:6,pixelsParCm:30,scale:1.5},objets)
+      objets.push(segment(point(11.5,0.5),point(15,2),'gray'))
+      objets.push(segment(point(11.5,-0.5),point(15,-2),'gray'))
+      fleche=segment(12,0,15,0)
+      fleche.styleExtremites='->'
+      objets.push(texteParPosition("ZOOM",13.5,0.4))
+      objets.push(texteParPosition("x4",13.5,-0.4))
+      objets.push(fleche)
+      objets.push(grilleHorizontale(15,-2,19,2,'gray',1,0.8))
+      objets.push(grilleVerticale(15,-2,19,2,'gray',1,2))
+      objets.push(grilleHorizontale(11,-0.5,12,0.5,'gray',0.8,0.2))
+      objets.push(grilleVerticale(11,-0.5,12,0.5,'gray',0.8,0.5))     
+
+      texte=mathalea2d({xmin:-0.5,ymin:-2.2,xmax:21,ymax:3,pixelsParCm:20,scale:0.8},objets)
       this.liste_questions.push(texte);
     }
   }
@@ -9663,39 +9674,58 @@ function Feuille_de_grilles() {
     for (let i=0;i<4;i++) {
       objets.length=0
       //pixelsParCm=50
-      objets.push(grille(16.8,0,20.8,4,'black',1,0.4))
-      for (let j=0;j<5;j++) {
-        A=point(0+j*4.2,0)
-        B=point(4+j*4.2,0)
-        C=point(4+j*4.2,4)
-        D=point(0+j*4.2,4)
+      objets.push(carre(point(1,1.5),point(2,1.5)))
+      objets.push(texteParPosition("= 1 unité",3.5,2))
+      objets.push(grille(15,-2.5,20,2.5,'black',1,0.5))
+      objets.push(grille(11,-0.5,12,0.5,'black',0.3,0.1))
+      
+      for (let j=0;j<11;j++) {
+        A=point(0+j*1.1,-0.5)
+        B=point(1+j*1.1,-0.5)
+        C=point(1+j*1.1,0.5)
+        D=point(0+j*1.1,0.5)
         objets.push(polygone(A,B,C,D))
       }
-     // g2=grilleHorizontale(3,0,13,10,'gray',0.5,0.1)
-      // objets.push(texteParPosition("------",0,0.1))
-      // objets.push(texteParPosition("+",2,0.5))
-      texte=mathalea2d({xmin:-0.5,ymin:-1,xmax:26,ymax:4,pixelsParCm:30,scale:0.8},objets)
+      objets.push(segment(point(11.5,0.5),point(15,2.5)))
+      objets.push(segment(point(11.5,-0.5),point(15,-2.5)))
+      fleche=segment(12,0,15,0)
+      fleche.styleExtremites='->'
+      objets.push(texteParPosition("ZOOM",13.5,0.5))
+      objets.push(texteParPosition("x5",13.5,-0.5))
+      objets.push(fleche)
+      texte=mathalea2d({xmin:-0.5,ymin:-3,xmax:26,ymax:3,pixelsParCm:30,scale:0.8},objets)
       this.liste_questions.push(texte);
     }
   }
   else {
-    for (let i=0;i<2;i++) {
+    for (let i=0;i<3;i++) {
       objets.length=0
       //pixelsParCm=50
-      objets.push(grille(11,0,21,10,'black',1,1))
-        A=point(0,0)
-        B=point(10,0)
-        C=point(10,10)
-        D=point(0,10)
+      for (let j=0;j<11;j++) {
+        A=point(0+j*1.1,-0.5)
+        B=point(1+j*1.1,-0.5)
+        C=point(1+j*1.1,0.5)
+        D=point(0+j*1.1,0.5)
         objets.push(polygone(A,B,C,D))
-        objets.push(grilleHorizontale(11,0,21,10,'gray',0.8,0.1))
-      // objets.push(texteParPosition("------",0,0.1))
-      // objets.push(texteParPosition("+",2,0.5))
-      texte=mathalea2d({xmin:0,ymin:-1,xmax:26,ymax:11,pixelsParCm:30,scale:0.8},objets)
+      }
+      objets.push(carre(point(1,1.5),point(2,1.5)))
+      objets.push(texteParPosition("= 1 unité",3.5,2))
+      objets.push(segment(point(11.5,0.5),point(15,5)))
+      objets.push(segment(point(11.5,-0.5),point(15,-5)))
+      fleche=segment(12,0,15,0)
+      fleche.styleExtremites='->'
+      objets.push(texteParPosition("ZOOM",13.5,0.5))
+      objets.push(texteParPosition("x10",13.5,-0.5))
+      objets.push(fleche)
+       objets.push(grilleHorizontale(15,-5,25,5,'gray',0.8,0.2))
+        objets.push(grilleVerticale(15,-5,25,5,'gray',0.8,0.5))
+        objets.push(grille(15,-5,25,5,'black',1,1))
+        objets.push(grille(11,-0.5,12,0.5,'black',0.3,0.1))
+      texte=mathalea2d({xmin:0,ymin:-5.5,xmax:26,ymax:5.5,pixelsParCm:20,scale:0.7},objets)
       this.liste_questions.push(texte);
     }
   }
-  liste_de_question_to_contenu_sans_numero(this);
+  liste_de_choses_a_imprimer(this);
 };
 this.besoin_formulaire_numerique = ['nombre de cases', 3, '1 : 10\n2 : 100\n3 : 1000'];
 
