@@ -209,6 +209,7 @@ var liste_des_exercices_disponibles = {
   "4C11": Priorites_et_relatifs,
   "4C21-1": Exercice_additionner_des_fractions,
   "4C21": Exercice_additionner_ou_soustraire_des_fractions,
+  "4C22":Exercice_multiplier_fractions,
   "4C22-1": Exercice_trouver_l_inverse,
   "4C22-2": Exercice_diviser_fractions,
   "4C23": Exercice_additionner_fraction_produit,
@@ -331,6 +332,7 @@ var liste_des_exercices_disponibles = {
   // 'P002': LaTeX_static,
   "P003" : feuille_d_axes_gradues,
   "P004" :Feuille_de_zooms,
+  "P005" : Feuille_de_grilles,
   "cours" : Questions_de_cours,
   "LaTeX" : Code_LaTeX_personnalise,
   // 'Perso' : HTML_personnalise,
@@ -404,6 +406,7 @@ function Exercice() {
   this.nouvelle_version = function (numero_de_l_exercice) {};
   this.liste_packages = []; // string ou liste de string avec le nom des packages spécifiques à ajouter dans le préambule
 }
+
 /**
  * Pour imprimer des repères vierges pour les élèves.
  * @Auteur Jean-Claude Lhote
@@ -9625,8 +9628,82 @@ function lireUneAbscisseAvecZoomCM() {
   this.nb_cols_corr=1
 }
 /**
+ * Fonction permettant aux enseignants de proposer des grilles décimale à colorier
+ * ref P005
+ * @Auteur Jean-Claude Lhote
+ */
+function Feuille_de_grilles() {
+  Exercice.call(this)
+  this.nb_cols=1
+  this.sup=1
+
+  this.nouvelle_version=function() {
+  this.liste_questions=[]
+  let objets=[]
+  if (this.sup==1) {// On travaille au dixième
+    for (let i=0;i<4;i++) {
+      objets.length=0
+      //pixelsParCm=50
+      objets.push(grille(6,0,11,0.5,'black',1,0.5))
+      for (let j=0;j<5;j++) {
+        A=point(0,j*0.8)
+        B=point(5,j*0.8)
+        C=point(5,j*0.8+0.5)
+        D=point(0,j*0.8+0.5)
+        objets.push(polygone(A,B,C,D))
+      }
+     // g2=grilleHorizontale(3,0,13,10,'gray',0.5,0.1)
+      // objets.push(texteParPosition("------",0,0.1))
+      // objets.push(texteParPosition("+",2,0.5))
+      texte=mathalea2d({xmin:0,ymin:0,xmax:15,ymax:6,pixelsParCm:20,scale:0.5},objets)
+      this.liste_questions.push(texte);
+    }
+  }
+  else if (this.sup==2) {
+    for (let i=0;i<4;i++) {
+      objets.length=0
+      //pixelsParCm=50
+      objets.push(grille(20,0,24,4,'black',1,0.4))
+      for (let j=0;j<5;j++) {
+        A=point(0+j*5,0)
+        B=point(4+j*5,0)
+        C=point(4+j*5,4)
+        D=point(0+j*5,4)
+        objets.push(polygone(A,B,C,D))
+      }
+     // g2=grilleHorizontale(3,0,13,10,'gray',0.5,0.1)
+      // objets.push(texteParPosition("------",0,0.1))
+      // objets.push(texteParPosition("+",2,0.5))
+      texte=mathalea2d({xmin:-0.5,ymin:-1,xmax:26,ymax:4,pixelsParCm:20,scale:0.5},objets)
+      this.liste_questions.push(texte);
+    }
+  }
+  else {
+    for (let i=0;i<2;i++) {
+      objets.length=0
+      //pixelsParCm=50
+      objets.push(grille(11,0,21,10,'black',1,1))
+        A=point(0,0)
+        B=point(10,0)
+        C=point(10,10)
+        D=point(0,10)
+        objets.push(polygone(A,B,C,D))
+        objets.push(grilleHorizontale(11,0,21,10,'gray',0.8,0.1))
+      // objets.push(texteParPosition("------",0,0.1))
+      // objets.push(texteParPosition("+",2,0.5))
+      texte=mathalea2d({xmin:0,ymin:-1,xmax:26,ymax:11,pixelsParCm:30,scale:0.8},objets)
+      this.liste_questions.push(texte);
+    }
+  }
+  liste_de_question_to_contenu_sans_numero(this);
+};
+this.besoin_formulaire_numerique = ['nombre de cases', 3, '1 : 10\n2 : 100\n3 : 1000'];
+
+}
+/**
  * Fonction permettant aux enseignants de proposer des feuilles à compléter pour la lecture d'abscisse décimale avec zoom
  * L'enseignant peut ajouter "à la main" les données qu'il souhaite
+ * ref P004
  * @Auteur Jean-Claude Lhote
  */
 function Feuille_de_zooms() {
@@ -12521,7 +12598,7 @@ function Symetrie_axiale_conservation1() {
 
     if (axe==5) axe=randint(1,4) //choix de l'axe et des coordonnées
     switch (axe) {
-      case 1 : d=droite(1,0,0,'(d)');
+      case 1 : d=droite(1,0,0);
         nomd=texteParPosition('(d)',0.3,5.6)
         label_pos='above left'
         for (let i=0;i<12;i++){
@@ -12536,7 +12613,7 @@ function Symetrie_axiale_conservation1() {
         }
         for (let j=0;j<12;j++) coords.push([-coords[j][0],coords[j][1]]) // on stocke les 12 images
       break;
-      case 2: d=droite(0,1,0,'(d)');
+      case 2: d=droite(0,1,0);
       label_pos='above'
       nomd=texteParPosition('(d)',5.6,0.3)
       for (let i=0;i<12;i++){
@@ -12551,7 +12628,7 @@ function Symetrie_axiale_conservation1() {
         }
         for (let j=0;j<12;j++) coords.push([coords[j][0],-coords[j][1]]) // on stocke les 12 images
       break;
-      case 3: d=droite(1,-1,0,'(d)');
+      case 3: d=droite(1,-1,0);
       label_pos='above'
       nomd=texteParPosition('(d)',-5.8,-5.4)
       for (let i=0;i<12;i++){
@@ -12567,7 +12644,7 @@ function Symetrie_axiale_conservation1() {
         }
         for (let j=0;j<12;j++) coords.push([coords[j][1],coords[j][0]]) // on stocke les 12 images
       break;
-      case 4: d=droite(1,1,0,'(d)');
+      case 4: d=droite(1,1,0);
       label_pos='above'
       nomd=texteParPosition('(d)',-5.8,5.4)
       for (let i=0;i<12;i++){
