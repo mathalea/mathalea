@@ -417,6 +417,7 @@ function Exercice() {
  * Pour imprimer des repères vierges pour les élèves.
  * @Auteur Jean-Claude Lhote
  * référence : P003
+ * publié le ?/2/2020
  */
 function feuille_d_axes_gradues() {
   "use strict";
@@ -14333,7 +14334,9 @@ function Utiliser_le_codage_pour_decrire(){
 }
 
 /**
- * Ref beta6G14
+ * Ref 6G14
+ * @Auteur Jean-Claude Lhote
+ * publié le 22/11/2020
  */
 function Proprietes_paralleles_perpendiculaires() {
   "use strict";
