@@ -17495,7 +17495,8 @@ function Tests_du_Seb(){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
 					if (this.debug) {
-						texte += `<br>`;
+            texte += `<br>`;
+            texte += `<code class="b">score</code> pour ...`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
 						texte_corr = ``;	

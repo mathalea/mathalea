@@ -7294,6 +7294,8 @@ function Tableaux_et_proportionnalite(){
 /** 
  * * Tableaux et pourcentages
  * * 5N11-1
+ * * publication initiale le 08/2020
+ * * modification le 25/11/2020 pour ajouter des paramétrages
  * @author Sébastien Lozano
  */
 
@@ -7458,20 +7460,7 @@ function Tableaux_et_pourcentages(){
 						tex_prix(prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix*remises[1].nb/100)}`),mise_en_evidence(`${tex_prix(prix*remises[2].nb/100)}`),mise_en_evidence(`${tex_prix(prix*remises[3].nb/100)}`),mise_en_evidence(`${tex_prix(prix*remises[4].nb/100)}`),
 						tex_prix(prix-prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix-prix*remises[1].nb/100)}`),mise_en_evidence(`${tex_prix(prix-prix*remises[2].nb/100)}`),mise_en_evidence(`${tex_prix(prix-prix*remises[3].nb/100)}`),mise_en_evidence(`${tex_prix(prix-prix*remises[4].nb/100)}`),
 					]),
-				},	
-				// {//case 4 --> 5 colonnes à remplir
-				// 	tableau:tab_C_L([`\\text{Prix en euro}`,tex_prix(prix),tex_prix(prix),tex_prix(prix),tex_prix(prix),tex_prix(prix),tex_prix(prix)],[`\\text{Remise en pourcentage}`,`\\text{Montant de la remise en euro}`,`\\text{Nouveau prix}`],[
-				// 		remises[0].str,remises[1].str,remises[2].str,remises[3].str,remises[4].str,remises[5].str,
-				// 		tex_prix(prix*remises[0].nb/100),'','','','','',
-				// 		tex_prix(prix-prix*remises[0].nb/100),'','','','','',
-				// 	]),
-				// 	tableau_corr:tab_C_L([`\\text{Prix en euro}`,tex_prix(prix),tex_prix(prix),tex_prix(prix),tex_prix(prix),tex_prix(prix),tex_prix(prix)],[`\\text{Remise en pourcentage}`,`\\text{Montant de la remise en euro}`,`\\text{Nouveau prix}`],[
-				// 		remises[0].str,remises[1].str,remises[2].str,remises[3].str,remises[4].str,remises[5].str,
-				// 		tex_prix(prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix*remises[0].nb/100)} \\times ${tex_nombre(remises[1].nb/remises[0].nb)} = ${tex_prix(prix*remises[1].nb/100)}`),mise_en_evidence(`${tex_prix(prix*remises[0].nb/100)} \\times ${tex_nombre(remises[2].nb/remises[0].nb)} = ${tex_prix(prix*remises[2].nb/100)}`),mise_en_evidence(`${tex_prix(prix*remises[0].nb/100)} \\times ${tex_nombre(remises[3].nb/remises[0].nb)} = ${tex_prix(prix*remises[3].nb/100)}`),mise_en_evidence(`${tex_prix(prix*remises[0].nb/100)} \\times ${tex_nombre(remises[4].nb/remises[0].nb)} = ${tex_prix(prix*remises[4].nb/100)}`),mise_en_evidence(`${tex_prix(prix*remises[0].nb/100)} \\times ${tex_nombre(remises[5].nb/remises[0].nb)} = ${tex_prix(prix*remises[5].nb/100)}`),
-				// 		tex_prix(prix-prix*remises[0].nb/100),mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remises[1].nb/100)} = ${tex_prix(prix-prix*remises[1].nb/100)}`),mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remises[2].nb/100)} = ${tex_prix(prix-prix*remises[2].nb/100)}`),mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remises[3].nb/100)} = ${tex_prix(prix-prix*remises[3].nb/100)}`),mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remises[4].nb/100)} = ${tex_prix(prix-prix*remises[4].nb/100)}`),mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remises[5].nb/100)} = ${tex_prix(prix-prix*remises[5].nb/100)}`),
-				// 	]),
-				// },	
-				
+				},				
 			];
 
 			let corrections;
