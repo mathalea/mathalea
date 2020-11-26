@@ -9654,7 +9654,7 @@ function Feuille_de_grilles() {
      // g2=grilleHorizontale(3,0,13,10,'gray',0.5,0.1)
       // objets.push(texteParPosition("------",0,0.1))
       // objets.push(texteParPosition("+",2,0.5))
-      texte=mathalea2d({xmin:0,ymin:0,xmax:15,ymax:6,pixelsParCm:20,scale:0.5},objets)
+      texte=mathalea2d({xmin:0,ymin:0,xmax:15,ymax:6,pixelsParCm:30,scale:1.5},objets)
       this.liste_questions.push(texte);
     }
   }
@@ -9662,18 +9662,18 @@ function Feuille_de_grilles() {
     for (let i=0;i<4;i++) {
       objets.length=0
       //pixelsParCm=50
-      objets.push(grille(20,0,24,4,'black',1,0.4))
+      objets.push(grille(16.8,0,20.8,4,'black',1,0.4))
       for (let j=0;j<5;j++) {
-        A=point(0+j*5,0)
-        B=point(4+j*5,0)
-        C=point(4+j*5,4)
-        D=point(0+j*5,4)
+        A=point(0+j*4.2,0)
+        B=point(4+j*4.2,0)
+        C=point(4+j*4.2,4)
+        D=point(0+j*4.2,4)
         objets.push(polygone(A,B,C,D))
       }
      // g2=grilleHorizontale(3,0,13,10,'gray',0.5,0.1)
       // objets.push(texteParPosition("------",0,0.1))
       // objets.push(texteParPosition("+",2,0.5))
-      texte=mathalea2d({xmin:-0.5,ymin:-1,xmax:26,ymax:4,pixelsParCm:20,scale:0.5},objets)
+      texte=mathalea2d({xmin:-0.5,ymin:-1,xmax:26,ymax:4,pixelsParCm:30,scale:0.8},objets)
       this.liste_questions.push(texte);
     }
   }
