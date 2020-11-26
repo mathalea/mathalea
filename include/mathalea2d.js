@@ -63,19 +63,19 @@ function Point(arg1, arg2, arg3, positionLabel = "above") {
   if (arguments.length == 1) {
     this.nom = arg1;
   } else if (arguments.length == 2) {
-    this.x = arg1;
-    this.y = arg2;
+    this.x = arrondi(arg1,1);
+    this.y = arrondi(arg2,1);
   } else {
-    this.x = arg1;
-    this.y = arg2;
+    this.x = arrondi(arg1,1);
+    this.y = arrondi(arg2,1);
     this.nom = arg3;
   }
   this.positionLabel = positionLabel;
   this.xSVG = function (coeff) {
-    return this.x * coeff;
+    return arrondi(this.x * coeff,0);
   };
   this.ySVG = function (coeff) {
-    return -this.y * coeff;
+    return arrondi(-this.y * coeff,0);
   };
   if (!this.nom) {
     this.nom = " "; // Le nom d'un point est par défaut un espace
@@ -86,54 +86,6 @@ function point(...args) {
   return new Point(...args);
 }
 
-/**
- * tracePoint(A) // Place une croix à l'emplacement du point A
- * tracePoint(A,B,C,D) // Place une croix pour les différents points
- * tracePoint(A,B,C,D,'blue') // Place une croix pour les différents points
- * @Auteur Rémi Angot
- */
-/*
-function TracePoint(...points) {
-  ObjetMathalea2D.call(this);
-  this.taille = 4/pixelsParCm; // maintenant 0.2/pixelsParCm*20 en SVG donc taille de point constante. Pour Latex, la taille du point ne change pas avec scale.
-  if (typeof points[points.length - 1] === "string") {
-    this.color = points[points.length - 1];
-  }
-  this.svg = function (coeff) {
-    let code = "";
-    for (let A of points) {
-      if (A.constructor == Point) {
-        code += `<line x1="${calcul((A.x - this.taille) * coeff)}" y1="${calcul(
-          (-A.y - this.taille) * coeff
-        )}" x2="${calcul((A.x + this.taille) * coeff)}" y2="${calcul(
-          (-A.y + this.taille) * coeff
-        )}" stroke="${this.color}" />`;
-        code += `\n\t<line x1="${calcul(
-          (A.x - this.taille) * coeff
-        )}" y1="${calcul((-A.y + this.taille) * coeff)}" x2="${calcul(
-          (A.x + this.taille) * coeff
-        )}" y2="${calcul((-A.y - this.taille) * coeff)}" stroke="${
-          this.color
-        }" />`;
-      }
-    }
-    return code;
-  };
-  this.tikz = function () {
-    let code = "";
-    for (let A of points) {
-      if (A.constructor == Point) {
-        if (this.color == "black") {
-          code += `\n\\node[point] at (${A.x},${A.y}) {};`;
-        } else {
-          code += `\n\\node[point,${color}] at (${A.x},${A.y}) {};`;
-        }
-      }
-    }
-    return code;
-  };
-}
-*/
 /**
  * tracePoint(A) // Place une croix à l'emplacement du point A
  * tracePoint(A,B,C,D) // Place une croix pour les différents points
@@ -1359,16 +1311,16 @@ function Segment(arg1, arg2, arg3, arg4, color) {
     this.y2 = arg2.y;
     this.color = arg3;
   } else if (arguments.length == 4) {
-    this.x1 = arg1;
-    this.y1 = arg2;
-    this.x2 = arg3;
-    this.y2 = arg4;
+    this.x1 = arrondi(arg1,2);
+    this.y1 = arrondi(arg2,2);
+    this.x2 = arrondi(arg3,2);
+    this.y2 = arrondi(arg4,2);
   } else {
     // 5 arguments
-    this.x1 = arg1;
-    this.y1 = arg2;
-    this.x2 = arg3;
-    this.y2 = arg4;
+    this.x1 = arrondi(arg1,2);
+    this.y1 = arrondi(arg2,2);
+    this.x2 = arrondi(arg3,2);
+    this.y2 = arrondi(arg4,2);
     this.color = color;
   }
   this.extremite1 = point(this.x1, this.y1);
@@ -2398,14 +2350,14 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
   this.couleurDeRemplissage = fill;
   this.opaciteDeRemplissage = fillOpacite
   if (typeof(angle)!='number'){
-    angle=angleOriente(M,Omega,angle)
+    angle=arrondi(angleOriente(M,Omega,angle),1)
   }
   let l = longueur(Omega, M), large = 0, sweep = 0
  // let d = droite(Omega, M)
   //d.isVisible = false
   let A = point(Omega.x + 1, Omega.y)
-  let azimut = angleOriente(A, Omega, M)
-  let anglefin = azimut + angle
+  let azimut = arrondi(angleOriente(A, Omega, M),1)
+  let anglefin = arrondi(azimut + angle,1)
   if (angle > 180) {
     angle = angle - 360
     large = 1
@@ -2449,7 +2401,7 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
     if (this.couleurDeRemplissage != 'none') {
       this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `;
     }
-    return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${this.couleurDeRemplissage}" ${this.style}/>`
+    return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${arrondi(l * coeff,1)} ${arrondi(l * coeff,1)} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${this.couleurDeRemplissage}" ${this.style}/>`
   }
   else this.svg = function (coeff) {
     this.style=``
@@ -2515,8 +2467,8 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
     if (tableauOptions.length > 0) {
       optionsDraw = "[" + tableauOptions.join(',') + "]"
     }
-    if (rayon) return `\\filldraw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) -- cycle ;`
-    else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;`
+    if (rayon) return `\\filldraw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M),2)}) -- cycle ;`
+    else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M),2)}) ;`
   }
   let la,da,code,P,dMx,dMy,dPx,dPy
 
@@ -2587,8 +2539,8 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
     let optionsDraw = []
     let tableauOptions = [];
     let A = point(Omega.x + 1, Omega.y)
-    let azimut = angleOriente(A, Omega, M)
-    let anglefin = azimut + angle
+    let azimut = arrondi(angleOriente(A, Omega, M),1)
+    let anglefin = arrondi(azimut + angle,1)
     let N = rotation(M, Omega, angle)
     if (this.color.length > 1 && this.color !== 'black') {
       tableauOptions.push(this.color)
@@ -2609,8 +2561,8 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
 
     optionsDraw = "[" + tableauOptions.join(',') + "]"
 
-    if (rayon) return `\\filldraw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) -- cycle ;`
-    else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;`
+    if (rayon) return `\\filldraw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M),2)}) -- cycle ;`
+    else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M),2)}) ;`
   }
 }
 function arc(...args) {
@@ -4883,6 +4835,53 @@ function GrilleHorizontale(
  */
 function grilleHorizontale(...args) {
   return new GrilleHorizontale(...args);
+}
+function GrilleVerticale(
+  xmin = -30,
+  ymin = -30,
+  xmax = 30,
+  ymax = 30,
+  color = "gray",
+  opacite = 0.4,
+  step = 1,
+  pointilles = false
+) {
+  ObjetMathalea2D.call(this);
+  this.color = color;
+  this.opacite = opacite;
+  let objets = [];
+  for (let i = xmin; i <= xmax; i += step) {
+    let s = segment(i,ymin,i,ymax);
+    s.color = this.color;
+    s.opacite = this.opacite;
+    if (pointilles) {
+      s.pointilles = true;
+    }
+    objets.push(s);
+  }
+  this.svg = function (coeff) {
+    code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+}
+
+/**
+ * grilleHorizontale(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les axes des abscisses et des ordinnées
+ *
+ * @Auteur Rémi Angot
+ */
+function grilleVerticale(...args) {
+  return new GrilleVerticale(...args);
 }
 
 function Seyes(xmin = 0, ymin = 0, xmax = 15, ymax = 15,opacite1 = .5, opacite2 = .2) {
