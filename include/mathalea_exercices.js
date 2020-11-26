@@ -44,6 +44,7 @@ var liste_des_exercices_disponibles = {
   "6C31": Division_decimale,
   "6C32": Probleme_course,
   "6C33": Priorites,
+  //"6C99" : separation6C,
   "6D10": Conversions_de_durees,
   "6D101": Heures_decimales,
   "6D11": Somme_de_durees,
@@ -67,6 +68,7 @@ var liste_des_exercices_disponibles = {
   "6G25-2": Pavages_et_symetries,
   "6G33" : Symetrie_axiale_conservation1,
   "6G41" : Representer_un_solide_6e,
+  "6G33" : Symetrie_axiale_conservation1,
   "6G42" : Solide_6e,
   "6G43" : Utiliser_vocabulaire_pave,
   "6M11-1": Perimetre_ou_aire_de_carres_rectangles_triangles,
@@ -114,7 +116,6 @@ var liste_des_exercices_disponibles = {
   "6N31": Comparer_decimaux,
   "6N31-1": Encadrer_un_decimal_par_deux_entiers_consecutifs,
   "6N31-2":Ordre_de_grandeur_operations_decimaux,
-  "6N31-3": Arrondir_une_valeur_6e,
   "6N32" :Fractions_d_unite,
   "6N33": Fraction_d_un_nombre,
   "6N33-0" : Fraction_d_une_quantite,
@@ -154,7 +155,6 @@ var liste_des_exercices_disponibles = {
   "5G31": Exercice_angles_triangles,
   "5G31-1": Constructibilite_des_triangles_angles,
   "5G51" : Representer_un_solide_5e,
-  "5N10": Arrondir_une_valeur_5e,
   "5N11-1": Tableaux_et_pourcentages,
   "5N13": Exercice_fractions_simplifier,
   "5N13-2": Egalites_entre_fractions,
@@ -214,7 +214,6 @@ var liste_des_exercices_disponibles = {
   "4C22-2": Exercice_diviser_fractions,
   "4C23": Exercice_additionner_fraction_produit,
   "4C25-0": Problemes_additifs_fractions,
-  "4C30": Comparer_puissance10,
   "4C30": Puissances_de_dix,
   "4C30-1": Puissances_encadrement,
   "4C30-2": EcritureDecimalePuissanceDe10,
@@ -231,14 +230,19 @@ var liste_des_exercices_disponibles = {
   "4L14-1": Tester_si_un_nombre_est_solution_d_une_equation_deg1,
   "4L14-2": Tester_si_un_nombre_est_solution_d_une_equation_deg2,
   "4L15-0": Trouver_erreur_resol_eq_deg1,
-  "4L15-1": Equations_fractions,
   "4L20": Exercice_equation1,
+  "4C21-1": Exercice_additionner_des_fractions,
+  "4C21": Exercice_additionner_ou_soustraire_des_fractions,
+  "4C22-1": Exercice_trouver_l_inverse,
+  "4C22": Exercice_multiplier_fractions,
+  "4C22-2": Exercice_diviser_fractions,
+  "4C23": Exercice_additionner_fraction_produit,
+  "beta4C30": Comparer_puissance10,
   "4F12": Exploiter_representation_graphique,
   "4P10": Problemes_grandeurs_composees,
   "4P10-1" : Graphiques_et_proportionnalite,  
   "4G11": Pavages_et_translation,
   "4G20" : Pythagore2D,
-  "4G20-0": Arrondir_une_valeur_4e,
   "4G20-1": Egalite_Pythagore2D, // Anciennement Egalite_Pythagore,
   "4G20-2": Racine_caree_de_carres_parfaits,
   "4G20MG32": Exercice_Pythagore,
@@ -259,6 +263,7 @@ var liste_des_exercices_disponibles = {
   "3A11-3": Lister_Diviseurs_Par_Decomposition_facteurs_premiers,
   "3A12": Fractions_irreductibles,
   "3A13": PPCM_Engrenages,
+  "3G43": Calcul_de_volumes_3e,
   "3L10": Oppose_expression,
   "3L10-1": Parentheses_precedes_de_moins_ou_plus,
   "3L11": Exercice_developper,
@@ -288,7 +293,6 @@ var liste_des_exercices_disponibles = {
   "3G23": TrianglesSemblables,
   "3G30": Exercice_Trigo_longueurs,
   "3G31": Exercice_Trigo_angles,
-  "3G43": Calcul_de_volumes_3e,
   "3F1-act": fonction_notion_vocabulaire,
   "3F10" : Image_antecedent_depuis_tableau_ou_fleche,
   "3F12": fonctions_calculs_d_images,
@@ -301,7 +305,9 @@ var liste_des_exercices_disponibles = {
   "3F21": Lecture_expression_fonctions_lineaires,
   "3F21-1": Lecture_expression_fonctions_affines,
   "3S15": Calculer_des_etendues,
-  "3S20": fonctions_probabilite2,  
+  "3S20": fonctions_probabilite2,
+  "beta3L11-5": identites_calculs,
+  "beta3Algo1": Instruction_conditionelle,
   "2N10": Existence_d_une_racine_carree,
   "2N10-1": proprietes_racine_carree,
   "2N11": Extraire_un_carre_parfait_d_une_racine_carree,
@@ -328,7 +334,7 @@ var liste_des_exercices_disponibles = {
   "PEA11-1": Passer_de_la_base_12_ou_16_a_la_10,
   "betaTESTseb": Tests_du_Seb,
   "betaSVG": AfficherSVG,
-  "P001": Code_LaTeX_personnalise,
+  P001: Code_LaTeX_personnalise,
   // 'P002': LaTeX_static,
   "P003" : feuille_d_axes_gradues,
   "P004" :Feuille_de_zooms,
@@ -6141,7 +6147,7 @@ function Encadrer_fraction_entre_2_entiers() {
       a = randint(0, 9) * 10 + randint(1, 9);
       texte = `$\\ldots < \\dfrac{${n}}{${d}} < \\ldots$`;
       texte_corr = `$${k} < \\dfrac{${n}}{${d}} < ${k+1}$`;
-      if (this.correction_detaillee){
+      if (correction_detaillee){
         texte_corr += ` $\\qquad$ car $\\quad ${k}=\\dfrac{${k*d}}{${d}}\\quad$ et $\\quad${k+1}=\\dfrac{${(k+1)*d}}{${d}}$ `;
         texte_corr += `<br><br>`
         texte_corr += mathalea2d({xmin:-.5, xmax:24,ymax:1.5,scale:.6},fraction(n,d).representation(0,0,3,0,'barre','blue')
@@ -9436,7 +9442,7 @@ function Exercice_differentes_ecritures_nombres_decimaux() {
           break;
         case 5: // u = .../100
           texte = `$${u}=${tex_fraction("", "100")}$`;
-          texte_corr = `$${u}=${tex_fraction(100 * u, "100")}$`;
+          texte_corr = `$${u}=${tex_fraction(100 * u, "10")}$`;
           break;
         case 6: // n/10 = ... + .../10 + .../100
           ecriture_decimale = tex_nombre(calcul(n / 10));
@@ -9620,13 +9626,6 @@ function Lire_abscisse_decimale_trois_formes() {
   this.besoin_formulaire_numerique = ['Niveau de difficulté',3,'1 : Au dixième\n2 : Au centième\n3 : Au millième'];
 }
 
-
-function lireUneAbscisseAvecZoomCM() {
-  LireUneAbscisseAvecZoom.call(this);
-  this.niveau='CM';
-  this.sup=1;
-  this.nb_cols_corr=1
-}
 /**
  * Fonction permettant aux enseignants de proposer des grilles décimale à colorier
  * ref P005
@@ -9639,64 +9638,98 @@ function Feuille_de_grilles() {
   this.titre = "Grilles décimales"
 
   this.nouvelle_version=function() {
-  this.liste_questions=[]
-  let objets=[]
+  this.contenu=""
+  let objets=[],fleche
   if (this.sup==1) {// On travaille au dixième
-    for (let i=0;i<4;i++) {
+    for (let i=0;i<5;i++) {
       objets.length=0
       //pixelsParCm=50
-      objets.push(grille(6,0,11,0.5,'black',1,0.5))
-      for (let j=0;j<5;j++) {
-        A=point(0,j*0.8)
-        B=point(5,j*0.8)
-        C=point(5,j*0.8+0.5)
-        D=point(0,j*0.8+0.5)
+      objets.push(carre(point(1,1),point(2,1)))
+      objets.push(texteParPosition("= 1 unité",3.5,1.5))
+      objets.push(grille(15,-2,19,2,'black',1,4))
+      for (let j=0;j<11;j++) {
+        A=point(0+j*1.1,-0.5)
+        B=point(1+j*1.1,-0.5)
+        C=point(1+j*1.1,0.5)
+        D=point(0+j*1.1,0.5)
         objets.push(polygone(A,B,C,D))
       }
-     // g2=grilleHorizontale(3,0,13,10,'gray',0.5,0.1)
-      // objets.push(texteParPosition("------",0,0.1))
-      // objets.push(texteParPosition("+",2,0.5))
-      texte=mathalea2d({xmin:0,ymin:0,xmax:15,ymax:6,pixelsParCm:20,scale:0.5},objets)
-      this.liste_questions.push(texte);
+      objets.push(segment(point(11.5,0.5),point(15,2),'gray'))
+      objets.push(segment(point(11.5,-0.5),point(15,-2),'gray'))
+      fleche=segment(12,0,15,0)
+      fleche.styleExtremites='->'
+      objets.push(texteParPosition("ZOOM",13.5,0.4))
+      objets.push(texteParPosition("x4",13.5,-0.4))
+      objets.push(fleche)
+      objets.push(grilleHorizontale(15,-2,19,2,'gray',1,0.8))
+      objets.push(grilleVerticale(15,-2,19,2,'gray',1,2))
+      objets.push(grilleHorizontale(11,-0.5,12,0.5,'gray',0.8,0.2))
+      objets.push(grilleVerticale(11,-0.5,12,0.5,'gray',0.8,0.5))     
+
+      texte=mathalea2d({xmin:-0.5,ymin:-2.2,xmax:21,ymax:3,pixelsParCm:30,scale:0.8},objets)
+      this.contenu+=texte;
+      this.contenu+='<br>'
     }
   }
   else if (this.sup==2) {
     for (let i=0;i<4;i++) {
       objets.length=0
       //pixelsParCm=50
-      objets.push(grille(20,0,24,4,'black',1,0.4))
-      for (let j=0;j<5;j++) {
-        A=point(0+j*5,0)
-        B=point(4+j*5,0)
-        C=point(4+j*5,4)
-        D=point(0+j*5,4)
+      objets.push(carre(point(1,1.5),point(2,1.5)))
+      objets.push(texteParPosition("= 1 unité",3.5,2))
+      objets.push(grille(15,-2.5,20,2.5,'black',1,0.5))
+      objets.push(grille(11,-0.5,12,0.5,'black',0.3,0.1))
+      
+      for (let j=0;j<11;j++) {
+        A=point(0+j*1.1,-0.5)
+        B=point(1+j*1.1,-0.5)
+        C=point(1+j*1.1,0.5)
+        D=point(0+j*1.1,0.5)
         objets.push(polygone(A,B,C,D))
       }
-     // g2=grilleHorizontale(3,0,13,10,'gray',0.5,0.1)
-      // objets.push(texteParPosition("------",0,0.1))
-      // objets.push(texteParPosition("+",2,0.5))
-      texte=mathalea2d({xmin:-0.5,ymin:-1,xmax:26,ymax:4,pixelsParCm:20,scale:0.5},objets)
-      this.liste_questions.push(texte);
+      objets.push(segment(point(11.5,0.5),point(15,2.5)))
+      objets.push(segment(point(11.5,-0.5),point(15,-2.5)))
+      fleche=segment(12,0,15,0)
+      fleche.styleExtremites='->'
+      objets.push(texteParPosition("ZOOM",13.5,0.5))
+      objets.push(texteParPosition("x5",13.5,-0.5))
+      objets.push(fleche)
+      texte=mathalea2d({xmin:-0.5,ymin:-3,xmax:26,ymax:3,pixelsParCm:30,scale:0.8},objets)
+      this.contenu+=texte;
+      this.contenu+='<br>'
     }
   }
   else {
-    for (let i=0;i<2;i++) {
+    for (let i=0;i<3;i++) {
       objets.length=0
       //pixelsParCm=50
-      objets.push(grille(11,0,21,10,'black',1,1))
-        A=point(0,0)
-        B=point(10,0)
-        C=point(10,10)
-        D=point(0,10)
+      for (let j=0;j<11;j++) {
+        A=point(0+j*1.1,-0.5)
+        B=point(1+j*1.1,-0.5)
+        C=point(1+j*1.1,0.5)
+        D=point(0+j*1.1,0.5)
         objets.push(polygone(A,B,C,D))
-        objets.push(grilleHorizontale(11,0,21,10,'gray',0.8,0.1))
-      // objets.push(texteParPosition("------",0,0.1))
-      // objets.push(texteParPosition("+",2,0.5))
-      texte=mathalea2d({xmin:0,ymin:-1,xmax:26,ymax:11,pixelsParCm:30,scale:0.8},objets)
-      this.liste_questions.push(texte);
+      }
+      objets.push(carre(point(1,1.5),point(2,1.5)))
+      objets.push(texteParPosition("= 1 unité",3.5,2))
+      objets.push(segment(point(11.5,0.5),point(15,5)))
+      objets.push(segment(point(11.5,-0.5),point(15,-5)))
+      fleche=segment(12,0,15,0)
+      fleche.styleExtremites='->'
+      objets.push(texteParPosition("ZOOM",13.5,0.5))
+      objets.push(texteParPosition("x10",13.5,-0.5))
+      objets.push(fleche)
+       objets.push(grilleHorizontale(15,-5,25,5,'gray',0.8,0.2))
+        objets.push(grilleVerticale(15,-5,25,5,'gray',0.8,0.5))
+        objets.push(grille(15,-5,25,5,'black',1,1))
+        objets.push(grille(11,-0.5,12,0.5,'black',0.3,0.1))
+      texte=mathalea2d({xmin:-0.1,ymin:-5.5,xmax:26,ymax:5.5,pixelsParCm:25,scale:0.7},objets)
+      this.contenu+=texte;
+      this.contenu+='<br>'
     }
   }
-  liste_de_question_to_contenu_sans_numero(this);
+  //liste_de_choses_a_imprimer(this);
+
 };
 this.besoin_formulaire_numerique = ['nombre de cases', 3, '1 : 10\n2 : 100\n3 : 1000'];
 
@@ -9825,6 +9858,11 @@ this.besoin_formulaire_numerique = ['Nombre de zoom', 2, '1 : Un seul zoom\n2 : 
  * Publié le 13/11/2020
  * @Auteur Jean-Claude Lhote
  */
+function lireUneAbscisseAvecZoomCM() {
+  LireUneAbscisseAvecZoom.call(this);
+  this.niveau='CM';
+  this.sup=1;
+}
 function LireUneAbscisseAvecZoom() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.niveau = 'sixième'
@@ -12597,7 +12635,6 @@ function Symetrie_axiale_conservation1() {
     // On prépare la figure...
     let axe=parseInt(this.sup)
     let d,nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
-
     if (axe==5) axe=randint(1,4) //choix de l'axe et des coordonnées
     switch (axe) {
       case 1 : d=droite(1,0,0);
@@ -13951,7 +13988,7 @@ function Description_segment_droite_demi_droite() {
             break;
           case 3:
             trait = demiDroite(B, A);
-            correction = `La demi-droite d'origine $${B.nom}$ passant par $${A.nom}$ notée $[${B.nom}${A.nom})$.`;
+            correction = `La demi-droite d'origine $${B.nom}$ passant par $${A.nom}$ notée $[${A.nom}${B.nom})$.`;
             break;
           case 4:
             trait = segment(A, B);
@@ -14303,7 +14340,7 @@ function Proprietes_paralleles_perpendiculaires() {
   "use strict";
   Exercice.call(this);
   this.titre = "Utiliser les propriétés des droites perpendiculaires";
-  this.nb_questions = 3;
+  this.nb_questions = 5;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
   this.sup = 4;
@@ -14313,8 +14350,8 @@ function Proprietes_paralleles_perpendiculaires() {
   this.nouvelle_version = function (numero_de_l_exercice) {
     let type_de_questions_disponibles,questions_par_niveau=[];
     questions_par_niveau.push(range(3))
-    questions_par_niveau.push(rangeMinMax(9,15))
-    questions_par_niveau.push(rangeMinMax(19,31,20))
+    questions_par_niveau.push(rangeMinMax(8,15))
+    questions_par_niveau.push(rangeMinMax(16,31))
 
     if (this.sup<4) type_de_questions_disponibles = questions_par_niveau[parseInt(this.sup)-1]
     else  type_de_questions_disponibles=questions_par_niveau[0].concat(questions_par_niveau[1].concat(questions_par_niveau[2]))
@@ -14326,20 +14363,6 @@ function Proprietes_paralleles_perpendiculaires() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let droites=[],code,raisonnement,numDroites=[],phrases=[],textetemp
-    let d=[],P=[],objets=[],num1,num2,couleurd=[],droiteP,PP,Inter
-    let droitecolor=function(num) {
-      let couleurs
-      sortie_html ? couleurs=['red','blue','green','black','magenta','orange'] : couleurs=['black','black','black','black','black','black'];
-      return couleurs[num]
-    }
-    if (sortie_html) {
-      num1=`<tspan dy="5" style="font-size:70%">`
-      num2=`</tspan><tspan dy="-5">)</tspan>`
-     }
-     else {
-       num1=`_`
-       num2=`)`
-     }
     for (
       let i = 0, texte, texte_corr, cpt = 0;
       i < this.nb_questions && cpt < 50;
@@ -14347,12 +14370,8 @@ function Proprietes_paralleles_perpendiculaires() {
     ) { 
       texte=""
       texte_corr=""
-      phrases.length=0;
+      phrases.length=0
       droites.length=0;
-      objets.length=0;
-      d.length=0;
-      P.length=0;
-      couleurd.length=0
       numDroites=shuffle([1,2,3,4,5]);
       raisonnement=liste_type_de_questions[i]
 
@@ -14446,17 +14465,10 @@ function Proprietes_paralleles_perpendiculaires() {
 
     // enoncé mélangé
     texte +=`On sait que `
-    couleurd.push(randint(0,5))
     for (let j=0;j<code.length;j++) {
       textetemp =`$(d_${numDroites[code[j][0]-1]})`;
-      if (code[j][2]==1) {
-        textetemp+= `//`
-        couleurd.push(couleurd[j])
-      }
-      else {
-        textetemp+=`\\perp`
-        couleurd.push((couleurd[j]+1)%6)
-      }
+      if (code[j][2]==1) textetemp+= `//`
+      else textetemp+=`\\perp`
       textetemp +=`(d_${numDroites[code[j][1]-1]})$`
       phrases.push(textetemp)
     }
@@ -14469,41 +14481,9 @@ function Proprietes_paralleles_perpendiculaires() {
     texte+=phrases[code.length-1]
     texte +=`.<br>Que peut-on dire de $(d_${numDroites[code[0][0]-1]})$ et $(d_${numDroites[code[code.length-1][1]-1]})$ ?`
 
-    //construction de la figure
-    
-    P.push(point(0,0))
-    droiteP=droiteParPointEtPente(P[0],randint(-1,1,0)/10,`(d${num1}${numDroites[code[0][0]-1]}${num2}`,droitecolor(couleurd[0]))
-    droiteP.epaisseur=2
-    droite.pointilles=false
-    d.push(droiteP)
-    objets.push(d[0])
-    for (let x=0;x<code.length;x++) {
-      if (code[x][2]==1) {
-        P.push(point((x+1)*2,(x+1)*2))
-        droiteP=droiteParPointEtParallele(P[x+1],d[x],`(d${num1}${numDroites[code[x][1]-1]}${num2}`,droitecolor(couleurd[x+1]))
-        droiteP.epaisseur=2
-        droiteP.pointilles=d[x].pointilles
-        d.push(droiteP)
-      }
-      else {
-        P.push(point((x+1)*2,(x+1)*2))
-        droiteP=droiteParPointEtPerpendiculaire(P[x+1],d[x],`(d${num1}${numDroites[code[x][1]-1]}${num2}`,droitecolor(couleurd[x+1]))
-        droiteP.epaisseur=2
-        droiteP.pointilles=x%3+1
-        Inter=pointIntersectionDD(d[x],droiteP)
-        PP=rotation(P[x+1],Inter,90)
-        d.push(droiteP)
-        objets.push(codageAngleDroit(PP,Inter,P[x+1],'black',0.6))
-      }
-      objets.push(d[x+1])
-    }
-    for (let i=0;i<code.length;i++){ // on ajoute les angles droits
-
-    }
     // correction raisonnement ordonné
-    fenetreMathalea2d=[-2,-2,15,10]
-    texte_corr=`À partir de l\'énoncé, on peut réaliser le shémas suivant (il en existe une infinité)<br> Les droites données parallèles dans l'énoncé sont de même couleur/style.<br>`
-    texte_corr+=mathalea2d({xmin:-2,xmax:15,ymin:-2,ymax:10,pixelsParCm:20,scale:0.3,mainlevee:false,amplitude:0.3},objets)+`<br>`
+console.log(code)
+    texte_corr=""
     for (let j=0;j<code.length-1;j++) {
       if (this.correction_detaillee) texte_corr+=`On sait que : `
       else texte_corr+=`Comme `
@@ -14517,23 +14497,20 @@ function Proprietes_paralleles_perpendiculaires() {
       texte_corr +=`(d_${numDroites[code[j+1][1]-1]})$`
       // quelle propriété ?
       if (code[j][2]*code[j+1][2]==-1) { // Une parallèle et une perpendiculaire
-        if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont parallèles alors toute droite perpendiculaire à l'une est aussi perpendiculaire à l'autre».<br>Donc`
-        else texte_corr+=`, on en déduit que `
+        if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont parallèles, toute droite perpendiculaire à l'une est aussi perpendiculaire à l'autre».<br>Donc`
         texte_corr+=` $(d_${numDroites[code[0][0]-1]})\\perp(d_${numDroites[code[j+1][1]-1]})$.<br>`
         code[j+1][0]=code[j][0]
         code[j+1][2]=-1
       }
       else if (code[j][2]>0) { // deux parallèles
         if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont parallèles à une même droite alors elles sont parallèles entre elles».<br>Donc`
-        else texte_corr+=`, on en déduit que `
         texte_corr+=` $(d_${numDroites[code[0][0]-1]})//(d_${numDroites[code[j+1][1]-1]})$.<br>`
         code[j+1][0]=code[j][0]
         code[j+1][2]=1
 
       }
       else { //deux perpendiculaires
-        if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont perpendiculaires à une même droite alors elles sont parallèles entre elles».<br>Donc`
-        else texte_corr+=`, on en déduit que `
+        if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont perpendiculaires à une même droite, alors elles sont parallèles entre elles».<br>Donc`
         texte_corr+=` $(d_${numDroites[code[0][0]-1]})//(d_${numDroites[code[j+1][1]-1]})$.<br>`
         code[j+1][0]=code[j][0]
         code[j+1][2]=1
@@ -14912,9 +14889,9 @@ function Parallele_et_Perpendiculaires() {
 function Proportionnalite_par_linearite_bis(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.debug = false;	
+	this.beta = false;	
 	this.sup=1;
-	if (this.debug) {
+	if (this.beta) {
 		this.nb_questions = 3;
 	} else {
 		this.nb_questions = 1;
@@ -14933,7 +14910,7 @@ function Proportionnalite_par_linearite_bis(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.debug) {
+		if (this.beta) {
 			type_de_questions_disponibles = [1];			
 		} else {
 			type_de_questions_disponibles = [1];			
@@ -15035,7 +15012,7 @@ function Proportionnalite_par_linearite_bis(){
 			switch (liste_type_de_questions[i]){
 				case 1 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.debug) {
+					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte_corr = ``;	
@@ -16245,9 +16222,9 @@ function Solide_6e() {
 function Produit_de_decimaux_a_partir_d_un_produit_connu(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.debug = false;	
+	this.beta = false;	
 	this.sup=1;
-	if (this.debug) {
+	if (this.beta) {
 		this.nb_questions = 3;
 	} else {
 		this.nb_questions = 3;
@@ -16265,7 +16242,7 @@ function Produit_de_decimaux_a_partir_d_un_produit_connu(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.debug) {
+		if (this.beta) {
 			type_de_questions_disponibles = [0,1,2];			
 		} else {
       //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
@@ -16331,7 +16308,7 @@ function Produit_de_decimaux_a_partir_d_un_produit_connu(){
 			switch (liste_type_de_questions[i]){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.debug) {
+					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
@@ -16342,7 +16319,7 @@ function Produit_de_decimaux_a_partir_d_un_produit_connu(){
      			break;	
      		case 1 : 
           texte = `${enonces[1].enonce}`;
-          if (this.debug) {
+          if (this.beta) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
             texte_corr = ``;	
@@ -16352,7 +16329,7 @@ function Produit_de_decimaux_a_partir_d_un_produit_connu(){
           break;
      		case 2 : 
           texte = `${enonces[2].enonce}`;
-          if (this.debug) {
+          if (this.beta) {
             texte += `<br>`;
             texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
             texte_corr = ``;	
@@ -16382,9 +16359,9 @@ function Produit_de_decimaux_a_partir_d_un_produit_connu(){
 function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.debug = false;	
+	this.beta = false;	
 	this.sup=1;
-	if (this.debug) {
+	if (this.beta) {
 		this.nb_questions = 3;
 	} else {
 		this.nb_questions = 3;
@@ -16402,7 +16379,7 @@ function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.debug) {
+		if (this.beta) {
 			type_de_questions_disponibles = [0,1,2];			
 		} else {
       //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
@@ -16464,7 +16441,7 @@ function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
 			switch (liste_type_de_questions[i]){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.debug) {
+					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
@@ -16475,7 +16452,7 @@ function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
           break;	
         case 1 : 
 					texte = `${enonces[1].enonce}`;
-					if (this.debug) {
+					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
 						texte_corr = ``;	
@@ -16485,7 +16462,7 @@ function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
           break;
         case 2 : 
 					texte = `${enonces[2].enonce}`;
-					if (this.debug) {
+					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
 						texte_corr = ``;	
@@ -16514,9 +16491,9 @@ function Encadrer_un_decimal_par_deux_entiers_consecutifs(){
 function Ordre_de_grandeur_operations_decimaux(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.debug = false;	
+	this.beta = false;	
 	this.sup=1;
-	if (this.debug) {
+	if (this.beta) {
 		this.nb_questions = 1;
 	} else {
 		this.nb_questions = 1;
@@ -16534,7 +16511,7 @@ function Ordre_de_grandeur_operations_decimaux(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.debug) {
+		if (this.beta) {
 			type_de_questions_disponibles = [0];			
 		} else {
       //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);
@@ -16720,7 +16697,7 @@ function Ordre_de_grandeur_operations_decimaux(){
 			switch (liste_type_de_questions[i]){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.debug) {
+					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
@@ -16744,118 +16721,6 @@ function Ordre_de_grandeur_operations_decimaux(){
 };
 
 /** 
- * * Encadrer_puis_arrondir_une_valeur
- * * 6N31-3
- * @author Mireille Gain, s'inspirant de 6N31-1 de Sébastien Lozano
- */
-
-function Arrondir_une_valeur() {
-    "use strict";
-    Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Arrondir une valeur";
-    this.consigne = "Encadrer chaque nombre à l'unité, puis au dixième, puis au centième.<br>Dans chaque cas, mettre ensuite en évidence son arrondi.";
-    this.nb_questions = 3;
-    this.nb_cols = 3;
-    this.nb_cols_corr = 1;
-    this.sup = 1;
-    this.sup2 = false;
-
-    sortie_html ? (this.spacing_corr = 2.5) : (this.spacing_corr = 3.5);
-
-    this.nouvelle_version = function () {
-        this.liste_questions = [];
-        this.liste_corrections = [];
-        let m, c, d, u, di, ci, mi, me, ce, de, n, den, num, nb, rac;
-
-        for (let i = 0, texte = "", texte_corr = "", cpt = 0; i < this.nb_questions && cpt < 50; ) {
-            if (this.sup == 1) {
-                m = randint(0, 9);
-                c = randint(0, 9);
-                d = randint(0, 9);
-                u = randint(0, 9);
-                di = randint(1, 9);
-                ci = randint(1, 9);
-                mi = randint(1, 9, 5);
-                me = randint(0, 1);
-                ce = randint(0, 1);
-                de = randint(0, 1);
-                n = me * m * 1000 + ce * c * 100 + de * d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001);
-                nb = tex_nombre(n);
-            } else if (this.sup == 2) {
-                den = choice([7, 9, 11, 13]);
-                num = randint(1, 50, [7, 9, 11, 13, 14, 18, 21, 22, 26, 27, 28, 33, 35, 36, 39, 42, 44, 45, 49]);
-                n = num / den;
-                nb = tex_fraction(num, den);
-                di = troncature(n - troncature(n, 0), 1);
-                ci = troncature(n - troncature(n, 1), 2);
-                mi = troncature(n - troncature(n, 2), 3);
-            } else if (this.sup == 3) {
-                rac = randint(3, 99, [4, 9, 16, 25, 36, 49, 64, 81]);
-                n = Math.sqrt(rac);
-                nb = `\\sqrt{${rac}}`;
-                di = troncature(n - troncature(n, 0), 1);
-                ci = troncature(n - troncature(n, 1), 2);
-                mi = troncature(n - troncature(n, 2), 3);
-            }
-
-            texte = `$${nb}$`;
-            if (this.sup2) {
-                if (this.sup == 1) texte += ``;
-                else if (this.sup == 2) texte += `$\\phantom{1234567}$[Quand on écrit sur la calculatrice $${num}\\div ${den}$, elle affiche : $${tex_nombre(n)}$.]`;
-                else if (this.sup == 3) texte += `$\\phantom{1234567}$[Quand on écrit sur la calculatrice $${nb}$, elle affiche : $${tex_nombre(n)}$.]`;
-            }
-            texte_corr = "Encadrement et arrondi à l'unité : ";
-            if (di < 5) {
-                texte_corr += `$\\phantom{1234567}${mise_en_evidence(tex_nombre(troncature(n, 0)))} < ${nb} < ${tex_nombre(troncature(n + 1, 0))}$`;
-            } else {
-                texte_corr += `$\\phantom{1234567}${tex_nombre(troncature(n, 0))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n + 1, 0)))}$`;
-            }
-
-            texte_corr += "<br>Encadrement et arrondi au dixième : ";
-            if (ci < 5) {
-                texte_corr += `$\\phantom{123}${mise_en_evidence(tex_nombre(troncature(n, 1)))} < ${nb} < ${tex_nombre(troncature(n + 0.1, 1))}$`;
-            } else {
-                texte_corr += `$\\phantom{123}${tex_nombre(troncature(n, 1))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n + 0.1, 1)))}$`;
-            }
-
-            texte_corr += "<br>Encadrement et arrondi au centième : $~$";
-            if (mi < 5) {
-                texte_corr += `$${mise_en_evidence(tex_nombre(troncature(n, 2)))} < ${nb} < ${tex_nombre(troncature(n + 0.01, 2))}$`;
-            } else {
-                texte_corr += `$${tex_nombre(troncature(n, 2))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n + 0.01, 2)))}$`;
-            }
-
-            if (this.liste_questions.indexOf(texte) == -1) {
-                // Si la question n'a jamais été posée, on en créé une autre
-                this.liste_questions.push(texte); // Sinon on enregistre la question dans liste_questions
-                this.liste_corrections.push(texte_corr); // On fait pareil pour la correction
-                i++; // On passe à la question suivante
-            }
-            cpt++;
-        }
-        liste_de_question_to_contenu(this);
-    };
-    this.besoin_formulaire_numerique = ['Type de nombre', 2, `1 : Nombre décimal\n 2 : Fraction`];
-    this.besoin_formulaire2_case_a_cocher = ["Affichage de la valeur donnée à la calculatrice", false];
-}
-
-function Arrondir_une_valeur_6e() {
-  Arrondir_une_valeur.call(this);
-  this.sup = 1;
-}
-
-function Arrondir_une_valeur_5e() {
-  Arrondir_une_valeur.call(this);
-  this.sup = 2;
-  this.besoin_formulaire_numerique = ['Type de nombre', 2, `1 : Nombre décimal\n 2 : Fraction`];
-}
-
-function Arrondir_une_valeur_4e() {
-  this.sup = 3;
-  Arrondir_une_valeur.call(this);
-  this.besoin_formulaire_numerique = ['Type de nombre', 3, `1 : Nombre décimal\n 2 : Fraction\n 3 : Racine carrée`];
-}
-/** 
  * * Donner le chiffre des ... le nombre de ...
  * * 6N10-3
  * @author Sébastien Lozano
@@ -16864,9 +16729,9 @@ function Arrondir_une_valeur_4e() {
 function chiffre_nombre_de(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.debug = false;	
+	this.beta = false;	
 	this.sup=1;
-	if (this.debug) {
+	if (this.beta) {
 		this.nb_questions = 6;
 	} else {
 		this.nb_questions = 6;
@@ -16884,7 +16749,7 @@ function chiffre_nombre_de(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.debug) {
+		if (this.beta) {
 			type_de_questions_disponibles = [0,1,2,3,4,5];			
 		} else {
           //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
@@ -17044,7 +16909,7 @@ function chiffre_nombre_de(){
 			switch (liste_type_de_questions[i]){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.debug) {
+					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
@@ -17055,7 +16920,7 @@ function chiffre_nombre_de(){
           			break;	
      		case 1 : 
 					texte = `${enonces[1].enonce}`;
-					if (this.debug) {
+					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
 						texte_corr = ``;	
@@ -17065,7 +16930,7 @@ function chiffre_nombre_de(){
           			break;
      		case 2 : 
 					texte = `${enonces[2].enonce}`;
-					if (this.debug) {
+					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
 						texte_corr = ``;	
@@ -17075,7 +16940,7 @@ function chiffre_nombre_de(){
           			break;				
      		case 3 : 
 					texte = `${enonces[3].enonce}`;
-					if (this.debug) {
+					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
 						texte_corr = ``;	
@@ -17085,7 +16950,7 @@ function chiffre_nombre_de(){
 					break;				
      		case 4 : 
 					texte = `${enonces[4].enonce}`;
-					if (this.debug) {
+					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
 						texte_corr = ``;	
@@ -17095,7 +16960,7 @@ function chiffre_nombre_de(){
           break;	
         case 5 : 
 					texte = `${enonces[5].enonce}`;
-					if (this.debug) {
+					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[5].correction}`;
 						texte_corr = ``;	
@@ -17120,7 +16985,7 @@ function chiffre_nombre_de(){
 };
 
 /** 
-* * Encadrer un nombre entier par deux entiers consécutifs
+* * Encadrer un nombre entier par deux entier consécutifs
 * * 6N11-3
 * @author Sébastien Lozano
 */
@@ -17128,9 +16993,9 @@ function chiffre_nombre_de(){
 function Encadrer_un_entier_par_deux_entiers_consecutifs(){
   'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.debug = false;	
+	this.beta = false;	
 	this.sup=1;
-	if (this.debug) {
+	if (this.beta) {
 		this.nb_questions = 6;
 	} else {
 		this.nb_questions = 3;
@@ -17148,7 +17013,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.debug) {
+		if (this.beta) {
 			type_de_questions_disponibles = [0,1,2,3,4,5];			
 		} else {
       type_de_questions_disponibles = shuffle([choice([0,1]),choice([2,3]),choice([4,5])]);      			
@@ -17279,7 +17144,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 			switch (liste_type_de_questions[i]){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.debug) {
+					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
@@ -17290,7 +17155,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
           break;	
         case 1 : 
 					texte = `${enonces[1].enonce}`;
-					if (this.debug) {
+					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
 						texte_corr = ``;	
@@ -17300,7 +17165,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
           break;
         case 2 : 
 					texte = `${enonces[2].enonce}`;
-					if (this.debug) {
+					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
 						texte_corr = ``;	
@@ -17310,7 +17175,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
           break;	
         case 3 : 
 					texte = `${enonces[3].enonce}`;
-					if (this.debug) {
+					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
 						texte += `             `
@@ -17321,7 +17186,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
           break;	
         case 4 : 
 					texte = `${enonces[4].enonce}`;
-					if (this.debug) {
+					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
 						texte_corr = ``;	
@@ -17331,7 +17196,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
           break;
         case 5 : 
 					texte = `${enonces[5].enonce}`;
-					if (this.debug) {
+					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[5].correction}`;
 						texte_corr = ``;	
@@ -17355,7 +17220,7 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 };
 
 /** 
-* * Ranger une liste de nombres dans l'ordre croissant ou décroissant
+* * Ranger une liste de nombres dans l'odre croissant ou décroissant
 * * 6N11-4
 * @author Sébastien Lozano
 */
@@ -17363,9 +17228,9 @@ function Encadrer_un_entier_par_deux_entiers_consecutifs(){
 function Ranger_ordre_croissant_decroissant(){
  'use strict';
  Exercice.call(this); // Héritage de la classe Exercice()
- this.debug = false;	
+ this.beta = false;	
  this.sup=1;
- if (this.debug) {
+ if (this.beta) {
    this.nb_questions = 2;
  } else {
    this.nb_questions = 2;
@@ -17383,7 +17248,7 @@ function Ranger_ordre_croissant_decroissant(){
  let type_de_questions_disponibles;	
 
  this.nouvelle_version = function(numero_de_l_exercice){
-   if (this.debug) {
+   if (this.beta) {
      type_de_questions_disponibles = [0,1];			
    } else {
          //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
@@ -17464,7 +17329,7 @@ function Ranger_ordre_croissant_decroissant(){
      switch (liste_type_de_questions[i]){
       case 0 : 
         texte = `${enonces[0].enonce}`;
-        if (this.debug) {
+        if (this.beta) {
           texte += `<br>`;
           texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
           texte += `             `
@@ -17475,7 +17340,7 @@ function Ranger_ordre_croissant_decroissant(){
         break;	
       case 1 : 
         texte = `${enonces[1].enonce}`;
-        if (this.debug) {
+        if (this.beta) {
           texte += `<br>`;
           texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
           texte_corr = ``;	
@@ -17509,9 +17374,9 @@ function Ranger_ordre_croissant_decroissant(){
 function Tests_du_Seb(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.debug = true;	
+	this.beta = true;	
 	this.sup=1;
-	if (this.debug) {
+	if (this.beta) {
 		this.nb_questions = 2;
 	} else {
 		this.nb_questions = 2;
@@ -17529,7 +17394,7 @@ function Tests_du_Seb(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.debug) {
+		if (this.beta) {
 			type_de_questions_disponibles = [0,1];			
 		} else {
           //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
@@ -17585,7 +17450,7 @@ function Tests_du_Seb(){
           break;	
         case 1 : 
 					texte = `${enonces[1].enonce}`;
-					if (this.debug) {
+					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
 						texte_corr = ``;	
@@ -17619,9 +17484,9 @@ function Tests_du_Seb(){
 function Rapports_sur_un_segment(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-  this.debug = false;	
+  this.beta = false;	
 	this.sup=1;
-	if (this.debug) {
+	if (this.beta) {
 		this.nb_questions = 2;
 	} else {
 		this.nb_questions = 2;
@@ -17639,7 +17504,7 @@ function Rapports_sur_un_segment(){
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
-		if (this.debug) {
+		if (this.beta) {
 			type_de_questions_disponibles = [0,1];			
 		} else {
        //type_de_questions_disponibles = shuffle([choice([1,3]),choice([2,4]),0]);      			
@@ -17771,7 +17636,7 @@ function Rapports_sur_un_segment(){
 			switch (liste_type_de_questions[i]){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.debug) {
+					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
@@ -17782,7 +17647,7 @@ function Rapports_sur_un_segment(){
           			break;	
         		case 1 : 
 					texte = `${enonces[1].enonce}`;
-					if (this.debug) {
+					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
 						texte_corr = ``;	
@@ -17792,7 +17657,7 @@ function Rapports_sur_un_segment(){
           			break;
         		case 2 : 
 					texte = `${enonces[2].enonce}`;
-					if (this.debug) {
+					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
 						texte_corr = ``;	
@@ -17802,7 +17667,7 @@ function Rapports_sur_un_segment(){
           			break;				
         		case 3 : 
 					texte = `${enonces[3].enonce}`;
-					if (this.debug) {
+					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
 						texte_corr = ``;	
@@ -17812,7 +17677,7 @@ function Rapports_sur_un_segment(){
 					break;				
          		case 4 : 
 					texte = `${enonces[4].enonce}`;
-					if (this.debug) {
+					if (this.beta) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`;
 						texte_corr = ``;	
@@ -18225,7 +18090,7 @@ jQuery(document).ready(function () {
  */
 
 function AfficherSVG(){
-	//'use strict';
+	//"use strict";
 	Exercice.call(this); // Héritage de la classe Exercice()
 
 	this.titre = "Test d'affichage d'icone SVG";	
@@ -18277,54 +18142,26 @@ function AfficherSVG(){
          <path d="M480 192H365.71L260.61 8.06A16.014 16.014 0 0 0 246.71 0h-65.5c-10.63 0-18.3 10.17-15.38 20.39L214.86 192H112l-43.2-57.6c-3.02-4.03-7.77-6.4-12.8-6.4H16.01C5.6 128-2.04 137.78.49 147.88L32 256 .49 364.12C-2.04 374.22 5.6 384 16.01 384H56c5.04 0 9.78-2.37 12.8-6.4L112 320h102.86l-49.03 171.6c-2.92 10.22 4.75 20.4 15.38 20.4h65.5c5.74 0 11.04-3.08 13.89-8.06L365.71 320H480c35.35 0 96-28.65 96-64s-60.65-64-96-64z"/>
         </symbol>
       </defs>
-      <defs>
-        <g id="Port">
-          <circle style="fill: inherit;"/>
-        </g>
-      </defs>
       </svg>`;
 
     texte += `
-    <svg width="300" height="300" viewBox="0 0 300 300" style="border: 1px solid #333333;">
-      <use width="35" x="70" y="0" transform="rotate(-15, 70, 70)" xlink:href="#plane"/>
+    <svg width="50%" viewBox="0 0 300 300" style="border: 3px solid #333333;">
+      <use preserveAspectRatio="xMidYMid meet" viewBox="-50 50 50 50" height="100" width="100" x="0" y="0" fill="red" transform="rotate(0 0 0)"xlink:href="#plane"/>
       <use width="35" x="70" y="0" transform="rotate(15, 70, 70)" xlink:href="#plane"/>
-      <use xlink:href="#plane" transform="rotate(-30, 70, 70)" width="35" x="70" y="0" />
-      <use xlink:href="#plane" width="25" x="60" y="50" fill="red" />
-      <use width="38" x="92" y="80" xlink:href="#plane"/>
+      <use xlink:href="#plane" transform="rotate(-30 70 70)" width="35" x="70" y="0" />
+       <use width="38" x="92" y="80" xlink:href="#plane"/>
       <use width="23" x="50" y="30" xlink:href="#plane"/ fill-opacity="0%" stroke="green" stroke-width="8">   
       <use width="50" x="0" y="0" fill="blue" xlink:href="#plane"/>
       <use width="50" x="0" y="0" fill="blue" xlink:href="#Port"/>
     </svg>`;
 
-    texte_corr = ``;
-    let txt_commande = "ADAAGAAAGAA";
-    let posx = 10;
-    let posy = 10;
-    let angle = 90;
-    texte_corr += `<svg width="300" height="300" viewBox="0 0 300 300" style="border: 1px solid #333333;">`
-    for (let c of txt_commande) {
-      switch (c) {
-        case "A":
-          texte_corr += `<use width="38" x="${10*i}" y="80" xlink:href="#plane"/>`
-          break;
-        case "G":
-          texte_corr += `<use width="38" x="${10*i}" y="80" xlink:href="#plane"/>`
-          break;
-        case "D":
-          texte_corr += `<use width="38" x="${10*i}" y="80" xlink:href="#plane"/>`
-          break;
-        default:
-          texte_corr += ``;
-      }
+    //let element = document.getElementById('#exercices')
+    let draw = SVG().addTo('body').size('50%', '50%');
+    draw.rect(100, 100).attr({ fill: '#f06' });
+    draw.use('plane').move(20, 20).size(50, 50);
+    draw.use('plane').move(70, 20).size(50, 50).rotate(90);
       
-      texte_corr += `<use width="38" x="${10*i}" y="80" xlink:href="#plane"/>`
-    }
-    texte_corr += `</svg>`
-
-
-
-
-    
+    texte_corr = ``;
     this.liste_questions.push(texte);
 		this.liste_corrections.push(texte_corr);
 		liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque question.

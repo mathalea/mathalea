@@ -27,6 +27,24 @@ function liste_de_question_to_contenu(argument) {
 	}
 	
 }
+function liste_de_choses_a_imprimer(argument) {
+	if (sortie_html) {
+		argument.contenu =  html_ligne(argument.liste_questions,argument.spacing)
+		argument.contenu_correction = ""	
+	} else {
+		let vspace = '';
+		if (argument.vspace) {
+			vspace = `\\vspace{${argument.vspace} cm}\n`
+		}
+		if (document.getElementById('supprimer_reference').checked == true) {
+			argument.contenu = tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
+		} else {
+			argument.contenu = `\\marginpar{\\footnotesize ${argument.id}}` + tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
+		}
+		argument.contenu_correction = ""
+	}
+	
+}
 
 /**
 * Utilise this.liste\_questions et this.liste\_corrections pour remplir this.contenu et this.contenu_correction
