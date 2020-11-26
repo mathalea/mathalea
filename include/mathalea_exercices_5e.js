@@ -7485,7 +7485,7 @@ function Tableaux_et_pourcentages(){
 
 			let corrections;
 			if (this.sup3) {
-				corrections = `test corrections sup3`;
+				corrections = `test corrections sup3 merge KO test`;
 			} else {
 				if (this.sup2==1) {
 					corrections = `${justifCorr(remises[0],remises[1],prix)}`
