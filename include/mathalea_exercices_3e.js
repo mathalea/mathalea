@@ -4572,10 +4572,12 @@ function Premier_escape_game_mathalea() {
 		let type=parseInt(this.sup)
 		let mdp=cesar(mots[randint(0,5)+(type-1)*6],14)
 		let absc=[],ord=[],car
-		if (this.sup2==mdp) texte+=`${texte_en_couleur_et_gras('Bravo ! Vous avez trouvé le mot de passe !','blue')}<br>`
+		if (this.sup2==mdp) texte+=`${texte_en_couleur_et_gras(`Bravo ! le mot de passe était bien le mot ${mdp}`,'blue')}<br>`
 		else texte+=`Min et Max sont dans un bateau.<br>La tempête fait rage.<br>Ils en voient de toutes les couleurs.<br>Les vagues et les creux sont immenses.<br>Soudain, Min et Max tombent à l'eau... à moins que ce ne soit le contraire ?<br>`
 		texte+="Taper le mot de passe dans la boite de dialogue correspondante des paramètres de l'exercice.<br>"
 		texte_corr+=`Le mot de passe comporte ${2+2*type} lettres.`
+		if (this.sup2==mdp) texte_corr+=`${texte_en_couleur_et_gras(`<br>Bravo ! le mot de passe était bien le mot ${mdp}`,'blue')}<br>`
+
 		for(let x=0;x<type*2+2;x++){
 			car=mdp[x]
 			alphabet=alphabet.filter(item => item !== car)
