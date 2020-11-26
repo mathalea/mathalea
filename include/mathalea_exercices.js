@@ -436,7 +436,7 @@ function feuille_d_axes_gradues() {
   this.nb_cols_corr_modifiable = false;
   this.spacing_modifiable = false;
   this.spacing_corr_modifiable = false;
-  this.liste_packages = "axes_gradues";
+  this.liste_packages = ["tkz-euclide"];
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     let pas;
@@ -461,11 +461,11 @@ function feuille_d_axes_gradues() {
         );
       } else {
         //sortie Latex
-        texte = Latex_reperage_sur_un_axe(2, " ", 1, pas, [], [], false);
-        this.contenu+=texte;
-        this.contenu+='<br>'
+        texte = Latex_reperage_sur_un_axe(2,0, 1, pas, [], [], false);
       }
+      this.liste_questions.push(texte)
     }
+    if (!sortie_html) liste_de_question_to_contenu(this);
   };
   this.besoin_formulaire_numerique = [`Nombres de parts`, 10, ""];
 }
