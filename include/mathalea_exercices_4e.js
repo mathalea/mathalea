@@ -2,12 +2,16 @@
  * * Comparer des puissances de 10.
  *
  * Paramétrages possibles :
- * * 1 : inverse d'un nombre entier
- * * 2 : inverse d'une fraction
- * * 3 : inverse d'un nombre décimal
+ * 1 : Puissances de 10 seules
+ * 2 : mantisses différentes et même exposant
+ * 3 : mêmes mantisses et exposants différents
+ * 4 : mantisses et exposants différents
+ * 5 : mantisses (négatives) et exposants différents
+ * 6 : Tous types
+ * Programmes : p130 : "Comparer, ranger, encadrer des nombres rationnels en écriture décimale, fractionnaire ou scientifique
  * @auteur Erwan Duplessy
  * date : 15/11/2020
- * 4C30
+ * 4C30-4
  */
 
 function Comparer_puissance10() {
@@ -31,12 +35,12 @@ function Comparer_puissance10() {
     let a2 = 0; // mantisse 2
     let n1 = 0; // puissance 1
     let n2 = 0; // puissance 2
-    let nbA1 = 0;
-    let nbA2 = 0;
+    let nbA1 = 0; // valeur numérique du nombre 1
+    let nbA2 = 0; // valeur numérique du nombre 2
     let c = parseInt(this.sup);
     for (let i=0; i<this.nb_questions; i++) {
       if (this.sup == 6) {
-        c = randint(1,5);
+        c = randint(1,5); // si le choix est "tous type", on choisit un choix précédent
       }
       switch (c) {
         case 1:
@@ -91,9 +95,8 @@ function Comparer_puissance10() {
       liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
     };
     this.besoin_formulaire_numerique = ["Niveau de difficulté", 6,
-          "1 : Puissances de 10 seules\n 2 : Mantisses différentes et même exposant\n 3 : Mêmes mantisses et exposants différents\n 4 : Mantisses et exposants différents\n 5 : Mantisses (négatives) et exposants différents\n 6 : Tous types"];
+          "1 : puissances de 10 seules\n 2 : mantisses différentes et même exposant\n 3 : mêmes mantisses et exposants différents\n 4 : mantisses et exposants différents\n 5 : mantisses (négatives) et exposants différents\n 6 : tous types"];
 }
-
 
 /**
  * * Calcul de l'inverse d'un nombre.
