@@ -17440,8 +17440,9 @@ function Tests_du_Seb(){
 			switch (liste_type_de_questions[i]){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
-						texte += `<br>`;
+					if (this.debug) {
+            texte += `<br>`;
+            texte += `<code class="b">score</code> pour ...`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
 						texte_corr = ``;	
