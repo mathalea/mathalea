@@ -9638,7 +9638,7 @@ function Feuille_de_grilles() {
   this.titre = "Grilles décimales"
 
   this.nouvelle_version=function() {
-  this.liste_questions=[]
+  this.contenu=""
   let objets=[],fleche
   if (this.sup==1) {// On travaille au dixième
     for (let i=0;i<5;i++) {
@@ -9666,8 +9666,9 @@ function Feuille_de_grilles() {
       objets.push(grilleHorizontale(11,-0.5,12,0.5,'gray',0.8,0.2))
       objets.push(grilleVerticale(11,-0.5,12,0.5,'gray',0.8,0.5))     
 
-      texte=mathalea2d({xmin:-0.5,ymin:-2.2,xmax:21,ymax:3,pixelsParCm:20,scale:0.8},objets)
-      this.liste_questions.push(texte);
+      texte=mathalea2d({xmin:-0.5,ymin:-2.2,xmax:21,ymax:3,pixelsParCm:30,scale:0.8},objets)
+      this.contenu+=texte;
+      this.contenu+='<br>'
     }
   }
   else if (this.sup==2) {
@@ -9694,7 +9695,8 @@ function Feuille_de_grilles() {
       objets.push(texteParPosition("x5",13.5,-0.5))
       objets.push(fleche)
       texte=mathalea2d({xmin:-0.5,ymin:-3,xmax:26,ymax:3,pixelsParCm:30,scale:0.8},objets)
-      this.liste_questions.push(texte);
+      this.contenu+=texte;
+      this.contenu+='<br>'
     }
   }
   else {
@@ -9721,11 +9723,13 @@ function Feuille_de_grilles() {
         objets.push(grilleVerticale(15,-5,25,5,'gray',0.8,0.5))
         objets.push(grille(15,-5,25,5,'black',1,1))
         objets.push(grille(11,-0.5,12,0.5,'black',0.3,0.1))
-      texte=mathalea2d({xmin:0,ymin:-5.5,xmax:26,ymax:5.5,pixelsParCm:20,scale:0.7},objets)
-      this.liste_questions.push(texte);
+      texte=mathalea2d({xmin:-0.1,ymin:-5.5,xmax:26,ymax:5.5,pixelsParCm:25,scale:0.7},objets)
+      this.contenu+=texte;
+      this.contenu+='<br>'
     }
   }
-  liste_de_choses_a_imprimer(this);
+  //liste_de_choses_a_imprimer(this);
+
 };
 this.besoin_formulaire_numerique = ['nombre de cases', 3, '1 : 10\n2 : 100\n3 : 1000'];
 
