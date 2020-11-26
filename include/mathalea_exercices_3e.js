@@ -7565,12 +7565,6 @@ function Instruction_conditionelle(){
       		};
 		};
 		
-		scratchblocks.renderMatching("code.b", {
-			inline: true,
-			// Repeat `style` and `languages` options here.
-		  });
-
-
 		let texte = "La position initiale d'un lutin dans un repère est (0,0). Dans le programme, x désigne l'abscisse, et y désigne l'ordonnée d'un lutin. <br>"; // texte de l'énoncé
 		texte += `Une variable a été créée, elle s'appelle <code class="b">(var) :: ring</code>. <br>`
 		let texte_corr=" "; // texte du corrigé
