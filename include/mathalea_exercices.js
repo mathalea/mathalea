@@ -445,7 +445,7 @@ function feuille_d_axes_gradues() {
     this.contenu = ""; // Liste de questions
     this.contenu_correction = ""; // Liste de questions corrigées
     pas = parseInt(this.sup);
-    for (let i = 0, id_unique, texte; i < 16; i++) {
+    for (let i = 0, id_unique, texte; i < 14; i++) {
       if (sortie_html) {
         id_unique = `${i}_${Date.now()}`;
         this.contenu += `<div id="div_svg${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`;
