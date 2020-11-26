@@ -410,6 +410,7 @@ function Exercice() {
   this.nouvelle_version = function (numero_de_l_exercice) {};
   this.liste_packages = []; // string ou liste de string avec le nom des packages spécifiques à ajouter dans le préambule
 }
+
 /**
  * Pour imprimer des repères vierges pour les élèves.
  * @Auteur Jean-Claude Lhote
@@ -12409,7 +12410,7 @@ function Symetrie_axiale_conservation1() {
     let d,nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
     if (axe==5) axe=randint(1,4) //choix de l'axe et des coordonnées
     switch (axe) {
-      case 1 : d=droite(1,0,0,'(d)');
+      case 1 : d=droite(1,0,0);
         nomd=texteParPosition('(d)',0.3,5.6)
         label_pos='above left'
         for (let i=0;i<12;i++){
@@ -12424,7 +12425,7 @@ function Symetrie_axiale_conservation1() {
         }
         for (let j=0;j<12;j++) coords.push([-coords[j][0],coords[j][1]]) // on stocke les 12 images
       break;
-      case 2: d=droite(0,1,0,'(d)');
+      case 2: d=droite(0,1,0);
       label_pos='above'
       nomd=texteParPosition('(d)',5.6,0.3)
       for (let i=0;i<12;i++){
@@ -12439,7 +12440,7 @@ function Symetrie_axiale_conservation1() {
         }
         for (let j=0;j<12;j++) coords.push([coords[j][0],-coords[j][1]]) // on stocke les 12 images
       break;
-      case 3: d=droite(1,-1,0,'(d)');
+      case 3: d=droite(1,-1,0);
       label_pos='above'
       nomd=texteParPosition('(d)',-5.8,-5.4)
       for (let i=0;i<12;i++){
@@ -12455,7 +12456,7 @@ function Symetrie_axiale_conservation1() {
         }
         for (let j=0;j<12;j++) coords.push([coords[j][1],coords[j][0]]) // on stocke les 12 images
       break;
-      case 4: d=droite(1,1,0,'(d)');
+      case 4: d=droite(1,1,0);
       label_pos='above'
       nomd=texteParPosition('(d)',-5.8,5.4)
       for (let i=0;i<12;i++){
@@ -17731,6 +17732,11 @@ jQuery(document).ready(function () {
   if (window.location.href.indexOf("beta") > 0) {
     liste_html_des_exercices += `<div class="ui accordion"><div class="active title"><i class="dropdown icon"></i>Beta (${nombre_d_exercices_disponibles_beta})</div><div class="active content">`;
     liste_html_des_exercices += liste_html_des_exercices_beta;
+    liste_html_des_exercices += `</div>`;
+    liste_html_des_exercices += `</div>`;
+  } else if (window.location.href.indexOf("outils") > 0) {
+    liste_html_des_exercices += `<div class="ui accordion"><div class="active title"><i class="dropdown icon"></i>Outils pour le professeur (${nombre_d_exercices_disponibles_prof})</div><div class="active content">`;
+    liste_html_des_exercices += liste_html_des_exercices_prof;
     liste_html_des_exercices += `</div>`;
     liste_html_des_exercices += `</div>`;
   } else if (window.location.href.indexOf("cm.html") > 0) {
