@@ -5077,11 +5077,10 @@ function Puissances_d_un_relatif_1() {
           texte_corr += `<br>`;
           texte_corr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[0]}}~\\color{black}{+}~\\color{${coul1}}{${exp[1]}}}$ facteurs tous égaux à $${base_utile}$`;
           texte_corr += `<br>`;
-          texte_corr += `$${lettre}=${base_utile}^{${exp[0]}+${
-            exp[1]
-          }} = ${base_utile}^{${exp[0] + exp[1]}}`;
+          texte_corr += `$${lettre}=${base_utile}^{${exp[0]}+${exp[1]}} = ${base_utile}^{${exp[0] + exp[1]}}`;
           // attention la base_utile est de type str alors que la fonction switch sur un type number
-          if (simpNotPuissance(base, exp[0] + exp[1]) != ` `) {
+          //if (simpNotPuissance(base, exp[0] + exp[1]) != ` `) {
+            if ((base<0) && ((exp[1] - exp[0])%2==0)) {  
             texte_corr += `=${simpNotPuissance(base, exp[0] + exp[1])}`;
           }
           texte_corr += `$`;
@@ -5095,24 +5094,17 @@ function Puissances_d_un_relatif_1() {
           } else {
             coul_exp0 = coul1;
             coul_exp1 = coul0;
-          }
+          };
 
           texte = `$${lettre}=\\dfrac{${base_utile}^${exp[0]}}{${base_utile}^${exp[1]}}$`;
 
           texte_corr = `$${lettre}=\\dfrac{${base_utile}^${exp[0]}}{${base_utile}^${exp[1]}}$`;
           if (this.correction_detaillee) {
             texte_corr += `<br><br>`;
-            texte_corr += `$${lettre}=\\dfrac{${eclatePuissance(
-              base_utile,
-              exp[0],
-              coul_exp0
-            )}}{${eclatePuissance(base_utile, exp[1], coul_exp1)}}$`;
+            texte_corr += `$${lettre}=\\dfrac{${eclatePuissance(base_utile,exp[0],coul_exp0)}}{${eclatePuissance(base_utile, exp[1], coul_exp1)}}$`;
           }
           texte_corr += `<br><br>`;
-          texte_corr += `Il y a donc $\\mathbf{\\color{${coul1}}{${Math.min(
-            exp[0],
-            exp[1]
-          )}}}$ simplifications par $${base_utile}$ possibles.`;
+          texte_corr += `Il y a donc $\\mathbf{\\color{${coul1}}{${Math.min(exp[0],exp[1])}}}$ simplifications par $${base_utile}$ possibles.`;
           if (this.correction_detaillee) {
             texte_corr += `<br><br>`;
           }
@@ -5147,17 +5139,17 @@ function Puissances_d_un_relatif_1() {
               )}}$`;
             }
             texte_corr += `<br><br>`;
-            texte_corr += `$${lettre}=\\dfrac{1}{${base_utile}^{${exp[1]}-${
-              exp[0]
-            }}}=\\dfrac{1}{${base_utile}^{${exp[1] - exp[0]}}}`;
-            if (simpNotPuissance(base, exp[1] - exp[0]) != ` `) {
+            texte_corr += `$${lettre}=\\dfrac{1}{${base_utile}^{${exp[1]}-${exp[0]}}}=\\dfrac{1}{${base_utile}^{${exp[1] - exp[0]}}}`;
+            //if (simpNotPuissance(base, exp[1] - exp[0]) != ` `) {
+              if ((base<0) && ((exp[1] - exp[0])%2==0)) {  
               texte_corr += `=\\dfrac{1}{${simpNotPuissance(
                 base,
                 exp[1] - exp[0]
+              //)}}=${simpNotPuissance(base, exp[0] - exp[1])}`;
               )}}=${simpNotPuissance(base, exp[0] - exp[1])}`;
-            } else {
-              texte_corr += `=${base_utile}^{${exp[0] - exp[1]}}`;
-            }
+              } else {
+                texte_corr += `=${base_utile}^{${exp[0] - exp[1]}}`;
+              }
           } else {
             if (this.correction_detaillee) {
               texte_corr += `$${lettre}=\\dfrac{${eclatePuissance(
@@ -5175,10 +5167,9 @@ function Puissances_d_un_relatif_1() {
               )}}$`;
             }
             texte_corr += `<br><br>`;
-            texte_corr += `$${lettre}=${base_utile}^{${exp[0]}-${
-              exp[1]
-            }}=${base_utile}^{${exp[0] - exp[1]}}`;
-            if (simpNotPuissance(base, exp[0] - exp[1]) != ` `) {
+            texte_corr += `$${lettre}=${base_utile}^{${exp[0]}-${exp[1]}}=${base_utile}^{${exp[0] - exp[1]}}`;
+            //if (simpNotPuissance(base, exp[0] - exp[1]) != ` `) {
+            if ((base<0) && ((exp[1] - exp[0])%2==0)) {  
               texte_corr += `=${simpNotPuissance(base, exp[0] - exp[1])}`;
             }
           }
@@ -5216,7 +5207,8 @@ function Puissances_d_un_relatif_1() {
           texte_corr += `$${lettre}=${base_utile}^{${exp[0]}\\times${
             exp[1]
           }} = ${base_utile}^{${exp[0] * exp[1]}}`;
-          if (simpNotPuissance(base, exp[0] * exp[1]) != ` `) {
+          //if (simpNotPuissance(base, exp[0] * exp[1]) != ` `) {
+          if ((base<0) && ((exp[1] * exp[0])%2==0)) { 
             texte_corr += `= ${simpNotPuissance(base, exp[0] * exp[1])}`;
           }
           texte_corr += `$`;
@@ -5599,7 +5591,8 @@ function Puissances_de_dix() {
             exp[0] + exp[1]
           }}`;
           // attention la base est de type str alors que la fonction switch sur un type number
-          if (simpNotPuissance(10, exp[0] + exp[1]) != ` `) {
+          //if (simpNotPuissance(10, exp[0] + exp[1]) != ` `) {
+          if ((exp[1] + exp[0])%2==0) { 
             texte_corr += `=${simpNotPuissance(10, exp[0] + exp[1])}`;
           }
           texte_corr += `$`;
@@ -5660,7 +5653,8 @@ function Puissances_de_dix() {
             texte_corr += `$${lettre}=\\dfrac{1}{10^{${exp[1]}-${
               exp[0]
             }}}=\\dfrac{1}{10^{${exp[1] - exp[0]}}}`;
-            if (simpNotPuissance(10, exp[1] - exp[0]) != ` `) {
+            //if (simpNotPuissance(10, exp[1] - exp[0]) != ` `) {
+            if ((exp[1] - exp[0])%2==0) { 
               texte_corr += `=\\dfrac{1}{${simpNotPuissance(
                 10,
                 exp[1] - exp[0]
@@ -5684,9 +5678,10 @@ function Puissances_de_dix() {
             texte_corr += `$${lettre}=10^{${exp[0]}-${exp[1]}}=10^{${
               exp[0] - exp[1]
             }}`;
-            if (simpNotPuissance(10, exp[0] - exp[1]) != ` `) {
-              texte_corr += `=${simpNotPuissance(10, exp[0] - exp[1])}`;
-            }
+            //if (simpNotPuissance(10, exp[0] - exp[1]) != ` `) {
+            // if ((exp[0] - exp[1])%2==0) { 
+            //   texte_corr += `=${simpNotPuissance(10, exp[0] - exp[1])}`;
+            // }
           }
           texte_corr += `$`;
           texte_corr += `<br>`;
@@ -5722,9 +5717,10 @@ function Puissances_de_dix() {
           texte_corr += `$${lettre}=10^{${exp[0]}\\times${exp[1]}} = 10^{${
             exp[0] * exp[1]
           }}`;
-          if (simpNotPuissance(10, exp[0] * exp[1]) != ` `) {
-            texte_corr += `= ${simpNotPuissance(10, exp[0] * exp[1])}`;
-          }
+          //if (simpNotPuissance(10, exp[0] * exp[1]) != ` `) {
+          // if ((exp[1] * exp[0])%2==0) {             
+          //   texte_corr += `= ${simpNotPuissance(10, exp[0] * exp[1])}`;
+          // }
           texte_corr += `$`;
           texte_corr += `<br>`;
           break;

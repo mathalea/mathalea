@@ -7359,9 +7359,8 @@ function Tableaux_et_pourcentages(){
 		};
 
 		this.liste_questions = []; // Liste de questions
-		this.liste_corrections = []; // Liste de questions corrigées
+		this.liste_corrections = []; // Liste de questions corrigées		
 		
-		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
 		
 		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
@@ -7634,8 +7633,7 @@ function Tableaux_et_pourcentages(){
 					} else {
 						texte_corr = `${enonces[4].correction}`;
 					};
-					break;			
-
+					break;	
 			};			
 			
 			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
