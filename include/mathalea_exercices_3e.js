@@ -4535,7 +4535,8 @@ function Antecedent_et_image_graphique() {
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
   }
 /**
- * ref beta3F13-2
+ * publié le  15/11/2020
+ * ref 3F13-2
  */
 function Premier_escape_game_mathalea() {
 	Exercice.call(this); // Héritage de la classe Exercice()

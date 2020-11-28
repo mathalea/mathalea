@@ -417,6 +417,7 @@ function Exercice() {
  * Pour imprimer des repères vierges pour les élèves.
  * @Auteur Jean-Claude Lhote
  * référence : P003
+ * publié le ?/2/2020
  */
 function feuille_d_axes_gradues() {
   "use strict";
@@ -435,7 +436,7 @@ function feuille_d_axes_gradues() {
   this.nb_cols_corr_modifiable = false;
   this.spacing_modifiable = false;
   this.spacing_corr_modifiable = false;
-  this.liste_packages = "axes_gradues";
+  this.liste_packages = ["tkz-euclide"];
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     let pas;
@@ -444,7 +445,7 @@ function feuille_d_axes_gradues() {
     this.contenu = ""; // Liste de questions
     this.contenu_correction = ""; // Liste de questions corrigées
     pas = parseInt(this.sup);
-    for (let i = 0, id_unique, texte; i < 16; i++) {
+    for (let i = 0, id_unique, texte; i < 14; i++) {
       if (sortie_html) {
         id_unique = `${i}_${Date.now()}`;
         this.contenu += `<div id="div_svg${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`;
@@ -460,12 +461,11 @@ function feuille_d_axes_gradues() {
         );
       } else {
         //sortie Latex
-        texte = Latex_reperage_sur_un_axe(2, " ", 1, pas, [], [], false);
-        this.liste_questions.push(texte);
+        texte = Latex_reperage_sur_un_axe(2,0, 1, pas, [], [], false);
       }
+      this.liste_questions.push(texte)
     }
-    if (!sortie_html)
-      liste_de_question_to_contenu_sans_numero_et_sans_consigne(this);
+    if (!sortie_html) liste_de_question_to_contenu(this);
   };
   this.besoin_formulaire_numerique = [`Nombres de parts`, 10, ""];
 }
@@ -9747,7 +9747,7 @@ function Feuille_de_zooms() {
   this.titre = "Droites graduées avec zoom"
 
   this.nouvelle_version=function() {
-  this.liste_questions=[]
+  this.contenu=""
   let d1, d2,d3, texte = "", extremite,extreme, noms =[]
   let x1 = 0, x2 = 0, x3 = 0, objets = [], fenetre, thickOff = 0
   for (let n=0;n<8/parseInt(this.sup);n++) {
@@ -9844,9 +9844,9 @@ function Feuille_de_zooms() {
   }
   texte = mathalea2d(fenetre, objets)
 
-  this.liste_questions.push(texte);
+  this.contenu+=texte;
+  this.contenu+='<br>'
   }
-  liste_de_question_to_contenu_sans_numero(this);
 };
 this.besoin_formulaire_numerique = ['Nombre de zoom', 2, '1 : Un seul zoom\n2 : Deux niveaux de zoom'];
 
@@ -14334,7 +14334,9 @@ function Utiliser_le_codage_pour_decrire(){
 }
 
 /**
- * Ref beta6G14
+ * Ref 6G14
+ * @Auteur Jean-Claude Lhote
+ * publié le 22/11/2020
  */
 function Proprietes_paralleles_perpendiculaires() {
   "use strict";

@@ -3200,35 +3200,38 @@ function ecriturePuissance(a, b, n) {
  * @author Sébastien Lozano
  */	
 function simpNotPuissance(b,e) {
+	// on switch sur la base
 	switch (b) {
-		case -1 : 
+		case -1 : // si la base vaut -1 on teste la parité de l'exposant
 			if (e%2==0) {
 				return ` 1`;
-				break;
+				//break;
 			} else {
 				return ` -1`;
-				break;
+				//break;
 			};
-		case 1 : 
+			break;
+		case 1 : // si la base vaut 1 on renvoit toujours 1
 			return ` 1`;
 			break;
-		default : 
+		default : // sinon on switch sur l'exposant
 			switch (e) {
-				case 0 :
+				case 0 : // si l'exposant vaut 0 on ranvoit toujours 1
 					return `1`;
 					break;
-				case 1 :
+				case 1 : // si l'exposant vaut 1 on renvoit toujours la base 
 					return ` ${b}`;
 					break;
-				default :
-					if (b<0 && e%2==0) {
+				default : // sinon on teste le signe de la base et la parité de l'exposant
+					if (b<0 && e%2==0) { // si la base est négative et que l'exposant est pair, le signe est inutile
 						return ` ${b*-1}^{${e}}`;
-						break;
+						//break;
 					} else {
-						//return ` ${b}^{${e}}`;
-						return ` `;
-						break;
+						return ` ${b}^{${e}}`;
+						//return ` `;
+						//break;
 					};
+					break;
 			};
 	};
 };
