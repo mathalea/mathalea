@@ -2903,7 +2903,67 @@ function arcMainLevee(M,Omega,angle,amp,rayon=false,fill='none',color='black',fi
 %%%%%%%%%% LES TRANSFORMATIONS %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
+function CibleCarree({x=0,y=0,rang=4}){
+  ObjetMathalea2D.call(this);
+  this.x=x;
+  this.y=y;
+  this.rang=rang;
+  let objets=[];
+  objets.push(grille(x-rang/2,y-rang/2,x+rang/2,y+rang/2,"gray",opacite = 0.4,step = 1,false))
+  for (let i=0;i<rang;i++) {
+    objets.push(texteParPosition(lettre_depuis_chiffre(1+i),x-rang/2+i+0.5,y-rang/2-0.5,'milieu'))
+    objets.push(texteParPosition(nombre_avec_espace(i+1),x-rang/2-0.5,y-rang/2+i+0.5,'milieu'))
+  }
 
+  this.svg = function (coeff) {
+    let code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    let code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+}
+function cibleCarree({x=0,y=0,rang=4}){
+  return new CibleCarree({x:x,y:y,rang:rang})
+}
+
+function CibleRonde({x=0,y=0,num=1}) {
+  ObjetMathalea2D.call(this);
+  this.x=x;
+  this.y=y;
+  this.num=num;
+  let objets=[],numero;
+  objets.push(cercle(point(this.x,this.y),0.3));
+  objets.push(cercle(point(this.x,this.y),0.6));
+  objets.push(cercle(point(this.x,this.y),0.9));
+  numero=texteParPosition(num.toString(),this.x+1.1,this.y,0,'gray',0.5)
+  numero.opacite=0.3
+  objets.push(numero)
+  this.svg = function (coeff) {
+    let code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    let code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+}
+function cibleRonde({x=0,y=0,num=1}) {
+  return new CibleRonde({x:x,y:y,num:num})
+}
 /**
  * M = tion(O,v) //M est l'image de O dans la translation de vecteur v
  * M = translation(O,v,'M') //M est l'image de O dans la translation de vecteur v et se nomme M
