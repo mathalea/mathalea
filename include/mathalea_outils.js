@@ -2496,13 +2496,10 @@ function SVG_tracer_point(mon_svg,x,y,nom,couleur,shiftxnom,shiftynom,montrer_co
 function SVG_tracer_flecheH(mon_svg,x,y) {
 	//creer un groupe pour la fleche
 	let fleche = mon_svg.group()
-	let c1 = fleche.line(-5,5,0,0)
+	let c1 = fleche.line(x-5,y-5,x,y)
 	c1.stroke({ color: 'black', width: 3, linecap: 'round' })
-	let c2 = fleche.line(-5,-5,0,0)
+	let c2 = fleche.line(x-5,y+5,x,y)
 	c2.stroke({ color: 'black', width: 3, linecap: 'round' })
-	//déplace la croix
-	fleche.move(x,y)
-	fleche.dmove(-5,-5)
 }
 /**
  * 
