@@ -4535,7 +4535,8 @@ function Antecedent_et_image_graphique() {
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
   }
 /**
- * ref beta3F13-2
+ * publié le  15/11/2020
+ * ref 3F13-2
  */
 function Premier_escape_game_mathalea() {
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -7565,12 +7566,6 @@ function Instruction_conditionelle(){
       		};
 		};
 		
-		scratchblocks.renderMatching("code.b", {
-			inline: true,
-			// Repeat `style` and `languages` options here.
-		  });
-
-
 		let texte = "La position initiale d'un lutin dans un repère est (0,0). Dans le programme, x désigne l'abscisse, et y désigne l'ordonnée d'un lutin. <br>"; // texte de l'énoncé
 		texte += `Une variable a été créée, elle s'appelle <code class="b">(var) :: ring</code>. <br>`
 		let texte_corr=" "; // texte du corrigé
