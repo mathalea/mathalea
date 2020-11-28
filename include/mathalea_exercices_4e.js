@@ -4995,6 +4995,8 @@ function Puissances_d_un_relatif_1() {
   this.nb_cols_corr = 1;
   this.sup = 5;
 
+  this.liste_packages = 'bclogo';
+
   this.nouvelle_version = function (numero_de_l_exercice) {
     let type_de_questions;
     this.bouton_aide = modal_pdf(
@@ -5047,6 +5049,10 @@ function Puissances_d_un_relatif_1() {
       i < this.nb_questions && cpt < 50;
 
     ) {
+      // une fonction pour des infos supp sur les exposants
+      // texte_corr +=`$<br>`;
+      // texte_corr += `Dans ce cas comme les puissances d'exposant pair de deux nombres opposés sont égaux, on peut écrire $${simpNotPuissance(base, exp[0] + exp[1])}$ à la place de $${base_utile}^{${exp[0] + exp[1]}}$`;
+      // texte_corr +=`$`;
       type_de_questions = liste_type_de_questions[i];
 
       base = randint(2, 9) * choice([-1, 1]); // on choisit une base sauf 1 ... penser à gérer le cas des bases qui sont des puissances
@@ -5061,11 +5067,14 @@ function Puissances_d_un_relatif_1() {
         base_utile = base;
       }
 
+      
+      texte_corr = ``;
+
       switch (type_de_questions) {
         case 1: // produit de puissances de même base
           texte = `$${lettre}=${base_utile}^${exp[0]}\\times ${base_utile}^${exp[1]}$`;
 
-          texte_corr = `$${lettre}=${base_utile}^${exp[0]}\\times ${base_utile}^${exp[1]}$`;
+          texte_corr += `$${lettre}=${base_utile}^${exp[0]}\\times ${base_utile}^${exp[1]}$`;
           if (this.correction_detaillee) {
             texte_corr += `<br>`;
             texte_corr += `$${lettre}=${eclatePuissance(
@@ -5083,8 +5092,10 @@ function Puissances_d_un_relatif_1() {
             if ((base<0) && ((exp[1] - exp[0])%2==0)) {  
             texte_corr += `=${simpNotPuissance(base, exp[0] + exp[1])}`;
           }
-          texte_corr += `$`;
+
+          texte_corr += `$`;         
           texte_corr += `<br>`;
+
           break;
         case 2: // quotient de puissances de même base
           // Pour que la couleur de la base associée à l'exposant max soit toujours rouge.
@@ -5098,7 +5109,7 @@ function Puissances_d_un_relatif_1() {
 
           texte = `$${lettre}=\\dfrac{${base_utile}^${exp[0]}}{${base_utile}^${exp[1]}}$`;
 
-          texte_corr = `$${lettre}=\\dfrac{${base_utile}^${exp[0]}}{${base_utile}^${exp[1]}}$`;
+          texte_corr += `$${lettre}=\\dfrac{${base_utile}^${exp[0]}}{${base_utile}^${exp[1]}}$`;
           if (this.correction_detaillee) {
             texte_corr += `<br><br>`;
             texte_corr += `$${lettre}=\\dfrac{${eclatePuissance(base_utile,exp[0],coul_exp0)}}{${eclatePuissance(base_utile, exp[1], coul_exp1)}}$`;
@@ -5180,7 +5191,7 @@ function Puissances_d_un_relatif_1() {
           exp = [randint(2, 4), randint(2, 4)]; // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues et pour éviter 1
           texte = `$${lettre}=(${base_utile}^${exp[0]})^{${exp[1]}}$`;
 
-          texte_corr = `$${lettre}=(${base_utile}^${exp[0]})^{${exp[1]}}$`;
+          texte_corr += `$${lettre}=(${base_utile}^${exp[0]})^{${exp[1]}}$`;
           if (this.correction_detaillee) {
             texte_corr += `<br>`;
             texte_corr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(
@@ -5221,7 +5232,7 @@ function Puissances_d_un_relatif_1() {
           exp = randint(2, 5, 6); // on choisit un exposant
           texte = `$${lettre}=${base[0]}^${exp}\\times ${base[1]}^${exp}$`;
           texte_corr += `<br>`;
-          texte_corr = `$${lettre}=${base[0]}^${exp}\\times ${base[1]}^${exp}$`;
+          texte_corr += `$${lettre}=${base[0]}^${exp}\\times ${base[1]}^${exp}$`;
           if (this.correction_detaillee) {
             texte_corr += `<br>`;
             texte_corr += `$${lettre}=${eclatePuissance(
