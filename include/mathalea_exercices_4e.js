@@ -12043,8 +12043,7 @@ function Egalite_Pythagore2D(){
  * @author Sébastien Lozano
  */
 
-function Equations_fractions(){    
-  this.debug=true;
+function Equations_fractions(){      
   this.exo = `4L15-1`;
   Eq_resolvantes_Thales.call(this);
 };
