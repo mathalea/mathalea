@@ -7303,7 +7303,7 @@ function Tableaux_et_proportionnalite(){
 function Tableaux_et_pourcentages(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.debug = false;	
+	this.debug = false;		
 	this.sup=1; // nature du coefficient entre les pourcentages, entier/decimal
 	this.sup2=1; //nombre de colonnes
 	if (this.debug) {
@@ -7398,6 +7398,11 @@ function Tableaux_et_pourcentages(){
 						sortie = `L'énoncé indique un nouveau prix de $${tex_prix(prix-prix*remise.nb/100)}$ € pour un montant de $${tex_prix(prix)}$ €<br>
 						d'où le calcul pour le nouveau prix : $${mise_en_evidence(`${tex_prix(prix)} - ${tex_prix(prix-prix*remise.nb/100)} = ${tex_prix(prix*remise.nb/100)}`)}$.<br>
 						Et celui pour le pourcentage de remise : $${mise_en_evidence(`${tex_prix(prix*remise.nb/100)} \\div ${tex_prix(prix)} \\times 100 = ${remise.str}`)}$.`;														
+						break;
+					case 'pourcentage_constant' :
+						sortie = `L'énoncé indique un prix de $${tex_prix(prix)}$ € et un pourcentage de $${remise.str}$ €<br>
+						d'où le calul pour le montant de la remise : $${mise_en_evidence(`${tex_prix(prix)} \\times ${remise.str} = ${tex_prix(prix)} \\times ${tex_nombre(remise.nb/100)} = ${tex_prix(prix*remise.nb/100)}`)}$.<br>
+						Et celui pour le nouveau prix : $${mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remise.nb/100)} = ${tex_prix(prix-prix*remise.nb/100)}`)}$.`;										
 						break;
 				};
 				return sortie;
@@ -7608,17 +7613,24 @@ function Tableaux_et_pourcentages(){
 				situations[4].tableau = tableau_case_4;
 				situations[4].tableau_corr = tableau_case_4_corr;
 			} else {
+				let type_corr;
+				if (this.exo=='5N11-1') {
+					type_corr = 'pourcentage';
+				};
+				if (this.exo=='5N11-2') {
+					type_corr = 'pourcentage_constant'
+				};
 				if (this.sup2==1 && this.correction_detaillee) {
-					corrections = `${justifCorrType('pourcentage',remises[0],remises[1],prix[1])}`;
+					corrections = `${justifCorrType(type_corr,remises[0],remises[1],prix[1])}`;
 					corrections += `<br><br>D'où le tableau complété :<br><br>`;
 				} else if (this.sup2==2 && this.correction_detaillee) {
-					corrections = `${justifCorrType('pourcentage',remises[0],remises[1],prix[1])}<br><br>${justifCorrType('pourcentage',remises[0],remises[2],prix[2])}`;
+					corrections = `${justifCorrType(type_corr,remises[0],remises[1],prix[1])}<br><br>${justifCorrType(type_corr,remises[0],remises[2],prix[2])}`;
 					corrections += `<br><br>D'où le tableau complété :<br><br>`;
 				} else if (this.sup2==3 && this.correction_detaillee) {
-					corrections = `${justifCorrType('pourcentage',remises[0],remises[1],prix[1])}<br><br>${justifCorrType('pourcentage',remises[0],remises[2],prix[2])}<br><br>${justifCorrType('pourcentage',remises[0],remises[3],prix[3])}`;
+					corrections = `${justifCorrType(type_corr,remises[0],remises[1],prix[1])}<br><br>${justifCorrType(type_corr,remises[0],remises[2],prix[2])}<br><br>${justifCorrType(type_corr,remises[0],remises[3],prix[3])}`;
 					corrections += `<br><br>D'où le tableau complété :<br><br>`;
 				} else if (this.sup2==4 && this.correction_detaillee) {
-					corrections = `${justifCorrType('pourcentage',remises[0],remises[1],prix[1])}<br><br>${justifCorrType('pourcentage',remises[0],remises[2],prix[2])}<br><br>${justifCorrType('pourcentage',remises[0],remises[3],prix[3])}<br><br>${justifCorrType('pourcentage',remises[0],remises[4],prix[4])}`;
+					corrections = `${justifCorrType(type_corr,remises[0],remises[1],prix[1])}<br><br>${justifCorrType(type_corr,remises[0],remises[2],prix[2])}<br><br>${justifCorrType(type_corr,remises[0],remises[3],prix[3])}<br><br>${justifCorrType(type_corr,remises[0],remises[4],prix[4])}`;
 					corrections += `<br><br>D'où le tableau complété :<br><br>`;
 				} else {
 					corrections = ``;
@@ -7711,8 +7723,12 @@ function Tableaux_et_pourcentages(){
 	if (this.exo=='5N11-1') { // prix constant
 		this.besoin_formulaire_numerique = ['Le coefficient entre les pourcentages',2,"1 : est entier\n2 : est décimal"];
 		this.besoin_formulaire3_case_a_cocher = ["Modulation de ce qui est demandé"];
+		this.besoin_formulaire2_numerique = ['Nombre de colonnes à remplir (fixé à 3 lorsque la case ci-dessous est cochée)',4,"1 : une colonne\n2 : deux colonnes\n3 : trois colonnes\n4 : quatre colonnes"];
 	};	
-	this.besoin_formulaire2_numerique = ['Nombre de colonnes à remplir (fixé à 3 lorsque la case ci-dessous est cochée)',4,"1 : une colonne\n2 : deux colonnes\n3 : trois colonnes\n4 : quatre colonnes"];
+	if (this.exo=='5N11-2') { // pourcentage
+		this.besoin_formulaire2_numerique = ['Nombre de colonnes à remplir',4,"1 : une colonne\n2 : deux colonnes\n3 : trois colonnes\n4 : quatre colonnes"];
+	};	
+	
 
 	
 };
