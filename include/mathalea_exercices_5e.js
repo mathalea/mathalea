@@ -7313,13 +7313,14 @@ function Tableaux_et_pourcentages(){
 	};
 	if (this.exo=='5N11-1') { // prix constant
 		this.titre = "Tableaux et pourcentages - prix constant";
+		this.consigne = `Compléter le tableau suivant. Le prix est fixe.`;
 	} else if (this.exo=='5N11-2') { // pourcentage constant
 		this.titre = "Tableaux et pourcentages - pourcentage constant";
+		this.consigne = `Compléter le tableau suivant. Le pourcentage est fixe.`;
 	} else {
 		this.titre = "Tableaux et pourcentages";
-	};	
-
-	this.consigne = `Compléter le tableau suivant.`;	
+		this.consigne = `Compléter le tableau suivant.`;
+	};			
 	
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
