@@ -64,11 +64,11 @@ var liste_des_exercices_disponibles = {
   "6G24": Transformations_6e,
   "6G24-1" : Symetrie_axiale_point_6e,
   "6G24-2" : Symetrie_axiale_figure_6e,
+  "beta6G24-3" : Construire_symetrique_point_6e,
   "6G25-1": Pavages_et_reflexion,
   "6G25-2": Pavages_et_symetries,
   "6G33" : Symetrie_axiale_conservation1,
   "6G41" : Representer_un_solide_6e,
-  "6G33" : Symetrie_axiale_conservation1,
   "6G42" : Solide_6e,
   "6G43" : Utiliser_vocabulaire_pave,
   "6M11-1": Perimetre_ou_aire_de_carres_rectangles_triangles,
@@ -12611,6 +12611,135 @@ function Transformations() {
   };
   // this.besoin_formulaire_numerique = ['Transformations',5, '1 : Symétries axiales\n 2 : Symétries centrales\n 3 : Rotations\n 4 : Translations\n 5 : Homothéties\n'];
 }
+
+function Construire_symetrique_point_6e(){
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.titre = "Construire le symétrique d'un point par rapport à une droite";
+  this.consigne = "Construire le symétrique des points par rapport à (d)";
+  this.nb_questions = 4;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  this.sup = 1;
+  this.nouvelle_version = function () {
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    let points=[],nom=[],alternance
+
+    // On prépare la figure...
+    let axe=parseInt(this.sup)
+    let d,nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
+    if (axe==5) axe=randint(1,4) //choix de l'axe et des coordonnées
+    switch (axe) {
+      case 1 : d=droite(1,0,0);
+        nomd=texteParPosition('(d)',0.3,5.6)
+        label_pos='above left'
+        for (let i=0;i<12;i++){
+          nonchoisi=false
+          while (!nonchoisi){ // Le nouveau point est-il déjà dans la liste ?
+            [x,y]=[randint(-5,0),randint(-5,5)]
+            nonchoisi=true
+            for (let j=0;j<i;j++)
+              if (coords[j][0]==x&&coords[j][1]==y) nonchoisi=false
+          }
+          coords.push([x,y]) //on stocke les 12 points
+        }
+        for (let j=0;j<12;j++) coords.push([-coords[j][0],coords[j][1]]) // on stocke les 12 images
+      break;
+      case 2: d=droite(0,1,0);
+      label_pos='above'
+      nomd=texteParPosition('(d)',5.6,0.3)
+      for (let i=0;i<12;i++){
+          nonchoisi=false
+          while (!nonchoisi){ // Le nouveau point est-il déjà dans la liste ?
+            [x,y]=[randint(-5,5),randint(-5,0)]
+            nonchoisi=true
+            for (let j=0;j<i;j++)
+              if (coords[j][0]==x&&coords[j][1]==y) nonchoisi=false
+          }
+          coords.push([x,y]) //on stocke les 12 points
+        }
+        for (let j=0;j<12;j++) coords.push([coords[j][0],-coords[j][1]]) // on stocke les 12 images
+      break;
+      case 3: d=droite(1,-1,0);
+      label_pos='above'
+      nomd=texteParPosition('(d)',-5.8,-5.4)
+      for (let i=0;i<12;i++){
+          nonchoisi=false
+          while (!nonchoisi){ // Le nouveau point est-il déjà dans la liste ?
+            x=randint(-5,5)
+            y=randint(x,5)
+            nonchoisi=true
+            for (let j=0;j<i;j++)
+              if (coords[j][0]==x&&coords[j][1]==y) nonchoisi=false
+          }
+          coords.push([x,y]) //on stocke les 12 points
+        }
+        for (let j=0;j<12;j++) coords.push([coords[j][1],coords[j][0]]) // on stocke les 12 images
+      break;
+      case 4: d=droite(1,1,0);
+      label_pos='above'
+      nomd=texteParPosition('(d)',-5.8,5.4)
+      for (let i=0;i<12;i++){
+          nonchoisi=false
+          while (!nonchoisi){ // Le nouveau point est-il déjà dans la liste ? Si oui, on recommence.
+            x=randint(-5,5)
+            y=randint(-5,-x)
+            nonchoisi=true
+            for (let j=0;j<i;j++)
+              if (coords[j][0]==x&&coords[j][1]==y)
+                 nonchoisi=false;
+          }
+          coords.push([x,y]) //on stocke les 12 points
+        }
+        for (let j=0;j<12;j++) 
+          coords.push([-coords[j][1],-coords[j][0]]); // on stocke les 12 images
+      break;
+    }
+    for (let i=0;i<12;i++) {
+      if (i<12) points.push(point(coords[i][0],coords[i][1],noms[i],label_pos))
+      else if (coords[i][0]==coords[i-12][0]&&coords[i][1]==coords[i-12][1]) {
+        points.push(point(coords[i][0],coords[i][1],noms[i-12],label_pos))
+        noms[i]=noms[i-12]
+      }
+      else points.push(point(coords[i][0],coords[i][1],noms[i],label_pos))
+  
+    }
+    // On rédige les questions et les réponses
+    if (this.sup2==true) alternance=2
+    else alternance=1
+    function index(i) {
+      return (i+12*(i%alternance))%24
+    }
+    objets_enonce.length=0
+    objets_correction.lenght=0
+    for (let j=0;j<this.nb_questions;j++) {
+    
+    }
+    
+    d.isVisible=true;
+    objets_enonce.push(nomd,d);
+    objets_correction.push(nomd,d);
+    for(let i=0;i<this.nb_questions;i++) {
+      objets_enonce.push(tracePoint(points[index(i)],'blue'));
+      objets_enonce.push(labelPoint(points[index(i)]))
+      objets_enonce.push(cibleRonde({x:coords[(index(i)+12)%24][0],y:coords[(index(i)+12)%24][1],num:i+1}))
+      objets_correction.push(labelPoint(points[index(i)]),tracePoint(points[index(i)],'blue'))
+      objets_correction.push(labelPoint(points[(index(i)+12)%24]),tracePoint(points[(index(i)+12)%24],'blue'))     
+    }
+    this.liste_questions.push(mathalea2d({xmin:-6,ymin:-6,xmax:8,ymax:6,pixelsParCm:40,scale:1},objets_enonce))
+    this.liste_corrections.push(mathalea2d({xmin:-6,ymin:-6,xmax:8,ymax:6,pixelsParCm:40,scale:1},objets_correction))
+    liste_de_question_to_contenu_sans_numero(this);
+
+  }
+  this.besoin_formulaire_numerique = ['Type d\'axe',5,"1 : Axe vertical\n2 : Axe horizontal\n3 : Axe oblique 1\n4 : Axe oblique 2\n5 : Axe aléatoire"];
+  this.besoin_formulaire2_case_a_cocher = ["Avec des points de part et d'autre"];	
+}
+
+/**
+ * Ref 6G33
+ * Publié le 26/10/2020
+ * @Auteur Jean-Claude Lhote
+ */
 function Symetrie_axiale_conservation1() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Propriétés de conservation de la symétrie axiale";
@@ -12619,7 +12748,6 @@ function Symetrie_axiale_conservation1() {
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
   this.sup = 1;
-
  
   this.nouvelle_version = function (numero_de_l_exercice) {
     let type_de_questions_disponibles=["Segment","Droite","1/2droite","Triangle","Angle"];
