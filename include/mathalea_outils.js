@@ -200,10 +200,8 @@ class NombreDecimal {
 			nombre=calcul(-nombre)
 		}
 		else this.signe=`+`
-		console.log(nombre)
 		this.exposant=Math.floor(Math.log10(nombre))
 		nombre=nombre/10**this.exposant
-		console.log(nombre)
 		this.mantisse=[]
 		for (let k=0;k<16;k++) {
 			if (egal(Math.ceil(nombre)-nombre,0,0.00001)) {
@@ -214,7 +212,6 @@ class NombreDecimal {
 				this.mantisse.push(Math.floor(nombre))
 				nombre=(nombre-this.mantisse[k])*10
 			}
-			console.log(nombre)
 			if (egal(nombre,0,0.001)) break
 		}
 		
@@ -1430,7 +1427,6 @@ cesar=function (word,decal){
 codeCesar=function(mots,decal){
 	let motsCodes=[]
 	for (let x=0;x<mots.length;x++) {
-		console.log(mots[x])
 		motsCodes.push(cesar(mots[x],decal))
 	}
 	return motsCodes

@@ -12625,116 +12625,65 @@ function Construire_symetrique_point_6e(){
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let points=[],nom=[],alternance
+    let result=[0,0],texte_corr=""
 
     // On prépare la figure...
-    let axe=parseInt(this.sup)
-    let d,nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
-    if (axe==5) axe=randint(1,4) //choix de l'axe et des coordonnées
-    switch (axe) {
-      case 1 : d=droite(1,0,0);
-        nomd=texteParPosition('(d)',0.3,5.6)
-        label_pos='above left'
-        for (let i=0;i<12;i++){
-          nonchoisi=false
-          while (!nonchoisi){ // Le nouveau point est-il déjà dans la liste ?
-            [x,y]=[randint(-5,0),randint(-5,5)]
-            nonchoisi=true
-            for (let j=0;j<i;j++)
-              if (coords[j][0]==x&&coords[j][1]==y) nonchoisi=false
-          }
-          coords.push([x,y]) //on stocke les 12 points
+    let a=randint(-10,10),b=randint(-10,10,a)
+    let d=droite(a,b,0,'(d)')
+    let noms=choisit_lettres_differentes(this.nb_questions,'Q',majuscule=true)
+    let cibles=[],M=[],N=[],objets_enonce=[],objets_correction=[]  //cibles, M point marqués, N symétrique de M
+    let cellules=[]
+    for (let i=0;i<this.nb_questions;i++) { //On place les cibles.
+        N.push(point(calcul(randint(-50,50,0)/10),calcul(randint(-50,50,0)/10),noms[i]+"\'"))
+        nontrouve=true
+        while (distancePointDroite(N[i],d)<3||nontrouve) {
+            nontrouve=true
+            if (distancePointDroite(N[i],d)<3) {
+              N[i].x=calcul(randint(-50,50,0)/10)
+              N[i].y=calcul(randint(-50,50,0)/10)
+            }
+            else {
+              assezloin=true
+              for (let j=0;j<i;j++){
+                 if (longueur(N[i],N[j])<4) assezloin=false
+              }
+              if (assezloin==false) {
+               N[i].x=calcul(randint(-50,50,0)/10)
+               N[i].y=calcul(randint(-50,50,0)/10)
+              }
+              else nontrouve=false
+            }
         }
-        for (let j=0;j<12;j++) coords.push([-coords[j][0],coords[j][1]]) // on stocke les 12 images
-      break;
-      case 2: d=droite(0,1,0);
-      label_pos='above'
-      nomd=texteParPosition('(d)',5.6,0.3)
-      for (let i=0;i<12;i++){
-          nonchoisi=false
-          while (!nonchoisi){ // Le nouveau point est-il déjà dans la liste ?
-            [x,y]=[randint(-5,5),randint(-5,0)]
-            nonchoisi=true
-            for (let j=0;j<i;j++)
-              if (coords[j][0]==x&&coords[j][1]==y) nonchoisi=false
-          }
-          coords.push([x,y]) //on stocke les 12 points
-        }
-        for (let j=0;j<12;j++) coords.push([coords[j][0],-coords[j][1]]) // on stocke les 12 images
-      break;
-      case 3: d=droite(1,-1,0);
-      label_pos='above'
-      nomd=texteParPosition('(d)',-5.8,-5.4)
-      for (let i=0;i<12;i++){
-          nonchoisi=false
-          while (!nonchoisi){ // Le nouveau point est-il déjà dans la liste ?
-            x=randint(-5,5)
-            y=randint(x,5)
-            nonchoisi=true
-            for (let j=0;j<i;j++)
-              if (coords[j][0]==x&&coords[j][1]==y) nonchoisi=false
-          }
-          coords.push([x,y]) //on stocke les 12 points
-        }
-        for (let j=0;j<12;j++) coords.push([coords[j][1],coords[j][0]]) // on stocke les 12 images
-      break;
-      case 4: d=droite(1,1,0);
-      label_pos='above'
-      nomd=texteParPosition('(d)',-5.8,5.4)
-      for (let i=0;i<12;i++){
-          nonchoisi=false
-          while (!nonchoisi){ // Le nouveau point est-il déjà dans la liste ? Si oui, on recommence.
-            x=randint(-5,5)
-            y=randint(-5,-x)
-            nonchoisi=true
-            for (let j=0;j<i;j++)
-              if (coords[j][0]==x&&coords[j][1]==y)
-                 nonchoisi=false;
-          }
-          coords.push([x,y]) //on stocke les 12 points
-        }
-        for (let j=0;j<12;j++) 
-          coords.push([-coords[j][1],-coords[j][0]]); // on stocke les 12 images
-      break;
     }
-    for (let i=0;i<12;i++) {
-      if (i<12) points.push(point(coords[i][0],coords[i][1],noms[i],label_pos))
-      else if (coords[i][0]==coords[i-12][0]&&coords[i][1]==coords[i-12][1]) {
-        points.push(point(coords[i][0],coords[i][1],noms[i-12],label_pos))
-        noms[i]=noms[i-12]
-      }
-      else points.push(point(coords[i][0],coords[i][1],noms[i],label_pos))
-  
+
+    objets_enonce.push(d)
+    objets_correction.push(d)
+
+    for (let i=0;i<this.nb_questions;i++){
+      cellules.push(choice(["A1","A2","A3","A4","B1","B2","B3","B4","C1","C2","C3","C4","D1","D2","D3","D4"]))
+      result=dansLaCibleCarree(N[i].x,N[i].y,4,0.6,cellules[i])
+      cible=cibleCarree({x:result[0],y:result[1],rang:4,num:i+1,taille:0.6})
+      cible.taille=0.6
+      cible.color='orange'
+      cible.opacite=0.7
+      cibles.push(cible)
     }
-    // On rédige les questions et les réponses
-    if (this.sup2==true) alternance=2
-    else alternance=1
-    function index(i) {
-      return (i+12*(i%alternance))%24
+    for (let i=0;i<this.nb_questions;i++) {
+      M.push(symetrieAxiale(N[i],d,noms[i]))
+      objets_enonce.push(tracePoint(M[i]),labelPoint(M[i]),cibles[i])
+      objets_correction.push(tracePoint(M[i],N[i]),labelPoint(M[i],N[i]),cibles[i]) 
+      texte_corr+=`Le symétrique du point ${noms[i]} est dans la case ${cellules[i]} de la grille ${i+1}.<br>`
     }
-    objets_enonce.length=0
-    objets_correction.lenght=0
-    for (let j=0;j<this.nb_questions;j++) {
-    
-    }
-    
-    d.isVisible=true;
-    objets_enonce.push(nomd,d);
-    objets_correction.push(nomd,d);
-    for(let i=0;i<this.nb_questions;i++) {
-      objets_enonce.push(tracePoint(points[index(i)],'blue'));
-      objets_enonce.push(labelPoint(points[index(i)]))
-      objets_enonce.push(cibleRonde({x:coords[(index(i)+12)%24][0],y:coords[(index(i)+12)%24][1],num:i+1}))
-      objets_correction.push(labelPoint(points[index(i)]),tracePoint(points[index(i)],'blue'))
-      objets_correction.push(labelPoint(points[(index(i)+12)%24]),tracePoint(points[(index(i)+12)%24],'blue'))     
-    }
-    this.liste_questions.push(mathalea2d({xmin:-6,ymin:-6,xmax:8,ymax:6,pixelsParCm:40,scale:1},objets_enonce))
-    this.liste_corrections.push(mathalea2d({xmin:-6,ymin:-6,xmax:8,ymax:6,pixelsParCm:40,scale:1},objets_correction))
-    liste_de_question_to_contenu_sans_numero(this);
+    fenetreMathalea2d=[-7,-7,7,7]
+    this.liste_questions.push(mathalea2d({xmin:-7,ymin:-7,xmax:7,ymax:7,pixelsParCm:20,scale:1},objets_enonce))
+    this.liste_corrections.push(texte_corr+mathalea2d({xmin:-7,ymin:-7,xmax:7,ymax:7,pixelsParCm:20,scale:1},objets_correction))
+    liste_de_question_to_contenu(this)
+
+  //  let nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
 
   }
-  this.besoin_formulaire_numerique = ['Type d\'axe',5,"1 : Axe vertical\n2 : Axe horizontal\n3 : Axe oblique 1\n4 : Axe oblique 2\n5 : Axe aléatoire"];
-  this.besoin_formulaire2_case_a_cocher = ["Avec des points de part et d'autre"];	
+ // this.besoin_formulaire_numerique = ['Type d\'axe',5,"1 : Axe vertical\n2 : Axe horizontal\n3 : Axe oblique 1\n4 : Axe oblique 2\n5 : Axe aléatoire"];
+ // this.besoin_formulaire2_case_a_cocher = ["Avec des points de part et d'autre"];	
 }
 
 /**
@@ -14614,7 +14563,6 @@ function Proprietes_paralleles_perpendiculaires() {
     texte +=`.<br>Que peut-on dire de $(d_${numDroites[code[0][0]-1]})$ et $(d_${numDroites[code[code.length-1][1]-1]})$ ?`
 
     // correction raisonnement ordonné
-console.log(code)
     texte_corr=""
     for (let j=0;j<code.length-1;j++) {
       if (this.correction_detaillee) texte_corr+=`On sait que : `

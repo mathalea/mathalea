@@ -2903,6 +2903,18 @@ function arcMainLevee(M,Omega,angle,amp,rayon=false,fill='none',color='black',fi
 %%%%%%%%%% LES TRANSFORMATIONS %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
+
+/**
+ * retourne un couple de coordonnées correspondant au centre d'une cible 
+ * afin xue le point (x,y) se trouve dans la case correspondante à cellule
+ * cellule est une chaine comme 'A1' ou 'B3'
+ * @Auteur Jean-Claude Lhote
+ * @param {*} x 
+ * @param {*} y 
+ * @param {*} rang 
+ * @param {*} taille 
+ * @param {*} cellule 
+ */
 function dansLaCibleCarree(x,y,rang,taille,cellule) {
   let lettre=cellule[0],chiffrelettre=lettre.charCodeAt(0)-64
   let Taille=Math.floor(50*taille)
@@ -2910,7 +2922,7 @@ function dansLaCibleCarree(x,y,rang,taille,cellule) {
   let delta=taille/2
   if (chiffre>rang||chiffrelettre>rang) return 'Cette cellule n\'existe pas dans la cible'
   else {
-    return [x+dx-chiffrelettre*0.8+delta+rang*delta,y+dy-chiffre*2*delta+(rang+1)*delta]
+    return [arrondi(x+dx-chiffrelettre*taille+delta+rang*delta,2),arrondi(y+dy-chiffre*2*delta+(rang+1)*delta,2)]
   }
 }
 /**
@@ -2918,13 +2930,13 @@ function dansLaCibleCarree(x,y,rang,taille,cellule) {
  * @Auteur Jean-Claude Lhote
  * @param {} param0 
  */
-function CibleCarree({x=0,y=0,rang=4,num=1}){
+function CibleCarree({x=0,y=0,rang=4,num=1,taille=0.6}){
   ObjetMathalea2D.call(this);
   this.x=x;
   this.y=y;
   this.rang=rang;
   this.num=num;
-  this.taille=0.8;
+  this.taille=taille;
   this.color='gray';
   this.opacite=0.5;
   let objets=[]
@@ -2959,8 +2971,8 @@ function CibleCarree({x=0,y=0,rang=4,num=1}){
     return code;
   };
 }
-function cibleCarree({x=0,y=0,rang=4,num=1}){
-  return new CibleCarree({x:x,y:y,rang:rang,num:num})
+function cibleCarree({x=0,y=0,rang=4,num=1,taille=0.6}){
+  return new CibleCarree({x:x,y:y,rang:rang,num:num,taille:taille})
 }
 /**
  * création d'une cible ronde pour l'auto-correction
