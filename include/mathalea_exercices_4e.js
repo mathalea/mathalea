@@ -8090,7 +8090,7 @@ function Puissances_encadrement() {
   this.nb_questions = 6;
   this.titre = `Encadrer avec des puissances de 10`;
 
-  this.consigne = `Encadrer les nombres suivants par deux puisances de 10 d'exposants consécutifs.`;
+  this.consigne = `Encadrer les nombres suivants par deux puissances de 10 d'exposants consécutifs.`;
 
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
