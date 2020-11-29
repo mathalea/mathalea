@@ -2903,14 +2903,14 @@ function arcMainLevee(M,Omega,angle,amp,rayon=false,fill='none',color='black',fi
 %%%%%%%%%% LES TRANSFORMATIONS %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
-function dansLaCibleCarree(x,y,rang,cellule) {
+function dansLaCibleCarree(x,y,rang,taille,cellule) {
   let lettre=cellule[0],chiffrelettre=lettre.charCodeAt(0)-64
-  let chiffre=parseInt(cellule[1]),dx=calcul(randint(-39,39)/100),dy=calcul(randint(-39,39)/100)
-  console.log(chiffrelettre,chiffre)
-
+  let Taille=Math.floor(50*taille)
+  let chiffre=parseInt(cellule[1]),dx=calcul(randint(-Taille,Taille)/100),dy=calcul(randint(-Taille,Taille)/100)
+  let delta=taille/2
   if (chiffre>rang||chiffrelettre>rang) return 'Cette cellule n\'existe pas dans la cible'
   else {
-    return [x+dx-chiffrelettre*0.8+0.4+rang*0.4,y+dy-chiffre*0.8+(rang+1)*0.4]
+    return [x+dx-chiffrelettre*0.8+delta+rang*delta,y+dy-chiffre*2*delta+(rang+1)*delta]
   }
 }
 /**
@@ -2923,16 +2923,25 @@ function CibleCarree({x=0,y=0,rang=4,num=1}){
   this.x=x;
   this.y=y;
   this.rang=rang;
-  this.num=num
-  let objets=[];numero=texteParPosition(nombre_avec_espace(num),x-rang/3,y-rang/3,'milieu','gray')
+  this.num=num;
+  this.taille=0.8;
+  this.color='gray';
+  this.opacite=0.5;
+  let objets=[]
+  let numero=texteParPosition(nombre_avec_espace(num),x-rang*this.taille/4,y-rang*this.taille/4,'milieu',this.color)
+  let lettre,chiffre
   numero.opacite=0.5
-  numero.taille=30
+  numero.taille=30*this.taille
   numero.contour=true
-  objets.push(grille(x-rang*0.4,y-rang*0.4,x+rang*0.4,y+rang*0.4,"gray",opacite = 0.4,step = 0.8,false))
+  objets.push(grille(calcul(x-rang*this.taille/2),calcul(y-rang*this.taille/2),calcul(x+rang*this.taille/2),calcul(y+rang*this.taille/2),this.color,this.opacite,step = this.taille,false))
   objets.push(numero)
   for (let i=0;i<rang;i++) {
-    objets.push(texteParPosition(lettre_depuis_chiffre(1+i),x-rang*0.4+(2*i+1)*0.4,y-(rang+1)*0.4,'milieu'))
-    objets.push(texteParPosition(nombre_avec_espace(i+1),x-(rang+1)*0.4,y-rang*0.4+(2*i+1)*0.4,'milieu'))
+    lettre=texteParPosition(lettre_depuis_chiffre(1+i),x-rang*this.taille/2+(2*i+1)*this.taille/2,y-(rang+1)*this.taille/2,'milieu')
+    chiffre=texteParPosition(nombre_avec_espace(i+1),x-(rang+1)*this.taille/2,y-rang*this.taille/2+(2*i+1)*this.taille/2,'milieu')
+    lettre.taille=10*this.taille
+    chiffre.taille=10*this.taille
+    objets.push(lettre)
+    objets.push(chiffre)
   }
 
   this.svg = function (coeff) {
@@ -4851,7 +4860,7 @@ function Grille(
   this.color = color;
   this.opacite = opacite;
   let objets = [];
-  for (let i = xmin; i <= xmax; i += step) {
+  for (let i = xmin; i <= xmax; i = calcul(i+step)) {
     let s = segment(i, ymin, i, ymax);
     s.color = this.color;
     s.opacite = this.opacite;
@@ -4860,7 +4869,7 @@ function Grille(
     }
     objets.push(s);
   }
-  for (let i = ymin; i <= ymax; i += step) {
+  for (let i = ymin; i <= ymax; i = calcul(i+step)) {
     let s = segment(xmin, i, xmax, i);
     s.color = this.color;
     s.opacite = this.opacite;
@@ -4915,7 +4924,7 @@ function GrilleHorizontale(
   this.color = color;
   this.opacite = opacite;
   let objets = [];
-  for (let i = ymin; i <= ymax; i += step) {
+  for (let i = ymin; i <= ymax; i = calcul(i+step)) {
     let s = segment(xmin, i, xmax, i);
     s.color = this.color;
     s.opacite = this.opacite;
@@ -4962,7 +4971,7 @@ function GrilleVerticale(
   this.color = color;
   this.opacite = opacite;
   let objets = [];
-  for (let i = xmin; i <= xmax; i += step) {
+  for (let i = xmin; i <= xmax; i = calcul(i+step)) {
     let s = segment(i,ymin,i,ymax);
     s.color = this.color;
     s.opacite = this.opacite;
