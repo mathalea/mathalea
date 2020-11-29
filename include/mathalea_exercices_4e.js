@@ -4995,6 +4995,8 @@ function Puissances_d_un_relatif_1() {
   this.nb_cols_corr = 1;
   this.sup = 5;
 
+  this.liste_packages = 'bclogo';
+
   this.nouvelle_version = function (numero_de_l_exercice) {
     let type_de_questions;
     this.bouton_aide = modal_pdf(
@@ -5047,6 +5049,23 @@ function Puissances_d_un_relatif_1() {
       i < this.nb_questions && cpt < 50;
 
     ) {
+      // une fonction pour des infos supp sur les exposants
+      function remarquesPuissances(base,base_utile,exposant) {
+        let sortie = '';
+        if (base<0 && exposant%2==0) {
+          sortie +=`$<br>`;
+          sortie += `${texte_gras('Remarque : ')} Dans ce cas comme les puissances d'exposant pair de deux nombres opposés sont égaux, on peut écrire $${simpNotPuissance(base,exposant)}$ à la place de $${base_utile}^{${exposant}}$`;
+          sortie +=`$`;
+        };
+        if (base<0 && exposant%2==1) {
+          sortie +=`$<br>`;
+          sortie += `${texte_gras('Remarque : ')} Dans ce cas comme les puissances d'exposant impair de deux nombres négatifs sont opposées, on pourrait écrire $${simpNotPuissance(base,exposant)}$  à la place de $${base_utile}^{${exposant}}$`;
+          sortie +=`$`;
+        };
+
+        return sortie;
+      };
+      
       type_de_questions = liste_type_de_questions[i];
 
       base = randint(2, 9) * choice([-1, 1]); // on choisit une base sauf 1 ... penser à gérer le cas des bases qui sont des puissances
@@ -5061,11 +5080,14 @@ function Puissances_d_un_relatif_1() {
         base_utile = base;
       }
 
+      
+      texte_corr = ``;
+
       switch (type_de_questions) {
         case 1: // produit de puissances de même base
           texte = `$${lettre}=${base_utile}^${exp[0]}\\times ${base_utile}^${exp[1]}$`;
 
-          texte_corr = `$${lettre}=${base_utile}^${exp[0]}\\times ${base_utile}^${exp[1]}$`;
+          texte_corr += `$${lettre}=${base_utile}^${exp[0]}\\times ${base_utile}^${exp[1]}$`;
           if (this.correction_detaillee) {
             texte_corr += `<br>`;
             texte_corr += `$${lettre}=${eclatePuissance(
@@ -5080,11 +5102,13 @@ function Puissances_d_un_relatif_1() {
           texte_corr += `$${lettre}=${base_utile}^{${exp[0]}+${exp[1]}} = ${base_utile}^{${exp[0] + exp[1]}}`;
           // attention la base_utile est de type str alors que la fonction switch sur un type number
           //if (simpNotPuissance(base, exp[0] + exp[1]) != ` `) {
-            if ((base<0) && ((exp[1] - exp[0])%2==0)) {  
-            texte_corr += `=${simpNotPuissance(base, exp[0] + exp[1])}`;
-          }
-          texte_corr += `$`;
+          if ((base<0) && ((exp[1] + exp[0])%2==0)) {  
+            texte_corr += `=${simpNotPuissance(base, exp[1] + exp[0])}`;
+          };
+          texte_corr += remarquesPuissances(base,base_utile,exp[1]+exp[0]);
+          texte_corr += `$`;         
           texte_corr += `<br>`;
+
           break;
         case 2: // quotient de puissances de même base
           // Pour que la couleur de la base associée à l'exposant max soit toujours rouge.
@@ -5098,7 +5122,7 @@ function Puissances_d_un_relatif_1() {
 
           texte = `$${lettre}=\\dfrac{${base_utile}^${exp[0]}}{${base_utile}^${exp[1]}}$`;
 
-          texte_corr = `$${lettre}=\\dfrac{${base_utile}^${exp[0]}}{${base_utile}^${exp[1]}}$`;
+          texte_corr += `$${lettre}=\\dfrac{${base_utile}^${exp[0]}}{${base_utile}^${exp[1]}}$`;
           if (this.correction_detaillee) {
             texte_corr += `<br><br>`;
             texte_corr += `$${lettre}=\\dfrac{${eclatePuissance(base_utile,exp[0],coul_exp0)}}{${eclatePuissance(base_utile, exp[1], coul_exp1)}}$`;
@@ -5169,10 +5193,11 @@ function Puissances_d_un_relatif_1() {
             texte_corr += `<br><br>`;
             texte_corr += `$${lettre}=${base_utile}^{${exp[0]}-${exp[1]}}=${base_utile}^{${exp[0] - exp[1]}}`;
             //if (simpNotPuissance(base, exp[0] - exp[1]) != ` `) {
-            if ((base<0) && ((exp[1] - exp[0])%2==0)) {  
+            if ((base<0) && ((exp[0] - exp[1])%2==0)) {  
               texte_corr += `=${simpNotPuissance(base, exp[0] - exp[1])}`;
             }
           }
+          texte_corr += remarquesPuissances(base,base_utile,exp[0]-exp[1]);
           texte_corr += `$`;
           texte_corr += `<br>`;
           break;
@@ -5180,7 +5205,7 @@ function Puissances_d_un_relatif_1() {
           exp = [randint(2, 4), randint(2, 4)]; // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues et pour éviter 1
           texte = `$${lettre}=(${base_utile}^${exp[0]})^{${exp[1]}}$`;
 
-          texte_corr = `$${lettre}=(${base_utile}^${exp[0]})^{${exp[1]}}$`;
+          texte_corr += `$${lettre}=(${base_utile}^${exp[0]})^{${exp[1]}}$`;
           if (this.correction_detaillee) {
             texte_corr += `<br>`;
             texte_corr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(
@@ -5211,6 +5236,7 @@ function Puissances_d_un_relatif_1() {
           if ((base<0) && ((exp[1] * exp[0])%2==0)) { 
             texte_corr += `= ${simpNotPuissance(base, exp[0] * exp[1])}`;
           }
+          texte_corr += remarquesPuissances(base,base_utile,exp[0]*exp[1]);
           texte_corr += `$`;
           texte_corr += `<br>`;
           break;
@@ -5221,7 +5247,7 @@ function Puissances_d_un_relatif_1() {
           exp = randint(2, 5, 6); // on choisit un exposant
           texte = `$${lettre}=${base[0]}^${exp}\\times ${base[1]}^${exp}$`;
           texte_corr += `<br>`;
-          texte_corr = `$${lettre}=${base[0]}^${exp}\\times ${base[1]}^${exp}$`;
+          texte_corr += `$${lettre}=${base[0]}^${exp}\\times ${base[1]}^${exp}$`;
           if (this.correction_detaillee) {
             texte_corr += `<br>`;
             texte_corr += `$${lettre}=${eclatePuissance(
@@ -8064,7 +8090,7 @@ function Puissances_encadrement() {
   this.nb_questions = 6;
   this.titre = `Encadrer avec des puissances de 10`;
 
-  this.consigne = `Encadrer les nombres suivants par deux puisances de 10 d'exposants consécutifs.`;
+  this.consigne = `Encadrer les nombres suivants par deux puissances de 10 d'exposants consécutifs.`;
 
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
@@ -12017,8 +12043,7 @@ function Egalite_Pythagore2D(){
  * @author Sébastien Lozano
  */
 
-function Equations_fractions(){    
-  this.debug=true;
+function Equations_fractions(){      
   this.exo = `4L15-1`;
   Eq_resolvantes_Thales.call(this);
 };
