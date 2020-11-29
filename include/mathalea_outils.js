@@ -21,9 +21,27 @@ function liste_de_question_to_contenu(argument) {
 		if (document.getElementById('supprimer_reference').checked == true) {
 			argument.contenu = tex_consigne(argument.consigne) + vspace + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions,argument.spacing),argument.nb_cols)
 		} else {
-			argument.contenu = tex_consigne(argument.consigne) + `\\marginpar{\\footnotesize ${argument.id}}` +  vspace + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions,argument.spacing),argument.nb_cols)
+			argument.contenu = tex_consigne(argument.consigne) + `\n\\marginpar{\\footnotesize ${argument.id}}` +  vspace + tex_introduction(argument.introduction) + tex_multicols(tex_enumerate(argument.liste_questions,argument.spacing),argument.nb_cols)
 		}
 		argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_enumerate(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
+	}
+	
+}
+function liste_de_choses_a_imprimer(argument) {
+	if (sortie_html) {
+		argument.contenu =  html_ligne(argument.liste_questions,argument.spacing)
+		argument.contenu_correction = ""	
+	} else {
+		let vspace = '';
+		if (argument.vspace) {
+			vspace = `\\vspace{${argument.vspace} cm}\n`
+		}
+		if (document.getElementById('supprimer_reference').checked == true) {
+			argument.contenu = tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
+		} else {
+			argument.contenu = `\n\\marginpar{\\footnotesize ${argument.id}}` + tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
+		}
+		argument.contenu_correction = ""
 	}
 	
 }
@@ -43,7 +61,7 @@ function liste_de_question_to_contenu_sans_numero(argument) {
 		if (document.getElementById('supprimer_reference').checked == true) {
 			argument.contenu = tex_consigne(argument.consigne) + tex_introduction(argument.introduction) + tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
 		} else {
-			argument.contenu = `\\marginpar{\\footnotesize ${argument.id}}` + tex_consigne(argument.consigne) + tex_introduction(argument.introduction) + tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
+			argument.contenu = tex_consigne(argument.consigne) + `\n\\marginpar{\\footnotesize ${argument.id}}` + tex_introduction(argument.introduction) + tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
 		}
 		// argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_enumerate_sans_numero(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 		argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_paragraphe(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
@@ -63,7 +81,7 @@ function liste_de_question_to_contenu_sans_numero_et_sans_consigne(argument) {
 	if (document.getElementById('supprimer_reference').checked == true) {
 		argument.contenu = tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
 	} else {
-		argument.contenu = `\\marginpar{\\footnotesize ${argument.id}` + tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
+		argument.contenu = `\n\\marginpar{\\footnotesize ${argument.id}` + tex_multicols(tex_paragraphe(argument.liste_questions,argument.spacing),argument.nb_cols)
 	}
 		// argument.contenu_correction = tex_consigne(argument.consigne_correction) + tex_multicols(tex_enumerate_sans_numero(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
 	argument.contenu_correction =  tex_multicols(tex_paragraphe(argument.liste_corrections,argument.spacing_corr),argument.nb_cols_corr)	
@@ -182,10 +200,8 @@ class NombreDecimal {
 			nombre=calcul(-nombre)
 		}
 		else this.signe=`+`
-		console.log(nombre)
 		this.exposant=Math.floor(Math.log10(nombre))
 		nombre=nombre/10**this.exposant
-		console.log(nombre)
 		this.mantisse=[]
 		for (let k=0;k<16;k++) {
 			if (egal(Math.ceil(nombre)-nombre,0,0.00001)) {
@@ -196,7 +212,6 @@ class NombreDecimal {
 				this.mantisse.push(Math.floor(nombre))
 				nombre=(nombre-this.mantisse[k])*10
 			}
-			console.log(nombre)
 			if (egal(nombre,0,0.001)) break
 		}
 		
@@ -1412,7 +1427,6 @@ cesar=function (word,decal){
 codeCesar=function(mots,decal){
 	let motsCodes=[]
 	for (let x=0;x<mots.length;x++) {
-		console.log(mots[x])
 		motsCodes.push(cesar(mots[x],decal))
 	}
 	return motsCodes
@@ -2478,13 +2492,10 @@ function SVG_tracer_point(mon_svg,x,y,nom,couleur,shiftxnom,shiftynom,montrer_co
 function SVG_tracer_flecheH(mon_svg,x,y) {
 	//creer un groupe pour la fleche
 	let fleche = mon_svg.group()
-	let c1 = fleche.line(-5,5,0,0)
+	let c1 = fleche.line(x-5,y-5,x,y)
 	c1.stroke({ color: 'black', width: 3, linecap: 'round' })
-	let c2 = fleche.line(-5,-5,0,0)
+	let c2 = fleche.line(x-5,y+5,x,y)
 	c2.stroke({ color: 'black', width: 3, linecap: 'round' })
-	//déplace la croix
-	fleche.move(x,y)
-	fleche.dmove(-5,-5)
 }
 /**
  * 
@@ -3182,35 +3193,38 @@ function ecriturePuissance(a, b, n) {
  * @author Sébastien Lozano
  */	
 function simpNotPuissance(b,e) {
+	// on switch sur la base
 	switch (b) {
-		case -1 : 
+		case -1 : // si la base vaut -1 on teste la parité de l'exposant
 			if (e%2==0) {
 				return ` 1`;
-				break;
+				//break;
 			} else {
 				return ` -1`;
-				break;
+				//break;
 			};
-		case 1 : 
+			break;
+		case 1 : // si la base vaut 1 on renvoit toujours 1
 			return ` 1`;
 			break;
-		default : 
+		default : // sinon on switch sur l'exposant
 			switch (e) {
-				case 0 :
+				case 0 : // si l'exposant vaut 0 on ranvoit toujours 1
 					return `1`;
 					break;
-				case 1 :
+				case 1 : // si l'exposant vaut 1 on renvoit toujours la base 
 					return ` ${b}`;
 					break;
-				default :
-					if (b<0 && e%2==0) {
+				default : // sinon on teste le signe de la base et la parité de l'exposant
+					if (b<0 && e%2==0) { // si la base est négative et que l'exposant est pair, le signe est inutile
 						return ` ${b*-1}^{${e}}`;
-						break;
+						//break;
 					} else {
-						//return ` ${b}^{${e}}`;
-						return ` `;
-						break;
+						return ` ${b}^{${e}}`;
+						//return ` `;
+						//break;
 					};
+					break;
 			};
 	};
 };

@@ -386,6 +386,12 @@ input {
   -webkit-box-shadow: none;
           box-shadow: none;
 }
+@font-face {
+  font-family: 'KaTeX_Math';
+  src: url(fonts/KaTeX_Math-BoldItalic.woff2) format('woff2'), url(fonts/KaTeX_Math-BoldItalic.woff) format('woff'), url(fonts/KaTeX_Math-BoldItalic.ttf) format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
 @-webkit-keyframes button-spin {
   from {
     -webkit-transform: rotate(0deg);

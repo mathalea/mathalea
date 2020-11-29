@@ -408,6 +408,7 @@ function LabelPoint(...points) {
   ObjetMathalea2D.call(this);
   this.svg = function (coeff) {
     let code = "";
+    let style =' font-family= "KaTeX_Math" '
     if (Array.isArray(points[0])) {
       //Si le premier argument est un tableau
       this.listePoints = points[0];
@@ -423,7 +424,7 @@ function LabelPoint(...points) {
             coeff
           )}" text-anchor="middle" dominant-baseline="central" fill="${
             this.color
-          }">${point.nom}</text>\n `;
+          }" ${style} >${point.nom}</text>\n `;
           break;
         case "right":
           code += `\t<text x="${calcul(
@@ -432,49 +433,49 @@ function LabelPoint(...points) {
             coeff
           )}" text-anchor="middle" dominant-baseline="central" fill="${
             this.color
-          }">${point.nom}</text>\n `;
+          }" ${style} >${point.nom}</text>\n `;
           break;
         case "below":
           code += `\t<text x="${point.xSVG(coeff)}" y="${calcul(
             point.ySVG(coeff) + 15
           )}" text-anchor="middle" dominant-baseline="central" fill="${
             this.color
-          }">${point.nom}</text>\n `;
+          }" ${style} >${point.nom}</text>\n `;
           break;
         case "above":
           code += `\t<text x="${point.xSVG(coeff)}" y="${calcul(
             point.ySVG(coeff) - 15
           )}" text-anchor="middle" dominant-baseline="central" fill="${
             this.color
-          }">${point.nom}</text>\n `;
+          }" ${style} >${point.nom}</text>\n `;
           break;
         case "above right":
           code += `\t<text x="${calcul(point.xSVG(coeff) + 15)}" y="${calcul(
             point.ySVG(coeff) - 15
           )}" text-anchor="middle" dominant-baseline="central" fill="${
             this.color
-          }">${point.nom}</text>\n `;
+          }" ${style} >${point.nom}</text>\n `;
           break;
         case "below left":
           code += `\t<text x="${calcul(point.xSVG(coeff) - 15)}" y="${calcul(
             point.ySVG(coeff) + 15
           )}" text-anchor="middle" dominant-baseline="central" fill="${
             this.color
-          }">${point.nom}</text>\n `;
+          }" ${style} >${point.nom}</text>\n `;
           break;
         case "below right":
           code += `\t<text x="${calcul(point.xSVG(coeff) + 15)}" y="${calcul(
             point.ySVG(coeff) + 15
           )}" text-anchor="middle" dominant-baseline="central" fill="${
             this.color
-          }">${point.nom}</text>\n `;
+          }" ${style} >${point.nom}</text>\n `;
           break;
         default:
           code += `\t<text x="${calcul(point.xSVG(coeff) - 15)}" y="${calcul(
             point.ySVG(coeff) - 15
           )}" text-anchor="middle" dominant-baseline="central" fill="${
             this.color
-          }">${point.nom}</text>\n `;
+          }" ${style} >${point.nom}</text>\n `;
           break;
       }
     }
@@ -1311,16 +1312,16 @@ function Segment(arg1, arg2, arg3, arg4, color) {
     this.y2 = arg2.y;
     this.color = arg3;
   } else if (arguments.length == 4) {
-    this.x1 = arg1;
-    this.y1 = arg2;
-    this.x2 = arg3;
-    this.y2 = arg4;
+    this.x1 = arrondi(arg1,2);
+    this.y1 = arrondi(arg2,2);
+    this.x2 = arrondi(arg3,2);
+    this.y2 = arrondi(arg4,2);
   } else {
     // 5 arguments
-    this.x1 = arg1;
-    this.y1 = arg2;
-    this.x2 = arg3;
-    this.y2 = arg4;
+    this.x1 = arrondi(arg1,2);
+    this.y1 = arrondi(arg2,2);
+    this.x2 = arrondi(arg3,2);
+    this.y2 = arrondi(arg4,2);
     this.color = color;
   }
   this.extremite1 = point(this.x1, this.y1);
@@ -2428,7 +2429,7 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
     if (this.opacite != 1) {
       this.style += ` stroke-opacity="${this.opacite}" `
     }
-    return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}" ${this.style} id="${this.id}" />`
+    return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${arrondi(l * coeff,1)} ${arrondi(l * coeff,1)} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}" ${this.style} id="${this.id}" />`
   }
   this.tikz = function () {
     let optionsDraw = []
@@ -2905,6 +2906,119 @@ function arcMainLevee(M,Omega,angle,amp,rayon=false,fill='none',color='black',fi
 */
 
 /**
+ * retourne un couple de coordonnées correspondant au centre d'une cible 
+ * afin xue le point (x,y) se trouve dans la case correspondante à cellule
+ * cellule est une chaine comme 'A1' ou 'B3'
+ * @Auteur Jean-Claude Lhote
+ * @param {*} x 
+ * @param {*} y 
+ * @param {*} rang 
+ * @param {*} taille 
+ * @param {*} cellule 
+ */
+function dansLaCibleCarree(x,y,rang,taille,cellule) {
+  let lettre=cellule[0],chiffrelettre=lettre.charCodeAt(0)-64
+  let Taille=Math.floor(50*taille)
+  let chiffre=parseInt(cellule[1]),dx=calcul(randint(-Taille,Taille)/100),dy=calcul(randint(-Taille,Taille)/100)
+  let delta=taille/2
+  if (chiffre>rang||chiffrelettre>rang) return 'Cette cellule n\'existe pas dans la cible'
+  else {
+    return [arrondi(x+dx-chiffrelettre*taille+delta+rang*delta,2),arrondi(y+dy-chiffre*2*delta+(rang+1)*delta,2)]
+  }
+}
+/**
+ * création d'une cible carrée pour l'auto-correction
+ * @Auteur Jean-Claude Lhote
+ * @param {} param0 
+ */
+function CibleCarree({x=0,y=0,rang=4,num=1,taille=0.6}){
+  ObjetMathalea2D.call(this);
+  this.x=x;
+  this.y=y;
+  this.rang=rang;
+  this.num=num;
+  this.taille=taille;
+  this.color='gray';
+  this.opacite=0.5;
+  let objets=[]
+  let numero=texteParPosition(nombre_avec_espace(num),x-rang*this.taille/4,y-rang*this.taille/4,'milieu',this.color)
+  let lettre,chiffre
+  numero.opacite=0.5
+  numero.taille=30*this.taille
+  numero.contour=true
+  objets.push(grille(calcul(x-rang*this.taille/2),calcul(y-rang*this.taille/2),calcul(x+rang*this.taille/2),calcul(y+rang*this.taille/2),this.color,this.opacite,step = this.taille,false))
+  objets.push(numero)
+  for (let i=0;i<rang;i++) {
+    lettre=texteParPosition(lettre_depuis_chiffre(1+i),x-rang*this.taille/2+(2*i+1)*this.taille/2,y-(rang+1)*this.taille/2,'milieu')
+    chiffre=texteParPosition(nombre_avec_espace(i+1),x-(rang+1)*this.taille/2,y-rang*this.taille/2+(2*i+1)*this.taille/2,'milieu')
+    lettre.taille=10*this.taille
+    chiffre.taille=10*this.taille
+    objets.push(lettre)
+    objets.push(chiffre)
+  }
+
+  this.svg = function (coeff) {
+    let code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    let code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+}
+function cibleCarree({x=0,y=0,rang=4,num=1,taille=0.6}){
+  return new CibleCarree({x:x,y:y,rang:rang,num:num,taille:taille})
+}
+/**
+ * création d'une cible ronde pour l'auto-correction
+ * @Auteur Jean-Claude Lhote
+ * (x,y) sont les coordonnées du centre de la cible 
+ */
+function CibleRonde({x=0,y=0,rang=3,num=1}) {
+  ObjetMathalea2D.call(this);
+  this.x=x;
+  this.y=y;
+  this.num=num;
+  this.rang=rang
+  this.opacite=0.5
+  this.color='gray'
+  let objets=[],numero,c;
+  for (let i=0;i<this.rang;i++){
+    c=cercle(point(this.x,this.y),0.3*(1+i))
+    c.opacite=this.opacite
+    c.color=this.color
+  objets.push(c);
+  }
+  numero=texteParPosition(nombre_avec_espace(num),this.x,this.y,0,'gray')
+  numero.opacite=0.5
+  numero.taille=30
+  numero.contour=true
+  objets.push(numero)
+  this.svg = function (coeff) {
+    let code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    let code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+}
+function cibleRonde({x=0,y=0,rang=3,num=1}) {
+  return new CibleRonde({x:x,y:y,rang:rang,num:num})
+}
+/**
  * M = tion(O,v) //M est l'image de O dans la translation de vecteur v
  * M = translation(O,v,'M') //M est l'image de O dans la translation de vecteur v et se nomme M
  * M = translation(O,v,'M','below') //M est l'image de O dans la translation de vecteur v, se nomme M et le nom est en dessous du point
@@ -3176,6 +3290,26 @@ function symetrieAxiale(A, d, nom = "", positionLabel = "above") {
     return v;
   }
 }
+
+/**
+ * Calcule la distance entre un point et une droite.
+ * 1ere version utilisant la projection orthogonale
+ * 2eme version utilisant la symétrie axiale (abandonnée)
+ * @Auteur Jean-Claude Lhote
+ * @param {*} A 
+ * @param {*} d 
+ */
+function distancePointDroite(A,d) {
+  let M=projectionOrtho(A,d)
+  return longueur(A,M,9)
+}
+/*
+function distancePointDroite2(A,d) {
+  let M=symetrieAxiale(A,d)
+  let I=milieu(A,M)
+  return longueur(A,I,5)
+}
+*/
 
 /**
  * N = projectionOrtho(M,d,'N','below left')
@@ -4739,7 +4873,7 @@ function Grille(
   this.color = color;
   this.opacite = opacite;
   let objets = [];
-  for (let i = xmin; i <= xmax; i += step) {
+  for (let i = xmin; i <= xmax; i = calcul(i+step)) {
     let s = segment(i, ymin, i, ymax);
     s.color = this.color;
     s.opacite = this.opacite;
@@ -4748,7 +4882,7 @@ function Grille(
     }
     objets.push(s);
   }
-  for (let i = ymin; i <= ymax; i += step) {
+  for (let i = ymin; i <= ymax; i = calcul(i+step)) {
     let s = segment(xmin, i, xmax, i);
     s.color = this.color;
     s.opacite = this.opacite;
@@ -4803,7 +4937,7 @@ function GrilleHorizontale(
   this.color = color;
   this.opacite = opacite;
   let objets = [];
-  for (let i = ymin; i <= ymax; i += step) {
+  for (let i = ymin; i <= ymax; i = calcul(i+step)) {
     let s = segment(xmin, i, xmax, i);
     s.color = this.color;
     s.opacite = this.opacite;
@@ -4835,6 +4969,53 @@ function GrilleHorizontale(
  */
 function grilleHorizontale(...args) {
   return new GrilleHorizontale(...args);
+}
+function GrilleVerticale(
+  xmin = -30,
+  ymin = -30,
+  xmax = 30,
+  ymax = 30,
+  color = "gray",
+  opacite = 0.4,
+  step = 1,
+  pointilles = false
+) {
+  ObjetMathalea2D.call(this);
+  this.color = color;
+  this.opacite = opacite;
+  let objets = [];
+  for (let i = xmin; i <= xmax; i = calcul(i+step)) {
+    let s = segment(i,ymin,i,ymax);
+    s.color = this.color;
+    s.opacite = this.opacite;
+    if (pointilles) {
+      s.pointilles = true;
+    }
+    objets.push(s);
+  }
+  this.svg = function (coeff) {
+    code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+}
+
+/**
+ * grilleHorizontale(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les axes des abscisses et des ordinnées
+ *
+ * @Auteur Rémi Angot
+ */
+function grilleVerticale(...args) {
+  return new GrilleVerticale(...args);
 }
 
 function Seyes(xmin = 0, ymin = 0, xmax = 15, ymax = 15,opacite1 = .5, opacite2 = .2) {
@@ -6283,10 +6464,15 @@ function intervalle(A, B, color = "blue", h = 0) {
 function TexteParPoint(texte, A, orientation = "milieu", color='black',scale=1,ancrageDeRotation = "middle",math_on=false) {
   ObjetMathalea2D.call(this);
   this.color = color;
+  this.contour = false;
+  this.taille =10;
+  this.opacite=1;
   this.svg = function (coeff) {
-    let code = "";
+    let code = "",style="";
+    if (this.contour) style =` style="font-size:${this.taille}px;fill:none;fill-opacity:${this.opacite};stroke:${this.color};stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:${this.opacite}" `
+    else style = ` style="font-size:${this.taille}px;fill:${this.color};fill-opacity:${this.opacite}" `
     if (typeof(orientation)=='number') {
-      code = `<text x="${A.xSVG(coeff)}" y="${A.ySVG(
+      code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
         coeff
       )}" text-anchor = ${ancrageDeRotation} dominant-baseline = "central" fill="${
         this.color
@@ -6296,7 +6482,7 @@ function TexteParPoint(texte, A, orientation = "milieu", color='black',scale=1,a
     } else {
       switch (orientation) {
         case "milieu":
-          code = `<text x="${A.xSVG(coeff)}" y="${A.ySVG(
+          code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
           )}" text-anchor="middle" dominant-baseline="central" fill="${
             this.color
@@ -6411,17 +6597,21 @@ function latexParCoordonnees(texte, x, y) {
 
 function FractionParPosition({x=0,y=0,fraction=fraction(1,2),couleur='black'}){
   ObjetMathalea2D.call(this);
-  let num=fraction.num,den=fraction.den;
-  let longueur=Math.max(Math.ceil(Math.log10(Math.abs(num))+(1-unSiPositifMoinsUnSinon(num))/2),Math.ceil(Math.log10(Math.abs(den))+(1-unSiPositifMoinsUnSinon(den))/2))*10
+  let num=Math.abs(fraction.num),den=Math.abs(fraction.den);
+  let signe=unSiPositifMoinsUnSinon(fraction.num)*unSiPositifMoinsUnSinon(fraction.den)
+  let longueur=Math.max(Math.floor(Math.log10(num))+1,Math.floor(Math.log10(den))+1)*10
   let offset=10
 
   this.svg=function(coeff){
     let s = segment(x-longueur/coeff/2,y,x+longueur/coeff/2,y,couleur);
     s.isVisible = false;
     let code= s.svg(coeff)
-    let t1 = texteParPosition(nombre_avec_espace(num),x,y+offset/coeff,"milieu",couleur); 
+    if (signe==-1) {
+      code+= segment(calcul(x-((longueur+15)/coeff/2),0),y,calcul(x-((longueur+5)/coeff/2),0),y,couleur).svg(coeff)
+    }
+    let t1 = texteParPosition(nombre_avec_espace(num),x,calcul(y+offset/coeff),"milieu",couleur); 
     code+= t1.svg(coeff)
-    let t2 = texteParPosition(nombre_avec_espace(den),x,y-offset/coeff,"milieu",couleur)
+    let t2 = texteParPosition(nombre_avec_espace(den),x,calcul(y-offset/coeff),"milieu",couleur)
     code+= t2.svg(coeff)
     t1.isVisible = false;
     t2.isVisible = false
@@ -6430,9 +6620,13 @@ function FractionParPosition({x=0,y=0,fraction=fraction(1,2),couleur='black'}){
   }
 
   this.tikz = function(){
-    let code=segment(x,y,x+longueur/scale,y,couleur).tikz()
-    code+=texteParPosition(nombre_avec_espace(num),x+longueur/2/scale,y+offset/scale,"milieu",couleur).tikz()
-    code+=texteParPosition(nombre_avec_espace(den),x+longueur/2/scale,y-offset/scale,"milieu",couleur).tikz()
+
+    let code=segment(x,y,calcul(x+longueur/30/scale,2),y,couleur).tikz()
+    if (signe==-1) {
+      code+= segment(calcul(x-((longueur/30+0.75)/scale/2),2),y,calcul(x-((longueur/30+0.25)/scale/2),2),y,couleur).tikz()
+    }
+    code+=texteParPosition(nombre_avec_espace(num),calcul(x+longueur/60/scale,2),calcul(y+offset/30/scale,2),"milieu",couleur).tikz()
+    code+=texteParPosition(nombre_avec_espace(den),calcul(x+longueur/60/scale,2),calcul(y-offset/30/scale,2),"milieu",couleur).tikz()
      return code
   }
 }
