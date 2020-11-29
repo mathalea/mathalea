@@ -117,6 +117,7 @@ var liste_des_exercices_disponibles = {
   "6N31": Comparer_decimaux,
   "6N31-1": Encadrer_un_decimal_par_deux_entiers_consecutifs,
   "6N31-2":Ordre_de_grandeur_operations_decimaux,
+  "6N31-3": Arrondir_une_valeur_6e,
   "6N32" :Fractions_d_unite,
   "6N33": Fraction_d_un_nombre,
   "6N33-0" : Fraction_d_une_quantite,
@@ -6033,7 +6034,6 @@ function Exercice_fractions_differentes_ecritures() {
     liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
   };
 }
-
 /**
  * @Auteur Rémi Angot
  * 6N20
@@ -14429,7 +14429,6 @@ function Utiliser_le_codage_pour_decrire(){
       liste_de_question_to_contenu(this);
    };
 }
-
 /**
  * Ref 6G14
  * @Auteur Jean-Claude Lhote
@@ -14439,7 +14438,7 @@ function Proprietes_paralleles_perpendiculaires() {
   "use strict";
   Exercice.call(this);
   this.titre = "Utiliser les propriétés des droites perpendiculaires";
-  this.nb_questions = 5;
+  this.nb_questions = 3;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
   this.sup = 4;
@@ -14449,8 +14448,8 @@ function Proprietes_paralleles_perpendiculaires() {
   this.nouvelle_version = function (numero_de_l_exercice) {
     let type_de_questions_disponibles,questions_par_niveau=[];
     questions_par_niveau.push(range(3))
-    questions_par_niveau.push(rangeMinMax(8,15))
-    questions_par_niveau.push(rangeMinMax(16,31))
+    questions_par_niveau.push(rangeMinMax(9,15))
+    questions_par_niveau.push(rangeMinMax(19,31,20))
 
     if (this.sup<4) type_de_questions_disponibles = questions_par_niveau[parseInt(this.sup)-1]
     else  type_de_questions_disponibles=questions_par_niveau[0].concat(questions_par_niveau[1].concat(questions_par_niveau[2]))
@@ -14462,6 +14461,20 @@ function Proprietes_paralleles_perpendiculaires() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let droites=[],code,raisonnement,numDroites=[],phrases=[],textetemp
+    let d=[],P=[],objets=[],num1,num2,couleurd=[],droiteP,PP,Inter
+    let droitecolor=function(num) {
+      let couleurs
+      sortie_html ? couleurs=['red','blue','green','black','magenta','orange'] : couleurs=['black','black','black','black','black','black'];
+      return couleurs[num]
+    }
+    if (sortie_html) {
+      num1=`<tspan dy="5" style="font-size:70%">`
+      num2=`</tspan><tspan dy="-5">)</tspan>`
+     }
+     else {
+       num1=`_`
+       num2=`)`
+     }
     for (
       let i = 0, texte, texte_corr, cpt = 0;
       i < this.nb_questions && cpt < 50;
@@ -14469,8 +14482,12 @@ function Proprietes_paralleles_perpendiculaires() {
     ) { 
       texte=""
       texte_corr=""
-      phrases.length=0
+      phrases.length=0;
       droites.length=0;
+      objets.length=0;
+      d.length=0;
+      P.length=0;
+      couleurd.length=0
       numDroites=shuffle([1,2,3,4,5]);
       raisonnement=liste_type_de_questions[i]
 
@@ -14564,10 +14581,17 @@ function Proprietes_paralleles_perpendiculaires() {
 
     // enoncé mélangé
     texte +=`On sait que `
+    couleurd.push(randint(0,5))
     for (let j=0;j<code.length;j++) {
       textetemp =`$(d_${numDroites[code[j][0]-1]})`;
-      if (code[j][2]==1) textetemp+= `//`
-      else textetemp+=`\\perp`
+      if (code[j][2]==1) {
+        textetemp+= `//`
+        couleurd.push(couleurd[j])
+      }
+      else {
+        textetemp+=`\\perp`
+        couleurd.push((couleurd[j]+1)%6)
+      }
       textetemp +=`(d_${numDroites[code[j][1]-1]})$`
       phrases.push(textetemp)
     }
@@ -14580,8 +14604,41 @@ function Proprietes_paralleles_perpendiculaires() {
     texte+=phrases[code.length-1]
     texte +=`.<br>Que peut-on dire de $(d_${numDroites[code[0][0]-1]})$ et $(d_${numDroites[code[code.length-1][1]-1]})$ ?`
 
+    //construction de la figure
+    
+    P.push(point(0,0))
+    droiteP=droiteParPointEtPente(P[0],randint(-1,1,0)/10,`(d${num1}${numDroites[code[0][0]-1]}${num2}`,droitecolor(couleurd[0]))
+    droiteP.epaisseur=2
+    droite.pointilles=false
+    d.push(droiteP)
+    objets.push(d[0])
+    for (let x=0;x<code.length;x++) {
+      if (code[x][2]==1) {
+        P.push(point((x+1)*2,(x+1)*2))
+        droiteP=droiteParPointEtParallele(P[x+1],d[x],`(d${num1}${numDroites[code[x][1]-1]}${num2}`,droitecolor(couleurd[x+1]))
+        droiteP.epaisseur=2
+        droiteP.pointilles=d[x].pointilles
+        d.push(droiteP)
+      }
+      else {
+        P.push(point((x+1)*2,(x+1)*2))
+        droiteP=droiteParPointEtPerpendiculaire(P[x+1],d[x],`(d${num1}${numDroites[code[x][1]-1]}${num2}`,droitecolor(couleurd[x+1]))
+        droiteP.epaisseur=2
+        droiteP.pointilles=x%3+1
+        Inter=pointIntersectionDD(d[x],droiteP)
+        PP=rotation(P[x+1],Inter,90)
+        d.push(droiteP)
+        objets.push(codageAngleDroit(PP,Inter,P[x+1],'black',0.6))
+      }
+      objets.push(d[x+1])
+    }
+    for (let i=0;i<code.length;i++){ // on ajoute les angles droits
+
+    }
     // correction raisonnement ordonné
-    texte_corr=""
+    fenetreMathalea2d=[-2,-2,15,10]
+    texte_corr=`À partir de l\'énoncé, on peut réaliser le shémas suivant (il en existe une infinité)<br> Les droites données parallèles dans l'énoncé sont de même couleur/style.<br>`
+    texte_corr+=mathalea2d({xmin:-2,xmax:15,ymin:-2,ymax:10,pixelsParCm:20,scale:0.3,mainlevee:false,amplitude:0.3},objets)+`<br>`
     for (let j=0;j<code.length-1;j++) {
       if (this.correction_detaillee) texte_corr+=`On sait que : `
       else texte_corr+=`Comme `
@@ -14595,20 +14652,23 @@ function Proprietes_paralleles_perpendiculaires() {
       texte_corr +=`(d_${numDroites[code[j+1][1]-1]})$`
       // quelle propriété ?
       if (code[j][2]*code[j+1][2]==-1) { // Une parallèle et une perpendiculaire
-        if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont parallèles, toute droite perpendiculaire à l'une est aussi perpendiculaire à l'autre».<br>Donc`
+        if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont parallèles alors toute droite perpendiculaire à l'une est aussi perpendiculaire à l'autre».<br>Donc`
+        else texte_corr+=`, on en déduit que `
         texte_corr+=` $(d_${numDroites[code[0][0]-1]})\\perp(d_${numDroites[code[j+1][1]-1]})$.<br>`
         code[j+1][0]=code[j][0]
         code[j+1][2]=-1
       }
       else if (code[j][2]>0) { // deux parallèles
         if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont parallèles à une même droite alors elles sont parallèles entre elles».<br>Donc`
+        else texte_corr+=`, on en déduit que `
         texte_corr+=` $(d_${numDroites[code[0][0]-1]})//(d_${numDroites[code[j+1][1]-1]})$.<br>`
         code[j+1][0]=code[j][0]
         code[j+1][2]=1
 
       }
       else { //deux perpendiculaires
-        if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont perpendiculaires à une même droite, alors elles sont parallèles entre elles».<br>Donc`
+        if (this.correction_detaillee) texte_corr+=`.<br> Or «Si deux droites sont perpendiculaires à une même droite alors elles sont parallèles entre elles».<br>Donc`
+        else texte_corr+=`, on en déduit que `
         texte_corr+=` $(d_${numDroites[code[0][0]-1]})//(d_${numDroites[code[j+1][1]-1]})$.<br>`
         code[j+1][0]=code[j][0]
         code[j+1][2]=1
@@ -16818,7 +16878,118 @@ function Ordre_de_grandeur_operations_decimaux(){
 
 	}
 };
+/** 
+ * * Encadrer_puis_arrondir_une_valeur
+ * * 6N31-3
+ * @author Mireille Gain, s'inspirant de 6N31-1 de Sébastien Lozano
+ */
 
+function Arrondir_une_valeur() {
+  "use strict";
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.titre = "Arrondir une valeur";
+  this.consigne = "Encadrer chaque nombre à l'unité, puis au dixième, puis au centième.<br>Dans chaque cas, mettre ensuite en évidence son arrondi.";
+  this.nb_questions = 3;
+  this.nb_cols = 3;
+  this.nb_cols_corr = 1;
+  this.sup = 1;
+  this.sup2 = false;
+
+  sortie_html ? (this.spacing_corr = 2.5) : (this.spacing_corr = 3.5);
+
+  this.nouvelle_version = function () {
+      this.liste_questions = [];
+      this.liste_corrections = [];
+      let m, c, d, u, di, ci, mi, me, ce, de, n, den, num, nb, rac;
+
+      for (let i = 0, texte = "", texte_corr = "", cpt = 0; i < this.nb_questions && cpt < 50; ) {
+          if (this.sup == 1) {
+              m = randint(0, 9);
+              c = randint(0, 9);
+              d = randint(0, 9);
+              u = randint(0, 9);
+              di = randint(1, 9);
+              ci = randint(1, 9);
+              mi = randint(1, 9, 5);
+              me = randint(0, 1);
+              ce = randint(0, 1);
+              de = randint(0, 1);
+              n = me * m * 1000 + ce * c * 100 + de * d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001);
+              nb = tex_nombre(n);
+          } else if (this.sup == 2) {
+              den = choice([7, 9, 11, 13]);
+              num = randint(1, 50, [7, 9, 11, 13, 14, 18, 21, 22, 26, 27, 28, 33, 35, 36, 39, 42, 44, 45, 49]);
+              n = num / den;
+              nb = tex_fraction(num, den);
+              di = troncature(n - troncature(n, 0), 1);
+              ci = troncature(n - troncature(n, 1), 2);
+              mi = troncature(n - troncature(n, 2), 3);
+          } else if (this.sup == 3) {
+              rac = randint(3, 99, [4, 9, 16, 25, 36, 49, 64, 81]);
+              n = Math.sqrt(rac);
+              nb = `\\sqrt{${rac}}`;
+              di = troncature(n - troncature(n, 0), 1);
+              ci = troncature(n - troncature(n, 1), 2);
+              mi = troncature(n - troncature(n, 2), 3);
+          }
+
+          texte = `$${nb}$`;
+          if (this.sup2) {
+              if (this.sup == 1) texte += ``;
+              else if (this.sup == 2) texte += `$\\phantom{1234567}$[Quand on écrit sur la calculatrice $${num}\\div ${den}$, elle affiche : $${tex_nombre(n)}$.]`;
+              else if (this.sup == 3) texte += `$\\phantom{1234567}$[Quand on écrit sur la calculatrice $${nb}$, elle affiche : $${tex_nombre(n)}$.]`;
+          }
+          texte_corr = "Encadrement et arrondi à l'unité : ";
+          if (di < 5) {
+              texte_corr += `$\\phantom{1234567}${mise_en_evidence(tex_nombre(troncature(n, 0)))} < ${nb} < ${tex_nombre(troncature(n + 1, 0))}$`;
+          } else {
+              texte_corr += `$\\phantom{1234567}${tex_nombre(troncature(n, 0))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n + 1, 0)))}$`;
+          }
+
+          texte_corr += "<br>Encadrement et arrondi au dixième : ";
+          if (ci < 5) {
+              texte_corr += `$\\phantom{123}${mise_en_evidence(tex_nombre(troncature(n, 1)))} < ${nb} < ${tex_nombre(troncature(n + 0.1, 1))}$`;
+          } else {
+              texte_corr += `$\\phantom{123}${tex_nombre(troncature(n, 1))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n + 0.1, 1)))}$`;
+          }
+
+          texte_corr += "<br>Encadrement et arrondi au centième : $~$";
+          if (mi < 5) {
+              texte_corr += `$${mise_en_evidence(tex_nombre(troncature(n, 2)))} < ${nb} < ${tex_nombre(troncature(n + 0.01, 2))}$`;
+          } else {
+              texte_corr += `$${tex_nombre(troncature(n, 2))} < ${nb} < ${mise_en_evidence(tex_nombre(troncature(n + 0.01, 2)))}$`;
+          }
+
+          if (this.liste_questions.indexOf(texte) == -1) {
+              // Si la question n'a jamais été posée, on en créé une autre
+              this.liste_questions.push(texte); // Sinon on enregistre la question dans liste_questions
+              this.liste_corrections.push(texte_corr); // On fait pareil pour la correction
+              i++; // On passe à la question suivante
+          }
+          cpt++;
+      }
+      liste_de_question_to_contenu(this);
+  };
+  this.besoin_formulaire_numerique = ['Type de nombre', 2, `1 : Nombre décimal\n 2 : Fraction`];
+  this.besoin_formulaire2_case_a_cocher = ["Affichage de la valeur donnée à la calculatrice", false];
+}
+
+function Arrondir_une_valeur_6e() {
+Arrondir_une_valeur.call(this);
+this.sup = 1;
+}
+
+function Arrondir_une_valeur_5e() {
+Arrondir_une_valeur.call(this);
+this.sup = 2;
+this.besoin_formulaire_numerique = ['Type de nombre', 2, `1 : Nombre décimal\n 2 : Fraction`];
+}
+
+function Arrondir_une_valeur_4e() {
+this.sup = 3;
+Arrondir_une_valeur.call(this);
+this.besoin_formulaire_numerique = ['Type de nombre', 3, `1 : Nombre décimal\n 2 : Fraction\n 3 : Racine carrée`];
+}
 /** 
  * * Donner le chiffre des ... le nombre de ...
  * * 6N10-3
