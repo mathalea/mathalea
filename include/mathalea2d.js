@@ -408,6 +408,7 @@ function LabelPoint(...points) {
   ObjetMathalea2D.call(this);
   this.svg = function (coeff) {
     let code = "";
+    let style =' font-family= "KaTeX_Math" '
     if (Array.isArray(points[0])) {
       //Si le premier argument est un tableau
       this.listePoints = points[0];
@@ -423,7 +424,7 @@ function LabelPoint(...points) {
             coeff
           )}" text-anchor="middle" dominant-baseline="central" fill="${
             this.color
-          }">${point.nom}</text>\n `;
+          }" ${style} >${point.nom}</text>\n `;
           break;
         case "right":
           code += `\t<text x="${calcul(
@@ -432,49 +433,49 @@ function LabelPoint(...points) {
             coeff
           )}" text-anchor="middle" dominant-baseline="central" fill="${
             this.color
-          }">${point.nom}</text>\n `;
+          }" ${style} >${point.nom}</text>\n `;
           break;
         case "below":
           code += `\t<text x="${point.xSVG(coeff)}" y="${calcul(
             point.ySVG(coeff) + 15
           )}" text-anchor="middle" dominant-baseline="central" fill="${
             this.color
-          }">${point.nom}</text>\n `;
+          }" ${style} >${point.nom}</text>\n `;
           break;
         case "above":
           code += `\t<text x="${point.xSVG(coeff)}" y="${calcul(
             point.ySVG(coeff) - 15
           )}" text-anchor="middle" dominant-baseline="central" fill="${
             this.color
-          }">${point.nom}</text>\n `;
+          }" ${style} >${point.nom}</text>\n `;
           break;
         case "above right":
           code += `\t<text x="${calcul(point.xSVG(coeff) + 15)}" y="${calcul(
             point.ySVG(coeff) - 15
           )}" text-anchor="middle" dominant-baseline="central" fill="${
             this.color
-          }">${point.nom}</text>\n `;
+          }" ${style} >${point.nom}</text>\n `;
           break;
         case "below left":
           code += `\t<text x="${calcul(point.xSVG(coeff) - 15)}" y="${calcul(
             point.ySVG(coeff) + 15
           )}" text-anchor="middle" dominant-baseline="central" fill="${
             this.color
-          }">${point.nom}</text>\n `;
+          }" ${style} >${point.nom}</text>\n `;
           break;
         case "below right":
           code += `\t<text x="${calcul(point.xSVG(coeff) + 15)}" y="${calcul(
             point.ySVG(coeff) + 15
           )}" text-anchor="middle" dominant-baseline="central" fill="${
             this.color
-          }">${point.nom}</text>\n `;
+          }" ${style} >${point.nom}</text>\n `;
           break;
         default:
           code += `\t<text x="${calcul(point.xSVG(coeff) - 15)}" y="${calcul(
             point.ySVG(coeff) - 15
           )}" text-anchor="middle" dominant-baseline="central" fill="${
             this.color
-          }">${point.nom}</text>\n `;
+          }" ${style} >${point.nom}</text>\n `;
           break;
       }
     }

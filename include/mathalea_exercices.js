@@ -12631,8 +12631,8 @@ function Construire_symetrique_point_6e(){
     // On prépare la figure...
     let a=randint(-10,10),b=randint(-10,10,a)
     let d=droite(a,b,0,'(d)')
-    let A=pointSurDroite(d,-5)
-    let B=pointSurDroite(d,5)
+    let A=translation(point(0,0),homothetie(d.directeur,point(0,0),-0.5))
+    let B=translation(point(0,0),homothetie(d.directeur,point(0,0),0.5))
     let marks=['/','//','///','x','o','S','V']
     let noms=choisit_lettres_differentes(nbpoints,'Q',majuscule=true)
     let cibles=[],M=[],N=[],objets_enonce=[],objets_correction=[]  //cibles, M point marqués, N symétrique de M
@@ -12680,7 +12680,7 @@ function Construire_symetrique_point_6e(){
       objets_correction.push(tracePoint(M[i],N[i]),labelPoint(M[i],N[i]),cibles[i])
       objets_correction.push(segment(M[i],N[i],arcenciel(i)),codageMediatrice(M[i],N[i],arcenciel(i+5),marks[i])) 
       objets_correction.push(traceCompas(A,N[i],20),traceCompas(B,N[i],20))
-      texte_corr+=`Le symétrique du point ${noms[i]} est dans la case ${cellules[i]} de la grille ${i+1}.<br>`
+      texte_corr+=`$${noms[i]}\'$, le symétrique du point $${noms[i]}$ est dans la case ${cellules[i]} de la grille ${i+1}.<br>`
     }
 
     for (let i=0;i<nbpoints;i++){
