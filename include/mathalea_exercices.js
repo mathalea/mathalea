@@ -44,6 +44,7 @@ var liste_des_exercices_disponibles = {
   "6C31": Division_decimale,
   "6C32": Probleme_course,
   "6C33": Priorites,
+    //"6C99" : separation6C,
   "6D10": Conversions_de_durees,
   "6D101": Heures_decimales,
   "6D11": Somme_de_durees,
@@ -63,6 +64,7 @@ var liste_des_exercices_disponibles = {
   "6G24": Transformations_6e,
   "6G24-1" : Symetrie_axiale_point_6e,
   "6G24-2" : Symetrie_axiale_figure_6e,
+  "beta6G24-3" : Construire_symetrique_point_6e,
   "6G25-1": Pavages_et_reflexion,
   "6G25-2": Pavages_et_symetries,
   "6G33" : Symetrie_axiale_conservation1,
@@ -232,6 +234,13 @@ var liste_des_exercices_disponibles = {
   "4L15-0": Trouver_erreur_resol_eq_deg1,
   "4L15-1": Equations_fractions,
   "4L20": Exercice_equation1,
+  "4C21-1": Exercice_additionner_des_fractions,
+  "4C21": Exercice_additionner_ou_soustraire_des_fractions,
+  "4C22-1": Exercice_trouver_l_inverse,
+  "4C22": Exercice_multiplier_fractions,
+  "4C22-2": Exercice_diviser_fractions,
+  "4C23": Exercice_additionner_fraction_produit,
+  "beta4C30": Comparer_puissance10,
   "4F12": Exploiter_representation_graphique,
   "4P10": Problemes_grandeurs_composees,
   "4P10-1" : Graphiques_et_proportionnalite,  
@@ -258,6 +267,7 @@ var liste_des_exercices_disponibles = {
   "3A11-3": Lister_Diviseurs_Par_Decomposition_facteurs_premiers,
   "3A12": Fractions_irreductibles,
   "3A13": PPCM_Engrenages,
+  "3G43": Calcul_de_volumes_3e,
   "3L10": Oppose_expression,
   "3L10-1": Parentheses_precedes_de_moins_ou_plus,
   "3L11": Exercice_developper,
@@ -287,7 +297,6 @@ var liste_des_exercices_disponibles = {
   "3G23": TrianglesSemblables,
   "3G30": Exercice_Trigo_longueurs,
   "3G31": Exercice_Trigo_angles,
-  "3G43": Calcul_de_volumes_3e,
   "3F1-act": fonction_notion_vocabulaire,
   "3F10" : Image_antecedent_depuis_tableau_ou_fleche,
   "3F12": fonctions_calculs_d_images,
@@ -300,7 +309,9 @@ var liste_des_exercices_disponibles = {
   "3F21": Lecture_expression_fonctions_lineaires,
   "3F21-1": Lecture_expression_fonctions_affines,
   "3S15": Calculer_des_etendues,
-  "3S20": fonctions_probabilite2,  
+  "3S20": fonctions_probabilite2, 
+  "beta3L11-5": identites_calculs,
+  "beta3Algo1": Instruction_conditionelle, 
   "2N10": Existence_d_une_racine_carree,
   "2N10-1": proprietes_racine_carree,
   "2N11": Extraire_un_carre_parfait_d_une_racine_carree,
@@ -331,6 +342,7 @@ var liste_des_exercices_disponibles = {
   // 'P002': LaTeX_static,
   "P003" : feuille_d_axes_gradues,
   "P004" :Feuille_de_zooms,
+  "P005" : Feuille_de_grilles,
   "cours" : Questions_de_cours,
   "LaTeX" : Code_LaTeX_personnalise,
   // 'Perso' : HTML_personnalise,
@@ -9617,25 +9629,128 @@ function Lire_abscisse_decimale_trois_formes() {
   this.besoin_formulaire_numerique = ['Niveau de difficulté',3,'1 : Au dixième\n2 : Au centième\n3 : Au millième'];
 }
 
+/**
+ * Fonction permettant aux enseignants de proposer des grilles décimale à colorier
+ * ref P005
+ * @Auteur Jean-Claude Lhote
+ */
+function Feuille_de_grilles() {
+  Exercice.call(this)
+  this.nb_cols=1
+  this.sup=1
+  this.titre = "Grilles décimales"
 
-function lireUneAbscisseAvecZoomCM() {
-  LireUneAbscisseAvecZoom.call(this);
-  this.niveau='CM';
-  this.sup=1;
-  this.nb_cols_corr=1
+  this.nouvelle_version=function() {
+  this.contenu=""
+  let objets=[],fleche
+  if (this.sup==1) {// On travaille au dixième
+    for (let i=0;i<5;i++) {
+      objets.length=0
+      //pixelsParCm=50
+      objets.push(carre(point(1,1),point(2,1)))
+      objets.push(texteParPosition("= 1 unité",3.5,1.5))
+      objets.push(grille(15,-2,19,2,'black',1,4))
+      for (let j=0;j<11;j++) {
+        A=point(0+j*1.1,-0.5)
+        B=point(1+j*1.1,-0.5)
+        C=point(1+j*1.1,0.5)
+        D=point(0+j*1.1,0.5)
+        objets.push(polygone(A,B,C,D))
+      }
+      objets.push(segment(point(11.5,0.5),point(15,2),'gray'))
+      objets.push(segment(point(11.5,-0.5),point(15,-2),'gray'))
+      fleche=segment(12,0,15,0)
+      fleche.styleExtremites='->'
+      objets.push(texteParPosition("ZOOM",13.5,0.4))
+      objets.push(texteParPosition("x4",13.5,-0.4))
+      objets.push(fleche)
+      objets.push(grilleHorizontale(15,-2,19,2,'gray',1,0.8))
+      objets.push(grilleVerticale(15,-2,19,2,'gray',1,2))
+      objets.push(grilleHorizontale(11,-0.5,12,0.5,'gray',0.8,0.2))
+      objets.push(grilleVerticale(11,-0.5,12,0.5,'gray',0.8,0.5))     
+
+      texte=mathalea2d({xmin:-0.5,ymin:-2.2,xmax:21,ymax:3,pixelsParCm:30,scale:0.8},objets)
+      this.contenu+=texte;
+      this.contenu+='<br>'
+    }
+  }
+  else if (this.sup==2) {
+    for (let i=0;i<4;i++) {
+      objets.length=0
+      //pixelsParCm=50
+      objets.push(carre(point(1,1.5),point(2,1.5)))
+      objets.push(texteParPosition("= 1 unité",3.5,2))
+      objets.push(grille(15,-2.5,20,2.5,'black',1,0.5))
+      objets.push(grille(11,-0.5,12,0.5,'black',0.3,0.1))
+      
+      for (let j=0;j<11;j++) {
+        A=point(0+j*1.1,-0.5)
+        B=point(1+j*1.1,-0.5)
+        C=point(1+j*1.1,0.5)
+        D=point(0+j*1.1,0.5)
+        objets.push(polygone(A,B,C,D))
+      }
+      objets.push(segment(point(11.5,0.5),point(15,2.5)))
+      objets.push(segment(point(11.5,-0.5),point(15,-2.5)))
+      fleche=segment(12,0,15,0)
+      fleche.styleExtremites='->'
+      objets.push(texteParPosition("ZOOM",13.5,0.5))
+      objets.push(texteParPosition("x5",13.5,-0.5))
+      objets.push(fleche)
+      texte=mathalea2d({xmin:-0.5,ymin:-3,xmax:26,ymax:3,pixelsParCm:30,scale:0.8},objets)
+      this.contenu+=texte;
+      this.contenu+='<br>'
+    }
+  }
+  else {
+    for (let i=0;i<3;i++) {
+      objets.length=0
+      //pixelsParCm=50
+      for (let j=0;j<11;j++) {
+        A=point(0+j*1.1,-0.5)
+        B=point(1+j*1.1,-0.5)
+        C=point(1+j*1.1,0.5)
+        D=point(0+j*1.1,0.5)
+        objets.push(polygone(A,B,C,D))
+      }
+      objets.push(carre(point(1,1.5),point(2,1.5)))
+      objets.push(texteParPosition("= 1 unité",3.5,2))
+      objets.push(segment(point(11.5,0.5),point(15,5)))
+      objets.push(segment(point(11.5,-0.5),point(15,-5)))
+      fleche=segment(12,0,15,0)
+      fleche.styleExtremites='->'
+      objets.push(texteParPosition("ZOOM",13.5,0.5))
+      objets.push(texteParPosition("x10",13.5,-0.5))
+      objets.push(fleche)
+       objets.push(grilleHorizontale(15,-5,25,5,'gray',0.8,0.2))
+        objets.push(grilleVerticale(15,-5,25,5,'gray',0.8,0.5))
+        objets.push(grille(15,-5,25,5,'black',1,1))
+        objets.push(grille(11,-0.5,12,0.5,'black',0.3,0.1))
+      texte=mathalea2d({xmin:-0.1,ymin:-5.5,xmax:26,ymax:5.5,pixelsParCm:25,scale:0.7},objets)
+      this.contenu+=texte;
+      this.contenu+='<br>'
+    }
+  }
+  //liste_de_choses_a_imprimer(this);
+
+};
+this.besoin_formulaire_numerique = ['nombre de cases', 3, '1 : 10\n2 : 100\n3 : 1000'];
+
 }
 /**
  * Fonction permettant aux enseignants de proposer des feuilles à compléter pour la lecture d'abscisse décimale avec zoom
  * L'enseignant peut ajouter "à la main" les données qu'il souhaite
+ * ref P004
  * @Auteur Jean-Claude Lhote
  */
 function Feuille_de_zooms() {
   Exercice.call(this)
   this.nb_cols=1
   this.sup=1
+  this.titre = "Droites graduées avec zoom"
 
   this.nouvelle_version=function() {
-  this.liste_questions=[]
+  this.contenu=""
   let d1, d2,d3, texte = "", extremite,extreme, noms =[]
   let x1 = 0, x2 = 0, x3 = 0, objets = [], fenetre, thickOff = 0
   for (let n=0;n<8/parseInt(this.sup);n++) {
@@ -9732,9 +9847,9 @@ function Feuille_de_zooms() {
   }
   texte = mathalea2d(fenetre, objets)
 
-  this.liste_questions.push(texte);
+  this.contenu+=texte;
+  this.contenu+='<br>'
   }
-  liste_de_question_to_contenu_sans_numero(this);
 };
 this.besoin_formulaire_numerique = ['Nombre de zoom', 2, '1 : Un seul zoom\n2 : Deux niveaux de zoom'];
 
@@ -9746,6 +9861,11 @@ this.besoin_formulaire_numerique = ['Nombre de zoom', 2, '1 : Un seul zoom\n2 : 
  * Publié le 13/11/2020
  * @Auteur Jean-Claude Lhote
  */
+function lireUneAbscisseAvecZoomCM(){
+  LireUneAbscisseAvecZoom.call(this)
+  this.niveau='CM'
+}
+
 function LireUneAbscisseAvecZoom() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.niveau = 'sixième'
@@ -12494,6 +12614,101 @@ function Transformations() {
   };
   // this.besoin_formulaire_numerique = ['Transformations',5, '1 : Symétries axiales\n 2 : Symétries centrales\n 3 : Rotations\n 4 : Translations\n 5 : Homothéties\n'];
 }
+
+function Construire_symetrique_point_6e(){
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.titre = "Construire le symétrique d'un point par rapport à une droite";
+  this.consigne = "Construire le symétrique des points par rapport à (d)";
+  this.nb_questions = 1;
+  this.nb_questions_modifiable=false
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  this.sup = 3;
+  this.nouvelle_version = function () {
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    let result=[0,0],texte_corr="",nbpoints=parseInt(this.sup)
+
+    // On prépare la figure...
+    let a=randint(-10,10),b=randint(-10,10,a)
+    let d=droite(a,b,0,'(d)')
+    let A=translation(point(0,0),homothetie(d.directeur,point(0,0),-0.5))
+    let B=translation(point(0,0),homothetie(d.directeur,point(0,0),0.5))
+    let marks=['/','//','///','x','o','S','V']
+    let noms=choisit_lettres_differentes(nbpoints,'Q',majuscule=true)
+    let cibles=[],M=[],N=[],objets_enonce=[],objets_correction=[]  //cibles, M point marqués, N symétrique de M
+    let cellules=[]
+    let xMin,yMin,xMax,yMax
+    [xMin,yMin,xMax,yMax]=[0,0,0,0]
+    for (let i=0;i<nbpoints;i++) { //On place les cibles.
+        N.push(point(calcul(randint(-80,80,0)/10),calcul(randint(-80,80,0)/10),noms[i]+"\'"))
+        nontrouve=true
+        while (distancePointDroite(N[i],d)<3||nontrouve) {
+            nontrouve=true
+            if (distancePointDroite(N[i],d)<3) {
+              N[i].x=calcul(randint(-80,80,0)/10)
+              N[i].y=calcul(randint(-80,80,0)/10)
+            }
+            else {
+              assezloin=true
+              for (let j=0;j<i;j++){
+                 if (longueur(N[i],N[j])<4.5) assezloin=false
+              }
+              if (assezloin==false) {
+               N[i].x=calcul(randint(-80,80,0)/10)
+               N[i].y=calcul(randint(-80,80,0)/10)
+              }
+              else nontrouve=false
+            }
+        }
+    }
+
+    objets_enonce.push(d)
+    objets_correction.push(d,tracePoint(A,B))
+
+    for (let i=0;i<nbpoints;i++){
+      cellules.push(choice(["A1","A2","A3","A4","B1","B2","B3","B4","C1","C2","C3","C4","D1","D2","D3","D4"]))
+      result=dansLaCibleCarree(N[i].x,N[i].y,4,0.6,cellules[i])
+      cible=cibleCarree({x:result[0],y:result[1],rang:4,num:i+1,taille:0.6})
+      cible.taille=0.6
+      cible.color='orange'
+      cible.opacite=0.7
+      cibles.push(cible)
+    }
+    for (let i=0;i<nbpoints;i++) {
+      M.push(symetrieAxiale(N[i],d,noms[i]))
+      objets_enonce.push(tracePoint(M[i]),labelPoint(M[i]),cibles[i])
+      objets_correction.push(tracePoint(M[i],N[i]),labelPoint(M[i],N[i]),cibles[i])
+      objets_correction.push(segment(M[i],N[i],arcenciel(i)),codageMediatrice(M[i],N[i],arcenciel(i+5),marks[i])) 
+      objets_correction.push(traceCompas(A,N[i],20),traceCompas(B,N[i],20))
+      texte_corr+=`$${noms[i]}\'$, le symétrique du point $${noms[i]}$ est dans la case ${cellules[i]} de la grille ${i+1}.<br>`
+    }
+
+    for (let i=0;i<nbpoints;i++){
+      xMin=Math.min(xMin,N[i].x-3,M[i].x-3)
+      yMin=Math.min(yMin,N[i].y-3,M[i].y-3)
+      xMax=Math.max(xMax,N[i].x+3,M[i].x+3)
+      yMax=Math.max(yMax,N[i].y+3,M[i].y+3)
+    }
+    
+    fenetreMathalea2d=[xMin,yMin,xMax,yMax]
+
+    this.liste_questions.push(mathalea2d({xmin:xMin,ymin:yMin,xmax:xMax,ymax:yMax,pixelsParCm:20,scale:1},objets_enonce))
+    this.liste_corrections.push(texte_corr+mathalea2d({xmin:xMin,ymin:yMin,xmax:xMax,ymax:yMax,pixelsParCm:20,scale:1},objets_correction))
+    liste_de_question_to_contenu(this)
+
+  //  let nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
+
+  }
+ this.besoin_formulaire_numerique = ['Nombre de points (1 à 5)',5,"1\n2\n3\n4\n5"];
+ // this.besoin_formulaire2_case_a_cocher = ["Avec des points de part et d'autre"];	
+}
+
+/**
+ * Ref 6G33
+ * Publié le 26/10/2020
+ * @Auteur Jean-Claude Lhote
+ */
 function Symetrie_axiale_conservation1() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Propriétés de conservation de la symétrie axiale";
@@ -12503,8 +12718,7 @@ function Symetrie_axiale_conservation1() {
   this.nb_cols_corr = 1;
   this.sup = 1;
 
- 
-  this.nouvelle_version = function (numero_de_l_exercice) {
+   this.nouvelle_version = function (numero_de_l_exercice) {
     let type_de_questions_disponibles=["Segment","Droite","1/2droite","Triangle","Angle"];
     let points=[],traces=[],nom=[],alternance
     for (let i=0;i<25;i++) nom.push(lettre_depuis_chiffre(i+1))
@@ -12518,7 +12732,6 @@ function Symetrie_axiale_conservation1() {
     // On prépare la figure...
     let axe=parseInt(this.sup)
     let d,nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
-
     if (axe==5) axe=randint(1,4) //choix de l'axe et des coordonnées
     switch (axe) {
       case 1 : d=droite(1,0,0,'(d)');
@@ -14218,7 +14431,9 @@ function Utiliser_le_codage_pour_decrire(){
 }
 
 /**
- * Ref beta6G14
+ * Ref 6G14
+ * @Auteur Jean-Claude Lhote
+ * publié le 22/11/2020
  */
 function Proprietes_paralleles_perpendiculaires() {
   "use strict";
@@ -14483,6 +14698,7 @@ function Proprietes_paralleles_perpendiculaires() {
 /**
  * Fonction générale pour exercices de constructions de parallèles et perpendiculaires
  * références 6G11, 6G12 et 6G12-1
+ * @Auteur Jean-Claude Lhote
  */
 function Parallele_et_Perpendiculaires() {
   "use strict";
@@ -17495,7 +17711,8 @@ function Tests_du_Seb(){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
 					if (this.debug) {
-						texte += `<br>`;
+            texte += `<br>`;
+            texte += `<code class="b">score</code> pour ...`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
 						texte_corr = ``;	
@@ -18015,6 +18232,11 @@ jQuery(document).ready(function () {
   if (window.location.href.indexOf("beta") > 0) {
     liste_html_des_exercices += `<div class="ui accordion"><div class="active title"><i class="dropdown icon"></i>Beta (${nombre_d_exercices_disponibles_beta})</div><div class="active content">`;
     liste_html_des_exercices += liste_html_des_exercices_beta;
+    liste_html_des_exercices += `</div>`;
+    liste_html_des_exercices += `</div>`;
+  } else if (window.location.href.indexOf("outils") > 0) {
+    liste_html_des_exercices += `<div class="ui accordion"><div class="active title"><i class="dropdown icon"></i>Outils pour le professeur (${nombre_d_exercices_disponibles_prof})</div><div class="active content">`;
+    liste_html_des_exercices += liste_html_des_exercices_prof;
     liste_html_des_exercices += `</div>`;
     liste_html_des_exercices += `</div>`;
   } else if (window.location.href.indexOf("cm.html") > 0) {

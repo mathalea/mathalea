@@ -7050,7 +7050,7 @@ function Image_antecedent_depuis_tableau_ou_fleche() {
 function Eq_resolvantes_Thales(){
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.debug = true;	
+	this.debug = false;	
 	this.sup=1;
 	if (this.debug) {
 		this.nb_questions = 4;
@@ -7072,9 +7072,24 @@ function Eq_resolvantes_Thales(){
 	sortie_html? this.spacing = 2.5 : this.spacing = 1.5; 
 	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
 
+	this.liste_packages = `bclogo`;
+
 	let type_de_questions_disponibles;	
 
 	this.nouvelle_version = function(numero_de_l_exercice){
+		// une fonction pour dire que c'est trivial dans ce cas
+		function trivial(bool,a,b,c,inc) {
+			let sortie;
+			let texte=``;
+			if (bool) {				
+				texte=`Dans ce cas le recours au produit en croix est superflu.<br> Par identification, on a directement $${inc}=${a}$ !`;
+				sortie=warn_message(texte,`nombres`,`Keep Cool Guy !`);
+			} else {
+				sortie=``
+			};
+			return sortie;
+		};
+
 		if (this.debug) {
 			type_de_questions_disponibles = [0,1,2,3];			
 		} else {
@@ -7096,7 +7111,7 @@ function Eq_resolvantes_Thales(){
 			while (c_temp_case_3%2 != 0 || c_temp_case_3%5 != 0) {
 				c_temp_case_3 = randint(11,99)
 			};
-			console.log(c_temp_case_3);
+			
 			this.sup = Number(this.sup); // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
 			switch (this.sup) {
 				case 1://entiers          
@@ -7139,28 +7154,33 @@ function Eq_resolvantes_Thales(){
 					a:params.a,
 					b:params.b,
 					c:params.c,
-					inc:params.inc 
+					inc:params.inc,
+					trivial:(params.b==params.c)
 				},
 				{//case 1 --> a/c=x/b --> cx=ab
 					eq:`\\dfrac{${tex_nombre(params.a)}}{${tex_nombre(params.c)}}=\\dfrac{${params.inc}}{${tex_nombre(params.b)}}`,
 					a:params.a,
 					b:params.b,
 					c:params.c,
-					inc:params.inc 
+					inc:params.inc ,
+					trivial:(params.b==params.c)
+
 				},
 				{//case 2 -->b/x=c/a --> cx = ab
 					eq:`\\dfrac{${tex_nombre(params.b)}}{${params.inc}}=\\dfrac{${tex_nombre(params.c)}}{${tex_nombre(params.a)}}`,
 					a:params.a,
 					b:params.b,
 					c:params.c,
-					inc:params.inc 
+					inc:params.inc,
+					trivial:(params.b==params.c)
 				},
 				{//case 3 -->c/a=b/x --> cx = ab 
 					eq:`\\dfrac{${tex_nombre(params.c)}}{${tex_nombre(params.a)}}=\\dfrac{${tex_nombre(params.b)}}{${params.inc}}`,
 					a:params.a,
 					b:params.b,
 					c:params.c,
-					inc:params.inc  
+					inc:params.inc,
+					trivial:(params.b==params.c)  
 				},
 			];
 
@@ -7168,7 +7188,7 @@ function Eq_resolvantes_Thales(){
 			for (let k=0;k<situations.length;k++) {
 				enonces.push({
 					enonce:`
-						$${situations[k].eq}$						
+						$${situations[k].eq}$
 					`,
 					question:``,
 					correction:`
@@ -7178,9 +7198,8 @@ function Eq_resolvantes_Thales(){
 						${texte_en_couleur_et_gras(`On divise les deux membres par ${tex_nombre(situations[k].c)}`)}.<br>
 						$\\dfrac{${tex_nombre(situations[k].c)}\\times ${situations[k].inc}}{${tex_nombre(situations[k].c)}}= \\dfrac{${tex_nombre(situations[k].a)}\\times ${tex_nombre(situations[k].b)}}{${tex_nombre(situations[k].c)}}$<br>
 						${texte_en_couleur_et_gras(`On simplifie et on calcule.`)}<br>
-
 						$${situations[k].inc}=${tex_nombre(calcul(Number(situations[k].b)*Number(situations[k].a)/Number(situations[k].c)))}$
-
+						${trivial(situations[k].trivial,tex_nombre(situations[k].a),tex_nombre(situations[k].b),tex_nombre(situations[k].c),situations[k].inc)}
 					`
 				});
 			};
@@ -7507,4 +7526,121 @@ function identites_calculs(){
 	}
 	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : Carré d'une somme\n2 : Carré d'une différence\n3 : Produit de la somme et de la différence\n4 : Mélange"];
 	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
+};
+
+
+/** 
+ * * Instructions conditionnelles
+ * * numéro de l'exo ex : 3Algo1
+ * * publié le  24/11/2020
+ * @author Erwan Duplessy
+ */
+
+function Instruction_conditionelle(){
+	'use strict';
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.debug = false;	
+	this.sup = 1;
+	this.nb_questions = 2;	
+
+	this.titre = "Instruction conditionelle";	
+	this.consigne = `Donner les coordonnées de la position finale du lutin.`;	
+	
+	this.nb_cols = 2;
+	this.nb_cols_corr = 1;
+	this.nb_questions_modifiable = false;	
+	sortie_html? this.spacing = 1 : this.spacing = 1; 
+	sortie_html? this.spacing_corr = 1 : this.spacing_corr = 1;
+	this.liste_packages = `scratch3`;
+	//let type_de_questions_disponibles;	
+
+	this.nouvelle_version = function(numero_de_l_exercice){
+		this.liste_questions = []; // Liste de questions
+   		this.liste_corrections = []; // Liste de questions corrigées
+  		function scratchblocks_Tikz(code_svg,code_tikz) {
+      		if (sortie_html) {
+        		return code_svg;
+      			} else {
+        		return code_tikz;
+      		};
+		};
+		
+		let texte = "La position initiale d'un lutin dans un repère est (0,0). Dans le programme, x désigne l'abscisse, et y désigne l'ordonnée d'un lutin. <br>"; // texte de l'énoncé
+		texte += `Une variable a été créée, elle s'appelle <code class="b">(var) :: ring</code>. <br>`
+		let texte_corr=" "; // texte du corrigé
+		let code_tikz = ``; // code pour dessiner les blocs en tikz
+		let code_svg = ``; // code pour dessiner les blocs en svg
+		let nbCommandes = Number(this.sup) + 2; // nombre de commandes de déplacement dans un script
+		let nbRepetition = 1; // Nombre de fois où la boucle est répétée. 
+		if (this.sup2) {
+		  nbRepetition = 3;
+		}
+		let xLutin = 0;
+		let yLutin = 0;
+		
+		code_tikz += `\\medskip \\\\ \\begin{scratch} <br>`;
+		code_svg += `<pre class='blocks'>`;
+
+		let n1 = randint(1,10);
+		let n2 = randint(1,10);
+		let n3 = randint(1,10);
+		let n4 = randint(1,10);
+		
+		code_tikz += `\\blockmove{aller à x: \ovalnum{0} y: \ovalnum{0}}`;
+		code_svg += `quand le drapeau vert pressé <br>`;
+		code_svg += `Aller à x:(0) y:(0) <br>`;
+		code_svg += `mettre (var) à (${n1}) <br>`;
+		code_svg += ` si <(var) < [${n2}]> alors <br>`;
+		code_svg += ` ajouter (100) à x <br>`;
+		if (this.sup > 1) {
+			code_svg += ` si <(var) > [${n3}]> alors <br>`;
+			code_svg += ` ajouter (50) à x <br>`;
+			code_svg += ` fin <br>`;
+		}
+		code_svg += ` sinon <br>`;
+		code_svg += ` ajouter (70) à y <br>`;
+		if (this.sup > 2) {
+			code_svg += ` si <(var) > [${n4}]> alors <br>`;
+			code_svg += ` ajouter (40) à y <br>`;
+			code_svg += ` fin <br>`;
+		}
+		code_svg += ` fin <br>`;
+
+		code_svg += `</pre>`;
+		code_tikz += `\\end{scratch}`;
+
+		texte += scratchblocks_Tikz(code_svg,code_tikz);
+
+
+		if (n1 < n2) {
+			texte_corr += `Comme l'inégalité "${n1} < ${n2}" est vraie, alors on ajoute 100 à l'abscisse du lutin. <br>`;
+			xLutin += 100;
+			if (this.sup>1) {
+				if (n1 > n3) {
+					texte_corr += `Comme l'inégalité "${n1} > ${n3}" est vraie, alors on ajoute 50 à l'abscisse du lutin. <br>`;
+					xLutin += 50;
+				} else {
+					texte_corr += `Comme l'inégalité "${n1} > ${n3}" est fausse, alors on ne change pas l'abscisse du lutin. <br>`
+				}
+			}
+		} else {
+			texte_corr += `Comme l'inégalité "${n1} < ${n2}" est fausse, alors on ajoute 70 à l'ordonnée du lutin. <br>`;
+			yLutin += 70;
+			if (this.sup>2) {
+				if (n1 > n4) {
+					texte_corr += `Comme l'inégalité "${n1} > ${n4}" est vraie, on ajoute 40 à l'ordonnée du lutin. <br>`;
+					yLutin += 40;	
+				} else {
+					texte_corr += `Comme l'inégalité "${n1} > ${n4}" est fausse, alors on ne change pas l'ordonnée du lutin. <br>`
+				}
+			}
+		}
+		texte_corr += ` La position finale est donc : (${xLutin} ; ${yLutin}).`
+
+				
+		this.liste_questions.push(texte);
+		this.liste_corrections.push(texte_corr);
+		liste_de_question_to_contenu(this);
+	}
+	this.besoin_formulaire_numerique = [`Variante `,3,'1 : sans condition imbriquée\n2 : avec une condition imbriquée\n3 : avec deux conditions imbriquées'];
 };
