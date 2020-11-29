@@ -1311,16 +1311,16 @@ function Segment(arg1, arg2, arg3, arg4, color) {
     this.y2 = arg2.y;
     this.color = arg3;
   } else if (arguments.length == 4) {
-    this.x1 = arg1;
-    this.y1 = arg2;
-    this.x2 = arg3;
-    this.y2 = arg4;
+    this.x1 = arrondi(arg1,2);
+    this.y1 = arrondi(arg2,2);
+    this.x2 = arrondi(arg3,2);
+    this.y2 = arrondi(arg4,2);
   } else {
     // 5 arguments
-    this.x1 = arg1;
-    this.y1 = arg2;
-    this.x2 = arg3;
-    this.y2 = arg4;
+    this.x1 = arrondi(arg1,2);
+    this.y1 = arrondi(arg2,2);
+    this.x2 = arrondi(arg3,2);
+    this.y2 = arrondi(arg4,2);
     this.color = color;
   }
   this.extremite1 = point(this.x1, this.y1);
@@ -2905,6 +2905,89 @@ function arcMainLevee(M,Omega,angle,amp,rayon=false,fill='none',color='black',fi
 */
 
 /**
+ * création d'une cible carrée pour l'auto-correction
+ * @Auteur Jean-Claude Lhote
+ * @param {} param0 
+ */
+function CibleCarree({x=0,y=0,rang=4,num=1}){
+  ObjetMathalea2D.call(this);
+  this.x=x;
+  this.y=y;
+  this.rang=rang;
+  this.num=num
+  let objets=[];numero=texteParPosition(nombre_avec_espace(num),x-rang/3,y-rang/3,'milieu','gray')
+  numero.opacite=0.5
+  numero.taille=30
+  numero.contour=true
+  objets.push(grille(x-rang/2,y-rang/2,x+rang/2,y+rang/2,"gray",opacite = 0.4,step = 1,false))
+  objets.push(numero)
+  for (let i=0;i<rang;i++) {
+    objets.push(texteParPosition(lettre_depuis_chiffre(1+i),x-rang/2+i+0.5,y-rang/2-0.5,'milieu'))
+    objets.push(texteParPosition(nombre_avec_espace(i+1),x-rang/2-0.5,y-rang/2+i+0.5,'milieu'))
+  }
+
+  this.svg = function (coeff) {
+    let code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    let code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+}
+function cibleCarree({x=0,y=0,rang=4,num=1}){
+  return new CibleCarree({x:x,y:y,rang:rang,num:num})
+}
+/**
+ * création d'une cible ronde pour l'auto-correction
+ * @Auteur Jean-Claude Lhote
+ * (x,y) sont les coordonnées du centre de la cible 
+ */
+function CibleRonde({x=0,y=0,rang=3,num=1}) {
+  ObjetMathalea2D.call(this);
+  this.x=x;
+  this.y=y;
+  this.num=num;
+  this.rang=rang
+  this.opacite=0.5
+  this.color='gray'
+  let objets=[],numero,c;
+  for (let i=0;i<this.rang;i++){
+    c=cercle(point(this.x,this.y),0.3*(1+i))
+    c.opacite=this.opacite
+    c.color=this.color
+  objets.push(c);
+  }
+  numero=texteParPosition(nombre_avec_espace(num),this.x,this.y,0,'gray')
+  numero.opacite=0.5
+  numero.taille=30
+  numero.contour=true
+  objets.push(numero)
+  this.svg = function (coeff) {
+    let code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    let code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+}
+function cibleRonde({x=0,y=0,rang=3,num=1}) {
+  return new CibleRonde({x:x,y:y,rang:rang,num:num})
+}
+/**
  * M = tion(O,v) //M est l'image de O dans la translation de vecteur v
  * M = translation(O,v,'M') //M est l'image de O dans la translation de vecteur v et se nomme M
  * M = translation(O,v,'M','below') //M est l'image de O dans la translation de vecteur v, se nomme M et le nom est en dessous du point
@@ -3176,6 +3259,26 @@ function symetrieAxiale(A, d, nom = "", positionLabel = "above") {
     return v;
   }
 }
+
+/**
+ * Calcule la distance entre un point et une droite.
+ * 1ere version utilisant la projection orthogonale
+ * 2eme version utilisant la symétrie axiale (abandonnée)
+ * @Auteur Jean-Claude Lhote
+ * @param {*} A 
+ * @param {*} d 
+ */
+function distancePointDroite(A,d) {
+  let M=projectionOrtho(A,d)
+  return longueur(A,M,9)
+}
+/*
+function distancePointDroite2(A,d) {
+  let M=symetrieAxiale(A,d)
+  let I=milieu(A,M)
+  return longueur(A,I,5)
+}
+*/
 
 /**
  * N = projectionOrtho(M,d,'N','below left')
@@ -4836,6 +4939,53 @@ function GrilleHorizontale(
 function grilleHorizontale(...args) {
   return new GrilleHorizontale(...args);
 }
+function GrilleVerticale(
+  xmin = -30,
+  ymin = -30,
+  xmax = 30,
+  ymax = 30,
+  color = "gray",
+  opacite = 0.4,
+  step = 1,
+  pointilles = false
+) {
+  ObjetMathalea2D.call(this);
+  this.color = color;
+  this.opacite = opacite;
+  let objets = [];
+  for (let i = xmin; i <= xmax; i += step) {
+    let s = segment(i,ymin,i,ymax);
+    s.color = this.color;
+    s.opacite = this.opacite;
+    if (pointilles) {
+      s.pointilles = true;
+    }
+    objets.push(s);
+  }
+  this.svg = function (coeff) {
+    code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    code = "";
+    for (objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+}
+
+/**
+ * grilleHorizontale(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les axes des abscisses et des ordinnées
+ *
+ * @Auteur Rémi Angot
+ */
+function grilleVerticale(...args) {
+  return new GrilleVerticale(...args);
+}
 
 function Seyes(xmin = 0, ymin = 0, xmax = 15, ymax = 15,opacite1 = .5, opacite2 = .2) {
   ObjetMathalea2D.call(this)
@@ -6283,10 +6433,15 @@ function intervalle(A, B, color = "blue", h = 0) {
 function TexteParPoint(texte, A, orientation = "milieu", color='black',scale=1,ancrageDeRotation = "middle",math_on=false) {
   ObjetMathalea2D.call(this);
   this.color = color;
+  this.contour = false;
+  this.taille =10;
+  this.opacite=1;
   this.svg = function (coeff) {
-    let code = "";
+    let code = "",style="";
+    if (this.contour) style =` style="font-size:${this.taille}px;fill:none;fill-opacity:${this.opacite};stroke:${this.color};stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:${this.opacite}" `
+    else style = ` style="font-size:${this.taille}px;fill:${this.color};fill-opacity:${this.opacite}" `
     if (typeof(orientation)=='number') {
-      code = `<text x="${A.xSVG(coeff)}" y="${A.ySVG(
+      code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
         coeff
       )}" text-anchor = ${ancrageDeRotation} dominant-baseline = "central" fill="${
         this.color
@@ -6296,7 +6451,7 @@ function TexteParPoint(texte, A, orientation = "milieu", color='black',scale=1,a
     } else {
       switch (orientation) {
         case "milieu":
-          code = `<text x="${A.xSVG(coeff)}" y="${A.ySVG(
+          code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
           )}" text-anchor="middle" dominant-baseline="central" fill="${
             this.color

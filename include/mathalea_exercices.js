@@ -64,11 +64,11 @@ var liste_des_exercices_disponibles = {
   "6G24": Transformations_6e,
   "6G24-1" : Symetrie_axiale_point_6e,
   "6G24-2" : Symetrie_axiale_figure_6e,
+  "beta6G24-3" : Construire_symetrique_point_6e,
   "6G25-1": Pavages_et_reflexion,
   "6G25-2": Pavages_et_symetries,
   "6G33" : Symetrie_axiale_conservation1,
   "6G41" : Representer_un_solide_6e,
-  "6G33" : Symetrie_axiale_conservation1,
   "6G42" : Solide_6e,
   "6G43" : Utiliser_vocabulaire_pave,
   "6M11-1": Perimetre_ou_aire_de_carres_rectangles_triangles,
@@ -207,6 +207,12 @@ var liste_des_exercices_disponibles = {
   "4C10-4": Exercice_quotients_relatifs,
   "4C10-5": Exercice_tableau_multiplications_relatifs,
   "4C11": Priorites_et_relatifs,
+  "4C21-1": Exercice_additionner_des_fractions,
+  "4C21": Exercice_additionner_ou_soustraire_des_fractions,
+  "4C22":Exercice_multiplier_fractions,
+  "4C22-1": Exercice_trouver_l_inverse,
+  "4C22-2": Exercice_diviser_fractions,
+  "4C23": Exercice_additionner_fraction_produit,
   "4C25-0": Problemes_additifs_fractions,
   "4C30": Puissances_de_dix,
   "4C30-1": Puissances_encadrement,
@@ -330,9 +336,11 @@ var liste_des_exercices_disponibles = {
   "betaSVG": AfficherSVG,
   P001: Code_LaTeX_personnalise,
   // 'P002': LaTeX_static,
-  P003: feuille_d_axes_gradues,
-  cours: Questions_de_cours,
-  LaTeX: Code_LaTeX_personnalise,
+  "P003" : feuille_d_axes_gradues,
+  "P004" :Feuille_de_zooms,
+  "P005" : Feuille_de_grilles,
+  "cours" : Questions_de_cours,
+  "LaTeX" : Code_LaTeX_personnalise,
   // 'Perso' : HTML_personnalise,
   // 'TsvgjsKatex' : tests_SVGJS_KATEX,  
 };
@@ -404,10 +412,12 @@ function Exercice() {
   this.nouvelle_version = function (numero_de_l_exercice) {};
   this.liste_packages = []; // string ou liste de string avec le nom des packages spécifiques à ajouter dans le préambule
 }
+
 /**
  * Pour imprimer des repères vierges pour les élèves.
  * @Auteur Jean-Claude Lhote
  * référence : P003
+ * publié le ?/2/2020
  */
 function feuille_d_axes_gradues() {
   "use strict";
@@ -426,7 +436,7 @@ function feuille_d_axes_gradues() {
   this.nb_cols_corr_modifiable = false;
   this.spacing_modifiable = false;
   this.spacing_corr_modifiable = false;
-  this.liste_packages = "axes_gradues";
+  this.liste_packages = ["tkz-euclide"];
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     let pas;
@@ -435,7 +445,7 @@ function feuille_d_axes_gradues() {
     this.contenu = ""; // Liste de questions
     this.contenu_correction = ""; // Liste de questions corrigées
     pas = parseInt(this.sup);
-    for (let i = 0, id_unique, texte; i < 16; i++) {
+    for (let i = 0, id_unique, texte; i < 14; i++) {
       if (sortie_html) {
         id_unique = `${i}_${Date.now()}`;
         this.contenu += `<div id="div_svg${numero_de_l_exercice}${id_unique}" style="width: 90%; height: 200px;  "></div>`;
@@ -451,12 +461,11 @@ function feuille_d_axes_gradues() {
         );
       } else {
         //sortie Latex
-        texte = Latex_reperage_sur_un_axe(2, " ", 1, pas, [], [], false);
-        this.liste_questions.push(texte);
+        texte = Latex_reperage_sur_un_axe(2,0, 1, pas, [], [], false);
       }
+      this.liste_questions.push(texte)
     }
-    if (!sortie_html)
-      liste_de_question_to_contenu_sans_numero_et_sans_consigne(this);
+    if (!sortie_html) liste_de_question_to_contenu(this);
   };
   this.besoin_formulaire_numerique = [`Nombres de parts`, 10, ""];
 }
@@ -9618,6 +9627,231 @@ function Lire_abscisse_decimale_trois_formes() {
 }
 
 /**
+ * Fonction permettant aux enseignants de proposer des grilles décimale à colorier
+ * ref P005
+ * @Auteur Jean-Claude Lhote
+ */
+function Feuille_de_grilles() {
+  Exercice.call(this)
+  this.nb_cols=1
+  this.sup=1
+  this.titre = "Grilles décimales"
+
+  this.nouvelle_version=function() {
+  this.contenu=""
+  let objets=[],fleche
+  if (this.sup==1) {// On travaille au dixième
+    for (let i=0;i<5;i++) {
+      objets.length=0
+      //pixelsParCm=50
+      objets.push(carre(point(1,1),point(2,1)))
+      objets.push(texteParPosition("= 1 unité",3.5,1.5))
+      objets.push(grille(15,-2,19,2,'black',1,4))
+      for (let j=0;j<11;j++) {
+        A=point(0+j*1.1,-0.5)
+        B=point(1+j*1.1,-0.5)
+        C=point(1+j*1.1,0.5)
+        D=point(0+j*1.1,0.5)
+        objets.push(polygone(A,B,C,D))
+      }
+      objets.push(segment(point(11.5,0.5),point(15,2),'gray'))
+      objets.push(segment(point(11.5,-0.5),point(15,-2),'gray'))
+      fleche=segment(12,0,15,0)
+      fleche.styleExtremites='->'
+      objets.push(texteParPosition("ZOOM",13.5,0.4))
+      objets.push(texteParPosition("x4",13.5,-0.4))
+      objets.push(fleche)
+      objets.push(grilleHorizontale(15,-2,19,2,'gray',1,0.8))
+      objets.push(grilleVerticale(15,-2,19,2,'gray',1,2))
+      objets.push(grilleHorizontale(11,-0.5,12,0.5,'gray',0.8,0.2))
+      objets.push(grilleVerticale(11,-0.5,12,0.5,'gray',0.8,0.5))     
+
+      texte=mathalea2d({xmin:-0.5,ymin:-2.2,xmax:21,ymax:3,pixelsParCm:30,scale:0.8},objets)
+      this.contenu+=texte;
+      this.contenu+='<br>'
+    }
+  }
+  else if (this.sup==2) {
+    for (let i=0;i<4;i++) {
+      objets.length=0
+      //pixelsParCm=50
+      objets.push(carre(point(1,1.5),point(2,1.5)))
+      objets.push(texteParPosition("= 1 unité",3.5,2))
+      objets.push(grille(15,-2.5,20,2.5,'black',1,0.5))
+      objets.push(grille(11,-0.5,12,0.5,'black',0.3,0.1))
+      
+      for (let j=0;j<11;j++) {
+        A=point(0+j*1.1,-0.5)
+        B=point(1+j*1.1,-0.5)
+        C=point(1+j*1.1,0.5)
+        D=point(0+j*1.1,0.5)
+        objets.push(polygone(A,B,C,D))
+      }
+      objets.push(segment(point(11.5,0.5),point(15,2.5)))
+      objets.push(segment(point(11.5,-0.5),point(15,-2.5)))
+      fleche=segment(12,0,15,0)
+      fleche.styleExtremites='->'
+      objets.push(texteParPosition("ZOOM",13.5,0.5))
+      objets.push(texteParPosition("x5",13.5,-0.5))
+      objets.push(fleche)
+      texte=mathalea2d({xmin:-0.5,ymin:-3,xmax:26,ymax:3,pixelsParCm:30,scale:0.8},objets)
+      this.contenu+=texte;
+      this.contenu+='<br>'
+    }
+  }
+  else {
+    for (let i=0;i<3;i++) {
+      objets.length=0
+      //pixelsParCm=50
+      for (let j=0;j<11;j++) {
+        A=point(0+j*1.1,-0.5)
+        B=point(1+j*1.1,-0.5)
+        C=point(1+j*1.1,0.5)
+        D=point(0+j*1.1,0.5)
+        objets.push(polygone(A,B,C,D))
+      }
+      objets.push(carre(point(1,1.5),point(2,1.5)))
+      objets.push(texteParPosition("= 1 unité",3.5,2))
+      objets.push(segment(point(11.5,0.5),point(15,5)))
+      objets.push(segment(point(11.5,-0.5),point(15,-5)))
+      fleche=segment(12,0,15,0)
+      fleche.styleExtremites='->'
+      objets.push(texteParPosition("ZOOM",13.5,0.5))
+      objets.push(texteParPosition("x10",13.5,-0.5))
+      objets.push(fleche)
+       objets.push(grilleHorizontale(15,-5,25,5,'gray',0.8,0.2))
+        objets.push(grilleVerticale(15,-5,25,5,'gray',0.8,0.5))
+        objets.push(grille(15,-5,25,5,'black',1,1))
+        objets.push(grille(11,-0.5,12,0.5,'black',0.3,0.1))
+      texte=mathalea2d({xmin:-0.1,ymin:-5.5,xmax:26,ymax:5.5,pixelsParCm:25,scale:0.7},objets)
+      this.contenu+=texte;
+      this.contenu+='<br>'
+    }
+  }
+  //liste_de_choses_a_imprimer(this);
+
+};
+this.besoin_formulaire_numerique = ['nombre de cases', 3, '1 : 10\n2 : 100\n3 : 1000'];
+
+}
+/**
+ * Fonction permettant aux enseignants de proposer des feuilles à compléter pour la lecture d'abscisse décimale avec zoom
+ * L'enseignant peut ajouter "à la main" les données qu'il souhaite
+ * ref P004
+ * @Auteur Jean-Claude Lhote
+ */
+function Feuille_de_zooms() {
+  Exercice.call(this)
+  this.nb_cols=1
+  this.sup=1
+  this.titre = "Droites graduées avec zoom"
+
+  this.nouvelle_version=function() {
+  this.contenu=""
+  let d1, d2,d3, texte = "", extremite,extreme, noms =[]
+  let x1 = 0, x2 = 0, x3 = 0, objets = [], fenetre, thickOff = 0
+  for (let n=0;n<8/parseInt(this.sup);n++) {
+    noms= choisit_lettres_differentes(5, 'QFN')
+  objets.length=0
+  if (this.sup == 1) {
+        xmin = randint(5, 10) - 0.2
+      origine=Math.round(xmin+0.2)
+      extreme=calcul(origine+9)
+      thickOff = 0.1
+      xmax=origine+9.2
+ 
+    x1 = calcul(xmin + 0.2 + randint(1, 5) + randint(2, 8) / 10)
+    extremite = `->`
+
+    d1 = droiteGraduee2({
+      x: 0, y: 3, Min: xmin, axePosition: 'H', Max: xmax + 0.2, thickSec: true, thickTer: false, Unite: 3, thickOffset: thickOff,
+      thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 4, labelsPrincipaux: false, 
+      //labelListe: [[origine, `${tex_nombre(origine)}`], [extreme, `${tex_nombre(extreme)}`]],
+      pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
+      pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+    })
+    d2 = droiteGraduee2({
+      x: Math.floor(x1) - xmin + 1.5, y: 0, Min: Math.floor(x1), axePosition: 'H', Max: Math.floor(x1 + 1), thickSec: true, thickTer: false, Unite: 20, thickOffset: thickOff,
+      thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 4, labelsPrincipaux: false,
+      pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
+      pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+    })
+
+    pA1 = point((Math.floor(x1) - xmin) * 3, 3)
+    pA2 = point(Math.floor(x1) - xmin + 1.5, 0)
+    pB1 = point((Math.floor(x1) + 1 - xmin) * 3, 3)
+    pB2 = point(Math.floor(x1) - xmin + 21.5, 0)
+    sA = segment(pA1, pA2)
+    sB = segment(pB1, pB2)
+    sA.pointilles = true
+    sB.pointilles = true
+    objets.push(d1, d2, sA, sB)
+    fenetre = { xmin: -1.5, xmax: 35, ymin: -1, ymax: 4.5, pixelsParCm: 25, scale: 0.5 }
+  }
+  else  {
+      xmin = randint(1, 15)
+      xmax = xmin + 1
+      x1 = calcul(xmin + randint(2, 8) / 10 + randint(2, 8) / 100 + randint(2, 8) * 0.001)
+      x2 = troncature(x1, 1)
+      x21 = troncature(x1, 2)
+      x3 = calcul(x2 + 0.1)
+      x31 = calcul(x21 + 0.01)
+      xmin = Math.floor(x2)
+      xmax = xmin+1
+      thickOff = 0.001
+
+   extremite = `->`
+    d1 = droiteGraduee2({
+      x: 0, y: 6, Min: xmin, axePosition: 'H', Max: xmax, thickSec: true, thickTer: true, Unite: 30, thickDistance: 1, thickSecDist: 0.1, thickTerDist: 0.01, thickOffset: thickOff,
+      thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: false,
+      pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
+      pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 3, axeStyle: extremite
+    })
+    d2 = droiteGraduee2({
+      x: 6.5, y: 3, Min: x2, axePosition: 'H', Max: x3, thickSec: true, thickTer: true, Unite: 200, thickSecDist: 0.01, thickTerDist: 0.001, thickDistance: 0.1, thickOffset: thickOff,
+      thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: false,
+      pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
+      pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+    })
+    d3 = droiteGraduee2({
+      x: 6.5, y: 0, Min: x21, axePosition: 'H', Max: x31, thickSec: true, thickTer: false, Unite: 2000, thickSecDist: 0.001, thickOffset: thickOff,
+      thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: false,
+      pointListe: [[x1, `${noms[1]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
+      pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
+    })
+
+    pA1 = point((x2-xmin)*30, 6)
+    pA2 = point(6.5, 3)
+    pB1 = point((x3-xmin)*30, 6)
+    pB2 = point(26.5, 3)
+    sA = segment(pA1, pA2)
+    sB = segment(pB1, pB2)
+    sA.pointilles = true
+    sB.pointilles = true
+    pC1 = point(6.5 + (x21 - x2) * 200, 3)
+    pC2 = point(6.5, 0)
+    pD1 = point(6.5 + (x31 - x2) * 200, 3)
+    pD2 = point(26.5, 0)
+    sC = segment(pC1, pC2)
+    sD = segment(pD1, pD2)
+    sC.pointilles = true
+    sD.pointilles = true
+    fenetre = { xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 7.5, pixelsParCm:25, scale: 0.5 }
+    objets.push(d1, d2, d3, sA, sB, sC, sD)
+
+    let partent = Math.floor(x1), pardec = calcul(x1 - partent)
+
+  }
+  texte = mathalea2d(fenetre, objets)
+
+  this.contenu+=texte;
+  this.contenu+='<br>'
+  }
+};
+this.besoin_formulaire_numerique = ['Nombre de zoom', 2, '1 : Un seul zoom\n2 : Deux niveaux de zoom'];
+
+}
+/**
  * Lire un nombre décimal jusqu'au millième graĉe à un système de zoom successifs
  * L'abscisse est à donner sous trois formes.
  * ref 6N23-3
@@ -12377,6 +12611,135 @@ function Transformations() {
   };
   // this.besoin_formulaire_numerique = ['Transformations',5, '1 : Symétries axiales\n 2 : Symétries centrales\n 3 : Rotations\n 4 : Translations\n 5 : Homothéties\n'];
 }
+
+function Construire_symetrique_point_6e(){
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.titre = "Construire le symétrique d'un point par rapport à une droite";
+  this.consigne = "Construire le symétrique des points par rapport à (d)";
+  this.nb_questions = 4;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  this.sup = 1;
+  this.nouvelle_version = function () {
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    let points=[],nom=[],alternance
+
+    // On prépare la figure...
+    let axe=parseInt(this.sup)
+    let d,nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
+    if (axe==5) axe=randint(1,4) //choix de l'axe et des coordonnées
+    switch (axe) {
+      case 1 : d=droite(1,0,0);
+        nomd=texteParPosition('(d)',0.3,5.6)
+        label_pos='above left'
+        for (let i=0;i<12;i++){
+          nonchoisi=false
+          while (!nonchoisi){ // Le nouveau point est-il déjà dans la liste ?
+            [x,y]=[randint(-5,0),randint(-5,5)]
+            nonchoisi=true
+            for (let j=0;j<i;j++)
+              if (coords[j][0]==x&&coords[j][1]==y) nonchoisi=false
+          }
+          coords.push([x,y]) //on stocke les 12 points
+        }
+        for (let j=0;j<12;j++) coords.push([-coords[j][0],coords[j][1]]) // on stocke les 12 images
+      break;
+      case 2: d=droite(0,1,0);
+      label_pos='above'
+      nomd=texteParPosition('(d)',5.6,0.3)
+      for (let i=0;i<12;i++){
+          nonchoisi=false
+          while (!nonchoisi){ // Le nouveau point est-il déjà dans la liste ?
+            [x,y]=[randint(-5,5),randint(-5,0)]
+            nonchoisi=true
+            for (let j=0;j<i;j++)
+              if (coords[j][0]==x&&coords[j][1]==y) nonchoisi=false
+          }
+          coords.push([x,y]) //on stocke les 12 points
+        }
+        for (let j=0;j<12;j++) coords.push([coords[j][0],-coords[j][1]]) // on stocke les 12 images
+      break;
+      case 3: d=droite(1,-1,0);
+      label_pos='above'
+      nomd=texteParPosition('(d)',-5.8,-5.4)
+      for (let i=0;i<12;i++){
+          nonchoisi=false
+          while (!nonchoisi){ // Le nouveau point est-il déjà dans la liste ?
+            x=randint(-5,5)
+            y=randint(x,5)
+            nonchoisi=true
+            for (let j=0;j<i;j++)
+              if (coords[j][0]==x&&coords[j][1]==y) nonchoisi=false
+          }
+          coords.push([x,y]) //on stocke les 12 points
+        }
+        for (let j=0;j<12;j++) coords.push([coords[j][1],coords[j][0]]) // on stocke les 12 images
+      break;
+      case 4: d=droite(1,1,0);
+      label_pos='above'
+      nomd=texteParPosition('(d)',-5.8,5.4)
+      for (let i=0;i<12;i++){
+          nonchoisi=false
+          while (!nonchoisi){ // Le nouveau point est-il déjà dans la liste ? Si oui, on recommence.
+            x=randint(-5,5)
+            y=randint(-5,-x)
+            nonchoisi=true
+            for (let j=0;j<i;j++)
+              if (coords[j][0]==x&&coords[j][1]==y)
+                 nonchoisi=false;
+          }
+          coords.push([x,y]) //on stocke les 12 points
+        }
+        for (let j=0;j<12;j++) 
+          coords.push([-coords[j][1],-coords[j][0]]); // on stocke les 12 images
+      break;
+    }
+    for (let i=0;i<12;i++) {
+      if (i<12) points.push(point(coords[i][0],coords[i][1],noms[i],label_pos))
+      else if (coords[i][0]==coords[i-12][0]&&coords[i][1]==coords[i-12][1]) {
+        points.push(point(coords[i][0],coords[i][1],noms[i-12],label_pos))
+        noms[i]=noms[i-12]
+      }
+      else points.push(point(coords[i][0],coords[i][1],noms[i],label_pos))
+  
+    }
+    // On rédige les questions et les réponses
+    if (this.sup2==true) alternance=2
+    else alternance=1
+    function index(i) {
+      return (i+12*(i%alternance))%24
+    }
+    objets_enonce.length=0
+    objets_correction.lenght=0
+    for (let j=0;j<this.nb_questions;j++) {
+    
+    }
+    
+    d.isVisible=true;
+    objets_enonce.push(nomd,d);
+    objets_correction.push(nomd,d);
+    for(let i=0;i<this.nb_questions;i++) {
+      objets_enonce.push(tracePoint(points[index(i)],'blue'));
+      objets_enonce.push(labelPoint(points[index(i)]))
+      objets_enonce.push(cibleRonde({x:coords[(index(i)+12)%24][0],y:coords[(index(i)+12)%24][1],num:i+1}))
+      objets_correction.push(labelPoint(points[index(i)]),tracePoint(points[index(i)],'blue'))
+      objets_correction.push(labelPoint(points[(index(i)+12)%24]),tracePoint(points[(index(i)+12)%24],'blue'))     
+    }
+    this.liste_questions.push(mathalea2d({xmin:-6,ymin:-6,xmax:8,ymax:6,pixelsParCm:40,scale:1},objets_enonce))
+    this.liste_corrections.push(mathalea2d({xmin:-6,ymin:-6,xmax:8,ymax:6,pixelsParCm:40,scale:1},objets_correction))
+    liste_de_question_to_contenu_sans_numero(this);
+
+  }
+  this.besoin_formulaire_numerique = ['Type d\'axe',5,"1 : Axe vertical\n2 : Axe horizontal\n3 : Axe oblique 1\n4 : Axe oblique 2\n5 : Axe aléatoire"];
+  this.besoin_formulaire2_case_a_cocher = ["Avec des points de part et d'autre"];	
+}
+
+/**
+ * Ref 6G33
+ * Publié le 26/10/2020
+ * @Auteur Jean-Claude Lhote
+ */
 function Symetrie_axiale_conservation1() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Propriétés de conservation de la symétrie axiale";
@@ -12385,7 +12748,6 @@ function Symetrie_axiale_conservation1() {
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
   this.sup = 1;
-
  
   this.nouvelle_version = function (numero_de_l_exercice) {
     let type_de_questions_disponibles=["Segment","Droite","1/2droite","Triangle","Angle"];
@@ -12403,7 +12765,7 @@ function Symetrie_axiale_conservation1() {
     let d,nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
     if (axe==5) axe=randint(1,4) //choix de l'axe et des coordonnées
     switch (axe) {
-      case 1 : d=droite(1,0,0,'(d)');
+      case 1 : d=droite(1,0,0);
         nomd=texteParPosition('(d)',0.3,5.6)
         label_pos='above left'
         for (let i=0;i<12;i++){
@@ -12418,7 +12780,7 @@ function Symetrie_axiale_conservation1() {
         }
         for (let j=0;j<12;j++) coords.push([-coords[j][0],coords[j][1]]) // on stocke les 12 images
       break;
-      case 2: d=droite(0,1,0,'(d)');
+      case 2: d=droite(0,1,0);
       label_pos='above'
       nomd=texteParPosition('(d)',5.6,0.3)
       for (let i=0;i<12;i++){
@@ -12433,7 +12795,7 @@ function Symetrie_axiale_conservation1() {
         }
         for (let j=0;j<12;j++) coords.push([coords[j][0],-coords[j][1]]) // on stocke les 12 images
       break;
-      case 3: d=droite(1,-1,0,'(d)');
+      case 3: d=droite(1,-1,0);
       label_pos='above'
       nomd=texteParPosition('(d)',-5.8,-5.4)
       for (let i=0;i<12;i++){
@@ -12449,7 +12811,7 @@ function Symetrie_axiale_conservation1() {
         }
         for (let j=0;j<12;j++) coords.push([coords[j][1],coords[j][0]]) // on stocke les 12 images
       break;
-      case 4: d=droite(1,1,0,'(d)');
+      case 4: d=droite(1,1,0);
       label_pos='above'
       nomd=texteParPosition('(d)',-5.8,5.4)
       for (let i=0;i<12;i++){
@@ -14100,7 +14462,9 @@ function Utiliser_le_codage_pour_decrire(){
 }
 
 /**
- * Ref beta6G14
+ * Ref 6G14
+ * @Auteur Jean-Claude Lhote
+ * publié le 22/11/2020
  */
 function Proprietes_paralleles_perpendiculaires() {
   "use strict";
@@ -17204,8 +17568,9 @@ function Tests_du_Seb(){
 			switch (liste_type_de_questions[i]){
 				case 0 : 
 					texte = `${enonces[0].enonce}`;
-					if (this.beta) {
-						texte += `<br>`;
+					if (this.debug) {
+            texte += `<br>`;
+            texte += `<code class="b">score</code> pour ...`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
 						texte_corr = ``;	
@@ -17725,6 +18090,11 @@ jQuery(document).ready(function () {
   if (window.location.href.indexOf("beta") > 0) {
     liste_html_des_exercices += `<div class="ui accordion"><div class="active title"><i class="dropdown icon"></i>Beta (${nombre_d_exercices_disponibles_beta})</div><div class="active content">`;
     liste_html_des_exercices += liste_html_des_exercices_beta;
+    liste_html_des_exercices += `</div>`;
+    liste_html_des_exercices += `</div>`;
+  } else if (window.location.href.indexOf("outils") > 0) {
+    liste_html_des_exercices += `<div class="ui accordion"><div class="active title"><i class="dropdown icon"></i>Outils pour le professeur (${nombre_d_exercices_disponibles_prof})</div><div class="active content">`;
+    liste_html_des_exercices += liste_html_des_exercices_prof;
     liste_html_des_exercices += `</div>`;
     liste_html_des_exercices += `</div>`;
   } else if (window.location.href.indexOf("cm.html") > 0) {

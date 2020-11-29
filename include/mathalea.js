@@ -596,6 +596,13 @@ function mise_a_jour_du_code(){
 						style: "scratch3",
 						languages: ["fr"],
 						});
+
+						scratchblocks.renderMatching("code.b", {
+							inline: true,
+							style: "scratch3",
+							languages: ["fr"],
+							// Repeat `style` and `languages` options here.
+						  });
 					}
                     $(".katexPopup").popup({
                       popup: ".special.popup",
