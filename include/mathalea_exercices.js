@@ -2127,13 +2127,13 @@ function Calculs_de_durees_ou_d_horaires() {
           texte_corr += `La série a duré ${d}.`;
         }
         if (type_de_questions[i] == 2) {
-          texte = `${prenom()} allume son ordinateur à ${d1} pour regarder une série de ${d}. À quelle heure la série s'achèvera-t-elle ?`;
+          texte = `${prenom()} allume son ordinateur à ${d1} pour regarder une série de ${d}. À quelle heure la série se terminera-t-elle ?`;
           texte_corr = `${d1} + ${d} = ${d2}`;
           texte_corr += "<br>";
-          texte_corr += `La série s'achèvera à ${d2}.`;
+          texte_corr += `La série se terminera à ${d2}.`;
         }
         if (type_de_questions[i] == 3) {
-          texte = `${prenom()} termine de regarder une série de ${d} à ${d2}. À quelle la série a-t-elle commencé ?`;
+          texte = `${prenom()} termine de regarder une série de ${d} à ${d2}. À quelle heure la série a-t-elle commencé ?`;
           texte_corr = `${d2} - ${d} = ${d1}`;
           texte_corr += "<br>";
           texte_corr += `Elle a commencé à ${d1}.`;
@@ -2159,10 +2159,10 @@ function Calculs_de_durees_ou_d_horaires() {
           texte_corr += `L'émission dure ${d}.`;
         }
         if (type_de_questions[i] == 2) {
-          texte = `Une émission télévisée de ${d} commence à ${d1}. À quelle heure s'achèvera-t-elle ?`;
+          texte = `Une émission télévisée de ${d} commence à ${d1}. À quelle heure se terminera-t-elle ?`;
           texte_corr = `${d1} + ${d} = ${d2}`;
           texte_corr += "<br>";
-          texte_corr += `L'émission s'achèvera à ${d2}.`;
+          texte_corr += `L'émission se terminera à ${d2}.`;
         }
         if (type_de_questions[i] == 3) {
           texte = `À ${d2}, ${prenom()} termine de regarder une émission de ${d}. À quelle heure l'émission a-t-elle commencé ?`;
