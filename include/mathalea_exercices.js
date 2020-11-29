@@ -12630,6 +12630,7 @@ function Construire_symetrique_point_6e(){
     // On prépare la figure...
     let a=randint(-10,10),b=randint(-10,10,a)
     let d=droite(a,b,0,'(d)')
+    let marks=['/','//','///','x','o','S','V']
     let noms=choisit_lettres_differentes(this.nb_questions,'Q',majuscule=true)
     let cibles=[],M=[],N=[],objets_enonce=[],objets_correction=[]  //cibles, M point marqués, N symétrique de M
     let cellules=[]
@@ -12671,7 +12672,7 @@ function Construire_symetrique_point_6e(){
     for (let i=0;i<this.nb_questions;i++) {
       M.push(symetrieAxiale(N[i],d,noms[i]))
       objets_enonce.push(tracePoint(M[i]),labelPoint(M[i]),cibles[i])
-      objets_correction.push(tracePoint(M[i],N[i]),labelPoint(M[i],N[i]),cibles[i]) 
+      objets_correction.push(tracePoint(M[i],N[i]),labelPoint(M[i],N[i]),cibles[i],segment(M[i],N[i],arcenciel(i)),codageMediatrice(M[i],N[i],arcenciel(i+5),marks[i])) 
       texte_corr+=`Le symétrique du point ${noms[i]} est dans la case ${cellules[i]} de la grille ${i+1}.<br>`
     }
     fenetreMathalea2d=[-7,-7,7,7]
