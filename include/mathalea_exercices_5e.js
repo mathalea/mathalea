@@ -7387,7 +7387,10 @@ function Tableaux_et_pourcentages(){
 						sortie = `L'énoncé indique le montant pour une remise de $${remise_init.str}$ or $${tex_nombre(remise.nb/remise_init.nb)} \\times ${remise_init.str} = ${remise.str}$.<br>
 						Donc pour $${remise.str}$ le montant de la remise sera $${tex_nombre(remise.nb/remise_init.nb)}$ fois celui de la remise de $${remise_init.str}$,<br>
 						d'où le calul pour le montant de la remise : $${mise_en_evidence(`${tex_prix(prix*remise_init.nb/100)} \\times ${tex_nombre(remise.nb/remise_init.nb)} = ${tex_prix(prix*remise.nb/100)}`)}$.<br>
-						Et celui pour le nouveau prix : $${mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remise.nb/100)} = ${tex_prix(prix-prix*remise.nb/100)}`)}$.`;										
+						Et celui pour le nouveau prix : $${mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remise.nb/100)} = ${tex_prix(prix-prix*remise.nb/100)}`)}$.<br><br>
+						Mais on peut aussi calculer directement le prix réduit en faisant :<br>
+						$${mise_en_evidence(`${tex_prix(prix)} \\times (100\\% - ${remise.str}) = ${tex_prix(prix)} \\times ${100-remise.nb}\\% = ${tex_prix(prix)} \\times ${tex_nombre(calcul(1-remise.nb/100))} = ${tex_prix(prix*calcul(1-remise.nb/100))}`)}$
+						`;										
 						break;
 					case 'remise' :
 						sortie = `L'énoncé indique $${tex_prix(prix*remise.nb/100)}$ € de remise pour un montant de $${tex_prix(prix)}$ €<br>
@@ -7403,7 +7406,10 @@ function Tableaux_et_pourcentages(){
 					case 'pourcentage_constant' :
 						sortie = `L'énoncé indique un prix de $${tex_prix(prix)}$ € et un pourcentage de $${remise.str}$ €<br>
 						d'où le calul pour le montant de la remise : $${mise_en_evidence(`${tex_prix(prix)} \\times ${remise.str} = ${tex_prix(prix)} \\times ${tex_nombre(remise.nb/100)} = ${tex_prix(prix*remise.nb/100)}`)}$.<br>
-						Et celui pour le nouveau prix : $${mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remise.nb/100)} = ${tex_prix(prix-prix*remise.nb/100)}`)}$.`;										
+						Et celui pour le nouveau prix : $${mise_en_evidence(`${tex_prix(prix)}-${tex_prix(prix*remise.nb/100)} = ${tex_prix(prix-prix*remise.nb/100)}`)}$.<br><br>
+						Mais on peut aussi calculer directement le prix réduit en faisant :<br>
+						$${mise_en_evidence(`${tex_prix(prix)} \\times (100\\% - ${remise.str}) = ${tex_prix(prix)} \\times ${100-remise.nb}\\% = ${tex_prix(prix)} \\times ${tex_nombre(calcul(1-remise.nb/100))} = ${tex_prix(prix*calcul(1-remise.nb/100))}`)}$
+						`;										
 						break;
 				};
 				return sortie;
