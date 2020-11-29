@@ -12618,39 +12618,44 @@ function Construire_symetrique_point_6e(){
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Construire le symétrique d'un point par rapport à une droite";
   this.consigne = "Construire le symétrique des points par rapport à (d)";
-  this.nb_questions = 4;
+  this.nb_questions = 1;
+  this.nb_questions_modifiable=false
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
-  this.sup = 1;
+  this.sup = 3;
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let result=[0,0],texte_corr=""
+    let result=[0,0],texte_corr="",nbpoints=parseInt(this.sup)
 
     // On prépare la figure...
     let a=randint(-10,10),b=randint(-10,10,a)
     let d=droite(a,b,0,'(d)')
+    let A=pointSurDroite(d,-5)
+    let B=pointSurDroite(d,5)
     let marks=['/','//','///','x','o','S','V']
-    let noms=choisit_lettres_differentes(this.nb_questions,'Q',majuscule=true)
+    let noms=choisit_lettres_differentes(nbpoints,'Q',majuscule=true)
     let cibles=[],M=[],N=[],objets_enonce=[],objets_correction=[]  //cibles, M point marqués, N symétrique de M
     let cellules=[]
-    for (let i=0;i<this.nb_questions;i++) { //On place les cibles.
-        N.push(point(calcul(randint(-50,50,0)/10),calcul(randint(-50,50,0)/10),noms[i]+"\'"))
+    let xMin,yMin,xMax,yMax
+    [xMin,yMin,xMax,yMax]=[0,0,0,0]
+    for (let i=0;i<nbpoints;i++) { //On place les cibles.
+        N.push(point(calcul(randint(-80,80,0)/10),calcul(randint(-80,80,0)/10),noms[i]+"\'"))
         nontrouve=true
         while (distancePointDroite(N[i],d)<3||nontrouve) {
             nontrouve=true
             if (distancePointDroite(N[i],d)<3) {
-              N[i].x=calcul(randint(-50,50,0)/10)
-              N[i].y=calcul(randint(-50,50,0)/10)
+              N[i].x=calcul(randint(-80,80,0)/10)
+              N[i].y=calcul(randint(-80,80,0)/10)
             }
             else {
               assezloin=true
               for (let j=0;j<i;j++){
-                 if (longueur(N[i],N[j])<4) assezloin=false
+                 if (longueur(N[i],N[j])<4.5) assezloin=false
               }
               if (assezloin==false) {
-               N[i].x=calcul(randint(-50,50,0)/10)
-               N[i].y=calcul(randint(-50,50,0)/10)
+               N[i].x=calcul(randint(-80,80,0)/10)
+               N[i].y=calcul(randint(-80,80,0)/10)
               }
               else nontrouve=false
             }
@@ -12658,9 +12663,9 @@ function Construire_symetrique_point_6e(){
     }
 
     objets_enonce.push(d)
-    objets_correction.push(d)
+    objets_correction.push(d,tracePoint(A,B))
 
-    for (let i=0;i<this.nb_questions;i++){
+    for (let i=0;i<nbpoints;i++){
       cellules.push(choice(["A1","A2","A3","A4","B1","B2","B3","B4","C1","C2","C3","C4","D1","D2","D3","D4"]))
       result=dansLaCibleCarree(N[i].x,N[i].y,4,0.6,cellules[i])
       cible=cibleCarree({x:result[0],y:result[1],rang:4,num:i+1,taille:0.6})
@@ -12669,21 +12674,32 @@ function Construire_symetrique_point_6e(){
       cible.opacite=0.7
       cibles.push(cible)
     }
-    for (let i=0;i<this.nb_questions;i++) {
+    for (let i=0;i<nbpoints;i++) {
       M.push(symetrieAxiale(N[i],d,noms[i]))
       objets_enonce.push(tracePoint(M[i]),labelPoint(M[i]),cibles[i])
-      objets_correction.push(tracePoint(M[i],N[i]),labelPoint(M[i],N[i]),cibles[i],segment(M[i],N[i],arcenciel(i)),codageMediatrice(M[i],N[i],arcenciel(i+5),marks[i])) 
+      objets_correction.push(tracePoint(M[i],N[i]),labelPoint(M[i],N[i]),cibles[i])
+      objets_correction.push(segment(M[i],N[i],arcenciel(i)),codageMediatrice(M[i],N[i],arcenciel(i+5),marks[i])) 
+      objets_correction.push(traceCompas(A,N[i],20),traceCompas(B,N[i],20))
       texte_corr+=`Le symétrique du point ${noms[i]} est dans la case ${cellules[i]} de la grille ${i+1}.<br>`
     }
-    fenetreMathalea2d=[-7,-7,7,7]
-    this.liste_questions.push(mathalea2d({xmin:-7,ymin:-7,xmax:7,ymax:7,pixelsParCm:20,scale:1},objets_enonce))
-    this.liste_corrections.push(texte_corr+mathalea2d({xmin:-7,ymin:-7,xmax:7,ymax:7,pixelsParCm:20,scale:1},objets_correction))
+
+    for (let i=0;i<nbpoints;i++){
+      xMin=Math.min(xMin,N[i].x-3,M[i].x-3)
+      yMin=Math.min(yMin,N[i].y-3,M[i].y-3)
+      xMax=Math.max(xMax,N[i].x+3,M[i].x+3)
+      yMax=Math.max(yMax,N[i].y+3,M[i].y+3)
+    }
+    
+    fenetreMathalea2d=[xMin,yMin,xMax,yMax]
+
+    this.liste_questions.push(mathalea2d({xmin:xMin,ymin:yMin,xmax:xMax,ymax:yMax,pixelsParCm:20,scale:1},objets_enonce))
+    this.liste_corrections.push(texte_corr+mathalea2d({xmin:xMin,ymin:yMin,xmax:xMax,ymax:yMax,pixelsParCm:20,scale:1},objets_correction))
     liste_de_question_to_contenu(this)
 
   //  let nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
 
   }
- // this.besoin_formulaire_numerique = ['Type d\'axe',5,"1 : Axe vertical\n2 : Axe horizontal\n3 : Axe oblique 1\n4 : Axe oblique 2\n5 : Axe aléatoire"];
+ this.besoin_formulaire_numerique = ['Nombre de points (1 à 5)',5,"1\n2\n3\n4\n5"];
  // this.besoin_formulaire2_case_a_cocher = ["Avec des points de part et d'autre"];	
 }
 
