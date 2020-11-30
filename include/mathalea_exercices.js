@@ -12627,7 +12627,7 @@ function Transformations() {
 function Construire_symetrique_point_6e(){
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Construire le symétrique d'un point par rapport à une droite";
-  this.consigne = "Construire le symétrique des points par rapport à (d)";
+  this.consigne = "Construire le symétrique des points par rapport à $(d)$";
   this.nb_questions = 1;
   this.nb_questions_modifiable=false
   this.nb_cols = 1;

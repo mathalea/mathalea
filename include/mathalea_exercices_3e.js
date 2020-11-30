@@ -7655,7 +7655,7 @@ function Instruction_conditionelle(){
 function Construire_rotation_point_3e(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Construire l\'image d'un point par une rotation";
-	this.consigne = "Construire l\'image des points par la rotation de centre O";
+	this.consigne = "Construire l\'image des points par la rotation de centre $O$";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable=false
 	this.nb_cols = 1;
@@ -7663,8 +7663,8 @@ function Construire_rotation_point_3e(){
 	this.sup = 3;
 	this.nouvelle_version = function () {
 		let angle = randint (-8,8,0)*10
-		this.consigne = "Construire l\'image des points par la rotation de centre O";
-		this.consigne+=` et d\'angle ${Math.abs(angle)}`
+		this.consigne = "Construire l\'image des points par la rotation de centre $O$";
+		this.consigne+=` et d\'angle $${Math.abs(angle)}\\degree$`
 		if (angle<0) this.consigne+=` dans le sens des aiguilles d'une montre`
 		else this.consigne +=` dans le sens contraire des aiguilles d'une montre`
 	  this.liste_questions = []; // Liste de questions
@@ -7750,7 +7750,7 @@ function Construire_rotation_point_3e(){
 function Construire_homothetie_point_3e(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Construire l\'image d'un point par une homothetie";
-	this.consigne = "Construire l\'image des points par l\'homothétie de centre O";
+	this.consigne = "Construire l\'image des points par l\'homothétie de centre $O$";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable=false
 	this.nb_cols = 1;
@@ -7758,8 +7758,8 @@ function Construire_homothetie_point_3e(){
 	this.sup = 3;
 	this.nouvelle_version = function () {
 		let k = randint (-4,4,0)/2
-		this.consigne = "Construire l\'image des points par l\'homothétie de centre O";
-		this.consigne+=` et de rapport ${k}`
+		this.consigne = "Construire l\'image des points par l\'homothétie de centre $O$";
+		this.consigne+=` et de rapport $${k}$`
 	  this.liste_questions = []; // Liste de questions
 	  this.liste_corrections = []; // Liste de questions corrigées
 	  let result=[0,0],texte_corr="",nbpoints=parseInt(this.sup)
