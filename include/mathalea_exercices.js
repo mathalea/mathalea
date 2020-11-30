@@ -246,6 +246,7 @@ var liste_des_exercices_disponibles = {
   "4F12": Exploiter_representation_graphique,
   "4P10": Problemes_grandeurs_composees,
   "4P10-1" : Graphiques_et_proportionnalite,  
+  "beta4G10" :Construire_translate_point_4e,
   "4G11": Pavages_et_translation,
   "4G20" : Pythagore2D,
   "4G20-1": Egalite_Pythagore2D, // Anciennement Egalite_Pythagore,

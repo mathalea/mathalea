@@ -3274,6 +3274,98 @@ function Reciproque_Thales() {
     "1 : Réciproque \n 2 : Contraposée \n 3 : Aléatoire",
   ];
 }
+/**
+ * Construction de translaté avec dispositif d'auto-correction aléatoire
+ * Ref beta4G10 
+ * @Auteur Jean-Claude Lhote
+ * Publié le 30/11/2020
+ */
+function Construire_translate_point_4e(){
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Construire l'image d'un point par une translation";
+	this.consigne = "Construire les images des points par la translation qui transforme A en B";
+	this.nb_questions = 1;
+	this.nb_questions_modifiable=false
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.sup = 3;
+	this.nouvelle_version = function () {
+	  this.liste_questions = []; // Liste de questions
+	  this.liste_corrections = []; // Liste de questions corrigées
+	  let result=[0,0],texte_corr="",nbpoints=parseInt(this.sup)
+  
+    // On prépare la figure...
+    let A=point(0,0,'A')
+    let B=rotation(point(randint(4,6),0),A,randint(0,360),'B')
+    let v=vecteur(B,A)
+	  let marks=['/','//','///','x','o','S','V']
+	  let noms=choisit_lettres_differentes(nbpoints,'QAB',majuscule=true)
+	  let cibles=[],M=[],N=[],objets_enonce=[],objets_correction=[]  //cibles, M point marqués, N symétrique de M
+	  let cellules=[]
+	  let xMin,yMin,xMax,yMax
+	  [xMin,yMin,xMax,yMax]=[0,0,0,0]
+	  for (let i=0;i<nbpoints;i++) { //On place les cibles.
+		  N.push(point(calcul(randint(-80,80,0)/10),calcul(randint(-80,80,0)/10),noms[i]+"\'"))
+		  nontrouve=true
+		  while (longueur(N[i],A)<3||nontrouve) {
+			  nontrouve=true
+			  if (longueur(N[i],A)<3) {
+				N[i].x=calcul(randint(-80,80,0)/10)
+				N[i].y=calcul(randint(-80,80,0)/10)
+			  }
+			  else {
+				assezloin=true
+				for (let j=0;j<i;j++){
+				   if (longueur(N[i],N[j])<4.5) assezloin=false
+				}
+				if (assezloin==false) {
+				 N[i].x=calcul(randint(-80,80,0)/10)
+				 N[i].y=calcul(randint(-80,80,0)/10)
+				}
+				else nontrouve=false
+			  }
+		  }
+	  }
+  
+	  objets_enonce.push(tracePoint(A,B),labelPoint(A,B))
+	  objets_correction.push(tracePoint(A,B),labelPoint(A,B))
+  
+	  for (let i=0;i<nbpoints;i++){
+		cellules.push(choice(["A1","A2","A3","A4","B1","B2","B3","B4","C1","C2","C3","C4","D1","D2","D3","D4"]))
+		result=dansLaCibleCarree(N[i].x,N[i].y,4,0.6,cellules[i])
+		cible=cibleCarree({x:result[0],y:result[1],rang:4,num:i+1,taille:0.6})
+		cible.taille=0.6
+		cible.color='orange'
+		cible.opacite=0.7
+		cibles.push(cible)
+	  }
+	  for (let i=0;i<nbpoints;i++) {
+		M.push(translation(N[i],v,noms[i]))
+		objets_enonce.push(tracePoint(M[i]),labelPoint(M[i]),cibles[i])
+    objets_correction.push(tracePoint(M[i],N[i]),labelPoint(M[i],N[i]),cibles[i])
+		objets_correction.push(v.representant(N[i])) 
+		texte_corr+=`$${noms[i]}\'$, l\'image du point $${noms[i]}$ est dans la case ${cellules[i]} de la grille ${i+1}.<br>`
+	  }
+  
+	  for (let i=0;i<nbpoints;i++){
+		xMin=Math.min(xMin,N[i].x-3,M[i].x-3)
+		yMin=Math.min(yMin,N[i].y-3,M[i].y-3)
+		xMax=Math.max(xMax,N[i].x+3,M[i].x+3)
+		yMax=Math.max(yMax,N[i].y+3,M[i].y+3)
+	  }
+	  
+	  fenetreMathalea2d=[xMin,yMin,xMax,yMax]
+  
+	  this.liste_questions.push(mathalea2d({xmin:xMin,ymin:yMin,xmax:xMax,ymax:yMax,pixelsParCm:20,scale:0.7},objets_enonce))
+	  this.liste_corrections.push(texte_corr+mathalea2d({xmin:xMin,ymin:yMin,xmax:xMax,ymax:yMax,pixelsParCm:20,scale:0.7},objets_correction))
+	  liste_de_question_to_contenu(this)
+  
+	//  let nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
+  
+	}
+   this.besoin_formulaire_numerique = ['Nombre de points (1 à 5)',5,"1\n2\n3\n4\n5"];
+   // this.besoin_formulaire2_case_a_cocher = ["Avec des points de part et d'autre"];	
+  }
 
 /**
  * @auteur Jean-Claude Lhote
