@@ -149,6 +149,7 @@ var liste_des_exercices_disponibles = {
   "5G10-2" : Symetrie_axiale_figure_5e,
   "5G11-1" : Symetrie_centrale_point,
   "5G11-2" : Symetrie_centrale_figure,
+  "beta5G11-3" : Construire_symetrique_point_5e,
   "5G21-1": Constructibilite_des_triangles_longueurs,
   "5G20-1": Vocabulaire_des_triangles_5e,
   "5G22": DroiteRemarquableDuTriangle,
@@ -12614,7 +12615,12 @@ function Transformations() {
   };
   // this.besoin_formulaire_numerique = ['Transformations',5, '1 : Symétries axiales\n 2 : Symétries centrales\n 3 : Rotations\n 4 : Translations\n 5 : Homothéties\n'];
 }
-
+/**
+ * Construction de symétrique avec dispositif d'auto-correction aléatoire
+ * Ref 6G24-3 
+ * @Auteur Jean-Claude Lhote
+ * Publié le 30/11/2020
+ */
 function Construire_symetrique_point_6e(){
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Construire le symétrique d'un point par rapport à une droite";
@@ -12693,8 +12699,8 @@ function Construire_symetrique_point_6e(){
     
     fenetreMathalea2d=[xMin,yMin,xMax,yMax]
 
-    this.liste_questions.push(mathalea2d({xmin:xMin,ymin:yMin,xmax:xMax,ymax:yMax,pixelsParCm:20,scale:1},objets_enonce))
-    this.liste_corrections.push(texte_corr+mathalea2d({xmin:xMin,ymin:yMin,xmax:xMax,ymax:yMax,pixelsParCm:20,scale:1},objets_correction))
+    this.liste_questions.push(mathalea2d({xmin:xMin,ymin:yMin,xmax:xMax,ymax:yMax,pixelsParCm:20,scale:0.7},objets_enonce))
+    this.liste_corrections.push(texte_corr+mathalea2d({xmin:xMin,ymin:yMin,xmax:xMax,ymax:yMax,pixelsParCm:20,scale:0.7},objets_correction))
     liste_de_question_to_contenu(this)
 
   //  let nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
