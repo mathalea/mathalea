@@ -7663,6 +7663,7 @@ function Construire_rotation_point_3e(){
 	this.sup = 3;
 	this.nouvelle_version = function () {
 		let angle = randint (-8,8,0)*10
+		this.consigne = "Construire l\'image des points par la rotation de centre O";
 		this.consigne+=` et d\'angle ${Math.abs(angle)}`
 		if (angle<0) this.consigne+=` dans le sens des aiguilles d'une montre`
 		else this.consigne +=` dans le sens contraire des aiguilles d'une montre`
@@ -7717,7 +7718,7 @@ function Construire_rotation_point_3e(){
 		M.push(rotation(N[i],O,-angle,noms[i]))
 		objets_enonce.push(tracePoint(M[i]),labelPoint(M[i]),cibles[i])
 		objets_correction.push(tracePoint(M[i],N[i]),labelPoint(M[i],N[i]),cibles[i])
-		objets_correction.push(arcPointPointAngle(M[i],N[i],angle)) 
+		objets_correction.push(arcPointPointAngle(M[i],N[i],angle,true,arcenciel(i),'gray',0.2)) 
 		texte_corr+=`$${noms[i]}\'$, le symétrique du point $${noms[i]}$ est dans la case ${cellules[i]} de la grille ${i+1}.<br>`
 	  }
   
