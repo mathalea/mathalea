@@ -4268,7 +4268,7 @@ function Construire_symetrique_point_5e(){
 				for (let j=0;j<i;j++){
 				   if (longueur(N[i],N[j])<4.5) assezloin=false
 				}
-				if (assezloin==false) {
+				if (assezloin==false) {//éloigner les points donc les grilles
 				 N[i].x=calcul(randint(-80,80,0)/10)
 				 N[i].y=calcul(randint(-80,80,0)/10)
 				}

@@ -2931,23 +2931,26 @@ function dansLaCibleCarree(x,y,rang,taille,cellule) {
  * @Auteur Jean-Claude Lhote
  * @param {} param0 
  */
-function CibleCarree({x=0,y=0,rang=4,num=1,taille=0.6}){
+function CibleCarree({x=0,y=0,rang=4,num,taille=0.6}){
   ObjetMathalea2D.call(this);
   this.x=x;
   this.y=y;
   this.rang=rang;
-  this.num=num;
+  if (typeof(num)!='undefined') this.num=num;
   this.taille=taille;
   this.color='gray';
   this.opacite=0.5;
   let objets=[]
-  let numero=texteParPosition(nombre_avec_espace(num),x-rang*this.taille/4,y-rang*this.taille/4,'milieu',this.color)
-  let lettre,chiffre
-  numero.opacite=0.5
-  numero.taille=30*this.taille
-  numero.contour=true
+  let numero
+  if (typeof(num)!='undefined') {
+    numero=texteParPosition(nombre_avec_espace(num),x-rang*this.taille/4,y-rang*this.taille/4,'milieu',this.color)
+    numero.opacite=0.5
+    numero.taille=30*this.taille
+    numero.contour=true
+    objets.push(numero)
+  }
+    let lettre,chiffre
   objets.push(grille(calcul(x-rang*this.taille/2),calcul(y-rang*this.taille/2),calcul(x+rang*this.taille/2),calcul(y+rang*this.taille/2),this.color,this.opacite,step = this.taille,false))
-  objets.push(numero)
   for (let i=0;i<rang;i++) {
     lettre=texteParPosition(lettre_depuis_chiffre(1+i),x-rang*this.taille/2+(2*i+1)*this.taille/2,y-(rang+1)*this.taille/2,'milieu')
     chiffre=texteParPosition(nombre_avec_espace(i+1),x-(rang+1)*this.taille/2,y-rang*this.taille/2+(2*i+1)*this.taille/2,'milieu')
@@ -2972,7 +2975,7 @@ function CibleCarree({x=0,y=0,rang=4,num=1,taille=0.6}){
     return code;
   };
 }
-function cibleCarree({x=0,y=0,rang=4,num=1,taille=0.6}){
+function cibleCarree({x=0,y=0,rang=4,num,taille=0.6}){
   return new CibleCarree({x:x,y:y,rang:rang,num:num,taille:taille})
 }
 /**
@@ -2980,7 +2983,7 @@ function cibleCarree({x=0,y=0,rang=4,num=1,taille=0.6}){
  * @Auteur Jean-Claude Lhote
  * (x,y) sont les coordonnées du centre de la cible 
  */
-function CibleRonde({x=0,y=0,rang=3,num=1}) {
+function CibleRonde({x=0,y=0,rang=3,num}) {
   ObjetMathalea2D.call(this);
   this.x=x;
   this.y=y;

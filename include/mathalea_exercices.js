@@ -66,6 +66,7 @@ var liste_des_exercices_disponibles = {
   "6G24-1" : Symetrie_axiale_point_6e,
   "6G24-2" : Symetrie_axiale_figure_6e,
   "beta6G24-3" : Construire_symetrique_point_6e,
+  "beta6G25" :Construire_mediatrices_6e,
   "6G25-1": Pavages_et_reflexion,
   "6G25-2": Pavages_et_symetries,
   "6G33" : Symetrie_axiale_conservation1,
@@ -12663,7 +12664,7 @@ function Construire_symetrique_point_6e(){
               for (let j=0;j<i;j++){
                  if (longueur(N[i],N[j])<4.5) assezloin=false
               }
-              if (assezloin==false) {
+              if (assezloin==false) {//éloigner les points donc les grilles
                N[i].x=calcul(randint(-80,80,0)/10)
                N[i].y=calcul(randint(-80,80,0)/10)
               }
@@ -12699,6 +12700,88 @@ function Construire_symetrique_point_6e(){
       xMax=Math.max(xMax,N[i].x+3,M[i].x+3)
       yMax=Math.max(yMax,N[i].y+3,M[i].y+3)
     }
+    
+    fenetreMathalea2d=[xMin,yMin,xMax,yMax]
+
+    this.liste_questions.push(mathalea2d({xmin:xMin,ymin:yMin,xmax:xMax,ymax:yMax,pixelsParCm:20,scale:0.7},objets_enonce))
+    this.liste_corrections.push(texte_corr+mathalea2d({xmin:xMin,ymin:yMin,xmax:xMax,ymax:yMax,pixelsParCm:20,scale:0.7},objets_correction))
+    liste_de_question_to_contenu(this)
+
+  //  let nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
+
+  }
+ this.besoin_formulaire_numerique = ['Nombre de points (1 à 5)',5,"1\n2\n3\n4\n5"];
+ // this.besoin_formulaire2_case_a_cocher = ["Avec des points de part et d'autre"];	
+}
+/**
+ * Construction de médiatrices avec dispositif d'auto-correction aléatoire
+ * Ref 6G25
+ * @Auteur Jean-Claude Lhote
+ * Publié le 30/11/2020
+ */
+function Construire_mediatrices_6e(){
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.titre = "Construire des médiatrices";
+  this.consigne = "Construire les médiatrices des segments tracés";
+  this.nb_questions = 1;
+  this.nb_questions_modifiable=false
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  this.sup = 3;
+  this.nouvelle_version = function () {
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+    let result=[0,0],texte_corr="",nbpoints=parseInt(this.sup)
+
+    // On prépare la figure...
+    let noms=choisit_lettres_differentes(nbpoints,'QI',majuscule=true)
+    let marks=['/','//','///','x','o','S','V']
+    let I=point(0,0,'I')
+    let A=pointAdistance(I,randint(4,8))
+    let B=similitude(A,I,randint(50,150),randint(8,15)/10)
+    let medA=droite(I,A),medB=droite(I,B)
+    let dA=droiteParPointEtPerpendiculaire(A,medA)
+    let dB=droiteParPointEtPerpendiculaire(B,medB)
+    medA.color='blue'
+    medB.color='green'
+    let cA=cercle(A,calcul(randint(40,80)/20))
+    let cB=cercle(B,calcul(randint(40,80)/20))
+    let A1=pointIntersectionLC(dA,cA,noms[0],1)
+    let A2=pointIntersectionLC(dA,cA,noms[0],2)
+    let B1=pointIntersectionLC(dB,cB,noms[2],1)
+    let B2=pointIntersectionLC(dB,cB,noms[2],2)
+    let sA=segmentAvecExtremites(A1,A2)
+    let sB=segmentAvecExtremites(B1,B2)
+    sA.color='black'
+    sB.color='black'
+
+    
+    let cible,objets_enonce=[],objets_correction=[] ,cellule
+    let xMin,yMin,xMax,yMax
+
+
+   
+      cellule=choice(["A1","A2","A3","A4","A5","A6","B1","B2","B3","B4","B5","B6","C1","C2","C3","C4","C5","C6","D1","D2","D3","D4","D5","D6","E1","E2","E3","E4","E5","E6","F1","F2","F3","F4","F5","F6"])
+      result=dansLaCibleCarree(I.x,I.y,6,0.6,cellule)
+      cible=cibleCarree({x:result[0],y:result[1],rang:6,taille:0.6})
+      cible.taille=0.6
+      cible.color='orange'
+      cible.opacite=0.7
+
+      objets_enonce.push(cible,sA,sB)
+      objets_correction.push(cible,sA,sB,tracePoint(I,A1,A2,B1,B2))
+      objets_correction.push(medA,medB,codageMediatrice(A1,A2,'blue',marks[1]),codageMediatrice(B1,B2,'green',marks[2]))
+
+//      objets_correction.push(segment(M[i],N[i],arcenciel(i)),codageMediatrice(M[i],N[i],arcenciel(i+5),marks[i])) 
+//      objets_correction.push(traceCompas(A1,N[i],20),traceCompas(B,N[i],20))
+      texte_corr+=`Le point I d'intersection des deux médiatrices est dans la case ${cellule} de la grille ${1}.<br>`
+
+
+console.log(sA,sB)
+      xMin=Math.min(A1.x-1,A2.x-1,B1.x-1,B2.x-1,I.x-4)
+      yMin=Math.min(A1.y-1,A2.y-1,B1.y-1,B2.y-1,I.y-4)
+      xMax=Math.max(A1.x+1,A2.x+1,B1.x+1,B2.x+1,I.x+4)
+      yMax=Math.max(A1.y+1,A2.y+1,B1.y+1,B2.y+1,I.y+4)
     
     fenetreMathalea2d=[xMin,yMin,xMax,yMax]
 
