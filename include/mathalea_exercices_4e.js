@@ -3283,7 +3283,7 @@ function Reciproque_Thales() {
 function Construire_translate_point_4e(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Construire l'image d'un point par une translation";
-	this.consigne = "Construire les images des points par la translation qui transforme A en B";
+	this.consigne = "Construire les images des points par la translation qui transforme $A$ en $B$";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable=false
 	this.nb_cols = 1;
