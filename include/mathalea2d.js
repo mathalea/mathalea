@@ -747,7 +747,7 @@ function Droite(arg1, arg2, arg3, arg4, color) {
     let B = point(this.x2, this.y2);
     let A1 = pointSurSegment(A, B, -10);
     let B1 = pointSurSegment(B, A, -10);
-    return `\\draw${optionsDraw} (${A1.x},${A1.y})--(${B1.x},${B1.y});`+leNom.tikz();
+    return `\\draw${optionsDraw} (${A1.x},${A1.y})--(${B1.x},${B1.y});`//+leNom.tikz();
   };
   this.svgml = function(coeff,amp){
     let A = point(this.x1, this.y1);

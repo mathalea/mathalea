@@ -12731,25 +12731,25 @@ function Construire_mediatrices_6e(){
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let result=[0,0],texte_corr="",nbpoints=parseInt(this.sup)
+    let result=[0,0],texte_corr=""
 
     // On prépare la figure...
-    let noms=choisit_lettres_differentes(nbpoints,'QI',majuscule=true)
+    let noms=choisit_lettres_differentes(4,'QI',majuscule=true)
     let marks=['/','//','///','x','o','S','V']
     let I=point(0,0,'I')
     let A=pointAdistance(I,randint(4,8))
-    let B=similitude(A,I,randint(50,150),randint(8,15)/10)
+    let B=similitude(A,I,randint(65,150),randint(6,20)/10)
     let medA=droite(I,A),medB=droite(I,B)
     let dA=droiteParPointEtPerpendiculaire(A,medA)
     let dB=droiteParPointEtPerpendiculaire(B,medB)
     medA.color='blue'
     medB.color='green'
-    let cA=cercle(A,calcul(randint(40,80)/20))
-    let cB=cercle(B,calcul(randint(40,80)/20))
+    let cA=cercle(A,calcul(randint(30,50)/20))
+    let cB=cercle(B,calcul(randint(60,80)/20))
     let A1=pointIntersectionLC(dA,cA,noms[0],1)
-    let A2=pointIntersectionLC(dA,cA,noms[0],2)
+    let A2=pointIntersectionLC(dA,cA,noms[1],2)
     let B1=pointIntersectionLC(dB,cB,noms[2],1)
-    let B2=pointIntersectionLC(dB,cB,noms[2],2)
+    let B2=pointIntersectionLC(dB,cB,noms[3],2)
     let sA=segmentAvecExtremites(A1,A2)
     let sB=segmentAvecExtremites(B1,B2)
     sA.color='black'
@@ -12758,8 +12758,10 @@ function Construire_mediatrices_6e(){
     
     let cible,objets_enonce=[],objets_correction=[] ,cellule
     let xMin,yMin,xMax,yMax
-
-
+    let nomA1=texteParPoint(noms[0],homothetie(A1,A2,1.1),'milieu','black',1,'',true)
+    let nomA2=texteParPoint(noms[1],homothetie(A2,A1,1.1),'milieu','black',1,'',true)
+    let nomB1=texteParPoint(noms[2],homothetie(B1,B2,1.1),'milieu','black',1,'',true)
+    let nomB2=texteParPoint(noms[3],homothetie(B2,B1,1.1),'milieu','black',1,'',true)
    
       cellule=choice(["A1","A2","A3","A4","A5","A6","B1","B2","B3","B4","B5","B6","C1","C2","C3","C4","C5","C6","D1","D2","D3","D4","D5","D6","E1","E2","E3","E4","E5","E6","F1","F2","F3","F4","F5","F6"])
       result=dansLaCibleCarree(I.x,I.y,6,0.6,cellule)
@@ -12768,8 +12770,8 @@ function Construire_mediatrices_6e(){
       cible.color='orange'
       cible.opacite=0.7
 
-      objets_enonce.push(cible,sA,sB)
-      objets_correction.push(cible,sA,sB,tracePoint(I,A1,A2,B1,B2))
+      objets_enonce.push(cible,sA,sB,nomA1,nomA2,nomB1,nomB2)
+      objets_correction.push(cible,sA,sB,tracePoint(I),labelPoint(I),nomA1,nomA2,nomB1,nomB2)
       objets_correction.push(medA,medB,codageMediatrice(A1,A2,'blue',marks[1]),codageMediatrice(B1,B2,'green',marks[2]))
 
 //      objets_correction.push(segment(M[i],N[i],arcenciel(i)),codageMediatrice(M[i],N[i],arcenciel(i+5),marks[i])) 
@@ -12792,8 +12794,6 @@ console.log(sA,sB)
   //  let nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
 
   }
- this.besoin_formulaire_numerique = ['Nombre de points (1 à 5)',5,"1\n2\n3\n4\n5"];
- // this.besoin_formulaire2_case_a_cocher = ["Avec des points de part et d'autre"];	
 }
 
 /**
