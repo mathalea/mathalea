@@ -12776,7 +12776,7 @@ function Construire_mediatrices_6e(){
 
 //      objets_correction.push(segment(M[i],N[i],arcenciel(i)),codageMediatrice(M[i],N[i],arcenciel(i+5),marks[i])) 
 //      objets_correction.push(traceCompas(A1,N[i],20),traceCompas(B,N[i],20))
-      texte_corr+=`Le point I d'intersection des deux médiatrices est dans la case ${cellule} de la grille ${1}.<br>`
+      texte_corr+=`Le point I d'intersection des deux médiatrices est dans la case ${cellule} de la grille.<br>`
 
 
 console.log(sA,sB)
