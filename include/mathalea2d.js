@@ -1276,6 +1276,7 @@ function Vecteur(arg1, arg2, nom = "") {
     let B = point(A.x + this.x, A.y + this.y);
     let s = segment(A, B);
     s.styleExtremites = "|->";
+    return s
   };
 }
 function vecteur(...args) {

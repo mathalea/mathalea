@@ -3296,8 +3296,9 @@ function Construire_translate_point_4e(){
   
     // On prépare la figure...
     let A=point(0,0,'A')
-    let B=rotation(point(randint(4,6),0),A,randint(0,360),'B')
+    let B=rotation(point(randint(4,6),0),A,randint(-50,50)+180*choice([0,1]),'B')
     let v=vecteur(B,A)
+    let w=vecteur(A,B),w0
 	  let marks=['/','//','///','x','o','S','V']
 	  let noms=choisit_lettres_differentes(nbpoints,'QAB',majuscule=true)
 	  let cibles=[],M=[],N=[],objets_enonce=[],objets_correction=[]  //cibles, M point marqués, N symétrique de M
@@ -3327,8 +3328,8 @@ function Construire_translate_point_4e(){
 		  }
 	  }
   
-	  objets_enonce.push(tracePoint(A,B),labelPoint(A,B))
-	  objets_correction.push(tracePoint(A,B),labelPoint(A,B))
+	  objets_enonce.push(labelPoint(A,B),w.representant(A))
+	  objets_correction.push(labelPoint(A,B),w.representant(A))
   
 	  for (let i=0;i<nbpoints;i++){
 		cellules.push(choice(["A1","A2","A3","A4","B1","B2","B3","B4","C1","C2","C3","C4","D1","D2","D3","D4"]))
@@ -3343,15 +3344,17 @@ function Construire_translate_point_4e(){
 		M.push(translation(N[i],v,noms[i]))
 		objets_enonce.push(tracePoint(M[i]),labelPoint(M[i]),cibles[i])
     objets_correction.push(tracePoint(M[i],N[i]),labelPoint(M[i],N[i]),cibles[i])
-		objets_correction.push(v.representant(N[i])) 
+      w0=w.representant(M[i])
+      w0.color=arcenciel(i)
+  	objets_correction.push(w0) 
 		texte_corr+=`$${noms[i]}\'$, l\'image du point $${noms[i]}$ est dans la case ${cellules[i]} de la grille ${i+1}.<br>`
 	  }
   
 	  for (let i=0;i<nbpoints;i++){
-		xMin=Math.min(xMin,N[i].x-3,M[i].x-3)
-		yMin=Math.min(yMin,N[i].y-3,M[i].y-3)
-		xMax=Math.max(xMax,N[i].x+3,M[i].x+3)
-		yMax=Math.max(yMax,N[i].y+3,M[i].y+3)
+		xMin=Math.min(xMin,N[i].x-3,M[i].x-3,B.x-1,A.x-1)
+		yMin=Math.min(yMin,N[i].y-3,M[i].y-3,B.y-1,A.y-1)
+		xMax=Math.max(xMax,N[i].x+3,M[i].x+3,B.x+1,A.x+1)
+		yMax=Math.max(yMax,N[i].y+3,M[i].y+3,B.y+1,A.y+1)
 	  }
 	  
 	  fenetreMathalea2d=[xMin,yMin,xMax,yMax]
