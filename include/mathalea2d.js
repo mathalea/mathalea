@@ -2923,14 +2923,31 @@ function arcMainLevee(M,Omega,angle,amp,rayon=false,fill='none',color='black',fi
  */
 function dansLaCibleCarree(x,y,rang,taille,cellule) {
   let lettre=cellule[0],chiffrelettre=lettre.charCodeAt(0)-64
-  let Taille=Math.floor(50*taille)
-  let chiffre=parseInt(cellule[1]),dx=calcul(randint(-Taille,Taille)/100),dy=calcul(randint(-Taille,Taille)/100)
+  let Taille=Math.floor(4*taille)
+  let chiffre=parseInt(cellule[1]),dx=calcul(randint(-Taille,Taille)/10),dy=calcul(randint(-Taille,Taille)/10)
   let delta=taille/2
   if (chiffre>rang||chiffrelettre>rang) return 'Cette cellule n\'existe pas dans la cible'
   else {
     return [arrondi(x+dx-chiffrelettre*taille+delta+rang*delta,2),arrondi(y+dy-chiffre*2*delta+(rang+1)*delta,2)]
   }
 }
+function dansLaCibleRonde(x,y,rang,taille,cellule) {
+  let lettre=cellule[0],chiffrelettre=lettre.charCodeAt(0)-64
+  let Taille=Math.floor(4*taille)
+  let chiffre=parseInt(cellule[1])
+  let drayon=calcul(randint(-Taille,Taille)/10)
+  let dangle=randint(-22,22)
+  let angle=calcul((chiffrelettre-1)*45-157.5+dangle)
+  let rayon=calcul(taille/2+(chiffre-1)*taille+drayon)
+  let P=similitude(point(1,0),point(0,0),angle,rayon)
+  P.x+=x;
+  P.y+=y
+  if (chiffre>rang||chiffrelettre>8) return 'Cette cellule n\'existe pas dans la cible'
+  else {
+    return [arrondi(P.x,2),arrondi(P.y,2)]
+  }
+}
+
 /**
  * création d'une cible carrée pour l'auto-correction
  * @Auteur Jean-Claude Lhote
@@ -2988,19 +3005,20 @@ function cibleCarree({x=0,y=0,rang=4,num,taille=0.6}){
  * @Auteur Jean-Claude Lhote
  * (x,y) sont les coordonnées du centre de la cible 
  */
-function CibleRonde({x=0,y=0,rang=3,num}) {
+function CibleRonde({x=0,y=0,rang=3,num,taille=0.3}) {
   ObjetMathalea2D.call(this);
   this.x=x;
   this.y=y;
   this.num=num;
+  this.taille=taille;
   this.rang=rang
   this.opacite=0.5
   this.color='gray'
   let objets=[],numero,c,centre,azimut,rayon
 
   centre =point(this.x,this.y,this.y)
-  azimut=point(this.x+this.rang*0.3,this.y)
-  azimut2=homothetie(azimut,centre,1.2)
+  azimut=point(this.x+this.rang*this.taille,this.y)
+  azimut2=pointSurSegment(centre,azimut,longueur(centre,azimut)+0.3)
   for (let i=0;i<8;i++) {
     rayon=segment(centre,rotation(azimut,centre,45*i))
     rayon.color=this.color
@@ -3009,7 +3027,7 @@ function CibleRonde({x=0,y=0,rang=3,num}) {
     objets.push(texteParPoint(lettre_depuis_chiffre(1+i),rotation(azimut2,centre,45*i+22.5),'milieu','gray'))
   }
   for (let i=0;i<this.rang;i++){
-    c=cercle(point(this.x,this.y),0.3*(1+i))
+    c=cercle(point(this.x,this.y),this.taille*(1+i))
     c.opacite=this.opacite
     c.color=this.color
   objets.push(c);
@@ -3034,8 +3052,8 @@ function CibleRonde({x=0,y=0,rang=3,num}) {
     return code;
   };
 }
-function cibleRonde({x=0,y=0,rang=3,num=1}) {
-  return new CibleRonde({x:x,y:y,rang:rang,num:num})
+function cibleRonde({x=0,y=0,rang=3,num=1,taille=0.3}) {
+  return new CibleRonde({x:x,y:y,rang:rang,num:num,taille:taille})
 }
 /**
  * M = tion(O,v) //M est l'image de O dans la translation de vecteur v
