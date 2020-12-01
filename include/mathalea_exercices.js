@@ -12628,7 +12628,7 @@ function Transformations() {
 function Construire_symetrique_point_6e(){
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Construire le symétrique d'un point par rapport à une droite";
-  this.consigne = "Construire le symétrique des points par rapport à $(d)$";
+  this.consigne = "Construire le symétrique des points par rapport à $(d)$.";
   this.nb_questions = 1;
   this.nb_questions_modifiable=false
   this.nb_cols = 1;
@@ -12638,7 +12638,11 @@ function Construire_symetrique_point_6e(){
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let result=[0,0],texte_corr="",nbpoints=parseInt(this.sup)
-
+    let celluleAlea= function(rang){
+      let lettre=lettre_depuis_chiffre(randint(1,rang))
+      let chiffre=Number(randint(1,rang)).toString()
+      return lettre+chiffre
+    }
     // On prépare la figure...
     let a=randint(-10,10),b=randint(-10,10,a)
     let d=droite(a,b,0,'(d)')
@@ -12677,7 +12681,7 @@ function Construire_symetrique_point_6e(){
     objets_correction.push(d,tracePoint(A,B))
 
     for (let i=0;i<nbpoints;i++){
-      cellules.push(choice(["A1","A2","A3","A4","B1","B2","B3","B4","C1","C2","C3","C4","D1","D2","D3","D4"]))
+      cellules.push(celluleAlea(4))
       result=dansLaCibleCarree(N[i].x,N[i].y,4,0.6,cellules[i])
       cible=cibleCarree({x:result[0],y:result[1],rang:4,num:i+1,taille:0.6})
       cible.taille=0.6
@@ -12740,21 +12744,26 @@ function Construire_mediatrices_6e(){
        num1=`_`
        num2=`)`
      }
+     let celluleAlea= function(rang){
+      let lettre=lettre_depuis_chiffre(randint(1,rang))
+      let chiffre=Number(randint(1,rang)).toString()
+      return lettre+chiffre
+    }
     // On prépare la figure...
     let noms=choisit_lettres_differentes(4,'QI',majuscule=true)
     texte=`Construire la médiatrice $(d_1)$ du segment $[${noms[0]}${noms[1]}]$ et la médiatrice $(d_2)$ du segment $[${noms[2]}${noms[3]}]$.<br>`
     let marks=['/','//','///','x','o','S','V']
     let I=point(0,0,'I')
-    let A=pointAdistance(I,randint(4,8))
-    let B=similitude(A,I,randint(65,150),randint(6,20)/10)
+    let A=pointAdistance(I,randint(3,6))
+    let B=similitude(A,I,randint(65,150),randint(8,15)/10)
     let medA=droite(I,A,`(d${num1}1${num2}`),medB=droite(I,B,`(d${num1}2${num2}`)
 
     let dA=droiteParPointEtPerpendiculaire(A,medA)
     let dB=droiteParPointEtPerpendiculaire(B,medB)
     medA.color='blue'
     medB.color='green'
-    let cA=cercle(A,calcul(randint(30,50)/20))
-    let cB=cercle(B,calcul(randint(60,80)/20))
+    let cA=cercle(A,calcul(randint(25,40)/20))
+    let cB=cercle(B,calcul(randint(45,60)/20))
     let A1=pointIntersectionLC(dA,cA,noms[0],1)
     let A2=pointIntersectionLC(dA,cA,noms[1],2)
     let B1=pointIntersectionLC(dB,cB,noms[2],1)
@@ -12772,7 +12781,7 @@ function Construire_mediatrices_6e(){
     let nomB1=texteParPoint(noms[2],homothetie(B1,B2,1.1),'milieu','black',1,'',true)
     let nomB2=texteParPoint(noms[3],homothetie(B2,B1,1.1),'milieu','black',1,'',true)
    
-      cellule=choice(["A1","A2","A3","A4","A5","A6","B1","B2","B3","B4","B5","B6","C1","C2","C3","C4","C5","C6","D1","D2","D3","D4","D5","D6","E1","E2","E3","E4","E5","E6","F1","F2","F3","F4","F5","F6"])
+      cellule=celluleAlea(6)
       result=dansLaCibleCarree(I.x,I.y,6,0.6,cellule)
       cible=cibleCarree({x:result[0],y:result[1],rang:6,taille:0.6})
       cible.taille=0.6

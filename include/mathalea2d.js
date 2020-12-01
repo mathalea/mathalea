@@ -2996,7 +2996,18 @@ function CibleRonde({x=0,y=0,rang=3,num}) {
   this.rang=rang
   this.opacite=0.5
   this.color='gray'
-  let objets=[],numero,c;
+  let objets=[],numero,c,centre,azimut,rayon
+
+  centre =point(this.x,this.y,this.y)
+  azimut=point(this.x+this.rang*0.3,this.y)
+  azimut2=homothetie(azimut,centre,1.2)
+  for (let i=0;i<8;i++) {
+    rayon=segment(centre,rotation(azimut,centre,45*i))
+    rayon.color=this.color
+    rayon.opacite=this.opacite
+    objets.push(rayon)
+    objets.push(texteParPoint(lettre_depuis_chiffre(1+i),rotation(azimut2,centre,45*i+22.5),'milieu','gray'))
+  }
   for (let i=0;i<this.rang;i++){
     c=cercle(point(this.x,this.y),0.3*(1+i))
     c.opacite=this.opacite
@@ -4881,7 +4892,7 @@ function Grille(
   this.color = color;
   this.opacite = opacite;
   let objets = [];
-  for (let i = xmin; i <= xmax; i = calcul(i+step)) {
+  for (let i = arrondi(xmin,2); i <= arrondi(xmax,2); i = arrondi(calcul(i+step),2)) {
     let s = segment(i, ymin, i, ymax);
     s.color = this.color;
     s.opacite = this.opacite;
@@ -4890,7 +4901,7 @@ function Grille(
     }
     objets.push(s);
   }
-  for (let i = ymin; i <= ymax; i = calcul(i+step)) {
+  for (let i = arrondi(ymin,2); i <= arrondi(ymax+0.005,2); i = arrondi(calcul(i+step),2)) {
     let s = segment(xmin, i, xmax, i);
     s.color = this.color;
     s.opacite = this.opacite;
@@ -4945,7 +4956,7 @@ function GrilleHorizontale(
   this.color = color;
   this.opacite = opacite;
   let objets = [];
-  for (let i = ymin; i <= ymax; i = calcul(i+step)) {
+  for (let i = arrondi(ymin,2); i <= arrondi(ymax+0.005,2); i = arrondi(calcul(i+step),2)) {
     let s = segment(xmin, i, xmax, i);
     s.color = this.color;
     s.opacite = this.opacite;
@@ -4992,7 +5003,7 @@ function GrilleVerticale(
   this.color = color;
   this.opacite = opacite;
   let objets = [];
-  for (let i = xmin; i <= xmax; i = calcul(i+step)) {
+  for (let i = arrondi(xmin,2); i <= arrondi(xmax,2); i = arrondi(calcul(i+step),2)) {
     let s = segment(i,ymin,i,ymax);
     s.color = this.color;
     s.opacite = this.opacite;

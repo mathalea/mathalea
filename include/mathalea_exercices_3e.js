@@ -7655,7 +7655,7 @@ function Instruction_conditionelle(){
 function Construire_rotation_point_3e(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Construire l\'image d'un point par une rotation";
-	this.consigne = "Construire l\'image des points par la rotation de centre $O$";
+	this.consigne = "";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable=false
 	this.nb_cols = 1;
@@ -7665,12 +7665,16 @@ function Construire_rotation_point_3e(){
 		let angle = randint (-8,8,0)*10
 		this.consigne = "Construire l\'image des points par la rotation de centre $O$";
 		this.consigne+=` et d\'angle $${Math.abs(angle)}\\degree$`
-		if (angle<0) this.consigne+=` dans le sens des aiguilles d'une montre`
-		else this.consigne +=` dans le sens contraire des aiguilles d'une montre`
+		if (angle<0) this.consigne+=` dans le sens des aiguilles d'une montre.`
+		else this.consigne +=` dans le sens contraire des aiguilles d'une montre.`
 	  this.liste_questions = []; // Liste de questions
 	  this.liste_corrections = []; // Liste de questions corrigées
 	  let result=[0,0],texte_corr="",nbpoints=parseInt(this.sup)
-  
+      let celluleAlea= function(rang){
+		let lettre=lettre_depuis_chiffre(randint(1,rang))
+		let chiffre=Number(randint(1,rang)).toString()
+		return lettre+chiffre
+	  }
 	  // On prépare la figure...
 	  let O=point(0,0,'O')
 	  let marks=['/','//','///','x','o','S','V']
@@ -7706,7 +7710,7 @@ function Construire_rotation_point_3e(){
 	  objets_correction.push(tracePoint(O),labelPoint(O))
   
 	  for (let i=0;i<nbpoints;i++){
-		cellules.push(choice(["A1","A2","A3","A4","B1","B2","B3","B4","C1","C2","C3","C4","D1","D2","D3","D4"]))
+		cellules.push(celluleAlea(4))
 		result=dansLaCibleCarree(N[i].x,N[i].y,4,0.6,cellules[i])
 		cible=cibleCarree({x:result[0],y:result[1],rang:4,num:i+1,taille:0.6})
 		cible.taille=0.6
@@ -7731,7 +7735,7 @@ function Construire_rotation_point_3e(){
 	  
 	  fenetreMathalea2d=[xMin,yMin,xMax,yMax]
   
-	  this.liste_questions.push(mathalea2d({xmin:xMin,ymin:yMin,xmax:xMax,ymax:yMax,pixelsParCm:20,scale:0.7},objets_enonce))
+	  this.liste_questions.push(mathalea2d({xmin:xMin,ymin:yMin,xmax:xMax,ymax:yMax,pixelsParCm:20,scale:1},objets_enonce))
 	  this.liste_corrections.push(texte_corr+mathalea2d({xmin:xMin,ymin:yMin,xmax:xMax,ymax:yMax,pixelsParCm:20,scale:0.7},objets_correction))
 	  liste_de_question_to_contenu(this)
   
@@ -7750,7 +7754,7 @@ function Construire_rotation_point_3e(){
 function Construire_homothetie_point_3e(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Construire l\'image d'un point par une homothetie";
-	this.consigne = "Construire l\'image des points par l\'homothétie de centre $O$";
+	this.consigne = "Construire l\'image des points par l\'homothétie de centre $O$.";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable=false
 	this.nb_cols = 1;
@@ -7760,11 +7764,15 @@ function Construire_homothetie_point_3e(){
 		let k = randint (-4,4,[0,-1,1])/2
 		console.log(k)
 		this.consigne = "Construire l\'image des points par l\'homothétie de centre $O$";
-		this.consigne+=` et de rapport $${k}$`
+		this.consigne+=` et de rapport $${k}$.`
 	  this.liste_questions = []; // Liste de questions
 	  this.liste_corrections = []; // Liste de questions corrigées
 	  let result=[0,0],texte_corr="",nbpoints=parseInt(this.sup)
-  
+      let celluleAlea= function(rang){
+		let lettre=lettre_depuis_chiffre(randint(1,rang))
+		let chiffre=Number(randint(1,rang)).toString()
+		return lettre+chiffre
+	  }
 	  // On prépare la figure...
 	  let O=point(0,0,'O')
 	  let marks=['/','//','///','x','o','S','V']
@@ -7800,7 +7808,7 @@ function Construire_homothetie_point_3e(){
 	  objets_correction.push(tracePoint(O),labelPoint(O))
   
 	  for (let i=0;i<nbpoints;i++){
-		cellules.push(choice(["A1","A2","A3","A4","B1","B2","B3","B4","C1","C2","C3","C4","D1","D2","D3","D4"]))
+		cellules.push(celluleAlea(4))
 		result=dansLaCibleCarree(N[i].x,N[i].y,4,0.6,cellules[i])
 		cible=cibleCarree({x:result[0],y:result[1],rang:4,num:i+1,taille:0.6})
 		cible.taille=0.6

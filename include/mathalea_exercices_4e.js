@@ -3283,7 +3283,7 @@ function Reciproque_Thales() {
 function Construire_translate_point_4e(){
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Construire l'image d'un point par une translation";
-	this.consigne = "Construire les images des points par la translation qui transforme $A$ en $B$";
+	this.consigne = "Construire les images des points par la translation qui transforme $A$ en $B$.";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable=false
 	this.nb_cols = 1;
@@ -3293,7 +3293,11 @@ function Construire_translate_point_4e(){
 	  this.liste_questions = []; // Liste de questions
 	  this.liste_corrections = []; // Liste de questions corrigées
 	  let result=[0,0],texte_corr="",nbpoints=parseInt(this.sup)
-  
+    let celluleAlea= function(rang){
+      let lettre=lettre_depuis_chiffre(randint(1,rang))
+      let chiffre=Number(randint(1,rang)).toString()
+      return lettre+chiffre
+    }
     // On prépare la figure...
     let A=point(0,0,'A')
     let B=rotation(point(randint(4,6),0),A,randint(-50,50)+180*choice([0,1]),'B')
@@ -3332,7 +3336,7 @@ function Construire_translate_point_4e(){
 	  objets_correction.push(labelPoint(A,B),w.representant(A))
   
 	  for (let i=0;i<nbpoints;i++){
-		cellules.push(choice(["A1","A2","A3","A4","B1","B2","B3","B4","C1","C2","C3","C4","D1","D2","D3","D4"]))
+		cellules.push(celluleAlea(4))
 		result=dansLaCibleCarree(N[i].x,N[i].y,4,0.6,cellules[i])
 		cible=cibleCarree({x:result[0],y:result[1],rang:4,num:i+1,taille:0.6})
 		cible.taille=0.6
