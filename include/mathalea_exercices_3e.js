@@ -374,14 +374,14 @@ function Lecture_expression_fonctions_affines() {
 	sortie_html ? this.spacing = 2 : this.spacing = 1;
 	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
 	this.sup = 1;
-	this.sup2 =3
+	this.sup2 = 3
 	this.lineaire = false;
 	this.liste_packages = 'tkz-euclide';
 
 
 	this.nouvelle_version = function (numero_de_l_exercice) { // numero_de_l_exercice est 0 pour l'exercice 1
 		let k = Math.pow(2, parseInt(this.sup) - 1);
-		let nb_droites=parseInt(this.sup2)
+		let nb_droites = parseInt(this.sup2)
 		this.liste_questions = [];
 		this.liste_corrections = [];
 		this.contenu = ''; // Liste de questions
@@ -415,10 +415,10 @@ function Lecture_expression_fonctions_affines() {
 			const mon_svg = SVG().viewbox(0, 0, 500, 500).size('100%', '100%')
 			SVG_repere(mon_svg, -5, 5, -5, 5, k, k, 500, 500, true);
 			SVG_Tracer_droite(mon_svg, 500, 500, -5, 5, -5, 5, liste_droites[0][0], liste_droites[0][1], 'blue', 'd1');
-			if (nb_droites>1) SVG_Tracer_droite(mon_svg, 500, 500, -5, 5, -5, 5, liste_droites[1][0], liste_droites[1][1], 'red', 'd2');
-			if (nb_droites>2) SVG_Tracer_droite(mon_svg, 500, 500, -5, 5, -5, 5, liste_droites[2][0], liste_droites[2][1], 'green', 'd3');
-			if (nb_droites>3) SVG_Tracer_droite(mon_svg, 500, 500, -5, 5, -5, 5, liste_droites[3][0], liste_droites[3][1], 'brown', 'd4');
-			if (nb_droites>4) SVG_Tracer_droite(mon_svg, 500, 500, -5, 5, -5, 5, liste_droites[4][0], liste_droites[4][1], 'purple', 'd5');
+			if (nb_droites > 1) SVG_Tracer_droite(mon_svg, 500, 500, -5, 5, -5, 5, liste_droites[1][0], liste_droites[1][1], 'red', 'd2');
+			if (nb_droites > 2) SVG_Tracer_droite(mon_svg, 500, 500, -5, 5, -5, 5, liste_droites[2][0], liste_droites[2][1], 'green', 'd3');
+			if (nb_droites > 3) SVG_Tracer_droite(mon_svg, 500, 500, -5, 5, -5, 5, liste_droites[3][0], liste_droites[3][1], 'brown', 'd4');
+			if (nb_droites > 4) SVG_Tracer_droite(mon_svg, 500, 500, -5, 5, -5, 5, liste_droites[4][0], liste_droites[4][1], 'purple', 'd5');
 			this.consigne = `<div style="width: 50%; display : table ">${mon_svg.svg()}</div>`;
 
 
@@ -428,10 +428,10 @@ function Lecture_expression_fonctions_affines() {
 			let texte = `\\begin{tikzpicture}`;
 			texte += Latex_repere(-5, 5, -5, 5, k, k, true);
 			texte += Latex_Tracer_droite(-5, 5, -5, 5, liste_droites[0][0], liste_droites[0][1], 'blue', 'd_1');
-			if (nb_droites>1) texte += Latex_Tracer_droite(-5, 5, -5, 5, liste_droites[1][0], liste_droites[1][1], 'red', 'd_2');
-			if (nb_droites>2) texte += Latex_Tracer_droite(-5, 5, -5, 5, liste_droites[2][0], liste_droites[2][1], 'green', 'd_3');
-			if (nb_droites>3) texte += Latex_Tracer_droite(-5, 5, -5, 5, liste_droites[3][0], liste_droites[3][1], 'brown', 'd_4');
-			if (nb_droites>4) texte += Latex_Tracer_droite(-5, 5, -5, 5, liste_droites[4][0], liste_droites[4][1], 'purple', 'd_5');
+			if (nb_droites > 1) texte += Latex_Tracer_droite(-5, 5, -5, 5, liste_droites[1][0], liste_droites[1][1], 'red', 'd_2');
+			if (nb_droites > 2) texte += Latex_Tracer_droite(-5, 5, -5, 5, liste_droites[2][0], liste_droites[2][1], 'green', 'd_3');
+			if (nb_droites > 3) texte += Latex_Tracer_droite(-5, 5, -5, 5, liste_droites[3][0], liste_droites[3][1], 'brown', 'd_4');
+			if (nb_droites > 4) texte += Latex_Tracer_droite(-5, 5, -5, 5, liste_droites[4][0], liste_droites[4][1], 'purple', 'd_5');
 			texte += `\n\t \\end{tikzpicture}`;
 			this.liste_questions.push(texte);
 		}
@@ -444,10 +444,10 @@ function Lecture_expression_fonctions_affines() {
 
 		liste_de_question_to_contenu_sans_numero(this);
 		if (!this.lineaire) this.contenu_correction = `Il s’agit de fonctions affines, elles sont donc de la forme $f(x)=ax+b$, $b$ étant l’ordonnée à l’origine et $a$ la pente de la droite.\n` + this.contenu_correction;
-		else this.contenu_correction = `Il s’agit de fonctions linéaires, elles sont donc de la forme $f(x)=ax$, $a$ étant la `+katex_Popup2(numero_de_l_exercice,1,`pente`,`pente d'une droite`,`La pente (le a de y=ax ou y=ax+b) d'une droite donne le taux d'accroissement de y par rapport à x : lorsque x augmente de 1, alors y augmente de a.`)+` de la droite.\n` + this.contenu_correction ;
+		else this.contenu_correction = `Il s’agit de fonctions linéaires, elles sont donc de la forme $f(x)=ax$, $a$ étant la ` + katex_Popup2(numero_de_l_exercice, 1, `pente`, `pente d'une droite`, `La pente (le a de y=ax ou y=ax+b) d'une droite donne le taux d'accroissement de y par rapport à x : lorsque x augmente de 1, alors y augmente de a.`) + ` de la droite.\n` + this.contenu_correction;
 	}
 	this.besoin_formulaire_numerique = ['Niveau de difficulté', 3, "1 : Coefficient directeur entier\n2 : Coefficient directeur 'en demis'\n3 : Coefficient directeur 'en quarts'"];
-	this.besoin_formulaire2_numerique =['Nombre de droites (1 à 5)',5];
+	this.besoin_formulaire2_numerique = ['Nombre de droites (1 à 5)', 5];
 }
 
 
@@ -624,75 +624,75 @@ function Reduction_si_possible() {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = ['ax+b', 'ax+bx', 'ax+bx2', 'ax*b','b*ax','ax+b+cx+d','b+ax+d+cx','ax+b+x'];
+		let type_de_questions_disponibles = ['ax+b', 'ax+bx', 'ax+bx2', 'ax*b', 'b*ax', 'ax+b+cx+d', 'b+ax+d+cx', 'ax+b+x'];
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		for (let i = 0, texte, texte_corr, a, b, c, d, cpt = 0; i < this.nb_questions && cpt < 50;) {
-			a = randint(-11,11,0);
-			b = randint(-11,11,[0,a]);
-			c = randint(-11,11,[0]);
-			d = randint(-11,11,0)
+			a = randint(-11, 11, 0);
+			b = randint(-11, 11, [0, a]);
+			c = randint(-11, 11, [0]);
+			d = randint(-11, 11, 0)
 			switch (liste_type_de_questions[i]) {
 				case 'ax+b':
-					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x+(${b})`)}$`;
+					texte = `$${lettre_depuis_chiffre(i + 1)}=${printlatex(`${a}*x+(${b})`)}$`;
 					texte_corr = texte
 					break;
 				case 'ax+bx':
-					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x+(${b}*x)`)}$`;
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x+(${b}*x)`)}=${printlatex(`${a+b}x`)}$`;
+					texte = `$${lettre_depuis_chiffre(i + 1)}=${printlatex(`${a}*x+(${b}*x)`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${printlatex(`${a}*x+(${b}*x)`)}=${printlatex(`${a + b}x`)}$`;
 					break;
 				case 'ax+bx2':
-					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x+(${b}*x^2)`)}$`;
+					texte = `$${lettre_depuis_chiffre(i + 1)}=${printlatex(`${a}*x+(${b}*x^2)`)}$`;
 					texte_corr = texte
 					break;
 				case 'ax*b':
-					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x`)}\\times ${ecriture_parenthese_si_negatif(b)}$`;
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x`)}\\times ${ecriture_parenthese_si_negatif(b)}=${printlatex(`${a*b}*x`)}$`;
+					texte = `$${lettre_depuis_chiffre(i + 1)}=${printlatex(`${a}*x`)}\\times ${ecriture_parenthese_si_negatif(b)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${printlatex(`${a}*x`)}\\times ${ecriture_parenthese_si_negatif(b)}=${printlatex(`${a * b}*x`)}$`;
 					break;
 				case 'b*ax':
-					a = randint(1,11);
-					texte = `$${lettre_depuis_chiffre(i+1)}=${b}\\times ${printlatex(`${a}*x`)}$`;
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${b}\\times ${printlatex(`${a}*x`)}=${printlatex(`${b*a}*x`)}$`;
+					a = randint(1, 11);
+					texte = `$${lettre_depuis_chiffre(i + 1)}=${b}\\times ${printlatex(`${a}*x`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${b}\\times ${printlatex(`${a}*x`)}=${printlatex(`${b * a}*x`)}$`;
 					break;
 				case 'ax+b+cx+d':
-					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x+(${b})+(${c})*x+(${d})`)}$`;
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x+(${b})+(${c})*x+(${d})`)}`;
-					if (b+d==0) {
-						if (a+c==0) {
+					texte = `$${lettre_depuis_chiffre(i + 1)}=${printlatex(`${a}*x+(${b})+(${c})*x+(${d})`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${printlatex(`${a}*x+(${b})+(${c})*x+(${d})`)}`;
+					if (b + d == 0) {
+						if (a + c == 0) {
 							texte_corr += `=0$`
 						} else {
-							texte_corr += `=${printlatex(`${a+c}*x`)}$`
+							texte_corr += `=${printlatex(`${a + c}*x`)}$`
 						}
 					} else {
-						if (a+c==0) {
-							texte_corr += `=${b+d}$`	
+						if (a + c == 0) {
+							texte_corr += `=${b + d}$`
 						} else {
-							texte_corr += `=${printlatex(`${a+c}*x+(${b+d})`)}$`	
+							texte_corr += `=${printlatex(`${a + c}*x+(${b + d})`)}$`
 						}
 					}
 					break;
 				case 'b+ax+d+cx':
-					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${b}+(${a})*x+(${d})+(${c})*x`)}$`;
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${b}+(${a})*x+(${d})+(${c})*x`)}`;
-					if (b+d==0) {
-						if (a+c==0) {
+					texte = `$${lettre_depuis_chiffre(i + 1)}=${printlatex(`${b}+(${a})*x+(${d})+(${c})*x`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${printlatex(`${b}+(${a})*x+(${d})+(${c})*x`)}`;
+					if (b + d == 0) {
+						if (a + c == 0) {
 							texte_corr += `=0$`
 						} else {
-							texte_corr += `=${printlatex(`${a+c}*x`)}$`
+							texte_corr += `=${printlatex(`${a + c}*x`)}$`
 						}
 					} else {
-						if (a+c==0) {
-							texte_corr += `=${b+d}$`	
+						if (a + c == 0) {
+							texte_corr += `=${b + d}$`
 						} else {
-							texte_corr += `=${printlatex(`${a+c}*x+(${b+d})`)}$`	
+							texte_corr += `=${printlatex(`${a + c}*x+(${b + d})`)}$`
 						}
 					}
 					break;
-					case 'ax+b+x':
-					a = randint(-11,11,[0,-1])
-					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x+(${b})+x`)}$`;
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${a}*x+(${b})+x`)}=${printlatex(`${a+1}*x+(${b})`)}$`
+				case 'ax+b+x':
+					a = randint(-11, 11, [0, -1])
+					texte = `$${lettre_depuis_chiffre(i + 1)}=${printlatex(`${a}*x+(${b})+x`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${printlatex(`${a}*x+(${b})+x`)}=${printlatex(`${a + 1}*x+(${b})`)}$`
 					break;
-				
+
 			}
 
 			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
@@ -727,57 +727,57 @@ function Distributivite_simple_double_reduction() {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = ['cx+e(ax+b)','ex+(ax+b)(cx+d)','e+(ax+b)(cx+d)','e-(ax+b)(cx+d)','(ax*b)(cx+d)','e(ax+b)-(d+cx)'];
+		let type_de_questions_disponibles = ['cx+e(ax+b)', 'ex+(ax+b)(cx+d)', 'e+(ax+b)(cx+d)', 'e-(ax+b)(cx+d)', '(ax*b)(cx+d)', 'e(ax+b)-(d+cx)'];
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		for (let i = 0, texte, texte_corr, a, b, c, d, e, cpt = 0; i < this.nb_questions && cpt < 50;) {
-			a = randint(-11,11,0);
-			b = randint(-11,11,0);
-			c = randint(-11,11,0);
-			d = randint(-11,11,0);
-			e = randint(-11,11,0);
+			a = randint(-11, 11, 0);
+			b = randint(-11, 11, 0);
+			c = randint(-11, 11, 0);
+			d = randint(-11, 11, 0);
+			e = randint(-11, 11, 0);
 			switch (liste_type_de_questions[i]) {
 				case 'cx+e(ax+b)':
-					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${c}*x+(${e})*(${a}*x+(${b}))`)}$`;
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${c}*x+(${e})*(${a}*x+(${b}))`)}$`;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${c}*x+(${e*a})*x+(${e*b})`)}$`;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${c+e*a}*x+(${e*b})`)}$`;
+					texte = `$${lettre_depuis_chiffre(i + 1)}=${printlatex(`${c}*x+(${e})*(${a}*x+(${b}))`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${printlatex(`${c}*x+(${e})*(${a}*x+(${b}))`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${printlatex(`${c}*x+(${e * a})*x+(${e * b})`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${printlatex(`${c + e * a}*x+(${e * b})`)}$`;
 					break;
 				case 'ex+(ax+b)(cx+d)':
-					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${e}*x+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${e}*x+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${e}*x+(${a*c})*x^2+(${a*d})*x+(${b*c})*x+(${b*d})`)}$`;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${a*c}*x^2+(${e+b*c+a*d})*x+(${b*d})`)}$`;
+					texte = `$${lettre_depuis_chiffre(i + 1)}=${printlatex(`${e}*x+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${printlatex(`${e}*x+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${printlatex(`${e}*x+(${a * c})*x^2+(${a * d})*x+(${b * c})*x+(${b * d})`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${printlatex(`${a * c}*x^2+(${e + b * c + a * d})*x+(${b * d})`)}$`;
 					break;
 				case 'e+(ax+b)(cx+d)':
-					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${e}+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${e}+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${e}+(${a*c})*x^2+(${a*d})*x+(${b*c})*x+(${b*d})`)}$`;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${a*c}*x^2+(${b*c+a*d})*x+(${e+b*d})`)}$`;
+					texte = `$${lettre_depuis_chiffre(i + 1)}=${printlatex(`${e}+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${printlatex(`${e}+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${printlatex(`${e}+(${a * c})*x^2+(${a * d})*x+(${b * c})*x+(${b * d})`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${printlatex(`${a * c}*x^2+(${b * c + a * d})*x+(${e + b * d})`)}$`;
 					break;
 				case 'e-(ax+b)(cx+d)':
-					texte = `$${lettre_depuis_chiffre(i+1)}=${e}-${printlatex(`(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=${e}-${printlatex(`(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${e}-(${printlatex(`(${a*c})*x^2+(${a*d})*x+(${b*c})*x+(${b*d})`)})$`;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${e}+(${-1*a*c})*x^2+(${-1*a*d})*x+(${-1*b*c})*x+(${-1*b*d})`)}$`;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${-1*a*c}*x^2+(${-1*b*c-a*d})*x+(${e-b*d})`)}$`;
+					texte = `$${lettre_depuis_chiffre(i + 1)}=${e}-${printlatex(`(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
+					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=${e}-${printlatex(`(${a}*x+(${b}))*(${c}x+(${d}))`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${e}-(${printlatex(`(${a * c})*x^2+(${a * d})*x+(${b * c})*x+(${b * d})`)})$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${printlatex(`${e}+(${-1 * a * c})*x^2+(${-1 * a * d})*x+(${-1 * b * c})*x+(${-1 * b * d})`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${printlatex(`${-1 * a * c}*x^2+(${-1 * b * c - a * d})*x+(${e - b * d})`)}$`;
 					break;
 				case '(ax*b)(cx+d)':
-					a = randint (-3,3,[0]);
-					b = randint (2,3);
-					texte = `$${lettre_depuis_chiffre(i+1)}=(${printlatex(`${a}*x`)}\\times${b})(${printlatex(`${c}*x+(${d})`)})$`;
-					texte_corr = `$${lettre_depuis_chiffre(i+1)}=(${printlatex(`${a}*x`)}\\times${b})(${printlatex(`${c}*x+(${d})`)})$`;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${a*b}*x`)}\\times(${printlatex(`${c}*x+(${d})`)})$`;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`${a*b*c}*x^2+(${a*b*d})*x`)}$`;
+					a = randint(-3, 3, [0]);
+					b = randint(2, 3);
+					texte = `$${lettre_depuis_chiffre(i + 1)}=(${printlatex(`${a}*x`)}\\times${b})(${printlatex(`${c}*x+(${d})`)})$`;
+					texte_corr = `$${lettre_depuis_chiffre(i + 1)}=(${printlatex(`${a}*x`)}\\times${b})(${printlatex(`${c}*x+(${d})`)})$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${printlatex(`${a * b}*x`)}\\times(${printlatex(`${c}*x+(${d})`)})$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${printlatex(`${a * b * c}*x^2+(${a * b * d})*x`)}$`;
 					break;
 				case 'e(ax+b)-(d+cx)':
-					texte = `$${lettre_depuis_chiffre(i+1)}=${e}(${printlatex(`${a}*x+(${b})`)})-(${printlatex(`${d}+(${c})*x`)})$`;
+					texte = `$${lettre_depuis_chiffre(i + 1)}=${e}(${printlatex(`${a}*x+(${b})`)})-(${printlatex(`${d}+(${c})*x`)})$`;
 					texte_corr = texte;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`(${e*a})*x+(${e*b})`)}-(${printlatex(`${d}+(${c})*x`)})$`;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`(${e*a})*x+(${e*b})+(${-d})+(${-c})*x`)}$`;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${printlatex(`(${e*a-c})*x+(${e*b-d})`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${printlatex(`(${e * a})*x+(${e * b})`)}-(${printlatex(`${d}+(${c})*x`)})$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${printlatex(`(${e * a})*x+(${e * b})+(${-d})+(${-c})*x`)}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${printlatex(`(${e * a - c})*x+(${e * b - d})`)}$`;
 					break;
-				
-				
+
+
 			}
 			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
@@ -810,73 +810,73 @@ function Factoriser_par_nombre_ou_x() {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = ['ka+nkb','-ka+nkb','nka+mkb','nka-mkb','nkx+mkx2','nkx-mkx2','nx2+x','nx2+mx'];
+		let type_de_questions_disponibles = ['ka+nkb', '-ka+nkb', 'nka+mkb', 'nka-mkb', 'nkx+mkx2', 'nkx-mkx2', 'nx2+x', 'nx2+mx'];
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		for (let i = 0, texte, texte_corr, n, m, couplenm, k, cpt = 0; i < this.nb_questions && cpt < 50;) {
-			k = choice([2,3,5,7,11]);
-			couplenm=choice([[2,3],[3,4],[2,5],[3,5],[4,5],[5,6],[2,7],[3,7],[4,7],[5,7],[6,7],[3,8],[5,8],[7,8],[2,9],[4,9],[5,9],[7,9],[8,9],[3,10],[7,10],[9,10]]); // n et m sont premiers entre eux
+			k = choice([2, 3, 5, 7, 11]);
+			couplenm = choice([[2, 3], [3, 4], [2, 5], [3, 5], [4, 5], [5, 6], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [3, 8], [5, 8], [7, 8], [2, 9], [4, 9], [5, 9], [7, 9], [8, 9], [3, 10], [7, 10], [9, 10]]); // n et m sont premiers entre eux
 			n = couplenm[0];
 			m = couplenm[1];
 			switch (liste_type_de_questions[i]) {
 				case 'ka+nkb':
-					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${k}*a+(${n*k})*b`)}$`;
+					texte = `$${lettre_depuis_chiffre(i + 1)}=${printlatex(`${k}*a+(${n * k})*b`)}$`;
 					texte_corr = texte;
-					if (n>0) {
-						texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${k}a+${k}\\times${n}b$`;
+					if (n > 0) {
+						texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${k}a+${k}\\times${n}b$`;
 					} else {
-						texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${k}a-${k}\\times${abs(n)}b$`;
+						texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${k}a-${k}\\times${abs(n)}b$`;
 					}
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${k}(${printlatex(`a+(${n})*b`)})$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${k}(${printlatex(`a+(${n})*b`)})$`;
 					break;
 				case '-ka+nkb':
-					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${-k}*a+(${n*k})*b`)}$`;
+					texte = `$${lettre_depuis_chiffre(i + 1)}=${printlatex(`${-k}*a+(${n * k})*b`)}$`;
 					texte_corr = texte;
-					if (n>0) {
-						texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${-k}a+${k}\\times${n}b$`;
-						texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${k}(${printlatex(`-a+${n}*b`)})$`;
+					if (n > 0) {
+						texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${-k}a+${k}\\times${n}b$`;
+						texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${k}(${printlatex(`-a+${n}*b`)})$`;
 					} else {
-						texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${-k}a+(${-k})\\times${-n}b$`;
-						texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${-k}(${printlatex(`a+(${-n})*b`)})$`;
+						texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${-k}a+(${-k})\\times${-n}b$`;
+						texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${-k}(${printlatex(`a+(${-n})*b`)})$`;
 					}
 					break;
 				case 'nka+mkb':
-					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${n*k}*a+(${m*k})*b`)}$`;
+					texte = `$${lettre_depuis_chiffre(i + 1)}=${printlatex(`${n * k}*a+(${m * k})*b`)}$`;
 					texte_corr = texte;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${k}\\times${n}a+${k}\\times${m}b$`;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${k}(${n}a+${m}b)$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${k}\\times${n}a+${k}\\times${m}b$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${k}(${n}a+${m}b)$`;
 					break;
 				case 'nka-mkb':
-					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${n*k}*a-(${m*k})*b`)}$`;
+					texte = `$${lettre_depuis_chiffre(i + 1)}=${printlatex(`${n * k}*a-(${m * k})*b`)}$`;
 					texte_corr = texte;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${k}\\times${n}a-${k}\\times${m}b$`;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${k}(${n}a-${m}b)$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${k}\\times${n}a-${k}\\times${m}b$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${k}(${n}a-${m}b)$`;
 					break;
 				case 'nkx+mkx2':
-					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${n*k}*x+(${m*k})*x^2`)}$`;
+					texte = `$${lettre_depuis_chiffre(i + 1)}=${printlatex(`${n * k}*x+(${m * k})*x^2`)}$`;
 					texte_corr = texte;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${k}x\\times${n}+${k}x\\times${m}x$`;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${k}x(${n}+${m}x)$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${k}x\\times${n}+${k}x\\times${m}x$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${k}x(${n}+${m}x)$`;
 					break;
 				case 'nkx-mkx2':
-					texte = `$${lettre_depuis_chiffre(i+1)}=${printlatex(`${n*k}*x-(${m*k})*x^2`)}$`;
+					texte = `$${lettre_depuis_chiffre(i + 1)}=${printlatex(`${n * k}*x-(${m * k})*x^2`)}$`;
 					texte_corr = texte;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${k}x\\times${n}-${k}x\\times${m}x$`;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=${k}x(${n}-${m}x)$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${k}x\\times${n}-${k}x\\times${m}x$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=${k}x(${n}-${m}x)$`;
 					break;
 				case 'nx2+x':
-					texte = `$${lettre_depuis_chiffre(i+1)}=${n}x^2+x$`;
+					texte = `$${lettre_depuis_chiffre(i + 1)}=${n}x^2+x$`;
 					texte_corr = texte;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=x\\times ${n}x+x\\times 1$`;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=x(${n}x+1)$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=x\\times ${n}x+x\\times 1$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=x(${n}x+1)$`;
 					break;
 				case 'nx2+mx':
-					texte = `$${lettre_depuis_chiffre(i+1)}=${n}x^2+${m}x$`;
+					texte = `$${lettre_depuis_chiffre(i + 1)}=${n}x^2+${m}x$`;
 					texte_corr = texte;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=x\\times ${n}x+x\\times ${m}$`;
-					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i+1)}}=x(${n}x+${m})$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=x\\times ${n}x+x\\times ${m}$`;
+					texte_corr += `<br>$\\phantom{${lettre_depuis_chiffre(i + 1)}}=x(${n}x+${m})$`;
 					break;
-				
-				
+
+
 			}
 			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
@@ -1167,9 +1167,9 @@ function Double_distributivite() {
 					break;
 				case 3://(ax-b)(cx+d)
 					texte = `$(${a}x-${b})(${c}x+${d})$`
-					if (egal(a*d-b*c,0)) 
-					texte_corr = `$(${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2-${b * d}`)}$`;
-					else texte_corr = `$(${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2+(${d * a-b * c})*x-${b * d}`)}$`;
+					if (egal(a * d - b * c, 0))
+						texte_corr = `$(${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2-${b * d}`)}$`;
+					else texte_corr = `$(${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2+(${d * a - b * c})*x-${b * d}`)}$`;
 					break;
 				case 4://(ax-b)(cx-d)
 					texte = `$(${a}x-${b})(${c}x-${d})$`
@@ -1316,7 +1316,7 @@ function Factoriser_Identites_remarquables3() {
 * @Auteur Rémi Angot
 * 3L13-1
 */
-function Exercice_equation1_2(){
+function Exercice_equation1_2() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Équation du premier degré (utilisant la distributivité)"
 	this.consigne = 'Résoudre les équations suivantes'
@@ -1328,132 +1328,132 @@ function Exercice_equation1_2(){
 	}
 	this.nb_questions = 3;
 
-	this.nouvelle_version = function(numero_de_l_exercice){
+	this.nouvelle_version = function (numero_de_l_exercice) {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let liste_type_de_questions = ['ax+b=cx+d','k(ax+b)=cx+d','k-(ax+b)=cx+d'];
-		liste_type_de_questions = combinaison_listes(liste_type_de_questions,this.nb_questions)
-		for (let i = 0, a, b, c, d, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
-			a = randint(-9,9,0);
-			b = randint(-9,9,0);
-			c = randint(-9,9,0);
-			d = randint(-9,9,0);
-			k = randint(2,9)
-			if (liste_type_de_questions[i]=='ax+b=cx+d') {
-				if (c==a) {c = randint(1,9,[a])} // sinon on arrive à une division par 0
-				if (!this.sup && a<c) {
-					c = randint(1,9)
-					a = randint(c+1,15) // a sera plus grand que c pour que a-c>0
+		let liste_type_de_questions = ['ax+b=cx+d', 'k(ax+b)=cx+d', 'k-(ax+b)=cx+d'];
+		liste_type_de_questions = combinaison_listes(liste_type_de_questions, this.nb_questions)
+		for (let i = 0, a, b, c, d, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
+			a = randint(-9, 9, 0);
+			b = randint(-9, 9, 0);
+			c = randint(-9, 9, 0);
+			d = randint(-9, 9, 0);
+			k = randint(2, 9)
+			if (liste_type_de_questions[i] == 'ax+b=cx+d') {
+				if (c == a) { c = randint(1, 9, [a]) } // sinon on arrive à une division par 0
+				if (!this.sup && a < c) {
+					c = randint(1, 9)
+					a = randint(c + 1, 15) // a sera plus grand que c pour que a-c>0
 				}
 				texte = `$${rien_si_1(a)}x${ecriture_algebrique(b)}=${rien_si_1(c)}x${ecriture_algebrique(d)}$`;
-				texte_corr = texte+'<br>';
+				texte_corr = texte + '<br>';
 				if (this.correction_detaillee) {
-					if (c>0) {
-						texte_corr += `On soustrait $${rien_si_1(c)}x$ aux deux membres.<br>`	
+					if (c > 0) {
+						texte_corr += `On soustrait $${rien_si_1(c)}x$ aux deux membres.<br>`
 					} else {
-						texte_corr += `On ajoute $${rien_si_1(-1*c)}x$ aux deux membres.<br>`
+						texte_corr += `On ajoute $${rien_si_1(-1 * c)}x$ aux deux membres.<br>`
 					}
 				}
-				texte_corr += `$${rien_si_1(a)}x${ecriture_algebrique(b)}${mise_en_evidence(signe(-1*c)+rien_si_1(abs(c))+'x')}=${c}x+${d}${mise_en_evidence(signe(-1*c)+rien_si_1(abs(c))+'x')}$<br>`;
-				texte_corr += `$${rien_si_1(a-c)}x${ecriture_algebrique(b)}=${d}$<br>`
+				texte_corr += `$${rien_si_1(a)}x${ecriture_algebrique(b)}${mise_en_evidence(signe(-1 * c) + rien_si_1(abs(c)) + 'x')}=${c}x+${d}${mise_en_evidence(signe(-1 * c) + rien_si_1(abs(c)) + 'x')}$<br>`;
+				texte_corr += `$${rien_si_1(a - c)}x${ecriture_algebrique(b)}=${d}$<br>`
 				if (this.correction_detaillee) {
-					if (b>0) {
-						texte_corr += `On soustrait $${b}$ aux deux membres.<br>`	
+					if (b > 0) {
+						texte_corr += `On soustrait $${b}$ aux deux membres.<br>`
 					} else {
-						texte_corr += `On ajoute $${-1*b}$ aux deux membres.<br>`
+						texte_corr += `On ajoute $${-1 * b}$ aux deux membres.<br>`
 					}
 				}
-				texte_corr += `$${rien_si_1(a-c)}x${ecriture_algebrique(b)}${mise_en_evidence(ecriture_algebrique(-1*b))}=${d}${mise_en_evidence(ecriture_algebrique(-1*b))}$<br>`
-				texte_corr += `$${rien_si_1(a-c)}x=${d-b}$<br>`
+				texte_corr += `$${rien_si_1(a - c)}x${ecriture_algebrique(b)}${mise_en_evidence(ecriture_algebrique(-1 * b))}=${d}${mise_en_evidence(ecriture_algebrique(-1 * b))}$<br>`
+				texte_corr += `$${rien_si_1(a - c)}x=${d - b}$<br>`
 
-				if (this.correction_detaillee) {texte_corr += `On divise les deux membres par $${a-c}$.<br>`}
-				texte_corr += `$${rien_si_1(a-c)}x${mise_en_evidence('\\div'+ecriture_parenthese_si_negatif(a-c))}=${d-b+mise_en_evidence('\\div'+ecriture_parenthese_si_negatif(a-c))}$<br>`
-				texte_corr += `$x=${tex_fraction(d-b,a-c)}$`
-				if (pgcd(abs(d-b),abs(a-c))>1 || (a-c)<0){
-					texte_corr += `<br>$x=${tex_fraction_reduite(d-b,a-c)}$`
+				if (this.correction_detaillee) { texte_corr += `On divise les deux membres par $${a - c}$.<br>` }
+				texte_corr += `$${rien_si_1(a - c)}x${mise_en_evidence('\\div' + ecriture_parenthese_si_negatif(a - c))}=${d - b + mise_en_evidence('\\div' + ecriture_parenthese_si_negatif(a - c))}$<br>`
+				texte_corr += `$x=${tex_fraction(d - b, a - c)}$`
+				if (pgcd(abs(d - b), abs(a - c)) > 1 || (a - c) < 0) {
+					texte_corr += `<br>$x=${tex_fraction_reduite(d - b, a - c)}$`
 				}
-				texte_corr += `<br> La solution est $${tex_fraction_reduite(d-b,a-c)}$.`
+				texte_corr += `<br> La solution est $${tex_fraction_reduite(d - b, a - c)}$.`
 			}
 
-			if (liste_type_de_questions[i]=='k(ax+b)=cx+d') {
-				if (c==k*a) {c = randint(1,9,[a])} // sinon on arrive à une division par 0
+			if (liste_type_de_questions[i] == 'k(ax+b)=cx+d') {
+				if (c == k * a) { c = randint(1, 9, [a]) } // sinon on arrive à une division par 0
 				texte = `$${k}(${rien_si_1(a)}x${ecriture_algebrique(b)})=${rien_si_1(c)}x${ecriture_algebrique(d)}$`;
-				texte_corr = texte+'<br>';
+				texte_corr = texte + '<br>';
 				if (this.correction_detaillee) {
 					texte_corr += 'On développe le membre de gauche.<br>'
 				}
-				texte_corr += `$${k*a}x${ecriture_algebrique(k*b)}=${rien_si_1(c)}x${ecriture_algebrique(d)}$<br>`;
+				texte_corr += `$${k * a}x${ecriture_algebrique(k * b)}=${rien_si_1(c)}x${ecriture_algebrique(d)}$<br>`;
 				if (this.correction_detaillee) {
-					if (c>0) {
-						texte_corr += `On soustrait $${rien_si_1(c)}x$ aux deux membres.<br>`	
+					if (c > 0) {
+						texte_corr += `On soustrait $${rien_si_1(c)}x$ aux deux membres.<br>`
 					} else {
-						texte_corr += `On ajoute $${rien_si_1(-1*c)}x$ aux deux membres.<br>`
+						texte_corr += `On ajoute $${rien_si_1(-1 * c)}x$ aux deux membres.<br>`
 					}
 				}
-				texte_corr += `$${k*a}x${ecriture_algebrique(k*b)}${mise_en_evidence(signe(-1*c)+rien_si_1(abs(c))+'x')}=${c}x${ecriture_algebrique(d)}${mise_en_evidence(signe(-1*c)+rien_si_1(abs(c))+'x')}$<br>`;
-				texte_corr += `$${rien_si_1(k*a-c)}x${ecriture_algebrique(k*b)}=${d}$<br>`
+				texte_corr += `$${k * a}x${ecriture_algebrique(k * b)}${mise_en_evidence(signe(-1 * c) + rien_si_1(abs(c)) + 'x')}=${c}x${ecriture_algebrique(d)}${mise_en_evidence(signe(-1 * c) + rien_si_1(abs(c)) + 'x')}$<br>`;
+				texte_corr += `$${rien_si_1(k * a - c)}x${ecriture_algebrique(k * b)}=${d}$<br>`
 				if (this.correction_detaillee) {
-					if (k*b>0) {
-						texte_corr += `On soustrait $${k*b}$ aux deux membres.<br>`	
+					if (k * b > 0) {
+						texte_corr += `On soustrait $${k * b}$ aux deux membres.<br>`
 					} else {
-						texte_corr += `On ajoute $${-k*b}$ aux deux membres.<br>`
+						texte_corr += `On ajoute $${-k * b}$ aux deux membres.<br>`
 					}
 				}
-				texte_corr += `$${rien_si_1(k*a-c)}x${ecriture_algebrique(k*b)}${mise_en_evidence(ecriture_algebrique(-k*b))}=${d}${mise_en_evidence(ecriture_algebrique(-k*b))}$<br>`
-				texte_corr += `$${rien_si_1(k*a-c)}x=${d-k*b}$<br>`
+				texte_corr += `$${rien_si_1(k * a - c)}x${ecriture_algebrique(k * b)}${mise_en_evidence(ecriture_algebrique(-k * b))}=${d}${mise_en_evidence(ecriture_algebrique(-k * b))}$<br>`
+				texte_corr += `$${rien_si_1(k * a - c)}x=${d - k * b}$<br>`
 
-				if (this.correction_detaillee) {texte_corr += `On divise les deux membres par $${k*a-c}$.<br>`}
-				texte_corr += `$${rien_si_1(k*a-c)}x${mise_en_evidence('\\div'+ecriture_parenthese_si_negatif(k*a-c))}=${d-k*b+mise_en_evidence('\\div'+ecriture_parenthese_si_negatif(k*a-c))}$<br>`
-				texte_corr += `$x=${tex_fraction(d-k*b,k*a-c)}$`
-				if (pgcd(abs(d-k*b),abs(k*a-c))>1 || (k*a-c)<0){
-					texte_corr += `<br>$x=${tex_fraction_reduite(d-k*b,k*a-c)}$`
+				if (this.correction_detaillee) { texte_corr += `On divise les deux membres par $${k * a - c}$.<br>` }
+				texte_corr += `$${rien_si_1(k * a - c)}x${mise_en_evidence('\\div' + ecriture_parenthese_si_negatif(k * a - c))}=${d - k * b + mise_en_evidence('\\div' + ecriture_parenthese_si_negatif(k * a - c))}$<br>`
+				texte_corr += `$x=${tex_fraction(d - k * b, k * a - c)}$`
+				if (pgcd(abs(d - k * b), abs(k * a - c)) > 1 || (k * a - c) < 0) {
+					texte_corr += `<br>$x=${tex_fraction_reduite(d - k * b, k * a - c)}$`
 				}
-				texte_corr += `<br> La solution est $${tex_fraction_reduite(d-k*b,k*a-c)}$.`
+				texte_corr += `<br> La solution est $${tex_fraction_reduite(d - k * b, k * a - c)}$.`
 			}
 
-			if (liste_type_de_questions[i]=='k-(ax+b)=cx+d') {
-				if (c==-a) {c = randint(-9,9,[0,a])} // sinon on arrive à une division par 0
+			if (liste_type_de_questions[i] == 'k-(ax+b)=cx+d') {
+				if (c == -a) { c = randint(-9, 9, [0, a]) } // sinon on arrive à une division par 0
 				texte = `$${k}-(${rien_si_1(a)}x${ecriture_algebrique(b)})=${rien_si_1(c)}x${ecriture_algebrique(d)}$`;
-				texte_corr = texte+'<br>';
+				texte_corr = texte + '<br>';
 				if (this.correction_detaillee) {
 					texte_corr += 'On développe le membre de gauche.<br>'
 				}
 				texte_corr += `$${k}${ecriture_algebrique(-a)}x${ecriture_algebrique(-b)}=${rien_si_1(c)}x${ecriture_algebrique(d)}$<br>`;
-				texte_corr += `$${rien_si_1(-a)}x${ecriture_algebrique(k-b)}=${rien_si_1(c)}x${ecriture_algebrique(d)}$<br>`;
-				
+				texte_corr += `$${rien_si_1(-a)}x${ecriture_algebrique(k - b)}=${rien_si_1(c)}x${ecriture_algebrique(d)}$<br>`;
+
 				//On reprend le cas ax+b=cx+d en changeant les valeurs de a et b
 				a = -a;
-				b = k-b;
+				b = k - b;
 
 				if (this.correction_detaillee) {
-					if (c>0) {
-						texte_corr += `On soustrait $${rien_si_1(c)}x$ aux deux membres.<br>`	
+					if (c > 0) {
+						texte_corr += `On soustrait $${rien_si_1(c)}x$ aux deux membres.<br>`
 					} else {
-						texte_corr += `On ajoute $${rien_si_1(-1*c)}x$ aux deux membres.<br>`
+						texte_corr += `On ajoute $${rien_si_1(-1 * c)}x$ aux deux membres.<br>`
 					}
 				}
-				texte_corr += `$${rien_si_1(a)}x${ecriture_algebrique(b)}${mise_en_evidence(signe(-1*c)+rien_si_1(abs(c))+'x')}=${c}x+${d}${mise_en_evidence(signe(-1*c)+rien_si_1(abs(c))+'x')}$<br>`;
-				texte_corr += `$${rien_si_1(a-c)}x${ecriture_algebrique(b)}=${d}$<br>`
+				texte_corr += `$${rien_si_1(a)}x${ecriture_algebrique(b)}${mise_en_evidence(signe(-1 * c) + rien_si_1(abs(c)) + 'x')}=${c}x+${d}${mise_en_evidence(signe(-1 * c) + rien_si_1(abs(c)) + 'x')}$<br>`;
+				texte_corr += `$${rien_si_1(a - c)}x${ecriture_algebrique(b)}=${d}$<br>`
 				if (this.correction_detaillee) {
-					if (b>0) {
-						texte_corr += `On soustrait $${b}$ aux deux membres.<br>`	
+					if (b > 0) {
+						texte_corr += `On soustrait $${b}$ aux deux membres.<br>`
 					} else {
-						texte_corr += `On ajoute $${-1*b}$ aux deux membres.<br>`
+						texte_corr += `On ajoute $${-1 * b}$ aux deux membres.<br>`
 					}
 				}
-				texte_corr += `$${rien_si_1(a-c)}x${ecriture_algebrique(b)}${mise_en_evidence(ecriture_algebrique(-1*b))}=${d}${mise_en_evidence(ecriture_algebrique(-1*b))}$<br>`
-				texte_corr += `$${rien_si_1(a-c)}x=${d-b}$<br>`
+				texte_corr += `$${rien_si_1(a - c)}x${ecriture_algebrique(b)}${mise_en_evidence(ecriture_algebrique(-1 * b))}=${d}${mise_en_evidence(ecriture_algebrique(-1 * b))}$<br>`
+				texte_corr += `$${rien_si_1(a - c)}x=${d - b}$<br>`
 
-				if (this.correction_detaillee) {texte_corr += `On divise les deux membres par $${a-c}$.<br>`}
-				texte_corr += `$${rien_si_1(a-c)}x${mise_en_evidence('\\div'+ecriture_parenthese_si_negatif(a-c))}=${d-b+mise_en_evidence('\\div'+ecriture_parenthese_si_negatif(a-c))}$<br>`
-				texte_corr += `$x=${tex_fraction(d-b,a-c)}$`
-				if (pgcd(abs(d-b),abs(a-c))>1 || (a-c)<0){
-					texte_corr += `<br>$x=${tex_fraction_reduite(d-b,a-c)}$`
+				if (this.correction_detaillee) { texte_corr += `On divise les deux membres par $${a - c}$.<br>` }
+				texte_corr += `$${rien_si_1(a - c)}x${mise_en_evidence('\\div' + ecriture_parenthese_si_negatif(a - c))}=${d - b + mise_en_evidence('\\div' + ecriture_parenthese_si_negatif(a - c))}$<br>`
+				texte_corr += `$x=${tex_fraction(d - b, a - c)}$`
+				if (pgcd(abs(d - b), abs(a - c)) > 1 || (a - c) < 0) {
+					texte_corr += `<br>$x=${tex_fraction_reduite(d - b, a - c)}$`
 				}
-				texte_corr += `<br> La solution est $${tex_fraction_reduite(d-b,a-c)}$.`
+				texte_corr += `<br> La solution est $${tex_fraction_reduite(d - b, a - c)}$.`
 			}
-				
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+
+			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte)//replace(/1x/g,'x')); //remplace 1x par x
 				this.liste_corrections.push(texte_corr) //.replace(/1x/g,'x')); //remplace 1x par x
 				i++;
@@ -1721,12 +1721,12 @@ function fonction_notion_vocabulaire() {
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions);
 
 		this.introduction = lampe_message({
-			titre : `Introduction`,
-			texte : `Lorsqu'un nombre $\\textit{x}$ entre dans une machine mathématique , celle-ci renvoie à la sortie un nombre appelé $\\textit{image de x}$.<br>
+			titre: `Introduction`,
+			texte: `Lorsqu'un nombre $\\textit{x}$ entre dans une machine mathématique , celle-ci renvoie à la sortie un nombre appelé $\\textit{image de x}$.<br>
 				On dit que le nombre de départ est un $\\textit{antécédent}$ du nombre qu'on trouve à la sortie.<br>
 				Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donner des noms $\\textit{f}$ ou $\\textit{g}$ ou $\\textit{h} \\ldots$
 				<br>`,
-			couleur : `nombres`
+			couleur: `nombres`
 		});
 
 		if (sortie_html) { // les boutons d'aide uniquement pour la version html
@@ -1813,18 +1813,18 @@ function fonction_notion_vocabulaire() {
 						texte += num_alpha(j) + ` Que renvoie la machine si le côté vaut $x$ cm ?`;
 						texte += ` &Eacute;crire la réponse sous la forme `;
 						texte += katex_Popup('$\\mathbf{f(\\textbf{\\textit{x}})=\\ldots}$', 'Notation', '4 a pour image 16 par la fonction f peut s\'écrire <b>f(4)=16</b>') + `<br>`;
-						texte_corr += num_alpha(j) + ` Si le côté vaut $x$ la machine renvoie $x+x+x+x$ ce qui est équivalent à $4\\times x$ .<br>`;						
+						texte_corr += num_alpha(j) + ` Si le côté vaut $x$ la machine renvoie $x+x+x+x$ ce qui est équivalent à $4\\times x$ .<br>`;
 						texte_corr += ` L'image de $x$ par la fonction f vaut $4\\times x$ donc $f(x)=4\\times x$.<br>`;
 						j++;//incrémente la sous question	
 					} else { // sortie LaTeX
 						texte += `\\item   Que renvoie la machine si le côté vaut $x$ cm ?`;
 						texte_corr += `\\item  Si le côté vaut $x$ la machine renvoie $x+x+x+x$ ce qui est équivalent à $4\\times x$ .`;
 						texte += ` \\'{E}crire la réponse sous la forme $\\mathbf{f(\\textbf{\\textit{x}})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f(4)=16}$}`;
-					 	texte_corr += ` L'image de $x$ par la fonction f vaut $4\\times x$ donc $f(x)=4\\times x$.`;
+						texte_corr += ` L'image de $x$ par la fonction f vaut $4\\times x$ donc $f(x)=4\\times x$.`;
 					};
 
 					// sous question e/
-					txt_info =  `Voici le diagramme d'une machine qui triple `;
+					txt_info = `Voici le diagramme d'une machine qui triple `;
 					if (sortie_html) {
 						texte += num_alpha(j) + ` Comme dans l’exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{f}$.<br>`;
 						//texte += `Voici le diagramme d'une machine qui triple `;
@@ -1839,14 +1839,14 @@ function fonction_notion_vocabulaire() {
 						texte += `\\item   \\'{E}crire la réponse à la question d/ sous forme de diagramme, comme dans l’exemple ci-dessous.<br>`;
 						//texte += `Voici le diagramme d'une machine qui triple <br> `;
 						//texte += tikz_machine_diag(`f`, `x`, [[`\\times 3`, `3x`]]);
-						txt_info += '<br>'+tikz_machine_diag(`t`, `x`, [[`\\times 3`, `3x`]]);
+						txt_info += '<br>' + tikz_machine_diag(`t`, `x`, [[`\\times 3`, `3x`]]);
 						texte_corr += `\\item  C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
 						texte_corr += tikz_machine_diag(`f`, `x`, [[`\\times 4`, `4x`]]);
 					};
 					texte += info_message({
-						titre:'Exemple',
-						texte:txt_info,
-						couleur:'nombres'
+						titre: 'Exemple',
+						texte: txt_info,
+						couleur: 'nombres'
 					});
 
 					// // sous question f/
@@ -1949,7 +1949,7 @@ function fonction_notion_vocabulaire() {
 					};
 
 					// sous question e/
-					txt_info =  `Voici le diagramme d'une machine qui double `;
+					txt_info = `Voici le diagramme d'une machine qui double `;
 					if (sortie_html) {
 						texte += num_alpha(j) + ` &Eacute;crire la réponse à la question ` + num_alpha(j - 1) + ` sous forme de diagramme.<br>`;
 						// texte += `Voici le diagramme d'une machine qui double `;
@@ -1964,14 +1964,14 @@ function fonction_notion_vocabulaire() {
 						texte += `\\item  \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
 						// texte += `Voici le diagramme d'une machine qui double <br>`;
 						// texte += tikz_machine_diag(`g`, `x`, [[`\\times 2`, `2x`]]);
-						txt_info += '<br>'+tikz_machine_diag(`g`, `x`, [[`\\times 2`, `2x`]]);
+						txt_info += '<br>' + tikz_machine_diag(`g`, `x`, [[`\\times 2`, `2x`]]);
 						texte_corr += `\\item C'est une machine qui multiplie un nombre par lui-même, donc sous forme de diagramme.<br>`;
 						texte_corr += tikz_machine_diag(`g`, `x`, [[`\\times x`, `x^2`]]);
 					};
 					texte += info_message({
-						titre:'Exemple',
-						texte:txt_info,
-						couleur:'nombres'
+						titre: 'Exemple',
+						texte: txt_info,
+						couleur: 'nombres'
 					});
 
 					// sous question f/
@@ -2089,14 +2089,14 @@ function fonction_notion_vocabulaire() {
 						texte += `\\item  \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
 						// texte += `Voici le diagramme d'une machine qui double puis qui ajoute 5 <br>`;
 						// texte += tikz_machine_diag(`h`, `x`, [[`\\times 2`, `2x`], [`+5`, `2x+5`]]);
-						txt_info +='<br>'+tikz_machine_diag(`h`, `x`, [[`\\times 2`, `2x`], [`+5`, `2x+5`]]);
+						txt_info += '<br>' + tikz_machine_diag(`h`, `x`, [[`\\times 2`, `2x`], [`+5`, `2x+5`]]);
 						texte_corr += `\\item C'est une machine qui triple un nombre et ajoute 1, donc sous forme de diagramme.<br>`;
 						texte_corr += tikz_machine_diag(`h`, `x`, [[`\\times 3`, `3x`], [`+1`, `3x+1`]]);
 					};
 					texte += info_message({
-						titre:'Exemple',
-						texte:txt_info,
-						couleur:'nombres'
+						titre: 'Exemple',
+						texte: txt_info,
+						couleur: 'nombres'
 					});
 
 					// sous question f/
@@ -2577,19 +2577,19 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 					texte += `<br>`;
 					texte += `Sans calculer, dire si les nombres ${nombre_avec_espace(candidats_diviseurs[0])}; ${nombre_avec_espace(candidats_diviseurs[1])}; ${nombre_avec_espace(candidats_diviseurs[2])} sont des diviseurs de ${nombre_avec_espace(dividende)}. Justifier.`;
 					texte_corr = ``;
-					if (egal(dividende % candidats_diviseurs[0],0)) { //egal() est une fonction de JC pour éviter les problèmes de virgule flottante
+					if (egal(dividende % candidats_diviseurs[0], 0)) { //egal() est une fonction de JC pour éviter les problèmes de virgule flottante
 						texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[0])} vaut 0 donc ${nombre_avec_espace(candidats_diviseurs[0])} est un diviseur de ${nombre_avec_espace(dividende)}`;
 					} else {
 						texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[0])} ne vaut pas 0 donc ${nombre_avec_espace(candidats_diviseurs[0])} n'est pas un diviseur de ${nombre_avec_espace(dividende)}`;
 					}
 					texte_corr += `<br>`;
-					if (egal(dividende % candidats_diviseurs[1],0)) { //egal() est une fonction de JC pour éviter les problèmes de virgule flottante
+					if (egal(dividende % candidats_diviseurs[1], 0)) { //egal() est une fonction de JC pour éviter les problèmes de virgule flottante
 						texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[1])} vaut 0 donc ${nombre_avec_espace(candidats_diviseurs[1])} divise ${nombre_avec_espace(dividende)}`;
 					} else {
 						texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[1])} ne vaut pas 0 donc ${nombre_avec_espace(candidats_diviseurs[1])} ne divise pas ${nombre_avec_espace(dividende)}`;
 					}
 					texte_corr += `<br>`;
-					if (egal(dividende % candidats_diviseurs[2],0)) { //egal() est une fonction de JC pour éviter les problèmes de virgule flottante
+					if (egal(dividende % candidats_diviseurs[2], 0)) { //egal() est une fonction de JC pour éviter les problèmes de virgule flottante
 						texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[2])} vaut 0 donc ${nombre_avec_espace(dividende)} est divisible par ${nombre_avec_espace(candidats_diviseurs[2])}`;
 					} else {
 						texte_corr += `Le reste de la division euclienne de ${nombre_avec_espace(dividende)} par ${nombre_avec_espace(candidats_diviseurs[2])} ne vaut pas 0 donc ${nombre_avec_espace(dividende)} n'est pas divisible par ${nombre_avec_espace(candidats_diviseurs[2])}`;
@@ -2632,9 +2632,9 @@ function DivisionEuclidienne_multiplesDiviseurs_Criteres() {
 					let n2 = nombre_avec_espace(randint(2, 999, liste_diviseurs(n1)));
 					let p2 = nombre_avec_espace(randint(2, 999, liste_diviseurs(p1)));
 					textes[4] = `${n1} $\\ldots\\ldots\\ldots\\ldots$ ${n2}`;
-					textes_corr[4] = `${n1} n'est ni un multiple ni un diviseur de ${n2} car ${n1}=${n2}$\\times$${Math.trunc(n1/n2)}+${texte_en_couleur(n1%n2)} et ${n2}=${n1}$\\times$${Math.trunc(n2/n1)}+${texte_en_couleur(n2%n1)}`;
+					textes_corr[4] = `${n1} n'est ni un multiple ni un diviseur de ${n2} car ${n1}=${n2}$\\times$${Math.trunc(n1 / n2)}+${texte_en_couleur(n1 % n2)} et ${n2}=${n1}$\\times$${Math.trunc(n2 / n1)}+${texte_en_couleur(n2 % n1)}`;
 					textes[5] = `${p2} $\\ldots\\ldots\\ldots\\ldots$ ${p1}`;
-					textes_corr[5] = `${p2} n'est ni un multiple ni un diviseur de ${p1} car ${p1}=${p2}$\\times$${Math.trunc(p1/p2)}+${texte_en_couleur(p1%p2)} et ${p2}=${p1}$\\times$${Math.trunc(p2/p1)}+${texte_en_couleur(p2%p1)}`;
+					textes_corr[5] = `${p2} n'est ni un multiple ni un diviseur de ${p1} car ${p1}=${p2}$\\times$${Math.trunc(p1 / p2)}+${texte_en_couleur(p1 % p2)} et ${p2}=${p1}$\\times$${Math.trunc(p2 / p1)}+${texte_en_couleur(p2 % p1)}`;
 					// on mélange pour que l'ordre change!
 					shuffle2tableaux(textes, textes_corr);
 					texte = `Avec la calculatrice, compléter chaque phrase avec "est un diviseur de" ou "est un multiple de" ou "n'est ni un diviseur ni un multiple de".`;
@@ -2724,7 +2724,7 @@ function Premier_ou_pas() {
 	sortie_html ? this.spacing = 1 : this.spacing = 2;
 	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
 
-	
+
 	//this.correction_detaillee_disponible = true;
 	this.nb_cols = 2;
 	this.nb_cols_corr = 1;
@@ -2753,12 +2753,12 @@ function Premier_ou_pas() {
 		this.contenu_correction = ''; // Liste de questions corrigées
 
 		let type_de_questions_disponibles;// = [1, 2, 3, 6, 7];
-		if (Number(this.sup)==1) {
+		if (Number(this.sup) == 1) {
 			this.nb_questions = 4;
-			type_de_questions_disponibles = [1, 2, 3, 8];			
+			type_de_questions_disponibles = [1, 2, 3, 8];
 		} else {
 			this.nb_questions = 5;
-			type_de_questions_disponibles = [1, 2, 3, 6, 7];			
+			type_de_questions_disponibles = [1, 2, 3, 6, 7];
 		}
 		type_de_questions_disponibles = shuffle(type_de_questions_disponibles); // on mélange l'ordre des questions
 		//let type_de_questions_disponibles = [1];
@@ -2790,7 +2790,7 @@ function Premier_ou_pas() {
 				case 2: // Multiple de 3
 					let sum = 0; // pour la valeur de la somme;
 					N = 3 * randint(34, 3333); // on initialise avant la boucle car on a peut être de la chance
-					while ( (N % 2 == 0) || (N % 5 == 0)) {
+					while ((N % 2 == 0) || (N % 5 == 0)) {
 						N = 3 * randint(34, 3333);
 					};
 					texte = nombre_avec_espace(N);
@@ -2930,7 +2930,7 @@ function Premier_ou_pas() {
 					// texte_corr += `<br> Aucun de ces nombres premiers ne divise ${N}, `;
 					texte_corr += `, le reste n'est jamais nul.`;
 					// texte_corr += texte_en_couleur_et_gras(nombre_avec_espace(N) + ` est donc un nombre premier.`);
-					texte_corr += `<br>`+texte_en_couleur_et_gras(nombre_avec_espace(N) + ` est donc un nombre premier.`);
+					texte_corr += `<br>` + texte_en_couleur_et_gras(nombre_avec_espace(N) + ` est donc un nombre premier.`);
 					break;
 				case 8: // nombre premier inférieur à 100 pour permettre les tests de divisibilité sans calculatrice
 					// rang du nombre premier choisi
@@ -2948,7 +2948,7 @@ function Premier_ou_pas() {
 					// texte_corr += `<br> Aucun de ces nombres premiers ne divise ${N}, `;
 					texte_corr += `, le reste n'est jamais nul.`;
 					// texte_corr += texte_en_couleur_et_gras(nombre_avec_espace(N) + ` est donc un nombre premier.`);
-					texte_corr += `<br>`+texte_en_couleur_et_gras(nombre_avec_espace(N) + ` est donc un nombre premier.`);
+					texte_corr += `<br>` + texte_en_couleur_et_gras(nombre_avec_espace(N) + ` est donc un nombre premier.`);
 					break;
 			};
 
@@ -2962,7 +2962,7 @@ function Premier_ou_pas() {
 
 		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_numerique = ['Difficulté',2,"1 : Sans Calculatrice\n2 : Avec calculatrice"]; 
+	this.besoin_formulaire_numerique = ['Difficulté', 2, "1 : Sans Calculatrice\n2 : Avec calculatrice"];
 };
 
 /**
@@ -3048,8 +3048,8 @@ function Premier_ou_pas_critere_par7_par11() {
 					break;
 				case 2: // Multiple de 3
 					let sum = 0; // pour la valeur de la somme;
-					N=3*randint(34,3333);// on initialise avant la boucle car on a peut être de la chance
-					while ( (N % 2 == 0) || (N % 5 == 0)) {
+					N = 3 * randint(34, 3333);// on initialise avant la boucle car on a peut être de la chance
+					while ((N % 2 == 0) || (N % 5 == 0)) {
 						N = 3 * randint(34, 3333);
 					};
 					texte = nombre_avec_espace(N);
@@ -3985,11 +3985,11 @@ function PPCM_Engrenages() {
 			//this.introduction += `<div id="${num_ex}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 			SVG_engrenages(num_ex, 200, 200);
 		};
-		
+
 		this.introduction = lampe_message({
-			titre : `Arithmétique des engrenages`,
-			texte : txt_intro,
-			couleur : `nombres`
+			titre: `Arithmétique des engrenages`,
+			texte: txt_intro,
+			couleur: `nombres`
 		});
 
 		for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
@@ -4004,12 +4004,12 @@ function PPCM_Engrenages() {
 			var nb_dents_r1;
 			var nb_dents_r2;
 			let txt_popup = `Étant donnés deux nombres entiers a et b, lorsque le plus petit multiple commun à $a$ et $b$ vaut $a \\times b$ ( $ppcm(a,b)=a\\times b$ ), on dit que `;
-						//txt_popup += texte_gras('les nombres a et b sont premiers entre eux');
-						if (sortie_html) {
-							txt_popup += '<b>les nombres a et b sont premiers entre eux</b>';
-						} else {
-							txt_popup += '$\\textbf{les nombres a et b sont premiers entre eux}$';
-						};
+			//txt_popup += texte_gras('les nombres a et b sont premiers entre eux');
+			if (sortie_html) {
+				txt_popup += '<b>les nombres a et b sont premiers entre eux</b>';
+			} else {
+				txt_popup += '$\\textbf{les nombres a et b sont premiers entre eux}$';
+			};
 
 			switch (type_de_questions) {
 				case 1: // avec de petits nombres on calcule les mutliples
@@ -4471,69 +4471,69 @@ function Antecedent_graphique() {
  * Référence 3F13-1
 */
 function Antecedent_et_image_graphique() {
-	Exercice.call(this); 
+	Exercice.call(this);
 	this.titre = "Lecture graphique d'images et d'antécédents.";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	if (sortie_html) this.spacing_corr = 2;
-  
+
 	this.nouvelle_version = function (numero_de_l_exercice) {
 		let r = repere2({
-			xMin : -5, 
-			xMax : 5,
-			yMin : -4,
-			yMax : 4
-		  })
-		let a = randint(1,3)
-		let b = a-4
-		let c = a-2
-		let x0 = randint(-4,-2)
-		let gr = graphiqueInterpole([[randint(-8,-5),a-1],[x0,a],[x0+4,b],[x0+6,c], [randint(6,10),c-1]] // Coordonnées des "sommets"
-							 ,{repere:r, color : 'blue', step:.15, epaisseur:2})
-		
-		if (randint(1,2)==1){
-			a*=-1;
-			b*=-1;
-			c*=-1;
-			gr = graphiqueInterpole([[randint(-8,-5),a+1],[x0,a],[x0+4,b],[x0+6,c], [randint(6,10),c+1]] // Coordonnées des "sommets"
-							 ,{repere:r, color : 'blue', step:.15, epaisseur:2})
+			xMin: -5,
+			xMax: 5,
+			yMin: -4,
+			yMax: 4
+		})
+		let a = randint(1, 3)
+		let b = a - 4
+		let c = a - 2
+		let x0 = randint(-4, -2)
+		let gr = graphiqueInterpole([[randint(-8, -5), a - 1], [x0, a], [x0 + 4, b], [x0 + 6, c], [randint(6, 10), c - 1]] // Coordonnées des "sommets"
+			, { repere: r, color: 'blue', step: .15, epaisseur: 2 })
+
+		if (randint(1, 2) == 1) {
+			a *= -1;
+			b *= -1;
+			c *= -1;
+			gr = graphiqueInterpole([[randint(-8, -5), a + 1], [x0, a], [x0 + 4, b], [x0 + 6, c], [randint(6, 10), c + 1]] // Coordonnées des "sommets"
+				, { repere: r, color: 'blue', step: .15, epaisseur: 2 })
 		}
 		this.contenu = `Ci-dessous, on a tracé la courbe représentative de la fonction $f$.`
 		this.contenu += `<br><br>`
 		let cont1 = `${num_alpha(0)} Quelle est l'image de $${x0}$ ?`
-		cont1 += `<br>${num_alpha(1)} Quelle est l'image de $${x0+5}$ ?`
-		let ordre = randint(1,2);
+		cont1 += `<br>${num_alpha(1)} Quelle est l'image de $${x0 + 5}$ ?`
+		let ordre = randint(1, 2);
 		let cont2;
-		if (ordre == 1){
+		if (ordre == 1) {
 			cont2 = `${num_alpha(2)} Déterminer le (ou les) antécédent(s) de $${b}$.`
 			cont2 += `<br>${num_alpha(3)} Déterminer le (ou les) antécédent(s) de $${c}$.`
 		} else {
 			cont2 = `${num_alpha(2)} Déterminer le (ou les) antécédent(s) de $${c}$.`
 			cont2 += `<br>${num_alpha(3)} Déterminer le (ou les) antécédent(s) de $${b}$.`
 		}
-		this.contenu += deuxColonnes(cont1,cont2)
-		this.contenu += mathalea2d({xmin:-7,ymin:-4.5,xmax:7,ymax:4.5,pixelsParCm:30},r,gr) 
+		this.contenu += deuxColonnes(cont1, cont2)
+		this.contenu += mathalea2d({ xmin: -7, ymin: -4.5, xmax: 7, ymax: 4.5, pixelsParCm: 30 }, r, gr)
 		this.contenu_correction = `${num_alpha(0)} L'image de $${x0}$ est $${a}$, on note $f(${x0})=${a}$.`
-		this.contenu_correction += `<br>${num_alpha(1)} L'image de $${x0+5}$ est $${(b+c)/2}$, on note $f(${x0+5})=${(b+c)/2}$.`
-		if (ordre == 1){
-			this.contenu_correction += `<br>${num_alpha(2)} $${b}$ a pour unique antécédent $${x0+4}$, on note $f(${x0+4})=${b}$.`
-			this.contenu_correction += `<br>${num_alpha(3)} $${c}$ a deux antécédents $${x0+2}$ et $${x0+6}$, on note $f(${x0+2})=f(${x0+6})=${c}$.`
+		this.contenu_correction += `<br>${num_alpha(1)} L'image de $${x0 + 5}$ est $${(b + c) / 2}$, on note $f(${x0 + 5})=${(b + c) / 2}$.`
+		if (ordre == 1) {
+			this.contenu_correction += `<br>${num_alpha(2)} $${b}$ a pour unique antécédent $${x0 + 4}$, on note $f(${x0 + 4})=${b}$.`
+			this.contenu_correction += `<br>${num_alpha(3)} $${c}$ a deux antécédents $${x0 + 2}$ et $${x0 + 6}$, on note $f(${x0 + 2})=f(${x0 + 6})=${c}$.`
 		} else {
-			this.contenu_correction += `<br>${num_alpha(2)} $${c}$ a deux antécédents $${x0+2}$ et $${x0+6}$, on note $f(${x0+2})=f(${x0+6})=${c}$.`
-			this.contenu_correction += `<br>${num_alpha(3)} $${b}$ a pour unique antécédent $${x0+4}$, on note $f(${x0+4})=${b}$.`
+			this.contenu_correction += `<br>${num_alpha(2)} $${c}$ a deux antécédents $${x0 + 2}$ et $${x0 + 6}$, on note $f(${x0 + 2})=f(${x0 + 6})=${c}$.`
+			this.contenu_correction += `<br>${num_alpha(3)} $${b}$ a pour unique antécédent $${x0 + 4}$, on note $f(${x0 + 4})=${b}$.`
 		}
-		if (!sortie_html){
-			this.contenu = this.contenu.replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
-			this.contenu_correction = this.contenu_correction.replace(/<br><br>/g,'\n\n\\medskip\n').replace(/<br>/g,'\\\\\n')
+		if (!sortie_html) {
+			this.contenu = this.contenu.replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
+			this.contenu_correction = this.contenu_correction.replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
 		} else {
 			this.contenu_correction = `<div style="line-height: ${this.spacing_corr};">\n${this.contenu_correction}\n</div>`
 		}
-		
+
 	};
 	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
-  }
+}
 /**
  * publié le  15/11/2020
  * ref 3F13-2
@@ -4547,149 +4547,149 @@ function Premier_escape_game_mathalea() {
 	sortie_html ? this.spacing = 1 : this.spacing = 1.5
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
-	this.sup = 1;  
-	this.sup2="";
+	this.sup = 1;
+	this.sup2 = "";
 	this.pas_de_version_LaTeX = false;
 	this.nouvelle_version = function () {
-		let lettres=[],mots=["BMDF","OGNQ","BUQP","BAUP","BXGE","BDUJ","MZSXQE","BDUEYQ","BMDFUQ","HMXQGD","OAGBXQ","PDAUFQ","DQXMFUAZ","BMDMNAXQ","MPPUFUAZ","QJBAEMZF","RAZOFUAZ","OAYBXQJQ"]
-		let alphabet=[];
-//		let coords=[]
+		let lettres = [], mots = ["BMDF", "OGNQ", "BUQP", "BAUP", "BXGE", "BDUJ", "MZSXQE", "BDUEYQ", "BMDFUQ", "HMXQGD", "OAGBXQ", "PDAUFQ", "DQXMFUAZ", "BMDMNAXQ", "MPPUFUAZ", "QJBAEMZF", "RAZOFUAZ", "OAYBXQJQ"]
+		let alphabet = [];
+		//		let coords=[]
 		this.liste_questions = [];
 		this.liste_corrections = [];
-		let texte='', texte_corr='', f1,f2,f3,f4,p,r
+		let texte = '', texte_corr = '', f1, f2, f3, f4, p, r
 		// Initialisation des tableaux
-		for (let i=0;i<26;i++) {
-			alphabet.push(String.fromCharCode(65+i))
+		for (let i = 0; i < 26; i++) {
+			alphabet.push(String.fromCharCode(65 + i))
 		}
-		for (let y=0;y<5;y++) {
-				lettres.push(['*','*','*','*','*','*'])
+		for (let y = 0; y < 5; y++) {
+			lettres.push(['*', '*', '*', '*', '*', '*'])
 		}
-//		for (let y=0;y<5;y++) {
-//			for (let x=0;x<6;x++) {
-//				coords.push([0,0])
-//			}
-//		}
+		//		for (let y=0;y<5;y++) {
+		//			for (let x=0;x<6;x++) {
+		//				coords.push([0,0])
+		//			}
+		//		}
 		// Le moment du choix
-		let type=parseInt(this.sup)
-		let mdp=cesar(mots[randint(0,5)+(type-1)*6],14)
-		let absc=[],ord=[],car
-		if (this.sup2==mdp) texte+=`${texte_en_couleur_et_gras(`Bravo ! le mot de passe était bien le mot ${mdp}`,'blue')}<br>`
-		else texte+=`Min et Max sont dans un bateau.<br>La tempête fait rage.<br>Ils en voient de toutes les couleurs.<br>Les vagues et les creux sont immenses.<br>Soudain, Min et Max tombent à l'eau... à moins que ce ne soit le contraire ?<br>`
-		texte+="Taper le mot de passe dans la boite de dialogue correspondante des paramètres de l'exercice.<br>"
-		texte_corr+=`Le mot de passe comporte ${2+2*type} lettres.`
-		if (this.sup2==mdp) texte_corr+=`${texte_en_couleur_et_gras(`<br>Bravo ! le mot de passe était bien le mot ${mdp}`,'blue')}<br>`
+		let type = parseInt(this.sup)
+		let mdp = cesar(mots[randint(0, 5) + (type - 1) * 6], 14)
+		let absc = [], ord = [], car
+		if (this.sup2 == mdp) texte += `${texte_en_couleur_et_gras(`Bravo ! le mot de passe était bien le mot ${mdp}`, 'blue')}<br>`
+		else texte += `Min et Max sont dans un bateau.<br>La tempête fait rage.<br>Ils en voient de toutes les couleurs.<br>Les vagues et les creux sont immenses.<br>Soudain, Min et Max tombent à l'eau... à moins que ce ne soit le contraire ?<br>`
+		texte += "Taper le mot de passe dans la boite de dialogue correspondante des paramètres de l'exercice.<br>"
+		texte_corr += `Le mot de passe comporte ${2 + 2 * type} lettres.`
+		if (this.sup2 == mdp) texte_corr += `${texte_en_couleur_et_gras(`<br>Bravo ! le mot de passe était bien le mot ${mdp}`, 'blue')}<br>`
 
-		for(let x=0;x<type*2+2;x++){
-			car=mdp[x]
-			alphabet=alphabet.filter(item => item !== car)
-			if (x%2==0) absc.push(randint(0,2))
-			else absc.push(randint(3,5))
+		for (let x = 0; x < type * 2 + 2; x++) {
+			car = mdp[x]
+			alphabet = alphabet.filter(item => item !== car)
+			if (x % 2 == 0) absc.push(randint(0, 2))
+			else absc.push(randint(3, 5))
 			// Pour l'abscisse, pas de problème de doublons
-			if (x%2==0) ord.push(randint(0,4)) // premier point, l'ordonnée n'est pas contrainte.
-			else ord.push(randint(0,4,ord[x-1])) // pour le deuxième, on évite l'ordonnée précédente
-			console.log(x,absc[x],ord[x])
-			if (lettres[ord[x]][absc[x]]=='*') lettres[ord[x]][absc[x]]=car
-			else if (lettres[absc[x]][ord[x]]!=car) {
-					for (let i=0;i<x;i++) {
-						if (absc[i]==absc[x]&&ord[i]==ord[x]) {
-							ord[x]=(ord[x]+1)%5
-							i=0
-						}
+			if (x % 2 == 0) ord.push(randint(0, 4)) // premier point, l'ordonnée n'est pas contrainte.
+			else ord.push(randint(0, 4, ord[x - 1])) // pour le deuxième, on évite l'ordonnée précédente
+			console.log(x, absc[x], ord[x])
+			if (lettres[ord[x]][absc[x]] == '*') lettres[ord[x]][absc[x]] = car
+			else if (lettres[absc[x]][ord[x]] != car) {
+				for (let i = 0; i < x; i++) {
+					if (absc[i] == absc[x] && ord[i] == ord[x]) {
+						ord[x] = (ord[x] + 1) % 5
+						i = 0
 					}
-					lettres[ord[x]][absc[x]]=car
-			}	
+				}
+				lettres[ord[x]][absc[x]] = car
+			}
 		}
-		for (let i=0;i<type*2+2;i++) {
+		for (let i = 0; i < type * 2 + 2; i++) {
 			absc[i]++ // On corrige les coordonnées des points
 			ord[i]++
 		}
 		// On complète la grille de lettres
-		alphabet=shuffle(alphabet)
-		for (let x=0;x<6;x++) {
-			for (let y=0;y<5;y++) {
-				if (lettres[y][x]=='*'&&alphabet.length>0) {
-					lettres[y][x]=alphabet.pop()	
+		alphabet = shuffle(alphabet)
+		for (let x = 0; x < 6; x++) {
+			for (let y = 0; y < 5; y++) {
+				if (lettres[y][x] == '*' && alphabet.length > 0) {
+					lettres[y][x] = alphabet.pop()
 				}
 			}
 		}
 		// On calcule les ordonnées de début et de fin de chaque courbe
-		let ord0=[0,0,0,0],ord6=[0,0,0,0]
+		let ord0 = [0, 0, 0, 0], ord6 = [0, 0, 0, 0]
 
-		for (let i=0;i<type*2+2;i+=2) {
-			if (ord[i]>ord[i+1]) {
-				ord0[i/2]=-2.34+randint(0,2)
-				ord6[i/2]=8.17-randint(0,2)
+		for (let i = 0; i < type * 2 + 2; i += 2) {
+			if (ord[i] > ord[i + 1]) {
+				ord0[i / 2] = -2.34 + randint(0, 2)
+				ord6[i / 2] = 8.17 - randint(0, 2)
 			}
 			else {
-				ord6[i/2]=-2.34+randint(0,2)
-				ord0[i/2]=8.17-randint(0,2)	
+				ord6[i / 2] = -2.34 + randint(0, 2)
+				ord0[i / 2] = 8.17 - randint(0, 2)
 			}
 		}
-		r=repere2({xMin:-1,yMin:-1,xMax:7,yMax:6,xUnite:2})
-console.log([0,ord0[0]],[absc[0],ord[0]],[absc[1],ord[1]],[7,ord6[0]])
+		r = repere2({ xMin: -1, yMin: -1, xMax: 7, yMax: 6, xUnite: 2 })
+		console.log([0, ord0[0]], [absc[0], ord[0]], [absc[1], ord[1]], [7, ord6[0]])
 		switch (type) {
-			case 1 : //N&B
-				p=polygoneRegulierIndirect(point(-1,-2),point(15,-2),4)
-				p.couleurDeRemplissage='grey'
-				p.opacite=0.2
-				f1=graphiqueInterpole([[0,ord0[0]],[absc[0],ord[0]],[absc[1],ord[1]],[7,ord6[0]]],{repere:r,color:'black',step:0.1})
-				f2=graphiqueInterpole([[0,ord0[1]],[absc[2],ord[2]],[absc[3],ord[3]],[7,ord6[1]]],{repere:r,color:'white',step:0.1})		
-				f1.epaisseur=2
-				f2.epaisseur=2
-				texte +=mathalea2d({xmin:-1,ymin:-1,xmax:15,ymax:7,pixelsParCm:30},p,r,f1,f2)+`<br>`
+			case 1: //N&B
+				p = polygoneRegulierIndirect(point(-1, -2), point(15, -2), 4)
+				p.couleurDeRemplissage = 'grey'
+				p.opacite = 0.2
+				f1 = graphiqueInterpole([[0, ord0[0]], [absc[0], ord[0]], [absc[1], ord[1]], [7, ord6[0]]], { repere: r, color: 'black', step: 0.1 })
+				f2 = graphiqueInterpole([[0, ord0[1]], [absc[2], ord[2]], [absc[3], ord[3]], [7, ord6[1]]], { repere: r, color: 'white', step: 0.1 })
+				f1.epaisseur = 2
+				f2.epaisseur = 2
+				texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 7, pixelsParCm: 30 }, p, r, f1, f2) + `<br>`
 				break;
 			case 2: //RGB
-				p=polygoneRegulierIndirect(point(-1,-2),point(15,-2),4)
-				p.opacite=0.2
-				p.couleurDeRemplissage='grey'
-				f1=graphiqueInterpole([[0,ord0[0]],[absc[0],ord[0]],[absc[1],ord[1]],[7,ord6[0]]],{repere:r,color:'red',step:0.1})
-				f2=graphiqueInterpole([[0,ord0[1]],[absc[2],ord[2]],[absc[3],ord[3]],[7,ord6[1]]],{repere:r,color:'green',step:0.1})			
-				f3=graphiqueInterpole([[0,ord0[2]],[absc[4],ord[4]],[absc[5],ord[5]],[7,ord6[2]]],{repere:r,color:'blue',step:0.1})	
-				f1.epaisseur=2
-				f2.epaisseur=2
-				f3.pepaisseur=2		
-				texte +=mathalea2d({xmin:-1,ymin:-1,xmax:15,ymax:7,pixelsParCm:30},p,r,f1,f2,f3)+`<br>`	
+				p = polygoneRegulierIndirect(point(-1, -2), point(15, -2), 4)
+				p.opacite = 0.2
+				p.couleurDeRemplissage = 'grey'
+				f1 = graphiqueInterpole([[0, ord0[0]], [absc[0], ord[0]], [absc[1], ord[1]], [7, ord6[0]]], { repere: r, color: 'red', step: 0.1 })
+				f2 = graphiqueInterpole([[0, ord0[1]], [absc[2], ord[2]], [absc[3], ord[3]], [7, ord6[1]]], { repere: r, color: 'green', step: 0.1 })
+				f3 = graphiqueInterpole([[0, ord0[2]], [absc[4], ord[4]], [absc[5], ord[5]], [7, ord6[2]]], { repere: r, color: 'blue', step: 0.1 })
+				f1.epaisseur = 2
+				f2.epaisseur = 2
+				f3.pepaisseur = 2
+				texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 7, pixelsParCm: 30 }, p, r, f1, f2, f3) + `<br>`
 				break;
 			case 3: //CJMN
-				p=polygoneRegulierIndirect(point(-1,-2),point(15,-2),4)
-				p.opacite=0.2
-				p.couleurDeRemplissage='grey'
-				f1=graphiqueInterpole([[0,ord0[0]],[absc[0],ord[0]],[absc[1],ord[1]],[7,ord6[0]]],{repere:r,color:'cyan',step:0.1})
-				f2=graphiqueInterpole([[0,ord0[1]],[absc[2],ord[2]],[absc[3],ord[3]],[7,ord6[1]]],{repere:r,color:'yellow',step:0.1})			
-				f3=graphiqueInterpole([[0,ord0[2]],[absc[4],ord[4]],[absc[5],ord[5]],[7,ord6[2]]],{repere:r,color:'magenta',step:0.1})	
-				f4=graphiqueInterpole([[0,ord0[3]],[absc[6],ord[6]],[absc[7],ord[7]],[7,ord6[3]]],{repere:r,color:'black',step:0.1})	
-				f1.epaisseur=2
-				f2.epaisseur=2
-				f3.pepaisseur=2	
-				f4.epaisseur=2	
-				texte +=mathalea2d({xmin:-1,ymin:-1,xmax:15,ymax:7,pixelsParCm:30},p,r,f1,f2,f3,f4)+`<br>`
+				p = polygoneRegulierIndirect(point(-1, -2), point(15, -2), 4)
+				p.opacite = 0.2
+				p.couleurDeRemplissage = 'grey'
+				f1 = graphiqueInterpole([[0, ord0[0]], [absc[0], ord[0]], [absc[1], ord[1]], [7, ord6[0]]], { repere: r, color: 'cyan', step: 0.1 })
+				f2 = graphiqueInterpole([[0, ord0[1]], [absc[2], ord[2]], [absc[3], ord[3]], [7, ord6[1]]], { repere: r, color: 'yellow', step: 0.1 })
+				f3 = graphiqueInterpole([[0, ord0[2]], [absc[4], ord[4]], [absc[5], ord[5]], [7, ord6[2]]], { repere: r, color: 'magenta', step: 0.1 })
+				f4 = graphiqueInterpole([[0, ord0[3]], [absc[6], ord[6]], [absc[7], ord[7]], [7, ord6[3]]], { repere: r, color: 'black', step: 0.1 })
+				f1.epaisseur = 2
+				f2.epaisseur = 2
+				f3.pepaisseur = 2
+				f4.epaisseur = 2
+				texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 7, pixelsParCm: 30 }, p, r, f1, f2, f3, f4) + `<br>`
 				break;
 		}
-		texte += `$\\begin{array}{|l|` +  `c|`.repeat(6) + `}\n`;
+		texte += `$\\begin{array}{|l|` + `c|`.repeat(6) + `}\n`;
 		texte += `\\hline\n`;
-		texte+= ` `;
+		texte += ` `;
 		for (let j = 0; j < 6; j++) {
-		  texte+=  ` & \\text{${j+1}}`;
+			texte += ` & \\text{${j + 1}}`;
 		}
 		texte += `\\\\\\hline\n`;
 		for (let i = 0; i < 5; i++) {
-		  texte += `\\text{${i+1}}`;
-		  for (let j =0; j < 6; j++){
-			texte += '& ' + lettres[i][j]; //valeur dans le tableau
-		  }
-		  texte += `\\\\\\hline\n`;
+			texte += `\\text{${i + 1}}`;
+			for (let j = 0; j < 6; j++) {
+				texte += '& ' + lettres[i][j]; //valeur dans le tableau
+			}
+			texte += `\\\\\\hline\n`;
 		}
-		texte+= `\\end{array}\n$`;
+		texte += `\\end{array}\n$`;
 		texte += `<br>`
 
 		this.liste_questions.push(texte);
-			this.liste_corrections.push(texte_corr);
-			liste_de_question_to_contenu(this);
+		this.liste_corrections.push(texte_corr);
+		liste_de_question_to_contenu(this);
 
-//	this.besoin_formulaire2_numerique = ['Coefficient de réduction(problèmes de type1)', 3, '1 : Décimal\n 2 : Non décimal\n 3 : Décimal ou non'];
+		//	this.besoin_formulaire2_numerique = ['Coefficient de réduction(problèmes de type1)', 3, '1 : Décimal\n 2 : Non décimal\n 3 : Décimal ou non'];
 	}
 	this.besoin_formulaire_numerique = ['Catégorie', 3, '1 : Noir & Blanc\n 2 : RGB\n 3 : CJMN'];
-	this.besoin_formulaire2_texte= ['Quel est ton mot de passe ?',1,'Mot de passe (en majuscule):']
+	this.besoin_formulaire2_texte = ['Quel est ton mot de passe ?', 1, 'Mot de passe (en majuscule):']
 
 }
 
@@ -4711,54 +4711,54 @@ function Agrandissement_reduction() {
 	this.nb_cols_corr = 1;
 	this.quatrieme = false;
 	this.sup = 1; // 
-	this.sup2 =1;
+	this.sup2 = 1;
 	this.pas_de_version_LaTeX = false;
 
 
 	this.nouvelle_version = function (numero_de_l_exercice) {
 		this.liste_questions = [];
 		this.liste_corrections = [];
-		let texte, texte_corr, r, r2, h1, h2, h3, c, c2; 
-	//	if (sortie_html) {
-			this.type_exercice = 'MG32';
-			this.taille_div_MG32 = [600, 700];
-			let codeBase64
-			let choix
-			if (this.sup == 1) choix = randint(1, 3)
-			else if (this.sup == 2) choix = randint(4,5)
-			else choix = randint(1, 5)
-			switch (choix) {
-				case 1: // calcul de l'aire de base, du volume d'une pyramide à base carrée. puis, calcul de la section, du volume de la petite pyramide et du volume du tronc
-					c = calcul(randint(30, 60) / 10)
-					h1 = calcul(randint(12, 20) / 2)
-					h2 = randint(3, Math.floor(h1) - 1)
-					if (this.sup2<3)
-						if (this.sup2==1) // on veut un coefficient de réduction décimal à 1 chiffre après la virgule
-							while (calcul(h2/h1)!=arrondi(h2/h1,1)) {
-								c = calcul(randint(30, 60) / 10)
-								h1 = calcul(randint(12, 20) / 2)
-								h2 = randint(3, Math.floor(h1) - 1)
-							}
-						else // coefficient qui peut être décimal avec plus d'un chiffre ou rationnel non décimal.
-							while (calcul(h2/h1)==arrondi(h2/h1,1)) {
-								c = calcul(randint(30, 60) / 10)
-								h1 = calcul(randint(12, 20) / 2)
-								h2 = randint(3, Math.floor(h1) - 1)
-							}
-					codeBase64 = "TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAANmcmH###8BAP8BAAAAAAAAAAAFHAAAAtIAAAAAAAAAAAAAAAEAAAE1#####wAAAAEACkNDYWxjQ29uc3QA#####wACcGkAFjMuMTQxNTkyNjUzNTg5NzkzMjM4NDb#####AAAAAQAKQ0NvbnN0YW50ZUAJIftURC0Y#####wAAAAEACkNQb2ludEJhc2UA#####wAAAAAAEAAAAEAIAAAAAAAAAAAAAAAAAAAFAAFAgBQAAAAAAEBzyFHrhR64#####wAAAAEAB0NDYWxjdWwA#####wAFbWluaTEAAzAuNQAAAAE#4AAAAAAAAAAAAAMA#####wAFbWF4aTEAATMAAAABQAgAAAAAAAD#####AAAAAQAUQ0ltcGxlbWVudGF0aW9uUHJvdG8A#####wAHQ3Vyc2V1cgAAAAUAAAAFAAAAAwAAAAIAAAADAAAAAf####8AAAABABRDRHJvaXRlRGlyZWN0aW9uRml4ZQAAAAAEAQAAAAAQAAABAAEAAAABAT#wAAAAAAAA#####wAAAAEAD0NQb2ludExpZURyb2l0ZQEAAAAEAAAAAAAQAAAAwAgAAAAAAAA#8AAAAAAAAAUAAUBPAAAAAAAAAAAABf####8AAAABAAtDSG9tb3RoZXRpZQAAAAAEAAAAAf####8AAAABAApDT3BlcmF0aW9uA#####8AAAABAA9DUmVzdWx0YXRWYWxldXIAAAACAAAACAEAAAAJAAAAAgAAAAkAAAAD#####wAAAAEAC0NQb2ludEltYWdlAAAAAAQBAAAAAA0AAk8xAMAQAAAAAAAAQBAAAAAAAAAFAAAAAAYAAAAHAAAABwAAAAAEAAAAAQAAAAgDAAAACAEAAAABP#AAAAAAAAAAAAAJAAAAAgAAAAgBAAAACQAAAAMAAAAJAAAAAgAAAAoAAAAABAEAAAAADQACSTIAwAAAAAAAAABACAAAAAAAAAUAAAAABgAAAAn#####AAAAAQAIQ1NlZ21lbnQBAAAABAAAAAAAEAAAAQEBAAAAAQAAAAYAAAAGAQAAAAQAAAAAARAAAmsxAMAAAAAAAAAAQAAAAAAAAAABAAE#2973ve973wAAAAv#####AAAAAgAPQ01lc3VyZUFic2Npc3NlAQAAAAQABHpvb20AAAAIAAAACgAAAAz#####AAAAAQAPQ1ZhbGV1ckFmZmljaGVlAQAAAAQBAAAAAAAAAAAAAAAAwBgAAAAAAAAAAAAMDwAB####AAAAAQAAAAIAAAABAAAAAAAAAAAAAAAAAgAAAA0AAAADAP####8AAWMAATMAAAABQAgAAAAAAAAAAAACAP####8AAAAAAQ8AAU8AP#AAAAAAAABACAAAAAAAAAUAAUBukAAAAAAAQILsKPXCj1wAAAAFAP####8BAAAAABAAAAEAAQAAABABQACWu5jH4oIAAAACAP####8AAAAAAQ8AAk8yAQUAAUCBLAAAAAAAQHn4UeuFHrgAAAACAP####8AAAAAAQ8AAk8zAQUAAUCBJAAAAAAAQH44UeuFHrgAAAAFAP####8BAAAAABAAAAEAAQAAABMBQACWu5jH4oIAAAACAP####8AAAAAAQ8AAk80AQUAAUCBFAAAAAAAQIIcKPXCj1wAAAAFAP####8BAAAAABAAAAEAAQAAABUBQACWu5jH4oL#####AAAAAQARQ1N5bWV0cmllQ2VudHJhbGUA#####wAAABL#####AAAAAQAFQ0ZvbmMA#####wAEemVybwANYWJzKHQpPDAuMDAwMQAAAAgE#####wAAAAIACUNGb25jdGlvbgD#####AAAAAgARQ1ZhcmlhYmxlRm9ybWVsbGUAAAAAAAAAAT8aNuLrHEMtAAF0AAAABQD#####AQAAAAEQAAABAAEAAAASAD#wAAAAAAAAAAAABgD#####AAAAAAEPAAJKMgEFAADAQAAAAAAAAAAAABn#####AAAAAQAMQ1RyYW5zbGF0aW9uAP####8AAAASAAAAGgAAAAoA#####wEAAAAAEAAAAQUAAAAAEwAAABv#####AAAAAQAJQ0NlcmNsZU9BAP####8Af39#AQEAAAATAAAAHP####8AAAABABBDSW50RHJvaXRlQ2VyY2xlAP####8AAAAUAAAAHf####8AAAABABBDUG9pbnRMaWVCaXBvaW50AP####8BAAAAAA0AAkkzAQUAAQAAAB7#####AAAAAQAPQ1BvaW50TGllQ2VyY2xlAP####8AAAAAAQsAAkszAQEAAUAYJx+keskRAAAAHQAAAAsA#####wAAAAAAEAAAAQABAAAAEgAAABoAAAALAP####8AAAAAABAAAAEAAQAAABMAAAAfAAAACwD#####AAAAAAAQAAABAAEAAAATAAAAIP####8AAAACABNDTWVzdXJlQW5nbGVPcmllbnRlAP####8ACGFuZ3RoZXRhAAAAHwAAABMAAAAgAAAAAwD#####AAV0aGV0YQAIYW5ndGhldGEAAAAJAAAAJAAAAAMA#####wADeCcxAApzaW4odGhldGEpAAAAEAMAAAAJAAAAJQAAAAMA#####wADeCcyAApjb3ModGhldGEpAAAAEAQAAAAJAAAAJf####8AAAACABNDTWFycXVlQW5nbGVPcmllbnRlAP####8AfwAAAAIAAAAAQDWKaKSo2fMAAAAfAAAAEwAAACAB#####wAAAAEADENCaXNzZWN0cmljZQD#####AX8AAAAQAAABAQEAAAAfAAAAEwAAACAAAAAGAP####8BfwAAABAAAAEFAAFAebYKC41k5QAAACn#####AAAAAgAGQ0xhdGV4AP####8AfwAAAMAUAAAAAAAAwCYAAAAAAAAAAAAqEQAAAAAAAAAAAAAAAAABAAAAAAAAAAAAClx2YXJ0aGV0YSAAAAAKAP####8BAAAAABAAAAEFAAAAABoAAAAX#####wAAAAEAEkNBcmNEZUNlcmNsZURpcmVjdAD#####AH9#fwEBAAAAEgAAABoAAAAsAAAAFgD#####AAAAAAEPAAJLMgEBAAE#wCNHf8Ds#QAAAC0AAAALAP####8AAAAAABAAAAEAAQAAABIAAAAuAAAAFwD#####AAZhbmdwaGkAAAAaAAAAEgAAAC4AAAADAP####8AA3BoaQAGYW5ncGhpAAAACQAAADAAAAAHAP####8AAAAVAAAAEAQAAAAJAAAAMQAAAAMA#####wADeScxABQtY29zKHRoZXRhKSpzaW4ocGhpKQAAAAgBAAAAAQAAAAAAAAAAAAAACAIAAAAQBAAAAAkAAAAlAAAAEAMAAAAJAAAAMQAAAAMA#####wADeScyABNzaW4odGhldGEpKnNpbihwaGkpAAAACAIAAAAQAwAAAAkAAAAlAAAAEAMAAAAJAAAAMQAAABgA#####wAAAP8AAgAAAABAN1LlDbOjogAAABoAAAASAAAALgEAAAAZAP####8BAAD#ABAAAAEBAQAAABoAAAASAAAALgAAAAYA#####wEAAP8AEAAAAQUAAUB8Mk4l1syCAAAANgAAABoA#####wAAAP8AwBAAAAAAAADAFAAAAAAAAAAAADcRAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAHXHZhcnBoaQAAAAUA#####wEAAAABEAAAAQABAAAAFQA#8AAAAAAAAAAAAAYA#####wAAAAABDwACSjQBBQABwEoAAAAAAAAAAAA5AAAAEwD#####AGZmZgABAAAAFQAAADoAAAAWAP####8BAAAAABAAAAEFAAE#8JfpunkCYQAAADsAAAAFAP####8BAAAAABAAAAEAAQAAADwAQACWu5jH4oL#####AAAAAQAQQ0ludERyb2l0ZURyb2l0ZQD#####AQAAAAAQAAABBQAAAAAWAAAAPQAAABQA#####wAAABYAAAA7AAAAFQD#####AQAAAAENAAJJNAEFAAEAAAA######wAAAAIAB0NSZXBlcmUA#####wAAAAABAQAAABUAAABAAAAAOgAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAE#8AAAAAAAAAAAAAE#8AAAAAAAAAAAAAoA#####wEAAAAAEAAAAQUAAAAAOgAAADIAAAAHAP####8AAAA+AAAAEAQAAAAJAAAAMQAAAAoA#####wEAAAAAEAAAAQUAAAAAPAAAAEP#####AAAAAgANQ0xpZXVEZVBvaW50cwD#####AAB#fwEBAAAARAAAAGQAAAAAADwAAAAFAAAAPAAAAD0AAAA+AAAAQwAAAET#####AAAAAQAIQ1ZlY3RldXIA#####wAAAP8AEAAAAQABAAAAFQAAAEIA#####wAAAAEAEENQb2ludERhbnNSZXBlcmUA#####wEAAAAAEAAAAQUAAAAAQQAAAAkAAAAmAAAACQAAADMAAAAgAP####8BAAAAABAAAAEFAAAAAEEAAAAJAAAAJwAAAAkAAAA0AAAAHwD#####AP8AAAAQAAABAAEAAAAVAAAARwAAAAAfAP####8AAH8AABAAAAEAAQAAABUAAABIAAAAAB4A#####wBmZmYBAQAAAEcAAABkAAAAAAAgAAAABgAAACAAAAAkAAAAJQAAACYAAAAzAAAAR#####8AAAABAAxDU3VyZmFjZUxpZXUA#####wB#f38AAAAFAAAASwAAACEA#####wB#f38AAAAFAAAARQAAAAMA#####wACaDEAAjEwAAAAAUAkAAAAAAAAAAAAAwD#####AAJoMgABMwAAAAFACAAAAAAAAAAAAAMA#####wACaDMABWgxLWgyAAAACAEAAAAJAAAATgAAAAkAAABP#####wAAAAEACUNMb25ndWV1cgD#####AAAAEgAAABr#####AAAAAgAMQ0NvbW1lbnRhaXJlAP####8A#wAAAf####8QQIA8AAAAAABAdGhR64UeuAIAAAAAAAAAAAAAAAABAAAAAAAAAAAABFpPT03#####AAAAAgAJQ0NlcmNsZU9SAP####8B#wAAAAEAAAAQAAAAAT#wAAAAAAAAAAAAABQA#####wAAABEAAABTAAAAFQD#####Af8AAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAgAAAFQAAAAVAP####8B#wAAABAAAkkiAAAAAAAAAAAAQAgAAAAAAAAFAAEAAABUAAAABwD#####AAAAEAAAAAkAAAANAAAACgD#####Af8AAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAVgAAAFf#####AAAAAQAOQ1BvaW50TGllUG9pbnQA#####wEAAAAACwACSTEAwBAAAAAAAABAEAAAAAAAAAUAAAAAWP####8AAAABAAlDRHJvaXRlQUIA#####wEAAAAADQAAAQABAAAAEAAAAFn#####AAAAAQAWQ0Ryb2l0ZVBlcnBlbmRpY3VsYWlyZQD#####AQAAAAAQAAABAAEAAAAQAAAAWgAAABMA#####wEAAAAAAQAAABAAAABZAAAAFAD#####AAAAWwAAAFwAAAAVAP####8BAAAAAAsAAkoxAMAoAAAAAAAAwBAAAAAAAAAFAAIAAABdAAAAHQD#####AICAgAEBAAAAEAAAAFkAAABeAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAT#wAAAAAAAAAAAAAT#wAAAAAAAAAAAAIAD#####AQAAAAAPAAFLAEAQAAAAAAAAwC4AAAAAAAAFAAAAAF8AAAABAAAAAAAAAAAAAAAQBAAAAAkAAAAxAAAAIAD#####AQAAAAAPAAFJAMAmAAAAAAAAwC4AAAAAAAAFAAAAAF8AAAAJAAAAJgAAAAkAAAAzAAAAIAD#####AQAAAAAPAAFKAEAUAAAAAAAAwCwAAAAAAAAFAAAAAF8AAAAJAAAAJwAAAAkAAAA0#####wAAAAEADUNEZW1pRHJvaXRlT0EA#####wEAAAAADQAAAQEBAAAAEAAAAGEAAAAoAP####8BAAAAAA0AAAEBAQAAABAAAABiAAAAKAD#####AQAAAAANAAABAQEAAAAQAAAAYAAAAB8A#####wH#AAAAEAAAAQABAAAAEAAAAGEAAAAAHwD#####AQB#AAAQAAABAAEAAAAQAAAAYgAAAAAfAP####8BAAD#ABAAAAEAAQAAABAAAABgAP####8AAAABABFDTWFjcm9EaXNwYXJpdGlvbgD#####AAAA#wH#####DUB+IAAAAAAAQIQQAAAAAAACAczM#wAAAAAAAAAAAAAAAQAAAAAAAAAAABMoTyxJLEosSykgaW52aXNpYmxlAAAAAAAJAAAAZAAAAGEAAABiAAAAZQAAAGgAAABgAAAAZwAAAGYAAABj#####wAAAAEAEENNYWNyb0FwcGFyaXRpb24A#####wAAAP8B#####w1AfpAAAAAAAECE4AAAAAAAAgHMzP8AAAAAAAAAAAAAAAEAAAAAAAAAAAARKE8sSSxKLEspIHZpc2libGUAAAAAAAkAAABkAAAAYQAAAGIAAABlAAAAaAAAAGAAAABnAAAAZgAAAGMA#####wAAAAEAEUNQb2ludFBhckFic2Npc3NlAP####8B#wAAABAAAkUiAAAAAAAAAAAAQAgAAAAAAAAFAAAAABAAAABhAAAACAMAAAAJAAAADwAAAAFAAAAAAAAAAAAAACUA#####wEAAAAADwABRQEFAAAAAGsAAAAMAP####8ABGFiczEAAAAQAAAAYQAAAGwAAAADAP####8AAWEABjIqYWJzMQAAAAgCAAAAAUAAAAAAAAAAAAAACQAAAG0AAAArAP####8B#wD#ABAAAAEFAAAAABAAAABiAAAACQAAAG0AAAAlAP####8BAAAAABAAAAEFAAAAAG8AAAASAP####8AAAAQAAAAcAAAAAoA#####wEAAAAADwABQgDAAAAAAAAAAEAIAAAAAAAABQAAAABsAAAAcQAAABIA#####wAAAHIAAABwAAAACgD#####AQAAAAAPAAFDAAAAAAAAAAAAQAAAAAAAAAAFAAAAAHAAAABzAAAAEgD#####AAAAcgAAAGwAAAAKAP####8BAAAAAA8AAUEAwBwAAAAAAAA#8AAAAAAAAAUAAAAAbAAAAHUAAAASAP####8AAAByAAAAdgAAAAoA#####wEAAAAADwABRADAMwAAAAAAAMAyAAAAAAAABQAAAAB0AAAAdwAAAAsA#####wAAAAAAEAAAAQEBAAAAcgAAAHQAAAALAP####8AAAAAABAAAAEBAQAAAHQAAAB4AAAACwD#####AAAAAAAQAAABAQEAAAB4AAAAdgAAAAsA#####wAAAAAAEAAAAQEBAAAAdgAAAHIAAAAXAP####8ABWFuZzEzAAAAcgAAAHYAAAB0AAAAFwD#####AAVhbmcxNAAAAHQAAAB2AAAAeAAAABcA#####wAFYW5nMTcAAAB0AAAAcgAAAHgAAAAXAP####8ABWFuZzE4AAAAeAAAAHIAAAB2AAAAFwD#####AAZhbmcxMTEAAAB4AAAAdAAAAHYAAAAXAP####8ABmFuZzExMgAAAHYAAAB0AAAAcgAAABcA#####wAGYW5nMTE1AAAAdgAAAHgAAAByAAAAFwD#####AAZhbmcxMTYAAAByAAAAeAAAAHQAAAAmAP####8BAAAAAAsAAAEBAQAAAHYAAAByAAAAJgD#####AQAAAAANAAABAQEAAAByAAAAdAAAACYA#####wEAAAAADQAAAQEBAAAAdAAAAHgAAAAmAP####8BAAAAAA0AAAEBAQAAAHgAAAB2AAAAKwD#####Af8AAAAQAAJTIgAAAAAAAAAAAEAIAAAAAAAABQAAAAAQAAAAYAAAAAkAAABOAAAAJQD#####AQAAAAAPAAFTAMAiAAAAAAAAwDIAAAAAAAAFAAAAAIkAAAAMAP####8ABWFiczE1AAAAEAAAAGAAAACKAAAAAwD#####AAFoAAVhYnMxNQAAAAkAAACLAAAACwD#####AAAAAAAQAAABAQEAAACKAAAAdgAAAAsA#####wAAAAAAEAAAAQEBAAAAigAAAHIAAAALAP####8AAAAAABAAAAEBAQAAAIoAAAB0AAAACwD#####AAAAAAAQAAABAQEAAACKAAAAeAAAABcA#####wAFYW5nMTIAAACKAAAAdgAAAHIAAAAXAP####8ABWFuZzE1AAAAeAAAAHYAAACKAAAAAwD#####AAlTQVZpc2libGUAHzEvemVybyhhbmcxMithbmcxMythbmcxNCthbmcxNSkAAAAIAwAAAAE#8AAAAAAAAP####8AAAABAA5DQXBwZWxGb25jdGlvbgAAABgAAAAIAAAAAAgAAAAACAAAAAAJAAAAkQAAAAkAAAB9AAAACQAAAH4AAAAJAAAAkgAAAAcA#####wAAAIoAAAAJAAAAkwAAAAoA#####wH#AP8AEAAAAQUAAAAAdgAAAJQAAAALAP####8BAAAAABAAAAEAAgAAAIoAAACVAAAAFwD#####AAVhbmcxNgAAAIoAAAByAAAAdAAAABcA#####wAFYW5nMTkAAAB2AAAAcgAAAIoAAAADAP####8ACVNCVmlzaWJsZQAfMS96ZXJvKGFuZzE2K2FuZzE3K2FuZzE4K2FuZzE5KQAAAAgDAAAAAT#wAAAAAAAAAAAALAAAABgAAAAIAAAAAAgAAAAACAAAAAAJAAAAlwAAAAkAAAB#AAAACQAAAIAAAAAJAAAAmAAAAAcA#####wAAAIoAAAAJAAAAmQAAAAoA#####wH#AP8AEAAAAQUAAAAAcgAAAJoAAAALAP####8BAAAAABAAAAEAAgAAAIoAAACbAAAAFwD#####AAZhbmcxMTAAAACKAAAAdAAAAHgAAAAXAP####8ABmFuZzExMwAAAHIAAAB0AAAAigAAAAMA#####wAJU0NWaXNpYmxlACMxL3plcm8oYW5nMTEwK2FuZzExMSthbmcxMTIrYW5nMTEzKQAAAAgDAAAAAT#wAAAAAAAAAAAALAAAABgAAAAIAAAAAAgAAAAACAAAAAAJAAAAnQAAAAkAAACBAAAACQAAAIIAAAAJAAAAngAAAAcA#####wAAAIoAAAAJAAAAnwAAAAoA#####wH#AP8AEAAAAQUAAAAAdAAAAKAAAAALAP####8BAAAAABAAAAEAAgAAAIoAAAChAAAAFwD#####AAZhbmcxMTQAAACKAAAAeAAAAHYAAAAXAP####8ABmFuZzExNwAAAHQAAAB4AAAAigAAAAMA#####wAJU0RWaXNpYmxlACMxL3plcm8oYW5nMTE0K2FuZzExNSthbmcxMTYrYW5nMTE3KQAAAAgDAAAAAT#wAAAAAAAAAAAALAAAABgAAAAIAAAAAAgAAAAACAAAAAAJAAAAowAAAAkAAACDAAAACQAAAIQAAAAJAAAApAAAAAcA#####wAAAIoAAAAJAAAApQAAAAoA#####wH#AP8AEAAAAQUAAAAAeAAAAKYAAAALAP####8BAAAAABAAAAEAAgAAAIoAAACnAAAAHAD#####AQAAAAANAAJXMQEFAAAAAI8AAACFAAAADAD#####AAVhYnMxMQAAAHYAAAByAAAAqf####8AAAABAA5DVGVzdEV4aXN0ZW5jZQD#####AAZUZXN0QUIAAACqAAAAAwD#####AAlBQlZpc2libGUADDEvKDEtVGVzdEFCKQAAAAgDAAAAAT#wAAAAAAAAAAAACAEAAAABP#AAAAAAAAAAAAAJAAAAqwAAAAcA#####wAAAIoAAAAJAAAArAAAAAoA#####wH#AAAAEAAAAQUAAAAAdgAAAK0AAAALAP####8BAAAAABAAAAEAAgAAAK4AAAByAAAAHAD#####AQAAAAANAAJXMgEFAAAAAJAAAACGAAAADAD#####AAVhYnMxMgAAAHIAAAB0AAAAsAAAAC0A#####wAGdGVzdEJDAAAAsQAAAAMA#####wAJQkNWaXNpYmxlAAwxLygxLXRlc3RCQykAAAAIAwAAAAE#8AAAAAAAAAAAAAgBAAAAAT#wAAAAAAAAAAAACQAAALIAAAAHAP####8AAACKAAAACQAAALMAAAAKAP####8B#wD#ABAAAAEFAAAAAHIAAAC0AAAACwD#####AQAAAAAQAAABAAIAAAC1AAAAdAAAABwA#####wEAAAAADQACVzMBBQAAAACHAAAAjQAAAAwA#####wAFYWJzMTMAAAB0AAAAeAAAALcAAAAtAP####8ABlRlc3RDRAAAALgAAAADAP####8ACUNEVmlzaWJsZQAMMS8oMS1UZXN0Q0QpAAAACAMAAAABP#AAAAAAAAAAAAAIAQAAAAE#8AAAAAAAAAAAAAkAAAC5AAAABwD#####AAAAigAAAAkAAAC6AAAACgD#####Af8A#wAQAAABBQAAAAB0AAAAuwAAAAsA#####wEAAAAAEAAAAQACAAAAvAAAAHgAAAAcAP####8BAAAAAA0AAlc0AQUAAAAAjgAAAIgAAAAMAP####8ABWFiczE0AAAAeAAAAHYAAAC+AAAALQD#####AAZUZXN0REEAAAC#AAAAAwD#####AAlEQVZpc2libGUADDEvKDEtVGVzdERBKQAAAAgDAAAAAT#wAAAAAAAAAAAACAEAAAABP#AAAAAAAAAAAAAJAAAAwAAAAAcA#####wAAAIoAAAAJAAAAwQAAAAoA#####wH#AP8AEAAAAQUAAAAAeAAAAMIAAAALAP####8BAAAAABAAAAEAAgAAAMMAAAB2#####wAAAAEADkNPYmpldER1cGxpcXVlAP####8AAAAAAAAArwAAAC4A#####wAAAAAAAAC2AAAALgD#####AAAAAAAAAJYAAAAuAP####8AAAAAAAAAnAAAAC4A#####wAAAAAAAACiAAAALgD#####AAAAAAAAAL0AAAAuAP####8AAAAAAAAAxAAAAC4A#####wAAAAAAAACoAAAAKwD#####AAAAAAEQAAJPJwBACAAAAAAAAEAAAAAAAAAABQAAAAAQAAAAYAAAAAkAAABQAAAACwD#####Af8AAAAQAAABAAEAAACJAAAAawAAAAcA#####wAAAIkAAAAJAAAAkwAAAAcA#####wAAAIkAAAAJAAAArAAAAAcA#####wAAAIkAAAAJAAAAswAAAAcA#####wAAAIkAAAAJAAAAugAAAAcA#####wAAAIkAAAAJAAAAwQAAAAsA#####wAAAAAAEAAAAQEBAAAAEAAAAHT#####AAAAAQAQQ0Ryb2l0ZVBhcmFsbGVsZQD#####Af8AAAAQAAABAQEAAADNAAAA1AAAAAsA#####wH#AAAAEAAAAQEBAAAAEAAAAHIAAAAvAP####8B#wAAABAAAAEBAQAAAM0AAADWAAAABwD#####AAAAiQAAAAkAAACZAAAABwD#####AAAAiQAAAAkAAACfAAAABwD#####AAAAiQAAAAkAAACl#####wAAAAEACUNQb2x5Z29uZQD#####ANjY2AEBAAAABQAAAHYAAAByAAAAdAAAAHgAAAB2#####wAAAAEAEENTdXJmYWNlUG9seWdvbmUA#####wB#f38AAAAFAAAA2wAAAAcA#####wAAABAAAAABP#B64UeuFHsAAAAKAP####8B#wAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAACKAAAA3QAAACMA#####wAAAAAAwDQAAAAAAADAJgAAAAAAAAAAAN4QAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAADI0dTAAAAFAD#####AAAA1AAAAFMAAAAVAP####8BAAAAABAAAUYAAAAAAAAAAABACAAAAAAAAAUAAQAAAOAAAAAVAP####8AAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAA4AAAACsA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAABAAAADhAAAAAT#gAAAAAAAAAAAABwD#####AAAAEAAAAAgDAAAAEAQAAAAJAAAAMQAAAAFAAAAAAAAAAAAAAAsA#####wAAAAAAEAAAAQEBAAAAEAAAAOMAAAASAP####8AAAAQAAAA4wAAAAoA#####wAAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAM0AAADmAAAACwD#####AAAAAAAQAAABAQEAAADNAAAA5wAAAAsA#####wAAAAAAEAAAAQEBAAAAeAAAAHIAAAALAP####8AAAAAABAAAAEBAQAAAHYAAAB0AAAAFAD#####AAAAZQAAAFMAAAAVAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAA6wAAABUA#####wAAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAIAAADrAAAABwD#####AAAAEAAAAAgDAAAAEAAAAAAQBAAAAAkAAAAxAAAAAUAAAAAAAAAAAAAACgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAA7AAAAO4AAAASAP####8AAAAQAAAA7wAAAAoA#####wEAAAAAEAAAAEAIAAAAAAAAAAAAAAAAAAAFAAAAAOMAAADwAAAACwD#####AAAAAAAQAAABAQEAAADvAAAAEAAAAAsA#####wAAAAAAEAAAAQEBAAAA4wAAAPEAAAALAP####8AAAAAABAAAAEBAQAAAPEAAADvAAAAMAD#####AAAAAAEBAAAABQAAAO8AAAAQAAAA4wAAAPEAAADvAAAACgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAzQAAAPAAAAASAP####8AAADNAAAA9gAAAAoA#####wEAAAAAEAAAAEAIAAAAAAAAAAAAAAAAAAAFAAAAAOcAAAD3AAAACwD#####AAAAAAAQAAABAQEAAAD2AAAAzQAAAAsA#####wAAAAAAEAAAAQEBAAAA5wAAAPgAAAALAP####8AAAAAABAAAAEBAQAAAPgAAAD2AAAAMAD#####AAAAAAEBAAAABQAAAPYAAADNAAAA5wAAAPgAAAD2AAAABwD#####AAAAiQAAAAgDAAAACQAAAE8AAAAJAAAATgAAAAoA#####wEAAAAAEAACQycAQCQAAAAAAADAMAAAAAAAAAUAAAAAdAAAAP0AAAAHAP####8AAACJAAAACAMAAAAJAAAATwAAAAkAAABOAAAACgD#####AQAAAAAQAAJCJwBAJAAAAAAAAMAAAAAAAAAABQAAAAByAAAA#wAAAAoA#####wEAAAAAEAACQScAwDgAAAAAAAC#8AAAAAAAAAUAAAAAdgAAAP8AAAAKAP####8BAAAAABAAAkQnAMA6AAAAAAAAwCYAAAAAAAAFAAAAAHgAAAD#AAAAMAD#####AAAAAAEBAAAABQAAAQEAAAEAAAAA#gAAAQIAAAEBAAAAMQD#####AP8AAAAAAAUAAAEDAAAACwD#####AP8AAAAQAAABAQEAAAEBAAAA#gAAAAsA#####wD#AAAAEAAAAQEBAAABAgAAAQAAAAAKAP####8B#wAAABAAAkEyAAAAAAAAAAAAQAgAAAAAAAAFAAAAAQEAAADQAAAACgD#####Af8AAAAQAAJCMgAAAAAAAAAAAEAIAAAAAAAABQAAAAEAAAAA0AAAAAsA#####wD#AAAAEAAAAQACAAABBwAAAQgAAAAKAP####8B#wAAABAAAkIzAAAAAAAAAAAAQAgAAAAAAAAFAAAAAQAAAADRAAAACgD#####Af8AAAAQAAJDMwAAAAAAAAAAAEAIAAAAAAAABQAAAAD+AAAA0QAAAAsA#####wD#AAAAEAAAAQACAAABCgAAAQsAAAAKAP####8B#wAAABAAAkM0AAAAAAAAAAAAQAgAAAAAAAAFAAAAAP4AAADSAAAACgD#####Af8AAAAQAAJENAAAAAAAAAAAAEAIAAAAAAAABQAAAAECAAAA0gAAAAsA#####wD#AAAAEAAAAQACAAABDQAAAQ4AAAAKAP####8B#wAAABAAAkQzAAAAAAAAAAAAQAgAAAAAAAAFAAAAAQIAAADTAAAACgD#####Af8AAAAQAAJBMwAAAAAAAAAAAEAIAAAAAAAABQAAAAEBAAAA0wAAAAsA#####wD#AAAAEAAAAQACAAABEAAAAREAAAArAP####8B#wAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAAQAAAAdgAAAAE#8ZmZmZmZmgAAACsA#####wH#AAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAABAAAAB0AAAAAT#xmZmZmZmaAAAAKwD#####Af8AAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAEAAAAHIAAAABP#GZmZmZmZoAAAArAP####8B#wAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAAQAAAAeAAAAAE#8ZmZmZmZmgAAACMA#####wAAAAAAwBgAAAAAAADAIgAAAAAAAAAAARMQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABQQAAACMA#####wAAAAAAwBgAAAAAAADAHAAAAAAAAAAAARUQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABQgAAACMA#####wAAAAAAwBwAAAAAAADAIAAAAAAAAAAAARQQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABQwAAACMA#####wAAAAAAwBgAAAAAAADAJAAAAAAAAAAAARYQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABRAAAACsA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAM0AAAEBAAAAAT#0zMzMzMzNAAAAKwD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAzQAAAQAAAAABP#TMzMzMzM0AAAArAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAADNAAABAgAAAAE#9MzMzMzMzQAAACsA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAM0AAAD+AAAAAT#0zMzMzMzNAAAAIwD#####AAAAAADAFAAAAAAAAMAmAAAAAAAAAAABGxAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAJBJwAAACMA#####wAAAAAAwAgAAAAAAADAIAAAAAAAAAAAARwQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAACQicAAAAjAP####8AAAAAAMAYAAAAAAAAwCAAAAAAAAAAAAEeEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAkMnAAAAIwD#####AAAAAADAHAAAAAAAAMAiAAAAAAAAAAABHRAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAJEJwAAACsA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAIkAAADNAAAAAT#zMzMzMzMzAAAADgD#####AAAAzQAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAOcAAAEkAAAAEgD#####AAAAzQAAASMAAAAKAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAElAAABJgAAACMA#####wAAAAAAwAgAAAAAAADAKgAAAAAAAAAAAScQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAEI0dPJwAAAA4A#####wAAABAAAAAKAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAADjAAABKQAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAASoAAAEmAAAAIwD#####AAAAAADAEAAAAAAAAMAxAAAAAAAAAAABKxAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAMjR0######AAAAAQAHQ01pbGlldQD#####AQAAAAAPAAFHAAAAAAAAAAAAQAgAAAAAAAAFAAAAAHQAAAByAAAAKwD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAEAAAAS0AAAABP#MzMzMzMzMAAAANAP####8AAAAAAQAAAS4SAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAACAAAADwAAADIA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAM0AAACJAAAAMgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAEAAAAM0AAAANAP####8AAAAAAMAqAAAAAAAAwCIAAAAAAAAAAAExEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAgAAAFAAAAANAP####8AAAAAAMAmAAAAAAAAwBgAAAAAAAAAAAEwEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAgAAAE8AAAALAP####8AAAAAABAAAAEBAQAAABAAAACKAAAAUf##########"
-					if (!sortie_html) texte = `\\begin{minipage}{0.65 \\linewidth} \n\t`
-					else texte=``
-					texte += `SABCD est une pyramide à base carrée de hauteur SO${sp()}=${sp()}${tex_nombre(h1)}${sp()}cm et de côté de base ${tex_nombre(c)}${sp()}cm.<br>`
-					texte += ` Le point O' est situé sur la hauteur [SO] à ${h2}${sp()}cm de S.`
-					texte += `<br>Un plan parallèle à la face ABCD passant par O' coupe la pyramide en formant la section A'B'C'D'.<br>`
-					if (!sortie_html) texte +=`La figure n'est pas en vraie grandeur.<br>`
-					texte += num_alpha(0) + ` Calculer l'` + katex_Popup2(numero_de_l_exercice + i * 4, 1, "aire de base de la pyramide", `Formule : Aire d'un carré de côté c`, `$Aire=\\text{c}$${exposant(2)}`) + `.<br>`
-					texte += num_alpha(1) + ` Calculer le ` + katex_Popup2(numero_de_l_exercice + i * 4 + 1, 1, "volume de la pyramide", `Formule : volume d'une pyramide d'aire de base $B$ et de hauteur h`, `$Volume= \\dfrac{B \\times \\text{h}}{3}$`) + ` SABCD.<br>`
-					texte += num_alpha(2) + ` En déduire l'aire de la ` + katex_Popup2(numero_de_l_exercice + i * 4 + 2, 1, "section", `Définition : section plane d'un solide`, `La section d'un solide par un plan est une figure plane.<br>Dans le cas d'une section d'une pyramide par un plan parallèle à sa base, cette section est un polygone qui est une réduction de la base.<br>Dans une réduction de coefficient k, les aires sont multipliées par k${exposant(2)} et les volumes sont multipliés par k${exposant(3)}.`) + ` A'B'C'D' sachant que SO'${sp()}=${sp()}${h2}${sp()}cm.<br>`
-					texte += num_alpha(3) + ` Calculer le volume de la pyramide SA'B'C'D'.<br>`
-					texte += num_alpha(4) + ` Calculer le volume du tronc de la pyramide (partie de la pyramide située entre la base et la section).`
-					if (sortie_html) texte += `<br>Le point O peut être déplacé et on peut changer l'angle de vue &#x3C6; `
-					else texte+=`\n\t \\end{minipage} \n\t \\begin{minipage}{0.35 \\linewidth} \n\t \\begin{tikzpicture}[scale=0.8] \n\t
+		let texte, texte_corr, r, r2, h1, h2, h3, c, c2;
+		//	if (sortie_html) {
+		this.type_exercice = 'MG32';
+		this.taille_div_MG32 = [600, 700];
+		let codeBase64
+		let choix
+		if (this.sup == 1) choix = randint(1, 3)
+		else if (this.sup == 2) choix = randint(4, 5)
+		else choix = randint(1, 5)
+		switch (choix) {
+			case 1: // calcul de l'aire de base, du volume d'une pyramide à base carrée. puis, calcul de la section, du volume de la petite pyramide et du volume du tronc
+				c = calcul(randint(30, 60) / 10)
+				h1 = calcul(randint(12, 20) / 2)
+				h2 = randint(3, Math.floor(h1) - 1)
+				if (this.sup2 < 3)
+					if (this.sup2 == 1) // on veut un coefficient de réduction décimal à 1 chiffre après la virgule
+						while (calcul(h2 / h1) != arrondi(h2 / h1, 1)) {
+							c = calcul(randint(30, 60) / 10)
+							h1 = calcul(randint(12, 20) / 2)
+							h2 = randint(3, Math.floor(h1) - 1)
+						}
+					else // coefficient qui peut être décimal avec plus d'un chiffre ou rationnel non décimal.
+						while (calcul(h2 / h1) == arrondi(h2 / h1, 1)) {
+							c = calcul(randint(30, 60) / 10)
+							h1 = calcul(randint(12, 20) / 2)
+							h2 = randint(3, Math.floor(h1) - 1)
+						}
+				codeBase64 = "TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAANmcmH###8BAP8BAAAAAAAAAAAFHAAAAtIAAAAAAAAAAAAAAAEAAAE1#####wAAAAEACkNDYWxjQ29uc3QA#####wACcGkAFjMuMTQxNTkyNjUzNTg5NzkzMjM4NDb#####AAAAAQAKQ0NvbnN0YW50ZUAJIftURC0Y#####wAAAAEACkNQb2ludEJhc2UA#####wAAAAAAEAAAAEAIAAAAAAAAAAAAAAAAAAAFAAFAgBQAAAAAAEBzyFHrhR64#####wAAAAEAB0NDYWxjdWwA#####wAFbWluaTEAAzAuNQAAAAE#4AAAAAAAAAAAAAMA#####wAFbWF4aTEAATMAAAABQAgAAAAAAAD#####AAAAAQAUQ0ltcGxlbWVudGF0aW9uUHJvdG8A#####wAHQ3Vyc2V1cgAAAAUAAAAFAAAAAwAAAAIAAAADAAAAAf####8AAAABABRDRHJvaXRlRGlyZWN0aW9uRml4ZQAAAAAEAQAAAAAQAAABAAEAAAABAT#wAAAAAAAA#####wAAAAEAD0NQb2ludExpZURyb2l0ZQEAAAAEAAAAAAAQAAAAwAgAAAAAAAA#8AAAAAAAAAUAAUBPAAAAAAAAAAAABf####8AAAABAAtDSG9tb3RoZXRpZQAAAAAEAAAAAf####8AAAABAApDT3BlcmF0aW9uA#####8AAAABAA9DUmVzdWx0YXRWYWxldXIAAAACAAAACAEAAAAJAAAAAgAAAAkAAAAD#####wAAAAEAC0NQb2ludEltYWdlAAAAAAQBAAAAAA0AAk8xAMAQAAAAAAAAQBAAAAAAAAAFAAAAAAYAAAAHAAAABwAAAAAEAAAAAQAAAAgDAAAACAEAAAABP#AAAAAAAAAAAAAJAAAAAgAAAAgBAAAACQAAAAMAAAAJAAAAAgAAAAoAAAAABAEAAAAADQACSTIAwAAAAAAAAABACAAAAAAAAAUAAAAABgAAAAn#####AAAAAQAIQ1NlZ21lbnQBAAAABAAAAAAAEAAAAQEBAAAAAQAAAAYAAAAGAQAAAAQAAAAAARAAAmsxAMAAAAAAAAAAQAAAAAAAAAABAAE#2973ve973wAAAAv#####AAAAAgAPQ01lc3VyZUFic2Npc3NlAQAAAAQABHpvb20AAAAIAAAACgAAAAz#####AAAAAQAPQ1ZhbGV1ckFmZmljaGVlAQAAAAQBAAAAAAAAAAAAAAAAwBgAAAAAAAAAAAAMDwAB####AAAAAQAAAAIAAAABAAAAAAAAAAAAAAAAAgAAAA0AAAADAP####8AAWMAATMAAAABQAgAAAAAAAAAAAACAP####8AAAAAAQ8AAU8AP#AAAAAAAABACAAAAAAAAAUAAUBukAAAAAAAQILsKPXCj1wAAAAFAP####8BAAAAABAAAAEAAQAAABABQACWu5jH4oIAAAACAP####8AAAAAAQ8AAk8yAQUAAUCBLAAAAAAAQHn4UeuFHrgAAAACAP####8AAAAAAQ8AAk8zAQUAAUCBJAAAAAAAQH44UeuFHrgAAAAFAP####8BAAAAABAAAAEAAQAAABMBQACWu5jH4oIAAAACAP####8AAAAAAQ8AAk80AQUAAUCBFAAAAAAAQIIcKPXCj1wAAAAFAP####8BAAAAABAAAAEAAQAAABUBQACWu5jH4oL#####AAAAAQARQ1N5bWV0cmllQ2VudHJhbGUA#####wAAABL#####AAAAAQAFQ0ZvbmMA#####wAEemVybwANYWJzKHQpPDAuMDAwMQAAAAgE#####wAAAAIACUNGb25jdGlvbgD#####AAAAAgARQ1ZhcmlhYmxlRm9ybWVsbGUAAAAAAAAAAT8aNuLrHEMtAAF0AAAABQD#####AQAAAAEQAAABAAEAAAASAD#wAAAAAAAAAAAABgD#####AAAAAAEPAAJKMgEFAADAQAAAAAAAAAAAABn#####AAAAAQAMQ1RyYW5zbGF0aW9uAP####8AAAASAAAAGgAAAAoA#####wEAAAAAEAAAAQUAAAAAEwAAABv#####AAAAAQAJQ0NlcmNsZU9BAP####8Af39#AQEAAAATAAAAHP####8AAAABABBDSW50RHJvaXRlQ2VyY2xlAP####8AAAAUAAAAHf####8AAAABABBDUG9pbnRMaWVCaXBvaW50AP####8BAAAAAA0AAkkzAQUAAQAAAB7#####AAAAAQAPQ1BvaW50TGllQ2VyY2xlAP####8AAAAAAQsAAkszAQEAAUAYJx+keskRAAAAHQAAAAsA#####wAAAAAAEAAAAQABAAAAEgAAABoAAAALAP####8AAAAAABAAAAEAAQAAABMAAAAfAAAACwD#####AAAAAAAQAAABAAEAAAATAAAAIP####8AAAACABNDTWVzdXJlQW5nbGVPcmllbnRlAP####8ACGFuZ3RoZXRhAAAAHwAAABMAAAAgAAAAAwD#####AAV0aGV0YQAIYW5ndGhldGEAAAAJAAAAJAAAAAMA#####wADeCcxAApzaW4odGhldGEpAAAAEAMAAAAJAAAAJQAAAAMA#####wADeCcyAApjb3ModGhldGEpAAAAEAQAAAAJAAAAJf####8AAAACABNDTWFycXVlQW5nbGVPcmllbnRlAP####8AfwAAAAIAAAAAQDWKaKSo2fMAAAAfAAAAEwAAACAB#####wAAAAEADENCaXNzZWN0cmljZQD#####AX8AAAAQAAABAQEAAAAfAAAAEwAAACAAAAAGAP####8BfwAAABAAAAEFAAFAebYKC41k5QAAACn#####AAAAAgAGQ0xhdGV4AP####8AfwAAAMAUAAAAAAAAwCYAAAAAAAAAAAAqEQAAAAAAAAAAAAAAAAABAAAAAAAAAAAAClx2YXJ0aGV0YSAAAAAKAP####8BAAAAABAAAAEFAAAAABoAAAAX#####wAAAAEAEkNBcmNEZUNlcmNsZURpcmVjdAD#####AH9#fwEBAAAAEgAAABoAAAAsAAAAFgD#####AAAAAAEPAAJLMgEBAAE#wCNHf8Ds#QAAAC0AAAALAP####8AAAAAABAAAAEAAQAAABIAAAAuAAAAFwD#####AAZhbmdwaGkAAAAaAAAAEgAAAC4AAAADAP####8AA3BoaQAGYW5ncGhpAAAACQAAADAAAAAHAP####8AAAAVAAAAEAQAAAAJAAAAMQAAAAMA#####wADeScxABQtY29zKHRoZXRhKSpzaW4ocGhpKQAAAAgBAAAAAQAAAAAAAAAAAAAACAIAAAAQBAAAAAkAAAAlAAAAEAMAAAAJAAAAMQAAAAMA#####wADeScyABNzaW4odGhldGEpKnNpbihwaGkpAAAACAIAAAAQAwAAAAkAAAAlAAAAEAMAAAAJAAAAMQAAABgA#####wAAAP8AAgAAAABAN1LlDbOjogAAABoAAAASAAAALgEAAAAZAP####8BAAD#ABAAAAEBAQAAABoAAAASAAAALgAAAAYA#####wEAAP8AEAAAAQUAAUB8Mk4l1syCAAAANgAAABoA#####wAAAP8AwBAAAAAAAADAFAAAAAAAAAAAADcRAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAHXHZhcnBoaQAAAAUA#####wEAAAABEAAAAQABAAAAFQA#8AAAAAAAAAAAAAYA#####wAAAAABDwACSjQBBQABwEoAAAAAAAAAAAA5AAAAEwD#####AGZmZgABAAAAFQAAADoAAAAWAP####8BAAAAABAAAAEFAAE#8JfpunkCYQAAADsAAAAFAP####8BAAAAABAAAAEAAQAAADwAQACWu5jH4oL#####AAAAAQAQQ0ludERyb2l0ZURyb2l0ZQD#####AQAAAAAQAAABBQAAAAAWAAAAPQAAABQA#####wAAABYAAAA7AAAAFQD#####AQAAAAENAAJJNAEFAAEAAAA######wAAAAIAB0NSZXBlcmUA#####wAAAAABAQAAABUAAABAAAAAOgAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAE#8AAAAAAAAAAAAAE#8AAAAAAAAAAAAAoA#####wEAAAAAEAAAAQUAAAAAOgAAADIAAAAHAP####8AAAA+AAAAEAQAAAAJAAAAMQAAAAoA#####wEAAAAAEAAAAQUAAAAAPAAAAEP#####AAAAAgANQ0xpZXVEZVBvaW50cwD#####AAB#fwEBAAAARAAAAGQAAAAAADwAAAAFAAAAPAAAAD0AAAA+AAAAQwAAAET#####AAAAAQAIQ1ZlY3RldXIA#####wAAAP8AEAAAAQABAAAAFQAAAEIA#####wAAAAEAEENQb2ludERhbnNSZXBlcmUA#####wEAAAAAEAAAAQUAAAAAQQAAAAkAAAAmAAAACQAAADMAAAAgAP####8BAAAAABAAAAEFAAAAAEEAAAAJAAAAJwAAAAkAAAA0AAAAHwD#####AP8AAAAQAAABAAEAAAAVAAAARwAAAAAfAP####8AAH8AABAAAAEAAQAAABUAAABIAAAAAB4A#####wBmZmYBAQAAAEcAAABkAAAAAAAgAAAABgAAACAAAAAkAAAAJQAAACYAAAAzAAAAR#####8AAAABAAxDU3VyZmFjZUxpZXUA#####wB#f38AAAAFAAAASwAAACEA#####wB#f38AAAAFAAAARQAAAAMA#####wACaDEAAjEwAAAAAUAkAAAAAAAAAAAAAwD#####AAJoMgABMwAAAAFACAAAAAAAAAAAAAMA#####wACaDMABWgxLWgyAAAACAEAAAAJAAAATgAAAAkAAABP#####wAAAAEACUNMb25ndWV1cgD#####AAAAEgAAABr#####AAAAAgAMQ0NvbW1lbnRhaXJlAP####8A#wAAAf####8QQIA8AAAAAABAdGhR64UeuAIAAAAAAAAAAAAAAAABAAAAAAAAAAAABFpPT03#####AAAAAgAJQ0NlcmNsZU9SAP####8B#wAAAAEAAAAQAAAAAT#wAAAAAAAAAAAAABQA#####wAAABEAAABTAAAAFQD#####Af8AAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAgAAAFQAAAAVAP####8B#wAAABAAAkkiAAAAAAAAAAAAQAgAAAAAAAAFAAEAAABUAAAABwD#####AAAAEAAAAAkAAAANAAAACgD#####Af8AAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAVgAAAFf#####AAAAAQAOQ1BvaW50TGllUG9pbnQA#####wEAAAAACwACSTEAwBAAAAAAAABAEAAAAAAAAAUAAAAAWP####8AAAABAAlDRHJvaXRlQUIA#####wEAAAAADQAAAQABAAAAEAAAAFn#####AAAAAQAWQ0Ryb2l0ZVBlcnBlbmRpY3VsYWlyZQD#####AQAAAAAQAAABAAEAAAAQAAAAWgAAABMA#####wEAAAAAAQAAABAAAABZAAAAFAD#####AAAAWwAAAFwAAAAVAP####8BAAAAAAsAAkoxAMAoAAAAAAAAwBAAAAAAAAAFAAIAAABdAAAAHQD#####AICAgAEBAAAAEAAAAFkAAABeAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAT#wAAAAAAAAAAAAAT#wAAAAAAAAAAAAIAD#####AQAAAAAPAAFLAEAQAAAAAAAAwC4AAAAAAAAFAAAAAF8AAAABAAAAAAAAAAAAAAAQBAAAAAkAAAAxAAAAIAD#####AQAAAAAPAAFJAMAmAAAAAAAAwC4AAAAAAAAFAAAAAF8AAAAJAAAAJgAAAAkAAAAzAAAAIAD#####AQAAAAAPAAFKAEAUAAAAAAAAwCwAAAAAAAAFAAAAAF8AAAAJAAAAJwAAAAkAAAA0#####wAAAAEADUNEZW1pRHJvaXRlT0EA#####wEAAAAADQAAAQEBAAAAEAAAAGEAAAAoAP####8BAAAAAA0AAAEBAQAAABAAAABiAAAAKAD#####AQAAAAANAAABAQEAAAAQAAAAYAAAAB8A#####wH#AAAAEAAAAQABAAAAEAAAAGEAAAAAHwD#####AQB#AAAQAAABAAEAAAAQAAAAYgAAAAAfAP####8BAAD#ABAAAAEAAQAAABAAAABgAP####8AAAABABFDTWFjcm9EaXNwYXJpdGlvbgD#####AAAA#wH#####DUB+IAAAAAAAQIQQAAAAAAACAczM#wAAAAAAAAAAAAAAAQAAAAAAAAAAABMoTyxJLEosSykgaW52aXNpYmxlAAAAAAAJAAAAZAAAAGEAAABiAAAAZQAAAGgAAABgAAAAZwAAAGYAAABj#####wAAAAEAEENNYWNyb0FwcGFyaXRpb24A#####wAAAP8B#####w1AfpAAAAAAAECE4AAAAAAAAgHMzP8AAAAAAAAAAAAAAAEAAAAAAAAAAAARKE8sSSxKLEspIHZpc2libGUAAAAAAAkAAABkAAAAYQAAAGIAAABlAAAAaAAAAGAAAABnAAAAZgAAAGMA#####wAAAAEAEUNQb2ludFBhckFic2Npc3NlAP####8B#wAAABAAAkUiAAAAAAAAAAAAQAgAAAAAAAAFAAAAABAAAABhAAAACAMAAAAJAAAADwAAAAFAAAAAAAAAAAAAACUA#####wEAAAAADwABRQEFAAAAAGsAAAAMAP####8ABGFiczEAAAAQAAAAYQAAAGwAAAADAP####8AAWEABjIqYWJzMQAAAAgCAAAAAUAAAAAAAAAAAAAACQAAAG0AAAArAP####8B#wD#ABAAAAEFAAAAABAAAABiAAAACQAAAG0AAAAlAP####8BAAAAABAAAAEFAAAAAG8AAAASAP####8AAAAQAAAAcAAAAAoA#####wEAAAAADwABQgDAAAAAAAAAAEAIAAAAAAAABQAAAABsAAAAcQAAABIA#####wAAAHIAAABwAAAACgD#####AQAAAAAPAAFDAAAAAAAAAAAAQAAAAAAAAAAFAAAAAHAAAABzAAAAEgD#####AAAAcgAAAGwAAAAKAP####8BAAAAAA8AAUEAwBwAAAAAAAA#8AAAAAAAAAUAAAAAbAAAAHUAAAASAP####8AAAByAAAAdgAAAAoA#####wEAAAAADwABRADAMwAAAAAAAMAyAAAAAAAABQAAAAB0AAAAdwAAAAsA#####wAAAAAAEAAAAQEBAAAAcgAAAHQAAAALAP####8AAAAAABAAAAEBAQAAAHQAAAB4AAAACwD#####AAAAAAAQAAABAQEAAAB4AAAAdgAAAAsA#####wAAAAAAEAAAAQEBAAAAdgAAAHIAAAAXAP####8ABWFuZzEzAAAAcgAAAHYAAAB0AAAAFwD#####AAVhbmcxNAAAAHQAAAB2AAAAeAAAABcA#####wAFYW5nMTcAAAB0AAAAcgAAAHgAAAAXAP####8ABWFuZzE4AAAAeAAAAHIAAAB2AAAAFwD#####AAZhbmcxMTEAAAB4AAAAdAAAAHYAAAAXAP####8ABmFuZzExMgAAAHYAAAB0AAAAcgAAABcA#####wAGYW5nMTE1AAAAdgAAAHgAAAByAAAAFwD#####AAZhbmcxMTYAAAByAAAAeAAAAHQAAAAmAP####8BAAAAAAsAAAEBAQAAAHYAAAByAAAAJgD#####AQAAAAANAAABAQEAAAByAAAAdAAAACYA#####wEAAAAADQAAAQEBAAAAdAAAAHgAAAAmAP####8BAAAAAA0AAAEBAQAAAHgAAAB2AAAAKwD#####Af8AAAAQAAJTIgAAAAAAAAAAAEAIAAAAAAAABQAAAAAQAAAAYAAAAAkAAABOAAAAJQD#####AQAAAAAPAAFTAMAiAAAAAAAAwDIAAAAAAAAFAAAAAIkAAAAMAP####8ABWFiczE1AAAAEAAAAGAAAACKAAAAAwD#####AAFoAAVhYnMxNQAAAAkAAACLAAAACwD#####AAAAAAAQAAABAQEAAACKAAAAdgAAAAsA#####wAAAAAAEAAAAQEBAAAAigAAAHIAAAALAP####8AAAAAABAAAAEBAQAAAIoAAAB0AAAACwD#####AAAAAAAQAAABAQEAAACKAAAAeAAAABcA#####wAFYW5nMTIAAACKAAAAdgAAAHIAAAAXAP####8ABWFuZzE1AAAAeAAAAHYAAACKAAAAAwD#####AAlTQVZpc2libGUAHzEvemVybyhhbmcxMithbmcxMythbmcxNCthbmcxNSkAAAAIAwAAAAE#8AAAAAAAAP####8AAAABAA5DQXBwZWxGb25jdGlvbgAAABgAAAAIAAAAAAgAAAAACAAAAAAJAAAAkQAAAAkAAAB9AAAACQAAAH4AAAAJAAAAkgAAAAcA#####wAAAIoAAAAJAAAAkwAAAAoA#####wH#AP8AEAAAAQUAAAAAdgAAAJQAAAALAP####8BAAAAABAAAAEAAgAAAIoAAACVAAAAFwD#####AAVhbmcxNgAAAIoAAAByAAAAdAAAABcA#####wAFYW5nMTkAAAB2AAAAcgAAAIoAAAADAP####8ACVNCVmlzaWJsZQAfMS96ZXJvKGFuZzE2K2FuZzE3K2FuZzE4K2FuZzE5KQAAAAgDAAAAAT#wAAAAAAAAAAAALAAAABgAAAAIAAAAAAgAAAAACAAAAAAJAAAAlwAAAAkAAAB#AAAACQAAAIAAAAAJAAAAmAAAAAcA#####wAAAIoAAAAJAAAAmQAAAAoA#####wH#AP8AEAAAAQUAAAAAcgAAAJoAAAALAP####8BAAAAABAAAAEAAgAAAIoAAACbAAAAFwD#####AAZhbmcxMTAAAACKAAAAdAAAAHgAAAAXAP####8ABmFuZzExMwAAAHIAAAB0AAAAigAAAAMA#####wAJU0NWaXNpYmxlACMxL3plcm8oYW5nMTEwK2FuZzExMSthbmcxMTIrYW5nMTEzKQAAAAgDAAAAAT#wAAAAAAAAAAAALAAAABgAAAAIAAAAAAgAAAAACAAAAAAJAAAAnQAAAAkAAACBAAAACQAAAIIAAAAJAAAAngAAAAcA#####wAAAIoAAAAJAAAAnwAAAAoA#####wH#AP8AEAAAAQUAAAAAdAAAAKAAAAALAP####8BAAAAABAAAAEAAgAAAIoAAAChAAAAFwD#####AAZhbmcxMTQAAACKAAAAeAAAAHYAAAAXAP####8ABmFuZzExNwAAAHQAAAB4AAAAigAAAAMA#####wAJU0RWaXNpYmxlACMxL3plcm8oYW5nMTE0K2FuZzExNSthbmcxMTYrYW5nMTE3KQAAAAgDAAAAAT#wAAAAAAAAAAAALAAAABgAAAAIAAAAAAgAAAAACAAAAAAJAAAAowAAAAkAAACDAAAACQAAAIQAAAAJAAAApAAAAAcA#####wAAAIoAAAAJAAAApQAAAAoA#####wH#AP8AEAAAAQUAAAAAeAAAAKYAAAALAP####8BAAAAABAAAAEAAgAAAIoAAACnAAAAHAD#####AQAAAAANAAJXMQEFAAAAAI8AAACFAAAADAD#####AAVhYnMxMQAAAHYAAAByAAAAqf####8AAAABAA5DVGVzdEV4aXN0ZW5jZQD#####AAZUZXN0QUIAAACqAAAAAwD#####AAlBQlZpc2libGUADDEvKDEtVGVzdEFCKQAAAAgDAAAAAT#wAAAAAAAAAAAACAEAAAABP#AAAAAAAAAAAAAJAAAAqwAAAAcA#####wAAAIoAAAAJAAAArAAAAAoA#####wH#AAAAEAAAAQUAAAAAdgAAAK0AAAALAP####8BAAAAABAAAAEAAgAAAK4AAAByAAAAHAD#####AQAAAAANAAJXMgEFAAAAAJAAAACGAAAADAD#####AAVhYnMxMgAAAHIAAAB0AAAAsAAAAC0A#####wAGdGVzdEJDAAAAsQAAAAMA#####wAJQkNWaXNpYmxlAAwxLygxLXRlc3RCQykAAAAIAwAAAAE#8AAAAAAAAAAAAAgBAAAAAT#wAAAAAAAAAAAACQAAALIAAAAHAP####8AAACKAAAACQAAALMAAAAKAP####8B#wD#ABAAAAEFAAAAAHIAAAC0AAAACwD#####AQAAAAAQAAABAAIAAAC1AAAAdAAAABwA#####wEAAAAADQACVzMBBQAAAACHAAAAjQAAAAwA#####wAFYWJzMTMAAAB0AAAAeAAAALcAAAAtAP####8ABlRlc3RDRAAAALgAAAADAP####8ACUNEVmlzaWJsZQAMMS8oMS1UZXN0Q0QpAAAACAMAAAABP#AAAAAAAAAAAAAIAQAAAAE#8AAAAAAAAAAAAAkAAAC5AAAABwD#####AAAAigAAAAkAAAC6AAAACgD#####Af8A#wAQAAABBQAAAAB0AAAAuwAAAAsA#####wEAAAAAEAAAAQACAAAAvAAAAHgAAAAcAP####8BAAAAAA0AAlc0AQUAAAAAjgAAAIgAAAAMAP####8ABWFiczE0AAAAeAAAAHYAAAC+AAAALQD#####AAZUZXN0REEAAAC#AAAAAwD#####AAlEQVZpc2libGUADDEvKDEtVGVzdERBKQAAAAgDAAAAAT#wAAAAAAAAAAAACAEAAAABP#AAAAAAAAAAAAAJAAAAwAAAAAcA#####wAAAIoAAAAJAAAAwQAAAAoA#####wH#AP8AEAAAAQUAAAAAeAAAAMIAAAALAP####8BAAAAABAAAAEAAgAAAMMAAAB2#####wAAAAEADkNPYmpldER1cGxpcXVlAP####8AAAAAAAAArwAAAC4A#####wAAAAAAAAC2AAAALgD#####AAAAAAAAAJYAAAAuAP####8AAAAAAAAAnAAAAC4A#####wAAAAAAAACiAAAALgD#####AAAAAAAAAL0AAAAuAP####8AAAAAAAAAxAAAAC4A#####wAAAAAAAACoAAAAKwD#####AAAAAAEQAAJPJwBACAAAAAAAAEAAAAAAAAAABQAAAAAQAAAAYAAAAAkAAABQAAAACwD#####Af8AAAAQAAABAAEAAACJAAAAawAAAAcA#####wAAAIkAAAAJAAAAkwAAAAcA#####wAAAIkAAAAJAAAArAAAAAcA#####wAAAIkAAAAJAAAAswAAAAcA#####wAAAIkAAAAJAAAAugAAAAcA#####wAAAIkAAAAJAAAAwQAAAAsA#####wAAAAAAEAAAAQEBAAAAEAAAAHT#####AAAAAQAQQ0Ryb2l0ZVBhcmFsbGVsZQD#####Af8AAAAQAAABAQEAAADNAAAA1AAAAAsA#####wH#AAAAEAAAAQEBAAAAEAAAAHIAAAAvAP####8B#wAAABAAAAEBAQAAAM0AAADWAAAABwD#####AAAAiQAAAAkAAACZAAAABwD#####AAAAiQAAAAkAAACfAAAABwD#####AAAAiQAAAAkAAACl#####wAAAAEACUNQb2x5Z29uZQD#####ANjY2AEBAAAABQAAAHYAAAByAAAAdAAAAHgAAAB2#####wAAAAEAEENTdXJmYWNlUG9seWdvbmUA#####wB#f38AAAAFAAAA2wAAAAcA#####wAAABAAAAABP#B64UeuFHsAAAAKAP####8B#wAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAACKAAAA3QAAACMA#####wAAAAAAwDQAAAAAAADAJgAAAAAAAAAAAN4QAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAADI0dTAAAAFAD#####AAAA1AAAAFMAAAAVAP####8BAAAAABAAAUYAAAAAAAAAAABACAAAAAAAAAUAAQAAAOAAAAAVAP####8AAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAA4AAAACsA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAABAAAADhAAAAAT#gAAAAAAAAAAAABwD#####AAAAEAAAAAgDAAAAEAQAAAAJAAAAMQAAAAFAAAAAAAAAAAAAAAsA#####wAAAAAAEAAAAQEBAAAAEAAAAOMAAAASAP####8AAAAQAAAA4wAAAAoA#####wAAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAM0AAADmAAAACwD#####AAAAAAAQAAABAQEAAADNAAAA5wAAAAsA#####wAAAAAAEAAAAQEBAAAAeAAAAHIAAAALAP####8AAAAAABAAAAEBAQAAAHYAAAB0AAAAFAD#####AAAAZQAAAFMAAAAVAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAA6wAAABUA#####wAAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAIAAADrAAAABwD#####AAAAEAAAAAgDAAAAEAAAAAAQBAAAAAkAAAAxAAAAAUAAAAAAAAAAAAAACgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAA7AAAAO4AAAASAP####8AAAAQAAAA7wAAAAoA#####wEAAAAAEAAAAEAIAAAAAAAAAAAAAAAAAAAFAAAAAOMAAADwAAAACwD#####AAAAAAAQAAABAQEAAADvAAAAEAAAAAsA#####wAAAAAAEAAAAQEBAAAA4wAAAPEAAAALAP####8AAAAAABAAAAEBAQAAAPEAAADvAAAAMAD#####AAAAAAEBAAAABQAAAO8AAAAQAAAA4wAAAPEAAADvAAAACgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAzQAAAPAAAAASAP####8AAADNAAAA9gAAAAoA#####wEAAAAAEAAAAEAIAAAAAAAAAAAAAAAAAAAFAAAAAOcAAAD3AAAACwD#####AAAAAAAQAAABAQEAAAD2AAAAzQAAAAsA#####wAAAAAAEAAAAQEBAAAA5wAAAPgAAAALAP####8AAAAAABAAAAEBAQAAAPgAAAD2AAAAMAD#####AAAAAAEBAAAABQAAAPYAAADNAAAA5wAAAPgAAAD2AAAABwD#####AAAAiQAAAAgDAAAACQAAAE8AAAAJAAAATgAAAAoA#####wEAAAAAEAACQycAQCQAAAAAAADAMAAAAAAAAAUAAAAAdAAAAP0AAAAHAP####8AAACJAAAACAMAAAAJAAAATwAAAAkAAABOAAAACgD#####AQAAAAAQAAJCJwBAJAAAAAAAAMAAAAAAAAAABQAAAAByAAAA#wAAAAoA#####wEAAAAAEAACQScAwDgAAAAAAAC#8AAAAAAAAAUAAAAAdgAAAP8AAAAKAP####8BAAAAABAAAkQnAMA6AAAAAAAAwCYAAAAAAAAFAAAAAHgAAAD#AAAAMAD#####AAAAAAEBAAAABQAAAQEAAAEAAAAA#gAAAQIAAAEBAAAAMQD#####AP8AAAAAAAUAAAEDAAAACwD#####AP8AAAAQAAABAQEAAAEBAAAA#gAAAAsA#####wD#AAAAEAAAAQEBAAABAgAAAQAAAAAKAP####8B#wAAABAAAkEyAAAAAAAAAAAAQAgAAAAAAAAFAAAAAQEAAADQAAAACgD#####Af8AAAAQAAJCMgAAAAAAAAAAAEAIAAAAAAAABQAAAAEAAAAA0AAAAAsA#####wD#AAAAEAAAAQACAAABBwAAAQgAAAAKAP####8B#wAAABAAAkIzAAAAAAAAAAAAQAgAAAAAAAAFAAAAAQAAAADRAAAACgD#####Af8AAAAQAAJDMwAAAAAAAAAAAEAIAAAAAAAABQAAAAD+AAAA0QAAAAsA#####wD#AAAAEAAAAQACAAABCgAAAQsAAAAKAP####8B#wAAABAAAkM0AAAAAAAAAAAAQAgAAAAAAAAFAAAAAP4AAADSAAAACgD#####Af8AAAAQAAJENAAAAAAAAAAAAEAIAAAAAAAABQAAAAECAAAA0gAAAAsA#####wD#AAAAEAAAAQACAAABDQAAAQ4AAAAKAP####8B#wAAABAAAkQzAAAAAAAAAAAAQAgAAAAAAAAFAAAAAQIAAADTAAAACgD#####Af8AAAAQAAJBMwAAAAAAAAAAAEAIAAAAAAAABQAAAAEBAAAA0wAAAAsA#####wD#AAAAEAAAAQACAAABEAAAAREAAAArAP####8B#wAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAAQAAAAdgAAAAE#8ZmZmZmZmgAAACsA#####wH#AAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAABAAAAB0AAAAAT#xmZmZmZmaAAAAKwD#####Af8AAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAEAAAAHIAAAABP#GZmZmZmZoAAAArAP####8B#wAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAAQAAAAeAAAAAE#8ZmZmZmZmgAAACMA#####wAAAAAAwBgAAAAAAADAIgAAAAAAAAAAARMQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABQQAAACMA#####wAAAAAAwBgAAAAAAADAHAAAAAAAAAAAARUQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABQgAAACMA#####wAAAAAAwBwAAAAAAADAIAAAAAAAAAAAARQQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABQwAAACMA#####wAAAAAAwBgAAAAAAADAJAAAAAAAAAAAARYQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABRAAAACsA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAM0AAAEBAAAAAT#0zMzMzMzNAAAAKwD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAzQAAAQAAAAABP#TMzMzMzM0AAAArAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAADNAAABAgAAAAE#9MzMzMzMzQAAACsA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAM0AAAD+AAAAAT#0zMzMzMzNAAAAIwD#####AAAAAADAFAAAAAAAAMAmAAAAAAAAAAABGxAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAJBJwAAACMA#####wAAAAAAwAgAAAAAAADAIAAAAAAAAAAAARwQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAACQicAAAAjAP####8AAAAAAMAYAAAAAAAAwCAAAAAAAAAAAAEeEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAkMnAAAAIwD#####AAAAAADAHAAAAAAAAMAiAAAAAAAAAAABHRAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAJEJwAAACsA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAIkAAADNAAAAAT#zMzMzMzMzAAAADgD#####AAAAzQAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAOcAAAEkAAAAEgD#####AAAAzQAAASMAAAAKAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAElAAABJgAAACMA#####wAAAAAAwAgAAAAAAADAKgAAAAAAAAAAAScQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAEI0dPJwAAAA4A#####wAAABAAAAAKAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAADjAAABKQAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAASoAAAEmAAAAIwD#####AAAAAADAEAAAAAAAAMAxAAAAAAAAAAABKxAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAMjR0######AAAAAQAHQ01pbGlldQD#####AQAAAAAPAAFHAAAAAAAAAAAAQAgAAAAAAAAFAAAAAHQAAAByAAAAKwD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAEAAAAS0AAAABP#MzMzMzMzMAAAANAP####8AAAAAAQAAAS4SAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAACAAAADwAAADIA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAM0AAACJAAAAMgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAEAAAAM0AAAANAP####8AAAAAAMAqAAAAAAAAwCIAAAAAAAAAAAExEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAgAAAFAAAAANAP####8AAAAAAMAmAAAAAAAAwBgAAAAAAAAAAAEwEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAgAAAE8AAAALAP####8AAAAAABAAAAEBAQAAABAAAACKAAAAUf##########"
+				if (!sortie_html) texte = `\\begin{minipage}{0.65 \\linewidth} \n\t`
+				else texte = ``
+				texte += `SABCD est une pyramide à base carrée de hauteur SO${sp()}=${sp()}${tex_nombre(h1)}${sp()}cm et de côté de base ${tex_nombre(c)}${sp()}cm.<br>`
+				texte += ` Le point O' est situé sur la hauteur [SO] à ${h2}${sp()}cm de S.`
+				texte += `<br>Un plan parallèle à la face ABCD passant par O' coupe la pyramide en formant la section A'B'C'D'.<br>`
+				if (!sortie_html) texte += `La figure n'est pas en vraie grandeur.<br>`
+				texte += num_alpha(0) + ` Calculer l'` + katex_Popup2(numero_de_l_exercice + i * 4, 1, "aire de base de la pyramide", `Formule : Aire d'un carré de côté c`, `$Aire=\\text{c}$${exposant(2)}`) + `.<br>`
+				texte += num_alpha(1) + ` Calculer le ` + katex_Popup2(numero_de_l_exercice + i * 4 + 1, 1, "volume de la pyramide", `Formule : volume d'une pyramide d'aire de base $B$ et de hauteur h`, `$Volume= \\dfrac{B \\times \\text{h}}{3}$`) + ` SABCD.<br>`
+				texte += num_alpha(2) + ` En déduire l'aire de la ` + katex_Popup2(numero_de_l_exercice + i * 4 + 2, 1, "section", `Définition : section plane d'un solide`, `La section d'un solide par un plan est une figure plane.<br>Dans le cas d'une section d'une pyramide par un plan parallèle à sa base, cette section est un polygone qui est une réduction de la base.<br>Dans une réduction de coefficient k, les aires sont multipliées par k${exposant(2)} et les volumes sont multipliés par k${exposant(3)}.`) + ` A'B'C'D' sachant que SO'${sp()}=${sp()}${h2}${sp()}cm.<br>`
+				texte += num_alpha(3) + ` Calculer le volume de la pyramide SA'B'C'D'.<br>`
+				texte += num_alpha(4) + ` Calculer le volume du tronc de la pyramide (partie de la pyramide située entre la base et la section).`
+				if (sortie_html) texte += `<br>Le point O peut être déplacé et on peut changer l'angle de vue &#x3C6; `
+				else texte += `\n\t \\end{minipage} \n\t \\begin{minipage}{0.35 \\linewidth} \n\t \\begin{tikzpicture}[scale=0.8] \n\t
 					\\definecolor{hhhhhh}{rgb}{0,0,0}
 					\\definecolor{phphph}{rgb}{0.5,0.5,0.5}
 					\\definecolor{dpdpdp}{rgb}{0.85,0.85,0.85}
@@ -4815,59 +4815,59 @@ function Agrandissement_reduction() {
 					\\node at (4.247, 2.292) [align=left,below right ,black,,font= \\sf \\fontsize {0.469cm} {0.586cm} \\selectfont] {\\textbf{O}};
 					\\draw [color=black , dotted, line width = 0.4](4.578,2.328)--(4.578,13.458);
 					\\end{tikzpicture} \n\t \\end{minipage}`
-					texte_corr = num_alpha(0) + ` L'aire de base de la pyramide est : $${tex_nombre(c)}^2$ cm${exposant(2)} $= ${tex_nombrec(c * c)}$ cm${exposant(2)}.<br>`
-					texte_corr += num_alpha(1) + ` Le volume de la pyramide est : $\\dfrac{A_\\text{base} \\times \\text{hauteur}}{3}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(c * c)}\\times ${tex_nombre(h1)}}{3}$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(c * c * h1 / 3))}$ cm${exposant(3)}.<br>`
-					texte_corr += num_alpha(2) + ` La section est une réduction de la base de coefficient $\\dfrac{${h2}}{${tex_nombre(h1)}}`
-					if (!Number.isInteger(h1) || pgcd(h2, h1) > 1) texte_corr += `=${tex_fraction_reduite(h2 * 10, h1 * 10)}$.<br>`
-					else texte_corr += `.$<br>`
-					texte_corr += `Dans une réduction de coefficient k, les aires sont multipliés par k${exposant(2)}.<br>`
-					texte_corr += `Donc son aire est $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^2 \\times ${tex_nombre(c * c)}$ cm${exposant(2)} $=${tex_fraction_reduite(arrondi(h2 * h2 * 100 * c * c), arrondi(h1 * h1 * 100))}$ cm${exposant(2)} $\\approx ${tex_nombrec(arrondi(h2 * h2 * c * c / h1 / h1, 2))}$ cm${exposant(2)}.<br>`
-					texte_corr += num_alpha(3) + ` Dans une réduction de coefficient k, les volumes sont multipliés par k ${exposant(3)}.<br>`
-					texte_corr += `Donc le volume de la pyramide SA'B'C'D' est : $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3 \\times \\dfrac{${tex_nombrec(c * c * h1)}}{3}$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(h2 ** 3 * c * c / h1 ** 2 / 3))}$ cm${exposant(3)}.<br>`
-					texte_corr += num_alpha(4) + ` Le volume du tronc de la pyramide est : `
-					texte_corr += `$V_\\text{SABCD} - V_\\text{SA'B'C'D'}$<br>Soit : <br>$${tex_nombrec(arrondi(c * c * h1 / 3))}$ cm${exposant(3)}$ - ${tex_nombrec(arrondi(h2 ** 3 * c * c / h1 ** 2 / 3))}$ cm${exposant(3)}$ \\approx ${tex_nombrec(arrondi(c * c * h1 / 3 - h2 ** 3 * c * c / h1 ** 2 / 3, 2))}$ cm${exposant(3)}.<br>`
-					texte_corr += `Ce qui représente $${tex_fraction_reduite((h1 ** 3 - h2 ** 3) * 1000, (h1 ** 3) * 1000)}$ du volume de SABCD.`
+				texte_corr = num_alpha(0) + ` L'aire de base de la pyramide est : $${tex_nombre(c)}^2$ cm${exposant(2)} $= ${tex_nombrec(c * c)}$ cm${exposant(2)}.<br>`
+				texte_corr += num_alpha(1) + ` Le volume de la pyramide est : $\\dfrac{A_\\text{base} \\times \\text{hauteur}}{3}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(c * c)}\\times ${tex_nombre(h1)}}{3}$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(c * c * h1 / 3))}$ cm${exposant(3)}.<br>`
+				texte_corr += num_alpha(2) + ` La section est une réduction de la base de coefficient $\\dfrac{${h2}}{${tex_nombre(h1)}}`
+				if (!Number.isInteger(h1) || pgcd(h2, h1) > 1) texte_corr += `=${tex_fraction_reduite(h2 * 10, h1 * 10)}$.<br>`
+				else texte_corr += `.$<br>`
+				texte_corr += `Dans une réduction de coefficient k, les aires sont multipliés par k${exposant(2)}.<br>`
+				texte_corr += `Donc son aire est $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^2 \\times ${tex_nombre(c * c)}$ cm${exposant(2)} $=${tex_fraction_reduite(arrondi(h2 * h2 * 100 * c * c), arrondi(h1 * h1 * 100))}$ cm${exposant(2)} $\\approx ${tex_nombrec(arrondi(h2 * h2 * c * c / h1 / h1, 2))}$ cm${exposant(2)}.<br>`
+				texte_corr += num_alpha(3) + ` Dans une réduction de coefficient k, les volumes sont multipliés par k ${exposant(3)}.<br>`
+				texte_corr += `Donc le volume de la pyramide SA'B'C'D' est : $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3 \\times \\dfrac{${tex_nombrec(c * c * h1)}}{3}$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(h2 ** 3 * c * c / h1 ** 2 / 3))}$ cm${exposant(3)}.<br>`
+				texte_corr += num_alpha(4) + ` Le volume du tronc de la pyramide est : `
+				texte_corr += `$V_\\text{SABCD} - V_\\text{SA'B'C'D'}$<br>Soit : <br>$${tex_nombrec(arrondi(c * c * h1 / 3))}$ cm${exposant(3)}$ - ${tex_nombrec(arrondi(h2 ** 3 * c * c / h1 ** 2 / 3))}$ cm${exposant(3)}$ \\approx ${tex_nombrec(arrondi(c * c * h1 / 3 - h2 ** 3 * c * c / h1 ** 2 / 3, 2))}$ cm${exposant(3)}.<br>`
+				texte_corr += `Ce qui représente $${tex_fraction_reduite((h1 ** 3 - h2 ** 3) * 1000, (h1 ** 3) * 1000)}$ du volume de SABCD.`
 
-					this.MG32codeBase64 = codeBase64
-					this.MG32code_pour_modifier_la_figure = `
+				this.MG32codeBase64 = codeBase64
+				this.MG32code_pour_modifier_la_figure = `
 							mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "c", "${c}");
 							mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "h1", "${h1}");
 							mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "h2", "${h2}");
 							mtg32App.calculate("MG32svg${numero_de_l_exercice}");
 							mtg32App.display("MG32svg${numero_de_l_exercice}");
 							`
-					break;
-				case 2: // calcul de l'aire de base, du volume d'un cône. puis, calcul de la section, du volume du cône réduit et du volume du tronc
-					r = calcul(randint(12, 35) / 10)
-					h1 = calcul(randint(12, 20) / 2)
-					h2 = randint(3, Math.floor(h1) - 1)
-					if (this.sup2<3)
-					if (this.sup2==1) // coefficient de réduction décimal
-						while (calcul(h2/h1)!=arrondi(h2/h1,1)) {
+				break;
+			case 2: // calcul de l'aire de base, du volume d'un cône. puis, calcul de la section, du volume du cône réduit et du volume du tronc
+				r = calcul(randint(12, 35) / 10)
+				h1 = calcul(randint(12, 20) / 2)
+				h2 = randint(3, Math.floor(h1) - 1)
+				if (this.sup2 < 3)
+					if (this.sup2 == 1) // coefficient de réduction décimal
+						while (calcul(h2 / h1) != arrondi(h2 / h1, 1)) {
 							r = calcul(randint(12, 35) / 10)
 							h1 = calcul(randint(12, 20) / 2)
 							h2 = randint(3, Math.floor(h1) - 1)
 						}
 					else //coefficient de réduction rationnel
-						while (calcul(h2/h1)==arrondi(h2/h1,1)) {
+						while (calcul(h2 / h1) == arrondi(h2 / h1, 1)) {
 							r = calcul(randint(12, 35) / 10)
 							h1 = calcul(randint(12, 20) / 2)
 							h2 = randint(3, Math.floor(h1) - 1)
-						}	
-					codeBase64 = "TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAANmcmH###8BAP8BAAAAAAAAAAAFHAAAAtIAAAAAAAAAAAAAAAAAAAET#####wAAAAEACkNDYWxjQ29uc3QA#####wACcGkAFjMuMTQxNTkyNjUzNTg5NzkzMjM4NDb#####AAAAAQAKQ0NvbnN0YW50ZUAJIftURC0Y#####wAAAAEAD0NWYXJpYWJsZUJvcm5lZQD#####AANhbmc#6SH7VEQtGAAAAAAAAAAAQBkh+1RELRg#qZmZmZmZmgAAATAABDIqcGkABDAuMDX#####AAAAAQAKQ1BvaW50QmFzZQD#####AQAAAAAQAAAAQAgAAAAAAAAAAAAAAAAAAAUAAUB#eAAAAAAAQHqoUeuFHrj#####AAAAAQAHQ0NhbGN1bAD#####AAVtaW5pMQADMC4yAAAAAT#JmZmZmZmaAAAABAD#####AAVtYXhpMQABMgAAAAFAAAAAAAAAAP####8AAAABABRDSW1wbGVtZW50YXRpb25Qcm90bwD#####AAdDdXJzZXVyAAAABQAAAAUAAAADAAAAAwAAAAQAAAAC#####wAAAAEAFENEcm9pdGVEaXJlY3Rpb25GaXhlAAAAAAUBAAAAABAAAAEAAQAAAAIBP#AAAAAAAAD#####AAAAAQAPQ1BvaW50TGllRHJvaXRlAQAAAAUBAAAAABAAAADACAAAAAAAAD#wAAAAAAAABQABQEuAAAAAAAAAAAAG#####wAAAAEAC0NIb21vdGhldGllAAAAAAUAAAAC#####wAAAAEACkNPcGVyYXRpb24D#####wAAAAEAD0NSZXN1bHRhdFZhbGV1cgAAAAMAAAAJAQAAAAoAAAADAAAACgAAAAT#####AAAAAQALQ1BvaW50SW1hZ2UAAAAABQEAAAAADQACTzEAwBAAAAAAAABAEAAAAAAAAAUAAAAABwAAAAgAAAAIAAAAAAUAAAACAAAACQMAAAAJAQAAAAE#8AAAAAAAAAAAAAoAAAADAAAACQEAAAAKAAAABAAAAAoAAAADAAAACwAAAAAFAQAAAAANAAJJNQDAAAAAAAAAAEAIAAAAAAAABQAAAAAHAAAACv####8AAAABAAhDU2VnbWVudAEAAAAFAQAAAAAQAAABAQEAAAACAAAABwAAAAcBAAAABQEAAAABEAACazEAwAAAAAAAAABAAAAAAAAAAAEAAT#ZmZmZmZmaAAAADP####8AAAACAA9DTWVzdXJlQWJzY2lzc2UBAAAABQAEem9vbQAAAAkAAAALAAAADf####8AAAABAA9DVmFsZXVyQWZmaWNoZWUBAAAABQEAAAAAAAAAAAAAAADAGAAAAAAAAAAAAA0PAAH###8AAAABAAAAAgAAAAEAAAAAAAAAAAAAAAACAAAADgAAAAMA#####wH#AAAAEAABWgAAAAAAAAAAAEAIAAAAAAAABQABQHmoAAAAAABAd2hR64UeuAAAAAgA#####wAAABAAAAAKAAAADgAAAAYA#####wH#AAABEAAAAQEBAAAAEAA#8AAAAAAAAAAAAAcA#####wH#AAAAEAABTQAAAAAAAAAAAEAIAAAAAAAABQABwEgAAAAAAAAAAAASAAAACwD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAEwAAABEAAAADAP####8BAAAAAQ8AAk8yAQUAAUCA3AAAAAAAQICEKPXCj1wAAAAGAP####8BAAAAARAAAAEAAQAAABUAP#AAAAAAAAAAAAAHAP####8BAAAAAQ8AAkoyAQUAAMBAAAAAAAAAAAAAFv####8AAAABAAlDTG9uZ3VldXIA#####wAAABUAAAAXAAAAAwD#####AAAAAAAPAAFPAMAyAAAAAAAAwCgAAAAAAAAFAAFAYnAAAAAAAEB4mFHrhR64AAAABgD#####AQAAAAAQAAABAAEAAAAZAUAD6BRQ79ycAAAABwD#####Af8AAAAQAAJJIgAAAAAAAAAAAEAIAAAAAAAABQABQDF7TwMpFiAAAAAaAAAABAD#####AAJoMQACMTAAAAABQCQAAAAAAAAAAAAEAP####8AAmgyAAE0AAAAAUAQAAAAAAAAAAAABAD#####AAFyAAMzLjUAAAABQAwAAAAAAAD#####AAAAAQARQ1N5bWV0cmllQ2VudHJhbGUA#####wAAABUAAAADAP####8BAAAAAQ8AAk8zAQUAAUCSQgAAAAAAQHe4UeuFHrcAAAAGAP####8BAAAAABAAAAEAAQAAACABQAPoFFDv3JwAAAADAP####8BAAAAAQsAAk80AQUAAUCSVgAAAAAAQH5YUeuFHrgAAAAGAP####8BAAAAABAAAAEAAQAAACIBQAPoFFDv3JwAAAAQAP####8AAAAZAAAACwD#####AQB#AAALAAJXNADANQAAAAAAAMAUAAAAAAAABQAAAAAXAAAAH#####8AAAABAAxDVHJhbnNsYXRpb24A#####wAAABUAAAAXAAAACwD#####AQAAAAALAAJXNwBAAAAAAAAAAAAAAAAAAAAABQAAAAAgAAAAJv####8AAAABAAlDQ2VyY2xlT0EA#####wF#f38BAQAAACAAAAAn#####wAAAAEAEENJbnREcm9pdGVDZXJjbGUA#####wAAACEAAAAo#####wAAAAEAEENQb2ludExpZUJpcG9pbnQA#####wEAAAAADQACSTMBBQABAAAAKf####8AAAABAA9DUG9pbnRMaWVDZXJjbGUA#####wEAAAABCwACSzMBAQABQBX9VSbZZwcAAAAo#####wAAAAIAE0NNZXN1cmVBbmdsZU9yaWVudGUA#####wAIYW5ndGhldGEAAAAqAAAAIAAAACsAAAAEAP####8ABXRoZXRhAAhhbmd0aGV0YQAAAAoAAAAsAAAABAD#####AAN4JzEACnNpbih0aGV0YSn#####AAAAAgAJQ0ZvbmN0aW9uAwAAAAoAAAAtAAAABAD#####AAN4JzIACmNvcyh0aGV0YSkAAAAXBAAAAAoAAAAtAAAAFQD#####AQAAAAALAAJXMQDAAAAAAAAAAEAAAAAAAAAABQABQBNc46k8Cu8AAAAoAAAAFgD#####AAVhbmdsZQAAACoAAAAgAAAAMP####8AAAABABJDQXJjRGVDZXJjbGVEaXJlY3QA#####wF#f38BAQAAABUAAAAXAAAAJQAAABUA#####wEAAAABCwACSzIBAQABP8B#LK14eQYAAAAyAAAAFgD#####AAZhbmdwaGkAAAAXAAAAFQAAADMAAAAEAP####8AA3BoaQAGYW5ncGhpAAAACgAAADQAAAAEAP####8AA3knMQAULWNvcyh0aGV0YSkqc2luKHBoaSkAAAAJAQAAAAEAAAAAAAAAAAAAAAkCAAAAFwQAAAAKAAAALQAAABcDAAAACgAAADUAAAAEAP####8AA3knMgATc2luKHRoZXRhKSpzaW4ocGhpKQAAAAkCAAAAFwMAAAAKAAAALQAAABcDAAAACgAAADX#####AAAAAQAXQ01lc3VyZUFuZ2xlR2VvbWV0cmlxdWUA#####wAAABcAAAAVAAAAJQAAAAQA#####wAEcGxhdAAGSjJPMlc0AAAACgAAADgAAAAEAP####8ABWRyb2l0AAZwbGF0LzIAAAAJAwAAAAoAAAA5AAAAAUAAAAAAAAAAAAAADAD#####AQAAAAAQAAABAAEAAAAVAAAAFwAAAAwA#####wEAAAAAEAAAAQABAAAAIAAAACoAAAAMAP####8BAAAAABAAAAEAAQAAACAAAAAr#####wAAAAIAE0NNYXJxdWVBbmdsZU9yaWVudGUA#####wF#AAAAAgAAAABAOLK7zEtlnQAAACoAAAAgAAAAKwH#####AAAAAQAMQ0Jpc3NlY3RyaWNlAP####8BfwAAABAAAAEBAQAAACoAAAAgAAAAKwAAAAcA#####wF#AAAAEAAAAQUAAUB5tgoLjWTlAAAAP#####8AAAACAAZDTGF0ZXgA#####wF#AAAAwBQAAAAAAADAJgAAAAAAAAAAAEARAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAKXHZhcnRoZXRhIAAAAAwA#####wEAAAAAEAAAAQABAAAAFQAAADMAAAAIAP####8AAAAiAAAAFwQAAAAKAAAANQAAABoA#####wEAAP8AAgAAAABAN1LlDbOjogAAABcAAAAVAAAAMwEAAAAbAP####8BAAD#ABAAAAEBAQAAABcAAAAVAAAAMwAAAAcA#####wEAAP8AEAAAAQUAAUB3uGBZxKE1AAAARQAAABwA#####wEAAP8AAAAAAAAAAADAFAAAAAAAAAAAAEYRAAAAAAABAAAAAQAAAAEAAAAAAAAAAAAHXHZhcnBoaQAAAAQA#####wABawAIc2luKHBoaSkAAAAXAwAAAAoAAAA1AAAABAD#####AAp0ZXN0UGhpTnVsACcxLygocGhpPTApKyhhYnMocGhpLXBsYXQpPDAuMDAwMDAwMDAxKSkAAAAJAwAAAAE#8AAAAAAAAAAAAAkAAAAACQgAAAAKAAAANQAAAAEAAAAAAAAAAAAAAAkEAAAAFwAAAAAJAQAAAAoAAAA1AAAACgAAADkAAAABPhEuC+gm1pUAAAAIAP####8AAAAZAAAACgAAAEkAAAAGAP####8BAAAAARAAAAEAAQAAACIAP#AAAAAAAAAAAAAHAP####8BAAAAAQsAAko0AQUAAcBLgAAAAAAAAAAASwAAABIA#####wFmZmYAAQAAACIAAABMAAAAFQD#####AQAAAAAQAAABBQABP#CX6bp5AmEAAABNAAAABgD#####AQAAAAAQAAABAAEAAABOAEAD6BRQ79yc#####wAAAAEAEENJbnREcm9pdGVEcm9pdGUA#####wEAAAAAEAAAAQUAAAAAIwAAAE8AAAATAP####8AAAAjAAAATQAAABQA#####wEAAAAADQACSTQBBQABAAAAUf####8AAAACAAdDUmVwZXJlAP####8AAAAAAQEAAAAiAAAAUgAAAEwAAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAAAAAABP#AAAAAAAAAAAAABP#AAAAAAAAAAAAALAP####8BAAAAABAAAAEFAAAAAEwAAABDAAAACAD#####AAAAUAAAABcEAAAACgAAADUAAAALAP####8BAAAAABAAAAEFAAAAAE4AAABV#####wAAAAIADUNMaWV1RGVQb2ludHMA#####wEAf38BAQAAAFYAAABkAAAAAABOAAAABQAAAE4AAABPAAAAUAAAAFUAAABW#####wAAAAEACENWZWN0ZXVyAP####8BAAD#ABAAAAEAAQAAACIAAABUAP####8AAAABABBDUG9pbnREYW5zUmVwZXJlAP####8BAAAAABAAAAEFAAAAAFMAAAAKAAAALgAAAAoAAAA2AAAAIQD#####AQAAAAAQAAABBQAAAABTAAAACgAAAC8AAAAKAAAANwAAACAA#####wH#AAAAEAAAAQABAAAAIgAAAFkAAAAAIAD#####AQB#AAAQAAABAAEAAAAiAAAAWgAAAAAfAP####8BZmZmAQEAAABZAAAAZAAAAAAAKwAAAAYAAAArAAAALAAAAC0AAAAuAAAANgAAAFn#####AAAAAQAMQ1N1cmZhY2VMaWV1AP####8Bf39#AAAABQAAAF0AAAAiAP####8Bf39#AAAABQAAAFcAAAASAP####8B#wAAAQEAAAAZAAAAG#####8AAAABAA1DRGVtaURyb2l0ZU9BAP####8B#wAAAA0AAAEBAQAAABAAAAAT#####wAAAAEADkNQb2ludExpZVBvaW50AP####8B#wAAABAAAVUAQCAAAAAAAADAKgAAAAAAAAUAAAAAFAAAAA0A#####wABdQAAABAAAAATAAAAYv####8AAAABABFDUG9pbnRQYXJBYnNjaXNzZQD#####Af8AAAAQAAJJMgAAAAAAAAAAAEAIAAAAAAAABQAAAAAZAAAAGwAAAAoAAABjAAAAJAD#####AQAAAAALAAJJMQDAEAAAAAAAAEAQAAAAAAAABQAAAABk#####wAAAAEACUNEcm9pdGVBQgD#####AQAAAAANAAABAAEAAAAZAAAAZf####8AAAABABZDRHJvaXRlUGVycGVuZGljdWxhaXJlAP####8BAAAAABAAAAEAAQAAABkAAABmAAAAEgD#####AQAAAAABAAAAGQAAAGUAAAATAP####8AAABnAAAAaAAAABQA#####wEAAAAACwACSjEAwCgAAAAAAADAEAAAAAAAAAUAAgAAAGkAAAAeAP####8AgICAAQEAAAAZAAAAZQAAAGoAAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAAAAAABP#AAAAAAAAAAAAABP#AAAAAAAAAAAAAhAP####8BAAAAAA8AAUkAP#AAAAAAAABAEAAAAAAAAAUAAAAAawAAAAoAAAAuAAAACgAAADYAAAAhAP####8BAAAAAA8AAUoBBQAAAABrAAAACgAAAC8AAAAKAAAANwAAACMA#####wEAAAAADQAAAQEBAAAAGQAAAGwAAAAhAP####8BAAAAAA8AAUsAQBAAAAAAAADALgAAAAAAAAUAAAAAawAAAAEAAAAAAAAAAAAAABcEAAAACgAAADUAAAAjAP####8BAAAAAA0AAAEBAQAAABkAAABvAAAAIwD#####AQAAAAANAAABAQEAAAAZAAAAbQAAACAA#####wH#AAAAEAAAAQABAAAAGQAAAGwAAAAAIAD#####AQB#AAAQAAABAAEAAAAZAAAAbQAAAAAgAP####8BAAD#ABAAAAEAAQAAABkAAABvAP####8AAAABAA9DU3ltZXRyaWVBeGlhbGUA#####wAAAHD#####AAAAAQARQ01hY3JvRGlzcGFyaXRpb24A#####wEAAP8B#####w1AfcAAAAAAAECCQAAAAAAAAgHMzP8AAAAAAAAAAAAAAAEAAAAAAAAAAAATKE8sSSxKLEspIGludmlzaWJsZQAAAAAACQAAAHEAAABuAAAAcAAAAHIAAABzAAAAdAAAAG0AAABsAAAAb#####8AAAABABBDTWFjcm9BcHBhcml0aW9uAP####8BAAD#Af####8NQH5wAAAAAABAgxgAAAAAAAIBzMz#AAAAAAAAAAAAAAABAAAAAAAAAAAAEShPLEksSixLKSB2aXNpYmxlAAAAAAAJAAAAcQAAAG4AAABwAAAAcgAAAHMAAAB0AAAAbQAAAGwAAABvAAAAAB4A#####wCAgIABAQAAABkAAABsAAAAbQAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAE#8AAAAAAAAAAAAAE#8AAAAAAAAAAAACEA#####wHY2NgAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAGsAAAAKAAAAHgAAAAEAAAAAAAAAAAAAACEA#####wEAAAAAEAABQgAAAAAAAAAAAEAIAAAAAAAABQAAAAB4AAAACgAAAB4AAAABAAAAAAAAAAAAAAAkAP####8BAAAAAA8AAUEBBQAAAAB6AAAADQD#####AARhYnMxAAAAGQAAAGwAAAB7AAAABAD#####AANSYXkABGFiczEAAAAKAAAAfAAAACUA#####wEAAAAAEAAAAQUAAAAAGQAAAGwAAAAJAgAAAAoAAAB9AAAAFwQAAAAKAAAAMQAAACUA#####wEAAAAAEAAAAQUAAAAAGQAAAG0AAAAJAgAAAAoAAAB9AAAAFwMAAAAKAAAAMQAAABEA#####wAAABkAAAB+AAAACwD#####AQAAAAAQAAABBQAAAAB#AAAAgAAAAB8A#####wB#f38BAQAAAIEAAAB4AQAAAAAwAAAABgAAADAAAAAxAAAAfgAAAH8AAACAAAAAgQAAACIA#####wD##wAAAAAFAAAAggAAACEA#####wEAAAAAEAAAAQUAAAAAawAAAAEAAAAAAAAAAAAAAAkBAAAAAQAAAAAAAAAAAAAACgAAAH0AAAASAP####8BAAAAAQEAAAAZAAAAhAAAABMA#####wAAAHEAAACFAAAAFAD#####AQAAAAAQAAABBQABAAAAhgAAAAsA#####wH#AP8AEAAAAQUAAAAAhwAAAEoAAAALAP####8B#wD#ABAAAAEFAAAAAIgAAAAkAAAADAD#####AQAAAAAQAAABAAIAAACIAAAAiQAAAAcA#####wEAAAAAEAAAAQUAAT+0tjyl3q+#AAAAiv####8AAAABAA5DT2JqZXREdXBsaXF1ZQD#####AAAAAAAAAIoAAAANAP####8AAWEAAAAZAAAAbAAAAHsAAAAhAP####8BZmZmABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAB4AAAACQIAAAAKAAAAjQAAABcEAAAACgAAAAEAAAAJAgAAAAoAAACNAAAAFwMAAAAKAAAAAQAAAB4A#####wDm5uYAAQAAABkAAABsAAAAbwAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAE#8AAAAAAAAAAAAAE#8AAAAAAAAAAAACEA#####wEAAAAAEAACUyIAwDkAAAAAAADALgAAAAAAAAUAAAAAjwAAAAEAAAAAAAAAAAAAAAoAAAAcAAAAJAD#####AQAAAAAPAAFTAMBEgAAAAAAAwCIAAAAAAAAFAAAAAJAAAAANAP####8ABWFiczExAAAAGQAAAGoAAACRAAAABAD#####AAFzAAVhYnMxMQAAAAoAAACSAAAAKwD#####AAAAAAAAAJH#####AAAAAQAOQ1Rlc3RFeGlzdGVuY2UA#####wAIRXhpc3REZXMAAACSAAAABAD#####AAp0ZXN0U0VnYWxPAA4xLygxLUV4aXN0RGVzKQAAAAkDAAAAAT#wAAAAAAAAAAAACQEAAAABP#AAAAAAAAAAAAAKAAAAlQAAAAgA#####wAAABkAAAAKAAAAlgAAAAQA#####wADeScwAAtrXjIqUmF5XjIvcwAAAAkDAAAACQL#####AAAAAQAKQ1B1aXNzYW5jZQAAAAoAAABIAAAAAUAAAAAAAAAAAAAALQAAAAoAAAB9AAAAAUAAAAAAAAAAAAAACgAAAJMAAAAEAP####8AA3gnMAAUcmFjKFJheV4yLXknMF4yL2teMikAAAAXEgAAAAkBAAAALQAAAAoAAAB9AAAAAUAAAAAAAAAAAAAACQMAAAAtAAAACgAAAJgAAAABQAAAAAAAAAAAAAAtAAAACgAAAEgAAAABQAAAAAAAAAAAAAAhAP####8B#wAAABAAAAEFAAAAAGsAAAAKAAAAmQAAAAoAAACYAAAACwD#####Af8AAAAQAAABBQAAAACaAAAAdQAAAAYA#####wEAAAAAEAAAAQEBAAAAmgA#8zMzMzMzMwAAAAYA#####wEAAAAAEAAAAQEBAAAAmwA#8zMzMzMzMwAAABMA#####wAAAJ0AAACFAAAAFAD#####AQAAAAAQAAABBQACAAAAngAAABMA#####wAAAJwAAACFAAAAFAD#####AQAAAAAQAAABBQACAAAAoAAAABgA#####wEAAAABAQAAABkAAACfAAAAoQAAABUA#####wEAAAAACwACVzMAwCQAAAAAAABAGAAAAAAAAAUAAT#T+ibKoaWlAAAAov####8AAAABAA1DUG9pbnRQcm9qZXRlAP####8BAAAAAAsAAlcyAMAuAAAAAAAAQBQAAAAAAAAFAAAAAKMAAABmAAAAJQD#####AQAAAAALAAJXNQDAIAAAAAAAAEAgAAAAAAAABQAAAACkAAAAo#####8AAAABAA1DRm9uY3Rpb24zVmFyAAAAAAkCAAAACQcAAAAKAAAANQAAAAEAAAAAAAAAAAAAAAkGAAAACgAAADUAAAAKAAAAOgAAAAoAAABIAAAACQEAAAABAAAAAAAAAAAAAAAKAAAASAAAAAQA#####wAIdGVzdFNpbnQAFjEvKGFicyhzKTw9YWJzKGspKlJheSkAAAAJAwAAAAE#8AAAAAAAAAAAAAkGAAAAFwAAAAAKAAAAkwAAAAkCAAAAFwAAAAAKAAAASAAAAAoAAAB9AAAADAD#####AAAAAAAQAAABAAIAAACRAAAAmgAAAAwA#####wAAAAAAEAAAAQACAAAAkQAAAJsAAAAMAP####8Bf39#ABAAAAEAAQAAAJEAAAClAAAABwD#####AQAAAAALAAJXNgEFAAE#6TBqC7jF5AAAAKkAAAAfAP####8Bf39#AAEAAACqAAAAUAAAAAAAowAAAAUAAACjAAAApAAAAKUAAACpAAAAqv####8AAAACABJDTGlldU9iamV0UGFyUHRMaWUA#####wDY2NgAAACrAAAAAUAkAAAAAAAAAAAAqgAAAAIAAACqAAAAqwAAAB8A#####wEAAAAAAgAAAKUAAAB4AAAAAACjAAAAAwAAAKMAAACkAAAApQAAAAgA#####wAAABkAAAAKAAAApgAAAAsA#####wH#AP8AEAAAAQUAAAAAkQAAAK4AAAAMAP####8Bf39#ABAAAAEAAQAAAK8AAACBAAAAMAD#####AH9#fwAAALAAAAABQDUAAAAAAAAAAAAwAAAABwAAADAAAAAxAAAAfgAAAH8AAACAAAAAgQAAALAAAAAHAP####8Bf39#ABAAAAEFAAE#6MY8Xi4nRgAAALAAAAAfAP####8Bf39#AAEAAACyAAAAUAEAAAAAMAAAAAgAAAAwAAAAMQAAAH4AAAB#AAAAgAAAAIEAAACwAAAAsgAAADAA#####wB#f38AAACzAAAAAUAkAAAAAAAAAAAAsgAAAAIAAACyAAAAswAAACsA#####wAAAAAAAACtAAAACAD#####AAAAkQAAAAoAAACmAAAACwD#####Af8AAAAQAAABBQAAAACBAAAAtgAAAB8A#####wEAAAAAAgAAALcAAABkAQAAAAAwAAAABwAAADAAAAAxAAAAfgAAAH8AAACAAAAAgQAAALcAAAArAP####8AAAAAAAAAuAAAAAsA#####wH#AAAAEAAAAQUAAAAAhAAAAJcAAAASAP####8BAAAAAAIAAAAZAAAAugAAABUA#####wEAAAAAEAAAAQUAAUACcpnT3JQVAAAAuwAAAAwA#####wF#f38AEAAAAQABAAAAGQAAALwAAAAHAP####8Bf39#ABAAAAEFAAE#6c331KusFwAAAL0AAAASAP####8Bf39#AAEAAAAZAAAAvgAAADAA#####wB#f38AAAC9AAAAAUA0AAAAAAAAAAAAvAAAAAIAAAC8AAAAvQAAADAA#####wB#f38AAAC#AAAAAUAkAAAAAAAAAAAAvgAAAAIAAAC+AAAAvwAAACsA#####wAAAAAAAAC7AAAADAD#####AQAAAAAQAAABAAIAAACJAAAAkQAAAAcA#####wF#f38AEAAAAQUAAT#B0fQhYRklAAAAwwAAAAYA#####wF#f38AEAAAAQABAAAAxAE#8zMzMzMzMwAAAAwA#####wEAAAAAEAAAAQACAAAAkQAAAIgAAAAdAP####8Bf39#ABAAAAEFAAAAAMUAAADGAAAADAD#####AX9#fwAQAAABAAEAAADEAAAAxwAAADAA#####wB#f38AAADIAAAAAUAkAAAAAAAAAAAAxAAAAAQAAADEAAAAxQAAAMcAAADIAAAADAD#####AX9#fwAQAAABAAEAAACRAAAAiwAAADAA#####wB#f38AAADKAAAAAUAkAAAAAAAAAAAAiwAAAAIAAACLAAAAygAAACsA#####wAAAAAAAADDAAAAKwD#####AAAAAAAAAMYAAAAMAP####8BAAAAABAAAAEBAQAAAJEAAACO#####wAAAAIAFUNMaWV1T2JqZXRQYXJWYXJpYWJsZQD#####AL29vQAAAM4AAAABQDkAAAAAAAAAAAABAAAAAwAAAAEAAACOAAAAzgAAACEA#####wAAAAAAEAACTycAwDkAAAAAAADAKgAAAAAAAAUAAAAAjwAAAAEAAAAAAAAAAAAAAAkBAAAACgAAABwAAAAKAAAAHf####8AAAABABBDRHJvaXRlUGFyYWxsZWxlAP####8B5ubmABAAAAEAAQAAANAAAABuAAAADAD#####AObm5gAQAAABAAEAAACRAAAAfgAAAB0A#####wGkpKQAEAACUCIAAAAAAAAAAABACAAAAAAAAAUAAAAA0QAAANIAAAAyAP####8B5ubmABAAAAEAAQAAANAAAABxAAAADAD#####AObm5gAQAAABAAEAAAB#AAAAkQAAAB0A#####wGkpKQAEAACUSIAwDsAAAAAAADAIgAAAAAAAAUAAAAA1AAAANUAAAARAP####8AAADQAAAA0wAAAAsA#####wGkpKQAEAACUCcAAAAAAAAAAABACAAAAAAAAAUAAAAA1gAAANcAAAAfAP####8ApKSkAQEAAADYAAAAeAEAAAAAKwAAAB4AAAArAAAALAAAAC0AAAAuAAAALwAAADYAAAA3AAAAbAAAAG0AAABuAAAAcQAAAHgAAAB6AAAAewAAAHwAAAB9AAAAfgAAAH8AAACPAAAAkAAAAJEAAADQAAAA0QAAANIAAADTAAAA1AAAANUAAADWAAAA1wAAANgAAAAiAP####8A#wAAAAAABQAAANkAAAATAP####8AAABnAAAAYAAAABQA#####wH#AAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAEAAADbAAAAFAD#####Af8AAAAQAAJKIgAAAAAAAAAAAEAIAAAAAAAABQACAAAA2wAAAB4A#####wDm5uYAAQAAABkAAAAbAAAA3QAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAE#8AAAAAAAAAAAAAE#8AAAAAAAAP####8AAAACAAxDQ29tbWVudGFpcmUA#####wH#AAAB#####xBAf7gAAAAAAEB7KFHrhR64AgAAAAAAAAAAAAAAAAEAAAAAAAAAAAAEWk9PTQAAAAgA#####wAAABkAAAABP#B64UeuFHsAAAALAP####8B#wAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAACRAAAA4AAAADMA#####wAAAAAAwDQAAAAAAADAKAAAAAAAAAAAAOEQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABUwAAABMA#####wAAABoAAACFAAAAFAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAgAAAOMAAAAUAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAA4wAAAAwA#####wAAAAAAEAAAAQEBAAAAkAAAAOUAAAAGAP####8BAAAAARAAAAEBAQAAANABP#AAAAAAAAAAAAAdAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAADnAAAA5gAAAAwA#####wB#f38AEAAAAQEBAAAA0AAAAOgAAAAMAP####8AAAAAABAAAAEBAQAAABkAAADlAAAADAD#####AAAAAAAQAAABAQEAAAAZAAAAkf####8AAAACAAlDQ2VyY2xlT1IA#####wEAAAABAQAAANAAAAABP9mZmZmZmZoAAAAAEwD#####AAAA6QAAAOwAAAAUAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAA7QAAABQA#####wAAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAIAAADtAAAAEwD#####AAAA6wAAAOwAAAAUAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAA8AAAABQA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAEAAADwAAAACAD#####AAAA0AAAABcEAAAACgAAADUAAAALAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAADyAAAA8wAAABEA#####wAAANAAAAD0AAAACwD#####AQAAAAAQAAAAQAgAAAAAAAAAAAAAAAAAAAUAAAAA7gAAAPUAAAAMAP####8AAAAAABAAAAEBAQAAAPQAAADQAAAADAD#####AAAAAAAQAAABAQEAAADQAAAA7gAAAAwA#####wAAAAAAEAAAAQEBAAAA7gAAAPYAAAAMAP####8AAAAAABAAAAEBAQAAAPYAAAD0#####wAAAAEACUNQb2x5Z29uZQD#####AAAAAAEBAAAABQAAAPQAAADQAAAA7gAAAPYAAAD0AAAAEQD#####AAAA0AAAAO4AAAALAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAAZAAAA#AAAAAsA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAABkAAAD1AAAAEQD#####AAAAGQAAAP4AAAALAP####8BAAAAABAAAABACAAAAAAAAAAAAAAAAAAABQAAAAD9AAAA#wAAAAwA#####wAAAAAAEAAAAQEBAAAA#gAAABkAAAAMAP####8AAAAAABAAAAEBAQAAABkAAAD9AAAADAD#####AAAAAAAQAAABAQEAAAD9AAABAAAAAAwA#####wAAAAAAEAAAAQEBAAABAAAAAP4AAAA1AP####8AAAAAAQEAAAAFAAAA#gAAABkAAAD9AAABAAAAAP4AAAAGAP####8BAAAAARAAAAEBAQAAABABP#AAAAAAAAAAAAA0AP####8BAAAAAQEAAAAQAAAAAT#JmZmZmZmaAAAAABMA#####wAAAQYAAAEHAAAAFAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAQAAAQgAAAAUAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAABCAAAAAwA#####wH#AAAAEAAAAQABAAABCgAAAQn#####AAAAAQAHQ01pbGlldQD#####Af8AAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAA0AAAAJAAAAA2AP####8B#wAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAAZAAAA0AAAAA4A#####wEAAAAAwCoAAAAAAADAHAAAAAAAAAAAAQwQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAACAAAAHQAAADYA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAHkAAAAZAAAADgD#####AQAAAADAHAAAAAAAAAAAAAAAAAAAAAABDxAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAIAAAAeAAAABAD#####AAJoMwAFaDEtaDIAAAAJAQAAAAoAAAAcAAAACgAAAB0AAAAOAP####8BAAAAAMA1AAAAAAAAwCIAAAAAAAAAAAENEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAQAAAREAAAAY##########8="
-					if (!sortie_html) texte = `\\begin{minipage}{0.7 \\linewidth} \n\t`
-					else texte=``
-					texte += `Un cône a pour rayon ${tex_nombre(r)}${sp()}cm et pour hauteur SO${sp()}=${sp()}${tex_nombre(h1)}${sp()}cm.<br>Le point O' est situé sur la hauteur [SO] à ${h2}${sp()}cm de S.<br>`
-					texte += `Un plan parallèle à la base passant par O' coupe le cône.<br>`
-					texte += `On obtient ainsi une section ` + katex_Popup2(numero_de_l_exercice + i * 4, 1, "semblable", `Définition : Figures semblables`, `Se dit de deux figures/solides qui ont les mêmes formes, les mêmes angles mais pas nécessairement les mêmes mesures.<br>Les représentations d'une même figure à deux échelles différentes sont des figures semblables.`) + ` à la base et un cône réduit semblable au grand cône.<br>`
-					if (!sortie_html) texte +=`La figure n'est pas en vraie grandeur.<br>`
-					texte += num_alpha(0) + ` Calculer l'` + katex_Popup2(numero_de_l_exercice + i * 4 + 1, 1, "aire de base du cône", `Formule : Aire du disque de rayon R`, `$Aire=\\pi \\times \\text{R}^{2}$`) + `.<br>`
-					texte += num_alpha(1) + ` Calculer le ` + katex_Popup2(numero_de_l_exercice + i * 4 + 2, 1, "volume du cône", `Formule : Volume d'un cône de rayon R et de hauteur h`, `$Volume= \\dfrac{\\pi \\times \\text{R}^{2} \\times \\text{h}}{3}$`) + `.<br>`
-					texte += num_alpha(2) + ` En déduire l'aire de la ` + katex_Popup2(numero_de_l_exercice + i * 4 + 3, 1, "section", `Définition : Section plane d'un solide`, `La section d'un solide par un plan est une figure plane.<br>Dans le cas d'une section d'un cône par un plan parallèle à sa base, cette section est un disque qui est une réduction de la base.<br>Dans une réduction de coefficient k, les aires sont multipliées par k${exposant(2)} et les volumes sont multipliés par k${exposant(3)}.`) + ` sachant que SO'${sp()}=${sp()}${h2}${sp()}cm.<br>`
-					texte += num_alpha(3) + ` Calculer le volume du cône de hauteur SO'.<br>`
-					texte += num_alpha(4) + ` Calculer le volume du tronc de cône (partie du cône située entre la base et la section).`
-					if (sortie_html) texte += `<br>Le point O peut être déplacé et on peut changer l'angle de vue &#x3C6; `
-					else texte+=`\n\t \\end{minipage} \n\t \\begin{minipage}{0.3 \\linewidth} \n\t \\begin{tikzpicture}[scale=0.7] \n\t 
+						}
+				codeBase64 = "TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAANmcmH###8BAP8BAAAAAAAAAAAFHAAAAtIAAAAAAAAAAAAAAAAAAAET#####wAAAAEACkNDYWxjQ29uc3QA#####wACcGkAFjMuMTQxNTkyNjUzNTg5NzkzMjM4NDb#####AAAAAQAKQ0NvbnN0YW50ZUAJIftURC0Y#####wAAAAEAD0NWYXJpYWJsZUJvcm5lZQD#####AANhbmc#6SH7VEQtGAAAAAAAAAAAQBkh+1RELRg#qZmZmZmZmgAAATAABDIqcGkABDAuMDX#####AAAAAQAKQ1BvaW50QmFzZQD#####AQAAAAAQAAAAQAgAAAAAAAAAAAAAAAAAAAUAAUB#eAAAAAAAQHqoUeuFHrj#####AAAAAQAHQ0NhbGN1bAD#####AAVtaW5pMQADMC4yAAAAAT#JmZmZmZmaAAAABAD#####AAVtYXhpMQABMgAAAAFAAAAAAAAAAP####8AAAABABRDSW1wbGVtZW50YXRpb25Qcm90bwD#####AAdDdXJzZXVyAAAABQAAAAUAAAADAAAAAwAAAAQAAAAC#####wAAAAEAFENEcm9pdGVEaXJlY3Rpb25GaXhlAAAAAAUBAAAAABAAAAEAAQAAAAIBP#AAAAAAAAD#####AAAAAQAPQ1BvaW50TGllRHJvaXRlAQAAAAUBAAAAABAAAADACAAAAAAAAD#wAAAAAAAABQABQEuAAAAAAAAAAAAG#####wAAAAEAC0NIb21vdGhldGllAAAAAAUAAAAC#####wAAAAEACkNPcGVyYXRpb24D#####wAAAAEAD0NSZXN1bHRhdFZhbGV1cgAAAAMAAAAJAQAAAAoAAAADAAAACgAAAAT#####AAAAAQALQ1BvaW50SW1hZ2UAAAAABQEAAAAADQACTzEAwBAAAAAAAABAEAAAAAAAAAUAAAAABwAAAAgAAAAIAAAAAAUAAAACAAAACQMAAAAJAQAAAAE#8AAAAAAAAAAAAAoAAAADAAAACQEAAAAKAAAABAAAAAoAAAADAAAACwAAAAAFAQAAAAANAAJJNQDAAAAAAAAAAEAIAAAAAAAABQAAAAAHAAAACv####8AAAABAAhDU2VnbWVudAEAAAAFAQAAAAAQAAABAQEAAAACAAAABwAAAAcBAAAABQEAAAABEAACazEAwAAAAAAAAABAAAAAAAAAAAEAAT#ZmZmZmZmaAAAADP####8AAAACAA9DTWVzdXJlQWJzY2lzc2UBAAAABQAEem9vbQAAAAkAAAALAAAADf####8AAAABAA9DVmFsZXVyQWZmaWNoZWUBAAAABQEAAAAAAAAAAAAAAADAGAAAAAAAAAAAAA0PAAH###8AAAABAAAAAgAAAAEAAAAAAAAAAAAAAAACAAAADgAAAAMA#####wH#AAAAEAABWgAAAAAAAAAAAEAIAAAAAAAABQABQHmoAAAAAABAd2hR64UeuAAAAAgA#####wAAABAAAAAKAAAADgAAAAYA#####wH#AAABEAAAAQEBAAAAEAA#8AAAAAAAAAAAAAcA#####wH#AAAAEAABTQAAAAAAAAAAAEAIAAAAAAAABQABwEgAAAAAAAAAAAASAAAACwD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAEwAAABEAAAADAP####8BAAAAAQ8AAk8yAQUAAUCA3AAAAAAAQICEKPXCj1wAAAAGAP####8BAAAAARAAAAEAAQAAABUAP#AAAAAAAAAAAAAHAP####8BAAAAAQ8AAkoyAQUAAMBAAAAAAAAAAAAAFv####8AAAABAAlDTG9uZ3VldXIA#####wAAABUAAAAXAAAAAwD#####AAAAAAAPAAFPAMAyAAAAAAAAwCgAAAAAAAAFAAFAYnAAAAAAAEB4mFHrhR64AAAABgD#####AQAAAAAQAAABAAEAAAAZAUAD6BRQ79ycAAAABwD#####Af8AAAAQAAJJIgAAAAAAAAAAAEAIAAAAAAAABQABQDF7TwMpFiAAAAAaAAAABAD#####AAJoMQACMTAAAAABQCQAAAAAAAAAAAAEAP####8AAmgyAAE0AAAAAUAQAAAAAAAAAAAABAD#####AAFyAAMzLjUAAAABQAwAAAAAAAD#####AAAAAQARQ1N5bWV0cmllQ2VudHJhbGUA#####wAAABUAAAADAP####8BAAAAAQ8AAk8zAQUAAUCSQgAAAAAAQHe4UeuFHrcAAAAGAP####8BAAAAABAAAAEAAQAAACABQAPoFFDv3JwAAAADAP####8BAAAAAQsAAk80AQUAAUCSVgAAAAAAQH5YUeuFHrgAAAAGAP####8BAAAAABAAAAEAAQAAACIBQAPoFFDv3JwAAAAQAP####8AAAAZAAAACwD#####AQB#AAALAAJXNADANQAAAAAAAMAUAAAAAAAABQAAAAAXAAAAH#####8AAAABAAxDVHJhbnNsYXRpb24A#####wAAABUAAAAXAAAACwD#####AQAAAAALAAJXNwBAAAAAAAAAAAAAAAAAAAAABQAAAAAgAAAAJv####8AAAABAAlDQ2VyY2xlT0EA#####wF#f38BAQAAACAAAAAn#####wAAAAEAEENJbnREcm9pdGVDZXJjbGUA#####wAAACEAAAAo#####wAAAAEAEENQb2ludExpZUJpcG9pbnQA#####wEAAAAADQACSTMBBQABAAAAKf####8AAAABAA9DUG9pbnRMaWVDZXJjbGUA#####wEAAAABCwACSzMBAQABQBX9VSbZZwcAAAAo#####wAAAAIAE0NNZXN1cmVBbmdsZU9yaWVudGUA#####wAIYW5ndGhldGEAAAAqAAAAIAAAACsAAAAEAP####8ABXRoZXRhAAhhbmd0aGV0YQAAAAoAAAAsAAAABAD#####AAN4JzEACnNpbih0aGV0YSn#####AAAAAgAJQ0ZvbmN0aW9uAwAAAAoAAAAtAAAABAD#####AAN4JzIACmNvcyh0aGV0YSkAAAAXBAAAAAoAAAAtAAAAFQD#####AQAAAAALAAJXMQDAAAAAAAAAAEAAAAAAAAAABQABQBNc46k8Cu8AAAAoAAAAFgD#####AAVhbmdsZQAAACoAAAAgAAAAMP####8AAAABABJDQXJjRGVDZXJjbGVEaXJlY3QA#####wF#f38BAQAAABUAAAAXAAAAJQAAABUA#####wEAAAABCwACSzIBAQABP8B#LK14eQYAAAAyAAAAFgD#####AAZhbmdwaGkAAAAXAAAAFQAAADMAAAAEAP####8AA3BoaQAGYW5ncGhpAAAACgAAADQAAAAEAP####8AA3knMQAULWNvcyh0aGV0YSkqc2luKHBoaSkAAAAJAQAAAAEAAAAAAAAAAAAAAAkCAAAAFwQAAAAKAAAALQAAABcDAAAACgAAADUAAAAEAP####8AA3knMgATc2luKHRoZXRhKSpzaW4ocGhpKQAAAAkCAAAAFwMAAAAKAAAALQAAABcDAAAACgAAADX#####AAAAAQAXQ01lc3VyZUFuZ2xlR2VvbWV0cmlxdWUA#####wAAABcAAAAVAAAAJQAAAAQA#####wAEcGxhdAAGSjJPMlc0AAAACgAAADgAAAAEAP####8ABWRyb2l0AAZwbGF0LzIAAAAJAwAAAAoAAAA5AAAAAUAAAAAAAAAAAAAADAD#####AQAAAAAQAAABAAEAAAAVAAAAFwAAAAwA#####wEAAAAAEAAAAQABAAAAIAAAACoAAAAMAP####8BAAAAABAAAAEAAQAAACAAAAAr#####wAAAAIAE0NNYXJxdWVBbmdsZU9yaWVudGUA#####wF#AAAAAgAAAABAOLK7zEtlnQAAACoAAAAgAAAAKwH#####AAAAAQAMQ0Jpc3NlY3RyaWNlAP####8BfwAAABAAAAEBAQAAACoAAAAgAAAAKwAAAAcA#####wF#AAAAEAAAAQUAAUB5tgoLjWTlAAAAP#####8AAAACAAZDTGF0ZXgA#####wF#AAAAwBQAAAAAAADAJgAAAAAAAAAAAEARAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAKXHZhcnRoZXRhIAAAAAwA#####wEAAAAAEAAAAQABAAAAFQAAADMAAAAIAP####8AAAAiAAAAFwQAAAAKAAAANQAAABoA#####wEAAP8AAgAAAABAN1LlDbOjogAAABcAAAAVAAAAMwEAAAAbAP####8BAAD#ABAAAAEBAQAAABcAAAAVAAAAMwAAAAcA#####wEAAP8AEAAAAQUAAUB3uGBZxKE1AAAARQAAABwA#####wEAAP8AAAAAAAAAAADAFAAAAAAAAAAAAEYRAAAAAAABAAAAAQAAAAEAAAAAAAAAAAAHXHZhcnBoaQAAAAQA#####wABawAIc2luKHBoaSkAAAAXAwAAAAoAAAA1AAAABAD#####AAp0ZXN0UGhpTnVsACcxLygocGhpPTApKyhhYnMocGhpLXBsYXQpPDAuMDAwMDAwMDAxKSkAAAAJAwAAAAE#8AAAAAAAAAAAAAkAAAAACQgAAAAKAAAANQAAAAEAAAAAAAAAAAAAAAkEAAAAFwAAAAAJAQAAAAoAAAA1AAAACgAAADkAAAABPhEuC+gm1pUAAAAIAP####8AAAAZAAAACgAAAEkAAAAGAP####8BAAAAARAAAAEAAQAAACIAP#AAAAAAAAAAAAAHAP####8BAAAAAQsAAko0AQUAAcBLgAAAAAAAAAAASwAAABIA#####wFmZmYAAQAAACIAAABMAAAAFQD#####AQAAAAAQAAABBQABP#CX6bp5AmEAAABNAAAABgD#####AQAAAAAQAAABAAEAAABOAEAD6BRQ79yc#####wAAAAEAEENJbnREcm9pdGVEcm9pdGUA#####wEAAAAAEAAAAQUAAAAAIwAAAE8AAAATAP####8AAAAjAAAATQAAABQA#####wEAAAAADQACSTQBBQABAAAAUf####8AAAACAAdDUmVwZXJlAP####8AAAAAAQEAAAAiAAAAUgAAAEwAAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAAAAAABP#AAAAAAAAAAAAABP#AAAAAAAAAAAAALAP####8BAAAAABAAAAEFAAAAAEwAAABDAAAACAD#####AAAAUAAAABcEAAAACgAAADUAAAALAP####8BAAAAABAAAAEFAAAAAE4AAABV#####wAAAAIADUNMaWV1RGVQb2ludHMA#####wEAf38BAQAAAFYAAABkAAAAAABOAAAABQAAAE4AAABPAAAAUAAAAFUAAABW#####wAAAAEACENWZWN0ZXVyAP####8BAAD#ABAAAAEAAQAAACIAAABUAP####8AAAABABBDUG9pbnREYW5zUmVwZXJlAP####8BAAAAABAAAAEFAAAAAFMAAAAKAAAALgAAAAoAAAA2AAAAIQD#####AQAAAAAQAAABBQAAAABTAAAACgAAAC8AAAAKAAAANwAAACAA#####wH#AAAAEAAAAQABAAAAIgAAAFkAAAAAIAD#####AQB#AAAQAAABAAEAAAAiAAAAWgAAAAAfAP####8BZmZmAQEAAABZAAAAZAAAAAAAKwAAAAYAAAArAAAALAAAAC0AAAAuAAAANgAAAFn#####AAAAAQAMQ1N1cmZhY2VMaWV1AP####8Bf39#AAAABQAAAF0AAAAiAP####8Bf39#AAAABQAAAFcAAAASAP####8B#wAAAQEAAAAZAAAAG#####8AAAABAA1DRGVtaURyb2l0ZU9BAP####8B#wAAAA0AAAEBAQAAABAAAAAT#####wAAAAEADkNQb2ludExpZVBvaW50AP####8B#wAAABAAAVUAQCAAAAAAAADAKgAAAAAAAAUAAAAAFAAAAA0A#####wABdQAAABAAAAATAAAAYv####8AAAABABFDUG9pbnRQYXJBYnNjaXNzZQD#####Af8AAAAQAAJJMgAAAAAAAAAAAEAIAAAAAAAABQAAAAAZAAAAGwAAAAoAAABjAAAAJAD#####AQAAAAALAAJJMQDAEAAAAAAAAEAQAAAAAAAABQAAAABk#####wAAAAEACUNEcm9pdGVBQgD#####AQAAAAANAAABAAEAAAAZAAAAZf####8AAAABABZDRHJvaXRlUGVycGVuZGljdWxhaXJlAP####8BAAAAABAAAAEAAQAAABkAAABmAAAAEgD#####AQAAAAABAAAAGQAAAGUAAAATAP####8AAABnAAAAaAAAABQA#####wEAAAAACwACSjEAwCgAAAAAAADAEAAAAAAAAAUAAgAAAGkAAAAeAP####8AgICAAQEAAAAZAAAAZQAAAGoAAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAAAAAABP#AAAAAAAAAAAAABP#AAAAAAAAAAAAAhAP####8BAAAAAA8AAUkAP#AAAAAAAABAEAAAAAAAAAUAAAAAawAAAAoAAAAuAAAACgAAADYAAAAhAP####8BAAAAAA8AAUoBBQAAAABrAAAACgAAAC8AAAAKAAAANwAAACMA#####wEAAAAADQAAAQEBAAAAGQAAAGwAAAAhAP####8BAAAAAA8AAUsAQBAAAAAAAADALgAAAAAAAAUAAAAAawAAAAEAAAAAAAAAAAAAABcEAAAACgAAADUAAAAjAP####8BAAAAAA0AAAEBAQAAABkAAABvAAAAIwD#####AQAAAAANAAABAQEAAAAZAAAAbQAAACAA#####wH#AAAAEAAAAQABAAAAGQAAAGwAAAAAIAD#####AQB#AAAQAAABAAEAAAAZAAAAbQAAAAAgAP####8BAAD#ABAAAAEAAQAAABkAAABvAP####8AAAABAA9DU3ltZXRyaWVBeGlhbGUA#####wAAAHD#####AAAAAQARQ01hY3JvRGlzcGFyaXRpb24A#####wEAAP8B#####w1AfcAAAAAAAECCQAAAAAAAAgHMzP8AAAAAAAAAAAAAAAEAAAAAAAAAAAATKE8sSSxKLEspIGludmlzaWJsZQAAAAAACQAAAHEAAABuAAAAcAAAAHIAAABzAAAAdAAAAG0AAABsAAAAb#####8AAAABABBDTWFjcm9BcHBhcml0aW9uAP####8BAAD#Af####8NQH5wAAAAAABAgxgAAAAAAAIBzMz#AAAAAAAAAAAAAAABAAAAAAAAAAAAEShPLEksSixLKSB2aXNpYmxlAAAAAAAJAAAAcQAAAG4AAABwAAAAcgAAAHMAAAB0AAAAbQAAAGwAAABvAAAAAB4A#####wCAgIABAQAAABkAAABsAAAAbQAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAE#8AAAAAAAAAAAAAE#8AAAAAAAAAAAACEA#####wHY2NgAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAGsAAAAKAAAAHgAAAAEAAAAAAAAAAAAAACEA#####wEAAAAAEAABQgAAAAAAAAAAAEAIAAAAAAAABQAAAAB4AAAACgAAAB4AAAABAAAAAAAAAAAAAAAkAP####8BAAAAAA8AAUEBBQAAAAB6AAAADQD#####AARhYnMxAAAAGQAAAGwAAAB7AAAABAD#####AANSYXkABGFiczEAAAAKAAAAfAAAACUA#####wEAAAAAEAAAAQUAAAAAGQAAAGwAAAAJAgAAAAoAAAB9AAAAFwQAAAAKAAAAMQAAACUA#####wEAAAAAEAAAAQUAAAAAGQAAAG0AAAAJAgAAAAoAAAB9AAAAFwMAAAAKAAAAMQAAABEA#####wAAABkAAAB+AAAACwD#####AQAAAAAQAAABBQAAAAB#AAAAgAAAAB8A#####wB#f38BAQAAAIEAAAB4AQAAAAAwAAAABgAAADAAAAAxAAAAfgAAAH8AAACAAAAAgQAAACIA#####wD##wAAAAAFAAAAggAAACEA#####wEAAAAAEAAAAQUAAAAAawAAAAEAAAAAAAAAAAAAAAkBAAAAAQAAAAAAAAAAAAAACgAAAH0AAAASAP####8BAAAAAQEAAAAZAAAAhAAAABMA#####wAAAHEAAACFAAAAFAD#####AQAAAAAQAAABBQABAAAAhgAAAAsA#####wH#AP8AEAAAAQUAAAAAhwAAAEoAAAALAP####8B#wD#ABAAAAEFAAAAAIgAAAAkAAAADAD#####AQAAAAAQAAABAAIAAACIAAAAiQAAAAcA#####wEAAAAAEAAAAQUAAT+0tjyl3q+#AAAAiv####8AAAABAA5DT2JqZXREdXBsaXF1ZQD#####AAAAAAAAAIoAAAANAP####8AAWEAAAAZAAAAbAAAAHsAAAAhAP####8BZmZmABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAB4AAAACQIAAAAKAAAAjQAAABcEAAAACgAAAAEAAAAJAgAAAAoAAACNAAAAFwMAAAAKAAAAAQAAAB4A#####wDm5uYAAQAAABkAAABsAAAAbwAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAE#8AAAAAAAAAAAAAE#8AAAAAAAAAAAACEA#####wEAAAAAEAACUyIAwDkAAAAAAADALgAAAAAAAAUAAAAAjwAAAAEAAAAAAAAAAAAAAAoAAAAcAAAAJAD#####AQAAAAAPAAFTAMBEgAAAAAAAwCIAAAAAAAAFAAAAAJAAAAANAP####8ABWFiczExAAAAGQAAAGoAAACRAAAABAD#####AAFzAAVhYnMxMQAAAAoAAACSAAAAKwD#####AAAAAAAAAJH#####AAAAAQAOQ1Rlc3RFeGlzdGVuY2UA#####wAIRXhpc3REZXMAAACSAAAABAD#####AAp0ZXN0U0VnYWxPAA4xLygxLUV4aXN0RGVzKQAAAAkDAAAAAT#wAAAAAAAAAAAACQEAAAABP#AAAAAAAAAAAAAKAAAAlQAAAAgA#####wAAABkAAAAKAAAAlgAAAAQA#####wADeScwAAtrXjIqUmF5XjIvcwAAAAkDAAAACQL#####AAAAAQAKQ1B1aXNzYW5jZQAAAAoAAABIAAAAAUAAAAAAAAAAAAAALQAAAAoAAAB9AAAAAUAAAAAAAAAAAAAACgAAAJMAAAAEAP####8AA3gnMAAUcmFjKFJheV4yLXknMF4yL2teMikAAAAXEgAAAAkBAAAALQAAAAoAAAB9AAAAAUAAAAAAAAAAAAAACQMAAAAtAAAACgAAAJgAAAABQAAAAAAAAAAAAAAtAAAACgAAAEgAAAABQAAAAAAAAAAAAAAhAP####8B#wAAABAAAAEFAAAAAGsAAAAKAAAAmQAAAAoAAACYAAAACwD#####Af8AAAAQAAABBQAAAACaAAAAdQAAAAYA#####wEAAAAAEAAAAQEBAAAAmgA#8zMzMzMzMwAAAAYA#####wEAAAAAEAAAAQEBAAAAmwA#8zMzMzMzMwAAABMA#####wAAAJ0AAACFAAAAFAD#####AQAAAAAQAAABBQACAAAAngAAABMA#####wAAAJwAAACFAAAAFAD#####AQAAAAAQAAABBQACAAAAoAAAABgA#####wEAAAABAQAAABkAAACfAAAAoQAAABUA#####wEAAAAACwACVzMAwCQAAAAAAABAGAAAAAAAAAUAAT#T+ibKoaWlAAAAov####8AAAABAA1DUG9pbnRQcm9qZXRlAP####8BAAAAAAsAAlcyAMAuAAAAAAAAQBQAAAAAAAAFAAAAAKMAAABmAAAAJQD#####AQAAAAALAAJXNQDAIAAAAAAAAEAgAAAAAAAABQAAAACkAAAAo#####8AAAABAA1DRm9uY3Rpb24zVmFyAAAAAAkCAAAACQcAAAAKAAAANQAAAAEAAAAAAAAAAAAAAAkGAAAACgAAADUAAAAKAAAAOgAAAAoAAABIAAAACQEAAAABAAAAAAAAAAAAAAAKAAAASAAAAAQA#####wAIdGVzdFNpbnQAFjEvKGFicyhzKTw9YWJzKGspKlJheSkAAAAJAwAAAAE#8AAAAAAAAAAAAAkGAAAAFwAAAAAKAAAAkwAAAAkCAAAAFwAAAAAKAAAASAAAAAoAAAB9AAAADAD#####AAAAAAAQAAABAAIAAACRAAAAmgAAAAwA#####wAAAAAAEAAAAQACAAAAkQAAAJsAAAAMAP####8Bf39#ABAAAAEAAQAAAJEAAAClAAAABwD#####AQAAAAALAAJXNgEFAAE#6TBqC7jF5AAAAKkAAAAfAP####8Bf39#AAEAAACqAAAAUAAAAAAAowAAAAUAAACjAAAApAAAAKUAAACpAAAAqv####8AAAACABJDTGlldU9iamV0UGFyUHRMaWUA#####wDY2NgAAACrAAAAAUAkAAAAAAAAAAAAqgAAAAIAAACqAAAAqwAAAB8A#####wEAAAAAAgAAAKUAAAB4AAAAAACjAAAAAwAAAKMAAACkAAAApQAAAAgA#####wAAABkAAAAKAAAApgAAAAsA#####wH#AP8AEAAAAQUAAAAAkQAAAK4AAAAMAP####8Bf39#ABAAAAEAAQAAAK8AAACBAAAAMAD#####AH9#fwAAALAAAAABQDUAAAAAAAAAAAAwAAAABwAAADAAAAAxAAAAfgAAAH8AAACAAAAAgQAAALAAAAAHAP####8Bf39#ABAAAAEFAAE#6MY8Xi4nRgAAALAAAAAfAP####8Bf39#AAEAAACyAAAAUAEAAAAAMAAAAAgAAAAwAAAAMQAAAH4AAAB#AAAAgAAAAIEAAACwAAAAsgAAADAA#####wB#f38AAACzAAAAAUAkAAAAAAAAAAAAsgAAAAIAAACyAAAAswAAACsA#####wAAAAAAAACtAAAACAD#####AAAAkQAAAAoAAACmAAAACwD#####Af8AAAAQAAABBQAAAACBAAAAtgAAAB8A#####wEAAAAAAgAAALcAAABkAQAAAAAwAAAABwAAADAAAAAxAAAAfgAAAH8AAACAAAAAgQAAALcAAAArAP####8AAAAAAAAAuAAAAAsA#####wH#AAAAEAAAAQUAAAAAhAAAAJcAAAASAP####8BAAAAAAIAAAAZAAAAugAAABUA#####wEAAAAAEAAAAQUAAUACcpnT3JQVAAAAuwAAAAwA#####wF#f38AEAAAAQABAAAAGQAAALwAAAAHAP####8Bf39#ABAAAAEFAAE#6c331KusFwAAAL0AAAASAP####8Bf39#AAEAAAAZAAAAvgAAADAA#####wB#f38AAAC9AAAAAUA0AAAAAAAAAAAAvAAAAAIAAAC8AAAAvQAAADAA#####wB#f38AAAC#AAAAAUAkAAAAAAAAAAAAvgAAAAIAAAC+AAAAvwAAACsA#####wAAAAAAAAC7AAAADAD#####AQAAAAAQAAABAAIAAACJAAAAkQAAAAcA#####wF#f38AEAAAAQUAAT#B0fQhYRklAAAAwwAAAAYA#####wF#f38AEAAAAQABAAAAxAE#8zMzMzMzMwAAAAwA#####wEAAAAAEAAAAQACAAAAkQAAAIgAAAAdAP####8Bf39#ABAAAAEFAAAAAMUAAADGAAAADAD#####AX9#fwAQAAABAAEAAADEAAAAxwAAADAA#####wB#f38AAADIAAAAAUAkAAAAAAAAAAAAxAAAAAQAAADEAAAAxQAAAMcAAADIAAAADAD#####AX9#fwAQAAABAAEAAACRAAAAiwAAADAA#####wB#f38AAADKAAAAAUAkAAAAAAAAAAAAiwAAAAIAAACLAAAAygAAACsA#####wAAAAAAAADDAAAAKwD#####AAAAAAAAAMYAAAAMAP####8BAAAAABAAAAEBAQAAAJEAAACO#####wAAAAIAFUNMaWV1T2JqZXRQYXJWYXJpYWJsZQD#####AL29vQAAAM4AAAABQDkAAAAAAAAAAAABAAAAAwAAAAEAAACOAAAAzgAAACEA#####wAAAAAAEAACTycAwDkAAAAAAADAKgAAAAAAAAUAAAAAjwAAAAEAAAAAAAAAAAAAAAkBAAAACgAAABwAAAAKAAAAHf####8AAAABABBDRHJvaXRlUGFyYWxsZWxlAP####8B5ubmABAAAAEAAQAAANAAAABuAAAADAD#####AObm5gAQAAABAAEAAACRAAAAfgAAAB0A#####wGkpKQAEAACUCIAAAAAAAAAAABACAAAAAAAAAUAAAAA0QAAANIAAAAyAP####8B5ubmABAAAAEAAQAAANAAAABxAAAADAD#####AObm5gAQAAABAAEAAAB#AAAAkQAAAB0A#####wGkpKQAEAACUSIAwDsAAAAAAADAIgAAAAAAAAUAAAAA1AAAANUAAAARAP####8AAADQAAAA0wAAAAsA#####wGkpKQAEAACUCcAAAAAAAAAAABACAAAAAAAAAUAAAAA1gAAANcAAAAfAP####8ApKSkAQEAAADYAAAAeAEAAAAAKwAAAB4AAAArAAAALAAAAC0AAAAuAAAALwAAADYAAAA3AAAAbAAAAG0AAABuAAAAcQAAAHgAAAB6AAAAewAAAHwAAAB9AAAAfgAAAH8AAACPAAAAkAAAAJEAAADQAAAA0QAAANIAAADTAAAA1AAAANUAAADWAAAA1wAAANgAAAAiAP####8A#wAAAAAABQAAANkAAAATAP####8AAABnAAAAYAAAABQA#####wH#AAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAEAAADbAAAAFAD#####Af8AAAAQAAJKIgAAAAAAAAAAAEAIAAAAAAAABQACAAAA2wAAAB4A#####wDm5uYAAQAAABkAAAAbAAAA3QAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAE#8AAAAAAAAAAAAAE#8AAAAAAAAP####8AAAACAAxDQ29tbWVudGFpcmUA#####wH#AAAB#####xBAf7gAAAAAAEB7KFHrhR64AgAAAAAAAAAAAAAAAAEAAAAAAAAAAAAEWk9PTQAAAAgA#####wAAABkAAAABP#B64UeuFHsAAAALAP####8B#wAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAACRAAAA4AAAADMA#####wAAAAAAwDQAAAAAAADAKAAAAAAAAAAAAOEQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABUwAAABMA#####wAAABoAAACFAAAAFAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAgAAAOMAAAAUAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAA4wAAAAwA#####wAAAAAAEAAAAQEBAAAAkAAAAOUAAAAGAP####8BAAAAARAAAAEBAQAAANABP#AAAAAAAAAAAAAdAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAADnAAAA5gAAAAwA#####wB#f38AEAAAAQEBAAAA0AAAAOgAAAAMAP####8AAAAAABAAAAEBAQAAABkAAADlAAAADAD#####AAAAAAAQAAABAQEAAAAZAAAAkf####8AAAACAAlDQ2VyY2xlT1IA#####wEAAAABAQAAANAAAAABP9mZmZmZmZoAAAAAEwD#####AAAA6QAAAOwAAAAUAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAA7QAAABQA#####wAAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAIAAADtAAAAEwD#####AAAA6wAAAOwAAAAUAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAA8AAAABQA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAEAAADwAAAACAD#####AAAA0AAAABcEAAAACgAAADUAAAALAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAADyAAAA8wAAABEA#####wAAANAAAAD0AAAACwD#####AQAAAAAQAAAAQAgAAAAAAAAAAAAAAAAAAAUAAAAA7gAAAPUAAAAMAP####8AAAAAABAAAAEBAQAAAPQAAADQAAAADAD#####AAAAAAAQAAABAQEAAADQAAAA7gAAAAwA#####wAAAAAAEAAAAQEBAAAA7gAAAPYAAAAMAP####8AAAAAABAAAAEBAQAAAPYAAAD0#####wAAAAEACUNQb2x5Z29uZQD#####AAAAAAEBAAAABQAAAPQAAADQAAAA7gAAAPYAAAD0AAAAEQD#####AAAA0AAAAO4AAAALAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAAZAAAA#AAAAAsA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAABkAAAD1AAAAEQD#####AAAAGQAAAP4AAAALAP####8BAAAAABAAAABACAAAAAAAAAAAAAAAAAAABQAAAAD9AAAA#wAAAAwA#####wAAAAAAEAAAAQEBAAAA#gAAABkAAAAMAP####8AAAAAABAAAAEBAQAAABkAAAD9AAAADAD#####AAAAAAAQAAABAQEAAAD9AAABAAAAAAwA#####wAAAAAAEAAAAQEBAAABAAAAAP4AAAA1AP####8AAAAAAQEAAAAFAAAA#gAAABkAAAD9AAABAAAAAP4AAAAGAP####8BAAAAARAAAAEBAQAAABABP#AAAAAAAAAAAAA0AP####8BAAAAAQEAAAAQAAAAAT#JmZmZmZmaAAAAABMA#####wAAAQYAAAEHAAAAFAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAQAAAQgAAAAUAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAABCAAAAAwA#####wH#AAAAEAAAAQABAAABCgAAAQn#####AAAAAQAHQ01pbGlldQD#####Af8AAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAA0AAAAJAAAAA2AP####8B#wAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAAZAAAA0AAAAA4A#####wEAAAAAwCoAAAAAAADAHAAAAAAAAAAAAQwQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAACAAAAHQAAADYA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAHkAAAAZAAAADgD#####AQAAAADAHAAAAAAAAAAAAAAAAAAAAAABDxAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAIAAAAeAAAABAD#####AAJoMwAFaDEtaDIAAAAJAQAAAAoAAAAcAAAACgAAAB0AAAAOAP####8BAAAAAMA1AAAAAAAAwCIAAAAAAAAAAAENEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAQAAAREAAAAY##########8="
+				if (!sortie_html) texte = `\\begin{minipage}{0.7 \\linewidth} \n\t`
+				else texte = ``
+				texte += `Un cône a pour rayon ${tex_nombre(r)}${sp()}cm et pour hauteur SO${sp()}=${sp()}${tex_nombre(h1)}${sp()}cm.<br>Le point O' est situé sur la hauteur [SO] à ${h2}${sp()}cm de S.<br>`
+				texte += `Un plan parallèle à la base passant par O' coupe le cône.<br>`
+				texte += `On obtient ainsi une section ` + katex_Popup2(numero_de_l_exercice + i * 4, 1, "semblable", `Définition : Figures semblables`, `Se dit de deux figures/solides qui ont les mêmes formes, les mêmes angles mais pas nécessairement les mêmes mesures.<br>Les représentations d'une même figure à deux échelles différentes sont des figures semblables.`) + ` à la base et un cône réduit semblable au grand cône.<br>`
+				if (!sortie_html) texte += `La figure n'est pas en vraie grandeur.<br>`
+				texte += num_alpha(0) + ` Calculer l'` + katex_Popup2(numero_de_l_exercice + i * 4 + 1, 1, "aire de base du cône", `Formule : Aire du disque de rayon R`, `$Aire=\\pi \\times \\text{R}^{2}$`) + `.<br>`
+				texte += num_alpha(1) + ` Calculer le ` + katex_Popup2(numero_de_l_exercice + i * 4 + 2, 1, "volume du cône", `Formule : Volume d'un cône de rayon R et de hauteur h`, `$Volume= \\dfrac{\\pi \\times \\text{R}^{2} \\times \\text{h}}{3}$`) + `.<br>`
+				texte += num_alpha(2) + ` En déduire l'aire de la ` + katex_Popup2(numero_de_l_exercice + i * 4 + 3, 1, "section", `Définition : Section plane d'un solide`, `La section d'un solide par un plan est une figure plane.<br>Dans le cas d'une section d'un cône par un plan parallèle à sa base, cette section est un disque qui est une réduction de la base.<br>Dans une réduction de coefficient k, les aires sont multipliées par k${exposant(2)} et les volumes sont multipliés par k${exposant(3)}.`) + ` sachant que SO'${sp()}=${sp()}${h2}${sp()}cm.<br>`
+				texte += num_alpha(3) + ` Calculer le volume du cône de hauteur SO'.<br>`
+				texte += num_alpha(4) + ` Calculer le volume du tronc de cône (partie du cône située entre la base et la section).`
+				if (sortie_html) texte += `<br>Le point O peut être déplacé et on peut changer l'angle de vue &#x3C6; `
+				else texte += `\n\t \\end{minipage} \n\t \\begin{minipage}{0.3 \\linewidth} \n\t \\begin{tikzpicture}[scale=0.7] \n\t 
 					\\definecolor{hhhhhh}{rgb}{0,0,0}
 					\\definecolor{phphph}{rgb}{0.5,0.5,0.5}
 					\\definecolor{ofofof}{rgb}{0.5,0.5,0.5}
@@ -4955,65 +4955,65 @@ function Agrandissement_reduction() {
 					\\draw [color=black , dotted, line width = 0.4](5.009,10.649)--(4.609,10.649);
 					\\draw [color=black , dotted, line width = 0.4](4.609,10.649)--(4.609,10.281)--(5.009,10.281)--(5.009,10.649)--(4.609,10.649)--cycle;
 					\\end{tikzpicture} \n\t \\end{minipage}`
-					
-					texte_corr = num_alpha(0) + ` L'aire de base du cône est : $\\pi \\times R^2$ cm${exposant(2)} $= \\pi \\times ${tex_nombre(r)}^2$ cm${exposant(2)} $= ${tex_nombrec(r * r)}\\pi$ cm${exposant(2)} $\\approx ${tex_nombrec(arrondi(r * r * Math.PI))}$ cm${exposant(2)}.<br>`
-					texte_corr += num_alpha(1) + ` Le volume du cône est $\\dfrac{A_\\text{base}}{3}\\times \\text{hauteur}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r)}\\pi}{3} \\times ${tex_nombre(h1)}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3))}$ cm${exposant(3)}.<br>`
-					texte_corr += num_alpha(2) + ` La section est une réduction de la base de coefficient $\\dfrac{${tex_nombre(h2)}}{${tex_nombre(h1)}}`
-					if (!Number.isInteger(h1) || pgcd(h2, h1) > 1) texte_corr += `=${tex_fraction_reduite(h2 * 10, h1 * 10)}$.<br>`
-					else texte_corr += `.$<br>`
-					texte_corr += `Dans une réduction de coefficient k, les aires sont multipliés par k${exposant(2)}.<br>`
-					texte_corr += `Donc son aire est $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^2 \\times ${tex_nombrec(r * r)}\\pi$ cm${exposant(2)} $=${tex_fraction_reduite(arrondi(h2 * h2 * 100 * r * r), arrondi(h1 * h1 * 100))}\\pi$ cm${exposant(2)} $\\approx${tex_nombrec(arrondi(h2 * h2 * r * r * Math.PI / h1 / h1))}$ cm${exposant(2)}.<br>`
-					texte_corr += num_alpha(3) + ` Dans une réduction de coefficient k, les volumes sont multipliés par k${exposant(3)}.<br>`
-					texte_corr += `Donc le volume du cône de hauteur SO' est : $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3))}$ cm${exposant(3)} '.<br>`
-					texte_corr += num_alpha(4) + ` Le volume du tronc de cône est : `
-					texte_corr += `$V_\\text{Cône} - V_\\text{CôneRéduit}$<br>Soit : <br>$\\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)}$ - \\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} `
-					texte_corr += `$ = \\left(1-\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3\\right)\\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} `
-					texte_corr += `$ = \\left(1-\\dfrac{${fraction_simplifiee(h2 * 10, h1 * 10)[0] ** 3}}{${fraction_simplifiee(h2 * 10, h1 * 10)[1] ** 3}}\\right)\\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} `
-					texte_corr += `$ = \\dfrac{${fraction_simplifiee(h2 * 10, h1 * 10)[1] ** 3 - fraction_simplifiee(h2 * 10, h1 * 10)[0] ** 3}}{${fraction_simplifiee(h2 * 10, h1 * 10)[1] ** 3}}\\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} `
-					texte_corr += `$ \\approx ${tex_nombrec(arrondi((fraction_simplifiee(h2 * 10, h1 * 10)[1] ** 3 - fraction_simplifiee(h2 * 10, h1 * 10)[0] ** 3) * r * r * h1 * Math.PI / (fraction_simplifiee(h2 * 10, h1 * 10)[1] ** 3 * 3)))}$ cm${exposant(3)}<br>`
-					this.MG32codeBase64 = codeBase64
-					this.MG32code_pour_modifier_la_figure = `
+
+				texte_corr = num_alpha(0) + ` L'aire de base du cône est : $\\pi \\times R^2$ cm${exposant(2)} $= \\pi \\times ${tex_nombre(r)}^2$ cm${exposant(2)} $= ${tex_nombrec(r * r)}\\pi$ cm${exposant(2)} $\\approx ${tex_nombrec(arrondi(r * r * Math.PI))}$ cm${exposant(2)}.<br>`
+				texte_corr += num_alpha(1) + ` Le volume du cône est $\\dfrac{A_\\text{base}}{3}\\times \\text{hauteur}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r)}\\pi}{3} \\times ${tex_nombre(h1)}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3))}$ cm${exposant(3)}.<br>`
+				texte_corr += num_alpha(2) + ` La section est une réduction de la base de coefficient $\\dfrac{${tex_nombre(h2)}}{${tex_nombre(h1)}}`
+				if (!Number.isInteger(h1) || pgcd(h2, h1) > 1) texte_corr += `=${tex_fraction_reduite(h2 * 10, h1 * 10)}$.<br>`
+				else texte_corr += `.$<br>`
+				texte_corr += `Dans une réduction de coefficient k, les aires sont multipliés par k${exposant(2)}.<br>`
+				texte_corr += `Donc son aire est $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^2 \\times ${tex_nombrec(r * r)}\\pi$ cm${exposant(2)} $=${tex_fraction_reduite(arrondi(h2 * h2 * 100 * r * r), arrondi(h1 * h1 * 100))}\\pi$ cm${exposant(2)} $\\approx${tex_nombrec(arrondi(h2 * h2 * r * r * Math.PI / h1 / h1))}$ cm${exposant(2)}.<br>`
+				texte_corr += num_alpha(3) + ` Dans une réduction de coefficient k, les volumes sont multipliés par k${exposant(3)}.<br>`
+				texte_corr += `Donc le volume du cône de hauteur SO' est : $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3))}$ cm${exposant(3)} '.<br>`
+				texte_corr += num_alpha(4) + ` Le volume du tronc de cône est : `
+				texte_corr += `$V_\\text{Cône} - V_\\text{CôneRéduit}$<br>Soit : <br>$\\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)}$ - \\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} `
+				texte_corr += `$ = \\left(1-\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3\\right)\\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} `
+				texte_corr += `$ = \\left(1-\\dfrac{${fraction_simplifiee(h2 * 10, h1 * 10)[0] ** 3}}{${fraction_simplifiee(h2 * 10, h1 * 10)[1] ** 3}}\\right)\\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} `
+				texte_corr += `$ = \\dfrac{${fraction_simplifiee(h2 * 10, h1 * 10)[1] ** 3 - fraction_simplifiee(h2 * 10, h1 * 10)[0] ** 3}}{${fraction_simplifiee(h2 * 10, h1 * 10)[1] ** 3}}\\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} `
+				texte_corr += `$ \\approx ${tex_nombrec(arrondi((fraction_simplifiee(h2 * 10, h1 * 10)[1] ** 3 - fraction_simplifiee(h2 * 10, h1 * 10)[0] ** 3) * r * r * h1 * Math.PI / (fraction_simplifiee(h2 * 10, h1 * 10)[1] ** 3 * 3)))}$ cm${exposant(3)}<br>`
+				this.MG32codeBase64 = codeBase64
+				this.MG32code_pour_modifier_la_figure = `
 							 mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "r", "${r}");
 							 mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "h1", "${h1}");
 							 mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "h2", "${h2}");							 
 							 mtg32App.calculate("MG32svg${numero_de_l_exercice}");
 							 mtg32App.display("MG32svg${numero_de_l_exercice}");
 							 `
-					break;
-				case 3: // calcul de l'aire de base, du volume d'une pyramide à base triangulaire. puis, calcul de la section, du volume de la petite pyramide et du volume du tronc
-					c = calcul(randint(30, 60) / 10)
-					c2 = calcul(randint(30, 60) / 10)
-					h1 = calcul(randint(12, 20) / 2)
-					h2 = randint(3, Math.floor(h1) - 1)
-					if (this.sup2<3)
-					if (this.sup2==1) // coefficient de réduction décimal
-						while (calcul(h2/h1)!=arrondi(h2/h1,1)) {
+				break;
+			case 3: // calcul de l'aire de base, du volume d'une pyramide à base triangulaire. puis, calcul de la section, du volume de la petite pyramide et du volume du tronc
+				c = calcul(randint(30, 60) / 10)
+				c2 = calcul(randint(30, 60) / 10)
+				h1 = calcul(randint(12, 20) / 2)
+				h2 = randint(3, Math.floor(h1) - 1)
+				if (this.sup2 < 3)
+					if (this.sup2 == 1) // coefficient de réduction décimal
+						while (calcul(h2 / h1) != arrondi(h2 / h1, 1)) {
 							c = calcul(randint(30, 60) / 10)
 							c2 = calcul(randint(30, 60) / 10)
 							h1 = calcul(randint(12, 20) / 2)
 							h2 = randint(3, Math.floor(h1) - 1)
 						}
 					else //coefficient de réduction rationnel
-						while (calcul(h2/h1)==arrondi(h2/h1,1)) {
+						while (calcul(h2 / h1) == arrondi(h2 / h1, 1)) {
 							c = calcul(randint(30, 60) / 10)
 							c2 = calcul(randint(30, 60) / 10)
 							h1 = calcul(randint(12, 20) / 2)
 							h2 = randint(3, Math.floor(h1) - 1)
-						}	
-					codeBase64 = "TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAANmcmH###8BAP8BAAAAAAAAAAAFHAAAAtIAAAAAAAAAAAAAAAEAAAEg#####wAAAAEACkNDYWxjQ29uc3QA#####wACcGkAFjMuMTQxNTkyNjUzNTg5NzkzMjM4NDb#####AAAAAQAKQ0NvbnN0YW50ZUAJIftURC0Y#####wAAAAEACkNQb2ludEJhc2UA#####wAAAAAAEAAAAEAIAAAAAAAAAAAAAAAAAAAFAAFAf2gAAAAAAEB5uFHrhR64#####wAAAAEAB0NDYWxjdWwA#####wAFbWluaTEAAzAuMgAAAAE#yZmZmZmZmgAAAAMA#####wAFbWF4aTEAATMAAAABQAgAAAAAAAD#####AAAAAQAUQ0ltcGxlbWVudGF0aW9uUHJvdG8A#####wAHQ3Vyc2V1cgAAAAUAAAAFAAAAAwAAAAIAAAADAAAAAf####8AAAABABRDRHJvaXRlRGlyZWN0aW9uRml4ZQAAAAAEAQAAAAAQAAABAAEAAAABAT#wAAAAAAAA#####wAAAAEAD0NQb2ludExpZURyb2l0ZQEAAAAEAAAAAAAQAAAAwAgAAAAAAAA#8AAAAAAAAAUAAUBMgAAAAAAAAAAABf####8AAAABAAtDSG9tb3RoZXRpZQAAAAAEAAAAAf####8AAAABAApDT3BlcmF0aW9uA#####8AAAABAA9DUmVzdWx0YXRWYWxldXIAAAACAAAACAEAAAAJAAAAAgAAAAkAAAAD#####wAAAAEAC0NQb2ludEltYWdlAAAAAAQBAAAAAA0AAk82AMAQAAAAAAAAQBAAAAAAAAAFAAAAAAYAAAAHAAAABwAAAAAEAAAAAQAAAAgDAAAACAEAAAABP#AAAAAAAAAAAAAJAAAAAgAAAAgBAAAACQAAAAMAAAAJAAAAAgAAAAoAAAAABAEAAAAADQACSTUAwAAAAAAAAABACAAAAAAAAAUAAAAABgAAAAn#####AAAAAQAIQ1NlZ21lbnQBAAAABAAAAAAAEAAAAQEBAAAAAQAAAAYAAAAGAQAAAAQAAAAAARAAAmsxAMAAAAAAAAAAQAAAAAAAAAABAAE#0xZ0xZ0xZwAAAAv#####AAAAAgAPQ01lc3VyZUFic2Npc3NlAQAAAAQABHpvb20AAAAIAAAACgAAAAz#####AAAAAQAPQ1ZhbGV1ckFmZmljaGVlAQAAAAQBAAAAAAAAAAAAAAAAwBgAAAAAAAAAAAAMDwAB####AAAAAQAAAAIAAAABAAAAAAAAAAAAAAAAAgAAAA0AAAADAP####8AAmMnAAE0AAAAAUAQAAAAAAAAAAAAAwD#####AAJoMQACMTAAAAABQCQAAAAAAAAAAAADAP####8AAmgyAAE0AAAAAUAQAAAAAAAAAAAAAwD#####AAJoMwAFaDEtaDIAAAAIAQAAAAkAAAAQAAAACQAAABEAAAADAP####8AAWMAATMAAAABQAgAAAAAAAAAAAACAP####8AAAAAAA8AAU8AwCgAAAAAAABAEAAAAAAAAAUAAUBrEAAAAAAAQH3YUeuFHrgAAAAFAP####8BAAAAABAAAAEAAQAAABQBP#MzMzMzMzMAAAACAP####8BAAAAAQ8AAk8yAQUAAUCBFAAAAAAAQGPQo9cKPXEAAAACAP####8BAAAAAQ8AAk8zAQUAAUCBJAAAAAAAQG3wo9cKPXEAAAAFAP####8BAAAAABAAAAEAAQAAABcBP#MzMzMzMzMAAAACAP####8BAAAAAQ8AAk80AQUAAUCBHAAAAAAAQHS4UeuFHrgAAAAFAP####8BAAAAABAAAAEAAQAAABkBP#MzMzMzMzMAAAAFAP####8BAAAAARAAAAEAAQAAABYAP#AAAAAAAAAAAAAGAP####8BAAAAAQ8AAkoyAQUAAMBCAAAAAAAAAAAAG#####8AAAABAAlDQ2VyY2xlT0EA#####wB#f38BAQAAABYAAAAc#####wAAAAEADENUcmFuc2xhdGlvbgD#####AAAAFgAAABwAAAAKAP####8BAAAAABAAAAEFAAAAABcAAAAeAAAADgD#####AH9#fwEBAAAAFwAAAB######AAAAAQAQQ0ludERyb2l0ZUNlcmNsZQD#####AAAAGAAAACD#####AAAAAQAQQ1BvaW50TGllQmlwb2ludAD#####AQAAAAENAAJJMwEFAAEAAAAh#####wAAAAEAD0NQb2ludExpZUNlcmNsZQD#####AAAAAAEPAAJLMgEBAAFAAGSoGqf0lgAAAB0AAAASAP####8AAAAAAQ8AAkszAQEAAUAWHME9jCZzAAAAIAAAAAsA#####wAAAAAAEAAAAQABAAAAFgAAABwAAAALAP####8AAAAAABAAAAEAAQAAABYAAAAjAAAACwD#####AAAAAAAQAAABAAEAAAAXAAAAIgAAAAsA#####wAAAAAAEAAAAQABAAAAFwAAACT#####AAAAAgATQ01lc3VyZUFuZ2xlT3JpZW50ZQD#####AAZhbmdwaGkAAAAcAAAAFgAAACMAAAATAP####8AB2FuZ3RldGEAAAAiAAAAFwAAACQAAAADAP####8AA3BoaQAGYW5ncGhpAAAACQAAACkAAAADAP####8ABXRoZXRhAAdhbmd0ZXRhAAAACQAAACoAAAAHAP####8AAAAZ#####wAAAAIACUNGb25jdGlvbgQAAAAJAAAAKwAAAAMA#####wADeCcxAApzaW4odGhldGEpAAAAFAMAAAAJAAAALAAAAAMA#####wADeScxABQtY29zKHRoZXRhKSpzaW4ocGhpKQAAAAgBAAAAAQAAAAAAAAAAAAAACAIAAAAUBAAAAAkAAAAsAAAAFAMAAAAJAAAAKwAAAAMA#####wADeCcyAApjb3ModGhldGEpAAAAFAQAAAAJAAAALAAAAAMA#####wADeScyABNzaW4odGhldGEpKnNpbihwaGkpAAAACAIAAAAUAwAAAAkAAAAsAAAAFAMAAAAJAAAAK#####8AAAACABNDTWFycXVlQW5nbGVPcmllbnRlAP####8AAAD#AAIAAAAAQDzMlF2JcmgAAAAcAAAAFgAAACMB#####wAAAAEADENCaXNzZWN0cmljZQD#####AQAA#wAQAAABAQEAAAAcAAAAFgAAACMAAAAGAP####8BAAD#ABAAAAEFAAFAgM#j0J2QXQAAADP#####AAAAAgAGQ0xhdGV4AP####8AAAD#AMAQAAAAAAAAwBQAAAAAAAAAAAA0EQAAAAAAAAAAAAAAAAABAAAAAAAAAAAAB1x2YXJwaGkAAAAVAP####8AfwAAAAIAAAAAQDxTDia4t4kAAAAiAAAAFwAAACQBAAAAFgD#####AX8AAAAQAAABAQEAAAAiAAAAFwAAACQAAAAGAP####8BfwAAABAAAAEFAAFAfSZmyCoB2wAAADcAAAAXAP####8AfwAAAMAUAAAAAAAAwCYAAAAAAAAAAAA4EQAAAAAAAAAAAAAAAAABAAAAAAAAAAAAClx2YXJ0aGV0YSAAAAAFAP####8BAAAAARAAAAEAAQAAABkAP#AAAAAAAAAAAAAGAP####8AAAAAAQ8AAko0AQUAAcBGLhR64UewAAAAOgAAAA4A#####wBmZmYAAQAAABkAAAA7AAAAEgD#####AQAAAAAQAAABBQABP#CX6bp5AmEAAAA8AAAABQD#####AQAAAAAQAAABAAEAAAA9AD#zMzMzMzMz#####wAAAAEAEENJbnREcm9pdGVEcm9pdGUA#####wEAAAAAEAAAAQUAAAAAGgAAAD4AAAAQAP####8AAAAaAAAAPAAAABEA#####wEAAAABDQACSTQBBQABAAAAQP####8AAAACAAdDUmVwZXJlAP####8AAAAAAQEAAAAZAAAAQQAAADsAAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAAAAAABP#AAAAAAAAAAAAABP#AAAAAAAAAAAAAKAP####8BAAAAABAAAAEFAAAAADsAAAAtAAAABwD#####AAAAPwAAABQEAAAACQAAACsAAAAKAP####8BAAAAABAAAAEFAAAAAD0AAABE#####wAAAAIADUNMaWV1RGVQb2ludHMA#####wAAf38BAQAAAEUAAABkAAAAAAA9AAAABQAAAD0AAAA+AAAAPwAAAEQAAABF#####wAAAAEACENWZWN0ZXVyAP####8AAAD#ABAAAAEAAQAAABkAAABDAP####8AAAABABBDUG9pbnREYW5zUmVwZXJlAP####8BAAAAABAAAAEFAAAAAEIAAAAJAAAALgAAAAkAAAAvAAAAHAD#####AQAAAAAQAAABBQAAAABCAAAACQAAADAAAAAJAAAAMQAAABsA#####wD#AAAAEAAAAQABAAAAGQAAAEgAAAAAGwD#####AAB#AAAQAAABAAEAAAAZAAAASQAAAAAaAP####8AZmZmAQEAAABIAAAAZAAAAAAAJAAAAAYAAAAkAAAAKgAAACwAAAAuAAAALwAAAEj#####AAAAAQAMQ1N1cmZhY2VMaWV1AP####8Af39#AAAABQAAAEwAAAAdAP####8Af39#AAAABQAAAEYAAAACAP####8BAAAAAA8AAVoAAAAAAAAAAABACAAAAAAAAAUAAUB2qAAAAAAAQFEhR64UeuIAAAAFAP####8BAAAAARAAAAEBAQAAAE8BP#AAAAAAAAAAAAAPAP####8AAAAXAAAAIgAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAE8AAABR#####wAAAAEADUNEZW1pRHJvaXRlT0EA#####wH#AAAADQAAAQEBAAAATwAAAFIAAAAFAP####8B#wAAARAAAAEAAQAAAE8AP#AAAAAAAAD#####AAAAAQALQ1NpbWlsaXR1ZGUA#####wAAAE8AAAABQFaAAAAAAAAAAAABP9MzMzMzMzMAAAAKAP####8B#wAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAABSAAAAVQAAAB8A#####wAAAE######AAAAAQAMQ01vaW5zVW5haXJlAAAAAUBWgAAAAAAAAAAAAT#TMzMzMzMzAAAACgD#####Af8AAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAUgAAAFcAAAALAP####8B#wAAABAAAAEAAQAAAFYAAABY#####wAAAAIADENDb21tZW50YWlyZQD#####AP8AAAH#####EEB#qAAAAAAAQHpoUeuFHrgCAAAAAAAAAAAAAAAAAQAAAAAAAAAAAARaT09N#####wAAAAEABUNGb25jAP####8ABHplcm8ADWFicyh0KTwwLjAwMDEAAAAIBAAAABQA#####wAAAAIAEUNWYXJpYWJsZUZvcm1lbGxlAAAAAAAAAAE#Gjbi6xxDLQABdAAAAAcA#####wAAABQAAAABP+AAAAAAAAAAAAAHAP####8AAABPAAAACQAAAA0AAAAKAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAABSAAAAXf####8AAAABAA5DUG9pbnRMaWVQb2ludAD#####Af8AAAAPAAFVAMAQAAAAAAAAwDcAAAAAAAIFAAAAAF7#####AAAAAQAJQ0xvbmd1ZXVyAP####8AAABPAAAAX#####8AAAACAAlDQ2VyY2xlT1IA#####wEAAAABAQAAABQAAAABP#AAAAAAAAAAAAAAEAD#####AAAAFQAAAGEAAAARAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAAYgAAABEA#####wEAAAAADwACSTIAAAAAAAAAAABACAAAAAAAAAUAAQAAAGIAAAAkAP####8BAAAAAAsAAkkxAMAQAAAAAAAAQBAAAAAAAAAFAAAAAGT#####AAAAAQAJQ0Ryb2l0ZUFCAP####8BAAAAAA0AAAEAAQAAABQAAABl#####wAAAAEAFkNEcm9pdGVQZXJwZW5kaWN1bGFpcmUA#####wEAAAAAEAAAAQABAAAAFAAAAGYAAAAOAP####8BAAAAAAEAAAAUAAAAZQAAABAA#####wAAAGcAAABoAAAAEQD#####AQAAAAALAAJKMQDAKAAAAAAAAMAQAAAAAAAABQACAAAAaQAAABkA#####wCAgIABAQAAABQAAABlAAAAagAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAE#8AAAAAAAAAAAAAE#8AAAAAAAAAAAABwA#####wEAAAAADwABSwBAEAAAAAAAAMA3AAAAAAAABQAAAABrAAAAAQAAAAAAAAAAAAAAFAQAAAAJAAAAKwAAABwA#####wEAAAAADwABSQDAEAAAAAAAAD#wAAAAAAAABQAAAABrAAAACQAAAC4AAAAJAAAALwAAABwA#####wEAAAAADwABSgEFAAAAAGsAAAAJAAAAMAAAAAkAAAAxAAAAHgD#####AQAAAAANAAABAQEAAAAUAAAAbQAAAB4A#####wEAAAAADQAAAQEBAAAAFAAAAG4AAAAeAP####8BAAAAAA0AAAEBAQAAABQAAABsAAAAGwD#####Af8AAAAQAAABAAEAAAAUAAAAbQAAAAAbAP####8BAH8AABAAAAEAAQAAABQAAABuAAAAABsA#####wEAAP8AEAAAAQABAAAAFAAAAGwA#####wAAAAEAEUNQb2ludFBhckFic2Npc3NlAP####8BAAAAAA8AAUEAAAAAAAAAAABACAAAAAAAAAUAAAAAFAAAAG0AAAAJAAAAEwAAACkA#####wEAAAAADwABQgAAAAAAAAAAAEAIAAAAAAAABQAAAAAUAAAAbgAAAAkAAAAPAAAAKQD#####AQAAAAAPAAFTAAAAAAAAAAAAQAgAAAAAAAAFAAAAABQAAABsAAAACQAAABAAAAApAP####8AAAAAAA8AAk8nAAAAAAAAAAAAQAgAAAAAAAAFAAAAABQAAABsAAAACQAAABIAAAALAP####8AAAAAABAAAAEBAQAAAHUAAAAUAAAACwD#####AAAAAAAQAAABAQEAAAAUAAAAdgAAAAsA#####wAAAAAAEAAAAQEBAAAAdgAAAHUAAAALAP####8AAAAAABAAAAEBAQAAAHcAAAB1AAAACwD#####AAAAAAAQAAABAQEAAAB3AAAAdgAAAAcA#####wAAAHcAAAAIAwAAAAkAAAARAAAACQAAABAAAAAKAP####8BAAAAAA8AAkEnAAAAAAAAAAAAQAgAAAAAAAAFAAAAAHUAAAB+AAAACgD#####AQAAAAAPAAJCJwAAAAAAAAAAAEAIAAAAAAAABQAAAAB2AAAAfgAAAAsA#####wAAAAAAEAAAAQEBAAAAfwAAAHgAAAALAP####8AAAAAABAAAAEBAQAAAHgAAACAAAAACwD#####AAAAAAAQAAABAQEAAAB#AAAAgAAAAAQA#####wAXTWVzdXJlIGQnYW5nbGUgb3JpZW50w6kAAAACAAAAAQAAAAMAAAB2AAAAdQAAABQAAAAWAAAAAIQBAAAAABAAAAEAAQAAABQAAAB1AAAAdgAAAAYAAAAAhAEAAAAAEAAAAAAAAAAAAAAAP+MzMzMzMzMFAAFAaT5Clg7dyQAAAIUAAAATAQAAAIQABGFuZzEAAAB2AAAAdQAAABQAAAAEAP####8AF01lc3VyZSBkJ2FuZ2xlIG9yaWVudMOpAAAAAgAAAAEAAAADAAAAFAAAAHUAAAB3AAAAFgAAAACIAQAAAAAQAAABAAEAAAB3AAAAdQAAABQAAAAGAAAAAIgBAAAAABAAAAAAAAAAAAAAAD#jMzMzMzMzBQABQGk+QpYO3ckAAACJAAAAEwEAAACIAARhbmcyAAAAFAAAAHUAAAB3AAAABAD#####ABdNZXN1cmUgZCdhbmdsZSBvcmllbnTDqQAAAAIAAAABAAAAAwAAAHcAAAB1AAAAdgAAABYAAAAAjAEAAAAAEAAAAQABAAAAdgAAAHUAAAB3AAAABgAAAACMAQAAAAAQAAAAAAAAAAAAAAA#4zMzMzMzMwUAAUBpPkKWDt3JAAAAjQAAABMBAAAAjAAEYW5nMwAAAHcAAAB1AAAAdgAAAAMA#####wAEc29tQQAOYW5nMSthbmcyK2FuZzMAAAAIAAAAAAgAAAAACQAAAIcAAAAJAAAAiwAAAAkAAACPAAAAAwD#####AAlTQXZpc2libGUADDEvemVybyhzb21BKQAAAAgDAAAAAT#wAAAAAAAA#####wAAAAEADkNBcHBlbEZvbmN0aW9uAAAAWwAAAAkAAACQAAAABwD#####AAAAdwAAAAkAAACRAAAACgD#####Af8AAAANAAJBMQAAAAAAAAAAAEAIAAAAAAAABQAAAAB1AAAAkgAAAAsA#####wAAAAAAEAAAAQACAAAAdwAAAJMAAAAEAP####8AF01lc3VyZSBkJ2FuZ2xlIG9yaWVudMOpAAAAAgAAAAEAAAADAAAAdwAAAHYAAAAUAAAAFgAAAACVAQAAAAAQAAABAAEAAAAUAAAAdgAAAHcAAAAGAAAAAJUBAAAAABAAAAAAAAAAAAAAAD#jMzMzMzMzBQABQGk+QpYO3ckAAACWAAAAEwEAAACVAARhbmc0AAAAdwAAAHYAAAAUAAAABAD#####ABdNZXN1cmUgZCdhbmdsZSBvcmllbnTDqQAAAAIAAAABAAAAAwAAAHUAAAB2AAAAdwAAABYAAAAAmQEAAAAAEAAAAQABAAAAdwAAAHYAAAB1AAAABgAAAACZAQAAAAAQAAAAAAAAAAAAAAA#4zMzMzMzMwUAAUBpPkKWDt3JAAAAmgAAABMBAAAAmQAEYW5nNQAAAHUAAAB2AAAAdwAAAAQA#####wAXTWVzdXJlIGQnYW5nbGUgb3JpZW50w6kAAAACAAAAAQAAAAMAAAAUAAAAdgAAAHUAAAAWAAAAAJ0BAAAAABAAAAEAAQAAAHUAAAB2AAAAFAAAAAYAAAAAnQEAAAAAEAAAAAAAAAAAAAAAP+MzMzMzMzMFAAFAaT5Clg7dyQAAAJ4AAAATAQAAAJ0ABGFuZzYAAAAUAAAAdgAAAHUAAAADAP####8ABHNvbUIADmFuZzQrYW5nNSthbmc2AAAACAAAAAAIAAAAAAkAAACYAAAACQAAAJwAAAAJAAAAoAAAAAMA#####wAJU0J2aXNpYmxlAAwxL3plcm8oc29tQikAAAAIAwAAAAE#8AAAAAAAAAAAACoAAABbAAAACQAAAKEAAAAHAP####8AAAB3AAAACQAAAKIAAAAKAP####8BAAAAAA0AAkIxAAAAAAAAAAAAQAgAAAAAAAAFAAAAAHYAAACjAAAACwD#####AAAAAAAQAAABAAIAAAB3AAAApAAAAAQA#####wAXTWVzdXJlIGQnYW5nbGUgb3JpZW50w6kAAAACAAAAAQAAAAMAAAB3AAAAFAAAAHUAAAAWAAAAAKYBAAAAABAAAAEAAQAAAHUAAAAUAAAAdwAAAAYAAAAApgEAAAAAEAAAAAAAAAAAAAAAP+MzMzMzMzMFAAFAaT5Clg7dyQAAAKcAAAATAQAAAKYABGFuZzcAAAB3AAAAFAAAAHUAAAAEAP####8AF01lc3VyZSBkJ2FuZ2xlIG9yaWVudMOpAAAAAgAAAAEAAAADAAAAdQAAABQAAAB2AAAAFgAAAACqAQAAAAAQAAABAAEAAAB2AAAAFAAAAHUAAAAGAAAAAKoBAAAAABAAAAAAAAAAAAAAAD#jMzMzMzMzBQABQGk+QpYO3ckAAACrAAAAEwEAAACqAARhbmc4AAAAdQAAABQAAAB2AAAABAD#####ABdNZXN1cmUgZCdhbmdsZSBvcmllbnTDqQAAAAIAAAABAAAAAwAAAHYAAAAUAAAAdwAAABYAAAAArgEAAAAAEAAAAQABAAAAdwAAABQAAAB2AAAABgAAAACuAQAAAAAQAAAAAAAAAAAAAAA#4zMzMzMzMwUAAUBpPkKWDt3JAAAArwAAABMBAAAArgAFYW5nMTAAAAB2AAAAFAAAAHcAAAADAP####8ABHNvbU8AD2FuZzcrYW5nOCthbmcxMAAAAAgAAAAACAAAAAAJAAAAqQAAAAkAAACtAAAACQAAALEAAAADAP####8ACVNPdmlzaWJsZQAMMS96ZXJvKHNvbU8pAAAACAMAAAABP#AAAAAAAAAAAAAqAAAAWwAAAAkAAACyAAAABwD#####AAAAdwAAAAkAAACzAAAACgD#####AQAAAAANAAJPMQAAAAAAAAAAAEAIAAAAAAAABQAAAAAUAAAAtAAAAAsA#####wAAAAAAEAAAAQACAAAAdwAAALUAAAAnAP####8BAAAAABAAAAEAAQAAAHYAAAAUAAAAJwD#####AQAAAAAQAAABAAEAAAB1AAAAFAAAACcA#####wEAAAAAEAAAAQABAAAAdgAAAHUAAAALAP####8AAAAAABAAAAEBAQAAAHcAAAAUAAAAGAD#####AQAAAAAQAAJ3MQAAAAAAAAAAAEAIAAAAAAAABQAAAAC4AAAAfQAAAAwA#####wAEYWJzMQAAAHYAAAB3AAAAu#####8AAAABAA5DVGVzdEV4aXN0ZW5jZQD#####AAZ0ZXN0T0EAAAC8AAAAAwD#####AAlPQXZpc2libGUADDEvKDEtdGVzdE9BKQAAAAgDAAAAAT#wAAAAAAAAAAAACAEAAAABP#AAAAAAAAAAAAAJAAAAvQAAABgA#####wEAAAAAEAACdzIAAAAAAAAAAABACAAAAAAAAAUAAAAAtgAAALkAAAAMAP####8ABGFiczIAAAAUAAAAdwAAAL8AAAArAP####8ABnRlc3RBQgAAAMAAAAADAP####8ACUFCdmlzaWJsZQAMMS8oMS10ZXN0QUIpAAAACAMAAAABP#AAAAAAAAAAAAAIAQAAAAE#8AAAAAAAAAAAAAkAAADBAAAAGAD#####AQAAAAAQAAJ3MwAAAAAAAAAAAEAIAAAAAAAABQAAAAB8AAAAtwAAAAwA#####wAEYWJzMwAAAHUAAAB3AAAAwwAAACsA#####wAGdGVzdE9CAAAAxAAAAAMA#####wAJT0J2aXNpYmxlAAwxLygxLXRlc3RPQikAAAAIAwAAAAE#8AAAAAAAAAAAAAgBAAAAAT#wAAAAAAAAAAAACQAAAMUAAAAHAP####8AAAB3AAAACQAAAL4AAAAKAP####8BAAAAABAAAkEyAAAAAAAAAAAAQAgAAAAAAAAFAAAAAHUAAADHAAAACwD#####AAAAAAAQAAABAAIAAADIAAAAFAAAAAcA#####wAAAHcAAAAJAAAAwgAAAAoA#####wEAAAAAEAACQjIAAAAAAAAAAABACAAAAAAAAAUAAAAAdgAAAMoAAAALAP####8BAAAAABAAAAEAAgAAAMsAAAB1AAAABwD#####AAAAdwAAAAkAAADGAAAACgD#####AQAAAAAQAAJCMwAAAAAAAAAAAEAIAAAAAAAABQAAAAB2AAAAzQAAAAsA#####wAAAAAAEAAAAQACAAAAzgAAABQAAAAKAP####8BAAAAABAAAkE0AAAAAAAAAAAAQAgAAAAAAAAFAAAAAH8AAADKAAAACwD#####AAAAAAAQAAABAAIAAADQAAAAgAAAAAoA#####wEAAAAAEAACQjQAAAAAAAAAAABACAAAAAAAAAUAAAAAgAAAAM0AAAALAP####8AAAAAABAAAAEAAgAAANIAAAB4AAAACgD#####AQAAAAAQAAJPNQAAAAAAAAAAAEAIAAAAAAAABQAAAAB4AAAAxwAAAAsA#####wAAAAAAEAAAAQACAAAA1AAAAH######AAAAAQAOQ0NlbnRyZUdyYXZpdGUA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAH8AAAB4AAAAgAAAAAcA#####wAAANYAAAABP#TMzMzMzM0AAAAKAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAB#AAAA1wAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAHgAAADXAAAACgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAgAAAANcAAAAhAP####8AAAAAAMAkAAAAAAAAwCQAAAAAAAAAAADYEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAABCNHQScAAAAhAP####8AAAAAAMAAAAAAAAAAwBgAAAAAAAAAAADaEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAABCNHQicAAAAhAP####8AAAAAAD#wAAAAAAAAwDEAAAAAAAAAAADZEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAABCNHTycAAAAsAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAB1AAAAFAAAAHYAAAAHAP####8AAADeAAAAAT#zMzMzMzMzAAAACgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAdQAAAN8AAAAKAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAB2AAAA3wAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAABQAAADfAAAAIQD#####AAAAAADAOQAAAAAAAMAoAAAAAAAAAAAAdRAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAMjR0EAAAAhAP####8AAAAAAMAQAAAAAAAAwCAAAAAAAAAAAADhEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAyNHQgAAACEA#####wAAAAAAwBgAAAAAAADAIgAAAAAAAAAAAOIQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAADI0dPAAAACgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAbgAAAFwAAAAKAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAABtAAAAXAAAAAsA#####wB#f38AEAAAAQEBAAAAFAAAAOYAAAAPAP####8AAAAUAAAA5wAAAAsA#####wB#f38AEAAAAQEBAAAA5wAAABQAAAAPAP####8AAAAUAAAA5gAAAAoA#####wF#f38AEAAAAEAIAAAAAAAAAAAAAAAAAAAFAAAAAOcAAADrAAAACwD#####AH9#fwAQAAABAQEAAADnAAAA7AAAAAsA#####wB#f38AEAAAAQEBAAAA7AAAAOb#####AAAAAQAJQ1BvbHlnb25lAP####8Af39#AQEAAAAFAAAA5gAAABQAAADnAAAA7AAAAOYAAAAKAP####8Bf39#ABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAB4AAAA6wAAAAoA#####wF#f38AEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAHgAAADpAAAACwD#####AH9#fwAQAAABAQEAAAB4AAAA8AAAAA8A#####wAAAHgAAADxAAAACwD#####AH9#fwAQAAABAQEAAADxAAAAeAAAAA8A#####wAAAHgAAADwAAAACgD#####AX9#fwAQAAAAQAgAAAAAAAAAAAAAAAAAAAUAAAAA8QAAAPUAAAALAP####8Af39#ABAAAAEBAQAAAPEAAAD2AAAACwD#####AH9#fwAQAAABAQEAAAD2AAAA8AAAAC0A#####wB#f38BAQAAAAUAAADwAAAAeAAAAPEAAAD2AAAA8AAAAAoA#####wF#f38AEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAGwAAABcAAAADwD#####AAAAFAAAAPoAAAAKAP####8Bf39#ABAAAABACAAAAAAAAAAAAAAAAAAABQAAAADmAAAA+wAAAAsA#####wB#f38AEAAAAQEBAAAA+gAAABQAAAALAP####8Af39#ABAAAAEBAQAAAOYAAAD8AAAACwD#####AH9#fwAQAAABAQEAAAD8AAAA+gAAAC0A#####wB#f38BAQAAAAUAAAD6AAAAFAAAAOYAAAD8AAAA+gAAAA8A#####wAAABQAAADnAAAACgD#####AX9#fwAQAAAAQAgAAAAAAAAAAAAAAAAAAAUAAAAA+gAAAQEAAAALAP####8Af39#ABAAAAEBAQAAAPoAAAECAAAACwD#####AH9#fwAQAAABAQEAAAECAAAA5wAAAC0A#####wB#f38BAQAAAAUAAADnAAAAFAAAAPoAAAECAAAA5wAAAAoA#####wF#f38AEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAHgAAAD7AAAADwD#####AAAAeAAAAQYAAAAKAP####8Bf39#ABAAAABACAAAAAAAAAAAAAAAAAAABQAAAADwAAABBwAAAAsA#####wB#f38AEAAAAQEBAAABBgAAAHgAAAALAP####8Af39#ABAAAAEBAQAAAPAAAAEIAAAACwD#####AH9#fwAQAAABAQEAAAEIAAABBgAAAC0A#####wB#f38BAQAAAAUAAAEGAAAAeAAAAPAAAAEIAAABBgAAAA8A#####wAAAHgAAADxAAAACgD#####AX9#fwAQAAAAQAgAAAAAAAAAAAAAAAAAAAUAAAABBgAAAQ0AAAALAP####8Af39#ABAAAAEBAQAAAQYAAAEOAAAACwD#####AH9#fwAQAAABAQEAAAEOAAAA8QAAAC0A#####wB#f38BAQAAAAUAAADxAAAAeAAAAQYAAAEOAAAA8QAAAC0A#####wD#AAABAQAAAAQAAAB#AAAAgAAAAHgAAAB######wAAAAEAEENTdXJmYWNlUG9seWdvbmUA#####wD#AAAAAAAFAAABEgAAAC0A#####wAAfwABAQAAAAQAAAB1AAAAdgAAABQAAAB1AAAALgD#####AAAA#wAAAAUAAAEUAAAACgD#####AQAA#wAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAdwAAAPsAAAAhAP####8AAAAAAMAwAAAAAAAAwCIAAAAAAAAAAAEWEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAyNHUwAAACkA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAHgAAAB3AAAAAT#TMzMzMzMzAAAAKQD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAFAAAAHgAAAABP9mZmZmZmZoAAAANAP####8AAAAAAMAoAAAAAAAAwB#######+AAAAEYEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAQAAABEAAAANAP####8AAAAAAMAuAAAAAAAAwCAAAAAAAAAAAAEZEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAQAAABIAAAApAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAB1AAAAFAAAAAE#2ZmZmZmZmgAAACkA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAABQAAAB2AAAAAT#jMzMzMzMzAAAADQD#####AAAAAADAHAAAAAAAAMA2AAAAAAAAAAABHBAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAIAAAATAAAADQD#####AAAAAAC#8AAAAAAAAMAzAAAAAAAAAAABHRAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAIAAAAPAAAAYP##########"
-					if (!sortie_html) texte = `\\begin{minipage}{0.7 \\linewidth} \n\t`
-					else texte=``
-					texte += `SOAB est une pyramide à base triangulaire de hauteur SO${sp()}=${sp()}${tex_nombre(h1)}${sp()}cm.<br> Sa base est un triangle OAB rectangle en O tel que OA${sp()}=${sp()}${tex_nombre(c)}${sp()}cm et OB${sp()}=${sp()}${tex_nombre(c2)}${sp()}cm.<br>`
-					texte += ` Le point O' est situé sur la hauteur [SO] à ${h2}${sp()}cm de S.`
-					texte += `<br>Un plan parallèle à la face OAB passant par O' coupe la pyramide en formant la section O'A'B'.<br>`
-					if (!sortie_html) texte +=`La figure n'est pas en vraie grandeur.<br>`
-					texte += num_alpha(0) + ` Calculer l'` + katex_Popup2(numero_de_l_exercice + i * 4, 1, "aire de base de la pyramide", `Formule : Aire d'un triangle rectangle`, `$Aire=\\dfrac{\\text{c}\\times\\text{c'}}{2}$`) + `.<br>`
-					texte += num_alpha(1) + ` Calculer le ` + katex_Popup2(numero_de_l_exercice + i * 4 + 1, 1, "volume de la pyramide", `Formule : volume d'une pyramide d'aire de base $B$ et de hauteur h`, `$Volume= \\dfrac{B \\times \\text{h}}{3}$`) + ` SOAB.<br>`
-					texte += num_alpha(2) + ` En déduire l'aire de la ` + katex_Popup2(numero_de_l_exercice + i * 4 + 2, 1, "section", `Définition : section plane d'un solide`, `La section d'un solide par un plan est une figure plane.<br>Dans le cas d'une section d'une pyramide par un plan parallèle à sa base, cette section est un polygone qui est une réduction de la base.<br>Dans une réduction de coefficient k, les aires sont multipliées par k${exposant(2)} et les volumes sont multipliés par k${exposant(3)}.`) + ` O'A'B' sachant que SO'${sp()}=${sp()}${h2}${sp()}cm.<br>`
-					texte += num_alpha(3) + ` Calculer le volume de la pyramide SO'A'B'.<br>`
-					texte += num_alpha(4) + ` Calculer le volume du tronc de la pyramide (partie de la pyramide située entre la base et la section).`
-					if (sortie_html) texte += `<br>Le point O peut être déplacé et on peut changer l'angle de vue &#x3C6; `
-					else texte+=`\n\t \\end{minipage} \n\t \\begin{minipage}{0.3 \\linewidth} \n\t \\begin{tikzpicture}[scale=0.8]
+						}
+				codeBase64 = "TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAANmcmH###8BAP8BAAAAAAAAAAAFHAAAAtIAAAAAAAAAAAAAAAEAAAEg#####wAAAAEACkNDYWxjQ29uc3QA#####wACcGkAFjMuMTQxNTkyNjUzNTg5NzkzMjM4NDb#####AAAAAQAKQ0NvbnN0YW50ZUAJIftURC0Y#####wAAAAEACkNQb2ludEJhc2UA#####wAAAAAAEAAAAEAIAAAAAAAAAAAAAAAAAAAFAAFAf2gAAAAAAEB5uFHrhR64#####wAAAAEAB0NDYWxjdWwA#####wAFbWluaTEAAzAuMgAAAAE#yZmZmZmZmgAAAAMA#####wAFbWF4aTEAATMAAAABQAgAAAAAAAD#####AAAAAQAUQ0ltcGxlbWVudGF0aW9uUHJvdG8A#####wAHQ3Vyc2V1cgAAAAUAAAAFAAAAAwAAAAIAAAADAAAAAf####8AAAABABRDRHJvaXRlRGlyZWN0aW9uRml4ZQAAAAAEAQAAAAAQAAABAAEAAAABAT#wAAAAAAAA#####wAAAAEAD0NQb2ludExpZURyb2l0ZQEAAAAEAAAAAAAQAAAAwAgAAAAAAAA#8AAAAAAAAAUAAUBMgAAAAAAAAAAABf####8AAAABAAtDSG9tb3RoZXRpZQAAAAAEAAAAAf####8AAAABAApDT3BlcmF0aW9uA#####8AAAABAA9DUmVzdWx0YXRWYWxldXIAAAACAAAACAEAAAAJAAAAAgAAAAkAAAAD#####wAAAAEAC0NQb2ludEltYWdlAAAAAAQBAAAAAA0AAk82AMAQAAAAAAAAQBAAAAAAAAAFAAAAAAYAAAAHAAAABwAAAAAEAAAAAQAAAAgDAAAACAEAAAABP#AAAAAAAAAAAAAJAAAAAgAAAAgBAAAACQAAAAMAAAAJAAAAAgAAAAoAAAAABAEAAAAADQACSTUAwAAAAAAAAABACAAAAAAAAAUAAAAABgAAAAn#####AAAAAQAIQ1NlZ21lbnQBAAAABAAAAAAAEAAAAQEBAAAAAQAAAAYAAAAGAQAAAAQAAAAAARAAAmsxAMAAAAAAAAAAQAAAAAAAAAABAAE#0xZ0xZ0xZwAAAAv#####AAAAAgAPQ01lc3VyZUFic2Npc3NlAQAAAAQABHpvb20AAAAIAAAACgAAAAz#####AAAAAQAPQ1ZhbGV1ckFmZmljaGVlAQAAAAQBAAAAAAAAAAAAAAAAwBgAAAAAAAAAAAAMDwAB####AAAAAQAAAAIAAAABAAAAAAAAAAAAAAAAAgAAAA0AAAADAP####8AAmMnAAE0AAAAAUAQAAAAAAAAAAAAAwD#####AAJoMQACMTAAAAABQCQAAAAAAAAAAAADAP####8AAmgyAAE0AAAAAUAQAAAAAAAAAAAAAwD#####AAJoMwAFaDEtaDIAAAAIAQAAAAkAAAAQAAAACQAAABEAAAADAP####8AAWMAATMAAAABQAgAAAAAAAAAAAACAP####8AAAAAAA8AAU8AwCgAAAAAAABAEAAAAAAAAAUAAUBrEAAAAAAAQH3YUeuFHrgAAAAFAP####8BAAAAABAAAAEAAQAAABQBP#MzMzMzMzMAAAACAP####8BAAAAAQ8AAk8yAQUAAUCBFAAAAAAAQGPQo9cKPXEAAAACAP####8BAAAAAQ8AAk8zAQUAAUCBJAAAAAAAQG3wo9cKPXEAAAAFAP####8BAAAAABAAAAEAAQAAABcBP#MzMzMzMzMAAAACAP####8BAAAAAQ8AAk80AQUAAUCBHAAAAAAAQHS4UeuFHrgAAAAFAP####8BAAAAABAAAAEAAQAAABkBP#MzMzMzMzMAAAAFAP####8BAAAAARAAAAEAAQAAABYAP#AAAAAAAAAAAAAGAP####8BAAAAAQ8AAkoyAQUAAMBCAAAAAAAAAAAAG#####8AAAABAAlDQ2VyY2xlT0EA#####wB#f38BAQAAABYAAAAc#####wAAAAEADENUcmFuc2xhdGlvbgD#####AAAAFgAAABwAAAAKAP####8BAAAAABAAAAEFAAAAABcAAAAeAAAADgD#####AH9#fwEBAAAAFwAAAB######AAAAAQAQQ0ludERyb2l0ZUNlcmNsZQD#####AAAAGAAAACD#####AAAAAQAQQ1BvaW50TGllQmlwb2ludAD#####AQAAAAENAAJJMwEFAAEAAAAh#####wAAAAEAD0NQb2ludExpZUNlcmNsZQD#####AAAAAAEPAAJLMgEBAAFAAGSoGqf0lgAAAB0AAAASAP####8AAAAAAQ8AAkszAQEAAUAWHME9jCZzAAAAIAAAAAsA#####wAAAAAAEAAAAQABAAAAFgAAABwAAAALAP####8AAAAAABAAAAEAAQAAABYAAAAjAAAACwD#####AAAAAAAQAAABAAEAAAAXAAAAIgAAAAsA#####wAAAAAAEAAAAQABAAAAFwAAACT#####AAAAAgATQ01lc3VyZUFuZ2xlT3JpZW50ZQD#####AAZhbmdwaGkAAAAcAAAAFgAAACMAAAATAP####8AB2FuZ3RldGEAAAAiAAAAFwAAACQAAAADAP####8AA3BoaQAGYW5ncGhpAAAACQAAACkAAAADAP####8ABXRoZXRhAAdhbmd0ZXRhAAAACQAAACoAAAAHAP####8AAAAZ#####wAAAAIACUNGb25jdGlvbgQAAAAJAAAAKwAAAAMA#####wADeCcxAApzaW4odGhldGEpAAAAFAMAAAAJAAAALAAAAAMA#####wADeScxABQtY29zKHRoZXRhKSpzaW4ocGhpKQAAAAgBAAAAAQAAAAAAAAAAAAAACAIAAAAUBAAAAAkAAAAsAAAAFAMAAAAJAAAAKwAAAAMA#####wADeCcyAApjb3ModGhldGEpAAAAFAQAAAAJAAAALAAAAAMA#####wADeScyABNzaW4odGhldGEpKnNpbihwaGkpAAAACAIAAAAUAwAAAAkAAAAsAAAAFAMAAAAJAAAAK#####8AAAACABNDTWFycXVlQW5nbGVPcmllbnRlAP####8AAAD#AAIAAAAAQDzMlF2JcmgAAAAcAAAAFgAAACMB#####wAAAAEADENCaXNzZWN0cmljZQD#####AQAA#wAQAAABAQEAAAAcAAAAFgAAACMAAAAGAP####8BAAD#ABAAAAEFAAFAgM#j0J2QXQAAADP#####AAAAAgAGQ0xhdGV4AP####8AAAD#AMAQAAAAAAAAwBQAAAAAAAAAAAA0EQAAAAAAAAAAAAAAAAABAAAAAAAAAAAAB1x2YXJwaGkAAAAVAP####8AfwAAAAIAAAAAQDxTDia4t4kAAAAiAAAAFwAAACQBAAAAFgD#####AX8AAAAQAAABAQEAAAAiAAAAFwAAACQAAAAGAP####8BfwAAABAAAAEFAAFAfSZmyCoB2wAAADcAAAAXAP####8AfwAAAMAUAAAAAAAAwCYAAAAAAAAAAAA4EQAAAAAAAAAAAAAAAAABAAAAAAAAAAAAClx2YXJ0aGV0YSAAAAAFAP####8BAAAAARAAAAEAAQAAABkAP#AAAAAAAAAAAAAGAP####8AAAAAAQ8AAko0AQUAAcBGLhR64UewAAAAOgAAAA4A#####wBmZmYAAQAAABkAAAA7AAAAEgD#####AQAAAAAQAAABBQABP#CX6bp5AmEAAAA8AAAABQD#####AQAAAAAQAAABAAEAAAA9AD#zMzMzMzMz#####wAAAAEAEENJbnREcm9pdGVEcm9pdGUA#####wEAAAAAEAAAAQUAAAAAGgAAAD4AAAAQAP####8AAAAaAAAAPAAAABEA#####wEAAAABDQACSTQBBQABAAAAQP####8AAAACAAdDUmVwZXJlAP####8AAAAAAQEAAAAZAAAAQQAAADsAAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAAAAAABP#AAAAAAAAAAAAABP#AAAAAAAAAAAAAKAP####8BAAAAABAAAAEFAAAAADsAAAAtAAAABwD#####AAAAPwAAABQEAAAACQAAACsAAAAKAP####8BAAAAABAAAAEFAAAAAD0AAABE#####wAAAAIADUNMaWV1RGVQb2ludHMA#####wAAf38BAQAAAEUAAABkAAAAAAA9AAAABQAAAD0AAAA+AAAAPwAAAEQAAABF#####wAAAAEACENWZWN0ZXVyAP####8AAAD#ABAAAAEAAQAAABkAAABDAP####8AAAABABBDUG9pbnREYW5zUmVwZXJlAP####8BAAAAABAAAAEFAAAAAEIAAAAJAAAALgAAAAkAAAAvAAAAHAD#####AQAAAAAQAAABBQAAAABCAAAACQAAADAAAAAJAAAAMQAAABsA#####wD#AAAAEAAAAQABAAAAGQAAAEgAAAAAGwD#####AAB#AAAQAAABAAEAAAAZAAAASQAAAAAaAP####8AZmZmAQEAAABIAAAAZAAAAAAAJAAAAAYAAAAkAAAAKgAAACwAAAAuAAAALwAAAEj#####AAAAAQAMQ1N1cmZhY2VMaWV1AP####8Af39#AAAABQAAAEwAAAAdAP####8Af39#AAAABQAAAEYAAAACAP####8BAAAAAA8AAVoAAAAAAAAAAABACAAAAAAAAAUAAUB2qAAAAAAAQFEhR64UeuIAAAAFAP####8BAAAAARAAAAEBAQAAAE8BP#AAAAAAAAAAAAAPAP####8AAAAXAAAAIgAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAE8AAABR#####wAAAAEADUNEZW1pRHJvaXRlT0EA#####wH#AAAADQAAAQEBAAAATwAAAFIAAAAFAP####8B#wAAARAAAAEAAQAAAE8AP#AAAAAAAAD#####AAAAAQALQ1NpbWlsaXR1ZGUA#####wAAAE8AAAABQFaAAAAAAAAAAAABP9MzMzMzMzMAAAAKAP####8B#wAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAABSAAAAVQAAAB8A#####wAAAE######AAAAAQAMQ01vaW5zVW5haXJlAAAAAUBWgAAAAAAAAAAAAT#TMzMzMzMzAAAACgD#####Af8AAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAUgAAAFcAAAALAP####8B#wAAABAAAAEAAQAAAFYAAABY#####wAAAAIADENDb21tZW50YWlyZQD#####AP8AAAH#####EEB#qAAAAAAAQHpoUeuFHrgCAAAAAAAAAAAAAAAAAQAAAAAAAAAAAARaT09N#####wAAAAEABUNGb25jAP####8ABHplcm8ADWFicyh0KTwwLjAwMDEAAAAIBAAAABQA#####wAAAAIAEUNWYXJpYWJsZUZvcm1lbGxlAAAAAAAAAAE#Gjbi6xxDLQABdAAAAAcA#####wAAABQAAAABP+AAAAAAAAAAAAAHAP####8AAABPAAAACQAAAA0AAAAKAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAABSAAAAXf####8AAAABAA5DUG9pbnRMaWVQb2ludAD#####Af8AAAAPAAFVAMAQAAAAAAAAwDcAAAAAAAIFAAAAAF7#####AAAAAQAJQ0xvbmd1ZXVyAP####8AAABPAAAAX#####8AAAACAAlDQ2VyY2xlT1IA#####wEAAAABAQAAABQAAAABP#AAAAAAAAAAAAAAEAD#####AAAAFQAAAGEAAAARAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAAYgAAABEA#####wEAAAAADwACSTIAAAAAAAAAAABACAAAAAAAAAUAAQAAAGIAAAAkAP####8BAAAAAAsAAkkxAMAQAAAAAAAAQBAAAAAAAAAFAAAAAGT#####AAAAAQAJQ0Ryb2l0ZUFCAP####8BAAAAAA0AAAEAAQAAABQAAABl#####wAAAAEAFkNEcm9pdGVQZXJwZW5kaWN1bGFpcmUA#####wEAAAAAEAAAAQABAAAAFAAAAGYAAAAOAP####8BAAAAAAEAAAAUAAAAZQAAABAA#####wAAAGcAAABoAAAAEQD#####AQAAAAALAAJKMQDAKAAAAAAAAMAQAAAAAAAABQACAAAAaQAAABkA#####wCAgIABAQAAABQAAABlAAAAagAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAE#8AAAAAAAAAAAAAE#8AAAAAAAAAAAABwA#####wEAAAAADwABSwBAEAAAAAAAAMA3AAAAAAAABQAAAABrAAAAAQAAAAAAAAAAAAAAFAQAAAAJAAAAKwAAABwA#####wEAAAAADwABSQDAEAAAAAAAAD#wAAAAAAAABQAAAABrAAAACQAAAC4AAAAJAAAALwAAABwA#####wEAAAAADwABSgEFAAAAAGsAAAAJAAAAMAAAAAkAAAAxAAAAHgD#####AQAAAAANAAABAQEAAAAUAAAAbQAAAB4A#####wEAAAAADQAAAQEBAAAAFAAAAG4AAAAeAP####8BAAAAAA0AAAEBAQAAABQAAABsAAAAGwD#####Af8AAAAQAAABAAEAAAAUAAAAbQAAAAAbAP####8BAH8AABAAAAEAAQAAABQAAABuAAAAABsA#####wEAAP8AEAAAAQABAAAAFAAAAGwA#####wAAAAEAEUNQb2ludFBhckFic2Npc3NlAP####8BAAAAAA8AAUEAAAAAAAAAAABACAAAAAAAAAUAAAAAFAAAAG0AAAAJAAAAEwAAACkA#####wEAAAAADwABQgAAAAAAAAAAAEAIAAAAAAAABQAAAAAUAAAAbgAAAAkAAAAPAAAAKQD#####AQAAAAAPAAFTAAAAAAAAAAAAQAgAAAAAAAAFAAAAABQAAABsAAAACQAAABAAAAApAP####8AAAAAAA8AAk8nAAAAAAAAAAAAQAgAAAAAAAAFAAAAABQAAABsAAAACQAAABIAAAALAP####8AAAAAABAAAAEBAQAAAHUAAAAUAAAACwD#####AAAAAAAQAAABAQEAAAAUAAAAdgAAAAsA#####wAAAAAAEAAAAQEBAAAAdgAAAHUAAAALAP####8AAAAAABAAAAEBAQAAAHcAAAB1AAAACwD#####AAAAAAAQAAABAQEAAAB3AAAAdgAAAAcA#####wAAAHcAAAAIAwAAAAkAAAARAAAACQAAABAAAAAKAP####8BAAAAAA8AAkEnAAAAAAAAAAAAQAgAAAAAAAAFAAAAAHUAAAB+AAAACgD#####AQAAAAAPAAJCJwAAAAAAAAAAAEAIAAAAAAAABQAAAAB2AAAAfgAAAAsA#####wAAAAAAEAAAAQEBAAAAfwAAAHgAAAALAP####8AAAAAABAAAAEBAQAAAHgAAACAAAAACwD#####AAAAAAAQAAABAQEAAAB#AAAAgAAAAAQA#####wAXTWVzdXJlIGQnYW5nbGUgb3JpZW50w6kAAAACAAAAAQAAAAMAAAB2AAAAdQAAABQAAAAWAAAAAIQBAAAAABAAAAEAAQAAABQAAAB1AAAAdgAAAAYAAAAAhAEAAAAAEAAAAAAAAAAAAAAAP+MzMzMzMzMFAAFAaT5Clg7dyQAAAIUAAAATAQAAAIQABGFuZzEAAAB2AAAAdQAAABQAAAAEAP####8AF01lc3VyZSBkJ2FuZ2xlIG9yaWVudMOpAAAAAgAAAAEAAAADAAAAFAAAAHUAAAB3AAAAFgAAAACIAQAAAAAQAAABAAEAAAB3AAAAdQAAABQAAAAGAAAAAIgBAAAAABAAAAAAAAAAAAAAAD#jMzMzMzMzBQABQGk+QpYO3ckAAACJAAAAEwEAAACIAARhbmcyAAAAFAAAAHUAAAB3AAAABAD#####ABdNZXN1cmUgZCdhbmdsZSBvcmllbnTDqQAAAAIAAAABAAAAAwAAAHcAAAB1AAAAdgAAABYAAAAAjAEAAAAAEAAAAQABAAAAdgAAAHUAAAB3AAAABgAAAACMAQAAAAAQAAAAAAAAAAAAAAA#4zMzMzMzMwUAAUBpPkKWDt3JAAAAjQAAABMBAAAAjAAEYW5nMwAAAHcAAAB1AAAAdgAAAAMA#####wAEc29tQQAOYW5nMSthbmcyK2FuZzMAAAAIAAAAAAgAAAAACQAAAIcAAAAJAAAAiwAAAAkAAACPAAAAAwD#####AAlTQXZpc2libGUADDEvemVybyhzb21BKQAAAAgDAAAAAT#wAAAAAAAA#####wAAAAEADkNBcHBlbEZvbmN0aW9uAAAAWwAAAAkAAACQAAAABwD#####AAAAdwAAAAkAAACRAAAACgD#####Af8AAAANAAJBMQAAAAAAAAAAAEAIAAAAAAAABQAAAAB1AAAAkgAAAAsA#####wAAAAAAEAAAAQACAAAAdwAAAJMAAAAEAP####8AF01lc3VyZSBkJ2FuZ2xlIG9yaWVudMOpAAAAAgAAAAEAAAADAAAAdwAAAHYAAAAUAAAAFgAAAACVAQAAAAAQAAABAAEAAAAUAAAAdgAAAHcAAAAGAAAAAJUBAAAAABAAAAAAAAAAAAAAAD#jMzMzMzMzBQABQGk+QpYO3ckAAACWAAAAEwEAAACVAARhbmc0AAAAdwAAAHYAAAAUAAAABAD#####ABdNZXN1cmUgZCdhbmdsZSBvcmllbnTDqQAAAAIAAAABAAAAAwAAAHUAAAB2AAAAdwAAABYAAAAAmQEAAAAAEAAAAQABAAAAdwAAAHYAAAB1AAAABgAAAACZAQAAAAAQAAAAAAAAAAAAAAA#4zMzMzMzMwUAAUBpPkKWDt3JAAAAmgAAABMBAAAAmQAEYW5nNQAAAHUAAAB2AAAAdwAAAAQA#####wAXTWVzdXJlIGQnYW5nbGUgb3JpZW50w6kAAAACAAAAAQAAAAMAAAAUAAAAdgAAAHUAAAAWAAAAAJ0BAAAAABAAAAEAAQAAAHUAAAB2AAAAFAAAAAYAAAAAnQEAAAAAEAAAAAAAAAAAAAAAP+MzMzMzMzMFAAFAaT5Clg7dyQAAAJ4AAAATAQAAAJ0ABGFuZzYAAAAUAAAAdgAAAHUAAAADAP####8ABHNvbUIADmFuZzQrYW5nNSthbmc2AAAACAAAAAAIAAAAAAkAAACYAAAACQAAAJwAAAAJAAAAoAAAAAMA#####wAJU0J2aXNpYmxlAAwxL3plcm8oc29tQikAAAAIAwAAAAE#8AAAAAAAAAAAACoAAABbAAAACQAAAKEAAAAHAP####8AAAB3AAAACQAAAKIAAAAKAP####8BAAAAAA0AAkIxAAAAAAAAAAAAQAgAAAAAAAAFAAAAAHYAAACjAAAACwD#####AAAAAAAQAAABAAIAAAB3AAAApAAAAAQA#####wAXTWVzdXJlIGQnYW5nbGUgb3JpZW50w6kAAAACAAAAAQAAAAMAAAB3AAAAFAAAAHUAAAAWAAAAAKYBAAAAABAAAAEAAQAAAHUAAAAUAAAAdwAAAAYAAAAApgEAAAAAEAAAAAAAAAAAAAAAP+MzMzMzMzMFAAFAaT5Clg7dyQAAAKcAAAATAQAAAKYABGFuZzcAAAB3AAAAFAAAAHUAAAAEAP####8AF01lc3VyZSBkJ2FuZ2xlIG9yaWVudMOpAAAAAgAAAAEAAAADAAAAdQAAABQAAAB2AAAAFgAAAACqAQAAAAAQAAABAAEAAAB2AAAAFAAAAHUAAAAGAAAAAKoBAAAAABAAAAAAAAAAAAAAAD#jMzMzMzMzBQABQGk+QpYO3ckAAACrAAAAEwEAAACqAARhbmc4AAAAdQAAABQAAAB2AAAABAD#####ABdNZXN1cmUgZCdhbmdsZSBvcmllbnTDqQAAAAIAAAABAAAAAwAAAHYAAAAUAAAAdwAAABYAAAAArgEAAAAAEAAAAQABAAAAdwAAABQAAAB2AAAABgAAAACuAQAAAAAQAAAAAAAAAAAAAAA#4zMzMzMzMwUAAUBpPkKWDt3JAAAArwAAABMBAAAArgAFYW5nMTAAAAB2AAAAFAAAAHcAAAADAP####8ABHNvbU8AD2FuZzcrYW5nOCthbmcxMAAAAAgAAAAACAAAAAAJAAAAqQAAAAkAAACtAAAACQAAALEAAAADAP####8ACVNPdmlzaWJsZQAMMS96ZXJvKHNvbU8pAAAACAMAAAABP#AAAAAAAAAAAAAqAAAAWwAAAAkAAACyAAAABwD#####AAAAdwAAAAkAAACzAAAACgD#####AQAAAAANAAJPMQAAAAAAAAAAAEAIAAAAAAAABQAAAAAUAAAAtAAAAAsA#####wAAAAAAEAAAAQACAAAAdwAAALUAAAAnAP####8BAAAAABAAAAEAAQAAAHYAAAAUAAAAJwD#####AQAAAAAQAAABAAEAAAB1AAAAFAAAACcA#####wEAAAAAEAAAAQABAAAAdgAAAHUAAAALAP####8AAAAAABAAAAEBAQAAAHcAAAAUAAAAGAD#####AQAAAAAQAAJ3MQAAAAAAAAAAAEAIAAAAAAAABQAAAAC4AAAAfQAAAAwA#####wAEYWJzMQAAAHYAAAB3AAAAu#####8AAAABAA5DVGVzdEV4aXN0ZW5jZQD#####AAZ0ZXN0T0EAAAC8AAAAAwD#####AAlPQXZpc2libGUADDEvKDEtdGVzdE9BKQAAAAgDAAAAAT#wAAAAAAAAAAAACAEAAAABP#AAAAAAAAAAAAAJAAAAvQAAABgA#####wEAAAAAEAACdzIAAAAAAAAAAABACAAAAAAAAAUAAAAAtgAAALkAAAAMAP####8ABGFiczIAAAAUAAAAdwAAAL8AAAArAP####8ABnRlc3RBQgAAAMAAAAADAP####8ACUFCdmlzaWJsZQAMMS8oMS10ZXN0QUIpAAAACAMAAAABP#AAAAAAAAAAAAAIAQAAAAE#8AAAAAAAAAAAAAkAAADBAAAAGAD#####AQAAAAAQAAJ3MwAAAAAAAAAAAEAIAAAAAAAABQAAAAB8AAAAtwAAAAwA#####wAEYWJzMwAAAHUAAAB3AAAAwwAAACsA#####wAGdGVzdE9CAAAAxAAAAAMA#####wAJT0J2aXNpYmxlAAwxLygxLXRlc3RPQikAAAAIAwAAAAE#8AAAAAAAAAAAAAgBAAAAAT#wAAAAAAAAAAAACQAAAMUAAAAHAP####8AAAB3AAAACQAAAL4AAAAKAP####8BAAAAABAAAkEyAAAAAAAAAAAAQAgAAAAAAAAFAAAAAHUAAADHAAAACwD#####AAAAAAAQAAABAAIAAADIAAAAFAAAAAcA#####wAAAHcAAAAJAAAAwgAAAAoA#####wEAAAAAEAACQjIAAAAAAAAAAABACAAAAAAAAAUAAAAAdgAAAMoAAAALAP####8BAAAAABAAAAEAAgAAAMsAAAB1AAAABwD#####AAAAdwAAAAkAAADGAAAACgD#####AQAAAAAQAAJCMwAAAAAAAAAAAEAIAAAAAAAABQAAAAB2AAAAzQAAAAsA#####wAAAAAAEAAAAQACAAAAzgAAABQAAAAKAP####8BAAAAABAAAkE0AAAAAAAAAAAAQAgAAAAAAAAFAAAAAH8AAADKAAAACwD#####AAAAAAAQAAABAAIAAADQAAAAgAAAAAoA#####wEAAAAAEAACQjQAAAAAAAAAAABACAAAAAAAAAUAAAAAgAAAAM0AAAALAP####8AAAAAABAAAAEAAgAAANIAAAB4AAAACgD#####AQAAAAAQAAJPNQAAAAAAAAAAAEAIAAAAAAAABQAAAAB4AAAAxwAAAAsA#####wAAAAAAEAAAAQACAAAA1AAAAH######AAAAAQAOQ0NlbnRyZUdyYXZpdGUA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAH8AAAB4AAAAgAAAAAcA#####wAAANYAAAABP#TMzMzMzM0AAAAKAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAB#AAAA1wAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAHgAAADXAAAACgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAgAAAANcAAAAhAP####8AAAAAAMAkAAAAAAAAwCQAAAAAAAAAAADYEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAABCNHQScAAAAhAP####8AAAAAAMAAAAAAAAAAwBgAAAAAAAAAAADaEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAABCNHQicAAAAhAP####8AAAAAAD#wAAAAAAAAwDEAAAAAAAAAAADZEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAABCNHTycAAAAsAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAB1AAAAFAAAAHYAAAAHAP####8AAADeAAAAAT#zMzMzMzMzAAAACgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAdQAAAN8AAAAKAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAB2AAAA3wAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAABQAAADfAAAAIQD#####AAAAAADAOQAAAAAAAMAoAAAAAAAAAAAAdRAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAMjR0EAAAAhAP####8AAAAAAMAQAAAAAAAAwCAAAAAAAAAAAADhEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAyNHQgAAACEA#####wAAAAAAwBgAAAAAAADAIgAAAAAAAAAAAOIQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAADI0dPAAAACgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAbgAAAFwAAAAKAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAABtAAAAXAAAAAsA#####wB#f38AEAAAAQEBAAAAFAAAAOYAAAAPAP####8AAAAUAAAA5wAAAAsA#####wB#f38AEAAAAQEBAAAA5wAAABQAAAAPAP####8AAAAUAAAA5gAAAAoA#####wF#f38AEAAAAEAIAAAAAAAAAAAAAAAAAAAFAAAAAOcAAADrAAAACwD#####AH9#fwAQAAABAQEAAADnAAAA7AAAAAsA#####wB#f38AEAAAAQEBAAAA7AAAAOb#####AAAAAQAJQ1BvbHlnb25lAP####8Af39#AQEAAAAFAAAA5gAAABQAAADnAAAA7AAAAOYAAAAKAP####8Bf39#ABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAB4AAAA6wAAAAoA#####wF#f38AEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAHgAAADpAAAACwD#####AH9#fwAQAAABAQEAAAB4AAAA8AAAAA8A#####wAAAHgAAADxAAAACwD#####AH9#fwAQAAABAQEAAADxAAAAeAAAAA8A#####wAAAHgAAADwAAAACgD#####AX9#fwAQAAAAQAgAAAAAAAAAAAAAAAAAAAUAAAAA8QAAAPUAAAALAP####8Af39#ABAAAAEBAQAAAPEAAAD2AAAACwD#####AH9#fwAQAAABAQEAAAD2AAAA8AAAAC0A#####wB#f38BAQAAAAUAAADwAAAAeAAAAPEAAAD2AAAA8AAAAAoA#####wF#f38AEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAGwAAABcAAAADwD#####AAAAFAAAAPoAAAAKAP####8Bf39#ABAAAABACAAAAAAAAAAAAAAAAAAABQAAAADmAAAA+wAAAAsA#####wB#f38AEAAAAQEBAAAA+gAAABQAAAALAP####8Af39#ABAAAAEBAQAAAOYAAAD8AAAACwD#####AH9#fwAQAAABAQEAAAD8AAAA+gAAAC0A#####wB#f38BAQAAAAUAAAD6AAAAFAAAAOYAAAD8AAAA+gAAAA8A#####wAAABQAAADnAAAACgD#####AX9#fwAQAAAAQAgAAAAAAAAAAAAAAAAAAAUAAAAA+gAAAQEAAAALAP####8Af39#ABAAAAEBAQAAAPoAAAECAAAACwD#####AH9#fwAQAAABAQEAAAECAAAA5wAAAC0A#####wB#f38BAQAAAAUAAADnAAAAFAAAAPoAAAECAAAA5wAAAAoA#####wF#f38AEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAHgAAAD7AAAADwD#####AAAAeAAAAQYAAAAKAP####8Bf39#ABAAAABACAAAAAAAAAAAAAAAAAAABQAAAADwAAABBwAAAAsA#####wB#f38AEAAAAQEBAAABBgAAAHgAAAALAP####8Af39#ABAAAAEBAQAAAPAAAAEIAAAACwD#####AH9#fwAQAAABAQEAAAEIAAABBgAAAC0A#####wB#f38BAQAAAAUAAAEGAAAAeAAAAPAAAAEIAAABBgAAAA8A#####wAAAHgAAADxAAAACgD#####AX9#fwAQAAAAQAgAAAAAAAAAAAAAAAAAAAUAAAABBgAAAQ0AAAALAP####8Af39#ABAAAAEBAQAAAQYAAAEOAAAACwD#####AH9#fwAQAAABAQEAAAEOAAAA8QAAAC0A#####wB#f38BAQAAAAUAAADxAAAAeAAAAQYAAAEOAAAA8QAAAC0A#####wD#AAABAQAAAAQAAAB#AAAAgAAAAHgAAAB######wAAAAEAEENTdXJmYWNlUG9seWdvbmUA#####wD#AAAAAAAFAAABEgAAAC0A#####wAAfwABAQAAAAQAAAB1AAAAdgAAABQAAAB1AAAALgD#####AAAA#wAAAAUAAAEUAAAACgD#####AQAA#wAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAdwAAAPsAAAAhAP####8AAAAAAMAwAAAAAAAAwCIAAAAAAAAAAAEWEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAyNHUwAAACkA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAHgAAAB3AAAAAT#TMzMzMzMzAAAAKQD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAFAAAAHgAAAABP9mZmZmZmZoAAAANAP####8AAAAAAMAoAAAAAAAAwB#######+AAAAEYEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAQAAABEAAAANAP####8AAAAAAMAuAAAAAAAAwCAAAAAAAAAAAAEZEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAQAAABIAAAApAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAB1AAAAFAAAAAE#2ZmZmZmZmgAAACkA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAABQAAAB2AAAAAT#jMzMzMzMzAAAADQD#####AAAAAADAHAAAAAAAAMA2AAAAAAAAAAABHBAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAIAAAATAAAADQD#####AAAAAAC#8AAAAAAAAMAzAAAAAAAAAAABHRAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAIAAAAPAAAAYP##########"
+				if (!sortie_html) texte = `\\begin{minipage}{0.7 \\linewidth} \n\t`
+				else texte = ``
+				texte += `SOAB est une pyramide à base triangulaire de hauteur SO${sp()}=${sp()}${tex_nombre(h1)}${sp()}cm.<br> Sa base est un triangle OAB rectangle en O tel que OA${sp()}=${sp()}${tex_nombre(c)}${sp()}cm et OB${sp()}=${sp()}${tex_nombre(c2)}${sp()}cm.<br>`
+				texte += ` Le point O' est situé sur la hauteur [SO] à ${h2}${sp()}cm de S.`
+				texte += `<br>Un plan parallèle à la face OAB passant par O' coupe la pyramide en formant la section O'A'B'.<br>`
+				if (!sortie_html) texte += `La figure n'est pas en vraie grandeur.<br>`
+				texte += num_alpha(0) + ` Calculer l'` + katex_Popup2(numero_de_l_exercice + i * 4, 1, "aire de base de la pyramide", `Formule : Aire d'un triangle rectangle`, `$Aire=\\dfrac{\\text{c}\\times\\text{c'}}{2}$`) + `.<br>`
+				texte += num_alpha(1) + ` Calculer le ` + katex_Popup2(numero_de_l_exercice + i * 4 + 1, 1, "volume de la pyramide", `Formule : volume d'une pyramide d'aire de base $B$ et de hauteur h`, `$Volume= \\dfrac{B \\times \\text{h}}{3}$`) + ` SOAB.<br>`
+				texte += num_alpha(2) + ` En déduire l'aire de la ` + katex_Popup2(numero_de_l_exercice + i * 4 + 2, 1, "section", `Définition : section plane d'un solide`, `La section d'un solide par un plan est une figure plane.<br>Dans le cas d'une section d'une pyramide par un plan parallèle à sa base, cette section est un polygone qui est une réduction de la base.<br>Dans une réduction de coefficient k, les aires sont multipliées par k${exposant(2)} et les volumes sont multipliés par k${exposant(3)}.`) + ` O'A'B' sachant que SO'${sp()}=${sp()}${h2}${sp()}cm.<br>`
+				texte += num_alpha(3) + ` Calculer le volume de la pyramide SO'A'B'.<br>`
+				texte += num_alpha(4) + ` Calculer le volume du tronc de la pyramide (partie de la pyramide située entre la base et la section).`
+				if (sortie_html) texte += `<br>Le point O peut être déplacé et on peut changer l'angle de vue &#x3C6; `
+				else texte += `\n\t \\end{minipage} \n\t \\begin{minipage}{0.3 \\linewidth} \n\t \\begin{tikzpicture}[scale=0.8]
 					\\definecolor{hhhhhh}{rgb}{0,0,0}
 					\\definecolor{phphph}{rgb}{0.5,0.5,0.5}
 					\\definecolor{ofofof}{rgb}{0.5,0.5,0.5}
@@ -5071,22 +5071,22 @@ function Agrandissement_reduction() {
 					\\fill [color = hhhhff, opacity = 0.2](1.822,1.235)--(6.791,0.978)--(3.878,2.24)--(1.822,1.235)--cycle;
 					\\node at (3.395, 11.857) [align=left,below right ,black,,font= \\sf \\fontsize {0.403cm} {0.503cm} \\selectfont] {\\textbf{S}};
 					\\end{tikzpicture} \n\t \\end{minipage}`
-					
-					texte_corr = num_alpha(0) + ` L'aire de base de la pyramide est : $\\dfrac{${tex_nombre(c)}\\times${tex_nombre(c2)}}{2}$ cm${exposant(2)} $= ${tex_nombrec(c * c2 / 2)}$ cm${exposant(2)}.<br>`
-					texte_corr += num_alpha(1) + ` Le volume de la pyramide est : $\\dfrac{A_\\text{base} \\times \\text{hauteur}}{3}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(c * c2 / 2)}\\times ${tex_nombre(h1)}}{3}$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(c * c2 * h1 / 6))}$ cm${exposant(3)}.<br>`
-					texte_corr += num_alpha(2) + ` La section est une réduction de la base de coefficient $\\dfrac{${h2}}{${tex_nombre(h1)}}`
-					if (!Number.isInteger(h1) || pgcd(h2, h1) > 1) texte_corr += `=${tex_fraction_reduite(h2 * 10, h1 * 10)}$.<br>`
-					else texte_corr += `.$<br>`
-					texte_corr += `Dans une réduction de coefficient k, les aires sont multipliés par k${exposant(2)}.<br>`
-					texte_corr += `Donc son aire est $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^2 \\times ${tex_nombre(c * c2 / 2)}$ cm${exposant(2)} $=${tex_fraction_reduite(arrondi(h2 * h2 * 100 * c * c2), arrondi(h1 * h1 * 200))}$ cm${exposant(2)} $\\approx ${tex_nombrec(arrondi(h2 * h2 * c * c2 / h1 / h1 / 2, 2))}$ cm${exposant(2)}.<br>`
-					texte_corr += num_alpha(3) + ` Dans une réduction de coefficient k, les volumes sont multipliés par k${exposant(3)}.<br>`
-					texte_corr += `Donc le volume de la pyramide SO'A'B' est : $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3 \\times \\dfrac{${tex_nombrec(c * c2 * h1 / 2)}}{3}$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(h2 ** 3 * c * c2 / h1 ** 2 / 6))}$ cm${exposant(3)} '.<br>`
-					texte_corr += num_alpha(4) + ` Le volume du tronc de la pyramide est : `
-					texte_corr += `$V_\\text{SABCD} - V_\\text{SA'B'C'D'}$<br>Soit : <br>$${tex_nombrec(arrondi(c * c2 * h1 / 6))}$ cm${exposant(3)}$ - ${tex_nombrec(arrondi(h2 ** 3 * c * c2 / h1 ** 2 / 6))}$ cm${exposant(3)}$ \\approx ${tex_nombrec(arrondi(c * c2 * h1 / 6 - h2 ** 3 * c * c2 / h1 ** 2 / 6, 2))}$ cm${exposant(3)}.<br>`
-					texte_corr += `Ce qui représente $${tex_fraction_reduite(1000 * (h1 ** 3 - h2 ** 3), 1000 * h1 ** 3)}$ du volume de SABCD.`
 
-					this.MG32codeBase64 = codeBase64
-					this.MG32code_pour_modifier_la_figure = `
+				texte_corr = num_alpha(0) + ` L'aire de base de la pyramide est : $\\dfrac{${tex_nombre(c)}\\times${tex_nombre(c2)}}{2}$ cm${exposant(2)} $= ${tex_nombrec(c * c2 / 2)}$ cm${exposant(2)}.<br>`
+				texte_corr += num_alpha(1) + ` Le volume de la pyramide est : $\\dfrac{A_\\text{base} \\times \\text{hauteur}}{3}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(c * c2 / 2)}\\times ${tex_nombre(h1)}}{3}$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(c * c2 * h1 / 6))}$ cm${exposant(3)}.<br>`
+				texte_corr += num_alpha(2) + ` La section est une réduction de la base de coefficient $\\dfrac{${h2}}{${tex_nombre(h1)}}`
+				if (!Number.isInteger(h1) || pgcd(h2, h1) > 1) texte_corr += `=${tex_fraction_reduite(h2 * 10, h1 * 10)}$.<br>`
+				else texte_corr += `.$<br>`
+				texte_corr += `Dans une réduction de coefficient k, les aires sont multipliés par k${exposant(2)}.<br>`
+				texte_corr += `Donc son aire est $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^2 \\times ${tex_nombre(c * c2 / 2)}$ cm${exposant(2)} $=${tex_fraction_reduite(arrondi(h2 * h2 * 100 * c * c2), arrondi(h1 * h1 * 200))}$ cm${exposant(2)} $\\approx ${tex_nombrec(arrondi(h2 * h2 * c * c2 / h1 / h1 / 2, 2))}$ cm${exposant(2)}.<br>`
+				texte_corr += num_alpha(3) + ` Dans une réduction de coefficient k, les volumes sont multipliés par k${exposant(3)}.<br>`
+				texte_corr += `Donc le volume de la pyramide SO'A'B' est : $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3 \\times \\dfrac{${tex_nombrec(c * c2 * h1 / 2)}}{3}$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(h2 ** 3 * c * c2 / h1 ** 2 / 6))}$ cm${exposant(3)} '.<br>`
+				texte_corr += num_alpha(4) + ` Le volume du tronc de la pyramide est : `
+				texte_corr += `$V_\\text{SABCD} - V_\\text{SA'B'C'D'}$<br>Soit : <br>$${tex_nombrec(arrondi(c * c2 * h1 / 6))}$ cm${exposant(3)}$ - ${tex_nombrec(arrondi(h2 ** 3 * c * c2 / h1 ** 2 / 6))}$ cm${exposant(3)}$ \\approx ${tex_nombrec(arrondi(c * c2 * h1 / 6 - h2 ** 3 * c * c2 / h1 ** 2 / 6, 2))}$ cm${exposant(3)}.<br>`
+				texte_corr += `Ce qui représente $${tex_fraction_reduite(1000 * (h1 ** 3 - h2 ** 3), 1000 * h1 ** 3)}$ du volume de SABCD.`
+
+				this.MG32codeBase64 = codeBase64
+				this.MG32code_pour_modifier_la_figure = `
 							mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "c", "${c}");
 							mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "h1", "${h1}");
 							mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "h2", "${h2}");
@@ -5094,38 +5094,38 @@ function Agrandissement_reduction() {
 							mtg32App.calculate("MG32svg${numero_de_l_exercice}");
 							mtg32App.display("MG32svg${numero_de_l_exercice}");
 							`
-					break;
-				case 4: // Un tronc de cône étant donné (seau), calcul de la hauteur du cône dont il est issu, de son volume, puis du volume du seau. Lecture graphique du volume d'eau à mi hauteur et calcul de ce volume
-	
+				break;
+			case 4: // Un tronc de cône étant donné (seau), calcul de la hauteur du cône dont il est issu, de son volume, puis du volume du seau. Lecture graphique du volume d'eau à mi hauteur et calcul de ce volume
+
+				r = calcul(randint(15, 20) / 10)
+				r2 = calcul(randint(11, r * 10 - 3) / 10)
+				h3 = calcul(randint(10, 15) / 5)
+				h2 = calcul(r2 * h3 / (r - r2))
+				h1 = calcul(h2 + h3)
+				while (calcul(h2 / h1) != arrondi(h2 / h1, 1) || calcul((h3 / 2 + h2) / h1) != arrondi((h3 / 2 + h2) / h1, 1)) { // on impose des coefficients de réduction décimaux dans cet exercice.
 					r = calcul(randint(15, 20) / 10)
 					r2 = calcul(randint(11, r * 10 - 3) / 10)
 					h3 = calcul(randint(10, 15) / 5)
 					h2 = calcul(r2 * h3 / (r - r2))
 					h1 = calcul(h2 + h3)
-					while (calcul(h2/h1)!=arrondi(h2/h1,1)||calcul((h3/2+h2)/h1)!=arrondi((h3/2+h2)/h1,1)) { // on impose des coefficients de réduction décimaux dans cet exercice.
-							r = calcul(randint(15, 20) / 10)
-							r2 = calcul(randint(11, r * 10 - 3) / 10)
-							h3 = calcul(randint(10, 15) / 5)
-							h2 = calcul(r2 * h3 / (r - r2))
-							h1 = calcul(h2 + h3)
-					}
-					codeBase64 = "TWF0aEdyYXBoSmF2YTEuMAAAABI+qPXDAANmcmH###8BAP8BAAAAAAAAAAAFHAAAAtIAAAAAAAAAAAAAAAEAAAE8#####wAAAAEACkNDYWxjQ29uc3QA#####wACcGkAFjMuMTQxNTkyNjUzNTg5NzkzMjM4NDb#####AAAAAQAKQ0NvbnN0YW50ZUAJIftURC0Y#####wAAAAEACkNQb2ludEJhc2UA#####wEAAAAAEAAAAEAIAAAAAAAAAAAAAAAAAAAFAABAIwAAAAAAAEB7iFHrhR64#####wAAAAEAB0NDYWxjdWwA#####wAFbWluaTMAAzAuMgAAAAE#yZmZmZmZmgAAAAMA#####wAFbWF4aTMAATIAAAABQAAAAAAAAAD#####AAAAAQAUQ0ltcGxlbWVudGF0aW9uUHJvdG8A#####wAHQ3Vyc2V1cgAAAAUAAAAFAAAAAwAAAAIAAAADAAAAAf####8AAAABABRDRHJvaXRlRGlyZWN0aW9uRml4ZQAAAAAEAQAAAAAQAAABAAEAAAABAT#wAAAAAAAA#####wAAAAEAD0NQb2ludExpZURyb2l0ZQEAAAAEAQAAAAAQAAAAwAgAAAAAAAA#8AAAAAAAAAUAAUBLgAAAAAAAAAAABf####8AAAABAAtDSG9tb3RoZXRpZQAAAAAEAAAAAf####8AAAABAApDT3BlcmF0aW9uA#####8AAAABAA9DUmVzdWx0YXRWYWxldXIAAAACAAAACAEAAAAJAAAAAgAAAAkAAAAD#####wAAAAEAC0NQb2ludEltYWdlAAAAAAQBAAAAAA0AAk8xAMAQAAAAAAAAQBAAAAAAAAAFAAAAAAYAAAAHAAAABwAAAAAEAAAAAQAAAAgDAAAACAEAAAABP#AAAAAAAAAAAAAJAAAAAgAAAAgBAAAACQAAAAMAAAAJAAAAAgAAAAoAAAAABAEAAAAADQACSTEAwAAAAAAAAABACAAAAAAAAAUAAAAABgAAAAn#####AAAAAQAIQ1NlZ21lbnQBAAAABAAAAAAAEAAAAQEBAAAAAQAAAAYAAAAGAQAAAAQAAAAAARAAAmsxAMAAAAAAAAAAQAAAAAAAAAABAAE#0p5BKeQSngAAAAv#####AAAAAgAPQ01lc3VyZUFic2Npc3NlAQAAAAQABHpvb20AAAAIAAAACgAAAAz#####AAAAAQAPQ1ZhbGV1ckFmZmljaGVlAQAAAAQBAAAAAAAAAAAAAAAAwBgAAAAAAAAAAAAMDwAB####AAAAAQAAAAIAAAABAAAAAAAAAAAAAAAAAgAAAA0AAAADAP####8ABVJtaW5pAAIxNQAAAAFALgAAAAAAAAAAAAMA#####wAFUm1heGkAAjIwAAAAAUA0AAAAAAAAAAAAAwD#####AAZSbWF4aScAB1JtYXhpLTUAAAAIAQAAAAkAAAAQAAAAAUAUAAAAAAAAAAAAAwD#####AAVIbWF4aQACMzAAAAABQD4AAAAAAAAAAAADAP####8ABUhtaW5pAAIyMAAAAAFANAAAAAAAAAAAAAIA#####wAAAAAAEAAAAEAIAAAAAAAAAAAAAAAAAAAFAABAbJAAAAAAAECANCj1wo9cAAAAAwD#####AARwYXM0AAExAAAAAT#wAAAAAAAAAAAAAwD#####AAhwYXNncmFkNAABNQAAAAFAFAAAAAAAAAAAAAQA#####wAHQ3Vyc2V1cgAAAA4AAAAHAAAABQAAABMAAAASAAAAFQAAABYAAAAUAAAABQAAAAAXAQAAAAAQAAABAAEAAAAUAT#wAAAAAAAAAAAABgEAAAAXAAAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAEBhgAAAAAAAAAAAGAAAAAMAAAAAFwAHbmJncmFkMAAdaW50KChIbWF4aS1IbWluaSkvcGFzNCswLjUpKzEAAAAIAP####8AAAACAAlDRm9uY3Rpb24CAAAACAAAAAAIAwAAAAgBAAAACQAAABIAAAAJAAAAEwAAAAkAAAAVAAAAAT#gAAAAAAAAAAAAAT#wAAAAAAAAAAAAAwAAAAAXAApuYmdyYWRwYXMwACFpbnQoKEhtYXhpLUhtaW5pKS9wYXNncmFkNCswLjUpKzEAAAAIAAAAAA4CAAAACAAAAAAIAwAAAAgBAAAACQAAABIAAAAJAAAAEwAAAAkAAAAWAAAAAT#gAAAAAAAAAAAAAT#wAAAAAAAA#####wAAAAEAC0NQb2ludENsb25lAAAAABcBAAAAAAsAAk8xAMA4AAAAAAAAP#AAAAAAAAABAAAAABQAAAALAQAAABcAAAAAABAAAAEAAQAAABwAAAAZ#####wAAAAEAFkNEcm9pdGVQZXJwZW5kaWN1bGFpcmUAAAAAFwEAAAAAEAAAAQABAAAAHAAAAB0AAAAGAAAAABcBAAAAAAsAAkoxAMA2AAAAAAAAwC4AAAAAAAABAAG#vhkUx7D9WQAAAB4AAAAHAAAAABcAAAAcAAAACAMAAAAJAAAAFQAAAAgBAAAACQAAABIAAAAJAAAAEwAAAAoAAAAAFwEAAAAACwACSTEAAAAAAAAAAABAAAAAAAAAAAEAAAAAGQAAACD#####AAAAAgAHQ1JlcGVyZQAAAAAXAAAAAAEBAAAAHAAAACEAAAAfAAAAAAAACQAAABMAAAABAAAAAAAAAAAAAAAJAAAAFQAAAAE#8AAAAAAAAAAAAAYAAAAAFwEAAAAACwACVzEAwCAAAAAAAADAOwAAAAAAAAUAAT#hGDFObkU6AAAAHf####8AAAACABJDTGlldU9iamV0UGFyUHRMaWUBAAAAFwAAAAAAAAAjAAAACQAAABoAAAAjAAAAAgAAACMAAAAj#####wAAAAIACENNZXN1cmVYAAAAABcABGFic3cAAAAiAAAAIwAAAAMAAAAAFwAHYWJzd0FycgAjaW50KGFic3cqMTAwMDAwMDAwMCswLjUpLzEwMDAwMDAwMDAAAAAIAwAAAA4CAAAACAAAAAAIAgAAAAkAAAAlAAAAAUHNzWUAAAAAAAAAAT#gAAAAAAAAAAAAAUHNzWUAAAAAAAAADQAAAAAXAQAAAAAAAAAAAAAAAEAYAAAAAAAAAAAAIwsAAAAAAAEAAAAAAAAAAQAAAAAAAAAAAAAAAAkAAAAmAAAAEgEAAAAXAAAAAAAAACcAAAAJAAAAGwAAACMAAAAEAAAAIwAAACUAAAAmAAAAJ#####8AAAABAA1DUG9pbnRCYXNlRW50AQAAABcAAAAAARAAAlQzAAAAAAAAAAAAQAgAAAAAAAABAAEAAAAiQCAAAAAAAAAAAAAAAAAAAAAAAAAACQAAABMAAAAJAAAAEgAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAABMAAAAAFwAFbWVzYWIAAAAiAAAAKQAAAAMBAAAAFwACaDUAJGludChtZXNhYioxMDAwMDAwMDAwKzAuNSkvMTAwMDAwMDAwMAAAAAgDAAAADgIAAAAIAAAAAAgCAAAACQAAACoAAAABQc3NZQAAAAAAAAABP+AAAAAAAAAAAAABQc3NZQAAAAAAAAANAQAAABcAAAAAAAAAAAAAAAAAwCAAAAAAAAAAAAApDwAB####AAAAAQAAAAIAAAABAAAAAAAAAAAABUJIID0gAAMgY20JAAAAKwAAAAMA#####wAGUm1pbmknAAIxMAAAAAFAJAAAAAAAAAAAAAIA#####wAAAAAAEAAAAEAIAAAAAAAAAAAAAAAAAAAFAABAbLAAAAAAAEB9eFHrhR64AAAAAwD#####AARwYXMyAAExAAAAAT#wAAAAAAAAAAAAAwD#####AAhwYXNncmFkMgABNQAAAAFAFAAAAAAAAAAAAAQA#####wAHQ3Vyc2V1cgAAAA4AAAAHAAAABQAAAC0AAAARAAAALwAAADAAAAAuAAAABQAAAAAxAQAAAAAQAAABAAEAAAAuAT#wAAAAAAAAAAAABgEAAAAxAAAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAEBhgAAAAAAAAAAAMgAAAAMAAAAAMQAHbmJncmFkMAAfaW50KChSbWF4aSctUm1pbmknKS9wYXMyKzAuNSkrMQAAAAgAAAAADgIAAAAIAAAAAAgDAAAACAEAAAAJAAAAEQAAAAkAAAAtAAAACQAAAC8AAAABP+AAAAAAAAAAAAABP#AAAAAAAAAAAAADAAAAADEACm5iZ3JhZHBhczAAI2ludCgoUm1heGknLVJtaW5pJykvcGFzZ3JhZDIrMC41KSsxAAAACAAAAAAOAgAAAAgAAAAACAMAAAAIAQAAAAkAAAARAAAACQAAAC0AAAAJAAAAMAAAAAE#4AAAAAAAAAAAAAE#8AAAAAAAAAAAAA8AAAAAMQEAAAAACwACTzEAwDgAAAAAAAA#8AAAAAAAAAEAAAAALgAAAAsBAAAAMQAAAAAAEAAAAQABAAAANgAAADMAAAAQAAAAADEBAAAAABAAAAEAAQAAADYAAAA3AAAABgAAAAAxAQAAAAALAAJKMQDANgAAAAAAAMAuAAAAAAAAAQABv74ZFMew#VkAAAA4AAAABwAAAAAxAAAANgAAAAgDAAAACQAAAC8AAAAIAQAAAAkAAAARAAAACQAAAC0AAAAKAAAAADEBAAAAAAsAAkkxAAAAAAAAAAAAQAAAAAAAAAABAAAAADMAAAA6AAAAEQAAAAAxAAAAAAEBAAAANgAAADsAAAA5AAAAAAAACQAAAC0AAAABAAAAAAAAAAAAAAAJAAAALwAAAAE#8AAAAAAAAAAAAAYAAAAAMQEAAAAACwACVzEAwCAAAAAAAADAOwAAAAAAAAUAAT#hGDFObkU6AAAANwAAABIBAAAAMQAAAAAAAAA9AAAACQAAADQAAAA9AAAAAgAAAD0AAAA9AAAAEwAAAAAxAARhYnN3AAAAPAAAAD0AAAADAAAAADEAB2Fic3dBcnIAI2ludChhYnN3KjEwMDAwMDAwMDArMC41KS8xMDAwMDAwMDAwAAAACAMAAAAOAgAAAAgAAAAACAIAAAAJAAAAPwAAAAFBzc1lAAAAAAAAAAE#4AAAAAAAAAAAAAFBzc1lAAAAAAAAAA0AAAAAMQEAAAAAAAAAAAAAAABAGAAAAAAAAAAAAD0LAAAAAAABAAAAAAAAAAEAAAAAAAAAAAAAAAAJAAAAQAAAABIBAAAAMQAAAAAAAABBAAAACQAAADUAAAA9AAAABAAAAD0AAAA#AAAAQAAAAEEAAAAUAQAAADEAAAAAARAAAVQAAAAAAAAAAABACAAAAAAAAAEAAQAAADxAFAAAAAAAAAAAAAAAAAAAAAAAAAAJAAAALQAAAAkAAAARAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAEwAAAAAxAAVtZXNhYgAAADwAAABDAAAAAwEAAAAxAAJyMwAkaW50KG1lc2FiKjEwMDAwMDAwMDArMC41KS8xMDAwMDAwMDAwAAAACAMAAAAOAgAAAAgAAAAACAIAAAAJAAAARAAAAAFBzc1lAAAAAAAAAAE#4AAAAAAAAAAAAAFBzc1lAAAAAAAAAA0BAAAAMQAAAAAAAAAAAAAAAADAIAAAAAAAAAAAAEMPAAH###8AAAABAAAAAgAAAAEAAAAAAAAAAAAFQkEgPSAAAyBjbQkAAABFAAAAAgD#####AAAAAAAQAAAAQAgAAAAAAAAAAAAAAAAAAAUAAEBs8AAAAAAAQHo4UeuFHrgAAAADAP####8ABW1pbmkxAAVSbWluaQAAAAkAAAAPAAAAAwD#####AAVtYXhpMQAFUm1heGkAAAAJAAAAEAAAAAMA#####wAEcGFzMQABMQAAAAE#8AAAAAAAAAAAAAMA#####wAIcGFzZ3JhZDEAATUAAAABQBQAAAAAAAAAAAAEAP####8AB0N1cnNldXIAAAAOAAAABwAAAAUAAABIAAAASQAAAEoAAABLAAAARwAAAAUAAAAATAEAAAAAEAAAAQABAAAARwE#8AAAAAAAAAAAAAYBAAAATAAAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAABAYYAAAAAAAAAAAE0AAAADAAAAAEwAB25iZ3JhZDAAHWludCgobWF4aTEtbWluaTEpL3BhczErMC41KSsxAAAACAAAAAAOAgAAAAgAAAAACAMAAAAIAQAAAAkAAABJAAAACQAAAEgAAAAJAAAASgAAAAE#4AAAAAAAAAAAAAE#8AAAAAAAAAAAAAMAAAAATAAKbmJncmFkcGFzMAAhaW50KChtYXhpMS1taW5pMSkvcGFzZ3JhZDErMC41KSsxAAAACAAAAAAOAgAAAAgAAAAACAMAAAAIAQAAAAkAAABJAAAACQAAAEgAAAAJAAAASwAAAAE#4AAAAAAAAAAAAAE#8AAAAAAAAAAAAA8AAAAATAEAAAAACwACTzEAwDgAAAAAAAA#8AAAAAAAAAEAAAAARwAAAAsBAAAATAAAAAAAEAAAAQABAAAAUQAAAE4AAAAQAAAAAEwBAAAAABAAAAEAAQAAAFEAAABSAAAABgAAAABMAQAAAAALAAJKMQDANgAAAAAAAMAuAAAAAAAAAQABv74ZFMew#VkAAABTAAAABwAAAABMAAAAUQAAAAgDAAAACQAAAEoAAAAIAQAAAAkAAABJAAAACQAAAEgAAAAKAAAAAEwBAAAAAAsAAkkxAAAAAAAAAAAAQAAAAAAAAAABAAAAAE4AAABVAAAAEQAAAABMAAAAAAEBAAAAUQAAAFYAAABUAAAAAAAACQAAAEgAAAABAAAAAAAAAAAAAAAJAAAASgAAAAE#8AAAAAAAAAAAAAYAAAAATAEAAAAACwACVzEAwCAAAAAAAADAOwAAAAAAAAUAAT#hGDFObkU6AAAAUgAAABIBAAAATAAAAAAAAABYAAAACQAAAE8AAABYAAAAAgAAAFgAAABYAAAAEwAAAABMAARhYnN3AAAAVwAAAFgAAAADAAAAAEwAB2Fic3dBcnIAI2ludChhYnN3KjEwMDAwMDAwMDArMC41KS8xMDAwMDAwMDAwAAAACAMAAAAOAgAAAAgAAAAACAIAAAAJAAAAWgAAAAFBzc1lAAAAAAAAAAE#4AAAAAAAAAAAAAFBzc1lAAAAAAAAAA0AAAAATAEAAAAAAAAAAAAAAABAGAAAAAAAAAAAAFgLAAAAAAABAAAAAAAAAAEAAAAAAAAAAAAAAAAJAAAAWwAAABIBAAAATAAAAAAAAABcAAAACQAAAFAAAABYAAAABAAAAFgAAABaAAAAWwAAAFwAAAAUAQAAAEwAAAAAARAAAlQxAAAAAAAAAAAAQAgAAAAAAAABAAEAAABXQBQAAAAAAAAAAAAAAAAAAAAAAAAACQAAAEgAAAAJAAAASQAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAABMAAAAATAAFbWVzYWIAAABXAAAAXgAAAAMBAAAATAACcjIAJGludChtZXNhYioxMDAwMDAwMDAwKzAuNSkvMTAwMDAwMDAwMAAAAAgDAAAADgIAAAAIAAAAAAgCAAAACQAAAF8AAAABQc3NZQAAAAAAAAABP+AAAAAAAAAAAAABQc3NZQAAAAAAAAANAQAAAEwAAAAAAAAAAAAAAAAAwCAAAAAAAAAAAABeDwAB####AAAAAQAAAAIAAAABAAAAAAAAAAAABEhMID0AAyBjbQkAAABgAAAAAwD#####AAJoMwAFaDUvMTAAAAAIAwAAAAkAAAArAAAAAUAkAAAAAAAAAAAAAwD#####AAJyJwAFcjMvMTAAAAAIAwAAAAkAAABFAAAAAUAkAAAAAAAAAAAAAwD#####AAFyAAVyMi8xMAAAAAgDAAAACQAAAGAAAAABQCQAAAAAAAAAAAADAP####8AAmgyAAxyJypoMy8oci1yJykAAAAIAwAAAAgCAAAACQAAAGMAAAAJAAAAYgAAAAgBAAAACQAAAGQAAAAJAAAAYwAAAAIA#####wAAAAABDAABUwDALgAAAAAAAMAiAAAAAAAABQABQFugAAAAAABAfOhR64UeuAAAAAcA#####wAAAGYAAAAJAAAAZQAAAAcA#####wAAAGYAAAAJAAAADQAAAAMA#####wAISGVhdU1pbmkAATAAAAABAAAAAAAAAAAAAAACAP####8AAAAAABAAAABACAAAAAAAAAAAAAAAAAAABQAAQGxQAAAAAABAgfwo9cKPXAAAAAMA#####wAEcGFzNQABMQAAAAE#8AAAAAAAAAAAAAQA#####wAHQ3Vyc2V1cgAAAAoAAAAGAAAABAAAAGkAAAArAAAAawAAAGoAAAAFAAAAAGwBAAAAABAAAAEAAQAAAGoBP#AAAAAAAAAAAAAGAQAAAGwAAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAQGGAAAAAAAAAAABtAAAAAwAAAABsAAduYmdyYWQwAB1pbnQoKGg1LUhlYXVNaW5pKS9wYXM1KzAuNSkrMQAAAAgAAAAADgIAAAAIAAAAAAgDAAAACAEAAAAJAAAAKwAAAAkAAABpAAAACQAAAGsAAAABP+AAAAAAAAAAAAABP#AAAAAAAAAAAAAPAAAAAGwBAAAAAAsAAk8xAMA4AAAAAAAAP#AAAAAAAAABAAAAAGoAAAALAQAAAGwAAAAAABAAAAEAAQAAAHAAAABuAAAAEAAAAABsAQAAAAAQAAABAAEAAABwAAAAcQAAAAYAAAAAbAEAAAAACwACSjEAwDYAAAAAAADALgAAAAAAAAEAAb++GRTHsP1ZAAAAcgAAAAcAAAAAbAAAAHAAAAAIAwAAAAkAAABrAAAACAEAAAAJAAAAKwAAAAkAAABpAAAACgAAAABsAQAAAAALAAJJMQAAAAAAAAAAAEAAAAAAAAAAAQAAAABuAAAAdAAAABEAAAAAbAAAAAABAQAAAHAAAAB1AAAAcwAAAAAAAAkAAABpAAAAAQAAAAAAAAAAAAAACQAAAGsAAAABP#AAAAAAAAAAAAAGAAAAAGwBAAAAAAsAAlcxAMAgAAAAAAAAwDsAAAAAAAAFAAE#4RgxTm5FOgAAAHEAAAASAQAAAGwAAAAAAAAAdwAAAAkAAABvAAAAdwAAAAIAAAB3AAAAdwAAABQBAAAAbAAAAAABEAACVDIAAAAAAAAAAABACAAAAAAAAAEAAQAAAHZAIAAAAAAAAAAAAAAAAAAAAAAAAAAJAAAAaQAAAAkAAAArAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAEwAAAABsAAVtZXNhYgAAAHYAAAB5AAAAAwEAAABsAAJoZQAkaW50KG1lc2FiKjEwMDAwMDAwMDArMC41KS8xMDAwMDAwMDAwAAAACAMAAAAOAgAAAAgAAAAACAIAAAAJAAAAegAAAAFBzc1lAAAAAAAAAAE#4AAAAAAAAAAAAAFBzc1lAAAAAAAAAA0BAAAAbAAAAAAAAAAAAAAAAADAIAAAAAAAAAAAAHkPAAH###8AAAABAAAAAgAAAAEAAAAAAAAAAAARIEhhdXRldXIgZCdlYXUgPSAAAyBjbQkAAAB7AAAAAwD#####AAhIZWF1TWF4aQACaDUAAAAJAAAAKwAAAAMA#####wAFbWluaTIAC0hlYXVNaW5pKjEwAAAACAIAAAAJAAAAaQAAAAFAJAAAAAAAAAAAAAMA#####wAFbWF4aTIACEhlYXVNYXhpAAAACQAAAH0AAAADAP####8ABHBhczMAATEAAAABP#AAAAAAAAAAAAADAP####8ACHBhc2dyYWQzAAE1AAAAAUAUAAAAAAAAAAAAAwD#####AAJoMQAFaDIraDMAAAAIAAAAAAkAAABlAAAACQAAAGL#####AAAAAgAMQ0NvbW1lbnRhaXJlAP####8AAAAAAMAxAAAAAAAAwCgAAAAAAAAAAABmEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAyNHUwAAAAMA#####wAEaGVhdQAFaGUvMTAAAAAIAwAAAAkAAAB7AAAAAUAkAAAAAAAAAAAABQD#####AQAAAAAQAAABAQEAAABmAD#qqqqqqqqrAAAABgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAcBGMzMzMzMpAAAAhQAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAIYAAABo#####wAAAAEADkNQb2ludExpZVBvaW50AP####8B#wAAAQwAAkknAQUAAAAAhwAAAAoA#####wEAAAABCgABQgEFAAAAAIgAAABnAAAACwD#####AAAAAAAQAAABAQEAAABmAAAAif####8AAAABABFDUG9pbnRQYXJBYnNjaXNzZQD#####AQAAAAAQAAJFMQAAAAAAAAAAAEAIAAAAAAAABQAAAABmAAAAiAAAAAgAAAAACQAAAGUAAAAJAAAAhP####8AAAABAAVDRm9uYwD#####AAFmACFwaS8zKigoeCtoMileMyoocicvaDIpXjItcideMipoMikAAAAIAgAAAAgDAAAACQAAAAAAAAABQAgAAAAAAAAAAAAIAQAAAAgC#####wAAAAEACkNQdWlzc2FuY2UAAAAIAP####8AAAACABFDVmFyaWFibGVGb3JtZWxsZQAAAAAAAAAJAAAAZQAAAAFACAAAAAAAAAAAABkAAAAIAwAAAAkAAABjAAAACQAAAGUAAAABQAAAAAAAAAAAAAAIAgAAABkAAAAJAAAAYwAAAAFAAAAAAAAAAAAAAAkAAABlAAF4AAAABwD#####AAAAZgAAAAkAAACCAAAACgD#####AQAAAAEKAAFIAQUAAAAAiAAAAI0AAAALAP####8AAAAAABAAAAEBAQAAAIkAAACOAAAAFgD#####AAAAAAEKAAFFAQUAAAAAiwAAAAwA#####wAEYWJzMQAAAIkAAACOAAAAkAAAAAMA#####wABeAAMYWJzMSooaDEtaDIpAAAACAIAAAAJAAAAkQAAAAgBAAAACQAAAIIAAAAJAAAAZQAAAAMA#####wABeQAEZih4Kf####8AAAABAA5DQXBwZWxGb25jdGlvbgAAAIwAAAAJAAAAkgAAAAIA#####wAAAAABDAABTwDAKAAAAAAAAEAQAAAAAAAABQABQGsAAAAAAABAdwAAAAAAAAAAAAUA#####wEAAAAAEAAAAQABAAAAlAE#6qqqqqqqqwAAAAYA#####wAAAAABDAABSQDAEAAAAAAAAEAQAAAAAAAABQABQFImZmZmZmYAAACV#####wAAAAEACUNEcm9pdGVBQgD#####AQAAAAAMAAABAAEAAACUAAAAlgAAABAA#####wEAAAABEAAAAQABAAAAlAAAAJUAAAAGAP####8AAAAAAQwAAUoAwCYAAAAAAAAAAAAAAAAAAAUAAcAt87ZFocrzAAAAmAAAABwA#####wEAAAAADAAAAQABAAAAlAAAAJkAAAARAP####8AgICAAQEAAACUAAAAlgAAAJkAAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAAAAAABP+AAAAAAAAAAAAABP#AAAAAAAAAAAAADAP####8AB25iZ3JhZHgAATYAAAABQBgAAAAAAAAAAAADAP####8AB25iZ3JhZHkAAjMwAAAAAUA+AAAAAAAA#####wAAAAEAE0NBYnNjaXNzZU9yaWdpbmVSZXAA#####wAFYWJzb3IAAACb#####wAAAAEAE0NPcmRvbm5lZU9yaWdpbmVSZXAA#####wAFb3Jkb3IAAACb#####wAAAAEACkNVbml0ZXhSZXAA#####wAGdW5pdGV4AAAAm#####8AAAABAApDVW5pdGV5UmVwAP####8ABnVuaXRleQAAAJv#####AAAAAQAQQ1BvaW50RGFuc1JlcGVyZQD#####AAAAAAAQAAABBQAAAACbAAAACQAAAJ4AAAAJAAAAnwAAACEA#####wAAAAAAEAAAAQUAAAAAmwAAAAgAAAAACQAAAJ4AAAAJAAAAoAAAAAkAAACfAAAAIQD#####AAAAAAAQAAABBQAAAACbAAAACQAAAJ4AAAAIAAAAAAkAAACfAAAACQAAAKEAAAAHAP####8AAACiAAAACQAAAJwAAAAKAP####8AAAAAABAAAAEFAAAAAKMAAAClAAAABwD#####AAAAogAAAAkAAACdAAAACgD#####AAAAAAAQAAABBQAAAACkAAAApwAAAAsA#####wEAAAAAEAAAAQABAAAAowAAAKYAAAALAP####8BAAAAABAAAAEAAQAAAKQAAACoAAAABgD#####AAAAAAAKAAFXAMAUAAAAAAAAwDQAAAAAAAAFAAE#3EE7izAqegAAAKkAAAATAP####8ABnhDb29yZAAAAJsAAACrAAAAAwD#####AAVhYnN3MQAGeENvb3JkAAAACQAAAKwAAAASAP####8AZmZmAAAAqwAAAAkAAACcAAAAqwAAAAIAAACrAAAAqwAAAAMA#####wAFYWJzdzIADTIqYWJzb3ItYWJzdzEAAAAIAQAAAAgCAAAAAUAAAAAAAAAAAAAACQAAAJ4AAAAJAAAArQAAACEA#####wEAAAAAEAAAAQUAAAAAmwAAAAkAAACvAAAACQAAAJ######AAAAAgAGQ0xhdGV4AP####8BAAAAAAAAAAAAAAAAQBgAAAAAAAAAAACwCgAB####AAAAAQAAAAAAAAABAAAAAAAAAAAAC1xWYWx7YWJzdzJ9AAAABgD#####AQAAAAAKAAFSAEAgAAAAAAAAwCAAAAAAAAAFAAE#0RtOgbToHwAAAKr#####AAAAAgAIQ01lc3VyZVkA#####wAGeUNvb3JkAAAAmwAAALIAAAADAP####8ABW9yZHIxAAZ5Q29vcmQAAAAJAAAAswAAABIA#####wBmZmYAAACyAAAACQAAAJ0AAACyAAAAAgAAALIAAACyAAAAAwD#####AAVvcmRyMgANMipvcmRvci1vcmRyMQAAAAgBAAAACAIAAAABQAAAAAAAAAAAAAAJAAAAnwAAAAkAAAC0AAAAIQD#####AQAAAAAQAAABBQAAAACbAAAACQAAAJ4AAAAJAAAAtgAAACIA#####wFmZmYAwBwAAAAAAAC#8AAAAAAAAAAAALcKAAH###8AAAACAAAAAQAAAAEAAAAAAAAAAAALXFZhbHtvcmRyMn0AAAAhAP####8BAAAAABAAAAEFAAAAAJsAAAABAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAhAP####8AAAAAABAAAAEFAAAAAJsAAAAIAQAAAAkAAACCAAAACQAAAGUAAAABAAAAAAAAAAAAAAALAP####8BAAAAABAAAAEAAQAAALkAAAC6AAAABgD#####AQAAAAAMAAJ4MQEFAAE#4499lAf4#gAAALsAAAATAP####8AB3hDb29yZDEAAACbAAAAvAAAAAMA#####wACeDEAB3hDb29yZDEAAAAJAAAAvQAAAAMA#####wACeTEABWYoeDEpAAAAGwAAAIwAAAAJAAAAvgAAACEA#####wEAAAAAEAAAAQUAAAAAmwAAAAkAAAC+AAAACQAAAL######AAAAAgANQ0xpZXVEZVBvaW50cwD#####AAAA#wACAAAAwAAAAfQAAQAAALwAAAAFAAAAvAAAAL0AAAC+AAAAvwAAAMD#####AAAAAQANQ0RlbWlEcm9pdGVPQQD#####AAAAAAANAAABAAEAAACUAAAAlgAAACEA#####wAAAAAAEAAAAQUAAAAAmwAAAAFACAAAAAAAAAAAAAEAAAAAAAAAAAAAABUA#####wAAAAAAwDYAAAAAAABAOwAAAAAAAAAAAMMOAAH###8AAAACAAAAAAAAAAEAAAAAAAAAAAASTml2ZWF1IGQnZWF1IGVuIGRtAAAAIQD#####AAAAAAAQAAABBQAAAACbAAAAAQAAAAAAAAAAAAAAAUAsAAAAAAAAAAAAJQD#####AAAAAAANAAABAAEAAACUAAAAmQAAAAMA#####wAEeG1pbgABMAAAAAEAAAAAAAAAAAAAAAMA#####wAEeG1heAABMwAAAAFACAAAAAAAAAAAAAMA#####wAEeW1pbgABMAAAAAEAAAAAAAAAAAAAAAMA#####wAEeW1heAACMzAAAAABQD4AAAAAAAAAAAAhAP####8AAAAAABAAAAAAAAAAAAAAAD#jMzMzMzMzAgAAAACbAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAwD#####AAJkeAALeG1heC14bWluKzEAAAAIAAAAAAgBAAAACQAAAMgAAAAJAAAAxwAAAAE#8AAAAAAAAAAAAAMA#####wACZHkAC3ltYXgteW1pbisxAAAACAAAAAAIAQAAAAkAAADKAAAACQAAAMkAAAABP#AAAAAAAAAAAAAhAP####8AAAAAABAAAAAAAAAAAAAAAD#jMzMzMzMzAgAAAACbAAAACQAAAMcAAAABAAAAAAAAAAAAAAAhAP####8AAAAAABAAAAAAAAAAAAAAAD#jMzMzMzMzAgAAAACbAAAACQAAAMgAAAABAAAAAAAAAAAAAAAhAP####8AAAAAABAAAAAAAAAAAAAAAD#jMzMzMzMzAgAAAACbAAAAAQAAAAAAAAAAAAAACQAAAMkAAAAhAP####8AAAAAABAAAAAAAAAAAAAAAD#jMzMzMzMzAgAAAACbAAAAAQAAAAAAAAAAAAAACQAAAMoAAAALAP####8AAAAAABAAAAEAAQAAAM4AAADPAAAABgD#####AAAAAAAQAAAAAAAAAAAAAAA#4zMzMzMzMwIAAT#Ifmt08DKRAAAA0v####8AAAABAAxDVHJhbnNsYXRpb24A#####wAAAMsAAADQAAAACgD#####AQAAAAAQAAAAAAAAAAAAAAA#4zMzMzMzMwIAAAAA0wAAANQAAAAmAP####8AAADQAAAA0QAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAP+MzMzMzMzMCAAAAANUAAADWAAAACwD#####AX9#fwAQAAABAQEAAADVAAAA1wAAABIA#####wB#f38AAADYAAAACQAAAMwAAADTAAAABAAAANMAAADVAAAA1wAAANgAAAALAP####8AAAAAABAAAAEAAQAAANEAAADQAAAABgD#####AAAAAAAQAAAAAAAAAAAAAAA#4zMzMzMzMwIAAT#AzbwzbwzcAAAA2gAAACYA#####wAAAMsAAADOAAAACgD#####AAAAAAAQAAAAAAAAAAAAAAA#4zMzMzMzMwIAAAAA2wAAANwAAAAmAP####8AAADOAAAAzwAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAP+MzMzMzMzMCAAAAAN0AAADeAAAACwD#####AX9#fwAQAAABAQEAAADdAAAA3wAAABIA#####wB#f38AAADgAAAACQAAAM0AAADbAAAABAAAANsAAADdAAAA3wAAAOAAAAAhAP####8BAAAAABAAAAEFAAAAAJsAAAABP+AAAAAAAAAAAAABQD4AAAAAAAD#####AAAAAQAUQ1RyYW5zbGF0aW9uUGFyQ29vcmQA#####wAAAJsAAAABP#AAAAAAAAAAAAABAAAAAAAAAAAAAAAKAP####8BAAAAABAAAAEFAAAAAOIAAADjAAAACgD#####AQAAAAAQAAABBQAAAADkAAAA4wAAAAsA#####wB#f38AEAAAAQEBAAAAlgAAAOIAAAAKAP####8Af39#ABAAAAEFAAAAAJYAAADjAAAACgD#####AH9#fwAQAAABBQAAAADnAAAA4wAAAAsA#####wB#f38AEAAAAQEBAAAA5wAAAOQAAAALAP####8Af39#ABAAAAEBAQAAAOgAAADlAAAAFQD#####AAAAAABAKgAAAAAAAMAAAAAAAAAAAAAAxQ4AAf###wAAAAAAAAACAAAAAQAAAAAAAAAAABFWb2x1bWUgZCdlYXUgZW4gTAAAAAUA#####wEAAAAAEAAAAQEBAAAAiQE#6qqqqqqqq#####8AAAABAAlDTG9uZ3VldXIA#####wAAAGYAAACI#####wAAAAIACUNDZXJjbGVPUgD#####AQAAAAEBAAAAiQAAAAgDAAAACAIAAAAJAAAAZAAAAAkAAABlAAAACQAAAIIA#####wAAAAEAEENJbnREcm9pdGVDZXJjbGUA#####wAAAOwAAADu#####wAAAAEAEENQb2ludExpZUJpcG9pbnQA#####wEAAAAAEAAAAQUAAQAAAO8AAAArAP####8BAAAAABAAAAEFAAIAAADvAAAAAwD#####AAFrAAMxLzQAAAAIAwAAAAE#8AAAAAAAAAAAAAFAEAAAAAAAAP####8AAAABABJDQXJjRGVDZXJjbGVEaXJlY3QA#####wEAAAABAQAAAIkAAADwAAAA8f####8AAAABAA9DUG9pbnRMaWVDZXJjbGUA#####wEAAAAAEAAAAQUAAT#LQPMykWXjAAAA8#####8AAAABAA1DUG9pbnRQcm9qZXRlAP####8BAAAAABAAAAEFAAAAAPQAAADsAAAABwD#####AAAA9QAAAAkAAADyAAAACgD#####AQAAAAAQAAABBQAAAAD0AAAA9gAAACQA#####wAAAAABAQAAAPcAAAAyAAAAAAD0AAAABAAAAPQAAAD1AAAA9gAAAPf#####AAAAAQAPQ1N5bWV0cmllQXhpYWxlAP####8AAADsAAAACgD#####AQAAAAAQAAABBQAAAAD3AAAA+QAAACQA#####wAAAAAAAQAAAPoAAAA8AAAAAAD0AAAABQAAAPQAAAD1AAAA9gAAAPcAAAD6AAAABwD#####AAAAZgAAAAgDAAAACQAAAIIAAAAJAAAAZQAAAAoA#####wEAAAAAEAAAAQUAAAAA8AAAAPwAAAAKAP####8BAAAAABAAAAEFAAAAAPEAAAD8#####wAAAAEACUNDZXJjbGVPQQD#####AQAAAAEBAAAAjgAAAP0AAAAtAP####8BAAAAABAAAAEFAAE#5ntWGuQ8wgAAAP8AAAAFAP####8BAAAAABAAAAEBAQAAAI4BP+qqqqqqqqsAAAAuAP####8BAAAAABAAAAEFAAAAAQAAAAEBAAAABwD#####AAABAgAAAAkAAADyAAAACgD#####AQAAAAAQAAABBQAAAAEAAAABAwAAACQA#####wAAAAAAAQAAAQQAAAB4AAAAAAEAAAAABAAAAQAAAAECAAABAwAAAQQAAAALAP####8AAAAAABAAAAEAAQAAAPEAAAD+AAAACwD#####AAAAAAAQAAABAAEAAADwAAAA#QAAABUA#####wAAAAAAwBgAAAAAAADAAAAAAAAAAAAAAI4MAAAAAAACAAAAAQAAAAEAAAAAAAAAAAADI0dIAAAAFQD#####AAAAAABAFAAAAAAAAMAAAAAAAAAAAAAA#QwAAf###wAAAAAAAAABAAAAAQAAAAAAAAAAAAMjR0wAAAALAP####8AAAAAABAAAAEAAQAAAI4AAAD9AAAACwD#####AAAAAAAQAAABAQEAAACJAAAA8AAAABUA#####wAAAAAAwCQAAAAAAABACAAAAAAAAAAAAJAMAAAAAAACAAAAAQAAAAEAAAAAAAAAAAADI0dFAAAABQD#####AQAAAAAQAAABAQEAAACQAT#qqqqqqqqr#####wAAAAEAEENJbnREcm9pdGVEcm9pdGUA#####wEAAAAAEAAAAQUAAAABDQAAAQf#####AAAAAQARQ1N5bWV0cmllQ2VudHJhbGUA#####wAAAJAAAAAKAP####8BAAAAABAAAAEFAAAAAQ4AAAEPAAAALAD#####AQAAAAEBAAAAkAAAAQ4AAAEQAAAALQD#####AQAAAAAQAAABBQABP9E+5jRTgJoAAAERAAAALgD#####AQAAAAAQAAABBQAAAAESAAABDQAAAAcA#####wAAARMAAAAJAAAA8gAAAAoA#####wEAAAAAEAAAAQUAAAABEgAAARQAAAAkAP####8AAAD#AQEAAAEVAAAAPAAAAAABEgAAAAQAAAESAAABEwAAARQAAAEVAAAALwD#####AAABDQAAAAoA#####wEAAP8AEAAAAQUAAAABFQAAARcAAAAkAP####8AAAD#AAEAAAEYAAAAPAAAAAABEgAAAAUAAAESAAABEwAAARQAAAEVAAABGP####8AAAABABFDU3VyZmFjZURldXhMaWV1eAD#####AAB#fwAAAAUAAAD7AAABGQAAADMA#####wAAAP8AAAAFAAABFgAAARkAAAAhAP####8AfwAAABAAAAEFAAAAAJsAAAAJAAAAkgAAAAEAAAAAAAAAAAAAACEA#####wAAAP8ADgABTQDAHAAAAAAAAMA0AAAAAAAABQAAAACbAAAACQAAAJIAAAAJAAAAkwAAACEA#####wAAAP8AEAAAAQUAAAAAmwAAAAEAAAAAAAAAAAAAAAkAAACTAAAAIgD#####AAAA#wDAJgAAAAAAAAAAAAAAAAAAAAABHgwAAf###wAAAAIAAAABAAAAAQAAAAAAAAAAAARWKHgpAAAACwD#####AAAAAAAQAAABAQEAAAEeAAABHQAAAAsA#####wAAAAAAEAAAAQEBAAABHQAAARwAAAALAP####8AAAAAABAAAAEBAQAAAJAAAAEOAAAAFQD#####AQAAAABAIAAAAAAAAD#wAAAAAAAAAAABDg4AAAAAAAAAAAABAAAAAQAAAAAAAAAAAAFGAAAAFQD#####AQAAAAH#####DkAwAAAAAAAAQCgAAAAAAAABAf#MzAAAAAAAAAAAAAAAAQAAAAAAAAAAABNDYXB0dXJlciBsZSBwb2ludCBFAAAACwD#####AAAAAAAQAAABAAEAAABmAAAA8AAAAAsA#####wAAAAAAEAAAAQABAAAAZgAAAPEAAAAiAP####8AAAAAAf####8OQCgAAAAAAABASYAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAdFxiZWdpbnthcnJheX17bH0Ke0JBID0gXFZhbHtyJ30gfQpcXCB7eCA9IEJFIFxhcHByb3ggXFZhbHt4fSBcO2RtfQpcXCB7eSA9IFYoeCkgXGFwcHJveCBcVmFse3l9IFw7IGRtXjN9ClxlbmR7YXJyYXl9#####wAAAAEAEENNYWNyb0FwcGFyaXRpb24A#####wAAAP8B#####wxAeYAAAAAAAEAYAAAAAAAAAgHMzP8AAAAAAAAAAAAAAAEAAAAAAAAAAAAGVm9pciBTAAAAAAAEAAAAigAAASUAAAEmAAAAgwD#####AAAAAQARQ01hY3JvRGlzcGFyaXRpb24A#####wAAAP8B#####wxAfiAAAAAAAEAYAAAAAAAAAgHMzP8AAAAAAAAAAAAAAAEAAAAAAAAAAAAIQ2FjaGVyIFMAAAAAAAUAAABmAAAAigAAASUAAAEmAAAAgwAAABUA#####wEAAAAAAAAAAAAAAABAGAAAAAAAAAAAAKsKAAAAAAABAAAAAAAAAAEAAAAAAAAAAAALI1ZhbChhYnN3MSkAAAASAP####8AZmZmAAABKgAAAAkAAACcAAAAqwAAAAQAAACrAAAArAAAAK0AAAEqAAAAFQD#####AWZmZgDAJAAAAAAAAL#wAAAAAAAAAAAAsgoAAAAAAAIAAAABAAAAAQAAAAAAAAAAAAsjVmFsKG9yZHIxKQAAABIA#####wBmZmYAAAEsAAAACQAAAJ0AAACyAAAABAAAALIAAACzAAAAtAAAASwAAAAVAP####8AZmZmAMAQAAAAAAAAP#AAAAAAAAAAAACUCgAAAAAAAgAAAAAAAAABAAAAAAAAAAAAATAAAAAVAP####8B#wAAAMA0AAAAAAAAwCYAAAAAAAAAAACIEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAyNHVQAAABUA#####wAAAAAAwCwAAAAAAADAIgAAAAAAAAAAAIkQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAADI0dCAAAAFQD#####AAAAAABACAAAAAAAAMAmAAAAAAAAAAAA8BAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAMjR0EAAAAiAP####8AfwAAAAAAAAAAAAAAQBgAAAAAAAAAAAEcEgAB####AAAAAQAAAAAAAAABAAAAAAAAAAAAAXgAAAAVAP####8A#wAAAf####8QQCUAAAAAAABAfDhR64UeuAIAAAAAAAAAAAAAAAABAAAAAAAAAAAABiNHWk9PTQAAAAMA#####wAIdGVzdGNvbmUABHI9cicAAAAICAAAAAkAAABkAAAACQAAAGMAAAACAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABQFqgAAAAAABAgxwo9cKPXAAAAAcA#####wAAAGYAAAAJAAABNAAAAAoA#####wAAAAABEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAATUAAAE2AAAAAwD#####AAtDb25lVmlzaWJsZQAKMS90ZXN0Y29uZQAAAAgDAAAAAT#wAAAAAAAAAAAACQAAATQAAAAHAP####8AAABmAAAACQAAATgAAAAKAP####8AAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAE1AAABOQAAABUA#####wAAAAABAAABOhAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAClJbCBuJ3kgYSBwYXMgZGUgY8O0bmUgZGFucyBjZXMgY29uZGl0aW9ucwAAAO3##########w=="
-					if (!sortie_html) texte = `\\begin{minipage}{0.7 \\linewidth} \n\t`
-					else texte=``
-					texte += `Un seau a la forme d'un tronc de cône.<br>`
-					texte += `Sa hauteur intérieure est de ${tex_nombre(h3)}${sp()}dm, sa petite base a un dimaètre intérieur de ${tex_nombre(r2 * 2)}${sp()}dm et sa grande base (l'ouverture) a un diamètre intérieur de ${tex_nombre(r * 2)}${sp()}dm.<br>`
-					if (!sortie_html) texte +=`La figure n'est pas en vraie grandeur.<br>`
-					texte += num_alpha(0) + ` Calculer la hauteur du cône obtenu en prolongeant les bords du seau.<br>`
-					texte += num_alpha(1) + ` En déduire le volume de ce cône.<br>`
-					texte += num_alpha(2) + ` En déduire le volume total du seau.<br>`
-					if (sortie_html) texte += `Dans ces deux prochaines questions, on considère qu'on remplit le seau à mi-hauteur d'eau.<br>`
-					else texte += num_alpha(3) + ` On remplit le seau à mi-hauteur d'eau. Calculer le volume d'eau correspondant.`
-					if (sortie_html) {
-						texte += num_alpha(3) + ` Par lecture graphique, après avoir correctement paramétré la figure, lire le volume d'eau correspondant.<br>`
-						texte += num_alpha(4) + ` Retrouver ce résultat par le calcul.<br>`
-					}
-					if (sortie_html) texte += `<br>On peut déplacer le cône avec S et modifier les valeurs avec leurs curseurs respectifs.`
-					else texte+=`\n\t \\end{minipage} \n\t \\begin{minipage}{0.3 \\linewidth} \n\t \\begin{tikzpicture}[scale=0.8]
+				}
+				codeBase64 = "TWF0aEdyYXBoSmF2YTEuMAAAABI+qPXDAANmcmH###8BAP8BAAAAAAAAAAAFHAAAAtIAAAAAAAAAAAAAAAEAAAE8#####wAAAAEACkNDYWxjQ29uc3QA#####wACcGkAFjMuMTQxNTkyNjUzNTg5NzkzMjM4NDb#####AAAAAQAKQ0NvbnN0YW50ZUAJIftURC0Y#####wAAAAEACkNQb2ludEJhc2UA#####wEAAAAAEAAAAEAIAAAAAAAAAAAAAAAAAAAFAABAIwAAAAAAAEB7iFHrhR64#####wAAAAEAB0NDYWxjdWwA#####wAFbWluaTMAAzAuMgAAAAE#yZmZmZmZmgAAAAMA#####wAFbWF4aTMAATIAAAABQAAAAAAAAAD#####AAAAAQAUQ0ltcGxlbWVudGF0aW9uUHJvdG8A#####wAHQ3Vyc2V1cgAAAAUAAAAFAAAAAwAAAAIAAAADAAAAAf####8AAAABABRDRHJvaXRlRGlyZWN0aW9uRml4ZQAAAAAEAQAAAAAQAAABAAEAAAABAT#wAAAAAAAA#####wAAAAEAD0NQb2ludExpZURyb2l0ZQEAAAAEAQAAAAAQAAAAwAgAAAAAAAA#8AAAAAAAAAUAAUBLgAAAAAAAAAAABf####8AAAABAAtDSG9tb3RoZXRpZQAAAAAEAAAAAf####8AAAABAApDT3BlcmF0aW9uA#####8AAAABAA9DUmVzdWx0YXRWYWxldXIAAAACAAAACAEAAAAJAAAAAgAAAAkAAAAD#####wAAAAEAC0NQb2ludEltYWdlAAAAAAQBAAAAAA0AAk8xAMAQAAAAAAAAQBAAAAAAAAAFAAAAAAYAAAAHAAAABwAAAAAEAAAAAQAAAAgDAAAACAEAAAABP#AAAAAAAAAAAAAJAAAAAgAAAAgBAAAACQAAAAMAAAAJAAAAAgAAAAoAAAAABAEAAAAADQACSTEAwAAAAAAAAABACAAAAAAAAAUAAAAABgAAAAn#####AAAAAQAIQ1NlZ21lbnQBAAAABAAAAAAAEAAAAQEBAAAAAQAAAAYAAAAGAQAAAAQAAAAAARAAAmsxAMAAAAAAAAAAQAAAAAAAAAABAAE#0p5BKeQSngAAAAv#####AAAAAgAPQ01lc3VyZUFic2Npc3NlAQAAAAQABHpvb20AAAAIAAAACgAAAAz#####AAAAAQAPQ1ZhbGV1ckFmZmljaGVlAQAAAAQBAAAAAAAAAAAAAAAAwBgAAAAAAAAAAAAMDwAB####AAAAAQAAAAIAAAABAAAAAAAAAAAAAAAAAgAAAA0AAAADAP####8ABVJtaW5pAAIxNQAAAAFALgAAAAAAAAAAAAMA#####wAFUm1heGkAAjIwAAAAAUA0AAAAAAAAAAAAAwD#####AAZSbWF4aScAB1JtYXhpLTUAAAAIAQAAAAkAAAAQAAAAAUAUAAAAAAAAAAAAAwD#####AAVIbWF4aQACMzAAAAABQD4AAAAAAAAAAAADAP####8ABUhtaW5pAAIyMAAAAAFANAAAAAAAAAAAAAIA#####wAAAAAAEAAAAEAIAAAAAAAAAAAAAAAAAAAFAABAbJAAAAAAAECANCj1wo9cAAAAAwD#####AARwYXM0AAExAAAAAT#wAAAAAAAAAAAAAwD#####AAhwYXNncmFkNAABNQAAAAFAFAAAAAAAAAAAAAQA#####wAHQ3Vyc2V1cgAAAA4AAAAHAAAABQAAABMAAAASAAAAFQAAABYAAAAUAAAABQAAAAAXAQAAAAAQAAABAAEAAAAUAT#wAAAAAAAAAAAABgEAAAAXAAAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAEBhgAAAAAAAAAAAGAAAAAMAAAAAFwAHbmJncmFkMAAdaW50KChIbWF4aS1IbWluaSkvcGFzNCswLjUpKzEAAAAIAP####8AAAACAAlDRm9uY3Rpb24CAAAACAAAAAAIAwAAAAgBAAAACQAAABIAAAAJAAAAEwAAAAkAAAAVAAAAAT#gAAAAAAAAAAAAAT#wAAAAAAAAAAAAAwAAAAAXAApuYmdyYWRwYXMwACFpbnQoKEhtYXhpLUhtaW5pKS9wYXNncmFkNCswLjUpKzEAAAAIAAAAAA4CAAAACAAAAAAIAwAAAAgBAAAACQAAABIAAAAJAAAAEwAAAAkAAAAWAAAAAT#gAAAAAAAAAAAAAT#wAAAAAAAA#####wAAAAEAC0NQb2ludENsb25lAAAAABcBAAAAAAsAAk8xAMA4AAAAAAAAP#AAAAAAAAABAAAAABQAAAALAQAAABcAAAAAABAAAAEAAQAAABwAAAAZ#####wAAAAEAFkNEcm9pdGVQZXJwZW5kaWN1bGFpcmUAAAAAFwEAAAAAEAAAAQABAAAAHAAAAB0AAAAGAAAAABcBAAAAAAsAAkoxAMA2AAAAAAAAwC4AAAAAAAABAAG#vhkUx7D9WQAAAB4AAAAHAAAAABcAAAAcAAAACAMAAAAJAAAAFQAAAAgBAAAACQAAABIAAAAJAAAAEwAAAAoAAAAAFwEAAAAACwACSTEAAAAAAAAAAABAAAAAAAAAAAEAAAAAGQAAACD#####AAAAAgAHQ1JlcGVyZQAAAAAXAAAAAAEBAAAAHAAAACEAAAAfAAAAAAAACQAAABMAAAABAAAAAAAAAAAAAAAJAAAAFQAAAAE#8AAAAAAAAAAAAAYAAAAAFwEAAAAACwACVzEAwCAAAAAAAADAOwAAAAAAAAUAAT#hGDFObkU6AAAAHf####8AAAACABJDTGlldU9iamV0UGFyUHRMaWUBAAAAFwAAAAAAAAAjAAAACQAAABoAAAAjAAAAAgAAACMAAAAj#####wAAAAIACENNZXN1cmVYAAAAABcABGFic3cAAAAiAAAAIwAAAAMAAAAAFwAHYWJzd0FycgAjaW50KGFic3cqMTAwMDAwMDAwMCswLjUpLzEwMDAwMDAwMDAAAAAIAwAAAA4CAAAACAAAAAAIAgAAAAkAAAAlAAAAAUHNzWUAAAAAAAAAAT#gAAAAAAAAAAAAAUHNzWUAAAAAAAAADQAAAAAXAQAAAAAAAAAAAAAAAEAYAAAAAAAAAAAAIwsAAAAAAAEAAAAAAAAAAQAAAAAAAAAAAAAAAAkAAAAmAAAAEgEAAAAXAAAAAAAAACcAAAAJAAAAGwAAACMAAAAEAAAAIwAAACUAAAAmAAAAJ#####8AAAABAA1DUG9pbnRCYXNlRW50AQAAABcAAAAAARAAAlQzAAAAAAAAAAAAQAgAAAAAAAABAAEAAAAiQCAAAAAAAAAAAAAAAAAAAAAAAAAACQAAABMAAAAJAAAAEgAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAABMAAAAAFwAFbWVzYWIAAAAiAAAAKQAAAAMBAAAAFwACaDUAJGludChtZXNhYioxMDAwMDAwMDAwKzAuNSkvMTAwMDAwMDAwMAAAAAgDAAAADgIAAAAIAAAAAAgCAAAACQAAACoAAAABQc3NZQAAAAAAAAABP+AAAAAAAAAAAAABQc3NZQAAAAAAAAANAQAAABcAAAAAAAAAAAAAAAAAwCAAAAAAAAAAAAApDwAB####AAAAAQAAAAIAAAABAAAAAAAAAAAABUJIID0gAAMgY20JAAAAKwAAAAMA#####wAGUm1pbmknAAIxMAAAAAFAJAAAAAAAAAAAAAIA#####wAAAAAAEAAAAEAIAAAAAAAAAAAAAAAAAAAFAABAbLAAAAAAAEB9eFHrhR64AAAAAwD#####AARwYXMyAAExAAAAAT#wAAAAAAAAAAAAAwD#####AAhwYXNncmFkMgABNQAAAAFAFAAAAAAAAAAAAAQA#####wAHQ3Vyc2V1cgAAAA4AAAAHAAAABQAAAC0AAAARAAAALwAAADAAAAAuAAAABQAAAAAxAQAAAAAQAAABAAEAAAAuAT#wAAAAAAAAAAAABgEAAAAxAAAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAEBhgAAAAAAAAAAAMgAAAAMAAAAAMQAHbmJncmFkMAAfaW50KChSbWF4aSctUm1pbmknKS9wYXMyKzAuNSkrMQAAAAgAAAAADgIAAAAIAAAAAAgDAAAACAEAAAAJAAAAEQAAAAkAAAAtAAAACQAAAC8AAAABP+AAAAAAAAAAAAABP#AAAAAAAAAAAAADAAAAADEACm5iZ3JhZHBhczAAI2ludCgoUm1heGknLVJtaW5pJykvcGFzZ3JhZDIrMC41KSsxAAAACAAAAAAOAgAAAAgAAAAACAMAAAAIAQAAAAkAAAARAAAACQAAAC0AAAAJAAAAMAAAAAE#4AAAAAAAAAAAAAE#8AAAAAAAAAAAAA8AAAAAMQEAAAAACwACTzEAwDgAAAAAAAA#8AAAAAAAAAEAAAAALgAAAAsBAAAAMQAAAAAAEAAAAQABAAAANgAAADMAAAAQAAAAADEBAAAAABAAAAEAAQAAADYAAAA3AAAABgAAAAAxAQAAAAALAAJKMQDANgAAAAAAAMAuAAAAAAAAAQABv74ZFMew#VkAAAA4AAAABwAAAAAxAAAANgAAAAgDAAAACQAAAC8AAAAIAQAAAAkAAAARAAAACQAAAC0AAAAKAAAAADEBAAAAAAsAAkkxAAAAAAAAAAAAQAAAAAAAAAABAAAAADMAAAA6AAAAEQAAAAAxAAAAAAEBAAAANgAAADsAAAA5AAAAAAAACQAAAC0AAAABAAAAAAAAAAAAAAAJAAAALwAAAAE#8AAAAAAAAAAAAAYAAAAAMQEAAAAACwACVzEAwCAAAAAAAADAOwAAAAAAAAUAAT#hGDFObkU6AAAANwAAABIBAAAAMQAAAAAAAAA9AAAACQAAADQAAAA9AAAAAgAAAD0AAAA9AAAAEwAAAAAxAARhYnN3AAAAPAAAAD0AAAADAAAAADEAB2Fic3dBcnIAI2ludChhYnN3KjEwMDAwMDAwMDArMC41KS8xMDAwMDAwMDAwAAAACAMAAAAOAgAAAAgAAAAACAIAAAAJAAAAPwAAAAFBzc1lAAAAAAAAAAE#4AAAAAAAAAAAAAFBzc1lAAAAAAAAAA0AAAAAMQEAAAAAAAAAAAAAAABAGAAAAAAAAAAAAD0LAAAAAAABAAAAAAAAAAEAAAAAAAAAAAAAAAAJAAAAQAAAABIBAAAAMQAAAAAAAABBAAAACQAAADUAAAA9AAAABAAAAD0AAAA#AAAAQAAAAEEAAAAUAQAAADEAAAAAARAAAVQAAAAAAAAAAABACAAAAAAAAAEAAQAAADxAFAAAAAAAAAAAAAAAAAAAAAAAAAAJAAAALQAAAAkAAAARAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAEwAAAAAxAAVtZXNhYgAAADwAAABDAAAAAwEAAAAxAAJyMwAkaW50KG1lc2FiKjEwMDAwMDAwMDArMC41KS8xMDAwMDAwMDAwAAAACAMAAAAOAgAAAAgAAAAACAIAAAAJAAAARAAAAAFBzc1lAAAAAAAAAAE#4AAAAAAAAAAAAAFBzc1lAAAAAAAAAA0BAAAAMQAAAAAAAAAAAAAAAADAIAAAAAAAAAAAAEMPAAH###8AAAABAAAAAgAAAAEAAAAAAAAAAAAFQkEgPSAAAyBjbQkAAABFAAAAAgD#####AAAAAAAQAAAAQAgAAAAAAAAAAAAAAAAAAAUAAEBs8AAAAAAAQHo4UeuFHrgAAAADAP####8ABW1pbmkxAAVSbWluaQAAAAkAAAAPAAAAAwD#####AAVtYXhpMQAFUm1heGkAAAAJAAAAEAAAAAMA#####wAEcGFzMQABMQAAAAE#8AAAAAAAAAAAAAMA#####wAIcGFzZ3JhZDEAATUAAAABQBQAAAAAAAAAAAAEAP####8AB0N1cnNldXIAAAAOAAAABwAAAAUAAABIAAAASQAAAEoAAABLAAAARwAAAAUAAAAATAEAAAAAEAAAAQABAAAARwE#8AAAAAAAAAAAAAYBAAAATAAAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAABAYYAAAAAAAAAAAE0AAAADAAAAAEwAB25iZ3JhZDAAHWludCgobWF4aTEtbWluaTEpL3BhczErMC41KSsxAAAACAAAAAAOAgAAAAgAAAAACAMAAAAIAQAAAAkAAABJAAAACQAAAEgAAAAJAAAASgAAAAE#4AAAAAAAAAAAAAE#8AAAAAAAAAAAAAMAAAAATAAKbmJncmFkcGFzMAAhaW50KChtYXhpMS1taW5pMSkvcGFzZ3JhZDErMC41KSsxAAAACAAAAAAOAgAAAAgAAAAACAMAAAAIAQAAAAkAAABJAAAACQAAAEgAAAAJAAAASwAAAAE#4AAAAAAAAAAAAAE#8AAAAAAAAAAAAA8AAAAATAEAAAAACwACTzEAwDgAAAAAAAA#8AAAAAAAAAEAAAAARwAAAAsBAAAATAAAAAAAEAAAAQABAAAAUQAAAE4AAAAQAAAAAEwBAAAAABAAAAEAAQAAAFEAAABSAAAABgAAAABMAQAAAAALAAJKMQDANgAAAAAAAMAuAAAAAAAAAQABv74ZFMew#VkAAABTAAAABwAAAABMAAAAUQAAAAgDAAAACQAAAEoAAAAIAQAAAAkAAABJAAAACQAAAEgAAAAKAAAAAEwBAAAAAAsAAkkxAAAAAAAAAAAAQAAAAAAAAAABAAAAAE4AAABVAAAAEQAAAABMAAAAAAEBAAAAUQAAAFYAAABUAAAAAAAACQAAAEgAAAABAAAAAAAAAAAAAAAJAAAASgAAAAE#8AAAAAAAAAAAAAYAAAAATAEAAAAACwACVzEAwCAAAAAAAADAOwAAAAAAAAUAAT#hGDFObkU6AAAAUgAAABIBAAAATAAAAAAAAABYAAAACQAAAE8AAABYAAAAAgAAAFgAAABYAAAAEwAAAABMAARhYnN3AAAAVwAAAFgAAAADAAAAAEwAB2Fic3dBcnIAI2ludChhYnN3KjEwMDAwMDAwMDArMC41KS8xMDAwMDAwMDAwAAAACAMAAAAOAgAAAAgAAAAACAIAAAAJAAAAWgAAAAFBzc1lAAAAAAAAAAE#4AAAAAAAAAAAAAFBzc1lAAAAAAAAAA0AAAAATAEAAAAAAAAAAAAAAABAGAAAAAAAAAAAAFgLAAAAAAABAAAAAAAAAAEAAAAAAAAAAAAAAAAJAAAAWwAAABIBAAAATAAAAAAAAABcAAAACQAAAFAAAABYAAAABAAAAFgAAABaAAAAWwAAAFwAAAAUAQAAAEwAAAAAARAAAlQxAAAAAAAAAAAAQAgAAAAAAAABAAEAAABXQBQAAAAAAAAAAAAAAAAAAAAAAAAACQAAAEgAAAAJAAAASQAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAABMAAAAATAAFbWVzYWIAAABXAAAAXgAAAAMBAAAATAACcjIAJGludChtZXNhYioxMDAwMDAwMDAwKzAuNSkvMTAwMDAwMDAwMAAAAAgDAAAADgIAAAAIAAAAAAgCAAAACQAAAF8AAAABQc3NZQAAAAAAAAABP+AAAAAAAAAAAAABQc3NZQAAAAAAAAANAQAAAEwAAAAAAAAAAAAAAAAAwCAAAAAAAAAAAABeDwAB####AAAAAQAAAAIAAAABAAAAAAAAAAAABEhMID0AAyBjbQkAAABgAAAAAwD#####AAJoMwAFaDUvMTAAAAAIAwAAAAkAAAArAAAAAUAkAAAAAAAAAAAAAwD#####AAJyJwAFcjMvMTAAAAAIAwAAAAkAAABFAAAAAUAkAAAAAAAAAAAAAwD#####AAFyAAVyMi8xMAAAAAgDAAAACQAAAGAAAAABQCQAAAAAAAAAAAADAP####8AAmgyAAxyJypoMy8oci1yJykAAAAIAwAAAAgCAAAACQAAAGMAAAAJAAAAYgAAAAgBAAAACQAAAGQAAAAJAAAAYwAAAAIA#####wAAAAABDAABUwDALgAAAAAAAMAiAAAAAAAABQABQFugAAAAAABAfOhR64UeuAAAAAcA#####wAAAGYAAAAJAAAAZQAAAAcA#####wAAAGYAAAAJAAAADQAAAAMA#####wAISGVhdU1pbmkAATAAAAABAAAAAAAAAAAAAAACAP####8AAAAAABAAAABACAAAAAAAAAAAAAAAAAAABQAAQGxQAAAAAABAgfwo9cKPXAAAAAMA#####wAEcGFzNQABMQAAAAE#8AAAAAAAAAAAAAQA#####wAHQ3Vyc2V1cgAAAAoAAAAGAAAABAAAAGkAAAArAAAAawAAAGoAAAAFAAAAAGwBAAAAABAAAAEAAQAAAGoBP#AAAAAAAAAAAAAGAQAAAGwAAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAQGGAAAAAAAAAAABtAAAAAwAAAABsAAduYmdyYWQwAB1pbnQoKGg1LUhlYXVNaW5pKS9wYXM1KzAuNSkrMQAAAAgAAAAADgIAAAAIAAAAAAgDAAAACAEAAAAJAAAAKwAAAAkAAABpAAAACQAAAGsAAAABP+AAAAAAAAAAAAABP#AAAAAAAAAAAAAPAAAAAGwBAAAAAAsAAk8xAMA4AAAAAAAAP#AAAAAAAAABAAAAAGoAAAALAQAAAGwAAAAAABAAAAEAAQAAAHAAAABuAAAAEAAAAABsAQAAAAAQAAABAAEAAABwAAAAcQAAAAYAAAAAbAEAAAAACwACSjEAwDYAAAAAAADALgAAAAAAAAEAAb++GRTHsP1ZAAAAcgAAAAcAAAAAbAAAAHAAAAAIAwAAAAkAAABrAAAACAEAAAAJAAAAKwAAAAkAAABpAAAACgAAAABsAQAAAAALAAJJMQAAAAAAAAAAAEAAAAAAAAAAAQAAAABuAAAAdAAAABEAAAAAbAAAAAABAQAAAHAAAAB1AAAAcwAAAAAAAAkAAABpAAAAAQAAAAAAAAAAAAAACQAAAGsAAAABP#AAAAAAAAAAAAAGAAAAAGwBAAAAAAsAAlcxAMAgAAAAAAAAwDsAAAAAAAAFAAE#4RgxTm5FOgAAAHEAAAASAQAAAGwAAAAAAAAAdwAAAAkAAABvAAAAdwAAAAIAAAB3AAAAdwAAABQBAAAAbAAAAAABEAACVDIAAAAAAAAAAABACAAAAAAAAAEAAQAAAHZAIAAAAAAAAAAAAAAAAAAAAAAAAAAJAAAAaQAAAAkAAAArAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAEwAAAABsAAVtZXNhYgAAAHYAAAB5AAAAAwEAAABsAAJoZQAkaW50KG1lc2FiKjEwMDAwMDAwMDArMC41KS8xMDAwMDAwMDAwAAAACAMAAAAOAgAAAAgAAAAACAIAAAAJAAAAegAAAAFBzc1lAAAAAAAAAAE#4AAAAAAAAAAAAAFBzc1lAAAAAAAAAA0BAAAAbAAAAAAAAAAAAAAAAADAIAAAAAAAAAAAAHkPAAH###8AAAABAAAAAgAAAAEAAAAAAAAAAAARIEhhdXRldXIgZCdlYXUgPSAAAyBjbQkAAAB7AAAAAwD#####AAhIZWF1TWF4aQACaDUAAAAJAAAAKwAAAAMA#####wAFbWluaTIAC0hlYXVNaW5pKjEwAAAACAIAAAAJAAAAaQAAAAFAJAAAAAAAAAAAAAMA#####wAFbWF4aTIACEhlYXVNYXhpAAAACQAAAH0AAAADAP####8ABHBhczMAATEAAAABP#AAAAAAAAAAAAADAP####8ACHBhc2dyYWQzAAE1AAAAAUAUAAAAAAAAAAAAAwD#####AAJoMQAFaDIraDMAAAAIAAAAAAkAAABlAAAACQAAAGL#####AAAAAgAMQ0NvbW1lbnRhaXJlAP####8AAAAAAMAxAAAAAAAAwCgAAAAAAAAAAABmEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAyNHUwAAAAMA#####wAEaGVhdQAFaGUvMTAAAAAIAwAAAAkAAAB7AAAAAUAkAAAAAAAAAAAABQD#####AQAAAAAQAAABAQEAAABmAD#qqqqqqqqrAAAABgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAcBGMzMzMzMpAAAAhQAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAIYAAABo#####wAAAAEADkNQb2ludExpZVBvaW50AP####8B#wAAAQwAAkknAQUAAAAAhwAAAAoA#####wEAAAABCgABQgEFAAAAAIgAAABnAAAACwD#####AAAAAAAQAAABAQEAAABmAAAAif####8AAAABABFDUG9pbnRQYXJBYnNjaXNzZQD#####AQAAAAAQAAJFMQAAAAAAAAAAAEAIAAAAAAAABQAAAABmAAAAiAAAAAgAAAAACQAAAGUAAAAJAAAAhP####8AAAABAAVDRm9uYwD#####AAFmACFwaS8zKigoeCtoMileMyoocicvaDIpXjItcideMipoMikAAAAIAgAAAAgDAAAACQAAAAAAAAABQAgAAAAAAAAAAAAIAQAAAAgC#####wAAAAEACkNQdWlzc2FuY2UAAAAIAP####8AAAACABFDVmFyaWFibGVGb3JtZWxsZQAAAAAAAAAJAAAAZQAAAAFACAAAAAAAAAAAABkAAAAIAwAAAAkAAABjAAAACQAAAGUAAAABQAAAAAAAAAAAAAAIAgAAABkAAAAJAAAAYwAAAAFAAAAAAAAAAAAAAAkAAABlAAF4AAAABwD#####AAAAZgAAAAkAAACCAAAACgD#####AQAAAAEKAAFIAQUAAAAAiAAAAI0AAAALAP####8AAAAAABAAAAEBAQAAAIkAAACOAAAAFgD#####AAAAAAEKAAFFAQUAAAAAiwAAAAwA#####wAEYWJzMQAAAIkAAACOAAAAkAAAAAMA#####wABeAAMYWJzMSooaDEtaDIpAAAACAIAAAAJAAAAkQAAAAgBAAAACQAAAIIAAAAJAAAAZQAAAAMA#####wABeQAEZih4Kf####8AAAABAA5DQXBwZWxGb25jdGlvbgAAAIwAAAAJAAAAkgAAAAIA#####wAAAAABDAABTwDAKAAAAAAAAEAQAAAAAAAABQABQGsAAAAAAABAdwAAAAAAAAAAAAUA#####wEAAAAAEAAAAQABAAAAlAE#6qqqqqqqqwAAAAYA#####wAAAAABDAABSQDAEAAAAAAAAEAQAAAAAAAABQABQFImZmZmZmYAAACV#####wAAAAEACUNEcm9pdGVBQgD#####AQAAAAAMAAABAAEAAACUAAAAlgAAABAA#####wEAAAABEAAAAQABAAAAlAAAAJUAAAAGAP####8AAAAAAQwAAUoAwCYAAAAAAAAAAAAAAAAAAAUAAcAt87ZFocrzAAAAmAAAABwA#####wEAAAAADAAAAQABAAAAlAAAAJkAAAARAP####8AgICAAQEAAACUAAAAlgAAAJkAAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAAAAAABP+AAAAAAAAAAAAABP#AAAAAAAAAAAAADAP####8AB25iZ3JhZHgAATYAAAABQBgAAAAAAAAAAAADAP####8AB25iZ3JhZHkAAjMwAAAAAUA+AAAAAAAA#####wAAAAEAE0NBYnNjaXNzZU9yaWdpbmVSZXAA#####wAFYWJzb3IAAACb#####wAAAAEAE0NPcmRvbm5lZU9yaWdpbmVSZXAA#####wAFb3Jkb3IAAACb#####wAAAAEACkNVbml0ZXhSZXAA#####wAGdW5pdGV4AAAAm#####8AAAABAApDVW5pdGV5UmVwAP####8ABnVuaXRleQAAAJv#####AAAAAQAQQ1BvaW50RGFuc1JlcGVyZQD#####AAAAAAAQAAABBQAAAACbAAAACQAAAJ4AAAAJAAAAnwAAACEA#####wAAAAAAEAAAAQUAAAAAmwAAAAgAAAAACQAAAJ4AAAAJAAAAoAAAAAkAAACfAAAAIQD#####AAAAAAAQAAABBQAAAACbAAAACQAAAJ4AAAAIAAAAAAkAAACfAAAACQAAAKEAAAAHAP####8AAACiAAAACQAAAJwAAAAKAP####8AAAAAABAAAAEFAAAAAKMAAAClAAAABwD#####AAAAogAAAAkAAACdAAAACgD#####AAAAAAAQAAABBQAAAACkAAAApwAAAAsA#####wEAAAAAEAAAAQABAAAAowAAAKYAAAALAP####8BAAAAABAAAAEAAQAAAKQAAACoAAAABgD#####AAAAAAAKAAFXAMAUAAAAAAAAwDQAAAAAAAAFAAE#3EE7izAqegAAAKkAAAATAP####8ABnhDb29yZAAAAJsAAACrAAAAAwD#####AAVhYnN3MQAGeENvb3JkAAAACQAAAKwAAAASAP####8AZmZmAAAAqwAAAAkAAACcAAAAqwAAAAIAAACrAAAAqwAAAAMA#####wAFYWJzdzIADTIqYWJzb3ItYWJzdzEAAAAIAQAAAAgCAAAAAUAAAAAAAAAAAAAACQAAAJ4AAAAJAAAArQAAACEA#####wEAAAAAEAAAAQUAAAAAmwAAAAkAAACvAAAACQAAAJ######AAAAAgAGQ0xhdGV4AP####8BAAAAAAAAAAAAAAAAQBgAAAAAAAAAAACwCgAB####AAAAAQAAAAAAAAABAAAAAAAAAAAAC1xWYWx7YWJzdzJ9AAAABgD#####AQAAAAAKAAFSAEAgAAAAAAAAwCAAAAAAAAAFAAE#0RtOgbToHwAAAKr#####AAAAAgAIQ01lc3VyZVkA#####wAGeUNvb3JkAAAAmwAAALIAAAADAP####8ABW9yZHIxAAZ5Q29vcmQAAAAJAAAAswAAABIA#####wBmZmYAAACyAAAACQAAAJ0AAACyAAAAAgAAALIAAACyAAAAAwD#####AAVvcmRyMgANMipvcmRvci1vcmRyMQAAAAgBAAAACAIAAAABQAAAAAAAAAAAAAAJAAAAnwAAAAkAAAC0AAAAIQD#####AQAAAAAQAAABBQAAAACbAAAACQAAAJ4AAAAJAAAAtgAAACIA#####wFmZmYAwBwAAAAAAAC#8AAAAAAAAAAAALcKAAH###8AAAACAAAAAQAAAAEAAAAAAAAAAAALXFZhbHtvcmRyMn0AAAAhAP####8BAAAAABAAAAEFAAAAAJsAAAABAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAhAP####8AAAAAABAAAAEFAAAAAJsAAAAIAQAAAAkAAACCAAAACQAAAGUAAAABAAAAAAAAAAAAAAALAP####8BAAAAABAAAAEAAQAAALkAAAC6AAAABgD#####AQAAAAAMAAJ4MQEFAAE#4499lAf4#gAAALsAAAATAP####8AB3hDb29yZDEAAACbAAAAvAAAAAMA#####wACeDEAB3hDb29yZDEAAAAJAAAAvQAAAAMA#####wACeTEABWYoeDEpAAAAGwAAAIwAAAAJAAAAvgAAACEA#####wEAAAAAEAAAAQUAAAAAmwAAAAkAAAC+AAAACQAAAL######AAAAAgANQ0xpZXVEZVBvaW50cwD#####AAAA#wACAAAAwAAAAfQAAQAAALwAAAAFAAAAvAAAAL0AAAC+AAAAvwAAAMD#####AAAAAQANQ0RlbWlEcm9pdGVPQQD#####AAAAAAANAAABAAEAAACUAAAAlgAAACEA#####wAAAAAAEAAAAQUAAAAAmwAAAAFACAAAAAAAAAAAAAEAAAAAAAAAAAAAABUA#####wAAAAAAwDYAAAAAAABAOwAAAAAAAAAAAMMOAAH###8AAAACAAAAAAAAAAEAAAAAAAAAAAASTml2ZWF1IGQnZWF1IGVuIGRtAAAAIQD#####AAAAAAAQAAABBQAAAACbAAAAAQAAAAAAAAAAAAAAAUAsAAAAAAAAAAAAJQD#####AAAAAAANAAABAAEAAACUAAAAmQAAAAMA#####wAEeG1pbgABMAAAAAEAAAAAAAAAAAAAAAMA#####wAEeG1heAABMwAAAAFACAAAAAAAAAAAAAMA#####wAEeW1pbgABMAAAAAEAAAAAAAAAAAAAAAMA#####wAEeW1heAACMzAAAAABQD4AAAAAAAAAAAAhAP####8AAAAAABAAAAAAAAAAAAAAAD#jMzMzMzMzAgAAAACbAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAwD#####AAJkeAALeG1heC14bWluKzEAAAAIAAAAAAgBAAAACQAAAMgAAAAJAAAAxwAAAAE#8AAAAAAAAAAAAAMA#####wACZHkAC3ltYXgteW1pbisxAAAACAAAAAAIAQAAAAkAAADKAAAACQAAAMkAAAABP#AAAAAAAAAAAAAhAP####8AAAAAABAAAAAAAAAAAAAAAD#jMzMzMzMzAgAAAACbAAAACQAAAMcAAAABAAAAAAAAAAAAAAAhAP####8AAAAAABAAAAAAAAAAAAAAAD#jMzMzMzMzAgAAAACbAAAACQAAAMgAAAABAAAAAAAAAAAAAAAhAP####8AAAAAABAAAAAAAAAAAAAAAD#jMzMzMzMzAgAAAACbAAAAAQAAAAAAAAAAAAAACQAAAMkAAAAhAP####8AAAAAABAAAAAAAAAAAAAAAD#jMzMzMzMzAgAAAACbAAAAAQAAAAAAAAAAAAAACQAAAMoAAAALAP####8AAAAAABAAAAEAAQAAAM4AAADPAAAABgD#####AAAAAAAQAAAAAAAAAAAAAAA#4zMzMzMzMwIAAT#Ifmt08DKRAAAA0v####8AAAABAAxDVHJhbnNsYXRpb24A#####wAAAMsAAADQAAAACgD#####AQAAAAAQAAAAAAAAAAAAAAA#4zMzMzMzMwIAAAAA0wAAANQAAAAmAP####8AAADQAAAA0QAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAP+MzMzMzMzMCAAAAANUAAADWAAAACwD#####AX9#fwAQAAABAQEAAADVAAAA1wAAABIA#####wB#f38AAADYAAAACQAAAMwAAADTAAAABAAAANMAAADVAAAA1wAAANgAAAALAP####8AAAAAABAAAAEAAQAAANEAAADQAAAABgD#####AAAAAAAQAAAAAAAAAAAAAAA#4zMzMzMzMwIAAT#AzbwzbwzcAAAA2gAAACYA#####wAAAMsAAADOAAAACgD#####AAAAAAAQAAAAAAAAAAAAAAA#4zMzMzMzMwIAAAAA2wAAANwAAAAmAP####8AAADOAAAAzwAAAAoA#####wEAAAAAEAAAAAAAAAAAAAAAP+MzMzMzMzMCAAAAAN0AAADeAAAACwD#####AX9#fwAQAAABAQEAAADdAAAA3wAAABIA#####wB#f38AAADgAAAACQAAAM0AAADbAAAABAAAANsAAADdAAAA3wAAAOAAAAAhAP####8BAAAAABAAAAEFAAAAAJsAAAABP+AAAAAAAAAAAAABQD4AAAAAAAD#####AAAAAQAUQ1RyYW5zbGF0aW9uUGFyQ29vcmQA#####wAAAJsAAAABP#AAAAAAAAAAAAABAAAAAAAAAAAAAAAKAP####8BAAAAABAAAAEFAAAAAOIAAADjAAAACgD#####AQAAAAAQAAABBQAAAADkAAAA4wAAAAsA#####wB#f38AEAAAAQEBAAAAlgAAAOIAAAAKAP####8Af39#ABAAAAEFAAAAAJYAAADjAAAACgD#####AH9#fwAQAAABBQAAAADnAAAA4wAAAAsA#####wB#f38AEAAAAQEBAAAA5wAAAOQAAAALAP####8Af39#ABAAAAEBAQAAAOgAAADlAAAAFQD#####AAAAAABAKgAAAAAAAMAAAAAAAAAAAAAAxQ4AAf###wAAAAAAAAACAAAAAQAAAAAAAAAAABFWb2x1bWUgZCdlYXUgZW4gTAAAAAUA#####wEAAAAAEAAAAQEBAAAAiQE#6qqqqqqqq#####8AAAABAAlDTG9uZ3VldXIA#####wAAAGYAAACI#####wAAAAIACUNDZXJjbGVPUgD#####AQAAAAEBAAAAiQAAAAgDAAAACAIAAAAJAAAAZAAAAAkAAABlAAAACQAAAIIA#####wAAAAEAEENJbnREcm9pdGVDZXJjbGUA#####wAAAOwAAADu#####wAAAAEAEENQb2ludExpZUJpcG9pbnQA#####wEAAAAAEAAAAQUAAQAAAO8AAAArAP####8BAAAAABAAAAEFAAIAAADvAAAAAwD#####AAFrAAMxLzQAAAAIAwAAAAE#8AAAAAAAAAAAAAFAEAAAAAAAAP####8AAAABABJDQXJjRGVDZXJjbGVEaXJlY3QA#####wEAAAABAQAAAIkAAADwAAAA8f####8AAAABAA9DUG9pbnRMaWVDZXJjbGUA#####wEAAAAAEAAAAQUAAT#LQPMykWXjAAAA8#####8AAAABAA1DUG9pbnRQcm9qZXRlAP####8BAAAAABAAAAEFAAAAAPQAAADsAAAABwD#####AAAA9QAAAAkAAADyAAAACgD#####AQAAAAAQAAABBQAAAAD0AAAA9gAAACQA#####wAAAAABAQAAAPcAAAAyAAAAAAD0AAAABAAAAPQAAAD1AAAA9gAAAPf#####AAAAAQAPQ1N5bWV0cmllQXhpYWxlAP####8AAADsAAAACgD#####AQAAAAAQAAABBQAAAAD3AAAA+QAAACQA#####wAAAAAAAQAAAPoAAAA8AAAAAAD0AAAABQAAAPQAAAD1AAAA9gAAAPcAAAD6AAAABwD#####AAAAZgAAAAgDAAAACQAAAIIAAAAJAAAAZQAAAAoA#####wEAAAAAEAAAAQUAAAAA8AAAAPwAAAAKAP####8BAAAAABAAAAEFAAAAAPEAAAD8#####wAAAAEACUNDZXJjbGVPQQD#####AQAAAAEBAAAAjgAAAP0AAAAtAP####8BAAAAABAAAAEFAAE#5ntWGuQ8wgAAAP8AAAAFAP####8BAAAAABAAAAEBAQAAAI4BP+qqqqqqqqsAAAAuAP####8BAAAAABAAAAEFAAAAAQAAAAEBAAAABwD#####AAABAgAAAAkAAADyAAAACgD#####AQAAAAAQAAABBQAAAAEAAAABAwAAACQA#####wAAAAAAAQAAAQQAAAB4AAAAAAEAAAAABAAAAQAAAAECAAABAwAAAQQAAAALAP####8AAAAAABAAAAEAAQAAAPEAAAD+AAAACwD#####AAAAAAAQAAABAAEAAADwAAAA#QAAABUA#####wAAAAAAwBgAAAAAAADAAAAAAAAAAAAAAI4MAAAAAAACAAAAAQAAAAEAAAAAAAAAAAADI0dIAAAAFQD#####AAAAAABAFAAAAAAAAMAAAAAAAAAAAAAA#QwAAf###wAAAAAAAAABAAAAAQAAAAAAAAAAAAMjR0wAAAALAP####8AAAAAABAAAAEAAQAAAI4AAAD9AAAACwD#####AAAAAAAQAAABAQEAAACJAAAA8AAAABUA#####wAAAAAAwCQAAAAAAABACAAAAAAAAAAAAJAMAAAAAAACAAAAAQAAAAEAAAAAAAAAAAADI0dFAAAABQD#####AQAAAAAQAAABAQEAAACQAT#qqqqqqqqr#####wAAAAEAEENJbnREcm9pdGVEcm9pdGUA#####wEAAAAAEAAAAQUAAAABDQAAAQf#####AAAAAQARQ1N5bWV0cmllQ2VudHJhbGUA#####wAAAJAAAAAKAP####8BAAAAABAAAAEFAAAAAQ4AAAEPAAAALAD#####AQAAAAEBAAAAkAAAAQ4AAAEQAAAALQD#####AQAAAAAQAAABBQABP9E+5jRTgJoAAAERAAAALgD#####AQAAAAAQAAABBQAAAAESAAABDQAAAAcA#####wAAARMAAAAJAAAA8gAAAAoA#####wEAAAAAEAAAAQUAAAABEgAAARQAAAAkAP####8AAAD#AQEAAAEVAAAAPAAAAAABEgAAAAQAAAESAAABEwAAARQAAAEVAAAALwD#####AAABDQAAAAoA#####wEAAP8AEAAAAQUAAAABFQAAARcAAAAkAP####8AAAD#AAEAAAEYAAAAPAAAAAABEgAAAAUAAAESAAABEwAAARQAAAEVAAABGP####8AAAABABFDU3VyZmFjZURldXhMaWV1eAD#####AAB#fwAAAAUAAAD7AAABGQAAADMA#####wAAAP8AAAAFAAABFgAAARkAAAAhAP####8AfwAAABAAAAEFAAAAAJsAAAAJAAAAkgAAAAEAAAAAAAAAAAAAACEA#####wAAAP8ADgABTQDAHAAAAAAAAMA0AAAAAAAABQAAAACbAAAACQAAAJIAAAAJAAAAkwAAACEA#####wAAAP8AEAAAAQUAAAAAmwAAAAEAAAAAAAAAAAAAAAkAAACTAAAAIgD#####AAAA#wDAJgAAAAAAAAAAAAAAAAAAAAABHgwAAf###wAAAAIAAAABAAAAAQAAAAAAAAAAAARWKHgpAAAACwD#####AAAAAAAQAAABAQEAAAEeAAABHQAAAAsA#####wAAAAAAEAAAAQEBAAABHQAAARwAAAALAP####8AAAAAABAAAAEBAQAAAJAAAAEOAAAAFQD#####AQAAAABAIAAAAAAAAD#wAAAAAAAAAAABDg4AAAAAAAAAAAABAAAAAQAAAAAAAAAAAAFGAAAAFQD#####AQAAAAH#####DkAwAAAAAAAAQCgAAAAAAAABAf#MzAAAAAAAAAAAAAAAAQAAAAAAAAAAABNDYXB0dXJlciBsZSBwb2ludCBFAAAACwD#####AAAAAAAQAAABAAEAAABmAAAA8AAAAAsA#####wAAAAAAEAAAAQABAAAAZgAAAPEAAAAiAP####8AAAAAAf####8OQCgAAAAAAABASYAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAdFxiZWdpbnthcnJheX17bH0Ke0JBID0gXFZhbHtyJ30gfQpcXCB7eCA9IEJFIFxhcHByb3ggXFZhbHt4fSBcO2RtfQpcXCB7eSA9IFYoeCkgXGFwcHJveCBcVmFse3l9IFw7IGRtXjN9ClxlbmR7YXJyYXl9#####wAAAAEAEENNYWNyb0FwcGFyaXRpb24A#####wAAAP8B#####wxAeYAAAAAAAEAYAAAAAAAAAgHMzP8AAAAAAAAAAAAAAAEAAAAAAAAAAAAGVm9pciBTAAAAAAAEAAAAigAAASUAAAEmAAAAgwD#####AAAAAQARQ01hY3JvRGlzcGFyaXRpb24A#####wAAAP8B#####wxAfiAAAAAAAEAYAAAAAAAAAgHMzP8AAAAAAAAAAAAAAAEAAAAAAAAAAAAIQ2FjaGVyIFMAAAAAAAUAAABmAAAAigAAASUAAAEmAAAAgwAAABUA#####wEAAAAAAAAAAAAAAABAGAAAAAAAAAAAAKsKAAAAAAABAAAAAAAAAAEAAAAAAAAAAAALI1ZhbChhYnN3MSkAAAASAP####8AZmZmAAABKgAAAAkAAACcAAAAqwAAAAQAAACrAAAArAAAAK0AAAEqAAAAFQD#####AWZmZgDAJAAAAAAAAL#wAAAAAAAAAAAAsgoAAAAAAAIAAAABAAAAAQAAAAAAAAAAAAsjVmFsKG9yZHIxKQAAABIA#####wBmZmYAAAEsAAAACQAAAJ0AAACyAAAABAAAALIAAACzAAAAtAAAASwAAAAVAP####8AZmZmAMAQAAAAAAAAP#AAAAAAAAAAAACUCgAAAAAAAgAAAAAAAAABAAAAAAAAAAAAATAAAAAVAP####8B#wAAAMA0AAAAAAAAwCYAAAAAAAAAAACIEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAyNHVQAAABUA#####wAAAAAAwCwAAAAAAADAIgAAAAAAAAAAAIkQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAADI0dCAAAAFQD#####AAAAAABACAAAAAAAAMAmAAAAAAAAAAAA8BAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAMjR0EAAAAiAP####8AfwAAAAAAAAAAAAAAQBgAAAAAAAAAAAEcEgAB####AAAAAQAAAAAAAAABAAAAAAAAAAAAAXgAAAAVAP####8A#wAAAf####8QQCUAAAAAAABAfDhR64UeuAIAAAAAAAAAAAAAAAABAAAAAAAAAAAABiNHWk9PTQAAAAMA#####wAIdGVzdGNvbmUABHI9cicAAAAICAAAAAkAAABkAAAACQAAAGMAAAACAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABQFqgAAAAAABAgxwo9cKPXAAAAAcA#####wAAAGYAAAAJAAABNAAAAAoA#####wAAAAABEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAATUAAAE2AAAAAwD#####AAtDb25lVmlzaWJsZQAKMS90ZXN0Y29uZQAAAAgDAAAAAT#wAAAAAAAAAAAACQAAATQAAAAHAP####8AAABmAAAACQAAATgAAAAKAP####8AAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAE1AAABOQAAABUA#####wAAAAABAAABOhAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAClJbCBuJ3kgYSBwYXMgZGUgY8O0bmUgZGFucyBjZXMgY29uZGl0aW9ucwAAAO3##########w=="
+				if (!sortie_html) texte = `\\begin{minipage}{0.7 \\linewidth} \n\t`
+				else texte = ``
+				texte += `Un seau a la forme d'un tronc de cône.<br>`
+				texte += `Sa hauteur intérieure est de ${tex_nombre(h3)}${sp()}dm, sa petite base a un dimaètre intérieur de ${tex_nombre(r2 * 2)}${sp()}dm et sa grande base (l'ouverture) a un diamètre intérieur de ${tex_nombre(r * 2)}${sp()}dm.<br>`
+				if (!sortie_html) texte += `La figure n'est pas en vraie grandeur.<br>`
+				texte += num_alpha(0) + ` Calculer la hauteur du cône obtenu en prolongeant les bords du seau.<br>`
+				texte += num_alpha(1) + ` En déduire le volume de ce cône.<br>`
+				texte += num_alpha(2) + ` En déduire le volume total du seau.<br>`
+				if (sortie_html) texte += `Dans ces deux prochaines questions, on considère qu'on remplit le seau à mi-hauteur d'eau.<br>`
+				else texte += num_alpha(3) + ` On remplit le seau à mi-hauteur d'eau. Calculer le volume d'eau correspondant.`
+				if (sortie_html) {
+					texte += num_alpha(3) + ` Par lecture graphique, après avoir correctement paramétré la figure, lire le volume d'eau correspondant.<br>`
+					texte += num_alpha(4) + ` Retrouver ce résultat par le calcul.<br>`
+				}
+				if (sortie_html) texte += `<br>On peut déplacer le cône avec S et modifier les valeurs avec leurs curseurs respectifs.`
+				else texte += `\n\t \\end{minipage} \n\t \\begin{minipage}{0.3 \\linewidth} \n\t \\begin{tikzpicture}[scale=0.8]
 \\definecolor{hhhhhh}{rgb}{0,0,0}
 \\definecolor{phphph}{rgb}{0.5,0.5,0.5}
 \\definecolor{ffffff}{rgb}{1,1,1}
@@ -5163,79 +5163,79 @@ function Agrandissement_reduction() {
 \\node at (5.362, 9.023) [align=left,below right ,black,,font= \\sf \\fontsize {0.398cm} {0.498cm} \\selectfont] {\\textbf{A}};
 \\fill[color=black] (3.836,0.278) circle (0.053);
 \\end{tikzpicture} \n\t \\end{minipage}`
-					texte_corr = num_alpha(0) + ` Les triangles SBA et SHL sont semblables car les droites (BA) et (HL) sont parallèles dans le plan du triangle SHL.<br>`
-					texte_corr += ` La tangente de l'angle $\\widehat{HSL}$ est égale dans le triangle SHL à $\\dfrac{\\text{HL}}{\\text{SH}}$ et dans le triangle SBA à $\\dfrac{\\text{BA}}{\\text{SB}}$.<br>`
-					texte_corr += ` d'où $\\dfrac{\\text{HL}}{\\text{SH}}=\\dfrac{\\text{BA}}{\\text{SH}-\\text{BH}}$ `
-					texte_corr += ` et l'égalité des produits en croix nous donne : $\\text{HL}\\left(\\text{SH}-\\text{BH} \\right) =\\text{BA}\\times \\text{SH}$.<br>`
-					texte_corr += ` Soit avec les données numériques : $${tex_nombre(r)}\\left(\\text{SH}-${tex_nombre(h3)}\\right)=${tex_nombre(r2)}\\times \\text{SH}$.<br>`
-					texte_corr += `On en déduit que SH$\\left(${tex_nombre(r)}-${tex_nombre(r2)}\\right)=${tex_nombre(r)}\\times${tex_nombre(h3)}$.<br>`
-					texte_corr += `D'où SH $=\\dfrac{${tex_nombrec(r * h3)}}{${tex_nombrec(r - r2)}}=${tex_nombre(h1)}$ dm ( SB = $${tex_nombre(h2)}$ dm).<br>`
+				texte_corr = num_alpha(0) + ` Les triangles SBA et SHL sont semblables car les droites (BA) et (HL) sont parallèles dans le plan du triangle SHL.<br>`
+				texte_corr += ` La tangente de l'angle $\\widehat{HSL}$ est égale dans le triangle SHL à $\\dfrac{\\text{HL}}{\\text{SH}}$ et dans le triangle SBA à $\\dfrac{\\text{BA}}{\\text{SB}}$.<br>`
+				texte_corr += ` d'où $\\dfrac{\\text{HL}}{\\text{SH}}=\\dfrac{\\text{BA}}{\\text{SH}-\\text{BH}}$ `
+				texte_corr += ` et l'égalité des produits en croix nous donne : $\\text{HL}\\left(\\text{SH}-\\text{BH} \\right) =\\text{BA}\\times \\text{SH}$.<br>`
+				texte_corr += ` Soit avec les données numériques : $${tex_nombre(r)}\\left(\\text{SH}-${tex_nombre(h3)}\\right)=${tex_nombre(r2)}\\times \\text{SH}$.<br>`
+				texte_corr += `On en déduit que SH$\\left(${tex_nombre(r)}-${tex_nombre(r2)}\\right)=${tex_nombre(r)}\\times${tex_nombre(h3)}$.<br>`
+				texte_corr += `D'où SH $=\\dfrac{${tex_nombrec(r * h3)}}{${tex_nombrec(r - r2)}}=${tex_nombre(h1)}$ dm ( SB = $${tex_nombre(h2)}$ dm).<br>`
 
-					texte_corr += num_alpha(1) + ` Le volume du cône est $\\dfrac{A_\\text{base}}{3}\\times \\text{hauteur}$ dm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r)}\\pi}{3} \\times ${tex_nombre(h1)}$ dm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} $\\approx ${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3))}$ dm${exposant(3)}.<br>`
-					texte_corr += num_alpha(2) + ` Le seau est un tronc de cône. Pour calculer son volume, on va calculer le volume du cône réduit de hauteur SB et le soustraire du volume du cône de hauteur SH.<br>`
-					texte_corr += ` Le cône de hauteur SB est une réduction du cône de hauteur SH. Le coefficient de cette réduction est : $\\dfrac{${tex_nombre(r2)}}{${tex_nombre(r)}}`
-					if (!Number.isInteger(r) || pgcd(r2 * 10, r * 10) > 1) texte_corr += `=${tex_fraction_reduite(arrondi(r2 * 10), arrondi(r * 10))}$.<br>`
-					else texte_corr += `.$<br>`
-					texte_corr += `Dans une réduction de coefficient k, les volumes sont multipliés par k${exposant(3)}.<br>`
-					texte_corr += `Donc le volume du cône de hauteur SB est : $\\left(${tex_fraction_reduite(arrondi(r2 * 10), arrondi(r * 10))}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} $\\approx ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3))}$ dm${exposant(3)} '.<br>`
-					texte_corr += `Le volume du tronc de cône est : `
-					texte_corr += `$V_\\text{Cône} - V_\\text{CôneRéduit}$<br>Soit : <br>$\\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)}$ - \\left(${tex_fraction_reduite(arrondi(r2 * 10), arrondi(r * 10))}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} `
-					texte_corr += `$ = \\left(1-\\left(${tex_fraction_reduite(arrondi(r2 * 10), arrondi(r * 10))}\\right)^3\\right)\\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} `
-					texte_corr += `$ = \\left(1-\\dfrac{${fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[0] ** 3}}{${fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[1] ** 3}}\\right)\\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} `
-					texte_corr += `$ = \\dfrac{${fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[1] ** 3 - fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[0] ** 3}}{${fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[1] ** 3}}\\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} `
-					texte_corr += `$ \\approx ${tex_nombrec(arrondi((fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[1] ** 3 - fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[0] ** 3) * r * r * h1 * Math.PI / (fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[1] ** 3 * 3)))}$ dm${exposant(3)}<br>`
-					c = h3 / 2
-					if (sortie_html) {
-						texte_corr += num_alpha(3) + ` Il faut fixer HL à ${tex_nombrec(r*10)} cm ; BA à ${tex_nombrec(r2*10)} cm ; BH à ${tex_nombrec(h3*10)} cm et la hauteur d'eau à ${tex_nombrec((h1 - h2) *5)} cm.<br>`
-						texte_corr += `La lecture de $ y = V(x)$ nous donne un volume d'au d'environ ${tex_nombrec(arrondi(Math.PI * (((c + h2) ** 3) * ((r2 / h2) ** 2) - (r2 ** 2) * h2) / 3, 1))} dm${exposant(3)} soit environ ${tex_nombrec(arrondi(Math.PI * (((c + h2) ** 3) * ((r2 / h2) ** 2) - (r2 ** 2) * h2) / 3, 1))} litres d'eau.<br>`
-						texte_corr += num_alpha(4)
-					}
-					else texte_corr += num_alpha(3)
-					texte_corr += ` Nous allons déterminer le volume du cône de hauteur SE, puis nous soustrairons le volume du cône de hauteur SB pour obtenir le volume d'eau.<br>`
-					texte_corr += ` Le cône de hauteur SE est une réduction du cône de hauteur SH. Le coefficient de cette réduction est : $\\dfrac{${tex_nombre((h1 + h2) / 2)}}{${tex_nombrec(h1)}}`
-					if (!Number.isInteger(c+h2) || pgcd(h1 * 100, (c + h2) *100) > 1) texte_corr += `=${tex_fraction_reduite(calcul((c + h2) * 100),calcul( h1 * 100))}$.<br>`
-					else texte_corr += `.$<br>`
-					texte_corr += `Donc le volume $V$ du cône de hauteur SE est : $\\left(${tex_fraction_reduite(calcul((h1 + h2) * 50),calcul( h1 * 100))}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} $\\approx ${tex_nombrec(arrondi(Math.PI * r * r * (h2 + c) ** 3 / (h1 ** 2) / 3))}$ dm${exposant(3)}.<br>`
-					texte_corr += `Notons $V'$ le volume du cône de hauteur SB calculé à la question ` + num_alpha(2) + `<br> Le volume d'eau est donc : `
+				texte_corr += num_alpha(1) + ` Le volume du cône est $\\dfrac{A_\\text{base}}{3}\\times \\text{hauteur}$ dm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r)}\\pi}{3} \\times ${tex_nombre(h1)}$ dm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} $\\approx ${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3))}$ dm${exposant(3)}.<br>`
+				texte_corr += num_alpha(2) + ` Le seau est un tronc de cône. Pour calculer son volume, on va calculer le volume du cône réduit de hauteur SB et le soustraire du volume du cône de hauteur SH.<br>`
+				texte_corr += ` Le cône de hauteur SB est une réduction du cône de hauteur SH. Le coefficient de cette réduction est : $\\dfrac{${tex_nombre(r2)}}{${tex_nombre(r)}}`
+				if (!Number.isInteger(r) || pgcd(r2 * 10, r * 10) > 1) texte_corr += `=${tex_fraction_reduite(arrondi(r2 * 10), arrondi(r * 10))}$.<br>`
+				else texte_corr += `.$<br>`
+				texte_corr += `Dans une réduction de coefficient k, les volumes sont multipliés par k${exposant(3)}.<br>`
+				texte_corr += `Donc le volume du cône de hauteur SB est : $\\left(${tex_fraction_reduite(arrondi(r2 * 10), arrondi(r * 10))}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} $\\approx ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3))}$ dm${exposant(3)} '.<br>`
+				texte_corr += `Le volume du tronc de cône est : `
+				texte_corr += `$V_\\text{Cône} - V_\\text{CôneRéduit}$<br>Soit : <br>$\\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)}$ - \\left(${tex_fraction_reduite(arrondi(r2 * 10), arrondi(r * 10))}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} `
+				texte_corr += `$ = \\left(1-\\left(${tex_fraction_reduite(arrondi(r2 * 10), arrondi(r * 10))}\\right)^3\\right)\\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} `
+				texte_corr += `$ = \\left(1-\\dfrac{${fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[0] ** 3}}{${fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[1] ** 3}}\\right)\\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} `
+				texte_corr += `$ = \\dfrac{${fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[1] ** 3 - fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[0] ** 3}}{${fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[1] ** 3}}\\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} `
+				texte_corr += `$ \\approx ${tex_nombrec(arrondi((fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[1] ** 3 - fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[0] ** 3) * r * r * h1 * Math.PI / (fraction_simplifiee(arrondi(r2 * 10), arrondi(r * 10))[1] ** 3 * 3)))}$ dm${exposant(3)}<br>`
+				c = h3 / 2
+				if (sortie_html) {
+					texte_corr += num_alpha(3) + ` Il faut fixer HL à ${tex_nombrec(r * 10)} cm ; BA à ${tex_nombrec(r2 * 10)} cm ; BH à ${tex_nombrec(h3 * 10)} cm et la hauteur d'eau à ${tex_nombrec((h1 - h2) * 5)} cm.<br>`
+					texte_corr += `La lecture de $ y = V(x)$ nous donne un volume d'au d'environ ${tex_nombrec(arrondi(Math.PI * (((c + h2) ** 3) * ((r2 / h2) ** 2) - (r2 ** 2) * h2) / 3, 1))} dm${exposant(3)} soit environ ${tex_nombrec(arrondi(Math.PI * (((c + h2) ** 3) * ((r2 / h2) ** 2) - (r2 ** 2) * h2) / 3, 1))} litres d'eau.<br>`
+					texte_corr += num_alpha(4)
+				}
+				else texte_corr += num_alpha(3)
+				texte_corr += ` Nous allons déterminer le volume du cône de hauteur SE, puis nous soustrairons le volume du cône de hauteur SB pour obtenir le volume d'eau.<br>`
+				texte_corr += ` Le cône de hauteur SE est une réduction du cône de hauteur SH. Le coefficient de cette réduction est : $\\dfrac{${tex_nombre((h1 + h2) / 2)}}{${tex_nombrec(h1)}}`
+				if (!Number.isInteger(c + h2) || pgcd(h1 * 100, (c + h2) * 100) > 1) texte_corr += `=${tex_fraction_reduite(calcul((c + h2) * 100), calcul(h1 * 100))}$.<br>`
+				else texte_corr += `.$<br>`
+				texte_corr += `Donc le volume $V$ du cône de hauteur SE est : $\\left(${tex_fraction_reduite(calcul((h1 + h2) * 50), calcul(h1 * 100))}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ dm${exposant(3)} $\\approx ${tex_nombrec(arrondi(Math.PI * r * r * (h2 + c) ** 3 / (h1 ** 2) / 3))}$ dm${exposant(3)}.<br>`
+				texte_corr += `Notons $V'$ le volume du cône de hauteur SB calculé à la question ` + num_alpha(2) + `<br> Le volume d'eau est donc : `
 
-					texte_corr += `$V-V' \\approx ${tex_nombrec(arrondi(Math.PI * r * r * (h2 + c) ** 3 / (h1 ** 2) / 3))}$ dm${exposant(3)}$ - ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3))}$ dm${exposant(3)} $\\approx ${tex_nombre(calcul(Math.PI * r * r * (h2 + c) ** 3 / (h1 ** 2) / 3 - Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3, 1))}$ dm${exposant(3)}.<br>`
-					this.MG32codeBase64 = codeBase64
-											 this.MG32code_pour_modifier_la_figure = `
+				texte_corr += `$V-V' \\approx ${tex_nombrec(arrondi(Math.PI * r * r * (h2 + c) ** 3 / (h1 ** 2) / 3))}$ dm${exposant(3)}$ - ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3))}$ dm${exposant(3)} $\\approx ${tex_nombre(calcul(Math.PI * r * r * (h2 + c) ** 3 / (h1 ** 2) / 3 - Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3, 1))}$ dm${exposant(3)}.<br>`
+				this.MG32codeBase64 = codeBase64
+				this.MG32code_pour_modifier_la_figure = `
 												 mtg32App.calculate("MG32svg${numero_de_l_exercice}");
 												 mtg32App.display("MG32svg${numero_de_l_exercice}");
-												 ` 	
-					break;
-				case 5: // Un problème avec un cône Vanille Chocolat.
-					r = calcul(randint(20, 28) / 10)
-					h1 = calcul(randint(20, 28) / 2)
-					h2 = randint(1,3)
+												 `
+				break;
+			case 5: // Un problème avec un cône Vanille Chocolat.
+				r = calcul(randint(20, 28) / 10)
+				h1 = calcul(randint(20, 28) / 2)
+				h2 = randint(1, 3)
 
-					if (this.sup2<3)
-					if (this.sup2==1) // coefficient de réduction décimal
-						while (calcul(h2/h1)!=arrondi(h2/h1,1)) {
+				if (this.sup2 < 3)
+					if (this.sup2 == 1) // coefficient de réduction décimal
+						while (calcul(h2 / h1) != arrondi(h2 / h1, 1)) {
 							r = calcul(randint(20, 28) / 10)
 							h1 = calcul(randint(20, 28) / 2)
-							h2 = randint(1,3)
+							h2 = randint(1, 3)
 						}
 					else //coefficient de réduction rationnel
-						while (calcul(h2/h1)==arrondi(h2/h1,1)) {
+						while (calcul(h2 / h1) == arrondi(h2 / h1, 1)) {
 							r = calcul(randint(20, 28) / 10)
 							h1 = calcul(randint(20, 28) / 2)
-							h2 = randint(1,3)
-						}	
-					r2 = calcul(r*h2/h1)
-					codeBase64 = "TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAANmcmH###8BAP8BAAAAAAAAAAAFKgAAAuAAAAAAAAAAAAAAAAAAAAET#####wAAAAEACkNDYWxjQ29uc3QA#####wACcGkAFjMuMTQxNTkyNjUzNTg5NzkzMjM4NDb#####AAAAAQAKQ0NvbnN0YW50ZUAJIftURC0Y#####wAAAAEAD0NWYXJpYWJsZUJvcm5lZQD#####AANhbmc#6SH7VEQtGAAAAAAAAAAAQBkh+1RELRg#qZmZmZmZmgAAATAABDIqcGkABDAuMDX#####AAAAAQAKQ1BvaW50QmFzZQD#####AQAAAAAQAAAAQAgAAAAAAAAAAAAAAAAAAAUAAUB#eAAAAAAAQHqoUeuFHrj#####AAAAAQAHQ0NhbGN1bAD#####AAVtaW5pMQADMC4yAAAAAT#JmZmZmZmaAAAABAD#####AAVtYXhpMQABMgAAAAFAAAAAAAAAAP####8AAAABABRDSW1wbGVtZW50YXRpb25Qcm90bwD#####AAdDdXJzZXVyAAAABQAAAAUAAAADAAAAAwAAAAQAAAAC#####wAAAAEAFENEcm9pdGVEaXJlY3Rpb25GaXhlAAAAAAUBAAAAABAAAAEAAQAAAAIBP#AAAAAAAAD#####AAAAAQAPQ1BvaW50TGllRHJvaXRlAQAAAAUBAAAAABAAAADACAAAAAAAAD#wAAAAAAAABQABQEuAAAAAAAAAAAAG#####wAAAAEAC0NIb21vdGhldGllAAAAAAUAAAAC#####wAAAAEACkNPcGVyYXRpb24D#####wAAAAEAD0NSZXN1bHRhdFZhbGV1cgAAAAMAAAAJAQAAAAoAAAADAAAACgAAAAT#####AAAAAQALQ1BvaW50SW1hZ2UAAAAABQEAAAAADQACTzEAwBAAAAAAAABAEAAAAAAAAAUAAAAABwAAAAgAAAAIAAAAAAUAAAACAAAACQMAAAAJAQAAAAE#8AAAAAAAAAAAAAoAAAADAAAACQEAAAAKAAAABAAAAAoAAAADAAAACwAAAAAFAQAAAAANAAJJNQDAAAAAAAAAAEAIAAAAAAAABQAAAAAHAAAACv####8AAAABAAhDU2VnbWVudAEAAAAFAQAAAAAQAAABAQEAAAACAAAABwAAAAcBAAAABQEAAAABEAACazEAwAAAAAAAAABAAAAAAAAAAAEAAT#aw32sN9rDAAAADP####8AAAACAA9DTWVzdXJlQWJzY2lzc2UBAAAABQAEem9vbQAAAAkAAAALAAAADf####8AAAABAA9DVmFsZXVyQWZmaWNoZWUBAAAABQEAAAAAAAAAAAAAAADAGAAAAAAAAAAAAA0PAAH###8AAAABAAAAAgAAAAEAAAAAAAAAAAAAAAACAAAADgAAAAMA#####wH#AAAAEAABWgAAAAAAAAAAAEAIAAAAAAAABQABQHmoAAAAAABAd2hR64UeuAAAAAgA#####wAAABAAAAAKAAAADgAAAAYA#####wH#AAABEAAAAQEBAAAAEAA#8AAAAAAAAAAAAAcA#####wH#AAAAEAABTQAAAAAAAAAAAEAIAAAAAAAABQABwEgAAAAAAAAAAAASAAAACwD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAEwAAABEAAAADAP####8BAAAAAQ8AAk8yAQUAAUCA3AAAAAAAQICEKPXCj1wAAAAGAP####8BAAAAARAAAAEAAQAAABUAP#AAAAAAAAAAAAAHAP####8BAAAAAQ8AAkoyAQUAAMBAAAAAAAAAAAAAFv####8AAAABAAlDTG9uZ3VldXIA#####wAAABUAAAAXAAAAAwD#####AAAAAAAPAAFPAMAYAAAAAAAAQCQAAAAAAAAFAAFAYpAAAAAAAEBIQo9cKPXDAAAABgD#####AQAAAAAQAAABAAEAAAAZAUAD6BRQ79ycAAAABwD#####Af8AAAAQAAJJIgAAAAAAAAAAAEAIAAAAAAAABQABQDF7TwMpFiAAAAAaAAAABAD#####AAJoMQACMTAAAAABQCQAAAAAAAAAAAAEAP####8AAmgyAAE0AAAAAUAQAAAAAAAAAAAABAD#####AAFyAAMzLjUAAAABQAwAAAAAAAD#####AAAAAQARQ1N5bWV0cmllQ2VudHJhbGUA#####wAAABUAAAADAP####8BAAAAAQ8AAk8zAQUAAUCSQgAAAAAAQHe4UeuFHrcAAAAGAP####8BAAAAABAAAAEAAQAAACABQAPoFFDv3JwAAAADAP####8BAAAAAQsAAk80AQUAAUCSVgAAAAAAQH5YUeuFHrgAAAAGAP####8BAAAAABAAAAEAAQAAACIBQAPoFFDv3JwAAAAQAP####8AAAAZAAAACwD#####AQB#AAALAAJXNADANQAAAAAAAMAUAAAAAAAABQAAAAAXAAAAH#####8AAAABAAxDVHJhbnNsYXRpb24A#####wAAABUAAAAXAAAACwD#####AQAAAAALAAJXNwBAAAAAAAAAAAAAAAAAAAAABQAAAAAgAAAAJv####8AAAABAAlDQ2VyY2xlT0EA#####wF#f38BAQAAACAAAAAn#####wAAAAEAEENJbnREcm9pdGVDZXJjbGUA#####wAAACEAAAAo#####wAAAAEAEENQb2ludExpZUJpcG9pbnQA#####wEAAAAADQACSTMBBQABAAAAKf####8AAAABAA9DUG9pbnRMaWVDZXJjbGUA#####wEAAAABCwACSzMBAQABQBX9VSbZZwcAAAAo#####wAAAAIAE0NNZXN1cmVBbmdsZU9yaWVudGUA#####wAIYW5ndGhldGEAAAAqAAAAIAAAACsAAAAEAP####8ABXRoZXRhAAhhbmd0aGV0YQAAAAoAAAAsAAAABAD#####AAN4JzEACy1zaW4odGhldGEp#####wAAAAEADENNb2luc1VuYWlyZf####8AAAACAAlDRm9uY3Rpb24DAAAACgAAAC0AAAAEAP####8AA3gnMgALLWNvcyh0aGV0YSkAAAAXAAAAGAQAAAAKAAAALQAAABUA#####wEAAAAACwACVzEAwAAAAAAAAABAAAAAAAAAAAUAAUATXOOpPArvAAAAKAAAABYA#####wAFYW5nbGUAAAAqAAAAIAAAADD#####AAAAAQASQ0FyY0RlQ2VyY2xlRGlyZWN0AP####8Bf39#AQEAAAAVAAAAFwAAACUAAAAVAP####8BAAAAAQsAAksyAQEAAT+3ICjs75hDAAAAMgAAABYA#####wAGYW5ncGhpAAAAFwAAABUAAAAzAAAABAD#####AANwaGkACXBpK2FuZ3BoaQAAAAkAAAAACgAAAAAAAAAKAAAANAAAAAQA#####wADeScxABNjb3ModGhldGEpKnNpbihwaGkpAAAACQIAAAAYBAAAAAoAAAAtAAAAGAMAAAAKAAAANQAAAAQA#####wADeScyABQtc2luKHRoZXRhKSpzaW4ocGhpKQAAABcAAAAJAgAAABgDAAAACgAAAC0AAAAYAwAAAAoAAAA1#####wAAAAEAF0NNZXN1cmVBbmdsZUdlb21ldHJpcXVlAP####8AAAAXAAAAFQAAACUAAAAEAP####8ABHBsYXQABkoyTzJXNAAAAAoAAAA4AAAABAD#####AAVkcm9pdAAGcGxhdC8yAAAACQMAAAAKAAAAOQAAAAFAAAAAAAAAAAAAAAwA#####wEAAAAAEAAAAQABAAAAFQAAABcAAAAMAP####8BAAAAABAAAAEAAQAAACAAAAAqAAAADAD#####AQAAAAAQAAABAAEAAAAgAAAAK#####8AAAACABNDTWFycXVlQW5nbGVPcmllbnRlAP####8BfwAAAAIAAAAAQDiyu8xLZZ0AAAAqAAAAIAAAACsB#####wAAAAEADENCaXNzZWN0cmljZQD#####AX8AAAAQAAABAQEAAAAqAAAAIAAAACsAAAAHAP####8BfwAAABAAAAEFAAFAebYKC41k5QAAAD######AAAAAgAGQ0xhdGV4AP####8BfwAAAMAUAAAAAAAAwCYAAAAAAAAAAABAEQAAAAAAAAAAAAAAAAABAAAAAAAAAAAAClx2YXJ0aGV0YSAAAAAMAP####8BAAAAABAAAAEAAQAAABUAAAAzAAAACAD#####AAAAIgAAABgEAAAACgAAADUAAAAbAP####8BAAD#AAIAAAAAQDdS5Q2zo6IAAAAXAAAAFQAAADMBAAAAHAD#####AQAA#wAQAAABAQEAAAAXAAAAFQAAADMAAAAHAP####8BAAD#ABAAAAEFAAFAd7hgWcShNQAAAEUAAAAdAP####8BAAD#AAAAAAAAAAAAwBQAAAAAAAAAAABGEQAAAAAAAQAAAAEAAAABAAAAAAAAAAAAB1x2YXJwaGkAAAAEAP####8AAWsACHNpbihwaGkpAAAAGAMAAAAKAAAANQAAAAQA#####wAKdGVzdFBoaU51bAAnMS8oKHBoaT0wKSsoYWJzKHBoaS1wbGF0KTwwLjAwMDAwMDAwMSkpAAAACQMAAAABP#AAAAAAAAAAAAAJAAAAAAkIAAAACgAAADUAAAABAAAAAAAAAAAAAAAJBAAAABgAAAAACQEAAAAKAAAANQAAAAoAAAA5AAAAAT4RLgvoJtaVAAAACAD#####AAAAGQAAAAoAAABJAAAABgD#####AQAAAAEQAAABAAEAAAAiAD#wAAAAAAAAAAAABwD#####AQAAAAELAAJKNAEFAAHAS4AAAAAAAAAAAEsAAAASAP####8BZmZmAAEAAAAiAAAATAAAABUA#####wEAAAAAEAAAAQUAAT#wl+m6eQJhAAAATQAAAAYA#####wEAAAAAEAAAAQABAAAATgBAA+gUUO#cnP####8AAAABABBDSW50RHJvaXRlRHJvaXRlAP####8BAAAAABAAAAEFAAAAACMAAABPAAAAEwD#####AAAAIwAAAE0AAAAUAP####8BAAAAAA0AAkk0AQUAAQAAAFH#####AAAAAgAHQ1JlcGVyZQD#####AAAAAAEBAAAAIgAAAFIAAABMAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAT#wAAAAAAAAAAAAAT#wAAAAAAAAAAAACwD#####AQAAAAAQAAABBQAAAABMAAAAQwAAAAgA#####wAAAFAAAAAYBAAAAAoAAAA1AAAACwD#####AQAAAAAQAAABBQAAAABOAAAAVf####8AAAACAA1DTGlldURlUG9pbnRzAP####8BAH9#AQEAAABWAAAAZAAAAAAATgAAAAUAAABOAAAATwAAAFAAAABVAAAAVv####8AAAABAAhDVmVjdGV1cgD#####AQAA#wAQAAABAAEAAAAiAAAAVAD#####AAAAAQAQQ1BvaW50RGFuc1JlcGVyZQD#####AQAAAAAQAAABBQAAAABTAAAACgAAAC4AAAAKAAAANgAAACIA#####wEAAAAAEAAAAQUAAAAAUwAAAAoAAAAvAAAACgAAADcAAAAhAP####8B#wAAABAAAAEAAQAAACIAAABZAAAAACEA#####wEAfwAAEAAAAQABAAAAIgAAAFoAAAAAIAD#####AWZmZgEBAAAAWQAAAGQAAAAAACsAAAAGAAAAKwAAACwAAAAtAAAALgAAADYAAABZ#####wAAAAEADENTdXJmYWNlTGlldQD#####AX9#fwAAAAUAAABdAAAAIwD#####AX9#fwAAAAUAAABXAAAAEgD#####Af8AAAEBAAAAGQAAABv#####AAAAAQANQ0RlbWlEcm9pdGVPQQD#####Af8AAAANAAABAQEAAAAQAAAAE#####8AAAABAA5DUG9pbnRMaWVQb2ludAD#####Af8AAAAQAAFVAEAgAAAAAAAAwCoAAAAAAAAFAAAAABQAAAANAP####8AAXUAAAAQAAAAEwAAAGL#####AAAAAQARQ1BvaW50UGFyQWJzY2lzc2UA#####wH#AAAAEAACSTIAAAAAAAAAAABACAAAAAAAAAUAAAAAGQAAABsAAAAKAAAAYwAAACUA#####wEAAAAACwACSTEAwBAAAAAAAABAEAAAAAAAAAUAAAAAZP####8AAAABAAlDRHJvaXRlQUIA#####wEAAAAADQAAAQABAAAAGQAAAGX#####AAAAAQAWQ0Ryb2l0ZVBlcnBlbmRpY3VsYWlyZQD#####AQAAAAAQAAABAAEAAAAZAAAAZgAAABIA#####wEAAAAAAQAAABkAAABlAAAAEwD#####AAAAZwAAAGgAAAAUAP####8BAAAAAAsAAkoxAMAoAAAAAAAAwBAAAAAAAAAFAAIAAABpAAAAHwD#####AICAgAEBAAAAGQAAAGUAAABqAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAT#wAAAAAAAAAAAAAT#wAAAAAAAAAAAAIgD#####AQAAAAAPAAFJAD#wAAAAAAAAQBAAAAAAAAAFAAAAAGsAAAAKAAAALgAAAAoAAAA2AAAAIgD#####AQAAAAAPAAFKAQUAAAAAawAAAAoAAAAvAAAACgAAADcAAAAkAP####8BAAAAAA0AAAEBAQAAABkAAABsAAAAIgD#####AQAAAAAPAAFLAEAQAAAAAAAAwC4AAAAAAAAFAAAAAGsAAAABAAAAAAAAAAAAAAAYBAAAAAoAAAA1AAAAJAD#####AQAAAAANAAABAQEAAAAZAAAAbwAAACQA#####wEAAAAADQAAAQEBAAAAGQAAAG0AAAAhAP####8B#wAAABAAAAEAAQAAABkAAABsAAAAACEA#####wEAfwAAEAAAAQABAAAAGQAAAG0AAAAAIQD#####AQAA#wAQAAABAAEAAAAZAAAAbwD#####AAAAAQAPQ1N5bWV0cmllQXhpYWxlAP####8AAABw#####wAAAAEAEUNNYWNyb0Rpc3Bhcml0aW9uAP####8BAAD#Af####8NQH3AAAAAAABAgkAAAAAAAAIBzMz#AAAAAAAAAAAAAAABAAAAAAAAAAAAEyhPLEksSixLKSBpbnZpc2libGUAAAAAAAkAAABxAAAAbgAAAHAAAAByAAAAcwAAAHQAAABtAAAAbAAAAG######AAAAAQAQQ01hY3JvQXBwYXJpdGlvbgD#####AQAA#wH#####DUB+cAAAAAAAQIMYAAAAAAACAczM#wAAAAAAAAAAAAAAAQAAAAAAAAAAABEoTyxJLEosSykgdmlzaWJsZQAAAAAACQAAAHEAAABuAAAAcAAAAHIAAABzAAAAdAAAAG0AAABsAAAAbwAAAAAfAP####8AgICAAQEAAAAZAAAAbAAAAG0AAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAAAAAABP#AAAAAAAAAAAAABP#AAAAAAAAAAAAAiAP####8B2NjYABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAABrAAAACgAAAB4AAAABAAAAAAAAAAAAAAAiAP####8BAAAAABAAAUIAAAAAAAAAAABACAAAAAAAAAUAAAAAeAAAAAoAAAAeAAAAAQAAAAAAAAAAAAAAJQD#####AQAAAAAPAAFBAQUAAAAAegAAAA0A#####wAEYWJzMQAAABkAAABsAAAAewAAAAQA#####wADUmF5AARhYnMxAAAACgAAAHwAAAAmAP####8BAAAAABAAAAEFAAAAABkAAABsAAAACQIAAAAKAAAAfQAAABgEAAAACgAAADEAAAAmAP####8BAAAAABAAAAEFAAAAABkAAABtAAAACQIAAAAKAAAAfQAAABgDAAAACgAAADEAAAARAP####8AAAAZAAAAfgAAAAsA#####wEAAAAAEAAAAQUAAAAAfwAAAIAAAAAgAP####8Af39#AQEAAACBAAAAeAEAAAAAMAAAAAYAAAAwAAAAMQAAAH4AAAB#AAAAgAAAAIEAAAAjAP####8A##8AAAAABQAAAIIAAAAiAP####8BAAAAABAAAAEFAAAAAGsAAAABAAAAAAAAAAAAAAAJAQAAAAEAAAAAAAAAAAAAAAoAAAB9AAAAEgD#####AQAAAAEBAAAAGQAAAIQAAAATAP####8AAABxAAAAhQAAABQA#####wEAAAAAEAAAAQUAAQAAAIYAAAALAP####8B#wD#ABAAAAEFAAAAAIcAAABKAAAACwD#####Af8A#wAQAAABBQAAAACIAAAAJAAAAAwA#####wEAAAAAEAAAAQACAAAAiAAAAIkAAAAHAP####8BAAAAABAAAAEFAAE#tLY8pd6vvwAAAIr#####AAAAAQAOQ09iamV0RHVwbGlxdWUA#####wAAAAAAAACKAAAADQD#####AAFhAAAAGQAAAGwAAAB7AAAAIgD#####AWZmZgAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAeAAAAAkCAAAACgAAAI0AAAAYBAAAAAoAAAABAAAACQIAAAAKAAAAjQAAABgDAAAACgAAAAEAAAAfAP####8A5ubmAAEAAAAZAAAAbAAAAG8AAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAAAAAABP#AAAAAAAAAAAAABP#AAAAAAAAAAAAAiAP####8BAAAAABAAAlMiAMA5AAAAAAAAwC4AAAAAAAAFAAAAAI8AAAABAAAAAAAAAAAAAAAKAAAAHAAAACUA#####wEAAAAADwABUwDARIAAAAAAAMAiAAAAAAAABQAAAACQAAAADQD#####AAVhYnMxMQAAABkAAABqAAAAkQAAAAQA#####wABcwAFYWJzMTEAAAAKAAAAkgAAACwA#####wAAAAAAAACR#####wAAAAEADkNUZXN0RXhpc3RlbmNlAP####8ACEV4aXN0RGVzAAAAkgAAAAQA#####wAKdGVzdFNFZ2FsTwAOMS8oMS1FeGlzdERlcykAAAAJAwAAAAE#8AAAAAAAAAAAAAkBAAAAAT#wAAAAAAAAAAAACgAAAJUAAAAIAP####8AAAAZAAAACgAAAJYAAAAEAP####8AA3knMAALa14yKlJheV4yL3MAAAAJAwAAAAkC#####wAAAAEACkNQdWlzc2FuY2UAAAAKAAAASAAAAAFAAAAAAAAAAAAAAC4AAAAKAAAAfQAAAAFAAAAAAAAAAAAAAAoAAACTAAAABAD#####AAN4JzAAFHJhYyhSYXleMi15JzBeMi9rXjIpAAAAGBIAAAAJAQAAAC4AAAAKAAAAfQAAAAFAAAAAAAAAAAAAAAkDAAAALgAAAAoAAACYAAAAAUAAAAAAAAAAAAAALgAAAAoAAABIAAAAAUAAAAAAAAAAAAAAIgD#####Af8AAAAQAAABBQAAAABrAAAACgAAAJkAAAAKAAAAmAAAAAsA#####wH#AAAAEAAAAQUAAAAAmgAAAHUAAAAGAP####8BAAAAABAAAAEBAQAAAJoAP#MzMzMzMzMAAAAGAP####8BAAAAABAAAAEBAQAAAJsAP#MzMzMzMzMAAAATAP####8AAACdAAAAhQAAABQA#####wEAAAAAEAAAAQUAAgAAAJ4AAAATAP####8AAACcAAAAhQAAABQA#####wEAAAAAEAAAAQUAAgAAAKAAAAAZAP####8BAAAAAQEAAAAZAAAAnwAAAKEAAAAVAP####8BAAAAAAsAAlczAMAkAAAAAAAAQBgAAAAAAAAFAAE#0#omyqGlpQAAAKL#####AAAAAQANQ1BvaW50UHJvamV0ZQD#####AQAAAAALAAJXMgDALgAAAAAAAEAUAAAAAAAABQAAAACjAAAAZgAAACYA#####wEAAAAACwACVzUAwCAAAAAAAABAIAAAAAAAAAUAAAAApAAAAKP#####AAAAAQANQ0ZvbmN0aW9uM1ZhcgAAAAAJAgAAAAkHAAAACgAAADUAAAABAAAAAAAAAAAAAAAJBgAAAAoAAAA1AAAACgAAADoAAAAKAAAASAAAAAkBAAAAAQAAAAAAAAAAAAAACgAAAEgAAAAEAP####8ACHRlc3RTaW50ABYxLyhhYnMocyk8PWFicyhrKSpSYXkpAAAACQMAAAABP#AAAAAAAAAAAAAJBgAAABgAAAAACgAAAJMAAAAJAgAAABgAAAAACgAAAEgAAAAKAAAAfQAAAAwA#####wAAAAAAEAAAAQACAAAAkQAAAJoAAAAMAP####8AAAAAABAAAAEAAgAAAJEAAACbAAAADAD#####AX9#fwAQAAABAAEAAACRAAAApQAAAAcA#####wEAAAAACwACVzYBBQABP+kwagu4xeQAAACpAAAAIAD#####AX9#fwABAAAAqgAAAFAAAAAAAKMAAAAFAAAAowAAAKQAAAClAAAAqQAAAKr#####AAAAAgASQ0xpZXVPYmpldFBhclB0TGllAP####8A2NjYAAAAqwAAAAFAJAAAAAAAAAAAAKoAAAACAAAAqgAAAKsAAAAgAP####8BAAAAAAIAAAClAAAAeAAAAAAAowAAAAMAAACjAAAApAAAAKUAAAAIAP####8AAAAZAAAACgAAAKYAAAALAP####8B#wD#ABAAAAEFAAAAAJEAAACuAAAADAD#####AX9#fwAQAAABAAEAAACvAAAAgQAAADEA#####wB#f38AAACwAAAAAUA1AAAAAAAAAAAAMAAAAAcAAAAwAAAAMQAAAH4AAAB#AAAAgAAAAIEAAACwAAAABwD#####AX9#fwAQAAABBQABP+jGPF4uJ0YAAACwAAAAIAD#####AX9#fwABAAAAsgAAAFABAAAAADAAAAAIAAAAMAAAADEAAAB+AAAAfwAAAIAAAACBAAAAsAAAALIAAAAxAP####8Af39#AAAAswAAAAFAJAAAAAAAAAAAALIAAAACAAAAsgAAALMAAAAsAP####8AAAAAAAAArQAAAAgA#####wAAAJEAAAAKAAAApgAAAAsA#####wH#AAAAEAAAAQUAAAAAgQAAALYAAAAgAP####8BAAAAAAIAAAC3AAAAZAEAAAAAMAAAAAcAAAAwAAAAMQAAAH4AAAB#AAAAgAAAAIEAAAC3AAAALAD#####AAAAAAAAALgAAAALAP####8B#wAAABAAAAEFAAAAAIQAAACXAAAAEgD#####AQAAAAACAAAAGQAAALoAAAAVAP####8BAAAAABAAAAEFAAFAAnKZ09yUFQAAALsAAAAMAP####8Bf39#ABAAAAEAAQAAABkAAAC8AAAABwD#####AX9#fwAQAAABBQABP+nN99SrrBcAAAC9AAAAEgD#####AX9#fwABAAAAGQAAAL4AAAAxAP####8Af39#AAAAvQAAAAFANAAAAAAAAAAAALwAAAACAAAAvAAAAL0AAAAxAP####8Af39#AAAAvwAAAAFAJAAAAAAAAAAAAL4AAAACAAAAvgAAAL8AAAAsAP####8AAAAAAAAAuwAAAAwA#####wEAAAAAEAAAAQACAAAAiQAAAJEAAAAHAP####8Bf39#ABAAAAEFAAE#wdH0IWEZJQAAAMMAAAAGAP####8Bf39#ABAAAAEAAQAAAMQBP#MzMzMzMzMAAAAMAP####8BAAAAABAAAAEAAgAAAJEAAACIAAAAHgD#####AX9#fwAQAAABBQAAAADFAAAAxgAAAAwA#####wF#f38AEAAAAQABAAAAxAAAAMcAAAAxAP####8Af39#AAAAyAAAAAFAJAAAAAAAAAAAAMQAAAAEAAAAxAAAAMUAAADHAAAAyAAAAAwA#####wF#f38AEAAAAQABAAAAkQAAAIsAAAAxAP####8Af39#AAAAygAAAAFAJAAAAAAAAAAAAIsAAAACAAAAiwAAAMoAAAAsAP####8AAAAAAAAAwwAAACwA#####wAAAAAAAADGAAAADAD#####AQAAAAAQAAABAQEAAACRAAAAjv####8AAAACABVDTGlldU9iamV0UGFyVmFyaWFibGUA#####wC9vb0AAADOAAAAAUA5AAAAAAAAAAAAAQAAAAMAAAABAAAAjgAAAM4AAAAiAP####8AAAAAABAAAk8nAMA5AAAAAAAAwCoAAAAAAAAFAAAAAI8AAAABAAAAAAAAAAAAAAAJAQAAAAoAAAAcAAAACgAAAB3#####AAAAAQAQQ0Ryb2l0ZVBhcmFsbGVsZQD#####Aebm5gAQAAABAAEAAADQAAAAbgAAAAwA#####wDm5uYAEAAAAQABAAAAkQAAAH4AAAAeAP####8BpKSkABAAAlAiAAAAAAAAAAAAQAgAAAAAAAAFAAAAANEAAADSAAAAMwD#####Aebm5gAQAAABAAEAAADQAAAAcQAAAAwA#####wDm5uYAEAAAAQABAAAAfwAAAJEAAAAeAP####8BpKSkABAAAlEiAMA7AAAAAAAAwCIAAAAAAAAFAAAAANQAAADVAAAAEQD#####AAAA0AAAANMAAAALAP####8BpKSkABAAAlAnAAAAAAAAAAAAQAgAAAAAAAAFAAAAANYAAADXAAAAIAD#####AKSkpAEBAAAA2AAAAHgBAAAAACsAAAAeAAAAKwAAACwAAAAtAAAALgAAAC8AAAA2AAAANwAAAGwAAABtAAAAbgAAAHEAAAB4AAAAegAAAHsAAAB8AAAAfQAAAH4AAAB#AAAAjwAAAJAAAACRAAAA0AAAANEAAADSAAAA0wAAANQAAADVAAAA1gAAANcAAADYAAAAIwD#####AP8AAAAAAAUAAADZAAAAEwD#####AAAAZwAAAGAAAAAUAP####8B#wAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAA2wAAABQA#####wH#AAAAEAACSiIAAAAAAAAAAABACAAAAAAAAAUAAgAAANsAAAAfAP####8A5ubmAAEAAAAZAAAAGwAAAN0AAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAAAAAABP#AAAAAAAAAAAAABP#AAAAAAAAD#####AAAAAgAMQ0NvbW1lbnRhaXJlAP####8B#wAAAf####8QQH+4AAAAAABAeyhR64UeuAIAAAAAAAAAAAAAAAABAAAAAAAAAAAABFpPT00AAAAIAP####8AAAAZAAAAAT#weuFHrhR7AAAACwD#####Af8AAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAkQAAAOAAAAA0AP####8AAAAAAMA0AAAAAAAAwCgAAAAAAAAAAADhEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAVMAAAATAP####8AAAAaAAAAhQAAABQA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAIAAADjAAAAFAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAQAAAOMAAAAMAP####8AAAAAABAAAAEBAQAAAJAAAADlAAAABgD#####AQAAAAEQAAABAQEAAADQAT#wAAAAAAAAAAAAHgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAA5wAAAOYAAAAMAP####8Af39#ABAAAAEBAQAAANAAAADoAAAADAD#####AAAAAAAQAAABAQEAAAAZAAAA5QAAAAwA#####wAAAAAAEAAAAQEBAAAAGQAAAJH#####AAAAAgAJQ0NlcmNsZU9SAP####8BAAAAAQEAAADQAAAAAT#ZmZmZmZmaAAAAABMA#####wAAAOkAAADsAAAAFAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAQAAAO0AAAAUAP####8AAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAA7QAAABMA#####wAAAOsAAADsAAAAFAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAgAAAPAAAAAUAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAA8AAAAAgA#####wAAANAAAAAYBAAAAAoAAAA1AAAACwD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAA8gAAAPMAAAARAP####8AAADQAAAA9AAAAAsA#####wEAAAAAEAAAAEAIAAAAAAAAAAAAAAAAAAAFAAAAAO4AAAD1AAAADAD#####AAAAAAAQAAABAQEAAAD0AAAA0AAAAAwA#####wAAAAAAEAAAAQEBAAAA0AAAAO4AAAAMAP####8AAAAAABAAAAEBAQAAAO4AAAD2AAAADAD#####AAAAAAAQAAABAQEAAAD2AAAA9P####8AAAABAAlDUG9seWdvbmUA#####wAAAAABAQAAAAUAAAD0AAAA0AAAAO4AAAD2AAAA9AAAABEA#####wAAANAAAADuAAAACwD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAGQAAAPwAAAALAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAAZAAAA9QAAABEA#####wAAABkAAAD+AAAACwD#####AQAAAAAQAAAAQAgAAAAAAAAAAAAAAAAAAAUAAAAA#QAAAP8AAAAMAP####8AAAAAABAAAAEBAQAAAP4AAAAZAAAADAD#####AAAAAAAQAAABAQEAAAAZAAAA#QAAAAwA#####wAAAAAAEAAAAQEBAAAA#QAAAQAAAAAMAP####8AAAAAABAAAAEBAQAAAQAAAAD+AAAANgD#####AAAAAAEBAAAABQAAAP4AAAAZAAAA#QAAAQAAAAD+AAAABgD#####AQAAAAEQAAABAQEAAAAQAT#wAAAAAAAAAAAANQD#####AQAAAAEBAAAAEAAAAAE#yZmZmZmZmgAAAAATAP####8AAAEGAAABBwAAABQA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAEAAAEIAAAAFAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAgAAAQgAAAAMAP####8B#wAAABAAAAEAAQAAAQoAAAEJ#####wAAAAEAB0NNaWxpZXUA#####wH#AAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAANAAAACQAAAANwD#####Af8AAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAGQAAANAAAAAOAP####8BAAAAAMAqAAAAAAAAwBwAAAAAAAAAAAEMEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAgAAAB0AAAA3AP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAB5AAAAGQAAAA4A#####wEAAAAAwBwAAAAAAAAAAAAAAAAAAAAAAQ8QAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAACAAAAHgAAAAQA#####wACaDMABWgxLWgyAAAACQEAAAAKAAAAHAAAAAoAAAAdAAAADgD#####AQAAAADANQAAAAAAAMAiAAAAAAAAAAABDRAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAEAAAERAAAAGP##########"
-					if (!sortie_html) texte = `\\begin{minipage}{0.7 \\linewidth} \n\t`
-					else texte=``
-					texte += `Un cône de glace d'une marque célèbre a pour rayon ${tex_nombre(r)}${sp()}cm et pour hauteur SO${sp()}=${sp()}${tex_nombre(h1)}${sp()}cm.<br>`
-					texte+=`Le fabricant a coulé au fond de ce cône du chocolat sur une hauteur SO' de ${h2}${sp()}cm.<br>`
-					texte += num_alpha(0) + ` Calculer le volume total du cône.<br>`					
-					texte += num_alpha(1) + ` En déduire le volume de chocolat présent dans le fond du cône.<br>`
-					texte += num_alpha(2) + ` Déduire des deux premières questions le volume de glace permettant de remplir le cône.<br>`
-					texte += num_alpha(3) + ` Si la glace avait été mise dans le cône avant le chocolat, quelle serait la hauteur atteinte par la glace dans le cône ?<br>`
-					texte += num_alpha(4) + ` Quelle serait alors l'épaisseur de chocolat au dessus de la glace ?<br>`
-					if (sortie_html) texte += `Le point O peut être déplacé et on peut changer l'angle de vue &#x3C6; `
-					else texte+=`\n\t \\end{minipage} \n\t \\begin{minipage}{0.3 \\linewidth} \n\t \\begin{tikzpicture}[scale=0.8]
+							h2 = randint(1, 3)
+						}
+				r2 = calcul(r * h2 / h1)
+				codeBase64 = "TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAANmcmH###8BAP8BAAAAAAAAAAAFKgAAAuAAAAAAAAAAAAAAAAAAAAET#####wAAAAEACkNDYWxjQ29uc3QA#####wACcGkAFjMuMTQxNTkyNjUzNTg5NzkzMjM4NDb#####AAAAAQAKQ0NvbnN0YW50ZUAJIftURC0Y#####wAAAAEAD0NWYXJpYWJsZUJvcm5lZQD#####AANhbmc#6SH7VEQtGAAAAAAAAAAAQBkh+1RELRg#qZmZmZmZmgAAATAABDIqcGkABDAuMDX#####AAAAAQAKQ1BvaW50QmFzZQD#####AQAAAAAQAAAAQAgAAAAAAAAAAAAAAAAAAAUAAUB#eAAAAAAAQHqoUeuFHrj#####AAAAAQAHQ0NhbGN1bAD#####AAVtaW5pMQADMC4yAAAAAT#JmZmZmZmaAAAABAD#####AAVtYXhpMQABMgAAAAFAAAAAAAAAAP####8AAAABABRDSW1wbGVtZW50YXRpb25Qcm90bwD#####AAdDdXJzZXVyAAAABQAAAAUAAAADAAAAAwAAAAQAAAAC#####wAAAAEAFENEcm9pdGVEaXJlY3Rpb25GaXhlAAAAAAUBAAAAABAAAAEAAQAAAAIBP#AAAAAAAAD#####AAAAAQAPQ1BvaW50TGllRHJvaXRlAQAAAAUBAAAAABAAAADACAAAAAAAAD#wAAAAAAAABQABQEuAAAAAAAAAAAAG#####wAAAAEAC0NIb21vdGhldGllAAAAAAUAAAAC#####wAAAAEACkNPcGVyYXRpb24D#####wAAAAEAD0NSZXN1bHRhdFZhbGV1cgAAAAMAAAAJAQAAAAoAAAADAAAACgAAAAT#####AAAAAQALQ1BvaW50SW1hZ2UAAAAABQEAAAAADQACTzEAwBAAAAAAAABAEAAAAAAAAAUAAAAABwAAAAgAAAAIAAAAAAUAAAACAAAACQMAAAAJAQAAAAE#8AAAAAAAAAAAAAoAAAADAAAACQEAAAAKAAAABAAAAAoAAAADAAAACwAAAAAFAQAAAAANAAJJNQDAAAAAAAAAAEAIAAAAAAAABQAAAAAHAAAACv####8AAAABAAhDU2VnbWVudAEAAAAFAQAAAAAQAAABAQEAAAACAAAABwAAAAcBAAAABQEAAAABEAACazEAwAAAAAAAAABAAAAAAAAAAAEAAT#aw32sN9rDAAAADP####8AAAACAA9DTWVzdXJlQWJzY2lzc2UBAAAABQAEem9vbQAAAAkAAAALAAAADf####8AAAABAA9DVmFsZXVyQWZmaWNoZWUBAAAABQEAAAAAAAAAAAAAAADAGAAAAAAAAAAAAA0PAAH###8AAAABAAAAAgAAAAEAAAAAAAAAAAAAAAACAAAADgAAAAMA#####wH#AAAAEAABWgAAAAAAAAAAAEAIAAAAAAAABQABQHmoAAAAAABAd2hR64UeuAAAAAgA#####wAAABAAAAAKAAAADgAAAAYA#####wH#AAABEAAAAQEBAAAAEAA#8AAAAAAAAAAAAAcA#####wH#AAAAEAABTQAAAAAAAAAAAEAIAAAAAAAABQABwEgAAAAAAAAAAAASAAAACwD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAEwAAABEAAAADAP####8BAAAAAQ8AAk8yAQUAAUCA3AAAAAAAQICEKPXCj1wAAAAGAP####8BAAAAARAAAAEAAQAAABUAP#AAAAAAAAAAAAAHAP####8BAAAAAQ8AAkoyAQUAAMBAAAAAAAAAAAAAFv####8AAAABAAlDTG9uZ3VldXIA#####wAAABUAAAAXAAAAAwD#####AAAAAAAPAAFPAMAYAAAAAAAAQCQAAAAAAAAFAAFAYpAAAAAAAEBIQo9cKPXDAAAABgD#####AQAAAAAQAAABAAEAAAAZAUAD6BRQ79ycAAAABwD#####Af8AAAAQAAJJIgAAAAAAAAAAAEAIAAAAAAAABQABQDF7TwMpFiAAAAAaAAAABAD#####AAJoMQACMTAAAAABQCQAAAAAAAAAAAAEAP####8AAmgyAAE0AAAAAUAQAAAAAAAAAAAABAD#####AAFyAAMzLjUAAAABQAwAAAAAAAD#####AAAAAQARQ1N5bWV0cmllQ2VudHJhbGUA#####wAAABUAAAADAP####8BAAAAAQ8AAk8zAQUAAUCSQgAAAAAAQHe4UeuFHrcAAAAGAP####8BAAAAABAAAAEAAQAAACABQAPoFFDv3JwAAAADAP####8BAAAAAQsAAk80AQUAAUCSVgAAAAAAQH5YUeuFHrgAAAAGAP####8BAAAAABAAAAEAAQAAACIBQAPoFFDv3JwAAAAQAP####8AAAAZAAAACwD#####AQB#AAALAAJXNADANQAAAAAAAMAUAAAAAAAABQAAAAAXAAAAH#####8AAAABAAxDVHJhbnNsYXRpb24A#####wAAABUAAAAXAAAACwD#####AQAAAAALAAJXNwBAAAAAAAAAAAAAAAAAAAAABQAAAAAgAAAAJv####8AAAABAAlDQ2VyY2xlT0EA#####wF#f38BAQAAACAAAAAn#####wAAAAEAEENJbnREcm9pdGVDZXJjbGUA#####wAAACEAAAAo#####wAAAAEAEENQb2ludExpZUJpcG9pbnQA#####wEAAAAADQACSTMBBQABAAAAKf####8AAAABAA9DUG9pbnRMaWVDZXJjbGUA#####wEAAAABCwACSzMBAQABQBX9VSbZZwcAAAAo#####wAAAAIAE0NNZXN1cmVBbmdsZU9yaWVudGUA#####wAIYW5ndGhldGEAAAAqAAAAIAAAACsAAAAEAP####8ABXRoZXRhAAhhbmd0aGV0YQAAAAoAAAAsAAAABAD#####AAN4JzEACy1zaW4odGhldGEp#####wAAAAEADENNb2luc1VuYWlyZf####8AAAACAAlDRm9uY3Rpb24DAAAACgAAAC0AAAAEAP####8AA3gnMgALLWNvcyh0aGV0YSkAAAAXAAAAGAQAAAAKAAAALQAAABUA#####wEAAAAACwACVzEAwAAAAAAAAABAAAAAAAAAAAUAAUATXOOpPArvAAAAKAAAABYA#####wAFYW5nbGUAAAAqAAAAIAAAADD#####AAAAAQASQ0FyY0RlQ2VyY2xlRGlyZWN0AP####8Bf39#AQEAAAAVAAAAFwAAACUAAAAVAP####8BAAAAAQsAAksyAQEAAT+3ICjs75hDAAAAMgAAABYA#####wAGYW5ncGhpAAAAFwAAABUAAAAzAAAABAD#####AANwaGkACXBpK2FuZ3BoaQAAAAkAAAAACgAAAAAAAAAKAAAANAAAAAQA#####wADeScxABNjb3ModGhldGEpKnNpbihwaGkpAAAACQIAAAAYBAAAAAoAAAAtAAAAGAMAAAAKAAAANQAAAAQA#####wADeScyABQtc2luKHRoZXRhKSpzaW4ocGhpKQAAABcAAAAJAgAAABgDAAAACgAAAC0AAAAYAwAAAAoAAAA1#####wAAAAEAF0NNZXN1cmVBbmdsZUdlb21ldHJpcXVlAP####8AAAAXAAAAFQAAACUAAAAEAP####8ABHBsYXQABkoyTzJXNAAAAAoAAAA4AAAABAD#####AAVkcm9pdAAGcGxhdC8yAAAACQMAAAAKAAAAOQAAAAFAAAAAAAAAAAAAAAwA#####wEAAAAAEAAAAQABAAAAFQAAABcAAAAMAP####8BAAAAABAAAAEAAQAAACAAAAAqAAAADAD#####AQAAAAAQAAABAAEAAAAgAAAAK#####8AAAACABNDTWFycXVlQW5nbGVPcmllbnRlAP####8BfwAAAAIAAAAAQDiyu8xLZZ0AAAAqAAAAIAAAACsB#####wAAAAEADENCaXNzZWN0cmljZQD#####AX8AAAAQAAABAQEAAAAqAAAAIAAAACsAAAAHAP####8BfwAAABAAAAEFAAFAebYKC41k5QAAAD######AAAAAgAGQ0xhdGV4AP####8BfwAAAMAUAAAAAAAAwCYAAAAAAAAAAABAEQAAAAAAAAAAAAAAAAABAAAAAAAAAAAAClx2YXJ0aGV0YSAAAAAMAP####8BAAAAABAAAAEAAQAAABUAAAAzAAAACAD#####AAAAIgAAABgEAAAACgAAADUAAAAbAP####8BAAD#AAIAAAAAQDdS5Q2zo6IAAAAXAAAAFQAAADMBAAAAHAD#####AQAA#wAQAAABAQEAAAAXAAAAFQAAADMAAAAHAP####8BAAD#ABAAAAEFAAFAd7hgWcShNQAAAEUAAAAdAP####8BAAD#AAAAAAAAAAAAwBQAAAAAAAAAAABGEQAAAAAAAQAAAAEAAAABAAAAAAAAAAAAB1x2YXJwaGkAAAAEAP####8AAWsACHNpbihwaGkpAAAAGAMAAAAKAAAANQAAAAQA#####wAKdGVzdFBoaU51bAAnMS8oKHBoaT0wKSsoYWJzKHBoaS1wbGF0KTwwLjAwMDAwMDAwMSkpAAAACQMAAAABP#AAAAAAAAAAAAAJAAAAAAkIAAAACgAAADUAAAABAAAAAAAAAAAAAAAJBAAAABgAAAAACQEAAAAKAAAANQAAAAoAAAA5AAAAAT4RLgvoJtaVAAAACAD#####AAAAGQAAAAoAAABJAAAABgD#####AQAAAAEQAAABAAEAAAAiAD#wAAAAAAAAAAAABwD#####AQAAAAELAAJKNAEFAAHAS4AAAAAAAAAAAEsAAAASAP####8BZmZmAAEAAAAiAAAATAAAABUA#####wEAAAAAEAAAAQUAAT#wl+m6eQJhAAAATQAAAAYA#####wEAAAAAEAAAAQABAAAATgBAA+gUUO#cnP####8AAAABABBDSW50RHJvaXRlRHJvaXRlAP####8BAAAAABAAAAEFAAAAACMAAABPAAAAEwD#####AAAAIwAAAE0AAAAUAP####8BAAAAAA0AAkk0AQUAAQAAAFH#####AAAAAgAHQ1JlcGVyZQD#####AAAAAAEBAAAAIgAAAFIAAABMAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAT#wAAAAAAAAAAAAAT#wAAAAAAAAAAAACwD#####AQAAAAAQAAABBQAAAABMAAAAQwAAAAgA#####wAAAFAAAAAYBAAAAAoAAAA1AAAACwD#####AQAAAAAQAAABBQAAAABOAAAAVf####8AAAACAA1DTGlldURlUG9pbnRzAP####8BAH9#AQEAAABWAAAAZAAAAAAATgAAAAUAAABOAAAATwAAAFAAAABVAAAAVv####8AAAABAAhDVmVjdGV1cgD#####AQAA#wAQAAABAAEAAAAiAAAAVAD#####AAAAAQAQQ1BvaW50RGFuc1JlcGVyZQD#####AQAAAAAQAAABBQAAAABTAAAACgAAAC4AAAAKAAAANgAAACIA#####wEAAAAAEAAAAQUAAAAAUwAAAAoAAAAvAAAACgAAADcAAAAhAP####8B#wAAABAAAAEAAQAAACIAAABZAAAAACEA#####wEAfwAAEAAAAQABAAAAIgAAAFoAAAAAIAD#####AWZmZgEBAAAAWQAAAGQAAAAAACsAAAAGAAAAKwAAACwAAAAtAAAALgAAADYAAABZ#####wAAAAEADENTdXJmYWNlTGlldQD#####AX9#fwAAAAUAAABdAAAAIwD#####AX9#fwAAAAUAAABXAAAAEgD#####Af8AAAEBAAAAGQAAABv#####AAAAAQANQ0RlbWlEcm9pdGVPQQD#####Af8AAAANAAABAQEAAAAQAAAAE#####8AAAABAA5DUG9pbnRMaWVQb2ludAD#####Af8AAAAQAAFVAEAgAAAAAAAAwCoAAAAAAAAFAAAAABQAAAANAP####8AAXUAAAAQAAAAEwAAAGL#####AAAAAQARQ1BvaW50UGFyQWJzY2lzc2UA#####wH#AAAAEAACSTIAAAAAAAAAAABACAAAAAAAAAUAAAAAGQAAABsAAAAKAAAAYwAAACUA#####wEAAAAACwACSTEAwBAAAAAAAABAEAAAAAAAAAUAAAAAZP####8AAAABAAlDRHJvaXRlQUIA#####wEAAAAADQAAAQABAAAAGQAAAGX#####AAAAAQAWQ0Ryb2l0ZVBlcnBlbmRpY3VsYWlyZQD#####AQAAAAAQAAABAAEAAAAZAAAAZgAAABIA#####wEAAAAAAQAAABkAAABlAAAAEwD#####AAAAZwAAAGgAAAAUAP####8BAAAAAAsAAkoxAMAoAAAAAAAAwBAAAAAAAAAFAAIAAABpAAAAHwD#####AICAgAEBAAAAGQAAAGUAAABqAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAT#wAAAAAAAAAAAAAT#wAAAAAAAAAAAAIgD#####AQAAAAAPAAFJAD#wAAAAAAAAQBAAAAAAAAAFAAAAAGsAAAAKAAAALgAAAAoAAAA2AAAAIgD#####AQAAAAAPAAFKAQUAAAAAawAAAAoAAAAvAAAACgAAADcAAAAkAP####8BAAAAAA0AAAEBAQAAABkAAABsAAAAIgD#####AQAAAAAPAAFLAEAQAAAAAAAAwC4AAAAAAAAFAAAAAGsAAAABAAAAAAAAAAAAAAAYBAAAAAoAAAA1AAAAJAD#####AQAAAAANAAABAQEAAAAZAAAAbwAAACQA#####wEAAAAADQAAAQEBAAAAGQAAAG0AAAAhAP####8B#wAAABAAAAEAAQAAABkAAABsAAAAACEA#####wEAfwAAEAAAAQABAAAAGQAAAG0AAAAAIQD#####AQAA#wAQAAABAAEAAAAZAAAAbwD#####AAAAAQAPQ1N5bWV0cmllQXhpYWxlAP####8AAABw#####wAAAAEAEUNNYWNyb0Rpc3Bhcml0aW9uAP####8BAAD#Af####8NQH3AAAAAAABAgkAAAAAAAAIBzMz#AAAAAAAAAAAAAAABAAAAAAAAAAAAEyhPLEksSixLKSBpbnZpc2libGUAAAAAAAkAAABxAAAAbgAAAHAAAAByAAAAcwAAAHQAAABtAAAAbAAAAG######AAAAAQAQQ01hY3JvQXBwYXJpdGlvbgD#####AQAA#wH#####DUB+cAAAAAAAQIMYAAAAAAACAczM#wAAAAAAAAAAAAAAAQAAAAAAAAAAABEoTyxJLEosSykgdmlzaWJsZQAAAAAACQAAAHEAAABuAAAAcAAAAHIAAABzAAAAdAAAAG0AAABsAAAAbwAAAAAfAP####8AgICAAQEAAAAZAAAAbAAAAG0AAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAAAAAABP#AAAAAAAAAAAAABP#AAAAAAAAAAAAAiAP####8B2NjYABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAABrAAAACgAAAB4AAAABAAAAAAAAAAAAAAAiAP####8BAAAAABAAAUIAAAAAAAAAAABACAAAAAAAAAUAAAAAeAAAAAoAAAAeAAAAAQAAAAAAAAAAAAAAJQD#####AQAAAAAPAAFBAQUAAAAAegAAAA0A#####wAEYWJzMQAAABkAAABsAAAAewAAAAQA#####wADUmF5AARhYnMxAAAACgAAAHwAAAAmAP####8BAAAAABAAAAEFAAAAABkAAABsAAAACQIAAAAKAAAAfQAAABgEAAAACgAAADEAAAAmAP####8BAAAAABAAAAEFAAAAABkAAABtAAAACQIAAAAKAAAAfQAAABgDAAAACgAAADEAAAARAP####8AAAAZAAAAfgAAAAsA#####wEAAAAAEAAAAQUAAAAAfwAAAIAAAAAgAP####8Af39#AQEAAACBAAAAeAEAAAAAMAAAAAYAAAAwAAAAMQAAAH4AAAB#AAAAgAAAAIEAAAAjAP####8A##8AAAAABQAAAIIAAAAiAP####8BAAAAABAAAAEFAAAAAGsAAAABAAAAAAAAAAAAAAAJAQAAAAEAAAAAAAAAAAAAAAoAAAB9AAAAEgD#####AQAAAAEBAAAAGQAAAIQAAAATAP####8AAABxAAAAhQAAABQA#####wEAAAAAEAAAAQUAAQAAAIYAAAALAP####8B#wD#ABAAAAEFAAAAAIcAAABKAAAACwD#####Af8A#wAQAAABBQAAAACIAAAAJAAAAAwA#####wEAAAAAEAAAAQACAAAAiAAAAIkAAAAHAP####8BAAAAABAAAAEFAAE#tLY8pd6vvwAAAIr#####AAAAAQAOQ09iamV0RHVwbGlxdWUA#####wAAAAAAAACKAAAADQD#####AAFhAAAAGQAAAGwAAAB7AAAAIgD#####AWZmZgAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAeAAAAAkCAAAACgAAAI0AAAAYBAAAAAoAAAABAAAACQIAAAAKAAAAjQAAABgDAAAACgAAAAEAAAAfAP####8A5ubmAAEAAAAZAAAAbAAAAG8AAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAAAAAABP#AAAAAAAAAAAAABP#AAAAAAAAAAAAAiAP####8BAAAAABAAAlMiAMA5AAAAAAAAwC4AAAAAAAAFAAAAAI8AAAABAAAAAAAAAAAAAAAKAAAAHAAAACUA#####wEAAAAADwABUwDARIAAAAAAAMAiAAAAAAAABQAAAACQAAAADQD#####AAVhYnMxMQAAABkAAABqAAAAkQAAAAQA#####wABcwAFYWJzMTEAAAAKAAAAkgAAACwA#####wAAAAAAAACR#####wAAAAEADkNUZXN0RXhpc3RlbmNlAP####8ACEV4aXN0RGVzAAAAkgAAAAQA#####wAKdGVzdFNFZ2FsTwAOMS8oMS1FeGlzdERlcykAAAAJAwAAAAE#8AAAAAAAAAAAAAkBAAAAAT#wAAAAAAAAAAAACgAAAJUAAAAIAP####8AAAAZAAAACgAAAJYAAAAEAP####8AA3knMAALa14yKlJheV4yL3MAAAAJAwAAAAkC#####wAAAAEACkNQdWlzc2FuY2UAAAAKAAAASAAAAAFAAAAAAAAAAAAAAC4AAAAKAAAAfQAAAAFAAAAAAAAAAAAAAAoAAACTAAAABAD#####AAN4JzAAFHJhYyhSYXleMi15JzBeMi9rXjIpAAAAGBIAAAAJAQAAAC4AAAAKAAAAfQAAAAFAAAAAAAAAAAAAAAkDAAAALgAAAAoAAACYAAAAAUAAAAAAAAAAAAAALgAAAAoAAABIAAAAAUAAAAAAAAAAAAAAIgD#####Af8AAAAQAAABBQAAAABrAAAACgAAAJkAAAAKAAAAmAAAAAsA#####wH#AAAAEAAAAQUAAAAAmgAAAHUAAAAGAP####8BAAAAABAAAAEBAQAAAJoAP#MzMzMzMzMAAAAGAP####8BAAAAABAAAAEBAQAAAJsAP#MzMzMzMzMAAAATAP####8AAACdAAAAhQAAABQA#####wEAAAAAEAAAAQUAAgAAAJ4AAAATAP####8AAACcAAAAhQAAABQA#####wEAAAAAEAAAAQUAAgAAAKAAAAAZAP####8BAAAAAQEAAAAZAAAAnwAAAKEAAAAVAP####8BAAAAAAsAAlczAMAkAAAAAAAAQBgAAAAAAAAFAAE#0#omyqGlpQAAAKL#####AAAAAQANQ1BvaW50UHJvamV0ZQD#####AQAAAAALAAJXMgDALgAAAAAAAEAUAAAAAAAABQAAAACjAAAAZgAAACYA#####wEAAAAACwACVzUAwCAAAAAAAABAIAAAAAAAAAUAAAAApAAAAKP#####AAAAAQANQ0ZvbmN0aW9uM1ZhcgAAAAAJAgAAAAkHAAAACgAAADUAAAABAAAAAAAAAAAAAAAJBgAAAAoAAAA1AAAACgAAADoAAAAKAAAASAAAAAkBAAAAAQAAAAAAAAAAAAAACgAAAEgAAAAEAP####8ACHRlc3RTaW50ABYxLyhhYnMocyk8PWFicyhrKSpSYXkpAAAACQMAAAABP#AAAAAAAAAAAAAJBgAAABgAAAAACgAAAJMAAAAJAgAAABgAAAAACgAAAEgAAAAKAAAAfQAAAAwA#####wAAAAAAEAAAAQACAAAAkQAAAJoAAAAMAP####8AAAAAABAAAAEAAgAAAJEAAACbAAAADAD#####AX9#fwAQAAABAAEAAACRAAAApQAAAAcA#####wEAAAAACwACVzYBBQABP+kwagu4xeQAAACpAAAAIAD#####AX9#fwABAAAAqgAAAFAAAAAAAKMAAAAFAAAAowAAAKQAAAClAAAAqQAAAKr#####AAAAAgASQ0xpZXVPYmpldFBhclB0TGllAP####8A2NjYAAAAqwAAAAFAJAAAAAAAAAAAAKoAAAACAAAAqgAAAKsAAAAgAP####8BAAAAAAIAAAClAAAAeAAAAAAAowAAAAMAAACjAAAApAAAAKUAAAAIAP####8AAAAZAAAACgAAAKYAAAALAP####8B#wD#ABAAAAEFAAAAAJEAAACuAAAADAD#####AX9#fwAQAAABAAEAAACvAAAAgQAAADEA#####wB#f38AAACwAAAAAUA1AAAAAAAAAAAAMAAAAAcAAAAwAAAAMQAAAH4AAAB#AAAAgAAAAIEAAACwAAAABwD#####AX9#fwAQAAABBQABP+jGPF4uJ0YAAACwAAAAIAD#####AX9#fwABAAAAsgAAAFABAAAAADAAAAAIAAAAMAAAADEAAAB+AAAAfwAAAIAAAACBAAAAsAAAALIAAAAxAP####8Af39#AAAAswAAAAFAJAAAAAAAAAAAALIAAAACAAAAsgAAALMAAAAsAP####8AAAAAAAAArQAAAAgA#####wAAAJEAAAAKAAAApgAAAAsA#####wH#AAAAEAAAAQUAAAAAgQAAALYAAAAgAP####8BAAAAAAIAAAC3AAAAZAEAAAAAMAAAAAcAAAAwAAAAMQAAAH4AAAB#AAAAgAAAAIEAAAC3AAAALAD#####AAAAAAAAALgAAAALAP####8B#wAAABAAAAEFAAAAAIQAAACXAAAAEgD#####AQAAAAACAAAAGQAAALoAAAAVAP####8BAAAAABAAAAEFAAFAAnKZ09yUFQAAALsAAAAMAP####8Bf39#ABAAAAEAAQAAABkAAAC8AAAABwD#####AX9#fwAQAAABBQABP+nN99SrrBcAAAC9AAAAEgD#####AX9#fwABAAAAGQAAAL4AAAAxAP####8Af39#AAAAvQAAAAFANAAAAAAAAAAAALwAAAACAAAAvAAAAL0AAAAxAP####8Af39#AAAAvwAAAAFAJAAAAAAAAAAAAL4AAAACAAAAvgAAAL8AAAAsAP####8AAAAAAAAAuwAAAAwA#####wEAAAAAEAAAAQACAAAAiQAAAJEAAAAHAP####8Bf39#ABAAAAEFAAE#wdH0IWEZJQAAAMMAAAAGAP####8Bf39#ABAAAAEAAQAAAMQBP#MzMzMzMzMAAAAMAP####8BAAAAABAAAAEAAgAAAJEAAACIAAAAHgD#####AX9#fwAQAAABBQAAAADFAAAAxgAAAAwA#####wF#f38AEAAAAQABAAAAxAAAAMcAAAAxAP####8Af39#AAAAyAAAAAFAJAAAAAAAAAAAAMQAAAAEAAAAxAAAAMUAAADHAAAAyAAAAAwA#####wF#f38AEAAAAQABAAAAkQAAAIsAAAAxAP####8Af39#AAAAygAAAAFAJAAAAAAAAAAAAIsAAAACAAAAiwAAAMoAAAAsAP####8AAAAAAAAAwwAAACwA#####wAAAAAAAADGAAAADAD#####AQAAAAAQAAABAQEAAACRAAAAjv####8AAAACABVDTGlldU9iamV0UGFyVmFyaWFibGUA#####wC9vb0AAADOAAAAAUA5AAAAAAAAAAAAAQAAAAMAAAABAAAAjgAAAM4AAAAiAP####8AAAAAABAAAk8nAMA5AAAAAAAAwCoAAAAAAAAFAAAAAI8AAAABAAAAAAAAAAAAAAAJAQAAAAoAAAAcAAAACgAAAB3#####AAAAAQAQQ0Ryb2l0ZVBhcmFsbGVsZQD#####Aebm5gAQAAABAAEAAADQAAAAbgAAAAwA#####wDm5uYAEAAAAQABAAAAkQAAAH4AAAAeAP####8BpKSkABAAAlAiAAAAAAAAAAAAQAgAAAAAAAAFAAAAANEAAADSAAAAMwD#####Aebm5gAQAAABAAEAAADQAAAAcQAAAAwA#####wDm5uYAEAAAAQABAAAAfwAAAJEAAAAeAP####8BpKSkABAAAlEiAMA7AAAAAAAAwCIAAAAAAAAFAAAAANQAAADVAAAAEQD#####AAAA0AAAANMAAAALAP####8BpKSkABAAAlAnAAAAAAAAAAAAQAgAAAAAAAAFAAAAANYAAADXAAAAIAD#####AKSkpAEBAAAA2AAAAHgBAAAAACsAAAAeAAAAKwAAACwAAAAtAAAALgAAAC8AAAA2AAAANwAAAGwAAABtAAAAbgAAAHEAAAB4AAAAegAAAHsAAAB8AAAAfQAAAH4AAAB#AAAAjwAAAJAAAACRAAAA0AAAANEAAADSAAAA0wAAANQAAADVAAAA1gAAANcAAADYAAAAIwD#####AP8AAAAAAAUAAADZAAAAEwD#####AAAAZwAAAGAAAAAUAP####8B#wAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAA2wAAABQA#####wH#AAAAEAACSiIAAAAAAAAAAABACAAAAAAAAAUAAgAAANsAAAAfAP####8A5ubmAAEAAAAZAAAAGwAAAN0AAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAAAAAABP#AAAAAAAAAAAAABP#AAAAAAAAD#####AAAAAgAMQ0NvbW1lbnRhaXJlAP####8B#wAAAf####8QQH+4AAAAAABAeyhR64UeuAIAAAAAAAAAAAAAAAABAAAAAAAAAAAABFpPT00AAAAIAP####8AAAAZAAAAAT#weuFHrhR7AAAACwD#####Af8AAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAkQAAAOAAAAA0AP####8AAAAAAMA0AAAAAAAAwCgAAAAAAAAAAADhEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAVMAAAATAP####8AAAAaAAAAhQAAABQA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAIAAADjAAAAFAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAQAAAOMAAAAMAP####8AAAAAABAAAAEBAQAAAJAAAADlAAAABgD#####AQAAAAEQAAABAQEAAADQAT#wAAAAAAAAAAAAHgD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAA5wAAAOYAAAAMAP####8Af39#ABAAAAEBAQAAANAAAADoAAAADAD#####AAAAAAAQAAABAQEAAAAZAAAA5QAAAAwA#####wAAAAAAEAAAAQEBAAAAGQAAAJH#####AAAAAgAJQ0NlcmNsZU9SAP####8BAAAAAQEAAADQAAAAAT#ZmZmZmZmaAAAAABMA#####wAAAOkAAADsAAAAFAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAQAAAO0AAAAUAP####8AAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAA7QAAABMA#####wAAAOsAAADsAAAAFAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAgAAAPAAAAAUAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAA8AAAAAgA#####wAAANAAAAAYBAAAAAoAAAA1AAAACwD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAA8gAAAPMAAAARAP####8AAADQAAAA9AAAAAsA#####wEAAAAAEAAAAEAIAAAAAAAAAAAAAAAAAAAFAAAAAO4AAAD1AAAADAD#####AAAAAAAQAAABAQEAAAD0AAAA0AAAAAwA#####wAAAAAAEAAAAQEBAAAA0AAAAO4AAAAMAP####8AAAAAABAAAAEBAQAAAO4AAAD2AAAADAD#####AAAAAAAQAAABAQEAAAD2AAAA9P####8AAAABAAlDUG9seWdvbmUA#####wAAAAABAQAAAAUAAAD0AAAA0AAAAO4AAAD2AAAA9AAAABEA#####wAAANAAAADuAAAACwD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAGQAAAPwAAAALAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAAZAAAA9QAAABEA#####wAAABkAAAD+AAAACwD#####AQAAAAAQAAAAQAgAAAAAAAAAAAAAAAAAAAUAAAAA#QAAAP8AAAAMAP####8AAAAAABAAAAEBAQAAAP4AAAAZAAAADAD#####AAAAAAAQAAABAQEAAAAZAAAA#QAAAAwA#####wAAAAAAEAAAAQEBAAAA#QAAAQAAAAAMAP####8AAAAAABAAAAEBAQAAAQAAAAD+AAAANgD#####AAAAAAEBAAAABQAAAP4AAAAZAAAA#QAAAQAAAAD+AAAABgD#####AQAAAAEQAAABAQEAAAAQAT#wAAAAAAAAAAAANQD#####AQAAAAEBAAAAEAAAAAE#yZmZmZmZmgAAAAATAP####8AAAEGAAABBwAAABQA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAEAAAEIAAAAFAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAgAAAQgAAAAMAP####8B#wAAABAAAAEAAQAAAQoAAAEJ#####wAAAAEAB0NNaWxpZXUA#####wH#AAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAANAAAACQAAAANwD#####Af8AAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAGQAAANAAAAAOAP####8BAAAAAMAqAAAAAAAAwBwAAAAAAAAAAAEMEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAgAAAB0AAAA3AP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAB5AAAAGQAAAA4A#####wEAAAAAwBwAAAAAAAAAAAAAAAAAAAAAAQ8QAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAACAAAAHgAAAAQA#####wACaDMABWgxLWgyAAAACQEAAAAKAAAAHAAAAAoAAAAdAAAADgD#####AQAAAADANQAAAAAAAMAiAAAAAAAAAAABDRAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAEAAAERAAAAGP##########"
+				if (!sortie_html) texte = `\\begin{minipage}{0.7 \\linewidth} \n\t`
+				else texte = ``
+				texte += `Un cône de glace d'une marque célèbre a pour rayon ${tex_nombre(r)}${sp()}cm et pour hauteur SO${sp()}=${sp()}${tex_nombre(h1)}${sp()}cm.<br>`
+				texte += `Le fabricant a coulé au fond de ce cône du chocolat sur une hauteur SO' de ${h2}${sp()}cm.<br>`
+				texte += num_alpha(0) + ` Calculer le volume total du cône.<br>`
+				texte += num_alpha(1) + ` En déduire le volume de chocolat présent dans le fond du cône.<br>`
+				texte += num_alpha(2) + ` Déduire des deux premières questions le volume de glace permettant de remplir le cône.<br>`
+				texte += num_alpha(3) + ` Si la glace avait été mise dans le cône avant le chocolat, quelle serait la hauteur atteinte par la glace dans le cône ?<br>`
+				texte += num_alpha(4) + ` Quelle serait alors l'épaisseur de chocolat au dessus de la glace ?<br>`
+				if (sortie_html) texte += `Le point O peut être déplacé et on peut changer l'angle de vue &#x3C6; `
+				else texte += `\n\t \\end{minipage} \n\t \\begin{minipage}{0.3 \\linewidth} \n\t \\begin{tikzpicture}[scale=0.8]
 					\\definecolor{hhhhhh}{rgb}{0,0,0}
 					\\definecolor{phphph}{rgb}{0.5,0.5,0.5}
 					\\definecolor{ofofof}{rgb}{0.5,0.5,0.5}
@@ -5323,39 +5323,39 @@ function Agrandissement_reduction() {
 					\\draw [color=black , dotted, line width = 0.4](5.041,21.447)--(4.641,21.447);
 					\\draw [color=black , dotted, line width = 0.4](4.641,21.447)--(4.641,21.063)--(5.041,21.063)--(5.041,21.447)--(4.641,21.447)--cycle;
 					\\end{tikzpicture} \n\t \\end{minipage}`
-					texte_corr = num_alpha(0) + ` Le volume du cône est $\\\dfrac{A_\\text{base}}{3}\\times \\text{hauteur}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r)}\\pi}{3} \\times ${tex_nombre(h1)}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3,3))}$ cm${exposant(3)}.<br>`
-					texte_corr += num_alpha(1) + ` Le cône de chocolat est une réduction du cône complet. Le coefficient de réduction est $\\dfrac{${tex_nombre(h2)}}{${tex_nombre(h1)}}`
-					if (!Number.isInteger(h1) || pgcd(h2, h1) > 1) texte_corr += `=${tex_fraction_reduite(h2 * 10, h1 * 10)}$.<br>`
-					else texte_corr += `.$<br>`
-					texte_corr += ` Dans une réduction de coefficient k, les volumes sont multipliés par k${exposant(3)}.<br>`
-					texte_corr+= `Donc le volume du cône de hauteur SO' est : $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} $ \\approx ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3,3))}$ cm${exposant(3)}.<br>`
-					texte_corr += num_alpha(2) + ` Le volume de glace est la différence entre les deux volumes précédents :<br>`
-					texte_corr += `$${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3,3))}$ cm${exposant(3)}$ - ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3,3))}$ cm${exposant(3)} $ \\approx ${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3-Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3,2))}$ cm${exposant(3)}.<br>`
-					texte_corr += num_alpha(3) + ` Si on verse la glace au fond du cône, on obtient une nouvelle réduction du cône complet.<br>`
-					texte_corr += `Soit k\' le coefficient de cette réduction, on a : k\'${exposant(3)} $= 1- \\text{k}^3$`
-					texte_corr +=`, d'où k\' `
-					texte_corr += `$= \\sqrt[3]{1-{\\text{k}^3}}$.<br>`
-					texte_corr += `Donc k\' = $\\sqrt[3]{1 - \\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3} \\approx ${tex_nombre(arrondi(Math.cbrt(1-(h2/h1)**3),4))}$.<br>`
-					texte_corr += `On en déduit que la hauteur de glace est approximativement : $${tex_nombre(arrondi(Math.cbrt(1-(h2/h1)**3),4))} \\times ${tex_nombre(h1)}$ cm $\\approx ${tex_nombre(arrondi(h1*Math.cbrt(1-(h2/h1)**3),4))}$ cm.<br>`
-					texte_corr += num_alpha(4) + ` L'épaisseur de chocolat est alors de : $${tex_nombre(h1)}\\text{ cm}-${tex_nombre(arrondi(h1*Math.cbrt(1-(h2/h1)**3),4))} \\text{ cm}\\approx ${tex_nombre(arrondi(10*(h1-h1*Math.cbrt(1-(h2/h1)**3)),3))}$ mm !`
-					this.MG32codeBase64 = codeBase64
-					this.MG32code_pour_modifier_la_figure = `
+				texte_corr = num_alpha(0) + ` Le volume du cône est $\\\dfrac{A_\\text{base}}{3}\\times \\text{hauteur}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r)}\\pi}{3} \\times ${tex_nombre(h1)}$ cm${exposant(3)} $= \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} $\\approx ${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3, 3))}$ cm${exposant(3)}.<br>`
+				texte_corr += num_alpha(1) + ` Le cône de chocolat est une réduction du cône complet. Le coefficient de réduction est $\\dfrac{${tex_nombre(h2)}}{${tex_nombre(h1)}}`
+				if (!Number.isInteger(h1) || pgcd(h2, h1) > 1) texte_corr += `=${tex_fraction_reduite(h2 * 10, h1 * 10)}$.<br>`
+				else texte_corr += `.$<br>`
+				texte_corr += ` Dans une réduction de coefficient k, les volumes sont multipliés par k${exposant(3)}.<br>`
+				texte_corr += `Donc le volume du cône de hauteur SO' est : $\\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3 \\times \\dfrac{${tex_nombrec(r * r * h1)}}{3}\\pi$ cm${exposant(3)} $ \\approx ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3, 3))}$ cm${exposant(3)}.<br>`
+				texte_corr += num_alpha(2) + ` Le volume de glace est la différence entre les deux volumes précédents :<br>`
+				texte_corr += `$${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3, 3))}$ cm${exposant(3)}$ - ${tex_nombrec(arrondi(Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3, 3))}$ cm${exposant(3)} $ \\approx ${tex_nombrec(arrondi(r * r * h1 * Math.PI / 3 - Math.PI * h2 ** 3 * r * r / h1 ** 2 / 3, 2))}$ cm${exposant(3)}.<br>`
+				texte_corr += num_alpha(3) + ` Si on verse la glace au fond du cône, on obtient une nouvelle réduction du cône complet.<br>`
+				texte_corr += `Soit k\' le coefficient de cette réduction, on a : k\'${exposant(3)} $= 1- \\text{k}^3$`
+				texte_corr += `, d'où k\' `
+				texte_corr += `$= \\sqrt[3]{1-{\\text{k}^3}}$.<br>`
+				texte_corr += `Donc k\' = $\\sqrt[3]{1 - \\left(${tex_fraction_reduite(h2 * 10, h1 * 10)}\\right)^3} \\approx ${tex_nombre(arrondi(Math.cbrt(1 - (h2 / h1) ** 3), 4))}$.<br>`
+				texte_corr += `On en déduit que la hauteur de glace est approximativement : $${tex_nombre(arrondi(Math.cbrt(1 - (h2 / h1) ** 3), 4))} \\times ${tex_nombre(h1)}$ cm $\\approx ${tex_nombre(arrondi(h1 * Math.cbrt(1 - (h2 / h1) ** 3), 4))}$ cm.<br>`
+				texte_corr += num_alpha(4) + ` L'épaisseur de chocolat est alors de : $${tex_nombre(h1)}\\text{ cm}-${tex_nombre(arrondi(h1 * Math.cbrt(1 - (h2 / h1) ** 3), 4))} \\text{ cm}\\approx ${tex_nombre(arrondi(10 * (h1 - h1 * Math.cbrt(1 - (h2 / h1) ** 3)), 3))}$ mm !`
+				this.MG32codeBase64 = codeBase64
+				this.MG32code_pour_modifier_la_figure = `
 							 mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "r", "${r}");
 							 mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "h1", "${h1}");
 							 mtg32App.giveFormula2("MG32svg${numero_de_l_exercice}", "h2", "${h2}");							 
 							 mtg32App.calculate("MG32svg${numero_de_l_exercice}");
 							 mtg32App.display("MG32svg${numero_de_l_exercice}");
 							 `
-					break;
-			}
+				break;
+		}
 
 
-			this.liste_questions.push(texte);
-			this.liste_corrections.push(texte_corr);
-			liste_de_question_to_contenu(this);
+		this.liste_questions.push(texte);
+		this.liste_corrections.push(texte_corr);
+		liste_de_question_to_contenu(this);
 
 
-	//	}
+		//	}
 
 	}
 
@@ -5382,395 +5382,395 @@ function Transformations_du_plan_et_coordonnees() {
 	sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
 	this.liste_packages = 'tkz-euclide';
 	this.nouvelle_version = function (numero_de_l_exercice) {
-	this.type_exercice = 'MG32';
-	this.MG32editable=false;
-	this.taille_div_MG32 = [700, 700];
-	this.MG32codeBase64 = "TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAAJmcv###wEA#wAAAAAEAACAEwAAgBIAAIAaAACBDAAAAAAFHAAAAtIAAAEBAAAAAAAAAAEAAAB9#####wAAAAEACkNDYWxjQ29uc3QA#####wACcGkAFjMuMTQxNTkyNjUzNTg5NzkzMjM4NDb#####AAAAAQAKQ0NvbnN0YW50ZUAJIftURC0Y#####wAAAAEACkNQb2ludEJhc2UA#####wAAAAAADgABTwDAKAAAAAAAAAAAAAAAAAAABQABQHXYAAAAAABAdjhR64UeuP####8AAAABABRDRHJvaXRlRGlyZWN0aW9uRml4ZQD#####AQAAAAAQAAABAAEAAAABAT#wAAAAAAAA#####wAAAAEAD0NQb2ludExpZURyb2l0ZQD#####AAAAAAEOAAFJAMAYAAAAAAAAAAAAAAAAAAAFAAFAOQAAAAAAAAAAAAL#####AAAAAQAJQ0Ryb2l0ZUFCAP####8AAAAAABAAAAEAAQAAAAEAAAAD#####wAAAAEAFkNEcm9pdGVQZXJwZW5kaWN1bGFpcmUA#####wAAAAAAEAAAAQABAAAAAQAAAAT#####AAAAAQAJQ0NlcmNsZU9BAP####8BAAAAAAEAAAABAAAAA#####8AAAABABBDSW50RHJvaXRlQ2VyY2xlAP####8AAAAFAAAABv####8AAAABABBDUG9pbnRMaWVCaXBvaW50AP####8BAAAAABAAAAEFAAEAAAAHAAAACQD#####AAAAAAEOAAFKAMAoAAAAAAAAwBAAAAAAAAAFAAIAAAAH#####wAAAAIAB0NSZXBlcmUA#####wDm5uYAAQAAAAEAAAADAAAACQEBAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAE#8AAAAAAAAAAAAAE#8AAAAAAAAP####8AAAABAApDVW5pdGV4UmVwAP####8ABHVuaXQAAAAK#####wAAAAEAC0NIb21vdGhldGllAP####8AAAAB#####wAAAAEACkNPcGVyYXRpb24DAAAAAT#wAAAAAAAA#####wAAAAEAD0NSZXN1bHRhdFZhbGV1cgAAAAv#####AAAAAQALQ1BvaW50SW1hZ2UA#####wEAAAAAEAACVyIBAQAAAAADAAAADP####8AAAABAAlDTG9uZ3VldXIA#####wAAAAEAAAAN#####wAAAAEAB0NDYWxjdWwA#####wAHbmJncmFkeAACMjAAAAABQDQAAAAAAAAAAAARAP####8AB25iZ3JhZHkAAjIwAAAAAUA0AAAAAAAA#####wAAAAEAFENJbXBsZW1lbnRhdGlvblByb3RvAP####8AFEdyYWR1YXRpb25BeGVzUmVwZXJlAAAAGwAAAAgAAAADAAAACgAAAA8AAAAQ#####wAAAAEAE0NBYnNjaXNzZU9yaWdpbmVSZXAAAAAAEQAFYWJzb3IAAAAK#####wAAAAEAE0NPcmRvbm5lZU9yaWdpbmVSZXAAAAAAEQAFb3Jkb3IAAAAKAAAACwAAAAARAAZ1bml0ZXgAAAAK#####wAAAAEACkNVbml0ZXlSZXAAAAAAEQAGdW5pdGV5AAAACv####8AAAABABBDUG9pbnREYW5zUmVwZXJlAAAAABEAAAAAABAAAAEFAAAAAAoAAAAOAAAAEgAAAA4AAAATAAAAFgAAAAARAAAAAAAQAAABBQAAAAAKAAAADQAAAAAOAAAAEgAAAA4AAAAUAAAADgAAABMAAAAWAAAAABEAAAAAABAAAAEFAAAAAAoAAAAOAAAAEgAAAA0AAAAADgAAABMAAAAOAAAAFQAAAAwAAAAAEQAAABYAAAAOAAAADwAAAA8AAAAAEQAAAAAAEAAAAQUAAAAAFwAAABkAAAAMAAAAABEAAAAWAAAADgAAABAAAAAPAAAAABEAAAAAABAAAAEFAAAAABgAAAAb#####wAAAAEACENTZWdtZW50AAAAABEBAAAAABAAAAEAAQAAABcAAAAaAAAAFwAAAAARAQAAAAAQAAABAAEAAAAYAAAAHAAAAAQAAAAAEQEAAAAACwABVwDAFAAAAAAAAMA0AAAAAAAABQABP9xWeJq83w4AAAAd#####wAAAAIACENNZXN1cmVYAAAAABEABnhDb29yZAAAAAoAAAAfAAAAEQAAAAARAAVhYnN3MQAGeENvb3JkAAAADgAAACD#####AAAAAgASQ0xpZXVPYmpldFBhclB0TGllAQAAABEAZmZmAAAAHwAAAA4AAAAPAAAAHwAAAAIAAAAfAAAAHwAAABEAAAAAEQAFYWJzdzIADTIqYWJzb3ItYWJzdzEAAAANAQAAAA0CAAAAAUAAAAAAAAAAAAAADgAAABIAAAAOAAAAIQAAABYAAAAAEQEAAAAAEAAAAQUAAAAACgAAAA4AAAAjAAAADgAAABMAAAAZAQAAABEAZmZmAAAAJAAAAA4AAAAPAAAAHwAAAAUAAAAfAAAAIAAAACEAAAAjAAAAJAAAAAQAAAAAEQEAAAAACwABUgBAIAAAAAAAAMAgAAAAAAAABQABP9EbToG06B8AAAAe#####wAAAAIACENNZXN1cmVZAAAAABEABnlDb29yZAAAAAoAAAAmAAAAEQAAAAARAAVvcmRyMQAGeUNvb3JkAAAADgAAACcAAAAZAQAAABEAZmZmAAAAJgAAAA4AAAAQAAAAJgAAAAIAAAAmAAAAJgAAABEAAAAAEQAFb3JkcjIADTIqb3Jkb3Itb3JkcjEAAAANAQAAAA0CAAAAAUAAAAAAAAAAAAAADgAAABMAAAAOAAAAKAAAABYAAAAAEQEAAAAAEAAAAQUAAAAACgAAAA4AAAASAAAADgAAACoAAAAZAQAAABEAZmZmAAAAKwAAAA4AAAAQAAAAJgAAAAUAAAAmAAAAJwAAACgAAAAqAAAAK#####8AAAACAAxDQ29tbWVudGFpcmUAAAAAEQFmZmYAAAAAAAAAAABAGAAAAAAAAAAAAB8LAAH###8AAAABAAAAAAAAAAEAAAAAAAAAAAALI1ZhbChhYnN3MSkAAAAZAQAAABEAZmZmAAAALQAAAA4AAAAPAAAAHwAAAAQAAAAfAAAAIAAAACEAAAAtAAAAGwAAAAARAWZmZgAAAAAAAAAAAEAYAAAAAAAAAAAAJAsAAf###wAAAAEAAAAAAAAAAQAAAAAAAAAAAAsjVmFsKGFic3cyKQAAABkBAAAAEQBmZmYAAAAvAAAADgAAAA8AAAAfAAAABgAAAB8AAAAgAAAAIQAAACMAAAAkAAAALwAAABsAAAAAEQFmZmYAwCAAAAAAAAA#8AAAAAAAAAAAACYLAAH###8AAAACAAAAAQAAAAEAAAAAAAAAAAALI1ZhbChvcmRyMSkAAAAZAQAAABEAZmZmAAAAMQAAAA4AAAAQAAAAJgAAAAQAAAAmAAAAJwAAACgAAAAxAAAAGwAAAAARAWZmZgDAHAAAAAAAAAAAAAAAAAAAAAAAKwsAAf###wAAAAIAAAABAAAAAQAAAAAAAAAAAAsjVmFsKG9yZHIyKQAAABkBAAAAEQBmZmYAAAAzAAAADgAAABAAAAAmAAAABgAAACYAAAAnAAAAKAAAACoAAAArAAAAMwAAABEA#####wABeAABMwAAAAFACAAAAAAAAAAAABEA#####wABeQABMgAAAAFAAAAAAAAAAAAAABYA#####wAAAAAAEAABQQAAAAAAAAAAAEAIAAAAAAAACQAAAAAKAAAADgAAADUAAAAOAAAANgAAABEA#####wACeDEAAi0z#####wAAAAEADENNb2luc1VuYWlyZQAAAAFACAAAAAAAAAAAABEA#####wACeTEAATIAAAABQAAAAAAAAAAAAAARAP####8AAngyAAEyAAAAAUAAAAAAAAAAAAAAEQD#####AAJ5MgABMQAAAAE#8AAAAAAAAAAAABYA#####wEAAAAAEAACTyIAwDEAAAAAAADAQQAAAAAAAAYAAAAACgAAAA4AAAA6AAAADgAAADv#####AAAAAQAJQ0Ryb2l0ZU9tAP####8BAAAAABAAAAEAAQAAAAoAAAA8AAAAAT#wAAAAAAAAAAAABAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAUAIKPXCj1wmAAAAPQAAABEA#####wAEYmlzMQABMQAAAAE#8AAAAAAAAAAAAAwA#####wAAADwAAAAOAAAAPwAAAA8A#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAJAAAAAD4AAABAAAAABQD#####AAAAAAEQAAJkMQEAAT#szMzMzMzNAAAAPAAAAEEAAAADAP####8BAAAAARAAAAEAAQAAADwBP#AAAAAAAAAAAAAEAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABQFkAAAAAAAAAAABDAAAAEQD#####AAN4eCcAATEAAAABP#AAAAAAAAAAAAAMAP####8AAAA8AAAADgAAAEUAAAAPAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAABEAAAARgAAAAUA#####wAAAAABEAABZADAEvfO2RaIAD#wAAAAAAAAAAE#7ChslIjsKgAAADwAAABHAAAAAwD#####AQAAAAEQAAABAAEAAAA8AD#wAAAAAAAAAAAABAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAcBYv######+AAAASQAAABEA#####wADeXknAAExAAAAAT#wAAAAAAAAAAAADAD#####AAAAPAAAAA4AAABLAAAADwD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAASgAAAEwAAAAFAP####8AAAAAARAAAmQnAQABP+zMzMzMzM0AAAA8AAAATQAAAB0A#####wEAAAAAEAAAAQABAAAACgAAADwAAAAcAAAAAT#wAAAAAAAAAAAABAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAUARrhR64UeuAAAATwAAABEA#####wAEYmlzMgABMQAAAAE#8AAAAAAAAAAAAAwA#####wAAADwAAAAOAAAAUQAAAA8A#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAFAAAABSAAAABQD#####AAAAAAEQAAJkMgEAAT#szMzMzMzNAAAAPAAAAFMAAAARAP####8ACUFmZmljaGVPJwABMQAAAAE#8AAAAAAAAAAAAAwA#####wAAAAEAAAABP#AAAAAAAAAAAAAPAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAA8AAAAVgAAAAwA#####wAAAAEAAAANAwAAAAE#8AAAAAAAAAAAAA4AAABVAAAADwD#####AAAAAAAOAAJPJwAAAAAAAAAAAEAIAAAAAAAACQAAAAA8AAAAWP####8AAAABAAhDVmVjdGV1cgD#####Af8AAAAQAAABAAIAAAABAAAAVwAAAAARAP####8ACkFmZmljaGVPTycAATEAAAABP#AAAAAAAAD#####AAAAAQARQ1BvaW50UGFyTXVsdFZlY3QA#####wEAAAAADgACTzMAQDkAAAAAAABACAAAAAAAAAMAAAAAAQAAAFoAAAANAwAAAAE#8AAAAAAAAAAAAA4AAABbAAAAHgD#####AP8AAAAQAAABAAIAAAABAAAAXAAAAAAfAP####8B#wAAABAAAAEFAAAAAAEAAABdAAAAAT#gAAAAAAAAAAAABgD#####Af8AAAAQAAABAAIAAABeAAAAXf####8AAAACAAlDQ2VyY2xlT1IA#####wH#AAAAAgAAAF4AAAABP8mZmZmZmZoAAAAACAD#####AAAAXwAAAGAAAAAJAP####8B#wAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAAYQAAAAkA#####wH#AAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAIAAABh#####wAAAAIABkNMYXRleAD#####AP8AAADAMgAAAAAAAMAxAAAAAAAAAAAAYxAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAABNcb3ZlcnJpZ2h0YXJyb3cge3Z9#####wAAAAEAEUNQb2ludFBhckFic2Npc3NlAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAACQAAAAABAAAAAwAAAAFAJAAAAAAAAAAAAAcA#####wEAAAAAAQAAAAEAAABlAAAACAD#####AAAAVAAAAGYAAAAJAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAAZwAAAAkA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAIAAABnAAAACAD#####AAAATgAAAGYAAAAJAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAAagAAAAkA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAEAAABqAAAACAD#####AAAAQgAAAGYAAAAJAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAAbQAAAAkA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAEAAABtAAAACAD#####AAAASAAAAGYAAAAJAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAAcAAAAAkA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAEAAABwAAAAGwD#####AAAAAAEAAAByEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAyhkKQAAABsA#####wAAAAAAQAAAAAAAAADAGAAAAAAAAAAAAGwQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAEKGQnKQAAABsA#####wAAAAABAAAAbxAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAgoZCNMKDEpKQAAABsA#####wAAAAAAwDUAAAAAAABAFAAAAAAAAAAAAGkQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAIKGQjTCgyKSkAAAARAP####8AAnhCAAExAAAAAT#wAAAAAAAAAAAAEQD#####AAJ5QgABMQAAAAE#8AAAAAAAAAAAABEA#####wACeEMAATEAAAABP#AAAAAAAAAAAAARAP####8AAnlDAAExAAAAAT#wAAAAAAAAAAAAFgD#####AAAAAAAQAAFCAAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAOAAAAdwAAAA4AAAB4AAAAFgD#####AAAAAAAQAAFDAAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAOAAAAeQAAAA4AAAB6AAAADv##########"
-	this.MG32codeBase64corr = "TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAAJmcv###wEA#wAAAADEAACIuAAAgIkAAICKAAB9FwAAgCoAAH0TAAB9EgAAgCcAAIAoAAB9FAAAgK4AAIB8AACAhAAAgAsAAIAlAACAIAAAgA0AAIAOAACBWQAAgAwAAIDxAACBJwAAgHkAAIB7AACAegAAgCQAAIFxAACAbQAAgGoAAIC7AACAvAAAfR0AAH0eAACAgAAAgYMAAIAPAACAEwAAgBIAAIAXAACAFgAAgF4AAIBfAACAZQAAfRAAAIDrAACAEAAAgEgAAIAUAAB9KAAAgBoAAIAdAACA6QAAgVAAAIFRAACBDAAAgQ0AAIFSAACBUwAAgB4AAIAcAACAGwAAgBkAAIBgAACBIAAAgN4AAIDfAACBCgAAgOAAAIFDAACASQAAgEoAAIEXAACBGAAAgDMAAIB2AACA7AAAgO0AAIDYAACA2QAAgNoAAIDbAACAcgAAgXkAAIFiAACBZAAAgE0AAIAfAACAIgAAgCMAAIAhAACAxwAAgT0AAIELAACBBAAAgC0AAIFMAACAMAAAgSoAAIErAACALgAAgDEAAIDyAACBaQAAgWcAAIGlAACBdQAAgC8AAIA1AACAWQAAgFwAAH0KAAB9CwAAgUkAAIFLAAB9DgAAfQ8AAH0RAAB9FQAAfSQAAIBuAACAawAAgLAAAIFXAACAsQAAgVYAAICyAACBVAAAgLcAAIC4AACAswAAgPcAAIC0AACAtQAAgQYAAIEfAACBAgAAgY4AAIGPAACBAwAAgOMAAID2AACBBwAAgQkAAIEpAACBKAAAgOgAAIBvAACAcAAAgHQAAIBQAACA3QAAfRkAAH0YAACBbAAAgHEAAIFtAACBbgAAgXIAAIGGAAB9IwAAgQgAAIDkAACA5wAAgOUAAIDuAAB9KwAAfS0AAH0qAAB9LAAAgW8AAIFwAACBeAAAgXcAAH0mAACA8AAAfSUAAIEiAAB9KQAAfScAAIGjAACBpAAAfR8AAH0gAAB9IQAAfSIAAIBiAACAYwAAgGcAAIBoAACAaQAAgMkAAIBLAACArwAAgSwAAIDhAACA4gAAAAAFHAAAAtIAAAEBAAAAAQAAAAYAEHN5bcOpdHJpZSBheGlhbGUADFBvaW50CmRyb2l0ZQAAAAIAAAAGAAAAABr#####AAAAAQARQ0VsZW1lbnRHZW5lcmlxdWUAAAAAAAH#####AAAAAAAAAAAACf##########AAAAAQAHQ0NhbGN1bAD#####AAJ4MgABMv####8AAAABAApDQ29uc3RhbnRlQAAAAAAAAAAAAAABAP####8AAnkyAAExAAAAAj#wAAAAAAAAAAAAAQD#####AARiaXMxAAExAAAAAj#wAAAAAAAAAAAAAQD#####AAJ0MQABMQAAAAI#8AAAAAAAAAAAAAEA#####wADeFAxAAExAAAAAj#wAAAAAAAAAAAAAQD#####AAN5UDEAAi0x#####wAAAAEADENNb2luc1VuYWlyZQAAAAI#8AAAAAAAAP####8AAAABAA9DU3ltZXRyaWVBeGlhbGUA#####wAAAAH#####AAAAAQALQ1BvaW50SW1hZ2UB#####wAAAP8AEgAAAAAAAAAAAAAAQAgAAAAAAAAJAAAAAAAAAAAI#####wAAAAEAB0NNaWxpZXUA#####wEAAP8AEgAAAAAAAAAAAAAAQAgAAAAAAAAHAAAAAAAAAAAJ#####wAAAAEACENTZWdtZW50Af####8AAAD#ABAAAAEAAQAAAAAAAAAKAAAABwH#####AAAA#wAQAAABAAEAAAAKAAAACf####8AAAACAAlDQ2VyY2xlT1IA#####wEAAP8AAQAAAAoAAAACP8mZmZmZmZoA#####wAAAAEAEENJbnREcm9pdGVDZXJjbGUA#####wAAAAsAAAAN#####wAAAAEAEENQb2ludExpZUJpcG9pbnQA#####wAAAP8AEgAAAAAAAAAAAAAAQAgAAAAAAAAHAAIAAAAOAAAABwD#####AQAAAAAQAAABAAEAAAAKAAAAD#####8AAAABABZDRHJvaXRlUGVycGVuZGljdWxhaXJlAP####8AAAAAAA0AAAEBAQAAAAoAAAAQ#####wAAAAEACUNDZXJjbGVPQQD#####AAAAAAEBAAAACgAAAA8AAAAJAP####8AAAARAAAAEgAAAAoA#####wAAAP8AEgAAAQcAAgAAABP#####AAAAAQAMQ1RyYW5zbGF0aW9uAP####8AAAAKAAAADwAAAAUA#####wAAAP8AEgAAAQcAAAAAFAAAABX#####AAAAAQAJQ1BvbHlnb25lAf####8AAAD#AAEAAAAFAAAACgAAAA8AAAAWAAAAFAAAAAr#####AAAAAQAOQ01hcnF1ZVNlZ21lbnQB#####wD#AAAAAQAAAAALAAAADwH#####AP8AAAABAAAAAAwAAAABAAABoP####8AAAABAApDQ2FsY0NvbnN0AP####8AAnBpABYzLjE0MTU5MjY1MzU4OTc5MzIzODQ2AAAAAkAJIftURC0Y#####wAAAAEACkNQb2ludEJhc2UA#####wAAAAAADgABTwDAKAAAAAAAAAAAAAAAAAAABQABQHXYAAAAAABAdjhR64UeuP####8AAAABABRDRHJvaXRlRGlyZWN0aW9uRml4ZQD#####AQAAAAASAAABAAEAAAABAT#wAAAAAAAA#####wAAAAEAD0NQb2ludExpZURyb2l0ZQD#####AAAAAAEOAAFJAMAYAAAAAAAAAAAAAAAAAAAFAAFAOQAAAAAAAAAAAAL#####AAAAAQAJQ0Ryb2l0ZUFCAP####8AAAAAABAAAAEAAQAAAAEAAAADAAAACwD#####AAAAAAASAAABAAEAAAABAAAABAAAAAwA#####wEAAAAAAQAAAAEAAAADAAAACQD#####AAAABQAAAAYAAAAKAP####8BAAAAABIAAAEFAAEAAAAHAAAACgD#####AAAAAAEOAAFKAMAoAAAAAAAAwBAAAAAAAAAFAAIAAAAH#####wAAAAIAB0NSZXBlcmUA#####wDm5uYAAQAAAAEAAAADAAAACQEBAAAAAAIAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAI#8AAAAAAAAAAAAAI#8AAAAAAAAP####8AAAABAApDVW5pdGV4UmVwAP####8ABHVuaXQAAAAK#####wAAAAEAC0NIb21vdGhldGllAP####8AAAAB#####wAAAAEACkNPcGVyYXRpb24DAAAAAj#wAAAAAAAA#####wAAAAEAD0NSZXN1bHRhdFZhbGV1cgAAAAsAAAAFAP####8BAAAAABAAAlciAQEAAAAAAwAAAAz#####AAAAAQAJQ0xvbmd1ZXVyAP####8AAAABAAAADQAAAAEA#####wAHbmJncmFkeAACMjAAAAACQDQAAAAAAAAAAAABAP####8AB25iZ3JhZHkAAjIwAAAAAkA0AAAAAAAA#####wAAAAEAFENJbXBsZW1lbnRhdGlvblByb3RvAP####8AFEdyYWR1YXRpb25BeGVzUmVwZXJlAAAAGwAAAAgAAAADAAAACgAAAA8AAAAQ#####wAAAAEAE0NBYnNjaXNzZU9yaWdpbmVSZXAAAAAAEQAFYWJzb3IAAAAK#####wAAAAEAE0NPcmRvbm5lZU9yaWdpbmVSZXAAAAAAEQAFb3Jkb3IAAAAKAAAAFgAAAAARAAZ1bml0ZXgAAAAK#####wAAAAEACkNVbml0ZXlSZXAAAAAAEQAGdW5pdGV5AAAACv####8AAAABABBDUG9pbnREYW5zUmVwZXJlAAAAABEAAAAAABIAAAEFAAAAAAoAAAAZAAAAEgAAABkAAAATAAAAHwAAAAARAAAAAAASAAABBQAAAAAKAAAAGAAAAAAZAAAAEgAAABkAAAAUAAAAGQAAABMAAAAfAAAAABEAAAAAABIAAAEFAAAAAAoAAAAZAAAAEgAAABgAAAAAGQAAABMAAAAZAAAAFQAAABcAAAAAEQAAABYAAAAZAAAADwAAAAUAAAAAEQAAAAAAEgAAAQUAAAAAFwAAABkAAAAXAAAAABEAAAAWAAAAGQAAABAAAAAFAAAAABEAAAAAABIAAAEFAAAAABgAAAAbAAAABwAAAAARAQAAAAAQAAABAAEAAAAXAAAAGgAAAAcAAAAAEQEAAAAAEAAAAQABAAAAGAAAABwAAAATAAAAABEBAAAAAAsAAVcAwBQAAAAAAADANAAAAAAAAAUAAT#cVniavN8OAAAAHf####8AAAACAAhDTWVzdXJlWAAAAAARAAZ4Q29vcmQAAAAKAAAAHwAAAAEAAAAAEQAFYWJzdzEABnhDb29yZAAAABkAAAAg#####wAAAAIAEkNMaWV1T2JqZXRQYXJQdExpZQEAAAARAGZmZgAAAB8AAAAZAAAADwAAAB8AAAACAAAAHwAAAB8AAAABAAAAABEABWFic3cyAA0yKmFic29yLWFic3cxAAAAGAEAAAAYAgAAAAJAAAAAAAAAAAAAABkAAAASAAAAGQAAACEAAAAfAAAAABEBAAAAABIAAAEFAAAAAAoAAAAZAAAAIwAAABkAAAATAAAAIQEAAAARAGZmZgAAACQAAAAZAAAADwAAAB8AAAAFAAAAHwAAACAAAAAhAAAAIwAAACQAAAATAAAAABEBAAAAAAsAAVIAQCAAAAAAAADAIAAAAAAAAAUAAT#RG06BtOgfAAAAHv####8AAAACAAhDTWVzdXJlWQAAAAARAAZ5Q29vcmQAAAAKAAAAJgAAAAEAAAAAEQAFb3JkcjEABnlDb29yZAAAABkAAAAnAAAAIQEAAAARAGZmZgAAACYAAAAZAAAAEAAAACYAAAACAAAAJgAAACYAAAABAAAAABEABW9yZHIyAA0yKm9yZG9yLW9yZHIxAAAAGAEAAAAYAgAAAAJAAAAAAAAAAAAAABkAAAATAAAAGQAAACgAAAAfAAAAABEBAAAAABIAAAEFAAAAAAoAAAAZAAAAEgAAABkAAAAqAAAAIQEAAAARAGZmZgAAACsAAAAZAAAAEAAAACYAAAAFAAAAJgAAACcAAAAoAAAAKgAAACv#####AAAAAgAMQ0NvbW1lbnRhaXJlAAAAABEBZmZmAAAAAAAAAAAAQBgAAAAAAAAAAAAfCwAB####AAAAAQAAAAAAAAACAAAAAAAAAAAACyNWYWwoYWJzdzEpAAAAIQEAAAARAGZmZgAAAC0AAAAZAAAADwAAAB8AAAAEAAAAHwAAACAAAAAhAAAALQAAACMAAAAAEQFmZmYAAAAAAAAAAABAGAAAAAAAAAAAACQLAAH###8AAAABAAAAAAAAAAIAAAAAAAAAAAALI1ZhbChhYnN3MikAAAAhAQAAABEAZmZmAAAALwAAABkAAAAPAAAAHwAAAAYAAAAfAAAAIAAAACEAAAAjAAAAJAAAAC8AAAAjAAAAABEBZmZmAMAgAAAAAAAAP#AAAAAAAAAAAAAmCwAB####AAAAAgAAAAEAAAACAAAAAAAAAAAACyNWYWwob3JkcjEpAAAAIQEAAAARAGZmZgAAADEAAAAZAAAAEAAAACYAAAAEAAAAJgAAACcAAAAoAAAAMQAAACMAAAAAEQFmZmYAwBwAAAAAAAAAAAAAAAAAAAAAACsLAAH###8AAAACAAAAAQAAAAIAAAAAAAAAAAALI1ZhbChvcmRyMikAAAAhAQAAABEAZmZmAAAAMwAAABkAAAAQAAAAJgAAAAYAAAAmAAAAJwAAACgAAAAqAAAAKwAAADMAAAABAP####8AAXgAATMAAAACQAgAAAAAAAAAAAABAP####8AAXkAATIAAAACQAAAAAAAAAAAAAAfAP####8AAAAAABAAAUEAAAAAAAAAAABACAAAAAAAAAkAAAAACgAAABkAAAA1AAAAGQAAADYAAAABAP####8AAngxAAItMwAAAAMAAAACQAgAAAAAAAAAAAABAP####8AAnkxAAEyAAAAAkAAAAAAAAAAAAAAAQD#####AAJ4MgABMgAAAAJAAAAAAAAAAAAAAAEA#####wACeTIAATEAAAACP#AAAAAAAAAAAAAfAP####8BAAAAABAAAk8iAMAxAAAAAAAAwEEAAAAAAAAGAAAAAAoAAAAZAAAAOgAAABkAAAA7#####wAAAAEACUNEcm9pdGVPbQD#####AQAAAAASAAABAAEAAAAKAAAAPAAAAAI#8AAAAAAAAAAAABMA#####wEAAAAAEgAAAAAAAAAAAAAAQAgAAAAAAAAFAAFACCj1wo9cJgAAAD0AAAABAP####8ABGJpczEAATEAAAACP#AAAAAAAAAAAAAXAP####8AAAA8AAAAGQAAAD8AAAAFAP####8BAAAAABIAAAAAAAAAAAAAAEAIAAAAAAAACQAAAAA+AAAAQAAAABQA#####wAAAAABEAACZDEBAAI#7MzMzMzMzQAAADwAAABBAAAAEgD#####AQAAAAESAAABAAEAAAA8AT#wAAAAAAAAAAAAEwD#####AQAAAAASAAAAAAAAAAAAAABACAAAAAAAAAUAAUBZAAAAAAAAAAAAQwAAAAEA#####wADeHgnAAExAAAAAj#wAAAAAAAAAAAAFwD#####AAAAPAAAABkAAABFAAAABQD#####AQAAAAASAAAAAAAAAAAAAABACAAAAAAAAAUAAAAARAAAAEYAAAAUAP####8AAAAAARAAAWQAwBL3ztkWiAA#8AAAAAAAAAADP+wobJSI7CoAAAA8AAAARwAAABIA#####wEAAAABEgAAAQABAAAAPAA#8AAAAAAAAAAAABMA#####wEAAAAAEgAAAAAAAAAAAAAAQAgAAAAAAAAFAAHAWL#######gAAAEkAAAABAP####8AA3l5JwABMQAAAAI#8AAAAAAAAAAAABcA#####wAAADwAAAAZAAAASwAAAAUA#####wEAAAAAEgAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAEoAAABMAAAAFAD#####AAAAAAEQAAJkJwEAAz#szMzMzMzNAAAAPAAAAE0AAAAkAP####8BAAAAABIAAAEAAQAAAAoAAAA8AAAAAwAAAAI#8AAAAAAAAAAAABMA#####wEAAAAAEgAAAAAAAAAAAAAAQAgAAAAAAAAFAAFAEa4UeuFHrgAAAE8AAAABAP####8ABGJpczIAATEAAAACP#AAAAAAAAAAAAAXAP####8AAAA8AAAAGQAAAFEAAAAFAP####8BAAAAABIAAAAAAAAAAAAAAEAIAAAAAAAABQAAAABQAAAAUgAAABQA#####wAAAAABEAACZDIBAAI#7MzMzMzMzQAAADwAAABTAAAAAQD#####AAlBZmZpY2hlTycAATEAAAACP#AAAAAAAAAAAAAXAP####8AAAABAAAAAj#wAAAAAAAAAAAABQD#####AQAAAAASAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAPAAAAFYAAAAXAP####8AAAABAAAAGAMAAAACP#AAAAAAAAAAAAAZAAAAVQAAAAUA#####wAAAAAADgACTycAAAAAAAAAAABACAAAAAAAAAkAAAAAPAAAAFj#####AAAAAQAIQ1ZlY3RldXIA#####wH#AAAAEAAAAQACAAAAAQAAAFcAAAAAAQD#####AApBZmZpY2hlT08nAAExAAAAAj#wAAAAAAAA#####wAAAAEAEUNQb2ludFBhck11bHRWZWN0AP####8BAAAAAA4AAk8zAEA5AAAAAAAAQAgAAAAAAAADAAAAAAEAAABaAAAAGAMAAAACP#AAAAAAAAAAAAAZAAAAWwAAACUA#####wD#AAAAEAAAAQACAAAAAQAAAFwAAAAAJgD#####Af8AAAASAAABBQAAAAABAAAAXQAAAAI#4AAAAAAAAAAAAAsA#####wH#AAAAEgAAAQACAAAAXgAAAF0AAAAIAP####8B#wAAAAIAAABeAAAAAj#JmZmZmZmaAAAAAAkA#####wAAAF8AAABgAAAACgD#####Af8AAAASAAAAAAAAAAAAAABACAAAAAAAAAUAAQAAAGEAAAAKAP####8B#wAAABIAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAAYf####8AAAACAAZDTGF0ZXgA#####wD#AAAAwDIAAAAAAADAMQAAAAAAAAAAAGMQAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAATXG92ZXJyaWdodGFycm93IHt2ff####8AAAABABFDUG9pbnRQYXJBYnNjaXNzZQD#####AQAAAAASAAAAAAAAAAAAAABACAAAAAAAAAkAAAAAAQAAAAMAAAACQCoAAAAAAAAAAAAMAP####8BAAAAAAEAAAABAAAAZQAAAAkA#####wAAAFQAAABmAAAACgD#####AQAAAAASAAAAAAAAAAAAAABACAAAAAAAAAUAAQAAAGcAAAAKAP####8BAAAAABIAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAAZwAAAAkA#####wAAAE4AAABmAAAACgD#####AQAAAAASAAAAAAAAAAAAAABACAAAAAAAAAUAAgAAAGoAAAAKAP####8BAAAAABIAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAAagAAAAkA#####wAAAEIAAABmAAAACgD#####AQAAAAASAAAAAAAAAAAAAABACAAAAAAAAAUAAgAAAG0AAAAKAP####8BAAAAABIAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAAbQAAAAkA#####wAAAEgAAABmAAAACgD#####AQAAAAASAAAAAAAAAAAAAABACAAAAAAAAAUAAgAAAHAAAAAKAP####8BAAAAABIAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAAcAAAACMA#####wAAAAAAwCIAAAAAAADAPQAAAAAAAAAAAHIQAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAIKGQjTCgzKSkAAAAjAP####8AAAAAAEAQAAAAAAAAwC########wAAABsEAAAAAAAAAAAAAAAAAACAAAAAAAAAAAABChkJykAAAAjAP####8AAAAAAEBHgAAAAAAAwEqAAAAAAAAAAABvEAAAAAAAAAAAAAAAAAACAAAAAAAAAAAACChkI0woMSkpAAAAIwD#####AAAAAADATgAAAAAAAMBDf#######AAAAaRAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAgoZCNMKDIpKQAAAAEA#####wACeEIAATEAAAACP#AAAAAAAAAAAAABAP####8AAnlCAAExAAAAAj#wAAAAAAAAAAAAAQD#####AAJ4QwABMQAAAAI#8AAAAAAAAAAAAAEA#####wACeUMAATEAAAACP#AAAAAAAAAAAAAfAP####8AAAAAABAAAUIAAAAAAAAAAABACAAAAAAAAAkAAAAACgAAABkAAAB3AAAAGQAAAHgAAAAfAP####8AAAAAABAAAUMAAAAAAAAAAABACAAAAAAAAAkAAAAACgAAABkAAAB5AAAAGQAAAHoAAAABAP####8AA3hBJwABNQAAAAJAFAAAAAAAAAAAAAEA#####wADeUEnAAEyAAAAAkAAAAAAAAAAAAAAAQD#####AAN4QicAATUAAAACQBQAAAAAAAAAAAABAP####8AA3lCJwABMwAAAAJACAAAAAAAAAAAAAEA#####wADeEMnAAE1AAAAAkAUAAAAAAAAAAAAAQD#####AAN5QycAATQAAAACQBAAAAAAAAAAAAABAP####8AAnQxAAExAAAAAj#wAAAAAAAAAAAAAQD#####AAJ0MgABMQAAAAI#8AAAAAAAAAAAAAEA#####wACdDMAATEAAAACP#AAAAAAAAAAAAABAP####8AAnQ0AAExAAAAAj#wAAAAAAAAAAAAAQD#####AAJ0NQABMQAAAAI#8AAAAAAAAAAAAAEA#####wACdDYAATEAAAACP#AAAAAAAAAAAAABAP####8AAnQ3AAExAAAAAj#wAAAAAAAAAAAAAQD#####AAJ0OAABMQAAAAI#8AAAAAAAAAAAAAEA#####wACdDkAATEAAAACP#AAAAAAAAAAAAABAP####8AA3QxMAABMQAAAAI#8AAAAAAAAAAAAAEA#####wADdDExAAExAAAAAj#wAAAAAAAAAAAAAQD#####AAN0MTIAATEAAAACP#AAAAAAAAAAAAABAP####8AA3QxMwABMQAAAAI#8AAAAAAAAAAAAAEA#####wADdDE0AAExAAAAAj#wAAAAAAAAAAAAAQD#####AAN4UDEAATEAAAACP#AAAAAAAAAAAAABAP####8AA3hQMgABMgAAAAJAAAAAAAAAAAAAAAEA#####wADeFAzAAEzAAAAAkAIAAAAAAAAAAAAAQD#####AAN4UDQAATQAAAACQBAAAAAAAAAAAAABAP####8AA3hQNQABNQAAAAJAFAAAAAAAAAAAAAEA#####wADeFA2AAE2AAAAAkAYAAAAAAAAAAAAAQD#####AAN4UDcAATcAAAACQBwAAAAAAAAAAAABAP####8AA3hQOAABOAAAAAJAIAAAAAAAAAAAAAEA#####wADeFA5AAE5AAAAAkAiAAAAAAAAAAAAAQD#####AAR4UDEwAAIxMAAAAAJAJAAAAAAAAAAAAAEA#####wAEeFAxMQACMTEAAAACQCYAAAAAAAAAAAABAP####8ABHhQMTIAAjEyAAAAAkAoAAAAAAAAAAAAAQD#####AAR4UDEzAAIxMwAAAAJAKgAAAAAAAAAAAAEA#####wAEeFAxNAACMTQAAAACQCwAAAAAAAAAAAABAP####8AA3lQMQACLTQAAAADAAAAAkAQAAAAAAAAAAAAAQD#####AAN5UDIAAi0xAAAAAwAAAAI#8AAAAAAAAAAAAAEA#####wADeVAzAAItNQAAAAMAAAACQBQAAAAAAAAAAAABAP####8AA3lQNAACLTEAAAADAAAAAj#wAAAAAAAAAAAAAQD#####AAN5UDUAAi0xAAAAAwAAAAI#8AAAAAAAAAAAAAEA#####wADeVA2AAItMQAAAAMAAAACP#AAAAAAAAAAAAABAP####8AA3lQOAACLTEAAAADAAAAAj#wAAAAAAAAAAAAAQD#####AAN5UDkAAi0xAAAAAwAAAAI#8AAAAAAAAAAAAAEA#####wAEeVAxMAACLTEAAAADAAAAAj#wAAAAAAAAAAAAAQD#####AAR5UDExAAItMQAAAAMAAAACP#AAAAAAAAAAAAABAP####8ABHlQMTIAAi0xAAAAAwAAAAI#8AAAAAAAAAAAAAEA#####wAEeVAxMwACLTEAAAADAAAAAj#wAAAAAAAAAAAAAQD#####AAR5UDE0AAItMQAAAAMAAAACP#AAAAAAAAAAAAAfAP####8B#wAAABIAAlAxAAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAZAAAAkQAAABkAAACfAAAAHwD#####Af8AAAASAAJQMgAAAAAAAAAAAEAIAAAAAAAACQAAAAAKAAAAGQAAAJIAAAAZAAAAoAAAAB8A#####wH#AAAAEgACUDMAAAAAAAAAAABACAAAAAAAAAkAAAAACgAAABkAAACTAAAAGQAAAKEAAAAfAP####8B#wAAABIAAlA0AAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAZAAAAlAAAABkAAACiAAAAHwD#####Af8AAAASAAJQNQAAAAAAAAAAAEAIAAAAAAAACQAAAAAKAAAAGQAAAJUAAAAZAAAAowAAAB8A#####wH#AAAAEgACUDYAAAAAAAAAAABACAAAAAAAAAkAAAAACgAAABkAAACWAAAAGQAAAKQAAAABAP####8AA3lQNwACLTEAAAADAAAAAj#wAAAAAAAAAAAAHwD#####Af8AAAASAAJQNwAAAAAAAAAAAEAIAAAAAAAACQAAAAAKAAAAGQAAAJcAAAAZAAAAsgAAAB8A#####wH#AAAAEgACUDgAAAAAAAAAAABACAAAAAAAAAkAAAAACgAAABkAAACYAAAAGQAAAKUAAAAfAP####8B#wAAABIAAlA5AAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAZAAAAmQAAABkAAACmAAAAHwD#####Af8AAAASAANQMTAAAAAAAAAAAABACAAAAAAAAAkAAAAACgAAABkAAACaAAAAGQAAAKcAAAAfAP####8B#wAAABIAA1AxMQAAAAAAAAAAAEAIAAAAAAAACQAAAAAKAAAAGQAAAJsAAAAZAAAAqAAAAB8A#####wH#AAAAEgADUDEyAAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAZAAAAnAAAABkAAACpAAAAHwD#####Af8AAAASAANQMTMAAAAAAAAAAABACAAAAAAAAAkAAAAACgAAABkAAACdAAAAGQAAAKoAAAAfAP####8B#wAAABIAA1AxNAAAAAAAAAAAAEAIAAAAAAAACQAAAAAKAAAAGQAAAJ4AAAAZAAAAqwAAABcA#####wAAAAEAAAAYAwAAAAI#8AAAAAAAAAAAABkAAACDAAAABQD#####AAAA#wESAANQJzEAAAAAAAAAAABACAAAAAAAAAkAAAAArAAAALsAAAAXAP####8AAAABAAAAGAMAAAACP#AAAAAAAAAAAAAZAAAAhAAAAAUA#####wAAAP8BEgADUCcyAAAAAAAAAAAAQAgAAAAAAAAJAAAAAK0AAAC9AAAAFwD#####AAAAAQAAABgDAAAAAj#wAAAAAAAAAAAAGQAAAIUAAAAFAP####8AAAD#ARIAA1AnMwAAAAAAAAAAAEAIAAAAAAAACQAAAACuAAAAvwAAABcA#####wAAAAEAAAAYAwAAAAI#8AAAAAAAAAAAABkAAACGAAAABQD#####AAAA#wESAANQJzQAAAAAAAAAAABACAAAAAAAAAkAAAAArwAAAMEAAAAXAP####8AAAABAAAAGAMAAAACP#AAAAAAAAAAAAAZAAAAhwAAAAUA#####wAAAP8BEgADUCc1AAAAAAAAAAAAQAgAAAAAAAAJAAAAALAAAADDAAAAFwD#####AAAAAQAAABgDAAAAAj#wAAAAAAAAAAAAGQAAAIgAAAAFAP####8AAAD#ARIAA1AnNgAAAAAAAAAAAEAIAAAAAAAACQAAAACxAAAAxQAAABcA#####wAAAAEAAAAYAwAAAAI#8AAAAAAAAAAAABkAAACJAAAABQD#####AAAA#wESAANQJzcAAAAAAAAAAABACAAAAAAAAAkAAAAAswAAAMcAAAAXAP####8AAAABAAAAGAMAAAACP#AAAAAAAAAAAAAZAAAAigAAAAUA#####wAAAP8BEgADUCc4AAAAAAAAAAAAQAgAAAAAAAAJAAAAALQAAADJAAAAFwD#####AAAAAQAAABgDAAAAAj#wAAAAAAAAAAAAGQAAAIsAAAAFAP####8AAAD#ARIAA1AnOQAAAAAAAAAAAEAIAAAAAAAACQAAAAC1AAAAywAAABcA#####wAAAAEAAAAYAwAAAAI#8AAAAAAAAAAAABkAAACMAAAABQD#####AAAA#wESAARQJzEwAAAAAAAAAAAAQAgAAAAAAAAJAAAAALYAAADNAAAAFwD#####AAAAAQAAABgDAAAAAj#wAAAAAAAAAAAAGQAAAI0AAAAFAP####8AAAD#ARIABFAnMTEAAAAAAAAAAABACAAAAAAAAAkAAAAAtwAAAM8AAAAXAP####8AAAABAAAAGAMAAAACP#AAAAAAAAAAAAAZAAAAjgAAAAUA#####wAAAP8BEgAEUCcxMgAAAAAAAAAAAEAIAAAAAAAACQAAAAC4AAAA0QAAABcA#####wAAAAEAAAAYAwAAAAI#8AAAAAAAAAAAABkAAACPAAAABQD#####AAAA#wESAARQJzEzAAAAAAAAAAAAQAgAAAAAAAAJAAAAALkAAADTAAAAFwD#####AAAAAQAAABgDAAAAAj#wAAAAAAAAAAAAGQAAAJAAAAAFAP####8AAAD#ARIABFAnMTQAAAAAAAAAAABACAAAAAAAAAkAAAAAugAAANUAAAABAP####8AA3hPNQABNQAAAAJAFAAAAAAAAAAAAAEA#####wADeE82AAE1AAAAAkAUAAAAAAAAAAAAAQD#####AAN4TzcAATUAAAACQBQAAAAAAAAAAAABAP####8AA3hPOAABNQAAAAJAFAAAAAAAAAAAAAEA#####wADeE85AAE1AAAAAkAUAAAAAAAAAAAAAQD#####AAR4TzEwAAE1AAAAAkAUAAAAAAAAAAAAAQD#####AAR4TzExAAE1AAAAAkAUAAAAAAAAAAAAAQD#####AAR4TzEyAAE1AAAAAkAUAAAAAAAAAAAAAQD#####AAR4TzEzAAE1AAAAAkAUAAAAAAAAAAAAAQD#####AAR4TzE0AAE1AAAAAkAUAAAAAAAAAAAAAQD#####AAN5TzUAATUAAAACQBQAAAAAAAAAAAABAP####8AA3lPNgABNgAAAAJAGAAAAAAAAAAAAAEA#####wADeU83AAE3AAAAAkAcAAAAAAAAAAAAAQD#####AAN5TzgAATgAAAACQCAAAAAAAAAAAAABAP####8AA3lPOQABOQAAAAJAIgAAAAAAAAAAAAEA#####wAEeU8xMAACMTAAAAACQCQAAAAAAAAAAAABAP####8ABHlPMTEAAjExAAAAAkAmAAAAAAAAAAAAAQD#####AAR5TzEyAAIxMgAAAAJAKAAAAAAAAAAAAAEA#####wAEeU8xMwACMTMAAAACQCoAAAAAAAAAAAABAP####8ABHlPMTQAAjE0AAAAAkAsAAAAAAAAAAAAHwD#####Af8AAAASAAJPNQAAAAAAAAAAAEAIAAAAAAAACQAAAAAKAAAAGQAAANcAAAAZAAAA4QAAAB8A#####wH#AAAAEgACTzYAAAAAAAAAAABACAAAAAAAAAkAAAAACgAAABkAAADYAAAAGQAAAOIAAAAfAP####8B#wAAABIAAk83AAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAZAAAA2QAAABkAAADjAAAAHwD#####Af8AAAASAAJPOAAAAAAAAAAAAEAIAAAAAAAACQAAAAAKAAAAGQAAANoAAAAZAAAA5AAAAB8A#####wEAAP8AEgACTzkAAAAAAAAAAABACAAAAAAAAAkAAAAACgAAABkAAADbAAAAGQAAAOUAAAAfAP####8B#wAAABIAA08xMAAAAAAAAAAAAEAIAAAAAAAACQAAAAAKAAAAGQAAANwAAAAZAAAA5gAAAB8A#####wH#AAAAEgADTzExAAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAZAAAA3QAAABkAAADnAAAAHwD#####Af8AAAASAANPMTIAAAAAAAAAAABACAAAAAAAAAkAAAAACgAAABkAAADeAAAAGQAAAOgAAAAfAP####8B#wAAABIAA08xMwAAAAAAAAAAAEAIAAAAAAAACQAAAAAKAAAAGQAAAN8AAAAZAAAA6QAAAB8A#####wH#AAAAEgADTzE0AAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAZAAAA4AAAABkAAADqAAAABAD#####AAAAQgAAAAUA#####wAAAP8AEgAAAAAAAAAAAAAAQAgAAAAAAAAJAAAAALwAAAD1AAAABgD#####AQAA#wASAAAAAAAAAAAAAABACAAAAAAAAAcAAAAAvAAAAPYAAAAHAP####8AAAD#ABAAAAEAAQAAALwAAAD3AAAABwD#####AAAA#wAQAAABAAEAAAD3AAAA9gAAAAgA#####wEAAP8AAQAAAPcAAAACP8mZmZmZmZoAAAAACQD#####AAAA+AAAAPoAAAAKAP####8AAAD#ABIAAAAAAAAAAAAAAEAIAAAAAAAABwABAAAA+wAAAAoA#####wAAAP8AEgAAAAAAAAAAAAAAQAgAAAAAAAAHAAIAAAD7AAAAGwD#####AA1DYXJyw6kgZGlyZWN0AAAABQAAAAIAAAACAAAA9wAAAP0AAAAHAAAAAP4BAAAAABAAAAEAAQAAAPcAAAD9AAAACwAAAAD+AAAAAAASAAABAQEAAAD3AAAA#wAAAAwAAAAA#gAAAAABAQAAAPcAAAD9AAAACQAAAAD+AAABAAAAAQEAAAAKAQAAAP4AAAD#ABIAAAEHAAIAAAECAAAADQAAAAD+AAAA9wAAAP0AAAAFAQAAAP4AAAD#ABIAAAEHAAAAAQMAAAEEAAAABwD#####AAAA#wAQAAABAAEAAAD3AAAA#QAAAAcA#####wAAAP8AEAAAAQABAAAA#QAAAQUAAAAHAP####8AAAD#ABAAAAEAAQAAAQUAAAEDAAAABwD#####AAAA#wAQAAABAAEAAAEDAAAA9wAAAA4A#####wAAAP8AAQAAAAUAAAD3AAAA#QAAAQUAAAEDAAAA9wAAAA8A#####wD#AAAAAQAAAAD4AAAADwD#####AP8AAAABAAAAAPkAAAAbAP####8AEHN5bcOpdHJpZSBheGlhbGUAAAASAAAABgAAAAIAAAC+AAAAVAAAAAEAAAABDQACeDMAATIAAAACQAAAAAAAAAAAAAABAAAAAQ0AAnkzAAExAAAAAj#wAAAAAAAAAAAAAQAAAAENAANiaXMAATEAAAACP#AAAAAAAAAAAAABAAAAAQ0AAXQAATEAAAACP#AAAAAAAAAAAAABAAAAAQ0AAnhQAAExAAAAAj#wAAAAAAAAAAAAAQAAAAENAAJ5UAACLTEAAAADAAAAAj#wAAAAAAAAAAAABAAAAAENAAAAVAAAAAUBAAABDQAAAP8AEgAAAAAAAAAAAAAAQAgAAAAAAAAJAAAAAL4AAAEUAAAABgAAAAENAQAA#wASAAAAAAAAAAAAAABACAAAAAAAAAcAAAAAvgAAARUAAAAHAQAAAQ0AAAD#ABAAAAEAAQAAAL4AAAEWAAAABwEAAAENAAAA#wAQAAABAAEAAAEWAAABFQAAAAgAAAABDQEAAP8AAQAAARYAAAACP8mZmZmZmZoAAAAACQAAAAENAAABFwAAARkAAAAKAAAAAQ0AAAD#ABIAAAAAAAAAAAAAAEAIAAAAAAAABwACAAABGgAAAAcAAAABDQEAAAAAEAAAAQABAAABFgAAARsAAAALAAAAAQ0AAAAAABIAAAEBAQAAARYAAAEcAAAADAAAAAENAAAAAAEBAAABFgAAARsAAAAJAAAAAQ0AAAEdAAABHgAAAAoAAAABDQAAAP8AEgAAAQcAAgAAAR8AAAANAAAAAQ0AAAEWAAABGwAAAAUAAAABDQAAAP8AEgAAAQcAAAABIAAAASEAAAAOAQAAAQ0AAAD#AAEAAAAFAAABFgAAARsAAAEiAAABIAAAARYAAAAPAQAAAQ0A#wAAAAEBAAABFwAAAA8BAAABDQD#AAAAAQEAAAEYAAAAGwD#####ABBzeW3DqXRyaWUgYXhpYWxlAAAAEgAAAAYAAAACAAAAwAAAAEgAAAABAAAAASYAAngzAAEyAAAAAkAAAAAAAAAAAAAAAQAAAAEmAAJ5MwABMQAAAAI#8AAAAAAAAAAAAAEAAAABJgADYmlzAAExAAAAAj#wAAAAAAAAAAAAAQAAAAEmAAF0AAExAAAAAj#wAAAAAAAAAAAAAQAAAAEmAAJ4UAABMQAAAAI#8AAAAAAAAAAAAAEAAAABJgACeVAAAi0xAAAAAwAAAAI#8AAAAAAAAAAAAAQAAAABJgAAAEgAAAAFAQAAASYAAAD#ABIAAAAAAAAAAAAAAEAIAAAAAAAACQAAAADAAAABLQAAAAYAAAABJgEAAP8AEgAAAAAAAAAAAAAAQAgAAAAAAAAHAAAAAMAAAAEuAAAABwEAAAEmAAAA#wAQAAABAAEAAADAAAABLwAAAAcBAAABJgAAAP8AEAAAAQABAAABLwAAAS4AAAAIAAAAASYBAAD#AAEAAAEvAAAAAj#JmZmZmZmaAAAAAAkAAAABJgAAATAAAAEyAAAACgAAAAEmAAAA#wASAAAAAAAAAAAAAABACAAAAAAAAAcAAgAAATMAAAAHAAAAASYBAAAAABAAAAEAAQAAAS8AAAE0AAAACwAAAAEmAAAAAAASAAABAQEAAAEvAAABNQAAAAwAAAABJgAAAAABAQAAAS8AAAE0AAAACQAAAAEmAAABNgAAATcAAAAKAAAAASYAAAD#ABIAAAEHAAIAAAE4AAAADQAAAAEmAAABLwAAATQAAAAFAAAAASYAAAD#ABIAAAEHAAAAATkAAAE6AAAADgEAAAEmAAAA#wABAAAABQAAAS8AAAE0AAABOwAAATkAAAEvAAAADwEAAAEmAP8AAAABAwAAATAAAAAPAQAAASYA#wAAAAEDAAABMQAAABsA#####wAQc3ltw6l0cmllIGF4aWFsZQAAABIAAAAGAAAAAgAAAMIAAABOAAAAAQAAAAE#AAJ4MwABMgAAAAJAAAAAAAAAAAAAAAEAAAABPwACeTMAATEAAAACP#AAAAAAAAAAAAABAAAAAT8AA2JpcwABMQAAAAI#8AAAAAAAAAAAAAEAAAABPwABdAABMQAAAAI#8AAAAAAAAAAAAAEAAAABPwACeFAAATEAAAACP#AAAAAAAAAAAAABAAAAAT8AAnlQAAItMQAAAAMAAAACP#AAAAAAAAAAAAAEAAAAAT8AAABOAAAABQEAAAE#AAAA#wASAAAAAAAAAAAAAABACAAAAAAAAAkAAAAAwgAAAUYAAAAGAAAAAT8BAAD#ABIAAAAAAAAAAAAAAEAIAAAAAAAABwAAAADCAAABRwAAAAcBAAABPwAAAP8AEAAAAQABAAAAwgAAAUgAAAAHAQAAAT8AAAD#ABAAAAEAAQAAAUgAAAFHAAAACAAAAAE#AQAA#wABAAABSAAAAAI#yZmZmZmZmgAAAAAJAAAAAT8AAAFJAAABSwAAAAoAAAABPwAAAP8AEgAAAAAAAAAAAAAAQAgAAAAAAAAHAAIAAAFMAAAABwAAAAE#AQAAAAAQAAABAAEAAAFIAAABTQAAAAsAAAABPwAAAAAAEgAAAQEBAAABSAAAAU4AAAAMAAAAAT8AAAAAAQEAAAFIAAABTQAAAAkAAAABPwAAAU8AAAFQAAAACgAAAAE#AAAA#wASAAABBwACAAABUQAAAA0AAAABPwAAAUgAAAFNAAAABQAAAAE#AAAA#wASAAABBwAAAAFSAAABUwAAAA4BAAABPwAAAP8AAQAAAAUAAAFIAAABTQAAAVQAAAFSAAABSAAAAA8BAAABPwD#AAAAAQIAAAFJAAAADwEAAAE#AP8AAAABAgAAAUr#####AAAAAQAJQ1JvdGF0aW9uAP####8AAADrAAAAAkBWgAAAAAAAAAAABQD#####AAAA#wASAAAAAAAAAAAAAABACAAAAAAAAAkAAAAAxAAAAVgAAAAHAP####8AAAD#ABAAAAEBAQAAAMQAAADr#####wAAAAIAGkNNYXJxdWVBbmdsZU9yaWVudGVEaXJlY3RlAP####8AAAD#AQEAAAABQDAAAAAAAAAAAADEAAAA6wAAAVkAAAAABwD#####AAAA#wAQAAABAQEAAADrAAABWf####8AAAABABJDQXJjRGVDZXJjbGVEaXJlY3QA#####wD#AAAAAQAAAOsAAADEAAABWQAAAA8A#####wD#AAAAAQEAAAFcAAAADwD#####AP8AAAABAQAAAVoAAAApAP####8AAADsAAAAAwAAAAJAVoAAAAAAAAAAAAUA#####wAAAP8AEgAAAAAAAAAAAAAAQAgAAAAAAAAJAAAAAMYAAAFgAAAABwD#####AAAA#wAQAAABAQEAAADGAAAA7AAAAAcA#####wAAAP8AEAAAAQEBAAAA7AAAAWEAAAAPAP####8A#wAAAAECAAABYwAAAA8A#####wD#AAAAAQIAAAFi#####wAAAAIAHENNYXJxdWVBbmdsZU9yaWVudGVJbmRpcmVjdGUA#####wAAAP8AAQAAAAFAMAAAAAAAAAAAAMYAAADsAAABYQH#####AAAAAQAUQ0FyY0RlQ2VyY2xlSW5kaXJlY3QA#####wD#AAAAAQAAAOwAAADGAAABYf####8AAAABABFDU3ltZXRyaWVDZW50cmFsZQD#####AAAA7QAAAAUA#####wAAAP8AEgAAAAAAAAAAAAAAQAgAAAAAAAAJAAAAAMgAAAFoAAAABwD#####AAAA#wAQAAABAQEAAADIAAAA7QAAAAcA#####wAAAP8AEAAAAQEBAAAA7QAAAWkAAAAPAP####8A#wAAAAEBAAABawAAAA8A#####wD#AAAAAQEAAAFqAAAADQD#####AAAAAQAAAO4AAAAFAP####8AAAD#ABIAAAAAAAAAAAAAAEAIAAAAAAAACQAAAADKAAABbgAAACUA#####wAAAP8AEAAAAQABAAAAygAAAW8BAAAAJQD#####AQAA#wAQAAABAAEAAAABAAAA7gEAAAAHAP####8A#wAAABAAAAEBAQAAAO4AAAFvAAAABwD#####AP8AAAAQAAABAQEAAAABAAAAygAAAAEA#####wACazEAATIAAAACQAAAAAAAAAAAAAABAP####8AAmsyAAItNAAAAAMAAAACQBAAAAAAAAAAAAAXAP####8AAADvAAAAGQAAAXQAAAAFAP####8AAAD#ABIAAAAAAAAAAAAAAEAIAAAAAAAACQAAAADMAAABdgAAAAcA#####wAAAP8AEAAAAQEBAAAA7wAAAXcAAAATAP####8B#wAAABIAAAAAAAAAAAAAAEAIAAAAAAAABQABP+TbfTXiMrkAAAF4AAAAIQD#####AP8AAAAAAXkAAAAYAP####8AAAACAAlDRm9uY3Rpb24AAAAAGQAAAXQAAAACP#AAAAAAAAAAAAF5AAAAAgAAAXkAAAF5AAAAFwD#####AAAA8AAAABgDAAAAAj#wAAAAAAAAAAAAGQAAAXUAAAAFAP####8AAAD#ABIAAAAAAAAAAAAAAEAIAAAAAAAACQAAAADOAAABewAAAAcA#####wAAAP8AEAAAAQEBAAABfAAAAPAAAAAHAP####8AAAD#ABAAAAEBAQAAAPAAAADOAAAAEwD#####Af8AAAASAAFMAAAAAAAAAAAAQAgAAAAAAAAFAAE#5DMPSjR2ZQAAAX4AAAAhAP####8A#wAAAAABfwAAABgAAAAALwAAAAAZAAABdQAAAAI#8AAAAAAAAAAAAX8AAAACAAABfwAAAX8AAAApAP####8AAADxAAAAAkBOAAAAAAAAAAAABQD#####AAAA#wASAAAAAAAAAAAAAABACAAAAAAAAAkAAAAA0AAAAYEAAAAHAP####8AAAD#ABAAAAEBAQAAANAAAADxAAAABwD#####AAAA#wAQAAABAQEAAADxAAABggAAACsA#####wD#AAAAAQAAAPEAAADQAAABggAAACoA#####wAAAP8BAQAAAAFAMAAAAAAAAAAAANAAAADxAAABggEAAAAPAP####8A#wAAAAEDAAABhAAAAA8A#####wD#AAAAAQMAAAGDAAAAKQD#####AAAA8gAAAAMAAAACQE4AAAAAAAAAAAAFAP####8AAAD#ABIAAAAAAAAAAAAAAEAIAAAAAAAACQAAAADSAAABiQAAAAcA#####wAAAP8AEAAAAQEBAAAA0gAAAPIAAAAHAP####8AAAD#ABAAAAEBAQAAAPIAAAGKAAAALQD#####AP8AAAABAAAA8gAAANIAAAGKAAAADwD#####AP8AAAABAgAAAYsAAAAPAP####8A#wAAAAECAAABjAAAACwA#####wAAAP8AAQAAAAFAMAAAAAAAAAAAANIAAADyAAABigEAAAApAP####8AAADzAAAAAkBeAAAAAAAAAAAABQD#####AAAA#wASAAAAAAAAAAAAAABACAAAAAAAAAkAAAAA1AAAAZEAAAAHAP####8AAAD#ABAAAAEBAQAAANQAAADzAAAABwD#####AAAA#wAQAAABAQEAAAGSAAAA8wAAACoA#####wAAAP8BAQAAAAFAMAAAAAAAAAAAANQAAADzAAABkgEAAAArAP####8A#wAAAAEAAADzAAAA1AAAAZIAAAApAP####8AAAD0AAAAAwAAAAJAXgAAAAAAAAAAAAUA#####wAAAP8AEgAAAAAAAAAAAAAAQAgAAAAAAAAJAAAAANYAAAGXAAAABwD#####AAAA#wAQAAABAQEAAADWAAAA9AAAAAcA#####wAAAP8AEAAAAQEBAAAA9AAAAZgAAAAsAP####8AAAD#AAEAAAABQDAAAAAAAAAAAADWAAAA9AAAAZgBAAAALQD#####AP8AAAABAAAA9AAAANYAAAGY#####wAAAAEADUNUcmFuc1BhclZlY3QA#####wAAAXAAAAAFAP####8BAAD#ABIAAAAAAAAAAAAAAEAIAAAAAAAACQAAAAABAAABnQAAACUA#####wAAAP8AEAAAAQABAAAAAQAAAZ4BAAAADv##########"
+		this.type_exercice = 'MG32';
+		this.MG32editable = false;
+		this.taille_div_MG32 = [700, 700];
+		this.MG32codeBase64 = "TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAAJmcv###wEA#wAAAAAEAACAEwAAgBIAAIAaAACBDAAAAAAFHAAAAtIAAAEBAAAAAAAAAAEAAAB9#####wAAAAEACkNDYWxjQ29uc3QA#####wACcGkAFjMuMTQxNTkyNjUzNTg5NzkzMjM4NDb#####AAAAAQAKQ0NvbnN0YW50ZUAJIftURC0Y#####wAAAAEACkNQb2ludEJhc2UA#####wAAAAAADgABTwDAKAAAAAAAAAAAAAAAAAAABQABQHXYAAAAAABAdjhR64UeuP####8AAAABABRDRHJvaXRlRGlyZWN0aW9uRml4ZQD#####AQAAAAAQAAABAAEAAAABAT#wAAAAAAAA#####wAAAAEAD0NQb2ludExpZURyb2l0ZQD#####AAAAAAEOAAFJAMAYAAAAAAAAAAAAAAAAAAAFAAFAOQAAAAAAAAAAAAL#####AAAAAQAJQ0Ryb2l0ZUFCAP####8AAAAAABAAAAEAAQAAAAEAAAAD#####wAAAAEAFkNEcm9pdGVQZXJwZW5kaWN1bGFpcmUA#####wAAAAAAEAAAAQABAAAAAQAAAAT#####AAAAAQAJQ0NlcmNsZU9BAP####8BAAAAAAEAAAABAAAAA#####8AAAABABBDSW50RHJvaXRlQ2VyY2xlAP####8AAAAFAAAABv####8AAAABABBDUG9pbnRMaWVCaXBvaW50AP####8BAAAAABAAAAEFAAEAAAAHAAAACQD#####AAAAAAEOAAFKAMAoAAAAAAAAwBAAAAAAAAAFAAIAAAAH#####wAAAAIAB0NSZXBlcmUA#####wDm5uYAAQAAAAEAAAADAAAACQEBAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAE#8AAAAAAAAAAAAAE#8AAAAAAAAP####8AAAABAApDVW5pdGV4UmVwAP####8ABHVuaXQAAAAK#####wAAAAEAC0NIb21vdGhldGllAP####8AAAAB#####wAAAAEACkNPcGVyYXRpb24DAAAAAT#wAAAAAAAA#####wAAAAEAD0NSZXN1bHRhdFZhbGV1cgAAAAv#####AAAAAQALQ1BvaW50SW1hZ2UA#####wEAAAAAEAACVyIBAQAAAAADAAAADP####8AAAABAAlDTG9uZ3VldXIA#####wAAAAEAAAAN#####wAAAAEAB0NDYWxjdWwA#####wAHbmJncmFkeAACMjAAAAABQDQAAAAAAAAAAAARAP####8AB25iZ3JhZHkAAjIwAAAAAUA0AAAAAAAA#####wAAAAEAFENJbXBsZW1lbnRhdGlvblByb3RvAP####8AFEdyYWR1YXRpb25BeGVzUmVwZXJlAAAAGwAAAAgAAAADAAAACgAAAA8AAAAQ#####wAAAAEAE0NBYnNjaXNzZU9yaWdpbmVSZXAAAAAAEQAFYWJzb3IAAAAK#####wAAAAEAE0NPcmRvbm5lZU9yaWdpbmVSZXAAAAAAEQAFb3Jkb3IAAAAKAAAACwAAAAARAAZ1bml0ZXgAAAAK#####wAAAAEACkNVbml0ZXlSZXAAAAAAEQAGdW5pdGV5AAAACv####8AAAABABBDUG9pbnREYW5zUmVwZXJlAAAAABEAAAAAABAAAAEFAAAAAAoAAAAOAAAAEgAAAA4AAAATAAAAFgAAAAARAAAAAAAQAAABBQAAAAAKAAAADQAAAAAOAAAAEgAAAA4AAAAUAAAADgAAABMAAAAWAAAAABEAAAAAABAAAAEFAAAAAAoAAAAOAAAAEgAAAA0AAAAADgAAABMAAAAOAAAAFQAAAAwAAAAAEQAAABYAAAAOAAAADwAAAA8AAAAAEQAAAAAAEAAAAQUAAAAAFwAAABkAAAAMAAAAABEAAAAWAAAADgAAABAAAAAPAAAAABEAAAAAABAAAAEFAAAAABgAAAAb#####wAAAAEACENTZWdtZW50AAAAABEBAAAAABAAAAEAAQAAABcAAAAaAAAAFwAAAAARAQAAAAAQAAABAAEAAAAYAAAAHAAAAAQAAAAAEQEAAAAACwABVwDAFAAAAAAAAMA0AAAAAAAABQABP9xWeJq83w4AAAAd#####wAAAAIACENNZXN1cmVYAAAAABEABnhDb29yZAAAAAoAAAAfAAAAEQAAAAARAAVhYnN3MQAGeENvb3JkAAAADgAAACD#####AAAAAgASQ0xpZXVPYmpldFBhclB0TGllAQAAABEAZmZmAAAAHwAAAA4AAAAPAAAAHwAAAAIAAAAfAAAAHwAAABEAAAAAEQAFYWJzdzIADTIqYWJzb3ItYWJzdzEAAAANAQAAAA0CAAAAAUAAAAAAAAAAAAAADgAAABIAAAAOAAAAIQAAABYAAAAAEQEAAAAAEAAAAQUAAAAACgAAAA4AAAAjAAAADgAAABMAAAAZAQAAABEAZmZmAAAAJAAAAA4AAAAPAAAAHwAAAAUAAAAfAAAAIAAAACEAAAAjAAAAJAAAAAQAAAAAEQEAAAAACwABUgBAIAAAAAAAAMAgAAAAAAAABQABP9EbToG06B8AAAAe#####wAAAAIACENNZXN1cmVZAAAAABEABnlDb29yZAAAAAoAAAAmAAAAEQAAAAARAAVvcmRyMQAGeUNvb3JkAAAADgAAACcAAAAZAQAAABEAZmZmAAAAJgAAAA4AAAAQAAAAJgAAAAIAAAAmAAAAJgAAABEAAAAAEQAFb3JkcjIADTIqb3Jkb3Itb3JkcjEAAAANAQAAAA0CAAAAAUAAAAAAAAAAAAAADgAAABMAAAAOAAAAKAAAABYAAAAAEQEAAAAAEAAAAQUAAAAACgAAAA4AAAASAAAADgAAACoAAAAZAQAAABEAZmZmAAAAKwAAAA4AAAAQAAAAJgAAAAUAAAAmAAAAJwAAACgAAAAqAAAAK#####8AAAACAAxDQ29tbWVudGFpcmUAAAAAEQFmZmYAAAAAAAAAAABAGAAAAAAAAAAAAB8LAAH###8AAAABAAAAAAAAAAEAAAAAAAAAAAALI1ZhbChhYnN3MSkAAAAZAQAAABEAZmZmAAAALQAAAA4AAAAPAAAAHwAAAAQAAAAfAAAAIAAAACEAAAAtAAAAGwAAAAARAWZmZgAAAAAAAAAAAEAYAAAAAAAAAAAAJAsAAf###wAAAAEAAAAAAAAAAQAAAAAAAAAAAAsjVmFsKGFic3cyKQAAABkBAAAAEQBmZmYAAAAvAAAADgAAAA8AAAAfAAAABgAAAB8AAAAgAAAAIQAAACMAAAAkAAAALwAAABsAAAAAEQFmZmYAwCAAAAAAAAA#8AAAAAAAAAAAACYLAAH###8AAAACAAAAAQAAAAEAAAAAAAAAAAALI1ZhbChvcmRyMSkAAAAZAQAAABEAZmZmAAAAMQAAAA4AAAAQAAAAJgAAAAQAAAAmAAAAJwAAACgAAAAxAAAAGwAAAAARAWZmZgDAHAAAAAAAAAAAAAAAAAAAAAAAKwsAAf###wAAAAIAAAABAAAAAQAAAAAAAAAAAAsjVmFsKG9yZHIyKQAAABkBAAAAEQBmZmYAAAAzAAAADgAAABAAAAAmAAAABgAAACYAAAAnAAAAKAAAACoAAAArAAAAMwAAABEA#####wABeAABMwAAAAFACAAAAAAAAAAAABEA#####wABeQABMgAAAAFAAAAAAAAAAAAAABYA#####wAAAAAAEAABQQAAAAAAAAAAAEAIAAAAAAAACQAAAAAKAAAADgAAADUAAAAOAAAANgAAABEA#####wACeDEAAi0z#####wAAAAEADENNb2luc1VuYWlyZQAAAAFACAAAAAAAAAAAABEA#####wACeTEAATIAAAABQAAAAAAAAAAAAAARAP####8AAngyAAEyAAAAAUAAAAAAAAAAAAAAEQD#####AAJ5MgABMQAAAAE#8AAAAAAAAAAAABYA#####wEAAAAAEAACTyIAwDEAAAAAAADAQQAAAAAAAAYAAAAACgAAAA4AAAA6AAAADgAAADv#####AAAAAQAJQ0Ryb2l0ZU9tAP####8BAAAAABAAAAEAAQAAAAoAAAA8AAAAAT#wAAAAAAAAAAAABAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAUAIKPXCj1wmAAAAPQAAABEA#####wAEYmlzMQABMQAAAAE#8AAAAAAAAAAAAAwA#####wAAADwAAAAOAAAAPwAAAA8A#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAJAAAAAD4AAABAAAAABQD#####AAAAAAEQAAJkMQEAAT#szMzMzMzNAAAAPAAAAEEAAAADAP####8BAAAAARAAAAEAAQAAADwBP#AAAAAAAAAAAAAEAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABQFkAAAAAAAAAAABDAAAAEQD#####AAN4eCcAATEAAAABP#AAAAAAAAAAAAAMAP####8AAAA8AAAADgAAAEUAAAAPAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAABEAAAARgAAAAUA#####wAAAAABEAABZADAEvfO2RaIAD#wAAAAAAAAAAE#7ChslIjsKgAAADwAAABHAAAAAwD#####AQAAAAEQAAABAAEAAAA8AD#wAAAAAAAAAAAABAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAcBYv######+AAAASQAAABEA#####wADeXknAAExAAAAAT#wAAAAAAAAAAAADAD#####AAAAPAAAAA4AAABLAAAADwD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAASgAAAEwAAAAFAP####8AAAAAARAAAmQnAQABP+zMzMzMzM0AAAA8AAAATQAAAB0A#####wEAAAAAEAAAAQABAAAACgAAADwAAAAcAAAAAT#wAAAAAAAAAAAABAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAUARrhR64UeuAAAATwAAABEA#####wAEYmlzMgABMQAAAAE#8AAAAAAAAAAAAAwA#####wAAADwAAAAOAAAAUQAAAA8A#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAFAAAABSAAAABQD#####AAAAAAEQAAJkMgEAAT#szMzMzMzNAAAAPAAAAFMAAAARAP####8ACUFmZmljaGVPJwABMQAAAAE#8AAAAAAAAAAAAAwA#####wAAAAEAAAABP#AAAAAAAAAAAAAPAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAA8AAAAVgAAAAwA#####wAAAAEAAAANAwAAAAE#8AAAAAAAAAAAAA4AAABVAAAADwD#####AAAAAAAOAAJPJwAAAAAAAAAAAEAIAAAAAAAACQAAAAA8AAAAWP####8AAAABAAhDVmVjdGV1cgD#####Af8AAAAQAAABAAIAAAABAAAAVwAAAAARAP####8ACkFmZmljaGVPTycAATEAAAABP#AAAAAAAAD#####AAAAAQARQ1BvaW50UGFyTXVsdFZlY3QA#####wEAAAAADgACTzMAQDkAAAAAAABACAAAAAAAAAMAAAAAAQAAAFoAAAANAwAAAAE#8AAAAAAAAAAAAA4AAABbAAAAHgD#####AP8AAAAQAAABAAIAAAABAAAAXAAAAAAfAP####8B#wAAABAAAAEFAAAAAAEAAABdAAAAAT#gAAAAAAAAAAAABgD#####Af8AAAAQAAABAAIAAABeAAAAXf####8AAAACAAlDQ2VyY2xlT1IA#####wH#AAAAAgAAAF4AAAABP8mZmZmZmZoAAAAACAD#####AAAAXwAAAGAAAAAJAP####8B#wAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAAYQAAAAkA#####wH#AAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAIAAABh#####wAAAAIABkNMYXRleAD#####AP8AAADAMgAAAAAAAMAxAAAAAAAAAAAAYxAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAABNcb3ZlcnJpZ2h0YXJyb3cge3Z9#####wAAAAEAEUNQb2ludFBhckFic2Npc3NlAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAACQAAAAABAAAAAwAAAAFAJAAAAAAAAAAAAAcA#####wEAAAAAAQAAAAEAAABlAAAACAD#####AAAAVAAAAGYAAAAJAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAAZwAAAAkA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAIAAABnAAAACAD#####AAAATgAAAGYAAAAJAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAAagAAAAkA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAEAAABqAAAACAD#####AAAAQgAAAGYAAAAJAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAAbQAAAAkA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAEAAABtAAAACAD#####AAAASAAAAGYAAAAJAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAAcAAAAAkA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAEAAABwAAAAGwD#####AAAAAAEAAAByEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAyhkKQAAABsA#####wAAAAAAQAAAAAAAAADAGAAAAAAAAAAAAGwQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAEKGQnKQAAABsA#####wAAAAABAAAAbxAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAgoZCNMKDEpKQAAABsA#####wAAAAAAwDUAAAAAAABAFAAAAAAAAAAAAGkQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAIKGQjTCgyKSkAAAARAP####8AAnhCAAExAAAAAT#wAAAAAAAAAAAAEQD#####AAJ5QgABMQAAAAE#8AAAAAAAAAAAABEA#####wACeEMAATEAAAABP#AAAAAAAAAAAAARAP####8AAnlDAAExAAAAAT#wAAAAAAAAAAAAFgD#####AAAAAAAQAAFCAAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAOAAAAdwAAAA4AAAB4AAAAFgD#####AAAAAAAQAAFDAAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAOAAAAeQAAAA4AAAB6AAAADv##########"
+		this.MG32codeBase64corr = "TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAAJmcv###wEA#wAAAADEAACIuAAAgIkAAICKAAB9FwAAgCoAAH0TAAB9EgAAgCcAAIAoAAB9FAAAgK4AAIB8AACAhAAAgAsAAIAlAACAIAAAgA0AAIAOAACBWQAAgAwAAIDxAACBJwAAgHkAAIB7AACAegAAgCQAAIFxAACAbQAAgGoAAIC7AACAvAAAfR0AAH0eAACAgAAAgYMAAIAPAACAEwAAgBIAAIAXAACAFgAAgF4AAIBfAACAZQAAfRAAAIDrAACAEAAAgEgAAIAUAAB9KAAAgBoAAIAdAACA6QAAgVAAAIFRAACBDAAAgQ0AAIFSAACBUwAAgB4AAIAcAACAGwAAgBkAAIBgAACBIAAAgN4AAIDfAACBCgAAgOAAAIFDAACASQAAgEoAAIEXAACBGAAAgDMAAIB2AACA7AAAgO0AAIDYAACA2QAAgNoAAIDbAACAcgAAgXkAAIFiAACBZAAAgE0AAIAfAACAIgAAgCMAAIAhAACAxwAAgT0AAIELAACBBAAAgC0AAIFMAACAMAAAgSoAAIErAACALgAAgDEAAIDyAACBaQAAgWcAAIGlAACBdQAAgC8AAIA1AACAWQAAgFwAAH0KAAB9CwAAgUkAAIFLAAB9DgAAfQ8AAH0RAAB9FQAAfSQAAIBuAACAawAAgLAAAIFXAACAsQAAgVYAAICyAACBVAAAgLcAAIC4AACAswAAgPcAAIC0AACAtQAAgQYAAIEfAACBAgAAgY4AAIGPAACBAwAAgOMAAID2AACBBwAAgQkAAIEpAACBKAAAgOgAAIBvAACAcAAAgHQAAIBQAACA3QAAfRkAAH0YAACBbAAAgHEAAIFtAACBbgAAgXIAAIGGAAB9IwAAgQgAAIDkAACA5wAAgOUAAIDuAAB9KwAAfS0AAH0qAAB9LAAAgW8AAIFwAACBeAAAgXcAAH0mAACA8AAAfSUAAIEiAAB9KQAAfScAAIGjAACBpAAAfR8AAH0gAAB9IQAAfSIAAIBiAACAYwAAgGcAAIBoAACAaQAAgMkAAIBLAACArwAAgSwAAIDhAACA4gAAAAAFHAAAAtIAAAEBAAAAAQAAAAYAEHN5bcOpdHJpZSBheGlhbGUADFBvaW50CmRyb2l0ZQAAAAIAAAAGAAAAABr#####AAAAAQARQ0VsZW1lbnRHZW5lcmlxdWUAAAAAAAH#####AAAAAAAAAAAACf##########AAAAAQAHQ0NhbGN1bAD#####AAJ4MgABMv####8AAAABAApDQ29uc3RhbnRlQAAAAAAAAAAAAAABAP####8AAnkyAAExAAAAAj#wAAAAAAAAAAAAAQD#####AARiaXMxAAExAAAAAj#wAAAAAAAAAAAAAQD#####AAJ0MQABMQAAAAI#8AAAAAAAAAAAAAEA#####wADeFAxAAExAAAAAj#wAAAAAAAAAAAAAQD#####AAN5UDEAAi0x#####wAAAAEADENNb2luc1VuYWlyZQAAAAI#8AAAAAAAAP####8AAAABAA9DU3ltZXRyaWVBeGlhbGUA#####wAAAAH#####AAAAAQALQ1BvaW50SW1hZ2UB#####wAAAP8AEgAAAAAAAAAAAAAAQAgAAAAAAAAJAAAAAAAAAAAI#####wAAAAEAB0NNaWxpZXUA#####wEAAP8AEgAAAAAAAAAAAAAAQAgAAAAAAAAHAAAAAAAAAAAJ#####wAAAAEACENTZWdtZW50Af####8AAAD#ABAAAAEAAQAAAAAAAAAKAAAABwH#####AAAA#wAQAAABAAEAAAAKAAAACf####8AAAACAAlDQ2VyY2xlT1IA#####wEAAP8AAQAAAAoAAAACP8mZmZmZmZoA#####wAAAAEAEENJbnREcm9pdGVDZXJjbGUA#####wAAAAsAAAAN#####wAAAAEAEENQb2ludExpZUJpcG9pbnQA#####wAAAP8AEgAAAAAAAAAAAAAAQAgAAAAAAAAHAAIAAAAOAAAABwD#####AQAAAAAQAAABAAEAAAAKAAAAD#####8AAAABABZDRHJvaXRlUGVycGVuZGljdWxhaXJlAP####8AAAAAAA0AAAEBAQAAAAoAAAAQ#####wAAAAEACUNDZXJjbGVPQQD#####AAAAAAEBAAAACgAAAA8AAAAJAP####8AAAARAAAAEgAAAAoA#####wAAAP8AEgAAAQcAAgAAABP#####AAAAAQAMQ1RyYW5zbGF0aW9uAP####8AAAAKAAAADwAAAAUA#####wAAAP8AEgAAAQcAAAAAFAAAABX#####AAAAAQAJQ1BvbHlnb25lAf####8AAAD#AAEAAAAFAAAACgAAAA8AAAAWAAAAFAAAAAr#####AAAAAQAOQ01hcnF1ZVNlZ21lbnQB#####wD#AAAAAQAAAAALAAAADwH#####AP8AAAABAAAAAAwAAAABAAABoP####8AAAABAApDQ2FsY0NvbnN0AP####8AAnBpABYzLjE0MTU5MjY1MzU4OTc5MzIzODQ2AAAAAkAJIftURC0Y#####wAAAAEACkNQb2ludEJhc2UA#####wAAAAAADgABTwDAKAAAAAAAAAAAAAAAAAAABQABQHXYAAAAAABAdjhR64UeuP####8AAAABABRDRHJvaXRlRGlyZWN0aW9uRml4ZQD#####AQAAAAASAAABAAEAAAABAT#wAAAAAAAA#####wAAAAEAD0NQb2ludExpZURyb2l0ZQD#####AAAAAAEOAAFJAMAYAAAAAAAAAAAAAAAAAAAFAAFAOQAAAAAAAAAAAAL#####AAAAAQAJQ0Ryb2l0ZUFCAP####8AAAAAABAAAAEAAQAAAAEAAAADAAAACwD#####AAAAAAASAAABAAEAAAABAAAABAAAAAwA#####wEAAAAAAQAAAAEAAAADAAAACQD#####AAAABQAAAAYAAAAKAP####8BAAAAABIAAAEFAAEAAAAHAAAACgD#####AAAAAAEOAAFKAMAoAAAAAAAAwBAAAAAAAAAFAAIAAAAH#####wAAAAIAB0NSZXBlcmUA#####wDm5uYAAQAAAAEAAAADAAAACQEBAAAAAAIAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAI#8AAAAAAAAAAAAAI#8AAAAAAAAP####8AAAABAApDVW5pdGV4UmVwAP####8ABHVuaXQAAAAK#####wAAAAEAC0NIb21vdGhldGllAP####8AAAAB#####wAAAAEACkNPcGVyYXRpb24DAAAAAj#wAAAAAAAA#####wAAAAEAD0NSZXN1bHRhdFZhbGV1cgAAAAsAAAAFAP####8BAAAAABAAAlciAQEAAAAAAwAAAAz#####AAAAAQAJQ0xvbmd1ZXVyAP####8AAAABAAAADQAAAAEA#####wAHbmJncmFkeAACMjAAAAACQDQAAAAAAAAAAAABAP####8AB25iZ3JhZHkAAjIwAAAAAkA0AAAAAAAA#####wAAAAEAFENJbXBsZW1lbnRhdGlvblByb3RvAP####8AFEdyYWR1YXRpb25BeGVzUmVwZXJlAAAAGwAAAAgAAAADAAAACgAAAA8AAAAQ#####wAAAAEAE0NBYnNjaXNzZU9yaWdpbmVSZXAAAAAAEQAFYWJzb3IAAAAK#####wAAAAEAE0NPcmRvbm5lZU9yaWdpbmVSZXAAAAAAEQAFb3Jkb3IAAAAKAAAAFgAAAAARAAZ1bml0ZXgAAAAK#####wAAAAEACkNVbml0ZXlSZXAAAAAAEQAGdW5pdGV5AAAACv####8AAAABABBDUG9pbnREYW5zUmVwZXJlAAAAABEAAAAAABIAAAEFAAAAAAoAAAAZAAAAEgAAABkAAAATAAAAHwAAAAARAAAAAAASAAABBQAAAAAKAAAAGAAAAAAZAAAAEgAAABkAAAAUAAAAGQAAABMAAAAfAAAAABEAAAAAABIAAAEFAAAAAAoAAAAZAAAAEgAAABgAAAAAGQAAABMAAAAZAAAAFQAAABcAAAAAEQAAABYAAAAZAAAADwAAAAUAAAAAEQAAAAAAEgAAAQUAAAAAFwAAABkAAAAXAAAAABEAAAAWAAAAGQAAABAAAAAFAAAAABEAAAAAABIAAAEFAAAAABgAAAAbAAAABwAAAAARAQAAAAAQAAABAAEAAAAXAAAAGgAAAAcAAAAAEQEAAAAAEAAAAQABAAAAGAAAABwAAAATAAAAABEBAAAAAAsAAVcAwBQAAAAAAADANAAAAAAAAAUAAT#cVniavN8OAAAAHf####8AAAACAAhDTWVzdXJlWAAAAAARAAZ4Q29vcmQAAAAKAAAAHwAAAAEAAAAAEQAFYWJzdzEABnhDb29yZAAAABkAAAAg#####wAAAAIAEkNMaWV1T2JqZXRQYXJQdExpZQEAAAARAGZmZgAAAB8AAAAZAAAADwAAAB8AAAACAAAAHwAAAB8AAAABAAAAABEABWFic3cyAA0yKmFic29yLWFic3cxAAAAGAEAAAAYAgAAAAJAAAAAAAAAAAAAABkAAAASAAAAGQAAACEAAAAfAAAAABEBAAAAABIAAAEFAAAAAAoAAAAZAAAAIwAAABkAAAATAAAAIQEAAAARAGZmZgAAACQAAAAZAAAADwAAAB8AAAAFAAAAHwAAACAAAAAhAAAAIwAAACQAAAATAAAAABEBAAAAAAsAAVIAQCAAAAAAAADAIAAAAAAAAAUAAT#RG06BtOgfAAAAHv####8AAAACAAhDTWVzdXJlWQAAAAARAAZ5Q29vcmQAAAAKAAAAJgAAAAEAAAAAEQAFb3JkcjEABnlDb29yZAAAABkAAAAnAAAAIQEAAAARAGZmZgAAACYAAAAZAAAAEAAAACYAAAACAAAAJgAAACYAAAABAAAAABEABW9yZHIyAA0yKm9yZG9yLW9yZHIxAAAAGAEAAAAYAgAAAAJAAAAAAAAAAAAAABkAAAATAAAAGQAAACgAAAAfAAAAABEBAAAAABIAAAEFAAAAAAoAAAAZAAAAEgAAABkAAAAqAAAAIQEAAAARAGZmZgAAACsAAAAZAAAAEAAAACYAAAAFAAAAJgAAACcAAAAoAAAAKgAAACv#####AAAAAgAMQ0NvbW1lbnRhaXJlAAAAABEBZmZmAAAAAAAAAAAAQBgAAAAAAAAAAAAfCwAB####AAAAAQAAAAAAAAACAAAAAAAAAAAACyNWYWwoYWJzdzEpAAAAIQEAAAARAGZmZgAAAC0AAAAZAAAADwAAAB8AAAAEAAAAHwAAACAAAAAhAAAALQAAACMAAAAAEQFmZmYAAAAAAAAAAABAGAAAAAAAAAAAACQLAAH###8AAAABAAAAAAAAAAIAAAAAAAAAAAALI1ZhbChhYnN3MikAAAAhAQAAABEAZmZmAAAALwAAABkAAAAPAAAAHwAAAAYAAAAfAAAAIAAAACEAAAAjAAAAJAAAAC8AAAAjAAAAABEBZmZmAMAgAAAAAAAAP#AAAAAAAAAAAAAmCwAB####AAAAAgAAAAEAAAACAAAAAAAAAAAACyNWYWwob3JkcjEpAAAAIQEAAAARAGZmZgAAADEAAAAZAAAAEAAAACYAAAAEAAAAJgAAACcAAAAoAAAAMQAAACMAAAAAEQFmZmYAwBwAAAAAAAAAAAAAAAAAAAAAACsLAAH###8AAAACAAAAAQAAAAIAAAAAAAAAAAALI1ZhbChvcmRyMikAAAAhAQAAABEAZmZmAAAAMwAAABkAAAAQAAAAJgAAAAYAAAAmAAAAJwAAACgAAAAqAAAAKwAAADMAAAABAP####8AAXgAATMAAAACQAgAAAAAAAAAAAABAP####8AAXkAATIAAAACQAAAAAAAAAAAAAAfAP####8AAAAAABAAAUEAAAAAAAAAAABACAAAAAAAAAkAAAAACgAAABkAAAA1AAAAGQAAADYAAAABAP####8AAngxAAItMwAAAAMAAAACQAgAAAAAAAAAAAABAP####8AAnkxAAEyAAAAAkAAAAAAAAAAAAAAAQD#####AAJ4MgABMgAAAAJAAAAAAAAAAAAAAAEA#####wACeTIAATEAAAACP#AAAAAAAAAAAAAfAP####8BAAAAABAAAk8iAMAxAAAAAAAAwEEAAAAAAAAGAAAAAAoAAAAZAAAAOgAAABkAAAA7#####wAAAAEACUNEcm9pdGVPbQD#####AQAAAAASAAABAAEAAAAKAAAAPAAAAAI#8AAAAAAAAAAAABMA#####wEAAAAAEgAAAAAAAAAAAAAAQAgAAAAAAAAFAAFACCj1wo9cJgAAAD0AAAABAP####8ABGJpczEAATEAAAACP#AAAAAAAAAAAAAXAP####8AAAA8AAAAGQAAAD8AAAAFAP####8BAAAAABIAAAAAAAAAAAAAAEAIAAAAAAAACQAAAAA+AAAAQAAAABQA#####wAAAAABEAACZDEBAAI#7MzMzMzMzQAAADwAAABBAAAAEgD#####AQAAAAESAAABAAEAAAA8AT#wAAAAAAAAAAAAEwD#####AQAAAAASAAAAAAAAAAAAAABACAAAAAAAAAUAAUBZAAAAAAAAAAAAQwAAAAEA#####wADeHgnAAExAAAAAj#wAAAAAAAAAAAAFwD#####AAAAPAAAABkAAABFAAAABQD#####AQAAAAASAAAAAAAAAAAAAABACAAAAAAAAAUAAAAARAAAAEYAAAAUAP####8AAAAAARAAAWQAwBL3ztkWiAA#8AAAAAAAAAADP+wobJSI7CoAAAA8AAAARwAAABIA#####wEAAAABEgAAAQABAAAAPAA#8AAAAAAAAAAAABMA#####wEAAAAAEgAAAAAAAAAAAAAAQAgAAAAAAAAFAAHAWL#######gAAAEkAAAABAP####8AA3l5JwABMQAAAAI#8AAAAAAAAAAAABcA#####wAAADwAAAAZAAAASwAAAAUA#####wEAAAAAEgAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAEoAAABMAAAAFAD#####AAAAAAEQAAJkJwEAAz#szMzMzMzNAAAAPAAAAE0AAAAkAP####8BAAAAABIAAAEAAQAAAAoAAAA8AAAAAwAAAAI#8AAAAAAAAAAAABMA#####wEAAAAAEgAAAAAAAAAAAAAAQAgAAAAAAAAFAAFAEa4UeuFHrgAAAE8AAAABAP####8ABGJpczIAATEAAAACP#AAAAAAAAAAAAAXAP####8AAAA8AAAAGQAAAFEAAAAFAP####8BAAAAABIAAAAAAAAAAAAAAEAIAAAAAAAABQAAAABQAAAAUgAAABQA#####wAAAAABEAACZDIBAAI#7MzMzMzMzQAAADwAAABTAAAAAQD#####AAlBZmZpY2hlTycAATEAAAACP#AAAAAAAAAAAAAXAP####8AAAABAAAAAj#wAAAAAAAAAAAABQD#####AQAAAAASAAAAAAAAAAAAAABACAAAAAAAAAUAAAAAPAAAAFYAAAAXAP####8AAAABAAAAGAMAAAACP#AAAAAAAAAAAAAZAAAAVQAAAAUA#####wAAAAAADgACTycAAAAAAAAAAABACAAAAAAAAAkAAAAAPAAAAFj#####AAAAAQAIQ1ZlY3RldXIA#####wH#AAAAEAAAAQACAAAAAQAAAFcAAAAAAQD#####AApBZmZpY2hlT08nAAExAAAAAj#wAAAAAAAA#####wAAAAEAEUNQb2ludFBhck11bHRWZWN0AP####8BAAAAAA4AAk8zAEA5AAAAAAAAQAgAAAAAAAADAAAAAAEAAABaAAAAGAMAAAACP#AAAAAAAAAAAAAZAAAAWwAAACUA#####wD#AAAAEAAAAQACAAAAAQAAAFwAAAAAJgD#####Af8AAAASAAABBQAAAAABAAAAXQAAAAI#4AAAAAAAAAAAAAsA#####wH#AAAAEgAAAQACAAAAXgAAAF0AAAAIAP####8B#wAAAAIAAABeAAAAAj#JmZmZmZmaAAAAAAkA#####wAAAF8AAABgAAAACgD#####Af8AAAASAAAAAAAAAAAAAABACAAAAAAAAAUAAQAAAGEAAAAKAP####8B#wAAABIAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAAYf####8AAAACAAZDTGF0ZXgA#####wD#AAAAwDIAAAAAAADAMQAAAAAAAAAAAGMQAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAATXG92ZXJyaWdodGFycm93IHt2ff####8AAAABABFDUG9pbnRQYXJBYnNjaXNzZQD#####AQAAAAASAAAAAAAAAAAAAABACAAAAAAAAAkAAAAAAQAAAAMAAAACQCoAAAAAAAAAAAAMAP####8BAAAAAAEAAAABAAAAZQAAAAkA#####wAAAFQAAABmAAAACgD#####AQAAAAASAAAAAAAAAAAAAABACAAAAAAAAAUAAQAAAGcAAAAKAP####8BAAAAABIAAAAAAAAAAAAAAEAIAAAAAAAABQACAAAAZwAAAAkA#####wAAAE4AAABmAAAACgD#####AQAAAAASAAAAAAAAAAAAAABACAAAAAAAAAUAAgAAAGoAAAAKAP####8BAAAAABIAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAAagAAAAkA#####wAAAEIAAABmAAAACgD#####AQAAAAASAAAAAAAAAAAAAABACAAAAAAAAAUAAgAAAG0AAAAKAP####8BAAAAABIAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAAbQAAAAkA#####wAAAEgAAABmAAAACgD#####AQAAAAASAAAAAAAAAAAAAABACAAAAAAAAAUAAgAAAHAAAAAKAP####8BAAAAABIAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAAcAAAACMA#####wAAAAAAwCIAAAAAAADAPQAAAAAAAAAAAHIQAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAIKGQjTCgzKSkAAAAjAP####8AAAAAAEAQAAAAAAAAwC########wAAABsEAAAAAAAAAAAAAAAAAACAAAAAAAAAAAABChkJykAAAAjAP####8AAAAAAEBHgAAAAAAAwEqAAAAAAAAAAABvEAAAAAAAAAAAAAAAAAACAAAAAAAAAAAACChkI0woMSkpAAAAIwD#####AAAAAADATgAAAAAAAMBDf#######AAAAaRAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAgoZCNMKDIpKQAAAAEA#####wACeEIAATEAAAACP#AAAAAAAAAAAAABAP####8AAnlCAAExAAAAAj#wAAAAAAAAAAAAAQD#####AAJ4QwABMQAAAAI#8AAAAAAAAAAAAAEA#####wACeUMAATEAAAACP#AAAAAAAAAAAAAfAP####8AAAAAABAAAUIAAAAAAAAAAABACAAAAAAAAAkAAAAACgAAABkAAAB3AAAAGQAAAHgAAAAfAP####8AAAAAABAAAUMAAAAAAAAAAABACAAAAAAAAAkAAAAACgAAABkAAAB5AAAAGQAAAHoAAAABAP####8AA3hBJwABNQAAAAJAFAAAAAAAAAAAAAEA#####wADeUEnAAEyAAAAAkAAAAAAAAAAAAAAAQD#####AAN4QicAATUAAAACQBQAAAAAAAAAAAABAP####8AA3lCJwABMwAAAAJACAAAAAAAAAAAAAEA#####wADeEMnAAE1AAAAAkAUAAAAAAAAAAAAAQD#####AAN5QycAATQAAAACQBAAAAAAAAAAAAABAP####8AAnQxAAExAAAAAj#wAAAAAAAAAAAAAQD#####AAJ0MgABMQAAAAI#8AAAAAAAAAAAAAEA#####wACdDMAATEAAAACP#AAAAAAAAAAAAABAP####8AAnQ0AAExAAAAAj#wAAAAAAAAAAAAAQD#####AAJ0NQABMQAAAAI#8AAAAAAAAAAAAAEA#####wACdDYAATEAAAACP#AAAAAAAAAAAAABAP####8AAnQ3AAExAAAAAj#wAAAAAAAAAAAAAQD#####AAJ0OAABMQAAAAI#8AAAAAAAAAAAAAEA#####wACdDkAATEAAAACP#AAAAAAAAAAAAABAP####8AA3QxMAABMQAAAAI#8AAAAAAAAAAAAAEA#####wADdDExAAExAAAAAj#wAAAAAAAAAAAAAQD#####AAN0MTIAATEAAAACP#AAAAAAAAAAAAABAP####8AA3QxMwABMQAAAAI#8AAAAAAAAAAAAAEA#####wADdDE0AAExAAAAAj#wAAAAAAAAAAAAAQD#####AAN4UDEAATEAAAACP#AAAAAAAAAAAAABAP####8AA3hQMgABMgAAAAJAAAAAAAAAAAAAAAEA#####wADeFAzAAEzAAAAAkAIAAAAAAAAAAAAAQD#####AAN4UDQAATQAAAACQBAAAAAAAAAAAAABAP####8AA3hQNQABNQAAAAJAFAAAAAAAAAAAAAEA#####wADeFA2AAE2AAAAAkAYAAAAAAAAAAAAAQD#####AAN4UDcAATcAAAACQBwAAAAAAAAAAAABAP####8AA3hQOAABOAAAAAJAIAAAAAAAAAAAAAEA#####wADeFA5AAE5AAAAAkAiAAAAAAAAAAAAAQD#####AAR4UDEwAAIxMAAAAAJAJAAAAAAAAAAAAAEA#####wAEeFAxMQACMTEAAAACQCYAAAAAAAAAAAABAP####8ABHhQMTIAAjEyAAAAAkAoAAAAAAAAAAAAAQD#####AAR4UDEzAAIxMwAAAAJAKgAAAAAAAAAAAAEA#####wAEeFAxNAACMTQAAAACQCwAAAAAAAAAAAABAP####8AA3lQMQACLTQAAAADAAAAAkAQAAAAAAAAAAAAAQD#####AAN5UDIAAi0xAAAAAwAAAAI#8AAAAAAAAAAAAAEA#####wADeVAzAAItNQAAAAMAAAACQBQAAAAAAAAAAAABAP####8AA3lQNAACLTEAAAADAAAAAj#wAAAAAAAAAAAAAQD#####AAN5UDUAAi0xAAAAAwAAAAI#8AAAAAAAAAAAAAEA#####wADeVA2AAItMQAAAAMAAAACP#AAAAAAAAAAAAABAP####8AA3lQOAACLTEAAAADAAAAAj#wAAAAAAAAAAAAAQD#####AAN5UDkAAi0xAAAAAwAAAAI#8AAAAAAAAAAAAAEA#####wAEeVAxMAACLTEAAAADAAAAAj#wAAAAAAAAAAAAAQD#####AAR5UDExAAItMQAAAAMAAAACP#AAAAAAAAAAAAABAP####8ABHlQMTIAAi0xAAAAAwAAAAI#8AAAAAAAAAAAAAEA#####wAEeVAxMwACLTEAAAADAAAAAj#wAAAAAAAAAAAAAQD#####AAR5UDE0AAItMQAAAAMAAAACP#AAAAAAAAAAAAAfAP####8B#wAAABIAAlAxAAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAZAAAAkQAAABkAAACfAAAAHwD#####Af8AAAASAAJQMgAAAAAAAAAAAEAIAAAAAAAACQAAAAAKAAAAGQAAAJIAAAAZAAAAoAAAAB8A#####wH#AAAAEgACUDMAAAAAAAAAAABACAAAAAAAAAkAAAAACgAAABkAAACTAAAAGQAAAKEAAAAfAP####8B#wAAABIAAlA0AAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAZAAAAlAAAABkAAACiAAAAHwD#####Af8AAAASAAJQNQAAAAAAAAAAAEAIAAAAAAAACQAAAAAKAAAAGQAAAJUAAAAZAAAAowAAAB8A#####wH#AAAAEgACUDYAAAAAAAAAAABACAAAAAAAAAkAAAAACgAAABkAAACWAAAAGQAAAKQAAAABAP####8AA3lQNwACLTEAAAADAAAAAj#wAAAAAAAAAAAAHwD#####Af8AAAASAAJQNwAAAAAAAAAAAEAIAAAAAAAACQAAAAAKAAAAGQAAAJcAAAAZAAAAsgAAAB8A#####wH#AAAAEgACUDgAAAAAAAAAAABACAAAAAAAAAkAAAAACgAAABkAAACYAAAAGQAAAKUAAAAfAP####8B#wAAABIAAlA5AAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAZAAAAmQAAABkAAACmAAAAHwD#####Af8AAAASAANQMTAAAAAAAAAAAABACAAAAAAAAAkAAAAACgAAABkAAACaAAAAGQAAAKcAAAAfAP####8B#wAAABIAA1AxMQAAAAAAAAAAAEAIAAAAAAAACQAAAAAKAAAAGQAAAJsAAAAZAAAAqAAAAB8A#####wH#AAAAEgADUDEyAAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAZAAAAnAAAABkAAACpAAAAHwD#####Af8AAAASAANQMTMAAAAAAAAAAABACAAAAAAAAAkAAAAACgAAABkAAACdAAAAGQAAAKoAAAAfAP####8B#wAAABIAA1AxNAAAAAAAAAAAAEAIAAAAAAAACQAAAAAKAAAAGQAAAJ4AAAAZAAAAqwAAABcA#####wAAAAEAAAAYAwAAAAI#8AAAAAAAAAAAABkAAACDAAAABQD#####AAAA#wESAANQJzEAAAAAAAAAAABACAAAAAAAAAkAAAAArAAAALsAAAAXAP####8AAAABAAAAGAMAAAACP#AAAAAAAAAAAAAZAAAAhAAAAAUA#####wAAAP8BEgADUCcyAAAAAAAAAAAAQAgAAAAAAAAJAAAAAK0AAAC9AAAAFwD#####AAAAAQAAABgDAAAAAj#wAAAAAAAAAAAAGQAAAIUAAAAFAP####8AAAD#ARIAA1AnMwAAAAAAAAAAAEAIAAAAAAAACQAAAACuAAAAvwAAABcA#####wAAAAEAAAAYAwAAAAI#8AAAAAAAAAAAABkAAACGAAAABQD#####AAAA#wESAANQJzQAAAAAAAAAAABACAAAAAAAAAkAAAAArwAAAMEAAAAXAP####8AAAABAAAAGAMAAAACP#AAAAAAAAAAAAAZAAAAhwAAAAUA#####wAAAP8BEgADUCc1AAAAAAAAAAAAQAgAAAAAAAAJAAAAALAAAADDAAAAFwD#####AAAAAQAAABgDAAAAAj#wAAAAAAAAAAAAGQAAAIgAAAAFAP####8AAAD#ARIAA1AnNgAAAAAAAAAAAEAIAAAAAAAACQAAAACxAAAAxQAAABcA#####wAAAAEAAAAYAwAAAAI#8AAAAAAAAAAAABkAAACJAAAABQD#####AAAA#wESAANQJzcAAAAAAAAAAABACAAAAAAAAAkAAAAAswAAAMcAAAAXAP####8AAAABAAAAGAMAAAACP#AAAAAAAAAAAAAZAAAAigAAAAUA#####wAAAP8BEgADUCc4AAAAAAAAAAAAQAgAAAAAAAAJAAAAALQAAADJAAAAFwD#####AAAAAQAAABgDAAAAAj#wAAAAAAAAAAAAGQAAAIsAAAAFAP####8AAAD#ARIAA1AnOQAAAAAAAAAAAEAIAAAAAAAACQAAAAC1AAAAywAAABcA#####wAAAAEAAAAYAwAAAAI#8AAAAAAAAAAAABkAAACMAAAABQD#####AAAA#wESAARQJzEwAAAAAAAAAAAAQAgAAAAAAAAJAAAAALYAAADNAAAAFwD#####AAAAAQAAABgDAAAAAj#wAAAAAAAAAAAAGQAAAI0AAAAFAP####8AAAD#ARIABFAnMTEAAAAAAAAAAABACAAAAAAAAAkAAAAAtwAAAM8AAAAXAP####8AAAABAAAAGAMAAAACP#AAAAAAAAAAAAAZAAAAjgAAAAUA#####wAAAP8BEgAEUCcxMgAAAAAAAAAAAEAIAAAAAAAACQAAAAC4AAAA0QAAABcA#####wAAAAEAAAAYAwAAAAI#8AAAAAAAAAAAABkAAACPAAAABQD#####AAAA#wESAARQJzEzAAAAAAAAAAAAQAgAAAAAAAAJAAAAALkAAADTAAAAFwD#####AAAAAQAAABgDAAAAAj#wAAAAAAAAAAAAGQAAAJAAAAAFAP####8AAAD#ARIABFAnMTQAAAAAAAAAAABACAAAAAAAAAkAAAAAugAAANUAAAABAP####8AA3hPNQABNQAAAAJAFAAAAAAAAAAAAAEA#####wADeE82AAE1AAAAAkAUAAAAAAAAAAAAAQD#####AAN4TzcAATUAAAACQBQAAAAAAAAAAAABAP####8AA3hPOAABNQAAAAJAFAAAAAAAAAAAAAEA#####wADeE85AAE1AAAAAkAUAAAAAAAAAAAAAQD#####AAR4TzEwAAE1AAAAAkAUAAAAAAAAAAAAAQD#####AAR4TzExAAE1AAAAAkAUAAAAAAAAAAAAAQD#####AAR4TzEyAAE1AAAAAkAUAAAAAAAAAAAAAQD#####AAR4TzEzAAE1AAAAAkAUAAAAAAAAAAAAAQD#####AAR4TzE0AAE1AAAAAkAUAAAAAAAAAAAAAQD#####AAN5TzUAATUAAAACQBQAAAAAAAAAAAABAP####8AA3lPNgABNgAAAAJAGAAAAAAAAAAAAAEA#####wADeU83AAE3AAAAAkAcAAAAAAAAAAAAAQD#####AAN5TzgAATgAAAACQCAAAAAAAAAAAAABAP####8AA3lPOQABOQAAAAJAIgAAAAAAAAAAAAEA#####wAEeU8xMAACMTAAAAACQCQAAAAAAAAAAAABAP####8ABHlPMTEAAjExAAAAAkAmAAAAAAAAAAAAAQD#####AAR5TzEyAAIxMgAAAAJAKAAAAAAAAAAAAAEA#####wAEeU8xMwACMTMAAAACQCoAAAAAAAAAAAABAP####8ABHlPMTQAAjE0AAAAAkAsAAAAAAAAAAAAHwD#####Af8AAAASAAJPNQAAAAAAAAAAAEAIAAAAAAAACQAAAAAKAAAAGQAAANcAAAAZAAAA4QAAAB8A#####wH#AAAAEgACTzYAAAAAAAAAAABACAAAAAAAAAkAAAAACgAAABkAAADYAAAAGQAAAOIAAAAfAP####8B#wAAABIAAk83AAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAZAAAA2QAAABkAAADjAAAAHwD#####Af8AAAASAAJPOAAAAAAAAAAAAEAIAAAAAAAACQAAAAAKAAAAGQAAANoAAAAZAAAA5AAAAB8A#####wEAAP8AEgACTzkAAAAAAAAAAABACAAAAAAAAAkAAAAACgAAABkAAADbAAAAGQAAAOUAAAAfAP####8B#wAAABIAA08xMAAAAAAAAAAAAEAIAAAAAAAACQAAAAAKAAAAGQAAANwAAAAZAAAA5gAAAB8A#####wH#AAAAEgADTzExAAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAZAAAA3QAAABkAAADnAAAAHwD#####Af8AAAASAANPMTIAAAAAAAAAAABACAAAAAAAAAkAAAAACgAAABkAAADeAAAAGQAAAOgAAAAfAP####8B#wAAABIAA08xMwAAAAAAAAAAAEAIAAAAAAAACQAAAAAKAAAAGQAAAN8AAAAZAAAA6QAAAB8A#####wH#AAAAEgADTzE0AAAAAAAAAAAAQAgAAAAAAAAJAAAAAAoAAAAZAAAA4AAAABkAAADqAAAABAD#####AAAAQgAAAAUA#####wAAAP8AEgAAAAAAAAAAAAAAQAgAAAAAAAAJAAAAALwAAAD1AAAABgD#####AQAA#wASAAAAAAAAAAAAAABACAAAAAAAAAcAAAAAvAAAAPYAAAAHAP####8AAAD#ABAAAAEAAQAAALwAAAD3AAAABwD#####AAAA#wAQAAABAAEAAAD3AAAA9gAAAAgA#####wEAAP8AAQAAAPcAAAACP8mZmZmZmZoAAAAACQD#####AAAA+AAAAPoAAAAKAP####8AAAD#ABIAAAAAAAAAAAAAAEAIAAAAAAAABwABAAAA+wAAAAoA#####wAAAP8AEgAAAAAAAAAAAAAAQAgAAAAAAAAHAAIAAAD7AAAAGwD#####AA1DYXJyw6kgZGlyZWN0AAAABQAAAAIAAAACAAAA9wAAAP0AAAAHAAAAAP4BAAAAABAAAAEAAQAAAPcAAAD9AAAACwAAAAD+AAAAAAASAAABAQEAAAD3AAAA#wAAAAwAAAAA#gAAAAABAQAAAPcAAAD9AAAACQAAAAD+AAABAAAAAQEAAAAKAQAAAP4AAAD#ABIAAAEHAAIAAAECAAAADQAAAAD+AAAA9wAAAP0AAAAFAQAAAP4AAAD#ABIAAAEHAAAAAQMAAAEEAAAABwD#####AAAA#wAQAAABAAEAAAD3AAAA#QAAAAcA#####wAAAP8AEAAAAQABAAAA#QAAAQUAAAAHAP####8AAAD#ABAAAAEAAQAAAQUAAAEDAAAABwD#####AAAA#wAQAAABAAEAAAEDAAAA9wAAAA4A#####wAAAP8AAQAAAAUAAAD3AAAA#QAAAQUAAAEDAAAA9wAAAA8A#####wD#AAAAAQAAAAD4AAAADwD#####AP8AAAABAAAAAPkAAAAbAP####8AEHN5bcOpdHJpZSBheGlhbGUAAAASAAAABgAAAAIAAAC+AAAAVAAAAAEAAAABDQACeDMAATIAAAACQAAAAAAAAAAAAAABAAAAAQ0AAnkzAAExAAAAAj#wAAAAAAAAAAAAAQAAAAENAANiaXMAATEAAAACP#AAAAAAAAAAAAABAAAAAQ0AAXQAATEAAAACP#AAAAAAAAAAAAABAAAAAQ0AAnhQAAExAAAAAj#wAAAAAAAAAAAAAQAAAAENAAJ5UAACLTEAAAADAAAAAj#wAAAAAAAAAAAABAAAAAENAAAAVAAAAAUBAAABDQAAAP8AEgAAAAAAAAAAAAAAQAgAAAAAAAAJAAAAAL4AAAEUAAAABgAAAAENAQAA#wASAAAAAAAAAAAAAABACAAAAAAAAAcAAAAAvgAAARUAAAAHAQAAAQ0AAAD#ABAAAAEAAQAAAL4AAAEWAAAABwEAAAENAAAA#wAQAAABAAEAAAEWAAABFQAAAAgAAAABDQEAAP8AAQAAARYAAAACP8mZmZmZmZoAAAAACQAAAAENAAABFwAAARkAAAAKAAAAAQ0AAAD#ABIAAAAAAAAAAAAAAEAIAAAAAAAABwACAAABGgAAAAcAAAABDQEAAAAAEAAAAQABAAABFgAAARsAAAALAAAAAQ0AAAAAABIAAAEBAQAAARYAAAEcAAAADAAAAAENAAAAAAEBAAABFgAAARsAAAAJAAAAAQ0AAAEdAAABHgAAAAoAAAABDQAAAP8AEgAAAQcAAgAAAR8AAAANAAAAAQ0AAAEWAAABGwAAAAUAAAABDQAAAP8AEgAAAQcAAAABIAAAASEAAAAOAQAAAQ0AAAD#AAEAAAAFAAABFgAAARsAAAEiAAABIAAAARYAAAAPAQAAAQ0A#wAAAAEBAAABFwAAAA8BAAABDQD#AAAAAQEAAAEYAAAAGwD#####ABBzeW3DqXRyaWUgYXhpYWxlAAAAEgAAAAYAAAACAAAAwAAAAEgAAAABAAAAASYAAngzAAEyAAAAAkAAAAAAAAAAAAAAAQAAAAEmAAJ5MwABMQAAAAI#8AAAAAAAAAAAAAEAAAABJgADYmlzAAExAAAAAj#wAAAAAAAAAAAAAQAAAAEmAAF0AAExAAAAAj#wAAAAAAAAAAAAAQAAAAEmAAJ4UAABMQAAAAI#8AAAAAAAAAAAAAEAAAABJgACeVAAAi0xAAAAAwAAAAI#8AAAAAAAAAAAAAQAAAABJgAAAEgAAAAFAQAAASYAAAD#ABIAAAAAAAAAAAAAAEAIAAAAAAAACQAAAADAAAABLQAAAAYAAAABJgEAAP8AEgAAAAAAAAAAAAAAQAgAAAAAAAAHAAAAAMAAAAEuAAAABwEAAAEmAAAA#wAQAAABAAEAAADAAAABLwAAAAcBAAABJgAAAP8AEAAAAQABAAABLwAAAS4AAAAIAAAAASYBAAD#AAEAAAEvAAAAAj#JmZmZmZmaAAAAAAkAAAABJgAAATAAAAEyAAAACgAAAAEmAAAA#wASAAAAAAAAAAAAAABACAAAAAAAAAcAAgAAATMAAAAHAAAAASYBAAAAABAAAAEAAQAAAS8AAAE0AAAACwAAAAEmAAAAAAASAAABAQEAAAEvAAABNQAAAAwAAAABJgAAAAABAQAAAS8AAAE0AAAACQAAAAEmAAABNgAAATcAAAAKAAAAASYAAAD#ABIAAAEHAAIAAAE4AAAADQAAAAEmAAABLwAAATQAAAAFAAAAASYAAAD#ABIAAAEHAAAAATkAAAE6AAAADgEAAAEmAAAA#wABAAAABQAAAS8AAAE0AAABOwAAATkAAAEvAAAADwEAAAEmAP8AAAABAwAAATAAAAAPAQAAASYA#wAAAAEDAAABMQAAABsA#####wAQc3ltw6l0cmllIGF4aWFsZQAAABIAAAAGAAAAAgAAAMIAAABOAAAAAQAAAAE#AAJ4MwABMgAAAAJAAAAAAAAAAAAAAAEAAAABPwACeTMAATEAAAACP#AAAAAAAAAAAAABAAAAAT8AA2JpcwABMQAAAAI#8AAAAAAAAAAAAAEAAAABPwABdAABMQAAAAI#8AAAAAAAAAAAAAEAAAABPwACeFAAATEAAAACP#AAAAAAAAAAAAABAAAAAT8AAnlQAAItMQAAAAMAAAACP#AAAAAAAAAAAAAEAAAAAT8AAABOAAAABQEAAAE#AAAA#wASAAAAAAAAAAAAAABACAAAAAAAAAkAAAAAwgAAAUYAAAAGAAAAAT8BAAD#ABIAAAAAAAAAAAAAAEAIAAAAAAAABwAAAADCAAABRwAAAAcBAAABPwAAAP8AEAAAAQABAAAAwgAAAUgAAAAHAQAAAT8AAAD#ABAAAAEAAQAAAUgAAAFHAAAACAAAAAE#AQAA#wABAAABSAAAAAI#yZmZmZmZmgAAAAAJAAAAAT8AAAFJAAABSwAAAAoAAAABPwAAAP8AEgAAAAAAAAAAAAAAQAgAAAAAAAAHAAIAAAFMAAAABwAAAAE#AQAAAAAQAAABAAEAAAFIAAABTQAAAAsAAAABPwAAAAAAEgAAAQEBAAABSAAAAU4AAAAMAAAAAT8AAAAAAQEAAAFIAAABTQAAAAkAAAABPwAAAU8AAAFQAAAACgAAAAE#AAAA#wASAAABBwACAAABUQAAAA0AAAABPwAAAUgAAAFNAAAABQAAAAE#AAAA#wASAAABBwAAAAFSAAABUwAAAA4BAAABPwAAAP8AAQAAAAUAAAFIAAABTQAAAVQAAAFSAAABSAAAAA8BAAABPwD#AAAAAQIAAAFJAAAADwEAAAE#AP8AAAABAgAAAUr#####AAAAAQAJQ1JvdGF0aW9uAP####8AAADrAAAAAkBWgAAAAAAAAAAABQD#####AAAA#wASAAAAAAAAAAAAAABACAAAAAAAAAkAAAAAxAAAAVgAAAAHAP####8AAAD#ABAAAAEBAQAAAMQAAADr#####wAAAAIAGkNNYXJxdWVBbmdsZU9yaWVudGVEaXJlY3RlAP####8AAAD#AQEAAAABQDAAAAAAAAAAAADEAAAA6wAAAVkAAAAABwD#####AAAA#wAQAAABAQEAAADrAAABWf####8AAAABABJDQXJjRGVDZXJjbGVEaXJlY3QA#####wD#AAAAAQAAAOsAAADEAAABWQAAAA8A#####wD#AAAAAQEAAAFcAAAADwD#####AP8AAAABAQAAAVoAAAApAP####8AAADsAAAAAwAAAAJAVoAAAAAAAAAAAAUA#####wAAAP8AEgAAAAAAAAAAAAAAQAgAAAAAAAAJAAAAAMYAAAFgAAAABwD#####AAAA#wAQAAABAQEAAADGAAAA7AAAAAcA#####wAAAP8AEAAAAQEBAAAA7AAAAWEAAAAPAP####8A#wAAAAECAAABYwAAAA8A#####wD#AAAAAQIAAAFi#####wAAAAIAHENNYXJxdWVBbmdsZU9yaWVudGVJbmRpcmVjdGUA#####wAAAP8AAQAAAAFAMAAAAAAAAAAAAMYAAADsAAABYQH#####AAAAAQAUQ0FyY0RlQ2VyY2xlSW5kaXJlY3QA#####wD#AAAAAQAAAOwAAADGAAABYf####8AAAABABFDU3ltZXRyaWVDZW50cmFsZQD#####AAAA7QAAAAUA#####wAAAP8AEgAAAAAAAAAAAAAAQAgAAAAAAAAJAAAAAMgAAAFoAAAABwD#####AAAA#wAQAAABAQEAAADIAAAA7QAAAAcA#####wAAAP8AEAAAAQEBAAAA7QAAAWkAAAAPAP####8A#wAAAAEBAAABawAAAA8A#####wD#AAAAAQEAAAFqAAAADQD#####AAAAAQAAAO4AAAAFAP####8AAAD#ABIAAAAAAAAAAAAAAEAIAAAAAAAACQAAAADKAAABbgAAACUA#####wAAAP8AEAAAAQABAAAAygAAAW8BAAAAJQD#####AQAA#wAQAAABAAEAAAABAAAA7gEAAAAHAP####8A#wAAABAAAAEBAQAAAO4AAAFvAAAABwD#####AP8AAAAQAAABAQEAAAABAAAAygAAAAEA#####wACazEAATIAAAACQAAAAAAAAAAAAAABAP####8AAmsyAAItNAAAAAMAAAACQBAAAAAAAAAAAAAXAP####8AAADvAAAAGQAAAXQAAAAFAP####8AAAD#ABIAAAAAAAAAAAAAAEAIAAAAAAAACQAAAADMAAABdgAAAAcA#####wAAAP8AEAAAAQEBAAAA7wAAAXcAAAATAP####8B#wAAABIAAAAAAAAAAAAAAEAIAAAAAAAABQABP+TbfTXiMrkAAAF4AAAAIQD#####AP8AAAAAAXkAAAAYAP####8AAAACAAlDRm9uY3Rpb24AAAAAGQAAAXQAAAACP#AAAAAAAAAAAAF5AAAAAgAAAXkAAAF5AAAAFwD#####AAAA8AAAABgDAAAAAj#wAAAAAAAAAAAAGQAAAXUAAAAFAP####8AAAD#ABIAAAAAAAAAAAAAAEAIAAAAAAAACQAAAADOAAABewAAAAcA#####wAAAP8AEAAAAQEBAAABfAAAAPAAAAAHAP####8AAAD#ABAAAAEBAQAAAPAAAADOAAAAEwD#####Af8AAAASAAFMAAAAAAAAAAAAQAgAAAAAAAAFAAE#5DMPSjR2ZQAAAX4AAAAhAP####8A#wAAAAABfwAAABgAAAAALwAAAAAZAAABdQAAAAI#8AAAAAAAAAAAAX8AAAACAAABfwAAAX8AAAApAP####8AAADxAAAAAkBOAAAAAAAAAAAABQD#####AAAA#wASAAAAAAAAAAAAAABACAAAAAAAAAkAAAAA0AAAAYEAAAAHAP####8AAAD#ABAAAAEBAQAAANAAAADxAAAABwD#####AAAA#wAQAAABAQEAAADxAAABggAAACsA#####wD#AAAAAQAAAPEAAADQAAABggAAACoA#####wAAAP8BAQAAAAFAMAAAAAAAAAAAANAAAADxAAABggEAAAAPAP####8A#wAAAAEDAAABhAAAAA8A#####wD#AAAAAQMAAAGDAAAAKQD#####AAAA8gAAAAMAAAACQE4AAAAAAAAAAAAFAP####8AAAD#ABIAAAAAAAAAAAAAAEAIAAAAAAAACQAAAADSAAABiQAAAAcA#####wAAAP8AEAAAAQEBAAAA0gAAAPIAAAAHAP####8AAAD#ABAAAAEBAQAAAPIAAAGKAAAALQD#####AP8AAAABAAAA8gAAANIAAAGKAAAADwD#####AP8AAAABAgAAAYsAAAAPAP####8A#wAAAAECAAABjAAAACwA#####wAAAP8AAQAAAAFAMAAAAAAAAAAAANIAAADyAAABigEAAAApAP####8AAADzAAAAAkBeAAAAAAAAAAAABQD#####AAAA#wASAAAAAAAAAAAAAABACAAAAAAAAAkAAAAA1AAAAZEAAAAHAP####8AAAD#ABAAAAEBAQAAANQAAADzAAAABwD#####AAAA#wAQAAABAQEAAAGSAAAA8wAAACoA#####wAAAP8BAQAAAAFAMAAAAAAAAAAAANQAAADzAAABkgEAAAArAP####8A#wAAAAEAAADzAAAA1AAAAZIAAAApAP####8AAAD0AAAAAwAAAAJAXgAAAAAAAAAAAAUA#####wAAAP8AEgAAAAAAAAAAAAAAQAgAAAAAAAAJAAAAANYAAAGXAAAABwD#####AAAA#wAQAAABAQEAAADWAAAA9AAAAAcA#####wAAAP8AEAAAAQEBAAAA9AAAAZgAAAAsAP####8AAAD#AAEAAAABQDAAAAAAAAAAAADWAAAA9AAAAZgBAAAALQD#####AP8AAAABAAAA9AAAANYAAAGY#####wAAAAEADUNUcmFuc1BhclZlY3QA#####wAAAXAAAAAFAP####8BAAD#ABIAAAAAAAAAAAAAAEAIAAAAAAAACQAAAAABAAABnQAAACUA#####wAAAP8AEAAAAQABAAAAAQAAAZ4BAAAADv##########"
 
-	this.liste_questions = [];
+		this.liste_questions = [];
 		this.liste_corrections = []; // Liste de questions corrigées
-		let xA,yA,xB,yB,xC,yC,k=[],xO,yO,k1,k2
-		let xP=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14] // ces nombres sont juste là pour compter combien il y en a... ils seront remplacés plus tard par les coordonnées utiles ou pas.
-		let yP=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14] // comme pour t, je n'utiliserai pas le premier élément pour coller aux index.
-		let xO5,xO6,xO7,xO8,xO9,xO10,xO11,xO12,xO13,xO14
-		let yO5,yO6,yO7,yO8,yO9,yO10,yO11,yO12,yO13,yO14
-		let bis1=0,bis2=0,xx=0,yy=0,AfficheO=0,AfficheOO=0,t=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] // il y a 14 transformations mais je n'utilise pas t[0] pour coller avec les index.
-		let texte=``,texte_corr=``,lettre1=[`A`,`B`,`C`],lettre2=[`O\'`,`A`,`B`] // si t[i]=0 alors la transformation concernée n'existe pas, si t[i]=1, on la dessine.
-		let point=[[]]
-		let transformation=parseInt(this.sup)-1
-		let liste_type_de_questions=[[1,2,3,4],[1,2,3,4,7],[1,2,3,4,7,8],[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10,11,12,13,14]]
-		let choix_transformation=combinaison_listes(liste_type_de_questions[transformation],3)
-		for (let j=0;j<3;j++) 
-		if (choix_transformation[j]==10) k[j]=choice([2,2,2,2,4,4,4,4,5,10])*randint(-1,1,[0]) // rapport d'homothétie < 1 (plus ou moins  0.5, 0.25, 0.2 ou 0,1 ) avec une fréquence divisée par 4 pour 0.2 et 0.1.
-		else k[j]=choice([1,2,2,3,3,4,4,5,5,2.5])*randint(-1,1,[0]) // rapport d'homothétie >=1 (plus ou - 1,2,2.5, 3, 4 ou 5 avec des fréquences divisées par 2 pour 1 et 2.5) 
+		let xA, yA, xB, yB, xC, yC, k = [], xO, yO, k1, k2
+		let xP = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] // ces nombres sont juste là pour compter combien il y en a... ils seront remplacés plus tard par les coordonnées utiles ou pas.
+		let yP = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] // comme pour t, je n'utiliserai pas le premier élément pour coller aux index.
+		let xO5, xO6, xO7, xO8, xO9, xO10, xO11, xO12, xO13, xO14
+		let yO5, yO6, yO7, yO8, yO9, yO10, yO11, yO12, yO13, yO14
+		let bis1 = 0, bis2 = 0, xx = 0, yy = 0, AfficheO = 0, AfficheOO = 0, t = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] // il y a 14 transformations mais je n'utilise pas t[0] pour coller avec les index.
+		let texte = ``, texte_corr = ``, lettre1 = [`A`, `B`, `C`], lettre2 = [`O\'`, `A`, `B`] // si t[i]=0 alors la transformation concernée n'existe pas, si t[i]=1, on la dessine.
+		let point = [[]]
+		let transformation = parseInt(this.sup) - 1
+		let liste_type_de_questions = [[1, 2, 3, 4], [1, 2, 3, 4, 7], [1, 2, 3, 4, 7, 8], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]]
+		let choix_transformation = combinaison_listes(liste_type_de_questions[transformation], 3)
+		for (let j = 0; j < 3; j++)
+			if (choix_transformation[j] == 10) k[j] = choice([2, 2, 2, 2, 4, 4, 4, 4, 5, 10]) * randint(-1, 1, [0]) // rapport d'homothétie < 1 (plus ou moins  0.5, 0.25, 0.2 ou 0,1 ) avec une fréquence divisée par 4 pour 0.2 et 0.1.
+			else k[j] = choice([1, 2, 2, 3, 3, 4, 4, 5, 5, 2.5]) * randint(-1, 1, [0]) // rapport d'homothétie >=1 (plus ou - 1,2,2.5, 3, 4 ou 5 avec des fréquences divisées par 2 pour 1 et 2.5) 
 
-		xA=randint(-10,10) // Point A
-		yA=randint(-10,10)
-		xB=randint(-10,10,[xA]) // Point B
-		yB=randint(-10,10)
-		xC=randint(-10,10) // Point C
-		yC=randint(-10,10,[yA,yB])
-		xO=randint(-3,3,[0])  // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
-		yO=randint(-3,3,[0])
-	
-		point[0]=image_point_par_transformation(choix_transformation[0],[xA,yA],[xO,yO],[xO,yO],k[0])
-		while (point[0][0]<-13 || point[0][0]>13 || point[0][1]<-13 || point [0][1]>14) { // on teste si A est dans la fenêtre sinon on en choisit un autre
-			xA=randint(-10,10) // Point A
-			yA=randint(-10,10)
-			point[0]=image_point_par_transformation(choix_transformation[0],[xA,yA],[xO,yO],[xO,yO],k[0])
+		xA = randint(-10, 10) // Point A
+		yA = randint(-10, 10)
+		xB = randint(-10, 10, [xA]) // Point B
+		yB = randint(-10, 10)
+		xC = randint(-10, 10) // Point C
+		yC = randint(-10, 10, [yA, yB])
+		xO = randint(-3, 3, [0])  // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
+		yO = randint(-3, 3, [0])
+
+		point[0] = image_point_par_transformation(choix_transformation[0], [xA, yA], [xO, yO], [xO, yO], k[0])
+		while (point[0][0] < -13 || point[0][0] > 13 || point[0][1] < -13 || point[0][1] > 14) { // on teste si A est dans la fenêtre sinon on en choisit un autre
+			xA = randint(-10, 10) // Point A
+			yA = randint(-10, 10)
+			point[0] = image_point_par_transformation(choix_transformation[0], [xA, yA], [xO, yO], [xO, yO], k[0])
 		}
 
-		if (choix_transformation[1]>4) point[1]=image_point_par_transformation(choix_transformation[1],[xB,yB],[xA,yA],[xA,yA],k[1])
-		else point[1]=image_point_par_transformation(choix_transformation[1],[xB,yB],[xO,yO]) // si c'est une symétrie, l'axe passe par O'
-		while (point[1][0]<-13 || point[1][0]>13 || point[1][1]<-13 || point [1][1]>14) { // on teste si on est dans les clous, sinon on choisit un autre point B
-			xB=randint(-10,10,[xA]) // Point B
-			yB=randint(-10,10)
-			if (choix_transformation[1]>4) point[1]=image_point_par_transformation(choix_transformation[1],[xB,yB],[xA,yA],[xA,yA],k[1])
-			else point[1]=image_point_par_transformation(choix_transformation[1],[xB,yB],[xO,yO]) // si c'est une symétrie, l'axe passe par O'
+		if (choix_transformation[1] > 4) point[1] = image_point_par_transformation(choix_transformation[1], [xB, yB], [xA, yA], [xA, yA], k[1])
+		else point[1] = image_point_par_transformation(choix_transformation[1], [xB, yB], [xO, yO]) // si c'est une symétrie, l'axe passe par O'
+		while (point[1][0] < -13 || point[1][0] > 13 || point[1][1] < -13 || point[1][1] > 14) { // on teste si on est dans les clous, sinon on choisit un autre point B
+			xB = randint(-10, 10, [xA]) // Point B
+			yB = randint(-10, 10)
+			if (choix_transformation[1] > 4) point[1] = image_point_par_transformation(choix_transformation[1], [xB, yB], [xA, yA], [xA, yA], k[1])
+			else point[1] = image_point_par_transformation(choix_transformation[1], [xB, yB], [xO, yO]) // si c'est une symétrie, l'axe passe par O'
 		}
-		if (choix_transformation[2]>4) point[2]=image_point_par_transformation(choix_transformation[2],[xC,yC],[xB,yB],[xB,yB],k[2])
-		else point[2]=image_point_par_transformation(choix_transformation[2],[xC,yC],[xO,yO]) // si c'est une symétrie, l'axe passe par O'
-		while (point[2][0]<-13 || point[2][0]>13 || point[2][1]<-13 || point [2][1]>14) { // on vérifie que C est dans le repère sinon on change le point C.
-			xC=randint(-10,10) // Point C
-			yC=randint(-10,10,[yA,yB])
-			if (choix_transformation[2]>4) point[2]=image_point_par_transformation(choix_transformation[2],[xC,yC],[xB,yB],[xB,yB],k[2])
-			else point[2]=image_point_par_transformation(choix_transformation[2],[xC,yC],[xO,yO]) // si c'est une symétrie, l'axe passe par O'
+		if (choix_transformation[2] > 4) point[2] = image_point_par_transformation(choix_transformation[2], [xC, yC], [xB, yB], [xB, yB], k[2])
+		else point[2] = image_point_par_transformation(choix_transformation[2], [xC, yC], [xO, yO]) // si c'est une symétrie, l'axe passe par O'
+		while (point[2][0] < -13 || point[2][0] > 13 || point[2][1] < -13 || point[2][1] > 14) { // on vérifie que C est dans le repère sinon on change le point C.
+			xC = randint(-10, 10) // Point C
+			yC = randint(-10, 10, [yA, yB])
+			if (choix_transformation[2] > 4) point[2] = image_point_par_transformation(choix_transformation[2], [xC, yC], [xB, yB], [xB, yB], k[2])
+			else point[2] = image_point_par_transformation(choix_transformation[2], [xC, yC], [xO, yO]) // si c'est une symétrie, l'axe passe par O'
 		}
 		// les points sont choisis, on écrit l'énoncé	
-		for (let i=0;i<3;i++) {
-			switch (choix_transformation[i]){
-				case 1 :
-					bis1=1
-					t[1]=1
-					if (i==0) {
-						xP[1]=xA
-						yP[1]=yA
+		for (let i = 0; i < 3; i++) {
+			switch (choix_transformation[i]) {
+				case 1:
+					bis1 = 1
+					t[1] = 1
+					if (i == 0) {
+						xP[1] = xA
+						yP[1] = yA
 					}
-					else if (i==1) {
-						xP[1]=xB
-						yP[1]=yB
+					else if (i == 1) {
+						xP[1] = xB
+						yP[1] = yB
 					}
 					else {
-						xP[1]=xC
-						yP[1]=yC
+						xP[1] = xC
+						yP[1] = yC
 					}
 					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d_1)$.<br>`
 					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d_1)$ a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
-				break
+					break
 
-				case 2 :
-					bis2=1
-					t[2]=1
-					if (i==0) {
-						xP[2]=xA
-						yP[2]=yA
+				case 2:
+					bis2 = 1
+					t[2] = 1
+					if (i == 0) {
+						xP[2] = xA
+						yP[2] = yA
 					}
-					else if (i==1) {
-						xP[2]=xB
-						yP[2]=yB
+					else if (i == 1) {
+						xP[2] = xB
+						yP[2] = yB
 					}
 					else {
-						xP[2]=xC
-						yP[2]=yC
+						xP[2] = xC
+						yP[2] = yC
 					}
 					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d_2)$.<br>`
 					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d_2)$ a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
-				break
+					break
 
-				case 3 :
-					xx=1
-					t[3]=1
-					if (i==0) {
-						xP[3]=xA
-						yP[3]=yA
+				case 3:
+					xx = 1
+					t[3] = 1
+					if (i == 0) {
+						xP[3] = xA
+						yP[3] = yA
 					}
-					else if (i==1) {
-						xP[3]=xB
-						yP[3]=yB
+					else if (i == 1) {
+						xP[3] = xB
+						yP[3] = yB
 					}
 					else {
-						xP[3]=xC
-						yP[3]=yC
-					}					
+						xP[3] = xC
+						yP[3] = yC
+					}
 					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d)$.<br>`
 					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d)$ a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
-				break
+					break
 
-				case 4 :
-					yy=1
-					t[4]=1
-					if (i==0) {
-						xP[4]=xA
-						yP[4]=yA
+				case 4:
+					yy = 1
+					t[4] = 1
+					if (i == 0) {
+						xP[4] = xA
+						yP[4] = yA
 					}
-					else if (i==1) {
-						xP[4]=xB
-						yP[4]=yB
-					}	
+					else if (i == 1) {
+						xP[4] = xB
+						yP[4] = yB
+					}
 					else {
-						xP[4]=xC
-						yP[4]=yC
-					}					
+						xP[4] = xC
+						yP[4] = yC
+					}
 					texte += `Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $(d\')$.<br>`
 					texte_corr += `Le symétrique de $${lettre1[i]}$ par rapport à $(d\')$ a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
-				break
-		
-				case 5 :
-					AfficheO=1
-					t[5]=1
-					if (i==0) {
-						xP[5]=xA
-						yP[5]=yA
-						xO5=xO
-						yO5=yO
+					break
+
+				case 5:
+					AfficheO = 1
+					t[5] = 1
+					if (i == 0) {
+						xP[5] = xA
+						yP[5] = yA
+						xO5 = xO
+						yO5 = yO
 					}
-					else if (i==1) {
-						xP[5]=xB
-						yP[5]=yB
-						xO5=xA
-						yO5=yA
-					}	
+					else if (i == 1) {
+						xP[5] = xB
+						yP[5] = yB
+						xO5 = xA
+						yO5 = yA
+					}
 					else {
-						xP[5]=xC
-						yP[5]=yC
-						xO5=xB
-						yO5=yB
-					}	
+						xP[5] = xC
+						yP[5] = yC
+						xO5 = xB
+						yO5 = yB
+					}
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens anti-horaire.<br>`
 					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens anti-horaire a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
-				break
+					break
 
-				case 6 :
-					AfficheO=1
-					t[6]=1
-					if (i==0) {
-						xP[6]=xA
-						yP[6]=yA
-						xO6=xO
-						yO6=yO
+				case 6:
+					AfficheO = 1
+					t[6] = 1
+					if (i == 0) {
+						xP[6] = xA
+						yP[6] = yA
+						xO6 = xO
+						yO6 = yO
 					}
-					else if (i==1) {
-						xP[6]=xB
-						yP[6]=yB
-						xO6=xA
-						yO6=yA
-					}	
+					else if (i == 1) {
+						xP[6] = xB
+						yP[6] = yB
+						xO6 = xA
+						yO6 = yA
+					}
 					else {
-						xP[6]=xC
-						yP[6]=yC
-						xO6=xB
-						yO6=yB
-					}						
+						xP[6] = xC
+						yP[6] = yC
+						xO6 = xB
+						yO6 = yB
+					}
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens horaire.<br>`
 					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens horaire a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
-				break
-			
-				case 7 :
-					AfficheO=1
-					t[7]=1
-					if (i==0) {
-						xP[7]=xA
-						yP[7]=yA
-						xO7=xO
-						yO7=yO
+					break
+
+				case 7:
+					AfficheO = 1
+					t[7] = 1
+					if (i == 0) {
+						xP[7] = xA
+						yP[7] = yA
+						xO7 = xO
+						yO7 = yO
 					}
-					else if (i==1) {
-						xP[7]=xB
-						yP[7]=yB
-						xO7=xA
-						yO7=yA
-					}	
+					else if (i == 1) {
+						xP[7] = xB
+						yP[7] = yB
+						xO7 = xA
+						yO7 = yA
+					}
 					else {
-						xP[7]=xC
-						yP[7]=yC
-						xO7=xB
-						yO7=yB
-					}	
+						xP[7] = xC
+						yP[7] = yC
+						xO7 = xB
+						yO7 = yB
+					}
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la symétrie de centre $${lettre2[i]}$.<br>`
 					texte_corr += `L'image de $${lettre1[i]}$ par la symétrie de centre $${lettre2[i]}$ a pour coordonnées ($${tex_nombrec(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
-				break
-		
-				case 11 :
-					AfficheO=1
-					t[11]=1
-					if (i==0) {
-						xP[11]=xA
-						yP[11]=yA
-						xO11=xO
-						yO11=yO
+					break
+
+				case 11:
+					AfficheO = 1
+					t[11] = 1
+					if (i == 0) {
+						xP[11] = xA
+						yP[11] = yA
+						xO11 = xO
+						yO11 = yO
 					}
-					else if (i==1) {
-						xP[11]=xB
-						yP[11]=yB
-						xO11=xA
-						yO11=yA
-					}	
+					else if (i == 1) {
+						xP[11] = xB
+						yP[11] = yB
+						xO11 = xA
+						yO11 = yA
+					}
 					else {
-						xP[11]=xC
-						yP[11]=yC
-						xO11=xB
-						yO11=yB
-					}	
+						xP[11] = xC
+						yP[11] = yC
+						xO11 = xB
+						yO11 = yB
+					}
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire.<br>`
-					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire a pour coordonnées ($${tex_nombre(calcul(point[i][0],2))};${tex_nombre(calcul(point[i][1],2))}$).<br>`
-				break
+					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens anti-horaire a pour coordonnées ($${tex_nombre(calcul(point[i][0], 2))};${tex_nombre(calcul(point[i][1], 2))}$).<br>`
+					break
 
-				case 12 :
-					AfficheO=1
-					t[12]=1
-					if (i==0) {
-						xP[12]=xA
-						yP[12]=yA
-						xO12=xO
-						yO12=yO
+				case 12:
+					AfficheO = 1
+					t[12] = 1
+					if (i == 0) {
+						xP[12] = xA
+						yP[12] = yA
+						xO12 = xO
+						yO12 = yO
 					}
-					else if (i==1) {
-						xP[12]=xB
-						yP[12]=yB
-						xO12=xA
-						yO12=yA
-					}	
+					else if (i == 1) {
+						xP[12] = xB
+						yP[12] = yB
+						xO12 = xA
+						yO12 = yA
+					}
 					else {
-						xP[12]=xC
-						yP[12]=yC
-						xO12=xB
-						yO12=yB
-					}	
+						xP[12] = xC
+						yP[12] = yC
+						xO12 = xB
+						yO12 = yB
+					}
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire.<br>`
-					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire a pour coordonnées ($${tex_nombre(calcul(point[i][0],2))};${tex_nombre(calcul(point[i][1],2))}$).<br>`
-				break
-		
-				case 13 :
-					AfficheO=1
-					
-				case 12 :
-					AfficheO=1
-					t[13]=1
-					if (i==0) {
-						xP[13]=xA
-						yP[13]=yA
-						xO13=xO
-						yO13=yO
-					}
-					else if (i==1) {
-						xP[13]=xB
-						yP[13]=yB
-						xO13=xA
-						yO13=yA
-					}	
-					else {
-						xP[13]=xC
-						yP[13]=yC
-						xO13=xB
-						yO13=yB
-					}	
-					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire.<br>`
-					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire a pour coordonnées ($${tex_nombre(calcul(point[i][0],2))};${tex_nombre(calcul(point[i][1],2))}$).<br>`
-				break
+					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 60° dans le sens horaire a pour coordonnées ($${tex_nombre(calcul(point[i][0], 2))};${tex_nombre(calcul(point[i][1], 2))}$).<br>`
+					break
 
-				case 14 :
-					AfficheO=1
-					t[14]=1
-					if (i==0) {
-						xP[14]=xA
-						yP[14]=yA
-						xO14=xO
-						yO14=yO
+				case 13:
+					AfficheO = 1
+
+				case 12:
+					AfficheO = 1
+					t[13] = 1
+					if (i == 0) {
+						xP[13] = xA
+						yP[13] = yA
+						xO13 = xO
+						yO13 = yO
 					}
-					else if (i==1) {
-						xP[14]=xB
-						yP[14]=yB
-						xO14=xA
-						yO14=yA
-					}	
+					else if (i == 1) {
+						xP[13] = xB
+						yP[13] = yB
+						xO13 = xA
+						yO13 = yA
+					}
 					else {
-						xP[14]=xC
-						yP[14]=yC
-						xO14=xB
-						yO14=yB
+						xP[13] = xC
+						yP[13] = yC
+						xO13 = xB
+						yO13 = yB
+					}
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens anti-horaire a pour coordonnées ($${tex_nombre(calcul(point[i][0], 2))};${tex_nombre(calcul(point[i][1], 2))}$).<br>`
+					break
+
+				case 14:
+					AfficheO = 1
+					t[14] = 1
+					if (i == 0) {
+						xP[14] = xA
+						yP[14] = yA
+						xO14 = xO
+						yO14 = yO
+					}
+					else if (i == 1) {
+						xP[14] = xB
+						yP[14] = yB
+						xO14 = xA
+						yO14 = yA
+					}
+					else {
+						xP[14] = xC
+						yP[14] = yC
+						xO14 = xB
+						yO14 = yB
 					}
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens horaire.<br>`
-					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens horaire a pour coordonnées ($${tex_nombre(calcul(point[i][0],2))};${tex_nombre(calcul(point[i][1],2))}$).<br>`
-				break
-			
-				case 8 :
-					AfficheO=1
-					t[8]=1
-					if (i==0) {
-						xP[8]=xA
-						yP[8]=yA
-						xO8=xO
-						yO8=yO
+					texte_corr += `L'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 120° dans le sens horaire a pour coordonnées ($${tex_nombre(calcul(point[i][0], 2))};${tex_nombre(calcul(point[i][1], 2))}$).<br>`
+					break
+
+				case 8:
+					AfficheO = 1
+					t[8] = 1
+					if (i == 0) {
+						xP[8] = xA
+						yP[8] = yA
+						xO8 = xO
+						yO8 = yO
 					}
-					else if (i==1) {
-						xP[8]=xB
-						yP[8]=yB
-						xO8=xA
-						yO8=yA
-					}	
+					else if (i == 1) {
+						xP[8] = xB
+						yP[8] = yB
+						xO8 = xA
+						yO8 = yA
+					}
 					else {
-						xP[8]=xC
-						yP[8]=yC
-						xO8=xB
-						yO8=yB
+						xP[8] = xC
+						yP[8] = yC
+						xO8 = xB
+						yO8 = yB
 					}
 					// AfficheOO=1
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par la translation qui transforme O en ${lettre2[i]}.<br>`
 					texte_corr += `L'image de $${lettre1[i]}$ par la translation qui transforme O en ${lettre2[i]} a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
-				break
-			
-				case 9 :
-					AfficheO=1
-					t[9]=1
-					k1=k[i]
-					if (i==0) {
-						xP[9]=xA
-						yP[9]=yA
-						xO9=xO
-						yO9=yO
+					break
+
+				case 9:
+					AfficheO = 1
+					t[9] = 1
+					k1 = k[i]
+					if (i == 0) {
+						xP[9] = xA
+						yP[9] = yA
+						xO9 = xO
+						yO9 = yO
 					}
-					else if (i==1) {
-						xP[9]=xB
-						yP[9]=yB
-						xO9=xA
-						yO9=yA
-					}	
+					else if (i == 1) {
+						xP[9] = xB
+						yP[9] = yB
+						xO9 = xA
+						yO9 = yA
+					}
 					else {
-						xP[9]=xC
-						yP[9]=yC
-						xO9=xB
-						yO9=yB
+						xP[9] = xC
+						yP[9] = yC
+						xO9 = xB
+						yO9 = yB
 					}
 					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${tex_nombre(k[i])}$.<br>`
 					texte_corr += `L'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${tex_nombre(k[i])}$ a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
-				break
+					break
 
-				case 10 :
-					AfficheO=1
-					t[10]=1
-					k2=k[i]
-					if (i==0) {
-						xP[10]=xA
-						yP[10]=yA
-						xO10=xO
-						yO10=yO
+				case 10:
+					AfficheO = 1
+					t[10] = 1
+					k2 = k[i]
+					if (i == 0) {
+						xP[10] = xA
+						yP[10] = yA
+						xO10 = xO
+						yO10 = yO
 					}
-					else if (i==1) {
-						xP[10]=xB
-						yP[10]=yB
-						xO10=xA
-						yO10=yA
-					}	
+					else if (i == 1) {
+						xP[10] = xB
+						yP[10] = yB
+						xO10 = xA
+						yO10 = yA
+					}
 					else {
-						xP[10]=xC
-						yP[10]=yC
-						xO10=xB
-						yO10=yB
+						xP[10] = xC
+						yP[10] = yC
+						xO10 = xB
+						yO10 = yB
 					}
-					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${tex_fraction_reduite(1,k[i])}$.<br>`
-					texte_corr += `L'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${tex_fraction_reduite(1,k[i])}$ a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
-				break
+					texte += `Donner les coordonnées de l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${tex_fraction_reduite(1, k[i])}$.<br>`
+					texte_corr += `L'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${tex_fraction_reduite(1, k[i])}$ a pour coordonnées ($${tex_nombre(point[i][0])};${tex_nombre(point[i][1])}$).<br>`
+					break
 			}
 		}
 		if (sortie_html) {
@@ -5850,16 +5850,16 @@ function Transformations_du_plan_et_coordonnees() {
 		}
 		else {
 			texte = ``
-			texte_corr=``
+			texte_corr = ``
 			this.liste_questions.push(texte) // on envoie la question
 			this.liste_corrections.push(texte_corr)
 			liste_de_question_to_contenu_sans_numero(this);
 		}
-		
+
 
 
 	}
-	this.besoin_formulaire_numerique = ['Transformations',5, '1 : Symétries axiales (6ème)\n 2 : Symétries axiales et centrales (5ème)\n 3 : Symétries et translations (4ème)\n 4 : Symétries, translations, rotations et homothéties\n 5 : Les mêmes plus des rotations compliquées\n'];
+	this.besoin_formulaire_numerique = ['Transformations', 5, '1 : Symétries axiales (6ème)\n 2 : Symétries axiales et centrales (5ème)\n 3 : Symétries et translations (4ème)\n 4 : Symétries, translations, rotations et homothéties\n 5 : Les mêmes plus des rotations compliquées\n'];
 
 }
 
@@ -5887,84 +5887,84 @@ function Passer_d_une_base_a_l_autre() {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = ['vers_base_10',choice(['vers_base_n_3_chiffres','vers_base_n_4_chiffres']),choice(['plus_grand_4_chiffres','plus_grand_3_chiffres','plus_petit_4_chiffres','plus_petit_3_chiffres'])];
+		let type_de_questions_disponibles = ['vers_base_10', choice(['vers_base_n_3_chiffres', 'vers_base_n_4_chiffres']), choice(['plus_grand_4_chiffres', 'plus_grand_3_chiffres', 'plus_petit_4_chiffres', 'plus_petit_3_chiffres'])];
 		if (this.nb_questions > 3) {
-			type_de_questions_disponibles = ['vers_base_10','vers_base_n_3_chiffres','vers_base_n_4_chiffres','plus_grand_4_chiffres','plus_grand_3_chiffres','plus_petit_4_chiffres','plus_petit_3_chiffres'];
+			type_de_questions_disponibles = ['vers_base_10', 'vers_base_n_3_chiffres', 'vers_base_n_4_chiffres', 'plus_grand_4_chiffres', 'plus_grand_3_chiffres', 'plus_petit_4_chiffres', 'plus_petit_3_chiffres'];
 		}
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		for (let i = 0, texte, texte_corr, b, n, m, chiffre1, chiffre2, chiffre3, chiffre4, cpt = 0; i < this.nb_questions && cpt < 50;) {
-			b = randint(2,7);
+			b = randint(2, 7);
 			switch (liste_type_de_questions[i]) {
 				case 'vers_base_10':
-					n = randint(1,b-1)*10+randint(0,b-1);
-					m = randint(1,b-1)*1000+randint(0,b-1)*100+randint(0,b-1)*10+randint(0,b-1);
+					n = randint(1, b - 1) * 10 + randint(0, b - 1);
+					m = randint(1, b - 1) * 1000 + randint(0, b - 1) * 100 + randint(0, b - 1) * 10 + randint(0, b - 1);
 					texte = `Les nombre $(${n})_${b}$ et $(${m})_${b}$ sont écrits en base ${b}. Donner leur écriture en base 10.`;
-					texte_corr = `$(${n})_${b}=${n.toString()[0]}\\times${b}+${n.toString()[1]}=${parseInt(n,b)}$`;
-					texte_corr += `<br>$(${m})_${b}=${m.toString()[0]}\\times${b}^3+${m.toString()[1]}\\times${b}^2+${m.toString()[2]}\\times${b}+${m.toString()[3]}=${parseInt(m,b)}$`;
-				break;
+					texte_corr = `$(${n})_${b}=${n.toString()[0]}\\times${b}+${n.toString()[1]}=${parseInt(n, b)}$`;
+					texte_corr += `<br>$(${m})_${b}=${m.toString()[0]}\\times${b}^3+${m.toString()[1]}\\times${b}^2+${m.toString()[2]}\\times${b}+${m.toString()[3]}=${parseInt(m, b)}$`;
+					break;
 				case 'vers_base_n_3_chiffres':
-					chiffre1 = randint(1,b-1);
-					chiffre2 = randint(0,b-1);
-					chiffre3 = randint(0,b-1);
-					n = chiffre1*b**2+chiffre2*b+chiffre3;
+					chiffre1 = randint(1, b - 1);
+					chiffre2 = randint(0, b - 1);
+					chiffre3 = randint(0, b - 1);
+					n = chiffre1 * b ** 2 + chiffre2 * b + chiffre3;
 					texte = `Écrire en base ${b} le nombre ${n}.`;
-					texte_corr = `$${n}=${b}\\times${Math.floor(n/b)}+${mise_en_evidence(n%b)}$`;
-					texte_corr += `<br>$${Math.floor(n/b)}=${b}\\times${mise_en_evidence(chiffre1)}+${mise_en_evidence(chiffre2)}$`;
+					texte_corr = `$${n}=${b}\\times${Math.floor(n / b)}+${mise_en_evidence(n % b)}$`;
+					texte_corr += `<br>$${Math.floor(n / b)}=${b}\\times${mise_en_evidence(chiffre1)}+${mise_en_evidence(chiffre2)}$`;
 					texte_corr += `<br> Finalement $${n}=(${chiffre1}${chiffre2}${chiffre3})_${b}$`
-				break;
+					break;
 				case 'vers_base_n_4_chiffres':
-					chiffre1 = randint(1,b-1);
-					chiffre2 = randint(0,b-1);
-					chiffre3 = randint(0,b-1);
-					chiffre4 = randint(0,b-1);
-					n = chiffre1*b**3+chiffre2*b**2+chiffre3*b+chiffre4;
+					chiffre1 = randint(1, b - 1);
+					chiffre2 = randint(0, b - 1);
+					chiffre3 = randint(0, b - 1);
+					chiffre4 = randint(0, b - 1);
+					n = chiffre1 * b ** 3 + chiffre2 * b ** 2 + chiffre3 * b + chiffre4;
 					texte = `Écrire en base ${b} le nombre ${n}.`;
-					texte_corr = `$${n}=${b}\\times${Math.floor(n/b)}+${mise_en_evidence(n%b)}$`;
-					texte_corr += `<br>$${Math.floor(n/b)}=${b}\\times${Math.floor(Math.floor(n/b)/b)}+${mise_en_evidence(Math.floor(n/b)%b)}$`;
-					texte_corr += `<br>$${Math.floor(Math.floor(n/b)/b)}=${b}\\times${mise_en_evidence(chiffre1)}+${mise_en_evidence(chiffre2)}$`;
+					texte_corr = `$${n}=${b}\\times${Math.floor(n / b)}+${mise_en_evidence(n % b)}$`;
+					texte_corr += `<br>$${Math.floor(n / b)}=${b}\\times${Math.floor(Math.floor(n / b) / b)}+${mise_en_evidence(Math.floor(n / b) % b)}$`;
+					texte_corr += `<br>$${Math.floor(Math.floor(n / b) / b)}=${b}\\times${mise_en_evidence(chiffre1)}+${mise_en_evidence(chiffre2)}$`;
 					texte_corr += `<br> Finalement $${n}=(${chiffre1}${chiffre2}${chiffre3}${chiffre4})_${b}$`
-				break;
+					break;
 				case 'plus_grand_4_chiffres':
 					texte = `Quel est le plus grand nombre à 4 chiffres que l'on peut écrire en base ${b}.`;
-					texte +=`<br>Comment s'écrit son successeur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`;
+					texte += `<br>Comment s'écrit son successeur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`;
 					texte_corr = `En base ${b} les chiffres sont 0`;
 					for (let i = 1; i < b; i++) {
 						texte_corr += `, ${i}`
 					}
-					texte_corr += ` donc le plus grand nombre à 4 chiffres est $(${b-1}${b-1}${b-1}${b-1})_${b}$ et son successeur immédiat est $(10000)_${b}$.` 
-					texte_corr += `<br> $(10000)_${b}=1\\times${b}^4=${tex_nombre(b**4)}$ donc $(${b-1}${b-1}${b-1}${b-1})_${b}=${b**4}-1=${tex_nombre(b**4-1)}$.`
-				break;
+					texte_corr += ` donc le plus grand nombre à 4 chiffres est $(${b - 1}${b - 1}${b - 1}${b - 1})_${b}$ et son successeur immédiat est $(10000)_${b}$.`
+					texte_corr += `<br> $(10000)_${b}=1\\times${b}^4=${tex_nombre(b ** 4)}$ donc $(${b - 1}${b - 1}${b - 1}${b - 1})_${b}=${b ** 4}-1=${tex_nombre(b ** 4 - 1)}$.`
+					break;
 				case 'plus_grand_3_chiffres':
 					texte = `Quel est le plus grand nombre à 3 chiffres que l'on peut écrire en base ${b}.`;
-					texte +=`<br>Comment s'écrit son successeur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`;
+					texte += `<br>Comment s'écrit son successeur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`;
 					texte_corr = `En base ${b} les chiffres sont 0`;
 					for (let i = 1; i < b; i++) {
 						texte_corr += `, ${i}`
 					}
-					texte_corr += ` donc le plus grand nombre à 3 chiffres est $(${b-1}${b-1}${b-1})_${b}$ et son successeur immédiat est $(1000)_${b}$.` 
-					texte_corr += `<br> $(1000)_${b}=1\\times${b}^3=${tex_nombre(b**3)}$ donc $(${b-1}${b-1}${b-1})_${b}=${b**3}-1=${tex_nombre(b**3-1)}$.`
-				break;
+					texte_corr += ` donc le plus grand nombre à 3 chiffres est $(${b - 1}${b - 1}${b - 1})_${b}$ et son successeur immédiat est $(1000)_${b}$.`
+					texte_corr += `<br> $(1000)_${b}=1\\times${b}^3=${tex_nombre(b ** 3)}$ donc $(${b - 1}${b - 1}${b - 1})_${b}=${b ** 3}-1=${tex_nombre(b ** 3 - 1)}$.`
+					break;
 				case 'plus_petit_4_chiffres':
 					texte = `Quel est le plus petit nombre à 4 chiffres que l'on peut écrire en base ${b}.`;
-					texte +=`<br>Comment s'écrit son prédécesseur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`;
+					texte += `<br>Comment s'écrit son prédécesseur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`;
 					texte_corr = `En base ${b} les chiffres sont 0`;
 					for (let i = 1; i < b; i++) {
 						texte_corr += `, ${i}`
 					}
-					texte_corr += ` donc le plus petit nombre à 4 chiffres est $(1000)_${b}$ et son prédécesseur immédiat est $(${b-1}${b-1}${b-1})_${b}$.` 
-					texte_corr += `<br> $(1000)_${b}=1\\times${b}^3=${tex_nombre(b**3)}$ donc $(${b-1}${b-1}${b-1})_${b}=${b**3}-1=${tex_nombre(b**3-1)}$.`
-				break;
+					texte_corr += ` donc le plus petit nombre à 4 chiffres est $(1000)_${b}$ et son prédécesseur immédiat est $(${b - 1}${b - 1}${b - 1})_${b}$.`
+					texte_corr += `<br> $(1000)_${b}=1\\times${b}^3=${tex_nombre(b ** 3)}$ donc $(${b - 1}${b - 1}${b - 1})_${b}=${b ** 3}-1=${tex_nombre(b ** 3 - 1)}$.`
+					break;
 				case 'plus_petit_3_chiffres':
 					texte = `Quel est le plus petit nombre à 3 chiffres que l'on peut écrire en base ${b}.`;
-					texte +=`<br>Comment s'écrit son prédécesseur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`;
+					texte += `<br>Comment s'écrit son prédécesseur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`;
 					texte_corr = `En base ${b} les chiffres sont 0`;
 					for (let i = 1; i < b; i++) {
 						texte_corr += `, ${i}`
 					}
-					texte_corr += ` donc le plus petit nombre à 3 chiffres est $(100)_${b}$ et son prédécesseur immédiat est $(${b-1}${b-1})_${b}$.` 
-					texte_corr += `<br> $(100)_${b}=1\\times${b}^2=${tex_nombre(b**2)}$ donc $(${b-1}${b-1})_${b}=${b**2}-1=${tex_nombre(b**2-1)}$.`
-				break;
-				
+					texte_corr += ` donc le plus petit nombre à 3 chiffres est $(100)_${b}$ et son prédécesseur immédiat est $(${b - 1}${b - 1})_${b}$.`
+					texte_corr += `<br> $(100)_${b}=1\\times${b}^2=${tex_nombre(b ** 2)}$ donc $(${b - 1}${b - 1})_${b}=${b ** 2}-1=${tex_nombre(b ** 2 - 1)}$.`
+					break;
+
 			}
 			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
@@ -6002,128 +6002,128 @@ function Passer_de_la_base_12_ou_16_a_la_10() {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 
-		let type_de_questions_disponibles = ['vers_base_10','vers_base_n_3_chiffres']
-		if (this.nb_questions==3) {
-			type_de_questions_disponibles.push(choice(['vers_base_n_4_chiffres','plus_grand_4_chiffres','plus_petit_4_chiffres','plus_petit_3_chiffres']))
+		let type_de_questions_disponibles = ['vers_base_10', 'vers_base_n_3_chiffres']
+		if (this.nb_questions == 3) {
+			type_de_questions_disponibles.push(choice(['vers_base_n_4_chiffres', 'plus_grand_4_chiffres', 'plus_petit_4_chiffres', 'plus_petit_3_chiffres']))
 		}
-		 
-		
+
+
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let	b = choice([12,16]);
-		if (b==12) {
+		let b = choice([12, 16]);
+		if (b == 12) {
 			this.introduction = 'Les symboles que l’on utilise en base 12 sont les dix chiffres habituels, la lettre A pour désigner 10 unités et la lettre B pour désigner 11 unités.';
 		} else {
 			this.introduction = 'Les symboles que l’on utilise en base 16 sont les dix chiffres habituels, la lettre A pour désigner 10 unités, B pour 11 unités, C pour 12 unités, D pour 13 unités, ';
-			this.introduction +='E pour 14 unités et F pour 15 unités.'
+			this.introduction += 'E pour 14 unités et F pour 15 unités.'
 		}
 		for (let i = 0, texte, texte_corr, n, m, chiffre1, chiffre2, chiffre3, chiffre4, cpt = 0; i < this.nb_questions && cpt < 50;) {
 			switch (liste_type_de_questions[i]) {
 				case 'vers_base_10':
-					if (b==12) {
-						n = choice([choice(['A','B'])+randint(0,9),randint(1,9)+choice(['A','B']),choice(['A','B'])+choice(['A','B'])]) 
-						m = choice(['A','B',randint(1,9)])+choice(['A','B',randint(0,9)])+choice(['A','B',randint(0,9)])+choice(['A','B',randint(0,9)]);
-					}	
-					if (b==16) {
-						n = choice(['A','B','C','D','E','F',randint(1,9).toString()])+choice(['A','B','C','D','E','F','0','1','2','3','4','5','6','7','8','9']);
-						m = choice(['A','B','C','D','E','F','0','1','2','3','4','5','6','7','8','9'])+choice(['A','B','C','D','E','F','0','1','2','3','4','5','6','7','8','9'])+choice(['A','B','C','D','E','F','0','1','2','3','4','5','6','7','8','9']);
-					}				
+					if (b == 12) {
+						n = choice([choice(['A', 'B']) + randint(0, 9), randint(1, 9) + choice(['A', 'B']), choice(['A', 'B']) + choice(['A', 'B'])])
+						m = choice(['A', 'B', randint(1, 9)]) + choice(['A', 'B', randint(0, 9)]) + choice(['A', 'B', randint(0, 9)]) + choice(['A', 'B', randint(0, 9)]);
+					}
+					if (b == 16) {
+						n = choice(['A', 'B', 'C', 'D', 'E', 'F', randint(1, 9).toString()]) + choice(['A', 'B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
+						m = choice(['A', 'B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']) + choice(['A', 'B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']) + choice(['A', 'B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
+					}
 					texte = `Les nombre $(${n})_{${b}}$ et $(${m})_{${b}}$ sont écrits en base ${b}. Donner leur écriture en base 10.`;
-					texte_corr = `$(${n})_{${b}}=${valeur_base(n.toString()[0])}\\times${b}+${valeur_base(n.toString()[1])}=${tex_nombre(parseInt(n,b))}$`;
-					if (b==12) { //m est un nombre à 4 chiffres
-						texte_corr += `<br>$(${m})_{${b}}=${valeur_base(m.toString()[0])}\\times${b}^3+${valeur_base(m.toString()[1])}\\times${b}^2+${valeur_base(m.toString()[2])}\\times${b}+${valeur_base(m.toString()[3])}=${tex_nombre(parseInt(m,b))}$`;
+					texte_corr = `$(${n})_{${b}}=${valeur_base(n.toString()[0])}\\times${b}+${valeur_base(n.toString()[1])}=${tex_nombre(parseInt(n, b))}$`;
+					if (b == 12) { //m est un nombre à 4 chiffres
+						texte_corr += `<br>$(${m})_{${b}}=${valeur_base(m.toString()[0])}\\times${b}^3+${valeur_base(m.toString()[1])}\\times${b}^2+${valeur_base(m.toString()[2])}\\times${b}+${valeur_base(m.toString()[3])}=${tex_nombre(parseInt(m, b))}$`;
 					} else { //m est un nombre à 3 chiffres
-						texte_corr += `<br>$(${m})_{${b}}=${valeur_base(m.toString()[0])}\\times${b}^2+${valeur_base(m.toString()[1])}\\times${b}+${valeur_base(m.toString()[2])}=${tex_nombre(parseInt(m,b))}$`;
+						texte_corr += `<br>$(${m})_{${b}}=${valeur_base(m.toString()[0])}\\times${b}^2+${valeur_base(m.toString()[1])}\\times${b}+${valeur_base(m.toString()[2])}=${tex_nombre(parseInt(m, b))}$`;
 					}
-				break;
+					break;
 				case 'vers_base_n_3_chiffres':
-					if (b==12) {
-						chiffre1 = choice(['A','B',randint(1,9).toString()])
-						chiffre2 = choice(['A','B',randint(0,9).toString()])
-						chiffre3 = choice(['A','B',randint(1,9).toString()])
+					if (b == 12) {
+						chiffre1 = choice(['A', 'B', randint(1, 9).toString()])
+						chiffre2 = choice(['A', 'B', randint(0, 9).toString()])
+						chiffre3 = choice(['A', 'B', randint(1, 9).toString()])
 					} else {
-						chiffre1 = choice(['A','B','C','D','E','F','1','2','3','4','5','6','7','8','9']);
-						chiffre2 = choice(['A','B','C','D','E','F','0','1','2','3','4','5','6','7','8','9']);
-						chiffre3 = choice(['A','B','C','D','E','F','0','1','2','3','4','5','6','7','8','9']);
+						chiffre1 = choice(['A', 'B', 'C', 'D', 'E', 'F', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
+						chiffre2 = choice(['A', 'B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
+						chiffre3 = choice(['A', 'B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
 					}
-					n = valeur_base(chiffre1)*b**2+valeur_base(chiffre2)*b+valeur_base(chiffre3);
+					n = valeur_base(chiffre1) * b ** 2 + valeur_base(chiffre2) * b + valeur_base(chiffre3);
 					texte = `Écrire en base ${b} le nombre ${nombre_avec_espace(n)}.`;
-					texte_corr = `$${tex_nombre(n)}=${b}\\times${Math.floor(n/b)}+${mise_en_evidence(n%b)}$`;
-					texte_corr += `<br>$${Math.floor(n/b)}=${b}\\times${mise_en_evidence(valeur_base(chiffre1))}+${mise_en_evidence(valeur_base(chiffre2))}$`;
+					texte_corr = `$${tex_nombre(n)}=${b}\\times${Math.floor(n / b)}+${mise_en_evidence(n % b)}$`;
+					texte_corr += `<br>$${Math.floor(n / b)}=${b}\\times${mise_en_evidence(valeur_base(chiffre1))}+${mise_en_evidence(valeur_base(chiffre2))}$`;
 					texte_corr += `<br> Finalement $${tex_nombre(n)}=(${chiffre1}${chiffre2}${chiffre3})_{${b}}$`
-				break;
+					break;
 				case 'vers_base_n_4_chiffres':
-					if (b==12) {
-						chiffre1 = choice(['A','B',randint(1,9).toString()])
-						chiffre2 = choice(['A','B',randint(0,9).toString()])
-						chiffre3 = choice(['A','B',randint(1,9).toString()])
-						chiffre4 = choice(['A','B',randint(1,9).toString()])
+					if (b == 12) {
+						chiffre1 = choice(['A', 'B', randint(1, 9).toString()])
+						chiffre2 = choice(['A', 'B', randint(0, 9).toString()])
+						chiffre3 = choice(['A', 'B', randint(1, 9).toString()])
+						chiffre4 = choice(['A', 'B', randint(1, 9).toString()])
 					} else {
-						chiffre1 = choice(['A','B','C','D','E','F','1','2','3','4','5','6','7','8','9']);
-						chiffre2 = choice(['A','B','C','D','E','F','0','1','2','3','4','5','6','7','8','9']);
-						chiffre3 = choice(['A','B','C','D','E','F','0','1','2','3','4','5','6','7','8','9']);
-						chiffre4 = choice(['A','B','C','D','E','F','0','1','2','3','4','5','6','7','8','9']);
+						chiffre1 = choice(['A', 'B', 'C', 'D', 'E', 'F', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
+						chiffre2 = choice(['A', 'B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
+						chiffre3 = choice(['A', 'B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
+						chiffre4 = choice(['A', 'B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
 					}
-					n = valeur_base(chiffre1)*b**3+valeur_base(chiffre2)*b**2+valeur_base(chiffre3)*b+valeur_base(chiffre4);
+					n = valeur_base(chiffre1) * b ** 3 + valeur_base(chiffre2) * b ** 2 + valeur_base(chiffre3) * b + valeur_base(chiffre4);
 					texte = `Écrire en base ${b} le nombre ${nombre_avec_espace(n)}.`;
-					texte_corr = `$${tex_nombre(n)}=${b}\\times${Math.floor(n/b)}+${mise_en_evidence(n%b)}$`;
-					texte_corr += `<br>$${tex_nombre(Math.floor(n/b))}=${b}\\times${Math.floor(Math.floor(n/b)/b)}+${mise_en_evidence(Math.floor(n/b)%b)}$`;
-					texte_corr += `<br>$${tex_nombre(Math.floor(Math.floor(n/b)/b))}=${b}\\times${mise_en_evidence(valeur_base(chiffre1))}+${mise_en_evidence(valeur_base(chiffre2))}$`;
+					texte_corr = `$${tex_nombre(n)}=${b}\\times${Math.floor(n / b)}+${mise_en_evidence(n % b)}$`;
+					texte_corr += `<br>$${tex_nombre(Math.floor(n / b))}=${b}\\times${Math.floor(Math.floor(n / b) / b)}+${mise_en_evidence(Math.floor(n / b) % b)}$`;
+					texte_corr += `<br>$${tex_nombre(Math.floor(Math.floor(n / b) / b))}=${b}\\times${mise_en_evidence(valeur_base(chiffre1))}+${mise_en_evidence(valeur_base(chiffre2))}$`;
 					texte_corr += `<br> Finalement $${tex_nombre(n)}=(${chiffre1}${chiffre2}${chiffre3}${chiffre4})_{${b}}$`
-				break;
+					break;
 				case 'plus_grand_4_chiffres':
 					texte = `Quel est le plus grand nombre à 4 chiffres que l'on peut écrire en base ${b}.`;
-					texte +=`<br>Comment s'écrit son successeur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`;
-					if (b==12) {
+					texte += `<br>Comment s'écrit son successeur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`;
+					if (b == 12) {
 						texte_corr = `En base ${b} le plus grand chiffre est $B$`
-						texte_corr += ` donc le plus grand nombre à 4 chiffres est $(BBBB)_{${b}}$ et son successeur immédiat est $(10000)_{${b}}$.` 
-						texte_corr += `<br> $(10000)_{${b}}=1\\times${b}^4=${tex_nombre(b**4)}$ donc $(BBBB)_{${b}}=${b**4}-1=${tex_nombre(b**4-1)}$.`
+						texte_corr += ` donc le plus grand nombre à 4 chiffres est $(BBBB)_{${b}}$ et son successeur immédiat est $(10000)_{${b}}$.`
+						texte_corr += `<br> $(10000)_{${b}}=1\\times${b}^4=${tex_nombre(b ** 4)}$ donc $(BBBB)_{${b}}=${b ** 4}-1=${tex_nombre(b ** 4 - 1)}$.`
 					} else {
 						texte_corr = `En base ${b} le plus grand chiffre est $F$`
-						texte_corr += ` donc le plus grand nombre à 4 chiffres est $(FFFF)_{${b}}$ et son successeur immédiat est $(10000)_{${b}}$.` 
-						texte_corr += `<br> $(10000)_{${b}}=1\\times${b}^4=${tex_nombre(b**4)}$ donc $(FFFF)_{${b}}=${b**4}-1=${tex_nombre(b**4-1)}$.`
+						texte_corr += ` donc le plus grand nombre à 4 chiffres est $(FFFF)_{${b}}$ et son successeur immédiat est $(10000)_{${b}}$.`
+						texte_corr += `<br> $(10000)_{${b}}=1\\times${b}^4=${tex_nombre(b ** 4)}$ donc $(FFFF)_{${b}}=${b ** 4}-1=${tex_nombre(b ** 4 - 1)}$.`
 					}
-				break;
+					break;
 				case 'plus_grand_3_chiffres':
 					texte = `Quel est le plus grand nombre à 3 chiffres que l'on peut écrire en base ${b}.`;
-					texte +=`<br>Comment s'écrit son successeur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`;
-					if (b==12) {
+					texte += `<br>Comment s'écrit son successeur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`;
+					if (b == 12) {
 						texte_corr = `En base ${b} le plus grand chiffre est $B$`
-						texte_corr += ` donc le plus grand nombre à 3 chiffres est $(BBB)_{${b}}$ et son successeur immédiat est $(1000)_{${b}}$.` 
-						texte_corr += `<br> $(1000)_{${b}}=1\\times${b}^3=${tex_nombre(b**3)}$ donc $(BBB)_{${b}}=${b**3}-1=${tex_nombre(b**3-1)}$.`
+						texte_corr += ` donc le plus grand nombre à 3 chiffres est $(BBB)_{${b}}$ et son successeur immédiat est $(1000)_{${b}}$.`
+						texte_corr += `<br> $(1000)_{${b}}=1\\times${b}^3=${tex_nombre(b ** 3)}$ donc $(BBB)_{${b}}=${b ** 3}-1=${tex_nombre(b ** 3 - 1)}$.`
 					} else {
 						texte_corr = `En base ${b} le plus grand chiffre est $F$`
-						texte_corr += ` donc le plus grand nombre à 3 chiffres est $(FFF)_{${b}}$ et son successeur immédiat est $(1000)_{${b}}$.` 
-						texte_corr += `<br> $(1000)_{${b}}=1\\times${b}^3=${tex_nombre(b**3)}$ donc $(FFF)_{${b}}=${b**3}-1=${tex_nombre(b**3-1)}$.`
+						texte_corr += ` donc le plus grand nombre à 3 chiffres est $(FFF)_{${b}}$ et son successeur immédiat est $(1000)_{${b}}$.`
+						texte_corr += `<br> $(1000)_{${b}}=1\\times${b}^3=${tex_nombre(b ** 3)}$ donc $(FFF)_{${b}}=${b ** 3}-1=${tex_nombre(b ** 3 - 1)}$.`
 					}
-				break;
+					break;
 				case 'plus_petit_4_chiffres':
 					texte = `Quel est le plus petit nombre à 4 chiffres que l'on peut écrire en base ${b}.`;
-					texte +=`<br>Comment s'écrit son prédécesseur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`;
-					if (b==12) {
+					texte += `<br>Comment s'écrit son prédécesseur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`;
+					if (b == 12) {
 						texte_corr = `En base ${b} le plus petit chiffre est $0$ et le plus grand chiffre est $B$`
-						texte_corr += ` donc le plus petit nombre à 4 chiffres est $(1000)_{${b}}$ et son prédécesseur immédiat est $(BBB)_{${b}}$.` 
-						texte_corr += `<br> $(1000)_{${b}}=1\\times${b}^3=${tex_nombre(b**3)}$ donc $(BBB)_{${b}}=${b**3}-1=${tex_nombre(b**3-1)}$.`
+						texte_corr += ` donc le plus petit nombre à 4 chiffres est $(1000)_{${b}}$ et son prédécesseur immédiat est $(BBB)_{${b}}$.`
+						texte_corr += `<br> $(1000)_{${b}}=1\\times${b}^3=${tex_nombre(b ** 3)}$ donc $(BBB)_{${b}}=${b ** 3}-1=${tex_nombre(b ** 3 - 1)}$.`
 					} else {
 						texte_corr = `En base ${b} le plus petit chiffre est $0$ et le plus grand chiffre est $F$`
-						texte_corr += ` donc le plus petit nombre à 4 chiffres est $(1000)_{${b}}$ et son prédécesseur immédiat est $(FFF)_{${b}}$.` 
-						texte_corr += `<br> $(1000)_{${b}}=1\\times${b}^3=${tex_nombre(b**3)}$ donc $(FFF)_{${b}}=${b**3}-1=${tex_nombre(b**3-1)}$.`
+						texte_corr += ` donc le plus petit nombre à 4 chiffres est $(1000)_{${b}}$ et son prédécesseur immédiat est $(FFF)_{${b}}$.`
+						texte_corr += `<br> $(1000)_{${b}}=1\\times${b}^3=${tex_nombre(b ** 3)}$ donc $(FFF)_{${b}}=${b ** 3}-1=${tex_nombre(b ** 3 - 1)}$.`
 					}
-				break;
+					break;
 				case 'plus_petit_3_chiffres':
 					texte = `Quel est le plus petit nombre à 3 chiffres que l'on peut écrire en base ${b}.`;
-					texte +=`<br>Comment s'écrit son prédécesseur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`;
-					if (b==12) {
+					texte += `<br>Comment s'écrit son prédécesseur immédiat en base ${b} ? En déduire l'écriture en base 10 de ces 2 nombres.`;
+					if (b == 12) {
 						texte_corr = `En base ${b} le plus petit chiffre est $0$ et le plus grand chiffre est $B$`
-						texte_corr += ` donc le plus petit nombre à 3 chiffres est $(100)_{${b}}$ et son prédécesseur immédiat est $(BB)_{${b}}$.` 
-						texte_corr += `<br> $(100)_{${b}}=1\\times${b}^2=${tex_nombre(b**2)}$ donc $(BB)_{${b}}=${b**2}-1=${tex_nombre(b**2-1)}$.`
+						texte_corr += ` donc le plus petit nombre à 3 chiffres est $(100)_{${b}}$ et son prédécesseur immédiat est $(BB)_{${b}}$.`
+						texte_corr += `<br> $(100)_{${b}}=1\\times${b}^2=${tex_nombre(b ** 2)}$ donc $(BB)_{${b}}=${b ** 2}-1=${tex_nombre(b ** 2 - 1)}$.`
 					} else {
 						texte_corr = `En base ${b} le plus petit chiffre est $0$ et le plus grand chiffre est $F$`
-						texte_corr += ` donc le plus petit nombre à 3 chiffres est $(100)_{${b}}$ et son prédécesseur immédiat est $(FF)_{${b}}$.` 
-						texte_corr += `<br> $(100)_{${b}}=1\\times${b}^2=${tex_nombre(b**2)}$ donc $(FF)_{${b}}=${b**2}-1=${tex_nombre(b**2-1)}$.`
+						texte_corr += ` donc le plus petit nombre à 3 chiffres est $(100)_{${b}}$ et son prédécesseur immédiat est $(FF)_{${b}}$.`
+						texte_corr += `<br> $(100)_{${b}}=1\\times${b}^2=${tex_nombre(b ** 2)}$ donc $(FF)_{${b}}=${b ** 2}-1=${tex_nombre(b ** 2 - 1)}$.`
 					}
-				break;
-				
-				
+					break;
+
+
 			}
 			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
@@ -6163,229 +6163,229 @@ function Evolutions_en_pourcentage() {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 		let type_de_questions_disponibles = [];
-		if (this.sup==1) {
+		if (this.sup == 1) {
 			type_de_questions_disponibles = ['finale'];
 		}
-		if (this.sup==2) {
+		if (this.sup == 2) {
 			type_de_questions_disponibles = ['evolution'];
 		}
-		if (this.sup==3) {
+		if (this.sup == 3) {
 			type_de_questions_disponibles = ['initiale'];
 		}
-		if (this.sup==4) {
-			type_de_questions_disponibles = ['finale','evolution','initiale'];
+		if (this.sup == 4) {
+			type_de_questions_disponibles = ['finale', 'evolution', 'initiale'];
 		}
-		let type_de_situations_disponibles = ['prix','etablissement','facture','population'];
+		let type_de_situations_disponibles = ['prix', 'etablissement', 'facture', 'population'];
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let liste_type_de_situations = combinaison_listes(type_de_situations_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		for (let i = 0, texte, texte_corr, depart, arrive, taux, coeff, cpt = 0; i < this.nb_questions && cpt < 50;) {
 
 			switch (liste_type_de_situations[i]) {
 				case 'prix':
-					depart = choice([calcul(randint(11,99)/10),randint(11,99),randint(11,99)*10]);
-					taux = choice([10,20,30,40,60]);
-					taux *= choice([-1,1]);
-					coeff = tex_nombrec(1+taux/100)
-					arrive = calcul(depart*(1+taux/100));
-					switch (liste_type_de_questions[i]){
-						case 'finale' :
-						if (taux>0) {
-							texte = `Un article coûtait $${tex_prix(depart)}$ € et son prix a augmenté de $${taux}~\\%$. Calculer son nouveau prix.`
-							texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.`
-							texte_corr += `<br>$${tex_prix(depart)}\\times ${coeff} = ${tex_prix(arrive)}$`
-							texte_corr += `<br>Le nouveau prix de cet article est ${tex_prix(arrive)} €.`
-						} else {
-							texte = `Un article coûtait $${tex_prix(depart)}$ € et son prix est soldé à $${taux}~\\%$. Calculer son nouveau prix.`
-							texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.`
-							texte_corr += `<br>$${tex_prix(depart)}\\times ${coeff} = ${tex_prix(arrive)}$`
-							texte_corr += `<br>Le nouveau prix de cet article est ${tex_prix(arrive)} €.`
-						}
-						break;
-						case 'initiale' :
-						if (taux>0) {
-							texte = `Après une augmentation de $${taux}~\\%$ un article coûte maintenant $${tex_prix(arrive)}$ €. Calculer son prix avant l'augmentation.`
-							texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\%=${100+taux}~\\% = ${coeff}$.<br>Pour retrouver le prix initial, on va donc diviser le prix final par ${coeff}.`
-							texte_corr += `<br>$${tex_prix(arrive)}\\div ${coeff} = ${tex_prix(depart)}$`
-							texte_corr += `<br>Avant l'augmentation cet article coûtait ${tex_prix(depart)} €.`
-						} else {
-							texte = `Soldé à $${taux}~\\%$ un article coûte maintenant $${tex_prix(arrive)}$ €. Calculer son prix avant les soldes.`
-							texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.<br>Pour retrouver le prix initial, on va donc diviser le prix final par ${coeff}.`
-							texte_corr += `<br>$${tex_prix(arrive)}\\div ${coeff} = ${tex_prix(depart)}$`
-							texte_corr += `<br>Avant les soldes cet article coûtait ${tex_prix(depart)} €.`
-						}
-						break;
-						case 'evolution' :
-						if (taux>0) {
-							texte = `Un article qui coûtait $${tex_prix(depart)}$ € coûte maintenant $${tex_prix(arrive)}$ €. Exprimer l'augmentation du prix en pourcentage.`
-							texte_corr = `$${tex_prix(arrive)}\\div ${tex_prix(depart)} = ${coeff} =  ${100+taux}~\\% = 100~\\%+${taux}~\\%$`
-							texte_corr += `<br>Le prix a été multiplié par ${coeff}, il a donc augmenté de $${taux}~\\%$.`
-						} else {
-							texte = `Un article qui coûtait $${tex_prix(depart)}$ € coûte maintenant $${tex_prix(arrive)}$ €. Exprimer la réduction du prix en pourcentage.`
-							texte_corr = `$${tex_prix(arrive)}\\div ${tex_prix(depart)} = ${coeff} =  ${100+taux}~\\% = 100~\\%${taux}~\\%$`
-							texte_corr += `<br>Le prix a été multiplié par ${coeff}, il a donc diminué de $${abs(taux)}~\\%$.`
-						}
-						break;
+					depart = choice([calcul(randint(11, 99) / 10), randint(11, 99), randint(11, 99) * 10]);
+					taux = choice([10, 20, 30, 40, 60]);
+					taux *= choice([-1, 1]);
+					coeff = tex_nombrec(1 + taux / 100)
+					arrive = calcul(depart * (1 + taux / 100));
+					switch (liste_type_de_questions[i]) {
+						case 'finale':
+							if (taux > 0) {
+								texte = `Un article coûtait $${tex_prix(depart)}$ € et son prix a augmenté de $${taux}~\\%$. Calculer son nouveau prix.`
+								texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.`
+								texte_corr += `<br>$${tex_prix(depart)}\\times ${coeff} = ${tex_prix(arrive)}$`
+								texte_corr += `<br>Le nouveau prix de cet article est ${tex_prix(arrive)} €.`
+							} else {
+								texte = `Un article coûtait $${tex_prix(depart)}$ € et son prix est soldé à $${taux}~\\%$. Calculer son nouveau prix.`
+								texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.`
+								texte_corr += `<br>$${tex_prix(depart)}\\times ${coeff} = ${tex_prix(arrive)}$`
+								texte_corr += `<br>Le nouveau prix de cet article est ${tex_prix(arrive)} €.`
+							}
+							break;
+						case 'initiale':
+							if (taux > 0) {
+								texte = `Après une augmentation de $${taux}~\\%$ un article coûte maintenant $${tex_prix(arrive)}$ €. Calculer son prix avant l'augmentation.`
+								texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\%=${100 + taux}~\\% = ${coeff}$.<br>Pour retrouver le prix initial, on va donc diviser le prix final par ${coeff}.`
+								texte_corr += `<br>$${tex_prix(arrive)}\\div ${coeff} = ${tex_prix(depart)}$`
+								texte_corr += `<br>Avant l'augmentation cet article coûtait ${tex_prix(depart)} €.`
+							} else {
+								texte = `Soldé à $${taux}~\\%$ un article coûte maintenant $${tex_prix(arrive)}$ €. Calculer son prix avant les soldes.`
+								texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.<br>Pour retrouver le prix initial, on va donc diviser le prix final par ${coeff}.`
+								texte_corr += `<br>$${tex_prix(arrive)}\\div ${coeff} = ${tex_prix(depart)}$`
+								texte_corr += `<br>Avant les soldes cet article coûtait ${tex_prix(depart)} €.`
+							}
+							break;
+						case 'evolution':
+							if (taux > 0) {
+								texte = `Un article qui coûtait $${tex_prix(depart)}$ € coûte maintenant $${tex_prix(arrive)}$ €. Exprimer l'augmentation du prix en pourcentage.`
+								texte_corr = `$${tex_prix(arrive)}\\div ${tex_prix(depart)} = ${coeff} =  ${100 + taux}~\\% = 100~\\%+${taux}~\\%$`
+								texte_corr += `<br>Le prix a été multiplié par ${coeff}, il a donc augmenté de $${taux}~\\%$.`
+							} else {
+								texte = `Un article qui coûtait $${tex_prix(depart)}$ € coûte maintenant $${tex_prix(arrive)}$ €. Exprimer la réduction du prix en pourcentage.`
+								texte_corr = `$${tex_prix(arrive)}\\div ${tex_prix(depart)} = ${coeff} =  ${100 + taux}~\\% = 100~\\%${taux}~\\%$`
+								texte_corr += `<br>Le prix a été multiplié par ${coeff}, il a donc diminué de $${abs(taux)}~\\%$.`
+							}
+							break;
 					}
-				break;
+					break;
 				case 'etablissement':
 					//Le nombre d'élève doit être entier
 					//Multiple de 50 et multiple de 2%
 					//Multiple de 20 et multiple de 5%
 					//Multiple de 100 et n%
-					switch (randint(1,3)){
-						case 1 : 
-							depart = 50*randint(7,24);
-							taux = 2*randint(1,5);
-						break;
-						case 2 : 
-							depart = 20*randint(17,60);
-							taux = 5*randint(1,3);
-						break;
-						case 3 : 
-							depart = 100*randint(4,12);
-							taux = randint(1,11);
-						break;
+					switch (randint(1, 3)) {
+						case 1:
+							depart = 50 * randint(7, 24);
+							taux = 2 * randint(1, 5);
+							break;
+						case 2:
+							depart = 20 * randint(17, 60);
+							taux = 5 * randint(1, 3);
+							break;
+						case 3:
+							depart = 100 * randint(4, 12);
+							taux = randint(1, 11);
+							break;
 					}
-					arrive = calcul(depart*(1+taux/100));
-					coeff = tex_nombrec(1+taux/100)
+					arrive = calcul(depart * (1 + taux / 100));
+					coeff = tex_nombrec(1 + taux / 100)
 					let date = new Date()
 					let cetteAnnee = date.getFullYear();
-					let anneeDerniere = cetteAnnee-1;
-					let etablissement = choice(['collège','lycée']);
-					switch (liste_type_de_questions[i]){
-						case 'finale' :
-						if (taux>0) {
-							texte = `Un ${etablissement} avait $${tex_nombre(depart)}$ élèves en ${anneeDerniere}. Depuis, le nombre d'élèves a augmenté de $${taux}~\\%$. Calculer le nombre d'élèves dans ce ${etablissement} cette année.`
-							texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.`
-							texte_corr += `<br>$${tex_nombre(depart)}\\times ${coeff} = ${tex_nombre(arrive)}$`
-							texte_corr += `<br>Il y a maintenant ${string_nombre(arrive)} élèves dans ce ${etablissement}.`
-						} else {
-							texte = `Un ${etablissement} avait $${tex_nombre(depart)}$ élèves en ${anneeDerniere}. Depuis, le nombre d'élèves a diminué de $${abs(taux)}~\\%$. Calculer le nombre d'élèves dans ce ${etablissement} cette année.`
-							texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.`
-							texte_corr += `<br>$${tex_nombre(depart)}\\times ${coeff} = ${tex_nombre(arrive)}$`
-							texte_corr += `<br>Il y a maintenant ${string_nombre(arrive)} élèves dans ce ${etablissement}.`
-						}
-						break;
-						case 'initiale' :
-						if (taux>0) {
-							texte = `Depuis ${anneeDerniere} le nombre d'élèves d'un ${etablissement} a augmenté de $${taux}~\\%$. Il y a maintenant $${tex_nombre(arrive)}$ élèves. Calculer le nombre d'élèves en ${anneeDerniere} dans cet établissement.`
-							texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.<br>Pour retrouver le nombre initial d'élèves, on va donc diviser le nombre actuel d'élèves par ${coeff}.`
-							texte_corr += `<br>$${tex_nombre(arrive)}\\div ${coeff} = ${tex_nombre(depart)}$`
-							texte_corr += `<br>En ${anneeDerniere}, il y avait ${string_nombre(depart)} élèves dans ce ${etablissement}.`
-						} else {
-							texte = `Depuis ${anneeDerniere} le nombre d'élèves d'un ${etablissement} a diminué de $${taux}~\\%$. Il y a maintenant $${tex_nombre(arrive)}$ élèves. Calculer le nombre d'élèves en ${anneeDerniere} dans cet établissement.`
-							texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.<br>Pour retrouver le nombre initial d'élèves, on va donc diviser le nombre actuel d'élèves par ${coeff}.`
-							texte_corr += `<br>$${tex_nombre(arrive)}\\div ${coeff} = ${tex_nombre(depart)}$`
-							texte_corr += `<br>En ${anneeDerniere}, il y avait ${string_nombre(depart)} élèves dans ce ${etablissement}.`
-						}
-						break;
-						case 'evolution' :
-						texte = `En ${anneeDerniere}, il y avait $${tex_nombre(depart)}$ élèves dans un ${etablissement}. En ${cetteAnnee}, ils sont $${tex_nombre(arrive)}$. Exprimer la variation du nombre d'élèves de cet établissement en pourcentage.`
-						if (taux>0) {
-							texte_corr = `$${tex_nombre(arrive)}\\div ${tex_nombre(depart)} = ${coeff} =  ${100+taux}~\\% = 100~\\%+${taux}~\\%$`
-							texte_corr += `<br>Le nombre d'élèves a été multiplié par ${coeff}, il a donc augmenté de $${taux}~\\%$.`
-						} else {
-							texte = `Un article qui coûtait $${tex_nombre(depart)}$ € coûte maintenant $${tex_nombre(arrive)}$ €. Exprimer la réduction du prix en pourcentage.`
-							texte_corr = `$${tex_nombre(arrive)}\\div ${tex_prix(depart)} = ${coeff} =  ${100+taux}~\\% = 100~\\%${taux}~\\%$`
-							texte_corr += `<br>Le nombre d'élèves a été multiplié par ${coeff}, il a donc diminué de $${abs(taux)}~\\%$.`
-						}
-						break;
+					let anneeDerniere = cetteAnnee - 1;
+					let etablissement = choice(['collège', 'lycée']);
+					switch (liste_type_de_questions[i]) {
+						case 'finale':
+							if (taux > 0) {
+								texte = `Un ${etablissement} avait $${tex_nombre(depart)}$ élèves en ${anneeDerniere}. Depuis, le nombre d'élèves a augmenté de $${taux}~\\%$. Calculer le nombre d'élèves dans ce ${etablissement} cette année.`
+								texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.`
+								texte_corr += `<br>$${tex_nombre(depart)}\\times ${coeff} = ${tex_nombre(arrive)}$`
+								texte_corr += `<br>Il y a maintenant ${string_nombre(arrive)} élèves dans ce ${etablissement}.`
+							} else {
+								texte = `Un ${etablissement} avait $${tex_nombre(depart)}$ élèves en ${anneeDerniere}. Depuis, le nombre d'élèves a diminué de $${abs(taux)}~\\%$. Calculer le nombre d'élèves dans ce ${etablissement} cette année.`
+								texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.`
+								texte_corr += `<br>$${tex_nombre(depart)}\\times ${coeff} = ${tex_nombre(arrive)}$`
+								texte_corr += `<br>Il y a maintenant ${string_nombre(arrive)} élèves dans ce ${etablissement}.`
+							}
+							break;
+						case 'initiale':
+							if (taux > 0) {
+								texte = `Depuis ${anneeDerniere} le nombre d'élèves d'un ${etablissement} a augmenté de $${taux}~\\%$. Il y a maintenant $${tex_nombre(arrive)}$ élèves. Calculer le nombre d'élèves en ${anneeDerniere} dans cet établissement.`
+								texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.<br>Pour retrouver le nombre initial d'élèves, on va donc diviser le nombre actuel d'élèves par ${coeff}.`
+								texte_corr += `<br>$${tex_nombre(arrive)}\\div ${coeff} = ${tex_nombre(depart)}$`
+								texte_corr += `<br>En ${anneeDerniere}, il y avait ${string_nombre(depart)} élèves dans ce ${etablissement}.`
+							} else {
+								texte = `Depuis ${anneeDerniere} le nombre d'élèves d'un ${etablissement} a diminué de $${taux}~\\%$. Il y a maintenant $${tex_nombre(arrive)}$ élèves. Calculer le nombre d'élèves en ${anneeDerniere} dans cet établissement.`
+								texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.<br>Pour retrouver le nombre initial d'élèves, on va donc diviser le nombre actuel d'élèves par ${coeff}.`
+								texte_corr += `<br>$${tex_nombre(arrive)}\\div ${coeff} = ${tex_nombre(depart)}$`
+								texte_corr += `<br>En ${anneeDerniere}, il y avait ${string_nombre(depart)} élèves dans ce ${etablissement}.`
+							}
+							break;
+						case 'evolution':
+							texte = `En ${anneeDerniere}, il y avait $${tex_nombre(depart)}$ élèves dans un ${etablissement}. En ${cetteAnnee}, ils sont $${tex_nombre(arrive)}$. Exprimer la variation du nombre d'élèves de cet établissement en pourcentage.`
+							if (taux > 0) {
+								texte_corr = `$${tex_nombre(arrive)}\\div ${tex_nombre(depart)} = ${coeff} =  ${100 + taux}~\\% = 100~\\%+${taux}~\\%$`
+								texte_corr += `<br>Le nombre d'élèves a été multiplié par ${coeff}, il a donc augmenté de $${taux}~\\%$.`
+							} else {
+								texte = `Un article qui coûtait $${tex_nombre(depart)}$ € coûte maintenant $${tex_nombre(arrive)}$ €. Exprimer la réduction du prix en pourcentage.`
+								texte_corr = `$${tex_nombre(arrive)}\\div ${tex_prix(depart)} = ${coeff} =  ${100 + taux}~\\% = 100~\\%${taux}~\\%$`
+								texte_corr += `<br>Le nombre d'élèves a été multiplié par ${coeff}, il a donc diminué de $${abs(taux)}~\\%$.`
+							}
+							break;
 					}
-				break;
+					break;
 				case 'facture':
-					depart = randint(700,1400);
-					taux = randint(1,12);
-					taux *= choice([-1,1]);
-					coeff = tex_nombrec(1+taux/100)
-					arrive = calcul(depart*(1+taux/100));
-					let facture = choice(["ma facture annuelle d'électricité","ma facture annuelle de gaz","ma taxe d'habitation","mon ordinateur","mon vélo électrique"])
-					switch (liste_type_de_questions[i]){
-						case 'finale' :
-						if (taux>0) {
-							texte = `Le prix de ${facture} était de $${tex_prix(depart)}$ € l'année dernière et il a augmenté de $${taux}~\\%$. Calculer son nouveau prix.`
-							texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.`
-							texte_corr += `<br>$${tex_prix(depart)}\\times ${coeff} = ${tex_prix(arrive)}$`
-							texte_corr += `<br>Le prix de ${facture} est maintenant de ${tex_prix(arrive)} €.`
-						} else {
-							texte = `Le prix de ${facture} était de $${tex_prix(depart)}$ € l'année dernière et il a diminué de $${abs(taux)}~\\%$. Calculer son nouveau prix.`
-							texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.`
-							texte_corr += `<br>$${tex_prix(depart)}\\times ${coeff} = ${tex_prix(arrive)}$`
-							texte_corr += `<br>Le prix de ${facture} est maintenant de ${tex_prix(arrive)} €.`
-						}
-						break;
-						case 'initiale' :
-						if (taux>0) {
-							texte = `Après une augmentation de $${taux}~\\%$ le prix de ${facture} est maintenant $${tex_prix(arrive)}$ €. Calculer son prix avant l'augmentation.`
-							texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\%=${100+taux}~\\% = ${coeff}$.<br>Pour retrouver le prix initial, on va donc diviser le prix final par ${coeff}.`
-							texte_corr += `<br>$${tex_prix(arrive)}\\div ${coeff} = ${tex_prix(depart)}$`
-							texte_corr += `<br>Avant l'augmentation le prix de ${facture} était de ${tex_prix(depart)} €.`
-						} else {
-							texte = `Après une diminution de $${abs(taux)}~\\%$ ${facture} coûte maintenant $${tex_prix(arrive)}$ €. Calculer son prix avant les soldes.`
-							texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.<br>Pour retrouver le prix initial, on va donc diviser le prix final par ${coeff}.`
-							texte_corr += `<br>$${tex_prix(arrive)}\\div ${coeff} = ${tex_prix(depart)}$`
-							texte_corr += `<br>Avant la diminution le prix de ${facture} était de ${tex_prix(depart)} €.`
-						}
-						break;
-						case 'evolution' :
-						if (taux>0) {
-							texte = `Le prix de ${facture} est passé de $${tex_prix(depart)}$ € à $${tex_prix(arrive)}$ €. Exprimer cette augmentation en pourcentage.`
-							texte_corr = `$${tex_prix(arrive)}\\div ${tex_prix(depart)} = ${coeff} =  ${100+taux}~\\% = 100~\\%+${taux}~\\%$`
-							texte_corr += `<br>Le prix a été multiplié par ${coeff}, il a donc augmenté de $${taux}~\\%$.`
-						} else {
-							texte = `Le prix de ${facture} est passé de $${tex_prix(depart)}$ € à $${tex_prix(arrive)}$ €. Exprimer cette diminution en pourcentage.`
-							texte_corr = `$${tex_prix(arrive)}\\div ${tex_prix(depart)} = ${coeff} =  ${100+taux}~\\% = 100~\\%${taux}~\\%$`
-							texte_corr += `<br>Le prix a été multiplié par ${coeff}, il a donc diminué de $${abs(taux)}~\\%$.`
-						}
-						break;
+					depart = randint(700, 1400);
+					taux = randint(1, 12);
+					taux *= choice([-1, 1]);
+					coeff = tex_nombrec(1 + taux / 100)
+					arrive = calcul(depart * (1 + taux / 100));
+					let facture = choice(["ma facture annuelle d'électricité", "ma facture annuelle de gaz", "ma taxe d'habitation", "mon ordinateur", "mon vélo électrique"])
+					switch (liste_type_de_questions[i]) {
+						case 'finale':
+							if (taux > 0) {
+								texte = `Le prix de ${facture} était de $${tex_prix(depart)}$ € l'année dernière et il a augmenté de $${taux}~\\%$. Calculer son nouveau prix.`
+								texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.`
+								texte_corr += `<br>$${tex_prix(depart)}\\times ${coeff} = ${tex_prix(arrive)}$`
+								texte_corr += `<br>Le prix de ${facture} est maintenant de ${tex_prix(arrive)} €.`
+							} else {
+								texte = `Le prix de ${facture} était de $${tex_prix(depart)}$ € l'année dernière et il a diminué de $${abs(taux)}~\\%$. Calculer son nouveau prix.`
+								texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.`
+								texte_corr += `<br>$${tex_prix(depart)}\\times ${coeff} = ${tex_prix(arrive)}$`
+								texte_corr += `<br>Le prix de ${facture} est maintenant de ${tex_prix(arrive)} €.`
+							}
+							break;
+						case 'initiale':
+							if (taux > 0) {
+								texte = `Après une augmentation de $${taux}~\\%$ le prix de ${facture} est maintenant $${tex_prix(arrive)}$ €. Calculer son prix avant l'augmentation.`
+								texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\%=${100 + taux}~\\% = ${coeff}$.<br>Pour retrouver le prix initial, on va donc diviser le prix final par ${coeff}.`
+								texte_corr += `<br>$${tex_prix(arrive)}\\div ${coeff} = ${tex_prix(depart)}$`
+								texte_corr += `<br>Avant l'augmentation le prix de ${facture} était de ${tex_prix(depart)} €.`
+							} else {
+								texte = `Après une diminution de $${abs(taux)}~\\%$ ${facture} coûte maintenant $${tex_prix(arrive)}$ €. Calculer son prix avant les soldes.`
+								texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.<br>Pour retrouver le prix initial, on va donc diviser le prix final par ${coeff}.`
+								texte_corr += `<br>$${tex_prix(arrive)}\\div ${coeff} = ${tex_prix(depart)}$`
+								texte_corr += `<br>Avant la diminution le prix de ${facture} était de ${tex_prix(depart)} €.`
+							}
+							break;
+						case 'evolution':
+							if (taux > 0) {
+								texte = `Le prix de ${facture} est passé de $${tex_prix(depart)}$ € à $${tex_prix(arrive)}$ €. Exprimer cette augmentation en pourcentage.`
+								texte_corr = `$${tex_prix(arrive)}\\div ${tex_prix(depart)} = ${coeff} =  ${100 + taux}~\\% = 100~\\%+${taux}~\\%$`
+								texte_corr += `<br>Le prix a été multiplié par ${coeff}, il a donc augmenté de $${taux}~\\%$.`
+							} else {
+								texte = `Le prix de ${facture} est passé de $${tex_prix(depart)}$ € à $${tex_prix(arrive)}$ €. Exprimer cette diminution en pourcentage.`
+								texte_corr = `$${tex_prix(arrive)}\\div ${tex_prix(depart)} = ${coeff} =  ${100 + taux}~\\% = 100~\\%${taux}~\\%$`
+								texte_corr += `<br>Le prix a été multiplié par ${coeff}, il a donc diminué de $${abs(taux)}~\\%$.`
+							}
+							break;
 					}
-				break;
+					break;
 				case 'population':
-					depart = choice([randint(11,99)*1000,randint(11,99)*10000]);
-					taux = randint(5,35);
-					taux *= choice([-1,1]);
-					coeff = tex_nombrec(1+taux/100)
-					arrive = calcul(depart*(1+taux/100));
-					let nb = randint(5,15);
-					switch (liste_type_de_questions[i]){
-						case 'finale' :
-						if (taux>0) {
-							texte = `Il y a ${nb} ans, la population d'une ville était de $${tex_nombre(depart)}$ habitants. Depuis, elle a augmenté de $${taux}~\\%$. Calculer le nombre d'habitants actuel de cette ville.`
-							texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.`
-							texte_corr += `<br>$${tex_nombre(depart)}\\times ${coeff} = ${tex_nombre(arrive)}$`
-							texte_corr += `<br>La population de cette ville est maintenant de $${tex_nombre(arrive)}$ habitants.`
-						} else {
-							texte = `Il y a ${nb} ans, la population d'une ville était de $${tex_nombre(depart)}$ habitants. Depuis, elle a diminué de $${abs(taux)}~\\%$. Calculer le nombre d'habitants actuel de cette ville.`
-							texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.`
-							texte_corr += `<br>$${tex_nombre(depart)}\\times ${coeff} = ${tex_nombre(arrive)}$`
-							texte_corr += `<br>La population de cette ville est maintenant de $${tex_nombre(arrive)}$ habitants.`
-						}
-						break;
-						case 'initiale' :
-						if (taux>0) {
-							texte = `En ${nb} ans, la population d'une ville a augmenté de $${taux}~\\%$ et est maintenant $${tex_nombre(arrive)}$ habitants. Calculer sa population d'il y a ${nb} ans.`
-							texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\%=${100+taux}~\\% = ${coeff}$.<br>Pour retrouver la population initiale, on va donc diviser le nombre d'habitants actuel par ${coeff}.`
-							texte_corr += `<br>$${tex_nombre(arrive)}\\div ${coeff} = ${tex_nombre(depart)}$`
-							texte_corr += `<br>Il y a ${nb} ans cette ville comptait $${tex_nombre(depart)}$ habitants.`
-						} else {
-							texte = `En ${nb} ans, la population d'une ville a diminué de $${abs(taux)}~\\%$ et est maintenant $${tex_nombre(arrive)}$ habitants. Calculer sa population d'il y a ${nb} ans.`
-							texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100+taux}~\\% = ${coeff}$.<br>Pour retrouver la population initiale, on va donc diviser le nombre d'habitants actuel par ${coeff}.`
-							texte_corr += `<br>$${tex_nombre(arrive)}\\div ${coeff} = ${tex_nombre(depart)}$`
-							texte_corr += `<br>Il y a ${nb} ans cette ville comptait $${tex_nombre(depart)}$ habitants.`
-						}
-						break;
-						case 'evolution' :
-						if (taux>0) {
-							texte = `En ${nb} ans, la population d'une ville est passé de $${tex_nombre(depart)}$ habitants à $${tex_nombre(arrive)}$. Exprimer cette augmentation en pourcentage.`
-							texte_corr = `$${tex_nombre(arrive)}\\div ${tex_nombre(depart)} = ${coeff} =  ${100+taux}~\\% = 100~\\%+${taux}~\\%$`
-							texte_corr += `<br>La population a été multipliée par ${coeff} elle a donc augmenté de $${abs(taux)}~\\%$.`
-						} else {
-							texte = `En ${nb} ans, la population d'une ville est passé de $${tex_nombre(depart)}$ habitants à $${tex_nombre(arrive)}$. Exprimer cette diminution en pourcentage.`
-							texte_corr = `$${tex_nombre(arrive)}\\div ${tex_nombre(depart)} = ${coeff} =  ${100+taux}~\\% = 100~\\%${taux}~\\%$`
-							texte_corr += `<br>La population a été multipliée par ${coeff} elle a donc diminué de $${abs(taux)}~\\%$.`
-						}
-						break;
+					depart = choice([randint(11, 99) * 1000, randint(11, 99) * 10000]);
+					taux = randint(5, 35);
+					taux *= choice([-1, 1]);
+					coeff = tex_nombrec(1 + taux / 100)
+					arrive = calcul(depart * (1 + taux / 100));
+					let nb = randint(5, 15);
+					switch (liste_type_de_questions[i]) {
+						case 'finale':
+							if (taux > 0) {
+								texte = `Il y a ${nb} ans, la population d'une ville était de $${tex_nombre(depart)}$ habitants. Depuis, elle a augmenté de $${taux}~\\%$. Calculer le nombre d'habitants actuel de cette ville.`
+								texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.`
+								texte_corr += `<br>$${tex_nombre(depart)}\\times ${coeff} = ${tex_nombre(arrive)}$`
+								texte_corr += `<br>La population de cette ville est maintenant de $${tex_nombre(arrive)}$ habitants.`
+							} else {
+								texte = `Il y a ${nb} ans, la population d'une ville était de $${tex_nombre(depart)}$ habitants. Depuis, elle a diminué de $${abs(taux)}~\\%$. Calculer le nombre d'habitants actuel de cette ville.`
+								texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.`
+								texte_corr += `<br>$${tex_nombre(depart)}\\times ${coeff} = ${tex_nombre(arrive)}$`
+								texte_corr += `<br>La population de cette ville est maintenant de $${tex_nombre(arrive)}$ habitants.`
+							}
+							break;
+						case 'initiale':
+							if (taux > 0) {
+								texte = `En ${nb} ans, la population d'une ville a augmenté de $${taux}~\\%$ et est maintenant $${tex_nombre(arrive)}$ habitants. Calculer sa population d'il y a ${nb} ans.`
+								texte_corr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\%=${100 + taux}~\\% = ${coeff}$.<br>Pour retrouver la population initiale, on va donc diviser le nombre d'habitants actuel par ${coeff}.`
+								texte_corr += `<br>$${tex_nombre(arrive)}\\div ${coeff} = ${tex_nombre(depart)}$`
+								texte_corr += `<br>Il y a ${nb} ans cette ville comptait $${tex_nombre(depart)}$ habitants.`
+							} else {
+								texte = `En ${nb} ans, la population d'une ville a diminué de $${abs(taux)}~\\%$ et est maintenant $${tex_nombre(arrive)}$ habitants. Calculer sa population d'il y a ${nb} ans.`
+								texte_corr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.<br>Pour retrouver la population initiale, on va donc diviser le nombre d'habitants actuel par ${coeff}.`
+								texte_corr += `<br>$${tex_nombre(arrive)}\\div ${coeff} = ${tex_nombre(depart)}$`
+								texte_corr += `<br>Il y a ${nb} ans cette ville comptait $${tex_nombre(depart)}$ habitants.`
+							}
+							break;
+						case 'evolution':
+							if (taux > 0) {
+								texte = `En ${nb} ans, la population d'une ville est passé de $${tex_nombre(depart)}$ habitants à $${tex_nombre(arrive)}$. Exprimer cette augmentation en pourcentage.`
+								texte_corr = `$${tex_nombre(arrive)}\\div ${tex_nombre(depart)} = ${coeff} =  ${100 + taux}~\\% = 100~\\%+${taux}~\\%$`
+								texte_corr += `<br>La population a été multipliée par ${coeff} elle a donc augmenté de $${abs(taux)}~\\%$.`
+							} else {
+								texte = `En ${nb} ans, la population d'une ville est passé de $${tex_nombre(depart)}$ habitants à $${tex_nombre(arrive)}$. Exprimer cette diminution en pourcentage.`
+								texte_corr = `$${tex_nombre(arrive)}\\div ${tex_nombre(depart)} = ${coeff} =  ${100 + taux}~\\% = 100~\\%${taux}~\\%$`
+								texte_corr += `<br>La population a été multipliée par ${coeff} elle a donc diminué de $${abs(taux)}~\\%$.`
+							}
+							break;
 					}
-				break;
+					break;
 			}
 
 			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
@@ -6429,42 +6429,42 @@ function Coefficient_evolution() {
 		texte_aide += '<br>- Diminuer un nombre de $20~\\%$ revient à le multiplier par $1-\\dfrac{20}{100}=1-0,20=0,8$.'
 		texte_aide += '<br><br>- Augmenter un nombre de $5~\\%$ revient à le multiplier par $1+\\dfrac{5}{100}=1+0,05=1,05$.'
 
-		this.bouton_aide = modal_url(numero_de_l_exercice,'/aide/3P10');
+		this.bouton_aide = modal_url(numero_de_l_exercice, '/aide/3P10');
 
 		let type_de_questions_disponibles = [];
-		if (this.sup==1) {
-			type_de_questions_disponibles = ['coef+','coef-'];
+		if (this.sup == 1) {
+			type_de_questions_disponibles = ['coef+', 'coef-'];
 		}
-		if (this.sup==2) {
-			type_de_questions_disponibles = ['taux+','taux-'];
+		if (this.sup == 2) {
+			type_de_questions_disponibles = ['taux+', 'taux-'];
 		}
-		if (this.sup==3) {
-			type_de_questions_disponibles = ['coef+','coef-','taux+','taux-'];
+		if (this.sup == 3) {
+			type_de_questions_disponibles = ['coef+', 'coef-', 'taux+', 'taux-'];
 		}
 		let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		for (let i = 0, texte, texte_corr, taux, coeff, cpt = 0; i < this.nb_questions && cpt < 50;) {
-			taux = choice([randint(1,9)*10,randint(1,9)]);
-			switch (liste_type_de_questions[i]){
-				case 'coef+' :
-				texte = `Augmenter de $${taux}~\\%$ revient à multiplier par...`;
-				coeff = tex_prix(calcul(1+taux/100));
-				texte_corr = `Augmenter de $${taux}~\\%$ revient à multiplier par ${coeff} car $100~\\% + ${taux}~\\% = ${100+taux}~\\%$.`;
-				break;
-				case 'coef-' :
-				texte = `Diminuer de $${taux}~\\%$ revient à multiplier par...`;
-				coeff = tex_prix(calcul(1-taux/100));
-				texte_corr = `Diminuer de $${taux}~\\%$ revient à multiplier par ${coeff} car $100~\\% - ${taux}~\\% = ${100-taux}~\\%$.`;
-				break;
-				case 'taux+' :
-				coeff = tex_nombrec(1+taux/100);
-				texte = `Multiplier par ${coeff} revient à...`;
-				texte_corr = `Multiplier par ${coeff} revient à augmenter de $${taux}~\\%$ car $${coeff} = ${100+taux}~\\% = 100~\\% + ${taux}~\\%$.`;
-				break;
-				case 'taux-' :
-				coeff = tex_nombrec(1-taux/100);
-				texte = `Multiplier par ${coeff} revient à...`;
-				texte_corr = `Multiplier par ${coeff} revient à diminuer de $${taux}~\\%$ car $${coeff} = ${100-taux}~\\% = 100~\\% - ${taux}~\\%$.`;
-				break;
+			taux = choice([randint(1, 9) * 10, randint(1, 9)]);
+			switch (liste_type_de_questions[i]) {
+				case 'coef+':
+					texte = `Augmenter de $${taux}~\\%$ revient à multiplier par...`;
+					coeff = tex_prix(calcul(1 + taux / 100));
+					texte_corr = `Augmenter de $${taux}~\\%$ revient à multiplier par ${coeff} car $100~\\% + ${taux}~\\% = ${100 + taux}~\\%$.`;
+					break;
+				case 'coef-':
+					texte = `Diminuer de $${taux}~\\%$ revient à multiplier par...`;
+					coeff = tex_prix(calcul(1 - taux / 100));
+					texte_corr = `Diminuer de $${taux}~\\%$ revient à multiplier par ${coeff} car $100~\\% - ${taux}~\\% = ${100 - taux}~\\%$.`;
+					break;
+				case 'taux+':
+					coeff = tex_nombrec(1 + taux / 100);
+					texte = `Multiplier par ${coeff} revient à...`;
+					texte_corr = `Multiplier par ${coeff} revient à augmenter de $${taux}~\\%$ car $${coeff} = ${100 + taux}~\\% = 100~\\% + ${taux}~\\%$.`;
+					break;
+				case 'taux-':
+					coeff = tex_nombrec(1 - taux / 100);
+					texte = `Multiplier par ${coeff} revient à...`;
+					texte_corr = `Multiplier par ${coeff} revient à diminuer de $${taux}~\\%$ car $${coeff} = ${100 - taux}~\\% = 100~\\% - ${taux}~\\%$.`;
+					break;
 			}
 			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
@@ -6483,149 +6483,149 @@ function Coefficient_evolution() {
 * @Auteur Rémi Angot
 * 3G20-1
 */
-function Problemes_Thales(){
+function Problemes_Thales() {
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.titre = "Problèmes avec le théorème de Thalès";
 	this.nb_questions = 1;
 	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
-	
 
-	this.nouvelle_version = function(numero_de_l_exercice){
+
+	this.nouvelle_version = function (numero_de_l_exercice) {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let texte='';
-		let texte_corr='';
-		let type_de_questions = randint(1,2);
-		let A,B,C,D,M,N,x,k,y,p,p2,codage1,codage2,codage3,codage4,sMN,sBD,sCote,texte1,texte2,texte3,texte4,labels,BC,BD,MN
-		
+		let texte = '';
+		let texte_corr = '';
+		let type_de_questions = randint(1, 2);
+		let A, B, C, D, M, N, x, k, y, p, p2, codage1, codage2, codage3, codage4, sMN, sBD, sCote, texte1, texte2, texte3, texte4, labels, BC, BD, MN
 
-			switch (type_de_questions){
-				case 1 :
-				x = randint(6,10);
-				k = calcul(randint(12,19)/10);
-				y = calcul(randint(30,50)/10);
-				[A,B,C,D,E]=creerNomDePolygone(5)
-				texte = `On sait que $${A}${E}=${tex_nombre(x)}$ cm ; $${A}${D}=${tex_nombrec(k*x)}$ cm et $${E}${B}=${tex_nombre(y)}$ cm.<br>`;
+
+		switch (type_de_questions) {
+			case 1:
+				x = randint(6, 10);
+				k = calcul(randint(12, 19) / 10);
+				y = calcul(randint(30, 50) / 10);
+				[A, B, C, D, E] = creerNomDePolygone(5)
+				texte = `On sait que $${A}${E}=${tex_nombre(x)}$ cm ; $${A}${D}=${tex_nombrec(k * x)}$ cm et $${E}${B}=${tex_nombre(y)}$ cm.<br>`;
 				texte += `Calculer la valeur exacte de $${D}${C}$.`
 				if (sortie_html) {
 					// Pour le svg toutes les longueurs sont multipliées par 20
 					let fig1 = `<div><svg width="450" height="300" viewBox="-40 -40 450 300" xmlns="http://www.w3.org/2000/svg">
-					  <polygon points="0,0 ${calcul(k*x*20)},0 ${calcul(k*x*20)},${calcul(k*y*20)}  " fill="none" stroke="black" />
-					  <line x1="${calcul(x*20)}" y1="0" x2="${calcul(x*20)}" y2="${calcul(y*20)}" stroke="black" /> //[BE]
-					  <polyline points="${calcul(x*20-10)},0 ${calcul(x*20-10)},10 ${calcul(x*20)},10" fill="none" stroke="black" />  //Angle droit en E
-					  <polyline points="${calcul(k*x*20-10)},0 ${calcul(k*x*20-10)},10 ${calcul(k*x*20)},10" fill="none" stroke="black" />  //Angle droit en D
+					  <polygon points="0,0 ${calcul(k * x * 20)},0 ${calcul(k * x * 20)},${calcul(k * y * 20)}  " fill="none" stroke="black" />
+					  <line x1="${calcul(x * 20)}" y1="0" x2="${calcul(x * 20)}" y2="${calcul(y * 20)}" stroke="black" /> //[BE]
+					  <polyline points="${calcul(x * 20 - 10)},0 ${calcul(x * 20 - 10)},10 ${calcul(x * 20)},10" fill="none" stroke="black" />  //Angle droit en E
+					  <polyline points="${calcul(k * x * 20 - 10)},0 ${calcul(k * x * 20 - 10)},10 ${calcul(k * x * 20)},10" fill="none" stroke="black" />  //Angle droit en D
 					  <text x="-10" y="-10" text-anchor="middle" alignment-baseline="central">${A}</text> 
-					  <text x="${calcul(x*20)}" y="-10" text-anchor="middle" alignment-baseline="central">${E}</text> 
-					  <text x="${calcul(x*20)}" y="${calcul(y*20+10)}" text-anchor="middle" alignment-baseline="central">${B}</text> 
-					  <text x="${calcul(k*x*20+10)}" y="-10" text-anchor="middle" alignment-baseline="central">${D}</text>
-					  <text x="${calcul(k*x*20+10)}" y="${calcul(k*y*20+10)}" text-anchor="middle" alignment-baseline="central">${C}</text>
+					  <text x="${calcul(x * 20)}" y="-10" text-anchor="middle" alignment-baseline="central">${E}</text> 
+					  <text x="${calcul(x * 20)}" y="${calcul(y * 20 + 10)}" text-anchor="middle" alignment-baseline="central">${B}</text> 
+					  <text x="${calcul(k * x * 20 + 10)}" y="-10" text-anchor="middle" alignment-baseline="central">${D}</text>
+					  <text x="${calcul(k * x * 20 + 10)}" y="${calcul(k * y * 20 + 10)}" text-anchor="middle" alignment-baseline="central">${C}</text>
 					</svg></div>`
 
 					let fig2 = `<div><svg width="450" height="300" viewBox="-40 -260 450 300" xmlns="http://www.w3.org/2000/svg">
-					  <polygon points="0,0 ${calcul(k*x*20)},0 ${calcul(k*x*20)},${calcul(-k*y*20)}  " fill="none" stroke="black" />
-					  <line x1="${calcul(x*20)}" y1="0" x2="${calcul(x*20)}" y2="${calcul(-y*20)}" stroke="black" /> //[BE]
-					  <polyline points="${calcul(x*20-10)},0 ${calcul(x*20-10)},-10 ${calcul(x*20)},-10" fill="none" stroke="black" />  //Angle droit en E
-					  <polyline points="${calcul(k*x*20-10)},0 ${calcul(k*x*20-10)},-10 ${calcul(k*x*20)},-10" fill="none" stroke="black" />  //Angle droit en D
+					  <polygon points="0,0 ${calcul(k * x * 20)},0 ${calcul(k * x * 20)},${calcul(-k * y * 20)}  " fill="none" stroke="black" />
+					  <line x1="${calcul(x * 20)}" y1="0" x2="${calcul(x * 20)}" y2="${calcul(-y * 20)}" stroke="black" /> //[BE]
+					  <polyline points="${calcul(x * 20 - 10)},0 ${calcul(x * 20 - 10)},-10 ${calcul(x * 20)},-10" fill="none" stroke="black" />  //Angle droit en E
+					  <polyline points="${calcul(k * x * 20 - 10)},0 ${calcul(k * x * 20 - 10)},-10 ${calcul(k * x * 20)},-10" fill="none" stroke="black" />  //Angle droit en D
 					  <text x="-10" y="-10" text-anchor="middle" alignment-baseline="central">${A}</text> 
-					  <text x="${calcul(x*20)}" y="10" text-anchor="middle" alignment-baseline="central">${E}</text> 
-					  <text x="${calcul(x*20)}" y="${calcul(-y*20-10)}" text-anchor="middle" alignment-baseline="central">${B}</text> 
-					  <text x="${calcul(k*x*20+10)}" y="10" text-anchor="middle" alignment-baseline="central">${D}</text>
-					  <text x="${calcul(k*x*20+10)}" y="${calcul(-k*y*20-10)}" text-anchor="middle" alignment-baseline="central">${C}</text>
-					</svg></div>`					
+					  <text x="${calcul(x * 20)}" y="10" text-anchor="middle" alignment-baseline="central">${E}</text> 
+					  <text x="${calcul(x * 20)}" y="${calcul(-y * 20 - 10)}" text-anchor="middle" alignment-baseline="central">${B}</text> 
+					  <text x="${calcul(k * x * 20 + 10)}" y="10" text-anchor="middle" alignment-baseline="central">${D}</text>
+					  <text x="${calcul(k * x * 20 + 10)}" y="${calcul(-k * y * 20 - 10)}" text-anchor="middle" alignment-baseline="central">${C}</text>
+					</svg></div>`
 
-					texte += choice([fig1,fig2])
+					texte += choice([fig1, fig2])
 
-					
+
 
 				} else {
 					let fig1 = `\\begin{tikzpicture}[scale=.6]
-\\draw (0,0)--(${calcul(k*x)},0)--(${calcul(k*x)},${-k*y})--cycle;
+\\draw (0,0)--(${calcul(k * x)},0)--(${calcul(k * x)},${-k * y})--cycle;
 \\draw (${x},0)--(${x},${-y});
 \\draw (${x},0) rectangle ++(-.5,-.5);
-\\draw (${calcul(k*x)},0) rectangle ++(-.5,-.5);
+\\draw (${calcul(k * x)},0) rectangle ++(-.5,-.5);
 \\node [above left] at (0,0) {${A}};
 \\node [above] at (${x},0) {${E}};
-\\node [above right] at (${k*x},0) {${D}};
-\\node [below right] at (${k*x},${-k*y}) {${C}};
+\\node [above right] at (${k * x},0) {${D}};
+\\node [below right] at (${k * x},${-k * y}) {${C}};
 \\node [below] at (${x},${-y}) {${B}};
 \\end{tikzpicture}`
 
-				let fig2 = `\\begin{tikzpicture}[scale=.6]
-\\draw (0,0)--(${calcul(k*x)},0)--(${calcul(k*x)},${k*y})--cycle;
+					let fig2 = `\\begin{tikzpicture}[scale=.6]
+\\draw (0,0)--(${calcul(k * x)},0)--(${calcul(k * x)},${k * y})--cycle;
 \\draw (${x},0)--(${x},${y});
 \\draw (${x},0) rectangle ++(.5,.5);
-\\draw (${calcul(k*x)},0) rectangle ++(.5,.5);
+\\draw (${calcul(k * x)},0) rectangle ++(.5,.5);
 \\node [below left] at (0,0) {${A}};
 \\node [below] at (${x},0) {${E}};
-\\node [below right] at (${k*x},0) {${D}};
-\\node [above right] at (${k*x},${k*y}) {${C}};
+\\node [below right] at (${k * x},0) {${D}};
+\\node [above right] at (${k * x},${k * y}) {${C}};
 \\node [above] at (${x},${y}) {${B}};
 \\end{tikzpicture}`
 
-				texte += '<br>'+choice([fig1,fig2])
+					texte += '<br>' + choice([fig1, fig2])
 
 				}
-					
+
 				texte_corr = `Les droites $(${E}${B})$ et $(${D}${C})$ sont perpendiculaires à la même droite $(${A}${D})$, elles sont donc parallèles entre elles.`
-				texte_corr += `<br>De plus les points $${A}$, $${E}$, $${D}$  et $${A}$, $${B}$, $${C}$ sont alignés dans cet ordre donc d'après le théorème de Thalès on a :`				
+				texte_corr += `<br>De plus les points $${A}$, $${E}$, $${D}$  et $${A}$, $${B}$, $${C}$ sont alignés dans cet ordre donc d'après le théorème de Thalès on a :`
 				texte_corr += `<br><br>$\\dfrac{${A}${E}}{${A}${D}}=\\dfrac{${E}${B}}{${D}${C}}=\\dfrac{${A}${B}}{${A}${C}}$`
-				texte_corr += `<br><br>$\\dfrac{${tex_nombre(x)}}{${tex_nombrec(k*x)}}=\\dfrac{${tex_nombre(y)}}{${D}${C}}$`
-				texte_corr += `<br><br>$${D}${C}=\\dfrac{${tex_nombrec(k*x)}\\times${tex_nombre(y)}}{${tex_nombre(x)}}=${tex_nombrec(k*y)}$`
+				texte_corr += `<br><br>$\\dfrac{${tex_nombre(x)}}{${tex_nombrec(k * x)}}=\\dfrac{${tex_nombre(y)}}{${D}${C}}$`
+				texte_corr += `<br><br>$${D}${C}=\\dfrac{${tex_nombrec(k * x)}\\times${tex_nombre(y)}}{${tex_nombre(x)}}=${tex_nombrec(k * y)}$`
 				break;
 
 
-				case 2 : 
-					let [nomA,nomB,nomC,nomD] = creerNomDePolygone(4,['M','N'])
-					BC = randint(2,6)
-					BD = 2*BC
-					MN = calcul(BD*choice([0.2,0.3,0.4]))
-					A = point(0,4,nomA,'above')
-					B = point(7,4,nomB,'above')
-					C = point(7,0,nomC,'below')
-					D = point(0,0,nomD,'below')
-					p = polygone(A,B,C,D)
-					codage1 = codageAngleDroit(D,A,B)
-					codage2 = codageAngleDroit(A,B,C)
-					codage3 = codageAngleDroit(B,C,D)
-					codage4 = codageAngleDroit(C,D,A)
-					M = pointSurSegment(A,B,longueur(A,B)/3,'M','above')
-					N = pointSurSegment(A,D,longueur(A,D)/3,'N','left')
-					sMN = segment(M,N)
-					sBD = segment(B,D)
-					sCote = segment(point(N.x-1.3,N.y),point(D.x-1.3,D.y))
-					sCote.styleExtremites='<->'
-					texte1 = texteParPoint('?',milieu(point(N.x-1.5,N.y),point(D.x-1.5,D.y)),'gauche')
-					texte2 = texteSurSegment(nombre_avec_espace(BD)+' cm',B,D)
-					texte3 = texteSurSegment(nombre_avec_espace(MN)+' cm',M,N)
-					texte4 = texteSurSegment(nombre_avec_espace(BC)+' cm',B,C)
+			case 2:
+				let [nomA, nomB, nomC, nomD] = creerNomDePolygone(4, ['M', 'N'])
+				BC = randint(2, 6)
+				BD = 2 * BC
+				MN = calcul(BD * choice([0.2, 0.3, 0.4]))
+				A = point(0, 4, nomA, 'above')
+				B = point(7, 4, nomB, 'above')
+				C = point(7, 0, nomC, 'below')
+				D = point(0, 0, nomD, 'below')
+				p = polygone(A, B, C, D)
+				codage1 = codageAngleDroit(D, A, B)
+				codage2 = codageAngleDroit(A, B, C)
+				codage3 = codageAngleDroit(B, C, D)
+				codage4 = codageAngleDroit(C, D, A)
+				M = pointSurSegment(A, B, longueur(A, B) / 3, 'M', 'above')
+				N = pointSurSegment(A, D, longueur(A, D) / 3, 'N', 'left')
+				sMN = segment(M, N)
+				sBD = segment(B, D)
+				sCote = segment(point(N.x - 1.3, N.y), point(D.x - 1.3, D.y))
+				sCote.styleExtremites = '<->'
+				texte1 = texteParPoint('?', milieu(point(N.x - 1.5, N.y), point(D.x - 1.5, D.y)), 'gauche')
+				texte2 = texteSurSegment(nombre_avec_espace(BD) + ' cm', B, D)
+				texte3 = texteSurSegment(nombre_avec_espace(MN) + ' cm', M, N)
+				texte4 = texteSurSegment(nombre_avec_espace(BC) + ' cm', B, C)
 
-					labels = labelPoint(M,N,A,B,C,D)
+				labels = labelPoint(M, N, A, B, C, D)
 
-					texte = `Sur la figure ci-dessous $${nomA+nomB+nomC+nomD}$ est un rectangle et $(MN)$ est parallèle à la diagonale $(${nomB+nomD})$.`
-					texte += `<br>Calculer la longueur $${nomD+'N'}$ au millimètre près.<br><br>`
-					texte += mathalea2d({
-						xmin : -2,
-						xmax : 9,
-						ymin : -1.5,
-						ymax : 5,
-						scale : .8
-					}, p,codage1,codage2,codage3,codage4,sMN,sBD,sCote,texte1,texte2,texte3,texte4,labels)
+				texte = `Sur la figure ci-dessous $${nomA + nomB + nomC + nomD}$ est un rectangle et $(MN)$ est parallèle à la diagonale $(${nomB + nomD})$.`
+				texte += `<br>Calculer la longueur $${nomD + 'N'}$ au millimètre près.<br><br>`
+				texte += mathalea2d({
+					xmin: -2,
+					xmax: 9,
+					ymin: -1.5,
+					ymax: 5,
+					scale: .8
+				}, p, codage1, codage2, codage3, codage4, sMN, sBD, sCote, texte1, texte2, texte3, texte4, labels)
 
-					texte_corr = `Dans le triangle $${nomA+nomB+nomD}$, $M$ est un point de $[${nomA+nomB}]$, $N$ est un point de $[${nomA+nomD}]$ et $(MN)$ est parallèle à $(${nomB+nomD})$ donc d'après le théorème de Thalès on a : `
-					texte_corr += `<br><br> $${tex_fraction(nomA+'M',nomA+nomB)}=${tex_fraction(nomA+'N',nomA+nomD)}=${tex_fraction('MN',nomB+nomD)}$`
-					texte_corr += `<br><br> $${tex_fraction(nomA+'M',nomA+nomB)}=${tex_fraction(nomA+'N',BC)}=${tex_fraction(tex_nombre(MN),tex_nombre(BD))}$`
-					texte_corr += `<br><br> $${nomA}N = ${tex_fraction(BC+'\\times'+tex_nombre(MN),BD)}=${tex_nombre(arrondi(calcul(BC*MN/BD),1))}$ cm`
-					texte_corr += `<br><br> Les points $${nomA}$, $N$ et $${nomD}$ sont alignés dans cet ordre donc $N${nomD}=${nomA+nomD}-${nomA}N= ${BC}-${tex_nombre(arrondi(calcul(BC*MN/BD),1))}=${tex_nombre(arrondi(calcul(BC-BC*MN/BD),1))}$ cm.`
+				texte_corr = `Dans le triangle $${nomA + nomB + nomD}$, $M$ est un point de $[${nomA + nomB}]$, $N$ est un point de $[${nomA + nomD}]$ et $(MN)$ est parallèle à $(${nomB + nomD})$ donc d'après le théorème de Thalès on a : `
+				texte_corr += `<br><br> $${tex_fraction(nomA + 'M', nomA + nomB)}=${tex_fraction(nomA + 'N', nomA + nomD)}=${tex_fraction('MN', nomB + nomD)}$`
+				texte_corr += `<br><br> $${tex_fraction(nomA + 'M', nomA + nomB)}=${tex_fraction(nomA + 'N', BC)}=${tex_fraction(tex_nombre(MN), tex_nombre(BD))}$`
+				texte_corr += `<br><br> $${nomA}N = ${tex_fraction(BC + '\\times' + tex_nombre(MN), BD)}=${tex_nombre(arrondi(calcul(BC * MN / BD), 1))}$ cm`
+				texte_corr += `<br><br> Les points $${nomA}$, $N$ et $${nomD}$ sont alignés dans cet ordre donc $N${nomD}=${nomA + nomD}-${nomA}N= ${BC}-${tex_nombre(arrondi(calcul(BC * MN / BD), 1))}=${tex_nombre(arrondi(calcul(BC - BC * MN / BD), 1))}$ cm.`
 				break;
-				}
-			
-	this.liste_questions[0]=texte;
-	this.liste_corrections[0]=texte_corr;
-	liste_de_question_to_contenu(this);
-	// this.besoin_formulaire_numerique = ['Type de questions',2,"1 : Donner l'égalité\n2 : Compléter une égalité avec une addition ou une soustraction"];
-	// this.besoin_formulaire2_case_a_cocher = ['Sans figures']
+		}
+
+		this.liste_questions[0] = texte;
+		this.liste_corrections[0] = texte_corr;
+		liste_de_question_to_contenu(this);
+		// this.besoin_formulaire_numerique = ['Type de questions',2,"1 : Donner l'égalité\n2 : Compléter une égalité avec une addition ou une soustraction"];
+		// this.besoin_formulaire2_case_a_cocher = ['Sans figures']
 	}
 }
 /**
@@ -6641,306 +6641,306 @@ function TrianglesSemblables() {
 	this.nb_questions_modifiable = false;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
-	this.nouvelle_version = function(numero_de_l_exercice){
-		let coeff=50
+	this.nouvelle_version = function (numero_de_l_exercice) {
+		let coeff = 50
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		let texte='';
-		let texte_corr='';
-		let type_de_questions = randint(1,1);
-		switch (type_de_questions){
-			case 1 :
-				let trouve=false,aireABC,A,B,C,M,p,q,r,s,X,G,Gq,nom1,grid;
+		let texte = '';
+		let texte_corr = '';
+		let type_de_questions = randint(1, 1);
+		switch (type_de_questions) {
+			case 1:
+				let trouve = false, aireABC, A, B, C, M, p, q, r, s, X, G, Gq, nom1, grid;
 				// on génère le triangle ABC avec une contrainte sur son aire
 				while (!trouve) {
-				A=point(choice([0,3]),choice([0,3]),'A'); // le point A !
-				B=point(choice([6,9]),choice([6,9]),'B'); // le point B !
-				C=rotation(B,A,90,'C'); // le point C à partir de B par rotation autour de A!
-				C.x+=choice([0,3,6]); // on décale l'abscise de C de 0, 3 ou 6 !
-				C.y+=choice([-3,0,3]); // on décale l'abscise de C de -3, 0 ou 3 !
-				p=polygone(A,B,C); // on trace le polygone ABC
-				aireABC=aireTriangle(p); // Je savais bien que cette formule servirait un jour !
-				if (aireABC<11&&aireABC>5) trouve=true;
+					A = point(choice([0, 3]), choice([0, 3]), 'A'); // le point A !
+					B = point(choice([6, 9]), choice([6, 9]), 'B'); // le point B !
+					C = rotation(B, A, 90, 'C'); // le point C à partir de B par rotation autour de A!
+					C.x += choice([0, 3, 6]); // on décale l'abscise de C de 0, 3 ou 6 !
+					C.y += choice([-3, 0, 3]); // on décale l'abscise de C de -3, 0 ou 3 !
+					p = polygone(A, B, C); // on trace le polygone ABC
+					aireABC = aireTriangle(p); // Je savais bien que cette formule servirait un jour !
+					if (aireABC < 11 && aireABC > 5) trouve = true;
 				};
-				G=barycentre(p); // le barycentre de ABC
-				let angleChoisi1 = choice([0,90,270]); 
-				p=rotation(p,G,angleChoisi1); // on tourne ABC de façon aléatoire autour de son barycentre
-				p.couleurDeRemplissage='gray';//remplissage de ABC
-				p.opaciteDeRemplissage=0.2;//0.5;//remplissage de ABC
-				nom1=nommePolygone(p,'ABC',0.4); // on  nomme ABC en plaçant A,B et C à 0,4
-				grid=grille(-3,-3,27,18, 'gray',0.4,1); // on trace une grille
-				M=point(9,12); // un point M fixe pour tourner autour				
-				q=rotation(p,M,90); // on fait tourner ABC autour de M de 90°
+				G = barycentre(p); // le barycentre de ABC
+				let angleChoisi1 = choice([0, 90, 270]);
+				p = rotation(p, G, angleChoisi1); // on tourne ABC de façon aléatoire autour de son barycentre
+				p.couleurDeRemplissage = 'gray';//remplissage de ABC
+				p.opaciteDeRemplissage = 0.2;//0.5;//remplissage de ABC
+				nom1 = nommePolygone(p, 'ABC', 0.4); // on  nomme ABC en plaçant A,B et C à 0,4
+				grid = grille(-3, -3, 27, 18, 'gray', 0.4, 1); // on trace une grille
+				M = point(9, 12); // un point M fixe pour tourner autour				
+				q = rotation(p, M, 90); // on fait tourner ABC autour de M de 90°
 				// on a besoin de récupérer le polygone non tracé
 				let q_non_trace = polygone(q.listePoints);
-				Gq=barycentre(q); // on construit son barycentre
+				Gq = barycentre(q); // on construit son barycentre
 				//let angleChoisi2 = 270; 
-				let angleChoisi2 = choice([0,90,180,270]); 
-				r=rotation(q,Gq,angleChoisi2); // on fait tourner q encore autour de son barycentre
-				X=milieu(r.listePoints[0],r.listePoints[1]); // on place le milieu des deux premiers points de la figure obtenue qui sont les images des points A et B initiaux	
-				s=rotation(r,X,180); // on fait topurner r autour du milieu des deux extremites du plus grand côté
-				r.couleurDeRemplissage='red'; // solution 1 en rouge
-				r.opaciteDeRemplissage=0.2;//0.5; // 
-				s.couleurDeRemplissage='blue'; //solution 2 en bleu
-				s.opaciteDeRemplissage=0.2;//0.5; //
+				let angleChoisi2 = choice([0, 90, 180, 270]);
+				r = rotation(q, Gq, angleChoisi2); // on fait tourner q encore autour de son barycentre
+				X = milieu(r.listePoints[0], r.listePoints[1]); // on place le milieu des deux premiers points de la figure obtenue qui sont les images des points A et B initiaux	
+				s = rotation(r, X, 180); // on fait topurner r autour du milieu des deux extremites du plus grand côté
+				r.couleurDeRemplissage = 'red'; // solution 1 en rouge
+				r.opaciteDeRemplissage = 0.2;//0.5; // 
+				s.couleurDeRemplissage = 'blue'; //solution 2 en bleu
+				s.opaciteDeRemplissage = 0.2;//0.5; //
 				// mes ajouts par rapport à la figure de JC				
 				// on fixe une place pour D et E
 				let D = r.listePoints[0];
-				D.nom='D';
+				D.nom = 'D';
 				let E = r.listePoints[1];
-				E.nom='E';
+				E.nom = 'E';
 				// on crée un tableau avec les noms proposé pour les points				
-				let tabPointsNames= ['F','G','H','I'];				
+				let tabPointsNames = ['F', 'G', 'H', 'I'];
 				// on mélange le tableau 
-				tabPointsNames=shuffle(tabPointsNames);
+				tabPointsNames = shuffle(tabPointsNames);
 				//on place les deux solutions
-				let I=r.listePoints[2];
+				let I = r.listePoints[2];
 				//I.nom='I';
-				I.nom=tabPointsNames[0];
-				let I1=rotation(I,X,180)
+				I.nom = tabPointsNames[0];
+				let I1 = rotation(I, X, 180)
 				//I1.nom='I1';
-				I1.nom=tabPointsNames[1];
+				I1.nom = tabPointsNames[1];
 				// on place les mauvaises solutions
-				let F = point(I1.x+1,I1.y+1);
+				let F = point(I1.x + 1, I1.y + 1);
 				//F.nom='F';
-				F.nom=tabPointsNames[2];
-				let L = point(I.x-1,I.y-3);
+				F.nom = tabPointsNames[2];
+				let L = point(I.x - 1, I.y - 3);
 				//L.nom='L';
-				L.nom=tabPointsNames[3];
+				L.nom = tabPointsNames[3];
 				//on trace le segment [DE] en pointillés pour que la figure soit plus lisible
-				let sgmt_DE =  segment(D,E,'blue');
+				let sgmt_DE = segment(D, E, 'blue');
 				sgmt_DE.pointilles = true;
-				sgmt_DE.epaisseur=1.5;
+				sgmt_DE.epaisseur = 1.5;
 
 				// on prépare la fenetre mathalea2d
-				let fenetreMathalea2D = {xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5}
+				let fenetreMathalea2D = { xmin: -3, ymin: -3, xmax: 27, ymax: 18, pixelsParCm: 20, scale: 0.5 }
 
 				// on prépare les corrections
 				let centre_rot = {
-					sol1:pointIntersectionDD(droite(p.listePoints[1],E),droite(D,p.listePoints[0])),
-					sol2:pointIntersectionDD(droite(E,p.listePoints[0]),droite(p.listePoints[1],D))
+					sol1: pointIntersectionDD(droite(p.listePoints[1], E), droite(D, p.listePoints[0])),
+					sol2: pointIntersectionDD(droite(E, p.listePoints[0]), droite(p.listePoints[1], D))
 				};
 				let vect_trans = {
-					sol1:vecteur(p.listePoints[1],E),
-					sol2:vecteur(p.listePoints[1],D)
+					sol1: vecteur(p.listePoints[1], E),
+					sol2: vecteur(p.listePoints[1], D)
 				};
 				let transformationAnimee = {
-					sol1:``,
+					sol1: ``,
 					//nature_sol1:``,
-					sol2:``,
+					sol2: ``,
 					//nature_sol2:``
 				};
 				// pour construire les droites et les centres passant par les centres de rotations
-				let d,d1,d2,d3,d4,d5,J1,J2;
+				let d, d1, d2, d3, d4, d5, J1, J2;
 				switch (angleChoisi2) {
 					case 0:
-						transformationAnimee.sol1=rotationAnimee(p,M,90,'begin="0s" dur="4s" repeatCount="indefinite"');
+						transformationAnimee.sol1 = rotationAnimee(p, M, 90, 'begin="0s" dur="4s" repeatCount="indefinite"');
 						//transformationAnimee.nature_sol1=`rotation`;
 						// la 1ere compo
-						d= droite(M,Gq);
-						d1=rotation(d,M,-45);
-						d2=rotation(d,Gq,0);
-						J1=pointIntersectionDD(d1,d2); // centre de la composée, ici l'angle vaut 90
+						d = droite(M, Gq);
+						d1 = rotation(d, M, -45);
+						d2 = rotation(d, Gq, 0);
+						J1 = pointIntersectionDD(d1, d2); // centre de la composée, ici l'angle vaut 90
 						//2eme compo
-						d3=droite(J1,X);
-						d4=rotation(d3,J1,-45);
-						d5=rotation(d3,X,90);
-						J2=pointIntersectionDD(d4,d5);// centre après la seconde composition angle 270 à 2pi près						
-						transformationAnimee.sol2=rotationAnimee(p,J2,-90,'begin="0s" dur="4s" repeatCount="indefinite"');
+						d3 = droite(J1, X);
+						d4 = rotation(d3, J1, -45);
+						d5 = rotation(d3, X, 90);
+						J2 = pointIntersectionDD(d4, d5);// centre après la seconde composition angle 270 à 2pi près						
+						transformationAnimee.sol2 = rotationAnimee(p, J2, -90, 'begin="0s" dur="4s" repeatCount="indefinite"');
 						//transformationAnimee.nature_sol2=`rotation`;
 						break;
-					case 90:						
-						transformationAnimee.sol1=rotationAnimee(p,centre_rot.sol1,180,'begin="0s" dur="4s" repeatCount="indefinite"');
+					case 90:
+						transformationAnimee.sol1 = rotationAnimee(p, centre_rot.sol1, 180, 'begin="0s" dur="4s" repeatCount="indefinite"');
 						//transformationAnimee.nature_sol1=`rotation`;
-						transformationAnimee.sol2=translationAnimee(p,vect_trans.sol2,'begin="0s" dur="4s" repeatCount="indefinite"');
+						transformationAnimee.sol2 = translationAnimee(p, vect_trans.sol2, 'begin="0s" dur="4s" repeatCount="indefinite"');
 						//transformationAnimee.nature_sol2=`translation`;
 						break;
 					case 180:
 						// la 1ere compo
-						d= droite(M,Gq);
-						d1=rotation(d,M,-45);
-						d2=rotation(d,Gq,90);
-						J1=pointIntersectionDD(d1,d2); // centre de la composée, ici l'angle vaut 270 à 2pi près
+						d = droite(M, Gq);
+						d1 = rotation(d, M, -45);
+						d2 = rotation(d, Gq, 90);
+						J1 = pointIntersectionDD(d1, d2); // centre de la composée, ici l'angle vaut 270 à 2pi près
 						//2eme compo
-						d3=droite(J1,X);
-						d4=rotation(d3,J1,-135);
-						d5=rotation(d3,X,90);
-						J2=pointIntersectionDD(d4,d5);// centre après la seconde composition angle 450 à 2pi près						
-						transformationAnimee.sol1=rotationAnimee(p,J1,-90,'begin="0s" dur="4s" repeatCount="indefinite"');
+						d3 = droite(J1, X);
+						d4 = rotation(d3, J1, -135);
+						d5 = rotation(d3, X, 90);
+						J2 = pointIntersectionDD(d4, d5);// centre après la seconde composition angle 450 à 2pi près						
+						transformationAnimee.sol1 = rotationAnimee(p, J1, -90, 'begin="0s" dur="4s" repeatCount="indefinite"');
 						//transformationAnimee.nature_sol1=`rotation`;
-						transformationAnimee.sol2=rotationAnimee(p,J2,90,'begin="0s" dur="4s" repeatCount="indefinite"');
+						transformationAnimee.sol2 = rotationAnimee(p, J2, 90, 'begin="0s" dur="4s" repeatCount="indefinite"');
 						//transformationAnimee.nature_sol2=`rotation`;
 						break;
 					case 270:
-						transformationAnimee.sol1=translationAnimee(p,vect_trans.sol1,'begin="0s" dur="4s" repeatCount="indefinite"');
+						transformationAnimee.sol1 = translationAnimee(p, vect_trans.sol1, 'begin="0s" dur="4s" repeatCount="indefinite"');
 						//transformationAnimee.nature_sol1=`translation`;						
-						transformationAnimee.sol2=rotationAnimee(p,centre_rot.sol2,180,'begin="0s" dur="4s" repeatCount="indefinite"');
+						transformationAnimee.sol2 = rotationAnimee(p, centre_rot.sol2, 180, 'begin="0s" dur="4s" repeatCount="indefinite"');
 						//transformationAnimee.nature_sol2=`rotation`;
-						break; 
+						break;
 				}
 				// DE = AB
-				let seg_DE_corr = segment(D,E,'blue');
+				let seg_DE_corr = segment(D, E, 'blue');
 				seg_DE_corr.epaisseur = 2;
-				let seg_AB_corr = segment(p.listePoints[0],p.listePoints[1],'blue');
+				let seg_AB_corr = segment(p.listePoints[0], p.listePoints[1], 'blue');
 				seg_AB_corr.epaisseur = 2;
 				//DI = AC ou EI1 = AC
-				let seg_DI_corr = segment(D,I,'red');
-				let seg_EI1_corr = segment(E,I1,'red');
+				let seg_DI_corr = segment(D, I, 'red');
+				let seg_EI1_corr = segment(E, I1, 'red');
 				seg_DI_corr.epaisseur = 2;
 				seg_EI1_corr.epaisseur = 2;
-				let seg_AC_corr = segment(p.listePoints[0],p.listePoints[2],'red');
+				let seg_AC_corr = segment(p.listePoints[0], p.listePoints[2], 'red');
 				seg_AC_corr.epaisseur = 2;
 				//EI = BC ou DI1 = BC
-				let seg_EI_corr = segment(E,I,'green');
-				let seg_DI1_corr = segment(D,I1,'green');
+				let seg_EI_corr = segment(E, I, 'green');
+				let seg_DI1_corr = segment(D, I1, 'green');
 				seg_EI_corr.epaisseur = 2;
 				seg_DI1_corr.epaisseur = 2;
-				let seg_BC_corr = segment(p.listePoints[1],p.listePoints[2],'green');				
+				let seg_BC_corr = segment(p.listePoints[1], p.listePoints[2], 'green');
 				seg_BC_corr.epaisseur = 2;
 				// angle ABC = DEI ou ABC = EDI1
-				let ang_ABC = angleOriente(p.listePoints[0],p.listePoints[1],p.listePoints[2]);
-				let ang_DEI = angleOriente(D,E,I);
-				let ang_EDI1 = angleOriente(E,D,I1);
+				let ang_ABC = angleOriente(p.listePoints[0], p.listePoints[1], p.listePoints[2]);
+				let ang_DEI = angleOriente(D, E, I);
+				let ang_EDI1 = angleOriente(E, D, I1);
 				// angle BCA = EID ou  BCA = DI1E
-				let ang_BCA = angleOriente(p.listePoints[1],p.listePoints[2],p.listePoints[0]);
-				let ang_EID = angleOriente(E,I,D);
-				let ang_EI1D = angleOriente(E,I1,D);
+				let ang_BCA = angleOriente(p.listePoints[1], p.listePoints[2], p.listePoints[0]);
+				let ang_EID = angleOriente(E, I, D);
+				let ang_EI1D = angleOriente(E, I1, D);
 				// angle CAB = IDE ou CAB = I1ED
-				let ang_CAB = angleOriente(p.listePoints[2],p.listePoints[0],p.listePoints[1]);
-				let ang_IDE = angleOriente(I,D,E);
-				let ang_I1ED = angleOriente(I1,E,D);				
+				let ang_CAB = angleOriente(p.listePoints[2], p.listePoints[0], p.listePoints[1]);
+				let ang_IDE = angleOriente(I, D, E);
+				let ang_I1ED = angleOriente(I1, E, D);
 
 				let codages_correction = {
-					sol1:[
+					sol1: [
 						// les segments						
 						seg_AB_corr,
-						seg_DE_corr,						
-						codeSegments('×', 'blue', p.listePoints[0], p.listePoints[1], D,E ),
+						seg_DE_corr,
+						codeSegments('×', 'blue', p.listePoints[0], p.listePoints[1], D, E),
 						seg_AC_corr,
 						seg_DI_corr,
-						codeSegments('||', 'red', p.listePoints[0], p.listePoints[2], D,I ),
+						codeSegments('||', 'red', p.listePoints[0], p.listePoints[2], D, I),
 						seg_BC_corr,
-						seg_EI_corr,						
-						codeSegments('O', 'green', p.listePoints[1], p.listePoints[2], I,E ),
+						seg_EI_corr,
+						codeSegments('O', 'green', p.listePoints[1], p.listePoints[2], I, E),
 						//les angles
-						arc(pointSurSegment(p.listePoints[1], p.listePoints[0], 0.8), p.listePoints[1], ang_ABC,true,'red'),
-						arc(pointSurSegment(E, D, 0.8), E, ang_DEI,true,'red'),
-						arc(pointSurSegment(p.listePoints[2], p.listePoints[1], 0.8), p.listePoints[2], ang_BCA,true,'blue'),
-						arc(pointSurSegment(I, E, 0.8), I, ang_EID,true,'blue'),
-						arc(pointSurSegment(p.listePoints[0], p.listePoints[2], 0.8), p.listePoints[0], ang_CAB,true,'green'),
-						arc(pointSurSegment(D, I, 0.8), D, ang_IDE,true,'green')
+						arc(pointSurSegment(p.listePoints[1], p.listePoints[0], 0.8), p.listePoints[1], ang_ABC, true, 'red'),
+						arc(pointSurSegment(E, D, 0.8), E, ang_DEI, true, 'red'),
+						arc(pointSurSegment(p.listePoints[2], p.listePoints[1], 0.8), p.listePoints[2], ang_BCA, true, 'blue'),
+						arc(pointSurSegment(I, E, 0.8), I, ang_EID, true, 'blue'),
+						arc(pointSurSegment(p.listePoints[0], p.listePoints[2], 0.8), p.listePoints[0], ang_CAB, true, 'green'),
+						arc(pointSurSegment(D, I, 0.8), D, ang_IDE, true, 'green')
 					],
-					sol2:[
+					sol2: [
 						//les segments
 						seg_AB_corr,
-						seg_DE_corr,						
-						codeSegments('×', 'blue', p.listePoints[0], p.listePoints[1], D,E ),
+						seg_DE_corr,
+						codeSegments('×', 'blue', p.listePoints[0], p.listePoints[1], D, E),
 						seg_BC_corr,
 						seg_DI1_corr,
-						codeSegments('O', 'green', p.listePoints[1], p.listePoints[2], D,I1 ),
+						codeSegments('O', 'green', p.listePoints[1], p.listePoints[2], D, I1),
 						seg_AC_corr,
 						seg_EI1_corr,
-						codeSegments('||', 'red', p.listePoints[0], p.listePoints[2], E,I1 ),
+						codeSegments('||', 'red', p.listePoints[0], p.listePoints[2], E, I1),
 						// les angles
-						arc(pointSurSegment(p.listePoints[1], p.listePoints[0], 0.8), p.listePoints[1], ang_ABC,true,'red'),
-						arc(pointSurSegment(D, E, 0.8), D, ang_EDI1,true,'red'),
-						arc(pointSurSegment(p.listePoints[2], p.listePoints[1], 0.8), p.listePoints[2], ang_BCA,true,'blue'),
-						arc(pointSurSegment(I1, E, 0.8), I1, ang_EI1D,true,'blue'),
-						arc(pointSurSegment(p.listePoints[0], p.listePoints[2], 0.8), p.listePoints[0], ang_CAB,true,'green'),
-						arc(pointSurSegment(E, I1, 0.8), E, ang_I1ED,true,'green')
+						arc(pointSurSegment(p.listePoints[1], p.listePoints[0], 0.8), p.listePoints[1], ang_ABC, true, 'red'),
+						arc(pointSurSegment(D, E, 0.8), D, ang_EDI1, true, 'red'),
+						arc(pointSurSegment(p.listePoints[2], p.listePoints[1], 0.8), p.listePoints[2], ang_BCA, true, 'blue'),
+						arc(pointSurSegment(I1, E, 0.8), I1, ang_EI1D, true, 'blue'),
+						arc(pointSurSegment(p.listePoints[0], p.listePoints[2], 0.8), p.listePoints[0], ang_CAB, true, 'green'),
+						arc(pointSurSegment(E, I1, 0.8), E, ang_I1ED, true, 'green')
 					]
 				}
 
 				// on crée un objet pour stocker les figures et les corrections
 				let figures = {
-					enonce:`
+					enonce: `
 						Où placer le point M pour que les triangles ABC et DEM soient égaux ? 
 						<br>En F ? En G? En H ? En I ?
 						<br>
 						${mathalea2d(
-							fenetreMathalea2D,
-							p,
-							nom1,
-							grid,
-							tracePoint(D,E,I,I1,F,L),
-							labelPoint(D,E,I,I1,F,L),
-							sgmt_DE,
-							//r,
-							//s
-						)}`,
-					corr_solution1:`
+						fenetreMathalea2D,
+						p,
+						nom1,
+						grid,
+						tracePoint(D, E, I, I1, F, L),
+						labelPoint(D, E, I, I1, F, L),
+						sgmt_DE,
+						//r,
+						//s
+					)}`,
+					corr_solution1: `
 						Les triangles $ABC$ et $DE${I.nom}$ ont les mêmes longueurs et les mêmes angles.
 						<br> ${texte_en_couleur(`Donc le point ${I.nom} est un point qui convient`)}
 						<br>
 						${mathalea2d(
-							fenetreMathalea2D,
-							p,
-							nom1,
-							grid,
-							tracePoint(D,E,I,I1,F,L),
-							labelPoint(D,E,I,I1,F,L),
-							sgmt_DE,
-							r,
-							//s,
-							codages_correction.sol1
-						)}`,
-					corr_solution2:`
+						fenetreMathalea2D,
+						p,
+						nom1,
+						grid,
+						tracePoint(D, E, I, I1, F, L),
+						labelPoint(D, E, I, I1, F, L),
+						sgmt_DE,
+						r,
+						//s,
+						codages_correction.sol1
+					)}`,
+					corr_solution2: `
 						Les triangles $ABC$ et $DE${I1.nom}$ ont les mêmes longueurs et les mêmes angles.		
 						<br> ${texte_en_couleur(`Donc le point ${I1.nom} est un point qui convient`)}
 						<br>
 						${mathalea2d(
-							fenetreMathalea2D,
-							p,
-							nom1,
-							grid,
-							tracePoint(D,E,I,I1,F,L),
-							labelPoint(D,E,I,I1,F,L),
-							sgmt_DE,
-							//r,
-							s,
-							codages_correction.sol2
-						)}`,
-					corr_animmee_sol1:`
+						fenetreMathalea2D,
+						p,
+						nom1,
+						grid,
+						tracePoint(D, E, I, I1, F, L),
+						labelPoint(D, E, I, I1, F, L),
+						sgmt_DE,
+						//r,
+						s,
+						codages_correction.sol2
+					)}`,
+					corr_animmee_sol1: `
 						Les triangles $ABC$ et $DE${I.nom}$ ont les mêmes longueurs et les mêmes angles.						
 						<br> ${texte_en_couleur(`Donc le point ${I.nom} est un point qui convient`)}
 						<br>						
 						${mathalea2d(
-							fenetreMathalea2D,
-							p,
-							nom1,
-							grid,
-							//tracePoint(D,E,I,I1,F,L),
-							tracePoint(I1,F,L),
-							//labelPoint(D,E,I,I1,F,L),
-							labelPoint(I1,F,L),
-							nommePolygone(r,'DE'+I.nom,0.4),
-							//sgmt_DE,
-							r,
-							transformationAnimee.sol1,
-							codages_correction.sol1
-						)}`,
-					corr_animmee_sol2:`
+						fenetreMathalea2D,
+						p,
+						nom1,
+						grid,
+						//tracePoint(D,E,I,I1,F,L),
+						tracePoint(I1, F, L),
+						//labelPoint(D,E,I,I1,F,L),
+						labelPoint(I1, F, L),
+						nommePolygone(r, 'DE' + I.nom, 0.4),
+						//sgmt_DE,
+						r,
+						transformationAnimee.sol1,
+						codages_correction.sol1
+					)}`,
+					corr_animmee_sol2: `
 						Les triangles $ABC$ et $DE${I1.nom}$ ont les mêmes longueurs et les mêmes angles.
 						<br> ${texte_en_couleur(`Donc le point ${I1.nom} est un point qui convient`)}
 						<br>
 						Une solution est donc le point ${I1.nom}
 						<br>
 						${mathalea2d(
-							fenetreMathalea2D,
-							p,
-							nom1,
-							grid,
-							//tracePoint(D,E,I,I1,F,L),
-							tracePoint(I,F,L),
-							//labelPoint(D,E,I,I1,F,L),
-							labelPoint(I,F,L),
-							nommePolygone(s,'DE'+I1.nom,0.4),
-							//sgmt_DE,
-							//r,
-							s,
-							transformationAnimee.sol2,
-							codages_correction.sol2
-						)}`
+						fenetreMathalea2D,
+						p,
+						nom1,
+						grid,
+						//tracePoint(D,E,I,I1,F,L),
+						tracePoint(I, F, L),
+						//labelPoint(D,E,I,I1,F,L),
+						labelPoint(I, F, L),
+						nommePolygone(s, 'DE' + I1.nom, 0.4),
+						//sgmt_DE,
+						//r,
+						s,
+						transformationAnimee.sol2,
+						codages_correction.sol2
+					)}`
 				}
 				//texte=mathalea2d({xmin:-3,ymin:-3,xmax:27,ymax:18,pixelsParCm:20,scale:0.5},p,nom1,grid,r,s)
 				texte = `${figures.enonce}`;
@@ -6951,11 +6951,11 @@ function TrianglesSemblables() {
 					texte_corr += `<br>${texte_gras(`===== Première solution ======`)}<br>${figures.corr_animmee_sol1}`;
 					texte_corr += `<br><br>${texte_gras(`===== Seconde solution ======`)}<br>${figures.corr_animmee_sol2}`;
 				}
-				this.liste_questions[0]=texte;
-				this.liste_corrections[0]=texte_corr;
+				this.liste_questions[0] = texte;
+				this.liste_corrections[0] = texte_corr;
 				liste_de_question_to_contenu(this);
 				break;
-			
+
 		}
 	}
 }
@@ -6966,30 +6966,30 @@ function TrianglesSemblables() {
  * Référence 3F10
 */
 function Image_antecedent_depuis_tableau_ou_fleche() {
-  Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Lectures d'images et d'antécédents depuis un tableau de valeurs";
-  this.consigne = "";
-  this.nb_questions_modifiable = false;
-  this.nb_cols = 1;
-  this.nb_cols_corr = 1;
-  this.nb_questions = 4;
+	Exercice.call(this); // Héritage de la classe Exercice()
+	this.titre = "Lectures d'images et d'antécédents depuis un tableau de valeurs";
+	this.consigne = "";
+	this.nb_questions_modifiable = false;
+	this.nb_cols = 1;
+	this.nb_cols_corr = 1;
+	this.nb_questions = 4;
 
-  this.nouvelle_version = function (numero_de_l_exercice) {
-    this.liste_questions = []; // Liste de questions
-    this.liste_corrections = []; // Liste de questions corrigées
-	let a = randint(-20,20);
-	let b = randint(-20,20,[a]);
-	let c = randint(-20,20,[a,b]);
-	let d = randint(-20,20,[a,b,c]);
-	let e = randint(-20,20,[a,b,c,d]);
-	let f = randint(-20,20,[a,b,c,d,e]);
-	// a->b ; c->d ; e->d ; d->a ; f->c
-	let ligneX = [a,c,e,d,f]
-	let ligneY = [b,d,d,a,c]
-	shuffle2tableaux(ligneX,ligneY) // mélange les 2 lignes de la même manière
-	this.introduction = "Voici un tableau de valeurs d'une fonction $f$ : "
-	this.introduction += '<br><br>'
-	this.introduction += `$\\def\\arraystretch{1.5}\\begin{array}{|l|c|c|c|c|c|}
+	this.nouvelle_version = function (numero_de_l_exercice) {
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		let a = randint(-20, 20);
+		let b = randint(-20, 20, [a]);
+		let c = randint(-20, 20, [a, b]);
+		let d = randint(-20, 20, [a, b, c]);
+		let e = randint(-20, 20, [a, b, c, d]);
+		let f = randint(-20, 20, [a, b, c, d, e]);
+		// a->b ; c->d ; e->d ; d->a ; f->c
+		let ligneX = [a, c, e, d, f]
+		let ligneY = [b, d, d, a, c]
+		shuffle2tableaux(ligneX, ligneY) // mélange les 2 lignes de la même manière
+		this.introduction = "Voici un tableau de valeurs d'une fonction $f$ : "
+		this.introduction += '<br><br>'
+		this.introduction += `$\\def\\arraystretch{1.5}\\begin{array}{|l|c|c|c|c|c|}
 	\\hline
 	x & ${ligneX[0]} & ${ligneX[1]} & ${ligneX[2]} & ${ligneX[3]} & ${ligneX[4]} \\\\
 	\\hline
@@ -6998,47 +6998,47 @@ function Image_antecedent_depuis_tableau_ou_fleche() {
 	\\end{array}
 	$
 	`
-	let texte = `Quelle est l'image de $${a}$ par la fonction $f$ ?`
-	let texte_corr = `L'image de $${a}$ par la fonction $f$ est $${b}$, on note $f(${a})=${b}$.`
-	this.liste_questions.push(texte)
-	this.liste_corrections.push(texte_corr)
+		let texte = `Quelle est l'image de $${a}$ par la fonction $f$ ?`
+		let texte_corr = `L'image de $${a}$ par la fonction $f$ est $${b}$, on note $f(${a})=${b}$.`
+		this.liste_questions.push(texte)
+		this.liste_corrections.push(texte_corr)
 
-	texte = `Quelle est l'image de $${c}$ par la fonction $f$ ?`
-	texte_corr = `L'image de $${c}$ par la fonction $f$ est $${d}$, on note $f(${c})=${d}$.`
-	this.liste_questions.push(texte)
-	this.liste_corrections.push(texte_corr)
+		texte = `Quelle est l'image de $${c}$ par la fonction $f$ ?`
+		texte_corr = `L'image de $${c}$ par la fonction $f$ est $${d}$, on note $f(${c})=${d}$.`
+		this.liste_questions.push(texte)
+		this.liste_corrections.push(texte_corr)
 
-	let texte3 = `Déterminer le(s) antécédent(s) de $${a}$ par la fonction $f$.`
-	let texte_corr3 = `$${a}$ a un seul antécédent par la fonction $f$ qui est $${d}$, on note $f(${d})=${a}$.`
-	
-	let texte4 = `Déterminer le(s) antécédent(s) de $${d}$ par la fonction $f$.`
-	let texte_corr4 = `$${d}$ a deux antécédents par la fonction $f$ qui sont $${c}$ et $${e}$, on note $f(${c})=f(${e})=${d}$.`
-	
-	if (choice([true,false])) { // Une fois sur 2 on inverse les questions 3 et 4
-		this.liste_questions.push(texte3)
-		this.liste_corrections.push(texte_corr3)	
-		this.liste_questions.push(texte4)
-		this.liste_corrections.push(texte_corr4)	
-	} else {
-		this.liste_questions.push(texte4)
-		this.liste_corrections.push(texte_corr4)	
-		this.liste_questions.push(texte3)
-		this.liste_corrections.push(texte_corr3)
-	}
+		let texte3 = `Déterminer le(s) antécédent(s) de $${a}$ par la fonction $f$.`
+		let texte_corr3 = `$${a}$ a un seul antécédent par la fonction $f$ qui est $${d}$, on note $f(${d})=${a}$.`
 
-	texte = `Recopier et compléter : $f(${c})=\\ldots$`
-	texte_corr = `$f(${c})=${d}$`
-	this.liste_questions.push(texte)
-	this.liste_corrections.push(texte_corr)
+		let texte4 = `Déterminer le(s) antécédent(s) de $${d}$ par la fonction $f$.`
+		let texte_corr4 = `$${d}$ a deux antécédents par la fonction $f$ qui sont $${c}$ et $${e}$, on note $f(${c})=f(${e})=${d}$.`
 
-	texte = `Recopier et compléter : $f(\\ldots)=${c}$`
-	texte_corr = `$f(${f})=${c}$`
-	this.liste_questions.push(texte)
-	this.liste_corrections.push(texte_corr)
-	
-	liste_de_question_to_contenu(this);
-  };
-  //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+		if (choice([true, false])) { // Une fois sur 2 on inverse les questions 3 et 4
+			this.liste_questions.push(texte3)
+			this.liste_corrections.push(texte_corr3)
+			this.liste_questions.push(texte4)
+			this.liste_corrections.push(texte_corr4)
+		} else {
+			this.liste_questions.push(texte4)
+			this.liste_corrections.push(texte_corr4)
+			this.liste_questions.push(texte3)
+			this.liste_corrections.push(texte_corr3)
+		}
+
+		texte = `Recopier et compléter : $f(${c})=\\ldots$`
+		texte_corr = `$f(${c})=${d}$`
+		this.liste_questions.push(texte)
+		this.liste_corrections.push(texte_corr)
+
+		texte = `Recopier et compléter : $f(\\ldots)=${c}$`
+		texte_corr = `$f(${f})=${c}$`
+		this.liste_questions.push(texte)
+		this.liste_corrections.push(texte_corr)
+
+		liste_de_question_to_contenu(this);
+	};
+	//this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
 
 
@@ -7048,220 +7048,220 @@ function Image_antecedent_depuis_tableau_ou_fleche() {
  * @author Sébastien Lozano
  */
 
-function Eq_resolvantes_Thales(){
+function Eq_resolvantes_Thales() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.debug = false;	
-	this.sup=1;
+	this.debug = false;
+	this.sup = 1;
 	if (this.debug) {
 		this.nb_questions = 4;
 	} else {
 		this.nb_questions = 2;
 	};
-	this.sup2=false;
+	this.sup2 = false;
 	//this.exo = '';	
-	if (this.exo=='4L15-1') {
-		this.titre = "Equations du type $\\dfrac{x}{a}=\\dfrac{b}{c}$";	
+	if (this.exo == '4L15-1') {
+		this.titre = "Equations du type $\\dfrac{x}{a}=\\dfrac{b}{c}$";
 	} else {
-		this.titre = "Equations résolvantes pour le théorème de Thalès";	
-	}	
-	this.consigne = `Résoudre les équations suivantes.`;	
-	
+		this.titre = "Equations résolvantes pour le théorème de Thalès";
+	}
+	this.consigne = `Résoudre les équations suivantes.`;
+
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	//this.nb_questions_modifiable = false;
-	sortie_html? this.spacing = 2.5 : this.spacing = 1.5; 
-	sortie_html? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
+	sortie_html ? this.spacing = 2.5 : this.spacing = 1.5;
+	sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
 
 	this.liste_packages = `bclogo`;
 
-	let type_de_questions_disponibles;	
+	let type_de_questions_disponibles;
 
-	this.nouvelle_version = function(numero_de_l_exercice){
+	this.nouvelle_version = function (numero_de_l_exercice) {
 		// une fonction pour dire que c'est trivial dans ce cas
-		function trivial(bool,a,b,c,inc) {
+		function trivial(bool, a, b, c, inc) {
 			let sortie;
-			let texte=``;
-			if (bool) {				
-				texte=`Dans ce cas le recours au produit en croix est superflu.<br> Par identification, on a directement $${inc}=${a}$ !`;
-				sortie=warn_message(texte,`nombres`,`Keep Cool Guy !`);
+			let texte = ``;
+			if (bool) {
+				texte = `Dans ce cas le recours au produit en croix est superflu.<br> Par identification, on a directement $${inc}=${a}$ !`;
+				sortie = warn_message(texte, `nombres`, `Keep Cool Guy !`);
 			} else {
-				sortie=``
+				sortie = ``
 			};
 			return sortie;
 		};
 
 		if (this.debug) {
-			type_de_questions_disponibles = [0,1,2,3];			
+			type_de_questions_disponibles = [0, 1, 2, 3];
 		} else {
-     		 type_de_questions_disponibles = shuffle([choice([0,1]),choice([2,3])]);      			
+			type_de_questions_disponibles = shuffle([choice([0, 1]), choice([2, 3])]);
 		};
 
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		
+
 		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
-		
-		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+
+		for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
 
 			// on a besoin d'un coeff pour le type de nombres
 			let coeff;
 			let nb_alea;
 			let c_temp_case_3;
-			while (c_temp_case_3%2 != 0 || c_temp_case_3%5 != 0) {
-				c_temp_case_3 = randint(11,99)
+			while (c_temp_case_3 % 2 != 0 || c_temp_case_3 % 5 != 0) {
+				c_temp_case_3 = randint(11, 99)
 			};
-			
+
 			this.sup = Number(this.sup); // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
 			switch (this.sup) {
 				case 1://entiers          
-					coeff=[1,1,1];
-					nb_alea=[randint(2,9),randint(2,9),randint(2,9,[3,6,7,9])];
+					coeff = [1, 1, 1];
+					nb_alea = [randint(2, 9), randint(2, 9), randint(2, 9, [3, 6, 7, 9])];
 					break;
 				case 2://relatifs            
-					coeff=[choice([1,-1]),choice([1,-1]),choice([1,-1])];
-					nb_alea=[randint(2,9),randint(2,9),randint(1,9,[3,6,7,9])];
+					coeff = [choice([1, -1]), choice([1, -1]), choice([1, -1])];
+					nb_alea = [randint(2, 9), randint(2, 9), randint(1, 9, [3, 6, 7, 9])];
 					break;
 				case 3://décimaux            
-					coeff=[0.1,0.1,0.1];
-					nb_alea=[randint(11,99),randint(11,99),c_temp_case_3];
+					coeff = [0.1, 0.1, 0.1];
+					nb_alea = [randint(11, 99), randint(11, 99), c_temp_case_3];
 					break;
 			};
 
 			let inc;
-			if (this.exo=='4L15-1') {
-				inc = choice(['r','s','t','u','v','w','x','y','z']);
+			if (this.exo == '4L15-1') {
+				inc = choice(['r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']);
 
 			} else {
-				inc=choice(['x','y','GO','AB','z','GA','BU','ZO','ME']);
+				inc = choice(['x', 'y', 'GO', 'AB', 'z', 'GA', 'BU', 'ZO', 'ME']);
 			};
 
 			let params = {
 				// a:tex_nombre(calcul(nb_alea[0]*coeff[0])),
 				// b:tex_nombre(calcul(nb_alea[1]*coeff[1])),
 				// c:tex_nombre(calcul(nb_alea[2]*coeff[2])),
-				a:calcul(nb_alea[0]*coeff[0]),
-				b:calcul(nb_alea[1]*coeff[1]),
-				c:calcul(nb_alea[2]*coeff[2]),
+				a: calcul(nb_alea[0] * coeff[0]),
+				b: calcul(nb_alea[1] * coeff[1]),
+				c: calcul(nb_alea[2] * coeff[2]),
 				//inc:choice(['x','y','GO','AB','z','GA','BU','ZO','ME'])
-				inc:inc
+				inc: inc
 			}
 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
 				{//case 0 --> x/b=a/c --> cx= ab
-					eq:`\\dfrac{${params.inc}}{${tex_nombre(params.b)}}=\\dfrac{${tex_nombre(params.a)}}{${tex_nombre(params.c)}}`,
-					a:params.a,
-					b:params.b,
-					c:params.c,
-					inc:params.inc,
-					trivial:(params.b==params.c)
+					eq: `\\dfrac{${params.inc}}{${tex_nombre(params.b)}}=\\dfrac{${tex_nombre(params.a)}}{${tex_nombre(params.c)}}`,
+					a: params.a,
+					b: params.b,
+					c: params.c,
+					inc: params.inc,
+					trivial: (params.b == params.c)
 				},
 				{//case 1 --> a/c=x/b --> cx=ab
-					eq:`\\dfrac{${tex_nombre(params.a)}}{${tex_nombre(params.c)}}=\\dfrac{${params.inc}}{${tex_nombre(params.b)}}`,
-					a:params.a,
-					b:params.b,
-					c:params.c,
-					inc:params.inc ,
-					trivial:(params.b==params.c)
+					eq: `\\dfrac{${tex_nombre(params.a)}}{${tex_nombre(params.c)}}=\\dfrac{${params.inc}}{${tex_nombre(params.b)}}`,
+					a: params.a,
+					b: params.b,
+					c: params.c,
+					inc: params.inc,
+					trivial: (params.b == params.c)
 
 				},
 				{//case 2 -->b/x=c/a --> cx = ab
-					eq:`\\dfrac{${tex_nombre(params.b)}}{${params.inc}}=\\dfrac{${tex_nombre(params.c)}}{${tex_nombre(params.a)}}`,
-					a:params.a,
-					b:params.b,
-					c:params.c,
-					inc:params.inc,
-					trivial:(params.b==params.c)
+					eq: `\\dfrac{${tex_nombre(params.b)}}{${params.inc}}=\\dfrac{${tex_nombre(params.c)}}{${tex_nombre(params.a)}}`,
+					a: params.a,
+					b: params.b,
+					c: params.c,
+					inc: params.inc,
+					trivial: (params.b == params.c)
 				},
 				{//case 3 -->c/a=b/x --> cx = ab 
-					eq:`\\dfrac{${tex_nombre(params.c)}}{${tex_nombre(params.a)}}=\\dfrac{${tex_nombre(params.b)}}{${params.inc}}`,
-					a:params.a,
-					b:params.b,
-					c:params.c,
-					inc:params.inc,
-					trivial:(params.b==params.c)  
+					eq: `\\dfrac{${tex_nombre(params.c)}}{${tex_nombre(params.a)}}=\\dfrac{${tex_nombre(params.b)}}{${params.inc}}`,
+					a: params.a,
+					b: params.b,
+					c: params.c,
+					inc: params.inc,
+					trivial: (params.b == params.c)
 				},
 			];
 
 			let enonces = [];
-			for (let k=0;k<situations.length;k++) {
+			for (let k = 0; k < situations.length; k++) {
 				enonces.push({
-					enonce:`
+					enonce: `
 						$${situations[k].eq}$
 					`,
-					question:``,
-					correction:`
+					question: ``,
+					correction: `
 						$${situations[k].eq}$<br>
 						${texte_en_couleur_et_gras(`Les produits en croix sont égaux.`)}<br>
 						$${tex_nombre(situations[k].c)}\\times ${situations[k].inc} = ${tex_nombre(situations[k].a)}\\times ${tex_nombre(situations[k].b)}$<br>
 						${texte_en_couleur_et_gras(`On divise les deux membres par ${tex_nombre(situations[k].c)}`)}.<br>
 						$\\dfrac{${tex_nombre(situations[k].c)}\\times ${situations[k].inc}}{${tex_nombre(situations[k].c)}}= \\dfrac{${tex_nombre(situations[k].a)}\\times ${tex_nombre(situations[k].b)}}{${tex_nombre(situations[k].c)}}$<br>
 						${texte_en_couleur_et_gras(`On simplifie et on calcule.`)}<br>
-						$${situations[k].inc}=${tex_nombre(calcul(Number(situations[k].b)*Number(situations[k].a)/Number(situations[k].c)))}$
-						${trivial(situations[k].trivial,tex_nombre(situations[k].a),tex_nombre(situations[k].b),tex_nombre(situations[k].c),situations[k].inc)}
+						$${situations[k].inc}=${tex_nombre(calcul(Number(situations[k].b) * Number(situations[k].a) / Number(situations[k].c)))}$
+						${trivial(situations[k].trivial, tex_nombre(situations[k].a), tex_nombre(situations[k].b), tex_nombre(situations[k].c), situations[k].inc)}
 					`
 				});
 			};
-            
-            // autant de case que d'elements dans le tableau des situations
-			switch (liste_type_de_questions[i]){
-				case 0 : 
+
+			// autant de case que d'elements dans le tableau des situations
+			switch (liste_type_de_questions[i]) {
+				case 0:
 					texte = `${enonces[0].enonce}`;
 					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
 						texte += `             `
-						texte_corr = ``;	
+						texte_corr = ``;
 					} else {
 						texte_corr = `${enonces[0].correction}`;
 					};
-          			break;	
-        		case 1 : 
+					break;
+				case 1:
 					texte = `${enonces[1].enonce}`;
 					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`;
-						texte_corr = ``;	
+						texte_corr = ``;
 					} else {
 						texte_corr = `${enonces[1].correction}`;
 					};
-          			break;
-        		case 2 : 
+					break;
+				case 2:
 					texte = `${enonces[2].enonce}`;
 					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`;
-						texte_corr = ``;	
+						texte_corr = ``;
 					} else {
 						texte_corr = `${enonces[2].correction}`;
 					};
-          			break;				
-        		case 3 : 
+					break;
+				case 3:
 					texte = `${enonces[3].enonce}`;
 					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`;
-						texte_corr = ``;	
+						texte_corr = ``;
 					} else {
 						texte_corr = `${enonces[3].correction}`;
 					};
-					break;				
- 			
-			};			
-			
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+					break;
+
+			};
+
+			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
 				i++;
 			}
-			cpt++;	
+			cpt++;
 		}
 		liste_de_question_to_contenu(this);
 
 	}
-	this.besoin_formulaire_numerique = ['Type de nombres',3,"1 : Entiers naturels\n2 : Entiers relatifs\n3 : Décimaux"];
+	this.besoin_formulaire_numerique = ['Type de nombres', 3, "1 : Entiers naturels\n2 : Entiers relatifs\n3 : Décimaux"];
 	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];
 	//this.besoin_formulaire2_case_a_cocher = ["Avec décimaux.",false]	
 };
@@ -7273,31 +7273,31 @@ function Eq_resolvantes_Thales(){
  * @author Sébastien Lozano
  */
 
-function identites_calculs(){
+function identites_calculs() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.debug = false;	
-	this.sup=1;
+	this.debug = false;
+	this.sup = 1;
 	if (this.debug) {
-		this.nb_questions = 3;	
+		this.nb_questions = 3;
 	} else {
 		this.nb_questions = 3;
-	};	
+	};
 
-	this.titre = "Calcul mental et calcul littéral";	
-	this.consigne = `Faire les calculs suivants sans calculatrice. Utiliser la double distributivité ou les identités remarquables.`;	
-	
+	this.titre = "Calcul mental et calcul littéral";
+	this.consigne = `Faire les calculs suivants sans calculatrice. Utiliser la double distributivité ou les identités remarquables.`;
+
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	//this.nb_questions_modifiable = false;	
-	sortie_html? this.spacing = 1 : this.spacing = 1; 
-	sortie_html? this.spacing_corr = 1 : this.spacing_corr = 1;
+	sortie_html ? this.spacing = 1 : this.spacing = 1;
+	sortie_html ? this.spacing_corr = 1 : this.spacing_corr = 1;
 
 	this.liste_packages = `bclogo`;
 
-	let type_de_questions_disponibles;	
+	let type_de_questions_disponibles;
 
-	this.nouvelle_version = function(numero_de_l_exercice){
+	this.nouvelle_version = function (numero_de_l_exercice) {
 		//une fonction pour gérer un \hfill dans la sortie LaTeX
 		function myhfill() {
 			if (sortie_html) {
@@ -7306,37 +7306,37 @@ function identites_calculs(){
 				return `\\hfill`;
 			}
 		};
-				switch (Number(this.sup)) {
-					case 1 :
-						type_de_questions_disponibles = [0,0,0];//shuffle([choice([1,3]),choice([2,3]),0]);
-						this.introduction = warn_message(`$(a+b)^2=a^2+2ab+b^2$`, `nombres`, `Coup de pouce`);      			
-						break;
-					case 2 :
-						type_de_questions_disponibles = [1,1,1];//shuffle([choice([1,3]),choice([2,3]),0]); 
-						this.introduction = warn_message(`$(a-b)^2 = a^2-2ab+b^2$`, `nombres`, `Coup de pouce`); 		
-						break;
-					case 3 : 
-						type_de_questions_disponibles = [2,2,2];//shuffle([choice([1,3]),choice([2,3]),0]);      			
-						this.introduction = warn_message(`$(a+b)(a-b)=a^2-b^2$`, `nombres`, `Coup de pouce`); 
-						break;
-					case 4 :
-						type_de_questions_disponibles = shuffle([0,1,2]);//shuffle([choice([1,3]),choice([2,3]),0]);      			
-						this.introduction = warn_message(`$(a+b)^2 = a^2 +2ab + b^2$ ${myhfill()} $(a-b)^2 = a^2-2ab+b^2$ ${myhfill()} $(a+b)(a-b)=a^2-b^2$`, `nombres`, `Coup de pouce`); 
-						break;
-				};
+		switch (Number(this.sup)) {
+			case 1:
+				type_de_questions_disponibles = [0, 0, 0];//shuffle([choice([1,3]),choice([2,3]),0]);
+				this.introduction = warn_message(`$(a+b)^2=a^2+2ab+b^2$`, `nombres`, `Coup de pouce`);
+				break;
+			case 2:
+				type_de_questions_disponibles = [1, 1, 1];//shuffle([choice([1,3]),choice([2,3]),0]); 
+				this.introduction = warn_message(`$(a-b)^2 = a^2-2ab+b^2$`, `nombres`, `Coup de pouce`);
+				break;
+			case 3:
+				type_de_questions_disponibles = [2, 2, 2];//shuffle([choice([1,3]),choice([2,3]),0]);      			
+				this.introduction = warn_message(`$(a+b)(a-b)=a^2-b^2$`, `nombres`, `Coup de pouce`);
+				break;
+			case 4:
+				type_de_questions_disponibles = shuffle([0, 1, 2]);//shuffle([choice([1,3]),choice([2,3]),0]);      			
+				this.introduction = warn_message(`$(a+b)^2 = a^2 +2ab + b^2$ ${myhfill()} $(a-b)^2 = a^2-2ab+b^2$ ${myhfill()} $(a+b)(a-b)=a^2-b^2$`, `nombres`, `Coup de pouce`);
+				break;
+		};
 
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
-		
+
 		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
-		
-		
-		for (let i = 0, texte, texte_corr, cpt=0; i < this.nb_questions && cpt<50; ) {
+		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+
+
+		for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
 			// une fonction pour gérer l'affichage sous forme de carré
 			// a et b  sont les facteurs du produit, s'ils sont égaux on affiche sous forme de carré
-			function ifIsCarreAfficheCarre(a,b) {
-				if (a==b) {
+			function ifIsCarreAfficheCarre(a, b) {
+				if (a == b) {
 					return `${a}^2`
 				} else {
 					return `${a}\\times ${b}`
@@ -7344,7 +7344,7 @@ function identites_calculs(){
 			}
 
 			// une fonction pour afficher le double terme rectangle ou pas
-			function ifIsCarreAfficheDblProd(bool,dblTermeRect) {
+			function ifIsCarreAfficheDblProd(bool, dblTermeRect) {
 				if (bool) {
 					return dblTermeRect;
 				} else {
@@ -7352,107 +7352,107 @@ function identites_calculs(){
 				}
 			};
 
-			let a = randint(2,9);
-			let b_somme = randint(1,4);
-			let b_difference = randint(1,4);
-			let b_som_dif = randint(1,9);
-			let coeff = choice([10,100]);
+			let a = randint(2, 9);
+			let b_somme = randint(1, 4);
+			let b_difference = randint(1, 4);
+			let b_som_dif = randint(1, 9);
+			let coeff = choice([10, 100]);
 			let coeff_som_dif = 100;
-			let signes_som_dif = choice([[{str:'-',nb:-1},{str:'+',nb:1}],[{str:'+',nb:1},{str:'-',nb:-1}]]);
-			let lettres = choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z'])
+			let signes_som_dif = choice([[{ str: '-', nb: -1 }, { str: '+', nb: 1 }], [{ str: '+', nb: 1 }, { str: '-', nb: -1 }]]);
+			let lettres = choice(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'])
 
 			// pour les situations, autant de situations que de cas dans le switch !
 			let situations = [
 				{//case 0 --> carré d'une somme
-					lettre:lettres,
-					a:a,
-					b:b_somme,
-					coeff:coeff,
-					a_coeff:a*coeff,
-					operations:[{str:'+',nb:1},{str:'+',nb:1}],
-					facteurs:[{str:`${tex_nombre(a*coeff)}+${b_somme}`,nb:tex_nombre(a*coeff+b_somme)},{str:`${tex_nombre(a*coeff)}+${b_somme}`,nb:tex_nombre(a*coeff+b_somme)}],					
-					carre_de_a_coeff:tex_nombre(coeff*coeff*a*a),				
+					lettre: lettres,
+					a: a,
+					b: b_somme,
+					coeff: coeff,
+					a_coeff: a * coeff,
+					operations: [{ str: '+', nb: 1 }, { str: '+', nb: 1 }],
+					facteurs: [{ str: `${tex_nombre(a * coeff)}+${b_somme}`, nb: tex_nombre(a * coeff + b_somme) }, { str: `${tex_nombre(a * coeff)}+${b_somme}`, nb: tex_nombre(a * coeff + b_somme) }],
+					carre_de_a_coeff: tex_nombre(coeff * coeff * a * a),
 					//carre_de_coeff:coeff*coeff,	
-					carre_de_b:tex_nombre(b_somme*b_somme),
-					termes_rectangles:[tex_nombre(coeff*a*b_somme),tex_nombre(coeff*a*b_somme)],
-					somme_terme_rect:tex_nombre(2*coeff*a*b_somme),
-					signes_dbl_dist:['+','+','+'],
-					carre:true,
-					resultat:tex_nombre(a*a*coeff*coeff + b_somme*b_somme + 2*a*coeff*b_somme)
+					carre_de_b: tex_nombre(b_somme * b_somme),
+					termes_rectangles: [tex_nombre(coeff * a * b_somme), tex_nombre(coeff * a * b_somme)],
+					somme_terme_rect: tex_nombre(2 * coeff * a * b_somme),
+					signes_dbl_dist: ['+', '+', '+'],
+					carre: true,
+					resultat: tex_nombre(a * a * coeff * coeff + b_somme * b_somme + 2 * a * coeff * b_somme)
 				},
 				{//case 1 --> carré d'une différence
-					lettre:lettres,
-					a:a,
-					b:b_difference,
-					coeff:coeff,
-					a_coeff:a*coeff,					
-					operations:[{str:'-',nb:-1},{str:'-',nb:-1}],					
-					facteurs:[{str:`${tex_nombre(a*coeff)}-${b_difference}`,nb:tex_nombre(a*coeff-b_difference)},{str:`${tex_nombre(a*coeff)}-${b_difference}`,nb:tex_nombre(a*coeff-b_difference)}],					
-					carre_de_a_coeff:tex_nombre(coeff*coeff*a*a),
+					lettre: lettres,
+					a: a,
+					b: b_difference,
+					coeff: coeff,
+					a_coeff: a * coeff,
+					operations: [{ str: '-', nb: -1 }, { str: '-', nb: -1 }],
+					facteurs: [{ str: `${tex_nombre(a * coeff)}-${b_difference}`, nb: tex_nombre(a * coeff - b_difference) }, { str: `${tex_nombre(a * coeff)}-${b_difference}`, nb: tex_nombre(a * coeff - b_difference) }],
+					carre_de_a_coeff: tex_nombre(coeff * coeff * a * a),
 					//carre_de_coeff:coeff*coeff,					
-					carre_de_b:tex_nombre(b_difference*b_difference),
-					termes_rectangles:[tex_nombre(coeff*a*b_difference),tex_nombre(coeff*a*b_difference)],
-					somme_terme_rect:tex_nombre(2*coeff*a*b_difference),
-					signes_dbl_dist:['+','-','-'],
-					carre:true,
-					resultat:tex_nombre(a*a*coeff*coeff + b_difference*b_difference - 2*a*coeff*b_difference)
+					carre_de_b: tex_nombre(b_difference * b_difference),
+					termes_rectangles: [tex_nombre(coeff * a * b_difference), tex_nombre(coeff * a * b_difference)],
+					somme_terme_rect: tex_nombre(2 * coeff * a * b_difference),
+					signes_dbl_dist: ['+', '-', '-'],
+					carre: true,
+					resultat: tex_nombre(a * a * coeff * coeff + b_difference * b_difference - 2 * a * coeff * b_difference)
 
-				},										
+				},
 				{//case 2 --> produit somme différence
-					lettre:lettres,
-					a:a,
-					b:b_som_dif,
-					coeff:coeff_som_dif,
-					a_coeff:a*coeff_som_dif,
-					operations:signes_som_dif,					
-					facteurs:[{str:`${tex_nombre(a*coeff_som_dif)} ${signes_som_dif[0].str} ${b_som_dif}`,nb:tex_nombre(a*coeff_som_dif+signes_som_dif[0].nb*b_som_dif)},{str:`${tex_nombre(a*coeff_som_dif)} ${signes_som_dif[1].str} ${b_som_dif}`,nb:tex_nombre(a*coeff_som_dif+signes_som_dif[1].nb*b_som_dif)}],										
-					carre_de_a_coeff:tex_nombre(coeff_som_dif*coeff_som_dif*a*a),				
+					lettre: lettres,
+					a: a,
+					b: b_som_dif,
+					coeff: coeff_som_dif,
+					a_coeff: a * coeff_som_dif,
+					operations: signes_som_dif,
+					facteurs: [{ str: `${tex_nombre(a * coeff_som_dif)} ${signes_som_dif[0].str} ${b_som_dif}`, nb: tex_nombre(a * coeff_som_dif + signes_som_dif[0].nb * b_som_dif) }, { str: `${tex_nombre(a * coeff_som_dif)} ${signes_som_dif[1].str} ${b_som_dif}`, nb: tex_nombre(a * coeff_som_dif + signes_som_dif[1].nb * b_som_dif) }],
+					carre_de_a_coeff: tex_nombre(coeff_som_dif * coeff_som_dif * a * a),
 					//carre_de_coeff:coeff*coeff,	
-					carre_de_b:tex_nombre(b_som_dif*b_som_dif),
-					termes_rectangles:[tex_nombre(coeff_som_dif*a*b_som_dif),tex_nombre(coeff_som_dif*a*b_som_dif)],
-					somme_terme_rect:0,
-					signes_dbl_dist:['-','+','-'],
-					carre:false,
-					resultat:tex_nombre(a*a*coeff_som_dif*coeff_som_dif - b_som_dif*b_som_dif)					
+					carre_de_b: tex_nombre(b_som_dif * b_som_dif),
+					termes_rectangles: [tex_nombre(coeff_som_dif * a * b_som_dif), tex_nombre(coeff_som_dif * a * b_som_dif)],
+					somme_terme_rect: 0,
+					signes_dbl_dist: ['-', '+', '-'],
+					carre: false,
+					resultat: tex_nombre(a * a * coeff_som_dif * coeff_som_dif - b_som_dif * b_som_dif)
 				},
 			];
 
 			let enonces = [];
-			for (let k=0;k<situations.length;k++) {
+			for (let k = 0; k < situations.length; k++) {
 				enonces.push({
-					enonce:`					
-					 $${situations[k].lettre}=${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)}$
+					enonce: `					
+					 $${situations[k].lettre}=${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb, situations[k].facteurs[1].nb)}$
 					`,
-					question:``,
-					correction1:`
+					question: ``,
+					correction1: `
 						${texte_gras(`Avec la double distributivité`)}<br>
-						$${situations[k].lettre} = ${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)}$<br>
+						$${situations[k].lettre} = ${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb, situations[k].facteurs[1].nb)}$<br>
 						$${situations[k].lettre} = (${situations[k].facteurs[0].str})\\times (${situations[k].facteurs[1].str})$<br>
 						$${situations[k].lettre} = ${situations[k].a_coeff}^2 ${situations[k].signes_dbl_dist[1]} ${situations[k].a_coeff}\\times ${situations[k].b} ${situations[k].signes_dbl_dist[2]} ${situations[k].b}\\times ${situations[k].a_coeff} ${situations[k].signes_dbl_dist[0]} ${situations[k].b}^2$<br>
 						$${situations[k].lettre} = ${situations[k].carre_de_a_coeff} ${situations[k].signes_dbl_dist[1]} ${situations[k].termes_rectangles[0]} ${situations[k].signes_dbl_dist[2]} ${situations[k].termes_rectangles[1]}	${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b}$<br>
-						$${situations[k].lettre} = ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} ${situations[k].somme_terme_rect}`)} ${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b}$<br>
+						$${situations[k].lettre} = ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre, `${situations[k].signes_dbl_dist[1]} ${situations[k].somme_terme_rect}`)} ${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b}$<br>
 						$${situations[k].lettre} = ${situations[k].resultat}$
 					`,
-					correction2:`
+					correction2: `
 					${texte_gras(`Avec une identité`)}<br>
-					$${situations[k].lettre} = ${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb,situations[k].facteurs[1].nb)}$<br>
-					$${situations[k].lettre} = ${ifIsCarreAfficheCarre(`(${situations[k].facteurs[0].str})`,`(${situations[k].facteurs[1].str})`)} $<br>
-					$${situations[k].lettre} = ${situations[k].a_coeff}^2 ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} 2\\times ${situations[k].a_coeff} \\times ${situations[k].b}`)} ${situations[k].signes_dbl_dist[0]}  ${situations[k].b}^2$<br>
-					$${situations[k].lettre} = ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} 2\\times ${situations[k].termes_rectangles[0]}`)} ${situations[k].signes_dbl_dist[0]}  ${situations[k].carre_de_b}$<br>
-					$${situations[k].lettre} = ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre,`${situations[k].signes_dbl_dist[1]} ${situations[k].somme_terme_rect}`)} ${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b}$<br>
+					$${situations[k].lettre} = ${ifIsCarreAfficheCarre(situations[k].facteurs[0].nb, situations[k].facteurs[1].nb)}$<br>
+					$${situations[k].lettre} = ${ifIsCarreAfficheCarre(`(${situations[k].facteurs[0].str})`, `(${situations[k].facteurs[1].str})`)} $<br>
+					$${situations[k].lettre} = ${situations[k].a_coeff}^2 ${ifIsCarreAfficheDblProd(situations[k].carre, `${situations[k].signes_dbl_dist[1]} 2\\times ${situations[k].a_coeff} \\times ${situations[k].b}`)} ${situations[k].signes_dbl_dist[0]}  ${situations[k].b}^2$<br>
+					$${situations[k].lettre} = ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre, `${situations[k].signes_dbl_dist[1]} 2\\times ${situations[k].termes_rectangles[0]}`)} ${situations[k].signes_dbl_dist[0]}  ${situations[k].carre_de_b}$<br>
+					$${situations[k].lettre} = ${situations[k].carre_de_a_coeff} ${ifIsCarreAfficheDblProd(situations[k].carre, `${situations[k].signes_dbl_dist[1]} ${situations[k].somme_terme_rect}`)} ${situations[k].signes_dbl_dist[0]} ${situations[k].carre_de_b}$<br>
 					$${situations[k].lettre} = ${situations[k].resultat}$				
 				`
 				});
 			};
-            
-            // autant de case que d'elements dans le tableau des situations
-			switch (liste_type_de_questions[i]){
-				case 0 : // carré d'une somme 
+
+			// autant de case que d'elements dans le tableau des situations
+			switch (liste_type_de_questions[i]) {
+				case 0: // carré d'une somme 
 					texte = `${enonces[0].enonce}`;
 					if (this.debug) {
 						texte += `<br>`;
-						texte += `<br> =====CORRECTION======<br>${enonces[0].correction1}<br>${enonces[0].correction2}`;			
-						texte_corr = ``;	
+						texte += `<br> =====CORRECTION======<br>${enonces[0].correction1}<br>${enonces[0].correction2}`;
+						texte_corr = ``;
 					} else {
 						if (sortie_html) {
 							texte_corr = `${enonces[0].correction1}<br><br>${enonces[0].correction2}`;
@@ -7461,20 +7461,20 @@ function identites_calculs(){
 							texte_corr += `\\begin{minipage}{8cm}`;
 							texte_corr += enonces[0].correction1;
 							texte_corr += `\\end{minipage}`;
-							texte_corr += `\\hfill \\vrule \\hfill`;							
+							texte_corr += `\\hfill \\vrule \\hfill`;
 							texte_corr += `\\begin{minipage}{8cm}`;
 							texte_corr += enonces[0].correction2;
 							texte_corr += `\\end{minipage}`;
 							texte_corr += `<br>`;
-						};						
+						};
 					};
-          			break;	
-        		case 1 : // carré d'une différence
+					break;
+				case 1: // carré d'une différence
 					texte = `${enonces[1].enonce}`;
 					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[1].correction1}<br>${enonces[1].correction2}`;
-						texte_corr = ``;	
+						texte_corr = ``;
 					} else {
 						if (sortie_html) {
 							texte_corr = `${enonces[1].correction1}<br><br>${enonces[1].correction2}`;
@@ -7483,20 +7483,20 @@ function identites_calculs(){
 							texte_corr += `\\begin{minipage}{8cm}`;
 							texte_corr += enonces[1].correction1;
 							texte_corr += `\\end{minipage}`;
-							texte_corr += `\\hfill \\vrule \\hfill`;							
+							texte_corr += `\\hfill \\vrule \\hfill`;
 							texte_corr += `\\begin{minipage}{8cm}`;
 							texte_corr += enonces[1].correction2;
 							texte_corr += `\\end{minipage}`;
 							texte_corr += `<br>`;
-						};						
+						};
 					};
-          			break;
-        		case 2 : // Produit somme différence
+					break;
+				case 2: // Produit somme différence
 					texte = `${enonces[2].enonce}`;
 					if (this.debug) {
 						texte += `<br>`;
 						texte += `<br> =====CORRECTION======<br>${enonces[2].correction1}<br>${enonces[2].correction2}`;
-						texte_corr = ``;	
+						texte_corr = ``;
 					} else {
 						if (sortie_html) {
 							texte_corr = `${enonces[2].correction1}<br><br>${enonces[2].correction2}`;
@@ -7505,27 +7505,27 @@ function identites_calculs(){
 							texte_corr += `\\begin{minipage}{8cm}`;
 							texte_corr += enonces[2].correction1;
 							texte_corr += `\\end{minipage}`;
-							texte_corr += `\\hfill \\vrule \\hfill`;							
+							texte_corr += `\\hfill \\vrule \\hfill`;
 							texte_corr += `\\begin{minipage}{8cm}`;
 							texte_corr += enonces[2].correction2;
 							texte_corr += `\\end{minipage}`;
 							texte_corr += `<br>`;
-						};						
+						};
 					};
-          			break;								
-			};			
-			
-			if (this.liste_questions.indexOf(texte)==-1){ // Si la question n'a jamais été posée, on en créé une autre
+					break;
+			};
+
+			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
 				this.liste_corrections.push(texte_corr);
 				i++;
 			}
-			cpt++;	
+			cpt++;
 		}
 		liste_de_question_to_contenu(this);
 
 	}
-	this.besoin_formulaire_numerique = ['Niveau de difficulté',4,"1 : Carré d'une somme\n2 : Carré d'une différence\n3 : Produit de la somme et de la différence\n4 : Mélange"];
+	this.besoin_formulaire_numerique = ['Niveau de difficulté', 4, "1 : Carré d'une somme\n2 : Carré d'une différence\n3 : Produit de la somme et de la différence\n4 : Mélange"];
 	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	
 };
 
@@ -7537,56 +7537,56 @@ function identites_calculs(){
  * @author Erwan Duplessy
  */
 
-function Instruction_conditionelle(){
+function Instruction_conditionelle() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.debug = false;	
+	this.debug = false;
 	this.sup = 1;
-	this.nb_questions = 2;	
+	this.nb_questions = 2;
 
-	this.titre = "Instruction conditionelle";	
-	this.consigne = `Donner les coordonnées de la position finale du lutin.`;	
-	
+	this.titre = "Instruction conditionelle";
+	this.consigne = `Donner les coordonnées de la position finale du lutin.`;
+
 	this.nb_cols = 2;
 	this.nb_cols_corr = 1;
-	this.nb_questions_modifiable = false;	
-	sortie_html? this.spacing = 1 : this.spacing = 1; 
-	sortie_html? this.spacing_corr = 1 : this.spacing_corr = 1;
+	this.nb_questions_modifiable = false;
+	sortie_html ? this.spacing = 1 : this.spacing = 1;
+	sortie_html ? this.spacing_corr = 1 : this.spacing_corr = 1;
 	this.liste_packages = `scratch3`;
 	//let type_de_questions_disponibles;	
 
-	this.nouvelle_version = function(numero_de_l_exercice){
+	this.nouvelle_version = function (numero_de_l_exercice) {
 		this.liste_questions = []; // Liste de questions
-   		this.liste_corrections = []; // Liste de questions corrigées
-  		function scratchblocks_Tikz(code_svg,code_tikz) {
-      		if (sortie_html) {
-        		return code_svg;
-      			} else {
-        		return code_tikz;
-      		};
+		this.liste_corrections = []; // Liste de questions corrigées
+		function scratchblocks_Tikz(code_svg, code_tikz) {
+			if (sortie_html) {
+				return code_svg;
+			} else {
+				return code_tikz;
+			};
 		};
-		
+
 		let texte = "La position initiale d'un lutin dans un repère est (0,0). Dans le programme, x désigne l'abscisse, et y désigne l'ordonnée d'un lutin. <br>"; // texte de l'énoncé
 		texte += `Une variable a été créée, elle s'appelle <code class="b">(var) :: ring</code>. <br>`
-		let texte_corr=" "; // texte du corrigé
+		let texte_corr = " "; // texte du corrigé
 		let code_tikz = ``; // code pour dessiner les blocs en tikz
 		let code_svg = ``; // code pour dessiner les blocs en svg
 		let nbCommandes = Number(this.sup) + 2; // nombre de commandes de déplacement dans un script
 		let nbRepetition = 1; // Nombre de fois où la boucle est répétée. 
 		if (this.sup2) {
-		  nbRepetition = 3;
+			nbRepetition = 3;
 		}
 		let xLutin = 0;
 		let yLutin = 0;
-		
+
 		code_tikz += `\\medskip \\\\ \\begin{scratch} <br>`;
 		code_svg += `<pre class='blocks'>`;
 
-		let n1 = randint(1,10);
-		let n2 = randint(1,10);
-		let n3 = randint(1,10);
-		let n4 = randint(1,10);
-		
+		let n1 = randint(1, 10);
+		let n2 = randint(1, 10);
+		let n3 = randint(1, 10);
+		let n4 = randint(1, 10);
+
 		code_tikz += `\\blockmove{aller à x: \ovalnum{0} y: \ovalnum{0}}`;
 		code_svg += `quand le drapeau vert pressé <br>`;
 		code_svg += `Aller à x:(0) y:(0) <br>`;
@@ -7610,13 +7610,13 @@ function Instruction_conditionelle(){
 		code_svg += `</pre>`;
 		code_tikz += `\\end{scratch}`;
 
-		texte += scratchblocks_Tikz(code_svg,code_tikz);
+		texte += scratchblocks_Tikz(code_svg, code_tikz);
 
 
 		if (n1 < n2) {
 			texte_corr += `Comme l'inégalité "${n1} < ${n2}" est vraie, alors on ajoute 100 à l'abscisse du lutin. <br>`;
 			xLutin += 100;
-			if (this.sup>1) {
+			if (this.sup > 1) {
 				if (n1 > n3) {
 					texte_corr += `Comme l'inégalité "${n1} > ${n3}" est vraie, alors on ajoute 50 à l'abscisse du lutin. <br>`;
 					xLutin += 50;
@@ -7627,10 +7627,10 @@ function Instruction_conditionelle(){
 		} else {
 			texte_corr += `Comme l'inégalité "${n1} < ${n2}" est fausse, alors on ajoute 70 à l'ordonnée du lutin. <br>`;
 			yLutin += 70;
-			if (this.sup>2) {
+			if (this.sup > 2) {
 				if (n1 > n4) {
 					texte_corr += `Comme l'inégalité "${n1} > ${n4}" est vraie, on ajoute 40 à l'ordonnée du lutin. <br>`;
-					yLutin += 40;	
+					yLutin += 40;
 				} else {
 					texte_corr += `Comme l'inégalité "${n1} > ${n4}" est fausse, alors on ne change pas l'ordonnée du lutin. <br>`
 				}
@@ -7638,211 +7638,217 @@ function Instruction_conditionelle(){
 		}
 		texte_corr += ` La position finale est donc : (${xLutin} ; ${yLutin}).`
 
-				
+
 		this.liste_questions.push(texte);
 		this.liste_corrections.push(texte_corr);
 		liste_de_question_to_contenu(this);
 	}
-	this.besoin_formulaire_numerique = [`Variante `,3,'1 : sans condition imbriquée\n2 : avec une condition imbriquée\n3 : avec deux conditions imbriquées'];
+	this.besoin_formulaire_numerique = [`Variante `, 3, '1 : sans condition imbriquée\n2 : avec une condition imbriquée\n3 : avec deux conditions imbriquées'];
 };
 
 /**
  * Construction d'images par rotation avec dispositif d'auto-correction aléatoire
- * Ref beta3G10-3 
+ * Ref 3G10-3 
  * @Auteur Jean-Claude Lhote
  * Publié le 30/11/2020
  */
-function Construire_rotation_point_3e(){
+function Construire_rotation_point_3e() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Construire l\'image d'un point par une rotation";
+	this.titre = "Construire l\'image d'un point par une rotation avec cible auto-corrective";
 	this.consigne = "";
 	this.nb_questions = 1;
-	this.nb_questions_modifiable=false
+	this.nb_questions_modifiable = false
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup = 3;
 	this.nouvelle_version = function () {
-		let angle = randint (-8,8,0)*10
-		this.consigne = "Construire l\'image des points par la rotation de centre $O$";
-		this.consigne+=` et d\'angle $${Math.abs(angle)}\\degree$`
-		if (angle<0) this.consigne+=` dans le sens des aiguilles d'une montre.`
-		else this.consigne +=` dans le sens contraire des aiguilles d'une montre.`
-	  this.liste_questions = []; // Liste de questions
-	  this.liste_corrections = []; // Liste de questions corrigées
-	  let result=[0,0],texte_corr="",nbpoints=parseInt(this.sup)
-      let celluleAlea= function(rang){
-		let lettre=lettre_depuis_chiffre(randint(1,rang))
-		let chiffre=Number(randint(1,rang)).toString()
-		return lettre+chiffre
-	  }
-	  // On prépare la figure...
-	  let O=point(0,0,'O')
-	  let marks=['/','//','///','x','o','S','V']
-	  let noms=choisit_lettres_differentes(nbpoints,'QO',majuscule=true)
-	  let cibles=[],M=[],N=[],objets_enonce=[],objets_correction=[]  //cibles, M point marqués, N symétrique de M
-	  let cellules=[]
-	  let xMin,yMin,xMax,yMax
-	  [xMin,yMin,xMax,yMax]=[0,0,0,0]
-	  for (let i=0;i<nbpoints;i++) { //On place les cibles.
-		  N.push(point(calcul(randint(-80,80,0)/10),calcul(randint(-80,80,0)/10),noms[i]+"\'"))
-		  nontrouve=true
-		  while (longueur(N[i],O)<3||nontrouve) {
-			  nontrouve=true
-			  if (longueur(N[i],O)<3) {
-				N[i].x=calcul(randint(-80,80,0)/10)
-				N[i].y=calcul(randint(-80,80,0)/10)
-			  }
-			  else {
-				assezloin=true
-				for (let j=0;j<i;j++){ 
-				   if (longueur(N[i],N[j])<4.5) assezloin=false 
+		let angle = randint(-8, 8, 0) * 10
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		let result = [0, 0], texte_corr = "", nbpoints = parseInt(this.sup)
+		let celluleAlea = function (rang) {
+			let lettre = lettre_depuis_chiffre(randint(1, rang))
+			let chiffre = Number(randint(1, rang)).toString()
+			return lettre + chiffre
+		}
+		// On prépare la figure...
+		let O = point(0, 0, 'O')
+		let marks = ['/', '//', '///', 'x', 'o', 'S', 'V']
+		let noms = choisit_lettres_differentes(nbpoints, 'QO', majuscule = true)
+		this.consigne = `Construire le symétrique des points $${noms[0]}$`
+		for (let i = 1; i < nbpoints - 1; i++) {
+			this.consigne += `, $${noms[i]}$`
+		}
+		this.consigne += ` et $${noms[nbpoints - 1]}$ par la rotation de centre $O$`;
+		this.consigne += ` et d\'angle $${Math.abs(angle)}\\degree$`
+		if (angle < 0) this.consigne += ` dans le sens des aiguilles d'une montre.`
+		else this.consigne += ` dans le sens contraire des aiguilles d'une montre.`
+		let cibles = [], M = [], N = [], objets_enonce = [], objets_correction = []  //cibles, M point marqués, N symétrique de M
+		let cellules = []
+		let xMin, yMin, xMax, yMax
+		[xMin, yMin, xMax, yMax] = [0, 0, 0, 0]
+		for (let i = 0; i < nbpoints; i++) { //On place les cibles.
+			N.push(point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[i] + "\'"))
+			nontrouve = true
+			while (longueur(N[i], O) < 3 || nontrouve) {
+				nontrouve = true
+				if (longueur(N[i], O) < 3) {
+					N[i].x = calcul(randint(-80, 80, 0) / 10)
+					N[i].y = calcul(randint(-80, 80, 0) / 10)
 				}
-				if (assezloin==false) {//éloigner les points donc les grilles
-				 N[i].x=calcul(randint(-80,80,0)/10)
-				 N[i].y=calcul(randint(-80,80,0)/10)
+				else {
+					assezloin = true
+					for (let j = 0; j < i; j++) {
+						if (longueur(N[i], N[j]) < 4.5) assezloin = false
+					}
+					if (assezloin == false) {//éloigner les points donc les grilles
+						N[i].x = calcul(randint(-80, 80, 0) / 10)
+						N[i].y = calcul(randint(-80, 80, 0) / 10)
+					}
+					else nontrouve = false
 				}
-				else nontrouve=false
-			  }
-		  }
-	  }
-  
-	  objets_enonce.push(tracePoint(O),labelPoint(O))
-	  objets_correction.push(tracePoint(O),labelPoint(O))
-  
-	  for (let i=0;i<nbpoints;i++){
-		cellules.push(celluleAlea(4))
-		result=dansLaCibleCarree(N[i].x,N[i].y,4,0.6,cellules[i])
-		cible=cibleCarree({x:result[0],y:result[1],rang:4,num:i+1,taille:0.6})
-		cible.taille=0.6
-		cible.color='orange'
-		cible.opacite=0.7
-		cibles.push(cible)
-	  }
-	  for (let i=0;i<nbpoints;i++) {
-		M.push(rotation(N[i],O,-angle,noms[i]))
-		objets_enonce.push(tracePoint(M[i]),labelPoint(M[i]),cibles[i])
-		objets_correction.push(tracePoint(M[i],N[i]),labelPoint(M[i],N[i]),cibles[i])
-		objets_correction.push(arcPointPointAngle(M[i],N[i],angle,true,arcenciel(i),'gray',0.2)) 
-		texte_corr+=`$${noms[i]}\'$, l\'image du point $${noms[i]}$ est dans la case ${cellules[i]} de la grille ${i+1}.<br>`
-	  }
-  
-	  for (let i=0;i<nbpoints;i++){
-		xMin=Math.min(xMin,N[i].x-3,M[i].x-3)
-		yMin=Math.min(yMin,N[i].y-3,M[i].y-3)
-		xMax=Math.max(xMax,N[i].x+3,M[i].x+3)
-		yMax=Math.max(yMax,N[i].y+3,M[i].y+3)
-	  }
-	  
-	  fenetreMathalea2d=[xMin,yMin,xMax,yMax]
-  
-	  this.liste_questions.push(mathalea2d({xmin:xMin,ymin:yMin,xmax:xMax,ymax:yMax,pixelsParCm:20,scale:1},objets_enonce))
-	  this.liste_corrections.push(texte_corr+mathalea2d({xmin:xMin,ymin:yMin,xmax:xMax,ymax:yMax,pixelsParCm:20,scale:0.7},objets_correction))
-	  liste_de_question_to_contenu(this)
-  
-	//  let nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
-  
+			}
+		}
+
+		objets_enonce.push(tracePoint(O), labelPoint(O))
+		objets_correction.push(tracePoint(O), labelPoint(O))
+
+		for (let i = 0; i < nbpoints; i++) {
+			cellules.push(celluleAlea(4))
+			result = dansLaCibleCarree(N[i].x, N[i].y, 4, 0.6, cellules[i])
+			cible = cibleCarree({ x: result[0], y: result[1], rang: 4, num: i + 1, taille: 0.6 })
+			cible.taille = 0.6
+			cible.color = 'orange'
+			cible.opacite = 0.7
+			cibles.push(cible)
+		}
+		for (let i = 0; i < nbpoints; i++) {
+			M.push(rotation(N[i], O, -angle, noms[i]))
+			objets_enonce.push(tracePoint(M[i]), labelPoint(M[i]), cibles[i])
+			objets_correction.push(tracePoint(M[i], N[i]), labelPoint(M[i], N[i]), cibles[i])
+			objets_correction.push(arcPointPointAngle(M[i], N[i], angle, true, arcenciel(i), 'gray', 0.2))
+			texte_corr += `$${noms[i]}\'$, l\'image du point $${noms[i]}$ est dans la case ${cellules[i]} de la grille ${i + 1}.<br>`
+		}
+
+		for (let i = 0; i < nbpoints; i++) {
+			xMin = Math.min(xMin, N[i].x - 3, M[i].x - 3)
+			yMin = Math.min(yMin, N[i].y - 3, M[i].y - 3)
+			xMax = Math.max(xMax, N[i].x + 3, M[i].x + 3)
+			yMax = Math.max(yMax, N[i].y + 3, M[i].y + 3)
+		}
+
+		fenetreMathalea2d = [xMin, yMin, xMax, yMax]
+
+		this.liste_questions.push(mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 1 }, objets_enonce))
+		this.liste_corrections.push(texte_corr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_correction))
+		liste_de_question_to_contenu(this)
+
+		//  let nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
+
 	}
-   this.besoin_formulaire_numerique = ['Nombre de points (1 à 5)',5,"1\n2\n3\n4\n5"];
-   // this.besoin_formulaire2_case_a_cocher = ["Avec des points de part et d'autre"];	
-  }
-  /**
- * Construction d'images par homothétie avec dispositif d'auto-correction aléatoire
- * Ref beta3G11
- * @Auteur Jean-Claude Lhote
- * Publié le 30/11/2020
- */
-function Construire_homothetie_point_3e(){
+	this.besoin_formulaire_numerique = ['Nombre de points (1 à 5)', 5, "1\n2\n3\n4\n5"];
+	// this.besoin_formulaire2_case_a_cocher = ["Avec des points de part et d'autre"];	
+}
+/**
+* Construction d'images par homothétie avec dispositif d'auto-correction aléatoire
+* Ref 3G11
+* @Auteur Jean-Claude Lhote
+* Publié le 30/11/2020
+*/
+function Construire_homothetie_point_3e() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Construire l\'image d'un point par une homothetie";
-	this.consigne = "Construire l\'image des points par l\'homothétie de centre $O$.";
+	this.titre = "Construire l\'image d'un point par une homothetie avec cible auto-corrective";
+	this.consigne = "";
 	this.nb_questions = 1;
-	this.nb_questions_modifiable=false
+	this.nb_questions_modifiable = false
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup = 3;
 	this.nouvelle_version = function () {
-		let k = randint (-4,4,[0,-1,1])/2
-		console.log(k)
-		this.consigne = "Construire l\'image des points par l\'homothétie de centre $O$";
-		this.consigne+=` et de rapport $${k}$.`
-	  this.liste_questions = []; // Liste de questions
-	  this.liste_corrections = []; // Liste de questions corrigées
-	  let result=[0,0],texte_corr="",nbpoints=parseInt(this.sup)
-      let celluleAlea= function(rang){
-		let lettre=lettre_depuis_chiffre(randint(1,rang))
-		let chiffre=Number(randint(1,rang)).toString()
-		return lettre+chiffre
-	  }
-	  // On prépare la figure...
-	  let O=point(0,0,'O')
-	  let marks=['/','//','///','x','o','S','V']
-	  let noms=choisit_lettres_differentes(nbpoints,'QO',majuscule=true)
-	  let cibles=[],M=[],N=[],objets_enonce=[],objets_correction=[]  //cibles, M point marqués, N symétrique de M
-	  let cellules=[]
-	  let xMin,yMin,xMax,yMax
-	  [xMin,yMin,xMax,yMax]=[0,0,0,0]
-	  for (let i=0;i<nbpoints;i++) { //On place les cibles.
-		  N.push(point(calcul(randint(-80,80,0)/10),calcul(randint(-80,80,0)/10),noms[i]+"\'"))
-		  nontrouve=true
-		  while (longueur(N[i],O)<3||nontrouve) {
-			  nontrouve=true
-			  if (longueur(N[i],O)<3) {
-				N[i].x=calcul(randint(-80,80,0)/10)
-				N[i].y=calcul(randint(-80,80,0)/10)
-			  }
-			  else {
-				assezloin=true
-				for (let j=0;j<i;j++){
-				   if (longueur(N[i],N[j])<4.5) assezloin=false
+		let k = randint(-4, 4, [0, -1, 1]) / 2
+		this.liste_questions = []; // Liste de questions
+		this.liste_corrections = []; // Liste de questions corrigées
+		let result = [0, 0], texte_corr = "", nbpoints = parseInt(this.sup)
+		let celluleAlea = function (rang) {
+			let lettre = lettre_depuis_chiffre(randint(1, rang))
+			let chiffre = Number(randint(1, rang)).toString()
+			return lettre + chiffre
+		}
+		// On prépare la figure...
+		let O = point(0, 0, 'O')
+		let marks = ['/', '//', '///', 'x', 'o', 'S', 'V']
+		let noms = choisit_lettres_differentes(nbpoints, 'QO', majuscule = true)
+		this.consigne = `Construire l\'image des points $${noms[0]}$`
+		for (let i = 1; i < nbpoints - 1; i++) {
+			this.consigne += `, $${noms[i]}$`
+		}
+		this.consigne += ` et $${noms[nbpoints - 1]}$ par l\'homothétie de centre $O$`;
+		this.consigne += ` et de rapport $${k}$.`
+		let cibles = [], M = [], N = [], objets_enonce = [], objets_correction = []  //cibles, M point marqués, N symétrique de M
+		let cellules = []
+		let xMin, yMin, xMax, yMax
+		[xMin, yMin, xMax, yMax] = [0, 0, 0, 0]
+		for (let i = 0; i < nbpoints; i++) { //On place les cibles.
+			N.push(point(calcul(randint(-80, 80, 0) / 10), calcul(randint(-80, 80, 0) / 10), noms[i] + "\'"))
+			nontrouve = true
+			while (longueur(N[i], O) < 3 || nontrouve) {
+				nontrouve = true
+				if (longueur(N[i], O) < 3) {
+					N[i].x = calcul(randint(-80, 80, 0) / 10)
+					N[i].y = calcul(randint(-80, 80, 0) / 10)
 				}
-				if (assezloin==false) {//éloigner les points donc les grilles
-				 N[i].x=calcul(randint(-80,80,0)/10)
-				 N[i].y=calcul(randint(-80,80,0)/10)
+				else {
+					assezloin = true
+					for (let j = 0; j < i; j++) {
+						if (longueur(N[i], N[j]) < 4.5) assezloin = false
+					}
+					if (assezloin == false) {//éloigner les points donc les grilles
+						N[i].x = calcul(randint(-80, 80, 0) / 10)
+						N[i].y = calcul(randint(-80, 80, 0) / 10)
+					}
+					else nontrouve = false
 				}
-				else nontrouve=false
-			  }
-		  }
-	  }
-  
-	  objets_enonce.push(tracePoint(O),labelPoint(O))
-	  objets_correction.push(tracePoint(O),labelPoint(O))
-  
-	  for (let i=0;i<nbpoints;i++){
-		cellules.push(celluleAlea(4))
-		result=dansLaCibleCarree(N[i].x,N[i].y,4,0.6,cellules[i])
-		cible=cibleCarree({x:result[0],y:result[1],rang:4,num:i+1,taille:0.6})
-		cible.taille=0.6
-		cible.color='orange'
-		cible.opacite=0.7
-		cibles.push(cible)
-	  }
-	  for (let i=0;i<nbpoints;i++) {
-		M.push(homothetie(N[i],O,1/k,noms[i]))
-		objets_enonce.push(tracePoint(M[i]),labelPoint(M[i]),cibles[i])
-		objets_correction.push(tracePoint(M[i],N[i]),labelPoint(M[i],N[i]),cibles[i])
-		s=segment(M[i],N[i])
-		s.color=arcenciel(i)
-		objets_correction.push(s) 
-		texte_corr+=`$${noms[i]}\'$, l\'image du point $${noms[i]}$ est dans la case ${cellules[i]} de la grille ${i+1}.<br>`
-	  }
-  
-	  for (let i=0;i<nbpoints;i++){
-		xMin=Math.min(xMin,N[i].x-3,M[i].x-3)
-		yMin=Math.min(yMin,N[i].y-3,M[i].y-3)
-		xMax=Math.max(xMax,N[i].x+3,M[i].x+3)
-		yMax=Math.max(yMax,N[i].y+3,M[i].y+3)
-	  }
-	  
-	  fenetreMathalea2d=[xMin,yMin,xMax,yMax]
-  
-	  this.liste_questions.push(mathalea2d({xmin:xMin,ymin:yMin,xmax:xMax,ymax:yMax,pixelsParCm:20,scale:0.7},objets_enonce))
-	  this.liste_corrections.push(texte_corr+mathalea2d({xmin:xMin,ymin:yMin,xmax:xMax,ymax:yMax,pixelsParCm:20,scale:0.7},objets_correction))
-	  liste_de_question_to_contenu(this)
-  
-	//  let nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
-  
+			}
+		}
+
+		objets_enonce.push(tracePoint(O), labelPoint(O))
+		objets_correction.push(tracePoint(O), labelPoint(O))
+
+		for (let i = 0; i < nbpoints; i++) {
+			cellules.push(celluleAlea(4))
+			result = dansLaCibleCarree(N[i].x, N[i].y, 4, 0.6, cellules[i])
+			cible = cibleCarree({ x: result[0], y: result[1], rang: 4, num: i + 1, taille: 0.6 })
+			cible.taille = 0.6
+			cible.color = 'orange'
+			cible.opacite = 0.7
+			cibles.push(cible)
+		}
+		for (let i = 0; i < nbpoints; i++) {
+			M.push(homothetie(N[i], O, 1 / k, noms[i]))
+			objets_enonce.push(tracePoint(M[i]), labelPoint(M[i]), cibles[i])
+			objets_correction.push(tracePoint(M[i], N[i]), labelPoint(M[i], N[i]), cibles[i])
+			s = segment(M[i], N[i])
+			s.color = arcenciel(i)
+			objets_correction.push(s)
+			texte_corr += `$${noms[i]}\'$, l\'image du point $${noms[i]}$ est dans la case ${cellules[i]} de la grille ${i + 1}.<br>`
+		}
+
+		for (let i = 0; i < nbpoints; i++) {
+			xMin = Math.min(xMin, N[i].x - 3, M[i].x - 3)
+			yMin = Math.min(yMin, N[i].y - 3, M[i].y - 3)
+			xMax = Math.max(xMax, N[i].x + 3, M[i].x + 3)
+			yMax = Math.max(yMax, N[i].y + 3, M[i].y + 3)
+		}
+
+		fenetreMathalea2d = [xMin, yMin, xMax, yMax]
+
+		this.liste_questions.push(mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_enonce))
+		this.liste_corrections.push(texte_corr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_correction))
+		liste_de_question_to_contenu(this)
+
+		//  let nonchoisi,coords=[],x,y,objets_enonce=[],objets_correction=[],nomd,label_pos
+
 	}
-   this.besoin_formulaire_numerique = ['Nombre de points (1 à 5)',5,"1\n2\n3\n4\n5"];
-   // this.besoin_formulaire2_case_a_cocher = ["Avec des points de part et d'autre"];	
-  }
-  
+	this.besoin_formulaire_numerique = ['Nombre de points (1 à 5)', 5, "1\n2\n3\n4\n5"];
+	// this.besoin_formulaire2_case_a_cocher = ["Avec des points de part et d'autre"];	
+}
