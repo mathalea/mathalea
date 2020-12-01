@@ -61,13 +61,13 @@ var liste_des_exercices_disponibles = {
   "6G20" : Nommer_et_coder_des_polygones,
   "6G20-2": Vocabulaire_des_triangles_6e,
   "6G21" : Construire_un_triangle_6e,
-  "beta6G21-1" : Construire_un_triangle_avec_cible_6e,
+  "6G21-1" : Construire_un_triangle_avec_cible_6e,
   "6G23-2": Tracer_triangle_2_angles,
   "6G24": Transformations_6e,
   "6G24-1" : Symetrie_axiale_point_6e,
   "6G24-2" : Symetrie_axiale_figure_6e,
-  "beta6G24-3" : Construire_symetrique_point_6e,
-  "beta6G25" :Construire_mediatrices_6e,
+  "6G24-3" : Construire_symetrique_point_6e,
+  "6G25" :Construire_mediatrices_6e,
   "6G25-1": Pavages_et_reflexion,
   "6G25-2": Pavages_et_symetries,
   "6G33" : Symetrie_axiale_conservation1,
@@ -151,7 +151,7 @@ var liste_des_exercices_disponibles = {
   "5G10-2" : Symetrie_axiale_figure_5e,
   "5G11-1" : Symetrie_centrale_point,
   "5G11-2" : Symetrie_centrale_figure,
-  "beta5G11-3" : Construire_symetrique_point_5e,
+  "5G11-3" : Construire_symetrique_point_5e,
   "5G21-1": Constructibilite_des_triangles_longueurs,
   "5G20-1": Vocabulaire_des_triangles_5e,
   "5G22": DroiteRemarquableDuTriangle,
@@ -248,7 +248,7 @@ var liste_des_exercices_disponibles = {
   "4F12": Exploiter_representation_graphique,
   "4P10": Problemes_grandeurs_composees,
   "4P10-1" : Graphiques_et_proportionnalite,  
-  "beta4G10" :Construire_translate_point_4e,
+  "4G10" :Construire_translate_point_4e,
   "4G11": Pavages_et_translation,
   "4G20" : Pythagore2D,
   "4G20-1": Egalite_Pythagore2D, // Anciennement Egalite_Pythagore,
@@ -292,8 +292,8 @@ var liste_des_exercices_disponibles = {
   "3P10-1": Coefficient_evolution,
   "3G10-1": Transformations_du_plan_et_coordonnees,
   "3G10-2": Transformations_3e,
-  "beta3G10-3" : Construire_rotation_point_3e,
-  "beta3G11" : Construire_homothetie_point_3e,
+  "3G10-3" : Construire_rotation_point_3e,
+  "3G11" : Construire_homothetie_point_3e,
   "3G12": Pavages_et_rotation,
   "3G20": Thales2D_3e,
   "3G20-2": Exercice_Thales,
@@ -12628,7 +12628,7 @@ function Transformations() {
  */
 function Construire_symetrique_point_6e(){
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Construire le symétrique d'un point par rapport à une droite";
+  this.titre = "Construire le symétrique d'un point avec cible auto-corrective";
   this.consigne = "Construire le symétrique des points par rapport à $(d)$.";
   this.nb_questions = 1;
   this.nb_questions_modifiable=false
@@ -12726,7 +12726,7 @@ function Construire_symetrique_point_6e(){
  */
 function Construire_mediatrices_6e(){
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Construire des médiatrices";
+  this.titre = "Construire des médiatrices avec cible auto-corrective";
   this.consigne = "";
   this.nb_questions = 1;
   this.nb_questions_modifiable=false
@@ -14349,14 +14349,14 @@ function Construire_un_triangle() {
   ];
 }
 /**
- * commencé le 1/12/2020
+ * publié le 1/12/2020
  * @Auteur Jean-Claude Lhote
  * Réfrence 6G21-1 et ... (exercice en 5e ? pas encore fait)
  */
 function Construire_un_triangle_avec_cible() {
   "use strict"
   Exercice.call(this)
-  this.titre = "Construire un triangle aux instruments";
+  this.titre = "Construire un triangle avec cible auto-corrective";
   this.nb_questions = 2;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
@@ -14371,7 +14371,7 @@ function Construire_un_triangle_avec_cible() {
     }
 
     let type_de_questions_disponibles,cible,cellule,result,A,B,C,CC,lAB,lBC,lAC,cA,cB,T,TT,dBC,dAB,objets_enonceml,objets_enonce,objets_correction,params_enonceml,params_enonce,params_correction,nom,sommets
-    if (this.classe == 6) type_de_questions_disponibles = [1]
+    if (this.classe == 6) type_de_questions_disponibles = [1,2]
     else type_de_questions_disponibles = [1, 2, 3, 4, 5, 6]
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
     for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
@@ -14395,12 +14395,12 @@ function Construire_un_triangle_avec_cible() {
           cA=cercle(A,lAC)
           cB=cercle(B,lBC)
           C=pointIntersectionCC(cA,cB,sommets[2],1)
-          CC=point(C.x+randint(-5,5,0)/10,C.y+randint(-5,5,0)/10,sommets[2])
+          CC=point(C.x+randint(-5,5,[-2,-1,0,1,2])/10,C.y+randint(-5,5,[-2,-1,0,1,2])/10,sommets[2])
           cellule=celluleAleaRonde(5)
           result=dansLaCibleRonde(C.x,C.y,5,0.3,cellule)
           cible=cibleRonde({x:result[0],y:result[1],rang:5,taille:0.3})
           objets_enonce.push(cible,segmentAvecExtremites(A,B),labelPoint(A,B))
-          objets_enonceml.push(afficheLongueurSegment(B,A),afficheLongueurSegment(C,B),afficheLongueurSegment(A,C))
+          objets_enonceml.push(afficheLongueurSegment(B,A),afficheLongueurSegment(C,B,'black',1),afficheLongueurSegment(A,C,'black',1))
           objets_correction.push(cible,traceCompas(A,C,30,'gray',1,2),traceCompas(B,C,30,'gray',1,2),afficheLongueurSegment(B,A),afficheLongueurSegment(C,B),afficheLongueurSegment(A,C))
           texte_corr+=`Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>`
           texte_corr+=`Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
@@ -14414,8 +14414,13 @@ function Construire_un_triangle_avec_cible() {
           dAB=droite(A,B)
           dBC=droiteParPointEtPerpendiculaire(B,dAB)
           C=pointIntersectionLC(dBC,cA,sommets[2],1)
-          objets_enonce.push(afficheLongueurSegment(B,A),afficheLongueurSegment(C,A),codageAngleDroit(A,B,C))
-          objets_correction.push(traceCompas(A,C,30,'gray',1,2),codageAngleDroit(A,B,C),afficheLongueurSegment(B,A),afficheLongueurSegment(C,A))
+          CC=point(C.x+randint(-5,5,[-2,-1,0,1,2])/10,C.y+randint(-5,5,[-2,-1,0,1,2])/10,sommets[2])
+          cellule=celluleAleaRonde(5)
+          result=dansLaCibleRonde(C.x,C.y,5,0.3,cellule)
+          cible=cibleRonde({x:result[0],y:result[1],rang:5,taille:0.3})  
+          objets_enonce.push(cible,segmentAvecExtremites(A,B),labelPoint(A,B))        
+          objets_enonceml.push(afficheLongueurSegment(B,A),afficheLongueurSegment(A,C,'black',1),codageAngleDroit(A,B,CC))
+          objets_correction.push(cible,traceCompas(A,C,30,'gray',1,2),codageAngleDroit(A,B,C),afficheLongueurSegment(B,A),afficheLongueurSegment(C,A))
           texte_corr+=`Pour cette construction, nous avons utilisé la règle graduée, l'équerre et le compas.<br>`
           break
 
