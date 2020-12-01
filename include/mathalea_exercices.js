@@ -12651,6 +12651,11 @@ function Construire_symetrique_point_6e(){
     let B=translation(point(0,0),homothetie(d.directeur,point(0,0),0.5))
     let marks=['/','//','///','x','o','S','V']
     let noms=choisit_lettres_differentes(nbpoints,'Q',majuscule=true)
+    this.consigne = `Construire le symétrique des points $${noms[0]}$`
+    for (let i=1;i<nbpoints-1;i++){
+      this.consigne+=`, $${noms[i]}$`
+     }
+     this.consigne+=` et $${noms[nbpoints-1]}$ par rapport à $(d)$.`;
     let cibles=[],M=[],N=[],objets_enonce=[],objets_correction=[]  //cibles, M point marqués, N symétrique de M
     let cellules=[]
     let xMin,yMin,xMax,yMax
@@ -12753,6 +12758,7 @@ function Construire_mediatrices_6e(){
     // On prépare la figure...
     let noms=choisit_lettres_differentes(4,'QI',majuscule=true)
     texte=`Construire la médiatrice $(d_1)$ du segment $[${noms[0]}${noms[1]}]$ et la médiatrice $(d_2)$ du segment $[${noms[2]}${noms[3]}]$.<br>`
+    texte+=`Prolonger les droites $(d_1)$ et $(d_2)$ pour obtenir leur point d'intersection.<br>`
     let marks=['/','//','///','x','o','S','V']
     let I=point(0,0,'I')
     let A=pointAdistance(I,randint(3,6))
