@@ -12796,9 +12796,6 @@ function Construire_mediatrices_6e(){
 //      objets_correction.push(segment(M[i],N[i],arcenciel(i)),codageMediatrice(M[i],N[i],arcenciel(i+5),marks[i])) 
 //      objets_correction.push(traceCompas(A1,N[i],20),traceCompas(B,N[i],20))
       texte_corr+=`Le point $I$ d'intersection des deux médiatrices est dans la case ${cellule} de la grille.<br>`
-
-
-console.log(sA,sB)
       xMin=Math.min(A1.x-1,A2.x-1,B1.x-1,B2.x-1,I.x-4)
       yMin=Math.min(A1.y-1,A2.y-1,B1.y-1,B2.y-1,I.y-4)
       xMax=Math.max(A1.x+1,A2.x+1,B1.x+1,B2.x+1,I.x+4)
