@@ -2936,7 +2936,7 @@ function dansLaCibleRonde(x,y,rang,taille,cellule) {
   let Taille=Math.floor(4*taille)
   let chiffre=parseInt(cellule[1])
   let drayon=calcul(randint(-Taille,Taille)/10)
-  let dangle=randint(-22,22)
+  let dangle=randint(-20,20)
   let angle=calcul((chiffrelettre-1)*45-157.5+dangle)
   let rayon=calcul(taille/2+(chiffre-1)*taille+drayon)
   let P=similitude(point(1,0),point(0,0),angle,rayon)

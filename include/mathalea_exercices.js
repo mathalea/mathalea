@@ -153,6 +153,7 @@ var liste_des_exercices_disponibles = {
   "5G11-2": Symetrie_centrale_figure,
   "5G11-3": Construire_symetrique_point_5e,
   "5G21-1": Constructibilite_des_triangles_longueurs,
+  "5G20" : Construire_un_triangle_avec_cible_5e,
   "5G20-1": Vocabulaire_des_triangles_5e,
   "5G22": DroiteRemarquableDuTriangle,
   "5G30": Utiliser_le_codage_pour_decrire_5e,
@@ -14031,6 +14032,10 @@ function Construire_un_triangle_avec_cible_6e() {
   Construire_un_triangle_avec_cible.call(this)
   this.classe = 6
 }
+function Construire_un_triangle_avec_cible_5e() {
+  Construire_un_triangle_avec_cible.call(this)
+  this.classe = 5
+}
 /**
  * Publié le 30/08/202
  * @Auteur Jean-Claude Lhote
@@ -14131,7 +14136,7 @@ function Construire_un_triangle_avec_cible() {
   "use strict"
   Exercice.call(this)
   this.titre = "Construire un triangle avec cible auto-corrective";
-  this.nb_questions = 2;
+  this.nb_questions = 3;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
   this.sup = false;
@@ -14144,9 +14149,9 @@ function Construire_un_triangle_avec_cible() {
       return lettre + chiffre
     }
 
-    let type_de_questions_disponibles, cible, cellule, result, A, B, C, CC, lAB, lBC, lAC, cA, cB, T, TT, dBC, dAB, objets_enonceml, objets_enonce, objets_correction, params_enonceml, params_enonce, params_correction, nom, sommets
+    let type_de_questions_disponibles, cible, cellule, result, A, B, C, CC, lAB, lBC, lAC, cA, cB, T, TT, dBC,dAC, dAB, objets_enonceml, objets_enonce, objets_correction, params_enonceml, params_enonce, params_correction, nom, sommets
     if (this.classe == 6) type_de_questions_disponibles = [1, 2]
-    else type_de_questions_disponibles = [1, 2, 3, 4, 5, 6]
+    else type_de_questions_disponibles = [1, 2, 3]
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
     for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
       objets_enonce = []
@@ -14196,9 +14201,29 @@ function Construire_un_triangle_avec_cible() {
           objets_enonceml.push(afficheLongueurSegment(B, A), afficheLongueurSegment(A, C, 'black', 1), codageAngleDroit(A, B, CC))
           objets_correction.push(cible, traceCompas(A, C, 30, 'gray', 1, 2), codageAngleDroit(A, B, C), afficheLongueurSegment(B, A), afficheLongueurSegment(C, A))
           texte_corr += `Pour cette construction, nous avons utilisé la règle graduée, l'équerre et le compas.<br>`
+          texte_corr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
+  
           break
 
         case 3:
+          lAB = calcul(randint(46, 60) / 10)
+          B = pointAdistance(A, lAB, randint(-45, 45), sommets[1])
+          dAB = droite(A, B)
+          dAC=rotation(dAB,A,randint(8,14)*5)
+          dBC=rotation(dAB,B,-randint(6,12)*5)
+          C=pointIntersectionDD(dAC,dBC,sommets[2])
+          CC = point(C.x + randint(-5, 5, [-2, -1, 0, 1, 2]) / 10, C.y + randint(-5, 5, [-2, -1, 0, 1, 2]) / 10, sommets[2])
+          cellule = celluleAleaRonde(5)
+          result = dansLaCibleRonde(C.x, C.y, 5, 0.3, cellule)
+          cible = cibleRonde({ x: result[0], y: result[1], rang: 5, taille: 0.3 })
+          objets_enonce.push(cible, segmentAvecExtremites(A, B), labelPoint(A, B))
+          objets_enonceml.push(codeAngle(B, A,CC,1.1),texteParPoint(nombre_avec_espace(Math.round(angle(B,A,C)))+`°`,similitude(B,A,27,0.1)), codeAngle(A, B,CC,1.1),texteParPoint(nombre_avec_espace(Math.round(angle(A,B,C)))+`°`,similitude(A,B,-22,0.1)))
+          objets_correction.push(cible,afficheMesureAngle(B, A,C,'black',2), afficheMesureAngle(A, B,C,'black',2))
+          texte_corr += `Pour cette construction, nous avons utilisé le rapporteur.<br>`
+          texte_corr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
+  
+           
+    
 
           break
       }
