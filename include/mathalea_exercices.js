@@ -14273,7 +14273,7 @@ function Construire_un_triangle() {
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []
     this.liste_corrections = []
-    let type_de_questions_disponibles,A,B,C,lAB,lBC,lAC,cA,cB,T,dBC,dAB,objets_enonce,objets_correction,params_enonce,params_correction,nom,sommets
+    let type_de_questions_disponibles,A,B,C,CC,lAB,lBC,lAC,cA,cB,T,TT,dBC,dAB,objets_enonce,objets_correction,params_enonce,params_correction,nom,sommets
     if (this.classe == 6) type_de_questions_disponibles = [1,2]
     else type_de_questions_disponibles = [1, 2, 3, 4, 5, 6]
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
@@ -14297,6 +14297,8 @@ function Construire_un_triangle() {
           cA=cercle(A,lAC)
           cB=cercle(B,lBC)
           C=pointIntersectionCC(cA,cB,sommets[2],1)
+          CC=point(C.x+randint(-5,5,0)/10,C.y+randint(-5,5,0)/10,sommets[2])
+   
           objets_enonce.push(afficheLongueurSegment(B,A),afficheLongueurSegment(C,B),afficheLongueurSegment(A,C))
           objets_correction.push(traceCompas(A,C,30,'gray',1,2),traceCompas(B,C,30,'gray',1,2),afficheLongueurSegment(B,A),afficheLongueurSegment(C,B),afficheLongueurSegment(A,C))
           texte_corr+=`Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>`
@@ -14310,6 +14312,8 @@ function Construire_un_triangle() {
           dAB=droite(A,B)
           dBC=droiteParPointEtPerpendiculaire(B,dAB)
           C=pointIntersectionLC(dBC,cA,sommets[2],1)
+          CC=point(C.x+randint(-5,5,0)/10,C.y+randint(-5,5,0)/10,sommets[2])
+  
           objets_enonce.push(afficheLongueurSegment(B,A),afficheLongueurSegment(C,A),codageAngleDroit(A,B,C))
           objets_correction.push(traceCompas(A,C,30,'gray',1,2),codageAngleDroit(A,B,C),afficheLongueurSegment(B,A),afficheLongueurSegment(C,A))
           texte_corr+=`Pour cette construction, nous avons utilisé la règle graduée, l'équerre et le compas.<br>`
@@ -14320,7 +14324,8 @@ function Construire_un_triangle() {
           break
       }
       T=polygoneAvecNom(A,B,C)
-      objets_enonce.push(T[0],T[1])
+      TT=polygoneAvecNom(A,B,CC)
+      objets_enonce.push(TT[0],TT[1])
       objets_correction.push(T[0],T[1])
       params_enonce={xmin : Math.min(A.x-1,B.x-1,C.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1),xmax : Math.max(A.x+1,B.x+1,C.x+1),ymax : Math.max(A.y+1,B.y+1,C.y+1),pixelsParCm : 30, scale : 1,mainlevee : true,amplitude : 1}
       params_correction={xmin : Math.min(A.x-1,B.x-1,C.x-2),ymin : Math.min(A.y-1,B.y-1,C.y-2),xmax : Math.max(A.x+1,B.x+1,C.x+2),ymax : Math.max(A.y+1,B.y+1,C.y+2),pixelsParCm : 30, scale : 1}
