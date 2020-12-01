@@ -7743,7 +7743,7 @@ function Construire_rotation_point_3e(){
   }
   /**
  * Construction d'images par homothétie avec dispositif d'auto-correction aléatoire
- * Ref beta3G11-3 
+ * Ref beta3G11
  * @Auteur Jean-Claude Lhote
  * Publié le 30/11/2020
  */
@@ -7757,7 +7757,8 @@ function Construire_homothetie_point_3e(){
 	this.nb_cols_corr = 1;
 	this.sup = 3;
 	this.nouvelle_version = function () {
-		let k = randint (-4,4,0)/2
+		let k = randint (-4,4,[0,-1,1])/2
+		console.log(k)
 		this.consigne = "Construire l\'image des points par l\'homothétie de centre $O$";
 		this.consigne+=` et de rapport $${k}$`
 	  this.liste_questions = []; // Liste de questions

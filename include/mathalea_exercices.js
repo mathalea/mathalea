@@ -12722,7 +12722,7 @@ function Construire_symetrique_point_6e(){
 function Construire_mediatrices_6e(){
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Construire des médiatrices";
-  this.consigne = "Construire les médiatrices des segments tracés";
+  this.consigne = "";
   this.nb_questions = 1;
   this.nb_questions_modifiable=false
   this.nb_cols = 1;
@@ -12731,15 +12731,24 @@ function Construire_mediatrices_6e(){
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let result=[0,0],texte_corr=""
-
+    let result=[0,0],texte_corr="",texte="",num1,num2
+    if (sortie_html) {
+      num1=`<tspan dy="5" style="font-size:70%">`
+      num2=`</tspan><tspan dy="-5">)</tspan>`
+     }
+     else {
+       num1=`_`
+       num2=`)`
+     }
     // On prépare la figure...
     let noms=choisit_lettres_differentes(4,'QI',majuscule=true)
+    texte=`Construire la médiatrice $(d_1)$ du segment $[${noms[0]}${noms[1]}]$ et la médiatrice $(d_2)$ du segment $[${noms[2]}${noms[3]}]$.<br>`
     let marks=['/','//','///','x','o','S','V']
     let I=point(0,0,'I')
     let A=pointAdistance(I,randint(4,8))
     let B=similitude(A,I,randint(65,150),randint(6,20)/10)
-    let medA=droite(I,A),medB=droite(I,B)
+    let medA=droite(I,A,`(d${num1}1${num2}`),medB=droite(I,B,`(d${num1}2${num2}`)
+
     let dA=droiteParPointEtPerpendiculaire(A,medA)
     let dB=droiteParPointEtPerpendiculaire(B,medB)
     medA.color='blue'
@@ -12776,7 +12785,7 @@ function Construire_mediatrices_6e(){
 
 //      objets_correction.push(segment(M[i],N[i],arcenciel(i)),codageMediatrice(M[i],N[i],arcenciel(i+5),marks[i])) 
 //      objets_correction.push(traceCompas(A1,N[i],20),traceCompas(B,N[i],20))
-      texte_corr+=`Le point I d'intersection des deux médiatrices est dans la case ${cellule} de la grille.<br>`
+      texte_corr+=`Le point $I$ d'intersection des deux médiatrices est dans la case ${cellule} de la grille.<br>`
 
 
 console.log(sA,sB)
@@ -12787,7 +12796,7 @@ console.log(sA,sB)
     
     fenetreMathalea2d=[xMin,yMin,xMax,yMax]
 
-    this.liste_questions.push(mathalea2d({xmin:xMin,ymin:yMin,xmax:xMax,ymax:yMax,pixelsParCm:20,scale:0.7},objets_enonce))
+    this.liste_questions.push(texte + mathalea2d({xmin:xMin,ymin:yMin,xmax:xMax,ymax:yMax,pixelsParCm:20,scale:0.7},objets_enonce))
     this.liste_corrections.push(texte_corr+mathalea2d({xmin:xMin,ymin:yMin,xmax:xMax,ymax:yMax,pixelsParCm:20,scale:0.7},objets_correction))
     liste_de_question_to_contenu(this)
 
