@@ -14344,7 +14344,7 @@ function Construire_un_triangle() {
   ];
 }
 /**
- * Publié le 1/12/2020
+ * commencé le 1/12/2020
  * @Auteur Jean-Claude Lhote
  * Réfrence 6G21-1 et ... (exercice en 5e ? pas encore fait)
  */
@@ -14365,7 +14365,7 @@ function Construire_un_triangle_avec_cible() {
       return lettre+chiffre
     }
 
-    let type_de_questions_disponibles,cible,cellule,result,A,B,C,lAB,lBC,lAC,cA,cB,T,dBC,dAB,objets_enonceml,objets_enonce,objets_correction,params_enonceml,params_enonce,params_correction,nom,sommets
+    let type_de_questions_disponibles,cible,cellule,result,A,B,C,CC,lAB,lBC,lAC,cA,cB,T,TT,dBC,dAB,objets_enonceml,objets_enonce,objets_correction,params_enonceml,params_enonce,params_correction,nom,sommets
     if (this.classe == 6) type_de_questions_disponibles = [1]
     else type_de_questions_disponibles = [1, 2, 3, 4, 5, 6]
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
@@ -14389,7 +14389,8 @@ function Construire_un_triangle_avec_cible() {
           B=pointAdistance(A,lAB,randint(-45,45),sommets[1])
           cA=cercle(A,lAC)
           cB=cercle(B,lBC)
-          C=pointIntersectionCC(cA,cB)
+          C=pointIntersectionCC(cA,cB,sommets[2],1)
+          CC=point(C.x+randint(-5,5,0)/10,C.y+randint(-5,5,0)/10,sommets[2])
           cellule=celluleAleaRonde(5)
           result=dansLaCibleRonde(C.x,C.y,5,0.3,cellule)
           cible=cibleRonde({x:result[0],y:result[1],rang:5,taille:0.3})
@@ -14418,7 +14419,8 @@ function Construire_un_triangle_avec_cible() {
           break
       }
       T=polygoneAvecNom(A,B,C)
-      objets_enonceml.push(T[0],T[1])
+      TT=polygoneAvecNom(A,B,CC)
+      objets_enonceml.push(TT[0],TT[1])
       objets_correction.push(T[0],T[1])
       params_enonceml={xmin : Math.min(A.x-1,B.x-1,C.x-3),ymin : Math.min(A.y-1,B.y-1,C.y-3),xmax : Math.max(A.x+1,B.x+1,C.x+3),ymax : Math.max(A.y+1,B.y+1,C.y+3),pixelsParCm : 30, scale : 1,mainlevee : true,amplitude : 1}
       params_enonce={xmin : Math.min(A.x-1,B.x-1,C.x-3),ymin : Math.min(A.y-1,B.y-1,C.y-3),xmax : Math.max(A.x+1,B.x+1,C.x+3),ymax : Math.max(A.y+1,B.y+1,C.y+3),pixelsParCm : 30, scale : 1,mainlevee : false,amplitude : 1}
