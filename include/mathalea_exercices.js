@@ -61,6 +61,7 @@ var liste_des_exercices_disponibles = {
   "6G20" : Nommer_et_coder_des_polygones,
   "6G20-2": Vocabulaire_des_triangles_6e,
   "6G21" : Construire_un_triangle_6e,
+  "beta6G21-1" : Construire_un_triangle_avec_cible_6e,
   "6G23-2": Tracer_triangle_2_angles,
   "6G24": Transformations_6e,
   "6G24-1" : Symetrie_axiale_point_6e,
@@ -14252,9 +14253,13 @@ function Construire_un_triangle_6e() {
   Construire_un_triangle.call(this)
   this.classe=6
 }
+function Construire_un_triangle_avec_cible_6e(){
+  Construire_un_triangle_avec_cible.call(this)
+  this.classe=6
+}
 /**
- * 
- * 
+ * Publié le 30/08/202
+ * @Auteur Jean-Claude Lhote
  * Réfrence 6G21 et ... (exercice en 5e ? pas encore fait)
  */
 function Construire_un_triangle() {
@@ -14320,6 +14325,105 @@ function Construire_un_triangle() {
       params_enonce={xmin : Math.min(A.x-1,B.x-1,C.x-1),ymin : Math.min(A.y-1,B.y-1,C.y-1),xmax : Math.max(A.x+1,B.x+1,C.x+1),ymax : Math.max(A.y+1,B.y+1,C.y+1),pixelsParCm : 30, scale : 1,mainlevee : true,amplitude : 1}
       params_correction={xmin : Math.min(A.x-1,B.x-1,C.x-2),ymin : Math.min(A.y-1,B.y-1,C.y-2),xmax : Math.max(A.x+1,B.x+1,C.x+2),ymax : Math.max(A.y+1,B.y+1,C.y+2),pixelsParCm : 30, scale : 1}
       texte+=mathalea2d(params_enonce,objets_enonce)
+      texte_corr+=mathalea2d(params_correction,objets_correction)
+      if (this.liste_questions.indexOf(texte) == -1) {
+        // Si la question n'a jamais été posée, on en crée une autre
+        this.liste_questions.push(texte);
+        this.liste_corrections.push(texte_corr);
+        i++;
+      }
+      cpt++;
+    }
+    liste_de_question_to_contenu(this);
+  };
+  //	this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
+  this.besoin_formulaire2_numerique = [
+    "Type de cahier",
+    3,
+    `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`,
+  ];
+}
+/**
+ * Publié le 1/12/2020
+ * @Auteur Jean-Claude Lhote
+ * Réfrence 6G21-1 et ... (exercice en 5e ? pas encore fait)
+ */
+function Construire_un_triangle_avec_cible() {
+  "use strict"
+  Exercice.call(this)
+  this.titre = "Construire un triangle aux instruments";
+  this.nb_questions = 2;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  this.sup = false;
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    this.liste_questions = []
+    this.liste_corrections = []
+    let celluleAleaRonde= function(rang){
+      let lettre=lettre_depuis_chiffre(randint(1,8))
+      let chiffre=Number(randint(1,rang)).toString()
+      return lettre+chiffre
+    }
+
+    let type_de_questions_disponibles,cible,cellule,result,A,B,C,lAB,lBC,lAC,cA,cB,T,dBC,dAB,objets_enonceml,objets_enonce,objets_correction,params_enonceml,params_enonce,params_correction,nom,sommets
+    if (this.classe == 6) type_de_questions_disponibles = [1]
+    else type_de_questions_disponibles = [1, 2, 3, 4, 5, 6]
+    let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
+    for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+      objets_enonce=[]
+      objets_enonceml=[]
+      objets_correction=[]
+      texte =`Le triangle ci-dessous a été réalisé à main levée.<br>Construire ce triangle avec les instruments de géométrie en respectant les mesures indiquées.<br>`
+      texte_corr=`Voici la construction que tu devais réaliser.<br>`
+      nom=creerNomDePolygone(3,"PQ")
+      sommets=[]
+      for(let i=0;i<3;i++) sommets.push(nom[i])
+      sommets=shuffle(sommets)
+      A=point(0,0,sommets[0])
+      switch (liste_type_de_questions[i]) {
+        case 1:
+          lAC=randint(35,45)
+          lBC=calcul(randint(35,45,lAC)/10)
+          lAB=calcul(randint(46,60)/10)
+          lAC=calcul(lAC/10)
+          B=pointAdistance(A,lAB,randint(-45,45),sommets[1])
+          cA=cercle(A,lAC)
+          cB=cercle(B,lBC)
+          C=pointIntersectionCC(cA,cB)
+          cellule=celluleAleaRonde(5)
+          result=dansLaCibleRonde(C.x,C.y,5,0.3,cellule)
+          cible=cibleRonde({x:result[0],y:result[1],rang:5,taille:0.3})
+          objets_enonce.push(cible,segmentAvecExtremites(A,B),labelPoint(A,B))
+          objets_enonceml.push(afficheLongueurSegment(B,A),afficheLongueurSegment(C,B),afficheLongueurSegment(A,C))
+          objets_correction.push(cible,traceCompas(A,C,30,'gray',1,2),traceCompas(B,C,30,'gray',1,2),afficheLongueurSegment(B,A),afficheLongueurSegment(C,B),afficheLongueurSegment(A,C))
+          texte_corr+=`Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>`
+          texte_corr+=`Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
+          break;
+
+        case 2:
+          lAC=randint(70,80)/10
+          lAB=calcul(randint(46,60)/10)
+          B=pointAdistance(A,lAB,randint(-45,45),sommets[1])
+          cA=cercle(A,lAC)
+          dAB=droite(A,B)
+          dBC=droiteParPointEtPerpendiculaire(B,dAB)
+          C=pointIntersectionLC(dBC,cA,sommets[2],1)
+          objets_enonce.push(afficheLongueurSegment(B,A),afficheLongueurSegment(C,A),codageAngleDroit(A,B,C))
+          objets_correction.push(traceCompas(A,C,30,'gray',1,2),codageAngleDroit(A,B,C),afficheLongueurSegment(B,A),afficheLongueurSegment(C,A))
+          texte_corr+=`Pour cette construction, nous avons utilisé la règle graduée, l'équerre et le compas.<br>`
+          break
+
+        case 3:
+
+          break
+      }
+      T=polygoneAvecNom(A,B,C)
+      objets_enonceml.push(T[0],T[1])
+      objets_correction.push(T[0],T[1])
+      params_enonceml={xmin : Math.min(A.x-1,B.x-1,C.x-3),ymin : Math.min(A.y-1,B.y-1,C.y-3),xmax : Math.max(A.x+1,B.x+1,C.x+3),ymax : Math.max(A.y+1,B.y+1,C.y+3),pixelsParCm : 30, scale : 1,mainlevee : true,amplitude : 1}
+      params_enonce={xmin : Math.min(A.x-1,B.x-1,C.x-3),ymin : Math.min(A.y-1,B.y-1,C.y-3),xmax : Math.max(A.x+1,B.x+1,C.x+3),ymax : Math.max(A.y+1,B.y+1,C.y+3),pixelsParCm : 30, scale : 1,mainlevee : false,amplitude : 1}
+      params_correction={xmin : Math.min(A.x-1,B.x-1,C.x-3),ymin : Math.min(A.y-1,B.y-1,C.y-3),xmax : Math.max(A.x+1,B.x+1,C.x+3),ymax : Math.max(A.y+1,B.y+1,C.y+3),pixelsParCm : 30, scale : 1}
+      texte+=mathalea2d(params_enonceml,objets_enonceml)+mathalea2d(params_enonce,objets_enonce)
       texte_corr+=mathalea2d(params_correction,objets_correction)
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
