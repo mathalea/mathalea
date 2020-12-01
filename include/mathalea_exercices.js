@@ -15198,7 +15198,7 @@ function Parallele_et_Perpendiculaires() {
           )}$ cm et $AO \\approx${tex_nombre(
             lE
           )}$ cm.<br>`;
-          correction+=`Les angle droits en rouge se justifient par la propriété :<br> ${texte_en_couleur(`Si deux droites sont parallèles, toutes droite perpendiculaire à l'une est aussi perpendiculaire à l'autre`,'red')}.<br>`
+          correction+=`Les angle droits en rouge se justifient par la propriété :<br> ${texte_en_couleur(`Si deux droites sont parallèles, alors toute droite perpendiculaire à l'une est aussi perpendiculaire à l'autre`,'red')}.<br>`
           correction +=`Vérifier les angles droits à l'équerre.<br>`
           Xmin=Math.floor(Math.min(A.x,B.x,C.x,D.x,E.x,F.x,EE.x,CC.x,DD.x)-1)
           Xmax=Math.ceil(Math.max(A.x,B.x,C.x,D.x,E.x,F.x,EE.x,CC.x,DD.x)+1)

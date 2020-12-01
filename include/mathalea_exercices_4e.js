@@ -6160,6 +6160,12 @@ function Problemes_grandeurs_composees() {
     // let liste_index_disponibles=[1,2,3,4,5,6,7,8,9,10,11,12,13,14];
     // let liste_index=combinaison_listes(liste_index_disponibles,this.nb_questions);
     let grandeurs = [];
+    let liste7=combinaison_listes([0,1,2],this.nb_questions)
+    let flag7=0,flag2=0
+    let liste2=combinaison_listes([0,1],this.nb_questions)
+
+
+
     if (!this.sup) {
       // Si aucune grandeur n'est saisie
       grandeurs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
@@ -6379,7 +6385,8 @@ function Problemes_grandeurs_composees() {
             )}$ €`;
           break;
         case 2: // problèmes de volumes
-          index1 = randint(0, 1);
+          index1 = liste2[flag2];
+          flag2++;
           switch (index1) {
             case 0: // Volume d'une piscine
               let h1 = 180 + randint(0, 10) * 10;
@@ -6505,9 +6512,9 @@ function Problemes_grandeurs_composees() {
           }
           break;
         case 3: // Problème de quantité de mouvement et d'énergie cinétique
-          quidam = prenom();
+          quidam = prenomF();
           index1 = randint(0, 4);
-          masse = randint(50, 80);
+          masse = randint(40, 70);
           vitesse_moy = randint(vitesses[index1][1], vitesses[index1][2]); // vitesse choisie pour l'exo
           texte =
             `${quidam} se déplace ${vitesses[index1][0]} à la ` +
@@ -6519,7 +6526,7 @@ function Problemes_grandeurs_composees() {
               `La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$)`
             ) +
             ` de ${tex_nombrec(vitesse_moy)} m/s.<br>`;
-          texte += `Il pèse ${masse} kg.<br>`;
+          texte += `Elle pèse ${masse} kg.<br>`;
           texte +=
             num_alpha(0) +
             ` Calculer sa ` +
@@ -6690,7 +6697,8 @@ function Problemes_grandeurs_composees() {
           texte_corr += `Le fusible nécessaire pour protéger cet appareil des courts-circuits devra avoir une intensité de rupture minimum de ${I2} ampères.`;
           break;
         case 7: // problème de vitesses
-          index2 = randint(0, 2);
+          index2 = liste7[flag7];
+          flag7++;
           quidam = prenom(); //prenom choisi
           switch (index2) {
             case 0: // problème de déplacements
