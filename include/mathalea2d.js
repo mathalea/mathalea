@@ -1981,16 +1981,16 @@ function NommePolygone(p, nom = "", k = 0.5) {
   ObjetMathalea2D.call(this);
   this.poly=p
   this.dist=k
-  for (let i = 0, point; i < p.listePoints.length; i++) {
+  for (let i = 0; i < p.listePoints.length; i++) {
     if (nom != "") p.listePoints[i].nom = nom[i];
   }
   this.svg = function (coeff) {
     let code = "";
     let P,p=this.poly,d=this.dist
     let G = barycentre(p);
-    for (let i = 0, point; i < p.listePoints.length; i++) {
+    for (let i = 0; i < p.listePoints.length; i++) {
       P=pointSurSegment(G,p.listePoints[i],longueur(G,p.listePoints[i])+d*20/coeff)
-      code += "\n\t" + texteParPoint(p.listePoints[i].nom, P, "milieu").svg(coeff)
+      code += "\n\t" + texteParPoint(p.listePoints[i].nom,P,0,'black',1,"middle",true).svg(coeff)
     }
     return code;
   };
@@ -2000,7 +2000,7 @@ function NommePolygone(p, nom = "", k = 0.5) {
     let G = barycentre(p);
     for (let i = 0, point; i < p.listePoints.length; i++) {
       P=pointSurSegment(G,p.listePoints[i],longueur(G,p.listePoints[i])+d/scale)
-      code += "\n\t" + texteParPoint(p.listePoints[i].nom, P, "milieu").tikz()
+      code += "\n\t" + texteParPoint(p.listePoints[i].nom, P, 0,'black',1,"middle",true).tikz()
     }
     return code;
   }
@@ -6502,12 +6502,13 @@ function TexteParPoint(texte, A, orientation = "milieu", color='black',scale=1,a
   ObjetMathalea2D.call(this);
   this.color = color;
   this.contour = false;
-  this.taille =10;
+  this.taille =10*scale;
   this.opacite=1;
   this.svg = function (coeff) {
     let code = "",style="";
-    if (this.contour) style =` style="font-size:${this.taille}px;fill:none;fill-opacity:${this.opacite};stroke:${this.color};stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:${this.opacite}" `
-    else style = ` style="font-size:${this.taille}px;fill:${this.color};fill-opacity:${this.opacite}" `
+    if (math_on) style =' font-family= "KaTeX_Math" '
+    if (this.contour) style +=` style="font-size:${this.taille}px;fill:none;fill-opacity:${this.opacite};stroke:${this.color};stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:${this.opacite}" `
+    else style += ` style="font-size:${this.taille}px;fill:${this.color};fill-opacity:${this.opacite}" `
     if (typeof(orientation)=='number') {
       code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
         coeff

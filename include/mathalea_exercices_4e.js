@@ -6025,9 +6025,9 @@ function Problemes_grandeurs_composees() {
     let cours = [
       [`de piano`, 20],
       [`de maths`, 25],
-      [`yoga`, 5],
-      [`dessin`, 12],
-      [`voile`, 15],
+      [`de yoga`, 5],
+      [`de dessin`, 12],
+      [`de voile`, 15],
     ];
     let fruits = [
       [`pêches`, 4, 10, 30],

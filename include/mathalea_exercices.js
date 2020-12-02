@@ -14065,7 +14065,7 @@ function Construire_un_triangle() {
       sommets = []
       for (let i = 0; i < 3; i++) sommets.push(nom[i])
       sommets = shuffle(sommets)
-      A = point(0, 0, sommets[0])
+      A = point(0, 0, sommets[0],'left')
       switch (liste_type_de_questions[i]) {
         case 1:
           lAC = randint(35, 45)
@@ -14073,9 +14073,11 @@ function Construire_un_triangle() {
           lAB = calcul(randint(46, 60) / 10)
           lAC = calcul(lAC / 10)
           B = pointAdistance(A, lAB, randint(-45, 45), sommets[1])
+          B.positionLabel='right'
           cA = cercle(A, lAC)
           cB = cercle(B, lBC)
           C = pointIntersectionCC(cA, cB, sommets[2], 1)
+          C.positionLabel='above'
           CC = point(C.x + randint(-5, 5, 0) / 10, C.y + randint(-5, 5, 0) / 10, sommets[2])
 
           objets_enonce.push(afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(A, C))
@@ -14163,7 +14165,7 @@ function Construire_un_triangle_avec_cible() {
       sommets = []
       for (let i = 0; i < 3; i++) sommets.push(nom[i])
       sommets = shuffle(sommets)
-      A = point(0, 0, sommets[0])
+      A = point(0, 0, sommets[0],'left')
       switch (liste_type_de_questions[i]) {
         case 1:
           lAC = randint(35, 45)
@@ -14171,9 +14173,11 @@ function Construire_un_triangle_avec_cible() {
           lAB = calcul(randint(46, 60) / 10)
           lAC = calcul(lAC / 10)
           B = pointAdistance(A, lAB, randint(-45, 45), sommets[1])
+          B.positionLabel='right'
           cA = cercle(A, lAC)
           cB = cercle(B, lBC)
           C = pointIntersectionCC(cA, cB, sommets[2], 1)
+          C.positionLabel='above'
           CC = point(C.x + randint(-5, 5, [-2, -1, 0, 1, 2]) / 10, C.y + randint(-5, 5, [-2, -1, 0, 1, 2]) / 10, sommets[2])
           cellule = celluleAleaRonde(5)
           result = dansLaCibleRonde(C.x, C.y, 5, 0.3, cellule)
@@ -14189,10 +14193,12 @@ function Construire_un_triangle_avec_cible() {
           lAC = randint(70, 80) / 10
           lAB = calcul(randint(46, 60) / 10)
           B = pointAdistance(A, lAB, randint(-45, 45), sommets[1])
+          B.positionLabel='right'
           cA = cercle(A, lAC)
           dAB = droite(A, B)
           dBC = droiteParPointEtPerpendiculaire(B, dAB)
           C = pointIntersectionLC(dBC, cA, sommets[2], 1)
+          C.positionLabel='above'
           CC = point(C.x + randint(-5, 5, [-2, -1, 0, 1, 2]) / 10, C.y + randint(-5, 5, [-2, -1, 0, 1, 2]) / 10, sommets[2])
           cellule = celluleAleaRonde(5)
           result = dansLaCibleRonde(C.x, C.y, 5, 0.3, cellule)
@@ -14208,10 +14214,12 @@ function Construire_un_triangle_avec_cible() {
         case 3:
           lAB = calcul(randint(46, 60) / 10)
           B = pointAdistance(A, lAB, randint(-45, 45), sommets[1])
+          B.positionLabel='right'
           dAB = droite(A, B)
           dAC=rotation(dAB,A,randint(8,14)*5)
           dBC=rotation(dAB,B,-randint(6,12)*5)
           C=pointIntersectionDD(dAC,dBC,sommets[2])
+          C.positionLabel='above'
           CC = point(C.x + randint(-5, 5, [-2, -1, 0, 1, 2]) / 10, C.y + randint(-5, 5, [-2, -1, 0, 1, 2]) / 10, sommets[2])
           cellule = celluleAleaRonde(5)
           result = dansLaCibleRonde(C.x, C.y, 5, 0.3, cellule)

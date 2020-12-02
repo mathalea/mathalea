@@ -3157,7 +3157,7 @@ function fonctions_probabilite1() {
 	this.titre = "Calculer des probabilités dans une expérience aléatoire à une épreuve";
 	this.consigne = "";
 	this.nb_questions = 4;
-	this.nb_questions_modifiable = false;
+	this.nb_questions_modifiable = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	sortie_html ? this.spacing = 2 : this.spacing = 1;
