@@ -407,6 +407,62 @@ function pointAdistance(...args) {
 function LabelPoint(...points) {
   ObjetMathalea2D.call(this);
   this.svg = function (coeff) {
+    let code = "",x,y;
+    let style =' font-family= "KaTeX_Math" '
+    if (Array.isArray(points[0])) {
+      //Si le premier argument est un tableau
+      this.listePoints = points[0];
+    } else {
+      this.listePoints = points;
+    }
+    for (let point of this.listePoints) {
+      x=point.x,y=point.y
+      switch (point.positionLabel) {
+        case "left":
+          code += texteParPosition(point.nom,x-15/coeff,y,'milieu',this.color,1,"",true).svg(coeff)+`\n`
+          break;
+        case "right":
+          code += texteParPosition(point.nom,x+15/coeff,y,'milieu',this.color,1,"",true).svg(coeff)+`\n`
+          break;
+        case "below":
+          code += texteParPosition(point.nom,x,y+15/coeff,'milieu',this.color,1,"",true).svg(coeff)+`\n`
+          break;
+        case "above":
+          code += texteParPosition(point.nom,x,y-15/coeff,'milieu',this.color,1,"",true).svg(coeff)+`\n`
+          break;
+        case "above right":
+          code += texteParPosition(point.nom,x+15/coeff,y-15/coeff,'milieu',this.color,1,"",true).svg(coeff)+`\n`
+          break;
+        case "below left":
+          code += texteParPosition(point.nom,x-15/coeff,y+15/coeff,'milieu',this.color,1,"",true).svg(coeff)+`\n`
+          break;
+        case "below right":
+          code += texteParPosition(point.nom,x+15/coeff,y+15/coeff,'milieu',this.color,1,"",true).svg(coeff)+`\n`
+          break;
+        default:
+          code += texteParPosition(point.nom,x-15/coeff,y-15/coeff,'milieu',this.color,1,"",true).svg(coeff)+`\n`
+          break;
+      }
+    }
+    code = `<g id="${this.id}">${code}</g>`
+    return code;
+  };
+  this.tikz = function () {
+    let code = "";
+    let style = "";
+    if (this.color != "black") {
+      style = `,${this.color}`;
+    }
+    for (let point of points) {
+      code += `\t\\draw (${point.x},${point.y}) node[${point.positionLabel}${style}] {$${point.nom}$};\n`;
+    }
+    return code;
+  };
+}
+
+function LabelPointbak(...points) { // Vielle fonction LabelPoint au cas où la nouvelle ait des effets pervers.
+  ObjetMathalea2D.call(this);
+  this.svg = function (coeff) {
     let code = "";
     let style =' font-family= "KaTeX_Math" '
     if (Array.isArray(points[0])) {
