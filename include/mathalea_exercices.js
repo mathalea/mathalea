@@ -14248,7 +14248,7 @@ function Construire_un_triangle_avec_cible() {
             objets_correction.push(cible,afficheLongueurSegment(B, A),afficheMesureAngle(B, A,C,'black',1), afficheLongueurSegment(A, C, 'black', 1))
             texte_corr += `Pour cette construction, nous avons utilisé le rapporteur et la règle graduée.<br>`
             texte_corr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
-               
+             break  
           
       }
       T = polygoneAvecNom(A, B, C)
