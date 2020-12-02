@@ -2882,6 +2882,10 @@ function PolygoneMainLevee(points,amp,color='black') {
 function polygoneMainLevee(points,amp,color='black') {
   return new PolygoneMainLevee(points,amp,color)
 }
+/**
+ * Une fonction pour dessiner des arcs à main levée comme son nom l'indique.
+* @Auteur Jean-Claude Lhote
+ */
 
 function ArcMainLevee(M,Omega,angle,amp,rayon=false,fill='none',color='black',fillOpacite=0.2){
   ObjetMathalea2D.call(this)
@@ -2971,11 +2975,6 @@ function arcMainLevee(M,Omega,angle,amp,rayon=false,fill='none',color='black',fi
  * afin xue le point (x,y) se trouve dans la case correspondante à cellule
  * cellule est une chaine comme 'A1' ou 'B3'
  * @Auteur Jean-Claude Lhote
- * @param {*} x 
- * @param {*} y 
- * @param {*} rang 
- * @param {*} taille 
- * @param {*} cellule 
  */
 function dansLaCibleCarree(x,y,rang,taille,cellule) {
   let lettre=cellule[0],chiffrelettre=lettre.charCodeAt(0)-64
@@ -2987,6 +2986,13 @@ function dansLaCibleCarree(x,y,rang,taille,cellule) {
     return [arrondi(x+dx-chiffrelettre*taille+delta+rang*delta,2),arrondi(y+dy-chiffre*2*delta+(rang+1)*delta,2)]
   }
 }
+/**
+ * Comme dansLaCibleCarree mais pour un cible ronde. (voir ci-dessus)
+ * Cellule va de A1 à Hn où n est le rang de la cible.
+ * taille c'est la différence entre deux rayons successifs.
+ * x et y sont les coordonnées du point à cibler.
+ * @Auteur Jean-Claude Lhote
+ */
 function dansLaCibleRonde(x,y,rang,taille,cellule) {
   let lettre=cellule[0],chiffrelettre=lettre.charCodeAt(0)-64
   let Taille=Math.floor(4*taille)
@@ -3060,6 +3066,8 @@ function cibleCarree({x=0,y=0,rang=4,num,taille=0.6}){
  * création d'une cible ronde pour l'auto-correction
  * @Auteur Jean-Claude Lhote
  * (x,y) sont les coordonnées du centre de la cible 
+ * Les secteurs de la cible fot 45°. Ils sont au nombre de rang*8
+ * Repérage de A1 à Hn où n est le rang.
  */
 function CibleRonde({x=0,y=0,rang=3,num,taille=0.3}) {
   ObjetMathalea2D.call(this);
