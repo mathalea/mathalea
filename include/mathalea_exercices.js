@@ -14138,7 +14138,7 @@ function Construire_un_triangle_avec_cible() {
   "use strict"
   Exercice.call(this)
   this.titre = "Construire un triangle avec cible auto-corrective";
-  this.nb_questions = 3;
+  this.nb_questions = 4;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
   this.sup = false;
@@ -14153,7 +14153,7 @@ function Construire_un_triangle_avec_cible() {
 
     let type_de_questions_disponibles, cible, cellule, result, A, B, C, CC, lAB, lBC, lAC, cA, cB, T, TT, dBC,dAC, dAB, objets_enonceml, objets_enonce, objets_correction, params_enonceml, params_enonce, params_correction, nom, sommets
     if (this.classe == 6) type_de_questions_disponibles = [1, 2]
-    else type_de_questions_disponibles = [1, 2, 3]
+    else type_de_questions_disponibles = [1, 2, 3,4]
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
     for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
       objets_enonce = []
@@ -14217,7 +14217,7 @@ function Construire_un_triangle_avec_cible() {
           B.positionLabel='right'
           dAB = droite(A, B)
           dAC=rotation(dAB,A,randint(8,14)*5)
-          dBC=rotation(dAB,B,-randint(6,12)*5)
+          dBC=rotation(dAB,B,-randint(8,12)*5)
           C=pointIntersectionDD(dAC,dBC,sommets[2])
           C.positionLabel='above'
           CC = point(C.x + randint(-5, 5, [-2, -1, 0, 1, 2]) / 10, C.y + randint(-5, 5, [-2, -1, 0, 1, 2]) / 10, sommets[2])
@@ -14225,8 +14225,8 @@ function Construire_un_triangle_avec_cible() {
           result = dansLaCibleRonde(C.x, C.y, 5, 0.3, cellule)
           cible = cibleRonde({ x: result[0], y: result[1], rang: 5, taille: 0.3 })
           objets_enonce.push(cible, segmentAvecExtremites(A, B), labelPoint(A, B))
-          objets_enonceml.push(codeAngle(B, A,CC,1.1),texteParPoint(nombre_avec_espace(Math.round(angle(B,A,C)))+`°`,similitude(B,A,27,0.1)), codeAngle(A, B,CC,1.1),texteParPoint(nombre_avec_espace(Math.round(angle(A,B,C)))+`°`,similitude(A,B,-22,0.1)))
-          objets_correction.push(cible,afficheMesureAngle(B, A,C,'black',2), afficheMesureAngle(A, B,C,'black',2))
+          objets_enonceml.push(codeAngle(B, A,CC,1.1),texteParPoint(nombre_avec_espace(Math.round(angle(B,A,C)))+`°`,similitude(B,A,angle(B,A,C)/2,1/lAB+0.1)), codeAngle(A, B,CC,1.1),texteParPoint(nombre_avec_espace(Math.round(angle(A,B,C)))+`°`,similitude(A,B,-angle(A,B,C)/2,1/lAB+0.1)))
+          objets_correction.push(cible,afficheLongueurSegment(B, A),afficheMesureAngle(B, A,C,'black',1), afficheMesureAngle(A, B,C,'black',1))
           texte_corr += `Pour cette construction, nous avons utilisé le rapporteur.<br>`
           texte_corr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
   
@@ -14234,6 +14234,22 @@ function Construire_un_triangle_avec_cible() {
     
 
           break
+          case 4:
+            lAB = calcul(randint(46, 60) / 10)
+            lAC = randint(40, 60) / 10
+            B = pointAdistance(A, lAB, randint(-45, 45), sommets[1],'right')
+            C=similitude(B,A,randint(8,24)*5,lAC/lAB,sommets[2],'above')
+            CC = point(C.x + randint(-5, 5, [-2, -1, 0, 1, 2]) / 10, C.y + randint(-5, 5, [-2, -1, 0, 1, 2]) / 10, sommets[2])
+            cellule = celluleAleaRonde(5)
+            result = dansLaCibleRonde(C.x, C.y, 5, 0.3, cellule)
+            cible = cibleRonde({ x: result[0], y: result[1], rang: 5, taille: 0.3 })
+            objets_enonce.push(cible, segmentAvecExtremites(A, B), labelPoint(A, B))
+            objets_enonceml.push(codeAngle(B, A,CC,1.1),afficheLongueurSegment(B, A),texteParPoint(nombre_avec_espace(Math.round(angle(B,A,C)))+`°`,similitude(B,A,angle(B,A,C)/2,1/lAB+0.1)),afficheLongueurSegment(A, C, 'black', 1) )
+            objets_correction.push(cible,afficheLongueurSegment(B, A),afficheMesureAngle(B, A,C,'black',1), afficheLongueurSegment(A, C, 'black', 1))
+            texte_corr += `Pour cette construction, nous avons utilisé le rapporteur et la règle graduée.<br>`
+            texte_corr += `Le point ${sommets[2]} se trouve dans le secteur ${cellule}.<br>`
+               
+          
       }
       T = polygoneAvecNom(A, B, C)
       TT = polygoneAvecNom(A, B, CC)
