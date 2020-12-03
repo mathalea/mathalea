@@ -9777,9 +9777,9 @@ function Nombre_a_placer() {
   Exercice.call(this)
   this.nb_cols = 1
   this.sup = 1
-  this.sup2 ="2,5"
+  this.sup2 =2.573
   this.sup3 = false
-  this.titre = "Droites graduées avec zoom"
+  this.titre = "Placer un nombre décimal avec des zooms successifs"
   this.pas_de_version_LaTeX=true
 
   this.nouvelle_version = function () {
@@ -9788,7 +9788,7 @@ function Nombre_a_placer() {
     let x1 = 0, x2 = 0, x3 = 0, objets = [], fenetre, thickOff = 0
       noms = choisit_lettres_differentes(5, 'QFN')
       objets.length = 0
-          x1 = parseFloat(this.sup2.toString().replace(',','.'))
+          x1 = parseFloat(this.sup2)
           x1=arrondi(x1,3)
         x2 = troncature(x1, 1)
         x21 = troncature(x1, 2)
@@ -9850,7 +9850,7 @@ function Nombre_a_placer() {
     
   };
   this.besoin_formulaire_numerique = ['Nombre de zoom', 3, '1 : sans zoom\n2 : zoom des centièmes\n3 : zoom des millièmes'];
-  this.besoin_formulaire2_numerique = ['Saisissez votre nombre'];
+  this.besoin_formulaire2_numerique = ['Saisir le nombre décimal ',2.573]
   this.besoin_formulaire3_case_a_cocher = ['Afficher les abscisses']
 
 }
