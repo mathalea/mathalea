@@ -9850,7 +9850,7 @@ function Nombre_a_placer() {
     
   };
   this.besoin_formulaire_numerique = ['Nombre de zoom', 3, '1 : sans zoom\n2 : zoom des centièmes\n3 : zoom des millièmes'];
-  this.besoin_formulaire2_numerique = ['Saisir le nombre décimal ',2.573]
+  this.besoin_formulaire2_numerique = ['Saisir le nombre décimal ']
   this.besoin_formulaire3_case_a_cocher = ['Afficher les abscisses']
 
 }
