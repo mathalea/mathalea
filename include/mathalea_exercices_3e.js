@@ -7675,7 +7675,7 @@ function Construire_rotation_point_3e() {
 		let O = point(0, 0, 'O')
 		let marks = ['/', '//', '///', 'x', 'o', 'S', 'V']
 		let noms = choisit_lettres_differentes(nbpoints, 'QO', majuscule = true)
-		this.consigne = `Construire le symétrique des points $${noms[0]}$`
+		this.consigne = `Construire l'image des points $${noms[0]}$`
 		for (let i = 1; i < nbpoints - 1; i++) {
 			this.consigne += `, $${noms[i]}$`
 		}
