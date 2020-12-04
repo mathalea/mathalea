@@ -617,6 +617,7 @@ function filtreDictionnaire(dict,sub) {
 * @Auteur Rémi Angot
 */
 function combinaison_listes(liste,taille_minimale){
+	if (liste.length==0) return []
 	l = shuffle(liste);
 	while (l.length<taille_minimale){
 		l = l.concat(shuffle(liste))
