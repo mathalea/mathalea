@@ -1915,7 +1915,7 @@ function Somme_de_durees() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Additionner des durées";
   this.consigne = "Compléter les égalités suivantes";
-  this.sup = 1; // 2 niveaux de difficultés
+  this.sup = 2; // 2 niveaux de difficultés
   this.spacing = 2;
   this.nb_questions = 5;
   this.nb_cols_corr = 1;
@@ -1927,12 +1927,9 @@ function Somme_de_durees() {
     let type_de_questions;
 
     if (this.sup == 1) {
-      type_de_questions = combinaison_listes([1, 3], this.nb_questions);
+      type_de_questions = combinaison_listes([1], this.nb_questions);
     } else {
-      type_de_questions = combinaison_listes(
-        [1, 2, 3, 4, 5],
-        this.nb_questions
-      );
+      type_de_questions = combinaison_listes([1, 2, 3, 4, 5],this.nb_questions);
     }
     for (
       let i = 0, h1, h2, m1, m2, s1, s2, texte, texte_corr, cpt = 0;
@@ -2010,7 +2007,7 @@ function Somme_de_durees() {
     }
     liste_de_question_to_contenu(this);
   };
-  this.besoin_formulaire_numerique = ["Niveau de difficulté", 2]; //"1 : Additions simples\n2 : Additions avec d'��ventuelles conversions"]
+  this.besoin_formulaire_numerique = ["Niveau de difficulté", 2, "1 : Additions simples (somme des secondes inférieure à 60)\n2 : Additions avec d'éventuelles conversions"]
 }
 
 /**
