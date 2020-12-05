@@ -14801,14 +14801,18 @@ function Exercice_labyrinthe_multiples() {
       objets.push(segment(point(-3,4),point(0,4)))
 
 
+let monchemin=chemins[i],trouve
 
       switch (liste_type_de_questions[0]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
           case 1 : // Multiple de 9
+        
           for (let a=1;a<7;a++){
             for (let b=0;b<3;b++){
-              if (chemins[i].indexOf([a,b])==-1) nombres[a-1][b]=randint(2,10)*9+randint(1,8)
+              trouve=false
+              for (let k=0;k<monchemin.length;k++)
+                if (monchemin[k][0]==a&&monchemin[k][1]==b) trouve=true
+              if (!trouve) nombres[a-1][b]=randint(2,10)*9+randint(1,8)
               else nombres[a-1][b]=randint(2,13)*9
-              console.log(a,b,chemins[i].indexOf([a,b]))
               objets.push(texteParPoint(nombre_avec_espace(nombres[a-1][b]),point(-1.5+a*3,2.5+b*3)))
             }
           }
