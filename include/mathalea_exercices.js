@@ -14696,15 +14696,12 @@ function Exercice_labyrinthe_multiples() {
   this.nb_cols_corr = 1;
   this.pas_de_version_LaTeX=false
   this.pas_de_version_HMTL=false 
-  this.liste_corrections=[]
-  this.liste_questions=[]
+
  this.sup = 1; // A décommenter : valeur par défaut d'un premier paramètre
 //  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
 //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
 
   this.nouvelle_version = function (numero_de_l_exercice) {
-
-
     let chemins =[[[1,0],[2,0],[3,0],[4,0],[5,0],[6,0]],
     [[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[6,1]],
     [[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[6,2]],
@@ -14732,10 +14729,15 @@ function Exercice_labyrinthe_multiples() {
     [[1,0],[1,1],[1,2],[2,2],[3,2],[4,2],[5,2],[6,2]]]
   
     let objets=[],s1,s2,s3,s4,s5,couleur='blue',i,x=0,y=0,nombres,chemin2d=[],params,texte,texte_corr
-    nombres=[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]]
+
+
+    nombres=[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]] // On initialise le tableau
+    this.liste_corrections=[]
+    this.liste_questions=[]
     texte = `` 
     texte_corr = `` 
     i =randint(0,24) // on choisit le chemin
+
     // On crée le chemin de correction
     for (let j=0;j<chemins[i].length;j++) {
       chemin2d.push(segment(point(x*3-1.5,y*3+2.5),point(chemins[i][j][0]*3-1.5,chemins[i][j][1]*3+2.5),couleur))
@@ -14747,7 +14749,7 @@ function Exercice_labyrinthe_multiples() {
     let type_de_questions_disponibles,liste_type_de_questions
     if(this.sup==1) type_de_questions_disponibles = [1]
     else type_de_questions_disponibles = [1, 2, 3,4]
-    liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
+    liste_type_de_questions =  combinaison_listes(type_de_questions_disponibles, this.nb_questions)
 
     // Construction du labyrinthe
     for (let i=0;i<6;i++){
@@ -14795,18 +14797,15 @@ function Exercice_labyrinthe_multiples() {
       s1.styleExtremites='-|'
       s2=segment(point(18,2),point(20,2))
       s2.styleExtremites='-|'
-    objets.push(s1,s2)
+      objets.push(s1,s2)
       objets.push(segment(point(-3,1),point(0,1)))
       objets.push(segment(point(-3,1),point(-3,4)))
       objets.push(segment(point(-3,4),point(0,4)))
-
-
-let monchemin=chemins[i],trouve
-
+      let monchemin=chemins[i],trouve
+      
       switch (liste_type_de_questions[0]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
           case 1 : // Multiple de 9
-        
-          for (let a=1;a<7;a++){
+            for (let a=1;a<7;a++){
             for (let b=0;b<3;b++){
               trouve=false
               for (let k=0;k<monchemin.length;k++)
@@ -14829,18 +14828,18 @@ let monchemin=chemins[i],trouve
         case 4:
         
         break  
-          
-      }
+        }   
 
       params = { xmin:-4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 1}
       texte += mathalea2d(params, objets)
 // On ajoute au texte de la correction, la figure de la correction
       texte_corr += mathalea2d(params, objets,chemin2d)
+
       this.liste_questions.push(texte);
       this.liste_corrections.push(texte_corr);
-
+     
     liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
-  };
+  }  
 // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
 // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
 // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
