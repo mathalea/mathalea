@@ -30,6 +30,7 @@ var liste_des_exercices_disponibles = {
   "6Algo10": Colorier_Deplacement,
   "6C10": Additions_soustractions_multiplications_posees,
   "6C11": Divisions_euclidiennes,
+  "beta6C11-1" : Exercice_labyrinthe_multiples,
   "6C10-1": Tables_de_multiplications,
   "6C10-2": Exercice_tables_de_multiplications_et_multiples_de_10,
   "6C10-3": Exercice_tables_de_multiplications_et_decimaux,
@@ -14673,6 +14674,167 @@ liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this
       }
       cpt++;
     }
+    liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
+  };
+// Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
+// Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
+// Il sont associés respectivement aux paramètres sup, sup2 et sup3.
+
+//	this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
+//  this.besoin_formulaire2_numerique = ["Type de cahier",3,`1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
+// this.besoin_formulaire3_case_a_cocher =['figure à main levée',true]
+
+} // Fin de l'exercice.
+
+function Exercice_labyrinthe_multiples() {
+  "use strict"
+  Exercice.call(this)
+  this.titre = "Labyrinthe de multiples de 9 (bugué)";
+  this.nb_questions = 1; 
+  this.nb_questions_modifiable=false
+  this.nb_cols = 1; 
+  this.nb_cols_corr = 1;
+  this.pas_de_version_LaTeX=false
+  this.pas_de_version_HMTL=false 
+  this.liste_corrections=[]
+  this.liste_questions=[]
+ this.sup = 1; // A décommenter : valeur par défaut d'un premier paramètre
+//  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
+//  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
+
+  this.nouvelle_version = function (numero_de_l_exercice) {
+
+
+    let chemins =[[[1,0],[2,0],[3,0],[4,0],[5,0],[6,0]],
+    [[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[6,1]],
+    [[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[6,2]],
+    [[1,0],[2,0],[3,0],[4,0],[4,1],[5,1],[6,1]],
+    [[1,0],[2,0],[3,0],[4,0],[4,1],[5,1],[5,2],[6,2]],
+    [[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[5,2],[6,2]],
+    [[1,0],[2,0],[3,0],[3,1],[4,1],[5,1],[5,2],[6,2]],
+    [[1,0],[2,0],[3,0],[3,1],[3,2],[4,2],[5,2],[6,2]],
+    [[1,0],[2,0],[2,1],[3,1],[4,1],[5,1],[6,1]],
+    [[1,0],[2,0],[2,1],[3,1],[4,1],[4,2],[5,2],[6,2]],
+    [[1,0],[2,0],[3,0],[3,1],[3,2],[4,2],[5,2],[5,1],[6,1]],
+    [[1,0],[2,0],[3,0],[3,1],[3,2],[4,2],[5,2],[5,1],[5,0],[6,0]],
+    [[1,0],[1,1],[2,1],[3,1],[4,1],[4,0],[5,0],[6,0]],
+    [[1,0],[1,1],[2,1],[3,1],[4,1],[5,1],[6,1]],
+    [[1,0],[1,1],[2,1],[3,1],[4,1],[5,1],[5,2],[6,2]],
+    [[1,0],[1,1],[2,1],[2,2],[3,2],[4,2],[4,1],[4,0],[5,0],[6,0]],
+    [[1,0],[1,1],[2,1],[2,2],[3,2],[4,2],[5,2],[5,1],[5,0],[6,0]],
+    [[1,0],[1,1],[2,1],[2,2],[3,2],[4,2],[5,2],[5,1],[6,1]],
+    [[1,0],[1,1],[2,1],[2,2],[3,2],[4,2],[5,2],[6,2]],
+    [[1,0],[1,1],[1,2],[2,2],[3,2],[3,1],[4,1],[5,1],[6,1]],
+    [[1,0],[1,1],[1,2],[2,2],[3,2],[3,1],[3,0],[4,0],[5,0],[5,1],[5,2],[6,2]],
+    [[1,0],[1,1],[1,2],[2,2],[3,2],[4,2],[4,1],[5,1],[6,1]],
+    [[1,0],[1,1],[1,2],[2,2],[3,2],[4,2],[4,1],[4,0],[5,0],[6,0]],
+    [[1,0],[1,1],[1,2],[2,2],[3,2],[3,1],[3,0],[4,0],[5,0],[5,1],[5,2],[6,2]],
+    [[1,0],[1,1],[1,2],[2,2],[3,2],[4,2],[5,2],[6,2]]]
+  
+    let objets=[],s1,s2,s3,s4,s5,couleur='blue',i,x=0,y=0,nombres,chemin2d=[],params,texte,texte_corr
+    nombres=[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]]
+    texte = `` 
+    texte_corr = `` 
+    i =randint(0,24) // on choisit le chemin
+    // On crée le chemin de correction
+    for (let j=0;j<chemins[i].length;j++) {
+      chemin2d.push(segment(point(x*3-1.5,y*3+2.5),point(chemins[i][j][0]*3-1.5,chemins[i][j][1]*3+2.5),couleur))
+      x=chemins[i][j][0]
+      y=chemins[i][j][1]
+    }
+    chemin2d.push(segment(point(x*3-1.5,y*3+2.5),point(x*3+1.5,y*3+2.5),couleur))
+    // On place les nombres corrects le long du chemin et d'autres nombres en dehors.
+    let type_de_questions_disponibles,liste_type_de_questions
+    if(this.sup==1) type_de_questions_disponibles = [1]
+    else type_de_questions_disponibles = [1, 2, 3,4]
+    liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
+
+    // Construction du labyrinthe
+    for (let i=0;i<6;i++){
+      s1=segment(point(i*3,1),point(i*3,2))
+      s1.styleExtremites='-|'
+      if (i>0) {s2=segment(point(i*3,10),point(i*3,9))
+            s2.styleExtremites='-|'
+                objets.push(s2)
+      }
+      objets.push(s1)
+    }
+    for (let i=1;i<6;i++){
+      s1=segment(point(i*3,8),point(i*3,6))
+      s1.styleExtremites='|-|'
+      s2=segment(point(i*3-0.5,7),point(i*3+0.5,7))
+      s2.styleExtremites='|-|'
+      s3=segment(point(i*3,5),point(i*3,3))
+      s3.styleExtremites='|-|'
+      s4=segment(point(i*3-0.5,4),point(i*3+0.5,4))
+      s4.styleExtremites='|-|'
+      objets.push(s2,s3,s4,s1)
+    }
+    objets.push(segment(point(18,9),point(18,10)))
+    objets.push(segment(point(0,1),point(18,1)))
+    objets.push(segment(point(18,9),point(18,10)))
+    objets.push(segment(point(18,9),point(18,10)))
+    objets.push(segment(point(0,10),point(18,10)))
+    objets.push(segment(point(18,1),point(18,2)))
+    s1=segment(point(0,10),point(0,3))
+    s1.styleExtremites='-|'
+    objets.push(s1)
+    for (let i=0;i<2;i++){
+      s1=segment(point(18,6-i*3),point(20,6-i*3))
+      s1.styleExtremites='-|'
+      s2=segment(point(18,7-i*3),point(17,7-i*3))
+      s2.styleExtremites='-|'
+      s3=segment(point(18,8-i*3),point(20,8-i*3))
+      s3.styleExtremites='-|'
+      s4=segment(point(18,8-i*3),point(18,6-i*3))
+      s5=segment(point(0,7-i*3),point(1,7-i*3))
+      s5.styleExtremites='-|' 
+      objets.push(s1,s2,s3,s4,s5)
+    }
+      s1=segment(point(18,9),point(20,9))
+      s1.styleExtremites='-|'
+      s2=segment(point(18,2),point(20,2))
+      s2.styleExtremites='-|'
+    objets.push(s1,s2)
+      objets.push(segment(point(-3,1),point(0,1)))
+      objets.push(segment(point(-3,1),point(-3,4)))
+      objets.push(segment(point(-3,4),point(0,4)))
+
+
+
+      switch (liste_type_de_questions[0]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
+          case 1 : // Multiple de 9
+          for (let a=1;a<7;a++){
+            for (let b=0;b<3;b++){
+              if (chemins[i].indexOf([a,b])==-1) nombres[a-1][b]=randint(2,10)*9+randint(1,8)
+              else nombres[a-1][b]=randint(2,13)*9
+              console.log(a,b,chemins[i].indexOf([a,b]))
+              objets.push(texteParPoint(nombre_avec_espace(nombres[a-1][b]),point(-1.5+a*3,2.5+b*3)))
+            }
+          }
+        break;
+
+        case 2:
+          // Idem Cas1 mais avec d'autres texte, texte_corr...
+        break
+
+        case 3:
+          
+        break
+          
+        case 4:
+        
+        break  
+          
+      }
+
+      params = { xmin:-4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 1}
+      texte += mathalea2d(params, objets)
+// On ajoute au texte de la correction, la figure de la correction
+      texte_corr += mathalea2d(params, objets,chemin2d)
+      this.liste_questions.push(texte);
+      this.liste_corrections.push(texte_corr);
+
     liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
   };
 // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
