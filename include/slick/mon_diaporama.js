@@ -110,6 +110,10 @@ function liste_de_question_to_contenu(argument) {
         argument.contenu = html_div(argument.liste_questions)
         argument.contenu_correction = html_enumerate(argument.liste_corrections)
 }
+function liste_de_question_to_contenu_sans_numero(argument) {
+        argument.contenu = html_div(argument.liste_questions)
+        argument.contenu_correction = html_enumerate(argument.liste_corrections)
+}
 
 function html_div(liste){
     let result =`<section class="slider single-item" id="diaporama">`

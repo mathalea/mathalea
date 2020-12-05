@@ -493,7 +493,7 @@ function mise_a_jour_du_code(){
 	// ajout du numéro de l'exercice dans l'URL
 	if (liste_des_exercices.length>0) {
 		let fin_de_l_URL = ""
-		if (sortie_html) {
+		if (sortie_html && window.location.pathname.indexOf('exo.html')<0) {
 			fin_de_l_URL+="exercice.html"	
 		}
 		if (exercice[0].sup2){
