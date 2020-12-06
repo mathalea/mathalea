@@ -14696,9 +14696,12 @@ function Exercice_labyrinthe_multiples() {
   this.nb_cols_corr = 1;
   this.pas_de_version_LaTeX=false
   this.pas_de_version_HMTL=false 
-
- this.sup = 1; // A décommenter : valeur par défaut d'un premier paramètre
-//  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
+  this.sup3 =1
+ this.sup = 9; 
+ if (this.niveau='CM')
+  this.sup2 = 10; 
+  else
+  this.sup2 = 13;
 //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
 
   this.nouvelle_version = function (numero_de_l_exercice) {
@@ -14727,91 +14730,157 @@ function Exercice_labyrinthe_multiples() {
     [[1,0],[1,1],[1,2],[2,2],[3,2],[4,2],[4,1],[4,0],[5,0],[6,0]],
     [[1,0],[1,1],[1,2],[2,2],[3,2],[3,1],[3,0],[4,0],[5,0],[5,1],[5,2],[6,2]],
     [[1,0],[1,1],[1,2],[2,2],[3,2],[4,2],[5,2],[6,2]]]
-  
-    let objets=[],s1,s2,s3,s4,s5,couleur='blue',i,x=0,y=0,nombres,chemin2d=[],params,texte,texte_corr
-
+    let cheminsB=[],elementchemin
+    let choix = choice(['A', 'B'])
+    for (let i=0;i<25;i++) {
+      elementchemin=[]
+      for (let j=0;j<chemins[i].length;j++){
+        elementchemin.push([chemins[i][j][0],2-chemins[i][j][1]])
+      }
+      cheminsB.push(elementchemin)
+    }
+    
+    let objets=[],s1,s2,s3,s4,s5,couleur='blue',i,x=0,y=0,nombres,chemin2d=[],cheminB2d=[],params,texte,texte_corr
+    let objetsB=[]
 
     nombres=[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]] // On initialise le tableau
     this.liste_corrections=[]
     this.liste_questions=[]
     texte = `` 
     texte_corr = `` 
-    i =randint(0,24) // on choisit le chemin
+    let choixchemin =randint(0,24) // on choisit le chemin
+
+    let monchemin,trouve
+    if (choix=='A') 
+      monchemin=chemins[choixchemin]
+    else
+      monchemin=cheminsB[choixchemin]
 
     // On crée le chemin de correction
-    for (let j=0;j<chemins[i].length;j++) {
-      chemin2d.push(segment(point(x*3-1.5,y*3+2.5),point(chemins[i][j][0]*3-1.5,chemins[i][j][1]*3+2.5),couleur))
-      x=chemins[i][j][0]
-      y=chemins[i][j][1]
+    if (choix=='B') {
+      y=2
     }
+    for (let j=0;j<monchemin.length;j++) {
+      chemin2d.push(segment(point(x*3-1.5,y*3+2.5),point(monchemin[j][0]*3-1.5,monchemin[j][1]*3+2.5),couleur))
+      x=monchemin[j][0]
+      y=monchemin[j][1]
+    }
+
+
     chemin2d.push(segment(point(x*3-1.5,y*3+2.5),point(x*3+1.5,y*3+2.5),couleur))
     // On place les nombres corrects le long du chemin et d'autres nombres en dehors.
     let type_de_questions_disponibles,liste_type_de_questions
-    if(this.sup==1) type_de_questions_disponibles = [1]
+    if(this.sup3==1) type_de_questions_disponibles = [1]
     else type_de_questions_disponibles = [1, 2, 3,4]
     liste_type_de_questions =  combinaison_listes(type_de_questions_disponibles, this.nb_questions)
 
     // Construction du labyrinthe
-    for (let i=0;i<6;i++){
-      s1=segment(point(i*3,1),point(i*3,2))
-      s1.styleExtremites='-|'
-      if (i>0) {s2=segment(point(i*3,10),point(i*3,9))
-            s2.styleExtremites='-|'
-                objets.push(s2)
+
+    for (let i = 0; i < 6; i++) {
+      // éléments symétriques pour A et B
+      if (choix == 'A') {
+        // T inférieurs
+        s1 = segment(point(i * 3, 1), point(i * 3, 2))
+        s1.styleExtremites = '-|'
+        objets.push(s1)
+
+        // T supérieurs
+        if (i > 0) {
+          s2 = segment(point(i * 3, 10), point(i * 3, 9))
+          s2.styleExtremites = '-|'
+          objets.push(s2)
+        }
       }
-      objets.push(s1)
+      else {
+        // T supérieurs
+        s1 = segment(point(i * 3, 10), point(i * 3, 9))
+        s1.styleExtremites = '-|'
+        objets.push(s1)
+
+        // T inférieurs
+        if (i > 0) {
+          s2 = segment(point(i * 3, 1), point(i * 3, 2))
+          s2.styleExtremites = '-|'
+          objets.push(s2)
+        }
+      }
     }
-    for (let i=1;i<6;i++){
-      s1=segment(point(i*3,8),point(i*3,6))
-      s1.styleExtremites='|-|'
-      s2=segment(point(i*3-0.5,7),point(i*3+0.5,7))
-      s2.styleExtremites='|-|'
-      s3=segment(point(i*3,5),point(i*3,3))
-      s3.styleExtremites='|-|'
-      s4=segment(point(i*3-0.5,4),point(i*3+0.5,4))
-      s4.styleExtremites='|-|'
-      objets.push(s2,s3,s4,s1)
+    if (choix=='A') // éléments uniques symétriques
+    {
+            //bord gauche
+            s1 = segment(point(0, 10), point(0, 3))
+            s1.styleExtremites = '-|'
+            objets.push(s1)
+            // case départ
+            objets.push(segment(point(-3, 1), point(0, 1)))
+            objets.push(segment(point(-3, 1), point(-3, 4)))
+            objets.push(segment(point(-3, 4), point(0, 4)))
+            objets.push(texteParPoint(`Départ`,point(-1.5,2.5)))
     }
-    objets.push(segment(point(18,9),point(18,10)))
-    objets.push(segment(point(0,1),point(18,1)))
-    objets.push(segment(point(18,9),point(18,10)))
-    objets.push(segment(point(18,9),point(18,10)))
-    objets.push(segment(point(0,10),point(18,10)))
-    objets.push(segment(point(18,1),point(18,2)))
-    s1=segment(point(0,10),point(0,3))
-    s1.styleExtremites='-|'
-    objets.push(s1)
-    for (let i=0;i<2;i++){
-      s1=segment(point(18,6-i*3),point(20,6-i*3))
-      s1.styleExtremites='-|'
-      s2=segment(point(18,7-i*3),point(17,7-i*3))
-      s2.styleExtremites='-|'
-      s3=segment(point(18,8-i*3),point(20,8-i*3))
-      s3.styleExtremites='-|'
-      s4=segment(point(18,8-i*3),point(18,6-i*3))
-      s5=segment(point(0,7-i*3),point(1,7-i*3))
-      s5.styleExtremites='-|' 
-      objets.push(s1,s2,s3,s4,s5)
+    else {
+              // bord gauche
+              s1 = segment(point(0, 1), point(0, 8))
+              s1.styleExtremites = '-|'
+              objets.push(s1)
+              // case départ
+              objets.push(segment(point(-3, 10), point(0, 10)))
+              objets.push(segment(point(-3, 10), point(-3, 7)))
+              objets.push(segment(point(-3, 7), point(0, 7)))
+              objets.push(texteParPoint(`Départ`,point(-1.5,8.5)))
     }
-      s1=segment(point(18,9),point(20,9))
-      s1.styleExtremites='-|'
-      s2=segment(point(18,2),point(20,2))
-      s2.styleExtremites='-|'
-      objets.push(s1,s2)
-      objets.push(segment(point(-3,1),point(0,1)))
-      objets.push(segment(point(-3,1),point(-3,4)))
-      objets.push(segment(point(-3,4),point(0,4)))
-      let monchemin=chemins[i],trouve
+
+    // les croix centrales communes à A et B
+    for (let i = 1; i < 6; i++) {
+      s1 = segment(point(i * 3, 8), point(i * 3, 6))
+      s1.styleExtremites = '|-|'
+      s2 = segment(point(i * 3 - 0.5, 7), point(i * 3 + 0.5, 7))
+      s2.styleExtremites = '|-|'
+      s3 = segment(point(i * 3, 5), point(i * 3, 3))
+      s3.styleExtremites = '|-|'
+      s4 = segment(point(i * 3 - 0.5, 4), point(i * 3 + 0.5, 4))
+      s4.styleExtremites = '|-|'
+      objets.push(s2, s3, s4, s1)
+    }
+    // le pourtour commun à A et B
+    objets.push(segment(point(18, 9), point(18, 10)))
+    objets.push(segment(point(0, 10), point(18, 10)))
+    objets.push(segment(point(18, 9), point(18, 10)))
+    objets.push(segment(point(18, 1), point(18, 2)))
+    objets.push(segment(point(0, 1), point(18, 1)))
+    // les sorties communes à A et B
+    for (let i = 0; i < 2; i++) {
+      s1 = segment(point(18, 6 - i * 3), point(20, 6 - i * 3))
+      s1.styleExtremites = '-|'
+      s2 = segment(point(18, 7 - i * 3), point(17, 7 - i * 3))
+      s2.styleExtremites = '-|'
+      s3 = segment(point(18, 8 - i * 3), point(20, 8 - i * 3))
+      s3.styleExtremites = '-|'
+      s4 = segment(point(18, 8 - i * 3), point(18, 6 - i * 3))
+      s5 = segment(point(0, 7 - i * 3), point(1, 7 - i * 3))
+      s5.styleExtremites = '-|'
+      objets.push(s1, s2, s3, s4, s5)
+    }
+    for (let i=1;i<=3;i++) {
+      objets.push(texteParPoint(`Sortie ${i}`,point(19,11.5-3*i)))
+    }
+    s1 = segment(point(18, 9), point(20, 9))
+    s1.styleExtremites = '-|'
+    s2 = segment(point(18, 2), point(20, 2))
+    s2.styleExtremites = '-|'
+    objets.push(s1, s2)
       
       switch (liste_type_de_questions[0]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
-          case 1 : // Multiple de 9
+          case 1 : // Multiple de this.sup
+            let table=parseInt(this.sup)
+            console.log(table)
+            let maximum=parseInt(this.sup2)
             for (let a=1;a<7;a++){
             for (let b=0;b<3;b++){
               trouve=false
               for (let k=0;k<monchemin.length;k++)
                 if (monchemin[k][0]==a&&monchemin[k][1]==b) trouve=true
-              if (!trouve) nombres[a-1][b]=randint(2,10)*9+randint(1,8)
-              else nombres[a-1][b]=randint(2,13)*9
+              if (!trouve) nombres[a-1][b]=randint(2,maximum)*table+randint(1,table-1)
+              else nombres[a-1][b]=randint(2,maximum)*table
               objets.push(texteParPoint(nombre_avec_espace(nombres[a-1][b]),point(-1.5+a*3,2.5+b*3)))
             }
           }
@@ -14844,8 +14913,8 @@ function Exercice_labyrinthe_multiples() {
 // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
 // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
 
-//	this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
-//  this.besoin_formulaire2_numerique = ["Type de cahier",3,`1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
+  this.besoin_formulaire_numerique = ["Table "]
+  this.besoin_formulaire2_numerique = ["Multiple maximum "];
 // this.besoin_formulaire3_case_a_cocher =['figure à main levée',true]
 
 } // Fin de l'exercice.
