@@ -14701,7 +14701,7 @@ function Exercice_labyrinthe_multiplesCM() {
 function Exercice_labyrinthe_multiples() {
   "use strict"
   Exercice.call(this)
-  this.titre = "Labyrinthe de multiples de 9 (bugué)";
+  this.titre = "Labyrinthe de multiples";
   this.niveau='6e'
   this.nb_questions = 1; 
   this.nb_questions_modifiable=false
