@@ -757,7 +757,7 @@ function Droite(arg1, arg2, arg3, arg4, color) {
     let B = point(this.x2, this.y2);
     let A1 = pointSurSegment(A, B, -50);
     let B1 = pointSurSegment(B, A, -50);
-    if (typeof(leNom)=='undefined')
+    if (this.nom =="")
        return `<line x1="${A1.xSVG(coeff)}" y1="${A1.ySVG(coeff)}" x2="${B1.xSVG(
       coeff
     )}" y2="${B1.ySVG(coeff)}" stroke="${this.color}" ${this.style} id ="${this.id}" />`;
@@ -803,7 +803,8 @@ function Droite(arg1, arg2, arg3, arg4, color) {
     let B = point(this.x2, this.y2);
     let A1 = pointSurSegment(A, B, -10);
     let B1 = pointSurSegment(B, A, -10);
-    if (typeof(leNom!='undefined'))
+
+    if (this.nom!="")
         return `\\draw${optionsDraw} (${A1.x},${A1.y})--(${B1.x},${B1.y});`+leNom.tikz();
     else 
          return `\\draw${optionsDraw} (${A1.x},${A1.y})--(${B1.x},${B1.y});`;
