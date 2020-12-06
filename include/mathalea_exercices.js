@@ -14601,7 +14601,7 @@ function Exercice_constructions_basiques() {
 /* Un exemple ci-dessous : si la classe est 6, alors les types dispo sont 1 et 2 sinon , 1,2,3 et 4.
 if (this.classe == 6) type_de_questions_disponibles = [1, 2]
     else type_de_questions_disponibles = [1, 2, 3,4]
-liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
+liste_type_de_questions = combin,aison_listes(type_de_questions_disponibles, this.nb_questions)
 */
 // boucle pour fabriquer les nb_questions questions en s'assurant que si il n'y a pas nb_questions différentes
 // La boucle s'arrête après 50 tentatives.
@@ -14635,7 +14635,7 @@ liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this
 
           objets_enonce.push (traces1,labels1) 
           objets_enonceml.push(traces2,labels2,kare,aA,aB,aC,aD)
-          objets_correction.push(traces2,labels2,kare,aA,aB,aC,aD)
+          objets_correction.p,ush(traces2,labels2,kare,aA,aB,aC,aD)
           //ici sont créés les texte, tex_corr, objets mathalea2d divers entrant dans le contenu de l'exercice
         break;
 
@@ -14709,43 +14709,42 @@ function Exercice_labyrinthe_multiples() {
   this.nb_cols_corr = 1;
   this.pas_de_version_LaTeX=false
   this.pas_de_version_HMTL=false 
-  this.sup3 =1
+  this.sup3 =3
  this.sup = 9; 
  if (this.niveau='CM')
   this.sup2 = 10; 
   else
   this.sup2 = 13;
-//  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
 
   this.nouvelle_version = function (numero_de_l_exercice) {
-    let chemins =[[[1,0],[2,0],[3,0],[4,0],[5,0],[6,0]],
+    let chemins =[
     [[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[6,1]],
-    [[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[6,2]],
     [[1,0],[2,0],[3,0],[4,0],[4,1],[5,1],[6,1]],
+    [[1,0],[2,0],[2,1],[3,1],[4,1],[5,1],[6,1]],
+    [[1,0],[1,1],[2,1],[3,1],[4,1],[5,1],[6,1]],
+    [[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[6,2]],
     [[1,0],[2,0],[3,0],[4,0],[4,1],[5,1],[5,2],[6,2]],
     [[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[5,2],[6,2]],
     [[1,0],[2,0],[3,0],[3,1],[4,1],[5,1],[5,2],[6,2]],
     [[1,0],[2,0],[3,0],[3,1],[3,2],[4,2],[5,2],[6,2]],
-    [[1,0],[2,0],[2,1],[3,1],[4,1],[5,1],[6,1]],
     [[1,0],[2,0],[2,1],[3,1],[4,1],[4,2],[5,2],[6,2]],
-    [[1,0],[2,0],[3,0],[3,1],[3,2],[4,2],[5,2],[5,1],[6,1]],
-    [[1,0],[2,0],[3,0],[3,1],[3,2],[4,2],[5,2],[5,1],[5,0],[6,0]],
+    [[1,0],[1,1],[2,1],[2,2],[3,2],[4,2],[5,2],[6,2]],
     [[1,0],[1,1],[2,1],[3,1],[4,1],[4,0],[5,0],[6,0]],
-    [[1,0],[1,1],[2,1],[3,1],[4,1],[5,1],[6,1]],
     [[1,0],[1,1],[2,1],[3,1],[4,1],[5,1],[5,2],[6,2]],
+    [[1,0],[1,1],[1,2],[2,2],[3,2],[4,2],[5,2],[6,2]],
+    [[1,0],[1,1],[2,1],[2,2],[3,2],[4,2],[5,2],[5,1],[6,1]],
+    [[1,0],[2,0],[3,0],[3,1],[3,2],[4,2],[5,2],[5,1],[6,1]],
+    [[1,0],[1,1],[1,2],[2,2],[3,2],[3,1],[4,1],[5,1],[6,1]],
+    [[1,0],[1,1],[1,2],[2,2],[3,2],[4,2],[4,1],[5,1],[6,1]],
+    [[1,0],[2,0],[3,0],[3,1],[3,2],[4,2],[5,2],[5,1],[5,0],[6,0]],
     [[1,0],[1,1],[2,1],[2,2],[3,2],[4,2],[4,1],[4,0],[5,0],[6,0]],
     [[1,0],[1,1],[2,1],[2,2],[3,2],[4,2],[5,2],[5,1],[5,0],[6,0]],
-    [[1,0],[1,1],[2,1],[2,2],[3,2],[4,2],[5,2],[5,1],[6,1]],
-    [[1,0],[1,1],[2,1],[2,2],[3,2],[4,2],[5,2],[6,2]],
-    [[1,0],[1,1],[1,2],[2,2],[3,2],[3,1],[4,1],[5,1],[6,1]],
-    [[1,0],[1,1],[1,2],[2,2],[3,2],[3,1],[3,0],[4,0],[5,0],[5,1],[5,2],[6,2]],
-    [[1,0],[1,1],[1,2],[2,2],[3,2],[4,2],[4,1],[5,1],[6,1]],
     [[1,0],[1,1],[1,2],[2,2],[3,2],[4,2],[4,1],[4,0],[5,0],[6,0]],
     [[1,0],[1,1],[1,2],[2,2],[3,2],[3,1],[3,0],[4,0],[5,0],[5,1],[5,2],[6,2]],
-    [[1,0],[1,1],[1,2],[2,2],[3,2],[4,2],[5,2],[6,2]]]
+    [[1,0],[1,1],[1,2],[2,2],[3,2],[3,1],[3,0],[4,0],[5,0],[5,1],[5,2],[6,2]]]
     let cheminsB=[],elementchemin
     let choix = choice(['A', 'B'])
-    for (let i=0;i<25;i++) {
+    for (let i=0;i<24;i++) {
       elementchemin=[]
       for (let j=0;j<chemins[i].length;j++){
         elementchemin.push([chemins[i][j][0],2-chemins[i][j][1]])
@@ -14760,7 +14759,22 @@ function Exercice_labyrinthe_multiples() {
     this.liste_questions=[]
     texte = `` 
     texte_corr = `` 
-    let choixchemin =randint(0,24) // on choisit le chemin
+    let choixchemin
+    switch (parseInt(this.sup3)) {
+      case 1 : choixchemin=randint(0,3)
+      break
+      case 2 : choixchemin=randint(4,13)
+      break
+      case 3 : choixchemin=randint(14,17)
+      break
+      case 4 : choixchemin=randint(18,21)
+      break
+      case 5 : choixchemin=randint(22,23)
+      break
+      case 6 : choixchemin=randint(0,23)
+      break
+ 
+    }  // on choisit le chemin
 
     let monchemin,trouve
     if (choix=='A') 
@@ -14791,9 +14805,6 @@ function Exercice_labyrinthe_multiples() {
     chemin2d.push(s1)
     // On place les nombres corrects le long du chemin et d'autres nombres en dehors.
     let type_de_questions_disponibles,liste_type_de_questions
-    if(this.sup3==1) type_de_questions_disponibles = [1]
-    else type_de_questions_disponibles = [1, 2, 3,4]
-    liste_type_de_questions =  combinaison_listes(type_de_questions_disponibles, this.nb_questions)
 
     // Construction du labyrinthe
 
@@ -14847,7 +14858,7 @@ function Exercice_labyrinthe_multiples() {
             s1=segment(point(-3, 4), point(0, 4),'green')
             s1.epaisseur=3
             objets.push(s1)
-            objets.push(texteParPoint(`Départ`,point(-1.5,2.5)))
+            objets.push(texteParPoint(`Départ`,point(-1.5,2.5),'milieu','blue',1.5,0,false))
     }
     else {
               // bord gauche
@@ -14865,7 +14876,7 @@ function Exercice_labyrinthe_multiples() {
               s1=segment(point(-3, 7), point(0, 7),'green')
               s1.epaisseur=3
               objets.push(s1)
-              objets.push(texteParPoint(`Départ`,point(-1.5,8.5)))
+              objets.push(texteParPoint(`Départ`,point(-1.5,8.5),'milieu','blue',1.5,0,false))
     }
 
     // les croix centrales communes à A et B
@@ -14919,7 +14930,7 @@ function Exercice_labyrinthe_multiples() {
       objets.push(s1, s2, s3, s4, s5)
     }
     for (let i=1;i<=3;i++) {
-      objets.push(texteParPoint(`Sortie ${i}`,point(19,11.5-3*i)))
+      objets.push(texteParPoint(`Sortie ${i}`,point(19.5,11.5-3*i),'milieu','blue',1.5,0,false))
     }
     s1 = segment(point(18, 9), point(20, 9))
     s1.epaisseur=3
@@ -14929,8 +14940,6 @@ function Exercice_labyrinthe_multiples() {
     //s2.styleExtremites = '-|'
     objets.push(s1, s2)
       
-      switch (liste_type_de_questions[0]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
-          case 1 : // Multiple de this.sup
             let table=parseInt(this.sup)
             this.consigne=`Trouve la sortie en ne passant que par les cases contenant un multiple de $${table}$.`
             let maximum=parseInt(this.sup2)
@@ -14941,24 +14950,10 @@ function Exercice_labyrinthe_multiples() {
                 if (monchemin[k][0]==a&&monchemin[k][1]==b) trouve=true
               if (!trouve) nombres[a-1][b]=randint(2,maximum)*table+randint(1,table-1)
               else nombres[a-1][b]=randint(2,maximum)*table
-              objets.push(texteParPoint(nombre_avec_espace(nombres[a-1][b]),point(-1.5+a*3,2.5+b*3)))
+              objets.push(texteParPoint(nombre_avec_espace(nombres[a-1][b]),point(-1.5+a*3,2.5+b*3),'milieu','black',1.5,0,true))
             }
           }
           texte_corr+=`${texte_en_couleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2-monchemin[monchemin.length-1][1]+1}$.`,'black')}<br>`
-        break;
-
-        case 2:
-          // Idem Cas1 mais avec d'autres texte, texte_corr...
-        break
-
-        case 3:
-          
-        break
-          
-        case 4:
-        
-        break  
-        }   
 
       params = { xmin:-4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 1}
       texte += mathalea2d(params, objets)
@@ -14976,7 +14971,7 @@ function Exercice_labyrinthe_multiples() {
 
   this.besoin_formulaire_numerique = ["Table "]
   this.besoin_formulaire2_numerique = ["Facteur maximum "];
-// this.besoin_formulaire3_case_a_cocher =['figure à main levée',true]
+   this.besoin_formulaire3_numerique =['Niveau de rapidité',6,'1 : Guépard\n 2 : Antilope\n 3 : Lièvre\n 4 : Tortue\n 5 : Escargot\n 6 : Au hasard']
 
 } // Fin de l'exercice.
 
