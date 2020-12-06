@@ -14711,10 +14711,15 @@ function Exercice_labyrinthe_multiples() {
   this.pas_de_version_HMTL=false 
   this.sup3 =3
  this.sup = 9; 
- if (this.niveau='CM')
+ if (this.niveau='CM') {
   this.sup2 = 10; 
-  else
+  this.sup3 = 3;
+ }
+
+  else {
   this.sup2 = 13;
+  this.sup3 = 4;
+  }
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     let chemins =[
