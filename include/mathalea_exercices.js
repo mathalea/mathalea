@@ -14870,7 +14870,7 @@ function Exercice_labyrinthe_multiples() {
               s1=segment(point(-3, 10), point(0, 10),'green')
               s1.epaisseur=3
               objets.push(s1)
-              s1=segment(point(-3, 7), point(-3, 7),'green')
+              s1=segment(point(-3, 7), point(-3, 10),'green')
               s1.epaisseur=3
               objets.push(s1)
               s1=segment(point(-3, 7), point(0, 7),'green')
@@ -14955,7 +14955,7 @@ function Exercice_labyrinthe_multiples() {
           }
           texte_corr+=`${texte_en_couleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2-monchemin[monchemin.length-1][1]+1}$.`,'black')}<br>`
 
-      params = { xmin:-4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 1}
+      params = { xmin:-4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.7}
       texte += mathalea2d(params, objets)
 // On ajoute au texte de la correction, la figure de la correction
       texte_corr += mathalea2d(params, objets,chemin2d)
