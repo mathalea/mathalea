@@ -15169,7 +15169,7 @@ function Proprietes_paralleles_perpendiculaires() {
       }
       // correction raisonnement ordonné
       fenetreMathalea2d = [-2, -2, 15, 10]
-      texte_corr = `À partir de l\'énoncé, on peut réaliser le shémas suivant (il en existe une infinité)<br> Les droites données parallèles dans l'énoncé sont de même couleur/style.<br>`
+      texte_corr = `À partir de l\'énoncé, on peut réaliser le shéma suivant (il en existe une infinité)<br> Les droites données parallèles dans l'énoncé sont de même couleur/style.<br>`
       texte_corr += mathalea2d({ xmin: -2, xmax: 15, ymin: -2, ymax: 10, pixelsParCm: 20, scale: 0.3, mainlevee: false, amplitude: 0.3 }, objets) + `<br>`
       for (let j = 0; j < code.length - 1; j++) {
         if (this.correction_detaillee) texte_corr += `On sait que : `
