@@ -14702,289 +14702,67 @@ function Exercice_labyrinthe_multiples() {
   "use strict"
   Exercice.call(this)
   this.titre = "Labyrinthe de multiples";
-  this.niveau='6e'
-  this.nb_questions = 1; 
-  this.nb_questions_modifiable=false
-  this.nb_cols = 1; 
+  this.niveau = '6e'
+  this.nb_questions = 1;
+  this.nb_questions_modifiable = false
+  this.nb_cols = 1;
   this.nb_cols_corr = 1;
-  this.pas_de_version_LaTeX=false
-  this.pas_de_version_HMTL=false 
-  this.sup3 =3
- this.sup = 9; 
- if (this.niveau='CM') {
-  this.sup2 = 10; 
-  this.sup3 = 3;
- }
-
-  else {
-  this.sup2 = 13;
-  this.sup3 = 4;
+  this.pas_de_version_LaTeX = false
+  this.pas_de_version_HMTL = false
+  this.sup3 = 3
+  this.sup = 9;
+  if (this.niveau = 'CM') {
+    this.sup2 = 10;
+    this.sup3 = 3;
   }
-
+  else {
+    this.sup2 = 13;
+    this.sup3 = 4;
+  }
   this.nouvelle_version = function (numero_de_l_exercice) {
-    let chemins =[
-    [[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[6,1]],
-    [[1,0],[2,0],[3,0],[4,0],[4,1],[5,1],[6,1]],
-    [[1,0],[2,0],[2,1],[3,1],[4,1],[5,1],[6,1]],
-    [[1,0],[1,1],[2,1],[3,1],[4,1],[5,1],[6,1]],
-    [[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[6,2]],
-    [[1,0],[2,0],[3,0],[4,0],[4,1],[5,1],[5,2],[6,2]],
-    [[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[5,2],[6,2]],
-    [[1,0],[2,0],[3,0],[3,1],[4,1],[5,1],[5,2],[6,2]],
-    [[1,0],[2,0],[3,0],[3,1],[3,2],[4,2],[5,2],[6,2]],
-    [[1,0],[2,0],[2,1],[3,1],[4,1],[4,2],[5,2],[6,2]],
-    [[1,0],[1,1],[2,1],[2,2],[3,2],[4,2],[5,2],[6,2]],
-    [[1,0],[1,1],[2,1],[3,1],[4,1],[4,0],[5,0],[6,0]],
-    [[1,0],[1,1],[2,1],[3,1],[4,1],[5,1],[5,2],[6,2]],
-    [[1,0],[1,1],[1,2],[2,2],[3,2],[4,2],[5,2],[6,2]],
-    [[1,0],[1,1],[2,1],[2,2],[3,2],[4,2],[5,2],[5,1],[6,1]],
-    [[1,0],[2,0],[3,0],[3,1],[3,2],[4,2],[5,2],[5,1],[6,1]],
-    [[1,0],[1,1],[1,2],[2,2],[3,2],[3,1],[4,1],[5,1],[6,1]],
-    [[1,0],[1,1],[1,2],[2,2],[3,2],[4,2],[4,1],[5,1],[6,1]],
-    [[1,0],[2,0],[3,0],[3,1],[3,2],[4,2],[5,2],[5,1],[5,0],[6,0]],
-    [[1,0],[1,1],[2,1],[2,2],[3,2],[4,2],[4,1],[4,0],[5,0],[6,0]],
-    [[1,0],[1,1],[2,1],[2,2],[3,2],[4,2],[5,2],[5,1],[5,0],[6,0]],
-    [[1,0],[1,1],[1,2],[2,2],[3,2],[4,2],[4,1],[4,0],[5,0],[6,0]],
-    [[1,0],[1,1],[1,2],[2,2],[3,2],[3,1],[3,0],[4,0],[5,0],[5,1],[5,2],[6,2]],
-    [[1,0],[1,1],[1,2],[2,2],[3,2],[3,1],[3,0],[4,0],[5,0],[5,1],[5,2],[6,2]]]
-    let cheminsB=[],elementchemin
-    let choix = choice(['A', 'B'])
-    for (let i=0;i<24;i++) {
-      elementchemin=[]
-      for (let j=0;j<chemins[i].length;j++){
-        elementchemin.push([chemins[i][j][0],2-chemins[i][j][1]])
-      }
-      cheminsB.push(elementchemin)
-    }
-    
-    let objets=[],s1,s2,s3,s4,s5,couleur='brown',i,x=0,y=0,nombres,chemin2d=[],cheminB2d=[],params,texte,texte_corr
+    let params, texte, texte_corr, trouve
+    let laby = labyrinthe()
+    laby.niveau = parseInt(this.sup3) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
+    laby.chemin = laby.choisiChemin(laby.niveau) // On choisi un chemin
+    laby.murs2d = laby.construitMurs(laby.chemin) // On construit le labyrinthe
+    laby.chemin2d = laby.traceChemin(laby.chemin) // On trace le chemin solution
+    let monchemin = laby.chemin
+    let table = parseInt(this.sup)
+    let maximum = parseInt(this.sup2)
 
-    nombres=[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]] // On initialise le tableau
-    this.liste_corrections=[]
-    this.liste_questions=[]
-    texte = `` 
-    texte_corr = `` 
-    let choixchemin
-    switch (parseInt(this.sup3)) {
-      case 1 : choixchemin=randint(0,3)
-      break
-      case 2 : choixchemin=randint(4,13)
-      break
-      case 3 : choixchemin=randint(14,17)
-      break
-      case 4 : choixchemin=randint(18,21)
-      break
-      case 5 : choixchemin=randint(22,23)
-      break
-      case 6 : choixchemin=randint(0,23)
-      break
- 
-    }  // on choisit le chemin
-
-    let monchemin,trouve
-    if (choix=='A') 
-      monchemin=chemins[choixchemin]
-    else
-      monchemin=cheminsB[choixchemin]
-
-    // On crée le chemin de correction
-    if (choix=='B') {
-      y=2
-    }
-    for (let j=0;j<monchemin.length;j++) {
-      s1=segment(point(x*3-1.5,y*3+2.5),point(monchemin[j][0]*3-1.5,monchemin[j][1]*3+2.5),couleur)
-      s1.pointilles=true
-      s1.stylePointilles=2
-      s1.epaisseur=5
-      s1.opacite=0.3
-      chemin2d.push(s1)
-      x=monchemin[j][0]
-      y=monchemin[j][1]
-    }
-
-    s1=segment(point(x*3-1.5,y*3+2.5),point(x*3+1.5,y*3+2.5),couleur)
-    s1.pointilles=true
-    s1.stylePointilles=2
-    s1.epaisseur=5
-    s1.opacite=0.3
-    chemin2d.push(s1)
-    // On place les nombres corrects le long du chemin et d'autres nombres en dehors.
-    let type_de_questions_disponibles,liste_type_de_questions
-
-    // Construction du labyrinthe
-
-    for (let i = 0; i < 6; i++) {
-      // éléments symétriques pour A et B
-      if (choix == 'A') {
-        // T inférieurs
-        s1 = segment(point(i * 3, 1), point(i * 3, 2))
-        s1.epaisseur=2
-        //s1.styleExtremites = '-'
-        objets.push(s1)
-
-        // T supérieurs
-        if (i > 0) {
-          s2 = segment(point(i * 3, 10), point(i * 3, 9))
-          s2.epaisseur=2
-          //s2.styleExtremites = '-|'
-          objets.push(s2)
+    this.consigne = `Trouve la sortie en ne passant que par les cases contenant un multiple de $${table}$.`
+    texte_corr = `${texte_en_couleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
+    // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
+    let listeMultiples = [], index = 0
+    for (let i = 2; i <= maximum; i++)
+      listeMultiples.push(table * i)
+    listeMultiples = combinaison_listes(listeMultiples, 12)
+    for (let a = 1; a < 7; a++) {
+      for (let b = 0; b < 3; b++) {
+        trouve = false
+        for (let k = 0; k < monchemin.length; k++)
+          if (monchemin[k][0] == a && monchemin[k][1] == b) trouve = true
+        if (!trouve) laby.nombres[a - 1][b] = randint(2, maximum) * table + randint(1, table - 1)
+        else {
+          laby.nombres[a - 1][b] = listeMultiples[index]
+          index++
         }
       }
-      else {
-        // T supérieurs
-        s1 = segment(point(i * 3, 10), point(i * 3, 9))
-        s1.epaisseur=2
-        // s1.styleExtremites = '-|'
-        objets.push(s1)
-
-        // T inférieurs
-        if (i > 0) {
-          s2 = segment(point(i * 3, 1), point(i * 3, 2))
-          s2.epaisseur=2
-          // s2.styleExtremites = '-|'
-          objets.push(s2)
-        }
-      }
-    }
-    if (choix=='A') // éléments uniques symétriques
-    {
-            //bord gauche
-            s1 = segment(point(0, 10), point(0, 3))
-            s1.epaisseur=3
-            //s1.styleExtremites = '-|'
-            objets.push(s1)
-            // case départ
-            s1=segment(point(-3, 1), point(0, 1),'green')
-            s1.epaisseur=3
-            objets.push(s1)
-            s1=segment(point(-3, 1), point(-3, 4),'green')
-            s1.epaisseur=3
-            objets.push(s1)
-            s1=segment(point(-3, 4), point(0, 4),'green')
-            s1.epaisseur=3
-            objets.push(s1)
-            objets.push(texteParPoint(`Départ`,point(-1.5,2.5),'milieu','blue',1.5,0,false))
-    }
-    else {
-              // bord gauche
-              s1 = segment(point(0, 1), point(0, 8))
-              s1.epaisseur=3
-              //s1.styleExtremites = '-|'
-              objets.push(s1)
-              // case départ
-              s1=segment(point(-3, 10), point(0, 10),'green')
-              s1.epaisseur=3
-              objets.push(s1)
-              s1=segment(point(-3, 7), point(-3, 10),'green')
-              s1.epaisseur=3
-              objets.push(s1)
-              s1=segment(point(-3, 7), point(0, 7),'green')
-              s1.epaisseur=3
-              objets.push(s1)
-              objets.push(texteParPoint(`Départ`,point(-1.5,8.5),'milieu','blue',1.5,0,false))
-    }
-
-    // les croix centrales communes à A et B
-    for (let i = 1; i < 6; i++) {
-      s1 = segment(point(i * 3, 8), point(i * 3, 6),'black')
-      s1.epaisseur=2
-      // s1.styleExtremites = '|-|'
-      s2 = segment(point(i * 3 - 0.5, 7), point(i * 3 + 0.5, 7),'black')
-      s2.epaisseur=2
-      // s2.styleExtremites = '|-|'
-      s3 = segment(point(i * 3, 5), point(i * 3, 3),'black')
-      s3.epaisseur=2
-      // s3.styleExtremites = '|-|'
-      s4 = segment(point(i * 3 - 0.5, 4), point(i * 3 + 0.5, 4),'black')
-      s4.epaisseur=2
-      // s4.styleExtremites = '|-|'
-      objets.push(s2, s3, s4, s1)
-    }
-    // le pourtour commun à A et B
-    s1=segment(point(18, 9), point(18, 10))
-    s1.epaisseur=3
-    objets.push(s1)
-    s1=segment(point(0, 10), point(18, 10))
-    s1.epaisseur=3
-    objets.push(s1)
-    s1=segment(point(18, 9), point(18, 10))
-    s1.epaisseur=3
-    objets.push(s1)
-    s1=segment(point(18, 1), point(18, 2))
-    s1.epaisseur=3
-    objets.push(s1)
-    s1=segment(point(0, 1), point(18, 1))
-    s1.epaisseur=3
-    objets.push(s1)
-    // les sorties communes à A et B
-    for (let i = 0; i < 2; i++) {
-      s1 = segment(point(18, 6 - i * 3), point(20, 6 - i * 3))
-      s1.epaisseur=3
-      // s1.styleExtremites = '-|'
-      s2 = segment(point(18, 7 - i * 3), point(17, 7 - i * 3))
-      s2.epaisseur=3
-      // s2.styleExtremites = '-|'
-      s3 = segment(point(18, 8 - i * 3), point(20, 8 - i * 3))
-      s3.epaisseur=3
-      // s3.styleExtremites = '-|'
-      s4 = segment(point(18, 8 - i * 3), point(18, 6 - i * 3))
-      s4.epaisseur=3
-      s5 = segment(point(0, 7 - i * 3), point(1, 7 - i * 3))
-      s5.epaisseur=3
-      //s5.styleExtremites = '-|'
-      objets.push(s1, s2, s3, s4, s5)
-    }
-    for (let i=1;i<=3;i++) {
-      objets.push(texteParPoint(`Sortie ${i}`,point(19.5,11.5-3*i),'milieu','blue',1.5,0,false))
-    }
-    s1 = segment(point(18, 9), point(20, 9))
-    s1.epaisseur=3
-    //s1.styleExtremites = '-|'
-    s2 = segment(point(18, 2), point(20, 2))
-    s2.epaisseur=3
-    //s2.styleExtremites = '-|'
-    objets.push(s1, s2)
-      
-            let table=parseInt(this.sup)
-            let maximum=parseInt(this.sup2)
-            let listeMultiples=[]
-            for (let i=2;i<=maximum;i++)
-                listeMultiples.push(table*i)
-            listeMultiples=combinaison_listes(listeMultiples,12)
-            this.consigne=`Trouve la sortie en ne passant que par les cases contenant un multiple de $${table}$.`
-            let index=0
-            for (let a=1;a<7;a++){
-            for (let b=0;b<3;b++){
-              trouve=false
-              for (let k=0;k<monchemin.length;k++)
-                if (monchemin[k][0]==a&&monchemin[k][1]==b) trouve=true
-              if (!trouve) nombres[a-1][b]=randint(2,maximum)*table+randint(1,table-1)
-              else {
-                nombres[a-1][b]=listeMultiples[index]
-                index++
-              }
-              objets.push(texteParPoint(nombre_avec_espace(nombres[a-1][b]),point(-1.5+a*3,2.5+b*3),'milieu','black',1.5,0,true))
-            }
-          }
-          texte_corr+=`${texte_en_couleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2-monchemin[monchemin.length-1][1]+1}$.`,'black')}<br>`
-
-      params = { xmin:-4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.7}
-      texte += mathalea2d(params, objets)
-// On ajoute au texte de la correction, la figure de la correction
-      texte_corr += mathalea2d(params, objets,chemin2d)
-
-      this.liste_questions.push(texte);
-      this.liste_corrections.push(texte_corr);
-     
-    liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
-  }  
-// Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
-// Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
-// Il sont associés respectivement aux paramètres sup, sup2 et sup3.
+    } // Le tableau de nombre étant fait, on place les objets nombres.
+    laby.nombres2d = laby.placeNombres(laby.nombres)
+    params = { xmin: -4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.7 }
+    texte = mathalea2d(params, laby.murs2d, laby.nombres2d)
+    texte_corr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
+    this.contenu = texte
+    this.contenu_correction = texte_corr;
+  }
+  // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
+  // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
+  // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
 
   this.besoin_formulaire_numerique = ["Table "]
   this.besoin_formulaire2_numerique = ["Facteur maximum "];
-   this.besoin_formulaire3_numerique =['Niveau de rapidité',6,'1 : Guépard\n 2 : Antilope\n 3 : Lièvre\n 4 : Tortue\n 5 : Escargot\n 6 : Au hasard']
+  this.besoin_formulaire3_numerique = ['Niveau de rapidité', 6, '1 : Guépard\n 2 : Antilope\n 3 : Lièvre\n 4 : Tortue\n 5 : Escargot\n 6 : Au hasard']
 
 } // Fin de l'exercice.
 

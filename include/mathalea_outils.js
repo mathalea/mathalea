@@ -6889,8 +6889,252 @@ function partieEntiereEnLettres(nb) {
 	}
 	return result
 }
+/**
+ * Fonction créant un labyrinthe de nombres
+ * Le tableau de nombres doit être de format [6][3]
+ * Le niveau doit être un entier entre 1 et 6 inclus
+ * @Auteur Jean-Claude
+ * Publié le 6/12/2020
+ */
+function Labyrinthe() {
+	this.murs2d = []
+	this.chemin2d = []
+	this.nombres2d = []
+	this.chemin = []
+	this.niveau = 3
+	this.nombres = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
 
+	let objets = [], s1, s2, s3, s4, s5, couleur = 'brown', x = 0, y = 0, chemin2d = []
 
+	let choixchemin
+	let monchemin = []
+	let chemins = [
+		[[1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [5, 1], [6, 1]],
+		[[1, 0], [2, 0], [3, 0], [4, 0], [4, 1], [5, 1], [6, 1]],
+		[[1, 0], [2, 0], [2, 1], [3, 1], [4, 1], [5, 1], [6, 1]],
+		[[1, 0], [1, 1], [2, 1], [3, 1], [4, 1], [5, 1], [6, 1]],
+		[[1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [5, 1], [5, 2], [6, 2]],
+		[[1, 0], [2, 0], [3, 0], [4, 0], [4, 1], [5, 1], [5, 2], [6, 2]],
+		[[1, 0], [2, 0], [3, 0], [4, 0], [4, 1], [4, 2], [5, 2], [6, 2]],
+		[[1, 0], [2, 0], [3, 0], [3, 1], [4, 1], [5, 1], [5, 2], [6, 2]],
+		[[1, 0], [2, 0], [3, 0], [3, 1], [3, 2], [4, 2], [5, 2], [6, 2]],
+		[[1, 0], [2, 0], [2, 1], [3, 1], [4, 1], [4, 2], [5, 2], [6, 2]],
+		[[1, 0], [1, 1], [2, 1], [2, 2], [3, 2], [4, 2], [5, 2], [6, 2]],
+		[[1, 0], [1, 1], [2, 1], [3, 1], [4, 1], [4, 0], [5, 0], [6, 0]],
+		[[1, 0], [1, 1], [2, 1], [3, 1], [4, 1], [5, 1], [5, 2], [6, 2]],
+		[[1, 0], [1, 1], [1, 2], [2, 2], [3, 2], [4, 2], [5, 2], [6, 2]],
+		[[1, 0], [1, 1], [2, 1], [2, 2], [3, 2], [4, 2], [5, 2], [5, 1], [6, 1]],
+		[[1, 0], [2, 0], [3, 0], [3, 1], [3, 2], [4, 2], [5, 2], [5, 1], [6, 1]],
+		[[1, 0], [1, 1], [1, 2], [2, 2], [3, 2], [3, 1], [4, 1], [5, 1], [6, 1]],
+		[[1, 0], [1, 1], [1, 2], [2, 2], [3, 2], [4, 2], [4, 1], [5, 1], [6, 1]],
+		[[1, 0], [2, 0], [3, 0], [3, 1], [3, 2], [4, 2], [5, 2], [5, 1], [5, 0], [6, 0]],
+		[[1, 0], [1, 1], [2, 1], [2, 2], [3, 2], [4, 2], [4, 1], [4, 0], [5, 0], [6, 0]],
+		[[1, 0], [1, 1], [2, 1], [2, 2], [3, 2], [4, 2], [5, 2], [5, 1], [5, 0], [6, 0]],
+		[[1, 0], [1, 1], [1, 2], [2, 2], [3, 2], [4, 2], [4, 1], [4, 0], [5, 0], [6, 0]],
+		[[1, 0], [1, 1], [1, 2], [2, 2], [3, 2], [3, 1], [3, 0], [4, 0], [5, 0], [5, 1], [5, 2], [6, 2]],
+		[[1, 0], [1, 1], [1, 2], [2, 2], [3, 2], [3, 1], [3, 0], [4, 0], [5, 0], [5, 1], [5, 2], [6, 2]]]
+	let elementchemin
+	for (let i = 0; i < 24; i++) { // on double le nombre de chemins par Symétrie.
+		elementchemin = []
+		for (let j = 0; j < chemins[i].length; j++) {
+			elementchemin.push([chemins[i][j][0], 2 - chemins[i][j][1]])
+		}
+		chemins.push(elementchemin)
+	}
+	this.choisiChemin = function (niveau) { // retourne un chemin en fonction du niveau
+		let choix = choice([0, 24]), choixchemin
+		switch (niveau) {  // on choisit le chemin parmi les 23*2
+			case 1: choixchemin = randint(0, 3) + choix
+				break
+			case 2: choixchemin = randint(4, 13) + choix
+				break
+			case 3: choixchemin = randint(14, 17) + choix
+				break
+			case 4: choixchemin = randint(18, 21) + choix
+				break
+			case 5: choixchemin = randint(22, 23) + choix
+				break
+			case 6: choixchemin = randint(0, 23) + choix
+				break
+		}
+		return chemins[choixchemin]
+	}
+
+	// Retourne le tableau d'objets des murs en fonction du point d'entrée de chemin
+	this.construitMurs = function (chemin) {
+		let choix, objets = []
+		if (chemin[0][1] == 0) choix = 0
+		else choix = 2
+		for (let i = 0; i < 6; i++) {
+			// éléments symétriques pour A et B
+			if (choix == 0) {
+				// T inférieurs
+				s1 = segment(point(i * 3, 1), point(i * 3, 2))
+				s1.epaisseur = 2
+				//s1.styleExtremites = '-'
+				objets.push(s1)
+
+				// T supérieurs
+				if (i > 0) {
+					s2 = segment(point(i * 3, 10), point(i * 3, 9))
+					s2.epaisseur = 2
+					//s2.styleExtremites = '-|'
+					objets.push(s2)
+				}
+			}
+			else {
+				// T supérieurs
+				s1 = segment(point(i * 3, 10), point(i * 3, 9))
+				s1.epaisseur = 2
+				// s1.styleExtremites = '-|'
+				objets.push(s1)
+
+				// T inférieurs
+				if (i > 0) {
+					s2 = segment(point(i * 3, 1), point(i * 3, 2))
+					s2.epaisseur = 2
+					// s2.styleExtremites = '-|'
+					objets.push(s2)
+				}
+			}
+		}
+		if (choix == 0) // éléments uniques symétriques
+		{
+			//bord gauche
+			s1 = segment(point(0, 10), point(0, 3))
+			s1.epaisseur = 3
+			//s1.styleExtremites = '-|'
+			objets.push(s1)
+			// case départ
+			s1 = segment(point(-3, 1), point(0, 1), 'green')
+			s1.epaisseur = 3
+			objets.push(s1)
+			s1 = segment(point(-3, 1), point(-3, 4), 'green')
+			s1.epaisseur = 3
+			objets.push(s1)
+			s1 = segment(point(-3, 4), point(0, 4), 'green')
+			s1.epaisseur = 3
+			objets.push(s1)
+			objets.push(texteParPoint(`Départ`, point(-1.5, 2.5), 'milieu', 'blue', 1.5, 0, false))
+		}
+		else {
+			// bord gauche
+			s1 = segment(point(0, 1), point(0, 8))
+			s1.epaisseur = 3
+			//s1.styleExtremites = '-|'
+			objets.push(s1)
+			// case départ
+			s1 = segment(point(-3, 10), point(0, 10), 'green')
+			s1.epaisseur = 3
+			objets.push(s1)
+			s1 = segment(point(-3, 7), point(-3, 10), 'green')
+			s1.epaisseur = 3
+			objets.push(s1)
+			s1 = segment(point(-3, 7), point(0, 7), 'green')
+			s1.epaisseur = 3
+			objets.push(s1)
+			objets.push(texteParPoint(`Départ`, point(-1.5, 8.5), 'milieu', 'blue', 1.5, 0, false))
+		}
+
+		// les croix centrales communes à A et B
+		for (let i = 1; i < 6; i++) {
+			s1 = segment(point(i * 3, 8), point(i * 3, 6), 'black')
+			s1.epaisseur = 2
+			// s1.styleExtremites = '|-|'
+			s2 = segment(point(i * 3 - 0.5, 7), point(i * 3 + 0.5, 7), 'black')
+			s2.epaisseur = 2
+			// s2.styleExtremites = '|-|'
+			s3 = segment(point(i * 3, 5), point(i * 3, 3), 'black')
+			s3.epaisseur = 2
+			// s3.styleExtremites = '|-|'
+			s4 = segment(point(i * 3 - 0.5, 4), point(i * 3 + 0.5, 4), 'black')
+			s4.epaisseur = 2
+			// s4.styleExtremites = '|-|'
+			objets.push(s2, s3, s4, s1)
+		}
+		// le pourtour commun à A et B
+		s1 = segment(point(18, 9), point(18, 10))
+		s1.epaisseur = 3
+		objets.push(s1)
+		s1 = segment(point(0, 10), point(18, 10))
+		s1.epaisseur = 3
+		objets.push(s1)
+		s1 = segment(point(18, 9), point(18, 10))
+		s1.epaisseur = 3
+		objets.push(s1)
+		s1 = segment(point(18, 1), point(18, 2))
+		s1.epaisseur = 3
+		objets.push(s1)
+		s1 = segment(point(0, 1), point(18, 1))
+		s1.epaisseur = 3
+		objets.push(s1)
+		// les sorties communes à A et B
+		for (let i = 0; i < 2; i++) {
+			s1 = segment(point(18, 6 - i * 3), point(20, 6 - i * 3))
+			s1.epaisseur = 3
+			// s1.styleExtremites = '-|'
+			s2 = segment(point(18, 7 - i * 3), point(17, 7 - i * 3))
+			s2.epaisseur = 3
+			// s2.styleExtremites = '-|'
+			s3 = segment(point(18, 8 - i * 3), point(20, 8 - i * 3))
+			s3.epaisseur = 3
+			// s3.styleExtremites = '-|'
+			s4 = segment(point(18, 8 - i * 3), point(18, 6 - i * 3))
+			s4.epaisseur = 3
+			s5 = segment(point(0, 7 - i * 3), point(1, 7 - i * 3))
+			s5.epaisseur = 3
+			//s5.styleExtremites = '-|'
+			objets.push(s1, s2, s3, s4, s5)
+		}
+		for (let i = 1; i <= 3; i++) {
+			objets.push(texteParPoint(`Sortie ${i}`, point(19.5, 11.5 - 3 * i), 'milieu', 'blue', 1.5, 0, false))
+		}
+		s1 = segment(point(18, 9), point(20, 9))
+		s1.epaisseur = 3
+		//s1.styleExtremites = '-|'
+		s2 = segment(point(18, 2), point(20, 2))
+		s2.epaisseur = 3
+		//s2.styleExtremites = '-|'
+		objets.push(s1, s2)
+		return objets
+	}
+
+	// Retourne le tableau d'objets du chemin
+	this.traceChemin = function (monchemin) {
+		let y = monchemin[0][1]
+		let x = 0, chemin2d = []
+		for (let j = 0; j < monchemin.length; j++) {
+			s1 = segment(point(x * 3 - 1.5, y * 3 + 2.5), point(monchemin[j][0] * 3 - 1.5, monchemin[j][1] * 3 + 2.5), couleur)
+			s1.pointilles = true
+			s1.stylePointilles = 2
+			s1.epaisseur = 5
+			s1.opacite = 0.3
+			chemin2d.push(s1)
+			x = monchemin[j][0]
+			y = monchemin[j][1]
+		}
+		s1 = segment(point(x * 3 - 1.5, y * 3 + 2.5), point(x * 3 + 1.5, y * 3 + 2.5), couleur)
+		s1.pointilles = true
+		s1.stylePointilles = 2
+		s1.epaisseur = 5
+		s1.opacite = 0.3
+		chemin2d.push(s1)
+		return chemin2d
+	}
+	// Retourne le tableau d'objets des nombres 
+	this.placeNombres = function (nombres) {
+		let objets=[]
+		for (let a = 1; a < 7; a++) {
+			for (let b = 0; b < 3; b++) {
+				objets.push(texteParPoint(nombre_avec_espace(nombres[a - 1][b]), point(-1.5 + a * 3, 2.5 + b * 3), 'milieu', 'black', 1.5, 0, true))
+			}
+		}
+		return objets
+	}
+}  // fin de la classe labyrinthe
+function labyrinthe() {
+	return new Labyrinthe()
+}
 
 // Gestion du fichier à télécharger
 function telechargeFichier(text,filename) {
