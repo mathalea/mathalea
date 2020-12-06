@@ -23,6 +23,7 @@ var liste_des_exercices_disponibles = {
   "CM021": Compte_Est_Bon,
   "c3C10-1": Tables_de_multiplications,
   "c3C10-4": Exercice_tables_d_additions_cycle3,
+  "c3C10-2" : Exercice_labyrinthe_multiplesCM,
   "c3C11": Division_cycle3,
   "c3N10": Ecrire_entiers_cycle3,
   "c3N22": Lire_abscisse_decimale_trois_formesCM,
@@ -14686,10 +14687,22 @@ liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this
 
 } // Fin de l'exercice.
 
+
+/**
+ * @Auteur Jean-Claude Lhote
+ * Publié le 6/12/2020
+ * Ref : c3C10-2 et 6C10-5
+ * Parcourir un labyrinthe de nombres en passant par les multiples du nombre choisi.
+ */
+function Exercice_labyrinthe_multiplesCM() {
+  Exercice_labyrinthe_multiples.call(this)
+  this.niveau='CM'
+}
 function Exercice_labyrinthe_multiples() {
   "use strict"
   Exercice.call(this)
   this.titre = "Labyrinthe de multiples de 9 (bugué)";
+  this.niveau='6e'
   this.nb_questions = 1; 
   this.nb_questions_modifiable=false
   this.nb_cols = 1; 
