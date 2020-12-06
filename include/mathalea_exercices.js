@@ -14941,15 +14941,23 @@ function Exercice_labyrinthe_multiples() {
     objets.push(s1, s2)
       
             let table=parseInt(this.sup)
-            this.consigne=`Trouve la sortie en ne passant que par les cases contenant un multiple de $${table}$.`
             let maximum=parseInt(this.sup2)
+            let listeMultiples=[]
+            for (let i=2;i<=maximum;i++)
+                listeMultiples.push(table*i)
+            listeMultiples=combinaison_listes(listeMultiples,12)
+            this.consigne=`Trouve la sortie en ne passant que par les cases contenant un multiple de $${table}$.`
+            let index=0
             for (let a=1;a<7;a++){
             for (let b=0;b<3;b++){
               trouve=false
               for (let k=0;k<monchemin.length;k++)
                 if (monchemin[k][0]==a&&monchemin[k][1]==b) trouve=true
               if (!trouve) nombres[a-1][b]=randint(2,maximum)*table+randint(1,table-1)
-              else nombres[a-1][b]=randint(2,maximum)*table
+              else {
+                nombres[a-1][b]=listeMultiples[index]
+                index++
+              }
               objets.push(texteParPoint(nombre_avec_espace(nombres[a-1][b]),point(-1.5+a*3,2.5+b*3),'milieu','black',1.5,0,true))
             }
           }
