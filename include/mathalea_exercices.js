@@ -14872,7 +14872,7 @@ function Exercice_labyrinthe_multiples() {
       switch (liste_type_de_questions[0]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
           case 1 : // Multiple de this.sup
             let table=parseInt(this.sup)
-            console.log(table)
+            this.consigne=`Trouve la sortie en ne passant que par les cases contenant un multiple de $${table}$.`
             let maximum=parseInt(this.sup2)
             for (let a=1;a<7;a++){
             for (let b=0;b<3;b++){
@@ -14884,6 +14884,7 @@ function Exercice_labyrinthe_multiples() {
               objets.push(texteParPoint(nombre_avec_espace(nombres[a-1][b]),point(-1.5+a*3,2.5+b*3)))
             }
           }
+          texte_corr+=`${texte_en_couleur_et_gras(`Voici le chemin en bleu et la sortie était la numéro $${2-monchemin[monchemin.length-1][1]+1}$.`,'black')}<br>`
         break;
 
         case 2:
