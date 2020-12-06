@@ -6903,11 +6903,7 @@ function Labyrinthe() {
 	this.chemin = []
 	this.niveau = 3
 	this.nombres = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
-
-	let objets = [], s1, s2, s3, s4, s5, couleur = 'brown', x = 0, y = 0, chemin2d = []
-
-	let choixchemin
-	let monchemin = []
+	let  s1, s2, s3, s4, s5, couleur = 'brown', x = 0, y = 0, chemin2d = []
 	let chemins = [
 		[[1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [5, 1], [6, 1]],
 		[[1, 0], [2, 0], [3, 0], [4, 0], [4, 1], [5, 1], [6, 1]],
@@ -6941,7 +6937,7 @@ function Labyrinthe() {
 		}
 		chemins.push(elementchemin)
 	}
-	this.choisiChemin = function (niveau) { // retourne un chemin en fonction du niveau
+	this.choisitChemin = function (niveau) { // retourne un chemin en fonction du niveau
 		let choix = choice([0, 24]), choixchemin
 		switch (niveau) {  // on choisit le chemin parmi les 23*2
 			case 1: choixchemin = randint(0, 3) + choix

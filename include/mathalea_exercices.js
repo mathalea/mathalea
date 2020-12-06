@@ -14723,7 +14723,7 @@ function Exercice_labyrinthe_multiples() {
     let params, texte, texte_corr, trouve
     let laby = labyrinthe()
     laby.niveau = parseInt(this.sup3) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
-    laby.chemin = laby.choisiChemin(laby.niveau) // On choisi un chemin
+    laby.chemin = laby.choisitChemin(laby.niveau) // On choisi un chemin
     laby.murs2d = laby.construitMurs(laby.chemin) // On construit le labyrinthe
     laby.chemin2d = laby.traceChemin(laby.chemin) // On trace le chemin solution
     let monchemin = laby.chemin
@@ -14756,14 +14756,9 @@ function Exercice_labyrinthe_multiples() {
     this.contenu = texte
     this.contenu_correction = texte_corr;
   }
-  // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
-  // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
-  // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
-
   this.besoin_formulaire_numerique = ["Table "]
   this.besoin_formulaire2_numerique = ["Facteur maximum "];
   this.besoin_formulaire3_numerique = ['Niveau de rapidité', 6, '1 : Guépard\n 2 : Antilope\n 3 : Lièvre\n 4 : Tortue\n 5 : Escargot\n 6 : Au hasard']
-
 } // Fin de l'exercice.
 
 function Test_main_levee() {
