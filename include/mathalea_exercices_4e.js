@@ -10455,7 +10455,8 @@ function Graphiques_et_proportionnalite2() {
       let xscale = 1;
       let yscale = choice([1,2,5]);
       // pour aléatoiriser un peu le pas sur l'axe des prix
-      let stepAxeSecondaire = choice([0.1,0.2]);
+      let stepAxeSecondaire 
+      if (yscale==1) stepAxeSecondaire = choice([0.5,0.2,0.25]);
       // on finit les appels
       let mesAppels = [
         r = repere({
