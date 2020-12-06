@@ -10260,6 +10260,8 @@ function Graphiques_et_proportionnalite() {
       let r;
       let xscale = 1;
       let yscale = 2;
+      // pour aléatoiriser un peu le pas sur l'axe des prix
+      let stepAxeSecondaire = choice([0.1,0.2]);
       // on finit les appels
       let mesAppels = [
         r = repere({
@@ -10272,7 +10274,7 @@ function Graphiques_et_proportionnalite() {
           legendeX: situation.legendeX,
           legendeY: situation.legendeY,
           grilleSecondaireVisible: true,
-          grilleSecondaireDistance: 0.2,
+          grilleSecondaireDistance: stepAxeSecondaire,//0.2,
           positionLegendeY: [0.3, situation.qte_max * situation.prix_unitaire + 4 + 0.4]
         }),
       ];
@@ -10362,7 +10364,7 @@ function Graphiques_et_proportionnalite() {
         <br> ${situation.fig_corr}
         <br> ${num_alpha(k_corr++)} Pour $${situation.qte2}$ ${situation.unite}  ${situation.articles}, la lecture graphique est moins facile, nous allons détailler deux méthodes.
         <br><br> ${texte_gras(`Première méthode par lecture graphique :`)} 
-        <br> Il faut prendre en compte que chaque petit carreau représente $${tex_prix(0.4)}$ € et utiliser les pointillés bleus.
+        <br> Il faut prendre en compte que chaque petit carreau représente $${tex_prix(stepAxeSecondaire*yscale)}$ € et utiliser les pointillés bleus.
         <br><br> ${texte_gras(`Seconde méthode en calculant une quatrième proportionnelle :`)}
         <br> $${situation.qte_max}$ ${situation.unite}  ${situation.articles} coûtent $${tex_prix(calcul(situation.qte_max * situation.prix_unitaire))}$ €
         donc $${situation.qte2}$ ${situation.unite}  ${situation.articles} coûtent : <br> $(${tex_prix(calcul(situation.qte_max * situation.prix_unitaire))}$ € $\\div ${situation.qte_max}$ ${situation.articles} $)\\times (${situation.qte2}$ ${situation.articles})  $= ${tex_prix(calcul(situation.qte2 * situation.prix_unitaire))}$ €
