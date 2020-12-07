@@ -1818,13 +1818,17 @@ function tex_nombre(nb){
 * @Auteur Rémi Angot
 */
 function tex_nombre2(nb){
-	let nombre = tex_nombrec(nb);
+	let nombre = tex_nombre(math.format(nb,{notation:'auto',lowerExp:-12,upperExp:12,precision:12}))
 	let rang_virgule = nombre.indexOf(',')
 	for (let i=rang_virgule+4; i<nombre.length; i+=3){
 		nombre = nombre.substring(0,i)+'\\thickspace '+nombre.substring(i)
 		i+=13 // comme on a ajouté un espace, il faut décaler l'indice de 1
 	}
-	return nombre
+	if (sortie_html){
+		return nombre
+	} else {
+		return tex_nombre(math.format(nb,{notation:'auto',lowerExp:-12,upperExp:12,precision:12}))
+	}
 }
 
 /**
