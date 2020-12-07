@@ -14800,19 +14800,23 @@ function Exercice_labyrinthe_multiples() {
     let table = parseInt(this.sup)
     let maximum = parseInt(this.sup2)
 
-    this.consigne = `Trouve la sortie en ne passant que par les cases contenant un multiple de $${table}$.`
+    texte = `${texte_en_couleur_et_gras(`Trouve la sortie en ne passant que par les cases contenant un multiple de $${table}$.`,'black')}<br>`
     texte_corr = `${texte_en_couleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
     // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
     let listeMultiples = [], index = 0
-    for (let i = 2; i <= maximum; i++)
+    for (let i = 2; i <= maximum; i++){
       listeMultiples.push(table * i)
+    }
     listeMultiples = combinaison_listes(listeMultiples, 12)
     for (let a = 1; a < 7; a++) {
       for (let b = 0; b < 3; b++) {
         trouve = false
-        for (let k = 0; k < monchemin.length; k++)
+        for (let k = 0; k < monchemin.length; k++) {
           if (monchemin[k][0] == a && monchemin[k][1] == b) trouve = true
-        if (!trouve) laby.nombres[a - 1][b] = randint(2, maximum) * table + randint(1, table - 1)
+        }
+        if (!trouve) {
+          laby.nombres[a - 1][b] = randint(2, maximum) * table + randint(1, table - 1)
+        }
         else {
           laby.nombres[a - 1][b] = listeMultiples[index]
           index++
@@ -14821,7 +14825,7 @@ function Exercice_labyrinthe_multiples() {
     } // Le tableau de nombre étant fait, on place les objets nombres.
     laby.nombres2d = laby.placeNombres(laby.nombres,1.5)
     params = { xmin: -4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.7 }
-    texte = mathalea2d(params, laby.murs2d, laby.nombres2d)
+    texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
     texte_corr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
     this.contenu = texte
     this.contenu_correction = texte_corr;
@@ -14861,19 +14865,23 @@ function Exercice_labyrinthe_divisibilite() {
     let monchemin = laby.chemin
     let table = parseInt(this.sup)
 
-    this.consigne = `Trouve la sortie en ne passant que par les cases contenant un nombre divisible par $${table}$.`
+    texte = `${texte_en_couleur_et_gras(`Trouve la sortie en ne passant que par les cases contenant un nombre divisible par $${table}$.`,'black')}<br>`
     texte_corr = `${texte_en_couleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
     // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
     let listeMultiples = [], index = 0
-    for (let i = 200; i <= 12000; i+=randint(1,100))
+    for (let i = 200; i <= 12000; i+=randint(1,100)) {
       listeMultiples.push(table * i)
+    }
     listeMultiples = combinaison_listes(listeMultiples, 12)
     for (let a = 1; a < 7; a++) {
       for (let b = 0; b < 3; b++) {
         trouve = false
-        for (let k = 0; k < monchemin.length; k++)
+        for (let k = 0; k < monchemin.length; k++){
           if (monchemin[k][0] == a && monchemin[k][1] == b) trouve = true
-        if (!trouve) laby.nombres[a - 1][b] = randint(200,5000) * table + randint(1, table - 1)
+        }
+        if (!trouve) {
+          laby.nombres[a - 1][b] = randint(200,5000) * table + randint(1, table - 1)
+        }
         else {
           laby.nombres[a - 1][b] = listeMultiples[index]
           index++
@@ -14882,7 +14890,7 @@ function Exercice_labyrinthe_divisibilite() {
     } // Le tableau de nombre étant fait, on place les objets nombres.
     laby.nombres2d = laby.placeNombres(laby.nombres,1)
     params = { xmin: -4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.7 }
-    texte = mathalea2d(params, laby.murs2d, laby.nombres2d)
+    texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
     texte_corr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
     this.contenu = texte
     this.contenu_correction = texte_corr;
