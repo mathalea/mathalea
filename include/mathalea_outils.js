@@ -1830,6 +1830,9 @@ function tex_nombre2(nb){
 		return tex_nombre(math.format(nb,{notation:'auto',lowerExp:-12,upperExp:12,precision:12}))
 	}
 }
+function tex_nombrec2(expr,precision=8){
+	return math.format(math.evaluate(expr),{notation:'auto',lowerExp:-12,upperExp:12,precision:precision})
+}
 
 /**
  * Renvoie un espace insécable pour le mode texte suivant la sorite html ou Latex.

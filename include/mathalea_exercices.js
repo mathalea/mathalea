@@ -14792,6 +14792,8 @@ function Exercice_labyrinthe_multiples() {
     this.sup3 = 4;
   }
   this.nouvelle_version = function (numero_de_l_exercice) {
+    this.liste_corrections=[]
+    this.liste_questions=[]
     let params, texte, texte_corr, trouve
     let laby = labyrinthe()
     laby.niveau = parseInt(this.sup3) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
@@ -14829,8 +14831,9 @@ function Exercice_labyrinthe_multiples() {
     params = { xmin: -4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.7 }
     texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
     texte_corr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
-    this.contenu = texte
-    this.contenu_correction = texte_corr;
+    this.liste_questions.push(texte);
+    this.liste_corrections.push(texte_corr);
+    liste_de_question_to_contenu(this)
   }
   this.besoin_formulaire_numerique = ["Table "]
   this.besoin_formulaire2_numerique = ["Facteur maximum "];
@@ -14868,6 +14871,8 @@ function Exercice_labyrinthe_divisibilite() {
   //this.consigne=`Trouve la sortie en ne passant que par les cases contenant un nombre divisible par $${parseInt(this.sup)}$.`
 
   this.nouvelle_version = function (numero_de_l_exercice) {
+    this.liste_corrections=[]
+    this.liste_questions=[]
     let params, texte, texte_corr, trouve
     let laby = labyrinthe()
     laby.niveau = parseInt(this.sup3) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
@@ -14938,8 +14943,9 @@ function Exercice_labyrinthe_divisibilite() {
     params = { xmin: -4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.7 }
     texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
     texte_corr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
-    this.contenu = texte
-    this.contenu_correction = texte_corr;
+    this.liste_questions.push(texte);
+    this.liste_corrections.push(texte_corr);
+    liste_de_question_to_contenu(this)
   }
   this.besoin_formulaire_numerique = ["Critère de divisibilité ",5,'1 : Par 2\n2 : Par 3\n3 : Par 4\n4 : Par 5\n5 : Par 9']
   this.besoin_formulaire2_numerique = ["Critère de divisibilité supplémentaire ",6,'1 : Aucun\n2 : Par 2\n3 : Par 3\n4 : Par 4\n5 : Par 5\n6 : Par 9'];
@@ -14957,12 +14963,15 @@ function Exercice_labyrinthe_numeration() {
   this.nb_cols_corr = 1;
   this.pas_de_version_LaTeX = false
   this.pas_de_version_HMTL = false
-  this.sup3 = 3
-  this.sup = 9;
+  this.sup = false;
+  this.sup3=3
 
   //this.consigne=`Trouve la sortie en ne passant que par les cases contenant un nombre divisible par $${parseInt(this.sup)}$.`
 
   this.nouvelle_version = function (numero_de_l_exercice) {
+    this.liste_corrections=[]
+    this.liste_questions=[]
+
     let params, texte, texte_corr, trouve
     let laby = labyrinthe()
     laby.niveau = parseInt(this.sup3) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
@@ -14974,30 +14983,44 @@ function Exercice_labyrinthe_numeration() {
     let chiffre,hasard
     let listeNombresOK = [], index = 0,rangMax,rang
     if (this.niveau = 'CM') {
-      rangMax=6
+      rangMax=5
     }
     else {
-      rangMax=8
+      if (!this.sup) {
+        rangMax=6
+      }
+      else {
+        rangMax=8
+      }
     }
     rang=randint(0,rangMax)
     chiffre=randint(0,9)
-    texte = `${texte_en_couleur_et_gras(`Trouve la sortie en ne passant que par les cases contenant un nombre dont le chiffre des ${positions[rang]} est un `,'black')}$${chiffre}$.<br>`
+    texte = `${texte_en_couleur_et_gras(`Trouve la sortie en ne passant que par les cases contenant un nombre dont le chiffre des ${positions[rang]} est un `,'black')}$${mise_en_evidence(chiffre,'black')}$.<br>`
     texte_corr = `${texte_en_couleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
     // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
     let Dm,Um,C,D,U,d,c,m,dm,nombretemp
     for (let i = 0; i <= 30; i++) {
+      if (rangMax>7){
       if (positions[rang]!='dizaines de mille') {
         Dm=randint (0,9,chiffre)
       }
       else {
         Dm=chiffre
+      }}
+      else {
+        Dm=0
       }
       if (positions[rang]!='unités de mille') {
+        if (rangMax>5){
         Um=randint (0,9,chiffre)
       }
       else {
         Um=chiffre
+      }}
+      else {
+        Um=0
       }
+
       if (positions[rang]!='centaines') {
         C=randint (0,9,chiffre)
       }
@@ -15034,16 +15057,31 @@ function Exercice_labyrinthe_numeration() {
       else {
         m=chiffre
       }
+      if (rangMax>6){
       if (positions[rang]!='dix-millièmes') {
+  
         dm=randint (0,9,chiffre)
       }
       else {
         dm=chiffre
+      }}
+      else {
+        dm=0
       }
       if (i>12) {
         hasard=randint(0,rangMax,rang) //on met le chiffre au hasard à un autre endroit du nombre
         switch (hasard){
-          case 8: Dm=chiffre
+          case 8: 
+          if (rangMax>7) {Dm=chiffre}
+          else {
+            Dm=0
+            if (rang!=0) {
+              U=chiffre
+            }
+            else {
+              d=chiffre
+            }
+          }
           break
           case 6: Um=chiffre
           break
@@ -15059,7 +15097,17 @@ function Exercice_labyrinthe_numeration() {
           break
           case 3: m=chiffre
           break
-          case 7: dm=chiffre
+          case 7:
+            if (rangMax>6) {dm=chiffre}
+            else {
+              dm=0
+              if (rang!=1) {
+                d=chiffre
+              }
+              else {
+                c=chiffre
+              }
+            }
           break
         }
         hasard=randint(0,9,chiffre)
@@ -15084,7 +15132,7 @@ function Exercice_labyrinthe_numeration() {
           break
         }
       }
-      nombretemp=arrondi(Dm*10000+Um*1000+C*100+D*10+U+d*0.1+c*0.01+m*0.001+dm*0.0001,4)
+      nombretemp=tex_nombrec2(`${Dm}*10000+${Um}*1000+${C}*100+${D}*10+${U}+${d}*0.1+${c}*0.01+${m}*0.001+${dm}*0.0001`,8)
       listeNombresOK.push(nombretemp)
     }
     for (let a = 1; a < 7; a++) {
@@ -15106,12 +15154,13 @@ function Exercice_labyrinthe_numeration() {
     params = { xmin: -4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.7 }
     texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
     texte_corr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
-    this.contenu = texte
-    this.contenu_correction = texte_corr;
+    this.liste_questions.push(texte);
+    this.liste_corrections.push(texte_corr);
+    liste_de_question_to_contenu(this)
   }
-//  this.besoin_formulaire_numerique = ["Critère de divisibilité ",5,'1 : Par 2\n2 : Par 3\n3 : Par 4\n4 : Par 5\n5 : Par 9']
+//this.besoin_formulaire_case_a_cocher = ["Avec des dizaines de mille et des dix-millièmes"]
 //  this.besoin_formulaire2_numerique = ["Critère de divisibilité supplémentaire ",6,'1 : Aucun\n2 : Par 2\n3 : Par 3\n4 : Par 4\n5 : Par 5\n6 : Par 9'];
-//  this.besoin_formulaire3_numerique = ['Niveau de rapidité', 6, '1 : Escargot\n 2 : Tortue\n 3 : Lièvre\n 4 : Antilope\n 5 : Guépard\n 6 : Au hasard']
+ this.besoin_formulaire3_numerique = ['Niveau de rapidité', 6, '1 : Escargot\n 2 : Tortue\n 3 : Lièvre\n 4 : Antilope\n 5 : Guépard\n 6 : Au hasard']
 } // Fin de l'exercice.
 
 function Test_main_levee() {
