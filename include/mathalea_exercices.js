@@ -36,6 +36,7 @@ var liste_des_exercices_disponibles = {
   "6C10-4": Exercice_tables_d_additions,
   "6C10-5" : Exercice_labyrinthe_multiples,
   "6C11": Divisions_euclidiennes,
+  "beta6C12" : Exercice_labyrinthe_divisibilite,
   "6C13": Vocabulaire_et_operations,
   "6C20": Additionner_soustraires_decimaux,
   "6C21": Divisions_euclidiennes_niv2,
@@ -14818,7 +14819,7 @@ function Exercice_labyrinthe_multiples() {
         }
       }
     } // Le tableau de nombre étant fait, on place les objets nombres.
-    laby.nombres2d = laby.placeNombres(laby.nombres)
+    laby.nombres2d = laby.placeNombres(laby.nombres,1.5)
     params = { xmin: -4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.7 }
     texte = mathalea2d(params, laby.murs2d, laby.nombres2d)
     texte_corr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
@@ -14827,6 +14828,67 @@ function Exercice_labyrinthe_multiples() {
   }
   this.besoin_formulaire_numerique = ["Table "]
   this.besoin_formulaire2_numerique = ["Facteur maximum "];
+  this.besoin_formulaire3_numerique = ['Niveau de rapidité', 6, '1 : Guépard\n 2 : Antilope\n 3 : Lièvre\n 4 : Tortue\n 5 : Escargot\n 6 : Au hasard']
+} // Fin de l'exercice.
+function Exercice_labyrinthe_divisibilite() {
+  "use strict"
+  Exercice.call(this)
+  this.titre = "Labyrinthe de multiples basé sur les critères de divisibilité";
+  this.niveau = '6e'
+  this.nb_questions = 1;
+  this.nb_questions_modifiable = false
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  this.pas_de_version_LaTeX = false
+  this.pas_de_version_HMTL = false
+  this.sup3 = 3
+  this.sup = 9;
+  if (this.niveau = 'CM') {
+    this.sup2 = 10;
+    this.sup3 = 3;
+  }
+  else {
+    this.sup2 = 13;
+    this.sup3 = 4;
+  }
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    let params, texte, texte_corr, trouve
+    let laby = labyrinthe()
+    laby.niveau = parseInt(this.sup3) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
+    laby.chemin = laby.choisitChemin(laby.niveau) // On choisi un chemin
+    laby.murs2d = laby.construitMurs(laby.chemin) // On construit le labyrinthe
+    laby.chemin2d = laby.traceChemin(laby.chemin) // On trace le chemin solution
+    let monchemin = laby.chemin
+    let table = parseInt(this.sup)
+
+    this.consigne = `Trouve la sortie en ne passant que par les cases contenant un nombre divisible par $${table}$.`
+    texte_corr = `${texte_en_couleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
+    // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
+    let listeMultiples = [], index = 0
+    for (let i = 200; i <= 12000; i+=randint(1,100))
+      listeMultiples.push(table * i)
+    listeMultiples = combinaison_listes(listeMultiples, 12)
+    for (let a = 1; a < 7; a++) {
+      for (let b = 0; b < 3; b++) {
+        trouve = false
+        for (let k = 0; k < monchemin.length; k++)
+          if (monchemin[k][0] == a && monchemin[k][1] == b) trouve = true
+        if (!trouve) laby.nombres[a - 1][b] = randint(200,5000) * table + randint(1, table - 1)
+        else {
+          laby.nombres[a - 1][b] = listeMultiples[index]
+          index++
+        }
+      }
+    } // Le tableau de nombre étant fait, on place les objets nombres.
+    laby.nombres2d = laby.placeNombres(laby.nombres,1)
+    params = { xmin: -4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.7 }
+    texte = mathalea2d(params, laby.murs2d, laby.nombres2d)
+    texte_corr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
+    this.contenu = texte
+    this.contenu_correction = texte_corr;
+  }
+  this.besoin_formulaire_numerique = ["Critère de divisibilité ",5,'1 : par 2\n2 : par 3\n3 : par 4\n4 : par 5\n5 : par 9']
+  // this.besoin_formulaire2_numerique = ["Facteur maximum "];
   this.besoin_formulaire3_numerique = ['Niveau de rapidité', 6, '1 : Guépard\n 2 : Antilope\n 3 : Lièvre\n 4 : Tortue\n 5 : Escargot\n 6 : Au hasard']
 } // Fin de l'exercice.
 

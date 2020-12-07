@@ -7122,11 +7122,11 @@ function Labyrinthe() {
 		return chemin2d
 	}
 	// Retourne le tableau d'objets des nombres 
-	this.placeNombres = function (nombres) {
+	this.placeNombres = function (nombres,taille) {
 		let objets=[]
 		for (let a = 1; a < 7; a++) {
 			for (let b = 0; b < 3; b++) {
-				objets.push(texteParPoint(nombre_avec_espace(nombres[a - 1][b]), point(-1.5 + a * 3, 2.5 + b * 3), 'milieu', 'black', 1.5, 0, true))
+				objets.push(texteParPoint(nombre_avec_espace(nombres[a - 1][b]), point(-1.5 + a * 3, 2.5 + b * 3), 'milieu', 'black', taille, 0, true))
 			}
 		}
 		return objets
