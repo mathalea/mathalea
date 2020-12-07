@@ -14772,6 +14772,7 @@ function Exercice_labyrinthe_multiples() {
   "use strict"
   Exercice.call(this)
   this.titre = "Labyrinthe de multiples";
+  this.consigne=""
   this.niveau = '6e'
   this.nb_questions = 1;
   this.nb_questions_modifiable = false
@@ -14799,8 +14800,8 @@ function Exercice_labyrinthe_multiples() {
     let monchemin = laby.chemin
     let table = parseInt(this.sup)
     let maximum = parseInt(this.sup2)
-
-    texte = `${texte_en_couleur_et_gras(`Trouve la sortie en ne passant que par les cases contenant un multiple de $${table}$.`,'black')}<br>`
+ //   this.consigne=`Trouve la sortie en ne passant que par les cases contenant un multiple de $${table}$.`
+    texte = `${texte_en_couleur_et_gras(`Trouve la sortie en ne passant que par les cases contenant un multiple de `,'black')}$${table}$.<br>`
     texte_corr = `${texte_en_couleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
     // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
     let listeMultiples = [], index = 0
@@ -14838,6 +14839,7 @@ function Exercice_labyrinthe_divisibilite() {
   "use strict"
   Exercice.call(this)
   this.titre = "Labyrinthe de multiples basé sur les critères de divisibilité";
+  this.consigne=""
   this.niveau = '6e'
   this.nb_questions = 1;
   this.nb_questions_modifiable = false
@@ -14855,6 +14857,8 @@ function Exercice_labyrinthe_divisibilite() {
     this.sup2 = 13;
     this.sup3 = 4;
   }
+  //this.consigne=`Trouve la sortie en ne passant que par les cases contenant un nombre divisible par $${parseInt(this.sup)}$.`
+
   this.nouvelle_version = function (numero_de_l_exercice) {
     let params, texte, texte_corr, trouve
     let laby = labyrinthe()
@@ -14864,8 +14868,7 @@ function Exercice_labyrinthe_divisibilite() {
     laby.chemin2d = laby.traceChemin(laby.chemin) // On trace le chemin solution
     let monchemin = laby.chemin
     let table = parseInt(this.sup)
-
-    texte = `${texte_en_couleur_et_gras(`Trouve la sortie en ne passant que par les cases contenant un nombre divisible par $${table}$.`,'black')}<br>`
+    texte = `${texte_en_couleur_et_gras(`Trouve la sortie en ne passant que par les cases contenant un nombre divisible par `,'black')}$${table}$.<br>`
     texte_corr = `${texte_en_couleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
     // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
     let listeMultiples = [], index = 0
