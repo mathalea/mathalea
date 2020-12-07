@@ -14772,6 +14772,7 @@ function Exercice_labyrinthe_multiples() {
   "use strict"
   Exercice.call(this)
   this.titre = "Labyrinthe de multiples";
+  this.consigne=""
   this.niveau = '6e'
   this.nb_questions = 1;
   this.nb_questions_modifiable = false
@@ -14799,20 +14800,24 @@ function Exercice_labyrinthe_multiples() {
     let monchemin = laby.chemin
     let table = parseInt(this.sup)
     let maximum = parseInt(this.sup2)
-
-    this.consigne = `Trouve la sortie en ne passant que par les cases contenant un multiple de $${table}$.`
+ //   this.consigne=`Trouve la sortie en ne passant que par les cases contenant un multiple de $${table}$.`
+    texte = `${texte_en_couleur_et_gras(`Trouve la sortie en ne passant que par les cases contenant un multiple de `,'black')}$${table}$.<br>`
     texte_corr = `${texte_en_couleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
     // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
     let listeMultiples = [], index = 0
-    for (let i = 2; i <= maximum; i++)
+    for (let i = 2; i <= maximum; i++){
       listeMultiples.push(table * i)
+    }
     listeMultiples = combinaison_listes(listeMultiples, 12)
     for (let a = 1; a < 7; a++) {
       for (let b = 0; b < 3; b++) {
         trouve = false
-        for (let k = 0; k < monchemin.length; k++)
+        for (let k = 0; k < monchemin.length; k++) {
           if (monchemin[k][0] == a && monchemin[k][1] == b) trouve = true
-        if (!trouve) laby.nombres[a - 1][b] = randint(2, maximum) * table + randint(1, table - 1)
+        }
+        if (!trouve) {
+          laby.nombres[a - 1][b] = randint(2, maximum) * table + randint(1, table - 1)
+        }
         else {
           laby.nombres[a - 1][b] = listeMultiples[index]
           index++
@@ -14821,7 +14826,7 @@ function Exercice_labyrinthe_multiples() {
     } // Le tableau de nombre étant fait, on place les objets nombres.
     laby.nombres2d = laby.placeNombres(laby.nombres,1.5)
     params = { xmin: -4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.7 }
-    texte = mathalea2d(params, laby.murs2d, laby.nombres2d)
+    texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
     texte_corr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
     this.contenu = texte
     this.contenu_correction = texte_corr;
@@ -14830,10 +14835,16 @@ function Exercice_labyrinthe_multiples() {
   this.besoin_formulaire2_numerique = ["Facteur maximum "];
   this.besoin_formulaire3_numerique = ['Niveau de rapidité', 6, '1 : Guépard\n 2 : Antilope\n 3 : Lièvre\n 4 : Tortue\n 5 : Escargot\n 6 : Au hasard']
 } // Fin de l'exercice.
+
+/**
+ * @Auteur Jean-Claude Lhote
+ * 
+ */
 function Exercice_labyrinthe_divisibilite() {
   "use strict"
   Exercice.call(this)
   this.titre = "Labyrinthe de multiples basé sur les critères de divisibilité";
+  this.consigne=""
   this.niveau = '6e'
   this.nb_questions = 1;
   this.nb_questions_modifiable = false
@@ -14844,13 +14855,15 @@ function Exercice_labyrinthe_divisibilite() {
   this.sup3 = 3
   this.sup = 9;
   if (this.niveau = 'CM') {
-    this.sup2 = 10;
+    this.sup2 = 1;
     this.sup3 = 3;
   }
   else {
-    this.sup2 = 13;
+    this.sup2 = 2;
     this.sup3 = 4;
   }
+  //this.consigne=`Trouve la sortie en ne passant que par les cases contenant un nombre divisible par $${parseInt(this.sup)}$.`
+
   this.nouvelle_version = function (numero_de_l_exercice) {
     let params, texte, texte_corr, trouve
     let laby = labyrinthe()
@@ -14860,20 +14873,58 @@ function Exercice_labyrinthe_divisibilite() {
     laby.chemin2d = laby.traceChemin(laby.chemin) // On trace le chemin solution
     let monchemin = laby.chemin
     let table = parseInt(this.sup)
-
-    this.consigne = `Trouve la sortie en ne passant que par les cases contenant un nombre divisible par $${table}$.`
+    if (this.sup2==2) {
+      if (table%2!=0) {
+      table=table*2
+      }
+    }
+    else if (this.sup2==3) {
+      if (table%3!=0) {
+        table=table*3
+      }
+    }
+    else if (this.sup2==4) {
+      if (table%4!=0) {
+        if (table%2!=0){
+        table=table*4
+        }
+        else {
+          table=table*2
+        }
+    }
+  }
+    else if (this.sup2==5){
+      if (table%5!=0){
+        table=table*5
+      }
+    }
+    else if (this.sup2==6){
+      if (table%9!=0){
+        if (table%3!=0){
+          table=table*9
+        }
+      }
+      else {
+        table=table*3
+      }
+    }
+    texte = `${texte_en_couleur_et_gras(`Trouve la sortie en ne passant que par les cases contenant un nombre divisible par `,'black')}$${table}$.<br>`
     texte_corr = `${texte_en_couleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
     // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
     let listeMultiples = [], index = 0
-    for (let i = 200; i <= 12000; i+=randint(1,100))
+    for (let i = 200; i <= 12000; i+=randint(1,100)) {
       listeMultiples.push(table * i)
+    }
     listeMultiples = combinaison_listes(listeMultiples, 12)
     for (let a = 1; a < 7; a++) {
       for (let b = 0; b < 3; b++) {
         trouve = false
-        for (let k = 0; k < monchemin.length; k++)
+        for (let k = 0; k < monchemin.length; k++){
           if (monchemin[k][0] == a && monchemin[k][1] == b) trouve = true
-        if (!trouve) laby.nombres[a - 1][b] = randint(200,5000) * table + randint(1, table - 1)
+        }
+        if (!trouve) {
+          laby.nombres[a - 1][b] = randint(200,5000) * table + randint(1, table - 1)
+        }
         else {
           laby.nombres[a - 1][b] = listeMultiples[index]
           index++
@@ -14882,14 +14933,14 @@ function Exercice_labyrinthe_divisibilite() {
     } // Le tableau de nombre étant fait, on place les objets nombres.
     laby.nombres2d = laby.placeNombres(laby.nombres,1)
     params = { xmin: -4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.7 }
-    texte = mathalea2d(params, laby.murs2d, laby.nombres2d)
+    texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
     texte_corr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
     this.contenu = texte
     this.contenu_correction = texte_corr;
   }
-  this.besoin_formulaire_numerique = ["Critère de divisibilité ",5,'1 : par 2\n2 : par 3\n3 : par 4\n4 : par 5\n5 : par 9']
-  // this.besoin_formulaire2_numerique = ["Facteur maximum "];
-  this.besoin_formulaire3_numerique = ['Niveau de rapidité', 6, '1 : Guépard\n 2 : Antilope\n 3 : Lièvre\n 4 : Tortue\n 5 : Escargot\n 6 : Au hasard']
+  this.besoin_formulaire_numerique = ["Critère de divisibilité ",5,'1 : Par 2\n2 : Par 3\n3 : Par 4\n4 : Par 5\n5 : Par 9']
+  this.besoin_formulaire2_numerique = ["Critère de divisibilité supplémentaire ",6,'1 : Aucun\n2 : Par 2\n3 : Par 3\n4 : Par 4\n5 : Par 5\n6 : Par 9'];
+  this.besoin_formulaire3_numerique = ['Niveau de rapidité', 6, '1 : Escargot\n 2 : Tortue\n 3 : Lièvre\n 4 : Antilope\n 5 : Guépard\n 6 : Au hasard']
 } // Fin de l'exercice.
 
 function Test_main_levee() {
