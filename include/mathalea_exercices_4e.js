@@ -6868,7 +6868,7 @@ function Problemes_grandeurs_composees() {
             num_alpha(0) +
             ` En 2016, à ${villes[index1][0]} il y avait $${tex_nombre(
               villes[index1][1]
-            )}$ habitants pour une superficie de $${tex_nombre(
+            )}$ habitants pour une superficie de $${tex_nombrec(
               villes[index1][2] * 100
             )}$ ha.<br> Calculer la densité de population en hab/km$^2$.<br>`;
           texte +=
@@ -6892,7 +6892,7 @@ function Problemes_grandeurs_composees() {
             ` En 2016, la densité de population à ${villes[index1][0]
             } était de :<br> $\\dfrac{${tex_nombre(
               villes[index1][1]
-            )}\\text{ hab}}{${tex_nombre(
+            )}\\text{ hab}}{${tex_nombrec(
               villes[index1][2] * 100
             )}\\text{ ha}}=\\dfrac{${tex_nombre(
               villes[index1][1]
