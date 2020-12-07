@@ -5809,8 +5809,8 @@ function EcritureDecimalePuissanceDe10() {
   this.titre = "Écriture décimale d'une puissance de 10";
   this.consigne = "Donner l'écriture décimale";
   this.nb_questions = 8;
-  this.nb_cols = 2;
-  this.nb_cols_corr = 2;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
   this.sup = 3; // exposants positifs et négatifs par défaut
 
   this.nouvelle_version = function (numero_de_l_exercice) {
@@ -5835,13 +5835,21 @@ function EcritureDecimalePuissanceDe10() {
           if (n < 2) {
             texte_corr = `$10^${n}=${10 ** n}$`
           } else {
-            texte_corr = `$10^{${n}}=${puissanceEnProduit(10, n)}=${tex_nombre(10 ** n)}$`;
+            if (sortie_html){
+              texte_corr = `$10^{${n}}=${puissanceEnProduit(10, n)}=${tex_nombre(10 ** n)}$`;
+            } else {
+              texte_corr = `$10^{${n}}=${tex_nombre(10 ** n)}$`;
+            }
           }
           break;
         case '-':
           n = randint(1, 10)
           texte = `$10^{${-n}}$`;
-          texte_corr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${puissanceEnProduit(10, n)}}=\\dfrac{1}{${tex_nombre(10 ** n)}}=${tex_nombre2(1 / 10 ** n)}$`;
+          if (sortie_html){
+            texte_corr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${puissanceEnProduit(10, n)}}=\\dfrac{1}{${tex_nombre(10 ** n)}}=${tex_nombre2(1 / 10 ** n)}$`;
+          } else {
+            texte_corr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${tex_nombre(10 ** n)}}=${tex_nombre2(1 / 10 ** n)}$`;
+          }
           break;
 
       }
