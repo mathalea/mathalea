@@ -1237,6 +1237,7 @@ function Egalite_d_angles() {
 	this.nouvelle_version = function (numero_de_l_exercice) {
 		this.liste_questions = []
 		this.liste_corrections = []
+		this.consigne="Cet exercice est inspiré d'un exercice du manuel sésamath 5e"
 		let figure = [], choix;
 		let fig1 = function () { //retourne le tableau d'objets, la série de questions et la série de réponses 
 			let A, B, C, D, E, a, ac, ce, c, AE, BD, CA, CE, c1, c2, c3, c4, c5, m1, m2, l1, objets = [], enonce, correction, params;
