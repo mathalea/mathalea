@@ -7129,8 +7129,15 @@ function Labyrinthe() {
 		let objets=[]
 		for (let a = 1; a < 7; a++) {
 			for (let b = 0; b < 3; b++) {
+				if (typeof(nombres[a-1][b]=='Number')) {
 				objets.push(texteParPoint(nombre_avec_espace(nombres[a - 1][b]), point(-1.5 + a * 3, 2.5 + b * 3), 'milieu', 'black', taille, 0, true))
+				}
+				else {
+					objets.push(fractionParPoint(nombres[a - 1][b],point(-1.5 + a * 3, 2.5 + b * 3), 'milieu', 'black', taille, 0, true))
+				
+				}
 			}
+
 		}
 		return objets
 	}
