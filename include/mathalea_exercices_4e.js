@@ -1070,6 +1070,8 @@ function Exercice_additionner_fraction_produit() {
   this.spacing_corr = 2;
   this.nb_questions = 5;
   this.nb_cols_corr = 1;
+  this.correction_detaillee_disponible=true
+  this.correction_detaillee=true
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
@@ -1113,6 +1115,7 @@ function Exercice_additionner_fraction_produit() {
       signe2,
       texte,
       texte_corr,
+      produit=[],
       type_de_questions,
       cpt = 0;
       i < this.nb_questions && cpt < 50;
@@ -1133,11 +1136,21 @@ function Exercice_additionner_fraction_produit() {
         case 1: // sans piège fraction1 + fraction2 x fraction3 (tout positif)
           texte = `$${tex_fraction(a, b)}+${tex_fraction(c,d)}\\times${tex_fraction(e, f)}$`;
 
-          p = pgcd(c * e, d * f);
           texte_corr = `$${tex_fraction(a, b)}+${tex_fraction(c,d)}\\times${tex_fraction(e, f)}$`;
+          produit=produit_de_deux_fractions(c,d,e,f)
+          if (this.correction_detaillee) {
           texte_corr += `$=${tex_fraction(a, b)}+${tex_fraction(c + "\\times" + e,d + "\\times" + f)}$`;
           texte_corr += `$=${tex_fraction(a, b)}+${tex_fraction(c * e,d * f)}$`;
+      }
+      else {
+        texte_corr += `$=${tex_fraction(a, b)}+${produit[1]}$`;
+        texte_corr += `$=${tex_fraction(a, b)}+${produit[0]}$`;
+      }
           // faut-il simplifier c*e/d*f
+          if (!this.correction_detaillee) {
+            [c,d,e,f]=produit[2]
+          }
+          p = pgcd(c * e, d * f);
           if (p != 1 && ppcm(b, d * f) > ppcm(b, (d * f) / p)) {
             texte_corr += `$=${tex_fraction(a, b)}+${tex_fraction((e * c) / p + "\\times\\cancel{" + p + "}",(f * d) / p + "\\times\\cancel{" + p + "}"
             )}$`;
@@ -1186,12 +1199,21 @@ function Exercice_additionner_fraction_produit() {
 
         case 2: // sans piège fraction2 x fraction3 + fraction1  (tout positif)
         texte = `$${tex_fraction(c,d)}\\times${tex_fraction(e, f)}+${tex_fraction(a, b)}$`;
-
-        p = pgcd(c * e, d * f);
+        produit=produit_de_deux_fractions(c,d,e,f)
         texte_corr = `$${tex_fraction(c,d)}\\times${tex_fraction(e, f)}+${tex_fraction(a, b)}$`;
+        if (this.correction_detaillee) {
         texte_corr += `$=${tex_fraction(c + "\\times" + e,d + "\\times" + f)}+${tex_fraction(a, b)}$`;
         texte_corr += `$=${tex_fraction(c * e,d * f)}+${tex_fraction(a, b)}$`;
+        }
+        else {
+          texte_corr += `$=${produit[1]}+${tex_fraction(a, b)}$`;
+          texte_corr += `$=${produit[0]}+${tex_fraction(a, b)}$`;
+        }
         // faut-il simplifier c*e/d*f
+        if (!this.correction_detaillee) {
+          [c,d,e,f]=produit[2]
+        }
+        p = pgcd(c * e, d * f);
         if (p != 1 && ppcm(b, d * f) > ppcm(b, (d * f) / p)) {
           texte_corr += `$=${tex_fraction((e * c) / p + "\\times\\cancel{" + p + "}",(f * d) / p + "\\times\\cancel{" + p + "}")}+${tex_fraction(a, b)}$`;
           c = (e * c) / p;
@@ -1236,40 +1258,25 @@ function Exercice_additionner_fraction_produit() {
         }
         break;
 
+       
         case 3: // avec piege addition non prioritaire fraction2 * fraction3 + fraction1  tout positif
           d = b;
-
+          produit=produit_de_deux_fractions(c,d,e,f)
           texte = `$${tex_fraction(c,d)}\\times${tex_fraction(e, f)}+${tex_fraction(a, b)}$`;
-          p = pgcd(c * e, d * f);
           texte_corr = `$${tex_fraction(c,d)}\\times${tex_fraction(e, f)}+${tex_fraction(a, b)}$`;
+          if (this.correction_detaillee){
           texte_corr += `$=${tex_fraction(c + "\\times" + e,d + "\\times" + f)}+${tex_fraction(a, b)}$`;
           texte_corr += `$=${tex_fraction(c * e,d * f)}+${tex_fraction(a, b)}$`;
-
-        texte_corr += `$=${tex_fraction(c * k2,p)}+${tex_fraction(a * k1, p)}$`;
-        e = a * k1 + c * k2;
-        f = p;
-        texte_corr += `$=${tex_fraction(e, f)}$`;
-        p = pgcd(e, f);
-        // faut-il simplifier e/f
-        if (p != 1) {
-          texte_corr += `$=${tex_fraction(
-            e / p + "\\times\\cancel{" + p + "}",
-            f / p + "\\times\\cancel{" + p + "}"
-          )}$`;
-          texte_corr += `$=${tex_fraction_reduite(e, f)}$`;
-        }
-        break;
-
-        case 3: // avec piege addition non prioritaire fraction2 * fraction3 + fraction1  tout positif
-          d = b;
-
-          texte = `$${tex_fraction(c,d)}\\times${tex_fraction(e, f)}+${tex_fraction(a, b)}$`;
-          p = pgcd(c * e, d * f);
-          texte_corr = `$${tex_fraction(c,d)}\\times${tex_fraction(e, f)}+${tex_fraction(a, b)}$`;
-          texte_corr += `$=${tex_fraction(c + "\\times" + e,d + "\\times" + f)}+${tex_fraction(a, b)}$`;
-          texte_corr += `$=${tex_fraction(c * e,d * f)}+${tex_fraction(a, b)}$`;
-
+          }
+          else {
+            texte_corr += `$=${produit[1]}+${tex_fraction(a, b)}$`;
+            texte_corr += `$=${produit[0]}+${tex_fraction(a, b)}$`;
+          }
           // faut-il simplifier c*e/d*f
+          if (!this.correction_detaillee) {
+            [c,d,e,f]=produit[2]
+          }
+          p = pgcd(c * e, d * f);
           if (p != 1 && ppcm(b, d * f) > ppcm(b, (d * f) / p)) {
             texte_corr += `$=${tex_fraction(
               (e * c) / p + "\\times\\cancel{" + p + "}",
@@ -1349,7 +1356,8 @@ function Exercice_additionner_fraction_produit() {
 
           a = abs(a);
           b = abs(b);
-
+          produit=produit_de_deux_fractions(c,d,e,f)
+          if (this.correction_detaillee) {
           texte_corr += `$=${signe1}${tex_fraction(
             a,
             b
@@ -1358,9 +1366,22 @@ function Exercice_additionner_fraction_produit() {
             a,
             b
           )}${signe2}${tex_fraction(c * e, d * f)}$`;
-
-          p = pgcd(c * e, d * f);
+          }
+          else {
+            texte_corr += `$=${signe1}${tex_fraction(
+              a,
+              b
+            )}${signe2}${produit[1]}$`;
+            texte_corr += `$=${signe1}${tex_fraction(
+              a,
+              b
+            )}${signe2}${produit[0]}$`;
+            }
           // faut-il simplifier c*e/d*f
+          if (!this.correction_detaillee) {
+            [c,d,e,f]=produit[2]
+          }
+          p = pgcd(c * e, d * f);
           if (p != 1 && ppcm(b, d * f) > ppcm(b, (d * f) / p)) {
             texte_corr += `$=${signe1}${tex_fraction(
               a,
