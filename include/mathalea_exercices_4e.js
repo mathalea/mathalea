@@ -1227,9 +1227,7 @@ function Exercice_additionner_fraction_produit() {
         texte_corr += `$=${tex_fraction(e, f)}$`;
         p = pgcd(e, f);
         // faut-il simplifier e/f
-        console.log(p)
         if (p != 1) {
-          console.log('piou piou', e,f)
           texte_corr += `$=${tex_fraction(
             e / p + "\\times\\cancel{" + p + "}",
             f / p + "\\times\\cancel{" + p + "}"
@@ -1253,9 +1251,7 @@ function Exercice_additionner_fraction_produit() {
         texte_corr += `$=${tex_fraction(e, f)}$`;
         p = pgcd(e, f);
         // faut-il simplifier e/f
-        console.log(p)
         if (p != 1) {
-          console.log('piou piou', e,f)
           texte_corr += `$=${tex_fraction(
             e / p + "\\times\\cancel{" + p + "}",
             f / p + "\\times\\cancel{" + p + "}"
