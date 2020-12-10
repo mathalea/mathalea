@@ -1104,7 +1104,34 @@ function tex_fraction_reduite(n,d){
 		return tex_fraction_signe(fraction_simplifiee(n,d)[0],fraction_simplifiee(n,d)[1]);
 	}
 }
-
+/**
+ * produit_de_deux_fractions(num1,den1,num2,den2) retourne deux chaines :
+ * la première est la fraction résultat, la deuxième est le calcul mis en forme Latex avec simplification éventuelle
+ * Applique une simplification si le numérateur de l'une est égal au dénominateur de l'autre.
+ */
+function produit_de_deux_fractions(num1,den1,num2,den2) {
+	let num,den,tex_produit
+	if (num1==den2) {
+		tex_produit=`\\dfrac{\\cancel{${num1}}\\times ${num2}}{${den1}\\times\\cancel{${den2}}}`
+		num=num2
+		num1=1
+		den2=1
+		den=den1
+	}
+	else if (num2==den1) {
+		tex_produit=`\\dfrac{${num1}\\times \\cancel{${num2}}}{\\cancel{${den1}}\\times${den2}}`
+		num=num1
+		num2=1
+		den1=1
+		den=den2
+	}
+	else {
+		num=num1*num2
+		den=den1*den2
+		tex_produit=`\\dfrac{${num1}\\times ${num2}}{${den1}\\times${den2}}`
+	}
+	return [tex_fraction(num,den),tex_produit,[num1,den1,num2,den2]]
+}
 /**
 *
 * Simplifie une fraction en montrant les étapes
