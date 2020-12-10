@@ -2091,6 +2091,15 @@ function obtenir_liste_fractions_irreductibles() {
 }
 
 /**
+* Retourne une liste de fractions irréductibles de dénominateur égal à 2 3 5 7
+* @Auteur Mireille Gain
+*/
+function obtenir_liste_fractions_irreductibles_faciles() {
+	return  [[1,2],[1,3],[2,3],[1,5],[2,5],[3,5],[4,5],
+	[1,7],[2,7],[3,7],[4,7],[5,7],[6,7]]
+}
+
+/**
 * Retourne la liste des nombres premiers inférieurs à 300
 * @Auteur Rémi Angot
 */
