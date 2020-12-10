@@ -11,3 +11,7 @@ function Division_cycle3(){
 function Exercice_tables_d_additions_cycle3() {
     Exercice_tables_d_additions.call(this,10)
 }
+function Exercice_labyrinthe_multiplesCM() {
+    Exercice_labyrinthe_multiples.call(this)
+    this.niveau='CM'
+  }

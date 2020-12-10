@@ -6909,7 +6909,7 @@ function Labyrinthe() {
 	this.nombres2d = []
 	this.chemin = []
 	this.niveau = 3
-	this.nombres = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
+	this.nombres = [[]]
 	let  s1, s2, s3, s4, s5, couleur = 'brown', x = 0, y = 0, chemin2d = []
 	let chemins = [
 		[[1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [5, 1], [6, 1]],
@@ -7129,12 +7129,11 @@ function Labyrinthe() {
 		let objets=[]
 		for (let a = 1; a < 7; a++) {
 			for (let b = 0; b < 3; b++) {
-				if (typeof(nombres[a-1][b]=='Number')) {
+				if (typeof(nombres[a-1][b])=='number') {
 				objets.push(texteParPoint(nombre_avec_espace(nombres[a - 1][b]), point(-1.5 + a * 3, 2.5 + b * 3), 'milieu', 'black', taille, 0, true))
 				}
 				else {
-					objets.push(fractionParPoint(nombres[a - 1][b],point(-1.5 + a * 3, 2.5 + b * 3), 'milieu', 'black', taille, 0, true))
-				
+					objets.push(fractionParPosition({x:-1.5 + a * 3,y: 2.5 + b * 3,fraction:nombres[a - 1][b]}))
 				}
 			}
 

@@ -1296,6 +1296,9 @@ function Exercice_labyrinthe_divisibilite() {
 		listeMultiples.push(table * i)
 	  }
 	  listeMultiples = combinaison_listes(listeMultiples, 12)
+	  for (let a=1;a<7;a++) {
+		laby.nombres.push([0,0,0])
+	  } 
 	  for (let a = 1; a < 7; a++) {
 		for (let b = 0; b < 3; b++) {
 		  trouve = false

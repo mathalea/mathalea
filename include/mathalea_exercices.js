@@ -132,6 +132,7 @@ var liste_des_exercices_disponibles = {
   "6N33-3": Appliquer_un_pourcentage,
   "6N34": Reglages_6N34,
   "6N41": Egalites_entre_fractions,
+  "beta6N41-1" :Exercice_labyrinthe_fractions_egales,
   "6N43": Criteres_de_divisibilite,
   "6N43-2": Tableau_criteres_de_divisibilite,
   "6P10": Proportionnalite_pas_proportionnalite,
@@ -14765,10 +14766,7 @@ liste_type_de_questions = combin,aison_listes(type_de_questions_disponibles, thi
  * Ref : c3C10-2 et 6C10-5
  * Parcourir un labyrinthe de nombres en passant par les multiples du nombre choisi.
  */
-function Exercice_labyrinthe_multiplesCM() {
-  Exercice_labyrinthe_multiples.call(this)
-  this.niveau='CM'
-}
+
 function Exercice_labyrinthe_multiples() {
   "use strict"
   Exercice.call(this)
@@ -14812,6 +14810,9 @@ function Exercice_labyrinthe_multiples() {
       listeMultiples.push(table * i)
     }
     listeMultiples = combinaison_listes(listeMultiples, 12)
+    for (let a=1;a<7;a++) {
+      laby.nombres.push([0,0,0])
+    }
     for (let a = 1; a < 7; a++) {
       for (let b = 0; b < 3; b++) {
         trouve = false
@@ -14853,7 +14854,7 @@ function Exercice_labyrinthe_fractions_egales() {
   this.pas_de_version_LaTeX = false
   this.pas_de_version_HMTL = false
   this.sup3 = 3
-  this.sup = 9;
+  this.sup = 4
   if (this.niveau = 'CM') {
     this.sup2 = 10;
     this.sup3 = 3;
@@ -14865,9 +14866,10 @@ function Exercice_labyrinthe_fractions_egales() {
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_corrections=[]
     this.liste_questions=[]
+    let mesfractions=[]
     let params, texte, texte_corr, trouve
     let laby = labyrinthe()
-    laby.niveau = parseInt(this.sup) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
+    laby.niveau = parseInt(this.sup3) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
     laby.chemin = laby.choisitChemin(laby.niveau) // On choisi un chemin
     laby.murs2d = laby.construitMurs(laby.chemin) // On construit le labyrinthe
     laby.chemin2d = laby.traceChemin(laby.chemin) // On trace le chemin solution
@@ -14879,7 +14881,7 @@ function Exercice_labyrinthe_fractions_egales() {
     texte_corr = `${texte_en_couleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
     // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
     let listeMultiples = [], index = 0
-    let num=randint(1,table)
+    let num=randint(2,table,table)
     for (let i = 2; i <= maximum; i++){
       listeMultiples.push(table * i)
     }
@@ -14897,6 +14899,10 @@ function Exercice_labyrinthe_fractions_egales() {
         break
       }
     }
+    for (let a=1;a<7;a++) {
+      laby.nombres.push([fraction(1,1),fraction(1,1),fraction(1,1)])
+    }
+ 
     for (let a = 1; a < 7; a++) {
       for (let b = 0; b < 3; b++) {
         trouve = false
@@ -14912,6 +14918,7 @@ function Exercice_labyrinthe_fractions_egales() {
         }
       }
     } // Le tableau de nombre étant fait, on place les objets nombres.
+    console.log(laby.nombres)
     laby.nombres2d = laby.placeNombres(laby.nombres,1.5)
     params = { xmin: -4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.7 }
     texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
@@ -14954,7 +14961,7 @@ function Exercice_labyrinthe_numeration() {
 
     let params, texte, texte_corr, trouve
     let laby = labyrinthe()
-    laby.niveau = parseInt(this.sup3) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
+    laby.niveau = parseInt(this.sup) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
     laby.chemin = laby.choisitChemin(laby.niveau) // On choisi un chemin
     laby.murs2d = laby.construitMurs(laby.chemin) // On construit le labyrinthe
     laby.chemin2d = laby.traceChemin(laby.chemin) // On trace le chemin solution
@@ -15114,6 +15121,9 @@ function Exercice_labyrinthe_numeration() {
       }
       nombretemp=tex_nombrec2(`${Dm}*10000+${Um}*1000+${C}*100+${D}*10+${U}+${d}*0.1+${c}*0.01+${m}*0.001+${dm}*0.0001`,8)
       listeNombresOK.push(nombretemp)
+    }
+    for (let a=1;a<7;a++) {
+      laby.nombres.push([0,0,0])
     }
     for (let a = 1; a < 7; a++) {
       for (let b = 0; b < 3; b++) {
