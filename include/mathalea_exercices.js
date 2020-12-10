@@ -132,7 +132,7 @@ var liste_des_exercices_disponibles = {
   "6N33-3": Appliquer_un_pourcentage,
   "6N34": Reglages_6N34,
   "6N41": Egalites_entre_fractions,
-  "beta6N41-1" :Exercice_labyrinthe_fractions_egales,
+  "6N41-1" :Exercice_labyrinthe_fractions_egales,
   "6N43": Criteres_de_divisibilite,
   "6N43-2": Tableau_criteres_de_divisibilite,
   "6P10": Proportionnalite_pas_proportionnalite,
@@ -14922,7 +14922,6 @@ function Exercice_labyrinthe_fractions_egales() {
         }
       }
     } // Le tableau de nombre étant fait, on place les objets nombres.
-    console.log(laby.nombres)
     laby.nombres2d = laby.placeNombres(laby.nombres,1.5)
     params = { xmin: -4, ymin: 0, xmax: 22, ymax: 11, pixelsParCm: 20, scale: 0.7 }
     texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
