@@ -14853,15 +14853,15 @@ function Exercice_labyrinthe_fractions_egales() {
   this.nb_cols_corr = 1;
   this.pas_de_version_LaTeX = false
   this.pas_de_version_HMTL = false
-  this.sup3 = 3
-  this.sup = 4
+  this.sup2 = 3
+  this.sup = 10
   if (this.niveau = 'CM') {
-    this.sup2 = 10;
-    this.sup3 = 3;
+    this.sup = 10;
+    this.sup2 = 3;
   }
   else {
-    this.sup2 = 13;
-    this.sup3 = 4;
+    this.sup = 13;
+    this.sup2 = 4;
   }
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_corrections=[]
@@ -14869,19 +14869,23 @@ function Exercice_labyrinthe_fractions_egales() {
     let mesfractions=[]
     let params, texte, texte_corr, trouve
     let laby = labyrinthe()
-    laby.niveau = parseInt(this.sup3) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
+    laby.niveau = parseInt(this.sup2) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
     laby.chemin = laby.choisitChemin(laby.niveau) // On choisi un chemin
     laby.murs2d = laby.construitMurs(laby.chemin) // On construit le labyrinthe
     laby.chemin2d = laby.traceChemin(laby.chemin) // On trace le chemin solution
     let monchemin = laby.chemin
-    let table = parseInt(this.sup)
-    let maximum = parseInt(this.sup2)
+    let table = randint(1,7)+1
+    let num=randint(1,2*table-1)
+    while (pgcd(num,table)!=1) {
+      num=randint(2,2*table-1)
+    }
+    let maximum = parseInt(this.sup)
  //   this.consigne=`Trouve la sortie en ne passant que par les cases contenant un multiple de $${table}$.`
-    texte = `${texte_en_couleur_et_gras(`Trouve la sortie en ne passant que par les cases contenant un multiple de `,'black')}$${table}$.<br>`
+    texte = `${texte_en_couleur_et_gras(`Trouve la sortie en ne passant que par les cases contenant des fractions égales à `,'black')}$${tex_fraction_reduite(num,table)}$.<br>`
     texte_corr = `${texte_en_couleur_et_gras(`Voici le chemin en marron et la sortie était la numéro $${2 - monchemin[monchemin.length - 1][1] + 1}$.`, 'black')}<br>`
     // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
     let listeMultiples = [], index = 0
-    let num=randint(2,table,table)
+ 
     for (let i = 2; i <= maximum; i++){
       listeMultiples.push(table * i)
     }
@@ -14927,9 +14931,9 @@ function Exercice_labyrinthe_fractions_egales() {
     this.liste_corrections.push(texte_corr);
     liste_de_question_to_contenu(this)
   }
-  this.besoin_formulaire_numerique = ["Table "]
-  this.besoin_formulaire2_numerique = ["Facteur maximum "];
-  this.besoin_formulaire3_numerique = ['Niveau de rapidité', 6, '1 : Guépard\n 2 : Antilope\n 3 : Lièvre\n 4 : Tortue\n 5 : Escargot\n 6 : Au hasard']
+ // this.besoin_formulaire_numerique = ["Table "]
+  this.besoin_formulaire_numerique = ["Facteur maximum "];
+  this.besoin_formulaire2_numerique = ['Niveau de rapidité', 6, '1 : Guépard\n 2 : Antilope\n 3 : Lièvre\n 4 : Tortue\n 5 : Escargot\n 6 : Au hasard']
 } // Fin de l'exercice.
 
 

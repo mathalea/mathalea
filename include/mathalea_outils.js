@@ -7132,6 +7132,9 @@ function Labyrinthe() {
 				if (typeof(nombres[a-1][b])=='number') {
 				objets.push(texteParPoint(nombre_avec_espace(nombres[a - 1][b]), point(-1.5 + a * 3, 2.5 + b * 3), 'milieu', 'black', taille, 0, true))
 				}
+				else if (typeof(nombres[a-1][b])=='string') { // écriture mode Maths
+					objets.push(texteParPosition(nombres[a - 1][b],-1.5 + a * 3,2.5 + b * 3,'milieu','black',taille,0,true))
+				}
 				else {
 					objets.push(fractionParPosition({x:-1.5 + a * 3,y: 2.5 + b * 3,fraction:nombres[a - 1][b]}))
 				}
