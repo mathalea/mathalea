@@ -1131,7 +1131,7 @@ function Exercice_additionner_fraction_produit() {
       d = cd[1];
       e = ef[0];
       f = ef[1];
-
+      console.log(i,type_de_questions)
       switch (type_de_questions) {
         case 1: // sans piège fraction1 + fraction2 x fraction3 (tout positif)
           texte = `$${tex_fraction(a, b)}+${tex_fraction(c,d)}\\times${tex_fraction(e, f)}$`;
@@ -1168,22 +1168,24 @@ function Exercice_additionner_fraction_produit() {
               a + mise_en_evidence("\\times" + k1),
               b + mise_en_evidence("\\times" + k1)
             )}$`;
-          } else {
+          } else { if (k2!=1){
             texte_corr += `$=${tex_fraction(a, b)}$`;
-          }
+          }}
           if (k2 != 1) {
             texte_corr += `$+${tex_fraction(
               c + mise_en_evidence("\\times" + k2),
               d + mise_en_evidence("\\times" + k2)
             )}$`;
-          } else {
+          } else { if (k1!=1) {
             texte_corr += `$+${tex_fraction(c, d)}$`;
-          }
+          }}
 
           texte_corr += `$=${tex_fraction(a * k1, p)}+${tex_fraction(c * k2,p)}$`;
           e = a * k1 + c * k2;
           f = p;
-          texte_corr += `$=${tex_fraction(e, f)}$`;
+
+          texte_corr += `$=${tex_fraction(e, f)}${simplification_de_fraction_avec_etapes(e, f)}$`;
+  /*
           p = pgcd(e, f);
           // faut-il simplifier e/f
           if (p != 1) {
@@ -1193,7 +1195,7 @@ function Exercice_additionner_fraction_produit() {
             )}$`;
             texte_corr += `$=${tex_fraction_reduite(e / p, f / p)}$`;
           }
-
+*/
           break;
 
 
@@ -1230,9 +1232,10 @@ function Exercice_additionner_fraction_produit() {
             c + mise_en_evidence("\\times" + k2),
             d + mise_en_evidence("\\times" + k2)
           )}$`;
-        } else {
+        } else { if (k1!=1) {
           texte_corr += `$=${tex_fraction(c, d)}$`;
         }
+      }
 
         if (k1 != 1) {
           texte_corr += `$+${tex_fraction(
@@ -1240,14 +1243,19 @@ function Exercice_additionner_fraction_produit() {
             b + mise_en_evidence("\\times" + k1)
           )}$`;
         } else {
+          if (k2!=1) {
           texte_corr += `$+${tex_fraction(a, b)}$`;
+          }
         }
 
-        texte_corr += `$=${tex_fraction(c * k2,p)}+${tex_fraction(a * k1, p)}$`;
+        if (this.correction_detaillee) {
+          texte_corr += `$=${tex_fraction(c * k2,p)}+${tex_fraction(a * k1, p)}$`;
+        }
         e = a * k1 + c * k2;
         f = p;
-        texte_corr += `$=${tex_fraction(e, f)}$`;
-        p = pgcd(e, f);
+
+        texte_corr += `$=${tex_fraction(e, f)}${simplification_de_fraction_avec_etapes(e, f)}$`;
+   /*     p = pgcd(e, f);
         // faut-il simplifier e/f
         if (p != 1) {
           texte_corr += `$=${tex_fraction(
@@ -1255,7 +1263,7 @@ function Exercice_additionner_fraction_produit() {
             f / p + "\\times\\cancel{" + p + "}"
           )}$`;
           texte_corr += `$=${tex_fraction_reduite(e, f)}$`;
-        }
+        }*/
         break;
 
        
@@ -1297,24 +1305,25 @@ function Exercice_additionner_fraction_produit() {
               c + "\\times" + k2,
               d + "\\times" + k2
             )}$`;
-          } else {
+          } else { if (k1!=1) {
             texte_corr += `$=${tex_fraction(c, d)}$`;
-          }
+          }}
 
           if (k1 != 1) {
             texte_corr += `$+${tex_fraction(
               a + mise_en_evidence("\\times" + k1),
               b + mise_en_evidence("\\times" + k1)
             )}$`;
-          } else {
+          } else { if (k2!=1) {
             texte_corr += `$+${tex_fraction(a, b)}$`;
-          }
-
+          }}
+          if(this.correction_detaillee){
           texte_corr += `$=${tex_fraction(c * k2,d * k2)}+${tex_fraction(a * k1, b * k1)}$`;
+          }
           e = a * k1 + c * k2;
           f = p;
-          texte_corr += `$=${tex_fraction(e, f)}$`;
-         p = pgcd(e, f);
+            texte_corr += `$=${tex_fraction(e, f)}${simplification_de_fraction_avec_etapes(e, f)}$`;
+   /*      p = pgcd(e, f);
           // faut-il simplifier e/f
           if (p != 1) {
             texte_corr += `$=${tex_fraction(
@@ -1322,7 +1331,8 @@ function Exercice_additionner_fraction_produit() {
               f / p + "\\times\\cancel{" + p + "}"
             )}$`;
             texte_corr += `$=${tex_fraction_reduite(e, f)}$`;
-          }
+            
+          }*/
           break;
 
         case 4:
@@ -1486,8 +1496,8 @@ function Exercice_additionner_fraction_produit() {
             }
           }
 
-          texte_corr += `$=${tex_fraction_signe(e, d)}$`;
-          p = pgcd(abs(e), d);
+          texte_corr += `$=${tex_fraction_signe(e, d)}${simplification_de_fraction_avec_etapes(e, d)}$`;
+/*          p = pgcd(abs(e), d);
           if (p != 1) {
             f = d / p;
             e = e / p;
@@ -1497,17 +1507,17 @@ function Exercice_additionner_fraction_produit() {
                 e + "\\times\\cancel{" + p + "}",
                 f + "\\times\\cancel{" + p + "}"
               )}$`;
-              texte_corr += `$=${tex_fraction(e, f)}$`;
+              texte_corr += `$=${simplification_de_fraction_avec_etapes(e, f)}$`;
             } else {
               // numérateur négatif => signe - devant les fractions suivantes.
               texte_corr += `$=-${tex_fraction(
                 -e + "\\times\\cancel{" + p + "}",
                 f + "\\times\\cancel{" + p + "}"
               )}$`;
-              texte_corr += `$=-${tex_fraction(-e, f)}$`;
+              texte_corr += `$=${simplification_de_fraction_avec_etapes(e, f)}$`;
             }
           }
-
+*/
           break;
       }
 
