@@ -1532,8 +1532,8 @@ function Exercice_additionner_fraction_produit() {
     liste_de_question_to_contenu(this); //Espacement de 2 em entre chaque questions.
   };
   this.besoin_formulaire_numerique = [
-    "Niveau de difficulté",4,
-    "1 : fractions faciles, positives ou non\n2 : nombres positifs sans piège de priorité\n 3 : 2 calculs avec positifs et piège de priorité et 2 calculs avec relatifs\n 4 : calculs avec relatifs",
+    "Niveau de difficulté ",4,
+    "1 : Fractions faciles, positives ou non\n2 : Nombres positifs sans piège de priorité\n3 : Deux calculs avec positifs et piège de priorité et deux calculs avec relatifs\n4 : Calculs avec relatifs",
   ];
 }
 

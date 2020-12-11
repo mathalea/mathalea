@@ -4525,7 +4525,7 @@ function Antecedent_et_image_graphique() {
 			this.contenu_correction += `<br>${num_alpha(3)} $${b}$ a pour unique antécédent $${x0 + 4}$, on note $f(${x0 + 4})=${b}$.`
 		}
 		if (!sortie_html) {
-			this.contenu = this.contenu.replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
+			this.contenu = tex_consigne('') + this.contenu.replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
 			this.contenu_correction = this.contenu_correction.replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
 		} else {
 			this.contenu_correction = `<div style="line-height: ${this.spacing_corr};">\n${this.contenu_correction}\n</div>`
