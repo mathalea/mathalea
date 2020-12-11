@@ -1775,7 +1775,7 @@ function fonction_notion_vocabulaire() {
 					if (sortie_html) {
 						texte = `La $\\mathbf{machine\\,f}$ renvoie le ` + katex_Popup(`périmètre`, `Rappel`, `Le périmètre d'un polygone est égal à la somme des longueurs de ses côtés`) + ` d'un carré de côté $x$`;
 					} else {
-						texte = `La $\\mathbf{machine\\,f}$ renvoie le \\textbf{périmètre} \\footnote{\\textbf{Rappel :} Le périmètre d'un polygone est égal à la somme des longueurs de ses côtés} d'un carré de côté $x$`;
+						texte = `<br>La $\\mathbf{machine\\,f}$ renvoie le \\textbf{périmètre} \\footnote{\\textbf{Rappel :} Le périmètre d'un polygone est égal à la somme des longueurs de ses côtés} d'un carré de côté $x$`;
 					}
 					texte += `<br>`;
 					// machine						
@@ -1885,7 +1885,7 @@ function fonction_notion_vocabulaire() {
 					if (sortie_html) {
 						texte = `La $\\textbf{machine\\,g}$ renvoie ` + katex_Popup('l\'aire', 'Rappel', 'L\'aire d\'un carré est égale au produit de la longueur de son côté par lui-même.') + ` d'un carré de côté $x$`;
 					} else {
-						texte = `La $\\textbf{machine\\,g}$ renvoie \\textbf{l\'aire} \\footnote{\\textbf{Rappel :} L\'aire d\'un carré est égale au produit de la longueur de son côté par lui-même.} d'un carré de côté $x$`;
+						texte = `<br>La $\\textbf{machine\\,g}$ renvoie \\textbf{l\'aire} \\footnote{\\textbf{Rappel :} L\'aire d\'un carré est égale au produit de la longueur de son côté par lui-même.} d'un carré de côté $x$`;
 					}
 					texte += `<br>`;
 					// machine
@@ -1998,7 +1998,13 @@ function fonction_notion_vocabulaire() {
 				case 3: // somme de 1 et du triple de x
 					var j = 0; // pour la sous-numérotation
 					// consigne
-					texte = `La $\\mathbf{machine\\,h}$ renvoie la somme du triple du nombre de départ et de 1.`;
+					if (!sortie_html) {
+						texte=`<br>`;
+					} else {
+						texte=``;
+					};
+
+					texte += `La $\\mathbf{machine\\,h}$ renvoie la somme du triple du nombre de départ et de 1.`;
 					texte += `<br>`;
 					// machine
 					x = randint(2, 99);//augmenter les possibles pour éviter les questions déjà posées?	
@@ -2111,7 +2117,12 @@ function fonction_notion_vocabulaire() {
 				case 4: // nombre de diviseurs de x entier
 					var j = 0; // pour la sous-numérotation
 					// consigne
-					texte = `La $\\mathbf{machine\\,d}$, qui n'accepte que des nombres entiers positifs, renvoie le nombre de diviseurs du nombre de départ.`;
+					if (!sortie_html) {
+						texte = `<br>`;
+					} else {
+						texte=``;
+					};
+					texte += `La $\\mathbf{machine\\,d}$, qui n'accepte que des nombres entiers positifs, renvoie le nombre de diviseurs du nombre de départ.`;
 					texte += `<br>`;
 					// machine
 					x = randint(2, 51);//augmenter les possibles pour éviter les questions déjà posées?						
