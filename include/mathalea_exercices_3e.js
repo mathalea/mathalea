@@ -1687,10 +1687,6 @@ function fonction_notion_vocabulaire() {
 	this.titre = "Fonctions : Notion et vocabulaire";
 	// pas de différence entre la version html et la version latex pour la consigne
 	this.consigne = `Étudier différents procédés de calcul.`;
-	// this.consigne += "Lorsqu'un nombre $\\textit{x}$ entre dans une machine mathématique , celle-ci renvoie à la sortie un nombre appelé $\\textit{image de x}$.<br>";
-	// this.consigne += "On dit que le nombre de départ est un $\\textit{antécédent}$ du nombre qu'on trouve à la sortie.<br>";
-	// this.consigne += "Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donner des noms $\\textit{f}$ ou $\\textit{g}$ ou $\\textit{h} \\ldots$";
-	// this.consigne += `<br>`;
 	sortie_html ? this.spacing = 3 : this.spacing = 1;
 	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
 	this.nb_questions = 4;
@@ -1788,7 +1784,7 @@ function fonction_notion_vocabulaire() {
 						texte_corr += `On dit que ${y} est <b>un</b> antécédent de ${4 * y} par la fonction f.<br>`;
 						j++;//incrémente la sous question
 					} else { //sortie LaTeX
-						texte += `\\item Combien vaut la longueur du côté si la machine renvoie  ${4 * y} cm ? Formuler la réponse avec le mot \\textbf{antécédent} \\footnote{\\textbf{Antécédent :} Un antécédent de la valeur d\'un périmètre est une valeur du côté qui a pour image ce périmètre}`;
+						texte += `\\item Combien vaut le côté si la machine renvoie  ${4 * y} cm ? Formuler la réponse avec le mot \\textbf{antécédent} \\footnote{\\textbf{Antécédent :} Un antécédent de la valeur d\'un périmètre est une valeur du côté qui a pour image ce périmètre}`;
 						texte_corr += `\\item Si la machine renvoie un périmètre de ${4 * y} cm alors le côté du carré vaut $${4 * y}\\div 4 = ${y}$ cm.<br>`;
 						texte_corr += `On dit que ${y} est \\textbf{un} antécédent de ${4 * y} par la fonction f.`;
 					};
@@ -1827,8 +1823,6 @@ function fonction_notion_vocabulaire() {
 					txt_info = `Voici le diagramme d'une machine qui triple `;
 					if (sortie_html) {
 						texte += num_alpha(j) + ` Comme dans l’exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{f}$.<br>`;
-						//texte += `Voici le diagramme d'une machine qui triple `;
-						//texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 						txt_info += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 						SVG_machine_diag_3F1_act_mono(id_du_div_diag, 800, 100, 't', 'x', [['3', '3x']]);
 						texte_corr += num_alpha(j) + ` C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
@@ -1836,9 +1830,7 @@ function fonction_notion_vocabulaire() {
 						SVG_machine_diag_3F1_act_mono(id_du_div_corr, 800, 100, 'f', 'x', [['4', '4x']]);
 						j++;//incrémente la sous question
 					} else { // sortie LaTeX
-						texte += `\\item   \\'{E}crire la réponse à la question d/ sous forme de diagramme, comme dans l’exemple ci-dessous.<br>`;
-						//texte += `Voici le diagramme d'une machine qui triple <br> `;
-						//texte += tikz_machine_diag(`f`, `x`, [[`\\times 3`, `3x`]]);
+						texte += `\\item   Comme dans l’exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{f}$.<br>`;
 						txt_info += '<br>' + tikz_machine_diag(`t`, `x`, [[`\\times 3`, `3x`]]);
 						texte_corr += `\\item  C'est une machine qui quadruple, donc sous forme de diagramme.<br>`;
 						texte_corr += tikz_machine_diag(`f`, `x`, [[`\\times 4`, `4x`]]);
@@ -1849,18 +1841,7 @@ function fonction_notion_vocabulaire() {
 						couleur: 'nombres'
 					});
 
-					// // sous question f/
-					// if (sortie_html) {
-					// 	texte += num_alpha(j) + ` &Eacute;crire la réponse à la question ` + num_alpha(j - 2) + ` sous la forme `;
-					// 	texte += katex_Popup('$\\mathbf{f(\\textbf{\\textit{x}})=\\ldots}$', 'Notation', '4 a pour image 16 par la fonction f peut s\'écrire <b>f(4)=16</b>') + `<br>`;
-					// 	texte_corr += num_alpha(j) + ` L'image de $x$ par la fonction f vaut $4\\times x$ donc $f(x)=4\\times x$.<br>`;
-					// 	j++;//incrémente la sous question
-					// } else { // sortie LaTeX
-					// 	texte += `\\item   \\'{E}crire la réponse à la question d/ sous la forme $\\mathbf{f(\\textbf{\\textit{x}})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f(4)=16}$}`;
-					// 	texte_corr += `\\item  L'image de $x$ par la fonction f vaut $4\\times x$ donc $f(x)=4\\times x$.`;
-					// };
-
-					// sous question g/
+					// sous question f/
 					if (sortie_html) {
 						texte += num_alpha(j) + ` Ecrire maintenant la fonction f en utilisant la forme  `;
 						texte += katex_Popup('$\\mathbf{f:\\textbf{\\textit{x}}\\longmapsto \\ldots}$', 'Notation', '4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f:4\\longmapsto 16}$');
