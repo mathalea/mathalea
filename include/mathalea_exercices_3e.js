@@ -1946,20 +1946,23 @@ function fonction_notion_vocabulaire() {
 
 					// sous question d/
 					if (sortie_html) {
-						texte += num_alpha(j) + ` Que renvoie la machine si le côté vaut $x$ cm ?<br>`;
+						texte += num_alpha(j) + ` Que renvoie la machine si le côté vaut $x$ cm ?`;
+						texte += ` &Eacute;crire la réponse sous la forme `;
+						texte += katex_Popup('$\\mathbf{f(\\textbf{\\textit{x}})=\\ldots}$', 'Notation', '4 a pour image 16 par la fonction f peut s\'écrire <b>f(4)=16</b>') + `<br>`;
 						texte_corr += num_alpha(j) + ` Si le côté vaut $x$ la machine renvoie $x\\times x$ ce qui est équivalent à $x^2$ .<br>`;
 						j++;//incrémente la sous question	
 					} else {
 						texte += `\\item  Que renvoie la machine si le côté vaut $x$ cm ?`;
 						texte_corr += `\\item Si le côté vaut $x$ la machine renvoie $x\\times x$ ce qui est équivalent à $x^2$ .`;
+						texte += ` \\'{E}crire la réponse sous la forme $\\mathbf{f(\\textbf{\\textit{x}})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f(4)=16}$}`;
+						texte_corr += ` L'image de $x$ par la fonction f vaut $x^2$ donc $f(x)=x^2$.`;
+
 					};
 
 					// sous question e/
 					txt_info = `Voici le diagramme d'une machine qui double `;
 					if (sortie_html) {
-						texte += num_alpha(j) + ` &Eacute;crire la réponse à la question ` + num_alpha(j - 1) + ` sous forme de diagramme.<br>`;
-						// texte += `Voici le diagramme d'une machine qui double `;
-						// texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						texte += num_alpha(j) + ` Comme dans l’exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{g}$.<br>`;
 						txt_info += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 						SVG_machine_diag_3F1_act_mono(id_du_div_diag, 800, 100, 'g', 'x', [['2', '2x']]);
 						texte_corr += num_alpha(j) + ` C'est une machine qui multiplie un nombre par lui-même, donc sous forme de diagramme.<br>`;
@@ -1967,9 +1970,7 @@ function fonction_notion_vocabulaire() {
 						SVG_machine_diag_3F1_act_mono(id_du_div_corr, 800, 100, 'g', 'x', [['x', 'x²']]);
 						j++;//incrémente la sous question
 					} else {
-						texte += `\\item  \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
-						// texte += `Voici le diagramme d'une machine qui double <br>`;
-						// texte += tikz_machine_diag(`g`, `x`, [[`\\times 2`, `2x`]]);
+						texte += `\\item  Comme dans l’exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{g}$.<br>`;
 						txt_info += '<br>' + tikz_machine_diag(`g`, `x`, [[`\\times 2`, `2x`]]);
 						texte_corr += `\\item C'est une machine qui multiplie un nombre par lui-même, donc sous forme de diagramme.<br>`;
 						texte_corr += tikz_machine_diag(`g`, `x`, [[`\\times x`, `x^2`]]);
@@ -1982,27 +1983,13 @@ function fonction_notion_vocabulaire() {
 
 					// sous question f/
 					if (sortie_html) {
-						texte += num_alpha(j) + ` &Eacute;crire la réponse à la question ` + num_alpha(j - 2) + ` sous la forme `;
-						texte += katex_Popup('$\\mathbf{g(\\textbf{\\textit{x}})=\\ldots}$', 'Notation', '4 a pour image 16 par la fonction g peut s\'écrire <b>g(4)=16</b>') + `<br>`;
-						texte_corr += num_alpha(j) + ` L'image de $x$ par la fonction g vaut $x\\times x = x^2$ donc $g(x)=x\\times x=x^2$.<br>`;
-						j++;//incrémente la sous question
-					} else { // sortie LaTeX
-						texte += `\\item  \\'{E}crire la réponse à la question d/ sous la forme `;
-						texte += `$\\mathbf{g(\\textbf{\\textit{x}})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction g peut s\'écrire \\textbf{g(4)=16}}`;
-						texte_corr += `\\item L'image de $x$ par la fonction g vaut $x\\times x = x^2$ donc $g(x)=x\\times x=x^2$.`;
-					};
-
-					// sous question g/
-					if (sortie_html) {
-						texte += num_alpha(j) + ` En utilisant la forme `;
-						texte += katex_Popup('$\\mathbf{g:\\textbf{\\textit{x}} \\longmapsto \\ldots}$', 'Notation', '4 a pour image 16 par la fonction g peut s\'écrire $\\mathbf{g:4\\longmapsto 16}$');
-						texte += ` écrire la réponse à la question ` + num_alpha(j - 3) + `<br>`;
+						texte += num_alpha(j) + ` Ecrire maintenant la fonction g en utilisant la forme `;
+						texte += katex_Popup('$\\mathbf{g:\\textbf{\\textit{x}} \\longmapsto \\ldots}$', 'Notation', '4 a pour image 16 par la fonction g peut s\'écrire $\\mathbf{g:4\\longmapsto 16}$');						
 						texte_corr += num_alpha(j) + ` L'image de $x$ par la fonction g vaut $x\\times x=x^2$ donc $g:x\\longmapsto x\\times x=x^2$.<br>`;
 						j++;//incrémente la sous question
 					} else { // sortie LaTeX
-						texte += `\\item  En utilisant la forme `;
+						texte += `\\item  Ecrire maintenant la fonction g en utilisant la forme `;
 						texte += `$\\mathbf{g:\\textbf{\\textit{x}} \\longmapsto \\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction g peut s\'écrire $\\mathbf{g:4\\longmapsto 16}$'}`;
-						texte += ` écrire la réponse à la question d/ `;
 						texte_corr += `\\item L'image de $x$ par la fonction g vaut $x\\times x=x^2$ donc $g:x\\longmapsto x\\times x=x^2$.`;
 						texte += `\\end{enumerate}`;
 						texte_corr += `\\end{enumerate}`;
