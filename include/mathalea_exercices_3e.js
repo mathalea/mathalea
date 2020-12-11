@@ -1869,8 +1869,7 @@ function fonction_notion_vocabulaire() {
 					// sous question f/
 					if (sortie_html) {
 						texte += num_alpha(j) + ` Ecrire maintenant la fonction f en utilisant la forme  `;
-						texte += katex_Popup('$\\mathbf{f:\\textbf{\\textit{x}}\\longmapsto \\ldots}$', 'Notation', '4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f:4\\longmapsto 16}$');
-						//texte += `écrire la réponse à la question ` + num_alpha(j - 3) + `<br>`;
+						texte += katex_Popup('$\\mathbf{f:\\textbf{\\textit{x}}\\longmapsto \\ldots}$', 'Notation', '4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f:4\\longmapsto 16}$');						
 						texte_corr += num_alpha(j) + ` L'image de $x$ par la fonction f vaut $4\\times x$ donc $f:x\\longmapsto 4\\times x$.<br>`;
 						j++;//incrémente la sous question
 					} else { // sortie LaTeX
@@ -1948,14 +1947,15 @@ function fonction_notion_vocabulaire() {
 					if (sortie_html) {
 						texte += num_alpha(j) + ` Que renvoie la machine si le côté vaut $x$ cm ?`;
 						texte += ` &Eacute;crire la réponse sous la forme `;
-						texte += katex_Popup('$\\mathbf{f(\\textbf{\\textit{x}})=\\ldots}$', 'Notation', '4 a pour image 16 par la fonction f peut s\'écrire <b>f(4)=16</b>') + `<br>`;
+						texte += katex_Popup('$\\mathbf{g(\\textbf{\\textit{x}})=\\ldots}$', 'Notation', '4 a pour image 16 par la fonction g peut s\'écrire <b>g(4)=16</b>') + `<br>`;
 						texte_corr += num_alpha(j) + ` Si le côté vaut $x$ la machine renvoie $x\\times x$ ce qui est équivalent à $x^2$ .<br>`;
+						texte_corr += ` L'image de $x$ par la fonction g vaut $x^2$ donc $g(x)=x^2$.<br>`;
 						j++;//incrémente la sous question	
 					} else {
 						texte += `\\item  Que renvoie la machine si le côté vaut $x$ cm ?`;
 						texte_corr += `\\item Si le côté vaut $x$ la machine renvoie $x\\times x$ ce qui est équivalent à $x^2$ .`;
-						texte += ` \\'{E}crire la réponse sous la forme $\\mathbf{f(\\textbf{\\textit{x}})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f(4)=16}$}`;
-						texte_corr += ` L'image de $x$ par la fonction f vaut $x^2$ donc $f(x)=x^2$.`;
+						texte += ` \\'{E}crire la réponse sous la forme $\\mathbf{g(\\textbf{\\textit{x}})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction g peut s\'écrire $\\mathbf{g(4)=16}$}`;
+						texte_corr += ` L'image de $x$ par la fonction g vaut $x^2$ donc $g(x)=x^2$.`;
 
 					};
 
@@ -2057,21 +2057,25 @@ function fonction_notion_vocabulaire() {
 
 					// sous question d/
 					if (sortie_html) {
-						texte += num_alpha(j) + ` Que renvoie la machine si le côté vaut $x$ ?<br>`;
+						texte += num_alpha(j) + ` Que renvoie la machine si le côté vaut $x$ ?`;
+						texte += ` &Eacute;crire la réponse sous la forme `;
+						texte += katex_Popup('$\\mathbf{h(\\textbf{\\textit{x}})=\\ldots}$', 'Notation', '4 a pour image 16 par la fonction h peut s\'écrire <b>h(4)=16</b>') + `<br>`;
 						texte_corr += num_alpha(j) + ` Si le côté vaut $x$ la machine renvoie $3\\times x + 1$ ce qui est équivalent à $3x + 1$ .<br>`;
+						texte_corr += ` L'image de $x$ par la fonction h vaut $3\\times x + 1$ donc $f(x)=3\\times x + 1$.<br>`;
 						j++;//incrémente la sous question
 					} else { // sortie LaTeX
 						texte += `\\item  Que renvoie la machine si le côté vaut $x$ ?`;
 						texte_corr += `\\item Si le côté vaut $x$ la machine renvoie $3\\times x + 1$ ce qui est équivalent à $3x + 1$ .`;
+						texte += ` \\'{E}crire la réponse sous la forme $\\mathbf{h(\\textbf{\\textit{x}})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction h peut s\'écrire $\\mathbf{h(4)=16}$}`;
+						texte_corr += ` L'image de $x$ par la fonction h vaut $3x + 1$ donc $h(x)=3x+1$.`;
+
 						j++;//incrémente la sous question
 					};
 
 					// sous question e/
 					txt_info = `Voici le diagramme d'une machine qui double puis qui ajoute 5 `;
 					if (sortie_html) {
-						texte += num_alpha(j) + ` &Eacute;crire la réponse à la question ` + num_alpha(j - 1) + ` sous forme de diagramme.<br>`;
-						// texte += `Voici le diagramme d'une machine qui double puis qui ajoute 5 `;
-						// texte += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
+						texte += num_alpha(j) + ` Comme dans l’exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{h}$.<br>`;
 						txt_info += `<div id="${id_du_div_diag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`;
 						SVG_machine_diag_3F12(id_du_div_diag, 800, 100, 'h', 'x', [['2', '2x'], ['5', '2x+5']]);
 						texte_corr += num_alpha(j) + ` C'est une machine qui triple un nombre et ajoute 1, donc sous forme de diagramme.<br>`;
@@ -2079,9 +2083,7 @@ function fonction_notion_vocabulaire() {
 						SVG_machine_diag_3F12(id_du_div_corr, 800, 100, 'h', 'x', [['3', '3x'], ['1', '3x+1']]);
 						j++;//incrémente la sous question
 					} else {
-						texte += `\\item  \\'{E}crire la réponse à la question d/ sous forme de diagramme.<br>`;
-						// texte += `Voici le diagramme d'une machine qui double puis qui ajoute 5 <br>`;
-						// texte += tikz_machine_diag(`h`, `x`, [[`\\times 2`, `2x`], [`+5`, `2x+5`]]);
+						texte += `\\item  Comme dans l’exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{h}$.<br>`;
 						txt_info += '<br>' + tikz_machine_diag(`h`, `x`, [[`\\times 2`, `2x`], [`+5`, `2x+5`]]);
 						texte_corr += `\\item C'est une machine qui triple un nombre et ajoute 1, donc sous forme de diagramme.<br>`;
 						texte_corr += tikz_machine_diag(`h`, `x`, [[`\\times 3`, `3x`], [`+1`, `3x+1`]]);
@@ -2094,27 +2096,13 @@ function fonction_notion_vocabulaire() {
 
 					// sous question f/
 					if (sortie_html) {
-						texte += num_alpha(j) + ` &Eacute;crire la réponse à la question ` + num_alpha(j - 2) + ` sous la forme `;
-						texte += katex_Popup('$\\mathbf{h(\\textbf{\\textit{x}})=\\ldots}$', 'Notation', '4 a pour image 16 par la fonction h peut s\'écrire <b>h(4)=16</b>') + `<br>`;
-						texte_corr += num_alpha(j) + ` L'image de $x$ par la fonction h vaut $3\\times x + 1 = 3x + 1$ donc $h(x)=3\\times x + 1$ soit $h(x) = 3x + 1$.<br>`;
-						j++;//incrémente la sous question
-					} else { // sortie LaTeX
-						texte += `\\item  \\'{E}crire la réponse à la question d/ sous la forme `;
-						texte += `$\\mathbf{h(\\textbf{\\textit{x}})=\\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction h peut s\'écrire \\textbf{h(4)=16}}`;
-						texte_corr += `\\item L'image de $x$ par la fonction h vaut $3\\times x + 1 = 3x + 1$ donc $h(x)=3\\times x + 1$ soit $h(x) = 3x + 1$.`;
-					};
-
-					// sous question g/
-					if (sortie_html) {
-						texte += num_alpha(j) + ` En utilisant la forme `;
-						texte += katex_Popup('$\\mathbf{h:\\textbf{\\textit{x}} \\longmapsto \\ldots}$', 'Notation', '4 a pour image 16 par la fonction h peut s\'écrire $\\mathbf{h:4\\longmapsto16}$');
-						texte += ` écrire la réponse à la question ` + num_alpha(j - 3) + `<br>`;
+						texte += num_alpha(j) + ` Ecrire maintenant la fonction h en utilisant la forme `;
+						texte += katex_Popup('$\\mathbf{h:\\textbf{\\textit{x}} \\longmapsto \\ldots}$', 'Notation', '4 a pour image 16 par la fonction h peut s\'écrire $\\mathbf{h:4\\longmapsto16}$');						
 						texte_corr += num_alpha(j) + ` L'image de $x$ par la fonction h vaut $3\\times x +1= 3x + 1$ donc $h : x \\longmapsto 3\\times x + 1$ soit $h : x \\longmapsto 3x + 1$.<br>`;
 						j++;//incrémente la sous question
 					} else { // sortie LaTeX
-						texte += `\\item  En utilisant la forme `;
-						texte += `$\\mathbf{h:\\textbf{\\textit{x}} \\longmapsto \\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction h peut s\'écrire $\\mathbf{h:4\\longmapsto16}$}`;
-						texte += ` écrire la réponse à la question d/`;
+						texte += `\\item  Ecrire maintenant la fonction h en utilisant la forme `;
+						texte += `$\\mathbf{h:\\textbf{\\textit{x}} \\longmapsto \\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction h peut s\'écrire $\\mathbf{h:4\\longmapsto16}$}`;						
 						texte_corr += `\\item L'image de $x$ par la fonction h vaut $3\\times x +1= 3x + 1$ donc $h : x \\longmapsto 3\\times x + 1$ soit $h : x \\longmapsto 3x + 1$.`;
 						texte += `\\end{enumerate}`;
 						texte_corr += `\\end{enumerate}`;
