@@ -781,13 +781,13 @@ function CalculsDeDerives() {
             case 'xn+1/x':
                 n = randint(2,10)
                 expression = `x^${n}+1/x`;
-                ensembleDerivation = `\\mathbb{R}`
+                ensembleDerivation = `\\mathbb{R}^{\\text{*}}`
                 break;
             case 'xn+1/xm':
                 n = randint(2,10)
                 m = randint(2,10,m)
                 expression = `x^${n}+1/x^${m}`;
-                ensembleDerivation = `\\mathbb{R}`
+                ensembleDerivation = `\\mathbb{R}^{\\text{*}}`
                 break;
             case 'xn+xm':
                 n = randint(2,10)
