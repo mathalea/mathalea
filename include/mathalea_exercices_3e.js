@@ -4629,7 +4629,7 @@ function Premier_escape_game_mathalea() {
 		console.log([0, ord0[0]], [absc[0], ord[0]], [absc[1], ord[1]], [7, ord6[0]])
 		switch (type) {
 			case 1: //N&B
-				p = polygoneRegulierIndirect(point(-1, -2), point(15, -2), 4)
+				p = polygoneRegulier(point(-1, -2), point(15, -2), 4)
 				p.couleurDeRemplissage = 'grey'
 				p.opacite = 0.2
 				f1 = graphiqueInterpole([[0, ord0[0]], [absc[0], ord[0]], [absc[1], ord[1]], [7, ord6[0]]], { repere: r, color: 'black', step: 0.1 })
@@ -4639,7 +4639,7 @@ function Premier_escape_game_mathalea() {
 				texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 7, pixelsParCm: 30 }, p, r, f1, f2) + `<br>`
 				break;
 			case 2: //RGB
-				p = polygoneRegulierIndirect(point(-1, -2), point(15, -2), 4)
+				p = polygoneRegulier(point(-1, -2), point(15, -2), 4)
 				p.opacite = 0.2
 				p.couleurDeRemplissage = 'grey'
 				f1 = graphiqueInterpole([[0, ord0[0]], [absc[0], ord[0]], [absc[1], ord[1]], [7, ord6[0]]], { repere: r, color: 'red', step: 0.1 })
@@ -4651,7 +4651,7 @@ function Premier_escape_game_mathalea() {
 				texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 7, pixelsParCm: 30 }, p, r, f1, f2, f3) + `<br>`
 				break;
 			case 3: //CJMN
-				p = polygoneRegulierIndirect(point(-1, -2), point(15, -2), 4)
+				p = polygoneRegulier(point(-1, -2), point(15, -2), 4)
 				p.opacite = 0.2
 				p.couleurDeRemplissage = 'grey'
 				f1 = graphiqueInterpole([[0, ord0[0]], [absc[0], ord[0]], [absc[1], ord[1]], [7, ord6[0]]], { repere: r, color: 'cyan', step: 0.1 })

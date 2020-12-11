@@ -1828,7 +1828,7 @@ function polygoneRegulier(A, B, n, color = "black") {
     listePoints[i + 1] = rotation(
       listePoints[i - 1],
       listePoints[i],
-      calcul(180 - 360 / n)
+      calcul(-180 + 360 / n)
     );
   }
   return polygone(listePoints, color);
@@ -1845,7 +1845,7 @@ function polygoneRegulierIndirect(A, B, n, color = "black") {
     listePoints[i + 1] = rotation(
       listePoints[i - 1],
       listePoints[i],
-      calcul(-180 + 360 / n)
+      calcul(180 - 360 / n)
     );
   }
   return polygone(listePoints, color);
