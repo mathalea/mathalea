@@ -1689,11 +1689,12 @@ function fonction_notion_vocabulaire() {
 	this.consigne = `Étudier différents procédés de calcul.`;
 	sortie_html ? this.spacing = 3 : this.spacing = 1;
 	sortie_html ? this.spacing_corr = 2 : this.spacing_corr = 1;
-	this.nb_questions = 4;
+	//this.nb_questions;// = 4;
+	this.nb_questions_modifiable = false;
 	//this.correction_detaillee_disponible = true;
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
-	this.sup = 1;
+	this.sup = 5;
 	this.liste_packages = `bclogo`;
 
 	var num_ex = '3F1-act'; // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
@@ -1711,8 +1712,32 @@ function fonction_notion_vocabulaire() {
 		this.liste_corrections = []; // Liste de questions corrigées
 		this.contenu = ''; // Liste de questions
 		this.contenu_correction = ''; // Liste de questions corrigées
+		let type_de_questions_disponibles;
+		this.sup = Number(this.sup); // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
+			switch (this.sup) {
+				case 1 :
+					type_de_questions_disponibles = [1];
+					this.nb_questions = 1;
+					break;
+				case 2 :
+					type_de_questions_disponibles = [2];
+					this.nb_questions = 1;
+					break;
+				case 3 :
+					type_de_questions_disponibles = [3];
+					this.nb_questions = 1;
+					break;
+				case 4 :
+					type_de_questions_disponibles = [4];
+					this.nb_questions = 1;
+					break;
+				case 5 :
+					type_de_questions_disponibles = [1,2,3,4];
+					this.nb_questions = 4;
+					break;										
+			}
 
-		let type_de_questions_disponibles = [1, 2, 3, 4];
+		
 		//let type_de_questions_disponibles = [1];
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions);
 
@@ -2251,7 +2276,7 @@ function fonction_notion_vocabulaire() {
 
 		liste_de_question_to_contenu(this);
 	}
-	//this.besoin_formulaire_numerique = ['Règle à travailler',5,"1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissance\n4 : Produit de puissances de même exposant\n5 : Mélange"]; 
+	this.besoin_formulaire_numerique = ['Type de fonction',5,"1 : Périmètre d'un carré\n2 : Aire d'un carré\n3 : Somme de 1 et du triple du nombre de départ\n4 : Nombre de diviseurs d'un entier positif\n5 : Les quatre"]; 
 };
 
 /**
