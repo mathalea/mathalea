@@ -347,6 +347,7 @@ var liste_des_exercices_disponibles = {
   "1E10": Calcul_discriminant,
   "1E11": Resoudre_equation_degre_2,
   "1E12": Trouver_equation_parabole,
+  "1F10": CalculsDeDerives,
   "PEA11": Passer_d_une_base_a_l_autre,
   "PEA11-1": Passer_de_la_base_12_ou_16_a_la_10,
   "betaTESTseb": Tests_du_Seb,
