@@ -11852,7 +11852,18 @@ function Pavages_mathalea2d() {
   this.sup=4
 
   sortie_html ? (this.spacing_corr = 2.5) : (this.spacing_corr = 1.5);
+
   this.nouvelle_version = function (numero_de_l_exercice) {
+  let nettoie_objets=function(objets){
+      for (let i=0;i<objets.length;i++){
+        for (let j=i+1;j<objets.length;){
+          if (objets[i]==objets[j]){
+            objets.splice(j,1)
+          }
+          else j++
+        }
+      }
+    }
    // let PositionsParDefaut=[[0.5,3.4641,0,0],[4,4,0,4]] // Pour pavages paramétrables : paramètres par défaut
   let Nx,Ny // nombres de dalles en x et en y
    if (!this.sup2) { // On fixe le nombre de dalles en x et en y
@@ -11909,7 +11920,6 @@ function Pavages_mathalea2d() {
       objets.push(P1,P2,P3,P4)
 
       for (let p of P1.listePoints){
-        console.log(p.x,p.y)
         XMIN=Math.min(XMIN,p.x)
         XMAX=Math.max(XMAX,p.x)
         YMIN=Math.min(YMIN,p.y)
@@ -11946,10 +11956,11 @@ function Pavages_mathalea2d() {
       B=translation(B,w)  
       }
       echelle=400/Math.max(YMAX-YMIN,XMAX-XMIN)
-      console.log(XMIN,YMIN,XMAX,YMAX,echelle)
       fenetre={xmin:XMIN,ymin:YMIN,xmax:XMAX,ymax:YMAX,pixelsParCm:echelle,scale:echelle/20}
+      nettoie_objets(objets)
       break
     }
+    console.log(objets.length)
     texte=mathalea2d(fenetre,objets)
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
