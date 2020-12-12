@@ -2778,9 +2778,13 @@ function Thales2D() {
   this.nb_cols_corr = 1;
   this.sup = 1; // Triangles imbriqués / configuration papillon / les 2
   this.vspace = -0.5; // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
-
-
+  
   this.nouvelle_version = function (numero_de_l_exercice) {
+    this.bouton_aide_mathalea2d = creerBoutonMathalea2d(numero_de_l_exercice,
+      `colorerParDiv('M2D_${numero_de_l_exercice}_1','blue');
+      colorerParDiv('M2D_${numero_de_l_exercice}_2','red');
+      `,
+      'Colorier les 2 triangles');
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let liste_de_noms_de_polygones = []
@@ -2804,6 +2808,7 @@ function Thales2D() {
       let A = point(0, 0, nomA);
       let B = pointAdistance(A, ab, nomB);
       let ABC = triangle2points2longueurs(A, B, ac, bc);
+      ABC.id = `M2D_${numero_de_l_exercice}_1`;
       let C = ABC.listePoints[2];
       C.nom = nomC;
       let k = calcul(randint(3, 8, 5) / 10);
@@ -2818,6 +2823,7 @@ function Thales2D() {
       let M = homothetie(A, C, k);
       let N = homothetie(B, C, k);
       let MNC = polygone(M, N, C);
+      MNC.id = `M2D_${numero_de_l_exercice}_2`;
       let m = pointSurSegment(M, N, -.5);
       let n = pointSurSegment(N, M, -.5);
       let marqueNomM = texteParPoint(nomM, m);
@@ -2889,7 +2895,7 @@ function Thales2D() {
       cpt++;
     }
     liste_de_question_to_contenu(this);
-  };
+    }
   this.besoin_formulaire_numerique = ['Configuration', 3, '1 : Triangles imbriqués\n2 : Papillon\n3 : Les deux'];
 }
 

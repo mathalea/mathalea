@@ -553,7 +553,10 @@ function mise_a_jour_du_code(){
                         if (exercice[i].bouton_aide) {
                           code1 += `<div id=aide${i}> ${exercice[i].bouton_aide}</div>`;
                         }
-                        code1 += exercice[i].contenu;
+						code1 += exercice[i].contenu;
+						if (exercice[i].bouton_aide_mathalea2d){
+							code1 += `<div style="display: inline-block;">${exercice[i].bouton_aide_mathalea2d}</div>`;
+						}
                         if (exercice[i].type_exercice == "MG32") {
                           code1 += `<div id="MG32div${i}" class="MG32"></div>`;
                         }
