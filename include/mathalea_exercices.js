@@ -11892,7 +11892,7 @@ function Pavages_mathalea2d() {
     this.liste_corrections=[]
     this.liste_questions=[]
     let texte="", texte_corr="",type_de_pavage=parseInt(this.sup)
-    let objets=[],A,B,v,w,C,D,P,XMIN=0,YMIN=0,XMAX=0,YMAX=0,P1,P2,P3,P4,P5,fenetre,echelle,nombre_de_polygones
+    let objets=[],A,B,v,w,C,D,P,XMIN=0,YMIN=0,XMAX=0,YMAX=0,P1,P2,P3,P4,P5,P6,P7,P8,P9,P10,P11,P12,fenetre,echelle,nombre_de_polygones
     let barycentres=[]
 
     switch (type_de_pavage) {
@@ -11951,8 +11951,8 @@ function Pavages_mathalea2d() {
       A=point(0,0)
       B=point(3,0)
       v=vecteur(A,B)
+      v=homothetie(v,A,2)
       w=rotation(v,A,-90)
-      w=homothetie(w,A,2)
       for (let k=0;k<Ny;k++){
       for (let j=0;j<Nx;j++) {
       P1=polygoneRegulier(A,B,4)
@@ -12010,48 +12010,9 @@ function Pavages_mathalea2d() {
       C=similitude(B,A,30,1.1547)
       P1=polygoneRegulier(A,C,6)
       P2=rotation(P1,A,-120)
-      objets.push(P1,P2)
-
-      for (let p of P1.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      for (let p of P2.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      A=translation(A,v)
-      B=translation(B,v)
-      }
-      A=translation(A,vecteur(-Nx*v.x,-2*v.y))
-      B=translation(B,vecteur(-Nx*v.x,-2*v.y))
-      A=translation(A,w)
-      B=translation(B,w)  
-      }
-      echelle=400/Math.max(YMAX-YMIN,XMAX-XMIN)
-      fenetre={xmin:XMIN,ymin:YMIN,xmax:XMAX,ymax:YMAX,pixelsParCm:echelle,scale:echelle/20}
-      break
-
-      case 4 : // Pavage 3².4.3.4
-      A=point(0,0)
-      B=point(3,0)
-      v=vecteur(A,B)
-      v=homothetie(v,A,2.73205)
-      w=rotation(v,A,-90)
-      for (let k=0;k<Ny;k++){
-      for (let j=0;j<Nx;j++) {
-      for (let i=0;i<4;i++) {
-      C=rotation(B,A,60)
-      P1=polygoneRegulier(A,B,3)
-      P2=polygoneRegulierIndirect(A,B,3)
-      P3=polygoneRegulier(A,C,4)
-      P4=polygoneRegulierIndirect(B,C,4)
-      P5=rotation(P4,B,-150)
-      objets.push(P1,P2,P3,P4,P5)
+      P3=translation(P1,v)
+      P4=translation(P2,v)
+      objets.push(P1,P2,P3,P4)
 
       for (let p of P1.listePoints){
         XMIN=Math.min(XMIN,p.x)
@@ -12077,23 +12038,118 @@ function Pavages_mathalea2d() {
         YMIN=Math.min(YMIN,p.y)
         YMAX=Math.max(YMAX,p.y)
       }
+      A=translation(A,vecteur(2*v.x,0))
+      B=translation(B,vecteur(2*v.x,0))
+      }
+      A=translation(A,vecteur(-Nx*2*v.x,w.y))
+      B=translation(B,vecteur(-Nx*2*v.x,w.y)) 
+      }
+      echelle=400/Math.max(YMAX-YMIN,XMAX-XMIN)
+      fenetre={xmin:XMIN,ymin:YMIN,xmax:XMAX,ymax:YMAX,pixelsParCm:echelle,scale:echelle/20}
+      break
+
+      case 4 : // Pavage 3².4.3.4
+      A=point(0,0)
+      B=point(3,0)
+      v=vecteur(A,B)
+      v=homothetie(v,A,2.73205)
+      w=rotation(v,A,-90)
+      for (let k=0;k<Ny;k++){
+      for (let j=0;j<Nx;j++) {
+
+      C=rotation(B,A,60)
+      P1=polygoneRegulier(A,B,3)
+      P2=rotation(P1,A,150)
+      P6=rotation(P1,B,-150)
+      P7=rotation(P1,B,60)
+      P9=rotation(P2,C,150)
+      P10=rotation(P9,A,-60)
+      P11=rotation(P2,B,60)
+      P12=rotation(P6,A,-60)     
+      P3=polygoneRegulier(A,C,4)
+      P4=polygoneRegulierIndirect(B,C,4)
+      P5=rotation(P4,B,-150)
+      P8=rotation(P3,A,150)
+
+      objets.push(P1,P2,P3,P4,P5,P6,P7,P8,P9,P10,P11,P12)
+
+      for (let p of P1.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P2.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P11.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P12.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P3.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P4.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
       for (let p of P5.listePoints){
         XMIN=Math.min(XMIN,p.x)
         XMAX=Math.max(XMAX,p.x)
         YMIN=Math.min(YMIN,p.y)
         YMAX=Math.max(YMAX,p.y)
       }
-      P=similitude(A,B,105,0.7071)
-      A=rotation(A,P,-90)
-      B=rotation(B,P,-90)
+      for (let p of P6.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
       }
-      A=translation(A,v)
-      B=translation(B,v)
+      for (let p of P7.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
       }
-      A=translation(A,vecteur(-Nx*v.x,-2*v.y))
-      B=translation(B,vecteur(-Nx*v.x,-2*v.y))
-      A=translation(A,w)
-      B=translation(B,w)  
+      for (let p of P8.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P9.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P10.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      A=translation(A,vecteur(v.x,0))
+      B=translation(B,vecteur(v.x,0))
+      }
+      A=translation(A,vecteur(-Nx*v.x,w.y))
+      B=translation(B,vecteur(-Nx*v.x,w.y))
       }
       echelle=400/Math.max(YMAX-YMIN,XMAX-XMIN)
       fenetre={xmin:XMIN,ymin:YMIN,xmax:XMAX,ymax:YMAX,pixelsParCm:echelle,scale:echelle/20}
