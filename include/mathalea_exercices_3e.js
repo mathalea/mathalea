@@ -4589,7 +4589,7 @@ function Premier_escape_game_mathalea() {
 			else ord.push(randint(0, 4, ord[x - 1])) // pour le deuxième, on évite l'ordonnée précédente
 			console.log(x, absc[x], ord[x])
 			if (lettres[ord[x]][absc[x]] == '*') lettres[ord[x]][absc[x]] = car
-			else if (lettres[absc[x]][ord[x]] != car) {
+			else if (lettres[ord[x]][absc[x]] != car) {
 				for (let i = 0; i < x; i++) {
 					if (absc[i] == absc[x] && ord[i] == ord[x]) {
 						ord[x] = (ord[x] + 1) % 5
