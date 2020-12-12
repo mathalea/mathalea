@@ -11850,14 +11850,29 @@ function Pavages_mathalea2d() {
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
   this.sup=4
+  this.sup2=1
 
   sortie_html ? (this.spacing_corr = 2.5) : (this.spacing_corr = 1.5);
+
   this.nouvelle_version = function (numero_de_l_exercice) {
+  let nettoie_objets=function(objets){
+    let barywhite,baryblack // c'est drôle non ?
+      for (let i=0;i<objets.length;i++){
+        barywhite=barycentre(objets[i])
+        for (let j=i+1;j<objets.length;){
+          baryblack=barycentre(objets[j])
+          if (egal(barywhite.x,baryblack.x,0.1)&&egal(barywhite.y,baryblack.y,0.1)){
+            objets.splice(j,1)
+          }
+          else j++
+        }
+      }
+    }
    // let PositionsParDefaut=[[0.5,3.4641,0,0],[4,4,0,4]] // Pour pavages paramétrables : paramètres par défaut
   let Nx,Ny // nombres de dalles en x et en y
    if (!this.sup2) { // On fixe le nombre de dalles en x et en y
       // Si aucune grandeur n'est saisie
-      [Nx,Ny]=[2,2]
+      [Nx,Ny]=[1,1]
     } else {
       if (typeof this.sup2 == "number") {
         [Nx,Ny] = [this.sup2,this.sup2];
@@ -11877,39 +11892,25 @@ function Pavages_mathalea2d() {
     this.liste_corrections=[]
     this.liste_questions=[]
     let texte="", texte_corr="",type_de_pavage=parseInt(this.sup)
-    let objets=[],A,B,v,w,C,D,P,XMIN=0,YMIN=0,XMAX=0,YMAX=0,P1,P2,P3,P4,fenetre,echelle
-    type_de_pavage=4 // Mode debug
+    let objets=[],A,B,v,w,C,D,P,XMIN=0,YMIN=0,XMAX=0,YMAX=0,P1,P2,P3,P4,P5,P6,P7,P8,P9,P10,P11,P12,fenetre,echelle,nombre_de_polygones
+    let barycentres=[]
+
     switch (type_de_pavage) {
       case 1 : // triangles équilatéraux
-
-      break
-
-      case 2 : //carrés
-
-      break
-
-      case 3 : //hexagones
-
-      break
-
-      case 4 : // Pavage 3².4.3.4
       A=point(0,0)
       B=point(3,0)
       v=vecteur(A,B)
-      v=homothetie(v,A,2.73205)
       w=rotation(v,A,-90)
+      w=homothetie(w,A,1.73205)
       for (let k=0;k<Ny;k++){
       for (let j=0;j<Nx;j++) {
-      for (let i=0;i<4;i++) {
-      C=rotation(B,A,60)
       P1=polygoneRegulier(A,B,3)
-      P2=polygoneRegulierIndirect(A,B,3)
-      P3=polygoneRegulier(A,C,4)
-      P4=polygoneRegulierIndirect(B,C,4)
+      P2=rotation(P1,A,60)
+      P3=rotation(P1,A,-60)
+      P4=rotation(P1,A,-120)
       objets.push(P1,P2,P3,P4)
 
       for (let p of P1.listePoints){
-        console.log(p.x,p.y)
         XMIN=Math.min(XMIN,p.x)
         XMAX=Math.max(XMAX,p.x)
         YMIN=Math.min(YMIN,p.y)
@@ -11933,9 +11934,56 @@ function Pavages_mathalea2d() {
         YMIN=Math.min(YMIN,p.y)
         YMAX=Math.max(YMAX,p.y)
       }
-      P=similitude(A,B,105,0.7071)
-      A=rotation(A,P,-90)
-      B=rotation(B,P,-90)
+      A=translation(A,v)
+      B=translation(B,v)
+      }
+      A=translation(A,vecteur(-Nx*v.x,-2*v.y))
+      B=translation(B,vecteur(-Nx*v.x,-2*v.y))
+      A=translation(A,w)
+      B=translation(B,w)  
+      }
+      echelle=400/Math.max(YMAX-YMIN,XMAX-XMIN)
+      fenetre={xmin:XMIN,ymin:YMIN,xmax:XMAX,ymax:YMAX,pixelsParCm:echelle,scale:echelle/20}
+
+      break
+
+      case 2 : //carrés
+      A=point(0,0)
+      B=point(3,0)
+      v=vecteur(A,B)
+      v=homothetie(v,A,2)
+      w=rotation(v,A,-90)
+      for (let k=0;k<Ny;k++){
+      for (let j=0;j<Nx;j++) {
+      P1=polygoneRegulier(A,B,4)
+      P2=rotation(P1,A,90)
+      P3=rotation(P1,A,-90)
+      P4=rotation(P1,A,-180)
+      objets.push(P1,P2,P3,P4)
+
+      for (let p of P1.listePoints){
+        XMIN=Math.min(XMIN,p.x)     
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P2.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P3.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P4.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
       }
       A=translation(A,v)
       B=translation(B,v)
@@ -11946,10 +11994,179 @@ function Pavages_mathalea2d() {
       B=translation(B,w)  
       }
       echelle=400/Math.max(YMAX-YMIN,XMAX-XMIN)
-      console.log(XMIN,YMIN,XMAX,YMAX,echelle)
+      fenetre={xmin:XMIN,ymin:YMIN,xmax:XMAX,ymax:YMAX,pixelsParCm:echelle,scale:echelle/20}
+
+      break
+
+      case 3 : //hexagones
+      A=point(0,0)
+      B=point(3,0)
+      v=vecteur(A,B)
+      v=homothetie(v,A,2)
+      w=rotation(v,A,-90)
+      w=homothetie(w,A,1.73205)
+      for (let k=0;k<Ny;k++){
+      for (let j=0;j<Nx;j++) {
+      C=similitude(B,A,30,1.1547)
+      P1=polygoneRegulier(A,C,6)
+      P2=rotation(P1,A,-120)
+      P3=translation(P1,v)
+      P4=translation(P2,v)
+      objets.push(P1,P2,P3,P4)
+
+      for (let p of P1.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P2.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P3.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P4.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      A=translation(A,vecteur(2*v.x,0))
+      B=translation(B,vecteur(2*v.x,0))
+      }
+      A=translation(A,vecteur(-Nx*2*v.x,w.y))
+      B=translation(B,vecteur(-Nx*2*v.x,w.y)) 
+      }
+      echelle=400/Math.max(YMAX-YMIN,XMAX-XMIN)
+      fenetre={xmin:XMIN,ymin:YMIN,xmax:XMAX,ymax:YMAX,pixelsParCm:echelle,scale:echelle/20}
+      break
+
+      case 4 : // Pavage 3².4.3.4
+      A=point(0,0)
+      B=point(3,0)
+      v=vecteur(A,B)
+      v=homothetie(v,A,2.73205)
+      w=rotation(v,A,-90)
+      for (let k=0;k<Ny;k++){
+      for (let j=0;j<Nx;j++) {
+
+      C=rotation(B,A,60)
+      P1=polygoneRegulier(A,B,3)
+      P2=rotation(P1,A,150)
+      P6=rotation(P1,B,-150)
+      P7=rotation(P1,B,60)
+      P9=rotation(P2,C,150)
+      P10=rotation(P9,A,-60)
+      P11=rotation(P2,B,60)
+      P12=rotation(P6,A,-60)     
+      P3=polygoneRegulier(A,C,4)
+      P4=polygoneRegulierIndirect(B,C,4)
+      P5=rotation(P4,B,-150)
+      P8=rotation(P3,A,150)
+
+      objets.push(P1,P2,P3,P4,P5,P6,P7,P8,P9,P10,P11,P12)
+
+      for (let p of P1.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P2.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P11.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P12.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P3.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P4.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P5.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P6.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P7.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P8.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P9.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P10.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      A=translation(A,vecteur(v.x,0))
+      B=translation(B,vecteur(v.x,0))
+      }
+      A=translation(A,vecteur(-Nx*v.x,w.y))
+      B=translation(B,vecteur(-Nx*v.x,w.y))
+      }
+      echelle=400/Math.max(YMAX-YMIN,XMAX-XMIN)
       fenetre={xmin:XMIN,ymin:YMIN,xmax:XMAX,ymax:YMAX,pixelsParCm:echelle,scale:echelle/20}
       break
     }
+   console.log('avant nettoyage',objets.length)
+    nettoie_objets(objets) // On supprime les doublons éventuels (grâce à leur barycentre)
+    console.log('après nettoyage',objets.length)
+    // On ajoute les N°
+    nombre_de_polygones=objets.length // Le nombre de polygones du pavage qui sert dans les boucles
+
+    for (let i=0;i<nombre_de_polygones;i++){
+      P=barycentre(objets[i])
+      barycentres.push([arrondi(P.x,1),arrondi(P.y,1)])
+      objets.push(texteParPoint(nombre_avec_espace(i+1),P,'milieu','black',1,0,true))
+    }
+console.log(barycentres)
     texte=mathalea2d(fenetre,objets)
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
