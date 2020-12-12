@@ -352,7 +352,7 @@ var liste_des_exercices_disponibles = {
   "PEA11-1": Passer_de_la_base_12_ou_16_a_la_10,
   "betaTESTseb": Tests_du_Seb,
   "betaSVG": AfficherSVG,
-  "betaExoZero" : Exercice_zero_mathalea2d,
+  //"betaExoZero" : Exercice_zero_mathalea2d,
   "betaExoConstruction" : Exercice_constructions_basiques,
   P001: Code_LaTeX_personnalise,
   // 'P002': LaTeX_static,
@@ -360,6 +360,7 @@ var liste_des_exercices_disponibles = {
   "P004": Feuille_de_zooms,
   "P005": Feuille_de_grilles,
   "P006" : Nombre_a_placer,
+  "betaP007" : Pavages_mathalea2d,
   "cours": Questions_de_cours,
   "LaTeX": Code_LaTeX_personnalise,
   // 'Perso' : HTML_personnalise,
@@ -11836,10 +11837,134 @@ function HTML_personnalise() {
     this.contenu_correction = this.sup2;
   };
 }
+/**
+ * 
+ */
+function Pavages_mathalea2d() {
+  "use strict";
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.titre ="Fabriquer des pavages pour travailler les transformations";
+  this.consigne = "";
+  this.nb_questions = 1;
+  this.nb_questions_modifiable = false;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  this.sup=4
+
+  sortie_html ? (this.spacing_corr = 2.5) : (this.spacing_corr = 1.5);
+  this.nouvelle_version = function (numero_de_l_exercice) {
+   // let PositionsParDefaut=[[0.5,3.4641,0,0],[4,4,0,4]] // Pour pavages paramétrables : paramètres par défaut
+  let Nx,Ny // nombres de dalles en x et en y
+   if (!this.sup2) { // On fixe le nombre de dalles en x et en y
+      // Si aucune grandeur n'est saisie
+      [Nx,Ny]=[2,2]
+    } else {
+      if (typeof this.sup2 == "number") {
+        [Nx,Ny] = [this.sup2,this.sup2];
+        this.nb_questions = 1;
+      } else {
+        [Nx,Ny] = this.sup2.split("-"); // Sinon on créé un tableau à partir des valeurs séparées par des -
+      }
+    }
+/*    if (!this.sup3) { // Pour motif de pavage paramétrable
+      // Si aucun point n'est saisi on prend le tableau par défaut pour le type de pavage
+      [Cx,Cy,Dx,Dy]=PositionsParDefaut[parseInt(this.sup)]
+    } else {
+          [Cx,Cy,Dx,Dy] = this.sup2.split("-"); // Sinon on créé un tableau à partir des valeurs séparées par des -
+      }
+    }
+*/
+    this.liste_corrections=[]
+    this.liste_questions=[]
+    let texte="", texte_corr="",type_de_pavage=parseInt(this.sup)
+    let objets=[],A,B,v,w,C,D,P,XMIN=0,YMIN=0,XMAX=0,YMAX=0,P1,P2,P3,P4,fenetre,echelle
+    type_de_pavage=4 // Mode debug
+    switch (type_de_pavage) {
+      case 1 : // triangles équilatéraux
+
+      break
+
+      case 2 : //carrés
+
+      break
+
+      case 3 : //hexagones
+
+      break
+
+      case 4 : // Pavage 3².4.3.4
+      A=point(0,0)
+      B=point(3,0)
+      v=vecteur(A,B)
+      v=homothetie(v,A,2.73205)
+      w=rotation(v,A,-90)
+      for (let k=0;k<Ny;k++){
+      for (let j=0;j<Nx;j++) {
+      for (let i=0;i<4;i++) {
+      C=rotation(B,A,60)
+      P1=polygoneRegulier(A,B,3)
+      P2=polygoneRegulierIndirect(A,B,3)
+      P3=polygoneRegulier(A,C,4)
+      P4=polygoneRegulierIndirect(B,C,4)
+      objets.push(P1,P2,P3,P4)
+
+      for (let p of P1.listePoints){
+        console.log(p.x,p.y)
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P2.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P3.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      for (let p of P4.listePoints){
+        XMIN=Math.min(XMIN,p.x)
+        XMAX=Math.max(XMAX,p.x)
+        YMIN=Math.min(YMIN,p.y)
+        YMAX=Math.max(YMAX,p.y)
+      }
+      P=similitude(A,B,105,0.7071)
+      A=rotation(A,P,-90)
+      B=rotation(B,P,-90)
+      }
+      A=translation(A,v)
+      B=translation(B,v)
+      }
+      A=translation(A,vecteur(-Nx*v.x,-2*v.y))
+      B=translation(B,vecteur(-Nx*v.x,-2*v.y))
+      A=translation(A,w)
+      B=translation(B,w)  
+      }
+      echelle=400/Math.max(YMAX-YMIN,XMAX-XMIN)
+      console.log(XMIN,YMIN,XMAX,YMAX,echelle)
+      fenetre={xmin:XMIN,ymin:YMIN,xmax:XMAX,ymax:YMAX,pixelsParCm:echelle,scale:echelle/20}
+      break
+    }
+    texte=mathalea2d(fenetre,objets)
+    this.liste_questions.push(texte);
+    this.liste_corrections.push(texte_corr);
+    liste_de_question_to_contenu(this)
+  }
+  this.besoin_formulaire_numerique = ["Type de pavage",4,'1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones\n4 : Pavage 3².4.3.4\n']
+  this.besoin_formulaire2_texte = ["Nombre de répétitions du motif (2 entiers séparés par un tiret)"];
+//  this.besoin_formulaire3_texte = ["Coordonnées des points mobiles, les deux premiers étant (0;0) et (0;4) (nombres séparés par des tirets)"]
+} // Fin de l'exercice.
 
 /**
  * Pavages et symétrie axiale.
  * Pas de version LaTeX
+ * @Auteur Jean-Claude Lhote
+ * Publié en 02/2020
  * référence 6G25-1
  */
 function Pavages_et_reflexion() {
@@ -14573,105 +14698,12 @@ function Construire_un_triangle_avec_cible() {
     `1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`,
   ];
 }
-
-function Exercice_zero_mathalea2d() {
-  "use strict"
-  Exercice.call(this)
-  this.titre = "Mettre ici le titre écrit dans le menu Mathalea";
-  this.nb_questions = 4; // Ici le nombre de questions
-  this.nb_questions_modifiable=true // Active le formulaire nombre de questions
-  this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX
-  this.nb_cols_corr = 1;// Le nombre de colonne pour la correction LaTeX
-  this.pas_de_version_LaTeX=false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
-  this.pas_de_version_HMTL=false // mettre à true si on ne veut pas de l'exercice en ligne
-// Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
-
-//  this.sup = false; // A décommenter : valeur par défaut d'un premier paramètre
-//  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
-//  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
-
-// c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-  this.nouvelle_version = function (numero_de_l_exercice) {
-  // la variable numero_de_l_exercice peut être récupérée pour permettre de différentier deux copies d'un même exo
-  // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
-
-  this.liste_questions = [] // tableau contenant la liste des questions 
-  this.liste_corrections = []
-  let type_de_questions_disponibles=[1] // tableau à compléter par valeurs possibles des types de questions
-  let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
-// Ci-dessus On crée une liste aléatoire comprenant nb_questions parmi les types disponibles.
-/* Un exemple ci-dessous : si la classe est 6, alors les types dispo sont 1 et 2 sinon , 1,2,3 et 4.
-if (this.classe == 6) type_de_questions_disponibles = [1, 2]
-    else type_de_questions_disponibles = [1, 2, 3,4]
-liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
-*/
-// boucle pour fabriquer les nb_questions questions en s'assurant que si il n'y a pas nb_questions différentes
-// La boucle s'arrête après 50 tentatives.
-
-    let objets_enonce,objets_enonceml,objets_correction,params_enonce,params_enonceml,params_correction
-
-    for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
-      objets_enonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
-      objets_enonceml = [] // Idem pour l'enoncé à main levée si besoin
-      objets_correction = [] // Idem pour la correction
-
-      texte = `` // Nous utilisons souvent cette variable pour construire le texte de la question.
-      texte_corr = `` // Idem pour le texte de la correction.
-//      nom = creerNomDePolygone(3, "PQ")
-// fonction permettant de choisir un nom de polygone, soit ici 3 lettres qui se suivent à l'exclusion de la séquence PQ
-      switch (liste_type_de_questions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
-        case 1:
-             
-          //ici sont créés les texte, tex_corr, objets mathalea2d divers entrant dans le contenu de l'exercice
-        break;
-
-        case 2:
-          // Idem Cas1 mais avec d'autres texte, texte_corr...
-        break
-
-        case 3:
-          
-        break
-          
-        case 4:
-        
-        break  
-          
-      }
-//  objets_enonce.push () // On rempli les tableaux d'objets Mathalea2d
-//  objets_enonceml.push()
-//  objets_correction.push()
-
-//paramètres de la fenêtre Mathalea2d pour l'énoncé main levée
-  //    params_enonceml = { xmin: Math.min(objets_enonceml.x), ymin: Math.min(objets_enonceml.y), xmax: Math.max(objets_enonceml.x), ymax: Math.max(objets_enonceml.y), pixelsParCm: 20, scale: 1, mainlevee: true, amplitude: 1 }
-//paramètres de la fenêtre Mathalea2d pour l'énoncé normal
-      params_enonce = { xmin:-10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false}
-//paramètres de la fenêtre Mathalea2d pour la correction
-      params_correction = { xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1 }
-// On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
-      texte += mathalea2d(params_enonce, objets_enonce)
-// On ajoute au texte de la correction, la figure de la correction
-      texte_corr += mathalea2d(params_correction, objets_correction)
-      if (this.liste_questions.indexOf(texte) == -1) {
-        // Si la question n'a jamais été posée, on la stocke dans la liste des questions
-        this.liste_questions.push(texte);
-        this.liste_corrections.push(texte_corr);
-        i++;
-      }
-      cpt++;
-    }
-    liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
-  };
-// Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
-// Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
-// Il sont associés respectivement aux paramètres sup, sup2 et sup3.
-
-//	this.besoin_formulaire_numerique = ['Type de questions', 3, `1 : Perpendiculaires\n 2 : Parallèles\n 3 : Mélange`]
-//  this.besoin_formulaire2_numerique = ["Type de cahier",3,`1 : Cahier à petits careaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
-// this.besoin_formulaire3_case_a_cocher =['figure à main levée',true]
-
-} // Fin de l'exercice.
-
+/**
+ * Non Publié : base servant à faire des tutoriels vidéos
+ * @Auteur Jean-Claude Lhote
+ * Réf : betaExoConstruction
+ * publié le 1/12/2020
+ */
 function Exercice_constructions_basiques() {
   "use strict"
   Exercice.call(this)
@@ -14869,6 +14901,12 @@ function Exercice_labyrinthe_multiples() {
   this.besoin_formulaire3_numerique = ['Niveau de rapidité', 6, '1 : Guépard\n 2 : Antilope\n 3 : Lièvre\n 4 : Tortue\n 5 : Escargot\n 6 : Au hasard']
 } // Fin de l'exercice.
 
+/**
+ * @Auteur Jean-Claude Lhote
+ * Publié le 11/12/2020
+ * Ref : 6N41-1
+ * Parcourir un labyrinthe de fractions en passant par des fractions égales.
+ */
 function Exercice_labyrinthe_fractions_egales() {
   "use strict"
   Exercice.call(this)
