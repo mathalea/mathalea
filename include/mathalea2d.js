@@ -133,7 +133,7 @@ function TracePoint(...points) {
         else if (this.style=='#'){
           p1=point(A.x-this.taille/coeff,A.y-this.taille/coeff)
           p2=point(A.x+this.taille/coeff,A.y-this.taille/coeff)
-          c=carreIndirect(p1,p2,this.color)
+          c=carre(p1,p2,this.color)
           c.epaisseur=this.epaisseur
           c.opacite=this.opacite
           c.couleurDeRemplissage=this.color
@@ -195,7 +195,7 @@ function TracePoint(...points) {
         else if (this.style=='#'){
           p1=point(A.x-tailletikz,A.y-tailletikz)
           p2=point(A.x+tailletikz,A.y-tailletikz)
-          c=carreIndirect(p1,p2,this.color)
+          c=carre(p1,p2,this.color)
           c.epaisseur=this.epaisseur
           c.opacite=this.opacite
           c.couleurDeRemplissage=this.color
@@ -1870,7 +1870,7 @@ function polygoneRegulierIndirect(A, B, n, color = "black") {
  * @Auteur Rémi Angot
  */
 function carre(A, B, color) {
-  return polygoneRegulier(B, A, 4, color);
+  return polygoneRegulier(A, B, 4, color);
 }
 
 /**
