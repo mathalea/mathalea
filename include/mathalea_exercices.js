@@ -12024,7 +12024,7 @@ function Pavage_et_reflexion2d() {
       B=monpavage.polygones[index2].listePoints[randint(0,2)] // mais à la sortie du While A!=B
     }
     d=mediatrice(A,B,'(d)','red') // l'axe sera la droite passant par ces deux points si ça fonctionne
-    d.epaisseur=4
+    d.epaisseur=3
     for (let i=1;i<= monpavage.nb_polygones; i++){ //on crée une liste des couples (antécédents, images)
       image=refleccion(monpavage,d,i)
       if (image!=-1){ // si l'image du polygone i existe, on ajoute le couple à la liste
