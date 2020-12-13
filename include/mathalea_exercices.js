@@ -11920,7 +11920,16 @@ function Pavage_et_reflexion2d() {
   this.sup = 1; // 1 pour des pavages modestes, 2 pour des plus grand.
   sortie_html ? (this.spacing_corr = 2.5) : (this.spacing_corr = 1.5);
   this.nouvelle_version = function (numero_de_l_exercice) {
-    
+    let videcouples=function(tableau){
+      for (let k=0;k<tableau.length;k++){
+        for (let j=k+1;j<tableau.length;j++){
+          if (tableau[k][1]==tableau[j][0]) {
+            tableau.splice(j,1)
+          }
+        }
+      }
+      return tableau
+    }
     let compare2polys=function(poly1,poly2){
       if (comparenbsommets(poly1,poly2)) {
         if (comparesommets(poly1,poly2)) 
@@ -11999,13 +12008,13 @@ function Pavage_et_reflexion2d() {
     monpavage.construit(type_de_pavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
     let fenetre=monpavage.fenetre
     fenetreMathalea2d=[fenetre.xmin,fenetre.ymin,fenetre.xmax,fenetre.ymax]
-    while (couples.length<this.nb_questions) { // On cherche d pour avoir suffisamment de couples
+    while (couples.length<this.nb_questions+3) { // On cherche d pour avoir suffisamment de couples
     couples=[] // On vide la liste des couples pour une nouvelle recherche
-    index1=randint(0,monpavage.nb_polygones-1) // On choisit 2 points dans 2 polygones distincts.
-    index2=randint(0,monpavage.nb_polygones-1,index1) 
+    index1=randint(Math.floor(monpavage.nb_polygones/3),Math.ceil(monpavage.nb_polygones*2/3)) // On choisit 2 points dans 2 polygones distincts.
+    index2=randint(Math.floor(monpavage.nb_polygones/3),Math.ceil(monpavage.nb_polygones*2/3),index1) 
     A=monpavage.polygones[index1].listePoints[randint(0,2)] // On les choisit dans les trois premiers
     B=monpavage.polygones[index2].listePoints[randint(0,2)] // points pour éviter un point qui n'éxiste pas
-    while (compare2sommets(A,B)){ // On vérifie qu'ils sont bien distincts sinon, on change.
+    while (compare2sommets(A,B)&&longueur(A,B)<10){ // On vérifie qu'ils sont bien distincts sinon, on change.
       index1=randint(0,monpavage.nb_polygones-1) 
       index2=randint(0,monpavage.nb_polygones-1,index1)
       A=monpavage.polygones[index1].listePoints[randint(0,2)] // idem ci-dessus
@@ -12019,6 +12028,7 @@ function Pavage_et_reflexion2d() {
         couples.push([i,image])
       }
     }
+    couples=videcouples(couples) //supprime tous les couples en double (x,y)=(y,x)
     }
     objets.push(d) // la droite d est trouvée
     couples=shuffle(couples) // on mélange les couples
