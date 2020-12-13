@@ -693,47 +693,54 @@ function Droite(arg1, arg2, arg3, arg4, color) {
     point(this.directeur.x, this.directeur.y)
   );
   let absNom,ordNom,leNom
-  let pointXmin=pointSurDroite(this,fenetreMathalea2d[0])
+ // let pointXmin=pointSurDroite(this,fenetreMathalea2d[0])
   if (this.nom!='') {
-    if (this.b==0) {
-      absNom=-this.c/this.a+0.8
-      ordNom=fenetreMathalea2d[1]+1
+    console.log(fenetreMathalea2d)
+    if (this.b==0) { // ax+c=0 x=-c/a est l'équation de la droite
+      absNom=-this.c/this.a+0.8 // l'abscisse du label est décalé de 0.8
+      ordNom=fenetreMathalea2d[1]+1 // l'ordonnée du label est ymin +1
     }
-    else if (this.a==0){
+    else if (this.a==0){ //by+c=0 y=-c/b est l'équation de la droite
+      absNom=fenetreMathalea2d[0]+1 // l'abscisse du label est xmin +1
+      ordNom=-this.c/this.b+0.8 // l'ordonnée du label est décalée de 0.8 
+    }
+    else { // a et b sont différents de 0 ax+by+c=0 est l'équation
+    // y=(-a.x-c)/b est l'aquation cartésienne et x=(-by-c)/a
+    let y0=(-this.a*(fenetreMathalea2d[0]+1)-this.c)/this.b
+    let y1=(-this.a*(fenetreMathalea2d[2]-1)-this.c)/this.b
+    let x0=(-this.b*(fenetreMathalea2d[1]+1)-this.c)/this.a
+    let x1=(-this.b*(fenetreMathalea2d[3]-1)-this.c)/this.a
+    if (y0>fenetreMathalea2d[1]&&y0<fenetreMathalea2d[3]) {
       absNom=fenetreMathalea2d[0]+1
-      ordNom=-this.c/this.b+0.8
-    }
-    else 
-    if (pointXmin.y>fenetreMathalea2d[1]&&pointXmin.y<fenetreMathalea2d[3]) {
-      absNom=pointXmin.x+1
-      ordNom=pointXmin.y+0.8
+      ordNom=y0+this.pente
     }
     else {
-      pointXmin=pointSurDroite(this,fenetreMathalea2d[2])
-      if (pointXmin.y>fenetreMathalea2d[1]&&pointXmin.y<fenetreMathalea2d[3]) {
+      if (y1>fenetreMathalea2d[1]&&y1<fenetreMathalea2d[3]) {
         absNom=fenetreMathalea2d[2]-1
-        ordNom=pointXmin.y+0.8
+        ordNom=y1+this.pente
       }
       else {
-        pointXmin=pointIntersectionDD(this,droiteHorizontaleParPoint(point(0,fenetreMathalea2d[1])))
-        if (pointXmin.x>fenetreMathalea2d[0]&&pointXmin.x<fenetreMathalea2d[2]) {
-          absNom=pointXmin.x-0.7
-          ordNom=fenetreMathalea2d[1]+1
+        if (x0>fenetreMathalea2d[0]&&x0<fenetreMathalea2d[2]) {
+          absNom=x0
+          ordNom=fenetreMathalea2d[1]-this.pente
         }
         else {
-          pointXmin=pointIntersectionDD(this,droiteHorizontaleParPoint(point(0,fenetreMathalea2d[3])))
-          if (pointXmin.x>fenetreMathalea2d[0]&&pointXmin.x<fenetreMathalea2d[2]) {
-            absNom=pointXmin.x+0.7
-            ordNom=fenetreMathalea2d[3]-1
+          if (x1>fenetreMathalea2d[0]&&x1<fenetreMathalea2d[2]) {
+            absNom=x1
+            ordNom=fenetreMathalea2d[3]-this.pente
           }
           else {
-            absNom=(fenetreMathalea2d[0]+fenetreMathalea2d[2]/2)
-            ordNom=pointSurDroite(this,absNom).y+0.8
+            absNom=(fenetreMathalea2d[0]+fenetreMathalea2d[2])/2
+            ordNom=pointSurDroite(this,absNom).y
           }
         }
       }
     }
-    leNom=texteParPosition(this.nom,absNom,ordNom,"milieu",this.color,0.7,"milieu",true)
+  }
+  absNom=arrondi(absNom,1)
+  ordNom=arrondi(ordNom,1)
+  console.log(absNom,ordNom)
+    leNom=texteParPosition(this.nom,absNom,ordNom,"milieu",this.color,1.2,"milieu",true)
 
   }
   this.svg = function (coeff) {

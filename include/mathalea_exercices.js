@@ -11921,41 +11921,67 @@ function Pavage_et_reflexion2d() {
   this.sup = 1; // 1 pour des pavages modestes, 2 pour des plus grand.
   sortie_html ? (this.spacing_corr = 2.5) : (this.spacing_corr = 1.5);
   this.nouvelle_version = function (numero_de_l_exercice) {
-
-    let refleccion = function (pavage, d, numero) {
-      let P, M,Sym
-      let G = symetrieAxiale(pavage.barycentres[numero - 1], d)
-      Sym = symetrieAxiale(pavage.polygones[numero-1],d)
-      let trouves, trouve, Image,barycentreOK
-      barycentreOK=false
-      for (let i = 0; i < pavage.nb_polygones; i++) {
-        if (egal(pavage.barycentres[i].x, G.x, 0.1) && egal(pavage.barycentres[i].y, G.y, 0.1)) { //il a trouvé un barycentre image
-          barycentreOK = true
-          Image = i + 1
+    
+    let compare2polys=function(poly1,poly2){
+      if (comparenbsommets(poly1,poly2)) {
+        if (comparesommets(poly1,poly2)) 
+          return true
+        else
+          return false
+      }
+      else 
+        return false 
+      }
+      let comparenbsommets = function(poly1,poly2){
+        if (poly1.listePoints.length==poly2.listePoints.length){
+          return true
         }
+        else return false
       }
-      if (barycentreOK == false) {
-        return -1
+      
+      let compare2sommets=function(sommet1,sommet2){
+        if (egal(sommet1.x,sommet2.x,0.1)&&egal(sommet1.y,sommet2.y,0.1)) {
+          return true
+        }
+        else return false
       }
-      trouves = 0
-      for (let j = 0; j < Sym.listePoints.length; j++) {
-        P = Sym.listePoints[j]
-        trouve = false
-        for (let k = 0; k < pavage.polygones[Image - 1].listePoints.length; k++) {
-          M = pavage.polygones[Image - 1].listePoints[k]
-          if (trouve == false) {
-            if (egal(P.x, M.x, 0.1) && egal(P.y, M.y, 0.1)) {
-              trouve = true
-              trouves++
+      let comparesommets = function(poly1,poly2){
+        let trouve=false,trouves=0
+        if (comparenbsommets(poly1,poly2))
+        for (let P of poly1.listePoints) {
+          for (let M of poly2.listePoints) {
+            if (compare2sommets(M,P)) {
+              trouve=true
             }
+            if (trouve) break
           }
+          if (trouve) {
+            trouves++
+            trouve=false
+          }
+          else {
+            trouves-=100
+          }
+          if (trouves<0)
+          break
+        }
+        if (trouves==poly1.listePoints.length)
+          return true
+        else return false
+      }
+    
+    let refleccion = function (pavage, d, numero) { // retourne le numero du polygone symétrique ou -1 si il n'existe pas
+      let poly=pavage.polygones[numero-1],pol
+      let result=-1
+      let sympoly=symetrieAxiale(poly,d)
+      for (let k= 0;k<pavage.polygones.length;k++) {
+        pol=pavage.polygones[k]
+        if (compare2polys(sympoly,pol)) {
+          return k+1
         }
       }
-      if (trouves == pavage.polygones[numero - 1].listePoints.length) {
-        return Image
-      }
-      else return -1
-    }
+      return result
+    } 
 
     let objets=[]
     this.liste_corrections = []
@@ -11964,31 +11990,37 @@ function Pavage_et_reflexion2d() {
     let monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
     type_de_pavage =  choice([1, 2, 3, 6])
     let tailles = [[[3, 2], [3, 2], [2, 2], [2, 2], [2, 2], [2, 2]], [[4, 3], [4, 3], [3, 3], [3, 3], [3, 3], [3, 2]]]
-    let Nx,Ny,index1,index2,nb_sommets,A,B,d,image,couples=[]
-    Nx = tailles[parseInt(this.sup)-1][type_de_pavage-1][0]
-    Ny = tailles[parseInt(this.sup)-1][type_de_pavage-1][1]
+    let Nx,Ny,index1,index2,A,B,d,image,couples=[]
+    Nx = tailles[1][type_de_pavage-1][0]
+    Ny = tailles[1][type_de_pavage-1][1]
     monpavage.construit(type_de_pavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
-    nb_sommets=monpavage.polygones[0].listePoints.length
-    while (couples.length<this.nb_questions) {
-    couples=[]
-    index1=randint(0,monpavage.nb_polygones-1)
-    index2=randint(0,monpavage.nb_polygones-1,index1)
-
-    A=monpavage.polygones[index1].listePoints[randint(0,nb_sommets-1)]
-    B=monpavage.polygones[index2].listePoints[randint(0,nb_sommets-1)]
-    d=droite(A,B,'(d)','red')
+    while (couples.length<this.nb_questions) { // On cherche d pour avoir suffisamment de couples
+    couples=[] // On vide la liste des couples pour une nouvelle recherche
+    index1=randint(0,monpavage.nb_polygones-1) // On choisit 2 points dans 2 polygones distincts.
+    index2=randint(0,monpavage.nb_polygones-1,index1) 
+    A=monpavage.polygones[index1].listePoints[randint(0,2)] // On les choisit dans les trois premiers
+    B=monpavage.polygones[index2].listePoints[randint(0,2)] // points pour éviter un point qui n'éxiste pas
+    while (compare2sommets(A,B)){ // On vérifie qu'ils sont bien distincts sinon, on change.
+      index1=randint(0,monpavage.nb_polygones-1) 
+      index2=randint(0,monpavage.nb_polygones-1,index1)
+      A=monpavage.polygones[index1].listePoints[randint(0,2)] // idem ci-dessus
+      B=monpavage.polygones[index2].listePoints[randint(0,2)] // mais à la sortie du While A!=B
+    }
+    d=droite(A,B,'(d)','red') // l'axe sera la droite passant par ces deux points si ça fonctionne
     d.epaisseur=4
-    for (let i=0;i< monpavage.nb_polygones; i++){ //on crée une liste des couples (antécédents, images)
-      image=refleccion(monpavage,d,i+1)
-      if (image!=-1){
-        couples.push([i+1,image])
+    for (let i=1;i<= monpavage.nb_polygones; i++){ //on crée une liste des couples (antécédents, images)
+      image=refleccion(monpavage,d,i)
+ //     console.log(image)
+      if (image!=-1){ // si l'image du polygone i existe, on ajoute le couple à la liste
+        couples.push([i,image])
       }
     }
+ //   console.log(couples)
     }
-    objets.push(d)
-    couples=shuffle(couples)
+    objets.push(d) // la droite d est trouvée
+    couples=shuffle(couples) // on mélange les couples
     for (let i = 0; i < monpavage.nb_polygones; i++) {
-      objets.push(texteParPosition(nombre_avec_espace(i + 1), monpavage.barycentres[i].x + 0.5, monpavage.barycentres[i].y, 'milieu', 'black', 0.04 * monpavage.echelle, 0, true))
+      objets.push(texteParPosition(nombre_avec_espace(i + 1), monpavage.barycentres[i].x + 0.5, monpavage.barycentres[i].y, 'milieu', 'gray', 1, 0, true))
     }
     if (this.correction_detaillee) { // Doit-on montrer les centres des figures ?
       for (let i = 0; i < monpavage.nb_polygones; i++) {
@@ -11999,8 +12031,13 @@ function Pavage_et_reflexion2d() {
       objets.push(monpavage.polygones[i])
     }
     let fenetre=monpavage.fenetre
-    console.log(fenetre.pixelsParCm,fenetre.xmax-fenetre.xmin)
-    fenetreMathalea2d=[fenetre.xmin+1,fenetre.ymin+1,fenetre.xmax-1,fenetre.ymax-1]
+
+    objets.push(droiteHorizontaleParPoint(point(0,fenetre.ymin),'','blue'))
+    objets.push(droiteHorizontaleParPoint(point(0,fenetre.ymax),'','blue'))   
+    objets.push(droiteVerticaleParPoint(point(fenetre.xmin,0),'','blue'))
+    objets.push(droiteVerticaleParPoint(point(fenetre.xmax-0.1,0),'','blue'))  
+    fenetreMathalea2d=[fenetre.xmin,fenetre.ymin,fenetre.xmax,fenetre.ymax]
+    console.log(fenetre.xmin,fenetre.ymin,fenetre.xmax,fenetre.ymax)
     texte = mathalea2d(fenetre, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
     texte+=`<br>`
     for (let i=0;i<this.nb_questions;i++){

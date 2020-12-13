@@ -7365,8 +7365,8 @@ function Pavage() {
 				}
 				break
 		}
-		this.echelle = 80 / Math.sqrt(Math.max(YMAX - YMIN, XMAX - XMIN))
-		this.fenetre = { xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX, pixelsParCm: this.echelle, scale: this.echelle / 20 }
+		this.echelle = arrondi(80 / Math.sqrt(Math.max(YMAX - YMIN, XMAX - XMIN)),0)
+		this.fenetre = { xmin: XMIN-0.5, ymin: YMIN-0.5, xmax: XMAX+0.5, ymax: YMAX+0.5, pixelsParCm: this.echelle, scale: arrondi(this.echelle / 20,1) }
 		nettoie_objets(this.polygones) // On supprime les doublons éventuels (grâce à leur barycentre)
 		// On ajoute les N°
 		this.nb_polygones = this.polygones.length // Le nombre de polygones du pavage qui sert dans les boucles
@@ -7377,7 +7377,7 @@ function Pavage() {
 			this.tracesCentres[i].opacite = 0.5
 			this.tracesCentres[i].color = 'blue'
 			this.tracesCentres[i].taille = 2
-			this.coordonnees.push([arrondi(this.barycentres[i].x, 1), arrondi(this.barycentres[i].y, 1)])
+			this.coordonnees.push([arrondi(this.barycentres[i].x, 2), arrondi(this.barycentres[i].y, 2)])
 			this.numeros.push(texteParPosition(nombre_avec_espace(i + 1), this.barycentres[i].x + 0.5, this.barycentres[i].y, 'milieu', 'black', 50/this.echelle, 0, true))
 		}
 	}
