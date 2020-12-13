@@ -695,9 +695,17 @@ function Droite(arg1, arg2, arg3, arg4, color) {
   let absNom,ordNom,leNom
   let pointXmin=pointSurDroite(this,fenetreMathalea2d[0])
   if (this.nom!='') {
-    pointXmin=pointSurDroite(this,fenetreMathalea2d[0])
-    if (pointXmin.y>fenetreMathalea2d[1]&&pointXmin.y<fenetreMathalea2d[3]) {
+    if (this.b==0) {
+      absNom=-this.c/this.a+0.8
+      ordNom=fenetreMathalea2d[1]+1
+    }
+    else if (this.a==0){
       absNom=fenetreMathalea2d[0]+1
+      ordNom=-this.c/this.b+0.8
+    }
+    else 
+    if (pointXmin.y>fenetreMathalea2d[1]&&pointXmin.y<fenetreMathalea2d[3]) {
+      absNom=pointXmin.x+1
       ordNom=pointXmin.y+0.8
     }
     else {
@@ -709,7 +717,7 @@ function Droite(arg1, arg2, arg3, arg4, color) {
       else {
         pointXmin=pointIntersectionDD(this,droiteHorizontaleParPoint(point(0,fenetreMathalea2d[1])))
         if (pointXmin.x>fenetreMathalea2d[0]&&pointXmin.x<fenetreMathalea2d[2]) {
-          absNom=pointXmin.x+0.7
+          absNom=pointXmin.x-0.7
           ordNom=fenetreMathalea2d[1]+1
         }
         else {

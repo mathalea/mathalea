@@ -73,6 +73,7 @@ var liste_des_exercices_disponibles = {
   "6G25": Construire_mediatrices_6e,
   "6G25-1": Pavages_et_reflexion,
   "6G25-2": Pavages_et_symetries,
+  "beta6G25-3" : Pavage_et_reflexion2d,
   "6G33": Symetrie_axiale_conservation1,
   "6G41": Representer_un_solide_6e,
   "6G42": Solide_6e,
@@ -11906,6 +11907,115 @@ function Pavages_mathalea2d() {
   this.besoin_formulaire3_case_a_cocher = ["Présence de numéros"]
 } // Fin de l'exercice.
 
+function Pavage_et_reflexion2d() {
+  "use strict";
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.titre =
+    "Trouver l\'image d'une figure par une symétrie axiale dans un pavage";
+  this.pas_de_version_LaTeX = true;
+  this.consigne = "";
+  this.nb_questions = 3;
+  this.nb_questions_modifiable = false;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  this.sup = 1; // 1 pour des pavages modestes, 2 pour des plus grand.
+  sortie_html ? (this.spacing_corr = 2.5) : (this.spacing_corr = 1.5);
+  this.nouvelle_version = function (numero_de_l_exercice) {
+
+    let refleccion = function (pavage, d, numero) {
+      let P, M,Sym
+      let G = symetrieAxiale(pavage.barycentres[numero - 1], d)
+      Sym = symetrieAxiale(pavage.polygones[numero-1],d)
+      let trouves, trouve, Image,barycentreOK
+      barycentreOK=false
+      for (let i = 0; i < pavage.nb_polygones; i++) {
+        if (egal(pavage.barycentres[i].x, G.x, 0.1) && egal(pavage.barycentres[i].y, G.y, 0.1)) { //il a trouvé un barycentre image
+          barycentreOK = true
+          Image = i + 1
+        }
+      }
+      if (barycentreOK == false) {
+        return -1
+      }
+      trouves = 0
+      for (let j = 0; j < Sym.listePoints.length; j++) {
+        P = Sym.listePoints[j]
+        trouve = false
+        for (let k = 0; k < pavage.polygones[Image - 1].listePoints.length; k++) {
+          M = pavage.polygones[Image - 1].listePoints[k]
+          if (trouve == false) {
+            if (egal(P.x, M.x, 0.1) && egal(P.y, M.y, 0.1)) {
+              trouve = true
+              trouves++
+            }
+          }
+        }
+      }
+      if (trouves == pavage.polygones[numero - 1].listePoints.length) {
+        return Image
+      }
+      else return -1
+    }
+
+    let objets=[]
+    this.liste_corrections = []
+    this.liste_questions = []
+    let texte = "", texte_corr = "", type_de_pavage = parseInt(this.sup)
+    let monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
+    type_de_pavage =  choice([1, 2, 3, 6])
+    let tailles = [[[3, 2], [3, 2], [2, 2], [2, 2], [2, 2], [2, 2]], [[4, 3], [4, 3], [3, 3], [3, 3], [3, 3], [3, 2]]]
+    let Nx,Ny,index1,index2,nb_sommets,A,B,d,image,couples=[]
+    Nx = tailles[parseInt(this.sup)-1][type_de_pavage-1][0]
+    Ny = tailles[parseInt(this.sup)-1][type_de_pavage-1][1]
+    monpavage.construit(type_de_pavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
+    nb_sommets=monpavage.polygones[0].listePoints.length
+    while (couples.length<this.nb_questions) {
+    couples=[]
+    index1=randint(0,monpavage.nb_polygones-1)
+    index2=randint(0,monpavage.nb_polygones-1,index1)
+
+    A=monpavage.polygones[index1].listePoints[randint(0,nb_sommets-1)]
+    B=monpavage.polygones[index2].listePoints[randint(0,nb_sommets-1)]
+    d=droite(A,B,'(d)','red')
+    d.epaisseur=4
+    for (let i=0;i< monpavage.nb_polygones; i++){ //on crée une liste des couples (antécédents, images)
+      image=refleccion(monpavage,d,i+1)
+      if (image!=-1){
+        couples.push([i+1,image])
+      }
+    }
+    }
+    objets.push(d)
+    couples=shuffle(couples)
+    for (let i = 0; i < monpavage.nb_polygones; i++) {
+      objets.push(texteParPosition(nombre_avec_espace(i + 1), monpavage.barycentres[i].x + 0.5, monpavage.barycentres[i].y, 'milieu', 'black', 0.04 * monpavage.echelle, 0, true))
+    }
+    if (this.correction_detaillee) { // Doit-on montrer les centres des figures ?
+      for (let i = 0; i < monpavage.nb_polygones; i++) {
+        objets.push(monpavage.tracesCentres[i])
+      }
+    }
+    for (let i = 0; i < monpavage.nb_polygones; i++) { // il faut afficher tous les polygones du pavage
+      objets.push(monpavage.polygones[i])
+    }
+    let fenetre=monpavage.fenetre
+    console.log(fenetre.pixelsParCm,fenetre.xmax-fenetre.xmin)
+    fenetreMathalea2d=[fenetre.xmin+1,fenetre.ymin+1,fenetre.xmax-1,fenetre.ymax-1]
+    texte = mathalea2d(fenetre, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
+    texte+=`<br>`
+    for (let i=0;i<this.nb_questions;i++){
+      texte+=`Quel est l'image de la figure $${couples[i][0]}$ dans la symétrie d'axe $(d)$ ?<br>`
+      texte_corr+=`L'image de la figure $${couples[i][0]}$ dans la symétrie d'axe $(d)$ est la figure ${couples[i][1]}<br>`
+    }
+
+
+    this.liste_questions.push(texte);
+    this.liste_corrections.push(texte_corr);
+    liste_de_question_to_contenu(this)
+  }
+  this.besoin_formulaire_numerique = ['Taille du pavage', 2, '1 : Taille modeste\n 2 : Grande taille'];
+
+}
 /**
  * Pavages et symétrie axiale.
  * Pas de version LaTeX

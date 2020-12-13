@@ -7057,6 +7057,7 @@ function Pavage() {
 				break
 
 			case 3: //hexagones
+				B=homothetie(B,A,0.8)
 				v = vecteur(A, B)
 				v = homothetie(v, A, 2)
 				w = rotation(v, A, -90)
@@ -7364,11 +7365,9 @@ function Pavage() {
 				}
 				break
 		}
-		this.echelle = 380 / Math.max(YMAX - YMIN, XMAX - XMIN)
+		this.echelle = 80 / Math.sqrt(Math.max(YMAX - YMIN, XMAX - XMIN))
 		this.fenetre = { xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX, pixelsParCm: this.echelle, scale: this.echelle / 20 }
-		console.log('avant nettoyage', this.polygones.length)
 		nettoie_objets(this.polygones) // On supprime les doublons éventuels (grâce à leur barycentre)
-		console.log('après nettoyage', this.polygones.length)
 		// On ajoute les N°
 		this.nb_polygones = this.polygones.length // Le nombre de polygones du pavage qui sert dans les boucles
 
@@ -7379,7 +7378,7 @@ function Pavage() {
 			this.tracesCentres[i].color = 'blue'
 			this.tracesCentres[i].taille = 2
 			this.coordonnees.push([arrondi(this.barycentres[i].x, 1), arrondi(this.barycentres[i].y, 1)])
-			this.numeros.push(texteParPosition(nombre_avec_espace(i + 1), this.barycentres[i].x + 0.5, this.barycentres[i].y, 'milieu', 'black', 0.04 * echelle, 0, true))
+			this.numeros.push(texteParPosition(nombre_avec_espace(i + 1), this.barycentres[i].x + 0.5, this.barycentres[i].y, 'milieu', 'black', 50/this.echelle, 0, true))
 		}
 	}
 }
