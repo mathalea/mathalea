@@ -3763,18 +3763,6 @@ function montrerParDiv(id) {
 }
 
 
-/**
- * Rend visible un element d'après son id
- * 
- * @Auteur Rémi Angot
- * @param {string} id 
- * 
- */
-function colorerParDiv(id,color='blue') {
-  document.getElementById(id).style.stroke = color;
-  document.getElementById(id).style.opacity = .5;
-  document.getElementById(id).style.strokeWidth = 3;
-}
 
 /**
  * Rend invisible un element d'après son id

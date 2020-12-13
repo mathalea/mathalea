@@ -3371,7 +3371,7 @@ function creer_modal(numero_de_l_exercice,contenu,label_bouton,icone) {
 * @Auteur Rémi Angot
 */	
 function creerBoutonMathalea2d(numero_de_l_exercice,fonction,label_bouton="Aide",icone="info circle") {
-	let HTML = `<button class="ui left floated mini compact button" id = "btnMathALEA2d_${numero_de_l_exercice}" onclick="${fonction}"><i class="large ${icone} icon"></i>${label_bouton}</button>`
+	let HTML = `<button class="ui toggle left floated mini compact button" id = "btnMathALEA2d_${numero_de_l_exercice}" onclick="${fonction}"><i class="large ${icone} icon"></i>${label_bouton}</button>`
 
 	return HTML;
 }
