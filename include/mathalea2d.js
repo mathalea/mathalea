@@ -695,13 +695,12 @@ function Droite(arg1, arg2, arg3, arg4, color) {
   let absNom,ordNom,leNom
  // let pointXmin=pointSurDroite(this,fenetreMathalea2d[0])
   if (this.nom!='') {
-    console.log(fenetreMathalea2d)
-    if (this.b==0) { // ax+c=0 x=-c/a est l'équation de la droite
+    if (egal(this.b,0,0.1)) { // ax+c=0 x=-c/a est l'équation de la droite
       absNom=-this.c/this.a+0.8 // l'abscisse du label est décalé de 0.8
       ordNom=fenetreMathalea2d[1]+1 // l'ordonnée du label est ymin +1
     }
-    else if (this.a==0){ //by+c=0 y=-c/b est l'équation de la droite
-      absNom=fenetreMathalea2d[0]+1 // l'abscisse du label est xmin +1
+    else if (egal(this.a,0,0.1)){ //by+c=0 y=-c/b est l'équation de la droite
+      absNom=fenetreMathalea2d[0]+0.8 // l'abscisse du label est xmin +1
       ordNom=-this.c/this.b+0.8 // l'ordonnée du label est décalée de 0.8 
     }
     else { // a et b sont différents de 0 ax+by+c=0 est l'équation
@@ -717,17 +716,17 @@ function Droite(arg1, arg2, arg3, arg4, color) {
     else {
       if (y1>fenetreMathalea2d[1]&&y1<fenetreMathalea2d[3]) {
         absNom=fenetreMathalea2d[2]-1
-        ordNom=y1+this.pente
+        ordNom=y1-this.pente
       }
       else {
         if (x0>fenetreMathalea2d[0]&&x0<fenetreMathalea2d[2]) {
           absNom=x0
-          ordNom=fenetreMathalea2d[1]-this.pente
+          ordNom=fenetreMathalea2d[1]+math.abs(this.pente)
         }
         else {
           if (x1>fenetreMathalea2d[0]&&x1<fenetreMathalea2d[2]) {
             absNom=x1
-            ordNom=fenetreMathalea2d[3]-this.pente
+            ordNom=fenetreMathalea2d[3]+this.pente
           }
           else {
             absNom=(fenetreMathalea2d[0]+fenetreMathalea2d[2])/2
@@ -737,9 +736,8 @@ function Droite(arg1, arg2, arg3, arg4, color) {
       }
     }
   }
-  absNom=arrondi(absNom,1)
-  ordNom=arrondi(ordNom,1)
-  console.log(absNom,ordNom)
+  absNom=arrondi(absNom,2)
+  ordNom=arrondi(ordNom,2)
     leNom=texteParPosition(this.nom,absNom,ordNom,"milieu",this.color,1.2,"milieu",true)
 
   }

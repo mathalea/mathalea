@@ -11994,6 +11994,8 @@ function Pavage_et_reflexion2d() {
     Nx = tailles[1][type_de_pavage-1][0]
     Ny = tailles[1][type_de_pavage-1][1]
     monpavage.construit(type_de_pavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
+    let fenetre=monpavage.fenetre
+    fenetreMathalea2d=[fenetre.xmin,fenetre.ymin,fenetre.xmax,fenetre.ymax]
     while (couples.length<this.nb_questions) { // On cherche d pour avoir suffisamment de couples
     couples=[] // On vide la liste des couples pour une nouvelle recherche
     index1=randint(0,monpavage.nb_polygones-1) // On choisit 2 points dans 2 polygones distincts.
@@ -12010,12 +12012,10 @@ function Pavage_et_reflexion2d() {
     d.epaisseur=4
     for (let i=1;i<= monpavage.nb_polygones; i++){ //on crée une liste des couples (antécédents, images)
       image=refleccion(monpavage,d,i)
- //     console.log(image)
       if (image!=-1){ // si l'image du polygone i existe, on ajoute le couple à la liste
         couples.push([i,image])
       }
     }
- //   console.log(couples)
     }
     objets.push(d) // la droite d est trouvée
     couples=shuffle(couples) // on mélange les couples
@@ -12030,14 +12030,10 @@ function Pavage_et_reflexion2d() {
     for (let i = 0; i < monpavage.nb_polygones; i++) { // il faut afficher tous les polygones du pavage
       objets.push(monpavage.polygones[i])
     }
-    let fenetre=monpavage.fenetre
-
     objets.push(droiteHorizontaleParPoint(point(0,fenetre.ymin),'','blue'))
     objets.push(droiteHorizontaleParPoint(point(0,fenetre.ymax),'','blue'))   
     objets.push(droiteVerticaleParPoint(point(fenetre.xmin,0),'','blue'))
     objets.push(droiteVerticaleParPoint(point(fenetre.xmax-0.1,0),'','blue'))  
-    fenetreMathalea2d=[fenetre.xmin,fenetre.ymin,fenetre.xmax,fenetre.ymax]
-    console.log(fenetre.xmin,fenetre.ymin,fenetre.xmax,fenetre.ymax)
     texte = mathalea2d(fenetre, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
     texte+=`<br>`
     for (let i=0;i<this.nb_questions;i++){
