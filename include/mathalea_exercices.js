@@ -73,7 +73,7 @@ var liste_des_exercices_disponibles = {
   "6G25": Construire_mediatrices_6e,
   "6G25-1": Pavages_et_reflexion,
   "6G25-2": Pavages_et_symetries,
-  "beta6G25-3" : Pavage_et_reflexion2d,
+  "6G25-3" : Pavage_et_reflexion2d,
   "6G33": Symetrie_axiale_conservation1,
   "6G41": Representer_un_solide_6e,
   "6G42": Solide_6e,
