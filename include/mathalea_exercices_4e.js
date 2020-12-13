@@ -2880,8 +2880,8 @@ function Thales2D() {
           document.getElementById('M2D_${numero_de_l_exercice}_${i}_1').dataset.colorie = true;
           document.getElementById('btnMathALEA2d_${numero_de_l_exercice}_${i}').classList.add('active');
         } else {
-          document.getElementById('M2D_${numero_de_l_exercice}_${i}_1').style.stroke = 'blue';
-          document.getElementById('M2D_${numero_de_l_exercice}_${i}_2').style.stroke = 'red';
+          document.getElementById('M2D_${numero_de_l_exercice}_${i}_1').style.stroke = 'black';
+          document.getElementById('M2D_${numero_de_l_exercice}_${i}_2').style.stroke = 'black';
           document.getElementById('M2D_${numero_de_l_exercice}_${i}_1').style.opacity = 1;
           document.getElementById('M2D_${numero_de_l_exercice}_${i}_1').style.strokeWidth = 1;
           document.getElementById('M2D_${numero_de_l_exercice}_${i}_2').style.opacity = 1;
