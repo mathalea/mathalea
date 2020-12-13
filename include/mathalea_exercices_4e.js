@@ -2778,8 +2778,7 @@ function Thales2D() {
   this.nb_cols_corr = 1;
   this.sup = 1; // Triangles imbriqués / configuration papillon / les 2
   this.vspace = -0.5; // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
-
-
+  
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
@@ -2804,6 +2803,7 @@ function Thales2D() {
       let A = point(0, 0, nomA);
       let B = pointAdistance(A, ab, nomB);
       let ABC = triangle2points2longueurs(A, B, ac, bc);
+      ABC.id = `M2D_${numero_de_l_exercice}_${i}_1`;
       let C = ABC.listePoints[2];
       C.nom = nomC;
       let k = calcul(randint(3, 8, 5) / 10);
@@ -2818,6 +2818,7 @@ function Thales2D() {
       let M = homothetie(A, C, k);
       let N = homothetie(B, C, k);
       let MNC = polygone(M, N, C);
+      MNC.id = `M2D_${numero_de_l_exercice}_${i}_2`;
       let m = pointSurSegment(M, N, -.5);
       let n = pointSurSegment(N, M, -.5);
       let marqueNomM = texteParPoint(nomM, m);
@@ -2866,20 +2867,60 @@ function Thales2D() {
       if (!sortie_html) {
         texte += '\\end{minipage}\n'
       }
+
+      let epaisseurTriangle = (k < 0) ? 2 : 6; // En cas de configuration papillon il est inutile de changer l'épaisseur
+      let bouton_aide_mathalea2d = creerBoutonMathalea2d(numero_de_l_exercice+'_'+i,
+        `if (!document.getElementById('M2D_${numero_de_l_exercice}_${i}_1').dataset.colorie == true || (document.getElementById('M2D_${numero_de_l_exercice}_${i}_1').dataset.colorie == 'false')){
+          document.getElementById('M2D_${numero_de_l_exercice}_${i}_1').style.stroke = 'blue';
+          document.getElementById('M2D_${numero_de_l_exercice}_${i}_2').style.stroke = 'red';
+          document.getElementById('M2D_${numero_de_l_exercice}_${i}_1').style.opacity = .5;
+          document.getElementById('M2D_${numero_de_l_exercice}_${i}_1').style.strokeWidth = ${epaisseurTriangle};
+          document.getElementById('M2D_${numero_de_l_exercice}_${i}_2').style.opacity = 1;
+          document.getElementById('M2D_${numero_de_l_exercice}_${i}_2').style.strokeWidth = 2;
+          document.getElementById('M2D_${numero_de_l_exercice}_${i}_1').dataset.colorie = true;
+          document.getElementById('btnMathALEA2d_${numero_de_l_exercice}_${i}').classList.add('active');
+        } else {
+          document.getElementById('M2D_${numero_de_l_exercice}_${i}_1').style.stroke = 'blue';
+          document.getElementById('M2D_${numero_de_l_exercice}_${i}_2').style.stroke = 'red';
+          document.getElementById('M2D_${numero_de_l_exercice}_${i}_1').style.opacity = 1;
+          document.getElementById('M2D_${numero_de_l_exercice}_${i}_1').style.strokeWidth = 1;
+          document.getElementById('M2D_${numero_de_l_exercice}_${i}_2').style.opacity = 1;
+          document.getElementById('M2D_${numero_de_l_exercice}_${i}_2').style.strokeWidth = 1;
+          document.getElementById('M2D_${numero_de_l_exercice}_${i}_1').dataset.colorie = false;
+          document.getElementById('btnMathALEA2d_${numero_de_l_exercice}_${i}').classList.remove('active');
+  
+        }
+        `,
+        'Mettre en couleur les 2 triangles');
+
       if (k > 0) {
-        texte_corr = `Dans le triangle $${nomA + nomB + nomC}$, $${nomM}\\in${"[" + nomC + nomA + "]"}$, $${nomN}\\in${"[" + nomC + nomB + "]"}$ et $(${nomA + nomB})//(${nomM + nomN})$ donc d'après le théorème de Thalès, les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.`;
+        texte_corr = `Dans le triangle $${nomA + nomB + nomC}$ :
+       <br> - $${nomM}\\in${"[" + nomC + nomA + "]"}$,
+       <br> - $${nomN}\\in${"[" + nomC + nomB + "]"}$,
+       <br> -  $(${nomA + nomB})//(${nomM + nomN})$,
+       <br> donc d'après le théorème de Thalès, les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.`;
       } else {
-        texte_corr = `Les droites $(${nomA + nomM})$ et $(${nomB + nomN})$ sont sécantes en $${nomC}$ et $(${nomA + nomB})//(${nomM + nomN})$  donc d'après le théorème de Thalès, les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.`;
+        texte_corr = `Les droites $(${nomA + nomM})$ et $(${nomB + nomN})$ sont sécantes en $${nomC}$ et $(${nomA + nomB})//(${nomM + nomN})$ <br> donc d'après le théorème de Thalès, les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.`;
       }
       //texte_corr = `$(${nomA+nomB})//(${nomM+nomN})$, les points $${nomC}$, $${nomM}$, $${nomA}$ et $${nomC}$, $${nomN}$, $${nomB}$ sont alignés dans le même ordre  donc d'après le théorème de Thalès, les triangles $${nomA+nomB+nomC}$ et $${nomM+nomN+nomC}$ ont des longueurs proportionnelles.`;
       texte_corr += `<br><br>`
-      texte_corr += `$\\dfrac{${nomC + nomM}}{${nomC + nomA}}=\\dfrac{${nomC + nomN}}{${nomC + nomB}}=\\dfrac{${nomM + nomN}}{${nomA + nomB}}$`
+      if (sortie_html){
+        texte_corr += `$\\dfrac{\\color{red}${nomC + nomM}}{\\color{blue}${nomC + nomA}}=\\dfrac{\\color{red}${nomC + nomN}}{\\color{blue}${nomC + nomB}}=\\dfrac{\\color{red}${nomM + nomN}}{\\color{blue}${nomA + nomB}}$`
+      } else {
+        texte_corr += `$\\dfrac{${nomC + nomM}}{${nomC + nomA}}=\\dfrac{${nomC + nomN}}{${nomC + nomB}}=\\dfrac{${nomM + nomN}}{${nomA + nomB}}$`
+      }
       texte_corr += `<br><br>`
       texte_corr += `$\\dfrac{${tex_nombrec(Math.abs(k) * ac)}}{${tex_nombre(ac)}}=\\dfrac{${tex_nombrec(Math.abs(k) * bc)}}{${nomC + nomB}}=\\dfrac{${nomM + nomN}}{${tex_nombre(ab)}}$`
       texte_corr += `<br><br>`
       texte_corr += `$${nomM + nomN}=\\dfrac{${tex_nombrec(Math.abs(k) * ac)}\\times${tex_nombre(ab)}}{${tex_nombre(ac)}}=${tex_nombrec(Math.abs(k) * ab)}$ cm`
       texte_corr += `<br><br>`
       texte_corr += `$${nomC + nomB}=\\dfrac{${tex_nombrec(Math.abs(k) * bc)}\\times${tex_nombre(ac)}}{${tex_nombrec(Math.abs(k) * ac)}}=${tex_nombrec(bc)}$ cm`
+      
+      if (sortie_html){
+        texte += `<br><div style="display: inline-block;margin-top:20px;">${bouton_aide_mathalea2d}</div>`;
+      }
+      
+      
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.liste_questions.push(texte);
@@ -2889,7 +2930,7 @@ function Thales2D() {
       cpt++;
     }
     liste_de_question_to_contenu(this);
-  };
+    }
   this.besoin_formulaire_numerique = ['Configuration', 3, '1 : Triangles imbriqués\n2 : Papillon\n3 : Les deux'];
 }
 

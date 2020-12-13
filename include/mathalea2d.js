@@ -3775,6 +3775,8 @@ function montrerParDiv(id) {
   document.getElementById(id).style.visibility = "visible";
 }
 
+
+
 /**
  * Rend invisible un element d'après son id
  * 
@@ -3812,6 +3814,48 @@ function afficherTempo(objet, t0 = 1, t = 5, r = 'Infinity') {
           montrerParDiv(objet.id) // On attend t0 pour montrer
           let montreRepete = setInterval(function(){
             montrerParDiv(objet.id)
+            compteur++
+            if (typeof r === 'number'){
+              if (compteur >=r){
+                clearInterval(cacheRepete)
+                clearInterval(montreRepete)
+              }
+            }
+            },t*1000) // On montre tous les t s (vu qu'on a décalé de t0)
+          
+        },t0*1000) // Fin de l'animation en boucle
+      }
+    }
+  }, 100); // vérifie toutes les  100ms que le div existe
+}
+
+
+/**
+ * Masque un objet puis l'affiche au bout de t0 s avant de recommencer r fois toutes les t secondes
+ * 
+ * 
+ * @param {any} objet dont l'identifiant est accessible par objet.id
+ * @param {number} [t0=1] temps en secondes avant l'apparition
+ * @param {number} [t=5] temps à partir duquel l'animation recommence
+ * @param {string} [r='Infinity'] nombre de répétition (infini si ce n'est pas un nombre)
+
+ * 
+ * 
+ */
+function afficherTempoId(id, t0 = 1, t = 5, r = 'Infinity') {
+  let compteur = 1 // Nombre d'animations
+  let checkExist = setInterval(function () {
+    if (document.getElementById(id)) {
+      clearInterval(checkExist);
+      cacherParDiv(id)
+      if (r==1){ // On le montre au bout de t0 et on ne le cache plus
+        setTimeout(function(){montrerParDiv(id)},t0*1000) 
+      } else {
+        let cacheRepete = setInterval(function(){cacherParDiv(id)},t*1000) // On cache tous les t s
+        setTimeout(function(){
+          montrerParDiv(id) // On attend t0 pour montrer
+          let montreRepete = setInterval(function(){
+            montrerParDiv(id)
             compteur++
             if (typeof r === 'number'){
               if (compteur >=r){
