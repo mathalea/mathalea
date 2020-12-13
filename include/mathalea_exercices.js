@@ -12001,9 +12001,8 @@ function Pavage_et_reflexion2d() {
     let Nx,Ny,index1,index2,A,B,d,image,couples=[],tailles=[],monpavage,fenetre
     let texte = "", texte_corr = "", type_de_pavage = parseInt(this.sup)
     let nombreTentatives,nombrePavageTestes=1
-    if (this.nb_questions>8) this.nb_questions=8
     type_de_pavage =  randint(1,6)
-    while (couples.length<this.nb_questions+3&&nombrePavageTestes<6){
+    while (couples.length<this.nb_questions&&nombrePavageTestes<6){
       nombreTentatives=0
     monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
     tailles = [[[3, 2], [3, 2], [2, 2], [2, 2], [2, 2], [2, 2]], [[4, 3], [4, 3], [3, 3], [3, 3], [3, 3], [3, 2]]]
@@ -12012,7 +12011,7 @@ function Pavage_et_reflexion2d() {
     monpavage.construit(type_de_pavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
     fenetre=monpavage.fenetre
     fenetreMathalea2d=[fenetre.xmin,fenetre.ymin,fenetre.xmax,fenetre.ymax]
-    while (couples.length<this.nb_questions+3&&nombreTentatives<2) { // On cherche d pour avoir suffisamment de couples
+    while (couples.length<this.nb_questions+2&&nombreTentatives<3) { // On cherche d pour avoir suffisamment de couples
     couples=[] // On vide la liste des couples pour une nouvelle recherche
     index1=randint(Math.floor(monpavage.nb_polygones/3),Math.ceil(monpavage.nb_polygones*2/3)) // On choisit 2 points dans 2 polygones distincts.
     index2=randint(Math.floor(monpavage.nb_polygones/3),Math.ceil(monpavage.nb_polygones*2/3),index1) 
@@ -12024,7 +12023,7 @@ function Pavage_et_reflexion2d() {
       A=monpavage.polygones[index1].listePoints[randint(0,2)] // idem ci-dessus
       B=monpavage.polygones[index2].listePoints[randint(0,2)] // mais à la sortie du While A!=B
     }
-    d=droite(A,B,'(d)','red') // l'axe sera la droite passant par ces deux points si ça fonctionne
+    d=mediatrice(A,B,'(d)','red') // l'axe sera la droite passant par ces deux points si ça fonctionne
     d.epaisseur=4
     for (let i=1;i<= monpavage.nb_polygones; i++){ //on crée une liste des couples (antécédents, images)
       image=refleccion(monpavage,d,i)
@@ -12035,13 +12034,16 @@ function Pavage_et_reflexion2d() {
     couples=videcouples(couples) //supprime tous les couples en double (x,y)=(y,x)
     nombreTentatives++ 
     }
-    if (couples.length<this.nb_questions+3){
+    if (couples.length<this.nb_questions){
     type_de_pavage=(type_de_pavage+1)%5+1
     nombrePavageTestes++
     }
   }
-  if (couples.length<this.nb_questions+3)
+  if (couples.length<this.nb_questions){
+    console.log('trop de questions, augmentez la taille du pavage')
     return
+  }
+
     objets.push(d) // la droite d est trouvée
     couples=shuffle(couples) // on mélange les couples
     for (let i = 0; i < monpavage.nb_polygones; i++) {
