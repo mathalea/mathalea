@@ -7378,7 +7378,7 @@ function Pavage() {
 				break
 		}
 		this.echelle = arrondi(80 / Math.sqrt(Math.max(YMAX - YMIN, XMAX - XMIN)),0)
-		this.fenetre = { xmin: XMIN-0.5, ymin: YMIN-0.5, xmax: XMAX+0.5, ymax: YMAX+0.5, pixelsParCm: this.echelle, scale: arrondi(this.echelle / 20,1) }
+		this.fenetre = { xmin: XMIN-0.5, ymin: YMIN-0.5, xmax: XMAX+0.5, ymax: YMAX+0.5, pixelsParCm: this.echelle, scale: arrondi(this.echelle / 30,2) }
 		nettoie_objets(this.polygones) // On supprime les doublons éventuels (grâce à leur barycentre)
 		// On ajoute les N°
 		this.nb_polygones = this.polygones.length // Le nombre de polygones du pavage qui sert dans les boucles

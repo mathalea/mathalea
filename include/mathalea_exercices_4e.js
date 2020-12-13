@@ -2266,7 +2266,7 @@ function Exercice_equation1() {
 
 /**
  * @auteur Jean-Claude Lhote
- * 3G20
+ * 3G20MG32
  */
 function Exercice_Thales() {
   "use strict";
