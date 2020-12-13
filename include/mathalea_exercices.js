@@ -11998,23 +11998,27 @@ function Pavage_et_reflexion2d() {
     }
     this.liste_corrections = []
     this.liste_questions = []
+    let Nx,Ny,index1,index2,A,B,d,image,couples=[],tailles=[],monpavage,fenetre
     let texte = "", texte_corr = "", type_de_pavage = parseInt(this.sup)
-    let monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
+    let nombreTentatives,nombrePavageTestes=1
+    if (this.nb_questions>8) this.nb_questions=8
     type_de_pavage =  randint(1,6)
-    let tailles = [[[3, 2], [3, 2], [2, 2], [2, 2], [2, 2], [2, 2]], [[4, 3], [4, 3], [3, 3], [3, 3], [3, 3], [3, 2]]]
-    let Nx,Ny,index1,index2,A,B,d,image,couples=[]
+    while (couples.length<this.nb_questions+3&&nombrePavageTestes<6){
+      nombreTentatives=0
+    monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
+    tailles = [[[3, 2], [3, 2], [2, 2], [2, 2], [2, 2], [2, 2]], [[4, 3], [4, 3], [3, 3], [3, 3], [3, 3], [3, 2]]]
     Nx = tailles[taillePavage][type_de_pavage-1][0]
     Ny = tailles[taillePavage][type_de_pavage-1][1]
     monpavage.construit(type_de_pavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
-    let fenetre=monpavage.fenetre
+    fenetre=monpavage.fenetre
     fenetreMathalea2d=[fenetre.xmin,fenetre.ymin,fenetre.xmax,fenetre.ymax]
-    while (couples.length<this.nb_questions+3) { // On cherche d pour avoir suffisamment de couples
+    while (couples.length<this.nb_questions+3&&nombreTentatives<2) { // On cherche d pour avoir suffisamment de couples
     couples=[] // On vide la liste des couples pour une nouvelle recherche
     index1=randint(Math.floor(monpavage.nb_polygones/3),Math.ceil(monpavage.nb_polygones*2/3)) // On choisit 2 points dans 2 polygones distincts.
     index2=randint(Math.floor(monpavage.nb_polygones/3),Math.ceil(monpavage.nb_polygones*2/3),index1) 
     A=monpavage.polygones[index1].listePoints[randint(0,2)] // On les choisit dans les trois premiers
     B=monpavage.polygones[index2].listePoints[randint(0,2)] // points pour éviter un point qui n'éxiste pas
-    while (compare2sommets(A,B)&&longueur(A,B)<10){ // On vérifie qu'ils sont bien distincts sinon, on change.
+    while (compare2sommets(A,B)){ // On vérifie qu'ils sont bien distincts sinon, on change.
       index1=randint(0,monpavage.nb_polygones-1) 
       index2=randint(0,monpavage.nb_polygones-1,index1)
       A=monpavage.polygones[index1].listePoints[randint(0,2)] // idem ci-dessus
@@ -12029,7 +12033,15 @@ function Pavage_et_reflexion2d() {
       }
     }
     couples=videcouples(couples) //supprime tous les couples en double (x,y)=(y,x)
+    nombreTentatives++ 
     }
+    if (couples.length<this.nb_questions+3){
+    type_de_pavage=(type_de_pavage+1)%5+1
+    nombrePavageTestes++
+    }
+  }
+  if (couples.length<this.nb_questions+3)
+    return
     objets.push(d) // la droite d est trouvée
     couples=shuffle(couples) // on mélange les couples
     for (let i = 0; i < monpavage.nb_polygones; i++) {
