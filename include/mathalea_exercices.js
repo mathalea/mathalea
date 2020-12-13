@@ -14879,7 +14879,7 @@ liste_type_de_questions = combin,aison_listes(type_de_questions_disponibles, thi
 
           objets_enonce.push (traces1,labels1) 
           objets_enonceml.push(traces2,labels2,kare,aA,aB,aC,aD)
-          objets_correction.p,ush(traces2,labels2,kare,aA,aB,aC,aD)
+          objets_correction.push(traces2,labels2,kare,aA,aB,aC,aD)
           //ici sont créés les texte, tex_corr, objets mathalea2d divers entrant dans le contenu de l'exercice
         break;
 
