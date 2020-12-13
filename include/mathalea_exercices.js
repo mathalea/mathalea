@@ -73,6 +73,7 @@ var liste_des_exercices_disponibles = {
   "6G25": Construire_mediatrices_6e,
   "6G25-1": Pavages_et_reflexion,
   "6G25-2": Pavages_et_symetries,
+  "beta6G25-3" : Pavage_et_reflexion2d,
   "6G33": Symetrie_axiale_conservation1,
   "6G41": Representer_un_solide_6e,
   "6G42": Solide_6e,
@@ -360,7 +361,7 @@ var liste_des_exercices_disponibles = {
   "P004": Feuille_de_zooms,
   "P005": Feuille_de_grilles,
   "P006" : Nombre_a_placer,
-  "betaP007" : Pavages_mathalea2d,
+  "P007" : Pavages_mathalea2d,
   "cours": Questions_de_cours,
   "LaTeX": Code_LaTeX_personnalise,
   // 'Perso' : HTML_personnalise,
@@ -11838,345 +11839,216 @@ function HTML_personnalise() {
   };
 }
 /**
- * 
+ * Outil de création de pavages pour le prof
+ * @Auteur Jean-Claude Lhote
+ * Publié le 12/12/2020
+ * Ref : P007
  */
 function Pavages_mathalea2d() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre ="Fabriquer des pavages pour travailler les transformations";
+  this.titre = "Fabriquer des pavages pour travailler les transformations";
   this.consigne = "";
   this.nb_questions = 1;
   this.nb_questions_modifiable = false;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
-  this.sup=4
-  this.sup2=1
-
+  this.sup = 4
+  this.sup2 = "1-1"
+  this.sup3 = true
+  this.correction_detaillee = false
+  this.correction_detaillee_disponible = true
   sortie_html ? (this.spacing_corr = 2.5) : (this.spacing_corr = 1.5);
-
   this.nouvelle_version = function (numero_de_l_exercice) {
-  let nettoie_objets=function(objets){
-    let barywhite,baryblack // c'est drôle non ?
-      for (let i=0;i<objets.length;i++){
-        barywhite=barycentre(objets[i])
-        for (let j=i+1;j<objets.length;){
-          baryblack=barycentre(objets[j])
-          if (egal(barywhite.x,baryblack.x,0.1)&&egal(barywhite.y,baryblack.y,0.1)){
-            objets.splice(j,1)
-          }
-          else j++
+    let objets=[]
+    let Nx, Ny // nombres de dalles en x et en y
+    if (!this.sup2) { // On fixe le nombre de dalles en x et en y
+      // Si aucune grandeur n'est saisie
+      [Nx, Ny] = [1, 1]
+    } else {
+      if (typeof this.sup2 == "number") { // Si on ne met qu'un nombre alors on prend Nx=Ny
+        [Nx, Ny] = [this.sup2, this.sup2];
+        this.nb_questions = 1;
+      } else { // On fixe Nx et Ny avec les valeurs saisies.
+        [Nx, Ny] = this.sup2.split("-"); // Sinon on créé un tableau à partir des valeurs séparées par des -
+      }
+    }
+    this.liste_corrections = []
+    this.liste_questions = []
+    let texte = "", texte_corr = "", type_de_pavage = parseInt(this.sup)
+    let monpavage=pavage() // On crée l'objet Pavage qui va s'appeler monpavage
+    monpavage.construit(type_de_pavage,Nx,Ny,3) // On initialise toutes les propriétés de l'objet.
+    if (this.sup3){ // Doit-on afficher les Numéros ?
+        for (let i=0;i<monpavage.nb_polygones;i++){
+    objets.push(texteParPosition(nombre_avec_espace(i + 1), monpavage.barycentres[i].x + 0.5,monpavage.barycentres[i].y, 'milieu', 'black', 0.04 * monpavage.echelle, 0, true))
         }
       }
-    }
-   // let PositionsParDefaut=[[0.5,3.4641,0,0],[4,4,0,4]] // Pour pavages paramétrables : paramètres par défaut
-  let Nx,Ny // nombres de dalles en x et en y
-   if (!this.sup2) { // On fixe le nombre de dalles en x et en y
-      // Si aucune grandeur n'est saisie
-      [Nx,Ny]=[1,1]
-    } else {
-      if (typeof this.sup2 == "number") {
-        [Nx,Ny] = [this.sup2,this.sup2];
-        this.nb_questions = 1;
-      } else {
-        [Nx,Ny] = this.sup2.split("-"); // Sinon on créé un tableau à partir des valeurs séparées par des -
+        if (this.correction_detaillee) { // Doit-on montrer les centres des figures ?
+      for (let i = 0; i < monpavage.nb_polygones; i++) {
+        objets.push(monpavage.tracesCentres[i])
       }
     }
-/*    if (!this.sup3) { // Pour motif de pavage paramétrable
-      // Si aucun point n'est saisi on prend le tableau par défaut pour le type de pavage
-      [Cx,Cy,Dx,Dy]=PositionsParDefaut[parseInt(this.sup)]
-    } else {
-          [Cx,Cy,Dx,Dy] = this.sup2.split("-"); // Sinon on créé un tableau à partir des valeurs séparées par des -
-      }
+    for (let i = 0; i < monpavage.nb_polygones; i++) { // il faut afficher tous les polygones du pavage
+      objets.push(monpavage.polygones[i])
     }
-*/
-    this.liste_corrections=[]
-    this.liste_questions=[]
-    let texte="", texte_corr="",type_de_pavage=parseInt(this.sup)
-    let objets=[],A,B,v,w,C,D,P,XMIN=0,YMIN=0,XMAX=0,YMAX=0,P1,P2,P3,P4,P5,P6,P7,P8,P9,P10,P11,P12,fenetre,echelle,nombre_de_polygones
-    let barycentres=[]
-
-    switch (type_de_pavage) {
-      case 1 : // triangles équilatéraux
-      A=point(0,0)
-      B=point(3,0)
-      v=vecteur(A,B)
-      w=rotation(v,A,-90)
-      w=homothetie(w,A,1.73205)
-      for (let k=0;k<Ny;k++){
-      for (let j=0;j<Nx;j++) {
-      P1=polygoneRegulier(A,B,3)
-      P2=rotation(P1,A,60)
-      P3=rotation(P1,A,-60)
-      P4=rotation(P1,A,-120)
-      objets.push(P1,P2,P3,P4)
-
-      for (let p of P1.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      for (let p of P2.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      for (let p of P3.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      for (let p of P4.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      A=translation(A,v)
-      B=translation(B,v)
-      }
-      A=translation(A,vecteur(-Nx*v.x,-2*v.y))
-      B=translation(B,vecteur(-Nx*v.x,-2*v.y))
-      A=translation(A,w)
-      B=translation(B,w)  
-      }
-      echelle=400/Math.max(YMAX-YMIN,XMAX-XMIN)
-      fenetre={xmin:XMIN,ymin:YMIN,xmax:XMAX,ymax:YMAX,pixelsParCm:echelle,scale:echelle/20}
-
-      break
-
-      case 2 : //carrés
-      A=point(0,0)
-      B=point(3,0)
-      v=vecteur(A,B)
-      v=homothetie(v,A,2)
-      w=rotation(v,A,-90)
-      for (let k=0;k<Ny;k++){
-      for (let j=0;j<Nx;j++) {
-      P1=polygoneRegulier(A,B,4)
-      P2=rotation(P1,A,90)
-      P3=rotation(P1,A,-90)
-      P4=rotation(P1,A,-180)
-      objets.push(P1,P2,P3,P4)
-
-      for (let p of P1.listePoints){
-        XMIN=Math.min(XMIN,p.x)     
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      for (let p of P2.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      for (let p of P3.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      for (let p of P4.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      A=translation(A,v)
-      B=translation(B,v)
-      }
-      A=translation(A,vecteur(-Nx*v.x,-2*v.y))
-      B=translation(B,vecteur(-Nx*v.x,-2*v.y))
-      A=translation(A,w)
-      B=translation(B,w)  
-      }
-      echelle=400/Math.max(YMAX-YMIN,XMAX-XMIN)
-      fenetre={xmin:XMIN,ymin:YMIN,xmax:XMAX,ymax:YMAX,pixelsParCm:echelle,scale:echelle/20}
-
-      break
-
-      case 3 : //hexagones
-      A=point(0,0)
-      B=point(3,0)
-      v=vecteur(A,B)
-      v=homothetie(v,A,2)
-      w=rotation(v,A,-90)
-      w=homothetie(w,A,1.73205)
-      for (let k=0;k<Ny;k++){
-      for (let j=0;j<Nx;j++) {
-      C=similitude(B,A,30,1.1547)
-      P1=polygoneRegulier(A,C,6)
-      P2=rotation(P1,A,-120)
-      P3=translation(P1,v)
-      P4=translation(P2,v)
-      objets.push(P1,P2,P3,P4)
-
-      for (let p of P1.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      for (let p of P2.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      for (let p of P3.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      for (let p of P4.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      A=translation(A,vecteur(2*v.x,0))
-      B=translation(B,vecteur(2*v.x,0))
-      }
-      A=translation(A,vecteur(-Nx*2*v.x,w.y))
-      B=translation(B,vecteur(-Nx*2*v.x,w.y)) 
-      }
-      echelle=400/Math.max(YMAX-YMIN,XMAX-XMIN)
-      fenetre={xmin:XMIN,ymin:YMIN,xmax:XMAX,ymax:YMAX,pixelsParCm:echelle,scale:echelle/20}
-      break
-
-      case 4 : // Pavage 3².4.3.4
-      A=point(0,0)
-      B=point(3,0)
-      v=vecteur(A,B)
-      v=homothetie(v,A,2.73205)
-      w=rotation(v,A,-90)
-      for (let k=0;k<Ny;k++){
-      for (let j=0;j<Nx;j++) {
-
-      C=rotation(B,A,60)
-      P1=polygoneRegulier(A,B,3)
-      P2=rotation(P1,A,150)
-      P6=rotation(P1,B,-150)
-      P7=rotation(P1,B,60)
-      P9=rotation(P2,C,150)
-      P10=rotation(P9,A,-60)
-      P11=rotation(P2,B,60)
-      P12=rotation(P6,A,-60)     
-      P3=polygoneRegulier(A,C,4)
-      P4=polygoneRegulierIndirect(B,C,4)
-      P5=rotation(P4,B,-150)
-      P8=rotation(P3,A,150)
-
-      objets.push(P1,P2,P3,P4,P5,P6,P7,P8,P9,P10,P11,P12)
-
-      for (let p of P1.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      for (let p of P2.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      for (let p of P11.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      for (let p of P12.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      for (let p of P3.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      for (let p of P4.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      for (let p of P5.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      for (let p of P6.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      for (let p of P7.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      for (let p of P8.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      for (let p of P9.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      for (let p of P10.listePoints){
-        XMIN=Math.min(XMIN,p.x)
-        XMAX=Math.max(XMAX,p.x)
-        YMIN=Math.min(YMIN,p.y)
-        YMAX=Math.max(YMAX,p.y)
-      }
-      A=translation(A,vecteur(v.x,0))
-      B=translation(B,vecteur(v.x,0))
-      }
-      A=translation(A,vecteur(-Nx*v.x,w.y))
-      B=translation(B,vecteur(-Nx*v.x,w.y))
-      }
-      echelle=400/Math.max(YMAX-YMIN,XMAX-XMIN)
-      fenetre={xmin:XMIN,ymin:YMIN,xmax:XMAX,ymax:YMAX,pixelsParCm:echelle,scale:echelle/20}
-      break
-    }
-   console.log('avant nettoyage',objets.length)
-    nettoie_objets(objets) // On supprime les doublons éventuels (grâce à leur barycentre)
-    console.log('après nettoyage',objets.length)
-    // On ajoute les N°
-    nombre_de_polygones=objets.length // Le nombre de polygones du pavage qui sert dans les boucles
-
-    for (let i=0;i<nombre_de_polygones;i++){
-      P=barycentre(objets[i])
-      barycentres.push([arrondi(P.x,1),arrondi(P.y,1)])
-      objets.push(texteParPoint(nombre_avec_espace(i+1),P,'milieu','black',1,0,true))
-    }
-console.log(barycentres)
-    texte=mathalea2d(fenetre,objets)
+    texte = mathalea2d(monpavage.fenetre, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
+ 
+    texte_corr = "Le premier paramètre permet de choisir le pavage.<br>"
+    texte_corr += "Le deuxième permet de choisir le nombre de répétitions en x et y. Exemple : 3-2<br>"
+    texte_corr += "Le troisième permet d'afficher un Numéro distinct sur chaque figure.<br>"
+    texte_corr += "En activant la correction détaillée, on affiche les barycentres de celles-ci."
+ 
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
     liste_de_question_to_contenu(this)
   }
-  this.besoin_formulaire_numerique = ["Type de pavage",4,'1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones\n4 : Pavage 3².4.3.4\n']
+  this.besoin_formulaire_numerique = ["Type de pavage", 6, '1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones\n4 : Pavage 3².4.3.4\n5 : Pavage 8².4\n6 : Pavage hexagonal d\'écolier']
   this.besoin_formulaire2_texte = ["Nombre de répétitions du motif (2 entiers séparés par un tiret)"];
-//  this.besoin_formulaire3_texte = ["Coordonnées des points mobiles, les deux premiers étant (0;0) et (0;4) (nombres séparés par des tirets)"]
+  this.besoin_formulaire3_case_a_cocher = ["Présence de numéros"]
 } // Fin de l'exercice.
 
+function Pavage_et_reflexion2d() {
+  "use strict";
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.titre =
+    "Trouver l\'image d'une figure par une symétrie axiale dans un pavage";
+  this.pas_de_version_LaTeX = true;
+  this.consigne = "";
+  this.nb_questions = 3;
+  this.nb_questions_modifiable = false;
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  this.sup = 1; // 1 pour des pavages modestes, 2 pour des plus grand.
+  sortie_html ? (this.spacing_corr = 2.5) : (this.spacing_corr = 1.5);
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    
+    let compare2polys=function(poly1,poly2){
+      if (comparenbsommets(poly1,poly2)) {
+        if (comparesommets(poly1,poly2)) 
+          return true
+        else
+          return false
+      }
+      else 
+        return false 
+      }
+      let comparenbsommets = function(poly1,poly2){
+        if (poly1.listePoints.length==poly2.listePoints.length){
+          return true
+        }
+        else return false
+      }
+      
+      let compare2sommets=function(sommet1,sommet2){
+        if (egal(sommet1.x,sommet2.x,0.1)&&egal(sommet1.y,sommet2.y,0.1)) {
+          return true
+        }
+        else return false
+      }
+      let comparesommets = function(poly1,poly2){
+        let trouve=false,trouves=0
+        if (comparenbsommets(poly1,poly2))
+        for (let P of poly1.listePoints) {
+          for (let M of poly2.listePoints) {
+            if (compare2sommets(M,P)) {
+              trouve=true
+            }
+            if (trouve) break
+          }
+          if (trouve) {
+            trouves++
+            trouve=false
+          }
+          else {
+            trouves-=100
+          }
+          if (trouves<0)
+          break
+        }
+        if (trouves==poly1.listePoints.length)
+          return true
+        else return false
+      }
+    
+    let refleccion = function (pavage, d, numero) { // retourne le numero du polygone symétrique ou -1 si il n'existe pas
+      let poly=pavage.polygones[numero-1],pol
+      let result=-1
+      let sympoly=symetrieAxiale(poly,d)
+      for (let k= 0;k<pavage.polygones.length;k++) {
+        pol=pavage.polygones[k]
+        if (compare2polys(sympoly,pol)) {
+          return k+1
+        }
+      }
+      return result
+    } 
+
+    let objets=[]
+    this.liste_corrections = []
+    this.liste_questions = []
+    let texte = "", texte_corr = "", type_de_pavage = parseInt(this.sup)
+    let monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
+    type_de_pavage =  choice([1, 2, 3, 6])
+    let tailles = [[[3, 2], [3, 2], [2, 2], [2, 2], [2, 2], [2, 2]], [[4, 3], [4, 3], [3, 3], [3, 3], [3, 3], [3, 2]]]
+    let Nx,Ny,index1,index2,A,B,d,image,couples=[]
+    Nx = tailles[1][type_de_pavage-1][0]
+    Ny = tailles[1][type_de_pavage-1][1]
+    monpavage.construit(type_de_pavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
+    let fenetre=monpavage.fenetre
+    fenetreMathalea2d=[fenetre.xmin,fenetre.ymin,fenetre.xmax,fenetre.ymax]
+    while (couples.length<this.nb_questions) { // On cherche d pour avoir suffisamment de couples
+    couples=[] // On vide la liste des couples pour une nouvelle recherche
+    index1=randint(0,monpavage.nb_polygones-1) // On choisit 2 points dans 2 polygones distincts.
+    index2=randint(0,monpavage.nb_polygones-1,index1) 
+    A=monpavage.polygones[index1].listePoints[randint(0,2)] // On les choisit dans les trois premiers
+    B=monpavage.polygones[index2].listePoints[randint(0,2)] // points pour éviter un point qui n'éxiste pas
+    while (compare2sommets(A,B)){ // On vérifie qu'ils sont bien distincts sinon, on change.
+      index1=randint(0,monpavage.nb_polygones-1) 
+      index2=randint(0,monpavage.nb_polygones-1,index1)
+      A=monpavage.polygones[index1].listePoints[randint(0,2)] // idem ci-dessus
+      B=monpavage.polygones[index2].listePoints[randint(0,2)] // mais à la sortie du While A!=B
+    }
+    d=droite(A,B,'(d)','red') // l'axe sera la droite passant par ces deux points si ça fonctionne
+    d.epaisseur=4
+    for (let i=1;i<= monpavage.nb_polygones; i++){ //on crée une liste des couples (antécédents, images)
+      image=refleccion(monpavage,d,i)
+      if (image!=-1){ // si l'image du polygone i existe, on ajoute le couple à la liste
+        couples.push([i,image])
+      }
+    }
+    }
+    objets.push(d) // la droite d est trouvée
+    couples=shuffle(couples) // on mélange les couples
+    for (let i = 0; i < monpavage.nb_polygones; i++) {
+      objets.push(texteParPosition(nombre_avec_espace(i + 1), monpavage.barycentres[i].x + 0.5, monpavage.barycentres[i].y, 'milieu', 'gray', 1, 0, true))
+    }
+    if (this.correction_detaillee) { // Doit-on montrer les centres des figures ?
+      for (let i = 0; i < monpavage.nb_polygones; i++) {
+        objets.push(monpavage.tracesCentres[i])
+      }
+    }
+    for (let i = 0; i < monpavage.nb_polygones; i++) { // il faut afficher tous les polygones du pavage
+      objets.push(monpavage.polygones[i])
+    }
+    objets.push(droiteHorizontaleParPoint(point(0,fenetre.ymin),'','blue'))
+    objets.push(droiteHorizontaleParPoint(point(0,fenetre.ymax),'','blue'))   
+    objets.push(droiteVerticaleParPoint(point(fenetre.xmin,0),'','blue'))
+    objets.push(droiteVerticaleParPoint(point(fenetre.xmax-0.1,0),'','blue'))  
+    texte = mathalea2d(fenetre, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
+    texte+=`<br>`
+    for (let i=0;i<this.nb_questions;i++){
+      texte+=`Quel est l'image de la figure $${couples[i][0]}$ dans la symétrie d'axe $(d)$ ?<br>`
+      texte_corr+=`L'image de la figure $${couples[i][0]}$ dans la symétrie d'axe $(d)$ est la figure ${couples[i][1]}<br>`
+    }
+
+
+    this.liste_questions.push(texte);
+    this.liste_corrections.push(texte_corr);
+    liste_de_question_to_contenu(this)
+  }
+  this.besoin_formulaire_numerique = ['Taille du pavage', 2, '1 : Taille modeste\n 2 : Grande taille'];
+
+}
 /**
  * Pavages et symétrie axiale.
  * Pas de version LaTeX
