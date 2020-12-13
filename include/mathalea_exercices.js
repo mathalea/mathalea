@@ -11915,7 +11915,7 @@ function Pavage_et_reflexion2d() {
   this.pas_de_version_LaTeX = true;
   this.consigne = "";
   this.nb_questions = 3;
-  this.nb_questions_modifiable = false;
+  this.nb_questions_modifiable = true;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
   this.sup = 1; // 1 pour des pavages modestes, 2 pour des plus grand.
@@ -11984,15 +11984,19 @@ function Pavage_et_reflexion2d() {
     } 
 
     let objets=[]
+    let taillePavage=parseInt(this.sup)
+    if (taillePavage<1||taillePavage>2) {
+      taillePavage=1
+    }
     this.liste_corrections = []
     this.liste_questions = []
     let texte = "", texte_corr = "", type_de_pavage = parseInt(this.sup)
     let monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
-    type_de_pavage =  choice([1, 2, 3, 6])
+    type_de_pavage =  randint(1,6)
     let tailles = [[[3, 2], [3, 2], [2, 2], [2, 2], [2, 2], [2, 2]], [[4, 3], [4, 3], [3, 3], [3, 3], [3, 3], [3, 2]]]
     let Nx,Ny,index1,index2,A,B,d,image,couples=[]
-    Nx = tailles[1][type_de_pavage-1][0]
-    Ny = tailles[1][type_de_pavage-1][1]
+    Nx = tailles[taillePavage][type_de_pavage-1][0]
+    Ny = tailles[taillePavage][type_de_pavage-1][1]
     monpavage.construit(type_de_pavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
     let fenetre=monpavage.fenetre
     fenetreMathalea2d=[fenetre.xmin,fenetre.ymin,fenetre.xmax,fenetre.ymax]
@@ -12030,10 +12034,6 @@ function Pavage_et_reflexion2d() {
     for (let i = 0; i < monpavage.nb_polygones; i++) { // il faut afficher tous les polygones du pavage
       objets.push(monpavage.polygones[i])
     }
-    objets.push(droiteHorizontaleParPoint(point(0,fenetre.ymin),'','blue'))
-    objets.push(droiteHorizontaleParPoint(point(0,fenetre.ymax),'','blue'))   
-    objets.push(droiteVerticaleParPoint(point(fenetre.xmin,0),'','blue'))
-    objets.push(droiteVerticaleParPoint(point(fenetre.xmax-0.1,0),'','blue'))  
     texte = mathalea2d(fenetre, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
     texte+=`<br>`
     for (let i=0;i<this.nb_questions;i++){
