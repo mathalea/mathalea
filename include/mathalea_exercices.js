@@ -15681,7 +15681,7 @@ function Utiliser_le_codage_pour_decrire() {
           objets_correction.push(codeSegments('||', 'black', D, E, C, E), codeSegments('O', 'black', A, B, B, C, C, D, D, A), codeSegments('|||', 'black', F, C, B, F))
           texte = `$${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$ est un carré et $${sommets[3] + sommets[2] + sommets[4]}$ est un triangle équilatéral ($${sommets[4]}$ est à l'intérieur du carré $${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$).<br>`
           texte += ` $${sommets[1] + sommets[2] + sommets[5]}$ est un triangle isocèle en $${sommets[5]}$ ($${sommets[5]}$ est à l'extérieur du carré $${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$).<br>`
-          texte += `Représenter cette configuration par un schéma à main levée et ajouter les codages nécéssaires.`
+          texte += `Représenter cette configuration par un schéma à main levée et ajouter les codages nécessaires.`
           texte_corr = `Voilà ci-dessous un schéma qui pourrait convenir à la situation.<br>`
           break
         case 3:
@@ -15701,7 +15701,7 @@ function Utiliser_le_codage_pour_decrire() {
           objets_correction.push(codeSegments('||', 'black', D, E, E, B, A, E, E, C, F, C, B, F), codeSegments('O', 'black', A, B, D, C), codeSegments('/', 'black', A, D, B, C))
           texte = `$${sommets[0] + sommets[1] + sommets[2] + sommets[3]}$ est un rectangle. Ses diagonales se coupent en $${sommets[4]}$.<br>`
           texte += `$${sommets[4] + sommets[1] + sommets[5] + sommets[2]}$ est un losange.<br>`
-          texte += `Représenter cette configuration par un schéma à main levée et ajouter les codages nécéssaires.`
+          texte += `Représenter cette configuration par un schéma à main levée et ajouter les codages nécssaires.`
           texte_corr = `Voilà ci-dessous un schéma qui pourrait convenir à la situation.<br>`
           break
         case 4:
