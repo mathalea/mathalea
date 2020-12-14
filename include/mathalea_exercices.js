@@ -74,7 +74,8 @@ var liste_des_exercices_disponibles = {
   "6G25-1": Pavages_et_reflexion,
   "6G25-2": Pavages_et_symetries,
   "6G25-3" : Pavage_et_reflexion2d,
-  "6G33": Symetrie_axiale_conservation1,
+  "6G32-1": Symetrie_axiale_conservation1,
+  "6G33": Reconnaitre_quadrilatere_particulier,
   "6G41": Representer_un_solide_6e,
   "6G42": Solide_6e,
   "6G43": Utiliser_vocabulaire_pave,
@@ -6124,7 +6125,7 @@ function Encadrer_fraction_entre_2_entiers() {
       a = randint(0, 9) * 10 + randint(1, 9);
       texte = `$\\ldots < \\dfrac{${n}}{${d}} < \\ldots$`;
       texte_corr = `$${k} < \\dfrac{${n}}{${d}} < ${k + 1}$`;
-      if (correction_detaillee) {
+      if (this.correction_detaillee) {{}
         texte_corr += ` $\\qquad$ car $\\quad ${k}=\\dfrac{${k * d}}{${d}}\\quad$ et $\\quad${k + 1}=\\dfrac{${(k + 1) * d}}{${d}}$ `;
         texte_corr += `<br><br>`
         texte_corr += mathalea2d({ xmin: -.5, xmax: 24, ymax: 1.5, scale: .6 }, fraction(n, d).representation(0, 0, 3, 0, 'barre', 'blue')
@@ -13207,7 +13208,7 @@ function Construire_mediatrices_6e() {
 }
 
 /**
- * Ref 6G33
+ * Ref 6G32-1
  * Publié le 26/10/2020
  * @Auteur Jean-Claude Lhote
  */
@@ -13389,6 +13390,218 @@ function Symetrie_axiale_conservation1() {
   this.besoin_formulaire_numerique = ['Type d\'axe', 5, "1 : Axe vertical\n2 : Axe horizontal\n3 : Axe oblique 1\n4 : Axe oblique 2\n5 : Axe aléatoire"];
   this.besoin_formulaire2_case_a_cocher = ["Avec des points de part et d'autre"];
 }
+
+
+/**
+ * Reconnaitre un quadrilatère particulier à partir de ses propriétés
+ * @Auteur Rémi Angot
+ * Référence 6G33
+*/
+function Reconnaitre_quadrilatere_particulier() {
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.titre = "Reconnaitre un quadrilatère particulier à partir de ses propriétés";
+  this.consigne = "";
+  this.nb_questions = 3;
+  this.nb_questions_modifiable = false;
+  this.nb_cols = 2; // Nombre de colonnes pour la sortie LaTeX
+  this.nb_cols_corr = 2; // Nombre de colonnes dans la correction pour la sortie LaTeX
+  this.correction_detaillee_disponible = true;
+  sortie_html ? this.correction_detaillee = true : this.correction_detaillee = false
+
+  this.nouvelle_version = function (numero_de_l_exercice) {
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+
+    let liste_de_questions = shuffle([choice(['losange1','losange2']),choice(['rectangle1','rectangle2']),choice(['carre1','carre2','carre3'])])
+    for (let i = 0, texte, texte_corr,cpt = 0; i < this.nb_questions && cpt < 50;)
+     {
+      texte = '';
+      texte_corr = '';
+      let A,B,C,D,O,ABCD,codage,codage1,codage2,codage3,codage4,sAC,sBD,sOA,sOB,sOC,sOD,marquesDemiDiagonales,marquesDemiDiagonales1,marquesDemiDiagonales2;
+      switch (liste_de_questions[i]) {
+          case 'losange1':
+              texte = "Quelle est la nature d'un quadrilatère ayant 4 côtés de même longueur ?";
+              A = point(0, 0);
+              B = point(2, 3);
+              C = point(0, 6);
+              D = point(-2, 3);
+              O = point(0, 3);
+              ABCD = polygone(A, B, C, D);
+              //codage = codageAngleDroit(C, O, B);
+              marquesCotes = codeSegments("||", "blue", A, B, B, C, C, D, D, A);
+              // sAC = segment(A, C);
+              // sBD = segment(B, D);
+              // sOA = segment(O, A);
+              // sOB = segment(O, B);
+              // sOC = segment(O, C);
+              // sOD = segment(O, D);
+              // sAC.pointilles = true;
+              // sBD.pointilles = true;
+              // marquesDemiDiagonales = codeSegments("|", "blue", O, A, O, B, O, C, O, D);
+              if (this.correction_detaillee) {texte_corr = mathalea2d({xmin:-3,xmax:3,ymin:-1,ymax:7},ABCD,marquesCotes)+"<br>"}
+              texte_corr += "C'est un losange."
+              break;
+          case 'losange2':
+              texte = "Quelle est la nature d'un quadrilatère ayant ses diagonales perpendiculaires et sécantes en leur milieu ?";
+              A = point(0, 0);
+              B = point(2, 3);
+              C = point(0, 6);
+              D = point(-2, 3);
+              O = point(0, 3);
+              ABCD = polygone(A, B, C, D);
+              codage = codageAngleDroit(C, O, B);
+              //marquesCotes = codeSegments("||", "blue", A, B, B, C, C, D, D, A);
+              sAC = segment(A, C);
+              sBD = segment(B, D);
+              sOA = segment(O, A);
+              sOB = segment(O, B);
+              sOC = segment(O, C);
+              sOD = segment(O, D);
+              sAC.pointilles = true;
+              sBD.pointilles = true;
+              marquesDemiDiagonales1 = codeSegments("|", "blue", O, A, O, C);
+              marquesDemiDiagonales2 = codeSegments("|||", "blue", O, B, O, D);
+              if (this.correction_detaillee) {texte_corr = mathalea2d({xmin:-3,xmax:3,ymin:-1,ymax:7},ABCD,codage,sAC,sBD,marquesDemiDiagonales1,marquesDemiDiagonales2)+"<br>"}
+              texte_corr += "C'est un losange."
+              break;
+          case 'rectangle1':
+              texte = "Quelle est la nature d'un quadrilatère ayant 3 angles droits ?";
+              A = point(0, 0);
+              B = point(5, 0);
+              C = point(5, 3);
+              D = point(0, 3);
+              O = point(2.5, 1.5);
+              ABCD = polygone(A, B, C, D);
+              codage1 = codageAngleDroit(A,B,C);
+              codage2 = codageAngleDroit(B,C,D);
+              codage3 = codageAngleDroit(C,D,A);
+              //marquesCotes = codeSegments("||", "blue", A, B, B, C, C, D, D, A);
+              // sAC = segment(A, C);
+              // sBD = segment(B, D);
+              // sOA = segment(O, A);
+              // sOB = segment(O, B);
+              // sOC = segment(O, C);
+              // sOD = segment(O, D);
+              // sAC.pointilles = true;
+              // sBD.pointilles = true;
+              // marquesDemiDiagonales = codeSegments("||", "blue", O, A, O, B, O, C, O, D);
+              if (this.correction_detaillee) {texte_corr = mathalea2d({xmin:-1,xmax:6,ymin:-1,ymax:4},ABCD,codage1,codage2,codage3)+"<br>"}
+              texte_corr += "C'est un rectangle."
+              break;
+          case 'rectangle2':
+              texte = "Quelle est la nature d'un quadrilatère ayant ses diagonales de même longueur et sécantes en leur milieu ?";
+              A = point(0, 0);
+              B = point(5, 0);
+              C = point(5, 3);
+              D = point(0, 3);
+              O = point(2.5, 1.5);
+              ABCD = polygone(A, B, C, D);
+              // codage1 = codageAngleDroit(A,B,C);
+              // codage2 = codageAngleDroit(B,C,D);
+              // codage3 = codageAngleDroit(C,D,A);
+              //marquesCotes = codeSegments("||", "blue", A, B, B, C, C, D, D, A);
+              sAC = segment(A, C);
+              sBD = segment(B, D);
+              // sOA = segment(O, A);
+              // sOB = segment(O, B);
+              // sOC = segment(O, C);
+              // sOD = segment(O, D);
+              // sAC.pointilles = true;
+              // sBD.pointilles = true;
+              marquesDemiDiagonales = codeSegments("||", "blue", O, A, O, B, O, C, O, D);
+              if (this.correction_detaillee) {texte_corr = mathalea2d({xmin:-1,xmax:6,ymin:-1,ymax:4},ABCD,marquesDemiDiagonales,sAC,sBD)+"<br>"}
+              texte_corr += "C'est un rectangle."
+              break;
+          case 'carre1':
+              texte = "Quelle est la nature d'un quadrilatère ayant ses 4 côtés de même longueur et 4 angles droits ?";
+              A = point(0, 0);
+              B = point(3, 0);
+              C = point(3, 3);
+              D = point(0, 3);
+              O = point(1.5, 1.5);
+              ABCD = polygone(A, B, C, D);
+              codage1 = codageAngleDroit(A,B,C);
+              codage2 = codageAngleDroit(B,C,D);
+              codage3 = codageAngleDroit(C,D,A);
+              codage4 = codageAngleDroit(D,A,B);
+              marquesCotes = codeSegments("||", "blue", A, B, B, C, C, D, D, A);
+              // sAC = segment(A, C);
+              // sBD = segment(B, D);
+              // sOA = segment(O, A);
+              // sOB = segment(O, B);
+              // sOC = segment(O, C);
+              // sOD = segment(O, D);
+              // sAC.pointilles = true;
+              // sBD.pointilles = true;
+              // marquesDemiDiagonales = codeSegments("||", "blue", O, A, O, B, O, C, O, D);
+              if (this.correction_detaillee) {texte_corr = mathalea2d({xmin:-1,xmax:4,ymin:-1,ymax:4},ABCD,codage1,codage2,codage3,marquesCotes)+"<br>"}
+              texte_corr += "C'est un carré."
+              break;
+          case 'carre2':
+              texte = "Quelle est la nature d'un quadrilatère ayant ses ses diagonales perpendiculaires, de même longueur et sécantes en leur milieu ?";
+              A = point(0, 0);
+              B = point(3, 0);
+              C = point(3, 3);
+              D = point(0, 3);
+              O = point(1.5, 1.5);
+              ABCD = polygone(A, B, C, D);
+              codage = codageAngleDroit(C,O,D);
+              // codage2 = codageAngleDroit(B,C,D);
+              // codage3 = codageAngleDroit(C,D,A);
+              // codage4 = codageAngleDroit(D,A,B);
+              // marquesCotes = codeSegments("||", "blue", A, B, B, C, C, D, D, A);
+              sAC = segment(A, C);
+              sBD = segment(B, D);
+              sOA = segment(O, A);
+              sOB = segment(O, B);
+              sOC = segment(O, C);
+              sOD = segment(O, D);
+              sAC.pointilles = true;
+              sBD.pointilles = true;
+              marquesDemiDiagonales = codeSegments("||", "blue", O, A, O, B, O, C, O, D);
+              if (this.correction_detaillee) {texte_corr = mathalea2d({xmin:-1,xmax:4,ymin:-1,ymax:4},ABCD,codage,marquesDemiDiagonales,sAC,sBD)+"<br>"}
+              texte_corr += "C'est un carré."
+              break;
+          case 'carre3':
+              texte = "Quelle est la nature d'un quadrilatère ayant ses 4 côtés de même longueur et un angle droit ?";
+              A = point(0, 0);
+              B = point(3, 0);
+              C = point(3, 3);
+              D = point(0, 3);
+              O = point(1.5, 1.5);
+              ABCD = polygone(A, B, C, D);
+              codage = codageAngleDroit(A,B,C);
+              // codage2 = codageAngleDroit(B,C,D);
+              // codage3 = codageAngleDroit(C,D,A);
+              // codage4 = codageAngleDroit(D,A,B);
+              marquesCotes = codeSegments("||", "blue", A, B, B, C, C, D, D, A);
+              // sAC = segment(A, C);
+              // sBD = segment(B, D);
+              // sOA = segment(O, A);
+              // sOB = segment(O, B);
+              // sOC = segment(O, C);
+              // sOD = segment(O, D);
+              // sAC.pointilles = true;
+              // sBD.pointilles = true;
+              // marquesDemiDiagonales = codeSegments("||", "blue", O, A, O, B, O, C, O, D);
+              if (this.correction_detaillee) {texte_corr = mathalea2d({xmin:-1,xmax:4,ymin:-1,ymax:4},ABCD,codage,marquesCotes)+"<br>"}
+              texte_corr += "C'est un carré."
+              break;
+      }
+
+      if (this.liste_questions.indexOf(texte) == -1) {
+        // Si la question n'a jamais été posée, on en crée une autre
+        this.liste_questions.push(texte);
+        this.liste_corrections.push(texte_corr);
+        i++;
+      }
+      cpt++;
+    }
+    liste_de_question_to_contenu(this);
+  };
+  //this.besoin_formulaire_numerique = ['Niveau de difficulté',3,'1 : ....\n2 : .....,\n3 : .....];
+}
+
 
 // Exercices paramétrés pour correspondre au référentiel
 // Référence 5P10
