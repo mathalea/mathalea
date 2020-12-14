@@ -5691,7 +5691,7 @@ function Proportionnalite_pas_proportionnalite() {
           for (let j = 0; j < tirages.length; j++)
             texte += `&${tex_prix(arrondi(tirages[j][1], 2))}`;
           texte += `\\\\\\hline\\end{array}$<br> <br>`;
-          texte += `Le prix des ${objet} est-il proportionnel à la quatité achetée ?<br>`;
+          texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée ?<br>`;
           texte_corr = `Il faut calculer le prix unitaire des ${objet} dans chaque cas de figure :<br><br>`;
           if (met) index3 = range(3);
           else index3 = range(3, [p]);
