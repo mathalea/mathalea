@@ -7160,7 +7160,7 @@ function Eq_resolvantes_Thales() {
 					b: params.b,
 					c: params.c,
 					inc: params.inc,
-					trivial: (params.b == params.c)
+					trivial: (params.b == params.c) || (params.c == params.a)
 				},
 				{//case 1 --> a/c=x/b --> cx=ab
 					eq: `\\dfrac{${tex_nombre(params.a)}}{${tex_nombre(params.c)}}=\\dfrac{${params.inc}}{${tex_nombre(params.b)}}`,
@@ -7168,7 +7168,7 @@ function Eq_resolvantes_Thales() {
 					b: params.b,
 					c: params.c,
 					inc: params.inc,
-					trivial: (params.b == params.c)
+					trivial: (params.b == params.c) || (params.c == params.a)
 
 				},
 				{//case 2 -->b/x=c/a --> cx = ab
@@ -7177,7 +7177,7 @@ function Eq_resolvantes_Thales() {
 					b: params.b,
 					c: params.c,
 					inc: params.inc,
-					trivial: (params.b == params.c)
+					trivial: (params.b == params.c) || (params.c == params.a)
 				},
 				{//case 3 -->c/a=b/x --> cx = ab 
 					eq: `\\dfrac{${tex_nombre(params.c)}}{${tex_nombre(params.a)}}=\\dfrac{${tex_nombre(params.b)}}{${params.inc}}`,
@@ -7185,7 +7185,7 @@ function Eq_resolvantes_Thales() {
 					b: params.b,
 					c: params.c,
 					inc: params.inc,
-					trivial: (params.b == params.c)
+					trivial: (params.b == params.c) || (params.c == params.a)
 				},
 			];
 
