@@ -7044,12 +7044,13 @@ function Eq_resolvantes_Thales() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.debug = false;
-	this.sup = 1;
+	console.log(this.sup)
 	if (this.debug) {
 		this.nb_questions = 4;
 	} else {
-		this.nb_questions = 2;
-	};
+		this.sup = 2;				
+	};	
+	this.sup = 1;
 	this.sup2 = false;
 	//this.exo = '';	
 	if (this.exo == '4L15-1') {
@@ -7088,9 +7089,16 @@ function Eq_resolvantes_Thales() {
 		} else {
 			type_de_questions_disponibles = shuffle([choice([0, 1]), choice([2, 3])]);
 		};
+		
+		if (this.sup == 4) {
+			this.nb_questions = 5;
+		} else {
+			this.nb_questions = 2;
+		};
 
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
+		let type_de_nombres_sup_egal_4 = []; // liste des situations coeff on veut chaque fois [1,1,1] et [-1,1,1] ou autre  et [0.1,0.1,0.1]
 
 		//let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 		let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
@@ -7119,6 +7127,14 @@ function Eq_resolvantes_Thales() {
 					coeff = [0.1, 0.1, 0.1];
 					nb_alea = [randint(11, 99), randint(11, 99), c_temp_case_3];
 					break;
+				case 4://mélange
+					let masterChoix = choice([
+						{c:[1, 1, 1],na:[randint(2, 9), randint(2, 9), randint(2, 9, [3, 6, 7, 9])]},
+						{c:[choice([1, -1]), choice([1, -1]), choice([1, -1])],na:[randint(2, 9), randint(2, 9), randint(1, 9, [3, 6, 7, 9])]},
+						{c:[0.1, 0.1, 0.1],na:[randint(11, 99), randint(11, 99), c_temp_case_3]}
+					]);
+					coeff = masterChoix.c;					
+					nb_alea = masterChoix.na;					
 			};
 
 			let inc;
@@ -7130,13 +7146,9 @@ function Eq_resolvantes_Thales() {
 			};
 
 			let params = {
-				// a:tex_nombre(calcul(nb_alea[0]*coeff[0])),
-				// b:tex_nombre(calcul(nb_alea[1]*coeff[1])),
-				// c:tex_nombre(calcul(nb_alea[2]*coeff[2])),
 				a: calcul(nb_alea[0] * coeff[0]),
 				b: calcul(nb_alea[1] * coeff[1]),
 				c: calcul(nb_alea[2] * coeff[2]),
-				//inc:choice(['x','y','GO','AB','z','GA','BU','ZO','ME'])
 				inc: inc
 			}
 
@@ -7240,7 +7252,6 @@ function Eq_resolvantes_Thales() {
 						texte_corr = `${enonces[3].correction}`;
 					};
 					break;
-
 			};
 
 			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
@@ -7253,7 +7264,7 @@ function Eq_resolvantes_Thales() {
 		liste_de_question_to_contenu(this);
 
 	}
-	this.besoin_formulaire_numerique = ['Type de nombres', 3, "1 : Entiers naturels\n2 : Entiers relatifs\n3 : Décimaux"];
+	this.besoin_formulaire_numerique = ['Type de nombres', 4, "1 : Entiers naturels\n2 : Entiers relatifs\n3 : Décimaux\n4 : Mélange"];
 	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];
 	//this.besoin_formulaire2_case_a_cocher = ["Avec décimaux.",false]	
 };
