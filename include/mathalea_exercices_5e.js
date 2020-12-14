@@ -3737,7 +3737,8 @@ function Premier_ou_pas_5e() {
  * Trouver l'image d'une figure par une symétrie centrale dans un pavage (7 motifs différents)
  * @Auteur Jean-Claude Lhote
  * fonction servant à tous les niveaux
- * Références 5G12, 6G25-2, 4G11, 3G12
+ * Pas de version Latex !
+ * Références 5G12-1, 6G25-2, 4G11, 3G12
  */
 function Pavages_et_transformations() {
 	'use strict';
@@ -6123,7 +6124,13 @@ function DroiteRemarquableDuTriangle() {
 	}
 	this.besoin_formulaire_numerique = ['Type de droites', 3, "1 : Hauteurs et Médiatrices\n2 : Médianes et Bissectrices\n3 : Toutes les droites"]
 }
-
+/**
+ * Publié le 14/12/2020
+ * Trouver l'image par symétrie centrale d'une figure dans un pavage
+ * Version Latex & Html grâce à Mathalea2d
+ * @Auteur Jean-Claude Lhote
+ * Ref 5G12
+ */
 function Pavage_et_demi_tour2d() {
 	"use strict";
 	Exercice.call(this); // Héritage de la classe Exercice()

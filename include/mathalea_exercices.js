@@ -152,8 +152,8 @@ var liste_des_exercices_disponibles = {
   "5C12": Calculer_une_expression_numerique,
   "5C12-1": Traduire_une_phrase_par_une_expression_et_calculer,
   "5G10": Symetrie_axiale_5e,
-  "5G12": Pavages_et_demi_tour,
-  "5G12-1" : Pavage_et_demi_tour2d,
+  "5G12-1": Pavages_et_demi_tour,
+  "5G12" : Pavage_et_demi_tour2d,
   "5G11": Transformations_5e,
   "5G10-1": Symetrie_axiale_point_5e,
   "5G10-2": Symetrie_axiale_figure_5e,
@@ -304,6 +304,7 @@ var liste_des_exercices_disponibles = {
   "3G10-3": Construire_rotation_point_3e,
   "3G11": Construire_homothetie_point_3e,
   "3G12": Pavages_et_rotation,
+  "beta3G12-1" : Pavage_et_rotation2d,
   "3G20": Thales2D_3e,
   "3G20-2": Exercice_Thales,
   "3G20-1": Problemes_Thales,
@@ -11867,7 +11868,7 @@ function Pavages_mathalea2d() {
       // Si aucune grandeur n'est saisie
       [Nx, Ny] = [1, 1]
     } else {
-      if (typeof this.sup2 == "number") { // Si on ne met qu'un nombre alors on prend Nx=Ny
+      if (typeof this.sup2 === "number") { // Si on ne met qu'un nombre alors on prend Nx=Ny
         [Nx, Ny] = [this.sup2, this.sup2];
         this.nb_questions = 1;
       } else { // On fixe Nx et Ny avec les valeurs saisies.
@@ -11876,8 +11877,11 @@ function Pavages_mathalea2d() {
     }
     this.liste_corrections = []
     this.liste_questions = []
-    let texte = "", texte_corr = "", type_de_pavage = parseInt(this.sup)
+    let texte = "", texte_corr = ""
+    let type_de_pavage
+
     let monpavage=pavage() // On crée l'objet Pavage qui va s'appeler monpavage
+    type_de_pavage = parseInt(this.sup)
     monpavage.construit(type_de_pavage,Nx,Ny,3) // On initialise toutes les propriétés de l'objet.
     if (this.sup3){ // Doit-on afficher les Numéros ?
         for (let i=0;i<monpavage.nb_polygones;i++){
