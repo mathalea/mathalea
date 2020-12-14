@@ -153,7 +153,7 @@ var liste_des_exercices_disponibles = {
   "5C12-1": Traduire_une_phrase_par_une_expression_et_calculer,
   "5G10": Symetrie_axiale_5e,
   "5G12": Pavages_et_demi_tour,
-  "beta5G12-1" : Pavage_et_demi_tour2d,
+  "5G12-1" : Pavage_et_demi_tour2d,
   "5G11": Transformations_5e,
   "5G10-1": Symetrie_axiale_point_5e,
   "5G10-2": Symetrie_axiale_figure_5e,
@@ -11916,10 +11916,13 @@ function Pavage_et_reflexion2d() {
   this.consigne = "";
   this.nb_questions = 3;
   this.nb_questions_modifiable = true;
+  this.correction_detaillee=true;
+  this.correction_detaillee_disponible=true;
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
   this.sup = 1; // 1 pour des pavages modestes, 2 pour des plus grand.
   this.sup2=false // On cache les centres par défaut.
+  this.sup3=7;
   sortie_html ? (this.spacing_corr = 2.5) : (this.spacing_corr = 1.5);
   this.nouvelle_version = function (numero_de_l_exercice) {
     let videcouples=function(tableau){
@@ -11979,7 +11982,21 @@ function Pavage_et_reflexion2d() {
           return true
         else return false
       }
-    
+ /*     let associesommets=function(poly1,poly2,d){ //Pour chercher les indices des symétriques dans leur polygone respectif
+        let binomes=[],P,M   
+        for (let k=0;k<poly1.listePoints.length;k++) { // afin éventuellement de faire clignoter ces paires de points lors de la correction
+          P=symetrieAxiale(poly1.listePoints[k],d)
+          for (let l=0;l<poly2.listePoints.length;l++) {
+            M=poly2.listePoints[l]
+            if (compare2sommets(M,P)) {
+              binomes.push([k,l])
+              break
+            }
+          }
+        }
+        return binomes
+      }
+  */  
     let refleccion = function (pavage, d, numero) { // retourne le numero du polygone symétrique ou -1 si il n'existe pas
       let poly=pavage.polygones[numero-1],pol
       let result=-1
@@ -11993,23 +12010,32 @@ function Pavage_et_reflexion2d() {
       return result
     } 
 
-    let objets=[]
+    let objets=[],objets_correction=[],symetriques=[]
+    let codes=['/','//','///','o','w','X','U','*']
     let taillePavage=parseInt(this.sup)
     if (taillePavage<1||taillePavage>2) {
       taillePavage=1
+    }
+    if (this.nb_questions>5) {
+      taillePavage=2
     }
     this.liste_corrections = []
     this.liste_questions = []
     let Nx,Ny,index1,index2,A,B,d,image,couples=[],tailles=[],monpavage,fenetre
     let texte = "", texte_corr = "", type_de_pavage = parseInt(this.sup)
     let nombreTentatives,nombrePavageTestes=1
-    type_de_pavage =  randint(1,6)
+    if (this.sup3==7) {
+      type_de_pavage =  randint(1,6)
+    }
+    else {
+      type_de_pavage=parseInt(this.sup3)
+    }
     while (couples.length<this.nb_questions&&nombrePavageTestes<6){
       nombreTentatives=0
     monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
     tailles = [[[3, 2], [3, 2], [2, 2], [2, 2], [2, 2], [2, 2]], [[4, 3], [4, 3], [3, 3], [3, 3], [3, 3], [3, 2]]]
-    Nx = tailles[taillePavage][type_de_pavage-1][0]
-    Ny = tailles[taillePavage][type_de_pavage-1][1]
+    Nx = tailles[taillePavage-1][type_de_pavage-1][0]
+    Ny = tailles[taillePavage-1][type_de_pavage-1][1]
     monpavage.construit(type_de_pavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
     fenetre=monpavage.fenetre
     fenetreMathalea2d=[fenetre.xmin,fenetre.ymin,fenetre.xmax,fenetre.ymax]
@@ -12037,7 +12063,9 @@ function Pavage_et_reflexion2d() {
     nombreTentatives++ 
     }
     if (couples.length<this.nb_questions){
-    type_de_pavage=(type_de_pavage+1)%5+1
+    if (this.sup3==7) {
+      type_de_pavage=(type_de_pavage+1)%5+1
+    }
     nombrePavageTestes++
     }
   }
@@ -12061,18 +12089,26 @@ function Pavage_et_reflexion2d() {
     }
     texte = mathalea2d(fenetre, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
     texte+=`<br>`
-    for (let i=0;i<this.nb_questions;i++){
+    for (let i=0;i<this.nb_questions;i++){  
       texte+=`Quel est l'image de la figure $${couples[i][0]}$ dans la symétrie d'axe $(d)$ ?<br>`
       texte_corr+=`L'image de la figure $${couples[i][0]}$ dans la symétrie d'axe $(d)$ est la figure ${couples[i][1]}<br>`
+//      symetriques=associesommets(monpavage.polygones[couples[i][0]-1],monpavage.polygones[couples[i][1]-1],d)
+      if (this.correction_detaillee){
+        A=monpavage.barycentres[couples[i][0]-1]
+        B=monpavage.barycentres[couples[i][1]-1]
+        objets_correction.push(tracePoint(A,B),segment(A,B,texcolors(i)),codageMediatrice(A,B,texcolors(i),codes[i]))
+      }
     }
-
-
+    if (this.correction_detaillee){
+      texte_corr+=mathalea2d(fenetre, objets,objets_correction)
+    }
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
     liste_de_question_to_contenu(this)
   }
-  this.besoin_formulaire_numerique = ['Taille du pavage', 2, '1 : Taille modeste\n 2 : Grande taille'];
-	this.besoin_formulaire3_case_a_cocher=["Montrer les centres"]
+	this.besoin_formulaire_numerique = ['Taille du pavage (la grande est automatique au-delà de 5 questions)', 2, '1 : Taille modeste\n 2 : Grande taille'];
+  this.besoin_formulaire2_case_a_cocher=["Montrer les centres"]
+  this.besoin_formulaire3_numerique=['Choix du pavage',7,'1 : Pavage de triangles équilatéraux\n2 : Pavage de carrés\n3 : Pavage d\'hexagones réguliers\n4 : Pavage 3².4.3.4\n5 : Pavage 8².4\n 6 : Pavage de losanges (hexagonal d\'écolier)\n7 : Un des six au hasard']
 }
 /**
  * Pavages et symétrie axiale.

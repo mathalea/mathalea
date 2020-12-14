@@ -6138,6 +6138,7 @@ function Pavage_et_demi_tour2d() {
 	this.nb_cols_corr = 1;
 	this.sup = 1; // 1 pour des pavages modestes, 2 pour des plus grand.
 	this.sup2=false // On cache les barycentres par défaut.
+	this.sup3=7;
 	sortie_html ? (this.spacing_corr = 2.5) : (this.spacing_corr = 1.5);
 	this.nouvelle_version = function (numero_de_l_exercice) {
 	  let videcouples=function(tableau){
@@ -6199,7 +6200,8 @@ function Pavage_et_demi_tour2d() {
 		}
 	  
 	  let demitour = function (pavage, A, numero) { // retourne le numero du polygone symétrique ou -1 si il n'existe pas
-		let poly=pavage.polygones[numero-1],pol
+		let poly=pavage.polygones[numero-1]
+		let pol
 		let result=-1
 		let sympoly=rotation(poly,A,180)
 		for (let k= 0;k<pavage.polygones.length;k++) {
@@ -6211,34 +6213,53 @@ function Pavage_et_demi_tour2d() {
 		return result
 	  } 
   
-	  let objets=[]
+	  let objets=[],objets_correction=[]
+	  let codes=['/','//','///','o','w','X','U','*']
 	  let taillePavage=parseInt(this.sup)
 	  if (taillePavage<1||taillePavage>2) {
 		taillePavage=1
+	  }
+	  if (this.nb_questions>5) {
+		taillePavage=2
 	  }
 	  this.liste_corrections = []
 	  this.liste_questions = []
 	  let Nx,Ny,index1,index2,A,B,d,image,couples=[],tailles=[],monpavage,fenetre
 	  let texte = "", texte_corr = "", type_de_pavage = parseInt(this.sup)
 	  let nombreTentatives,nombrePavageTestes=1
-	  type_de_pavage =  randint(1,6)
+	  if (this.sup3==7) {
+		type_de_pavage =  randint(1,6)
+	  }
+	  else {
+		type_de_pavage=parseInt(this.sup3)
+	  }
 	  while (couples.length<this.nb_questions&&nombrePavageTestes<6){
 		nombreTentatives=0
 	  monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
 	  tailles = [[[3, 2], [3, 2], [2, 2], [2, 2], [2, 2], [2, 2]], [[4, 3], [4, 3], [3, 3], [3, 3], [3, 3], [3, 2]]]
-	  Nx = tailles[taillePavage][type_de_pavage-1][0]
-	  Ny = tailles[taillePavage][type_de_pavage-1][1]
+	  Nx = tailles[taillePavage-1][type_de_pavage-1][0]
+	  Ny = tailles[taillePavage-1][type_de_pavage-1][1]
 	  monpavage.construit(type_de_pavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
 	  fenetre=monpavage.fenetre
 	  fenetreMathalea2d=[fenetre.xmin,fenetre.ymin,fenetre.xmax,fenetre.ymax]
 	  while (couples.length<this.nb_questions+2&&nombreTentatives<3) { // On cherche d pour avoir suffisamment de couples
 	  couples=[] // On vide la liste des couples pour une nouvelle recherche
-	  index1=randint(Math.floor(monpavage.nb_polygones/3),Math.ceil(monpavage.nb_polygones*2/3)) // On choisit 2 points dans 2 polygones distincts.
+	  
+	  index1=randint(Math.floor(monpavage.nb_polygones/3),Math.ceil(monpavage.nb_polygones*2/3)) // On choisit 1 point dans un des polygones
 	  if (choice([true,false])) { 
-		  A=monpavage.polygones[index1].listePoints[randint(0,2)] // On choisit un sommet
+		  A=monpavage.polygones[index1].listePoints[randint(0,monpavage.polygones[index1].listePoints.length-1)] // On choisit un sommet
 	  }
 	  else {
 		A=monpavage.barycentres[index1] // Ou on choisit un barycentre
+	  }
+	  while (A.x-5<fenetre.xmin||A.x+5>fenetre.xmax||A.y-5<fenetre.ymin||A.y+5>fenetre.ymax){
+		index1=randint(Math.floor(monpavage.nb_polygones/3),Math.ceil(monpavage.nb_polygones*2/3)) // On choisit 1 point dans un des polygones
+		if (choice([true,false])) { 
+			A=monpavage.polygones[index1].listePoints[randint(0,monpavage.polygones[index1].listePoints.length-1)] // On choisit un sommet
+		}
+		else {
+		  A=monpavage.barycentres[index1] // Ou on choisit un barycentre
+		}
 	  }
 			  A.nom='A'
 			  A.positionLabel='above left'
@@ -6257,7 +6278,9 @@ function Pavage_et_demi_tour2d() {
 	  nombreTentatives++ 
 	  }
 	  if (couples.length<this.nb_questions){
-	  type_de_pavage=(type_de_pavage+1)%5+1
+		if (this.sup3==7) {
+			type_de_pavage=(type_de_pavage+1)%5+1
+		  }
 	  nombrePavageTestes++
 	  }
 	}
@@ -6285,16 +6308,23 @@ function Pavage_et_demi_tour2d() {
 	  for (let i=0;i<this.nb_questions;i++){
 		texte+=`Quel est l'image de la figure $${couples[i][0]}$ dans la symétrie de centre $A$ ?<br>`
 		texte_corr+=`L'image de la figure $${couples[i][0]}$ dans la symétrie de centre $A$ est la figure ${couples[i][1]}<br>`
-	  }
-  
-  
+		if (this.correction_detaillee){
+			A=monpavage.barycentres[couples[i][0]-1]
+			B=monpavage.barycentres[couples[i][1]-1]
+			objets_correction.push(tracePoint(A,B),segment(A,B,arcenciel(i)),codageMilieu(A,B,texcolors(i),codes[i],false))
+		  }
+	}
+    if (this.correction_detaillee){
+      texte_corr+=mathalea2d(fenetre, objets,objets_correction)
+    }
 	  this.liste_questions.push(texte);
 	  this.liste_corrections.push(texte_corr);
 	  liste_de_question_to_contenu(this)
 	}
-	this.besoin_formulaire_numerique = ['Taille du pavage', 2, '1 : Taille modeste\n 2 : Grande taille'];
+	this.besoin_formulaire_numerique = ['Taille du pavage (la grande est automatique au-delà de 5 questions)', 2, '1 : Taille modeste\n 2 : Grande taille'];
 	this.besoin_formulaire2_case_a_cocher=["Montrer les centres"]
-  }
+	this.besoin_formulaire3_numerique=['Choix du pavage',7,'1 : Pavage de triangles équilatéraux\n2 : Pavage de carrés\n3 : Pavage d\'hexagones réguliers\n4 : Pavage 3².4.3.4\n5 : Pavage 8².4\n 6 : Pavage de losanges (hexagonal d\'écolier)\n7 : Un des six au hasard']
+}
 
 /**
  * Référence 6G24-1
