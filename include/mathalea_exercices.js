@@ -153,6 +153,7 @@ var liste_des_exercices_disponibles = {
   "5C12-1": Traduire_une_phrase_par_une_expression_et_calculer,
   "5G10": Symetrie_axiale_5e,
   "5G12": Pavages_et_demi_tour,
+  "beta5G12-1" : Pavage_et_demi_tour2d,
   "5G11": Transformations_5e,
   "5G10-1": Symetrie_axiale_point_5e,
   "5G10-2": Symetrie_axiale_figure_5e,
@@ -9578,7 +9579,7 @@ function Feuille_de_grilles() {
       for (let i = 0; i < 5; i++) {
         objets.length = 0
         //pixelsParCm=50
-        objets.push(carre(point(1, 1), point(2, 1)))
+        objets.push(carreIndirect(point(1, 1), point(2, 1)))
         objets.push(texteParPosition("= 1 unité", 3.5, 1.5))
         objets.push(grille(15, -2, 19, 2, 'black', 1, 4))
         for (let j = 0; j < 11; j++) {
@@ -9609,7 +9610,7 @@ function Feuille_de_grilles() {
       for (let i = 0; i < 4; i++) {
         objets.length = 0
         //pixelsParCm=50
-        objets.push(carre(point(1, 1.5), point(2, 1.5)))
+        objets.push(carreIndirect(point(1, 1.5), point(2, 1.5)))
         objets.push(texteParPosition("= 1 unité", 3.5, 2))
         objets.push(grille(15, -2.5, 20, 2.5, 'black', 1, 0.5))
         objets.push(grille(11, -0.5, 12, 0.5, 'black', 0.3, 0.1))
@@ -9644,7 +9645,7 @@ function Feuille_de_grilles() {
           D = point(0 + j * 1.1, 0.5)
           objets.push(polygone(A, B, C, D))
         }
-        objets.push(carre(point(1, 1.5), point(2, 1.5)))
+        objets.push(carreIndirect(point(1, 1.5), point(2, 1.5)))
         objets.push(texteParPosition("= 1 unité", 3.5, 2))
         objets.push(segment(point(11.5, 0.5), point(15, 5)))
         objets.push(segment(point(11.5, -0.5), point(15, -5)))
@@ -9686,7 +9687,7 @@ function Feuille_de_grilles() {
       for (let i = 0; i < 5; i++) {
         objets.length = 0
         //pixelsParCm=50
-        objets.push(carre(point(1, 1), point(2, 1)))
+        objets.push(carreIndirect(point(1, 1), point(2, 1)))
         objets.push(texteParPosition("= 1 unité", 3.5, 1.5))
         objets.push(grille(15, -2, 19, 2, 'black', 1, 4))
         for (let j = 0; j < 11; j++) {
@@ -9717,7 +9718,7 @@ function Feuille_de_grilles() {
       for (let i = 0; i < 4; i++) {
         objets.length = 0
         //pixelsParCm=50
-        objets.push(carre(point(1, 1.5), point(2, 1.5)))
+        objets.push(carreIndirect(point(1, 1.5), point(2, 1.5)))
         objets.push(texteParPosition("= 1 unité", 3.5, 2))
         objets.push(grille(15, -2.5, 20, 2.5, 'black', 1, 0.5))
         objets.push(grille(11, -0.5, 12, 0.5, 'black', 0.3, 0.1))
@@ -9752,7 +9753,7 @@ function Feuille_de_grilles() {
           D = point(0 + j * 1.1, 0.5)
           objets.push(polygone(A, B, C, D))
         }
-        objets.push(carre(point(1, 1.5), point(2, 1.5)))
+        objets.push(carreIndirect(point(1, 1.5), point(2, 1.5)))
         objets.push(texteParPosition("= 1 unité", 3.5, 2))
         objets.push(segment(point(11.5, 0.5), point(15, 5)))
         objets.push(segment(point(11.5, -0.5), point(15, -5)))
@@ -11918,6 +11919,7 @@ function Pavage_et_reflexion2d() {
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
   this.sup = 1; // 1 pour des pavages modestes, 2 pour des plus grand.
+  this.sup2=false // On cache les centres par défaut.
   sortie_html ? (this.spacing_corr = 2.5) : (this.spacing_corr = 1.5);
   this.nouvelle_version = function (numero_de_l_exercice) {
     let videcouples=function(tableau){
@@ -12049,7 +12051,7 @@ function Pavage_et_reflexion2d() {
     for (let i = 0; i < monpavage.nb_polygones; i++) {
       objets.push(texteParPosition(nombre_avec_espace(i + 1), monpavage.barycentres[i].x + 0.5, monpavage.barycentres[i].y, 'milieu', 'gray', 1, 0, true))
     }
-    if (this.correction_detaillee) { // Doit-on montrer les centres des figures ?
+    if (this.sup2) { // Doit-on montrer les centres des figures ?
       for (let i = 0; i < monpavage.nb_polygones; i++) {
         objets.push(monpavage.tracesCentres[i])
       }
@@ -12070,7 +12072,7 @@ function Pavage_et_reflexion2d() {
     liste_de_question_to_contenu(this)
   }
   this.besoin_formulaire_numerique = ['Taille du pavage', 2, '1 : Taille modeste\n 2 : Grande taille'];
-
+	this.besoin_formulaire3_case_a_cocher=["Montrer les centres"]
 }
 /**
  * Pavages et symétrie axiale.
