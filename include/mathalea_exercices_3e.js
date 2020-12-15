@@ -5938,7 +5938,7 @@ function Pavage_et_rotation2d() {
 		  else return false
 		}
 	  
-	  let rotaccion = function (pavage, A,angle, numero) { // retourne le numero du polygone symétrique ou -1 si il n'existe pas
+	  let rotaccion = function (pavage, A,angle, numero) { // retourne le numero du polygone image ou -1 si il n'existe pas
 		let poly=pavage.polygones[numero-1]
 		let pol
 		let result=-1
@@ -7273,7 +7273,6 @@ function Eq_resolvantes_Thales() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
 	this.debug = false;
-	console.log(this.sup)
 	if (this.debug) {
 		this.nb_questions = 4;
 	} else {

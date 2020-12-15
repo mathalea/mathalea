@@ -259,6 +259,7 @@ var liste_des_exercices_disponibles = {
   "4P10": Problemes_grandeurs_composees,
   "4P10-1": Graphiques_et_proportionnalite,
   "4G10": Construire_translate_point_4e,
+  "beta4G11" :Pavage_et_translation2d,
   "4G11": Pavages_et_translation,
   "4G20": Pythagore2D,
   "4G20-1": Egalite_Pythagore2D, // Anciennement Egalite_Pythagore,
@@ -11913,6 +11914,12 @@ function Pavages_mathalea2d() {
   this.besoin_formulaire3_case_a_cocher = ["Présence de numéros"]
 } // Fin de l'exercice.
 
+/**
+ * @Auteur Jean-Claude Lhote
+ * publié le 14/12/2020
+ * Réf : 6G25-3
+ * Trouver une figure symétrique dans un pavage. Symétrie axiale. 6 pavages différents.
+ */
 function Pavage_et_reflexion2d() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
