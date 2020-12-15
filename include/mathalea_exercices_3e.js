@@ -7076,8 +7076,14 @@ function Eq_resolvantes_Thales() {
 			let sortie;
 			let texte = ``;
 			if (bool) {
-				texte = `Dans ce cas le recours au produit en croix est superflu.<br> Par identification, on a directement $${inc}=${a}$ !`;
-				sortie = warn_message(texte, `nombres`, `Keep Cool Guy !`);
+				if (b==c) {
+					texte = `Dans ce cas le recours au produit en croix est superflu.<br> Par identification, on a directement $${inc}=${a}$ !`;
+					sortie = warn_message(texte, `nombres`, `Keep Cool Guy !`);
+				};
+				if (c==a) {
+					texte = `Dans ce cas le recours au produit en croix est superflu.<br> Par identification, on a directement $${inc}=${b}$ !`;
+					sortie = warn_message(texte, `nombres`, `Keep Cool Guy !`);
+				}
 			} else {
 				sortie = ``
 			};
