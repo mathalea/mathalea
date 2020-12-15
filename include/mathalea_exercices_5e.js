@@ -6234,8 +6234,8 @@ function Pavage_et_demi_tour2d() {
 	  let Nx,Ny,index1,index2,A,B,d,image,couples=[],tailles=[],monpavage,fenetre
 	  let texte = "", texte_corr = "", type_de_pavage = parseInt(this.sup)
 	  let nombreTentatives,nombrePavageTestes=1
-	  if (this.sup3==7) {
-		type_de_pavage =  randint(1,6)
+	  if (this.sup3==8) {
+		type_de_pavage =  randint(1,7)
 	  }
 	  else {
 		type_de_pavage=parseInt(this.sup3)
@@ -6243,7 +6243,7 @@ function Pavage_et_demi_tour2d() {
 	  while (couples.length<this.nb_questions&&nombrePavageTestes<6){
 		nombreTentatives=0
 	  monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
-	  tailles = [[[3, 2], [3, 2], [2, 2], [2, 2], [2, 2], [2, 2]], [[4, 3], [4, 3], [3, 3], [3, 3], [3, 3], [3, 2]]]
+	  tailles = [[[3, 2], [3, 2], [2, 2], [2, 2], [2, 2], [2, 2],[3,2]], [[4, 3], [4, 3], [3, 3], [3, 3], [3, 3], [3, 2],[5,3]]]
 	  Nx = tailles[taillePavage-1][type_de_pavage-1][0]
 	  Ny = tailles[taillePavage-1][type_de_pavage-1][1]
 	  monpavage.construit(type_de_pavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
@@ -6330,7 +6330,7 @@ function Pavage_et_demi_tour2d() {
 	}
 	this.besoin_formulaire_numerique = ['Taille du pavage (la grande est automatique au-delà de 5 questions)', 2, '1 : Taille modeste\n 2 : Grande taille'];
 	this.besoin_formulaire2_case_a_cocher=["Montrer les centres"]
-	this.besoin_formulaire3_numerique=['Choix du pavage',7,'1 : Pavage de triangles équilatéraux\n2 : Pavage de carrés\n3 : Pavage d\'hexagones réguliers\n4 : Pavage 3².4.3.4\n5 : Pavage 8².4\n 6 : Pavage de losanges (hexagonal d\'écolier)\n7 : Un des six au hasard']
+	this.besoin_formulaire3_numerique=['Choix du pavage',8,'1 : Pavage de triangles équilatéraux\n2 : Pavage de carrés\n3 : Pavage d\'hexagones réguliers\n4 : Pavage 3².4.3.4\n5 : Pavage 8².4\n 6 : Pavage de losanges (hexagonal d\'écolier)\n7 : Pavage 6.3.6.3\n8 : Un des sept pavages au hasard']
 }
 
 /**
