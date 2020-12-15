@@ -7272,22 +7272,27 @@ function Image_antecedent_depuis_tableau_ou_fleche() {
 function Eq_resolvantes_Thales() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.debug = false;
-	console.log(this.sup)
+	this.debug = false;	
 	if (this.debug) {
 		this.nb_questions = 4;
 	} else {
-		this.sup = 2;				
+		this.nb_questions = 2;				
 	};	
 	this.sup = 1;
 	this.sup2 = false;
 	//this.exo = '';	
 	if (this.exo == '4L15-1') {
 		this.titre = "Equations du type $\\dfrac{x}{a}=\\dfrac{b}{c}$";
-	} else {
+	} else if (this.exo == '4P10-2') {
+		this.titre = "Déterminer une quatrième proportionnelle dans un tableau";
+	}else {
 		this.titre = "Equations résolvantes pour le théorème de Thalès";
 	}
-	this.consigne = `Résoudre les équations suivantes.`;
+	if (this.exo == '4P10-2') {
+		this.consigne = `Déterminer la quatrième proportionnelle dans les tableaux suivants.`;
+	} else {
+		this.consigne = `Résoudre les équations suivantes.`;
+	};
 
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
@@ -7327,7 +7332,7 @@ function Eq_resolvantes_Thales() {
 		
 		if (this.sup == 4) {
 			this.nb_questions = 5;
-		} else {
+		} else if (!this.debug) {
 			this.nb_questions = 2;
 		};
 
@@ -7376,6 +7381,8 @@ function Eq_resolvantes_Thales() {
 			if (this.exo == '4L15-1') {
 				inc = choice(['r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']);
 
+			} else if (this.exo == '4P10-2') {
+				inc = ['?'];
 			} else {
 				inc = choice(['x', 'y', 'GO', 'AB', 'z', 'GA', 'BU', 'ZO', 'ME']);
 			};
@@ -7391,6 +7398,7 @@ function Eq_resolvantes_Thales() {
 			let situations = [
 				{//case 0 --> x/b=a/c --> cx= ab
 					eq: `\\dfrac{${params.inc}}{${tex_nombre(params.b)}}=\\dfrac{${tex_nombre(params.a)}}{${tex_nombre(params.c)}}`,
+					tab:tab_C_L([params.inc,params.a],[params.b],[params.c]),
 					a: params.a,
 					b: params.b,
 					c: params.c,
@@ -7399,6 +7407,7 @@ function Eq_resolvantes_Thales() {
 				},
 				{//case 1 --> a/c=x/b --> cx=ab
 					eq: `\\dfrac{${tex_nombre(params.a)}}{${tex_nombre(params.c)}}=\\dfrac{${params.inc}}{${tex_nombre(params.b)}}`,
+					tab:tab_C_L([params.a,params.inc],[params.c],[params.b]),
 					a: params.a,
 					b: params.b,
 					c: params.c,
@@ -7408,6 +7417,7 @@ function Eq_resolvantes_Thales() {
 				},
 				{//case 2 -->b/x=c/a --> cx = ab
 					eq: `\\dfrac{${tex_nombre(params.b)}}{${params.inc}}=\\dfrac{${tex_nombre(params.c)}}{${tex_nombre(params.a)}}`,
+					tab:tab_C_L([params.b,params.c],[params.inc],[params.a]),
 					a: params.a,
 					b: params.b,
 					c: params.c,
@@ -7416,6 +7426,7 @@ function Eq_resolvantes_Thales() {
 				},
 				{//case 3 -->c/a=b/x --> cx = ab 
 					eq: `\\dfrac{${tex_nombre(params.c)}}{${tex_nombre(params.a)}}=\\dfrac{${tex_nombre(params.b)}}{${params.inc}}`,
+					tab:tab_C_L([params.c,params.b],[params.a],[params.inc]),
 					a: params.a,
 					b: params.b,
 					c: params.c,
@@ -7424,14 +7435,22 @@ function Eq_resolvantes_Thales() {
 				},
 			];
 
+			let enoncePlus;
+			let corrPlusPremiereLigne;
+			
 			let enonces = [];
 			for (let k = 0; k < situations.length; k++) {
+				if (this.exo == '4P10-2') {
+					enoncePlus = `${situations[k].tab}`;
+					corrPlusPremiereLigne = `${situations[k].tab} <br> Le tableau ci-dessus est un tableau de proportionnalité, pour déterminer la quatrième proportionnelle il suffit par exemple de résoudre l'équation suivante : <br>`;
+				} else {
+					enoncePlus = `$${situations[k].eq}$`;
+					corrPlusPremiereLigne = ``;
+				};
 				enonces.push({
-					enonce: `
-						$${situations[k].eq}$
-					`,
+					enonce: enoncePlus,
 					question: ``,
-					correction: `
+					correction: `${corrPlusPremiereLigne}
 						$${situations[k].eq}$<br>
 						${texte_en_couleur_et_gras(`Les produits en croix sont égaux.`)}<br>
 						$${tex_nombre(situations[k].c)}\\times ${situations[k].inc} = ${tex_nombre(situations[k].a)}\\times ${tex_nombre(situations[k].b)}$<br>
