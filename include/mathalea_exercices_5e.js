@@ -6220,7 +6220,7 @@ function Pavage_et_demi_tour2d() {
 		return result
 	  } 
   
-	  let objets=[],objets_correction=[]
+	  let objets=[],objets_correction=[],P1,P2,P3,G1,G2,t
 	  let codes=['/','//','///','o','w','X','U','*']
 	  let taillePavage=parseInt(this.sup)
 	  if (taillePavage<1||taillePavage>2) {
@@ -6316,9 +6316,23 @@ function Pavage_et_demi_tour2d() {
 		texte+=`Quel est l'image de la figure $${couples[i][0]}$ dans la symétrie de centre $A$ ?<br>`
 		texte_corr+=`L'image de la figure $${couples[i][0]}$ dans la symétrie de centre $A$ est la figure ${couples[i][1]}<br>`
 		if (this.correction_detaillee){
-			A=monpavage.barycentres[couples[i][0]-1]
-			B=monpavage.barycentres[couples[i][1]-1]
-			objets_correction.push(tracePoint(A,B),segment(A,B,arcenciel(i)),codageMilieu(A,B,texcolors(i),codes[i],false))
+			t=this.nb_questions*3;
+			G1=monpavage.barycentres[couples[i][0]-1]
+			G2=monpavage.barycentres[couples[i][1]-1]
+			P1=monpavage.polygones[couples[i][0]-1]
+			P1.color=texcolors(i)
+			P1.couleurDeRemplissage=texcolors(i)
+			P1.opaciteDeRemplissage=0.5
+			P1.epaisseur=2
+			P2=monpavage.polygones[couples[i][1]-1]
+			P2.color=texcolors(i)
+			P2.couleurDeRemplissage=texcolors(i)
+			P2.opaciteDeRemplissage=0.5
+			P2.epaisseur=2
+			P3=rotationAnimee(P1,A,180,`begin="${i*3}s;${i*3+t}s;${i*3+t*2}s" end="${i*3+2}s;${i*3+t+2}s;${i*3+t*2+2}s" dur="2s" repeatCount="indefinite" repeatDur="${9*this.nb_questions}s" id="poly-${i}-anim"`)
+			P3.color=texcolors(i)
+			P3.epaisseur=2
+			objets_correction.push(tracePoint(G1,G2),segment(G1,G2,texcolors(i)),codageMilieu(G1,G2,texcolors(i),codes[i],false),P1,P2,P3)
 		  }
 	}
     if (this.correction_detaillee){

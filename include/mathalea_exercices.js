@@ -154,8 +154,8 @@ var liste_des_exercices_disponibles = {
   "5C12": Calculer_une_expression_numerique,
   "5C12-1": Traduire_une_phrase_par_une_expression_et_calculer,
   "5G10": Symetrie_axiale_5e,
-  "5G12-1": Pavages_et_demi_tour,
   "5G12" : Pavage_et_demi_tour2d,
+  "5G12-1": Pavages_et_demi_tour,
   "5G11": Transformations_5e,
   "5G10-1": Symetrie_axiale_point_5e,
   "5G10-2": Symetrie_axiale_figure_5e,
@@ -261,8 +261,8 @@ var liste_des_exercices_disponibles = {
   "4P10-1": Graphiques_et_proportionnalite,
   "4P10-2": Tableaux_et_quatrieme_proportionnelle,
   "4G10": Construire_translate_point_4e,
-  "beta4G11" :Pavage_et_translation2d,
-  "4G11": Pavages_et_translation,
+  "4G11" :Pavage_et_translation2d,
+  "4G11-1": Pavages_et_translation,
   "4G20": Pythagore2D,
   "4G20-1": Egalite_Pythagore2D, // Anciennement Egalite_Pythagore,
   "4G20-2": Racine_caree_de_carres_parfaits,
@@ -307,8 +307,8 @@ var liste_des_exercices_disponibles = {
   "3G10-2": Transformations_3e,
   "3G10-3": Construire_rotation_point_3e,
   "3G11": Construire_homothetie_point_3e,
-  "3G12": Pavages_et_rotation,
-  "beta3G12-1" : Pavage_et_rotation2d,
+  "3G12" : Pavage_et_rotation2d,
+  "3G12-1": Pavages_et_rotation,
   "3G20": Thales2D_3e,
   "3G20-2": Exercice_Thales,
   "3G20-1": Problemes_Thales,
@@ -9803,14 +9803,14 @@ function Nombre_a_placer() {
       noms = choisit_lettres_differentes(5, 'QFN')
       objets.length = 0
           x1 = parseFloat(this.sup2)
-          x1=arrondi(x1,3)
+          x1=arrondi(x1,4)
         x2 = troncature(x1, 1)
         x21 = troncature(x1, 2)
         x3 = calcul(x2 + 0.1)
         x31 = calcul(x21 + 0.01)
         xmin = Math.floor(x2)
         xmax = xmin + 1
-        thickOff = 0.001
+        thickOff = 0.0001
 
         extremite = `->`
         d1 = droiteGraduee2({
@@ -9826,7 +9826,7 @@ function Nombre_a_placer() {
           pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
         })
         d3 = droiteGraduee2({
-          x: 6.5, y: 0, Min: x21, axePosition: 'H', Max: x31, thickSec: true, thickTer: false, Unite: 2000, thickSecDist: 0.001, thickOffset: thickOff,
+          x: 6.5, y: 0, Min: x21, axePosition: 'H', Max: x31, thickSec: true, thickTer: true, Unite: 2000, thickSecDist: 0.001,thickTerDist: 0.0001, thickOffset: thickOff,
           thickCouleur: 'black', axeCouleur: 'black', axeHauteur: 6, labelsPrincipaux: this.sup3,
           pointListe: [[x1, `${noms[1]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
           pointTaille: 6, pointOpacite: 0.8, pointCouleur: 'blue', pointStyle: '|', pointEpaisseur: 2, axeStyle: extremite
@@ -9858,7 +9858,7 @@ function Nombre_a_placer() {
         let partent = Math.floor(x1), pardec = calcul(x1 - partent)
 
       texte = mathalea2d(fenetre, objets)
-
+console.log(objets)
       this.contenu += texte;
       this.contenu += '<br>'
     
@@ -12024,7 +12024,7 @@ function Pavage_et_reflexion2d() {
       return result
     } 
 
-    let objets=[],objets_correction=[],symetriques=[]
+    let objets=[],objets_correction=[],symetriques=[],P1,P2,P3,t
     let codes=['/','//','///','o','w','X','U','*']
     let taillePavage=parseInt(this.sup)
     if (taillePavage<1||taillePavage>2) {
@@ -12108,9 +12108,23 @@ function Pavage_et_reflexion2d() {
       texte_corr+=`L'image de la figure $${couples[i][0]}$ dans la symétrie d'axe $(d)$ est la figure ${couples[i][1]}<br>`
 //      symetriques=associesommets(monpavage.polygones[couples[i][0]-1],monpavage.polygones[couples[i][1]-1],d)
       if (this.correction_detaillee){
+        t=this.nb_questions*3;
         A=monpavage.barycentres[couples[i][0]-1]
         B=monpavage.barycentres[couples[i][1]-1]
-        objets_correction.push(tracePoint(A,B),segment(A,B,texcolors(i)),codageMediatrice(A,B,texcolors(i),codes[i]))
+        P1=monpavage.polygones[couples[i][0]-1]
+        P1.color=texcolors(i)
+        P1.couleurDeRemplissage=texcolors(i)
+        P1.opaciteDeRemplissage=0.5
+        P1.epaisseur=2
+        P2=monpavage.polygones[couples[i][1]-1]
+        P2.color=texcolors(i)
+        P2.couleurDeRemplissage=texcolors(i)
+        P2.opaciteDeRemplissage=0.5
+        P2.epaisseur=2
+        P3=symetrieAnimee(P1,d,`begin="${i*3}s;${i*3+t}s;${i*3+t*2}s" end="${i*3+2}s;${i*3+t+2}s;${i*3+t*2+2}s" dur="2s" repeatCount="indefinite" repeatDur="${9*this.nb_questions}s" id="poly-${i}-anim"`)
+        P3.color=texcolors(i)
+        P3.epaisseur=2
+        objets_correction.push(tracePoint(A,B),segment(A,B,texcolors(i)),codageMediatrice(A,B,texcolors(i),codes[i]),P1,P2,P3)
       }
     }
     if (this.correction_detaillee){
@@ -13731,7 +13745,7 @@ function Pavages_et_symetries() {
 /**
  * Exercice en html seulement. Translations dans un pavage.
  * @Auteur Jean-Claude Lhote
- * référence 4G11
+ * référence 4G11-1
  */
 function Pavages_et_translation() {
   Pavages_et_transformations.call(this);
@@ -13742,7 +13756,7 @@ function Pavages_et_translation() {
 /**
  * Exercice en html seulement. Rotationss dans un pavage.
  * @Auteur Jean-Claude Lhote
- * référence 3G12
+ * référence 3G12-1
  */
 function Pavages_et_rotation() {
   Pavages_et_transformations.call(this);

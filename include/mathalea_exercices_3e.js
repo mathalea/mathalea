@@ -1570,7 +1570,7 @@ function Resoudre_une_equation_produit_nul() {
 					b = randint(1, 20, [a]);
 					c = randint(2, 9, [a]);
 					d = randint(1, 20, [b, c]);
-					texte = `$(${a}x+${b})(${c}x+${d})=0$`
+					texte = `$(${a}x+${b})(${c}x-${d})=0$`
 					texte_corr = 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
 					texte_corr += '<br>' + `$(${a}x+${b})(${c}x-${d})=0$`
 					texte_corr += '<br> Soit ' + `$${a}x+${b}=0$` + ' ou ' + `$${c}x-${d}=0$`
@@ -5855,10 +5855,10 @@ function Transformations_du_plan_et_coordonnees() {
 
 }
 /**
- * Publié le
+ * Publié le 16/12/2020
  * @Auteur Jean-Claude Lhote
  * Trouver l'image par symétrie centrale d'une figure dans un pavage
- * Ref 3G....
+ * Ref 3G12
  */
 function Pavage_et_rotation2d() {
 	"use strict";
@@ -5966,10 +5966,10 @@ function Pavage_et_rotation2d() {
 	  let Nx,Ny,index1,index2,A,B,d,image,couples=[],tailles=[],monpavage,fenetre
 	  let texte = "", texte_corr = "", type_de_pavage = parseInt(this.sup)
 	  let nombreTentatives,nombrePavageTestes=1
-	  let alphas=[[60,120,180],[90,180],[60,120,180],[60,120,180,90],[45,90,135,180],[60,120,180],[60,120,180]],alpha
-	  let sensdirect,M,N,trace,label
-	  if (this.sup3==8) {
-		type_de_pavage =  randint(1,7)
+	  let alphas=[[60,120,180],[90,180],[60,120,180],[60,120,180,90],[45,90,135,180],[60,120,180]],alpha
+	  let sensdirect,M,N,trace,label,P1,P2,P3,t
+	  if (this.sup3==7) {
+		type_de_pavage =  randint(1,6)
 	  }
 	  else {
 		type_de_pavage=parseInt(this.sup3)
@@ -6067,9 +6067,24 @@ function Pavage_et_rotation2d() {
 		texte_corr+=`- l'image de la figure $${couples[i][0]}$ est la figure ${couples[i][1]}.<br>`
 	
 		if (this.correction_detaillee){
+			t=this.nb_questions*3;
 			M=monpavage.barycentres[couples[i][0]-1]
 			N=monpavage.barycentres[couples[i][1]-1]
-			objets_correction.push(tracePoint(M,N),segment(A,M,arcenciel(i)),segment(A,N,arcenciel(i)),codeAngle(M,A,N,Math.min(1+2*i/this.nb_questions,longueur(A,N)),'',arcenciel(i),1,1,'blue',0.2,false))
+			P1=monpavage.polygones[couples[i][0]-1]
+			P1.color=texcolors(i)
+			P1.couleurDeRemplissage=texcolors(i)
+			P1.opaciteDeRemplissage=0.5
+			P1.epaisseur=2
+			P2=monpavage.polygones[couples[i][1]-1]
+			P2.color=texcolors(i)
+			P2.couleurDeRemplissage=texcolors(i)
+			P2.opaciteDeRemplissage=0.5
+			P2.epaisseur=2
+			P3=rotationAnimee(P1,A,alpha*sensdirect,`begin="${i*3}s;${i*3+t}s;${i*3+t*2}s" end="${i*3+2}s;${i*3+t+2}s;${i*3+t*2+2}s" dur="2s" repeatCount="indefinite" repeatDur="${9*this.nb_questions}s" id="poly-${i}-anim"`)
+			P3.color=texcolors(i)
+			P3.epaisseur=2
+			objets_correction.push(tracePoint(M,N),segment(A,M,texcolors(i)),segment(A,N,arcenciel(i)),codeAngle(M,A,N,0.8,'',arcenciel(i),1,1,'blue',0.2,true),P1,P2,P3)
+
 		  }
 	}
     if (this.correction_detaillee){
