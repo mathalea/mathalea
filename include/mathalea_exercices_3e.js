@@ -5967,7 +5967,7 @@ function Pavage_et_rotation2d() {
 	  let texte = "", texte_corr = "", type_de_pavage = parseInt(this.sup)
 	  let nombreTentatives,nombrePavageTestes=1
 	  let sensdirect,M,N,trace,label,P1,P2,P3,t
-	  let alphas=[[60,120,180],[90,180],[60,120,180],[60,120,180,90],[45,90,135,180],[60,120,180]],alpha
+	  let alphas=[[60,120,180],[90,180],[60,120,180],[60,120,180,90],[45,90,135,180],[60,120,180],[60,120,180]],alpha
 	  if (this.sup3==8) {
 		type_de_pavage =  randint(1,7)
 	  }
