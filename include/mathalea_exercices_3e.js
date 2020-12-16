@@ -7362,7 +7362,7 @@ function Eq_resolvantes_Thales() {
 
 			// on a besoin d'un coeff pour le type de nombres
 			let coeff;
-			let nb_alea;
+			let nb_alea=[1,1,1];
 			let c_temp_case_3;
 			while (c_temp_case_3 % 2 != 0 || c_temp_case_3 % 5 != 0) {
 				c_temp_case_3 = randint(11, 99)
@@ -7372,20 +7372,29 @@ function Eq_resolvantes_Thales() {
 			switch (this.sup) {
 				case 1://entiers          
 					coeff = [1, 1, 1];
-					nb_alea = [randint(2, 9), randint(2, 9), randint(2, 9, [3, 6, 7, 9])];
+					nb_alea[0] = randint(2, 9)
+					nb_alea[1] =randint(2, 9,nb_alea[0])
+					nb_alea[2] =choice([2,4,5,8],[nb_alea[0],nb_alea[1]]);
 					break;
 				case 2://relatifs            
 					coeff = [choice([1, -1]), choice([1, -1]), choice([1, -1])];
-					nb_alea = [randint(2, 9), randint(2, 9), randint(1, 9, [3, 6, 7, 9])];
+					nb_alea[0] = randint(2, 9)
+					nb_alea[1] =randint(2, 9,nb_alea[0])
+					nb_alea[2] =choice([2,4,5,8],[nb_alea[0],nb_alea[1]]);
 					break;
 				case 3://décimaux            
 					coeff = [0.1, 0.1, 0.1];
-					nb_alea = [randint(11, 99), randint(11, 99), c_temp_case_3];
+					nb_alea[0] = randint(2, 9)
+					nb_alea[1] =randint(2, 9,nb_alea[0])
+					nb_alea[2] =c_temp_case_3;
 					break;
 				case 4://mélange
+					nb_alea[0] = randint(2, 9)
+					nb_alea[1] =randint(2, 9,nb_alea[0])
+					nb_alea[2] =choice([2,4,5,8],[nb_alea[0],nb_alea[1]]);
 					let masterChoix = choice([
-						{c:[1, 1, 1],na:[randint(2, 9), randint(2, 9), randint(2, 9, [3, 6, 7, 9])]},
-						{c:[choice([1, -1]), choice([1, -1]), choice([1, -1])],na:[randint(2, 9), randint(2, 9), randint(1, 9, [3, 6, 7, 9])]},
+						{c:[1, 1, 1],na:[nb_alea[0],nb_alea[1],nb_alea[2]]},
+						{c:[choice([1, -1]), choice([1, -1]), choice([1, -1])],na:[nb_alea[0],nb_alea[1],nb_alea[2]]},
 						{c:[0.1, 0.1, 0.1],na:[randint(11, 99), randint(11, 99), c_temp_case_3]}
 					]);
 					coeff = masterChoix.c;					

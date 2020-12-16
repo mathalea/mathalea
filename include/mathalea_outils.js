@@ -4454,17 +4454,38 @@ function tab_C_L(tab_entetes_colonnes,tab_entetes_lignes,tab_lignes) {
 	tableau_C_L +=`}\n`;
 					
 	tableau_C_L += `\\hline\n`
-	tableau_C_L += tab_entetes_colonnes[0];
+	if (typeof tab_entetes_colonnes[0]=='number') {
+		tableau_C_L += tex_nombre(tab_entetes_colonnes[0]);
+	}
+	else
+	{
+		tableau_C_L += tab_entetes_colonnes[0];		
+	}
 	for (let k=1;k<C;k++) {
-		tableau_C_L += ` & `+tab_entetes_colonnes[k]+``;
+		if (typeof tab_entetes_colonnes[k]=='number') {
+				tableau_C_L += ` & `+tex_nombre(tab_entetes_colonnes[k])+``;
+		}
+		else {
+			tableau_C_L += ` & `+tab_entetes_colonnes[k]+``;		
+		}
 	};
 	tableau_C_L += `\\\\\n`;
 	tableau_C_L += `\\hline\n`;
 	// on construit toutes les lignes
 	for (let k=0;k<L;k++) {
-		tableau_C_L += ``+tab_entetes_lignes[k]+``;
+		if (typeof tab_entetes_lignes[k]=='number'){
+			tableau_C_L += ``+tex_nombre(tab_entetes_lignes[k])+``;
+		}
+		else {
+			tableau_C_L += ``+tab_entetes_lignes[k]+``;
+		}
 		for (let m=1;m<C;m++) {
-			tableau_C_L += ` & `+tab_lignes[(C-1)*k+m-1];
+			if (typeof tab_lignes[(C-1)*k+m-1]== 'number') {
+				tableau_C_L += ` & `+tex_nombre(tab_lignes[(C-1)*k+m-1]);
+			}
+			else {
+				tableau_C_L += ` & `+tab_lignes[(C-1)*k+m-1];
+			}
 		};
 		tableau_C_L += `\\\\\n`;
 		tableau_C_L += `\\hline\n`;	
