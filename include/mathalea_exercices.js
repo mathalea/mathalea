@@ -12149,7 +12149,7 @@ function Pavages_et_reflexion() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre =
-    "Trouver l'image d'une figure par une symétrie axiale dans un pavage triangulaire";
+    "Trouver l'image d'une figure par une symétrie axiale dans un pavage triangulaire (sortie Latex Impossible)";
   this.pas_de_version_LaTeX = true;
   this.consigne = "";
   this.nb_questions = 1;
@@ -13728,7 +13728,7 @@ function Tracer_des_perpendiculaires_et_des_paralleles() {
 function Pavages_et_demi_tour() {
   Pavages_et_transformations.call(this);
   this.titre =
-    "Trouver l'image d'une figure par une symétrie centrale dans un pavage";
+    "Trouver l'image d'une figure par une symétrie centrale dans un pavage (sortie Latex Impossible)";
   this.sup = 2;
 }
 /**
@@ -13739,7 +13739,7 @@ function Pavages_et_demi_tour() {
 function Pavages_et_symetries() {
   Pavages_et_transformations.call(this);
   this.titre =
-    "Trouver l'image d'une figure par une symétrie axiale dans un pavage carré";
+    "Trouver l'image d'une figure par une symétrie axiale dans un pavage carré (sortie Latex Impossible)";
   this.sup = 1;
 }
 /**
@@ -13750,7 +13750,7 @@ function Pavages_et_symetries() {
 function Pavages_et_translation() {
   Pavages_et_transformations.call(this);
   this.titre =
-    "Trouver l'image d'une figure par une translation dans un pavage";
+    "Trouver l'image d'une figure par une translation dans un pavage (sortie Latex Impossible)";
   this.sup = 3;
 }
 /**
@@ -13761,7 +13761,7 @@ function Pavages_et_translation() {
 function Pavages_et_rotation() {
   Pavages_et_transformations.call(this);
   this.titre =
-    "Trouver l'image d'une figure par une rotation de 90 degrés dans un pavage";
+    "Trouver l'image d'une figure par une rotation de 90 degrés dans un pavage (sortie Latex Impossible)";
   this.sup = 4;
 }
 

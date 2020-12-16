@@ -5869,7 +5869,7 @@ function Pavage_et_rotation2d() {
 	this.nb_questions = 3;
 	this.nb_questions_modifiable = true;
 	this.correction_detaillee_disponible=true
-	this.correction_detaillee=false
+	this.correction_detaillee=true
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
 	this.sup = 1; // 1 pour des pavages modestes, 2 pour des plus grand.
