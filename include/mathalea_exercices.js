@@ -18117,7 +18117,7 @@ function Intercaler_decimal_entre_2_decimaux() {
       }
       liste_de_question_to_contenu(this);
       if (sortie_html){
-        this.contenu_correction = info_message({ titre: "Remarque", texte: "Il y a une infinité de solutions. La correction ne montre qu'une possibilité", couleur: "black" }) + this.contenu_correction;
+        this.contenu_correction = info_message({ titre: "Remarque", texte: "Il y a une infinité de solutions. La correction ne montre qu'une possibilité.", couleur: "black" }) + this.contenu_correction;
       }
     };
   }
