@@ -3331,8 +3331,8 @@ function Reciproque_Thales() {
 
 /**
  * @Auteur Jean-Claude Lhote
- * publié le 14/12/2020
- * Réf : 6G25-3
+ * publié le 16/12/2020
+ * Réf : 4G11
  * Trouver une figure image dans un pavage par une translation. 6 pavages différents.
  */
 function Pavage_et_translation2d() {
@@ -3423,7 +3423,7 @@ function Pavage_et_translation2d() {
       return result
     } 
 
-    let objets=[],objets_correction=[],symetriques=[]
+    let objets=[],objets_correction=[],symetriques=[],P1,P2,P3,t
     let codes=['/','//','///','o','w','X','U','*']
     let taillePavage=parseInt(this.sup)
     if (taillePavage<1||taillePavage>2) {
@@ -3520,8 +3520,21 @@ function Pavage_et_translation2d() {
         B=monpavage.barycentres[couples[i][1]-1]
         d=v.representant(A,B)
         d.color=texcolors(i)
-
-        objets_correction.push(tracePoint(A,B),d,codeSegment(A,B,'//',texcolors(i)))
+        t=this.nb_questions*3;
+        P1=monpavage.polygones[couples[i][0]-1]
+        P1.color=texcolors(i)
+        P1.couleurDeRemplissage=texcolors(i)
+        P1.opaciteDeRemplissage=0.5
+        P1.epaisseur=2
+        P2=monpavage.polygones[couples[i][1]-1]
+        P2.color=texcolors(i)
+        P2.couleurDeRemplissage=texcolors(i)
+        P2.opaciteDeRemplissage=0.5
+        P2.epaisseur=2
+        P3=translationAnimee(P1,v,`begin="${i*3}s;${i*3+t}s;${i*3+t*2}s" end="${i*3+2}s;${i*3+t+2}s;${i*3+t*2+2}s" dur="2s" repeatCount="indefinite" repeatDur="${9*this.nb_questions}s" id="poly-${i}-anim"`)
+        P3.color=texcolors(i)
+        P3.epaisseur=2
+        objets_correction.push(tracePoint(A,B),d,codeSegment(A,B,'//',texcolors(i)),P1,P2,P3)
       }
     }
     if (this.correction_detaillee){

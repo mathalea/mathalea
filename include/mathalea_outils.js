@@ -2002,7 +2002,7 @@ function couleurAleatoire() {
 
   function arcenciel(i,fondblanc=true) {
 	  let couleurs
-	  if (fondblanc) couleurs=['violet','indigo',  'blue', 'green', 'lime', 'orange', 'red']
+	  if (fondblanc) couleurs=['violet','purple',  'blue', 'green', 'lime', 'orange', 'red']
 	  else couleurs=['violet','indigo',  'blue', 'green', 'yellow', 'orange', 'red']
 	  return couleurs[i%7]
   }

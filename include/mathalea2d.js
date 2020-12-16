@@ -3677,7 +3677,7 @@ function HomothetieAnimee(
     p2.isVisible = false;
     let binomesXY2 = p2.binomesXY(coeff);
     code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="none" >
-		<animate attributeName="points" dur="2s" repeatCount="indefinite"
+		<animate attributeName="points" ${animation}
 		from="${binomesXY1}"
 		to="${binomesXY2}"
 		/>
@@ -3707,7 +3707,7 @@ function SymetrieAnimee(
     p2.isVisible = false;
     let binomesXY2 = p2.binomesXY(coeff);
     code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="none" >
-		<animate attributeName="points" dur="2s" repeatCount="indefinite"
+		<animate attributeName="points" ${animation}
 		from="${binomesXY1}"
 		to="${binomesXY2}"
 		/>
@@ -3732,7 +3732,7 @@ function AffiniteOrthoAnimee(
     p2.isVisible = false;
     let binomesXY2 = p2.binomesXY(coeff);
     code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="none" >
-		<animate attributeName="points" dur="2s" repeatCount="indefinite"
+		<animate attributeName="points" ${animation}
 		from="${binomesXY1}"
 		to="${binomesXY2}"
 		/>
