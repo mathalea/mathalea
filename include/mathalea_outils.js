@@ -7162,9 +7162,11 @@ function Pavage() {
 						for (let p of P11.listePoints) {
 							XMIN = Math.min(XMIN, p.x)
 							XMAX = Math.max(XMAX, p.x)
+							XMAX = Math.max(XMAX, p.x)
 							YMIN = Math.min(YMIN, p.y)
 							YMAX = Math.max(YMAX, p.y)
 						}
+
 						for (let p of P12.listePoints) {
 							XMIN = Math.min(XMIN, p.x)
 							XMAX = Math.max(XMAX, p.x)
@@ -7225,9 +7227,7 @@ function Pavage() {
 					A = translation(A, vecteur(-Nx * v.x, w.y))
 					B = translation(B, vecteur(-Nx * v.x, w.y))
 				}
-
 				break
-
 			case 5: // 4.8²
 				v = vecteur(A, B)
 				v = homothetie(v, A, 2.4142)
@@ -7385,6 +7385,66 @@ function Pavage() {
 					B = translation(B, vecteur(-Nx * (w.x + v.x) + 2 * w.x - v.x, 2 * w.y - v.y))
 				}
 				break
+			case 7 :
+				v = vecteur(A, B)
+				v=homothetie(v,A,2)
+				w = rotation(v, A, -60)
+
+				for (let k = 0; k < Ny; k++) {
+					for (let j = 0; j < Nx; j++) {
+						C = rotation(A, B,-120)
+						D = rotation(B, C, -120)
+						P1 = polygoneRegulier(A, B,6)
+						P2 = polygoneRegulier(C,B,3)
+						P3 = rotation(P2, C, 180)
+						P4 = translation(P3,w)
+						P5 = translation(P2, w)
+						P6 = rotation(P1,B,180)
+						this.polygones.push(P1, P2, P3, P6, P5,P4)
+
+						for (let p of P1.listePoints) {
+							XMIN = Math.min(XMIN, p.x)
+							XMAX = Math.max(XMAX, p.x)
+							YMIN = Math.min(YMIN, p.y)
+							YMAX = Math.max(YMAX, p.y)
+						}
+						for (let p of P2.listePoints) {
+							XMIN = Math.min(XMIN, p.x)
+							XMAX = Math.max(XMAX, p.x)
+							YMIN = Math.min(YMIN, p.y)
+							YMAX = Math.max(YMAX, p.y)
+						}
+						for (let p of P3.listePoints) {
+							XMIN = Math.min(XMIN, p.x)
+							XMAX = Math.max(XMAX, p.x)
+							YMIN = Math.min(YMIN, p.y)
+							YMAX = Math.max(YMAX, p.y)
+						}
+						for (let p of P4.listePoints) {
+							XMIN = Math.min(XMIN, p.x)
+							XMAX = Math.max(XMAX, p.x)
+							YMIN = Math.min(YMIN, p.y)
+							YMAX = Math.max(YMAX, p.y)
+						}
+						for (let p of P5.listePoints) {
+							XMIN = Math.min(XMIN, p.x)
+							XMAX = Math.max(XMAX, p.x)
+							YMIN = Math.min(YMIN, p.y)
+							YMAX = Math.max(YMAX, p.y)
+						}
+						for (let p of P6.listePoints) {
+							XMIN = Math.min(XMIN, p.x)
+							XMAX = Math.max(XMAX, p.x)
+							YMIN = Math.min(YMIN, p.y)
+							YMAX = Math.max(YMAX, p.y)
+						}
+						A = translation(A, v)
+						B = translation(B, v)
+					}
+					A = translation(A, vecteur(-Nx * v.x+2*w.x - v.x,2*w.y - v.y))
+					B = translation(B, vecteur(-Nx * v.x+2*w.x - v.x,2*w.y - v.y))
+				}
+			break
 		}
 		this.echelle = arrondi(80 / Math.sqrt( XMAX - XMIN),0)
 		this.fenetre = { xmin: XMIN-0.5, ymin: YMIN-0.5, xmax: XMAX+0.5, ymax: YMAX+0.5, pixelsParCm: this.echelle, scale: arrondi(this.echelle / 30,2) }
