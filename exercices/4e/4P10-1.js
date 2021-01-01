@@ -1,0 +1,198 @@
+import Exercice from '../ClasseExercice.js';
+import {liste_de_question_to_contenu,randint,choice,combinaison_listes_sans_changer_ordre,calcul,prenom,texte_en_couleur,texte_gras,tex_prix,num_alpha} from "/modules/outils.js"
+import {point,segment,repere,courbe,mathalea2d} from "/modules/2d.js"
+/**
+ * fork de 4P10-1 par Jean-Claude Lhote
+ */
+
+export default function Graphiques_et_proportionnalite2() {
+  'use strict';
+  Exercice.call(this); // Héritage de la classe Exercice()
+  this.debug = false;
+  if (this.debug) {
+    this.nb_questions = 2;
+  } else {
+    this.nb_questions = 1;
+  };
+
+  this.titre = "Résoudre un problème de proportionnalité à l'aide d'un graphique";
+  this.consigne = "";
+
+  this.nb_cols = 1;
+  this.nb_cols_corr = 1;
+  //this.nb_questions_modifiable = false;
+  sortie_html ? this.spacing = 1.5 : this.spacing = 1;
+  //sortie_html? this.spacing_corr = 3 : this.spacing_corr = 2;
+
+  let type_de_questions_disponibles;
+
+  this.nouvelle_version = function () {
+    if (this.debug) {
+      type_de_questions_disponibles = [1];
+    } else {
+      type_de_questions_disponibles = [1];
+    };
+
+    this.liste_questions = []; // Liste de questions
+    this.liste_corrections = []; // Liste de questions corrigées
+
+    //type_de_questions_disponibles=[1];			
+
+    //let liste_type_de_questions  = combinaison_listes(type_de_questions_disponibles,this.nb_questions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let liste_type_de_questions = combinaison_listes_sans_changer_ordre(type_de_questions_disponibles, this.nb_questions) // Tous les types de questions sont posées --> à remettre comme ci dessus		
+
+    for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+      // on prévoit un peu d'aléatoire pour les prix unitaires
+      let pu_oranges = choice([1.2, 1.4, 1.6, 1.8]);
+      let pu_baguettes = choice([0.6, 0.8, 1.2]);
+      // on prévoit un tableau avec des situations
+      let situations = [
+        { lieu: `l'épicerie`, prenom: prenom(), articles: `oranges`, art_articles: `d'oranges`, prix_unitaire: pu_oranges, qte: `poids`, qte_max: 10, qte2: 3, unite: `kg d'`, legendeX: `poids en kg`, legendeY: `prix en €`, fig: {}, fig_corr: {} },
+        { lieu: `la boulangerie`, prenom: prenom(), articles: `baguettes`, art_articles: `de baguettes`, prix_unitaire: pu_baguettes, qte: `nombre`, qte_max: 10, qte2: 3, unite: ``, legendeX: `quantité`, legendeY: `prix en €`, fig: {}, fig_corr: {} }
+      ]
+      // on en choisit une
+      let situation = situations[randint(0, situations.length - 1)];
+      let r;
+      let xscale = 1;
+      let yscale = choice([1,2,5]);
+      // pour aléatoiriser un peu le pas sur l'axe des prix
+      let stepAxeSecondaire 
+      if (yscale==1) stepAxeSecondaire = choice([0.5,0.2,0.25]);
+      // on finit les appels
+      let mesAppels = [
+        r = repere({
+          xmin: 0,
+          ymin: 0,
+          ymax: situation.qte_max * situation.prix_unitaire + 4,
+          xmax: situation.qte_max,
+          xscale: xscale,
+          yscale: yscale,
+          legendeX: situation.legendeX,
+          legendeY: situation.legendeY,
+          grilleSecondaireVisible: true,
+          grilleSecondaireDistance: stepAxeSecondaire,//0.2,
+          positionLegendeY: [0.3, situation.qte_max * situation.prix_unitaire + 4 + 0.4]
+        }),
+      ];
+      let f = x => calcul(situation.prix_unitaire * x);
+      mesAppels.push(f, courbe(f, 0, situation.qte_max, 'black', 1.5, r));
+      // on prépare l'objet figure
+      let fig = mathalea2d(
+        {
+          xmin: -xscale,
+          ymin: -yscale,
+          xmax: situation.qte_max / xscale + 3,
+          ymax: (situation.qte_max * situation.prix_unitaire + 4) / 2 + 1,
+          pixelsParCm: 40
+        },
+        mesAppels
+      );
+      situation.fig = fig;
+
+      // on prépare les appels supplémentaires pour la correction
+      let mesAppels_corr = mesAppels;
+      let A = point(situation.qte_max, 0);
+      let B = point(situation.qte_max, calcul(situation.qte_max * situation.prix_unitaire / yscale));
+      let s1 = segment(A, B, "red");
+      s1.epaisseur = 2;
+      s1.pointilles = true;
+      s1.styleExtremites = `->`;
+      let C = point(0, calcul(situation.qte_max * situation.prix_unitaire / yscale));
+      let s2 = segment(B, C, "red");
+      s2.epaisseur = 2;
+      s2.pointilles = true;
+      s2.styleExtremites = `->`;
+
+      let D = point(situation.qte2, 0);
+      let E = point(situation.qte2, calcul(situation.qte2 * situation.prix_unitaire / yscale));
+      let s3 = segment(D, E, "blue");
+      s3.epaisseur = 2;
+      s3.pointilles = true;
+      s3.styleExtremites = `->`;
+      let F = point(0, calcul(situation.qte2 * situation.prix_unitaire / yscale));
+      let s4 = segment(E, F, "blue");
+      s4.epaisseur = 2;
+      s4.pointilles = true;
+      s4.styleExtremites = `->`;
+
+      // on ajoute les appels pour la correction
+      mesAppels_corr.push(
+        s1,
+        s2,
+        s3,
+        s4
+      )
+
+      // on prépare l'objet figure correction
+      let fig_corr = mathalea2d(
+        {
+          xmin: -xscale,
+          ymin: -yscale,
+          xmax: situation.qte_max / xscale + 3,
+          ymax: (situation.qte_max * situation.prix_unitaire + 4) / 2 + 1,
+          pixelsParCm: 40
+        },
+        mesAppels_corr
+      );
+      situation.fig_corr = fig_corr;
+
+
+
+      // un compteur pour les sous-questions
+      let k = 0;
+      let k_corr = 0;
+
+      let enonces = [];
+      enonces.push({
+        enonce: `
+          À ${situation.lieu}, ${situation.prenom} utilise le graphique ci-dessous pour indiquer le prix de ses ${situation.articles} en fonction du ${situation.qte} ${situation.art_articles}.
+          <br>${situation.fig}
+          <br> ${num_alpha(k++)} Justifier que c'est une situation de proportionnalité à l'aide du graphique.
+          <br> ${num_alpha(k++)} Quel est le prix de $${situation.qte_max}$ ${situation.unite}  ${situation.articles}?
+          <br> ${num_alpha(k++)} Quel est le prix de $${situation.qte2}$ ${situation.unite}  ${situation.articles}?
+          `,
+        //question:``,
+        correction: `
+        <br> ${num_alpha(k_corr++)} Ce graphique est une droite qui passe par l'origine.
+        <br> ${texte_en_couleur(`C'est donc bien le graphique d'une situation de proportionnalité.`)}
+
+        <br> ${num_alpha(k_corr++)} Par lecture graphique, en utilisant les pointillés rouges du graphe ci-dessous, ${texte_en_couleur(`$${situation.qte_max}$ ${situation.unite}  ${situation.articles} coûtent $${tex_prix(calcul(situation.qte_max * situation.prix_unitaire))}$ €.`)}
+        <br> ${situation.fig_corr}
+        <br> ${num_alpha(k_corr++)} Pour $${situation.qte2}$ ${situation.unite}  ${situation.articles}, la lecture graphique est moins facile, nous allons détailler deux méthodes.
+        <br><br> ${texte_gras(`Première méthode par lecture graphique :`)} 
+        <br> Il faut prendre en compte que chaque petit carreau représente $${tex_prix(stepAxeSecondaire*yscale)}$ € et utiliser les pointillés bleus.
+        <br><br> ${texte_gras(`Seconde méthode en calculant une quatrième proportionnelle :`)}
+        <br> $${situation.qte_max}$ ${situation.unite}  ${situation.articles} coûtent $${tex_prix(calcul(situation.qte_max * situation.prix_unitaire))}$ €
+        donc $${situation.qte2}$ ${situation.unite}  ${situation.articles} coûtent : <br> $(${tex_prix(calcul(situation.qte_max * situation.prix_unitaire))}$ € $\\div ${situation.qte_max}$ ${situation.articles} $)\\times (${situation.qte2}$ ${situation.articles})  $= ${tex_prix(calcul(situation.qte2 * situation.prix_unitaire))}$ €
+        <br><br>${texte_en_couleur(`Quelle que soit la méthode utilisée, ${situation.qte2} ${situation.unite}  ${situation.articles} coûtent $${tex_prix(calcul(situation.qte2 * situation.prix_unitaire))}$ €.`)}
+        `
+      })
+      switch (liste_type_de_questions[i]) {
+        case 1:
+          texte = `${enonces[0].enonce}`;
+          //texte = `${fig}`;
+          if (this.debug) {
+            texte += `<br>`;
+            texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`;
+            texte_corr = ``;
+          } else {
+            texte_corr = `${enonces[0].correction}`;
+          };
+          break;
+      }
+
+
+      if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
+        this.liste_questions.push(texte);
+        this.liste_corrections.push(texte_corr);
+        i++;
+      }
+      cpt++;
+    }
+    liste_de_question_to_contenu(this);
+
+  }
+  //this.besoin_formulaire_numerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
+  //this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];	  
+}
+
