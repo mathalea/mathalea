@@ -285,7 +285,6 @@ export default function Construire_par_Symetrie() {
 					break;
 				case 5:
 					p1nom = creerNomDePolygone(4)
-					console.log(p1nom)
 					A = point(0, randint(-1, 4), `${p1nom[0]}`, 'left');
 					B = point(7, randint(-1, 1, A.y), `${p1nom[1]}`, 'above');
 					C = point(randint(2, 3), randint(-6, -4), `${p1nom[2]}`, 'left');

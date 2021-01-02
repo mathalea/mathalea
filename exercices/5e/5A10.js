@@ -10,7 +10,6 @@ import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ord
 export default function Liste_des_diviseurs_5e() {
 	'use strict';
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.sup = 1;
 	this.titre = "Écrire la liste de tous les diviseurs d'un entier.";
 	// pas de différence entre la version html et la version latex pour la consigne
 	//this.consigne =`Écrire la liste de tous les diviseurs d'un entier.`;
