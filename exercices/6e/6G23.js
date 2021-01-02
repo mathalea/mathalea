@@ -66,8 +66,8 @@ export default function Construire_un_angle() {
       cible=cibleCouronne({x:0,y:0,taille:3})
       xMin=Math.min(A.x-4,C.x)
       xMax=Math.max(B.x,C.x)+1
-      yMin=Math.min(A.y-4,C.y)
-      yMax=Math.max(A.y+4,C.y)
+      yMin=Math.min(A.y-4,C.y)-1
+      yMax=Math.max(A.y+4,C.y)+1
         mathalea.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
       objets_enonce=[s,labels,cible,Apos,Bpos,fleche]
       objets_correction=[s,labels2,secteur,cible,s2,Apos,Bpos,Cpos,fleche]
