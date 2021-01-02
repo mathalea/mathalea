@@ -3258,6 +3258,41 @@ export function rotation(A, O, angle, nom, positionLabel) {
 }
 
 /**
+ * @Auteur Jean-Claude Lhote
+ * A1 Le point de départ de la flèche 
+ * centre Le centre de la rotation
+ * sens Le sens (+1 ou -1) de la rotation. +1=sens trigo
+ */
+function Sens_de_rotation(A1,centre,sens) {
+  ObjetMathalea2D.call(this);
+  let arc1,s1,s2,A2,F1,F2,objets=[]
+  arc1=arc(A1,centre,20*sens)
+  A2=rotation(A1,centre,20*sens)
+  F1=similitude(A2,centre,-5*sens,0.95)
+  F2=similitude(A2,centre,-5*sens,1.05)
+  s1=segment(A2,F1)
+  s2=segment(A2,F2)
+  objets.push(arc1,s1,s2)
+
+  this.svg = function (coeff) {
+    let code = "";
+    for (let objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    let code = "";
+    for (let objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+}
+export function sens_de_rotation(A,O,sens) {
+  return new Sens_de_rotation(A,O,sens)
+}
+/**
  * M = homothetie(A,O,k) //M est l'image de A dans l'homothétie de centre O et de rapport k
  * M = homothetie(A,O,k,'M') //M est l'image de A dans l'homothétie de centre O et de rapport k et se nomme M
  * M = homothetie(A,O,k,'M') //M est l'image de A dans l'homothétie de centre O et de rapport k, se nomme M et le nom est en dessous du point

@@ -1,7 +1,7 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,creerNomDePolygone,tex_nombre} from "/modules/outils.js"
-import {point,labelPoint,rotation,mathalea2d,afficheMesureAngle, demiDroiteAvecExtremite,cibleCouronne, texteParPoint,similitude} from "/modules/2d.js"
-import { lettre_depuis_chiffre } from '../../modules/outils.js';
+import {liste_de_question_to_contenu,randint,choice,lettre_depuis_chiffre,tex_nombre} from "/modules/outils.js"
+import {point,labelPoint,rotation,mathalea2d,afficheMesureAngle,sens_de_rotation, demiDroiteAvecExtremite,cibleCouronne, texteParPoint,similitude} from "/modules/2d.js"
+
 /**
  * Construire un angle
  * @Auteur Jean-Claude Lhote
@@ -21,7 +21,7 @@ export default function Construire_un_angle() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
 
-      let angle,anglerot,Apos,Bpos,Cpos
+      let angle,anglerot,Apos,Bpos,Cpos,fleche
       if (this.sup==1) {
           angle = randint (1,17,9)*10
       } 
@@ -52,7 +52,7 @@ export default function Construire_un_angle() {
       s.epaisseur=2
       let C = rotation(B,A,angle);
       Cpos=texteParPoint(p[2],similitude(A,C,-signe*90,0.1),'milieu')
-
+      fleche=sens_de_rotation(rotation(B,A,10*signe),A,signe)
       let s2 = demiDroiteAvecExtremite(A, C);
       let labels=labelPoint(A,B)
       let labels2=labelPoint(A,B,C)
@@ -63,9 +63,10 @@ export default function Construire_un_angle() {
       let xMax=6
       let yMin=-6
       let yMax=6
+      console.log(fleche)
         mathalea.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
-      let objets_enonce=[s,labels,cible,Apos,Bpos]
-      let objets_correction=[s,labels2,secteur,cible,s2,Apos,Bpos,Cpos]
+      let objets_enonce=[s,labels,cible,Apos,Bpos,fleche]
+      let objets_correction=[s,labels2,secteur,cible,s2,Apos,Bpos,Cpos,fleche]
         this.liste_questions.push(texte + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 1 }, objets_enonce))
         this.liste_corrections.push(texte_corr+mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 1 }, objets_correction))
         liste_de_question_to_contenu(this)
