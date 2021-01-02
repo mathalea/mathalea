@@ -23,13 +23,13 @@ export default function Construire_un_angle() {
 
       let angle,anglerot,Apos,Bpos,Cpos
       if (this.sup==1) {
-          angle = randint (2,13,9)*10
+          angle = randint (1,17,9)*10
       } 
       else if (this.sup==2){
-          angle = randint(3,26,18)*5
+          angle = randint(3,34,18)*5
       }
       else {
-          angle = randint(20,130,90)
+          angle = randint(12,168,90)
       }
       let signe =choice([-1,1])
       angle=angle*signe
