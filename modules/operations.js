@@ -1,3 +1,4 @@
+import { mathalea2d,texteParPosition,segment} from "/modules/2d.js"
 
 export default function Operation({ operande1 = 1, operande2 = 2, type = 'addition' }) {
 
@@ -6,10 +7,10 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
         let resultat=""
         for (let i=0;i<chaine.length;i++){
             if (chaine[i]!='0'){
-                resultat+=`$${chaine[i]}$`
+                resultat+=chaine[i]
             }
             else {
-                resultat+=`<font color=#FFFFFF>$0$</font>`
+                resultat+=``
             }
         }
         return resultat
@@ -31,10 +32,10 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
         let blancs=""
         while (chaine[0]=='0') {
             chaine=chaine.substr(1)
-            blancs+=`<font color=#FFFFFF>$0$</font>`
+            blancs+=" "
         }
         for (let i=0;i<chaine.length;i++){
-            blancs+=`$${chaine[i]}$`
+            blancs+=`${chaine[i]}`
         }
         return blancs
     }
@@ -98,7 +99,55 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
         code += `<tr><td align=right >${lignes}</td><td align=left valign=top style=border-left-style:solid;border-left-width:2px;border-left-color: black;>$${stringquotiententier}$</td></tr></table>`;
         return code
     }
-    let AdditionPoseeHtml = function(operande1,operande2){
+    let AdditionPosee2d=function(operande1,operande2){
+        let code = "",objets=[]
+        let sop1 = Number(operande1).toString()
+        let sop2 = Number(operande2).toString()
+        let sresultat,resultat,lresultat
+        let lop1 = sop1.length
+        let lop2 = sop2.length
+        let longueuroperandes=Math.max(lop1,lop2)
+        let retenues=" "
+        if (lop1>lop2){ // si op1 a plus de chiffres qu'op2 on complète op2 avec des zéros.
+            for(let j=0;j<lop1-lop2;j++){
+                sop2=` `+sop2
+            }
+        }
+        else if (lop2>lop1) { //on fait pareil pour op1 si c'est op2 le plus 'grand'
+            for(let j=0;j<lop2-lop1;j++){
+            sop1=` `+sop1
+            }
+        }
+        // les deux operande ont le même nomre de chiffres
+        for (let i=longueuroperandes-1;i>0;i--){ // on construit la chaine des retenues.
+            if (parseInt(sop1[i])+parseInt(sop2[i])>9) {
+                retenues=`1${retenues}`
+            }
+            else {
+                retenues=` ${retenues}`
+            }
+        }
+        retenues=` `+retenues
+        sop1=` ${sop1}`
+        sop2=`+${sop2}`
+        resultat = operande1 + operande2
+        sresultat = Number(resultat).toString()
+        lresultat=sresultat.length
+        for (let i =0;i<longueuroperandes+1-lresultat;i++){
+            sresultat=` ${sresultat}`
+        }
+        for (let i=0;i<longueuroperandes+1;i++){
+            if (sop1[i]!=' ') objets.push(texteParPosition(sop1[i],i*0.6,4,'milieu','black',1.2,'middle',true))
+            if (sop2[i]!=' ') objets.push(texteParPosition(sop2[i],i*0.6,3,'milieu','black',1.2,'middle',true))
+            objets.push(segment(0,2,(longueuroperandes+1)*0.6,2))
+            if (retenues[i]!=' ') objets.push(texteParPosition(retenues[i],i*0.6,2.5,'milieu','red',0.8,'middle',true))
+            if (sresultat[i]!=' ') objets.push(texteParPosition(sresultat[i],i*0.6,1,'milieu','black',1.2,'middle',true))
+        }
+        code +=mathalea2d({xmin:-0.5,ymin:0,xmax:longueuroperandes,ymax:5,pixelsParCm:20,scale:0.8},objets)
+        return code
+        }
+
+   /* let AdditionPoseeHtml = function(operande1,operande2){
         let code = ""
         let sop1 = Number(operande1).toString()
         let sop2 = Number(operande2).toString()
@@ -146,7 +195,58 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
         code+=`</div>`;
         return code
     }
-    let SoustractionPoseeHtml = function(operande1,operande2){
+*/
+    let SoustractionPosee2d = function(operande1,operande2){
+        let code = "",sop1,sop2,objets=[]
+        if (operande1<operande2) {
+            sop2 = Number(operande1).toString()
+            sop1 = Number(operande2).toString()
+        }
+        else {
+            sop1 = Number(operande1).toString()
+            sop2 = Number(operande2).toString()
+        }
+        let sresultat,resultat,lresultat
+        let lop1 = sop1.length
+        let lop2 = sop2.length
+        let longueuroperandes=lop1
+        let retenues=`00`
+        if (lop1>lop2){ // si op1 a plus de chiffres qu'op2 on complète op2 avec des blancs.
+            for(let j=0;j<lop1-lop2;j++){
+                sop2=` `+sop2
+            }
+        }
+
+        // les deux operande ont le même nomre de chiffres
+        for (let i=longueuroperandes-1;i>=lop1-lop2;i--){ // on construit la chaine des retenues.
+            if (parseInt(sop1[i])<(parseInt(sop2[i])+parseInt(retenues.charAt(0)))) {
+                retenues=`1${retenues}`
+            }
+            else {
+                retenues=`0${retenues}`
+            }
+        }
+        sop1=` ${sop1}`
+        sop2=`-${sop2}`
+        retenues=`0${retenues}`
+        resultat = operande1 - operande2
+        sresultat = Number(resultat).toString()
+        lresultat=sresultat.length
+        for (let i =0;i<longueuroperandes+1-lresultat;i++){
+            sresultat=` ${sresultat}`
+        }
+        for (let i=0;i<longueuroperandes+1;i++){
+            if (retenues[i]!='0') objets.push(texteParPosition(retenues[i],i*0.6+0.4,4.1,'milieu','red',0.8,'middle',true))
+            if (sop1[i]!=' ') objets.push(texteParPosition(sop1[i],i*0.6,4,'milieu','black',1.2,'middle',true))
+            if (sop2[i]!=' ') objets.push(texteParPosition(sop2[i],i*0.6,3,'milieu','black',1.2,'middle',true))
+            objets.push(segment(0,2,(longueuroperandes+1)*0.6,2))
+            if (retenues[i]!='0') objets.push(texteParPosition(retenues[i],i*0.6,2.6,'milieu','blue',0.8,'middle',true))
+            if (sresultat[i]!=' ') objets.push(texteParPosition(sresultat[i],i*0.6,1,'milieu','black',1.2,'middle',true))
+        }
+        code +=mathalea2d({xmin:-0.5,ymin:0,xmax:longueuroperandes,ymax:5,pixelsParCm:20,scale:0.8},objets)
+        return code
+    }
+ /*   let SoustractionPoseeHtml = function(operande1,operande2){
         let code = "",sop1,sop2
         if (operande1<operande2) {
             sop2 = Number(operande1).toString()
@@ -194,8 +294,9 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
         code+=`</div>`;
         return code
     }
-    let MultiplicationPoseeHtml = function(operande1,operande2){
-        let code = "",sop1,sop2
+    */
+    let MultiplicationPosee2d = function(operande1,operande2){
+        let code = "",sop1,sop2,objets=[]
         let produits=[],strprod,sommes=[]
         if (operande1<operande2) {
             sop2 = Number(operande1).toString()
@@ -208,7 +309,7 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
         let sresultat,resultat,lresultat
         let lop1 = sop1.length
         let lop2 = sop2.length
-        let longueurtotale=lop1+lop2
+        let longueurtotale=lop1+lop2+1
         let retenues=[];
         for (let i=0;i<sop2.length;i++){
             retenues.push("0")
@@ -232,15 +333,15 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
             }
         }
         }
-
+    
         for (let i=lop2;i<longueurtotale;i++){
-            sop2=`0${sop2}`
+            sop2=` ${sop2}`
         }
         for (let i=lop1;i<=longueurtotale;i++){
-            sop1=`0${sop1}`
+            sop1=` ${sop1}`
         }
         for (let i=0;i<lop2;i++){
-            for (let j=retenues[i].length;j<longueurtotale;j++){
+            for (let j=retenues[i].length;j<=longueurtotale;j++){
                 retenues[i]=`0${retenues[i]}`
             }
         }
@@ -264,31 +365,40 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
             retenues[lop2]=`${Number(Math.floor(sommes[i]/10)).toString()[0]}${retenues[lop2]}`
         }
         for (let i=0;i<lop2;i++){
+            produits[i]=cacherleszerosdevant(produits[i])
             for (let j=produits[i].length;j<=longueurtotale;j++){
-                produits[i]=`0${produits[i]}`
+                produits[i]=` ${produits[i]}`
             }
         }
-        for (let i=0;i<=lop2;i++){
-            retenues[i]=cacherleszeros(retenues[i])
-        }
-
+        sop2=`×${sop2}`
         for (let i =lresultat;i<=longueurtotale;i++){
-            sresultat=`0${sresultat}`
+            sresultat=` ${sresultat}`
         }
-
-        code += `<div id="multiplication" class="multiplicationBox" style="position:relative;">`
-        code +=`<div id="facteur1" style="position:relative;" >${cacherleszerosdevant(sop1)}</div>`
-        code +=`<div id="facteur2" style="position:relative;top:-0.3em">×${cacherleszerosdevant(sop2)}</div>`
-        code+=`<div id="barrem1" style="position: relative;top:-0.9em"><hr width=${(longueurtotale+2)*10} align=left></div>`
-        for (let i=0;i<lop2;i++){
-            code +=`<div id="retenues${i}" class="retenuesBarrees" style="position:relative; left:2em; top:${-(3.1+i*1.6)}em; color:red;" >${retenues[i]}</div>`
-            code +=`<div id="produits${i}" style="position: relative;top:${-(i*0.8+1.9)}em" line-height:0.8em>${cacherleszerosdevant(produits[i])}</div>`
+        for (let i =retenues[lop2].length;i<=longueurtotale;i++){
+            retenues[lop2]=`0${retenues[lop2]}`
         }
-        code +=`<div id="retenues${lop2}" class="retenuesBox" style="position:relative; left:1.8em; top:${-(3+lop2*1.6)}em; color:blue" >${retenues[lop2]}</div>`
-        code+=`<div id="barrem2" style="position: relative; top:-3.6em"><hr width=${(longueurtotale+2)*10} align=left></div>`
-        code+=`<div id="resultatm" style="position:relative; top:-4em" line-height:0.8em>${cacherleszerosdevant(sresultat)}</div>`
+        for (let i=0;i<=longueurtotale;i++) {
+            if (sop1[i]!=' ') objets.push(texteParPosition(sop1[i],i*0.6,7,'milieu','black',1.2,'middle',true))
+            if (sop2[i]!=' ') objets.push(texteParPosition(sop2[i],i*0.6,6,'milieu','black',1.2,'middle',true))
+        }
+        for (let j=0;j<lop2;j++){
+         for (let i=0;i<=longueurtotale;i++){
+                if (produits[j][i]!=' '&produits[j][i]!='°') objets.push(texteParPosition(produits[j][i],i*0.6,5-j,'milieu','black',1.2,'middle',true))
+                if (retenues[j][i]!='0') objets.push(texteParPosition(retenues[j][i],i*0.6,5.5-j,'milieu','blue',0.7,'middle',true))
+            }
+        }
+        for (let i=0;i<=longueurtotale;i++){
+            if (retenues[lop2][i]!='0') objets.push(texteParPosition(retenues[lop2][i],i*0.6,5.5-lop2,'milieu','red',0.7,'middle',true))
+        }
+            objets.push(segment(0,5.2-lop2,(longueurtotale+1)*0.6,5.2-lop2))
+            objets.push(segment(0,5.7,(longueurtotale+1)*0.6,5.7))
+            for (let i=0;i<=longueurtotale;i++){
+                if (sresultat[i]!=' ') objets.push(texteParPosition(sresultat[i],i*0.6,4.5-lop2,'milieu','black',1.3,'middle',true))
+            }
+                
+        code +=mathalea2d({xmin:-0.5,ymin:4-lop2,xmax:longueurtotale+2,ymax:8,pixelsParCm:20,scale:0.8},objets)
 
-        code+=`</div>`;
+
         return code
     }
   
@@ -296,7 +406,7 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
     switch (type) {
         case 'addition':
             if (sortie_html) {
-               Code+=AdditionPoseeHtml(operande1,operande2)
+               Code+=AdditionPosee2d(operande1,operande2)
             }
             else {
                 Code += `$\\opadd{${operande1}}{${operande2}}$`
@@ -304,7 +414,7 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
             break
         case 'soustraction':
             if (sortie_html) {
-                Code+=SoustractionPoseeHtml(operande1,operande2)
+                Code+=SoustractionPosee2d(operande1,operande2)
              }
              else {
                  Code += `$\\opsub{${operande1}}{${operande2}}$`
@@ -312,7 +422,7 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
             break
         case 'multiplication':
             if (sortie_html) {
-                Code+=MultiplicationPoseeHtml(operande1,operande2)
+                Code+=MultiplicationPosee2d(operande1,operande2)
              }
              else {
                  Code += `$\\opmul{${operande1}}{${operande2}}$`
