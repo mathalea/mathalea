@@ -1,7 +1,7 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,calcul,lettre_depuis_chiffre,creerNomDePolygone,tex_nombre} from "/modules/outils.js"
-import {point,labelPoint,segmentAvecExtremites,rotation,mathalea2d} from "/modules/2d.js"
-import { cibleCarree, dansLaCibleCarree ,cercleCentrePoint, afficheMesureAngle} from '../../modules/2d.js';
+import {liste_de_question_to_contenu,randint,choice,creerNomDePolygone,tex_nombre} from "/modules/outils.js"
+import {point,labelPoint,rotation,mathalea2d,afficheMesureAngle, demiDroiteAvecExtremite,cibleCouronne, texteParPoint,similitude} from "/modules/2d.js"
+import { lettre_depuis_chiffre } from '../../modules/outils.js';
 /**
  * Construire un angle
  * @Auteur Jean-Claude Lhote
@@ -11,7 +11,8 @@ export default function Construire_un_angle() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Construire un angle de mesure donnée";
   this.consigne = "";
-  this.nb_questions = 3;
+  this.nb_questions = 1;
+  this.nb_questions_modifiable=false
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
   this.sup=1;
@@ -20,8 +21,7 @@ export default function Construire_un_angle() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
 
-      let c = calcul(randint(30, 70) / 10);
-      let angle
+      let angle,anglerot,Apos,Bpos,Cpos
       if (this.sup==1) {
           angle = randint (2,13,9)*10
       } 
@@ -31,36 +31,41 @@ export default function Construire_un_angle() {
       else {
           angle = randint(20,130,90)
       }
-
-      let p = creerNomDePolygone(3,'Q');
-    let texte = `Construire l'angle $\\widehat{${p[1] + p[0] + p[2]}}$ de mesure $${tex_nombre(angle)}°$.<br>C est sur le cercle de centre ${p[0]} passant par ${p[1]}.<br>`
-      let A = point(0, 0, p[0], "left");
-      let B = point(c, 0, p[1], "right");
-      let s = segmentAvecExtremites(A, B);
+      let signe =choice([-1,1])
+      angle=angle*signe
+      anglerot=randint(0,360)
+      let p = ['x',lettre_depuis_chiffre(randint(1,16)),'y'];
+    let texte = `Construire l'angle $\\widehat{${p[0] + p[1] + p[2]}}$ de mesure $${tex_nombre(Math.abs(angle))}°$ en tournant dans le sens `
+    if (angle<0) {
+      texte+=`des aiguilles d'une montre.<br>`
+    }
+    else {
+      texte+=`inverse des aiguilles d'une montre.<br>`
+    }
+      let A = point(0, 0);
+      let B = point(5.5, 0);
+      B=rotation(B,A,anglerot)
+      Apos=texteParPoint(p[1],similitude(B,A,-90,0.1),'milieu')
+      Bpos=texteParPoint(p[0],similitude(A,B,signe*90,0.1),'milieu')
+      
+      let s = demiDroiteAvecExtremite (A, B);
       s.epaisseur=2
-      let C = rotation(B,A,angle,p[2],'left');
-      let s2 = segmentAvecExtremites(A, C);
+      let C = rotation(B,A,angle);
+      Cpos=texteParPoint(p[2],similitude(A,C,-signe*90,0.1),'milieu')
+
+      let s2 = demiDroiteAvecExtremite(A, C);
       let labels=labelPoint(A,B)
       let labels2=labelPoint(A,B,C)
       let secteur=afficheMesureAngle(B,A,C)
-      let celluleAlea = function () {
-        let lettre = lettre_depuis_chiffre(randint(2,7))
-        let chiffre = Number(randint(2, 7)).toString()
-        return lettre + chiffre
-      }
-      let rond=cercleCentrePoint(A,B)
-      rond.pointilles=3
-      let cellule=celluleAlea()
-      let texte_corr=`Le point ${p[2]} doit être situé dans la cellule ${cellule} comme sur la figure ci-dessous.<br>`
-        let result=dansLaCibleCarree(C.x,C.y,8,0.7,cellule)
-      let cible=cibleCarree({x:result[0],y:result[1],rang:8,taille:0.7})
-      let xMin=Math.min(A.x,C.x)-6
-      let xMax=B.x+6
-      let yMin=-3
-      let yMax=C.y+6
+      let texte_corr=``
+      let cible=cibleCouronne({x:0,y:0,taille:4})
+      let xMin=-6
+      let xMax=6
+      let yMin=-6
+      let yMax=6
         mathalea.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
-      let objets_enonce=[s,rond,labels,cible]
-      let objets_correction=[s,rond,labels2,secteur,cible,s2]
+      let objets_enonce=[s,labels,cible,Apos,Bpos]
+      let objets_correction=[s,labels2,secteur,cible,s2,Apos,Bpos,Cpos]
         this.liste_questions.push(texte + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 1 }, objets_enonce))
         this.liste_corrections.push(texte_corr+mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 1 }, objets_correction))
         liste_de_question_to_contenu(this)
