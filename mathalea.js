@@ -54,30 +54,33 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 if (sortie_html && !est_diaporama && window.location.pathname.indexOf('exo.html')<0) {
                     fin_de_l_URL += "exercice.html";
                 }
-                if (listeObjetsExercice[0].sup2) {
-                    fin_de_l_URL += `?ex=${liste_des_exercices[0]},nb_questions=${listeObjetsExercice[0].nb_questions},sup=${listeObjetsExercice[0].sup},sup2=${listeObjetsExercice[0].sup2}`;
-                } else {
-                    if (listeObjetsExercice[0].sup) {
-                        fin_de_l_URL += `?ex=${liste_des_exercices[0]},nb_questions=${listeObjetsExercice[0].nb_questions},sup=${listeObjetsExercice[0].sup}`;
-                    } else {
-                        fin_de_l_URL += `?ex=${liste_des_exercices[0]},nb_questions=${listeObjetsExercice[0].nb_questions}`;
-                    }
+                fin_de_l_URL += `?ex=${liste_des_exercices[0]}`
+                if (typeof listeObjetsExercice[0].sup !== 'undefined') {
+                    fin_de_l_URL += `,sup=${listeObjetsExercice[0].sup}`;
                 }
-                if (listeObjetsExercice[0].sup3) {
+                if (typeof listeObjetsExercice[0].sup2 !== 'undefined') {
+                    fin_de_l_URL += `,sup2=${listeObjetsExercice[0].sup2}`;
+                }
+                if (typeof listeObjetsExercice[0].sup3 !== 'undefined') {
                     fin_de_l_URL += `,sup3=${listeObjetsExercice[0].sup3}`;
                 }
-                for (var i = 1; i < liste_des_exercices.length; i++) {
-                    if (listeObjetsExercice[i].sup2) {
-                        fin_de_l_URL += `&ex=${liste_des_exercices[i]},nb_questions=${listeObjetsExercice[i].nb_questions},sup=${listeObjetsExercice[i].sup},sup2=${listeObjetsExercice[i].sup2}`;
-                    } else {
-                        if (listeObjetsExercice[i].sup) {
-                            fin_de_l_URL += `&ex=${liste_des_exercices[i]},nb_questions=${listeObjetsExercice[i].nb_questions},sup=${listeObjetsExercice[i].sup}`;
-                        } else {
-                            fin_de_l_URL += `&ex=${liste_des_exercices[i]},nb_questions=${listeObjetsExercice[i].nb_questions}`;
-                        }
+                if (listeObjetsExercice[0].nb_questions_modifiable) {
+                    fin_de_l_URL += `,nb_questions=${listeObjetsExercice[0].nb_questions}`;
+                }
+                
+                for (let i = 1; i < liste_des_exercices.length; i++) {
+                    fin_de_l_URL += `&ex=${liste_des_exercices[i]}`
+                    if (typeof listeObjetsExercice[i].sup !== 'undefined') {
+                        fin_de_l_URL += `,sup=${listeObjetsExercice[i].sup}`;
                     }
-                    if (listeObjetsExercice[i].sup3) {
+                    if (typeof listeObjetsExercice[i].sup2 !== 'undefined') {
+                        fin_de_l_URL += `,sup2=${listeObjetsExercice[i].sup2}`;
+                    }
+                    if (typeof listeObjetsExercice[i].sup3 !== 'undefined') {
                         fin_de_l_URL += `,sup3=${listeObjetsExercice[i].sup3}`;
+                    }
+                    if (listeObjetsExercice[i].nb_questions_modifiable) {
+                        fin_de_l_URL += `,nb_questions=${listeObjetsExercice[i].nb_questions}`;
                     }
                 }
                 if (typeof mathalea.duree !== 'undefined'){
@@ -504,17 +507,29 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                         listeObjetsExercice[i].nb_questions = urlVars[i]["nb_questions"];
                         form_nb_questions[i].value = listeObjetsExercice[i].nb_questions;
                     }
-                    if (urlVars[i]["sup"]) {
+                    if (typeof urlVars[i]["sup"] !== 'undefined') {
                         listeObjetsExercice[i].sup = urlVars[i]["sup"];
-                        form_sup[i].value = listeObjetsExercice[i].sup;
+                        // Un exercice avec un this.sup mais pas de formulaire pouvait poser problème
+                        try {
+                            
+                            form_sup[i].value = listeObjetsExercice[i].sup;
+                        } catch {
+                        }
                     }
-                    if (urlVars[i]["sup2"]) {
+                    if (typeof urlVars[i]["sup2"] !== 'undefined') {
                         listeObjetsExercice[i].sup2 = urlVars[i]["sup2"];
-                        form_sup2[i].value = listeObjetsExercice[i].sup2;
+                        try {
+                            form_sup2[i].value = listeObjetsExercice[i].sup2;
+                        } catch (error) {
+                        }
                     }
-                    if (urlVars[i]["sup3"]) {
+                    if (typeof urlVars[i]["sup3"] !== 'undefined') {
                         listeObjetsExercice[i].sup3 = urlVars[i]["sup3"];
-                        form_sup3[i].value = listeObjetsExercice[i].sup3;
+                        try {
+                            form_sup3[i].value = listeObjetsExercice[i].sup3;
+                        } catch (error) {
+                            
+                        }
                     }
                     
                 }
