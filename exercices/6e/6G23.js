@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,lettre_depuis_chiffre,tex_nombre} from "/modules/outils.js"
-import {point,labelPoint,rotation,mathalea2d,afficheMesureAngle,sens_de_rotation, demiDroiteAvecExtremite,cibleCouronne, texteParPoint,similitude} from "/modules/2d.js"
+import {point,labelPoint,rotation,mathalea2d,afficheMesureAngle,sens_de_rotation, homothetie,demiDroiteAvecExtremite,cibleCouronne, texteParPoint,similitude} from "/modules/2d.js"
 
 /**
  * Construire un angle
@@ -43,27 +43,26 @@ export default function Construire_un_angle() {
       texte+=`inverse des aiguilles d'une montre.<br>`
     }
       let A = point(0, 0);
-      let B = point(5.5, 0);
+      let B = point(6, 0);
       B=rotation(B,A,anglerot)
       Apos=texteParPoint(p[1],similitude(B,A,-90,0.1),'milieu')
-      Bpos=texteParPoint(p[0],similitude(A,B,signe*90,0.1),'milieu')
+      Bpos=texteParPoint(p[0],similitude(A,homothetie(B,A,0.9),signe*90,0.1),'milieu')
       
       let s = demiDroiteAvecExtremite (A, B);
       s.epaisseur=2
       let C = rotation(B,A,angle);
-      Cpos=texteParPoint(p[2],similitude(A,C,-signe*90,0.1),'milieu')
-      fleche=sens_de_rotation(rotation(B,A,10*signe),A,signe)
+      Cpos=texteParPoint(p[2],similitude(A,homothetie(C,A,0.9),-signe*90,0.1),'milieu')
+      fleche=sens_de_rotation(B,A,signe)
       let s2 = demiDroiteAvecExtremite(A, C);
       let labels=labelPoint(A,B)
       let labels2=labelPoint(A,B,C)
       let secteur=afficheMesureAngle(B,A,C)
       let texte_corr=``
       let cible=cibleCouronne({x:0,y:0,taille:4})
-      let xMin=-6
-      let xMax=6
-      let yMin=-6
-      let yMax=6
-      console.log(fleche)
+      let xMin=-6.5
+      let xMax=6.5
+      let yMin=-6.5
+      let yMax=6.5
         mathalea.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
       let objets_enonce=[s,labels,cible,Apos,Bpos,fleche]
       let objets_correction=[s,labels2,secteur,cible,s2,Apos,Bpos,Cpos,fleche]
