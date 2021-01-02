@@ -4218,12 +4218,12 @@ export function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5) {
   this.tikz=function(){
    // let d = bissectrice(A, B, C);
     // d.isVisible = false;
-    let M = pointSurSegment(d.extremite1, d.extremite2, this.distance/mathalea.scale);
+    let M = pointSurSegment(this.sommet, this.depart, this.distance);
+    let N = rotation(pointSurSegment(this.sommet,M , this.distance+0.5),this.sommet,angleOriente(this.depart,this.sommet,this.arrivee)/2);
     let mesureAngle = arrondi_virgule(angle(this.depart,this.sommet,this.arrivee), 0) + "°";
-    return "\n"+texteParPoint(mesureAngle, M, "milieu", color).tikz()+"\n"+arc(pointSurSegment(this.sommet, this.depart, this.distance-0.7/mathalea.scale), B, angleOriente(this.depart,this.sommet,this.arrivee)).tikz();
+    return "\n"+texteParPoint(mesureAngle, N, "milieu", color).tikz()+"\n"+arc(M, B, angleOriente(this.depart,this.sommet,this.arrivee)).tikz();
   }
 }
-
 export function afficheMesureAngle(...args){
   return new AfficheMesureAngle(...args)
 }
