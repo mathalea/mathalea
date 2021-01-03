@@ -92,7 +92,7 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
             ecrirequotient(i, Q[i])
             i++
         }
-        let code = mathalea2d({ xmin: -1.5, ymin: 10 - 2 * n, xmax: n + m + 2, ymax: 11.5, pixelsParCm: 20, scale: 0.8 }, objets)
+        let code = mathalea2d({ xmin: -1.5, ymin: 10 - 2 * n, xmax: n + m + 5, ymax: 11.5, pixelsParCm: 20, scale: 0.8 }, objets)
         return code
     }
 
