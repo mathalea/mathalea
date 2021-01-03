@@ -67,10 +67,9 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 if (listeObjetsExercice[0].nb_questions_modifiable) {
                     fin_de_l_URL += `,nb_questions=${listeObjetsExercice[0].nb_questions}`;
                 }
-                // Pour ajouter les id de toutes les vidéos dans l'url
-                // if (listeObjetsExercice[0].video.length>1) {
-                //     fin_de_l_URL += `,video=${listeObjetsExercice[0].video}`;
-                // }
+                if (listeObjetsExercice[0].video.length>1) {
+                    fin_de_l_URL += `,video=${listeObjetsExercice[0].video}`;
+                }
                 
                 for (let i = 1; i < liste_des_exercices.length; i++) {
                     fin_de_l_URL += `&ex=${liste_des_exercices[i]}`
@@ -86,10 +85,9 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                     if (listeObjetsExercice[i].nb_questions_modifiable) {
                         fin_de_l_URL += `,nb_questions=${listeObjetsExercice[i].nb_questions}`;
                     }
-                    // Pour ajouter les id de toutes les vidéos dans l'url
-                    // if (listeObjetsExercice[i].video.length>1) {
-                    //     fin_de_l_URL += `,video=${listeObjetsExercice[i].video}`;
-                    //  }
+                    if (listeObjetsExercice[i].video.length>1) {
+                        fin_de_l_URL += `,video=${listeObjetsExercice[i].video}`;
+                     }
                 }
                 if (typeof mathalea.duree !== 'undefined'){
                     fin_de_l_URL +=`&duree=${mathalea.duree}`
@@ -219,7 +217,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                         console.log(error);
                     }
                     contenuDesExercices += `<h3 class="ui dividing header">Exercice ${i + 1} − ${listeObjetsExercice[i].id}</h3>`;
-                    if (listeObjetsExercice[i].video) {
+                    if (listeObjetsExercice[i].video.length>3) {
                         contenuDesExercices += `<div id=video${i}>` +modal_youtube(i,listeObjetsExercice[i].video,'',"Aide - Vidéo","youtube") + `</div>`;
                     }
                     if (listeObjetsExercice[i].bouton_aide) {
@@ -520,7 +518,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                     }
                     if (urlVars[i]["video"]) {
                         listeObjetsExercice[i].video = urlVars[i]["video"];
-                        //form_video[i].value = listeObjetsExercice[i].video;
+                        form_video[i].value = listeObjetsExercice[i].video;
                     }
                     if (typeof urlVars[i]["sup"] !== 'undefined') {
                         listeObjetsExercice[i].sup = urlVars[i]["sup"];
@@ -680,6 +678,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
     let div_parametres_generaux = document.getElementById("parametres_generaux"); // Récupère le div dans lequel seront inscrit les paramètres
     let form_consigne = [],
         form_nb_questions = [],
+        form_video = [],
         form_correction_detaillee = [],
         form_nb_cols = [],
         form_nb_cols_corr = [],
@@ -713,6 +712,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                     div_parametres_generaux.innerHTML +=
                         '<div><label for="form_nb_questions' + i + '">Nombre de questions : </label> <input id="form_nb_questions' + i + '" type="number"  min="1" max="99"></div>';
                 }
+                div_parametres_generaux.innerHTML += '<div><label for="form_video' + i + '" data-tooltip="Identifiant YouTube" data-inverted="" >Vidéo : <input id="form_video' + i + '" type="texte" size="20"  ></label></div>';
                 if (exercice[i].correction_detaillee_disponible) {
                     div_parametres_generaux.innerHTML +=
                         '<div><label for="form_correction_detaillee' + i + '">Correction détaillée : </label> <input id="form_correction_detaillee' + i + '" type="checkbox" ></div>';
@@ -1058,6 +1058,15 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                     mise_a_jour_du_code();
                 });
             }
+            
+            // Gestion de la vidéo
+            form_video[i] = document.getElementById("form_video" + i);
+            form_video[i].value = exercice[i].video; // Rempli le formulaire
+            form_video[i].addEventListener("change", function (e) {
+                // Dès que ça change, on met à jour
+                exercice[i].video = e.target.value;
+                mise_a_jour_du_code();
+            });
 
             // Gestion de la correction détaillée
             if (exercice[i].correction_detaillee_disponible) {

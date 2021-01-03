@@ -24,18 +24,11 @@
   }
 }
 
-
-
-
-
-body
+label
 {
-    /*background-image: url("images/footer-coop.png");*/
-    /* background-attachment: fixed; /* Le fond restera fixe */
-    /*background-repeat: no-repeat;  Le fond ne sera pas répété */
-    /*background-position: right 15px;  Le fond sera placé en haut à droite */
-    /*font-family: raleway,serif;*/
+  line-height: 3;
 }
+
 
 header
 {
