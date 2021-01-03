@@ -33,6 +33,7 @@ export default function Exercice() {
     this.spacing_corr_modifiable = true;
     this.correction_detaillee_disponible = false;
     this.correction_detaillee = true;
+    this.video = '';
     this.bouton_aide = false;
     this.tailleDiaporama = 100; // Taille en pixels pour le calcul chronométré
     // this.bouton_aide = modal_texte_court(numero_de_l_exercice,texte,label_bouton="Aide",icone="info circle")

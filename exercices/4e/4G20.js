@@ -12,7 +12,8 @@ export default function Pythagore2D() {
   this.nb_questions = 3;
   this.nb_cols = 3;
   this.nb_cols_corr = 1;
-  this.type_exercice = 'Calculer'
+  this.type_exercice = 'Calculer';
+  this.video = 'M9sceJ8gzNc';
 
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions
