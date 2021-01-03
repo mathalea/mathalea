@@ -3354,6 +3354,23 @@ export function reorganiseProduitPuissance(b1,b2,e,couleur1,couleur2) {
 }
 
 /**
+ * 
+ * x le nombre dont on cherche l'ordre de grandeur 
+ * type = 0 pour la puissance de 10 inférieure, 1 pour la puissance de 10 supérieur et 2 pour la plus proche
+ */
+export function ordreDeGrandeur(x,type){
+	let signe,P
+	if (x<0) signe=-1
+	else signe=1
+	x=Math.abs(x)
+	P=10**Math.floor(Math.log10(x))
+	if (type==0) return P*signe
+	else if (type==1) return P*10*signe
+	else if (x-P<10*P-x) return P*signe
+	else return P*10*signe
+}
+
+/**
 * Fonction créant le bouton d'aide utilisée par les différentes fonctions modal_ type de contenu
 * @param numero_de_l_exercice
 * @param contenu code HTML 

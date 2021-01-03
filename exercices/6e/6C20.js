@@ -1,5 +1,6 @@
+import Operation from '/modules/operations.js';
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes,calcul,tex_nombrec,tex_nombre} from "/modules/outils.js"
+import { liste_de_question_to_contenu, randint, combinaison_listes, calcul, tex_nombrec, tex_nombre } from "/modules/outils.js"
 /**
  * Additions et soustractions de nombres décimaux
  * * xxx-xx,x
@@ -61,11 +62,7 @@ export default function Additionner_soustraires_decimaux() {
           a = randint(1, 4) * 100 + randint(2, 5) * 10 + randint(1, 9);
           b = calcul(randint(5, 9) * 10 + randint(6, 9) + randint(1, 9) / 10);
           texte = `$${tex_nombre(a)}-${tex_nombre(b)}$`;
-          sortie_html
-            ? (texte_corr = `$${tex_nombre(a)}-${tex_nombre(b)}=${tex_nombrec(
-              a - b
-            )}$`)
-            : (texte_corr = `$\\opsub[decimalsepsymbol={,}]{${a}}{${b}}$`);
+          texte_corr = Operation({ operande1: a, operande2: b, type: 'soustraction' })
           break;
         case 2: // xxx-xx,xx
           a = randint(1, 4) * 100 + randint(2, 5) * 10 + randint(1, 9);
@@ -76,11 +73,7 @@ export default function Additionner_soustraires_decimaux() {
             randint(1, 9) / 100
           );
           texte = `$${tex_nombre(a)}-${tex_nombre(b)}$`;
-          sortie_html
-            ? (texte_corr = `$${tex_nombre(a)}-${tex_nombre(b)}=${tex_nombrec(
-              a - b
-            )}$`)
-            : (texte_corr = `$\\opsub[decimalsepsymbol={,}]{${a}}{${b}}$`);
+          texte_corr = Operation({ operande1: a, operande2: b, type: 'soustraction' })
           break;
         case 3: // xxx,x-xxx
           a = calcul(
@@ -91,11 +84,7 @@ export default function Additionner_soustraires_decimaux() {
           );
           b = randint(1, 4) * 100 + randint(6, 9) * 10 + randint(1, 9);
           texte = `$${tex_nombre(a)}-${tex_nombre(b)}$`;
-          sortie_html
-            ? (texte_corr = `$${tex_nombre(a)}-${tex_nombre(b)}=${tex_nombrec(
-              a - b
-            )}$`)
-            : (texte_corr = `$\\opsub[decimalsepsymbol={,}]{${a}}{${b}}$`);
+          texte_corr = Operation({ operande1: a, operande2: b, type: 'soustraction' })
           break;
         case 4: // x0x-xx9,x
           a = calcul(randint(5, 9) * 100 + randint(1, 5));
@@ -103,21 +92,13 @@ export default function Additionner_soustraires_decimaux() {
             randint(1, 4) * 100 + randint(1, 9) * 10 + 9 + randint(1, 9) / 10
           );
           texte = `$${tex_nombre(a)}-${tex_nombre(b)}$`;
-          sortie_html
-            ? (texte_corr = `$${tex_nombre(a)}-${tex_nombre(b)}=${tex_nombrec(
-              a - b
-            )}$`)
-            : (texte_corr = `$\\opsub[decimalsepsymbol={,}]{${a}}{${b}}$`);
+          texte_corr = Operation({ operande1: a, operande2: b, type: 'soustraction' })
           break;
         case 5: // xxx+xx,x
           a = randint(1, 4) * 100 + randint(2, 5) * 10 + randint(1, 9);
           b = calcul(randint(5, 9) * 10 + randint(6, 9) + randint(1, 9) / 10);
           texte = `$${tex_nombre(a)}+${tex_nombre(b)}$`;
-          sortie_html
-            ? (texte_corr = `$${tex_nombre(a)}+${tex_nombre(b)}=${tex_nombrec(
-              a + b
-            )}$`)
-            : (texte_corr = `$\\opadd[decimalsepsymbol={,}]{${a}}{${b}}$`);
+          texte_corr = Operation({ operande1: a, operande2: b, type: 'addition' })
           break;
         case 6: // xxx+xx,xx
           a = randint(1, 4) * 100 + randint(2, 5) * 10 + randint(1, 9);
@@ -128,11 +109,7 @@ export default function Additionner_soustraires_decimaux() {
             randint(1, 9) / 100
           );
           texte = `$${tex_nombre(a)}+${tex_nombre(b)}$`;
-          sortie_html
-            ? (texte_corr = `$${tex_nombre(a)}+${tex_nombre(b)}=${tex_nombrec(
-              a + b
-            )}$`)
-            : (texte_corr = `$\\opadd[decimalsepsymbol={,}]{${a}}{${b}}$`);
+          texte_corr = Operation({ operande1: a, operande2: b, type: 'addition' })
           break;
         case 7: // xxx,x+xxx
           a = calcul(
@@ -143,11 +120,7 @@ export default function Additionner_soustraires_decimaux() {
           );
           b = randint(1, 4) * 100 + randint(6, 9) * 10 + randint(1, 9);
           texte = `$${tex_nombre(a)}+${tex_nombre(b)}$`;
-          sortie_html
-            ? (texte_corr = `$${tex_nombre(a)}+${tex_nombre(b)}=${tex_nombrec(
-              a + b
-            )}$`)
-            : (texte_corr = `$\\opadd[decimalsepsymbol={,}]{${a}}{${b}}$`);
+          texte_corr = Operation({ operande1: a, operande2: b, type: 'addition' })
           break;
         case 8: // x0x+xx9,x
           a = calcul(randint(5, 9) * 100 + randint(1, 5));
@@ -155,11 +128,7 @@ export default function Additionner_soustraires_decimaux() {
             randint(1, 4) * 100 + randint(1, 9) * 10 + 9 + randint(1, 9) / 10
           );
           texte = `$${tex_nombre(a)}+${tex_nombre(b)}$`;
-          sortie_html
-            ? (texte_corr = `$${tex_nombre(a)}+${tex_nombre(b)}=${tex_nombrec(
-              a + b
-            )}$`)
-            : (texte_corr = `$\\opadd[decimalsepsymbol={,}]{${a}}{${b}}$`);
+          texte_corr = Operation({ operande1: a, operande2: b, type: 'addition' })
           break;
       }
 

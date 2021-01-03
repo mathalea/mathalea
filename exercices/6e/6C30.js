@@ -1,5 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,calcul,tex_nombrec,tex_nombre} from "/modules/outils.js"
+import Operation  from '/modules/operations.js'
 /**
  * Multiplication de deux nombres décimaux
  *
@@ -55,11 +56,7 @@ let type_de_questions
       }
 
       texte = `$${tex_nombre(a)}\\times${tex_nombre(b)}$`;
-      sortie_html
-        ? (texte_corr = `$${tex_nombre(a)}\\times${tex_nombre(b)}=${tex_nombrec(
-          a * b
-        )}$`)
-        : (texte_corr = `$\\opmul[decimalsepsymbol={,}]{${a}}{${b}}$`);
+      texte_corr = Operation({operande1:a,operande2:b,type:'multiplication'})
 
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
