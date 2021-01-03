@@ -16,6 +16,7 @@ export default function Vocabulaire_des_triangles() {
   this.nb_cols = 1;
   this.nb_cols_corr = 1;
   this.nb_questions_modifiable = false;
+  this.classe = 5;
 
   this.liste_packages = `bclogo`;
 
