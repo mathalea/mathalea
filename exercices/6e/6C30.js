@@ -56,9 +56,7 @@ let type_de_questions
       }
 
       texte = `$${tex_nombre(a)}\\times${tex_nombre(b)}$`;
-      sortie_html
-        ? (texte_corr = Operation({operande1:a,operande2:b,type:'multiplicationd'}))
-        : (texte_corr = `$\\opmul[decimalsepsymbol={,}]{${a}}{${b}}$`);
+      texte_corr = Operation({operande1:a,operande2:b,type:'multiplication'})
 
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
