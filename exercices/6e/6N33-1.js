@@ -18,7 +18,7 @@ export default function Pourcentage_d_un_nombre() {
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    liste_pourcentages = [10, 20, 30, 40, 50];
+    let liste_pourcentages = [10, 20, 30, 40, 50];
 
     for (
       let i = 0, p, n, texte, texte_corr, cpt = 0;
