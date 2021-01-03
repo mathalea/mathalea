@@ -294,7 +294,7 @@ export default function Exercice_Trigo_longueurs() {
     }
     if (type_de_questions == 5) {
       texte_corr = `La tangente de l'angle $\\widehat{${s0 + s1 + s2}}$ est définie par :<br>`;
-      texte_corr += `$\\tan \\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s0 + s2, s0 + s1)}<br>$`;
+      texte_corr += `$\\tan \\left(\\widehat{${s0 + s1 + s2}}\\right)=${tex_fraction(s0 + s2, s0 + s1)}$<br>`;
       texte_corr += `Avec les données numériques :<br>`;
       texte_corr += `$\\dfrac{\\tan\\left(${angle1}\\degree\\right)}{\\color{red}{1}}=${tex_fraction(
         s0 + s2,

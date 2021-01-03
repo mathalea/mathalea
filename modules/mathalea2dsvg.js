@@ -34,9 +34,8 @@ function editScript(txt) {
 }
 
 function afficheSVG(text) {
-  // executeCode(`mesObjets=[];monLutin = creerLutin();${text}`);
   executeCode(
-    `mathalea.objets2D=[];${text}`
+    `mathalea.objets2D = [] ; mathalea.lutin = creerLutin() ; ${text}`
   );
   divSvg.innerHTML = codeSvg(mathalea.fenetreMathalea2d, mathalea.pixelsParCm, mathalea.mainlevee, mathalea.objets2D);
 

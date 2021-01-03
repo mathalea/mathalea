@@ -5,7 +5,7 @@ import {point,tracePoint,tracePointSurDroite,milieu,pointSurSegment,pointSurCerc
 let mesObjets = []; // Liste de tous les objets construits
 //Liste utilisée quand il n'y a qu'une seule construction sur la page web
 
-let monLutin = {};
+mathalea.lutin = creerLutin();
 
 let numId = 0 // Créer un identifiant numérique unique par objet SVG
 
@@ -100,7 +100,7 @@ window.onload = function () {
       buttonURL.style.visibility = "visible";
     }
     executeCode(
-      `mathalea.objets2D=[];${myCodeMirror.getValue()}`
+      `mathalea.objets2D = [] ; mathalea.lutin = creerLutin() ; ${myCodeMirror.getValue()}`
     );
     let mesObjetsCopie = mathalea.objets2D.slice(); // codeSVG va ajouter des objets supplémentaires donc on en garde une copie
     let codeSvgcomplet = codeSvg(mathalea.fenetreMathalea2d, mathalea.pixelsParCm, mathalea.mainlevee, mathalea.objets2D);

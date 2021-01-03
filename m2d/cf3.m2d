@@ -1,7 +1,7 @@
-fenetreMathalea2d = [-4,-14,26,6]
-pixelsParCm = 30
-f = x => x**(1/5) // L'élévation à la puissance se fait avec **
-r = repere({ // On donne un nom au repère pour l'utiliser dans les réglages de la courbe
+mathalea.fenetreMathalea2d = [-4,-14,26,6]
+mathalea.pixelsParCm = 30
+let f = x => x**(1/5) // L'élévation à la puissance se fait avec **
+let r = repere({ // On donne un nom au repère pour l'utiliser dans les réglages de la courbe
   xmin : 0, // On utilise les deux points et pas le "égal"
   ymin : 0, // N'oubliez pas les virgules
   xmax : 100,

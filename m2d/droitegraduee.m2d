@@ -1,5 +1,5 @@
-fenetreMathalea2d = [-3,-1,27,9]
-pixelsParCm=20
+mathalea.fenetreMathalea2d = [-3,-1,27,9]
+mathalea.pixelsParCm=20
 droiteGraduee(0,0,'H','d',5,4,25,-2,-1,'-2','-1',true,['A',-0.5],['B',1.25],['C',2.75])
 // (Xorigine,Yorigine,'H' ou 'V'=direction,'d' ou 'dd'=type,longueur Unité en cm,nombre de parts/unité, longeur totale en cm,
 // abscisse 1ère graduation, abscisse 2ème graduation,label 1ère,label 2ème,true=compléter les graduations principales,
