@@ -516,7 +516,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                         listeObjetsExercice[i].nb_questions = urlVars[i]["nb_questions"];
                         form_nb_questions[i].value = listeObjetsExercice[i].nb_questions;
                     }
-                    if (urlVars[i]["video"]) {
+                    if (urlVars[i]["video"] && sortie_html) {
                         listeObjetsExercice[i].video = urlVars[i]["video"];
                         form_video[i].value = listeObjetsExercice[i].video;
                     }
@@ -1060,13 +1060,15 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
             }
             
             // Gestion de la vidéo
-            form_video[i] = document.getElementById("form_video" + i);
-            form_video[i].value = exercice[i].video; // Rempli le formulaire
-            form_video[i].addEventListener("change", function (e) {
-                // Dès que ça change, on met à jour
-                exercice[i].video = e.target.value;
-                mise_a_jour_du_code();
-            });
+            if (sortie_html) {
+                form_video[i] = document.getElementById("form_video" + i);
+                form_video[i].value = exercice[i].video; // Rempli le formulaire
+                form_video[i].addEventListener("change", function (e) {
+                    // Dès que ça change, on met à jour
+                    exercice[i].video = e.target.value;
+                    mise_a_jour_du_code();
+                });
+            }
 
             // Gestion de la correction détaillée
             if (exercice[i].correction_detaillee_disponible) {
