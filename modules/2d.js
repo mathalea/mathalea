@@ -15,8 +15,7 @@ import {egal,randint,choice,rangeMinMax,unSiPositifMoinsUnSinon,arrondi,arrondi_
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
-// let mesObjets = []; // Liste de tous les objets construits
-//Liste utilisée quand il n'y a qu'une seule construction sur la page web
+
 
 let numId = 0 // Créer un identifiant numérique unique par objet SVG
 
@@ -969,12 +968,10 @@ export function constructionMediatrice(...args) {
  * @Auteur Rémi Angot
  */
 export function bissectrice(A, O, B, color = "black") {
-  ObjetMathalea2D.call(this);
-  this.color = color;
   let demiangle = calcul(angleOriente(A, O, B) / 2);
   let m = pointSurSegment(O, A, 3);
   let M = rotation(m, O, demiangle);
-  return demiDroite(O, M, this.color);
+  return demiDroite(O, M, color);
 }
 /**
  * m = codagebissectrice(A,O,B) ajoute des arcs marqués de part et d'autres de la bissectrice mais ne trace pas celle-ci.
@@ -1027,7 +1024,6 @@ function ConstructionBissectrice(
   couleurBissectrice = "red",
   epaiseurBissectrice = 2
 ) {
-  ObjetMathalea2D.call(this);
   let M = pointSurSegment(O, A, tailleLosange);
   let N = pointSurSegment(O, B, tailleLosange);
   let sOM = segment(O, M);
@@ -6877,6 +6873,7 @@ export function angleradian(A, O, B) {
 function ObjetLutin() {
   //let mesObjets
   //mesObjets.push(this);
+  ObjetMathalea2D.call(this);
   this.x = 0;
   this.y = 0;
   this.xSVG = function (coeff) {
@@ -6957,7 +6954,7 @@ export function creerLutin(...args) {
   return new ObjetLutin(...args);
 }
 
-export function avance(d, lutin=monLutin) { // A faire avec pointSurCercle pour tenir compte de l'orientation
+export function avance(d, lutin = mathalea.lutin) { // A faire avec pointSurCercle pour tenir compte de l'orientation
   let xdepart = lutin.x;
   let ydepart = lutin.y;
   lutin.x = calcul(lutin.x + d/mathalea.unitesLutinParCm * Math.cos(Math.radians(lutin.orientation)));
@@ -6968,27 +6965,27 @@ export function avance(d, lutin=monLutin) { // A faire avec pointSurCercle pour 
   }
 }
 
-export function baisseCrayon(lutin=monLutin) {
+export function baisseCrayon(lutin = mathalea.lutin) {
   lutin.crayonBaisse = true;
 }
 
-export function leveCrayon(lutin=monLutin) {
+export function leveCrayon(lutin = mathalea.lutin) {
   lutin.crayonBaisse = false;
 }
 
-export function orienter(a,lutin=monLutin){
+export function orienter(a,lutin = mathalea.lutin){
   lutin.orientation = a
 }
 
-export function tournerG(a,lutin=monLutin){
+export function tournerG(a,lutin = mathalea.lutin){
   lutin.orientation +=a
 }
 
-export function tournerD(a,lutin=monLutin){
+export function tournerD(a,lutin = mathalea.lutin){
   lutin.orientation -=a
 }
 
-export function allerA(x,y,lutin=monLutin){
+export function allerA(x,y,lutin = mathalea.lutin){
   let xdepart = lutin.x;
   let ydepart = lutin.y;
   lutin.x = calcul(x/mathalea.unitesLutinParCm);
@@ -6999,7 +6996,7 @@ export function allerA(x,y,lutin=monLutin){
   } 
 }
 
-export function mettrexA(x,lutin=monLutin){
+export function mettrexA(x,lutin = mathalea.lutin){
   let xdepart = lutin.x;
   lutin.x = calcul(x/mathalea.unitesLutinParCm);
   lutin.historiquePositions.push([lutin.x, lutin.y]);
@@ -7008,7 +7005,7 @@ export function mettrexA(x,lutin=monLutin){
   } 
 }
 
-export function mettreyA(y,lutin=monLutin){
+export function mettreyA(y,lutin = mathalea.lutin){
   let ydepart = lutin.y;
   lutin.y = calcul(y/mathalea.unitesLutinParCm);
   lutin.historiquePositions.push([lutin.x, lutin.y]);
@@ -7017,7 +7014,7 @@ export function mettreyA(y,lutin=monLutin){
   } 
 }
 
-export function ajouterAx(x,lutin=monLutin){
+export function ajouterAx(x,lutin = mathalea.lutin){
   let xdepart = lutin.x;
   lutin.x += calcul(x/mathalea.unitesLutinParCm);
   lutin.historiquePositions.push([lutin.x, lutin.y]);
@@ -7026,7 +7023,7 @@ export function ajouterAx(x,lutin=monLutin){
   } 
 }
 
-export function ajouterAy(y,lutin=monLutin){
+export function ajouterAy(y,lutin = mathalea.lutin){
   let ydepart = lutin.y;
   lutin.y += calcul(y/mathalea.unitesLutinParCm);
   lutin.historiquePositions.push([lutin.x, lutin.y]);

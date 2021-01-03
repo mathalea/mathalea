@@ -1,8 +1,8 @@
-fenetreMathalea2d = [-2,-15,28,5]
-pixelsParCm = 40 // L'unité fait 30 pixels
+mathalea.fenetreMathalea2d = [-2,-15,28,5]
+mathalea.pixelsParCm = 40 // L'unité fait 30 pixels
 grille(0,0,10,4,'blue',.4,.5) // Rectangle de carreaux avec xmin = ymin = 0, xmax = 10, ymax = 4, couleur bleu, opacité à 40% et 0,5 cm de côté par carreau
-A = point(1,1,'A') // Créé un point A qui a pour nom...'A'
-B = point(5,2,'B') // Attention l'unité reste le cm et pas le carreau de 0,5 cm
-s = segmentAvecExtremites(A,B) // Créé le segment en dessinant les 2 extrémités
+let A = point(1,1,'A') // Créé un point A qui a pour nom...'A'
+let B = point(5,2,'B') // Attention l'unité reste le cm et pas le carreau de 0,5 cm
+let s = segmentAvecExtremites(A,B) // Créé le segment en dessinant les 2 extrémités
 labelPoint(A,B) // Ajoute le nom des points
 afficheLongueurSegment(A,B)
