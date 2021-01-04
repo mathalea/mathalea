@@ -32,6 +32,7 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
 
      let DivisionPosee3d = function (divid, divis,precision=0) {
         let objets = []
+        precision=Math.min(precision,nombreDeChiffresApresLaVirgule(calcul(divid/divis)))
         let decalage= nombreDeChiffresApresLaVirgule(divis)
         let dec1=nombreDeChiffresApresLaVirgule(divid)
         divis = calcul(divis * 10 ** decalage)
@@ -383,7 +384,7 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
             if (sortie_html)
                 Code = DivisionPosee3d(operande1, operande2,precision);
             else
-                Code = `$\\opdiv{${operande1}}{${operande2}}$`
+                Code = `$\\opdiv[displayintermediary=all,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none]{${operande1}}{${operande2}}$`
             break
          }
     return Code
