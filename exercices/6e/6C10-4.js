@@ -11,6 +11,7 @@ export default function Exercice_tables_d_additions(max = 20) {
   this.consigne = "Calculer";
   this.sup = max; // Le paramètre accessible à l'utilisateur sera la valeur maximale
   this.spacing = 2;
+  this.tailleDiaporama = 100;
 
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions

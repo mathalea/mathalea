@@ -28,6 +28,8 @@ export default function Operations_posees() {
   this.sup2 = "1234,5-789,2"
   this.sup3 = 0;
   this.liste_packages = "xlop";
+  this.tailleDiaporama = 100;
+
 
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions

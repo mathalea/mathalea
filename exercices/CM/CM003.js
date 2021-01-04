@@ -17,6 +17,7 @@ export default function Tables_de_multiplications_et_divisions(
   this.titre = "Tables de multiplications et de divisions";
   this.consigne = "Calculer";
   this.spacing = 2;
+  this.tailleDiaporama = 100;
 
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions

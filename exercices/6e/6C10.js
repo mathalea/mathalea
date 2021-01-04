@@ -23,6 +23,8 @@ export default function Additions_soustractions_multiplications_posees() {
   this.nb_questions = 5;
   // this.pas_de_version_HMTL=true;
   this.liste_packages = "xlop";
+  this.tailleDiaporama = 100;
+
 
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions

@@ -18,6 +18,7 @@ export default function Quatre_operations() {
   this.nb_cols_corr = 2;
   this.sup = 1; // niveau de difficulté
   this.liste_packages = "xlop";
+  this.tailleDiaporama = 100;
 
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions

@@ -22,6 +22,7 @@ export default function Additionner_soustraires_decimaux() {
   sortie_html ? (this.spacing_corr = 2) : (this.spacing_corr = 1); //Important sinon les opérations posées ne sont pas jolies
   this.nb_questions = 4;
   this.sup = 3;
+  this.tailleDiaporama = 100;
 
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions

@@ -18,7 +18,7 @@ export default function Le_compte_est_bonV3() {
   this.nb_cols_corr = 2;
   this.sup = 30;
   this.sup2 = 70;
-  var max_solution = 70;
+  let max_solution = 70;
 
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions

@@ -24,6 +24,18 @@
   }
 }
 
+/* Timer pour le calcul chronométré*/
+
+#timer, #numero_question {
+  float: right;
+  font-size: xx-large;
+  color: #f15929;
+}
+
+#numero_question {
+  margin-right: 10px;
+}
+
 label
 {
   line-height: 3;

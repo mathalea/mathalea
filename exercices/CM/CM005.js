@@ -12,6 +12,7 @@ export default function Ajouter9() {
   this.nb_questions = 10;
   this.nb_cols = 2;
   this.nb_cols_corr = 2;
+  this.tailleDiaporama = 100;
 
   this.nouvelle_version = function (numero_de_l_exercice) {
     this.bouton_aide = modal_texte_court(
