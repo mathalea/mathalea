@@ -12,6 +12,7 @@ export default function Complement_a_une_dizaine() {
   this.nb_questions = 10;
   this.nb_cols = 2;
   this.nb_cols_corr = 2;
+  this.tailleDiaporama = 100;
 
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions

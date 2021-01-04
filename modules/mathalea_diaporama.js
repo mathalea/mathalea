@@ -41,11 +41,25 @@ $(document).ready(function () {
         $(".mathalea2d").css("width", parseFloat($(".mathalea2d").css("width")) * 0.8);
         $(".mathalea2d").css("height", parseFloat($(".mathalea2d").css("height")) * 0.8);
     });
-    $("#btn_zoom_plus_correction").click(function () {
-        $("#corrections").css("font-size", parseFloat($("#corrections").css("font-size")) * 1.2);
-    });
-    $("#btn_zoom_moins_correction").click(function () {
-        $("#corrections").css("font-size", parseFloat($("#corrections").css("font-size")) * 0.8);
+    // $("#btn_zoom_plus_correction").click(function () {
+    //     $("#corrections").css("font-size", parseFloat($("#corrections").css("font-size")) * 1.2);
+    // });
+    // $("#btn_zoom_moins_correction").click(function () {
+    //     $("#corrections").css("font-size", parseFloat($("#corrections").css("font-size")) * 0.8);
+    // });
+
+    let zoom = 1;
+    $( "#btn_zoom_plus_correction").click(function() {
+        zoom+=.5;
+        $("#corrections").css("transform", `scale(${zoom})`);
+        $("#corrections").css("transform-origin", "0 0px");
+        });
+    $( "#btn_zoom_moins_correction").click(function() {
+        if (zoom>1) {
+            zoom-=.5;
+        }
+        $("#corrections").css("transform", `scale(${zoom})`);
+        $("#corrections").css("transform-origin", "0 0px");
     });
 
     $("#formulaire_choix_des_exercices").hide();

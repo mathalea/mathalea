@@ -35,7 +35,7 @@ export default function Exercice() {
     this.correction_detaillee = true;
     this.video = '';
     this.bouton_aide = false;
-    this.tailleDiaporama = 100; // Taille en pixels pour le calcul chronométré
+    this.tailleDiaporama = 50; // Taille en pixels pour le calcul chronométré
     // this.bouton_aide = modal_texte_court(numero_de_l_exercice,texte,label_bouton="Aide",icone="info circle")
     // this.bouton_aide = modal_texte_long(numero_de_l_exercice,titre,texte,label_bouton="Aide",icone="info circle")
     // this.bouton_aide = modal_youtube(numero_de_l_exercice,id_youtube,texte,label_bouton="Aide - Vidéo",icone="youtube")

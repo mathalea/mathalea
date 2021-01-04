@@ -26,6 +26,8 @@ export default function Divisions_euclidiennes() {
   this.nb_questions = 4;
   this.sup = 1;
   this.liste_packages = "xlop";
+  this.tailleDiaporama = 100;
+
 
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions

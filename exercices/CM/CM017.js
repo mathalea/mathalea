@@ -12,6 +12,7 @@ export default function Diviser_decimal_par_10_100_1000() {
   this.nb_questions = 10;
   this.nb_cols = 2;
   this.nb_cols_corr = 2;
+  this.tailleDiaporama = 100;
 
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions

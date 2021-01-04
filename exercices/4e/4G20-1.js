@@ -1,6 +1,6 @@
 import Pythagore2D from './4G20.js'
 // 4G20-1
-function Egalite_Pythagore2D() {
+export default function Egalite_Pythagore2D() {
   Pythagore2D.call(this);
   this.titre = "Donner ou compléter une égalité de Pythagore";
   this.sup = 1;

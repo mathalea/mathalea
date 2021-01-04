@@ -20,6 +20,8 @@ export default function Exercice_labyrinthe_multiples() {
   this.nb_cols_corr = 1;
   this.pas_de_version_LaTeX = false
   this.pas_de_version_HMTL = false
+  this.tailleDiaporama = 100;
+
   this.sup3 = 3
   this.sup = 9;
   if (this.niveau = 'CM') {

@@ -15,6 +15,7 @@ export default function Tables_de_divisions(tables_par_defaut = "2-3-4-5-6-7-8-9
   this.titre = "Tables de divisions";
   this.consigne = "Calculer";
   this.spacing = 2;
+  this.tailleDiaporama = 100;
 
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions
