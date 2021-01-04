@@ -31,22 +31,18 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
     }
 
      let DivisionPosee3d = function (divid, divis,precision=0) {
-        let objets = []
-        precision=Math.min(precision,nombreDeChiffresApresLaVirgule(calcul(divid/divis)))
+        let objets = [],zeroutile=false,periode=0
+        precision=Math.min(precision,nombreDeChiffresApresLaVirgule(divid/divis))
         let decalage= nombreDeChiffresApresLaVirgule(divis)
         let dec1=nombreDeChiffresApresLaVirgule(divid)
-        divis = calcul(divis * 10 ** decalage)
-        divid = calcul(divid * 10 ** (decalage+dec1))
+        if (divid<divis) 
+            zeroutile=true
+        divis = math.format(divis * 10 ** decalage,{notation:'auto',lowerExp:-12,upperExp:12,precision:12})
+        divid = math.format(divid * 10 ** (decalage+dec1),{notation:'auto',lowerExp:-12,upperExp:12,precision:12})
         let dec2=nombreDeChiffresApresLaVirgule(divid)
-        if (dec2>=precision) {
-            divid=arrondi(divid,precision)
-        }
-        else {
-            dec2=precision-dec2-dec1
-            divid=calcul(divid*10**dec2)
-        }
+        dec2=precision-dec2-dec1
+        divid=math.format(divid*10**dec2,{notation:'auto',lowerExp:-12,upperExp:12,precision:12})
         let ecriresoustraction = function (upos, P) {
-            console.log(P)
             objets.push(texteParPosition('-',upos-P.length-0.5, 10 - i * 2, 'milieu', 'black', 1.2, 'middle', true))
             for (let k = 0; k<P.length; k++) {
                 objets.push(texteParPosition(P[P.length-k-1],upos-k-1, 10 - i * 2, 'milieu', 'black', 1.2, 'middle', true))
@@ -58,8 +54,8 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
                 objets.push(texteParPosition(R[R.length-k-1], upos-k-1, 9 - i * 2, 'milieu', 'black', 1.2, 'middle', true))
             }
         }
-        let ecrirequotient = function (Q) {
-            objets.push(texteParPosition(Q, n + 0.5 + i, 10, 'milieu', 'black', 1.2, 'middle', true))
+        let ecrirequotient = function (x,Q) {
+            objets.push(texteParPosition(Q, n + 1.5 + x, 10, 'milieu', 'black', 1.2, 'middle', true))
         }
 
         let divd = [], Q = [], R = [], P = []
@@ -73,20 +69,22 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
             objets.push(texteParPosition(dividende[i], i, 11, 'milieu', 'black', 1.2, 'middle', true))
         }
         for (let i = 0; i < m; i++) { //on écrit le diviseur
-            objets.push(texteParPosition(diviseur[i], i + n + 0.5, 11, 'milieu', 'black', 1.2, 'middle', true))
+            objets.push(texteParPosition(diviseur[i], i + n + 1.5, 11, 'milieu', 'black', 1.2, 'middle', true))
         }
         if (dec1+dec2!=0) {
             objets.push(texteParPosition(',',  n-dec1-dec2-1 + 0.5, 11, 'milieu', 'black', 1.2, 'middle', true))
         }
         objets.push(segment(n, 11.5, n, 11.5 - n * 2)) //on trace le trait vertical
-        objets.push(segment(n, 10.5, n + m, 10.5)) //on trace le trait horizontal
 
         let i = 0
         divd.push(dividende.substr(0, m))
         if (parseInt(divd[0]) < divis) {
             divd[0] += dividende.substr(m, 1)
+            if (divis/(10**dec2)<divis&&zeroutile) ecrirequotient(-1,"0")
             upos++
         }
+        else if (zeroutile) 
+              ecrirequotient(-1,"0")
         while (upos <= n) {
             Q.push(Number(Math.floor(parseInt(divd[i]) / divis)).toString())
             R.push(Number(parseInt(divd[i]) % divis).toString())
@@ -107,15 +105,29 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
             else {
                 ecrirereste(upos,R[i])   
             }
+            for (let r=0;r<i;r++){
+                if (R[i]==R[r]) periode=i-r
+            }
             divd.push(R[i])
             upos++
-            ecrirequotient(Q[i])
+           
+            if (periode!=0) {
+                ecrirequotient(i,'...')
+                break
+            }
+            else 
+                ecrirequotient(i,Q[i])
             i++
         }
-        if (precision>0) {
-                objets.push(texteParPosition(',', n+i-dec2-dec1, 10, 'milieu', 'black', 1.2, 'middle', true))
+        if (precision>0&&periode==0) {
+                objets.push(texteParPosition(',', n+1+i-dec2-dec1, 10, 'milieu', 'black', 1.2, 'middle', true))
         }
-        let code = mathalea2d({ xmin: -1.5, ymin: 10 - 2 * n, xmax: n + m + 5, ymax: 11.5, pixelsParCm: 20, scale: 0.8 }, objets)
+        else if (periode!=0){
+            objets.push(texteParPosition(',', 2*n-dec2-dec1, 10, 'milieu', 'black', 1.2, 'middle', true))
+        }
+        objets.push(segment(n, 10.5, n + m+i, 10.5)) //on trace le trait horizontal
+
+        let code = mathalea2d({ xmin: -1.5, ymin: 10 - 2 * n, xmax: n + m + 10, ymax: 11.5, pixelsParCm: 20, scale: 0.8 }, objets)
         return code
     }
 

@@ -36,7 +36,6 @@ export default function Operations_posees() {
         let operandes = String(this.sup2).split("-")
         nombres[0]=parseFloat(operandes[0]);
         nombres[1]=parseFloat(operandes[1])
-        console.log(operandes,nombres)
 
         let a = nombres[0]
         let b = nombres[1]
