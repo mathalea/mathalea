@@ -16,15 +16,17 @@ import Operation from '/modules/operations.js';
  * @Auteur Rémi Angot
  * Référence 6C11
  */
-export default function Divisions_euclidiennes() {
+export default function Operations_posees() {
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.titre = "Divisions euclidiennes";
-  this.consigne =
-    "Poser et effectuer les divisions euclidiennes suivantes puis donner l'égalité fondamentale correspondante.";
+  this.titre = "Opérations posées";
+  this.consigne ="";
   this.spacing = 2;
   sortie_html ? (this.spacing_corr = 2) : (this.spacing_corr = 1); //Important sinon opidiv n'est pas joli
-  this.nb_questions = 4;
+  this.nb_questions = 1;
+  this.nb_questions_modifiable=false
   this.sup = 1;
+  this.sup2 = "1234,5-789,2"
+  this.sup3 = 0;
   this.liste_packages = "xlop";
   this.tailleDiaporama = 100;
 
@@ -32,31 +34,17 @@ export default function Divisions_euclidiennes() {
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let type_de_questions_disponibles,type_de_questions
-    if (this.sup == 0) type_de_questions_disponibles = [1, 1, 1, 1]
-    else if (this.sup == 1) type_de_questions_disponibles = [1, 2, 2, 3]
-    else if (this.sup == 2) type_de_questions_disponibles = [4, 4, 5, 6];
-    let liste_type_de_questions = combinaison_listes(
-      type_de_questions_disponibles,
-      this.nb_questions
-    ); // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-
-    for (
-      let i = 0, texte, texte_corr, cpt = 0, a, b, q, r;
-      i < this.nb_questions && cpt < 50;
-
-    ) {
-      type_de_questions = liste_type_de_questions[i];
-      switch (type_de_questions) {
-        case 1: // division par 2, 3 , 4 ou 5
+      let a=1
+      switch (parseInt(this.sup)) {
+        case 1: // addition
           q = randint(2, 5) * 100 + randint(2, 5) * 10 + randint(2, 5);
           b = randint(2, 5);
           break;
-        case 2: // division par 6 à 9
+        case 2: // soustraction
           q = randint(5, 9) * 100 + randint(2, 5) * 10 + randint(5, 9);
           b = randint(6, 9);
           break;
-        case 3: // un 0 dans le quotient
+        case 3: // multiplication
           if (randint(1, 2) == 1) {
             q = randint(2, 9) * 1000 + randint(2, 9) * 100 + randint(2, 9);
           } else {
@@ -64,7 +52,7 @@ export default function Divisions_euclidiennes() {
           }
           b = randint(7, 9);
           break;
-        case 4: // division par 11, 12, 15, 25
+        case 4: // division
           q = randint(1, 5) * 100 + randint(1, 5) * 10 + randint(1, 5);
           b = choice([11, 12, 15, 25]);
           break;
@@ -96,10 +84,8 @@ export default function Divisions_euclidiennes() {
     }
     liste_de_question_to_contenu(this);
   };
-  this.besoin_formulaire_numerique = [
-    "Niveau de difficulté",
-    2,
-    "1 : Quotient inférieur à 10\n2: Quotient à 2 chiffres",
-  ];
+  this.besoin_formulaire_numerique = ["Opération",4,"1 : Addition\n2 : Soustraction\n3 : Multiplication\n4 : Division"];
+  this.besoin_formulaire2_texte =["Deux nombres séparés par un tiret(séparateur décimal = virgule"]
+  this.besoin_formulaire3_numerique=["Nombre de chiffres après la virgule pour le quotient"] 
 }
 

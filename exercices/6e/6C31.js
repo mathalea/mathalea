@@ -1,4 +1,5 @@
 import Exercice from '../ClasseExercice.js';
+import Operation from '/modules/operations.js'
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,calcul,tex_nombre} from "/modules/outils.js"
 /**
  * Effectuer les divisions décimales suivantes et donner la valeur exacte de leur quotient.
@@ -118,17 +119,11 @@ export default function Division_decimale() {
       }
       texte = `$${tex_nombre(a)}\\div${b}$`;
       if (this.sup == 1) {
-        sortie_html
-          ? (texte_corr = `$${tex_nombre(a)}\\div${b}=${tex_nombre(q)}$`)
-          : (texte_corr = `$\\opdiv[displayintermediary=all,voperation=top,decimalsepsymbol={,},shiftdecimalsep=none]{${a}}{${b}}$\\\\\\\\$${tex_nombre(
-            a
-          )}\\div${b}=${tex_nombre(q)}$`);
+        texte_corr=Operation({operande1:a,operande2:b,type:'division',precision:3})
+        texte_corr +=`<br>$${tex_nombre(a)}\\div${b}=${tex_nombre(q)}$`
       } else {
-        sortie_html
-          ? (texte_corr = `$${tex_nombre(a)}\\div${b}\\approx${tex_nombre(q)}$`)
-          : (texte_corr = `$\\opdiv[displayintermediary=all,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none]{${a}}{${b}}$\\\\\\\\$${tex_nombre(
-            a
-          )}\\div${b}\\approx${tex_nombre(q)}$`);
+        texte_corr=Operation({operande1:a,operande2:b,type:'division',precision:3})
+        texte_corr+=`<br>$${tex_nombre(a)}\\div${b}\\approx${tex_nombre(q)}$`
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {

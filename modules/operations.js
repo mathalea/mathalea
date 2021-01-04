@@ -1,4 +1,4 @@
-import { ordreDeGrandeur, calcul } from "/modules/outils.js"
+import { ordreDeGrandeur, calcul,arrondi } from "/modules/outils.js"
 import { mathalea2d, texteParPosition, segment } from "/modules/2d.js"
 
 /**
@@ -30,21 +30,35 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
         return blancs
     }
 
-    let DivisionPosee2d = function (divid, divis) {
+     let DivisionPosee3d = function (divid, divis,precision=0) {
         let objets = []
-        let ecriresoustraction = function (i, j, P) {
-            objets.push(texteParPosition('-', i - 1, 10 - i * 2, 'milieu', 'black', 1.2, 'middle', true))
-            for (let k = i; k <= j; k++) {
-                objets.push(texteParPosition(P[k - i], k, 10 - i * 2, 'milieu', 'black', 1.2, 'middle', true))
+        precision=Math.min(precision,nombreDeChiffresApresLaVirgule(calcul(divid/divis)))
+        let decalage= nombreDeChiffresApresLaVirgule(divis)
+        let dec1=nombreDeChiffresApresLaVirgule(divid)
+        divis = calcul(divis * 10 ** decalage)
+        divid = calcul(divid * 10 ** (decalage+dec1))
+        let dec2=nombreDeChiffresApresLaVirgule(divid)
+        if (dec2>=precision) {
+            divid=arrondi(divid,precision)
+        }
+        else {
+            dec2=precision-dec2-dec1
+            divid=calcul(divid*10**dec2)
+        }
+        let ecriresoustraction = function (upos, P) {
+            console.log(P)
+            objets.push(texteParPosition('-',upos-P.length-0.5, 10 - i * 2, 'milieu', 'black', 1.2, 'middle', true))
+            for (let k = 0; k<P.length; k++) {
+                objets.push(texteParPosition(P[P.length-k-1],upos-k-1, 10 - i * 2, 'milieu', 'black', 1.2, 'middle', true))
             }
         }
-        let ecrirereste = function (i, j, R) {
+        let ecrirereste = function (upos, R) {
             objets.push(segment(i - 1, 9.6 - i * 2, i + R.length, 9.6 - i * 2))
-            for (let k = R.length - 1; k >= 0; k--) {
-                objets.push(texteParPosition(R[k], i + 1 + k, 9 - i * 2, 'milieu', 'black', 1.2, 'middle', true))
+            for (let k = 0; k < R.length; k++) {
+                objets.push(texteParPosition(R[R.length-k-1], upos-k-1, 9 - i * 2, 'milieu', 'black', 1.2, 'middle', true))
             }
         }
-        let ecrirequotient = function (i, Q) {
+        let ecrirequotient = function (Q) {
             objets.push(texteParPosition(Q, n + 0.5 + i, 10, 'milieu', 'black', 1.2, 'middle', true))
         }
 
@@ -53,44 +67,55 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
         let diviseur = Number(divis).toString()
         let n = Math.log10(ordreDeGrandeur(divid, 1)) //nombre de chiffres du dividende
         let m = Math.log10(ordreDeGrandeur(divis, 1))  //nombre de chiffre du diviseur
+        let upos=m
+
         for (let i = 0; i < n; i++) { //on écrit le dividende
             objets.push(texteParPosition(dividende[i], i, 11, 'milieu', 'black', 1.2, 'middle', true))
         }
-        for (let i = 0; i < m; i++) { //on écrit le dividende
+        for (let i = 0; i < m; i++) { //on écrit le diviseur
             objets.push(texteParPosition(diviseur[i], i + n + 0.5, 11, 'milieu', 'black', 1.2, 'middle', true))
         }
-
-
+        if (dec1+dec2!=0) {
+            objets.push(texteParPosition(',',  n-dec1-dec2-1 + 0.5, 11, 'milieu', 'black', 1.2, 'middle', true))
+        }
         objets.push(segment(n, 11.5, n, 11.5 - n * 2)) //on trace le trait vertical
         objets.push(segment(n, 10.5, n + m, 10.5)) //on trace le trait horizontal
 
-        let i = 0, j = m - 1
+        let i = 0
         divd.push(dividende.substr(0, m))
         if (parseInt(divd[0]) < divis) {
             divd[0] += dividende.substr(m, 1)
-            j++
+            upos++
         }
-        while (j < n) {
+        while (upos <= n) {
             Q.push(Number(Math.floor(parseInt(divd[i]) / divis)).toString())
             R.push(Number(parseInt(divd[i]) % divis).toString())
-            P.push(Number(parseInt(Q[i]) * divis).toString())
-            if (Q[i] == '0') {
+            P.push("")
+           if (Q[i] == '0') {
                 for (let z = 0; z < m; z++) {
                     P[i] += '0'
                 }
             }
-            console.log(Q[i], R[i], P[i], 'i=', i, 'j=', j)
-            ecriresoustraction(i, j, P[i])
-            j++
-            if (j < n) {
-                R[i] += dividende.substr(j, 1)
+            else {
+                P[i]+=Number(parseInt(Q[i]) * divis).toString()
+            }
+            ecriresoustraction(upos, P[i])
+            if (upos <n) {
+                R[i] += dividende.substr(upos, 1)
+                ecrirereste(upos+1,R[i])                
+            }
+            else {
+                ecrirereste(upos,R[i])   
             }
             divd.push(R[i])
-            ecrirereste(i, j, R[i])
-            ecrirequotient(i, Q[i])
+            upos++
+            ecrirequotient(Q[i])
             i++
         }
-        let code = mathalea2d({ xmin: -1.5, ymin: 10 - 2 * n, xmax: n + m + 1, ymax: 11.5, pixelsParCm: 20, scale: 0.8 }, objets)
+        if (precision>0) {
+                objets.push(texteParPosition(',', n+i-dec2-dec1, 10, 'milieu', 'black', 1.2, 'middle', true))
+        }
+        let code = mathalea2d({ xmin: -1.5, ymin: 10 - 2 * n, xmax: n + m + 5, ymax: 11.5, pixelsParCm: 20, scale: 0.8 }, objets)
         return code
     }
 
@@ -213,7 +238,7 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
         return code
     }
     let MultiplicationPosee3d = function (operande1, operande2) {
-        let code, sop1, sop2, objets = [], dec1, dec2, operandex
+        let code, sop1, sop2, objets = [], dec1, dec2, operandex,lignesinutiles=0
 
         let produits = [], strprod, sommes = []
         if (operande1 < operande2) {
@@ -308,21 +333,26 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
             objets.push(texteParPosition(',', 0.3 + (longueurtotale - dec2) * 0.6, 6, 'milieu', 'black', 1.2, 'middle', true))
 
         for (let j = 0; j < lop2; j++) {
+            if (sop2[longueurtotale-j]!='0'){
             for (let i = 0; i <= longueurtotale; i++) {
-                if (produits[j][i] != ' ' & produits[j][i] != '°') objets.push(texteParPosition(produits[j][i], i * 0.6, 5 - j, 'milieu', 'black', 1.2, 'middle', true))
-                if (retenues[j][i] != '0') objets.push(texteParPosition(retenues[j][i], i * 0.6, 5.5 - j, 'milieu', 'blue', 0.7, 'middle', true))
+                if (produits[j][i] != ' ' & produits[j][i] != '°') objets.push(texteParPosition(produits[j][i], i * 0.6, 5 - j+lignesinutiles, 'milieu', 'black', 1.2, 'middle', true))
+                if (retenues[j][i] != '0') objets.push(texteParPosition(retenues[j][i], i * 0.6, 5.5 - j+lignesinutiles, 'milieu', 'blue', 0.7, 'middle', true))
             }
         }
-        for (let i = 0; i <= longueurtotale; i++) {
-            if (retenues[lop2][i] != '0') objets.push(texteParPosition(retenues[lop2][i], i * 0.6, 5.5 - lop2, 'milieu', 'red', 0.7, 'middle', true))
+        else 
+            lignesinutiles++
         }
-        objets.push(segment(0, 5.2 - lop2, (longueurtotale + 1) * 0.6, 5.2 - lop2))
+
+        for (let i = 0; i <= longueurtotale; i++) {
+            if (retenues[lop2][i] != '0') objets.push(texteParPosition(retenues[lop2][i], i * 0.6, 5.5 - lop2+lignesinutiles, 'milieu', 'red', 0.7, 'middle', true))
+        }
+        objets.push(segment(0, 5.2 - lop2+lignesinutiles, (longueurtotale + 1) * 0.6, 5.2 - lop2+lignesinutiles))
         objets.push(segment(0, 5.7, (longueurtotale + 1) * 0.6, 5.7))
         for (let i = 0; i <= longueurtotale; i++) {
-            if (sresultat[i] != ' ') objets.push(texteParPosition(sresultat[i], i * 0.6, 4.5 - lop2, 'milieu', 'black', 1.2, 'middle', true))
+            if (sresultat[i] != ' ') objets.push(texteParPosition(sresultat[i], i * 0.6, 4.5 - lop2+lignesinutiles, 'milieu', 'black', 1.2, 'middle', true))
         }
         if (dec1 + dec2 != 0)
-            objets.push(texteParPosition(',', 0.3 + (longueurtotale - dec2 - dec1) * 0.6, 4.5 - lop2, 'milieu', 'black', 1.2, 'middle', true))
+            objets.push(texteParPosition(',', 0.3 + (longueurtotale - dec2 - dec1) * 0.6, 4.5 - lop2+lignesinutiles, 'milieu', 'black', 1.2, 'middle', true))
 
         code = mathalea2d({ xmin: -0.5, ymin: 4 - lop2, xmax: longueurtotale + 2, ymax: 8, pixelsParCm: 20, scale: 0.8 }, objets)
 
@@ -352,16 +382,10 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
             break
         case 'division':
             if (sortie_html)
-                Code = DivisionPosee2d(operande1, operande2);
+                Code = DivisionPosee3d(operande1, operande2,precision);
             else
-                Code = `$\\opdiv{${operande1}}{${operande2}}$`
+                Code = `$\\opdiv[displayintermediary=all,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none]{${operande1}}{${operande2}}$`
             break
-        case 'divisiond':
-            if (sortie_html)
-                Code = DivisionPosee3d(operande1, operande2);
-            else
-                Code = `$\\opdiv{${operande1}}{${operande2}}$`
-            break
-    }
+         }
     return Code
 } 
