@@ -1,4 +1,4 @@
-import { ordreDeGrandeur, calcul } from "/modules/outils.js"
+import { ordreDeGrandeur, calcul,arrondi } from "/modules/outils.js"
 import { mathalea2d, texteParPosition, segment } from "/modules/2d.js"
 
 /**
@@ -30,18 +30,31 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
         return blancs
     }
 
-    let DivisionPosee2d = function (divid, divis) {
+     let DivisionPosee3d = function (divid, divis,precision=0) {
         let objets = []
+        let decalage= nombreDeChiffresApresLaVirgule(divis)
+        let dec1=nombreDeChiffresApresLaVirgule(divid)
+        divis = calcul(divis * 10 ** decalage)
+        divid = calcul(divid * 10 ** (decalage+dec1))
+        let dec2=nombreDeChiffresApresLaVirgule(divid)
+        if (dec2>=precision) {
+            divid=arrondi(divid,precision)
+        }
+        else {
+            dec2=precision-dec2-dec1
+            divid=calcul(divid*10**dec2)
+        }
         let ecriresoustraction = function (upos, P) {
-            objets.push(texteParPosition('-',upos-P.length+0.5, 10 - i * 2, 'milieu', 'black', 1.2, 'middle', true))
+            console.log(P)
+            objets.push(texteParPosition('-',upos-P.length-0.5, 10 - i * 2, 'milieu', 'black', 1.2, 'middle', true))
             for (let k = 0; k<P.length; k++) {
-                objets.push(texteParPosition(P[P.length-k-1],upos-k, 10 - i * 2, 'milieu', 'black', 1.2, 'middle', true))
+                objets.push(texteParPosition(P[P.length-k-1],upos-k-1, 10 - i * 2, 'milieu', 'black', 1.2, 'middle', true))
             }
         }
         let ecrirereste = function (upos, R) {
             objets.push(segment(i - 1, 9.6 - i * 2, i + R.length, 9.6 - i * 2))
             for (let k = 0; k < R.length; k++) {
-                objets.push(texteParPosition(R[R.length-k-1], upos-k, 9 - i * 2, 'milieu', 'black', 1.2, 'middle', true))
+                objets.push(texteParPosition(R[R.length-k-1], upos-k-1, 9 - i * 2, 'milieu', 'black', 1.2, 'middle', true))
             }
         }
         let ecrirequotient = function (Q) {
@@ -54,14 +67,16 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
         let n = Math.log10(ordreDeGrandeur(divid, 1)) //nombre de chiffres du dividende
         let m = Math.log10(ordreDeGrandeur(divis, 1))  //nombre de chiffre du diviseur
         let upos=m
+
         for (let i = 0; i < n; i++) { //on écrit le dividende
             objets.push(texteParPosition(dividende[i], i, 11, 'milieu', 'black', 1.2, 'middle', true))
         }
         for (let i = 0; i < m; i++) { //on écrit le diviseur
             objets.push(texteParPosition(diviseur[i], i + n + 0.5, 11, 'milieu', 'black', 1.2, 'middle', true))
         }
-
-
+        if (dec1+dec2!=0) {
+            objets.push(texteParPosition(',',  n-dec1-dec2-1 + 0.5, 11, 'milieu', 'black', 1.2, 'middle', true))
+        }
         objets.push(segment(n, 11.5, n, 11.5 - n * 2)) //on trace le trait vertical
         objets.push(segment(n, 10.5, n + m, 10.5)) //on trace le trait horizontal
 
@@ -69,97 +84,23 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
         divd.push(dividende.substr(0, m))
         if (parseInt(divd[0]) < divis) {
             divd[0] += dividende.substr(m, 1)
+            upos++
         }
-        while (upos < n) {
+        while (upos <= n) {
             Q.push(Number(Math.floor(parseInt(divd[i]) / divis)).toString())
             R.push(Number(parseInt(divd[i]) % divis).toString())
-            P.push(Number(parseInt(Q[i]) * divis).toString())
-            if (Q[i] == '0') {
+            P.push("")
+           if (Q[i] == '0') {
                 for (let z = 0; z < m; z++) {
                     P[i] += '0'
                 }
-            }
-            ecriresoustraction(upos, P[i])
-            if (upos < n-1) {
-                R[i] += dividende.substr(upos+1, 1)
-                ecrirereste(upos+1,R[i])                
             }
             else {
-                ecrirereste(upos,R[i])   
-            }
-            divd.push(R[i])
-            upos++
-            ecrirequotient(Q[i])
-            i++
-        }
-        let code = mathalea2d({ xmin: -1.5, ymin: 10 - 2 * n, xmax: n + m + 5, ymax: 11.5, pixelsParCm: 20, scale: 0.8 }, objets)
-        return code
-    }
-    let DivisionPosee3d = function (divid, divis,precision=0) {
-        let objets = []
-        let dec1 = nombreDeChiffresApresLaVirgule(divid)
-        let dec2 = nombreDeChiffresApresLaVirgule(divis)
-        let decalage = Math.max(dec1, dec2)
-        dec1=decalage+precision
-        dec2=decalage
-        divid = calcul(divid * 10 ** (decalage+precision))
-        divis = calcul(divis * 10 ** decalage)
-
-        let ecriresoustraction = function (upos, P) {
-            objets.push(texteParPosition('-',upos-P.length+0.5, 10 - i * 2, 'milieu', 'black', 1.2, 'middle', true))
-            for (let k = 0; k<P.length; k++) {
-                objets.push(texteParPosition(P[P.length-k-1],upos-k, 10 - i * 2, 'milieu', 'black', 1.2, 'middle', true))
-            }
-        }
-        let ecrirereste = function (upos, R) {
-            objets.push(segment(i - 1, 9.6 - i * 2, i + R.length, 9.6 - i * 2))
-            for (let k = 0; k < R.length; k++) {
-                objets.push(texteParPosition(R[R.length-k-1], upos-k, 9 - i * 2, 'milieu', 'black', 1.2, 'middle', true))
-            }
-        }
-        let ecrirequotient = function (Q) {
-            objets.push(texteParPosition(Q, n + 0.5 + i, 10, 'milieu', 'black', 1.2, 'middle', true))
-        }
-
-        let divd = [], Q = [], R = [], P = []
-        let dividende = Number(divid).toString()
-        let diviseur = Number(divis).toString()
-        let n = Math.log10(ordreDeGrandeur(divid, 1)) //nombre de chiffres du dividende
-        let m = Math.log10(ordreDeGrandeur(divis, 1))  //nombre de chiffre du diviseur
-        let upos=m
-        for (let i = 0; i < n; i++) { //on écrit le dividende
-            objets.push(texteParPosition(dividende[i], i, 11, 'milieu', 'black', 1.2, 'middle', true))
-        }
-        for (let i = 0; i < m; i++) { //on écrit le diviseur
-            objets.push(texteParPosition(diviseur[i], i + n + 0.5, 11, 'milieu', 'black', 1.2, 'middle', true))
-        }
-        if (dec1!=0) {
-            objets.push(texteParPosition(',',  n-dec1-1 + 0.5, 11, 'milieu', 'black', 1.2, 'middle', true))
-        }
-        if (dec2!=0) {
-            objets.push(texteParPosition(',',  n+m -dec2-1 + 0.5, 11, 'milieu', 'black', 1.2, 'middle', true))
-        }
-
-        objets.push(segment(n, 11.5, n, 11.5 - n * 2)) //on trace le trait vertical
-        objets.push(segment(n, 10.5, n + m, 10.5)) //on trace le trait horizontal
-
-        let i = 0
-        divd.push(dividende.substr(0, m))
-        if (parseInt(divd[0]) < divis) {
-            divd[0] += dividende.substr(m, 1)
-        }
-        while (upos < n) {
-            Q.push(Number(Math.floor(parseInt(divd[i]) / divis)).toString())
-            R.push(Number(parseInt(divd[i]) % divis).toString())
-            P.push(Number(parseInt(Q[i]) * divis).toString())
-            if (Q[i] == '0') {
-                for (let z = 0; z < m; z++) {
-                    P[i] += '0'
-                }
+                P[i]+=Number(parseInt(Q[i]) * divis).toString()
             }
             ecriresoustraction(upos, P[i])
-            if (upos < n-1) {
-                R[i] += dividende.substr(upos+1, 1)
+            if (upos <n) {
+                R[i] += dividende.substr(upos, 1)
                 ecrirereste(upos+1,R[i])                
             }
             else {
@@ -171,7 +112,7 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
             i++
         }
         if (precision>0) {
-                objets.push(texteParPosition(',', n+upos-precision -1, 10, 'milieu', 'black', 1.2, 'middle', true))
+                objets.push(texteParPosition(',', n+i-dec2-dec1, 10, 'milieu', 'black', 1.2, 'middle', true))
         }
         let code = mathalea2d({ xmin: -1.5, ymin: 10 - 2 * n, xmax: n + m + 5, ymax: 11.5, pixelsParCm: 20, scale: 0.8 }, objets)
         return code
