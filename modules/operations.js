@@ -105,17 +105,17 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
             else {
                 ecrirereste(upos,R[i])   
             }
-            for (let r=0;r<i;r++){
-                if (R[i]==R[r]) periode=i-r
-            }
+          //  for (let r=0;r<i;r++){
+          //      if (R[i]==R[r]) periode=i-r
+          //  }
             divd.push(R[i])
             upos++
            
-            if (periode!=0) {
-                ecrirequotient(i,'...')
-                break
-            }
-            else 
+          //  if (periode!=0) {
+          //      ecrirequotient(i,'...')
+          //      break
+          //  }
+          //  else 
                 ecrirequotient(i,Q[i])
             i++
         }

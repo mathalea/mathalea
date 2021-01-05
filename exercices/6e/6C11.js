@@ -97,7 +97,7 @@ export default function Divisions_euclidiennes() {
   this.besoin_formulaire_numerique = [
     "Niveau de difficulté",
     2,
-    "1 : Quotient inférieur à 10\n2: Quotient à 2 chiffres",
+    "1 : Diviseur inférieur à 10\n2: Diviseur à 2 chiffres",
   ];
 }
 
