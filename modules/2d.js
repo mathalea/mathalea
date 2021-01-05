@@ -4535,6 +4535,38 @@ export function codeAngle(debut,centre,angle,taille=0.8,mark='',color='black',ep
   }
   else  return new CodeAngle(debut,centre,angle,taille,mark,color,epaisseur,opacite,fill,fillOpacite,mesure_on)
 }
+
+function NomAngleParPosition(nom,x,y,color,s){
+  ObjetMathalea2D.call(this)
+  let objets=[],s1,s2
+  objets.push(texteParPosition(nom,x,y,'milieu',color,1,'middle',true))
+    s1=segment(x-0.6,y+0.4-s/10,x+0.1,y+0.4+s/10)
+    s2=segment(x+0.1,y+0.4+s/10,x+0.8,y+0.4-s/10)
+  s1.color=color
+  s2.color=color
+  objets.push(s1,s2)
+  this.svg = function (coeff) {
+    let code = "";
+     for (let objet of objets) {
+       code += "\n\t" + objet.svg(coeff);
+     }
+     return code;
+   };
+   this.tikz = function () {
+     let code = "";
+     for (let objet of objets) {
+       code += "\n\t" + objet.tikz();
+     }
+     return code;
+   };
+}
+export function nomAngleSaillantParPosition(nom,x,y,color) {
+  return new NomAngleParPosition(nom,x,y,color,1)
+}
+export function nomAngleRentrantParPosition(nom,x,y,color) {
+  return new NomAngleParPosition(nom,x,y,color,-1)
+}
+
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%% LES REPERES ET GRILLE %%%%%%%%%%
