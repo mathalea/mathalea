@@ -1863,8 +1863,8 @@ export function tex_nombre2(nb){
 export function tex_nombrec2(expr,precision=8){
 	return math.format(math.evaluate(expr),{notation:'auto',lowerExp:-12,upperExp:12,precision:precision})
 }
-export function nombredouble(nb){
-	return math.format(nb,{notation:'auto',lowerExp:-12,upperExp:12,precision:12})
+export function nombrec2(nb){
+	return math.evaluate(nb)
 }
 
 /**
