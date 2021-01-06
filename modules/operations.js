@@ -1,4 +1,4 @@
-import { ordreDeGrandeur, calcul,arrondi,nombredouble } from "/modules/outils.js"
+import { ordreDeGrandeur, calcul,arrondi,nombrec2 } from "/modules/outils.js"
 import { mathalea2d, texteParPosition, segment } from "/modules/2d.js"
 
 /**
@@ -37,8 +37,8 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
         let dec1=nombreDeChiffresApresLaVirgule(divid)
         if (divid<divis) 
             zeroutile=true
-        divis = nombredouble(divis * 10 ** decalage)
-        divid = nombredouble(divid * 10 ** (decalage+dec1))
+        divis = nombrec2(`${divis}*10^${decalage}`)
+        divid = nombrec2(`${divid}*10^${decalage+dec1}`)
         let dec2=nombreDeChiffresApresLaVirgule(divid)
         dec2=precision-dec2-dec1
         divid=math.format(divid*10**dec2,{notation:'auto',lowerExp:-12,upperExp:12,precision:12})
@@ -135,11 +135,13 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
         let dec1 = nombreDeChiffresApresLaVirgule(operande1)
         let dec2 = nombreDeChiffresApresLaVirgule(operande2)
         let decalage = Math.max(dec1, dec2)
-        operande1 = nombredouble(operande1 * 10 ** decalage)
-        operande2 = nombredouble(operande2 * 10 ** decalage)
+        operande1 = nombrec2(`${operande1}*10^${decalage}`)
+        operande2 = nombrec2(`${operande2}*10^${decalage}`)
+        console.log (operande1,operande2)
         let code = "", objets = []
         let sop1 = Number(operande1).toString()
         let sop2 = Number(operande2).toString()
+
         let sresultat, resultat, lresultat
         let lop1 = sop1.length
         let lop2 = sop2.length
@@ -155,6 +157,7 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
                 sop1 = ` ` + sop1
             }
         }
+        console.log(sop1,sop2)
         // les deux operande ont le même nomre de chiffres
         for (let i = longueuroperandes - 1; i > 0; i--) { // on construit la chaine des retenues.
             if (parseInt(sop1[i]) + parseInt(sop2[i]) > 9) {
@@ -168,6 +171,7 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
         sop1 = ` ${sop1}`
         sop2 = `+${sop2}`
         resultat = operande1 + operande2
+        console.log(resultat)
         sresultat = Number(resultat).toString()
         lresultat = sresultat.length
         for (let i = 0; i < longueuroperandes + 1 - lresultat; i++) {
@@ -193,8 +197,8 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
         let dec1 = nombreDeChiffresApresLaVirgule(operande1)
         let dec2 = nombreDeChiffresApresLaVirgule(operande2)
         let decalage = Math.max(dec1, dec2)
-        operande1 = nombredouble(operande1 * 10 ** decalage)
-        operande2 = nombredouble(operande2 * 10 ** decalage)
+        operande1 = nombrec2(`${operande1}*10^${decalage}`)
+        operande2 = nombrec2(`${operande2}*10^${decalage}`)
         let code = "", sop1, sop2, objets = []
         if (operande1 < operande2) {
             sop2 = Number(operande1).toString()
@@ -260,8 +264,8 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
         }
         dec1 = nombreDeChiffresApresLaVirgule(operande1)
         dec2 = nombreDeChiffresApresLaVirgule(operande2)
-        operande1 = nombredouble(operande1 * 10 ** dec1)
-        operande2 = nombredouble(operande2 * 10 ** dec2)
+        operande1 = nombrec2(`${operande1}*10^${dec1}`)
+        operande2 = nombrec2(`${operande2}*10^${dec2}`)
         sop1 = Number(operande1).toString()
         sop2 = Number(operande2).toString()
         let sresultat, resultat, lresultat
@@ -303,7 +307,7 @@ export default function Operation({ operande1 = 1, operande2 = 2, type = 'additi
                 retenues[i] = `0${retenues[i]}`
             }
         }
-        resultat = nombredouble(operande1 * operande2)
+        resultat = nombrec2(`${operande1}*${operande2}`)
         sresultat = Number(resultat).toString()
         lresultat = sresultat.length
         for (let i = 0; i < lop2; i++) {
