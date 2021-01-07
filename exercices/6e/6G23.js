@@ -66,13 +66,15 @@ export default function Construire_un_angle() {
       texte_corr=``
       cible=cibleCouronne({x:0,y:0,taille:3})
       xMin=Math.min(A.x-4,C.x)
-      xMax=Math.max(B.x,C.x)+1
-      yMin=Math.min(A.y-4,C.y)-1
-      yMax=Math.max(A.y+4,C.y)+1
+      xMax=Math.max(B.x,C.x)+0.5
+      yMin=Math.min(A.y-4,C.y)-0.5
+      yMax=Math.max(A.y+4,C.y)+0.5
         mathalea.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
       objets_enonce=[s,labels,cible,Apos,Bpos,fleche]
       objets_correction=[s,labels2,secteur,cible,s2,Apos,Bpos,Cpos,fleche]
-      texte+=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.85 }, objets_enonce)
+      texte+=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.8 }, objets_enonce)
+      if ((!sortie_html)&&((i+1)%2==0&&!(i+1)%4==0)) texte+="\\columnbreak "
+      if ((!sortie_html)&&((i+1)%4==0)) texte+="\\newpage "
       texte_corr=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_correction)
       this.liste_questions.push(texte)
       this.liste_corrections.push(texte_corr)
