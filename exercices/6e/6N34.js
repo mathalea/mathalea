@@ -1,4 +1,4 @@
-import Exercice_conversions from './_Exerciceconversions.js'
+import Exercice_conversions from './_Exercice_conversions.js'
 /**
  * @Auteur Rémi Angot
  * référence 6N34
