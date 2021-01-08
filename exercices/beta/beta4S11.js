@@ -26,7 +26,7 @@ export default function Calculer_des_frequences() {
 			if (this.sup == 1) { // ici on lance des dés
 				nombre_des = randint(1, 2);
 				nombre_faces = choice([4, 6, 8, 10]);
-				nombre_tirages = choice([50, 100, 200, 500, 1000]);
+				nombre_tirages = choice([50, 99, 100, 199, 200, 299, 500, 999, 1000, 1999, 2000]);
 				tirages = tirer_les_des(nombre_tirages, nombre_faces, nombre_des); // on récupère une série rangée dans l'ordre croissant avec les effectifs correspondants
 				do
 					index_valeur = randint(0, tirages.length - 1);
@@ -78,13 +78,43 @@ export default function Calculer_des_frequences() {
 				texte_corr = `On a réalisé $${nombre_tirages}$ lancers en tout.<br>`;
 				if (nombre_tirages%2 == 0) {
 					texte_corr += `Le nombre de lancers est pair, une médiane est donc un score compris entre le $${nombre_tirages/2}^{ieme}$ et le $${nombre_tirages/2+1}^{ieme}$ score.<br>`;
-					texte_corr += tirages;
-					if (tirages[nombre_tirages/2]==tirages[nombre_tirages/2+1]) {
-						texte_corr += `Score médian : $${tirages[nombre_tirages/2]}$`
-					} else {
-						texte_corr += `à affiner >> score médian : $${(tirages[nombre_tirages/2]+tirages[nombre_tirages/2+1])/2}$`
-					}
+					// on récupère le score des deux lancers médians
+					let scoresMedians = []
+					// compteur
+					let cpt = 0;
+					// Pour cumuler les effectifs, tirages est un tableau 2D qui contient les couples [score,effectif]
+					let effCumulCroiss = tirages[0][1];
+					// On récupère le premier score médian
+					while (effCumulCroiss <= nombre_tirages/2) {
+						cpt+=1;
+						effCumulCroiss += tirages[cpt][1];						
+					};
+					scoresMedians.push(tirages[cpt][0]);
 					
+					// On récupère le second score médian
+					cpt = 0;
+					effCumulCroiss = tirages[0][1];
+					while (effCumulCroiss <= nombre_tirages/2+1) {
+						cpt+=1;
+						effCumulCroiss += tirages[cpt][1];						
+					};
+					scoresMedians.push(tirages[cpt][0]);
+					texte_corr += `Score médian : ${tex_nombre((scoresMedians[0]+scoresMedians[1])/2)}`;					
+				} else { // Le nombre de lancers n'est jamais impair ici 
+					texte_corr += `Le nombre de lancers est impair, une médiane est donc le $${(nombre_tirages-1)/2+1}^{ieme}$ score.<br>`;
+					// on récupère le score des deux lancers médians
+					let scoresMedians = []
+					// compteur
+					let cpt = 0;
+					// Pour cumuler les effectifs, tirages est un tableau 2D qui contient les couples [score,effectif]
+					let effCumulCroiss = tirages[0][1];
+					// On récupère le premier score médian
+					while (effCumulCroiss <= nombre_tirages/2) {
+						cpt+=1;
+						effCumulCroiss += tirages[cpt][1];						
+					};
+					scoresMedians.push(tirages[cpt][0]);
+					texte_corr += `Score médian : ${tex_nombre(scoresMedians[0])}`;					
 				}
 			}
 			else if (this.sup == 2) { // ici on trie des notes
