@@ -22,7 +22,7 @@ export default function Calculer_des_frequences() {
 		this.liste_questions = []; // Liste de questions
 		this.liste_corrections = []; // Liste de questions corrigées
 
-		for (let i = 0, nombre_des, nombre_faces, nombre_tirages, index_valeur, frequence, tirages, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
+		for (let i = 0, temperatures, nombre_temperatures, nombre_notes, notes, nombre_des, nombre_faces, nombre_tirages, index_valeur, frequence, tirages, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
 			if (this.sup == 1) { // ici on lance des dés
 				nombre_des = randint(1, 2);
 				nombre_faces = choice([4, 6, 8, 10]);
@@ -84,7 +84,7 @@ export default function Calculer_des_frequences() {
 				notes = liste_de_notes(nombre_notes, randint(0, 7), randint(13, 20)); // on récupère une liste de notes (série brute)
 				index_valeur = randint(0, notes.length - 1); // on choisi une des notes au hasard
 				frequence = 0;
-				for (j = 0; j < notes.length; j++) { // frequence va contenir l'effectif de la note choisie
+				for (let j = 0; j < notes.length; j++) { // frequence va contenir l'effectif de la note choisie
 					if (notes[j] == notes[index_valeur])
 						frequence++;
 				}
@@ -115,7 +115,7 @@ export default function Calculer_des_frequences() {
 				temperatures = un_mois_de_temperature(temperatures_de_base[mois - 1], mois, annee); // on récupère une série de température correspondant à 1 mois d'une année (série brute)
 				index_valeur = randint(0, temperatures.length - 1); // on choisi l'index d'une valeur au hasard
 				frequence = 0;
-				for (j = 0; j < temperatures.length; j++) {
+				for (let j = 0; j < temperatures.length; j++) {
 					if (temperatures[j] == temperatures[index_valeur])
 						frequence++; // frequence contient l'effectif de cette valeur
 				}
@@ -129,7 +129,7 @@ export default function Calculer_des_frequences() {
 				for (let j = 0; j < Math.round(temperatures.length / 2); j++)
 					texte += '&' + tex_nombre(j + 1);
 				texte += '\\\\\\hline \\text{Température\\thickspace en} \\thickspace ^\\circ\\text{C}';
-				for (j = 0; j < Math.round(temperatures.length / 2); j++)
+				for (let j = 0; j < Math.round(temperatures.length / 2); j++)
 					texte += '&' + temperatures[j];
 				texte += '\\\\\\hline\\end{array}$<br><br>';
 				texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c'; // On construit le tableau des températures
@@ -140,7 +140,7 @@ export default function Calculer_des_frequences() {
 				for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++)
 					texte += '&' + tex_nombre(j + 1);
 				texte += '\\\\\\hline \\text{Température\\thickspace en} \\thickspace ^\\circ\\text{C}';
-				for (j = Math.round(temperatures.length / 2); j < temperatures.length; j++)
+				for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++)
 					texte += '&' + temperatures[j];
 				texte += '\\\\\\hline\\end{array}$';
 
