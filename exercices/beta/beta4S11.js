@@ -3,13 +3,13 @@ import {liste_de_question_to_contenu,randint,choice,arrondi,arrondi_virgule,calc
 
 
 /**
- * Calculs de fréquences dans des séries statistiques
-* @auteur Jean-Claude Lhote
-* Référence 5S13
+ * Calculs de médianes dans des séries statistiques
+* @auteur Sébastien Lozano forked de Jean-Claude Lhote
+* Référence 4S11
 */
 export default function Calculer_des_frequences() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Calculer des fréquences";
+	this.titre = "Calculer des médianes";
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.spacing = 1;
@@ -26,7 +26,7 @@ export default function Calculer_des_frequences() {
 			if (this.sup == 1) { // ici on lance des dés
 				nombre_des = randint(1, 2);
 				nombre_faces = choice([4, 6, 8, 10]);
-				nombre_tirages = choice([50, 100, 200, 500, 1000]);
+				nombre_tirages = choice([50, 99, 100, 199, 200, 299, 500, 999, 1000, 1999, 2000]);
 				tirages = tirer_les_des(nombre_tirages, nombre_faces, nombre_des); // on récupère une série rangée dans l'ordre croissant avec les effectifs correspondants
 				do
 					index_valeur = randint(0, tirages.length - 1);
@@ -74,10 +74,48 @@ export default function Calculer_des_frequences() {
 					texte += '\\\\\\hline\\end{array}$';
 				}
 
-				texte += '<br><br> Calculer la fréquence de la valeur ' + `$${calcul(nombre_des + index_valeur)}$.`;
-				texte_corr = 'La valeur ' + `$${calcul(nombre_des + index_valeur)}$ apparaît ` + `$${tirages[index_valeur][1]}$ fois.<br>Le nombre total de lancers est $${tex_nombre(nombre_tirages)}$.<br>`;
-				texte_corr += 'La fréquence de la valeur ' + `$${calcul(nombre_des + index_valeur)}$` + ' est ' + `$${tex_fraction(tirages[index_valeur][1], tex_nombre(nombre_tirages))}=${tex_nombre(calcul(tirages[index_valeur][1] / nombre_tirages))}$<br>`;
-				texte_corr += 'Soit ' + `$${tex_nombre(calcul(tirages[index_valeur][1] * 100 / nombre_tirages))}\\thickspace\\%$.`;
+				texte += `<br><br> Calculer une médiane de cette série.`;
+				texte_corr = `On a réalisé $${nombre_tirages}$ lancers en tout.<br>`;
+				if (nombre_tirages%2 == 0) {
+					texte_corr += `Le nombre de lancers est pair, une médiane est donc un score compris entre le $${nombre_tirages/2}^{ieme}$ et le $${nombre_tirages/2+1}^{ieme}$ score.<br>`;
+					// on récupère le score des deux lancers médians
+					let scoresMedians = []
+					// compteur
+					let cpt = 0;
+					// Pour cumuler les effectifs, tirages est un tableau 2D qui contient les couples [score,effectif]
+					let effCumulCroiss = tirages[0][1];
+					// On récupère le premier score médian
+					while (effCumulCroiss <= nombre_tirages/2) {
+						cpt+=1;
+						effCumulCroiss += tirages[cpt][1];						
+					};
+					scoresMedians.push(tirages[cpt][0]);
+					
+					// On récupère le second score médian
+					cpt = 0;
+					effCumulCroiss = tirages[0][1];
+					while (effCumulCroiss <= nombre_tirages/2+1) {
+						cpt+=1;
+						effCumulCroiss += tirages[cpt][1];						
+					};
+					scoresMedians.push(tirages[cpt][0]);
+					texte_corr += `Score médian : ${tex_nombre((scoresMedians[0]+scoresMedians[1])/2)}`;					
+				} else { // Le nombre de lancers n'est jamais impair ici 
+					texte_corr += `Le nombre de lancers est impair, une médiane est donc le $${(nombre_tirages-1)/2+1}^{ieme}$ score.<br>`;
+					// on récupère le score des deux lancers médians
+					let scoresMedians = []
+					// compteur
+					let cpt = 0;
+					// Pour cumuler les effectifs, tirages est un tableau 2D qui contient les couples [score,effectif]
+					let effCumulCroiss = tirages[0][1];
+					// On récupère le premier score médian
+					while (effCumulCroiss <= nombre_tirages/2) {
+						cpt+=1;
+						effCumulCroiss += tirages[cpt][1];						
+					};
+					scoresMedians.push(tirages[cpt][0]);
+					texte_corr += `Score médian : ${tex_nombre(scoresMedians[0])}`;					
+				}
 			}
 			else if (this.sup == 2) { // ici on trie des notes
 				nombre_notes = choice([8, 10, 12]);
@@ -94,18 +132,8 @@ export default function Calculer_des_frequences() {
 					texte += `; $${notes[j]}$ `; // On liste les notes (série brute)
 				texte += `et $${notes[nombre_notes - 1]}$.`;
 
-				texte += `<br><br>Calculer la fréquence de la note $${notes[index_valeur]}$.`;
-				texte_corr = `La note $${notes[index_valeur]}$ a été obtenue $${frequence}$ fois.<br> Il y a $${nombre_notes}$ notes<br>`;
-				texte_corr += `Donc la fréquence de la note $${notes[index_valeur]}$ est : ` + `$${tex_fraction(tex_nombre(frequence), tex_nombre(nombre_notes))}$`;
-				if (arrondi(frequence / nombre_notes, 3) == frequence / nombre_notes) { // valeurs exactes
-					texte_corr += `$=${arrondi_virgule(frequence / nombre_notes, 3)}$<br>`; // fréquence à 3 chiffres significatifs
-					texte_corr += 'Soit ' + `$${tex_nombre(calcul(frequence * 100 / nombre_notes))}\\thickspace\\%$.`; // fréquence en pourcentage avec 1 décimale
-				}
-				else {
-					texte_corr += `$\\approx${arrondi_virgule(frequence / nombre_notes, 3)}$`; // valeurs arrondies
-					texte_corr += 'Soit environ ' + `$${arrondi_virgule(calcul(frequence * 100 / nombre_notes), 1)}\\thickspace\\%$.`;
-				}
-
+				texte += `<br><br>Calculer une médiane de cette série.`;
+				texte_corr = `Correction.<br>`;
 			}
 			else { // ici on relève des températures
 				let mois = randint(1, 12);
@@ -145,19 +173,8 @@ export default function Calculer_des_frequences() {
 				texte += '\\\\\\hline\\end{array}$';
 
 
-				texte += '<br><br>Calculer la fréquence de la température ' + `$${temperatures[index_valeur]}^\\circ\\text{C}$.`;
-				texte_corr = `En ${nom_du_mois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, la température $${temperatures[index_valeur]}^\\circ\\text{C}$ a été relevée $${frequence}$ fois.<br>`;
-				texte_corr += `Il y a $${jours_par_mois(mois)}$ jours ce mois-ci.<br> La fréquence de la température $${temperatures[index_valeur]}^\\circ\\text{C}$ est :<br>`;
-				texte_corr += `$${tex_fraction(tex_nombre(frequence), tex_nombre(jours_par_mois(mois)))}$`;
-				if (arrondi(frequence / nombre_temperatures, 3) == frequence / nombre_temperatures) { // valeurs exactes
-					texte_corr += `$=${arrondi_virgule(frequence / nombre_temperatures, 3)}$<br>`;
-					texte_corr += 'Soit ' + `$${tex_nombre(calcul(frequence * 100 / nombre_temperatures))}\\thickspace\\%$.`;
-
-				}
-				else {
-					texte_corr += `$\\approx${arrondi_virgule(frequence / nombre_temperatures, 3)}$<br>`; // valeurs arrondies
-					texte_corr += 'Soit environ ' + `$${arrondi_virgule(calcul(frequence * 100 / nombre_temperatures), 1)}\\thickspace\\%$.`;
-				}
+				texte += `<br><br>Calculer une médiane de cette série.`;
+				texte_corr = `Correction.<br>`;
 			}
 			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
