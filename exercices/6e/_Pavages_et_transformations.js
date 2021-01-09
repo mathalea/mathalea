@@ -217,7 +217,7 @@ export default function Pavages_et_transformations() {
 					for (let j = 0; j < nx * ny; j++) {
 						if (point[0] == tabfigC[j][0] && point[1] == tabfigC[j][1]) {
 							trouver = true;
-							num2 = tabfigC[j][2];
+							num2 = tabfigA[j][2];
 							xb = tabfigA[indexD][0];
 							yb = tabfigA[indexD][1];
 							break;
