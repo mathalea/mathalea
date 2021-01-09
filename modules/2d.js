@@ -2209,6 +2209,132 @@ export function cercle(...args) {
   return new Cercle(...args);
 }
 
+
+/**
+ * c = ellipse(O,rx,ry) //Ellipse de centre O et de rayon rx et ry
+ * @Auteur Rémi Angot
+ */
+function Ellipse(O, rx, ry, color) {
+  ObjetMathalea2D.call(this);
+  if (color) {
+    this.color = color;
+    this.styleTikz = `[${color}]`;
+  }
+  this.centre = O;
+  this.rx = rx;
+  this.ry = ry;
+  this.couleurDeRemplissage = "";
+  this.opaciteDeRemplissage = 0.7;
+  this.svg = function (coeff) {
+    if (this.epaisseur != 1) {
+      this.style += ` stroke-width="${this.epaisseur}" `;
+    }
+    if (Boolean(this.pointilles)) {
+      switch (this.pointilles) {
+        case 1 :
+          this.style += ` stroke-dasharray="6 10" `;
+          break;
+        case 2 : 
+        this.style += ` stroke-dasharray="6 3" `;
+        break;       
+        case 3 :
+          this.style += ` stroke-dasharray="3 2 6 2 " `;
+          break;      
+        default : 
+        this.style += ` stroke-dasharray="5 5" `;
+        break; 
+      }
+
+    }
+    if (this.opacite != 1) {
+      this.style += ` stroke-opacity="${this.opacite}" `;
+    }
+    if (this.couleurDeRemplissage == "") {
+      this.style += ` fill="none" `;
+    } else {
+      this.style += ` fill="${this.couleurDeRemplissage}" `;
+      this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `;
+    }
+
+    return `<ellipse cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" rx="${calcul(rx*coeff)}" ry="${calcul(ry*coeff)}" stroke="${this.color}" ${this.style} id="${this.id}" />`
+  };
+  this.tikz = function () {
+    let optionsDraw = [];
+    let tableauOptions = [];
+    if (this.color.length > 1 && this.color !== "black") {
+      tableauOptions.push(this.color);
+    }
+    if (this.epaisseur != 1) {
+      tableauOptions.push(`line width = ${this.epaisseur}`);
+    }
+    if (Boolean(this.pointilles)) {
+      switch (this.pointilles) {
+         case 1 :
+           tableauOptions.push(` dash dot `);
+           break;
+         case 2 : 
+         tableauOptions.push(` dash dash dot `);
+         break;       
+         case 3 :
+           tableauOptions.push(` dash dot dot `);
+           break;      
+         default : 
+           tableauOptions.push(` dashed `);
+         break; 
+       }
+     }
+     if (this.opacite != 1) {
+      tableauOptions.push(`opacity = ${this.opacite}`);
+    }
+    if (tableauOptions.length > 0) {
+      optionsDraw = "[" + tableauOptions.join(",") + "]";
+    }
+    return `\\draw${optionsDraw} (${O.x},${O.y}) ellipse (${rx}cm and ${ry}cm);;`;
+  };
+  // this.svgml = function (coeff,amp) {
+  //   if (this.epaisseur != 1) {
+  //     this.style += ` stroke-width="${this.epaisseur}" `;
+  //   }
+
+  //   if (this.opacite != 1) {
+  //     this.style += ` stroke-opacity="${this.opacite}" `;
+  //   }
+  //   if (this.couleurDeRemplissage == "") {
+  //     this.style += ` fill="none" `;
+  //   } else {
+  //     this.style += ` fill="${this.couleurDeRemplissage}" `;
+  //     this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `;
+  //   }
+
+  //   let code =`<ellipse cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" rx="${calcul(rx*coeff)}" ry="${calcul(ry*coeff)}" />`
+  //   return code;
+  // }
+  this.tikzml = function(amp) {
+    let optionsDraw = [];
+    let tableauOptions = [];
+    if (this.color.length > 1 && this.color !== "black") {
+      tableauOptions.push(this.color);
+    }
+    if (this.epaisseur != 1) {
+      tableauOptions.push(`line width = ${this.epaisseur}`);
+    }
+
+    if (this.opacite != 1) {
+      tableauOptions.push(`opacity = ${this.opacite}`);
+    }
+    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`);
+    optionsDraw = "[" + tableauOptions.join(",") + "]";
+
+
+    let code=`\\draw${optionsDraw} (${O.x},${O.y}) circle (${r});`
+    return code
+  
+  }
+}
+export function ellipse(...args) {
+  return new Ellipse(...args);
+}
+
 /**
  * I = pointItersectionLC(d,c,'I',1) // I est le premier point d'intersection si il existe de la droite (d) et du cercle (c)
  * @param {Droite} d la droite qui intecepte (ou pas le cercle)
