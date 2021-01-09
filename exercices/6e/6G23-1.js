@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,lettre_depuis_chiffre} from "/modules/outils.js"
-import {point,labelPoint,rotation,mathalea2d,afficheMesureAngle,homothetie,demiDroite,texteParPoint,similitude} from "/modules/2d.js"
+import {point,labelPoint,rotation,mathalea2d,afficheMesureAngle,homothetie,demiDroite,texteParPoint,similitude,bissectrice,pointSurSegment} from "/modules/2d.js"
 
 /**
  * Construire un angle
@@ -22,7 +22,7 @@ export default function Mesurer_un_angle() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
 
-      let angle,anglerot,Apos,Bpos,Cpos,p,texte,texte_corr,A,B,C,s2,s1,signes=[]
+      let angle,anglerot,Apos,Bpos,Cpos,p,texte,texte_corr,A,B,C,s2,s1,bis,signes=[]
       let labels,secteur,xMin,xMax,yMin,yMax,objets_enonce,objets_correction
 
       for (let i=0;i<this.nb_questions;i++){
@@ -43,16 +43,17 @@ export default function Mesurer_un_angle() {
       A = point(0, 0);
       B = point(6, 0);
       B=rotation(B,A,anglerot)
-      Apos=texteParPoint(p[1],similitude(B,A,-90,0.1),'milieu')
+
       Bpos=texteParPoint(p[0],similitude(A,homothetie(B,A,0.95),signes[i]*90,0.1),'milieu')
       s1 = demiDroite (A, B);
       C = rotation(B,A,angle);
+      bis=rotation(B,A,angle/2)
+      Apos=texteParPoint(p[1],pointSurSegment(A,bis,-0.5),'milieu')
       Cpos=texteParPoint(p[2],similitude(A,homothetie(C,A,0.95),-signes[i]*90,0.1),'milieu')
       s2 = demiDroite(A, C);
       labels=labelPoint(A,B,C)
       secteur=afficheMesureAngle(B,A,C)
       texte_corr=``
-      console.log(Apos.x)
       xMin=Math.min(A.x,C.x,B.x)-1
       xMax=Math.max(A.x,C.x,B.x)+1
       yMin=Math.min(A.y,C.y,B.y)-1
