@@ -1207,6 +1207,71 @@ export function polyline(...args) {
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% 3D EN PERSPECTIVE CAVALIERES %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+*/
+
+/**
+ * 
+ * @param {int} Longueur 
+ * @param {int} largeur 
+ * @param {int} profondeur
+ *  
+ */
+function Pave(L=10, l=5, h=5, origine=point(0,0), cote=true, angleDeFuite=30, coefficientDeFuite=.5){
+  let objets = [];
+  let A = origine, B = point(A.x+L,A.y), C = point(B.x,B.y+l) , D = point(A.x,A.y+l);
+  let p = polygone(A,B,C,D);
+  let E = pointAdistance(A,calcul(h*coefficientDeFuite),angleDeFuite);
+  let F = translation(B,vecteur(A,E));
+  let G = translation(C,vecteur(A,E));
+  let H = translation(D,vecteur(A,E));
+  let sAE = segment(A,E);
+  let sBF = segment(B,F);
+  let sCG = segment(C,G);
+  let sDH = segment(D,H);
+  let sEF = segment(E,F);
+  let sFG = segment(F,G);
+  let sGH = segment(G,H);
+  let sHE = segment(H,E);
+  sAE.pointilles = true;
+  sEF.pointilles = true;
+  sHE.pointilles = true;
+
+  objets.push(p, sAE, sBF, sCG, sDH, sEF, sFG, sGH, sHE);
+  if (cote) {
+    objets.push(afficheCoteSegment(segment(B,A),'',1));
+    objets.push(afficheCoteSegment(segment(A,D),'',1));
+    objets.push(afficheCoteSegment(segment(F,B),h+' cm',1));
+  }
+  this.svg = function (coeff) {
+    let code = "";
+    for (let objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    let code = "";
+    for (let objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+}
+
+export function point3d(x,y,z) {
+  let MT = math.matrix([[math.sqrt(2)/2,-math.sqrt(2)/2,0], [-1/math.sqrt(6), -1/math.sqrt(6), math.sqrt(2/3)]])
+  return point(math.multiply(MT,[x,y,z])._data[0],math.multiply(MT,[x,y,z])._data[1])
+}
+
+export function pave(...args){
+  return new Pave(...args)
+}
+
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%% LES VECTEURS %%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
