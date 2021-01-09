@@ -341,7 +341,52 @@ export default function Calculer_des_frequences() {
 
 
 				texte += `<br><br>Calculer une médiane de cette série.`;
+				//texte += temperatures;
+				//texte += temperatures.length;
 				texte_corr = `Correction.<br>`;
+				let temperatures_rangees = temperatures.sort((a, b) => a - b);
+				let mediane;
+				if (temperatures.length%2==0) {// attention les indices commencent à 0 !
+					mediane = (temperatures_rangees[temperatures.length/2-1]+temperatures_rangees[temperatures.length/2])/2;
+					//console.log('parité');
+				} else {
+					mediane = temperatures_rangees[(temperatures.length-1)/2];
+					//console.log('imparité');
+				};
+				texte_corr = `Il y a $${temperatures.length}$ températures relevées en tout. `;				
+				if (temperatures.length%2==0) {
+					texte_corr += `Le nombre de temperatures est pair.<br>`;					
+				} else {
+					texte_corr += `Le nombre de temperatures est impair.<br>`;					
+				};
+				texte_corr += `Il faut par exemple ranger les temperatures dans l'ordre croissant : <br> $${temperatures[0]}$`;
+				for (let j = 1; j < nombre_temperatures - 1; j++)
+					texte_corr += `; $${temperatures[j]}$ `; // On liste les temperatures (série brute)
+				texte_corr += `et $${temperatures[nombre_temperatures - 1]}$.<br>`;
+
+				if (temperatures.length%2==0) {
+					texte_corr += `Les temperatures centrales sont la $${temperatures.length/2}^{e}$ et la $${temperatures.length/2+1}^{e}$.<br>
+					En effet, ${underbrace_mediane(temperatures.length)}<br>
+					Une médiane est donc une temperature comprise entre la $${temperatures.length/2}^{e}$ et la $${temperatures.length/2+1}^{e}$ temperature, lorsque ces temperatures sont rangées.<br>`;
+				} else {
+					texte_corr += `La temperature centrale est donc la $${(temperatures.length+1)/2}^{e}$.<br>
+					En effet, ${underbrace_mediane(temperatures.length)}<br>					
+					Une médiane est donc la $${(temperatures.length+1)/2}^{e}$ temperature, lorsque ces temperatures sont rangées.<br>`;			
+				};
+				texte_corr += `D'où ${texte_gras(`la temperature médiane : ${tex_nombre(mediane)}`)}<br>`;
+				if (temperatures.length%2==0) {
+					texte_corr += lampe_message({
+						titre: `Interprétation`,
+						texte: `Ìl y a bien $${temperatures.length/2}$ temperatures inférieures à  $${tex_nombre(mediane)}$ et $${temperatures.length/2}$ temperatures supérieures à  $${tex_nombre(mediane)}$.`,
+						couleur: `nombres`,
+					  });									
+				} else {
+					texte_corr += lampe_message({
+						titre: `Interprétation`,
+						texte: `Ìl y a bien $${(temperatures.length-1)/2}$ temperatures inférieures à  $${tex_nombre(mediane)}$ et $${(temperatures.length-1)/2}$ temperatures supérieures à  $${tex_nombre(mediane)}$.`,
+						couleur: `nombres`,
+					  });									
+				}
 			}
 			if (this.liste_questions.indexOf(texte) == -1) { // Si la question n'a jamais été posée, on en créé une autre
 				this.liste_questions.push(texte);
