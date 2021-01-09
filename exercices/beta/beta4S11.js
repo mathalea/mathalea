@@ -211,7 +211,7 @@ export default function Calculer_des_frequences() {
 					texte_corr += `D'où ${texte_gras(`le score médian : ${tex_nombre((scoresMedians[0]+scoresMedians[1])/2)}`)}<br>`;					
 					texte_corr += lampe_message({
 						titre: `Interprétation`,
-						texte: `Ìl y a bien $${(nombre_tirages)/2}$ lancers dont le score est inférieur à  $${tex_nombre(scoresMedians[0])}$ et $${(nombre_tirages)/2}$ lancers dont le score est supérieur à  $${tex_nombre(scoresMedians[0])}$.`,
+						texte: `Ìl y a bien $${(nombre_tirages)/2}$ lancers dont le score est inférieur ou égal à  $${tex_nombre(scoresMedians[0])}$ et $${(nombre_tirages)/2}$ lancers dont le score est supérieur ou égal à  $${tex_nombre(scoresMedians[0])}$.`,
 						couleur: `nombres`,
 					  });									
 				} else { // Le nombre de lancers est impair ici
@@ -236,7 +236,7 @@ export default function Calculer_des_frequences() {
 					texte_corr += `D'où ${texte_gras(`le score médian : ${tex_nombre(scoresMedians[0])}`)}<br>`;
 					texte_corr += lampe_message({
 						titre: `Interprétation`,
-						texte: `Ìl y a bien $${(nombre_tirages-1)/2}$ lancers dont le score est inférieur à  $${tex_nombre(scoresMedians[0])}$ et $${(nombre_tirages-1)/2}$ lancers dont le score est supérieur à  $${tex_nombre(scoresMedians[0])}$.`,
+						texte: `Ìl y a bien $${(nombre_tirages-1)/2}$ lancers dont le score est inférieur ou égal à  $${tex_nombre(scoresMedians[0])}$ et $${(nombre_tirages-1)/2}$ lancers dont le score est supérieur ou égal à  $${tex_nombre(scoresMedians[0])}$.`,
 						couleur: `nombres`,
 					  });									
 				}
@@ -291,13 +291,13 @@ export default function Calculer_des_frequences() {
 				if (notes.length%2==0) {
 					texte_corr += lampe_message({
 						titre: `Interprétation`,
-						texte: `Ìl y a bien $${notes.length/2}$ notes inférieures à  $${tex_nombre(mediane)}$ et $${notes.length/2}$ notes supérieures à  $${tex_nombre(mediane)}$.`,
+						texte: `Ìl y a bien $${notes.length/2}$ notes inférieures ou égales à  $${tex_nombre(mediane)}$ et $${notes.length/2}$ notes supérieures ou égales à  $${tex_nombre(mediane)}$.`,
 						couleur: `nombres`,
 					  });									
 				} else {
 					texte_corr += lampe_message({
 						titre: `Interprétation`,
-						texte: `Ìl y a bien $${(notes.length-1)/2}$ notes inférieures à  $${tex_nombre(mediane)}$ et $${(notes.length-1)/2}$ notes supérieures à  $${tex_nombre(mediane)}$.`,
+						texte: `Ìl y a bien $${(notes.length-1)/2}$ notes inférieures ou égales à  $${tex_nombre(mediane)}$ et $${(notes.length-1)/2}$ notes supérieures ou égales à  $${tex_nombre(mediane)}$.`,
 						couleur: `nombres`,
 					  });									
 				}
@@ -377,13 +377,13 @@ export default function Calculer_des_frequences() {
 				if (temperatures.length%2==0) {
 					texte_corr += lampe_message({
 						titre: `Interprétation`,
-						texte: `Ìl y a bien $${temperatures.length/2}$ temperatures inférieures à  $${tex_nombre(mediane)}$ et $${temperatures.length/2}$ temperatures supérieures à  $${tex_nombre(mediane)}$.`,
+						texte: `Ìl y a bien $${temperatures.length/2}$ temperatures inférieures ou égales à  $${tex_nombre(mediane)}$ et $${temperatures.length/2}$ temperatures supérieures ou égales à  $${tex_nombre(mediane)}$.`,
 						couleur: `nombres`,
 					  });									
 				} else {
 					texte_corr += lampe_message({
 						titre: `Interprétation`,
-						texte: `Ìl y a bien $${(temperatures.length-1)/2}$ temperatures inférieures à  $${tex_nombre(mediane)}$ et $${(temperatures.length-1)/2}$ temperatures supérieures à  $${tex_nombre(mediane)}$.`,
+						texte: `Ìl y a bien $${(temperatures.length-1)/2}$ temperatures inférieures ou égales à  $${tex_nombre(mediane)}$ et $${(temperatures.length-1)/2}$ temperatures supérieures ou égales à  $${tex_nombre(mediane)}$.`,
 						couleur: `nombres`,
 					  });									
 				}
