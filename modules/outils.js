@@ -4578,30 +4578,30 @@ export function info_message({titre,texte,couleur}) {
 
 export function lampe_message({titre,texte,couleur}) {
 	//'use strict';
-	// if (sortie_html) {
-	// 	return `
-	// 	<div class="ui compact icon message">
-	// 		<i class="lightbulb outline icon"></i>
-	// 		<div class="content">
-	// 	  		<div class="header">
-	// 				`+titre+`
-	// 	  		</div>
-	// 	  		<p>`+texte+`</p>
-	// 		</div>
-	//   	</div>
-	// 	`;
-	// } else {
-	// 	return `
-	// 	\\begin{bclogo}[couleurBarre=`+couleur+`,couleurBord=`+couleur+`,epBord=2,couleur=gray!10,logo=\\bclampe,arrondi=0.1]{\\bf `+titre+`}
-	// 		`+texte+`
-	// 	\\end{bclogo}
-	// 	`;
-	// };
-	return info_message({
-		titre:titre,
-		texte:texte,
-		couleur:couleur
-	})
+	if (sortie_html) {
+		return `
+		<div class="ui compact icon message">
+			<i class="lightbulb outline icon"></i>
+			<div class="content">
+		  		<div class="header">
+					`+titre+`
+		  		</div>
+		  		<p>`+texte+`</p>
+			</div>
+	  	</div>
+		`;
+	} else {
+		return `
+		\\begin{bclogo}[couleurBarre=`+couleur+`,couleurBord=`+couleur+`,epBord=2,couleur=gray!10,logo=\\bclampe,arrondi=0.1]{\\bf `+titre+`}
+			`+texte+`
+		\\end{bclogo}
+		`;
+	};
+	// return info_message({
+	// 	titre:titre,
+	// 	texte:texte,
+	// 	couleur:couleur
+	// })
 };
 
 
