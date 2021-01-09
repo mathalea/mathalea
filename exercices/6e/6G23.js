@@ -16,6 +16,7 @@ export default function Construire_un_angle() {
   this.nb_cols = 2;
   this.nb_cols_corr = 2;
   this.sup=1;
+  this.video="cU80v1p6mMI"
 
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions
@@ -40,7 +41,7 @@ export default function Construire_un_angle() {
       angle=angle*signe[i]
       anglerot=randint(-50,50)
       p = ['x',lettre_depuis_chiffre(randint(1,16)),'y'];
-    texte = `<div>Construire l'angle $\\widehat{${p[0] + p[1] + p[2]}}$ de mesure $${tex_nombre(Math.abs(angle))}\\degree$ en tournant dans le sens `
+    texte = `Construire l'angle $\\widehat{${p[0] + p[1] + p[2]}}$ de mesure $${tex_nombre(Math.abs(angle))}\\degree$ en tournant dans le sens `
     if (angle<0) {
       texte+=`des aiguilles d'une montre.<br>`
     }
@@ -65,14 +66,16 @@ export default function Construire_un_angle() {
       texte_corr=``
       cible=cibleCouronne({x:0,y:0,taille:3})
       xMin=Math.min(A.x-4,C.x)
-      xMax=Math.max(B.x,C.x)+1
-      yMin=Math.min(A.y-4,C.y)-1
-      yMax=Math.max(A.y+4,C.y)+1
+      xMax=Math.max(B.x,C.x)+0.5
+      yMin=Math.min(A.y-4,C.y)-0.5
+      yMax=Math.max(A.y+4,C.y)+0.5
         mathalea.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
       objets_enonce=[s,labels,cible,Apos,Bpos,fleche]
       objets_correction=[s,labels2,secteur,cible,s2,Apos,Bpos,Cpos,fleche]
-      texte+=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 1 }, objets_enonce)+"</div>"
-      texte_corr="<div>"+mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_correction) +"</div>"
+      texte+=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.8 }, objets_enonce)
+      if ((!sortie_html)&&((i+1)%2==0&&!(i+1)%4==0)) texte+="\\columnbreak "
+      if ((!sortie_html)&&((i+1)%4==0)) texte+="\\newpage "
+      texte_corr=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_correction)
       this.liste_questions.push(texte)
       this.liste_corrections.push(texte_corr)
   }
