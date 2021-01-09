@@ -1260,8 +1260,9 @@ function Pave(L=10, l=5, h=5, origine=point(0,0), cote=true, angleDeFuite=30, co
   };
 }
 
-export function point3d(x,y,z) {
-  let MT = math.matrix([[1,math.sqrt(3)/4,0], [0, 1/4, 1]])
+export function point3d(x,y,z,angle=30,rapport=0.5) {
+  let alpha=Math.radians(angle)
+  let MT = math.matrix([[1,rapport*math.cos(alpha),0], [0,rapport*Math.sin(alpha), 1]])
   return point(math.multiply(MT,[x,y,z])._data[0],math.multiply(MT,[x,y,z])._data[1])
 }
 
