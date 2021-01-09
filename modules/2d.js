@@ -1261,7 +1261,7 @@ function Pave(L=10, l=5, h=5, origine=point(0,0), cote=true, angleDeFuite=30, co
 }
 
 export function point3d(x,y,z) {
-  let MT = math.matrix([[math.sqrt(2)/2,-math.sqrt(2)/2,0], [-1/math.sqrt(6), -1/math.sqrt(6), math.sqrt(2/3)]])
+  let MT = math.matrix([[1,math.sqrt(3)/4,0], [0, 1/4, 1]])
   return point(math.multiply(MT,[x,y,z])._data[0],math.multiply(MT,[x,y,z])._data[1])
 }
 
