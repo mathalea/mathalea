@@ -1207,6 +1207,71 @@ export function polyline(...args) {
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% 3D EN PERSPECTIVE CAVALIERES %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+*/
+
+/**
+ * 
+ * @param {int} Longueur 
+ * @param {int} largeur 
+ * @param {int} profondeur
+ *  
+ */
+function Pave(L=10, l=5, h=5, origine=point(0,0), cote=true, angleDeFuite=30, coefficientDeFuite=.5){
+  let objets = [];
+  let A = origine, B = point(A.x+L,A.y), C = point(B.x,B.y+l) , D = point(A.x,A.y+l);
+  let p = polygone(A,B,C,D);
+  let E = pointAdistance(A,calcul(h*coefficientDeFuite),angleDeFuite);
+  let F = translation(B,vecteur(A,E));
+  let G = translation(C,vecteur(A,E));
+  let H = translation(D,vecteur(A,E));
+  let sAE = segment(A,E);
+  let sBF = segment(B,F);
+  let sCG = segment(C,G);
+  let sDH = segment(D,H);
+  let sEF = segment(E,F);
+  let sFG = segment(F,G);
+  let sGH = segment(G,H);
+  let sHE = segment(H,E);
+  sAE.pointilles = true;
+  sEF.pointilles = true;
+  sHE.pointilles = true;
+
+  objets.push(p, sAE, sBF, sCG, sDH, sEF, sFG, sGH, sHE);
+  if (cote) {
+    objets.push(afficheCoteSegment(segment(B,A),'',1));
+    objets.push(afficheCoteSegment(segment(A,D),'',1));
+    objets.push(afficheCoteSegment(segment(F,B),h+' cm',1));
+  }
+  this.svg = function (coeff) {
+    let code = "";
+    for (let objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    let code = "";
+    for (let objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+}
+
+export function point3d(x,y,z) {
+  let MT = math.matrix([[1,math.sqrt(3)/4,0], [0, 1/4, 1]])
+  return point(math.multiply(MT,[x,y,z])._data[0],math.multiply(MT,[x,y,z])._data[1])
+}
+
+export function pave(...args){
+  return new Pave(...args)
+}
+
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%% LES VECTEURS %%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
@@ -2142,6 +2207,132 @@ function Cercle(O, r, color) {
 }
 export function cercle(...args) {
   return new Cercle(...args);
+}
+
+
+/**
+ * c = ellipse(O,rx,ry) //Ellipse de centre O et de rayon rx et ry
+ * @Auteur Rémi Angot
+ */
+function Ellipse(O, rx, ry, color) {
+  ObjetMathalea2D.call(this);
+  if (color) {
+    this.color = color;
+    this.styleTikz = `[${color}]`;
+  }
+  this.centre = O;
+  this.rx = rx;
+  this.ry = ry;
+  this.couleurDeRemplissage = "";
+  this.opaciteDeRemplissage = 0.7;
+  this.svg = function (coeff) {
+    if (this.epaisseur != 1) {
+      this.style += ` stroke-width="${this.epaisseur}" `;
+    }
+    if (Boolean(this.pointilles)) {
+      switch (this.pointilles) {
+        case 1 :
+          this.style += ` stroke-dasharray="6 10" `;
+          break;
+        case 2 : 
+        this.style += ` stroke-dasharray="6 3" `;
+        break;       
+        case 3 :
+          this.style += ` stroke-dasharray="3 2 6 2 " `;
+          break;      
+        default : 
+        this.style += ` stroke-dasharray="5 5" `;
+        break; 
+      }
+
+    }
+    if (this.opacite != 1) {
+      this.style += ` stroke-opacity="${this.opacite}" `;
+    }
+    if (this.couleurDeRemplissage == "") {
+      this.style += ` fill="none" `;
+    } else {
+      this.style += ` fill="${this.couleurDeRemplissage}" `;
+      this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `;
+    }
+
+    return `<ellipse cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" rx="${calcul(rx*coeff)}" ry="${calcul(ry*coeff)}" stroke="${this.color}" ${this.style} id="${this.id}" />`
+  };
+  this.tikz = function () {
+    let optionsDraw = [];
+    let tableauOptions = [];
+    if (this.color.length > 1 && this.color !== "black") {
+      tableauOptions.push(this.color);
+    }
+    if (this.epaisseur != 1) {
+      tableauOptions.push(`line width = ${this.epaisseur}`);
+    }
+    if (Boolean(this.pointilles)) {
+      switch (this.pointilles) {
+         case 1 :
+           tableauOptions.push(` dash dot `);
+           break;
+         case 2 : 
+         tableauOptions.push(` dash dash dot `);
+         break;       
+         case 3 :
+           tableauOptions.push(` dash dot dot `);
+           break;      
+         default : 
+           tableauOptions.push(` dashed `);
+         break; 
+       }
+     }
+     if (this.opacite != 1) {
+      tableauOptions.push(`opacity = ${this.opacite}`);
+    }
+    if (tableauOptions.length > 0) {
+      optionsDraw = "[" + tableauOptions.join(",") + "]";
+    }
+    return `\\draw${optionsDraw} (${O.x},${O.y}) ellipse (${rx}cm and ${ry}cm);;`;
+  };
+  // this.svgml = function (coeff,amp) {
+  //   if (this.epaisseur != 1) {
+  //     this.style += ` stroke-width="${this.epaisseur}" `;
+  //   }
+
+  //   if (this.opacite != 1) {
+  //     this.style += ` stroke-opacity="${this.opacite}" `;
+  //   }
+  //   if (this.couleurDeRemplissage == "") {
+  //     this.style += ` fill="none" `;
+  //   } else {
+  //     this.style += ` fill="${this.couleurDeRemplissage}" `;
+  //     this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `;
+  //   }
+
+  //   let code =`<ellipse cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" rx="${calcul(rx*coeff)}" ry="${calcul(ry*coeff)}" />`
+  //   return code;
+  // }
+  this.tikzml = function(amp) {
+    let optionsDraw = [];
+    let tableauOptions = [];
+    if (this.color.length > 1 && this.color !== "black") {
+      tableauOptions.push(this.color);
+    }
+    if (this.epaisseur != 1) {
+      tableauOptions.push(`line width = ${this.epaisseur}`);
+    }
+
+    if (this.opacite != 1) {
+      tableauOptions.push(`opacity = ${this.opacite}`);
+    }
+    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`);
+    optionsDraw = "[" + tableauOptions.join(",") + "]";
+
+
+    let code=`\\draw${optionsDraw} (${O.x},${O.y}) circle (${r});`
+    return code
+  
+  }
+}
+export function ellipse(...args) {
+  return new Ellipse(...args);
 }
 
 /**
