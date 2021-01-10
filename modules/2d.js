@@ -1279,21 +1279,21 @@ function Pave(L=10, l=5, h=5, origine=point(0,0), cote=true, angleDeFuite=30, co
   };
 }
 
-/* export function point3d(x,y,z,angle=30,rapport=0.5) {
-  let alpha=Math.radians(angle)
-  let MT = math.matrix([[1,rapport*math.cos(alpha),0], [0,rapport*Math.sin(alpha), 1]])
-  return point(math.multiply(MT,[x,y,z])._data[0],math.multiply(MT,[x,y,z])._data[1])
-}
-*/ 
 export function pave(...args){
   return new Pave(...args)
 }
 
+export function cercle3d(centre,rayon){
+  let M=translation3d(centre,vecteur3d(rayon,0,0))
+  
+
+}
+
 class Point3d {
 
-  constructor (x3d,y3d,z3d,angle=30,coeff=0.5,label) {
-    let alpha=angle*Math.PI/180
-    let rapport=coeff
+  constructor (x3d,y3d,z3d,label) {
+    let alpha=mathalea.anglePerspective*Math.PI/180
+    let rapport=mathalea.coeffPerspective
     let MT = math.matrix([[1,rapport*Math.cos(alpha),0], [0,rapport*Math.sin(alpha), 1]])
     this.x3d=x3d
     this.y3d=y3d
@@ -1311,16 +1311,27 @@ class Point3d {
   }
   */
 }
-export function point3d(x3d,y3d,z3d,angle,coeff,label=""){
-  return new Point3d(x3d,y3d,z3d,angle,coeff,label)
+export function point3d(x3d,y3d,z3d,label=""){
+  return new Point3d(x3d,y3d,z3d,label)
+}
+
+class Droite3d{
+  constructor (point3D,vecteur3D){
+    this.origine=point3D
+    this.directeur=vecteur3D
+  }
+}
+
+export function droite3d(point3D,vecteur3D){
+  return new Droite3d(point3D,vecteur3D)
 }
 
 export function vecteur3d(...args){ // A,B deux Point3d ou x,y,z les composantes du vecteur
   let x,y,z
   if (args.length==2) {
-    x=args[1].x-args[0].x
-    y=args[1].y-args[0].y
-    z=args[1].z-args[0].z
+    x=args[1].x3d-args[0].x3d
+    y=args[1].y3d-args[0].y3d
+    z=args[1].z3d-args[0].z3d
   }
   else {
     x=args[0]
@@ -1330,18 +1341,36 @@ export function vecteur3d(...args){ // A,B deux Point3d ou x,y,z les composantes
   return math.matrix([x,y,z])
 }
 
-export function rotation3d(point,vecteur,angle){ // point = ce qu'on fait tourner (Point3d) ; vecteur = directeur de l'axe de rotation [x,y,z] et angle de rotation en degrés
+export function rotationV3d(point3D,vecteur3D,angle){ // point = ce qu'on fait tourner (Point3d) ; vecteur = directeur de l'axe de rotation [x,y,z] et angle de rotation en degrés
 let matrice
-let norme=Math.sqrt(math.dot(vecteur,vecteur))
-let unitaire=math.multiply(vecteur,1/norme)
+let norme=Math.sqrt(math.dot(vecteur3D,vecteur3D))
+let unitaire=math.multiply(vecteur3D,1/norme)
 let u=unitaire._data[0],v=unitaire._data[1],w=unitaire._data[2]
 let c=Math.cos(angle*Math.PI/180),s=Math.sin(angle*Math.PI/180)
 let k=1-c
 matrice=math.matrix([[u*u*k+c,u*v*k-w*s,u*w*k+v*s],[u*v*k+w*s,v*v*k+c,v*w*k-u*s],[u*w*k-v*s,v*w*k+u*s,w*w*k+c]])
-let V=math.matrix([point.x3d,point.y3d,point.z3d])
+let V=math.matrix([point3D.x3d,point3D.y3d,point3D.z3d])
 let p2=math.multiply(matrice,V)
-return point3d(p2._data[0],p2._data[1],p2._data[2],30,0.5)
+return point3d(p2._data[0],p2._data[1],p2._data[2])
 }
+
+export function rotation3d(point3D,droite3D,angle){
+  let directeur=droite3D.directeur
+  let origine=droite3D.origine
+  let V=vecteur3d(origine,point3d(0,0,0))
+  let W=math.multiply(V,-1)
+  let M=translation3d(point3D,V)
+  let N=rotationV3d(M,directeur,angle)
+  return translation3d(N,W)
+}
+
+export function translation3d(point3D,vecteur3D){
+  let x=point3D.x3d+vecteur3D._data[0]
+  let y=point3D.y3d+vecteur3D._data[1]
+  let z=point3D.z3d+vecteur3D._data[2]
+  return point3d(x,y,z)
+}
+
 
 
 /*
