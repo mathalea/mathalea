@@ -54,10 +54,11 @@ function ObjetMathalea2D() {
  * @Auteur Rémi Angot
  */
 function Point(arg1, arg2, arg3, positionLabel = "above") {
-  ObjetMathalea2D.call(this);
+ // ObjetMathalea2D.call(this);
   if (arguments.length == 1) {
     this.nom = arg1;
   } else if (arguments.length == 2) {
+
     this.x = arg1;
     this.y = arg2;
   } else {
@@ -126,7 +127,16 @@ function TracePoint(...points) {
           c.opaciteDeRemplissage=this.opacite/2
           objetssvg.push(c)
         }
-        else if (this.style=='#'){
+  /*      else if (this.style=='.'){
+          p1=point(A.x,A.y)
+          c=cercle(p1,0.05,this.color)
+          c.epaisseur=this.epaisseur
+          c.opacite=this.opacite
+          c.couleurDeRemplissage=this.color
+          c.opaciteDeRemplissage=this.opacite/2
+          objetssvg.push(c)
+        }
+    */    else if (this.style=='#'){
           p1=point(A.x-this.taille/coeff,A.y-this.taille/coeff)
           p2=point(A.x+this.taille/coeff,A.y-this.taille/coeff)
           c=carreIndirect(p1,p2,this.color)
@@ -188,7 +198,16 @@ function TracePoint(...points) {
           c.opaciteDeRemplissage=this.opacite/2
           objetstikz.push(c)
         }
-        else if (this.style=='#'){
+ /*       else if (this.style=='.'){
+          p1=point(A.x,A.y)
+          c=cercle(p1,0.05,this.color)
+          c.epaisseur=this.epaisseur
+          c.opacite=this.opacite
+          c.couleurDeRemplissage=this.color
+          c.opaciteDeRemplissage=this.opacite/2
+          objetstikz.push(c)
+        }
+   */     else if (this.style=='#'){
           p1=point(A.x-tailletikz,A.y-tailletikz)
           p2=point(A.x+tailletikz,A.y-tailletikz)
           c=carreIndirect(p1,p2,this.color)
@@ -1260,14 +1279,68 @@ function Pave(L=10, l=5, h=5, origine=point(0,0), cote=true, angleDeFuite=30, co
   };
 }
 
-export function point3d(x,y,z,angle=30,rapport=0.5) {
+/* export function point3d(x,y,z,angle=30,rapport=0.5) {
   let alpha=Math.radians(angle)
   let MT = math.matrix([[1,rapport*math.cos(alpha),0], [0,rapport*Math.sin(alpha), 1]])
   return point(math.multiply(MT,[x,y,z])._data[0],math.multiply(MT,[x,y,z])._data[1])
 }
-
+*/ 
 export function pave(...args){
   return new Pave(...args)
+}
+
+class Point3d {
+
+  constructor (x3d,y3d,z3d,angle=30,coeff=0.5,label) {
+    let alpha=angle*Math.PI/180
+    let rapport=coeff
+    let MT = math.matrix([[1,rapport*Math.cos(alpha),0], [0,rapport*Math.sin(alpha), 1]])
+    this.x3d=x3d
+    this.y3d=y3d
+    this.z3d=z3d
+    this.label=label
+    let V=math.matrix([this.x3d,this.y3d,this.z3d])
+    let W=math.multiply(MT,V)
+    this.p2d=point(W._data[0],W._data[1])
+  }
+
+/*  point2d = function (angle=30,rapport=0.5){
+    let alpha=Math.radians(angle)
+    let MT = math.matrix([[1,rapport*math.cos(alpha),0], [0,rapport*Math.sin(alpha), 1]])
+    return point(math.multiply(MT,[this.x3d,this.y3d,this.z3d])._data[0],math.multiply(MT,[this.x3d,this.y3d,this.z3d])._data[1])
+  }
+  */
+}
+export function point3d(x3d,y3d,z3d,angle,coeff,label=""){
+  return new Point3d(x3d,y3d,z3d,angle,coeff,label)
+}
+
+export function vecteur3d(...args){ // A,B deux Point3d ou x,y,z les composantes du vecteur
+  let x,y,z
+  if (args.length==2) {
+    x=args[1].x-args[0].x
+    y=args[1].y-args[0].y
+    z=args[1].z-args[0].z
+  }
+  else {
+    x=args[0]
+    y=args[1]
+    z=args[2]
+  }
+  return math.matrix([x,y,z])
+}
+
+export function rotation3d(point,vecteur,angle){ // point = ce qu'on fait tourner (Point3d) ; vecteur = directeur de l'axe de rotation [x,y,z] et angle de rotation en degrés
+let matrice
+let norme=Math.sqrt(math.dot(vecteur,vecteur))
+let unitaire=math.multiply(vecteur,1/norme)
+let u=unitaire._data[0],v=unitaire._data[1],w=unitaire._data[2]
+let c=Math.cos(angle*Math.PI/180),s=Math.sin(angle*Math.PI/180)
+let k=1-c
+matrice=math.matrix([[u*u*k+c,u*v*k-w*s,u*w*k+v*s],[u*v*k+w*s,v*v*k+c,v*w*k-u*s],[u*w*k-v*s,v*w*k+u*s,w*w*k+c]])
+let V=math.matrix([point.x3d,point.y3d,point.z3d])
+let p2=math.multiply(matrice,V)
+return point3d(p2._data[0],p2._data[1],p2._data[2],30,0.5)
 }
 
 
@@ -7462,7 +7535,7 @@ export function mathalea2d(
              else
                   code += "\t" + objet[i].svgml(pixelsParCm,amplitude) + "\n";
             }
-          } catch (error) {console.log('premiere boucle',error.message,objet[i])}
+          } catch (error) {console.log('premiere boucle',error.message,objet[i],i)}
 
         }
       }
