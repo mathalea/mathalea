@@ -1283,12 +1283,12 @@ export function pave(...args){
   return new Pave(...args)
 }
 
-export function cercle3d(centre,rayon){
+/*export function demicercle3d(centre,rayon,cote){
   let M=translation3d(centre,vecteur3d(rayon,0,0))
-  
+  for (let i=0)
 
 }
-
+*/
 class Point3d {
 
   constructor (x3d,y3d,z3d,label) {
