@@ -1,9 +1,6 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,arrondi,arrondi_virgule,calcul,prenom,tirer_les_des,liste_de_notes,jours_par_mois,un_mois_de_temperature,nom_du_mois,tex_nombre,tex_fraction} from "/modules/outils.js";
+import {liste_de_question_to_contenu,randint,choice,prenom,tirer_les_des,liste_de_notes,jours_par_mois,un_mois_de_temperature,nom_du_mois,tex_nombre} from "/modules/outils.js";
 import {texte_gras,lampe_message} from "/modules/outils.js";
-
-
-
 
 /**
  * Calculs de médianes dans des séries statistiques
@@ -12,7 +9,7 @@ import {texte_gras,lampe_message} from "/modules/outils.js";
 */
 export default function Calculer_des_frequences() {
 	Exercice.call(this); // Héritage de la classe Exercice()
-	this.titre = "Calculer des médianes";
+	this.titre = "Déterminer des médianes";
 	this.consigne = "";
 	this.nb_questions = 1;
 	this.spacing = 1;
@@ -177,7 +174,7 @@ export default function Calculer_des_frequences() {
 				})+'<br>';
 				texte += 'Les résultats sont inscrits dans le tableau ci-dessous :<br><br>';
 				texte += des_tab_eff_cumul(tirages,false)+ '<br>';				
-				texte += `<br><br> Calculer une médiane de cette série.`;
+				texte += `<br><br> Déterminer une médiane de cette série.`;
 				texte_corr = `On a réalisé $${nombre_tirages}$ lancers en tout.<br>`;				
 				if (nombre_tirages%2 == 0) {
 					texte_corr += `Le nombre de lancers est pair, les scores sont rangés dans l'ordre croissant.<br>
@@ -256,7 +253,7 @@ export default function Calculer_des_frequences() {
 					texte += `; $${notes[j]}$ `; // On liste les notes (série brute)
 				texte += `et $${notes[nombre_notes - 1]}$.`;
 
-				texte += `<br><br>Calculer une médiane de cette série.`;
+				texte += `<br><br>Déterminer une médiane de cette série.`;
 				let notes_rangees = notes.sort((a, b) => a - b);
 				let mediane;
 				if (notes.length%2==0) {// attention les indices commencent à 0 !
@@ -340,18 +337,16 @@ export default function Calculer_des_frequences() {
 				texte += '\\\\\\hline\\end{array}$';
 
 
-				texte += `<br><br>Calculer une médiane de cette série.`;
+				texte += `<br><br>Déterminer une médiane de cette série.`;
 				//texte += temperatures;
 				//texte += temperatures.length;
-				texte_corr = `Correction.<br>`;
+				texte_corr = ``;
 				let temperatures_rangees = temperatures.sort((a, b) => a - b);
 				let mediane;
 				if (temperatures.length%2==0) {// attention les indices commencent à 0 !
-					mediane = (temperatures_rangees[temperatures.length/2-1]+temperatures_rangees[temperatures.length/2])/2;
-					//console.log('parité');
+					mediane = (temperatures_rangees[temperatures.length/2-1]+temperatures_rangees[temperatures.length/2])/2;					
 				} else {
-					mediane = temperatures_rangees[(temperatures.length-1)/2];
-					//console.log('imparité');
+					mediane = temperatures_rangees[(temperatures.length-1)/2];					
 				};
 				texte_corr = `Il y a $${temperatures.length}$ températures relevées en tout. `;				
 				if (temperatures.length%2==0) {
