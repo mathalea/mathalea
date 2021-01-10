@@ -1,6 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { point,point3d,tracePoint,rotation3d,mathalea2d,segment} from '/modules/2d.js'
-import { demiDroite } from '/modules/2d.js';
+import { point, point3d, tracePoint, rotationV3d,rotation3d,droite3d, mathalea2d, segment, demiDroite } from '/modules/2d.js'
 /**
  * Poser et effectuer les divisions euclidiennes suivantes puis donner l'égalité fondamentale correspondante.
  *
@@ -27,27 +26,29 @@ export default function Rotation_3d() {
     this.nouvelle_version = function () {
         this.liste_questions = []; // Liste de questions
         this.liste_corrections = []; // Liste de questions corrigées
-        let v=math.matrix([0,0,5])
-let A=point(0,0),B=point(5,0)
-let C=point(0,8)
-let t=[],objets=[]
-let M=point3d(5,0,0,30,0.5)
-let P=[]
-for (let i=0;i<=18;i++){
-  P.push(rotation3d(M,v,i*20))
-}
-for (let i=0;i<=18;i++){
-    t[i]=tracePoint(P[i].p2d)
-    objets.push(t[i])
-}
-for (let j=1;j<=18;j++) {
-    objets.push(segment(P[j-1].p2d,P[j].p2d))
-    objets.push(segment(A,P[j].p2d))
-    objets.push(segment(C,P[j].p2d))
-}
-objets.push(demiDroite(A,B),demiDroite(A,rotation3d(M,v,90).p2d))
-    this.contenu=mathalea2d({ xmin: -6, ymin: -5, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 0.7 }, objets)
-
+        let v = math.matrix([0, 0, 5])
+        let A = point(0, 0), B = point(5, 0)
+        let C = point(0, 8)
+        let D=point3d(7,0,0)
+        let d=droite3d(D,v)
+        let t = [], objets = []
+        let M = point3d(5, 0, 0)
+        let P = []
+        for (let i = 0; i <= 18; i++) {
+            P.push(rotation3d(M, d, i * 20))
         }
-    };
+        for (let i = 0; i <= 18; i++) {
+            t[i] = tracePoint(P[i].p2d)
+            objets.push(t[i])
+        }
+        for (let j = 1; j <= 18; j++) {
+            objets.push(segment(P[j - 1].p2d, P[j].p2d))
+            objets.push(segment(D.p2d, P[j].p2d))
+            objets.push(segment(C, P[j].p2d))
+        }
+        objets.push(demiDroite(A, B), demiDroite(A, rotationV3d(M, v, 90).p2d))
+        this.contenu = mathalea2d({ xmin: -6, ymin: -5, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 0.7 }, objets)
+
+    }
+};
 
