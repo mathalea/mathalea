@@ -16,5 +16,6 @@ export default function Tableaux_et_quatrieme_proportionnelle() {
   Eq_resolvantes_Thales.call(this);
   this.exo = `4P10-2`;
   this.titre = "Déterminer une quatrième proportionnelle dans un tableau";
+  this.consigne = `Déterminer la quatrième proportionnelle dans les tableaux suivants.`;
   this.sup=1
 };
