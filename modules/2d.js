@@ -1283,12 +1283,189 @@ export function pave(...args){
   return new Pave(...args)
 }
 
-/*export function demicercle3d(centre,rayon,cote){
-  let M=translation3d(centre,vecteur3d(rayon,0,0))
-  for (let i=0)
+/**
+ * 
+ *@Auteur Jean-Claude Lhote
+ * normal et rayon sont deux vecteurs 3d
+ * normal est un vecteur normal au plan du cercle
+ * rayon est le vecteur qui part du centre et qui joint la 1ere extremité visible.
+ * cote est soit 'caché' soit 'visible' et déterminera dans quel sens on crée le demi-cercle.
+ * Si cote='caché' alors on tourne dans le sens direct et le tracé est en pointillés
+ * Si cote='visible' alors on tourne dans le sens indirect et le tracé est plein.
+ *
+ */
+export function demicercle3d(centre,normal,rayon,cote,color){
 
+  let demiCercle,signe,M=[],listepoints=[]
+  if (cote=='caché') {
+    signe=1
+  }
+  else {
+    signe=-1
+  }
+  let d=droite3d(centre,normal)
+  M.push(rotation3d(translation3d(centre,rayon),d,mathalea.anglePerspective))
+  listepoints.push(M[0].p2d)
+
+  for (let i=1;i<10;i++) {
+        M.push(rotation3d(M[i-1],d,20*signe))
+        listepoints.push(M[i].p2d)
+  }
+  demiCercle=polyline(listepoints,color)
+  if (cote=='caché') {
+    demiCercle.pointilles=2
+  }
+  return demiCercle
+ }
+
+ /**
+  * @Auteur Jean-Claude Lhote
+  * 
+  * centrebase est le centre du disque de base
+  * sommet est le sommet du cône
+  * normal est un vecteur 3d noraml au plan du disque (il détermine avec rayon de quel côté se trouve la partie visible)
+  * 
+  */
+function Cone3d(centrebase,sommet,normal,rayon){
+  ObjetMathalea2D.call(this)
+  this.sommet=sommet
+  this.centrebase=centrebase
+  this.normal=normal
+  this.rayon=rayon
+  let objets=[],c1,c2,s,color1,color2
+  let prodvec=math.cross(normal,rayon)
+  let prodscal=math.dot(prodvec,vecteur3d(0,1,0))
+  let cote1,cote2
+  if (prodscal>0) {
+    cote1='caché'
+    color1='gray'
+    cote2='visible'
+    color2='black'
+  }
+  else {
+    cote2='caché'
+    cote1='visible'
+    color1='black'
+    color2='gray'
+  }
+  c1=demicercle3d(this.centrebase,this.normal,this.rayon,cote1,color1)
+  c2=demicercle3d(this.centrebase,this.normal,this.rayon,cote2,color2)
+
+  for (let i=0;i<c1.listePoints.length;i++){
+    s=segment(this.sommet.p2d,c1.listePoints[i])
+    if (cote1=='caché'){
+      s.pointilles=2
+      s.color='gray'
+    }
+    else {
+      s.color='black'
+    }
+    objets.push(s)
+  }
+  for (let i=0;i<c2.listePoints.length;i++){
+    s=segment(this.sommet.p2d,c2.listePoints[i])
+    if (cote2=='caché'){
+      s.pointilles=2
+      s.color='gray'
+    }
+    else {
+      s.color='black'
+    }
+    objets.push(s)
+  }
+  objets.push(c1,c2)
+  this.svg =function (coeff) {
+    let code = "";
+    for (let objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  }
+  this.tikz = function() {
+    let code = "";
+    for (let objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  }
 }
-*/
+export function cone3d(centre,sommet,normal,rayon){
+  return new Cone3d(centre,sommet,normal,rayon)
+}
+
+function Cylindre3d(centrebase1,centrebase2,normal,rayon){
+  ObjetMathalea2D.call(this)
+  this.centrebase1=centrebase1
+  this.centrebase2=centrebase2
+  this.normal=normal
+  this.rayon=rayon
+  let objets=[],c1,c2,c3,c4,s,color1,color2
+  let prodvec=math.cross(normal,rayon)
+  let prodscal=math.dot(prodvec,vecteur3d(0,1,0))
+  let cote1,cote2
+  if (prodscal>0) {
+    cote1='caché'
+    color1='gray'
+    cote2='visible'
+    color2='black'
+  }
+  else {
+    cote2='caché'
+    cote1='visible'
+    color1='black'
+    color2='gray'
+  }
+  c1=demicercle3d(this.centrebase1,this.normal,this.rayon,cote1,color1)
+  c3=demicercle3d(this.centrebase2,this.normal,this.rayon,cote1,color1)
+  c2=demicercle3d(this.centrebase1,this.normal,this.rayon,cote2,color2)
+  c4=demicercle3d(this.centrebase2,this.normal,this.rayon,cote2,color2)
+  c3.pointilles=false
+  c3.color='black'
+  for (let i=0;i<c1.listePoints.length;i++){
+    s=segment(c3.listePoints[i],c1.listePoints[i])
+    if (cote1=='caché'){
+      s.pointilles=2
+      s.color='gray'
+    }
+    else {
+      s.color='black'
+    }
+    objets.push(s)
+  }
+  for (let i=0;i<c2.listePoints.length;i++){
+    s=segment(c4.listePoints[i],c2.listePoints[i])
+    if (cote2=='caché'){
+      s.pointilles=2
+      s.color='gray'
+    }
+    else {
+      s.color='black'
+    }
+    objets.push(s)
+  }
+  objets.push(c1,c2,c3,c4)
+  this.svg =function (coeff) {
+    let code = "";
+    for (let objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  }
+  this.tikz = function() {
+    let code = "";
+    for (let objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  }
+}
+
+
+
+
+export function cylindre3d(centrebase1,centrebase2,normal,rayon){
+  return new Cylindre3d(centrebase1,centrebase2,normal,rayon)
+}
 class Point3d {
 
   constructor (x3d,y3d,z3d,label) {
@@ -1303,13 +1480,6 @@ class Point3d {
     let W=math.multiply(MT,V)
     this.p2d=point(W._data[0],W._data[1])
   }
-
-/*  point2d = function (angle=30,rapport=0.5){
-    let alpha=Math.radians(angle)
-    let MT = math.matrix([[1,rapport*math.cos(alpha),0], [0,rapport*Math.sin(alpha), 1]])
-    return point(math.multiply(MT,[this.x3d,this.y3d,this.z3d])._data[0],math.multiply(MT,[this.x3d,this.y3d,this.z3d])._data[1])
-  }
-  */
 }
 export function point3d(x3d,y3d,z3d,label=""){
   return new Point3d(x3d,y3d,z3d,label)
