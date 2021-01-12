@@ -1307,8 +1307,8 @@ export function demicercle3d(centre,normal,rayon,cote,color){
   M.push(rotation3d(translation3d(centre,rayon),d,mathalea.anglePerspective))
   listepoints.push(M[0].p2d)
 
-  for (let i=1;i<10;i++) {
-        M.push(rotation3d(M[i-1],d,20*signe))
+  for (let i=1;i<19;i++) {
+        M.push(rotation3d(M[i-1],d,10*signe))
         listepoints.push(M[i].p2d)
   }
   demiCercle=polyline(listepoints,color)
@@ -1327,26 +1327,36 @@ export function demicercle3d(centre,normal,rayon,cote,color){
         M.push(rotation3d(M[i-1],d,10))
         listepoints.push(M[i].p2d)
   }
-  C=polyline(listepoints,color)
+  C=polygone(listepoints,color)
   if (!visible) {
     C.pointilles=2
   }
   return C
  }
-
- function Sphere3d(centre,normal,rayon,color){
+/**
+ * @Auteur Jean-Claude Lhote
+ * Produit une sphère : choisir un nombre de parallèles impair pour avoir l'équateur. normal défini l'axe Nord-Sud.
+ * rayon sera tourné de anglePerspective et définit la limite de la surface visible et sa norme est le rayon de la sphère.
+ * @param {Point3d} centre 
+ * @param {Vecteur3d} normal 
+ * @param {Vecteur3d} rayon 
+ * @param {Number} nb_paralleles 
+ * @param {Number} nb_meridiens 
+ * @param {string} color 
+ */
+ function Sphere3d(centre,normal,rayon,nb_paralleles,nb_meridiens,color){
    ObjetMathalea2D.call(this)
    this.centre=centre
    this.rayon=rayon
    this.normal=normal
    this.color=color
+   this.nb_meridiens=nb_meridiens
+   this.nb_paralleles=nb_paralleles
    let objets=[],c1,c2,C
    let prodvec=math.cross(normal,rayon)
    let prodscal=math.dot(prodvec,vecteur3d(0,1,0))
-   let cote1,cote2,rayon2,r,R,M
+   let cote1,cote2,rayon2,r,R,V
    rayon2=math.cross(rayon,math.multiply(prodvec,1/math.norm(prodvec)))
-   M=translation(this.centre,this.rayon)
-   rayon2=rotationV3d(rayon2,this.normal,mathalea.anglePerspective)
    R=math.norm(this.rayon)
    if (prodscal>0) {
      cote1='caché'
@@ -1356,14 +1366,24 @@ export function demicercle3d(centre,normal,rayon,cote,color){
      cote2='caché'
      cote1='visible'
    }
-   objets.push(cercle3d(this.centre,prodvec,this.rayon,true,this.color))
-   for (let k=0;k<2;k+=0.25){
+   objets.push(cercle3d(this.centre,rotationV3d(prodvec,this.normal,mathalea.anglePerspective),rotationV3d(this.rayon,this.normal,mathalea.anglePerspective),true,this.color))
+   for (let k=0;k<2;k+=2/(this.nb_paralleles+1)){
      r=math.sqrt(R**2-((k-1)*R)**2)
      C=translation3d(this.centre,math.multiply(rayon2,k-1))
      c1=demicercle3d(C,this.normal,math.multiply(this.rayon,r/R),cote1,this.color)
      c2=demicercle3d(C,this.normal,math.multiply(this.rayon,r/R),cote2,this.color)
      objets.push(c1,c2)
    }
+   C=translation3d(this.centre,rayon2)
+   console.log(C)
+
+   for (let k=0;k<2;k+=2/(this.nb_meridiens+1)){
+     V=rotationV3d(prodvec,this.normal,mathalea.anglePerspective+k*90)
+    c1=demicercle3d(this.centre,V,rayon2,cote1,this.color)
+    c2=demicercle3d(this.centre,V,rayon2,cote2,this.color)
+    objets.push(c1,c2)
+  }
+  
    this.svg =function (coeff) {
     let code = "";
     for (let objet of objets) {
@@ -1379,8 +1399,8 @@ export function demicercle3d(centre,normal,rayon,cote,color){
     return code;
   }
  }
-export function sphere3d(centre,normal,rayon,color='black'){
-  return new Sphere3d(centre,normal,rayon,color)
+export function sphere3d(centre,normal,rayon,nb_paralleles,nb_meridiens,color='black'){
+  return new Sphere3d(centre,normal,rayon,nb_paralleles,nb_meridiens,color)
 }
  /**
   * @Auteur Jean-Claude Lhote
@@ -1532,8 +1552,8 @@ function Cylindre3d(centrebase1,centrebase2,normal,rayon1,rayon2){
     return code;
   }
 }
-export function cylindre3d(centrebase1,centrebase2,normal,rayon){
-  return new Cylindre3d(centrebase1,centrebase2,normal,rayon)
+export function cylindre3d(centrebase1,centrebase2,normal,rayon,rayon2){
+  return new Cylindre3d(centrebase1,centrebase2,normal,rayon,rayon2)
 }
 
 /**
@@ -1619,6 +1639,10 @@ export function polygone3d(...args){
   return new Polygone3d(...args)
 }
 
+/**
+ * @Auteur Jean-Claude Lhote
+ * Crée un prisme à partir du base Polygone3d et d'un vecteur3d d'extrusion (on peut faire des prismes droits ou non droits)
+ */
 class Prisme3d{
   constructor(base,vecteur){
     ObjetMathalea2D.call(this)
@@ -1664,19 +1688,18 @@ let unitaire=math.multiply(vecteur3D,1/norme)
 let u=unitaire._data[0],v=unitaire._data[1],w=unitaire._data[2]
 let c=Math.cos(angle*Math.PI/180),s=Math.sin(angle*Math.PI/180)
 let k=1-c
-console.log(point3D.constructor)
 matrice=math.matrix([[u*u*k+c,u*v*k-w*s,u*w*k+v*s],[u*v*k+w*s,v*v*k+c,v*w*k-u*s],[u*w*k-v*s,v*w*k+u*s,w*w*k+c]])
 if (point3D.constructor==Point3d){
   V=math.matrix([point3D.x3d,point3D.y3d,point3D.z3d])
 }
-else if (point3D.constructor==Vecteur3d){
+else {
   V=point3D
 }
 let p2=math.multiply(matrice,V)
 if (point3D.constructor==Point3d){
   return point3d(p2._data[0],p2._data[1],p2._data[2])
 }
-else if (point3D._data[0]!='undefined'){
+else {
   return p2
 }
 

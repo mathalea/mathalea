@@ -1,20 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import { point, point3d, tracePoint, rotationV3d,rotation3d,droite3d, mathalea2d, segment, demiDroite } from '/modules/2d.js'
-/**
- * Poser et effectuer les divisions euclidiennes suivantes puis donner l'égalité fondamentale correspondante.
- *
- * Niveau de difficulté 1 :
- * * division par 2, 3 , 4 ou 5
- * * division par 6 à 9
- * * un 0 dans le quotient
- *
- * Niveau de difficulté 2 :
- * * division par 11, 12, 15, 25
- * * division par 13,14,21,22,23 ou 24 et un 0 dans le quotient
- * * division par un multiple de 10 et un 0 dans le quotient
- * @Auteur Rémi Angot
- * Référence 6C11
- */
+
 export default function Rotation_3d() {
     Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Rotation3d";
