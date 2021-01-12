@@ -1318,6 +1318,14 @@ export function demicercle3d(centre,normal,rayon,cote,color){
   return demiCercle
  }
 
+ function Sphere3d(centre,normal,rayon){
+   ObjetMathalea2D.call(this)
+   this.centre=centre
+   this.rayon=rayon
+   this.normal=normal
+   
+ }
+
  /**
   * @Auteur Jean-Claude Lhote
   * 
@@ -1541,7 +1549,7 @@ class Polygone3d{
     }
     let listePoints2d=[]
     for (let i=0;i<this.listePoints.length;i++){
-      listePoints2d.push(listePoints[i].p2d)
+      listePoints2d.push(this.listePoints[i].p2d)
     }
     this.p2d=polygone(listePoints2d,this.color)
   }
@@ -1550,6 +1558,39 @@ class Polygone3d{
 export function polygone3d(...args){
   return new Polygone3d(...args)
 }
+
+class Prisme3d{
+  constructor(base,vecteur){
+    ObjetMathalea2D.call(this)
+    this.base1=base
+    this.base2=translation3d(base,vecteur)
+    let objets=[],s
+    objets.push(this.base1.p2d,this.base2.p2d)
+    for (let i=0;i<this.base1.p2d.listePoints.length;i++){
+      s=segment(this.base1.p2d.listePoints[i],this.base2.p2d.listePoints[i])
+      s.color=this.base1.color
+      objets.push(s)
+    }
+    this.svg =function (coeff) {
+      let code = "";
+      for (let objet of objets) {
+        code += "\n\t" + objet.svg(coeff);
+      }
+      return code;
+    }
+    this.tikz = function() {
+      let code = "";
+      for (let objet of objets) {
+        code += "\n\t" + objet.tikz();
+      }
+      return code;
+    }
+  }
+}
+export function prisme3d(base,vecteur){
+  return new Prisme3d(base,vecteur)
+}
+
 /**
  * @Auteur Jean-Claude Lhote
  * @param {*} point3D pour l'instant, cette fonction ne fait tourner qu'un point3d mais le reste suivra...
@@ -1590,10 +1631,19 @@ export function rotation3d(point3D,droite3D,angle){
  * @param {Vecteur3d} vecteur3D 
  */
 export function translation3d(point3D,vecteur3D){
+  if (point3D.constructor == Point3d){
   let x=point3D.x3d+vecteur3D._data[0]
   let y=point3D.y3d+vecteur3D._data[1]
   let z=point3D.z3d+vecteur3D._data[2]
   return point3d(x,y,z)
+  }
+  else if (point3D.constructor == Polygone3d){
+    let p=[]
+    for (let i=0;i<point3D.listePoints.length;i++){
+      p.push(translation3d(point3D.listePoints[i],vecteur3D))
+    }
+    return polygone3d(p,point3D.color)
+  }
 }
 
 
