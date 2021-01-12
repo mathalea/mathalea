@@ -54,10 +54,11 @@ function ObjetMathalea2D() {
  * @Auteur Rémi Angot
  */
 function Point(arg1, arg2, arg3, positionLabel = "above") {
-  ObjetMathalea2D.call(this);
+ // ObjetMathalea2D.call(this);
   if (arguments.length == 1) {
     this.nom = arg1;
   } else if (arguments.length == 2) {
+
     this.x = arg1;
     this.y = arg2;
   } else {
@@ -126,7 +127,16 @@ function TracePoint(...points) {
           c.opaciteDeRemplissage=this.opacite/2
           objetssvg.push(c)
         }
-        else if (this.style=='#'){
+  /*      else if (this.style=='.'){
+          p1=point(A.x,A.y)
+          c=cercle(p1,0.05,this.color)
+          c.epaisseur=this.epaisseur
+          c.opacite=this.opacite
+          c.couleurDeRemplissage=this.color
+          c.opaciteDeRemplissage=this.opacite/2
+          objetssvg.push(c)
+        }
+    */    else if (this.style=='#'){
           p1=point(A.x-this.taille/coeff,A.y-this.taille/coeff)
           p2=point(A.x+this.taille/coeff,A.y-this.taille/coeff)
           c=carreIndirect(p1,p2,this.color)
@@ -188,7 +198,16 @@ function TracePoint(...points) {
           c.opaciteDeRemplissage=this.opacite/2
           objetstikz.push(c)
         }
-        else if (this.style=='#'){
+ /*       else if (this.style=='.'){
+          p1=point(A.x,A.y)
+          c=cercle(p1,0.05,this.color)
+          c.epaisseur=this.epaisseur
+          c.opacite=this.opacite
+          c.couleurDeRemplissage=this.color
+          c.opaciteDeRemplissage=this.opacite/2
+          objetstikz.push(c)
+        }
+   */     else if (this.style=='#'){
           p1=point(A.x-tailletikz,A.y-tailletikz)
           p2=point(A.x+tailletikz,A.y-tailletikz)
           c=carreIndirect(p1,p2,this.color)
@@ -1207,6 +1226,380 @@ export function polyline(...args) {
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% 3D EN PERSPECTIVE CAVALIERES %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+*/
+
+/**
+ * 
+ * @param {int} Longueur 
+ * @param {int} largeur 
+ * @param {int} profondeur
+ *  
+ */
+function Pave(L=10, l=5, h=5, origine=point(0,0), cote=true, angleDeFuite=30, coefficientDeFuite=.5){
+  let objets = [];
+  let A = origine, B = point(A.x+L,A.y), C = point(B.x,B.y+l) , D = point(A.x,A.y+l);
+  let p = polygone(A,B,C,D);
+  let E = pointAdistance(A,calcul(h*coefficientDeFuite),angleDeFuite);
+  let F = translation(B,vecteur(A,E));
+  let G = translation(C,vecteur(A,E));
+  let H = translation(D,vecteur(A,E));
+  let sAE = segment(A,E);
+  let sBF = segment(B,F);
+  let sCG = segment(C,G);
+  let sDH = segment(D,H);
+  let sEF = segment(E,F);
+  let sFG = segment(F,G);
+  let sGH = segment(G,H);
+  let sHE = segment(H,E);
+  sAE.pointilles = true;
+  sEF.pointilles = true;
+  sHE.pointilles = true;
+
+  objets.push(p, sAE, sBF, sCG, sDH, sEF, sFG, sGH, sHE);
+  if (cote) {
+    objets.push(afficheCoteSegment(segment(B,A),'',1));
+    objets.push(afficheCoteSegment(segment(A,D),'',1));
+    objets.push(afficheCoteSegment(segment(F,B),h+' cm',1));
+  }
+  this.svg = function (coeff) {
+    let code = "";
+    for (let objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    let code = "";
+    for (let objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+}
+
+export function pave(...args){
+  return new Pave(...args)
+}
+
+/**
+ * 
+ *@Auteur Jean-Claude Lhote
+ * normal et rayon sont deux vecteurs 3d
+ * normal est un vecteur normal au plan du cercle
+ * rayon est le vecteur qui part du centre et qui joint la 1ere extremité visible.
+ * cote est soit 'caché' soit 'visible' et déterminera dans quel sens on crée le demi-cercle.
+ * Si cote='caché' alors on tourne dans le sens direct et le tracé est en pointillés
+ * Si cote='visible' alors on tourne dans le sens indirect et le tracé est plein.
+ *
+ */
+export function demicercle3d(centre,normal,rayon,cote,color){
+
+  let demiCercle,signe,M=[],listepoints=[]
+  if (cote=='caché') {
+    signe=1
+  }
+  else {
+    signe=-1
+  }
+  let d=droite3d(centre,normal)
+  M.push(rotation3d(translation3d(centre,rayon),d,mathalea.anglePerspective))
+  listepoints.push(M[0].p2d)
+
+  for (let i=1;i<10;i++) {
+        M.push(rotation3d(M[i-1],d,20*signe))
+        listepoints.push(M[i].p2d)
+  }
+  demiCercle=polyline(listepoints,color)
+  if (cote=='caché') {
+    demiCercle.pointilles=2
+  }
+  return demiCercle
+ }
+
+ /**
+  * @Auteur Jean-Claude Lhote
+  * 
+  * centrebase est le centre du disque de base
+  * sommet est le sommet du cône
+  * normal est un vecteur 3d noraml au plan du disque (il détermine avec rayon de quel côté se trouve la partie visible)
+  * 
+  */
+function Cone3d(centrebase,sommet,normal,rayon){
+  ObjetMathalea2D.call(this)
+  this.sommet=sommet
+  this.centrebase=centrebase
+  this.normal=normal
+  this.rayon=rayon
+  let objets=[],c1,c2,s,color1,color2
+  let prodvec=math.cross(normal,rayon)
+  let prodscal=math.dot(prodvec,vecteur3d(0,1,0))
+  let cote1,cote2
+  if (prodscal>0) {
+    cote1='caché'
+    color1='gray'
+    cote2='visible'
+    color2='black'
+  }
+  else {
+    cote2='caché'
+    cote1='visible'
+    color1='black'
+    color2='gray'
+  }
+  c1=demicercle3d(this.centrebase,this.normal,this.rayon,cote1,color1)
+  c2=demicercle3d(this.centrebase,this.normal,this.rayon,cote2,color2)
+
+  for (let i=0;i<c1.listePoints.length;i++){
+    s=segment(this.sommet.p2d,c1.listePoints[i])
+    if (cote1=='caché'){
+      s.pointilles=2
+      s.color='gray'
+    }
+    else {
+      s.color='black'
+    }
+    objets.push(s)
+  }
+  for (let i=0;i<c2.listePoints.length;i++){
+    s=segment(this.sommet.p2d,c2.listePoints[i])
+    if (cote2=='caché'){
+      s.pointilles=2
+      s.color='gray'
+    }
+    else {
+      s.color='black'
+    }
+    objets.push(s)
+  }
+  objets.push(c1,c2)
+  this.svg =function (coeff) {
+    let code = "";
+    for (let objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  }
+  this.tikz = function() {
+    let code = "";
+    for (let objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  }
+}
+export function cone3d(centre,sommet,normal,rayon){
+  return new Cone3d(centre,sommet,normal,rayon)
+}
+/**
+ * @Auteur Jean-Claude Lhote
+ * Crée un cylindre de révolution définit par les centres de ses 2 bases
+ * @param {Point3d} centrebase1 
+ * @param {Point3d} centrebase2 
+ * @param {Vecteur3d} normal 
+ * @param {Vecteur3d} rayon1 
+ * @param {Vecteur3d} rayon2
+ */
+function Cylindre3d(centrebase1,centrebase2,normal,rayon1,rayon2){
+  ObjetMathalea2D.call(this)
+  this.centrebase1=centrebase1
+  this.centrebase2=centrebase2
+  this.normal=normal
+  this.rayon1=rayon1
+  this.rayon2=rayon2
+  let objets=[],c1,c2,c3,c4,s,color1,color2
+  let prodvec=math.cross(this.normal,this.rayon1)
+  let prodscal=math.dot(prodvec,vecteur3d(0,1,0))
+  let cote1,cote2
+  if (prodscal>0) {
+    cote1='caché'
+    color1='gray'
+    cote2='visible'
+    color2='black'
+  }
+  else {
+    cote2='caché'
+    cote1='visible'
+    color1='black'
+    color2='gray'
+  }
+  c1=demicercle3d(this.centrebase1,this.normal,this.rayon1,cote1,color1)
+  c3=demicercle3d(this.centrebase2,this.normal,this.rayon2,cote1,color1)
+  c2=demicercle3d(this.centrebase1,this.normal,this.rayon1,cote2,color2)
+  c4=demicercle3d(this.centrebase2,this.normal,this.rayon2,cote2,color2)
+  c3.pointilles=false
+  c3.color='black'
+  for (let i=0;i<c1.listePoints.length;i++){
+    s=segment(c3.listePoints[i],c1.listePoints[i])
+    if (cote1=='caché'){
+      s.pointilles=2
+      s.color='gray'
+    }
+    else {
+      s.color='black'
+    }
+    objets.push(s)
+  }
+  for (let i=0;i<c2.listePoints.length;i++){
+    s=segment(c4.listePoints[i],c2.listePoints[i])
+    if (cote2=='caché'){
+      s.pointilles=2
+      s.color='gray'
+    }
+    else {
+      s.color='black'
+    }
+    objets.push(s)
+  }
+  objets.push(c1,c2,c3,c4)
+  this.svg =function (coeff) {
+    let code = "";
+    for (let objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  }
+  this.tikz = function() {
+    let code = "";
+    for (let objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  }
+}
+export function cylindre3d(centrebase1,centrebase2,normal,rayon){
+  return new Cylindre3d(centrebase1,centrebase2,normal,rayon)
+}
+
+/**
+ * @Auteur Jean-Claude Lhote
+ * Point de l'espace défini par ses trois coordonnées (Si deux sont données seulement, le point est dans le plan XY)
+ */
+class Point3d {
+  constructor (x3d,y3d,z3d,label) {
+    let alpha=mathalea.anglePerspective*Math.PI/180
+    let rapport=mathalea.coeffPerspective
+    let MT = math.matrix([[1,rapport*Math.cos(alpha),0], [0,rapport*Math.sin(alpha), 1]])
+    this.x3d=x3d
+    this.y3d=y3d
+    this.z3d=z3d
+    this.label=label
+    let V=math.matrix([this.x3d,this.y3d,this.z3d])
+    let W=math.multiply(MT,V)
+    this.p2d=point(W._data[0],W._data[1])
+  }
+}
+export function point3d(x3d,y3d,z3d=0,label=""){
+  return new Point3d(x3d,y3d,z3d,label)
+}
+/**
+ * @Auteur Jean-claude Lhote
+ * Droite de l'espace définie par point et vecteur directeur
+ */
+class Droite3d{
+  constructor (point3D,vecteur3D){
+    this.origine=point3D
+    this.directeur=vecteur3D
+  }
+}
+
+export function droite3d(point3D,vecteur3D){
+  return new Droite3d(point3D,vecteur3D)
+}
+
+export function vecteur3d (...args){ // A,B deux Point3d ou x,y,z les composantes du vecteur
+  let x,y,z
+  if (args.length==2) {
+    x=args[1].x3d-args[0].x3d
+    y=args[1].y3d-args[0].y3d
+    z=args[1].z3d-args[0].z3d
+  }
+  else {
+    x=args[0]
+    y=args[1]
+    z=args[2]
+  }
+  return math.matrix([x,y,z])
+}
+
+/**
+ * @Auteur Jean-Claude Lhote
+ * usages : polygone3d([A,B,C,...],color) ou polygone3d(A,B,C...) où A,B,C ... sont des point3d. color='black' par défaut.
+ */
+class Polygone3d{
+  constructor (...args){
+    if (Array.isArray(args[0])) {
+      //Si le premier argument est un tableau
+      this.listePoints = args[0];
+      if (args[1]) {
+        this.color = args[1];
+      }
+    } else {
+      this.listePoints = args;
+      this.color='black'
+    }
+    let listePoints2d=[]
+    for (let i=0;i<this.listePoints.length;i++){
+      listePoints2d.push(listePoints[i].p2d)
+    }
+    this.p2d=polygone(listePoints2d,this.color)
+  }
+}
+
+export function polygone3d(...args){
+  return new Polygone3d(...args)
+}
+/**
+ * @Auteur Jean-Claude Lhote
+ * @param {*} point3D pour l'instant, cette fonction ne fait tourner qu'un point3d mais le reste suivra...
+ * @param {*} vecteur3D vecteur directeur de l'axe de rotation (l'axe passe par l'origine, pour tourner autour d'une droite particulière on utilise rotation3d())
+ * @param {*} angle Angle de rotation
+ */
+export function rotationV3d(point3D,vecteur3D,angle){ // point = ce qu'on fait tourner (Point3d) ; vecteur = directeur de l'axe de rotation [x,y,z] et angle de rotation en degrés
+let matrice
+let norme=Math.sqrt(math.dot(vecteur3D,vecteur3D))
+let unitaire=math.multiply(vecteur3D,1/norme)
+let u=unitaire._data[0],v=unitaire._data[1],w=unitaire._data[2]
+let c=Math.cos(angle*Math.PI/180),s=Math.sin(angle*Math.PI/180)
+let k=1-c
+matrice=math.matrix([[u*u*k+c,u*v*k-w*s,u*w*k+v*s],[u*v*k+w*s,v*v*k+c,v*w*k-u*s],[u*w*k-v*s,v*w*k+u*s,w*w*k+c]])
+let V=math.matrix([point3D.x3d,point3D.y3d,point3D.z3d])
+let p2=math.multiply(matrice,V)
+return point3d(p2._data[0],p2._data[1],p2._data[2])
+}
+/**
+ * @Auteur Jean-Claude Lhote
+ * @param {Point3d} point3D Pour l'instant on ne fait tourner qu'un point3d
+ * @param {Droite3d} droite3D Axe de rotation
+ * @param {Number} angle Angle de rotation
+ */
+export function rotation3d(point3D,droite3D,angle){
+  let directeur=droite3D.directeur
+  let origine=droite3D.origine
+  let V=vecteur3d(origine,point3d(0,0,0))
+  let W=math.multiply(V,-1)
+  let M=translation3d(point3D,V)
+  let N=rotationV3d(M,directeur,angle)
+  return translation3d(N,W)
+}
+
+/**
+ * @Auteur Jean-Claude Lhote
+ * @param {Point3d} point3D Pour l'instant on ne translate qu'un point mais le reste va suivre...
+ * @param {Vecteur3d} vecteur3D 
+ */
+export function translation3d(point3D,vecteur3D){
+  let x=point3D.x3d+vecteur3D._data[0]
+  let y=point3D.y3d+vecteur3D._data[1]
+  let z=point3D.z3d+vecteur3D._data[2]
+  return point3d(x,y,z)
+}
+
+
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%% LES VECTEURS %%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
@@ -2142,6 +2535,132 @@ function Cercle(O, r, color) {
 }
 export function cercle(...args) {
   return new Cercle(...args);
+}
+
+
+/**
+ * c = ellipse(O,rx,ry) //Ellipse de centre O et de rayon rx et ry
+ * @Auteur Rémi Angot
+ */
+function Ellipse(O, rx, ry, color) {
+  ObjetMathalea2D.call(this);
+  if (color) {
+    this.color = color;
+    this.styleTikz = `[${color}]`;
+  }
+  this.centre = O;
+  this.rx = rx;
+  this.ry = ry;
+  this.couleurDeRemplissage = "";
+  this.opaciteDeRemplissage = 0.7;
+  this.svg = function (coeff) {
+    if (this.epaisseur != 1) {
+      this.style += ` stroke-width="${this.epaisseur}" `;
+    }
+    if (Boolean(this.pointilles)) {
+      switch (this.pointilles) {
+        case 1 :
+          this.style += ` stroke-dasharray="6 10" `;
+          break;
+        case 2 : 
+        this.style += ` stroke-dasharray="6 3" `;
+        break;       
+        case 3 :
+          this.style += ` stroke-dasharray="3 2 6 2 " `;
+          break;      
+        default : 
+        this.style += ` stroke-dasharray="5 5" `;
+        break; 
+      }
+
+    }
+    if (this.opacite != 1) {
+      this.style += ` stroke-opacity="${this.opacite}" `;
+    }
+    if (this.couleurDeRemplissage == "") {
+      this.style += ` fill="none" `;
+    } else {
+      this.style += ` fill="${this.couleurDeRemplissage}" `;
+      this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `;
+    }
+
+    return `<ellipse cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" rx="${calcul(rx*coeff)}" ry="${calcul(ry*coeff)}" stroke="${this.color}" ${this.style} id="${this.id}" />`
+  };
+  this.tikz = function () {
+    let optionsDraw = [];
+    let tableauOptions = [];
+    if (this.color.length > 1 && this.color !== "black") {
+      tableauOptions.push(this.color);
+    }
+    if (this.epaisseur != 1) {
+      tableauOptions.push(`line width = ${this.epaisseur}`);
+    }
+    if (Boolean(this.pointilles)) {
+      switch (this.pointilles) {
+         case 1 :
+           tableauOptions.push(` dash dot `);
+           break;
+         case 2 : 
+         tableauOptions.push(` dash dash dot `);
+         break;       
+         case 3 :
+           tableauOptions.push(` dash dot dot `);
+           break;      
+         default : 
+           tableauOptions.push(` dashed `);
+         break; 
+       }
+     }
+     if (this.opacite != 1) {
+      tableauOptions.push(`opacity = ${this.opacite}`);
+    }
+    if (tableauOptions.length > 0) {
+      optionsDraw = "[" + tableauOptions.join(",") + "]";
+    }
+    return `\\draw${optionsDraw} (${O.x},${O.y}) ellipse (${rx}cm and ${ry}cm);;`;
+  };
+  // this.svgml = function (coeff,amp) {
+  //   if (this.epaisseur != 1) {
+  //     this.style += ` stroke-width="${this.epaisseur}" `;
+  //   }
+
+  //   if (this.opacite != 1) {
+  //     this.style += ` stroke-opacity="${this.opacite}" `;
+  //   }
+  //   if (this.couleurDeRemplissage == "") {
+  //     this.style += ` fill="none" `;
+  //   } else {
+  //     this.style += ` fill="${this.couleurDeRemplissage}" `;
+  //     this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `;
+  //   }
+
+  //   let code =`<ellipse cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" rx="${calcul(rx*coeff)}" ry="${calcul(ry*coeff)}" />`
+  //   return code;
+  // }
+  this.tikzml = function(amp) {
+    let optionsDraw = [];
+    let tableauOptions = [];
+    if (this.color.length > 1 && this.color !== "black") {
+      tableauOptions.push(this.color);
+    }
+    if (this.epaisseur != 1) {
+      tableauOptions.push(`line width = ${this.epaisseur}`);
+    }
+
+    if (this.opacite != 1) {
+      tableauOptions.push(`opacity = ${this.opacite}`);
+    }
+    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`);
+    optionsDraw = "[" + tableauOptions.join(",") + "]";
+
+
+    let code=`\\draw${optionsDraw} (${O.x},${O.y}) circle (${r});`
+    return code
+  
+  }
+}
+export function ellipse(...args) {
+  return new Ellipse(...args);
 }
 
 /**
@@ -7270,7 +7789,7 @@ export function mathalea2d(
              else
                   code += "\t" + objet[i].svgml(pixelsParCm,amplitude) + "\n";
             }
-          } catch (error) {console.log('premiere boucle',error.message,objet[i])}
+          } catch (error) {console.log('premiere boucle',error.message,objet[i],i)}
 
         }
       }
