@@ -3,6 +3,7 @@ import {liste_de_question_to_contenu,randint,choice,shuffle,combinaison_listes_s
 /**
  * * Equations résolvantes pour le théorème de Thalès
  * * 3L13-2
+ * * modification le 11/01/2021
  * @author Sébastien Lozano
  */
 export default function Eq_resolvantes_Thales() {
@@ -16,16 +17,10 @@ export default function Eq_resolvantes_Thales() {
 		this.nb_questions = 2;
 	};
 	this.sup = 1;
-	//this.exo = '';	
-	if (this.exo == '4P10-2') {
-		this.consigne = `Déterminer la quatrième proportionnelle dans les tableaux suivants.`;
-	} else {
-		this.consigne = `Résoudre les équations suivantes.`;
-	};
+	this.consigne = `Résoudre les équations suivantes.`;
 
 	this.nb_cols = 1;
 	this.nb_cols_corr = 1;
-	//this.nb_questions_modifiable = false;
 	sortie_html ? this.spacing = 2.5 : this.spacing = 1.5;
 	sortie_html ? this.spacing_corr = 2.5 : this.spacing_corr = 1.5;
 
@@ -256,6 +251,4 @@ export default function Eq_resolvantes_Thales() {
 
 	};
 	this.besoin_formulaire_numerique = ['Type de nombres', 4, "1 : Entiers naturels\n2 : Entiers relatifs\n3 : Décimaux\n4 : Mélange"];
-	//this.besoin_formulaire2_case_a_cocher = ["Avec des équations du second degré"];
-	//this.besoin_formulaire2_case_a_cocher = ["Avec décimaux.",false]	
 }
