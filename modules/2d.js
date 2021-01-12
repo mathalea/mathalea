@@ -1317,15 +1317,71 @@ export function demicercle3d(centre,normal,rayon,cote,color){
   }
   return demiCercle
  }
+ export function cercle3d(centre,normal,rayon,visible,color){
 
- function Sphere3d(centre,normal,rayon){
+  let C,M=[],listepoints=[]
+  let d=droite3d(centre,normal)
+  M.push(rotation3d(translation3d(centre,rayon),d,mathalea.anglePerspective))
+  listepoints.push(M[0].p2d)
+  for (let i=1;i<37;i++) {
+        M.push(rotation3d(M[i-1],d,10))
+        listepoints.push(M[i].p2d)
+  }
+  C=polyline(listepoints,color)
+  if (!visible) {
+    C.pointilles=2
+  }
+  return C
+ }
+
+ function Sphere3d(centre,normal,rayon,color){
    ObjetMathalea2D.call(this)
    this.centre=centre
    this.rayon=rayon
    this.normal=normal
-   
+   this.color=color
+   let objets=[],c1,c2,C
+   let prodvec=math.cross(normal,rayon)
+   let prodscal=math.dot(prodvec,vecteur3d(0,1,0))
+   let cote1,cote2,rayon2,r,R,M
+   rayon2=math.cross(rayon,math.multiply(prodvec,1/math.norm(prodvec)))
+   M=translation(this.centre,this.rayon)
+   rayon2=rotationV3d(rayon2,this.normal,mathalea.anglePerspective)
+   R=math.norm(this.rayon)
+   if (prodscal>0) {
+     cote1='caché'
+     cote2='visible'
+   }
+   else {
+     cote2='caché'
+     cote1='visible'
+   }
+   objets.push(cercle3d(this.centre,prodvec,this.rayon,true,this.color))
+   for (let k=0;k<2;k+=0.25){
+     r=math.sqrt(R**2-((k-1)*R)**2)
+     C=translation3d(this.centre,math.multiply(rayon2,k-1))
+     c1=demicercle3d(C,this.normal,math.multiply(this.rayon,r/R),cote1,this.color)
+     c2=demicercle3d(C,this.normal,math.multiply(this.rayon,r/R),cote2,this.color)
+     objets.push(c1,c2)
+   }
+   this.svg =function (coeff) {
+    let code = "";
+    for (let objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  }
+  this.tikz = function() {
+    let code = "";
+    for (let objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  }
  }
-
+export function sphere3d(centre,normal,rayon,color='black'){
+  return new Sphere3d(centre,normal,rayon,color)
+}
  /**
   * @Auteur Jean-Claude Lhote
   * 
@@ -1516,8 +1572,8 @@ export function droite3d(point3D,vecteur3D){
   return new Droite3d(point3D,vecteur3D)
 }
 
-export function vecteur3d (...args){ // A,B deux Point3d ou x,y,z les composantes du vecteur
-  let x,y,z
+function Vecteur3d(...args){
+   let x,y,z
   if (args.length==2) {
     x=args[1].x3d-args[0].x3d
     y=args[1].y3d-args[0].y3d
@@ -1529,6 +1585,10 @@ export function vecteur3d (...args){ // A,B deux Point3d ou x,y,z les composante
     z=args[2]
   }
   return math.matrix([x,y,z])
+}
+
+export function vecteur3d (...args){ // A,B deux Point3d ou x,y,z les composantes du vecteur
+  return new Vecteur3d(...args)
 }
 
 /**
@@ -1593,21 +1653,33 @@ export function prisme3d(base,vecteur){
 
 /**
  * @Auteur Jean-Claude Lhote
- * @param {*} point3D pour l'instant, cette fonction ne fait tourner qu'un point3d mais le reste suivra...
+ * @param {*} point3D pour l'instant, cette fonction ne fait tourner qu'un point3d ou un vecteur3d
  * @param {*} vecteur3D vecteur directeur de l'axe de rotation (l'axe passe par l'origine, pour tourner autour d'une droite particulière on utilise rotation3d())
  * @param {*} angle Angle de rotation
  */
 export function rotationV3d(point3D,vecteur3D,angle){ // point = ce qu'on fait tourner (Point3d) ; vecteur = directeur de l'axe de rotation [x,y,z] et angle de rotation en degrés
-let matrice
-let norme=Math.sqrt(math.dot(vecteur3D,vecteur3D))
+let matrice,V
+let norme=math.norm(vecteur3D)
 let unitaire=math.multiply(vecteur3D,1/norme)
 let u=unitaire._data[0],v=unitaire._data[1],w=unitaire._data[2]
 let c=Math.cos(angle*Math.PI/180),s=Math.sin(angle*Math.PI/180)
 let k=1-c
+console.log(point3D.constructor)
 matrice=math.matrix([[u*u*k+c,u*v*k-w*s,u*w*k+v*s],[u*v*k+w*s,v*v*k+c,v*w*k-u*s],[u*w*k-v*s,v*w*k+u*s,w*w*k+c]])
-let V=math.matrix([point3D.x3d,point3D.y3d,point3D.z3d])
+if (point3D.constructor==Point3d){
+  V=math.matrix([point3D.x3d,point3D.y3d,point3D.z3d])
+}
+else if (point3D.constructor==Vecteur3d){
+  V=point3D
+}
 let p2=math.multiply(matrice,V)
-return point3d(p2._data[0],p2._data[1],p2._data[2])
+if (point3D.constructor==Point3d){
+  return point3d(p2._data[0],p2._data[1],p2._data[2])
+}
+else if (point3D._data[0]!='undefined'){
+  return p2
+}
+
 }
 /**
  * @Auteur Jean-Claude Lhote
@@ -1627,7 +1699,7 @@ export function rotation3d(point3D,droite3D,angle){
 
 /**
  * @Auteur Jean-Claude Lhote
- * @param {Point3d} point3D Pour l'instant on ne translate qu'un point mais le reste va suivre...
+ * @param {Point3d} point3D Pour l'instant on ne translate qu'un point3d ou un polygone3d
  * @param {Vecteur3d} vecteur3D 
  */
 export function translation3d(point3D,vecteur3D){
