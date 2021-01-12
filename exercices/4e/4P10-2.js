@@ -8,7 +8,7 @@ import Eq_resolvantes_Thales from '../3e/3L13-2.js'
  * --------- 
  * * numéro de l'exo ex : 4P10-2 fils de 3L13-2
  * * publication initiale le 15/12/2020
- * * modification le jj/mm/aaaa pour ....
+ * * modification le 11/01/2021
  * @author Sébastien Lozano
  */
 
