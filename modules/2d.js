@@ -1392,15 +1392,24 @@ function Cone3d(centrebase,sommet,normal,rayon){
 export function cone3d(centre,sommet,normal,rayon){
   return new Cone3d(centre,sommet,normal,rayon)
 }
-
-function Cylindre3d(centrebase1,centrebase2,normal,rayon){
+/**
+ * @Auteur Jean-Claude Lhote
+ * Crée un cylindre de révolution définit par les centres de ses 2 bases
+ * @param {Point3d} centrebase1 
+ * @param {Point3d} centrebase2 
+ * @param {Vecteur3d} normal 
+ * @param {Vecteur3d} rayon1 
+ * @param {Vecteur3d} rayon2
+ */
+function Cylindre3d(centrebase1,centrebase2,normal,rayon1,rayon2){
   ObjetMathalea2D.call(this)
   this.centrebase1=centrebase1
   this.centrebase2=centrebase2
   this.normal=normal
-  this.rayon=rayon
+  this.rayon1=rayon1
+  this.rayon2=rayon2
   let objets=[],c1,c2,c3,c4,s,color1,color2
-  let prodvec=math.cross(normal,rayon)
+  let prodvec=math.cross(this.normal,this.rayon1)
   let prodscal=math.dot(prodvec,vecteur3d(0,1,0))
   let cote1,cote2
   if (prodscal>0) {
@@ -1415,10 +1424,10 @@ function Cylindre3d(centrebase1,centrebase2,normal,rayon){
     color1='black'
     color2='gray'
   }
-  c1=demicercle3d(this.centrebase1,this.normal,this.rayon,cote1,color1)
-  c3=demicercle3d(this.centrebase2,this.normal,this.rayon,cote1,color1)
-  c2=demicercle3d(this.centrebase1,this.normal,this.rayon,cote2,color2)
-  c4=demicercle3d(this.centrebase2,this.normal,this.rayon,cote2,color2)
+  c1=demicercle3d(this.centrebase1,this.normal,this.rayon1,cote1,color1)
+  c3=demicercle3d(this.centrebase2,this.normal,this.rayon2,cote1,color1)
+  c2=demicercle3d(this.centrebase1,this.normal,this.rayon1,cote2,color2)
+  c4=demicercle3d(this.centrebase2,this.normal,this.rayon2,cote2,color2)
   c3.pointilles=false
   c3.color='black'
   for (let i=0;i<c1.listePoints.length;i++){
@@ -1459,15 +1468,15 @@ function Cylindre3d(centrebase1,centrebase2,normal,rayon){
     return code;
   }
 }
-
-
-
-
 export function cylindre3d(centrebase1,centrebase2,normal,rayon){
   return new Cylindre3d(centrebase1,centrebase2,normal,rayon)
 }
-class Point3d {
 
+/**
+ * @Auteur Jean-Claude Lhote
+ * Point de l'espace défini par ses trois coordonnées (Si deux sont données seulement, le point est dans le plan XY)
+ */
+class Point3d {
   constructor (x3d,y3d,z3d,label) {
     let alpha=mathalea.anglePerspective*Math.PI/180
     let rapport=mathalea.coeffPerspective
@@ -1481,10 +1490,13 @@ class Point3d {
     this.p2d=point(W._data[0],W._data[1])
   }
 }
-export function point3d(x3d,y3d,z3d,label=""){
+export function point3d(x3d,y3d,z3d=0,label=""){
   return new Point3d(x3d,y3d,z3d,label)
 }
-
+/**
+ * @Auteur Jean-claude Lhote
+ * Droite de l'espace définie par point et vecteur directeur
+ */
 class Droite3d{
   constructor (point3D,vecteur3D){
     this.origine=point3D
@@ -1496,7 +1508,7 @@ export function droite3d(point3D,vecteur3D){
   return new Droite3d(point3D,vecteur3D)
 }
 
-export function vecteur3d(...args){ // A,B deux Point3d ou x,y,z les composantes du vecteur
+export function vecteur3d (...args){ // A,B deux Point3d ou x,y,z les composantes du vecteur
   let x,y,z
   if (args.length==2) {
     x=args[1].x3d-args[0].x3d
@@ -1511,6 +1523,39 @@ export function vecteur3d(...args){ // A,B deux Point3d ou x,y,z les composantes
   return math.matrix([x,y,z])
 }
 
+/**
+ * @Auteur Jean-Claude Lhote
+ * usages : polygone3d([A,B,C,...],color) ou polygone3d(A,B,C...) où A,B,C ... sont des point3d. color='black' par défaut.
+ */
+class Polygone3d{
+  constructor (...args){
+    if (Array.isArray(args[0])) {
+      //Si le premier argument est un tableau
+      this.listePoints = args[0];
+      if (args[1]) {
+        this.color = args[1];
+      }
+    } else {
+      this.listePoints = args;
+      this.color='black'
+    }
+    let listePoints2d=[]
+    for (let i=0;i<this.listePoints.length;i++){
+      listePoints2d.push(listePoints[i].p2d)
+    }
+    this.p2d=polygone(listePoints2d,this.color)
+  }
+}
+
+export function polygone3d(...args){
+  return new Polygone3d(...args)
+}
+/**
+ * @Auteur Jean-Claude Lhote
+ * @param {*} point3D pour l'instant, cette fonction ne fait tourner qu'un point3d mais le reste suivra...
+ * @param {*} vecteur3D vecteur directeur de l'axe de rotation (l'axe passe par l'origine, pour tourner autour d'une droite particulière on utilise rotation3d())
+ * @param {*} angle Angle de rotation
+ */
 export function rotationV3d(point3D,vecteur3D,angle){ // point = ce qu'on fait tourner (Point3d) ; vecteur = directeur de l'axe de rotation [x,y,z] et angle de rotation en degrés
 let matrice
 let norme=Math.sqrt(math.dot(vecteur3D,vecteur3D))
@@ -1523,7 +1568,12 @@ let V=math.matrix([point3D.x3d,point3D.y3d,point3D.z3d])
 let p2=math.multiply(matrice,V)
 return point3d(p2._data[0],p2._data[1],p2._data[2])
 }
-
+/**
+ * @Auteur Jean-Claude Lhote
+ * @param {Point3d} point3D Pour l'instant on ne fait tourner qu'un point3d
+ * @param {Droite3d} droite3D Axe de rotation
+ * @param {Number} angle Angle de rotation
+ */
 export function rotation3d(point3D,droite3D,angle){
   let directeur=droite3D.directeur
   let origine=droite3D.origine
@@ -1534,6 +1584,11 @@ export function rotation3d(point3D,droite3D,angle){
   return translation3d(N,W)
 }
 
+/**
+ * @Auteur Jean-Claude Lhote
+ * @param {Point3d} point3D Pour l'instant on ne translate qu'un point mais le reste va suivre...
+ * @param {Vecteur3d} vecteur3D 
+ */
 export function translation3d(point3D,vecteur3D){
   let x=point3D.x3d+vecteur3D._data[0]
   let y=point3D.y3d+vecteur3D._data[1]
