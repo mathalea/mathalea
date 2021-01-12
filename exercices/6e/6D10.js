@@ -51,7 +51,7 @@ export default function Conversions_de_durees() {
           let sous_type_de_question = liste_sous_type_de_questionv1[i];
           if (sous_type_de_question == 1) {
             h = randint(2, 11);
-            texte = `$${h}~\\text{h en minute}$`;
+            texte = `$${h}~\\text{h en minutes}$`;
             texte_corr = `$${h}~\\text{h} = ${h}\\times60~~\\text{min} = ${tex_nombre(
               h * 60
             )}~\\text{min}$`;
