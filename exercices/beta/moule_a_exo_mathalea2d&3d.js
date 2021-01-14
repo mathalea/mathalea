@@ -69,9 +69,12 @@ export default function Exercice_zero_mathalea2d() {
   //  objets_enonce.push () // On rempli les tableaux d'objets Mathalea2d
   //  objets_enonceml.push()
   //  objets_correction.push()
-  
+  // paramètres pour la perspective
+  mathalea.anglePerspective=30
+  mathalea.coeffPerspective=0.5
+
   //paramètres de la fenêtre Mathalea2d pour l'énoncé main levée
-    //    params_enonceml = { xmin: Math.min(objets_enonceml.x), ymin: Math.min(objets_enonceml.y), xmax: Math.max(objets_enonceml.x), ymax: Math.max(objets_enonceml.y), pixelsParCm: 20, scale: 1, mainlevee: true, amplitude: 1 }
+      //    params_enonceml = { xmin: Math.min(objets_enonceml.x), ymin: Math.min(objets_enonceml.y), xmax: Math.max(objets_enonceml.x), ymax: Math.max(objets_enonceml.y), pixelsParCm: 20, scale: 1, mainlevee: true, amplitude: 1 }
   //paramètres de la fenêtre Mathalea2d pour l'énoncé normal
         params_enonce = { xmin:-10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false}
   //paramètres de la fenêtre Mathalea2d pour la correction
