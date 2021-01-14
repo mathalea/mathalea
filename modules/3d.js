@@ -65,7 +65,8 @@ function ObjetMathalea2D() {
    * 
    * @Auteur Jean-Claude Lhote
    * le vecteur3d est sans doute l'objet le plus important de cette base d'objets
-   * On les utilise dans tous les objets complexes et dans toutes les transformations.
+   * On les utilise dans tous les objets complexeimport Additionner_soustraires_decimaux from '../exercices/6e/6C20';
+s et dans toutes les transformations.
    * Ils servent notament à définir la direction des plans.
    * 
    * 3 usages : vecteur3d(A,B) ou vecteur3d(x,y,z) ou vecteur3d(math.matrix([x,y,z]))
@@ -112,7 +113,37 @@ function ObjetMathalea2D() {
   export function vecteur3d (...args){ // A,B deux Point3d ou x,y,z les composantes du vecteur
     return new Vecteur3d(...args)
   }
-  
+
+  /**
+   * L'ARETE
+   * @Auteur Jean-Claude lhote
+   * 
+   * 
+   * 
+   */
+class Arete3d{
+    constructor (point1,point2,color){
+        this.extremite1=point1
+        this.extremite2=point2
+        this.color=color
+        if (!point1.visible||!point2.visible) {
+            this.visible=false
+        }
+        else {
+            this.visible=true
+        }
+        this.p2d=segment(point1.p2d,point2.p2d,color)
+        if (!this.visible) {
+            this.p2d.pointilles=2
+        }
+        else {
+            this.p2d.pointilles=false
+        }
+    }
+  }
+export function arete3d(p1,p2,color){
+    return new Arete3d(p1,p2,color)
+}
 
   /**
    * LA DROITE
@@ -220,11 +251,17 @@ export function demicercle3d(centre,normal,rayon,cote,color){
         this.listePoints = args;
         this.color='black'
       }
-      let listePoints2d=[]
-      for (let i=0;i<this.listePoints.length;i++){
-        listePoints2d.push(this.listePoints[i].p2d)
+      let segments3d=[],A,segments=[]
+      A=this.listePoints[0]
+      for (let i=1;i<this.listePoints.length;i++){
+        segments3d.push(arete3d(A,this.listePoints[i],this.color))
+        segments.push(segments3d[i-1].p2d)
+        A=this.listePoints[i]
       }
-      this.p2d=polygone(listePoints2d,this.color)
+      segments3d.push(arete3d(A,this.listePoints[0],this.color))
+      segments.push(segments3d[this.listePoints.length-2].p2d)
+      this.aretes=segments3d
+      this.p2d=segments
     }
   }
   
@@ -479,17 +516,27 @@ export function demicercle3d(centre,normal,rayon,cote,color){
    * Crée un prisme à partir du base Polygone3d et d'un vecteur3d d'extrusion (on peut faire des prismes droits ou non droits)
    */
   class Prisme3d{
-    constructor(base,vecteur){
+    constructor(base,vecteur,color){
       ObjetMathalea2D.call(this)
+
+      this.color=color
+      base.color=color
       this.base1=base
       this.base2=translation3d(base,vecteur)
+      this.base2.color=this.base1.color
+      this.aretes=[]
       let objets=[],s
-      objets.push(this.base1.p2d,this.base2.p2d)
-      for (let i=0;i<this.base1.p2d.listePoints.length;i++){
-        s=segment(this.base1.p2d.listePoints[i],this.base2.p2d.listePoints[i])
-        s.color=this.base1.color
-        objets.push(s)
+      for (let i=0;i<this.base1.listePoints.length;i++){
+      objets.push(this.base1.p2d[i])
       }
+      for (let i=0;i<this.base2.listePoints.length;i++){
+        objets.push(this.base2.p2d[i])
+      }
+      for (let i=0;i<this.base1.listePoints.length;i++){
+        s=arete3d(this.base1.listePoints[i],this.base2.listePoints[i],this.color)
+        objets.push(s.p2d)
+      }
+
       this.svg =function (coeff) {
         let code = "";
         for (let objet of objets) {
@@ -506,10 +553,52 @@ export function demicercle3d(centre,normal,rayon,cote,color){
       }
     }
   }
-  export function prisme3d(base,vecteur){
-    return new Prisme3d(base,vecteur)
+
+  export function prisme3d(base,vecteur,color='black'){
+    return new Prisme3d(base,vecteur,color)
   }
   
+/**
+   * LE PAVE
+   * @Auteur Jean-Claude Lhote
+   * usage : pave(A,B,D,E) construit le pavé ABCDEFGH dont les arêtes [AB],[AD] et [AE] sont délimitent 3 faces adjacentes.
+   * 
+*/
+class Pave3d{
+    constructor (A,B,D,E,color){
+        ObjetMathalea2D.call(this)
+        let v1=vecteur3d(A,B)
+        let v2=vecteur3d(A,E)
+        let v3=vecteur3d(A,D)
+        let C=translation3d(D,v1)
+        let H=translation3d(D,v2)
+        let G=translation3d(C,v2)
+        let F=translation3d(B,v2)
+        E.visible=false
+        this.color=color
+        this.base=polygone3d([A,B,F,E])
+        this.hauteur=v3
+        this.aretes=[arete3d(A,B,color),arete3d(A,D,color),arete3d(A,E,color),arete3d(C,B,color),arete3d(F,B,color),arete3d(C,D,color),arete3d(C,G,color),arete3d(F,G,color),arete3d(F,E,color),arete3d(H,G,color),arete3d(H,E,color),arete3d(H,D,color)]
+        this.svg =function (coeff) {
+            let code = "";
+            for (let arete of aretes) {
+              code += "\n\t" + arete.p2d.svg(coeff);
+            }
+            return code;
+          }
+          this.tikz = function() {
+            let code = "";
+            for (let arete of aretes) {
+              code += "\n\t" + arete.p2d.tikz();
+            }
+            return code;
+          }
+    }
+}
+export function pave3d(A,B,C,E,color=black){
+    return new Pave3d(A,B,C,E,color)
+}
+
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%% TRANSFORMATIONS%%%%%%%%%%%
