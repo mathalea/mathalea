@@ -157,8 +157,9 @@ export function arete3d(p1,p2,color){
       this.origine=point3D
       this.directeur=vecteur3D
       let M=translation3d(this.origine,this.directeur)
-      this.p2d=droite(this.origine.p2d,M.p2d) // la droite correspndant à la projection de cette droite dans le plan Mathalea2d
-      this.p2d.isVisible=false
+      this.point=M
+      // this.p2d=droite(this.origine.p2d,M.p2d) // la droite correspndant à la projection de cette droite dans le plan Mathalea2d
+     // this.p2d.isVisible=false
     }
   }
   
