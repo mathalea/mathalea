@@ -6,7 +6,7 @@ import {point3d,vecteur3d,arete3d,demicercle3d,cercle3d,sphere3d,rotation3d,rota
 export default function Exercice_zero_mathalea2d() {
     "use strict"
     Exercice.call(this)
-    this.titre = "Mettre ici le titre écrit dans le menu Mathalea";
+    this.titre = "Exo zéro Mathalea2d";
     this.nb_questions = 4; // Ici le nombre de questions
     this.nb_questions_modifiable=true // Active le formulaire nombre de questions
     this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX
