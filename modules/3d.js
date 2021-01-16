@@ -141,7 +141,7 @@ class Arete3d{
         }
     }
   }
-export function arete3d(p1,p2,color){
+export function arete3d(p1,p2,color='black'){
     return new Arete3d(p1,p2,color)
 }
 
