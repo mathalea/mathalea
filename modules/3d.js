@@ -595,7 +595,7 @@ class Pave3d{
           }
     }
 }
-export function pave3d(A,B,C,E,color=black){
+export function pave3d(A,B,C,E,color='black'){
     return new Pave3d(A,B,C,E,color)
 }
 
