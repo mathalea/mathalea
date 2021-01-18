@@ -3427,9 +3427,15 @@ export function modal_texte_court(numero_de_l_exercice,texte,label_bouton="Aide"
 export function modal_youtube(numero_de_l_exercice,id_youtube,texte,label_bouton="Aide - Vidéo",icone="youtube"){
 	let contenu
 	if (id_youtube.substr(0,4)=='http'){
-		contenu = `<iframe width="560" height="315" sandbox="allow-same-origin allow-scripts allow-popups" src="${id_youtube}" frameborder="0" allowfullscreen></iframe>`
-		contenu = contenu.replace('watch','embed')
-	} else {
+		if (id_youtube.slice(-4)=='.pdf'){
+			contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><object type="application/pdf" data="${id_youtube}" width="560" height="315"> </object></p></div>`
+		} else {
+			contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" sandbox="allow-same-origin allow-scripts allow-popups" src="${id_youtube}" frameborder="0" allowfullscreen></iframe></p></div>`
+		}
+	} else if (id_youtube.substr(0,4)=='<ifr'){
+		contenu = `<div class="header">${texte}</div><div class="content"><p align="center">${id_youtube}</p></div>`
+	}
+	else {
 		contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${id_youtube}?rel=0&showinfo=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
 	}
 	return creer_modal(numero_de_l_exercice,contenu,label_bouton,icone)
