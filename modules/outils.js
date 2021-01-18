@@ -1,5 +1,7 @@
 import {point,vecteur,segment,carre,cercle,arc,translation,rotation,texteParPosition,} from "/modules/2d.js"
-
+import { mathalea } from "/modules/variables.js"
+import { sortie_html } from "/modules/variables.js"
+import { est_diaporama } from "/modules/variables.js"
 
 // Fonctions diverses pour la création des exercices
 /**

@@ -1,4 +1,7 @@
 import {point,vecteur,droite,segment,polyline,polygone} from "/modules/2d.js"
+import { mathalea } from "/modules/variables.js"
+import { sortie_html } from "/modules/variables.js"
+import { est_diaporama } from "/modules/variables.js"
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%% OBJET PARENT %%%%%%%%%%%%%

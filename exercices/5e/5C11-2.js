@@ -2,7 +2,6 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,prenom, Trouver_solution_mathador} from "/modules/outils.js"
 
 
-
 /**
  * Transformer un programme de calcul avec les 4 opérations dans un ordre aléatoire en un seul calcul.
  * @Auteur Jean-Claude Lhote

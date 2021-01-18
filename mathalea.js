@@ -2,7 +2,9 @@ import { strRandom, telechargeFichier, intro_LaTeX, intro_LaTeX_coop, scratchTra
 import { getUrlVars } from "./modules/getUrlVars.js";
 import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules/menuDesExercicesDisponibles.js";
 
-
+import { mathalea } from "/modules/variables.js"
+import { sortie_html } from "/modules/variables.js"
+import { est_diaporama } from "/modules/variables.js"
 
 (function () {
     // IIFE principal
@@ -101,6 +103,8 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                 });
             }
         })();
+        console.log('sortie_html',sortie_html)
+        console.log('mathalea',mathalea)
         if (sortie_html && est_diaporama) {
             if (liste_des_exercices.length>0) { // Pour les diaporamas tout cacher quand un exercice est choisi
                 $("#liste_des_exercices").hide();
