@@ -16,7 +16,7 @@ export default function CalculsDansLaSphere() {
   
   //  this.sup = false; // A décommenter : valeur par défaut d'un premier paramètre
   //  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
-  //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
+
 
     this.nouvelle_version = function (){
     this.liste_questions = [] // tableau contenant la liste des questions 
