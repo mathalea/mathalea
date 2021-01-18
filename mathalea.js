@@ -218,7 +218,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                     }
                     contenuDesExercices += `<h3 class="ui dividing header">Exercice ${i + 1} − ${listeObjetsExercice[i].id}</h3>`;
                     if (listeObjetsExercice[i].video.length>3) {
-                        contenuDesExercices += `<div id=video${i}>` +modal_youtube(i,listeObjetsExercice[i].video,'',"Aide - Vidéo","youtube") + `</div>`;
+                        contenuDesExercices += `<div id=video${i}>` +modal_youtube(i,listeObjetsExercice[i].video,'',"Aide","youtube") + `</div>`;
                     }
                     if (listeObjetsExercice[i].bouton_aide) {
                         contenuDesExercices += `<div id=aide${i}> ${listeObjetsExercice[i].bouton_aide}</div>`;
@@ -713,7 +713,7 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
                         '<div><label for="form_nb_questions' + i + '">Nombre de questions : </label> <input id="form_nb_questions' + i + '" type="number"  min="1" max="99"></div>';
                 }
                 if (!est_diaporama){
-                    div_parametres_generaux.innerHTML += '<div><label for="form_video' + i + '" data-tooltip="Identifiant YouTube" data-inverted="" >Vidéo : <input id="form_video' + i + '" type="texte" size="20"  ></label></div>';
+                    div_parametres_generaux.innerHTML += '<div><label for="form_video' + i + '" data-tooltip="URL, code iframe, identifiant YouTube" data-inverted="" >Vidéo ou complément numérique : <input id="form_video' + i + '" type="texte" size="20"  ></label></div>';
                 }
                 if (exercice[i].correction_detaillee_disponible) {
                     div_parametres_generaux.innerHTML +=
