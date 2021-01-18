@@ -6,7 +6,6 @@ import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules
 
 (function () {
     // IIFE principal
-
     mathalea.listeDesScriptsCharges = []
     let listeObjetsExercice = []; // Liste des objets listeObjetsExercices
     let liste_des_exercices = []; // Liste des identifiants des exercices
