@@ -43,7 +43,8 @@ export default function CalculsDansLaSphere() {
         let Sph=sphere3d(O,normalV,R,1,1)
         let HP=arete3d(H,P)
         let OP=arete3d(O,P)
-        objets_enonce.push(Sph,Axe.p2d,HP.p2d,OP.p2d)
+        let OM=arete3d(O,M)
+        objets_enonce.push(Sph,Axe.p2d,HP.p2d,OP.p2d,OM.p2d)
         objets_correction.push(Sph,Axe.p2d,HP.p2d,OP.p2d)
         texte = `` // Nous utilisons souvent cette variable pour construire le texte de la question.
         texte_corr = `` // Idem pour le texte de la correction.
