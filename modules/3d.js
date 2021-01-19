@@ -1,7 +1,5 @@
 import {point,vecteur,droite,segment,polyline,polygone} from "/modules/2d.js"
-import { mathalea } from "/modules/variables.js"
-import { sortie_html } from "/modules/variables.js"
-import { est_diaporama } from "/modules/variables.js"
+
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%% OBJET PARENT %%%%%%%%%%%%%
@@ -14,6 +12,7 @@ import { est_diaporama } from "/modules/variables.js"
  * @Auteur Rémi Angot
  */
 let numId = 0
+let mathalea=window.mathalea
 function ObjetMathalea2D() {
     this.positionLabel = "above";
     this.isVisible = true;

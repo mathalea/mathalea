@@ -1,7 +1,5 @@
 import {egal,randint,choice,rangeMinMax,unSiPositifMoinsUnSinon,arrondi,arrondi_virgule,calcul,lettre_depuis_chiffre,tex_nombre,nombre_avec_espace,string_nombre,premierMultipleSuperieur,premierMultipleInferieur} from "/modules/outils.js"
-import { mathalea } from "/modules/variables.js"
-import { sortie_html } from "/modules/variables.js"
-import { est_diaporama } from "/modules/variables.js"
+
 /*
   MathALEA2D
  @name      mathalea2d.js
@@ -20,7 +18,8 @@ import { est_diaporama } from "/modules/variables.js"
 
 
 let numId = 0 // Créer un identifiant numérique unique par objet SVG
-
+let mathalea=window.mathalea
+let sortie_html=window.sortie_html
 /*
  * Classe parente de tous les objets de MathALEA2D
  *

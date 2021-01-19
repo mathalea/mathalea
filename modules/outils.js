@@ -1,17 +1,7 @@
 import {point,vecteur,segment,carre,cercle,arc,translation,rotation,texteParPosition,} from "/modules/2d.js"
-import { mathalea } from "/modules/variables.js"
-import { sortie_html } from "/modules/variables.js"
-import { est_diaporama } from "/modules/variables.js"
 
 // Fonctions diverses pour la création des exercices
-/**
-* Utilise this.liste\_questions et this.liste\_corrections pour remplir this.contenu et this.contenu_correction
-* 
-* La liste des questions devient une liste HTML ou LaTeX avec html\_enumerate() ou tex\_enumerate()
-*
-* @param {exercice} 
-* @author Rémi Angot
-*/
+
 export function liste_de_question_to_contenu(argument) {
 	if (sortie_html) {
 		argument.contenu = html_consigne(argument.consigne) + html_paragraphe(argument.introduction) + html_enumerate(argument.liste_questions,argument.spacing)
@@ -603,7 +593,7 @@ export function tridictionnaire(dict) {
 */
 export function filtreDictionnaire(dict,sub) {
 	return Object.assign({}, ...
-		Object.entries(dict).filter(([k,v]) => k.substring(0,sub.length)==sub).map(([k,v]) => ({[k]:v}))
+		Object.entries(dict).filter(([k]) => k.substring(0,sub.length)==sub).map(([k,v]) => ({[k]:v}))
 	);
 }
 
@@ -3877,7 +3867,6 @@ export function SVG_machine_diag_3F1_act_mono(id_du_div,w,h,nom,x_ant,etapes_exp
 		if ($(`#${id_du_div}`).length ) {
 			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
 			// on crée un rectangle dont la taille est adaptée au texte
-			let w_x_ant = 10*interligne;
 			//let path_cadre_rect_ant = 'M0,0L0,-'+interligne+',L'+(w_x_ant + 2*interligne)+',-'+interligne+',L'+(w_x_ant + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
 			document.getElementById(id_du_div).innerHTML = `
 				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 `+w+` `+h+`" width="`+w+`">
@@ -4175,7 +4164,6 @@ export function SVG_machine_diag_3F12(id_du_div,w,h,nom,x_ant,etapes_expressions
 		if ($(`#${id_du_div}`).length ) {
 			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
 			// on crée un rectangle dont la taille est adaptée au texte
-			let w_x_ant = 10*interligne;
 			//let path_cadre_rect_ant = 'M0,0L0,-'+interligne+',L'+(w_x_ant + 2*interligne)+',-'+interligne+',L'+(w_x_ant + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
 			document.getElementById(id_du_div).innerHTML = `
 				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 `+w+` `+h+`" width="`+w+`">
@@ -4935,17 +4923,7 @@ export function Triangles(l1,l2,l3,a1,a2,a3) {
 		};
 	};
 
-	/**
-	 * Méthode non finalisée
-	 */
-	function isQuelconque() {
-		// Vérifier que le triangle existe !!!
-		if ( ( ((self.l1!=self.l2) && (self.l1!=self.l3) && (self.l2!=self.l3) ) || ( (self.a1!=self.a2) && (self.a1!=self.a3) && (self.a2!=self.a3) ) ) && ( (self.a1 != 90) || (self.a2 != 90) || (self.a3 != 90) ) ) {
-			return true
-		} else {
-			return false;
-		};
-	};
+;
 	
 	this.l1 = l1;
 	this.l2 = l2;
