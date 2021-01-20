@@ -2,9 +2,7 @@ let premier_clic_sur_play = true;
 let diaporama_deja_visualise = false;
 let form_duree = []; 
 let chrono;
-let mathalea=window.mathalea
-let sortie_html=window.sortie_html
-let est_diaporama=window.est_diaporama
+
 
 $(document).ready(function () {
     form_choix_de_la_duree = document.getElementById("choix_de_la_duree");

@@ -18,8 +18,7 @@ import {egal,randint,choice,rangeMinMax,unSiPositifMoinsUnSinon,arrondi,arrondi_
 
 
 let numId = 0 // Créer un identifiant numérique unique par objet SVG
-let mathalea=window.mathalea
-let sortie_html=window.sortie_html
+
 /*
  * Classe parente de tous les objets de MathALEA2D
  *

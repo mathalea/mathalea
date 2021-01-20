@@ -12,7 +12,6 @@ import {point,vecteur,droite,segment,polyline,polygone} from "/modules/2d.js"
  * @Auteur Rémi Angot
  */
 let numId = 0
-let mathalea=window.mathalea
 function ObjetMathalea2D() {
     this.positionLabel = "above";
     this.isVisible = true;
