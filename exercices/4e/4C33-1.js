@@ -88,12 +88,10 @@ export default function Puissances_d_un_relatif_1() {
         if (base < 0 && exposant % 2 == 0) {
           sortie += `$<br>`;
           sortie += `${texte_gras('Remarque : ')} Dans ce cas comme les puissances d'exposant pair de deux nombres opposés sont égaux, on peut écrire $${simpNotPuissance(base, exposant)}$ à la place de $${base_utile}^{${exposant}}$`;
-          sortie += `$`;
         };
         if (base < 0 && exposant % 2 == 1) {
           sortie += `$<br>`;
           sortie += `${texte_gras('Remarque : ')} Dans ce cas comme les puissances d'exposant impair de deux nombres négatifs sont opposées, on pourrait écrire $${simpNotPuissance(base, exposant)}$  à la place de $${base_utile}^{${exposant}}$`;
-          sortie += `$`;
         };
 
         return sortie;
@@ -139,7 +137,6 @@ export default function Puissances_d_un_relatif_1() {
             texte_corr += `=${simpNotPuissance(base, exp[1] + exp[0])}`;
           };
           texte_corr += remarquesPuissances(base, base_utile, exp[1] + exp[0]);
-          texte_corr += `$`;
           texte_corr += `<br>`;
 
           break;
@@ -231,7 +228,6 @@ export default function Puissances_d_un_relatif_1() {
             }
           }
           texte_corr += remarquesPuissances(base, base_utile, exp[0] - exp[1]);
-          texte_corr += `$`;
           texte_corr += `<br>`;
           break;
         case 3: // exponentiation
@@ -268,7 +264,6 @@ export default function Puissances_d_un_relatif_1() {
             texte_corr += `= ${simpNotPuissance(base, exp[0] * exp[1])}`;
           }
           texte_corr += remarquesPuissances(base, base_utile, exp[0] * exp[1]);
-          texte_corr += `$`;
           texte_corr += `<br>`;
           break;
         case 4: // produit de puissances de même exposant
