@@ -26,25 +26,28 @@ export default function Factoriser_Identites_remarquables2() {
         [1, 9], [2, 9], [4, 9], [5, 9], [7, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]];
         let type_de_questions_disponibles = [];
         if (this.sup == 1) {
-            type_de_questions_disponibles = [1, 2, 3]; // coef de x = 1
+            type_de_questions_disponibles = [1]; // (ax+b)²-c²
         }
         else if (this.sup == 2) {
-            type_de_questions_disponibles = [4, 5, 6]; // coef de x > 1
+            type_de_questions_disponibles = []; // coef de x > 1
         }
-        else { type_de_questions_disponibles = [7, 8, 9]; } // coef de x rationnel
+        else { type_de_questions_disponibles = []; } // coef de x rationnel
 
         let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
         for (let i = 0, texte, texte_corr, cpt = 0, a, b, fraction = [], ns, ds, type_de_questions; i < this.nb_questions && cpt < 50;) {
             type_de_questions = liste_type_de_questions[i];
             a = randint(1, 9);
             b = randint(2, 9);
+            c = randint(1, 9);
             fraction = choice(liste_fractions);
             ns = fraction[0];
             ds = fraction[1];
             switch (type_de_questions) {
                 case 1:
-                    texte = `$x^2+${2 * a}x+${a * a}$`; // (x+a)²
-                    texte_corr = `$x^2+${2 * a}x+${a * a}=x^2+2 \\times ${a} \\times x+${a}^2=(x+${a})^2$`;
+                    texte = `$\\left(${a}x+${b}\\right)^2-${c*c}x$`; // (ax+b)²-c²
+                    texte_corr = `On reconnaît l'identité remarquable a²-b² :
+                    $$\\left(${a}x+${b}\\right)^2-${c*c}x=\\left(${a}x+${b}-${c}\\right) \\left(${a}x+${b}+${c}\\right)$;
+                    $\\left(${a}x+${b-c}\\right) \\left(${a}x+${b+c}\\right)`$;
                     break;
                 case 2:
                     texte = `$x^2-${2 * a}x+${a * a}$`; // (x-a)²
