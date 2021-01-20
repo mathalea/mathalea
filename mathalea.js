@@ -2,9 +2,8 @@ import { strRandom, telechargeFichier, intro_LaTeX, intro_LaTeX_coop, scratchTra
 import { getUrlVars } from "./modules/getUrlVars.js";
 import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules/menuDesExercicesDisponibles.js";
 
-
-
 (function () {
+
     // IIFE principal
     mathalea.listeDesScriptsCharges = []
     let listeObjetsExercice = []; // Liste des objets listeObjetsExercices

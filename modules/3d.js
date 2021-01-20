@@ -1,4 +1,5 @@
 import {point,vecteur,droite,segment,polyline,polygone} from "/modules/2d.js"
+
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%% OBJET PARENT %%%%%%%%%%%%%

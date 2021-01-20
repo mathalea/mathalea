@@ -1,6 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,creerNomDePolygone,num_alpha} from "/modules/outils.js"
 import {point,tracePoint,pointSurDroite,pointIntersectionDD,labelPoint,droite,droiteVerticaleParPoint,droiteParPointEtPente,codageMediatrice,codageMilieu,segment,polygone,nommePolygone,rotation,symetrieAxiale,grille,seyes,mathalea2d} from "/modules/2d.js"
+
 /**
  * @Auteur Jean-Claude Lhote
  * Fonction générale pour les exercices de construction de symétriques (centrale/axiale et points/triangles)
