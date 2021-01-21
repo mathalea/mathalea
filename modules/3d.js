@@ -360,7 +360,7 @@ export function demicercle3d(centre,normal,rayon,cote,color){
     * normal est un vecteur 3d normal au plan du disque (il détermine avec rayon de quel côté se trouve la partie visible)
     * 
     */
-  function Cone3d(centrebase,sommet,normal,rayon){
+  function Cone3d(centrebase,sommet,normal,rayon,generatrices=18){
     ObjetMathalea2D.call(this)
     this.sommet=sommet
     this.centrebase=centrebase
@@ -386,7 +386,8 @@ export function demicercle3d(centre,normal,rayon,cote,color){
     c2=demicercle3d(this.centrebase,this.normal,this.rayon,cote2,color2)
   
     for (let i=0;i<c1.listePoints.length;i++){
-      s=segment(this.sommet.p2d,c1.listePoints[i])
+      if (i%generatrices==0){
+        s=segment(this.sommet.p2d,c1.listePoints[i])
       if (cote1=='caché'){
         s.pointilles=2
         s.color='gray'
@@ -395,9 +396,10 @@ export function demicercle3d(centre,normal,rayon,cote,color){
         s.color='black'
       }
       objets.push(s)
-    }
+    }}
     for (let i=0;i<c2.listePoints.length;i++){
-      s=segment(this.sommet.p2d,c2.listePoints[i])
+      if (i%generatrices==0){
+        s=segment(this.sommet.p2d,c2.listePoints[i])
       if (cote2=='caché'){
         s.pointilles=2
         s.color='gray'
@@ -406,7 +408,7 @@ export function demicercle3d(centre,normal,rayon,cote,color){
         s.color='black'
       }
       objets.push(s)
-    }
+    }}
     objets.push(c1,c2)
     this.svg =function (coeff) {
       let code = "";
@@ -423,8 +425,8 @@ export function demicercle3d(centre,normal,rayon,cote,color){
       return code;
     }
   }
-  export function cone3d(centre,sommet,normal,rayon){
-    return new Cone3d(centre,sommet,normal,rayon)
+  export function cone3d(centre,sommet,normal,rayon,generatrices=18){
+    return new Cone3d(centre,sommet,normal,rayon,generatrices)
   }
 
 
