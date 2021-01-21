@@ -36,15 +36,15 @@ export default function CalculsDansLaSphere() {
         let R=vecteur3d(O,M)
         let Axe=arete3d(PoleSud,PoleNord)
         let normalV=vecteur3d(0,0,1)
+        M=rotationV3d(M,normalV,mathalea.anglePerspective)
         let normalH=rotationV3d(R,normalV,90)
-        let angle=randint(0,20)
+        let angle=randint(30,60)
         let P=rotationV3d(M,normalH,-angle)
         let H=point3d(0,0,P.z3d,false)
         let Sph=sphere3d(O,normalV,R,1,1)
         let HP=arete3d(H,P)
         let OP=arete3d(O,P)
-        let OM=arete3d(O,M)
-        objets_enonce.push(Sph,Axe.p2d,HP.p2d,OP.p2d,OM.p2d)
+        objets_enonce.push(Sph,Axe.p2d,HP.p2d,OP.p2d)
         objets_correction.push(Sph,Axe.p2d,HP.p2d,OP.p2d)
         texte = `` // Nous utilisons souvent cette variable pour construire le texte de la question.
         texte_corr = `` // Idem pour le texte de la correction.
