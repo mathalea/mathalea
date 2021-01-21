@@ -86,7 +86,7 @@ export default function Puissances_d_un_relatif_1() {
       function remarquesPuissances(base, base_utile, exposant) {
         let sortie = '';
         if (base < 0 && exposant % 2 == 0) {
-          sortie += `$<br>`;
+          sortie += `<br>`;
           sortie += `${texte_gras('Remarque : ')} Dans ce cas comme les puissances d'exposant pair de deux nombres opposés sont égaux, on peut écrire $${simpNotPuissance(base, exposant)}$ à la place de $${base_utile}^{${exposant}}$`;
         };
         if (base < 0 && exposant % 2 == 1) {
@@ -130,11 +130,11 @@ export default function Puissances_d_un_relatif_1() {
           texte_corr += `<br>`;
           texte_corr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[0]}}~\\color{black}{+}~\\color{${coul1}}{${exp[1]}}}$ facteurs tous égaux à $${base_utile}$`;
           texte_corr += `<br>`;
-          texte_corr += `$${lettre}=${base_utile}^{${exp[0]}+${exp[1]}} = ${base_utile}^{${exp[0] + exp[1]}}`;
+          texte_corr += `$${lettre}=${base_utile}^{${exp[0]}+${exp[1]}} = ${base_utile}^{${exp[0] + exp[1]}}$`;
           // attention la base_utile est de type str alors que la fonction switch sur un type number
           //if (simpNotPuissance(base, exp[0] + exp[1]) != ` `) {
           if ((base < 0) && ((exp[1] + exp[0]) % 2 == 0)) {
-            texte_corr += `=${simpNotPuissance(base, exp[1] + exp[0])}`;
+            texte_corr += `$=${simpNotPuissance(base, exp[1] + exp[0])}$`;
           };
           texte_corr += remarquesPuissances(base, base_utile, exp[1] + exp[0]);
           texte_corr += `<br>`;
@@ -175,7 +175,7 @@ export default function Puissances_d_un_relatif_1() {
               )}}$`;
             }
             texte_corr += `<br><br>`;
-            texte_corr += `$${lettre}=1`;
+            texte_corr += `$${lettre}=1$`;
           } else if (exp[0] - exp[1] < 0) {
             if (this.correction_detaillee) {
               texte_corr += `$${lettre}=\\dfrac{${eclatePuissance(
@@ -193,16 +193,16 @@ export default function Puissances_d_un_relatif_1() {
               )}}$`;
             }
             texte_corr += `<br><br>`;
-            texte_corr += `$${lettre}=\\dfrac{1}{${base_utile}^{${exp[1]}-${exp[0]}}}=\\dfrac{1}{${base_utile}^{${exp[1] - exp[0]}}}`;
+            texte_corr += `$${lettre}=\\dfrac{1}{${base_utile}^{${exp[1]}-${exp[0]}}}=\\dfrac{1}{${base_utile}^{${exp[1] - exp[0]}}}$`;
             //if (simpNotPuissance(base, exp[1] - exp[0]) != ` `) {
             if ((base < 0) && ((exp[1] - exp[0]) % 2 == 0)) {
-              texte_corr += `=\\dfrac{1}{${simpNotPuissance(
+              texte_corr += `$=\\dfrac{1}{${simpNotPuissance(
                 base,
                 exp[1] - exp[0]
                 //)}}=${simpNotPuissance(base, exp[0] - exp[1])}`;
-              )}}=${simpNotPuissance(base, exp[0] - exp[1])}`;
+              )}}=${simpNotPuissance(base, exp[0] - exp[1])}$`;
             } else {
-              texte_corr += `=${base_utile}^{${exp[0] - exp[1]}}`;
+              texte_corr += `$=${base_utile}^{${exp[0] - exp[1]}}$`;
             }
           } else {
             if (this.correction_detaillee) {
@@ -221,10 +221,10 @@ export default function Puissances_d_un_relatif_1() {
               )}}$`;
             }
             texte_corr += `<br><br>`;
-            texte_corr += `$${lettre}=${base_utile}^{${exp[0]}-${exp[1]}}=${base_utile}^{${exp[0] - exp[1]}}`;
+            texte_corr += `$${lettre}=${base_utile}^{${exp[0]}-${exp[1]}}=${base_utile}^{${exp[0] - exp[1]}}$`;
             //if (simpNotPuissance(base, exp[0] - exp[1]) != ` `) {
             if ((base < 0) && ((exp[0] - exp[1]) % 2 == 0)) {
-              texte_corr += `=${simpNotPuissance(base, exp[0] - exp[1])}`;
+              texte_corr += `$=${simpNotPuissance(base, exp[0] - exp[1])}$`;
             }
           }
           texte_corr += remarquesPuissances(base, base_utile, exp[0] - exp[1]);
@@ -258,10 +258,10 @@ export default function Puissances_d_un_relatif_1() {
           texte_corr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[1]}}~\\color{black}{\\times}~\\color{${coul1}}{${exp[0]}}}$ facteurs tous égaux à $${base_utile}$`;
           texte_corr += `<br>`;
           texte_corr += `$${lettre}=${base_utile}^{${exp[0]}\\times${exp[1]
-            }} = ${base_utile}^{${exp[0] * exp[1]}}`;
+            }} = ${base_utile}^{${exp[0] * exp[1]}}$`;
           //if (simpNotPuissance(base, exp[0] * exp[1]) != ` `) {
           if ((base < 0) && ((exp[1] * exp[0]) % 2 == 0)) {
-            texte_corr += `= ${simpNotPuissance(base, exp[0] * exp[1])}`;
+            texte_corr += `$= ${simpNotPuissance(base, exp[0] * exp[1])}$`;
           }
           texte_corr += remarquesPuissances(base, base_utile, exp[0] * exp[1]);
           texte_corr += `<br>`;

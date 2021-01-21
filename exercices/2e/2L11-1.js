@@ -34,7 +34,7 @@ export default function Factoriser_Identites_remarquables2() {
         else { type_de_questions_disponibles = []; } // coef de x rationnel
 
         let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
-        for (let i = 0, texte, texte_corr, cpt = 0, a, b, fraction = [], ns, ds, type_de_questions; i < this.nb_questions && cpt < 50;) {
+        for (let i = 0, texte, texte_corr, cpt = 0, a, b,c, fraction = [], ns, ds, type_de_questions; i < this.nb_questions && cpt < 50;) {
             type_de_questions = liste_type_de_questions[i];
             a = randint(1, 9);
             b = randint(2, 9);
@@ -44,10 +44,10 @@ export default function Factoriser_Identites_remarquables2() {
             ds = fraction[1];
             switch (type_de_questions) {
                 case 1:
-                    texte = `$\\left(${a}x+${b}\\right)^2-${c*c}x$`; // (ax+b)²-c²
-                    texte_corr = `On reconnaît l'identité remarquable a²-b² :
-                    $$\\left(${a}x+${b}\\right)^2-${c*c}x=\\left(${a}x+${b}-${c}\\right) \\left(${a}x+${b}+${c}\\right)$;
-                    $\\left(${a}x+${b-c}\\right) \\left(${a}x+${b+c}\\right)`$;
+                    texte = `$\\left(${a}x+${b}\\right)^2-${c*c}$`; // (ax+b)²-c²
+                    texte_corr = `On reconnaît l'identité remarquable $a^2-b^2$ :
+                    $\\left(${a}x+${b}\\right)^2-${c*c}=\\left(${a}x+${b}-${c}\\right) \\left(${a}x+${b}+${c}\\right)$=
+                    $\\left(${a}x+${b-c}\\right) \\left(${a}x+${b+c}\\right)$`;
                     break;
                 case 2:
                     texte = `$x^2-${2 * a}x+${a * a}$`; // (x-a)²
