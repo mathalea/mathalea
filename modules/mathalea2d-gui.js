@@ -7,7 +7,6 @@ import {creerLutin,codeSvg,codeTikz} from "/modules/2d.js"
 mathalea.lutin = creerLutin();
 
 let numId = 0 // Créer un identifiant numérique unique par objet SVG
-let mathalea=window.mathalea
 window.onload = function () {
   $(".ui.dropdown").dropdown(); //Pour les menus
   let divEditeur = document.getElementById("editeur");

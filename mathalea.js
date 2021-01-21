@@ -3,9 +3,7 @@ import { getUrlVars } from "./modules/getUrlVars.js";
 import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "./modules/menuDesExercicesDisponibles.js";
 
 (function () {
-    let mathalea=window.mathalea
-    let sortie_html=window.sortie_html
-    let est_diaporama=window.est_diaporama
+
     // IIFE principal
     mathalea.listeDesScriptsCharges = []
     let listeObjetsExercice = []; // Liste des objets listeObjetsExercices
