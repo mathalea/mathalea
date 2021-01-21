@@ -3,7 +3,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_
 /**
  * @Auteur Stéphane Guyon
  */
-export default function calcul_coordonnees_vecteurs() {
+export default function calculer_coordonnees_vecteurs() {
     Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Déterminer les coordonnées d'un vecteur.";
 
