@@ -7343,13 +7343,6 @@ function TranslationInstrument(instrument,A,B,begin=0,id){
 }
 
 
-// export function deplaceInstrument(instrument, B, begin=0, id){
-//   let A = point(instrument.x,instrument.y);
-//   translationInstrument(instrument, A, B, begin=0, id);
-//   instrument.x = B.x;
-//   instrument.y = B.y;
-// }
-
 
 
 
