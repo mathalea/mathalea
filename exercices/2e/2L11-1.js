@@ -47,7 +47,12 @@ export default function Factoriser_Identites_remarquables2() {
             d = randint(1, 9);
             k = choice([-1, 1]); 
             d = d * k;
-                 
+            if (b-d==0&&a-c==0){
+                a=a+1;
+            };
+            if (b+d==0&&a+c==0){
+                a=a+1;
+            };
             switch (type_de_questions) {
                 case 1:
                     texte = `$(${a}x${ecriture_algebrique(b)})^2-${c*c}$`; // (ax+b)²-c²
@@ -78,9 +83,40 @@ export default function Factoriser_Identites_remarquables2() {
                     (\\color{blue}${c}x${ecriture_algebrique(d)}\\color{black})$<br>
                     $\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
                     (${a}x${ecriture_algebrique(b)}${ecriture_algebrique(-c)}x${ecriture_algebrique(-d)})
-                    (${a}x${ecriture_algebrique(b)}${ecriture_algebrique(c)}x${ecriture_algebrique(d)})$<br>
-                    $\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
-                    (${reduire_ax_plus_b(a-c,b-d)})(${reduire_ax_plus_b(a+c,b+d)})$                    `;
+                    (${a}x${ecriture_algebrique(b)}${ecriture_algebrique(c)}x${ecriture_algebrique(d)})$<br> `; 
+                    if (a!=c && b!= d) {
+                        texte_corr += `$\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
+                        (${reduire_ax_plus_b(a-c,b-d)})(${reduire_ax_plus_b(a+c,b+d)})$` ;
+                        }
+  
+                    if (a!= c && b-d==0) {
+                        texte_corr += `$\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
+                        ${reduire_ax_plus_b(a-c,0)}(${reduire_ax_plus_b(a+c,b+d)})$ ` ;
+                        }   
+                    if (a!= c && b+d==0) {
+                        texte_corr += `<br>$\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
+                        ${reduire_ax_plus_b(a+c,0)}(${reduire_ax_plus_b(a-c,b-d)})$` ;
+                        }  
+                    if (a== c && b!= d &&b-d!=1&&b-d!=-1) {
+                        texte_corr += `$\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
+                        ${reduire_ax_plus_b(0,b-d)}(${reduire_ax_plus_b(a+c,b+d)})$` ;
+                        }  
+                    if (a== c && b!= d &&b-d==1) {
+                        texte_corr += `$\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
+                        ${reduire_ax_plus_b(a+c,b+d)}$` 
+                        texte_corr += `<br>L'expression se simplifie, la factorisation est inutile.`
+                        } 
+                    if (a== c && b!= d &&b-d==-1) {
+                        texte_corr += `$\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
+                        -(${reduire_ax_plus_b(a+c,b+d)})$` 
+                        texte_corr += `<br>$\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
+                        ${reduire_ax_plus_b(-a-c,-b-d)}$` 
+                        texte_corr += `<br>L'expression se simplifie, la factorisation est inutile.`
+                            } 
+                    if (a+c== 0 && b!= d) {
+                        texte_corr += `<br>$\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
+                        ${reduire_ax_plus_b(0,b+d)}(${reduire_ax_plus_b(a-c,b-d)})$` ;
+                        }       
                     break;
                 
             }
