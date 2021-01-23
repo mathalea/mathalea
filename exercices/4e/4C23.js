@@ -78,7 +78,6 @@ export default function Exercice_additionner_fraction_produit() {
       d = cd[1];
       e = ef[0];
       f = ef[1];
-      console.log(i,type_de_questions)
       switch (type_de_questions) {
         case 1: // sans piège fraction1 + fraction2 x fraction3 (tout positif)
           texte = `$${tex_fraction(a, b)}+${tex_fraction(c,d)}\\times${tex_fraction(e, f)}$`;

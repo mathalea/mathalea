@@ -31,7 +31,7 @@ def getListOfFiles(dirName):
  
 def main():
     
-    dirName = './exercices';
+    dirName = './exercices/'
     
     # Get the list of all files in directory tree at given path
     listOfFiles = getListOfFiles(dirName)

@@ -7,19 +7,16 @@
  @example   http://coopmaths.fr/alacarte
 */
 
-import { strRandom, telechargeFichier, intro_LaTeX, intro_LaTeX_coop, scratchTraductionFr } from "/modules/outils.js";
-import { getUrlVars } from "/modules/getUrlVars.js";
-import { menuDesExercicesDisponibles, dictionnaireDesExercices } from "/modules/menuDesExercicesDisponibles.js";
+import { telechargeFichier, intro_LaTeX, intro_LaTeX_coop } from "/modules/outils.js";
+import { dictionnaireDesExercices } from "/modules/menuDesExercicesDisponibles.js";
 
 
 
 let code_LaTeX, code_LaTeX_corr, tableau_de_demandes, objet_contenu={}, objet_contenu_correction={};
 let tableau_url_tex = [['items/MATHS.6.G14_ProgrammeConstruction', 'MATHS.6.G14_.tex', 'MATHS.6.G14_-cor.tex'], ['items/MATHS.6.M20_Aire_triangles', 'MATHS.6.M20v2.tex', 'MATHS.6.M20v2-cor.tex'], ['items/MATHS.6.M20_Aire_triangles', 'MATHS.6.M20_.tex', 'MATHS.6.M20_-cor.tex'], ['items/MATHS.6.G11_Perpendiculaire', 'MATHS.6.G11_.tex', 'MATHS.6.G11_-cor.tex'], ['items/MATHS.6.G23_Rapporteur', 'MATHS.6.G23.tex', 'MATHS.6.G23-cor.tex'], ['items/MATHS.6.M23_PerimetreAiresDisques', 'MATHS.6.M23.tex', 'MATHS.6.M23-cor.tex'], ['items/MATHS.6.N22_CalculsFractions', 'MATHS.6.N22_.tex', 'MATHS.6.N22_-cor.tex'], ['items/MATHS.6.G10_VocabulaireNotations', 'MATHS.6.G10_.tex', 'MATHS.6.G10_-cor.tex'], ['items/MATHS.6.R10_ProprietesParallelesPerpendiculaires', 'MATHS.6.R10_.tex', 'MATHS.6.R10_-cor.tex'], ['items/MATHS.6.N23_NombresDecimaux', 'MATHS.6.N23_.tex', 'MATHS.6.N23_-cor.tex'], ['items/MATHS.6.C11_DivisionsEuclidiennes', 'MATHS.6.C11_v1.tex', 'MATHS.6.C11_v1-cor.tex'], ['items/MATHS.6.N21_AbscissesFractionnaires', 'MATHS.6.N21_.tex', 'MATHS.6.N21_-cor.tex'], ['items/MATHS.6.R12_ProprietesDefinitionsMediatrice', 'MATHS.6.R12.tex', 'MATHS.6.R12-cor.tex'], ['items/MATHS.6.G13_CarresRectangles', 'MATHS.6.G13_.tex', 'MATHS.6.G13_-cor.tex'], ['items/MATHS.6.C12_ProblemesNiveau1', 'MATHS.6.C12_v1.tex', 'MATHS.6.C12_v1-cor.tex'], ['items/MATHS.6.G12_Paralleles', 'MATHS.6.G12_.tex', 'MATHS.6.G12_-cor.tex'], ['items/MATHS.6.R11_SchemaProprietesParallelesPerpendiculaires', 'MATHS.6.R11_v1.tex', 'MATHS.6.R11_v1-cor.tex'], ['items/MATHS.6.M21_Aire_assemblage', 'MATHS.6.M21.tex', 'MATHS.6.M21-cor.tex'], ['items/MATHS.6.M24_Portions_disque', 'MATHS.6.M24.tex', 'MATHS.6.M24-cor.tex'], ['items/MATHS.6.N20_FractionsEtEntiers', 'MATHS.6.N20_v1.tex', 'MATHS.6.N20_v1-cor.tex'], ['items/MATHS.6.C10_AddSousMulEntiers', 'MATHS.6.C10_v1.tex', 'MATHS.6.C10_v1-cor.tex'], ['items/MATHS.6.C22_Problemes2', 'MATHS.6.C22.tex', 'MATHS.6.C22-cor.tex']]
-let besoin_des_axes_gradues=false;
 let message_d_erreur = "";
 let liste_packages = new Set;
 let promises = [];
-
 
 
 
@@ -32,7 +29,7 @@ let promises = [];
 *
 * @Auteur Rémi Angot
 */
-function creeIdPourComparaison(item, index, arr) {
+function creeIdPourComparaison(item) {
   item[3]=item[0].replace(/\./g,'').replace('items/','');
   //une fois tous les points supprimés, on chercher le dernier 'tex' du string pour remettre '.tex'
   // plus utilisé : .replace(/tex(?!.*tex)/g,'.tex') pour trouver le dernier 'tex' et le remplacer par '.tex'
@@ -76,7 +73,6 @@ function textarea_to_array(textarea_id_textarea) {
 */
 function txt_to_objet_parametres_exercice(txt) { //
     'use strict';
-    let tableau_objets_exercices = new Array
     	let CleValeur = txt.split(",");
     	let ObjetParametres = {}
 	    ObjetParametres["id"] = CleValeur[0] // Récupère le premier élément qui est forcément l'id
@@ -178,7 +174,7 @@ window.onload = function()  {
 		if (el.length && attendre>1) {
 			// S'il est présent on règle le menu
 	    	$('.ui.dropdown').dropdown({ // gestion du clic sur le menu déroulant pour ajouter un item dans le textarea
-	    action: function(text, value, element){$('#textarea_id_items').val($('#textarea_id_items').val()+';'+text.split(' ')[0])}
+	    action: function(text){$('#textarea_id_items').val($('#textarea_id_items').val()+';'+text.split(' ')[0])}
 	  });  //active les menus déroulants
 		} else {
     		setTimeout(menu_deroulant, 300); // retente dans 300 milliseconds
@@ -191,7 +187,7 @@ window.onload = function()  {
 
 	// Gestion de la suppression des identifiants
 let form_supprimer_reference = document.getElementById('supprimer_reference');
-form_supprimer_reference.addEventListener('change', function(e) { // Dès que le statut change, on met à jour
+form_supprimer_reference.addEventListener('change', function() { // Dès que le statut change, on met à jour
 	document.getElementById('valider').click();
 });
 	

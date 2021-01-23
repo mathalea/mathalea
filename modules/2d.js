@@ -6736,7 +6736,7 @@ function CrochetD(A, color = "blue") {
       }
 
     }
-    code = `<polyline points="${calcul(A.xSVG(coeff) + this.taille*20)},${calcul(A.ySVG(coeff)+
+    let code = `<polyline points="${calcul(A.xSVG(coeff) + this.taille*20)},${calcul(A.ySVG(coeff)+
       2*this.taille*20/coeff * coeff
     )} ${A.xSVG(coeff)},${calcul(A.ySVG(coeff)+2*this.taille*20)} ${A.xSVG(coeff)},${calcul(A.ySVG(coeff)+
       -2*this.taille*20
@@ -6789,7 +6789,7 @@ function CrochetG(A, color = "blue") {
       }
 
     }
-    code = `<polyline points="${calcul(A.xSVG(coeff) - this.taille*20 )},${calcul(A.ySVG(coeff)+
+    let code = `<polyline points="${calcul(A.xSVG(coeff) - this.taille*20 )},${calcul(A.ySVG(coeff)+
       2*this.taille *20
     )} ${A.xSVG(coeff)},${calcul(A.ySVG(coeff)+2*this.taille *20)} ${A.xSVG(coeff)},${calcul(A.ySVG(coeff)
       -2*this.taille *20
@@ -7342,13 +7342,6 @@ function TranslationInstrument(instrument,A,B,begin=0,id){
   }
 }
 
-
-// export function deplaceInstrument(instrument, B, begin=0, id){
-//   let A = point(instrument.x,instrument.y);
-//   translationInstrument(instrument, A, B, begin=0, id);
-//   instrument.x = B.x;
-//   instrument.y = B.y;
-// }
 
 
 
