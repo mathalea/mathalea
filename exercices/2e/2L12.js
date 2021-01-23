@@ -1,10 +1,10 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_ax_plus_b,tex_fraction,texte_en_couleur, ecriture_algebrique,tex_fraction_signe} from "/modules/outils.js"
+import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_ax_plus_b,tex_fraction,tex_fraction_reduite,texte_en_couleur, ecriture_algebrique,tex_fraction_signe} from "/modules/outils.js"
 
 /**
- * Résoudre des équations produit-nul
+ * Résoudre des équations x²=a
 * @auteur Stéphane Guyon
-* 2L11-1
+* 2L11-2
 */
 export default function Factoriser_Identites_remarquables2() {
     'use strict';
@@ -42,16 +42,24 @@ export default function Factoriser_Identites_remarquables2() {
             d = randint(1, 9);
             k = choice([-1, 1]); 
             d = d * k;
+           
+            
                  
             switch (type_de_questions) {
                 case 1:
-                    texte = `$(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c,d)})=0$`; // (ax+b)²-c²
+                    texte = `$(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c,d)})=0$`; 
                     texte_corr = `On reconnaît une équation produit-nul, donc on applique la propriété :<br>
                     ${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>
                     $(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c,d)})=0$<br>
                     $\\iff ${reduire_ax_plus_b(a,b)}=0$ ou $${reduire_ax_plus_b(c,d)}=0$<br>
                     $\\iff x=${tex_fraction_signe(-b,a)}$ ou $ x=${tex_fraction_signe(-d,c)}$<br>
-                     On en déduit : $S=\\left\\{${tex_fraction_signe(-b,a)};${tex_fraction_signe(-d,c)}\\right\\}$ `
+                     On en déduit :  `
+                    if (-b/a>-d/c) {
+                        texte_corr += `$S=\\left\\{${tex_fraction_reduite(-d,c)};${tex_fraction_reduite(-b,a)}\\right\\}$`
+                    }
+                    else {
+                        texte_corr += `$S=\\left\\{${tex_fraction_reduite(-b,a)};${tex_fraction_reduite(-d,c)}}\\right\\}$`
+                    }
                    
                     break;
                 
