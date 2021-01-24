@@ -1,15 +1,7 @@
 import {point,vecteur,segment,carre,cercle,arc,translation,rotation,texteParPosition,} from "/modules/2d.js"
 
-
 // Fonctions diverses pour la création des exercices
-/**
-* Utilise this.liste\_questions et this.liste\_corrections pour remplir this.contenu et this.contenu_correction
-* 
-* La liste des questions devient une liste HTML ou LaTeX avec html\_enumerate() ou tex\_enumerate()
-*
-* @param {exercice} 
-* @author Rémi Angot
-*/
+
 export function liste_de_question_to_contenu(argument) {
 	if (sortie_html) {
 		argument.contenu = html_consigne(argument.consigne) + html_paragraphe(argument.introduction) + html_enumerate(argument.liste_questions,argument.spacing)
@@ -601,7 +593,7 @@ export function tridictionnaire(dict) {
 */
 export function filtreDictionnaire(dict,sub) {
 	return Object.assign({}, ...
-		Object.entries(dict).filter(([k,v]) => k.substring(0,sub.length)==sub).map(([k,v]) => ({[k]:v}))
+		Object.entries(dict).filter(([k]) => k.substring(0,sub.length)==sub).map(([k,v]) => ({[k]:v}))
 	);
 }
 
@@ -2399,7 +2391,7 @@ export function SVG_grille (mon_svg,absO,ordO,tailleX,tailleY,DeltaX,DeltaY,subX
 	}
 	for (let i=0;i<DeltaX;i++){
 		if (subX!=1) {
-			for (k=0;k<subX;k++) {
+			for (let k=0;k<subX;k++) {
 					line_grille = mon_svg.line(absO+i*(tailleX/DeltaX)+k*(tailleX/DeltaX/subX),0,absO+i*(tailleX/DeltaX)+k*(tailleX/DeltaX/subX),tailleY);
 					line_grille.stroke({ color: 'lightgrey', width: 0.5, linecap: 'round' });
 			}
@@ -2411,7 +2403,7 @@ export function SVG_grille (mon_svg,absO,ordO,tailleX,tailleY,DeltaX,DeltaY,subX
 	}
 	for (let j=0;j<DeltaY;j++) {
 		if (subY!=1) {
-			for (l=0;l<subY;l++) {
+			for (let l=0;l<subY;l++) {
 				line_grille = mon_svg.line(20,ordO+j*(tailleY/DeltaY)+l*(tailleY/DeltaY/subY),20+tailleX,ordO+j*(tailleY/DeltaY)+l*(tailleY/DeltaY/subY));
 				line_grille.stroke({ color: 'lightgrey', width: 0.5, linecap: 'round' });
 			}
@@ -3427,9 +3419,15 @@ export function modal_texte_court(numero_de_l_exercice,texte,label_bouton="Aide"
 export function modal_youtube(numero_de_l_exercice,id_youtube,texte,label_bouton="Aide - Vidéo",icone="youtube"){
 	let contenu
 	if (id_youtube.substr(0,4)=='http'){
-		contenu = `<iframe width="560" height="315" sandbox="allow-same-origin allow-scripts allow-popups" src="${id_youtube}" frameborder="0" allowfullscreen></iframe>`
-		contenu = contenu.replace('watch','embed')
-	} else {
+		if (id_youtube.slice(-4)=='.pdf'){
+			contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><object type="application/pdf" data="${id_youtube}" width="560" height="315"> </object></p></div>`
+		} else {
+			contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" sandbox="allow-same-origin allow-scripts allow-popups" src="${id_youtube}" frameborder="0" allowfullscreen></iframe></p></div>`
+		}
+	} else if (id_youtube.substr(0,4)=='<ifr'){
+		contenu = `<div class="header">${texte}</div><div class="content"><p align="center">${id_youtube}</p></div>`
+	}
+	else {
 		contenu = `<div class="header">${texte}</div><div class="content"><p align="center"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${id_youtube}?rel=0&showinfo=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p></div>`
 	}
 	return creer_modal(numero_de_l_exercice,contenu,label_bouton,icone)
@@ -3869,7 +3867,6 @@ export function SVG_machine_diag_3F1_act_mono(id_du_div,w,h,nom,x_ant,etapes_exp
 		if ($(`#${id_du_div}`).length ) {
 			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
 			// on crée un rectangle dont la taille est adaptée au texte
-			let w_x_ant = 10*interligne;
 			//let path_cadre_rect_ant = 'M0,0L0,-'+interligne+',L'+(w_x_ant + 2*interligne)+',-'+interligne+',L'+(w_x_ant + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
 			document.getElementById(id_du_div).innerHTML = `
 				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 `+w+` `+h+`" width="`+w+`">
@@ -4167,7 +4164,6 @@ export function SVG_machine_diag_3F12(id_du_div,w,h,nom,x_ant,etapes_expressions
 		if ($(`#${id_du_div}`).length ) {
 			$(`#${id_du_div}`).html("");//Vide le div pour éviter les SVG en doublon
 			// on crée un rectangle dont la taille est adaptée au texte
-			let w_x_ant = 10*interligne;
 			//let path_cadre_rect_ant = 'M0,0L0,-'+interligne+',L'+(w_x_ant + 2*interligne)+',-'+interligne+',L'+(w_x_ant + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
 			document.getElementById(id_du_div).innerHTML = `
 				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 `+w+` `+h+`" width="`+w+`">
@@ -4927,17 +4923,7 @@ export function Triangles(l1,l2,l3,a1,a2,a3) {
 		};
 	};
 
-	/**
-	 * Méthode non finalisée
-	 */
-	function isQuelconque() {
-		// Vérifier que le triangle existe !!!
-		if ( ( ((self.l1!=self.l2) && (self.l1!=self.l3) && (self.l2!=self.l3) ) || ( (self.a1!=self.a2) && (self.a1!=self.a3) && (self.a2!=self.a3) ) ) && ( (self.a1 != 90) || (self.a2 != 90) || (self.a3 != 90) ) ) {
-			return true
-		} else {
-			return false;
-		};
-	};
+;
 	
 	this.l1 = l1;
 	this.l2 = l2;

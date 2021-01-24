@@ -111,7 +111,7 @@ export default function Calculs_de_durees_ou_d_horaires() {
           texte_corr += `La série s'achèvera à ${d2}.`;
         }
         if (type_de_questions[i] == 3) {
-          texte = `${prenom()} termine de regarder une série de ${d} à ${d2}. À quelle la série a-t-elle commencé ?`;
+          texte = `${prenom()} termine de regarder une série de ${d} à ${d2}. À quelle heure la série a-t-elle commencé ?`;
           texte_corr = `${d2} - ${d} = ${d1}`;
           texte_corr += "<br>";
           texte_corr += `Elle a commencé à ${d1}.`;

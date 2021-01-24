@@ -31,7 +31,7 @@ def getListOfFiles(dirName):
  
 def main():
     
-    dirName = './exercices';
+    dirName = './exercices/'
     
     # Get the list of all files in directory tree at given path
     listOfFiles = getListOfFiles(dirName)
@@ -59,9 +59,9 @@ def main():
     #print(dictionnaireDesRef) 
 
     def replace_line(file_name, line_num, text):
-        lines = open(file_name, 'r').readlines()
+        lines = open(file_name, 'r', encoding="utf8").readlines()
         lines[line_num] = text
-        out = open(file_name, 'w')
+        out = open(file_name, 'w', encoding="utf8")
         out.writelines(lines)
         out.close()
         

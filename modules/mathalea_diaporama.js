@@ -3,6 +3,7 @@ let diaporama_deja_visualise = false;
 let form_duree = []; 
 let chrono;
 
+
 $(document).ready(function () {
     form_choix_de_la_duree = document.getElementById("choix_de_la_duree");
     if (mathalea.duree){
