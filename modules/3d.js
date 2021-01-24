@@ -285,52 +285,42 @@ export function demicercle3d(centre,normal,rayon,cote,color,angledepart=mathalea
    * 
    * @Auteur Jean-Claude Lhote
    * Produit une sphère : choisir un nombre de parallèles impair pour avoir l'équateur. normal défini l'axe Nord-Sud.
-   * rayon sera (par défaut) tourné de anglePerspective et définit la limite de la surface visible et sa norme est le rayon de la sphère.
+   * rayon est le rayon de la sphère. l'équateur est dans le plan xy l'axe Nord-Sud est sur z
    * @param {Point3d} centre 
-   * @param {Vecteur3d} normal 
-   * @param {Vecteur3d} rayon 
+   * @param {Number} rayon 
    * @param {Number} nb_paralleles 
    * @param {Number} nb_meridiens 
    * @param {string} color 
    */
-   function Sphere3d(centre,normal,rayon,nb_paralleles,nb_meridiens,color){
+   function Sphere3d(centre,rayon,nb_paralleles,nb_meridiens,color){
      ObjetMathalea2D.call(this)
      this.centre=centre
-     this.rayon=rayon
-     this.normal=normal
+     this.rayon=vecteur3d(rayon,0,0)
+     this.normal=vecteur3d(0,0,1)
      this.color=color
      this.nb_meridiens=nb_meridiens
      this.nb_paralleles=nb_paralleles
      let objets=[],c1,c2,c3,c4,C,D
-     let prodvec=vecteur3d(math.cross(normal.matrice,rayon.matrice))
-     let prodscal=math.dot(prodvec.matrice,vecteur3d(0,1,0).matrice)
-     let cote1,cote2,rayon2,r,R,V,W
-     rayon2=vecteur3d(math.cross(rayon.matrice,math.multiply(prodvec.matrice,1/math.norm(prodvec.matrice))))
-     R=math.norm(this.rayon.matrice)
-     if (prodscal>0) {
-       cote1='caché'
-       cote2='visible'
-     }
-     else {
-       cote2='caché'
-       cote1='visible'
-     }
+     let prodvec=vecteur3d(math.cross(this.normal.matrice,this.rayon.matrice))
+     let cote1,cote2,rayon2,R
+     rayon2=vecteur3d(math.cross(this.rayon.matrice,math.multiply(prodvec.matrice,1/math.norm(prodvec.matrice))))
+     R=rayon
+     cote1='caché'
+     cote2='visible'
     // objets.push(cercle3d(this.centre,rotationV3d(prodvec,this.normal,mathalea.anglePerspective),rotationV3d(this.rayon,this.normal,mathalea.anglePerspective),true,this.color))
-     for (let k=0;k<1;k+=1/(this.nb_paralleles+1)){
-       r=math.sqrt(R**2-((1-k)*R)**2)
-       C=translation3d(this.centre,vecteur3d(math.multiply(rayon2.matrice,k-1)))
-       D=translation3d(this.centre,vecteur3d(math.multiply(rayon2.matrice,1-k)))
-       c1=demicercle3d(C,this.normal,vecteur3d(math.multiply(this.rayon.matrice,r/R)),cote1,this.color,0)
-       c2=demicercle3d(C,this.normal,vecteur3d(math.multiply(this.rayon.matrice,r/R)),cote2,this.color,0)
-       c3=demicercle3d(D,this.normal,vecteur3d(math.multiply(this.rayon.matrice,r/R)),cote1,this.color,0)
-       c4=demicercle3d(D,this.normal,vecteur3d(math.multiply(this.rayon.matrice,r/R)),cote2,this.color,0)
+     for (let k=0,rayon3;k<1;k+=1/(this.nb_paralleles+1)){
+       C=point3d(0,0,R*Math.sin(k*Math.PI/2))
+       D=point3d(0,0,R*Math.sin(-k*Math.PI/2))
+       rayon3=vecteur3d(R*Math.cos(k*Math.PI/2),0,0)
+       c1=demicercle3d(C,this.normal,rayon3,cote1,this.color,mathalea.anglePerspective)
+       c2=demicercle3d(C,this.normal,rayon3,cote2,this.color,mathalea.anglePerspective)
+       c3=demicercle3d(D,this.normal,rayon3,cote1,this.color,mathalea.anglePerspective)
+       c4=demicercle3d(D,this.normal,rayon3,cote2,this.color,mathalea.anglePerspective)
        objets.push(c1,c2,c3,c4)
      }
-     C=translation3d(this.centre,rayon2)
-  
-     for (let k=0;k<1;k+=1/this.nb_meridiens){
-       V=rotationV3d(prodvec,this.normal,90+k*90) 
-       W=rotationV3d(prodvec,this.normal,90-(k+1/this.nb_meridiens)*90) 
+     for (let k=0,V,W;k<1;k+=1/this.nb_meridiens){
+       V=rotationV3d(prodvec,this.normal,90+mathalea.anglePerspective+k*90) 
+       W=rotationV3d(prodvec,this.normal,90+mathalea.anglePerspective-(k+1/this.nb_meridiens)*90) 
       c1=demicercle3d(this.centre,V,rayon2,cote2,this.color,0)
       c2=demicercle3d(this.centre,V,rayon2,cote1,this.color,0)
       c3=demicercle3d(this.centre,W,rayon2,cote2,this.color,0)
@@ -353,8 +343,8 @@ export function demicercle3d(centre,normal,rayon,cote,color,angledepart=mathalea
       return code;
     }
    }
-  export function sphere3d(centre,normal,rayon,nb_paralleles,nb_meridiens,color='black'){
-    return new Sphere3d(centre,normal,rayon,nb_paralleles,nb_meridiens,color)
+  export function sphere3d(centre,rayon,nb_paralleles,nb_meridiens,color='black'){
+    return new Sphere3d(centre,rayon,nb_paralleles,nb_meridiens,color)
   }
 
 

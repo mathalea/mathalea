@@ -30,7 +30,7 @@ export default function CalculsDansLaSphere() {
         objets_enonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
         objets_correction = [] // Idem pour la correction
         let O=point3d(0,0,0,false,'O')
-        let M=point3d(5,0,0,true,'M')
+        let M=point3d(3,-4,0,true,'M')
         let PoleNord=point3d(0,0,5,false,'N')
         let PoleSud=point3d(0,0,-5,false,'S')
         let R=vecteur3d(O,M)
@@ -41,7 +41,7 @@ export default function CalculsDansLaSphere() {
         let angle=randint(30,60)
         let P=rotationV3d(M,normalH,-angle)
         let H=point3d(0,0,P.z3d,false)
-        let Sph=sphere3d(O,normalV,R,1,1)
+        let Sph=sphere3d(O,5,1,8)
         let HP=arete3d(H,P)
         let OP=arete3d(O,P)
         objets_enonce.push(Sph,Axe.p2d,HP.p2d,OP.p2d)

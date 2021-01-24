@@ -25,31 +25,36 @@ export default function ReperageSurLaSphere() {
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
    liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
       let objets_enonce,objets_correction,params_enonce,params_correction
-  
+      let O=point3d(0,0,0,false,'O')
+      let M=point3d(10,0,0,true,'M')
+      let PoleNord=point3d(0,0,10,false,'N')
+      let PoleSud=point3d(0,0,-10,false,'S')
+
+      let Axe=arete3d(PoleSud,PoleNord)
+      Axe.p2d.epaisseur=2
+      Axe.p2d.color='blue'
+      let normalV=vecteur3d(0,0,1)
+      M=rotationV3d(M,normalV,mathalea.anglePerspective)
+      let R=vecteur3d(O,M)
+      let origine=rotation3d(point3d(0,-10,0),droite3d(O,normalV),mathalea.anglePerspective)
+      let normalH=rotationV3d(vecteur3d(O,origine),normalV,90)
+      let Sph=sphere3d(O,10,8,9)
+          
+      let latitudes=[],longitudes=[],P,Q
+      for (let i=0;i<this.nb_questions;i++){
+        latitudes.push(0)
+        longitudes.push(0)
+      }
       for (let i = 0, texte, texte_corr, cpt = 0; i < this.nb_questions && cpt < 50;) {
         objets_enonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
         objets_correction = [] // Idem pour la correction
-        let O=point3d(0,0,0,false,'O')
-        let M=point3d(10,0,0,true,'M')
-        let PoleNord=point3d(0,0,10,false,'N')
-        let PoleSud=point3d(0,0,-10,false,'S')
-
-        let Axe=arete3d(PoleSud,PoleNord)
-        Axe.p2d.epaisseur=2
-        Axe.p2d.color='blue'
-        let normalV=vecteur3d(0,0,1)
-        M=rotationV3d(M,normalV,mathalea.anglePerspective)
-        let R=vecteur3d(O,M)
- 
-        let latitude=30//randint(20,50)*randint(-1,1,0)
-        let longitude=0//randint(0,40)*randint(-1,1,0)
-        let origine=rotation3d(point3d(0,-10,0),droite3d(O,normalV),mathalea.anglePerspective)
-        let normalH=rotationV3d(vecteur3d(O,origine),normalV,90)
-        let P=rotation3d(origine,droite3d(O,normalH),-latitude)
-        let Q=rotation3d(P,droite3d(O,normalV),longitude)
+       
+        latitudes[i]=randint(-3,6,0)*10
+        longitudes[i]=randint(-6,4)*10
+        P=rotation3d(origine,droite3d(O,normalH),-latitude)
+        Q=rotation3d(P,droite3d(O,normalV),longitude)
         Q.visible=true
         Q.p2d.nom='P'
-        let Sph=sphere3d(O,normalV,R,8,9)
         let H=point3d(0,0,Q.z3d,false,'H')
         let HQ=arete3d(H,Q)
         let equateur1=demicercle3d(O,normalV,R,'visible','red',0)
