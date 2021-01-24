@@ -53,7 +53,7 @@ function ObjetMathalea2D() {
       this.label=label
       let V=math.matrix([this.x3d,this.y3d,this.z3d])
       let W=math.multiply(MT,V)
-      this.p2d=point(W._data[0],W._data[1])
+      this.p2d=point(W._data[0],W._data[1],this.label)
     }
   }
   export function point3d(x3d,y3d,z3d=0,visible=true,label=""){
@@ -67,7 +67,8 @@ function ObjetMathalea2D() {
    * @Auteur Jean-Claude Lhote
    * le vecteur3d est sans doute l'objet le plus important de cette base d'objets
    * On les utilise dans tous les objets complexeimport Additionner_soustraires_decimaux from '../exercices/6e/6C20';
-s et dans toutes les transformations.
+s et dans toutes les transformations.import Nature_polygone from './../exercices/2e/2G12';
+
    * Ils servent notament à définir la direction des plans.
    * 
    * 3 usages : vecteur3d(A,B) ou vecteur3d(x,y,z) ou vecteur3d(math.matrix([x,y,z]))
@@ -184,7 +185,7 @@ export function arete3d(p1,p2,color='black'){
  * Si cote='visible' alors on tourne dans le sens indirect et le tracé est plein.
  *
  */
-export function demicercle3d(centre,normal,rayon,cote,color){
+export function demicercle3d(centre,normal,rayon,cote,color,angledepart=mathalea.anglePerspective){
 
     let demiCercle,signe,M=[],listepoints=[]
     if (cote=='caché') {
@@ -194,7 +195,7 @@ export function demicercle3d(centre,normal,rayon,cote,color){
       signe=-1
     }
     let d=droite3d(centre,normal)
-    M.push(rotation3d(translation3d(centre,rayon),d,mathalea.anglePerspective))
+    M.push(rotation3d(translation3d(centre,rayon),d,angledepart))
     listepoints.push(M[0].p2d)
   
     for (let i=1;i<19;i++) {
@@ -204,6 +205,7 @@ export function demicercle3d(centre,normal,rayon,cote,color){
     demiCercle=polyline(listepoints,color)
     if (cote=='caché') {
       demiCercle.pointilles=2
+      demiCercle.opacite=0.3
     }
     return demiCercle
    }
@@ -299,10 +301,10 @@ export function demicercle3d(centre,normal,rayon,cote,color){
      this.color=color
      this.nb_meridiens=nb_meridiens
      this.nb_paralleles=nb_paralleles
-     let objets=[],c1,c2,C
+     let objets=[],c1,c2,c3,c4,C,D
      let prodvec=vecteur3d(math.cross(normal.matrice,rayon.matrice))
      let prodscal=math.dot(prodvec.matrice,vecteur3d(0,1,0).matrice)
-     let cote1,cote2,rayon2,r,R,V
+     let cote1,cote2,rayon2,r,R,V,W
      rayon2=vecteur3d(math.cross(rayon.matrice,math.multiply(prodvec.matrice,1/math.norm(prodvec.matrice))))
      R=math.norm(this.rayon.matrice)
      if (prodscal>0) {
@@ -313,21 +315,27 @@ export function demicercle3d(centre,normal,rayon,cote,color){
        cote2='caché'
        cote1='visible'
      }
-     objets.push(cercle3d(this.centre,rotationV3d(prodvec,this.normal,mathalea.anglePerspective),rotationV3d(this.rayon,this.normal,mathalea.anglePerspective),true,this.color))
-     for (let k=0;k<2;k+=2/(this.nb_paralleles+1)){
-       r=math.sqrt(R**2-((k-1)*R)**2)
+    // objets.push(cercle3d(this.centre,rotationV3d(prodvec,this.normal,mathalea.anglePerspective),rotationV3d(this.rayon,this.normal,mathalea.anglePerspective),true,this.color))
+     for (let k=0;k<1;k+=1/(this.nb_paralleles+1)){
+       r=math.sqrt(R**2-((1-k)*R)**2)
        C=translation3d(this.centre,vecteur3d(math.multiply(rayon2.matrice,k-1)))
-       c1=demicercle3d(C,this.normal,vecteur3d(math.multiply(this.rayon.matrice,r/R)),cote1,this.color)
-       c2=demicercle3d(C,this.normal,vecteur3d(math.multiply(this.rayon.matrice,r/R)),cote2,this.color)
-       objets.push(c1,c2)
+       D=translation3d(this.centre,vecteur3d(math.multiply(rayon2.matrice,1-k)))
+       c1=demicercle3d(C,this.normal,vecteur3d(math.multiply(this.rayon.matrice,r/R)),cote1,this.color,0)
+       c2=demicercle3d(C,this.normal,vecteur3d(math.multiply(this.rayon.matrice,r/R)),cote2,this.color,0)
+       c3=demicercle3d(D,this.normal,vecteur3d(math.multiply(this.rayon.matrice,r/R)),cote1,this.color,0)
+       c4=demicercle3d(D,this.normal,vecteur3d(math.multiply(this.rayon.matrice,r/R)),cote2,this.color,0)
+       objets.push(c1,c2,c3,c4)
      }
      C=translation3d(this.centre,rayon2)
   
-     for (let k=0;k<2;k+=2/(this.nb_meridiens+1)){
-       V=rotationV3d(prodvec,this.normal,mathalea.anglePerspective+k*90)
-      c1=demicercle3d(this.centre,V,rayon2,cote1,this.color)
-      c2=demicercle3d(this.centre,V,rayon2,cote2,this.color)
-      objets.push(c1,c2)
+     for (let k=0;k<1;k+=1/this.nb_meridiens){
+       V=rotationV3d(prodvec,this.normal,90+k*90) 
+       W=rotationV3d(prodvec,this.normal,90-(k+1/this.nb_meridiens)*90) 
+      c1=demicercle3d(this.centre,V,rayon2,cote2,this.color,0)
+      c2=demicercle3d(this.centre,V,rayon2,cote1,this.color,0)
+      c3=demicercle3d(this.centre,W,rayon2,cote2,this.color,0)
+      c4=demicercle3d(this.centre,W,rayon2,cote1,this.color,0)
+      objets.push(c1,c2,c3,c4)
     }
     
      this.svg =function (coeff) {
@@ -669,6 +677,40 @@ export function pave3d(A,B,C,E,color='black'){
       }
   }
   
+  function Sens_de_rotation3d(axe,rayon,angle){
+    ObjetMathalea2D.call(this)
+    let M,N,s,objets=[],d,A,B
+    M=translation3d(axe.origine,rayon)
+    for (let i=0;i<angle;i+=5){
+      N=rotation3d(M,axe,5)
+      s=segment(M.p2d,N.p2d)
+      objets.push(s)
+      M=N
+    }
+    N=rotation3d(M,axe,5)
+    objets.push(segment(M.p2d,N.p2d))
+    d=droite3d(N,axe.directeur)
+    A=rotation3d(M,d,30)
+    B=rotation3d(M,d,-30)
+    objets.push(segment(N.p2d,A.p2d),segment(N.p2d,B.p2d))
+    this.svg =function (coeff) {
+      let code = "";
+      for (let objet of objets) {
+        code += "\n\t" + objet.svg(coeff);
+      }
+      return code;
+    }
+    this.tikz = function() {
+      let code = "";
+      for (let objet of objets) {
+        code += "\n\t" + objet.tikz();
+      }
+      return code;
+    }
+  }
+export function sens_de_rotation3d(axe,rayon,angle){
+  return new Sens_de_rotation3d(axe,rayon,angle)
+}
 
   /**
    * LA TRANSLATION
