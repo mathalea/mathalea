@@ -4,6 +4,8 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,simpExp,modal_pd
  * Puissances d'un relatif (2)
  * * Travailler des résultats automatisés
  * * mais aussi d'utiliser les propriétés du produit de puissance, du quotient de puissances et des puissances de puissances
+ * * Date initiale non renseignée
+ * * Mise à jour le 2021-01-24
  * @Auteur Sébastien Lozano
  * 4C33-3
  */
