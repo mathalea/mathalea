@@ -9,7 +9,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_a
 export default function Factoriser_Identites_remarquables2() {
     'use strict';
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Equations se ramenant au produit-nul:";
+    this.titre = "Résoudre des équations se ramenant au produit-nul.";
     this.video = "";
     this.consigne = "Résoudre dans $\\mathbb R$ les équations suivantes :";
     this.nb_cols = 1;
