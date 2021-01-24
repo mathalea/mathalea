@@ -48,7 +48,7 @@ export default function Factoriser_Identites_remarquables2() {
                         avec  $\\quad a=x \\quad$ et $\\quad b=${a}$<br>`
                         texte_corr += `On obtient alors :<br>`
                         texte_corr += `$\\phantom{\\iff}x^{2}-${a*a}=0$<br>`; 
-                        texte_corr += `$\\phantom{\\iff}x^{2}-${a}^{2}=0$<br>`; 
+                        texte_corr += `$\\phantom{\\iff}x^{2}-${a}^{2}=0$`; 
                         texte_corr += `$\\iff (x-${a})(x+${a})=0$<br>`
                         texte_corr += `${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`                 
                         texte_corr += `$\\iff x-${a}=0\\quad$ ou bien $\\quad x+${a}=0$<br>`
