@@ -1,15 +1,16 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_ax_plus_b,tex_fraction,texte_en_couleur, ecriture_algebrique,tex_fraction_signe,tex_fraction_reduite, ecriture_algebrique} from "/modules/outils.js"
+import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_ax_plus_b,tex_fraction,texte_en_couleur, ecriture_algebrique,tex_fraction_signe,tex_fraction_reduite, ecriture_algebrique, texte_en_couleur} from "/modules/outils.js"
 
 /**
- * Résoudre des équations produit-nul
+ * Résoudre des équations se ramenant au produit-nul
 * @auteur Stéphane Guyon
-* 2L11-1
+* 2L12-2
 */
 export default function Factoriser_Identites_remarquables2() {
     'use strict';
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Résoudre les équations suivantes :";
+    this.titre = "Equations se ramenant au produit-nul:";
+    this.video = "";
     this.consigne = "Résoudre dans $\\mathbb R$ les équations suivantes :";
     this.nb_cols = 1;
     this.nb_cols_corr = 1;
