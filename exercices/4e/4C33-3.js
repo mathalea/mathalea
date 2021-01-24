@@ -10,7 +10,7 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,simpExp,modal_pd
 export default function Puissances_d_un_relatif_2() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.sup = 1;
+  //this.sup = 1;
   this.titre = "Puissances : Calculs automatisés et règles de calculs";
   sortie_html
     ? (this.consigne = "Écrire sous la forme $\\mathbf{a^n}$.")
