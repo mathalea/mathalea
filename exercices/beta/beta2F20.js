@@ -1,0 +1,97 @@
+import Exercice from '../ClasseExercice.js';
+import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_ax_plus_b,texte_en_couleur, tex_fraction_signe,tex_fraction_reduite, ecriture_algebrique,ecriture_algebrique_sauf1} from "/modules/outils.js"
+
+/**
+ * Reconnaître une fonction affine
+* @auteur Stéphane Guyon
+* 2F20
+*/
+export default function Factoriser_Identites_remarquables2() {
+    'use strict';
+    Exercice.call(this); // Héritage de la classe Exercice()
+    this.titre = "Reconnaître une fonction affine.";
+    this.video = "";
+    this.consigne = "Déterminer,en expliquant, si les fonctions suivantes sont, ou non, des fonctions affines. :";
+    this.nb_cols = 1;
+    this.nb_cols_corr = 1;
+    this.spacing = 1;
+    this.spacing_corr = 1;
+    this.nb_questions = 3;
+    this.sup = 1;
+    this.spacing_corr = 3
+
+    this.nouvelle_version = function () {
+        this.liste_questions = []; // Liste de questions
+        this.liste_corrections = []; // Liste de questions corrigées
+             let type_de_questions_disponibles = [];
+        if (this.sup == 1) {
+            type_de_questions_disponibles = [1,2,3]; 
+        }
+        
+        let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
+        for (let i = 0, texte, texte_corr, cpt = 0, a, b, c, d, e, f,  k, fraction = [], ns, ds, type_de_questions; i < this.nb_questions && cpt < 50;) {
+            type_de_questions = liste_type_de_questions[i];
+            k = choice([-1, 1]); 
+			a = randint(2, 9);
+            a = a * k;
+            b = randint(1, 9);
+            k = choice([-1, 1]); 
+            b = b * k;
+            c = randint(1, 9);
+            k= choice([-1, 1]); 
+            c = c * k;
+            d = randint(1, 9);
+            k = choice([-1, 1]); 
+            d = d * k;
+            e = randint(1, 9);
+            k = choice([-1, 1]); 
+            e = e * k;
+            f = randint(1, 9);
+            k = choice([-1, 1]); 
+            f = f * k;
+           
+                      switch (type_de_questions) {
+                case 1:
+                        texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${reduire_ax_plus_b(a,b)}$`; //f(x)=ax + b
+                        texte_corr = ` $f(x)=${reduire_ax_plus_b(a,b)}$<br>`
+                        texte_corr += `On observe que la fonction $f$ s'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>`
+                        texte_corr +=`Ici, on a : $a=${a}$ et $b=${b}$<br>`
+                        texte_corr +=`$f$ est donc bien une fonction affine.<br>`                                 
+                 break;
+                 case 2:
+                        if (a=1) {
+                            texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${b}+x$<br>`; //f(x)=b+x
+                            texte_corr = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${b}+x$<br>`; 
+                            texte_corr += ` On peut écrire $f$ sous cette forme : $f(x)=x ${ecriture_algebrique(b)}$<br>`;} 
+                        if (a=-1) {
+                            texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${b}-x$<br>`; //f(x)=b-x}
+                            texte_corr = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${b}-x$<br>`; 
+                            texte_corr += ` On peut écrire $f$ sous cette forme : $f(x)=-x ${ecriture_algebrique(b)}$<br>`;} 
+                        else{
+                            texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${ecriture_algebrique(b)} ${ecriture_algebrique(a)}  x$<br>`; //f(x)=b-x}
+                            texte_corr = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${ecriture_algebrique(b)} ${ecriture_algebrique(a)}  x$<br>`; //f(x)=b-x}
+                            texte_corr += ` On peut écrire $f$ sous cette forme : $f(x)=-x ${reduire_ax_plus_b(a,b)}$<br>`;} 
+                        texte_corr += `On observe que la fonction $f$ s'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>`
+                        texte_corr +=`Ici, on a : $a=${a}$ et $b=${b}$<br>`
+                        texte_corr +=`$f$ est donc bien une fonction affine.`                                 
+                 break;    
+                 case 3:
+                        texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${a}x^{2}${ecriture_algebrique(b)} x${ecriture_algebrique(c)} $`; //f(x)=ax²+bx+c
+                        texte_corr = ` $f(x)=${a}x^{2}${ecriture_algebrique_sauf1(b)} x${ecriture_algebrique(c)} $<br>`
+                        texte_corr += `On observe que la fonction $f$ est du second degré, puisqu'il y a un terme en $x^{2}$<br>`
+                        texte_corr += `Elle s'écrit sous la forme $f(x)= a x^{2}+ bx+c$ et non pas sous la forme $ax+b$.<br>`
+                        texte_corr +=`$f$ n'est donc pas une fonction affine.<br>`                                 
+                 break;          
+            }
+            if (this.liste_questions.indexOf(texte) == -1) {
+                // Si la question n'a jamais été posée, on en créé une autre
+                this.liste_questions.push(texte);
+                this.liste_corrections.push(texte_corr);
+                i++;
+            }
+            cpt++;
+        }
+        liste_de_question_to_contenu(this);
+    };
+    this.besoin_formulaire_numerique = ['Niveau de difficulté', 1, '1 :équations x²-a²=0\n 2 : équations x²-b=0'];
+}
