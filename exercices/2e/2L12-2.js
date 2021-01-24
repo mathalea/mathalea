@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_ax_plus_b,tex_fraction,texte_en_couleur, ecriture_algebrique,tex_fraction_signe,tex_fraction_reduite, ecriture_algebrique, texte_en_couleur} from "/modules/outils.js"
+import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_ax_plus_b,texte_en_couleur, tex_fraction_signe,tex_fraction_reduite, ecriture_algebrique} from "/modules/outils.js"
 
 /**
  * Résoudre des équations se ramenant au produit-nul
