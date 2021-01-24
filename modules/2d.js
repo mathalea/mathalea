@@ -4401,7 +4401,7 @@ export function texteSurSegment(...args) {
  *
  * @Auteur Rémi Angot
  */
-export function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5) {
+function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5) {
   ObjetMathalea2D.call(this)
   this.depart=A
   this.arrivee=C
