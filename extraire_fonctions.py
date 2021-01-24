@@ -1,6 +1,6 @@
 import re
 
-fichier=open('./modules/outils.js','r')
+fichier=open('./modules/2d.js','r')
  
 mesFonctions = ""
 for line in fichier:

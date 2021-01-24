@@ -4401,7 +4401,7 @@ export function texteSurSegment(...args) {
  *
  * @Auteur Rémi Angot
  */
-export function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5) {
+function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5) {
   ObjetMathalea2D.call(this)
   this.depart=A
   this.arrivee=C
@@ -7342,13 +7342,6 @@ function TranslationInstrument(instrument,A,B,begin=0,id){
   }
 }
 
-
-// export function deplaceInstrument(instrument, B, begin=0, id){
-//   let A = point(instrument.x,instrument.y);
-//   translationInstrument(instrument, A, B, begin=0, id);
-//   instrument.x = B.x;
-//   instrument.y = B.y;
-// }
 
 
 
