@@ -79,8 +79,13 @@ export default function Factoriser_Identites_remarquables2() {
                     $\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
                     (${a}x${ecriture_algebrique(b)}${ecriture_algebrique(-c)}x${ecriture_algebrique(-d)})
                     (${a}x${ecriture_algebrique(b)}${ecriture_algebrique(c)}x${ecriture_algebrique(d)})$<br>
-                    $\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
-                    (${reduire_ax_plus_b(a-c,b-d)})(${reduire_ax_plus_b(a+c,b+d)})$                    `;
+                    if (a!= c && yI1 b!= d) {$\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
+                    (${reduire_ax_plus_b(a-c,b-d)})(${reduire_ax_plus_b(a+c,b+d)})$ } 
+                    if (a!= c && yI1 b= d) {$\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
+                    ${ecriture_algebrique(a-c)}x(${reduire_ax_plus_b(a+c,b+d)})$     }      
+                    if (a!= c && yI1 b= d) {$\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
+                    ${ecriture_algebrique(a-c)}x(${reduire_ax_plus_b(a+c,b+d)})$     }   
+                           `;
                     break;
                 
             }
