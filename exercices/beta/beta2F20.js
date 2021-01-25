@@ -107,7 +107,7 @@ export default function Factoriser_Identites_remarquables2() {
                         texte = `Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${c}\\times (${reduire_ax_plus_b(a,b)}) $`; //f(x)=k(ax+b)
                         texte_corr = `$f(x)=${c}\\times (${reduire_ax_plus_b(a,b)}) $<br>`
                         texte_corr += `On peut développer l'expression de $f$ et on obtient alors :<br>`
-                        texte_corr += `$f(x)=(${reduire_ax_plus_b(a*c,b*c)}) $<br>`
+                        texte_corr += `$f(x)=${reduire_ax_plus_b(a*c,b*c)} $<br>`
                         texte_corr += `On observe que la fonction $f$ s'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>`
                         texte_corr +=`Ici, on a : $a=${ecriture_algebrique(a*c)}$ et $b=${ecriture_algebrique(b*c)}$<br>`
                         texte_corr +=`$f$ est donc bien une fonction affine.<br>` 
