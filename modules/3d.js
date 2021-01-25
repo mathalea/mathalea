@@ -667,7 +667,7 @@ export function pave3d(A,B,C,E,color='black'){
       }
   }
   
-  function Sens_de_rotation3d(axe,rayon,angle,epaisseur=1,color='black'){
+  function Sens_de_rotation3d(axe,rayon,angle,epaisseur,color){
     ObjetMathalea2D.call(this)
     this.epaisseur=epaisseur
     this.color=color
@@ -712,8 +712,8 @@ export function pave3d(A,B,C,E,color='black'){
       return code;
     }
   }
-export function sens_de_rotation3d(axe,rayon,angle){
-  return new Sens_de_rotation3d(axe,rayon,angle)
+export function sens_de_rotation3d(axe,rayon,angle,epaisseur,color){
+  return new Sens_de_rotation3d(axe,rayon,angle,epaisseur,color)
 }
 
   /**

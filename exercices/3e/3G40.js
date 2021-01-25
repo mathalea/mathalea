@@ -15,6 +15,7 @@ export default function ReperageSurLaSphere() {
     this.pas_de_version_LaTeX=false
     this.pas_de_version_HMTL=false
     this.video=''
+    this.sup=3;
   
   //  this.sup = false; // A décommenter : valeur par défaut d'un premier paramètre
   //  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
@@ -54,15 +55,21 @@ export default function ReperageSurLaSphere() {
       let equateur1=demicercle3d(O,normalV,R,'visible','red',0)
       let equateur2=demicercle3d(O,normalV,R,'caché','red',0)
       let greenwitch=demicercle3d(O,normalH,vecteur3d(0,0,-10),'visible','green',0)
-      let rotationTerre=sens_de_rotation3d(droite3d(PoleSud,normalV),vecteur3d(-4,-8,4),120,3,'purple')
+      let rotationTerre=sens_de_rotation3d(droite3d(O,normalV),vecteur3d(8,-8,0),60,3,'purple')
       greenwitch.epaisseur=4
       greenwitch.opacite=1
       equateur1.epaisseur=3
       equateur2.epaisseur=3
       let objets_enonce = [],params_enonce,objets_correction=[]// on initialise les tableaux des objets Mathalea2d
-      let latitudes=[],longitudes=[],P=[],EstouOuest=[],NordouSud=[],nom=[]
-      objets_enonce.push(Sph,Axe.p2d,equateur1,equateur2,greenwitch,Pn,Ps,rotationTerre)
-      objets_correction.push(Sph,Axe.p2d,equateur1,equateur2,greenwitch,Pn,Ps)
+      let latitudes=[],longitudes=[],P=[],EstouOuest=[],NordouSud=[],nom=[],E,W
+      E=labelPoint(point3d(13.2,0,0,true,'E').p2d)
+      E.taille=3
+      E.color='brown'
+      W=labelPoint(point3d(-12,0,0,true,'O').p2d)
+      W.taille=3
+      W.color='brown'      
+      objets_enonce.push(Sph,Axe.p2d,equateur1,equateur2,greenwitch,Pn,Ps,rotationTerre,E,W)
+      objets_correction.push(Sph,Axe.p2d,equateur1,equateur2,greenwitch,Pn,Ps,rotationTerre,E,W)
       for (let i=0;i<this.nb_questions;i++){
         latitudes.push(0)
         longitudes.push(0)
@@ -116,7 +123,7 @@ export default function ReperageSurLaSphere() {
         // paramètres pour la perspective
   mathalea.anglePerspective=30
   mathalea.coeffPerspective=0.5
-      params_enonce = { xmin:-12, ymin: -13, xmax: 12, ymax: 13, pixelsParCm: 20, scale: 1, mainlevee: false}
+      params_enonce = { xmin:-13, ymin: -13, xmax: 14, ymax: 13, pixelsParCm: 20, scale: 1, mainlevee: false}
 
      // texte_corr += mathalea2d(params_correction, objets_correction)
       this.contenu +='<br>'+ mathalea2d(params_enonce, objets_enonce)
