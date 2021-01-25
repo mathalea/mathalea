@@ -42,10 +42,10 @@ export default function Egalite_d_angles() {
 			E = similitude(A, C, c, ce / ac, noms[4], 'above right');
 			CA = droite(C, A);
 			CE = droite(C, E);
-			AE = droite(A, E, '', 'grey');
+			AE = droite(A, E, '', 'gray');
 			AE.epaisseur = 2;
 			B = pointSurSegment(A, C, randint(3, ac - 4), noms[1], 'above left');
-			BD = droiteParPointEtParallele(B, AE, '', 'grey');
+			BD = droiteParPointEtParallele(B, AE, '', 'gray');
 			BD.epaisseur = 2;
 			D = pointIntersectionDD(BD, CE, noms[3], 'above right');
 			m1 = codeAngle(E, A, C, 1, '', 'black', 2, 1, 'black', 0.1, true);
@@ -101,7 +101,7 @@ export default function Egalite_d_angles() {
 			c4 = codeAngle(A, C, D, 1, '', 'green', 2, 1, 'green', 0.2);
 			c5 = codeAngle(B, D, E, 1, '', 'orange', 2, 1, 'orange', 0.2);
 			c6 = codeAngle(E, B, D, 1, '', 'pink', 2, 1, 'pink', 0.2);
-			c3 = codeAngle(A, D, C, 1, '', 'grey', 2, 1, 'grey', 0.2);
+			c3 = codeAngle(A, D, C, 1, '', 'gray', 2, 1, 'gray', 0.2);
 			l1 = labelPoint(A, B, C, D, E);
 			objets.push(CA, AB, CE, BE, cA, cD, cE, c3, c4, c5, c6, l1);
 			enonce = `La figure n'est pas en vraie grandeur. Toutes les réponses devront être justifiées.<br>`;
