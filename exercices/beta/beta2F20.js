@@ -25,7 +25,7 @@ export default function Factoriser_Identites_remarquables2() {
         this.liste_corrections = []; // Liste de questions corrigées
              let type_de_questions_disponibles = [];
         if (this.sup == 1) {
-            type_de_questions_disponibles = [1,2,3,4,5,6,7]; 
+            type_de_questions_disponibles = [1,2,3,4,5,6,7,8]; 
         }
         
         let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
@@ -97,12 +97,21 @@ export default function Factoriser_Identites_remarquables2() {
                         texte_corr +=`$f$ n'est donc pas une fonction affine.<br>`      
                 break;    
                 case 7:
-                        texte = `On a b=$${b}$. Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${tex_fraction_signe(1,a)}x+${tex_fraction_signe(1,e)} $`; //f(x)=1/ax+1/b
+                        texte = `Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${tex_fraction_signe(1,a)}x+${tex_fraction_signe(1,e)} $`; //f(x)=1/ax+1/b
                         texte_corr = `$f(x)=${tex_fraction_signe(1,a)}x+${tex_fraction_signe(1,e)}$<br>`
                         texte_corr += `On observe que la fonction $f$ s'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>`
                         texte_corr +=`Ici, on a : $a=\\dfrac{1}{${a}}$ et $b=\\dfrac{1}{${e}}$<br>`
                         texte_corr +=`$f$ est donc bien une fonction affine.<br>` 
-                break;  
+                break;
+                case 8:
+                        texte = `Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${c}\\times (${reduire_ax_plus_b(a,b)}) $`; //f(x)=k(ax+b)
+                        texte_corr = `$f(x)=${c}\\times (${reduire_ax_plus_b(a,b)}) $<br>`
+                        texte_corr += `On peut développer l'expression de $f$ et on obtient alors :<br>`
+                        texte_corr += `$f(x)=(${reduire_ax_plus_b(a*c,b*c)}) $<br>`
+                        texte_corr += `On observe que la fonction $f$ s'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>`
+                        texte_corr +=`Ici, on a : $a=${ecriture_algebrique(a*c)}$ et $b=${ecriture_algebrique(b*c)}$<br>`
+                        texte_corr +=`$f$ est donc bien une fonction affine.<br>` 
+                break;   
             }
             if (this.liste_questions.indexOf(texte) == -1) {
                 // Si la question n'a jamais été posée, on en créé une autre

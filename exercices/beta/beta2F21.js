@@ -1,9 +1,9 @@
-import { fraction_simplifiee } from '../../modules/outils.js';
+import { fraction_simplifiee } from "/modules/outils.js";
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_ax_plus_b,texte_en_couleur, tex_fraction_signe,tex_fraction_reduite, ecriture_algebrique,ecriture_algebrique_sauf1} from "/modules/outils.js"
 
 /**
- * Reconnaître une fonction affine
+ * Déterminer une fonction affine à partir de deux images
 * @auteur Stéphane Guyon
 * 2F20
 */
@@ -33,14 +33,16 @@ export default function Factoriser_Identites_remarquables2() {
         for (let i = 0, texte, texte_corr, cpt = 0, a, b, c, d, e, f,  k, fraction = [], ns, ds, type_de_questions; i < this.nb_questions && cpt < 50;) {
             type_de_questions = liste_type_de_questions[i];
             k = choice([-1, 1]); 
-			a = randint(2, 9);
+			a = randint(1, 9);
             a = a * k;
             b = randint(1, 9);
             k = choice([-1, 1]); 
             b = b * k;
-            c = randint(1, 9);
+            c = randint(1, 9,[a]);
             k = choice([-1, 1]); 
             c = c * k;
+            c = randint(1, 9,[a]);
+            
             d =randint(1, 9);
             k = choice([-1, 1]); 
             d = d * k;
@@ -64,6 +66,11 @@ export default function Factoriser_Identites_remarquables2() {
                         texte_corr +=`ce qui donne :`
                         texte_corr +=`$a=\\dfrac{f(${a})-f(${c})}{${a}-${c}}=\\dfrac{${b}-${d}}{${a}-${c}}=\\dfrac{${b-d}}{${a-c}}$<br>`  
                         texte_corr +=`d'où : $a=${tex_fraction_reduite(b-d,a-c)}.$<br>`  
+                    if (b==d){
+                            texte_corr +=`$f$ est une fonction constante, cas particulier des fonctions affines.<br>`
+                            texte_corr +=`On a donc : $f(x)=${b}$`
+                    }
+                    else {
                         texte_corr +=`On peut donc déjà déduire que la fonction $f$ s'écrit sous la forme : `
                         if ((b-d)/(a-c)==1){
                             texte_corr +=`$f(x)= x +b.$<br>` 
@@ -71,7 +78,8 @@ export default function Factoriser_Identites_remarquables2() {
                         if ((b-d)/(a-c)==-1){
                             texte_corr +=`$f(x)= -x +b.$<br>` 
                         }
-                         else {texte_corr +=`   $f(x)=${tex_fraction_reduite(b-d,a-c)} x +b.$<br>` 
+                        if (b-d!=a-c&&b-d!=-a+c)// cas général
+                        {texte_corr +=`   $f(x)=${tex_fraction_reduite(b-d,a-c)} x +b.$<br>` 
                         }
                         texte_corr +=`On cherche $b$ et pour cela on peut utiliser au choix une des deux données de l'énoncé :<br>`   
                         texte_corr +=`On prend par exemple : $f(${a})=${b}$  <br>`
@@ -82,41 +90,51 @@ export default function Factoriser_Identites_remarquables2() {
                         if ((b-d)/(a-c)==-1){
                             texte_corr +=`$f(x)= -x +b.$<br>` 
                         }
-                         else {texte_corr +=`   $f(x)=${tex_fraction_reduite(b-d,a-c)} x +b.$<br>` 
+                        if (b-d!=a-c&&b-d!=-a+c)// cas général
+                         {texte_corr +=`   $f(x)=${tex_fraction_reduite(b-d,a-c)} x +b.$<br>` 
                         }
                         texte_corr +=`On en déduit que :$f(${a})=${tex_fraction_reduite(b-d,a-c)} \\times ${a} +b=${b}$<br>`
-                        texte_corr +=`$\\phantom{On en déduit que :}\\iff b=${b}-${tex_fraction_reduite(e,f)}$<br>`  
-                        texte_corr +=`$\\phantom{On en déduit que :}\\iff b=${tex_fraction_reduite(b*a-b*c-a*b+a*d,a-c)}$<br> ` 
-                        texte_corr +=`Comme $f(x)= a x+ b$  , on peut conclure que ` 
+                        texte_corr +=`$\\phantom{On en deduit que :}\\iff b=${b}-${tex_fraction_reduite(e,f)}$<br>`  
+                        texte_corr +=`$\\phantom{On en deduit que :}\\iff b=${tex_fraction_reduite(b*a-b*c-a*b+a*d,a-c)}$<br> ` 
+                        texte_corr +=`On peut conclure que ` 
                         if (b-d==a-c) // cas où a=1
                            {
                             if((b*a-b*c-a*b+a*d)*(a-c)>0){
                             texte_corr +=`$f(x)= x +${tex_fraction_reduite(b*a-b*c-a*b+a*d,a-c)}.$<br>` 
                             }
                             else {
+                                if (b*a-b*c==a*b+a*d)//cas où b=0
+                                     {texte_corr +=`$f(x)= x.$<br>` 
+
+                                        }
                                 texte_corr +=`$f(x)= x ${tex_fraction_reduite(b*a-b*c-a*b+a*d,a-c)}.$<br>`     
                             }
-                        }
-                        if (b-d==a-c)// cas où a=-1
+                            }
+                        if (b-d==-a+c)// cas où a=-1
                             {
-                            if((b*a-b*c-a*b+a*d)*(a-c)>0){
+                            if((b*a-b*c-a*b+a*d)*(a-c)>0)// b>0
+                            {
                             texte_corr +=`$f(x)= -x +${tex_fraction_reduite(b*a-b*c-a*b+a*d,a-c)}.$<br>` 
                             }
                             else {
-                            texte_corr +=`$f(x)= -x ${tex_fraction_reduite(b*a-b*c-a*b+a*d,a-c)}.$<br>` 
+                                if (a*d-b*c==0)//cas où b=0
+                                         {texte_corr +=`$f(x)= -x.$<br>` 
+    
+                                            }
+                                else texte_corr +=`$f(x)= -x ${tex_fraction_reduite(b*a-b*c-a*b+a*d,a-c)}.$<br>` 
+                                }
                             }
-                        }
-                        else // cas général
-                        {
+                        if (b-d!=a-c && b-d!=-a+c)// cas général
+                            {
                             if((b*a-b*c-a*b+a*d)*(a-c)>0)// cas où b>0
-                            {
+                                {
                                 texte_corr +=`$f(x)=${tex_fraction_reduite(b-d,a-c)}x+  ${tex_fraction_reduite(b*a-b*c-a*b+a*d,a-c)}$` 
-                            }
+                                }
                             else// cas où b<0
-                            {
+                                {
                                 texte_corr +=`$f(x)=${tex_fraction_reduite(b-d,a-c)}x  ${tex_fraction_reduite(b*a-b*c-a*b+a*d,a-c)}$` 
-                            }
-                            }
+                                }
+                            }        
                         }
                         
 
