@@ -133,9 +133,9 @@ export default function Factoriser_Identites_remarquables2() {
                             else// cas où b<0
                                 {
                                 texte_corr +=`$f(x)=${tex_fraction_reduite(b-d,a-c)}x  ${tex_fraction_reduite(b*a-b*c-a*b+a*d,a-c)}$` 
-                                }
-                            }        
-                        }
+                            }
+                            
+                       }   }
                         
 
                  break;
