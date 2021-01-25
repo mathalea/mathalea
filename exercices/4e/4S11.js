@@ -6,6 +6,8 @@ import {texte_gras,lampe_message} from "/modules/outils.js";
  * Calculs de médianes dans des séries statistiques
 * @auteur Sébastien Lozano forked de Jean-Claude Lhote
 * Référence 4S11
+* Date initiale 2021-01-12
+* Mise à jour le ...
 */
 export default function Calculer_des_frequences() {
 	Exercice.call(this); // Héritage de la classe Exercice()
