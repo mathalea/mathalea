@@ -5391,6 +5391,7 @@ function Fraction(num,den) {
     this.numIrred=fraction_simplifiee(this.num,this.den)[0]
 	this.denIrred=fraction_simplifiee(this.num,this.den)[1]
 	this.pourcentage=calcul(this.numIrred*100/this.denIrred)
+	this.signe=unSiPositifMoinsUnSinon(this.num*this.den)
 	/**
 	 * @return {object} La fraction "complexifiée" d'un rapport k
 	 * @param {number} k Le nombre par lequel, le numérateur et le dénominateur sont multipliés.
