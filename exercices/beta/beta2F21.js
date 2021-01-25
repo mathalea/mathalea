@@ -116,7 +116,7 @@ export default function Factoriser_Identites_remarquables2() {
                             {
                                 texte_corr +=`$f(x)=${tex_fraction_reduite(b-d,a-c)}x  ${tex_fraction_reduite(b*a-b*c-a*b+a*d,a-c)}$` 
                             }
-                            }
+                            
                         }
                         
 
