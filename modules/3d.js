@@ -667,22 +667,36 @@ export function pave3d(A,B,C,E,color='black'){
       }
   }
   
-  function Sens_de_rotation3d(axe,rayon,angle){
+  function Sens_de_rotation3d(axe,rayon,angle,epaisseur=1,color='black'){
     ObjetMathalea2D.call(this)
+    this.epaisseur=epaisseur
+    this.color=color
     let M,N,s,objets=[],d,A,B
     M=translation3d(axe.origine,rayon)
     for (let i=0;i<angle;i+=5){
       N=rotation3d(M,axe,5)
       s=segment(M.p2d,N.p2d)
+      s.color=this.color
+      s.epaisseur=this.epaisseur
       objets.push(s)
       M=N
     }
     N=rotation3d(M,axe,5)
-    objets.push(segment(M.p2d,N.p2d))
+    s=segment(M.p2d,N.p2d)
+    s.color=this.color
+    s.epaisseur=this.epaisseur
+    objets.push(s)
     d=droite3d(N,axe.directeur)
     A=rotation3d(M,d,30)
     B=rotation3d(M,d,-30)
-    objets.push(segment(N.p2d,A.p2d),segment(N.p2d,B.p2d))
+    s=segment(N.p2d,A.p2d)
+    s.color=this.color
+    s.epaisseur=this.epaisseur
+    objets.push(s)
+    s=segment(N.p2d,B.p2d)
+    s.color=this.color
+    s.epaisseur=this.epaisseur
+    objets.push(s)   
     this.svg =function (coeff) {
       let code = "";
       for (let objet of objets) {
