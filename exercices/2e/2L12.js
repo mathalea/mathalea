@@ -9,7 +9,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_a
 export default function Factoriser_Identites_remarquables2() {
     'use strict';
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Résoudre les équations suivantes :";
+    this.titre = "Résoudre les équations produit-nul";
     this.consigne = "Résoudre dans $\\mathbb R$ les équations suivantes :";
     this.nb_cols = 1;
     this.nb_cols_corr = 1;
@@ -58,7 +58,7 @@ export default function Factoriser_Identites_remarquables2() {
                         texte_corr += `$S=\\left\\{${tex_fraction_reduite(-d,c)};${tex_fraction_reduite(-b,a)}\\right\\}$`
                     }
                     else {
-                        texte_corr += `$S=\\left\\{${tex_fraction_reduite(-b,a)};${tex_fraction_reduite(-d,c)}}\\right\\}$`
+                        texte_corr += `$S=\\left\\{${tex_fraction_reduite(-b,a)};${tex_fraction_reduite(-d,c)}\\right\\}$`
                     }
                    
                     break;

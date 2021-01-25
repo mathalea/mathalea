@@ -2393,7 +2393,7 @@ export function SVG_grille (mon_svg,absO,ordO,tailleX,tailleY,DeltaX,DeltaY,subX
 		if (subX!=1) {
 			for (let k=0;k<subX;k++) {
 					line_grille = mon_svg.line(absO+i*(tailleX/DeltaX)+k*(tailleX/DeltaX/subX),0,absO+i*(tailleX/DeltaX)+k*(tailleX/DeltaX/subX),tailleY);
-					line_grille.stroke({ color: 'lightgrey', width: 0.5, linecap: 'round' });
+					line_grille.stroke({ color: 'lightgray', width: 0.5, linecap: 'round' });
 			}
 		}
 	}
@@ -2405,7 +2405,7 @@ export function SVG_grille (mon_svg,absO,ordO,tailleX,tailleY,DeltaX,DeltaY,subX
 		if (subY!=1) {
 			for (let l=0;l<subY;l++) {
 				line_grille = mon_svg.line(20,ordO+j*(tailleY/DeltaY)+l*(tailleY/DeltaY/subY),20+tailleX,ordO+j*(tailleY/DeltaY)+l*(tailleY/DeltaY/subY));
-				line_grille.stroke({ color: 'lightgrey', width: 0.5, linecap: 'round' });
+				line_grille.stroke({ color: 'lightgray', width: 0.5, linecap: 'round' });
 			}
 		}
 	}

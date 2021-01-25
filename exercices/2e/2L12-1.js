@@ -9,7 +9,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_a
 export default function Factoriser_Identites_remarquables2() {
     'use strict';
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Résoudre les équations suivantes :";
+    this.titre = "Résoudre des équations carrées.";
     this.consigne = "Résoudre dans $\\mathbb R$ les équations suivantes :";
     this.nb_cols = 1;
     this.nb_cols_corr = 1;
@@ -48,7 +48,7 @@ export default function Factoriser_Identites_remarquables2() {
                         avec  $\\quad a=x \\quad$ et $\\quad b=${a}$<br>`
                         texte_corr += `On obtient alors :<br>`
                         texte_corr += `$\\phantom{\\iff}x^{2}-${a*a}=0$<br>`; 
-                        texte_corr += `$\\phantom{\\iff}x^{2}-${a}^{2}=0$<br>`; 
+                        texte_corr += `$\\phantom{\\iff}x^{2}-${a}^{2}=0$`; 
                         texte_corr += `$\\iff (x-${a})(x+${a})=0$<br>`
                         texte_corr += `${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`                 
                         texte_corr += `$\\iff x-${a}=0\\quad$ ou bien $\\quad x+${a}=0$<br>`
