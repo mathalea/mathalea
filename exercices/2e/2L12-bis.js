@@ -19,6 +19,8 @@ export default function Factoriser_Identites_remarquables2() {
     this.sup = 1;
     this.spacing_corr = 3
     this.nb_questions = 2
+    this.correction_detaillee_disponible=true
+    this.correction_detaillee=true
 
     this.nouvelle_version = function () {
         this.liste_questions = []; // Liste de questions
@@ -50,16 +52,20 @@ export default function Factoriser_Identites_remarquables2() {
                 case 1:
                     texte = `$(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c,d)})=0$`; 
                     texte_corr = `On reconnaît une équation produit-nul, donc on applique la propriété :<br>
-                    ${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>
-                    $(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c,d)})=0$<br>
-                    $\\iff ${reduire_ax_plus_b(a,b)}=0$ ou $${reduire_ax_plus_b(c,d)}=0$<br>
-                    $\\iff x=${tex_fraction_signe(-b,a)}$ ou $ x=${tex_fraction_signe(-d,c)}$<br>
-                     On en déduit :  `
+                    ${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
+                    texte_corr +=texte+'<br>' //optimisation du code
+                    texte_corr+=`$\\iff ${reduire_ax_plus_b(a,b)}=0$ ou $${reduire_ax_plus_b(c,d)}=0$<br>`
+                    if (this.correction_detaillee) { //on ajoute les étapes de résolution si la correction détaillée est cochée.
+                        texte_corr+=`$\\iff ${a}x=${-b}$ ou $ ${c}x=${-d}$<br>`
+                    }
+                    f1=fraction(-b,a)
+                    f2=fraction(-d,c)
+                    texte_corr+=`$\\iff x=${f1.texFraction()}$ ou $ x=${f2.texFraction()}$<br>On en déduit :  `
                     if (-b/a>-d/c) {
-                        texte_corr += `$S=\\left\\{${tex_fraction_reduite(-d,c)};${tex_fraction_reduite(-b,a)}\\right\\}$`
+                        texte_corr += `$S=\\left\\{${f2.simplifie().texFraction()};${f1.simplifie().texFraction()}\\right\\}$`
                     }
                     else {
-                        texte_corr += `$S=\\left\\{${tex_fraction_reduite(-b,a)};${tex_fraction_reduite(-d,c)}\\right\\}$`
+                        texte_corr += `$S=\\left\\{${f1.simplifie().texFraction()};${f2.simplifie().texFraction()}\\right\\}$`
                     }
                    
                     break;
@@ -76,9 +82,14 @@ export default function Factoriser_Identites_remarquables2() {
                     texte =`$(${f1.texFraction()}x${ecriture_algebrique(b)})(${f2.texFraction()}x${ecriture_algebrique(d)})=0$`
                     texte_corr = `On reconnaît une équation produit-nul, donc on applique la propriété :<br>
                     ${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>
-                    $(${f1.texFraction()}x${ecriture_algebrique(b)})(${f2.texFraction()}x${ecriture_algebrique(d)})=0$<br>
-                    $\\iff ${f1.texFraction()}x${ecriture_algebrique(b)}=0$ ou $${f2.texFraction()}x${ecriture_algebrique(d)}=0$<br>
-                    $\\iff x=${f3.texFractionSimplifiee()}$ ou $ x=${f4.texFractionSimplifiee()}$<br>
+                    $(${f1.texFraction()}x${ecriture_algebrique(b)})(${f2.texFraction()}x${ecriture_algebrique(d)})=0$<br>`
+                    texte_corr+=`$\\iff ${f1.texFraction()}x${ecriture_algebrique(b)}=0$ ou $${f2.texFraction()}x${ecriture_algebrique(d)}=0$<br>`
+                    if (this.correction_detaillee){
+                        texte_corr+=`$\\iff ${f1.texFraction()}x=${-b}$ ou $${f2.texFraction()}x=${-d}$<br>`
+                        texte_corr+=`$\\iff x=${-b}\\div ${f1.texFraction()}$ ou $x=${-d}\\div ${f2.texFraction()}$<br>`
+                        texte_corr+=`$\\iff x=${-b}\\times ${f1.inverse().texFraction()}$ ou $x=${-d}\\times ${f2.inverse().texFraction()}$<br>`
+                    }
+                    texte_corr+=`$\\iff x=${f3.texFractionSimplifiee()}$ ou $ x=${f4.texFractionSimplifiee()}$<br>
                      On en déduit :  `
                      if (f3.differenceFraction(f4).signe>0) {
                         texte_corr += `$S=\\left\\{${f4.texFractionSimplifiee()};${f3.texFractionSimplifiee()}\\right\\}$`
