@@ -5473,7 +5473,7 @@ function Fraction(num,den) {
 	 *  @params {object} f2 la fraction qui multiplie. 
 	 */
 	 this.texProduitFraction = function(f2) {
-			return `${tex_fraction(this.num,this.den)}\\times ${tex_fraction(f2.num,f2.den)}=${tex_fraction(this.num+`\\times`+f2.num,this.den+`\\times`+f2.den)}=${tex_fraction(this.num*f2.num,this.den*f2.den)}`
+			return `${this.texFraction}\\times ${f2.texFraction}=${tex_fraction(this.num+`\\times`+f2.num,this.den+`\\times`+f2.den)}=${tex_fraction(this.num*f2.num,this.den*f2.den)}`
 	} 
 
 	/**
@@ -5500,6 +5500,12 @@ function Fraction(num,den) {
 	 */
      this.differenceFraction = function(f2) {
         return this.sommeFraction(f2.oppose())
+	}
+	this.diviseFraction = function(f2){
+		return this.produitFraction(f2.inverse())
+	}
+	this.texQuotientFraction = function(f2) {
+		return `${this.texFraction}\\div ${f2.texFraction}=${this.texFraction}\\times ${f2.inverse().texFraction}=${tex_fraction(this.num+`\\times`+f2.den,this.den+`\\times`+f2.num)}=${tex_fraction(this.num*f2.den,this.den*f2.num)}`
 	}
 
 /**
