@@ -63,13 +63,14 @@ export default function Factoriser_Identites_remarquables2() {
                     }
                     f1=fraction(-b,a)
                     f2=fraction(-d,c)
-                    texte_corr+=`$\\iff x=${f1.texFraction()}$ ou $ x=${f2.texFraction()}$<br>On en déduit :  `
+                    texte_corr+=`$\\iff x=${f1.texFraction}$ ou $ x=${f2.texFraction}$<br>On en déduit :  `
                     if (-b/a>-d/c) {
-                        texte_corr += `$S=\\left\\{${f2.simplifie().texFraction()};${f1.simplifie().texFraction()}\\right\\}$`
+                        texte_corr += `$S=\\left\\{${f2.simplifie().texFraction};${f1.simplifie().texFraction}\\right\\}$`
                     }
-                    else {
-                        texte_corr += `$S=\\left\\{${f1.simplifie().texFraction()};${f2.simplifie().texFraction()}\\right\\}$`
+                    else if (-b/a<-d/c){
+                        texte_corr += `$S=\\left\\{${f1.simplifie().texFraction};${f2.simplifie().texFraction}\\right\\}$`
                     }
+                    else texte_corr += `$S=\\left\\{${f1.simplifie().texFraction}\\right\\}$`
                    
                     break;
                 case 2:
@@ -80,24 +81,25 @@ export default function Factoriser_Identites_remarquables2() {
                     f2=fractions[index]
                     f3=f1.inverse().multiplieEntier(-b)
                     f4=f2.inverse().multiplieEntier(-d)
-                    texte =`$(${f1.texFraction()}x${ecriture_algebrique(b)})(${f2.texFraction()}x${ecriture_algebrique(d)})=0$`
+                    texte =`$(${f1.texFraction}x${ecriture_algebrique(b)})(${f2.texFraction}x${ecriture_algebrique(d)})=0$`
                     texte_corr = `On reconnaît une équation produit-nul, donc on applique la propriété :<br>
                     ${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>
-                    $(${f1.texFraction()}x${ecriture_algebrique(b)})(${f2.texFraction()}x${ecriture_algebrique(d)})=0$<br>`
-                    texte_corr+=`$\\iff ${f1.texFraction()}x${ecriture_algebrique(b)}=0$ ou $${f2.texFraction()}x${ecriture_algebrique(d)}=0$<br>`
+                    $(${f1.texFraction}x${ecriture_algebrique(b)})(${f2.texFraction}x${ecriture_algebrique(d)})=0$<br>`
+                    texte_corr+=`$\\iff ${f1.texFraction}x${ecriture_algebrique(b)}=0$ ou $${f2.texFraction}x${ecriture_algebrique(d)}=0$<br>`
                     if (this.correction_detaillee){
-                        texte_corr+=`$\\iff ${f1.texFraction()}x=${-b}$ ou $${f2.texFraction()}x=${-d}$<br>`
-                        texte_corr+=`$\\iff x=${-b}\\div ${f1.texFraction()}$ ou $x=${-d}\\div ${f2.texFraction()}$<br>`
-                        texte_corr+=`$\\iff x=${-b}\\times ${f1.inverse().texFraction()}$ ou $x=${-d}\\times ${f2.inverse().texFraction()}$<br>`
+                        texte_corr+=`$\\iff ${f1.texFraction}x=${-b}$ ou $${f2.texFraction}x=${-d}$<br>`
+                        texte_corr+=`$\\iff x=${-b}\\div ${f1.texFraction}$ ou $x=${-d}\\div ${f2.texFraction}$<br>`
+                        texte_corr+=`$\\iff x=${-b}\\times ${f1.inverse().texFraction}$ ou $x=${-d}\\times ${f2.inverse().texFraction}$<br>`
                     }
-                    texte_corr+=`$\\iff x=${f3.texFractionSimplifiee()}$ ou $ x=${f4.texFractionSimplifiee()}$<br>
+                    texte_corr+=`$\\iff x=${f3.texFractionSimplifiee}$ ou $ x=${f4.texFractionSimplifiee}$<br>
                      On en déduit :  `
                      if (f3.differenceFraction(f4).signe>0) {
-                        texte_corr += `$S=\\left\\{${f4.texFractionSimplifiee()};${f3.texFractionSimplifiee()}\\right\\}$`
+                        texte_corr += `$S=\\left\\{${f4.texFractionSimplifiee};${f3.texFractionSimplifiee}\\right\\}$`
                     }
-                    else {
-                        texte_corr += `$S=\\left\\{${f3.texFractionSimplifiee()};${f4.texFractionSimplifiee()}\\right\\}$`
+                    else  if (f3.differenceFraction(f4).signe<0) {
+                        texte_corr += `$S=\\left\\{${f3.texFractionSimplifiee};${f4.texFractionSimplifiee}\\right\\}$`
                     }
+                    else  texte_corr += `$S=\\left\\{${f3.texFractionSimplifiee}\\right\\}$`
                     break
 
                 case 3:
