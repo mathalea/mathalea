@@ -44,7 +44,7 @@ export default function Constructibilite_des_triangles() {
 
 		if (this.exo == this.beta + '5G21-1') { // via longueurs
 			if (this.sup == 1) {
-				type_de_questions_disponibles = shuffle([1, 2, 3]);
+				type_de_questions_disponibles = shuffle([1, 2, 3]);				
 				this.nb_questions = type_de_questions_disponibles.length;
 			} else if (this.sup == 2) {
 				type_de_questions_disponibles = [choice([1, 2, 3]), 4];
@@ -120,7 +120,7 @@ export default function Constructibilite_des_triangles() {
 						triangle.l2 = l2;
 						triangle.l3 = l3;
 					};
-					texte = `${triangle.getNom()} tel que ${triangle.getLongueurs()[0]} $= ${triangle.l1}$ cm ; `;
+					texte = `${triangle.getNom()} tel que ${triangle.getLongueurs()[0]} $ = ${triangle.l1}$ cm ; `;
 					texte += `${triangle.getLongueurs()[1]} $= ${triangle.l2}$ cm et ${triangle.getLongueurs()[2]} $= ${triangle.l3}$ cm.`;
 					// on crée l'objet longueurs + valeurs des côtés du triangle
 					for (let i = 0; i < 3; i++) {
@@ -152,7 +152,7 @@ export default function Constructibilite_des_triangles() {
 					triangle.l2 = l2;
 					triangle.l3 = l3;
 
-					while (triangle.isTrueTriangleLongueurs()) {
+					while (triangle.isTrueTriangleLongueurs() || triangle.isPlatTriangleLongueurs()) {
 						l1 = randint(l_min, l_max);
 						l2 = randint(l_min, l_max);
 						l3 = randint(l_min, l_max);
