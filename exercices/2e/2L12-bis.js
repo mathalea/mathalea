@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_ax_plus_b,tex_fraction,tex_fraction_reduite,texte_en_couleur, ecriture_algebrique,tex_fraction_signe,fraction,obtenir_liste_fractions_irreductibles_faciles} from "/modules/outils.js"
+import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_ax_plus_b,tex_fraction,tex_fraction_reduite,texte_en_couleur, ecriture_algebrique,tex_fraction_signe,fraction,obtenir_liste_Fractions_irreductibles_faciles} from "/modules/outils.js"
 
 /**
  * Résoudre des équations x²=a
@@ -26,9 +26,12 @@ export default function Factoriser_Identites_remarquables2() {
         this.liste_questions = []; // Liste de questions
         this.liste_corrections = []; // Liste de questions corrigées
              let type_de_questions_disponibles = [];
-       // if (this.sup == 1) {
-            type_de_questions_disponibles = [1,2]; //(ax +b)(cx+d)=0
-   //     }
+        if (this.sup <4) {
+            type_de_questions_disponibles = [parseInt(this.sup)];
+      }
+      else {
+        type_de_questions_disponibles = [1,2,3];
+      }
      
         let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
         for (let i = 0, texte, texte_corr, cpt = 0, a, b, c, d, k, fractions,frac,index,f1,f2,f3,f4,x1,x2, type_de_questions; i < this.nb_questions && cpt < 50;) {
@@ -70,13 +73,11 @@ export default function Factoriser_Identites_remarquables2() {
                    
                     break;
                 case 2:
-                    fractions=obtenir_liste_fractions_irreductibles_faciles()
+                    fractions=obtenir_liste_Fractions_irreductibles_faciles()
                     index =randint(0,fractions.length-1)
-                    frac=fractions[index]
-                    f1=fraction(frac[0],frac[1])
+                    f1=fractions[index]
                     index=randint(0,fractions.length-1,index)
-                    frac=fractions[index]
-                    f2=fraction(frac[0],frac[1])
+                    f2=fractions[index]
                     f3=f1.inverse().multiplieEntier(-b)
                     f4=f2.inverse().multiplieEntier(-d)
                     texte =`$(${f1.texFraction()}x${ecriture_algebrique(b)})(${f2.texFraction()}x${ecriture_algebrique(d)})=0$`
@@ -98,6 +99,9 @@ export default function Factoriser_Identites_remarquables2() {
                         texte_corr += `$S=\\left\\{${f3.texFractionSimplifiee()};${f4.texFractionSimplifiee()}\\right\\}$`
                     }
                     break
+
+                case 3:
+                    break
             }
             if (this.liste_questions.indexOf(texte) == -1) {
                 // Si la question n'a jamais été posée, on en créé une autre
@@ -109,5 +113,5 @@ export default function Factoriser_Identites_remarquables2() {
         }
         liste_de_question_to_contenu(this);
     };
-    this.besoin_formulaire_numerique = ['Niveau de difficulté', 4, '1 :forme (ax+b)²-c²\n 2 : forme c²-(ax+b)²\n 3 : (ax+b)²-(cx+d)²\n 4 : méli-mélo'];
+    this.besoin_formulaire_numerique = ['Niveau de difficulté', 4, '1 : (ax+b)(cx+d)=0 a,b,c et d entiers\n 2 : (ax+b)(cx+d)=0 a et c rationnels\n 3 : (ax+b)(cx+d)=(ax+b)(ex+f)\n 4 : méli-mélo'];
 }

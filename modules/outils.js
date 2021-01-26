@@ -2114,6 +2114,13 @@ export function obtenir_liste_fractions_irreductibles() {
 	[1,6],[5,6],[1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[1,8],[3,8],[5,8],[7,8],
 	[1,9],[2,9],[4,9],[5,9],[7,9],[8,9],[1,10],[3,10],[7,10],[9,10]]
 }
+export function obtenir_liste_Fractions_irreductibles() {
+	return  [fraction(1,2),fraction(1,3),fraction(2,3),fraction(1,4),fraction(3,4),fraction(1,5),fraction(2,5),fraction(3,5),fraction(4,5),
+	fraction(1,6),fraction(5,6),fraction(1,7),fraction(2,7),fraction(3,7),fraction(4,7),fraction(5,7),fraction(6,7),fraction(1,8),fraction(3,8),fraction(5,8),fraction(7,8),
+	fraction(1,9),fraction(2,9),fraction(4,9),fraction(5,9),fraction(7,9),fraction(8,9),fraction(1,10),fraction(3,10),fraction(7,10),fraction(9,10)]
+}
+
+
 
 /**
 * Retourne une liste de fractions irréductibles de dénominateur égal à 2 3 5 7
@@ -2122,6 +2129,10 @@ export function obtenir_liste_fractions_irreductibles() {
 export function obtenir_liste_fractions_irreductibles_faciles() {
 	return  [[1,2],[1,3],[2,3],[1,5],[2,5],[3,5],[4,5],
 	[1,7],[2,7],[3,7],[4,7],[5,7],[6,7]]
+}
+export function obtenir_liste_Fractions_irreductibles_faciles() {
+	return  [fraction(1,2),fraction(1,3),fraction(2,3),fraction(1,5),fraction(2,5),fraction(3,5),fraction(4,5),
+	fraction(1,7),fraction(2,7),fraction(3,7),fraction(4,7),fraction(5,7),fraction(6,7)]
 }
 
 /**
