@@ -172,14 +172,14 @@ class ListeFractionbis{
         for (let i=0;i<this.liste.length;i++) {
             this.liste_meme_denominateur.push(this.liste[i].fractionEgale(calcul(den/this.liste[i].den)))
         }
-        this.sortFractions= function() { //une fonction pour trier la liste et retourner une liste dans l'ordre croissant
-            let fractions=this.liste
+        this.sortFractions= function(liste) { //une fonction pour trier la liste et retourner une liste dans l'ordre croissant
+            let fractions=liste
             let changed,tmp
                 do{
                      changed = false;
-                     for (let i=0; i<(this.liste.length-1); i++) {
+                     for (let i=0; i<(fractions.length-1); i++) {
                         if (fractions[i].superieurstrict(fractions[i+1])) {
-                            tmp = this.liste[i];
+                            tmp = fractions[i];
                             fractions[i]=fractions[i+1];
                             fractions[i+1] = tmp;
                             changed = true;
@@ -188,11 +188,13 @@ class ListeFractionbis{
                 } while(changed);
                 return fractions
         }
-        this.listeRangee=this.sortFractions() // La liste de fraction rangée dans l'ordre croissant.
+        this.listeRangee=this.sortFractions(this.liste) // La liste de fraction rangée dans l'ordre croissant.
+        this.listeRangeeMmeDenominateur=this.sortFractions(this.liste_meme_denominateur)
         this.listeSimplifiee=[]
         for (let i=0;i<this.liste.length;i++) {
             this.listeSimplifiee.push(this.liste[i].simplifie())
         }
+        this.listeRangeeSimplifiee=this.sortFractions(this.listeSimplifiee)
         this.texListe=``
         for (let i=0;i<this.liste.length-1;i++){
             this.texListe+=this.liste[i].texFraction+' ; '
@@ -224,6 +226,8 @@ class ListeFractionbis{
                 }
                 this.texListe+=this.liste[this.liste.length-1].texFraction
                 this.listeRangee=this.sortFractions() // La liste de fraction rangée dans l'ordre croissant.
+                this.listeRangeeMmeDenominateur=this.sortFractions(this.liste_meme_denominateur)
+                this.listeRangeeSimplifiee=this.sortFractions(this.listeSimplifiee)
         }
 
     }
