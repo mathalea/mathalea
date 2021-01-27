@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_ax_plus_b,tex_fraction,tex_fraction_reduite,texte_en_couleur, ecriture_algebrique,tex_fraction_signe,fraction,obtenir_liste_Fractions_irreductibles_faciles} from "/modules/outils.js"
+import {liste_de_question_to_contenu,randint,combinaison_listes,reduire_ax_plus_b,texte_en_couleur, ecriture_algebrique,fraction,obtenir_liste_Fractions_irreductibles_faciles} from "/modules/outils.js"
 
 /**
  * Résoudre des équations x²=a
@@ -34,21 +34,14 @@ export default function Factoriser_Identites_remarquables2() {
       }
      
         let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
-        for (let i = 0, texte, texte_corr, cpt = 0, a, b, c, d, k, fractions,frac,index,f1,f2,f3,f4,x1,x2, type_de_questions; i < this.nb_questions && cpt < 50;) {
+        for (let i = 0, texte, texte_corr, cpt = 0, a, b, c, d, e,f, fractions,index,f1,f2,f3,f4,type_de_questions; i < this.nb_questions && cpt < 50;) {
             type_de_questions = liste_type_de_questions[i];
-            k = choice([-1, 1]); 
-			a = randint(1, 9);
-            a = a * k;
-            b = randint(1, 9);
-            k = choice([-1, 1]); 
-            b = b * k;
-            c = randint(1, 9);
-            k = choice([-1, 1]); 
-            c=c*k;
-            d = randint(1, 9);
-            k = choice([-1, 1]); 
-            d = d * k;
-           
+			a = randint(-9, 9,0);
+            b = randint(-9, 9,0);
+            c = randint(-9, 9,[0,a]);
+            d = randint(1, 9,[0,b]);
+            e = randint(-9, 9,[0,a,c]);
+            f = randint(1, 9,[0,b,d]);
             
                  
             switch (type_de_questions) {
@@ -103,6 +96,35 @@ export default function Factoriser_Identites_remarquables2() {
                     break
 
                 case 3:
+                    texte = `$(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c,d)})=(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(e,f)})$`; 
+                    texte_corr= texte+`<br>$\\iff (${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c,d)})-(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(e,f)})=0$<br>`
+                    texte_corr += `$\\iff (${reduire_ax_plus_b(a,b)})((${reduire_ax_plus_b(c,d)})-(${reduire_ax_plus_b(e,f)}))=0$<br>`
+                    if (this.correction_detaillee) {
+                        if (e<0){
+                        texte_corr += `$\\iff (${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c,d)}+${reduire_ax_plus_b(-e,-f)})=0$<br>`
+                        }
+                        else {
+                            texte_corr += `$\\iff (${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c,d)}${reduire_ax_plus_b(-e,-f)})=0$<br>`
+                        }
+                    }
+                    texte_corr += `$\\iff (${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c-e,d-f)})=0$<br>`
+                    texte_corr += `On reconnaît une équation produit-nul, donc on applique la propriété :<br>
+                    ${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
+                    texte_corr +=`$(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c-e,d-f)})=0$<br>`
+                    texte_corr+=`$\\iff ${reduire_ax_plus_b(a,b)}=0$ ou $${reduire_ax_plus_b(c-e,d-f)}=0$<br>`
+                    if (this.correction_detaillee) { //on ajoute les étapes de résolution si la correction détaillée est cochée.
+                        texte_corr+=`$\\iff ${a}x=${-b}$ ou $ ${c-e}x=${-d+f}$<br>`
+                    }
+                    f1=fraction(-b,a)
+                    f2=fraction(-d+f,c-e)
+                    texte_corr+=`$\\iff x=${f1.texFraction}$ ou $ x=${f2.texFraction}$<br>On en déduit :  `
+                    if (-b/a>(-d+f)/(c-e)) {
+                        texte_corr += `$S=\\left\\{${f2.simplifie().texFraction};${f1.simplifie().texFraction}\\right\\}$`
+                    }
+                    else if (-b/a<(-d+f)/(c-e)){
+                        texte_corr += `$S=\\left\\{${f1.simplifie().texFraction};${f2.simplifie().texFraction}\\right\\}$`
+                    }
+                    else texte_corr += `$S=\\left\\{${f1.simplifie().texFraction}\\right\\}$`
                     break
             }
             if (this.liste_questions.indexOf(texte) == -1) {
