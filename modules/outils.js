@@ -2109,19 +2109,30 @@ export function tex_fraction_parentheses(a,b){
 * Retourne une liste de fractions irréductibles
 * @Auteur Jean-Claude Lhote
 */
-export function obtenir_liste_fractions_irreductibles() {
+export function obtenir_liste_fractions_irreductibles() { //sous forme de tableaux [numérateur,dénominateur]
 	return  [[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],
 	[1,6],[5,6],[1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[1,8],[3,8],[5,8],[7,8],
 	[1,9],[2,9],[4,9],[5,9],[7,9],[8,9],[1,10],[3,10],[7,10],[9,10]]
 }
+export function obtenir_liste_Fractions_irreductibles() { //sous forme de fractions
+	return  [fraction(1,2),fraction(1,3),fraction(2,3),fraction(1,4),fraction(3,4),fraction(1,5),fraction(2,5),fraction(3,5),fraction(4,5),
+	fraction(1,6),fraction(5,6),fraction(1,7),fraction(2,7),fraction(3,7),fraction(4,7),fraction(5,7),fraction(6,7),fraction(1,8),fraction(3,8),fraction(5,8),fraction(7,8),
+	fraction(1,9),fraction(2,9),fraction(4,9),fraction(5,9),fraction(7,9),fraction(8,9),fraction(1,10),fraction(3,10),fraction(7,10),fraction(9,10)]
+}
+
+
 
 /**
 * Retourne une liste de fractions irréductibles de dénominateur égal à 2 3 5 7
 * @Auteur Mireille Gain
 */
-export function obtenir_liste_fractions_irreductibles_faciles() {
+export function obtenir_liste_fractions_irreductibles_faciles() { //sous forme de tableaux [numérateur,dénominateur]
 	return  [[1,2],[1,3],[2,3],[1,5],[2,5],[3,5],[4,5],
 	[1,7],[2,7],[3,7],[4,7],[5,7],[6,7]]
+}
+export function obtenir_liste_Fractions_irreductibles_faciles() { //sous forme de fractions
+	return  [fraction(1,2),fraction(1,3),fraction(2,3),fraction(1,5),fraction(2,5),fraction(3,5),fraction(4,5),
+	fraction(1,7),fraction(2,7),fraction(3,7),fraction(4,7),fraction(5,7),fraction(6,7)]
 }
 
 /**
@@ -5391,12 +5402,18 @@ function Fraction(num,den) {
     this.numIrred=fraction_simplifiee(this.num,this.den)[0]
 	this.denIrred=fraction_simplifiee(this.num,this.den)[1]
 	this.pourcentage=calcul(this.numIrred*100/this.denIrred)
+	if (this.num==0) this.signe=0
+	else this.signe=unSiPositifMoinsUnSinon(this.num*this.den) // le signe de la fraction : -1, 0 ou 1
+	this.texFraction = tex_fraction_signe(this.num,this.den)
+	 this.texFractionSimplifiee = tex_fraction_signe(this.numIrred,this.denIrred)
+	this.valeurDecimale=arrondi(this.num/this.den,6)
+	
 	/**
 	 * @return {object} La fraction "complexifiée" d'un rapport k
 	 * @param {number} k Le nombre par lequel, le numérateur et le dénominateur sont multipliés.
 	 */
 	 this.fractionEgale = function(k){
-		return fraction(calcul(this.numIrred*k),calcul(this.denIrred*k))
+		return fraction(calcul(this.num*k),calcul(this.den*k))
 	}   
 	 this.simplifie=function() {
 		return fraction(this.numIrred,this.denIrred)
@@ -5451,8 +5468,12 @@ function Fraction(num,den) {
 
         return fraction(this.num*f2.num,this.den*f2.den)
 	}
+	/**
+	 * @return {string} Le calcul du produit de deux fractions avec étape intermédiaire
+	 *  @params {object} f2 la fraction qui multiplie. 
+	 */
 	 this.texProduitFraction = function(f2) {
-			return `${tex_fraction(this.num,this.den)}\\times ${tex_fraction(f2.num,f2.den)}=${tex_fraction(this.num+`\\times`+f2.num,this.den+`\\times`+f2.den)}=${tex_fraction(this.num*f2.num,this.den*f2.den)}`
+			return `${this.texFraction}\\times ${f2.texFraction}=${tex_fraction(this.num+`\\times`+f2.num,this.den+`\\times`+f2.den)}=${tex_fraction(this.num*f2.num,this.den*f2.den)}`
 	} 
 
 	/**
@@ -5480,6 +5501,12 @@ function Fraction(num,den) {
      this.differenceFraction = function(f2) {
         return this.sommeFraction(f2.oppose())
 	}
+	this.diviseFraction = function(f2){
+		return this.produitFraction(f2.inverse())
+	}
+	this.texQuotientFraction = function(f2) {
+		return `${this.texFraction}\\div ${f2.texFraction}=${this.texFraction}\\times ${f2.inverse().texFraction}=${tex_fraction(this.num+`\\times`+f2.den,this.den+`\\times`+f2.num)}=${tex_fraction(this.num*f2.den,this.den*f2.num)}`
+	}
 
 /**
  * @return {object}  Renvoie une fraction avec comme dénominateur une puissance de 10 ou 'NaN' si la fraction n'a pas de valeur décimale
@@ -5497,26 +5524,11 @@ function Fraction(num,den) {
 		else if (n5>n2) return fraction(this.numIrred*2**(n5-n2),this.denIrred*2**(n5-n2))
 		else return fraction(this.numIrred*5**(n2-n5),this.denIrred*5**(n2-n5))
 	}
-	/**
-	 * @return {number} La valeur décimale de la fraction
-	 */
-	 this.valeurDecimale = function(){
-		if (this.fractionDecimale()!='NaN') return calcul(this.fractionDecimale().num/this.fractionDecimale().den)
-		else return `Ce n\'est pas un nombre décimal`
-	}
+	
 	/**
 	 * @return {string} Code Latex de la fraction
 	 */
-	 this.texFraction = function(){
-		return tex_fraction_signe(this.num,this.den)
-	}
 	/**
-	 * @return {string} code Latex de lafraction simplifiée
-	 */
-	 this.texFractionSimplifiee = function(){
-		return tex_fraction_signe(this.numIrred,this.denIrred)
-	}
-    /**
      * 
      * @param {integer} n entier par lequel multiplier la fraction 
      * @return {object} fraction multipliée par n
@@ -5531,7 +5543,7 @@ function Fraction(num,den) {
      * @return {object} fraction multipliée par n simplifiée
      */
      this.multiplieEntierIrred = function(n) {
-        return fraction(fraction_simplifiee(n*this.num,this.den)[0],fraction_simplifiee(n*this.num,this.den)[1]);
+        return fraction(n*this.num,this.den).simplifie();
 	};
 	/**
 	 * @return fraction divisée par n
@@ -5540,13 +5552,24 @@ function Fraction(num,den) {
 	 this.entierDivise=function(n){
 		return fraction(this.num,n*this.den)
 	}
-	/**
+		/**
 	 * @return fraction divisée par n et réduite si possible
 	 * @param {integer} n entier qui divise la fraction 
 	 */
-	 this.entierDiviseIrred=function(n){
-		return fraction(fraction(this.num,n*this.den).numIrred,fraction(this.num,n*this.den).denIrred)
+	this.entierDiviseIrred=function(n){
+		return fraction(this.num,n*this.den).simplifie()
 	}
+		/**
+	 * @return n divisé par fraction
+	 * @param {integer} n entier divisé par la fraction 
+	 */
+	this.diviseEntier=function(n){
+		return fraction(n*this.den,this.num)
+	}
+	this.diviseEntierIrred=function(n){
+		return fraction(n*this.den,this.num).simplifie()
+	}
+
 	/**
 	 * @return {object} la fraction augmentée de n
 	 * @param {integer} n entier à ajouter à la fraction 

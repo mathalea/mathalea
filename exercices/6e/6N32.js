@@ -61,7 +61,7 @@ export default function Fractions_d_unite() {
       else unit = 8
       frac = fraction(num, den)
       frac_unite = fraction(3 * den - 1, den)
-      texte = `$${frac.texFraction()}$ unité en prenant ${unit} carreaux pour une unité.`
+      texte = `$${frac.texFraction}$ unité en prenant ${unit} carreaux pour une unité.`
       if (this.sup2 < 3) g = grille(0, 0, 26, 2, "gray", 0.7);
       else g = "";
       if (this.sup2 == 2) {

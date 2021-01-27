@@ -16,7 +16,7 @@ export default function Factoriser_Identites_remarquables2() {
     this.nb_cols_corr = 1;
     this.spacing = 1;
     this.spacing_corr = 1;
-    this.nb_questions = 3;
+    this.nb_questions = 5;
     this.sup = 1;
     this.spacing_corr = 3
 
@@ -25,7 +25,7 @@ export default function Factoriser_Identites_remarquables2() {
         this.liste_corrections = []; // Liste de questions corrigées
              let type_de_questions_disponibles = [];
         if (this.sup == 1) {
-            type_de_questions_disponibles = [1,2,3]; 
+            type_de_questions_disponibles = [1,2,3,4,5,6,7]; 
         }
         
         let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
@@ -35,20 +35,13 @@ export default function Factoriser_Identites_remarquables2() {
 			a = randint(2, 9);
             a = a * k;
             b = randint(1, 9);
-            k = choice([-1, 1]); 
+            c = choice([2,3,5,7,10,11,13,15,17]); 
             b = b * k;
-            c = randint(1, 9);
-            k= choice([-1, 1]); 
-            c = c * k;
-            d = randint(1, 9);
-            k = choice([-1, 1]); 
-            d = d * k;
-            e = randint(1, 9);
-            k = choice([-1, 1]); 
-            e = e * k;
-            f = randint(1, 9);
-            k = choice([-1, 1]); 
-            f = f * k;
+            d = choice([2,3,5,7,10,11,13,15,17]); 
+            e = randint(2, 9);
+           
+            
+            
            
                       switch (type_de_questions) {
                 case 1:
@@ -81,7 +74,35 @@ export default function Factoriser_Identites_remarquables2() {
                         texte_corr += `On observe que la fonction $f$ est du second degré, puisqu'il y a un terme en $x^{2}$<br>`
                         texte_corr += `Elle s'écrit sous la forme $f(x)= a x^{2}+ bx+c$ et non pas sous la forme $ax+b$.<br>`
                         texte_corr +=`$f$ n'est donc pas une fonction affine.<br>`                                 
-                 break;          
+                 break;
+                 case 4:
+                        texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=\\sqrt{${c}}x + \\sqrt{${d}}$`; //f(x)=\sqrt a x + \sqrt b
+                        texte_corr = ` $f(x)=\\sqrt{${c}}x + \\sqrt{${d}}$<br>`
+                        texte_corr += `On observe que la fonction $f$ s'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>`
+                        texte_corr +=`Ici, on a : $a=\\sqrt{${c}}$ et $b=\\sqrt{${d}}$<br>`
+                        texte_corr +=`$f$ est donc bien une fonction affine.<br>`                                 
+                 break;    
+                 case 5:
+                        texte = ` Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${a}x^{2}${ecriture_algebrique(c)} $`; //f(x)=ax²+c
+                        texte_corr = ` $f(x)=${a}x^{2}${ecriture_algebrique(c)} $<br>`
+                        texte_corr += `On observe que la fonction $f$ est du second degré, puisqu'il y a un terme en $x^{2}$<br>`
+                        texte_corr += `Elle s'écrit sous la forme $f(x)= a x^{2}+b$ avec $a$ et $b$ des nombres réels, et non pas sous la forme $ax+b$.<br>`
+                        texte_corr +=`$f$ n'est donc pas une fonction affine.<br>`  
+                break;   
+                case 6:
+                        texte = `Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=\\dfrac{1}{${a}x${ecriture_algebrique(b)} }$`; //f(x)=1/(ax+b)
+                        texte_corr = ` $f(x)=\\dfrac{1}{${a}x${ecriture_algebrique(b)} }$<br>`
+                        texte_corr += `On observe que la fonction $f$ est une fonction rationnelle, puisqu'il y une fraction avec des termes en $x$ au dénominateur.<br>`
+                        texte_corr += `Elle ne s'écrit  pas sous la forme $ax+b$.<br>`
+                        texte_corr +=`$f$ n'est donc pas une fonction affine.<br>`      
+                break;    
+                case 7:
+                        texte = `On a b=$${b}$. Soit $f$ la fonction définie sur un intervalle $I$ de $\\mathbb R$, par $f(x)=${tex_fraction_signe(1,a)}x+${tex_fraction_signe(1,e)} $`; //f(x)=1/ax+1/b
+                        texte_corr = `$f(x)=${tex_fraction_signe(1,a)}x+${tex_fraction_signe(1,e)}$<br>`
+                        texte_corr += `On observe que la fonction $f$ s'écrit bien sous la forme $f(x)= a x+ b$ avec $a$ et $b$ des nombres réels.<br>`
+                        texte_corr +=`Ici, on a : $a=\\dfrac{1}{${a}}$ et $b=\\dfrac{1}{${e}}$<br>`
+                        texte_corr +=`$f$ est donc bien une fonction affine.<br>` 
+                break;  
             }
             if (this.liste_questions.indexOf(texte) == -1) {
                 // Si la question n'a jamais été posée, on en créé une autre
@@ -93,5 +114,5 @@ export default function Factoriser_Identites_remarquables2() {
         }
         liste_de_question_to_contenu(this);
     };
-    this.besoin_formulaire_numerique = ['Niveau de difficulté', 1, '1 :équations x²-a²=0\n 2 : équations x²-b=0'];
+    this.besoin_formulaire_numerique = ['Niveau de difficulté', 1, ''];
 }

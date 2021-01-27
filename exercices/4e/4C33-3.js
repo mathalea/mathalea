@@ -4,13 +4,15 @@ import {liste_de_question_to_contenu,randint,combinaison_listes,simpExp,modal_pd
  * Puissances d'un relatif (2)
  * * Travailler des résultats automatisés
  * * mais aussi d'utiliser les propriétés du produit de puissance, du quotient de puissances et des puissances de puissances
+ * * Date initiale non renseignée
+ * * Mise à jour le 2021-01-24
  * @Auteur Sébastien Lozano
  * 4C33-3
  */
 export default function Puissances_d_un_relatif_2() {
   "use strict";
   Exercice.call(this); // Héritage de la classe Exercice()
-  this.sup = 1;
+  //this.sup = 1;
   this.titre = "Puissances : Calculs automatisés et règles de calculs";
   sortie_html
     ? (this.consigne = "Écrire sous la forme $\\mathbf{a^n}$.")
