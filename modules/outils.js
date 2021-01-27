@@ -1,5 +1,5 @@
 import {texteParPosition,} from "/modules/2d.js"
-import { fraction } from "/modules/Fractions.js"
+import { fraction,listeFractions } from "/modules/Fractions.js"
 
 // Fonctions diverses pour la création des exercices
 
