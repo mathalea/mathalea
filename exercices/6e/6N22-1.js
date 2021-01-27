@@ -1,6 +1,7 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ordre,fraction} from "/modules/outils.js"
+import {liste_de_question_to_contenu,randint,combinaison_listes_sans_changer_ordre} from "/modules/outils.js"
 import {mathalea2d} from "/modules/2d.js"
+import{fraction} from "/modules/Fractions.js"
 /** 
  * * Exprimer un rapport de longueurs sur un segment
  * * 6N22-1

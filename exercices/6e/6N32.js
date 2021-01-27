@@ -1,6 +1,7 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,fraction} from "/modules/outils.js"
+import {liste_de_question_to_contenu,randint,choice,combinaison_listes} from "/modules/outils.js"
 import {grille,seyes,mathalea2d} from "/modules/2d.js"
+import{fraction} from "/modules/Fractions.js"
 /**
  * Tracer un segment de longueur une fraction de l'unité.
  * @Auteur Jean-Claude Lhote

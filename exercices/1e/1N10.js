@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_algebrique,pgcd,katex_Popup2,fraction_simplifiee,fraction} from "/modules/outils.js"
-
+import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_algebrique,pgcd} from "/modules/outils.js"
+import fraction from "/modules/Fractions.js"
 /**
  * 1N10
  * @Auteur Gaelle Morvan
