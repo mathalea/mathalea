@@ -1,6 +1,7 @@
 import Exercice from '../ClasseExercice.js';
-import { combinaison_listes, fraction, liste_de_question_to_contenu, randint } from "/modules/outils.js";
-import {mathalea2d, point} from "/modules/2d.js"
+import { combinaison_listes, liste_de_question_to_contenu, randint } from "/modules/outils.js";
+import {mathalea2d} from "/modules/2d.js"
+import {fraction} from "/modules/Fractions.js"
 
 
 

@@ -1,6 +1,8 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes,pgcd,tex_fraction_reduite,calcul,texte_en_couleur_et_gras,fraction} from "/modules/outils.js"
+import {liste_de_question_to_contenu,randint,combinaison_listes,pgcd,tex_fraction_reduite,calcul,texte_en_couleur_et_gras} from "/modules/outils.js"
 import {mathalea2d,labyrinthe} from "/modules/2d.js"
+import { fraction } from "/modules/Fractions.js"
+
 /**
  * @Auteur Jean-Claude Lhote
  * Publié le 11/12/2020

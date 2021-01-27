@@ -1,5 +1,6 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes_sans_changer_ordre,calcul,prenomF,prenomM,prenom,texte_en_couleur_et_gras,ListeFraction} from "/modules/outils.js"
+import {liste_de_question_to_contenu,randint,choice,combinaison_listes_sans_changer_ordre,calcul,prenomF,prenomM,prenom,texte_en_couleur_et_gras} from "/modules/outils.js"
+import {fraction,ListeFraction} from "/modules/Fractions.js"
 /**
  * Problèmes additifs et de comparaion sur les rationnels
  * 4C25-0

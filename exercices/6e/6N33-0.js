@@ -1,6 +1,7 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,pgcd,calcul,tex_nombrec,tex_nombre,tex_fraction,fraction} from "/modules/outils.js"
+import {liste_de_question_to_contenu,randint,choice,combinaison_listes,pgcd,calcul,tex_nombrec,tex_nombre,tex_fraction} from "/modules/outils.js"
 import {mathalea2d} from "/modules/2d.js"
+import{fraction} from "/modules/Fractions.js"
 /**
  * Calculer la fracton d'une quantité avec ou sans dessin.
  * @Auteur Jean-Claude Lhote
