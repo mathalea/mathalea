@@ -93,7 +93,7 @@ export default function Factoriser_Identites_remarquables2() {
                  break;
                  case 2:
                     texte = ` ($${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(c,d)})-
-                    ( ${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(e,f)})=0$`; //(ax+b)(cx+d)+(ax+b)(ex+f)=0
+                    ( ${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(e,f)})=0$`; //(ax+b)(cx+d)-(ax+b)(ex+f)=0
                     texte_corr = ` $(${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(c,d)})-
                     ( ${reduire_ax_plus_b(a,b)})( ${reduire_ax_plus_b(e,f)})=0$<br>`;
                     texte_corr += ` On observe que $(${reduire_ax_plus_b(a,b)})$ est un facteur commun dans les deux termes :<br>`;  
@@ -132,5 +132,5 @@ export default function Factoriser_Identites_remarquables2() {
         }
         liste_de_question_to_contenu(this);
     };
-    this.besoin_formulaire_numerique = ['Niveau de difficulté', 2, '1 :équations x²-a²=0\n 2 : équations x²-b=0'];
+    this.besoin_formulaire_numerique = ['Niveau de difficulté', 1, ''];
 }
