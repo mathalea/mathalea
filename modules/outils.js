@@ -5323,7 +5323,7 @@ export function Relatif(...relatifs) {
 	 * * Les fractions ne sont pas réduites
 	 * @example reduceSameDenominateur(1,2,1,5,2,3) renvoie [15,30,6,30,20,30]
 	 */
-	 function reduceSameDenominateur(...fractions) {
+	function reduceSameDenominateur(...fractions) {
 		try {		
 		 fractions.forEach(function(element) {
 				if (typeof element != 'number') {
@@ -5365,8 +5365,6 @@ export function Relatif(...relatifs) {
 	this.reduceSameDenominateur = reduceSameDenominateur;
 	this.denominateurs_amis = denominateurs_amis;
 	this.fraction_simplifiee = fraction_simplifiee;
-	
-
  };
 
  /**
