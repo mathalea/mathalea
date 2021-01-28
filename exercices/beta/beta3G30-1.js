@@ -9,6 +9,7 @@ export default function Exercice_zero_mathalea2d() {
     this.nb_questions_modifiable = false;
     this.nb_cols = 1; 
     this.nb_cols_corr = 2;
+    this.sup = 1
     if (sortie_html){
         this.spacing = 4;
         this.spacing_corr = 4;
@@ -40,11 +41,15 @@ export default function Exercice_zero_mathalea2d() {
     let t1 = texteSurSegment('hypoténuse',C,B)
     let t2 = texteSurSegment("adjacent",B,A)
     let t3 = texteSurSegment("opposé",A,C)
+    let t22 = texteSurSegment("opposé",B,A)
+    let t32 = texteSurSegment("adjacent",A,C)
     let hypo = segment(C,B)
     hypo.epaisseur = 2
     hypo.color = 'blue'
     let codageAngle = codeAngle(A,B,C,1.5,'','red')
     codageAngle.epaisseur = 3
+    let codageAngle2 = codeAngle(A,C,B,1.5,'','red')
+    codageAngle2.epaisseur = 3
 
     objets_enonce.push(p2, codage, nomme)
     objets_correction.push(p2, codage, nomme, t1, t2, t3, hypo, codageAngle)
@@ -59,22 +64,36 @@ export default function Exercice_zero_mathalea2d() {
         texte += '\n\\end{minipage}\n'
         texte += '\\begin{minipage}{.6\\linewidth}\n'
     }
-    texte += `Compléter à l'aide des longueurs $${A.nom+B.nom}$, $${A.nom+C.nom}$, $${B.nom+C.nom}$ : ` 
-    texte += `<br>$\\cos\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=$`
-    texte += `<br>$\\sin\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=$`
-    texte += `<br>$\\tan\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=$`
+    if (this.sup == 1) {
+        texte += `Compléter à l'aide des longueurs $${A.nom+B.nom}$, $${A.nom+C.nom}$, $${B.nom+C.nom}$ : ` 
+        texte += `<br>$\\cos\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=$`
+        texte += `<br>$\\sin\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=$`
+        texte += `<br>$\\tan\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=$`
+    } else {
+        texte += `Écrire les 6 rapports trigonométriques pour ce triangle.` 
+    }
     if (!sortie_html){
         texte += '\n\\end{minipage}\n'
     }
     texte_corr += mathalea2d(params_correction, objets_correction)
+    if (this.sup == 2) {
+        let objets_correction2 = [p2, codage, nomme, t1, t22, t32, hypo, codageAngle2]
+        texte_corr += mathalea2d(params_correction, objets_correction2)
+    }
     texte_corr += `<br>$${nom}$ est rectangle en $${A.nom}$ donc :`
     texte_corr += `<br>$\\cos\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=\\dfrac{${A.nom+B.nom}}{${B.nom+C.nom}}$ ;`
     texte_corr += `<br>$\\sin\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=\\dfrac{${A.nom+C.nom}}{${B.nom+C.nom}}$ ;`
     texte_corr += `<br>$\\tan\\left(\\widehat{${A.nom+B.nom+C.nom}}\\right)=\\dfrac{${A.nom+C.nom}}{${A.nom+B.nom}}$.`
+    if (this.sup == 2) {
+        texte_corr += `<br>$\\cos\\left(\\widehat{${A.nom+C.nom+B.nom}}\\right)=\\dfrac{${A.nom+C.nom}}{${B.nom+C.nom}}$ ;`
+        texte_corr += `<br>$\\sin\\left(\\widehat{${A.nom+C.nom+B.nom}}\\right)=\\dfrac{${A.nom+B.nom}}{${B.nom+C.nom}}$ ;`
+        texte_corr += `<br>$\\tan\\left(\\widehat{${A.nom+C.nom+B.nom}}\\right)=\\dfrac{${A.nom+B.nom}}{${A.nom+C.nom}}$.`
+    }
     
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
     liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
     };
   
+    this.besoin_formulaire_numerique = ['Type de questions',2,'1 : Compléter 3 rapports trigonométriques\n2 : Donner les 6 rapports trigonométriques'];
 }  
