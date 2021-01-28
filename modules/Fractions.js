@@ -272,7 +272,12 @@ function Fraction(num,den) {
    this.pourcentage=calcul(this.numIrred*100/this.denIrred)
    if (this.num==0) this.signe=0
    else this.signe=unSiPositifMoinsUnSinon(this.num*this.den) // le signe de la fraction : -1, 0 ou 1
-   this.texFraction = tex_fraction_signe(this.num,this.den)
+   this.texFraction = tex_fraction_signe(this.num,this.den) // m/n si positif - m/n si négatif.
+   if (this.signe==-1) this.texFractionSignee =this.texFraction // + m/n si positif - m/n si négatif
+   else this.texFractionSignee='+'+this.texFraction
+   if (this.signe>=0) this.texFractionSigneeParentheses=this.texFraction
+   else this.texFractionSigneeParentheses='('+this.texFractionSignee+')'
+
     this.texFractionSimplifiee = tex_fraction_signe(this.numIrred,this.denIrred)
    this.valeurDecimale=arrondi(this.num/this.den,6)
    

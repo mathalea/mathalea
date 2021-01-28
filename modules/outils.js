@@ -2097,6 +2097,7 @@ export function tex_fraction_signe(a,b){
 	}
 }
 
+
 /**
 * Met de grandes parenthèses autour de la fraction a/b si besoin pour inclure une fraction dans une expresion en fonction du signe
 * @Auteur Jean-Claude Lhote
