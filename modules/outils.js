@@ -1,5 +1,5 @@
 import {texteParPosition,} from "/modules/2d.js"
-import { fraction } from "/modules/Fractions.js"
+import { fraction,listeFractions } from "/modules/Fractions.js"
 
 // Fonctions diverses pour la création des exercices
 
@@ -2096,6 +2096,7 @@ export function tex_fraction_signe(a,b){
 		return a
 	}
 }
+
 
 /**
 * Met de grandes parenthèses autour de la fraction a/b si besoin pour inclure une fraction dans une expresion en fonction du signe

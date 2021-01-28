@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes,reduire_ax_plus_b,texte_en_couleur, ecriture_algebrique,fraction,obtenir_liste_Fractions_irreductibles_faciles} from "/modules/outils.js"
-
+import {liste_de_question_to_contenu,randint,combinaison_listes,reduire_ax_plus_b,texte_en_couleur,choice, ecriture_algebrique,ecriture_nombre_relatif} from "/modules/outils.js"
+import {fraction,obtenir_liste_Fractions_irreductibles_faciles} from "/modules/Fractions.js"
 /**
  * Résoudre des équations x²=a
 * @auteur Stéphane Guyon
@@ -26,11 +26,11 @@ export default function Factoriser_Identites_remarquables2() {
         this.liste_questions = []; // Liste de questions
         this.liste_corrections = []; // Liste de questions corrigées
              let type_de_questions_disponibles = [];
-        if (this.sup <4) {
+        if (this.sup <5) {
             type_de_questions_disponibles = [parseInt(this.sup)];
       }
       else {
-        type_de_questions_disponibles = [1,2,3];
+        type_de_questions_disponibles = [1,2,3,4];
       }
      
         let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
@@ -126,6 +126,34 @@ export default function Factoriser_Identites_remarquables2() {
                     }
                     else texte_corr += `$S=\\left\\{${f1.simplifie().texFraction}\\right\\}$`
                     break
+                case 4: // (ax+f1)(bx+f2)=0
+                        fractions=obtenir_liste_Fractions_irreductibles_faciles()
+                        index =randint(0,fractions.length-1)
+                        f1=fractions[index].multiplieEntier(choice([-1,1]))
+                        index=randint(0,fractions.length-1,index)
+                        f2=fractions[index].multiplieEntier(choice([-1,1]))
+                        f3=f1.entierDivise(-a)
+                        f4=f2.entierDivise(-b)
+                        texte =`$(${a}x${f1.texFractionSignee})(${b}x${f2.texFractionSignee})=0$`
+                        texte_corr = `On reconnaît une équation produit-nul, donc on applique la propriété :<br>
+                        ${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>
+                        $(${a}x${f1.texFractionSignee})(${b}x${f2.texFractionSignee})=0$<br>`
+                        texte_corr+=`$\\iff ${a}x${f1.texFractionSignee}=0$ ou $${b}x${f2.texFractionSignee}=0$<br>`
+                        if (this.correction_detaillee){
+                            texte_corr+=`$\\iff ${a}x=${f1.multiplieEntier(-1).texFraction}$ ou $${b}x=${f2.multiplieEntier(-1).texFraction}$<br>`
+                            texte_corr+=`$\\iff x=${f1.multiplieEntier(-1).texFraction}\\div ${ecriture_nombre_relatif(a)}$ ou $x=${f2.multiplieEntier(-1).texFraction}\\div ${ecriture_nombre_relatif(b)}$<br>`
+                            texte_corr+=`$\\iff x=${f1.multiplieEntier(-1).texFraction}\\times ${fraction(1,a).texFractionSigneeParentheses}$ ou $x=${f2.multiplieEntier(-1).texFraction}\\times ${fraction(1,b).texFractionSigneeParentheses}$<br>`
+                        }
+                        texte_corr+=`$\\iff x=${f3.texFractionSimplifiee}$ ou $ x=${f4.texFractionSimplifiee}$<br>
+                         On en déduit :  `
+                         if (f3.differenceFraction(f4).signe>0) {
+                            texte_corr += `$S=\\left\\{${f4.texFractionSimplifiee};${f3.texFractionSimplifiee}\\right\\}$`
+                        }
+                        else  if (f3.differenceFraction(f4).signe<0) {
+                            texte_corr += `$S=\\left\\{${f3.texFractionSimplifiee};${f4.texFractionSimplifiee}\\right\\}$`
+                        }
+                        else  texte_corr += `$S=\\left\\{${f3.texFractionSimplifiee}\\right\\}$`
+                        break
             }
             if (this.liste_questions.indexOf(texte) == -1) {
                 // Si la question n'a jamais été posée, on en créé une autre
@@ -137,5 +165,5 @@ export default function Factoriser_Identites_remarquables2() {
         }
         liste_de_question_to_contenu(this);
     };
-    this.besoin_formulaire_numerique = ['Niveau de difficulté', 4, '1 : (ax+b)(cx+d)=0 a,b,c et d entiers\n 2 : (ax+b)(cx+d)=0 a et c rationnels\n 3 : (ax+b)(cx+d)=(ax+b)(ex+f)\n 4 : méli-mélo'];
+    this.besoin_formulaire_numerique = ['Niveau de difficulté', 5, '1 : (ax+b)(cx+d)=0 a,b,c et d entiers\n 2 : (ax+b)(cx+d)=0 a et c rationnels\n 3 : (ax+b)(cx+d)=(ax+b)(ex+f)\n 4 : (ax+b/c)(dx+e/f)=0\n 5 : Méli-mélo'];
 }
