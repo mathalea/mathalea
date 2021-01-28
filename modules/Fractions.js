@@ -1,4 +1,4 @@
-import { liste_diviseurs,fraction_simplifiee,calcul,tex_fraction_signe,arrondi,unSiPositifMoinsUnSinon } from "/modules/outils.js"
+import { liste_diviseurs,fraction_simplifiee,calcul,arrondi,unSiPositifMoinsUnSinon } from "/modules/outils.js"
 
 export function obtenir_liste_Fractions_irreductibles() { //sous forme de fractions
 	return  [fraction(1,2),fraction(1,3),fraction(2,3),fraction(1,4),fraction(3,4),fraction(1,5),fraction(2,5),fraction(3,5),fraction(4,5),
@@ -255,7 +255,24 @@ export function fraction (a,b) {
 */
 
 function Fraction(num,den) {
-   /**
+   function tex_fraction_signe(num,den){ 
+        if (den!=1) {
+            if (num*den>0){
+                return '\\dfrac{'+Math.abs(num)+'}{'+Math.abs(den)+'}'
+            }
+            else if (num*den<0){
+                return '-\\dfrac{'+Math.abs(num)+'}{'+Math.abs(den)+'}'
+            }
+            else {
+                return '0'
+            }
+        }
+        else
+        {
+            return `${num}`
+        }
+    }
+       /**
     * @property {integer} numérateur optionnel, par défaut la valeur vaut 0
     */
    this.num = num || 0;
@@ -277,7 +294,9 @@ function Fraction(num,den) {
    else this.texFractionSignee='+'+this.texFraction
    if (this.signe>=0) this.texFractionSigneeParentheses=this.texFraction
    else this.texFractionSigneeParentheses='('+this.texFractionSignee+')'
-
+   this.simplifie=function() {
+    return fraction(this.numIrred,this.denIrred)
+}
     this.texFractionSimplifiee = tex_fraction_signe(this.numIrred,this.denIrred)
    this.valeurDecimale=arrondi(this.num/this.den,6)
    
@@ -288,9 +307,7 @@ function Fraction(num,den) {
     this.fractionEgale = function(k){
        return fraction(calcul(this.num*k),calcul(this.den*k))
    }   
-    this.simplifie=function() {
-       return fraction(this.numIrred,this.denIrred)
-   }
+
    /**
     * @return {object} L'opposé de la fraction
     */
