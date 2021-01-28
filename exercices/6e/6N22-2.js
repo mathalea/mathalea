@@ -1,7 +1,7 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes,fraction} from "/modules/outils.js"
+import {liste_de_question_to_contenu,randint,combinaison_listes} from "/modules/outils.js"
 import {mathalea2d} from "/modules/2d.js"
-
+import{fraction} from "/modules/Fractions.js"
 /**
  * Représenter une somme de fracions de même dénominateur sur un segment gradué de façon adaptée.
  * @Auteur Jean-Claude Lhote
@@ -42,7 +42,7 @@ export default function Ajouter_des_fractions_d_unite() {
         f[j] = fraction(num[j], den);
 
 
-      texte = `On place bout à bout 4 segments de longueurs respectives$ ${f[0].texFraction()}$, $${f[1].texFraction()}$, $${f[2].texFraction()}$ et $${f[3].texFraction()}$.<br>`;
+      texte = `On place bout à bout 4 segments de longueurs respectives$ ${f[0].texFraction}$, $${f[1].texFraction}$, $${f[2].texFraction}$ et $${f[3].texFraction}$.<br>`;
       texte += `Quelle est la longueur du segment obtenu ?`;
       texte_corr = `Voici sur ces dessins, coloriés en rouge, les différents segments :<br>`;
       for (let j = 0; j < 4; j++)
@@ -66,7 +66,7 @@ export default function Ajouter_des_fractions_d_unite() {
         scale: sc,
       };
       texte_corr += mathalea2d(params, fraction(num[0] + num[1] + num[2] + num[3], den).representation(0, 0, 5, 0, 'segment', 'red', 0, 1, 0.6));
-      texte_corr += `<br>La longueur du segment ainsi obtenu est : $${fraction(num[0] + num[1] + num[2] + num[3], den).texFraction()}$`;
+      texte_corr += `<br>La longueur du segment ainsi obtenu est : $${fraction(num[0] + num[1] + num[2] + num[3], den).texFraction}$`;
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);

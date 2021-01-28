@@ -1,6 +1,7 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,fraction} from "/modules/outils.js"
+import {liste_de_question_to_contenu,randint,choice,combinaison_listes} from "/modules/outils.js"
 import {grille,seyes,mathalea2d} from "/modules/2d.js"
+import{fraction} from "/modules/Fractions.js"
 /**
  * Tracer un segment de longueur une fraction de l'unité.
  * @Auteur Jean-Claude Lhote
@@ -61,7 +62,7 @@ export default function Fractions_d_unite() {
       else unit = 8
       frac = fraction(num, den)
       frac_unite = fraction(3 * den - 1, den)
-      texte = `$${frac.texFraction()}$ unité en prenant ${unit} carreaux pour une unité.`
+      texte = `$${frac.texFraction}$ unité en prenant ${unit} carreaux pour une unité.`
       if (this.sup2 < 3) g = grille(0, 0, 26, 2, "gray", 0.7);
       else g = "";
       if (this.sup2 == 2) {

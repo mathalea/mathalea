@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_ax_plus_b,tex_fraction,tex_fraction_reduite,texte_en_couleur, ecriture_algebrique,tex_fraction_signe} from "/modules/outils.js"
+import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_ax_plus_b,tex_fraction_reduite,texte_en_couleur, tex_fraction_signe} from "/modules/outils.js"
 
 /**
  * Résoudre des équations x²=a
@@ -28,7 +28,7 @@ export default function Factoriser_Identites_remarquables2() {
         }
      
         let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
-        for (let i = 0, texte, texte_corr, cpt = 0, a, b, c, d, k, fraction = [], ns, ds, type_de_questions; i < this.nb_questions && cpt < 50;) {
+        for (let i = 0, texte, texte_corr, cpt = 0, a, b, c, d, k, type_de_questions; i < this.nb_questions && cpt < 50;) {
             type_de_questions = liste_type_de_questions[i];
             k = choice([-1, 1]); 
 			a = randint(1, 9);

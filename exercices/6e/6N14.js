@@ -1,6 +1,7 @@
 import Exercice from '../ClasseExercice.js';
-import { combinaison_listes, fraction, liste_de_question_to_contenu, randint } from "/modules/outils.js";
+import { combinaison_listes, liste_de_question_to_contenu, randint } from "/modules/outils.js";
 import {mathalea2d} from "/modules/2d.js"
+import fraction from "/modules.js"
 
 /**
  * 6N14
@@ -43,9 +44,9 @@ export default function Representer_une_fraction() {
       den = liste[i];
       num = randint(1, den * 3);
       f = fraction(num, den);
-      texte = `Sachant qu'un disque représente une unité, représenter la fraction $${f.texFraction()}$ en coloriant la part correspondante.<br>`;
+      texte = `Sachant qu'un disque représente une unité, représenter la fraction $${f.texFraction}$ en coloriant la part correspondante.<br>`;
       texte += mathalea2d(params, fraction(den * 3, den).representation(0, 0, 2, 0, 'gateau', 'white'));
-      texte_corr = `Voici sur ces dessins, colorié en bleu, la part correspondante à la fraction $${f.texFraction()}$ :<br>`;
+      texte_corr = `Voici sur ces dessins, colorié en bleu, la part correspondante à la fraction $${f.texFraction}$ :<br>`;
       texte_corr += mathalea2d(params, f.representation(0, 0, 2, randint(0, den - 1), 'gateau', 'blue'));
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre

@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,arrondi,tex_nombre,tex_fraction,tex_texte} from "/modules/outils.js"
+import {liste_de_question_to_contenu,randint,choice,arrondi,tex_nombre,tex_nombrec,tex_fraction,tex_texte} from "/modules/outils.js"
 /**
  * Conversions  mètres, litres, grammes, octets (et euros pour la version LaTeX) en utilisant le préfixe pour déterminer la multiplication ou division à faire.
  *
@@ -115,7 +115,7 @@ export default function Exercice_conversions(niveau = 1) {
           tex_nombre(prefixe_multi[k][1]) +
           tex_texte(unite) +
           " = " +
-          tex_nombre(resultat) +
+          tex_nombrec(resultat) +
           tex_texte(unite) +
           "$";
       } else if (div &&
@@ -161,7 +161,7 @@ export default function Exercice_conversions(niveau = 1) {
           tex_nombre(prefixe_div[k][1]) +
           tex_texte(unite) +
           " = " +
-          tex_nombre(resultat) +
+          tex_nombrec(resultat) +
           tex_texte(unite) +
           "$";
       } else {
@@ -191,7 +191,7 @@ export default function Exercice_conversions(niveau = 1) {
             tex_nombre(Math.pow(10, 3 * ecart)) +
             tex_texte(liste_unite_info[unite1]) +
             " = " +
-            tex_nombre(resultat) +
+            tex_nombrec(resultat) +
             tex_texte(liste_unite_info[unite1]) +
             "$";
         } else {
@@ -213,7 +213,7 @@ export default function Exercice_conversions(niveau = 1) {
             tex_nombre(Math.pow(10, 3 * ecart)) +
             tex_texte(liste_unite_info[unite2]) +
             " = " +
-            tex_nombre(resultat) +
+            tex_nombrec(resultat) +
             tex_texte(liste_unite_info[unite2]) +
             "$";
         }
