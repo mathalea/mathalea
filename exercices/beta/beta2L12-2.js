@@ -22,7 +22,7 @@ export default function Factoriser_Identites_remarquables2() {
     this.nouvelle_version = function () {
         this.liste_questions = []; // Liste de questions
         this.liste_corrections = []; // Liste de questions corrigées
-             let type_de_questions_disponibles = [];
+        let type_de_questions_disponibles = [1,2,3,4];
         
         
         let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);

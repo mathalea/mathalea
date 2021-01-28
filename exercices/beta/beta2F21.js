@@ -18,16 +18,16 @@ export default function Factoriser_Identites_remarquables2() {
     this.spacing = 1;
     this.spacing_corr = 1;
     this.nb_questions = 3;
-    this.sup = 1;
+    
     this.spacing_corr = 3
 
     this.nouvelle_version = function () {
         this.liste_questions = []; // Liste de questions
         this.liste_corrections = []; // Liste de questions corrigées
              let type_de_questions_disponibles = [];
-    if (this.sup == 1) {
-        type_de_questions_disponibles = [1]; 
-            }  
+   
+    type_de_questions_disponibles = [1]; 
+            
         
         let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
         for (let i = 0, texte, texte_corr, cpt = 0, a, b, c, d, e, f,  k, fraction = [], ns, ds, type_de_questions; i < this.nb_questions && cpt < 50;) {
@@ -151,5 +151,5 @@ export default function Factoriser_Identites_remarquables2() {
         }
         liste_de_question_to_contenu(this);
     };
-    this.besoin_formulaire_numerique = ['Niveau de difficulté', 1, ''];
+    
 }
