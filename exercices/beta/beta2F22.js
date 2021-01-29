@@ -1,4 +1,3 @@
-import { fraction_simplifiee } from "/modules/outils.js";
 import Exercice from '../ClasseExercice.js';
 import { liste_de_question_to_contenu, randint, ecriture_algebrique } from "/modules/outils.js"
 import { repere2, courbe2, mathalea2d } from "/modules/2d.js"
@@ -73,4 +72,3 @@ export default function Factoriser_Identites_remarquables2() {
   //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
 
-}
