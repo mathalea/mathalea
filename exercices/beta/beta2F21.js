@@ -1,6 +1,6 @@
 import { fraction_simplifiee } from "/modules/outils.js";
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_ax_plus_b,texte_en_couleur, tex_fraction_signe,tex_fraction_reduite, ecriture_algebrique,ecriture_algebrique_sauf1} from "/modules/outils.js"
+import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_parentheses_si_negatif,reduire_ax_plus_b,texte_en_couleur, tex_fraction_signe,tex_fraction_reduite, ecriture_algebrique,ecriture_algebrique_sauf1} from "/modules/outils.js"
 
 /**
  * Déterminer une fonction affine à partir de deux images
@@ -64,7 +64,7 @@ export default function Factoriser_Identites_remarquables2() {
                         texte_corr +=`$a=\\dfrac{f(u)-f(v)}{u-v}.$<br>` 
                         texte_corr +=`On applique cette relation avec les données de l'énoncé : $u=${a}$ et  $v=${c}$ ,<br>`
                         texte_corr +=`ce qui donne :`
-                        texte_corr +=`$a=\\dfrac{f(${a})-f(${c})}{${a}-${c}}=\\dfrac{${b}-${d}}{${a}-${c}}=\\dfrac{${b-d}}{${a-c}}$<br>`  
+                        texte_corr +=`$a=\\dfrac{f(${a})-f(${c})}{${a}-${ecriture_parentheses_si_negatif(c)}}=\\dfrac{${b}-${ecriture_parentheses_si_negatif(d)}}{${a}-${ecriture_parentheses_si_negatif(c)}}=\\dfrac{${b-d}}{${a-c}}$<br>`  
                         texte_corr +=`d'où : $a=${tex_fraction_reduite(b-d,a-c)}.$<br>`  
                     if (b==d){
                             texte_corr +=`$f$ est une fonction constante, cas particulier des fonctions affines.<br>`
