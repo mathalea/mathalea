@@ -4403,7 +4403,7 @@ export function texteSurSegment(...args) {
  *
  * @Auteur Rémi Angot
  */
-function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5) {
+function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5,label="") {
   ObjetMathalea2D.call(this)
   this.depart=A
   this.arrivee=C
@@ -4415,7 +4415,9 @@ function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5) {
     // d.isVisible = false;
     let M = pointSurSegment(this.sommet, this.depart, this.distance)
     let N = rotation(pointSurSegment(this.sommet,M , this.distance+10/coeff),this.sommet,angleOriente(this.depart,this.sommet,this.arrivee)/2);
-    let mesureAngle = arrondi_virgule(angle(this.depart,this.sommet,this.arrivee), 0) + "°";
+    let mesureAngle 
+    if (label!="") mesureAngle=label
+    else mesureAngle== arrondi_virgule(angle(this.depart,this.sommet,this.arrivee), 0) + "°";
     return "\n"+texteParPoint(mesureAngle,N , "milieu", color).svg(coeff)+"\n"+arc(M, B, angleOriente(this.depart,this.sommet,this.arrivee)).svg(coeff);
   }
   this.tikz=function(){
@@ -4423,7 +4425,9 @@ function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5) {
     // d.isVisible = false;
     let M = pointSurSegment(this.sommet, this.depart, this.distance);
     let N = rotation(pointSurSegment(this.sommet,M , this.distance+0.5),this.sommet,angleOriente(this.depart,this.sommet,this.arrivee)/2);
-    let mesureAngle = arrondi_virgule(angle(this.depart,this.sommet,this.arrivee), 0) + "°";
+    let mesureAngle 
+    if (label!="") mesureAngle=label
+    else mesureAngle== arrondi_virgule(angle(this.depart,this.sommet,this.arrivee), 0) + "°";
     return "\n"+texteParPoint(mesureAngle, N, "milieu", color).tikz()+"\n"+arc(M, B, angleOriente(this.depart,this.sommet,this.arrivee)).tikz();
   }
 }
