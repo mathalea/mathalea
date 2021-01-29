@@ -47,20 +47,19 @@ export default function Factoriser_Identites_remarquables2() {
         ymin: -8,
         xmax: 8,
         ymax: 8
-      }, r, f, c);
-      texte_corr = `On observe que l'ordonnée à l'origine est : $${b}$. <br>`
-      texte_corr += `et que le coefficient directeur de la droite est : $${a}$.<br>`
-      texte_corr += ` On peut en déduire que l'expression de la fonction $f$ est`
-
-      texte_corr += `$f(x)=${a}x+${ecriture_algebrique(b)}$`
-      if (a != 1 && a != -1) {
-        texte_corr += `$f(x)=${a}x${ecriture_algebrique(b)}$`
-      }
-      else {
-        if (a == 1) { texte_corr += `$f(x)=x${ecriture_algebrique(b)}$` };
-        if (a == -1) { texte_corr += `$f(x)=-x${ecriture_algebrique(b)}$` };
-
-      }
+    }, r,f,c);
+    texte_corr = `On observe que l'ordonnée à l'origine est : $${b}$. <br>`
+    texte_corr += `et que le coefficient directeur de la droite est : $${a}$.<br>`
+    texte_corr +=` On peut en déduire que l'expression de la fonction $f$ est`
+   
+    texte_corr +=`$f(x)=${a}x+${ecriture_algebrique(b)}$`
+    if (a!=1&&a!=-1) {
+      texte_corr +=`$f(x)=${a}x${ecriture_algebrique(b)}$`
+    }
+    else {        
+      if (a==1) {texte_corr +=`$f(x)=x${ecriture_algebrique(b)}$`};
+      if (a==-1) {texte_corr +=`$f(x)=-x${ecriture_algebrique(b)}$`};
+}
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.liste_questions.push(texte);
@@ -72,5 +71,6 @@ export default function Factoriser_Identites_remarquables2() {
     liste_de_question_to_contenu(this);
   };
   //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+}
 
 }
