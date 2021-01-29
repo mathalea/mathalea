@@ -173,7 +173,9 @@ class ListeFractionbis{
             this.liste_meme_denominateur.push(this.liste[i].fractionEgale(calcul(den/this.liste[i].den)))
         }
         this.sortFractions= function(liste) { //une fonction pour trier la liste et retourner une liste dans l'ordre croissant
-            let fractions=liste
+            let fractions=[]
+            for (let i=0;i<liste.length;i++)
+            fractions.push(liste[i])
             let changed,tmp
                 do{
                      changed = false;
@@ -225,7 +227,7 @@ class ListeFractionbis{
                     this.texListe+=this.liste[i].texFraction+' ; '
                 }
                 this.texListe+=this.liste[this.liste.length-1].texFraction
-                this.listeRangee=this.sortFractions() // La liste de fraction rangée dans l'ordre croissant.
+                this.listeRangee=this.sortFractions(this.liste) // La liste de fraction rangée dans l'ordre croissant.
                 this.listeRangeeMmeDenominateur=this.sortFractions(this.liste_meme_denominateur)
                 this.listeRangeeSimplifiee=this.sortFractions(this.listeSimplifiee)
         }

@@ -1,6 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import { mathalea2d } from '/modules/2d.js'
 import {point3d,cylindre3d,sphere3d,vecteur3d,translation3d,cone3d,cercle3d} from "/modules/3d.js"
+import { tex_nombrec } from '../../modules/outils';
 
 export default function Rotation_3d() {
     Exercice.call(this); // Héritage de la classe Exercice()
@@ -36,7 +37,6 @@ export default function Rotation_3d() {
         let cercle2=cercle3d(point3d(0.5,-1.5,16.5),normal6,rayon2,true)
         cercle1.couleurDeRemplissage='black'
         cercle2.couleurDeRemplissage='black'
-        
         
         let cone=cone3d(point3d(0,-1.5,16),translation3d(point3d(0,-1.5,16),normal6),normal6,rayon1)
         objets.push(S1,S2,S3,cyl1,cyl2,cyl3,cone,cercle1,cercle2)
