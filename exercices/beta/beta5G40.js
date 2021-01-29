@@ -37,7 +37,7 @@ export default function Constructions_parallelogrammes() {
         else type_de_question=randint(1,4)
         let nom=`$${noms[0]+noms[1]+noms[2]+noms[3]}$`
         let A,B,C,D,O,p,d1,d2,d3,d4,c1,c2,c3,c4,dd1,dd2
-        let objets_enonce=[],objets_correction=[],result,cible,cellule
+        let objets_enonce=[],objets_correction=[],result2,result,cible,cible2,cellule,cellule2
         // Préparation de la figure aléatoire et des objets 2d utiles
         O=point(0,0,noms[4])
         A=pointAdistance(O,calcul(randint(30,50)/10),randint(0,179)*choice([-1,1]),noms[0])
@@ -56,11 +56,17 @@ export default function Constructions_parallelogrammes() {
         dd1=demiDroite(B,A)
         dd2=demiDroite(B,C)
         cellule=celluleAlea(5)
+        cellule2=celluleAlea(5)
         result = dansLaCibleCarree(C.x, C.y, 5, 0.6, cellule);
-        cible = cibleCarree({ x: result[0], y: result[1], rang: 5, num:"" });
+        result2= dansLaCibleCarree(D.x, D.y, 5, 0.6, cellule2);
+        cible = cibleCarree({ x: result[0], y: result[1], rang: 5, num:1 });
         cible.taille = 0.6;
         cible.color = 'grey';
         cible.opacite = 0.7;
+        cible2 = cibleCarree({ x: result2[0], y: result2[1], rang: 5, num:2 });
+        cible2.taille = 0.6;
+        cible2.color = 'grey';
+        cible2.opacite = 0.7;
 
 
         switch (type_de_question) {
@@ -72,12 +78,12 @@ export default function Constructions_parallelogrammes() {
                 texte_corr+=`- En traçant la parallèle à $(${noms[0]+noms[1]})$ passant par $${noms[3]}$ et la parallèle à $(${noms[3]+noms[0]})$ passant par $${noms[1]}$.<br>`
                 texte_corr+=`- En utilisant la propriété des diagonales qui se coupent en leur milieu.<br>`
                 texte_corr+=`Nous avons choisi la première méthode qui nous semble la plus efficace ici.<br>`
-                texte_corr+=`Le point $${noms[2]}$ se trouve dans la case ${cellule} de la cible.<br>`
             }
                 else {
                     texte_corr+=`En voici une utilisant l'égalité des longueurs : $${noms[0]+noms[1]}=${noms[3]+noms[2]}$ et $${noms[2]+noms[1]}=${noms[3]+noms[0]}$.<br>`
-                    texte_corr+=`Le point $${noms[2]}$ se trouve dans la case ${cellule} de la cible.<br>`
                 }
+                texte_corr+=`Le point $${noms[2]}$ se trouve dans la case ${cellule} de la cible.<br>`
+
                 c1.styleExtremites='-|'
                 c4.styleExtremites='|-'
                 objets_enonce.push(c1,c4,labelPoint(D,A,B),cible)
@@ -91,12 +97,11 @@ export default function Constructions_parallelogrammes() {
                 texte_corr+=`- En traçant la parallèle à $(${noms[0]+noms[1]})$ passant par $${noms[3]}$ et la parallèle à $(${noms[3]+noms[0]})$ passant par $${noms[1]}$.<br>`
                 texte_corr+=`- En utilisant la propriété des diagonales qui se coupent en leur milieu.<br>`
                 texte_corr+=`Nous avons choisi la première méthode qui nous semble la plus efficace ici.<br>`
-                texte_corr+=`Le point $${noms[2]}$ se trouve dans la case ${cellule} de la cible.<br>`
                 }
                 else {
                     texte_corr+=`En voici une utilisant l'égalité des longueurs : $${noms[0]+noms[1]}=${noms[3]+noms[2]}$ et $${noms[2]+noms[1]}=${noms[3]+noms[0]}$.<br>`
-                    texte_corr+=`Le point $${noms[2]}$ se trouve dans la case ${cellule} de la cible.<br>`
                 }
+                texte_corr+=`Le point $${noms[2]}$ se trouve dans la case ${cellule} de la cible.<br>`
                 c1.styleExtremites='-|'
                 c4.styleExtremites='|-'
                 objets_enonce.push(tracePoint(A,B,D),labelPoint(D,A,B),cible)
@@ -104,7 +109,19 @@ export default function Constructions_parallelogrammes() {
  
             break
             case 3: // deux sommmets consécutifs plus le centre
-             this.consigne = `Construire le parallélogramme ${nom} de centre ${noms[4]}.`;
+             this.consigne = `Construire le parallélogramme ${nom} de centre $${noms[4]}$.`;
+             if (this.correction_detaillee){
+                texte_corr+=`Le point $${noms[3]}$ est le symétrique du point $${noms[1]}$ par rapport à $${noms[4]}$.<br>`
+                texte_corr+=`Le point $${noms[2]}$ est le symétrique du point $${noms[0]}$ par rapport à $${noms[4]}$.<br>`
+                }
+                texte_corr+=`Le point $${noms[2]}$ se trouve dans la case ${cellule} de la cible 1.<br>`
+                texte_corr+=`Le point $${noms[3]}$ se trouve dans la case ${cellule2} de la cible 2.<br>`
+                c1.styleExtremites='|-|'
+                objets_enonce.push(tracePoint(A,B,O),labelPoint(O,A,B),cible,cible2)
+                objets_correction.push(p[0],p[1],cible,cible2,d1,d2,d3,d4,codeSegments("||","red",A,O,O,C),codeSegments("|||","blue",B,O,O,D))
+            
+
+           
         
             break
             case 4: // Un angle formé par deux demi-droites et le centre
