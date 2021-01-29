@@ -309,8 +309,8 @@ export function demicercle3d(centre,normal,rayon,cote,color,angledepart=mathalea
      cote2='visible'
     // objets.push(cercle3d(this.centre,rotationV3d(prodvec,this.normal,mathalea.anglePerspective),rotationV3d(this.rayon,this.normal,mathalea.anglePerspective),true,this.color))
      for (let k=0,rayon3;k<1;k+=1/(this.nb_paralleles+1)){
-       C=point3d(0,0,R*Math.sin(k*Math.PI/2))
-       D=point3d(0,0,R*Math.sin(-k*Math.PI/2))
+       C=point3d(centre.x3d,centre.y3d,centre.z3d+R*Math.sin(k*Math.PI/2))
+       D=point3d(centre.x3d,centre.y3d,centre.z3d+R*Math.sin(-k*Math.PI/2))
        rayon3=vecteur3d(R*Math.cos(k*Math.PI/2),0,0)
        c1=demicercle3d(C,this.normal,rayon3,cote1,this.color,mathalea.anglePerspective)
        c2=demicercle3d(C,this.normal,rayon3,cote2,this.color,mathalea.anglePerspective)
