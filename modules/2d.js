@@ -3148,7 +3148,7 @@ function CibleCarree({x=0,y=0,rang=4,num,taille=0.6}){
   let objets=[]
   let numero
   if (typeof(num)!='undefined') {
-    numero=texteParPosition(nombre_avec_espace(num),x-rang*this.taille/4,y-rang*this.taille/4,'milieu',this.color)
+    numero=texteParPosition(num,x-rang*this.taille/4,y-rang*this.taille/4,'milieu',this.color)
     numero.opacite=0.5
     numero.taille=30*this.taille
     numero.contour=true
@@ -3158,7 +3158,7 @@ function CibleCarree({x=0,y=0,rang=4,num,taille=0.6}){
   objets.push(grille(calcul(x-rang*this.taille/2),calcul(y-rang*this.taille/2),calcul(x+rang*this.taille/2),calcul(y+rang*this.taille/2),this.color,this.opacite,this.taille,false))
   for (let i=0;i<rang;i++) {
     lettre=texteParPosition(lettre_depuis_chiffre(1+i),x-rang*this.taille/2+(2*i+1)*this.taille/2,y-(rang+1)*this.taille/2,'milieu')
-    chiffre=texteParPosition(nombre_avec_espace(i+1),x-(rang+1)*this.taille/2,y-rang*this.taille/2+(2*i+1)*this.taille/2,'milieu')
+    chiffre=texteParPosition(i+1,x-(rang+1)*this.taille/2,y-rang*this.taille/2+(2*i+1)*this.taille/2,'milieu')
     lettre.taille=10*this.taille
     chiffre.taille=10*this.taille
     objets.push(lettre)
