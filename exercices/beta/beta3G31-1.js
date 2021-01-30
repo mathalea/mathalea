@@ -1,7 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,calcul,creerNomDePolygone, tex_nombre} from "/modules/outils.js"
-import {point,labelPoint,polygone,similitude,codageAngleDroit,mathalea2d} from "/modules/2d.js"
-import { longueur, angle } from '../../modules/2d.js';
+import {point,labelPoint,polygone,similitude,codageAngleDroit,mathalea2d,afficheMesureAngle,afficheLongueurSegment,longueur,angle} from "/modules/2d.js"
 
 
 /**
@@ -13,7 +12,7 @@ import { longueur, angle } from '../../modules/2d.js';
 export default function MonSuperExerciceTropBeau() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Calculer toutes les mesures d'angle d'une figure complexe";
-  this.consigne = "Calculer la mesure de tous les angles de cette figure";
+  this.consigne = "Calculer la mesure de tous les angles de cette figure.";
   this.nb_questions = 1;
   this.nb_questions_modifiable = false;
   this.nb_cols = 1; // Uniquement pour la sortie LaTeX
@@ -44,22 +43,31 @@ export default function MonSuperExerciceTropBeau() {
     C.nom = nom[2]
     D.nom = nom[3]
     let labels = labelPoint(A,B,C,D)
+    let a1, a2, a3;
 
-    texte = mathalea2d({xmin : -1 , ymin : -1, xmax : D.x+1, ymax : math.max(C.y,D.y)+1},t1, t2, c1, c2,labels );
-
+    let liste_objets_mathalea = [t1, t2, c1, c2,labels]
 
     switch (type_de_questions_disponibles[0]) { // Suivant le type de question, le contenu sera différent
     case 'BA-AD-BAC': 
         let BA = longueur(B,A);
-        let AD = math.ceil(longueur(A,D));
+        let AD = math.ceil(longueur(A,D),1);
         let BAC = math.ceil(angle(B,A,C));
         let AC = calcul(BA/math.cos(Math.radians(BAC)),1);
         let ACD = Math.round(Math.degres(Math.atan(AD/AC)));
-        texte += `<br>On a $${B.nom+A.nom} = ${BA}$ cm, $${A.nom+D.nom} = ${AD}$ cm et $\\widehat{${B.nom+A.nom+C.nom}}=${BAC}°$.`
-        texte_corr = `$${C.nom+B.nom+A.nom}$ est rectangle en $${B.nom}$ donc $\\cos\\left(\\widehat{${B.nom+A.nom+C.nom}}\\right)=\\dfrac{${B.nom+A.nom}}{${A.nom+C.nom}}$ `;
-        texte_corr += `soit $\\cos(${BAC}°)=\\dfrac{${BA}}{${A.nom+C.nom}}$ et $${A.nom+C.nom}=\\dfrac{${BA}}{\\cos(${BAC}°)}\\approx${tex_nombre(AC)}$ cm.`
-        texte_corr += `<br><br>$${C.nom+A.nom+D.nom}$ est rectangle en $${A.nom}$ donc $\\tan\\left(\\widehat{${A.nom+C.nom+D.nom}}\\right)=\\dfrac{${A.nom+D.nom}}{${A.nom+C.nom}}$ `;
-        texte_corr += `soit $\\tan\\left(\\widehat{${A.nom+C.nom+D.nom}}\\right)\\approx\\dfrac{${AD}}{${tex_nombre(AC)}}$ et $\\widehat{${A.nom+C.nom+D.nom}}\\approx${ACD}$°.`
+        let a1 = afficheMesureAngle(B,A,C,'black',1,BAC+'°');
+        let a2 = afficheLongueurSegment(A,B)
+        let a3 = afficheLongueurSegment(D,A)
+        if (this.sup) {
+          liste_objets_mathalea.push(a1, a2, a3)
+        }
+        texte = mathalea2d({xmin : -1 , ymin : -1, xmax : D.x+1, ymax : math.max(C.y,D.y)+1},liste_objets_mathalea );
+        if (!this.sup) {
+          texte += `<br>On a $${B.nom+A.nom} = ${tex_nombre(BA)}$ cm, $${A.nom+D.nom} = ${tex_nombre(AD)}$ cm et $\\widehat{${B.nom+A.nom+C.nom}}=${BAC}°$.`
+        }
+        texte_corr = `$${C.nom+B.nom+A.nom}$ est rectangle en $${B.nom}$ donc $\\cos\\left(\\widehat{${B.nom+A.nom+C.nom}}\\right)=\\dfrac{${B.nom+A.nom}}{${A.nom+C.nom}}\\quad$ `;
+        texte_corr += `soit $\\quad\\cos(${BAC}°)=\\dfrac{${tex_nombre(BA)}}{${A.nom+C.nom}}\\quad$ et $\\quad ${A.nom+C.nom}=\\dfrac{${tex_nombre(BA)}}{\\cos(${BAC}°)}\\approx${tex_nombre(AC)}$ cm.`
+        texte_corr += `<br><br>$${C.nom+A.nom+D.nom}$ est rectangle en $${A.nom}$ donc $\\tan\\left(\\widehat{${A.nom+C.nom+D.nom}}\\right)=\\dfrac{${A.nom+D.nom}}{${A.nom+C.nom}}\\quad$ `;
+        texte_corr += `soit $\\quad\\tan\\left(\\widehat{${A.nom+C.nom+D.nom}}\\right)\\approx\\dfrac{${tex_nombre(AD)}}{${tex_nombre(AC)}}\\quad$ et $\\quad\\widehat{${A.nom+C.nom+D.nom}}\\approx${ACD}$°.`
         texte_corr += `<br><br>La somme des angles d'un triangle est égale à 180° donc $\\widehat{${B.nom+C.nom+A.nom}}=180°-90°-${BAC}°=${90-BAC}°$.`
         texte_corr += `<br>De même, $\\widehat{${C.nom+D.nom+A.nom}}\\approx 180°-90°-${ACD}°\\approx${90-ACD}°$.`
 
@@ -78,7 +86,7 @@ export default function MonSuperExerciceTropBeau() {
     this.liste_corrections.push(texte_corr);
     liste_de_question_to_contenu(this);
   };
-  //this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
+  this.besoin_formulaire_case_a_cocher = ['Figure codée'];
 }
 
 

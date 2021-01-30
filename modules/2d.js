@@ -4417,7 +4417,7 @@ function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5,label="") {
     let N = rotation(pointSurSegment(this.sommet,M , this.distance+10/coeff),this.sommet,angleOriente(this.depart,this.sommet,this.arrivee)/2);
     let mesureAngle 
     if (label!="") mesureAngle=label
-    else mesureAngle== arrondi_virgule(angle(this.depart,this.sommet,this.arrivee), 0) + "°";
+    else mesureAngle = arrondi_virgule(angle(this.depart,this.sommet,this.arrivee), 0) + "°";
     return "\n"+texteParPoint(mesureAngle,N , "milieu", color).svg(coeff)+"\n"+arc(M, B, angleOriente(this.depart,this.sommet,this.arrivee)).svg(coeff);
   }
   this.tikz=function(){
