@@ -5,6 +5,7 @@ import {fraction_simplifiee,liste_de_question_to_contenu,randint,choice,combinai
 /**
  * Problèmes additifs et de comparaion sur les rationnels
  * 4C25-0
+ * Mise à jour le 2021-01-30
  * @author Sébastien Lozano
  */
 export default function Problemes_additifs_fractions() {
