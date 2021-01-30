@@ -60,19 +60,19 @@ function Point(arg1, arg2, arg3, positionLabel = "above") {
     this.nom = arg1;
   } else if (arguments.length == 2) {
 
-    this.x = arg1;
-    this.y = arg2;
+    this.x = arrondi(arg1,2);
+    this.y = arrondi(arg2,2);
   } else {
-    this.x = arg1;
-    this.y = arg2;
+    this.x = arrondi(arg1,2);
+    this.y = arrondi(arg2,2);
     this.nom = arg3;
   }
   this.positionLabel = positionLabel;
   this.xSVG = function (coeff) {
-    return this.x * coeff;
+    return arrondi(this.x * coeff,2);
   };
   this.ySVG = function (coeff) {
-    return -this.y * coeff;
+    return -arrondi(this.y * coeff,2);
   };
   if (!this.nom) {
     this.nom = " "; // Le nom d'un point est par défaut un espace
@@ -1357,15 +1357,15 @@ function Segment(arg1, arg2, arg3, arg4, color) {
   this.styleExtremites = "";
   this.tailleExtremites=4;
   if (arguments.length == 2) {
-    this.x1 = arg1.x;
-    this.y1 = arg1.y;
-    this.x2 = arg2.x;
-    this.y2 = arg2.y;
+    this.x1 = arrondi(arg1.x,2);
+    this.y1 = arrondi(arg1.y,2);
+    this.x2 = arrondi(arg2.x,2);
+    this.y2 = arrondi(arg2.y,2);
   } else if (arguments.length == 3) {
-    this.x1 = arg1.x;
-    this.y1 = arg1.y;
-    this.x2 = arg2.x;
-    this.y2 = arg2.y;
+    this.x1 = arrondi(arg1.x,2);
+    this.y1 = arrondi(arg1.y,2);
+    this.x2 = arrondi(arg2.x,2);
+    this.y2 = arrondi(arg2.y,2);
     this.color = arg3;
   } else if (arguments.length == 4) {
     this.x1 = arrondi(arg1,2);
