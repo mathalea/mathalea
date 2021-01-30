@@ -269,7 +269,7 @@ export function demicercle3d(centre,normal,rayon,cote,color,angledepart=mathalea
         A=this.listePoints[i]
       }
       segments3d.push(arete3d(A,this.listePoints[0],this.color))
-      segments.push(segments3d[this.listePoints.length-2].p2d)
+      segments.push(segments3d[this.listePoints.length-1].p2d)
       this.aretes=segments3d
       this.p2d=segments
     }
