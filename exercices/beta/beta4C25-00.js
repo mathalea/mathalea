@@ -270,7 +270,7 @@ export default function Problemes_additifs_fractions_bis() {
                 pb_3_f[1].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $${frac_meme_denom_rangees[0].texFraction}$, $${frac_meme_denom_rangees[1].texFraction}$, $${frac_meme_denom_rangees[2].texFraction}$.`;
 
 
-                pb_3_f[1].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`;
+                pb_3_f[1].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $${frac_rangees[0].texFraction}$, $${frac_rangees[1].texFraction}$, $${frac_rangees[2].texFraction}$.`;
 
                 pb_3_f[1].correction += `<br> ${texte_en_couleur_et_gras(
                     `C'est donc ${pb_3_f[1].fractions[
