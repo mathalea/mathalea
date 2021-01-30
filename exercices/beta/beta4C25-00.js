@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
-import { liste_de_question_to_contenu, randint, choice, combinaison_listes_sans_changer_ordre, calcul, prenomF, prenomM, prenom, texte_en_couleur_et_gras } from "/modules/outils.js"
-import { fraction, listeFractions, ListeFraction } from "/modules/Fractions.js"
+import { liste_de_question_to_contenu, randint, choice, combinaison_listes_sans_changer_ordre, prenomF, prenomM, prenom, texte_en_couleur_et_gras } from "/modules/outils.js"
+import { fraction, listeFractions} from "/modules/Fractions.js"
 
 /**
  * Problèmes additifs et de comparaion sur les rationnels
@@ -57,17 +57,15 @@ export default function Problemes_additifs_fractions_bis() {
         let pb_4_f = [],pb_3_f =[];
             // les numérateurs et dénominateurs des 4 fractions attention les trois premières doivent être inférieures à 1/3 si on veut qu'elles soient toutes positives !
             // et on veut des fractions distinctes
-        let nq1, nq2, nq3, nq4, dq1, dq2, dq3, dq4,n1, n2, n3, d1, d2, d3,F1, F2, F3,F4;
+        let n1, n2, n3, d1, d2, d3,F1, F2, F3,F4;
         let n4, d4; // en plus parce qu'il y a 4 fractions
             // on choisit un tableau de dénominateurs qui vont bien
         let denoms_cool_4 ;
         for (
-            let i = 0, frac,denoms_cool_3 =[],texte, texte_corr, cpt = 0;
+            let i = 0,denoms_cool_3 =[],texte, texte_corr, cpt = 0;
             i < this.nb_questions && cpt < 50;
 
         ) {
-            // on aura besoin des méthodes de la classe Fraction()
-            frac = new ListeFraction();
 
             //======================================================
             //======== 		AVEC 3 FRACTIONS			  	========
@@ -272,7 +270,7 @@ export default function Problemes_additifs_fractions_bis() {
                 pb_3_f[1].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $${frac_meme_denom_rangees[0].texFraction}$, $${frac_meme_denom_rangees[1].texFraction}$, $${frac_meme_denom_rangees[2].texFraction}$.`;
 
 
-                pb_3_f[1].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $\\dfrac{${frac_rangees[0]}}{${frac_rangees[1]}}$, $\\dfrac{${frac_rangees[2]}}{${frac_rangees[3]}}$, $\\dfrac{${frac_rangees[4]}}{${frac_rangees[5]}}$.`;
+                pb_3_f[1].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $${frac_rangees[0].texFraction}$, $${frac_rangees[1].texFraction}$, $${frac_rangees[2].texFraction}$.`;
 
                 pb_3_f[1].correction += `<br> ${texte_en_couleur_et_gras(
                     `C'est donc ${pb_3_f[1].fractions[
@@ -356,7 +354,7 @@ export default function Problemes_additifs_fractions_bis() {
             //======================================================
             //===========	énoncé indice 0 le mandala 	 ===========
             //======================================================
-            pb_4_f[0].enonce = `${pb_4_f[0].prenoms[0]} colorie un mandala selon les proportions suivantes :  $${pb_4_f[0].fractions[0].texFraction}}$ en ${pb_4_f[0].fractions[1]}, `;
+            pb_4_f[0].enonce = `${pb_4_f[0].prenoms[0]} colorie un mandala selon les proportions suivantes :  $${pb_4_f[0].fractions[0].texFraction}$ en ${pb_4_f[0].fractions[1]}, `;
             pb_4_f[0].enonce += `$${pb_4_f[0].fractions[2].texFraction}$ en  ${pb_4_f[0].fractions[3]}, `;
             pb_4_f[0].enonce += `$${pb_4_f[0].fractions[4].texFraction}$ en  ${pb_4_f[0].fractions[5]} et `;
             pb_4_f[0].enonce += `le reste en ${pb_4_f[0].fractions[7]}.`;
@@ -364,7 +362,7 @@ export default function Problemes_additifs_fractions_bis() {
             //======================================================
             //===========	énoncé indice 1 le jardin 	 ===========
             //======================================================
-            pb_4_f[1].enonce = `Un jardin est aménagé selon les proportions suivantes :  $${pb_4_f[0].fractions[0].texFraction}}$ par ${pb_4_f[1].fractions[1]}, `;
+            pb_4_f[1].enonce = `Un jardin est aménagé selon les proportions suivantes :  $${pb_4_f[0].fractions[0].texFraction}$ par ${pb_4_f[1].fractions[1]}, `;
             pb_4_f[1].enonce += `$${pb_4_f[0].fractions[2].texFraction}$ par  ${pb_4_f[1].fractions[3]}, `;
             pb_4_f[1].enonce += `$${pb_4_f[0].fractions[4].texFraction}$ par  ${pb_4_f[1].fractions[5]} et `;
             pb_4_f[1].enonce += `le reste par ${pb_4_f[1].fractions[7]}.`;
@@ -372,7 +370,7 @@ export default function Problemes_additifs_fractions_bis() {
             //======================================================
             //===========	énoncé indice 2 le stade 	 ===========
             //======================================================
-            pb_4_f[2].enonce = `Pour chaque match, les places du stade sont mises en vente dans les proportions suivantes :  $${pb_4_f[0].fractions[0].texFraction}}$ pour ${pb_4_f[2].fractions[1]}, `;
+            pb_4_f[2].enonce = `Pour chaque match, les places du stade sont mises en vente dans les proportions suivantes :  $${pb_4_f[0].fractions[0].texFraction}$ pour ${pb_4_f[2].fractions[1]}, `;
             pb_4_f[2].enonce += `$${pb_4_f[0].fractions[2].texFraction}$ pour  ${pb_4_f[2].fractions[3]}, `;
             pb_4_f[2].enonce += `$${pb_4_f[0].fractions[4].texFraction}$ pour  ${pb_4_f[2].fractions[5]} et `;
             pb_4_f[2].enonce += `le reste pour ${pb_4_f[2].fractions[7]}.`;
@@ -437,13 +435,13 @@ export default function Problemes_additifs_fractions_bis() {
                 pb_4_f[i].correction += `${pb_4_f[i].fractions[5]} : <br>`;
                 pb_4_f[
                     i
-                ].correction += `$1-${F1.texFraction}-${F2.texFraction}-${F3.texFraction} = `;
+                ].correction += `$1-${pb_4_f[i].fractions[0].texFraction}-${pb_4_f[i].fractions[2].texFraction}-${pb_4_f[i].fractions[4].texFraction} = `;
                 pb_4_f[
                     i
                 ].correction += `\\dfrac{${denominateurCommun}}{${denominateurCommun}}-${frac_meme_denom[0].texFraction}-${frac_meme_denom[1].texFraction}-${frac_meme_denom[2].texFraction} = `;
                 pb_4_f[
                     i
-                ].correction += `\\dfrac{${denominateurCommun}-${frac_meme_denom[0].texFraction.num}-${frac_meme_denom[1].texFraction.num}-${frac_meme_denom[2].texFraction.num}}{${denominateurCommun}} = `;
+                ].correction += `\\dfrac{${denominateurCommun}-${frac_meme_denom[0].num}-${frac_meme_denom[1].num}-${frac_meme_denom[2].num}}{${denominateurCommun}} = `;
                 pb_4_f[i].correction += `${frac_meme_denom[3].texFraction}`;
                 if (frac_meme_denom[3].den != F4.den) {
                     pb_4_f[
@@ -460,14 +458,14 @@ export default function Problemes_additifs_fractions_bis() {
 
             pb_4_f[0].correction += `<br>Le mandala est donc colorié de la façon suivante : $${pb_4_f[0].fractions[0].texFraction}$ en ${pb_4_f[0].fractions[1]}, `;
             pb_4_f[0].correction += `$${pb_4_f[0].fractions[2].texFraction}$ en ${pb_4_f[0].fractions[3]}, `;
-            pb_4_f[0].correction += `$${pb_4_f[0].fractions[4]}$ en ${pb_4_f[0].fractions[5]} et `;
-            pb_4_f[0].correction += `$${pb_4_f[0].fractions[6]}$ en ${pb_4_f[0].fractions[7]}.`;
+            pb_4_f[0].correction += `$${pb_4_f[0].fractions[4].texFraction}$ en ${pb_4_f[0].fractions[5]} et `;
+            pb_4_f[0].correction += `$${pb_4_f[0].fractions[6].texFraction}$ en ${pb_4_f[0].fractions[7]}.`;
 
             pb_4_f[0].correction += `<br> Avec les mêmes dénominateurs pour pouvoir comparer, `;
             pb_4_f[0].correction += `le mandala est donc colorié de la façon suivante : $${frac_meme_denom[0].texFraction}$ en ${pb_4_f[0].fractions[1]}, `;
-            pb_4_f[0].correction += `$${frac_meme_denom[2].texFraction}$ en ${pb_4_f[0].fractions[3]}, `;
-            pb_4_f[0].correction += `$${frac_meme_denom[4]}$ en ${pb_4_f[0].fractions[5]} et `;
-            pb_4_f[0].correction += `$${frac_meme_denom[6]}$ en ${pb_4_f[0].fractions[7]}.`;
+            pb_4_f[0].correction += `$${frac_meme_denom[1].texFraction}$ en ${pb_4_f[0].fractions[3]}, `;
+            pb_4_f[0].correction += `$${frac_meme_denom[2].texFraction}$ en ${pb_4_f[0].fractions[5]} et `;
+            pb_4_f[0].correction += `$${frac_meme_denom[3].texFraction}$ en ${pb_4_f[0].fractions[7]}.`;
 
             if (
                 F1.egal(F2) &&
@@ -478,13 +476,13 @@ export default function Problemes_additifs_fractions_bis() {
                     `Les quatre fractions sont équivalentes, ${pb_4_f[0].prenoms[0]} colorie donc la même surface avec les quatre couleurs.`
                 )}`;
             } else {
-                pb_4_f[0].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $${frac_meme_denom_rangees[0].texFraction}$, $${frac_meme_denom_rangees[1].texFraction}, $${frac_meme_denom_rangees[2].texFraction}, $${frac_meme_denom_rangees[3]}$.`;
+                pb_4_f[0].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $${frac_meme_denom_rangees[0].texFraction}$, $${frac_meme_denom_rangees[1].texFraction}$, $${frac_meme_denom_rangees[2].texFraction}$, $${frac_meme_denom_rangees[3].texFraction}$.`;
 
                 pb_4_f[0].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $${frac_rangees[0].texFraction}$, $${frac_rangees[1].texFraction}$, $${frac_rangees[2].texFraction}$, $${frac_rangees[3].texFraction}$.`;
 
                 pb_4_f[0].correction += `<br> ${texte_en_couleur_et_gras(
-                    `C'est donc en ${pb_4_f[0].fractionsSimp[
-                    pb_4_f[0].fractionsSimp.indexOf(frac_rangees[3]) + 1
+                    `C'est donc en ${pb_4_f[0].fractions[
+                    pb_4_f[0].fractions.indexOf(frac_rangees[3]) + 1
                     ]
                     } que le mandala est le plus recouvert.`
                 )}`;
@@ -500,9 +498,9 @@ export default function Problemes_additifs_fractions_bis() {
 
             pb_4_f[1].correction += `<br> Avec les mêmes dénominateurs pour pouvoir comparer, `;
             pb_4_f[1].correction += `le jardin est donc occupé de la façon suivante : $${frac_meme_denom[0].texFraction}$ par ${pb_4_f[1].fractions[1]}, `;
-            pb_4_f[1].correction += `$${frac_meme_denom[2].texFraction}$ par ${pb_4_f[1].fractions[3]}, `;
-            pb_4_f[1].correction += `$${frac_meme_denom[4].texFraction}$ par ${pb_4_f[1].fractions[5]} et `;
-            pb_4_f[1].correction += `$${frac_meme_denom[6].texFraction}$ par ${pb_4_f[1].fractions[7]}.`;
+            pb_4_f[1].correction += `$${frac_meme_denom[1].texFraction}$ par ${pb_4_f[1].fractions[3]}, `;
+            pb_4_f[1].correction += `$${frac_meme_denom[2].texFraction}$ par ${pb_4_f[1].fractions[5]} et `;
+            pb_4_f[1].correction += `$${frac_meme_denom[3].texFraction}$ par ${pb_4_f[1].fractions[7]}.`;
 
             //let frac_rangees,frac_meme_denom_rangees;
             if (
@@ -515,11 +513,11 @@ export default function Problemes_additifs_fractions_bis() {
                 )}`;
             } else {
                 pb_4_f[1].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $${frac_meme_denom_rangees[0].texFraction}$, $${frac_meme_denom_rangees[1].texFraction}$, $${frac_meme_denom_rangees[2].texFraction}$, $${frac_meme_denom_rangees[3].texFraction}$.`;
-                pb_4_f[1].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $${frac_rangees[0].texFraction}$, $${frac_rangees[1].texFraction}$, $${frac_rangees[2]}$, $${frac_rangees[3]}$.`;
+                pb_4_f[1].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $${frac_rangees[0].texFraction}$, $${frac_rangees[1].texFraction}$, $${frac_rangees[2].texFraction}$, $${frac_rangees[3].texFraction}$.`;
 
                 pb_4_f[1].correction += `<br> ${texte_en_couleur_et_gras(
-                    `C'est donc par ${pb_4_f[1].fractionsSimp[
-                    pb_4_f[1].fractionsSimp.indexOf(frac_rangees[3]) + 1
+                    `C'est donc par ${pb_4_f[1].fractions[
+                    pb_4_f[1].fractions.indexOf(frac_rangees[3]) + 1
                     ]
                     } que le jardin est le plus occupé.`
                 )}`;
@@ -535,9 +533,9 @@ export default function Problemes_additifs_fractions_bis() {
 
             pb_4_f[2].correction += `<br> Avec les mêmes dénominateurs pour pouvoir comparer, `;
             pb_4_f[2].correction += `le stade est donc occupé de la façon suivante : $${frac_meme_denom[0].texFraction}$ pour ${pb_4_f[2].fractions[1]}, `;
-            pb_4_f[2].correction += `$${frac_meme_denom[2].texFraction}$ pour ${pb_4_f[2].fractions[3]}, `;
-            pb_4_f[2].correction += `$${frac_meme_denom[4].texFraction}$ pour ${pb_4_f[2].fractions[5]} et `;
-            pb_4_f[2].correction += `$${frac_meme_denom[6].texFraction}$ pour ${pb_4_f[2].fractions[7]}.`;
+            pb_4_f[2].correction += `$${frac_meme_denom[1].texFraction}$ pour ${pb_4_f[2].fractions[3]}, `;
+            pb_4_f[2].correction += `$${frac_meme_denom[2].texFraction}$ pour ${pb_4_f[2].fractions[5]} et `;
+            pb_4_f[2].correction += `$${frac_meme_denom[3].texFraction}$ pour ${pb_4_f[2].fractions[7]}.`;
 
             //let frac_rangees,frac_meme_denom_rangees;
             if (
@@ -550,11 +548,11 @@ export default function Problemes_additifs_fractions_bis() {
                 )}`;
             } else {
 
-                pb_4_f[2].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $${frac_meme_denom_rangees[0].texFraction}$, $${frac_meme_denom_rangees[1].texFraction}$, $${frac_meme_denom_rangees[2].texFraction}$, $${frac_meme_denom_rangees[3]}$.`;
-                pb_4_f[2].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $${frac_rangees[0].texFraction}, $${frac_rangees[1].tex_fraction}$, $${frac_rangees[2].texFraction}$, $${frac_rangees[3]}$.`;
+                pb_4_f[2].correction += `<br>Nous pouvons alors ranger ces fractions dans l'ordre croissant : $${frac_meme_denom_rangees[0].texFraction}$, $${frac_meme_denom_rangees[1].texFraction}$, $${frac_meme_denom_rangees[2].texFraction}$, $${frac_meme_denom_rangees[3].texFraction}$.`;
+                pb_4_f[2].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $${frac_rangees[0].texFraction}$, $${frac_rangees[1].texFraction}$, $${frac_rangees[2].texFraction}$, $${frac_rangees[3].texFraction}$.`;
                 pb_4_f[2].correction += `<br> ${texte_en_couleur_et_gras(
-                    `C'est donc pour ${pb_4_f[2].fractionsSimp[
-                    pb_4_f[2].fractionsSimp.indexOf(frac_rangees[3]) + 1
+                    `C'est donc pour ${pb_4_f[2].fractions[
+                    pb_4_f[2].fractions.indexOf(frac_rangees[3]) + 1
                     ]
                     } que le nombre de places est le plus important.`
                 )}`;
