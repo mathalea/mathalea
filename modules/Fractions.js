@@ -1,4 +1,4 @@
-import { fraction_simplifiee,calcul,tex_fraction_signe,arrondi,unSiPositifMoinsUnSinon } from "/modules/outils.js"
+import { liste_diviseurs,fraction_simplifiee,calcul,arrondi,unSiPositifMoinsUnSinon } from "/modules/outils.js"
 
 export function obtenir_liste_Fractions_irreductibles() { //sous forme de fractions
 	return  [fraction(1,2),fraction(1,3),fraction(2,3),fraction(1,4),fraction(3,4),fraction(1,5),fraction(2,5),fraction(3,5),fraction(4,5),
@@ -9,6 +9,7 @@ export function obtenir_liste_Fractions_irreductibles_faciles() { //sous forme d
 	return  [fraction(1,2),fraction(1,3),fraction(2,3),fraction(1,5),fraction(2,5),fraction(3,5),fraction(4,5),
 	fraction(1,7),fraction(2,7),fraction(3,7),fraction(4,7),fraction(5,7),fraction(6,7)]
 }
+
 
 /**
  * @class ListeFraction
@@ -31,7 +32,7 @@ export function ListeFraction() {
     * @return {array} renvoie un tableau avec les numérateurs et les dénominateurs triés selon la croissance des quotients [n_frac_min,d_frac_min,...,n_frac_max,d_frac_max]
     * @example sortFraction(1,2,1,5,1,4,1,3) renvoie [1,5,1,4,1,3,1,2] 
     */
-   function sortFractions(...fractions) {
+   let sortFractions=function(...fractions) {
        try {		
            fractions.forEach(function(element) {
                if (typeof element != 'number') {
@@ -147,6 +148,98 @@ export function ListeFraction() {
 };
 
 /**
+ * @class ListeFractionbis
+ * @classdesc Classe Fraction - Méthodes utiles sur les collections de fractions
+ * @author Jean-Claude Lhote sur une idée de Sébastien Lozano
+ */
+class ListeFractionbis{
+    constructor(...fractions){
+        function ppcm([...n]) {
+                return parseInt(Algebrite.run(`lcm(${n})`));
+        }
+        this.liste=fractions  // La liste des fractions passées en argument du constructeur
+        this.denominateurs_amis=[] // Les tableaux contenant les diviseurs différnets de 1 de chaque dénominateur
+        let listetemp=[],den,dens=[]
+        for (let i=0;i<this.liste.length;i++){
+            den=this.liste[i].den
+            dens.push(den)
+            listetemp=liste_diviseurs(den)
+            listetemp.splice(0,1)
+            this.denominateurs_amis.push(listetemp)
+        }
+        den=ppcm(dens)
+        this.listeMemeDenominateur=[] // La liste des fractions mises au même dénominateur dans le même ordre que this.liste
+        for (let i=0;i<this.liste.length;i++) {
+            this.listeMemeDenominateur.push(this.liste[i].fractionEgale(calcul(den/this.liste[i].den)))
+        }
+        this.sortFractions= function(liste) { //une fonction pour trier la liste et retourner une liste dans l'ordre croissant
+            let fractions=[]
+            for (let i=0;i<liste.length;i++)
+            fractions.push(liste[i])
+            let changed,tmp
+                do{
+                     changed = false;
+                     for (let i=0; i<(fractions.length-1); i++) {
+                        if (fractions[i].superieurstrict(fractions[i+1])) {
+                            tmp = fractions[i];
+                            fractions[i]=fractions[i+1];
+                            fractions[i+1] = tmp;
+                            changed = true;
+                        };
+                     };
+                } while(changed);
+                return fractions
+        }
+        this.listeRangee=this.sortFractions(this.liste) // La liste de fraction rangée dans l'ordre croissant.
+        this.listeRangeeMemeDenominateur=this.sortFractions(this.listeMemeDenominateur)
+        this.listeSimplifiee=[]
+        for (let i=0;i<this.liste.length;i++) {
+            this.listeSimplifiee.push(this.liste[i].simplifie())
+        }
+        this.listeRangeeSimplifiee=this.sortFractions(this.listeSimplifiee)
+        this.texListe=``
+        for (let i=0;i<this.liste.length-1;i++){
+            this.texListe+=this.liste[i].texFraction+' ; '
+        }
+        this.texListe+=this.liste[this.liste.length-1].texFraction
+        this.completeListe = function(...frac){
+            dens=[this.listeMemeDenominateur[0].den]
+            for (let i=0;i<frac.length;i++){
+                listetemp=[]
+                this.liste.push(frac[i])
+                dens.push(frac[i].den)
+                listetemp=liste_diviseurs(frac[i].den)
+                listetemp.splice(0,1)
+                this.denominateurs_amis.push(listetemp)
+                }
+                console.log(dens)
+                den=ppcm(dens)
+                this.listeMemeDenominateur=[]
+                for (let i=0;i<this.liste.length;i++) {
+                    this.listeMemeDenominateur.push(this.liste[i].fractionEgale(calcul(den/this.liste[i].den)))
+                } 
+                this.listeSimplifiee=[]
+                for (let i=0;i<this.liste.length;i++) {
+                    this.listeSimplifiee.push(this.liste[i].simplifie())
+                }
+                this.texListe=``
+                for (let i=0;i<this.liste.length-1;i++){
+                    this.texListe+=this.liste[i].texFraction+' ; '
+                }
+                this.texListe+=this.liste[this.liste.length-1].texFraction
+                this.listeRangee=this.sortFractions(this.liste) // La liste de fraction rangée dans l'ordre croissant.
+                this.listeRangeeMmeDenominateur=this.sortFractions(this.listeMemeDenominateur)
+                this.listeRangeeSimplifiee=this.sortFractions(this.listeSimplifiee)
+        }
+
+    }
+}
+
+export function listeFractions(...fractions){
+    return new ListeFractionbis(...fractions)
+}
+
+/**
  * @constructor Construit un objet Fraction(a,b)
  * @param {integer} a 
  * @param {integer} b 
@@ -164,7 +257,24 @@ export function fraction (a,b) {
 */
 
 function Fraction(num,den) {
-   /**
+   function tex_fraction_signe(num,den){ 
+        if (den!=1) {
+            if (num*den>0){
+                return '\\dfrac{'+Math.abs(num)+'}{'+Math.abs(den)+'}'
+            }
+            else if (num*den<0){
+                return '-\\dfrac{'+Math.abs(num)+'}{'+Math.abs(den)+'}'
+            }
+            else {
+                return '0'
+            }
+        }
+        else
+        {
+            return `${num}`
+        }
+    }
+       /**
     * @property {integer} numérateur optionnel, par défaut la valeur vaut 0
     */
    this.num = num || 0;
@@ -181,7 +291,14 @@ function Fraction(num,den) {
    this.pourcentage=calcul(this.numIrred*100/this.denIrred)
    if (this.num==0) this.signe=0
    else this.signe=unSiPositifMoinsUnSinon(this.num*this.den) // le signe de la fraction : -1, 0 ou 1
-   this.texFraction = tex_fraction_signe(this.num,this.den)
+   this.texFraction = tex_fraction_signe(this.num,this.den) // m/n si positif - m/n si négatif.
+   if (this.signe==-1) this.texFractionSignee =this.texFraction // + m/n si positif - m/n si négatif
+   else this.texFractionSignee='+'+this.texFraction
+   if (this.signe>=0) this.texFractionSigneeParentheses=this.texFraction
+   else this.texFractionSigneeParentheses='('+this.texFractionSignee+')'
+   this.simplifie=function() {
+    return fraction(this.numIrred,this.denIrred)
+}
     this.texFractionSimplifiee = tex_fraction_signe(this.numIrred,this.denIrred)
    this.valeurDecimale=arrondi(this.num/this.den,6)
    
@@ -192,9 +309,7 @@ function Fraction(num,den) {
     this.fractionEgale = function(k){
        return fraction(calcul(this.num*k),calcul(this.den*k))
    }   
-    this.simplifie=function() {
-       return fraction(this.numIrred,this.denIrred)
-   }
+
    /**
     * @return {object} L'opposé de la fraction
     */
@@ -361,6 +476,35 @@ function Fraction(num,den) {
     this.entierMoinsFraction=function(n){
        return (fraction(n*this.den-this.num,this.den))
    }
+
+   /**
+    * @return {boolean} fonctions de comparaison avec une autre fraction.
+    * @param {object} f2 
+    */
+this.superieurstrict=function(f2){
+    if (this.num/this.den>f2.num/f2.den) return true
+    else return false
+}
+this.superieurlarge=function(f2){
+    if (this.num/this.den>=f2.num/f2.den) return true
+    else return false
+}
+this.inferieurstrict=function(f2){
+    if (this.num/this.den<f2.num/f2.den) return true
+    else return false
+}
+this.inferieurlarge=function(f2){
+    if (this.num/this.den<f2.num/f2.den) return true
+    else return false
+}
+this.egal=function(f2){
+    if (this.num/this.den==f2.num/f2.den) return true
+    else return false
+}
+
+
+
+
    /**
     * 
     * @param {number} depart N° de la première part coloriée (0 correspond à la droite du centre) 

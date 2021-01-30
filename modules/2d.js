@@ -60,19 +60,19 @@ function Point(arg1, arg2, arg3, positionLabel = "above") {
     this.nom = arg1;
   } else if (arguments.length == 2) {
 
-    this.x = arg1;
-    this.y = arg2;
+    this.x = arrondi(arg1,2);
+    this.y = arrondi(arg2,2);
   } else {
-    this.x = arg1;
-    this.y = arg2;
+    this.x = arrondi(arg1,2);
+    this.y = arrondi(arg2,2);
     this.nom = arg3;
   }
   this.positionLabel = positionLabel;
   this.xSVG = function (coeff) {
-    return this.x * coeff;
+    return arrondi(this.x * coeff,2);
   };
   this.ySVG = function (coeff) {
-    return -this.y * coeff;
+    return -arrondi(this.y * coeff,2);
   };
   if (!this.nom) {
     this.nom = " "; // Le nom d'un point est par défaut un espace
@@ -1357,15 +1357,15 @@ function Segment(arg1, arg2, arg3, arg4, color) {
   this.styleExtremites = "";
   this.tailleExtremites=4;
   if (arguments.length == 2) {
-    this.x1 = arg1.x;
-    this.y1 = arg1.y;
-    this.x2 = arg2.x;
-    this.y2 = arg2.y;
+    this.x1 = arrondi(arg1.x,2);
+    this.y1 = arrondi(arg1.y,2);
+    this.x2 = arrondi(arg2.x,2);
+    this.y2 = arrondi(arg2.y,2);
   } else if (arguments.length == 3) {
-    this.x1 = arg1.x;
-    this.y1 = arg1.y;
-    this.x2 = arg2.x;
-    this.y2 = arg2.y;
+    this.x1 = arrondi(arg1.x,2);
+    this.y1 = arrondi(arg1.y,2);
+    this.x2 = arrondi(arg2.x,2);
+    this.y2 = arrondi(arg2.y,2);
     this.color = arg3;
   } else if (arguments.length == 4) {
     this.x1 = arrondi(arg1,2);
@@ -3148,7 +3148,7 @@ function CibleCarree({x=0,y=0,rang=4,num,taille=0.6}){
   let objets=[]
   let numero
   if (typeof(num)!='undefined') {
-    numero=texteParPosition(nombre_avec_espace(num),x-rang*this.taille/4,y-rang*this.taille/4,'milieu',this.color)
+    numero=texteParPosition(num,x-rang*this.taille/4,y-rang*this.taille/4,'milieu',this.color)
     numero.opacite=0.5
     numero.taille=30*this.taille
     numero.contour=true
@@ -3158,7 +3158,7 @@ function CibleCarree({x=0,y=0,rang=4,num,taille=0.6}){
   objets.push(grille(calcul(x-rang*this.taille/2),calcul(y-rang*this.taille/2),calcul(x+rang*this.taille/2),calcul(y+rang*this.taille/2),this.color,this.opacite,this.taille,false))
   for (let i=0;i<rang;i++) {
     lettre=texteParPosition(lettre_depuis_chiffre(1+i),x-rang*this.taille/2+(2*i+1)*this.taille/2,y-(rang+1)*this.taille/2,'milieu')
-    chiffre=texteParPosition(nombre_avec_espace(i+1),x-(rang+1)*this.taille/2,y-rang*this.taille/2+(2*i+1)*this.taille/2,'milieu')
+    chiffre=texteParPosition(i+1,x-(rang+1)*this.taille/2,y-rang*this.taille/2+(2*i+1)*this.taille/2,'milieu')
     lettre.taille=10*this.taille
     chiffre.taille=10*this.taille
     objets.push(lettre)
@@ -4403,7 +4403,7 @@ export function texteSurSegment(...args) {
  *
  * @Auteur Rémi Angot
  */
-function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5) {
+function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5,label="") {
   ObjetMathalea2D.call(this)
   this.depart=A
   this.arrivee=C
@@ -4415,7 +4415,9 @@ function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5) {
     // d.isVisible = false;
     let M = pointSurSegment(this.sommet, this.depart, this.distance)
     let N = rotation(pointSurSegment(this.sommet,M , this.distance+10/coeff),this.sommet,angleOriente(this.depart,this.sommet,this.arrivee)/2);
-    let mesureAngle = arrondi_virgule(angle(this.depart,this.sommet,this.arrivee), 0) + "°";
+    let mesureAngle 
+    if (label!="") mesureAngle=label
+    else mesureAngle = arrondi_virgule(angle(this.depart,this.sommet,this.arrivee), 0) + "°";
     return "\n"+texteParPoint(mesureAngle,N , "milieu", color).svg(coeff)+"\n"+arc(M, B, angleOriente(this.depart,this.sommet,this.arrivee)).svg(coeff);
   }
   this.tikz=function(){
@@ -4423,7 +4425,9 @@ function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5) {
     // d.isVisible = false;
     let M = pointSurSegment(this.sommet, this.depart, this.distance);
     let N = rotation(pointSurSegment(this.sommet,M , this.distance+0.5),this.sommet,angleOriente(this.depart,this.sommet,this.arrivee)/2);
-    let mesureAngle = arrondi_virgule(angle(this.depart,this.sommet,this.arrivee), 0) + "°";
+    let mesureAngle 
+    if (label!="") mesureAngle=label
+    else mesureAngle== arrondi_virgule(angle(this.depart,this.sommet,this.arrivee), 0) + "°";
     return "\n"+texteParPoint(mesureAngle, N, "milieu", color).tikz()+"\n"+arc(M, B, angleOriente(this.depart,this.sommet,this.arrivee)).tikz();
   }
 }

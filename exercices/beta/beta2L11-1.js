@@ -47,7 +47,10 @@ export default function Factoriser_Identites_remarquables2() {
             d = randint(1, 9);
             k = choice([-1, 1]); 
             d = d * k;
-                 
+            if (a==c&&b==d)     {
+                a==a+1;
+                b==b-2;
+            }
             switch (type_de_questions) {
                 case 1:
                     texte = `$(${a}x${ecriture_algebrique(b)})^2-${c*c}$`; // (ax+b)²-c²
@@ -78,14 +81,27 @@ export default function Factoriser_Identites_remarquables2() {
                     (\\color{blue}${c}x${ecriture_algebrique(d)}\\color{black})$<br>
                     $\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
                     (${a}x${ecriture_algebrique(b)}${ecriture_algebrique(-c)}x${ecriture_algebrique(-d)})
-                    (${a}x${ecriture_algebrique(b)}${ecriture_algebrique(c)}x${ecriture_algebrique(d)})$<br>
-                    if (a!= c && yI1 b!= d) {$\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
-                    (${reduire_ax_plus_b(a-c,b-d)})(${reduire_ax_plus_b(a+c,b+d)})$ } 
-                    if (a!= c && yI1 b= d) {$\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
-                    ${ecriture_algebrique(a-c)}x(${reduire_ax_plus_b(a+c,b+d)})$     }      
-                    if (a!= c && yI1 b= d) {$\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
-                    ${ecriture_algebrique(a-c)}x(${reduire_ax_plus_b(a+c,b+d)})$     }   
-                           `;
+                    (${a}x${ecriture_algebrique(b)}${ecriture_algebrique(c)}x${ecriture_algebrique(d)})$<br>`
+                    if (a!= c && b!= d&&a!=-c&&b!=-d) {
+                        texte_corr +=`$\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
+                        (${reduire_ax_plus_b(a-c,b-d)})(${reduire_ax_plus_b(a+c,b+d)})$  `}
+                        else {
+                            if (a!= c &&  a!= -c && b== d&& a!=c+1) {
+                                texte_corr +=`$\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
+                                ${a-c}x(${reduire_ax_plus_b(a+c,b+d)})$    ` }   
+                            if (a!= c &&  a!= -c && b== d&& a==c+1) {
+                                texte_corr +=`$\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
+                                x(${reduire_ax_plus_b(a+c,b+d)})$    ` }      
+                            if (a!= c &&  a!= -c && b== -d) {
+                                    texte_corr +=`$\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
+                                    ${a+c}x(${reduire_ax_plus_b(a-c,b-d)})$  `   }  
+                            if (a== c  && b!= d &&b!=-d) {
+                                    texte_corr +=`$\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
+                                    ${b-d}(${reduire_ax_plus_b(a+c,b+d)})$  `   }    
+                            if (a== -c  && b!= d && b!=-d) {
+                                    texte_corr +=`$\\phantom{(${a}x${ecriture_algebrique(b)})^2-(${c}x${ecriture_algebrique(d)})^2}=
+                                    ${b+d}(${reduire_ax_plus_b(a-c,b-d)})$  `   }                   
+                           }   ;
                     break;
                 
             }
