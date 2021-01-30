@@ -3148,7 +3148,7 @@ function CibleCarree({x=0,y=0,rang=4,num,taille=0.6}){
   let objets=[]
   let numero
   if (typeof(num)!='undefined') {
-    numero=texteParPosition(nombre_avec_espace(num),x-rang*this.taille/4,y-rang*this.taille/4,'milieu',this.color)
+    numero=texteParPosition(num,x-rang*this.taille/4,y-rang*this.taille/4,'milieu',this.color)
     numero.opacite=0.5
     numero.taille=30*this.taille
     numero.contour=true
@@ -3158,7 +3158,7 @@ function CibleCarree({x=0,y=0,rang=4,num,taille=0.6}){
   objets.push(grille(calcul(x-rang*this.taille/2),calcul(y-rang*this.taille/2),calcul(x+rang*this.taille/2),calcul(y+rang*this.taille/2),this.color,this.opacite,this.taille,false))
   for (let i=0;i<rang;i++) {
     lettre=texteParPosition(lettre_depuis_chiffre(1+i),x-rang*this.taille/2+(2*i+1)*this.taille/2,y-(rang+1)*this.taille/2,'milieu')
-    chiffre=texteParPosition(nombre_avec_espace(i+1),x-(rang+1)*this.taille/2,y-rang*this.taille/2+(2*i+1)*this.taille/2,'milieu')
+    chiffre=texteParPosition(i+1,x-(rang+1)*this.taille/2,y-rang*this.taille/2+(2*i+1)*this.taille/2,'milieu')
     lettre.taille=10*this.taille
     chiffre.taille=10*this.taille
     objets.push(lettre)
@@ -4417,7 +4417,7 @@ function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5,label="") {
     let N = rotation(pointSurSegment(this.sommet,M , this.distance+10/coeff),this.sommet,angleOriente(this.depart,this.sommet,this.arrivee)/2);
     let mesureAngle 
     if (label!="") mesureAngle=label
-    else mesureAngle== arrondi_virgule(angle(this.depart,this.sommet,this.arrivee), 0) + "°";
+    else mesureAngle = arrondi_virgule(angle(this.depart,this.sommet,this.arrivee), 0) + "°";
     return "\n"+texteParPoint(mesureAngle,N , "milieu", color).svg(coeff)+"\n"+arc(M, B, angleOriente(this.depart,this.sommet,this.arrivee)).svg(coeff);
   }
   this.tikz=function(){

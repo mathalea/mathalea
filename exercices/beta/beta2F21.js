@@ -9,7 +9,6 @@ export default function Factoriser_Identites_remarquables2() {
     'use strict';
     Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Déterminer une fonction affine à partir de deux images.";
-    this.video = "";
     this.consigne = "Déterminer,en expliquant, l'expression de la fonctions affine $f$ vérifiant les conditions de l'énoncé :";
     this.nb_cols = 1;
     this.nb_cols_corr = 1;
