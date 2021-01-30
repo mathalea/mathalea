@@ -1,6 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,ecriture_parenthese_si_negatif,tex_fraction_reduite} from "/modules/outils.js"
-
+import { liste_de_question_to_contenu, randint, choice, combinaison_listes, ecriture_parenthese_si_negatif, tex_fraction_reduite } from "/modules/outils.js"
 /**
  * Déterminer une fonction affine à partir de deux images
 * @auteur Stéphane Guyon
@@ -16,11 +15,16 @@ export default function Factoriser_Identites_remarquables2() {
     this.spacing = 1;
     this.spacing_corr = 1;
     this.nb_questions = 3;
-    // this.video = "";
+
+    this.spacing_corr = 3
+
     this.nouvelle_version = function () {
         this.liste_questions = []; // Liste de questions
         this.liste_corrections = []; // Liste de questions corrigées
-        let type_de_questions_disponibles = [1];
+        let type_de_questions_disponibles = [];
+
+        type_de_questions_disponibles = [1];
+
 
         let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
         for (let i = 0, texte, texte_corr, cpt = 0, a, b, c, d, e, f, k, type_de_questions; i < this.nb_questions && cpt < 50;) {
@@ -41,6 +45,10 @@ export default function Factoriser_Identites_remarquables2() {
             d = d * k;
             e = a * b - a * d;
             f = a - c;
+
+
+
+
             switch (type_de_questions) {
                 case 1:
                     texte = ` Déterminer l'expression algébrique de la fonction affine $f$ définie sur $\\mathbb R$, sachant que
@@ -130,6 +138,8 @@ export default function Factoriser_Identites_remarquables2() {
 
                         }
                     }
+
+
                     break;
 
             }
