@@ -159,10 +159,8 @@ export default function Problemes_additifs_fractions_bis() {
                 pb_3_f[
                     i
                 ].correction = `Il s'agit d'un problème additif. Il va être necessaire de réduire les fractions au même dénominateur pour les additionner, les soustraire ou les comparer.<br>`;
-                if (listefrac.liste == listefrac.listeMemeDenominateur) {
-                    pb_3_f[
-                        i
-                    ].correction += `Les fractions de l'énoncé ont déjà le même dénominateur.`;
+                if (listefrac.liste[0].den == listefrac.liste[1].den) {
+                    pb_3_f[i].correction += `Les fractions de l'énoncé ont déjà le même dénominateur.<br>`;
                 }
                 else {
                     pb_3_f[i].correction += `Réduisons les fractions de l'énoncé au même dénominateur :  `;
@@ -385,10 +383,8 @@ export default function Problemes_additifs_fractions_bis() {
                     i
                 ].correction = `Il s'agit d'un problème additif. Il va être necessaire de réduire les fractions au même dénominateur pour les additionner, les soustraire ou les comparer.<br>`;
 
-                if (listefrac2.liste == listefrac2.listeMemeDenominateur) {
-                    pb_4_f[
-                        i
-                    ].correction += `Les fractions de l'énoncé ont déjà le même dénominateur.`;
+                if (listefrac2.liste[0].den == denominateurCommun && listefrac2.liste[1].den==denominateurCommun &&listefrac2.liste[2].den==denominateurCommun) {
+                    pb_4_f[i].correction += `Les fractions de l'énoncé ont déjà le même dénominateur.`;
                 }
                 else {
                     pb_4_f[i].correction += `Réduisons les fractions de l'énoncé au même dénominateur :  `;
