@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import { liste_de_question_to_contenu, randint, choice, combinaison_listes_sans_changer_ordre, prenomF, prenomM, prenom, texte_en_couleur_et_gras } from "/modules/outils.js"
+import {enleve_element_bis, liste_de_question_to_contenu, randint, choice, combinaison_listes_sans_changer_ordre, prenomF, prenomM, prenom, texte_en_couleur_et_gras } from "/modules/outils.js"
 import { fraction, listeFractions} from "/modules/Fractions.js"
 
 /**
@@ -14,7 +14,7 @@ export default function Problemes_additifs_fractions_bis() {
     this.sup = 1;
     this.video=""
     if (this.debug) {
-        this.nb_questions = 5;
+        this.nb_questions = 2;
     } else {
         this.nb_questions = 2;
     }
@@ -52,7 +52,7 @@ export default function Problemes_additifs_fractions_bis() {
         let p1, p2, p3; // les 3 prénoms
         let currentDate
         let currentAnnee
-        let listefrac,denominateurCommun,frac_meme_denom,frac_meme_denom_rangees,frac_rangees
+        let listefrac,listefrac2,denominateurCommun,frac_meme_denom,frac_meme_denom_rangees,frac_rangees
             // le tableau d'objets contenant tout le necesssaire, fractions, énoncé, question ... pour les problème avec 4 fractions
         let pb_4_f = [],pb_3_f =[];
             // les numérateurs et dénominateurs des 4 fractions attention les trois premières doivent être inférieures à 1/3 si on veut qu'elles soient toutes positives !
@@ -150,32 +150,27 @@ export default function Problemes_additifs_fractions_bis() {
             //======================================================
             //=========== 		Correction Commune  	 ===========
             //======================================================
-            listefrac;
             listefrac = listeFractions(F1, F2, F3)
-            frac_meme_denom = listefrac.listeMemeDenominateur
-            frac_meme_denom_rangees = listefrac.listeRangeeMemeDenominateur
-            frac_rangees = listefrac.listeRangee
+            frac_meme_denom = enleve_element_bis(listefrac.listeMemeDenominateur)
+            frac_meme_denom_rangees = enleve_element_bis(listefrac.listeRangeeMemeDenominateur)
+            frac_rangees = enleve_element_bis(listefrac.listeRangee)
             denominateurCommun = listefrac.listeMemeDenominateur[0].den
             for (let i = 0; i < 2; i++) {
                 pb_3_f[
                     i
                 ].correction = `Il s'agit d'un problème additif. Il va être necessaire de réduire les fractions au même dénominateur pour les additionner, les soustraire ou les comparer.<br>`;
-                if (listefrac.liste == listefrac.listeMemeDenominateur) {
-                    pb_3_f[
-                        i
-                    ].correction += `Les fractions de l'énoncé ont déjà le même dénominateur.`;
+                if (listefrac.liste[0].den == listefrac.liste[1].den) {
+                    pb_3_f[i].correction += `Les fractions de l'énoncé ont déjà le même dénominateur.<br>`;
                 }
                 else {
-                    pb_3_f[
-                        i
-                    ].correction += `Réduisons les fractions de l'énoncé au même dénominateur :  `;
+                    pb_3_f[i].correction += `Réduisons les fractions de l'énoncé au même dénominateur :  `;
 
-                    pb_3_f[
-                        i
-                    ].correction += `$${listefrac.liste[0].texFraction} = ${listefrac.listeMemeDenominateur[0].texFraction}$ et `;
-                    pb_3_f[
-                        i
-                    ].correction += `$${listefrac.liste[1].texFraction} = ${listefrac.listeMemeDenominateur[1].texFraction}$.<br>`;
+                    pb_3_f[i].correction += `$${listefrac.liste[0].texFraction}$ `
+                    if (listefrac.liste[0].den!==denominateurCommun) pb_3_f[i].correction +=`$= ${listefrac.listeMemeDenominateur[0].texFraction}$ et `
+                    else  pb_3_f[i].correction +=` et `
+                    pb_3_f[i].correction += `$${listefrac.liste[1].texFraction}$ `
+                    if (listefrac.liste[1].den!==denominateurCommun)  pb_3_f[i].correction+=`$= ${listefrac.listeMemeDenominateur[1].texFraction}$.<br>`
+                    else pb_3_f[i].correction+=`.<br>`
 
                 }
             }
@@ -283,7 +278,7 @@ export default function Problemes_additifs_fractions_bis() {
             //======================================================
             //======== 		AVEC 4 FRACTIONS			  	========
             //======================================================
-            
+            pb_4_f = [];
             denoms_cool_4 = denoms_amis[randint(2, denoms_amis.length - 1)]
 
             F1 = fraction(1, 3)
@@ -324,7 +319,7 @@ export default function Problemes_additifs_fractions_bis() {
                 fractions: [F1,"carmin",F2,"ocre jaune",F3,"turquoise",F4,"pourpre"],
                 enonce: ``,
                 question: `Quelle est elle la couleur qui recouvre le plus de surface ?`,
-                correction: ``,
+                correction: ``
             });
 
             //======================================================
@@ -336,7 +331,7 @@ export default function Problemes_additifs_fractions_bis() {
                 fractions: [F1,"la culture des légumes",F2,"la culture des plantes aromatiques",F3,"une serre servant aux semis",F4,"la culture des fraisiers"],
                 enonce: ``,
                 question: `Quelle est la culture qui occupe le plus de surface ?`,
-                correction: ``,
+                correction: ``
             });
 
             //======================================================
@@ -348,7 +343,7 @@ export default function Problemes_additifs_fractions_bis() {
                 fractions: [F1,"le pays organisateur",F2,"l'ensemble des supporters des deux équipes en jeu",F3,"les sponsors et officiels",F4,"les places en vente libre"],
                 enonce: ``,
                 question: `Quelle est la catégorie la plus importante dans le stade ?`,
-                correction: ``,
+                correction: ``
             });
 
             //======================================================
@@ -362,52 +357,46 @@ export default function Problemes_additifs_fractions_bis() {
             //======================================================
             //===========	énoncé indice 1 le jardin 	 ===========
             //======================================================
-            pb_4_f[1].enonce = `Un jardin est aménagé selon les proportions suivantes :  $${pb_4_f[0].fractions[0].texFraction}$ par ${pb_4_f[1].fractions[1]}, `;
-            pb_4_f[1].enonce += `$${pb_4_f[0].fractions[2].texFraction}$ par  ${pb_4_f[1].fractions[3]}, `;
-            pb_4_f[1].enonce += `$${pb_4_f[0].fractions[4].texFraction}$ par  ${pb_4_f[1].fractions[5]} et `;
+            pb_4_f[1].enonce = `Un jardin est aménagé selon les proportions suivantes :  $${pb_4_f[1].fractions[0].texFraction}$ par ${pb_4_f[1].fractions[1]}, `;
+            pb_4_f[1].enonce += `$${pb_4_f[1].fractions[2].texFraction}$ par  ${pb_4_f[1].fractions[3]}, `;
+            pb_4_f[1].enonce += `$${pb_4_f[1].fractions[4].texFraction}$ par  ${pb_4_f[1].fractions[5]} et `;
             pb_4_f[1].enonce += `le reste par ${pb_4_f[1].fractions[7]}.`;
 
             //======================================================
             //===========	énoncé indice 2 le stade 	 ===========
             //======================================================
-            pb_4_f[2].enonce = `Pour chaque match, les places du stade sont mises en vente dans les proportions suivantes :  $${pb_4_f[0].fractions[0].texFraction}$ pour ${pb_4_f[2].fractions[1]}, `;
-            pb_4_f[2].enonce += `$${pb_4_f[0].fractions[2].texFraction}$ pour  ${pb_4_f[2].fractions[3]}, `;
-            pb_4_f[2].enonce += `$${pb_4_f[0].fractions[4].texFraction}$ pour  ${pb_4_f[2].fractions[5]} et `;
+            pb_4_f[2].enonce = `Pour chaque match, les places du stade sont mises en vente dans les proportions suivantes :  $${pb_4_f[2].fractions[0].texFraction}$ pour ${pb_4_f[2].fractions[1]}, `;
+            pb_4_f[2].enonce += `$${pb_4_f[2].fractions[2].texFraction}$ pour  ${pb_4_f[2].fractions[3]}, `;
+            pb_4_f[2].enonce += `$${pb_4_f[2].fractions[4].texFraction}$ pour  ${pb_4_f[2].fractions[5]} et `;
             pb_4_f[2].enonce += `le reste pour ${pb_4_f[2].fractions[7]}.`;
 
             //======================================================
             //=========== 		Correction Commune  	 ===========
             //======================================================
-
-            listefrac = listeFractions(F1, F2, F3, F4)
-            frac_meme_denom = listefrac.listeMemeDenominateur
-            frac_meme_denom_rangees = listefrac.listeRangeeMemeDenominateur
-            frac_rangees = listefrac.listeRangee
-            denominateurCommun = listefrac.listeMemeDenominateur[0].den
+            listefrac2 = listeFractions(F1, F2, F3, F4)
+            frac_meme_denom = enleve_element_bis(listefrac2.listeMemeDenominateur)
+            frac_meme_denom_rangees = enleve_element_bis(listefrac2.listeRangeeMemeDenominateur)
+            frac_rangees = enleve_element_bis(listefrac2.listeRangee)
+            denominateurCommun = listefrac2.listeMemeDenominateur[0].den
             for (let i = 0; i < 3; i++) {
                 pb_4_f[
                     i
                 ].correction = `Il s'agit d'un problème additif. Il va être necessaire de réduire les fractions au même dénominateur pour les additionner, les soustraire ou les comparer.<br>`;
 
-                if (listefrac.liste == listefrac.listeMemeDenominateur) {
-                    pb_4_f[
-                        i
-                    ].correction += `Les fractions de l'énoncé ont déjà le même dénominateur.`;
+                if (listefrac2.liste[0].den == denominateurCommun && listefrac2.liste[1].den==denominateurCommun &&listefrac2.liste[2].den==denominateurCommun) {
+                    pb_4_f[i].correction += `Les fractions de l'énoncé ont déjà le même dénominateur.`;
                 }
                 else {
-                    pb_4_f[
-                        i
-                    ].correction += `Réduisons les fractions de l'énoncé au même dénominateur :  `;
-
-                    pb_4_f[
-                        i
-                    ].correction += `$${listefrac.liste[0].texFraction} = ${listefrac.listeMemeDenominateur[0].texFraction}$ ; `;
-                    pb_4_f[
-                        i
-                    ].correction += `$${listefrac.liste[1].texFraction} = ${listefrac.listeMemeDenominateur[1].texFraction}$ et `;
-                    pb_4_f[
-                        i
-                    ].correction += `$${listefrac.liste[2].texFraction} = ${listefrac.listeMemeDenominateur[2].texFraction}$.<br>`;
+                    pb_4_f[i].correction += `Réduisons les fractions de l'énoncé au même dénominateur :  `;
+                    pb_4_f[i].correction += `$${listefrac2.liste[0].texFraction}$ `
+                    if (listefrac2.liste[0].den!=denominateurCommun) pb_4_f[i].correction += `$= ${listefrac2.listeMemeDenominateur[0].texFraction}$ ; `;
+                    else pb_4_f[i].correction += ` ; `
+                    pb_4_f[i].correction += `$${listefrac2.liste[1].texFraction}$ `
+                    if (listefrac2.liste[1].den!=denominateurCommun) pb_4_f[i].correction += `$= ${listefrac2.listeMemeDenominateur[1].texFraction}$ et `;
+                    else pb_4_f[i].correction += ` et `
+                    pb_4_f[i].correction += `$${listefrac2.liste[2].texFraction}$ `
+                    if (listefrac2.liste[2].den!=denominateurCommun) pb_4_f[i].correction +=`$= ${listefrac2.listeMemeDenominateur[2].texFraction}$.<br>`;
+                    else pb_4_f[i].correction +=`.<br>`
 
                 }
 
@@ -443,10 +432,10 @@ export default function Problemes_additifs_fractions_bis() {
                     i
                 ].correction += `\\dfrac{${denominateurCommun}-${frac_meme_denom[0].num}-${frac_meme_denom[1].num}-${frac_meme_denom[2].num}}{${denominateurCommun}} = `;
                 pb_4_f[i].correction += `${frac_meme_denom[3].texFraction}`;
-                if (frac_meme_denom[3].den != F4.den) {
+                if (frac_meme_denom[3].den != pb_4_f[i].fractions[6].den) {
                     pb_4_f[
                         i
-                    ].correction += ` = ${F4.texFraction}$`;
+                    ].correction += ` = ${pb_4_f[i].fractions[6].texFraction}$`;
                 } else {
                     pb_4_f[i].correction += `$`;
                 }
@@ -468,9 +457,9 @@ export default function Problemes_additifs_fractions_bis() {
             pb_4_f[0].correction += `$${frac_meme_denom[3].texFraction}$ en ${pb_4_f[0].fractions[7]}.`;
 
             if (
-                F1.egal(F2) &&
-                F1.egal(F3) &&
-                F1.egal(F4) 
+                pb_4_f[0].fractions[0].egal(pb_4_f[0].fractions[2]) &&
+                pb_4_f[0].fractions[0].egal(pb_4_f[0].fractions[4]) &&
+                pb_4_f[0].fractions[0].egal(pb_4_f[0].fractions[6]) 
             ) {
                 pb_4_f[0].correction += `<br> ${texte_en_couleur_et_gras(
                     `Les quatre fractions sont équivalentes, ${pb_4_f[0].prenoms[0]} colorie donc la même surface avec les quatre couleurs.`
@@ -504,9 +493,9 @@ export default function Problemes_additifs_fractions_bis() {
 
             //let frac_rangees,frac_meme_denom_rangees;
             if (
-                F1.egal(F2) &&
-                F1.egal(F3) &&
-                F1.egal(F4) 
+                pb_4_f[1].fractions[0].egal(pb_4_f[1].fractions[2]) &&
+                pb_4_f[1].fractions[0].egal(pb_4_f[1].fractions[4]) &&
+                pb_4_f[1].fractions[0].egal(pb_4_f[1].fractions[6]) 
             ) {
                 pb_4_f[1].correction += `<br> ${texte_en_couleur_et_gras(
                     `Les quatre fractions sont équivalentes, la même surface du jardin est donc occupée par les quatre cultures.`
@@ -516,10 +505,8 @@ export default function Problemes_additifs_fractions_bis() {
                 pb_4_f[1].correction += `<br>Enfin, nous pouvons ranger les fractions de l'énoncé et la fraction calculée dans l'ordre croissant : $${frac_rangees[0].texFraction}$, $${frac_rangees[1].texFraction}$, $${frac_rangees[2].texFraction}$, $${frac_rangees[3].texFraction}$.`;
 
                 pb_4_f[1].correction += `<br> ${texte_en_couleur_et_gras(
-                    `C'est donc par ${pb_4_f[1].fractions[
-                    pb_4_f[1].fractions.indexOf(frac_rangees[3]) + 1
-                    ]
-                    } que le jardin est le plus occupé.`
+                    `C'est donc par ${pb_4_f[1].fractions[pb_4_f[1].fractions.indexOf(frac_rangees[3])+1]}
+                     que le jardin est le plus occupé.`
                 )}`;
             }
 
@@ -539,9 +526,9 @@ export default function Problemes_additifs_fractions_bis() {
 
             //let frac_rangees,frac_meme_denom_rangees;
             if (
-                F1.egal(F2) &&
-                F1.egal(F3) &&
-                F1.egal(F4) 
+                pb_4_f[2].fractions[0].egal(pb_4_f[2].fractions[2]) &&
+                pb_4_f[2].fractions[0].egal(pb_4_f[2].fractions[4]) &&
+                pb_4_f[2].fractions[0].egal(pb_4_f[2].fractions[6]) 
             ) {
                 pb_4_f[2].correction += `<br> ${texte_en_couleur_et_gras(
                     `Les quatre fractions sont équivalentes, chaque catégorie a donc la même importance dans le stade.`
