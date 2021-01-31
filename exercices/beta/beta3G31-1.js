@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,calcul,creerNomDePolygone, tex_nombre} from "/modules/outils.js"
-import {point,labelPoint,polygone,similitude,codageAngleDroit,mathalea2d,afficheMesureAngle,afficheLongueurSegment,longueur,angle} from "/modules/2d.js"
+import {point,labelPoint,polygone,similitude,codageAngleDroit,codeAngle,mathalea2d,afficheMesureAngle,afficheLongueurSegment,longueur,angle} from "/modules/2d.js"
 
 
 /**
@@ -18,6 +18,8 @@ export default function MonSuperExerciceTropBeau() {
   this.nb_cols = 1; // Uniquement pour la sortie LaTeX
   this.nb_cols_corr = 1; // Uniquement pour la sortie LaTeX
   this.spacing_corr = 3;
+  this.correction_detaillee_disponible = true;
+  sortie_html ? this.correction_detaillee = true : this.correction_detaillee = false;
   //this.sup = 1; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
   //this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
@@ -33,9 +35,15 @@ export default function MonSuperExerciceTropBeau() {
     let A = point(randint(4,7),0,'','below')
     let C = point(0,randint(3,7),'','above')
     let t1 = polygone(A,B,C)
+    let t1c = polygone(A,B,C)
+    t1c.color = 'blue'
+    t1c.epaisseur = 3
     let c1 = codageAngleDroit(A,B,C)
     let D = similitude(C,A,-90,calcul(randint(7,12)/10),'','right')
     let t2 = polygone(C,A,D)
+    let t2c = polygone(C,A,D)
+    t2c.color = 'blue'
+    t2c.epaisseur = 3
     let c2 = codageAngleDroit(C,A,D)
     let nom = creerNomDePolygone(4)
     A.nom = nom[0]
@@ -43,7 +51,6 @@ export default function MonSuperExerciceTropBeau() {
     C.nom = nom[2]
     D.nom = nom[3]
     let labels = labelPoint(A,B,C,D)
-    let a1, a2, a3;
 
     let liste_objets_mathalea = [t1, t2, c1, c2,labels]
 
@@ -57,6 +64,8 @@ export default function MonSuperExerciceTropBeau() {
         let a1 = afficheMesureAngle(B,A,C,'black',1,BAC+'°');
         let a2 = afficheLongueurSegment(A,B)
         let a3 = afficheLongueurSegment(D,A)
+        let a4 = afficheLongueurSegment(A,C)
+        let a5 = codeAngle(A,C,D);
         if (this.sup) {
           liste_objets_mathalea.push(a1, a2, a3)
         }
@@ -64,10 +73,18 @@ export default function MonSuperExerciceTropBeau() {
         if (!this.sup) {
           texte += `<br>On a $${B.nom+A.nom} = ${tex_nombre(BA)}$ cm, $${A.nom+D.nom} = ${tex_nombre(AD)}$ cm et $\\widehat{${B.nom+A.nom+C.nom}}=${BAC}°$.`
         }
-        texte_corr = `$${C.nom+B.nom+A.nom}$ est rectangle en $${B.nom}$ donc $\\cos\\left(\\widehat{${B.nom+A.nom+C.nom}}\\right)=\\dfrac{${B.nom+A.nom}}{${A.nom+C.nom}}\\quad$ `;
+        texte_corr = ''
+        if (this.correction_detaillee) {
+          texte_corr += mathalea2d({xmin : -1 , ymin : -1, xmax : D.x+1, ymax : math.max(C.y,D.y)+1},t1c,t2,c1,c2,a1,a2,labels );
+          texte_corr += '<br>'  
+        }
+        texte_corr += `$${C.nom+B.nom+A.nom}$ est rectangle en $${B.nom}$ donc $\\cos\\left(\\widehat{${B.nom+A.nom+C.nom}}\\right)=\\dfrac{${B.nom+A.nom}}{${A.nom+C.nom}}\\quad$ `;
         texte_corr += `soit $\\quad\\cos(${BAC}°)=\\dfrac{${tex_nombre(BA)}}{${A.nom+C.nom}}\\quad$ et $\\quad ${A.nom+C.nom}=\\dfrac{${tex_nombre(BA)}}{\\cos(${BAC}°)}\\approx${tex_nombre(AC)}$ cm.`
+        if (this.correction_detaillee) {
+          texte_corr += '<br><br>' + mathalea2d({xmin : -1 , ymin : -1, xmax : D.x+1, ymax : math.max(C.y,D.y)+1},t1,t2c,c1,c2,a3,a4,a5,labels );
+        }
         texte_corr += `<br><br>$${C.nom+A.nom+D.nom}$ est rectangle en $${A.nom}$ donc $\\tan\\left(\\widehat{${A.nom+C.nom+D.nom}}\\right)=\\dfrac{${A.nom+D.nom}}{${A.nom+C.nom}}\\quad$ `;
-        texte_corr += `soit $\\quad\\tan\\left(\\widehat{${A.nom+C.nom+D.nom}}\\right)\\approx\\dfrac{${tex_nombre(AD)}}{${tex_nombre(AC)}}\\quad$ et $\\quad\\widehat{${A.nom+C.nom+D.nom}}\\approx${ACD}$°.`
+        texte_corr += `soit $\\quad\\tan\\left(\\widehat{${A.nom+C.nom+D.nom}}\\right)\\approx\\dfrac{${tex_nombre(AD)}}{${tex_nombre(AC)}}\\quad$ et $\\quad\\widehat{${A.nom+C.nom+D.nom}}=\\text{arctan}\\left(\\dfrac{${tex_nombre(AD)}}{${tex_nombre(AC)}}\\right)\\approx${ACD}$°.`
         texte_corr += `<br><br>La somme des angles d'un triangle est égale à 180° donc $\\widehat{${B.nom+C.nom+A.nom}}=180°-90°-${BAC}°=${90-BAC}°$.`
         texte_corr += `<br>De même, $\\widehat{${C.nom+D.nom+A.nom}}\\approx 180°-90°-${ACD}°\\approx${90-ACD}°$.`
 
