@@ -35,7 +35,7 @@ export default function Constructions_parallelogrammes() {
         let type_de_question
         if (this.sup<5) type_de_question=parseInt(this.sup)
         else type_de_question=randint(1,4)
-        let nom=`$${noms[0]+noms[1]+noms[2]+noms[3]}$`
+        let nom=`${noms[0]+noms[1]+noms[2]+noms[3]}`
         let A,B,C,D,O,p,d1,d2,d3,d4,c1,c2,c3,c4,dd1,dd2,dd3,dd4
         let objets_enonce=[],objets_correction=[],result2,result,cible,cible2,cellule,cellule2
         // Préparation de la figure aléatoire et des objets 2d utiles
@@ -148,8 +148,8 @@ export default function Constructions_parallelogrammes() {
         }
 
 
-		this.liste_questions.push(texte+mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_enonce));
-		this.liste_corrections.push(texte_corr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_correction));
+		this.liste_questions.push(texte+mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objets_enonce));
+		this.liste_corrections.push(texte_corr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objets_correction));
 		liste_de_question_to_contenu(this);
 
 	};
