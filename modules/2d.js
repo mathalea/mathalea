@@ -1337,7 +1337,13 @@ function Vecteur(arg1, arg2, nom = "") {
 export function vecteur(...args) {
   return new Vecteur(...args);
 }
-
+/**
+ * @Auteur Jean-Claude Lhote le 31/01/2021
+ * crée un nom de vecteur avec sa petite flèche
+ * l'angle formé par avec l'horizontale est à donner comme argument, par défaut c'est 0
+ * la taille impactera le nom et la flèche en proportion.
+ * (x,y) sont les coordonnées du centre du nom.
+ */
 function NomVecteurParPosition(nom,x,y,taille=1,angle=0,color='black'){
   ObjetMathalea2D.call(this)
   this.nom=nom
