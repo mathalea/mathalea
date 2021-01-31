@@ -1337,7 +1337,55 @@ function Vecteur(arg1, arg2, nom = "") {
 export function vecteur(...args) {
   return new Vecteur(...args);
 }
-
+/**
+ * @Auteur Jean-Claude Lhote le 31/01/2021
+ * crée un nom de vecteur avec sa petite flèche
+ * l'angle formé par avec l'horizontale est à donner comme argument, par défaut c'est 0
+ * la taille impactera le nom et la flèche en proportion.
+ * (x,y) sont les coordonnées du centre du nom.
+ */
+function NomVecteurParPosition(nom,x,y,taille=1,angle=0,color='black'){
+  ObjetMathalea2D.call(this)
+  this.nom=nom
+  this.x=x
+  this.y=y
+  this.color=color
+  this.angle=angle
+  this.taille=taille
+  let objets=[]
+  let s,t,M1,M0,M2,M,P,V
+  t=texteParPosition(this.nom,this.x,this.y,-this.angle,this.color,this.taille,'middle',true)
+  M=point(this.x,this.y)
+  P=point(M.x+0.3*this.nom.length,M.y)
+  M0=similitude(P,M,90+this.angle,0.5/this.nom.length)
+  M1=translation(M0,vecteur(P,M))
+  M2=translation(M0,vecteur(M,P))
+  V=vecteur(M1,M2)
+  V=rotation(V,M,this.angle)
+  M2=translation(M1,V)
+  s=segment(M1,M2)
+  s.styleExtremites='->'
+  s.tailleExtremites=3
+  s.color=this.color
+  objets.push(t,s)
+  this.svg = function (coeff) {
+    let code = "";
+    for (let objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    let code = "";
+    for (let objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+}
+export function nomVecteurParPosition(nom,x,y,taille=1,angle=0,color='black'){
+  return new NomVecteurParPosition(nom,x,y,taille,angle,color)
+}
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%% LES SEGMENTS %%%%%%%%%%%%%%
@@ -4791,7 +4839,8 @@ export function nomAngleRentrantParPosition(nom,x,y,color) {
  * @param {*} y 
  * @param {*} position 'H' pour horizontale 'V' pour verticale
  * @param {*} type 'dd' pour demi-droite 'd' ou n'importe quoi pour droite
- * @param {*} longueurUnite longueur en cm de la distance entre deux grosses graduations
+ * @param {*} longueurUnite longueur en cm de la dimport { ObjetMathalea2D } from '/modules/mathalea2d.js';
+istance entre deux grosses graduations
  * @param {*} division nombre de parts à faire entre deux grosses graduations
  * @param {*} longueurTotale longueur totale en cm utilisable
  * @param {*} origin valeur de la première graduation (par défaut 0)
