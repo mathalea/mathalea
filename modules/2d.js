@@ -1,4 +1,5 @@
 import {egal,randint,choice,rangeMinMax,unSiPositifMoinsUnSinon,arrondi,arrondi_virgule,calcul,lettre_depuis_chiffre,tex_nombre,nombre_avec_espace,string_nombre,premierMultipleSuperieur,premierMultipleInferieur} from "/modules/outils.js"
+import { fraction } from "/modules/Fractions.js"
 
 /*
   MathALEA2D
@@ -59,19 +60,19 @@ function Point(arg1, arg2, arg3, positionLabel = "above") {
     this.nom = arg1;
   } else if (arguments.length == 2) {
 
-    this.x = arg1;
-    this.y = arg2;
+    this.x = arrondi(arg1,2);
+    this.y = arrondi(arg2,2);
   } else {
-    this.x = arg1;
-    this.y = arg2;
+    this.x = arrondi(arg1,2);
+    this.y = arrondi(arg2,2);
     this.nom = arg3;
   }
   this.positionLabel = positionLabel;
   this.xSVG = function (coeff) {
-    return this.x * coeff;
+    return arrondi(this.x * coeff,2);
   };
   this.ySVG = function (coeff) {
-    return -this.y * coeff;
+    return -arrondi(this.y * coeff,2);
   };
   if (!this.nom) {
     this.nom = " "; // Le nom d'un point est par défaut un espace
@@ -420,6 +421,7 @@ export function pointAdistance(...args) {
  */
 function LabelPoint(...points) {
   ObjetMathalea2D.call(this);
+  this.taille=1
   this.svg = function (coeff) {
     let code = "",x,y;
     if (Array.isArray(points[0])) {
@@ -432,28 +434,28 @@ function LabelPoint(...points) {
       x=point.x,y=point.y
       switch (point.positionLabel) {
         case "left":
-          code += texteParPosition(point.nom,x-15/coeff,y,'milieu',this.color,1,"",true).svg(coeff)+`\n`
+          code += texteParPosition(point.nom,x-15/coeff,y,'milieu',this.color,this.taille,"",true).svg(coeff)+`\n`
           break;
         case "right":
-          code += texteParPosition(point.nom,x+15/coeff,y,'milieu',this.color,1,"",true).svg(coeff)+`\n`
+          code += texteParPosition(point.nom,x+15/coeff,y,'milieu',this.color,this.taille,"",true).svg(coeff)+`\n`
           break;
         case "below":
-          code += texteParPosition(point.nom,x,y-15/coeff,'milieu',this.color,1,"",true).svg(coeff)+`\n`
+          code += texteParPosition(point.nom,x,y-15/coeff,'milieu',this.color,this.taille,"",true).svg(coeff)+`\n`
           break;
         case "above":
-          code += texteParPosition(point.nom,x,y+15/coeff,'milieu',this.color,1,"",true).svg(coeff)+`\n`
+          code += texteParPosition(point.nom,x,y+15/coeff,'milieu',this.color,this.taille,"",true).svg(coeff)+`\n`
           break;
         case "above right":
-          code += texteParPosition(point.nom,x+15/coeff,y+15/coeff,'milieu',this.color,1,"",true).svg(coeff)+`\n`
+          code += texteParPosition(point.nom,x+15/coeff,y+15/coeff,'milieu',this.color,this.taille,"",true).svg(coeff)+`\n`
           break;
         case "below left":
-          code += texteParPosition(point.nom,x-15/coeff,y-15/coeff,'milieu',this.color,1,"",true).svg(coeff)+`\n`
+          code += texteParPosition(point.nom,x-15/coeff,y-15/coeff,'milieu',this.color,this.taille,"",true).svg(coeff)+`\n`
           break;
         case "below right":
-          code += texteParPosition(point.nom,x+15/coeff,y-15/coeff,'milieu',this.color,1,"",true).svg(coeff)+`\n`
+          code += texteParPosition(point.nom,x+15/coeff,y-15/coeff,'milieu',this.color,this.taille,"",true).svg(coeff)+`\n`
           break;
         default:
-          code += texteParPosition(point.nom,x-15/coeff,y+15/coeff,'milieu',this.color,1,"",true).svg(coeff)+`\n`
+          code += texteParPosition(point.nom,x-15/coeff,y+15/coeff,'milieu',this.color,this.taille,"",true).svg(coeff)+`\n`
           break;
       }
     }
@@ -1335,7 +1337,55 @@ function Vecteur(arg1, arg2, nom = "") {
 export function vecteur(...args) {
   return new Vecteur(...args);
 }
-
+/**
+ * @Auteur Jean-Claude Lhote le 31/01/2021
+ * crée un nom de vecteur avec sa petite flèche
+ * l'angle formé par avec l'horizontale est à donner comme argument, par défaut c'est 0
+ * la taille impactera le nom et la flèche en proportion.
+ * (x,y) sont les coordonnées du centre du nom.
+ */
+function NomVecteurParPosition(nom,x,y,taille=1,angle=0,color='black'){
+  ObjetMathalea2D.call(this)
+  this.nom=nom
+  this.x=x
+  this.y=y
+  this.color=color
+  this.angle=angle
+  this.taille=taille
+  let objets=[]
+  let s,t,M1,M0,M2,M,P,V
+  t=texteParPosition(this.nom,this.x,this.y,-this.angle,this.color,this.taille,'middle',true)
+  M=point(this.x,this.y)
+  P=point(M.x+0.3*this.nom.length,M.y)
+  M0=similitude(P,M,90+this.angle,0.5/this.nom.length)
+  M1=translation(M0,vecteur(P,M))
+  M2=translation(M0,vecteur(M,P))
+  V=vecteur(M1,M2)
+  V=rotation(V,M,this.angle)
+  M2=translation(M1,V)
+  s=segment(M1,M2)
+  s.styleExtremites='->'
+  s.tailleExtremites=3
+  s.color=this.color
+  objets.push(t,s)
+  this.svg = function (coeff) {
+    let code = "";
+    for (let objet of objets) {
+      code += "\n\t" + objet.svg(coeff);
+    }
+    return code;
+  };
+  this.tikz = function () {
+    let code = "";
+    for (let objet of objets) {
+      code += "\n\t" + objet.tikz();
+    }
+    return code;
+  };
+}
+export function nomVecteurParPosition(nom,x,y,taille=1,angle=0,color='black'){
+  return new NomVecteurParPosition(nom,x,y,taille,angle,color)
+}
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%% LES SEGMENTS %%%%%%%%%%%%%%
@@ -1355,15 +1405,15 @@ function Segment(arg1, arg2, arg3, arg4, color) {
   this.styleExtremites = "";
   this.tailleExtremites=4;
   if (arguments.length == 2) {
-    this.x1 = arg1.x;
-    this.y1 = arg1.y;
-    this.x2 = arg2.x;
-    this.y2 = arg2.y;
+    this.x1 = arrondi(arg1.x,2);
+    this.y1 = arrondi(arg1.y,2);
+    this.x2 = arrondi(arg2.x,2);
+    this.y2 = arrondi(arg2.y,2);
   } else if (arguments.length == 3) {
-    this.x1 = arg1.x;
-    this.y1 = arg1.y;
-    this.x2 = arg2.x;
-    this.y2 = arg2.y;
+    this.x1 = arrondi(arg1.x,2);
+    this.y1 = arrondi(arg1.y,2);
+    this.x2 = arrondi(arg2.x,2);
+    this.y2 = arrondi(arg2.y,2);
     this.color = arg3;
   } else if (arguments.length == 4) {
     this.x1 = arrondi(arg1,2);
@@ -3146,7 +3196,7 @@ function CibleCarree({x=0,y=0,rang=4,num,taille=0.6}){
   let objets=[]
   let numero
   if (typeof(num)!='undefined') {
-    numero=texteParPosition(nombre_avec_espace(num),x-rang*this.taille/4,y-rang*this.taille/4,'milieu',this.color)
+    numero=texteParPosition(num,x-rang*this.taille/4,y-rang*this.taille/4,'milieu',this.color)
     numero.opacite=0.5
     numero.taille=30*this.taille
     numero.contour=true
@@ -3156,7 +3206,7 @@ function CibleCarree({x=0,y=0,rang=4,num,taille=0.6}){
   objets.push(grille(calcul(x-rang*this.taille/2),calcul(y-rang*this.taille/2),calcul(x+rang*this.taille/2),calcul(y+rang*this.taille/2),this.color,this.opacite,this.taille,false))
   for (let i=0;i<rang;i++) {
     lettre=texteParPosition(lettre_depuis_chiffre(1+i),x-rang*this.taille/2+(2*i+1)*this.taille/2,y-(rang+1)*this.taille/2,'milieu')
-    chiffre=texteParPosition(nombre_avec_espace(i+1),x-(rang+1)*this.taille/2,y-rang*this.taille/2+(2*i+1)*this.taille/2,'milieu')
+    chiffre=texteParPosition(i+1,x-(rang+1)*this.taille/2,y-rang*this.taille/2+(2*i+1)*this.taille/2,'milieu')
     lettre.taille=10*this.taille
     chiffre.taille=10*this.taille
     objets.push(lettre)
@@ -4401,7 +4451,7 @@ export function texteSurSegment(...args) {
  *
  * @Auteur Rémi Angot
  */
-function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5) {
+function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5,label="") {
   ObjetMathalea2D.call(this)
   this.depart=A
   this.arrivee=C
@@ -4413,7 +4463,9 @@ function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5) {
     // d.isVisible = false;
     let M = pointSurSegment(this.sommet, this.depart, this.distance)
     let N = rotation(pointSurSegment(this.sommet,M , this.distance+10/coeff),this.sommet,angleOriente(this.depart,this.sommet,this.arrivee)/2);
-    let mesureAngle = arrondi_virgule(angle(this.depart,this.sommet,this.arrivee), 0) + "°";
+    let mesureAngle 
+    if (label!="") mesureAngle=label
+    else mesureAngle = arrondi_virgule(angle(this.depart,this.sommet,this.arrivee), 0) + "°";
     return "\n"+texteParPoint(mesureAngle,N , "milieu", color).svg(coeff)+"\n"+arc(M, B, angleOriente(this.depart,this.sommet,this.arrivee)).svg(coeff);
   }
   this.tikz=function(){
@@ -4421,7 +4473,9 @@ function AfficheMesureAngle(A, B, C, color = "black", distance = 1.5) {
     // d.isVisible = false;
     let M = pointSurSegment(this.sommet, this.depart, this.distance);
     let N = rotation(pointSurSegment(this.sommet,M , this.distance+0.5),this.sommet,angleOriente(this.depart,this.sommet,this.arrivee)/2);
-    let mesureAngle = arrondi_virgule(angle(this.depart,this.sommet,this.arrivee), 0) + "°";
+    let mesureAngle 
+    if (label!="") mesureAngle=label
+    else mesureAngle== arrondi_virgule(angle(this.depart,this.sommet,this.arrivee), 0) + "°";
     return "\n"+texteParPoint(mesureAngle, N, "milieu", color).tikz()+"\n"+arc(M, B, angleOriente(this.depart,this.sommet,this.arrivee)).tikz();
   }
 }
@@ -4785,7 +4839,8 @@ export function nomAngleRentrantParPosition(nom,x,y,color) {
  * @param {*} y 
  * @param {*} position 'H' pour horizontale 'V' pour verticale
  * @param {*} type 'dd' pour demi-droite 'd' ou n'importe quoi pour droite
- * @param {*} longueurUnite longueur en cm de la distance entre deux grosses graduations
+ * @param {*} longueurUnite longueur en cm de la dimport { ObjetMathalea2D } from '/modules/mathalea2d.js';
+istance entre deux grosses graduations
  * @param {*} division nombre de parts à faire entre deux grosses graduations
  * @param {*} longueurTotale longueur totale en cm utilisable
  * @param {*} origin valeur de la première graduation (par défaut 0)

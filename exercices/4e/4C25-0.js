@@ -1,8 +1,11 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes_sans_changer_ordre,calcul,prenomF,prenomM,prenom,texte_en_couleur_et_gras,ListeFraction} from "/modules/outils.js"
+import {fraction_simplifiee,liste_de_question_to_contenu,randint,choice,combinaison_listes_sans_changer_ordre,calcul,prenomF,prenomM,prenom,texte_en_couleur_et_gras} from "/modules/outils.js"
+//import {fraction,ListeFraction} from "/modules/Fractions.js"
+
 /**
  * Problèmes additifs et de comparaion sur les rationnels
  * 4C25-0
+ * Mise à jour le 2021-01-30
  * @author Sébastien Lozano
  */
 export default function Problemes_additifs_fractions() {
@@ -25,6 +28,142 @@ export default function Problemes_additifs_fractions() {
   sortie_html ? (this.spacing_corr = 3) : (this.spacing_corr = 1.15);
 
   let type_de_questions_disponibles;
+
+  /**
+ * @class ListeFraction
+ * @classdesc Classe Fraction - Méthodes utiles sur les collections de fractions
+ * @author Sébastien Lozano
+ */
+
+function ListeFraction() {
+  //'use strict'; pas de use strict avec un paramètre du reste
+  /**
+   * @constant {array} denominateurs_amis tableau de tableaux de dénominateurs qui vont bien ensemble pour les calculs
+   * le tableau [12,2,3,4,6] faisait planter 4C25-0
+   */
+  //let denominateurs_amis = [[12,2,3,4,6],[16,2,4,8],[18,2,3,6,9],[20,2,4,5,10],[24,2,3,4,8,12],[30,2,3,5,6],[32,2,16,4,8],[36,2,18,4,9],[40,2,20,4,10,5,8]]
+  let denominateurs_amis = [[16,2,4,8],[18,2,3,6,9],[20,2,4,5,10],[24,2,3,4,8,12],[30,2,3,5,6],[32,2,16,4,8],[36,2,18,4,9],[40,2,20,4,10,5,8]]
+
+ /**
+  * 
+  * @param  {...any} fractions contient la liste des numérateurs et denominateurs dans l'ordre n1,d1,n2,d2, ... de deux ou plus de fractions
+  * @return {array} renvoie un tableau avec les numérateurs et les dénominateurs triés selon la croissance des quotients [n_frac_min,d_frac_min,...,n_frac_max,d_frac_max]
+  * @example sortFraction(1,2,1,5,1,4,1,3) renvoie [1,5,1,4,1,3,1,2] 
+  */
+ let sortFractions=function(...fractions) {
+     try {		
+         fractions.forEach(function(element) {
+             if (typeof element != 'number') {
+                 throw new TypeError(`${element} n'est pas un nombre !`);
+             };
+             if ( (fractions.indexOf(element)%2 == 1) && (element == 0)) {
+                 throw new RangeError(`${element} est exclu des valeurs possibles pour les dénominateurs !`)
+             };
+         });	
+         if (Math.floor(fractions.length/2) <= 1 ) {
+             throw new Error(`Il faut au moins deux fractions !`);
+         };
+         if (fractions.length%2 != 0) {
+             throw new Error(`Il faut un nombre pair de valeurs puisque q'une fraction est représentée par son numérateur et son dénominateur`);
+         };
+         let changed;
+         do{
+              changed = false;
+              for (let i=0; i<(fractions.length-1); i+=2) {
+                 if ((fractions[i]/fractions[i+1]) > (fractions[i+2]/fractions[i+3])) {
+                     let tmp = [fractions[i],fractions[i+1]];
+                     fractions[i]=fractions[i+2];
+                     fractions[i+1] = fractions[i+3];
+                     fractions[i+2] = tmp [0];
+                     fractions[i+3] = tmp[1];
+                     changed = true;
+                 };
+              };
+         } while(changed);
+         return fractions;
+     }
+     catch (e) {
+         console.log(e.message);
+     };
+ };
+
+ /**
+  * fonction locale pour trouver le ppcm d'un nombre indeterminé d'entiers
+  * @param  {integer} n parametre du reste contenant une liste d'entiers
+  * * la liste d'entiers doit être passé dans un tableau
+  * @return {number} renvoie le ppcm des nombres entiers passés dans le paramètre du reste n
+  * @example ppcm(2,6,4,15) renvoie 60
+  */
+ function ppcm([...n]) {
+     try {
+          n.forEach(function(element) {
+             if (typeof element != 'number') {
+                 throw new TypeError(`${element} n'est pas un nombre !`);
+             };
+         });
+         // Quoi faire sans nombres ?
+         if (n.length == 0) {
+             throw new Error(`C'est mieux avec quelques nombres !`)
+         };
+         return parseInt(Algebrite.run(`lcm(${n})`));
+
+     }
+     catch (e) {
+         console.log(e.message);
+     };
+ };
+
+ /**
+  * 
+  * @param  {...any} fractions contient la liste des numérateurs et des dénominateurs dans l'ordre n1,d1,n2,d2, ... de deux ou plus de fractions
+  * @return {array} renvoie un tableau de numérateurs et de dénominateurs avec le même dénominateur dans l'ordre initial.
+  * * Le dénominateur choisi est toujours le ppcm
+  * * Les fractions ne sont pas réduites
+  * @example reduceSameDenominateur(1,2,1,5,2,3) renvoie [15,30,6,30,20,30]
+  */
+  function reduceSameDenominateur(...fractions) {
+     try {		
+      fractions.forEach(function(element) {
+             if (typeof element != 'number') {
+                 throw new TypeError(`${element} n'est pas un nombre !`);
+             };
+             if ( (fractions.indexOf(element)%2 == 1) && (element == 0)) {
+                 throw new RangeError(`${element} est exclu des valeurs possibles pour les dénominateurs !`)
+             };
+         });	
+         if (Math.floor(fractions.length/2) <= 1 ) {
+             throw new Error(`Il faut au moins deux fractions !`);
+         };
+         if (fractions.length%2 != 0) {
+             throw new Error(`Il faut un nombre pair de valeurs puisque q'une fraction est représentée par son numérateur et son dénominateur`);
+         };
+         let denominateur_commun;
+         let liste_denominateurs = [];
+         for (let i=0; i<fractions.length-1; i+=2) {
+             liste_denominateurs.push(fractions[i+1]);
+         };
+         denominateur_commun = ppcm(liste_denominateurs);
+         let fractions_reduites = [];
+         for (let i=0; i<fractions.length-1; i+=2) {
+             //on calcule le nouveau numérateur
+             fractions_reduites.push(fractions[i]*denominateur_commun/fractions[i+1]);
+             fractions_reduites.push(denominateur_commun);
+         };
+
+         //return [fractions,'-',liste_denominateurs,'-',denominateur_commun,'-',fractions_reduites];
+         return fractions_reduites;
+
+     }
+     catch (e) {
+         console.log(e.message);
+     };
+ };
+
+ this.sortFractions = sortFractions;
+ this.reduceSameDenominateur = reduceSameDenominateur;
+ this.denominateurs_amis = denominateurs_amis;
+ this.fraction_simplifiee = fraction_simplifiee;
+};
 
   this.nouvelle_version = function () {
     if (this.debug) {
@@ -541,9 +680,8 @@ export default function Problemes_additifs_fractions() {
         ].correction = `Il s'agit d'un problème additif. Il va être necessaire de réduire les fractions au même dénominateur pour les additionner, les soustraire ou les comparer.<br>`;
 
         if (!(dq1 == dq2 && dq1 == dq3)) {
-          pb_4_f[i].correction += `${!(
-            dq1 == dq2 && dq1 == dq3
-          )} - ${dq1} - ${dq2} - ${dq3} - Réduisons les fractions de l'énoncé au même dénominateur :  `;
+          //pb_4_f[i].correction += `${!(dq1 == dq2 && dq1 == dq3)} - ${dq1} - ${dq2} - ${dq3} - Réduisons les fractions de l'énoncé au même dénominateur :  `;
+          pb_4_f[i].correction += `Réduisons les fractions de l'énoncé au même dénominateur :  `;
           frac_meme_denom = frac.reduceSameDenominateur(
             pb_4_f[i].fractionsB.f1[0],
             pb_4_f[i].fractionsB.f1[1],

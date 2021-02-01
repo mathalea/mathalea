@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_ax_plus_b,tex_fraction,tex_fraction_reduite,texte_en_couleur, ecriture_algebrique,tex_fraction_signe} from "/modules/outils.js"
+import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_ax_plus_b,tex_fraction_reduite,texte_en_couleur, tex_fraction_signe} from "/modules/outils.js"
 
 /**
  * Résoudre des équations x²=a
@@ -9,7 +9,7 @@ import {liste_de_question_to_contenu,randint,choice,combinaison_listes,reduire_a
 export default function Factoriser_Identites_remarquables2() {
     'use strict';
     Exercice.call(this); // Héritage de la classe Exercice()
-    this.titre = "Résoudre les équations suivantes :";
+    this.titre = "Résoudre les équations produit-nul";
     this.consigne = "Résoudre dans $\\mathbb R$ les équations suivantes :";
     this.nb_cols = 1;
     this.nb_cols_corr = 1;
@@ -28,7 +28,7 @@ export default function Factoriser_Identites_remarquables2() {
         }
      
         let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
-        for (let i = 0, texte, texte_corr, cpt = 0, a, b, c, d, k, fraction = [], ns, ds, type_de_questions; i < this.nb_questions && cpt < 50;) {
+        for (let i = 0, texte, texte_corr, cpt = 0, a, b, c, d, k, type_de_questions; i < this.nb_questions && cpt < 50;) {
             type_de_questions = liste_type_de_questions[i];
             k = choice([-1, 1]); 
 			a = randint(1, 9);
@@ -58,7 +58,7 @@ export default function Factoriser_Identites_remarquables2() {
                         texte_corr += `$S=\\left\\{${tex_fraction_reduite(-d,c)};${tex_fraction_reduite(-b,a)}\\right\\}$`
                     }
                     else {
-                        texte_corr += `$S=\\left\\{${tex_fraction_reduite(-b,a)};${tex_fraction_reduite(-d,c)}}\\right\\}$`
+                        texte_corr += `$S=\\left\\{${tex_fraction_reduite(-b,a)};${tex_fraction_reduite(-d,c)}\\right\\}$`
                     }
                    
                     break;
@@ -74,5 +74,5 @@ export default function Factoriser_Identites_remarquables2() {
         }
         liste_de_question_to_contenu(this);
     };
-    this.besoin_formulaire_numerique = ['Niveau de difficulté', 4, '1 :forme (ax+b)²-c²\n 2 : forme c²-(ax+b)²\n 3 : (ax+b)²-(cx+d)²\n 4 : méli-mélo'];
+   
 }
