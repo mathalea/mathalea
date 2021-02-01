@@ -24,18 +24,23 @@
   }
 }
 
+/* Timer pour le calcul chronométré*/
 
-
-
-
-body
-{
-    /*background-image: url("images/footer-coop.png");*/
-    /* background-attachment: fixed; /* Le fond restera fixe */
-    /*background-repeat: no-repeat;  Le fond ne sera pas répété */
-    /*background-position: right 15px;  Le fond sera placé en haut à droite */
-    /*font-family: raleway,serif;*/
+#timer, #numero_question {
+  float: right;
+  font-size: xx-large;
+  color: #f15929;
 }
+
+#numero_question {
+  margin-right: 10px;
+}
+
+label
+{
+  line-height: 3;
+}
+
 
 header
 {

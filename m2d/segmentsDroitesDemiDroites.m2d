@@ -1,12 +1,12 @@
-A = point(1,7,'A') // on place un point, il n'est pas tracé mais peut servir pour les constructions
-B = point(4,3,'B')
-C = point(10,6,'C','above')
-D = point(1,1,'D','left')
+let A = point(1,7,'A') // on place un point, il n'est pas tracé mais peut servir pour les constructions
+let B = point(4,3,'B')
+let C = point(10,6,'C','above')
+let D = point(1,1,'D','left')
 labelPoint(A,B,C,D) // Ajoute le nom des points 
-s = segment(D,B,'blue')
-d = droite(A,C)
-e = demiDroite(A,D)
-s2 = segmentAvecExtremites(A,C) // permet de repérer les points A et C sur la droite (AC)
+let s = segment(D,B,'blue')
+let d = droite(A,C)
+let e = demiDroite(A,D)
+let s2 = segmentAvecExtremites(A,C) // permet de repérer les points A et C sur la droite (AC)
 s.styleExtremites = '-|' // ajoute une extrémité en B
 d.epaisseur = 2 // change l'épaisseur de (AC)
 e.color = 'green' // change la couleur de [AD)

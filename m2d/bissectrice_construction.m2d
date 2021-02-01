@@ -1,18 +1,18 @@
-A = point(5,5,'A','above')
-B = point (5,-3,'B','below')
-O = point(0,0)
+let A = point(5,5,'A','above')
+let B = point (5,-3,'B','below')
+let O = point(0,0)
 demiDroite(O,A)
 demiDroite(O,B)
 constructionBissectrice(A,O,B,true)
 
-C = point(10,0,'C','left')
-D = point(14,6,'D','above')
-E = point(20,-3,'E','right')
+let C = point(10,0,'C','left')
+let D = point(14,6,'D','above')
+let E = point(20,-3,'E','right')
 demiDroite(D,C)
 demiDroite(D,E)
 constructionBissectrice(C,D,E,false)
 
-sOA = segment(O,A) ; sOB = segment(O,B) ; sDC = segment(D,C) ; sDE = segment(D,E)
+let sOA = segment(O,A) , sOB = segment(O,B) , sDC = segment(D,C) , sDE = segment(D,E)
 sOA.styleExtremites = '-|'
 sOB.styleExtremites = '-|'
 sDC.styleExtremites = '-|'

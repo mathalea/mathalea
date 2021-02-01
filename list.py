@@ -1,4 +1,5 @@
 import os
+import re # Pour la gestion des expressions régulières
  
 '''
     For the given path, get the List of all files in the directory tree 
@@ -23,29 +24,32 @@ def getListOfFiles(dirName):
  
 def main():
     
-    dirName = 'items';
+    dirName = './exercices';
     
     # Get the list of all files in directory tree at given path
     listOfFiles = getListOfFiles(dirName)
     
-    # Print the files
-    # for elem in listOfFiles:
-    #     if os.path.splitext(elem)[1]=='.tex' and os.path.splitext(elem)[0][-4:]!="-cor":
-    #         print('"'+elem+'"',end=",")
-    #         pass
- 
     
     # Get the list of all files in directory tree at given path
     listOfFiles = list()
+    dictionnaireDesRef = '{'
+
     for (dirpath, dirnames, filenames) in os.walk(dirName):
-        listOfFiles += [[dirpath, file, os.path.splitext(file)[0]+'-cor.tex'] for file in filenames if os.path.splitext(file)[1]=='.tex' and os.path.splitext(file)[0][-4:]!="-cor"]
-        
-        
-    # Print the files    
-    print(listOfFiles)  
-        
-        
-        
+        # listOfFiles += [[os.path.splitext(file)[0],dirpath+'/'+file] for file in filenames if os.path.splitext(file)[1]=='.js']
+        # dictionnaireDesRef.update(dict((os.path.splitext(file)[0],dirpath+'/'+file) for file in filenames if os.path.splitext(file)[1]=='.js'))
+        for file in filenames :
+            if os.path.splitext(file)[1]=='.js' and os.path.splitext(file)[0]!='ClasseExercice' :
+                with open(dirpath+'/'+file, encoding="utf8", errors='ignore') as searchfile:
+                    for line in searchfile:
+                        if 'this.titre' in line:
+                            line = re.sub('this.titre\s*=\s*(\"|\')\s*','',line) # Enlève this.titre
+                            line = re.sub('\s*(\"|\')\s*\;\s*$','',line) # Guillemets et ; de la fin
+                            line = re.sub('^\s*','',line) # Espaces du début
+                            dictionnaireDesRef += '"'+os.path.splitext(file)[0]+'":{"url":"'+dirpath+'/'+file+'","titre":"'+line+'"},'
+            
+    #print(listOfFiles)
+    dictionnaireDesRef += '};'
+    print(dictionnaireDesRef) 
         
 if __name__ == '__main__':
     main()
