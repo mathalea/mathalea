@@ -118,8 +118,8 @@ export default function Priorites_et_relatifs_et_puissances() {
         case 5: //m*(n²+p*n)
             texte = `$${m} \\times ( ${ecriture_parenthese_si_negatif(n)}^2${ecriture_algebrique(p)}\\times${ecriture_parenthese_si_negatif(n)})$`;
             texte_corr = `$${m} \\times ( ${mise_en_evidence(ecriture_parenthese_si_negatif(n) + "^2")} ${ecriture_algebrique(p) + "\\times" + ecriture_parenthese_si_negatif(n)}
-               =${m} \\times ( ${n*n} ${ecriture_algebrique(p) + "\\times" + ecriture_parenthese_si_negatif(n)})
-               =${m}\\times ( ${mise_en_evidence(n*n + "\\times" + ecriture_parenthese_si_negatif(p*n))})
+               =${m} \\times ( ${n*n} ${mise_en_evidence(ecriture_algebrique(p) + "\\times" + ecriture_parenthese_si_negatif(n))})
+               =${m}\\times ( ${mise_en_evidence(n*n + ecriture_algebrique(p*n))})
                =${m}\\times ( ${n*n + p*n})
               =${m*(n*n+p*n)}$`;
               break;    
