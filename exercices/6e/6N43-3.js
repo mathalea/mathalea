@@ -1,6 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,combinaison_listes} from "/modules/outils.js"
-import { randint,string_nombre } from '../../modules/outils.js';
+import {liste_de_question_to_contenu,combinaison_listes,somme_des_chiffre,calcul,tex_nombre, randint, choice} from "/modules/outils.js"
 /**
  * Vrai ou faux sur les notions de diviseur ou multiple
  * @Auteur Rémi Angot
@@ -10,18 +9,54 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur() {
   Exercice.call(this); // Héritage de la classe Exercice()
   this.titre = "Diviseur, multiple, divisible - Vrai ou faux";
   this.consigne = "Pour chaque affirmation, indiquer si elle est vraie ou fausse.";
-  this.nb_questions = 10;
+  this.nb_questions = 5;
   this.nb_cols = 2; // Uniquement pour la sortie LaTeX
   this.nb_cols_corr = 2; // Uniquement pour la sortie LaTeX
   this.sup = 1; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
   this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
 
+  function justification(N,a,booleen) {
+    let result
+    if (booleen == true){
+      if (N == 2) {
+        result = ', car son chiffre des unités est $0$, $2$, $4$, $6$ ou $8$.'
+      }
+      else if (N == 5) {
+        result = ', car son chiffre des unités est $0$, ou $5$.'
+      }
+      else if (N == 3 || N == 9) {
+        result = `, car la somme de ses chiffres est $${somme_des_chiffre(a.toString())}=${calcul(somme_des_chiffre(a.toString()))}$ qui est divisible par $${N}$.`
+      }
+      else {
+        result = `, car $${tex_nombre(a)} = ${N}\\times ${calcul(a/N)}$.`
+      }
+    }
+    if (booleen == false){
+      if (N == 2) {
+        result = ", car son chiffre des unités n'est pas $0$, $2$, $4$, $6$ ou $8$."
+      }
+      else if (N == 5) {
+        result = ", car son chiffre des unités n'est pas $0$, ou $5$."
+      }
+      else if (N == 3 || N == 9) {
+        result = `, car la somme de ses chiffres est $${somme_des_chiffre(a.toString())}=${calcul(somme_des_chiffre(a.toString()))}$ qui n'est pas divisible par $${N}$.`
+      }
+      else {
+        result = `, car $${tex_nombre(a)} = ${N}\\times ${Math.floor(a/N)}+ ${a%N}$.`
+      }
+    }
+    return result
+  }
+
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
 
     let type_de_questions_disponibles = ['Ndiviseur','divisibleParN','multipleDeN','NdiviseurF','divisibleParNF','multipleDeNF','NdiviseurEnvers','divisibleParNEnvers','multipleDeNEnvers']; 
+    if (this.nb_questions<8) {
+      type_de_questions_disponibles = [choice(['Ndiviseur','divisibleParN']),'multipleDeN',choice(['NdiviseurF','divisibleParNF']),'multipleDeNF',choice(['NdiviseurEnvers','divisibleParNEnvers','multipleDeNEnvers'])]; 
+    }
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     let liste_de_N_disponibles
     if (this.sup == 1) {
@@ -34,45 +69,61 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur() {
         liste_de_N_disponibles = [7,11,13,20,30,25]
     }
     let liste_de_N = combinaison_listes(liste_de_N_disponibles,this.nb_questions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texte_corr, N, cpt = 0; i < this.nb_questions && cpt < 50;) {
+    for (let i = 0, texte, texte_corr, N, a, cpt = 0; i < this.nb_questions && cpt < 50;) {
         // Boucle principale où i+1 correspond au numéro de la question
         N = liste_de_N[i]
+        a = randint(199,999)*N;
         switch (liste_type_de_questions[i]) { // Suivant le type de question, le contenu sera différent
         case 'Ndiviseur': 
-          texte = `${N} est un diviseur de ${string_nombre(randint(199,999)*N)}.`;
+          texte = `$${N}$ est un diviseur de $${tex_nombre(a)}$.`;
           texte_corr = texte.replace('.',' ') + ' : Vrai';
+          texte_corr += justification(N,a,true)
           break;
         case 'divisibleParN': 
-          texte = `${string_nombre(randint(199,999)*N)} est divisible par ${N}.`;
+          texte = `$${tex_nombre(a)}$ est divisible par $${N}$.`;
           texte_corr = texte.replace('.',' ') + ' : Vrai';
+          texte_corr += justification(N,a,true)
           break;
         case 'multipleDeN': 
-          texte = `${string_nombre(randint(199,999)*N)} est un multiple de ${N}.`;
+          texte = `$${tex_nombre(a)}$ est un multiple de $${N}$.`;
           texte_corr = texte.replace('.',' ') + ' : Vrai';
+          texte_corr += justification(N,a,true)
           break;
-        case 'NdiviseurF': 
-          texte = `${N} est un diviseur de ${string_nombre(randint(199,999)*N+randint(1,N-1))}.`;
+        case 'NdiviseurF':
+          a += randint(1,N-1) 
+          texte = `$${N}$ est un diviseur de $${tex_nombre(a)}$.`;
           texte_corr = texte.replace('.',' ') + ' : Faux';
+          texte_corr += justification(N,a,false)
           break;
         case 'divisibleParNF': 
-          texte = `${string_nombre(randint(199,999)*N+randint(1,N-1))} est divisible par ${N}.`;
+          a += randint(1,N-1) 
+          texte = `$${tex_nombre(a)}$ est divisible par $${N}$.`;
           texte_corr = texte.replace('.',' ') + ' : Faux';
+          texte_corr += justification(N,a,false)
           break;
         case 'multipleDeNF': 
-          texte = `${string_nombre(randint(199,999)*N+randint(1,N-1))} est un multiple de ${N}.`;
+          a += randint(1,N-1) 
+          texte = `$${tex_nombre(a)}$ est un multiple de $${N}$.`;
           texte_corr = texte.replace('.',' ') + ' : Faux';
+          texte_corr += justification(N,a,false)
           break;
-          case 'NdiviseurEnvers': 
-          texte = `${string_nombre(randint(199,999)*N)} est un diviseur de ${N}.`;
+        case 'NdiviseurEnvers': 
+          texte = `$${tex_nombre(a)}$ est un diviseur de $${N}$.`;
           texte_corr = texte.replace('.',' ') + ' : Faux';
+          texte_corr += `, il faudrait plutôt dire $${N}$ est un diviseur de $${tex_nombre(a)}$`
+          texte_corr += justification(N,a,true)
           break;
         case 'divisibleParNEnvers': 
-          texte = `${N} est divisible par ${string_nombre(randint(199,999)*N)}.`;
+          texte = `$${N}$ est divisible par $${tex_nombre(a)}$.`;
           texte_corr = texte.replace('.',' ') + ' : Faux';
+          texte_corr += `, il faudrait plutôt dire $${tex_nombre(a)}$ est divisible par $${N}$`
+          texte_corr += justification(N,a,true)
           break;
         case 'multipleDeNEnvers': 
-          texte = `${N} est un multiple de ${string_nombre(randint(199,999)*N)}.`;
+          texte = `$${N}$ est un multiple de $${tex_nombre(a)}$.`;
           texte_corr = texte.replace('.',' ') + ' : Faux';
+          texte_corr += `, il faudrait plutôt dire $${a}$ est un multiple de $${N}$`
+          texte_corr += justification(N,a,true)
           break;
         
         
