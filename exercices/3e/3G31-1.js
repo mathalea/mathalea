@@ -97,7 +97,7 @@ export default function MonSuperExerciceTropBeau() {
     case 'BA-AD-ACB': 
         AC = calcul(BA/math.sin(Math.radians(ACB)),1);
         ACD = Math.round(Math.degres(Math.atan(AD/AC)));
-        a1 = afficheMesureAngle(A,C,B,'black',1,BAC+'°');
+        a1 = afficheMesureAngle(A,C,B,'black',1,ACB+'°');
         if (this.sup) {
           liste_objets_mathalea.push(a1, a2, a3)
         }
