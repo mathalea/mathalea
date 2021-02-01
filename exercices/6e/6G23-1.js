@@ -23,7 +23,7 @@ export default function Mesurer_un_angle() {
     this.liste_corrections = []; // Liste de questions corrigées
 
       let angle,anglerot,Apos,Bpos,Cpos,p,texte,texte_corr,A,B,C,s2,s1,bis,signes=[]
-      let labels,secteur,xMin,xMax,yMin,yMax,objets_enonce,objets_correction
+      let labels,secteur,xMin,xMax,yMin,yMax,objets_enonce,objets_correction,secteur0
 
       for (let i=0;i<this.nb_questions;i++){
         signes.push(choice([-1,1]))
@@ -53,13 +53,14 @@ export default function Mesurer_un_angle() {
       s2 = demiDroite(A, C);
       labels=labelPoint(A,B,C)
       secteur=afficheMesureAngle(B,A,C)
+      secteur0=afficheMesureAngle(B,A,C,'black',1.5," ")
       texte_corr=``
       xMin=Math.min(A.x,C.x,B.x)-1
       xMax=Math.max(A.x,C.x,B.x)+1
       yMin=Math.min(A.y,C.y,B.y)-1
       yMax=Math.max(A.y,C.y,B.y)+1
         mathalea.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
-      objets_enonce=[s1,s2,labels,Apos,Bpos,Cpos]
+      objets_enonce=[s1,s2,labels,Apos,Bpos,Cpos,secteur0]
       objets_correction=[s1,s2,labels,Apos,Bpos,Cpos,secteur]
       texte+=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.8 }, objets_enonce)
       texte_corr+=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objets_correction)
