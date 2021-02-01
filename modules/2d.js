@@ -4614,7 +4614,7 @@ function CodeSegments(mark = "||", color = "black", ...args) {
         codage.isVisible = false;
         code += codage.svg(coeff);
         code += "\n";
-      }
+           }
     } else {
       for (let i = 0; i < args.length; i += 2) {
         let codage = codeSegment(args[i], args[i + 1], mark, color);
