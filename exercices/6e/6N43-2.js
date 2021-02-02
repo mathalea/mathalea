@@ -16,6 +16,7 @@ export default function Tableau_criteres_de_divisibilite() {
   this.spacing_corr = 1;
   this.nb_questions = 5;
   this.nb_cols_corr = 1;
+  this.nb_cols = 1;
 
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions
