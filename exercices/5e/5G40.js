@@ -31,13 +31,13 @@ export default function Constructions_parallelogrammes() {
 			return lettre + chiffre;
 		};
         // On prépare la figure...
-		let noms = ['A','B','C','D','O']//choisit_lettres_differentes(5, 'QO', true); // on choisit 5 lettres, les 4 premières sont les sommets, la 5e est le centre
+		let noms = choisit_lettres_differentes(5, 'QO', true); // on choisit 5 lettres, les 4 premières sont les sommets, la 5e est le centre
         let type_de_question
         if (this.sup<5) type_de_question=parseInt(this.sup)
         else type_de_question=randint(1,4)
         let nom=`${noms[0]+noms[1]+noms[2]+noms[3]}`
         let A,B,C,D,O,p,d1,d2,d3,d4,c1,c2,c3,c4,dd1,dd2,dd3,dd4
-        let objets_enonce=[],objets_correction=[],result2,result,cible,cible2,cellule,cellule2
+        let objets_enonce=[],objets_correction=[],result2,result,cible,cible2,cible3,cellule,cellule2,cellule3,result3
         // Préparation de la figure aléatoire et des objets 2d utiles
         O=point(0,0,noms[4])
         A=rotation(pointAdistance(O,calcul(randint(50,70)/10)),O,randint(0,179)*choice([-1,1]),noms[0])
@@ -59,8 +59,12 @@ export default function Constructions_parallelogrammes() {
         dd4=droite(C,B)
         cellule=celluleAlea(5)
         cellule2=celluleAlea(5)
+        cellule3=celluleAlea(5)
+        
         result = dansLaCibleCarree(C.x, C.y, 5, 0.6, cellule);
         result2= dansLaCibleCarree(D.x, D.y, 5, 0.6, cellule2);
+        result3= dansLaCibleCarree(B.x, B.y, 5, 0.6, cellule3);
+        
         cible = cibleCarree({ x: result[0], y: result[1], rang: 5, num:1 });
         cible.taille = 0.6;
         cible.color = 'grey';
@@ -69,6 +73,10 @@ export default function Constructions_parallelogrammes() {
         cible2.taille = 0.6;
         cible2.color = 'grey';
         cible2.opacite = 0.7;
+        cible3 = cibleCarree({ x: result3[0], y: result3[1], rang: 5, num:3 });
+        cible3.taille = 0.6;
+        cible3.color = 'grey';
+        cible3.opacite = 0.7;
 		let xMin, yMin, xMax, yMax
 		xMin = Math.min(A.x, B.x,C.x,D.x)-3;
 		yMin = Math.min(A.y, B.y,C.y,D.y)-3;
@@ -111,7 +119,7 @@ export default function Constructions_parallelogrammes() {
                 c1.styleExtremites='-|'
                 c4.styleExtremites='|-'
                 objets_enonce.push(tracePoint(A,B,D),labelPoint(D,A,B),cible)
-                objets_correction.push(p[0],p[1],cible,traceCompas(D,C,30),traceCompas(B,C,30))
+                objets_correction.push(p[0],p[1],cible,traceCompas(D,C,30),traceCompas(B,C,30),codeSegments("||",'red',A,B,D,C),codeSegments("///",'blue',A,D,B,C))
  
             break
             case 3: // deux sommmets consécutifs plus le centre
@@ -139,8 +147,8 @@ export default function Constructions_parallelogrammes() {
                 texte_corr+=`Le point $${noms[2]}$ se trouve dans la case ${cellule} de la cible 1.<br>`
                 texte_corr+=`Le point $${noms[3]}$ se trouve dans la case ${cellule2} de la cible 2.<br>`
                 c1.styleExtremites='|-|'
-                objets_enonce.push(dd1,dd2,tracePoint(O),labelPoint(O,A),texteParPoint('x',similitude(D,A,4,1.3)),texteParPoint('y',similitude(B,A,4,1.3)),cible,cible2)
-                objets_correction.push(dd1,dd2,dd3,dd4,p[0],p[1],tracePoint(O),labelPoint(O),cible,cible2,d1,d3,codeSegments("||","red",A,O,O,C))
+                objets_enonce.push(dd1,dd2,tracePoint(O),labelPoint(O,A),texteParPoint('x',similitude(D,A,4,1.3)),texteParPoint('y',similitude(B,A,4,1.3)),cible,cible2,cible3)
+                objets_correction.push(dd1,dd2,dd3,dd4,p[0],p[1],tracePoint(O),labelPoint(O),cible,cible2,cible3,d1,d3,codeSegments("||","red",A,O,O,C))
             
         
             break
