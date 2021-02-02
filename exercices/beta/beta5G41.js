@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,arrondi,calcul,choisit_lettres_differentes,lettre_depuis_chiffre,tex_nombre,choice} from "/modules/outils.js"
+import {tex_nombrec,liste_de_question_to_contenu,randint,arrondi,calcul,choisit_lettres_differentes,lettre_depuis_chiffre,tex_nombre,choice} from "/modules/outils.js"
 import {cercle, codeSegments, pointAdistance, afficheLongueurSegment,afficheCoteSegment,point,labelPoint,similitude,polygoneAvecNom,tracePoint,texteParPoint,homothetie,droite,segment,traceCompas,dansLaCibleCarree,cibleCarree,rotation,longueur,mathalea2d,milieu,pointIntersectionCC} from "/modules/2d.js"
 
 
@@ -32,7 +32,7 @@ export default function Constructions_parallelogrammes_particuliers() {
         // On prépare la figure...
 		let noms = choisit_lettres_differentes(5, 'QO', true); // on choisit 5 lettres, les 4 premières sont les sommets, la 5e est le centre
         let nom=`$${noms[0]+noms[1]+noms[2]+noms[3]}$`
-        let A,B,C,D,O,p,d1,d2,d3,d4,c1,c2,c3,c4,dd1,dd2,dd3,dd4
+        let A,B,C,D,O,p,d1,d2,d3,d4,c1,c2,c3,c4,dd1,dd2,dd3,dd4,alpha
         let objets_enonce=[],objets_correction=[],result2,result1,cible1,cible2,cible3,cellule1,cellule2,cellule3,result3
        let type_de_question
         if (this.sup<5) type_de_question=parseInt(this.sup)
@@ -42,12 +42,12 @@ export default function Constructions_parallelogrammes_particuliers() {
         switch (type_de_question){
             case 1:
                 A=point(0,0,noms[0])
-                c1=randint(40,50)
-                c4=calcul(randint(40,60,c1)/10)
+                c1=randint(40,50) //AB
+                c4=calcul(randint(40,60,c1)/10) //AD
                 c1=calcul(c1/10)
                 d1=10*(Math.abs(c4-c1)+2)
                 d2=10*(c1+c4-3)
-                d1=calcul(randint(Math.min(d1,d2),Math.max(d1,d2))/10)
+                d1=calcul(randint(Math.min(d1,d2),Math.max(d1,d2))/10) //BD
                 B=pointAdistance(A,c1,randint(-30,30),noms[1])
                 D=pointIntersectionCC(cercle(A,c4),cercle(B,d1),noms[3])
                 O=milieu(B,D,noms[4])
@@ -71,7 +71,27 @@ export default function Constructions_parallelogrammes_particuliers() {
                 objets_correction.push(traceCompas(A,D,15),traceCompas(B,D,15),traceCompas(O,C,20))
             break
             case 2:
+                O=point(0,0,noms[4])
+                c1=randint(50,70) //AC
+                c4=calcul(randint(c1+5,90)/10) //BD
+                c1=calcul(c1/10)
+                alpha=randint(100,130)
 
+                A=pointAdistance(O,c1/2,randint(-30,30),noms[0])
+                B=similitude(A,O,alpha,c4/c1,noms[1])
+                D=rotation(B,O,180,noms[3])
+                C=rotation(A,O,180,noms[2])
+                console.log (O,A,B,C,D)
+                texte=`${nom} est un parallélogramme de centre $${noms[4]}$ tel que `
+                texte+=`$${noms[0]+noms[2]}=${tex_nombre(c1)}$cm, $${noms[1]+noms[3]}=${tex_nombre(c4)}$cm et $\\widehat{${noms[0]+noms[4]+noms[1]}}=${alpha}\\degree$  dans le sens inverse des aiguilles d'une montre.<br>`
+                texte+=`Construire le parallélogramme ${nom} et préciser si c'est un paraléllogramme particulier.<br>`
+                objets_enonce.push(tracePoint(A,O),labelPoint(A,O))
+
+                texte_corr+=`Comme ${nom} est un parallélogramme, ses diagonales se coupent en leur milieu $${noms[4]}$.<br>`
+                texte_corr+=`$${noms[2]}$ est le symétrique de $${noms[0]}$ par rapport à $${noms[4]}$. La distance ${noms[4]+noms[1]} est égale à la moitié de ${noms[1]+noms[3]}.<br>`
+                texte_corr+=`Construisons tout d'abord le point $${noms[2]}$ symétrique de $${noms[0]}$ par rapport à $${noms[4]}$.<br>`
+                texte_corr+=`Construisons ensuite un angle $\\widehat{${noms[0]+noms[4]+noms[1]}}$ de mesure $${alpha}\\degree$ dans le sens inverse des aiguilles d'une montre.<br>Puis le point $${noms[1]}$ sur $[${noms[4]}x)$ et son symétrique $${noms[3]}$ par rapport à $${noms[4]}$ situés tous les deux à $${tex_nombrec(arrondi(c4/2))}$cm de $${noms[4]}$.<br>`
+ 
             break
             case 3:
 
@@ -110,7 +130,9 @@ export default function Constructions_parallelogrammes_particuliers() {
                 objets_correction.push(cible3,cible2,dd1,dd2,dd3,dd4,labelPoint(O),codeSegments("||","red",A,O,O,C),codeSegments("|||","blue",B,O,O,D))
             break
             case 2:
-
+                objets_enonce.push(cible3,cible2,cible1)
+                objets_correction.push(cible3,cible2,cible1,dd1,dd2,dd3,dd4,labelPoint(O),codeSegments("||","red",A,O,O,C),codeSegments("|||","blue",B,O,O,D))
+    
             break
             case 3:
 
@@ -199,8 +221,8 @@ export default function Constructions_parallelogrammes_particuliers() {
         }
 */
 
-		this.liste_questions.push(texte+mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 1 }, objets_enonce));
-		this.liste_corrections.push(texte_corr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 1 }, objets_correction));
+		this.liste_questions.push(texte+mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objets_enonce));
+		this.liste_corrections.push(texte_corr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objets_correction));
 		liste_de_question_to_contenu(this);
 
 	};
