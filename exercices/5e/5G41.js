@@ -35,6 +35,7 @@ export default function Constructions_parallelogrammes_particuliers() {
         let A, B, C, D, O, p, d1, d2, c1, c2, c3, c4, dd1, dd2, dd3, dd4, alpha, tri, t1, t2, t3, t4
         let objets_enonce = [], objets_correction = [], result2, result1, cible1, cible2, cible3, cellule1, cellule2, cellule3, result3
         let type_de_question, type_de_questions_disponibles
+        let xMin, yMin, xMax, yMax,xm,ym,xM,yM
         if (this.sup == 1) type_de_questions_disponibles = [1, 2, 3]
         else if (this.sup == 2) type_de_questions_disponibles = [4, 5, 6,7]
         else type_de_questions_disponibles = [1, 2, 3, 4, 5, 6,7]
@@ -75,6 +76,10 @@ export default function Constructions_parallelogrammes_particuliers() {
                 t2 = traceCompas(B, D, 15)
                 t3 = traceCompas(O, C, 20)
                 tri = polygoneAvecNom(A, B, D)
+                xm = Math.min(A.x, B.x, D.x)-0.8;
+                ym = Math.min(A.y, B.y ,D.y)-0.8;
+                xM = Math.max(A.x, B.x ,D.x)+0.8;
+                yM = Math.max(A.y, B.y, D.y)+0.8;
                 break
             case 2:
                 O = point(0, 0, noms[4])
@@ -98,6 +103,10 @@ export default function Constructions_parallelogrammes_particuliers() {
                 texte_corr += `Construisons ensuite un angle $\\widehat{${noms[0] + noms[4] + 'x'}}$ de mesure $${alpha}\\degree$ dans le sens inverse des aiguilles d'une montre.<br>`
                 texte_corr += `Puis le point $${noms[1]}$ sur $[${noms[4]}x)$ et son symétrique $${noms[3]}$ par rapport à $${noms[4]}$ situés tous les deux à $${tex_nombrec(arrondi(c4 / 2))}$cm de $${noms[4]}$.<br>`
                 }
+                xm = Math.min(A.x, B.x, C.x)-0.8;
+                ym = Math.min(A.y, B.y ,C.y)-0.8;
+                xM = Math.max(A.x, B.x ,C.x)+0.8;
+                yM = Math.max(A.y, B.y, C.y)+0.8;
                 break
             case 3:
                 A = point(0, 0, noms[0])
@@ -124,6 +133,10 @@ export default function Constructions_parallelogrammes_particuliers() {
                 t2 = traceCompas(B, D, 15)
                 t3 = traceCompas(O, C, 20)
                 tri = polygoneAvecNom(A, B, D)
+                xm = Math.min(A.x, B.x, D.x)-0.8;
+                ym = Math.min(A.y, B.y ,D.y)-0.8;
+                xM = Math.max(A.x, B.x ,D.x)+0.8;
+                yM = Math.max(A.y, B.y, D.y)+0.8;
 
                 break
             case 4:
@@ -152,6 +165,10 @@ export default function Constructions_parallelogrammes_particuliers() {
                 t2 = traceCompas(B, D, 15)
                 t3 = traceCompas(O, C, 20)
                 tri = polygoneAvecNom(A, B, D)
+                xm = Math.min(A.x, B.x, D.x)-0.8;
+                ym = Math.min(A.y, B.y ,D.y)-0.8;
+                xM = Math.max(A.x, B.x ,D.x)+0.8;
+                yM = Math.max(A.y, B.y, D.y)+0.8;
                 break
             case 5:
                 A = point(0, 0, noms[0])
@@ -177,6 +194,10 @@ export default function Constructions_parallelogrammes_particuliers() {
                 t2 = traceCompas(A, B, 15)
                 t3 = traceCompas(O, C, 20)
                 tri = polygoneAvecNom(A, B, D)
+                xm = Math.min(A.x, B.x, D.x)-0.8;
+                ym = Math.min(A.y, B.y ,D.y)-0.8;
+                xM = Math.max(A.x, B.x ,D.x)+0.8;
+                yM = Math.max(A.y, B.y, D.y)+0.8;
                 break
             case 6:
                 A = point(0, 0, noms[0])
@@ -215,6 +236,10 @@ export default function Constructions_parallelogrammes_particuliers() {
                 t3 = traceCompas(O, C, 30)
                 t4 = traceCompas(O, D, 30)
                 tri = polygoneAvecNom(A, B, O)
+                xm = Math.min(A.x, B.x, O.x)-0.8;
+                ym = Math.min(A.y, B.y ,O.y)-0.8;
+                xM = Math.max(A.x, B.x ,O.x)+0.8;
+                yM = Math.max(A.y, B.y, O.y)+0.8;
                 break
                 case 7:
                     A = point(0, 0, noms[0])
@@ -250,11 +275,15 @@ export default function Constructions_parallelogrammes_particuliers() {
                     t3 = traceCompas(O, D, 30)
                     objets_correction.push(t1,t2)
                     tri = polygoneAvecNom(A, B, C)
+                    xm = Math.min(A.x, B.x, C.x)-0.8;
+                    ym = Math.min(A.y, B.y ,C.y)-0.8;
+                    xM = Math.max(A.x, B.x ,C.x)+0.8;
+                    yM = Math.max(A.y, B.y, C.y)+0.8;
                     break
     
         }
         p = polygoneAvecNom(A, B, C, D)
-        let xMin, yMin, xMax, yMax
+
         xMin = Math.min(A.x, B.x, C.x, D.x) - 2;
         yMin = Math.min(A.y, B.y, C.y, D.y) - 2;
         xMax = Math.max(A.x, B.x, C.x, D.x) + 2;
@@ -287,46 +316,46 @@ export default function Constructions_parallelogrammes_particuliers() {
 
         switch (type_de_question) {
             case 1:
-                if (this.correction_detaillee) texte_corr += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objets_correction, t1, t2, tri[0], tri[1], afficheLongueurSegment(D, B))
+                if (this.correction_detaillee) texte_corr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objets_correction, t1, t2, tri[0], tri[1], afficheLongueurSegment(D, B))+'<br>'
                 objets_enonce.push(cible3, cible2)
                 objets_correction.push(p[0], p[1], t3)
                 objets_correction.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments("||", "red", A, O, O, C), codeSegments("|||", "blue", B, O, O, D))
                 break
             case 2:
-                if (this.correction_detaillee) texte_corr += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, codeSegments("||", "red", A, O, O, C), t3, dd1, dd3, dd2, afficheMesureAngle(A, O, B, 'black', 1, alpha + '°'), tracePoint(A, O, C), labelPoint(A, O, C), texteParPosition('x', B.x - 0.5, B.y), afficheLongueurSegment(A, O), afficheLongueurSegment(O, C))
+                if (this.correction_detaillee) texte_corr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, codeSegments("||", "red", A, O, O, C), t3, dd1, dd3, dd2, afficheMesureAngle(A, O, B, 'black', 1, alpha + '°'), tracePoint(A, O, C), labelPoint(A, O, C), texteParPosition('x', B.x - 0.5, B.y), afficheLongueurSegment(A, O), afficheLongueurSegment(O, C))+'<br>'
                 objets_enonce.push(cible3, cible2, cible1)
                 objets_correction.push(p[0], p[1], t3, afficheLongueurSegment(B, O), afficheLongueurSegment(O, D))
                 objets_correction.push(cible3, cible2, cible1, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments("||", "red", A, O, O, C), codeSegments("|||", "blue", B, O, O, D), afficheMesureAngle(A, O, B, 'black', 1, alpha + '°'))
 
                 break
             case 3:
-                if (this.correction_detaillee) texte_corr += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objets_correction, tri[0], tri[1], afficheLongueurSegment(D, B), t1, t2)
+                if (this.correction_detaillee) texte_corr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objets_correction, tri[0], tri[1], afficheLongueurSegment(D, B), t1, t2)+'<br>'
                 objets_enonce.push(cible3, cible2)
                 objets_correction.push(p[0], p[1], t3)
                 objets_correction.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments("||", "red", A, O, O, C), codeSegments("||", "red", B, O, O, D))
 
                 break
             case 4:
-                if (this.correction_detaillee) texte_corr += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objets_correction, tri[0], tri[1], afficheLongueurSegment(D, B), t2, traceCompas(A, B, 60), traceCompas(A, D, 60))
+                if (this.correction_detaillee) texte_corr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objets_correction, tri[0], tri[1], afficheLongueurSegment(D, B), t2, traceCompas(A, B, 60), traceCompas(A, D, 60))+'<br>'
                 objets_enonce.push(cible3, cible2)
                 objets_correction.push(p[0], p[1], t3)
                 objets_correction.push(codageAngleDroit(A, O, D), cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments("||", "red", A, O, O, C), codeSegments("|||", "blue", B, O, O, D))
                 break
             case 5:
-                if (this.correction_detaillee) texte_corr += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, tri[0], tri[1], demiDroite(A, B), demiDroite(A, D), afficheMesureAngle(B, A, D, 'black', 1, alpha + '°'), afficheLongueurSegment(A, B), afficheLongueurSegment(A, D))
+                if (this.correction_detaillee) texte_corr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, tri[0], tri[1], demiDroite(A, B), demiDroite(A, D), afficheMesureAngle(B, A, D, 'black', 1, alpha + '°'), afficheLongueurSegment(A, B), afficheLongueurSegment(A, D))+'<br>'
                 objets_enonce.push(cible3, cible2)
                 objets_correction.push(p[0], p[1], t3)
                 objets_correction.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments("||", "red", A, O, O, C), codeSegments("|||", "blue", B, O, O, D), afficheMesureAngle(B, A, D, 'black', 1, alpha + '°'), afficheLongueurSegment(B, A), afficheLongueurSegment(A, D), afficheLongueurSegment(C, B), afficheLongueurSegment(D, C))
 
                 break
             case 6:
-                if (this.correction_detaillee) texte_corr += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objets_correction, tri[0], tri[1], afficheLongueurSegment(B, A), afficheLongueurSegment(O, B), afficheLongueurSegment(A, O), t1, t2)
+                if (this.correction_detaillee) texte_corr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objets_correction, tri[0], tri[1], afficheLongueurSegment(B, A), afficheLongueurSegment(O, B), afficheLongueurSegment(A, O), t1, t2)+'<br>'
                 objets_enonce.push(cible3, cible2)
                 objets_correction.push(p[0], p[1], t3, t4)
                 objets_correction.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments("||", "red", A, O, O, C), codeSegments("|||", "blue", B, O, O, D))
                 break
                 case 7:
-                    if (this.correction_detaillee) texte_corr += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objets_correction, tri[0], tri[1], afficheLongueurSegment(A, C))
+                    if (this.correction_detaillee) texte_corr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objets_correction, tri[0], tri[1], afficheLongueurSegment(A, C))+'<br>'
                     objets_enonce.push(cible3, cible2)
                     objets_correction.push(p[0], p[1], t3)
                     objets_correction.push(cible3, t1,t2,t3,cible2, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments("||", "red", A, O, O, C), codeSegments("|||", "blue", B, O, O, D),afficheMesureAngle(O, A,D, 'red',1,tex_nombre(c3)+'°'),afficheMesureAngle(O, C,D, 'blue',1,tex_nombre(c2)+'°'))
