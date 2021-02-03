@@ -116,8 +116,6 @@ export default function Constructions_parallelogrammes() {
                     texte_corr+=`En voici une utilisant l'égalité des longueurs : $${noms[0]+noms[1]}=${noms[3]+noms[2]}$ et $${noms[2]+noms[1]}=${noms[3]+noms[0]}$.<br>`
                 }
                 texte_corr+=`Le point $${noms[2]}$ se trouve dans la case ${cellule} de la cible.<br>`
-                c1.styleExtremites='-|'
-                c4.styleExtremites='|-'
                 objets_enonce.push(tracePoint(A,B,D),labelPoint(D,A,B),cible)
                 objets_correction.push(p[0],p[1],cible,traceCompas(D,C,30),traceCompas(B,C,30),codeSegments("||",'red',A,B,D,C),codeSegments("///",'blue',A,D,B,C))
  
@@ -131,7 +129,6 @@ export default function Constructions_parallelogrammes() {
                 }
                 texte_corr+=`Le point $${noms[2]}$ se trouve dans la case ${cellule} de la cible 1.<br>`
                 texte_corr+=`Le point $${noms[3]}$ se trouve dans la case ${cellule2} de la cible 2.<br>`
-                c1.styleExtremites='|-|'
                 objets_enonce.push(tracePoint(A,B,O),labelPoint(O,A,B),cible,cible2)
                 objets_correction.push(p[0],p[1],labelPoint(O),cible,cible2,d1,d2,d3,d4,codeSegments("||","red",A,O,O,C),codeSegments("|||","blue",B,O,O,D))
         
@@ -146,7 +143,6 @@ export default function Constructions_parallelogrammes() {
                 }
                 texte_corr+=`Le point $${noms[2]}$ se trouve dans la case ${cellule} de la cible 1.<br>`
                 texte_corr+=`Le point $${noms[3]}$ se trouve dans la case ${cellule2} de la cible 2.<br>`
-                c1.styleExtremites='|-|'
                 objets_enonce.push(dd1,dd2,tracePoint(O),labelPoint(O,A),texteParPoint('x',similitude(D,A,4,1.3)),texteParPoint('y',similitude(B,A,4,1.3)),cible,cible2,cible3)
                 objets_correction.push(dd1,dd2,dd3,dd4,p[0],p[1],tracePoint(O),labelPoint(O),cible,cible2,cible3,d1,d3,codeSegments("||","red",A,O,O,C))
             
