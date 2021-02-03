@@ -1,13 +1,13 @@
 import Exercice from '../ClasseExercice.js';
 import {tex_nombrec,texte_gras,liste_de_question_to_contenu,randint,arrondi,calcul,choisit_lettres_differentes,lettre_depuis_chiffre,tex_nombre} from "/modules/outils.js"
-import {cercle, codeSegments, pointAdistance, codageAngleDroit,afficheMesureAngle,afficheLongueurSegment,point,labelPoint,similitude,polygoneAvecNom,tracePoint,segment,traceCompas,dansLaCibleCarree,cibleCarree,rotation,longueur,mathalea2d,milieu,pointIntersectionCC} from "/modules/2d.js"
+import {cercle, codeSegments,texteParPosition, pointAdistance, codageAngleDroit,afficheMesureAngle,afficheLongueurSegment,point,labelPoint,similitude,polygoneAvecNom,tracePoint,segment,traceCompas,dansLaCibleCarree,cibleCarree,rotation,longueur,mathalea2d,milieu,pointIntersectionCC} from "/modules/2d.js"
 
 
 /**
- * Construction de symétrique avec dispositif d'auto-correction aléatoire
- * Ref 5G11-3
+ * Construction de quadrilatères avec dispositif d'auto-correction aléatoire
+ * Ref 4G41
  * @Auteur Jean-Claude Lhote
- * Publié le 30/11/2020
+ * Publié le 3/02/2020
  */
 export default function Constructions_parallelogrammes_particuliers() {
 	Exercice.call(this); // Héritage de la classe Exercice()
@@ -42,8 +42,8 @@ export default function Constructions_parallelogrammes_particuliers() {
         switch (type_de_question){
             case 1:
                 A=point(0,0,noms[0])
-                c1=randint(40,50) //AB
-                c4=calcul(randint(40,60,c1)/10) //AD
+                c1=randint(20,25)*2 //AB
+                c4=calcul(randint(20,30,c1/2)/5) //AD
                 c1=calcul(c1/10)
                 d1=10*(Math.abs(c4-c1)+2)
                 d2=10*(c1+c4-3)
@@ -62,7 +62,7 @@ export default function Constructions_parallelogrammes_particuliers() {
                 texte_corr+=`Construisons tout d'abord le triangle $${noms[0]+noms[1]+noms[3]}$.<br>Puis $${noms[4]}$, le milieu de $[${noms[1]+noms[3]}]$ et enfin le point $${noms[2]}$.<br>`
                 if (longueur(B,D)!=longueur(A,C)) {
                     texte_corr+=`Comme $${noms[0]+noms[3]}\\ne ${noms[0]+noms[1]}$ et que $${noms[0]+noms[2]}\\ne ${noms[3]+noms[1]}$, le paralélogramme ${nom} n'est ni un losange, ni un rectangle.<br>`
-                    texte_corr+=`${nom} est un paraléllogramme quelconque.<br>`
+                    texte_corr+=`${nom} ${texte_gras('est un simple paraléllogramme')}.<br>`
                 }
                 else {
                     texte_corr+=`Comme $$${noms[0]+noms[2]} = ${noms[3]+noms[1]}$ et que $${noms[0]+noms[3]}\\ne ${noms[0]+noms[1]}$, le paralélogramme ${nom} est un rectangle.<br>` 
@@ -93,13 +93,14 @@ export default function Constructions_parallelogrammes_particuliers() {
                 texte_corr+=`Comme ${nom} est un parallélogramme, ses diagonales se coupent en leur milieu $${noms[4]}$.<br>`
                 texte_corr+=`$${noms[2]}$ est le symétrique de $${noms[0]}$ par rapport à $${noms[4]}$. La distance ${noms[4]+noms[1]} est égale à la moitié de ${noms[1]+noms[3]}.<br>`
                 texte_corr+=`Construisons tout d'abord le point $${noms[2]}$ symétrique de $${noms[0]}$ par rapport à $${noms[4]}$.<br>`
-                texte_corr+=`Construisons ensuite un angle $\\widehat{${noms[0]+noms[4]+noms[1]}}$ de mesure $${alpha}\\degree$ dans le sens inverse des aiguilles d'une montre.<br>Puis le point $${noms[1]}$ sur $[${noms[4]}x)$ et son symétrique $${noms[3]}$ par rapport à $${noms[4]}$ situés tous les deux à $${tex_nombrec(arrondi(c4/2))}$cm de $${noms[4]}$.<br>`
+                texte_corr+=`Construisons ensuite un angle $\\widehat{${noms[0]+noms[4]+'x'}}$ de mesure $${alpha}\\degree$ dans le sens inverse des aiguilles d'une montre.<br>`
+                texte_corr+=`Puis le point $${noms[1]}$ sur $[${noms[4]}x)$ et son symétrique $${noms[3]}$ par rapport à $${noms[4]}$ situés tous les deux à $${tex_nombrec(arrondi(c4/2))}$cm de $${noms[4]}$.<br>`
  
             break
             case 3:
                 A=point(0,0,noms[0])
-                c1=randint(51,80) //AB
-                c4=calcul(randint(30,50)/10) //AD
+                c1=randint(26,40)*2 //AB
+                c4=calcul(randint(15,25)/5) //AD
                 c1=calcul(c1/10)
  
                 B=pointAdistance(A,c1,randint(-30,30),noms[1])
@@ -123,8 +124,8 @@ export default function Constructions_parallelogrammes_particuliers() {
             break
             case 4:
                 A=point(0,0,noms[0])
-                c1=randint(30,60) //AB
-                c4=calcul(randint(30,40)/10) //BD
+                c1=randint(15,30)*2 //AB
+                c4=calcul(randint(15,20)/5) //BD
                 c1=calcul(c1/10)
  
                 B=pointAdistance(A,c1,randint(-30,30),noms[1])
@@ -185,9 +186,9 @@ export default function Constructions_parallelogrammes_particuliers() {
                 objets_correction.push(cible3,cible2,dd1,dd2,dd3,dd4,labelPoint(O),codeSegments("||","red",A,O,O,C),codeSegments("|||","blue",B,O,O,D))
            break
             case 2:
-                texte_corr+=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, codeSegments("||","red",A,O,O,C),t3,dd1,dd3,dd2,afficheMesureAngle(A,O,B,'black',1,alpha+'°'),tracePoint(A,O,C),labelPoint(A,O,C))
+                texte_corr+=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, codeSegments("||","red",A,O,O,C),t3,dd1,dd3,dd2,afficheMesureAngle(A,O,B,'black',1,alpha+'°'),tracePoint(A,O,C),labelPoint(A,O,C),texteParPosition('x',B.x-0.5,B.y),afficheLongueurSegment(A,O),afficheLongueurSegment(O,C))
                 objets_enonce.push(cible3,cible2,cible1)
-                objets_correction.push(p[0],p[1],t3)
+                objets_correction.push(p[0],p[1],t3,afficheLongueurSegment(B,O),afficheLongueurSegment(O,D))
                 objets_correction.push(cible3,cible2,cible1,dd1,dd2,dd3,dd4,labelPoint(O),codeSegments("||","red",A,O,O,C),codeSegments("|||","blue",B,O,O,D),afficheMesureAngle(A,O,B,'black',1,alpha+'°'))
     
             break
