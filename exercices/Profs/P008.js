@@ -49,12 +49,15 @@ export default function Operations_posees() {
             case 3: // multiplication
                 this.contenu = Operation({ operande1: a, operande2: b, type: 'multiplication' })
                 break;
-            case 4: // division
+            case 4: // division euclidienne
+                this.contenu = Operation({ operande1: a, operande2: b, type: 'divisionE', precision: 0 })
+                break;
+            case 5: // division
                 this.contenu = Operation({ operande1: a, operande2: b, type: 'division', precision: parseInt(this.sup3) })
                 break;
         }
     };
-    this.besoin_formulaire_numerique = ["Opération", 4, "1 : Addition\n2 : Soustraction\n3 : Multiplication\n4 : Division"];
+    this.besoin_formulaire_numerique = ["Opération", 5, "1 : Addition\n2 : Soustraction\n3 : Multiplication\n4 : Division euclidienne\n5 : Division décimale"];
     this.besoin_formulaire2_texte = ["Deux nombres séparés par un tiret(séparateur décimal = le point)"]
     this.besoin_formulaire3_numerique = ["Nombre de chiffres après la virgule pour le quotient"]
 }
