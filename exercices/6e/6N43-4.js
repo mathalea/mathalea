@@ -25,8 +25,8 @@ export default function DivisibleDiviseurMultiple() {
     let a = b*q;
     let a1 = b*q+r;
     this.introduction = `À l'aide des calculs suivants, compléter les phrases suivantes avec les nombre $${a1}$, $${a}$, $${b}$ ou $${q}$.<br><br>`
-    this.introduction += Operation({ operande1 :a, operande2 :b, type :'division'})
-    this.introduction +=Operation({ operande1 :a1, operande2 :b, type :'division'})
+    this.introduction += Operation({ operande1 :a, operande2 :b, type :'divisionE'})
+    this.introduction +=Operation({ operande1 :a1, operande2 :b, type :'divisionE'})
 
     let type_de_questions_disponibles = [1,2,3,4,5,6]; // On créé 3 types de questions
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
@@ -54,7 +54,7 @@ export default function DivisibleDiviseurMultiple() {
             texte_corr = `${b} n'est pas un diviseur de ${a1} ou ${q} n'est pas un diviseur de ${a1}.`;
           break;
         case 6: 
-            texte = `... n'est pas est un multiple de ...`;
+            texte = `... n'est pas un multiple de ...`;
             texte_corr = `${a1} n'est pas un multiple de ${b} ou ${a1} est n'est pas un multiple de ${q}.`;    
           break;
         
