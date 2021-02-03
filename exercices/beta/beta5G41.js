@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
-import {tex_nombrec,liste_de_question_to_contenu,randint,arrondi,calcul,choisit_lettres_differentes,lettre_depuis_chiffre,tex_nombre,choice} from "/modules/outils.js"
-import {cercle, codeSegments, pointAdistance, afficheLongueurSegment,afficheCoteSegment,point,labelPoint,similitude,polygoneAvecNom,tracePoint,texteParPoint,homothetie,droite,segment,traceCompas,dansLaCibleCarree,cibleCarree,rotation,longueur,mathalea2d,milieu,pointIntersectionCC} from "/modules/2d.js"
+import {tex_nombrec,texte_gras,liste_de_question_to_contenu,randint,arrondi,calcul,choisit_lettres_differentes,lettre_depuis_chiffre,tex_nombre} from "/modules/outils.js"
+import {cercle, codeSegments, pointAdistance, codageAngleDroit,afficheMesureAngle,afficheLongueurSegment,point,labelPoint,similitude,polygoneAvecNom,tracePoint,segment,traceCompas,dansLaCibleCarree,cibleCarree,rotation,longueur,mathalea2d,milieu,pointIntersectionCC} from "/modules/2d.js"
 
 
 /**
@@ -32,12 +32,12 @@ export default function Constructions_parallelogrammes_particuliers() {
         // On prépare la figure...
 		let noms = choisit_lettres_differentes(5, 'QO', true); // on choisit 5 lettres, les 4 premières sont les sommets, la 5e est le centre
         let nom=`$${noms[0]+noms[1]+noms[2]+noms[3]}$`
-        let A,B,C,D,O,p,d1,d2,d3,d4,c1,c2,c3,c4,dd1,dd2,dd3,dd4,alpha
+        let A,B,C,D,O,p,d1,d2,c1,c4,dd1,dd2,dd3,dd4,alpha,tri,t1,t2,t3
         let objets_enonce=[],objets_correction=[],result2,result1,cible1,cible2,cible3,cellule1,cellule2,cellule3,result3
        let type_de_question
         if (this.sup<5) type_de_question=parseInt(this.sup)
         else type_de_question=randint(1,4)
-        this.consigne = `Construire le quadrilatère $${nom}$ et déterminer sa nature.`;
+        this.consigne = `Construire le quadrilatère $${nom}$  et déterminer sa nature.<br>L'ordre des points est donné en tournant dans le sens inverse des aiguilles d'une montre.`;
 
         switch (type_de_question){
             case 1:
@@ -59,7 +59,7 @@ export default function Constructions_parallelogrammes_particuliers() {
 
                 texte_corr+=`Comme ${nom} est un parallélogramme, ses diagonales se coupent en leur milieu.<br>`
                 texte_corr+=`Soit $${noms[4]}$ le milieu de $[${noms[1]+noms[3]}]$. $${noms[2]}$ est le symétrique de $${noms[0]}$ par rapport à $${noms[4]}$.`
-                texte_corr+=`Construisons tout d'abord le triangle $${noms[0]+noms[1]+noms[3]}$ puis le milieu de $[${noms[1]+noms[3]}]$ et enfin le point $${noms[2]}$.<br>`
+                texte_corr+=`Construisons tout d'abord le triangle $${noms[0]+noms[1]+noms[3]}$.<br>Puis $${noms[4]}$, le milieu de $[${noms[1]+noms[3]}]$ et enfin le point $${noms[2]}$.<br>`
                 if (longueur(B,D)!=longueur(A,C)) {
                     texte_corr+=`Comme $${noms[0]+noms[3]}\\ne ${noms[0]+noms[1]}$ et que $${noms[0]+noms[2]}\\ne ${noms[3]+noms[1]}$, le paralélogramme ${nom} n'est ni un losange, ni un rectangle.<br>`
                     texte_corr+=`${nom} est un paraléllogramme quelconque.<br>`
@@ -68,12 +68,15 @@ export default function Constructions_parallelogrammes_particuliers() {
                     texte_corr+=`Comme $$${noms[0]+noms[2]} = ${noms[3]+noms[1]}$ et que $${noms[0]+noms[3]}\\ne ${noms[0]+noms[1]}$, le paralélogramme ${nom} est un rectangle.<br>` 
                 }
                 objets_correction.push(afficheLongueurSegment(A,B,'black',-0.5),afficheLongueurSegment(A,D,'black',0.5))
-                objets_correction.push(traceCompas(A,D,15),traceCompas(B,D,15),traceCompas(O,C,20))
+                t1=traceCompas(A,D,15)
+                t2=traceCompas(B,D,15)
+                t3=traceCompas(O,C,20)
+                tri=polygoneAvecNom(A,B,D)
             break
             case 2:
                 O=point(0,0,noms[4])
-                c1=randint(50,70) //AC
-                c4=calcul(randint(c1+5,90)/10) //BD
+                c1=randint(25,35)*2 //AC
+                c4=calcul(randint((c1+4)/2,45)/5) //BD
                 c1=calcul(c1/10)
                 alpha=randint(100,130)
 
@@ -94,14 +97,64 @@ export default function Constructions_parallelogrammes_particuliers() {
  
             break
             case 3:
+                A=point(0,0,noms[0])
+                c1=randint(51,80) //AB
+                c4=calcul(randint(30,50)/10) //AD
+                c1=calcul(c1/10)
+ 
+                B=pointAdistance(A,c1,randint(-30,30),noms[1])
+                D=similitude(B,A,90,c4/c1,noms[3])
+                O=milieu(B,D,noms[4])
+                C=rotation(A,O,180,noms[2])
+                texte=`${nom} est un parallélogramme tel que `
+                texte+=`$${noms[0]+noms[1]}=${tex_nombre(c1)}$cm, $${noms[0]+noms[3]}=${tex_nombre(c4)}$cm, $${noms[1]+noms[3]}=${noms[0]+noms[2]}$.<br>`
+                texte+=`Construire le parallélogramme ${nom} et préciser si c'est un paraléllogramme particulier.<br>`
+                objets_enonce.push(tracePoint(A,B),labelPoint(A,B))
 
+                texte_corr+=`Comme ${nom} est un parallélogramme, ses diagonales se coupent en leur milieu et comme de plus elles ont la même longueur, ${texte_gras(nom)} ${texte_gras(' est donc un rectangle')}.<br>`
+                texte_corr+=`Soit $${noms[4]}$ le milieu de $[${noms[1]+noms[3]}]$. $${noms[2]}$ est le symétrique de $${noms[0]}$ par rapport à $${noms[4]}$.<br>`
+                texte_corr+=`Construisons tout d'abord le triangle $${noms[0]+noms[1]+noms[3]}$ puis $${noms[4]}$, le milieu de $[${noms[1]+noms[3]}]$ et enfin le point $${noms[2]}$.<br>`
+                objets_correction.push(afficheLongueurSegment(A,B,'black',-0.5),afficheLongueurSegment(A,D,'black',0.5))
+                t1=traceCompas(A,D,15)
+                t2=traceCompas(B,D,15)
+                t3=traceCompas(O,C,20)
+                tri=polygoneAvecNom(A,B,D)
+   
             break
             case 4:
+                A=point(0,0,noms[0])
+                c1=randint(30,60) //AB
+                c4=calcul(randint(30,40)/10) //BD
+                c1=calcul(c1/10)
+ 
+                B=pointAdistance(A,c1,randint(-30,30),noms[1])
+                D=pointIntersectionCC(cercle(A,c1),cercle(B,c4),noms[3])
+                O=milieu(B,D,noms[4])
+                C=rotation(A,O,180,noms[2])
 
+                texte=`${nom} est un parallélogramme tel que `
+                texte+=`$${noms[0]+noms[1]}=${tex_nombre(c1)}$cm, $${noms[1]+noms[3]}=${tex_nombre(c4)}$cm, $[${noms[0]+noms[2]}]\\perp [${noms[1]+noms[3]}]$.<br>`
+                texte+=`Construire le parallélogramme ${nom} et préciser si c'est un paraléllogramme particulier.<br>`
+                objets_enonce.push(tracePoint(A,B),labelPoint(A,B))
+
+                texte_corr+=`Comme ${nom} est un parallélogramme dont les diagonales $[${noms[0]+noms[2]}]$ et $[${noms[1]+noms[3]}]$ sont perpendiculaires, ${nom}${texte_gras(' est un losange')}.<br>`
+                texte_corr+=`Il en résulte que le triangle $${noms[0]+noms[1]+noms[3]}$ est isoclèle en $${noms[0]}$.<br>`
+                texte_corr+=`Construisons tout d'abord le triangle $${noms[0]+noms[1]+noms[3]}$ puis $${noms[4]}$, le milieu de $[${noms[1]+noms[3]}]$ et enfin le point $${noms[2]}$.<br>`
+                objets_correction.push(afficheLongueurSegment(A,B,'black',-0.5),afficheLongueurSegment(A,D,'black',0.5))
+                t1=traceCompas(A,D,15)
+                t2=traceCompas(B,D,15)
+                t3=traceCompas(O,C,20)
+                tri=polygoneAvecNom(A,B,D)
             break
             
         }
         p=polygoneAvecNom(A,B,C,D)
+        let xMin, yMin, xMax, yMax
+		xMin = Math.min(A.x, B.x,C.x,D.x)-2;
+		yMin = Math.min(A.y, B.y,C.y,D.y)-2;
+		xMax = Math.max(A.x, B.x,C.x,D.x)+2;
+        yMax = Math.max(A.y, B.y,C.y,D.y)+2;
+
         cellule1=celluleAlea(3)
         cellule2=celluleAlea(3)
         cellule3=celluleAlea(3)
@@ -126,28 +179,36 @@ export default function Constructions_parallelogrammes_particuliers() {
         dd4=segment(O,D)
         switch (type_de_question){
             case 1:
+                texte_corr+=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objets_correction,t1,t2,tri[0],tri[1],afficheLongueurSegment(D,B))
                 objets_enonce.push(cible3,cible2)
+                objets_correction.push(p[0],p[1],t3)
                 objets_correction.push(cible3,cible2,dd1,dd2,dd3,dd4,labelPoint(O),codeSegments("||","red",A,O,O,C),codeSegments("|||","blue",B,O,O,D))
-            break
+           break
             case 2:
+                texte_corr+=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, codeSegments("||","red",A,O,O,C),t3,dd1,dd3,dd2,afficheMesureAngle(A,O,B,'black',1,alpha+'°'),tracePoint(A,O,C),labelPoint(A,O,C))
                 objets_enonce.push(cible3,cible2,cible1)
-                objets_correction.push(cible3,cible2,cible1,dd1,dd2,dd3,dd4,labelPoint(O),codeSegments("||","red",A,O,O,C),codeSegments("|||","blue",B,O,O,D))
+                objets_correction.push(p[0],p[1],t3)
+                objets_correction.push(cible3,cible2,cible1,dd1,dd2,dd3,dd4,labelPoint(O),codeSegments("||","red",A,O,O,C),codeSegments("|||","blue",B,O,O,D),afficheMesureAngle(A,O,B,'black',1,alpha+'°'))
     
             break
             case 3:
+                texte_corr+=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objets_correction,tri[0],tri[1],afficheLongueurSegment(D,B),t1,t2)
+                objets_enonce.push(cible3,cible2)
+                objets_correction.push(p[0],p[1],t3)
+                objets_correction.push(cible3,cible2,dd1,dd2,dd3,dd4,labelPoint(O),codeSegments("||","red",A,O,O,C),codeSegments("||","red",B,O,O,D))
 
             break
             case 4:
-
+                texte_corr+=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objets_correction,tri[0],tri[1],afficheLongueurSegment(D,B),t2,traceCompas(A,B,60),traceCompas(A,D,60))
+                objets_enonce.push(cible3,cible2)
+                objets_correction.push(p[0],p[1],t3)
+                objets_correction.push(codageAngleDroit(A,O,D),cible3,cible2,dd1,dd2,dd3,dd4,labelPoint(O),codeSegments("||","red",A,O,O,C),codeSegments("|||","blue",B,O,O,D))
             break
             
         }
-        let xMin, yMin, xMax, yMax
-		xMin = Math.min(A.x, B.x,C.x,D.x)-3;
-		yMin = Math.min(A.y, B.y,C.y,D.y)-3;
-		xMax = Math.max(A.x, B.x,C.x,D.x)+3;
-        yMax = Math.max(A.y, B.y,C.y,D.y)+3;
-        objets_correction.push(p[0],p[1])
+        texte+=mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objets_enonce)
+        texte_corr+= mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objets_correction)
+
  
          // Préparation de la figure aléatoire et des objets 2d utiles
 
@@ -221,8 +282,8 @@ export default function Constructions_parallelogrammes_particuliers() {
         }
 */
 
-		this.liste_questions.push(texte+mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objets_enonce));
-		this.liste_corrections.push(texte_corr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objets_correction));
+		this.liste_questions.push(texte);
+		this.liste_corrections.push(texte_corr);
 		liste_de_question_to_contenu(this);
 
 	};
