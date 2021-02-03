@@ -43,7 +43,7 @@ export default function representer_fonction_affine() {
           b = randint(0, 10);
           b = b - 5//ordonnée à l'origine
           if (a == 0 && b == 0) {
-            a == 1
+            a = 1
           }// On évite la fonction nulle
           r = repere2()//On définit le repère
           f = x => a * x + b//On définit la fonction affine
