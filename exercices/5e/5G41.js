@@ -361,9 +361,9 @@ export default function Constructions_parallelogrammes_particuliers() {
                 break
                 case 7:
                     if (this.correction_detaillee) texte_corr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objets_correction, tri[0], tri[1], afficheLongueurSegment(C, O),afficheLongueurSegment(O,A),labelPoint(O),t5,codeSegments("||", "red", A, O, O, C))+'<br>'
-                    objets_enonce.push(cible3, cible2)
+                    objets_enonce.push(cible3, cible1)
                     objets_correction.push(p[0], p[1], t3)
-                    objets_correction.push(cible3, t1,t2,t3,cible2, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments("||", "red", A, O, O, C), codeSegments("|||", "blue", B, O, O, D),afficheMesureAngle(O, A,D, 'red',1,tex_nombre(c3)+'°'),afficheMesureAngle(O, C,D, 'blue',1,tex_nombre(c2)+'°'))
+                    objets_correction.push(cible3, t1,t2,t3,cible1, dd1, dd2, dd3, dd4, labelPoint(O), codeSegments("||", "red", A, O, O, C), codeSegments("|||", "blue", B, O, O, D),afficheMesureAngle(O, A,D, 'red',1,tex_nombre(c3)+'°'),afficheMesureAngle(O, C,D, 'blue',1,tex_nombre(c2)+'°'))
                     break
     
         }
