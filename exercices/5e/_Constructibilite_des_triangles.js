@@ -10,6 +10,7 @@ import {liste_de_question_to_contenu,randint,choice,shuffle,calcul,tex_nombrec,t
  * 5G31-1
  * Dans ces exercices je me servais de this.beta pour faire passer l'exo de beta.html à mathalea.html
  * this.beta pouvait prendre la valeur 'beta' ou '', tous les autres this.beta sont devenus des this.debug
+ * Mise à jour le 2021-01-25
  * @author Sébastien Lozano
  */
 export default function Constructibilite_des_triangles() {

@@ -1,4 +1,5 @@
-import { liste_diviseurs,fraction_simplifiee,calcul,arrondi,unSiPositifMoinsUnSinon } from "/modules/outils.js"
+import {unSiPositifMoinsUnSinon,arrondi,fraction_simplifiee,obtenir_liste_facteurs_premiers,calcul,tex_fraction,liste_diviseurs,quotientier} from "/modules/outils.js"
+import {point,vecteur,segment,carre,cercle,arc,translation,rotation,texteParPosition} from "/modules/2d.js"
 
 export function obtenir_liste_Fractions_irreductibles() { //sous forme de fractions
 	return  [fraction(1,2),fraction(1,3),fraction(2,3),fraction(1,4),fraction(3,4),fraction(1,5),fraction(2,5),fraction(3,5),fraction(4,5),
@@ -9,143 +10,6 @@ export function obtenir_liste_Fractions_irreductibles_faciles() { //sous forme d
 	return  [fraction(1,2),fraction(1,3),fraction(2,3),fraction(1,5),fraction(2,5),fraction(3,5),fraction(4,5),
 	fraction(1,7),fraction(2,7),fraction(3,7),fraction(4,7),fraction(5,7),fraction(6,7)]
 }
-
-
-/**
- * @class ListeFraction
- * @classdesc Classe Fraction - Méthodes utiles sur les collections de fractions
- * @author Sébastien Lozano
- */
-
-export function ListeFraction() {
-    //'use strict'; pas de use strict avec un paramètre du reste
-    /**
-     * @constant {array} denominateurs_amis tableau de tableaux de dénominateurs qui vont bien ensemble pour les calculs
-     * le tableau [12,2,3,4,6] faisait planter 4C25-0
-     */
-    //let denominateurs_amis = [[12,2,3,4,6],[16,2,4,8],[18,2,3,6,9],[20,2,4,5,10],[24,2,3,4,8,12],[30,2,3,5,6],[32,2,16,4,8],[36,2,18,4,9],[40,2,20,4,10,5,8]]
-    let denominateurs_amis = [[16,2,4,8],[18,2,3,6,9],[20,2,4,5,10],[24,2,3,4,8,12],[30,2,3,5,6],[32,2,16,4,8],[36,2,18,4,9],[40,2,20,4,10,5,8]]
-
-   /**
-    * 
-    * @param  {...any} fractions contient la liste des numérateurs et denominateurs dans l'ordre n1,d1,n2,d2, ... de deux ou plus de fractions
-    * @return {array} renvoie un tableau avec les numérateurs et les dénominateurs triés selon la croissance des quotients [n_frac_min,d_frac_min,...,n_frac_max,d_frac_max]
-    * @example sortFraction(1,2,1,5,1,4,1,3) renvoie [1,5,1,4,1,3,1,2] 
-    */
-   let sortFractions=function(...fractions) {
-       try {		
-           fractions.forEach(function(element) {
-               if (typeof element != 'number') {
-                   throw new TypeError(`${element} n'est pas un nombre !`);
-               };
-               if ( (fractions.indexOf(element)%2 == 1) && (element == 0)) {
-                   throw new RangeError(`${element} est exclu des valeurs possibles pour les dénominateurs !`)
-               };
-           });	
-           if (Math.floor(fractions.length/2) <= 1 ) {
-               throw new Error(`Il faut au moins deux fractions !`);
-           };
-           if (fractions.length%2 != 0) {
-               throw new Error(`Il faut un nombre pair de valeurs puisque q'une fraction est représentée par son numérateur et son dénominateur`);
-           };
-           let changed;
-           do{
-                changed = false;
-                for (let i=0; i<(fractions.length-1); i+=2) {
-                   if ((fractions[i]/fractions[i+1]) > (fractions[i+2]/fractions[i+3])) {
-                       let tmp = [fractions[i],fractions[i+1]];
-                       fractions[i]=fractions[i+2];
-                       fractions[i+1] = fractions[i+3];
-                       fractions[i+2] = tmp [0];
-                       fractions[i+3] = tmp[1];
-                       changed = true;
-                   };
-                };
-           } while(changed);
-           return fractions;
-       }
-       catch (e) {
-           console.log(e.message);
-       };
-   };
-
-   /**
-    * fonction locale pour trouver le ppcm d'un nombre indeterminé d'entiers
-    * @param  {integer} n parametre du reste contenant une liste d'entiers
-    * * la liste d'entiers doit être passé dans un tableau
-    * @return {number} renvoie le ppcm des nombres entiers passés dans le paramètre du reste n
-    * @example ppcm(2,6,4,15) renvoie 60
-    */
-   function ppcm([...n]) {
-       try {
-            n.forEach(function(element) {
-               if (typeof element != 'number') {
-                   throw new TypeError(`${element} n'est pas un nombre !`);
-               };
-           });
-           // Quoi faire sans nombres ?
-           if (n.length == 0) {
-               throw new Error(`C'est mieux avec quelques nombres !`)
-           };
-           return parseInt(Algebrite.run(`lcm(${n})`));
-
-       }
-       catch (e) {
-           console.log(e.message);
-       };
-   };
-
-   /**
-    * 
-    * @param  {...any} fractions contient la liste des numérateurs et des dénominateurs dans l'ordre n1,d1,n2,d2, ... de deux ou plus de fractions
-    * @return {array} renvoie un tableau de numérateurs et de dénominateurs avec le même dénominateur dans l'ordre initial.
-    * * Le dénominateur choisi est toujours le ppcm
-    * * Les fractions ne sont pas réduites
-    * @example reduceSameDenominateur(1,2,1,5,2,3) renvoie [15,30,6,30,20,30]
-    */
-    function reduceSameDenominateur(...fractions) {
-       try {		
-        fractions.forEach(function(element) {
-               if (typeof element != 'number') {
-                   throw new TypeError(`${element} n'est pas un nombre !`);
-               };
-               if ( (fractions.indexOf(element)%2 == 1) && (element == 0)) {
-                   throw new RangeError(`${element} est exclu des valeurs possibles pour les dénominateurs !`)
-               };
-           });	
-           if (Math.floor(fractions.length/2) <= 1 ) {
-               throw new Error(`Il faut au moins deux fractions !`);
-           };
-           if (fractions.length%2 != 0) {
-               throw new Error(`Il faut un nombre pair de valeurs puisque q'une fraction est représentée par son numérateur et son dénominateur`);
-           };
-           let denominateur_commun;
-           let liste_denominateurs = [];
-           for (let i=0; i<fractions.length-1; i+=2) {
-               liste_denominateurs.push(fractions[i+1]);
-           };
-           denominateur_commun = ppcm(liste_denominateurs);
-           let fractions_reduites = [];
-           for (let i=0; i<fractions.length-1; i+=2) {
-               //on calcule le nouveau numérateur
-               fractions_reduites.push(fractions[i]*denominateur_commun/fractions[i+1]);
-               fractions_reduites.push(denominateur_commun);
-           };
-
-           //return [fractions,'-',liste_denominateurs,'-',denominateur_commun,'-',fractions_reduites];
-           return fractions_reduites;
-
-       }
-       catch (e) {
-           console.log(e.message);
-       };
-   };
-
-   this.sortFractions = sortFractions;
-   this.reduceSameDenominateur = reduceSameDenominateur;
-   this.denominateurs_amis = denominateurs_amis;
-   this.fraction_simplifiee = fraction_simplifiee;
-};
 
 /**
  * @class ListeFractionbis
@@ -168,12 +32,14 @@ class ListeFractionbis{
             this.denominateurs_amis.push(listetemp)
         }
         den=ppcm(dens)
-        this.liste_meme_denominateur=[] // La liste des fractions mises au même dénominateur dans le même ordre que this.liste
+        this.listeMemeDenominateur=[] // La liste des fractions mises au même dénominateur dans le même ordre que this.liste
         for (let i=0;i<this.liste.length;i++) {
-            this.liste_meme_denominateur.push(this.liste[i].fractionEgale(calcul(den/this.liste[i].den)))
+            this.listeMemeDenominateur.push(this.liste[i].fractionEgale(calcul(den/this.liste[i].den)))
         }
         this.sortFractions= function(liste) { //une fonction pour trier la liste et retourner une liste dans l'ordre croissant
-            let fractions=liste
+            let fractions=[]
+            for (let i=0;i<liste.length;i++)
+            fractions.push(liste[i])
             let changed,tmp
                 do{
                      changed = false;
@@ -189,7 +55,7 @@ class ListeFractionbis{
                 return fractions
         }
         this.listeRangee=this.sortFractions(this.liste) // La liste de fraction rangée dans l'ordre croissant.
-        this.listeRangeeMmeDenominateur=this.sortFractions(this.liste_meme_denominateur)
+        this.listeRangeeMemeDenominateur=this.sortFractions(this.listeMemeDenominateur)
         this.listeSimplifiee=[]
         for (let i=0;i<this.liste.length;i++) {
             this.listeSimplifiee.push(this.liste[i].simplifie())
@@ -201,7 +67,7 @@ class ListeFractionbis{
         }
         this.texListe+=this.liste[this.liste.length-1].texFraction
         this.completeListe = function(...frac){
-            dens=[this.liste_meme_denominateur[0].den]
+            dens=[this.listeMemeDenominateur[0].den]
             for (let i=0;i<frac.length;i++){
                 listetemp=[]
                 this.liste.push(frac[i])
@@ -212,9 +78,9 @@ class ListeFractionbis{
                 }
                 console.log(dens)
                 den=ppcm(dens)
-                this.liste_meme_denominateur=[]
+                this.listeMemeDenominateur=[]
                 for (let i=0;i<this.liste.length;i++) {
-                    this.liste_meme_denominateur.push(this.liste[i].fractionEgale(calcul(den/this.liste[i].den)))
+                    this.listeMemeDenominateur.push(this.liste[i].fractionEgale(calcul(den/this.liste[i].den)))
                 } 
                 this.listeSimplifiee=[]
                 for (let i=0;i<this.liste.length;i++) {
@@ -225,8 +91,8 @@ class ListeFractionbis{
                     this.texListe+=this.liste[i].texFraction+' ; '
                 }
                 this.texListe+=this.liste[this.liste.length-1].texFraction
-                this.listeRangee=this.sortFractions() // La liste de fraction rangée dans l'ordre croissant.
-                this.listeRangeeMmeDenominateur=this.sortFractions(this.liste_meme_denominateur)
+                this.listeRangee=this.sortFractions(this.liste) // La liste de fraction rangée dans l'ordre croissant.
+                this.listeRangeeMmeDenominateur=this.sortFractions(this.listeMemeDenominateur)
                 this.listeRangeeSimplifiee=this.sortFractions(this.listeSimplifiee)
         }
 

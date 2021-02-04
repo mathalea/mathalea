@@ -151,17 +151,23 @@ export function arete3d(p1,p2,color='black'){
    * LA DROITE
    * 
    * @Auteur Jean-claude Lhote
-   * Droite de l'espace définie par point et vecteur directeur
+   * Droite de l'espace définie par point et vecteur directeur droite3d(A,v)
+   * Droite de l'espace définie par 2 points droite3d(A,B)
    * Les droites servent principalement à définir des axes de rotation dans l'espace
    */
   class Droite3d{
     constructor (point3D,vecteur3D){
+      if (vecteur3D.constructor==Vecteur3d){
+        this.directeur=vecteur3D
+      }
+      else if (vecteur3D.constructor==Point3d){
+        this.directeur=vecteur3d(point3D,vecteur3D)
+      }
       this.origine=point3D
-      this.directeur=vecteur3D
       let M=translation3d(this.origine,this.directeur)
       this.point=M
-      // this.p2d=droite(this.origine.p2d,M.p2d) // la droite correspndant à la projection de cette droite dans le plan Mathalea2d
-     // this.p2d.isVisible=false
+      this.p2d=droite(this.origine.p2d,M.p2d) // la droite correspndant à la projection de cette droite dans le plan Mathalea2d
+     this.p2d.isVisible=false
     }
   }
   
@@ -263,7 +269,7 @@ export function demicercle3d(centre,normal,rayon,cote,color,angledepart=mathalea
         A=this.listePoints[i]
       }
       segments3d.push(arete3d(A,this.listePoints[0],this.color))
-      segments.push(segments3d[this.listePoints.length-2].p2d)
+      segments.push(segments3d[this.listePoints.length-1].p2d)
       this.aretes=segments3d
       this.p2d=segments
     }
@@ -309,8 +315,8 @@ export function demicercle3d(centre,normal,rayon,cote,color,angledepart=mathalea
      cote2='visible'
     // objets.push(cercle3d(this.centre,rotationV3d(prodvec,this.normal,mathalea.anglePerspective),rotationV3d(this.rayon,this.normal,mathalea.anglePerspective),true,this.color))
      for (let k=0,rayon3;k<1;k+=1/(this.nb_paralleles+1)){
-       C=point3d(0,0,R*Math.sin(k*Math.PI/2))
-       D=point3d(0,0,R*Math.sin(-k*Math.PI/2))
+       C=point3d(centre.x3d,centre.y3d,centre.z3d+R*Math.sin(k*Math.PI/2))
+       D=point3d(centre.x3d,centre.y3d,centre.z3d+R*Math.sin(-k*Math.PI/2))
        rayon3=vecteur3d(R*Math.cos(k*Math.PI/2),0,0)
        c1=demicercle3d(C,this.normal,rayon3,cote1,this.color,mathalea.anglePerspective)
        c2=demicercle3d(C,this.normal,rayon3,cote2,this.color,mathalea.anglePerspective)
@@ -651,10 +657,12 @@ export function pave3d(A,B,C,E,color='black'){
    * Remarque : ça n'a aucun sens de faire tourner un vecteur autour d'une droite particulière, on utilise la rotation vectorielle pour ça.
    * @param {Droite3d} droite3D Axe de rotation
    * @param {Number} angle Angle de rotation
+   * @param {string} color couleur du polygone créé. si non précisé la couleur sera celle du polygone argument
    */
-  export function rotation3d(point3D,droite3D,angle){
+  export function rotation3d(point3D,droite3D,angle,color){
     let directeur=droite3D.directeur
     let origine=droite3D.origine
+    let p=[]
     if (point3D.constructor==Point3d){
         let V=vecteur3d(origine,point3d(0,0,0))
         let W=vecteur3d(point3d(0,0,0),origine)
@@ -664,6 +672,18 @@ export function pave3d(A,B,C,E,color='black'){
       }
       else if(point3D.constructor==Vecteur3d){
         return rotationV3d(point3D,directeur,angle)
+      }
+      else if (point3D.constructor==Polygone3d){
+
+
+        for (let i=0;i<point3D.listePoints.length;i++){
+          p.push(rotation3d(point3D.listePoints[i],droite3D,angle))
+        }
+        if (typeof(color)!='undefined'){
+          return polygone3d(p,color)
+        }
+        else
+          return polygone3d(p,point3D.color)
       }
   }
   

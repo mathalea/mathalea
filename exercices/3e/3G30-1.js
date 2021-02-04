@@ -2,7 +2,18 @@ import Exercice from '../ClasseExercice.js';
 import { mathalea2d, point, similitude, longueur, polygone,rotation, codageAngleDroit, nommePolygone, segment, codeAngle, texteSurSegment, droite, projectionOrtho, pointSurSegment, texteParPoint, afficheMesureAngle  } from "/modules/2d.js";
 import { liste_de_question_to_contenu, randint, creerNomDePolygone, choice } from "/modules/outils.js";
 
-export default function Exercice_zero_mathalea2d() {
+
+/**
+ * @auteur Rémi Angot
+ * 3G30-1
+ * Donner un rapport trigonométriques en fonctions des longueurs des côtés (pas de valeurs numériques)
+ * * Donner les 3 rapports d'un angle
+ * * Un triangle est donné, on demande les 6 rapports
+ * * Un triangle rectangle et une hauteur, il faut exprimer un rapport de deux manières différentes
+ *
+ * janvier 2021
+ */
+export default function Mon_Exercice() {
     Exercice.call(this)
     this.titre = "Exprimer le cosinus, le sinus ou la tangente d'un angle en fonction des côtés du triangle";
     this.nb_questions = 1; 
