@@ -44,19 +44,19 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
           break;
         case 'info2': 
             a = calcul(randint(11,49,[20,30,40])/10)
-            a1 = randint(6,20)
+            a1 = randint(4,10)
             b = randint(11,40)
           texte = `Un serveur héberge $${tex_nombre(a)}\\times10^{${a1}}$ fichiers de $${b}$ Mo.<br>`;
           texte += `Combien de place occupent tous ces fichiers ? Donner le résultat en tera-octets.`
-          texte_corr = `$${tex_nombre(a)}\\times10^{${a1}}\\times${b}~\\text{Mo}=${tex_nombre(a*b)}\\times10^{${a1}}~\\text{Mo}$<br>`;
+          texte_corr = `$${tex_nombre(a)}\\times10^{${a1}}\\times${b}~\\text{Mo}=${tex_nombre(calcul(a*b))}\\times10^{${a1}}~\\text{Mo}$<br>`;
           texte_corr += `Or $1~\\text{To}=1~000~\\text{Go}=1~000~000~\\text{Mo}$, il faut donc diviser par un million ou multiplier par $10^{-6}$ pour convertir les méga-octets en tera-octets.<br>`  
-          texte_corr += `$${tex_nombre(a*b)}\\times10^{${a1}}~\\text{Mo}=${tex_nombre(a*b)}\\times10^{${a1-6}}~\\text{To}$`
+          texte_corr += `$${tex_nombre(calcul(a*b))}\\times10^{${a1}}~\\text{Mo}=${tex_nombre(calcul(a*b))}\\times10^{${a1-6}}~\\text{To}$`
           break;
         case 'electricite': 
             a = choice([30,35,40,45])
             b = calcul(randint(11,49,[20,30,40])/10)
           texte = `On estime qu'un foyer consomme ${a} kWh par jour. Si une centrale électrique produit ${tex_nombre(b)} TWh par an, combien de foyers pourra-t-elle alimenter ?<br>`;
-          texte_corr = `Consommation annuelle d'un foyer français : $${tex_nombre(a)}\\times 365 = ${tex_nombre(a*365)}~\\text{kWh}$<br>`;
+          texte_corr = `Consommation annuelle d'un foyer français : $365\\times${tex_nombre(a)}~\\text{kWh} = ${tex_nombre(a*365)}~\\text{kWh}$<br>`;
           texte_corr += `Nombre de foyers pouvant être alimentés par cette centrale : $\\dfrac{${tex_nombre(b)}~\\text{TWh}}{${tex_nombre(a*365)}~\\text{kWh}}=\\dfrac{${tex_nombre(b)}\\times10^{12}~\\text{Wh}}{${tex_nombre(a*365)}\\times10^3~\\text{Wh}}\\approx${tex_nombre(calcul((b*10**12)/(a*365*10**3),1))}$`
           break;
         case 'lumiere': 
