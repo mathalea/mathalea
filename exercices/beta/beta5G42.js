@@ -22,7 +22,7 @@ export default function demonstrations_parallelogrammes() {
 
     let type_de_questions_disponibles = ['type1','type2','type3','type4','type5','type6','type7']; // On créé 3 types de questions
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles,this.nb_questions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texte_corr,noms,nom,prop1,type,def,centre, cpt = 0; i < this.nb_questions && cpt < 50;) {
+    for (let i = 0, texte, texte_corr,noms,nom,prop1,prop2,type,def,centre, cpt = 0; i < this.nb_questions && cpt < 50;) {
       noms=choisit_lettres_differentes(5,'Q')
       nom=`$${noms[0]+noms[1]+noms[2]+noms[3]}$`
       centre=`$${noms[4]}$`
@@ -31,34 +31,41 @@ export default function demonstrations_parallelogrammes() {
         case 'type1': // rectangle 1
           def=`ses diagonales $[${noms[0]+noms[2]}]$ et $[${noms[1]+noms[3]}]$ ont la même longueur`
           prop1=`a des diagonales de même longueur`
+          prop2=`$${noms[0]+noms[2]}=${noms[1]+noms[3]}$`
           type=`rectangle`
           break;
         case 'type2': // losange 1
         def=`ses diagonales $[${noms[0]+noms[2]}]$ et $[${noms[1]+noms[3]}]$ sont perpendiculaires`
         prop1=`a des diagonales perpendiculaires`
+        prop2=`$[${noms[0]+noms[2]}]\\perp[${noms[1]+noms[3]}]$`
         type=`losange`
           break;
         case 'type3': // carré 1
+        prop2=`$[${noms[0]+noms[2]}]\\perp[${noms[1]+noms[3]}]$ et $${noms[0]+noms[2]}=${noms[1]+noms[3]}$`
         def=`ses diagonales $[${noms[0]+noms[2]}]$ et $[${noms[1]+noms[3]}]$ ont la même longueur et sont perpendiculaires`
         prop1=`a des diagonales perpendiculaires et de même longueur`
         type=`carré`
           break;
           case 'type4': //losange 2
+          prop2=`$${noms[0]+noms[1]}=${noms[1]+noms[2]}$`
           def=`ses côtés $[${noms[0]+noms[1]}]$ et $[${noms[1]+noms[2]}]$ ont la même longueur`
           prop1=`a deux côtés consécutifs de même longueur`
           type=`losange`
             break;
           case 'type5': // rectangle 2
+          prop2=`$[${noms[0]+noms[1]}]\\perp[${noms[1]+noms[2]}]$`
           def=`ses côtés $[${noms[0]+noms[1]}]$ et $[${noms[1]+noms[2]}]$ sont perpendiculaires`
           prop1=`a deux côtés consécutifs perpendiculaires`
           type=`rectangle`
             break;
             case 'type6': // carré 2
+            prop2=`$[${noms[0]+noms[1]}]\\perp[${noms[1]+noms[2]}] et $${noms[0]+noms[1]}=${noms[1]+noms[2]}$`
           def=`ses côtés $[${noms[0]+noms[1]}]$ et $[${noms[1]+noms[2]}]$ sont perpendiculaires et de même longueur`
           prop1=`a deux côtés consécutifs perpendiculaires et de même longueur`
           type=`carré`
             break;
             case 'type7': // carré 3
+            prop2=`$[${noms[0]+noms[1]}]\\perp[${noms[1]+noms[2]}] et $[${noms[0]+noms[2]}]\\perp[${noms[1]+noms[3]}]$`           
           def=`ses côtés $[${noms[0]+noms[1]}]$ et $[${noms[1]+noms[2]}]$ sont perpendiculaires et ses diagonales $[${noms[0]+noms[2]}]$ et $[${noms[1]+noms[3]}]$ aussi`
           prop1=`a deux côtés consécutifs perpendiculaires et des diagonales perpendiculaires`
           type=`carré`
@@ -66,14 +73,14 @@ export default function demonstrations_parallelogrammes() {
 
       }
       texte = `${nom} est un parallélogramme tel que ${def}.<br>`;
-      texte+=`Déterminer la nature de ${nom} en justifiant la réponse.`
-      texte_corr=`${nom} est un parallélgoramme qui ${prop1}.<br>`
+      texte+=`Déterminer la nature de ${nom} en justifiant la réponse.<br>-<br>`
+      texte_corr=`On sait que ${prop2}.<br>`
       texte_corr += `Si un parralélogramme ${prop1}, c'est un ${type}.<br>`;
       texte_corr +=`${nom} est donc un ${type}.`
 
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte);
+        this.liste_questions.push(texte+texte_corr);
         this.liste_corrections.push(texte_corr);
         i++;
       }
