@@ -73,14 +73,14 @@ export default function demonstrations_parallelogrammes() {
 
       }
       texte = `${nom} est un parallélogramme tel que ${def}.<br>`;
-      texte+=`Déterminer la nature de ${nom} en justifiant la réponse.<br>-<br>`
+      texte+=`Déterminer la nature de ${nom} en justifiant la réponse.`
       texte_corr=`On sait que ${prop2}.<br>`
       texte_corr += `Si un parralélogramme ${prop1}, c'est un ${type}.<br>`;
       texte_corr +=`${nom} est donc un ${type}.`
 
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.liste_questions.push(texte+texte_corr);
+        this.liste_questions.push(texte);
         this.liste_corrections.push(texte_corr);
         i++;
       }
