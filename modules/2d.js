@@ -3184,15 +3184,15 @@ export function dansLaCibleRonde(x,y,rang,taille,cellule) {
  * @Auteur Jean-Claude Lhote
  * @param {} param0 
  */
-function CibleCarree({x=0,y=0,rang=4,num,taille=0.6}){
+function CibleCarree({x=0,y=0,rang=4,num,taille=0.6,color='grey',opacite=0.5}){
   ObjetMathalea2D.call(this);
   this.x=x;
   this.y=y;
   this.rang=rang;
   if (typeof(num)!='undefined') this.num=num;
   this.taille=taille;
-  this.color='gray';
-  this.opacite=0.5;
+  this.color=color;
+  this.opacite=opacite;
   let objets=[]
   let numero
   if (typeof(num)!='undefined') {
@@ -3202,6 +3202,7 @@ function CibleCarree({x=0,y=0,rang=4,num,taille=0.6}){
     numero.contour=true
     objets.push(numero)
   }
+  this.num=num
     let lettre,chiffre
   objets.push(grille(calcul(x-rang*this.taille/2),calcul(y-rang*this.taille/2),calcul(x+rang*this.taille/2),calcul(y+rang*this.taille/2),this.color,this.opacite,this.taille,false))
   for (let i=0;i<rang;i++) {

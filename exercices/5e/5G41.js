@@ -40,7 +40,6 @@ export default function Constructions_parallelogrammes_particuliers() {
         else if (this.sup == 2) type_de_questions_disponibles = [4, 5, 6,7]
         else type_de_questions_disponibles = [1, 2, 3, 4, 5, 6,7]
 
-        this.introduction = `Construire le quadrilatère ${nom}  et déterminer sa nature.<br>L'ordre des points est donné en tournant dans le sens inverse des aiguilles d'une montre.`;
         type_de_question = choice(type_de_questions_disponibles)
         switch (type_de_question) {
             case 1:
