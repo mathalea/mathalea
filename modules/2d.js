@@ -1208,7 +1208,7 @@ function Polyline(...points) {
     if (this.opacite != 1) {
       tableauOptions.push(`opacity = ${this.opacite}`);
     }
-    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`);
+    tableauOptions.push(`decorate,decoration={random steps , segment length=3pt, amplitude = ${amp}pt}`);
 
     let optionsDraw = [];
     if (tableauOptions.length > 0) {

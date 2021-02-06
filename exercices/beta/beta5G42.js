@@ -11,8 +11,8 @@ export default function demonstrations_parallelogrammes() {
   this.titre = "Nature de parallélogrammes";
   this.consigne = "";
   this.nb_questions = 7;
-  this.nb_cols = 2; // Uniquement pour la sortie LaTeX
-  this.nb_cols_corr = 2; // Uniquement pour la sortie LaTeX
+  this.nb_cols = 1; // Uniquement pour la sortie LaTeX
+  this.nb_cols_corr = 1; // Uniquement pour la sortie LaTeX
   this.sup = 1; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
   this.tailleDiaporama = 50; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
