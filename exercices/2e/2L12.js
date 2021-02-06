@@ -27,11 +27,11 @@ export default function Equations_produits_nuls2() {
         this.liste_questions = []; // Liste de questions
         this.liste_corrections = []; // Liste de questions corrigées
              let type_de_questions_disponibles = [];
-        if (this.sup <5) {
+        if (this.sup <4) {
             type_de_questions_disponibles = [parseInt(this.sup)];
       }
       else {
-        type_de_questions_disponibles = [1,2,3,4];
+        type_de_questions_disponibles = [1,2,3];
       }
      
         let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions);
@@ -95,39 +95,7 @@ export default function Equations_produits_nuls2() {
                     }
                     else  texte_corr += `$S=\\left\\{${f3.texFractionSimplifiee}\\right\\}$`
                     break
-
-                case 4:
-                    texte = `$(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c,d)})=(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(e,f)})$`; 
-                    texte_corr= texte+`<br>$\\iff (${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c,d)})-(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(e,f)})=0$<br>`
-                    texte_corr += `$\\iff (${reduire_ax_plus_b(a,b)})[(${reduire_ax_plus_b(c,d)})-(${reduire_ax_plus_b(e,f)})]=0$<br>`
-                    if (this.correction_detaillee) {
-                        if (e<0){
-                        texte_corr += `$\\iff (${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c,d)}+${reduire_ax_plus_b(-e,-f)})=0$<br>`
-                        }
-                        else {
-                            texte_corr += `$\\iff (${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c,d)}${reduire_ax_plus_b(-e,-f)})=0$<br>`
-                        }
-                    }
-                    texte_corr += `$\\iff (${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c-e,d-f)})=0$<br>`
-                    texte_corr += `On reconnaît une équation produit-nul, donc on applique la propriété :<br>
-                    ${texte_en_couleur(`Un produit est nul si et seulement si au moins un de ses facteurs est nul.`)}<br>`
-                    texte_corr +=`$(${reduire_ax_plus_b(a,b)})(${reduire_ax_plus_b(c-e,d-f)})=0$<br>`
-                    texte_corr+=`$\\iff ${reduire_ax_plus_b(a,b)}=0$ ou $${reduire_ax_plus_b(c-e,d-f)}=0$<br>`
-                    if (this.correction_detaillee) { //on ajoute les étapes de résolution si la correction détaillée est cochée.
-                        texte_corr+=`$\\iff ${reduire_ax_plus_b(a,0)}=${-b}$ ou $ ${reduire_ax_plus_b(c-e,0)}=${-d+f}$<br>`
-                    }
-                    f1=fraction(-b,a)
-                    f2=fraction(-d+f,c-e)
-                    texte_corr+=`$\\iff x=${f1.texFraction}$ ou $ x=${f2.texFraction}$<br>On en déduit :  `
-                    if (-b/a>(-d+f)/(c-e)) {
-                        texte_corr += `$S=\\left\\{${f2.simplifie().texFraction};${f1.simplifie().texFraction}\\right\\}$`
-                    }
-                    else if (-b/a<(-d+f)/(c-e)){
-                        texte_corr += `$S=\\left\\{${f1.simplifie().texFraction};${f2.simplifie().texFraction}\\right\\}$`
-                    }
-                    else texte_corr += `$S=\\left\\{${f1.simplifie().texFraction}\\right\\}$`
-                    break
-                case 3: // (ax+f1)(bx+f2)=0
+        case 3: // (ax+f1)(bx+f2)=0
                         fractions=obtenir_liste_Fractions_irreductibles_faciles()
                         index =randint(0,fractions.length-1)
                         f1=fractions[index].multiplieEntier(choice([-1,1]))
@@ -166,5 +134,5 @@ export default function Equations_produits_nuls2() {
         }
         liste_de_question_to_contenu(this);
     };
-    this.besoin_formulaire_numerique = ['Niveau de difficulté', 5, '1 : (ax+b)(cx+d)=0 a,b,c et d entiers\n 2 : (ax+b)(cx+d)=0 a et c rationnels\n 3 : (ax+b)(cx+d)=0 b et d rationnels\n 4 : (ax+b)(cx+d)=(ax+b)(ex+f)\n 5 : Méli-mélo'];
+    this.besoin_formulaire_numerique = ['Niveau de difficulté', 5, '1 : (ax+b)(cx+d)=0 a,b,c et d entiers\n 2 : (ax+b)(cx+d)=0 a et c rationnels\n 3 : (ax+b)(cx+d)=0 b et d rationnels\n4 : Méli-mélo'];
 }
