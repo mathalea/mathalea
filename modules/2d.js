@@ -1614,9 +1614,9 @@ function Segment(arg1, arg2, arg3, arg4, color) {
     let dx=(B.xSVG(coeff)-A.xSVG(coeff))/l/2,dy=(B.ySVG(coeff)-A.ySVG(coeff))/l/2
     let code =`<path d="M ${A.xSVG(coeff)}, ${A.ySVG(coeff)} Q ${Math.round(A.xSVG(coeff),0)}, ${arrondi(A.ySVG(coeff),0)} `
     let p=1
-    for (let k=0;k<2*l+0.25;k+=0.25) {
+    for (let k=0;k<2*l+0.25;k+=0.5) {
       p++
-      code +=`${Math.round(A.xSVG(coeff)+k*dx+randint(-1,1)*amp)}, ${Math.round(A.ySVG(coeff)+k*dy+randint(-1,1)*amp)} `
+      code +=`${Math.round(A.xSVG(coeff)+k*dx+randint(-2,2,0)*amp)}, ${Math.round(A.ySVG(coeff)+k*dy+randint(-2,2,0)*amp)} `
     }
    if(p%2==1) code +=` ${Math.round(B.xSVG(coeff),0)}, ${arrondi(B.ySVG(coeff),0)}" stroke="${this.color}" ${this.style}/>`
    else  code +=` ${Math.round(B.xSVG(coeff),0)}, ${arrondi(B.ySVG(coeff),0)} ${arrondi(B.xSVG(coeff),0)}, ${arrondi(B.ySVG(coeff),0)}" stroke="${this.color}" ${this.style}/>`
