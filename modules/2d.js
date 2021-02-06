@@ -1333,6 +1333,15 @@ function Vecteur(arg1, arg2, nom = "") {
     s.styleExtremites = "|->";
     return s
   };
+  this.representantNomme = function(A,nom,taille=1,color='black'){
+    let B = point(A.x + this.x, A.y + this.y);
+    let s = segment(A, B);
+    let angle=s.angleAvecHorizontale
+    let M=milieu(A,B)
+    let v=similitude(this,A,90,1/this.norme())
+    let N=translation(M,v)
+    return nomVecteurParPosition(nom,N.x,N.y,taille,angle,color)    
+  }
 }
 export function vecteur(...args) {
   return new Vecteur(...args);
