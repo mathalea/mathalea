@@ -2,12 +2,12 @@ import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,randint,combinaison_listes,reduire_ax_plus_b,texte_en_couleur,choice, ecriture_algebrique,ecriture_nombre_relatif} from "/modules/outils.js"
 import {fraction,obtenir_liste_Fractions_irreductibles_faciles} from "/modules/Fractions.js"
 /**
- * Résoudre des équations x²=a
+ * Résoudre des équations (ax+b)(cx+d)=0
 * @auteur Stéphane Guyon & Jean-claude Lhote
-* 2L11-2
+* 2L12
 * publié le 6/02/2021
 */
-export default function Factoriser_Identites_remarquables2() {
+export default function Equations_produits_nuls2() {
     'use strict';
     Exercice.call(this); // Héritage de la classe Exercice()
     this.titre = "Résoudre les équations produit-nul";
