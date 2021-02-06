@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,combinaison_listes, randint, calcul, tex_nombre, tex_prix} from "/modules/outils.js"
+import {liste_de_question_to_contenu,combinaison_listes, randint, calcul, tex_nombre, tex_prix, arrondi} from "/modules/outils.js"
 /**
  * Déterminer une valeur approchée d'un pourcentage à l'aide de la calculatrice
  * @Auteur Rémi Angot
@@ -28,7 +28,11 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
     }
     for (let i = 0, texte, texte_corr, num, den, cpt = 0; i < this.nb_questions && cpt < 50;) {
         den = randint(10,liste_type_de_questions[i])
-        num = randint(1,den-30)
+        num = randint(1,den-8)
+        while (calcul(num/den)==arrondi(num/den,4)) {
+            den = randint(10,liste_type_de_questions[i])
+            num = randint(1,den-8)
+        }
         texte = `$\\dfrac{${num}}{${den}}\\approx \\ldots\\ldots\\ldots $ soit environ $\\ldots\\ldots\\ldots~\\%$`
         if (this.sup == 1) {
             texte_corr = `$\\dfrac{${num}}{${den}}\\approx ${tex_prix(calcul(num/den,2))} $ soit environ $${calcul(calcul(num/den,2)*100)}~\\%$ $\\left(\\text{car } ${tex_prix(calcul(num/den,2))}=\\dfrac{${calcul(calcul(num/den,2)*100)}}{100}\\right)$.`
