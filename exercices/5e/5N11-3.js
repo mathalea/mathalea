@@ -35,7 +35,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
         } else {
             num = randint(1,den-1)
         }
-        texte = `$\\dfrac{${num}}{${tex_nombre(den)}}=\\dfrac{\\phantom{XXXXXX}}{}=\\ldots\\ldots\\%$`
+        texte = `$\\dfrac{${num}}{${tex_nombre(den)}}=\\dfrac{\\phantom{XXXXXX}}{}=\\dfrac{}{100}=\\ldots\\ldots\\%$`
         if (den<100){
             texte_corr = `$\\dfrac{${num}}{${tex_nombre(den)}}=\\dfrac{${num}{\\color{blue}\\times${calcul(100/den)}}}{${den}{\\color{blue}\\times${calcul(100/den)}}}=\\dfrac{${calcul(num*100/den)}}{100}=${calcul(num*100/den)}~\\%$`
         } else {
