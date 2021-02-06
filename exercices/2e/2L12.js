@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {liste_de_question_to_contenu,randint,combinaison_listes,reduire_ax_plus_b,texte_en_couleur,choice, ecriture_algebrique,ecriture_nombre_relatif} from "/modules/outils.js"
+import {liste_de_question_to_contenu,randint,combinaison_listes,reduire_ax_plus_b,texte_en_couleur,choice, ecriture_algebrique,ecriture_parenthese_si_negatif} from "/modules/outils.js"
 import {fraction,obtenir_liste_Fractions_irreductibles_faciles} from "/modules/Fractions.js"
 /**
  * Résoudre des équations (ax+b)(cx+d)=0
@@ -53,7 +53,7 @@ export default function Equations_produits_nuls2() {
                     texte_corr +=texte+'<br>' //optimisation du code
                     texte_corr+=`$\\iff ${reduire_ax_plus_b(a,b)}=0$ ou $${reduire_ax_plus_b(c,d)}=0$<br>`
                     if (this.correction_detaillee) { //on ajoute les étapes de résolution si la correction détaillée est cochée.
-                        texte_corr+=`$\\iff ${a}x=${-b}$ ou $ ${c}x=${-d}$<br>`
+                        texte_corr+=`$\\iff ${reduire_ax_plus_b(a,0)}=${-b}$ ou $ ${reduire_ax_plus_b(c,0)}=${-d}$<br>`
                     }
                     f1=fraction(-b,a)
                     f2=fraction(-d,c)
@@ -142,7 +142,7 @@ export default function Equations_produits_nuls2() {
                         texte_corr+=`$\\iff ${reduire_ax_plus_b(a,0)}${f1.texFractionSignee}=0$ ou $${reduire_ax_plus_b(b,0)}${f2.texFractionSignee}=0$<br>`
                         if (this.correction_detaillee){
                             texte_corr+=`$\\iff ${reduire_ax_plus_b(a,0)}=${f1.multiplieEntier(-1).texFraction}$ ou $${reduire_ax_plus_b(b,0)}=${f2.multiplieEntier(-1).texFraction}$<br>`
-                            texte_corr+=`$\\iff x=${f1.multiplieEntier(-1).texFraction}\\div ${ecriture_nombre_relatif(a)}$ ou $x=${f2.multiplieEntier(-1).texFraction}\\div ${ecriture_nombre_relatif(b)}$<br>`
+                            texte_corr+=`$\\iff x=${f1.multiplieEntier(-1).texFraction}\\div ${ecriture_parenthese_si_negatif(a)}$ ou $x=${f2.multiplieEntier(-1).texFraction}\\div ${ecriture_parenthese_si_negatif(b)}$<br>`
                             texte_corr+=`$\\iff x=${f1.multiplieEntier(-1).texFraction}\\times ${fraction(1,a).texFractionSigneeParentheses}$ ou $x=${f2.multiplieEntier(-1).texFraction}\\times ${fraction(1,b).texFractionSigneeParentheses}$<br>`
                         }
                         texte_corr+=`$\\iff x=${f3.texFractionSimplifiee}$ ou $ x=${f4.texFractionSimplifiee}$<br>
