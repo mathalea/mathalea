@@ -758,5 +758,35 @@ export function sens_de_rotation3d(axe,rayon,angle,epaisseur,color){
       return polygone3d(p,point3D.color)
     }
   }
+  export function homothetie3d(point3D,centre,rapport,color){
+    let V
+    let p=[]
+    if (point3D.constructor==Point3d){
+        V=vecteur3d(centre,point3D)
+        V.x3d*=rapport
+        V.y3d*=rapport
+        V.y3d*=rapport
+        return translation3d(centre,V)
+      }
+      else if(point3D.constructor==Vecteur3d){
+        V=point3D
+        V.x3d*=rapport
+        V.y3d*=rapport
+        V.y3d*=rapport
+        return V
+      }
+      else if (point3D.constructor==Polygone3d){
+
+
+        for (let i=0;i<point3D.listePoints.length;i++){
+          p.push(homothetie3d(point3D.listePoints[i],centre,rapport,color))
+        }
+        if (typeof(color)!='undefined'){
+          return polygone3d(p,color)
+        }
+        else
+          return polygone3d(p,point3D.color)
+      }
+  }
   
   
