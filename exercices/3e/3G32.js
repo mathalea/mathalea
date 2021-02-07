@@ -12,13 +12,15 @@ export default function Calculs_trigonometriques() {
   this.titre = "Problèmes utilisant la trigonométrie";
   this.consigne = "";
   this.nb_questions = 10;
-  this.nb_cols = 2; // Uniquement pour la sortie LaTeX
-  this.nb_cols_corr = 2; // Uniquement pour la sortie LaTeX
+  this.nb_cols = 1; // Uniquement pour la sortie LaTeX
+  this.nb_cols_corr = 1; // Uniquement pour la sortie LaTeX
   this.sup = 1; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
   this.sup2 = true;
   this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
   this.nb_questions = 4
+  this.spacing_corr=2
+  this.spacing=2
 
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions
@@ -52,21 +54,21 @@ export default function Calculs_trigonometriques() {
           objets.push(p[1], p[0], segment(O, B), segment(O, H), codageAngleDroit(O, A, B), codageAngleDroit(A, B, H), codageAngleDroit(O, H, S))
           objets.push(afficheMesureAngle(B, O, S, 'black', 3, 'α'), afficheMesureAngle(A, B, O, 'black', 2, 'β'), afficheMesureAngle(B, O, H, 'black', 2, 'β'))
           objets.push(texteSurSegment(`${tex_nombre(hauteur)} m`, O, A, 'black', -0.5), texteSurSegment(`${tex_nombre(distance)} m`, O, H))
-          texte = `On observateur regarde ${objet[index][1]} ${objet[index][0]} sous un angle de $${alpha}\\degree$.<br>`;
+          texte = `Un observateur regarde ${objet[index][1]} ${objet[index][0]} sous un angle de $${alpha}\\degree$.<br>`;
           texte += `Cet${objet[index][2]} ${objet[index][0]} est situé à une distance de $${tex_nombre(distance)}$ m de l'observateur.<br>`
           texte += `l'oeil de l'observateur est situé à $${tex_nombre(hauteur)}$ m du sol.<br>`
           if (this.sup2) {
 
             texte += `$O$ représente l'oeil de l'observateur, $[BS]$ représente cet${objet[index][2]} ${objet[index][0]}.<br>`
 
-            texte += `Le schéma ci-dessous n'est pas en vraie grandeur.<br>` + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 11, pixelsParCm: 20, scale: 1 }, objets);
+            texte += `Le schéma ci-dessous n'est pas en vraie grandeur.<br>` + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 10, pixelsParCm: 20, scale: 1 }, objets);
             texte += `<br>Calculer d'abord l'angle $β$.<br>`
             texte += `En déduire la mesure de l'angle $\\widehat{HOS}$.<br>`
             texte += `Calculer alors la longueur $HS$.<br>`
           }
           texte += `Calculer la hauteur de cet${objet[index][2]} ${objet[index][0]} arrondie au mètre près.<br>`
 
-          texte_corr = mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 11, pixelsParCm: 20, scale: 1 }, objets)
+          texte_corr = mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 10, pixelsParCm: 20, scale: 1 }, objets)
           texte_corr += `<br>Dans le triangle $OHB$ rectangle en $H$, $tan(β)=\\dfrac{HB}{OH}$.<br>D'où $β=Atan(\\dfrac{${tex_nombre(hauteur)}}{${tex_nombre(distance)}})\\approx ${arrondi_virgule(beta)}\\degree$.<br>`
           texte_corr += `$\\widehat{HOS}=α-β\\approx ${arrondi_virgule(alpha - beta)}$.<br>`
           texte_corr += `$HS=OH\\times tan(\\widehat{HOS})\\approx ${distance}\\times tan(${arrondi_virgule(alpha - beta)})\\approx ${tex_nombrec(taille - hauteur)}$ m.<br>`
@@ -93,24 +95,24 @@ export default function Calculs_trigonometriques() {
           texte += `Il se rapproche ensuite de la falaise jusqu'à la voir sous un angle de $${alpha + 5}\\degree$.<br>`
           texte += `Il constate qu'entre ses deux mesures, il s'est rapproché de la falaise de $${distance}$ m.<br>`
           if (this.sup2) {
-            texte += `Le schéma ci-dessous n'est pas en vraie grandeur.<br>` + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 11, pixelsParCm: 20, scale: 1 }, objets);
-            texte += `<br>Exprimer $\\bm{h}$ en fonction de $BH$ et $α$ puis en fonction de $AH$ et $β$.<br>`
+            texte += `Le schéma ci-dessous n'est pas en vraie grandeur.<br>` + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 1 }, objets);
+            texte += `<br>Exprimer $h$ en fonction de $BH$ et $α$ puis en fonction de $AH$ et $β$.<br>`
             texte += `En déduire $BH$ en fonction de $AB$, $α$ et $β$.<br>`
             texte += `Exprimer $HS$ en fonction de $AB$, $α$ et $β$.<br>`
           }
           texte += `Quelle est la hauteur de la falaise ?<br>`
           texte += `A quelle distance du pied de la falaise se trouve l'observateur lors du deuxième relevé ?<br>`
           texte += `Arrondir les résultats au mètre près. (On supposera le point d'observation au niveau de l'eau)`
-          texte_corr = mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 11, pixelsParCm: 20, scale: 1 }, objets)
-          texte_corr += `<br>Dans le triangle $BHS$ rectangle en $H$, $tan(β)=\\dfrac{\\bm {h}}{BH}$.<br>D'où $\\bm {h}=BH\\times tan(β)$.<br>`
-          texte_corr += `<br>Dans le triangle $AHS$ rectangle en $H$, $tan(α)=\\dfrac{\\bm {h}}{AH}$.<br>D'où $\\bm {h}=AH\\times tan(α)$.<br>`
-          texte_corr += `Or $AH=AB+BH$ donc $\\bm {h}=(AB+BH)\\times tan(α)$.<br>`
+          texte_corr = mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 1 }, objets)
+          texte_corr += `<br>Dans le triangle $BHS$ rectangle en $H$, $tan(β)=\\dfrac{h}{BH}$.<br>D'où $h=BH\\times tan(β)$.<br>`
+          texte_corr += `<br>Dans le triangle $AHS$ rectangle en $H$, $tan(α)=\\dfrac{h}{AH}$.<br>D'où $h=AH\\times tan(α)$.<br>`
+          texte_corr += `Or $AH=AB+BH$ donc $h=(AB+BH)\\times tan(α)$.<br>`
           texte_corr += `On en déduit que $BH\\times tan(β)=(AB+BH)\\times tan(α)$ soit $BH\\times tan(β)=AB\\times tan(α)+BH\\times tan(α)$.<br>`
           texte_corr += `D'où $AB\\times tan(α)=BH\\times tan(β)-BH\\times tan(α)=BH\\times (tan(β)-tan(α))$.<br>`
           texte_corr += `Et $BH=\\dfrac{AB\\times tan(α)}{tan(β)-tan(α)}$.<br>`
-          texte_corr += `Ainsi $\\bm {h}=BH\\times tan(β)=\\dfrac{AB\\times tan(α)\\times tan(β)}{tan(β)-tan(α)}$.<br>`
+          texte_corr += `Ainsi $h=BH\\times tan(β)=\\dfrac{AB\\times tan(α)\\times tan(β)}{tan(β)-tan(α)}$.<br>`
           texte_corr += `Application numérique : <br>`
-          texte_corr += `$\\bm {h}=\\dfrac{${distance}\\times tan(${alpha})\\times tan(${alpha + 5})}{tan(${alpha + 5})-tan(${alpha})}\\approx ${Math.round(taille)}$ m.<br>`
+          texte_corr += `$h=\\dfrac{${distance}\\times tan(${alpha})\\times tan(${alpha + 5})}{tan(${alpha + 5})-tan(${alpha})}\\approx ${Math.round(taille)}$ m.<br>`
           texte_corr += `$BH=\\dfrac{${distance}\\times tan(${alpha})}{tan(${alpha + 5})-tan(${alpha})}\\approx ${tex_nombrec(Math.round(taille / Math.tan((alpha + 5) * Math.PI / 180)))}$ m.<br>`
           texte_corr += `La hauteur de la falaise est de $${Math.round(taille)}$ m et l'observateur se trouve à $${tex_nombrec(Math.round(taille / Math.tan((alpha + 5) * Math.PI / 180)))}$ m de celle-ci lors du deuxième relevé.<br>`;
           break;
@@ -135,7 +137,7 @@ export default function Calculs_trigonometriques() {
           texte = `Un voyageur approche d'une montagne. Il aimerait en calculer la hauteur.<br>`;
           texte += `Pour cela, il utilise un théodolite en un point $A$ qui lui permet de mesurer l'angle $α$ vertical formé par le sommet $S$ de la montagne, le point $A$ et la base de la montagne $H$.<br>`
           texte += `Il parcourt ensuite $${distance}$ m en direction de la montagne et effectue une nouvelle mesure de l'angle $β$ en un point $B$.<br>`
-          texte += `Le schéma ci-dessous n'est pas en vraie grandeur.<br>On donne : $α=${alpha}\\degree$, $β=${beta}\\degree$ et $AB=${distance}$ m.<br>` + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 11, pixelsParCm: 20, scale: 1 }, objets)+'<br>';
+          texte += `Le schéma ci-dessous n'est pas en vraie grandeur.<br>On donne : $α=${alpha}\\degree$, $β=${beta}\\degree$ et $AB=${distance}$ m.<br>` + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 1 }, objets)+'<br>';
 
           if (this.sup2) {
             texte += `${num_alpha(j)}Exprimer la mesure de l'angle $\\widehat{BSH}$ en fonction de $β$.<br>`
@@ -159,16 +161,16 @@ export default function Calculs_trigonometriques() {
           }
           j++
           if (this.sup2){
-            texte+=`${num_alpha(j)}En déduire $\\bm {h}$ en fonction de $BS$ puis en fonction de $BC$ enfin en fonction de $AB$.<br>`
+            texte+=`${num_alpha(j)}En déduire $h$ en fonction de $BS$ puis en fonction de $BC$ enfin en fonction de $AB$.<br>`
           }
           else {
-            texte+=`${num_alpha(j)}En déduire $\\bm {h}$ en fonction de $AB$.<br>`
+            texte+=`${num_alpha(j)}En déduire $h$ en fonction de $AB$.<br>`
           }
           j++
           texte += `${num_alpha(j)}Quelle est la hauteur de la montagne (arrondir au mètre près) ?<br>`
           texte += `On supposera le point d'observation au niveau du sol.`
           j=0
-          texte_corr = mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 11, pixelsParCm: 20, scale: 1 }, objets)+'<br>'
+          texte_corr = mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 1 }, objets)+'<br>'
           if (this.sup2) {
             texte_corr += `${num_alpha(j)}Dans le triangle $BHS$ rectangle en $H$, les angles aigus sont complémentaires donc $\\widehat{BSH}=90-β$.<br>`
             texte_corr += `${num_alpha(j+1)}Dans le triangle $AHS$ rectangle en $H$, pour la même raison $\\widehat{ASH}=90-α$.<br>`
@@ -181,10 +183,10 @@ export default function Calculs_trigonometriques() {
             texte_corr+=`${num_alpha(j)}Dans le triangle $ABC$ rectangle en $C$, $sin(\\widehat{BAC})=\\dfrac{BC}{AB}$ d'où $BC=AB\\times sin(\\widehat{BAC})=AB\\times sin(α)$.<br>`
           j++
 
-            texte_corr+=`${num_alpha(j)}Dans le triangle $BHS$ rectangle en $H$, $\\bm {h}=BS\\times sin(β)=\\dfrac{BC}{sin(β-α)}\\times sin(β)=\\dfrac{AB\\times sin(α)}{sin(β-α)}\\times sin(β)$<br>`
+            texte_corr+=`${num_alpha(j)}Dans le triangle $BHS$ rectangle en $H$, $h=BS\\times sin(β)=\\dfrac{BC}{sin(β-α)}\\times sin(β)=\\dfrac{AB\\times sin(α)}{sin(β-α)}\\times sin(β)$<br>`
 
           j++
-          texte_corr += `${num_alpha(j)}Application numérique : $\\bm{h}=\\dfrac{${distance}\\times sin(${alpha})}{sin(${beta}-${alpha})}\\times sin(${beta})$`
+          texte_corr += `${num_alpha(j)}Application numérique : $h=\\dfrac{${distance}\\times sin(${alpha})}{sin(${beta}-${alpha})}\\times sin(${beta})$`
           texte_corr  +=`$=\\dfrac{${distance}\\times sin(${alpha})\\times sin(${beta})}{sin(${beta-alpha})}\\approx ${Math.round(taille)}$ m.<br>`
           break;
           case 'type4': // mesurer un parallèle terrestre.
@@ -213,9 +215,10 @@ export default function Calculs_trigonometriques() {
           objets.push(demicercle3d(H,normalV,R2,'caché','red',0),demicercle3d(H,normalV,R2,'visible','red',0))
           objets.push(arete3d(O,M).p2d)
           objets.push(afficheMesureAngle(M.p2d,O.p2d,P.p2d,'black',1.5,`${alpha}`))
-          texte=mathalea2d({ xmin: -8, ymin: -8, xmax: 8, ymax: 8, pixelsParCm: 20, scale: 1 }, objets)+'<br>'
+          texte=mathalea2d({ xmin: -8, ymin: -6, xmax: 8, ymax: 6, pixelsParCm: 20, scale: 1 }, objets)+'<br>'
           texte+=`Quelle est la longueur du $${alpha}$ième parallèle Nord ?`
-          texte_corr=`Considérons que le $${alpha}$ième parallèle Nord est un cercle. Soit $H$ le centre de ce cercle situé sur l'axe de rotation de la terre.<br>`
+          texte_corr=mathalea2d({ xmin: -8, ymin: -6, xmax: 8, ymax: 6, pixelsParCm: 20, scale: 1 }, objets)+'<br>'
+          texte_corr+=`Considérons que le $${alpha}$ième parallèle Nord est un cercle. Soit $H$ le centre de ce cercle situé sur l'axe de rotation de la terre.<br>`
           texte_corr+=`Les segments $[HP]$ et $[OM]$ sont parallèles, donc les angles alternes-internes $\\widehat{MOP}$ et $\\widehat{OPH}$ sont égaux.<br>`
           texte_corr+=`Dans le triangle $OPH$ rectangle en $H$, $cos(\\widehat{OPH})=\\dfrac{HP}{OP}$ d'où $HP=OP\\times cos(\\widehat{OPH})$.<br>`
           texte_corr+=`Le rayon de la terre étant approximativement de $6400$ km, nous pouvons calculer $HP$ :<br>`
