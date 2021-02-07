@@ -1208,7 +1208,7 @@ function Polyline(...points) {
     if (this.opacite != 1) {
       tableauOptions.push(`opacity = ${this.opacite}`);
     }
-    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`);
+    tableauOptions.push(`decorate,decoration={random steps , segment length=3pt, amplitude = ${amp}pt}`);
 
     let optionsDraw = [];
     if (tableauOptions.length > 0) {
@@ -1333,6 +1333,15 @@ function Vecteur(arg1, arg2, nom = "") {
     s.styleExtremites = "|->";
     return s
   };
+  this.representantNomme = function(A,nom,taille=1,color='black'){
+    let B = point(A.x + this.x, A.y + this.y);
+    let s = segment(A, B);
+    let angle=s.angleAvecHorizontale
+    let M=milieu(A,B)
+    let v=similitude(this,A,90,1/this.norme())
+    let N=translation(M,v)
+    return nomVecteurParPosition(nom,N.x,N.y,taille,angle,color)    
+  }
 }
 export function vecteur(...args) {
   return new Vecteur(...args);
@@ -1612,12 +1621,15 @@ function Segment(arg1, arg2, arg3, arg4, color) {
     let B = point(this.x2, this.y2);
     let l=longueur(A,B)
     let dx=(B.xSVG(coeff)-A.xSVG(coeff))/l/2,dy=(B.ySVG(coeff)-A.ySVG(coeff))/l/2
-    let code =`<path d="M ${A.xSVG(coeff)},${A.ySVG(coeff)} C ${Math.round(A.xSVG(coeff),0)},${arrondi(A.ySVG(coeff))} `
-    for (let k=0;k<2*l+0.25;k+=0.25) {
-      code +=`${Math.round(A.xSVG(coeff)+k*dx+randint(-1,1)*amp)},${Math.round(A.ySVG(coeff)+k*dy+randint(-1,1)*amp)} `
+    let code =`<path d="M ${A.xSVG(coeff)}, ${A.ySVG(coeff)} Q ${Math.round(A.xSVG(coeff),0)}, ${arrondi(A.ySVG(coeff),0)} `
+    let p=1
+    for (let k=0;k<2*l+0.25;k+=0.5) {
+      p++
+      code +=`${Math.round(A.xSVG(coeff)+k*dx+randint(-2,2,0)*amp)}, ${Math.round(A.ySVG(coeff)+k*dy+randint(-2,2,0)*amp)} `
     }
-    code +=` ${Math.round(B.xSVG(coeff),0)},${arrondi(B.ySVG(coeff))} ${B.xSVG(coeff)},${B.ySVG(coeff)} " stroke="${this.color}" ${this.style}/>`
-    return code;
+   if(p%2==1) code +=` ${Math.round(B.xSVG(coeff),0)}, ${arrondi(B.ySVG(coeff),0)}" stroke="${this.color}" ${this.style}/>`
+   else  code +=` ${Math.round(B.xSVG(coeff),0)}, ${arrondi(B.ySVG(coeff),0)} ${arrondi(B.xSVG(coeff),0)}, ${arrondi(B.ySVG(coeff),0)}" stroke="${this.color}" ${this.style}/>`
+   return code;
  }
   this.tikzml = function(amp){
     let A = point(this.x1, this.y1);
