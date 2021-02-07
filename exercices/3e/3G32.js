@@ -1,7 +1,7 @@
 import Exercice from '../ClasseExercice.js';
 import { liste_de_question_to_contenu, combinaison_listes, randint, num_alpha,arrondi, calcul, tex_nombre, tex_nombrec, arrondi_virgule } from "/modules/outils.js"
-import { texteSurSegment, projectionOrtho, pointAdistance,droite, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, mathalea2d } from './../../modules/2d.js';
-import { } from '/modules/2d.js';
+import { texteSurSegment, tracePoint,labelPoint,projectionOrtho, pointAdistance,droite, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, mathalea2d } from '../../modules/2d.js';
+import {point3d,vecteur3d,sphere3d,arete3d,rotationV3d,demicercle3d,homothetie3d} from "/modules/3d.js"
 /**
  * Description didactique de l'exercice
  * @Auteur 
@@ -15,24 +15,24 @@ export default function Calculs_trigonometriques() {
   this.nb_cols = 2; // Uniquement pour la sortie LaTeX
   this.nb_cols_corr = 2; // Uniquement pour la sortie LaTeX
   this.sup = 1; // Niveau de difficulté à ne définir que si on peut le modifier avec un formulaire en paramètre
-  this.sup2 = false;
+  this.sup2 = true;
   this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
-  this.nb_questions = 1
+  this.nb_questions = 4
 
   this.nouvelle_version = function () {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
-    let objet = [['arbre', 'un', ''], ['immeuble', 'un', ''], ['éolienne', 'une', 'te'], ['montagne', 'une', 'te']]
-    let distance, hauteur, beta, alpha, teta, taille, index, A, B, O, H, S, C, objets = [], p
-    let type_de_questions_disponibles = ['type1', 'type2','type3']; // On créé 3 types de questions
+    let objet = [['arbre', 'un', ''], ['immeuble', 'un', ''], ['éolienne', 'une', 'te'], ['coline', 'une', 'te']]
+    let distance, hauteur, beta, alpha, teta, taille, index, A, B, O, H, S, C,M,R,R2,Axe,normalV,normalH,P,HP,Sph,OP,PoleNord,PoleSud, objets = [], p
+    let type_de_questions_disponibles = ['type1', 'type2','type3','type4']; // On créé 3 types de questions
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texte_corr,j, cpt = 0; i < this.nb_questions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
 
       switch (liste_type_de_questions[i]) { // Suivant le type de question, le contenu sera différent
-        case 'type1':
-
+        case 'type1': // Mesurer un arbre, un immeuble, une éolienne ou une coline
+        objets=[]
           distance = randint(5, 300)
           hauteur = calcul(randint(150, 190) / 100)
           beta = Math.atan(hauteur / distance)
@@ -73,7 +73,8 @@ export default function Calculs_trigonometriques() {
           texte_corr += `$BS=BH+HS=${tex_nombre(hauteur)}+${tex_nombrec(taille - hauteur)}=${tex_nombre(taille)}$ m.<br>`
           texte_corr += `Cet${objet[index][2]} ${objet[index][0]} mesure $${tex_nombre(Math.round(taille))}$ m de hauteur.`;
           break;
-        case 'type2':
+        case 'type2': //mesurer une falaise depuis un bateau
+        objets=[]
           alpha = randint(25, 45)
           beta = Math.tan(alpha * Math.PI / 180) * Math.tan((alpha + 1) * Math.PI / 180) / (Math.tan((alpha + 1) * Math.PI / 180) - Math.tan(alpha * Math.PI / 180))
           distance = randint(5, 10)
@@ -113,10 +114,11 @@ export default function Calculs_trigonometriques() {
           texte_corr += `$BH=\\dfrac{${distance}\\times tan(${alpha})}{tan(${alpha + 5})-tan(${alpha})}\\approx ${tex_nombrec(Math.round(taille / Math.tan((alpha + 5) * Math.PI / 180)))}$ m.<br>`
           texte_corr += `La hauteur de la falaise est de $${Math.round(taille)}$ m et l'observateur se trouve à $${tex_nombrec(Math.round(taille / Math.tan((alpha + 5) * Math.PI / 180)))}$ m de celle-ci lors du deuxième relevé.<br>`;
           break;
-        case 'type3': // Table de 200
+        case 'type3': // Mesurer une montagne à grande distance
+        objets=[]
           alpha = randint(25, 45)
           j=0
-          beta = alpha+randint(1,5)
+          beta = alpha+randint(1,3)
           taille = randint(20,50)*100
           distance = Math.round(taille*Math.sin((beta-alpha)*Math.PI/180)/Math.sin(alpha*Math.PI/180)/Math.sin(beta*Math.PI/180))
           taille=Math.round(distance*Math.sin(alpha*Math.PI/180)*Math.sin(beta*Math.PI/180)/Math.sin((beta-alpha)*Math.PI/180))
@@ -185,7 +187,41 @@ export default function Calculs_trigonometriques() {
           texte_corr += `${num_alpha(j)}Application numérique : $\\bm{h}=\\dfrac{${distance}\\times sin(${alpha})}{sin(${beta}-${alpha})}\\times sin(${beta})$`
           texte_corr  +=`$=\\dfrac{${distance}\\times sin(${alpha})\\times sin(${beta})}{sin(${beta-alpha})}\\approx ${Math.round(taille)}$ m.<br>`
           break;
-
+          case 'type4': // mesurer un parallèle terrestre.
+          objets=[]
+          alpha=randint(30,60)
+          O=point3d(0,0,0,false,'O')
+          M=point3d(5,0,0,true,'M')
+          PoleNord=point3d(0,0,5,false,'N')
+          PoleSud=point3d(0,0,-5,false,'S')
+          R=vecteur3d(O,M)
+          Axe=arete3d(PoleSud,PoleNord)
+          normalV=vecteur3d(0,0,1)
+          M=rotationV3d(M,normalV,mathalea.anglePerspective)
+          M.p2d.nom='M'
+          normalH=rotationV3d(R,normalV,90)
+          P=rotationV3d(M,normalH,-alpha)
+          P.p2d.nom='P'
+          console.log(P)
+          H=point3d(0,0,P.z3d,false)
+          R2=vecteur3d(H,P)
+          H.p2d.nom='H'
+          Sph=sphere3d(O,5,1,3)
+          HP=arete3d(H,P)
+          OP=arete3d(O,P)
+          objets.push(Sph,Axe.p2d,HP.p2d,OP.p2d,codageAngleDroit(P.p2d,H.p2d,O.p2d),tracePoint(H.p2d,P.p2d,O.p2d,M.p2d),labelPoint(H.p2d,P.p2d,O.p2d,M.p2d))
+          objets.push(demicercle3d(H,normalV,R2,'caché','red',0),demicercle3d(H,normalV,R2,'visible','red',0))
+          objets.push(arete3d(O,M).p2d)
+          objets.push(afficheMesureAngle(M.p2d,O.p2d,P.p2d,'black',1.5,`${alpha}`))
+          texte=mathalea2d({ xmin: -8, ymin: -8, xmax: 8, ymax: 8, pixelsParCm: 20, scale: 1 }, objets)+'<br>'
+          texte+=`Quelle est la longueur du $${alpha}$ième parallèle Nord ?`
+          texte_corr=`Considérons que le $${alpha}$ième parallèle Nord est un cercle. Soit $H$ le centre de ce cercle situé sur l'axe de rotation de la terre.<br>`
+          texte_corr+=`Les segments $[HP]$ et $[OM]$ sont parallèles, donc les angles alternes-internes $\\widehat{MOP}$ et $\\widehat{OPH}$ sont égaux.<br>`
+          texte_corr+=`Dans le triangle $OPH$ rectangle en $H$, $cos(\\widehat{OPH})=\\dfrac{HP}{OP}$ d'où $HP=OP\\times cos(\\widehat{OPH})$.<br>`
+          texte_corr+=`Le rayon de la terre étant approximativement de $6400$ km, nous pouvons calculer $HP$ :<br>`
+          texte_corr+=`$HP=6400\\times cos(${alpha})\\approx ${tex_nombrec(6400*Math.cos(alpha*Math.PI/180))}$ km.<br>`
+          texte_corr+=`Calculons maintenant la longueur $L$ du $${alpha}$ième parallèle : $L\\approx 2\\times \\Pi\\times ${tex_nombrec(6400*Math.cos(alpha*Math.PI/180))}\\approx ${tex_nombrec(2*Math.PI*6400*Math.cos(alpha*Math.PI/180))}$ km.<br>`
+          break;
       }
 
       if (this.liste_questions.indexOf(texte) == -1) {
