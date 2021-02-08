@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
-import {randint,liste_de_question_to_contenu,choice,premiere_lettre_en_majuscule,num_alpha,tex_fraction_signe} from "/modules/outils.js"
-import {repere2,traceBarre,mathalea2d} from "/modules/2d.js"
+import {randint,liste_de_question_to_contenu,choice,premiere_lettre_en_majuscule,num_alpha,tex_fraction_signe,calcul,arrondi,arrondi_virgule} from "/modules/outils.js";
+import {repere2,traceBarre,mathalea2d} from "/modules/2d.js";
 
 /**
 * Calculer des effectifs et des fréquences.
@@ -9,19 +9,19 @@ import {repere2,traceBarre,mathalea2d} from "/modules/2d.js"
 * 2021-02-07
 */
 
-export function calcul_Effectif_Frequence() {
+export default function calcul_Effectif_Frequence() {
     "use strict"
     Exercice.call(this)
     this.titre = "Calculer des effectifs et des fréquences";
     this.consigne = `Répondre aux questions à l'aide du graphique et de calculs.`;
     this.nb_questions = 4; // Ici le nombre de questions
-    this.nb_questions_modifiable=false // Active le formulaire nombre de questions
+    this.nb_questions_modifiable=false; // Active le formulaire nombre de questions
     this.nb_cols = 2; // Le nombre de colonnes dans l'énoncé LaTeX
     this.nb_cols_corr = 2;// Le nombre de colonne pour la correction LaTeX
     this.tailleDiaporama = 50;
     this.pas_de_version_LaTeX=false; // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
     this.pas_de_version_HMTL=false; // mettre à true si on ne veut pas de l'exercice en ligne
-    this.video = ""; // Id YouTube ou url
+    this.video = "https://youtu.be/GWDDay-mdVA"; // Id YouTube ou url
     this.correction_detaillee_disponible=false;
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
   
@@ -34,12 +34,12 @@ export function calcul_Effectif_Frequence() {
     // la variable numero_de_l_exercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
   
-    this.liste_questions = [] // tableau contenant la liste des questions 
-    this.liste_corrections = []
-    let liste_type_de_questions_disponibles= [];
+    this.liste_questions = []; // tableau contenant la liste des questions 
+    this.liste_corrections = [];
+    //let liste_type_de_questions_disponibles= [];
     let lstQuadri = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères'];
     let lstOiseaux = ['hérons', 'marabouts', 'flamants roses', 'cigognes', 'grues', 'vautours'];
-    let nbAnimaux = 3 + parseInt(this.sup); // nombre d'animaux différents dans l'énoncé (entre 4 et 6)
+    let nbAnimaux = 4 + parseInt(this.sup); // nombre d'animaux différents dans l'énoncé (entre 5 et 7)
     let nbQuadri = 3 ;
     let lstAnimauxExo = []; //liste des animaux uniquement cités dans l'exercice
     let lstNombresAnimaux = []; // liste des effectifs de chaque animal
@@ -64,22 +64,23 @@ export function calcul_Effectif_Frequence() {
     texte += `Dans le parc naturel de ` + choice(lstNomParc) + `, il y a des animaux. ` ;
     texte += `Certains sont des quadripèdes (`;
     for (let i = 0; i < nbQuadri; i++) {
-      texte += lstAnimauxExo[i] + ', '
+      texte += lstAnimauxExo[i] + ', ';
     } 
     texte = texte.substring(0, texte.length-2);
     texte += `), et d'autres sont des oiseaux (`;
     for (let i = nbQuadri; i < nbAnimaux; i++) {
-      texte += lstAnimauxExo[i] + ', '
+      texte += lstAnimauxExo[i] + ', ';
     }
     texte = texte.substring(0, texte.length-2);
-    texte += `). `
+    texte += `). `;
     
     texte += 'Voici un diagramme en bâtons qui donne le nombre d’individus pour chaque espèce.<br>';
     texte += num_alpha(0) + ` Quel est l'effectif des ` + lstAnimauxExo[0] + ` ?<br>`;
     texte += num_alpha(1) + ` Calculer la fréquence des ` + lstAnimauxExo[1] + ` ? Donner le résultat sous la forme d'un pourcentage.<br>`;
-    texte += num_alpha(1) + ` Calculer la fréquence des quadripèdes ? Donner le résultat sous la forme d'un pourcentage.<br>`;
+    texte += num_alpha(2) + ` Calculer l'effectif des quadripèdes ? <br>`;
+    texte += num_alpha(3) + ` Calculer la fréquence des oiseaux ? Donner le résultat sous la forme d'un pourcentage.<br>`;
 
-    texte += `Les pourcentages seront éventuellement arrondi à 0,1% près. <br>`;
+    texte += `Les pourcentages seront éventuellement arrondis à 0,1% près. <br>`;
 
     let coef = 1;
 
@@ -100,16 +101,16 @@ export function calcul_Effectif_Frequence() {
 
     let lstElementGraph = [];
     for (let i = 0; i < nbAnimaux; i++) {
-      lstElementGraph.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiere_lettre_en_majuscule(lstAnimauxExo[i]), { unite: 1 / coef }))
+      lstElementGraph.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiere_lettre_en_majuscule(lstAnimauxExo[i]), { unite: 1 / coef }));
     }
-    texte += mathalea2d({ xmin: -5, xmax: 11, ymin: -4, ymax: 11, pixelsParCm: 30, scale: 1 }, r, lstElementGraph)
+    texte += mathalea2d({ xmin: -5, xmax: 11, ymin: -4, ymax: 11, pixelsParCm: 30, scale: 1 }, r, lstElementGraph);
 
-    //début de la correction
+//début de la correction
     //question 1    
     texte_corr += num_alpha(0) + ` D'après le graphique, il y a ` + lstNombresAnimaux[0] + ` ` + lstAnimauxExo[0] + `. <br>`;
     //question 2
-    let Ntotal = 0;
-     texte_corr += num_alpha(1) + ` L'effectif total est : ` + lstNombresAnimaux[0] ;
+    let Ntotal = lstNombresAnimaux[0];
+     texte_corr += num_alpha(1) + ` L'effectif total des animaux est : ` + lstNombresAnimaux[0] ;
     for (let i = 1; i < nbAnimaux; i++) {
       texte_corr += ` + ` + lstNombresAnimaux[i];
       Ntotal += lstNombresAnimaux[i];
@@ -117,16 +118,51 @@ export function calcul_Effectif_Frequence() {
     
     texte_corr += ` = `+ Ntotal + `. `
     texte_corr += ` D'après le graphique, il y a ` + lstNombresAnimaux[1] + ` ` + lstAnimauxExo[1] + `. <br>`;
-    texte_corr += ` La fréquence (ou la proportion) de  ` + lstAnimauxExo[1] + ` est donc : $ ` + tex_fraction_signe(lstNombresAnimaux[1], Ntotal) + `$.`;
+    texte_corr += ` La fréquence (ou la proportion) de  ` + lstAnimauxExo[1] + ` est : $ ` + tex_fraction_signe(lstNombresAnimaux[1], Ntotal) + `$ `;
     // test de l'arrondi
+    if (calcul(lstNombresAnimaux[1]/Ntotal) == arrondi(lstNombresAnimaux[1]/Ntotal,3)) {
+      texte_corr += `= `;
+    } else 
+    {
+      texte_corr += `$\\approx $ `;
+    }
+    texte_corr += arrondi_virgule(lstNombresAnimaux[1]/Ntotal,3) + `. <br>`;
+    texte_corr += `La fréquence est donc : ` + arrondi_virgule(100*lstNombresAnimaux[1]/Ntotal,1) + `%. <br>`;
 
-    texte_corr += `La fréquence est : `;
+    //question 3
+    let N_totalQuadri = lstNombresAnimaux[0];
+     texte_corr += num_alpha(2) + ` L'effectif total des quadripèdes est : ` + lstNombresAnimaux[0] ;
+    for (let i = 1; i < nbQuadri; i++) {
+      texte_corr += ` + ` + lstNombresAnimaux[i];
+      N_totalQuadri += lstNombresAnimaux[i];
+    } 
+    texte_corr += ` = `+ N_totalQuadri + `. <br>`
+
+    //question 4
+    let Ntotal_oiseaux = lstNombresAnimaux[3];
+     texte_corr += num_alpha(3) + ` L'effectif total des oiseaux est : ` + lstNombresAnimaux[3] ;
+    for (let i = 4; i < nbAnimaux; i++) {
+      texte_corr += ` + ` + lstNombresAnimaux[i];
+      Ntotal_oiseaux += lstNombresAnimaux[i];
+    } 
+    texte_corr += ` = `+ Ntotal_oiseaux + `. `
+    texte_corr += ` L'effectif total des animaux est : ` + Ntotal + `. <br>`;
+    texte_corr += ` La fréquence (ou la proportion) d'oiseaux est : $ ` + tex_fraction_signe(Ntotal_oiseaux, Ntotal) + `$ `;
+    // test de l'arrondi
+    if (calcul(Ntotal_oiseaux/Ntotal) == arrondi(Ntotal_oiseaux/Ntotal,3)) {
+      texte_corr += `= `;
+    } else 
+    {
+      texte_corr += `$\\approx $ `;
+    }
+    texte_corr += arrondi_virgule(Ntotal_oiseaux/Ntotal,3) + `. <br>`;
+    texte_corr += `La fréquence est donc : ` + arrondi_virgule(100*Ntotal_oiseaux/Ntotal,1) + `%. <br>`;
 
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);
 
     liste_de_question_to_contenu(this); // On envoie l'exercice à la fonction de mise en page
-    }
-  this.besoin_formulaire_numerique = [`Nombre d'espèces différentes`, 3, ` choix 1 : 4 espèces\n choix 2 : 5 espèces\n choix 3 : 6 espèces`];
+  };
+  this.besoin_formulaire_numerique = [`Nombre d'espèces différentes`, 3, ` choix 1 : 5 espèces\n choix 2 : 6 espèces\n choix 3 : 7 espèces`];
 } // Fin de l'exercice.
   
