@@ -8365,3 +8365,37 @@ export function labyrinthe() {
 export function pavage() {
 	return new Pavage()
 }
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%% LES FONCTIONS - TABLEAUX  %%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+*/
+
+/**
+ * @class FonctionsTableaux
+ * @classdesc Tableaux de signes, tableaux de variations, ...
+ * @author Sébastien Lozano
+ */
+
+ export function TabInit() {
+   
+   if (sortie_html) {
+     return `
+     $\\def\\arraystretch{2.5}\\begin{array}{|c|c|}
+     \\hline\n
+     x & 0\\phantom{-------------}6\\phantom{-------------}+\\infty \\\\\n
+     \\hline\n
+     f(x) & \\\\\n
+     \\hline\n
+      \\end{array}$
+     `;
+
+   } else {
+     return `
+      \\begin{tikzpicture}
+        \\tkzTabInit{$x$ / 1 , $f(x)$ / 1}{$0$, $6$, $+\\infty$}
+      \\end{tikzpicture}
+      `;
+   };
+ };
