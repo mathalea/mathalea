@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {randint,liste_de_question_to_contenu,choice,premiere_lettre_en_majuscule,num_alpha,tex_fraction_signe,calcul,arrondi,arrondi_virgule} from "/modules/outils.js";
+import {randint,liste_de_question_to_contenu,choice,premiere_lettre_en_majuscule,num_alpha,tex_fraction_signe,calcul,arrondi,arrondi_virgule, texte_gras} from "/modules/outils.js";
 import {repere2,traceBarre,mathalea2d} from "/modules/2d.js";
 
 /**
@@ -107,7 +107,7 @@ export default function calcul_Effectif_Frequence() {
 
 //début de la correction
     //question 1    
-    texte_corr += num_alpha(0) + ` D'après le graphique, il y a ` + lstNombresAnimaux[0] + ` ` + lstAnimauxExo[0] + `. <br>`;
+    texte_corr += num_alpha(0) + texte_gras(` D'après le graphique, il y a ` + lstNombresAnimaux[0] + ` ` + lstAnimauxExo[0] + `. <br>`);
     //question 2
     let Ntotal = lstNombresAnimaux[0];
      texte_corr += num_alpha(1) + ` L'effectif total des animaux est : ` + lstNombresAnimaux[0] ;
@@ -127,16 +127,20 @@ export default function calcul_Effectif_Frequence() {
       texte_corr += `$\\approx $ `;
     }
     texte_corr += arrondi_virgule(lstNombresAnimaux[1]/Ntotal,3) + `. <br>`;
-    texte_corr += `La fréquence est donc : ` + arrondi_virgule(100*lstNombresAnimaux[1]/Ntotal,1) + `%. <br>`;
+    texte_corr += texte_gras(`La fréquence des ` + lstAnimauxExo[1] + ` est donc : ` + arrondi_virgule(100*lstNombresAnimaux[1]/Ntotal,1) + `%. <br>`);
 
     //question 3
+    texte_corr += num_alpha(2) + `On fait la somme des effectifs de chaque espèce de quadripèdes : `
     let N_totalQuadri = lstNombresAnimaux[0];
-     texte_corr += num_alpha(2) + ` L'effectif total des quadripèdes est : ` + lstNombresAnimaux[0] ;
+     texte_corr += lstNombresAnimaux[0] ;
     for (let i = 1; i < nbQuadri; i++) {
       texte_corr += ` + ` + lstNombresAnimaux[i];
       N_totalQuadri += lstNombresAnimaux[i];
     } 
-    texte_corr += ` = `+ N_totalQuadri + `. <br>`
+    texte_corr += `. <br>`
+    texte_corr += texte_gras(`L'effectif des quadripèdes est donc : ` + N_totalQuadri + `.<br>`);
+
+
 
     //question 4
     let Ntotal_oiseaux = lstNombresAnimaux[3];
@@ -156,7 +160,7 @@ export default function calcul_Effectif_Frequence() {
       texte_corr += `$\\approx $ `;
     }
     texte_corr += arrondi_virgule(Ntotal_oiseaux/Ntotal,3) + `. <br>`;
-    texte_corr += `La fréquence est donc : ` + arrondi_virgule(100*Ntotal_oiseaux/Ntotal,1) + `%. <br>`;
+    texte_corr += texte_gras(`La fréquence des oiseaux est donc : ` + arrondi_virgule(100*Ntotal_oiseaux/Ntotal,1) + `%. <br>`);
 
     this.liste_questions.push(texte);
     this.liste_corrections.push(texte_corr);

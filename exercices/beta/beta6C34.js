@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {randint,liste_de_question_to_contenu,combinaison_listes} from "/modules/outils.js"
+import {randint,liste_de_question_to_contenu,combinaison_listes,texte_gras} from "/modules/outils.js"
 
 /**
 * Trouver le dernier chiffre d'un calcul (somme, produit, différence)
@@ -56,10 +56,10 @@ export default function dernierChiffre() {
                 texte = `$ ${a} + ${b}$`;
                 texte_corr =``;
                 if (this.correction_detaillee){
-                  texte_corr += `Le dernier chiffre de $${a} + ${b}$ est le dernier chiffre de $${a%10} + ${b%10}$.`;
+                  texte_corr += `Le dernier chiffre de $${a} + ${b}$ est le dernier chiffre de $${a%10} + ${b%10}$. `;
                   texte_corr += `Or : $${a%10} + ${b%10} = ${a%10 + b%10} $<br>`;
                 }
-                texte_corr += `Le dernier chiffre de $${a} + ${b}$ est : $${(b+a)%10}$.`;
+                texte_corr += texte_gras(`Le dernier chiffre de $${a} + ${b}$ est : $${(b+a)%10}$.`);
                 
                 break;          
               case 'produit':
@@ -71,7 +71,7 @@ export default function dernierChiffre() {
                   texte_corr += `Le dernier chiffre de $${a} \\times ${b}$ est le dernier chiffre de $${a%10} \\times ${b%10}$. `;
                   texte_corr += `Or : $${a%10} \\times ${b%10} = ${(a%10) * (b%10)} $<br>`;
                 }
-                texte_corr += `Le dernier chiffre de $${a} \\times ${b}$ est : $${(b*a)%10}$.`;
+                texte_corr += texte_gras(`Le dernier chiffre de $${a} \\times ${b}$ est : $${(b*a)%10}$.`);
                 break;
               
               case 'difference':
@@ -81,12 +81,12 @@ export default function dernierChiffre() {
                 texte_corr =``;
                 if (this.correction_detaillee){
                   if (a%10 - b%10 >= 0){
-                    texte_corr += `Le dernier chiffre de $${a} - ${b}$ est égal à : $${a%10} - ${b%10}$. `;
+                    texte_corr += `Le dernier chiffre de $${a} - ${b}$ est égal à : $${a%10} - ${b%10} = ${(a%10)-(b%10)}$. <br>`;
                   } else {
-                    texte_corr += `Comme  $${a%10} < ${b%10}$, on doit faire la soustraction : $${(a%10)+10} - ${b%10}$. `;
+                    texte_corr += `Comme  $${a%10} < ${b%10}$, on doit faire la soustraction : $${(a%10)+10} - ${b%10} = ${((a%10)+10)-(b%10)}$. <br>`;
                   }
                 }
-                texte_corr += `Le dernier chiffre de $${a} - ${b}$ est : $${(a-b)%10}$.`;
+                texte_corr += texte_gras(`Le dernier chiffre de $${a} - ${b}$ est : $${(a-b)%10}$.`);
                 break;
           }
 
