@@ -18,7 +18,7 @@ export default function Calculs_trigonometriques() {
   this.sup2 = true;
   this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
-  this.nb_questions = 5
+  this.nb_questions = 1
   this.spacing_corr=2
   this.spacing=2
 
@@ -27,7 +27,16 @@ export default function Calculs_trigonometriques() {
     this.liste_corrections = []; // Liste de questions corrigées
     let objet = [['arbre', 'un', ''], ['immeuble', 'un', ''], ['éolienne', 'une', 'te'], ['coline', 'une', 'te']]
     let distance, hauteur, beta, alpha, teta, taille, index, A, B, O, H, S, C,M,R,R2,Axe,normalV,normalH,P,HP,Sph,OP,PoleNord,PoleSud, objets = [], p
-    let type_de_questions_disponibles = ['type1','type2','type3','type4','type5']; // On créé 3 types de questions
+    let type_de_questions_disponibles
+    if (this.sup==1) {
+    type_de_questions_disponibles=['type4','type5']; // parallèle terrestre et largeur de rivière
+    }
+    else if (this.sup==2){
+      type_de_questions_disponibles=['type1','type2','type3']; // hauteur d'arbre et plus, hauteur de montage, hauteur de falaise
+    }
+    else {
+      type_de_questions_disponibles=['type1','type2','type3','type4','type5']; // tous
+    }
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texte_corr,j, cpt = 0; i < this.nb_questions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
@@ -288,7 +297,7 @@ export default function Calculs_trigonometriques() {
     }
     liste_de_question_to_contenu(this);
   };
-  this.besoin_formulaire_numerique = ['Niveau de difficulté', 3];
+  this.besoin_formulaire_numerique = ['Niveau de difficulté', 3,'1 : Problèmes faciles\n 2 : Problèmes difficiles\n 3 : Au hasard'];
   this.besoin_formulaire2_case_a_cocher = ['Afficher un schéma et des questions intermédiaires'];
 }
 
