@@ -18,7 +18,7 @@ export default function Calculs_trigonometriques() {
   this.sup2 = true;
   this.tailleDiaporama = 100; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = "" // Id YouTube ou url
-  this.nb_questions = 4
+  this.nb_questions = 5
   this.spacing_corr=2
   this.spacing=2
 
@@ -27,7 +27,7 @@ export default function Calculs_trigonometriques() {
     this.liste_corrections = []; // Liste de questions corrigées
     let objet = [['arbre', 'un', ''], ['immeuble', 'un', ''], ['éolienne', 'une', 'te'], ['coline', 'une', 'te']]
     let distance, hauteur, beta, alpha, teta, taille, index, A, B, O, H, S, C,M,R,R2,Axe,normalV,normalH,P,HP,Sph,OP,PoleNord,PoleSud, objets = [], p
-    let type_de_questions_disponibles = ['type1', 'type2','type3','type4']; // On créé 3 types de questions
+    let type_de_questions_disponibles = ['type1','type2','type3','type4','type5']; // On créé 3 types de questions
     let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions); // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texte_corr,j, cpt = 0; i < this.nb_questions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
@@ -225,7 +225,58 @@ export default function Calculs_trigonometriques() {
           texte_corr+=`$HP=6400\\times cos(${alpha})\\approx ${tex_nombrec(6400*Math.cos(alpha*Math.PI/180))}$ km.<br>`
           texte_corr+=`Calculons maintenant la longueur $L$ du $${alpha}$ième parallèle : $L\\approx 2\\times \\Pi\\times ${tex_nombrec(6400*Math.cos(alpha*Math.PI/180))}\\approx ${tex_nombrec(2*Math.PI*6400*Math.cos(alpha*Math.PI/180))}$ km.<br>`
           break;
-      }
+          case 'type5': // Mesurer la largeur d'une rivière
+          objets=[]
+            alpha = randint(25, 65)
+            j=0
+            beta = alpha+randint(2,5)
+            distance=randint(7,15)*10
+            taille=Math.round(distance*(Math.tan(beta*Math.PI/180)-Math.tan(alpha*Math.PI/180)))
+            A = point(0, 7, 'A')
+            B = point(0, 0, 'B')
+            C = point(7, 0, 'C')
+            S = point(12,0, 'S')
+            p = polygoneAvecNom(A, B, C,S)
+            R = polygoneAvecNom(point(7,-1),point(12,-1),point(12,8),point(7,8))
+            R[0].color='blue'
+            R[0].couleurDeRemplissage='blue'
+            R[0].opaciteDeRemplissage=0.5
+            R[0].opacite=0.5
+            objets.push(p[1], p[0],R[0], segment(A, C),  codageAngleDroit(A, B, C))
+            objets.push(afficheMesureAngle(B,A,C, 'black', 1, `α`), afficheMesureAngle(B,A,S, 'black', 2, `β`))
+            objets.push(texteSurSegment(`${tex_nombre(distance)} m`, A, B, 'black', -0.5), texteParPosition(`l`, milieu(C, S).x, milieu(C, S).y+0.5, 0, 'black', 2, "middle", true))
+  
+            texte = `Un géomètre veut mesurer la largeur d'une rivière.<br>`
+            texte+=`Pour cela, il remarque une souche notée $S$ sur la rive opposée.<br>`;
+            texte += `Il a placé un cône sur sa rive en face de la souche, son emplacement est noté $C$.<br>`
+            texte+=`Ensuite il s'est éloigné de la berge en restant aligné avec la souche $S$ et le cône $C$ jusqu'à un endroit où il place un bâton noté $B$.<br>`
+            texte+=`Du bâton, il effectue un quart de tour et s'éloigne d'une distance de $${distance}$ m jusqu'à son appareil de mesure noté $A$.<br>`
+            texte+=`A l'aide de son appareil, il mesure l'angle $\\widehat{BAC}$ noté $α$  et l'angle $\\widehat{BAS}$ noté $β$.<br>`
+            if (this.sup2) {
+              texte+=`${num_alpha(j)}Exprimer $BC$ en fonction de $AB$ et de $α$.<br>`
+              j++
+              texte+=`${num_alpha(j)}Exprimer $BS$ en fonction de $AB$ et de $β$.<br>`
+              j++
+            }
+            texte+=`${num_alpha(j)}Exprimer $CS$ en fonction de $AB$, de $α$ et de $β$.<br>`
+            j++
+            texte+=`${num_alpha(j)}Calculer la largeur de la rivière au mètre près sachant que $α=${alpha}\\degree$ et $β=${beta}\\degree$.<br>`
+            texte+=mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 1 }, objets)+'<br>';
+            j=0
+            texte_corr = mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 1 }, objets)+'<br>'
+            if (this.sup2) {
+              texte_corr+=`${num_alpha(j)}Dans le triangle $ABC$ rectangle en $B$ on a : $tan(α)=\\dfrac{BC}{AB}$ d'où $BC=AB\\times tan(α)$.<br>`
+              j++
+              texte_corr+=`${num_alpha(j)}Dans le triangle $ABS$ rectangle en $B$ on a : $tan(β)=\\dfrac{BS}{AB}$ d'où $BS=AB\\times tan(β)$.<br>`
+              j++
+            }
+            texte_corr+=`${num_alpha(j)}Comme $BS=AB\\times tan(β)$ et $BC=AB\\times tan(α)$, alors $CS=AB\\times (tan(β)-tan(α))$.<br>`
+            j++
+            texte_corr+=`${num_alpha(j)}Donc $CS=${distance}\\times (tan(${beta})-tan(${alpha}))\\approx ${taille}$ m.<br>`
+
+            break;
+           
+        }
 
       if (this.liste_questions.indexOf(texte) == -1) {
         // Si la question n'a jamais été posée, on en crée une autre
