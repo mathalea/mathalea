@@ -6223,8 +6223,8 @@ export function traceGraphiqueCartesien(...args) {
  * tabInit est un tableau contenant sous forme de chaine les paramètres de la macro Latex \tabInit{}{}
  * tabLines est un tableau contenant sous forme de chaine les paramètres des différentes macro \tabLine{}
  * exemple :
- * tabInit:[[[texte1,taille1],[texte2,taille2]...],[valeur1,valeur2,valeur3,...]]
- * tabLines:[[codeL1C1,codeL1C2,codeL1C3,...],[codeL2C1,codeL2C2,codeL2C3,...]]
+ * tabInit:[[[texte1,taille1],[texte2,taille2]...],[valeur1,valeur2,valeur3,...],[couleurs éventuelles]]
+ * tabLines:[[type,codeL1C1,codeL1C2,codeL1C3,...],[type,codeL2C1,codeL2C2,codeL2C3,...]]
  * @param {*} param0 
  */
 function Tableau_de_variation({ tabInit, tabLines }) {
@@ -6235,13 +6235,15 @@ function Tableau_de_variation({ tabInit, tabLines }) {
   this.svg = function (coeff) {
     let tabinit0 = this.tabInit[0]
     let tabinit1 = this.tabinit[1]
-
+    let lignes,colones // tableaux contenant les différentes chaines à écrire
+    let nb_lignes,nbcolones
 
   }
   this.tikz = function () {
     let code = '\\tkzTabInit{'
     let tabinit0 = this.tabInit[0]
     let tabinit1 = this.tabInit[1]
+    let type
     for (let i = 0; i < tabinit0.length; i++) {
       code += ` ${tabinit0[i][0]} / ${tabinit0[i][1]},`
     }
@@ -6253,8 +6255,9 @@ function Tableau_de_variation({ tabInit, tabLines }) {
     code=code.substring(0,code.length-1)
     code += `}` + "\n\t"
     for (let i = 0; i < this.tabLines.length; i++) {
-      code += `\\tkzTabLine{`
-      for (let j = 0; j < this.tabLines[i].length; j++) {
+      type=this.tabLines[i][0]
+      code += `\\tkzTab${type}{`
+      for (let j = 1; j < this.tabLines[i].length; j++) {
         code += ` ${this.tabLines[i][j]},`
       }
       code=code.substring(0,code.length-1)
