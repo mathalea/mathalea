@@ -717,7 +717,7 @@ function Droite(arg1, arg2, arg3, arg4) {
           tableauOptions.push(` dash dot `);
           break;
         case 2 : 
-        tableauOptions.push(` dash dash dot `);
+        tableauOptions.push(` densely dash dot dot `);
         break;       
         case 3 :
           tableauOptions.push(` dash dot dot `);
@@ -1160,7 +1160,7 @@ function Polyline(...points) {
            tableauOptions.push(` dash dot `);
            break;
          case 2 : 
-         tableauOptions.push(` dash dash dot `);
+         tableauOptions.push(` densely dash dot dot `);
          break;       
          case 3 :
            tableauOptions.push(` dash dot dot `);
@@ -1590,7 +1590,7 @@ function Segment(arg1, arg2, arg3, arg4, color) {
            tableauOptions.push(` dash dot `);
            break;
          case 2 : 
-         tableauOptions.push(` dash dash dot `);
+         tableauOptions.push(` densely dash dot dot `);
          break;       
          case 3 :
            tableauOptions.push(` dash dot dot `);
@@ -1793,7 +1793,7 @@ function Polygone(...points) {
            tableauOptions.push(` dash dot `);
            break;
          case 2 : 
-         tableauOptions.push(` dash dash dot `);
+         tableauOptions.push(` densely dash dot dot `);
          break;       
          case 3 :
            tableauOptions.push(` dash dot dot `);
@@ -2219,7 +2219,7 @@ function Cercle(O, r, color) {
            tableauOptions.push(` dash dot `);
            break;
          case 2 : 
-         tableauOptions.push(` dash dash dot `);
+         tableauOptions.push(` densely dash dot dot `);
          break;       
          case 3 :
            tableauOptions.push(` dash dot dot `);
@@ -2349,7 +2349,7 @@ function Ellipse(O, rx, ry, color) {
            tableauOptions.push(` dash dot `);
            break;
          case 2 : 
-         tableauOptions.push(` dash dash dot `);
+         tableauOptions.push(` densely dash dot dot `);
          break;       
          case 3 :
            tableauOptions.push(` dash dot dot `);
@@ -2688,7 +2688,7 @@ function Arc(M, Omega, angle, rayon = false, fill = 'none', color = 'black', fil
            tableauOptions.push(` dash dot `);
            break;
          case 2 : 
-         tableauOptions.push(` dash dash dot `);
+         tableauOptions.push(` densely dash dot dot `);
          break;       
          case 3 :
            tableauOptions.push(` dash dot dot `);
