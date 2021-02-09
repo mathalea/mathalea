@@ -25,7 +25,7 @@ let numId = 0 // Créer un identifiant numérique unique par objet SVG
  *
  * @Auteur Rémi Angot
  */
-function ObjetMathalea2D() {
+export function ObjetMathalea2D() {
   this.positionLabel = "above";
   this.isVisible = true;
   this.color = "black";
@@ -6225,6 +6225,28 @@ function TraceGraphiqueCartesien(data, repere, {
 
 export function traceGraphiqueCartesien(...args){
   return new TraceGraphiqueCartesien(...args)
+}
+
+function Tableau_de_variation({tabInit,tabLines}){
+
+  ObjetMathalea2D.call(this)
+this.tabInit=tabInit
+this.tabLines=tabLines
+this.svg = function (coeff){
+
+}
+this.tikz = function(){
+  let code=''
+  code +=`\\tkzTabInit{${this.tabInit[0]}}{${this.tabInit[1]}}`+"\n\t"
+  for (let i=0;i<this.tabLines.length;i++){
+      code +=`\\tkzTabLine{${this.tabLines[i]}}`
+  }
+  return code
+}
+
+}
+export function tableau_de_variation({tabInit=['',''],tabLines=[]}){
+  return new Tableau_de_variation({tabInit:tabInit,tabLines:tabLines})
 }
 
 

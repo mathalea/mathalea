@@ -1864,9 +1864,13 @@ export function nombrec2(nb){
  * Renvoie un espace insécable pour le mode texte suivant la sorite html ou Latex.
  * @Auteur Jean-Claude Lhote
  */
-export function sp() {
-	if (sortie_html) return `&nbsp`
-	else return `~`
+export function sp(nb=1) {
+	let s=``
+	for (let i=0;i<nb;i++){
+	if (sortie_html) s+=`&nbsp`
+	else s+=`~`
+	}
+	return s
 }
 
 /**
@@ -6583,7 +6587,7 @@ export function intro_LaTeX(entete = "Exercices",liste_packages) {
 	\\definecolor{geo}{cmyk}{.62,.1,0,0}
 	\\definecolor{algo}{cmyk}{.69,.02,.36,0}
 \\definecolor{correction}{cmyk}{.63,.23,.93,.06}
-\\usepackage{pgf,tikz}					
+\\usepackage{pgf,tkz-tab}					
 \\usetikzlibrary{babel,arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
 shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
 
