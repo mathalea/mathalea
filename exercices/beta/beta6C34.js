@@ -48,7 +48,7 @@ export default function dernierChiffre() {
   
     for (let i = 0, a=0, b=0, texte=``, texte_corr=``, cpt = 0; i < this.nb_questions && cpt < 50;)
       {
-        this.contenu_correction = `zfgzreg gheg`;
+        this.contenu_correction = ``;
         switch (liste_type_de_questions[i]) {    
           case 'somme':
                 a = randint(11, 999);
