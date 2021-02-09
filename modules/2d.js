@@ -6245,16 +6245,19 @@ function Tableau_de_variation({ tabInit, tabLines }) {
     for (let i = 0; i < tabinit0.length; i++) {
       code += ` ${tabinit0[i][0]} / ${tabinit0[i][1]},`
     }
+    code=code.substring(0,code.length-1)
     code += `}{`
     for (let i = 0; i < tabinit1.length; i++) {
-      code += `${tabinit1[i]}, `
+      code += ` ${tabinit1[i]},`
     }
+    code=code.substring(0,code.length-1)
     code += `}` + "\n\t"
     for (let i = 0; i < this.tabLines.length; i++) {
       code += `\\tkzTabLine{`
       for (let j = 0; j < this.tabLines[i].length; j++) {
-        code += `${this.tabLines[i][j]}, `
+        code += ` ${this.tabLines[i][j]},`
       }
+      code=code.substring(0,code.length-1)
       code += `}` + "\n\t"
     }
     return code
