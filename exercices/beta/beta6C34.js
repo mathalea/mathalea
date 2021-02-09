@@ -1,5 +1,5 @@
 import Exercice from '../ClasseExercice.js';
-import {randint,liste_de_question_to_contenu,combinaison_listes} from "/modules/outils.js"
+import {randint,liste_de_question_to_contenu,combinaison_listes,texte_gras} from "/modules/outils.js"
 
 /**
 * Trouver le dernier chiffre d'un calcul (somme, produit, différence)
@@ -20,6 +20,7 @@ export default function dernierChiffre() {
     this.pas_de_version_LaTeX=false; // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
     this.pas_de_version_HMTL=false; // mettre à true si on ne veut pas de l'exercice en ligne
     this.video = ""; // Id YouTube ou url
+    this.correction_detaillee_disponible=true;
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
   
    this.sup = 1; // A décommenter : valeur par défaut d'un premier paramètre
@@ -41,34 +42,53 @@ export default function dernierChiffre() {
         liste_type_de_questions_disponibles = ['somme','produit'];
     }
     if (this.sup == 3) {
-        liste_type_de_questions_disponibles = ['somme','produit','difference',];
+        liste_type_de_questions_disponibles = ['somme','produit','difference'];
     }
     let liste_type_de_questions = combinaison_listes(liste_type_de_questions_disponibles, this.nb_questions)
   
-    for (let i = 0, a=0, b=0,texte=``, texte_corr=``, cpt = 0; i < this.nb_questions && cpt < 50;)
+    for (let i = 0, a=0, b=0, texte=``, texte_corr=``, cpt = 0; i < this.nb_questions && cpt < 50;)
       {
+        this.contenu_correction = `zfgzreg gheg`;
         switch (liste_type_de_questions[i]) {    
           case 'somme':
                 a = randint(11, 999);
                 b = randint(11, 999);
-                texte = `$ ${a}  + ${b}$`;
-                texte_corr = `Le dernier chiffre de est `;
+                texte = `$ ${a} + ${b}$`;
+                texte_corr =``;
+                if (this.correction_detaillee){
+                  texte_corr += `Le dernier chiffre de $${a} + ${b}$ est le dernier chiffre de $${a%10} + ${b%10}$. `;
+                  texte_corr += `Or : $${a%10} + ${b%10} = ${a%10 + b%10} $<br>`;
+                }
+                texte_corr += texte_gras(`Le dernier chiffre de $${a} + ${b}$ est : $${(b+a)%10}$.`);
+                
                 break;          
               case 'produit':
                 a = randint(11, 999);
                 b = randint(11, 999);
-                texte = `$ ${a} \\times ${b}$`;
-                texte_corr = `Le dernier chiffre de  est `;
+                texte = `$${a} \\times ${b}$`;
+                texte_corr =``;
+                if (this.correction_detaillee){
+                  texte_corr += `Le dernier chiffre de $${a} \\times ${b}$ est le dernier chiffre de $${a%10} \\times ${b%10}$. `;
+                  texte_corr += `Or : $${a%10} \\times ${b%10} = ${(a%10) * (b%10)} $<br>`;
+                }
+                texte_corr += texte_gras(`Le dernier chiffre de $${a} \\times ${b}$ est : $${(b*a)%10}$.`);
                 break;
               
               case 'difference':
-                a = randint(11, 999);
-                b = randint(a+1,a+999);
-                texte = `$ ${b} - ${a}$`;
-                texte_corr = `Le dernier chiffre de est `;
+                b = randint(11, 999);
+                a = randint(b+1,b+999);
+                texte = `$ ${a} - ${b}$`;
+                texte_corr =``;
+                if (this.correction_detaillee){
+                  if (a%10 - b%10 >= 0){
+                    texte_corr += `Le dernier chiffre de $${a} - ${b}$ est égal à : $${a%10} - ${b%10} = ${(a%10)-(b%10)}$. <br>`;
+                  } else {
+                    texte_corr += `Comme  $${a%10} < ${b%10}$, on doit faire la soustraction : $${(a%10)+10} - ${b%10} = ${((a%10)+10)-(b%10)}$. <br>`;
+                  }
+                }
+                texte_corr += texte_gras(`Le dernier chiffre de $${a} - ${b}$ est : $${(a-b)%10}$.`);
                 break;
           }
-        texte_corr = ` `;
 
         if (this.liste_questions.indexOf(texte) == -1) {
           // Si la question n'a jamais été posée, on la stocke dans la liste des questions
