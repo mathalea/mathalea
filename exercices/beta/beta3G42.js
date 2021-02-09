@@ -11,9 +11,10 @@ export default function Exercice_zero_mathalea2d3d() {
     "use strict"
     Exercice.call(this)
     this.titre = `Volume d'une boule`;
-    this.consigne = `Dans chaque cas, calculer le volume de la boule.`;
+    this.consigne = ``;
+    this.video = "https://youtu.be/YQF7CBY-uEk";
     this.nb_questions = 4; // Ici le nombre de questions
-    this.nb_questions_modifiable=false; // Active le formulaire nombre de questions
+    this.nb_questions_modifiable=true; // Active le formulaire nombre de questions
     this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX
     this.nb_cols_corr = 1;// Le nombre de colonne pour la correction LaTeX
     this.pas_de_version_LaTeX=false; // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
@@ -29,8 +30,11 @@ export default function Exercice_zero_mathalea2d3d() {
     this.liste_corrections = [];
     let type_de_questions_disponibles = []; // tableau à compléter par valeurs possibles des types de questions
     type_de_questions_disponibles = [1,2,3,4];
-    //let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
-    let liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, parseInt(this.sup))
+    let liste_type_de_questions = [];
+    type_de_questions_disponibles.splice(this.sup, 4-parseInt(this.sup));
+    liste_type_de_questions = combinaison_listes(type_de_questions_disponibles, this.nb_questions)
+ 
+
 
   // boucle pour fabriquer les nb_questions questions en s'assurant que si il n'y a pas nb_questions différentes
   // La boucle s'arrête après 50 tentatives.
@@ -41,7 +45,7 @@ export default function Exercice_zero_mathalea2d3d() {
         let type_de_questions = [];
         type_de_questions = liste_type_de_questions[i];
 
-        switch (type_de_questions) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
+        switch (type_de_questions) {
           case 1:
             let r = randint(2,30);  
             texte += `Calculer le volume d'une boule de rayon ${r} cm. `;            
