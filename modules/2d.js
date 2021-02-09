@@ -6227,6 +6227,16 @@ export function traceGraphiqueCartesien(...args){
   return new TraceGraphiqueCartesien(...args)
 }
 
+/**
+ * Classe Tableau_de_variation Initiée par Sebastien Lozano, transformée par Jean-Claude Lhote
+ * publié le 9/02/2021
+ * tabInit est un tableau contenant sous forme de chaine les paramètres de la macro Latex \tabInit{}{}
+ * tabLines est un tableau contenant sous forme de chaine les paramètres des différentes macro \tabLine{}
+ * exemple :
+ * tabInit:['$x$ / 1 , $f(x)$ / 1','$0$, $6$, $8$, $+\\infty$']
+ * tabLines:['z, -, d, h, d, +, ']
+ * @param {*} param0 
+ */
 function Tableau_de_variation({tabInit,tabLines}){
 
   ObjetMathalea2D.call(this)

@@ -6587,7 +6587,7 @@ export function intro_LaTeX(entete = "Exercices",liste_packages) {
 	\\definecolor{geo}{cmyk}{.62,.1,0,0}
 	\\definecolor{algo}{cmyk}{.69,.02,.36,0}
 \\definecolor{correction}{cmyk}{.63,.23,.93,.06}
-\\usepackage{pgf,tkz-tab}					
+\\usepackage{pgf,tikz}					
 \\usetikzlibrary{babel,arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
 shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
 

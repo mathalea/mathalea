@@ -26,8 +26,16 @@ export default function Calculs_trigonometriques() {
     this.liste_questions = []; // Liste de questions
     this.liste_corrections = []; // Liste de questions corrigées
     let objet = [['arbre', 'un', ''], ['immeuble', 'un', ''], ['éolienne', 'une', 'te'], ['coline', 'une', 'te']]
-    let distance, hauteur, beta, alpha, teta, taille, index, A, B, O, H, S, C,M,R,R2,Axe,normalV,normalH,P,HP,Sph,OP,PoleNord,PoleSud, objets = [], p
+    let distance, hauteur,alfa,baita, beta, alpha, teta, taille, index, A, B, O, H, S, C,M,R,R2,Axe,normalV,normalH,P,HP,Sph,OP,PoleNord,PoleSud, objets = [], p
     let type_de_questions_disponibles
+    if (sortie_html) {
+      alfa='α'
+      baita='β'
+    }
+    else {
+      alfa='\\alpha'
+      baita='\\beta'
+    }
     if (this.sup==1) {
     type_de_questions_disponibles=['type4','type5']; // parallèle terrestre et largeur de rivière
     }
@@ -61,7 +69,7 @@ export default function Calculs_trigonometriques() {
           S = pointAdistance(B, 9, 90, 'S')
           p = polygoneAvecNom(A, B, H, S, O)
           objets.push(p[1], p[0], segment(O, B), segment(O, H), codageAngleDroit(O, A, B), codageAngleDroit(A, B, H), codageAngleDroit(O, H, S))
-          objets.push(afficheMesureAngle(B, O, S, 'black', 3, 'α'), afficheMesureAngle(A, B, O, 'black', 2, 'β'), afficheMesureAngle(B, O, H, 'black', 2, 'β'))
+          objets.push(afficheMesureAngle(B, O, S, 'black', 3, '${alfa}'), afficheMesureAngle(A, B, O, 'black', 2, `${baita}`), afficheMesureAngle(B, O, H, 'black', 2, `${baita}`))
           objets.push(texteSurSegment(`${tex_nombre(hauteur)} m`, O, A, 'black', -0.5), texteSurSegment(`${tex_nombre(distance)} m`, O, H))
           texte = `Un observateur regarde ${objet[index][1]} ${objet[index][0]} sous un angle de $${alpha}\\degree$.<br>`;
           texte += `Cet${objet[index][2]} ${objet[index][0]} est situé à une distance de $${tex_nombre(distance)}$ m de l'observateur.<br>`
@@ -71,15 +79,15 @@ export default function Calculs_trigonometriques() {
             texte += `$O$ représente l'oeil de l'observateur, $[BS]$ représente cet${objet[index][2]} ${objet[index][0]}.<br>`
 
             texte += `Le schéma ci-dessous n'est pas en vraie grandeur.<br>` + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 10, pixelsParCm: 20, scale: 1 }, objets);
-            texte += `<br>Calculer d'abord l'angle $β$.<br>`
+            texte += `<br>Calculer d'abord l'angle $${baita}$.<br>`
             texte += `En déduire la mesure de l'angle $\\widehat{HOS}$.<br>`
             texte += `Calculer alors la longueur $HS$.<br>`
           }
           texte += `Calculer la hauteur de cet${objet[index][2]} ${objet[index][0]} arrondie au mètre près.<br>`
 
           texte_corr = mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 10, pixelsParCm: 20, scale: 1 }, objets)
-          texte_corr += `<br>Dans le triangle $OHB$ rectangle en $H$, $tan(β)=\\dfrac{HB}{OH}$.<br>D'où $β=Atan(\\dfrac{${tex_nombre(hauteur)}}{${tex_nombre(distance)}})\\approx ${arrondi_virgule(beta)}\\degree$.<br>`
-          texte_corr += `$\\widehat{HOS}=α-β\\approx ${arrondi_virgule(alpha - beta)}$.<br>`
+          texte_corr += `<br>Dans le triangle $OHB$ rectangle en $H$, $tan(${baita})=\\dfrac{HB}{OH}$.<br>D'où $${baita}=Atan(\\dfrac{${tex_nombre(hauteur)}}{${tex_nombre(distance)}})\\approx ${arrondi_virgule(beta)}\\degree$.<br>`
+          texte_corr += `$\\widehat{HOS}=${alfa}-${baita}\\approx ${arrondi_virgule(alpha - beta)}$.<br>`
           texte_corr += `$HS=OH\\times tan(\\widehat{HOS})\\approx ${distance}\\times tan(${arrondi_virgule(alpha - beta)})\\approx ${tex_nombrec(taille - hauteur)}$ m.<br>`
           texte_corr += `$BS=BH+HS=${tex_nombre(hauteur)}+${tex_nombrec(taille - hauteur)}=${tex_nombre(taille)}$ m.<br>`
           texte_corr += `Cet${objet[index][2]} ${objet[index][0]} mesure $${tex_nombre(Math.round(taille))}$ m de hauteur.`;
@@ -96,7 +104,7 @@ export default function Calculs_trigonometriques() {
           S = pointAdistance(H, 7, 90, 'S')
           p = polygoneAvecNom(A, B, H, S)
           objets.push(p[1], p[0], segment(S, B), codageAngleDroit(A, H, S))
-          objets.push(afficheMesureAngle(H, A, S, 'black', 2, 'α'), afficheMesureAngle(H, B, S, 'black', 2, 'β'))
+          objets.push(afficheMesureAngle(H, A, S, 'black', 2, `${alfa}`), afficheMesureAngle(H, B, S, 'black', 2, `${baita}`))
           objets.push(texteSurSegment(`${tex_nombre(distance)} m`, A, B, 'black', -0.5), texteParPosition(`h`, milieu(H, S).x + 0.5, milieu(H, S).y, 0, 'black', 2, "middle", true))
 
           texte = `Un observateur sur un bateau s'approche d'une falaise dont il veut mesurer la hauteur.<br>`;
@@ -105,21 +113,21 @@ export default function Calculs_trigonometriques() {
           texte += `Il constate qu'entre ses deux mesures, il s'est rapproché de la falaise de $${distance}$ m.<br>`
           if (this.sup2) {
             texte += `Le schéma ci-dessous n'est pas en vraie grandeur.<br>` + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 1 }, objets);
-            texte += `<br>Exprimer $h$ en fonction de $BH$ et $α$ puis en fonction de $AH$ et $β$.<br>`
-            texte += `En déduire $BH$ en fonction de $AB$, $α$ et $β$.<br>`
-            texte += `Exprimer $HS$ en fonction de $AB$, $α$ et $β$.<br>`
+            texte += `<br>Exprimer $h$ en fonction de $BH$ et $${alfa}$ puis en fonction de $AH$ et $${baita}$.<br>`
+            texte += `En déduire $BH$ en fonction de $AB$, $${alfa}$ et $${baita}$.<br>`
+            texte += `Exprimer $HS$ en fonction de $AB$, $${alfa}$ et $${baita}$.<br>`
           }
           texte += `Quelle est la hauteur de la falaise ?<br>`
           texte += `A quelle distance du pied de la falaise se trouve l'observateur lors du deuxième relevé ?<br>`
           texte += `Arrondir les résultats au mètre près. (On supposera le point d'observation au niveau de l'eau)`
           texte_corr = mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 1 }, objets)
-          texte_corr += `<br>Dans le triangle $BHS$ rectangle en $H$, $tan(β)=\\dfrac{h}{BH}$.<br>D'où $h=BH\\times tan(β)$.<br>`
-          texte_corr += `<br>Dans le triangle $AHS$ rectangle en $H$, $tan(α)=\\dfrac{h}{AH}$.<br>D'où $h=AH\\times tan(α)$.<br>`
-          texte_corr += `Or $AH=AB+BH$ donc $h=(AB+BH)\\times tan(α)$.<br>`
-          texte_corr += `On en déduit que $BH\\times tan(β)=(AB+BH)\\times tan(α)$ soit $BH\\times tan(β)=AB\\times tan(α)+BH\\times tan(α)$.<br>`
-          texte_corr += `D'où $AB\\times tan(α)=BH\\times tan(β)-BH\\times tan(α)=BH\\times (tan(β)-tan(α))$.<br>`
-          texte_corr += `Et $BH=\\dfrac{AB\\times tan(α)}{tan(β)-tan(α)}$.<br>`
-          texte_corr += `Ainsi $h=BH\\times tan(β)=\\dfrac{AB\\times tan(α)\\times tan(β)}{tan(β)-tan(α)}$.<br>`
+          texte_corr += `<br>Dans le triangle $BHS$ rectangle en $H$, $tan(${baita})=\\dfrac{h}{BH}$.<br>D'où $h=BH\\times tan(${baita})$.<br>`
+          texte_corr += `<br>Dans le triangle $AHS$ rectangle en $H$, $tan(${alfa})=\\dfrac{h}{AH}$.<br>D'où $h=AH\\times tan(${alfa})$.<br>`
+          texte_corr += `Or $AH=AB+BH$ donc $h=(AB+BH)\\times tan(${alfa})$.<br>`
+          texte_corr += `On en déduit que $BH\\times tan(${baita})=(AB+BH)\\times tan(${alfa})$ soit $BH\\times tan(${baita})=AB\\times tan(${alfa})+BH\\times tan(${alfa})$.<br>`
+          texte_corr += `D'où $AB\\times tan(${alfa})=BH\\times tan(${baita})-BH\\times tan(${alfa})=BH\\times (tan(${baita})-tan(${alfa}))$.<br>`
+          texte_corr += `Et $BH=\\dfrac{AB\\times tan(${alfa})}{tan(${baita})-tan(${alfa})}$.<br>`
+          texte_corr += `Ainsi $h=BH\\times tan(${baita})=\\dfrac{AB\\times tan(${alfa})\\times tan(${baita})}{tan(${baita})-tan(${alfa})}$.<br>`
           texte_corr += `Application numérique : <br>`
           texte_corr += `$h=\\dfrac{${distance}\\times tan(${alpha})\\times tan(${alpha + 5})}{tan(${alpha + 5})-tan(${alpha})}\\approx ${Math.round(taille)}$ m.<br>`
           texte_corr += `$BH=\\dfrac{${distance}\\times tan(${alpha})}{tan(${alpha + 5})-tan(${alpha})}\\approx ${tex_nombrec(Math.round(taille / Math.tan((alpha + 5) * Math.PI / 180)))}$ m.<br>`
@@ -140,20 +148,20 @@ export default function Calculs_trigonometriques() {
           C = projectionOrtho(B, droite(A, S), 'C')
           p = polygoneAvecNom(A, B, H, S, C)
           objets.push(p[1], p[0], segment(C, B), segment(S, B), codageAngleDroit(A, H, S),codageAngleDroit(B,C,S))
-          objets.push(afficheMesureAngle(H, A, S, 'black', 2, `α`), afficheMesureAngle(H, B, S, 'black', 2, `β`))
+          objets.push(afficheMesureAngle(H, A, S, 'black', 2, `${alfa}`), afficheMesureAngle(H, B, S, 'black', 2, `${baita}`))
           objets.push(texteSurSegment(`${tex_nombre(distance)} m`, A, B, 'black', -0.5), texteParPosition(`h`, milieu(H, S).x + 0.5, milieu(H, S).y, 0, 'black', 2, "middle", true))
 
           texte = `Un voyageur approche d'une montagne. Il aimerait en calculer la hauteur.<br>`;
-          texte += `Pour cela, il utilise un théodolite en un point $A$ qui lui permet de mesurer l'angle $α$ vertical formé par le sommet $S$ de la montagne, le point $A$ et la base de la montagne $H$.<br>`
-          texte += `Il parcourt ensuite $${distance}$ m en direction de la montagne et effectue une nouvelle mesure de l'angle $β$ en un point $B$.<br>`
-          texte += `Le schéma ci-dessous n'est pas en vraie grandeur.<br>On donne : $α=${alpha}\\degree$, $β=${beta}\\degree$ et $AB=${distance}$ m.<br>` + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 1 }, objets)+'<br>';
+          texte += `Pour cela, il utilise un théodolite en un point $A$ qui lui permet de mesurer l'angle $${alfa}$ vertical formé par le sommet $S$ de la montagne, le point $A$ et la base de la montagne $H$.<br>`
+          texte += `Il parcourt ensuite $${distance}$ m en direction de la montagne et effectue une nouvelle mesure de l'angle $${baita}$ en un point $B$.<br>`
+          texte += `Le schéma ci-dessous n'est pas en vraie grandeur.<br>On donne : $${alfa}=${alpha}\\degree$, $${baita}=${beta}\\degree$ et $AB=${distance}$ m.<br>` + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 1 }, objets)+'<br>';
 
           if (this.sup2) {
-            texte += `${num_alpha(j)}Exprimer la mesure de l'angle $\\widehat{BSH}$ en fonction de $β$.<br>`
-            texte += `${num_alpha(j+1)}Exprimer la mesure de l'angle $\\widehat{ASH}$ en fonction de $α$.<br>`
+            texte += `${num_alpha(j)}Exprimer la mesure de l'angle $\\widehat{BSH}$ en fonction de $${baita}$.<br>`
+            texte += `${num_alpha(j+1)}Exprimer la mesure de l'angle $\\widehat{ASH}$ en fonction de $${alfa}$.<br>`
             j+=2
           }
-          texte+=`${num_alpha(j)}Montrer que $\\widehat{BSC}=β-α$.<br>`
+          texte+=`${num_alpha(j)}Montrer que $\\widehat{BSC}=${baita}-${alfa}$.<br>`
           j++
           if (this.sup2) {
             texte+=`${num_alpha(j)}Dans le triangle $BCS$ exprimer $BS$ en fonction de $BC$.<br>`
@@ -181,18 +189,18 @@ export default function Calculs_trigonometriques() {
           j=0
           texte_corr = mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 1 }, objets)+'<br>'
           if (this.sup2) {
-            texte_corr += `${num_alpha(j)}Dans le triangle $BHS$ rectangle en $H$, les angles aigus sont complémentaires donc $\\widehat{BSH}=90-β$.<br>`
-            texte_corr += `${num_alpha(j+1)}Dans le triangle $AHS$ rectangle en $H$, pour la même raison $\\widehat{ASH}=90-α$.<br>`
+            texte_corr += `${num_alpha(j)}Dans le triangle $BHS$ rectangle en $H$, les angles aigus sont complémentaires donc $\\widehat{BSH}=90-${baita}$.<br>`
+            texte_corr += `${num_alpha(j+1)}Dans le triangle $AHS$ rectangle en $H$, pour la même raison $\\widehat{ASH}=90-${alfa}$.<br>`
             j+=2
           }
-          texte_corr+=`${num_alpha(j)}On sait que $\\widehat{BSH}=90-β$ et $\\widehat{ASH}=90-α$.<br>Donc $\\widehat{BSC}=\\widehat{ASH}-\\widehat{BSH}=90-α-(90-β)=\\cancel{90}-α-\\cancel{90}+β=β-α$.<br>`
+          texte_corr+=`${num_alpha(j)}On sait que $\\widehat{BSH}=90-${baita}$ et $\\widehat{ASH}=90-${alfa}$.<br>Donc $\\widehat{BSC}=\\widehat{ASH}-\\widehat{BSH}=90-${alfa}-(90-${baita})=\\cancel{90}-${alfa}-\\cancel{90}+${baita}=${baita}-${alfa}$.<br>`
           j++
-            texte_corr+=`${num_alpha(j)}Dans le triangle $BCS$ rectangle en $C$, $sin(\\widehat{BSC})=\\dfrac{BC}{BS}$ d'où $BS=\\dfrac{BC}{sin(\\widehat{BSC})}=\\dfrac{BC}{sin(β-α)}$.<br>`
+            texte_corr+=`${num_alpha(j)}Dans le triangle $BCS$ rectangle en $C$, $sin(\\widehat{BSC})=\\dfrac{BC}{BS}$ d'où $BS=\\dfrac{BC}{sin(\\widehat{BSC})}=\\dfrac{BC}{sin(${baita}-${alfa})}$.<br>`
           j++
-            texte_corr+=`${num_alpha(j)}Dans le triangle $ABC$ rectangle en $C$, $sin(\\widehat{BAC})=\\dfrac{BC}{AB}$ d'où $BC=AB\\times sin(\\widehat{BAC})=AB\\times sin(α)$.<br>`
+            texte_corr+=`${num_alpha(j)}Dans le triangle $ABC$ rectangle en $C$, $sin(\\widehat{BAC})=\\dfrac{BC}{AB}$ d'où $BC=AB\\times sin(\\widehat{BAC})=AB\\times sin(${alfa})$.<br>`
           j++
 
-            texte_corr+=`${num_alpha(j)}Dans le triangle $BHS$ rectangle en $H$, $h=BS\\times sin(β)=\\dfrac{BC}{sin(β-α)}\\times sin(β)=\\dfrac{AB\\times sin(α)}{sin(β-α)}\\times sin(β)$<br>`
+            texte_corr+=`${num_alpha(j)}Dans le triangle $BHS$ rectangle en $H$, $h=BS\\times sin(${baita})=\\dfrac{BC}{sin(${baita}-${alfa})}\\times sin(${baita})=\\dfrac{AB\\times sin(${alfa})}{sin(${baita}-${alfa})}\\times sin(${baita})$<br>`
 
           j++
           texte_corr += `${num_alpha(j)}Application numérique : $h=\\dfrac{${distance}\\times sin(${alpha})}{sin(${beta}-${alpha})}\\times sin(${beta})$`
@@ -252,7 +260,7 @@ export default function Calculs_trigonometriques() {
             R[0].opaciteDeRemplissage=0.5
             R[0].opacite=0.5
             objets.push(p[1], p[0],R[0], segment(A, C),  codageAngleDroit(A, B, C))
-            objets.push(afficheMesureAngle(B,A,C, 'black', 1, `α`), afficheMesureAngle(B,A,S, 'black', 2, `β`))
+            objets.push(afficheMesureAngle(B,A,C, 'black', 1, `${alfa}`), afficheMesureAngle(B,A,S, 'black', 2, `${baita}`))
             objets.push(texteSurSegment(`${tex_nombre(distance)} m`, A, B, 'black', -0.5), texteParPosition(`l`, milieu(C, S).x, milieu(C, S).y+0.5, 0, 'black', 2, "middle", true))
   
             texte = `Un géomètre veut mesurer la largeur d'une rivière.<br>`
@@ -260,26 +268,26 @@ export default function Calculs_trigonometriques() {
             texte += `Il a placé un cône sur sa rive en face de la souche, son emplacement est noté $C$.<br>`
             texte+=`Ensuite il s'est éloigné de la berge en restant aligné avec la souche $S$ et le cône $C$ jusqu'à un endroit où il place un bâton noté $B$.<br>`
             texte+=`Du bâton, il effectue un quart de tour et s'éloigne d'une distance de $${distance}$ m jusqu'à son appareil de mesure noté $A$.<br>`
-            texte+=`A l'aide de son appareil, il mesure l'angle $\\widehat{BAC}$ noté $α$  et l'angle $\\widehat{BAS}$ noté $β$.<br>`
+            texte+=`A l'aide de son appareil, il mesure l'angle $\\widehat{BAC}$ noté $${alfa}$  et l'angle $\\widehat{BAS}$ noté $${baita}$.<br>`
             if (this.sup2) {
-              texte+=`${num_alpha(j)}Exprimer $BC$ en fonction de $AB$ et de $α$.<br>`
+              texte+=`${num_alpha(j)}Exprimer $BC$ en fonction de $AB$ et de $${alfa}$.<br>`
               j++
-              texte+=`${num_alpha(j)}Exprimer $BS$ en fonction de $AB$ et de $β$.<br>`
+              texte+=`${num_alpha(j)}Exprimer $BS$ en fonction de $AB$ et de $${baita}$.<br>`
               j++
             }
-            texte+=`${num_alpha(j)}Exprimer $CS$ en fonction de $AB$, de $α$ et de $β$.<br>`
+            texte+=`${num_alpha(j)}Exprimer $CS$ en fonction de $AB$, de $${alfa}$ et de $${baita}$.<br>`
             j++
-            texte+=`${num_alpha(j)}Calculer la largeur de la rivière au mètre près sachant que $α=${alpha}\\degree$ et $β=${beta}\\degree$.<br>`
+            texte+=`${num_alpha(j)}Calculer la largeur de la rivière au mètre près sachant que $${alfa}=${alpha}\\degree$ et $${baita}=${beta}\\degree$.<br>`
             texte+=mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 1 }, objets)+'<br>';
             j=0
             texte_corr = mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 8, pixelsParCm: 20, scale: 1 }, objets)+'<br>'
             if (this.sup2) {
-              texte_corr+=`${num_alpha(j)}Dans le triangle $ABC$ rectangle en $B$ on a : $tan(α)=\\dfrac{BC}{AB}$ d'où $BC=AB\\times tan(α)$.<br>`
+              texte_corr+=`${num_alpha(j)}Dans le triangle $ABC$ rectangle en $B$ on a : $tan(${alfa})=\\dfrac{BC}{AB}$ d'où $BC=AB\\times tan(${alfa})$.<br>`
               j++
-              texte_corr+=`${num_alpha(j)}Dans le triangle $ABS$ rectangle en $B$ on a : $tan(β)=\\dfrac{BS}{AB}$ d'où $BS=AB\\times tan(β)$.<br>`
+              texte_corr+=`${num_alpha(j)}Dans le triangle $ABS$ rectangle en $B$ on a : $tan(${baita})=\\dfrac{BS}{AB}$ d'où $BS=AB\\times tan(${baita})$.<br>`
               j++
             }
-            texte_corr+=`${num_alpha(j)}Comme $BS=AB\\times tan(β)$ et $BC=AB\\times tan(α)$, alors $CS=AB\\times (tan(β)-tan(α))$.<br>`
+            texte_corr+=`${num_alpha(j)}Comme $BS=AB\\times tan(${baita})$ et $BC=AB\\times tan(${alfa})$, alors $CS=AB\\times (tan(${baita})-tan(${alfa}))$.<br>`
             j++
             texte_corr+=`${num_alpha(j)}Donc $CS=${distance}\\times (tan(${beta})-tan(${alpha}))\\approx ${taille}$ m.<br>`
 
