@@ -50,10 +50,18 @@ export default function Mon_Exercice() {
     A.nom = nom[0], B.nom = nom[1], C.nom = nom[2];
     let nomme = nommePolygone(p2, nom)
     let t1 = texteSurSegment('hypoténuse',C,B)
-    let t2 = texteSurSegment("adjacent à ⍺",B,A)
-    let t3 = texteSurSegment("opposé à ⍺",A,C)
-    let t22 = texteSurSegment("opposé à 𝛽",B,A)
-    let t32 = texteSurSegment("adjacent à 𝛽",A,C)
+    let t2, t3, t22, t32;
+    if (sortie_html) {
+        t2 = texteSurSegment("adjacent à ⍺",B,A)
+        t3 = texteSurSegment("opposé à ⍺",A,C)
+        t22 = texteSurSegment("opposé à 𝛽",B,A)
+        t32 = texteSurSegment("adjacent à 𝛽",A,C)
+    } else {
+        t2 = texteSurSegment("adjacent à $\\alpha$",B,A)
+        t3 = texteSurSegment("opposé à $\\alpha$",A,C)
+        t22 = texteSurSegment("opposé à $\\beta$",B,A)
+        t32 = texteSurSegment("adjacent à $\\beta$",A,C)
+    }
     let hypo = segment(C,B)
     hypo.epaisseur = 2
     hypo.color = 'blue'
