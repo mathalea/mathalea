@@ -88,8 +88,6 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice() {
     }
     liste_de_question_to_contenu(this);
   };
-  this.besoin_formulaire_numerique = ['Niveau de difficulté',3];
 }
 
-// python3 list-to-js.py pour faire apparaitre l'exercice dans le menu
 
