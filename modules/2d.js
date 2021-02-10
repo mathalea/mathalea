@@ -6217,57 +6217,134 @@ export function traceGraphiqueCartesien(...args) {
   return new TraceGraphiqueCartesien(...args)
 }
 
+
 /**
  * Classe Tableau_de_variation Initiée par Sebastien Lozano, transformée par Jean-Claude Lhote
  * publié le 9/02/2021
  * tabInit est un tableau contenant sous forme de chaine les paramètres de la macro Latex \tabInit{}{}
  * tabLines est un tableau contenant sous forme de chaine les paramètres des différentes macro \tabLine{}
  * exemple :
- * tabInit:[[[texte1,taille1],[texte2,taille2]...],[valeur1,valeur2,valeur3,...],[couleurs éventuelles]]
+ * tabInit:[[[texte1,taille1],[texte2,taille2]...],[valeur1,valeur2,valeur3,...]]
  * tabLines:[[type,codeL1C1,codeL1C2,codeL1C3,...],[type,codeL2C1,codeL2C2,codeL2C3,...]]
  * @param {*} param0 
  */
-function Tableau_de_variation({ tabInit, tabLines }) {
+function Tableau_de_variation({ tabInit, tabLines, lgt, escpl, deltacl, colors }) {
 
   ObjetMathalea2D.call(this)
   this.tabInit = tabInit
   this.tabLines = tabLines
+  this.colors = colors
+  this.lgt = lgt
+  this.escpl = escpl
+  this.deltacl = deltacl
+  
   this.svg = function (coeff) {
-    let tabinit0 = this.tabInit[0]
-    let tabinit1 = this.tabinit[1]
-    let lignes,colones // tableaux contenant les différentes chaines à écrire
-    let nb_lignes,nbcolones
+    let tabInit0 = this.tabInit[0]
+    let tabInit1 = this.tabInit[1]
+    let tabLines = this.tabLines
+    let lignes, colones // tableaux contenant les différentes chaines à écrire
+    let nb_lignes, nbcolones
+    let yLine = 0
+    let segments = [], index = 0,textes=[]
+    let code = ""
+    let longueurTotale = lgt + tabInit1.length * escpl + 2 * deltacl
+    let MathToSVG =function(string){
+      string=string.substring(1,string.length-1)
+      return string
+    }
+    for (let i = 0; i < tabInit0.length && index < tabLines.length;) {
+      segments.push(segment(0, yLine, longueurTotale, yLine))
+      segments.push(segment(0, yLine, 0, yLine - tabInit0[i][1]))
+      segments.push(segment(this.lgt, yLine, this.lgt, yLine - tabInit0[i][1]))
+      segments.push(segment(longueurTotale, yLine, longueurTotale, yLine - tabInit0[i][1]))
+      if (i > 0) {
+        switch (tabLines[index][0]) {
+          case 'Line':
 
+            yLine -= tabInit0[i][1]
+            i++
+            index++
+            break
+          case 'Var':
+            yLine -= tabInit0[i][1]
+            i++
+            index++
+            break
+          case 'Val':
+            index++
+            break
+          case 'Ima':
+            index++
+            break
+          case 'Slope':
+
+            break
+        }
+      }
+      else {
+        textes.push(texteParPosition(MathToSVG(tabInit0[0][0]),this.lgt/2,-tabInit0[0][1]/2,0,'black',1,'middle',true))
+        for (let j=0;j<tabInit1.length;j++){
+          if (tabInit1[j]!=""){
+            textes.push(texteParPosition(MathToSVG(tabInit1[j]),this.lgt+this.deltacl+this.escpl*(j+0.5),-tabInit0[0][1]/2,0,'black',1,'middle',true))
+          }
+        }
+        yLine -= tabInit0[0][1]
+        i++
+      }
+    }
+    segments.push(segment(0, yLine, longueurTotale, yLine))
+    for (let i = 0; i < segments.length; i++) {
+      code += "\n\t" + segments[i].svg(coeff)
+    }
+    for (let i = 0; i < textes.length; i++) {
+      code += "\n\t" + textes[i].svg(coeff)
+    }
+    console.log(code)
+    return code
   }
+
   this.tikz = function () {
-    let code = '\\tkzTabInit[lgt=3.5]{'
+    let code = `\\tkzTabInit[lgt=${lgt},delatcl=${deltacl},escpl=${escpl}`
+    for (let i = 0; i < this.colors.length; i++) {
+      code += `,${this.colors[i]}`
+    }
+    code += `]{`
     let tabinit0 = this.tabInit[0]
     let tabinit1 = this.tabInit[1]
     let type
     for (let i = 0; i < tabinit0.length; i++) {
       code += ` ${tabinit0[i][0]} / ${tabinit0[i][1]},`
     }
-    code=code.substring(0,code.length-1)
+    code = code.substring(0, code.length - 1)
     code += `}{`
     for (let i = 0; i < tabinit1.length; i++) {
       code += ` ${tabinit1[i]},`
     }
-    code=code.substring(0,code.length-1)
+    code = code.substring(0, code.length - 1)
     code += `}` + "\n\t"
     for (let i = 0; i < this.tabLines.length; i++) {
-      type=this.tabLines[i][0]
-      code += `\\tkzTab${type}{ `
-      for (let j = 1; j < this.tabLines[i].length; j++) {
-        code += ` ${this.tabLines[i][j]},`
+      type = this.tabLines[i][0]
+      if (type == 'Val' || type == 'Ima') {
+        code += `\\tkzTab${type}`
+        for (let j = 1; j < this.tabLines[i].length; j++) {
+          code += `{${this.tabLines[i][j]}}`
+        }
+        code += "\n\t"
       }
-      code=code.substring(0,code.length-1)
-      code += `}` + "\n\t"
+      else {
+        code += `\\tkzTab${type}{ `
+        for (let j = 1; j < this.tabLines[i].length; j++) {
+          code += ` ${this.tabLines[i][j]},`
+        }
+        code = code.substring(0, code.length - 1)
+        code += `}` + "\n\t"
+      }
     }
     return code
   }
 }
-export function tableau_de_variation({ tabInit = ['', ''], tabLines = [] }) {
-  return new Tableau_de_variation({ tabInit: tabInit, tabLines: tabLines })
+export function tableau_de_variation({ tabInit = ['', ''], tabLines = [], lgt = 3.5, escpl = 2, deltacl = 0.5, colors = [] }) {
+  return new Tableau_de_variation({ tabInit: tabInit, tabLines: tabLines, lgt: lgt, escpl: escpl, deltacl: deltacl, colors: colors })
 }
 
 
