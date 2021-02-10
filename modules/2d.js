@@ -8375,17 +8375,30 @@ export function pavage() {
 /**
  * @class TkzTab
  * @classdesc Tableaux de signes, tableaux de variations, ...
- * @author Sébastien Lozano
+ * * tabInit est un tableau contenant sous forme de chaine les paramètres de la macro Latex \tabInit{}{}
+ * tabLines est un tableau contenant sous forme de chaine les paramètres des différentes macro \tabLine{}
+ * exemple :
+ * tabInit:[[[texte1,taille1],[texte2,taille2]...],[valeur1,valeur2,valeur3,...],[couleurs éventuelles]]
+ * tabLines:[[type,codeL1C1,codeL1C2,codeL1C3,...],[type,codeL2C1,codeL2C2,codeL2C3,...]]
+ 
+ * @author Sébastien Lozano, Jean-Claude Lhote
  */
 
- function TkzTab(tabInit,tabLines) {
+ function TkzTab({tabInit,tabLines}) {
 
   ObjetMathalea2D.call(this);
   this.tabInit = tabInit;
   this.tabLines = tabLines;
 
-  function makeFirstStrTabInit(){
-    let tab = tabInit.tabInit[0];
+  this.svg = function (coeff) {
+    let tabinit0 = this.tabInit[0];
+    let tabinit1 = this.tabInit[1];
+  };
+
+  
+  // Pour former la premiere chaine de tkzTabInit,la premiere colonne du tableau
+  this.makeFirstStrTabInit = function() {
+    let tab = tabInit[0];
     let code = ``;
     for (let i = 0; i < tab.length; i++) {
       code += ` ${tab[i][0]} / ${tab[i][1]},`
@@ -8394,10 +8407,9 @@ export function pavage() {
     return code;
   };
 
-  this.makeFirstStrTabInit = makeFirstStrTabInit();
-
-  function makeSecondStrTabInit(){
-    let tab = tabInit.tabInit[1];
+  // Pour former la seconde chaine de tkzTabInit,la premiere ligne du tableau
+  this.makeSecondStrTabInit = function() {
+    let tab = tabInit[1];
     let code = ``;
     for (let i = 0; i < tab.length; i++) {
       code += ` ${tab[i]},`
@@ -8406,23 +8418,42 @@ export function pavage() {
     return code;
   };
 
-  this.makeSecondStrTabInit = makeSecondStrTabInit();
+  // function tkzTabInit(str1,str2) {
+  //   return `\\tkzTabInit[lgt=3.5]{${str1}}{${str2}}`;
+  // };
 
-  function tkzTabInit(str1,str2) {
-    return `\\tkzTabInit[lgt=3.5]{${str1}}{${str2}}`;
+  //this.tkzTabInit = tkzTabInit(this.makeFirstStrTabInit,this.makeSecondStrTabInit);
+  this.tkzTabInit = function() {
+    return `\\tkzTabInit[lgt=3.5]{${this.makeFirstStrTabInit()}}{${this.makeSecondStrTabInit()}}`;
+  }
+
+  // Pour récupérer les chaines des lignes 1,2,3 ...
+  this.makeStrTabLines = function() {
+    let tab = tabLines;
+    let Lines = [];
+    let code = ``;
+    for (let i = 0; i < tab.length; i++) {    
+      code += ``
+      for (let j = 1; j < tab[i].length; j++) {
+        code += ` ${tab[i][j]},`
+      }
+      Lines.push(code.substring(0,code.length-1));
+    }
+    return Lines;
   };
 
-  this.tkzTabInit = tkzTabInit(this.makeFirstStrTabInit,this.makeSecondStrTabInit);
+  // tkzTabType à faire pour ajouter à la prop ci-dessous
 
-  this.svg = function (coeff) {
-    let tabinit0 = this.tabInit[0];
-    let tabinit1 = this.tabInit[1];
-  };
-
-//  this.tikz = tkzTabInit(this.makeFirstStrTabInit,this.makeSecondStrTabInit);
   this.tikz = function() {
-    return tkzTabInit(this.makeFirstStrTabInit,this.makeSecondStrTabInit);
-
+    //return tkzTabInit(this.makeFirstStrTabInit,this.makeSecondStrTabInit);
+    let code = this.tkzTabInit();
+    for (let i = 0; i < this.tabLines.length; i++) {
+      type=this.tabLines[i][0]
+      code += `\\tkzTab${type}{ `;
+      code += Lines[i];
+      code += `}` + "\n\t";
+    };
+    return code;    
   };
 
  };

@@ -39,13 +39,35 @@ export default function Exercice_zero_mathalea() {
         switch (liste_type_de_questions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
           case 1:
                texte +=`Mija la console tio !!<br>` 
-               let t = tkzTab({tabInit:[[['texte1','1'],['texte2','1']],['val1','val2','val3']],tabLines:[]});                              
+               let t = tkzTab({
+                  tabInit:[[['$x$',1] ,["$f(x)=ax+b$",1],["$f'(x)=ax$",1],["$a>0$",2],['$a<0$',2]],['$-\\infty$','$-\\dfrac{b}{a}$','$+\\infty$']],
+                  tabLines:[]
+                });                              
                texte += mathalea2d({xmin:0,ymin:-9,xmax:18,ymax:0},t);
-               //console.log(tkzTab({tabInit:[[['texte1','1'],['texte2','1']],['val1','val2','val3']],tabLines:[]}).tabInit)
-               console.log(tkzTab({tabInit:[[['texte1','1'],['texte2','1']],['val1','val2','val3']],tabLines:[]}).makeFirstStrTabInit);
-               console.log(tkzTab({tabInit:[[['texte1','1'],['texte2','1']],['val1','val2','val3']],tabLines:[]}).makeSecondStrTabInit);
-               console.log(tkzTab({tabInit:[[['texte1','1'],['texte2','1']],['val1','val2','val3']],tabLines:[]}).tkzTabInit);
-               console.log(tkzTab({tabInit:[[['texte1','1'],['texte2','1']],['val1','val2','val3']],tabLines:[]}).tikz);
+               console.log(tkzTab({
+                 tabInit:[[['$x$',1] ,["$f(x)=ax+b$",1],["$f'(x)=ax$",1],["$a>0$",2],['$a<0$',2]],['$-\\infty$','$-\\dfrac{b}{a}$','$+\\infty$']],
+                 tabLines:[]
+                }).tabInit)
+               console.log(tkzTab({
+                 tabInit:[[['$x$',1] ,["$f(x)=ax+b$",1],["$f'(x)=ax$",1],["$a>0$",2],['$a<0$',2]],['$-\\infty$','$-\\dfrac{b}{a}$','$+\\infty$']],
+                 tabLines:[]
+                }).makeFirstStrTabInit());
+               console.log(tkzTab({
+                 tabInit:[[['$x$',1] ,["$f(x)=ax+b$",1],["$f'(x)=ax$",1],["$a>0$",2],['$a<0$',2]],['$-\\infty$','$-\\dfrac{b}{a}$','$+\\infty$']],
+                 tabLines:[]
+                }).makeSecondStrTabInit());
+               console.log(tkzTab({
+                 tabInit:[[['$x$',1] ,["$f(x)=ax+b$",1],["$f'(x)=ax$",1],["$a>0$",2],['$a<0$',2]],['$-\\infty$','$-\\dfrac{b}{a}$','$+\\infty$']],
+                 tabLines:[]
+                }).tkzTabInit());
+               console.log(tkzTab({
+                 tabInit:[[['$x$',1] ,["$f(x)=ax+b$",1],["$f'(x)=ax$",1],["$a>0$",2],['$a<0$',2]],['$-\\infty$','$-\\dfrac{b}{a}$','$+\\infty$']],
+                 tabLines:[]
+                }).tikz);
+                console.log(tkzTab({
+                  tabInit:[[['$x$',1] ,["$f(x)=ax+b$",1],["$f'(x)=ax$",1],["$a>0$",2],['$a<0$',2]],['$-\\infty$','$-\\dfrac{b}{a}$','$+\\infty$']],
+                  tabLines:[['Line','','\\text{signe de } -a','z','\\text{signe de } a',''],['Line','','','\\text{signe de } a','',''],['Var','-/ $-\\infty$','+H-/ $0$','+/ $+\\infty$'],['Var','+/ $+\\infty$','-H+/ $0$','-/ $-\\infty$']]
+                 }).makeStrTabLines());
 
           break;
   
