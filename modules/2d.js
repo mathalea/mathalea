@@ -6240,7 +6240,7 @@ function Tableau_de_variation({ tabInit, tabLines }) {
 
   }
   this.tikz = function () {
-    let code = '\\tkzTabInit{'
+    let code = '\\tkzTabInit[lgt=3.5]{'
     let tabinit0 = this.tabInit[0]
     let tabinit1 = this.tabInit[1]
     let type
@@ -6256,7 +6256,7 @@ function Tableau_de_variation({ tabInit, tabLines }) {
     code += `}` + "\n\t"
     for (let i = 0; i < this.tabLines.length; i++) {
       type=this.tabLines[i][0]
-      code += `\\tkzTab${type}{`
+      code += `\\tkzTab${type}{ `
       for (let j = 1; j < this.tabLines[i].length; j++) {
         code += ` ${this.tabLines[i][j]},`
       }

@@ -28,8 +28,8 @@ export default function Essai_tableaux_de_variation() {
         // Boucle principale où i+1 correspond au numéro de la question
       switch (liste_type_de_questions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1': 
-        let t=tableau_de_variation({tabInit:[[['$x$',1] ,['$f(x)$',1]],[['$0$','$6$','$8$','$+\\infty$']]],tabLines:[['Line','z','-','d','h','d','+']]})
-          texte = mathalea2d({xmin:0,ymin:-6,xmax:18,ymax:0},t);
+        let t=tableau_de_variation({tabInit:[[['$x$',1] ,["$f(x)=ax+b$",1],["$f'(x)=ax$",1],["$a>0$",2],['$a<0$',2]],['$-\\infty$','$-\\dfrac{b}{a}$','$+\\infty$']],tabLines:[['Line','','\\text{signe de } -a','z','\\text{signe de } a',''],['Line','','','\\text{signe de } a','',''],['Var','-/ $-\\infty$','+H-/ $0$','+/ $+\\infty$'],['Var','+/ $+\\infty$','-H+/ $0$','-/ $-\\infty$']]})
+        texte = mathalea2d({xmin:0,ymin:-9,xmax:18,ymax:0},t);
           texte_corr = ``;
           break;
         case 'type2': 
