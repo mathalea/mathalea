@@ -1,6 +1,6 @@
 import Exercice from '../ClasseExercice.js';
 import {liste_de_question_to_contenu,combinaison_listes} from "/modules/outils.js"
-import { TabInit } from '../../modules/2d.js';
+import { tkzTab,mathalea2d } from '../../modules/2d.js';
 import { tab_C_L } from '../../modules/outils.js';
 
 
@@ -8,7 +8,7 @@ export default function Exercice_zero_mathalea() {
     "use strict"
     Exercice.call(this)
     this.liste_packages = `tkz-tab`;
-    this.titre = "tests tableaux fonctions";
+    this.titre = "Tests tableaux fonctions";
     this.nb_questions = 4; // Ici le nombre de questions
     this.nb_questions_modifiable=true // Active le formulaire nombre de questions
     this.nb_cols = 1; // Le nombre de colonnes dans l'énoncé LaTeX
@@ -38,7 +38,15 @@ export default function Exercice_zero_mathalea() {
 
         switch (liste_type_de_questions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
           case 1:
-               texte +=`${TabInit()}<br>`               
+               texte +=`Mija la console tio !!<br>` 
+               let t = tkzTab({tabInit:[[['texte1','1'],['texte2','1']],['val1','val2','val3']],tabLines:[]});                              
+               texte += mathalea2d({xmin:0,ymin:-9,xmax:18,ymax:0},t);
+               //console.log(tkzTab({tabInit:[[['texte1','1'],['texte2','1']],['val1','val2','val3']],tabLines:[]}).tabInit)
+               console.log(tkzTab({tabInit:[[['texte1','1'],['texte2','1']],['val1','val2','val3']],tabLines:[]}).makeFirstStrTabInit);
+               console.log(tkzTab({tabInit:[[['texte1','1'],['texte2','1']],['val1','val2','val3']],tabLines:[]}).makeSecondStrTabInit);
+               console.log(tkzTab({tabInit:[[['texte1','1'],['texte2','1']],['val1','val2','val3']],tabLines:[]}).tkzTabInit);
+               console.log(tkzTab({tabInit:[[['texte1','1'],['texte2','1']],['val1','val2','val3']],tabLines:[]}).tikz);
+
           break;
   
           case 2:

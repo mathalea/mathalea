@@ -8373,29 +8373,60 @@ export function pavage() {
 */
 
 /**
- * @class FonctionsTableaux
+ * @class TkzTab
  * @classdesc Tableaux de signes, tableaux de variations, ...
  * @author Sébastien Lozano
  */
 
- export function TabInit() {
-   
-   if (sortie_html) {
-     return `
-     $\\def\\arraystretch{2.5}\\begin{array}{|c|c|}
-     \\hline\n
-     x & 0\\phantom{-------------}6\\phantom{-------------}+\\infty \\\\\n
-     \\hline\n
-     f(x) & \\\\\n
-     \\hline\n
-      \\end{array}$
-     `;
+ function TkzTab(tabInit,tabLines) {
 
-   } else {
-     return `
-      \\begin{tikzpicture}
-        \\tkzTabInit{$x$ / 1 , $f(x)$ / 1}{$0$, $6$, $+\\infty$}
-      \\end{tikzpicture}
-      `;
-   };
+  ObjetMathalea2D.call(this);
+  this.tabInit = tabInit;
+  this.tabLines = tabLines;
+
+  function makeFirstStrTabInit(){
+    let tab = tabInit.tabInit[0];
+    let code = ``;
+    for (let i = 0; i < tab.length; i++) {
+      code += ` ${tab[i][0]} / ${tab[i][1]},`
+    }
+    code=code.substring(0,code.length-1)
+    return code;
+  };
+
+  this.makeFirstStrTabInit = makeFirstStrTabInit();
+
+  function makeSecondStrTabInit(){
+    let tab = tabInit.tabInit[1];
+    let code = ``;
+    for (let i = 0; i < tab.length; i++) {
+      code += ` ${tab[i]},`
+    }
+    code=code.substring(0,code.length-1)
+    return code;
+  };
+
+  this.makeSecondStrTabInit = makeSecondStrTabInit();
+
+  function tkzTabInit(str1,str2) {
+    return `\\tkzTabInit[lgt=3.5]{${str1}}{${str2}}`;
+  };
+
+  this.tkzTabInit = tkzTabInit(this.makeFirstStrTabInit,this.makeSecondStrTabInit);
+
+  this.svg = function (coeff) {
+    let tabinit0 = this.tabInit[0];
+    let tabinit1 = this.tabInit[1];
+  };
+
+//  this.tikz = tkzTabInit(this.makeFirstStrTabInit,this.makeSecondStrTabInit);
+  this.tikz = function() {
+    return tkzTabInit(this.makeFirstStrTabInit,this.makeSecondStrTabInit);
+
+  };
+
  };
+
+ export function tkzTab({ tabInit = ['', ''], tabLines = [] }) {
+  return new TkzTab({ tabInit: tabInit, tabLines: tabLines })
+};
