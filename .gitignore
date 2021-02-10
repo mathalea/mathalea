@@ -1,4 +1,2 @@
 # ignorer le dossier de config de visual studio code
 .vscode/
-# igonrer le fichier menuDesExercicesDisponibles.js
-modules/menuDesExercicesDisponibles.js
