@@ -87,7 +87,7 @@ export default function Priorites_et_relatifs_et_puissances() {
         texte = `$${ecriture_parenthese_si_negatif(a)}^2 ${sp()} + ${sp()}  ${ecriture_parenthese_si_negatif(b)} \\times ${ecriture_parenthese_si_negatif(c)}$`;
         texte_corr = `$${mise_en_evidence(ecriture_parenthese_si_negatif(a)+'^2','blue')}  ${sp()} + ${sp()}  ${ecriture_parenthese_si_negatif(b)} \\times ${ecriture_parenthese_si_negatif(c)}
            =${a*a} ${sp()} + ${sp()} ${mise_en_evidence((ecriture_parenthese_si_negatif(b) + "\\times" + ecriture_parenthese_si_negatif(c)),'blue')}
-           =${a*a + ecriture_algebrique(b*c)}
+           =${a*a} ${ecriture_algebrique(b*c)}
           =${a*a + b*c}$`;
           break;
         
